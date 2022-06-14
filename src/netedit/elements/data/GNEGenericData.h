@@ -78,9 +78,6 @@ public:
     /// @brief Destructor
     virtual ~GNEGenericData();
 
-    /// @brief get generic data color
-    virtual const RGBColor& getColor() const = 0;
-
     /// @brief check if current generic data is visible
     virtual bool isGenericDataVisible() const = 0;
 

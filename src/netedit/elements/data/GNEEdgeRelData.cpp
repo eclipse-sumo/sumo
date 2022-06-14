@@ -55,9 +55,17 @@ GNEEdgeRelData::GNEEdgeRelData(GNEDataInterval* dataIntervalParent, GNEEdge* fro
 GNEEdgeRelData::~GNEEdgeRelData() {}
 
 
-const RGBColor&
-GNEEdgeRelData::getColor() const {
-    if (myNet->getViewNet()->getEditModes().dataEditMode == DataEditMode::DATA_EDGERELDATA) {
+void
+GNEEdgeRelData::setColor(const GUIVisualizationSettings& s) const {
+    RGBColor col = RGBColor::RED; // default
+
+    if (isAttributeCarrierSelected()) {
+        col = s.colorSettings.selectedEdgeDataColor;
+    } else if (s.dataColorer.getScheme().getName() == GUIVisualizationSettings::SCHEME_NAME_DATA_ATTRIBUTE_NUMERICAL) {
+        // user defined rainbow
+        double val = getColorValue(s, s.dataColorer.getActive());
+        col = s.dataColorer.getScheme().getColor(val);
+    } else if (myNet->getViewNet()->getEditModes().dataEditMode == DataEditMode::DATA_EDGERELDATA) {
         // get selected data interval and filtered attribute
         const GNEDataInterval* dataInterval = myNet->getViewNet()->getViewParent()->getEdgeRelDataFrame()->getIntervalSelector()->getDataInterval();
         const std::string filteredAttribute = myNet->getViewNet()->getViewParent()->getEdgeRelDataFrame()->getAttributeSelector()->getFilteredAttribute();
@@ -68,11 +76,37 @@ GNEEdgeRelData::getColor() const {
             const double maxValue = dataInterval->getSpecificAttributeColors().at(myTagProperty.getTag()).getMaxValue(filteredAttribute);
             // get value
             const double value = parse<double>(getParameter(filteredAttribute, "0"));
-            // return color
-            return GNEViewNetHelper::getRainbowScaledColor(minValue, maxValue, value);
+            col = GNEViewNetHelper::getRainbowScaledColor(minValue, maxValue, value);
         }
     }
-    return RGBColor::GREEN;
+    GLHelper::setColor(col);
+}
+
+
+double
+GNEEdgeRelData::getColorValue(const GUIVisualizationSettings& s, int activeScheme) const {
+    switch (activeScheme) {
+        case 0:
+            return 0;
+        case 1:
+            return isAttributeCarrierSelected();
+        case 2:
+            return 0; // setfunctional color const GNEAdditional* TAZA = getParentAdditionals().front();
+        case 3:
+            return 0; // setfunctional color const GNEAdditional* TAZA = getParentAdditionals().back();
+        case 4:
+            // by numerical attribute value
+            try {
+                if (knowsParameter(s.relDataAttr)) {
+                    return StringUtils::toDouble(getParameter(s.relDataAttr, "-1"));
+                } else {
+                    return GUIVisualizationSettings::MISSING_DATA;
+                }
+            } catch (NumberFormatException&) {
+                return GUIVisualizationSettings::MISSING_DATA;
+            }
+    }
+    return 0;
 }
 
 
@@ -152,12 +186,7 @@ GNEEdgeRelData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* 
         GUIGeometry::drawLaneGeometry(s, myNet->getViewNet()->getPositionInformation(), lane->getLaneShape(), lane->getShapeRotations(), lane->getShapeLengths(), {}, laneWidth, onlyDrawContour);
         // translate to top
         glTranslated(0, 0, 0.01);
-        // Set color
-        if (isAttributeCarrierSelected()) {
-            GLHelper::setColor(s.colorSettings.selectedEdgeDataColor);
-        } else {
-            GLHelper::setColor(getColor());
-        }
+        setColor(s);
         // draw interne box lines
         GUIGeometry::drawLaneGeometry(s, myNet->getViewNet()->getPositionInformation(), lane->getLaneShape(), lane->getShapeRotations(), lane->getShapeLengths(), {}, laneWidth - 0.1, onlyDrawContour);
         // Pop last matrix
@@ -220,12 +249,7 @@ GNEEdgeRelData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* 
                     GUIGeometry::drawContourGeometry(from->getLane2laneConnections().getLane2laneGeometry(to), laneWidth);
                     // translate to top
                     glTranslated(0, 0, 0.01);
-                    // Set color
-                    if (isAttributeCarrierSelected()) {
-                        GLHelper::setColor(s.colorSettings.selectedEdgeDataColor);
-                    } else {
-                        GLHelper::setColor(getColor());
-                    }
+                    setColor(s);
                     // draw interne box lines
                     GUIGeometry::drawContourGeometry(from->getLane2laneConnections().getLane2laneGeometry(to), laneWidth - 0.1);
                 } else {
@@ -233,12 +257,7 @@ GNEEdgeRelData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* 
                     GLHelper::drawBoxLines({from->getLaneShape().back(), to->getLaneShape().front()}, laneWidth);
                     // translate to top
                     glTranslated(0, 0, 0.01);
-                    // Set color
-                    if (isAttributeCarrierSelected()) {
-                        GLHelper::setColor(s.colorSettings.selectedEdgeDataColor);
-                    } else {
-                        GLHelper::setColor(getColor());
-                    }
+                    setColor(s);
                     // draw interne line between end of first shape and first position of second shape
                     GLHelper::drawBoxLines({from->getLaneShape().back(), to->getLaneShape().front()}, laneWidth - 0.1);
                 }

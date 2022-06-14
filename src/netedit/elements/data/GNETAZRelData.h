@@ -59,7 +59,7 @@ public:
     ~GNETAZRelData();
 
     /// @brief get TAZ rel data color
-    const RGBColor& getColor() const;
+    void setColor(const GUIVisualizationSettings& s) const;
     double getColorValue(const GUIVisualizationSettings& s, int activeScheme) const;
 
     /// @brief check if current TAZ rel data is visible
@@ -195,9 +195,6 @@ protected:
 
     /// @brief Geometry for TAZRel data (center)
     GUIGeometry myTAZRelGeometryCenter;
-
-    /// @brief TAZRel data color
-    mutable RGBColor myColor;
 
     /// @brief TAZRel data width
     mutable double myLastWidth;

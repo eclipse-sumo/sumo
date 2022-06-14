@@ -49,7 +49,9 @@ public:
     ~GNEEdgeData();
 
     /// @brief get edge data color
-    const RGBColor& getColor() const;
+    void setColor(const GUIVisualizationSettings& s) const;
+
+    double getColorValue(const GUIVisualizationSettings& s, int activeScheme) const;
 
     /// @brief check if current edge data is visible
     bool isGenericDataVisible() const;

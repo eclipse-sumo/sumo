@@ -69,9 +69,18 @@ myLastWidth(0) {
 GNETAZRelData::~GNETAZRelData() {}
 
 
-const RGBColor&
-GNETAZRelData::getColor() const {
-    return myColor;
+void
+GNETAZRelData::setColor(const GUIVisualizationSettings& s) const {
+    RGBColor col;
+    if (isAttributeCarrierSelected()) {
+        col = s.colorSettings.selectedEdgeDataColor;
+    } else {
+        if (!setFunctionalColor(s.dataColorer.getActive(), col)) {
+            double val = getColorValue(s, s.dataColorer.getActive());
+            col = s.dataColorer.getScheme().getColor(val);
+        }
+    }
+    GLHelper::setColor(col);
 }
 
 
@@ -253,16 +262,7 @@ GNETAZRelData::drawGL(const GUIVisualizationSettings& s) const {
         GLHelper::pushMatrix();
         // translate to front
         myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_TAZ + 1);
-        // set color
-        if (isAttributeCarrierSelected()) {
-            myColor = s.colorSettings.selectedEdgeDataColor;
-        } else {
-            if (!setFunctionalColor(s.dataColorer.getActive(), myColor)) {
-                double val = getColorValue(s, s.dataColorer.getActive());
-                myColor = s.dataColorer.getScheme().getColor(val);
-            }
-        }
-        GLHelper::setColor(myColor);
+        setColor(s);
         // check if update lastWidth
         const double width = onlyDrawContour ? 0.1 :  0.5 * s.tazRelWidthExaggeration;
         if (width != myLastWidth) {

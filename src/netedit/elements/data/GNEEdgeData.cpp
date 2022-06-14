@@ -54,9 +54,17 @@ GNEEdgeData::GNEEdgeData(GNEDataInterval* dataIntervalParent, GNEEdge* edgeParen
 GNEEdgeData::~GNEEdgeData() {}
 
 
-const RGBColor&
-GNEEdgeData::getColor() const {
-    if (myNet->getViewNet()->getEditModes().dataEditMode == DataEditMode::DATA_EDGEDATA) {
+void
+GNEEdgeData::setColor(const GUIVisualizationSettings& s) const {
+    RGBColor col = RGBColor::RED; // default
+
+    if (isAttributeCarrierSelected()) {
+        col = s.colorSettings.selectedEdgeDataColor;
+    } else if (s.dataColorer.getScheme().getName() == GUIVisualizationSettings::SCHEME_NAME_DATA_ATTRIBUTE_NUMERICAL) {
+        // user defined rainbow
+        const double val = getColorValue(s, s.dataColorer.getActive());
+        col = s.dataColorer.getScheme().getColor(val);
+    } else if (myNet->getViewNet()->getEditModes().dataEditMode == DataEditMode::DATA_EDGEDATA) {
         // get selected data interval and filtered attribute
         const GNEDataInterval* dataInterval = myNet->getViewNet()->getViewParent()->getEdgeDataFrame()->getIntervalSelector()->getDataInterval();
         const std::string filteredAttribute = myNet->getViewNet()->getViewParent()->getEdgeDataFrame()->getAttributeSelector()->getFilteredAttribute();
@@ -69,12 +77,38 @@ GNEEdgeData::getColor() const {
                 // get value
                 const double value = parse<double>(getParameter(filteredAttribute, "0"));
                 // return color
-                return GNEViewNetHelper::getRainbowScaledColor(minValue, maxValue, value);
+                col = GNEViewNetHelper::getRainbowScaledColor(minValue, maxValue, value);
             }
         }
     }
-    // return default color
-    return RGBColor::RED;
+    GLHelper::setColor(col);
+}
+
+
+double
+GNEEdgeData::getColorValue(const GUIVisualizationSettings& s, int activeScheme) const {
+    switch (activeScheme) {
+        case 0:
+            return 0;
+        case 1:
+            return isAttributeCarrierSelected();
+        case 2:
+            return 0; // setfunctional color const GNEAdditional* TAZA = getParentAdditionals().front();
+        case 3:
+            return 0; // setfunctional color const GNEAdditional* TAZA = getParentAdditionals().back();
+        case 4:
+            // by numerical attribute value
+            try {
+                if (knowsParameter(s.relDataAttr)) {
+                    return StringUtils::toDouble(getParameter(s.relDataAttr, "-1"));
+                } else {
+                    return GUIVisualizationSettings::MISSING_DATA;
+                }
+            } catch (NumberFormatException&) {
+                return GUIVisualizationSettings::MISSING_DATA;
+            }
+    }
+    return 0;
 }
 
 
@@ -186,18 +220,12 @@ GNEEdgeData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lan
         GLHelper::pushMatrix();
         // Start with the drawing of the area translating matrix to origin
         myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_EDGEDATA, offsetFront);
-        // Set orange color
         GLHelper::setColor(RGBColor::BLACK);
         // draw box lines
         GUIGeometry::drawLaneGeometry(s, myNet->getViewNet()->getPositionInformation(), lane->getLaneShape(), lane->getShapeRotations(), lane->getShapeLengths(), {}, laneWidth, onlyDrawContour);
         // translate to top
         glTranslated(0, 0, 0.01);
-        // Set color
-        if (isAttributeCarrierSelected()) {
-            GLHelper::setColor(s.colorSettings.selectedEdgeDataColor);
-        } else {
-            GLHelper::setColor(getColor());
-        }
+        setColor(s);
         // draw interne box lines
         GUIGeometry::drawLaneGeometry(s, myNet->getViewNet()->getPositionInformation(), lane->getLaneShape(), lane->getShapeRotations(), lane->getShapeLengths(), {}, laneWidth - 0.1, onlyDrawContour);
         // Pop last matrix
@@ -210,8 +238,8 @@ GNEEdgeData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lan
         GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), 1);
         // draw filtered attribute
         if (getParentEdges().front()->getLanes().front() == lane) {
-            drawFilteredAttribute(s, lane->getLaneShape(), 
-                myNet->getViewNet()->getViewParent()->getEdgeDataFrame()->getAttributeSelector()->getFilteredAttribute(), 
+            drawFilteredAttribute(s, lane->getLaneShape(),
+                myNet->getViewNet()->getViewParent()->getEdgeDataFrame()->getAttributeSelector()->getFilteredAttribute(),
                 myNet->getViewNet()->getViewParent()->getEdgeDataFrame()->getIntervalSelector()->getDataInterval());
         }
         // check if shape dotted contour has to be drawn
