@@ -658,6 +658,15 @@ def main(options):
     else:
         args += ['-v']
 
+    options_to_forward = sumolib.options.get_prefixed_options(options)
+    if 'duarouter' in options_to_forward:
+        for option in options_to_forward['duarouter']:
+            option[0] = '--' + option[0]
+            if option[0] not in args:
+                args += option
+            else:
+                raise ValueError(f"The argument '{option[0]}' has already been passed without the duarouter prefix.")
+                
     if options.routefile:
         args2 = args + ['-o', options.routefile]
         print("calling", " ".join(args2))
