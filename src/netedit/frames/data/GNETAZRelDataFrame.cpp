@@ -52,7 +52,7 @@ FXIMPLEMENT(GNETAZRelDataFrame::ConfirmTAZRelation, FXGroupBoxModule, ConfirmTAZ
 GNETAZRelDataFrame::ConfirmTAZRelation::ConfirmTAZRelation(GNETAZRelDataFrame* TAZRelDataFrame) :
     FXGroupBoxModule(TAZRelDataFrame, "Confirm TAZRelation"),
     myTAZRelDataFrame(TAZRelDataFrame) {
-    myConfirmTAZButton = new FXButton(getCollapsableFrame(), "Create TAZRelation", GUIIconSubSys::getIcon(GUIIcon::TAZRELDATA), this, MID_GNE_CREATE, GUIDesignButton);
+    myConfirmTAZButton = new FXButton(getCollapsableFrame(), "Create TAZRelation\t\tClick fromTaz and toTaz (confirm hotkey <ENTER>)", GUIIconSubSys::getIcon(GUIIcon::TAZRELDATA), this, MID_GNE_CREATE, GUIDesignButton);
     myConfirmTAZButton->disable();
 }
 
