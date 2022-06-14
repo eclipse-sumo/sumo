@@ -32,6 +32,9 @@
 
 #define GUI_RTREE_QUAL RTree<GUIGlObject*, GUIGlObject, float, 2, GUIVisualizationSettings>
 
+// used for debugging RTREE
+//#define BOUNDARY_DEBUG
+
 // specialized implementation for speedup and avoiding warnings
 
 template<>
@@ -69,6 +72,9 @@ public:
     SUMORTree() : 
         GUI_RTREE_QUAL(&GUIGlObject::drawGL),
         myLock(true) {
+        // set test boundary
+        myTestBoundary.add(0.0, 0.0);
+        myTestBoundary.grow(10);
     }
 
     /// @brief Destructor
@@ -130,6 +136,10 @@ public:
         FXMutexLock locker(myLock);
         // obtain boundary of object
         Boundary b = o->getCenteringBoundary();
+        // overwritte boundary if BOUNDARY_DEBUG is defined
+        #ifdef  BOUNDARY_DEBUG
+            b = myTestBoundary;
+        #endif
         // grow using exaggeration
         if (exaggeration > 1) {
             b.scale(exaggeration);
@@ -164,6 +174,10 @@ public:
         FXMutexLock locker(myLock);
         // obtain boundary of object
         Boundary b = o->getCenteringBoundary();
+        // overwritte boundary if BOUNDARY_DEBUG is defined
+        #ifdef  BOUNDARY_DEBUG
+            b = myTestBoundary;
+        #endif
         // grow using exaggeration
         if (exaggeration > 1) {
             b.scale(exaggeration);
@@ -198,4 +212,7 @@ private:
      * @note Warning: DO NOT USE in release mode and use it in debug mode carefully, due it produces a slowdown.
      */
     std::map<GUIGlObject*, Boundary> myTreeDebug;
+
+    /// @brief text boundary
+    Boundary myTestBoundary;
 };
