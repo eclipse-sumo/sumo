@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-06-15 09:24:09 by Eclipse SUMO sumo Version v1_13_0+0847-9124e69
+<!-- generated on 2022-06-15 09:52:34 by Eclipse SUMO sumo Version v1_13_0+0848-2d39afa
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -38,6 +38,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 <detector xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/det_e1_file.xsd">
     <interval begin="0.00" end="191.00" id="all" nVehContrib="35" flow="659.69" occupancy="3.13" speed="1.27" harmonicMeanSpeed="1.26" length="0.21" nVehEntered="35"/>
-    <interval begin="0.00" end="191.00" id="cSN" nVehContrib="20" flow="376.96" occupancy="1.82" speed="1.25" harmonicMeanSpeed="1.24" length="0.21" nVehEntered="20"/>
-    <interval begin="0.00" end="191.00" id="cSW" nVehContrib="5" flow="94.24" occupancy="0.46" speed="1.24" harmonicMeanSpeed="1.23" length="0.21" nVehEntered="5"/>
+    <interval begin="0.00" end="191.00" id="cSN" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" harmonicMeanSpeed="-1.00" length="-1.00" nVehEntered="0"/>
+    <interval begin="0.00" end="191.00" id="cSW" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" harmonicMeanSpeed="-1.00" length="-1.00" nVehEntered="0"/>
 </detector>
