@@ -171,7 +171,7 @@ HelpersPHEMlight5::compute(const SUMOEmissionClass c, const PollutantsInterface:
         }
         case PollutantsInterface::ELEC:
             if (fuelType == PHEMlightdllV5::Constants::strBEV) {
-                return getEmission(currCep, "FC", power, corrSpeed) / SECONDS_PER_HOUR * 1000.;
+                return getEmission(currCep, "FC_el", power, corrSpeed) / SECONDS_PER_HOUR * 1000.;
             }
             return 0;
     }
