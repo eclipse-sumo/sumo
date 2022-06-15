@@ -1,0 +1,77 @@
+Running 'HBEFA3/zero'
+sums
+length:11041.9
+CO:0
+CO2:0
+HC:0
+NOx:0
+PMx:0
+fuel:0
+electricity:0
+Success.
+Running 'HBEFA3/LDV'
+sums
+length:11041.9
+CO:172158
+CO2:3.03311e+06
+HC:10867.4
+NOx:0
+PMx:1211.07
+fuel:1297.06
+electricity:0
+Success.
+Running 'HBEFA3/PC'
+sums
+length:11041.9
+CO:97293.6
+CO2:3.0147e+06
+HC:10300.2
+NOx:0
+PMx:384.99
+fuel:1320.34
+electricity:0
+Success.
+Running 'HBEFA3/PC_G_EU4'
+sums
+length:11041.9
+CO:79389.5
+CO2:3.06227e+06
+HC:424.514
+NOx:1164.47
+PMx:51.1183
+fuel:1316.38
+electricity:0
+Success.
+Running 'HBEFA3/Bus'
+sums
+length:11041.9
+CO:24693.3
+CO2:1.30434e+07
+HC:5877.84
+NOx:107138
+PMx:2626.08
+fuel:5562.6
+electricity:0
+Success.
+Running 'HBEFA3/Coach'
+sums
+length:11041.9
+CO:26050.4
+CO2:1.42352e+07
+HC:0
+NOx:129448
+PMx:2987.85
+fuel:6034.6
+electricity:0
+Success.
+Running 'HBEFA3/HDV'
+sums
+length:11041.9
+CO:22509.2
+CO2:1.45308e+07
+HC:0
+NOx:130098
+PMx:2847.84
+fuel:6160.18
+electricity:0
+Success.

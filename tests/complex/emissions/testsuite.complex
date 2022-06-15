@@ -1,19 +1,19 @@
 nefz_hbefa2
 nefz_hbefa3
 
+# Copy of nefz_hbefa3
+nefz_hbefa3_volumetric
+
 # compute acceleration
 nefz_hbefa3_onlySpeed
 
 # use ',' instead of ';'
 nefz_hbefa3_separator
+
+# Copy of nefz_hbefa3
+nefz_hbefa4
 nefz_phemlight
 nefz_phemlight5
-
-# Copy of nefz_phemlight5
-nefz_phemlight5_deterioration
-
-# Copy of nefz_phemlight5
-nefz_phemlight5_temperature
 
 # non-existing driving cycle file
 invalid_cycle
@@ -23,6 +23,3 @@ nefz_energy
 
 # Battery model, load additional params from vType
 nefz_energy_vtype
-
-# output coasting decel
-coasting

@@ -17,7 +17,7 @@ CO2:3.03311e+06
 HC:10867.4
 NOx:0
 PMx:1211.07
-fuel:1297.06
+fuel:962419
 electricity:0
 Success.
 Running 'HBEFA3/LDV_G_EU0'
@@ -28,7 +28,7 @@ CO2:3.54321e+06
 HC:20120.8
 NOx:0
 PMx:359.172
-fuel:1522.84
+fuel:1.12995e+06
 electricity:0
 Success.
 Running 'HBEFA3/LDV_G_EU1'
@@ -39,7 +39,7 @@ CO2:2.94061e+06
 HC:6769.61
 NOx:9768.06
 PMx:226.962
-fuel:1264.24
+fuel:938064
 electricity:0
 Success.
 Running 'HBEFA3/LDV_G_EU2'
@@ -50,7 +50,7 @@ CO2:2.94453e+06
 HC:2516.41
 NOx:3395.21
 PMx:509.334
-fuel:1265.9
+fuel:939301
 electricity:0
 Success.
 Running 'HBEFA3/LDV_G_EU3'
@@ -61,7 +61,7 @@ CO2:2.97404e+06
 HC:723.706
 NOx:780.584
 PMx:168.331
-fuel:1278.24
+fuel:948451
 electricity:0
 Success.
 Running 'HBEFA3/LDV_G_EU4'
@@ -72,7 +72,7 @@ CO2:2.83738e+06
 HC:403.707
 NOx:606.806
 PMx:126.022
-fuel:1219.91
+fuel:905172
 electricity:0
 Success.
 Running 'HBEFA3/LDV_G_EU5'
@@ -83,7 +83,7 @@ CO2:2.71818e+06
 HC:428.243
 NOx:597.062
 PMx:131.23
-fuel:1168.64
+fuel:867129
 electricity:0
 Success.
 Running 'HBEFA3/LDV_G_EU6'
@@ -94,7 +94,7 @@ CO2:2.57735e+06
 HC:427.455
 NOx:593.483
 PMx:127.529
-fuel:1108
+fuel:822133
 electricity:0
 Success.
 Running 'HBEFA3/LDV_G_East'
@@ -105,7 +105,7 @@ CO2:2.73359e+06
 HC:355380
 NOx:0
 PMx:0
-fuel:1174.93
+fuel:871798
 electricity:0
 Success.
 Running 'HBEFA3/LDV_D_EU0'
@@ -149,7 +149,7 @@ CO2:2.43581e+06
 HC:126.427
 NOx:14631.2
 PMx:564.008
-fuel:916.558
+fuel:766243
 electricity:0
 Success.
 Running 'HBEFA3/LDV_D_EU4'
@@ -160,7 +160,7 @@ CO2:2.52241e+06
 HC:82.4058
 NOx:14044.1
 PMx:0
-fuel:948.972
+fuel:793341
 electricity:0
 Success.
 Running 'HBEFA3/LDV_D_EU5'
@@ -171,7 +171,7 @@ CO2:2.43594e+06
 HC:82.1005
 NOx:13351.1
 PMx:27.6102
-fuel:916.484
+fuel:766180
 electricity:0
 Success.
 Running 'HBEFA3/LDV_D_EU6'
@@ -182,7 +182,7 @@ CO2:2.33974e+06
 HC:79.3275
 NOx:4633.76
 PMx:0
-fuel:880.262
+fuel:735899
 electricity:0
 Success.
 Running 'HBEFA3/PC'
@@ -193,7 +193,7 @@ CO2:3.0147e+06
 HC:10300.2
 NOx:0
 PMx:384.99
-fuel:1320.34
+fuel:979690
 electricity:0
 Success.
 Running 'HBEFA3/PC_Alternative'
@@ -204,7 +204,7 @@ CO2:2.56536e+06
 HC:732.791
 NOx:1763.26
 PMx:115.354
-fuel:1325.24
+fuel:983330
 electricity:0
 Success.
 Running 'HBEFA3/PC_G_EU0'
@@ -215,7 +215,7 @@ CO2:3.79059e+06
 HC:14143.3
 NOx:0
 PMx:389.943
-fuel:1628.96
+fuel:1.20869e+06
 electricity:0
 Success.
 Running 'HBEFA3/PC_G_EU1'
@@ -226,7 +226,7 @@ CO2:3.53509e+06
 HC:3131.05
 NOx:7505.33
 PMx:238.348
-fuel:1519.71
+fuel:1.12763e+06
 electricity:0
 Success.
 Running 'HBEFA3/PC_G_EU2'
@@ -237,7 +237,7 @@ CO2:3.36048e+06
 HC:0
 NOx:4592.77
 PMx:403.312
-fuel:1445.08
+fuel:1.07225e+06
 electricity:0
 Success.
 Running 'HBEFA3/PC_G_EU3'
@@ -248,7 +248,7 @@ CO2:3.18834e+06
 HC:521.443
 NOx:1390.05
 PMx:127.163
-fuel:1370.44
+fuel:1.01687e+06
 electricity:0
 Success.
 Running 'HBEFA3/PC_G_EU4'
@@ -259,7 +259,7 @@ CO2:3.06227e+06
 HC:424.514
 NOx:1164.47
 PMx:51.1183
-fuel:1316.38
+fuel:976753
 electricity:0
 Success.
 Running 'HBEFA3/PC_G_EU5'
@@ -270,7 +270,7 @@ CO2:2.87791e+06
 HC:374.748
 NOx:1108.49
 PMx:53.5608
-fuel:1236.97
+fuel:917828
 electricity:0
 Success.
 Running 'HBEFA3/PC_G_EU6'
@@ -281,7 +281,7 @@ CO2:2.72555e+06
 HC:305.697
 NOx:1002.4
 PMx:54.7663
-fuel:1171.95
+fuel:869586
 electricity:0
 Success.
 Running 'HBEFA3/PC_G_East'
@@ -292,7 +292,7 @@ CO2:3.03892e+06
 HC:202092
 NOx:0
 PMx:432.552
-fuel:1306.33
+fuel:969298
 electricity:0
 Success.
 Running 'HBEFA3/PC_D_EU0'
@@ -303,7 +303,7 @@ CO2:2.90886e+06
 HC:2115.07
 NOx:12580.5
 PMx:3516.46
-fuel:1094.51
+fuel:915011
 electricity:0
 Success.
 Running 'HBEFA3/PC_D_EU1'
@@ -325,7 +325,7 @@ CO2:2.18925e+06
 HC:396.768
 NOx:15056.1
 PMx:799.914
-fuel:823.77
+fuel:688672
 electricity:0
 Success.
 Running 'HBEFA3/PC_D_EU3'
@@ -336,7 +336,7 @@ CO2:2.03469e+06
 HC:191.393
 NOx:16997.4
 PMx:498.474
-fuel:765.651
+fuel:640084
 electricity:0
 Success.
 Running 'HBEFA3/PC_D_EU4'
@@ -347,7 +347,7 @@ CO2:2.42492e+06
 HC:99.234
 NOx:11544.9
 PMx:0
-fuel:912.539
+fuel:762882
 electricity:0
 Success.
 Running 'HBEFA3/PC_D_EU5'
@@ -358,7 +358,7 @@ CO2:2.0085e+06
 HC:101.72
 NOx:11414.5
 PMx:95.8438
-fuel:755.839
+fuel:631882
 electricity:0
 Success.
 Running 'HBEFA3/PC_D_EU6'
@@ -369,7 +369,7 @@ CO2:1.93283e+06
 HC:97.9891
 NOx:3960.56
 PMx:80.9074
-fuel:727.105
+fuel:607860
 electricity:0
 Success.
 Running 'HBEFA3/Bus'
@@ -380,7 +380,7 @@ CO2:1.30434e+07
 HC:5877.84
 NOx:107138
 PMx:2626.08
-fuel:5562.6
+fuel:4.12745e+06
 electricity:0
 Success.
 Running 'HBEFA3/Coach'
@@ -391,7 +391,7 @@ CO2:1.42352e+07
 HC:0
 NOx:129448
 PMx:2987.85
-fuel:6034.6
+fuel:4.47768e+06
 electricity:0
 Success.
 Running 'HBEFA3/HDV'
@@ -402,7 +402,7 @@ CO2:1.45308e+07
 HC:0
 NOx:130098
 PMx:2847.84
-fuel:6160.18
+fuel:4.57085e+06
 electricity:0
 Success.
 Running 'HBEFA3/HDV_G'
@@ -413,7 +413,7 @@ CO2:7.07e+06
 HC:48510.7
 NOx:64398.9
 PMx:0
-fuel:3039.29
+fuel:2.25516e+06
 electricity:0
 Success.
 Running 'HBEFA3/HDV_D_EU0'
@@ -424,7 +424,7 @@ CO2:1.59444e+07
 HC:8984.97
 NOx:220190
 PMx:6516.75
-fuel:6001.01
+fuel:5.01684e+06
 electricity:0
 Success.
 Running 'HBEFA3/HDV_D_EU1'
@@ -435,7 +435,7 @@ CO2:1.40372e+07
 HC:6976.29
 NOx:146721
 PMx:4992.13
-fuel:5281.37
+fuel:4.41523e+06
 electricity:0
 Success.
 Running 'HBEFA3/HDV_D_EU2'
@@ -446,7 +446,7 @@ CO2:1.3903e+07
 HC:4700.58
 NOx:147585
 PMx:2203.16
-fuel:5230.93
+fuel:4.37306e+06
 electricity:0
 Success.
 Running 'HBEFA3/HDV_D_EU3'
@@ -457,7 +457,7 @@ CO2:1.41738e+07
 HC:4104.34
 NOx:115697
 PMx:2136.83
-fuel:5333.4
+fuel:4.45872e+06
 electricity:0
 Success.
 Running 'HBEFA3/HDV_D_EU4'
@@ -468,7 +468,7 @@ CO2:1.41403e+07
 HC:459.909
 NOx:94823
 PMx:385.116
-fuel:5319.8
+fuel:4.44735e+06
 electricity:0
 Success.
 Running 'HBEFA3/HDV_D_EU5'
@@ -479,7 +479,7 @@ CO2:1.41518e+07
 HC:462.052
 NOx:76571
 PMx:392.856
-fuel:5324.33
+fuel:4.45114e+06
 electricity:0
 Success.
 Running 'HBEFA3/HDV_D_EU6'
@@ -490,7 +490,7 @@ CO2:1.40846e+07
 HC:336.146
 NOx:24590.4
 PMx:50.4184
-fuel:5298.89
+fuel:4.42987e+06
 electricity:0
 Success.
 Running 'HBEFA3/HDV_D_East'
@@ -501,6 +501,6 @@ CO2:1.22861e+07
 HC:18254.4
 NOx:181952
 PMx:8762.39
-fuel:4622.23
+fuel:3.86419e+06
 electricity:0
 Success.

@@ -45,7 +45,10 @@ fd.close()
 if emissionClasses[0].startswith("PHEMlight5"):
     PHEMLIGHTp = os.path.join(PHEMLIGHTp, "V5")
 
-fdo = open("results.csv", "w")
+if emissionClasses[0].startswith("HBEFA4"):
+    fdo = open("HBEFAresults.csv", "w")  # just to avoid the pickup of the huge file by texttest
+else:
+    fdo = open("results.csv", "w")
 for i, ec in enumerate(emissionClasses):
     ec = ec.strip()
     if len(ec) == 0:
