@@ -271,6 +271,9 @@ protected:
     /// @brief replace the first parent TAZElement
     void replaceParentTAZElement(const int index, const std::string& value);
 
+    /// @brief get partial ID
+    std::string getPartialID() const; 
+
 private:
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)
     virtual void setAttribute(SumoXMLAttr key, const std::string& value) = 0;

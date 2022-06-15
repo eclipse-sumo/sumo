@@ -280,7 +280,7 @@ std::string
 GNEEdgeData::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
-            return getParentEdges().front()->getID();
+            return getPartialID() + getParentEdges().front()->getID();
         case GNE_ATTR_DATASET:
             return myDataIntervalParent->getDataSetParent()->getID();
         case GNE_ATTR_SELECTED:

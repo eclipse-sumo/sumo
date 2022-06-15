@@ -404,7 +404,7 @@ std::string
 GNEEdgeRelData::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
-            return getParentEdges().front()->getID();
+            return getPartialID() + getParentEdges().front()->getID();
         case SUMO_ATTR_FROM:
             return getParentEdges().front()->getID();
         case SUMO_ATTR_TO:

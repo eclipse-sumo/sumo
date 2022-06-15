@@ -295,4 +295,12 @@ GNEGenericData::replaceParentTAZElement(const int index, const std::string& valu
     replaceParentElements(this, parentTAZElements);
 }
 
+
+std::string
+GNEGenericData::getPartialID() const {
+    return getDataIntervalParent()->getDataSetParent()->getID() + "[" + 
+        getDataIntervalParent()->getAttribute(SUMO_ATTR_BEGIN) + ", " +
+        getDataIntervalParent()->getAttribute(SUMO_ATTR_END) + "]:"; 
+}
+
 /****************************************************************************/
