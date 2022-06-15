@@ -267,11 +267,13 @@ GNETAZRelData::drawGL(const GUIVisualizationSettings& s) const {
         const double width = onlyDrawContour ? 0.1 :  0.5 * s.tazRelWidthExaggeration;
         if (width != myLastWidth) {
             myLastWidth = width;
+/*
             // cast object (check this, is ugly)
             GNETAZRelData* TAZRelData = const_cast<GNETAZRelData*>(this);
             myNet->removeGLObjectFromGrid(TAZRelData);
             TAZRelData->updateGeometry();
             myNet->addGLObjectIntoGrid(TAZRelData);
+*/
         }
         // draw geometry
         if (onlyDrawContour) {
