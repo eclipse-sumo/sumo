@@ -92,6 +92,7 @@ MSDetectorFileOutput::vehicleApplies(const SUMOTrafficObject& veh) const {
             it = std::find(it, end, e);
             if (it == end) {
                 if (e != veh.getNextEdgePtr()) {
+                    //std::cout << SIMTIME << " det=" << getID() << " veh=" << veh.getID() << " e=" << e->getID() << " vehNext=" << Named::getIDSecure(veh.getNextEdgePtr()) << "\n";
                     return false;
                 }
             }
