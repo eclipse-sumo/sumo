@@ -33,6 +33,10 @@ routeProb_type
 # 
 routeProb_pastEdge
 
+# test lane changing on the rerouter edge (#10943)
+# 
+routeProb_multiLane
+
 # closing an edge with probability 0.5
 closing_with_prob
 

@@ -1,3 +1,2 @@
 Warning: Teleporting vehicle 'ego.27'; frontal collision with vehicle 'ego.6', lane='C3B3_0', gap=-4.30, time=149.00 stage=move.
 Warning: Vehicle 'ego.27' ends teleporting on edge 'C3C2', time=149.00.
-Warning: Vehicle 'ego.17' performs emergency braking on lane ':C0_4_0' with decel=9.00, wished=4.50, severity=1.00, time=577.00.

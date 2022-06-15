@@ -384,7 +384,10 @@ MSTriggeredRerouter::notifyLeave(SUMOTrafficObject& /*veh*/, double /*lastPos*/,
 
 
 bool
-MSTriggeredRerouter::notifyEnter(SUMOTrafficObject& tObject, MSMoveReminder::Notification /*reason*/, const MSLane* /* enteredLane */) {
+MSTriggeredRerouter::notifyEnter(SUMOTrafficObject& tObject, MSMoveReminder::Notification reason, const MSLane* /* enteredLane */) {
+    if (reason == NOTIFICATION_LANE_CHANGE) {
+        return false;
+    }
     if (!tObject.isVehicle()) {
         return false;
     }
