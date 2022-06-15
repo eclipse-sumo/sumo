@@ -320,7 +320,8 @@ GUIPolygon::checkDraw(const GUIVisualizationSettings& s, const SUMOPolygon* poly
 
 void
 GUIPolygon::drawInnerPolygon(const GUIVisualizationSettings& s, const TesselatedPolygon* polygon, const GUIGlObject* o,
-                             const PositionVector shape, const double layer, const bool fill, const bool disableSelectionColor, const int alphaOverride) {
+                             const PositionVector shape, const double layer, const bool fill,
+                             const bool disableSelectionColor, const int alphaOverride, const bool disableText) {
     GLHelper::pushMatrix();
     glTranslated(0, 0, layer);
     setColor(s, polygon, o, disableSelectionColor, alphaOverride);
@@ -373,11 +374,13 @@ GUIPolygon::drawInnerPolygon(const GUIVisualizationSettings& s, const Tesselated
     if (s.geometryIndices.show(o)) {
         GLHelper::debugVertices(shape, s.geometryIndices, s.scale);
     }
-    const Position& namePos = shape.getPolygonCenter();
-    o->drawName(namePos, s.scale, s.polyName, s.angle);
-    if (s.polyType.show(o)) {
-        const Position p = namePos + Position(0, -0.6 * s.polyType.size / s.scale);
-        GLHelper::drawTextSettings(s.polyType, polygon->getShapeType(), p, s.scale, s.angle);
+    if (!disableText) {
+        const Position& namePos = shape.getPolygonCenter();
+        o->drawName(namePos, s.scale, s.polyName, s.angle);
+        if (s.polyType.show(o)) {
+            const Position p = namePos + Position(0, -0.6 * s.polyType.size / s.scale);
+            GLHelper::drawTextSettings(s.polyType, polygon->getShapeType(), p, s.scale, s.angle);
+        }
     }
 }
 
