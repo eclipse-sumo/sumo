@@ -25,6 +25,10 @@ The output period can be set by using option **--device.emissions.period** {{DT_
 
 ## Generated Output
 
+!!! caution
+    Please note the the unit of fuel-related outputs changed with SUMO 1.14.0 from liters to milligram.
+	For the old behavior use the option **--emissions.volumetric-fuel**.
+
 The emission output is a xml-file containing the emission values for
 each time step for every vehicle. The produced XML File looks like this:
 
@@ -59,7 +63,7 @@ The meanings of the written values are given in the following table.
 | HC          | mg/s                 | The amount of HC emitted by the vehicle in the actual simulation step                          |
 | NOx         | mg/s                 | The amount of NOX emitted by the vehicle in the actual simulation step                         |
 | PMx         | mg/s                 | The amount of PMX emitted by the vehicle in the actual simulation step                         |
-| fuel        | ml/s                 | The amount of fuel used by the vehicle in the actual simulation step                           |
+| fuel        | mg/s                 | The amount of fuel used by the vehicle in the actual simulation step                           |
 | electricity | Wh/s                 | The amount of electricity used by the vehicle in the actual simulation step                    |
 | noise       | dB                   | The noise emitted by the vehicle in the actual simulation step                                 |
 | route       | id                   | The name of the route                                                                          |

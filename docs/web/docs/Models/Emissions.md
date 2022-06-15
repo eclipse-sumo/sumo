@@ -12,6 +12,9 @@ SUMO includes the following emission models:
 - [HBEFA v3.1-based](../Models/Emissions/HBEFA3-based.md): A
   continuous reformulation of the [HBEFA](http://www.hbefa.net/) v3.1
   emissions data base (open source);
+- [HBEFA v4.2-based](../Models/Emissions/HBEFA4-based.md): A
+  continuous reformulation of the [HBEFA](http://www.hbefa.net/) v4.2
+  emissions data base (open source);
 - [PHEMlight](../Models/Emissions/PHEMlight.md), a derivation of
   the original
   [PHEM](https://www.ivt.tugraz.at/en/research/areas/em/)
@@ -43,15 +46,20 @@ in the output. There is one special model `Zero` which does not
 generate emissions or energy consumption at all.
 
 Available emission classes
-can be found within the emission model descriptions ([HBEFA
-v2.1-based](../Models/Emissions/HBEFA-based.md), [HBEFA
-v3.1-based](../Models/Emissions/HBEFA3-based.md),
+can be found within the emission model descriptions
+([HBEFA v2.1-based](../Models/Emissions/HBEFA-based.md),
+[HBEFA v3.1-based](../Models/Emissions/HBEFA3-based.md),
+[HBEFA v4.2-based](../Models/Emissions/HBEFA4-based.md),
 [PHEMlight](../Models/Emissions/PHEMlight.md),
 [PHEMlight5](../Models/Emissions/PHEMlight5.md)). The current default
 model is `HBEFA3/PC_G_EU4` (a gasoline powered Euro norm 4 passenger car
 modeled using the HBEFA3 based model).
 
 # Pollutants / Measurements covered by models
+
+!!! caution
+    Please note the the unit of fuel-related outputs changed with SUMO 1.14.0 from liters to milligram.
+	For the old behavior use the option **--emissions.volumetric-fuel**.
 
 <table class="tg">
   <tr>
@@ -86,6 +94,16 @@ modeled using the HBEFA3 based model).
     <td class="tg-c3ow">x</td>
     <td class="tg-c3ow">x</td>
     <td class="tg-c3ow">-</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">HBEFA v4.2-based<br><code>emissionClass="HBEFA4/..."</code></td>
+    <td class="tg-c3ow">x</td>
+    <td class="tg-c3ow">x</td>
+    <td class="tg-c3ow">x</td>
+    <td class="tg-c3ow">x</td>
+    <td class="tg-c3ow">x</td>
+    <td class="tg-c3ow">x</td>
+    <td class="tg-c3ow">x</td>
   </tr>
   <tr>
     <td class="tg-0pky">PHEMlight<br><code>emissionClass="PHEMlight/..."</code></td>

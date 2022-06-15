@@ -56,6 +56,10 @@ A lane-based emissions output is defined way within an {{AdditionalFile}} as fol
 
 ### Value Descriptions
 
+!!! caution
+    Please note the the unit of fuel-related outputs changed with SUMO 1.14.0 from liters to milligram.
+	For the old behavior use the option **--emissions.volumetric-fuel**.
+
 | Name                | Type                 | Description                     |
 | ------------------- | -------------------- | --------------------------------------------------- |
 | begin               | (simulation) seconds | The first time step the values were collected in   |
@@ -69,7 +73,7 @@ A lane-based emissions output is defined way within an {{AdditionalFile}} as fol
 | HC_abs             | mg                   | The complete amount of HC emitted by the vehicles on this lane/edge during the aggregation period                                                                                 |
 | PMx_abs            | mg                   | The complete amount of PM<sub>x</sub> emitted by the vehicles on this lane/edge during the aggregation period                                                                     |
 | NOx_abs            | mg                   | The complete amount of NO<sub>x</sub> emitted by the vehicles on this lane/edge during the aggregation period                                                                     |
-| fuel_abs           | ml                   | The complete amount of fuel the vehicles on this lane/edge during the aggregation period have consumed                                                                            |
+| fuel_abs           | mg                   | The complete amount of fuel the vehicles on this lane/edge during the aggregation period have consumed                                                                            |
 | electricity_abs    | Wh                   | The complete amount of electricity the vehicles on this lane/edge during the aggregation period have consumed                                                                     |
 | CO_normed          | g/km/h               | CO emissions during this interval normed by time and edge/lane length                                                                                                             |
 | CO2_normed         | g/km/h               | CO<sub>2</sub> emissions during this interval normed by time and edge/lane length                                                                                                 |
