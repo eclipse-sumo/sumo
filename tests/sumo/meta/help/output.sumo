@@ -1,4 +1,4 @@
-Eclipse SUMO sumo Version v1_13_0+0728-092f803c3ab
+Eclipse SUMO sumo Version v1_13_0+0844-22f88dc7bc3
  Copyright (C) 2001-2022 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -455,6 +455,8 @@ Report Options:
                                         step-log outputs
 
 Emissions Options:
+  --emissions.volumetric-fuel          Return fuel consumption values in
+                                        (legacy) unit l instead of mg
   --phemlight-path FILE                Determines where to load PHEMlight
                                         definitions from
   --phemlight-year INT                 Enable fleet age modelling with the

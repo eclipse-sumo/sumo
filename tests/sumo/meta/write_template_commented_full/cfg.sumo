@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-06-10 05:46:55 by Eclipse SUMO sumo Version v1_13_0+0728-092f803c3ab
+<!-- generated on 2022-06-15 13:09:36 by Eclipse SUMO sumo Version v1_13_0+0844-22f88dc7bc3
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -648,6 +648,9 @@
     </report>
 
     <emissions>
+        <!-- Return fuel consumption values in (legacy) unit l instead of mg -->
+        <emissions.volumetric-fuel value="false" type="BOOL"/>
+
         <!-- Determines where to load PHEMlight definitions from -->
         <phemlight-path value="./PHEMlight/" type="FILE"/>
 

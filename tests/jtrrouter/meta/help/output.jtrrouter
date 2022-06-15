@@ -1,4 +1,4 @@
-Eclipse SUMO jtrrouter Version v1_13_0+0728-092f803c3ab
+Eclipse SUMO jtrrouter Version v1_13_0+0844-22f88dc7bc3
  Copyright (C) 2001-2022 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Router for the microscopic, multi-modal traffic simulation SUMO based on
  junction turning ratios.
@@ -36,6 +36,8 @@ Output Options:
   --vtype-output FILE              Write used vehicle types into separate FILE
   --keep-vtype-distributions       Keep vTypeDistribution ids when writing
                                     vehicles and their types
+  --emissions.volumetric-fuel      Return fuel consumption values in (legacy)
+                                    unit l instead of mg
   --named-routes                   Write vehicles that reference routes by
                                     their id
   --write-license                  Include license info into every output file

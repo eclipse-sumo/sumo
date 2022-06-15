@@ -1,4 +1,3 @@
- Retrying in 1 seconds
 step 0
 step 1
 step 2
@@ -15,18 +14,18 @@ links [('2si_0', True, True, False), ('2si_1', True, True, False), ('2si_2', Tru
 linksExtended [('2si_0', True, True, False, '', 'M', 's', 7.249827584156764), ('2si_1', True, True, False, '', 'M', 's', 4.45982062419556), ('2si_2', True, True, False, '', 'M', 's', 3.0)]
 shape ((1000.0, 501.65), (751.5, 501.65))
 edge 2fi
-CO2 4962.09802901
-CO 148.404394312
-HC 0.793287746206
-PMx 0.106890250159
-NOx 2.197042561
-Fuel 2.1330214171
-Noise 68.9661301311
+CO2 4962.098029013955
+CO 148.4043943117062
+HC 0.793287746205698
+PMx 0.10689025015863887
+NOx 2.197042560996833
+Fuel 1582.7018914848818
+Noise 68.96613013111516
 Elec 0.0
-meanSpeed 4.03334372395
-occupancy 0.0201207243461
+meanSpeed 4.033343723951839
+occupancy 0.02012072434607646
 lastLength 5.0
-traveltime 61.6114115255
+traveltime 61.61141152545303
 numVeh 1
 haltVeh 0
 vehIds ('horiz',)

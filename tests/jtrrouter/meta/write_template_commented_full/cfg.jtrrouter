@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-06-10 05:46:55 by Eclipse SUMO jtrrouter Version v1_13_0+0728-092f803c3ab
+<!-- generated on 2022-06-15 13:20:17 by Eclipse SUMO jtrrouter Version v1_13_0+0844-22f88dc7bc3
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/jtrrouterConfiguration.xsd">
@@ -62,6 +62,9 @@
 
         <!-- Keep vTypeDistribution ids when writing vehicles and their types -->
         <keep-vtype-distributions value="false" type="BOOL"/>
+
+        <!-- Return fuel consumption values in (legacy) unit l instead of mg -->
+        <emissions.volumetric-fuel value="false" type="BOOL"/>
 
         <!-- Write vehicles that reference routes by their id -->
         <named-routes value="false" type="BOOL"/>
