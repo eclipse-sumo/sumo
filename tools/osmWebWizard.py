@@ -327,6 +327,13 @@ class Builder(object):
                 else:
                     self.routenames.append(self.files["trips"])
 
+            # clean up temporary files from randomTrip validation
+            for fname in ['routes.rou.xml', 'routes.rou.alt.xml']:
+                try:
+                    os.remove(fname)
+                except FileNotFoundError:
+                    pass
+
             # create a batch file for reproducing calls to randomTrips.py
             if os.name == "posix":
                 SUMO_HOME_VAR = "$SUMO_HOME"
