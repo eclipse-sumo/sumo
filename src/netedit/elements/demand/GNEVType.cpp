@@ -219,7 +219,7 @@ GNEVType::getAttribute(SumoXMLAttr key) const {
     VClassDefaultValues defaultValues(vehicleClass);
     switch (key) {
         case SUMO_ATTR_ID:
-            return getID();
+            return getMicrosimID();
         case GNE_ATTR_VTYPE_DISTRIBUTION:
             if (getParentDemandElements().empty()) {
                 return "";

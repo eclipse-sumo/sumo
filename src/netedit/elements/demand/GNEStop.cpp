@@ -537,6 +537,8 @@ GNEStop::getLastPathLane() const {
 std::string
 GNEStop::getAttribute(SumoXMLAttr key) const {
     switch (key) {
+        case SUMO_ATTR_ID:
+            return getMicrosimID();
         case SUMO_ATTR_DURATION:
             if (isAttributeEnabled(key)) {
                 return time2string(duration);

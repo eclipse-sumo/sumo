@@ -82,12 +82,6 @@ GNEDemandElement::removeGeometryPoint(const Position /*clickedPosition*/, GNEUnd
 }
 
 
-const std::string&
-GNEDemandElement::getID() const {
-    return getMicrosimID();
-}
-
-
 GUIGlObject*
 GNEDemandElement::getGUIGlObject() {
     return this;
