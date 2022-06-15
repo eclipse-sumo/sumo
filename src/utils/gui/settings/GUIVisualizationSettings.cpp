@@ -1151,6 +1151,7 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
     scheme.addColor(RGBColor(0, 102, 204, 255), 1, "selected");
     polyColorer.addScheme(scheme);
     polyColorer.addScheme(GUIColorScheme("uniform", RGBColor::ORANGE, "", true));
+    polyColorer.addScheme(GUIColorScheme("random", RGBColor::YELLOW, "", true));
 
     /// add lane scaling schemes
     {
@@ -1596,6 +1597,7 @@ GUIVisualizationSettings::initNeteditDefaults() {
     scheme.addColor(RGBColor(0, 102, 204, 255), 1, "selected");
     polyColorer.addScheme(scheme);
     polyColorer.addScheme(GUIColorScheme("uniform", RGBColor::ORANGE, "", true));
+    polyColorer.addScheme(GUIColorScheme("random", RGBColor::YELLOW, "", true));
 
     /// add edge scaling schemes
     {

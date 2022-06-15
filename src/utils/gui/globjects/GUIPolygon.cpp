@@ -267,7 +267,7 @@ GUIPolygon::setShape(const PositionVector& shape) {
 }
 
 
-void
+RGBColor
 GUIPolygon::setColor(const GUIVisualizationSettings& s, const SUMOPolygon* polygon, const GUIGlObject* o, bool disableSelectionColor, int alphaOverride) {
     const GUIColorer& c = s.polyColorer;
     const int active = c.getActive();
@@ -279,13 +279,20 @@ GUIPolygon::setColor(const GUIVisualizationSettings& s, const SUMOPolygon* polyg
         color = polygon->getShapeColor();
     } else if (active == 1) {
         color = c.getScheme().getColor(gSelected.isSelected(GLO_POLYGON, o->getGlID()));
-    } else {
+    } else if (active == 2) {
         color = c.getScheme().getColor(0);
+    } else {
+        // color randomly (by pointer hash)
+        std::hash<const SUMOPolygon*> ptr_hash;
+        const double hue = (double)(ptr_hash(polygon) % 360); // [0-360]
+        const double sat = (double)((ptr_hash(polygon) / 360) % 67) / 100.0 + 0.33; // [0.33-1]
+        color = RGBColor::fromHSV(hue, sat, 1.);
     }
     if (alphaOverride >= 0 && alphaOverride <= 255) {
         color.setAlpha((unsigned char)alphaOverride);
     }
     GLHelper::setColor(color);
+    return color;
 }
 
 

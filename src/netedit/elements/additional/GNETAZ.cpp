@@ -282,7 +282,7 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
         const Position mousePosition = myNet->getViewNet()->getPositionInformation();
         const bool drawFill = (myNet->getViewNet()->getEditModes().isCurrentSupermodeData() && myNet->getViewNet()->getDataViewOptions().TAZDrawFill())? true : getFill();
         // get colors
-        const RGBColor color = isAttributeCarrierSelected() ? s.colorSettings.selectionColor : getShapeColor();
+        const RGBColor color = GUIPolygon::setColor(s, this, this, drawUsingSelectColor(), -1);
         const RGBColor invertedColor = color.invertedColor();
         const RGBColor darkerColor = color.changedBrightness(-32);
         // push name (needed for getGUIGlObjectsUnderCursor(...)
