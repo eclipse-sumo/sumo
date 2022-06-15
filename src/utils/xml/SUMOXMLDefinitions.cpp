@@ -79,8 +79,6 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "parkingAreaReroute",             SUMO_TAG_PARKING_AREA_REROUTE },
     { "step",                           SUMO_TAG_STEP },
     { "variableSpeedSign",              SUMO_TAG_VSS },
-    { "frictionCoefficient",            SUMO_TAG_COF },
-    { "frictionStep",                   SUMO_TAG_STEP_COF },
     { "routeProbe",                     SUMO_TAG_ROUTEPROBE },
     { "vaporizer",                      SUMO_TAG_VAPORIZER },
     { "tractionSubstation",             SUMO_TAG_TRACTION_SUBSTATION },
@@ -197,7 +195,6 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "carFollowing-KraussPS",          SUMO_TAG_CF_KRAUSS_PLUS_SLOPE },
     { "carFollowing-KraussOrig1",       SUMO_TAG_CF_KRAUSS_ORIG1 },
     { "carFollowing-KraussX",           SUMO_TAG_CF_KRAUSSX },
-    { "carFollowing-KraussFric",        SUMO_TAG_CF_KRAUSS_FRICTION },
     { "carFollowing-EIDM",              SUMO_TAG_CF_EIDM },
     { "carFollowing-SmartSK",           SUMO_TAG_CF_SMART_SK },
     { "carFollowing-Daniel1",           SUMO_TAG_CF_DANIEL1 },
@@ -207,7 +204,6 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "carFollowing-W99",               SUMO_TAG_CF_W99 },
     { "carFollowing-Rail",              SUMO_TAG_CF_RAIL },
     { "carFollowing-ACC",               SUMO_TAG_CF_ACC },
-    { "carFollowing-ACCFric",           SUMO_TAG_CF_ACC_FRICTION },
     { "carFollowing-CACC",              SUMO_TAG_CF_CACC },
     { "carFollowing-CC",                SUMO_TAG_CF_CC },
     // Person
@@ -257,7 +253,6 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "poiGeo",                         GNE_TAG_POIGEO },
     { "rerouterSymbol",                 GNE_TAG_REROUTER_SYMBOL },
     { "variableSpeedSignSymbol",        GNE_TAG_VSS_SYMBOL },
-    { "variableFrictionSymbol",         GNE_TAG_COF_SYMBOL },
     { "flowRoute",                      GNE_TAG_FLOW_ROUTE },
     { "flowWithRoute",                  GNE_TAG_FLOW_WITHROUTE },
     // GNE waypoints
@@ -1140,7 +1135,6 @@ StringBijection<SumoXMLTag>::Entry SUMOXMLDefinitions::carFollowModelValues[] = 
     { "KraussPS",    SUMO_TAG_CF_KRAUSS_PLUS_SLOPE },
     { "KraussOrig1", SUMO_TAG_CF_KRAUSS_ORIG1 },
     { "KraussX",     SUMO_TAG_CF_KRAUSSX }, // experimental extensions to the Krauss model
-    { "KraussFric",  SUMO_TAG_CF_KRAUSS_FRICTION },
     { "EIDM",        SUMO_TAG_CF_EIDM },
     { "SmartSK",     SUMO_TAG_CF_SMART_SK },
     { "Daniel1",     SUMO_TAG_CF_DANIEL1 },
@@ -1149,7 +1143,6 @@ StringBijection<SumoXMLTag>::Entry SUMOXMLDefinitions::carFollowModelValues[] = 
     { "Rail",        SUMO_TAG_CF_RAIL },
     { "CC",          SUMO_TAG_CF_CC },
     { "ACC",         SUMO_TAG_CF_ACC },
-    { "ACCFric",     SUMO_TAG_CF_ACC_FRICTION },
     { "CACC",        SUMO_TAG_CF_CACC },
     { "W99",         SUMO_TAG_CF_W99 },
     { "Wiedemann",   SUMO_TAG_CF_WIEDEMANN } //< must be the last one

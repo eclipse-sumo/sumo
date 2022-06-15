@@ -125,10 +125,6 @@ enum SumoXMLTag {
     SUMO_TAG_VSS,
     /// @brief trigger: a step description
     SUMO_TAG_STEP,
-    /// @brief A coefficient of friction for Lane
-    SUMO_TAG_COF,
-    /// @brief trigger: a friction step description
-    SUMO_TAG_STEP_COF,
     /// @brief a routeprobe detector
     SUMO_TAG_ROUTEPROBE,
     /// @brief vaporizer of vehicles
@@ -316,7 +312,6 @@ enum SumoXMLTag {
     SUMO_TAG_CF_KRAUSS_PLUS_SLOPE,
     SUMO_TAG_CF_KRAUSS_ORIG1,
     SUMO_TAG_CF_KRAUSSX,
-    SUMO_TAG_CF_KRAUSS_FRICTION,
     SUMO_TAG_CF_EIDM,
     SUMO_TAG_CF_SMART_SK,
     SUMO_TAG_CF_DANIEL1,
@@ -327,8 +322,6 @@ enum SumoXMLTag {
     SUMO_TAG_CF_WIEDEMANN,
     SUMO_TAG_CF_W99,
     SUMO_TAG_CF_ACC,
-    SUMO_TAG_CF_ACC_FRICTION,
-    SUMO_TAG_CF_ACC_FRIC,
     SUMO_TAG_CF_CACC,
     SUMO_TAG_CF_RAIL,
     SUMO_TAG_CF_CC,
