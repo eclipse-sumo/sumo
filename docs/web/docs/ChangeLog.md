@@ -14,6 +14,7 @@ title: ChangeLog
   - Inconvenience of slower lanes is now taken into account for cooperative changing. Issue #10714  
   - NEMA controller: fixed invalid initial state (until the first switch). Issue #10743
   - NEMA controller: fixed crash when custom detectors are missing. Issue #10745
+  - NEMA Controller prioritizes permitted left 'y' & 'r' over linked phase 'g'. Issue #10897
   - Fixed bug where vehicles would enter lanes that are separated from a required lane by a forbidden lane. Issue #10512
   - Fixed invalid speed when approaching stop for carFollowModel IDM. Issue #8577
   - Fixed unsafe insertion speed when the insertion lane requires multiple lane changes close to the insertion point. Issue #10761
@@ -26,6 +27,10 @@ title: ChangeLog
   - Fixed bug where taxi fails to drop off customer. Issue #10860
   - Setting a subsecond `timeThreshold` for `e3detector`s is now working. Issue #10881
   - Coasting decelerations have been implemented for HBEFA models. Issue #2110
+  - Fixed invalid emissions for decelerating / standing vehicles for HBEFA and HBEFA3. Issue #2110, #4019
+  - inductionLoop near lane end no longer miscounts pedestrians. Issue #10909
+  - Fixed bug where person 'jumps' to stop when using option **--persontrip.transfer.walk-taxi ptStops**. Issue #10920
+  - Fixed ride arrval position when using option **--persontrip.transfer.taxi-walk ptStops**. Issue #10919
   
 - netedit
   - Fixed crash when loading a network (on very slow computers / builds). Issue #10750 (regression in 1.9.0)
@@ -35,11 +40,19 @@ title: ChangeLog
   - Locate dialog buttons "select all" and "deselect all" now toggle selection status. Issue #10707
   - Editing traffic light parameters now marks it as changed. Issue #10673
   - Fixed various issues related to containers. Issue #10844
+  - Fixed crash selecting tractionSubstation with rectangle selection. Issue #10896
+  - Fixed handling of disconnected lanes of consecutive edges for e2Detectors and wires. Issue #10903
+  - Fixed tazRelation coloring issues. Issue #10930
+  - Checkbox 'Draw TAZ fill' now overrides taz attribute fill as intended. Issue #10928
+  - A custom color rainbow is now supported for all data elements. Issue #10934
   
 - sumo-gui
   - Background images (decals) and multi-view settings are now restored on reload. Issue #10788 (regression in 1.13.0)
   - Background grid configured in settings is now shown when first opening gui. Issue #10789
   - Fixed invalid tranship color when coloring container by mode. Issue #10849
+  - Fixed 3D rendering of edge geometry with varying incline. Issue #4952
+  - Fixed Vehicle orientation on sloped edges in 3D view. Issue #10905
+  - Fixed inconsistent treatment of missing data when coloring by attribute/param. Issue #10932
    
 - netconvert
   - Fixed invalid edge reduction in edge shape detail at very dense geometry. Issue #10727 (regression in 1.12.0)
@@ -48,9 +61,11 @@ title: ChangeLog
   - Reduced overly verbose ambiguous node type warnings. Issue #10827
   - Fixed missing tram connections at sharper turns on large junctions. Issue #10826
   - Option **--geometry.remove** now works correctly when merging networks. Issue #10853
+  - Fixed generation of invalid pedestrian crossings. Issue #7625, #10894
 
 - TraCI
   - Function `vehicle.setAcceleration` now supports negative values. Issue #10693
+  - Fixed invalid added stop on previous edge while already on junction. Issue #10859
 
 - tools
   - sumolib no longer crashes in an environment where rtree and stderr are missing. Issue #10666
@@ -58,10 +73,12 @@ title: ChangeLog
   - game/racing.py now uses the intended vehicle scaling and simulation delay. Issues #10783 (regression in 1.0.0)
   - generateRailSignalConstraints.py: Fixed bug where constraints for invalid stops were generated. Issue #10843
   - route2OD.py: Fixed invalid handling of TAZ defined with tazSource and tazSink elements. Issue #10873
+  - routeSampler.py: now longer writes flows with probability > 1. Issue #10887
 
 ### Enhancements
 
 - Simulation
+  - Added support for PHEM light V5. Issue #10237
   - Jammed detectors of actuated traffic lights can now be ignored for phase extension after a configurable time threshold. Issue #5212
   - When jam detection is activated (i.e. via option **--tls.actuated.jam-threshold**), all detectors are usable for activation and this eliminates the warnings about "no controlling detectors". Issue #9280, #10682
   - InductionLoop detectors now support optional attribute 'length'. Issue #10668
@@ -71,6 +88,7 @@ title: ChangeLog
   - RailSignalConstraints can now be loaded in a deactivated state by setting attribute `active="false"`. They can still be retrieved via TraCI. Issue #10799
   - Vehicles at longer planned stops now switch off their engine. Issue #10491, #4019
   - Automated engine start/stop can be modelled. Issue #10441
+  - Attribute 'period' is now an alias for attribute 'freq' in all detectors and both are now optional. Issue #10390
   
 - netedit
   - Persons and personFlows can now be transformed into each other via context menu (similar to vehicles and flows). Issue #10607
@@ -84,6 +102,9 @@ title: ChangeLog
   - All attributes can now be reset to their default value by deleting the attribute content if that attribute has a default. Issue #9350
   - TAZ-source and TAZ-sink elements can now be inspected and selected (upon activating a new toggle button). Issue #10273
   - Stops for containers can now be defined. Issue #10855
+  - Walkingareas anow now shown. Issue #9168
+  - Walkingareas can now be located by id. Issue #8580
+  - Added 'confirm relation' button to tazRelation mode. Issue #10733
 
 - sumo-gui
   - InductionLoop detectors now list the time of continuos occupation in their parameter dialog. Issue #10671
@@ -104,6 +125,7 @@ title: ChangeLog
   - generateRailSignalConstraints.py: Can now write discarded constraints as inactive by setting option **--write-inactive**. Issue #10800
   - plotTrajectories.py: Now supports plotting type 'g' to plot by leaderGap (requires fcd output with option **--fcd-output.max-leader-distance**). Issue #10839
   - addStops2Routes.py: Added various options to randomize stop assignment. Issue #10871
+  - routeSampler.py: now supports option **--write-flows poisson** to generate flows with poisson arrival pattern. Issue #10886
 
 ### Miscellaneous
 
