@@ -29,5 +29,8 @@ junction_output
 # Copy of persons
 persons
 
+# filter detector vehicles by their oupcoming route
+nextEdges
+
 # freq is missing
 freq_missing
