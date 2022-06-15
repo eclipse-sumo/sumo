@@ -196,6 +196,14 @@ public:
     long onPaint(FXObject*, FXSelector, void*);
     long OnIdle(FXObject* sender, FXSelector sel, void* ptr);
 
+	/// @brief interaction with the simulation
+	long onCmdCloseLane(FXObject*, FXSelector, void*);
+	long onCmdCloseEdge(FXObject*, FXSelector, void*);
+	long onCmdAddRerouter(FXObject*, FXSelector, void*);
+
+	/// @brief highlight edges according to reachability
+	long onCmdShowReachability(FXObject*, FXSelector, void*);
+
 protected:
 	/// @brief Store the normalized OSG window cursor coordinates
 	void setWindowCursorPosition(float x, float y);

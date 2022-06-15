@@ -61,6 +61,7 @@
 #include <utils/gui/windows/GUIDialog_ViewSettings.h>
 #include <utils/gui/windows/GUIPerspectiveChanger.h>
 #include <utils/gui/windows/GUISUMOAbstractView.h>
+#include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/geom/GeoConvHelper.h>
 
 #include "GUIOSGBuilder.h"
@@ -758,6 +759,95 @@ GUIOSGView::OnIdle(FXObject* /* sender */, FXSelector /* sel */, void*) {
     update();
     getApp()->addChore(this, MID_CHORE);
     return 1;
+}
+
+
+long
+GUIOSGView::onCmdCloseLane(FXObject*, FXSelector, void*) {
+	GUILane* lane = getLaneUnderCursor();
+	if (lane != nullptr) {
+		lane->closeTraffic();
+		GUIGlObjectStorage::gIDStorage.unblockObject(lane->getGlID());
+		update();
+	}
+	return 1;
+}
+
+
+long
+GUIOSGView::onCmdCloseEdge(FXObject*, FXSelector, void*) {
+	GUILane* lane = getLaneUnderCursor();
+	if (lane != nullptr) {
+		dynamic_cast<GUIEdge*>(&lane->getEdge())->closeTraffic(lane);
+		GUIGlObjectStorage::gIDStorage.unblockObject(lane->getGlID());
+		update();
+	}
+	return 1;
+}
+
+
+long
+GUIOSGView::onCmdAddRerouter(FXObject*, FXSelector, void*) {
+	GUILane* lane = getLaneUnderCursor();
+	if (lane != nullptr) {
+		dynamic_cast<GUIEdge*>(&lane->getEdge())->addRerouter();
+		GUIGlObjectStorage::gIDStorage.unblockObject(lane->getGlID());
+		update();
+	}
+	return 1;
+}
+
+
+long
+GUIOSGView::onCmdShowReachability(FXObject* menu, FXSelector, void*) {
+	GUILane* lane = getLaneUnderCursor();
+	if (lane != nullptr) {
+		// reset
+		const double UNREACHABLE = -1;
+		gSelected.clear();
+		for (const MSEdge* const e : MSEdge::getAllEdges()) {
+			for (MSLane* const l : e->getLanes()) {
+				GUILane* gLane = dynamic_cast<GUILane*>(l);
+				gLane->setReachability(UNREACHABLE);
+			}
+		}
+		// prepare
+		FXMenuCommand* mc = dynamic_cast<FXMenuCommand*>(menu);
+		const SUMOVehicleClass svc = SumoVehicleClassStrings.get(mc->getText().text());
+		const double defaultMaxSpeed = SUMOVTypeParameter::VClassDefaultValues(svc).maxSpeed;
+		// find reachable
+		std::map<MSEdge*, double> reachableEdges;
+		reachableEdges[&lane->getEdge()] = 0;
+		MSEdgeVector check;
+		check.push_back(&lane->getEdge());
+		while (check.size() > 0) {
+			MSEdge* e = check.front();
+			check.erase(check.begin());
+			double traveltime = reachableEdges[e];
+			for (MSLane* const l : e->getLanes()) {
+				if (l->allowsVehicleClass(svc)) {
+					GUILane* gLane = dynamic_cast<GUILane*>(l);
+					gSelected.select(gLane->getGlID());
+					gLane->setReachability(traveltime);
+				}
+			}
+			traveltime += e->getLength() / MIN2(e->getSpeedLimit(), defaultMaxSpeed);
+			for (MSEdge* const nextEdge : e->getSuccessors(svc)) {
+				if (reachableEdges.count(nextEdge) == 0 ||
+					// revisit edge via faster path
+					reachableEdges[nextEdge] > traveltime) {
+					reachableEdges[nextEdge] = traveltime;
+					check.push_back(nextEdge);
+				}
+			}
+		}
+		// switch to 'color by selection' unless coloring 'by reachability'
+		if (myVisualizationSettings->laneColorer.getActive() != 36) {
+			myVisualizationSettings->laneColorer.setActive(1);
+		}
+		update();
+	}
+	return 1;
 }
 
 

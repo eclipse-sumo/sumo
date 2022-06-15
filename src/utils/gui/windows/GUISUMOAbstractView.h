@@ -58,7 +58,6 @@ class GUIDialog_ViewSettings;
 class GUIVisualizationSettings;
 class GUILane;
 
-
 // ===========================================================================
 // class definitions
 // ===========================================================================
@@ -166,12 +165,12 @@ public:
     //@}
 
 	/// @brief interaction with the simulation
-	long onCmdCloseLane(FXObject*, FXSelector, void*);
-	long onCmdCloseEdge(FXObject*, FXSelector, void*);
-	long onCmdAddRerouter(FXObject*, FXSelector, void*);
+	virtual long onCmdCloseLane(FXObject*, FXSelector, void*);
+	virtual long onCmdCloseEdge(FXObject*, FXSelector, void*);
+	virtual long onCmdAddRerouter(FXObject*, FXSelector, void*);
 
 	/// @brief highlight edges according to reachability
-	long onCmdShowReachability(FXObject*, FXSelector, void*);
+	virtual long onCmdShowReachability(FXObject*, FXSelector, void*);
 
     /// @brief open object dialog at the cursor position
     virtual void openObjectDialogAtCursor();
