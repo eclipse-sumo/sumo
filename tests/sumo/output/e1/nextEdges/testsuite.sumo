@@ -7,6 +7,9 @@
 # detect persons depending on their next crossing
 nextCrossing
 
+# persons walking the other way should not be detected (since the filtered edge is in their past rather than their future)
+nextCrossing_reverse
+
 # detect person on walkingarea depending on their next crossing
 walkingArea_nextCrossing
 
