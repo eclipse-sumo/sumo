@@ -125,22 +125,18 @@ public:
         return myNetObject;
     }
 
-
-    /** @brief A single static instance of this class
-     */
+    /// @brief A single static instance of this class
     static GUIGlObjectStorage gIDStorage;
 
-
-    /** @brief Returns the set of all known ids
-     */
-    std::set<GUIGlID> getAllIDs() const;
+    /// @brief Returns the set of all known objects
+    const std::vector<GUIGlObject*> &getAllGLObjects() const;
 
 private:
     /// @brief The known objects
     std::vector<GUIGlObject*> myObjects;
 
     /// @brief The known objects by their full name
-    std::map<std::string, GUIGlObject*>  myFullNameMap;
+    std::map<std::string, GUIGlObject*> myFullNameMap;
 
     /// @brief The next id to give; initially one, increased by one with each object registration
     GUIGlID myNextID;
@@ -151,13 +147,10 @@ private:
     /// @brief The network object
     GUIGlObject* myNetObject;
 
-
 private:
     /// @brief invalidated copy constructor
-    GUIGlObjectStorage(const GUIGlObjectStorage& s);
+    GUIGlObjectStorage(const GUIGlObjectStorage& s) = delete;
 
     /// @brief invalidate assignment operator
-    GUIGlObjectStorage& operator=(const GUIGlObjectStorage& s);
-
-
+    GUIGlObjectStorage& operator=(const GUIGlObjectStorage& s) = delete;
 };

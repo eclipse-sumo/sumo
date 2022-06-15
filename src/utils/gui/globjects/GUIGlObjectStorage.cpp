@@ -36,7 +36,9 @@ GUIGlObjectStorage GUIGlObjectStorage::gIDStorage;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUIGlObjectStorage::GUIGlObjectStorage() : myNextID(1), myLock(true) {
+GUIGlObjectStorage::GUIGlObjectStorage() : 
+    myNextID(1), 
+    myLock(true) {
     myObjects.push_back(nullptr);
 }
 
@@ -126,17 +128,9 @@ GUIGlObjectStorage::unblockObject(GUIGlID id) {
 }
 
 
-std::set<GUIGlID>
-GUIGlObjectStorage::getAllIDs() const {
-    FXMutexLock locker(myLock);
-    std::set<GUIGlID> result;
-    for (GUIGlObject* const o : myObjects) {
-        if (!o->isBlocked()) {
-            result.insert(o->getGlID());
-        }
-    }
-    return result;
+const std::vector<GUIGlObject*>&
+GUIGlObjectStorage::getAllGLObjects() const {
+    return myObjects; 
 }
-
 
 /****************************************************************************/
