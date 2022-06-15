@@ -39,8 +39,6 @@ public:
 
     /// @name Function related with graphics
     /// @{
-    /// @brief get ID (all Attribute Carriers have one)
-    const std::string& getID() const;
 
     /// @brief get GUIGlObject associated with this AttributeCarrier
     GUIGlObject* getGUIGlObject();

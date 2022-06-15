@@ -198,10 +198,12 @@ GNEWalkingArea::updateCenteringBoundary(const bool /*updateGrid*/) {
 
 std::string
 GNEWalkingArea::getAttribute(SumoXMLAttr key) const {
-    const auto &walkingArea = myParentJunction->getNBNode()->getWalkingArea(getID());
+    if (key == SUMO_ATTR_ID) {
+        // for security purposes, avoid get WalkingArea if we want only the ID
+        return getMicrosimID();
+    }
+    const auto &walkingArea = myParentJunction->getNBNode()->getWalkingArea(getMicrosimID());
     switch (key) {
-        case SUMO_ATTR_ID:
-            return walkingArea.id;
         case SUMO_ATTR_WIDTH:
             return toString(walkingArea.width);
         case SUMO_ATTR_LENGTH:

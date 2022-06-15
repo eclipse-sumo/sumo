@@ -208,7 +208,7 @@ GNEEdgeType::getAttribute(SumoXMLAttr key) const {
     const OptionsCont& oc = OptionsCont::getOptions();
     switch (key) {
         case SUMO_ATTR_ID:
-            return getID();
+            return getMicrosimID();
         case SUMO_ATTR_NUMLANES:
             return toString(myLaneTypes.size());
         case SUMO_ATTR_SPEED:

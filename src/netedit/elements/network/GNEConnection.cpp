@@ -470,7 +470,7 @@ GNEConnection::getAttribute(SumoXMLAttr key) const {
     if (key == SUMO_ATTR_ID) {
         // used by GNEReferenceCounter
         // @note: may be called for connections without a valid nbCon reference
-        return getID();
+        return getMicrosimID();
     }
     const NBEdge::Connection& nbCon = getNBEdgeConnection();
     switch (key) {

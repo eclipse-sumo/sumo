@@ -69,12 +69,6 @@ GNEEdgeTemplate::updateLaneTemplates() {
 }
 
 
-const std::string&
-GNEEdgeTemplate::getID() const {
-    return myEdge->getID();
-}
-
-
 GUIGlObject*
 GNEEdgeTemplate::getGUIGlObject() {
     return nullptr;

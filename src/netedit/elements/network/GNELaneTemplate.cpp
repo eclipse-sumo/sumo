@@ -43,12 +43,6 @@ GNELaneTemplate::getHierarchicalElement() {
 }
 
 
-const std::string&
-GNELaneTemplate::getID() const {
-    return myLane->getID();
-}
-
-
 GUIGlObject*
 GNELaneTemplate::getGUIGlObject() {
     return nullptr;

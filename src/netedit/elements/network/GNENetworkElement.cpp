@@ -44,12 +44,6 @@ GNENetworkElement::GNENetworkElement(GNENet* net, const std::string& id, GUIGlOb
 GNENetworkElement::~GNENetworkElement() {}
 
 
-const std::string&
-GNENetworkElement::getID() const {
-    return getMicrosimID();
-}
-
-
 GUIGlObject*
 GNENetworkElement::getGUIGlObject() {
     return this;

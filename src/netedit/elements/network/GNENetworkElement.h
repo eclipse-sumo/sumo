@@ -69,9 +69,6 @@ public:
     */
     virtual GNEMoveOperation* getMoveOperation() = 0;
 
-    /// @brief get ID
-    const std::string& getID() const;
-
     /// @brief get GUIGlObject associated with this AttributeCarrier
     GUIGlObject* getGUIGlObject();
 
