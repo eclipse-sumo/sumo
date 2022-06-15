@@ -49,8 +49,11 @@ public:
         /// @brief destructor
         virtual ~Argument();
 
-        /// get argument (parameter and value)
+        /// @brief get argument (parameter and value)
         virtual std::string getArgument() const = 0;
+
+        /// @brief reset argument values
+        virtual void resetValues() = 0;
 
     protected:
         /// pointer to toolDialog parent
@@ -82,6 +85,9 @@ public:
 
         /// get argument (parameter and value)
         std::string getArgument() const;
+
+        /// @brief reset argument values
+        void resetValues();
 
     private:
         /// @brief Invalidated copy constructor.

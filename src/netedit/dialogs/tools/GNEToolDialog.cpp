@@ -52,7 +52,7 @@ GNEToolDialog::GNEToolDialog(GNEApplicationWindow* GNEApp, const std::string &na
     FXTopWindow(GNEApp->getApp(), name.c_str(), GUIIconSubSys::getIcon(GUIIcon::EMPTY), GUIIconSubSys::getIcon(GUIIcon::EMPTY), GUIDesignDialogBoxExplicit(dialogWidth, dialogHeight)),
     myGNEApp(GNEApp) {
     // build horizontalFrame for content
-    myContentFrame = new FXVerticalFrame(this, GUIDesignVerticalFrame);
+    myContentFrame = new FXVerticalFrame(this, GUIDesignAuxiliarFrame);
 }
 
 

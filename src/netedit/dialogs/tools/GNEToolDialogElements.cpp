@@ -21,6 +21,7 @@
 
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/images/GUIIconSubSys.h>
+#include <utils/gui/windows/GUIAppEnum.h>
 
 #include "GNEToolDialogElements.h"
 #include "GNEToolDialog.h"
@@ -46,17 +47,25 @@ GNEToolDialogElements::Argument::Argument() {}
 
 
 GNEToolDialogElements::FileNameArgument::FileNameArgument(FXComposite *parent, GNEToolDialog *toolDialogParent, const std::string name, const std::string parameter) :
-    FXVerticalFrame(parent, GUIDesignAuxiliarVerticalFrame),
+    FXVerticalFrame(parent, GUIDesignAuxiliarHorizontalFrame),
     Argument(toolDialogParent, name, parameter) {
-    // Create Button Close (And two more horizontal frames to center it)
+    new FXLabel(this, parameter.empty()? name.c_str() : (name + " (" + parameter + ")").c_str(),nullptr, GUIDesignLabelLeftThick);
+    // Create Open button
     auto horizontalFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
-    new FXButton(horizontalFrame, "OK\t\tclose", GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, FXDialogBox::ID_ACCEPT, GUIDesignButtonOK);
+    new FXButton(horizontalFrame, "\t\tSelectFilename", GUIIconSubSys::getIcon(GUIIcon::OPEN_NET), this, FXDialogBox::ID_ACCEPT, GUIDesignButtonIcon);
+    new FXTextField(horizontalFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
 }
 
 
 std::string 
 GNEToolDialogElements::FileNameArgument::getArgument() const {
     return "";
+}
+
+
+void
+GNEToolDialogElements::FileNameArgument::resetValues() {
+
 }
 
 /****************************************************************************/
