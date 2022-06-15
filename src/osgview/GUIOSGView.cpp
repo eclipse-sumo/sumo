@@ -61,6 +61,7 @@
 #include <utils/gui/windows/GUIDialog_ViewSettings.h>
 #include <utils/gui/windows/GUIPerspectiveChanger.h>
 #include <utils/gui/windows/GUISUMOAbstractView.h>
+#include <utils/geom/GeoConvHelper.h>
 
 #include "GUIOSGBuilder.h"
 #include "GUIOSGView.h"
@@ -129,7 +130,8 @@ GUIOSGView::GUIOSGView(
     GUINet& net, FXGLVisual* glVis,
     FXGLCanvas* share) :
     GUISUMOAbstractView(p, app, parent, net.getVisualisationSpeedUp(), glVis, share),
-    myTracked(0), myCameraManipulator(new SUMOTerrainManipulator()), myLastUpdate(-1) {
+    myTracked(0), myCameraManipulator(new SUMOTerrainManipulator()), myLastUpdate(-1), 
+	myOSGNormalizedCursorX(0.), myOSGNormalizedCursorY(0.) {
 
     //FXGLVisual* glVisual=new FXGLVisual(getApp(),VISUAL_DOUBLEBUFFER|VISUAL_STEREO);
 
@@ -728,7 +730,8 @@ GUIOSGView::onMouseMove(FXObject* sender, FXSelector sel, void* ptr) {
 	}
 
     FXEvent* event = (FXEvent*)ptr;
-    myAdapter->getEventQueue()->mouseMotion((float)event->win_x, (float)event->win_y);
+    osgGA::GUIEventAdapter* ea = myAdapter->getEventQueue()->mouseMotion((float)event->win_x, (float)event->win_y);
+	setWindowCursorPosition(ea->getXnormalized(), ea->getYnormalized());
 
     if (myViewportChooser != nullptr && myViewportChooser->shown()) {
         osg::Vec3d lookFrom, lookAt, up;
@@ -747,6 +750,13 @@ GUIOSGView::OnIdle(FXObject* /* sender */, FXSelector /* sel */, void*) {
     update();
     getApp()->addChore(this, MID_CHORE);
     return 1;
+}
+
+
+void
+GUIOSGView::setWindowCursorPosition(float x, float y) {
+	myOSGNormalizedCursorX = x;
+	myOSGNormalizedCursorY = y;
 }
 
 
@@ -769,9 +779,46 @@ GUIOSGView::calculateRotation(const osg::Vec3d& lookFrom, const osg::Vec3d& look
 
 void 
 GUIOSGView::updatePositionInformation() const {
-	// set placeholder
-	myApp->getCartesianLabel()->setText("N/A");
-	myApp->getGeoLabel()->setText("N/A");
+	Position pos;
+	if (getPositionAtCursor(myOSGNormalizedCursorX, myOSGNormalizedCursorY, pos)) {
+		myApp->getCartesianLabel()->setText(("x:" + toString(pos.x()) + ", y:" + toString(pos.y())).c_str());
+		// set geo position
+		GeoConvHelper::getFinal().cartesian2geo(pos);
+		if (GeoConvHelper::getFinal().usingGeoProjection()) {
+			myApp->getGeoLabel()->setText(("lat:" + toString(pos.y(), gPrecisionGeo) + ", lon:" + toString(pos.x(), gPrecisionGeo)).c_str());
+		}
+		else {
+			myApp->getGeoLabel()->setText(("x:" + toString(pos.x()) + ", y:" + toString(pos.y()) + " (No projection defined)").c_str());
+		}
+	}
+	else {
+		// set placeholder
+		myApp->getCartesianLabel()->setText("N/A");
+		myApp->getGeoLabel()->setText("N/A");
+	}
+}
+
+
+bool 
+GUIOSGView::getPositionAtCursor(float xNorm, float yNorm, Position& pos) const {
+	// only reasonable if view axis points to the ground (not parallel to the ground or in the sky)
+	osg::Vec3d lookFrom, lookAt, up, viewAxis;
+	myCameraManipulator->getInverseMatrix().getLookAt(lookFrom, lookAt, up);
+	if ((lookAt - lookFrom).z() >= 0.) {
+		// looking to the sky makes position at ground pointless
+		return false;
+	}
+
+	// solve linear equation of ray crossing the ground plane
+	osg::Matrixd iVP = osg::Matrixd::inverse(myViewer->getCamera()->getViewMatrix() * myViewer->getCamera()->getProjectionMatrix());
+	osg::Vec3 nearPoint = osg::Vec3(xNorm, yNorm, 0.0f) * iVP;
+	osg::Vec3 farPoint = osg::Vec3(xNorm, yNorm, 1.0f) * iVP;
+	osg::Vec3 ray = farPoint - nearPoint;
+	osg::Vec3 groundPos = nearPoint - ray * nearPoint.z() / ray.z();
+	pos.setx(groundPos.x());
+	pos.sety(groundPos.y());
+	pos.setz(0.);
+	return true;
 }
 
 

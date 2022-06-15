@@ -194,7 +194,13 @@ public:
     long OnIdle(FXObject* sender, FXSelector sel, void* ptr);
 
 protected:
+	/// @brief Store the normalized OSG window cursor coordinates
+	void setWindowCursorPosition(float x, float y);
+
 	void updatePositionInformation() const;
+
+	/// @brief Compute the world coordinate on the ground plane given the normalized cursor position inside the OSG view (range X, Y [-1;1])
+	bool getPositionAtCursor(float xNorm, float yNorm, Position& pos) const;
 
 private:
     double calculateRotation(const osg::Vec3d& lookFrom, const osg::Vec3d& lookAt, const osg::Vec3d& up);
@@ -251,17 +257,19 @@ private:
 
 	class PickHandler : public osgGA::GUIEventHandler {
 	public:
-		PickHandler(GUISUMOAbstractView* parent) : myParent(parent) {};
+		PickHandler(GUIOSGView* parent) : myParent(parent) {};
 		bool handle(const osgGA::GUIEventAdapter& ea, osgGA::GUIActionAdapter& aa);
 		virtual void pick(osgViewer::View* view, const osgGA::GUIEventAdapter& ea);
 	protected:
 		~PickHandler() {};
 	private:
-		GUISUMOAbstractView* const myParent;
+		GUIOSGView* const myParent;
 	};
 
 protected:
     GUIOSGView() {}
+
+	float myOSGNormalizedCursorX, myOSGNormalizedCursorY;
 
     osg::ref_ptr<FXOSGAdapter> myAdapter;
     osg::ref_ptr<osgViewer::Viewer> myViewer;
