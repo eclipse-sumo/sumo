@@ -205,6 +205,14 @@ protected:
 	/// @brief Compute the world coordinate on the ground plane given the normalized cursor position inside the OSG view (range X, Y [-1;1])
 	bool getPositionAtCursor(float xNorm, float yNorm, Position& pos) const;
 
+	/// @brief returns the GUIGlObject under the cursor using OSG ray intersecting
+	std::vector<GUIGlObject*> getGUIGlObjectsUnderCursor();
+
+	/* @brief Find GUILane which intersects with a ray from the camera to the stored cursor position
+	 * @return The first found GUILane found or nullptr
+	 */
+	GUILane* getLaneUnderCursor();
+
 private:
     double calculateRotation(const osg::Vec3d& lookFrom, const osg::Vec3d& lookAt, const osg::Vec3d& up);
 
@@ -262,7 +270,6 @@ private:
 	public:
 		PickHandler(GUIOSGView* parent) : myParent(parent) {};
 		bool handle(const osgGA::GUIEventAdapter& ea, osgGA::GUIActionAdapter& aa);
-		virtual void pick(osgViewer::View* view, const osgGA::GUIEventAdapter& ea);
 	protected:
 		~PickHandler() {};
 	private:

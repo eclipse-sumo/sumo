@@ -69,7 +69,7 @@
 
 FXDEFMAP(GUIOSGView) GUIOSGView_Map[] = {
     //________Message_Type_________        ___ID___                        ________Message_Handler________
-    FXMAPFUNC(SEL_CHORE,                MID_CHORE,        GUIOSGView::OnIdle)
+    FXMAPFUNC(SEL_CHORE,                MID_CHORE,			GUIOSGView::OnIdle),
 };
 FXIMPLEMENT(GUIOSGView, GUISUMOAbstractView, GUIOSGView_Map, ARRAYNUMBER(GUIOSGView_Map))
 
@@ -816,7 +816,6 @@ GUIOSGView::getPositionAtCursor(float xNorm, float yNorm, Position& pos) const {
 		// looking to the sky makes position at ground pointless
 		return false;
 	}
-
 	// solve linear equation of ray crossing the ground plane
 	osg::Matrixd iVP = osg::Matrixd::inverse(myViewer->getCamera()->getViewMatrix() * myViewer->getCamera()->getProjectionMatrix());
 	osg::Vec3 nearPoint = osg::Vec3(xNorm, yNorm, 0.0f) * iVP;
@@ -827,6 +826,48 @@ GUIOSGView::getPositionAtCursor(float xNorm, float yNorm, Position& pos) const {
 	pos.sety(groundPos.y());
 	pos.setz(0.);
 	return true;
+}
+
+
+std::vector<GUIGlObject*> 
+GUIOSGView::getGUIGlObjectsUnderCursor() {
+	std::vector<GUIGlObject*> result;
+	osgUtil::LineSegmentIntersector::Intersections intersections;
+	if (myViewer->computeIntersections(myViewer->getCamera(), osgUtil::Intersector::CoordinateFrame::PROJECTION, myOSGNormalizedCursorX, myOSGNormalizedCursorY, intersections)) {
+		for (auto intersection : intersections) {
+			if (!intersection.nodePath.empty()) {
+				// the object is identified by the ID stored in OSG
+				for (osg::Node* currentNode : intersection.nodePath) {
+					if (currentNode->getName().length() > 0 && currentNode->getName().find(":") != std::string::npos) {
+						const std::string objID = currentNode->getName();
+						GUIGlObject* o = GUIGlObjectStorage::gIDStorage.getObjectBlocking(objID);
+						// check that GUIGlObject exist
+						if (o == nullptr) {
+							continue;
+						}
+						// check that GUIGlObject isn't the network
+						if (o->getGlID() == 0) {
+							continue;
+						}
+						result.push_back(o);
+						// unblock object
+						GUIGlObjectStorage::gIDStorage.unblockObject(o->getGlID());
+					}
+				}
+			}
+		}
+	}
+	return result;
+}
+
+
+GUILane* 
+GUIOSGView::getLaneUnderCursor() {
+	std::vector<GUIGlObject*> objects = getGUIGlObjectsUnderCursor();
+	if (objects.size() > 0) {
+		return dynamic_cast<GUILane*>(objects[0]);
+	}
+	return nullptr;
 }
 
 
@@ -892,36 +933,17 @@ void GUIOSGView::FXOSGAdapter::swapBuffersImplementation() {
 
 bool GUIOSGView::PickHandler::handle(const osgGA::GUIEventAdapter& ea, osgGA::GUIActionAdapter& aa) {
 	if (ea.getEventType() == osgGA::GUIEventAdapter::RELEASE && ea.getButton() == osgGA::GUIEventAdapter::RIGHT_MOUSE_BUTTON) {
-		osgViewer::View* view = dynamic_cast<osgViewer::View*>(&aa);
-		if (view) pick(view, ea);
+		std::vector<GUIGlObject*> objects = myParent->getGUIGlObjectsUnderCursor();
+		if (objects.size() > 0) {
+			if (myParent->makeCurrent()) {
+				myParent->openObjectDialog(objects[0]);
+				myParent->makeNonCurrent();
+			}
+		}
 	}
 	return false;
 }
 
-
-void GUIOSGView::PickHandler::pick(osgViewer::View* view, const osgGA::GUIEventAdapter& ea) {
-	osgUtil::LineSegmentIntersector::Intersections intersections;
-	if (view->computeIntersections(ea, intersections))	{
-		for (auto intersection : intersections) {
-			if (!intersection.nodePath.empty()) {
-				// the object is identified by the ID stored in OSG
-				for (osg::Node* currentNode : intersection.nodePath) {
-					if(currentNode->getName().length() > 0 && currentNode->getName().find(":") != std::string::npos) {
-						const std::string vehID = currentNode->getName();
-						if (myParent->makeCurrent()) {
-							GUIGlObject* obj = GUIGlObjectStorage::gIDStorage.getObjectBlocking(vehID);
-							if (obj != nullptr) {
-								myParent->openObjectDialog(obj);
-							}
-							myParent->makeNonCurrent();
-						}
-						return;
-					}
-				}
-			}
-		}
-	}
-}
 
 #endif
 

@@ -56,6 +56,7 @@ class GUIGlObject;
 class GUIDialog_EditViewport;
 class GUIDialog_ViewSettings;
 class GUIVisualizationSettings;
+class GUILane;
 
 
 // ===========================================================================
@@ -163,6 +164,14 @@ public:
     virtual long onKeyPress(FXObject* o, FXSelector sel, void* data);
     virtual long onKeyRelease(FXObject* o, FXSelector sel, void* data);
     //@}
+
+	/// @brief interaction with the simulation
+	long onCmdCloseLane(FXObject*, FXSelector, void*);
+	long onCmdCloseEdge(FXObject*, FXSelector, void*);
+	long onCmdAddRerouter(FXObject*, FXSelector, void*);
+
+	/// @brief highlight edges according to reachability
+	long onCmdShowReachability(FXObject*, FXSelector, void*);
 
     /// @brief open object dialog at the cursor position
     virtual void openObjectDialogAtCursor();
@@ -420,6 +429,9 @@ protected:
 
     /// @brief Draws frames-per-second indicator
     void drawFPS();
+
+	/// @brief returns the GUILane at cursor position (implementation depends on view)
+	virtual GUILane* getLaneUnderCursor();
 
     /// @brief returns the id of the front object under the cursor using GL_SELECT
     GUIGlID getObjectUnderCursor();

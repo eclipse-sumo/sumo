@@ -50,7 +50,6 @@ class MSRoute;
  * Microsocopic view at the simulation
  */
 class GUIViewTraffic : public GUISUMOAbstractView {
-    FXDECLARE(GUIViewTraffic)
 public:
     /// @brief constructor
     GUIViewTraffic(FXComposite* p, GUIMainWindow& app,
@@ -106,14 +105,6 @@ public:
 
     /// @brief get the current simulation time
     SUMOTime getCurrentTimeStep() const;
-
-    /// @brief interaction with the simulation
-    long onCmdCloseLane(FXObject*, FXSelector, void*);
-    long onCmdCloseEdge(FXObject*, FXSelector, void*);
-    long onCmdAddRerouter(FXObject*, FXSelector, void*);
-
-    /// @brief highlight edges according to reachability
-    long onCmdShowReachability(FXObject*, FXSelector, void*);
 
     long onDoubleClicked(FXObject*, FXSelector, void*);
 
