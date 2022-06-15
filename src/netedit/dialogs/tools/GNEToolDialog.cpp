@@ -51,6 +51,8 @@ FXIMPLEMENT(GNEToolDialog, FXTopWindow, GNEToolDialogMap, ARRAYNUMBER(GNEToolDia
 GNEToolDialog::GNEToolDialog(GNEApplicationWindow* GNEApp, const std::string &name, const int dialogWidth, const int dialogHeight) :
     FXTopWindow(GNEApp->getApp(), name.c_str(), GUIIconSubSys::getIcon(GUIIcon::EMPTY), GUIIconSubSys::getIcon(GUIIcon::EMPTY), GUIDesignDialogBoxExplicit(dialogWidth, dialogHeight)),
     myGNEApp(GNEApp) {
+    // build horizontalFrame for content
+    myContentFrame = new FXVerticalFrame(this, GUIDesignVerticalFrame);
 }
 
 
@@ -83,8 +85,8 @@ GNEToolDialog::shown() const {
 
 
 void
-GNEToolDialog::setFocus() {
-    FXWindow::setFocus();
+GNEToolDialog::addArgument(const GNEToolDialogElements::Argument *argument) {
+    myArguments.push_back(argument);
 }
 
 

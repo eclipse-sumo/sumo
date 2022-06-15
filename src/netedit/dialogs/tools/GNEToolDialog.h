@@ -20,9 +20,7 @@
 #pragma once
 #include <config.h>
 
-#include <fx.h>
-#include <string>
-
+#include "GNEToolDialogElements.h"
 
 // ===========================================================================
 // class declarations
@@ -59,8 +57,8 @@ public:
     /// @brief shown
     bool shown() const;
 
-    /// @brief Move the focus to this window
-    void setFocus();
+    /// @brief add argument
+    void addArgument(const GNEToolDialogElements::Argument *argument);
 
     /// @name FOX-callbacks
     /// @{
@@ -79,7 +77,13 @@ protected:
     /// @brief pointer to GNEApplicationWindow
     GNEApplicationWindow* myGNEApp;
 
+    /// @brief vertical frame for contents
+    FXVerticalFrame *myContentFrame = nullptr;
+
 private:
+    /// @brief list of arguments
+    std::vector<const GNEToolDialogElements::Argument*> myArguments;
+
     /// @brief Invalidated copy constructor.
     GNEToolDialog(const GNEToolDialog&) = delete;
 
