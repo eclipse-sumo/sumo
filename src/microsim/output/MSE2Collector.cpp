@@ -631,7 +631,15 @@ MSE2Collector::notifyMove(SUMOTrafficObject& veh, double oldPos,
     ScopedLocker<> lock(myNotificationMutex, MSGlobals::gNumSimThreads > 1);
 #endif
     VehicleInfoMap::iterator vi = myVehicleInfos.find(veh.getID());
-    assert(vi != myVehicleInfos.end()); // all vehicles calling notifyMove() should have called notifyEnter() before
+    if (vi == myVehicleInfos.end()) {
+        const std::string objectType = veh.isPerson() ? "Person" : "Vehicle";
+        if (myNextEdges.size() > 0) {
+            WRITE_WARNING(objectType + " '" + veh.getID() + "' appeared inside detector '" + getID() + "' after previously being filtered out. time=" + time2string(SIMSTEP) + ".");
+        } else {
+            WRITE_WARNING(objectType + " '" + veh.getID() + "' suddenly appeared inside detector '" + getID() + "'. time=" + time2string(SIMSTEP) + ".");
+        }
+        return false;
+    }
 
     const std::string& vehID = veh.getID();
     VehicleInfo& vehInfo = *(vi->second);
