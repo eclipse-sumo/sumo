@@ -124,6 +124,9 @@ public:
     /// @brief destructor
     virtual ~GUIOSGView();
 
+	/// @brief Returns the cursor's x/y position within the network
+	Position getPositionInformation() const;
+
     /// @brief recalculate boundaries
     void recalculateBoundaries();
 

@@ -190,6 +190,14 @@ GUIOSGView::~GUIOSGView() {
 }
 
 
+Position 
+GUIOSGView::getPositionInformation() const {
+	Position pos;
+	getPositionAtCursor(myOSGNormalizedCursorX, myOSGNormalizedCursorY, pos);
+	return pos;
+}
+
+
 void
 GUIOSGView::recalculateBoundaries() {
     // nothing to recalculate

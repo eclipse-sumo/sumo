@@ -363,7 +363,7 @@ public:
     FXComboBox* getColoringSchemesCombo();
 
     /// @brief Returns the cursor's x/y position within the network
-    Position getPositionInformation() const;
+    virtual Position getPositionInformation() const;
 
     /**@brief Returns a position that is mapped to the closest grid point if the grid is active
      * @brief note: formats are pos(x,y,0) por pos(0,0,z)
