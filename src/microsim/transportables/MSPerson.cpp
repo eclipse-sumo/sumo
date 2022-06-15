@@ -352,6 +352,13 @@ MSPerson::MSPersonStage_Walking::moveToNextEdge(MSTransportable* person, SUMOTim
     }
 }
 
+
+int
+MSPerson::MSPersonStage_Walking::getRoutePosition() const {
+    return myRouteStep - myRoute.begin();
+}
+
+
 double
 MSPerson::MSPersonStage_Walking::getMaxSpeed(const MSTransportable* const person) const {
     return mySpeed >= 0 ? mySpeed : person->getVehicleType().getMaxSpeed() * person->getSpeedFactor();

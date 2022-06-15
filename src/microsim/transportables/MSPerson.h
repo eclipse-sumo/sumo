@@ -90,6 +90,9 @@ public:
             return walkDistance();
         }
 
+        /// @brief return index of current edge within route
+        int getRoutePosition() const;
+
         std::string getStageDescription(const bool isPerson) const {
             UNUSED_PARAMETER(isPerson);
             return "walking";
