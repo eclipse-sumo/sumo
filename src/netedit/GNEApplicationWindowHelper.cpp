@@ -1628,7 +1628,7 @@ void
 GNEApplicationWindowHelper::ToolsMenuCommands::buildToolsMenuCommands(FXMenuPane* locateMenu) {
     // build locate menu commands
     GUIDesigns::buildFXMenuCommandShortcut(locateMenu,
-                                           "&NetDiff", "", "Execute NETDIFF.",
+                                           "&NetDiff", "", "Execute NetDiff.",
                                            GUIIconSubSys::getIcon(GUIIcon::TOOL_NETDIFF), myGNEApp, MID_GNE_TOOLBARTOOLS_NETDIFF);
 }
 

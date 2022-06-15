@@ -40,6 +40,8 @@ GNEToolNetDiff::GNEToolNetDiff(GNEApplicationWindow* GNEApp) :
     // build filenames
     new GNEToolDialogElements::FileNameArgument(myContentFrame, this, "source", "");
     new GNEToolDialogElements::FileNameArgument(myContentFrame, this, "destiny", "");
+    // open as modal dialog
+    openAsModalDialog();
 }
 
 

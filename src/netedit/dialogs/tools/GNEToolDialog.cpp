@@ -103,4 +103,17 @@ GNEToolDialog::onCmdUpdate(FXObject*, FXSelector, void*) {
     return 0;
 }
 
+
+FXint
+GNEToolDialog::openAsModalDialog(FXuint placement) {
+    // create Dialog
+    create();
+    // show in the given position
+    show(placement);
+    // refresh APP
+    getApp()->refresh();
+    // open as modal dialog (will block all windows until stop() or stopModal() is called)
+    return getApp()->runModalFor(this);
+}
+
 /****************************************************************************/

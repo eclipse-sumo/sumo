@@ -80,6 +80,9 @@ protected:
     /// @brief vertical frame for contents
     FXVerticalFrame *myContentFrame = nullptr;
 
+    /// @brief execute dialog as modal
+    FXint openAsModalDialog(FXuint placement = PLACEMENT_CURSOR);
+
 private:
     /// @brief list of arguments
     std::vector<const GNEToolDialogElements::Argument*> myArguments;

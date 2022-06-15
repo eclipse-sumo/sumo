@@ -20,6 +20,7 @@
 #include <netbuild/NBFrame.h>
 #include <netedit/dialogs/GNEAbout.h>
 #include <netedit/dialogs/GNEUndoListDialog.h>
+#include <netedit/dialogs/tools/GNEToolNetDiff.h>
 #include <netedit/elements/network/GNEEdgeType.h>
 #include <netedit/elements/network/GNELaneType.h>
 #include <netedit/elements/GNEGeneralHandler.h>
@@ -327,7 +328,7 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,   MID_LOCATEPOLY,         GNEApplicationWindow::onUpdNeedsNetwork),
 
     // toolbar tools
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARTOOLS_NETDIFF,   GNEApplicationWindow::onCmdRunNetDiff),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARTOOLS_NETDIFF,   GNEApplicationWindow::onCmdToolNetDiff),
     FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARTOOLS_NETDIFF,   GNEApplicationWindow::onUpdNeedsNetwork),
 
     // toolbar windows
@@ -948,7 +949,11 @@ GNEApplicationWindow::onCmdLocate(FXObject*, FXSelector sel, void*) {
 
 
 long
-GNEApplicationWindow::onCmdRunNetDiff(FXObject*, FXSelector, void*) {
+GNEApplicationWindow::onCmdToolNetDiff(FXObject*, FXSelector, void*) {
+    // open a NetDiff tool dialog
+    GNEToolNetDiff(this);
+
+/*
     OptionsCont& oc = OptionsCont::getOptions();
     // check that currently there is a View
     if (myViewNet == nullptr) {
@@ -1016,6 +1021,7 @@ GNEApplicationWindow::onCmdRunNetDiff(FXObject*, FXSelector, void*) {
         // yay! fun with dangerous commands... Never use this over the internet
         SysUtils::runHiddenCommand(cmd);
     }
+    */
     return 1;
 }
 
