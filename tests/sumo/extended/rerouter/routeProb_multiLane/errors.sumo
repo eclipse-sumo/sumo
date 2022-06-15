@@ -1,0 +1,37 @@
+Warning: Teleporting vehicle 'v.33'; waited too long (wrong lane), lane='SC_2', time=360.00.
+Warning: Vehicle 'v.33' ends teleporting on edge 'CE', time=360.00.
+Warning: Teleporting vehicle 'v.28'; waited too long (wrong lane), lane='SC_1', time=366.00.
+Warning: Vehicle 'v.28' ends teleporting on edge 'CW', time=366.00.
+Warning: Teleporting vehicle 'v.69'; waited too long (wrong lane), lane='SC_0', time=711.00.
+Warning: Vehicle 'v.69' ends teleporting on edge 'CN', time=711.00.
+Warning: Teleporting vehicle 'v.72'; waited too long (jam), lane='SC_0', time=712.00.
+Warning: Vehicle 'v.72' ends teleporting on edge 'CE', time=712.00.
+Warning: Teleporting vehicle 'v.190'; waited too long (wrong lane), lane='SC_1', time=1186.00.
+Warning: Vehicle 'v.190' ends teleporting on edge 'CW', time=1186.00.
+Warning: Teleporting vehicle 'v.210'; waited too long (wrong lane), lane='SC_1', time=1509.00.
+Warning: Vehicle 'v.210' ends teleporting on edge 'CW', time=1509.00.
+Warning: Vehicle 'v.301'; collision with vehicle 'v.312', lane='SC_1', gap=-0.50, time=1651.00 stage=move.
+Warning: Teleporting vehicle 'v.312'; waited too long (wrong lane), lane='SC_1', time=1959.00.
+Warning: Vehicle 'v.312' ends teleporting on edge 'CW', time=1959.00.
+Warning: Teleporting vehicle 'v.314'; waited too long (wrong lane), lane='SC_0', time=1962.00.
+Warning: Vehicle 'v.314' ends teleporting on edge 'CW', time=1962.00.
+Warning: Teleporting vehicle 'v.316'; waited too long (wrong lane), lane='SC_0', time=2264.00.
+Warning: Vehicle 'v.316' ends teleporting on edge 'CW', time=2264.00.
+Warning: Teleporting vehicle 'v.343'; waited too long (wrong lane), lane='SC_1', time=2604.00.
+Warning: Vehicle 'v.343' ends teleporting on edge 'CW', time=2604.00.
+Warning: Teleporting vehicle 'v.360'; waited too long (wrong lane), lane='SC_1', time=2930.00.
+Warning: Vehicle 'v.360' ends teleporting on edge 'CE', time=2930.00.
+Warning: Teleporting vehicle 'v.363'; waited too long (wrong lane), lane='SC_0', time=3232.00.
+Warning: Vehicle 'v.363' ends teleporting on edge 'CN', time=3232.00.
+Warning: Teleporting vehicle 'v.372'; waited too long (wrong lane), lane='SC_0', time=3540.00.
+Warning: Vehicle 'v.372' ends teleporting on edge 'CN', time=3540.00.
+Warning: Teleporting vehicle 'v.383'; waited too long (wrong lane), lane='SC_0', time=3542.00.
+Warning: Vehicle 'v.383' ends teleporting on edge 'CN', time=3542.00.
+Warning: Teleporting vehicle 'v.375'; waited too long (wrong lane), lane='SC_0', time=3550.00.
+Warning: Vehicle 'v.375' ends teleporting on edge 'CN', time=3550.00.
+Warning: Teleporting vehicle 'v.410'; waited too long (wrong lane), lane='SC_1', time=3881.00.
+Warning: Vehicle 'v.410' ends teleporting on edge 'CE', time=3881.00.
+Warning: Teleporting vehicle 'v.407'; waited too long (wrong lane), lane='SC_0', time=4207.00.
+Warning: Vehicle 'v.407' ends teleporting on edge 'CW', time=4207.00.
+Warning: Teleporting vehicle 'v.428'; waited too long (wrong lane), lane='SC_1', time=4517.00.
+Warning: Vehicle 'v.428' ends teleporting on edge 'CW', time=4517.00.
