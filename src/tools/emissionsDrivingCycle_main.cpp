@@ -131,6 +131,9 @@ main(int argc, char** argv) {
     oc.addDescription("sum-output", "Output", "Save the aggregated and normed emission values of each vehicle in CSV");
 
     oc.addOptionSubTopic("Emissions");
+    oc.doRegister("emissions.volumetric-fuel", new Option_Bool(false));
+    oc.addDescription("emissions.volumetric-fuel", "Emissions", "Return fuel consumption values in (legacy) unit l instead of mg");
+
     oc.doRegister("phemlight-path", new Option_FileName(StringVector({ "./PHEMlight/" })));
     oc.addDescription("phemlight-path", "Emissions", "Determines where to load PHEMlight definitions from");
 

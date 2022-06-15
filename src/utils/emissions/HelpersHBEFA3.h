@@ -102,7 +102,7 @@ public:
         }
         const int index = (c & ~PollutantsInterface::HEAVY_BIT) - HBEFA3_BASE;
         double scale = 3.6;
-        if (e == PollutantsInterface::FUEL) {
+        if (e == PollutantsInterface::FUEL && myVolumetricFuel) {
             if (getFuel(c) == "Diesel") {
                 scale *= 836.;
             } else {

@@ -55,6 +55,9 @@ ROFrame::fillOptions(OptionsCont& oc, const bool isDUA, const bool isMA) {
     oc.doRegister("keep-vtype-distributions", new Option_Bool(false));
     oc.addDescription("keep-vtype-distributions", "Output", "Keep vTypeDistribution ids when writing vehicles and their types");
 
+    oc.doRegister("emissions.volumetric-fuel", new Option_Bool(false));
+    oc.addDescription("emissions.volumetric-fuel", "Output", "Return fuel consumption values in (legacy) unit l instead of mg");
+
     oc.doRegister("net-file", 'n', new Option_FileName());
     oc.addSynonyme("net-file", "net");
     oc.addDescription("net-file", "Input", "Use FILE as SUMO-network to route on");

@@ -25,10 +25,12 @@
 #include <utils/common/SUMOVehicleClass.h>
 #include <utils/common/StringUtils.h>
 #include <utils/common/ToString.h>
+#include <utils/options/OptionsCont.h>
 #include <foreign/PHEMlight/V5/cpp/Constants.h>
 
 #include "HelpersHBEFA.h"
 #include "HelpersHBEFA3.h"
+#include "HelpersHBEFA4.h"
 #include "HelpersPHEMlight.h"
 #include "HelpersEnergy.h"
 #include "HelpersMMPEVEM.h"
@@ -47,11 +49,13 @@ HelpersPHEMlight PollutantsInterface::myPHEMlightHelper;
 HelpersEnergy PollutantsInterface::myEnergyHelper;
 HelpersMMPEVEM PollutantsInterface::myMMPEVEMHelper;
 HelpersPHEMlight5 PollutantsInterface::myPHEMlight5Helper;
+HelpersHBEFA4 PollutantsInterface::myHBEFA4Helper;
 PollutantsInterface::Helper* PollutantsInterface::myHelpers[] = {
     &PollutantsInterface::myZeroHelper,
     &PollutantsInterface::myHBEFA2Helper, &PollutantsInterface::myHBEFA3Helper,
     &PollutantsInterface::myPHEMlightHelper, &PollutantsInterface::myEnergyHelper,
-    &PollutantsInterface::myMMPEVEMHelper, &PollutantsInterface::myPHEMlight5Helper
+    &PollutantsInterface::myMMPEVEMHelper, &PollutantsInterface::myPHEMlight5Helper,
+    &PollutantsInterface::myHBEFA4Helper
 };
 std::vector<std::string> PollutantsInterface::myAllClassesStr;
 
@@ -108,6 +112,7 @@ std::string& PollutantsInterface::Helper::getName() const {
 SUMOEmissionClass
 PollutantsInterface::Helper::getClassByName(const std::string& eClass, const SUMOVehicleClass vc) {
     UNUSED_PARAMETER(vc);
+    myVolumetricFuel = OptionsCont::getOptions().exists("emissions.volumetric-fuel") && OptionsCont::getOptions().getBool("emissions.volumetric-fuel");
     if (myEmissionClassStrings.hasString(eClass)) {
         return myEmissionClassStrings.get(eClass);
     }
@@ -223,7 +228,7 @@ SUMOEmissionClass
 PollutantsInterface::getClassByName(const std::string& eClass, const SUMOVehicleClass vc) {
     const std::string::size_type sep = eClass.find("/");
     const std::string model = eClass.substr(0, sep); // this includes the case of no separator
-    for (int i = 0; i < 7; i++) {
+    for (int i = 0; i < 8; i++) {
         if (myHelpers[i]->getName() == model) {
             if (sep != std::string::npos) {
                 const std::string subClass = eClass.substr(sep + 1);
@@ -249,7 +254,7 @@ PollutantsInterface::getClassByName(const std::string& eClass, const SUMOVehicle
 const std::vector<SUMOEmissionClass>
 PollutantsInterface::getAllClasses() {
     std::vector<SUMOEmissionClass> result;
-    for (int i = 0; i < 6; i++) {
+    for (int i = 0; i < 8; i++) {
         myHelpers[i]->addAllClassesInto(result);
     }
     return result;
@@ -262,7 +267,7 @@ PollutantsInterface::getAllClassesStr() {
     if (myAllClassesStr.empty()) {
         // first obtain all emissionClasses
         std::vector<SUMOEmissionClass> emissionClasses;
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < 8; i++) {
             myHelpers[i]->addAllClassesInto(emissionClasses);
         }
         // now write all emissionClasses in myAllClassesStr

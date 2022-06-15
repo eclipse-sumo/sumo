@@ -56,6 +56,7 @@ HelpersPHEMlight5::getClassByName(const std::string& eClass, const SUMOVehicleCl
         throw InvalidArgument("Unknown emission class '" + eClass + "'.");
     }
     const OptionsCont& oc = OptionsCont::getOptions();
+    myVolumetricFuel = oc.getBool("emissions.volumetric-fuel");
     std::vector<std::string> phemPath;
     phemPath.push_back(oc.getString("phemlight-path") + "/");
     if (getenv("PHEMLIGHT_PATH") != nullptr) {
@@ -157,15 +158,16 @@ HelpersPHEMlight5::compute(const SUMOEmissionClass c, const PollutantsInterface:
         case PollutantsInterface::PM_X:
             return getEmission(currCep, "PM", power, corrSpeed) / SECONDS_PER_HOUR * 1000.;
         case PollutantsInterface::FUEL: {
-            if (fuelType == PHEMlightdllV5::Constants::strDiesel) { // divide by average diesel density of 836 g/l
+            if (myVolumetricFuel && fuelType == PHEMlightdllV5::Constants::strDiesel) { // divide by average diesel density of 836 g/l
                 return getEmission(currCep, "FC", power, corrSpeed) / 836. / SECONDS_PER_HOUR * 1000.;
-            } else if (fuelType == PHEMlightdllV5::Constants::strGasoline) { // divide by average gasoline density of 742 g/l
-                return getEmission(currCep, "FC", power, corrSpeed) / 742. / SECONDS_PER_HOUR * 1000.;
-            } else if (fuelType == PHEMlightdllV5::Constants::strBEV) {
-                return 0;
-            } else {
-                return getEmission(currCep, "FC", power, corrSpeed) / SECONDS_PER_HOUR * 1000.; // surely false, but at least not additionally modified
             }
+            if (myVolumetricFuel && fuelType == PHEMlightdllV5::Constants::strGasoline) { // divide by average gasoline density of 742 g/l
+                return getEmission(currCep, "FC", power, corrSpeed) / 742. / SECONDS_PER_HOUR * 1000.;
+            }
+            if (fuelType == PHEMlightdllV5::Constants::strBEV) {
+                return 0.;
+            }
+            return getEmission(currCep, "FC", power, corrSpeed) / SECONDS_PER_HOUR * 1000.; // still in mg even if myVolumetricFuel is set!
         }
         case PollutantsInterface::ELEC:
             if (fuelType == PHEMlightdllV5::Constants::strBEV) {

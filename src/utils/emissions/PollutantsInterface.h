@@ -35,9 +35,10 @@
 class EnergyParams;
 class HelpersHBEFA;
 class HelpersHBEFA3;
-class HelpersPHEMlight;
+class HelpersHBEFA4;
 class HelpersEnergy;
 class HelpersMMPEVEM;
+class HelpersPHEMlight;
 class HelpersPHEMlight5;
 
 
@@ -226,6 +227,9 @@ public:
         /// @brief the starting index for classes of this model
         const int myBaseIndex;
 
+        /// @brief return fuel consumption in l instead of mg
+        bool myVolumetricFuel;
+
         /// @brief Mapping between emission class names and integer representations
         StringBijection<SUMOEmissionClass> myEmissionClassStrings;
 
@@ -385,6 +389,9 @@ private:
 
     /// @brief Instance of PHEMlight5Helper which gets cleaned up automatically
     static HelpersPHEMlight5 myPHEMlight5Helper;
+
+    /// @brief Instance of HBEFA4Helper which gets cleaned up automatically
+    static HelpersHBEFA4 myHBEFA4Helper;
 
     /// @brief the known model helpers
     static Helper* myHelpers[];

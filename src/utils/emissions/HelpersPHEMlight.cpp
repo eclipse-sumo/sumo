@@ -69,6 +69,7 @@ HelpersPHEMlight::getClassByName(const std::string& eClass, const SUMOVehicleCla
 #ifdef INTERNAL_PHEM
     if (type == "HDV" || type == "LCV" || type == "PC_" || !PHEMCEPHandler::getHandlerInstance().Load(index, eClass)) {
 #endif
+        myVolumetricFuel = OptionsCont::getOptions().getBool("emissions.volumetric-fuel");
         std::vector<std::string> phemPath;
         phemPath.push_back(OptionsCont::getOptions().getString("phemlight-path") + "/");
         if (getenv("PHEMLIGHT_PATH") != nullptr) {
@@ -310,15 +311,16 @@ HelpersPHEMlight::compute(const SUMOEmissionClass c, const PollutantsInterface::
         case PollutantsInterface::PM_X:
             return getEmission(oldCep, currCep, "PM", power, corrSpeed) / SECONDS_PER_HOUR * 1000.;
         case PollutantsInterface::FUEL: {
-            if (fuelType == PHEMlightdll::Constants::strDiesel) { // divide by average diesel density of 836 g/l
+            if (myVolumetricFuel && fuelType == PHEMlightdll::Constants::strDiesel) { // divide by average diesel density of 836 g/l
                 return getEmission(oldCep, currCep, "FC", power, corrSpeed) / 836. / SECONDS_PER_HOUR * 1000.;
-            } else if (fuelType == PHEMlightdll::Constants::strGasoline) { // divide by average gasoline density of 742 g/l
-                return getEmission(oldCep, currCep, "FC", power, corrSpeed) / 742. / SECONDS_PER_HOUR * 1000.;
-            } else if (fuelType == PHEMlightdll::Constants::strBEV) {
-                return 0;
-            } else {
-                return getEmission(oldCep, currCep, "FC", power, corrSpeed) / SECONDS_PER_HOUR * 1000.; // surely false, but at least not additionally modified
             }
+            if (myVolumetricFuel && fuelType == PHEMlightdll::Constants::strGasoline) { // divide by average gasoline density of 742 g/l
+                return getEmission(oldCep, currCep, "FC", power, corrSpeed) / 742. / SECONDS_PER_HOUR * 1000.;
+            }
+            if (fuelType == PHEMlightdll::Constants::strBEV) {
+                return 0.;
+            }
+            return getEmission(oldCep, currCep, "FC", power, corrSpeed) / SECONDS_PER_HOUR * 1000.; // still in mg even if myVolumetricFuel is set!
         }
         case PollutantsInterface::ELEC:
             if (fuelType == PHEMlightdll::Constants::strBEV) {

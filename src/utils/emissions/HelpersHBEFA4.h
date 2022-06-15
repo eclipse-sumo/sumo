@@ -11,12 +11,12 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    HelpersHBEFA.h
+/// @file    HelpersHBEFA4.h
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @date    Mon, 10.05.2004
 ///
-// Helper methods for HBEFA-based emission computation
+// Helper methods for HBEFA4-based emission computation
 /****************************************************************************/
 #pragma once
 #include <config.h>
@@ -35,21 +35,49 @@
 // class definitions
 // ===========================================================================
 /**
- * @class HelpersHBEFA
- * @brief Helper methods for HBEFA-based emission computation
+ * @class HelpersHBEFA4
+ * @brief Helper methods for HBEFA4-based emission computation
  *
  * The parameter are stored per vehicle class; 6*6 parameter are used, sorted by
  *  the pollutant (CO2, CO, HC, fuel, NOx, PMx), and the function part
  *  (c0, cav1, cav2, c1, c2, c3).
  */
-class HelpersHBEFA : public PollutantsInterface::Helper {
+class HelpersHBEFA4 : public PollutantsInterface::Helper {
 private:
-    static const int HBEFA_BASE = 1 << 16;
+    static const int HBEFA4_BASE = 7 << 16;
 
 public:
     /** @brief Constructor (initializes myEmissionClassStrings)
      */
-    HelpersHBEFA();
+    HelpersHBEFA4();
+
+    /** @brief Returns the emission class described by the given parameters.
+     * @param[in] base the base class giving the default
+     * @param[in] vClass the vehicle class as described in the Amitran interface (Passenger, ...)
+     * @param[in] fuel the fuel type as described in the Amitran interface (Gasoline, Diesel, ...)
+     * @param[in] eClass the emission class as described in the Amitran interface (Euro0, ...)
+     * @param[in] weight the vehicle weight in kg as described in the Amitran interface
+     * @return the class described by the parameters
+     */
+    SUMOEmissionClass getClass(const SUMOEmissionClass base, const std::string& vClass, const std::string& fuel, const std::string& eClass, const double weight) const;
+
+    /** @brief Returns the vehicle class described by this emission class as described in the Amitran interface (Passenger, ...)
+     * @param[in] c the emission class
+     * @return the name of the vehicle class
+     */
+    std::string getAmitranVehicleClass(const SUMOEmissionClass c) const;
+
+    /** @brief Returns the fuel type described by this emission class as described in the Amitran interface (Gasoline, Diesel, ...)
+     * @param[in] c the emission class
+     * @return the fuel type
+     */
+    std::string getFuel(const SUMOEmissionClass c) const;
+
+    /** @brief Returns the Euro emission class described by this emission class as described in the Amitran interface (0, ..., 6)
+     * @param[in] c the emission class
+     * @return the Euro class
+     */
+    int getEuroClass(const SUMOEmissionClass c) const;
 
 
     /** @brief Computes the emitted pollutant amount using the given speed and acceleration
@@ -66,27 +94,28 @@ public:
      * @return The amount emitted by the given emission class when moving with the given velocity and acceleration [mg/s or ml/s]
      */
     inline double compute(const SUMOEmissionClass c, const PollutantsInterface::EmissionType e, const double v, const double a, const double slope, const EnergyParams* param) const {
-        if (e == PollutantsInterface::ELEC || (param != nullptr && param->isEngineOff())) {
+        if (param != nullptr && param->isEngineOff()) {
             return 0.;
         }
         if (v > ZERO_SPEED_ACCURACY && a < getCoastingDecel(c, v, a, slope, param)) {
             return 0.;
         }
-        const int index = (c & ~PollutantsInterface::HEAVY_BIT) - HBEFA_BASE;
-        const double kmh = v * 3.6;
-        const double scale = (e == PollutantsInterface::FUEL && myVolumetricFuel) ? 3.6 * 790. : 3.6;
-        if (index >= 42) {
-            const double* f = myFunctionParameter[index - 42] + 6 * e;
-            return MAX2((f[0] + f[3] * kmh + f[4] * kmh * kmh + f[5] * kmh * kmh * kmh) / scale, 0.);
+        const int index = (c & ~PollutantsInterface::HEAVY_BIT) - HBEFA4_BASE;
+        double scale = 1.;
+        if (e == PollutantsInterface::FUEL && myVolumetricFuel) {
+            if (getFuel(c) == "Diesel") {
+                scale *= 836.;
+            } else if (getFuel(c) == "Gasoline") {
+                scale *= 742.;
+            }
         }
-        const double* f = myFunctionParameter[index] + 6 * e;
-        const double alpha = RAD2DEG(asin(a / GRAVITY));
-        return MAX2((f[0] + f[1] * alpha * kmh + f[2] * alpha * alpha * kmh + f[3] * kmh + f[4] * kmh * kmh + f[5] * kmh * kmh * kmh) / scale, 0.);
+        const double* f = myFunctionParameter[index][e];
+        return (f[0] + f[1] * v + f[2] * a + f[3] * v * v + f[4] * v * v * v + f[5] * a * v + f[6] * a * v * v) / scale;
     }
 
 
 private:
     /// @brief The function parameter
-    static double myFunctionParameter[42][36];
+    static double myFunctionParameter[833][7][7];
 
 };
