@@ -186,7 +186,13 @@ GNEWalkingArea::getExaggeration(const GUIVisualizationSettings& /*s*/) const {
 void
 GNEWalkingArea::updateCenteringBoundary(const bool /*updateGrid*/) {
     // in other case use boundary of parent junction
-    myBoundary = myParentJunction->getCenteringBoundary();
+    const PositionVector& shape = myParentJunction->getNBNode()->getWalkingArea(getID()).shape;
+    if (shape.size() == 0) {
+        myBoundary = myParentJunction->getCenteringBoundary();
+    } else {
+        myBoundary = shape.getBoxBoundary();
+        myBoundary.grow(10);
+    }
 }
 
 
