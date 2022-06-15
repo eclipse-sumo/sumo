@@ -37,6 +37,9 @@
 
 GNEToolNetDiff::GNEToolNetDiff(GNEApplicationWindow* GNEApp) :
     GNEToolDialog(GNEApp, "NetDiff", 300, 300) {
+    // build filenames
+    new GNEToolDialogElements::FileNameArgument(myContentFrame, this, "source", "");
+    new GNEToolDialogElements::FileNameArgument(myContentFrame, this, "destiny", "");
 }
 
 
