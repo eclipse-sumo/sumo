@@ -174,7 +174,7 @@ std::string
 GNEDetectorE3::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
-            return getID();
+            return getMicrosimID();
         case SUMO_ATTR_POSITION:
             return toString(myPosition);
         case SUMO_ATTR_PERIOD:

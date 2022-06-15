@@ -75,12 +75,6 @@ GNEAdditional::removeGeometryPoint(const Position /*clickedPosition*/, GNEUndoLi
 }
 
 
-const std::string&
-GNEAdditional::getID() const {
-    return getMicrosimID();
-}
-
-
 GUIGlObject*
 GNEAdditional::getGUIGlObject() {
     return this;

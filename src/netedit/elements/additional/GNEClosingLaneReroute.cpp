@@ -127,7 +127,7 @@ std::string
 GNEClosingLaneReroute::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
-            return getID();
+            return getMicrosimID();
         case SUMO_ATTR_LANE:
             return myClosedLane->getID();
         case SUMO_ATTR_ALLOW:

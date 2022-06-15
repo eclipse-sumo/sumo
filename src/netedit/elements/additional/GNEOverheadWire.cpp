@@ -381,7 +381,7 @@ std::string
 GNEOverheadWire::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
-            return getID();
+            return getMicrosimID();
         case SUMO_ATTR_SUBSTATIONID:
             return getParentAdditionals().front()->getID();
         case SUMO_ATTR_LANES:

@@ -120,7 +120,7 @@ std::string
 GNEDestProbReroute::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
-            return getID();
+            return getMicrosimID();
         case SUMO_ATTR_EDGE:
             return myNewEdgeDestination->getID();
         case SUMO_ATTR_PROB:

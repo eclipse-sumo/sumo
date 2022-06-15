@@ -102,9 +102,6 @@ public:
     /// @brief remove geometry point in the clicked position (Currently unused in shapes)
     void removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList);
 
-    /// @brief get ID
-    const std::string& getID() const;
-
     /// @brief get GUIGlObject associated with this AttributeCarrier
     GUIGlObject* getGUIGlObject();
 

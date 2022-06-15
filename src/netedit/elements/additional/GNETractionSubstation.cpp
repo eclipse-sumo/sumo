@@ -136,7 +136,7 @@ std::string
 GNETractionSubstation::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
-            return getID();
+            return getMicrosimID();
         case SUMO_ATTR_EDGES: {
             std::vector<std::string> edges;
             for (const auto& tractionSubstationSymbol : getChildAdditionals()) {

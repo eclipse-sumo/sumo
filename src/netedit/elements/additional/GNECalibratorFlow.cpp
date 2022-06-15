@@ -157,7 +157,7 @@ std::string
 GNECalibratorFlow::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
-            return getID();
+            return getMicrosimID();
         case SUMO_ATTR_TYPE:
             return vtypeid;
         case SUMO_ATTR_ROUTE:

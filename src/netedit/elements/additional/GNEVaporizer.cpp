@@ -194,7 +194,7 @@ GNEVaporizer::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
         case SUMO_ATTR_EDGE:
-            return getID();
+            return getMicrosimID();
         case SUMO_ATTR_BEGIN:
             return time2string(myBegin);
         case SUMO_ATTR_END:

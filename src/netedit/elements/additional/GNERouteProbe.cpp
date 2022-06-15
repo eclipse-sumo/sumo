@@ -204,7 +204,7 @@ std::string
 GNERouteProbe::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
-            return getID();
+            return getMicrosimID();
         case SUMO_ATTR_EDGE:
             return getParentEdges().front()->getID();
         case SUMO_ATTR_NAME:

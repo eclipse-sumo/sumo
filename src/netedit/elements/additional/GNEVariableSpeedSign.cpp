@@ -173,7 +173,7 @@ std::string
 GNEVariableSpeedSign::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
-            return getID();
+            return getMicrosimID();
         case SUMO_ATTR_LANES: {
             std::vector<std::string> lanes;
             for (const auto& VSSSymbol : getChildAdditionals()) {

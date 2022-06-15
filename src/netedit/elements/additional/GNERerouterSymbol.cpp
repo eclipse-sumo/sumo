@@ -196,6 +196,7 @@ GNERerouterSymbol::drawGL(const GUIVisualizationSettings& s) const {
 std::string
 GNERerouterSymbol::getAttribute(SumoXMLAttr key) const {
     switch (key) {
+        case SUMO_ATTR_ID:
         case SUMO_ATTR_EDGE:
             return getParentEdges().front()->getID();
         default:

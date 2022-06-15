@@ -162,6 +162,7 @@ GNEVariableSpeedSignSymbol::drawGL(const GUIVisualizationSettings& s) const {
 std::string
 GNEVariableSpeedSignSymbol::getAttribute(SumoXMLAttr key) const {
     switch (key) {
+        case SUMO_ATTR_ID:
         case SUMO_ATTR_LANE:
             return getParentLanes().front()->getID();
         default:
