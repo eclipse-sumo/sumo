@@ -21,3 +21,6 @@ errors
 
 # Copy of persons
 persons
+
+# filter detector vehicles by their oupcoming route
+nextEdges
