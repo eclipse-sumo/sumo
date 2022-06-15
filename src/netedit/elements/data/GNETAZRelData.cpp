@@ -387,9 +387,9 @@ GNETAZRelData::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
             if (getParentAdditionals().size() == 1) {
-                return getParentAdditionals().front()->getID();
+                return getDataIntervalParent()->getID() + ":" + getParentAdditionals().front()->getID();
             } else {
-                return (getParentAdditionals().front()->getID() + "->" + getParentAdditionals().back()->getID());
+                return getDataIntervalParent()->getID() + ":" + (getParentAdditionals().front()->getID() + "->" + getParentAdditionals().back()->getID());
             }
         case SUMO_ATTR_FROM:
             return getParentAdditionals().front()->getID();

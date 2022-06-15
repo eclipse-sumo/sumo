@@ -107,12 +107,6 @@ GNEDataInterval::getSpecificAttributeColors() const {
 }
 
 
-const std::string&
-GNEDataInterval::getID() const {
-    return myDataSetParent->getID();
-}
-
-
 GUIGlObject*
 GNEDataInterval::getGUIGlObject() {
     return nullptr;

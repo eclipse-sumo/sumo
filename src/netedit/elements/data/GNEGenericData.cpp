@@ -61,12 +61,6 @@ GNEGenericData::GNEGenericData(const SumoXMLTag tag, const GUIGlObjectType type,
 GNEGenericData::~GNEGenericData() {}
 
 
-const std::string&
-GNEGenericData::getID() const {
-    return getMicrosimID();
-}
-
-
 GUIGlObject*
 GNEGenericData::getGUIGlObject() {
     return this;

@@ -127,12 +127,6 @@ GNEDataSet::getHierarchicalElement() {
 }
 
 
-const std::string&
-GNEDataSet::getID() const {
-    return myDataSetID;
-}
-
-
 GUIGlObject*
 GNEDataSet::getGUIGlObject() {
     return nullptr;

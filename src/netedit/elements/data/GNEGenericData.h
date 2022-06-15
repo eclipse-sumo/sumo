@@ -81,9 +81,6 @@ public:
     /// @brief check if current generic data is visible
     virtual bool isGenericDataVisible() const = 0;
 
-    /// @brief get ID
-    const std::string& getID() const;
-
     /// @brief get GUIGlObject associated with this AttributeCarrier
     GUIGlObject* getGUIGlObject();
 

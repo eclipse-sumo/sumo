@@ -70,9 +70,6 @@ public:
     /// @brief specific attribute colors
     const std::map<SumoXMLTag, GNEDataSet::AttributeColors>& getSpecificAttributeColors() const;
 
-    /// @brief get ID
-    const std::string& getID() const;
-
     /// @brief get GUIGlObject associated with this AttributeCarrier
     GUIGlObject* getGUIGlObject();
 
