@@ -52,8 +52,8 @@ GNEToolDialogElements::FileNameArgument::FileNameArgument(FXComposite *parent, G
     new FXLabel(this, parameter.empty()? name.c_str() : (name + " (" + parameter + ")").c_str(),nullptr, GUIDesignLabelLeftThick);
     // Create Open button
     auto horizontalFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
-    new FXButton(horizontalFrame, "\t\tSelectFilename", GUIIconSubSys::getIcon(GUIIcon::OPEN_NET), this, FXDialogBox::ID_ACCEPT, GUIDesignButtonIcon);
-    new FXTextField(horizontalFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
+    myFilenameButton = new FXButton(horizontalFrame, "\t\tSelect filename", GUIIconSubSys::getIcon(GUIIcon::OPEN_NET), this, FXDialogBox::ID_ACCEPT, GUIDesignButtonIcon);
+    myFilenameTextField = new FXTextField(horizontalFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
 }
 
 
@@ -65,7 +65,13 @@ GNEToolDialogElements::FileNameArgument::getArgument() const {
 
 void
 GNEToolDialogElements::FileNameArgument::resetValues() {
+    myFilenameTextField->setText("");
+}
 
+
+GNEToolDialogElements::Separator::Separator(FXComposite *parent, const std::string name) :
+    FXVerticalFrame(parent, GUIDesignAuxiliarHorizontalFrame) {
+    new FXLabel(this, name.c_str(), nullptr, GUIDesignLabelCenterThick);
 }
 
 /****************************************************************************/

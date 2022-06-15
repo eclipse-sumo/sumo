@@ -36,9 +36,9 @@
 // ===========================================================================
 
 FXDEFMAP(GNEToolDialog) GNEToolDialogMap[] = {
-    FXMAPFUNC(SEL_CLOSE,    0,                      GNEToolDialog::onCmdClose),
-    FXMAPFUNC(SEL_UPDATE,   0,                      GNEToolDialog::onCmdUpdate),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_ACCEPT,  GNEToolDialog::onCmdClose),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_RUN,     GNEToolDialog::onCmdRun),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_CANCEL,  GNEToolDialog::onCmdCancel),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_RESET,   GNEToolDialog::onCmdReset),
 };
 
 // Object implementation
@@ -51,8 +51,18 @@ FXIMPLEMENT(GNEToolDialog, FXTopWindow, GNEToolDialogMap, ARRAYNUMBER(GNEToolDia
 GNEToolDialog::GNEToolDialog(GNEApplicationWindow* GNEApp, const std::string &name, const int dialogWidth, const int dialogHeight) :
     FXTopWindow(GNEApp->getApp(), name.c_str(), GUIIconSubSys::getIcon(GUIIcon::EMPTY), GUIIconSubSys::getIcon(GUIIcon::EMPTY), GUIDesignDialogBoxExplicit(dialogWidth, dialogHeight)),
     myGNEApp(GNEApp) {
+    // create main frame
+    FXVerticalFrame* mainFrame = new FXVerticalFrame(this, GUIDesignAuxiliarFrame);
     // build horizontalFrame for content
-    myContentFrame = new FXVerticalFrame(this, GUIDesignAuxiliarFrame);
+    myContentFrame = new FXVerticalFrame(mainFrame, GUIDesignContentsFrame);
+    // create buttons centered
+    FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(mainFrame, GUIDesignHorizontalFrame);
+    new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
+    new FXButton(buttonsFrame, "Run\t\tclose accepting changes",  GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, MID_GNE_BUTTON_RUN, GUIDesignButtonAccept);
+    new FXButton(buttonsFrame, "Cancel\t\tclose discarding changes", GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, MID_GNE_BUTTON_CANCEL, GUIDesignButtonCancel);
+    new FXButton(buttonsFrame, "Reset\t\treset to previous values",  GUIIconSubSys::getIcon(GUIIcon::RESET),  this, MID_GNE_BUTTON_RESET,  GUIDesignButtonReset);
+    new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
+
 }
 
 
@@ -71,10 +81,6 @@ GNEToolDialog::openToolDialog() {
 
 void
 GNEToolDialog::hideToolDialog() {
-    // stop modal
-    myGNEApp->getApp()->stopModal(this);
-    // hide dialog
-    hide();
 }
 
 
@@ -85,22 +91,41 @@ GNEToolDialog::shown() const {
 
 
 void
-GNEToolDialog::addArgument(const GNEToolDialogElements::Argument *argument) {
+GNEToolDialog::addArgument(GNEToolDialogElements::Argument *argument) {
     myArguments.push_back(argument);
 }
 
 
 long
-GNEToolDialog::onCmdClose(FXObject*, FXSelector, void*) {
-    // close dialog
+GNEToolDialog::onCmdRun(FXObject*, FXSelector, void*) {
+    // RUN
+
+
+    // stop modal
+    myGNEApp->getApp()->stopModal(this);
+    // hide dialog
     hide();
     return 1;
 }
 
 
-long 
-GNEToolDialog::onCmdUpdate(FXObject*, FXSelector, void*) {
-    return 0;
+long
+GNEToolDialog::onCmdCancel(FXObject*, FXSelector, void*) {
+    // stop modal
+    myGNEApp->getApp()->stopModal(this);
+    // hide dialog
+    hide();
+    return 1;
+}
+
+
+long
+GNEToolDialog::onCmdReset(FXObject*, FXSelector, void*) {
+    // iterate over all arguments and reset values
+    for (const auto &argument : myArguments) {
+        argument->resetValues();
+    }
+    return 1;
 }
 
 

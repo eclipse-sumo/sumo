@@ -58,15 +58,18 @@ public:
     bool shown() const;
 
     /// @brief add argument
-    void addArgument(const GNEToolDialogElements::Argument *argument);
+    void addArgument(GNEToolDialogElements::Argument *argument);
 
     /// @name FOX-callbacks
     /// @{
-    /// @brief event after press close button
-    long onCmdClose(FXObject*, FXSelector, void*);
+    /// @brief event after press run button
+    long onCmdRun(FXObject*, FXSelector, void*);
 
-    /// @brief event after update command
-    long onCmdUpdate(FXObject*, FXSelector, void*);
+    /// @brief event after press cancel button
+    long onCmdCancel(FXObject*, FXSelector, void*);
+
+    /// @brief event after press reset button
+    long onCmdReset(FXObject*, FXSelector, void*);
 
     /// @}
 
@@ -85,7 +88,7 @@ protected:
 
 private:
     /// @brief list of arguments
-    std::vector<const GNEToolDialogElements::Argument*> myArguments;
+    std::vector<GNEToolDialogElements::Argument*> myArguments;
 
     /// @brief Invalidated copy constructor.
     GNEToolDialog(const GNEToolDialog&) = delete;

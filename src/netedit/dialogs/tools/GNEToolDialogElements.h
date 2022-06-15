@@ -57,7 +57,7 @@ public:
 
     protected:
         /// pointer to toolDialog parent
-        const GNEToolDialog *toolDialogParent; 
+        const GNEToolDialog *toolDialogParent = nullptr;
 
         /// @brief argument name
         const std::string argumentName;
@@ -89,11 +89,34 @@ public:
         /// @brief reset argument values
         void resetValues();
 
+    protected:
+        /// @brief filename button
+        FXButton *myFilenameButton = nullptr;
+
+        /// @brief filename Textfield
+        FXTextField *myFilenameTextField = nullptr;
+
     private:
         /// @brief Invalidated copy constructor.
         FileNameArgument(const FileNameArgument&) = delete;
 
         /// @brief Invalidated assignment operator.
         FileNameArgument& operator=(const FileNameArgument&) = delete;
+    };
+
+
+    /// @brief separator
+    class Separator : protected FXVerticalFrame {
+    
+    public:
+        /// @brief constructor
+        Separator(FXComposite *parent, const std::string name);
+
+    private:
+        /// @brief Invalidated copy constructor.
+        Separator(const Separator&) = delete;
+
+        /// @brief Invalidated assignment operator.
+        Separator& operator=(const Separator&) = delete;
     };
 };

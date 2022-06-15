@@ -1235,6 +1235,8 @@ enum {
     MID_GNE_BUTTON_SORT,
     /// @brief focus button
     MID_GNE_BUTTON_FOCUS,
+    /// @brief run button
+    MID_GNE_BUTTON_RUN,
 
     /// @}
 
