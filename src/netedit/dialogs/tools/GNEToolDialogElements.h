@@ -20,7 +20,16 @@
 #pragma once
 #include <config.h>
 
-#include "GNEToolDialog.h"
+#include <fx.h>
+#include <string>
+#include <vector>
+
+
+// ===========================================================================
+// class declaration
+// ===========================================================================
+
+class GNEToolDialog;
 
 // ===========================================================================
 // class definitions
@@ -35,7 +44,7 @@ public:
 
     public:
         /// @brief constructor
-        Argument(const std::string name, const std::string parameter_);
+        Argument(GNEToolDialog *toolDialogParent, const std::string name, const std::string parameter_);
 
         /// @brief destructor
         virtual ~Argument();
@@ -44,6 +53,9 @@ public:
         virtual std::string getArgument() const = 0;
 
     protected:
+        /// pointer to toolDialog parent
+        const GNEToolDialog *toolDialogParent; 
+
         /// @brief argument name
         const std::string argumentName;
 
@@ -62,11 +74,11 @@ public:
     };
 
     /// @brief filename
-    class FileNameArgument : protected FXHorizontalFrame, protected Argument {
+    class FileNameArgument : protected FXVerticalFrame, protected Argument {
     
     public:
         /// @brief constructor
-        FileNameArgument(FXComposite *parent, const std::string name, const std::string parameter);
+        FileNameArgument(FXComposite *parent, GNEToolDialog *toolDialogParent, const std::string name, const std::string parameter);
 
         /// get argument (parameter and value)
         std::string getArgument() const;
@@ -78,5 +90,4 @@ public:
         /// @brief Invalidated assignment operator.
         FileNameArgument& operator=(const FileNameArgument&) = delete;
     };
-
 };

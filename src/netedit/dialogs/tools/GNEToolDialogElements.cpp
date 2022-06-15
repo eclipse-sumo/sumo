@@ -19,18 +19,23 @@
 /****************************************************************************/
 #include <config.h>
 
-#include "GNEToolDialog.h"
-#include "GNEToolDialogElements.h"
+#include <utils/gui/div/GUIDesigns.h>
+#include <utils/gui/images/GUIIconSubSys.h>
 
+#include "GNEToolDialogElements.h"
+#include "GNEToolDialog.h"
 
 
 // ============================================-===============================
 // member method definitions
 // ===========================================================================
 
-GNEToolDialogElements::Argument::Argument(const std::string name, const std::string parameter_) :
+GNEToolDialogElements::Argument::Argument(GNEToolDialog *_toolDialogParent, const std::string name, const std::string parameter_) :
+    toolDialogParent(_toolDialogParent),
     argumentName(name),
     parameter(parameter_) {
+    // add argument in GNEToolDialog parent
+    _toolDialogParent->addArgument(this);
 }
 
 
@@ -40,10 +45,14 @@ GNEToolDialogElements::Argument::~Argument() {}
 GNEToolDialogElements::Argument::Argument() {}
 
 
-GNEToolDialogElements::FileNameArgument::FileNameArgument(FXComposite *parent, const std::string name, const std::string parameter) :
-    FXHorizontalFrame(parent),
-    Argument(name, parameter){
+GNEToolDialogElements::FileNameArgument::FileNameArgument(FXComposite *parent, GNEToolDialog *toolDialogParent, const std::string name, const std::string parameter) :
+    FXVerticalFrame(parent, GUIDesignAuxiliarVerticalFrame),
+    Argument(toolDialogParent, name, parameter) {
+    // Create Button Close (And two more horizontal frames to center it)
+    auto horizontalFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    new FXButton(horizontalFrame, "OK\t\tclose", GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, FXDialogBox::ID_ACCEPT, GUIDesignButtonOK);
 }
+
 
 std::string 
 GNEToolDialogElements::FileNameArgument::getArgument() const {
