@@ -58,6 +58,12 @@ GNEAttributeCarrier::GNEAttributeCarrier(const SumoXMLTag tag, GNENet* net) :
 GNEAttributeCarrier::~GNEAttributeCarrier() {}
 
 
+const std::string 
+GNEAttributeCarrier::getID() const {
+    return getAttribute(SUMO_ATTR_ID);
+}
+
+
 GNENet*
 GNEAttributeCarrier::getNet() const {
     return myNet;

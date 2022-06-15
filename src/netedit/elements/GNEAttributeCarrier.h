@@ -65,6 +65,9 @@ public:
     /// @brief Destructor
     virtual ~GNEAttributeCarrier();
 
+    /// @brief get ID (all Attribute Carriers have one)
+    const std::string getID() const;
+
     /// @brief get pointer to net
     GNENet* getNet() const;
 
@@ -85,9 +88,6 @@ public:
 
     /// @name Function related with graphics (must be implemented in all children)
     /// @{
-    /// @brief get ID (all Attribute Carriers have one)
-    virtual const std::string& getID() const = 0;
-
     /// @brief get GUIGlObject associated with this AttributeCarrier
     virtual GUIGlObject* getGUIGlObject() = 0;
 
