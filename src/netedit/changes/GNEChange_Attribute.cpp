@@ -61,7 +61,7 @@ GNEChange_Attribute::~GNEChange_Attribute() {
     // remove if is unreferenced
     if (myAC->unreferenced()) {
         // show extra information for tests
-        WRITE_DEBUG("Deleting unreferenced " + myAC->getTagStr() + " '" + myAC->getID() + "' in GNEChange_Attribute");
+        WRITE_DEBUG("Deleting unreferenced " + myAC->getTagStr() + " in GNEChange_Attribute");
         // delete AC
         delete myAC;
     }

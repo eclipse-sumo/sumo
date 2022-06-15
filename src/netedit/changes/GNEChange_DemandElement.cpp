@@ -46,7 +46,7 @@ GNEChange_DemandElement::~GNEChange_DemandElement() {
     myDemandElement->decRef("GNEChange_DemandElement");
     if (myDemandElement->unreferenced()) {
         // show extra information for tests
-        WRITE_DEBUG("Deleting unreferenced " + myDemandElement->getTagStr() + " '" + myDemandElement->getID() + "'");
+        WRITE_DEBUG("Deleting unreferenced " + myDemandElement->getTagStr());
         // make sure that element isn't in net before removing
         if (myDemandElement->getNet()->getAttributeCarriers()->demandElementExist(myDemandElement)) {
             // remove demand element of network
