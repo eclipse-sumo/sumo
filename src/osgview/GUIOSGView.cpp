@@ -800,7 +800,8 @@ GUIOSGView::onCmdAddRerouter(FXObject*, FXSelector, void*) {
 
 long
 GUIOSGView::onCmdShowReachability(FXObject* menu, FXSelector, void*) {
-	GUILane* lane = getLaneUnderCursor();
+	/*
+    GUILane* lane = getLaneUnderCursor();
 	if (lane != nullptr) {
 		// reset
 		const double UNREACHABLE = -1;
@@ -847,6 +848,7 @@ GUIOSGView::onCmdShowReachability(FXObject* menu, FXSelector, void*) {
 		}
 		update();
 	}
+    */
 	return 1;
 }
 
