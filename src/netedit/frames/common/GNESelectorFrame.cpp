@@ -286,24 +286,33 @@ GNESelectorFrame::SelectionOperation::onCmdLoad(FXObject*, FXSelector, void*) {
             WRITE_ERROR("Could not open '" + file + "'.");
             return 0;
         }
+        // convert all glObjects into GNEAttributeCarriers
+        std::map<const std::string, GNEAttributeCarrier*> GLFUllNameAC;
+        const auto GLObjects = GUIGlObjectStorage::gIDStorage.getAllGLObjects();
+        for (const auto &GLObject : GLObjects) {
+            // try to parse GLObject to AC
+            GNEAttributeCarrier *AC = dynamic_cast<GNEAttributeCarrier*>(GLObject);
+            // if was sucesfully parsed and is NOT a template, add into GLFUllNameAC using fullName
+            if (AC && !AC->isTemplate()) {
+                GLFUllNameAC[GUIGlObject::TypeNames.getString(GLObject->getType()) + ":" + AC->getID()] = AC;
+            }
+        }
+        // continue while stream exist
         while (strm.good()) {
             std::string line;
             strm >> line;
             // check if line isn't empty
             if (line.length() != 0) {
-                // obtain GLObject
-                GUIGlObject* object = GUIGlObjectStorage::gIDStorage.getObjectBlocking(line);
-                // check if GUIGlObject exist and their  their GL type isn't blocked
-                if ((object != nullptr) && !mySelectorFrameParent->getViewNet()->getLockManager().isObjectLocked(object->getType(), false)) {
-                    // obtain GNEAttributeCarrier
-                    GNEAttributeCarrier* AC = mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers()->retrieveAttributeCarrier(object->getGlID(), false);
-                    // check if AC exist and if is selectable
-                    if (AC && AC->getTagProperty().isSelectable())
-                        // now check if we're in the correct supermode to load this element
-                        if (((mySelectorFrameParent->myViewNet->getEditModes().isCurrentSupermodeNetwork()) && !AC->getTagProperty().isDemandElement()) ||
-                                ((mySelectorFrameParent->myViewNet->getEditModes().isCurrentSupermodeDemand()) && AC->getTagProperty().isDemandElement())) {
-                            loadedACs.push_back(AC);
-                        }
+                // obtain AC from GLFUllNameAC
+                GNEAttributeCarrier* AC = GLFUllNameAC.count(line) > 0? GLFUllNameAC.at(line) : nullptr;
+                // check if AC exist, is selectable, and isn't locked
+                if (AC && AC->getTagProperty().isSelectable() && !mySelectorFrameParent->getViewNet()->getLockManager().isObjectLocked(AC->getGUIGlObject()->getType(), false)) {
+                    // now check if we're in the correct supermode to load this element
+                    if (((mySelectorFrameParent->myViewNet->getEditModes().isCurrentSupermodeNetwork()) && !AC->getTagProperty().isDemandElement()) ||
+                        ((mySelectorFrameParent->myViewNet->getEditModes().isCurrentSupermodeDemand()) && AC->getTagProperty().isDemandElement()) ||
+                        ((mySelectorFrameParent->myViewNet->getEditModes().isCurrentSupermodeData()) && AC->getTagProperty().isDataElement())) {
+                        loadedACs.push_back(AC);
+                    }
                 }
             }
         }
