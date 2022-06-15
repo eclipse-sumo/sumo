@@ -106,7 +106,6 @@ NLTriggerBuilder::buildVaporizer(const SUMOSAXAttributes& attrs) {
 }
 
 
-
 void
 NLTriggerBuilder::parseAndBuildLaneSpeedTrigger(MSNet& net, const SUMOSAXAttributes& attrs,
         const std::string& base) {
@@ -144,6 +143,7 @@ NLTriggerBuilder::parseAndBuildLaneSpeedTrigger(MSNet& net, const SUMOSAXAttribu
     }
 }
 
+
 void
 NLTriggerBuilder::parseAndBuildChargingStation(MSNet& net, const SUMOSAXAttributes& attrs) {
     bool ok = true;
@@ -170,6 +170,7 @@ NLTriggerBuilder::parseAndBuildChargingStation(MSNet& net, const SUMOSAXAttribut
 
     buildChargingStation(net, id, lane, frompos, topos, name, chargingPower, efficiency, chargeInTransit, chargeDelay);
 }
+
 
 void
 NLTriggerBuilder::parseAndBuildOverheadWireSegment(MSNet& net, const SUMOSAXAttributes& attrs) {
