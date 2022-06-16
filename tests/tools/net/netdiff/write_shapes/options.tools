@@ -1,1 +1,3 @@
--sn source.net.xml -dn dest.net.xml -op diff --write-shapes tools/net/netdiff.py
+source.net.xml dest.net.xml diff 
+--write-shapes
+tools/net/netdiff.py
