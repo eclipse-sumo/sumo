@@ -155,7 +155,7 @@ GUIOSGBuilder::buildOSGEdgeGeometry(const MSEdge& edge,
 		dynamic_cast<GUIGlObject*>(l)->setNode(geode);
 		const int upperShapeSize = originalSize * geomFactor;
 		const int totalShapeSize = (extrude) ? originalSize * 2 * geomFactor : originalSize * geomFactor;
-        const float zOffset = (extrude)? 0.1f : (edge.isCrossing())? 0.01f : 0.f;
+        const float zOffset = (extrude) ? (edge.isCrossing()) ? 0.01f : 0.1f : 0.f;
 		osg::Vec4ubArray* osg_colors = new osg::Vec4ubArray(1);
 		(*osg_colors)[0].set(128, 128, 128, 255);
 		geom->setColorArray(osg_colors, osg::Array::BIND_OVERALL);
