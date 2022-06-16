@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-06-15 13:09:36 by Eclipse SUMO sumo Version v1_13_0+0844-22f88dc7bc3
+<!-- generated on 2022-06-16 09:01:06 by Eclipse SUMO sumo Version v1_13_0+0899-4ea6e997207
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -1012,6 +1012,24 @@
         <device.vehroute.deterministic value="false" type="BOOL"/>
 
     </vehroutes_device>
+
+    <friction_device>
+        <!-- The probability for a vehicle to have a &apos;friction&apos; device -->
+        <device.friction.probability value="-1" type="FLOAT"/>
+
+        <!-- Assign a &apos;friction&apos; device to named vehicles -->
+        <device.friction.explicit value="" synonymes="device.friction.knownveh" type="STR[]"/>
+
+        <!-- The &apos;friction&apos; devices are set deterministic using a fraction of 1000 -->
+        <device.friction.deterministic value="false" type="BOOL"/>
+
+        <!-- The measurement noise parameter which can be applied to the friction device -->
+        <device.friction.stdDev value="0.1" type="FLOAT"/>
+
+        <!-- The measurement offset parameter which can be applied to the friction device -&gt; e.g. to force false measurements -->
+        <device.friction.offset value="0" type="FLOAT"/>
+
+    </friction_device>
 
     <traci_server>
         <!-- Enables TraCI Server if set -->

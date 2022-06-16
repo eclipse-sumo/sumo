@@ -1,4 +1,4 @@
-Eclipse SUMO sumo Version v1_13_0+0844-22f88dc7bc3
+Eclipse SUMO sumo Version v1_13_0+0899-4ea6e997207
  Copyright (C) 2001-2022 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -715,6 +715,19 @@ Vehroutes Device Options:
                                         vehicles
   --device.vehroute.deterministic      The 'vehroute' devices are set
                                         deterministic using a fraction of 1000
+
+Friction Device Options:
+  --device.friction.probability FLOAT  The probability for a vehicle to have a
+                                        'friction' device
+  --device.friction.explicit STR[]     Assign a 'friction' device to named
+                                        vehicles
+  --device.friction.deterministic      The 'friction' devices are set
+                                        deterministic using a fraction of 1000
+  --device.friction.stdDev FLOAT       The measurement noise parameter which
+                                        can be applied to the friction device
+  --device.friction.offset FLOAT       The measurement offset parameter which
+                                        can be applied to the friction device ->
+                                        e.g. to force false measurements
 
 TraCI Server Options:
   --remote-port INT                    Enables TraCI Server if set
