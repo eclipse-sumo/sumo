@@ -41,7 +41,7 @@ class BusStopDomain(Domain):
         return self._getUniversal(tc.VAR_POSITION, stopID)
 
     def getEndPos(self, stopID):
-        """getStartPos(string) -> double
+        """getEndPos(string) -> double
 
         The end position of the stop along the lane measured in m.
         """

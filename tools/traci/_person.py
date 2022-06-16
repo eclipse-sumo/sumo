@@ -103,7 +103,7 @@ class PersonDomain(VTypeDomain):
         return self._getUniversal(tc.VAR_POSITION, personID)
 
     def getPosition3D(self, personID):
-        """getPosition(string) -> (double, double, double)
+        """getPosition3D(string) -> (double, double, double)
 
         Returns the position of the named person within the last step [m,m,m].
         """
@@ -160,7 +160,7 @@ class PersonDomain(VTypeDomain):
         return self._getUniversal(tc.VAR_SPEED_FACTOR, personID)
 
     def getWaitingTime(self, personID):
-        """getWaitingTime() -> double
+        """getWaitingTime(string) -> double
         The waiting time of a person is defined as the time (in seconds) spent with a
         speed below 0.1m/s since the last time it was faster than 0.1m/s.
         (basically, the waiting time of a person is reset to 0 every time it moves).
@@ -168,7 +168,7 @@ class PersonDomain(VTypeDomain):
         return self._getUniversal(tc.VAR_WAITING_TIME, personID)
 
     def getNextEdge(self, personID):
-        """getNextEdge() -> string
+        """getNextEdge(string) -> string
         If the person is walking, returns the next edge on the persons route
         (including crossing and walkingareas). If there is no further edge or the
         person is in another stage, returns the empty string.
@@ -204,7 +204,7 @@ class PersonDomain(VTypeDomain):
         return self._getUniversal(tc.VAR_STAGE, personID, "i", nextStageIndex)
 
     def getRemainingStages(self, personID):
-        """getStage(string) -> int
+        """getRemainingStages(string) -> int
         Returns the number of remaining stages (at least 1)
         """
         return self._getUniversal(tc.VAR_STAGES_REMAINING, personID)
@@ -239,7 +239,7 @@ class PersonDomain(VTypeDomain):
         return self._getUniversal(tc.SPLIT_TAXI_RESERVATIONS, reservationID, "l", personIDs)
 
     def removeStages(self, personID):
-        """remove(string)
+        """removeStages(string)
         Removes all stages of the person. If no new phases are appended,
         the person will be removed from the simulation in the next simulationStep().
         """

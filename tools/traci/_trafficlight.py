@@ -216,7 +216,7 @@ class TrafficLightDomain(Domain):
         return self._getUniversal(tc.TL_CURRENT_PHASE, tlsID)
 
     def getPhaseName(self, tlsID):
-        """getPhase(string) -> string
+        """getPhaseName(string) -> string
         Returns the name of the current phase.
         """
         return self._getUniversal(tc.VAR_NAME, tlsID)
@@ -238,7 +238,7 @@ class TrafficLightDomain(Domain):
         return self._getUniversal(tc.TL_PHASE_DURATION, tlsID)
 
     def getServedPersonCount(self, tlsID, index):
-        """getPhase(string, int) -> int
+        """getServedPersonCount(string, int) -> int
         Returns the number of persons that would be served in the given phase
         """
         return self._getUniversal(tc.VAR_PERSON_NUMBER, tlsID, "i", index)
@@ -315,7 +315,7 @@ class TrafficLightDomain(Domain):
         self._setCmd(tc.TL_PHASE_INDEX, tlsID, "i", index)
 
     def setPhaseName(self, tlsID, name):
-        """setPhase(string, string) -> None
+        """setPhaseName(string, string) -> None
 
         Sets the name of the current phase within the current program
         """

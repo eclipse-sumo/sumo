@@ -266,14 +266,14 @@ class VTypeDomain(Domain):
         self._setCmd(tc.VAR_DECEL, typeID, "d", decel)
 
     def setEmergencyDecel(self, typeID, decel):
-        """setDecel(string, double) -> None
+        """setEmergencyDecel(string, double) -> None
 
         Sets the maximal physically possible deceleration in m/s^2 of vehicles of this type.
         """
         self._setCmd(tc.VAR_EMERGENCY_DECEL, typeID, "d", decel)
 
     def setApparentDecel(self, typeID, decel):
-        """setDecel(string, double) -> None
+        """setApparentDecel(string, double) -> None
 
         Sets the apparent deceleration in m/s^2 of vehicles of this type.
         """
@@ -361,7 +361,7 @@ class VehicleTypeDomain(VTypeDomain):
         self._setCmd(tc.VAR_SPEED_DEVIATION, typeID, "d", deviation)
 
     def setScale(self, typeID, value):
-        """setScale(string, double)
+        """setScale(string, double) -> None
         Sets the traffic scaling factor
         """
         self._setCmd(tc.VAR_SCALE, typeID, "d", value)
