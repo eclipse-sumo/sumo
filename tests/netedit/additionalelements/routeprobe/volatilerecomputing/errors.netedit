@@ -23,7 +23,7 @@ Debug: Adding routeProbe 'routeProbe_14' in GNEChange_Additional
 Debug: Adding routeProbe 'routeProbe_15' in GNEChange_Additional
 Debug: Adding routeProbe 'routeProbe_16' in GNEChange_Additional
 Debug: Adding routeProbe 'routeProbe_17' in GNEChange_Additional
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.27Apr082149.8400\netedit.gui\additionalelements\routeprobe\volatilerecomputing\input_additionals.add.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.routeprobe.16Jun091034.28740/netedit.daily.additional.routeprobe/additionalelements/routeprobe/volatilerecomputing/input_additionals.add.xml failed.
 Debug: Keys Shift + F5 (Compute with volatile options) pressed
 Debug: Opening FXMessageBox 'Volatile Recomputing'
 Debug: Closed FXMessageBox 'Volatile Recomputing' with 'Yes'
@@ -38,19 +38,19 @@ GLDebug: 	Removed object edge:gneE0 from SUMORTree with boundary -10.00,-11.60,6
 GLDebug: 	Removed object edge:gneE1 from SUMORTree with boundary -10.00,-10.00,60.00,11.60
 GLDebug: 	Removed object edge:gneE2 from SUMORTree with boundary -10.00,10.00,60.00,44.40
 GLDebug: 	Removed object edge:gneE4 from SUMORTree with boundary -10.00,8.40,60.00,30.00
-Debug: Deleting unreferenced routeProbe 'routeProbe_17'
-Debug: Deleting unreferenced routeProbe 'routeProbe_16'
-Debug: Deleting unreferenced routeProbe 'routeProbe_15'
-Debug: Deleting unreferenced routeProbe 'routeProbe_14'
-Debug: Deleting unreferenced routeProbe 'routeProbe_13'
-Debug: Deleting unreferenced routeProbe 'routeProbe_09'
-Debug: Deleting unreferenced routeProbe 'routeProbe_08'
-Debug: Deleting unreferenced routeProbe 'routeProbe_07'
-Debug: Deleting unreferenced routeProbe 'routeProbe_06'
-Debug: Deleting unreferenced routeProbe 'routeProbe_05'
-Debug: Deleting unreferenced routeProbe 'routeProbe_03'
-Debug: Deleting unreferenced routeProbe 'routeProbe_02'
-Debug: Deleting unreferenced routeProbe 'routeProbe_01'
+Debug: Deleting unreferenced routeProbe
+Debug: Deleting unreferenced routeProbe
+Debug: Deleting unreferenced routeProbe
+Debug: Deleting unreferenced routeProbe
+Debug: Deleting unreferenced routeProbe
+Debug: Deleting unreferenced routeProbe
+Debug: Deleting unreferenced routeProbe
+Debug: Deleting unreferenced routeProbe
+Debug: Deleting unreferenced routeProbe
+Debug: Deleting unreferenced routeProbe
+Debug: Deleting unreferenced routeProbe
+Debug: Deleting unreferenced routeProbe
+Debug: Deleting unreferenced routeProbe
 GLDebug: initJunctionsAndEdges function called in computeAndUpdate(...) due recomputing with volatile options
 GLDebug: 	Inserted junction:gneJ0 into SUMORTree with boundary -10.00,-15.20,10.00,15.20
 GLDebug: 	Inserted junction:gneJ1 into SUMORTree with boundary 40.00,-15.20,60.00,15.20

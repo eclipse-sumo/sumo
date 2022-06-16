@@ -357,15 +357,15 @@ Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
 Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
 Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
 Debug: Additionals saved
-Debug: Deleting unreferenced edge '8' in GNEChange_Attribute
+Debug: Deleting unreferenced edge in GNEChange_Attribute
 Debug: Deleting unreferenced lane '8_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane '8_1' in GNEEdge destructor
 Debug: Deleting unreferenced lane '8_2' in GNEEdge destructor
 Debug: Deleting unreferenced lane '8_3' in GNEEdge destructor
-Debug: Deleting unreferenced junction 'D' in GNEChange_Attribute
+Debug: Deleting unreferenced junction in GNEChange_Attribute
 Debug: Deleting unreferenced walkingArea ':D_w0' in GNEJunction destructor
 Debug: Deleting NBNode of 'D' in GNEJunction destructor
-Debug: Deleting unreferenced edge '4' in GNEChange_Attribute
+Debug: Deleting unreferenced edge in GNEChange_Attribute
 Debug: Deleting unreferenced lane '4_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane '4_1' in GNEEdge destructor
 Debug: Deleting unreferenced lane '4_2' in GNEEdge destructor
@@ -375,10 +375,10 @@ Debug: Deleting unreferenced lane '3_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane '3_1' in GNEEdge destructor
 Debug: Deleting unreferenced lane '3_2' in GNEEdge destructor
 Debug: Deleting unreferenced lane '3_3' in GNEEdge destructor
-Debug: Deleting unreferenced crossing ':Center_c1' in GNEChange_Attribute
-Debug: Deleting unreferenced busStop 'busStop_8_2_1'
-Debug: Deleting unreferenced busStop 'busStop_4_2_2'
-Debug: Deleting unreferenced busStop 'busStop_3_2_0'
+Debug: Deleting unreferenced crossing in GNEChange_Attribute
+Debug: Deleting unreferenced busStop
+Debug: Deleting unreferenced busStop
+Debug: Deleting unreferenced busStop
 Debug: Deleting unreferenced edge '1' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane '1_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane '1_1' in GNEEdge destructor

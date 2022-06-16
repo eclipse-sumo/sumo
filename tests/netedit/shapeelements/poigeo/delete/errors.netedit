@@ -18,9 +18,9 @@ Debug: Removing poiGeo 'poi_0' in GNEChange_Additional
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Additionals saved
-Debug: Deleting unreferenced poiGeo 'poi_0'
-Debug: Deleting unreferenced poiGeo 'POI_B'
-Debug: Deleting unreferenced poiGeo 'POI_A'
+Debug: Deleting unreferenced poiGeo
+Debug: Deleting unreferenced poiGeo
+Debug: Deleting unreferenced poiGeo
 Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor

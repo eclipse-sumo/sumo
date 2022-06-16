@@ -33,17 +33,17 @@ GLDebug: 	Removed object edge:gneE0 from SUMORTree with boundary -10.00,-11.60,6
 GLDebug: 	Removed object edge:gneE1 from SUMORTree with boundary -10.00,-10.00,60.00,11.60
 GLDebug: 	Removed object edge:gneE2 from SUMORTree with boundary -10.00,10.00,60.00,44.40
 GLDebug: 	Removed object edge:gneE4 from SUMORTree with boundary -10.00,8.40,60.00,30.00
-Debug: Deleting unreferenced detExit 'e3Detector_1'
-Debug: Deleting unreferenced detExit 'e3Detector_1'
-Debug: Deleting unreferenced detEntry 'e3Detector_1'
-Debug: Deleting unreferenced detEntry 'e3Detector_1'
-Debug: Deleting unreferenced e3Detector 'e3Detector_1'
+Debug: Deleting unreferenced detExit
+Debug: Deleting unreferenced detExit
+Debug: Deleting unreferenced detEntry
+Debug: Deleting unreferenced detEntry
+Debug: Deleting unreferenced e3Detector
 GLDebug: 	Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 50.44,2.04,70.44,22.04
-Debug: Deleting unreferenced detExit 'e3Detector_0'
-Debug: Deleting unreferenced detExit 'e3Detector_0'
-Debug: Deleting unreferenced detEntry 'e3Detector_0'
-Debug: Deleting unreferenced detEntry 'e3Detector_0'
-Debug: Deleting unreferenced e3Detector 'e3Detector_0'
+Debug: Deleting unreferenced detExit
+Debug: Deleting unreferenced detExit
+Debug: Deleting unreferenced detEntry
+Debug: Deleting unreferenced detEntry
+Debug: Deleting unreferenced e3Detector
 GLDebug: 	Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -21.53,-1.48,-1.53,18.52
 GLDebug: initJunctionsAndEdges function called in computeAndUpdate(...) due recomputing with volatile options
 GLDebug: 	Inserted junction:gneJ0 into SUMORTree with boundary -10.00,-15.20,10.00,15.20

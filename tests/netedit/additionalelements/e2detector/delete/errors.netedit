@@ -41,8 +41,8 @@ Debug: Calling GNEUndoList::undo()
 Debug: Removing e2Detector 'E2_02' in GNEChange_Additional
 Debug: Removing e2Detector 'E2_01' in GNEChange_Additional
 Debug: Keys Ctrl+Z (Undo) pressed
-Debug: Deleting unreferenced e2Detector 'E2_02'
-Debug: Deleting unreferenced e2Detector 'E2_01'
+Debug: Deleting unreferenced e2Detector
+Debug: Deleting unreferenced e2Detector
 Debug: Removing connection 'gneE1_0->gneE0_0' from edge 'gneE1'
 Debug: Deleting unreferenced connection 'fromgneE1_0togneE0_0' in removeConnection()
 Debug: Deleting TLS from junction 'gneJ0'

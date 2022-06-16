@@ -1055,73 +1055,73 @@ Debug: Created connection 'fromgneE11_0togneE12_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE13_0togneE14_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE15_0togneE8_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE10_0' in retrieveGNEConnection()
-Debug: Deleting unreferenced edge 'gneE19' in GNEChange_Attribute
+Debug: Deleting unreferenced edge in GNEChange_Attribute
 Debug: Deleting unreferenced lane 'gneE19_0' in GNEEdge destructor
-Debug: Deleting unreferenced edge 'gneE18' in GNEChange_Attribute
+Debug: Deleting unreferenced edge in GNEChange_Attribute
 Debug: Deleting unreferenced lane 'gneE18_0' in GNEEdge destructor
-Debug: Deleting unreferenced edge 'gneE17' in GNEChange_Attribute
+Debug: Deleting unreferenced edge in GNEChange_Attribute
 Debug: Deleting unreferenced lane 'gneE17_0' in GNEEdge destructor
-Debug: Deleting unreferenced junction 'gneJ19' in GNEChange_Attribute
+Debug: Deleting unreferenced junction in GNEChange_Attribute
 Debug: Deleting NBNode of 'gneJ19' in GNEJunction destructor
-Debug: Deleting unreferenced edge '-gneE19' in GNEChange_Attribute
+Debug: Deleting unreferenced edge in GNEChange_Attribute
 Debug: Deleting unreferenced lane '-gneE19_0' in GNEEdge destructor
-Debug: Deleting unreferenced edge '-gneE18' in GNEChange_Attribute
+Debug: Deleting unreferenced edge in GNEChange_Attribute
 Debug: Deleting unreferenced lane '-gneE18_0' in GNEEdge destructor
-Debug: Deleting unreferenced edge '-gneE17' in GNEChange_Attribute
+Debug: Deleting unreferenced edge in GNEChange_Attribute
 Debug: Deleting unreferenced lane '-gneE17_0' in GNEEdge destructor
-Debug: Deleting unreferenced edge '-gneE16' in GNEChange_Attribute
+Debug: Deleting unreferenced edge in GNEChange_Attribute
 Debug: Deleting unreferenced lane '-gneE16_0' in GNEEdge destructor
-Debug: Deleting unreferenced edge 'gneE16' in GNEChange_Attribute
+Debug: Deleting unreferenced edge in GNEChange_Attribute
 Debug: Deleting unreferenced lane 'gneE16_0' in GNEEdge destructor
-Debug: Deleting unreferenced junction 'gneJ8' in GNEChange_Attribute
+Debug: Deleting unreferenced junction in GNEChange_Attribute
 Debug: Deleting NBNode of 'gneJ8' in GNEJunction destructor
-Debug: Deleting unreferenced edge '-gneE6' in GNEChange_Attribute
+Debug: Deleting unreferenced edge in GNEChange_Attribute
 Debug: Deleting unreferenced lane '-gneE6_0' in GNEEdge destructor
-Debug: Deleting unreferenced edge 'gneE5' in GNEChange_Attribute
+Debug: Deleting unreferenced edge in GNEChange_Attribute
 Debug: Deleting unreferenced lane 'gneE5_0' in GNEEdge destructor
-Debug: Deleting unreferenced edge 'gneE6' in GNEChange_Attribute
+Debug: Deleting unreferenced edge in GNEChange_Attribute
 Debug: Deleting unreferenced lane 'gneE6_0' in GNEEdge destructor
-Debug: Deleting unreferenced edge '-gneE7' in GNEChange_Attribute
+Debug: Deleting unreferenced edge in GNEChange_Attribute
 Debug: Deleting unreferenced lane '-gneE7_0' in GNEEdge destructor
-Debug: Deleting unreferenced junction 'gneJ6' in GNEChange_Attribute
+Debug: Deleting unreferenced junction in GNEChange_Attribute
 Debug: Deleting NBNode of 'gneJ6' in GNEJunction destructor
-Debug: Deleting unreferenced edge 'gneE7' in GNEChange_Attribute
+Debug: Deleting unreferenced edge in GNEChange_Attribute
 Debug: Deleting unreferenced lane 'gneE7_0' in GNEEdge destructor
-Debug: Deleting unreferenced edge '-gneE4' in GNEChange_Attribute
+Debug: Deleting unreferenced edge in GNEChange_Attribute
 Debug: Deleting unreferenced lane '-gneE4_0' in GNEEdge destructor
-Debug: Deleting unreferenced edge 'gneE4' in GNEChange_Attribute
+Debug: Deleting unreferenced edge in GNEChange_Attribute
 Debug: Deleting unreferenced lane 'gneE4_0' in GNEEdge destructor
-Debug: Deleting unreferenced edge '-gneE5' in GNEChange_Attribute
+Debug: Deleting unreferenced edge in GNEChange_Attribute
 Debug: Deleting unreferenced lane '-gneE5_0' in GNEEdge destructor
-Debug: Deleting unreferenced edge 'gneE3' in GNEChange_Attribute
+Debug: Deleting unreferenced edge in GNEChange_Attribute
 Debug: Deleting unreferenced lane 'gneE3_0' in GNEEdge destructor
-Debug: Deleting unreferenced junction 'gneJ4' in GNEChange_Attribute
+Debug: Deleting unreferenced junction in GNEChange_Attribute
 Debug: Deleting NBNode of 'gneJ4' in GNEJunction destructor
-Debug: Deleting unreferenced edge '-gneE3' in GNEChange_Attribute
+Debug: Deleting unreferenced edge in GNEChange_Attribute
 Debug: Deleting unreferenced lane '-gneE3_0' in GNEEdge destructor
-Debug: Deleting unreferenced edge 'gneE1' in GNEChange_Attribute
+Debug: Deleting unreferenced edge in GNEChange_Attribute
 Debug: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
-Debug: Deleting unreferenced junction 'gneJ2' in GNEChange_Attribute
+Debug: Deleting unreferenced junction in GNEChange_Attribute
 Debug: Deleting NBNode of 'gneJ2' in GNEJunction destructor
-Debug: Deleting unreferenced edge 'gneE2' in GNEChange_Attribute
+Debug: Deleting unreferenced edge in GNEChange_Attribute
 Debug: Deleting unreferenced lane 'gneE2_0' in GNEEdge destructor
-Debug: Deleting unreferenced edge 'gneE0' in GNEChange_Attribute
+Debug: Deleting unreferenced edge in GNEChange_Attribute
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
-Debug: Deleting unreferenced junction 'gneJ0' in GNEChange_Attribute
+Debug: Deleting unreferenced junction in GNEChange_Attribute
 Debug: Deleting NBNode of 'gneJ0' in GNEJunction destructor
-Debug: Deleting unreferenced detExit 'e3Detector_0'
-Debug: Deleting unreferenced detEntry 'e3Detector_0'
-Debug: Deleting unreferenced e3Detector 'e3Detector_0'
-Debug: Deleting unreferenced busStop 'busStop_gneE7_0_6'
-Debug: Deleting unreferenced busStop 'busStop_gneE6_0_9'
-Debug: Deleting unreferenced busStop 'busStop_gneE5_0_8'
-Debug: Deleting unreferenced busStop 'busStop_gneE4_0_7'
-Debug: Deleting unreferenced busStop 'busStop_gneE2_0_0'
-Debug: Deleting unreferenced busStop 'busStop_-gneE7_0_5'
-Debug: Deleting unreferenced busStop 'busStop_-gneE6_0_4'
-Debug: Deleting unreferenced busStop 'busStop_-gneE5_0_3'
-Debug: Deleting unreferenced busStop 'busStop_-gneE4_0_2'
-Debug: Deleting unreferenced busStop 'busStop_-gneE3_0_1'
+Debug: Deleting unreferenced detExit
+Debug: Deleting unreferenced detEntry
+Debug: Deleting unreferenced e3Detector
+Debug: Deleting unreferenced busStop
+Debug: Deleting unreferenced busStop
+Debug: Deleting unreferenced busStop
+Debug: Deleting unreferenced busStop
+Debug: Deleting unreferenced busStop
+Debug: Deleting unreferenced busStop
+Debug: Deleting unreferenced busStop
+Debug: Deleting unreferenced busStop
+Debug: Deleting unreferenced busStop
+Debug: Deleting unreferenced busStop
 Debug: Deleting unreferenced edge '-gneE10' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane '-gneE10_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from-gneE10_0to-gneE9_0' in GNEEdge destructor

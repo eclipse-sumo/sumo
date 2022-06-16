@@ -10,11 +10,11 @@ Debug: Adding detEntry 'e3Detector_0' in GNEChange_Additional
 Debug: Adding detExit 'e3Detector_0' in GNEChange_Additional
 Debug: Adding instantInductionLoop 'instantInductionLoop_1' in GNEChange_Additional
 Debug: Adding rerouter 'rerouter_0' in GNEChange_Additional
-Debug: Adding rerouterSymbol 'rerouter_0' in GNEChange_Additional
+Debug: Adding rerouterSymbol 'gneE1' in GNEChange_Additional
 Debug: Adding routeProbe 'routeProbe_gneE1_0' in GNEChange_Additional
 Debug: Adding vaporizer 'gneE1' in GNEChange_Additional
 Debug: Adding variableSpeedSign 'variableSpeedSign_0' in GNEChange_Additional
-Debug: Adding variableSpeedSignSymbol 'variableSpeedSign_0' in GNEChange_Additional
+Debug: Adding variableSpeedSignSymbol 'gneE1_0' in GNEChange_Additional
 Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Key F5 (Compute) pressed
@@ -27,23 +27,23 @@ Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Additionals saved after dialog
-Debug: Deleting unreferenced variableSpeedSignSymbol 'variableSpeedSign_0'
-Debug: Deleting unreferenced variableSpeedSign 'variableSpeedSign_0'
-Debug: Deleting unreferenced vaporizer 'gneE1'
-Debug: Deleting unreferenced routeProbe 'routeProbe_gneE1_0'
-Debug: Deleting unreferenced rerouterSymbol 'rerouter_0'
-Debug: Deleting unreferenced rerouter 'rerouter_0'
-Debug: Deleting unreferenced instantInductionLoop 'instantInductionLoop_1'
-Debug: Deleting unreferenced detExit 'e3Detector_0'
-Debug: Deleting unreferenced detEntry 'e3Detector_0'
-Debug: Deleting unreferenced e3Detector 'e3Detector_0'
-Debug: Deleting unreferenced e2Detector 'e2Detector_gneE0_1_0'
-Debug: Deleting unreferenced e1Detector 'e1Detector_gneE0_2_0'
-Debug: Deleting unreferenced containerStop 'containerStop_gneE1_1_0'
-Debug: Deleting unreferenced chargingStation 'chargingStation_gneE1_2_0'
-Debug: Deleting unreferenced calibrator 'calibrator_gneE1_1'
-Debug: Deleting unreferenced calibratorLane 'calibrator_gneE1_0_0'
-Debug: Deleting unreferenced busStop 'busStop_gneE1_0_0'
+Debug: Deleting unreferenced variableSpeedSignSymbol
+Debug: Deleting unreferenced variableSpeedSign
+Debug: Deleting unreferenced vaporizer
+Debug: Deleting unreferenced routeProbe
+Debug: Deleting unreferenced rerouterSymbol
+Debug: Deleting unreferenced rerouter
+Debug: Deleting unreferenced instantInductionLoop
+Debug: Deleting unreferenced detExit
+Debug: Deleting unreferenced detEntry
+Debug: Deleting unreferenced e3Detector
+Debug: Deleting unreferenced e2Detector
+Debug: Deleting unreferenced e1Detector
+Debug: Deleting unreferenced containerStop
+Debug: Deleting unreferenced chargingStation
+Debug: Deleting unreferenced calibrator
+Debug: Deleting unreferenced calibratorLane
+Debug: Deleting unreferenced busStop
 Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane 'gneE0_1' in GNEEdge destructor
@@ -57,3 +57,4 @@ Debug: Deleting unreferenced connection 'fromgneE1_2togneE0_2' in GNEEdge destru
 Debug: Deleting unreferenced junction 'gneJ0' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'gneJ1' in AttributeCarriers destructor
 Debug: Deleting net builder in GNENet destructor
+X connection to :29024.0 broken (explicit kill or server shutdown).

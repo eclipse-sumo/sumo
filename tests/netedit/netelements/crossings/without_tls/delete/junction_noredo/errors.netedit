@@ -457,8 +457,8 @@ Debug: Deleting unreferenced walkingArea ':B_w0' in GNEJunction destructor
 Debug: Deleting unreferenced junction 'C' in AttributeCarriers destructor
 Debug: Deleting unreferenced walkingArea ':C_w0' in GNEJunction destructor
 Debug: Deleting unreferenced junction 'Center' in AttributeCarriers destructor
-Debug: Deleting unreferenced crossing ':Center_c1' in GNEJunction destructor
 Debug: Deleting unreferenced crossing ':Center_c0' in GNEJunction destructor
+Debug: Deleting unreferenced crossing ':Center_c1' in GNEJunction destructor
 Debug: Deleting unreferenced walkingArea ':Center_w0' in GNEJunction destructor
 Debug: Deleting unreferenced walkingArea ':Center_w1' in GNEJunction destructor
 Debug: Deleting unreferenced walkingArea ':Center_w2' in GNEJunction destructor

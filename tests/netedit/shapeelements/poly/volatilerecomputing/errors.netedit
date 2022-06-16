@@ -25,17 +25,17 @@ GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 38.00,-12.0
 GLDebug: Removing edges during recomputing
 GLDebug: 	Removed object edge:gneE0 from SUMORTree with boundary -10.00,-11.60,60.00,10.00
 GLDebug: 	Removed object edge:gneE1 from SUMORTree with boundary -10.00,-10.00,60.00,11.60
-Debug: Deleting unreferenced poly 'poly_5'
+Debug: Deleting unreferenced poly
 GLDebug: 	Removed object polygon:poly_5 from SUMORTree with boundary 30.00,-30.00,60.00,0.00
-Debug: Deleting unreferenced poly 'poly_4'
+Debug: Deleting unreferenced poly
 GLDebug: 	Removed object polygon:poly_4 from SUMORTree with boundary 10.00,-30.00,40.00,0.00
-Debug: Deleting unreferenced poly 'poly_3'
+Debug: Deleting unreferenced poly
 GLDebug: 	Removed object polygon:poly_3 from SUMORTree with boundary -10.00,-30.00,20.00,0.00
-Debug: Deleting unreferenced poly 'poly_2'
+Debug: Deleting unreferenced poly
 GLDebug: 	Removed object polygon:poly_2 from SUMORTree with boundary 30.00,0.00,60.00,30.00
-Debug: Deleting unreferenced poly 'poly_1'
+Debug: Deleting unreferenced poly
 GLDebug: 	Removed object polygon:poly_1 from SUMORTree with boundary 10.00,0.00,40.00,30.00
-Debug: Deleting unreferenced poly 'poly_0'
+Debug: Deleting unreferenced poly
 GLDebug: 	Removed object polygon:poly_0 from SUMORTree with boundary -10.00,0.00,20.00,30.00
 GLDebug: initJunctionsAndEdges function called in computeAndUpdate(...) due recomputing with volatile options
 GLDebug: 	Inserted junction:gneJ0 into SUMORTree with boundary -10.00,-15.20,10.00,15.20

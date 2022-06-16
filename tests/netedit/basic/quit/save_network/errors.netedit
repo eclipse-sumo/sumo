@@ -20,9 +20,9 @@ Debug: Adding route 'r_0' in GNEChange_DemandElement
 Debug: Additionals saved
 Debug: demand elements saved
 Debug: Opening FXMessageBox 'Confirm quit network'
-Debug: Deleting unreferenced route 'r_0'
-Debug: Deleting unreferenced poly 'po_0'
-Debug: Deleting unreferenced busStop 'bs_0'
+Debug: Deleting unreferenced route
+Debug: Deleting unreferenced poly
+Debug: Deleting unreferenced busStop
 Debug: Deleting unreferenced edge 'E0' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'E0_0' in GNEEdge destructor
 Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor

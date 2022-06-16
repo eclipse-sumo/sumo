@@ -21,9 +21,9 @@ Debug: Additionals saved
 Debug: Opening FXMessageBox 'Save demand elements before quit'
 Debug: Closed FXMessageBox 'Save demand elements before quit' with 'Yes'
 Debug: demand elements saved
-Debug: Deleting unreferenced route 'r_0'
-Debug: Deleting unreferenced poly 'po_0'
-Debug: Deleting unreferenced busStop 'bs_0'
+Debug: Deleting unreferenced route
+Debug: Deleting unreferenced poly
+Debug: Deleting unreferenced busStop
 Debug: Deleting unreferenced edge 'E0' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'E0_0' in GNEEdge destructor
 Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor

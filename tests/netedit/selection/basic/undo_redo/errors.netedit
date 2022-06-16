@@ -564,39 +564,39 @@ Debug: Restoring previous attribute
 Debug: Restoring previous attribute
 Debug: declaring connections of edge '1' as loaded (It will not be removed)
 Debug: Additionals saved
-Debug: Deleting unreferenced connection 'from8_2to1_2' in GNEChange_Attribute
-Debug: Deleting unreferenced connection 'from8_2to3_2' in GNEChange_Attribute
-Debug: Deleting unreferenced connection 'from8_1to3_1' in GNEChange_Attribute
-Debug: Deleting unreferenced connection 'from8_1to2_1' in GNEChange_Attribute
-Debug: Deleting unreferenced connection 'from7_2to2_2' in GNEChange_Attribute
-Debug: Deleting unreferenced connection 'from7_2to4_2' in GNEChange_Attribute
-Debug: Deleting unreferenced connection 'from7_1to4_1' in GNEChange_Attribute
-Debug: Deleting unreferenced connection 'from7_1to1_1' in GNEChange_Attribute
-Debug: Deleting unreferenced connection 'from6_2to4_2' in GNEChange_Attribute
-Debug: Deleting unreferenced connection 'from6_2to1_2' in GNEChange_Attribute
-Debug: Deleting unreferenced connection 'from6_1to1_1' in GNEChange_Attribute
-Debug: Deleting unreferenced connection 'from6_1to3_1' in GNEChange_Attribute
-Debug: Deleting unreferenced connection 'from5_2to3_2' in GNEChange_Attribute
-Debug: Deleting unreferenced connection 'from5_2to2_2' in GNEChange_Attribute
-Debug: Deleting unreferenced connection 'from5_1to2_1' in GNEChange_Attribute
-Debug: Deleting unreferenced connection 'from5_1to4_1' in GNEChange_Attribute
-Debug: Deleting unreferenced poiLane 'POI_5'
-Debug: Deleting unreferenced poiLane 'POI_4'
-Debug: Deleting unreferenced poi 'POI_3'
-Debug: Deleting unreferenced poi 'POI_2'
-Debug: Deleting unreferenced poi 'POI_1'
-Debug: Deleting unreferenced poi 'POI_0'
-Debug: Deleting unreferenced taz 'TAZ'
-Debug: Deleting unreferenced poly 'poly'
-Debug: Deleting unreferenced e1Detector 'detector8'
-Debug: Deleting unreferenced e1Detector 'detector7'
-Debug: Deleting unreferenced e1Detector 'detector6'
-Debug: Deleting unreferenced e1Detector 'detector5'
-Debug: Deleting unreferenced e1Detector 'detector4'
-Debug: Deleting unreferenced e1Detector 'detector3'
-Debug: Deleting unreferenced e1Detector 'detector2'
-Debug: Deleting unreferenced e1Detector 'detector1'
-Debug: Deleting unreferenced busStop 'busStop'
+Debug: Deleting unreferenced connection in GNEChange_Attribute
+Debug: Deleting unreferenced connection in GNEChange_Attribute
+Debug: Deleting unreferenced connection in GNEChange_Attribute
+Debug: Deleting unreferenced connection in GNEChange_Attribute
+Debug: Deleting unreferenced connection in GNEChange_Attribute
+Debug: Deleting unreferenced connection in GNEChange_Attribute
+Debug: Deleting unreferenced connection in GNEChange_Attribute
+Debug: Deleting unreferenced connection in GNEChange_Attribute
+Debug: Deleting unreferenced connection in GNEChange_Attribute
+Debug: Deleting unreferenced connection in GNEChange_Attribute
+Debug: Deleting unreferenced connection in GNEChange_Attribute
+Debug: Deleting unreferenced connection in GNEChange_Attribute
+Debug: Deleting unreferenced connection in GNEChange_Attribute
+Debug: Deleting unreferenced connection in GNEChange_Attribute
+Debug: Deleting unreferenced connection in GNEChange_Attribute
+Debug: Deleting unreferenced connection in GNEChange_Attribute
+Debug: Deleting unreferenced poiLane
+Debug: Deleting unreferenced poiLane
+Debug: Deleting unreferenced poi
+Debug: Deleting unreferenced poi
+Debug: Deleting unreferenced poi
+Debug: Deleting unreferenced poi
+Debug: Deleting unreferenced taz
+Debug: Deleting unreferenced poly
+Debug: Deleting unreferenced e1Detector
+Debug: Deleting unreferenced e1Detector
+Debug: Deleting unreferenced e1Detector
+Debug: Deleting unreferenced e1Detector
+Debug: Deleting unreferenced e1Detector
+Debug: Deleting unreferenced e1Detector
+Debug: Deleting unreferenced e1Detector
+Debug: Deleting unreferenced e1Detector
+Debug: Deleting unreferenced busStop
 Debug: Deleting unreferenced edge '1' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane '1_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane '1_1' in GNEEdge destructor

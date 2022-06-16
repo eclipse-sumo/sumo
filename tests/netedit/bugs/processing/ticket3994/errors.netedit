@@ -105,13 +105,13 @@ Debug: Created connection 'fromgneE9_0togneE10_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_1togneE10_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_2togneE10_2' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_2to-gneE3_0' in retrieveGNEConnection()
-Debug: Deleting unreferenced junction 'C' in GNEChange_Attribute
+Debug: Deleting unreferenced junction in GNEChange_Attribute
 Debug: Deleting NBNode of 'C' in GNEJunction destructor
-Debug: Deleting unreferenced edge 'gneE4' in GNEChange_Attribute
+Debug: Deleting unreferenced edge in GNEChange_Attribute
 Debug: Deleting unreferenced lane 'gneE4_0' in GNEEdge destructor
-Debug: Deleting unreferenced junction 'B' in GNEChange_Attribute
+Debug: Deleting unreferenced junction in GNEChange_Attribute
 Debug: Deleting NBNode of 'B' in GNEJunction destructor
-Debug: Deleting unreferenced edge '-gneE4' in GNEChange_Attribute
+Debug: Deleting unreferenced edge in GNEChange_Attribute
 Debug: Deleting unreferenced lane '-gneE4_0' in GNEEdge destructor
 Debug: Deleting unreferenced edge '-gneE3' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane '-gneE3_0' in GNEEdge destructor

@@ -135,14 +135,14 @@ GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary -10.00,8.40,40.00,30.
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary -10.00,10.00,40.00,31.60
 Debug: demand elements saved
 Debug: Additionals saved
-Debug: Deleting unreferenced tranship: edge->edge 'p_1'
-Debug: Deleting unreferenced container 'p_1'
-Debug: Deleting unreferenced tranship: edge->edge 'p_0'
-Debug: Deleting unreferenced container 'p_0'
-Debug: Deleting unreferenced vType 'typeC'
-Debug: Deleting unreferenced vType 'typeB'
-Debug: Deleting unreferenced vType 'typeA'
-Debug: Deleting unreferenced containerStop 'containerStop'
+Debug: Deleting unreferenced tranship: edge->edge
+Debug: Deleting unreferenced container
+Debug: Deleting unreferenced tranship: edge->edge
+Debug: Deleting unreferenced container
+Debug: Deleting unreferenced vType
+Debug: Deleting unreferenced vType
+Debug: Deleting unreferenced vType
+Debug: Deleting unreferenced containerStop
 Debug: Deleting unreferenced edge 'gneE10' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE10_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE10_0togneE8_0' in GNEEdge destructor

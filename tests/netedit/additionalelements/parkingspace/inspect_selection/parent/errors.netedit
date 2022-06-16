@@ -153,12 +153,12 @@ Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
 Debug: Created walkingArea ':gneJ2_w0' in retrieveGNEWalkingArea()
 Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
 Debug: Created walkingArea ':gneJ3_w0' in retrieveGNEWalkingArea()
-Debug: Deleting unreferenced space 'parkingArea_B'
+Debug: Deleting unreferenced space
 GLDebug: 	Removed object parkingSpace:parkingArea_B from SUMORTree with boundary 10.00,-17.00,58.00,31.00
-Debug: Deleting unreferenced parkingArea 'parkingArea_B'
-Debug: Deleting unreferenced space 'parkingArea_A'
+Debug: Deleting unreferenced parkingArea
+Debug: Deleting unreferenced space
 GLDebug: 	Removed object parkingSpace:parkingArea_A from SUMORTree with boundary -2.00,-12.00,36.00,26.00
-Debug: Deleting unreferenced parkingArea 'parkingArea_A'
+Debug: Deleting unreferenced parkingArea
 Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor

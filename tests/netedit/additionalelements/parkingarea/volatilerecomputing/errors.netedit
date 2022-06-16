@@ -78,31 +78,31 @@ GLDebug: 	Removed object edge:gneE0 from SUMORTree with boundary -10.00,-11.60,6
 GLDebug: 	Removed object edge:gneE1 from SUMORTree with boundary -10.00,-10.00,60.00,11.60
 GLDebug: 	Removed object edge:gneE2 from SUMORTree with boundary -10.00,10.00,60.00,44.40
 GLDebug: 	Removed object edge:gneE4 from SUMORTree with boundary -10.00,8.40,60.00,30.00
-Debug: Deleting unreferenced parkingArea 'parkingArea_gneE4_0_8'
-Debug: Deleting unreferenced space 'parkingArea_gneE4_0_0'
+Debug: Deleting unreferenced parkingArea
+Debug: Deleting unreferenced space
 GLDebug: 	Removed object parkingSpace:parkingArea_gneE4_0_0 from SUMORTree with boundary -28.20,-21.20,8.20,15.20
-Debug: Deleting unreferenced parkingArea 'parkingArea_gneE4_0_0'
-Debug: Deleting unreferenced space 'parkingArea_gneE2_4_1'
+Debug: Deleting unreferenced parkingArea
+Debug: Deleting unreferenced space
 GLDebug: 	Removed object parkingSpace:parkingArea_gneE2_4_1 from SUMORTree with boundary -28.20,-15.20,8.20,21.20
-Debug: Deleting unreferenced parkingArea 'parkingArea_gneE2_4_1'
-Debug: Deleting unreferenced space 'parkingArea_gneE2_3_2'
+Debug: Deleting unreferenced parkingArea
+Debug: Deleting unreferenced space
 GLDebug: 	Removed object parkingSpace:parkingArea_gneE2_3_2 from SUMORTree with boundary -28.20,-9.20,8.20,27.20
-Debug: Deleting unreferenced parkingArea 'parkingArea_gneE2_3_2'
-Debug: Deleting unreferenced space 'parkingArea_gneE2_2_3'
+Debug: Deleting unreferenced parkingArea
+Debug: Deleting unreferenced space
 GLDebug: 	Removed object parkingSpace:parkingArea_gneE2_2_3 from SUMORTree with boundary -28.20,-3.20,8.20,33.20
-Debug: Deleting unreferenced parkingArea 'parkingArea_gneE2_2_3'
-Debug: Deleting unreferenced space 'parkingArea_gneE2_1_4'
+Debug: Deleting unreferenced parkingArea
+Debug: Deleting unreferenced space
 GLDebug: 	Removed object parkingSpace:parkingArea_gneE2_1_4 from SUMORTree with boundary -28.20,2.80,8.20,39.20
-Debug: Deleting unreferenced parkingArea 'parkingArea_gneE2_1_4'
-Debug: Deleting unreferenced space 'parkingArea_gneE2_0_5'
+Debug: Deleting unreferenced parkingArea
+Debug: Deleting unreferenced space
 GLDebug: 	Removed object parkingSpace:parkingArea_gneE2_0_5 from SUMORTree with boundary -28.20,8.80,8.20,45.20
-Debug: Deleting unreferenced parkingArea 'parkingArea_gneE2_0_5'
-Debug: Deleting unreferenced space 'parkingArea_gneE1_0_6'
+Debug: Deleting unreferenced parkingArea
+Debug: Deleting unreferenced space
 GLDebug: 	Removed object parkingSpace:parkingArea_gneE1_0_6 from SUMORTree with boundary -28.20,14.80,8.20,51.20
-Debug: Deleting unreferenced parkingArea 'parkingArea_gneE1_0_6'
-Debug: Deleting unreferenced space 'pa_7'
+Debug: Deleting unreferenced parkingArea
+Debug: Deleting unreferenced space
 GLDebug: 	Removed object parkingSpace:pa_7 from SUMORTree with boundary -28.20,20.80,8.20,57.20
-Debug: Deleting unreferenced parkingArea 'pa_7'
+Debug: Deleting unreferenced parkingArea
 GLDebug: initJunctionsAndEdges function called in computeAndUpdate(...) due recomputing with volatile options
 GLDebug: 	Inserted junction:gneJ0 into SUMORTree with boundary -10.00,-15.20,10.00,15.20
 GLDebug: 	Inserted junction:gneJ1 into SUMORTree with boundary 40.00,-15.20,60.00,15.20

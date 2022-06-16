@@ -105,17 +105,17 @@ Debug: Removing e3Detector 'e3Detector_1' in GNEChange_Additional
 GLDebug: 	Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 21.65,-3.64,41.65,16.36
 Debug: Removing e3Detector 'e3Detector_0' in GNEChange_Additional
 GLDebug: 	Removed object e3Detector:e3Detector_0 from SUMORTree with boundary 17.79,-3.64,37.79,16.36
-Debug: Deleting unreferenced e3Detector 'e3Detector_0'
-Debug: Deleting unreferenced e3Detector 'e3Detector_2'
-Debug: Deleting unreferenced detExit 'e3Detector_2'
-Debug: Deleting unreferenced e3Detector 'e3_0'
-Debug: Deleting unreferenced detEntry 'e3_1'
-Debug: Deleting unreferenced detExit 'e3_1'
-Debug: Deleting unreferenced e3Detector 'e3_1'
-Debug: Deleting unreferenced detEntry 'e3Detector_1'
-Debug: Deleting unreferenced detExit 'e3Detector_1'
-Debug: Deleting unreferenced e3Detector 'e3Detector_1'
-Debug: Deleting unreferenced detEntry 'e3Detector_2'
+Debug: Deleting unreferenced e3Detector
+Debug: Deleting unreferenced e3Detector
+Debug: Deleting unreferenced detExit
+Debug: Deleting unreferenced e3Detector
+Debug: Deleting unreferenced detEntry
+Debug: Deleting unreferenced detExit
+Debug: Deleting unreferenced e3Detector
+Debug: Deleting unreferenced detEntry
+Debug: Deleting unreferenced detExit
+Debug: Deleting unreferenced e3Detector
+Debug: Deleting unreferenced detEntry
 Debug: Removing connection 'gneE1_0->gneE0_0' from edge 'gneE1'
 Debug: Deleting unreferenced connection 'fromgneE1_0togneE0_0' in removeConnection()
 Debug: Deleting TLS from junction 'gneJ0'

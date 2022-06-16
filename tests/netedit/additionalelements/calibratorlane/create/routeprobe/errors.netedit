@@ -17,8 +17,8 @@ Debug: Adding calibratorLane 'ca_0' in GNEChange_Additional
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Additionals saved
-Debug: Deleting unreferenced calibratorLane 'ca_0'
-Debug: Deleting unreferenced routeProbe 'routeProbe_0'
+Debug: Deleting unreferenced calibratorLane
+Debug: Deleting unreferenced routeProbe
 Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor

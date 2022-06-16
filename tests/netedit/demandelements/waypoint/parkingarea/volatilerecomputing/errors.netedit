@@ -51,27 +51,27 @@ GLDebug: 	Removed object edge:gneE0 from SUMORTree with boundary -10.00,-11.60,6
 GLDebug: 	Removed object edge:gneE1 from SUMORTree with boundary -10.00,-10.00,60.00,11.60
 GLDebug: 	Removed object edge:gneE2 from SUMORTree with boundary -10.00,10.00,60.00,44.40
 GLDebug: 	Removed object edge:gneE4 from SUMORTree with boundary -10.00,8.40,60.00,30.00
-Debug: Deleting unreferenced waypointParkingArea 'vehicle_1'
-Debug: Deleting unreferenced waypointParkingArea 'vehicle_1'
-Debug: Deleting unreferenced routeEmbedded 'vehicle_1'
-Debug: Deleting unreferenced vehicleWithRoute 'vehicle_1'
-Debug: Deleting unreferenced waypointParkingArea 'vehicle_0'
-Debug: Deleting unreferenced waypointParkingArea 'vehicle_0'
-Debug: Deleting unreferenced waypointParkingArea 'vehicle_0'
-Debug: Deleting unreferenced waypointParkingArea 'vehicle_0'
-Debug: Deleting unreferenced waypointParkingArea 'vehicle_0'
-Debug: Deleting unreferenced waypointParkingArea 'vehicle_0'
-Debug: Deleting unreferenced routeEmbedded 'vehicle_0'
-Debug: Deleting unreferenced vehicleWithRoute 'vehicle_0'
-Debug: Deleting unreferenced vType 'id'
-Debug: Deleting unreferenced parkingArea 'parkingAreaH'
-Debug: Deleting unreferenced parkingArea 'parkingAreaG'
-Debug: Deleting unreferenced parkingArea 'parkingAreaF'
-Debug: Deleting unreferenced parkingArea 'parkingAreaE'
-Debug: Deleting unreferenced parkingArea 'parkingAreaD'
-Debug: Deleting unreferenced parkingArea 'parkingAreaC'
-Debug: Deleting unreferenced parkingArea 'parkingAreaB'
-Debug: Deleting unreferenced parkingArea 'parkingAreaA'
+Debug: Deleting unreferenced waypointParkingArea
+Debug: Deleting unreferenced waypointParkingArea
+Debug: Deleting unreferenced routeEmbedded
+Debug: Deleting unreferenced vehicleWithRoute
+Debug: Deleting unreferenced waypointParkingArea
+Debug: Deleting unreferenced waypointParkingArea
+Debug: Deleting unreferenced waypointParkingArea
+Debug: Deleting unreferenced waypointParkingArea
+Debug: Deleting unreferenced waypointParkingArea
+Debug: Deleting unreferenced waypointParkingArea
+Debug: Deleting unreferenced routeEmbedded
+Debug: Deleting unreferenced vehicleWithRoute
+Debug: Deleting unreferenced vType
+Debug: Deleting unreferenced parkingArea
+Debug: Deleting unreferenced parkingArea
+Debug: Deleting unreferenced parkingArea
+Debug: Deleting unreferenced parkingArea
+Debug: Deleting unreferenced parkingArea
+Debug: Deleting unreferenced parkingArea
+Debug: Deleting unreferenced parkingArea
+Debug: Deleting unreferenced parkingArea
 GLDebug: initJunctionsAndEdges function called in computeAndUpdate(...) due recomputing with volatile options
 GLDebug: 	Inserted junction:gneJ0 into SUMORTree with boundary -15.20,-15.20,15.20,15.20
 Debug: Created crossing ':gneJ0_c0' in retrieveGNECrossing()

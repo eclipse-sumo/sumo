@@ -20,7 +20,7 @@ Debug: Created connection 'fromgneE8_0togneE0_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE2_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE2_1' in retrieveGNEConnection()
 Debug: Value 'dummy_Junction' for attribute from of edge isn't valid
-Debug: Value '' for attribute from of edge isn't valid
+Debug: Value 'dummy_Junction' for attribute from of edge isn't valid
 Debug: Removing connection 'gneE3_1->gneE2_1' from edge 'gneE3'
 Debug: Deleting unreferenced connection 'fromgneE3_1togneE2_1' in removeConnection()
 Debug: Removing connection 'gneE3_0->gneE8_0' from edge 'gneE3'
@@ -138,12 +138,12 @@ Debug: Created connection 'fromgneE3_0togneE8_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE8_0togneE0_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE8_0togneE2_1' in retrieveGNEConnection()
 Debug: Additionals saved
-Debug: Deleting unreferenced busStop 'busStop6'
-Debug: Deleting unreferenced busStop 'busStop5'
-Debug: Deleting unreferenced busStop 'busStop4'
-Debug: Deleting unreferenced busStop 'busStop3'
-Debug: Deleting unreferenced busStop 'busStop2'
-Debug: Deleting unreferenced busStop 'busStop1'
+Debug: Deleting unreferenced busStop
+Debug: Deleting unreferenced busStop
+Debug: Deleting unreferenced busStop
+Debug: Deleting unreferenced busStop
+Debug: Deleting unreferenced busStop
+Debug: Deleting unreferenced busStop
 Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE0_0togneE5_0' in GNEEdge destructor

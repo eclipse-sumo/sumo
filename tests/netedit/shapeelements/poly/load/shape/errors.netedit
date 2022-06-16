@@ -15,7 +15,7 @@ Debug: Adding poly 'poly_06' in GNEChange_Additional
 GLDebug: 	Inserted polygon:poly_06 into SUMORTree with boundary -80.00,10.00,-50.00,30.00
 Debug: Adding poly 'poly_07' in GNEChange_Additional
 GLDebug: 	Inserted polygon:poly_07 into SUMORTree with boundary -60.00,20.00,-30.00,50.00
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.shape.poly.08Apr202457.3697/netedit.daily.shape.poly/shapeelements/poly/load/shape/input_additionals.add.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.shape.poly.16Jun091036.28973/netedit.daily.shape.poly/shapeelements/poly/load/shape/input_additionals.add.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 38.00,-12.00,62.00,12.00
@@ -43,15 +43,15 @@ GLDebug: 	Inserted junction:gneJ1 into SUMORTree with boundary 40.00,-13.20,60.0
 GLDebug: Add edges during recomputing after calling myNetBuilder->compute(...)
 GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,60.00,10.00
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,11.60
-Debug: Deleting unreferenced poly 'poly_07'
+Debug: Deleting unreferenced poly
 GLDebug: 	Removed object polygon:poly_07 from SUMORTree with boundary -60.00,20.00,-30.00,50.00
-Debug: Deleting unreferenced poly 'poly_06'
+Debug: Deleting unreferenced poly
 GLDebug: 	Removed object polygon:poly_06 from SUMORTree with boundary -80.00,10.00,-50.00,30.00
-Debug: Deleting unreferenced poly 'poly_05'
+Debug: Deleting unreferenced poly
 GLDebug: 	Removed object polygon:poly_05 from SUMORTree with boundary -80.00,30.00,-50.00,50.00
-Debug: Deleting unreferenced poly 'poly_04'
+Debug: Deleting unreferenced poly
 GLDebug: 	Removed object polygon:poly_04 from SUMORTree with boundary 30.00,-50.00,50.00,-30.00
-Debug: Deleting unreferenced poly 'poly_03'
+Debug: Deleting unreferenced poly
 GLDebug: 	Removed object polygon:poly_03 from SUMORTree with boundary 0.00,-60.00,30.00,-30.00
 Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor

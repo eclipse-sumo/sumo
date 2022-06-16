@@ -12,30 +12,30 @@ Debug: Adding space 'pa' in GNEChange_Additional
 Debug: Adding space 'pa' in GNEChange_Additional
 Debug: Adding space 'pa' in GNEChange_Additional
 Debug: Adding rerouter 'r' in GNEChange_Additional
-Debug: Adding rerouterSymbol 'r' in GNEChange_Additional
+Debug: Adding rerouterSymbol 'gneE0' in GNEChange_Additional
 Debug: Adding variableSpeedSign 'v' in GNEChange_Additional
-Debug: Adding variableSpeedSignSymbol 'v' in GNEChange_Additional
+Debug: Adding variableSpeedSignSymbol 'gneE0_0' in GNEChange_Additional
 Debug: Keys Shift + F5 (Compute with volatile options) pressed
 Debug: Opening FXMessageBox 'Volatile Recomputing'
 Debug: Closed FXMessageBox 'Volatile Recomputing' with 'Yes'
 Debug: Additionals saved
-Debug: Deleting unreferenced variableSpeedSignSymbol 'v'
-Debug: Deleting unreferenced variableSpeedSign 'v'
-Debug: Deleting unreferenced rerouterSymbol 'r'
-Debug: Deleting unreferenced rerouter 'r'
-Debug: Deleting unreferenced space 'pa'
-Debug: Deleting unreferenced space 'pa'
-Debug: Deleting unreferenced space 'pa'
-Debug: Deleting unreferenced parkingArea 'pa'
-Debug: Deleting unreferenced instantInductionLoop 'e1i'
-Debug: Deleting unreferenced detExit 'e3'
-Debug: Deleting unreferenced detEntry 'e3'
-Debug: Deleting unreferenced e3Detector 'e3'
-Debug: Deleting unreferenced e2Detector 'e2'
-Debug: Deleting unreferenced e1Detector 'e1'
-Debug: Deleting unreferenced containerStop 'ct'
-Debug: Deleting unreferenced chargingStation 'cs'
-Debug: Deleting unreferenced busStop 'bs'
+Debug: Deleting unreferenced variableSpeedSignSymbol
+Debug: Deleting unreferenced variableSpeedSign
+Debug: Deleting unreferenced rerouterSymbol
+Debug: Deleting unreferenced rerouter
+Debug: Deleting unreferenced space
+Debug: Deleting unreferenced space
+Debug: Deleting unreferenced space
+Debug: Deleting unreferenced parkingArea
+Debug: Deleting unreferenced instantInductionLoop
+Debug: Deleting unreferenced detExit
+Debug: Deleting unreferenced detEntry
+Debug: Deleting unreferenced e3Detector
+Debug: Deleting unreferenced e2Detector
+Debug: Deleting unreferenced e1Detector
+Debug: Deleting unreferenced containerStop
+Debug: Deleting unreferenced chargingStation
+Debug: Deleting unreferenced busStop
 Debug: Additionals saved
 Debug: Created connection 'fromgneE0_1togneE1_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_1togneE0_1' in retrieveGNEConnection()

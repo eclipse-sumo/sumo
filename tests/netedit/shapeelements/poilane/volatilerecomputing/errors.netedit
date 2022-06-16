@@ -21,7 +21,7 @@ Debug: Adding poiLane 'POI_6' in GNEChange_Additional
 Debug: Adding poiLane 'POI_7' in GNEChange_Additional
 Error: Could not build poi with ID 'POI_8' in netedit; attribute width cannot be negative.
 Debug: Adding poiLane 'POI_9' in GNEChange_Additional
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.27Apr082149.8400\netedit.gui\shapeelements\poilane\volatilerecomputing\input_additionals.add.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.shape.poilane.16Jun091035.28966/netedit.daily.shape.poilane/shapeelements/poilane/volatilerecomputing/input_additionals.add.xml failed.
 Debug: Keys Shift + F5 (Compute with volatile options) pressed
 Debug: Opening FXMessageBox 'Volatile Recomputing'
 Debug: Closed FXMessageBox 'Volatile Recomputing' with 'Yes'
@@ -32,22 +32,22 @@ GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 38.00,-12.0
 GLDebug: Removing edges during recomputing
 GLDebug: 	Removed object edge:gneE0 from SUMORTree with boundary -10.00,-11.60,60.00,10.00
 GLDebug: 	Removed object edge:gneE1 from SUMORTree with boundary -10.00,-10.00,60.00,11.60
-Debug: Deleting unreferenced poiLane 'POI_9'
-Debug: Deleting unreferenced poiLane 'POI_7'
-Debug: Deleting unreferenced poiLane 'POI_6'
-Debug: Deleting unreferenced poiLane 'POI_5'
-Debug: Deleting unreferenced poiLane 'POI_4'
-Debug: Deleting unreferenced poiLane 'POI_3'
-Debug: Deleting unreferenced poiLane 'POI_2'
-Debug: Deleting unreferenced poiLane 'POI_17'
-Debug: Deleting unreferenced poiLane 'POI_16'
-Debug: Deleting unreferenced poiLane 'POI_15'
-Debug: Deleting unreferenced poiLane 'POI_14'
-Debug: Deleting unreferenced poiLane 'POI_13'
-Debug: Deleting unreferenced poiLane 'POI_12'
-Debug: Deleting unreferenced poiLane 'POI_11'
-Debug: Deleting unreferenced poiLane 'POI_1'
-Debug: Deleting unreferenced poiLane 'POI_0'
+Debug: Deleting unreferenced poiLane
+Debug: Deleting unreferenced poiLane
+Debug: Deleting unreferenced poiLane
+Debug: Deleting unreferenced poiLane
+Debug: Deleting unreferenced poiLane
+Debug: Deleting unreferenced poiLane
+Debug: Deleting unreferenced poiLane
+Debug: Deleting unreferenced poiLane
+Debug: Deleting unreferenced poiLane
+Debug: Deleting unreferenced poiLane
+Debug: Deleting unreferenced poiLane
+Debug: Deleting unreferenced poiLane
+Debug: Deleting unreferenced poiLane
+Debug: Deleting unreferenced poiLane
+Debug: Deleting unreferenced poiLane
+Debug: Deleting unreferenced poiLane
 GLDebug: initJunctionsAndEdges function called in computeAndUpdate(...) due recomputing with volatile options
 GLDebug: 	Inserted junction:gneJ0 into SUMORTree with boundary -10.00,-15.20,10.00,15.20
 GLDebug: 	Inserted junction:gneJ1 into SUMORTree with boundary 40.00,-15.20,60.00,15.20

@@ -49,25 +49,25 @@ GLDebug: 	Removed object edge:gneE0 from SUMORTree with boundary -10.00,-11.60,6
 GLDebug: 	Removed object edge:gneE1 from SUMORTree with boundary -10.00,-10.00,60.00,11.60
 GLDebug: 	Removed object edge:gneE2 from SUMORTree with boundary -10.00,10.00,60.00,44.40
 GLDebug: 	Removed object edge:gneE4 from SUMORTree with boundary -10.00,8.40,60.00,30.00
-Debug: Deleting unreferenced waypointContainerStop 'trip1'
-Debug: Deleting unreferenced waypointContainerStop 'trip1'
-Debug: Deleting unreferenced trip 'trip1'
-Debug: Deleting unreferenced waypointContainerStop 'trip0'
-Debug: Deleting unreferenced waypointContainerStop 'trip0'
-Debug: Deleting unreferenced waypointContainerStop 'trip0'
-Debug: Deleting unreferenced waypointContainerStop 'trip0'
-Debug: Deleting unreferenced waypointContainerStop 'trip0'
-Debug: Deleting unreferenced waypointContainerStop 'trip0'
-Debug: Deleting unreferenced trip 'trip0'
-Debug: Deleting unreferenced vType 'id'
-Debug: Deleting unreferenced containerStop 'containerStopH'
-Debug: Deleting unreferenced containerStop 'containerStopG'
-Debug: Deleting unreferenced containerStop 'containerStopF'
-Debug: Deleting unreferenced containerStop 'containerStopE'
-Debug: Deleting unreferenced containerStop 'containerStopD'
-Debug: Deleting unreferenced containerStop 'containerStopC'
-Debug: Deleting unreferenced containerStop 'containerStopB'
-Debug: Deleting unreferenced containerStop 'containerStopA'
+Debug: Deleting unreferenced waypointContainerStop
+Debug: Deleting unreferenced waypointContainerStop
+Debug: Deleting unreferenced trip
+Debug: Deleting unreferenced waypointContainerStop
+Debug: Deleting unreferenced waypointContainerStop
+Debug: Deleting unreferenced waypointContainerStop
+Debug: Deleting unreferenced waypointContainerStop
+Debug: Deleting unreferenced waypointContainerStop
+Debug: Deleting unreferenced waypointContainerStop
+Debug: Deleting unreferenced trip
+Debug: Deleting unreferenced vType
+Debug: Deleting unreferenced containerStop
+Debug: Deleting unreferenced containerStop
+Debug: Deleting unreferenced containerStop
+Debug: Deleting unreferenced containerStop
+Debug: Deleting unreferenced containerStop
+Debug: Deleting unreferenced containerStop
+Debug: Deleting unreferenced containerStop
+Debug: Deleting unreferenced containerStop
 GLDebug: initJunctionsAndEdges function called in computeAndUpdate(...) due recomputing with volatile options
 GLDebug: 	Inserted junction:gneJ0 into SUMORTree with boundary -15.20,-15.20,15.20,15.20
 Debug: Created crossing ':gneJ0_c0' in retrieveGNECrossing()

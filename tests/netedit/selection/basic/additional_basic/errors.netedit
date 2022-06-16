@@ -77,31 +77,31 @@ Debug: Removing busStop 'busStop_16' in GNEChange_Additional
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Additionals saved
-Debug: Deleting unreferenced poi 'POI_3'
-Debug: Deleting unreferenced poi 'POI_2'
-Debug: Deleting unreferenced poiLane 'POI_1'
-Debug: Deleting unreferenced poiLane 'POI_0'
-Debug: Deleting unreferenced taz 'TAZ'
-Debug: Deleting unreferenced poly 'poly_1'
-Debug: Deleting unreferenced poly 'poly_0'
-Debug: Deleting unreferenced busStop 'busStop_18'
-Debug: Deleting unreferenced busStop 'busStop_17'
-Debug: Deleting unreferenced busStop 'busStop_16'
-Debug: Deleting unreferenced busStop 'busStop_15'
-Debug: Deleting unreferenced busStop 'busStop_14'
-Debug: Deleting unreferenced busStop 'busStop_13'
-Debug: Deleting unreferenced busStop 'busStop_12'
-Debug: Deleting unreferenced busStop 'busStop_IDToRemove2'
-Debug: Deleting unreferenced busStop 'busStop_IDToRemove1'
-Debug: Deleting unreferenced busStop 'busStop_08'
-Debug: Deleting unreferenced busStop 'busStop_07'
-Debug: Deleting unreferenced busStop 'busStop_06'
-Debug: Deleting unreferenced busStop 'busStop_05'
-Debug: Deleting unreferenced busStop 'busStop_04'
-Debug: Deleting unreferenced busStop 'busStop_03'
-Debug: Deleting unreferenced busStop 'busStop_02'
-Debug: Deleting unreferenced busStop 'busStop_01'
-Debug: Deleting unreferenced busStop 'busStop_00'
+Debug: Deleting unreferenced poi
+Debug: Deleting unreferenced poi
+Debug: Deleting unreferenced poiLane
+Debug: Deleting unreferenced poiLane
+Debug: Deleting unreferenced taz
+Debug: Deleting unreferenced poly
+Debug: Deleting unreferenced poly
+Debug: Deleting unreferenced busStop
+Debug: Deleting unreferenced busStop
+Debug: Deleting unreferenced busStop
+Debug: Deleting unreferenced busStop
+Debug: Deleting unreferenced busStop
+Debug: Deleting unreferenced busStop
+Debug: Deleting unreferenced busStop
+Debug: Deleting unreferenced busStop
+Debug: Deleting unreferenced busStop
+Debug: Deleting unreferenced busStop
+Debug: Deleting unreferenced busStop
+Debug: Deleting unreferenced busStop
+Debug: Deleting unreferenced busStop
+Debug: Deleting unreferenced busStop
+Debug: Deleting unreferenced busStop
+Debug: Deleting unreferenced busStop
+Debug: Deleting unreferenced busStop
+Debug: Deleting unreferenced busStop
 Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor

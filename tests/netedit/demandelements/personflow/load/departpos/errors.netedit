@@ -25,7 +25,7 @@ Debug: Adding personFlow 'p_4' in GNEChange_DemandElement
 Debug: Adding personTrip: edge->edge 'p_4' in GNEChange_DemandElement
 Debug: Adding personFlow 'p_5' in GNEChange_DemandElement
 Debug: Adding personTrip: edge->edge 'p_5' in GNEChange_DemandElement
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.22Apr103431.936\netedit.gui\demandelements\personflow\load\departpos\input_routes.rou.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.personflow.16Jun091034.28802/netedit.daily.demand.personflow/demandelements/personflow/load/departpos/input_routes.rou.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ5 from SUMORTree with boundary 48.00,-12.00,72.00,12.00
@@ -130,15 +130,15 @@ GLDebug: 	Inserted edge:gneE6 into SUMORTree with boundary -10.00,28.40,70.00,50
 GLDebug: 	Inserted edge:gneE7 into SUMORTree with boundary -10.00,-10.00,70.00,11.60
 GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary -10.00,8.40,40.00,30.00
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary -10.00,10.00,40.00,31.60
-Debug: Deleting unreferenced personTrip: edge->edge 'p_5'
-Debug: Deleting unreferenced personFlow 'p_5'
-Debug: Deleting unreferenced personTrip: edge->edge 'p_4'
-Debug: Deleting unreferenced personFlow 'p_4'
-Debug: Deleting unreferenced personTrip: edge->edge 'p_3'
-Debug: Deleting unreferenced personFlow 'p_3'
-Debug: Deleting unreferenced personTrip: edge->edge 'p_0'
-Debug: Deleting unreferenced personFlow 'p_0'
-Debug: Deleting unreferenced busStop 'busStop'
+Debug: Deleting unreferenced personTrip: edge->edge
+Debug: Deleting unreferenced personFlow
+Debug: Deleting unreferenced personTrip: edge->edge
+Debug: Deleting unreferenced personFlow
+Debug: Deleting unreferenced personTrip: edge->edge
+Debug: Deleting unreferenced personFlow
+Debug: Deleting unreferenced personTrip: edge->edge
+Debug: Deleting unreferenced personFlow
+Debug: Deleting unreferenced busStop
 Debug: Deleting unreferenced edge 'gneE10' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE10_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE10_0togneE8_0' in GNEEdge destructor

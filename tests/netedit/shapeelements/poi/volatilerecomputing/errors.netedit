@@ -37,29 +37,29 @@ GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 38.00,-12.0
 GLDebug: Removing edges during recomputing
 GLDebug: 	Removed object edge:gneE0 from SUMORTree with boundary -10.00,-11.60,60.00,10.00
 GLDebug: 	Removed object edge:gneE1 from SUMORTree with boundary -10.00,-10.00,60.00,11.60
-Debug: Deleting unreferenced poi 'POI_9'
+Debug: Deleting unreferenced poi
 GLDebug: 	Removed object poi:POI_9 from SUMORTree with boundary 10.00,-20.00,30.00,0.00
-Debug: Deleting unreferenced poi 'POI_8'
+Debug: Deleting unreferenced poi
 GLDebug: 	Removed object poi:POI_8 from SUMORTree with boundary 20.00,-20.00,40.00,0.00
-Debug: Deleting unreferenced poi 'POI_7'
+Debug: Deleting unreferenced poi
 GLDebug: 	Removed object poi:POI_7 from SUMORTree with boundary 30.00,-20.00,50.00,0.00
-Debug: Deleting unreferenced poi 'POI_6'
+Debug: Deleting unreferenced poi
 GLDebug: 	Removed object poi:POI_6 from SUMORTree with boundary 40.00,-20.00,60.00,0.00
-Debug: Deleting unreferenced poi 'POI_5'
+Debug: Deleting unreferenced poi
 GLDebug: 	Removed object poi:POI_5 from SUMORTree with boundary 40.00,0.00,60.00,20.00
-Debug: Deleting unreferenced poi 'POI_4'
+Debug: Deleting unreferenced poi
 GLDebug: 	Removed object poi:POI_4 from SUMORTree with boundary 30.00,0.00,50.00,20.00
-Debug: Deleting unreferenced poi 'POI_3'
+Debug: Deleting unreferenced poi
 GLDebug: 	Removed object poi:POI_3 from SUMORTree with boundary 20.00,0.00,40.00,20.00
-Debug: Deleting unreferenced poi 'POI_2'
+Debug: Deleting unreferenced poi
 GLDebug: 	Removed object poi:POI_2 from SUMORTree with boundary 10.00,0.00,30.00,20.00
-Debug: Deleting unreferenced poi 'POI_11'
+Debug: Deleting unreferenced poi
 GLDebug: 	Removed object poi:POI_11 from SUMORTree with boundary -10.00,-20.00,10.00,0.00
-Debug: Deleting unreferenced poi 'POI_10'
+Debug: Deleting unreferenced poi
 GLDebug: 	Removed object poi:POI_10 from SUMORTree with boundary 0.00,-20.00,20.00,0.00
-Debug: Deleting unreferenced poi 'POI_1'
+Debug: Deleting unreferenced poi
 GLDebug: 	Removed object poi:POI_1 from SUMORTree with boundary 0.00,0.00,20.00,20.00
-Debug: Deleting unreferenced poi 'POI_0'
+Debug: Deleting unreferenced poi
 GLDebug: 	Removed object poi:POI_0 from SUMORTree with boundary -10.00,0.00,10.00,20.00
 GLDebug: initJunctionsAndEdges function called in computeAndUpdate(...) due recomputing with volatile options
 GLDebug: 	Inserted junction:gneJ0 into SUMORTree with boundary -10.00,-15.20,10.00,15.20

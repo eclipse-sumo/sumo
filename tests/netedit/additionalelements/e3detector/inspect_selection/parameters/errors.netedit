@@ -117,12 +117,12 @@ Debug: Setting new attribute
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Additionals saved
-Debug: Deleting unreferenced detExit 'e3Detector_B'
-Debug: Deleting unreferenced detEntry 'e3Detector_B'
-Debug: Deleting unreferenced e3Detector 'e3Detector_B'
-Debug: Deleting unreferenced detExit 'e3Detector_A'
-Debug: Deleting unreferenced detEntry 'e3Detector_A'
-Debug: Deleting unreferenced e3Detector 'e3Detector_A'
+Debug: Deleting unreferenced detExit
+Debug: Deleting unreferenced detEntry
+Debug: Deleting unreferenced e3Detector
+Debug: Deleting unreferenced detExit
+Debug: Deleting unreferenced detEntry
+Debug: Deleting unreferenced e3Detector
 Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor

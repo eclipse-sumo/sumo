@@ -14,7 +14,7 @@ Error: Could not build detExit in netedit; lane doesn't exist.
 Debug: Adding detExit 'e3Detector_0' in GNEChange_Additional
 Debug: Adding detExit 'e3Detector_0' in GNEChange_Additional
 Debug: Adding detEntry 'e3Detector_0' in GNEChange_Additional
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.27Apr082149.8400\netedit.gui\additionalelements\detexit\volatilerecomputing\input_additionals.add.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.detexit.16Jun091034.28720/netedit.daily.additional.detexit/additionalelements/detexit/volatilerecomputing/input_additionals.add.xml failed.
 Debug: Keys Shift + F5 (Compute with volatile options) pressed
 Debug: Opening FXMessageBox 'Volatile Recomputing'
 Debug: Closed FXMessageBox 'Volatile Recomputing' with 'Yes'
@@ -25,10 +25,10 @@ GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 38.00,-12.0
 GLDebug: Removing edges during recomputing
 GLDebug: 	Removed object edge:gneE0 from SUMORTree with boundary -10.00,-11.60,60.00,10.00
 GLDebug: 	Removed object edge:gneE1 from SUMORTree with boundary -10.00,-10.00,60.00,11.60
-Debug: Deleting unreferenced detEntry 'e3Detector_0'
-Debug: Deleting unreferenced detExit 'e3Detector_0'
-Debug: Deleting unreferenced detExit 'e3Detector_0'
-Debug: Deleting unreferenced e3Detector 'e3Detector_0'
+Debug: Deleting unreferenced detEntry
+Debug: Deleting unreferenced detExit
+Debug: Deleting unreferenced detExit
+Debug: Deleting unreferenced e3Detector
 GLDebug: 	Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -19.88,14.71,0.12,34.71
 GLDebug: initJunctionsAndEdges function called in computeAndUpdate(...) due recomputing with volatile options
 GLDebug: 	Inserted junction:gneJ0 into SUMORTree with boundary -10.00,-15.20,10.00,15.20

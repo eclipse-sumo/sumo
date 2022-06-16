@@ -49,8 +49,8 @@ Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Additionals saved
-Debug: Deleting unreferenced e2Detector 'E2_B'
-Debug: Deleting unreferenced e2Detector 'E2_A'
+Debug: Deleting unreferenced e2Detector
+Debug: Deleting unreferenced e2Detector
 Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor

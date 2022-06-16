@@ -22,6 +22,7 @@ Debug: Created connection 'fromgneE9_0togneE2_1' in retrieveGNEConnection()
 Debug: Disabled select edges throught alt + 5
 Debug: Value 'DummyDisallowed' for attribute disallow of lane isn't valid
 Debug: Value 'authority  army, passenger; taxi. tram' for attribute disallow of lane isn't valid
+Debug: Value 'authority  army, passenger; taxi. tram' for attribute disallow of lane isn't valid
 Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Key F5 (Compute) pressed
@@ -55,12 +56,12 @@ Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute
 Debug: Additionals saved
-Debug: Deleting unreferenced busStop 'busStop6'
-Debug: Deleting unreferenced busStop 'busStop5'
-Debug: Deleting unreferenced busStop 'busStop4'
-Debug: Deleting unreferenced busStop 'busStop3'
-Debug: Deleting unreferenced busStop 'busStop2'
-Debug: Deleting unreferenced busStop 'busStop1'
+Debug: Deleting unreferenced busStop
+Debug: Deleting unreferenced busStop
+Debug: Deleting unreferenced busStop
+Debug: Deleting unreferenced busStop
+Debug: Deleting unreferenced busStop
+Debug: Deleting unreferenced busStop
 Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE0_0togneE5_0' in GNEEdge destructor

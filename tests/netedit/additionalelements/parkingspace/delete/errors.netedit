@@ -97,13 +97,13 @@ GLDebug: Add edges during recomputing after calling myNetBuilder->compute(...)
 GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-28.00,66.20,18.40
 Debug: Deleting unreferenced edge 'gneE1' GNEChange_Edge
 Debug: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
-Debug: Deleting unreferenced space 'pa_0'
-Debug: Deleting unreferenced parkingArea 'pa_0'
-Debug: Deleting unreferenced space 'parkingAreaLoaded_B'
-Debug: Deleting unreferenced parkingArea 'parkingAreaLoaded_B'
-Debug: Deleting unreferenced space 'parkingAreaLoaded_A'
+Debug: Deleting unreferenced space
+Debug: Deleting unreferenced parkingArea
+Debug: Deleting unreferenced space
+Debug: Deleting unreferenced parkingArea
+Debug: Deleting unreferenced space
 GLDebug: 	Removed object parkingSpace:parkingAreaLoaded_A from SUMORTree with boundary 9.80,-30.20,46.20,6.20
-Debug: Deleting unreferenced parkingArea 'parkingAreaLoaded_A'
+Debug: Deleting unreferenced parkingArea
 Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced junction 'gneJ0' in AttributeCarriers destructor

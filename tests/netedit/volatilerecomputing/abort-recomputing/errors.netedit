@@ -72,19 +72,19 @@ Debug: Created connection 'fromgneE8_0togneE9_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0to-gneE17_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE10_0' in retrieveGNEConnection()
 Debug: Additionals saved
-Debug: Deleting unreferenced detExit 'E3'
-Debug: Deleting unreferenced detEntry 'E3'
-Debug: Deleting unreferenced e3Detector 'E3'
-Debug: Deleting unreferenced busStop 'bs9'
-Debug: Deleting unreferenced busStop 'bs8'
-Debug: Deleting unreferenced busStop 'bs7'
-Debug: Deleting unreferenced busStop 'bs6'
-Debug: Deleting unreferenced busStop 'bs5'
-Debug: Deleting unreferenced busStop 'bs4'
-Debug: Deleting unreferenced busStop 'bs3'
-Debug: Deleting unreferenced busStop 'bs2'
-Debug: Deleting unreferenced busStop 'bs1'
-Debug: Deleting unreferenced busStop 'bs0'
+Debug: Deleting unreferenced detExit
+Debug: Deleting unreferenced detEntry
+Debug: Deleting unreferenced e3Detector
+Debug: Deleting unreferenced busStop
+Debug: Deleting unreferenced busStop
+Debug: Deleting unreferenced busStop
+Debug: Deleting unreferenced busStop
+Debug: Deleting unreferenced busStop
+Debug: Deleting unreferenced busStop
+Debug: Deleting unreferenced busStop
+Debug: Deleting unreferenced busStop
+Debug: Deleting unreferenced busStop
+Debug: Deleting unreferenced busStop
 Debug: Deleting unreferenced edge '-gneE10' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane '-gneE10_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from-gneE10_0to-gneE9_0' in GNEEdge destructor

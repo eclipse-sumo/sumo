@@ -1,9 +1,9 @@
 Debug: Adding dataSet 'newDataSet' in GNEChange_DataSet
 Debug: adding dataInterval [0.00, 3600.00] in GNEChange_DataInterval
 Debug: Key ENTER pressed
-Debug: Adding edgeRelation 'newDataSet' in GNEChange_GenericData
+Debug: Adding edgeRelation 'newDataSet[0.00,3600.00]:gneE12' in GNEChange_GenericData
 Debug: Key ENTER pressed
-Debug: Adding edgeRelation 'newDataSet' in GNEChange_GenericData
+Debug: Adding edgeRelation 'newDataSet[0.00,3600.00]:gneE13' in GNEChange_GenericData
 Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Setting new attribute
@@ -105,8 +105,8 @@ Debug: Created connection 'fromgneE12_0togneE16_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE12_1togneE16_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE12_2togneE16_2' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE12_2togneE15_2' in retrieveGNEConnection()
-Debug: Deleting unreferenced edgeRelation 'newDataSet[0.00,3600.00]gneE13->-gneE16'
-Debug: Deleting unreferenced edgeRelation 'newDataSet[0.00,3600.00]gneE12->gneE15'
+Debug: Deleting unreferenced edgeRelation
+Debug: Deleting unreferenced edgeRelation
 Debug: Deleting unreferenced dataInterval [0.00, 3600.00] in ~GNEChange_DataInterval()
 Debug: Deleting unreferenced dataSet 'newDataSet'
 Debug: Deleting unreferenced edge '-gneE14' in AttributeCarriers destructor
@@ -167,3 +167,4 @@ Debug: Deleting unreferenced junction 'gneJ12' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'gneJ13' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'gneJ14' in AttributeCarriers destructor
 Debug: Deleting net builder in GNENet destructor
+X connection to :29296.0 broken (explicit kill or server shutdown).

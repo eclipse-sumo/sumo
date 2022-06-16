@@ -20,15 +20,15 @@ Debug: Setting new attribute
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Additionals saved
-Debug: Deleting unreferenced poi 'POI_3'
-Debug: Deleting unreferenced poi 'POI_2'
-Debug: Deleting unreferenced poiLane 'POI_1'
-Debug: Deleting unreferenced poiLane 'POI_0'
-Debug: Deleting unreferenced taz 'TAZ'
-Debug: Deleting unreferenced poly 'poly_1'
-Debug: Deleting unreferenced poly 'poly_0'
-Debug: Deleting unreferenced busStop 'busStop_gneE1_0_0'
-Debug: Deleting unreferenced busStop 'busStop_gneE0_0_1'
+Debug: Deleting unreferenced poi
+Debug: Deleting unreferenced poi
+Debug: Deleting unreferenced poiLane
+Debug: Deleting unreferenced poiLane
+Debug: Deleting unreferenced taz
+Debug: Deleting unreferenced poly
+Debug: Deleting unreferenced poly
+Debug: Deleting unreferenced busStop
+Debug: Deleting unreferenced busStop
 Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor

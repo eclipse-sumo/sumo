@@ -186,11 +186,6 @@ Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Setting new attribute
-Debug: Setting new attribute
-Debug: Setting new attribute
-Debug: Setting new attribute
-Debug: Setting new attribute
-Debug: Setting new attribute
 Debug: Opening FXMessageBox 'confirm selection operation'
 Debug: Closed FXMessageBox 'confirm selection operation' with 'Yes'
 Debug: Setting new attribute
@@ -335,11 +330,6 @@ Debug: Restoring previous attribute
 Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Restoring previous attribute
-Debug: Restoring previous attribute
-Debug: Restoring previous attribute
-Debug: Restoring previous attribute
-Debug: Restoring previous attribute
 Debug: Restoring previous attribute
 Debug: Restoring previous attribute
 Debug: Restoring previous attribute
@@ -694,11 +684,6 @@ Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Setting new attribute
-Debug: Setting new attribute
-Debug: Setting new attribute
-Debug: Setting new attribute
-Debug: Setting new attribute
-Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute
@@ -771,22 +756,22 @@ Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Additionals saved
-Debug: Deleting unreferenced poiLane 'POI_5'
-Debug: Deleting unreferenced poiLane 'POI_4'
-Debug: Deleting unreferenced poi 'POI_3'
-Debug: Deleting unreferenced poi 'POI_2'
-Debug: Deleting unreferenced poi 'POI_1'
-Debug: Deleting unreferenced poi 'POI_0'
-Debug: Deleting unreferenced taz 'TAZ'
-Debug: Deleting unreferenced poly 'poly_0'
-Debug: Deleting unreferenced e1Detector 'detector8'
-Debug: Deleting unreferenced e1Detector 'detector7'
-Debug: Deleting unreferenced e1Detector 'detector6'
-Debug: Deleting unreferenced e1Detector 'detector5'
-Debug: Deleting unreferenced e1Detector 'detector4'
-Debug: Deleting unreferenced e1Detector 'detector3'
-Debug: Deleting unreferenced e1Detector 'detector2'
-Debug: Deleting unreferenced e1Detector 'detector1'
+Debug: Deleting unreferenced poiLane
+Debug: Deleting unreferenced poiLane
+Debug: Deleting unreferenced poi
+Debug: Deleting unreferenced poi
+Debug: Deleting unreferenced poi
+Debug: Deleting unreferenced poi
+Debug: Deleting unreferenced taz
+Debug: Deleting unreferenced poly
+Debug: Deleting unreferenced e1Detector
+Debug: Deleting unreferenced e1Detector
+Debug: Deleting unreferenced e1Detector
+Debug: Deleting unreferenced e1Detector
+Debug: Deleting unreferenced e1Detector
+Debug: Deleting unreferenced e1Detector
+Debug: Deleting unreferenced e1Detector
+Debug: Deleting unreferenced e1Detector
 Debug: Deleting unreferenced edge '1' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane '1_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane '1_1' in GNEEdge destructor

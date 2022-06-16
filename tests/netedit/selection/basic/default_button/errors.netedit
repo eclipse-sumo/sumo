@@ -13,15 +13,15 @@ Debug: Removing connection 'gneE0_0->gneE1_0' from edge 'gneE0'
 Debug: Removing connection 'gneE1_0->gneE0_0' from edge 'gneE1'
 Debug: Removing edge 'gneE1' from net
 Debug: Additionals saved
-Debug: Deleting unreferenced edge 'gneE1' in GNEChange_Attribute
+Debug: Deleting unreferenced edge in GNEChange_Attribute
 Debug: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
-Debug: Deleting unreferenced poi 'POI_3'
-Debug: Deleting unreferenced poi 'POI_2'
-Debug: Deleting unreferenced poiLane 'POI_1'
-Debug: Deleting unreferenced poiLane 'POI_0'
-Debug: Deleting unreferenced taz 'TAZ'
-Debug: Deleting unreferenced poly 'poly_1'
-Debug: Deleting unreferenced poly 'poly_0'
+Debug: Deleting unreferenced poi
+Debug: Deleting unreferenced poi
+Debug: Deleting unreferenced poiLane
+Debug: Deleting unreferenced poiLane
+Debug: Deleting unreferenced taz
+Debug: Deleting unreferenced poly
+Debug: Deleting unreferenced poly
 Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced junction 'gneJ0' in AttributeCarriers destructor

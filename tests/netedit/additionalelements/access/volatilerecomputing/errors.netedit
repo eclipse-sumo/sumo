@@ -36,21 +36,21 @@ GLDebug: 	Removed object edge:gneE0 from SUMORTree with boundary -10.00,-11.60,6
 GLDebug: 	Removed object edge:gneE1 from SUMORTree with boundary -10.00,-10.00,60.00,11.60
 GLDebug: 	Removed object edge:gneE2 from SUMORTree with boundary -10.00,10.00,60.00,44.40
 GLDebug: 	Removed object edge:gneE4 from SUMORTree with boundary -10.00,8.40,60.00,30.00
-Debug: Deleting unreferenced access 'busStop_gneE4_0_0'
-Debug: Deleting unreferenced access 'busStop_gneE4_0_0'
-Debug: Deleting unreferenced access 'busStop_gneE4_0_0'
-Debug: Deleting unreferenced access 'busStop_gneE4_0_0'
-Debug: Deleting unreferenced busStop 'busStop_gneE4_0_0'
-Debug: Deleting unreferenced access 'busStop_gneE2_0_5'
-Debug: Deleting unreferenced access 'busStop_gneE2_0_5'
-Debug: Deleting unreferenced access 'busStop_gneE2_0_5'
-Debug: Deleting unreferenced access 'busStop_gneE2_0_5'
-Debug: Deleting unreferenced busStop 'busStop_gneE2_0_5'
-Debug: Deleting unreferenced access 'busStop_gneE1_0_2'
-Debug: Deleting unreferenced access 'busStop_gneE1_0_2'
-Debug: Deleting unreferenced access 'busStop_gneE1_0_2'
-Debug: Deleting unreferenced access 'busStop_gneE1_0_2'
-Debug: Deleting unreferenced busStop 'busStop_gneE1_0_2'
+Debug: Deleting unreferenced access
+Debug: Deleting unreferenced access
+Debug: Deleting unreferenced access
+Debug: Deleting unreferenced access
+Debug: Deleting unreferenced busStop
+Debug: Deleting unreferenced access
+Debug: Deleting unreferenced access
+Debug: Deleting unreferenced access
+Debug: Deleting unreferenced access
+Debug: Deleting unreferenced busStop
+Debug: Deleting unreferenced access
+Debug: Deleting unreferenced access
+Debug: Deleting unreferenced access
+Debug: Deleting unreferenced access
+Debug: Deleting unreferenced busStop
 GLDebug: initJunctionsAndEdges function called in computeAndUpdate(...) due recomputing with volatile options
 GLDebug: 	Inserted junction:gneJ0 into SUMORTree with boundary -10.00,-13.20,10.00,13.20
 GLDebug: 	Inserted junction:gneJ1 into SUMORTree with boundary 40.00,-13.20,60.00,13.20

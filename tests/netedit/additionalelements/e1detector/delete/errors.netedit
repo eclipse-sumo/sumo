@@ -93,9 +93,9 @@ GLDebug: Add edges during recomputing after calling myNetBuilder->compute(...)
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,11.60
 Debug: Deleting unreferenced edge 'gneE0' GNEChange_Edge
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
-Debug: Deleting unreferenced e1Detector 'e1_0'
-Debug: Deleting unreferenced e1Detector 'E1Detector_1'
-Debug: Deleting unreferenced e1Detector 'E1Detector_0'
+Debug: Deleting unreferenced e1Detector
+Debug: Deleting unreferenced e1Detector
+Debug: Deleting unreferenced e1Detector
 Debug: Deleting unreferenced edge 'gneE1' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
 Debug: Deleting unreferenced junction 'gneJ0' in AttributeCarriers destructor

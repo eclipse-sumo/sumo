@@ -15,19 +15,19 @@ Debug: Keys Shift + F5 (Compute with volatile options) pressed
 Debug: Opening FXMessageBox 'Volatile Recomputing'
 Debug: Closed FXMessageBox 'Volatile Recomputing' with 'Yes'
 Debug: Additionals saved
-Debug: Deleting unreferenced detExit 'e3Detector_0'
-Debug: Deleting unreferenced detEntry 'e3Detector_0'
-Debug: Deleting unreferenced e3Detector 'e3Detector_0'
-Debug: Deleting unreferenced busStop 'busStop_gneE7_0_6'
-Debug: Deleting unreferenced busStop 'busStop_gneE6_0_9'
-Debug: Deleting unreferenced busStop 'busStop_gneE5_0_8'
-Debug: Deleting unreferenced busStop 'busStop_gneE4_0_7'
-Debug: Deleting unreferenced busStop 'busStop_gneE2_0_0'
-Debug: Deleting unreferenced busStop 'busStop_-gneE7_0_5'
-Debug: Deleting unreferenced busStop 'busStop_-gneE6_0_4'
-Debug: Deleting unreferenced busStop 'busStop_-gneE5_0_3'
-Debug: Deleting unreferenced busStop 'busStop_-gneE4_0_2'
-Debug: Deleting unreferenced busStop 'busStop_-gneE3_0_1'
+Debug: Deleting unreferenced detExit
+Debug: Deleting unreferenced detEntry
+Debug: Deleting unreferenced e3Detector
+Debug: Deleting unreferenced busStop
+Debug: Deleting unreferenced busStop
+Debug: Deleting unreferenced busStop
+Debug: Deleting unreferenced busStop
+Debug: Deleting unreferenced busStop
+Debug: Deleting unreferenced busStop
+Debug: Deleting unreferenced busStop
+Debug: Deleting unreferenced busStop
+Debug: Deleting unreferenced busStop
+Debug: Deleting unreferenced busStop
 Debug: Key F5 (Compute) pressed
 Debug: Created connection 'from-gneE10_1to-gneE9_1' in retrieveGNEConnection()
 Debug: Created connection 'from-gneE11_1to-gneE10_1' in retrieveGNEConnection()

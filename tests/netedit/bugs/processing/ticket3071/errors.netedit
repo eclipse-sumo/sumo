@@ -525,7 +525,7 @@ Debug: Closed FXMessageBox 'Join non-selected junction' with 'No'
 Debug: Key F7 (Join junctions) pressed
 Debug: Opening FXMessageBox 'Join non-selected junction'
 Debug: Closed FXMessageBox 'Join non-selected junction' with 'Yes'
-Debug: Deleting unreferenced junction 'J0' in GNEChange_Attribute
+Debug: Deleting unreferenced junction in GNEChange_Attribute
 Debug: Deleting NBNode of 'J0' in GNEJunction destructor
 Debug: Setting new attribute
 Debug: Adding junction 'J0' into net
@@ -1197,37 +1197,37 @@ Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
 Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
 Debug: Created walkingArea ':gneJ18_w0' in retrieveGNEWalkingArea()
 Debug: Created walkingArea ':gneJ18_w1' in retrieveGNEWalkingArea()
-Debug: Deleting unreferenced edge '-gneE19' in GNEChange_Attribute
+Debug: Deleting unreferenced edge in GNEChange_Attribute
 Debug: Deleting unreferenced lane '-gneE19_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane '-gneE19_1' in GNEEdge destructor
-Debug: Deleting unreferenced edge '-gneE17' in GNEChange_Attribute
+Debug: Deleting unreferenced edge in GNEChange_Attribute
 Debug: Deleting unreferenced lane '-gneE17_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane '-gneE17_1' in GNEEdge destructor
-Debug: Deleting unreferenced junction 'gneJ17' in GNEChange_Attribute
+Debug: Deleting unreferenced junction in GNEChange_Attribute
 Debug: Deleting NBNode of 'gneJ17' in GNEJunction destructor
-Debug: Deleting unreferenced edge 'gneE19' in GNEChange_Attribute
+Debug: Deleting unreferenced edge in GNEChange_Attribute
 Debug: Deleting unreferenced lane 'gneE19_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane 'gneE19_1' in GNEEdge destructor
-Debug: Deleting unreferenced junction 'gneJ13' in GNEChange_Attribute
+Debug: Deleting unreferenced junction in GNEChange_Attribute
 Debug: Deleting NBNode of 'gneJ13' in GNEJunction destructor
-Debug: Deleting unreferenced edge 'gneE17' in GNEChange_Attribute
+Debug: Deleting unreferenced edge in GNEChange_Attribute
 Debug: Deleting unreferenced lane 'gneE17_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane 'gneE17_1' in GNEEdge destructor
-Debug: Deleting unreferenced junction 'gneJ19' in GNEChange_Attribute
+Debug: Deleting unreferenced junction in GNEChange_Attribute
 Debug: Deleting NBNode of 'gneJ19' in GNEJunction destructor
-Debug: Deleting unreferenced detExit 'e3'
-Debug: Deleting unreferenced detEntry 'e3'
-Debug: Deleting unreferenced e3Detector 'e3'
-Debug: Deleting unreferenced busStop 'bs9'
-Debug: Deleting unreferenced busStop 'bs8'
-Debug: Deleting unreferenced busStop 'bs7'
-Debug: Deleting unreferenced busStop 'bs6'
-Debug: Deleting unreferenced busStop 'bs5'
-Debug: Deleting unreferenced busStop 'bs4'
-Debug: Deleting unreferenced busStop 'bs3'
-Debug: Deleting unreferenced busStop 'bs2'
-Debug: Deleting unreferenced busStop 'bs1'
-Debug: Deleting unreferenced busStop 'bs0'
+Debug: Deleting unreferenced detExit
+Debug: Deleting unreferenced detEntry
+Debug: Deleting unreferenced e3Detector
+Debug: Deleting unreferenced busStop
+Debug: Deleting unreferenced busStop
+Debug: Deleting unreferenced busStop
+Debug: Deleting unreferenced busStop
+Debug: Deleting unreferenced busStop
+Debug: Deleting unreferenced busStop
+Debug: Deleting unreferenced busStop
+Debug: Deleting unreferenced busStop
+Debug: Deleting unreferenced busStop
+Debug: Deleting unreferenced busStop
 Debug: Deleting unreferenced edge '-gneE10' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane '-gneE10_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane '-gneE10_1' in GNEEdge destructor
@@ -1339,12 +1339,12 @@ Debug: Deleting unreferenced connection 'fromgneE9_1to-gneE13_1' in GNEEdge dest
 Debug: Deleting unreferenced connection 'fromgneE9_1togneE18_1' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE9_1togneE10_1' in GNEEdge destructor
 Debug: Deleting unreferenced junction 'cluster_gneJ13_gneJ17_gneJ19' in AttributeCarriers destructor
-Debug: Deleting unreferenced crossing ':J0_c0' in GNEJunction destructor
-Debug: Deleting unreferenced crossing ':J0_c1' in GNEJunction destructor
-Debug: Deleting unreferenced crossing ':J0_c5' in GNEJunction destructor
-Debug: Deleting unreferenced crossing ':J0_c3' in GNEJunction destructor
-Debug: Deleting unreferenced crossing ':J0_c2' in GNEJunction destructor
-Debug: Deleting unreferenced crossing ':J0_c4' in GNEJunction destructor
+Debug: Deleting unreferenced crossing ':cluster_gneJ13_gneJ17_gneJ19_c0' in GNEJunction destructor
+Debug: Deleting unreferenced crossing ':cluster_gneJ13_gneJ17_gneJ19_c1' in GNEJunction destructor
+Debug: Deleting unreferenced crossing ':cluster_gneJ13_gneJ17_gneJ19_c2' in GNEJunction destructor
+Debug: Deleting unreferenced crossing ':cluster_gneJ13_gneJ17_gneJ19_c3' in GNEJunction destructor
+Debug: Deleting unreferenced crossing ':cluster_gneJ13_gneJ17_gneJ19_c4' in GNEJunction destructor
+Debug: Deleting unreferenced crossing ':cluster_gneJ13_gneJ17_gneJ19_c5' in GNEJunction destructor
 Debug: Deleting unreferenced walkingArea ':cluster_gneJ13_gneJ17_gneJ19_w0' in GNEJunction destructor
 Debug: Deleting unreferenced walkingArea ':cluster_gneJ13_gneJ17_gneJ19_w1' in GNEJunction destructor
 Debug: Deleting unreferenced walkingArea ':cluster_gneJ13_gneJ17_gneJ19_w2' in GNEJunction destructor
@@ -1367,9 +1367,9 @@ Debug: Deleting unreferenced crossing ':gneJ14_c0' in GNEJunction destructor
 Debug: Deleting unreferenced walkingArea ':gneJ14_w0' in GNEJunction destructor
 Debug: Deleting unreferenced walkingArea ':gneJ14_w1' in GNEJunction destructor
 Debug: Deleting unreferenced junction 'gneJ15' in AttributeCarriers destructor
+Debug: Deleting unreferenced crossing ':gneJ15_c0' in GNEJunction destructor
 Debug: Deleting unreferenced crossing ':gneJ15_c1' in GNEJunction destructor
 Debug: Deleting unreferenced crossing ':gneJ15_c2' in GNEJunction destructor
-Debug: Deleting unreferenced crossing ':gneJ15_c0' in GNEJunction destructor
 Debug: Deleting unreferenced walkingArea ':gneJ15_w0' in GNEJunction destructor
 Debug: Deleting unreferenced walkingArea ':gneJ15_w1' in GNEJunction destructor
 Debug: Deleting unreferenced walkingArea ':gneJ15_w2' in GNEJunction destructor

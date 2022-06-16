@@ -192,13 +192,13 @@ GLDebug: 	Inserted edge:gneE5 into SUMORTree with boundary -10.00,30.00,70.00,51
 GLDebug: 	Inserted edge:gneE6 into SUMORTree with boundary -10.00,28.40,70.00,50.00
 GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary -10.00,8.40,40.00,30.00
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary -10.00,10.00,40.00,31.60
-Debug: Deleting unreferenced edge 'gneE2' in GNEChange_Attribute
+Debug: Deleting unreferenced edge in GNEChange_Attribute
 Debug: Deleting unreferenced lane 'gneE2_0' in GNEEdge destructor
-Debug: Deleting unreferenced junction 'gneJ4' in GNEChange_Attribute
+Debug: Deleting unreferenced junction in GNEChange_Attribute
 Debug: Deleting NBNode of 'gneJ4' in GNEJunction destructor
-Debug: Deleting unreferenced edge 'gneE7' in GNEChange_Attribute
+Debug: Deleting unreferenced edge in GNEChange_Attribute
 Debug: Deleting unreferenced lane 'gneE7_0' in GNEEdge destructor
-Debug: Deleting unreferenced tripJunctions 't_0'
+Debug: Deleting unreferenced tripJunctions
 Debug: Deleting unreferenced edge 'gneE10' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE10_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE10_0togneE8_0' in GNEEdge destructor

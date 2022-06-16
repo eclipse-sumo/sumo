@@ -7,7 +7,7 @@ Debug: Adding parkingArea 'parkingArea_0' in GNEChange_Additional
 Error: Attribute 'width' in definition of parkingArea 'parkingArea_1' Invalid Number Format (double) dummy.
 Error: Could not build parkingArea with ID 'parkingArea_2' in netedit; attribute width cannot be negative.
 Debug: Adding parkingArea 'parkingArea_3' in GNEChange_Additional
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Apr081849.968\netedit.gui\additionalelements\parkingarea\load\width\input_additionals.add.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.parkingarea.16Jun091034.28732/netedit.daily.additional.parkingarea/additionalelements/parkingarea/load/width/input_additionals.add.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 38.00,-12.00,62.00,12.00
@@ -35,8 +35,8 @@ GLDebug: 	Inserted junction:gneJ1 into SUMORTree with boundary 40.00,-13.20,60.0
 GLDebug: Add edges during recomputing after calling myNetBuilder->compute(...)
 GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,60.00,10.00
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-18.40,64.20,28.00
-Debug: Deleting unreferenced parkingArea 'parkingArea_3'
-Debug: Deleting unreferenced parkingArea 'parkingArea_0'
+Debug: Deleting unreferenced parkingArea
+Debug: Deleting unreferenced parkingArea
 Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor

@@ -29,8 +29,8 @@ Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute
 Debug: Additionals saved
-Debug: Deleting unreferenced e2MultilaneDetector 'e2_1'
-Debug: Deleting unreferenced e2MultilaneDetector 'correctID'
+Debug: Deleting unreferenced e2MultilaneDetector
+Debug: Deleting unreferenced e2MultilaneDetector
 Debug: Deleting unreferenced edge 'gneE2' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE2_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE2_0togneE3_0' in GNEEdge destructor
