@@ -10,7 +10,7 @@ NEMA_4arm
 # declare a NEMA controller
 NEMA_3arm_noS
 
-# declare a NEMA controller	
+# declare a NEMA controller (no turning lanes)
 NEMA_3arm_noS_intermodal
 
 # declare a NEMA controller
