@@ -33,6 +33,7 @@
 #include <netedit/frames/data/GNETAZRelDataFrame.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/globjects/GLIncludes.h>
+#include <utils/gui/div/GUIGlobalPostDrawing.h>
 
 #include "GNETAZRelData.h"
 #include "GNEDataInterval.h"
@@ -49,20 +50,16 @@
 GNETAZRelData::GNETAZRelData(GNEDataInterval* dataIntervalParent, GNEAdditional* fromTAZ, GNEAdditional* toTAZ,
                              const Parameterised::Map& parameters) :
     GNEGenericData(SUMO_TAG_TAZREL, GLO_TAZRELDATA, dataIntervalParent, parameters,
-{}, {}, {}, {fromTAZ, toTAZ}, {}, {}),
-myLastWidth(0) {
-    // update geometry
-    updateGeometry();
+        {}, {}, {}, {fromTAZ, toTAZ}, {}, {}),
+    myLastWidth(0) {
 }
 
 
 GNETAZRelData::GNETAZRelData(GNEDataInterval* dataIntervalParent, GNEAdditional* TAZ,
                              const Parameterised::Map& parameters) :
     GNEGenericData(SUMO_TAG_TAZREL, GLO_TAZRELDATA, dataIntervalParent, parameters,
-{}, {}, {}, {TAZ}, {}, {}),
-myLastWidth(0) {
-    // update geometry
-    updateGeometry();
+        {}, {}, {}, {TAZ}, {}, {}),
+    myLastWidth(0) {
 }
 
 
@@ -144,6 +141,7 @@ GNETAZRelData::isGenericDataVisible() const {
 
 void
 GNETAZRelData::updateGeometry() {
+     myNet->removeGLObjectFromGrid(this);
     // get both TAZs
     const GNEAdditional* TAZA = getParentAdditionals().front();
     const GNEAdditional* TAZB = getParentAdditionals().back();
@@ -203,6 +201,7 @@ GNETAZRelData::updateGeometry() {
         // update center geometry
         myTAZRelGeometryCenter.updateGeometry(line);
     }
+    myNet->addGLObjectIntoGrid(this);
 }
 
 
@@ -267,13 +266,7 @@ GNETAZRelData::drawGL(const GUIVisualizationSettings& s) const {
         const double width = onlyDrawContour ? 0.1 :  0.5 * s.tazRelWidthExaggeration;
         if (width != myLastWidth) {
             myLastWidth = width;
-/*
-            // cast object (check this, is ugly)
-            GNETAZRelData* TAZRelData = const_cast<GNETAZRelData*>(this);
-            myNet->removeGLObjectFromGrid(TAZRelData);
-            TAZRelData->updateGeometry();
-            myNet->addGLObjectIntoGrid(TAZRelData);
-*/
+            gPostDrawing.addACToUpdate(const_cast<GNETAZRelData*>(this));
         }
         // draw geometry
         if (onlyDrawContour) {
