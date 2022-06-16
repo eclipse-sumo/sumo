@@ -1,1 +1,1 @@
--d source.xml dest.xml diff tools/net/netdiff.py
+-d -sn source.xml -dn dest.xml -op diff tools/net/netdiff.py

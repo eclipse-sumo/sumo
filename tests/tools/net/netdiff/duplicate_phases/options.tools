@@ -1,1 +1,1 @@
--p source dest diff tools/net/netdiff.py
+-p -sn source -dn dest -op diff tools/net/netdiff.py
