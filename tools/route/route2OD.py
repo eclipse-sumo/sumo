@@ -111,7 +111,7 @@ def main(options):
     # begin -> od -> count
     intervals = defaultdict(lambda: defaultdict(lambda: 0))
     intervals_edge = defaultdict(lambda: defaultdict(lambda: 0))  # for options.edgeod
-    
+
     def addVehicle(vehID, fromEdge, toEdge, time, count=1, isTaz=False):
         nl.numVehicles += count
         if options.interval is None:
@@ -136,7 +136,7 @@ def main(options):
             if fromTaz and toTaz:
                 intervals[intervalBegin][(fromTaz, toTaz)] += count
             else:
-                if fromTaz is None:   
+                if fromTaz is None:
                     nl.numFromNotFound += 1
                     if nl.numFromNotFound < 5:
                         if isTaz:
@@ -149,10 +149,10 @@ def main(options):
                         if isTaz:
                             print("No toTaz found for vehicle '%s' " % (vehID))
                         else:
-                            print("No toTaz found for edge '%s' of vehicle '%s' " % (toEdge, vehID))            
+                            print("No toTaz found for edge '%s' of vehicle '%s' " % (toEdge, vehID))
 
         nl.end = max(nl.end, time)
-    
+
     for vehicle in sumolib.xml.parse(options.routefile, ['vehicle']):
         if vehicle.route and type(vehicle.route) == list:
             edges = vehicle.route[0].edges.split()
