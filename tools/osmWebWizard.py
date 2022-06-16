@@ -326,13 +326,8 @@ class Builder(object):
                     self.routenames.append(self.files["route"])
                 else:
                     self.routenames.append(self.files["trips"])
-
-            # clean up temporary files from randomTrip validation
-            for fname in ['routes.rou.xml', 'routes.rou.alt.xml']:
-                try:
-                    os.remove(fname)
-                except FileNotFoundError:
-                    pass
+                    # clean up unused route file (was only used for validation)
+                    os.remove(self.files["route"])
 
             # create a batch file for reproducing calls to randomTrips.py
             if os.name == "posix":
@@ -368,9 +363,10 @@ class Builder(object):
         period = 3600 / (length / 1000) / options["count"]
 
         opts = ["-n", self.files["net"], "--fringe-factor", options["fringeFactor"],
-                "-p", period, "-o", self.files["trips"], "-e", self.data["duration"]]
-        if "--validate" not in vehicleParameters[vehicle]:
-            opts += ["-r", self.files["route"]]
+                "-p", period,
+                "-o", self.files["trips"],
+                "-r", self.files["route"],
+                "-e", self.data["duration"]]
         if vehicle == "pedestrian" and publicTransport:
             opts += vehicleParameters["persontrips"]
         else:
