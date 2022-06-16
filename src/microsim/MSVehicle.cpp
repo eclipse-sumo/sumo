@@ -166,8 +166,8 @@ MSVehicle::State::operator!=(const State& state) {
 }
 
 
-MSVehicle::State::State(double pos, double speed, double posLat, double backPos) :
-    myPos(pos), mySpeed(speed), myPosLat(posLat), myBackPos(backPos), myPreviousSpeed(speed), myLastCoveredDist(SPEED2DIST(speed)) {}
+MSVehicle::State::State(double pos, double speed, double posLat, double backPos, double previousSpeed) :
+    myPos(pos), mySpeed(speed), myPosLat(posLat), myBackPos(backPos), myPreviousSpeed(previousSpeed), myLastCoveredDist(SPEED2DIST(speed)) {}
 
 
 
@@ -958,7 +958,7 @@ MSVehicle::MSVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
     myWaitingTime(0),
     myWaitingTimeCollector(),
     myTimeLoss(0),
-    myState(0, 0, 0, 0),
+    myState(0, 0, 0, 0, 0),
     myDriverState(nullptr),
     myActionStep(true),
     myLastActionTime(0),
@@ -5116,7 +5116,7 @@ MSVehicle::computeFurtherLanes(MSLane* enteredLane, double pos, bool collision) 
 
 void
 MSVehicle::enterLaneAtInsertion(MSLane* enteredLane, double pos, double speed, double posLat, MSMoveReminder::Notification notification) {
-    myState = State(pos, speed, posLat, pos - getVehicleType().getLength());
+    myState = State(pos, speed, posLat, pos - getVehicleType().getLength(), hasDeparted() ? myState.myPreviousSpeed : speed);
     if (myDeparture == NOT_YET_DEPARTED) {
         onDepart();
     }
@@ -7036,6 +7036,7 @@ MSVehicle::getFriction() const {
 
 void
 MSVehicle::setPreviousSpeed(double prevSpeed, double prevAcceleration) {
+    std::cout << " setPreviousSpeed\n";
     myState.mySpeed = MAX2(0., prevSpeed);
     // also retcon acceleration
     if (prevAcceleration != std::numeric_limits<double>::min()) {

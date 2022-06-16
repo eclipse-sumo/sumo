@@ -92,7 +92,7 @@ public:
 
     public:
         /// Constructor.
-        State(double pos, double speed, double posLat, double backPos);
+        State(double pos, double speed, double posLat, double backPos, double previousSpeed);
 
         /// Copy constructor.
         State(const State& state);
