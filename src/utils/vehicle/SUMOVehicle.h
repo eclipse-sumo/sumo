@@ -59,7 +59,6 @@ typedef std::vector<const MSEdge*> ConstMSEdgeVector;
  */
 class SUMOVehicle : public SUMOTrafficObject {
 public:
-    typedef long long int NumericalID;
 
     /// @brief Constructor
     SUMOVehicle(const std::string& id) : SUMOTrafficObject(id) {}
@@ -366,10 +365,6 @@ public:
 
     /// @brief @return The index of the vehicle's associated RNG
     virtual int getRNGIndex() const = 0;
-
-    /// @brief return the numerical ID which is only for internal usage
-    //  (especially fast comparison in maps which need vehicles as keys)
-    virtual NumericalID getNumericalID() const = 0;
 
     /// @brief Returns the vehicles's length
     virtual double getLength() const = 0;

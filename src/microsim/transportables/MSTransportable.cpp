@@ -40,6 +40,7 @@
 #include <microsim/transportables/MSStageWaiting.h>
 #include <microsim/transportables/MSTransportable.h>
 
+SUMOTrafficObject::NumericalID MSTransportable::myCurrentNumericalIndex = 0;
 
 //#define DEBUG_PARKING
 
@@ -48,7 +49,10 @@
 // ===========================================================================
 MSTransportable::MSTransportable(const SUMOVehicleParameter* pars, MSVehicleType* vtype, MSTransportablePlan* plan, const bool isPerson) :
     SUMOTrafficObject(pars->id),
-    myParameter(pars), myVType(vtype), myPlan(plan), myAmPerson(isPerson) {
+    myParameter(pars), myVType(vtype), myPlan(plan),
+    myAmPerson(isPerson),
+    myNumericalID(myCurrentNumericalIndex++)
+{
     myStep = myPlan->begin();
     // init devices
     MSDevice::buildTransportableDevices(*this, myDevices);

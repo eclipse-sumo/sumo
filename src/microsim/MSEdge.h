@@ -198,7 +198,7 @@ public:
      *
      * @return This edge's persons.
      */
-    inline const std::set<MSTransportable*>& getPersons() const {
+    inline const std::set<MSTransportable*, ComparatorNumericalIdLess>& getPersons() const {
         return myPersons;
     }
 
@@ -896,10 +896,10 @@ protected:
     MSJunction* myToJunction;
 
     /// @brief Persons on the edge for drawing and pushbutton
-    mutable std::set<MSTransportable*> myPersons;
+    mutable std::set<MSTransportable*, ComparatorNumericalIdLess> myPersons;
 
     /// @brief Containers on the edge
-    mutable std::set<MSTransportable*> myContainers;
+    mutable std::set<MSTransportable*, ComparatorNumericalIdLess> myContainers;
 
     /// @name Storages for allowed lanes (depending on vehicle classes)
     /// @{
