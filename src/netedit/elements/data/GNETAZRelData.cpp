@@ -141,6 +141,7 @@ GNETAZRelData::isGenericDataVisible() const {
 
 void
 GNETAZRelData::updateGeometry() {
+    // remove from grid
      myNet->removeGLObjectFromGrid(this);
     // get both TAZs
     const GNEAdditional* TAZA = getParentAdditionals().front();
@@ -201,6 +202,7 @@ GNETAZRelData::updateGeometry() {
         // update center geometry
         myTAZRelGeometryCenter.updateGeometry(line);
     }
+    // add into grid again
     myNet->addGLObjectIntoGrid(this);
 }
 
@@ -522,25 +524,17 @@ void
 GNETAZRelData::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_FROM: {
-            // remove from grid
-            myNet->removeGLObjectFromGrid(this);
             // replace first TAZ Parent
             replaceParentTAZElement(0, value);
             // update geometry
             updateGeometry();
-            // add into grid again
-            myNet->addGLObjectIntoGrid(this);
             break;
         }
         case SUMO_ATTR_TO: {
-            // remove from grid
-            myNet->removeGLObjectFromGrid(this);
             // replace second TAZ Parent
             replaceParentTAZElement(1, value);
             // update geometry
             updateGeometry();
-            // add into grid again
-            myNet->addGLObjectIntoGrid(this);
             break;
         }
         case GNE_ATTR_SELECTED:

@@ -42,8 +42,8 @@ public:
     /// @brief add recompute carrier to recompute
     void addACToUpdate(GNEAttributeCarrier* AC);
 
-    /// @brief recompute and clear ACs
-    void updateAndClearACs();
+    /// @brief recompute (and clear) ACs
+    void updateACs();
 
     /// @brief recompute boundaries
     bool recomputeBoundaries = false;

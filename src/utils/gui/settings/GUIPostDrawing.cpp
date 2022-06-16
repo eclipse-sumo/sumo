@@ -36,7 +36,7 @@ GUIPostDrawing::addACToUpdate(GNEAttributeCarrier* AC) {
 
 
 void 
-GUIPostDrawing::updateAndClearACs() {
+GUIPostDrawing::updateACs() {
     for (const auto &AC : myACsToUpdate) {
         AC->updateGeometry();
     }

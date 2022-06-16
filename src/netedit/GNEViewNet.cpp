@@ -65,6 +65,7 @@
 #include <utils/gui/windows/GUIDanielPerspectiveChanger.h>
 #include <utils/gui/windows/GUIDialog_ViewSettings.h>
 #include <utils/options/OptionsCont.h>
+#include <utils/gui/div/GUIGlobalPostDrawing.h>
 
 #include "GNENet.h"
 #include "GNEUndoList.h"
@@ -964,6 +965,8 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
     GLHelper::popMatrix();
     // update interval bar
     myIntervalBar.markForUpdate();
+    // check if update ACs after drawing
+    gPostDrawing.updateACs();
     return hits2;
 }
 
