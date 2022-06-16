@@ -19,17 +19,28 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <netedit/elements/GNEAttributeCarrier.h>
+
 #include "GUIPostDrawing.h"
 
 
-GUIPostDrawing::GUIPostDrawing() :
-    recomputeBoundaries(false) {
+GUIPostDrawing::GUIPostDrawing() {}
+
+
+void 
+GUIPostDrawing::addACToUpdate(GNEAttributeCarrier* AC) {
+    if (AC) {
+        myACsToUpdate.push_back(AC);
+    }
 }
 
 
 void 
-GUIPostDrawing::reset() {
-    recomputeBoundaries = false;
+GUIPostDrawing::updateAndClearACs() {
+    for (const auto &AC : myACsToUpdate) {
+        AC->updateGeometry();
+    }
+    myACsToUpdate.clear();
 }
 
 /****************************************************************************/

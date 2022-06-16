@@ -20,6 +20,15 @@
 #pragma once
 #include <config.h>
 
+#include <vector>
+
+
+// ===========================================================================
+// class declaration
+// ===========================================================================
+
+class GNEAttributeCarrier;
+
 // ===========================================================================
 // class definitions
 // ===========================================================================
@@ -30,11 +39,18 @@ public:
     /// @brief constructor
     GUIPostDrawing();
 
-    /// @brief reset all values
-    void reset();
+    /// @brief add recompute carrier to recompute
+    void addACToUpdate(GNEAttributeCarrier* AC);
+
+    /// @brief recompute and clear ACs
+    void updateAndClearACs();
 
     /// @brief recompute boundaries
     bool recomputeBoundaries = false;
+
+protected:
+    /// @brief ACs to update
+    std::vector<GNEAttributeCarrier*> myACsToUpdate;
 
 private:
     /// @brief set copy constructor private
