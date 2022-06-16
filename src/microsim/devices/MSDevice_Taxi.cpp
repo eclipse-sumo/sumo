@@ -398,6 +398,7 @@ MSDevice_Taxi::dispatchShared(std::vector<const Reservation*> reservations) {
     }
 
     const SUMOTime t = MSNet::getInstance()->getCurrentTimeStep();
+    bool hasPickup = false;
     for (const Reservation* res : reservations) {
         myCurrentReservations.insert(res);
         bool isPickup = false;
@@ -405,6 +406,7 @@ MSDevice_Taxi::dispatchShared(std::vector<const Reservation*> reservations) {
             if (myCustomers.count(person) == 0) {
                 myCustomers.insert(person);
                 isPickup = true;
+                hasPickup = true;
             }
         }
         if (isPickup) {
@@ -456,7 +458,9 @@ MSDevice_Taxi::dispatchShared(std::vector<const Reservation*> reservations) {
         std::cout << "\n      finalRoute=" << toString(myHolder.getRoute().getEdges()) << " routeIndex=" << myHolder.getRoutePosition() << "\n";
     }
 #endif
-    myState |= PICKUP;
+    if (hasPickup) {
+        myState |= PICKUP;
+    }
 }
 
 
