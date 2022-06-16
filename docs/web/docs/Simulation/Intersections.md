@@ -28,6 +28,9 @@ between junction centers without changing their appearance. When set to
 intersections on which vehicles will drive just as on normal lanes,
 albeit subject to some blocking constraints.
 
+!!! note
+    The presence of internal links in a network can be changed by reprocessing the network with `netconvert -s old.net.xml -o new.net.xml --no-internal-links BOOL` or by setting the corresponding option in the [netedit option dialog (F10)](Netedit/index.md#processing_menu_options)
+
 ## [sumo](../sumo.md)-option **--no-internal-links**
 
 When set to **true**, lanes within intersections are ignored. This
