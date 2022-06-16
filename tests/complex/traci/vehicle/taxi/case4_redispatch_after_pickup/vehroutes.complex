@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-06-16 12:39:54 by Eclipse SUMO sumo Version v1_13_0+0912-6190dc5
+<!-- generated on 2022-06-16 12:43:15 by Eclipse SUMO sumo Version v1_13_0+0913-a87098a
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -23,7 +23,7 @@
     </taxi_device>
 
     <traci_server>
-        <remote-port value="36884"/>
+        <remote-port value="55678"/>
     </traci_server>
 
 </configuration>
@@ -33,16 +33,5 @@
     <person id="a" depart="0.00" arrival="61.00">
         <ride from="A1B1" to="D2D3" arrivalPos="92.10" lines="taxi"/>
     </person>
-
-    <vehicle id="taxi_0" type="taxi" depart="0.00" arrival="121.00">
-        <routeDistribution>
-            <route replacedOnEdge="A0A1" reason="taxi:dispatch" replacedAtTime="1.00" probability="0" edges="A0A1 A1B1 D2D3"/>
-            <route replacedOnEdge="A1B1" replacedOnIndex="1" reason="taxi:prepare_dispatch" replacedAtTime="20.00" probability="0" edges="A0A1 A1B1 B1B2 B2C2 C2D2 D2D3"/>
-            <route replacedOnEdge="A1B1" replacedOnIndex="1" reason="taxi:dispatch" replacedAtTime="20.00" probability="0" edges="A0A1 A1B1 D2D3"/>
-            <route edges="A0A1 A1B1 B1C1 C1C2 C2D2 D2D3"/>
-        </routeDistribution>
-        <stop lane="A1B1_0" permitted="a" actType="pickup a (0)"/>
-        <stop lane="D2D3_0" actType="dropOff a (0)"/>
-    </vehicle>
 
 </routes>

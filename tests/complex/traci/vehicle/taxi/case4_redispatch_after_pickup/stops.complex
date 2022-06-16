@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-06-16 12:39:54 by Eclipse SUMO sumo Version v1_13_0+0912-6190dc5
+<!-- generated on 2022-06-16 12:43:15 by Eclipse SUMO sumo Version v1_13_0+0913-a87098a
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -23,7 +23,7 @@
     </taxi_device>
 
     <traci_server>
-        <remote-port value="36884"/>
+        <remote-port value="55678"/>
     </traci_server>
 
 </configuration>
@@ -31,5 +31,4 @@
 
 <stops xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/stopinfo_file.xsd">
     <stopinfo id="taxi_0" type="taxi" lane="A1B1_0" pos="4.97" parking="1" started="13.00" ended="14.00" delay="-1.00" initialPersons="0" loadedPersons="1" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
-    <stopinfo id="taxi_0" type="taxi" lane="D2D3_0" pos="92.10" parking="1" started="61.00" ended="121.00" delay="-1.00" initialPersons="1" loadedPersons="0" unloadedPersons="1" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
 </stops>
