@@ -544,8 +544,13 @@ MSDevice_Taxi::updateMove(const SUMOTime traveltime, const double travelledDist)
         myOccupiedDistance += travelledDist;
         myOccupiedTime += traveltime;
     }
-    if (isEmpty() && MSNet::getInstance()->getCurrentTimeStep() < myServiceEnd) {
-        myIdleAlgorithm->idle(this);
+    if (isEmpty()) {
+        if (MSNet::getInstance()->getCurrentTimeStep() < myServiceEnd) {
+            myIdleAlgorithm->idle(this);
+        } else if (!myReachedServiceEnd) {
+            WRITE_WARNINGF("Taxi '%' reaches scheduled end of service at time=%.", myHolder.getID(), time2string(SIMSTEP));
+            myReachedServiceEnd = true;
+        }
     }
     if (myHolder.isStopped()) {
         if (!myIsStopped) {

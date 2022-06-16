@@ -246,6 +246,9 @@ private:
     /// @brief algorithm for controlling idle behavior
     MSIdling* myIdleAlgorithm;
 
+    /// @brief whether the taxi has reached it's schedule service end
+    bool myReachedServiceEnd = false;
+
     /// @brief reservations currently being served
     std::set<const Reservation*> myCurrentReservations;
 
