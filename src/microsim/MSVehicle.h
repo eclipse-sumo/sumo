@@ -64,6 +64,8 @@ class MSLeaderInfo;
 class MSLeaderDistanceInfo;
 class MSDevice_DriverState;
 class MSSimpleDriverState;
+class MSDevice_Friction;
+
 
 // ===========================================================================
 // class definitions
@@ -1849,6 +1851,9 @@ protected:
 
     /// @brief This vehicle's driver state @see MSDriverState
     MSDevice_DriverState* myDriverState;
+
+    /// @brief This vehicle's friction perception
+    MSDevice_Friction* myFrictionDevice;
 
     /// @brief The flag myActionStep indicates whether the current time step is an action point for the vehicle.
     bool myActionStep;

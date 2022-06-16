@@ -54,6 +54,7 @@
 #include <microsim/transportables/MSPModel.h>
 #include <microsim/devices/MSDevice_Transportable.h>
 #include <microsim/devices/MSDevice_DriverState.h>
+#include <microsim/devices/MSDevice_Friction.h>
 #include <microsim/devices/MSDevice_Vehroutes.h>
 #include <microsim/devices/MSDevice_ElecHybrid.h>
 #include <microsim/output/MSStopOut.h>
@@ -1026,6 +1027,7 @@ MSVehicle::initDevices() {
     MSBaseVehicle::initDevices();
     myLaneChangeModel = MSAbstractLaneChangeModel::build(myType->getLaneChangeModel(), *this);
     myDriverState = static_cast<MSDevice_DriverState*>(getDevice(typeid(MSDevice_DriverState)));
+    myFrictionDevice = static_cast<MSDevice_Friction*>(getDevice(typeid(MSDevice_Friction)));
 }
 
 
