@@ -2340,11 +2340,12 @@ GUIDialog_ViewSettings::build3DFrame(FXTabBook* tabbook) {
     myShow3DTLSLinkMarkers = new FXCheckButton(m82, "Show TLS link markers", this, MID_SIMPLE_VIEW_COLORCHANGE);
     myShow3DTLSLinkMarkers->setCheck(mySettings->show3DTLSLinkMarkers);
     FXMatrix* m83 = new FXMatrix(verticalFrame, 1, GUIDesignMatrixViewSettings);
-    myShow3DTLSDomes = new FXCheckButton(m83, "Show domes around TL models", this, MID_SIMPLE_VIEW_COLORCHANGE);
+    myShow3DTLSDomes = new FXCheckButton(m83, "Show domes around TLS models", this, MID_SIMPLE_VIEW_COLORCHANGE);
     myShow3DTLSDomes->setCheck(mySettings->show3DTLSDomes);
     FXMatrix* m84 = new FXMatrix(verticalFrame, 1, GUIDesignMatrixViewSettings);
-    myGenerate3DTLSModels = new FXCheckButton(m84, "Auto-generate TL models", this, MID_SIMPLE_VIEW_COLORCHANGE);
+    myGenerate3DTLSModels = new FXCheckButton(m84, "Auto-generate TLS models", this, MID_SIMPLE_VIEW_COLORCHANGE);
     myGenerate3DTLSModels->setCheck(mySettings->generate3DTLSModels);
+    myGenerate3DTLSModels->disable(); // TODO: enable when functionality is implemented
 #else:
     frame3D->disable();
 #endif
