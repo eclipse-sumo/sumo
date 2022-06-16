@@ -30,6 +30,7 @@
 
 //#define DEBUG_IDLING
 //#define DEBUG_COND(obj) (obj->getHolder().getID() == "p0")
+//#define DEBUG_COND(obj) (obj->getHolder().isSelected())
 #define DEBUG_COND(obj) (true)
 
 

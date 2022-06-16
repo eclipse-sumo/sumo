@@ -312,6 +312,13 @@ MSDevice_Taxi::dispatchShared(std::vector<const Reservation*> reservations) {
                 }
             }
         }
+#ifdef DEBUG_DISPATCH
+        if (DEBUG_COND) {
+            for (auto item : nOccur) {
+                std::cout << "   previousCustomer=" << item.first->getID() << " occurs=" << item.second << "\n";
+            }
+        }
+#endif
         if (nOccur.size() == 0) {
             // no overlap with existing customers - extend route
             tmpEdges = myHolder.getRoute().getEdges();
@@ -559,6 +566,11 @@ MSDevice_Taxi::updateMove(const SUMOTime traveltime, const double travelledDist)
             myHolder.getNextStop().endBoarding = myServiceEnd;
         }
     }
+#ifdef DEBUG_DISPATCH
+    if (DEBUG_COND && myIsStopped != myHolder.isStopped()) {
+        std::cout << SIMTIME << " updateMove veh=" << myHolder.getID() << " myIsStopped=" << myIsStopped << " myHolderStopped=" << myHolder.isStopped() << " myState=" << myState << "\n";
+    }
+#endif
     myIsStopped = myHolder.isStopped();
 }
 
