@@ -159,6 +159,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "member",                         SUMO_TAG_MEMBER },
     // View
     { "viewsettings",                   SUMO_TAG_VIEWSETTINGS },
+    { "view3D",                         SUMO_TAG_VIEWSETTINGS_3D },
     { "decal",                          SUMO_TAG_VIEWSETTINGS_DECAL },
     { "light",                          SUMO_TAG_VIEWSETTINGS_LIGHT },
     { "scheme",                         SUMO_TAG_VIEWSETTINGS_SCHEME },

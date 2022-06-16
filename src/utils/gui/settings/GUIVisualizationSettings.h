@@ -920,6 +920,19 @@ public:
     /// @}
 
 
+    /// @name 3D visualization settings
+    /// @{
+    /// @brief whether the TLS link markers should be drawn
+    bool show3DTLSLinkMarkers;
+
+    /// @brief whether the semi-transparent domes around 3D TL models should be drawn
+    bool show3DTLSDomes;
+
+    /// @brief whether 3D TLS models should be generated automatically
+    bool generate3DTLSModels;
+    /// @}
+
+
     /// @brief Information whether the size legend shall be drawn
     bool showSizeLegend;
 

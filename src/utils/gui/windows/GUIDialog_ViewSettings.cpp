@@ -121,6 +121,8 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent, GUIV
     buildLegendFrame(tabbook);
     // build openGL frame
     buildOpenGLFrame(tabbook);
+    // build 3D frame
+    build3DFrame(tabbook);
     // build buttons
     buildButtons(contentFrame);
     // rebuild color matrix
@@ -2324,6 +2326,28 @@ GUIDialog_ViewSettings::buildOpenGLFrame(FXTabBook* tabbook) {
                                            (BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT), 0, 0, 0, 0, 20, 20, 4, 4);
     FXMatrix* m89 = new FXMatrix(verticalFrame, 2, GUIDesignMatrixViewSettings);
     myGeometryIndicesPanel = new NamePanel(m89, this, "Show geometry point indices", mySettings->geometryIndices);
+}
+
+
+void
+GUIDialog_ViewSettings::build3DFrame(FXTabBook* tabbook) {
+    FXTabItem* frame3D = new FXTabItem(tabbook, "3D", nullptr, GUIDesignViewSettingsTabItemBook1);
+#ifdef HAVE_OSG:
+    FXScrollWindow* scrollWindow = new FXScrollWindow(tabbook);
+    FXVerticalFrame* verticalFrame = new FXVerticalFrame(scrollWindow, GUIDesignViewSettingsVerticalFrame2);
+
+    FXMatrix* m82 = new FXMatrix(verticalFrame, 1, GUIDesignMatrixViewSettings);
+    myShow3DTLSLinkMarkers = new FXCheckButton(m82, "Show TLS link markers", this, MID_SIMPLE_VIEW_COLORCHANGE);
+    myShow3DTLSLinkMarkers->setCheck(mySettings->show3DTLSLinkMarkers);
+    FXMatrix* m83 = new FXMatrix(verticalFrame, 1, GUIDesignMatrixViewSettings);
+    myShow3DTLSDomes = new FXCheckButton(m83, "Show domes around TL models", this, MID_SIMPLE_VIEW_COLORCHANGE);
+    myShow3DTLSDomes->setCheck(mySettings->show3DTLSDomes);
+    FXMatrix* m84 = new FXMatrix(verticalFrame, 1, GUIDesignMatrixViewSettings);
+    myGenerate3DTLSModels = new FXCheckButton(m84, "Auto-generate TL models", this, MID_SIMPLE_VIEW_COLORCHANGE);
+    myGenerate3DTLSModels->setCheck(mySettings->generate3DTLSModels);
+#else:
+    frame3D->disable();
+#endif
 }
 
 

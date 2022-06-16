@@ -591,7 +591,10 @@ GUIVisualizationSettings::GUIVisualizationSettings(const std::string& _name, boo
     forceDrawForRectangleSelection(false),
     geometryIndices(false, 50, RGBColor(255, 0, 128, 255)),
     lefthand(false),
-    disableLaneIcons(false) {
+    disableLaneIcons(false),
+    show3DTLSLinkMarkers(false),
+    show3DTLSDomes(false),
+    generate3DTLSModels(false) {
     // init defaults depending of NETEDIT or SUMO-GUI
     if (netedit) {
         initNeteditDefaults();
@@ -1870,6 +1873,11 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
     polyName.print(dev, "polyName");
     polyType.print(dev, "polyType");
     polyColorer.save(dev);
+    dev.closeTag();
+    dev.openTag(SUMO_TAG_VIEWSETTINGS_3D);
+    dev.writeAttr("show3DTLSLinkMarkers", show3DTLSLinkMarkers);
+    dev.writeAttr("show3DTLSDomes", show3DTLSDomes);
+    dev.writeAttr("generate3DTLSModels", generate3DTLSModels);
     dev.closeTag();
     // legend
     dev.openTag(SUMO_TAG_VIEWSETTINGS_LEGEND);

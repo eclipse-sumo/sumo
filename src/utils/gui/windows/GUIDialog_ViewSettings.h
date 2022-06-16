@@ -397,6 +397,11 @@ protected:
     FXCheckButton* myShowColorLegend = nullptr;
     FXCheckButton* myShowVehicleColorLegend = nullptr;
 
+    /// @brief 3D
+    FXCheckButton* myShow3DTLSLinkMarkers = nullptr;
+    FXCheckButton* myShow3DTLSDomes = nullptr;
+    FXCheckButton* myGenerate3DTLSModels = nullptr;
+
     /// @brief openGL
     FXCheckButton* myDither = nullptr;
     FXCheckButton* myFPS = nullptr;
@@ -539,6 +544,7 @@ protected:
     void buildDataFrame(FXTabBook* tabbook);
     void buildLegendFrame(FXTabBook* tabbook);
     void buildOpenGLFrame(FXTabBook* tabbook);
+    void build3DFrame(FXTabBook* tabbook);
 
     ///@}
 

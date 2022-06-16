@@ -274,6 +274,7 @@ enum SumoXMLTag {
     /// @name parameters associated to view settings
     /// @{
     SUMO_TAG_VIEWSETTINGS,
+    SUMO_TAG_VIEWSETTINGS_3D,
     SUMO_TAG_VIEWSETTINGS_DECAL,
     SUMO_TAG_VIEWSETTINGS_LIGHT,
     SUMO_TAG_VIEWSETTINGS_SCHEME,

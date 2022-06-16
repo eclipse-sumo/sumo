@@ -79,6 +79,11 @@ GUISettingsHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) 
             myViewType = attrs.getOpt<std::string>(SUMO_ATTR_TYPE, nullptr, ok, "default");
             myViewType = StringUtils::to_lower_case(myViewType);
             break;
+        case SUMO_TAG_VIEWSETTINGS_3D:
+            mySettings.show3DTLSLinkMarkers = StringUtils::toBool(attrs.getStringSecure("show3DTLSLinkMarkers", toString(mySettings.show3DTLSLinkMarkers)));
+            mySettings.show3DTLSDomes = StringUtils::toBool(attrs.getStringSecure("show3DTLSDomes", toString(mySettings.show3DTLSDomes)));
+            mySettings.generate3DTLSModels = StringUtils::toBool(attrs.getStringSecure("generate3DTLSModels", toString(mySettings.generate3DTLSModels)));
+            break;
         case SUMO_TAG_DELAY:
             myDelay = attrs.getOpt<double>(SUMO_ATTR_VALUE, nullptr, ok, myDelay);
             break;
