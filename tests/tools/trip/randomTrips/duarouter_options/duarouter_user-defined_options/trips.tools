@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2022-06-14 11:51:14.511648 by randomTrips.py v1_13_0+0822-0da13eba660
+<!-- generated on 2022-06-16 15:14:48.153530 by randomTrips.py v1_13_0+0824-3684b747648
 <configuration>
     <allow-fringe value="True"/>
+    <duarouter-exit-times value="true"/>
+    <duarouter-route-length value="true"/>
     <end value="20"/>
-    <exit-times value="true"/>
     <net-file value="net2.net.xml"/>
     <remove-loops value="True"/>
-    <route-length value="true"/>
     <route-file value="out.rou.xml"/>
     <vehicle-class value="passenger"/>
     <vtype-output value="out.add.xml"/>
