@@ -17,7 +17,7 @@ namespace PHEMlightdll
             AmbTemp = 20;
             Year = DateTime.Now.Year;
             VehMileage = -1;
-            DETFilePath = Path.Combine(PathCor, "Detoriation.det");
+            DETFilePath = Path.Combine(PathCor, "Deterioration.det");
             VMAFilePath = Path.Combine(PathCor, "Mileage.vma");
             TNOxFilePath = Path.Combine(PathCor, "NOxCor.tno");
         }
