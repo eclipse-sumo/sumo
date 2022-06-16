@@ -883,8 +883,16 @@ GUIDialog_ViewSettings::saveDecals(OutputDevice& dev) const {
     std::vector<GUISUMOAbstractView::Decal>::iterator j;
     for (j = myDecals->begin(); j != myDecals->end(); ++j) {
         GUISUMOAbstractView::Decal& d = *j;
-        dev.openTag(SUMO_TAG_VIEWSETTINGS_DECAL);
-        dev.writeAttr("file", d.filename);
+        bool isLight = d.filename.substr(0, 5) == "light" && d.filename.length() == 6 && isdigit(d.filename[5]);
+        if (isLight) {
+            dev.openTag(SUMO_TAG_VIEWSETTINGS_LIGHT);
+            dev.writeAttr(SUMO_ATTR_INDEX, d.filename.substr(5,1));
+        }
+        else {
+            dev.openTag(SUMO_TAG_VIEWSETTINGS_DECAL);
+            dev.writeAttr("file", d.filename);
+            dev.writeAttr("screenRelative", d.screenRelative);
+        }
         dev.writeAttr(SUMO_ATTR_CENTER_X, d.centerX);
         dev.writeAttr(SUMO_ATTR_CENTER_Y, d.centerY);
         dev.writeAttr(SUMO_ATTR_CENTER_Z, d.centerZ);
@@ -895,7 +903,6 @@ GUIDialog_ViewSettings::saveDecals(OutputDevice& dev) const {
         dev.writeAttr("tilt", d.tilt);
         dev.writeAttr("roll", d.roll);
         dev.writeAttr(SUMO_ATTR_LAYER, d.layer);
-        dev.writeAttr("screenRelative", d.screenRelative);
         dev.closeTag();
     }
 }
