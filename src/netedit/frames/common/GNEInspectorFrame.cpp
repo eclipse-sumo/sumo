@@ -76,12 +76,12 @@ FXDEFMAP(GNEInspectorFrame::AdditionalDialog) AdditionalDialogMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNEInspectorFrame,                              FXVerticalFrame,    GNEInspectorFrameMap,           ARRAYNUMBER(GNEInspectorFrameMap))
-FXIMPLEMENT(GNEInspectorFrame::NeteditAttributesEditor,     FXGroupBoxModule,         NeteditAttributesEditorMap,     ARRAYNUMBER(NeteditAttributesEditorMap))
-FXIMPLEMENT(GNEInspectorFrame::GEOAttributesEditor,         FXGroupBoxModule,         GEOAttributesEditorMap,         ARRAYNUMBER(GEOAttributesEditorMap))
-FXIMPLEMENT(GNEInspectorFrame::TemplateEditor,              FXGroupBoxModule,         TemplateEditorMap,              ARRAYNUMBER(TemplateEditorMap))
-FXIMPLEMENT(GNEInspectorFrame::ParametersEditor,   FXGroupBoxModule,         ParametersEditorMap,   ARRAYNUMBER(ParametersEditorMap))
-FXIMPLEMENT(GNEInspectorFrame::AdditionalDialog,            FXGroupBoxModule,         AdditionalDialogMap,            ARRAYNUMBER(AdditionalDialogMap))
+FXIMPLEMENT(GNEInspectorFrame,                          FXVerticalFrame,    GNEInspectorFrameMap,       ARRAYNUMBER(GNEInspectorFrameMap))
+FXIMPLEMENT(GNEInspectorFrame::NeteditAttributesEditor, FXGroupBoxModule,   NeteditAttributesEditorMap, ARRAYNUMBER(NeteditAttributesEditorMap))
+FXIMPLEMENT(GNEInspectorFrame::GEOAttributesEditor,     FXGroupBoxModule,   GEOAttributesEditorMap,     ARRAYNUMBER(GEOAttributesEditorMap))
+FXIMPLEMENT(GNEInspectorFrame::TemplateEditor,          FXGroupBoxModule,   TemplateEditorMap,          ARRAYNUMBER(TemplateEditorMap))
+FXIMPLEMENT(GNEInspectorFrame::ParametersEditor,        FXGroupBoxModule,   ParametersEditorMap,        ARRAYNUMBER(ParametersEditorMap))
+FXIMPLEMENT(GNEInspectorFrame::AdditionalDialog,        FXGroupBoxModule,   AdditionalDialogMap,        ARRAYNUMBER(AdditionalDialogMap))
 
 
 // ===========================================================================
