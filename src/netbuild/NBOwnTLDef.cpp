@@ -748,9 +748,11 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
             filterMissingNames(ring2, names, false);
             filterMissingNames(barrier1, names, true);
             filterMissingNames(barrier2, names, true);
-
-            fixDurationSum(logic, names, 1, 2, 5, 6);
-            fixDurationSum(logic, names, 3, 4, 7, 8);
+            if (ring1[2] == 0 && ring1[3] == 0) {
+                ring1[3] = 8;
+            }
+            fixDurationSum(logic, names, ring1[0], ring1[1], ring2[0], ring2[1]);
+            fixDurationSum(logic, names, ring1[2], ring1[3], ring2[2], ring2[3]);
         } else {
             WRITE_WARNINGF("Generating NEMA phases is not support for traffic light '%' with % incoming edges", getID(), incoming.size());
         }
@@ -1418,7 +1420,15 @@ void
 NBOwnTLDef::filterMissingNames(std::vector<int>& vec, const std::map<int, int>& names, bool isBarrier) {
     for (int i = 0; i < (int)vec.size(); i++) {
         if (names.count(vec[i]) == 0) {
-            vec[i] = isBarrier ? vec[i] - 1 : 0;
+            if (isBarrier) {
+                if (names.count(vec[i] - 1) > 0) {
+                    vec[i] = vec[i] - 1;
+                } else {
+                    vec[i] = 8;
+                }
+            } else {
+                vec[i] = 0;
+            }
         }
     }
 }
@@ -1439,9 +1449,8 @@ NBOwnTLDef::fixDurationSum(NBTrafficLightLogic* logic, const std::map<int, int>&
     if (names.count(ring2b) != 0) {
         ring2existing.insert(ring2b);
     }
-    assert(ring1existing.size() > 0);
-    assert(ring2existing.size() > 0);
-    if (ring1existing.size() != ring2existing.size()) {
+    if (ring1existing.size() > 0 && ring2existing.size() > 0 &&
+            ring1existing.size() != ring2existing.size()) {
         int pI; // sumo phase index
         if (ring1existing.size() < ring2existing.size()) {
             pI = names.find(*ring1existing.begin())->second;
