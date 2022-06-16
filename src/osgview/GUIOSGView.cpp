@@ -36,8 +36,6 @@
 #include <guisim/GUINet.h>
 #include <guisim/GUIVehicle.h>
 #include <microsim/MSEdge.h>
-#include <microsim/MSEdgeControl.h>
-#include <microsim/MSJunctionControl.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSVehicleControl.h>
 #include <microsim/traffic_lights/MSSimpleTrafficLightLogic.h>
@@ -800,7 +798,6 @@ GUIOSGView::onCmdAddRerouter(FXObject*, FXSelector, void*) {
 
 long
 GUIOSGView::onCmdShowReachability(FXObject* menu, FXSelector, void*) {
-	/*
     GUILane* lane = getLaneUnderCursor();
 	if (lane != nullptr) {
 		// reset
@@ -848,7 +845,6 @@ GUIOSGView::onCmdShowReachability(FXObject* menu, FXSelector, void*) {
 		}
 		update();
 	}
-    */
 	return 1;
 }
 
