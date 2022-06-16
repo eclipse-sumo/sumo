@@ -474,7 +474,7 @@ class VehicleDomain(VTypeDomain):
         return self._getUniversal(tc.VAR_ALLOWED_SPEED, vehID)
 
     def getWaitingTime(self, vehID):
-        """getWaitingTime() -> double
+        """getWaitingTime(string) -> double
         The waiting time of a vehicle is defined as the time (in seconds) spent with a
         speed below 0.1m/s since the last time it was faster than 0.1m/s.
         (basically, the waiting time of a vehicle is reset to 0 every time it moves).
@@ -483,7 +483,7 @@ class VehicleDomain(VTypeDomain):
         return self._getUniversal(tc.VAR_WAITING_TIME, vehID)
 
     def getAccumulatedWaitingTime(self, vehID):
-        """getAccumulatedWaitingTime() -> double
+        """getAccumulatedWaitingTime(string) -> double
         The accumulated waiting time of a vehicle collects the vehicle's waiting time
         over a certain time interval (interval length is set per option '--waiting-time-memory')
         """
@@ -497,13 +497,13 @@ class VehicleDomain(VTypeDomain):
         return self._getUniversal(tc.VAR_LANECHANGE_MODE, vehID)
 
     def getSpeedMode(self, vehID):
-        """getSpeedMode -> int
+        """getSpeedMode(string) -> int
         The speed mode of a vehicle
         """
         return self._getUniversal(tc.VAR_SPEEDSETMODE, vehID)
 
     def getSlope(self, vehID):
-        """getSlope -> double
+        """getSlope(string) -> double
         The slope at the current position of the vehicle in degrees
         """
         return self._getUniversal(tc.VAR_SLOPE, vehID)
@@ -570,7 +570,7 @@ class VehicleDomain(VTypeDomain):
         return self._getUniversal(tc.VAR_FOLLOWER, vehID, "d", dist)
 
     def getRightFollowers(self, vehID, blockingOnly=False):
-        """ bool -> list(tuple(string, double))
+        """ getRightFollowers(string, bool) -> list(tuple(string, double))
         Convenience method, see getNeighbors()
         """
         if blockingOnly:
@@ -580,7 +580,7 @@ class VehicleDomain(VTypeDomain):
         return self.getNeighbors(vehID, mode)
 
     def getRightLeaders(self, vehID, blockingOnly=False):
-        """ bool -> list(tuple(string, double))
+        """ getRightLeaders(string, bool) -> list(tuple(string, double))
         Convenience method, see getNeighbors()
         """
         if blockingOnly:
@@ -590,7 +590,7 @@ class VehicleDomain(VTypeDomain):
         return self.getNeighbors(vehID, mode)
 
     def getLeftFollowers(self, vehID, blockingOnly=False):
-        """ bool -> list(pair(string, double))
+        """ getLeftFollowers(string, bool) -> list(pair(string, double))
         Convenience method, see getNeighbors()
         """
         if blockingOnly:
@@ -600,7 +600,7 @@ class VehicleDomain(VTypeDomain):
         return self.getNeighbors(vehID, mode)
 
     def getLeftLeaders(self, vehID, blockingOnly=False):
-        """ bool -> list(pair(string, double))
+        """ getLeftLeaders(string, bool) -> list(pair(string, double))
         Convenience method, see getNeighbors()
         """
         if blockingOnly:
@@ -610,7 +610,7 @@ class VehicleDomain(VTypeDomain):
         return self.getNeighbors(vehID, mode)
 
     def getNeighbors(self, vehID, mode):
-        """ byte -> list(pair(string, double))
+        """ getNeighbors(string, byte) -> list(pair(string, double))
 
         The parameter mode is a bitset (UBYTE), specifying the following:
         bit 1: query lateral direction (left:0, right:1)
@@ -748,7 +748,7 @@ class VehicleDomain(VTypeDomain):
         return self._getUniversal(tc.VAR_DISTANCE, vehID)
 
     def getStopParameter(self, vehID, nextStopIndex, param):
-        """setStopParameter(string, int, string) -> string
+        """getStopParameter(string, int, string) -> string
         Gets the value of the given parameter for the stop at the given index
         Negative indices permit access to past stops.
         Supported params correspond to all legal stop xml-attributes
@@ -865,7 +865,8 @@ class VehicleDomain(VTypeDomain):
         return False
 
     def getRoutingMode(self, vehID):
-        """returns the current routing mode:
+        """getRoutingMode(string)
+        returns the current routing mode:
         tc.ROUTING_MODE_DEFAULT    : use weight storages and fall-back to edge speeds (default)
         tc.ROUTING_MODE_AGGREGATED : use global smoothed travel times from device.rerouting
         """
@@ -958,7 +959,7 @@ class VehicleDomain(VTypeDomain):
     def insertStop(self, vehID, nextStopIndex, edgeID, pos=1., laneIndex=0, duration=tc.INVALID_DOUBLE_VALUE,
                    flags=tc.STOP_DEFAULT, startPos=tc.INVALID_DOUBLE_VALUE,
                    until=tc.INVALID_DOUBLE_VALUE, teleport=0):
-        """replaceStop(string, int, string, double, integer, double, integer, double, double) -> None
+        """insertStop(string, int, string, double, integer, double, integer, double, double) -> None
 
         Insert stop at the given index (within the list of all existing stops).
         Automatically modifies the route if the new stop is not along the route between the preceeding
@@ -1012,7 +1013,7 @@ class VehicleDomain(VTypeDomain):
         self._setCmd(tc.CMD_CHANGELANE, vehID, "tbdb", 3, indexOffset, duration, 1)
 
     def changeSublane(self, vehID, latDist):
-        """changeLane(string, double) -> None
+        """changeSublane(string, double) -> None
         Forces a lateral change by the given amount (negative values indicate changing to the right, positive
         to the left). This will override any other lane change motivations but conform to
         safety-constraints as configured by laneChangeMode.
@@ -1444,7 +1445,7 @@ class VehicleDomain(VTypeDomain):
             self.addSubscriptionFilterUpstreamDistance(upstreamDist)
 
     def addSubscriptionFilterLeadFollow(self, lanes):
-        """addSubscriptionFilterLCManeuver() -> None
+        """addSubscriptionFilterLCManeuver(lanes) -> None
 
         Restricts vehicles returned by the last modified vehicle context subscription to neighbor and ego-lane leader
         and follower of the ego.
@@ -1454,7 +1455,7 @@ class VehicleDomain(VTypeDomain):
         self._connection._addSubscriptionFilter(tc.FILTER_TYPE_LANES, lanes)
 
     def addSubscriptionFilterTurn(self, downstreamDist=None, foeDistToJunction=None):
-        """addSubscriptionFilterTurn() -> None
+        """addSubscriptionFilterTurn(double, double) -> None
 
         Restricts vehicles returned by the last modified vehicle context subscription to foes on upcoming junctions
         """

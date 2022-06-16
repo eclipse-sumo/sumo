@@ -59,7 +59,7 @@ class LaneAreaDomain(Domain):
         return self._getUniversal(tc.LAST_STEP_VEHICLE_ID_LIST, detID)
 
     def getLastStepOccupancy(self, detID):
-        """getLastStepMeanSpeed(string) -> double
+        """getLastStepOccupancy(string) -> double
 
         Returns the percentage of space the detector was occupied by a vehicle [%]
         """

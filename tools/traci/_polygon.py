@@ -92,7 +92,7 @@ class PolygonDomain(Domain):
         self._setCmd(tc.VAR_FILL, polygonID, "i", filled)
 
     def setLineWidth(self, polygonID, lineWidth):
-        """setFilled(string, double) -> None
+        """setLineWidth(string, double) -> None
         Sets the line width for drawing unfilled polygon
         """
         self._setCmd(tc.VAR_WIDTH, polygonID, "d", lineWidth)
