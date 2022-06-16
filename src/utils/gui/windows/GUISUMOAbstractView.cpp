@@ -1440,10 +1440,15 @@ GUISUMOAbstractView::getViewportEditor() {
         myViewportChooser = new GUIDialog_EditViewport(this, "Edit Viewport", x, y);
         myViewportChooser->create();
     }
-    myViewportChooser->setValues(myChanger->getZoom(),
-                                 myChanger->getXPos(), myChanger->getYPos(),
-                                 myChanger->getRotation());
+    updateViewportValues();
     return myViewportChooser;
+}
+
+
+void GUISUMOAbstractView::updateViewportValues() {
+    myViewportChooser->setValues(myChanger->getZoom(),
+        myChanger->getXPos(), myChanger->getYPos(),
+        myChanger->getRotation());
 }
 
 

@@ -504,6 +504,14 @@ GUIOSGView::removeTransportable(MSTransportable* t) {
 }
 
 
+void GUIOSGView::updateViewportValues() {
+    osg::Vec3d lookFrom, lookAt, up;
+    myCameraManipulator->getInverseMatrix().getLookAt(lookFrom, lookAt, up);
+    myViewportChooser->setValues(Position(lookFrom[0], lookFrom[1], lookFrom[2]),
+        Position(lookAt[0], lookAt[1], lookAt[2]), calculateRotation(lookFrom, lookAt, up));
+}
+
+
 void
 GUIOSGView::showViewportEditor() {
     getViewportEditor(); // make sure it exists;
@@ -741,10 +749,7 @@ GUIOSGView::onMouseMove(FXObject* sender, FXSelector sel, void* ptr) {
 	setWindowCursorPosition(ea->getXnormalized(), ea->getYnormalized());
 
     if (myViewportChooser != nullptr && myViewportChooser->shown()) {
-        osg::Vec3d lookFrom, lookAt, up;
-        myCameraManipulator->getInverseMatrix().getLookAt(lookFrom, lookAt, up);
-        myViewportChooser->setValues(Position(lookFrom[0], lookFrom[1], lookFrom[2]),
-                                     Position(lookAt[0], lookAt[1], lookAt[2]), calculateRotation(lookFrom, lookAt, up));
+        updateViewportValues();
     }
 	updatePositionInformation();
     return FXGLCanvas::onMotion(sender, sel, ptr);
