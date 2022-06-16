@@ -19,14 +19,13 @@
 
 from __future__ import absolute_import
 from __future__ import print_function
-import subprocess
 import random
 import sys
 import os
 from optparse import OptionParser
 
 from constants import PREFIX, DOUBLE_ROWS, STOP_POS, SLOTS_PER_ROW, SLOT_LENGTH, BUS_CAPACITY, BREAK_DELAY
-from constants import CYBER_CAPACITY, PORT
+from constants import CYBER_CAPACITY
 import statistics
 
 if 'SUMO_HOME' in os.environ:
@@ -75,6 +74,7 @@ class Setting:
     manager = None
     verbose = False
     cyber = False
+    breakstep = None
 
 
 setting = Setting()
@@ -105,9 +105,7 @@ def init(manager):
     sumoConfig = "%s%02i.sumocfg" % (PREFIX, options.demand)
     if options.cyber:
         sumoConfig = "%s%02i_cyber.sumocfg" % (PREFIX, options.demand)
-    sumoProcess = subprocess.Popen(
-        [sumoExe, sumoConfig], stdout=sys.stdout, stderr=sys.stderr)
-    traci.init(PORT)
+    traci.start([sumoExe, "-c", sumoConfig])
     traci.simulation.subscribe()
     setting.manager = manager
     setting.verbose = options.verbose
@@ -119,7 +117,6 @@ def init(manager):
         statistics.evaluate(options.test)
     finally:
         traci.close()
-        sumoProcess.wait()
 
 
 def getCapacity():
