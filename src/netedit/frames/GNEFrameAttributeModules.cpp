@@ -74,8 +74,7 @@ GNEFrameAttributeModules::AttributesEditorRow::AttributesEditorRow(GNEFrameAttri
         const std::string& value, const bool attributeEnabled, const bool computed) :
     FXHorizontalFrame(attributeEditorParent->getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame),
     myAttributesEditorParent(attributeEditorParent),
-    myACAttr(ACAttr),
-    myMultiple(GNEAttributeCarrier::parse<std::vector<std::string>>(value).size() > 1) {
+    myACAttr(ACAttr) {
     // Create and hide label
     myAttributeLabel = new FXLabel(this, "attributeLabel", nullptr, GUIDesignLabelAttribute);
     myAttributeLabel->hide();
@@ -219,7 +218,7 @@ GNEFrameAttributeModules::AttributesEditorRow::AttributesEditorRow(GNEFrameAttri
                     myValueTextField->killFocus();
                 }
                 myValueTextField->show();
-            } else if (!myMultiple) {
+            } else {
                 // fill comboBox
                 myValueComboBoxChoices->clearItems();
                 for (const auto& discreteValue : myACAttr.getDiscreteValues()) {
@@ -227,7 +226,12 @@ GNEFrameAttributeModules::AttributesEditorRow::AttributesEditorRow(GNEFrameAttri
                 }
                 // show combo box with values
                 myValueComboBoxChoices->setNumVisible((int)myACAttr.getDiscreteValues().size());
-                myValueComboBoxChoices->setCurrentItem(myValueComboBoxChoices->findItem(value.c_str()));
+                const int itemIndex = myValueComboBoxChoices->findItem(value.c_str());
+                if (itemIndex == -1) {
+                    myValueComboBoxChoices->setText(value.c_str());
+                } else {
+                    myValueComboBoxChoices->setCurrentItem(itemIndex);
+                }
                 // set color depending of computed
                 if (computed) {
                     myValueComboBoxChoices->setTextColor(FXRGB(0, 0, 255));
@@ -236,17 +240,6 @@ GNEFrameAttributeModules::AttributesEditorRow::AttributesEditorRow(GNEFrameAttri
                     myValueComboBoxChoices->killFocus();
                 }
                 myValueComboBoxChoices->show();
-            } else {
-                // represent combinable choices in multiple selections always with a textfield instead with a comboBox
-                myValueTextField->setText(value.c_str());
-                // set color depending of computed
-                if (computed) {
-                    myValueTextField->setTextColor(FXRGB(0, 0, 255));
-                } else {
-                    myValueTextField->setTextColor(FXRGB(0, 0, 0));
-                    myValueTextField->killFocus();
-                }
-                myValueTextField->show();
             }
         } else {
             // In any other case (String, list, etc.), show value as String
@@ -448,12 +441,9 @@ GNEFrameAttributeModules::AttributesEditorRow::onCmdSetAttribute(FXObject*, FXSe
         if ((myACAttr.getDiscreteValues().size() > 0) && myACAttr.isVClasses()) {
             // Get value obtained using AttributesEditor
             newVal = myValueTextField->getText().text();
-        } else if (!myMultiple) {
+        } else {
             // Get value of ComboBox
             newVal = myValueComboBoxChoices->getText().text();
-        } else {
-            // due this is a multiple selection, obtain value of myValueTextField instead of comboBox
-            newVal = myValueTextField->getText().text();
         }
     } else {
         // Check if default value of attribute must be set
@@ -590,8 +580,7 @@ GNEFrameAttributeModules::AttributesEditorRow::onCmdSelectCheckButton(FXObject*,
 
 
 GNEFrameAttributeModules::AttributesEditorRow::AttributesEditorRow() :
-    myAttributesEditorParent(nullptr),
-    myMultiple(false) {
+    myAttributesEditorParent(nullptr) {
 }
 
 

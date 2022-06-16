@@ -99,9 +99,6 @@ public:
         /// @brief current AC Attribute
         const GNEAttributeProperties myACAttr;
 
-        /// @brief flag to check if input element contains multiple values
-        const bool myMultiple;
-
         /// @brief pointer to attribute label
         FXLabel* myAttributeLabel = nullptr;
 
