@@ -26,4 +26,10 @@ GUIPostDrawing::GUIPostDrawing() :
     recomputeBoundaries(false) {
 }
 
+
+void 
+GUIPostDrawing::reset() {
+    recomputeBoundaries = false;
+}
+
 /****************************************************************************/

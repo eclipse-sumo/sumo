@@ -30,8 +30,11 @@ public:
     /// @brief constructor
     GUIPostDrawing();
 
+    /// @brief reset all values
+    void reset();
+
     /// @brief recompute boundaries
-    bool recomputeBoundaries;
+    bool recomputeBoundaries = false;
 
 private:
     /// @brief set copy constructor private
