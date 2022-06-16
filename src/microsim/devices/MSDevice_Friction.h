@@ -91,6 +91,10 @@ public:
     /// @brief try to set the given parameter for this device. Throw exception for unsupported key
     void setParameter(const std::string& key, const std::string& value);
 
+    inline double getMeasuredFriction() {
+        return myMeasuredFrictionCoefficient;
+    }
+
 private:
     /** @brief Constructor
      *

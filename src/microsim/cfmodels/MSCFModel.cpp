@@ -170,10 +170,14 @@ MSCFModel::finalizeSpeed(MSVehicle* const veh, double vPos) const {
     const double vMinEmergency = minNextSpeedEmergency(oldV, veh);
     // vPos contains the uppper bound on safe speed. allow emergency braking here
     const double vMin = MIN2(minNextSpeed(oldV, veh), MAX2(vPos, vMinEmergency));
+    const double fric = veh->getFriction();
+    // adapt speed limit of road to "perceived" friction
+    const double factor = fric == 1. ? 1. : -0.3491 * fric * fric + 0.8922 * fric + 0.4493; //2nd degree polyfit
+
     // aMax: Maximal admissible acceleration until the next action step, such that the vehicle's maximal
     // desired speed on the current lane will not be exceeded when the
     // acceleration is maintained until the next action step.
-    double aMax = (veh->getLane()->getVehicleMaxSpeed(veh) - oldV) / veh->getActionStepLengthSecs();
+    double aMax = (veh->getLane()->getVehicleMaxSpeed(veh) * factor - oldV) / veh->getActionStepLengthSecs();
     // apply planned speed constraints and acceleration constraints
     double vMax = MIN3(oldV + ACCEL2SPEED(aMax), maxNextSpeed(oldV, veh), vStop);
     // do not exceed max decel even if it is unsafe

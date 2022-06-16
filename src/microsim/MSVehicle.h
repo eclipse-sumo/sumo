@@ -962,11 +962,15 @@ public:
     /** @brief Returns the vehicle driver's state
      *
      * @return The vehicle driver's state
-     *
      */
 
     std::shared_ptr<MSSimpleDriverState> getDriverState() const;
 
+    /** @brief Returns the current friction on the road as perceived by the friction device
+     *
+     * @return The vehicle's perceived friction
+     */
+    double getFriction() const;
 
     /** @brief Returns the vehicle's car following model variables
      *

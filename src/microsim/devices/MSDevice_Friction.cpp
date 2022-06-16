@@ -54,9 +54,9 @@ MSDevice_Friction::insertOptions(OptionsCont& oc) {
 void
 MSDevice_Friction::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>& into) {
     OptionsCont& oc = OptionsCont::getOptions();
-    if (equippedByDefaultAssignmentOptions(oc, "Friction", v, false)) {
+    if (equippedByDefaultAssignmentOptions(oc, "friction", v, false)) {
         // build the device
-        MSDevice_Friction* device = new MSDevice_Friction(v, "Friction_" + v.getID(),
+        MSDevice_Friction* device = new MSDevice_Friction(v, "friction_" + v.getID(),
                 getFloatParam(v, oc, "friction.stdDev", .1, false), // stdDev noise deviation
                 getFloatParam(v, oc, "friction.offset", 0., false)); // static offset
         into.push_back(device);

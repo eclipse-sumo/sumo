@@ -7028,6 +7028,12 @@ MSVehicle::getDriverState() const {
 }
 
 
+double
+MSVehicle::getFriction() const {
+    return myFrictionDevice == nullptr ? 1. : myFrictionDevice->getMeasuredFriction();
+}
+
+
 void
 MSVehicle::setPreviousSpeed(double prevSpeed, double prevAcceleration) {
     myState.mySpeed = MAX2(0., prevSpeed);
