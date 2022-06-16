@@ -120,11 +120,11 @@ GLDebug: 	Inserted edge:gneE6 into SUMORTree with boundary -10.00,28.40,70.00,50
 GLDebug: 	Inserted edge:gneE7 into SUMORTree with boundary -10.00,-10.00,70.00,11.60
 GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary -10.00,8.40,40.00,30.00
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary -10.00,10.00,40.00,31.60
-Debug: Deleting unreferenced walk: edge->busStop 'customID'
-Debug: Deleting unreferenced person 'customID'
-Debug: Deleting unreferenced walk: edge->busStop 'p_0'
-Debug: Deleting unreferenced person 'p_0'
-Debug: Deleting unreferenced busStop 'busStop'
+Debug: Deleting unreferenced walk: edge->busStop
+Debug: Deleting unreferenced person
+Debug: Deleting unreferenced walk: edge->busStop
+Debug: Deleting unreferenced person
+Debug: Deleting unreferenced busStop
 Debug: Deleting unreferenced edge 'gneE10' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE10_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE10_0togneE8_0' in GNEEdge destructor
@@ -167,3 +167,4 @@ Debug: Deleting unreferenced junction 'gneJ8' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'gneJ9' in AttributeCarriers destructor
 Debug: Deleting net builder in GNENet destructor
 GLDebug: Number of objects in SUMORTree during call of the destructor: 16
+X connection to :29366.0 broken (explicit kill or server shutdown).

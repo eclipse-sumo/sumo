@@ -355,9 +355,9 @@ Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
 Debug: Created walkingArea ':gneJ2_w0' in retrieveGNEWalkingArea()
 Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
 Debug: Created walkingArea ':gneJ3_w0' in retrieveGNEWalkingArea()
-Debug: Deleting unreferenced busStop 'busStop3'
-Debug: Deleting unreferenced busStop 'busStop2'
-Debug: Deleting unreferenced busStop 'busStop1'
+Debug: Deleting unreferenced busStop
+Debug: Deleting unreferenced busStop
+Debug: Deleting unreferenced busStop
 Debug: Deleting unreferenced edge '-gneE2' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane '-gneE2_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from-gneE2_0to-gneE20_0' in GNEEdge destructor
@@ -397,7 +397,7 @@ Debug: Deleting unreferenced walkingArea ':gneJ0_w0' in GNEJunction destructor
 Debug: Deleting unreferenced junction 'gneJ1' in AttributeCarriers destructor
 Debug: Deleting unreferenced walkingArea ':gneJ1_w0' in GNEJunction destructor
 Debug: Deleting unreferenced junction 'gneJ2' in AttributeCarriers destructor
-Debug: Deleting unreferenced crossing ':gneJ2_c1' in GNEJunction destructor
+Debug: Deleting unreferenced crossing ':gneJ2_c0' in GNEJunction destructor
 Debug: Deleting unreferenced crossing ':gneJ2_c1' in GNEJunction destructor
 Debug: Deleting unreferenced walkingArea ':gneJ2_w0' in GNEJunction destructor
 Debug: Deleting unreferenced junction 'gneJ3' in AttributeCarriers destructor

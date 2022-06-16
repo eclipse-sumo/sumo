@@ -12,7 +12,7 @@ Debug: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
 Error: Could not build entry in netedit; lane doesn't exist.
 Debug: Adding detEntry 'e3Detector_0' in GNEChange_Additional
 Debug: Adding detExit 'e3Detector_0' in GNEChange_Additional
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.net.junctions.08Apr202456.3644/netedit.daily.net.junctions/netelements/junctions/load/input_additionals.add.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.net.junctions.16Jun091036.28922/netedit.daily.net.junctions/netelements/junctions/load/input_additionals.add.xml failed.
 Debug: Key F5 (Compute) pressed
 Debug: Created connection 'from-gneE10_0to-gneE9_0' in retrieveGNEConnection()
 Debug: Created connection 'from-gneE10_0to-gneE17_0' in retrieveGNEConnection()
@@ -71,19 +71,19 @@ Debug: Created connection 'fromgneE8_0togneE9_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0to-gneE17_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE10_0' in retrieveGNEConnection()
 Debug: Additionals saved
-Debug: Deleting unreferenced detExit 'e3Detector_0'
-Debug: Deleting unreferenced detEntry 'e3Detector_0'
-Debug: Deleting unreferenced e3Detector 'e3Detector_0'
-Debug: Deleting unreferenced busStop 'busStop_gneE7_0_6'
-Debug: Deleting unreferenced busStop 'busStop_gneE6_0_9'
-Debug: Deleting unreferenced busStop 'busStop_gneE5_0_8'
-Debug: Deleting unreferenced busStop 'busStop_gneE4_0_7'
-Debug: Deleting unreferenced busStop 'busStop_gneE2_0_0'
-Debug: Deleting unreferenced busStop 'busStop_-gneE7_0_5'
-Debug: Deleting unreferenced busStop 'busStop_-gneE6_0_4'
-Debug: Deleting unreferenced busStop 'busStop_-gneE5_0_3'
-Debug: Deleting unreferenced busStop 'busStop_-gneE4_0_2'
-Debug: Deleting unreferenced busStop 'busStop_-gneE3_0_1'
+Debug: Deleting unreferenced detExit
+Debug: Deleting unreferenced detEntry
+Debug: Deleting unreferenced e3Detector
+Debug: Deleting unreferenced busStop
+Debug: Deleting unreferenced busStop
+Debug: Deleting unreferenced busStop
+Debug: Deleting unreferenced busStop
+Debug: Deleting unreferenced busStop
+Debug: Deleting unreferenced busStop
+Debug: Deleting unreferenced busStop
+Debug: Deleting unreferenced busStop
+Debug: Deleting unreferenced busStop
+Debug: Deleting unreferenced busStop
 Debug: Deleting unreferenced edge '-gneE10' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane '-gneE10_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from-gneE10_0to-gneE9_0' in GNEEdge destructor

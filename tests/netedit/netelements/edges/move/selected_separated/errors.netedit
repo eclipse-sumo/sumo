@@ -124,14 +124,14 @@ GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-0.60,60.00,35
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,1.00,60.00,35.00
 GLDebug: 	Inserted edge:gneE3 into SUMORTree with boundary -10.00,-11.60,59.00,25.00
 GLDebug: 	Inserted edge:gneE4 into SUMORTree with boundary -10.00,12.00,60.00,45.00
-Debug: Deleting unreferenced busStop 'busStop_gneE4_0_3'
-Debug: Deleting unreferenced busStop 'busStop_gneE4_0_2'
-Debug: Deleting unreferenced busStop 'busStop_gneE3_0_5'
-Debug: Deleting unreferenced busStop 'busStop_gneE3_0_4'
-Debug: Deleting unreferenced busStop 'busStop_gneE1_0_2'
-Debug: Deleting unreferenced busStop 'busStop_gneE1_0_1'
-Debug: Deleting unreferenced busStop 'busStop_gneE0_0_7'
-Debug: Deleting unreferenced busStop 'busStop_gneE0_0_6'
+Debug: Deleting unreferenced busStop
+Debug: Deleting unreferenced busStop
+Debug: Deleting unreferenced busStop
+Debug: Deleting unreferenced busStop
+Debug: Deleting unreferenced busStop
+Debug: Deleting unreferenced busStop
+Debug: Deleting unreferenced busStop
+Debug: Deleting unreferenced busStop
 Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor
