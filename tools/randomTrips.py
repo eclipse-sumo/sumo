@@ -636,7 +636,7 @@ def main(options):
     args = [DUAROUTER, '-n', options.netfile, '-r', options.tripfile, '--ignore-errors',
             '--begin', str(options.begin), '--end', str(options.end),
             '--alternatives-output', 'NUL',
-            '--no-step-log',]
+            '--no-step-log']
     if options.additional is not None:
         args += ['--additional-files', options.additional]
     if options.carWalkMode is not None:
@@ -666,7 +666,7 @@ def main(options):
                 args += option
             else:
                 raise ValueError(f"The argument '{option[0]}' has already been passed without the duarouter prefix.")
-                
+
     if options.routefile:
         args2 = args + ['-o', options.routefile]
         print("calling", " ".join(args2))

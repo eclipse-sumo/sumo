@@ -275,18 +275,18 @@ class ArgumentParser(argparse.ArgumentParser):
         # print("parse_known_args:\n  args: %s\n  config_args: %s" % (args, config_args))
         namespace, unknown_args = argparse.ArgumentParser.parse_known_args(
             self, args=args+config_args, namespace=namespace)
-        
+
         namespace_as_dict = deepcopy(vars(namespace))
         namespace._prefixed_options = assign_prefixed_options(unknown_args)
-        
+
         for program in namespace._prefixed_options:
             prefixed_options = deepcopy(namespace._prefixed_options[program])
             for option in prefixed_options:
                 option[0] = program + '-' + option[0]
             namespace_as_dict.update(dict(prefixed_options))
-            
+
         extended_namespace = argparse.Namespace(**namespace_as_dict)
-        
+
         self.write_config_file(extended_namespace)
         namespace.config_as_string = self.write_config_file(extended_namespace, toString=True)
         return namespace, unknown_args

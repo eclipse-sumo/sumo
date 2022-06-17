@@ -33,7 +33,7 @@ else:
 options = ["-t"]
 if "cyber" in sys.argv:
     options.append("-c")
-if "agent" in sys.argv: 
+if "agent" in sys.argv:
     subprocess.call([sys.executable, "agentManager.py"] + options)
 else:
     subprocess.call([sys.executable, "simpleManager.py"] + options)
