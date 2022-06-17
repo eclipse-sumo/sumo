@@ -2,11 +2,13 @@
 title: editModesData
 ---
 
-# Data specific modes
+# Data specific modes ![](../images/supermodedata.png)
 
 EdgeData are elements associated with one or several edges, used for multiple purposes (especially Demand). They have their own mode, selectable through the top button or by pressing F4.
 
-![](../images/DataMode1.png)Data mode overview
+![](../images/DataMode1.png)
+
+Data mode overview
 
 Edge datas are defined within a general set (DataSet), and within a certain time interval
 
@@ -16,7 +18,7 @@ Edge datas are defined within a general set (DataSet), and within a certain time
 
 ![](../images/DataMode4.png)Defining parameters 
 
-## Edge data mode
+## Edge data mode ![](../images/edgedata.png)
 
 EdgeData are created over a single edge.
 
@@ -24,7 +26,7 @@ EdgeData are created over a single edge.
 
 ![](../images/DataMode6.png)Inspecting an edge data
 
-## Edge rel data mode
+## Edge relation mode ![](../images/edgereldata.png)
 
 EdgeRelDatas are created over two edges
 
@@ -34,7 +36,7 @@ EdgeRelDatas are created over two edges
 
 ![](../images/DataMode9.png)Press enter to create edge rel data
 
-## TAZ relation mode
+## TAZ relation mode ![](../images/modetazreldata.png)
 
 This mode helps to visualize the existing relation and the traffic demand amount between any two TAZ (Traffic Anaylsis Zone) after loading the respective xml file containing the information about start TAZ, end TAZ, interval, vehicle type and demand count. So, with this mode, users can have an better overview about the distrubtuion of traffic demand between Tazs. The way to load a input file and the available features are explained below.
 
@@ -73,45 +75,58 @@ Now, file(s) containing TAZ-Relations can be loaded with "Load Data Elements" by
 ### Display the TAZ pologons by different colors
 You can click "Polygons" in the window shown after selecting *Edit-\>Edit Visualisation* and change the colors randomly or by selection. You can also directly click the color palette icon "View Settings" in the tool bar to open the respective window and make color changes.
 
-![taz_overview_color](https://user-images.githubusercontent.com/26454969/174296345-6bee16bc-6ebf-4efe-b947-4c4ca96c3964.png)
+![](../images/taz_overview_color.png)
 
 You can also unfill the pologons by clicking the icon "Draw TAZ fill" (see the picture below).
-![tazfill](https://user-images.githubusercontent.com/26454969/174297347-c64e22e4-71f7-43d3-81c5-49d024b87391.png)
+
+![](../images/tazfill.png)
 
 The way to draw the relation line can be either from centroid to centroid or from border to border by clicking "Draw TAZREL drawing mode" (see the example below).
 
-![centroid](https://user-images.githubusercontent.com/26454969/174297368-c3f8c7e6-29c0-4696-8f1f-a41d7ef79016.png)
+![](../images/centroid.png)
 
 ### Display the relation lines by color according to the amount of TAZ demands 
 It is also possible to display the relation lines with different colors according to the respective amount of TAZ demands. The way to set it is shown below.
 
-![coloredDemand](https://user-images.githubusercontent.com/26454969/174121768-e4ba38af-3b9f-441f-b98a-33275adcc27a.png)
+![](../images/coloredDemand.png)
 
 The demand range for each color can be further adjusted/customized as well.
 
 ### Change the width size of the TAZ relation lines
 The width of the relation lines can be adjusted. It is especially useful for better visualisation when there are many edges in the given network. Firstly, You click "Data" in the window shown after selecting *Edit-\>Edit Visualisation* or after clicking the color palette icon "View Settings". After inputting the desired width size in the rubric "Exaggerate tazRelation width by" you click "openGL", press the button "Recalculate boundaries" and then press "OK" so that the adjusted relation lines can be properly shown. The buttons/rubics you need to click are illustrated below.
 
-![setWidth_0](https://user-images.githubusercontent.com/26454969/174278609-770af546-ca65-4f3b-8c4a-632b97a0cb83.png) 
-![setWidth](https://user-images.githubusercontent.com/26454969/174278159-73752979-2d8d-4d99-a474-de0cb2f10fcf.png)
+![](../images/setWidth_0.png)
+![](../images/setWidth.png)
+
+### Inspect a specific TAZ relation
+A TAZ can be selected under the Mode "Inspect". It is easier to do the selection when (1) the icon "Draw TAZ fill" is activated, and (2) the display of TAZ-relation lines is off. The latter one is under implementation. So, you firstly click some TAZ which can be seen after (1) under the inspect mode. Then you click the desired TAZ. After that, you can see th TAZ-relation lines from/to the selected TAZ. You can also choose only to show the relation lines eigher to or from the selected TAZ. The respective illustration is shown below.
+
+![](../images/selectSingleTaz_from.png)
+![](../images/selectSingleTaz_to.png)
 
 ### Select TAZ relations
 
 If only certain TAZ relations should be observed, such as with larger demand amount, it is possible to make TAZ-relation selection. The buttons/items you need to click/choose are circled in red in the picture below. Then you need to input your selection criterion in the rubric (3000 in the example below), circled in blue. After that, you can see the amount of the selected TAZ-relations, circled in yellow. So, in this example, it means that 34 TAZ-relations have a demand amount larger than 3000.
 
-![select_0](https://user-images.githubusercontent.com/26454969/174296689-5921d642-d717-45f0-857f-4ae544fb5e6a.png)
+![](../images/select_0.png)
 
 If only the TAZ-relations with a demand amount between two criteria need to be observed, you further remove the TAZ-relations with a demand amount larger than higher cirterion after you selecting the TAZ-relations with the lower criterion, as illustrated below, i.e. click the rubic "remove" (circled in green) , change the criterion to 5000 (circled in brown) and press the ENTER butten in this example, and then you can see that 19 TAZ-relations (circled in green) are selected.
 
-![select_1](https://user-images.githubusercontent.com/26454969/174296706-432821c6-2fd3-47e6-ad41-15e175481958.png)
+![](../images/select_1.png)
 
 To only see the selected TAZ relations you need to further press the button "Reduce" (see the illustration below). You can again adjust the width size of the TAZ-relations to get a proper view.
 
-![select_2](https://user-images.githubusercontent.com/26454969/174296723-1574e177-3d37-4997-a854-5039e072da15.png)
+![](../images/select_2.png)
+
+!!!
+CAUTION: 
+* Only the data of the selected TAZ relations will be kept after clicking "Reduce". If the save action is made after the action "Reduce", the respective file will be overwritten and all other data will be lost. You can of course to save the seleted data if it is your intention (see the next section).  
+* The "Reduce" action is mainly to help to get a better view about the demand distribution of the selected TAZ. 
+!!!
 
 ### Save the selected TAZ relations
 
 The selected TAZ relations after the "Reduce" action and the respective attributes can be easily saved in XML format (see the illustration below).
-![save](https://user-images.githubusercontent.com/26454969/174293422-334b4237-5451-4fd3-880f-8e0596ae441c.png)
 
+![](../images/saveSelected.png)
 
