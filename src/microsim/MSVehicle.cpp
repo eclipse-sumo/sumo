@@ -7036,7 +7036,6 @@ MSVehicle::getFriction() const {
 
 void
 MSVehicle::setPreviousSpeed(double prevSpeed, double prevAcceleration) {
-    std::cout << " setPreviousSpeed\n";
     myState.mySpeed = MAX2(0., prevSpeed);
     // also retcon acceleration
     if (prevAcceleration != std::numeric_limits<double>::min()) {
