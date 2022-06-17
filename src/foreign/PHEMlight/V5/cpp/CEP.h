@@ -74,7 +74,7 @@ namespace PHEMlightdllV5 {
         void setNormalizingPower(const double&  value);
         const double&  getDrivingPower() const;
         void setDrivingPower(const double&  value);
-        const double& getAuxPower() const {
+        double getAuxPower() const {
             return _auxPower * getRatedPower();
         }
 
