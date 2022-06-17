@@ -55,11 +55,18 @@ def runSingle(traciEndTime, viewRange, domain, domain2):
     sys.stdout.flush()
 
 
-traci.start([sumolib.checkBinary(sys.argv[1]), '-Q', "-c", "sumo.sumocfg",
-    '-a', 'input_additional.add.xml'])
-traci.simulationStep()
+def restart():
+    traci.start([sumolib.checkBinary(sys.argv[1]), '-Q', "-c", "sumo.sumocfg",
+        '-a', 'input_additional.add.xml'])
+    traci.simulationStep()
+
+restart()
 
 for domain in traci.domain._defaultDomains:
     for domain2 in traci.domain._defaultDomains:
-        runSingle(2, 100, domain, domain2)
+        try:
+            runSingle(2, 100, domain, domain2)
+        except traci.FatalTraCIError:
+            #restart()
+            sys.exit()
 
