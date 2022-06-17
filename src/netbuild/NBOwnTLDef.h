@@ -108,7 +108,7 @@ public:
 
     /// @brief add 1 or 2 phases depending on the presence of pedestrian crossings
     static std::string addPedestrianPhases(NBTrafficLightLogic* logic, const SUMOTime greenTime, const SUMOTime minDur, const SUMOTime maxDur, 
-                                           const SUMOTime earliestEnd, const SUMOTime latestEnd, const SUMOTime vehExt, const SUMOTime yellow, const SUMOTime red, 
+                                           const SUMOTime earliestEnd, const SUMOTime latestEnd,
                                            std::string state, const std::vector<NBNode::Crossing*>& crossings, const EdgeVector& fromEdges, const EdgeVector& toEdges);
 
     /// @brief compute phase state in regard to pedestrian crossings
@@ -174,6 +174,12 @@ protected:
 
     /// @brief test whether a joined tls with layout 'opposites' would be built without dedicated left-turn phase
     bool corridorLike() const;
+
+NBTrafficLightLogic* buildNemaPhases(
+        const EdgeVector& fromEdges,
+        const std::vector<std::pair<NBEdge*, NBEdge*> >& chosenList,
+        const std::vector<std::string>& straightStates,
+        const std::vector<std::string>& leftStates);
 
     /// @brief mask out all greens that do not originate at the given edge
     std::string filterState(std::string state, const EdgeVector& fromEdges, const NBEdge* e); 
