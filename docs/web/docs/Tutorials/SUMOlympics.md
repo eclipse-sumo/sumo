@@ -22,7 +22,7 @@ two different locations in the editing area. Change to inspection mode
 of your first click). Now enter `0,0` in the textfield labeled `pos` in
 the inspector panel on the left (see figure). Do the same for the edge's
 endpoint, setting its position to `1000,0`. Now save your network under
-the name `sumolypics.net.xml` (press `Ctrl+Shift-S`).
+the name `sumolympics.net.xml` (press `Ctrl+Shift-S`).
 
 Now we have a long road, which will be the stage of our competition. The
 participants in the competition will be transportation modes, i.e.,
