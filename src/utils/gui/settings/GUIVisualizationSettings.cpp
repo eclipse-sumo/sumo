@@ -1892,6 +1892,15 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
 
 bool
 GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
+    if (show3DTLSDomes != v2.show3DTLSDomes) {
+        return false;
+    }
+    if (show3DTLSLinkMarkers != v2.show3DTLSLinkMarkers) {
+        return false;
+    }
+    if (generate3DTLSModels != v2.generate3DTLSModels) {
+        return false;
+    }
     if (dither != v2.dither) {
         return false;
     }

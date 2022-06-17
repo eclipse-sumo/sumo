@@ -658,6 +658,9 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
     tmpSettings.showSizeLegend = (myShowSizeLegend->getCheck() != FALSE);
     tmpSettings.showColorLegend = (myShowColorLegend->getCheck() != FALSE);
     tmpSettings.showVehicleColorLegend = (myShowVehicleColorLegend->getCheck() != FALSE);
+    tmpSettings.show3DTLSDomes = (myShow3DTLSDomes->getCheck() != FALSE);
+    tmpSettings.show3DTLSLinkMarkers = (myShow3DTLSLinkMarkers->getCheck() != FALSE);
+    tmpSettings.generate3DTLSModels = (myGenerate3DTLSModels->getCheck() != FALSE);
 
     // lanes (colors)
     if (sender == myLaneColorRainbow) {

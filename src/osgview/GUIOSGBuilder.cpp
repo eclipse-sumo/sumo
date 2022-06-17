@@ -57,7 +57,7 @@ std::map<std::string, osg::ref_ptr<osg::Node> > GUIOSGBuilder::myCars;
 // ===========================================================================
 
 osg::Group*
-GUIOSGBuilder::buildOSGScene(osg::Node* const tlg, osg::Node* const tly, osg::Node* const tlr, osg::Node* const tlu, GUIVisualizationSettings* const visualizationSettings) {
+GUIOSGBuilder::buildOSGScene(osg::Node* const tlg, osg::Node* const tly, osg::Node* const tlr, osg::Node* const tlu) {
     osgUtil::Tessellator tesselator;
     osg::Group* root = new osg::Group();
     GUINet* net = static_cast<GUINet*>(MSNet::getInstance());
@@ -96,11 +96,11 @@ GUIOSGBuilder::buildOSGScene(osg::Node* const tlg, osg::Node* const tly, osg::No
                 d.centerY = pos.y() - 1.5 * cos(angle);
             }
             osg::Switch* switchNode = new osg::Switch();
-            switchNode->addChild(getTrafficLight(d, nullptr, osg::Vec4d(0.1, 0.5, 0.1, 1.0), .25, visualizationSettings->show3DTLSLinkMarkers), false);
-            switchNode->addChild(getTrafficLight(d, nullptr, osg::Vec4d(0.5, 0.5, 0.1, 1.0), .25, visualizationSettings->show3DTLSLinkMarkers), false);
-            switchNode->addChild(getTrafficLight(d, nullptr, osg::Vec4d(0.5, 0.1, 0.1, 1.0), .25, visualizationSettings->show3DTLSLinkMarkers), false);
-            switchNode->addChild(getTrafficLight(d, nullptr, osg::Vec4d(0.8, 0.4, 0.0, 1.0), .25, visualizationSettings->show3DTLSLinkMarkers), false);
-            switchNode->addChild(getTrafficLight(d, nullptr, osg::Vec4d(0.5, 0.25, 0.0, 1.0), .25, visualizationSettings->show3DTLSLinkMarkers), false);
+            switchNode->addChild(getTrafficLight(d, nullptr, osg::Vec4d(0.1, 0.5, 0.1, 1.0), .25, 1 << GUIOSGView::NODESET_TLSLINKMARKERS), false);
+            switchNode->addChild(getTrafficLight(d, nullptr, osg::Vec4d(0.5, 0.5, 0.1, 1.0), .25, 1 << GUIOSGView::NODESET_TLSLINKMARKERS), false);
+            switchNode->addChild(getTrafficLight(d, nullptr, osg::Vec4d(0.5, 0.1, 0.1, 1.0), .25, 1 << GUIOSGView::NODESET_TLSLINKMARKERS), false);
+            switchNode->addChild(getTrafficLight(d, nullptr, osg::Vec4d(0.8, 0.4, 0.0, 1.0), .25, 1 << GUIOSGView::NODESET_TLSLINKMARKERS), false);
+            switchNode->addChild(getTrafficLight(d, nullptr, osg::Vec4d(0.5, 0.25, 0.0, 1.0), .25, 1 << GUIOSGView::NODESET_TLSLINKMARKERS), false);
             switchNode->setName("tlLogic:" + *i);
             root->addChild(switchNode);
             const MSLink* const l = vars.getActive()->getLinksAt(idx)[0];
@@ -325,7 +325,7 @@ GUIOSGBuilder::buildDecal(const GUISUMOAbstractView::Decal& d, osg::Group& addTo
 
 
 osg::PositionAttitudeTransform*
-GUIOSGBuilder::getTrafficLight(const GUISUMOAbstractView::Decal& d, osg::Node* tl, const osg::Vec4& color, const double size, const bool drawBubble) {
+GUIOSGBuilder::getTrafficLight(const GUISUMOAbstractView::Decal& d, osg::Node* tl, const osg::Vec4& color, const double size, const unsigned int nodeMask) {
     osg::PositionAttitudeTransform* ret = new osg::PositionAttitudeTransform();
     if (tl != nullptr) {
         osg::PositionAttitudeTransform* base = new osg::PositionAttitudeTransform();
@@ -346,22 +346,21 @@ GUIOSGBuilder::getTrafficLight(const GUISUMOAbstractView::Decal& d, osg::Node* t
                                     osg::DegreesToRadians(d.rot), osg::Vec3(0, 0, 1)));
         ret->addChild(base);
     }
-    if (drawBubble) {
-        osg::Geode* geode = new osg::Geode();
-        osg::Vec3d center(d.centerX, d.centerY, d.centerZ);
-        osg::ShapeDrawable* shape = new osg::ShapeDrawable(new osg::Sphere(center, (float)size));
-        geode->addDrawable(shape);
-        osg::ref_ptr<osg::StateSet> ss = shape->getOrCreateStateSet();
-        ss->setRenderingHint(osg::StateSet::TRANSPARENT_BIN);
-        ss->setMode(GL_BLEND, osg::StateAttribute::OVERRIDE | osg::StateAttribute::PROTECTED | osg::StateAttribute::ON);
-        shape->setColor(color);
-        osg::PositionAttitudeTransform* ellipse = new osg::PositionAttitudeTransform();
-        ellipse->addChild(geode);
-        ellipse->setPivotPoint(center);
-        ellipse->setPosition(center);
-        ellipse->setScale(osg::Vec3d(4., 4., 2.5 * d.altitude + 1.1));
-        ret->addChild(ellipse);
-    }
+    osg::Geode* geode = new osg::Geode();
+    osg::Vec3d center(d.centerX, d.centerY, d.centerZ);
+    osg::ShapeDrawable* shape = new osg::ShapeDrawable(new osg::Sphere(center, (float)size));
+    geode->addDrawable(shape);
+    osg::ref_ptr<osg::StateSet> ss = shape->getOrCreateStateSet();
+    ss->setRenderingHint(osg::StateSet::TRANSPARENT_BIN);
+    ss->setMode(GL_BLEND, osg::StateAttribute::OVERRIDE | osg::StateAttribute::PROTECTED | osg::StateAttribute::ON);
+    shape->setColor(color);
+    osg::PositionAttitudeTransform* ellipse = new osg::PositionAttitudeTransform();
+    ellipse->addChild(geode);
+    ellipse->setPivotPoint(center);
+    ellipse->setPosition(center);
+    ellipse->setScale(osg::Vec3d(4., 4., 2.5 * d.altitude + 1.1));
+    ellipse->setNodeMask(nodeMask);
+    ret->addChild(ellipse);
     return ret;
 }
 

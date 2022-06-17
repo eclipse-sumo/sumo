@@ -164,7 +164,7 @@ GUIOSGView::GUIOSGView(
     if (myGreenLight == 0 || myYellowLight == 0 || myRedLight == 0 || myRedYellowLight == 0) {
         WRITE_ERROR("Could not load traffic light files.");
     }
-    myRoot = GUIOSGBuilder::buildOSGScene(myGreenLight, myYellowLight, myRedLight, myRedYellowLight, myVisualizationSettings);
+    myRoot = GUIOSGBuilder::buildOSGScene(myGreenLight, myYellowLight, myRedLight, myRedYellowLight);
     // add the stats handler
     myViewer->addEventHandler(new osgViewer::StatsHandler());
     myViewer->setSceneData(myRoot);
@@ -346,11 +346,11 @@ GUIOSGView::onPaint(FXObject*, FXSelector, void*) {
                     const MSLink* const link = vars.getActive()->getLinksAt(linkIdx)[0];
                     osg::Switch* switchNode = new osg::Switch();
 					switchNode->setName("tlLogic:" + tlLogic);
-                    switchNode->addChild(GUIOSGBuilder::getTrafficLight(d, d.layer < 0 ? 0 : myGreenLight, osg::Vec4d(0., 1., 0., .3), 0.5, myVisualizationSettings->show3DTLSDomes));
-                    switchNode->addChild(GUIOSGBuilder::getTrafficLight(d, d.layer < 0 ? 0 : myYellowLight, osg::Vec4d(1., 1., 0., .3), 0.5, myVisualizationSettings->show3DTLSDomes));
-                    switchNode->addChild(GUIOSGBuilder::getTrafficLight(d, d.layer < 0 ? 0 : myRedLight, osg::Vec4d(1., 0., 0., .3), 0.5, myVisualizationSettings->show3DTLSDomes));
-                    switchNode->addChild(GUIOSGBuilder::getTrafficLight(d, d.layer < 0 ? 0 : myRedYellowLight, osg::Vec4d(1., .5, 0., .3), 0.5, myVisualizationSettings->show3DTLSDomes));
-					switchNode->addChild(GUIOSGBuilder::getTrafficLight(d, d.layer < 0 ? 0 : myRedYellowLight, osg::Vec4d(.5, .25, 0., .3), 0.5, myVisualizationSettings->show3DTLSDomes));
+                    switchNode->addChild(GUIOSGBuilder::getTrafficLight(d, d.layer < 0 ? 0 : myGreenLight, osg::Vec4d(0., 1., 0., .3), 0.5, 1 << NODESET_TLSDOMES));
+                    switchNode->addChild(GUIOSGBuilder::getTrafficLight(d, d.layer < 0 ? 0 : myYellowLight, osg::Vec4d(1., 1., 0., .3), 0.5, 1 << NODESET_TLSDOMES));
+                    switchNode->addChild(GUIOSGBuilder::getTrafficLight(d, d.layer < 0 ? 0 : myRedLight, osg::Vec4d(1., 0., 0., .3), 0.5, 1 << NODESET_TLSDOMES));
+                    switchNode->addChild(GUIOSGBuilder::getTrafficLight(d, d.layer < 0 ? 0 : myRedYellowLight, osg::Vec4d(1., .5, 0., .3), 0.5, 1 << NODESET_TLSDOMES));
+					switchNode->addChild(GUIOSGBuilder::getTrafficLight(d, d.layer < 0 ? 0 : myRedYellowLight, osg::Vec4d(.5, .25, 0., .3), 0.5, 1 << NODESET_TLSDOMES));
                     myRoot->addChild(switchNode);
                     vars.addSwitchCommand(new Command_TLSChange(link, switchNode));
                 } catch (NumberFormatException&) {
@@ -470,7 +470,13 @@ GUIOSGView::onPaint(FXObject*, FXSelector, void*) {
             ++person;
         }
     }
-
+    //// show/hide OSG nodes
+    unsigned int cullMask = 0xFFFFFFFF;
+    cullMask ^= (-myVisualizationSettings->show3DTLSDomes ^ cullMask) & (1UL << NODESET_TLSDOMES);
+    cullMask ^= (-myVisualizationSettings->show3DTLSLinkMarkers ^ cullMask) & (1UL << NODESET_TLSLINKMARKERS);
+    //cullMask &= ~myVisualizationSettings->show3DTLSDomes << NODESET_TLSDOMES;
+    //cullMask |= myVisualizationSettings->show3DTLSLinkMarkers << NODESET_TLSLINKMARKERS;
+    myViewer->getCamera()->setCullMask(cullMask);
 
     if (myAdapter->makeCurrent()) {
         myViewer->frame();

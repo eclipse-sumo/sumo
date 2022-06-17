@@ -55,13 +55,13 @@ class GUIJunctionWrapper;
  */
 class GUIOSGBuilder {
 public:
-    static osg::Group* buildOSGScene(osg::Node* const tlg, osg::Node* const tly, osg::Node* const tlr, osg::Node* const tlu, GUIVisualizationSettings* const visualizationSettings);
+    static osg::Group* buildOSGScene(osg::Node* const tlg, osg::Node* const tly, osg::Node* const tlr, osg::Node* const tlu);
 
     static void buildDecal(const GUISUMOAbstractView::Decal& d, osg::Group& addTo);
 
     static void buildLight(const GUISUMOAbstractView::Decal& d, osg::Group& addTo);
 
-    static osg::PositionAttitudeTransform* getTrafficLight(const GUISUMOAbstractView::Decal& d, osg::Node* tl, const osg::Vec4& color, const double size = 0.5, const bool drawBubble = true);
+    static osg::PositionAttitudeTransform* getTrafficLight(const GUISUMOAbstractView::Decal& d, osg::Node* tl, const osg::Vec4& color, const double size = 0.5, const unsigned int nodeMask = 0xffffffff);
 
     static GUIOSGView::OSGMovable buildMovable(const MSVehicleType& type);
 
