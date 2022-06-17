@@ -6,7 +6,7 @@ IndexError: list index out of range
 During handling of the above exception, another exception occurred:
 
 Traceback (most recent call last):
-  File "C:\Users\coue_be\Dev\sumo\tests\..\tools/randomTrips.py", line 708, in <module>
+  File "C:\Users\coue_be\Dev\sumo\tests\..\tools/randomTrips.py", line 710, in <module>
     if not main(get_options()):
   File "C:\Users\coue_be\Dev\sumo\tests\..\tools/randomTrips.py", line 155, in get_options
     options = optParser.parse_args(args=args)
@@ -15,5 +15,5 @@ Traceback (most recent call last):
   File "C:\Users\coue_be\Dev\sumo\tools\sumolib\options.py", line 285, in parse_known_args
     namespace._prefixed_options = assign_prefixed_options(unknown_args)
   File "C:\Users\coue_be\Dev\sumo\tools\sumolib\options.py", line 105, in assign_prefixed_options
-    raise NotImplementedError(f"Please amend prefixed argument {arg} with a value.")
+    raise NotImplementedError("Please amend prefixed argument %s with a value." % arg)
 NotImplementedError: Please amend prefixed argument --duarouter-route-length with a value.

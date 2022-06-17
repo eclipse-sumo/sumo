@@ -102,7 +102,7 @@ def assign_prefixed_options(args):
                         raise NotImplementedError()
                     option = [arg[separator_index+1:], args[arg_index+1]]
                 except(IndexError, NotImplementedError):
-                    raise NotImplementedError(f"Please amend prefixed argument {arg} with a value.")
+                    raise NotImplementedError("Please amend prefixed argument %s with a value." % arg)
                 if program in prefixed_options:
                     prefixed_options[program].append(option)
                 else:
