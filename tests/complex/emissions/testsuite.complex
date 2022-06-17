@@ -1,7 +1,10 @@
+# NEFZ cycle with original HBEFA model
 nefz_hbefa2
+
+# NEFZ cycle with HBEFA 3 model
 nefz_hbefa3
 
-# Copy of nefz_hbefa3
+# volumetric fuel output
 nefz_hbefa3_volumetric
 
 # compute acceleration
@@ -10,9 +13,13 @@ nefz_hbefa3_onlySpeed
 # use ',' instead of ';'
 nefz_hbefa3_separator
 
-# Copy of nefz_hbefa3
+# NEFZ cycle with HBEFA 4 model
 nefz_hbefa4
+
+# NEFZ cycle with original PHEMlight model
 nefz_phemlight
+
+# NEFZ cycle with PHEMlight V5 model
 nefz_phemlight5
 
 # non-existing driving cycle file
@@ -23,3 +30,6 @@ nefz_energy
 
 # Battery model, load additional params from vType
 nefz_energy_vtype
+
+# output coasting decel
+coasting
