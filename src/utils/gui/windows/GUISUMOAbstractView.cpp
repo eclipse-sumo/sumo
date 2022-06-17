@@ -346,7 +346,7 @@ GUISUMOAbstractView::onCmdAddRerouter(FXObject*, FXSelector, void*) {
 
 
 long
-GUISUMOAbstractView::onCmdShowReachability(FXObject* menu, FXSelector, void*) {
+GUISUMOAbstractView::onCmdShowReachability(FXObject*, FXSelector, void*) {
 	return 1;
 }
 
