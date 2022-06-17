@@ -1,0 +1,18 @@
+Warning: No flow intervals in calibrator 'ca_0'.
+Warning: No flow intervals in calibrator 'ca_1'.
+Error: Infeasible context domain (173)
+Quitting (on error).
+Traceback (most recent call last):
+  File "/home/erdm_ja/scr1/sumo/tests/../tests/complex/traci/contextSubscriptions/matrix_test/runner.py", line 64, in <module>
+    runSingle(2, 100, domain, domain2)
+  File "/home/erdm_ja/scr1/sumo/tests/../tests/complex/traci/contextSubscriptions/matrix_test/runner.py", line 43, in runSingle
+    domain.subscribeContext(egoID, domain2.DOMAIN_ID, viewRange)
+  File "/scr1/sumo/tools/traci/domain.py", line 227, in subscribeContext
+    self._connection._subscribeContext(self._contextID, begin, end, objectID, domain, dist, varIDs, parameters)
+  File "/scr1/sumo/tools/traci/connection.py", line 266, in _subscribeContext
+    domain, dist, len(varIDs), *varIDs)
+  File "/scr1/sumo/tools/traci/connection.py", line 189, in _sendCmd
+    return self._sendExact()
+  File "/scr1/sumo/tools/traci/connection.py", line 99, in _sendExact
+    raise FatalTraCIError("connection closed by SUMO")
+traci.exceptions.FatalTraCIError: connection closed by SUMO

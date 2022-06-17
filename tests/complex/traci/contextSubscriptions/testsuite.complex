@@ -1,3 +1,6 @@
+# test subscribing for every domain around every other domain
+matrix_test
+
 # Validation of the range
 range_100m
 range_200m
