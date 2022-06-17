@@ -122,12 +122,16 @@ MFXListItem::MFXListItem() :
 }
 
 
-MFXIconComboBox::MFXIconComboBox(FXComposite* p, FXint cols, FXObject* tgt, FXSelector sel, FXuint opts, FXint x, FXint y, FXint w, FXint h, FXint pl, FXint pr, FXint pt, FXint pb):
-    FXPacker(p, opts, x, y, w, h, 0, 0, 0, 0, 0, 0) {
+MFXIconComboBox::MFXIconComboBox(FXComposite* p, FXint cols, const bool haveIcons, FXObject* tgt, FXSelector sel, FXuint opts, FXint x, FXint y, FXint w, FXint h, FXint pl, FXint pr, FXint pt, FXint pb):
+    FXPacker(p, opts, x, y, w, h, 0, 0, 0, 0, 0, 0),
+    myHaveIcons(haveIcons) {
     flags |= FLAG_ENABLED;
     target = tgt;
     message = sel;
     myIconLabel = new FXLabel(this, "", nullptr, 0, 0, 0, 0, 0, pl, pr, pt, pb);
+    if (!myHaveIcons) {
+        myIconLabel->hide();
+    }
     myTextFieldIcon = new MFXTextFieldIcon(this, cols, this, MFXIconComboBox::ID_TEXT, 0, 0, 0, 0, 0, pl, pr, pt, pb);
     if (options & COMBOBOX_STATIC) {
         myTextFieldIcon->setEditable(FALSE);
@@ -273,10 +277,16 @@ MFXIconComboBox::getNumVisible() const {
 
 
 void
+MFXIconComboBox::setText(FXString text) {
+    myTextFieldIcon->setText(text);
+}
+
+
+void
 MFXIconComboBox::setNumVisible(FXint nvis) {
     myList->setNumVisible(nvis);
     // set height manually (due icons)
-    myList->setHeight(nvis * ICON_HEIGHT);
+    myList->setHeight((nvis + 1) * ICON_HEIGHT);
 }
 
 
@@ -806,4 +816,5 @@ long MFXIconComboBox::onMouseWheel(FXObject*, FXSelector, void* ptr) {
 }
 
 
-MFXIconComboBox::MFXIconComboBox() {}
+MFXIconComboBox::MFXIconComboBox() :
+    myHaveIcons(false) {}

@@ -91,7 +91,7 @@ GNEFrameAttributeModules::AttributesEditorRow::AttributesEditorRow(GNEFrameAttri
     myValueTextField = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     myValueTextField->hide();
     // Create and hide ComboBox
-    myValueComboBoxChoices = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBoxAttribute);
+    myValueComboBoxChoices = new MFXIconComboBox(this, GUIDesignComboBoxNCol, false, this, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBoxAttribute);
     myValueComboBoxChoices->hide();
     // Create and hide checkButton
     myValueCheckButton = new FXCheckButton(this, "", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
@@ -222,7 +222,7 @@ GNEFrameAttributeModules::AttributesEditorRow::AttributesEditorRow(GNEFrameAttri
                 // fill comboBox
                 myValueComboBoxChoices->clearItems();
                 for (const auto& discreteValue : myACAttr.getDiscreteValues()) {
-                    myValueComboBoxChoices->appendItem(discreteValue.c_str());
+                    myValueComboBoxChoices->appendIconItem(discreteValue.c_str());
                 }
                 // show combo box with values
                 myValueComboBoxChoices->setNumVisible((int)myACAttr.getDiscreteValues().size());
@@ -316,7 +316,7 @@ GNEFrameAttributeModules::AttributesEditorRow::refreshAttributesEditorRow(const 
         // fill terminategain
         myValueComboBoxChoices->clearItems();
         for (const auto& discreteValue : myACAttr.getDiscreteValues()) {
-            myValueComboBoxChoices->appendItem(discreteValue.c_str());
+            myValueComboBoxChoices->appendIconItem(discreteValue.c_str());
         }
         // show combo box with values
         myValueComboBoxChoices->setNumVisible((int)myACAttr.getDiscreteValues().size());

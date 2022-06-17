@@ -115,7 +115,7 @@ public:
         FXTextField* myValueTextField = nullptr;
 
         /// @brief pointer to combo box choices
-        FXComboBox* myValueComboBoxChoices = nullptr;
+        MFXIconComboBox* myValueComboBoxChoices = nullptr;
 
         /// @brief pointer to menu check
         FXCheckButton* myValueCheckButton = nullptr;
