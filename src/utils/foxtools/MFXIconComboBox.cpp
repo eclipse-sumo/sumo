@@ -204,7 +204,11 @@ MFXIconComboBox::disable() {
 FXint
 MFXIconComboBox::getDefaultWidth() {
     FXint ww, pw;
-    ww = myIconLabel->getDefaultWidth() + myTextFieldIcon->getDefaultWidth() + myButton->getDefaultWidth() + (border << 1);
+    if (myIconLabel) {
+        ww = myTextFieldIcon->getDefaultWidth() + myButton->getDefaultWidth() + (border << 1);
+    } else {
+        ww = myIconLabel->getDefaultWidth() + myTextFieldIcon->getDefaultWidth() + myButton->getDefaultWidth() + (border << 1);
+    }
     pw = myPane->getDefaultWidth();
     return FXMAX(ww, pw);
 }
@@ -221,15 +225,21 @@ MFXIconComboBox::getDefaultHeight() {
 
 void
 MFXIconComboBox::layout() {
-    FXint buttonWidth, textWidth, itemHeight, iconSize;
-    itemHeight = height - (border << 1);
-    iconSize = itemHeight;
-    buttonWidth = myButton->getDefaultWidth();
-    textWidth = width - buttonWidth - iconSize - (border << 1);
+    const FXint itemHeight = height - (border << 1);
+    const FXint iconSize = myHaveIcons? itemHeight : 0;
+    const FXint buttonWidth = myButton->getDefaultWidth();
+    const FXint textWidth = width - buttonWidth - iconSize - (border << 1);
     myIconLabel->position(border, border, iconSize, iconSize);
     myTextFieldIcon->position(border + iconSize, border, textWidth, itemHeight);
     myButton->position(border + textWidth + iconSize, border, buttonWidth, itemHeight);
-    myPane->resize(width, myPane->getDefaultHeight());
+
+    int size = -1;
+    for (int i = 0; i < myList->getNumItems(); i++) {
+        if (myList->getItemWidth(i) > size) {
+            size = myList->getItemWidth(i);
+        }
+    }
+    myPane->resize(size + 17, myPane->getDefaultHeight());
     flags &= ~FLAG_DIRTY;
 }
 
