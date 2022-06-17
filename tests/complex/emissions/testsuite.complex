@@ -22,6 +22,12 @@ nefz_phemlight
 # NEFZ cycle with PHEMlight V5 model
 nefz_phemlight5
 
+# Testing age deterioration
+nefz_phemlight5_deterioration
+
+# Testing temperature dependency of NOx
+nefz_phemlight5_temperature
+
 # non-existing driving cycle file
 invalid_cycle
 
