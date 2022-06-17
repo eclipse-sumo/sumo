@@ -22,18 +22,22 @@ from __future__ import print_function
 import os
 import sys
 import subprocess
+sys.path.append(os.path.join(os.environ["SUMO_HOME"], "tools"))
+import sumolib  # noqa
 
 os.chdir('data')
-
 if "person" in sys.argv:
     subprocess.call([sys.executable, "createNetTaxi.py"])
+    if "cyber" in sys.argv:
+        subprocess.call([sumolib.checkBinary("sumo"), "park15_cyber.sumocfg"])
+    else:
+        subprocess.call([sumolib.checkBinary("sumo"), "park15.sumocfg"])
 else:
     subprocess.call([sys.executable, "createNet.py"])
-
-options = ["-t"]
-if "cyber" in sys.argv:
-    options.append("-c")
-if "agent" in sys.argv:
-    subprocess.call([sys.executable, "agentManager.py"] + options)
-else:
-    subprocess.call([sys.executable, "simpleManager.py"] + options)
+    options = ["-t"]
+    if "cyber" in sys.argv:
+        options.append("-c")
+    if "agent" in sys.argv:
+        subprocess.call([sys.executable, "agentManager.py"] + options)
+    else:
+        subprocess.call([sys.executable, "simpleManager.py"] + options)
