@@ -126,6 +126,8 @@ class Domain:
         self._subscriptionDefault = subscriptionDefault
         self._connection = None
         _defaultDomains.append(self)
+        # alias
+        self.DOMAIN_ID = cmdGetID
 
     def _register(self, connection, mapping):
         dom = copy.copy(self)
