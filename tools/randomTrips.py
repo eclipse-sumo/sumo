@@ -665,7 +665,7 @@ def main(options):
             if option[0] not in args:
                 args += option
             else:
-                raise ValueError(f"The argument '{option[0]}' has already been passed without the duarouter prefix.")
+                raise ValueError("The argument '%s' has already been passed without the duarouter prefix." % option[0])
 
     if options.routefile:
         args2 = args + ['-o', options.routefile]
