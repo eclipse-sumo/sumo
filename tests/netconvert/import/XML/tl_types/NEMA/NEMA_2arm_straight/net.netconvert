@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-06-17 12:25:20 by Eclipse SUMO netconvert Version v1_13_0+0963-149fd13
+<!-- generated on 2022-06-17 13:21:17 by Eclipse SUMO netconvert Version v1_13_0+0965-d0481df
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -65,14 +65,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="SC_1" index="1" speed="13.89" length="96.00" shape="1.60,0.00 1.60,96.00"/>
     </edge>
 
-    <tlLogic id="C" type="NEMA" programID="0" offset="0">
-        <phase duration="31" state="GG" minDur="5" maxDur="50" vehext="2" yellow="3" red="2"/>
+    <tlLogic id="C" type="actuated" programID="0" offset="0">
+        <phase duration="31" state="GG" minDur="5" maxDur="50"/>
         <phase duration="3"  state="yy"/>
         <phase duration="5"  state="rr"/>
-        <param key="barrier2Phases" value="2,6"/>
-        <param key="barrierPhases" value="4,8"/>
-        <param key="ring1" value="1,2,3,4"/>
-        <param key="ring2" value="5,6,7,8"/>
     </tlLogic>
 
     <junction id="C" type="traffic_light" x="0.00" y="100.00" incLanes="NC_0 NC_1 SC_0 SC_1" intLanes=":C_0_0 :C_1_0" shape="-6.40,104.00 3.20,104.00 4.03,100.97 5.57,99.03 6.16,97.79 6.40,96.00 -3.20,96.00 -4.03,99.03 -5.57,100.97 -6.16,102.21">

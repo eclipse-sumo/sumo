@@ -1,2 +1,1 @@
-Error: When adding phase to tlLogic 'C': state length of 0 does not match declared number of links 2
-Quitting (on error).
+Warning: Generating NEMA phases is not support for traffic light 'C' with 2 incoming edges. Using tlType 'actuated' as fallback
