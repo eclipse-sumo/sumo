@@ -249,6 +249,7 @@ NBOwnTLDef::myCompute(int brakingTimeSeconds) {
     return computeLogicAndConts(brakingTimeSeconds);
 }
 
+
 NBTrafficLightLogic*
 NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
     myNeedsContRelation.clear();
@@ -273,7 +274,7 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
     std::vector<bool> hasTurnLane;
     std::vector<int> fromLanes;
     std::vector<int> toLanes;
-    int noLinksAll = 0;
+    int totalNumLinks = 0;
     for (NBEdge* const fromEdge : incoming) {
         const int numLanes = fromEdge->getNumLanes();
         const bool edgeHasStraight = hasStraightConnection(fromEdge);
@@ -308,7 +309,7 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
                 } else if (dir == LinkDirection::TURN) {
                     hasTurnaround = true;
                 }
-                noLinksAll++;
+                totalNumLinks++;
             }
             for (const NBEdge::Connection& approached : fromEdge->getConnectionsFromLane(i2)) {
                 if (!fromEdge->mayBeTLSControlled(i2, approached.toEdge, approached.toLane)) {
@@ -329,13 +330,13 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
         const std::vector<NBNode::Crossing*>& c = node->getCrossings();
         if (!onlyConts) {
             // set tl indices for crossings
-            node->setCrossingTLIndices(getID(), noLinksAll);
+            node->setCrossingTLIndices(getID(), totalNumLinks);
         }
         copy(c.begin(), c.end(), std::back_inserter(crossings));
-        noLinksAll += (int)c.size();
+        totalNumLinks += (int)c.size();
     }
 
-    NBTrafficLightLogic* logic = new NBTrafficLightLogic(getID(), getProgramID(), noLinksAll, myOffset, myType);
+    NBTrafficLightLogic* logic = new NBTrafficLightLogic(getID(), getProgramID(), totalNumLinks, myOffset, myType);
     EdgeVector toProc = getConnectedOuterEdges(incoming);
     const SUMOTime greenTime = TIME2STEPS(OptionsCont::getOptions().getInt("tls.green.time"));
     SUMOTime allRedTime = TIME2STEPS(OptionsCont::getOptions().getInt("tls.allred.time"));
@@ -350,7 +351,7 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
 
     // build all phases
     std::vector<int> greenPhases; // indices of green phases
-    std::vector<bool> hadGreenMajor(noLinksAll, false);
+    std::vector<bool> hadGreenMajor(totalNumLinks, false);
     while (toProc.size() > 0) {
         bool groupTram = false;
         bool groupOther = false;
@@ -402,7 +403,7 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
             }
         }
         int pos = 0;
-        std::string state((int) noLinksAll, 'r');
+        std::string state(totalNumLinks, 'r');
 #ifdef DEBUG_PHASES
         if (DEBUGCOND) {
             std::cout << " computing " << getID() << " prog=" << getProgramID() << " cho1=" << Named::getIDSecure(chosen.first) << " cho2=" << Named::getIDSecure(chosen.second) << " toProc=" << toString(toProc) << " bentPrio=" << chosen.first->getToNode()->isBentPriority() << "\n";
@@ -685,13 +686,13 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
     }
     // fix pedestrian crossings that did not get the green light yet
     if (crossings.size() > 0) {
-        addPedestrianScramble(logic, noLinksAll, TIME2STEPS(10), brakingTime, crossings, fromEdges, toEdges);
+        addPedestrianScramble(logic, totalNumLinks, TIME2STEPS(10), brakingTime, crossings, fromEdges, toEdges);
     }
     // add optional red phase if there were no foes
     if (logic->getPhases().size() == 2 && brakingTime > 0
             && OptionsCont::getOptions().getInt("tls.red.time") > 0) {
         const SUMOTime redTime = TIME2STEPS(OptionsCont::getOptions().getInt("tls.red.time"));
-        logic->addStep(redTime, std::string(noLinksAll, 'r'));
+        logic->addStep(redTime, std::string(totalNumLinks, 'r'));
     }
     // fix states to account for custom crossing link indices
     if (crossings.size() > 0 && !onlyConts) {
@@ -1159,9 +1160,9 @@ NBOwnTLDef::correctMixed(std::string state, const EdgeVector& fromEdges,
 
 
 void
-NBOwnTLDef::addPedestrianScramble(NBTrafficLightLogic* logic, int noLinksAll, SUMOTime /* greenTime */, SUMOTime brakingTime,
+NBOwnTLDef::addPedestrianScramble(NBTrafficLightLogic* logic, int totalNumLinks, SUMOTime /* greenTime */, SUMOTime brakingTime,
                                   const std::vector<NBNode::Crossing*>& crossings, const EdgeVector& fromEdges, const EdgeVector& toEdges) {
-    const int vehLinks = noLinksAll - (int)crossings.size();
+    const int vehLinks = totalNumLinks - (int)crossings.size();
     std::vector<bool> foundGreen(crossings.size(), false);
     const std::vector<NBTrafficLightLogic::PhaseDefinition>& phases = logic->getPhases();
     for (int i = 0; i < (int)phases.size(); i++) {
@@ -1193,7 +1194,7 @@ NBOwnTLDef::addPedestrianScramble(NBTrafficLightLogic* logic, int noLinksAll, SU
             const SUMOTime pedClearingTime = TIME2STEPS(OptionsCont::getOptions().getInt("tls.crossing-clearance.time"));
             const SUMOTime scrambleTime = TIME2STEPS(OptionsCont::getOptions().getInt("tls.scramble.time"));
             addPedestrianPhases(logic, scrambleTime + pedClearingTime, UNSPECIFIED_DURATION,
-                                UNSPECIFIED_DURATION, UNSPECIFIED_DURATION, UNSPECIFIED_DURATION, std::string(noLinksAll, 'r'), crossings, fromEdges, toEdges);
+                                UNSPECIFIED_DURATION, UNSPECIFIED_DURATION, UNSPECIFIED_DURATION, std::string(totalNumLinks, 'r'), crossings, fromEdges, toEdges);
             break;
         }
     }
@@ -1370,8 +1371,8 @@ NBOwnTLDef::buildNemaPhases(
     const SUMOTime earliestEnd = UNSPECIFIED_DURATION;
     const SUMOTime latestEnd = UNSPECIFIED_DURATION;
 
-    const int noLinksAll = straightStates[0].size();
-    NBTrafficLightLogic* logic = new NBTrafficLightLogic(getID(), getProgramID(), noLinksAll, myOffset, myType);
+    const int totalNumLinks = (int)straightStates[0].size();
+    NBTrafficLightLogic* logic = new NBTrafficLightLogic(getID(), getProgramID(), totalNumLinks, myOffset, myType);
     std::vector<int> ring1({1,2,3,4});
     std::vector<int> ring2({5,6,7,8});
     std::vector<int> barrier1({4,8});

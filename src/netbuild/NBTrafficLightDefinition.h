@@ -128,7 +128,6 @@ public:
     /// @brief Destructor
     virtual ~NBTrafficLightDefinition();
 
-
     /** @brief Computes the traffic light logic
      *
      * Does some initialisation at first, then calls myCompute to finally
@@ -138,8 +137,6 @@ public:
      * @return The built logic (may be 0)
      */
     NBTrafficLightLogic* compute(OptionsCont& oc);
-
-
 
     /// @name Access to controlled nodes
     /// @{
