@@ -155,7 +155,8 @@ public:
     static void setRemoteControlled(MSPerson* p, Position xyPos, MSLane* l, double pos, double posLat, double angle,
                                     int edgeOffset, ConstMSEdgeVector route, SUMOTime t);
 
-    static void postProcessRemoteControl();
+    /// @brief return number of remote-controlled entities
+    static int postProcessRemoteControl();
 
     static void cleanup();
 

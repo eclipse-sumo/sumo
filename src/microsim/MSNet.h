@@ -822,6 +822,7 @@ public:
     static const std::string STAGE_MOVEMENTS;
     static const std::string STAGE_LANECHANGE;
     static const std::string STAGE_INSERTIONS;
+    static const std::string STAGE_REMOTECONTROL;
 
 protected:
     /// @brief check all lanes for elevation data

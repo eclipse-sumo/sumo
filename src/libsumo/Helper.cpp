@@ -1315,11 +1315,13 @@ Helper::setRemoteControlled(MSPerson* p, Position xyPos, MSLane* l, double pos, 
 }
 
 
-void
+int
 Helper::postProcessRemoteControl() {
+    int numControlled = 0;
     for (auto& controlled : myRemoteControlledVehicles) {
         if (MSNet::getInstance()->getVehicleControl().getVehicle(controlled.first) != nullptr) {
             controlled.second->getInfluencer().postProcessRemoteControl(controlled.second);
+            numControlled++;
         } else {
             WRITE_WARNING("Vehicle '" + controlled.first + "' was removed though being controlled by TraCI");
         }
@@ -1328,11 +1330,13 @@ Helper::postProcessRemoteControl() {
     for (auto& controlled : myRemoteControlledPersons) {
         if (MSNet::getInstance()->getPersonControl().get(controlled.first) != nullptr) {
             controlled.second->getInfluencer().postProcessRemoteControl(controlled.second);
+            numControlled++;
         } else {
             WRITE_WARNING("Person '" + controlled.first + "' was removed though being controlled by TraCI");
         }
     }
     myRemoteControlledPersons.clear();
+    return numControlled;
 }
 
 
