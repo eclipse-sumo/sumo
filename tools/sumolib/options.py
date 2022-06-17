@@ -97,7 +97,12 @@ def assign_prefixed_options(args):
             separator_index = arg.find('-', 2)
             if separator_index != -1:
                 program = arg[2:separator_index]
-                option = [arg[separator_index+1:], args[arg_index+1]]
+                try:
+                    if '--' in args[arg_index+1]:
+                        raise NotImplementedError()
+                    option = [arg[separator_index+1:], args[arg_index+1]]
+                except(IndexError, NotImplementedError):
+                    raise NotImplementedError(f"Please amend prefixed argument {arg} with a value.")
                 if program in prefixed_options:
                     prefixed_options[program].append(option)
                 else:
