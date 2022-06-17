@@ -36,6 +36,7 @@ namespace libsumo {
 // ===========================================================================
 SubscriptionResults LaneArea::mySubscriptionResults;
 ContextSubscriptionResults LaneArea::myContextSubscriptionResults;
+NamedRTree* LaneArea::myTree(nullptr);
 
 
 // ===========================================================================
@@ -142,6 +143,37 @@ LaneArea::getDetector(const std::string& id) {
         throw TraCIException("Lane area detector '" + id + "' is not known");
     }
     return e2;
+}
+
+
+NamedRTree*
+LaneArea::getTree() {
+    if (myTree == nullptr) {
+        myTree = new NamedRTree();
+        for (const std::string& id : getIDList()) {
+            PositionVector shape;
+            storeShape(id, shape);
+            Boundary b = shape.getBoxBoundary();
+            const float cmin[2] = {(float) b.xmin(), (float) b.ymin()};
+            const float cmax[2] = {(float) b.xmax(), (float) b.ymax()};
+            myTree->Insert(cmin, cmax, getDetector(id));
+        }
+    }
+    return myTree;
+}
+
+void
+LaneArea::cleanup() {
+    delete myTree;
+    myTree = nullptr;
+}
+
+
+void
+LaneArea::storeShape(const std::string& id, PositionVector& shape) {
+    MSE2Collector* const det = getDetector(id);
+    shape.push_back(det->getLanes().front()->getShape().positionAtOffset(det->getStartPos()));
+    shape.push_back(det->getLanes().back()->getShape().positionAtOffset(det->getEndPos()));
 }
 
 

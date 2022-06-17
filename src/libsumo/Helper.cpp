@@ -695,6 +695,9 @@ Helper::findObjectShape(int domain, const std::string& id, PositionVector& shape
         case libsumo::CMD_SUBSCRIBE_INDUCTIONLOOP_CONTEXT:
             InductionLoop::storeShape(id, shape);
             break;
+        case libsumo::CMD_SUBSCRIBE_LANEAREA_VARIABLE:
+            LaneArea::storeShape(id, shape);
+            break;
         case libsumo::CMD_SUBSCRIBE_LANE_CONTEXT:
             Lane::storeShape(id, shape);
             break;
@@ -744,6 +747,9 @@ Helper::collectObjectsInRange(int domain, const PositionVector& shape, double ra
     switch (domain) {
         case libsumo::CMD_GET_INDUCTIONLOOP_VARIABLE:
             InductionLoop::getTree()->Search(cmin, cmax, sv);
+            break;
+        case libsumo::CMD_GET_LANEAREA_VARIABLE:
+            LaneArea::getTree()->Search(cmin, cmax, sv);
             break;
         case libsumo::CMD_GET_POI_VARIABLE:
             POI::getTree()->Search(cmin, cmax, sv);
