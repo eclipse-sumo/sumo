@@ -94,4 +94,4 @@ you to convert OD-matrices (origin/destination-matrices) into trips. The
 point measures.
 
 ## Notes
-* With use of netedit it is possible to observe the demand amount distribution of edge-based or TAZ-based relations [network/TAZ related data](../Neteidt/editModesData.md).
+* With use of netedit it is possible to observe the demand amount distribution of edge-based or TAZ-based relations [network/TAZ related data](../Netedit/editModesData.md).
