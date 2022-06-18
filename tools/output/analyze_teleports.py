@@ -22,6 +22,7 @@ from __future__ import print_function
 import sys
 import re
 from collections import defaultdict
+import argparse 
 
 
 def parse_log(logfile, edges=True, aggregate=3600):
@@ -104,4 +105,12 @@ def main(logfile):
 
 
 if __name__ == "__main__":
-    main(*sys.argv[1:])
+    # Argument parser
+    parser = argparse.ArgumentParser()
+    parser.add_argument('log', help="Log File")
+    args = parser.parse_args()
+
+    if len(sys.argv) != 2:
+        print(f"usage: {__file__} <log_file>")
+
+    main(args.log)

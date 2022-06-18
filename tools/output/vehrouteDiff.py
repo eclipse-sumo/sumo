@@ -24,7 +24,8 @@ import sys
 from collections import defaultdict
 sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..'))
 from sumolib.output import parse  # noqa
-from sumolib.miscutils import uMax, Statistics, parseTime  # noqa
+from sumolib.miscutils import uMax, Statistics, parseTime
+import argparse
 
 
 def update_earliest(earliest_diffs, diff, timestamp, tag):
@@ -83,4 +84,15 @@ def write_diff(orig, new, out, earliest_out=None):
 
 
 if __name__ == "__main__":
-    write_diff(*sys.argv[1:])
+    # Argument parser
+    parser = argparse.ArgumentParser()
+    parser.add_argument('orig', help="Original XML File")
+    parser.add_argument('new',  help="New XML File")
+    parser.add_argument('out',  help="Output File")
+    parser.add_argument('--earliest', default = None, help="Earliest Output Parameter (Default: None)", required=False)
+    args = parser.parse_args()
+
+    if len(sys.argv) < 4:
+        sys.exit(f"usage: {__file__} <original_file> <new_file> <out_file> [--earliest <earliest_param>]")
+    
+    write_diff(args.orig, args.new, args.out, args.earliest)

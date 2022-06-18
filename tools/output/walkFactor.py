@@ -25,6 +25,7 @@ import sys
 sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..'))
 from sumolib.output import parse  # noqa
 from sumolib.miscutils import Statistics  # noqa
+import argparse 
 
 
 def main(tripinfos, lengthThreshold=0.1):
@@ -62,4 +63,13 @@ def main(tripinfos, lengthThreshold=0.1):
 
 
 if __name__ == "__main__":
-    main(*sys.argv[1:])
+    # Argument parser
+    parser = argparse.ArgumentParser()
+    parser.add_argument('tripinfos', help="Trip Info file")
+    parser.add_argument('--length', default=0.1, help="Length Threshold", required=False)
+    args = parser.parse_args()
+
+    if len(sys.argv) < 2:
+        print(f"usage: {__file__} <trip_info> [--length <length_threshold>]")
+
+    main(args.tripinfos, args.length) 

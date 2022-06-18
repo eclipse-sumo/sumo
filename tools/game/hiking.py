@@ -25,6 +25,8 @@ from __future__ import print_function
 import os
 import sys
 import threading
+import argparse
+
 
 if sys.version_info.major == 3:
     import queue as Queue
@@ -191,8 +193,13 @@ def main(sumocfg="hiking/hiking.sumocfg", egoID="ego"):
     HikingClient(root, sumocfg, egoID)
     root.mainloop()
 
+# Argument parser
+parser = argparse.ArgumentParser()
+parser.add_argument('--sumocfg', default="hiking/hiking.sumocfg", help=".sumocfg file path", required=False)
+parser.add_argument('--ego', default="ego", help="vehicle ego id", required=False)
+args = parser.parse_args()
 
 if len(sys.argv) < 3:
-    main(*sys.argv[1:])
+    main(args.sumocfg, args.ego)
 else:
-    print("racing.py <sumocfg> [<egoID>]")
+    print(f"usage: {__file__} --sumocfg <sumocfg> [--ego <egoID>]")

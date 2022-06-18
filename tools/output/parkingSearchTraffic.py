@@ -22,6 +22,8 @@ import os
 import sys
 sys.path.append(os.path.join(os.environ["SUMO_HOME"], 'tools'))
 import sumolib  # noqa
+import argparse
+
 
 
 def main(net, routes):
@@ -61,4 +63,13 @@ def main(net, routes):
 
 
 if __name__ == "__main__":
-    main(*sys.argv[1:])
+    # Argument parser
+    parser = argparse.ArgumentParser()
+    parser.add_argument('net', help=".net.xml file path")
+    parser.add_argument('routes', help="Routes' attributes")
+    args = parser.parse_args()
+
+    if len(sys.argv) != 3:
+        sys.exit(f"usage: {__file__} <net file> <route_info>")
+
+    main(args.net, args.routes)
