@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-12-06 13:41:43 by Eclipse SUMO netconvert Version v1_11_0+0325-5284e00
+<!-- generated on 2022-06-18 17:38:34 by Eclipse SUMO netconvert Version v1_13_0+0998-ce5fa9bc486
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -26,7 +31,6 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
-        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
@@ -199,12 +203,14 @@ SPDX-License-Identifier: EPL-2.0
     </edge>
 
     <tlLogic id="C" type="static" programID="0" offset="0">
-        <phase duration="37" state="gGGgrrrrgGGgrrrrGGrrGG"/>
+        <phase duration="36" state="gGGgrrrrgGGgrrrrGGrrGG"/>
         <phase duration="5"  state="gGGgrrrrgGGgrrrrrrrrrr"/>
         <phase duration="3"  state="yyyyrrrryyyyrrrrrrrrrr"/>
-        <phase duration="37" state="rrrrGGGgrrrrgGGgrrGGrr"/>
+        <phase duration="1"  state="rrrrrrrrrrrrrrrrrrrrrr"/>
+        <phase duration="36" state="rrrrGGGgrrrrgGGgrrGGrr"/>
         <phase duration="5"  state="rrrrGGGgrrrrgGGgrrrrrr"/>
         <phase duration="3"  state="rrrryyyyrrrryyyyrrrrrr"/>
+        <phase duration="1"  state="rrrrrrrrrrrrrrrrrrrrrr"/>
     </tlLogic>
 
     <junction id="C" type="traffic_light" x="100.00" y="100.00" incLanes="NC_0 NC_1 NC_2 NC_3 EC_0 EC_1 EC_2 EC_3 SC_0 SC_1 SC_2 SC_3 WC_0 WC_1 WC_2 WC_3 :C_w4_0 :C_w2_0 :C_w5_0 :C_w3_0 :C_w6_0 :C_w0_0" intLanes=":C_16_0 :C_1_0 :C_1_1 :C_17_0 :C_4_0 :C_5_0 :C_5_1 :C_18_0 :C_19_0 :C_9_0 :C_9_1 :C_20_0 :C_21_0 :C_13_0 :C_13_1 :C_22_0 :C_c0_0 :C_c1_0 :C_c2_0 :C_c3_0 :C_c4_0 :C_c5_0" shape="84.16,125.68 118.80,118.59 118.80,117.77 118.95,117.49 119.20,117.28 119.55,117.16 120.00,117.12 119.95,84.22 118.90,83.61 118.54,82.85 118.29,81.78 118.14,80.41 118.11,78.73 84.06,78.86 83.33,80.06 82.40,80.81 81.11,81.67 79.45,82.62 77.41,83.68 82.28,93.43 82.75,104.99 78.69,115.10 80.77,116.87 81.71,118.41 82.59,120.39 83.41,122.82">

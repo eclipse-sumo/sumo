@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-01-07 16:21:22 by Eclipse SUMO netconvert Version v1_11_0+0928-18c1b433e84
+<!-- generated on 2022-06-18 17:38:35 by Eclipse SUMO netconvert Version v1_13_0+0998-ce5fa9bc486
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -19,7 +24,6 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
-        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
@@ -151,10 +155,12 @@ SPDX-License-Identifier: EPL-2.0
     </edge>
 
     <tlLogic id="C" type="static" programID="0" offset="0">
-        <phase duration="42" state="GGGggrrrrrGGGggrrrr"/>
+        <phase duration="31" state="GGGggrrrrrGGGggrrrr"/>
         <phase duration="3"  state="yyyyyrrrrryyyyyrrrr"/>
-        <phase duration="42" state="rrrrrGGGggrrrrrGGgg"/>
+        <phase duration="2878" state="rrrrrrrrrrrrrrrrrrr"/>
+        <phase duration="31" state="rrrrrGGGggrrrrrGGgg"/>
         <phase duration="3"  state="rrrrryyyyyrrrrryyyy"/>
+        <phase duration="2543" state="rrrrrrrrrrrrrrrrrrr"/>
     </tlLogic>
 
     <junction id="C" type="traffic_light" x="40000.00" y="40000.00" incLanes="NC_0 NC_1 EC_0 EC_1 SC_0 SC_1 WC_0 WC_1" intLanes=":C_0_0 :C_1_0 :C_1_1 :C_19_0 :C_20_0 :C_5_0 :C_6_0 :C_6_1 :C_21_0 :C_22_0 :C_10_0 :C_11_0 :C_11_1 :C_23_0 :C_24_0 :C_15_0 :C_16_0 :C_25_0 :C_26_0" shape="20000.00,60004.00 60000.00,60004.00 60000.44,60001.78 60001.00,60001.00 60001.78,60000.44 60002.78,60000.11 60004.00,60000.00 60004.00,20000.00 60001.78,19999.56 60001.00,19999.00 60000.44,19998.22 60000.11,19997.22 60000.00,19996.00 20000.00,19996.00 19997.17,31718.56 48281.44,60002.83">

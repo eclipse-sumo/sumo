@@ -65,8 +65,9 @@ class NBTrafficLightLogic;
 class NBTrafficLightDefinition : public Named, public Parameterised {
 public:
 
-    static const SUMOTime UNSPECIFIED_DURATION;
     static const std::string DefaultProgramID;
+    static const SUMOTime UNSPECIFIED_DURATION;
+    static const int MIN_YELLOW_SECONDS;
 
     /**
      * @enum TLColor

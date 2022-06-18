@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-01-07 16:20:44 by Eclipse SUMO netconvert Version v1_11_0+0928-18c1b433e84
+<!-- generated on 2022-06-18 17:38:29 by Eclipse SUMO netconvert Version v1_13_0+0998-ce5fa9bc486
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -25,7 +30,6 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
-        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
@@ -159,12 +163,14 @@ SPDX-License-Identifier: EPL-2.0
     </edge>
 
     <tlLogic id="cluster_42717004_42717128_42717332_42717527" type="static" programID="0" offset="0">
-        <phase duration="38" state="rrrrrGGGggrrrrrGGGgg"/>
+        <phase duration="33" state="rrrrrGGGggrrrrrGGGgg"/>
         <phase duration="3"  state="rrrrryyyyyrrrrryyyyy"/>
-        <phase duration="37" state="GGGggrrrrrGGGggrrrrr"/>
+        <phase duration="4"  state="rrrrrrrrrrrrrrrrrrrr"/>
+        <phase duration="32" state="GGGggrrrrrGGGggrrrrr"/>
         <phase duration="3"  state="yyyggrrrrryyyggrrrrr"/>
         <phase duration="6"  state="rrrGGrrrrrrrrGGrrrrr"/>
         <phase duration="3"  state="rrryyrrrrrrrryyrrrrr"/>
+        <phase duration="6"  state="rrrrrrrrrrrrrrrrrrrr"/>
     </tlLogic>
 
     <junction id="42708272" type="dead_end" x="371.20" y="0.00" incLanes="" intLanes="" shape="368.23,-1.19 374.17,1.19"/>

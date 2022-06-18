@@ -2149,6 +2149,7 @@ NBNodeCont::guessTLs(OptionsCont& oc, NBTrafficLightLogicCont& tlc) {
     }
 }
 
+
 void NBNodeCont::recheckGuessedTLS(NBTrafficLightLogicCont& tlc) {
     std::set<NBTrafficLightDefinition*> recompute;
     for (NBNode* node : myGuessedTLS) {

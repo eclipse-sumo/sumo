@@ -1439,7 +1439,7 @@ public:
      * @param[in,out] splitIndex The number of via edges already built
      * @param[in] tryIgnoreNodePositions Does not add node geometries if geom.size()>=2
      */
-    void buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex, int& splitIndex);
+    double buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex, int& splitIndex);
 
     /// @brief get Signs
     inline const std::vector<NBSign>& getSigns() const {
