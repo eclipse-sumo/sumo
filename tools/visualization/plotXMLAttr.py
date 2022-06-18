@@ -53,7 +53,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('tag', help="Defines the tag of the files to be plotted")
     parser.add_argument('attr', help="Defines the attributes of the files to be plotted")
-    parser.add_argument('xmlfiles', help="Defines the files")
+    parser.add_argument('xmlfiles', help="Defines the files", nargs = '*')
     args = parser.parse_args()
 
     if len(sys.argv) < 4:
