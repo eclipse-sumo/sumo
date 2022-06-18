@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-05-30 22:12:59 by Eclipse SUMO netconvert Version v1_13_0+0454-b1342c4
+<!-- generated on 2022-06-18 17:38:36 by Eclipse SUMO netconvert Version v1_13_0+0998-ce5fa9bc486
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -625,16 +625,18 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <phase duration="5"  state="rrr"/>
     </tlLogic>
     <tlLogic id="B4_Wolfenbuetteler" type="static" programID="0" offset="0">
-        <phase duration="15" state="rrrrrrGGGggrrrrGGGgrr"/>
+        <phase duration="13" state="rrrrrrGGGggrrrrGGGgrr"/>
         <phase duration="3"  state="rrrrrryyyggrrrryyygrr"/>
         <phase duration="6"  state="rrrrrrrrrGGrrrrrrrGrr"/>
         <phase duration="3"  state="rrrrrrrrryyrrrrrrryrr"/>
+        <phase duration="1"  state="rrrrrrrrrrrrrrrrrrrrr"/>
         <phase duration="15" state="GrrrGrGrrrrGGrgGrrrGg"/>
         <phase duration="3"  state="yrrryryrrrryyryyrrryy"/>
         <phase duration="15" state="GGggrrrrrrrrGGgrrrrrr"/>
         <phase duration="3"  state="yyggrrrrrrrryyyrrrrrr"/>
         <phase duration="6"  state="GGGGrrrrrrrrrrrrrrrrr"/>
         <phase duration="3"  state="yyyyrrrrrrrrrrrrrrrrr"/>
+        <phase duration="1"  state="rrrrrrrrrrrrrrrrrrrrr"/>
         <phase duration="15" state="GrrrGgGrrrrGGrgGrrrGg"/>
         <phase duration="3"  state="yrrryyyrrrryyryyrrryy"/>
     </tlLogic>
@@ -738,7 +740,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <request index="1" response="000" foes="000" cont="0"/>
         <request index="2" response="000" foes="000" cont="0"/>
     </junction>
-    <junction id="3993282689" type="priority" x="0.00" y="63.27" incLanes="-396516546#0_0" intLanes=":3993282689_0_0" shape="0.00,63.27 -1.12,66.27 0.00,63.27">
+    <junction id="3993282689" type="priority" x="0.00" y="63.27" incLanes="-396516546#0_0" intLanes=":3993282689_0_0" shape="0.00,63.27 -1.12,66.27 -0.00,63.27">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
     <junction id="51519926" type="dead_end" x="214.99" y="10.71" incLanes="" intLanes="" shape="213.40,10.50 216.58,10.93"/>

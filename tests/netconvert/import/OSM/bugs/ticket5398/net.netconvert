@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-01-07 16:21:05 by Eclipse SUMO netconvert Version v1_11_0+0928-18c1b433e84
+<!-- generated on 2022-06-18 17:38:32 by Eclipse SUMO netconvert Version v1_13_0+0998-ce5fa9bc486
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -43,7 +48,6 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
-        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
@@ -181,12 +185,13 @@ SPDX-License-Identifier: EPL-2.0
     </edge>
 
     <tlLogic id="cluster_1349293490_1349293491_295980098_295986083_4164005024_449808_449809_449835" type="static" programID="0" offset="0">
-        <phase duration="38" state="rrrrGGGGgGGggg"/>
+        <phase duration="37" state="rrrrGGGGgGGggg"/>
         <phase duration="3"  state="rrrryyyyyyyggg"/>
         <phase duration="6"  state="rrrrrrrrrGGGGG"/>
         <phase duration="3"  state="rrrrrrrrryyyyy"/>
         <phase duration="37" state="GGGgGrrrrrrrrr"/>
         <phase duration="3"  state="yyyyyrrrrrrrrr"/>
+        <phase duration="1"  state="rrrrrrrrrrrrrr"/>
     </tlLogic>
 
     <junction id="1349318365" type="dead_end" x="42.17" y="135.03" incLanes="" intLanes="" shape="48.57,135.01 35.77,135.05"/>

@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-01-27 23:56:18 by Eclipse SUMO netconvert Version v1_12_0+0084-0d8fc346dad
+<!-- generated on 2022-06-18 17:38:30 by Eclipse SUMO netconvert Version v1_13_0+0998-ce5fa9bc486
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -24,7 +29,6 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
-        <aggregate-warnings value="5"/>
         <ignore-errors.edge-type value="true"/>
     </report>
 
@@ -232,18 +236,22 @@ SPDX-License-Identifier: EPL-2.0
     </edge>
 
     <tlLogic id="F" type="static" programID="0" offset="0">
-        <phase duration="15" state="GrGrGgGrgrrrGrrrGGrrrrrrrr"/>
+        <phase duration="14" state="GrGrGgGrgrrrGrrrGGrrrrrrrr"/>
         <phase duration="3"  state="yryryyyryrrryrrryyrrrrrrrr"/>
-        <phase duration="15" state="rrrrrrGGgGggrrrrrrrrrrGGgg"/>
+        <phase duration="1"  state="rrrrrrrrrrrrrrrrrrrrrrrrrr"/>
+        <phase duration="14" state="rrrrrrGGgGggrrrrrrrrrrGGgg"/>
         <phase duration="3"  state="rrrrrryyyyggrrrrrrrrrryygg"/>
         <phase duration="6"  state="rrrrrrrrrrGGrrrrrrrrrrrrGG"/>
         <phase duration="3"  state="rrrrrrrrrryyrrrrrrrrrrrryy"/>
-        <phase duration="15" state="GggGggrrrrrrrGGggrrrrrrrrr"/>
+        <phase duration="1"  state="rrrrrrrrrrrrrrrrrrrrrrrrrr"/>
+        <phase duration="14" state="GggGggrrrrrrrGGggrrrrrrrrr"/>
         <phase duration="3"  state="yyyyggrrrrrrryyggrrrrrrrrr"/>
         <phase duration="6"  state="rrrrGGrrrrrrrrrGGrrrrrrrrr"/>
         <phase duration="3"  state="rrrryyrrrrrrrrryyrrrrrrrrr"/>
-        <phase duration="15" state="rrrrrrrrrrrrrrrrrrGGGGrrrr"/>
+        <phase duration="1"  state="rrrrrrrrrrrrrrrrrrrrrrrrrr"/>
+        <phase duration="14" state="rrrrrrrrrrrrrrrrrrGGGGrrrr"/>
         <phase duration="3"  state="rrrrrrrrrrrrrrrrrryyyyrrrr"/>
+        <phase duration="1"  state="rrrrrrrrrrrrrrrrrrrrrrrrrr"/>
     </tlLogic>
 
     <junction id="1917221202" type="priority" x="0.00" y="295.99" incLanes="F_N_0_0" intLanes=":1917221202_0_0" shape="1.34,296.87 -1.34,295.11 1.34,296.87 -1.34,295.11" rightOfWay="edgePriority">

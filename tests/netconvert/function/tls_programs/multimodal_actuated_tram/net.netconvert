@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-04-19 17:28:06 by Eclipse SUMO netconvert Version v1_12_0+2154-21e08c91f73
+<!-- generated on 2022-06-18 17:38:33 by Eclipse SUMO netconvert Version v1_13_0+0998-ce5fa9bc486
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -30,7 +30,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <report>
         <xml-validation value="never"/>
-        <aggregate-warnings value="5"/>
         <ignore-errors.edge-type value="true"/>
     </report>
 
@@ -186,15 +185,17 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </edge>
 
     <tlLogic id="Gueldenstr" type="actuated" programID="0" offset="0">
-        <phase duration="21" state="GGggrrrrrrrGGggrrrrr" minDur="5" maxDur="50"/>
+        <phase duration="19" state="GGggrrrrrrrGGggrrrrr" minDur="5" maxDur="50"/>
         <phase duration="3"  state="yyggrrrrrrryyggrrrrr"/>
         <phase duration="6"  state="rrGGrrrrrrrrrGGrrrrr" minDur="5" maxDur="50"/>
         <phase duration="3"  state="rryyrrrrrrrrryyrrrrr"/>
-        <phase duration="21" state="rrrrGGGgggrrrrrGGGgg" minDur="5" maxDur="50"/>
+        <phase duration="2"  state="rrrrrrrrrrrrrrrrrrrr"/>
+        <phase duration="20" state="rrrrGGGgggrrrrrGGGgg" minDur="5" maxDur="50"/>
         <phase duration="3"  state="rrrryyygggrrrrryyygg"/>
         <phase duration="6"  state="rrrrrrrGGGrrrrrrrrGG" minDur="5" maxDur="50"/>
         <phase duration="3"  state="rrrrrrryyyrrrrrrrryy"/>
-        <phase duration="21" state="rrrGrrrrrrGGrGgGrrrr" minDur="5" maxDur="50"/>
+        <phase duration="2"  state="rrrrrrrrrrrrrrrrrrrr"/>
+        <phase duration="20" state="rrrGrrrrrrGGrGgGrrrr" minDur="5" maxDur="50"/>
         <phase duration="3"  state="rrryrrrrrryyryyyrrrr"/>
     </tlLogic>
 

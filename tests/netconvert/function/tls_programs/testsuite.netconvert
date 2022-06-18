@@ -16,6 +16,12 @@ left-green.time
 # configure left green time
 allred.time
 
+# configure left green time
+allred.time_extension
+
+# insert all red phase on a large junction
+allred.time_large
+
 # main direction (specified via edge priorities) takes a right turn at a 4-way intersection
 main_road_turns_right
 
