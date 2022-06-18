@@ -137,5 +137,5 @@ Options](Basics/Using_the_Command_Line_Applications.md#random_number_options).
 
 # Notes
 
-The option --vtype only works when "--od-matrix-files" is used. For
-"Amitran" format, this is given by the "id" property of "actorConfig".
+* The option --vtype only works when "--od-matrix-files" is used. For "Amitran" format, this is given by the "id" property of "actorConfig".
+* With use of netedit it is possible to observe the demand amount distribution of edge-based or TAZ-based relations [network/TAZ related data](editModesData.md).
