@@ -1,5 +1,5 @@
 ---
-title: editModesData
+title: Edit Data Modes
 ---
 
 # Data specific modes ![](../images/supermodedata.png)
