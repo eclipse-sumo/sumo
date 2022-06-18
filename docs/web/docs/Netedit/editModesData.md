@@ -106,23 +106,26 @@ A TAZ can be selected under the Mode "Inspect". It is easier to do the selection
 
 ### Select TAZ relations
 
+#### with one demand amount criterion
 If only certain TAZ relations should be observed, such as with larger demand amount, it is possible to make TAZ-relation selection. The buttons/items you need to click/choose are circled in red in the picture below. Then you need to input your selection criterion in the rubric (3000 in the example below), circled in blue. After that, you can see the amount of the selected TAZ-relations, circled in yellow. So, in this example, it means that 34 TAZ-relations have a demand amount larger than 3000.
 
 ![](../images/select_0.png)
 
+#### with two or more demand amount criteria
 If only the TAZ-relations with a demand amount between two criteria need to be observed, you further remove the TAZ-relations with a demand amount larger than higher cirterion after you selecting the TAZ-relations with the lower criterion, as illustrated below, i.e. click the rubic "remove" (circled in green) , change the criterion to 5000 (circled in brown) and press the ENTER butten in this example, and then you can see that 19 TAZ-relations (circled in green) are selected.
 
 ![](../images/select_1.png)
 
+If you have more than two criteria, you need to repeat the aforemetioned procedure.
+
+#### only see/keep the data of the selected TAZ
 To only see the selected TAZ relations you need to further press the button "Reduce" (see the illustration below). You can again adjust the width size of the TAZ-relations to get a proper view.
 
 ![](../images/select_2.png)
 
-!!!
-CAUTION: 
+!!! caution 
 * Only the data of the selected TAZ relations will be kept after clicking "Reduce". If the save action is made after the action "Reduce", the respective file will be overwritten and all other data will be lost. You can of course to save the seleted data if it is your intention (see the next section).  
-* The "Reduce" action is mainly to help to get a better view about the demand distribution of the selected TAZ. 
-!!!
+** The "Reduce" action is mainly to help to get a better view about the demand distribution of the selected TAZ. 
 
 ### Save the selected TAZ relations
 
