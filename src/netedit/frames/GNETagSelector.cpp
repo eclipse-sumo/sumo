@@ -91,7 +91,7 @@ GNETagSelector::GNETagSelector(GNEFrame* frameParent, GNETagProperties::TagType 
     myTagType(type),
     myCurrentTemplateAC(nullptr) {
     // Create MFXIconComboBox
-    myTagsMatchBox = new MFXIconComboBox(getCollapsableFrame(), GUIDesignComboBoxNCol, this, MID_GNE_TAG_SELECTED, GUIDesignComboBox);
+    myTagsMatchBox = new MFXIconComboBox(getCollapsableFrame(), GUIDesignComboBoxNCol, true, this, MID_GNE_TAG_SELECTED, GUIDesignComboBox);
     // set current tag type without notifying
     setCurrentTagType(myTagType, onlyDrawables, false);
     // set current tag without notifying
@@ -215,7 +215,7 @@ GNETagSelector::setCurrentTagType(GNETagProperties::TagType tagType, const bool 
     myTagsMatchBox->setTextColor(FXRGB(0, 0, 0));
     myTagsMatchBox->killFocus();
     // Set visible items
-    myTagsMatchBox->setNumVisible((int)myTagsMatchBox->getNumItems() + 1);
+    myTagsMatchBox->setNumVisible((int)myTagsMatchBox->getNumItems());
     // set first myACTemplate as edited AC
     myCurrentTemplateAC = myACTemplates.front()->getAC();
     // call tag selected function

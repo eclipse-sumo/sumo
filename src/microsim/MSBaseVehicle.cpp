@@ -68,7 +68,7 @@ std::vector<MSTransportable*> MSBaseVehicle::myEmptyTransportableVector;
 #ifdef _DEBUG
 std::set<std::string> MSBaseVehicle::myShallTraceMoveReminders;
 #endif
-SUMOVehicle::NumericalID MSBaseVehicle::myCurrentNumericalIndex = 0;
+SUMOTrafficObject::NumericalID MSBaseVehicle::myCurrentNumericalIndex = 0;
 
 // ===========================================================================
 // Influencer method definitions

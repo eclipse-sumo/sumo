@@ -53,7 +53,7 @@ tools/assign/dua-iterate/simple;../docs/examples/tools/dua-iterate
 tools/detector/flowrouter/bell_pfe/plain;../docs/examples/tools/flowrouter
 tools/output/traceExporter/ns2/mobility_only;../docs/examples/tools/traceExporter
 complex/tutorial/circles;../docs/tutorial/circles
-complex/tutorial/city_mobil;../docs/tutorial/city_mobil
+complex/tutorial/city_mobil/simple;../docs/tutorial/city_mobil
 #complex/tutorial/gtfs/plain;../docs/tutorial/gtfs
 complex/tutorial/hello;../docs/tutorial/hello
 complex/tutorial/manhattan;../docs/tutorial/manhattan

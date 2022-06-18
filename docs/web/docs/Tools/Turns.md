@@ -37,7 +37,7 @@ The attributes for reading the counts from edge-data file can be set with option
 
 When using routeSampler as a replacement for [dfrouter](../dfrouter.md) or [flowrouter.py](Detector.md#flowrouterpy), the flow input files can be converted to edgeData files with the tool [edgeDataFromFlow.py](Detector.md#edgedatafromflowpy)
 
-For smaller scenarios it is often feasible to define edgeData files with [netedit edgeData mode (in the 'Data' supermode)](../Netedit/elementsData.md). Turn files can also be created with netedit using the edgeRelation mode (also part of the 'Data' supermode).
+For smaller scenarios it is often feasible to define edgeData files with [netedit edgeData mode (in the 'Data' supermode)](../Netedit/editModesData.md). Turn files can also be created with netedit using the edgeRelation mode (also part of the 'Data' supermode).
 
 In other cases it is necessary to write custom code for converting counting data into the required format.
 

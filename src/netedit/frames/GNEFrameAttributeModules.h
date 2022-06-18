@@ -99,9 +99,6 @@ public:
         /// @brief current AC Attribute
         const GNEAttributeProperties myACAttr;
 
-        /// @brief flag to check if input element contains multiple values
-        const bool myMultiple;
-
         /// @brief pointer to attribute label
         FXLabel* myAttributeLabel = nullptr;
 
@@ -118,7 +115,7 @@ public:
         FXTextField* myValueTextField = nullptr;
 
         /// @brief pointer to combo box choices
-        FXComboBox* myValueComboBoxChoices = nullptr;
+        MFXIconComboBox* myValueComboBoxChoices = nullptr;
 
         /// @brief pointer to menu check
         FXCheckButton* myValueCheckButton = nullptr;

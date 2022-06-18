@@ -47,6 +47,10 @@ A lane-based emissions output is defined way within an {{AdditionalFile}} as fol
 | minSamples     | float (time)                   | The minimum total number of seconds vehicles have to be on the edge / lane to consider it non-empty; *default: \>0*.    |
 | excludeEmpty   | string (true, false, defaults) | If set to true, edges/lanes which were not use by a vehicle during this period will not be written; *default: false*. If set to "defaults" default values for travel time and emissions depending on edge length and maximum speed get printed. |
 | vTypes         | string                   | space separated list of vehicle type ids to consider, "" means all; *default ""*. |
+| writeAttributes  | string list                  | list of attribute names that shall be written (defaults to all attribute)         |
+| edges  | string list                  | restrict output to the given list of edge ids        |
+| edgesFile  | filename                 | restrict output to the given the list of edges given in file (either one edgeID per line or an id prefixed with 'edge:' as in a [selection file](../../Netedit/editModesCommon.md#selection_operations)        |
+| aggregate  | bool    | Whether the traffic statistic of all edges shall be aggregated into a single value (edge id will be `AGGREGATED`).  |
 
 ## Generated Output
 

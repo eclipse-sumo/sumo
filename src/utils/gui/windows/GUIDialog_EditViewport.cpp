@@ -243,18 +243,21 @@ GUIDialog_EditViewport::writeXML(OutputDevice& dev) {
     dev.writeAttr(SUMO_ATTR_ZOOM, myZoom->getValue());
     dev.writeAttr(SUMO_ATTR_X, myXOff->getValue());
     dev.writeAttr(SUMO_ATTR_Y, myYOff->getValue());
+    if(myParent->is3DView()) {
+        dev.writeAttr(SUMO_ATTR_Z, myZOff->getValue());
+    }
     dev.writeAttr(SUMO_ATTR_ANGLE, myRotation->getValue());
-#ifdef HAVE_OSG
-    if (myLookAtX->getValue() != Position::INVALID.x()) {
-        dev.writeAttr(SUMO_ATTR_CENTER_X, myLookAtX->getValue());
+    if (myParent->is3DView()) {
+        if (myLookAtX->getValue() != Position::INVALID.x()) {
+            dev.writeAttr(SUMO_ATTR_CENTER_X, myLookAtX->getValue());
+        }
+        if (myLookAtY->getValue() != Position::INVALID.y()) {
+            dev.writeAttr(SUMO_ATTR_CENTER_Y, myLookAtY->getValue());
+        }
+        if (myLookAtZ->getValue() != Position::INVALID.z()) {
+            dev.writeAttr(SUMO_ATTR_CENTER_Z, myLookAtZ->getValue());
+        }
     }
-    if (myLookAtY->getValue() != Position::INVALID.y()) {
-        dev.writeAttr(SUMO_ATTR_CENTER_Y, myLookAtY->getValue());
-    }
-    if (myLookAtZ->getValue() != Position::INVALID.z()) {
-        dev.writeAttr(SUMO_ATTR_CENTER_Z, myLookAtZ->getValue());
-    }
-#endif
     dev.closeTag();
 }
 

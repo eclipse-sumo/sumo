@@ -1,0 +1,2 @@
+Warning: Vehicle 'collider' moved by TraCI from 104.95,10.00 to 104.95,77.00 (dist 67.00) with implied speed of 670.00 (exceeding maximum speed 55.56). time=0.20.
+Warning: Vehicle 'collider'; collision with vehicle 'victim', lane='SC_0', gap=-1.97, time=0.20 stage=remoteControl.

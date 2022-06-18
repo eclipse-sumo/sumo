@@ -346,7 +346,7 @@ GUISUMOAbstractView::onCmdAddRerouter(FXObject*, FXSelector, void*) {
 
 
 long
-GUISUMOAbstractView::onCmdShowReachability(FXObject* menu, FXSelector, void*) {
+GUISUMOAbstractView::onCmdShowReachability(FXObject*, FXSelector, void*) {
 	return 1;
 }
 
@@ -1440,10 +1440,15 @@ GUISUMOAbstractView::getViewportEditor() {
         myViewportChooser = new GUIDialog_EditViewport(this, "Edit Viewport", x, y);
         myViewportChooser->create();
     }
-    myViewportChooser->setValues(myChanger->getZoom(),
-                                 myChanger->getXPos(), myChanger->getYPos(),
-                                 myChanger->getRotation());
+    updateViewportValues();
     return myViewportChooser;
+}
+
+
+void GUISUMOAbstractView::updateViewportValues() {
+    myViewportChooser->setValues(myChanger->getZoom(),
+        myChanger->getXPos(), myChanger->getYPos(),
+        myChanger->getRotation());
 }
 
 

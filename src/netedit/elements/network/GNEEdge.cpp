@@ -336,6 +336,7 @@ GNEEdge::updateCenteringBoundary(const bool updateGrid) {
     myBoundary = myLanes.front()->getCenteringBoundary();
     // add lane boundaries
     for (const auto& lane : myLanes) {
+        lane->updateCenteringBoundary(false);
         myBoundary.add(lane->getCenteringBoundary());
         // add parkingArea boundaries
         for (const auto& additional : lane->getChildAdditionals()) {

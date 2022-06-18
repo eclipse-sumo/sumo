@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "C:\Users\coue_be\Dev\sumo\tests\..\tools/randomTrips.py", line 710, in <module>
+    if not main(get_options()):
+  File "C:\Users\coue_be\Dev\sumo\tests\..\tools/randomTrips.py", line 668, in main
+    raise ValueError("The argument '%s' has already been passed without the duarouter prefix." % option[0])
+ValueError: The argument '--remove-loops' has already been passed without the duarouter prefix.

@@ -62,13 +62,13 @@ GNEMatchGenericDataAttribute::GNEMatchGenericDataAttribute(GNEElementSet* elemen
     myMatchGenericDataString(nullptr) {
     // Create MFXIconComboBox for interval
     new FXLabel(getCollapsableFrame(), "Interval [begin, end]", nullptr, GUIDesignLabelThick);
-    myIntervalSelector = new MFXIconComboBox(getCollapsableFrame(), GUIDesignComboBoxNCol, this, MID_GNE_SELECTORFRAME_SETINTERVAL, GUIDesignComboBoxStaticExtended);
+    myIntervalSelector = new MFXIconComboBox(getCollapsableFrame(), GUIDesignComboBoxNCol, true, this, MID_GNE_SELECTORFRAME_SETINTERVAL, GUIDesignComboBoxStaticExtended);
     // Create textfield for begin and end
     FXHorizontalFrame* myHorizontalFrameBeginEnd = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     myBegin = new FXTextField(myHorizontalFrameBeginEnd, GUIDesignTextFieldNCol, this, MID_GNE_SELECTORFRAME_SETBEGIN, GUIDesignTextField);
     myEnd = new FXTextField(myHorizontalFrameBeginEnd, GUIDesignTextFieldNCol, this, MID_GNE_SELECTORFRAME_SETEND, GUIDesignTextField);
     // Create MFXIconComboBox for generic datas
-    myMatchGenericDataTagComboBox = new MFXIconComboBox(getCollapsableFrame(), GUIDesignComboBoxNCol, this, MID_GNE_SELECTORFRAME_SELECTTAG, GUIDesignComboBox);
+    myMatchGenericDataTagComboBox = new MFXIconComboBox(getCollapsableFrame(), GUIDesignComboBoxNCol, true, this, MID_GNE_SELECTORFRAME_SELECTTAG, GUIDesignComboBox);
     // Create listBox for Attributes
     myMatchGenericDataAttrComboBox = new FXComboBox(getCollapsableFrame(), GUIDesignComboBoxNCol, this, MID_GNE_SELECTORFRAME_SELECTATTRIBUTE, GUIDesignComboBox);
     // Create TextField for MatchGenericData string

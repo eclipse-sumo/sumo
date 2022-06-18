@@ -36,6 +36,7 @@
 
 
 #define LIBTRACI_SUBSCRIPTION_IMPLEMENTATION(CLASS, DOMAIN) \
+const int CLASS::DOMAIN_ID(libsumo::CMD_GET_##DOMAIN##_VARIABLE); \
 void CLASS::subscribe(const std::string& objectID, const std::vector<int>& varIDs, double begin, double end, const libsumo::TraCIResults& params) { \
     libtraci::Connection::getActive().subscribe(libsumo::CMD_SUBSCRIBE_##DOMAIN##_VARIABLE, objectID, begin, end, -1, -1, varIDs, params); \
 } \

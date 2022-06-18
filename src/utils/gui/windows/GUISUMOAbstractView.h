@@ -219,6 +219,9 @@ public:
     /// @brief get the viewport and create it on first access
     GUIDialog_EditViewport* getViewportEditor();
 
+    /// @brief update the viewport chooser with the current view values
+    virtual void updateViewportValues();
+
     /// @brief show viewport editor
     virtual void showViewportEditor();
 

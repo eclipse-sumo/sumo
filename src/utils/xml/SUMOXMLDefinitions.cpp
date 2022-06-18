@@ -1102,7 +1102,7 @@ StringBijection<TrafficLightLayout>::Entry SUMOXMLDefinitions::trafficLightLayou
     { "opposites",       TrafficLightLayout::OPPOSITES },
     { "incoming",        TrafficLightLayout::INCOMING },
     { "alternateOneWay", TrafficLightLayout::ALTERNATE_ONEWAY },
-    { "",                TrafficLightLayout::DEFAULT } //< must be the last one
+    { "default",         TrafficLightLayout::DEFAULT } //< must be the last one
 };
 
 StringBijection<InsertionCheck>::Entry SUMOXMLDefinitions::insertionCheckValues[] = {

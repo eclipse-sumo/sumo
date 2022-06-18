@@ -147,6 +147,9 @@ public:
      */
     void centerTo(GUIGlID id, bool applyZoom, double zoomDist = 20);
 
+    /// @brief update the viewport chooser with the current view values
+    void updateViewportValues();
+
     /// @brief show viewport editor
     void showViewportEditor();
 

@@ -66,7 +66,7 @@ bool MSPedestrianPushButton::isActivated() const {
 }
 
 bool MSPedestrianPushButton::isActiveForEdge(const MSEdge* walkingEdge, const MSEdge* crossing) {
-    const std::set<MSTransportable*> persons = walkingEdge->getPersons();
+    const std::set<MSTransportable*, ComparatorNumericalIdLess> persons = walkingEdge->getPersons();
     if (persons.size() > 0) {
         for (std::set<MSTransportable*>::const_iterator pIt = persons.begin(); pIt != persons.end(); ++pIt) {
             const MSPerson* person = (MSPerson*)*pIt;

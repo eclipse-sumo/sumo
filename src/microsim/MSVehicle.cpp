@@ -874,6 +874,7 @@ MSVehicle::Influencer::postProcessRemoteControl(MSVehicle* v) {
             v->drawOutsideNetwork(false);
         }
         //std::cout << "on road network p=" << myRemoteXYPos << " a=" << myRemoteAngle << " l=" << Named::getIDSecure(myRemoteLane) << " pos=" << myRemotePos << " posLat=" << myRemotePosLat << "\n";
+        myRemoteLane->requireCollisionCheck();
     } else {
         if (v->getDeparture() == NOT_YET_DEPARTED) {
             v->onDepart();
@@ -7036,7 +7037,6 @@ MSVehicle::getFriction() const {
 
 void
 MSVehicle::setPreviousSpeed(double prevSpeed, double prevAcceleration) {
-    std::cout << " setPreviousSpeed\n";
     myState.mySpeed = MAX2(0., prevSpeed);
     // also retcon acceleration
     if (prevAcceleration != std::numeric_limits<double>::min()) {

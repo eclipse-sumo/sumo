@@ -66,34 +66,44 @@ GNEStopFrame::HelpCreation::updateHelpCreation() {
     if (myStopFrameParent->myStopTagSelector->getCurrentTemplateAC()) {
         switch (myStopFrameParent->myStopTagSelector->getCurrentTemplateAC()->getTagProperty().getTag()) {
             case SUMO_TAG_STOP_BUSSTOP:
+            case GNE_TAG_WAYPOINT_BUSSTOP:
                 information
-                        << "- Click over a bus stop\n"
-                        << "  to create a stop.";
+                        << "- Shift+Click to select parent\n"
+                        << "- Click over a bus stop to\n"
+                        << "  create a stop.";
                 break;
             case SUMO_TAG_STOP_CONTAINERSTOP:
+            case GNE_TAG_WAYPOINT_CONTAINERSTOP:
                 information
+                        << "- Shift+Click to select parent\n"
                         << "- Click over a container stop\n"
                         << "  to create a stop.";
                 break;
             case SUMO_TAG_STOP_CHARGINGSTATION:
+            case GNE_TAG_WAYPOINT_CHARGINGSTATION:
                 information
-                        << "- Click over a charging \n"
-                        << "  station to create a stop.";
+                        << "- Shift+Click to select parent\n"
+                        << "- Click over a charging station\n"
+                        << "  to create a stop.";
                 break;
             case SUMO_TAG_STOP_PARKINGAREA:
+            case GNE_TAG_WAYPOINT_PARKINGAREA:
                 information
+                        << "- Shift+Click to select parent\n"
                         << "- Click over a parking area\n"
                         << "  to create a stop.";
                 break;
             case SUMO_TAG_STOP_LANE:
+            case GNE_TAG_WAYPOINT_LANE:
                 information
-                        << "- Click over a lane to\n"
-                        << "  create a stop.";
+                        << "- Shift+Click to select parent\n"
+                        << "- Click over a lane to create\n"
+                        << "  a stop.";
                 break;
             default:
                 information
-                        << "- No stop parents in\n"
-                        << "  current network.";
+                        << "- No stop parents in current\n"
+                        << "  network.";
                 break;
         }
     }

@@ -51,7 +51,7 @@ DemandElementSelector::DemandElementSelector(GNEFrame* frameParent, SumoXMLTag d
     myDemandElementTags({demandElementTag}),
     mySelectingMultipleElements(false) {
     // Create MFXIconComboBox
-    myDemandElementsMatchBox = new MFXIconComboBox(getCollapsableFrame(), GUIDesignComboBoxNCol, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
+    myDemandElementsMatchBox = new MFXIconComboBox(getCollapsableFrame(), GUIDesignComboBoxNCol, true, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
     // create info label
     myInfoLabel = new FXLabel(getCollapsableFrame(), "", nullptr, GUIDesignLabelFrameInformation);
     // refresh demand element MatchBox
@@ -74,7 +74,7 @@ DemandElementSelector::DemandElementSelector(GNEFrame* frameParent, const std::v
         }
     }
     // Create MFXIconComboBox
-    myDemandElementsMatchBox = new MFXIconComboBox(getCollapsableFrame(), GUIDesignComboBoxNCol, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
+    myDemandElementsMatchBox = new MFXIconComboBox(getCollapsableFrame(), GUIDesignComboBoxNCol, true, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
     // create info label
     myInfoLabel = new FXLabel(getCollapsableFrame(), "", nullptr, GUIDesignLabelFrameInformation);
     // refresh demand element MatchBox
@@ -199,7 +199,7 @@ DemandElementSelector::refreshDemandElementSelector() {
     }
     // Set number of  items (maximum 10)
     if (myDemandElementsMatchBox->getNumItems() < 10) {
-        myDemandElementsMatchBox->setNumVisible((int)myDemandElementsMatchBox->getNumItems() + 1);
+        myDemandElementsMatchBox->setNumVisible((int)myDemandElementsMatchBox->getNumItems());
     } else {
         myDemandElementsMatchBox->setNumVisible(10);
     }

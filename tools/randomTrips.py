@@ -636,7 +636,7 @@ def main(options):
     args = [DUAROUTER, '-n', options.netfile, '-r', options.tripfile, '--ignore-errors',
             '--begin', str(options.begin), '--end', str(options.end),
             '--alternatives-output', 'NUL',
-            '--no-step-log',]
+            '--no-step-log']
     if options.additional is not None:
         args += ['--additional-files', options.additional]
     if options.carWalkMode is not None:
@@ -657,6 +657,15 @@ def main(options):
         args += ['--no-warnings']
     else:
         args += ['-v']
+
+    options_to_forward = sumolib.options.get_prefixed_options(options)
+    if 'duarouter' in options_to_forward:
+        for option in options_to_forward['duarouter']:
+            option[0] = '--' + option[0]
+            if option[0] not in args:
+                args += option
+            else:
+                raise ValueError("The argument '%s' has already been passed without the duarouter prefix." % option[0])
 
     if options.routefile:
         args2 = args + ['-o', options.routefile]

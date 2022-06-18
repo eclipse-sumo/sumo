@@ -361,7 +361,10 @@ namespace PHEMlightdll
                 //FC values
                 foreach (string id in _cepCurveFCvalues.Keys)
                 {
-                    Emi.Add(id.ToUpper(), GetEmission(id, power, speed, VehicleClass));
+                    if (id.ToUpper() == "FC_EL" & VehicleClass.pClass == Constants.strBEV)
+                        Emi.Add(id.ToUpper(), GetEmission(id, power, speed, VehicleClass) + _auxPower * RatedPower);
+                    else
+                        Emi.Add(id.ToUpper(), GetEmission(id, power, speed, VehicleClass));
                 }
 
                 //Emission

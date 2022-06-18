@@ -137,6 +137,7 @@ const std::string MSNet::STAGE_EVENTS("events");
 const std::string MSNet::STAGE_MOVEMENTS("move");
 const std::string MSNet::STAGE_LANECHANGE("laneChange");
 const std::string MSNet::STAGE_INSERTIONS("insertion");
+const std::string MSNet::STAGE_REMOTECONTROL("remoteControl");
 
 const NamedObjectCont<MSStoppingPlace*> MSNet::myEmptyStoppingPlaceCont;
 
@@ -699,7 +700,10 @@ MSNet::simulationStep() {
     if (myLogExecutionTime) {
         myTraCIStepDuration -= SysUtils::getCurrentMillis();
     }
-    libsumo::Helper::postProcessRemoteControl();
+    const int numControlled = libsumo::Helper::postProcessRemoteControl();
+    if (numControlled > 0 && MSGlobals::gCheck4Accidents) {
+        myEdges->detectCollisions(myStep, STAGE_REMOTECONTROL);
+    }
     if (myLogExecutionTime) {
         myTraCIStepDuration += SysUtils::getCurrentMillis();
         myTraCIMillis += myTraCIStepDuration;

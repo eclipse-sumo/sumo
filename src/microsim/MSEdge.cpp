@@ -1083,7 +1083,7 @@ MSEdge::addTransportable(MSTransportable* t) const {
 
 void
 MSEdge::removeTransportable(MSTransportable* t) const {
-    std::set<MSTransportable*>& tc = t->isPerson() ? myPersons : myContainers;
+    std::set<MSTransportable*, ComparatorNumericalIdLess>& tc = t->isPerson() ? myPersons : myContainers;
     auto it = tc.find(t);
     if (it != tc.end()) {
         tc.erase(it);

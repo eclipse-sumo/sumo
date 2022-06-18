@@ -59,6 +59,18 @@ public:
 
 #ifndef LIBTRACI
 #ifndef SWIG
+    /** @brief Returns a tree filled with inductive loop instances
+     * @return The rtree of inductive loops
+     */
+    static NamedRTree* getTree();
+    static void cleanup();
+
+    /** @brief Saves the shape of the requested object in the given container
+    *  @param id The id of the loop to retrieve
+    *  @param shape The container to fill
+    */
+    static void storeShape(const std::string& id, PositionVector& shape);
+
     static std::shared_ptr<VariableWrapper> makeWrapper();
 
     static bool handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper, tcpip::Storage* paramData);
@@ -67,6 +79,8 @@ private:
     static MSE2Collector* getDetector(const std::string& detID);
 
 private:
+private:
+    static NamedRTree* myTree;
     static SubscriptionResults mySubscriptionResults;
     static ContextSubscriptionResults myContextSubscriptionResults;
 #endif

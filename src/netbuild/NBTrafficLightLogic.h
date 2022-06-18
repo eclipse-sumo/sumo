@@ -181,7 +181,10 @@ public:
      *        and the length given in previous calls to addStep (throws ProcessError)
      */
     void addStep(const SUMOTime duration, const std::string& state, const SUMOTime minDur, const SUMOTime maxDur, const SUMOTime earliestEnd,
-                 const SUMOTime latestEnd, const SUMOTime vehExt, const SUMOTime yellow, const SUMOTime red,
+                 const SUMOTime latestEnd,
+                 const SUMOTime vehExt = -1, // UNSPECIFIED_DURATION
+                 const SUMOTime yellow = -1, // UNSPECIFIED_DURATION
+                 const SUMOTime red = -1, // UNSPECIFIED_DURATION
                  const std::string& name = "",
                  const std::vector<int>& next = std::vector<int>(),
                  int index = -1);

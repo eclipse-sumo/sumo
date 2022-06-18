@@ -1,0 +1,4 @@
+Warning: No flow intervals in calibrator 'ca_0'.
+Warning: No flow intervals in calibrator 'ca_1'.
+Error: Infeasible context domain (161)
+Quitting (on error).

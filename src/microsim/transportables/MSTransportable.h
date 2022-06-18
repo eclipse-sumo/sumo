@@ -72,6 +72,10 @@ public:
         return myAmPerson ? "Person" : "Container";
     }
 
+    inline NumericalID getNumericalID() const {
+        return myNumericalID;
+    }
+
     bool isStopped() const {
         return getCurrentStageType() == MSStageType::WAITING;
     }
@@ -391,7 +395,11 @@ protected:
 private:
     const bool myAmPerson;
 
+    const NumericalID myNumericalID;
+
     WrappingCommand<MSTransportable>* myAbortCommand;
+
+    static NumericalID myCurrentNumericalIndex;
 
 private:
     /// @brief Invalidated copy constructor.

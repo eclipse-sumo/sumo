@@ -28,6 +28,7 @@ import optparse
 import argparse
 import io
 from argparse import RawDescriptionHelpFormatter  # noqa
+from copy import deepcopy
 
 _OPTIONS = [None]
 
@@ -87,6 +88,30 @@ def get_long_option_names(application):
         if m:
             result.append(m.group(1))
     return result
+
+
+def assign_prefixed_options(args):
+    prefixed_options = {}
+    for arg_index, arg in enumerate(args):
+        if arg[:2] == '--':
+            separator_index = arg.find('-', 2)
+            if separator_index != -1:
+                program = arg[2:separator_index]
+                try:
+                    if '--' in args[arg_index+1]:
+                        raise NotImplementedError()
+                    option = [arg[separator_index+1:], args[arg_index+1]]
+                except(IndexError, NotImplementedError):
+                    raise NotImplementedError("Please amend prefixed argument %s with a value." % arg)
+                if program in prefixed_options:
+                    prefixed_options[program].append(option)
+                else:
+                    prefixed_options[program] = [option]
+    return prefixed_options
+
+
+def get_prefixed_options(options):
+    return options._prefixed_options
 
 
 Option = namedtuple("Option", ["name", "value", "type", "help"])
@@ -173,7 +198,7 @@ class ArgumentParser(argparse.ArgumentParser):
         out.write('<configuration>\n')
         for k in sorted(vars(namespace).keys()):
             v = vars(namespace)[k]
-            if k not in ("save_configuration", "save_template", "configuration_file", "_parser"):
+            if k not in ("save_configuration", "save_template", "configuration_file", "_parser", "_prefixed_options"):
                 key = k
                 default = ''
                 help = ''
@@ -200,8 +225,6 @@ class ArgumentParser(argparse.ArgumentParser):
             # gracefully handle non-string args passed from another script
             args = map(str, args)
         args, argv = self.parse_known_args(args, namespace)
-        if argv:
-            self.error('unrecognized arguments: %s' % ' '.join(argv))
         if _OPTIONS[0] is None:
             # only save the "outermost" option instance
             _OPTIONS[0] = args
@@ -257,6 +280,18 @@ class ArgumentParser(argparse.ArgumentParser):
         # print("parse_known_args:\n  args: %s\n  config_args: %s" % (args, config_args))
         namespace, unknown_args = argparse.ArgumentParser.parse_known_args(
             self, args=args+config_args, namespace=namespace)
-        self.write_config_file(namespace)
-        namespace.config_as_string = self.write_config_file(namespace, toString=True)
+
+        namespace_as_dict = deepcopy(vars(namespace))
+        namespace._prefixed_options = assign_prefixed_options(unknown_args)
+
+        for program in namespace._prefixed_options:
+            prefixed_options = deepcopy(namespace._prefixed_options[program])
+            for option in prefixed_options:
+                option[0] = program + '-' + option[0]
+            namespace_as_dict.update(dict(prefixed_options))
+
+        extended_namespace = argparse.Namespace(**namespace_as_dict)
+
+        self.write_config_file(extended_namespace)
+        namespace.config_as_string = self.write_config_file(extended_namespace, toString=True)
         return namespace, unknown_args
