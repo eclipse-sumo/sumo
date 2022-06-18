@@ -38,7 +38,7 @@ EdgeRelDatas are created over two edges
 
 ## TAZ relation mode ![](../images/modetazreldata.png)
 
-This mode helps to visualize the existing relation and the traffic demand amount between any two TAZ (Traffic Anaylsis Zone) after loading the respective xml file containing the information about start TAZ, end TAZ, interval, vehicle type and demand count. So, with this mode, users can have an better overview about the distrubtuion of traffic demand between Tazs. The way to load a input file and the available features are explained below.
+This mode helps to visualize the existing relation and the traffic demand amount between any two TAZ (Traffic Analysis Zone) after loading the respective xml file containing the information about start TAZ, end TAZ, interval, vehicle type and demand count. So, with this mode, users can have a better overview about the distribution of traffic demand between Tazs. The way to load a input file and the available features are explained below.
 
 ### Data loading
 The basic data format is as following:
@@ -58,7 +58,7 @@ The basic data format is as following:
 ```
 Other attributes can also be included in the file, such as color.
 
-Before loading the data related to TAZ-relations the repsective network should be loaded in netedit firstly. After that, the respective TAZ file containing the polygon information about each TAZ needs to be loaded with "Load Additionals" by selecting *File-\>Additionals and Shapes* in netedit. An example of a TAZ file is shown below.
+Before loading the data related to TAZ-relations the respective network should be loaded in netedit firstly. After that, the respective TAZ file containing the polygon information about each TAZ needs to be loaded with "Load Additionals" by selecting *File-\>Additionals and Shapes* in netedit. An example of a TAZ file is shown below.
 
 ```xml
 <additional>
@@ -72,12 +72,12 @@ Before loading the data related to TAZ-relations the repsective network should b
 ```
 Now, file(s) containing TAZ-Relations can be loaded with "Load Data Elements" by selecting *File-\>Data Elements*. After that, the button "Data" in the tool bar should be pressed. All TAZ-relations will then be shown.
 
-### Display the TAZ pologons by different colors
+### Display the TAZ polygons by different colors
 You can click "Polygons" in the window shown after selecting *Edit-\>Edit Visualisation* and change the colors randomly or by selection. You can also directly click the color palette icon "View Settings" in the tool bar to open the respective window and make color changes.
 
 ![](../images/taz_overview_color.png)
 
-You can also unfill the pologons by clicking the icon "Draw TAZ fill" (see the picture below).
+Polygons can also be unfilled by clicking the icon "Draw TAZ fill" (see the picture below).
 
 ![](../images/tazfill.png)
 
@@ -93,13 +93,13 @@ It is also possible to display the relation lines with different colors accordin
 The demand range for each color can be further adjusted/customized as well.
 
 ### Change the width size of the TAZ relation lines
-The width of the relation lines can be adjusted. It is especially useful for better visualisation when there are many edges in the given network. Firstly, You click "Data" in the window shown after selecting *Edit-\>Edit Visualisation* or after clicking the color palette icon "View Settings". After inputting the desired width size in the rubric "Exaggerate tazRelation width by" you click "openGL", press the button "Recalculate boundaries" and then press "OK" so that the adjusted relation lines can be properly shown. The buttons/rubics you need to click are illustrated below.
+The width of the relation lines can be adjusted. It is especially useful for better visualisation when there are many edges in the given network. Firstly, you click "Data" in the window shown after selecting *Edit-\>Edit Visualisation* or after clicking the color palette icon "View Settings". After inputting the desired width size in the rubric "Exaggerate tazRelation width by" you click "openGL", press the button "Recalculate boundaries" and then press "OK" so that the adjusted relation lines can be properly shown. The buttons/rubrics you need to click are illustrated below.
 
 ![](../images/setWidth_0.png)
 ![](../images/setWidth.png)
 
 ### Inspect a specific TAZ relation
-A TAZ can be selected under the Mode "Inspect". It is easier to do the selection when (1) the icon "Draw TAZ fill" is activated, and (2) the display of TAZ-relation lines is off. The latter one is under implementation. So, you firstly click some TAZ which can be seen after (1) under the inspect mode. Then you click the desired TAZ. After that, you can see th TAZ-relation lines from/to the selected TAZ. You can also choose only to show the relation lines eigher to or from the selected TAZ. The respective illustration is shown below.
+A TAZ can be selected under the Mode "Inspect". It is easier to do the selection when (1) the icon "Draw TAZ fill" is activated, and (2) the display of TAZ-relation lines is off. The latter one is under implementation. So, you firstly click some TAZ which can be seen after (1) under the inspect mode. Then you click the desired TAZ. After that, you can see the TAZ-relation lines from/to the selected TAZ. You can also choose only to show the relation lines either to or from the selected TAZ. The respective illustration is shown below.
 
 ![](../images/selectSingleTaz_from.png)
 ![](../images/selectSingleTaz_to.png)
@@ -112,11 +112,11 @@ If only certain TAZ relations should be observed, such as with larger demand amo
 ![](../images/select_0.png)
 
 #### with two or more demand amount criteria
-If only the TAZ-relations with a demand amount between two criteria need to be observed, you further remove the TAZ-relations with a demand amount larger than higher cirterion after you selecting the TAZ-relations with the lower criterion, as illustrated below, i.e. click the rubic "remove" (circled in green) , change the criterion to 5000 (circled in brown) and press the ENTER butten in this example, and then you can see that 19 TAZ-relations (circled in green) are selected.
+If the TAZ-relations with a demand amount between two criteria need to be observed, you need to further remove the TAZ-relations with a demand amount larger than the higher criterion after you selecting the TAZ-relations with the lower criterion, as illustrated below, i.e. click the rubric "remove" (circled in green) , change the criterion to 5000 (circled in brown) and press the ENTER button in this example, and then you can see that 19 TAZ-relations (circled in green) are selected.
 
 ![](../images/select_1.png)
 
-If you have more than two criteria, you need to repeat the aforemetioned procedure.
+If you have more than two criteria, you need to repeat the aforementioned procedure.
 
 #### only see/keep the data of the selected TAZ
 To only see the selected TAZ relations you need to further press the button "Reduce" (see the illustration below). You can again adjust the width size of the TAZ-relations to get a proper view.
@@ -124,8 +124,8 @@ To only see the selected TAZ relations you need to further press the button "Red
 ![](../images/select_2.png)
 
 !!! caution 
-* Only the data of the selected TAZ relations will be kept after clicking "Reduce". If the save action is made after the action "Reduce", the respective file will be overwritten and all other data will be lost. You can of course to save the seleted data if it is your intention (see the next section).  
-** The "Reduce" action is mainly to help to get a better view about the demand distribution of the selected TAZ. 
+* The "Reduce" action is mainly to help to get a better view about the demand distribution of the selected TAZ. Only the data of the selected TAZ relations will be kept after clicking "Reduce". If the save action (not save as) is made after the action "Reduce", the respective file will be overwritten and the data of other unselected TAZ will be lost. You can of course save the selected data with the "save as" action if it is your intention (see the next section).  
+
 
 ### Save the selected TAZ relations
 
