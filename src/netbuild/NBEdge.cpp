@@ -1617,7 +1617,7 @@ NBEdge::moveConnectionToRight(int lane) {
 }
 
 
-void
+double
 NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex, int& splitIndex) {
     const OptionsCont& oc = OptionsCont::getOptions();
     const int numPoints = oc.getInt("junctions.internal-link-detail");
@@ -1638,6 +1638,7 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
     double lengthSum = 0; // total shape length of all lanes that share the same edge
     int avoidedIntersectingLeftOriginLane = std::numeric_limits<int>::max();
     bool averageLength = true;
+    double maxCross = 0.;
     for (std::vector<Connection>::iterator i = myConnections.begin(); i != myConnections.end(); ++i) {
         Connection& con = *i;
         con.haveVia = false; // reset first since this may be called multiple times
@@ -1916,11 +1917,14 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
         ++numLanes;
         if (con.customLength != UNSPECIFIED_LOADED_LENGTH) {
             lengthSum += con.customLength;
+            maxCross = MAX2(maxCross, con.customLength / con.vmax);
         } else {
             lengthSum += con.shape.length();
+            maxCross = MAX2(maxCross, con.shape.length() / con.vmax);
         }
     }
     assignInternalLaneLength(myConnections.end(), numLanes, lengthSum, averageLength);
+    return maxCross;
 }
 
 
@@ -1951,6 +1955,7 @@ NBEdge::assignInternalLaneLength(std::vector<Connection>::iterator i, int numLan
         }
     }
 }
+
 
 double
 NBEdge::firstIntersection(const PositionVector& v1, const PositionVector& v2, double width1, double width2, const std::string& error, bool secondIntersection) {

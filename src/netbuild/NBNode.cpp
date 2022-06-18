@@ -2780,16 +2780,15 @@ NBNode::discardWalkingareas() {
 }
 
 
-void
+double
 NBNode::buildInnerEdges() {
     // myDisplacementError is computed during this operation. reset first
-    myDisplacementError = 0;
+    myDisplacementError = 0.;
     // build inner edges for vehicle movements across the junction
     int noInternalNoSplits = 0;
-    for (EdgeVector::const_iterator i = myIncomingEdges.begin(); i != myIncomingEdges.end(); i++) {
-        const std::vector<NBEdge::Connection>& elv = (*i)->getConnections();
-        for (std::vector<NBEdge::Connection>::const_iterator k = elv.begin(); k != elv.end(); ++k) {
-            if ((*k).toEdge == nullptr) {
+    for (const NBEdge* const edge : myIncomingEdges) {
+        for (const NBEdge::Connection& con : edge->getConnections()) {
+            if (con.toEdge == nullptr) {
                 continue;
             }
             noInternalNoSplits++;
@@ -2797,9 +2796,11 @@ NBNode::buildInnerEdges() {
     }
     int lno = 0;
     int splitNo = 0;
-    for (EdgeVector::const_iterator i = myIncomingEdges.begin(); i != myIncomingEdges.end(); i++) {
-        (*i)->buildInnerEdges(*this, noInternalNoSplits, lno, splitNo);
+    double maxCrossingSeconds = 0.;
+    for (NBEdge* const edge : myIncomingEdges) {
+        maxCrossingSeconds = MAX2(maxCrossingSeconds, edge->buildInnerEdges(*this, noInternalNoSplits, lno, splitNo));
     }
+    return maxCrossingSeconds;
 }
 
 

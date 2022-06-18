@@ -274,6 +274,7 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
     std::vector<bool> hasTurnLane;
     std::vector<int> fromLanes;
     std::vector<int> toLanes;
+    std::vector<SUMOTime> crossingTime;
     int totalNumLinks = 0;
     for (NBEdge* const fromEdge : incoming) {
         const int numLanes = fromEdge->getNumLanes();
@@ -292,6 +293,12 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
                 fromLanes.push_back(i2);
                 toLanes.push_back(approached.toLane);
                 toEdges.push_back(approached.toEdge);
+                if (approached.vmax < NUMERICAL_EPS || (fromEdge->getPermissions() & SVC_PASSENGER) == 0) {
+                    crossingTime.push_back(0);
+                } else {
+                    crossingTime.push_back(TIME2STEPS((approached.length + approached.viaLength) / approached.vmax));
+                }
+                // std::cout << fromEdge->getID() << " " << approached.toEdge->getID() << " " << (fromEdge->getPermissions() & SVC_PASSENGER) << " " << approached.length << " " << approached.viaLength << " " << approached.vmax << " " << crossingTime.back() << std::endl;
                 if (approached.toEdge != nullptr) {
                     isTurnaround.push_back(fromEdge->isTurningDirectionAt(approached.toEdge));
                 } else {
@@ -551,6 +558,7 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
             state[i1] = 'r';
         }
         if (brakingTime > 0) {
+            SUMOTime maxCross = 0;
             // build yellow (straight)
             for (int i1 = 0; i1 < pos; ++i1) {
                 if (state[i1] != 'G' && state[i1] != 'g') {
@@ -564,14 +572,17 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
                     continue;
                 }
                 state[i1] = 'y';
+                maxCross = MAX2(maxCross, crossingTime[i1]);
             }
             // add step
             logic->addStep(brakingTime, state);
             // add optional all-red state
-            if (myLayout == TrafficLightLayout::ALTERNATE_ONEWAY) {
-                allRedTime = computeEscapeTime(state, fromEdges, toEdges);
+            if (!buildLeftGreenPhase) {
+                if (myLayout == TrafficLightLayout::ALTERNATE_ONEWAY) {
+                    allRedTime = computeEscapeTime(state, fromEdges, toEdges);
+                }
+                buildAllRedState(allRedTime + MAX2(0ll, maxCross - brakingTime - allRedTime), logic, state);
             }
-            buildAllRedState(allRedTime, logic, state);
         }
 
 
@@ -616,16 +627,18 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
 
             // build left yellow
             if (brakingTime > 0) {
+                SUMOTime maxCross = 0;
                 for (int i1 = 0; i1 < pos; ++i1) {
                     if (state[i1] != 'G' && state[i1] != 'g') {
                         continue;
                     }
                     state[i1] = 'y';
+                    maxCross = MAX2(maxCross, crossingTime[i1]);
                 }
                 // add step
                 logic->addStep(brakingTime, state);
                 // add optional all-red state
-                buildAllRedState(allRedTime, logic, state);
+                buildAllRedState(allRedTime + MAX2(0ll, maxCross - brakingTime - allRedTime), logic, state);
             }
 
             if (buildMixedGreenPhase) {
@@ -651,18 +664,19 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
 
                 // build mixed yellow
                 if (brakingTime > 0) {
+                    SUMOTime maxCross = 0;
                     for (int i1 = 0; i1 < pos; ++i1) {
                         if (state[i1] != 'G' && state[i1] != 'g') {
                             continue;
                         }
                         state[i1] = 'y';
+                        maxCross = MAX2(maxCross, crossingTime[i1]);
                     }
                     // add step
                     logic->addStep(brakingTime, state);
                     // add optional all-red state
-                    buildAllRedState(allRedTime, logic, state);
+                    buildAllRedState(allRedTime + MAX2(0ll, maxCross - brakingTime - allRedTime), logic, state);
                 }
-
             }
 
         } else if (isNEMA) {
@@ -1211,9 +1225,10 @@ NBOwnTLDef::buildAllRedState(SUMOTime allRedTime, NBTrafficLightLogic* logic, co
                 allRedState[i] = 'r';
             }
         }
-        logic->addStep(allRedTime, allRedState);
+        logic->addStep(TIME2STEPS(ceil(STEPS2TIME(allRedTime))), allRedState);
     }
 }
+
 
 void
 NBOwnTLDef::checkCustomCrossingIndices(NBTrafficLightLogic* logic) const {

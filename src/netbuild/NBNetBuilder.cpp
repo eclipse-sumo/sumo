@@ -582,11 +582,15 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
         (*i).second->sortOutgoingConnectionsByIndex();
     }
     // FINISHING INNER EDGES
+    std::set<NBTrafficLightDefinition*> largeNodeTLS;
     if (!oc.getBool("no-internal-links")) {
         before = PROGRESS_BEGIN_TIME_MESSAGE("Building inner edges");
         // walking areas shall only be built if crossings are wished as well
-        for (std::map<std::string, NBNode*>::const_iterator i = myNodeCont.begin(); i != myNodeCont.end(); ++i) {
-            (*i).second->buildInnerEdges();
+        for (const auto& item : myNodeCont) {
+            if (item.second->buildInnerEdges() > NBTrafficLightDefinition::MIN_YELLOW_SECONDS) {
+                const std::set<NBTrafficLightDefinition*>& tlDefs = item.second->getControllingTLS();
+                largeNodeTLS.insert(tlDefs.begin(), tlDefs.end());
+            }
         }
         PROGRESS_TIME_MESSAGE(before);
     }
@@ -597,10 +601,14 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
         myEdgeCont.computeLaneShapes();
         myNodeCont.computeNodeShapes();
         myEdgeCont.computeEdgeShapes(oc.getBool("geometry.max-grade.fix") ? oc.getFloat("geometry.max-grade") / 100 : -1);
-        for (std::map<std::string, NBNode*>::const_iterator i = myNodeCont.begin(); i != myNodeCont.end(); ++i) {
-            (*i).second->buildInnerEdges();
+        for (const auto& item : myNodeCont) {
+            item.second->buildInnerEdges();
         }
         PROGRESS_TIME_MESSAGE(before);
+    }
+    // recheck phases for large junctions
+    for (NBTrafficLightDefinition* def : largeNodeTLS) {
+        myTLLCont.computeSingleLogic(oc, def);
     }
     // compute lane-to-lane node logics (require traffic lights and inner edges to be done)
     myNodeCont.computeLogics2(myEdgeCont, oc);

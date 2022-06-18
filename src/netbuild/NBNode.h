@@ -646,7 +646,7 @@ public:
     bool checkCrossingDuplicated(EdgeVector edges);
 
     /// @brief build internal lanes, pedestrian crossings and walking areas
-    void buildInnerEdges();
+    double buildInnerEdges();
 
     /**@brief build pedestrian crossings
      * @return The next index for creating internal lanes
