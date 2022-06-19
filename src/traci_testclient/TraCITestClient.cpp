@@ -1049,6 +1049,19 @@ TraCITestClient::testAPI() {
     answerLog << "    stateSet=" << trafficlights.getRedYellowGreenState("n_m4") << "\n";
     answerLog << "    program: " << trafficlights.getProgram("n_m4") << "\n";
 
+    answerLog << "  gui:\n";
+    try {
+        answerLog << "    setScheme: \n";
+        gui.setSchema("View #0", "real world");
+        answerLog << "    getScheme: " << gui.getSchema("View #0") << "\n";
+        gui.setZoom("View #0", 50);
+        answerLog << "    getZoom: " << gui.getZoom() << "\n";
+        answerLog << "    take screenshot: \n";
+        gui.screenshot("View #0", "image.png", 500, 500);
+    } catch (libsumo::TraCIException&) {
+        answerLog << "    no support for gui commands\n";
+    }
+
     answerLog << "  load:\n";
     std::vector<std::string> args;
     args.push_back("-n");
@@ -1063,17 +1076,4 @@ TraCITestClient::testAPI() {
     answerLog << "    getCurrentTime: " << simulation.getCurrentTime() << "\n";
     vehicle.subscribe("0", vars, 0, 100);
     edge.subscribeContext("e_u1", libsumo::CMD_GET_VEHICLE_VARIABLE, 100, vars2, 0, 100);
-
-    answerLog << "  gui:\n";
-    try {
-        answerLog << "    setScheme: \n";
-        gui.setSchema("View #0", "real world");
-        answerLog << "    getScheme: " << gui.getSchema("View #0") << "\n";
-        gui.setZoom("View #0", 50);
-        answerLog << "    getZoom: " << gui.getZoom() << "\n";
-        answerLog << "    take screenshot: \n";
-        gui.screenshot("View #0", "image.png", 500, 500);
-    } catch (libsumo::TraCIException&) {
-        answerLog << "    no support for gui commands\n";
-    }
 }
