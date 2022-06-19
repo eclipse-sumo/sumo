@@ -1,17 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-01-07 16:20:25 by Eclipse SUMO netgenerate Version v1_11_0+0928-18c1b433e84
+<!-- generated on 2022-06-19 10:07:33 by Eclipse SUMO netgenerate Version v1_13_0+0998-ce5fa9bc486
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
 
     <random_network>
         <rand value="true"/>
         <rand.iterations value="200"/>
-        <rand.random-lanenumber value="true"/>
+        <random-lanenumber value="true"/>
     </random_network>
 
     <output>
@@ -10045,12 +10050,13 @@ SPDX-License-Identifier: EPL-2.0
         <phase duration="3"  state="yrrrrrryyyy"/>
     </tlLogic>
     <tlLogic id="1092" type="static" programID="0" offset="0">
-        <phase duration="27" state="GrrrrrrrGGGGg"/>
+        <phase duration="26" state="GrrrrrrrGGGGg"/>
         <phase duration="3"  state="yrrrrrrryyyyy"/>
         <phase duration="27" state="GGGgGGrrrrrrr"/>
         <phase duration="3"  state="yyyyyyrrrrrrr"/>
         <phase duration="27" state="rrrrGGGgGrrrr"/>
         <phase duration="3"  state="rrrryyyyyrrrr"/>
+        <phase duration="1"  state="rrrrrrrrrrrrr"/>
     </tlLogic>
     <tlLogic id="115" type="static" programID="0" offset="0">
         <phase duration="42" state="GGGgGGggrrrrr"/>
@@ -10067,7 +10073,7 @@ SPDX-License-Identifier: EPL-2.0
         <phase duration="3"  state="rrryyyyrr"/>
     </tlLogic>
     <tlLogic id="12" type="static" programID="0" offset="0">
-        <phase duration="21" state="rrrrrrgGgggrrrrrrrrrrrGGGGgg"/>
+        <phase duration="19" state="rrrrrrgGgggrrrrrrrrrrrGGGGgg"/>
         <phase duration="3"  state="rrrrrrgygggrrrrrrrrrrryyyygg"/>
         <phase duration="6"  state="rrrrrrgrGGGrrrrrrrrrrrrrrrGG"/>
         <phase duration="3"  state="rrrrrryryyyrrrrrrrrrrrrrrryy"/>
@@ -10075,8 +10081,10 @@ SPDX-License-Identifier: EPL-2.0
         <phase duration="3"  state="yyygggrrrrrrrrrryyyyggrrrrrr"/>
         <phase duration="6"  state="rrrGGGrrrrrrrrrrrrrrGGrrrrrr"/>
         <phase duration="3"  state="rrryyyrrrrrrrrrrrrrryyrrrrrr"/>
+        <phase duration="1"  state="rrrrrrrrrrrrrrrrrrrrrrrrrrrr"/>
         <phase duration="21" state="rrrrrrrrrrrGGGGgGrrrrrrrrrrr"/>
         <phase duration="3"  state="rrrrrrrrrrryyyyyyrrrrrrrrrrr"/>
+        <phase duration="1"  state="rrrrrrrrrrrrrrrrrrrrrrrrrrrr"/>
     </tlLogic>
     <tlLogic id="1200" type="static" programID="0" offset="0">
         <phase duration="42" state="GGggrrrrGGg"/>
@@ -10133,15 +10141,17 @@ SPDX-License-Identifier: EPL-2.0
         <phase duration="3"  state="rrrryyyyyyrrr"/>
     </tlLogic>
     <tlLogic id="1372" type="static" programID="0" offset="0">
-        <phase duration="15" state="rrrrrrrrrrrrrrrrrGGGGgGrrrr"/>
+        <phase duration="16" state="rrrrrrrrrrrrrrrrrGGGGgGrrrr"/>
         <phase duration="3"  state="rrrrrrrrrrrrrrrrryyyyyyrrrr"/>
-        <phase duration="18" state="rrrrrrGGgggrrrrrrrrrrrgGggg"/>
+        <phase duration="17" state="rrrrrrGGgggrrrrrrrrrrrgGggg"/>
         <phase duration="3"  state="rrrrrryygggrrrrrrrrrrrgyggg"/>
         <phase duration="6"  state="rrrrrrrrGggrrrrrrrrrrrgrgGG"/>
         <phase duration="3"  state="rrrrrrrryyyrrrrrrrrrrryryyy"/>
-        <phase duration="18" state="rrrrrrrrrrrGGGGGgGrrrrrrrrr"/>
+        <phase duration="1"  state="rrrrrrrrrrrrrrrrrrrrrrrrrrr"/>
+        <phase duration="17" state="rrrrrrrrrrrGGGGGgGrrrrrrrrr"/>
         <phase duration="3"  state="rrrrrrrrrrryyyyyyyrrrrrrrrr"/>
-        <phase duration="18" state="GGGGGgGrrrrrrrrrrrrrrrrrrrr"/>
+        <phase duration="1"  state="rrrrrrrrrrrrrrrrrrrrrrrrrrr"/>
+        <phase duration="17" state="GGGGGgGrrrrrrrrrrrrrrrrrrrr"/>
         <phase duration="3"  state="yyyyyyyrrrrrrrrrrrrrrrrrrrr"/>
     </tlLogic>
     <tlLogic id="1424" type="static" programID="0" offset="0">
@@ -10151,16 +10161,18 @@ SPDX-License-Identifier: EPL-2.0
         <phase duration="3"  state="rrrryyyyrrrr"/>
     </tlLogic>
     <tlLogic id="1428" type="static" programID="0" offset="0">
-        <phase duration="21" state="rrrrrrrrrrGGGggrrrrrrGGGGggg"/>
+        <phase duration="19" state="rrrrrrrrrrGGGggrrrrrrGGGGggg"/>
         <phase duration="3"  state="rrrrrrrrrryyyggrrrrrryyyyggg"/>
         <phase duration="6"  state="rrrrrrrrrrrrrGGrrrrrrrrrrGGG"/>
         <phase duration="3"  state="rrrrrrrrrrrrryyrrrrrrrrrryyy"/>
+        <phase duration="1"  state="rrrrrrrrrrrrrrrrrrrrrrrrrrrr"/>
         <phase duration="21" state="GGgggrrrrrrrrrrGGGGggrrrrrrr"/>
         <phase duration="3"  state="yygggrrrrrrrrrryyyyggrrrrrrr"/>
         <phase duration="6"  state="rrGGGrrrrrrrrrrrrrrGGrrrrrrr"/>
         <phase duration="3"  state="rryyyrrrrrrrrrrrrrryyrrrrrrr"/>
         <phase duration="21" state="rrrrrGGGGgGrrrrrrrrrrrrrrrrr"/>
         <phase duration="3"  state="rrrrryyyyyyrrrrrrrrrrrrrrrrr"/>
+        <phase duration="1"  state="rrrrrrrrrrrrrrrrrrrrrrrrrrrr"/>
     </tlLogic>
     <tlLogic id="1430" type="static" programID="0" offset="0">
         <phase duration="38" state="GGggrrrrrGGggrrrr"/>
@@ -10263,7 +10275,7 @@ SPDX-License-Identifier: EPL-2.0
         <phase duration="3"  state="yrrrrrrrryyyy"/>
     </tlLogic>
     <tlLogic id="1796" type="static" programID="0" offset="0">
-        <phase duration="21" state="rrrrrrGGGgggrrrrrrrrrrrGGGGGgg"/>
+        <phase duration="19" state="rrrrrrGGGgggrrrrrrrrrrrGGGGGgg"/>
         <phase duration="3"  state="rrrrrryyygggrrrrrrrrrrryyyyygg"/>
         <phase duration="6"  state="rrrrrrrrrGGGrrrrrrrrrrrrrrrrGG"/>
         <phase duration="3"  state="rrrrrrrrryyyrrrrrrrrrrrrrrrryy"/>
@@ -10271,8 +10283,10 @@ SPDX-License-Identifier: EPL-2.0
         <phase duration="3"  state="yyygggrrrrrrrrrrrryyyggrrrrrrr"/>
         <phase duration="6"  state="rrrGGGrrrrrrrrrrrrrrrGGrrrrrrr"/>
         <phase duration="3"  state="rrryyyrrrrrrrrrrrrrrryyrrrrrrr"/>
+        <phase duration="1"  state="rrrrrrrrrrrrrrrrrrrrrrrrrrrrrr"/>
         <phase duration="21" state="rrrrrrrrrrrrGGGGGgGrrrrrrrrrrr"/>
         <phase duration="3"  state="rrrrrrrrrrrryyyyyyyrrrrrrrrrrr"/>
+        <phase duration="1"  state="rrrrrrrrrrrrrrrrrrrrrrrrrrrrrr"/>
     </tlLogic>
     <tlLogic id="18" type="static" programID="0" offset="0">
         <phase duration="38" state="GGGggrrrrrrGGggrrrr"/>
@@ -10283,14 +10297,16 @@ SPDX-License-Identifier: EPL-2.0
         <phase duration="3"  state="rrrrryyyyyyrrrryyyy"/>
     </tlLogic>
     <tlLogic id="1890" type="static" programID="0" offset="0">
-        <phase duration="21" state="GGGgggrrrrrrrrrrGGGGGggrrrrrr"/>
+        <phase duration="19" state="GGGgggrrrrrrrrrrGGGGGggrrrrrr"/>
         <phase duration="3"  state="yyygggrrrrrrrrrryyyyyggrrrrrr"/>
         <phase duration="6"  state="rrrGGGrrrrrrrrrrrrrrrGGrrrrrr"/>
         <phase duration="3"  state="rrryyyrrrrrrrrrrrrrrryyrrrrrr"/>
+        <phase duration="1"  state="rrrrrrrrrrrrrrrrrrrrrrrrrrrrr"/>
         <phase duration="21" state="rrrrrrGGgggrrrrrrrrrrrrGGGGgg"/>
         <phase duration="3"  state="rrrrrryygggrrrrrrrrrrrryyyygg"/>
         <phase duration="6"  state="rrrrrrrrGGGrrrrrrrrrrrrrrrrGG"/>
         <phase duration="3"  state="rrrrrrrryyyrrrrrrrrrrrrrrrryy"/>
+        <phase duration="1"  state="rrrrrrrrrrrrrrrrrrrrrrrrrrrrr"/>
         <phase duration="21" state="rrrrrrrrrrrGGGGgGrrrrrrrrrrrr"/>
         <phase duration="3"  state="rrrrrrrrrrryyyyyyrrrrrrrrrrrr"/>
     </tlLogic>
@@ -10305,8 +10321,9 @@ SPDX-License-Identifier: EPL-2.0
         <phase duration="3"  state="rrrryyrrrrrrryyrrrrrr"/>
     </tlLogic>
     <tlLogic id="1940" type="static" programID="0" offset="0">
-        <phase duration="27" state="GGGgGrrrrr"/>
+        <phase duration="26" state="GGGgGrrrrr"/>
         <phase duration="3"  state="yyyyyrrrrr"/>
+        <phase duration="1"  state="rrrrrrrrrr"/>
         <phase duration="27" state="GrrrrrrGGg"/>
         <phase duration="3"  state="yrrrrrryyy"/>
         <phase duration="27" state="rrrrGGgGrr"/>
@@ -10323,14 +10340,16 @@ SPDX-License-Identifier: EPL-2.0
         <phase duration="3"  state="rrrrrryyyyyyrrrrrrrrrrr"/>
     </tlLogic>
     <tlLogic id="209" type="static" programID="0" offset="0">
-        <phase duration="33" state="GGggrrrrGGggrrrr"/>
+        <phase duration="32" state="GGggrrrrGGggrrrr"/>
         <phase duration="3"  state="yyggrrrryyggrrrr"/>
         <phase duration="6"  state="rrGGrrrrrrGGrrrr"/>
         <phase duration="3"  state="rryyrrrrrryyrrrr"/>
-        <phase duration="33" state="rrrrGGggrrrrGGgg"/>
+        <phase duration="1"  state="rrrrrrrrrrrrrrrr"/>
+        <phase duration="32" state="rrrrGGggrrrrGGgg"/>
         <phase duration="3"  state="rrrryyggrrrryygg"/>
         <phase duration="6"  state="rrrrrrGGrrrrrrGG"/>
         <phase duration="3"  state="rrrrrryyrrrrrryy"/>
+        <phase duration="1"  state="rrrrrrrrrrrrrrrr"/>
     </tlLogic>
     <tlLogic id="2109" type="static" programID="0" offset="0">
         <phase duration="24" state="GGGgGGgggrrrrrrrrrr"/>
@@ -10343,12 +10362,13 @@ SPDX-License-Identifier: EPL-2.0
         <phase duration="3"  state="yrrrrrrrrrrrrryyyyy"/>
     </tlLogic>
     <tlLogic id="2111" type="static" programID="0" offset="0">
-        <phase duration="27" state="GGGgGrrrrrrr"/>
+        <phase duration="26" state="GGGgGrrrrrrr"/>
         <phase duration="3"  state="yyyyyrrrrrrr"/>
         <phase duration="27" state="rrrrGGGGgGrr"/>
         <phase duration="3"  state="rrrryyyyyyrr"/>
         <phase duration="27" state="GrrrrrrrrGGg"/>
         <phase duration="3"  state="yrrrrrrrryyy"/>
+        <phase duration="1"  state="rrrrrrrrrrrr"/>
     </tlLogic>
     <tlLogic id="2119" type="static" programID="0" offset="0">
         <phase duration="42" state="GGgGGGgggrrrr"/>
@@ -10407,17 +10427,19 @@ SPDX-License-Identifier: EPL-2.0
         <phase duration="3"  state="rrryyyyyrrrr"/>
     </tlLogic>
     <tlLogic id="2288" type="static" programID="0" offset="0">
-        <phase duration="18" state="GGGgGrrrrrrrrrrrrrrr"/>
+        <phase duration="19" state="GGGgGrrrrrrrrrrrrrrr"/>
         <phase duration="3"  state="yyyyyrrrrrrrrrrrrrrr"/>
-        <phase duration="20" state="GrrrrrrrrrrrrrrGGGGg"/>
+        <phase duration="19" state="GrrrrrrrrrrrrrrGGGGg"/>
         <phase duration="3"  state="yrrrrrrrrrrrrrryyyyy"/>
-        <phase duration="20" state="rrrrrrrrrGGGGGgGrrrr"/>
+        <phase duration="19" state="rrrrrrrrrGGGGGgGrrrr"/>
         <phase duration="3"  state="rrrrrrrrryyyyyyyrrrr"/>
-        <phase duration="20" state="rrrrGGGGgGrrrrrrrrrr"/>
+        <phase duration="1"  state="rrrrrrrrrrrrrrrrrrrr"/>
+        <phase duration="19" state="rrrrGGGGgGrrrrrrrrrr"/>
         <phase duration="3"  state="rrrryyyyyyrrrrrrrrrr"/>
+        <phase duration="1"  state="rrrrrrrrrrrrrrrrrrrr"/>
     </tlLogic>
     <tlLogic id="24" type="static" programID="0" offset="0">
-        <phase duration="24" state="rrrrrGGGGGggrrrrrGGgggrrrrrr"/>
+        <phase duration="23" state="rrrrrGGGGGggrrrrrGGgggrrrrrr"/>
         <phase duration="3"  state="rrrrryyyyyyyrrrrryyyyyrrrrrr"/>
         <phase duration="24" state="rrrrrrrrrrrrGGGggrrrrrGGGggg"/>
         <phase duration="3"  state="rrrrrrrrrrrryyyggrrrrryyyggg"/>
@@ -10425,6 +10447,7 @@ SPDX-License-Identifier: EPL-2.0
         <phase duration="3"  state="rrrrrrrrrrrrrrryyrrrrrrrryyy"/>
         <phase duration="24" state="GGGGgGrrrrrrrrrrrrrrrrrrrrrr"/>
         <phase duration="3"  state="yyyyyyrrrrrrrrrrrrrrrrrrrrrr"/>
+        <phase duration="1"  state="rrrrrrrrrrrrrrrrrrrrrrrrrrrr"/>
     </tlLogic>
     <tlLogic id="2422" type="static" programID="0" offset="0">
         <phase duration="33" state="rrrrrGGGggrrrrGGGgg"/>
@@ -10477,10 +10500,11 @@ SPDX-License-Identifier: EPL-2.0
         <phase duration="3"  state="rrrrrrryyrrrrrrryy"/>
     </tlLogic>
     <tlLogic id="2731" type="static" programID="0" offset="0">
-        <phase duration="27" state="GGGgGrrrrrr"/>
+        <phase duration="26" state="GGGgGrrrrrr"/>
         <phase duration="3"  state="yyyyyrrrrrr"/>
         <phase duration="27" state="rrrrGGGgGrr"/>
         <phase duration="3"  state="rrrryyyyyrr"/>
+        <phase duration="1"  state="rrrrrrrrrrr"/>
         <phase duration="27" state="GrrrrrrrGGg"/>
         <phase duration="3"  state="yrrrrrrryyy"/>
     </tlLogic>
@@ -10551,10 +10575,11 @@ SPDX-License-Identifier: EPL-2.0
         <phase duration="3"  state="yyyyrrrrryyyyyrrrr"/>
     </tlLogic>
     <tlLogic id="3130" type="static" programID="0" offset="0">
-        <phase duration="27" state="GrrrrrrrGGGGg"/>
+        <phase duration="26" state="GrrrrrrrGGGGg"/>
         <phase duration="3"  state="yrrrrrrryyyyy"/>
         <phase duration="27" state="GGGgGrrrrrrrr"/>
         <phase duration="3"  state="yyyyyrrrrrrrr"/>
+        <phase duration="1"  state="rrrrrrrrrrrrr"/>
         <phase duration="27" state="rrrrGGGgGrrrr"/>
         <phase duration="3"  state="rrrryyyyyrrrr"/>
     </tlLogic>
@@ -10569,13 +10594,16 @@ SPDX-License-Identifier: EPL-2.0
     <tlLogic id="318" type="static" programID="0" offset="0">
         <phase duration="15" state="rrrrrrrrrrrGGGGGGgGrrrrrrrrrrrrr"/>
         <phase duration="3"  state="rrrrrrrrrrryyyyyyyyrrrrrrrrrrrrr"/>
-        <phase duration="18" state="rrrrrrGGGggrrrrrrrGGGGgggrrrrrrr"/>
+        <phase duration="1"  state="rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr"/>
+        <phase duration="17" state="rrrrrrGGGggrrrrrrrGGGGgggrrrrrrr"/>
         <phase duration="3"  state="rrrrrryyyggrrrrrrryyyygggrrrrrrr"/>
         <phase duration="6"  state="rrrrrrrrrGGrrrrrrrrrrrGGGrrrrrrr"/>
         <phase duration="3"  state="rrrrrrrrryyrrrrrrrrrrryyyrrrrrrr"/>
-        <phase duration="18" state="GrrrrrrrrrrrrrrrrrrrrrrrrGGGGGGg"/>
+        <phase duration="1"  state="rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr"/>
+        <phase duration="17" state="GrrrrrrrrrrrrrrrrrrrrrrrrGGGGGGg"/>
         <phase duration="3"  state="yrrrrrrrrrrrrrrrrrrrrrrrryyyyyyy"/>
-        <phase duration="18" state="GGGGGgGrrrrrrrrrrrrrrrrrrrrrrrrr"/>
+        <phase duration="1"  state="rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr"/>
+        <phase duration="17" state="GGGGGgGrrrrrrrrrrrrrrrrrrrrrrrrr"/>
         <phase duration="3"  state="yyyyyyyrrrrrrrrrrrrrrrrrrrrrrrrr"/>
     </tlLogic>
     <tlLogic id="324" type="static" programID="0" offset="0">
@@ -10599,22 +10627,27 @@ SPDX-License-Identifier: EPL-2.0
         <phase duration="3"  state="rrrrrryyyyyrr"/>
     </tlLogic>
     <tlLogic id="360" type="static" programID="0" offset="0">
-        <phase duration="42" state="GGGgGGgggrrrr"/>
+        <phase duration="41" state="GGGgGGgggrrrr"/>
         <phase duration="3"  state="yyyyyyyyyrrrr"/>
-        <phase duration="42" state="GrrrrrrrrGGGg"/>
+        <phase duration="1"  state="rrrrrrrrrrrrr"/>
+        <phase duration="41" state="GrrrrrrrrGGGg"/>
         <phase duration="3"  state="yrrrrrrrryyyy"/>
+        <phase duration="1"  state="rrrrrrrrrrrrr"/>
     </tlLogic>
     <tlLogic id="3602" type="static" programID="0" offset="0">
-        <phase duration="42" state="GGgggrrrrGGg"/>
+        <phase duration="41" state="GGgggrrrrGGg"/>
         <phase duration="3"  state="yyyyyrrrryyy"/>
-        <phase duration="42" state="rrrrrGGGgGrr"/>
+        <phase duration="1"  state="rrrrrrrrrrrr"/>
+        <phase duration="41" state="rrrrrGGGgGrr"/>
         <phase duration="3"  state="rrrrryyyyyrr"/>
+        <phase duration="1"  state="rrrrrrrrrrrr"/>
     </tlLogic>
     <tlLogic id="3638" type="static" programID="0" offset="0">
         <phase duration="42" state="GGGgggrrrrGGGGg"/>
         <phase duration="3"  state="yyyyyyrrrryyyyy"/>
-        <phase duration="42" state="rrrrrrGGGgGrrrr"/>
+        <phase duration="41" state="rrrrrrGGGgGrrrr"/>
         <phase duration="3"  state="rrrrrryyyyyrrrr"/>
+        <phase duration="1"  state="rrrrrrrrrrrrrrr"/>
     </tlLogic>
     <tlLogic id="364" type="static" programID="0" offset="0">
         <phase duration="38" state="GGggrrrrGGGggrrrrr"/>
@@ -10651,10 +10684,11 @@ SPDX-License-Identifier: EPL-2.0
         <phase duration="3"  state="yyyyyrrrrrrr"/>
     </tlLogic>
     <tlLogic id="3768" type="static" programID="0" offset="0">
-        <phase duration="27" state="rrrGGGGgGrrr"/>
+        <phase duration="26" state="rrrGGGGgGrrr"/>
         <phase duration="3"  state="rrryyyyyyrrr"/>
         <phase duration="27" state="GrrrrrrrGGGg"/>
         <phase duration="3"  state="yrrrrrrryyyy"/>
+        <phase duration="1"  state="rrrrrrrrrrrr"/>
         <phase duration="27" state="GGgGrrrrrrrr"/>
         <phase duration="3"  state="yyyyrrrrrrrr"/>
     </tlLogic>
@@ -10801,20 +10835,24 @@ SPDX-License-Identifier: EPL-2.0
         <phase duration="3"  state="yrrrrrrryyyy"/>
     </tlLogic>
     <tlLogic id="683" type="static" programID="0" offset="0">
-        <phase duration="38" state="GGgggrrrrGGg"/>
+        <phase duration="37" state="GGgggrrrrGGg"/>
         <phase duration="3"  state="yygggrrrryyy"/>
         <phase duration="6"  state="GGGGGrrrrrrr"/>
         <phase duration="3"  state="yyyyyrrrrrrr"/>
-        <phase duration="37" state="rrrrrGGGgGrr"/>
+        <phase duration="1"  state="rrrrrrrrrrrr"/>
+        <phase duration="36" state="rrrrrGGGgGrr"/>
         <phase duration="3"  state="rrrrryyyyyrr"/>
+        <phase duration="1"  state="rrrrrrrrrrrr"/>
     </tlLogic>
     <tlLogic id="727" type="static" programID="0" offset="0">
-        <phase duration="38" state="GggrrrGGGGg"/>
+        <phase duration="37" state="GggrrrGGGGg"/>
         <phase duration="3"  state="yggrrryyyyy"/>
         <phase duration="6"  state="GGGrrrrrrrr"/>
         <phase duration="3"  state="yyyrrrrrrrr"/>
-        <phase duration="37" state="rrrGGgGrrrr"/>
+        <phase duration="1"  state="rrrrrrrrrrr"/>
+        <phase duration="36" state="rrrGGgGrrrr"/>
         <phase duration="3"  state="rrryyyyrrrr"/>
+        <phase duration="1"  state="rrrrrrrrrrr"/>
     </tlLogic>
     <tlLogic id="8" type="static" programID="0" offset="0">
         <phase duration="33" state="GGGggrrrrrGGggrrrr"/>
