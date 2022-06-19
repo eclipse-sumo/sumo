@@ -156,9 +156,11 @@ with open("%s_bus.rou.xml" % PREFIX, "w") as routes:
     print("""    <flow id="b" from="cyberin" to="cyberout" type="bus"
           begin="50" period="100" number="%s" line="taxi">""" %
           (TOTAL_CAPACITY // BUS_CAPACITY), file=routes)
-    for row in range(DOUBLE_ROWS-1):
-        edgeID = "cyber%sto%s" % (row, row + 1)
-        print('    <stop busStop="%sstop" duration="10"/>' % edgeID, file=routes)
+    for repeat in range(400 // TOTAL_CAPACITY):
+        for row in range(DOUBLE_ROWS-1):
+            edgeID = "cyber%sto%s" % (row, row + 1)
+            print('    <stop busStop="%sstop" duration="10"/>' % edgeID, file=routes)
+        print('    <stop edge="cyberout" duration="10"/>', file=routes)
     print("    </flow>\n</routes>", file=routes)
 
 # passenger car demand
