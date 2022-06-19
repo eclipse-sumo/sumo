@@ -26,7 +26,7 @@ sys.path.append(os.path.join(os.environ["SUMO_HOME"], "tools"))
 import sumolib  # noqa
 
 os.chdir('data')
-if "person" in sys.argv:
+if "taxi" in sys.argv:
     subprocess.call([sys.executable, "createNetTaxi.py"])
     if "cyber" in sys.argv:
         subprocess.call([sumolib.checkBinary("sumo"), "park15_cyber.sumocfg"])

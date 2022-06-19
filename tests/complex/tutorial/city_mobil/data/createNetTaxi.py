@@ -37,6 +37,7 @@ from constants import CYBER_SPEED, CYBER_LENGTH
 sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
 import sumolib  # noqa
 
+random.seed(42)
 # network building
 nodes = open("%s.nod.xml" % PREFIX, "w")
 sumolib.xml.writeHeader(nodes, root="nodes")
