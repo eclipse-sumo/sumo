@@ -145,3 +145,6 @@ ticket10777
 
 # join looses tram connection
 ticket10826
+
+# doubly linked edge with hybrid tram
+ticket10978
