@@ -37,7 +37,7 @@ else:
 
 from sumolib.miscutils import getFreeSocketPort  # noqa
 
-from .domain import _defaultDomains  # noqa
+from .domain import DOMAINS  # noqa
 # StepListener needs to be imported for backwards compatibility
 from .step import StepListener  # noqa
 from .connection import Connection  # noqa
@@ -270,7 +270,7 @@ def switch(label):
     con = getConnection(label)
     _connections[""] = con
     _currentLabel[0] = label
-    for domain in _defaultDomains:
+    for domain in DOMAINS:
         domain._setConnection(con)
 
 

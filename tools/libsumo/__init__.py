@@ -31,18 +31,18 @@ from .libsumo import TraCIStage, TraCINextStopData, TraCIReservation, TraCILogic
 from .libsumo import TraCICollision, TraCISignalConstraint  # noqa
 from .libsumo import *  # noqa
 
-_DOMAINS = [
+DOMAINS = [
+    inductionloop,  # noqa
+    lanearea,  # noqa
+    multientryexit,  # noqa
     busstop,  # noqa
     calibrator,  # noqa
     chargingstation,  # noqa
     edge,  # noqa
     gui,  # noqa
-    inductionloop,  # noqa
     junction,  # noqa
-    lanearea,  # noqa
     lane,  # noqa
     meandata,  # noqa
-    multientryexit,  # noqa
     overheadwire,  # noqa
     parkingarea,  # noqa
     person,
@@ -149,7 +149,7 @@ _libsumo_step = simulation.step
 def simulationStep(step=0):
     _libsumo_step(step)
     result = []
-    for domain in _DOMAINS:
+    for domain in DOMAINS:
         result += [(k, v) for k, v in domain.getAllSubscriptionResults().items()]
         result += [(k, v) for k, v in domain.getAllContextSubscriptionResults().items()]
     _stepManager.manageStepListeners(step)
@@ -167,7 +167,7 @@ def close():
 def start(args, traceFile=None, traceGetters=True):
     version = simulation.start(args)
     if traceFile is not None:
-        if _stepManager.startTracing(traceFile, traceGetters, _DOMAINS):
+        if _stepManager.startTracing(traceFile, traceGetters, DOMAINS):
             # simulationStep shows up as simulation.step
             global _libsumo_step
             _libsumo_step = _stepManager._addTracing(_libsumo_step, "simulation")

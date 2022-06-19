@@ -28,7 +28,7 @@ from .libtraci import *  # noqa
 from .libtraci import TraCIStage, TraCINextStopData, TraCIReservation, TraCILogic, TraCIPhase, TraCIException  # noqa
 from .libtraci import TraCICollision, TraCISignalConstraint  # noqa
 
-_DOMAINS = [
+DOMAINS = [
     busstop,  # noqa
     calibrator,  # noqa
     chargingstation,  # noqa
@@ -149,7 +149,7 @@ _libtraci_step = simulation.step
 def simulationStep(step=0):
     _libtraci_step(step)
     result = []
-    for domain in _DOMAINS:
+    for domain in DOMAINS:
         result += [(k, v) for k, v in domain.getAllSubscriptionResults().items()]
         result += [(k, v) for k, v in domain.getAllContextSubscriptionResults().items()]
     _stepManager.manageStepListeners(step)
@@ -167,7 +167,7 @@ def close():
 def start(args, traceFile=None, traceGetters=True):
     version = simulation.start(args)
     if traceFile is not None:
-        if _stepManager.startTracing(traceFile, traceGetters, _DOMAINS):
+        if _stepManager.startTracing(traceFile, traceGetters, DOMAINS):
             # simulationStep shows up as simulation.step
             global _libtraci_step
             _libtraci_step = _stepManager._addTracing(_libtraci_step, "simulation")

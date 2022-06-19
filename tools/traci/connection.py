@@ -28,7 +28,7 @@ import warnings
 
 from . import constants as tc
 from .exceptions import TraCIException, FatalTraCIError
-from .domain import _defaultDomains
+from .domain import DOMAINS
 from .storage import Storage
 from .step import StepManager
 
@@ -60,8 +60,8 @@ class Connection(StepManager):
         self._queue = []
         self._subscriptionMapping = {}
         if traceFile is not None:
-            self.startTracing(traceFile, traceGetters, _defaultDomains)
-        for domain in _defaultDomains:
+            self.startTracing(traceFile, traceGetters, DOMAINS)
+        for domain in DOMAINS:
             domain._register(self, self._subscriptionMapping)
 
     def _recvExact(self):

@@ -27,7 +27,7 @@ import warnings
 from . import constants as tc
 from .exceptions import FatalTraCIError
 
-_defaultDomains = []
+DOMAINS = []
 
 
 def _readParameterWithKey(result):
@@ -125,7 +125,7 @@ class Domain:
         self._deprecatedFor = deprecatedFor
         self._subscriptionDefault = subscriptionDefault
         self._connection = None
-        _defaultDomains.append(self)
+        DOMAINS.append(self)
         # alias
         self.DOMAIN_ID = cmdGetID
 

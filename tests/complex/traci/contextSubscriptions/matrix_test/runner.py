@@ -28,18 +28,20 @@ import sumolib  # noqa
 import traci  # noqa
 
 
-def runSingle(traciEndTime, viewRange, domain, domain2):
+def runSingle(viewRange, domain, domain2):
+    name = domain._name if hasattr(domain, "_name") else domain.__name__
+    name2 = domain2._name if hasattr(domain2, "_name") else domain2.__name__
     ids = domain.getIDList()
     if not ids:
-        print("No objects for domain '%s' at time %s" % (
-            domain._name, traci.simulation.getTime()))
+        print("No objects for domain '%s' at time %s" %
+              (name, traci.simulation.getTime()))
         return
     egoID = ids[0]
 
     domain.subscribeContext(egoID, domain2.DOMAIN_ID, viewRange)
     responses = traci.simulationStep()
     print("found %s %s around %s %s at time %s" % (
-        len(responses), domain2._name, domain._name, egoID,
+        len(responses), name2, name, egoID,
         traci.simulation.getTime()))
 
     domain.unsubscribeContext(egoID, domain2.DOMAIN_ID, viewRange)
@@ -51,19 +53,17 @@ def runSingle(traciEndTime, viewRange, domain, domain2):
     sys.stdout.flush()
 
 
-def restart():
-    traci.start([sumolib.checkBinary(sys.argv[1]),
-                '-Q', "-c", "sumo.sumocfg",
-                '-a', 'input_additional.add.xml'])
-    traci.simulationStep()
-
-
 #  main
-restart()
-for domain in traci.domain._defaultDomains:
-    for domain2 in traci.domain._defaultDomains:
+traci.start([sumolib.checkBinary(sys.argv[1]),
+             '-Q', "-c", "sumo.sumocfg",
+             '-a', 'input_additional.add.xml'])
+traci.simulationStep()
+for domain in traci.DOMAINS:
+    for domain2 in traci.DOMAINS:
         try:
-            runSingle(2, 100, domain, domain2)
+            runSingle(100, domain, domain2)
         except traci.FatalTraCIError:
-            # restart()
+            sys.exit()
+        except traci.TraCIException:
+            print("Quitting (on error).", file=sys.stderr)
             sys.exit()
