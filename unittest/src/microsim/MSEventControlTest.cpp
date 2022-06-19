@@ -23,7 +23,7 @@
 
 #include <gtest/gtest.h>
 #include <microsim/MSEventControl.h>
-#include "../utils/common/CommandMock.h"
+#include <utils/common/CommandMock.h>
 
 
 /* Test the method 'execute'. Tests if the execute method from the Command Class is called.*/

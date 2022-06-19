@@ -355,7 +355,7 @@ MSPerson::MSPersonStage_Walking::moveToNextEdge(MSTransportable* person, SUMOTim
 
 int
 MSPerson::MSPersonStage_Walking::getRoutePosition() const {
-    return myRouteStep - myRoute.begin();
+    return (int)(myRouteStep - myRoute.begin());
 }
 
 

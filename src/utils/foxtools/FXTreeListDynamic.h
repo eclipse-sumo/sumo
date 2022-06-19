@@ -72,10 +72,10 @@ public:
     FXint getSelectedIndex();
 
     /// @brief prepend item with given text and icon
-    FXTreeItem* prependItem(FXTreeItem* father, const FXString& text, FXIcon* oi, FXColor textColor = FXRGB(0, 0, 0));
+    FXTreeItem* prependItem(FXTreeItem* father, const FXString& text, FXIcon* oi, FXColor tColor = FXRGB(0, 0, 0));
 
     /// @brief append item with given text and icon
-    FXTreeItem* appendItem(FXTreeItem* father, const FXString& text, FXIcon* oi, FXColor textColor = FXRGB(0, 0, 0));
+    FXTreeItem* appendItem(FXTreeItem* father, const FXString& text, FXIcon* oi, FXColor tColor = FXRGB(0, 0, 0));
 
     /// @brief get FXWindows associated with this FXTreeListDynamic
     FXWindow* getFXWindow();

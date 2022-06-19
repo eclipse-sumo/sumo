@@ -230,6 +230,10 @@ GLHelper::drawFilledPolyTesselated(const PositionVector& v, bool close) {
         return;
     }
     GLUtesselator* tobj = gluNewTess();
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable: 4191)
+#endif
 #if defined(__GNUC__) && __GNUC__ >= 8
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wcast-function-type"
@@ -240,6 +244,9 @@ GLHelper::drawFilledPolyTesselated(const PositionVector& v, bool close) {
     gluTessCallback(tobj, GLU_TESS_COMBINE, (GLvoid(CALLBACK*)()) &combCallback);
 #if defined(__GNUC__) && __GNUC__ >= 8
 #pragma GCC diagnostic pop
+#endif
+#ifdef _MSC_VER
+#pragma warning(pop)
 #endif
     gluTessProperty(tobj, GLU_TESS_WINDING_RULE, GLU_TESS_WINDING_ODD);
     gluTessBeginPolygon(tobj, nullptr);
