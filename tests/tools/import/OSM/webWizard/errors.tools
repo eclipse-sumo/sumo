@@ -151,14 +151,10 @@ Warning: busStop '3869306762' on lane '111251382#2_1' is too short for vehicle '
 Warning: busStop '3928759794' on lane '388702041#11_0' is too short for vehicle 'pt_bus_N6:1.0'.
 Warning: Teleporting vehicle 'pt_tram_M2:0.1'; collision with vehicle 'pt_tram_M2:3.0', lane='148458500#0_0', gap=-1.00, time=484.00 stage=move.
 Warning: Vehicle 'pt_tram_M2:0.1' ends teleporting on edge '148458500#1', time=484.00.
-Warning: Person 'ped44' is jammed on edge ':3918673888_w0', time=781.00.
-Warning: Person 'ped81' aborted waiting for 100:0 at busStop '272408975'.
-Warning: Person 'ped96' aborted waiting for S26:0 at busStop '1769645503'.
+Warning: Person 'ped149' is jammed on edge ':1828018040_c0', time=1628.00.
+Warning: Person 'ped176' aborted waiting for N2:0 at busStop '3867910420'.
 Warning: Person 'ped9' aborted waiting for 100:0 at busStop '271296293'.
 Warning: Person 'ped45' aborted waiting for TXL:1 at busStop '272408975'.
 Warning: Person 'ped99' aborted waiting for 100:1 at busStop '270718978'.
-Warning: Person 'ped116' aborted waiting for U6:1 at busStop '2071423334'.
-Warning: Person 'ped44' aborted waiting for M1:2 at busStop '3922258748'.
-Warning: Person 'ped100' aborted waiting for M1:1 at busStop '1662153916'.
 Warning: Person 'ped37' aborted waiting for S5:1 at busStop '27411231'.
-Warning: Person 'ped1' aborted waiting for S9:0 at busStop '2603331695'.
+Warning: Person 'ped71' aborted waiting for 200:1 at busStop '1827996414'.
