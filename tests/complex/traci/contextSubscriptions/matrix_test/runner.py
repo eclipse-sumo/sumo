@@ -38,11 +38,11 @@ def runSingle(viewRange, domain, domain2):
         return
     egoID = ids[0]
 
+    print("trying to subscribe to %s around %s '%s' at time %s" % (
+        name2, name, egoID, traci.simulation.getTime()))
     domain.subscribeContext(egoID, domain2.DOMAIN_ID, viewRange)
     responses = traci.simulationStep()
-    print("found %s %s around %s %s at time %s" % (
-        len(responses), name2, name, egoID,
-        traci.simulation.getTime()))
+    print("   found %s objects" % len(responses))
 
     domain.unsubscribeContext(egoID, domain2.DOMAIN_ID, viewRange)
     responses = traci.simulationStep()

@@ -1,20 +1,34 @@
  Retrying in 1 seconds
-found 1 inductionloop around inductionloop e1_0 at time 2.0
+trying to subscribe to inductionloop around inductionloop 'e1_0' at time 1.0
+   found 1 objects
 Ok: Unsubscribe successful
-found 1 lanearea around inductionloop e1_0 at time 4.0
+trying to subscribe to lanearea around inductionloop 'e1_0' at time 3.0
+   found 1 objects
 Ok: Unsubscribe successful
+trying to subscribe to multientryexit around inductionloop 'e1_0' at time 5.0
  Retrying in 1 seconds
+trying to subscribe to trafficlight around inductionloop 'e1_0' at time 1.0
  Retrying in 1 seconds
+trying to subscribe to variablespeedsign around inductionloop 'e1_0' at time 1.0
  Retrying in 1 seconds
+trying to subscribe to meandata around inductionloop 'e1_0' at time 1.0
  Retrying in 1 seconds
-found 1 lane around inductionloop e1_0 at time 2.0
+trying to subscribe to lane around inductionloop 'e1_0' at time 1.0
+   found 1 objects
 Ok: Unsubscribe successful
-found 1 person around inductionloop e1_0 at time 4.0
+trying to subscribe to person around inductionloop 'e1_0' at time 3.0
+   found 1 objects
 Ok: Unsubscribe successful
+trying to subscribe to route around inductionloop 'e1_0' at time 5.0
  Retrying in 1 seconds
-found 1 vehicle around inductionloop e1_0 at time 2.0
+trying to subscribe to vehicle around inductionloop 'e1_0' at time 1.0
+   found 1 objects
 Ok: Unsubscribe successful
+trying to subscribe to vehicletype around inductionloop 'e1_0' at time 3.0
  Retrying in 1 seconds
-found 1 edge around inductionloop e1_0 at time 2.0
+trying to subscribe to edge around inductionloop 'e1_0' at time 1.0
+   found 1 objects
 Ok: Unsubscribe successful
+trying to subscribe to gui around inductionloop 'e1_0' at time 3.0
  Retrying in 1 seconds
+trying to subscribe to junction around inductionloop 'e1_0' at time 1.0
