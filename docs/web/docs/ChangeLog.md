@@ -30,14 +30,14 @@ title: ChangeLog
   - Fixed invalid emissions for decelerating / standing vehicles for HBEFA and HBEFA3. Issue #2110, #4019
   - inductionLoop near lane end no longer miscounts pedestrians. Issue #10909
   - Fixed bug where person 'jumps' to stop when using option **--persontrip.transfer.walk-taxi ptStops**. Issue #10920
-  - Fixed ride arrval position when using option **--persontrip.transfer.taxi-walk ptStops**. Issue #10919
+  - Fixed ride arrival position when using option **--persontrip.transfer.taxi-walk ptStops**. Issue #10919
   - routeProbReroute is now triggered only once per edge regardless of lane-changing. Issue #10943
   - Fixed inconsistent value for previous vehicle speed after loading simulation state. Issue #10922
   
 - netedit
   - Fixed crash when loading a network (on very slow computers / builds). Issue #10750 (regression in 1.9.0)
   - Greatly increased rendering speed. Issue #10425 (regression in 1.11.0)
-  - Fixed crash when drawing tazRelations. Issue #10929 (regressin in 1.11.0)
+  - Fixed crash when drawing tazRelations. Issue #10929 (regression in 1.11.0)
   - tls mode coloring of 'yellow' phase is now consistent with sumo-gui. Issue #10651
   - Loading a demand file only triggers a 'demand is modified' warning after actual modification. Issue #9529
   - Locate dialog buttons "select all" and "deselect all" now toggle selection status. Issue #10707
@@ -51,7 +51,7 @@ title: ChangeLog
   - Loading and saving a selection is now working for all data elements. Issue #10936
   - Fixed duplicate TAZ id when rendering filled taz. Issue #10944
   - tlType selection from drop-down list is now working after changing junction type. Issue #10956
-  - Fixed bug where lanes could not be clickd after changing attribute numLanes. Issue #10964
+  - Fixed bug where lanes could not be clicked after changing attribute numLanes. Issue #10964
   - Fixed narrow drop-down boxes in inspect mode. Issue #10955
   
 - sumo-gui
@@ -118,7 +118,7 @@ title: ChangeLog
   - All attributes can now be reset to their default value by deleting the attribute content if that attribute has a default. Issue #9350
   - TAZ-source and TAZ-sink elements can now be inspected and selected (upon activating a new toggle button). Issue #10273
   - Stops for containers can now be defined. Issue #10855
-  - Walkingareas anow now shown. Issue #9168
+  - Walkingareas are now shown. Issue #9168
   - Walkingareas can now be located by id. Issue #8580
   - Added 'confirm relation' button to tazRelation mode. Issue #10733
   - Shift-click in demand-stop mode should now sets parent element (i.e. vehicle). Issue #10288
