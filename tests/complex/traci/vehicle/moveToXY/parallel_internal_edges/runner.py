@@ -40,7 +40,7 @@ traci.start([sumolib.checkBinary("sumo"),
 
 traci.simulationStep()
 
-traci.vehicle.moveToXY(vehID, "", -1, 98.6, 131.5, keepRoute="3")
+traci.vehicle.moveToXY(vehID, "", -1, 98.6, 131.5, keepRoute=3)
 traci.simulationStep()
 print("pos=", traci.vehicle.getPosition(vehID))
 print("lane=", traci.vehicle.getLaneID(vehID))
