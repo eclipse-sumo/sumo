@@ -305,6 +305,9 @@ private:
     /// @brief draw junction childs
     void drawJunctionChildren(const GUIVisualizationSettings& s) const;
 
+    /// @brief draw dotted contours
+    void drawDottedContours(const GUIVisualizationSettings& s, const bool drawShape, const bool drawBubble, const double junctionExaggeration, const double bubbleRadius) const;
+
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)
     void setAttribute(SumoXMLAttr key, const std::string& value);
 
