@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-06-18 17:38:32 by Eclipse SUMO netconvert Version v1_13_0+0998-ce5fa9bc486
+<!-- generated on 2022-06-20 10:49:46 by Eclipse SUMO netconvert Version v1_13_0+1026-e918db9
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -4086,11 +4086,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <phase duration="3"  state="rrrrrrryyrrrrrrryy"/>
     </tlLogic>
     <tlLogic id="cluster_1560223404_2335739502_3273797701" type="static" programID="0" offset="0">
-        <phase duration="20" state="rrrrrGGgggrrrrrrrrrrggGGgg"/>
+        <phase duration="21" state="rrrrrGGgggrrrrrrrrrrggGGgg"/>
         <phase duration="3"  state="rrrrryygggrrrrrrrrrrggyygg"/>
         <phase duration="6"  state="rrrrrrrGgGrrrrrrrrrrggrrGG"/>
         <phase duration="3"  state="rrrrrrryyyrrrrrrrrrryyrryy"/>
-        <phase duration="1"  state="rrrrrrrrrrrrrrrrrrrrrrrrrr"/>
         <phase duration="21" state="GGGggrrrrrGGgggrrrrrrrrrrr"/>
         <phase duration="3"  state="yyyggrrrrryygggrrrrrrrrrrr"/>
         <phase duration="6"  state="rrrGGrrrrrrrGGGrrrrrrrrrrr"/>
@@ -4099,16 +4098,15 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <phase duration="3"  state="rrrrrrrrrrrrrrryyyyyyrrrrr"/>
     </tlLogic>
     <tlLogic id="cluster_1560223510_1906766906_1906766907_1906766908_493585714_57343510" type="static" programID="0" offset="0">
-        <phase duration="22" state="GGGGgggrrrrrrrrrrrrGGGGgggrrrrrrrrrrrr"/>
+        <phase duration="23" state="GGGGgggrrrrrrrrrrrrGGGGgggrrrrrrrrrrrr"/>
         <phase duration="3"  state="yyyygggrrrrrrrrrrrryyyygggrrrrrrrrrrrr"/>
         <phase duration="6"  state="rrrrGGGrrrrrrrrrrrrrrrrGGGrrrrrrrrrrrr"/>
         <phase duration="3"  state="rrrryyyrrrrrrrrrrrrrrrryyyrrrrrrrrrrrr"/>
-        <phase duration="3"  state="rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr"/>
-        <phase duration="23" state="rrrrrrrGGGgggrrrrrrrrrrrrrGGGgggrrrrrr"/>
-        <phase duration="3"  state="rrrrrrryyyyyyrrrrrrrrrrrrryyyyyyrrrrrr"/>
-        <phase duration="23" state="rrrrrrrrrrrrrggGgggrrrrrrrrrrrrrGGGggg"/>
-        <phase duration="3"  state="rrrrrrrrrrrrryyyyyyrrrrrrrrrrrrryyyyyy"/>
         <phase duration="1"  state="rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr"/>
+        <phase duration="24" state="rrrrrrrGGGgggrrrrrrrrrrrrrGGGgggrrrrrr"/>
+        <phase duration="3"  state="rrrrrrryyyyyyrrrrrrrrrrrrryyyyyyrrrrrr"/>
+        <phase duration="24" state="rrrrrrrrrrrrrggGgggrrrrrrrrrrrrrGGGggg"/>
+        <phase duration="3"  state="rrrrrrrrrrrrryyyyyyrrrrrrrrrrrrryyyyyy"/>
     </tlLogic>
 
     <junction id="1292264836" type="right_before_left" x="1546.34" y="427.02" incLanes="415852816_0 415852814_0 114024900_0" intLanes=":1292264836_0_0 :1292264836_1_0 :1292264836_2_0 :1292264836_3_0 :1292264836_4_0 :1292264836_5_0 :1292264836_6_0 :1292264836_7_0 :1292264836_8_0" shape="1551.41,429.62 1550.63,423.27 1549.78,423.21 1549.47,423.04 1549.23,422.77 1549.06,422.41 1548.97,421.96 1542.61,422.71 1542.54,423.57 1542.37,423.90 1542.11,424.14 1541.75,424.31 1541.30,424.41 1542.08,430.77">

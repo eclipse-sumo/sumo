@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-06-18 17:38:32 by Eclipse SUMO netconvert Version v1_13_0+0998-ce5fa9bc486
+<!-- generated on 2022-06-20 10:49:46 by Eclipse SUMO netconvert Version v1_13_0+1026-e918db9
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,7 +14,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <type-files value="/home/micha/sumo/data/typemap/osmNetconvert.typ.xml,/home/micha/sumo/data/typemap/osmNetconvertUrbanDe.typ.xml,/home/micha/sumo/data/typemap/osmNetconvertPedestrians.typ.xml"/>
+        <type-files value="/scr1/sumo/data/typemap/osmNetconvert.typ.xml,/scr1/sumo/data/typemap/osmNetconvertUrbanDe.typ.xml,/scr1/sumo/data/typemap/osmNetconvertPedestrians.typ.xml"/>
         <osm-files value="osm.xml"/>
     </input>
 
@@ -966,7 +966,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="346603023#3_0" index="0" allow="bicycle" speed="8.33" length="14.56" width="1.00" shape="858.83,1355.07 858.01,1347.96 857.44,1343.31 857.39,1340.59"/>
     </edge>
     <edge id="346603023#4" from="4002570896" to="9143909218" priority="1" type="highway.cycleway" spreadType="center" shape="857.34,1338.01 856.77,1325.03 856.17,1314.03 847.61,1254.73 842.30,1192.48 842.16,1186.13 841.24,1181.81 840.31,1178.27 837.85,1170.43 837.48,1167.75 836.75,1161.24 836.06,1154.22 836.82,1145.59 837.09,1140.81 833.19,1115.17 820.91,1010.50 805.91,866.17 800.59,808.98 798.44,791.44 782.61,662.35 782.21,658.42 775.68,595.97 775.17,591.10 774.49,585.07 757.83,438.99 757.56,426.86 756.69,417.31 756.28,413.36 754.17,399.38 753.58,395.83 752.93,392.18 752.45,388.55 752.05,385.76 751.81,384.27 751.71,383.62 751.20,380.48 748.80,368.10 747.45,358.62 746.49,345.24 744.87,322.74 741.19,290.54 738.90,265.35 736.94,244.28 734.32,216.15 729.97,192.59 721.97,121.47 720.48,118.79 718.88,114.05 717.97,107.72 717.42,100.76 716.32,90.28 715.13,83.04 714.96,78.86 715.03,77.52 715.45,69.37 714.02,51.18 712.67,33.92 711.43,27.64 710.32,19.74 709.27,13.85 707.73,0.00">
-        <lane id="346603023#4_0" index="0" allow="bicycle" speed="8.33" length="1345.20" width="1.00" shape="857.23,1335.44 856.77,1325.03 856.17,1314.03 847.61,1254.73 842.30,1192.48 842.16,1186.13 841.24,1181.81 840.31,1178.27 837.85,1170.43 837.48,1167.75 836.75,1161.24 836.06,1154.22 836.82,1145.59 837.09,1140.81 833.19,1115.17 820.91,1010.50 805.91,866.17 800.59,808.98 798.44,791.44 782.61,662.35 782.21,658.42 775.68,595.97 775.17,591.10 774.49,585.07 757.83,438.99 757.56,426.86 756.69,417.31 756.28,413.36 754.17,399.38 753.58,395.83 752.93,392.18 752.45,388.55 752.05,385.76 751.81,384.27 751.71,383.62 751.20,380.48 748.80,368.10 747.45,358.62 746.49,345.24 744.87,322.74 741.19,290.54 738.90,265.35 736.94,244.28 734.32,216.15 729.97,192.59 721.97,121.47 720.48,118.79 718.88,114.05 717.97,107.72 717.42,100.76 716.32,90.28 715.13,83.04 714.96,78.86 715.03,77.52 715.45,69.37 714.02,51.18 712.67,33.92 711.43,27.64 710.32,19.74 709.27,13.85 707.73,0.00"/>
+        <lane id="346603023#4_0" index="0" allow="bicycle" speed="8.33" length="1345.20" width="1.00" shape="857.23,1335.44 856.77,1325.03 856.17,1314.03 847.61,1254.73 842.30,1192.48 842.16,1186.13 841.24,1181.81 840.31,1178.27 837.85,1170.43 837.48,1167.75 836.75,1161.24 836.06,1154.22 836.82,1145.59 837.09,1140.81 833.19,1115.17 820.91,1010.50 805.91,866.17 800.59,808.98 798.44,791.44 782.61,662.35 782.21,658.42 775.68,595.97 775.17,591.10 774.49,585.07 757.83,438.99 757.56,426.86 756.69,417.31 756.28,413.36 754.17,399.38 753.58,395.83 752.93,392.18 752.45,388.55 752.05,385.76 751.81,384.27 751.71,383.62 751.20,380.48 748.80,368.10 747.45,358.62 746.49,345.24 744.87,322.74 741.19,290.54 738.90,265.35 736.94,244.28 734.32,216.15 729.97,192.59 721.97,121.47 720.48,118.79 718.88,114.05 717.97,107.72 717.42,100.76 716.32,90.28 715.13,83.04 714.96,78.86 715.03,77.52 715.45,69.37 714.02,51.18 712.67,33.92 711.43,27.64 710.32,19.74 709.27,13.85 707.73,-0.00"/>
     </edge>
     <edge id="359426033#2" from="cluster_2663214238_273542034_273542611_3445436408_5458979064_5458979066" to="27557116" priority="11" type="highway.secondary" shape="875.97,1395.16 873.60,1380.28 869.31,1356.15">
         <lane id="359426033#2_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="33.34" shape="870.89,1393.78 868.86,1381.08 865.29,1360.95"/>
@@ -989,7 +989,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="413436796#0_0" index="0" allow="pedestrian" speed="2.78" length="61.79" width="2.00" shape="872.09,1456.41 846.52,1464.38 814.43,1471.80 812.39,1472.13"/>
     </edge>
     <edge id="413436796#1" from="cluster_558992074_8943940047" to="4147550760" priority="1" type="highway.footway" spreadType="center" shape="807.75,1472.86 799.00,1474.26 778.08,1476.92 734.51,1480.91 691.36,1483.96 682.12,1483.92 663.24,1483.84 626.06,1483.21 600.69,1481.56 564.77,1477.70 538.65,1473.66 536.38,1471.69 529.31,1470.75 528.24,1470.94 526.44,1471.25 504.59,1468.40 499.17,1467.48 492.37,1466.32 488.15,1462.57 464.70,1457.46 456.31,1454.06 434.41,1443.45 423.40,1436.46 410.35,1425.97 406.28,1423.08 399.90,1418.54 389.47,1413.85 379.18,1411.61 329.65,1408.75 295.84,1406.76 255.55,1404.53 223.14,1403.07 213.39,1403.09 203.00,1403.47 168.53,1407.26 155.22,1408.76 107.00,1414.17 83.29,1416.31 52.72,1418.69 29.78,1419.97 12.03,1422.07 0.00,1422.41">
-        <lane id="413436796#1_0" index="0" allow="pedestrian" speed="2.78" length="821.04" width="2.00" shape="803.15,1473.59 799.00,1474.26 778.08,1476.92 734.51,1480.91 691.36,1483.96 682.12,1483.92 663.24,1483.84 626.06,1483.21 600.69,1481.56 564.77,1477.70 538.65,1473.66 536.38,1471.69 529.31,1470.75 528.24,1470.94 526.44,1471.25 504.59,1468.40 499.17,1467.48 492.37,1466.32 488.15,1462.57 464.70,1457.46 456.31,1454.06 434.41,1443.45 423.40,1436.46 410.35,1425.97 406.28,1423.08 399.90,1418.54 389.47,1413.85 379.18,1411.61 329.65,1408.75 295.84,1406.76 255.55,1404.53 223.14,1403.07 213.39,1403.09 203.00,1403.47 168.53,1407.26 155.22,1408.76 107.00,1414.17 83.29,1416.31 52.72,1418.69 29.78,1419.97 12.03,1422.07 -0.00,1422.41"/>
+        <lane id="413436796#1_0" index="0" allow="pedestrian" speed="2.78" length="821.04" width="2.00" shape="803.15,1473.59 799.00,1474.26 778.08,1476.92 734.51,1480.91 691.36,1483.96 682.12,1483.92 663.24,1483.84 626.06,1483.21 600.69,1481.56 564.77,1477.70 538.65,1473.66 536.38,1471.69 529.31,1470.75 528.24,1470.94 526.44,1471.25 504.59,1468.40 499.17,1467.48 492.37,1466.32 488.15,1462.57 464.70,1457.46 456.31,1454.06 434.41,1443.45 423.40,1436.46 410.35,1425.97 406.28,1423.08 399.90,1418.54 389.47,1413.85 379.18,1411.61 329.65,1408.75 295.84,1406.76 255.55,1404.53 223.14,1403.07 213.39,1403.09 203.00,1403.47 168.53,1407.26 155.22,1408.76 107.00,1414.17 83.29,1416.31 52.72,1418.69 29.78,1419.97 12.03,1422.07 0.00,1422.41"/>
     </edge>
     <edge id="43955249#1" from="cluster_558992074_8943940047" to="558992105" priority="1" type="highway.service" shape="807.75,1472.86 822.62,1544.37">
         <lane id="43955249#1_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="70.38" shape="809.86,1475.13 824.18,1544.04"/>
@@ -1109,14 +1109,13 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </edge>
 
     <tlLogic id="cluster_2663214238_273542034_273542611_3445436408_5458979064_5458979066" type="actuated" programID="0" offset="0">
-        <phase duration="23" state="GGGgggrrrrrrrrrrGGGGGggrrrrrrr" minDur="5" maxDur="50"/>
+        <phase duration="24" state="GGGgggrrrrrrrrrrGGGGGggrrrrrrr" minDur="5" maxDur="50"/>
         <phase duration="3"  state="yyygggrrrrrrrrrryyyyyggrrrrrrr"/>
         <phase duration="6"  state="rrrGGGrrrrrrrrrrrrrrrGGrrrrrrr" minDur="5" maxDur="50"/>
         <phase duration="3"  state="rrryyyrrrrrrrrrrrrrrryyrrrrrrr"/>
         <phase duration="19" state="rrrrrrGGGggrrrrrrrrrrrrgGgggrG" minDur="5" maxDur="50"/>
         <phase duration="5"  state="rrrrrrGGGggrrrrrrrrrrrrgGgggrr"/>
         <phase duration="3"  state="rrrrrryyyyyrrrrrrrrrrrryyyyyrr"/>
-        <phase duration="1"  state="rrrrrrrrrrrrrrrrrrrrrrrrrrrrrr"/>
         <phase duration="19" state="rrrrrrrrrrrgGGGgrrrrrrrrrrrrGG" minDur="5" maxDur="50"/>
         <phase duration="5"  state="rrrrrrrrrrrgGGGgrrrrrrrrrrrrrr"/>
         <phase duration="3"  state="rrrrrrrrrrryyyyyrrrrrrrrrrrrrr"/>
@@ -1127,17 +1126,15 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <phase duration="3"  state="yyyyyggrrrrrryyyggggrrrrrrrrrrrrrrrrrrrrrrr"/>
         <phase duration="6"  state="rrrrrGGrrrrrrrrrGGGGrrrrrrrrrrrrrrrrrrrrrrr" minDur="5" maxDur="50"/>
         <phase duration="3"  state="rrrrryyrrrrrrrrryyyyrrrrrrrrrrrrrrrrrrrrrrr"/>
-        <phase duration="1"  state="rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr"/>
-        <phase duration="9"  state="rrrrrrrgGGgggrrrrrrrGGGgggrrrrrrrrrrrrGGrrr" minDur="5" maxDur="50"/>
+        <phase duration="10" state="rrrrrrrgGGgggrrrrrrrGGGgggrrrrrrrrrrrrGGrrr" minDur="5" maxDur="50"/>
         <phase duration="5"  state="rrrrrrrgGGgggrrrrrrrGGGgggrrrrrrrrrrrrrrrrr"/>
         <phase duration="3"  state="rrrrrrryyyyyyrrrrrrryyyyyyrrrrrrrrrrrrrrrrr"/>
-        <phase duration="9"  state="rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrgGGGGgGGrrG" minDur="5" maxDur="50"/>
+        <phase duration="10" state="rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrgGGGGgGGrrG" minDur="5" maxDur="50"/>
         <phase duration="5"  state="rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrgGGGGgrrrrr"/>
         <phase duration="3"  state="rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrryyyyyyrrrrr"/>
-        <phase duration="9"  state="rrrrrrrrrrrrrrrrrrrrrrrrrrGGgGgGrrrrrrGGGrr" minDur="5" maxDur="50"/>
+        <phase duration="10" state="rrrrrrrrrrrrrrrrrrrrrrrrrrGGgGgGrrrrrrGGGrr" minDur="5" maxDur="50"/>
         <phase duration="5"  state="rrrrrrrrrrrrrrrrrrrrrrrrrrGGgGgGrrrrrrrrrrr"/>
         <phase duration="3"  state="rrrrrrrrrrrrrrrrrrrrrrrrrryyyyyyrrrrrrrrrrr"/>
-        <phase duration="2"  state="rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr"/>
         <phase duration="5"  state="rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrGGGGG"/>
         <phase duration="5"  state="rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr"/>
     </tlLogic>
