@@ -10,8 +10,12 @@
     <routeProbe id="rp_2" begin="0.00" period="3600.00" edge="1o" file="rp_2.xml"/>
     <routeProbe id="rp_3" begin="0.00" period="3600.00" edge="2si" file="rp_3.xml"/>
     <!-- Calibrators -->
-    <calibrator id="ca_0" lane="1si_6" pos="28.43"/>
-    <calibrator id="ca_1" lane="1si_6" pos="41.85"/>
+    <calibrator id="ca_0" lane="1si_6" pos="28.43">
+        <flow vehsPerHour="10" begin="0" end="3600"/>
+    </calibrator>
+    <calibrator id="ca_1" lane="1si_6" pos="41.85">
+        <flow vehsPerHour="10" begin="0" end="3600"/>
+    </calibrator>
     <!-- StoppingPlaces -->
     <busStop id="bs_0" lane="1si_0" startPos="22.83" endPos="32.83"/>
     <busStop id="bs_1" lane="1si_0" startPos="36.28" endPos="46.28"/>

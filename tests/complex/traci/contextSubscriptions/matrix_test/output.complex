@@ -3,3 +3,18 @@ found 1 inductionloop around inductionloop e1_0 at time 2.0
 Ok: Unsubscribe successful
 found 1 lanearea around inductionloop e1_0 at time 4.0
 Ok: Unsubscribe successful
+ Retrying in 1 seconds
+ Retrying in 1 seconds
+ Retrying in 1 seconds
+ Retrying in 1 seconds
+found 1 lane around inductionloop e1_0 at time 2.0
+Ok: Unsubscribe successful
+found 1 person around inductionloop e1_0 at time 4.0
+Ok: Unsubscribe successful
+ Retrying in 1 seconds
+found 1 vehicle around inductionloop e1_0 at time 2.0
+Ok: Unsubscribe successful
+ Retrying in 1 seconds
+found 1 edge around inductionloop e1_0 at time 2.0
+Ok: Unsubscribe successful
+ Retrying in 1 seconds

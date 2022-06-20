@@ -1,4 +1,19 @@
-Warning: No flow intervals in calibrator 'ca_0'.
-Warning: No flow intervals in calibrator 'ca_1'.
 Error: Infeasible context domain (161)
+Quitting (on error).
+Error: Infeasible context domain (162)
+Quitting (on error).
+Error: Infeasible context domain (41)
+Quitting (on error).
+Error: Infeasible context domain (42)
+Quitting (on error).
+Error: Infeasible context domain (166)
+Quitting (on error).
+Error: Infeasible context domain (165)
+Quitting (on error).
+Error: Infeasible context domain (172)
+Quitting (on error).
+Error: Answered with error to command 0xa9: Get Junction Variable: unsupported variable 0x10 specified
+Error: Answered with error to command 0x80: Could not add subscription. Get Junction Variable: unsupported variable 0x10 specified
+Quitting (on error).
+Error: tcpip::Socket::recvAndCheck @ recv: peer shutdown
 Quitting (on error).
