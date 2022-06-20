@@ -1429,7 +1429,7 @@ class vehicle:
         departPosLat = 20
         arrivalPosLat = 21
         insertionChecks = 22
-        depart = 22
+        depart = 23
 
     class inspect:
         id = 1
@@ -1450,9 +1450,9 @@ class vehicle:
         containerNumber = 16
         departPosLat = 17
         arrivalPosLat = 18
-        insertionChecks = 22
-        depart = 19
-        parameters = 22
+        insertionChecks = 19
+        depart = 20
+        parameters = 23
 
     class inspectSelection:
         type = 1
@@ -1469,9 +1469,9 @@ class vehicle:
         containerNumber = 12
         departPosLat = 13
         arrivalPosLat = 14
-        insertionChecks = 22
-        depart = 15
-        parameters = 18
+        insertionChecks = 15
+        depart = 16
+        parameters = 19
 
 # vehicle (embedded route)
 
@@ -1494,7 +1494,7 @@ class vehicleEmbedded:
         departPosLat = 20
         arrivalPosLat = 21
         insertionChecks = 22
-        depart = 22
+        depart = 23
 
     class inspect:
         id = 1
@@ -1514,9 +1514,9 @@ class vehicleEmbedded:
         containerNumber = 15
         departPosLat = 16
         arrivalPosLat = 17
-        insertionChecks = 22
-        depart = 18
-        parameters = 21
+        insertionChecks = 18
+        depart = 19
+        parameters = 22
 
     class inspectSelection:
         type = 1
@@ -1533,9 +1533,9 @@ class vehicleEmbedded:
         containerNumber = 12
         departPosLat = 13
         arrivalPosLat = 14
-        insertionChecks = 22
-        depart = 15
-        parameters = 18
+        insertionChecks = 15
+        depart = 16
+        parameters = 19
 
 # flow (from-to edges)
 
@@ -1558,13 +1558,13 @@ class flowFromToEdge:
         departPosLat = 20
         arrivalPosLat = 21
         insertionChecks = 22
-        begin = 22
-        terminate = 26
-        end = 28
-        number = 29
-        spacing = 28
-        terminateOption = 30
-        spacingOption = 31
+        begin = 23
+        terminate = 27
+        end = 29
+        number = 30
+        spacing = 29
+        terminateOption = 31
+        spacingOption = 32
 
     class inspect:
         id = 1
@@ -1585,14 +1585,14 @@ class flowFromToEdge:
         containerNumber = 16
         departPosLat = 17
         arrivalPosLat = 18
-        insertionChecks = 22
-        begin = 19
-        terminate = 22
-        spacing = 24
-        end = 25
-        terminateOption = 26
-        spacingOption = 27
-        parameters = 29
+        insertionChecks = 19
+        begin = 20
+        terminate = 23
+        spacing = 25
+        end = 26
+        terminateOption = 27
+        spacingOption = 28
+        parameters = 30
 
     class inspectSelection:
         type = 1
@@ -1609,13 +1609,13 @@ class flowFromToEdge:
         containerNumber = 12
         departPosLat = 13
         arrivalPosLat = 14
-        insertionChecks = 22
-        begin = 15
-        terminate = 18
-        spacing = 20
-        terminateOption = 22
-        spacingOption = 23
-        parameters = 23
+        insertionChecks = 15
+        begin = 16
+        terminate = 19
+        spacing = 21
+        terminateOption = 23
+        spacingOption = 24
+        parameters = 24
 
 
 # flow (from-to junctions)
@@ -1639,13 +1639,13 @@ class flowJunction:
         departPosLat = 20
         arrivalPosLat = 21
         insertionChecks = 22
-        begin = 22
-        terminate = 26
-        end = 28
-        number = 29
-        spacing = 28
-        terminateOption = 30
-        spacingOption = 31
+        begin = 23
+        terminate = 27
+        end = 29
+        number = 30
+        spacing = 29
+        terminateOption = 31
+        spacingOption = 32
 
     class inspect:
         id = 1
@@ -1665,87 +1665,7 @@ class flowJunction:
         containerNumber = 15
         departPosLat = 16
         arrivalPosLat = 17
-        insertionChecks = 22
-        begin = 18
-        terminate = 21
-        spacing = 23
-        end = 24
-        terminateOption = 25
-        spacingOption = 26
-        parameters = 28
-
-    class inspectSelection:
-        type = 1
-        colorButton = 2
-        color = 3
-        departLane = 4
-        departPos = 5
-        departSpeed = 6
-        arrivalLane = 7
-        arrivalPos = 8
-        arrivalSpeed = 9
-        line = 10
-        personNumber = 11
-        containerNumber = 12
-        departPosLat = 13
-        arrivalPosLat = 14
-        insertionChecks = 22
-        begin = 15
-        terminate = 18
-        spacing = 20
-        terminateOption = 22
-        spacingOption = 23
-        parameters = 23
-
-# flow (over route)
-
-
-class routeflow:
-    class create:
-        type = 5
-        id = 8
-        colorButton = 9
-        color = 10
-        departLane = 11
-        departPos = 12
-        departSpeed = 13
-        arrivalLane = 14
-        arrivalPos = 15
-        arrivalSpeed = 16
-        line = 17
-        personNumber = 18
-        containerNumber = 19
-        departPosLat = 20
-        arrivalPosLat = 21
-        insertionChecks = 22
-        begin = 22
-        terminate = 26
-        end = 28
-        number = 29
-        spacing = 28
-        terminateOption = 30
-        spacingOption = 31
-
-    class inspect:
-        id = 1
-        type = 2
-        route = 3
-        departEdge = 4
-        arrivalEdge = 5
-        colorButton = 6
-        color = 7
-        departLane = 8
-        departPos = 9
-        departSpeed = 10
-        arrivalLane = 11
-        arrivalPos = 12
-        arrivalSpeed = 13
-        line = 14
-        personNumber = 15
-        containerNumber = 16
-        departPosLat = 17
-        arrivalPosLat = 18
-        insertionChecks = 22
+        insertionChecks = 18
         begin = 19
         terminate = 22
         spacing = 24
@@ -1769,13 +1689,93 @@ class routeflow:
         containerNumber = 12
         departPosLat = 13
         arrivalPosLat = 14
+        insertionChecks = 15
+        begin = 16
+        terminate = 19
+        spacing = 21
+        terminateOption = 23
+        spacingOption = 24
+        parameters = 24
+
+# flow (over route)
+
+
+class routeflow:
+    class create:
+        type = 5
+        id = 8
+        colorButton = 9
+        color = 10
+        departLane = 11
+        departPos = 12
+        departSpeed = 13
+        arrivalLane = 14
+        arrivalPos = 15
+        arrivalSpeed = 16
+        line = 17
+        personNumber = 18
+        containerNumber = 19
+        departPosLat = 20
+        arrivalPosLat = 21
         insertionChecks = 22
-        begin = 15
-        terminate = 18
-        spacing = 20
-        terminateOption = 22
-        spacingOption = 23
-        parameters = 23
+        begin = 23
+        terminate = 27
+        end = 29
+        number = 30
+        spacing = 29
+        terminateOption = 31
+        spacingOption = 32
+
+    class inspect:
+        id = 1
+        type = 2
+        route = 3
+        departEdge = 4
+        arrivalEdge = 5
+        colorButton = 6
+        color = 7
+        departLane = 8
+        departPos = 9
+        departSpeed = 10
+        arrivalLane = 11
+        arrivalPos = 12
+        arrivalSpeed = 13
+        line = 14
+        personNumber = 15
+        containerNumber = 16
+        departPosLat = 17
+        arrivalPosLat = 18
+        insertionChecks = 19
+        begin = 20
+        terminate = 23
+        spacing = 25
+        end = 26
+        terminateOption = 27
+        spacingOption = 28
+        parameters = 30
+
+    class inspectSelection:
+        type = 1
+        colorButton = 2
+        color = 3
+        departLane = 4
+        departPos = 5
+        departSpeed = 6
+        arrivalLane = 7
+        arrivalPos = 8
+        arrivalSpeed = 9
+        line = 10
+        personNumber = 11
+        containerNumber = 12
+        departPosLat = 13
+        arrivalPosLat = 14
+        insertionChecks = 15
+        begin = 16
+        terminate = 17
+        spacing = 21
+        terminateOption = 23
+        spacingOption = 24
+        parameters = 24
 
 # flow (embedded route)
 
@@ -1798,13 +1798,13 @@ class flowEmbedded:
         departPosLat = 20
         arrivalPosLat = 21
         insertionChecks = 22
-        begin = 22
-        terminate = 26
-        end = 28
-        number = 29
-        spacing = 28
-        terminateOption = 30
-        spacingOption = 31
+        begin = 23
+        terminate = 27
+        end = 29
+        number = 30
+        spacing = 29
+        terminateOption = 31
+        spacingOption = 32
 
     class inspect:
         id = 1
@@ -1824,14 +1824,14 @@ class flowEmbedded:
         containerNumber = 15
         departPosLat = 16
         arrivalPosLat = 17
-        insertionChecks = 22
-        begin = 18
-        terminate = 21
-        spacing = 23
-        end = 24
-        terminateOption = 25
-        spacingOption = 26
-        parameters = 28
+        insertionChecks = 18
+        begin = 19
+        terminate = 22
+        spacing = 24
+        end = 25
+        terminateOption = 26
+        spacingOption = 27
+        parameters = 29
 
     class inspectSelection:
         type = 1
@@ -1848,13 +1848,13 @@ class flowEmbedded:
         containerNumber = 12
         departPosLat = 13
         arrivalPosLat = 14
-        insertionChecks = 22
-        begin = 15
-        terminate = 18
-        spacing = 20
-        terminateOption = 22
-        spacingOption = 23
-        parameters = 23
+        insertionChecks = 15
+        begin = 16
+        terminate = 19
+        spacing = 21
+        terminateOption = 23
+        spacingOption = 24
+        parameters = 24
 
 # stop (over busStop/containerStop/chargingStation)
 
