@@ -1,1 +1,1 @@
-Warning: Vehicle 'ego' moved by TraCI from 75.04,207.83 to 98.60,131.50 (dist 61.36) with implied speed of 61.36 (exceeding maximum speed 55.56). time=1.00.
+Warning: Vehicle 'ego' performs emergency stop at the end of lane 'NC_2' because there is no connection to the next edge (decel=0.00, offset=18.35), time=1.00.
