@@ -12,8 +12,113 @@ Error: Infeasible context domain (165)
 Quitting (on error).
 Error: Infeasible context domain (172)
 Quitting (on error).
-Error: Answered with error to command 0xa9: Get Junction Variable: unsupported variable 0x10 specified
-Error: Answered with error to command 0x80: Could not add subscription. Get Junction Variable: unsupported variable 0x10 specified
+Error: Infeasible context domain (171)
+Quitting (on error).
+Error: Infeasible context domain (39)
+Quitting (on error).
+Error: Infeasible context domain (175)
+Quitting (on error).
+Error: Infeasible context domain (36)
+Quitting (on error).
+Error: Infeasible context domain (37)
+Quitting (on error).
+Error: Infeasible context domain (43)
+Quitting (on error).
+Error: Infeasible context domain (38)
+Quitting (on error).
+Error: Infeasible context domain (40)
+Quitting (on error).
+Error: Infeasible context domain (161)
+Quitting (on error).
+Error: Infeasible context domain (162)
+Quitting (on error).
+Error: Infeasible context domain (41)
+Quitting (on error).
+Error: Infeasible context domain (42)
+Quitting (on error).
+Error: Infeasible context domain (166)
+Quitting (on error).
+Error: Infeasible context domain (165)
+Quitting (on error).
+Error: Infeasible context domain (172)
+Quitting (on error).
+Error: Infeasible context domain (171)
+Quitting (on error).
+Error: Infeasible context domain (39)
+Quitting (on error).
+Error: Infeasible context domain (175)
+Quitting (on error).
+Error: Infeasible context domain (36)
+Quitting (on error).
+Error: Infeasible context domain (37)
+Quitting (on error).
+Error: Infeasible context domain (43)
+Quitting (on error).
+Error: Infeasible context domain (38)
+Quitting (on error).
+Error: Infeasible context domain (40)
+Quitting (on error).
+Error: Infeasible context domain (161)
+Quitting (on error).
+Error: Infeasible context domain (162)
+Quitting (on error).
+Error: Infeasible context domain (41)
+Quitting (on error).
+Error: Infeasible context domain (42)
+Quitting (on error).
+Error: Infeasible context domain (166)
+Quitting (on error).
+Error: Infeasible context domain (165)
+Quitting (on error).
+Error: Infeasible context domain (172)
+Quitting (on error).
+Error: Infeasible context domain (171)
+Quitting (on error).
+Error: Infeasible context domain (39)
+Quitting (on error).
+Error: Infeasible context domain (175)
+Quitting (on error).
+Error: Infeasible context domain (36)
+Quitting (on error).
+Error: Infeasible context domain (37)
+Quitting (on error).
+Error: Infeasible context domain (43)
+Quitting (on error).
+Error: Infeasible context domain (38)
+Quitting (on error).
+Error: Infeasible context domain (40)
+Quitting (on error).
+Error: Infeasible context domain (161)
+Quitting (on error).
+Error: Infeasible context domain (162)
+Quitting (on error).
+Error: Infeasible context domain (41)
+Quitting (on error).
+Error: Infeasible context domain (42)
+Quitting (on error).
+Error: Infeasible context domain (166)
+Quitting (on error).
+Error: Infeasible context domain (165)
+Quitting (on error).
+Error: Infeasible context domain (172)
+Quitting (on error).
+Error: Infeasible context domain (171)
+Quitting (on error).
+Error: Infeasible context domain (39)
+Quitting (on error).
+Error: Infeasible context domain (175)
+Quitting (on error).
+Error: Infeasible context domain (36)
+Quitting (on error).
+Error: Infeasible context domain (37)
+Quitting (on error).
+Error: Infeasible context domain (43)
+Quitting (on error).
+Error: Infeasible context domain (38)
+Quitting (on error).
+Error: Infeasible context domain (40)
+Quitting (on error).
+Error: Requested command not implemented (0x09): Command not implemented in sumo
 Quitting (on error).
 Error: tcpip::Socket::recvAndCheck @ recv: peer shutdown
 Quitting (on error).

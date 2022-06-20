@@ -40,7 +40,8 @@ def runSingle(viewRange, domain, domain2):
 
     print("trying to subscribe to %s around %s '%s' at time %s" % (
         name2, name, egoID, traci.simulation.getTime()))
-    domain.subscribeContext(egoID, domain2.DOMAIN_ID, viewRange)
+    domain.subscribeContext(egoID, domain2.DOMAIN_ID, viewRange,
+            [traci.constants.TRACI_ID_LIST])
     responses = traci.simulationStep()
     print("   found %s objects" % len(responses))
 
@@ -65,7 +66,8 @@ for domain in traci.DOMAINS:
     for domain2 in traci.DOMAINS:
         try:
             runSingle(100, domain, domain2)
-        except traci.FatalTraCIError:
+        except traci.FatalTraCIError as e:
+            print("restarting sumo due to FatalTraCIError '%s'" % e)
             traci.close()
             restart()
         except traci.TraCIException:

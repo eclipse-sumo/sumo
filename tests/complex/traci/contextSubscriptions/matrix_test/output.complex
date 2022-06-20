@@ -6,12 +6,16 @@ trying to subscribe to lanearea around inductionloop 'e1_0' at time 3.0
    found 1 objects
 Ok: Unsubscribe successful
 trying to subscribe to multientryexit around inductionloop 'e1_0' at time 5.0
+restarting sumo due to FatalTraCIError 'connection closed by SUMO'
  Retrying in 1 seconds
 trying to subscribe to trafficlight around inductionloop 'e1_0' at time 1.0
+restarting sumo due to FatalTraCIError 'connection closed by SUMO'
  Retrying in 1 seconds
 trying to subscribe to variablespeedsign around inductionloop 'e1_0' at time 1.0
+restarting sumo due to FatalTraCIError 'connection closed by SUMO'
  Retrying in 1 seconds
 trying to subscribe to meandata around inductionloop 'e1_0' at time 1.0
+restarting sumo due to FatalTraCIError 'connection closed by SUMO'
  Retrying in 1 seconds
 trying to subscribe to lane around inductionloop 'e1_0' at time 1.0
    found 1 objects
@@ -20,15 +24,267 @@ trying to subscribe to person around inductionloop 'e1_0' at time 3.0
    found 1 objects
 Ok: Unsubscribe successful
 trying to subscribe to route around inductionloop 'e1_0' at time 5.0
+restarting sumo due to FatalTraCIError 'connection closed by SUMO'
  Retrying in 1 seconds
 trying to subscribe to vehicle around inductionloop 'e1_0' at time 1.0
    found 1 objects
 Ok: Unsubscribe successful
 trying to subscribe to vehicletype around inductionloop 'e1_0' at time 3.0
+restarting sumo due to FatalTraCIError 'connection closed by SUMO'
  Retrying in 1 seconds
 trying to subscribe to edge around inductionloop 'e1_0' at time 1.0
    found 1 objects
 Ok: Unsubscribe successful
 trying to subscribe to gui around inductionloop 'e1_0' at time 3.0
+restarting sumo due to FatalTraCIError 'connection closed by SUMO'
  Retrying in 1 seconds
 trying to subscribe to junction around inductionloop 'e1_0' at time 1.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to poi around inductionloop 'e1_0' at time 3.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to polygon around inductionloop 'e1_0' at time 5.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to simulation around inductionloop 'e1_0' at time 7.0
+restarting sumo due to FatalTraCIError 'connection closed by SUMO'
+ Retrying in 1 seconds
+trying to subscribe to calibrator around inductionloop 'e1_0' at time 1.0
+restarting sumo due to FatalTraCIError 'connection closed by SUMO'
+ Retrying in 1 seconds
+trying to subscribe to busstop around inductionloop 'e1_0' at time 1.0
+restarting sumo due to FatalTraCIError 'connection closed by SUMO'
+ Retrying in 1 seconds
+trying to subscribe to parkingarea around inductionloop 'e1_0' at time 1.0
+restarting sumo due to FatalTraCIError 'connection closed by SUMO'
+ Retrying in 1 seconds
+trying to subscribe to chargingstation around inductionloop 'e1_0' at time 1.0
+restarting sumo due to FatalTraCIError 'connection closed by SUMO'
+ Retrying in 1 seconds
+trying to subscribe to overheadwire around inductionloop 'e1_0' at time 1.0
+restarting sumo due to FatalTraCIError 'connection closed by SUMO'
+ Retrying in 1 seconds
+trying to subscribe to routeprobe around inductionloop 'e1_0' at time 1.0
+restarting sumo due to FatalTraCIError 'connection closed by SUMO'
+ Retrying in 1 seconds
+trying to subscribe to rerouter around inductionloop 'e1_0' at time 1.0
+restarting sumo due to FatalTraCIError 'connection closed by SUMO'
+ Retrying in 1 seconds
+trying to subscribe to inductionloop around lanearea 'e2_0' at time 1.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to lanearea around lanearea 'e2_0' at time 3.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to multientryexit around lanearea 'e2_0' at time 5.0
+restarting sumo due to FatalTraCIError 'connection closed by SUMO'
+ Retrying in 1 seconds
+trying to subscribe to trafficlight around lanearea 'e2_0' at time 1.0
+restarting sumo due to FatalTraCIError 'connection closed by SUMO'
+ Retrying in 1 seconds
+trying to subscribe to variablespeedsign around lanearea 'e2_0' at time 1.0
+restarting sumo due to FatalTraCIError 'connection closed by SUMO'
+ Retrying in 1 seconds
+trying to subscribe to meandata around lanearea 'e2_0' at time 1.0
+restarting sumo due to FatalTraCIError 'connection closed by SUMO'
+ Retrying in 1 seconds
+trying to subscribe to lane around lanearea 'e2_0' at time 1.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to person around lanearea 'e2_0' at time 3.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to route around lanearea 'e2_0' at time 5.0
+restarting sumo due to FatalTraCIError 'connection closed by SUMO'
+ Retrying in 1 seconds
+trying to subscribe to vehicle around lanearea 'e2_0' at time 1.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to vehicletype around lanearea 'e2_0' at time 3.0
+restarting sumo due to FatalTraCIError 'connection closed by SUMO'
+ Retrying in 1 seconds
+trying to subscribe to edge around lanearea 'e2_0' at time 1.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to gui around lanearea 'e2_0' at time 3.0
+restarting sumo due to FatalTraCIError 'connection closed by SUMO'
+ Retrying in 1 seconds
+trying to subscribe to junction around lanearea 'e2_0' at time 1.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to poi around lanearea 'e2_0' at time 3.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to polygon around lanearea 'e2_0' at time 5.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to simulation around lanearea 'e2_0' at time 7.0
+restarting sumo due to FatalTraCIError 'connection closed by SUMO'
+ Retrying in 1 seconds
+trying to subscribe to calibrator around lanearea 'e2_0' at time 1.0
+restarting sumo due to FatalTraCIError 'connection closed by SUMO'
+ Retrying in 1 seconds
+trying to subscribe to busstop around lanearea 'e2_0' at time 1.0
+restarting sumo due to FatalTraCIError 'connection closed by SUMO'
+ Retrying in 1 seconds
+trying to subscribe to parkingarea around lanearea 'e2_0' at time 1.0
+restarting sumo due to FatalTraCIError 'connection closed by SUMO'
+ Retrying in 1 seconds
+trying to subscribe to chargingstation around lanearea 'e2_0' at time 1.0
+restarting sumo due to FatalTraCIError 'connection closed by SUMO'
+ Retrying in 1 seconds
+trying to subscribe to overheadwire around lanearea 'e2_0' at time 1.0
+restarting sumo due to FatalTraCIError 'connection closed by SUMO'
+ Retrying in 1 seconds
+trying to subscribe to routeprobe around lanearea 'e2_0' at time 1.0
+restarting sumo due to FatalTraCIError 'connection closed by SUMO'
+ Retrying in 1 seconds
+trying to subscribe to rerouter around lanearea 'e2_0' at time 1.0
+restarting sumo due to FatalTraCIError 'connection closed by SUMO'
+ Retrying in 1 seconds
+trying to subscribe to inductionloop around multientryexit 'e3_0' at time 1.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to lanearea around multientryexit 'e3_0' at time 3.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to multientryexit around multientryexit 'e3_0' at time 5.0
+restarting sumo due to FatalTraCIError 'connection closed by SUMO'
+ Retrying in 1 seconds
+trying to subscribe to trafficlight around multientryexit 'e3_0' at time 1.0
+restarting sumo due to FatalTraCIError 'connection closed by SUMO'
+ Retrying in 1 seconds
+trying to subscribe to variablespeedsign around multientryexit 'e3_0' at time 1.0
+restarting sumo due to FatalTraCIError 'connection closed by SUMO'
+ Retrying in 1 seconds
+trying to subscribe to meandata around multientryexit 'e3_0' at time 1.0
+restarting sumo due to FatalTraCIError 'connection closed by SUMO'
+ Retrying in 1 seconds
+trying to subscribe to lane around multientryexit 'e3_0' at time 1.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to person around multientryexit 'e3_0' at time 3.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to route around multientryexit 'e3_0' at time 5.0
+restarting sumo due to FatalTraCIError 'connection closed by SUMO'
+ Retrying in 1 seconds
+trying to subscribe to vehicle around multientryexit 'e3_0' at time 1.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to vehicletype around multientryexit 'e3_0' at time 3.0
+restarting sumo due to FatalTraCIError 'connection closed by SUMO'
+ Retrying in 1 seconds
+trying to subscribe to edge around multientryexit 'e3_0' at time 1.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to gui around multientryexit 'e3_0' at time 3.0
+restarting sumo due to FatalTraCIError 'connection closed by SUMO'
+ Retrying in 1 seconds
+trying to subscribe to junction around multientryexit 'e3_0' at time 1.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to poi around multientryexit 'e3_0' at time 3.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to polygon around multientryexit 'e3_0' at time 5.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to simulation around multientryexit 'e3_0' at time 7.0
+restarting sumo due to FatalTraCIError 'connection closed by SUMO'
+ Retrying in 1 seconds
+trying to subscribe to calibrator around multientryexit 'e3_0' at time 1.0
+restarting sumo due to FatalTraCIError 'connection closed by SUMO'
+ Retrying in 1 seconds
+trying to subscribe to busstop around multientryexit 'e3_0' at time 1.0
+restarting sumo due to FatalTraCIError 'connection closed by SUMO'
+ Retrying in 1 seconds
+trying to subscribe to parkingarea around multientryexit 'e3_0' at time 1.0
+restarting sumo due to FatalTraCIError 'connection closed by SUMO'
+ Retrying in 1 seconds
+trying to subscribe to chargingstation around multientryexit 'e3_0' at time 1.0
+restarting sumo due to FatalTraCIError 'connection closed by SUMO'
+ Retrying in 1 seconds
+trying to subscribe to overheadwire around multientryexit 'e3_0' at time 1.0
+restarting sumo due to FatalTraCIError 'connection closed by SUMO'
+ Retrying in 1 seconds
+trying to subscribe to routeprobe around multientryexit 'e3_0' at time 1.0
+restarting sumo due to FatalTraCIError 'connection closed by SUMO'
+ Retrying in 1 seconds
+trying to subscribe to rerouter around multientryexit 'e3_0' at time 1.0
+restarting sumo due to FatalTraCIError 'connection closed by SUMO'
+ Retrying in 1 seconds
+trying to subscribe to inductionloop around trafficlight '0' at time 1.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to lanearea around trafficlight '0' at time 3.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to multientryexit around trafficlight '0' at time 5.0
+restarting sumo due to FatalTraCIError 'connection closed by SUMO'
+ Retrying in 1 seconds
+trying to subscribe to trafficlight around trafficlight '0' at time 1.0
+restarting sumo due to FatalTraCIError 'connection closed by SUMO'
+ Retrying in 1 seconds
+trying to subscribe to variablespeedsign around trafficlight '0' at time 1.0
+restarting sumo due to FatalTraCIError 'connection closed by SUMO'
+ Retrying in 1 seconds
+trying to subscribe to meandata around trafficlight '0' at time 1.0
+restarting sumo due to FatalTraCIError 'connection closed by SUMO'
+ Retrying in 1 seconds
+trying to subscribe to lane around trafficlight '0' at time 1.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to person around trafficlight '0' at time 3.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to route around trafficlight '0' at time 5.0
+restarting sumo due to FatalTraCIError 'connection closed by SUMO'
+ Retrying in 1 seconds
+trying to subscribe to vehicle around trafficlight '0' at time 1.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to vehicletype around trafficlight '0' at time 3.0
+restarting sumo due to FatalTraCIError 'connection closed by SUMO'
+ Retrying in 1 seconds
+trying to subscribe to edge around trafficlight '0' at time 1.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to gui around trafficlight '0' at time 3.0
+restarting sumo due to FatalTraCIError 'connection closed by SUMO'
+ Retrying in 1 seconds
+trying to subscribe to junction around trafficlight '0' at time 1.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to poi around trafficlight '0' at time 3.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to polygon around trafficlight '0' at time 5.0
+   found 1 objects
+Ok: Unsubscribe successful
+trying to subscribe to simulation around trafficlight '0' at time 7.0
+restarting sumo due to FatalTraCIError 'connection closed by SUMO'
+ Retrying in 1 seconds
+trying to subscribe to calibrator around trafficlight '0' at time 1.0
+restarting sumo due to FatalTraCIError 'connection closed by SUMO'
+ Retrying in 1 seconds
+trying to subscribe to busstop around trafficlight '0' at time 1.0
+restarting sumo due to FatalTraCIError 'connection closed by SUMO'
+ Retrying in 1 seconds
+trying to subscribe to parkingarea around trafficlight '0' at time 1.0
+restarting sumo due to FatalTraCIError 'connection closed by SUMO'
+ Retrying in 1 seconds
+trying to subscribe to chargingstation around trafficlight '0' at time 1.0
+restarting sumo due to FatalTraCIError 'connection closed by SUMO'
+ Retrying in 1 seconds
+trying to subscribe to overheadwire around trafficlight '0' at time 1.0
+restarting sumo due to FatalTraCIError 'connection closed by SUMO'
+ Retrying in 1 seconds
+trying to subscribe to routeprobe around trafficlight '0' at time 1.0
+restarting sumo due to FatalTraCIError 'connection closed by SUMO'
+ Retrying in 1 seconds
+trying to subscribe to rerouter around trafficlight '0' at time 1.0
+restarting sumo due to FatalTraCIError 'connection closed by SUMO'
+ Retrying in 1 seconds
+trying to subscribe to inductionloop around variablespeedsign 'vs_0' at time 1.0
