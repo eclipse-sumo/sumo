@@ -95,7 +95,7 @@ class Connection(StepManager):
             print("receiving", result.getDebugString())
         if not result:
             self._socket.close()
-            del self._socket
+            self._socket = None
             raise FatalTraCIError("connection closed by SUMO")
         for command in self._queue:
             prefix = result.read("!BBB")
