@@ -19,5 +19,8 @@ until
 # no stopping necessary if the train passes after the until-time
 until_late
 
+# when option --use-stop-ended is set, waypoint with attributes 'until'  and 'ended' should trigger stopping according to the 'ended' time if the vehicle arrives too early
+use_ended
+
 # ignore capacity on parkingarea
 parkingarea
