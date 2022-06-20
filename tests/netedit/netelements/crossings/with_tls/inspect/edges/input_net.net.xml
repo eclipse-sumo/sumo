@@ -1,34 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-06-10 11:02:39 by Eclipse SUMO netedit Version v1_13_0+0730-fcec847ba3b
+<!-- generated on 2022-06-20 07:59:15 by Eclipse SUMO netconvert Version v1_13_0+1008-b165c92c02a
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="D:\SUMO\tests\netedit\netelements\crossings\with_tls\inspect\edges\input_net.net.xml"/>
+        <node-files value=".\netedit\netelements\crossings\with_tls\inspect\edges\input_net.nod.xml"/>
+        <edge-files value=".\netedit\netelements\crossings\with_tls\inspect\edges\input_net.edg.xml"/>
+        <connection-files value=".\netedit\netelements\crossings\with_tls\inspect\edges\input_net.con.xml"/>
     </input>
 
     <output>
-        <output-file value="D:\SUMO\tests\netedit\netelements\crossings\with_tls\inspect\edges\input_net.net.xml"/>
+        <output-file value=".\netedit\netelements\crossings\with_tls\inspect\edges\input_net.net.xml"/>
     </output>
 
-    <processing>
-        <geometry.min-radius.fix.railways value="false"/>
-        <geometry.max-grade.fix value="false"/>
-        <offset.disable-normalization value="true"/>
-        <lefthand value="false"/>
-    </processing>
-
-    <junctions>
-        <no-internal-links value="false"/>
-        <no-turnarounds value="true"/>
-        <junctions.corner-detail value="5"/>
-        <junctions.limit-turn-speed value="5.5"/>
-        <rectangular-lane-cut value="false"/>
-    </junctions>
-
-    <pedestrian>
-        <walkingareas value="false"/>
-    </pedestrian>
+    <report>
+        <verbose value="true"/>
+    </report>
 
 </configuration>
 -->

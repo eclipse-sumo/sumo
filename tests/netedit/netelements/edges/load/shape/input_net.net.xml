@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-04-22 13:19:48 by Eclipse SUMO netconvert Version v1_12_0+2234-4a9e9d56134
+<!-- generated on 2022-06-20 07:59:22 by Eclipse SUMO netconvert Version v1_13_0+1008-b165c92c02a
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -15,7 +15,6 @@
 
     <report>
         <verbose value="true"/>
-        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
@@ -33,6 +32,6 @@
     </edge>
 
     <junction id="gneJ21" type="dead_end" x="0.00" y="11.10" incLanes="gneE13_0" intLanes="" shape="-0.00,11.10 -2.50,9.10 -0.13,14.30"/>
-    <junction id="gneJ22" type="dead_end" x="50.00" y="11.10" incLanes="gneE12_0" intLanes="" shape="50.00,11.10 50.12,14.31 52.39,8.97"/>
+    <junction id="gneJ22" type="dead_end" x="50.00" y="11.10" incLanes="gneE12_0" intLanes="" shape="50.00,11.10 50.12,14.30 52.39,8.97"/>
 
 </net>
