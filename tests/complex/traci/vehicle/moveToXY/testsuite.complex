@@ -61,3 +61,6 @@ ticket5029
 
 # test collision directly after moveToXY (#10952)
 collision
+
+# use vClass when looking up candidate internal edges along the route (#10952)	
+parallel_internal_edges
