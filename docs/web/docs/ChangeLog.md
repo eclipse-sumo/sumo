@@ -24,17 +24,20 @@ title: ChangeLog
   - Fixed pedestrian collision after jamming. Issue #10823
   - Fixed invalid jamming that persists after an overfilled busStop has cleared. Issue #10822
   - Fixed invalid detector placement for joined actuated traffic lights. Issue #10837
-  - Fixed bug where taxi fails to drop off customer. Issue #10860
+  - Fixed bug where taxi fails to drop off customer. Issue #10860  
   - Setting a subsecond `timeThreshold` for `e3detector`s is now working. Issue #10881
   - Coasting decelerations have been implemented for HBEFA models. Issue #2110
   - Fixed invalid emissions for decelerating / standing vehicles for HBEFA and HBEFA3. Issue #2110, #4019
   - inductionLoop near lane end no longer miscounts pedestrians. Issue #10909
   - Fixed bug where person 'jumps' to stop when using option **--persontrip.transfer.walk-taxi ptStops**. Issue #10920
   - Fixed ride arrval position when using option **--persontrip.transfer.taxi-walk ptStops**. Issue #10919
+  - routeProbReroute is now triggered only once per edge regardless of lane-changing. Issue #10943
+  - Fixed inconsistent value for previous vehicle speed after loading simulation state. Issue #10922
   
 - netedit
   - Fixed crash when loading a network (on very slow computers / builds). Issue #10750 (regression in 1.9.0)
   - Greatly increased rendering speed. Issue #10425 (regression in 1.11.0)
+  - Fixed crash when drawing tazRelations. Issue #10929 (regressin in 1.11.0)
   - tls mode coloring of 'yellow' phase is now consistent with sumo-gui. Issue #10651
   - Loading a demand file only triggers a 'demand is modified' warning after actual modification. Issue #9529
   - Locate dialog buttons "select all" and "deselect all" now toggle selection status. Issue #10707
@@ -45,14 +48,22 @@ title: ChangeLog
   - Fixed tazRelation coloring issues. Issue #10930
   - Checkbox 'Draw TAZ fill' now overrides taz attribute fill as intended. Issue #10928
   - A custom color rainbow is now supported for all data elements. Issue #10934
+  - Loading and saving a selection is now working for all data elements. Issue #10936
+  - Fixed duplicate TAZ id when rendering filled taz. Issue #10944
+  - tlType selection from drop-down list is now working after changing junction type. Issue #10956
+  - Fixed bug where lanes could not be clickd after changing attribute numLanes. Issue #10964
+  - Fixed narrow drop-down boxes in inspect mode. Issue #10955
   
 - sumo-gui
   - Background images (decals) and multi-view settings are now restored on reload. Issue #10788 (regression in 1.13.0)
   - Background grid configured in settings is now shown when first opening gui. Issue #10789
-  - Fixed invalid tranship color when coloring container by mode. Issue #10849
-  - Fixed 3D rendering of edge geometry with varying incline. Issue #4952
-  - Fixed Vehicle orientation on sloped edges in 3D view. Issue #10905
+  - Fixed invalid tranship color when coloring container by mode. Issue #10849    
   - Fixed inconsistent treatment of missing data when coloring by attribute/param. Issue #10932
+  - 3D View:
+    - Fixed 3D rendering of edge geometry with varying incline. Issue #4952
+    - Fixed Vehicle orientation on sloped edges in 3D view. Issue #10905
+    - Fixed invalid OSG light def written in decal (background image) settings. Issue #10950
+    - Exported viewport settings mismatch with actual 3D-view #10949
    
 - netconvert
   - Fixed invalid edge reduction in edge shape detail at very dense geometry. Issue #10727 (regression in 1.12.0)
@@ -66,6 +77,10 @@ title: ChangeLog
 - TraCI
   - Function `vehicle.setAcceleration` now supports negative values. Issue #10693
   - Fixed invalid added stop on previous edge while already on junction. Issue #10859
+  - Fixed invalid taxi state after re-dispatch (causing early taxi removal). Issue #10933
+  - Function traci.load now resets a previous log file by the same name. Issue #10979
+  - Fixed invalid mapping with `vehicle.moveToXY` onto intersections with parallel internal edges. Issue #10952
+  - Fixed missing collision detection after `vehicle.moveToXY` where the vehicle makes a large "jump". Issue #10952
 
 - tools
   - sumolib no longer crashes in an environment where rtree and stderr are missing. Issue #10666
@@ -74,6 +89,7 @@ title: ChangeLog
   - generateRailSignalConstraints.py: Fixed bug where constraints for invalid stops were generated. Issue #10843
   - route2OD.py: Fixed invalid handling of TAZ defined with tazSource and tazSink elements. Issue #10873
   - routeSampler.py: now longer writes flows with probability > 1. Issue #10887
+  - osmWebwizard.py: No longer creates temporary route files in the base working directory. Issue #10878
 
 ### Enhancements
 
@@ -105,11 +121,13 @@ title: ChangeLog
   - Walkingareas anow now shown. Issue #9168
   - Walkingareas can now be located by id. Issue #8580
   - Added 'confirm relation' button to tazRelation mode. Issue #10733
+  - Shift-click in demand-stop mode should now sets parent element (i.e. vehicle). Issue #10288
 
 - sumo-gui
   - InductionLoop detectors now list the time of continuos occupation in their parameter dialog. Issue #10671
   - 3D-view now permits opening vehicle context menu via right-click. Issue #10191
   - Geometry points of polygons junctions and walkingareas can now be annotated to aid in debugging (activated in the openGL settings). Issue #10594
+  - Can now color polygons (and TAZ) randomly. Issue #10938
 
 - netconvert
   - Now supports generating NEMA controllers. Issue #9599
@@ -118,6 +136,10 @@ title: ChangeLog
   - Add option synonyms **--random.lanenumber** and **--random.priority** for options that apply to all network types. Issue #10775
   - Added option **--random.type** to pick a random edge type from all loaded types. Issue #10774
   - Options **--geometry.split**, **--geometry.max-segment-length** and **--junctions.join-same** are now supported. Together, they allow for generating intermediate junctions along the generated edges (i.e. for merging shifted grids). Issue #10787
+
+- TraCI
+  - Each domain now supports the member `DOMAIN_ID` to retrieve the constant for subscriptions (i.e. `traci.vehicle.DOMAIN_ID == traci.constants.CMD_GET_VEHICLE_VARIABLE`). Issue #10963
+  - It is now possible to retrieve lanearea detectors using traci.*domain*.subscribeContext. Issue #10960
 
 - tools
   - [tls_csvSignalGroups](Tools/tls.md#tls_csvsignalgroupspy) now supports keyword **actuated** to declare time ranges for shorting/extending phases and causes programs of type *actuated* to be written. Issue #10719
@@ -131,6 +153,7 @@ title: ChangeLog
 
   - Outputfile comment header no longer includes options that were set automatically (only user defined options). Issue #10712
   - PHEMlight5 has been added as a new emission model allowing also for modelling of aging fleets. Issue #10237
+  - Outputs now use attribute `period` instead of `freq` whenever denoting a time period. Issue #10657
 
 ## Version 1.13.0 (03.05.2022)
 
