@@ -300,7 +300,7 @@ GNEMultipleParametersDialog::ParametersOperations::onCmdLoadParameters(FXObject*
     FXFileDialog opendialog(this, "Open Parameter Template");
     opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::GREENVEHICLE));
     opendialog.setSelectMode(SELECTFILE_EXISTING);
-    opendialog.setPatternList(" Parameter Template files (*.xml)\nAll files (*)");
+    opendialog.setPatternList(" Parameter Template files (*.xml,*.xml.gz)\nAll files (*)");
     if (gCurrentFolder.length() != 0) {
         opendialog.setDirectory(gCurrentFolder);
     }
