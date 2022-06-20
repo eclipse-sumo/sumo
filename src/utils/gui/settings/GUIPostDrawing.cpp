@@ -28,19 +28,22 @@ GUIPostDrawing::GUIPostDrawing() {}
 
 
 void 
-GUIPostDrawing::addACToUpdate(GNEAttributeCarrier* AC) {
-    if (AC) {
-        myACsToUpdate.push_back(AC);
-    }
-}
-
-
-void 
-GUIPostDrawing::updateACs() {
+GUIPostDrawing::executePostDrawingTasks() {
+    // udate AC geometries
     for (const auto &AC : myACsToUpdate) {
         AC->updateGeometry();
     }
     myACsToUpdate.clear();
+    // reset marked node
+    markedNode = nullptr;
+}
+
+
+void 
+GUIPostDrawing::addACToUpdate(GNEAttributeCarrier* AC) {
+    if (AC) {
+        myACsToUpdate.push_back(AC);
+    }
 }
 
 /****************************************************************************/

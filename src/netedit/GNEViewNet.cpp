@@ -965,8 +965,9 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
     GLHelper::popMatrix();
     // update interval bar
     myIntervalBar.markForUpdate();
+    // execute post drawing tasks
     // check if update ACs after drawing
-    gPostDrawing.updateACs();
+    gPostDrawing.executePostDrawingTasks();
     return hits2;
 }
 

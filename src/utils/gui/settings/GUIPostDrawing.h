@@ -28,6 +28,7 @@
 // ===========================================================================
 
 class GNEAttributeCarrier;
+class GUIGlObject;
 
 // ===========================================================================
 // class definitions
@@ -39,14 +40,17 @@ public:
     /// @brief constructor
     GUIPostDrawing();
 
+    /// @brief execute post drawing tasks
+    void executePostDrawingTasks();
+
     /// @brief add recompute carrier to recompute
     void addACToUpdate(GNEAttributeCarrier* AC);
 
-    /// @brief recompute (and clear) ACs
-    void updateACs();
-
     /// @brief recompute boundaries
     bool recomputeBoundaries = false;
+
+    /// @brief marked Node (used in create edge mode, )
+    const GUIGlObject* markedNode = nullptr;
 
 protected:
     /// @brief ACs to update
