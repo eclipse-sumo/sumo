@@ -144,4 +144,11 @@ MSStop::getMinDuration(SUMOTime time) const {
         return duration;
     }
 }
+
+
+SUMOTime
+MSStop::getUntil() const {
+    return MSGlobals::gUseStopEnded && pars.ended >= 0 ? pars.ended : pars.until;
+}
+
 /****************************************************************************/

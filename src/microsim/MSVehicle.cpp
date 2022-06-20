@@ -1743,9 +1743,9 @@ MSVehicle::processNextStop(double currentVelocity) {
                 stop.duration = stop.getMinDuration(time);
                 stop.endBoarding = stop.pars.extension >= 0 ? time + stop.duration + stop.pars.extension : SUMOTime_MAX;
                 if (stop.pars.speed > 0) {
-                    // ignore duration parameter in waypoint mode
-                    if (stop.pars.until > time) {
-                        stop.duration = stop.pars.until - time;
+                    // ignore duration parameter in waypoint mode unless 'until' or 'ended' are set
+                    if (stop.getUntil() > time) {
+                        stop.duration = stop.getUntil() - time;
                     } else {
                         stop.duration = 0;
                     }
@@ -2308,7 +2308,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
             double stopSpeed = laneMaxV;
             if (isWaypoint) {
                 bool waypointWithStop = false;
-                if (stop.pars.until > t) {
+                if (stop.getUntil() > t) {
                     // check if we have to slow down or even stop
                     SUMOTime time2end = 0;
                     if (stop.reached) {
@@ -2320,7 +2320,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
                                        // time to reach waypoint end
                                        + (stop.pars.endPos - stop.pars.startPos) / stop.pars.speed);
                     }
-                    if (stop.pars.until > t + time2end) {
+                    if (stop.getUntil() > t + time2end) {
                         // we need to stop
                         double distToEnd = newStopDist;
                         if (!stop.reached) {

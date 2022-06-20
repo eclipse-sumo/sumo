@@ -110,4 +110,7 @@ public:
 
     /// @brief return minimum stop duration when starting stop at time
     SUMOTime getMinDuration(SUMOTime time) const;
+
+    /// @brief return until / ended time
+    SUMOTime getUntil() const;
 };
