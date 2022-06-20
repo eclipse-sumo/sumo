@@ -295,7 +295,7 @@ MSDevice_Bluelight::notifyMove(SUMOTrafficObject& veh, double /* oldPos */,
             && upcomingEdges.size() > 1) {
         const MSEdge* currentEdge = &ego.getLane()->getEdge();
         // move onto the intersection as if there was a connection from the current lane
-        const MSEdge* next = currentEdge->getInternalFollowingEdge(upcomingEdges[1]);
+        const MSEdge* next = currentEdge->getInternalFollowingEdge(upcomingEdges[1], ego.getVClass());
         if (next == nullptr) {
             next = upcomingEdges[1];
         }

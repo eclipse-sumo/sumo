@@ -579,11 +579,11 @@ public:
 
 
     /// @todo extension: inner junctions are not filled
-    const MSEdge* getInternalFollowingEdge(const MSEdge* followerAfterInternal) const;
+    const MSEdge* getInternalFollowingEdge(const MSEdge* followerAfterInternal, SUMOVehicleClass vClass) const;
 
 
     /// @brief returns the length of all internal edges on the junction until reaching the non-internal edge followerAfterInternal.
-    double getInternalFollowingLengthTo(const MSEdge* followerAfterInternal) const;
+    double getInternalFollowingLengthTo(const MSEdge* followerAfterInternal, SUMOVehicleClass vClass) const;
 
     /// @brief if this edge is an internal edge, return its first normal predecessor, otherwise the edge itself
     const MSEdge* getNormalBefore() const;

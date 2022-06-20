@@ -790,13 +790,17 @@ MSEdge::changeLanes(SUMOTime t) const {
 
 
 const MSEdge*
-MSEdge::getInternalFollowingEdge(const MSEdge* followerAfterInternal) const {
+MSEdge::getInternalFollowingEdge(const MSEdge* followerAfterInternal, SUMOVehicleClass vClass) const {
     //@todo to be optimized
     for (const MSLane* const l : *myLanes) {
         for (const MSLink* const link : l->getLinkCont()) {
             if (&link->getLane()->getEdge() == followerAfterInternal) {
                 if (link->getViaLane() != nullptr) {
-                    return &link->getViaLane()->getEdge();
+                    if (link->getViaLane()->allowsVehicleClass(vClass)) {
+                        return &link->getViaLane()->getEdge();
+                    } else {
+                        continue;
+                    }
                 } else {
                     return nullptr; // network without internal links
                 }
@@ -808,15 +812,15 @@ MSEdge::getInternalFollowingEdge(const MSEdge* followerAfterInternal) const {
 
 
 double
-MSEdge::getInternalFollowingLengthTo(const MSEdge* followerAfterInternal) const {
+MSEdge::getInternalFollowingLengthTo(const MSEdge* followerAfterInternal, SUMOVehicleClass vClass) const {
     assert(followerAfterInternal != 0);
     assert(!followerAfterInternal->isInternal());
     double dist = 0.;
-    const MSEdge* edge = getInternalFollowingEdge(followerAfterInternal);
+    const MSEdge* edge = getInternalFollowingEdge(followerAfterInternal, vClass);
     // Take into account non-internal lengths until next non-internal edge
     while (edge != nullptr && edge->isInternal()) {
         dist += edge->getLength();
-        edge = edge->getInternalFollowingEdge(followerAfterInternal);
+        edge = edge->getInternalFollowingEdge(followerAfterInternal, vClass);
     }
     return dist;
 }

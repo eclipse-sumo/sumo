@@ -5846,7 +5846,7 @@ MSVehicle::getPastLanesUntil(double distance) const {
         MSLane* l = (*routeIt)->getLanes().back();
 
         // insert internal lanes if applicable
-        const MSEdge* internalEdge = lanes.size() > 0 ? (*routeIt)->getInternalFollowingEdge(&(lanes.back()->getEdge())) : nullptr;
+        const MSEdge* internalEdge = lanes.size() > 0 ? (*routeIt)->getInternalFollowingEdge(&(lanes.back()->getEdge()), getVClass()) : nullptr;
         const MSLane* internalLane = internalEdge != nullptr ? internalEdge->getLanes().front() : nullptr;
         std::vector<const MSLane*> internalLanes;
         while ((internalLane != nullptr) && internalLane->isInternal()) {  // collect all internal successor lanes
@@ -7386,7 +7386,7 @@ MSVehicle::getNextEdgePtr() const {
         return &myLane->getCanonicalSuccessorLane()->getEdge();
     } else {
         const MSEdge* nextNormal = succEdge(1);
-        const MSEdge* nextInternal = myLane->getEdge().getInternalFollowingEdge(nextNormal);
+        const MSEdge* nextInternal = myLane->getEdge().getInternalFollowingEdge(nextNormal, getVClass());
         return nextInternal ? nextInternal : nextNormal;
     }
 }

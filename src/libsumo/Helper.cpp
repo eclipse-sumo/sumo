@@ -1652,7 +1652,10 @@ Helper::moveToXYMap_matchingRoutePosition(const Position& pos, const std::string
         const MSEdge* cand = currentRoute[i];
         while (prev != nullptr) {
             // check internal edge(s)
-            const MSEdge* internalCand = prev->getInternalFollowingEdge(cand);
+            const MSEdge* internalCand = prev->getInternalFollowingEdge(cand, vClass);
+#ifdef DEBUG_MOVEXY
+            std::cout << SIMTIME << "    prev=" << Named::getIDSecure(prev) << " cand=" << Named::getIDSecure(cand) << " internal=" << Named::getIDSecure(internalCand) << "\n";
+#endif
             findCloserLane(internalCand, pos, vClass, bestDistance, lane);
             prev = internalCand;
         }
@@ -1669,7 +1672,7 @@ Helper::moveToXYMap_matchingRoutePosition(const Position& pos, const std::string
         prev = cand;
         while (prev != nullptr) {
             // check internal edge(s)
-            const MSEdge* internalCand = prev->getInternalFollowingEdge(next);
+            const MSEdge* internalCand = prev->getInternalFollowingEdge(next, vClass);
             if (findCloserLane(internalCand, pos, vClass, bestDistance, lane)) {
                 routeOffset = i;
             }

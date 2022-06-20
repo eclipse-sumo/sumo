@@ -2854,7 +2854,7 @@ MSLCM_SL2015::checkStrategicChange(int ret,
                 break;
             }
             if (shadowPrev != nullptr) {
-                currentShadowDist += shadowPrev->getEdge().getInternalFollowingLengthTo(&shadow->getEdge());
+                currentShadowDist += shadowPrev->getEdge().getInternalFollowingLengthTo(&shadow->getEdge(), myVehicle.getVClass());
             }
             currentShadowDist += shadow->getLength();
             shadowPrev = shadow;

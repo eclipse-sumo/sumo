@@ -381,7 +381,8 @@ MSRoute::getDistanceBetween(double fromPos, double toPos,
         } else {
             distance += (*it)->getLength();
             if (includeInternal && (it + 1) != end()) {
-                distance += (*it)->getInternalFollowingLengthTo(*(it + 1));
+                // XXX the length may be wrong if there are parallel internal edges for different vClasses
+                distance += (*it)->getInternalFollowingLengthTo(*(it + 1), SVC_IGNORING);
             }
         }
         isFirstIteration = false;
