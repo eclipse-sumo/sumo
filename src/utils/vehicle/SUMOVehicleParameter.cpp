@@ -1017,4 +1017,56 @@ SUMOVehicleParameter::incrementFlow(double scale, SumoRNG* rng) {
     }
 }
 
+
+std::string 
+SUMOVehicleParameter::getInsertionChecks() const {
+    if ((insertionChecks == 0) || (insertionChecks == (int)InsertionCheck::ALL)) {
+        return SUMOXMLDefinitions::InsertionChecks.getString(InsertionCheck::ALL);
+    } else {
+        std::vector<std::string> insertionChecksStrs;
+        const auto insertionCheckValues = SUMOXMLDefinitions::InsertionChecks.getValues();
+        // iterate over values
+        for (const auto insertionCheckValue : insertionCheckValues) {
+            if ((insertionCheckValue != InsertionCheck::ALL) && (insertionChecks & (int)insertionCheckValue) != 0) {
+                insertionChecksStrs.push_back(SUMOXMLDefinitions::InsertionChecks.getString(insertionCheckValue));
+            }
+        }
+        return toString(insertionChecksStrs);
+    }
+}
+
+
+bool
+SUMOVehicleParameter::areInsertionChecksValid(const std::string &value) const {
+    if (value.empty()) {
+        return true;
+    } else {
+        // split value in substrinsg
+        StringTokenizer valueStrs(value, " ");
+        // iterate over values
+        while (valueStrs.hasNext()) {
+            if (!SUMOXMLDefinitions::InsertionChecks.hasString(valueStrs.next())) {
+                return false;
+            }
+        }
+        return true;
+    }
+}
+
+
+void 
+SUMOVehicleParameter::parseInsertionChecks(const std::string &value) {
+    // first reset insertionChecks
+    insertionChecks = 0;
+    if (value.empty()) {
+        insertionChecks = (int)InsertionCheck::ALL;
+    } else {
+        // split value in substrinsg
+        StringTokenizer insertionCheckStrs(value, " ");
+        while(insertionCheckStrs.hasNext()) {
+            insertionChecks |= (int)SUMOXMLDefinitions::InsertionChecks.get(insertionCheckStrs.next());
+        }
+    }
+}
+
 /****************************************************************************/

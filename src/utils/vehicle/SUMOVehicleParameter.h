@@ -768,6 +768,7 @@ public:
     mutable int parametersSet;
 
 public:
+    /// @brief increment flow
     void incrementFlow(double scale, SumoRNG* rng = nullptr);
 
 protected:
@@ -804,4 +805,12 @@ protected:
     /// @brief obtain arrival edge parameter in string format
     std::string getArrivalEdge() const;
 
+    /// @brief get insertion checks in string format
+    std::string getInsertionChecks() const;
+
+    /// @brief check if given insertion checks are valid
+    bool areInsertionChecksValid(const std::string &value) const;
+
+    /// @brief parses insertion checks
+    void parseInsertionChecks(const std::string &value);
 };

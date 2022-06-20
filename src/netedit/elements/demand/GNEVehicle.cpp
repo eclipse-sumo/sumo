@@ -1213,19 +1213,7 @@ GNEVehicle::getAttribute(SumoXMLAttr key) const {
                 return myTagProperty.getDefaultValue(SUMO_ATTR_ARRIVALPOS_LAT);
             }
         case SUMO_ATTR_INSERTIONCHECKS:
-            if ((insertionChecks == 0) || (insertionChecks == (int)InsertionCheck::ALL)) {
-                return SUMOXMLDefinitions::InsertionChecks.getString(InsertionCheck::ALL);
-            } else {
-                std::vector<std::string> insertionChecksStrs;
-                const auto insertionCheckValues = SUMOXMLDefinitions::InsertionChecks.getValues();
-                // iterate over values
-                for (const auto insertionCheckValue : insertionCheckValues) {
-                    if ((insertionCheckValue != InsertionCheck::ALL) && (insertionChecks & (int)insertionCheckValue) != 0) {
-                        insertionChecksStrs.push_back(SUMOXMLDefinitions::InsertionChecks.getString(insertionCheckValue));
-                    }
-                }
-                return toString(insertionChecksStrs);
-            }
+            return getInsertionChecks();
         // Specific of vehicles
         case SUMO_ATTR_DEPART:
         case SUMO_ATTR_BEGIN:
@@ -1537,21 +1525,8 @@ GNEVehicle::isValid(SumoXMLAttr key, const std::string& value) {
             // if error is empty, given value is valid
             return error.empty();
         }
-        case SUMO_ATTR_INSERTIONCHECKS: {
-            if (value.empty()) {
-                return true;
-            } else {
-                // split value in substrinsg
-                StringTokenizer valueStrs(value, " ");
-                // iterate over values
-                while (valueStrs.hasNext()) {
-                    if (!SUMOXMLDefinitions::InsertionChecks.hasString(valueStrs.next())) {
-                        return false;
-                    }
-                }
-                return true;
-            }
-        }
+        case SUMO_ATTR_INSERTIONCHECKS:
+            return areInsertionChecksValid(value);
         // Specific of vehicles
         case SUMO_ATTR_DEPART:
         case SUMO_ATTR_BEGIN: {
@@ -2040,17 +2015,7 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
             parseArrivalPosLat(value, toString(SUMO_TAG_VEHICLE), id, arrivalPosLat, arrivalPosLatProcedure, error);
             break;
         case SUMO_ATTR_INSERTIONCHECKS:
-            // first reset insertionChecks
-            insertionChecks = 0;
-            if (value.empty()) {
-                insertionChecks = (int)InsertionCheck::ALL;
-            } else {
-                // split value in substrinsg
-                StringTokenizer insertionCheckStrs(value, " ");
-                while(insertionCheckStrs.hasNext()) {
-                    insertionChecks |= (int)SUMOXMLDefinitions::InsertionChecks.get(insertionCheckStrs.next());
-                }
-            }
+            parseInsertionChecks(value);
             break;
         // Specific of vehicles
         case SUMO_ATTR_DEPART:

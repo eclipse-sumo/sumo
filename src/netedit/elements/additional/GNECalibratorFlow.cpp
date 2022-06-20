@@ -23,6 +23,7 @@
 #include <utils/options/OptionsCont.h>
 #include <utils/gui/globjects/GLIncludes.h>
 #include <utils/gui/div/GLHelper.h>
+#include <utils/common/StringTokenizer.h>
 
 #include "GNECalibratorFlow.h"
 
@@ -256,6 +257,8 @@ GNECalibratorFlow::getAttribute(SumoXMLAttr key) const {
             } else {
                 return myTagProperty.getDefaultValue(SUMO_ATTR_ARRIVALPOS_LAT);
             }
+        case SUMO_ATTR_INSERTIONCHECKS:
+            return getInsertionChecks();
         case GNE_ATTR_PARENT:
             return getParentAdditionals().at(0)->getID();
         case GNE_ATTR_SELECTED:
@@ -331,6 +334,7 @@ GNECalibratorFlow::setAttribute(SumoXMLAttr key, const std::string& value, GNEUn
         case SUMO_ATTR_REROUTE:
         case SUMO_ATTR_DEPARTPOS_LAT:
         case SUMO_ATTR_ARRIVALPOS_LAT:
+        case SUMO_ATTR_INSERTIONCHECKS:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
             undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
@@ -440,6 +444,8 @@ GNECalibratorFlow::isValid(SumoXMLAttr key, const std::string& value) {
             } else {
                 return canParse<double>(value);
             }
+        case SUMO_ATTR_INSERTIONCHECKS:
+            return areInsertionChecksValid(value);
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
         case GNE_ATTR_PARAMETERS:
@@ -688,6 +694,9 @@ GNECalibratorFlow::setAttribute(SumoXMLAttr key, const std::string& value) {
                 parametersSet &= ~VEHPARS_ARRIVALPOSLAT_SET;
             }
             parseArrivalPosLat(value, toString(SUMO_TAG_VEHICLE), id, arrivalPosLat, arrivalPosLatProcedure, error);
+            break;
+        case SUMO_ATTR_INSERTIONCHECKS:
+            parseInsertionChecks(value);
             break;
         case GNE_ATTR_SELECTED:
             if (parse<bool>(value)) {
