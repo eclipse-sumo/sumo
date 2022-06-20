@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-06-13 09:29:22 by Eclipse SUMO netedit Version v1_13_0+0782-7ebc6a11477
+<!-- generated on 2022-06-20 12:09:57 by Eclipse SUMO netedit Version v1_13_0+1015-35da78b273c
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.13Jun092528.8024\netedit.gui\netelements\edges\contextual_menu\restore_geometry_point\input_net.net.xml"/>
+        <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.daily.net.edges.20Jun093117.9259/netedit.daily.net.edges/netelements/edges/contextual_menu/restore_geometry_point/input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.13Jun092528.8024\netedit.gui\netelements\edges\contextual_menu\restore_geometry_point\net.net.xml"/>
+        <output-file value="/home/palcraft/.texttest/tmp/netedit.daily.net.edges.20Jun093117.9259/netedit.daily.net.edges/netelements/edges/contextual_menu/restore_geometry_point/net.net.xml"/>
     </output>
 
     <processing>
@@ -19,7 +19,6 @@
     </processing>
 
     <junctions>
-        <no-internal-links value="false"/>
         <no-turnarounds value="true"/>
         <junctions.corner-detail value="5"/>
         <junctions.limit-turn-speed value="5.5"/>
@@ -27,37 +26,37 @@
     </junctions>
 
     <pedestrian>
-        <walkingareas value="true"/>
+        <walkingareas value="false"/>
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.13Jun092528.8024\netedit.gui\netelements\edges\contextual_menu\restore_geometry_point\additionals.xml"/>
-        <additionals-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.13Jun092528.8024\netedit.gui\netelements\edges\contextual_menu\restore_geometry_point\additionals.xml"/>
-        <route-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.13Jun092528.8024\netedit.gui\netelements\edges\contextual_menu\restore_geometry_point\routes.xml"/>
-        <demandelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.13Jun092528.8024\netedit.gui\netelements\edges\contextual_menu\restore_geometry_point\routes.xml"/>
-        <data-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.13Jun092528.8024\netedit.gui\netelements\edges\contextual_menu\restore_geometry_point\datas.xml"/>
-        <dataelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.13Jun092528.8024\netedit.gui\netelements\edges\contextual_menu\restore_geometry_point\datas.xml"/>
+        <additional-files value="/home/palcraft/.texttest/tmp/netedit.daily.net.edges.20Jun093117.9259/netedit.daily.net.edges/netelements/edges/contextual_menu/restore_geometry_point/additionals.xml"/>
+        <additionals-output value="/home/palcraft/.texttest/tmp/netedit.daily.net.edges.20Jun093117.9259/netedit.daily.net.edges/netelements/edges/contextual_menu/restore_geometry_point/additionals.xml"/>
+        <route-files value="/home/palcraft/.texttest/tmp/netedit.daily.net.edges.20Jun093117.9259/netedit.daily.net.edges/netelements/edges/contextual_menu/restore_geometry_point/routes.xml"/>
+        <demandelements-output value="/home/palcraft/.texttest/tmp/netedit.daily.net.edges.20Jun093117.9259/netedit.daily.net.edges/netelements/edges/contextual_menu/restore_geometry_point/routes.xml"/>
+        <data-files value="/home/palcraft/.texttest/tmp/netedit.daily.net.edges.20Jun093117.9259/netedit.daily.net.edges/netelements/edges/contextual_menu/restore_geometry_point/datas.xml"/>
+        <dataelements-output value="/home/palcraft/.texttest/tmp/netedit.daily.net.edges.20Jun093117.9259/netedit.daily.net.edges/netelements/edges/contextual_menu/restore_geometry_point/datas.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.13Jun092528.8024\netedit.gui\netelements\edges\contextual_menu\restore_geometry_point\gui-settings.xml"/>
+        <gui-settings-file value="/home/palcraft/.texttest/tmp/netedit.daily.net.edges.20Jun093117.9259/netedit.daily.net.edges/netelements/edges/contextual_menu/restore_geometry_point/gui-settings.xml"/>
         <window-size value="936,697"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
         <gui-testing-debug-gl value="true"/>
-        <gui-testing.setting-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.13Jun092528.8024\netedit.gui\netelements\edges\contextual_menu\restore_geometry_point\guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="/home/palcraft/.texttest/tmp/netedit.daily.net.edges.20Jun093117.9259/netedit.daily.net.edges/netelements/edges/contextual_menu/restore_geometry_point/guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.13Jun092528.8024\netedit.gui\netelements\edges\contextual_menu\restore_geometry_point\log.txt"/>
+        <error-log value="/home/palcraft/.texttest/tmp/netedit.daily.net.edges.20Jun093117.9259/netedit.daily.net.edges/netelements/edges/contextual_menu/restore_geometry_point/log.txt"/>
     </report>
 
 </configuration>
 -->
 
-<net version="1.9" junctionCornerDetail="5" walkingareas="true" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.9" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="25.00,0.00" convBoundary="0.00,0.00,50.00,20.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
@@ -73,9 +72,6 @@
     <edge id=":gneJ0_3" function="internal">
         <lane id=":gneJ0_3_0" index="0" speed="3.65" length="3.37" shape="2.12,0.88 2.00,0.80 1.60,0.00 2.00,-0.80 3.20,-1.60"/>
     </edge>
-    <edge id=":gneJ0_w0" function="walkingarea">
-        <lane id=":gneJ0_w0_0" index="0" allow="pedestrian" speed="1.00" length="4.26" width="3.20" shape="-3.20,3.20 0.00,3.20 -0.00,3.20 3.20,3.20 3.20,3.20 3.20,0.00 3.20,0.00 3.20,-3.20 -3.02,1.24 -2.49,-0.36 -1.60,-1.60 -0.36,-2.49 1.24,-3.02"/>
-    </edge>
     <edge id=":gneJ1_0" function="internal">
         <lane id=":gneJ1_0_0" index="0" speed="3.90" length="2.58" shape="48.40,3.20 48.30,2.50 48.00,2.00 47.50,1.70 46.80,1.60"/>
     </edge>
@@ -88,21 +84,12 @@
     <edge id=":gneJ1_3" function="internal">
         <lane id=":gneJ1_3_0" index="0" speed="3.65" length="3.23" shape="48.00,-0.80 48.40,0.00 48.00,0.80 46.80,1.60"/>
     </edge>
-    <edge id=":gneJ1_w0" function="walkingarea">
-        <lane id=":gneJ1_w0_0" index="0" allow="pedestrian" speed="1.00" length="4.26" width="3.20" shape="46.80,3.20 50.00,3.20 50.00,3.20 53.20,3.20 46.80,-3.20 46.80,0.00 46.80,0.00 46.80,3.20"/>
-    </edge>
     <edge id=":gneJ2_0" function="internal">
         <lane id=":gneJ2_0_0" index="0" speed="6.51" length="9.03" shape="1.60,9.60 1.95,12.05 3.00,13.80 4.75,14.85 7.20,15.20"/>
         <lane id=":gneJ2_0_1" index="1" speed="7.33" length="11.73" shape="1.60,9.60 1.95,13.45 3.00,16.20 4.75,17.85 7.20,18.40"/>
     </edge>
-    <edge id=":gneJ2_w0" function="walkingarea">
-        <lane id=":gneJ2_w0_0" index="0" allow="pedestrian" speed="1.00" length="7.18" width="3.20" shape="7.20,20.00 7.20,16.80 7.20,16.80 7.20,13.60 3.20,9.60 -0.00,9.60 0.00,9.60 -3.20,9.60 4.02,19.71 1.42,18.84 -0.60,17.40 -2.04,15.38 -2.91,12.78"/>
-    </edge>
     <edge id=":gneJ3_0" function="internal">
         <lane id=":gneJ3_0_0" index="0" speed="6.51" length="9.03" shape="42.80,15.20 45.25,14.85 47.00,13.80 48.05,12.05 48.40,9.60"/>
-    </edge>
-    <edge id=":gneJ3_w0" function="walkingarea">
-        <lane id=":gneJ3_w0_0" index="0" allow="pedestrian" speed="1.00" length="7.18" width="3.20" shape="53.20,9.60 50.00,9.60 50.00,9.60 46.80,9.60 42.80,13.60 42.80,16.80 42.80,16.80 42.80,20.00 52.91,12.78 52.04,15.38 50.60,17.40 48.58,18.84 45.98,19.71"/>
     </edge>
 
     <edge id="gneE0" from="gneJ0" to="gneJ1" priority="1">
@@ -171,18 +158,4 @@
     <connection from=":gneJ2_0" to="gneE2" fromLane="1" toLane="1" dir="r" state="M"/>
     <connection from=":gneJ3_0" to="gneE4" fromLane="0" toLane="0" dir="r" state="M"/>
 
-    <connection from=":gneJ0_w0" to="gneE9" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":gneJ0_w0" to="gneE0" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="gneE8" to=":gneJ0_w0" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="gneE1" to=":gneJ0_w0" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":gneJ1_w0" to="gneE5" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":gneJ1_w0" to="gneE1" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="gneE4" to=":gneJ1_w0" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="gneE0" to=":gneJ1_w0" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":gneJ2_w0" to="gneE2" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":gneJ2_w0" to="gneE8" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="gneE9" to=":gneJ2_w0" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":gneJ3_w0" to="gneE4" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="gneE5" to=":gneJ3_w0" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="gneE2" to=":gneJ3_w0" fromLane="0" toLane="0" dir="s" state="M"/>
 </net>

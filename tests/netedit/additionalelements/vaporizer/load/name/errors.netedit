@@ -94,7 +94,7 @@ GLDebug: 	Inserted edge:6 into SUMORTree with boundary -10.00,28.40,60.00,50.00
 GLDebug: 	Inserted edge:7 into SUMORTree with boundary -10.00,20.00,60.00,41.60
 GLDebug: 	Inserted edge:8 into SUMORTree with boundary -10.00,18.40,60.00,40.00
 GLDebug: 	Inserted edge:9 into SUMORTree with boundary -10.00,10.00,60.00,31.60
-GLDebug: 	Inserted edge:gneE13 into SUMORTree with boundary -10.00,-11.13,11.23,10.10
+GLDebug: 	Inserted edge:gneE13 into SUMORTree with boundary -10.00,-12.26,11.23,10.10
 Debug: Created connection 'from7_0to8_0' in retrieveGNEConnection()
 Debug: Created connection 'from8_0to7_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE13_0to14_0' in retrieveGNEConnection()
@@ -130,7 +130,7 @@ GLDebug: 	Removed object edge:6 from SUMORTree with boundary -10.00,28.40,60.00,
 GLDebug: 	Removed object edge:7 from SUMORTree with boundary -10.00,20.00,60.00,41.60
 GLDebug: 	Removed object edge:8 from SUMORTree with boundary -10.00,18.40,60.00,40.00
 GLDebug: 	Removed object edge:9 from SUMORTree with boundary -10.00,10.00,60.00,31.60
-GLDebug: 	Removed object edge:gneE13 from SUMORTree with boundary -10.00,-11.13,11.23,10.10
+GLDebug: 	Removed object edge:gneE13 from SUMORTree with boundary -10.00,-12.26,11.23,10.10
 GLDebug: Add junctions during recomputing after calling myNetBuilder->compute(...)
 GLDebug: 	Inserted junction:gneJ0 into SUMORTree with boundary -10.00,16.80,10.00,43.20
 GLDebug: 	Inserted junction:gneJ1 into SUMORTree with boundary 40.00,16.80,60.00,43.20
@@ -162,7 +162,7 @@ GLDebug: 	Inserted edge:6 into SUMORTree with boundary -10.00,28.40,60.00,50.00
 GLDebug: 	Inserted edge:7 into SUMORTree with boundary -10.00,20.00,60.00,41.60
 GLDebug: 	Inserted edge:8 into SUMORTree with boundary -10.00,18.40,60.00,40.00
 GLDebug: 	Inserted edge:9 into SUMORTree with boundary -10.00,10.00,60.00,31.60
-GLDebug: 	Inserted edge:gneE13 into SUMORTree with boundary -10.00,-11.13,11.23,10.10
+GLDebug: 	Inserted edge:gneE13 into SUMORTree with boundary -10.00,-12.26,10.15,10.10
 Debug: Deleting unreferenced vaporizer
 Debug: Deleting unreferenced vaporizer
 Debug: Deleting unreferenced edge '1' in AttributeCarriers destructor

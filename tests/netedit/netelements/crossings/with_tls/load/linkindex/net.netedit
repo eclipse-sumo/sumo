@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-06-10 11:54:52 by Eclipse SUMO netedit Version v1_13_0+0734-4d9b53714aa
+<!-- generated on 2022-06-20 10:11:16 by Eclipse SUMO netedit Version v1_13_0+1015-35da78b273c
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.10Jun110108.5716\netedit.gui\netelements\crossings\with_tls\load\linkindex\input_net.net.xml"/>
+        <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.daily.net.crossings.20Jun093117.9256/netedit.daily.net.crossings/netelements/crossings/with_tls/load/linkindex/input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.10Jun110108.5716\netedit.gui\netelements\crossings\with_tls\load\linkindex\net.net.xml"/>
+        <output-file value="/home/palcraft/.texttest/tmp/netedit.daily.net.crossings.20Jun093117.9256/netedit.daily.net.crossings/netelements/crossings/with_tls/load/linkindex/net.net.xml"/>
     </output>
 
     <processing>
@@ -27,37 +27,37 @@
     </junctions>
 
     <pedestrian>
-        <walkingareas value="true"/>
+        <walkingareas value="false"/>
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.10Jun110108.5716\netedit.gui\netelements\crossings\with_tls\load\linkindex\additionals.xml"/>
-        <additionals-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.10Jun110108.5716\netedit.gui\netelements\crossings\with_tls\load\linkindex\additionals.xml"/>
-        <route-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.10Jun110108.5716\netedit.gui\netelements\crossings\with_tls\load\linkindex\routes.xml"/>
-        <demandelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.10Jun110108.5716\netedit.gui\netelements\crossings\with_tls\load\linkindex\routes.xml"/>
-        <data-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.10Jun110108.5716\netedit.gui\netelements\crossings\with_tls\load\linkindex\datas.xml"/>
-        <dataelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.10Jun110108.5716\netedit.gui\netelements\crossings\with_tls\load\linkindex\datas.xml"/>
+        <additional-files value="/home/palcraft/.texttest/tmp/netedit.daily.net.crossings.20Jun093117.9256/netedit.daily.net.crossings/netelements/crossings/with_tls/load/linkindex/additionals.xml"/>
+        <additionals-output value="/home/palcraft/.texttest/tmp/netedit.daily.net.crossings.20Jun093117.9256/netedit.daily.net.crossings/netelements/crossings/with_tls/load/linkindex/additionals.xml"/>
+        <route-files value="/home/palcraft/.texttest/tmp/netedit.daily.net.crossings.20Jun093117.9256/netedit.daily.net.crossings/netelements/crossings/with_tls/load/linkindex/routes.xml"/>
+        <demandelements-output value="/home/palcraft/.texttest/tmp/netedit.daily.net.crossings.20Jun093117.9256/netedit.daily.net.crossings/netelements/crossings/with_tls/load/linkindex/routes.xml"/>
+        <data-files value="/home/palcraft/.texttest/tmp/netedit.daily.net.crossings.20Jun093117.9256/netedit.daily.net.crossings/netelements/crossings/with_tls/load/linkindex/datas.xml"/>
+        <dataelements-output value="/home/palcraft/.texttest/tmp/netedit.daily.net.crossings.20Jun093117.9256/netedit.daily.net.crossings/netelements/crossings/with_tls/load/linkindex/datas.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.10Jun110108.5716\netedit.gui\netelements\crossings\with_tls\load\linkindex\gui-settings.xml"/>
+        <gui-settings-file value="/home/palcraft/.texttest/tmp/netedit.daily.net.crossings.20Jun093117.9256/netedit.daily.net.crossings/netelements/crossings/with_tls/load/linkindex/gui-settings.xml"/>
         <window-size value="936,697"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
         <gui-testing-debug-gl value="true"/>
-        <gui-testing.setting-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.10Jun110108.5716\netedit.gui\netelements\crossings\with_tls\load\linkindex\guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="/home/palcraft/.texttest/tmp/netedit.daily.net.crossings.20Jun093117.9256/netedit.daily.net.crossings/netelements/crossings/with_tls/load/linkindex/guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.10Jun110108.5716\netedit.gui\netelements\crossings\with_tls\load\linkindex\log.txt"/>
+        <error-log value="/home/palcraft/.texttest/tmp/netedit.daily.net.crossings.20Jun093117.9256/netedit.daily.net.crossings/netelements/crossings/with_tls/load/linkindex/log.txt"/>
     </report>
 
 </configuration>
 -->
 
-<net version="1.9" junctionCornerDetail="5" walkingareas="true" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.9" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="100.00,100.00" convBoundary="0.00,0.00,200.00,200.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 

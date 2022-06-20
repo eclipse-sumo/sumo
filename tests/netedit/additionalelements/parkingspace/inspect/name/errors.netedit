@@ -70,8 +70,6 @@ Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE2_1togneE3_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE3_1togneE2_1' in retrieveGNEConnection()
-Debug: Created walkingArea ':gneJ2_w0' in retrieveGNEWalkingArea()
-Debug: Created walkingArea ':gneJ3_w0' in retrieveGNEWalkingArea()
 Debug: Additionals saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -10.00,-13.20,10.00,13.20
@@ -93,10 +91,6 @@ GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,60.00,1
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,11.60
 GLDebug: 	Inserted edge:gneE2 into SUMORTree with boundary -10.00,-11.20,60.00,35.20
 GLDebug: 	Inserted edge:gneE3 into SUMORTree with boundary -10.00,10.00,60.00,34.80
-Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
-Debug: Created walkingArea ':gneJ2_w0' in retrieveGNEWalkingArea()
-Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
-Debug: Created walkingArea ':gneJ3_w0' in retrieveGNEWalkingArea()
 Debug: Deleting unreferenced space
 GLDebug: 	Removed object parkingSpace:pa_0 from SUMORTree with boundary -5.70,-15.70,35.70,25.70
 Debug: Deleting unreferenced parkingArea
@@ -117,8 +111,6 @@ Debug: Deleting unreferenced connection 'fromgneE3_1togneE2_1' in GNEEdge destru
 Debug: Deleting unreferenced junction 'gneJ0' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'gneJ1' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'gneJ2' in AttributeCarriers destructor
-Debug: Deleting unreferenced walkingArea ':gneJ2_w0' in GNEJunction destructor
 Debug: Deleting unreferenced junction 'gneJ3' in AttributeCarriers destructor
-Debug: Deleting unreferenced walkingArea ':gneJ3_w0' in GNEJunction destructor
 Debug: Deleting net builder in GNENet destructor
 GLDebug: Number of objects in SUMORTree during call of the destructor: 8

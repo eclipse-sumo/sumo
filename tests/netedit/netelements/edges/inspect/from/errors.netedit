@@ -20,7 +20,7 @@ Debug: Created connection 'fromgneE8_0togneE0_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE2_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE2_1' in retrieveGNEConnection()
 Debug: Value 'dummy_Junction' for attribute from of edge isn't valid
-Debug: Value 'dummy_Junction' for attribute from of edge isn't valid
+Debug: Value '' for attribute from of edge isn't valid
 Debug: Removing connection 'gneE3_1->gneE2_1' from edge 'gneE3'
 Debug: Deleting unreferenced connection 'fromgneE3_1togneE2_1' in removeConnection()
 Debug: Removing connection 'gneE3_0->gneE8_0' from edge 'gneE3'

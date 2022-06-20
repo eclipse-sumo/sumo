@@ -40,4 +40,4 @@ Debug: Deleting unreferenced junction 'J1' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'gneJ0' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'gneJ1' in AttributeCarriers destructor
 Debug: Deleting net builder in GNENet destructor
-X connection to :29098.0 broken (explicit kill or server shutdown).
+X connection to :9518.0 broken (explicit kill or server shutdown).

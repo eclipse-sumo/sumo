@@ -1,4 +1,4 @@
-Error: Define either 'period' (alias: 'period') or 'tl' in a lane area detector.
+Error: Define either 'period' (alias: 'freq') or 'tl' in a lane area detector.
 Error: Attribute 'period' in definition of e2Detector 'E2_02' is not a valid time value.
 Error: Could not build e2Detector with ID 'E2_03' in netedit; attribute period cannot be negative.
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.09May091435.5936\netedit.gui\additionalelements\e2detector\load\period\input_additionals.add.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.e2detector.20Jun093115.9099/netedit.daily.additional.e2detector/additionalelements/e2detector/load/period/input_additionals.add.xml failed.

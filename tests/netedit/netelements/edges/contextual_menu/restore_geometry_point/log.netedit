@@ -1,6 +1,0 @@
-Warning: Discarding invalid crossing ':gneJ2_c0' at junction 'gneJ2' with edges [gneE2] (no vehicle lanes to cross).
-Warning: Discarding invalid crossing ':gneJ2_c1' at junction 'gneJ2' with edges [gneE8 gneE9] (no vehicle lanes to cross).
-Warning: Discarding invalid crossing ':gneJ3_c0' at junction 'gneJ3' with edges [gneE4 gneE5] (no vehicle lanes to cross).
-Warning: Discarding invalid crossing ':gneJ3_c1' at junction 'gneJ3' with edges [gneE2] (no vehicle lanes to cross).
-Warning: Discarding invalid crossing ':gneJ2_c0' at junction 'gneJ2' with edges [gneE2] (no vehicle lanes to cross).
-Warning: 20 total messages of type: Discarding invalid crossing '%' at junction '%' with edges [%] (no vehicle lanes to cross).

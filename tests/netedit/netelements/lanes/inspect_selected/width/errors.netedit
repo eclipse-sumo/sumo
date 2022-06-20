@@ -24,8 +24,6 @@ Debug: Value 'dummyWidth' for attribute width of lane isn't valid
 Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Value '-2' for attribute width of lane isn't valid
-Debug: Setting new attribute
-Debug: Setting new attribute
 Debug: Key F5 (Compute) pressed
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()

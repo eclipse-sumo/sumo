@@ -942,7 +942,7 @@ Debug: Calling GNEUndoList::undo()
 Debug: Restoring previous attribute
 Debug: Restoring previous attribute
 GLDebug: 	Removed object edge:-E14 from SUMORTree with boundary 10.00,18.87,51.13,60.00
-GLDebug: 	Inserted edge:-E14 into SUMORTree with boundary 10.00,18.87,51.13,60.00
+GLDebug: 	Inserted edge:-E14 into SUMORTree with boundary 10.00,20.00,50.00,60.00
 Debug: Restoring previous attribute
 Debug: Restoring previous attribute
 Debug: invalidating (removing) connections of edge '-E14' due it were guessed
@@ -975,11 +975,11 @@ Debug: Deleting unreferenced connection 'fromE5_0to-E14_0' in clearGNEConnection
 Debug: Deleting unreferenced connection 'fromE5_0toE6_0' in clearGNEConnections()
 Debug: Deleting unreferenced connection 'fromE5_0to-E5_0' in clearGNEConnections()
 Debug: Removing edge '-E14' from net
-GLDebug: 	Removed object edge:-E14 from SUMORTree with boundary 10.00,18.87,51.13,60.00
+GLDebug: 	Removed object edge:-E14 from SUMORTree with boundary 10.00,20.00,50.00,60.00
 Debug: Restoring previous attribute
 Debug: Restoring previous attribute
 GLDebug: 	Removed object edge:E14 from SUMORTree with boundary 8.87,20.00,50.00,61.13
-GLDebug: 	Inserted edge:E14 into SUMORTree with boundary 8.87,20.00,50.00,61.13
+GLDebug: 	Inserted edge:E14 into SUMORTree with boundary 10.00,20.00,50.00,60.00
 Debug: Restoring previous attribute
 Debug: Restoring previous attribute
 Debug: invalidating (removing) connections of edge 'E14' due it were guessed
@@ -1001,7 +1001,7 @@ Debug: invalidating (removing) connections of edge '-E9' due it were guessed
 Debug: Restoring previous attribute
 Debug: invalidating (removing) connections of edge '-E8' due it were guessed
 Debug: Removing edge 'E14' from net
-GLDebug: 	Removed object edge:E14 from SUMORTree with boundary 8.87,20.00,50.00,61.13
+GLDebug: 	Removed object edge:E14 from SUMORTree with boundary 10.00,20.00,50.00,60.00
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Restoring previous attribute
@@ -1068,7 +1068,7 @@ Debug: Calling GNEUndoList::undo()
 Debug: Restoring previous attribute
 Debug: Restoring previous attribute
 GLDebug: 	Removed object edge:-E12 from SUMORTree with boundary 30.00,20.00,71.13,61.13
-GLDebug: 	Inserted edge:-E12 into SUMORTree with boundary 30.00,20.00,71.13,61.13
+GLDebug: 	Inserted edge:-E12 into SUMORTree with boundary 30.00,20.00,70.00,60.00
 Debug: Restoring previous attribute
 Debug: Restoring previous attribute
 Debug: invalidating (removing) connections of edge '-E12' due it were guessed
@@ -1097,11 +1097,11 @@ Debug: Deleting unreferenced connection 'fromE3_0to-E12_0' in clearGNEConnection
 Debug: Deleting unreferenced connection 'fromE3_0toE4_0' in clearGNEConnections()
 Debug: Deleting unreferenced connection 'fromE3_0to-E3_0' in clearGNEConnections()
 Debug: Removing edge '-E12' from net
-GLDebug: 	Removed object edge:-E12 from SUMORTree with boundary 30.00,20.00,71.13,61.13
+GLDebug: 	Removed object edge:-E12 from SUMORTree with boundary 30.00,20.00,70.00,60.00
 Debug: Restoring previous attribute
 Debug: Restoring previous attribute
 GLDebug: 	Removed object edge:E12 from SUMORTree with boundary 28.87,18.87,70.00,60.00
-GLDebug: 	Inserted edge:E12 into SUMORTree with boundary 28.87,18.87,70.00,60.00
+GLDebug: 	Inserted edge:E12 into SUMORTree with boundary 30.00,20.00,70.00,60.00
 Debug: Restoring previous attribute
 Debug: Restoring previous attribute
 Debug: invalidating (removing) connections of edge 'E12' due it were guessed
@@ -1119,7 +1119,7 @@ Debug: invalidating (removing) connections of edge '-E9' due it were guessed
 Debug: Restoring previous attribute
 Debug: invalidating (removing) connections of edge '-E8' due it were guessed
 Debug: Removing edge 'E12' from net
-GLDebug: 	Removed object edge:E12 from SUMORTree with boundary 28.87,18.87,70.00,60.00
+GLDebug: 	Removed object edge:E12 from SUMORTree with boundary 30.00,20.00,70.00,60.00
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Restoring previous attribute
@@ -1178,7 +1178,7 @@ Debug: Calling GNEUndoList::undo()
 Debug: Restoring previous attribute
 Debug: Restoring previous attribute
 GLDebug: 	Removed object edge:-E10 from SUMORTree with boundary 28.87,40.00,70.00,81.13
-GLDebug: 	Inserted edge:-E10 into SUMORTree with boundary 28.87,40.00,70.00,81.13
+GLDebug: 	Inserted edge:-E10 into SUMORTree with boundary 30.00,40.00,70.00,80.00
 Debug: Restoring previous attribute
 Debug: Restoring previous attribute
 Debug: invalidating (removing) connections of edge '-E10' due it were guessed
@@ -1203,11 +1203,11 @@ Debug: Deleting unreferenced connection 'fromE1_0to-E10_0' in clearGNEConnection
 Debug: Deleting unreferenced connection 'fromE1_0toE2_0' in clearGNEConnections()
 Debug: Deleting unreferenced connection 'fromE1_0to-E1_0' in clearGNEConnections()
 Debug: Removing edge '-E10' from net
-GLDebug: 	Removed object edge:-E10 from SUMORTree with boundary 28.87,40.00,70.00,81.13
+GLDebug: 	Removed object edge:-E10 from SUMORTree with boundary 30.00,40.00,70.00,80.00
 Debug: Restoring previous attribute
 Debug: Restoring previous attribute
 GLDebug: 	Removed object edge:E10 from SUMORTree with boundary 30.00,38.87,71.13,80.00
-GLDebug: 	Inserted edge:E10 into SUMORTree with boundary 30.00,38.87,71.13,80.00
+GLDebug: 	Inserted edge:E10 into SUMORTree with boundary 30.00,40.00,70.00,80.00
 Debug: Restoring previous attribute
 Debug: Restoring previous attribute
 Debug: invalidating (removing) connections of edge 'E10' due it were guessed
@@ -1221,7 +1221,7 @@ Debug: invalidating (removing) connections of edge '-E9' due it were guessed
 Debug: Restoring previous attribute
 Debug: invalidating (removing) connections of edge '-E8' due it were guessed
 Debug: Removing edge 'E10' from net
-GLDebug: 	Removed object edge:E10 from SUMORTree with boundary 30.00,38.87,71.13,80.00
+GLDebug: 	Removed object edge:E10 from SUMORTree with boundary 30.00,40.00,70.00,80.00
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Restoring previous attribute
@@ -1272,7 +1272,7 @@ Debug: Calling GNEUndoList::undo()
 Debug: Restoring previous attribute
 Debug: Restoring previous attribute
 GLDebug: 	Removed object edge:-E8 from SUMORTree with boundary 8.87,38.87,50.00,80.00
-GLDebug: 	Inserted edge:-E8 into SUMORTree with boundary 8.87,38.87,50.00,80.00
+GLDebug: 	Inserted edge:-E8 into SUMORTree with boundary 10.00,40.00,50.00,80.00
 Debug: Restoring previous attribute
 Debug: Restoring previous attribute
 Debug: invalidating (removing) connections of edge '-E8' due it were guessed
@@ -1293,11 +1293,11 @@ Debug: Deleting unreferenced connection 'from-E0_0to-E7_0' in clearGNEConnection
 Debug: Deleting unreferenced connection 'from-E0_0to-E8_0' in clearGNEConnections()
 Debug: Deleting unreferenced connection 'from-E0_0toE0_0' in clearGNEConnections()
 Debug: Removing edge '-E8' from net
-GLDebug: 	Removed object edge:-E8 from SUMORTree with boundary 8.87,38.87,50.00,80.00
+GLDebug: 	Removed object edge:-E8 from SUMORTree with boundary 10.00,40.00,50.00,80.00
 Debug: Restoring previous attribute
 Debug: Restoring previous attribute
 GLDebug: 	Removed object edge:E8 from SUMORTree with boundary 10.00,40.00,51.13,81.13
-GLDebug: 	Inserted edge:E8 into SUMORTree with boundary 10.00,40.00,51.13,81.13
+GLDebug: 	Inserted edge:E8 into SUMORTree with boundary 10.00,40.00,50.00,80.00
 Debug: Restoring previous attribute
 Debug: Restoring previous attribute
 Debug: invalidating (removing) connections of edge 'E8' due it were guessed
@@ -1307,7 +1307,7 @@ Debug: Restoring previous attribute
 Debug: invalidating (removing) connections of edge '-E0' due it were guessed
 Debug: Restoring previous attribute
 Debug: Removing edge 'E8' from net
-GLDebug: 	Removed object edge:E8 from SUMORTree with boundary 10.00,40.00,51.13,81.13
+GLDebug: 	Removed object edge:E8 from SUMORTree with boundary 10.00,40.00,50.00,80.00
 Debug: Removing junction 'J8' from net
 GLDebug: 	Removed object junction:J8 from SUMORTree with boundary 18.27,28.27,61.73,71.73
 Debug: Keys Ctrl+Z (Undo) pressed
@@ -1795,7 +1795,7 @@ Debug: Calling GNEUndoList::redo()
 Debug: Adding junction 'J8' into net
 GLDebug: 	Inserted junction:J8 into SUMORTree with boundary 18.27,28.27,61.73,71.73
 Debug: Adding edge 'E8' from net
-GLDebug: 	Inserted edge:E8 into SUMORTree with boundary 10.00,40.00,51.13,81.13
+GLDebug: 	Inserted edge:E8 into SUMORTree with boundary 10.00,40.00,50.00,80.00
 Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge '-E0' due it were guessed
@@ -1805,11 +1805,11 @@ Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge 'E8' due it were guessed
 Debug: Setting new attribute
 Debug: Setting new attribute
-GLDebug: 	Removed object edge:E8 from SUMORTree with boundary 10.00,40.00,51.13,81.13
-GLDebug: 	Inserted edge:E8 into SUMORTree with boundary 10.00,40.00,51.13,81.13
+GLDebug: 	Removed object edge:E8 from SUMORTree with boundary 10.00,40.00,50.00,80.00
+GLDebug: 	Inserted edge:E8 into SUMORTree with boundary 10.00,40.00,50.00,80.00
 Debug: Setting new attribute
 Debug: Adding edge '-E8' from net
-GLDebug: 	Inserted edge:-E8 into SUMORTree with boundary 8.87,38.87,50.00,80.00
+GLDebug: 	Inserted edge:-E8 into SUMORTree with boundary 10.00,40.00,50.00,80.00
 Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge '-E0' due it were guessed
 Debug: Setting new attribute
@@ -1821,8 +1821,8 @@ Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge '-E8' due it were guessed
 Debug: Setting new attribute
 Debug: Setting new attribute
-GLDebug: 	Removed object edge:-E8 from SUMORTree with boundary 8.87,38.87,50.00,80.00
-GLDebug: 	Inserted edge:-E8 into SUMORTree with boundary 8.87,38.87,50.00,80.00
+GLDebug: 	Removed object edge:-E8 from SUMORTree with boundary 10.00,40.00,50.00,80.00
+GLDebug: 	Inserted edge:-E8 into SUMORTree with boundary 10.00,40.00,50.00,80.00
 Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
@@ -1863,7 +1863,7 @@ Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding edge 'E10' from net
-GLDebug: 	Inserted edge:E10 into SUMORTree with boundary 30.00,38.87,71.13,80.00
+GLDebug: 	Inserted edge:E10 into SUMORTree with boundary 30.00,40.00,70.00,80.00
 Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge '-E8' due it were guessed
 Debug: Setting new attribute
@@ -1877,11 +1877,11 @@ Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge 'E10' due it were guessed
 Debug: Setting new attribute
 Debug: Setting new attribute
-GLDebug: 	Removed object edge:E10 from SUMORTree with boundary 30.00,38.87,71.13,80.00
-GLDebug: 	Inserted edge:E10 into SUMORTree with boundary 30.00,38.87,71.13,80.00
+GLDebug: 	Removed object edge:E10 from SUMORTree with boundary 30.00,40.00,70.00,80.00
+GLDebug: 	Inserted edge:E10 into SUMORTree with boundary 30.00,40.00,70.00,80.00
 Debug: Setting new attribute
 Debug: Adding edge '-E10' from net
-GLDebug: 	Inserted edge:-E10 into SUMORTree with boundary 28.87,40.00,70.00,81.13
+GLDebug: 	Inserted edge:-E10 into SUMORTree with boundary 30.00,40.00,70.00,80.00
 Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge 'E1' due it were guessed
 Debug: Setting new attribute
@@ -1897,8 +1897,8 @@ Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge '-E10' due it were guessed
 Debug: Setting new attribute
 Debug: Setting new attribute
-GLDebug: 	Removed object edge:-E10 from SUMORTree with boundary 28.87,40.00,70.00,81.13
-GLDebug: 	Inserted edge:-E10 into SUMORTree with boundary 28.87,40.00,70.00,81.13
+GLDebug: 	Removed object edge:-E10 from SUMORTree with boundary 30.00,40.00,70.00,80.00
+GLDebug: 	Inserted edge:-E10 into SUMORTree with boundary 30.00,40.00,70.00,80.00
 Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
@@ -1947,7 +1947,7 @@ Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding edge 'E12' from net
-GLDebug: 	Inserted edge:E12 into SUMORTree with boundary 28.87,18.87,70.00,60.00
+GLDebug: 	Inserted edge:E12 into SUMORTree with boundary 30.00,20.00,70.00,60.00
 Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge '-E8' due it were guessed
 Debug: Setting new attribute
@@ -1965,11 +1965,11 @@ Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge 'E12' due it were guessed
 Debug: Setting new attribute
 Debug: Setting new attribute
-GLDebug: 	Removed object edge:E12 from SUMORTree with boundary 28.87,18.87,70.00,60.00
-GLDebug: 	Inserted edge:E12 into SUMORTree with boundary 28.87,18.87,70.00,60.00
+GLDebug: 	Removed object edge:E12 from SUMORTree with boundary 30.00,20.00,70.00,60.00
+GLDebug: 	Inserted edge:E12 into SUMORTree with boundary 30.00,20.00,70.00,60.00
 Debug: Setting new attribute
 Debug: Adding edge '-E12' from net
-GLDebug: 	Inserted edge:-E12 into SUMORTree with boundary 30.00,20.00,71.13,61.13
+GLDebug: 	Inserted edge:-E12 into SUMORTree with boundary 30.00,20.00,70.00,60.00
 Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge 'E3' due it were guessed
 Debug: Setting new attribute
@@ -1989,8 +1989,8 @@ Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge '-E12' due it were guessed
 Debug: Setting new attribute
 Debug: Setting new attribute
-GLDebug: 	Removed object edge:-E12 from SUMORTree with boundary 30.00,20.00,71.13,61.13
-GLDebug: 	Inserted edge:-E12 into SUMORTree with boundary 30.00,20.00,71.13,61.13
+GLDebug: 	Removed object edge:-E12 from SUMORTree with boundary 30.00,20.00,70.00,60.00
+GLDebug: 	Inserted edge:-E12 into SUMORTree with boundary 30.00,20.00,70.00,60.00
 Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
@@ -2047,7 +2047,7 @@ Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding edge 'E14' from net
-GLDebug: 	Inserted edge:E14 into SUMORTree with boundary 8.87,20.00,50.00,61.13
+GLDebug: 	Inserted edge:E14 into SUMORTree with boundary 10.00,20.00,50.00,60.00
 Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge '-E8' due it were guessed
 Debug: Setting new attribute
@@ -2069,11 +2069,11 @@ Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge 'E14' due it were guessed
 Debug: Setting new attribute
 Debug: Setting new attribute
-GLDebug: 	Removed object edge:E14 from SUMORTree with boundary 8.87,20.00,50.00,61.13
-GLDebug: 	Inserted edge:E14 into SUMORTree with boundary 8.87,20.00,50.00,61.13
+GLDebug: 	Removed object edge:E14 from SUMORTree with boundary 10.00,20.00,50.00,60.00
+GLDebug: 	Inserted edge:E14 into SUMORTree with boundary 10.00,20.00,50.00,60.00
 Debug: Setting new attribute
 Debug: Adding edge '-E14' from net
-GLDebug: 	Inserted edge:-E14 into SUMORTree with boundary 10.00,18.87,51.13,60.00
+GLDebug: 	Inserted edge:-E14 into SUMORTree with boundary 10.00,20.00,50.00,60.00
 Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge 'E5' due it were guessed
 Debug: Setting new attribute
@@ -2097,8 +2097,8 @@ Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge '-E14' due it were guessed
 Debug: Setting new attribute
 Debug: Setting new attribute
-GLDebug: 	Removed object edge:-E14 from SUMORTree with boundary 10.00,18.87,51.13,60.00
-GLDebug: 	Inserted edge:-E14 into SUMORTree with boundary 10.00,18.87,51.13,60.00
+GLDebug: 	Removed object edge:-E14 from SUMORTree with boundary 10.00,20.00,50.00,60.00
+GLDebug: 	Inserted edge:-E14 into SUMORTree with boundary 10.00,20.00,50.00,60.00
 Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
@@ -2173,11 +2173,11 @@ GLDebug: 	Removed object junction:J8 from SUMORTree with boundary 18.27,28.27,61
 GLDebug: Removing edges during recomputing
 GLDebug: 	Removed object edge:-E0 from SUMORTree with boundary 10.00,60.00,50.00,81.60
 GLDebug: 	Removed object edge:-E1 from SUMORTree with boundary 30.00,60.00,70.00,81.60
-GLDebug: 	Removed object edge:-E10 from SUMORTree with boundary 28.87,40.00,70.00,81.13
+GLDebug: 	Removed object edge:-E10 from SUMORTree with boundary 30.00,40.00,70.00,80.00
 GLDebug: 	Removed object edge:-E11 from SUMORTree with boundary 30.00,40.00,70.00,61.60
-GLDebug: 	Removed object edge:-E12 from SUMORTree with boundary 30.00,20.00,71.13,61.13
+GLDebug: 	Removed object edge:-E12 from SUMORTree with boundary 30.00,20.00,70.00,60.00
 GLDebug: 	Removed object edge:-E13 from SUMORTree with boundary 30.00,20.00,51.60,60.00
-GLDebug: 	Removed object edge:-E14 from SUMORTree with boundary 10.00,18.87,51.13,60.00
+GLDebug: 	Removed object edge:-E14 from SUMORTree with boundary 10.00,20.00,50.00,60.00
 GLDebug: 	Removed object edge:-E15 from SUMORTree with boundary 10.00,38.40,50.00,60.00
 GLDebug: 	Removed object edge:-E2 from SUMORTree with boundary 50.00,40.00,71.60,80.00
 GLDebug: 	Removed object edge:-E3 from SUMORTree with boundary 50.00,20.00,71.60,60.00
@@ -2185,15 +2185,15 @@ GLDebug: 	Removed object edge:-E4 from SUMORTree with boundary 30.00,18.40,70.00
 GLDebug: 	Removed object edge:-E5 from SUMORTree with boundary 10.00,18.40,50.00,40.00
 GLDebug: 	Removed object edge:-E6 from SUMORTree with boundary 8.40,20.00,30.00,60.00
 GLDebug: 	Removed object edge:-E7 from SUMORTree with boundary 8.40,40.00,30.00,80.00
-GLDebug: 	Removed object edge:-E8 from SUMORTree with boundary 8.87,38.87,50.00,80.00
+GLDebug: 	Removed object edge:-E8 from SUMORTree with boundary 10.00,40.00,50.00,80.00
 GLDebug: 	Removed object edge:-E9 from SUMORTree with boundary 28.40,40.00,50.00,80.00
 GLDebug: 	Removed object edge:E0 from SUMORTree with boundary 10.00,58.40,50.00,80.00
 GLDebug: 	Removed object edge:E1 from SUMORTree with boundary 30.00,58.40,70.00,80.00
-GLDebug: 	Removed object edge:E10 from SUMORTree with boundary 30.00,38.87,71.13,80.00
+GLDebug: 	Removed object edge:E10 from SUMORTree with boundary 30.00,40.00,70.00,80.00
 GLDebug: 	Removed object edge:E11 from SUMORTree with boundary 30.00,38.40,70.00,60.00
-GLDebug: 	Removed object edge:E12 from SUMORTree with boundary 28.87,18.87,70.00,60.00
+GLDebug: 	Removed object edge:E12 from SUMORTree with boundary 30.00,20.00,70.00,60.00
 GLDebug: 	Removed object edge:E13 from SUMORTree with boundary 28.40,20.00,50.00,60.00
-GLDebug: 	Removed object edge:E14 from SUMORTree with boundary 8.87,20.00,50.00,61.13
+GLDebug: 	Removed object edge:E14 from SUMORTree with boundary 10.00,20.00,50.00,60.00
 GLDebug: 	Removed object edge:E15 from SUMORTree with boundary 10.00,40.00,50.00,61.60
 GLDebug: 	Removed object edge:E2 from SUMORTree with boundary 48.40,40.00,70.00,80.00
 GLDebug: 	Removed object edge:E3 from SUMORTree with boundary 48.40,20.00,70.00,60.00
@@ -2201,7 +2201,7 @@ GLDebug: 	Removed object edge:E4 from SUMORTree with boundary 30.00,20.00,70.00,
 GLDebug: 	Removed object edge:E5 from SUMORTree with boundary 10.00,20.00,50.00,41.60
 GLDebug: 	Removed object edge:E6 from SUMORTree with boundary 10.00,20.00,31.60,60.00
 GLDebug: 	Removed object edge:E7 from SUMORTree with boundary 10.00,40.00,31.60,80.00
-GLDebug: 	Removed object edge:E8 from SUMORTree with boundary 10.00,40.00,51.13,81.13
+GLDebug: 	Removed object edge:E8 from SUMORTree with boundary 10.00,40.00,50.00,80.00
 GLDebug: 	Removed object edge:E9 from SUMORTree with boundary 30.00,40.00,51.60,80.00
 GLDebug: Add junctions during recomputing after calling myNetBuilder->compute(...)
 GLDebug: 	Inserted junction:J0 into SUMORTree with boundary 6.80,48.27,41.73,83.20
@@ -2216,11 +2216,11 @@ GLDebug: 	Inserted junction:J8 into SUMORTree with boundary 18.27,28.27,61.73,71
 GLDebug: Add edges during recomputing after calling myNetBuilder->compute(...)
 GLDebug: 	Inserted edge:-E0 into SUMORTree with boundary 10.00,60.00,50.00,81.60
 GLDebug: 	Inserted edge:-E1 into SUMORTree with boundary 30.00,60.00,70.00,81.60
-GLDebug: 	Inserted edge:-E10 into SUMORTree with boundary 28.87,40.00,70.00,81.13
+GLDebug: 	Inserted edge:-E10 into SUMORTree with boundary 30.00,40.00,70.00,80.00
 GLDebug: 	Inserted edge:-E11 into SUMORTree with boundary 30.00,40.00,70.00,61.60
-GLDebug: 	Inserted edge:-E12 into SUMORTree with boundary 30.00,20.00,71.13,61.13
+GLDebug: 	Inserted edge:-E12 into SUMORTree with boundary 30.00,20.00,70.00,60.00
 GLDebug: 	Inserted edge:-E13 into SUMORTree with boundary 30.00,20.00,51.60,60.00
-GLDebug: 	Inserted edge:-E14 into SUMORTree with boundary 10.00,18.87,51.13,60.00
+GLDebug: 	Inserted edge:-E14 into SUMORTree with boundary 10.00,20.00,50.00,60.00
 GLDebug: 	Inserted edge:-E15 into SUMORTree with boundary 10.00,38.40,50.00,60.00
 GLDebug: 	Inserted edge:-E2 into SUMORTree with boundary 50.00,40.00,71.60,80.00
 GLDebug: 	Inserted edge:-E3 into SUMORTree with boundary 50.00,20.00,71.60,60.00
@@ -2228,15 +2228,15 @@ GLDebug: 	Inserted edge:-E4 into SUMORTree with boundary 30.00,18.40,70.00,40.00
 GLDebug: 	Inserted edge:-E5 into SUMORTree with boundary 10.00,18.40,50.00,40.00
 GLDebug: 	Inserted edge:-E6 into SUMORTree with boundary 8.40,20.00,30.00,60.00
 GLDebug: 	Inserted edge:-E7 into SUMORTree with boundary 8.40,40.00,30.00,80.00
-GLDebug: 	Inserted edge:-E8 into SUMORTree with boundary 8.87,38.87,50.00,80.00
+GLDebug: 	Inserted edge:-E8 into SUMORTree with boundary 10.00,40.00,50.00,80.00
 GLDebug: 	Inserted edge:-E9 into SUMORTree with boundary 28.40,40.00,50.00,80.00
 GLDebug: 	Inserted edge:E0 into SUMORTree with boundary 10.00,58.40,50.00,80.00
 GLDebug: 	Inserted edge:E1 into SUMORTree with boundary 30.00,58.40,70.00,80.00
-GLDebug: 	Inserted edge:E10 into SUMORTree with boundary 30.00,38.87,71.13,80.00
+GLDebug: 	Inserted edge:E10 into SUMORTree with boundary 30.00,40.00,70.00,80.00
 GLDebug: 	Inserted edge:E11 into SUMORTree with boundary 30.00,38.40,70.00,60.00
-GLDebug: 	Inserted edge:E12 into SUMORTree with boundary 28.87,18.87,70.00,60.00
+GLDebug: 	Inserted edge:E12 into SUMORTree with boundary 30.00,20.00,70.00,60.00
 GLDebug: 	Inserted edge:E13 into SUMORTree with boundary 28.40,20.00,50.00,60.00
-GLDebug: 	Inserted edge:E14 into SUMORTree with boundary 8.87,20.00,50.00,61.13
+GLDebug: 	Inserted edge:E14 into SUMORTree with boundary 10.00,20.00,50.00,60.00
 GLDebug: 	Inserted edge:E15 into SUMORTree with boundary 10.00,40.00,50.00,61.60
 GLDebug: 	Inserted edge:E2 into SUMORTree with boundary 48.40,40.00,70.00,80.00
 GLDebug: 	Inserted edge:E3 into SUMORTree with boundary 48.40,20.00,70.00,60.00
@@ -2244,7 +2244,7 @@ GLDebug: 	Inserted edge:E4 into SUMORTree with boundary 30.00,20.00,70.00,41.60
 GLDebug: 	Inserted edge:E5 into SUMORTree with boundary 10.00,20.00,50.00,41.60
 GLDebug: 	Inserted edge:E6 into SUMORTree with boundary 10.00,20.00,31.60,60.00
 GLDebug: 	Inserted edge:E7 into SUMORTree with boundary 10.00,40.00,31.60,80.00
-GLDebug: 	Inserted edge:E8 into SUMORTree with boundary 10.00,40.00,51.13,81.13
+GLDebug: 	Inserted edge:E8 into SUMORTree with boundary 10.00,40.00,50.00,80.00
 GLDebug: 	Inserted edge:E9 into SUMORTree with boundary 30.00,40.00,51.60,80.00
 Debug: Created connection 'from-E0_0to-E7_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E0_0to-E8_0' in retrieveGNEConnection()

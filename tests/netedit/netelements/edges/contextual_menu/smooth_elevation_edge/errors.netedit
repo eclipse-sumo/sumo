@@ -49,14 +49,6 @@ Debug: Created connection 'fromgneE4_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE8_0togneE0_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE2_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE2_1' in retrieveGNEConnection()
-Debug: Created walkingArea ':gneJ0_w0' in retrieveGNEWalkingArea()
-Debug: Created walkingArea ':gneJ1_w0' in retrieveGNEWalkingArea()
-Debug: Created crossing ':gneJ2_c0' in retrieveGNECrossing()
-Debug: Created crossing ':gneJ2_c1' in retrieveGNECrossing()
-Debug: Created walkingArea ':gneJ2_w0' in retrieveGNEWalkingArea()
-Debug: Created crossing ':gneJ3_c0' in retrieveGNECrossing()
-Debug: Created crossing ':gneJ3_c1' in retrieveGNECrossing()
-Debug: Created walkingArea ':gneJ3_w0' in retrieveGNEWalkingArea()
 Debug: Key F5 (Compute) pressed
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -13.20,-13.20,13.20,13.20
@@ -79,19 +71,11 @@ GLDebug: 	Inserted junction:gneJ3 into SUMORTree with boundary 32.49,-0.56,63.20
 GLDebug: Add edges during recomputing after calling myNetBuilder->compute(...)
 GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,60.00,10.00
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,11.60
-GLDebug: 	Inserted edge:gneE2 into SUMORTree with boundary -10.08,4.59,60.23,30.00
+GLDebug: 	Inserted edge:gneE2 into SUMORTree with boundary -10.00,4.59,60.00,30.00
 GLDebug: 	Inserted edge:gneE4 into SUMORTree with boundary 38.40,-10.00,60.00,30.00
 GLDebug: 	Inserted edge:gneE5 into SUMORTree with boundary 40.00,-10.00,61.60,30.00
 GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary -11.60,-10.00,10.00,30.00
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary -10.00,-10.00,11.60,30.00
-Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
-Debug: Created walkingArea ':gneJ0_w0' in retrieveGNEWalkingArea()
-Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
-Debug: Created walkingArea ':gneJ1_w0' in retrieveGNEWalkingArea()
-Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
-Debug: Created walkingArea ':gneJ2_w0' in retrieveGNEWalkingArea()
-Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
-Debug: Created walkingArea ':gneJ3_w0' in retrieveGNEWalkingArea()
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing busStop 'busStop3' in GNEChange_Additional
@@ -106,7 +90,7 @@ GLDebug: 	Removed object junction:gneJ3 from SUMORTree with boundary 32.49,-0.56
 GLDebug: Removing edges during recomputing
 GLDebug: 	Removed object edge:gneE0 from SUMORTree with boundary -10.00,-11.60,60.00,10.00
 GLDebug: 	Removed object edge:gneE1 from SUMORTree with boundary -10.00,-10.00,60.00,11.60
-GLDebug: 	Removed object edge:gneE2 from SUMORTree with boundary -10.08,4.59,60.23,30.00
+GLDebug: 	Removed object edge:gneE2 from SUMORTree with boundary -10.00,4.59,60.00,30.00
 GLDebug: 	Removed object edge:gneE4 from SUMORTree with boundary 38.40,-10.00,60.00,30.00
 GLDebug: 	Removed object edge:gneE5 from SUMORTree with boundary 40.00,-10.00,61.60,30.00
 GLDebug: 	Removed object edge:gneE8 from SUMORTree with boundary -11.60,-10.00,10.00,30.00
@@ -119,19 +103,11 @@ GLDebug: 	Inserted junction:gneJ3 into SUMORTree with boundary 32.49,-0.56,63.20
 GLDebug: Add edges during recomputing after calling myNetBuilder->compute(...)
 GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,60.00,10.00
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,11.60
-GLDebug: 	Inserted edge:gneE2 into SUMORTree with boundary -10.08,4.59,60.23,30.00
+GLDebug: 	Inserted edge:gneE2 into SUMORTree with boundary -10.00,4.59,60.00,30.00
 GLDebug: 	Inserted edge:gneE4 into SUMORTree with boundary 38.40,-10.00,60.00,30.00
 GLDebug: 	Inserted edge:gneE5 into SUMORTree with boundary 40.00,-10.00,61.60,30.00
 GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary -11.60,-10.00,10.00,30.00
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary -10.00,-10.00,11.60,30.00
-Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
-Debug: Created walkingArea ':gneJ0_w0' in retrieveGNEWalkingArea()
-Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
-Debug: Created walkingArea ':gneJ1_w0' in retrieveGNEWalkingArea()
-Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
-Debug: Created walkingArea ':gneJ2_w0' in retrieveGNEWalkingArea()
-Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
-Debug: Created walkingArea ':gneJ3_w0' in retrieveGNEWalkingArea()
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding busStop 'busStop1' in GNEChange_Additional
@@ -146,7 +122,7 @@ GLDebug: 	Removed object junction:gneJ3 from SUMORTree with boundary 32.49,-0.56
 GLDebug: Removing edges during recomputing
 GLDebug: 	Removed object edge:gneE0 from SUMORTree with boundary -10.00,-11.60,60.00,10.00
 GLDebug: 	Removed object edge:gneE1 from SUMORTree with boundary -10.00,-10.00,60.00,11.60
-GLDebug: 	Removed object edge:gneE2 from SUMORTree with boundary -10.08,4.59,60.23,30.00
+GLDebug: 	Removed object edge:gneE2 from SUMORTree with boundary -10.00,4.59,60.00,30.00
 GLDebug: 	Removed object edge:gneE4 from SUMORTree with boundary 38.40,-10.00,60.00,30.00
 GLDebug: 	Removed object edge:gneE5 from SUMORTree with boundary 40.00,-10.00,61.60,30.00
 GLDebug: 	Removed object edge:gneE8 from SUMORTree with boundary -11.60,-10.00,10.00,30.00
@@ -159,19 +135,11 @@ GLDebug: 	Inserted junction:gneJ3 into SUMORTree with boundary 32.49,-0.56,63.20
 GLDebug: Add edges during recomputing after calling myNetBuilder->compute(...)
 GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,60.00,10.00
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,11.60
-GLDebug: 	Inserted edge:gneE2 into SUMORTree with boundary -10.08,4.59,60.23,30.00
+GLDebug: 	Inserted edge:gneE2 into SUMORTree with boundary -10.00,4.59,60.00,30.00
 GLDebug: 	Inserted edge:gneE4 into SUMORTree with boundary 38.40,-10.00,60.00,30.00
 GLDebug: 	Inserted edge:gneE5 into SUMORTree with boundary 40.00,-10.00,61.60,30.00
 GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary -11.60,-10.00,10.00,30.00
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary -10.00,-10.00,11.60,30.00
-Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
-Debug: Created walkingArea ':gneJ0_w0' in retrieveGNEWalkingArea()
-Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
-Debug: Created walkingArea ':gneJ1_w0' in retrieveGNEWalkingArea()
-Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
-Debug: Created walkingArea ':gneJ2_w0' in retrieveGNEWalkingArea()
-Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
-Debug: Created walkingArea ':gneJ3_w0' in retrieveGNEWalkingArea()
 Debug: Deleting unreferenced busStop
 Debug: Deleting unreferenced busStop
 Debug: Deleting unreferenced busStop
@@ -200,16 +168,8 @@ Debug: Deleting unreferenced lane 'gneE9_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE9_0togneE2_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE9_0togneE2_1' in GNEEdge destructor
 Debug: Deleting unreferenced junction 'gneJ0' in AttributeCarriers destructor
-Debug: Deleting unreferenced walkingArea ':gneJ0_w0' in GNEJunction destructor
 Debug: Deleting unreferenced junction 'gneJ1' in AttributeCarriers destructor
-Debug: Deleting unreferenced walkingArea ':gneJ1_w0' in GNEJunction destructor
 Debug: Deleting unreferenced junction 'gneJ2' in AttributeCarriers destructor
-Debug: Deleting unreferenced crossing ':gneJ2_c0' in GNEJunction destructor
-Debug: Deleting unreferenced crossing ':gneJ2_c1' in GNEJunction destructor
-Debug: Deleting unreferenced walkingArea ':gneJ2_w0' in GNEJunction destructor
 Debug: Deleting unreferenced junction 'gneJ3' in AttributeCarriers destructor
-Debug: Deleting unreferenced crossing ':gneJ3_c0' in GNEJunction destructor
-Debug: Deleting unreferenced crossing ':gneJ3_c1' in GNEJunction destructor
-Debug: Deleting unreferenced walkingArea ':gneJ3_w0' in GNEJunction destructor
 Debug: Deleting net builder in GNENet destructor
 GLDebug: Number of objects in SUMORTree during call of the destructor: 11

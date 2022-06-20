@@ -97,14 +97,14 @@ GLDebug: 	Inserted junction:N into SUMORTree with boundary 81.60,190.00,118.40,2
 GLDebug: 	Inserted junction:S into SUMORTree with boundary 81.60,-10.00,118.40,10.00
 GLDebug: 	Inserted junction:W into SUMORTree with boundary -10.00,81.60,10.00,118.40
 GLDebug: Add edges during recomputing after calling myNetBuilder->compute(...)
-GLDebug: 	Inserted edge:CE into SUMORTree with boundary 90.00,82.00,210.00,110.00
-GLDebug: 	Inserted edge:CN into SUMORTree with boundary 90.00,90.00,118.00,210.00
-GLDebug: 	Inserted edge:CS into SUMORTree with boundary 82.00,-10.00,110.00,110.00
-GLDebug: 	Inserted edge:CW into SUMORTree with boundary -10.00,90.00,110.00,118.00
-GLDebug: 	Inserted edge:EC into SUMORTree with boundary 90.00,90.00,210.00,118.00
-GLDebug: 	Inserted edge:NC into SUMORTree with boundary 82.00,90.00,110.00,210.00
-GLDebug: 	Inserted edge:SC into SUMORTree with boundary 90.00,-10.00,118.00,110.00
-GLDebug: 	Inserted edge:WC into SUMORTree with boundary -10.00,82.00,110.00,110.00
+GLDebug: 	Inserted edge:CE into SUMORTree with boundary 90.00,82.60,210.00,110.00
+GLDebug: 	Inserted edge:CN into SUMORTree with boundary 90.00,90.00,117.40,210.00
+GLDebug: 	Inserted edge:CS into SUMORTree with boundary 82.60,-10.00,110.00,110.00
+GLDebug: 	Inserted edge:CW into SUMORTree with boundary -10.00,90.00,110.00,117.40
+GLDebug: 	Inserted edge:EC into SUMORTree with boundary 90.00,90.00,210.00,117.40
+GLDebug: 	Inserted edge:NC into SUMORTree with boundary 82.60,90.00,110.00,210.00
+GLDebug: 	Inserted edge:SC into SUMORTree with boundary 90.00,-10.00,117.40,110.00
+GLDebug: 	Inserted edge:WC into SUMORTree with boundary -10.00,82.60,110.00,110.00
 Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
 Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
 Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
