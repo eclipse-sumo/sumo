@@ -499,6 +499,11 @@ GNEPathCreator::addStoppingPlace(GNEAdditional* stoppingPlace, const bool /*shif
     if (((myCreationMode & END_CONTAINERSTOP) != 0) && (stoppingPlace->getTagProperty().getTag() != SUMO_TAG_CONTAINER_STOP)) {
         return false;
     }
+    // avoid select first an stopping place
+    if (((myCreationMode & START_EDGE) == 0) && mySelectedEdges.empty()) {
+        WRITE_WARNING("first select an edge");
+        return false;
+    }
     // check if previously stopping place from was set
     if (myToStoppingPlace) {
         return false;
