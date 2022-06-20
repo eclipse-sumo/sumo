@@ -279,13 +279,13 @@ GUIPolygon::setColor(const GUIVisualizationSettings& s, const SUMOPolygon* polyg
     const GUIColorer& c = s.polyColorer;
     const int active = c.getActive();
     RGBColor color;
-    if (s.netedit && active != 1 && gSelected.isSelected(GLO_POLYGON, o->getGlID()) && disableSelectionColor) {
+    if (s.netedit && active != 1 && gSelected.isSelected(o->getType(), o->getGlID()) && disableSelectionColor) {
         // override with special selection colors (unless the color scheme is based on selection)
         color = RGBColor(0, 0, 204);
     } else if (active == 0) {
         color = polygon->getShapeColor();
     } else if (active == 1) {
-        color = c.getScheme().getColor(gSelected.isSelected(GLO_POLYGON, o->getGlID()));
+        color = c.getScheme().getColor(gSelected.isSelected(o->getType(), o->getGlID()));
     } else if (active == 2) {
         color = c.getScheme().getColor(0);
     } else {
