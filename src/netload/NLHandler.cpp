@@ -631,7 +631,6 @@ NLHandler::addParam(const SUMOSAXAttributes& attrs) {
     // set
     if (ok && myAmParsingTLLogicOrJunction) {
         assert(key != "");
-        assert(val != "");
         myJunctionControlBuilder.addParam(key, val);
     }
 }
