@@ -72,30 +72,6 @@ public:
         NODESET_TLSMODELS,
     };
 
-    class CullCallback : public osg::NodeCallback
-    {
-    public:
-        CullCallback(const GUISUMOAbstractView* parent) : osg::NodeCallback(), myParent(parent) {};
-
-        /// @brief Destructor
-        virtual ~CullCallback() {};
-
-        virtual void operator()(osg::Node* node, osg::NodeVisitor* nv)
-        {
-            std::cout << "cull callback - pre traverse" << node << std::endl;
-            // show/hide OSG nodes
-            unsigned int cullMask = 0;
-            cullMask |= myParent->getVisualisationSettings().show3DTLSDomes << NODESET_TLSDOMES;
-            cullMask |= myParent->getVisualisationSettings().show3DTLSLinkMarkers << NODESET_TLSLINKMARKERS;
-            dynamic_cast<osg::Camera*>(node)->setCullMask(cullMask);
-            traverse(node, nv);
-            std::cout << "cull callback - post traverse" << node << std::endl;
-        }
-
-    private: 
-        const GUISUMOAbstractView* myParent;
-    };
-
     /**
      * @class Command_TLSChange
      * @brief Updates scene on each tls switch

@@ -474,8 +474,6 @@ GUIOSGView::onPaint(FXObject*, FXSelector, void*) {
     unsigned int cullMask = 0xFFFFFFFF;
     cullMask ^= (-myVisualizationSettings->show3DTLSDomes ^ cullMask) & (1UL << NODESET_TLSDOMES);
     cullMask ^= (-myVisualizationSettings->show3DTLSLinkMarkers ^ cullMask) & (1UL << NODESET_TLSLINKMARKERS);
-    //cullMask &= ~myVisualizationSettings->show3DTLSDomes << NODESET_TLSDOMES;
-    //cullMask |= myVisualizationSettings->show3DTLSLinkMarkers << NODESET_TLSLINKMARKERS;
     myViewer->getCamera()->setCullMask(cullMask);
 
     if (myAdapter->makeCurrent()) {
