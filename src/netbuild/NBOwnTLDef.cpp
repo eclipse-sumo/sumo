@@ -293,7 +293,8 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
                 fromLanes.push_back(i2);
                 toLanes.push_back(approached.toLane);
                 toEdges.push_back(approached.toEdge);
-                if (approached.vmax < NUMERICAL_EPS || (fromEdge->getPermissions() & SVC_PASSENGER) == 0) {
+                if (approached.vmax < NUMERICAL_EPS || (fromEdge->getPermissions() & SVC_PASSENGER) == 0
+                        || (approached.toEdge->getPermissions() & SVC_PASSENGER) == 0) {
                     crossingTime.push_back(0);
                 } else {
                     crossingTime.push_back(TIME2STEPS((approached.length + approached.viaLength) / approached.vmax));
