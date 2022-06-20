@@ -9,7 +9,7 @@ The following modes are available in all super modes (Network, Demand and Data).
 # Inspect
 
 Inspect and modify attributes of edges, lanes, junctions, connections and additional network items (i.e. bus stops). 
-When there are multiple ojbects in the same location, the inspection frame will indicate their number and allow switching between them.
+When there are multiple objects in the same location, the inspection frame will indicate their number and allow switching between them.
 
 Repeatedly clicking on the same location will also cycle through all elements at the same location.
 
@@ -21,10 +21,10 @@ Some attributes have pre-computed values (i.e. edge length) but can be overrule 
 
 ## Inspecting Lanes
 
-By default, clicking on an edge will inspect the edge object. To inspect individiual lanes of an edge either
+By default, clicking on an edge will inspect the edge object. To inspect individual lanes of an edge either
 
 - shift-click on the lane
-- deactive the "click selects edges" toggle button in the top bar (shorcut Alt+4) and then left-click on lanes
+- deactivate the "click selects edges" toggle button in the top bar (shortcut Alt+4) and then left-click on lanes
 - inspect an edge an then right-click a lane in the hierarchy view and select 'inspect'
   
 ## Inspecting Connections
@@ -226,7 +226,7 @@ Special movement operations are available when multiple objects are selected (vi
 
 ### Frame Operation
 
-For a selection of edges, the Move-mode sidebar allows to move the whole geometry sideway using the "Shift selected edges geoemtry" element. A position value shifts geometry to the right (relative to the driving direction) and a negatve value shifts geometry to the left.
+For a selection of edges, the Move-mode sidebar allows to move the whole geometry sideway using the "Shift selected edges geometry" element. A position value shifts geometry to the right (relative to the driving direction) and a negative value shifts geometry to the left.
 
 For a selection edges and/or junctions the Move-mode sidebar allows to move all objects in Z-direction using the "Change Z in selection" element. The applied value can either be set as the new "absolute" Z value or it can be applied relative to the existing Z position.
 

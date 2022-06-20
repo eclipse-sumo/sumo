@@ -128,7 +128,7 @@ title: netedit
 
 | Miscellaneous shortcuts | Key      | Description                                      |
 | ----------------------- | -------- | ------------------------------------------------ |
-| Grid  | Ctrl + G        | Toggle background gripd
+| Grid  | Ctrl + G        | Toggle background grid
 | Grid+ | Ctrl + PageUp   | Increase grid spacing               |
 | Grid- | Ctrl + PageDown | Reduce grid spacing               |
 

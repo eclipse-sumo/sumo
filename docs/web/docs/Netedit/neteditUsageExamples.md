@@ -73,11 +73,11 @@ This will create a single joined junction but keep the endpoints at the original
 1. set junction attribute 'radius' to the desired roundabout radius
 2. right-click on junction and select 'Convert to roundabout'
 
-## Convertion a roundabout into a simple intersction
+## Converting a roundabout into a simple intersection
 
 1. select all junctions that are part of the roundabout
 2. join selected junctions (F7)
-3. select all edges that connected to the joined interesection
+3. select all edges that connected to the joined intersection
 4. right-click selection and select 'edge operations'->'restore geometry endpoints'
 
 ## Converting an intersection into a roundabout (old manual method)
