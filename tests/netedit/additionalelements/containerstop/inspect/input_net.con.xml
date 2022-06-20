@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-06-20 07:56:13 by Eclipse SUMO netconvert Version v1_13_0+1008-b165c92c02a
+<!-- generated on 2022-06-20 08:54:02 by Eclipse SUMO netconvert Version v1_13_0+1008-b165c92c02a
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -26,7 +26,7 @@
     </junctions>
 
     <pedestrian>
-        <walkingareas value="true"/>
+        <walkingareas value="false"/>
     </pedestrian>
 
 </configuration>
