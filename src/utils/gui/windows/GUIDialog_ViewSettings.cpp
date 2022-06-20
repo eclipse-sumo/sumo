@@ -2335,7 +2335,6 @@ GUIDialog_ViewSettings::buildOpenGLFrame(FXTabBook* tabbook) {
 void
 GUIDialog_ViewSettings::build3DFrame(FXTabBook* tabbook) {
     FXTabItem* frame3D = new FXTabItem(tabbook, "3D", nullptr, GUIDesignViewSettingsTabItemBook1);
-#ifdef HAVE_OSG:
     FXScrollWindow* scrollWindow = new FXScrollWindow(tabbook);
     FXVerticalFrame* verticalFrame = new FXVerticalFrame(scrollWindow, GUIDesignViewSettingsVerticalFrame2);
 
@@ -2349,7 +2348,7 @@ GUIDialog_ViewSettings::build3DFrame(FXTabBook* tabbook) {
     myGenerate3DTLSModels = new FXCheckButton(m84, "Auto-generate TLS models", this, MID_SIMPLE_VIEW_COLORCHANGE);
     myGenerate3DTLSModels->setCheck(mySettings->generate3DTLSModels);
     myGenerate3DTLSModels->disable(); // TODO: enable when functionality is implemented
-#else:
+#ifndef HAVE_OSG
     frame3D->disable();
 #endif
 }
