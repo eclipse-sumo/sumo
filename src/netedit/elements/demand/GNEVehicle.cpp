@@ -32,6 +32,7 @@
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/globjects/GLIncludes.h>
 #include <utils/gui/windows/GUIAppEnum.h>
+#include <utils/common/StringTokenizer.h>
 
 #include "GNEVehicle.h"
 #include "GNERouteHandler.h"
@@ -1211,6 +1212,39 @@ GNEVehicle::getAttribute(SumoXMLAttr key) const {
             } else {
                 return myTagProperty.getDefaultValue(SUMO_ATTR_ARRIVALPOS_LAT);
             }
+        case SUMO_ATTR_INSERTIONCHECKS: {
+            std::vector<std::string> insertionChecksStrs;
+            if ((insertionChecks & (int)InsertionCheck::NONE) != 0) {
+                insertionChecksStrs.push_back(SUMOXMLDefinitions::InsertionChecks.getString(InsertionCheck::NONE));
+            } else if ((insertionChecks & (int)InsertionCheck::COLLISION) != 0) {
+                insertionChecksStrs.push_back(SUMOXMLDefinitions::InsertionChecks.getString(InsertionCheck::COLLISION));
+            } else if ((insertionChecks & (int)InsertionCheck::LEADER_GAP) != 0) {
+                insertionChecksStrs.push_back(SUMOXMLDefinitions::InsertionChecks.getString(InsertionCheck::LEADER_GAP));
+            } else if ((insertionChecks & (int)InsertionCheck::FOLLOWER_GAP) != 0) {
+                insertionChecksStrs.push_back(SUMOXMLDefinitions::InsertionChecks.getString(InsertionCheck::FOLLOWER_GAP));
+            } else if ((insertionChecks & (int)InsertionCheck::JUNCTION) != 0) {
+                insertionChecksStrs.push_back(SUMOXMLDefinitions::InsertionChecks.getString(InsertionCheck::JUNCTION));
+            } else if ((insertionChecks & (int)InsertionCheck::STOP) != 0) {
+                insertionChecksStrs.push_back(SUMOXMLDefinitions::InsertionChecks.getString(InsertionCheck::STOP));
+            } else if ((insertionChecks & (int)InsertionCheck::ARRIVAL_SPEED) != 0) {
+                insertionChecksStrs.push_back(SUMOXMLDefinitions::InsertionChecks.getString(InsertionCheck::ARRIVAL_SPEED));
+            } else if ((insertionChecks & (int)InsertionCheck::ONCOMING_TRAIN) != 0) {
+                insertionChecksStrs.push_back(SUMOXMLDefinitions::InsertionChecks.getString(InsertionCheck::ONCOMING_TRAIN));
+            } else if ((insertionChecks & (int)InsertionCheck::SPEED_LIMIT) != 0) {
+                insertionChecksStrs.push_back(SUMOXMLDefinitions::InsertionChecks.getString(InsertionCheck::SPEED_LIMIT));
+            } else if ((insertionChecks & (int)InsertionCheck::PEDESTRIAN) != 0) {
+                insertionChecksStrs.push_back(SUMOXMLDefinitions::InsertionChecks.getString(InsertionCheck::PEDESTRIAN));
+            } else if ((insertionChecks & (int)InsertionCheck::BIDI) != 0) {
+                insertionChecksStrs.push_back(SUMOXMLDefinitions::InsertionChecks.getString(InsertionCheck::BIDI));
+            } else if ((insertionChecks & (int)InsertionCheck::LANECHANGE) != 0) {
+                insertionChecksStrs.push_back(SUMOXMLDefinitions::InsertionChecks.getString(InsertionCheck::LANECHANGE));
+            } else if ((insertionChecks & (int)InsertionCheck::ALL) != 0) {
+                insertionChecksStrs.push_back(SUMOXMLDefinitions::InsertionChecks.getString(InsertionCheck::ALL));
+            } else {
+                throw ProcessError("Invalid insertion check");
+            }
+            return toString(insertionChecksStrs);
+        }
         // Specific of vehicles
         case SUMO_ATTR_DEPART:
         case SUMO_ATTR_BEGIN:
@@ -1372,6 +1406,7 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList*
         case SUMO_ATTR_REROUTE:
         case SUMO_ATTR_DEPARTPOS_LAT:
         case SUMO_ATTR_ARRIVALPOS_LAT:
+        case SUMO_ATTR_INSERTIONCHECKS:
         // Specific of vehicles
         case SUMO_ATTR_DEPART:
         case SUMO_ATTR_BEGIN:
@@ -1520,6 +1555,21 @@ GNEVehicle::isValid(SumoXMLAttr key, const std::string& value) {
             parseArrivalPosLat(value, toString(SUMO_TAG_VEHICLE), id, dummyArrivalPosLat, dummyArrivalPosLatProcedure, error);
             // if error is empty, given value is valid
             return error.empty();
+        }
+        case SUMO_ATTR_INSERTIONCHECKS: {
+            if (value.empty()) {
+                return true;
+            } else {
+                // split value in substrinsg
+                StringTokenizer valueStrs(value, " ");
+                // iterate over values
+                while (valueStrs.hasNext()) {
+                    if (!SUMOXMLDefinitions::InsertionChecks.hasString(valueStrs.next())) {
+                        return false;
+                    }
+                }
+                return false;
+            }
         }
         // Specific of vehicles
         case SUMO_ATTR_DEPART:
@@ -2007,6 +2057,41 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
                 parametersSet &= ~VEHPARS_ARRIVALPOSLAT_SET;
             }
             parseArrivalPosLat(value, toString(SUMO_TAG_VEHICLE), id, arrivalPosLat, arrivalPosLatProcedure, error);
+            break;
+        case SUMO_ATTR_INSERTIONCHECKS:
+            // first reset insertionChecks
+            insertionChecks = 0;
+            if (value.empty()) {
+                insertionChecks = (int)InsertionCheck::NONE;
+            } else {
+                // split value in substrinsg
+                StringTokenizer insertionCheckStrs(value, " ");
+                // iterate over values
+                while (insertionCheckStrs.hasNext()) {
+                    const auto insertionCheckStr = insertionCheckStrs.next();
+                    if (SUMOXMLDefinitions::InsertionChecks.getString(InsertionCheck::COLLISION) == insertionCheckStr) {
+                        insertionChecks |= (int)InsertionCheck::COLLISION;
+                    } else if (SUMOXMLDefinitions::InsertionChecks.getString(InsertionCheck::LEADER_GAP) == insertionCheckStr) {
+                        insertionChecks |= (int)InsertionCheck::LEADER_GAP;
+                    } else if (SUMOXMLDefinitions::InsertionChecks.getString(InsertionCheck::FOLLOWER_GAP) == insertionCheckStr) {
+                        insertionChecks |= (int)InsertionCheck::FOLLOWER_GAP;
+                    } else if (SUMOXMLDefinitions::InsertionChecks.getString(InsertionCheck::STOP) == insertionCheckStr) {
+                        insertionChecks |= (int)InsertionCheck::STOP;
+                    } else if (SUMOXMLDefinitions::InsertionChecks.getString(InsertionCheck::ARRIVAL_SPEED) == insertionCheckStr) {
+                        insertionChecks |= (int)InsertionCheck::ARRIVAL_SPEED;
+                    } else if (SUMOXMLDefinitions::InsertionChecks.getString(InsertionCheck::ONCOMING_TRAIN) == insertionCheckStr) {
+                        insertionChecks |= (int)InsertionCheck::ONCOMING_TRAIN;
+                    } else if (SUMOXMLDefinitions::InsertionChecks.getString(InsertionCheck::PEDESTRIAN) == insertionCheckStr) {
+                        insertionChecks |= (int)InsertionCheck::PEDESTRIAN;
+                    } else if (SUMOXMLDefinitions::InsertionChecks.getString(InsertionCheck::BIDI) == insertionCheckStr) {
+                        insertionChecks |= (int)InsertionCheck::BIDI;
+                    } else if (SUMOXMLDefinitions::InsertionChecks.getString(InsertionCheck::LANECHANGE) == insertionCheckStr) {
+                        insertionChecks |= (int)InsertionCheck::LANECHANGE;
+                    } else if (SUMOXMLDefinitions::InsertionChecks.getString(InsertionCheck::ALL) == insertionCheckStr) {
+                        insertionChecks |= (int)InsertionCheck::ALL;
+                    } 
+                }
+            }
             break;
         // Specific of vehicles
         case SUMO_ATTR_DEPART:
