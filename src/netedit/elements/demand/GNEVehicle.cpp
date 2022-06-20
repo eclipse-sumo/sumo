@@ -1212,39 +1212,20 @@ GNEVehicle::getAttribute(SumoXMLAttr key) const {
             } else {
                 return myTagProperty.getDefaultValue(SUMO_ATTR_ARRIVALPOS_LAT);
             }
-        case SUMO_ATTR_INSERTIONCHECKS: {
-            std::vector<std::string> insertionChecksStrs;
-            if ((insertionChecks & (int)InsertionCheck::NONE) != 0) {
-                insertionChecksStrs.push_back(SUMOXMLDefinitions::InsertionChecks.getString(InsertionCheck::NONE));
-            } else if ((insertionChecks & (int)InsertionCheck::COLLISION) != 0) {
-                insertionChecksStrs.push_back(SUMOXMLDefinitions::InsertionChecks.getString(InsertionCheck::COLLISION));
-            } else if ((insertionChecks & (int)InsertionCheck::LEADER_GAP) != 0) {
-                insertionChecksStrs.push_back(SUMOXMLDefinitions::InsertionChecks.getString(InsertionCheck::LEADER_GAP));
-            } else if ((insertionChecks & (int)InsertionCheck::FOLLOWER_GAP) != 0) {
-                insertionChecksStrs.push_back(SUMOXMLDefinitions::InsertionChecks.getString(InsertionCheck::FOLLOWER_GAP));
-            } else if ((insertionChecks & (int)InsertionCheck::JUNCTION) != 0) {
-                insertionChecksStrs.push_back(SUMOXMLDefinitions::InsertionChecks.getString(InsertionCheck::JUNCTION));
-            } else if ((insertionChecks & (int)InsertionCheck::STOP) != 0) {
-                insertionChecksStrs.push_back(SUMOXMLDefinitions::InsertionChecks.getString(InsertionCheck::STOP));
-            } else if ((insertionChecks & (int)InsertionCheck::ARRIVAL_SPEED) != 0) {
-                insertionChecksStrs.push_back(SUMOXMLDefinitions::InsertionChecks.getString(InsertionCheck::ARRIVAL_SPEED));
-            } else if ((insertionChecks & (int)InsertionCheck::ONCOMING_TRAIN) != 0) {
-                insertionChecksStrs.push_back(SUMOXMLDefinitions::InsertionChecks.getString(InsertionCheck::ONCOMING_TRAIN));
-            } else if ((insertionChecks & (int)InsertionCheck::SPEED_LIMIT) != 0) {
-                insertionChecksStrs.push_back(SUMOXMLDefinitions::InsertionChecks.getString(InsertionCheck::SPEED_LIMIT));
-            } else if ((insertionChecks & (int)InsertionCheck::PEDESTRIAN) != 0) {
-                insertionChecksStrs.push_back(SUMOXMLDefinitions::InsertionChecks.getString(InsertionCheck::PEDESTRIAN));
-            } else if ((insertionChecks & (int)InsertionCheck::BIDI) != 0) {
-                insertionChecksStrs.push_back(SUMOXMLDefinitions::InsertionChecks.getString(InsertionCheck::BIDI));
-            } else if ((insertionChecks & (int)InsertionCheck::LANECHANGE) != 0) {
-                insertionChecksStrs.push_back(SUMOXMLDefinitions::InsertionChecks.getString(InsertionCheck::LANECHANGE));
-            } else if ((insertionChecks & (int)InsertionCheck::ALL) != 0) {
-                insertionChecksStrs.push_back(SUMOXMLDefinitions::InsertionChecks.getString(InsertionCheck::ALL));
+        case SUMO_ATTR_INSERTIONCHECKS:
+            if ((insertionChecks == 0) || (insertionChecks == (int)InsertionCheck::ALL)) {
+                return SUMOXMLDefinitions::InsertionChecks.getString(InsertionCheck::ALL);
             } else {
-                throw ProcessError("Invalid insertion check");
+                std::vector<std::string> insertionChecksStrs;
+                const auto insertionCheckValues = SUMOXMLDefinitions::InsertionChecks.getValues();
+                // iterate over values
+                for (const auto insertionCheckValue : insertionCheckValues) {
+                    if ((insertionCheckValue != InsertionCheck::ALL) && (insertionChecks & (int)insertionCheckValue) != 0) {
+                        insertionChecksStrs.push_back(SUMOXMLDefinitions::InsertionChecks.getString(insertionCheckValue));
+                    }
+                }
+                return toString(insertionChecksStrs);
             }
-            return toString(insertionChecksStrs);
-        }
         // Specific of vehicles
         case SUMO_ATTR_DEPART:
         case SUMO_ATTR_BEGIN:
@@ -1568,7 +1549,7 @@ GNEVehicle::isValid(SumoXMLAttr key, const std::string& value) {
                         return false;
                     }
                 }
-                return false;
+                return true;
             }
         }
         // Specific of vehicles
@@ -2062,34 +2043,12 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
             // first reset insertionChecks
             insertionChecks = 0;
             if (value.empty()) {
-                insertionChecks = (int)InsertionCheck::NONE;
+                insertionChecks = (int)InsertionCheck::ALL;
             } else {
                 // split value in substrinsg
                 StringTokenizer insertionCheckStrs(value, " ");
-                // iterate over values
-                while (insertionCheckStrs.hasNext()) {
-                    const auto insertionCheckStr = insertionCheckStrs.next();
-                    if (SUMOXMLDefinitions::InsertionChecks.getString(InsertionCheck::COLLISION) == insertionCheckStr) {
-                        insertionChecks |= (int)InsertionCheck::COLLISION;
-                    } else if (SUMOXMLDefinitions::InsertionChecks.getString(InsertionCheck::LEADER_GAP) == insertionCheckStr) {
-                        insertionChecks |= (int)InsertionCheck::LEADER_GAP;
-                    } else if (SUMOXMLDefinitions::InsertionChecks.getString(InsertionCheck::FOLLOWER_GAP) == insertionCheckStr) {
-                        insertionChecks |= (int)InsertionCheck::FOLLOWER_GAP;
-                    } else if (SUMOXMLDefinitions::InsertionChecks.getString(InsertionCheck::STOP) == insertionCheckStr) {
-                        insertionChecks |= (int)InsertionCheck::STOP;
-                    } else if (SUMOXMLDefinitions::InsertionChecks.getString(InsertionCheck::ARRIVAL_SPEED) == insertionCheckStr) {
-                        insertionChecks |= (int)InsertionCheck::ARRIVAL_SPEED;
-                    } else if (SUMOXMLDefinitions::InsertionChecks.getString(InsertionCheck::ONCOMING_TRAIN) == insertionCheckStr) {
-                        insertionChecks |= (int)InsertionCheck::ONCOMING_TRAIN;
-                    } else if (SUMOXMLDefinitions::InsertionChecks.getString(InsertionCheck::PEDESTRIAN) == insertionCheckStr) {
-                        insertionChecks |= (int)InsertionCheck::PEDESTRIAN;
-                    } else if (SUMOXMLDefinitions::InsertionChecks.getString(InsertionCheck::BIDI) == insertionCheckStr) {
-                        insertionChecks |= (int)InsertionCheck::BIDI;
-                    } else if (SUMOXMLDefinitions::InsertionChecks.getString(InsertionCheck::LANECHANGE) == insertionCheckStr) {
-                        insertionChecks |= (int)InsertionCheck::LANECHANGE;
-                    } else if (SUMOXMLDefinitions::InsertionChecks.getString(InsertionCheck::ALL) == insertionCheckStr) {
-                        insertionChecks |= (int)InsertionCheck::ALL;
-                    } 
+                while(insertionCheckStrs.hasNext()) {
+                    insertionChecks |= (int)SUMOXMLDefinitions::InsertionChecks.get(insertionCheckStrs.next());
                 }
             }
             break;
