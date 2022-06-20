@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-06-10 10:42:05 by Eclipse SUMO netconvert Version v1_13_0+0734-4d9b53714aa
+<!-- generated on 2022-06-20 07:56:28 by Eclipse SUMO netconvert Version v1_13_0+1008-b165c92c02a
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -33,36 +33,38 @@
 -->
 
 <connections version="1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/connections_file.xsd">
-    <connection from="1" to="5" fromLane="1" toLane="1"/>
+    <connection from="1" to="5" fromLane="2" toLane="2"/>
 
-    <connection from="2" to="6" fromLane="1" toLane="1"/>
+    <connection from="2" to="6" fromLane="2" toLane="2"/>
 
-    <connection from="3" to="7" fromLane="1" toLane="1"/>
+    <connection from="3" to="7" fromLane="2" toLane="2" keepClear="0"/>
 
-    <connection from="4" to="8" fromLane="1" toLane="1"/>
+    <connection from="4" to="8" fromLane="2" toLane="2"/>
 
-    <connection from="5" to="4" fromLane="0" toLane="0" keepClear="0"/>
-    <connection from="5" to="2" fromLane="0" toLane="0" keepClear="0"/>
-    <connection from="5" to="2" fromLane="1" toLane="1" keepClear="0"/>
-    <connection from="5" to="3" fromLane="1" toLane="1" keepClear="0"/>
-    <connection from="5" to="1" fromLane="1" toLane="1" keepClear="0"/>
+    <connection from="5" to="4" fromLane="1" toLane="1"/>
+    <connection from="5" to="2" fromLane="1" toLane="1"/>
+    <connection from="5" to="2" fromLane="2" toLane="2"/>
+    <connection from="5" to="3" fromLane="2" toLane="2"/>
+    <connection from="5" to="1" fromLane="2" toLane="2"/>
 
-    <connection from="6" to="3" fromLane="0" toLane="0" keepClear="0"/>
-    <connection from="6" to="1" fromLane="0" toLane="0" keepClear="0"/>
-    <connection from="6" to="1" fromLane="1" toLane="1" keepClear="0"/>
-    <connection from="6" to="4" fromLane="1" toLane="1" keepClear="0"/>
-    <connection from="6" to="2" fromLane="1" toLane="1" keepClear="0"/>
+    <connection from="6" to="3" fromLane="1" toLane="1"/>
+    <connection from="6" to="1" fromLane="1" toLane="1"/>
+    <connection from="6" to="1" fromLane="2" toLane="2"/>
+    <connection from="6" to="4" fromLane="2" toLane="2"/>
+    <connection from="6" to="2" fromLane="2" toLane="2"/>
 
-    <connection from="7" to="1" fromLane="0" toLane="0" keepClear="0"/>
-    <connection from="7" to="4" fromLane="0" toLane="0" keepClear="0"/>
-    <connection from="7" to="4" fromLane="1" toLane="1" keepClear="0"/>
-    <connection from="7" to="2" fromLane="1" toLane="1" keepClear="0"/>
-    <connection from="7" to="3" fromLane="1" toLane="1" keepClear="0"/>
+    <connection from="7" to="1" fromLane="1" toLane="1"/>
+    <connection from="7" to="4" fromLane="1" toLane="1"/>
+    <connection from="7" to="4" fromLane="2" toLane="2"/>
+    <connection from="7" to="2" fromLane="2" toLane="2"/>
+    <connection from="7" to="3" fromLane="2" toLane="2"/>
 
-    <connection from="8" to="2" fromLane="0" toLane="0" keepClear="0"/>
-    <connection from="8" to="3" fromLane="0" toLane="0" keepClear="0"/>
-    <connection from="8" to="3" fromLane="1" toLane="1" keepClear="0"/>
-    <connection from="8" to="1" fromLane="1" toLane="1" keepClear="0"/>
-    <connection from="8" to="4" fromLane="1" toLane="1" keepClear="0"/>
+    <connection from="8" to="2" fromLane="1" toLane="1"/>
+    <connection from="8" to="3" fromLane="1" toLane="1"/>
+    <connection from="8" to="3" fromLane="2" toLane="2"/>
+    <connection from="8" to="1" fromLane="2" toLane="2"/>
+    <connection from="8" to="4" fromLane="2" toLane="2"/>
 
+    <crossing node="Center" edges="4 8" priority="1" width="3.00" linkIndex="20"/>
+    <crossing node="Center" edges="3 7" priority="1" width="4.00" linkIndex="21"/>
 </connections>

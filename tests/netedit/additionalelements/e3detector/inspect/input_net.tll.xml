@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-06-10 10:41:49 by Eclipse SUMO netconvert Version v1_13_0+0734-4d9b53714aa
+<!-- generated on 2022-06-20 07:56:15 by Eclipse SUMO netconvert Version v1_13_0+1008-b165c92c02a
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -26,7 +26,7 @@
     </junctions>
 
     <pedestrian>
-        <walkingareas value="false"/>
+        <walkingareas value="true"/>
     </pedestrian>
 
 </configuration>
@@ -34,22 +34,24 @@
 
 <tlLogics version="1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tllogic_file.xsd">
     <tlLogic id="gneJ0" type="static" programID="0" offset="0">
-        <phase duration="77" state="G"/>
+        <phase duration="77" state="g"/>
         <phase duration="3"  state="y"/>
         <phase duration="10" state="r"/>
     </tlLogic>
     <tlLogic id="gneJ1" type="static" programID="0" offset="0">
-        <phase duration="77" state="G"/>
+        <phase duration="77" state="g"/>
         <phase duration="3"  state="y"/>
         <phase duration="10" state="r"/>
     </tlLogic>
     <tlLogic id="gneJ2" type="static" programID="0" offset="0">
-        <phase duration="87" state="G"/>
+        <phase duration="82" state="G"/>
         <phase duration="3"  state="y"/>
+        <phase duration="5"  state="r"/>
     </tlLogic>
     <tlLogic id="gneJ3" type="static" programID="0" offset="0">
-        <phase duration="87" state="G"/>
+        <phase duration="82" state="G"/>
         <phase duration="3"  state="y"/>
+        <phase duration="5"  state="r"/>
     </tlLogic>
 
     <connection from="gneE0" to="gneE1" fromLane="0" toLane="0" tl="gneJ1" linkIndex="0"/>
