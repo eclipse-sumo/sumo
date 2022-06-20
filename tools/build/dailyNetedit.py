@@ -67,9 +67,9 @@ optParser.add_option("-r", "--root-dir", dest="rootDir",
                      default=r"D:\Sumo", help="root for git and log output")
 optParser.add_option("-s", "--suffix", default="", help="suffix to the fileprefix")
 optParser.add_option("-b", "--bin-dir", dest="binDir", default=r"git\bin",
-                     help="directory containg the binaries, relative to the root dir")
+                     help="directory containing the binaries, relative to the root dir")
 optParser.add_option("-t", "--tests-dir", dest="testsDir", default=r"git\tests",
-                     help="directory containg the tests, relative to the root dir")
+                     help="directory containing the tests, relative to the root dir")
 optParser.add_option("-m", "--remote-dir", dest="remoteDir", default="S:\\daily",
                      help="directory to move the results to")
 optParser.add_option("-p", "--python", help="path to python interpreter to use")

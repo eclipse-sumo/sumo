@@ -23,7 +23,7 @@ This script is to
     traffic zones have the same connection links, and then
 (2) generate hourly matrices in VISUM format with an time series pattern (unified or user-defined).
 
-Traffic zones, whose demands are aggreagted into other traffic zones, will be set to have zero demand.
+Traffic zones, whose demands are aggregated into other traffic zones, will be set to have zero demand.
 A file containing combined zones will be generated as well.
 
 The demand aggregation helps to avoid small demands(e.g. < 0.5) being ignored when using od2trips to

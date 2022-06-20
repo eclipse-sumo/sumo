@@ -20,7 +20,7 @@
 This script does flow routing similar to the dfrouter.
 It has three mandatory parameters, the SUMO net (.net.xml), a file
 specifying detectors and one for the flows. It may detect the type
-of the detectors (source, sink, inbetween) itself or read it from
+of the detectors (source, sink, in between) itself or read it from
 the detectors file.
 """
 from __future__ import absolute_import

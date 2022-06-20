@@ -189,7 +189,7 @@ def get_point_on_polyline(points, pathlen):
     if rem_len <= 1.0e-3:
         return P
     Q = np.array(points[index])
-    PQ = Q - P  # Vektior PQ
+    PQ = Q - P  # Vektor PQ
     vn = PQ / np.linalg.norm(PQ)                # normierter Richtungsvektor
     return P + vn * rem_len
 

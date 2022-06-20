@@ -562,7 +562,7 @@ if __name__ == '__main__':
     create_flow_elems(routes_by_start_d, flow_d, routes_Elem)
     print('OK.\n---')
 
-    print('* wrinting output:')
+    print('* writing output:')
     # write the data into a .rou.xml file
     out_Fn = args.output_file
     if not out_Fn.endswith('.xml'):

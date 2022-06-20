@@ -51,7 +51,7 @@ class Vertex:
     def __repr__(self):
         return self.label
 
-# This class is uesed to store link information and estimate
+# This class is used to store link information and estimate
 # as well as flow and capacity for the flow computation and some parameters
 # read from the net.
 

@@ -79,8 +79,6 @@ on("ready", function(){
             var label = elem("<label>");
 
             for (var i = 0; i < typeList.length; i++) {
-                console.log(typeList[i]);
-
                 label = elem("<label>", {textContent: typeList[i]});
                 let roadTypeId = this.category + "_" + typeList[i]
                 this.roadTypeCheck = elem("<input>",{type: "checkbox", checked:true, id: roadTypeId});
@@ -121,7 +119,6 @@ on("ready", function(){
     var roadClasses = [];
 
     for (const [key, value] of Object.entries(categories)) {
-        console.log(key, value);
         roadClasses.push(new RoadTypes(key, value));
     }
 

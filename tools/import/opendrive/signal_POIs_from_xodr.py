@@ -242,7 +242,7 @@ if __name__ == "__main__":
             poi['pos'] = "%e" % (lin_m - max_lin_m)
 
             # get the fitting laneSection from xodr
-            # find last upstream elementa by s offsets of the starts
+            # find last upstream element by s offsets of the starts
             ls_soff = np.r_[r.xpath('.//ns:laneSection/@s',
                                     namespaces={'ns': xodr_ns})].astype(float)
             ls_ind = find_upstream_lin_m(ls_soff, lin_m)

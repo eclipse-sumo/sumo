@@ -65,7 +65,7 @@ def addGenericOptions(argParser):
     argParser.add_argument("-I", "--nointernal-link", action="store_true", dest="internallink",
                            default=False, help="not to simulate internal link: true or false")
     argParser.add_argument("-j", "--meso-junctioncontrol", action="store_true", default=False,
-                           help="Enable mesoscopic traffic light and priority junciton handling")
+                           help="Enable mesoscopic traffic light and priority junction handling")
     argParser.add_argument("-L", "--meso-junctioncontrollimited", action="store_true", default=False,
                            help="Enable mesoscopic traffic light and priority junction handling for saturated links")
     argParser.add_argument("-q", "--meso-multiqueue", action="store_true", default=False,
@@ -153,7 +153,7 @@ def initOptions():
                            default=0.15, help="use the c-logit model for route choice; logit model when beta = 0")
     argParser.add_argument("-i", "--logitgamma", type=float, default=1., help="use the c-logit model for route choice")
     argParser.add_argument("-G", "--logittheta", type=float, help="parameter to adapt the cost unit")
-    argParser.add_argument("-J", "--addweights", help="Additional weightes for duarouter")
+    argParser.add_argument("-J", "--addweights", help="Additional weights for duarouter")
     argParser.add_argument("--convergence-steps", dest="convergenceSteps", type=int,
                            help="Given x, if x > 0 Reduce probability to change route by 1/x per step. " +
                                 "If x < 0 set probability of rerouting to 1/step after step |x|")
@@ -274,7 +274,7 @@ def get_dumpfilename(options, step, prefix, full_path=True):
 
 def get_weightfilename(options, step, prefix):
     # the file from which edge costs are loaded
-    # this defaults to the dumpfile writen by the simulation but may be
+    # this defaults to the dumpfile written by the simulation but may be
     # different if one of the options --addweights, --memory-weights or
     # --cost-modifier is used
     if options.weightmemory:
@@ -405,7 +405,7 @@ def assign_remaining_args(application, prefix, args):
         else:
             if item is None:
                 sys.exit(
-                    'Encounted argument "%s" without a preceeding option' % arg)
+                    'Encountered argument "%s" without a preceding option' % arg)
             item.append(arg)
     if item is not None:
         items.append(item)

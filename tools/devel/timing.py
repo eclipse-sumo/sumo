@@ -17,7 +17,7 @@
 
 """
 This script uses either a directory with historic sumo versions
-or git bisect to compare performance of differnt sumo versions.
+or git bisect to compare performance of different sumo versions.
 """
 from __future__ import absolute_import
 from __future__ import print_function

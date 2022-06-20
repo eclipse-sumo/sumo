@@ -52,12 +52,12 @@ class CostMemory(handler.ContentHandler):
         # whether data was seen in the last call of load_costs()
         # start -> (edge_id -> EdgeMemory)
         self.intervals = defaultdict(dict)
-        # the intervall length (only known for certain if multiple intervals
+        # the interval length (only known for certain if multiple intervals
         # have been seen)
         self.interval_length = 214748  # SUMOTIME_MAXSTRING
-        # the intervall currently being parsed
+        # the interval currently being parsed
         self.current_interval = None
-        # the combined weigth of all previously loaded costs
+        # the combined weight of all previously loaded costs
         self.memory_weight = 0.0
         # update is done according to: memory * memory_factor + new * (1 -
         # memory_factor)
