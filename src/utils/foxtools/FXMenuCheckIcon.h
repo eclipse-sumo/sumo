@@ -23,6 +23,7 @@
 
 
 #include "fxheader.h"
+#include <string>
 
 /**
 * The menu check widget is used to change a state in the
@@ -38,7 +39,7 @@ class FXMenuCheckIcon : public FXMenuCommand {
 
 public:
     /// @brief Construct a menu check
-    FXMenuCheckIcon(FXComposite* p, const FXString& text, const FXIcon* icon, FXObject* tgt = NULL, FXSelector sel = 0, FXuint opts = 0);
+    FXMenuCheckIcon(FXComposite* p, const std::string &text, const std::string &shortcut, const std::string &info, const FXIcon* icon, FXObject* tgt = NULL, FXSelector sel = 0, FXuint opts = 0);
 
     /// @brief Return default width
     virtual FXint getDefaultWidth();
