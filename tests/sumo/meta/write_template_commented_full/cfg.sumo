@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-06-16 09:01:06 by Eclipse SUMO sumo Version v1_13_0+0899-4ea6e997207
+<!-- generated on 2022-06-21 15:09:55 by Eclipse SUMO sumo Version v1_13_0+1078-7422078
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -905,6 +905,9 @@
 
         <!-- The &apos;fcd&apos; devices are set deterministic using a fraction of 1000 -->
         <device.fcd.deterministic value="false" type="BOOL"/>
+
+        <!-- Recording begin time for FCD-data -->
+        <device.fcd.begin value="-1" type="STR"/>
 
         <!-- Recording period for FCD-data -->
         <device.fcd.period value="0" type="STR"/>
