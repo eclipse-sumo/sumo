@@ -1458,13 +1458,13 @@ GNEJunction::drawDottedContours(const GUIVisualizationSettings& s, const bool dr
             // mark this node
             gPostDrawing.markedNode = this;
             // draw dotted contour
-            GUIDottedGeometry::drawDottedContourCircle(GUIDottedGeometry::DottedContourType::FRONT, s, myNBNode->getCenter(), s.neteditSizeSettings.junctionBubbleRadius,
+            GUIDottedGeometry::drawDottedContourCircle(GUIDottedGeometry::DottedContourType::GREEN, s, myNBNode->getCenter(), s.neteditSizeSettings.junctionBubbleRadius,
                     (junctionExaggeration >= 1) ? junctionExaggeration : 1);
         } else if (drawShape && myNBNode->getShape().around(myNet->getViewNet()->getPositionInformation())) {
             // mark this node
             gPostDrawing.markedNode = this;
             // draw dotted contour
-            GUIDottedGeometry::drawDottedContourClosedShape(GUIDottedGeometry::DottedContourType::FRONT, s, myNBNode->getShape(),
+            GUIDottedGeometry::drawDottedContourClosedShape(GUIDottedGeometry::DottedContourType::GREEN, s, myNBNode->getShape(),
                     (junctionExaggeration >= 1) ? junctionExaggeration : 1);
         }
     }
