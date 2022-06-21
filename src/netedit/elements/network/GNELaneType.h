@@ -24,6 +24,7 @@
 
 #include <netbuild/NBTypeCont.h>
 
+class GNEEdgeType;
 
 // ===========================================================================
 // class definitions
