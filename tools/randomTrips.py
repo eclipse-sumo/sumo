@@ -511,68 +511,86 @@ def main(options):
             options.min_distance, options.max_distance, options.maxtries,
             options.junctionTaz)
         return source_edge, sink_edge, intermediate
-
-    def generate_one(idx, departureTime, arrivalTime, origin, destination, intermediate):
+    
+    def generate_label_attributes(idx, departureTime, arrivalTime, origin, destination, intermediate, options):
         label = "%s%s" % (options.tripprefix, idx)
+        combined_attrs = options.tripattrs
+        if options.randomDepartPos:
+            randomPosition = samplePosition(origin)
+            combined_attrs += ' departPos="%.2f"' % randomPosition
+        if options.randomArrivalPos:
+            randomPosition = samplePosition(destination)
+            combined_attrs += ' arrivalPos="%.2f"' % randomPosition
+        if options.fringeattrs and origin.is_fringe(
+                origin._incoming, checkJunctions=options.fringeJunctions):
+            combined_attrs += " " + options.fringeattrs
+        if options.junctionTaz:
+            attrFrom = ' fromJunction="%s"' % origin.getFromNode().getID()
+            attrTo = ' toJunction="%s"' % destination.getToNode().getID()
+        else:
+            attrFrom = ' from="%s"' % origin.getID()
+            attrTo = ' to="%s"' % destination.getID()
+        via = ""
+        if len(intermediate) > 0:
+            via = ' via="%s" ' % ' '.join(
+                [e.getID() for e in intermediate])
+            if options.validate:
+                vias[label] = via
+        return label, combined_attrs, attrFrom, attrTo, via
+    
+    def generate_one_person(label, combined_attrs, attrFrom, attrTo, departureTime, intermediate, options):
+        fouttrips.write(
+            '    <person id="%s" depart="%.2f"%s>\n' % (label, departureTime, personattrs))
+        element = "walk"
+        attrs = otherattrs
+        if options.persontrips:
+            element = "personTrip"
+        elif options.personrides:
+            element = "ride"
+            attrs = ' lines="%s%s"' % (options.personrides, otherattrs)
+        if intermediate:
+            fouttrips.write('        <%s%s to="%s"%s/>\n' % (element, attrFrom, intermediate[0].getID(), attrs))
+            for edge in intermediate[1:]:
+                fouttrips.write('        <%s to="%s"%s/>\n' % (element, edge.getID(), attrs))
+            fouttrips.write('        <%s%s%s/>\n' % (element, attrTo, attrs))
+        else:
+            fouttrips.write('        <%s%s%s%s/>\n' % (element, attrFrom, attrTo, attrs))
+        fouttrips.write('    </person>\n')
+        
+    def generate_one_flow(label, combined_attrs, departureTime, arrivalTime, options):
+        if options.binomial:
+            for j in range(options.binomial):
+                fouttrips.write(('    <flow id="%s#%s" begin="%s" end="%s" probability="%s"%s/>\n') % (
+                    label, j, options.begin, options.end, 1.0 / options.period / options.binomial,
+                    combined_attrs))
+        else:
+            fouttrips.write(('    <flow id="%s" begin="%s" end="%s" period="%s"%s/>\n') % (
+                label, options.begin, options.end, options.period * options.flows, combined_attrs))
+        
+    def generate_one_trip(label, combined_attrs, departureTime):
+        fouttrips.write('    <trip id="%s" depart="%.2f"%s/>\n' % (
+            label, departureTime, combined_attrs))
+    
+    def generate_one(idx, departureTime, arrivalTime, origin, destination, intermediate):
         try:
-            combined_attrs = options.tripattrs
-            if options.randomDepartPos:
-                randomPosition = samplePosition(origin)
-                combined_attrs += ' departPos="%.2f"' % randomPosition
-            if options.randomArrivalPos:
-                randomPosition = samplePosition(destination)
-                combined_attrs += ' arrivalPos="%.2f"' % randomPosition
-            if options.fringeattrs and origin.is_fringe(
-                    origin._incoming, checkJunctions=options.fringeJunctions):
-                combined_attrs += " " + options.fringeattrs
-            if options.junctionTaz:
-                attrFrom = ' fromJunction="%s"' % origin.getFromNode().getID()
-                attrTo = ' toJunction="%s"' % destination.getToNode().getID()
-            else:
-                attrFrom = ' from="%s"' % origin.getID()
-                attrTo = ' to="%s"' % destination.getID()
-            via = ""
-            if len(intermediate) > 0:
-                via = ' via="%s" ' % ' '.join(
-                    [e.getID() for e in intermediate])
-                if options.validate:
-                    vias[label] = via
+            label, combined_attrs, attrFrom, attrTo, via = generate_label_attributes(idx, departureTime, arrivalTime, origin, destination, intermediate, options)
+            
             if options.pedestrians:
-                fouttrips.write(
-                    '    <person id="%s" depart="%.2f"%s>\n' % (label, departureTime, personattrs))
-                element = "walk"
-                attrs = otherattrs
-                if options.persontrips:
-                    element = "personTrip"
-                elif options.personrides:
-                    element = "ride"
-                    attrs = ' lines="%s%s"' % (options.personrides, otherattrs)
-                if intermediate:
-                    fouttrips.write('        <%s%s to="%s"%s/>\n' % (element, attrFrom, intermediate[0].getID(), attrs))
-                    for edge in intermediate[1:]:
-                        fouttrips.write('        <%s to="%s"%s/>\n' % (element, edge.getID(), attrs))
-                    fouttrips.write('        <%s%s%s/>\n' % (element, attrTo, attrs))
-                else:
-                    fouttrips.write('        <%s%s%s%s/>\n' % (element, attrFrom, attrTo, attrs))
-                fouttrips.write('    </person>\n')
+               generate_one_person(label, combined_attrs, attrFrom, attrTo, departureTime, intermediate, options)
             else:
                 if options.jtrrouter:
                     attrTo = ''
+                
                 combined_attrs = attrFrom + attrTo + via + combined_attrs
+                
                 if options.flows > 0:
-                    if options.binomial:
-                        for j in range(options.binomial):
-                            fouttrips.write(('    <flow id="%s#%s" begin="%s" end="%s" probability="%s"%s/>\n') % (
-                                label, j, options.begin, options.end, 1.0 / options.period / options.binomial,
-                                combined_attrs))
-                    else:
-                        fouttrips.write(('    <flow id="%s" begin="%s" end="%s" period="%s"%s/>\n') % (
-                            label, options.begin, options.end, options.period * options.flows, combined_attrs))
+                    generate_one_flow(label, combined_attrs, departureTime, arrivalTime, options)
                 else:
-                    fouttrips.write('    <trip id="%s" depart="%.2f"%s/>\n' % (
-                        label, departureTime, combined_attrs))
+                    generate_one_trip(label, combined_attrs, departureTime)      
+                    
         except Exception as exc:
             print(exc, file=sys.stderr)
+            
         return idx + 1
 
     with open(options.tripfile, 'w') as fouttrips:
