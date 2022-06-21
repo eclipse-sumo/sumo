@@ -76,7 +76,7 @@ public:
     /** @brief Returns the document name
      *
      * Removes the path first. Then, returns the part before the first '.'
-     *  occurence of the so obtained string.
+     *  occurrence of the so obtained string.
      *
      * @param[in] filename The file name (including the path) to obtain the name of
      * @return The name (without the path and the extension)
