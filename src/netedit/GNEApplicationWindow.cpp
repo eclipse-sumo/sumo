@@ -636,7 +636,7 @@ GNEApplicationWindow::onCmdOpenNetwork(FXObject*, FXSelector, void*) {
         const std::string file = opendialog.getFilename().text();
         // check if file isn't empty first
         if (!file.empty()) {
-            // check if current edited Net can be closed(und therefore the undo - list cleared, see #5753)
+            // check if current edited Net can be closed (and therefore the undo-list cleared, see #5753)
             if (myViewNet) {
                 // call close
                 onCmdClose(0, 0, 0);
