@@ -579,6 +579,9 @@ GUIVisualizationSettings::GUIVisualizationSettings(const std::string& _name, boo
     relDataAttr("count"),
     dataValueHideCheck(false),
     dataValueHideThreshold(0),
+    show3DTLSLinkMarkers(true),
+    show3DTLSDomes(true),
+    generate3DTLSModels(false),
     showSizeLegend(true),
     showColorLegend(false),
     showVehicleColorLegend(false),
@@ -591,10 +594,7 @@ GUIVisualizationSettings::GUIVisualizationSettings(const std::string& _name, boo
     forceDrawForRectangleSelection(false),
     geometryIndices(false, 50, RGBColor(255, 0, 128, 255)),
     lefthand(false),
-    disableLaneIcons(false),
-    show3DTLSLinkMarkers(true),
-    show3DTLSDomes(true),
-    generate3DTLSModels(false) {
+    disableLaneIcons(false) {
     // init defaults depending of NETEDIT or SUMO-GUI
     if (netedit) {
         initNeteditDefaults();

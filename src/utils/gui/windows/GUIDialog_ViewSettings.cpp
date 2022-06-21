@@ -2348,7 +2348,9 @@ GUIDialog_ViewSettings::build3DFrame(FXTabBook* tabbook) {
     myGenerate3DTLSModels = new FXCheckButton(m84, "Auto-generate TLS models", this, MID_SIMPLE_VIEW_COLORCHANGE);
     myGenerate3DTLSModels->setCheck(mySettings->generate3DTLSModels);
     myGenerate3DTLSModels->disable(); // TODO: enable when functionality is implemented
-#ifndef HAVE_OSG
+#ifdef HAVE_OSG
+    UNUSED_PARAMETER(frame3D);
+#else
     frame3D->disable();
 #endif
 }
