@@ -506,28 +506,31 @@ def main(options):
 
     vias = {}
 
-    def generate_one(idx, depart):
+    def generate_origin_destination(trip_generator, options):
+        source_edge, sink_edge, intermediate = trip_generator.get_trip(
+            options.min_distance, options.max_distance, options.maxtries,
+            options.junctionTaz)
+        return source_edge, sink_edge, intermediate
+
+    def generate_one(idx, departureTime, arrivalTime, origin, destination, intermediate):
         label = "%s%s" % (options.tripprefix, idx)
         try:
-            source_edge, sink_edge, intermediate = trip_generator.get_trip(
-                options.min_distance, options.max_distance, options.maxtries,
-                options.junctionTaz)
             combined_attrs = options.tripattrs
             if options.randomDepartPos:
-                randomPosition = samplePosition(source_edge)
+                randomPosition = samplePosition(origin)
                 combined_attrs += ' departPos="%.2f"' % randomPosition
             if options.randomArrivalPos:
-                randomPosition = samplePosition(sink_edge)
+                randomPosition = samplePosition(destination)
                 combined_attrs += ' arrivalPos="%.2f"' % randomPosition
-            if options.fringeattrs and source_edge.is_fringe(
-                    source_edge._incoming, checkJunctions=options.fringeJunctions):
+            if options.fringeattrs and origin.is_fringe(
+                    origin._incoming, checkJunctions=options.fringeJunctions):
                 combined_attrs += " " + options.fringeattrs
             if options.junctionTaz:
-                attrFrom = ' fromJunction="%s"' % source_edge.getFromNode().getID()
-                attrTo = ' toJunction="%s"' % sink_edge.getToNode().getID()
+                attrFrom = ' fromJunction="%s"' % origin.getFromNode().getID()
+                attrTo = ' toJunction="%s"' % destination.getToNode().getID()
             else:
-                attrFrom = ' from="%s"' % source_edge.getID()
-                attrTo = ' to="%s"' % sink_edge.getID()
+                attrFrom = ' from="%s"' % origin.getID()
+                attrTo = ' to="%s"' % destination.getID()
             via = ""
             if len(intermediate) > 0:
                 via = ' via="%s" ' % ' '.join(
@@ -536,7 +539,7 @@ def main(options):
                     vias[label] = via
             if options.pedestrians:
                 fouttrips.write(
-                    '    <person id="%s" depart="%.2f"%s>\n' % (label, depart, personattrs))
+                    '    <person id="%s" depart="%.2f"%s>\n' % (label, departureTime, personattrs))
                 element = "walk"
                 attrs = otherattrs
                 if options.persontrips:
@@ -567,7 +570,7 @@ def main(options):
                             label, options.begin, options.end, options.period * options.flows, combined_attrs))
                 else:
                     fouttrips.write('    <trip id="%s" depart="%.2f"%s/>\n' % (
-                        label, depart, combined_attrs))
+                        label, departureTime, combined_attrs))
         except Exception as exc:
             print(exc, file=sys.stderr)
         return idx + 1
@@ -616,7 +619,11 @@ def main(options):
 
                     for time in departures:
                         # generate with constant spacing
-                        idx = generate_one(idx, time)
+                        try:
+                            origin, destination, intermediate = generate_origin_destination(trip_generator, options)
+                            idx = generate_one(idx, time, maxTime, origin, destination, intermediate)
+                        except Exception as exc:
+                            print(exc, file=sys.stderr)
                 else:
                     while time < maxTime:
                         # draw n times from a Bernoulli distribution
@@ -624,11 +631,19 @@ def main(options):
                         prob = 1.0 / options.period / options.binomial
                         for _ in range(options.binomial):
                             if random.random() < prob:
-                                idx = generate_one(idx, time)
+                                try:
+                                    origin, destination, intermediate = generate_origin_destination(trip_generator, options)
+                                    idx = generate_one(idx, time, maxTime, origin, destination, intermediate)
+                                except Exception as exc:
+                                     print(exc, file=sys.stderr)
                         time += 1
             else:
                 for _ in range(options.flows):
-                    idx = generate_one(idx, time)
+                    try:
+                        origin, destination, intermediate = generate_origin_destination(trip_generator, options)
+                        idx = generate_one(idx, time, maxTime, origin, destination, intermediate)
+                    except Exception as exc:
+                        print(exc, file=sys.stderr)
 
         fouttrips.write("</routes>\n")
 
