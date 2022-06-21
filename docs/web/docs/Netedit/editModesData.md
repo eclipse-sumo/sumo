@@ -70,14 +70,18 @@ Before loading the data related to TAZ-relations the respective network should b
 
 </additional>
 ```
-Now, file(s) containing TAZ-Relations can be loaded with "Load Data Elements" by selecting *File-\>Data Elements*. After that, the button "Data" in the tool bar should be pressed. All TAZ-relations will then be shown.
+Now, file(s) containing TAZ-Relations can be loaded with "Load Data Elements" by selecting *File-\>Data Elements*. After that, the button "Data" in the tool bar should be pressed. All TAZ-relations will then be shown, and can be further hidden by pressing the icons "Draw TAZRel only from" and "Draw TAZRel only to" under the mode "Data" (see the illustration below).
+
+![](../images/drawRelFromTo.png)
+
+After that, if you want to see the relations between all TAZs again, you need to go back to the mode "Network" and then go to the mode "Data" again. By activating the aforementioned two icons, you can see all TAZ-relations.
 
 ### Display the TAZ polygons by different colors
 You can click "Polygons" in the window shown after selecting *Edit-\>Edit Visualisation* and change the colors randomly or by selection. You can also directly click the color palette icon "View Settings" in the tool bar to open the respective window and make color changes.
 
 ![](../images/taz_overview_color.png)
 
-Polygons can also be unfilled by clicking the icon "Draw TAZ fill" (see the picture below).
+Polygons can also be unfilled by clicking the icon "Draw TAZ fill" (see the picture below). However, it is much easier to select TAZ when they are filled.
 
 ![](../images/tazfill.png)
 
