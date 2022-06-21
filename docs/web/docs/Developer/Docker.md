@@ -28,7 +28,7 @@ SUMO.
 
 The [sumo-docker](https://hub.docker.com/r/similitude/sumo-docker/)
 project demonstrates how to Dockerize SUMO version 0.25.0 on top of
-Apache Mavern 3 with [TraCI4J](https://github.com/egueli/TraCI4J).
+Apache Maven 3 with [TraCI4J](https://github.com/egueli/TraCI4J).
 
 ### SUMO and JuPedSim
 
