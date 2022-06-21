@@ -15,7 +15,7 @@
 /// @author  Daniel Krajzewicz
 /// @date    2004-03-19
 ///
-// Checkable button similar to a FXButton but mainntain the check
+// Checkable button similar to a FXButton but maintain the check
 /****************************************************************************/
 #ifndef MFXCheckableButton_h
 #define MFXCheckableButton_h
