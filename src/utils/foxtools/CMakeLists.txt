@@ -28,6 +28,8 @@ set(utils_foxtools_STAT_SRCS
    FXWorkerThread.h
    MFXAddEditTypedTable.cpp
    MFXAddEditTypedTable.h
+   MFXButtonTooltip.cpp
+   MFXButtonTooltip.h
    MFXCheckableButton.cpp
    MFXCheckableButton.h
    MFXRealSpinner.cpp

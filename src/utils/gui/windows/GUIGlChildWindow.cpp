@@ -23,6 +23,7 @@
 
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/windows/GUIAppEnum.h>
+#include <utils/foxtools/MFXButtonTooltip.h>
 #include <utils/foxtools/MFXCheckableButton.h>
 #include <utils/foxtools/MFXComboBox.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
@@ -111,11 +112,11 @@ void
 GUIGlChildWindow::buildNavigationToolBar() {
     // build the view settings
     // recenter view
-    new FXButton(myGripNavigationToolbar ? myGripNavigationToolbar : myStaticNavigationToolBar,
+    new MFXButtonTooltip(myGripNavigationToolbar ? myGripNavigationToolbar : myStaticNavigationToolBar,
                  "\tRecenter View\tRecenter view to the simulated area.",
                  GUIIconSubSys::getIcon(GUIIcon::RECENTERVIEW), this, MID_RECENTERVIEW, GUIDesignButtonToolbar);
     // add viewport button
-    new FXButton(myGripNavigationToolbar ? myGripNavigationToolbar : myStaticNavigationToolBar,
+    new MFXButtonTooltip(myGripNavigationToolbar ? myGripNavigationToolbar : myStaticNavigationToolBar,
                  "\tEdit Viewport\tOpens a menu which lets you edit the viewport. (Ctrl+I)",
                  GUIIconSubSys::getIcon(GUIIcon::EDITVIEWPORT), this, MID_HOTKEY_CTRL_I_EDITVIEWPORT, GUIDesignButtonToolbar);
     // toggle button for zooming style
@@ -144,7 +145,7 @@ GUIGlChildWindow::buildColoringToolBar() {
     myColoringSchemes = new MFXComboBox(myGripNavigationToolbar ? myGripNavigationToolbar : myStaticNavigationToolBar,
                                         GUIDesignComboBoxNCol, this, MID_COLOURSCHEMECHANGE, GUIDesignComboBoxStatic);
     // editor
-    new FXButton(myGripNavigationToolbar ? myGripNavigationToolbar : myStaticNavigationToolBar,
+    new MFXButtonTooltip(myGripNavigationToolbar ? myGripNavigationToolbar : myStaticNavigationToolBar,
                  "\tEdit Coloring Schemes\tOpens a menu which lets you edit the coloring schemes. (F9)",
                  GUIIconSubSys::getIcon(GUIIcon::COLORWHEEL), this, MID_HOTKEY_F9_EDIT_VIEWSCHEME, GUIDesignButtonToolbar);
 }
