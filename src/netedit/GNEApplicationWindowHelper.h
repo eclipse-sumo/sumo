@@ -432,6 +432,9 @@ struct GNEApplicationWindowHelper {
             /// @brief hide all options menu checks
             void hideNetworkViewOptionsMenuChecks();
 
+            /// @brief update shortcuts (alt+X)
+            void updateShortcuts();
+
             /// @brief menu check to show grid button
             FXMenuCheckIcon* menuCheckToggleGrid;
 
@@ -506,6 +509,9 @@ struct GNEApplicationWindowHelper {
             /// @brief hide all options menu checks
             void hideDemandViewOptionsMenuChecks();
 
+            /// @brief update shortcuts (alt+X)
+            void updateShortcuts();
+
             /// @brief menu check to show grid button
             FXMenuCheckIcon* menuCheckToggleGrid;
 
@@ -564,6 +570,9 @@ struct GNEApplicationWindowHelper {
 
             /// @brief hide all options menu checks
             void hideDataViewOptionsMenuChecks();
+
+            /// @brief update shortcuts (alt+X)
+            void updateShortcuts();
 
             /// @brief menu check to toggle draw junction shape
             FXMenuCheckIcon* menuCheckToggleDrawJunctionShape;

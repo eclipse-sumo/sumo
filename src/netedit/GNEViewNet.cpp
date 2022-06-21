@@ -4105,6 +4105,8 @@ GNEViewNet::updateNetworkModeSpecificControls() {
         default:
             break;
     }
+    // update menuChecks shorcuts
+    menuChecks.updateShortcuts();
     // update common Network buttons
     myCommonCheckableButtons.updateCommonCheckableButtons();
     // Update Network buttons
@@ -4122,7 +4124,7 @@ GNEViewNet::updateNetworkModeSpecificControls() {
 void
 GNEViewNet::updateDemandModeSpecificControls() {
     // get menu checks
-    const auto& menuChecks = myViewParent->getGNEAppWindows()->getEditMenuCommands().demandViewOptions;
+    auto& menuChecks = myViewParent->getGNEAppWindows()->getEditMenuCommands().demandViewOptions;
     // hide all checkbox of view options Network
     myNetworkViewOptions.hideNetworkViewOptionsMenuChecks();
     // hide all checkbox of view options Demand
@@ -4261,6 +4263,8 @@ GNEViewNet::updateDemandModeSpecificControls() {
         default:
             break;
     }
+    // update menuChecks shorcuts
+    menuChecks.updateShortcuts();
     // update common Network buttons
     myCommonCheckableButtons.updateCommonCheckableButtons();
     // Update Demand buttons
@@ -4278,7 +4282,7 @@ GNEViewNet::updateDemandModeSpecificControls() {
 void
 GNEViewNet::updateDataModeSpecificControls() {
     // get menu checks
-    const auto& menuChecks = myViewParent->getGNEAppWindows()->getEditMenuCommands().dataViewOptions;
+    auto& menuChecks = myViewParent->getGNEAppWindows()->getEditMenuCommands().dataViewOptions;
     // hide all checkbox of view options Network
     myNetworkViewOptions.hideNetworkViewOptionsMenuChecks();
     // hide all checkbox of view options Demand
@@ -4380,6 +4384,8 @@ GNEViewNet::updateDataModeSpecificControls() {
         default:
             break;
     }
+    // update menuChecks shorcuts
+    menuChecks.updateShortcuts();
     // update common Network buttons
     myCommonCheckableButtons.updateCommonCheckableButtons();
     // Update Data buttons
