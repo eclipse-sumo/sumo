@@ -438,6 +438,12 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
 }
 
 
+void 
+GNEEdge::updateGLObject() {
+    updateGeometry(); 
+}
+
+
 NBEdge*
 GNEEdge::getNBEdge() const {
     return myNBEdge;

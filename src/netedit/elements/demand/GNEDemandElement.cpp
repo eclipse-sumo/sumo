@@ -220,6 +220,10 @@ GNEDemandElement::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
 }
 
 
+ void 
+ GNEDemandElement::updateGLObject() {
+    updateGeometry();
+}
 
 
 double

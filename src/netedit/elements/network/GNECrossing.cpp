@@ -274,6 +274,12 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
 }
 
 
+void 
+GNECrossing::updateGLObject() {
+    updateGeometry();
+}
+
+
 void
 GNECrossing::drawTLSLinkNo(const GUIVisualizationSettings& s, const NBNode::Crossing* crossing) const {
     // push matrix

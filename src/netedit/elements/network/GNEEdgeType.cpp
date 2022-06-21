@@ -1,3 +1,5 @@
+#include "GNEEdgeType.h"
+#include "GNEEdgeType.h"
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
 // Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
@@ -199,6 +201,12 @@ GNEEdgeType::updateCenteringBoundary(const bool /*updateGrid*/) {
 void
 GNEEdgeType::drawGL(const GUIVisualizationSettings& /*s*/) const {
     // nothing to draw
+}
+
+
+void
+GNEEdgeType::updateGLObject() {
+    updateGeometry();
 }
 
 

@@ -27,7 +27,6 @@
 // class declaration
 // ===========================================================================
 
-class GNEAttributeCarrier;
 class GUIGlObject;
 
 // ===========================================================================
@@ -43,18 +42,18 @@ public:
     /// @brief execute post drawing tasks
     void executePostDrawingTasks();
 
-    /// @brief add recompute carrier to recompute
-    void addACToUpdate(GNEAttributeCarrier* AC);
+    /// @brief mark GLObject to update (usually the geometry)
+    void markGLObjectToUpdate(GUIGlObject* GLObject);
 
     /// @brief recompute boundaries
     bool recomputeBoundaries = false;
 
-    /// @brief marked Node (used in create edge mode, )
+    /// @brief marked Node (used in create edge mode)
     const GUIGlObject* markedNode = nullptr;
 
 protected:
-    /// @brief ACs to update
-    std::vector<GNEAttributeCarrier*> myACsToUpdate;
+    /// @brief GLObjects to update
+    std::vector<GUIGlObject*> myGLObjectsToUpdate;
 
 private:
     /// @brief set copy constructor private

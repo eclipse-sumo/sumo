@@ -459,6 +459,12 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
 }
 
 
+void 
+GNEConnection::updateGLObject() { 
+    updateGeometry(); 
+}
+
+
 void
 GNEConnection::setSpecialColor(const RGBColor* color) {
     mySpecialColor = color;

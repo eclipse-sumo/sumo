@@ -159,6 +159,12 @@ GNEInternalLane::drawGL(const GUIVisualizationSettings& s) const {
 }
 
 
+void 
+GNEInternalLane::updateGLObject() {
+    updateGeometry();
+}
+
+
 void
 GNEInternalLane::setLinkState(LinkState state) {
     myState = state;

@@ -161,6 +161,12 @@ GNEGenericData::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& /* p
 }
 
 
+void 
+GNEGenericData::updateGLObject() {
+    updateGeometry();
+}
+
+
 double
 GNEGenericData::getPathElementDepartValue() const {
     return 0;

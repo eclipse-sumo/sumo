@@ -19,7 +19,7 @@
 /****************************************************************************/
 #include <config.h>
 
-#include <netedit/elements/GNEAttributeCarrier.h>
+#include <utils/gui/globjects/GUIGlObject.h>
 
 #include "GUIPostDrawing.h"
 
@@ -30,19 +30,19 @@ GUIPostDrawing::GUIPostDrawing() {}
 void 
 GUIPostDrawing::executePostDrawingTasks() {
     // udate AC geometries
-    for (const auto &AC : myACsToUpdate) {
-        AC->updateGeometry();
+    for (const auto &GLObject : myGLObjectsToUpdate) {
+        GLObject->updateGLObject();
     }
-    myACsToUpdate.clear();
+    myGLObjectsToUpdate.clear();
     // reset marked node
     markedNode = nullptr;
 }
 
 
 void 
-GUIPostDrawing::addACToUpdate(GNEAttributeCarrier* AC) {
-    if (AC) {
-        myACsToUpdate.push_back(AC);
+GUIPostDrawing::markGLObjectToUpdate(GUIGlObject* GLObject) {
+    if (GLObject) {
+        myGLObjectsToUpdate.push_back(GLObject);
     }
 }
 

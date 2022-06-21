@@ -229,6 +229,9 @@ public:
      */
     virtual void drawGL(const GUIVisualizationSettings& s) const = 0;
 
+    /// @brief update GLObject (geometry, ID, etc.)
+    void updateGLObject();
+
     /// @}
 
     /// @name inherited from GNEPathManager::PathElement

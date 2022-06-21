@@ -106,6 +106,9 @@ public:
      * @see GUIGlObject::drawGL
      */
     void drawGL(const GUIVisualizationSettings& s) const;
+
+    /// @brief update GLObject (geometry, ID, etc.)
+    void updateGLObject();
     /// @}
 
     /// @name inherited from GNEAttributeCarrier

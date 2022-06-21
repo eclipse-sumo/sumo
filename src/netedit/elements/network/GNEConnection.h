@@ -127,6 +127,9 @@ public:
      * @see GUIGlObject::drawGL
      */
     void drawGL(const GUIVisualizationSettings& s) const;
+
+    /// @brief update GLObject (geometry, ID, etc.)
+    void updateGLObject();
     /// @}
 
     /* @brief method for setting the special color of the connection

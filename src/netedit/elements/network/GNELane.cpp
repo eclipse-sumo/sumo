@@ -1,3 +1,5 @@
+#include "GNELane.h"
+#include "GNELane.h"
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
 // Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
@@ -620,6 +622,12 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
         // draw path additional elements
         myNet->getPathManager()->drawLanePathElements(s, this);
     }
+}
+
+
+ void
+ GNELane::updateGLObject() {
+    updateGeometry();
 }
 
 

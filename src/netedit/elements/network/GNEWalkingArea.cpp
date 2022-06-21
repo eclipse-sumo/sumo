@@ -152,6 +152,12 @@ GNEWalkingArea::drawGL(const GUIVisualizationSettings& s) const {
 }
 
 
+void 
+GNEWalkingArea::updateGLObject() {
+    updateGeometry();
+}
+
+
 GUIGLObjectPopupMenu*
 GNEWalkingArea::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);

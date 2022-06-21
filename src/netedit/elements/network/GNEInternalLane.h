@@ -103,6 +103,9 @@ public:
      * @see GUIGlObject::drawGL
      */
     void drawGL(const GUIVisualizationSettings& s) const;
+
+    /// @brief update GLObject (geometry, ID, etc.)
+    void updateGLObject();
     /// @}
 
     /// @brief set the linkState (controls drawing color)

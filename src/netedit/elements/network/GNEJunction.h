@@ -110,6 +110,9 @@ public:
      * @see GUIGlObject::drawGL
      */
     void drawGL(const GUIVisualizationSettings& s) const;
+
+    /// @brief update GLObject (geometry, ID, etc.)
+    void updateGLObject();
     /// @}
 
     /// @brief Return net build node

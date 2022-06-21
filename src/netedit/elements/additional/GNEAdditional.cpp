@@ -202,6 +202,11 @@ GNEAdditional::getOptionalAdditionalName() const {
 }
 
 
+void GNEAdditional::updateGLObject() {
+    updateGeometry();
+}
+
+
 void
 GNEAdditional::computePathElement() {
     // Nothing to compute

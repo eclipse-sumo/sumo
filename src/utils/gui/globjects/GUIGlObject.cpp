@@ -182,6 +182,12 @@ GUIGlObject::getTypeParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& par
 }
 
 
+void 
+GUIGlObject::updateGLObject() {
+    // by default nothing to update
+}
+
+
 const std::string
 GUIGlObject::getOptionalName() const {
     return "";

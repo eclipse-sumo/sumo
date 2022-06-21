@@ -1,3 +1,5 @@
+#include "GNEJunction.h"
+#include "GNEJunction.h"
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
 // Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
@@ -539,6 +541,12 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
             drawDottedContours(s, drawShape, drawBubble, junctionExaggeration, bubbleRadius);
         }
     }
+}
+
+
+void 
+GNEJunction::updateGLObject() {
+    updateGeometry();
 }
 
 
