@@ -143,6 +143,10 @@ public:
      * @see GUIGlObject::drawGL
      */
     virtual void drawGL(const GUIVisualizationSettings& s) const;
+
+    double getClickPriority() const override {
+        return getShapeLayer();
+    }
     //@}
 
     /// @brief set a new shape and update the tesselation

@@ -209,6 +209,8 @@ public:
      * @see GUIGlObject::drawGL
      */
     void drawGL(const GUIVisualizationSettings& s) const;
+
+    double getClickPriority() const override;
     //@}
 
 

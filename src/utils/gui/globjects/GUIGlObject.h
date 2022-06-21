@@ -147,6 +147,11 @@ public:
         return myGLObjectType;
     }
 
+    /// @brief Returns the priority of receiving mouse clicks
+    virtual double getClickPriority() const {
+        return (double)myGLObjectType;
+    }
+
     /// @brief get blocking status
     inline bool isBlocked() const {
         return myAmBlocked;

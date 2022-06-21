@@ -105,6 +105,10 @@ public:
      * @see GUIGlObject::drawGL
      */
     void drawGL(const GUIVisualizationSettings& s) const;
+
+    double getClickPriority() const override {
+        return getShapeLayer();
+    }
     //@}
 
     /// @brief check if POI can be drawn

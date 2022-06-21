@@ -1499,5 +1499,17 @@ GUILane::getPendingEmits() const {
     return MSNet::getInstance()->getInsertionControl().getPendingEmits(this);
 }
 
+double
+GUILane::getClickPriority() const {
+    if (MSGlobals::gUseMesoSim) {
+        // do not select lanes in meso mode
+        return -std::numeric_limits<double>::max();
+    }
+    if (myEdge->isCrossing()) {
+        return GLO_CROSSING;
+    }
+    return GLO_LANE;
+}
+
 
 /****************************************************************************/

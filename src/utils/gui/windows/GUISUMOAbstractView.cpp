@@ -403,25 +403,11 @@ GUISUMOAbstractView::getObjectAtPosition(Position pos) {
             continue;
         }
         //std::cout << "point selection hit " << o->getMicrosimID() << "\n";
-        GUIGlObjectType type = o->getType();
-        // avoid network
-        if (type != GLO_NETWORK) {
-            double layer = (double)type;
-            // determine an "abstract" layer for shapes
-            //  this "layer" resembles the layer of the shape
-            //  taking into account the stac of other objects
-            if (type == GLO_POI || type == GLO_POLYGON) {
-                layer = dynamic_cast<Shape*>(o)->getShapeLayer();
-            }
-            if (type == GLO_LANE && GUIVisualizationSettings::UseMesoSim) {
-                // do not select lanes in meso mode
-                continue;
-            }
-            // check whether the current object is above a previous one
-            if (layer > maxLayer) {
-                idMax = i;
-                maxLayer = layer;
-            }
+        double layer = o->getClickPriority();
+        // check whether the current object is above a previous one
+        if (layer > maxLayer) {
+            idMax = i;
+            maxLayer = layer;
         }
         // unblock object
         GUIGlObjectStorage::gIDStorage.unblockObject(i);
