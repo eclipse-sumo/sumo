@@ -200,6 +200,8 @@ always use the latest version of SUMO.
 - whenever possible copy text rather than screenshots of text
 - When sending screenshots of sumo-gui or netedit, please include the whole screen so the application version and simulation time are visible.
 - Attach scenario files including .sumocfg as a zip archive
+  - make sure that your scenario is not random (avoid option **--random**)
+  - if your setup involves TraCI and your (python) runner program is slightly complicated or has further dependencies, attach a [TraCI-traceFile](TraCI/Interfacing_TraCI_from_Python.md#generating_a_log_of_all_traci_commands) instead of your whole traci script.
 - describe what you are trying to accomplish
 - describe how what you see differs from your expectations
 - Phrase your question using familiar terms (not everyone is an expert
