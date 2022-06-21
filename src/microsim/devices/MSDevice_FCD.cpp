@@ -57,6 +57,9 @@ MSDevice_FCD::insertOptions(OptionsCont& oc) {
     oc.addOptionSubTopic("FCD Device");
     insertDefaultAssignmentOptions("fcd", "FCD Device", oc);
 
+    oc.doRegister("device.fcd.begin", new Option_String("-1"));
+    oc.addDescription("device.fcd.begin", "FCD Device", "Recording begin time for FCD-data");
+
     oc.doRegister("device.fcd.period", new Option_String("0"));
     oc.addDescription("device.fcd.period", "FCD Device", "Recording period for FCD-data");
 

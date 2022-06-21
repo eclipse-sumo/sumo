@@ -49,8 +49,8 @@ void
 MSFCDExport::write(OutputDevice& of, SUMOTime timestep, bool elevation) {
     const OptionsCont& oc = OptionsCont::getOptions();
     const SUMOTime period = string2time(oc.getString("device.fcd.period"));
-    const SUMOTime begin = string2time(oc.getString("begin"));
-    if (period > 0 && (timestep - begin) % period != 0) {
+    const SUMOTime begin = string2time(oc.getString("device.fcd.begin"));
+    if ((period > 0 && (timestep - begin) % period != 0) || timestep < begin) {
         return;
     }
     const long long int mask = MSDevice_FCD::getWrittenAttributes();
