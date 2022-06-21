@@ -169,7 +169,7 @@ For the entire ChargingStation:
 | ------------------ | ------ | ----------------------------------------------------------- |
 | id                 | string | ChargingStation ID                                          |
 | totalEnergyCharged | float  | Total energy charged in Wh during the entire simulation      |
-| chargingSteps      | int    | Number of steps in which charginStation was charging energy |
+| chargingSteps      | int    | Number of steps in which chargingStation was charging energy |
 
 For the current charging vehicle
 
@@ -262,7 +262,7 @@ SUMO can be used together with the battery device when setting the
 
 # Tracking fuel consumption for non-electrical vehicles
 
-By setting option **--device.battery.track-fuel**, equipped vehicles with a convential drive train (emissionClass other than `Energy`) will monitor their fuel level based on the fuel consumption of their respective emission class. All capacity values are then interpreted as ml instead of Wh. Also, the chargingStation power is re-interpreted as ml/s when charging fuel.
+By setting option **--device.battery.track-fuel**, equipped vehicles with a conventional drive train (emissionClass other than `Energy`) will monitor their fuel level based on the fuel consumption of their respective emission class. All capacity values are then interpreted as ml instead of Wh. Also, the chargingStation power is re-interpreted as ml/s when charging fuel.
 
 # TraCI
 
@@ -306,24 +306,24 @@ Heidelberg
 
 The values are provided by courtesy of Jim Div based on his own calibration.
 
-```
+```xml
 <vType id="soulEV65" minGap="2.50" maxSpeed="29.06" color="white" accel="1.0" decel="1.0" sigma="0.0" emissionClass="Energy/unknown">
-        <param key="has.battery.device" value="true"/>
-        <param key="airDragCoefficient" value="0.35"/> <!-- https://www.evspecifications.com/en/model/e94fa0  -->
-        <param key="constantPowerIntake" value="100"/> <!-- observed summer levels -->
-        <param key="frontSurfaceArea" value="2.6"/>    <!-- computed (ht-clearance) * width -->    
-        <param key="internalMomentOfInertia" value="0.01"/>  <!-- guesstimate -->
-        <param key="maximumBatteryCapacity" value="64000"/>
-        <param key="maximumPower" value="150000"/>      <!-- website as above -->
-        <param key="propulsionEfficiency" value=".98"/> <!-- guesstimate value providing closest match to observed -->
-        <param key="radialDragCoefficient" value="0.1"/>   <!-- as above -->
-        <param key="recuperationEfficiency" value=".96"/>  <!-- as above -->
-        <param key="rollDragCoefficient" value="0.01"/>    <!-- as above -->
-        <param key="stoppingTreshold" value="0.1"/>        <!-- as above -->
-        <param key="vehicleMass" value="1830"/>            <!-- 1682kg curb wt + average 2 passengers / bags -->
- </vType>
- ```
+    <param key="has.battery.device" value="true"/>
+    <param key="airDragCoefficient" value="0.35"/>       <!-- https://www.evspecifications.com/en/model/e94fa0 -->
+    <param key="constantPowerIntake" value="100"/>       <!-- observed summer levels -->
+    <param key="frontSurfaceArea" value="2.6"/>          <!-- computed (ht-clearance) * width -->
+    <param key="internalMomentOfInertia" value="0.01"/>  <!-- guesstimate -->
+    <param key="maximumBatteryCapacity" value="64000"/>
+    <param key="maximumPower" value="150000"/>           <!-- website as above -->
+    <param key="propulsionEfficiency" value=".98"/>      <!-- guesstimate value providing closest match to observed -->
+    <param key="radialDragCoefficient" value="0.1"/>     <!-- as above -->
+    <param key="recuperationEfficiency" value=".96"/>    <!-- as above -->
+    <param key="rollDragCoefficient" value="0.01"/>      <!-- as above -->
+    <param key="stoppingTreshold" value="0.1"/>          <!-- as above -->
+    <param key="vehicleMass" value="1830"/>              <!-- 1682kg curb wt + average 2 passengers / bags -->
+</vType>
+```
 
 Observations:
-- Simulation efficiencies of 6.3 - 6.7 km driven per kWh consumed agree with measured efficiences of 6.4 - 6.8 (stddev 0.4 - 0.8) in short and medium range simulations with realistic traffic
-- abstract scenarios without junctions and other cars overestimate the efficency by a large factor (~ twice as many km/kWh)
+- Simulation efficiencies of 6.3 - 6.7 km driven per kWh consumed agree with measured efficiencies of 6.4 - 6.8 (stddev 0.4 - 0.8) in short and medium range simulations with realistic traffic
+- abstract scenarios without junctions and other cars overestimate the efficiency by a large factor (~ twice as many km/kWh)
