@@ -35,7 +35,13 @@ params_caccVehicleMode
 subsecond
 
 # output not in every time step
+begin
+
+# output not in every time step
 period
+
+# output not in every time step
+period_begin
 
 # output not from every vehicle
 explicit_assignment
