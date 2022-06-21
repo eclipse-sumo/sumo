@@ -694,6 +694,73 @@ GNEApplicationWindowHelper::EditMenuCommands::NetworkViewOptions::hideNetworkVie
     separator->hide();
 }
 
+
+void 
+GNEApplicationWindowHelper::EditMenuCommands::NetworkViewOptions::updateShortcuts() {
+    int index = 2;
+    // update all accel text
+    if (menuCheckDrawSpreadVehicles->shown()) {
+        menuCheckDrawSpreadVehicles->setAccelText(("Alt+" + toString(index)).c_str());
+        index++;
+    }
+    if (menuCheckDrawSpreadVehicles->shown()) {
+        menuCheckDrawSpreadVehicles->setAccelText(("Alt+" + toString(index)).c_str());
+        index++;
+    }
+    if (menuCheckShowDemandElements->shown()) {
+        menuCheckShowDemandElements->setAccelText(("Alt+" + toString(index)).c_str());
+        index++;
+    }
+    if (menuCheckSelectEdges->shown()) {
+        menuCheckSelectEdges->setAccelText(("Alt+" + toString(index)).c_str());
+        index++;
+    }
+    if (menuCheckShowConnections->shown()) {
+        menuCheckShowConnections->setAccelText(("Alt+" + toString(index)).c_str());
+        index++;
+    }
+    if (menuCheckHideConnections->shown()) {
+        menuCheckHideConnections->setAccelText(("Alt+" + toString(index)).c_str());
+        index++;
+    }
+    if (menuCheckShowAdditionalSubElements->shown()) {
+        menuCheckShowAdditionalSubElements->setAccelText(("Alt+" + toString(index)).c_str());
+        index++;
+    }
+    if (menuCheckShowTAZElements->shown()) {
+        menuCheckShowTAZElements->setAccelText(("Alt+" + toString(index)).c_str());
+        index++;
+    }
+    if (menuCheckExtendSelection->shown()) {
+        menuCheckExtendSelection->setAccelText(("Alt+" + toString(index)).c_str());
+        index++;
+    }
+    if (menuCheckChangeAllPhases->shown()) {
+        menuCheckChangeAllPhases->setAccelText(("Alt+" + toString(index)).c_str());
+        index++;
+    }
+    if (menuCheckWarnAboutMerge->shown()) {
+        menuCheckWarnAboutMerge->setAccelText(("Alt+" + toString(index)).c_str());
+        index++;
+    }
+    if (menuCheckShowJunctionBubble->shown()) {
+        menuCheckShowJunctionBubble->setAccelText(("Alt+" + toString(index)).c_str());
+        index++;
+    }
+    if (menuCheckMoveElevation->shown()) {
+        menuCheckMoveElevation->setAccelText(("Alt+" + toString(index)).c_str());
+        index++;
+    }
+    if (menuCheckChainEdges->shown()) {
+        menuCheckChainEdges->setAccelText(("Alt+" + toString(index)).c_str());
+        index++;
+    }
+    if (menuCheckAutoOppositeEdge->shown()) {
+        menuCheckAutoOppositeEdge->setAccelText(("Alt+" + toString(index)).c_str());
+        index++;
+    }
+}
+
 // ---------------------------------------------------------------------------
 // GNEApplicationWindowHelper::DemandViewOptions - methods
 // ---------------------------------------------------------------------------
@@ -794,6 +861,49 @@ GNEApplicationWindowHelper::EditMenuCommands::DemandViewOptions::hideDemandViewO
     separator->hide();
 }
 
+
+void
+GNEApplicationWindowHelper::EditMenuCommands::DemandViewOptions::updateShortcuts() {
+    int index = 2;
+    // update all accel text
+    if (menuCheckDrawSpreadVehicles->shown()) {
+        menuCheckDrawSpreadVehicles->setAccelText(("Alt+" + toString(index)).c_str());
+        index++;
+    }
+    if (menuCheckHideShapes->shown()) {
+        menuCheckHideShapes->setAccelText(("Alt+" + toString(index)).c_str());
+        index++;
+    }
+    if (menuCheckShowAllTrips->shown()) {
+        menuCheckShowAllTrips->setAccelText(("Alt+" + toString(index)).c_str());
+        index++;
+    }
+    if (menuCheckHideNonInspectedDemandElements->shown()) {
+        menuCheckHideNonInspectedDemandElements->setAccelText(("Alt+" + toString(index)).c_str());
+        index++;
+    }
+    if (menuCheckShowOverlappedRoutes->shown()) {
+        menuCheckShowOverlappedRoutes->setAccelText(("Alt+" + toString(index)).c_str());
+        index++;
+    }
+    if (menuCheckShowAllPersonPlans->shown()) {
+        menuCheckShowAllPersonPlans->setAccelText(("Alt+" + toString(index)).c_str());
+        index++;
+    }
+    if (menuCheckLockPerson->shown()) {
+        menuCheckLockPerson->setAccelText(("Alt+" + toString(index)).c_str());
+        index++;
+    }
+    if (menuCheckShowAllContainerPlans->shown()) {
+        menuCheckShowAllContainerPlans->setAccelText(("Alt+" + toString(index)).c_str());
+        index++;
+    }
+    if (menuCheckLockContainer->shown()) {
+        menuCheckLockContainer->setAccelText(("Alt+" + toString(index)).c_str());
+        index++;
+    }
+}
+
 // ---------------------------------------------------------------------------
 // GNEApplicationWindowHelper::EditMenuCommands::DataViewOptions - methods
 // ---------------------------------------------------------------------------
@@ -861,8 +971,8 @@ GNEApplicationWindowHelper::EditMenuCommands::DataViewOptions::buildDataViewOpti
 
 void
 GNEApplicationWindowHelper::EditMenuCommands::DataViewOptions::hideDataViewOptionsMenuChecks() {
-    menuCheckShowAdditionals->hide();
     menuCheckToggleDrawJunctionShape->hide();
+    menuCheckShowAdditionals->hide();
     menuCheckShowShapes->hide();
     menuCheckShowDemandElements->hide();
     menuCheckToggleTAZRelDrawing->hide();
@@ -870,6 +980,41 @@ GNEApplicationWindowHelper::EditMenuCommands::DataViewOptions::hideDataViewOptio
     menuCheckToggleTAZRelOnlyFrom->hide();
     menuCheckToggleTAZRelOnlyTo->hide();
     separator->hide();
+}
+
+
+void
+GNEApplicationWindowHelper::EditMenuCommands::DataViewOptions::updateShortcuts() {
+    int index = 2;
+    // update all accel text
+    if (menuCheckShowAdditionals->shown()) {
+        menuCheckShowAdditionals->setAccelText(("Alt+" + toString(index)).c_str());
+        index++;
+    }
+    if (menuCheckShowShapes->shown()) {
+        menuCheckShowShapes->setAccelText(("Alt+" + toString(index)).c_str());
+        index++;
+    }
+    if (menuCheckShowDemandElements->shown()) {
+        menuCheckShowDemandElements->setAccelText(("Alt+" + toString(index)).c_str());
+        index++;
+    }
+    if (menuCheckToggleTAZRelDrawing->shown()) {
+        menuCheckToggleTAZRelDrawing->setAccelText(("Alt+" + toString(index)).c_str());
+        index++;
+    }
+    if (menuCheckToggleTAZDrawFill->shown()) {
+        menuCheckToggleTAZDrawFill->setAccelText(("Alt+" + toString(index)).c_str());
+        index++;
+    }
+    if (menuCheckToggleTAZRelOnlyFrom->shown()) {
+        menuCheckToggleTAZRelOnlyFrom->setAccelText(("Alt+" + toString(index)).c_str());
+        index++;
+    }
+    if (menuCheckToggleTAZRelOnlyTo->shown()) {
+        menuCheckToggleTAZRelOnlyTo->setAccelText(("Alt+" + toString(index)).c_str());
+        index++;
+    }
 }
 
 // ---------------------------------------------------------------------------
