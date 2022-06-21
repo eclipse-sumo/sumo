@@ -21,6 +21,11 @@ be not in the current file. If you give the additional **--validation** option t
 file will be validated against the schema. This requires
 [lxml](http://lxml.de/) to be installed.
 
+If you do not use the **--xsd** option
+the script will determine the attributes to parse from the first line (or block) it parses.
+If your file does not contain all wanted attributes in the first occuring element they will not get
+parsed!
+
 Please note that instead of an input file name you can give a number
 which will be interpreted as a server port where the script listens for
 incoming connections and then reads the input data from. The name for
