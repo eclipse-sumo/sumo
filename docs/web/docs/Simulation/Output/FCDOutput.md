@@ -21,6 +21,7 @@ options or
 parameters](../../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#devices)
 (i.e. **--device.fcd.probability 0.25**) the set of vehicles which generate fcd output can be reduced.
 The output period can be set by using option **--device.fcd.period** {{DT_TIME}}.
+To delay output (i.e. until some warm-up time has passed), the option **--device.fcd.begin** {{DT_TIME}} may be used.
 
 ## Generated Output
 
