@@ -497,6 +497,10 @@ GNETAZRelData::drawTAZRel() const {
     if (dataInterval && (myDataIntervalParent != dataInterval)) {
         return false;
     }
+    // check if both draw TAZRel checkBox are disabled
+    if (!myNet->getViewNet()->getDataViewOptions().TAZRelOnlyFrom() && !myNet->getViewNet()->getDataViewOptions().TAZRelOnlyTo()) {
+        return false;
+    }
     // check if we're inspecting a TAZ
     if ((myNet->getViewNet()->getEditModes().dataEditMode == DataEditMode::DATA_INSPECT) &&
             (myNet->getViewNet()->getInspectedAttributeCarriers().size() == 1) &&
