@@ -41,7 +41,7 @@ def runSingle(viewRange, domain, domain2):
     print("trying to subscribe to %s around %s '%s' at time %s" % (
         name2, name, egoID, traci.simulation.getTime()))
     domain.subscribeContext(egoID, domain2.DOMAIN_ID, viewRange,
-            [traci.constants.TRACI_ID_LIST])
+                            [traci.constants.TRACI_ID_LIST])
     responses = traci.simulationStep()
     print("   found %s objects" % len(responses))
 
@@ -56,9 +56,10 @@ def runSingle(viewRange, domain, domain2):
 
 def restart():
     traci.start([sumolib.checkBinary(sys.argv[1]),
-                '-Q', "-c", "sumo.sumocfg",
-                '-a', 'input_additional.add.xml'])
+                 '-Q', "-c", "sumo.sumocfg",
+                 '-a', 'input_additional.add.xml'])
     traci.simulationStep()
+
 
 #  main
 restart()
