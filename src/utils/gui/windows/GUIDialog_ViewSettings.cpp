@@ -39,6 +39,8 @@
 #include <utils/importio/LineReader.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/gui/settings/GUISettingsHandler.h>
+#include <utils/gui/div/GUIGlobalPostDrawing.h>
+
 #include "GUIDialog_EditViewport.h"
 #include "GUIDialog_ViewSettings.h"
 
@@ -853,6 +855,8 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
     }
     myParent->forceRefresh();
     getApp()->forceRefresh();
+    // mark boundaries for recomputing
+    gPostDrawing.recomputeBoundaries = true;
     return 1;
 }
 
