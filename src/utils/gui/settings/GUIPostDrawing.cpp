@@ -29,6 +29,8 @@ GUIPostDrawing::GUIPostDrawing() {}
 
 void 
 GUIPostDrawing::executePostDrawingTasks() {
+    // reset recompute boundaries
+    recomputeBoundaries = false;
     // udate AC geometries
     for (const auto &GLObject : myGLObjectsToUpdate) {
         GLObject->updateGLObject();
