@@ -29,7 +29,7 @@ from sumolib.xml import parse  # noqa
 
 
 if len(sys.argv) < 3:
-    print("Usage: " + sys.argv[0] + " <NET> <STOPS>", file=sys.stderr)
+    print("Usage: " + os.path.basename(__file__) + " <NET> <STOPS>", file=sys.stderr)
     sys.exit()
 
 print("Reading net...")
