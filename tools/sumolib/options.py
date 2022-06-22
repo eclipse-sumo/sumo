@@ -244,15 +244,22 @@ class ArgumentParser(argparse.ArgumentParser):
             idx = args.index('--configuration-file') + 1
         # add each config item to the commandline unless it's there already
         config_args = []
+        pos_args = []
         if idx > 0:
             act_map = {}
+            pos_map = {}
             multi_value = set()
+            pos_idx = 0
             for a in self._actions:
                 for s in a.option_strings:
                     if s.startswith("--"):
                         act_map[s[2:]] = a.option_strings
                         if a.nargs:
                             multi_value.add(s[2:])
+                if len(a.option_strings) == 0:
+                    pos_map[a.dest] = pos_idx
+                    pos_args.append(None)
+                    pos_idx += 1
             for cfg_file in args[idx].split(","):
                 for option in readOptions(cfg_file):
                     is_set = False
@@ -263,6 +270,8 @@ class ArgumentParser(argparse.ArgumentParser):
                     value = option.value
                     if option.name in self._fix_path_args and not value.startswith("http"):
                         value = os.path.join(os.path.dirname(cfg_file), value)
+                    if option.name in pos_map:
+                        pos_args[pos_map[option.name]] = value
                     if not is_set:
                         if value == "True":
                             config_args += ["--" + option.name]
@@ -279,7 +288,7 @@ class ArgumentParser(argparse.ArgumentParser):
                                 config_args += ["--" + option.name]
         # print("parse_known_args:\n  args: %s\n  config_args: %s" % (args, config_args))
         namespace, unknown_args = argparse.ArgumentParser.parse_known_args(
-            self, args=args+config_args, namespace=namespace)
+            self, args=args+config_args+[p for p in pos_args if p is not None], namespace=namespace)
 
         namespace_as_dict = deepcopy(vars(namespace))
         namespace._prefixed_options = assign_prefixed_options(unknown_args)

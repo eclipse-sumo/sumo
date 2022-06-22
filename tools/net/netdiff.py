@@ -501,6 +501,9 @@ class AttributeStore:
 def parse_args():
     USAGE = "Usage: " + sys.argv[0] + " <source> <dest> <output-prefix>"
     optParser = ArgumentParser()
+    optParser.add_argument("source", help="original network")
+    optParser.add_argument("dest", help="modified network")
+    optParser.add_argument("outprefix", help="prefix for the diff files")
     optParser.add_option("-v", "--verbose", action="store_true",
                          default=False, help="Give more output")
     optParser.add_option("-p", "--use-prefix", action="store_true",
@@ -521,9 +524,7 @@ def parse_args():
                          help="Write shape files for created, deleted and changed elements")
     optParser.add_option("-g", "--plain-geo", action="store_true", default=False,
                          help="Write geo coordinates instead of network coordinates")
-    options, args = optParser.parse_known_args()
-    if len(args) != 3:
-        sys.exit(USAGE)
+    options = optParser.parse_args()
     if options.use_prefix and options.direct:
         optParser.error(
             "Options --use-prefix and --direct are mutually exclusive")
@@ -536,7 +537,6 @@ def parse_args():
             optParser.error(
                 "Options --write-shapes and --use-prefix are mutually exclusive")
 
-    options.source, options.dest, options.outprefix = args
     return options
 
 
