@@ -150,6 +150,8 @@ public:
         const float cmin[2] = {(float) b.xmin(), (float) b.ymin()};
         const float cmax[2] = {(float) b.xmax(), (float) b.ymax()};
         Insert(cmin, cmax, o);
+        // update tree size
+        myTreeSize++;
     }
 
     /** @brief Removes an additional object (detector/shape/trigger) from being visualised
@@ -187,11 +189,37 @@ public:
         const float cmin[2] = {(float) b.xmin(), (float) b.ymin()};
         const float cmax[2] = {(float) b.xmax(), (float) b.ymax()};
         Remove(cmin, cmax, o);
+        // update tree size
+        myTreeSize--;
+    }
+
+    /// @brief update boundaries
+    void updateBoundaries() {
+        // declare vector with glObjects
+        std::vector<GUIGlObject*> glObjects;
+        glObjects.reserve(myTreeSize);
+        // declare iterator 
+        GUI_RTREE_QUAL::Iterator it;
+        GetFirst(it);
+        // iterate over entire tree and keep glObject in glObjects
+        while (!IsNull(it)) {
+            glObjects.push_back(*it);
+            GetNext(it);
+        }
+        // drop tree
+        RemoveAll();
+        // insert all elements again with the new boundary
+        for (const auto &glObject : glObjects) {
+            addAdditionalGLObject(glObject);
+        }
     }
 
 protected:
     /// @brief A mutex avoiding parallel change and traversal of the tree
     mutable FXMutex myLock;
+
+    /// @brief number of inserted elements
+    int myTreeSize = 0;
 
 private:
     /**@brief Map only used for check that SUMORTree works as expected, only is used if option "gui-testing-debug-gl" is enabled.
