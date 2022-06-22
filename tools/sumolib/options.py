@@ -270,7 +270,7 @@ class ArgumentParser(argparse.ArgumentParser):
                     value = option.value
                     if option.name in self._fix_path_args and not value.startswith("http"):
                         value = os.path.join(os.path.dirname(cfg_file), value)
-                    if option.name in pos_map:
+                    if option.name in pos_map and option.name != 'remaining_args':
                         pos_args[pos_map[option.name]] = value
                     if not is_set:
                         if value == "True":
