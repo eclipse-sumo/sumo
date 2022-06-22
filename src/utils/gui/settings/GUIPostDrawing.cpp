@@ -34,8 +34,9 @@ GUIPostDrawing::executePostDrawingTasks() {
         GLObject->updateGLObject();
     }
     myGLObjectsToUpdate.clear();
-    // reset marked node
+    // reset marked elements
     markedNode = nullptr;
+    markedTAZ = nullptr;
 }
 
 

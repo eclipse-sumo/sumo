@@ -51,6 +51,9 @@ public:
     /// @brief marked Node (used in create edge mode)
     const GUIGlObject* markedNode = nullptr;
 
+    /// @brief marked Node (used in create TAZRel mode)
+    const GUIGlObject* markedTAZ = nullptr;
+
 protected:
     /// @brief GLObjects to update
     std::vector<GUIGlObject*> myGLObjectsToUpdate;
