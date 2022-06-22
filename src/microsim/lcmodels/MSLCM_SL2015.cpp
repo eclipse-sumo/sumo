@@ -149,6 +149,7 @@ MSLCM_SL2015::MSLCM_SL2015(MSVehicle& v) :
     myRoundaboutBonus(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_COOPERATIVE_ROUNDABOUT, myCooperativeParam)),
     myCooperativeSpeed(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_COOPERATIVE_SPEED, myCooperativeParam)),
     myKeepRightAcceptanceTime(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_KEEPRIGHT_ACCEPTANCE_TIME, -1)),
+    myOvertakeDeltaSpeed(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_OVERTAKE_DELTASPEED, 0)),
     mySigmaState(0) {
     initDerivedParameters();
 }
@@ -562,7 +563,7 @@ MSLCM_SL2015::informLeader(int blocked,
                                      + nv->getCarFollowModel().getSecureGap( // save gap to follower
                                          nv, &myVehicle, nv->getSpeed(), myVehicle.getSpeed(), myVehicle.getCarFollowModel().getMaxDecel()));
 
-        if ((dv < NUMERICAL_EPS
+        if ((dv < myOvertakeDeltaSpeed+NUMERICAL_EPS
                 // overtaking on the right on an uncongested highway is forbidden (noOvertakeLCLeft)
                 || (dir == LCA_MLEFT && !myVehicle.congested() && !myAllowOvertakingRight)
                 // not enough space to overtake? (we will start to brake when approaching a dead end)
@@ -3602,6 +3603,8 @@ MSLCM_SL2015::getParameter(const std::string& key) const {
         return toString(mySigma);
     } else if (key == toString(SUMO_ATTR_LCA_KEEPRIGHT_ACCEPTANCE_TIME)) {
         return toString(myKeepRightAcceptanceTime);
+    } else if (key == toString(SUMO_ATTR_LCA_OVERTAKE_DELTASPEED)) {
+        return toString(myOvertakeDeltaSpeed);
     } else if (key == toString(SUMO_ATTR_LCA_SPEEDGAIN_LOOKAHEAD)) {
         return toString(mySpeedGainLookahead);
     } else if (key == toString(SUMO_ATTR_LCA_COOPERATIVE_ROUNDABOUT)) {
@@ -3683,6 +3686,8 @@ MSLCM_SL2015::setParameter(const std::string& key, const std::string& value) {
         mySigma = doubleValue;
     } else if (key == toString(SUMO_ATTR_LCA_KEEPRIGHT_ACCEPTANCE_TIME)) {
         myKeepRightAcceptanceTime = doubleValue;
+    } else if (key == toString(SUMO_ATTR_LCA_OVERTAKE_DELTASPEED)) {
+        myOvertakeDeltaSpeed = doubleValue;
     } else if (key == toString(SUMO_ATTR_LCA_SPEEDGAIN_LOOKAHEAD)) {
         mySpeedGainLookahead = doubleValue;
     } else if (key == toString(SUMO_ATTR_LCA_COOPERATIVE_ROUNDABOUT)) {

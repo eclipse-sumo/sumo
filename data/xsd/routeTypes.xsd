@@ -75,6 +75,7 @@
         <xsd:attribute name="lcLaneDiscipline" type="nonNegativeFloatType"/>
         <xsd:attribute name="lcSigma" type="nonNegativeFloatType"/>
         <xsd:attribute name="lcKeepRightAcceptanceTime" type="xsd:float"/>
+        <xsd:attribute name="lcOvertakeDeltaSpeed" type="xsd:float"/>
         <xsd:attribute name="maxSpeedLat" type="positiveFloatType"/>
         <xsd:attribute name="latAlignment" type="latAlignmentType"/>
         <xsd:attribute name="actionStepLength" type="positiveFloatType"/>
