@@ -58,6 +58,15 @@ MSRailSignalControl::cleanup() {
     myInstance = nullptr;
 }
 
+void
+MSRailSignalControl::clearState() {
+    if (myInstance != nullptr) {
+        myInstance->myUsedEdges.clear();
+        myInstance->myProtectedDriveways.clear();
+    }
+}
+
+
 MSRailSignalControl::~MSRailSignalControl() {
 }
 

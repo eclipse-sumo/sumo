@@ -873,6 +873,7 @@ MSNet::clearState(const SUMOTime step, bool quickReload) {
     myBeginOfTimestepEvents->clearState(myStep, step);
     myEndOfTimestepEvents->clearState(myStep, step);
     myInsertionEvents->clearState(myStep, step);
+    MSRailSignalControl::clearState();
     myStep = step;
     MSGlobals::gClearState = false;
 }

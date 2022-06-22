@@ -47,6 +47,9 @@ public:
 
     static void cleanup();
 
+    /** @brief Perform resets events when quick-loading state */
+    static void clearState();
+
     /** @brief Called if a vehicle changes its state
      * @param[in] vehicle The vehicle which changed its state
      * @param[in] to The state the vehicle has changed to
