@@ -1,0 +1,6 @@
+
+[Reported by Windows at 22Jun11:12:16]
+search_string:arrival="52
+search_file:vehroutes
+full_description:different rerouting behavior with libsumo
+brief_description:see #5943
