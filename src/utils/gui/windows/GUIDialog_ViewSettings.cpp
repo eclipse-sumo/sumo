@@ -2364,9 +2364,8 @@ GUIDialog_ViewSettings::build3DFrame(FXTabBook* tabbook) {
     myShow3DTLSDomes = new FXCheckButton(m83, "Show domes around TLS models", this, MID_SIMPLE_VIEW_COLORCHANGE);
     myShow3DTLSDomes->setCheck(mySettings->show3DTLSDomes);
     FXMatrix* m84 = new FXMatrix(verticalFrame, 1, GUIDesignMatrixViewSettings);
-    myGenerate3DTLSModels = new FXCheckButton(m84, "Auto-generate TLS models", this, MID_SIMPLE_VIEW_COLORCHANGE);
+    myGenerate3DTLSModels = new FXCheckButton(m84, "Show auto-generated TLS models", this, MID_SIMPLE_VIEW_COLORCHANGE);
     myGenerate3DTLSModels->setCheck(mySettings->generate3DTLSModels);
-    myGenerate3DTLSModels->disable(); // TODO: enable when functionality is implemented
 #ifdef HAVE_OSG
     UNUSED_PARAMETER(frame3D);
 #else

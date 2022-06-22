@@ -161,10 +161,11 @@ GUIOSGView::GUIOSGView(
     myYellowLight = osgDB::readNodeFile("tly.obj");
     myRedLight = osgDB::readNodeFile("tlr.obj");
     myRedYellowLight = osgDB::readNodeFile("tlu.obj");
-    if (myGreenLight == 0 || myYellowLight == 0 || myRedLight == 0 || myRedYellowLight == 0) {
+    myPoleBase = osgDB::readNodeFile("poleBase.obj");
+    if (myGreenLight == 0 || myYellowLight == 0 || myRedLight == 0 || myRedYellowLight == 0 || myPoleBase == 0) {
         WRITE_ERROR("Could not load traffic light files.");
     }
-    myRoot = GUIOSGBuilder::buildOSGScene(myGreenLight, myYellowLight, myRedLight, myRedYellowLight);
+    myRoot = GUIOSGBuilder::buildOSGScene(myGreenLight, myYellowLight, myRedLight, myRedYellowLight, myPoleBase);
     // add the stats handler
     myViewer->addEventHandler(new osgViewer::StatsHandler());
     myViewer->setSceneData(myRoot);
@@ -344,15 +345,17 @@ GUIOSGView::onPaint(FXObject*, FXSelector, void*) {
                         throw NumberFormatException("");
                     }
                     const MSLink* const link = vars.getActive()->getLinksAt(linkIdx)[0];
-                    osg::Switch* switchNode = new osg::Switch();
-					switchNode->setName("tlLogic:" + tlLogic);
-                    switchNode->addChild(GUIOSGBuilder::getTrafficLight(d, d.layer < 0 ? 0 : myGreenLight, osg::Vec4d(0., 1., 0., .3), 0.5, 1 << NODESET_TLSDOMES));
-                    switchNode->addChild(GUIOSGBuilder::getTrafficLight(d, d.layer < 0 ? 0 : myYellowLight, osg::Vec4d(1., 1., 0., .3), 0.5, 1 << NODESET_TLSDOMES));
-                    switchNode->addChild(GUIOSGBuilder::getTrafficLight(d, d.layer < 0 ? 0 : myRedLight, osg::Vec4d(1., 0., 0., .3), 0.5, 1 << NODESET_TLSDOMES));
-                    switchNode->addChild(GUIOSGBuilder::getTrafficLight(d, d.layer < 0 ? 0 : myRedYellowLight, osg::Vec4d(1., .5, 0., .3), 0.5, 1 << NODESET_TLSDOMES));
-					switchNode->addChild(GUIOSGBuilder::getTrafficLight(d, d.layer < 0 ? 0 : myRedYellowLight, osg::Vec4d(.5, .25, 0., .3), 0.5, 1 << NODESET_TLSDOMES));
-                    myRoot->addChild(switchNode);
-                    vars.addSwitchCommand(new Command_TLSChange(link, switchNode));
+
+                    osg::Group* tlNode = GUIOSGBuilder::getTrafficLight(d, vars, link, myGreenLight, myYellowLight, myRedLight, myRedYellowLight, myPoleBase, true);
+                    tlNode->setName("tlLogic:" + tlLogic);
+                    //osg::Switch* switchNode = new osg::Switch();
+     //               switchNode->addChild(GUIOSGBuilder::getTrafficLight(d, d.layer < 0 ? 0 : myGreenLight, osg::Vec4d(0., 1., 0., .3), 0.5, 1 << NODESET_TLSDOMES));
+     //               switchNode->addChild(GUIOSGBuilder::getTrafficLight(d, d.layer < 0 ? 0 : myYellowLight, osg::Vec4d(1., 1., 0., .3), 0.5, 1 << NODESET_TLSDOMES));
+     //               switchNode->addChild(GUIOSGBuilder::getTrafficLight(d, d.layer < 0 ? 0 : myRedLight, osg::Vec4d(1., 0., 0., .3), 0.5, 1 << NODESET_TLSDOMES));
+     //               switchNode->addChild(GUIOSGBuilder::getTrafficLight(d, d.layer < 0 ? 0 : myRedYellowLight, osg::Vec4d(1., .5, 0., .3), 0.5, 1 << NODESET_TLSDOMES));
+					//switchNode->addChild(GUIOSGBuilder::getTrafficLight(d, d.layer < 0 ? 0 : myRedYellowLight, osg::Vec4d(.5, .25, 0., .3), 0.5, 1 << NODESET_TLSDOMES));
+     //               myRoot->addChild(switchNode);
+                    myRoot->addChild(tlNode);
                 } catch (NumberFormatException&) {
                     WRITE_ERROR("Invalid link index in '" + d.filename + "'.");
                 } catch (InvalidArgument&) {

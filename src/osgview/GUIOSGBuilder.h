@@ -55,13 +55,16 @@ class GUIJunctionWrapper;
  */
 class GUIOSGBuilder {
 public:
-    static osg::Group* buildOSGScene(osg::Node* const tlg, osg::Node* const tly, osg::Node* const tlr, osg::Node* const tlu);
+    static osg::Group* buildOSGScene(osg::Node* const tlg, osg::Node* const tly, osg::Node* const tlr, osg::Node* const tlu, osg::Node* const pole);
 
     static void buildDecal(const GUISUMOAbstractView::Decal& d, osg::Group& addTo);
 
     static void buildLight(const GUISUMOAbstractView::Decal& d, osg::Group& addTo);
 
-    static osg::PositionAttitudeTransform* getTrafficLight(const GUISUMOAbstractView::Decal& d, osg::Node* tl, const osg::Vec4& color, const double size = 0.5, const unsigned int nodeMask = 0xffffffff);
+    /// @brief Build traffic light models with poles and cantilevers automatically
+    static void buildTrafficLightDetails(MSTLLogicControl::TLSLogicVariants& vars, osg::Node* const tlg, osg::Node* const tly, osg::Node* const tlr, osg::Node* const tlu, osg::Node* poleBase, osg::Group& addTo);
+
+    static osg::PositionAttitudeTransform* getTrafficLight(const GUISUMOAbstractView::Decal& d, MSTLLogicControl::TLSLogicVariants& vars, const MSLink* link, osg::Node* const tlg, osg::Node* const tly, osg::Node* const tlr, osg::Node* const tlu, osg::Node* const pole, const bool withPole = false, const double size = -1, double poleHeight = -1);
 
     static GUIOSGView::OSGMovable buildMovable(const MSVehicleType& type);
 

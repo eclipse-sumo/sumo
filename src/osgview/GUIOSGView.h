@@ -319,6 +319,7 @@ private:
     osg::ref_ptr<osg::Node> myYellowLight;
     osg::ref_ptr<osg::Node> myRedLight;
     osg::ref_ptr<osg::Node> myRedYellowLight;
+    osg::ref_ptr<osg::Node> myPoleBase;
 };
 
 #endif
