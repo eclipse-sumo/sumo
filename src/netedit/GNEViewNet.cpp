@@ -966,6 +966,8 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
     if (gPostDrawing.markedRoute && !myVisualizationSettings->drawForPositionSelection && !myVisualizationSettings->drawForRectangleSelection) {
         myNet->getPathManager()->forceDrawPath(*myVisualizationSettings, dynamic_cast<const GNEPathManager::PathElement*>(gPostDrawing.markedRoute));
     }
+    // draw temporal split junction
+    drawTemporalSplitJunction();
     // pop draw matrix
     GLHelper::popMatrix();
     // update interval bar
@@ -4633,7 +4635,7 @@ GNEViewNet::drawTemporalJunction() const {
         glTranslated(mousePosition.x(), mousePosition.y(), 0.1);
         // set color
         GLHelper::setColor(bubbleColor);
-        // draw filled circle
+        // draw outline circle
         const double circleWidth = myVisualizationSettings->neteditSizeSettings.junctionBubbleRadius * junctionExaggeration;
         GLHelper::drawOutlineCircle(circleWidth, circleWidth * 0.75, myVisualizationSettings->getCircleResolution());
         // pop junction matrix
@@ -4671,6 +4673,54 @@ GNEViewNet::drawTemporalJunction() const {
         }
         // pop layer matrix
         GLHelper::popMatrix();
+    }
+}
+
+
+void
+GNEViewNet::drawTemporalSplitJunction() const {
+    // first check if we're in correct mode
+    if (myEditModes.isCurrentSupermodeNetwork() && (myEditModes.networkEditMode == NetworkEditMode::NETWORK_CREATE_EDGE) &&
+            !myMouseButtonKeyPressed.controlKeyPressed() &&
+            myMouseButtonKeyPressed.shiftKeyPressed() &&
+            !myMouseButtonKeyPressed.altKeyPressed() &&
+            (gPostDrawing.markedEdge != nullptr)) {
+        // get marked edge
+        const GNEEdge* edge = dynamic_cast<const GNEEdge*>(gPostDrawing.markedEdge);
+        // check that edge exist
+        if (edge) {
+            // calculate split position
+            const auto lane = edge->getLanes().back();
+            const auto laneDrawingConstants = GNELane::LaneDrawingConstants(*myVisualizationSettings, lane);
+            auto shape = lane->getLaneShape();
+            // move shape to side
+            shape.move2side(laneDrawingConstants.halfWidth * -1);
+            const auto offset = shape.nearest_offset_to_point2D(snapToActiveGrid(getPositionInformation()));
+            const auto splitPosition = shape.positionAtOffset2D(offset);
+            // get junction exaggeration
+            const double junctionExaggeration = myVisualizationSettings->junctionSize.getExaggeration(*myVisualizationSettings, nullptr, 4);
+            // get bubble color
+            RGBColor bubbleColor = myVisualizationSettings->junctionColorer.getScheme().getColor(1);
+            // push layer matrix
+            GLHelper::pushMatrix();
+            // translate to temporal shape layer
+            glTranslated(0, 0, GLO_TEMPORALSHAPE);
+            // push junction matrix
+            GLHelper::pushMatrix();
+            // move matrix junction center
+            glTranslated(splitPosition.x(), splitPosition.y(), 0.1);
+            // set color
+            GLHelper::setColor(bubbleColor);
+            // draw outline circle
+            const double circleWidth = myVisualizationSettings->neteditSizeSettings.junctionBubbleRadius * junctionExaggeration;
+            GLHelper::drawOutlineCircle(circleWidth, circleWidth * 0.75, myVisualizationSettings->getCircleResolution());
+            // draw filled circle
+            GLHelper::drawFilledCircle(0.5, myVisualizationSettings->getCircleResolution());
+            // pop junction matrix
+            GLHelper::popMatrix();
+            // pop layer matrix
+            GLHelper::popMatrix();
+        }
     }
 }
 

@@ -687,6 +687,9 @@ private:
 
     /// @brief draw temporal junction in create edge mode
     void drawTemporalJunction() const;
+
+    /// @brief draw temporal split junction in create edge mode
+    void drawTemporalSplitJunction() const;
     /// @}
 
     /// @brief mouse process functions
