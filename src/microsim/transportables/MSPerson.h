@@ -124,6 +124,8 @@ public:
         /// @brief move forward and return whether the person arrived
         bool moveToNextEdge(MSTransportable* person, SUMOTime currentTime, int prevDir, MSEdge* nextInternal = nullptr);
 
+        void activateEntryReminders(MSTransportable* person);
+
         /// @brief accessors to be used by MSPModel
         //@{
         double getMaxSpeed(const MSTransportable* const person) const;

@@ -1772,6 +1772,8 @@ MSPModel_Striping::PState::moveToNextLane(SUMOTime currentTime) {
             assert(!arrived);
             assert(myDir != UNDEFINED_DIRECTION);
             myNLI = getNextLane(*this, myLane, oldLane);
+            // reminders must be called after updated myNLI (to ensure that getNextEdgePtr returns the correct edge)
+            myStage->activateEntryReminders(myPerson);
             assert(myNLI.lane != oldLane); // do not turn around
             if DEBUGCOND(*this) {
                 std::cout << "    nextLane=" << (myNLI.lane == nullptr ? "NULL" : myNLI.lane->getID()) << "\n";

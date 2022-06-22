@@ -338,17 +338,22 @@ MSPerson::MSPersonStage_Walking::moveToNextEdge(MSTransportable* person, SUMOTim
             ++myRouteStep;
         }
         myCurrentInternalEdge = nextInternal;
-        const MSLane* nextLane = getSidewalk<MSEdge, MSLane>(getEdge());
-        if (nextLane != nullptr) {
-            for (MSMoveReminder* rem : nextLane->getMoveReminders()) {
-                if (rem->notifyEnter(*person, MSMoveReminder::NOTIFICATION_JUNCTION, nextLane)) {
-                    ;
-                    myMoveReminders.push_back(rem);
-                }
-            }
-        }
         ((MSEdge*) getEdge())->addTransportable(person);
         return false;
+    }
+}
+
+
+void
+MSPerson::MSPersonStage_Walking::activateEntryReminders(MSTransportable* person) {
+    const MSLane* nextLane = getSidewalk<MSEdge, MSLane>(getEdge());
+    if (nextLane != nullptr) {
+        for (MSMoveReminder* rem : nextLane->getMoveReminders()) {
+            if (rem->notifyEnter(*person, MSMoveReminder::NOTIFICATION_JUNCTION, nextLane)) {
+                ;
+                myMoveReminders.push_back(rem);
+            }
+        }
     }
 }
 
