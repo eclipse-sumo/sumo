@@ -13,9 +13,9 @@
 /****************************************************************************/
 /// @file    GUIOSGHeader.h
 /// @author  Pablo Alvarez lopez
-/// @date    Marz 2021
+/// @date    March 2021
 ///
-// Headers for OSG
+// Headers for OSG -- Oldest supported version is OSG 3.2.1
 /****************************************************************************/
 #pragma once
 #include <config.h>

@@ -226,7 +226,9 @@ GUIOSGBuilder::buildOSGEdgeGeometry(const MSEdge& edge,
 #endif
         }
 		osgUtil::SmoothingVisitor sv;
-		sv.setCreaseAngle(0.6*osg::PI);
+#if OSG_MIN_VERSION_REQUIRED(3,5,4)
+        sv.setCreaseAngle(0.6*osg::PI);
+#endif
 		geom->accept(sv);
         static_cast<GUILane*>(l)->setGeometry(geom);
     }
@@ -251,20 +253,10 @@ GUIOSGBuilder::buildOSGJunctionGeometry(GUIJunctionWrapper& junction,
     }
     osg::Vec3Array* osg_normals = new osg::Vec3Array(1);
     (*osg_normals)[0] = osg::Vec3(0, 0, 1);
-#if OSG_MIN_VERSION_REQUIRED(3,2,0)
     geom->setNormalArray(osg_normals, osg::Array::BIND_PER_PRIMITIVE_SET);
-#else
-    geom->setNormalArray(osg_normals);
-    geom->setNormalBinding(osg::Geometry::BIND_PER_PRIMITIVE);
-#endif
     osg::Vec4ubArray* osg_colors = new osg::Vec4ubArray(1);
     (*osg_colors)[0].set(128, 128, 128, 255);
-#if OSG_MIN_VERSION_REQUIRED(3,2,0)
     geom->setColorArray(osg_colors, osg::Array::BIND_OVERALL);
-#else
-    geom->setColorArray(osg_colors);
-    geom->setColorBinding(osg::Geometry::BIND_OVERALL);
-#endif
     geom->addPrimitiveSet(new osg::DrawArrays(osg::PrimitiveSet::POLYGON, 0, (int)shape.size()));
 
     osg::ref_ptr<osg::StateSet> ss = geode->getOrCreateStateSet();
