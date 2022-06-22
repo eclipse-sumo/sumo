@@ -51,6 +51,12 @@ public:
     /// @brief marked Node (used in create edge mode)
     const GUIGlObject* markedNode = nullptr;
 
+    /// @brief marked edge (used in create edge mode, for splitting)
+    const GUIGlObject* markedEdge = nullptr;
+
+    /// @brief marked lane (used in create edge mode, for splitting)
+    const GUIGlObject* markedLane = nullptr;
+
     /// @brief marked TAZ (used in create TAZRel mode)
     const GUIGlObject* markedTAZ = nullptr;
 

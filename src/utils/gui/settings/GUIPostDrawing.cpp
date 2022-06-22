@@ -36,6 +36,8 @@ GUIPostDrawing::executePostDrawingTasks() {
     myGLObjectsToUpdate.clear();
     // reset marked elements
     markedNode = nullptr;
+    markedEdge = nullptr;
+    markedLane = nullptr;
     markedTAZ = nullptr;
     markedRoute = nullptr;
 }

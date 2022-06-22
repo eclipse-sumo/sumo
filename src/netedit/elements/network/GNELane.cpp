@@ -35,6 +35,7 @@
 #include <utils/gui/images/GUITextureSubSys.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/div/GUIDesigns.h>
+#include <utils/gui/div/GUIGlobalPostDrawing.h>
 
 #include "GNELane.h"
 #include "GNEInternalLane.h"
@@ -600,6 +601,13 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
         }
         // draw lock icon
         GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), 1);
+        // check if mark lane (and their parent edge)
+        if ((gPostDrawing.markedLane == nullptr) && 
+            (myLaneGeometry.getShape().distance2D(myNet->getViewNet()->getPositionInformation()) <= laneDrawingConstants.halfWidth)) {
+            // mark lane and their parent edge
+            gPostDrawing.markedLane = this;
+            gPostDrawing.markedEdge = myParentEdge;
+        }
         // check if dotted contours has to be drawn
         if (!drawRailway) {
             if (myNet->getViewNet()->isAttributeCarrierInspected(this) ||
