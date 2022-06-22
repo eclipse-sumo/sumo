@@ -208,6 +208,7 @@ public:
         }
         // drop tree
         RemoveAll();
+        myTreeDebug.clear();
         // insert all elements again with the new boundary
         for (const auto &glObject : glObjects) {
             addAdditionalGLObject(glObject);
