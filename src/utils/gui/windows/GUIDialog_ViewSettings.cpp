@@ -1023,6 +1023,9 @@ GUIDialog_ViewSettings::onCmdExportSetting(FXObject*, FXSelector, void* /*data*/
     try {
         OutputDevice& dev = OutputDevice::getDevice(file.text(), false);
         dev.openTag(SUMO_TAG_VIEWSETTINGS);
+        if (myParent->is3DView()) {
+            dev.writeAttr(SUMO_ATTR_TYPE, "osg");
+        }
         mySettings->save(dev);
         if (mySaveViewPort->getCheck()) {
             myParent->getViewportEditor()->writeXML(dev);

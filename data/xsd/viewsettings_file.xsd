@@ -5,6 +5,7 @@
 
     <xsd:element name="viewsettings">
         <xsd:complexType>
+            <xsd:attribute name="type" type="xsd:string" use="optional"/>
             <xsd:choice maxOccurs="unbounded">
                 <xsd:element name="breakpoint" type="breakpointType" minOccurs="0"/>
                 <xsd:element name="viewport" type="viewportType" minOccurs="0"/>
