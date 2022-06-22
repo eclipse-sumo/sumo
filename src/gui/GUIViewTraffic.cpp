@@ -56,6 +56,7 @@
 #include <gui/GUIApplicationWindow.h>
 #include <utils/gui/windows/GUIDialog_ViewSettings.h>
 #include <utils/gui/settings/GUICompleteSchemeStorage.h>
+#include <utils/foxtools/MFXButtonTooltip.h>
 #include <utils/foxtools/MFXImageHelper.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <foreign/rtree/SUMORTree.h>
@@ -106,47 +107,47 @@ GUIViewTraffic::buildViewToolBars(GUIGlChildWindow* v) {
         v->getColoringSchemesCombo()->setNumVisible(MAX2(5, (int)names.size() + 1));
     }
     // for junctions
-    new FXButton(v->getLocatorPopup(),
+    new MFXButtonTooltip(v->getLocatorPopup(),
                  "\tLocate Junctions\tLocate a junction within the network.",
                  GUIIconSubSys::getIcon(GUIIcon::LOCATEJUNCTION), v, MID_LOCATEJUNCTION,
                  ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
     // for edges
-    new FXButton(v->getLocatorPopup(),
+    new MFXButtonTooltip(v->getLocatorPopup(),
                  "\tLocate Edges\tLocate an edge within the network.",
                  GUIIconSubSys::getIcon(GUIIcon::LOCATEEDGE), v, MID_LOCATEEDGE,
                  ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
     // for vehicles
-    new FXButton(v->getLocatorPopup(),
+    new MFXButtonTooltip(v->getLocatorPopup(),
                  "\tLocate Vehicles\tLocate a vehicle within the network.",
                  GUIIconSubSys::getIcon(GUIIcon::LOCATEVEHICLE), v, MID_LOCATEVEHICLE,
                  ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
     // for persons
-    new FXButton(v->getLocatorPopup(),
+    new MFXButtonTooltip(v->getLocatorPopup(),
                  "\tLocate Persons\tLocate a person within the network.",
                  GUIIconSubSys::getIcon(GUIIcon::LOCATEPERSON), v, MID_LOCATEPERSON,
                  ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
     // for containers
-    new FXButton(v->getLocatorPopup(),
+    new MFXButtonTooltip(v->getLocatorPopup(),
                  "\tLocate Container\tLocate a container within the network.",
                  GUIIconSubSys::getIcon(GUIIcon::LOCATECONTAINER), v, MID_LOCATECONTAINER,
                  ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
     // for tls
-    new FXButton(v->getLocatorPopup(),
+    new MFXButtonTooltip(v->getLocatorPopup(),
                  "\tLocate TLS\tLocate a tls within the network.",
                  GUIIconSubSys::getIcon(GUIIcon::LOCATETLS), v, MID_LOCATETLS,
                  ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
     // for additional stuff
-    new FXButton(v->getLocatorPopup(),
+    new MFXButtonTooltip(v->getLocatorPopup(),
                  "\tLocate Additional\tLocate an additional structure within the network.",
                  GUIIconSubSys::getIcon(GUIIcon::LOCATEADD), v, MID_LOCATEADD,
                  ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
     // for pois
-    new FXButton(v->getLocatorPopup(),
+    new MFXButtonTooltip(v->getLocatorPopup(),
                  "\tLocate PoI\tLocate a PoI within the network.",
                  GUIIconSubSys::getIcon(GUIIcon::LOCATEPOI), v, MID_LOCATEPOI,
                  ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
     // for polygons
-    new FXButton(v->getLocatorPopup(),
+    new MFXButtonTooltip(v->getLocatorPopup(),
                  "\tLocate Polygon\tLocate a Polygon within the network.",
                  GUIIconSubSys::getIcon(GUIIcon::LOCATEPOLY), v, MID_LOCATEPOLY,
                  ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);

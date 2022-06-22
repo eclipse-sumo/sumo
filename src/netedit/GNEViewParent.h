@@ -23,6 +23,7 @@
 #pragma once
 #include <config.h>
 
+#include <utils/foxtools/MFXButtonTooltip.h>
 #include <utils/gui/windows/GUIGlChildWindow.h>
 
 
@@ -462,13 +463,13 @@ private:
     FXHorizontalFrame* myFramesArea;
 
     /// @brief toolbar undo button
-    FXButton* myUndoButton;
+    MFXButtonTooltip* myUndoButton;
 
     /// @brief toolbar redo button
-    FXButton* myRedoButton;
+    MFXButtonTooltip* myRedoButton;
 
     /// @brief compute Path manager button
-    FXButton* myComputePathManagerButton;
+    MFXButtonTooltip* myComputePathManagerButton;
 
     /// @brief Splitter to divide ViewNet und GNEFrames
     FXSplitter* myFramesSplitter;

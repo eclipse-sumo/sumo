@@ -20,6 +20,7 @@
 #pragma once
 #include <config.h>
 
+#include <utils/foxtools/MFXButtonTooltip.h>
 #include <utils/foxtools/MFXCheckableButton.h>
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/gui/globjects/GUIGlObjectTypes.h>
@@ -404,19 +405,19 @@ struct GNEViewNetHelper {
         void buildSaveElementsButtons();
 
         /// @brief checkable button for save all
-        FXButton* saveAll;
+        MFXButtonTooltip* saveAll;
 
         /// @brief checkable button for save network
-        FXButton* saveNetwork;
+        MFXButtonTooltip* saveNetwork;
 
         /// @brief checkable button for save additional elements
-        FXButton* saveAdditionalElements;
+        MFXButtonTooltip* saveAdditionalElements;
 
         /// @brief checkable button for save demand elements
-        FXButton* saveDemandElements;
+        MFXButtonTooltip* saveDemandElements;
 
         /// @brief checkable button for save data elements
-        FXButton* saveDataElements;
+        MFXButtonTooltip* saveDataElements;
 
     private:
         /// @brief pointer to net

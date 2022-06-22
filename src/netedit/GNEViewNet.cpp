@@ -54,6 +54,7 @@
 #include <netedit/frames/network/GNETAZFrame.h>
 #include <netedit/frames/network/GNETLSEditorFrame.h>
 #include <utils/foxtools/FXMenuCheckIcon.h>
+#include <utils/foxtools/MFXButtonTooltip.h>
 #include <utils/gui/cursors/GUICursorSubSys.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIDesigns.h>
@@ -320,69 +321,69 @@ GNEViewNet::buildViewToolBars(GUIGlChildWindow* v) {
         v->getColoringSchemesCombo()->setNumVisible(MAX2(5, (int)gSchemeStorage.getNames().size() + 1));
     }
     // for junctions
-    new FXButton(v->getLocatorPopup(),
+    new MFXButtonTooltip(v->getLocatorPopup(),
                  "\tLocate Junctions\tLocate a junction within the network. (Shift+J)",
                  GUIIconSubSys::getIcon(GUIIcon::LOCATEJUNCTION), v, MID_LOCATEJUNCTION,
                  ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
     // for edges
-    new FXButton(v->getLocatorPopup(),
+    new MFXButtonTooltip(v->getLocatorPopup(),
                  "\tLocate Edges\tLocate an edge within the network. (Shift+E)",
                  GUIIconSubSys::getIcon(GUIIcon::LOCATEEDGE), v, MID_LOCATEEDGE,
                  ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
     // for walkingAreas
-    new FXButton(v->getLocatorPopup(),
+    new MFXButtonTooltip(v->getLocatorPopup(),
                  "\tLocate WalkingAreas\tLocate a walkingArea within the network. (Shift+W)",
                  GUIIconSubSys::getIcon(GUIIcon::LOCATEWALKINGAREA), v, MID_LOCATEWALKINGAREA,
                  ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
     // for vehicles
-    new FXButton(v->getLocatorPopup(),
+    new MFXButtonTooltip(v->getLocatorPopup(),
                  "\tLocate Vehicles\tLocate a vehicle within the network. (Shift+V)",
                  GUIIconSubSys::getIcon(GUIIcon::LOCATEVEHICLE), v, MID_LOCATEVEHICLE,
                  ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
 
     // for person
-    new FXButton(v->getLocatorPopup(),
+    new MFXButtonTooltip(v->getLocatorPopup(),
                  "\tLocate Persons\tLocate a person within the network. (Shift+P)",
                  GUIIconSubSys::getIcon(GUIIcon::LOCATEPERSON), v, MID_LOCATEPERSON,
                  ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
 
     // for routes
-    new FXButton(v->getLocatorPopup(),
+    new MFXButtonTooltip(v->getLocatorPopup(),
                  "\tLocate Route\tLocate a route within the network. (Shift+R)",
                  GUIIconSubSys::getIcon(GUIIcon::LOCATEROUTE), v, MID_LOCATEROUTE,
                  ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
 
     // for routes
-    new FXButton(v->getLocatorPopup(),
+    new MFXButtonTooltip(v->getLocatorPopup(),
                  "\tLocate Stops\tLocate a stop within the network. (Shift+S)",
                  GUIIconSubSys::getIcon(GUIIcon::LOCATESTOP), v, MID_LOCATESTOP,
                  ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
 
     // for persons (currently unused)
     /*
-    new FXButton(v->getLocatorPopup(),
+    new MFXButtonTooltip(v->getLocatorPopup(),
                  "\tLocate Vehicle\tLocate a person within the network.",
                  GUIIconSubSys::getIcon(GUIIcon::LOCATEPERSON), &v, MID_LOCATEPERSON,
                  ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
     */
 
     // for tls
-    new FXButton(v->getLocatorPopup(),
+    new MFXButtonTooltip(v->getLocatorPopup(),
                  "\tLocate TLS\tLocate a tls within the network. (Shift+T)",
                  GUIIconSubSys::getIcon(GUIIcon::LOCATETLS), v, MID_LOCATETLS,
                  ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
     // for additional stuff
-    new FXButton(v->getLocatorPopup(),
+    new MFXButtonTooltip(v->getLocatorPopup(),
                  "\tLocate Additional\tLocate an additional structure within the network. (Shift+A)",
                  GUIIconSubSys::getIcon(GUIIcon::LOCATEADD), v, MID_LOCATEADD,
                  ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
     // for pois
-    new FXButton(v->getLocatorPopup(),
+    new MFXButtonTooltip(v->getLocatorPopup(),
                  "\tLocate PoI\tLocate a PoI within the network. (Shift+O)",
                  GUIIconSubSys::getIcon(GUIIcon::LOCATEPOI), v, MID_LOCATEPOI,
                  ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
     // for polygons
-    new FXButton(v->getLocatorPopup(),
+    new MFXButtonTooltip(v->getLocatorPopup(),
                  "\tLocate Polygon\tLocate a Polygon within the network. (Shift+L)",
                  GUIIconSubSys::getIcon(GUIIcon::LOCATEPOLY), v, MID_LOCATEPOLY,
                  ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
