@@ -487,15 +487,18 @@ GNETAZRelData::drawTAZRel() const {
     if (!myNet->getViewNet()->getEditModes().isCurrentSupermodeData()) {
         return false;
     }
-    // check dataSet
-    const GNEDataSet* dataSet = myNet->getViewNet()->getViewParent()->getTAZRelDataFrame()->getDataSetSelector()->getDataSet();
-    if (dataSet && (myDataIntervalParent->getDataSetParent() != dataSet)) {
-        return false;
-    }
-    // check interval
-    const GNEDataInterval* dataInterval = myNet->getViewNet()->getViewParent()->getTAZRelDataFrame()->getIntervalSelector()->getDataInterval();
-    if (dataInterval && (myDataIntervalParent != dataInterval)) {
-        return false;
+    // check TAZRelFrame
+    if (myNet->getViewNet()->getViewParent()->getTAZRelDataFrame()->shown()) {
+        // check dataSet
+        const GNEDataSet* dataSet = myNet->getViewNet()->getViewParent()->getTAZRelDataFrame()->getDataSetSelector()->getDataSet();
+        if (dataSet && (myDataIntervalParent->getDataSetParent() != dataSet)) {
+            return false;
+        }
+        // check interval
+        const GNEDataInterval* dataInterval = myNet->getViewNet()->getViewParent()->getTAZRelDataFrame()->getIntervalSelector()->getDataInterval();
+        if (dataInterval && (myDataIntervalParent != dataInterval)) {
+            return false;
+        }
     }
     // check if both draw TAZRel checkBox are disabled
     if (!myNet->getViewNet()->getDataViewOptions().TAZRelOnlyFrom() && !myNet->getViewNet()->getDataViewOptions().TAZRelOnlyTo()) {

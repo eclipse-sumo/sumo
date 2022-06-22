@@ -4340,8 +4340,12 @@ GNEViewNet::updateDataModeSpecificControls() {
             myCommonCheckableButtons.deleteButton->setChecked(true);
             // show toggle TAZRel drawing view option
             myDataViewOptions.menuCheckToggleTAZRelDrawing->show();
+            myDataViewOptions.menuCheckToggleTAZRelOnlyFrom->show();
+            myDataViewOptions.menuCheckToggleTAZRelOnlyTo->show();
             // show toggle TAZRel drawing menu check
             menuChecks.menuCheckToggleTAZRelDrawing->show();
+            menuChecks.menuCheckToggleTAZRelOnlyFrom->show();
+            menuChecks.menuCheckToggleTAZRelOnlyTo->show();
             break;
         case DataEditMode::DATA_SELECT:
             myViewParent->getSelectorFrame()->show();
@@ -4351,8 +4355,12 @@ GNEViewNet::updateDataModeSpecificControls() {
             myCommonCheckableButtons.selectButton->setChecked(true);
             // show toggle TAZRel drawing view option
             myDataViewOptions.menuCheckToggleTAZRelDrawing->show();
+            myDataViewOptions.menuCheckToggleTAZRelOnlyFrom->show();
+            myDataViewOptions.menuCheckToggleTAZRelOnlyTo->show();
             // show toggle TAZRel drawing menu check
             menuChecks.menuCheckToggleTAZRelDrawing->show();
+            menuChecks.menuCheckToggleTAZRelOnlyFrom->show();
+            menuChecks.menuCheckToggleTAZRelOnlyTo->show();
             break;
         case DataEditMode::DATA_EDGEDATA:
             myViewParent->getEdgeDataFrame()->show();
@@ -4377,9 +4385,13 @@ GNEViewNet::updateDataModeSpecificControls() {
             // show view option
             myDataViewOptions.menuCheckToggleTAZRelDrawing->show();
             myDataViewOptions.menuCheckToggleTAZDrawFill->show();
+            myDataViewOptions.menuCheckToggleTAZRelOnlyFrom->show();
+            myDataViewOptions.menuCheckToggleTAZRelOnlyTo->show();
             // show menu check
             menuChecks.menuCheckToggleTAZRelDrawing->show();
             menuChecks.menuCheckToggleTAZDrawFill->show();
+            menuChecks.menuCheckToggleTAZRelOnlyFrom->show();
+            menuChecks.menuCheckToggleTAZRelOnlyTo->show();
             break;
         default:
             break;
