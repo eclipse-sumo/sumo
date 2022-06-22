@@ -246,6 +246,7 @@
             <xsd:enumeration value="actuated"/>
             <xsd:enumeration value="delay_based"/>
             <xsd:enumeration value="static"/>
+            <xsd:enumeration value="NEMA"/>
             <!--xsd:enumeration value="rail"/  only for internal use -->
         </xsd:restriction>
     </xsd:simpleType>
