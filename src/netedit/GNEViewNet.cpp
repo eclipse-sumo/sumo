@@ -962,12 +962,15 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
             myFrontAttributeCarrier->getGUIGlObject()->drawGL(*myVisualizationSettings);
         }
     }
+    // re-draw marked route
+    if (gPostDrawing.markedRoute && !myVisualizationSettings->drawForPositionSelection && !myVisualizationSettings->drawForRectangleSelection) {
+        myNet->getPathManager()->forceDrawPath(*myVisualizationSettings, dynamic_cast<const GNEPathManager::PathElement*>(gPostDrawing.markedRoute));
+    }
     // pop draw matrix
     GLHelper::popMatrix();
     // update interval bar
     myIntervalBar.markForUpdate();
     // execute post drawing tasks
-    // check if update ACs after drawing
     gPostDrawing.executePostDrawingTasks();
     return hits2;
 }

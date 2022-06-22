@@ -51,8 +51,11 @@ public:
     /// @brief marked Node (used in create edge mode)
     const GUIGlObject* markedNode = nullptr;
 
-    /// @brief marked Node (used in create TAZRel mode)
+    /// @brief marked TAZ (used in create TAZRel mode)
     const GUIGlObject* markedTAZ = nullptr;
+
+    /// @brief marked Route (used in create vehicle mode)
+    const GUIGlObject* markedRoute = nullptr;
 
 protected:
     /// @brief GLObjects to update

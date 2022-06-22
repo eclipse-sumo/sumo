@@ -37,6 +37,7 @@ GUIPostDrawing::executePostDrawingTasks() {
     // reset marked elements
     markedNode = nullptr;
     markedTAZ = nullptr;
+    markedRoute = nullptr;
 }
 
 

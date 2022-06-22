@@ -801,6 +801,14 @@ GNEPathManager::forceDrawPath(const GUIVisualizationSettings& s, const PathEleme
             }
         }
     }
+    // draw all junction segments
+    for (const auto& junctionSegment : myJunctionSegments) {
+        for (const auto& segment : junctionSegment.second) {
+            if (segment->getPathElement() == pathElement) {
+                segment->getPathElement()->drawPartialGL(s, segment->getPreviousLane(), segment->getNextLane(), segment, 0);
+            }
+        }
+    }
 }
 
 
