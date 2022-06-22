@@ -38,6 +38,8 @@
 #include <utils/options/OptionsCont.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/div/GUIGlobalPostDrawing.h>
+#include <netedit/GNEViewParent.h>
+#include <netedit/frames/network/GNECreateEdgeFrame.h>
 
 
 #include "GNEConnection.h"
@@ -408,11 +410,7 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
         // push layer matrix
         GLHelper::pushMatrix();
         // translate to front
-        if (myAmCreateEdgeSource) {
-            glTranslated(0, 0, GLO_TEMPORALSHAPE);
-        } else {
-            myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_JUNCTION);
-        }
+        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_JUNCTION);
         // push name
         if (s.scale * junctionExaggeration * myMaxDrawingSize < 1.) {
             // draw something simple so that selection still works
@@ -1453,24 +1451,34 @@ GNEJunction::drawDottedContours(const GUIVisualizationSettings& s, const bool dr
                     (junctionExaggeration >= 1) ? junctionExaggeration : 1);
         }
     }
-    // if we're in create edge mode, draw dotted contour if mouse is over junction
-    if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() && 
-        (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_CREATE_EDGE) &&
-        (gPostDrawing.markedNode == nullptr)) {
+    // draw dotted contours regarding create edge mode
+    if (myAmCreateEdgeSource) {
+        if (drawBubble) {
+            GUIDottedGeometry::drawDottedContourCircle(GUIDottedGeometry::DottedContourType::GREEN, s, myNBNode->getCenter(), s.neteditSizeSettings.junctionBubbleRadius,
+                    (junctionExaggeration >= 1) ? junctionExaggeration : 1);
+        }
+        if (drawShape) {
+            GUIDottedGeometry::drawDottedContourClosedShape(GUIDottedGeometry::DottedContourType::GREEN, s, myNBNode->getShape(),
+                    (junctionExaggeration >= 1) ? junctionExaggeration : 1);
+        }
+    } else if ((gPostDrawing.markedNode == nullptr) && myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() && 
+        (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_CREATE_EDGE)) {
         // calculate distance squared
         const double bubbleDistance = (bubbleRadius * bubbleRadius);
+        // get dotted contour type
+        const auto dottedContourType = myNet->getViewNet()->getViewParent()->getCreateEdgeFrame()->getJunctionSource()? GUIDottedGeometry::DottedContourType::MAGENTA : GUIDottedGeometry::DottedContourType::GREEN;
         // draw bubble
         if (drawBubble && myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(myNBNode->getPosition()) <= bubbleDistance) {
             // mark this node
             gPostDrawing.markedNode = this;
             // draw dotted contour
-            GUIDottedGeometry::drawDottedContourCircle(GUIDottedGeometry::DottedContourType::GREEN, s, myNBNode->getCenter(), s.neteditSizeSettings.junctionBubbleRadius,
+            GUIDottedGeometry::drawDottedContourCircle(dottedContourType, s, myNBNode->getCenter(), s.neteditSizeSettings.junctionBubbleRadius,
                     (junctionExaggeration >= 1) ? junctionExaggeration : 1);
         } else if (drawShape && myNBNode->getShape().around(myNet->getViewNet()->getPositionInformation())) {
             // mark this node
             gPostDrawing.markedNode = this;
             // draw dotted contour
-            GUIDottedGeometry::drawDottedContourClosedShape(GUIDottedGeometry::DottedContourType::GREEN, s, myNBNode->getShape(),
+            GUIDottedGeometry::drawDottedContourClosedShape(dottedContourType, s, myNBNode->getShape(),
                     (junctionExaggeration >= 1) ? junctionExaggeration : 1);
         }
     }
@@ -1743,10 +1751,6 @@ GNEJunction::setColor(const GUIVisualizationSettings& s, bool bubble) const {
     // override with special colors (unless the color scheme is based on selection)
     if (drawUsingSelectColor() && scheme != 1) {
         color = s.colorSettings.selectionColor;
-    }
-    // set special color if we're creating a new edge
-    if (myAmCreateEdgeSource) {
-        color = RGBColor::GREEN;
     }
     // overwrite color if we're in data mode
     if (myNet->getViewNet()->getEditModes().isCurrentSupermodeData()) {
