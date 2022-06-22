@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-04-19 17:28:05 by Eclipse SUMO netconvert Version v1_12_0+2154-21e08c91f73
+<!-- generated on 2022-06-22 08:14:27 by Eclipse SUMO netconvert Version v1_13_0+1094-d2dab2e946c
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -37,7 +37,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <report>
         <verbose value="true"/>
         <xml-validation value="never"/>
-        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
@@ -49,13 +48,13 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <type id="highway.bridleway" priority="1" numLanes="1" speed="2.78" allow="pedestrian" oneway="1" width="2.00"/>
     <type id="highway.bus_guideway" priority="1" numLanes="1" speed="27.78" allow="bus" oneway="1"/>
-    <type id="highway.cycleway" priority="1" numLanes="1" speed="8.33" allow="bicycle" oneway="0" width="1.00"/>
+    <type id="highway.cycleway" priority="1" numLanes="1" speed="5.56" allow="bicycle" oneway="0" width="1.00"/>
     <type id="highway.footway" priority="1" numLanes="1" speed="2.78" allow="pedestrian" oneway="1" width="2.00"/>
     <type id="highway.ford" priority="1" numLanes="1" speed="2.78" allow="army" oneway="0"/>
     <type id="highway.living_street" priority="2" numLanes="1" speed="2.78" disallow="tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
     <type id="highway.motorway" priority="14" numLanes="2" speed="39.44" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" oneway="1"/>
     <type id="highway.motorway_link" priority="9" numLanes="1" speed="22.22" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" oneway="1"/>
-    <type id="highway.path" priority="1" numLanes="1" speed="2.78" allow="pedestrian bicycle" oneway="0" width="2.00"/>
+    <type id="highway.path" priority="1" numLanes="1" speed="5.56" allow="pedestrian bicycle" oneway="0" width="2.00"/>
     <type id="highway.pedestrian" priority="1" numLanes="1" speed="2.78" allow="pedestrian" oneway="1" width="2.00"/>
     <type id="highway.primary" priority="12" numLanes="2" speed="27.78" disallow="tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
     <type id="highway.primary_link" priority="7" numLanes="1" speed="22.22" disallow="tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
@@ -96,7 +95,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="-24214694_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="22.22" length="13.87" shape="479.61,109.70 479.68,110.51"/>
     </edge>
     <edge id="-25951490" from="32266938" to="175648134" priority="1" type="highway.cycleway">
-        <lane id="-25951490_0" index="0" allow="bicycle" speed="8.33" length="466.10" width="1.00" shape="473.15,108.32 15.74,168.56"/>
+        <lane id="-25951490_0" index="0" allow="bicycle" speed="5.56" length="466.10" width="1.00" shape="473.15,108.32 15.74,168.56"/>
     </edge>
     <edge id="-26816413#0" from="294168710" to="56231597" priority="1" type="highway.service">
         <lane id="-26816413#0_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="65.21" shape="588.85,339.99 631.42,378.95"/>
@@ -351,7 +350,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="25944605_0" index="0" allow="pedestrian" speed="2.78" length="38.43" width="2.00" shape="504.79,548.53 494.62,536.85 484.29,525.67"/>
     </edge>
     <edge id="25951490" from="175648134" to="32266938" priority="1" type="highway.cycleway">
-        <lane id="25951490_0" index="0" allow="bicycle" speed="8.33" length="466.10" width="1.00" shape="15.61,167.57 473.02,107.33"/>
+        <lane id="25951490_0" index="0" allow="bicycle" speed="5.56" length="466.10" width="1.00" shape="15.61,167.57 473.02,107.33"/>
     </edge>
     <edge id="26004787#0" from="283719736" to="283721344" priority="1" type="highway.footway" spreadType="center">
         <lane id="26004787#0_0" index="0" allow="pedestrian" speed="2.78" length="35.21" width="2.00" shape="1047.36,522.62 1021.93,530.68"/>
