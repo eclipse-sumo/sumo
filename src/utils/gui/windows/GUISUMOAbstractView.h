@@ -117,7 +117,7 @@ public:
     /// @brief pixels-to-meters conversion method
     double p2m(double pixel) const;
 
-    /// @brief Returns the information whether rotation is allowd
+    /// @brief Returns the information whether rotation is allowed
     ///@note disabled
     //bool allowRotation() const;
 
@@ -197,11 +197,11 @@ public:
      * @param[in] destFile The name of the file to write the snapshot into
      * @param[in] w The snapshot image width
      * @param[in] w The snapshot image height
-     * @return The error message, if an error occcured; "" otherwise
+     * @return The error message, if an error occurred; "" otherwise
      */
     std::string makeSnapshot(const std::string& destFile, const int w = -1, const int h = -1);
 
-    /// @brief Adds a frame to a video snapshot which will be initialized if neccessary
+    /// @brief Adds a frame to a video snapshot which will be initialized if necessary
     virtual void saveFrame(const std::string& destFile, FXColor* buf);
 
     /// @brief Ends a video snapshot
@@ -309,7 +309,7 @@ public:
     bool addAdditionalGLVisualisation(GUIGlObject* const which);
 
     /** @brief Removes an object from the list of objects that show additional things
-     * @param[in] which The object to remoe
+     * @param[in] which The object to remove
      * @return True if the object was known, false otherwise
      * @see GUIGlObject::drawGLAdditional
      */
@@ -325,7 +325,7 @@ public:
     /// @brief get position of current popup
     const Position& getPopupPosition() const;
 
-    /// @brief destoys the popup
+    /// @brief destroys the popup
     void destroyPopup();
 
 public:
