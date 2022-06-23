@@ -25,7 +25,6 @@ from sumolib.output import parse  # noqa
 from sumolib.options import ArgumentParser 
 
 def parse_args():
-    USAGE = "Usage: " + sys.argv[0] + " <netstate> <out>"
     optParser = ArgumentParser()
     optParser.add_argument("netstate", help="Netstate Dump File")
     optParser.add_argument("out", help="Output file")

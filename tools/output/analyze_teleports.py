@@ -26,7 +26,6 @@ from sumolib.options import ArgumentParser
 
 
 def parse_args():
-    USAGE = "Usage: " + sys.argv[0] + " <logfile>"
     optParser = ArgumentParser()
     optParser.add_argument("logfile", help = "log file")
     options = optParser.parse_args()

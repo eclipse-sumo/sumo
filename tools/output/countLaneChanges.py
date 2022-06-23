@@ -49,7 +49,6 @@ class DumpReader(handler.ContentHandler):
             self.vehicles[veh] = (self._edge, self._lane)
 
 def parse_args():
-    USAGE = "Usage: " + sys.argv[0] + " <dumpfile>"
     optParser = ArgumentParser()
     optParser.add_argument("dumpfile", help = "dump file path")
     options = optParser.parse_args()

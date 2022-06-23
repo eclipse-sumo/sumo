@@ -28,7 +28,6 @@ from sumolib.miscutils import Statistics  # noqa
 from sumolib.options import ArgumentParser 
 
 def parse_args():
-    USAGE = "Usage: " + sys.argv[0] + " <tag> <attr> <xmlfile>*"
     optParser = ArgumentParser()
     optParser.add_argument("tag", help="Tag of the files to be plotted")
     optParser.add_argument("attr", help="Attributes of the files to be plotted")

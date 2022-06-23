@@ -26,7 +26,6 @@ from sumolib.options import ArgumentParser
 
 
 def parse_args():
-    USAGE = "Usage: " + sys.argv[0] + " <net> <routes>"
     optParser = ArgumentParser()
     optParser.add_argument("net", help=".net.xml file path")
     optParser.add_argument("routes", help="Routes' attributes")

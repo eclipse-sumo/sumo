@@ -28,7 +28,6 @@ from sumolib.miscutils import Statistics  # noqa
 from sumolib.options import ArgumentParser 
 
 def parse_args():
-    USAGE = "Usage: " + sys.argv[0] + " <tripinfos> [--length <length>]"
     optParser = ArgumentParser()
     optParser.add_argument("tripinfos", help="Trip Info file")
     optParser.add_option("--length", action="store_true", required = False,

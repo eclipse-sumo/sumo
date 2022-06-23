@@ -29,13 +29,12 @@ from sumolib.options import ArgumentParser
 
 
 def parse_args():
-    USAGE = "Usage: " + sys.argv[0] + " <orig> <new> <out> [--earliest]"
     optParser = ArgumentParser()
     optParser.add_argument("orig", help="Original XML File")
     optParser.add_argument("new", help="New XML File")
     optParser.add_argument("out", help = "Output File")
     optParser.add_option("--earliest", action="store_true",
-                         default=None, help="Earliest Output Parameter (Default: None)")
+                         default=False, help="Earliest Output Parameter (Default: False)")
     options = optParser.parse_args()
     return options
 
