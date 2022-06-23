@@ -19,8 +19,6 @@
 /****************************************************************************/
 #include <config.h>
 
-#include <utils/gui/globjects/GUIGlObject.h>
-
 #include "GUIPostDrawing.h"
 
 
@@ -30,7 +28,7 @@ GUIPostDrawing::GUIPostDrawing() {}
 void 
 GUIPostDrawing::executePostDrawingTasks() {
     // reset recompute boundaries
-    recomputeBoundaries = false;
+    recomputeBoundaries = GLO_NETWORK;
     // udate AC geometries
     for (const auto &GLObject : myGLObjectsToUpdate) {
         GLObject->updateGLObject();

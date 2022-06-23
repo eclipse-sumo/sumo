@@ -21,13 +21,7 @@
 #include <config.h>
 
 #include <vector>
-
-
-// ===========================================================================
-// class declaration
-// ===========================================================================
-
-class GUIGlObject;
+#include <utils/gui/globjects/GUIGlObject.h>
 
 // ===========================================================================
 // class definitions
@@ -46,7 +40,7 @@ public:
     void markGLObjectToUpdate(GUIGlObject* GLObject);
 
     /// @brief recompute boundaries
-    bool recomputeBoundaries = false;
+    GUIGlObjectType recomputeBoundaries = GLO_NETWORK;
 
     /// @brief marked Node (used in create edge mode)
     const GUIGlObject* markedNode = nullptr;
