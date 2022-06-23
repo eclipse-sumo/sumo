@@ -424,7 +424,7 @@ protected:
     /// @brief get sorted stops
     std::vector<const GNEDemandElement*> getSortedStops(const std::vector<GNEEdge*>& edges) const;
 
-    /// @brief set flow parameters (used in toogleAttribute(...) function of vehicles, persons and containers
+    /// @brief set flow parameters (used in toggleAttribute(...) function of vehicles, persons and containers
     void setFlowParameters(SUMOVehicleParameter* vehicleParameters, const SumoXMLAttr attribute, const bool value);
 
     /// @brief adjust flow default attributes (called in vehicle/person/flow constructors)

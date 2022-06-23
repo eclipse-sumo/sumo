@@ -1047,8 +1047,8 @@ GNEDemandElement::adjustDefaultFlowAttributes(SUMOVehicleParameter* vehicleParam
         }
         // poisson
         if (vehicleParameters->repetitionOffset < 0) {
-            toogleAttribute(SUMO_ATTR_PERIOD, false);
-            toogleAttribute(GNE_ATTR_POISSON, true);
+            toggleAttribute(SUMO_ATTR_PERIOD, false);
+            toggleAttribute(GNE_ATTR_POISSON, true);
             setAttribute(GNE_ATTR_POISSON, time2string(vehicleParameters->repetitionOffset * -1));
         }
     }

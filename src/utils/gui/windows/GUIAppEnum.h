@@ -92,7 +92,7 @@ enum {
     /// @brief Fullscreen mode - menu entry
     MID_HOTKEY_CTRL_F_FULSCREENMODE,
     /// @brief toggle draw junction shape
-    MID_HOTKEY_CTRL_J_TOOGLEDRAWJUNCTIONSHAPE,
+    MID_HOTKEY_CTRL_J_TOGGLEDRAWJUNCTIONSHAPE,
     /// @brief Load file with TLS Programs
     MID_HOTKEY_CTRL_K_OPENTLSPROGRAMS,
     /// @brief save network as plain XML

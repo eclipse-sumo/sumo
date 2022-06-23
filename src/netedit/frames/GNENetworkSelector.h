@@ -66,7 +66,7 @@ public:
     bool isShown() const;
 
     /// @brief toggle selected networkElement
-    bool toogleSelectedElement(const GNENetworkElement* networkElement);
+    bool toggleSelectedElement(const GNENetworkElement* networkElement);
 
     /// @brief clear selection
     void clearSelection();

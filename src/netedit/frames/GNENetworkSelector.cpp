@@ -131,7 +131,7 @@ GNENetworkSelector::isShown() const {
 
 
 bool
-GNENetworkSelector::toogleSelectedElement(const GNENetworkElement* networkElement) {
+GNENetworkSelector::toggleSelectedElement(const GNENetworkElement* networkElement) {
     // Obtain Id's of list
     for (int i = 0; i < myList->getNumItems(); i++) {
         if (myList->getItem(i)->getText().text() == networkElement->getID()) {

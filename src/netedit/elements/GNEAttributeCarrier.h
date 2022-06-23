@@ -298,7 +298,7 @@ protected:
     bool myIsTemplate;
 
     /// @brief method for enable or disable the attribute and nothing else (used in GNEChange_EnableAttribute)
-    virtual void toogleAttribute(SumoXMLAttr key, const bool value);
+    virtual void toggleAttribute(SumoXMLAttr key, const bool value);
 
 private:
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)

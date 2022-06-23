@@ -123,7 +123,7 @@ FXDEFMAP(GUIApplicationWindow) GUIApplicationWindowMap[] = {
 
     FXMAPFUNC(SEL_COMMAND,  MID_APPSETTINGS,                            GUIApplicationWindow::onCmdAppSettings),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_G_GAMINGMODE_TOGGLEGRID,    GUIApplicationWindow::onCmdGaming),
-    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_J_TOOGLEDRAWJUNCTIONSHAPE,  GUIApplicationWindow::onCmdToogleDrawJunctionShape),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_J_TOGGLEDRAWJUNCTIONSHAPE,  GUIApplicationWindow::onCmdToggleDrawJunctionShape),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_F_FULSCREENMODE,            GUIApplicationWindow::onCmdFullScreen),
     FXMAPFUNC(SEL_COMMAND,  MID_LISTINTERNAL,                           GUIApplicationWindow::onCmdListInternal),
     FXMAPFUNC(SEL_COMMAND,  MID_LISTPARKING,                            GUIApplicationWindow::onCmdListParking),
@@ -1428,7 +1428,7 @@ GUIApplicationWindow::onCmdGaming(FXObject*, FXSelector, void*) {
 
 
 long
-GUIApplicationWindow::onCmdToogleDrawJunctionShape(FXObject*, FXSelector, void*) {
+GUIApplicationWindow::onCmdToggleDrawJunctionShape(FXObject*, FXSelector, void*) {
     GUISUMOViewParent* w = dynamic_cast<GUISUMOViewParent*>(myMDIClient->getActiveChild());
     if (w != nullptr) {
         // show or hide grid depending of myNetworkViewOptions.menuCheckToggleGrid

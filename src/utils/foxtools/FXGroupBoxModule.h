@@ -52,7 +52,7 @@ public:
     /// @brief set text
     void setText(const std::string& text);
 
-    /// @brief get collapsable frame (used by all elements that will be collapsed if button is toogled)
+    /// @brief get collapsable frame (used by all elements that will be collapsed if button is toggled)
     FXVerticalFrame* getCollapsableFrame();
 
     /// @brief draw FXGroupBoxModule
@@ -87,7 +87,7 @@ protected:
     virtual bool loadContents() const;
 
     /// @brief enable or disable save buttons
-    void toogleSaveButton(const bool value);
+    void toggleSaveButton(const bool value);
 
 private:
     /// @brief GroupBoxModule options

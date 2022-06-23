@@ -1346,25 +1346,25 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_DURATION:
             if (value.empty()) {
-                toogleAttribute(key, false);
+                toggleAttribute(key, false);
             } else {
-                toogleAttribute(key, true);
+                toggleAttribute(key, true);
                 duration = string2time(value);
             }
             break;
         case SUMO_ATTR_UNTIL:
             if (value.empty()) {
-                toogleAttribute(key, false);
+                toggleAttribute(key, false);
             } else {
-                toogleAttribute(key, true);
+                toggleAttribute(key, true);
                 until = string2time(value);
             }
             break;
         case SUMO_ATTR_EXTENSION:
             if (value.empty()) {
-                toogleAttribute(key, false);
+                toggleAttribute(key, false);
             } else {
-                toogleAttribute(key, true);
+                toggleAttribute(key, true);
                 extension = string2time(value);
             }
             break;
@@ -1437,11 +1437,11 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_TRIP_ID:
             tripId = value;
-            toogleAttribute(key, (value.size() > 0));
+            toggleAttribute(key, (value.size() > 0));
             break;
         case SUMO_ATTR_LINE:
             line = value;
-            toogleAttribute(key, (value.size() > 0));
+            toggleAttribute(key, (value.size() > 0));
             break;
         // only for waypoints
         case SUMO_ATTR_SPEED:
@@ -1518,7 +1518,7 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 
 void
-GNEStop::toogleAttribute(SumoXMLAttr key, const bool value) {
+GNEStop::toggleAttribute(SumoXMLAttr key, const bool value) {
     switch (key) {
         case SUMO_ATTR_DURATION:
             if (value) {

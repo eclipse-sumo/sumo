@@ -185,7 +185,7 @@ public:
     long onCmdGaming(FXObject*, FXSelector, void*);
 
     /// @brief Toggle draw junction shape
-    long onCmdToogleDrawJunctionShape(FXObject*, FXSelector, void*);
+    long onCmdToggleDrawJunctionShape(FXObject*, FXSelector, void*);
 
     /// @brief Toggle full screen mode
     long onCmdFullScreen(FXObject*, FXSelector, void*);

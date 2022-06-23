@@ -224,7 +224,7 @@ FXGroupBoxModule::loadContents() const {
 
 
 void
-FXGroupBoxModule::toogleSaveButton(const bool value) {
+FXGroupBoxModule::toggleSaveButton(const bool value) {
     if (mySaveButton) {
         if (value) {
             mySaveButton->enable();

@@ -354,7 +354,7 @@ GNEFlowEditor::onCmdSetFlowAttribute(FXObject* obj, FXSelector, void*) {
         for (const auto& attr : enableAttrs) {
             if (myEditedFlows.front()->isTemplate()) {
                 // enable directly
-                myEditedFlows.front()->toogleAttribute(attr, true);
+                myEditedFlows.front()->toggleAttribute(attr, true);
             } else if (myEditedFlows.size() == 1) {
                 // enable using undoList
                 myEditedFlows.front()->enableAttribute(attr, myViewNet->getUndoList());
@@ -370,7 +370,7 @@ GNEFlowEditor::onCmdSetFlowAttribute(FXObject* obj, FXSelector, void*) {
         for (const auto& attr : disableAttrs) {
             if (myEditedFlows.front()->isTemplate()) {
                 // disable directly
-                myEditedFlows.front()->toogleAttribute(attr, false);
+                myEditedFlows.front()->toggleAttribute(attr, false);
             } else if (myEditedFlows.size() == 1) {
                 // disable using undoList
                 myEditedFlows.front()->disableAttribute(attr, myViewNet->getUndoList());

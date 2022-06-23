@@ -83,12 +83,12 @@ GNEAdditionalFrame::addAdditional(const GNEViewNetHelper::ObjectsUnderCursor& ob
     }
     // check if add or remove edge
     if (myEdgesSelector->isShown() && objectsUnderCursor.getEdgeFront()) {
-        myEdgesSelector->toogleSelectedElement(objectsUnderCursor.getEdgeFront());
+        myEdgesSelector->toggleSelectedElement(objectsUnderCursor.getEdgeFront());
         return true;
     }
     // check if add or remove lane
     if (myLanesSelector->isShown() && objectsUnderCursor.getLaneFront()) {
-        myLanesSelector->toogleSelectedElement(objectsUnderCursor.getLaneFront());
+        myLanesSelector->toggleSelectedElement(objectsUnderCursor.getLaneFront());
         return true;
     }
     // show warning dialogbox and stop check if input parameters are valid

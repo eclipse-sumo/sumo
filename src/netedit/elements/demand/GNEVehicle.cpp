@@ -265,8 +265,8 @@ SUMOVehicleParameter() {
     // reset default values
     resetDefaultValues();
     // set end and vehPerHours
-    toogleAttribute(SUMO_ATTR_END, 1);
-    toogleAttribute(SUMO_ATTR_VEHSPERHOUR, 1);
+    toggleAttribute(SUMO_ATTR_END, 1);
+    toggleAttribute(SUMO_ATTR_VEHSPERHOUR, 1);
 }
 
 
@@ -2171,7 +2171,7 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 
 void
-GNEVehicle::toogleAttribute(SumoXMLAttr key, const bool value) {
+GNEVehicle::toggleAttribute(SumoXMLAttr key, const bool value) {
     // set flow parameters
     setFlowParameters(this, key, value);
 }

@@ -166,8 +166,8 @@ GNEPerson::GNEPerson(SumoXMLTag tag, GNENet* net) :
     // reset default values
     resetDefaultValues();
     // set end and vehPerHours
-    toogleAttribute(SUMO_ATTR_END, 1);
-    toogleAttribute(SUMO_ATTR_PERSONSPERHOUR, 1);
+    toggleAttribute(SUMO_ATTR_END, 1);
+    toggleAttribute(SUMO_ATTR_PERSONSPERHOUR, 1);
 }
 
 
@@ -929,7 +929,7 @@ GNEPerson::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 
 void
-GNEPerson::toogleAttribute(SumoXMLAttr key, const bool value) {
+GNEPerson::toggleAttribute(SumoXMLAttr key, const bool value) {
     // set flow parameters
     setFlowParameters(this, key, value);
 }

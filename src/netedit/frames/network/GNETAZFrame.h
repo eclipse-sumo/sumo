@@ -283,7 +283,7 @@ public:
         /// @brief CheckButton to enable or disable Toggle edge Membership
         FXCheckButton* myToggleMembership;
 
-        /// @brief Horizontal Frame toogle membership
+        /// @brief Horizontal Frame toggle membership
         FXHorizontalFrame* myToggleMembershipFrame;
 
         /// @brief Horizontal Frame for default TAZ Source Weight

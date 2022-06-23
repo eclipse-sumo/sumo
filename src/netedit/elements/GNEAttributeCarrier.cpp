@@ -119,7 +119,7 @@ GNEAttributeCarrier::resetDefaultValues() {
         if (attrProperty.hasDefaultValue()) {
             setAttribute(attrProperty.getAttr(), attrProperty.getDefaultValue());
             if (attrProperty.isActivatable()) {
-                toogleAttribute(attrProperty.getAttr(), attrProperty.getDefaultActivated());
+                toggleAttribute(attrProperty.getAttr(), attrProperty.getDefaultActivated());
             }
         }
     }
@@ -811,7 +811,7 @@ GNEAttributeCarrier::resetAttributes() {
 
 
 void
-GNEAttributeCarrier::toogleAttribute(SumoXMLAttr /*key*/, const bool /*value*/) {
+GNEAttributeCarrier::toggleAttribute(SumoXMLAttr /*key*/, const bool /*value*/) {
     throw ProcessError("Nothing to toggle, implement in Children");
 }
 

@@ -190,10 +190,10 @@ GNEFixDemandElements::FixOptions::setInvalidElements(const std::vector<GNEDemand
     // check if enable or disable options
     if (invalidElements.size() > 0) {
         enableOptions();
-        toogleSaveButton(true);
+        toggleSaveButton(true);
     } else {
         disableOptions();
-        toogleSaveButton(false);
+        toggleSaveButton(false);
     }
 }
 

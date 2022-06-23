@@ -317,7 +317,7 @@ GNEAttributesCreatorRow::onCmdSetAttribute(FXObject* obj, FXSelector, void*) {
             if (myValueCheckButton->shown()) {
                 myValueCheckButton->enable();
             }
-            myAttributesCreatorParent->getCurrentTemplateAC()->toogleAttribute(myAttrProperties.getAttr(), true);
+            myAttributesCreatorParent->getCurrentTemplateAC()->toggleAttribute(myAttrProperties.getAttr(), true);
         } else {
             // disable text field
             if (myValueTextField->shown()) {
@@ -331,7 +331,7 @@ GNEAttributesCreatorRow::onCmdSetAttribute(FXObject* obj, FXSelector, void*) {
             if (myValueCheckButton->shown()) {
                 myValueCheckButton->disable();
             }
-            myAttributesCreatorParent->getCurrentTemplateAC()->toogleAttribute(myAttrProperties.getAttr(), false);
+            myAttributesCreatorParent->getCurrentTemplateAC()->toggleAttribute(myAttrProperties.getAttr(), false);
         }
     } else if (obj == myValueCheckButton) {
         if (myValueCheckButton->getCheck()) {
