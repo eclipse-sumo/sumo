@@ -85,18 +85,27 @@ public:
     };
 
     /// @brief SizePanel
-    class SizePanel {
+    class SizePanel : public FXObject {
+        /// @brief FOX Declaration
+        FXDECLARE(SizePanel)
 
     public:
         /// @brief constructor
         SizePanel(FXMatrix* parent, GUIDialog_ViewSettings* target,
-                  const GUIVisualizationSizeSettings& settings);
+                  const GUIVisualizationSizeSettings& settings, GUIGlObjectType type);
 
         /// @brief get settings
         GUIVisualizationSizeSettings getSettings();
 
         /// @brief update
         void update(const GUIVisualizationSizeSettings& settings);
+        
+        /// @name FOX-callbacks
+        /// @{
+        /// @brief Called if something (color, width, etc.) has been changed
+        long onCmdSizeChange(FXObject* obj, FXSelector sel, void* ptr);
+
+        /// @}
 
         /// @brief min size dial
         FXRealSpinner* myMinSizeDial = nullptr;
@@ -109,6 +118,17 @@ public:
 
         /// @brief check selected button
         FXCheckButton* myCheckSelected = nullptr;
+
+    protected:
+        /// @brief FOX needs this
+        FOX_CONSTRUCTOR(SizePanel)
+
+    private:
+        /// @brief pointer to dialog viewSettings
+        GUIDialog_ViewSettings* myDialogViewSettings = nullptr;
+
+        /// @brief GLObject type associated with this size
+        GUIGlObjectType myType = GLO_NETWORK;
     };
 
     /** @brief Constructor
@@ -149,9 +169,6 @@ public:
 
     /// @brief Called if something (color, width, etc.) has been changed
     long onCmdColorChange(FXObject*, FXSelector, void*);
-
-    /// @brief Called if something (color, width, etc.) has been changed
-    long onCmdSizeChange(FXObject* obj, FXSelector sel, void* ptr);
 
     /// @brief Called if the decals-table was changed
     long onCmdEditTable(FXObject*, FXSelector, void* data);

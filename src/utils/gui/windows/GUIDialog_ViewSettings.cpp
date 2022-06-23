@@ -48,11 +48,14 @@
 // ===========================================================================
 // FOX callback mapping
 // ===========================================================================
+FXDEFMAP(GUIDialog_ViewSettings::SizePanel) GUIDialog_SizeMap[] = {
+    FXMAPFUNC(SEL_CHANGED,  MID_SIMPLE_VIEW_SIZECHANGE,     GUIDialog_ViewSettings::SizePanel::onCmdSizeChange),
+    FXMAPFUNC(SEL_COMMAND,  MID_SIMPLE_VIEW_SIZECHANGE,     GUIDialog_ViewSettings::SizePanel::onCmdSizeChange)
+};
+
 FXDEFMAP(GUIDialog_ViewSettings) GUIDialog_ViewSettingsMap[] = {
     FXMAPFUNC(SEL_CHANGED,  MID_SIMPLE_VIEW_COLORCHANGE,            GUIDialog_ViewSettings::onCmdColorChange),
     FXMAPFUNC(SEL_COMMAND,  MID_SIMPLE_VIEW_COLORCHANGE,            GUIDialog_ViewSettings::onCmdColorChange),
-    FXMAPFUNC(SEL_CHANGED,  MID_SIMPLE_VIEW_SIZECHANGE,             GUIDialog_ViewSettings::onCmdSizeChange),
-    FXMAPFUNC(SEL_COMMAND,  MID_SIMPLE_VIEW_SIZECHANGE,             GUIDialog_ViewSettings::onCmdSizeChange),
     FXMAPFUNC(SEL_COMMAND,  MID_SIMPLE_VIEW_NAMECHANGE,             GUIDialog_ViewSettings::onCmdNameChange),
     FXMAPFUNC(SEL_COMMAND,  MID_SETTINGS_OK,                        GUIDialog_ViewSettings::onCmdOk),
     FXMAPFUNC(SEL_COMMAND,  MID_SETTINGS_CANCEL,                    GUIDialog_ViewSettings::onCmdCancel),
@@ -73,7 +76,8 @@ FXDEFMAP(GUIDialog_ViewSettings) GUIDialog_ViewSettingsMap[] = {
 };
 
 
-FXIMPLEMENT(GUIDialog_ViewSettings, FXDialogBox, GUIDialog_ViewSettingsMap, ARRAYNUMBER(GUIDialog_ViewSettingsMap))
+FXIMPLEMENT(GUIDialog_ViewSettings,             FXDialogBox,    GUIDialog_ViewSettingsMap,  ARRAYNUMBER(GUIDialog_ViewSettingsMap))
+FXIMPLEMENT(GUIDialog_ViewSettings::SizePanel,  FXObject,       GUIDialog_SizeMap,          ARRAYNUMBER(GUIDialog_SizeMap))
 
 
 // ===========================================================================
@@ -859,16 +863,6 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
     getApp()->forceRefresh();
     return 1;
 }
-
-
-long
-GUIDialog_ViewSettings::onCmdSizeChange(FXObject* obj, FXSelector sel, void* ptr) {
-    // mark boundaries for recomputing
-    gPostDrawing.recomputeBoundaries = true;
-    // continue as a normal change
-    return onCmdColorChange(obj, sel, ptr);
-}
-
 
 void
 GUIDialog_ViewSettings::loadSettings(const std::string& file) {
@@ -1660,24 +1654,23 @@ GUIDialog_ViewSettings::NamePanel::update(const GUIVisualizationTextSettings& se
 }
 
 
-GUIDialog_ViewSettings::SizePanel::SizePanel(
-    FXMatrix* parent,
-    GUIDialog_ViewSettings* target,
-    const GUIVisualizationSizeSettings& settings) {
-    myCheck = new FXCheckButton(parent, "Draw with constant size when zoomed out", target, MID_SIMPLE_VIEW_SIZECHANGE, GUIDesignCheckButtonViewSettings);
+GUIDialog_ViewSettings::SizePanel::SizePanel(FXMatrix* parent, GUIDialog_ViewSettings* target,
+    const GUIVisualizationSizeSettings& settings, GUIGlObjectType type):
+    myDialogViewSettings(target),
+    myType(type) {
+    myCheck = new FXCheckButton(parent, "Draw with constant size when zoomed out", this, MID_SIMPLE_VIEW_SIZECHANGE, GUIDesignCheckButtonViewSettings);
     myCheck->setCheck(settings.constantSize);
-    myCheckSelected = new FXCheckButton(parent, "Only for selected", target, MID_SIMPLE_VIEW_SIZECHANGE, GUIDesignCheckButtonViewSettings);
+    myCheckSelected = new FXCheckButton(parent, "Only for selected", this, MID_SIMPLE_VIEW_SIZECHANGE, GUIDesignCheckButtonViewSettings);
     myCheckSelected->setCheck(settings.constantSizeSelected);
     FXMatrix* m1 = new FXMatrix(parent, 2, GUIDesignViewSettingsMatrix5);
     new FXLabel(m1, "Minimum Size", nullptr, GUIDesignViewSettingsLabel1);
-    myMinSizeDial = new FXRealSpinner(m1, 10, target, MID_SIMPLE_VIEW_SIZECHANGE, GUIDesignViewSettingsSpinDial1);
+    myMinSizeDial = new FXRealSpinner(m1, 10, this, MID_SIMPLE_VIEW_SIZECHANGE, GUIDesignViewSettingsSpinDial1);
     myMinSizeDial->setValue(settings.minSize);
     FXMatrix* m2 = new FXMatrix(parent, 2, GUIDesignViewSettingsMatrix5);
     new FXLabel(m2, "Exaggerate by", nullptr, GUIDesignViewSettingsLabel1);
-    myExaggerateDial = new FXRealSpinner(m2, 10, target, MID_SIMPLE_VIEW_SIZECHANGE, GUIDesignViewSettingsSpinDial2);
+    myExaggerateDial = new FXRealSpinner(m2, 10, this, MID_SIMPLE_VIEW_SIZECHANGE, GUIDesignViewSettingsSpinDial2);
     myExaggerateDial->setRange(0, 10000);
     myExaggerateDial->setValue(settings.exaggeration);
-    ///XXX;
 }
 
 
@@ -1696,6 +1689,15 @@ GUIDialog_ViewSettings::SizePanel::update(const GUIVisualizationSizeSettings& se
     myCheckSelected->setCheck(settings.constantSizeSelected);
     myMinSizeDial->setValue(settings.minSize);
     myExaggerateDial->setValue(settings.exaggeration);
+}
+
+
+long
+GUIDialog_ViewSettings::SizePanel::onCmdSizeChange(FXObject* obj, FXSelector sel, void* ptr) {
+    // mark boundaries for recomputing
+    gPostDrawing.recomputeBoundaries = true;
+    // continue as a normal change
+    return myDialogViewSettings->onCmdColorChange(obj, sel, ptr);
 }
 
 
@@ -1958,7 +1960,7 @@ GUIDialog_ViewSettings::buildVehiclesFrame(FXTabBook* tabbook) {
     //new FXHorizontalSeparator(frame3, GUIDesignHorizontalSeparator);
 
     FXMatrix* matrixSize = new FXMatrix(verticalframe, 2, GUIDesignViewSettingsMatrix1);
-    myVehicleSizePanel = new SizePanel(matrixSize, this, mySettings->vehicleSize);
+    myVehicleSizePanel = new SizePanel(matrixSize, this, mySettings->vehicleSize, GLO_VEHICLE);
 }
 
 
@@ -1998,7 +2000,7 @@ GUIDialog_ViewSettings::buildPersonsFrame(FXTabBook* tabbook) {
     new FXHorizontalSeparator(verticalFrame, GUIDesignHorizontalSeparator);
 
     FXMatrix* m104 = new FXMatrix(verticalFrame, 2, GUIDesignViewSettingsMatrix1);
-    myPersonSizePanel = new SizePanel(m104, this, mySettings->personSize);
+    myPersonSizePanel = new SizePanel(m104, this, mySettings->personSize, GLO_PERSON);
 }
 
 
@@ -2037,7 +2039,7 @@ GUIDialog_ViewSettings::buildContainersFrame(FXTabBook* tabbook) {
     new FXHorizontalSeparator(verticalFrame, GUIDesignHorizontalSeparator);
 
     FXMatrix* m104 = new FXMatrix(verticalFrame, 2, GUIDesignViewSettingsMatrix1);
-    myContainerSizePanel = new SizePanel(m104, this, mySettings->containerSize);
+    myContainerSizePanel = new SizePanel(m104, this, mySettings->containerSize, GLO_CONTAINER);
 }
 
 
@@ -2059,7 +2061,7 @@ GUIDialog_ViewSettings::buildJunctionsFrame(FXTabBook* tabbook) {
 
     new FXHorizontalSeparator(verticalFrame, GUIDesignHorizontalSeparator);
     FXMatrix* m42 = new FXMatrix(verticalFrame, 2, GUIDesignMatrixViewSettings);
-    myJunctionSizePanel = new SizePanel(m42, this, mySettings->junctionSize);
+    myJunctionSizePanel = new SizePanel(m42, this, mySettings->junctionSize, GLO_JUNCTION);
     myDrawJunctionShape = new FXCheckButton(m42, "Draw junction shape", this, MID_SIMPLE_VIEW_COLORCHANGE);
     myDrawJunctionShape->setCheck(mySettings->drawJunctionShape);
     myDrawCrossingsAndWalkingAreas = new FXCheckButton(m42, "Draw crossings/walkingareas", this, MID_SIMPLE_VIEW_COLORCHANGE);
@@ -2092,7 +2094,7 @@ GUIDialog_ViewSettings::buildAdditionalsFrame(FXTabBook* tabbook) {
     new FXHorizontalSeparator(verticalFrame, GUIDesignHorizontalSeparator);
     //Sizes
     FXMatrix* matrixSizes = new FXMatrix(verticalFrame, 2, GUIDesignMatrixViewSettings);
-    myAddSizePanel = new SizePanel(matrixSizes, this, mySettings->addSize);
+    myAddSizePanel = new SizePanel(matrixSizes, this, mySettings->addSize, GLO_ADDITIONALELEMENT);
     // color
     FXMatrix* matrixColor = new FXMatrix(verticalFrame, 3, GUIDesignMatrixViewSettings);
     new FXLabel(matrixColor, "StoppingPlace", nullptr, GUIDesignViewSettingsLabel1);
@@ -2191,7 +2193,7 @@ GUIDialog_ViewSettings::buildPOIsFrame(FXTabBook* tabbook) {
     new FXHorizontalSeparator(verticalFrame, GUIDesignHorizontalSeparator);
 
     FXMatrix* m62 = new FXMatrix(verticalFrame, 2, GUIDesignMatrixViewSettings);
-    myPOISizePanel = new SizePanel(m62, this, mySettings->poiSize);
+    myPOISizePanel = new SizePanel(m62, this, mySettings->poiSize, GLO_POI);
 }
 
 
@@ -2216,7 +2218,7 @@ GUIDialog_ViewSettings::buildPolygonsFrame(FXTabBook* tabbook) {
     myPolyTypePanel = new NamePanel(m91, this, "Show polygon types", mySettings->polyType);
     new FXHorizontalSeparator(verticalFrame, GUIDesignHorizontalSeparator);
 
-    myPolySizePanel = new SizePanel(m91, this, mySettings->polySize);
+    myPolySizePanel = new SizePanel(m91, this, mySettings->polySize, GLO_POLYGON);
 }
 
 
