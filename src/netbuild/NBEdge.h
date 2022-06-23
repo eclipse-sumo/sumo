@@ -1468,7 +1468,7 @@ public:
     bool isBidiRail(bool ignoreSpread = false) const;
 
     /// @brief whether this edge is part of a bidirectional edge pair
-    bool isBidiEdge() const;
+    bool isBidiEdge(bool checkPotential = false) const;
 
     /// @brief whether this edge is a railway edge that does not continue
     bool isRailDeadEnd() const;

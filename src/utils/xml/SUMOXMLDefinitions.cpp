@@ -921,7 +921,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "modificationStatusNotForPrinting",   GNE_ATTR_MODIFICATION_STATUS },
     { "shapeStart",                         GNE_ATTR_SHAPE_START },
     { "shapeEnd",                           GNE_ATTR_SHAPE_END },
-    { "bidiRail",                           GNE_ATTR_BIDIR },
+    { "isBidi",                             GNE_ATTR_BIDIR },
     { "closedShape",                        GNE_ATTR_CLOSE_SHAPE },
     { "parentItem",                         GNE_ATTR_PARENT },
     { "dataSet",                            GNE_ATTR_DATASET },

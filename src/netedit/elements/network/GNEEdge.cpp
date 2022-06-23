@@ -909,7 +909,7 @@ GNEEdge::getAttribute(SumoXMLAttr key) const {
                 return toString(myNBEdge->getGeometry().back());
             }
         case GNE_ATTR_BIDIR:
-            return toString(myNBEdge->isBidiRail());
+            return toString(myNBEdge->getBidiEdge() != nullptr);
         case GNE_ATTR_STOPOFFSET:
             return toString(myNBEdge->myEdgeStopOffset.getOffset());
         case GNE_ATTR_STOPOEXCEPTION:
@@ -1031,6 +1031,15 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
                 setNumLanes(parse<int>(value), undoList);
             }
             break;
+        case GNE_ATTR_BIDIR:
+            undoList->begin(GUIIcon::EDGE, "change  " + getTagStr() + "  attribute");
+            undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
+            if (myNBEdge->getTurnDestination(true) != nullptr) {
+                GNEEdge* bidi = myNet->getAttributeCarriers()->retrieveEdge(myNBEdge->getTurnDestination(true)->getID());
+                undoList->changeAttribute(new GNEChange_Attribute(bidi, key, value));
+            }
+            undoList->end();
+            break;
         case SUMO_ATTR_SHAPE:
             // @note: assumes value of inner geometry!
             // actually the geometry is already updated (incrementally
@@ -1038,8 +1047,6 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
             // of the last change-set
             undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
             break;
-        case GNE_ATTR_BIDIR:
-            throw InvalidArgument("Attribute of '" + toString(key) + "' cannot be modified");
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -1144,7 +1151,7 @@ GNEEdge::isValid(SumoXMLAttr key, const std::string& value) {
             }
         }
         case GNE_ATTR_BIDIR:
-            return false;
+            return canParse<bool>(value) && (!parse<bool>(value) || myNBEdge->isBidiEdge(true));
         case GNE_ATTR_STOPOFFSET:
             return canParse<int>(value) && (parse<double>(value) >= 0);
         case GNE_ATTR_STOPOEXCEPTION:
@@ -1163,7 +1170,7 @@ bool
 GNEEdge::isAttributeEnabled(SumoXMLAttr key) const {
     switch (key) {
         case GNE_ATTR_BIDIR:
-            return false;
+            return myNBEdge->isBidiEdge(true);
         default:
             return true;
     }
@@ -1700,7 +1707,8 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         }
         case GNE_ATTR_BIDIR:
-            throw InvalidArgument("Attribute of '" + toString(key) + "' cannot be modified");
+            myNBEdge->setBidi(parse<bool>(value));
+            break;
         case GNE_ATTR_SELECTED:
             if (parse<bool>(value)) {
                 selectAttributeCarrier();

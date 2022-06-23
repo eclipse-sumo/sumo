@@ -769,9 +769,9 @@ NBEdge::isBidiRail(bool ignoreSpread) const {
 
 
 bool
-NBEdge::isBidiEdge() const {
+NBEdge::isBidiEdge(bool checkPotential) const {
     return myPossibleTurnDestination != nullptr
-        && (myIsBidi || myPossibleTurnDestination->myIsBidi)
+        && (myIsBidi || myPossibleTurnDestination->myIsBidi || checkPotential)
         && myLaneSpreadFunction == LaneSpreadFunction::CENTER
         && myPossibleTurnDestination->getLaneSpreadFunction() == LaneSpreadFunction::CENTER
         && myPossibleTurnDestination->getToNode() == getFromNode()
