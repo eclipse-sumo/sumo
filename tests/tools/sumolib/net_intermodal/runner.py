@@ -34,6 +34,13 @@ def printSorted(d):
 
 
 net = sumolib.net.readNet(sys.argv[1], withInternal=True, withLatestPrograms=True)
+print("list of all edges")
+for edge in net.getEdges():
+    print(edge.getID())
+
+print("list of internal edgeIDs of node 'C'")
+for edgeID in net.getNode("C").getInternal():
+    print(edgeID)
 
 for laneID in ["SC_0", ":C_w2_0"]:
     lane = net.getLane(laneID)
