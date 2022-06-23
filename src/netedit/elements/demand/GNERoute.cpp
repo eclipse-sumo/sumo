@@ -80,7 +80,6 @@ GNERoute::GNERoute(SumoXMLTag tag, GNENet* net) :
     {}, {}, {}, {}, {}, {}),
     Parameterised(),
     myColor(RGBColor::YELLOW),
-    myCustomColor(false),
     myRepeat(0),
     myCycleTime(0),
     myVClass(SVC_PASSENGER) {
@@ -95,7 +94,6 @@ GNERoute::GNERoute(GNENet* net) :
     {}, {}, {}, {}, {}, {}),
     Parameterised(),
     myColor(RGBColor::YELLOW),
-    myCustomColor(false),
     myRepeat(0),
     myCycleTime(0),
     myVClass(SVC_PASSENGER) {
@@ -111,7 +109,6 @@ GNERoute::GNERoute(GNENet* net, const std::string& id, SUMOVehicleClass vClass, 
     {}, edges, {}, {}, {}, {}),
     Parameterised(parameters),
     myColor(color),
-    myCustomColor(color != RGBColor(false)),
     myRepeat(repeat),
     myCycleTime(cycleTime),
     myVClass(vClass) {
@@ -125,7 +122,6 @@ GNERoute::GNERoute(GNENet* net, GNEDemandElement* vehicleParent, const std::vect
     {}, edges, {}, {}, {vehicleParent}, {}),
     Parameterised(parameters),
     myColor(color),
-    myCustomColor(color != RGBColor::INVISIBLE),
     myRepeat(repeat),
     myCycleTime(cycleTime),
     myVClass(vehicleParent->getVClass()) {
@@ -138,7 +134,6 @@ GNERoute::GNERoute(GNEDemandElement* route) :
     {}, route->getParentEdges(), {}, {}, {}, {}),
     Parameterised(),
     myColor(route->getColor()),
-    myCustomColor(!route->getAttribute(SUMO_ATTR_COLOR).empty()),
     myRepeat(parse<int>(route->getAttribute(SUMO_ATTR_REPEAT))),
     myCycleTime(parse<SUMOTime>(route->getAttribute(SUMO_ATTR_CYCLETIME))),
     myVClass(route->getVClass()) {
@@ -191,7 +186,7 @@ GNERoute::writeDemandElement(OutputDevice& device) const {
         device.writeAttr(SUMO_ATTR_ID, getID());
     }
     device.writeAttr(SUMO_ATTR_EDGES, parseIDs(getParentEdges()));
-    if (myCustomColor) {
+    if (myColor != RGBColor::INVISIBLE) {
         device.writeAttr(SUMO_ATTR_COLOR, toString(myColor));
     }
     if (myRepeat != 0) {
@@ -276,7 +271,7 @@ GNERoute::getVClass() const {
 
 const RGBColor&
 GNERoute::getColor() const {
-    if (myCustomColor) {
+    if (myColor != RGBColor::INVISIBLE) {
         return myColor;
     } else if ((myTagProperty.getTag() == GNE_TAG_ROUTE_EMBEDDED) && (getChildDemandElements().front()->getColor() != RGBColor(false))) {
         return getParentDemandElements().front()->getColor();
@@ -574,7 +569,7 @@ GNERoute::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_EDGES:
             return parseIDs(getParentEdges());
         case SUMO_ATTR_COLOR:
-            if (myCustomColor) {
+            if (myColor != RGBColor::INVISIBLE) {
                 return toString(myColor);
             } else {
                 return "";
@@ -790,10 +785,8 @@ GNERoute::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_COLOR:
             if (value.empty()) {
-                myCustomColor = false;
                 myColor = RGBColor::INVISIBLE;
             } else {
-                myCustomColor = true;
                 myColor = parse<RGBColor>(value);
             }
             break;
