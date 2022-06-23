@@ -641,7 +641,7 @@ class NetReader(handler.ContentHandler):
                 toNodeID = attrs.get('to', None)
 
                 # for internal junctions use the junction's id for from and to node
-                if function == 'internal':
+                if function == 'internal' or function == 'crossing' or function == 'walkingarea':
                     fromNodeID = toNodeID = edgeID[1:edgeID.rfind('_')]
 
                 # remember edges crossed by pedestrians to link them later to the crossing objects
