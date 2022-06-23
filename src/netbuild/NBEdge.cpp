@@ -770,12 +770,12 @@ NBEdge::isBidiRail(bool ignoreSpread) const {
 
 bool
 NBEdge::isBidiEdge() const {
-    return myIsBidi
+    return myPossibleTurnDestination != nullptr
+        && (myIsBidi || myPossibleTurnDestination->myIsBidi)
         && myLaneSpreadFunction == LaneSpreadFunction::CENTER
-        && myPossibleTurnDestination != nullptr
         && myPossibleTurnDestination->getLaneSpreadFunction() == LaneSpreadFunction::CENTER
-        && myPossibleTurnDestination->getGeometry().reverse() == getGeometry()
-        && myPossibleTurnDestination->getToNode() == getFromNode();
+        && myPossibleTurnDestination->getToNode() == getFromNode()
+        && myPossibleTurnDestination->getGeometry().reverse() == getGeometry();
 }
 
 
