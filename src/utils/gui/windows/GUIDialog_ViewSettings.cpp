@@ -1864,7 +1864,7 @@ GUIDialog_ViewSettings::buildStreetsFrame(FXTabBook* tabbook) {
     new FXLabel(matrixLanes, " ", nullptr, GUIDesignViewSettingsLabel1);
     myShowSublanes = new FXCheckButton(matrixLanes, "Show sublanes", this, MID_SIMPLE_VIEW_COLORCHANGE);
     myShowSublanes->setCheck(mySettings->showSublanes);
-    mySpreadSuperposed = new FXCheckButton(matrixLanes, "Spread bidirectional railway\t\tMake both directional edges for a bidirectional railway visible", this, MID_SIMPLE_VIEW_COLORCHANGE);
+    mySpreadSuperposed = new FXCheckButton(matrixLanes, "Spread bidirectional railways/roads\t\tMake both directional edges for a bidirectional railways or roads visible", this, MID_SIMPLE_VIEW_COLORCHANGE);
     mySpreadSuperposed->setCheck(mySettings->spreadSuperposed);
     new FXLabel(matrixLanes, "Exaggerate width by", nullptr, GUIDesignViewSettingsLabel1);
     myLaneWidthUpscaleDialer = new FXRealSpinner(matrixLanes, 10, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsSpinDial2);

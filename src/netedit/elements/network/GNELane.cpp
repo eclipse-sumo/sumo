@@ -530,8 +530,14 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
                 // draw as railway
                 drawLaneAsRailway(s, laneDrawingConstants);
             } else {
+                double offset = 0;
+                double widthFactor = 1;
+                if (s.spreadSuperposed && myParentEdge->getNBEdge()->getBidiEdge() != nullptr) {
+                    widthFactor = 0.4; // create visible gap
+                    offset = laneDrawingConstants.halfWidth * 0.5;
+                }
                 // draw as box lines
-                GUIGeometry::drawLaneGeometry(s, myNet->getViewNet()->getPositionInformation(), myLaneGeometry.getShape(), myLaneGeometry.getShapeRotations(), myLaneGeometry.getShapeLengths(), myShapeColors, laneDrawingConstants.halfWidth);
+                GUIGeometry::drawLaneGeometry(s, myNet->getViewNet()->getPositionInformation(), myLaneGeometry.getShape(), myLaneGeometry.getShapeRotations(), myLaneGeometry.getShapeLengths(), myShapeColors, laneDrawingConstants.halfWidth * widthFactor, 0, offset);
             }
             if (laneDrawingConstants.halfWidth != laneDrawingConstants.halfWidth2 && !spreadSuperposed) {
                 // Push matrix
@@ -1509,7 +1515,7 @@ void
 GNELane::drawLaneAsRailway(const GUIVisualizationSettings& s, const LaneDrawingConstants& laneDrawingConstants) const {
     // we draw the lanes with reduced width so that the lane markings below are visible
     // (this avoids artifacts at geometry corners without having to
-    const bool spreadSuperposed = s.spreadSuperposed && drawAsRailway(s) && myParentEdge->getNBEdge()->isBidiRail();
+    const bool spreadSuperposed = s.spreadSuperposed && myParentEdge->getNBEdge()->getBidiEdge() != nullptr;
     // get lane shape
     PositionVector shape = myLaneGeometry.getShape();
     // get width

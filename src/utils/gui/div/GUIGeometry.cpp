@@ -414,7 +414,7 @@ GUIGeometry::drawMovingHint(const GUIVisualizationSettings& s, const Position& m
 void
 GUIGeometry::drawLaneGeometry(const GUIVisualizationSettings& s, const Position& mousePos, const PositionVector& shape,
                               const std::vector<double>& rotations, const std::vector<double>& lengths, const std::vector<RGBColor>& colors,
-                              double width, const bool onlyContour) {
+                              double width, const bool onlyContour, const double offset) {
     // first check if we're in draw a contour or for selecting cliking mode
     if (onlyContour) {
         // get shapes
@@ -433,7 +433,7 @@ GUIGeometry::drawLaneGeometry(const GUIVisualizationSettings& s, const Position&
         GLHelper::drawBoxLines(shapeA, 0.1);
     } else if (s.drawForPositionSelection) {
         // obtain position over lane relative to mouse position
-        const Position posOverLane = shape.positionAtOffset2D(shape.nearest_offset_to_point2D(mousePos));
+        const Position posOverLane = shape.positionAtOffset2D(shape.nearest_offset_to_point2D(mousePos), offset);
         // if mouse is over segment
         if (posOverLane.distanceSquaredTo2D(mousePos) <= (width * width)) {
             // push matrix
@@ -447,10 +447,10 @@ GUIGeometry::drawLaneGeometry(const GUIVisualizationSettings& s, const Position&
         }
     } else if (colors.size() > 0) {
         // draw box lines with own colors
-        GLHelper::drawBoxLines(shape, rotations, lengths, colors, width);
+        GLHelper::drawBoxLines(shape, rotations, lengths, colors, width, 0, offset);
     } else {
         // draw box lines with current color
-        GLHelper::drawBoxLines(shape, rotations, lengths, width);
+        GLHelper::drawBoxLines(shape, rotations, lengths, width, 0, offset);
     }
 }
 

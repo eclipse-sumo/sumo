@@ -2233,7 +2233,7 @@ GNEEdge::drawEdgeName(const GUIVisualizationSettings& s) const {
     if (!s.drawForPositionSelection && !s.drawForRectangleSelection) {
         // draw the name and/or the street name
         const bool drawStreetName = s.streetName.show(this) && (myNBEdge->getStreetName() != "");
-        const bool spreadSuperposed = s.spreadSuperposed && myLanes.back()->drawAsRailway(s) && myNBEdge->isBidiRail();
+        const bool spreadSuperposed = s.spreadSuperposed && myNBEdge->getBidiEdge() != nullptr;
         // check conditions
         if (s.edgeName.show(this) || drawStreetName || s.edgeValue.show(this)) {
             // get first and last lanes

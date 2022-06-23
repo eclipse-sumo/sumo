@@ -550,7 +550,7 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::popMatrix();
         } else {
             GUINet* net = (GUINet*) MSNet::getInstance();
-            const bool spreadSuperposed = s.spreadSuperposed && myEdge->getBidiEdge() != nullptr && drawRails;
+            const bool spreadSuperposed = s.spreadSuperposed && myEdge->getBidiEdge() != nullptr;
             if (hiddenBidi && !spreadSuperposed) {
                 // do not draw shape
             } else if (drawRails) {
@@ -608,10 +608,14 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
                 // we draw the lanes with reduced width so that the lane markings below are visible
                 // (this avoids artifacts at geometry corners without having to
                 // compute lane-marking intersection points)
-                const double halfWidth = isInternal ? myQuarterLaneWidth : (myHalfLaneWidth - SUMO_const_laneMarkWidth / 2);
+                double halfWidth = isInternal ? myQuarterLaneWidth : (myHalfLaneWidth - SUMO_const_laneMarkWidth / 2);
                 mustDrawMarkings = !isInternal && myPermissions != 0 && myPermissions != SVC_PEDESTRIAN && exaggeration == 1.0 && !isWaterway(myPermissions);
                 const int cornerDetail = drawDetails && !isInternal ? (int)(s.scale * exaggeration) : 0;
-                const double offset = halfWidth * MAX2(0., (exaggeration - 1)) * (MSGlobals::gLefthand ? -1 : 1);
+                double offset = halfWidth * MAX2(0., (exaggeration - 1)) * (MSGlobals::gLefthand ? -1 : 1);
+                if (spreadSuperposed) {
+                    offset += halfWidth * 0.5 * (MSGlobals::gLefthand ? -1 : 1);
+                    halfWidth *= 0.4; // create visible gap
+                }
                 if (myShapeColors.size() > 0) {
                     GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, myShapeColors, halfWidth * exaggeration, cornerDetail, offset);
                 } else {

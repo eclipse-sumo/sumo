@@ -292,7 +292,7 @@ GUIEdge::drawGL(const GUIVisualizationSettings& s) const {
     if (drawEdgeName || drawInternalEdgeName || drawCwaEdgeName || drawStreetName || drawEdgeValue) {
         GUILane* lane1 = dynamic_cast<GUILane*>((*myLanes)[0]);
         if (lane1 != nullptr && lane2 != nullptr) {
-            const bool spreadSuperposed = s.spreadSuperposed && getBidiEdge() != nullptr && lane2->drawAsRailway(s);
+            const bool spreadSuperposed = s.spreadSuperposed && getBidiEdge() != nullptr;
             Position p = lane1->getShape().positionAtOffset(lane1->getShape().length() / (double) 2.);
             p.add(lane2->getShape().positionAtOffset(lane2->getShape().length() / (double) 2.));
             p.mul(.5);
