@@ -79,13 +79,10 @@ public:
     bool isShapeEdited() const;
 
     /// @brief check if current network element is valid to be written into XML (by default true, can be reimplemented in children)
-    virtual bool isNetworkElementValid() const;
+    bool isNetworkElementValid() const;
 
     /// @brief return a string with the current network element problem (by default empty, can be reimplemented in children)
-    virtual std::string getNetworkElementProblem() const;
-
-    /// @brief fix network element problem (by default throw an exception, has to be reimplemented in children)
-    virtual void fixNetworkElementProblem();
+    std::string getNetworkElementProblem() const;
 
     /// @name Functions related with geometry of element
     /// @{

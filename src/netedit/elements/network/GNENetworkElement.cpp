@@ -76,12 +76,6 @@ GNENetworkElement::GNENetworkElement::getNetworkElementProblem() const {
 }
 
 
-void 
-GNENetworkElement::GNENetworkElement::fixNetworkElementProblem() {
-    // implement in children
-}
-
-
 GUIParameterTableWindow*
 GNENetworkElement::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
     // Create table
