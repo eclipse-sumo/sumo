@@ -106,6 +106,18 @@ Output can be restricted to specific vehicle types or vehicle ids by [controllin
 --device.fcd.explicit ego
 ```
 
+The following example restricts fcd-output to a single flow out of the whole simulation
+
+```
+--device.fcd.probability 0 ...
+```
+
+```
+<flow ...>
+   <param key="has.fcd.device" value="true"/>
+</flow>
+```
+
 ### Restricting the locations
 Output can be restricted to a specific set of edges by loading a list of edges from a file with option **--fcd-output.filter-edges.input-file** {{DT_FILE}}. The file format for
 this is the same as the one when saving selections in  [netedit](../../Netedit/index.md):
