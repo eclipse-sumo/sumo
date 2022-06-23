@@ -71,7 +71,7 @@ GNECrossing::isNetworkElementValid() const {
 
 std::string
 GNECrossing::getNetworkElementProblem() const {
-    return "Crossing edges don't support pedestrians";
+    return "Crossing's edges don't support pedestrians";
 }
 
 

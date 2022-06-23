@@ -21,6 +21,7 @@
 #include <netedit/dialogs/GNEAbout.h>
 #include <netedit/dialogs/GNEUndoListDialog.h>
 #include <netedit/dialogs/tools/GNEToolNetDiff.h>
+#include <netedit/elements/network/GNECrossing.h>
 #include <netedit/elements/network/GNEEdgeType.h>
 #include <netedit/elements/network/GNELaneType.h>
 #include <netedit/elements/GNEGeneralHandler.h>
@@ -32,6 +33,7 @@
 #include <netedit/frames/network/GNETAZFrame.h>
 #include <netedit/frames/network/GNETLSEditorFrame.h>
 #include <netedit/changes/GNEChange_EdgeType.h>
+#include <netedit/dialogs/GNEFixNetworkElements.h>
 #include <netimport/NIFrame.h>
 #include <netimport/NIXMLTypesHandler.h>
 #include <netimport/NITypeLoader.h>
@@ -3150,7 +3152,41 @@ GNEApplicationWindow::onCmdSaveNetwork(FXObject*, FXSelector, void*) {
     } else {
         getApp()->beginWaitCursor();
         try {
-            myNet->save(oc);
+            // obtain invalid networkElements (currently only edges or crossings
+            std::vector<GNENetworkElement*> invalidNetworkElements;
+            // iterate over crossings and edges
+            for (const auto& edge : myViewNet->getNet()->getAttributeCarriers()->getEdges()) {
+                if (edge.second->isNetworkElementValid() == false) {
+                    invalidNetworkElements.push_back(edge.second);
+                }
+            }
+            for (const auto& crossing : myViewNet->getNet()->getAttributeCarriers()->getCrossings()) {
+                if (crossing->isNetworkElementValid() == false) {
+                    invalidNetworkElements.push_back(crossing);
+                }
+            }
+            // if there are invalid network elements, open GNEFixNetworkElements
+            if (invalidNetworkElements.size() > 0) {
+                // 0 -> Canceled Saving, with or without selecting invalid network elements
+                // 1 -> Invalid network elements fixed, friendlyPos enabled, or saved with invalid positions
+                GNEFixNetworkElements fixNetworkElementsDialog(myViewNet, invalidNetworkElements);
+                if (fixNetworkElementsDialog.execute() == 0) {
+                    // show debug information
+                    WRITE_DEBUG("network elements saving aborted");
+                    // stop
+                    return 1;
+                } else {
+                    // Save network
+                    myNet->save(oc);
+                    // show debug information
+                    WRITE_DEBUG("network elements saved after dialog");
+                }
+            } else {
+                // Save network
+                myNet->save(oc);
+                // show debug information
+                WRITE_DEBUG("network elements saved");
+            }
         } catch (IOError& e) {
             // write warning if netedit is running in testing mode
             WRITE_DEBUG("Opening FXMessageBox 'error saving network'");
@@ -3164,8 +3200,10 @@ GNEApplicationWindow::onCmdSaveNetwork(FXObject*, FXSelector, void*) {
         myMenuBarFile.myRecentNetsAndConfigs.appendFile(oc.getString("output-file").c_str());
         myMessageWindow->addSeparator();
         getApp()->endWaitCursor();
-        // restore focus
-        setFocus();
+        // update view
+        myViewNet->updateViewNet();
+        // set focus again in net
+        myViewNet->setFocus();
         return 1;
     }
 }
