@@ -36,12 +36,7 @@ def parse_args():
     options = optParser.parse_args()
     return options
 
-def main():
-    options = parse_args()
-    tag = options.tag 
-    attr = options.attr 
-    xmlfiles = options.xmlfiles
-
+def main(tag, attr, xmlfiles):
     data = []
     for xmlfile in xmlfiles:
         stats = Statistics('%s %s' % (tag, attr))
@@ -61,4 +56,5 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    options = parse_args()
+    main(tag = options.tag, attr = options.attr, xmlfiles = options.xmlfiles)

@@ -44,13 +44,7 @@ def update_earliest(earliest_diffs, diff, timestamp, tag):
         earliest_diffs[diff] = (timestamp, tag)
 
 
-def write_diff():
-    options = parse_args()
-    orig = options.orig 
-    new = options.new 
-    out = options.out 
-    earliest_out = options.earliest
-
+def write_diff(orig, new, out, earliest_out):
     attr_conversions = {"depart": parseTime, "arrival": parseTime}
     earliest_diffs = defaultdict(lambda: (uMax, None))  # diff -> (time, veh)
     vehicles_orig = dict([(v.id, v) for v in parse(orig, 'vehicle',
@@ -101,4 +95,5 @@ def write_diff():
 
 
 if __name__ == "__main__":
-    write_diff()
+    options = parse_args()
+    write_diff(orig = options.orig, new = options.new , out = options.out, earliest_out = options.earliest)

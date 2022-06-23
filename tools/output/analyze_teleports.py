@@ -91,10 +91,7 @@ def print_counts(countDict, label, num=10):
     print(label, 'total:', sum(countDict.values()))
 
 
-def main():
-    options = parse_args()
-    logfile = options.logfile
-
+def main(logfile):
     waitingCounts, collisionCounts, waitingStepCounts, collisionStepCounts = parse_log(logfile)
     print_counts(waitingCounts, 'waiting')
     print_counts(collisionCounts, 'collisions')
@@ -117,4 +114,5 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    options = parse_args()
+    main(logfile = options.logfile)

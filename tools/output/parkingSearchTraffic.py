@@ -33,11 +33,7 @@ def parse_args():
     options = optParser.parse_args()
     return options
 
-def main():
-    options = parse_args()
-    net = options.net
-    routes = options.routes
-
+def main(net, routes):
     net = sumolib.net.readNet(net)
     dist = sumolib.miscutils.Statistics("Distance")
     time = sumolib.miscutils.Statistics("Time")
@@ -74,4 +70,5 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    options = parse_args()
+    main(net = options.net, routes = options.routes)

@@ -32,11 +32,7 @@ def parse_args():
     options = optParser.parse_args()
     return options
 
-def trackLanes():
-    options = parse_args()
-    netstate = options.netstate
-    out = options.out 
-
+def trackLanes(netstate, out):
     # veh_id -> values
     laneTimes = defaultdict(list)
     laneChanges = defaultdict(lambda: 0)
@@ -78,4 +74,5 @@ def trackLanes():
 
 
 if __name__ == "__main__":
-    trackLanes()
+    options = parse_args()
+    trackLanes(netstate = options.netstate, out = options.out)

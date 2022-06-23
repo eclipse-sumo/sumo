@@ -55,14 +55,12 @@ def parse_args():
     options = optParser.parse_args()
     return options
 
-def countLaneChanges():
-    options = parse_args()
-    dumpfile = options.dumpfile
-
+def countLaneChanges(dumpfile):
     dr = DumpReader()
     parse(dumpfile, dr)
     print(dr.changes, dr.changes / float(len(dr.vehicles)))
 
 
 if __name__ == "__main__":
-    countLaneChanges()
+    options = parse_args()
+    countLaneChanges(dumpfile = options.dumpfile)

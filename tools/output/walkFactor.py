@@ -36,11 +36,7 @@ def parse_args():
     options = optParser.parse_args()
     return options
 
-def main():
-    options = parse_args()
-    tripinfos = options.tripinfos
-    lengthThreshold = options.length
-
+def main(tripinfos, lengthThreshold):
     lengthThreshold = float(lengthThreshold)
     stats = Statistics('walkfactor')
     statsZeroDuration = Statistics('length of zero-duration walks')
@@ -75,4 +71,5 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    options = parse_args()
+    main(tripinfos = options.tripinfos, lengthThreshold = options.length)
