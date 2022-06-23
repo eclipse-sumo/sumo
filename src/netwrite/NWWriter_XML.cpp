@@ -248,6 +248,9 @@ NWWriter_XML::writeEdgesAndConnections(const OptionsCont& oc, const std::string&
         if (e->getDistance() != 0) {
             edevice.writeAttr(SUMO_ATTR_DISTANCE, e->getDistance());
         }
+        if (e->getBidiEdge() != 0) {
+            edevice.writeAttr(SUMO_ATTR_BIDI, e->getBidiEdge()->getID());
+        }
         if (e->needsLaneSpecificOutput()) {
             int idx = 0;
             for (const NBEdge::Lane& lane : e->getLanes()) {
