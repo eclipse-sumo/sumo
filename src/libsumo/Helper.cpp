@@ -392,7 +392,7 @@ Helper::getLaneChecking(const std::string& edgeID, int laneIndex, double pos) {
 std::pair<MSLane*, double>
 Helper::convertCartesianToRoadMap(const Position& pos, const SUMOVehicleClass vClass) {
     const PositionVector shape({ pos });
-    std::pair<MSLane*, double> result;
+    std::pair<MSLane*, double> result(nullptr, -1);
     double range = 1000.;
     const Boundary& netBounds = GeoConvHelper::getFinal().getConvBoundary();
     const double maxRange = MAX2(1001., netBounds.getWidth() + netBounds.getHeight() + netBounds.distanceTo2D(pos));
@@ -405,7 +405,10 @@ Helper::convertCartesianToRoadMap(const Position& pos, const SUMOVehicleClass vC
             if (lane->allowsVehicleClass(vClass)) {
                 // @todo this may be a place where 3D is required but 2D is used
                 const double newDistance = lane->getShape().distance2D(pos);
-                if (newDistance < minDistance) {
+                if (newDistance < minDistance ||
+                        (newDistance == minDistance
+                         && result.first != nullptr
+                         && lane->getID() < result.first->getID())) {
                     minDistance = newDistance;
                     result.first = lane;
                 }
