@@ -62,6 +62,26 @@ GNENetworkElement::isShapeEdited() const {
 }
 
 
+bool
+GNENetworkElement::GNENetworkElement::isNetworkElementValid() const {
+    // implement in children
+    return true;
+}
+
+
+std::string 
+GNENetworkElement::GNENetworkElement::getNetworkElementProblem() const {
+    // implement in children
+    return "";
+}
+
+
+void 
+GNENetworkElement::GNENetworkElement::fixNetworkElementProblem() {
+    // implement in children
+}
+
+
 GUIParameterTableWindow*
 GNENetworkElement::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
     // Create table
