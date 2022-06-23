@@ -169,6 +169,7 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
         ed->builtEdge = myNetBuilder.getEdgeCont().retrieve(ed->id);
         if (ed->builtEdge != nullptr) {
             ed->builtEdge->setEdgeStopOffset(-1, ed->edgeStopOffset);
+            ed->builtEdge->setBidi(ed->bidi != "");
         }
     }
     // assign further lane attributes (edges are built)
@@ -595,6 +596,7 @@ NIImporter_SUMO::addEdge(const SUMOSAXAttributes& attrs) {
     myCurrentEdge->maxSpeed = 0;
     myCurrentEdge->streetName = attrs.getOpt<std::string>(SUMO_ATTR_NAME, id.c_str(), ok, "");
     myCurrentEdge->distance = attrs.getOpt<double>(SUMO_ATTR_DISTANCE, id.c_str(), ok, 0);
+    myCurrentEdge->bidi = attrs.getOpt<std::string>(SUMO_ATTR_BIDI, id.c_str(), ok, "");
     if (myCurrentEdge->streetName != "" && OptionsCont::getOptions().isDefault("output.street-names")) {
         OptionsCont::getOptions().set("output.street-names", "true");
     }

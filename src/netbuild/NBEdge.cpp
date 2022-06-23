@@ -307,7 +307,9 @@ NBEdge::NBEdge(const std::string& id, NBNode* from, NBNode* to,
     mySignalPosition(Position::INVALID),
     mySignalNode(nullptr),
     myIsOffRamp(false),
-    myIndex(-1) {
+    myIsBidi(false),
+    myIndex(-1)
+{
     init(nolanes, false, "");
 }
 
@@ -338,7 +340,9 @@ NBEdge::NBEdge(const std::string& id, NBNode* from, NBNode* to,
     mySignalPosition(Position::INVALID),
     mySignalNode(nullptr),
     myIsOffRamp(false),
-    myIndex(-1) {
+    myIsBidi(false),
+    myIndex(-1)
+{
     init(nolanes, tryIgnoreNodePositions, origID);
 }
 
@@ -365,7 +369,11 @@ NBEdge::NBEdge(const std::string& id, NBNode* from, NBNode* to, const NBEdge* tp
     myAmMacroscopicConnector(false),
     myStreetName(tpl->getStreetName()),
     mySignalPosition(to == tpl->myTo ? tpl->mySignalPosition : Position::INVALID),
-    mySignalNode(to == tpl->myTo ? tpl->mySignalNode : nullptr) {
+    mySignalNode(to == tpl->myTo ? tpl->mySignalNode : nullptr),
+    myIsOffRamp(false),
+    myIsBidi(false),
+    myIndex(-1)
+{
     init(numLanes > 0 ? numLanes : tpl->getNumLanes(), myGeom.size() > 0, "");
     for (int i = 0; i < getNumLanes(); i++) {
         const int tplIndex = MIN2(i, tpl->getNumLanes() - 1);
@@ -757,6 +765,17 @@ NBEdge::isBidiRail(bool ignoreSpread) const {
             && (ignoreSpread || myPossibleTurnDestination->getLaneSpreadFunction() == LaneSpreadFunction::CENTER)
             && isRailway(myPossibleTurnDestination->getPermissions())
             && myPossibleTurnDestination->getGeometry().reverse() == getGeometry());
+}
+
+
+bool
+NBEdge::isBidiEdge() const {
+    return myIsBidi
+        && myLaneSpreadFunction == LaneSpreadFunction::CENTER
+        && myPossibleTurnDestination != nullptr
+        && myPossibleTurnDestination->getLaneSpreadFunction() == LaneSpreadFunction::CENTER
+        && myPossibleTurnDestination->getGeometry().reverse() == getGeometry()
+        && myPossibleTurnDestination->getToNode() == getFromNode();
 }
 
 
@@ -4419,7 +4438,7 @@ NBEdge::shiftToLanesToEdge(NBEdge* to, int laneOff) {
 
 void
 NBEdge::shiftPositionAtNode(NBNode* node, NBEdge* other) {
-    if (myLaneSpreadFunction == LaneSpreadFunction::CENTER && !isRailway(getPermissions())) {
+    if (myLaneSpreadFunction == LaneSpreadFunction::CENTER && !isRailway(getPermissions()) && getBidiEdge() == nullptr) {
         const int i = (node == myTo ? -1 : 0);
         const int i2 = (node == myTo ? 0 : -1);
         const double dist = myGeom[i].distanceTo2D(node->getPosition());

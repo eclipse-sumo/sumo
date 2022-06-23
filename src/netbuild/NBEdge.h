@@ -1409,9 +1409,14 @@ public:
     /// @brief set origID for all lanes
     void setOrigID(const std::string origID);
 
-    /// @brief set lane specific speed (negative lane implies set for all lanes)
+    /// @brief set kilometrage at start of edge (negative value implies couting down along the edge)
     void setDistance(double distance) {
         myDistance = distance;
+    }
+
+    /// @brief mark this edge as a bidi edge
+    void setBidi(bool isBidi) {
+        myIsBidi = isBidi;
     }
 
     // @brief returns a reference to the internal structure for the convenience of NETEDIT
@@ -1462,6 +1467,9 @@ public:
     /// @brief whether this edge is part of a bidirectional railway
     bool isBidiRail(bool ignoreSpread = false) const;
 
+    /// @brief whether this edge is part of a bidirectional edge pair
+    bool isBidiEdge() const;
+
     /// @brief whether this edge is a railway edge that does not continue
     bool isRailDeadEnd() const;
 
@@ -1499,7 +1507,7 @@ public:
     }
 
     const NBEdge* getBidiEdge() const {
-        return isBidiRail() ? myPossibleTurnDestination : nullptr;
+        return isBidiRail() || isBidiEdge() ? myPossibleTurnDestination : nullptr;
     }
 
     /** @brief Returns the following edges for the given vClass
@@ -1816,6 +1824,9 @@ private:
 
     /// @brief whether this edge is an Off-Ramp or leads to one
     bool myIsOffRamp;
+
+    /// @brief whether this edge is part of a non-rail bidi edge pair
+    bool myIsBidi;
 
     /// @brief the index of the edge in the list of all edges. Set by NBEdgeCont and requires re-set whenever the list of edges changes
     int myIndex;

@@ -290,6 +290,8 @@ private:
         StopOffset edgeStopOffset;
         /// @brief The position at the start of this edge (kilometrage/mileage)
         double distance;
+        /// @brief the bidi edge
+        std::string bidi;
     };
 
 

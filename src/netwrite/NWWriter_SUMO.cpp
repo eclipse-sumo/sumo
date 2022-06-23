@@ -341,7 +341,7 @@ NWWriter_SUMO::writeInternalEdges(OutputDevice& into, const NBEdgeCont& ec, cons
                     if (k.edgeType != "") {
                         into.writeAttr(SUMO_ATTR_TYPE, k.edgeType);
                     }
-                    if (e->isBidiRail() && k.toEdge->isBidiRail() &&
+                    if (e->getBidiEdge() && k.toEdge->getBidiEdge() &&
                             e != k.toEdge->getTurnDestination(true)) {
                         try {
                             NBEdge::Connection bidiCon = k.toEdge->getTurnDestination(true)->getConnection(
@@ -459,8 +459,8 @@ NWWriter_SUMO::writeEdge(OutputDevice& into, const NBEdge& e, bool noNames) {
     if (e.getEdgeStopOffset().isDefined()) {
         writeStopOffsets(into, e.getEdgeStopOffset());
     }
-    if (e.isBidiRail()) {
-        into.writeAttr(SUMO_ATTR_BIDI, e.getTurnDestination(true)->getID());
+    if (e.getBidiEdge()) {
+        into.writeAttr(SUMO_ATTR_BIDI, e.getBidiEdge()->getID());
     }
     if (e.getDistance() != 0) {
         into.writeAttr(SUMO_ATTR_DISTANCE, e.getDistance());
