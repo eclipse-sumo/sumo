@@ -22,6 +22,16 @@ from __future__ import print_function
 import sys
 import re
 from collections import defaultdict
+from sumolib.options import ArgumentParser 
+
+
+def parse_args():
+    USAGE = "Usage: " + sys.argv[0] + " <logfile>"
+    optParser = ArgumentParser()
+    optParser.add_argument("logfile", help = "log file")
+    options = optParser.parse_args()
+    return options
+
 
 
 def parse_log(logfile, edges=True, aggregate=3600):
@@ -81,7 +91,10 @@ def print_counts(countDict, label, num=10):
     print(label, 'total:', sum(countDict.values()))
 
 
-def main(logfile):
+def main():
+    options = parse_args()
+    logfile = options.logfile
+
     waitingCounts, collisionCounts, waitingStepCounts, collisionStepCounts = parse_log(logfile)
     print_counts(waitingCounts, 'waiting')
     print_counts(collisionCounts, 'collisions')
@@ -104,4 +117,4 @@ def main(logfile):
 
 
 if __name__ == "__main__":
-    main(*sys.argv[1:])
+    main()

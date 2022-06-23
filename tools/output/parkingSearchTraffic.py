@@ -22,9 +22,22 @@ import os
 import sys
 sys.path.append(os.path.join(os.environ["SUMO_HOME"], 'tools'))
 import sumolib  # noqa
+from sumolib.options import ArgumentParser 
 
 
-def main(net, routes):
+def parse_args():
+    USAGE = "Usage: " + sys.argv[0] + " <net> <routes>"
+    optParser = ArgumentParser()
+    optParser.add_argument("net", help=".net.xml file path")
+    optParser.add_argument("routes", help="Routes' attributes")
+    options = optParser.parse_args()
+    return options
+
+def main():
+    options = parse_args()
+    net = options.net
+    routes = options.routes
+
     net = sumolib.net.readNet(net)
     dist = sumolib.miscutils.Statistics("Distance")
     time = sumolib.miscutils.Statistics("Time")
@@ -61,4 +74,4 @@ def main(net, routes):
 
 
 if __name__ == "__main__":
-    main(*sys.argv[1:])
+    main()

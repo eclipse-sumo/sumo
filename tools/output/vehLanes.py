@@ -22,9 +22,21 @@ import sys
 from collections import defaultdict
 sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..'))
 from sumolib.output import parse  # noqa
+from sumolib.options import ArgumentParser 
 
+def parse_args():
+    USAGE = "Usage: " + sys.argv[0] + " <netstate> <out>"
+    optParser = ArgumentParser()
+    optParser.add_argument("netstate", help="Netstate Dump File")
+    optParser.add_argument("out", help="Output file")
+    options = optParser.parse_args()
+    return options
 
-def trackLanes(netstate, out):
+def trackLanes():
+    options = parse_args()
+    netstate = options.netstate
+    out = options.out 
+
     # veh_id -> values
     laneTimes = defaultdict(list)
     laneChanges = defaultdict(lambda: 0)
@@ -66,6 +78,4 @@ def trackLanes(netstate, out):
 
 
 if __name__ == "__main__":
-    if len(sys.argv) != 3:
-        sys.exit("call %s <netstate-dump> <output-file>" % sys.argv[0])
-    trackLanes(*sys.argv[1:])
+    trackLanes()

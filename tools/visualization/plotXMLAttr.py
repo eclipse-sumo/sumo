@@ -25,9 +25,23 @@ import sys
 sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..'))
 from sumolib.output import parse  # noqa
 from sumolib.miscutils import Statistics  # noqa
+from sumolib.options import ArgumentParser 
 
+def parse_args():
+    USAGE = "Usage: " + sys.argv[0] + " <tag> <attr> <xmlfile>*"
+    optParser = ArgumentParser()
+    optParser.add_argument("tag", help="Tag of the files to be plotted")
+    optParser.add_argument("attr", help="Attributes of the files to be plotted")
+    optParser.add_argument("xmlfiles", help="Defines the files", nargs = '*')
+    options = optParser.parse_args()
+    return options
 
-def main(tag, attr, *xmlfiles):
+def main():
+    options = parse_args()
+    tag = options.tag 
+    attr = options.attr 
+    xmlfiles = options.xmlfiles
+
     data = []
     for xmlfile in xmlfiles:
         stats = Statistics('%s %s' % (tag, attr))
@@ -47,6 +61,4 @@ def main(tag, attr, *xmlfiles):
 
 
 if __name__ == "__main__":
-    if len(sys.argv) < 4:
-        sys.exit("usage: %s <tag> <attr> <xmlfile>*" % __file__)
-    main(*sys.argv[1:])
+    main()

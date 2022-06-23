@@ -25,14 +25,32 @@ from collections import defaultdict
 sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..'))
 from sumolib.output import parse  # noqa
 from sumolib.miscutils import uMax, Statistics, parseTime  # noqa
+from sumolib.options import ArgumentParser 
 
+
+def parse_args():
+    USAGE = "Usage: " + sys.argv[0] + " <orig> <new> <out> [--earliest]"
+    optParser = ArgumentParser()
+    optParser.add_argument("orig", help="Original XML File")
+    optParser.add_argument("new", help="New XML File")
+    optParser.add_argument("out", help = "Output File")
+    optParser.add_option("--earliest", action="store_true",
+                         default=None, help="Earliest Output Parameter (Default: None)")
+    options = optParser.parse_args()
+    return options
 
 def update_earliest(earliest_diffs, diff, timestamp, tag):
     if timestamp < earliest_diffs[diff][0]:
         earliest_diffs[diff] = (timestamp, tag)
 
 
-def write_diff(orig, new, out, earliest_out=None):
+def write_diff():
+    options = parse_args()
+    orig = options.orig 
+    new = options.new 
+    out = options.out 
+    earliest_out = options.earliest
+
     attr_conversions = {"depart": parseTime, "arrival": parseTime}
     earliest_diffs = defaultdict(lambda: (uMax, None))  # diff -> (time, veh)
     vehicles_orig = dict([(v.id, v) for v in parse(orig, 'vehicle',
@@ -83,4 +101,4 @@ def write_diff(orig, new, out, earliest_out=None):
 
 
 if __name__ == "__main__":
-    write_diff(*sys.argv[1:])
+    write_diff()

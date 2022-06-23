@@ -22,6 +22,8 @@ import os
 import sys
 sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..'))
 from xml.sax import parse, handler  # noqa
+from sumolib.options import ArgumentParser 
+
 
 
 class DumpReader(handler.ContentHandler):
@@ -46,14 +48,21 @@ class DumpReader(handler.ContentHandler):
                 self.changes += 1
             self.vehicles[veh] = (self._edge, self._lane)
 
+def parse_args():
+    USAGE = "Usage: " + sys.argv[0] + " <dumpfile>"
+    optParser = ArgumentParser()
+    optParser.add_argument("dumpfile", help = "dump file path")
+    options = optParser.parse_args()
+    return options
 
-def countLaneChanges(dumpfile):
+def countLaneChanges():
+    options = parse_args()
+    dumpfile = options.dumpfile
+
     dr = DumpReader()
     parse(dumpfile, dr)
     print(dr.changes, dr.changes / float(len(dr.vehicles)))
 
 
 if __name__ == "__main__":
-    if len(sys.argv) != 2:
-        sys.exit("call %s <netstate-dump>" % sys.argv[0])
-    countLaneChanges(*sys.argv[1:])
+    countLaneChanges()
