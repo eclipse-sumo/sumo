@@ -50,7 +50,7 @@ FXIMPLEMENT(GNEFixNetworkElements, FXDialogBox, GNEFixNetworkElementsMap, ARRAYN
 // ---------------------------------------------------------------------------
 
 GNEFixNetworkElements::GNEFixNetworkElements(GNEViewNet* viewNet, const std::vector<GNENetworkElement*>& invalidNetworkElements) :
-    FXDialogBox(viewNet->getApp(), "Fix network elements problems", GUIDesignDialogBoxExplicit(800, 620)),
+    FXDialogBox(viewNet->getApp(), "Fix network elements problems", GUIDesignDialogBoxExplicitStretchable(600, 620)),
     myViewNet(viewNet) {
     // set busStop icon for this dialog
     setIcon(GUIIconSubSys::getIcon(GUIIcon::SUPERMODEDEMAND));
@@ -151,7 +151,7 @@ GNEFixNetworkElements::FixOptions::setInvalidElements(const std::vector<GNENetwo
     myTable->setVisibleColumns(4);
     myTable->setColumnWidth(0, GUIDesignHeight);
     myTable->setColumnWidth(1, 150);
-    myTable->setColumnWidth(2, 200);
+    myTable->setColumnWidth(2, 390);
     myTable->setColumnText(0, "");
     myTable->setColumnText(1, toString(SUMO_ATTR_ID).c_str());
     myTable->setColumnText(2, "Conflict");
@@ -225,13 +225,13 @@ GNEFixNetworkElements::FixEdgeOptions::FixEdgeOptions(GNEFixNetworkElements* fix
     FixOptions(fixNetworkElementsParent->myLeftFrame, "Edges", viewNet) {
     // Remove invalid edges
     removeInvalidEdges = new FXRadioButton(myLeftFrame, "Remove invalid edges",
-                                            fixNetworkElementsParent, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
+        fixNetworkElementsParent, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
     // Save invalid edges
     saveInvalidEdges = new FXRadioButton(myLeftFrame, "Save invalid edges",
-                                          fixNetworkElementsParent, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
+        fixNetworkElementsParent, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
     // Select invalid edges
     selectInvalidEdgesAndCancel = new FXRadioButton(myRightFrame, "Select conflicted edges",
-            fixNetworkElementsParent, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
+        fixNetworkElementsParent, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
     // leave option "removeInvalidEdges" as default
     removeInvalidEdges->setCheck(true);
 }
@@ -306,13 +306,13 @@ GNEFixNetworkElements::FixCrossingOptions::FixCrossingOptions(GNEFixNetworkEleme
     FixOptions(fixNetworkElementsParent->myLeftFrame, "Crossings", viewNet) {
     // Remove invalid crossings
     removeInvalidCrossings = new FXRadioButton(myLeftFrame, "Remove invalid crossings",
-            fixNetworkElementsParent, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
+        fixNetworkElementsParent, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
     // Save invalid crossings
     saveInvalidCrossings = new FXRadioButton(myLeftFrame, "Save invalid crossings",
-                                            fixNetworkElementsParent, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
+        fixNetworkElementsParent, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
     // Select invalid crossing
     selectInvalidCrossingsAndCancel = new FXRadioButton(myRightFrame, "Select conflicted crossing",
-            fixNetworkElementsParent, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
+        fixNetworkElementsParent, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
     // by default remove invalid crossings
     removeInvalidCrossings->setCheck(TRUE);
 }
