@@ -90,6 +90,15 @@ class Node:
         return self._incoming
 
     def getInternal(self):
+        """Returns the internal lanes starting at the border of the node.
+
+        This function returns the junction internal lanes as defined in the
+        "intLanes" attribute in net.xml. Note that this may not contain
+        all internal lanes because there may be internal junctions where
+        further internal lanes start.
+
+        The returned list contains string ids and no lane objects.
+        """
         return self._intLanes
 
     def setFoes(self, index, foes, prohibits):
