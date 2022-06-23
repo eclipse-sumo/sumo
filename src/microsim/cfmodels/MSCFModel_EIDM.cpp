@@ -45,6 +45,7 @@
 //#define DEBUG_V
 
 #define EST_REAC_THRESHOLD 3. // under this threshold estimation, error and reaction time variables don't get taken into account
+#define ClutchEngageSpeed 2. // When a vehicle is below this speed, we assume a "slow to start", e.g. because clutch operation
 
 // ===========================================================================
 // method definitions
@@ -818,8 +819,8 @@ MSCFModel_EIDM::_v(const MSVehicle* const veh, const double gap2pred, const doub
             }
         }
 
-        double a_corr = 1; // Variable for correction term
-        // initialised here with 1., because wantedacc and wouldacc is used and calculation without the correction term (is added/multiplied later)
+		// Variable for driving off correction term: Here we add the StartupDelay, later on the SlowToStartTerm
+		double a_corr = applyStartupDelay(veh, 1, 1);
 
         // IDM calculation:
         // wantedacc = a_corr*myAccel * (1. - pow(estSpeed / v0, myDelta) - (s * s) / (estGap * estGap));
@@ -878,23 +879,23 @@ MSCFModel_EIDM::_v(const MSVehicle* const veh, const double gap2pred, const doub
         // When a vehicle is standing, multiple calls to followSpeed/stopSpeed/freeSpeed during one time step can result in different cases:
         // e.g. first case: No vehicle in front, so ego-vehicle should drive off (followSpeed), but second case: vehicle is standing at a red traffic light, so can't drive off!
         // When a previous call resulted in the activation of the drive off term, but the current call does not, the drive off activation is reset!
-        if ((estSpeed < 2 || vars->t_off + myTaccmax + NUMERICAL_EPS > (SIMTIME - TS * (myIterations - i - 1) / myIterations)) && vars->minaccel > wantedacc - NUMERICAL_EPS && vars->t_off == (SIMTIME - TS * (myIterations - i - 1) / myIterations) && wantedacc <= 0 && update != 0) {
+        if ((estSpeed < ClutchEngageSpeed || vars->t_off + myTaccmax + NUMERICAL_EPS > (SIMTIME - TS * (myIterations - i - 1) / myIterations)) && vars->minaccel > wantedacc - NUMERICAL_EPS && vars->t_off == (SIMTIME - TS * (myIterations - i - 1) / myIterations) && wantedacc <= 0 && update != 0) {
             vars->t_off = SIMTIME - 10.;
         }
 
         // Drive Off Activation and Term
-        if (estSpeed < 2 || vars->t_off + myTaccmax + NUMERICAL_EPS > (SIMTIME - TS * (myIterations - i - 1) / myIterations)) {
+        if (estSpeed < ClutchEngageSpeed || vars->t_off + myTaccmax + NUMERICAL_EPS > (SIMTIME - TS * (myIterations - i - 1) / myIterations)) {
             // @ToDo: Check if all clauses are still needed or if we need to add more for all possible drive off cases?!
             // Activation of the Drive Off term a_corr, when
-            if (vars->minaccel > wantedacc - NUMERICAL_EPS && estSpeed < 2 && // the call to _v was identified as the resulting acceleration update AND the start speed is lower than 2m/s
+            if (vars->minaccel > wantedacc - NUMERICAL_EPS && estSpeed < ClutchEngageSpeed && // the call to _v was identified as the resulting acceleration update AND the start speed is lower than ClutchEngageSpeed m/s
                     vars->t_off + 4. - NUMERICAL_EPS < (SIMTIME - TS * (myIterations - i - 1) / myIterations) && vars->myap_update == 0 && // the last activation is at least 4 seconds ago AND an Action Point was reached
                     ((estleaderSpeed > 5 && veh->getAcceleration() >= -NUMERICAL_EPS) || (estGap > myType->getMinGap() && s < estGap)) // a leader is accelerating and at least 5m/s fast (is needed for junctions) OR the current estGap is higher than s*
-                    && veh->getAcceleration() < 0.2 && update != 0) { // && respectMinGap) { // the driver hasn't started accelerating yet (<0.2)
+                    && veh->getAcceleration() < 0.2 && update != 0 && a_corr > 0) { // && respectMinGap) { // the driver hasn't started accelerating yet (<0.2)
                 vars->t_off = (SIMTIME - TS * (myIterations - i - 1) / myIterations); // activate the drive off term
             }
             // Calculation of the Drive Off term a_corr
-            if (s < estGap && vars->t_off + myTaccmax + NUMERICAL_EPS > (SIMTIME - TS * (myIterations - i - 1) / myIterations)) {
-                a_corr = (tanh((((SIMTIME - TS * (myIterations - i - 1) / myIterations) - vars->t_off) * 2 / myTaccmax - myMbegin) * myMflatness) + 1) / 2;
+            if (s < estGap && a_corr > 0 && vars->t_off + myTaccmax + NUMERICAL_EPS > (SIMTIME - TS * (myIterations - i - 1) / myIterations)) {
+                a_corr = a_corr * (tanh((((SIMTIME - TS * (myIterations - i - 1) / myIterations) - vars->t_off) * 2 / myTaccmax - myMbegin) * myMflatness) + 1) / 2;
             }
         }
 
