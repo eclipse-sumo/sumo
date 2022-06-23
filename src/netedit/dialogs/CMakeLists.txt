@@ -11,6 +11,8 @@ set(netedit_dialogs_SRCS
    GNESingleParametersDialog.cpp
    GNEMultipleParametersDialog.h
    GNEMultipleParametersDialog.cpp
+   GNEFixNetworkElements.h
+   GNEFixNetworkElements.cpp
    GNEFixAdditionalElements.h
    GNEFixAdditionalElements.cpp
    GNEFixDemandElements.h
