@@ -120,6 +120,24 @@ GNEEdge::~GNEEdge() {
 }
 
 
+bool 
+GNEEdge::isNetworkElementValid() const {
+    if (getFromJunction()->getNBNode()->getPosition() != getToJunction()->getNBNode()->getPosition()) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
+std::string
+GNEEdge::getNetworkElementProblem() const {
+    return "Parent junctions are in the same position: " + 
+        toString(getFromJunction()->getNBNode()->getPosition().x()) + ", " +
+        toString(getFromJunction()->getNBNode()->getPosition().y());
+}
+
+
 void
 GNEEdge::updateGeometry() {
     // first check if myUpdateGeometry flag is enabled

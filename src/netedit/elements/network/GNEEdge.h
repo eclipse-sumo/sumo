@@ -83,6 +83,12 @@ public:
         return getParentJunctions().back();
     }
 
+    /// @brief check if current network element is valid to be written into XML
+    bool isNetworkElementValid() const;
+
+    /// @brief return a string with the current network element problem
+    std::string getNetworkElementProblem() const;
+
     /// @name Functions related with geometry of element
     /// @{
     /// @brief update pre-computed geometry information
