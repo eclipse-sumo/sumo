@@ -537,7 +537,6 @@ enum SumoXMLAttr {
     SUMO_ATTR_VEHICLE            = 60,
     SUMO_ATTR_ODOMETER           = 61,
     SUMO_ATTR_POSITION_LAT       = 62,
-    SUMO_ATTR_FRICTION           = 63,
     /// @}
 
     /// @name common attributes
@@ -548,6 +547,7 @@ enum SumoXMLAttr {
     SUMO_ATTR_VERSION,
     SUMO_ATTR_PRIORITY,
     SUMO_ATTR_NUMLANES,
+    SUMO_ATTR_FRICTION,
     SUMO_ATTR_ONEWAY,
     SUMO_ATTR_WIDTH,
     SUMO_ATTR_WIDTHRESOLUTION,
