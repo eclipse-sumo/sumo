@@ -4625,7 +4625,7 @@ MSVehicle::getPositionOnLane(const MSLane* lane) const {
 
 bool
 MSVehicle::isFrontOnLane(const MSLane* lane) const {
-    return lane == myLane || lane == myLaneChangeModel->getShadowLane();
+    return lane == myLane || lane == myLaneChangeModel->getShadowLane() || lane == myLane->getBidiLane();
 }
 
 
