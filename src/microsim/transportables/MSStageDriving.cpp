@@ -29,6 +29,7 @@
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSNet.h>
+#include <microsim/MSStop.h>
 #include <microsim/MSInsertionControl.h>
 #include <microsim/MSVehicleControl.h>
 #include <microsim/MSStoppingPlace.h>
@@ -471,18 +472,18 @@ MSStageDriving::getWaitingDescription() const {
 
 
 bool
-MSStageDriving::canLeaveVehicle(const MSTransportable* t, const SUMOVehicle& veh) {
+MSStageDriving::canLeaveVehicle(const MSTransportable* t, const SUMOVehicle& veh, const MSStop& stop) {
+    const MSEdge* stopEdge = stop.getEdge();
     bool canLeave = false;
-    if (t->getDestination() == veh.getEdge()) {
+    if (t->getDestination() == stopEdge) {
         // if this is the last stage, we can use the arrivalPos of the person
         const bool unspecifiedAP = unspecifiedArrivalPos() && (
                                        t->getNumRemainingStages() > 1 || !t->getParameter().wasSet(VEHPARS_ARRIVALPOS_SET));
         const double arrivalPos = (unspecifiedArrivalPos()
-                                   ? SUMOVehicleParameter::interpretEdgePos(t->getParameter().arrivalPos, veh.getEdge()->getLength(),
+                                   ? SUMOVehicleParameter::interpretEdgePos(t->getParameter().arrivalPos, stopEdge->getLength(),
                                            SUMO_ATTR_ARRIVALPOS, t->getID(), true)
                                    : getArrivalPos());
-        if (unspecifiedAP ||
-                veh.isStoppedInRange(arrivalPos, veh.getLength() + MSGlobals::gStopTolerance)) {
+        if (unspecifiedAP || stop.isInRange(arrivalPos, veh.getLength() + MSGlobals::gStopTolerance)) {
             canLeave = true;
         }
     }
@@ -497,7 +498,7 @@ MSStageDriving::canLeaveVehicle(const MSTransportable* t, const SUMOVehicle& veh
                     // accessPos is in the middle of the stop
                     tolerance += (myDestinationStop->getEndLanePosition() - myDestinationStop->getBeginLanePosition()) / 2;
                 }
-                canLeave = veh.isStoppedInRange(accessPos, tolerance);
+                canLeave = stop.isInRange(accessPos, tolerance);
             }
         }
     }

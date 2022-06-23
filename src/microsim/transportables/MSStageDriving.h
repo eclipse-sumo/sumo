@@ -38,6 +38,7 @@
 class MSEdge;
 class MSLane;
 class MSNet;
+class MSStop;
 class MSStoppingPlace;
 class MSVehicleType;
 class OutputDevice;
@@ -169,7 +170,7 @@ public:
     }
 
     /// @brief checks whether the person may exit at the current vehicle position
-    bool canLeaveVehicle(const MSTransportable* t, const SUMOVehicle& veh);
+    bool canLeaveVehicle(const MSTransportable* t, const SUMOVehicle& veh, const MSStop& stop);
 
     /** @brief Saves the current state into the given stream
      */

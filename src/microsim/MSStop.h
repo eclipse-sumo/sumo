@@ -118,4 +118,7 @@ public:
 
     /// @brief return speed for passing waypoint / skipping on-demand stop
     double getSpeed() const;
+
+    /// @brief whether the stop is in range of the given position
+    bool isInRange(const double pos, const double tolerance) const;
 };

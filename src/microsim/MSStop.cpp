@@ -157,4 +157,10 @@ MSStop::getSpeed() const {
     return skipOnDemand ? std::numeric_limits<double>::max() : pars.speed;
 }
 
+
+bool
+MSStop::isInRange(const double pos, const double tolerance) const {
+    return pars.startPos - tolerance <= pos && pars.endPos + tolerance >= pos;
+}
+
 /****************************************************************************/

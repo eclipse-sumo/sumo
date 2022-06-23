@@ -116,6 +116,9 @@ public:
      */
     void removeTransportable(MSTransportable* transportable);
 
+
+    bool anyLeavingAtStop(const MSStop& stop) const;
+
     /** @brief Saves the state of the device
      *
      * @param[in] out The OutputDevice to write the information into

@@ -1680,8 +1680,8 @@ MSVehicle::processNextStop(double currentVelocity) {
         //std::cout << SIMTIME <<  " myStopDist=" << myStopDist << " bGap=" << getBrakeGap(myLane->getVehicleMaxSpeed(this)) << "\n";
         if (stop.pars.onDemand && !stop.skipOnDemand && myStopDist <= getCarFollowModel().brakeGap(myLane->getVehicleMaxSpeed(this))) {
             MSNet* const net = MSNet::getInstance();
-            // @todo: this is a sufficient but not a necessary condition
-            const bool noExits = getPersonNumber() + getContainerNumber() == myParameter->personNumber + myParameter->containerNumber;
+            const bool noExits = ((myPersonDevice == nullptr || !myPersonDevice->anyLeavingAtStop(stop))
+                    && (myContainerDevice == nullptr || !myContainerDevice->anyLeavingAtStop(stop)));
             const bool noEntries = ((!net->hasPersons() || !net->getPersonControl().hasAnyWaiting(stop.getEdge(), this))
                     && (!net->hasContainers() || !net->getContainerControl().hasAnyWaiting(stop.getEdge(), this)));
             if (noExits && noEntries) {
