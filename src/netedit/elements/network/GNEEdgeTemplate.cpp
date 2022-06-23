@@ -98,17 +98,6 @@ GNEEdgeTemplate::isValid(SumoXMLAttr /*key*/, const std::string& /*value*/) {
     throw InvalidArgument("cannot be called in templates");
 }
 
-void
-GNEEdgeTemplate::enableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
-    throw InvalidArgument("cannot be called in templates");
-}
-
-
-void
-GNEEdgeTemplate::disableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
-    throw InvalidArgument("cannot be called in templates");
-}
-
 
 bool
 GNEEdgeTemplate::isAttributeEnabled(SumoXMLAttr /*key*/) const {

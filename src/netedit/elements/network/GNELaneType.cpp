@@ -198,12 +198,6 @@ GNELaneType::isValid(SumoXMLAttr key, const std::string& value) {
 
 
 bool
-GNELaneType::isAttributeEnabled(SumoXMLAttr /*key*/) const {
-    return true;
-}
-
-
-bool
 GNELaneType::isAttributeComputed(SumoXMLAttr /*key*/) const {
     return false;
 }

@@ -405,12 +405,6 @@ GNECalibrator::isValid(SumoXMLAttr key, const std::string& value) {
 }
 
 
-bool
-GNECalibrator::isAttributeEnabled(SumoXMLAttr /* key */) const {
-    return true;
-}
-
-
 std::string
 GNECalibrator::getPopUpID() const {
     return getTagStr() + ": " + getID();

@@ -682,6 +682,7 @@ GNEPoly::isValid(SumoXMLAttr key, const std::string& value) {
     }
 }
 
+
 bool
 GNEPoly::isAttributeEnabled(SumoXMLAttr /* key */) const {
     // check if we're in supermode Network

@@ -348,12 +348,6 @@ GNEParkingSpace::isValid(SumoXMLAttr key, const std::string& value) {
 }
 
 
-bool
-GNEParkingSpace::isAttributeEnabled(SumoXMLAttr /* key */) const {
-    return true;
-}
-
-
 std::string
 GNEParkingSpace::getPopUpID() const {
     return getTagStr();

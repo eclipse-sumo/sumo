@@ -195,12 +195,6 @@ GNEVariableSpeedSignSymbol::isValid(SumoXMLAttr /*key*/, const std::string& /*va
 }
 
 
-bool
-GNEVariableSpeedSignSymbol::isAttributeEnabled(SumoXMLAttr /*key*/) const {
-    return true;
-}
-
-
 std::string
 GNEVariableSpeedSignSymbol::getPopUpID() const {
     return getParentLanes().front()->getPopUpID();

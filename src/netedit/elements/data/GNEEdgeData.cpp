@@ -328,18 +328,6 @@ GNEEdgeData::isValid(SumoXMLAttr key, const std::string& value) {
 }
 
 
-void
-GNEEdgeData::enableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
-    // Nothing to enable
-}
-
-
-void
-GNEEdgeData::disableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
-    // Nothing to disable enable
-}
-
-
 bool GNEEdgeData::isAttributeEnabled(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:

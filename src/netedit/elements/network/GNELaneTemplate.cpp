@@ -72,17 +72,6 @@ GNELaneTemplate::isValid(SumoXMLAttr /*key*/, const std::string& /*value*/) {
     throw InvalidArgument("cannot be called in templates");
 }
 
-void
-GNELaneTemplate::enableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
-    throw InvalidArgument("cannot be called in templates");
-}
-
-
-void
-GNELaneTemplate::disableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
-    throw InvalidArgument("cannot be called in templates");
-}
-
 
 bool
 GNELaneTemplate::isAttributeEnabled(SumoXMLAttr /*key*/) const {

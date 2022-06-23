@@ -501,12 +501,6 @@ GNEOverheadWire::isValid(SumoXMLAttr key, const std::string& value) {
 }
 
 
-bool
-GNEOverheadWire::isAttributeEnabled(SumoXMLAttr /* key */) const {
-    return true;
-}
-
-
 std::string
 GNEOverheadWire::getPopUpID() const {
     return getTagStr() + ": " + getID();

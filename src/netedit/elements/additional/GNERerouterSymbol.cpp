@@ -229,12 +229,6 @@ GNERerouterSymbol::isValid(SumoXMLAttr /*key*/, const std::string& /*value*/) {
 }
 
 
-bool
-GNERerouterSymbol::isAttributeEnabled(SumoXMLAttr /*key*/) const {
-    return true;
-}
-
-
 std::string
 GNERerouterSymbol::getPopUpID() const {
     return getParentEdges().front()->getPopUpID();

@@ -865,18 +865,6 @@ GNEVType::isValid(SumoXMLAttr key, const std::string& value) {
 }
 
 
-void
-GNEVType::enableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
-    // nothing to enable
-}
-
-
-void
-GNEVType::disableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
-    // nothing to disable
-}
-
-
 bool
 GNEVType::isAttributeEnabled(SumoXMLAttr key) const {
     switch (key) {

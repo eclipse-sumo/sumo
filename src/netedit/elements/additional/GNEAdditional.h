@@ -280,11 +280,6 @@ public:
      */
     void disableAttribute(SumoXMLAttr key, GNEUndoList* undoList);
 
-    /* @brief method for check if the value for certain attribute is set
-     * @param[in] key The attribute key
-     */
-    virtual bool isAttributeEnabled(SumoXMLAttr key) const = 0;
-
     /* @brief method for check if the value for certain attribute is computed (for example, due a network recomputing)
      * @param[in] key The attribute key
      */

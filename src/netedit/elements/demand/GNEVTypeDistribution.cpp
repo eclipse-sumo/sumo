@@ -224,24 +224,6 @@ GNEVTypeDistribution::isValid(SumoXMLAttr key, const std::string& value) {
 }
 
 
-void
-GNEVTypeDistribution::enableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
-    // nothing to enable
-}
-
-
-void
-GNEVTypeDistribution::disableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
-    // nothing to disable
-}
-
-
-bool
-GNEVTypeDistribution::isAttributeEnabled(SumoXMLAttr /*key*/) const {
-    return true;
-}
-
-
 std::string
 GNEVTypeDistribution::getPopUpID() const {
     return getTagStr();

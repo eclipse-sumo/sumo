@@ -209,12 +209,6 @@ GNEVariableSpeedSignStep::isValid(SumoXMLAttr key, const std::string& value) {
 }
 
 
-bool
-GNEVariableSpeedSignStep::isAttributeEnabled(SumoXMLAttr /* key */) const {
-    return true;
-}
-
-
 std::string
 GNEVariableSpeedSignStep::getPopUpID() const {
     return getTagStr();

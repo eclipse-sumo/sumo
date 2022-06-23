@@ -126,6 +126,26 @@ GNEAttributeCarrier::resetDefaultValues() {
 }
 
 
+void 
+GNEAttributeCarrier::enableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
+    throw ProcessError("Nothing to enable, implement in Children");
+
+}
+
+
+void 
+GNEAttributeCarrier::disableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
+    throw ProcessError("Nothing to disable, implement in Children");
+}
+
+
+bool 
+GNEAttributeCarrier::isAttributeEnabled(SumoXMLAttr /*key*/) const {
+    // by default, all attributes are enabled
+    return true;
+}
+
+
 template<> int
 GNEAttributeCarrier::parse(const std::string& string) {
     return StringUtils::toInt(string);
@@ -792,7 +812,7 @@ GNEAttributeCarrier::resetAttributes() {
 
 void
 GNEAttributeCarrier::toogleAttribute(SumoXMLAttr /*key*/, const bool /*value*/) {
-    throw ProcessError("Nothing to enable, implement in Children");
+    throw ProcessError("Nothing to toggle, implement in Children");
 }
 
 

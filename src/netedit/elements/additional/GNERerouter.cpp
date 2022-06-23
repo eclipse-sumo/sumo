@@ -313,12 +313,6 @@ GNERerouter::isValid(SumoXMLAttr key, const std::string& value) {
 }
 
 
-bool
-GNERerouter::isAttributeEnabled(SumoXMLAttr /* key */) const {
-    return true;
-}
-
-
 std::string
 GNERerouter::getPopUpID() const {
     return getTagStr() + ": " + getID();

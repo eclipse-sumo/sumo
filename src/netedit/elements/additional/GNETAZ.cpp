@@ -563,12 +563,6 @@ GNETAZ::isValid(SumoXMLAttr key, const std::string& value) {
 }
 
 
-bool
-GNETAZ::isAttributeEnabled(SumoXMLAttr /* key */) const {
-    return true;
-}
-
-
 std::string
 GNETAZ::getPopUpID() const {
     return getTagStr() + ":" + getID();

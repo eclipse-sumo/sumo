@@ -338,24 +338,6 @@ GNEDataSet::isValid(SumoXMLAttr key, const std::string& value) {
 }
 
 
-void
-GNEDataSet::enableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
-    // nothing to enable
-}
-
-
-void
-GNEDataSet::disableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
-    // nothing to disable
-}
-
-
-bool
-GNEDataSet::isAttributeEnabled(SumoXMLAttr /*key*/) const {
-    return true;
-}
-
-
 bool
 GNEDataSet::isAttributeComputed(SumoXMLAttr /*key*/) const {
     return false;

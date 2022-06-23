@@ -657,12 +657,6 @@ GNEDetectorE2::isValid(SumoXMLAttr key, const std::string& value) {
     }
 }
 
-
-bool
-GNEDetectorE2::isAttributeEnabled(SumoXMLAttr /* key */) const {
-    return true;
-}
-
 // ===========================================================================
 // private
 // ===========================================================================

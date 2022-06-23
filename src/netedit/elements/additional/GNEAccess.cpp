@@ -311,12 +311,6 @@ GNEAccess::isValid(SumoXMLAttr key, const std::string& value) {
 }
 
 
-bool
-GNEAccess::isAttributeEnabled(SumoXMLAttr /* key */) const {
-    return true;
-}
-
-
 std::string
 GNEAccess::getPopUpID() const {
     return getTagStr();

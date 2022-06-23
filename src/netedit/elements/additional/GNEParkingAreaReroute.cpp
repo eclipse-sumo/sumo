@@ -192,12 +192,6 @@ GNEParkingAreaReroute::isValid(SumoXMLAttr key, const std::string& value) {
 }
 
 
-bool
-GNEParkingAreaReroute::isAttributeEnabled(SumoXMLAttr /* key */) const {
-    return true;
-}
-
-
 std::string
 GNEParkingAreaReroute::getPopUpID() const {
     return getTagStr();

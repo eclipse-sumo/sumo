@@ -443,18 +443,6 @@ GNETAZRelData::isValid(SumoXMLAttr key, const std::string& value) {
 }
 
 
-void
-GNETAZRelData::enableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
-    // Nothing to enable
-}
-
-
-void
-GNETAZRelData::disableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
-    // Nothing to disable enable
-}
-
-
 bool GNETAZRelData::isAttributeEnabled(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:

@@ -328,12 +328,6 @@ GNEEdgeType::isValid(SumoXMLAttr key, const std::string& value) {
 
 
 bool
-GNEEdgeType::isAttributeEnabled(SumoXMLAttr /*key*/) const {
-    return true;
-}
-
-
-bool
 GNEEdgeType::isAttributeComputed(SumoXMLAttr /*key*/) const {
     return false;
 }

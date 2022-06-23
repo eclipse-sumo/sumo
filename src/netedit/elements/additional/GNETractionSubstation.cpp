@@ -222,12 +222,6 @@ GNETractionSubstation::isValid(SumoXMLAttr key, const std::string& value) {
 }
 
 
-bool
-GNETractionSubstation::isAttributeEnabled(SumoXMLAttr /* key */) const {
-    return true;
-}
-
-
 std::string
 GNETractionSubstation::getPopUpID() const {
     return getTagStr() + ": " + getID();

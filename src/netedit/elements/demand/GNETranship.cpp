@@ -511,18 +511,6 @@ GNETranship::isValid(SumoXMLAttr key, const std::string& value) {
 }
 
 
-void
-GNETranship::enableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
-    //
-}
-
-
-void
-GNETranship::disableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
-    //
-}
-
-
 bool
 GNETranship::isAttributeEnabled(SumoXMLAttr key) const {
     if (key == SUMO_ATTR_FROM) {

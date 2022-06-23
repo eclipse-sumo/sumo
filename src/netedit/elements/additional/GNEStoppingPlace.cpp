@@ -276,13 +276,6 @@ GNEStoppingPlace::getACParametersMap() const {
 }
 
 
-bool
-GNEStoppingPlace::isAttributeEnabled(SumoXMLAttr /*key*/) const {
-    // all stopping place attributes are always enabled
-    return true;
-}
-
-
 std::string
 GNEStoppingPlace::getPopUpID() const {
     return getTagStr() + ": " + getID();

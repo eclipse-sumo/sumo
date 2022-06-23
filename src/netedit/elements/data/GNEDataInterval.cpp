@@ -296,18 +296,6 @@ GNEDataInterval::isValid(SumoXMLAttr key, const std::string& value) {
 }
 
 
-void
-GNEDataInterval::enableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
-    // Nothing to enable
-}
-
-
-void
-GNEDataInterval::disableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
-    // Nothing to disable
-}
-
-
 bool
 GNEDataInterval::isAttributeEnabled(SumoXMLAttr key) const {
     switch (key) {

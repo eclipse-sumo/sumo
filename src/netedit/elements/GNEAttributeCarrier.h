@@ -125,19 +125,19 @@ public:
      * @param[in] undoList The undoList on which to register changes
      * @note certain attributes can be only enabled, and can produce the disabling of other attributes
      */
-    virtual void enableAttribute(SumoXMLAttr key, GNEUndoList* undoList) = 0;
+    virtual void enableAttribute(SumoXMLAttr key, GNEUndoList* undoList);
 
     /* @brief method for disable attribute
      * @param[in] key The attribute key
      * @param[in] undoList The undoList on which to register changes
      * @note certain attributes can be only enabled, and can produce the disabling of other attributes
      */
-    virtual void disableAttribute(SumoXMLAttr key, GNEUndoList* undoList) = 0;
+    virtual void disableAttribute(SumoXMLAttr key, GNEUndoList* undoList);
 
     /* @brief method for check if the value for certain attribute is set
      * @param[in] key The attribute key
      */
-    virtual bool isAttributeEnabled(SumoXMLAttr key) const = 0;
+    virtual bool isAttributeEnabled(SumoXMLAttr key) const;
 
     /* @brief method for check if the value for certain attribute is computed (for example, due a network recomputing)
      * @param[in] key The attribute key

@@ -325,12 +325,6 @@ GNEDetectorEntryExit::isValid(SumoXMLAttr key, const std::string& value) {
 }
 
 
-bool
-GNEDetectorEntryExit::isAttributeEnabled(SumoXMLAttr /* key */) const {
-    return true;
-}
-
-
 void
 GNEDetectorEntryExit::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {

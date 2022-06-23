@@ -219,12 +219,6 @@ GNERerouterInterval::isValid(SumoXMLAttr key, const std::string& value) {
 }
 
 
-bool
-GNERerouterInterval::isAttributeEnabled(SumoXMLAttr /* key */) const {
-    return true;
-}
-
-
 std::string
 GNERerouterInterval::getPopUpID() const {
     return getTagStr();
