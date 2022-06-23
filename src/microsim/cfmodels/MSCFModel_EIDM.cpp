@@ -112,7 +112,7 @@ MSCFModel_EIDM::maximumSafeFollowSpeed(double gap, double egoSpeed, double predS
     // with myDecel/(2*myAccel), the intended deceleration is myDecel/2
     // with the IIDM, if gap=s, then the acceleration is zero and if gap<s, then the term v/vMax is not present
 
-    // double c = -sqrt(1 - pow(egoSpeed / desSpeed, myDelta) + myDecel / (2 * myAccel)) * gap * myTwoSqrtAccelDecel; // c calculation when using the IDM!
+    // double c = -sqrt(1 - pow(egoSpeed / MAX2(NUMERICAL_EPS, desSpeed), myDelta) + myDecel / (2 * myAccel)) * gap * myTwoSqrtAccelDecel; // c calculation when using the IDM!
 
     // myDecel is positive, but is intended as negative value here, therefore + instead of -
     // quadratic formula
@@ -173,7 +173,7 @@ MSCFModel_EIDM::maximumSafeStopSpeed(double g /*gap*/, double decel, double v /*
         // with decel/(2*myAccel), the intended deceleration is decel/2
         // with the IIDM, if gap=s, then the acceleration is zero and if gap<s, then the term v/vMax is not present
 
-        // double c = -sqrt(1 - pow(v / desSpeed, myDelta) + decel / (2 * myAccel)) * g * myTwoSqrtAccelDecel; // c calculation when using the IDM!
+        // double c = -sqrt(1 - pow(v / MAX2(NUMERICAL_EPS, desSpeed), myDelta) + decel / (2 * myAccel)) * g * myTwoSqrtAccelDecel; // c calculation when using the IDM!
 
         // decel is positive, but is intended as negative value here, therefore + instead of -
         // quadratic formula
@@ -700,16 +700,16 @@ double
 MSCFModel_EIDM::_v(const MSVehicle* const veh, const double gap2pred, const double egoSpeed,
                    const double predSpeed, const double desSpeed, const bool respectMinGap, const int update) const {
 
-    double v0 = desSpeed;
+    double v0 = MAX2(NUMERICAL_EPS, desSpeed);
     VehicleVariables* vars = (VehicleVariables*)veh->getCarFollowVariables();
 
     // @ToDo: Where to put such an insertion function/update, which only needs to be calculated once at the first step?????!
     // For the first iteration
     if (vars->v0_old == 0) {
         vars = (VehicleVariables*)veh->getCarFollowVariables();
-        vars->v0_old = veh->getLane()->getVehicleMaxSpeed(veh);
-        vars->v0_int = veh->getLane()->getVehicleMaxSpeed(veh);
-        v0 = veh->getLane()->getVehicleMaxSpeed(veh);
+        vars->v0_old = MAX2(NUMERICAL_EPS, veh->getLane()->getVehicleMaxSpeed(veh));
+        vars->v0_int = MAX2(NUMERICAL_EPS, veh->getLane()->getVehicleMaxSpeed(veh));
+        v0 = MAX2(NUMERICAL_EPS, veh->getLane()->getVehicleMaxSpeed(veh));
     }
 
     double wantedacc = 0., a_free;
