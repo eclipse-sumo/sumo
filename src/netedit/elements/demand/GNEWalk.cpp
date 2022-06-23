@@ -716,12 +716,6 @@ GNEWalk::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 
 void
-GNEWalk::toogleAttribute(SumoXMLAttr /*key*/, const bool /*value*/) {
-    // nothing to toogle
-}
-
-
-void
 GNEWalk::setMoveShape(const GNEMoveResult& moveResult) {
     // change both position
     myArrivalPosition = moveResult.newFirstPos;

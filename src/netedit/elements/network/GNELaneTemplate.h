@@ -112,9 +112,6 @@ private:
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);
 
-    /// @brief method for enable or disable the attribute and nothing else (used in GNEChange_EnableAttribute)
-    void toogleAttribute(SumoXMLAttr key, const bool value);
-
     /// @brief invalidated copy constructor
     GNELaneTemplate(const GNELaneTemplate& s) = delete;
 

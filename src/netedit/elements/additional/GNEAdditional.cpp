@@ -816,12 +816,6 @@ GNEAdditional::checkChildAdditionalRestriction() const {
 
 
 void
-GNEAdditional::toogleAttribute(SumoXMLAttr /*key*/, const bool /*value*/) {
-    // nothing to toggle in Additionals
-}
-
-
-void
 GNEAdditional::drawSemiCircleGeometryPoint(const GNEViewNet* viewNet, const Position& pos, const double rot, const RGBColor& baseColor,
         const double fromAngle, const double toAngle, const bool ignoreShift) {
     // first check that we're in move mode and shift key is pressed

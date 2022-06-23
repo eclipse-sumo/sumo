@@ -398,12 +398,6 @@ GNEDataSet::setAttribute(SumoXMLAttr key, const std::string& value) {
 }
 
 
-void
-GNEDataSet::toogleAttribute(SumoXMLAttr /*key*/, const bool /*value*/) {
-    throw InvalidArgument("Nothing to enable");
-}
-
-
 bool
 GNEDataSet::checkNewInterval(const std::map<const double, GNEDataInterval*>& dataIntervalMap, const double newBegin, const double newEnd) {
     if (dataIntervalMap.empty()) {

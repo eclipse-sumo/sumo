@@ -148,9 +148,4 @@ GNEEdgeTemplate::setAttribute(SumoXMLAttr /*key*/, const std::string& /*value*/)
     throw InvalidArgument("cannot be called in templates");
 }
 
-void
-GNEEdgeTemplate::toogleAttribute(SumoXMLAttr /*key*/, const bool /*value*/) {
-    throw InvalidArgument("cannot be called in templates");
-}
-
 /****************************************************************************/

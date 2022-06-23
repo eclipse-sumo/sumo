@@ -363,10 +363,4 @@ GNEDataInterval::setAttribute(SumoXMLAttr key, const std::string& value) {
     myNet->getViewNet()->getIntervalBar().markForUpdate();
 }
 
-
-void
-GNEDataInterval::toogleAttribute(SumoXMLAttr /*key*/, const bool /*value*/) {
-    throw InvalidArgument("Nothing to enable");
-}
-
 /****************************************************************************/

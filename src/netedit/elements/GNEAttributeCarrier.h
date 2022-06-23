@@ -297,12 +297,12 @@ protected:
     /// @brief whether the current object is a template object (not drawn in the view)
     bool myIsTemplate;
 
+    /// @brief method for enable or disable the attribute and nothing else (used in GNEChange_EnableAttribute)
+    virtual void toogleAttribute(SumoXMLAttr key, const bool value);
+
 private:
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)
     virtual void setAttribute(SumoXMLAttr key, const std::string& value) = 0;
-
-    /// @brief method for enable or disable the attribute and nothing else (used in GNEChange_EnableAttribute)
-    virtual void toogleAttribute(SumoXMLAttr key, const bool value) = 0;
 
     /// @brief reset attributes to their default values without undo-redo (used in GNEFrameAttributeModules)
     void resetAttributes();

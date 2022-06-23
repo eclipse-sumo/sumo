@@ -1835,12 +1835,6 @@ GNEVType::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 
 void
-GNEVType::toogleAttribute(SumoXMLAttr /*key*/, const bool /*value*/) {
-    // nothing to toogle
-}
-
-
-void
 GNEVType::setMoveShape(const GNEMoveResult& /*moveResult*/) {
     // vehicleTypes cannot be moved
 }

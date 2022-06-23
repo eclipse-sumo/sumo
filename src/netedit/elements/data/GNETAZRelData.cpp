@@ -563,10 +563,4 @@ GNETAZRelData::setAttribute(SumoXMLAttr key, const std::string& value) {
     myNet->getViewNet()->getIntervalBar().markForUpdate();
 }
 
-
-void
-GNETAZRelData::toogleAttribute(SumoXMLAttr /*key*/, const bool /*value*/) {
-    throw InvalidArgument("Nothing to enable");
-}
-
 /****************************************************************************/

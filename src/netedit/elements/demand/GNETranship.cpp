@@ -633,12 +633,6 @@ GNETranship::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 
 void
-GNETranship::toogleAttribute(SumoXMLAttr /*key*/, const bool /*value*/) {
-    // nothing to toogle
-}
-
-
-void
 GNETranship::setMoveShape(const GNEMoveResult& moveResult) {
     // change both position
     myArrivalPosition = moveResult.newFirstPos;

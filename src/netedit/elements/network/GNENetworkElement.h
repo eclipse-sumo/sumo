@@ -192,9 +192,6 @@ private:
     /// @brief set attribute after validation
     virtual void setAttribute(SumoXMLAttr key, const std::string& value) = 0;
 
-    /// @brief method for enable or disable the attribute and nothing else (used in GNEChange_EnableAttribute)
-    void toogleAttribute(SumoXMLAttr key, const bool value);
-
     /// @brief Invalidated copy constructor.
     GNENetworkElement(const GNENetworkElement&) = delete;
 

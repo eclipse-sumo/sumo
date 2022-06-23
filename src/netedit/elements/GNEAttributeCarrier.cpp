@@ -791,6 +791,12 @@ GNEAttributeCarrier::resetAttributes() {
 
 
 void
+GNEAttributeCarrier::toogleAttribute(SumoXMLAttr /*key*/, const bool /*value*/) {
+    throw ProcessError("Nothing to enable, implement in Children");
+}
+
+
+void
 GNEAttributeCarrier::fillAttributeCarriers() {
     // fill all groups of ACs
     fillNetworkElements();

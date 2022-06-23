@@ -556,12 +556,6 @@ GNERide::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 
 void
-GNERide::toogleAttribute(SumoXMLAttr /*key*/, const bool /*value*/) {
-    // nothing to toogle
-}
-
-
-void
 GNERide::setMoveShape(const GNEMoveResult& moveResult) {
     // change both position
     myArrivalPosition = moveResult.newSecondPos;

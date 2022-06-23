@@ -276,12 +276,6 @@ GNEVTypeDistribution::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 
 void
-GNEVTypeDistribution::toogleAttribute(SumoXMLAttr /*key*/, const bool /*value*/) {
-    // nothing to toogle
-}
-
-
-void
 GNEVTypeDistribution::setMoveShape(const GNEMoveResult& /*moveResult*/) {
     // vehicleType distributions cannot be moved
 }

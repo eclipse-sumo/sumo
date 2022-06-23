@@ -813,12 +813,6 @@ GNERoute::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 
 void
-GNERoute::toogleAttribute(SumoXMLAttr /*key*/, const bool /*value*/) {
-    // nothing to toogle
-}
-
-
-void
 GNERoute::setMoveShape(const GNEMoveResult& /*moveResult*/) {
     // routes cannot be moved
 }
