@@ -51,6 +51,8 @@
 FXDEFMAP(GUIDialog_ViewSettings) GUIDialog_ViewSettingsMap[] = {
     FXMAPFUNC(SEL_CHANGED,  MID_SIMPLE_VIEW_COLORCHANGE,            GUIDialog_ViewSettings::onCmdColorChange),
     FXMAPFUNC(SEL_COMMAND,  MID_SIMPLE_VIEW_COLORCHANGE,            GUIDialog_ViewSettings::onCmdColorChange),
+    FXMAPFUNC(SEL_CHANGED,  MID_SIMPLE_VIEW_SIZECHANGE,             GUIDialog_ViewSettings::onCmdSizeChange),
+    FXMAPFUNC(SEL_COMMAND,  MID_SIMPLE_VIEW_SIZECHANGE,             GUIDialog_ViewSettings::onCmdSizeChange),
     FXMAPFUNC(SEL_COMMAND,  MID_SIMPLE_VIEW_NAMECHANGE,             GUIDialog_ViewSettings::onCmdNameChange),
     FXMAPFUNC(SEL_COMMAND,  MID_SETTINGS_OK,                        GUIDialog_ViewSettings::onCmdOk),
     FXMAPFUNC(SEL_COMMAND,  MID_SETTINGS_CANCEL,                    GUIDialog_ViewSettings::onCmdCancel),
@@ -855,9 +857,16 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
     }
     myParent->forceRefresh();
     getApp()->forceRefresh();
+    return 1;
+}
+
+
+long
+GUIDialog_ViewSettings::onCmdSizeChange(FXObject* obj, FXSelector sel, void* ptr) {
     // mark boundaries for recomputing
     gPostDrawing.recomputeBoundaries = true;
-    return 1;
+    // continue as a normal change
+    return onCmdColorChange(obj, sel, ptr);
 }
 
 
@@ -1655,19 +1664,20 @@ GUIDialog_ViewSettings::SizePanel::SizePanel(
     FXMatrix* parent,
     GUIDialog_ViewSettings* target,
     const GUIVisualizationSizeSettings& settings) {
-    myCheck = new FXCheckButton(parent, "Draw with constant size when zoomed out", target, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButtonViewSettings);
+    myCheck = new FXCheckButton(parent, "Draw with constant size when zoomed out", target, MID_SIMPLE_VIEW_SIZECHANGE, GUIDesignCheckButtonViewSettings);
     myCheck->setCheck(settings.constantSize);
-    myCheckSelected = new FXCheckButton(parent, "Only for selected", target, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButtonViewSettings);
+    myCheckSelected = new FXCheckButton(parent, "Only for selected", target, MID_SIMPLE_VIEW_SIZECHANGE, GUIDesignCheckButtonViewSettings);
     myCheckSelected->setCheck(settings.constantSizeSelected);
     FXMatrix* m1 = new FXMatrix(parent, 2, GUIDesignViewSettingsMatrix5);
     new FXLabel(m1, "Minimum Size", nullptr, GUIDesignViewSettingsLabel1);
-    myMinSizeDial = new FXRealSpinner(m1, 10, target, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsSpinDial1);
+    myMinSizeDial = new FXRealSpinner(m1, 10, target, MID_SIMPLE_VIEW_SIZECHANGE, GUIDesignViewSettingsSpinDial1);
     myMinSizeDial->setValue(settings.minSize);
     FXMatrix* m2 = new FXMatrix(parent, 2, GUIDesignViewSettingsMatrix5);
     new FXLabel(m2, "Exaggerate by", nullptr, GUIDesignViewSettingsLabel1);
-    myExaggerateDial = new FXRealSpinner(m2, 10, target, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsSpinDial2);
+    myExaggerateDial = new FXRealSpinner(m2, 10, target, MID_SIMPLE_VIEW_SIZECHANGE, GUIDesignViewSettingsSpinDial2);
     myExaggerateDial->setRange(0, 10000);
     myExaggerateDial->setValue(settings.exaggeration);
+    ///XXX;
 }
 
 

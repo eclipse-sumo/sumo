@@ -150,6 +150,9 @@ public:
     /// @brief Called if something (color, width, etc.) has been changed
     long onCmdColorChange(FXObject*, FXSelector, void*);
 
+    /// @brief Called if something (color, width, etc.) has been changed
+    long onCmdSizeChange(FXObject* obj, FXSelector sel, void* ptr);
+
     /// @brief Called if the decals-table was changed
     long onCmdEditTable(FXObject*, FXSelector, void* data);
 

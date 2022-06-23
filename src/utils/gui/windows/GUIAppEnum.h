@@ -589,6 +589,8 @@ enum {
 
     /// @brief Informs the dialog about a value's change
     MID_SIMPLE_VIEW_COLORCHANGE,
+    /// @brief Informs the dialog about a size value's change
+    MID_SIMPLE_VIEW_SIZECHANGE,
     /// @brief Informs the dialog about switching to another scheme
     MID_SIMPLE_VIEW_NAMECHANGE,
     /// @brief For the save-to-db - button
