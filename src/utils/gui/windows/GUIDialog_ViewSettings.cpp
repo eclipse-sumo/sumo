@@ -1695,7 +1695,7 @@ GUIDialog_ViewSettings::SizePanel::update(const GUIVisualizationSizeSettings& se
 long
 GUIDialog_ViewSettings::SizePanel::onCmdSizeChange(FXObject* obj, FXSelector sel, void* ptr) {
     // mark boundaries for recomputing
-    gPostDrawing.recomputeBoundaries = true;
+    gPostDrawing.recomputeBoundaries = myType;
     // continue as a normal change
     return myDialogViewSettings->onCmdColorChange(obj, sel, ptr);
 }
