@@ -292,6 +292,12 @@ class FXMenuCheckIcon;
 
 /// @name FXPackers
 /// @{
+/// @brief Horizontal frame extended over X-frame parent used in FXGroupBoxModule
+#define GUIDesignGroupBoxModule             (LAYOUT_FILL_X), 0, 0, 0, 0, 4, 4, 4, 4, 4, 4
+
+/// @brief Horizontal frame extended over XY-frame parent used in FXGroupBoxModule
+#define GUIDesignGroupBoxModuleExtendY      (LAYOUT_FILL_X | LAYOUT_FILL_Y), 0, 0, 0, 0, 4, 4, 4, 4, 4, 4
+
 /// @brief Horizontal frame extended over frame parent
 #define GUIDesignHorizontalFrame            (LAYOUT_FILL_X), 0, 0, 0, 0, 4, 4, 4, 4, 4, 4
 
@@ -565,7 +571,7 @@ class FXMenuCheckIcon;
 #define GUIDesignTableAdditionals       (LAYOUT_FILL_X | LAYOUT_FILL_Y | VSCROLLER_ALWAYS | HSCROLLER_NEVER | TABLE_NO_ROWSELECT | TABLE_NO_COLSELECT), 0, 0, 0, 0, 2, 2, 2, 2
 
 /// @brief design for tables used in GNEFixDemandElements dialogs
-#define GUIDesignTableFixElements       (LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT | VSCROLLER_ALWAYS | HSCROLLER_NEVER | TABLE_NO_ROWSELECT | TABLE_NO_COLSELECT), 0, 0, 0, 200, 2, 2, 2, 2
+#define GUIDesignTableFixElements       (LAYOUT_FILL_X | LAYOUT_FILL_Y | VSCROLLER_ALWAYS | HSCROLLER_NEVER | TABLE_NO_ROWSELECT | TABLE_NO_COLSELECT), 0, 0, 0, 0, 2, 2, 2, 2
 
 /// @}
 

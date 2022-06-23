@@ -43,8 +43,8 @@ public:
     /// @brief constructor for frames
     FXGroupBoxModule(GNEFrame* frame, const std::string& text, const int options = Options::COLLAPSIBLE);
 
-    /// @brief constructor
-    FXGroupBoxModule(FXVerticalFrame* contentFrame, const std::string& text, const int options = Options::COLLAPSIBLE);
+    /// @brief constructor for fix dialogs
+    FXGroupBoxModule(FXVerticalFrame* contentFrame, const std::string& text, const int options = Options::NOTHING);
 
     /// @brief destructor
     ~FXGroupBoxModule();

@@ -46,7 +46,7 @@ FXIMPLEMENT(GNEFixAdditionalElements, FXDialogBox, GNEFixAdditionalElementsMap, 
 // ===========================================================================
 
 GNEFixAdditionalElements::GNEFixAdditionalElements(GNEViewNet* viewNet, const std::vector<GNEAdditional*>& invalidSingleLaneAdditionals, const std::vector<GNEAdditional*>& invalidMultiLaneAdditionals) :
-    FXDialogBox(viewNet->getApp(), ("Fix additional problems"), GUIDesignDialogBoxExplicit(500, 380)),
+    FXDialogBox(viewNet->getApp(), ("Fix additional problems"), GUIDesignDialogBoxExplicitStretchable(500, 380)),
     myViewNet(viewNet) {
     // set busStop icon for this dialog
     setIcon(GUIIconSubSys::getIcon(GUIIcon::BUSSTOP));
@@ -250,7 +250,7 @@ GNEFixAdditionalElements::AdditionalList::AdditionalList(GNEFixAdditionalElement
 // ---------------------------------------------------------------------------
 
 GNEFixAdditionalElements::PositionOptions::PositionOptions(GNEFixAdditionalElements* fixAdditionalPositions) :
-    FXGroupBoxModule(fixAdditionalPositions->myMainFrame, "Select a solution for StoppingPlaces and E2 detectors", FXGroupBoxModule::Options::NOTHING) {
+    FXGroupBoxModule(fixAdditionalPositions->myMainFrame, "Select a solution for StoppingPlaces and E2 detectors") {
     // create horizontal frames for radio buttons
     FXHorizontalFrame* RadioButtons = new FXHorizontalFrame(this, GUIDesignHorizontalFrame);
     // create Vertical Frame for left options
@@ -318,7 +318,7 @@ GNEFixAdditionalElements::PositionOptions::disablePositionOptions() {
 // ---------------------------------------------------------------------------
 
 GNEFixAdditionalElements::ConsecutiveLaneOptions::ConsecutiveLaneOptions(GNEFixAdditionalElements* fixAdditionalPositions) :
-    FXGroupBoxModule(fixAdditionalPositions->myMainFrame, "Select a solution for Multilane E2 detectors", FXGroupBoxModule::Options::NOTHING) {
+    FXGroupBoxModule(fixAdditionalPositions->myMainFrame, "Select a solution for Multilane E2 detectors") {
     // create horizontal frames for radio buttons
     FXHorizontalFrame* RadioButtons = new FXHorizontalFrame(this, GUIDesignHorizontalFrame);
     // create Vertical Frame for left options

@@ -55,7 +55,7 @@ FXIMPLEMENT(FXGroupBoxModule, FXVerticalFrame, FXGroupBoxModuleMap, ARRAYNUMBER(
 // ===========================================================================
 
 FXGroupBoxModule::FXGroupBoxModule(GNEFrame* frame, const std::string& text, const int options) :
-    FXVerticalFrame(frame->getContentFrame(), GUIDesignHorizontalFrame),
+    FXVerticalFrame(frame->getContentFrame(), GUIDesignGroupBoxModule),
     myOptions(options),
     myFrameParent(frame),
     myCollapsed(false) {
@@ -81,7 +81,7 @@ FXGroupBoxModule::FXGroupBoxModule(GNEFrame* frame, const std::string& text, con
 
 
 FXGroupBoxModule::FXGroupBoxModule(FXVerticalFrame* contentFrame, const std::string& text, const int options) :
-    FXVerticalFrame(contentFrame, GUIDesignHorizontalFrame),
+    FXVerticalFrame(contentFrame, GUIDesignGroupBoxModuleExtendY),
     myOptions(options),
     myCollapsed(false) {
     // build button and labels
