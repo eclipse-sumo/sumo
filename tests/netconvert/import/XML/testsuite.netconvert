@@ -72,6 +72,9 @@ public_transport
 # check classification of link direction
 link_direction
 
+# declare bidi edges
+bidi
+
 # declared edge length should be writen back into the plain-output
 loaded_length
 
