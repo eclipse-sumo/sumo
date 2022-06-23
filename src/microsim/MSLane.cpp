@@ -577,13 +577,15 @@ MSLane::getDepartSpeed(const MSVehicle& veh, bool& patchSpeed) {
             speed = getVehicleMaxSpeed(&veh);
             if (last != nullptr) {
                 speed = MIN2(speed, last->getSpeed());
+                patchSpeed = false;
             }
-            patchSpeed = false;
             break;
         }
         case DepartSpeedDefinition::AVG: {
             speed = MIN2(getVehicleMaxSpeed(&veh), getMeanSpeed());
-            patchSpeed = false;
+            if (getLastAnyVehicle() != nullptr) {
+                patchSpeed = false;
+            }
             break;
         }
         case DepartSpeedDefinition::DEFAULT:
