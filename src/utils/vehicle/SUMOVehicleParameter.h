@@ -94,6 +94,7 @@ const int STOP_PERMITTED_SET = 2 << 15;
 const int STOP_ENDED_SET = 2 << 16;
 const int STOP_STARTED_SET = 2 << 17;
 const int STOP_POSLAT_SET = 2 << 18;
+const int STOP_ONDEMAND_SET = 2 << 19;
 
 const double MIN_STOP_LENGTH = 2 * POSITION_EPS;
 
@@ -428,14 +429,17 @@ public:
         /// @brief the speed at which this stop counts as reached (waypoint mode)
         double speed = 0.;
 
+        /// @brief the lateral offset when stopping
+        double posLat = INVALID_DOUBLE;
+
+        /// @brief whether the stop may be skipped
+        bool onDemand = false;
+
         /// @brief the time at which this stop was reached
         mutable SUMOTime started = -1;
 
         /// @brief the time at which this stop was ended
         mutable SUMOTime ended = -1;
-
-        /// @brief the lateral offset when stopping
-        double posLat = INVALID_DOUBLE;
 
         /// @brief lanes and positions connected to this stop (only used by duarouter where Stop is used to store stopping places)
         std::vector<std::tuple<std::string, double, double> > accessPos;

@@ -749,6 +749,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "split",                  SUMO_ATTR_SPLIT },
     { "join",                   SUMO_ATTR_JOIN },
     { "intended",               SUMO_ATTR_INTENDED },
+    { "onDemand",               SUMO_ATTR_ONDEMAND },
     { "value",                  SUMO_ATTR_VALUE },
     { "prohibitor",             SUMO_ATTR_PROHIBITOR },
     { "prohibited",             SUMO_ATTR_PROHIBITED },

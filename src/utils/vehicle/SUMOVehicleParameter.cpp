@@ -286,6 +286,9 @@ SUMOVehicleParameter::Stop::write(OutputDevice& dev, const bool close, const boo
     if ((parametersSet & STOP_SPEED_SET) != 0) {
         dev.writeAttr(SUMO_ATTR_SPEED, speed);
     }
+    if ((parametersSet & STOP_ONDEMAND_SET) != 0) {
+        dev.writeAttr(SUMO_ATTR_ONDEMAND, onDemand);
+    }
     // only write friendly position if is true
     if (friendlyPos == true) {
         dev.writeAttr(SUMO_ATTR_FRIENDLY_POS, friendlyPos);

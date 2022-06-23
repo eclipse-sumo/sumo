@@ -929,6 +929,9 @@ RouteHandler::parseStopParameters(SUMOVehicleParameter::Stop& stop, const SUMOSA
     if (attrs.hasAttribute(SUMO_ATTR_SPEED)) {
         stop.parametersSet |= STOP_SPEED_SET;
     }
+    if (attrs.hasAttribute(SUMO_ATTR_ONDEMAND)) {
+        stop.parametersSet |= STOP_ONDEMAND_SET;
+    }
     // get parameters
     bool ok = true;
     // edge/lane
