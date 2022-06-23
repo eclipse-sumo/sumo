@@ -972,10 +972,12 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
     GLHelper::popMatrix();
     // update interval bar
     myIntervalBar.markForUpdate();
-    // check if recopute boundaries
+    // check if recopute boundaries (Deactivated, continue after 1.14 release)
+/*
     if (gPostDrawing.recomputeBoundaries != GLO_NETWORK) {
         myNet->getGrid().updateBoundaries(gPostDrawing.recomputeBoundaries);
     }
+*/
     // execute post drawing tasks
     gPostDrawing.executePostDrawingTasks();
     return hits2;
