@@ -55,7 +55,7 @@ EC
 NC
 SC
 WC
-list of internal edgeIDs of node 'C'
+list of internal edgeIDs of node 'C' (attribute)
 :C_24_0
 :C_1_0
 :C_25_0
@@ -84,6 +84,39 @@ list of internal edgeIDs of node 'C'
 :C_c1_0
 :C_c2_0
 :C_c3_0
+list of internal edgeIDs of node 'C' (complete)
+:C_0
+:C_1
+:C_2
+:C_3
+:C_5
+:C_24
+:C_25
+:C_26
+:C_6
+:C_7
+:C_8
+:C_9
+:C_11
+:C_27
+:C_28
+:C_29
+:C_12
+:C_13
+:C_14
+:C_15
+:C_17
+:C_30
+:C_31
+:C_32
+:C_18
+:C_19
+:C_20
+:C_21
+:C_23
+:C_33
+:C_34
+:C_35
 connections from SC_0:
 <connection from="SC" to=":C_w2" fromLane="0" toLane="0" direction="s">
 outgoing internal lanes of SC_0: 

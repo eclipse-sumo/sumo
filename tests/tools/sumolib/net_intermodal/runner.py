@@ -38,9 +38,15 @@ print("list of all edges")
 for edge in net.getEdges():
     print(edge.getID())
 
-print("list of internal edgeIDs of node 'C'")
+print("list of internal edgeIDs of node 'C' (attribute)")
 for edgeID in net.getNode("C").getInternal():
     print(edgeID)
+
+print("list of internal edgeIDs of node 'C' (complete)")
+node = net.getNode("C")
+for edge in net.getEdges():
+    if edge.getFromNode() == node and edge.getToNode() == node:
+        print(edge.getID())
 
 for laneID in ["SC_0", ":C_w2_0"]:
     lane = net.getLane(laneID)
