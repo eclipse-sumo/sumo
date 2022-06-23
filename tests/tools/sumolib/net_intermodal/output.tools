@@ -117,6 +117,14 @@ list of internal edgeIDs of node 'C' (complete)
 :C_33
 :C_34
 :C_35
+:C_c0
+:C_c1
+:C_c2
+:C_c3
+:C_w0
+:C_w1
+:C_w2
+:C_w3
 connections from SC_0:
 <connection from="SC" to=":C_w2" fromLane="0" toLane="0" direction="s">
 outgoing internal lanes of SC_0: 
