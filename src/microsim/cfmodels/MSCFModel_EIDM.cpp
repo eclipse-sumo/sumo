@@ -101,22 +101,26 @@ MSCFModel_EIDM::insertionStopSpeed(const MSVehicle* const /*veh*/, double speed,
 
 double
 MSCFModel_EIDM::maximumSafeFollowSpeed(double gap, double egoSpeed, double predSpeed, double predMaxDecel, bool onInsertion) const {
-    gap -= NUMERICAL_EPS;
-    if (gap <= 0) {
-        return 0;
+    double x;
+    if (gap >= 0 || MSGlobals::gComputeLC) {
+        double a = 1.;
+        double b = myHeadwayTime * myTwoSqrtAccelDecel - predSpeed;
+        double c = -sqrt(1 + myDecel / (2 * myAccel)) * gap * myTwoSqrtAccelDecel;
+        // with myDecel/myAccel, the intended deceleration is myDecel
+        // with myDecel/(2*myAccel), the intended deceleration is myDecel/2
+        // with the IIDM, if gap=s, then the acceleration is zero and if gap<s, then the term v/vMax is not present
+
+        // double c = -sqrt(1 - pow(egoSpeed / MAX2(NUMERICAL_EPS, desSpeed), myDelta) + myDecel / (2 * myAccel)) * gap * myTwoSqrtAccelDecel; // c calculation when using the IDM!
+
+        // myDecel is positive, but is intended as negative value here, therefore + instead of -
+        // quadratic formula
+        double x = (-b + sqrt(b * b - 4.*a * c)) / (2.*a);
+    } else {
+        x = egoSpeed - ACCEL2SPEED(myEmergencyDecel);
+        if (MSGlobals::gSemiImplicitEulerUpdate) {
+            x = MAX2(x, 0.);
+        }
     }
-    double a = 1.;
-    double b = myHeadwayTime * myTwoSqrtAccelDecel - predSpeed;
-    double c = -sqrt(1 + myDecel / (2 * myAccel)) * gap * myTwoSqrtAccelDecel;
-    // with myDecel/myAccel, the intended deceleration is myDecel
-    // with myDecel/(2*myAccel), the intended deceleration is myDecel/2
-    // with the IIDM, if gap=s, then the acceleration is zero and if gap<s, then the term v/vMax is not present
-
-    // double c = -sqrt(1 - pow(egoSpeed / MAX2(NUMERICAL_EPS, desSpeed), myDelta) + myDecel / (2 * myAccel)) * gap * myTwoSqrtAccelDecel; // c calculation when using the IDM!
-
-    // myDecel is positive, but is intended as negative value here, therefore + instead of -
-    // quadratic formula
-    double x = (-b + sqrt(b * b - 4.*a * c)) / (2.*a);
 
     if (myDecel != myEmergencyDecel && !onInsertion && !MSGlobals::gComputeLC) {
         double origSafeDecel = SPEED2ACCEL(egoSpeed - x);
@@ -126,16 +130,16 @@ MSCFModel_EIDM::maximumSafeFollowSpeed(double gap, double egoSpeed, double predS
             // can result in corrupted values (leading to intersecting trajectories) if, e.g. leader and follower are fast (leader still faster) and the gap is very small,
             // such that braking harder than myDecel is required.
 
+            double safeDecel = EMERGENCY_DECEL_AMPLIFIER * calculateEmergencyDeceleration(gap, egoSpeed, predSpeed, predMaxDecel);
 #ifdef DEBUG_EMERGENCYDECEL
             if (DEBUG_COND2) {
                 std::cout << SIMTIME << " initial vsafe=" << x
                           << " egoSpeed=" << egoSpeed << " (origSafeDecel=" << origSafeDecel << ")"
                           << " predSpeed=" << predSpeed << " (predDecel=" << predMaxDecel << ")"
+                          << " safeDecel=" << safeDecel
                           << std::endl;
             }
 #endif
-
-            double safeDecel = EMERGENCY_DECEL_AMPLIFIER * calculateEmergencyDeceleration(gap, egoSpeed, predSpeed, predMaxDecel);
             // Don't be riskier than the usual method (myDecel <= safeDecel may occur, because a headway>0 is used above)
             safeDecel = MAX2(safeDecel, myDecel);
             // don't brake harder than originally planned (possible due to euler/ballistic mismatch)
@@ -159,11 +163,11 @@ MSCFModel_EIDM::maximumSafeFollowSpeed(double gap, double egoSpeed, double predS
 }
 
 double
-MSCFModel_EIDM::maximumSafeStopSpeed(double g /*gap*/, double decel, double v /*currentSpeed*/, bool onInsertion, double headway) const {
+MSCFModel_EIDM::maximumSafeStopSpeed(double gap, double decel, double currentSpeed, bool onInsertion, double headway) const {
     double vsafe;
     if (MSGlobals::gSemiImplicitEulerUpdate) {
-        g -= NUMERICAL_EPS;
-        if (g <= 0) {
+        const double g = gap - NUMERICAL_EPS;
+        if (g < 0) {
             return 0;
         }
         double a = 1.;
@@ -171,16 +175,16 @@ MSCFModel_EIDM::maximumSafeStopSpeed(double g /*gap*/, double decel, double v /*
         double c = -sqrt(1 + decel / (2 * myAccel)) * g * myTwoSqrtAccelDecel;
         // with decel/myAccel, the intended deceleration is decel
         // with decel/(2*myAccel), the intended deceleration is decel/2
-        // with the IIDM, if gap=s, then the acceleration is zero and if gap<s, then the term v/vMax is not present
+        // with the IIDM, if gap=s, then the acceleration is zero and if gap<s, then the term currentSpeed/vMax is not present
 
-        // double c = -sqrt(1 - pow(v / MAX2(NUMERICAL_EPS, desSpeed), myDelta) + decel / (2 * myAccel)) * g * myTwoSqrtAccelDecel; // c calculation when using the IDM!
+        // double c = -sqrt(1 - pow(currentSpeed / MAX2(NUMERICAL_EPS, desSpeed), myDelta) + decel / (2 * myAccel)) * g * myTwoSqrtAccelDecel; // c calculation when using the IDM!
 
         // decel is positive, but is intended as negative value here, therefore + instead of -
         // quadratic formula
         vsafe = (-b + sqrt(b * b - 4.*a * c)) / (2.*a);
     } else {
         // Not Done/checked yet for the ballistic update model!!!!
-        vsafe = maximumSafeStopSpeedBallistic(g, decel, v, onInsertion, headway);
+        vsafe = maximumSafeStopSpeedBallistic(gap, decel, currentSpeed, onInsertion, headway);
     }
 
     return vsafe;
