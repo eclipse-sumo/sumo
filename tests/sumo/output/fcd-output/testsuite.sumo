@@ -35,13 +35,7 @@ params_caccVehicleMode
 subsecond
 
 # output not in every time step
-begin
-
-# output not in every time step
 period
-
-# output not in every time step
-period_begin
 
 # output not from every vehicle
 explicit_assignment
@@ -51,6 +45,9 @@ radius
 
 # disable output for all vehicles via option
 disable_all
+
+# disable output for all vehicles via option and enable one via params
+enable_one
 
 # correctly compute positions when vehicle is on a short lane
 short_lane
