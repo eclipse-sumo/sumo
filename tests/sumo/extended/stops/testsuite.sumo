@@ -8,6 +8,9 @@ parking
 # stop at parkingArea with onRoad=true (no rerouting involved)
 parkingArea_onRoad
 
+# skip stops if possible
+onDemand
+
 # test invalid stop definitions
 errors
 
