@@ -154,7 +154,7 @@ MSStop::getUntil() const {
 
 double
 MSStop::getSpeed() const {
-    return pars.speed;
+    return skipOnDemand ? std::numeric_limits<double>::max() : pars.speed;
 }
 
 /****************************************************************************/

@@ -87,6 +87,8 @@ public:
     SUMOTime endBoarding = SUMOTime_MAX;
     /// @brief whether this an opposite-direction stop
     bool isOpposite = false;
+    /// @brief whether the decision to skip this stop has been made
+    bool skipOnDemand = false;
 
     /// @brief Write the current stop configuration (used for state saving)
     void write(OutputDevice& dev) const;

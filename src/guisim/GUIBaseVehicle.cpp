@@ -985,7 +985,11 @@ GUIBaseVehicle::drawStopLabels(const GUIVisualizationSettings& s, bool noLoop, c
             }
         }
         if (stop.getSpeed() > 0) {
-            label += " speed:" + toString(stop.getSpeed());
+            if (stop.skipOnDemand) {
+                label += " onDemand (skipped)";
+            } else {
+                label += " speed:" + toString(stop.getSpeed());
+            }
         }
         if (stop.pars.actType != "") {
             label += " actType:" + stop.pars.actType;

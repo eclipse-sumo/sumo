@@ -434,7 +434,7 @@ public:
     }
 
     /// @brief whether the given transportable is allowed to board this vehicle
-    bool allowsBoarding(MSTransportable* t) const;
+    bool allowsBoarding(const MSTransportable* t) const;
 
     /** @brief Adds a person or container to this vehicle
      *
@@ -581,7 +581,7 @@ public:
 
     /** @brief return whether the given position is within range of the current stop
      */
-    bool isStoppedInRange(const double pos, const double tolerance) const;
+    bool isStoppedInRange(const double pos, const double tolerance, bool checkFuture = false) const;
 
     /** @brief Returns whether the vehicle has to stop somewhere
      * @return Whether the vehicle has to stop somewhere

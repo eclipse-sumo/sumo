@@ -544,7 +544,7 @@ MSDevice_Taxi::isEmpty() {
 
 
 bool
-MSDevice_Taxi::allowsBoarding(MSTransportable* t) const {
+MSDevice_Taxi::allowsBoarding(const MSTransportable* t) const {
     return myCustomers.count(t) != 0;
 }
 

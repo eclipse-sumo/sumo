@@ -1677,6 +1677,18 @@ MSVehicle::processNextStop(double currentVelocity) {
             std::cout << SIMTIME << " vehicle '" << getID() << "' hasn't reached next stop." << std::endl;
         }
 #endif
+        //std::cout << SIMTIME <<  " myStopDist=" << myStopDist << " bGap=" << getBrakeGap(myLane->getVehicleMaxSpeed(this)) << "\n";
+        if (stop.pars.onDemand && !stop.skipOnDemand && myStopDist <= getCarFollowModel().brakeGap(myLane->getVehicleMaxSpeed(this))) {
+            MSNet* const net = MSNet::getInstance();
+            // @todo: this is a sufficient but not a necessary condition
+            const bool noExits = getPersonNumber() + getContainerNumber() == myParameter->personNumber + myParameter->containerNumber;
+            const bool noEntries = ((!net->hasPersons() || !net->getPersonControl().hasAnyWaiting(stop.getEdge(), this))
+                    && (!net->hasContainers() || !net->getContainerControl().hasAnyWaiting(stop.getEdge(), this)));
+            if (noExits && noEntries) {
+                //std::cout << " skipOnDemand\n";
+                stop.skipOnDemand = true;
+            }
+        }
 
         // is the next stop on the current lane?
         if (stop.edge == myCurrEdge) {
@@ -1801,6 +1813,9 @@ MSVehicle::processNextStop(double currentVelocity) {
 
 void
 MSVehicle::boardTransportables(MSStop& stop) {
+    if (stop.skipOnDemand) {
+        return;
+    }
     // we have reached the stop
     // any waiting persons may board now
     const SUMOTime time = MSNet::getInstance()->getCurrentTimeStep();

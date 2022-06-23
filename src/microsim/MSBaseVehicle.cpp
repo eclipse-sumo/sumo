@@ -556,7 +556,7 @@ MSBaseVehicle::getOdometer() const {
 }
 
 bool
-MSBaseVehicle::allowsBoarding(MSTransportable* t) const {
+MSBaseVehicle::allowsBoarding(const MSTransportable* t) const {
     if (t->isPerson() && getPersonNumber() >= getVehicleType().getPersonCapacity()) {
         return false;
     } else if (!t->isPerson() && getContainerNumber() >= getVehicleType().getContainerCapacity()) {
@@ -908,8 +908,8 @@ MSBaseVehicle::isStoppedParking() const {
 
 
 bool
-MSBaseVehicle::isStoppedInRange(const double pos, const double tolerance) const {
-    if (isStopped()) {
+MSBaseVehicle::isStoppedInRange(const double pos, const double tolerance, bool checkFuture) const {
+    if (isStopped() || (checkFuture && hasStops())) {
         const MSStop& stop = myStops.front();
         return stop.pars.startPos - tolerance <= pos && stop.pars.endPos + tolerance >= pos;
     }

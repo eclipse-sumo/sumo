@@ -162,7 +162,7 @@ public:
     void dispatchShared(std::vector<const Reservation*> reservations);
 
     /// @brief whether the given person is allowed to board this taxi
-    bool allowsBoarding(MSTransportable* t) const;
+    bool allowsBoarding(const MSTransportable* t) const;
 
     /// @brief called by MSDevice_Transportable upon loading a person
     void customerEntered(const MSTransportable* t);

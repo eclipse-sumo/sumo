@@ -95,6 +95,9 @@ public:
     /// register forced (traci) departure
     void forceDeparture();
 
+    /// @brief check whether any transportables are waiting for the given vehicle
+    bool hasAnyWaiting(const MSEdge* edge, SUMOVehicle* vehicle) const;
+
     /** @brief load any applicable transportables
     * Loads any person / container that is waiting on that edge for the given vehicle and removes them from myWaiting
     * @param[in] edge the edge on which the loading should take place
