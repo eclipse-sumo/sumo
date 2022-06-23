@@ -58,3 +58,9 @@ speed_last
 # departSpeed="avg" 
 # should use the avg speed on the lane (increases flow due to homegeneous insertion speeds)
 speed_avg
+
+# one vehicle approaching a lane with a lower max speed
+speed_avg_approach_slow
+
+# one vehicle approaching an unprioritized intersection
+speed_avg_approach_minor
