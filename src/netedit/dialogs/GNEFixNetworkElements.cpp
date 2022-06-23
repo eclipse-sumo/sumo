@@ -60,29 +60,25 @@ GNEFixNetworkElements::GNEFixNetworkElements(GNEViewNet* viewNet, const std::vec
     FXHorizontalFrame* optionsFrame = new FXHorizontalFrame(myMainFrame, GUIDesignAuxiliarFrame);
     myLeftFrame = new FXVerticalFrame(optionsFrame, GUIDesignAuxiliarFrame);
     myRightFrame = new FXVerticalFrame(optionsFrame, GUIDesignAuxiliarFrame);
-    // create fix route options
-    myFixRouteOptions = new FixRouteOptions(this, viewNet);
-    // create fix vehicle  options
-    myFixVehicleOptions = new FixVehicleOptions(this, viewNet);
+    // create fix edge options
+    myFixEdgeOptions = new FixEdgeOptions(this, viewNet);
+    // create fix crossing  options
+    myFixCrossingOptions = new FixCrossingOptions(this, viewNet);
     // create buttons
     myButtons = new Buttons(this);
     // split invalidNetworkElements in four groups
-    std::vector<GNENetworkElement*> invalidRoutes, invalidVehicles, invalidStops, invalidPlans;
+    std::vector<GNENetworkElement*> invalidEdges, invalidCrossings;
     // fill groups
     for (const auto& invalidNetworkElement : invalidNetworkElements) {
-        if (invalidNetworkElement->getTagProperty().isRoute()) {
-            invalidRoutes.push_back(invalidNetworkElement);
-        } else if (invalidNetworkElement->getTagProperty().isVehicle()) {
-            invalidVehicles.push_back(invalidNetworkElement);
-        } else if (invalidNetworkElement->getTagProperty().isStop()) {
-            invalidStops.push_back(invalidNetworkElement);
-        } else {
-            invalidPlans.push_back(invalidNetworkElement);
+        if (invalidNetworkElement->getTagProperty().isEdge()) {
+            invalidEdges.push_back(invalidNetworkElement);
+        } else if (invalidNetworkElement->getTagProperty().isCrossing()) {
+            invalidCrossings.push_back(invalidNetworkElement);
         }
     }
     // fill options
-    myFixRouteOptions->setInvalidElements(invalidRoutes);
-    myFixVehicleOptions->setInvalidElements(invalidVehicles);
+    myFixEdgeOptions->setInvalidElements(invalidEdges);
+    myFixCrossingOptions->setInvalidElements(invalidCrossings);
 }
 
 
@@ -93,8 +89,8 @@ GNEFixNetworkElements::~GNEFixNetworkElements() {
 long
 GNEFixNetworkElements::onCmdSelectOption(FXObject* obj, FXSelector, void*) {
     // select options
-    myFixRouteOptions->selectOption(obj);
-    myFixVehicleOptions->selectOption(obj);
+    myFixEdgeOptions->selectOption(obj);
+    myFixCrossingOptions->selectOption(obj);
     return 1;
 }
 
@@ -103,8 +99,8 @@ long
 GNEFixNetworkElements::onCmdAccept(FXObject*, FXSelector, void*) {
     bool abortSaving = false;
     // fix elements
-    myFixRouteOptions->fixElements(abortSaving);
-    myFixVehicleOptions->fixElements(abortSaving);
+    myFixEdgeOptions->fixElements(abortSaving);
+    myFixCrossingOptions->fixElements(abortSaving);
     // check if abort saving
     if (abortSaving) {
         // stop modal with TRUE (abort saving)
@@ -162,7 +158,7 @@ GNEFixNetworkElements::FixOptions::setInvalidElements(const std::vector<GNENetwo
     myTable->getRowHeader()->setWidth(0);
     // Declare pointer to FXTableItem
     FXTableItem* item = nullptr;
-    // iterate over invalid routes
+    // iterate over invalid edges
     for (int i = 0; i < (int)myInvalidElements.size(); i++) {
         // Set icon
         item = new FXTableItem("", myInvalidElements.at(i)->getIcon());
@@ -222,220 +218,170 @@ GNEFixNetworkElements::FixOptions::saveContents() const {
 }
 
 // ---------------------------------------------------------------------------
-// GNEFixNetworkElements::FixRouteOptions - methods
+// GNEFixNetworkElements::FixEdgeOptions - methods
 // ---------------------------------------------------------------------------
 
-GNEFixNetworkElements::FixRouteOptions::FixRouteOptions(GNEFixNetworkElements* fixNetworkElementsParent, GNEViewNet* viewNet) :
-    FixOptions(fixNetworkElementsParent->myLeftFrame, "Routes", viewNet) {
-    // Remove invalid routes
-    removeInvalidRoutes = new FXRadioButton(myLeftFrame, "Remove invalid routes",
+GNEFixNetworkElements::FixEdgeOptions::FixEdgeOptions(GNEFixNetworkElements* fixNetworkElementsParent, GNEViewNet* viewNet) :
+    FixOptions(fixNetworkElementsParent->myLeftFrame, "Edges", viewNet) {
+    // Remove invalid edges
+    removeInvalidEdges = new FXRadioButton(myLeftFrame, "Remove invalid edges",
                                             fixNetworkElementsParent, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
-    // Save invalid routes
-    saveInvalidRoutes = new FXRadioButton(myLeftFrame, "Save invalid routes",
+    // Save invalid edges
+    saveInvalidEdges = new FXRadioButton(myLeftFrame, "Save invalid edges",
                                           fixNetworkElementsParent, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
-    // Select invalid routes
-    selectInvalidRoutesAndCancel = new FXRadioButton(myRightFrame, "Select conflicted routes",
+    // Select invalid edges
+    selectInvalidEdgesAndCancel = new FXRadioButton(myRightFrame, "Select conflicted edges",
             fixNetworkElementsParent, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
-    // Remove stops out of route
-    removeStopsOutOfRoute = new FXCheckButton(myRightFrame, "Remove stops out of route",
-            fixNetworkElementsParent, MID_CHOOSEN_OPERATION, GUIDesignCheckButtonFix);
-    // leave option "removeInvalidRoutes" as default
-    removeInvalidRoutes->setCheck(true);
-    // ... and remove stops out of route
-    removeStopsOutOfRoute->setCheck(TRUE);
+    // leave option "removeInvalidEdges" as default
+    removeInvalidEdges->setCheck(true);
 }
 
 
 void
-GNEFixNetworkElements::FixRouteOptions::selectOption(FXObject* option) {
-    if (option == removeInvalidRoutes) {
-        removeInvalidRoutes->setCheck(true);
-        saveInvalidRoutes->setCheck(false);
-        selectInvalidRoutesAndCancel->setCheck(false);
-    } else if (option == saveInvalidRoutes) {
-        removeInvalidRoutes->setCheck(false);
-        saveInvalidRoutes->setCheck(true);
-        selectInvalidRoutesAndCancel->setCheck(false);
-    } else if (option == selectInvalidRoutesAndCancel) {
-        removeInvalidRoutes->setCheck(false);
-        saveInvalidRoutes->setCheck(false);
-        selectInvalidRoutesAndCancel->setCheck(true);
+GNEFixNetworkElements::FixEdgeOptions::selectOption(FXObject* option) {
+    if (option == removeInvalidEdges) {
+        removeInvalidEdges->setCheck(true);
+        saveInvalidEdges->setCheck(false);
+        selectInvalidEdgesAndCancel->setCheck(false);
+    } else if (option == saveInvalidEdges) {
+        removeInvalidEdges->setCheck(false);
+        saveInvalidEdges->setCheck(true);
+        selectInvalidEdgesAndCancel->setCheck(false);
+    } else if (option == selectInvalidEdgesAndCancel) {
+        removeInvalidEdges->setCheck(false);
+        saveInvalidEdges->setCheck(false);
+        selectInvalidEdgesAndCancel->setCheck(true);
     }
 }
 
 
 void
-GNEFixNetworkElements::FixRouteOptions::fixElements(bool& abortSaving) {
+GNEFixNetworkElements::FixEdgeOptions::fixElements(bool& abortSaving) {
     if (myInvalidElements.size() > 0) {
-        if (removeInvalidRoutes->getCheck() == TRUE) {
+        if (removeInvalidEdges->getCheck() == TRUE) {
             // begin undo list
-            myViewNet->getUndoList()->begin(GUIIcon::ROUTE, "delete invalid routes");
-            // iterate over invalid routes to delete it
-            for (const auto& invalidRoute : myInvalidElements) {
-                // special case for embedded routes
-                if (invalidRoute->getTagProperty().getTag() == GNE_TAG_ROUTE_EMBEDDED) {
-                    myViewNet->getNet()->deleteNetworkElement(invalidRoute->getParentNetworkElements().front(), myViewNet->getUndoList());
+            myViewNet->getUndoList()->begin(GUIIcon::ROUTE, "delete invalid edges");
+            // iterate over invalid edges to delete it
+            for (const auto& invalidEdge : myInvalidElements) {
+                // special case for embedded edges
+                if (invalidEdge->getTagProperty().getTag() == GNE_TAG_ROUTE_EMBEDDED) {
+                    myViewNet->getNet()->deleteNetworkElement(invalidEdge->getParentNetworkElements().front(), myViewNet->getUndoList());
                 } else {
-                    myViewNet->getNet()->deleteNetworkElement(invalidRoute, myViewNet->getUndoList());
+                    myViewNet->getNet()->deleteNetworkElement(invalidEdge, myViewNet->getUndoList());
                 }
             }
             // end undo list
             myViewNet->getUndoList()->end();
-        } else if (selectInvalidRoutesAndCancel->getCheck() == TRUE) {
+        } else if (selectInvalidEdgesAndCancel->getCheck() == TRUE) {
             // begin undo list
-            myViewNet->getUndoList()->begin(GUIIcon::ROUTE, "select invalid routes");
+            myViewNet->getUndoList()->begin(GUIIcon::ROUTE, "select invalid edges");
             // iterate over invalid single lane elements to select all elements
-            for (const auto& invalidRoute : myInvalidElements) {
-                invalidRoute->setAttribute(GNE_ATTR_SELECTED, "true", myViewNet->getUndoList());
+            for (const auto& invalidEdge : myInvalidElements) {
+                invalidEdge->setAttribute(GNE_ATTR_SELECTED, "true", myViewNet->getUndoList());
             }
             // end undo list
             myViewNet->getUndoList()->end();
             // abort saving
             abortSaving = true;
         }
-        // check if remove stops
-        if (removeStopsOutOfRoute->getCheck() == TRUE) {
-            // get all stops to remove
-            std::vector<GNENetworkElement*> stopsToRemove;
-            for (const auto& invalidRoute : myInvalidElements) {
-                const auto invaldstops = invalidRoute->getInvalidStops();
-                // append to stopsToRemove
-                stopsToRemove.insert(stopsToRemove.end(), invaldstops.begin(), invaldstops.end());
-            }
-            // begin undo list
-            myViewNet->getUndoList()->begin(GUIIcon::ROUTE, "delete invalid stops");
-            // remove all
-            for (const auto& stopToRemove : stopsToRemove) {
-                myViewNet->getNet()->deleteNetworkElement(stopToRemove, myViewNet->getUndoList());
-            }
-            // end undo list
-            myViewNet->getUndoList()->end();
-        }
     }
 }
 
 
 void
-GNEFixNetworkElements::FixRouteOptions::enableOptions() {
-    removeInvalidRoutes->enable();
-    saveInvalidRoutes->enable();
-    selectInvalidRoutesAndCancel->enable();
-    removeStopsOutOfRoute->enable();
+GNEFixNetworkElements::FixEdgeOptions::enableOptions() {
+    removeInvalidEdges->enable();
+    saveInvalidEdges->enable();
+    selectInvalidEdgesAndCancel->enable();
 }
 
 
 void
-GNEFixNetworkElements::FixRouteOptions::disableOptions() {
-    removeInvalidRoutes->disable();
-    saveInvalidRoutes->disable();
-    selectInvalidRoutesAndCancel->disable();
-    removeStopsOutOfRoute->disable();
+GNEFixNetworkElements::FixEdgeOptions::disableOptions() {
+    removeInvalidEdges->disable();
+    saveInvalidEdges->disable();
+    selectInvalidEdgesAndCancel->disable();
 }
 
 // ---------------------------------------------------------------------------
-// GNEFixNetworkElements::FixVehicleOptions - methods
+// GNEFixNetworkElements::FixCrossingOptions - methods
 // ---------------------------------------------------------------------------
 
-GNEFixNetworkElements::FixVehicleOptions::FixVehicleOptions(GNEFixNetworkElements* fixNetworkElementsParent, GNEViewNet* viewNet) :
-    FixOptions(fixNetworkElementsParent->myLeftFrame, "Vehicles", viewNet) {
-    // Remove invalid vehicles
-    removeInvalidVehicles = new FXRadioButton(myLeftFrame, "Remove invalid vehicles",
+GNEFixNetworkElements::FixCrossingOptions::FixCrossingOptions(GNEFixNetworkElements* fixNetworkElementsParent, GNEViewNet* viewNet) :
+    FixOptions(fixNetworkElementsParent->myLeftFrame, "Crossings", viewNet) {
+    // Remove invalid crossings
+    removeInvalidCrossings = new FXRadioButton(myLeftFrame, "Remove invalid crossings",
             fixNetworkElementsParent, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
-    // Save invalid vehicles
-    saveInvalidVehicles = new FXRadioButton(myLeftFrame, "Save invalid vehicles",
+    // Save invalid crossings
+    saveInvalidCrossings = new FXRadioButton(myLeftFrame, "Save invalid crossings",
                                             fixNetworkElementsParent, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
-    // Select invalid vehicle
-    selectInvalidVehiclesAndCancel = new FXRadioButton(myRightFrame, "Select conflicted vehicle",
+    // Select invalid crossing
+    selectInvalidCrossingsAndCancel = new FXRadioButton(myRightFrame, "Select conflicted crossing",
             fixNetworkElementsParent, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
-    // Remove stops out of route
-    removeStopsOutOfVehicle = new FXCheckButton(myRightFrame, "Remove stops out of vehicle's route",
-            fixNetworkElementsParent, MID_CHOOSEN_OPERATION, GUIDesignCheckButtonFix);
-    // by default remove invalid vehicles
-    removeInvalidVehicles->setCheck(TRUE);
-    // ... and remove stops out of route
-    removeStopsOutOfVehicle->setCheck(TRUE);
+    // by default remove invalid crossings
+    removeInvalidCrossings->setCheck(TRUE);
 }
 
 
 void
-GNEFixNetworkElements::FixVehicleOptions::selectOption(FXObject* option) {
-    if (option == removeInvalidVehicles) {
-        removeInvalidVehicles->setCheck(true);
-        saveInvalidVehicles->setCheck(false);
-        selectInvalidVehiclesAndCancel->setCheck(false);
-    } else if (option == saveInvalidVehicles) {
-        removeInvalidVehicles->setCheck(false);
-        saveInvalidVehicles->setCheck(true);
-        selectInvalidVehiclesAndCancel->setCheck(false);
-    } else if (option == selectInvalidVehiclesAndCancel) {
-        removeInvalidVehicles->setCheck(false);
-        saveInvalidVehicles->setCheck(false);
-        selectInvalidVehiclesAndCancel->setCheck(true);
+GNEFixNetworkElements::FixCrossingOptions::selectOption(FXObject* option) {
+    if (option == removeInvalidCrossings) {
+        removeInvalidCrossings->setCheck(true);
+        saveInvalidCrossings->setCheck(false);
+        selectInvalidCrossingsAndCancel->setCheck(false);
+    } else if (option == saveInvalidCrossings) {
+        removeInvalidCrossings->setCheck(false);
+        saveInvalidCrossings->setCheck(true);
+        selectInvalidCrossingsAndCancel->setCheck(false);
+    } else if (option == selectInvalidCrossingsAndCancel) {
+        removeInvalidCrossings->setCheck(false);
+        saveInvalidCrossings->setCheck(false);
+        selectInvalidCrossingsAndCancel->setCheck(true);
     }
 }
 
 
 void
-GNEFixNetworkElements::FixVehicleOptions::fixElements(bool& abortSaving) {
+GNEFixNetworkElements::FixCrossingOptions::fixElements(bool& abortSaving) {
     if (myInvalidElements.size() > 0) {
-        if (removeInvalidVehicles->getCheck() == TRUE) {
+        if (removeInvalidCrossings->getCheck() == TRUE) {
             // begin undo list
-            myViewNet->getUndoList()->begin(GUIIcon::ROUTE, "delete invalid vehicles");
-            // iterate over invalid vehicles to delete it
-            for (const auto& invalidVehicle : myInvalidElements) {
-                myViewNet->getNet()->deleteNetworkElement(invalidVehicle, myViewNet->getUndoList());
+            myViewNet->getUndoList()->begin(GUIIcon::ROUTE, "delete invalid crossings");
+            // iterate over invalid crossings to delete it
+            for (const auto& invalidCrossing : myInvalidElements) {
+                myViewNet->getNet()->deleteNetworkElement(invalidCrossing, myViewNet->getUndoList());
             }
             // end undo list
             myViewNet->getUndoList()->end();
-        } else if (selectInvalidVehiclesAndCancel->getCheck() == TRUE) {
+        } else if (selectInvalidCrossingsAndCancel->getCheck() == TRUE) {
             // begin undo list
-            myViewNet->getUndoList()->begin(GUIIcon::ROUTE, "select invalid routes");
+            myViewNet->getUndoList()->begin(GUIIcon::ROUTE, "select invalid edges");
             // iterate over invalid single lane elements to select all elements
-            for (const auto& invalidVehicle : myInvalidElements) {
-                invalidVehicle->setAttribute(GNE_ATTR_SELECTED, "true", myViewNet->getUndoList());
+            for (const auto& invalidCrossing : myInvalidElements) {
+                invalidCrossing->setAttribute(GNE_ATTR_SELECTED, "true", myViewNet->getUndoList());
             }
             // end undo list
             myViewNet->getUndoList()->end();
             // abort saving
             abortSaving = true;
         }
-        // check if remove stops
-        if (removeStopsOutOfVehicle->getCheck() == TRUE) {
-            // get all stops to remove
-            std::vector<GNENetworkElement*> stopsToRemove;
-            for (const auto& invalidVehicle : myInvalidElements) {
-                const auto invaldstops = invalidVehicle->getInvalidStops();
-                // append to stopsToRemove
-                stopsToRemove.insert(stopsToRemove.end(), invaldstops.begin(), invaldstops.end());
-            }
-            // begin undo list
-            myViewNet->getUndoList()->begin(GUIIcon::ROUTE, "delete invalid stops");
-            // remove all
-            for (const auto& stopToRemove : stopsToRemove) {
-                myViewNet->getNet()->deleteNetworkElement(stopToRemove, myViewNet->getUndoList());
-            }
-            // end undo list
-            myViewNet->getUndoList()->end();
-        }
     }
 }
 
 
 void
-GNEFixNetworkElements::FixVehicleOptions::enableOptions() {
-    removeInvalidVehicles->enable();
-    saveInvalidVehicles->enable();
-    selectInvalidVehiclesAndCancel->enable();
-    removeStopsOutOfVehicle->enable();
+GNEFixNetworkElements::FixCrossingOptions::enableOptions() {
+    removeInvalidCrossings->enable();
+    saveInvalidCrossings->enable();
+    selectInvalidCrossingsAndCancel->enable();
 }
 
 
 void
-GNEFixNetworkElements::FixVehicleOptions::disableOptions() {
-    removeInvalidVehicles->disable();
-    saveInvalidVehicles->disable();
-    selectInvalidVehiclesAndCancel->disable();
-    removeStopsOutOfVehicle->disable();
+GNEFixNetworkElements::FixCrossingOptions::disableOptions() {
+    removeInvalidCrossings->disable();
+    saveInvalidCrossings->disable();
+    selectInvalidCrossingsAndCancel->disable();
 }
 
 // ---------------------------------------------------------------------------

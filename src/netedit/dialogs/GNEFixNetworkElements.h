@@ -34,7 +34,7 @@ class GNEViewNet;
 
 /**
  * @class GNEFixNetworkElements
- * @brief Dialog for edit rerouters
+ * @brief Dialog fix network elements
  */
 class GNEFixNetworkElements : public FXDialogBox {
     /// @brief FOX-declaration
@@ -103,12 +103,12 @@ protected:
         FXTable* myTable = nullptr;
     };
 
-    /// @brief groupbox for all radio buttons related with fix route options
-    class FixRouteOptions : public FixOptions {
+    /// @brief groupbox for all radio buttons related with fix edges options
+    class FixEdgeOptions : public FixOptions {
 
     public:
         /// @brief constructor
-        FixRouteOptions(GNEFixNetworkElements* fixNetworkElementsParent, GNEViewNet* viewNet);
+        FixEdgeOptions(GNEFixNetworkElements* fixNetworkElementsParent, GNEViewNet* viewNet);
 
         /// @brief select option
         void selectOption(FXObject* option);
@@ -116,32 +116,28 @@ protected:
         /// @brief fix elements
         void fixElements(bool& abortSaving);
 
-        /// @brief Option "Remove invalid routes"
-        FXRadioButton* removeInvalidRoutes;
+        /// @brief Option "Remove invalid edges"
+        FXRadioButton* removeInvalidEdges;
 
-        /// @brief Option "Save invalid routes"
-        FXRadioButton* saveInvalidRoutes;
+        /// @brief Option "Save invalid edges"
+        FXRadioButton* saveInvalidEdges;
 
-        /// @brief Option "Select invalid routes and cancel"
-        FXRadioButton* selectInvalidRoutesAndCancel;
-
-        /// @brief Option "Remove stops out of route"
-        FXCheckButton* removeStopsOutOfRoute;
-
+        /// @brief Option "Select invalid edges and cancel"
+        FXRadioButton* selectInvalidEdgesAndCancel;
     private:
-        /// @brief enable route options
+        /// @brief enable edge options
         void enableOptions();
 
-        /// @brief disable route options
+        /// @brief disable edge options
         void disableOptions();
     };
 
-    /// @brief groupbox for all radio buttons related with fix vehicle options
-    class FixVehicleOptions : public FixOptions {
+    /// @brief groupbox for all radio buttons related with fix crossing options
+    class FixCrossingOptions : public FixOptions {
 
     public:
         /// @brief constructor
-        FixVehicleOptions(GNEFixNetworkElements* fixNetworkElementsParent, GNEViewNet* viewNet);
+        FixCrossingOptions(GNEFixNetworkElements* fixNetworkElementsParent, GNEViewNet* viewNet);
 
         /// @brief select option
         void selectOption(FXObject* option);
@@ -150,22 +146,19 @@ protected:
         void fixElements(bool& abortSaving);
 
         /// @brief Option "remove invalid elements"
-        FXRadioButton* removeInvalidVehicles;
+        FXRadioButton* removeInvalidCrossings;
 
-        /// @brief Option "save invalid vehicles"
-        FXRadioButton* saveInvalidVehicles;
+        /// @brief Option "save invalid crossings"
+        FXRadioButton* saveInvalidCrossings;
 
-        /// @brief Option "Select invalid vehicles and cancel"
-        FXRadioButton* selectInvalidVehiclesAndCancel;
-
-        /// @brief Option "Remove stops out of vehicle"
-        FXCheckButton* removeStopsOutOfVehicle;
+        /// @brief Option "Select invalid crossings and cancel"
+        FXRadioButton* selectInvalidCrossingsAndCancel;
 
     private:
-        /// @brief enable vehicle options
+        /// @brief enable crossing options
         void enableOptions();
 
-        /// @brief disable vehicle options
+        /// @brief disable crossing options
         void disableOptions();
     };
 
@@ -196,11 +189,11 @@ protected:
     /// @brief vertical right frame
     FXVerticalFrame* myRightFrame = nullptr;
 
-    /// @brief fix route options
-    FixRouteOptions* myFixRouteOptions = nullptr;
+    /// @brief fix edge options
+    FixEdgeOptions* myFixEdgeOptions = nullptr;
 
-    /// @brief fix vehicle options
-    FixVehicleOptions* myFixVehicleOptions = nullptr;
+    /// @brief fix crossing options
+    FixCrossingOptions* myFixCrossingOptions = nullptr;
 
     /// @brief buttons
     Buttons* myButtons = nullptr;
