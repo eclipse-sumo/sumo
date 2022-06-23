@@ -113,4 +113,7 @@ public:
 
     /// @brief return until / ended time
     SUMOTime getUntil() const;
+
+    /// @brief return speed for passing waypoint / skipping on-demand stop
+    double getSpeed() const;
 };

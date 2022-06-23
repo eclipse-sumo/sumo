@@ -1538,7 +1538,7 @@ MSVehicle::keepStopping(bool afterProcessing) const {
     if (isStopped()) {
         // when coming out of vehicleTransfer we must shift the time forward
         return (myStops.front().duration - (afterProcessing ? DELTA_T : 0) > 0 || isStoppedTriggered() || myStops.front().collision
-                || (myStops.front().pars.speed > 0 && myState.myPos < MIN2(myStops.front().pars.endPos, myStops.front().lane->getLength() - POSITION_EPS)));
+                || (myStops.front().getSpeed() > 0 && myState.myPos < MIN2(myStops.front().pars.endPos, myStops.front().lane->getLength() - POSITION_EPS)));
     } else {
         return false;
     }
@@ -1588,8 +1588,8 @@ MSVehicle::processNextStop(double currentVelocity) {
         if (DEBUG_COND) {
             std::cout << SIMTIME << " vehicle '" << getID() << "' reached stop.\n"
                       << "Remaining duration: " << STEPS2TIME(stop.duration) << std::endl;
-            if (stop.pars.speed > 0) {
-                std::cout << " waypointSpeed=" << stop.pars.speed << "vehPos=" << myState.myPos << " endPos=" << stop.pars.endPos << "\n";
+            if (stop.getSpeed() > 0) {
+                std::cout << " waypointSpeed=" << stop.getSpeed() << "vehPos=" << myState.myPos << " endPos=" << stop.pars.endPos << "\n";
             }
         }
 #endif
@@ -1652,17 +1652,17 @@ MSVehicle::processNextStop(double currentVelocity) {
                 }
 #endif
             }
-            if (stop.pars.speed > 0) {
+            if (stop.getSpeed() > 0) {
                 //waypoint mode
                 if (stop.duration == 0) {
-                    return stop.pars.speed;
+                    return stop.getSpeed();
                 } else {
                     // stop for 'until' (computed in planMove)
                     return currentVelocity;
                 }
             } else {
                 // brake
-                if (MSGlobals::gSemiImplicitEulerUpdate || stop.pars.speed > 0) {
+                if (MSGlobals::gSemiImplicitEulerUpdate || stop.getSpeed() > 0) {
                     return 0;
                 } else {
                     // ballistic:
@@ -1710,7 +1710,7 @@ MSVehicle::processNextStop(double currentVelocity) {
                     fitsOnStoppingPlace = false;
                 }
             }
-            const double targetPos = myState.myPos + myStopDist + (stop.pars.speed > 0 ? (stop.pars.startPos - stop.pars.endPos) : 0);
+            const double targetPos = myState.myPos + myStopDist + (stop.getSpeed() > 0 ? (stop.pars.startPos - stop.pars.endPos) : 0);
             const double reachedThreshold = (useStoppingPlace ? targetPos - STOPPING_PLACE_OFFSET : stop.getReachedThreshold()) - NUMERICAL_EPS;
 #ifdef DEBUG_STOPS
             if (DEBUG_COND) {
@@ -1721,7 +1721,7 @@ MSVehicle::processNextStop(double currentVelocity) {
                           << "\n";
             }
 #endif
-            if (myState.pos() >= reachedThreshold && fitsOnStoppingPlace && currentVelocity <= stop.pars.speed + SUMO_const_haltingSpeed && myLane == stop.lane
+            if (myState.pos() >= reachedThreshold && fitsOnStoppingPlace && currentVelocity <= stop.getSpeed() + SUMO_const_haltingSpeed && myLane == stop.lane
                     && (!MSGlobals::gModelParkingManoeuver || myManoeuvre.entryManoeuvreIsComplete(this))) {
                 // ok, we may stop (have reached the stop)  and either we are not modelling manoeuvering or have completed entry
                 stop.reached = true;
@@ -1742,7 +1742,7 @@ MSVehicle::processNextStop(double currentVelocity) {
                 // compute stopping time
                 stop.duration = stop.getMinDuration(time);
                 stop.endBoarding = stop.pars.extension >= 0 ? time + stop.duration + stop.pars.extension : SUMOTime_MAX;
-                if (stop.pars.speed > 0) {
+                if (stop.getSpeed() > 0) {
                     // ignore duration parameter in waypoint mode unless 'until' or 'ended' are set
                     if (stop.getUntil() > time) {
                         stop.duration = stop.getUntil() - time;
@@ -1758,7 +1758,7 @@ MSVehicle::processNextStop(double currentVelocity) {
                     // let the container stop know the vehicle
                     stop.containerstop->enter(this, stop.pars.parking);
                 }
-                if (stop.parkingarea != nullptr && stop.pars.speed <= 0) {
+                if (stop.parkingarea != nullptr && stop.getSpeed() <= 0) {
                     // let the parking area know the vehicle
                     stop.parkingarea->enter(this);
                 }
@@ -2284,12 +2284,12 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
         if (!myStops.empty()
                 && ((&myStops.begin()->lane->getEdge() == &lane->getEdge())
                     || (myStops.begin()->isOpposite && myStops.begin()->lane->getEdge().getOppositeEdge() == &lane->getEdge()))
-                && (!myStops.begin()->reached || (myStops.begin()->pars.speed > 0 && keepStopping()))
+                && (!myStops.begin()->reached || (myStops.begin()->getSpeed() > 0 && keepStopping()))
                 // ignore stops that occur later in a looped route
                 && myStops.front().edge == myCurrEdge + view) {
             // we are approaching a stop on the edge; must not drive further
             const MSStop& stop = *myStops.begin();
-            bool isWaypoint = stop.pars.speed > 0;
+            bool isWaypoint = stop.getSpeed() > 0;
             double endPos = stop.getEndPos(*this) + NUMERICAL_EPS;
             if (stop.parkingarea != nullptr) {
                 // leave enough space so parking vehicles can exit
@@ -2312,13 +2312,13 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
                     // check if we have to slow down or even stop
                     SUMOTime time2end = 0;
                     if (stop.reached) {
-                        time2end = TIME2STEPS((stop.pars.endPos - myState.myPos) / stop.pars.speed);
+                        time2end = TIME2STEPS((stop.pars.endPos - myState.myPos) / stop.getSpeed());
                     } else {
                         time2end = TIME2STEPS(
                                        // time to reach waypoint start
-                                       newStopDist / ((getSpeed() + stop.pars.speed) / 2)
+                                       newStopDist / ((getSpeed() + stop.getSpeed()) / 2)
                                        // time to reach waypoint end
-                                       + (stop.pars.endPos - stop.pars.startPos) / stop.pars.speed);
+                                       + (stop.pars.endPos - stop.pars.startPos) / stop.getSpeed());
                     }
                     if (stop.getUntil() > t + time2end) {
                         // we need to stop
@@ -2331,17 +2331,17 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
                     }
                 }
                 if (stop.reached) {
-                    stopSpeed = MIN2(stop.pars.speed, stopSpeed);
+                    stopSpeed = MIN2(stop.getSpeed(), stopSpeed);
                     if (myState.myPos >= stop.pars.endPos && !waypointWithStop) {
                         newStopDist = std::numeric_limits<double>::max();
                     }
                 } else {
-                    stopSpeed = MIN2(MAX2(cfModel.freeSpeed(this, getSpeed(), newStopDist, stop.pars.speed), vMinComfortable), stopSpeed);
+                    stopSpeed = MIN2(MAX2(cfModel.freeSpeed(this, getSpeed(), newStopDist, stop.getSpeed()), vMinComfortable), stopSpeed);
                     if (!stop.reached) {
                         newStopDist += stop.pars.endPos - stop.pars.startPos;
                     }
                     if (lastLink != nullptr) {
-                        lastLink->adaptLeaveSpeed(cfModel.freeSpeed(this, vLinkPass, endPos, stop.pars.speed));
+                        lastLink->adaptLeaveSpeed(cfModel.freeSpeed(this, vLinkPass, endPos, stop.getSpeed()));
                     }
                 }
             } else {
@@ -3750,7 +3750,7 @@ MSVehicle::updateTimeLoss(double vNext) {
 double
 MSVehicle::checkReversal(bool& canReverse, double speedThreshold, double seen) const {
     const bool stopOk = (myStops.empty() || myStops.front().edge != myCurrEdge
-                         || (myStops.front().pars.speed > 0 && myState.myPos > myStops.front().pars.endPos - 2 * POSITION_EPS));
+                         || (myStops.front().getSpeed() > 0 && myState.myPos > myStops.front().pars.endPos - 2 * POSITION_EPS));
 #ifdef DEBUG_REVERSE_BIDI
     if (DEBUG_COND) std::cout << SIMTIME  << " checkReversal lane=" << myLane->getID()
                                   << " pos=" << myState.myPos
@@ -5206,7 +5206,7 @@ MSVehicle::leaveLane(const MSMoveReminder::Notification reason, const MSLane* ap
     }
     if (reason != MSMoveReminder::NOTIFICATION_PARKING && reason != MSMoveReminder::NOTIFICATION_LANE_CHANGE) {
         while (!myStops.empty() && myStops.front().edge == myCurrEdge && &myStops.front().lane->getEdge() == &myLane->getEdge()) {
-            if (myStops.front().pars.speed <= 0) {
+            if (myStops.front().getSpeed() <= 0) {
                 WRITE_WARNING("Vehicle '" + getID() + "' skips stop on lane '" + myStops.front().lane->getID()
                               + "' time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".")
                 myStops.pop_front();
@@ -5390,7 +5390,7 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
         }
         nextStopEdge = nextStop.edge;
         nextStopPos = nextStop.pars.startPos;
-        nextStopIsWaypoint = nextStop.pars.speed > 0;
+        nextStopIsWaypoint = nextStop.getSpeed() > 0;
     }
     // myArrivalTime = -1 in the context of validating departSpeed with departLane=best
     if (myParameter->arrivalLaneProcedure >= ArrivalLaneDefinition::GIVEN && nextStopEdge == myRoute->end() && myArrivalLane >= 0) {
@@ -6603,7 +6603,7 @@ MSVehicle::resumeFromStopping() {
             // inform container stop about leaving it
             stop.containerstop->leaveFrom(this);
         }
-        if (stop.parkingarea != nullptr && stop.pars.speed <= 0) {
+        if (stop.parkingarea != nullptr && stop.getSpeed() <= 0) {
             // inform parking area about leaving it
             stop.parkingarea->leaveFrom(this);
         }
@@ -7271,7 +7271,7 @@ MSVehicle::estimateTimeToNextStop() const {
         const double c = getSpeed();
         const double d = dist;
         const double len = getVehicleType().getLength();
-        const double vs = MIN2(MAX2(stop.pars.speed, 0.0), stop.lane->getVehicleMaxSpeed(this));
+        const double vs = MIN2(MAX2(stop.getSpeed(), 0.0), stop.lane->getVehicleMaxSpeed(this));
         // distAccel = (v - c)^2 / (2a)
         // distDecel = (v + vs)*(v - vs) / 2b = (v^2 - vs^2) / (2b)
         // distAccel + distDecel < d

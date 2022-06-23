@@ -929,7 +929,7 @@ GUIBaseVehicle::drawStopLabels(const GUIVisualizationSettings& s, bool noLoop, c
     int stopIndex = 0;
     for (const MSStop& stop : myVehicle.getStops()) {
         double stopLanePos;
-        if (stop.pars.speed > 0) {
+        if (stop.getSpeed() > 0) {
             stopLanePos = stop.reached ? stop.pars.endPos : stop.pars.startPos;
         } else {
             stopLanePos = stop.reached ? myVehicle.getPositionOnLane() : MAX2(0.0, stop.getEndPos(myVehicle));
@@ -940,7 +940,7 @@ GUIBaseVehicle::drawStopLabels(const GUIVisualizationSettings& s, bool noLoop, c
         Position pos = stop.lane->geometryPositionAtOffset(stopLanePos);
         GLHelper::setColor(col);
         GLHelper::drawBoxLines(stop.lane->getShape().getOrthogonal(pos, 10, true, stop.lane->getWidth()), 0.1);
-        std::string label = (stop.pars.speed > 0
+        std::string label = (stop.getSpeed() > 0
                              ? (stop.reached ? "passing waypoint" : "waypoint ")
                              : (stop.reached ? "stopped" : "stop "));
         if (!stop.reached) {
@@ -984,8 +984,8 @@ GUIBaseVehicle::drawStopLabels(const GUIVisualizationSettings& s, bool noLoop, c
                 label += " duration:" + time2string(stop.duration);
             }
         }
-        if (stop.pars.speed > 0) {
-            label += " speed:" + toString(stop.pars.speed);
+        if (stop.getSpeed() > 0) {
+            label += " speed:" + toString(stop.getSpeed());
         }
         if (stop.pars.actType != "") {
             label += " actType:" + stop.pars.actType;

@@ -151,4 +151,10 @@ MSStop::getUntil() const {
     return MSGlobals::gUseStopEnded && pars.ended >= 0 ? pars.ended : pars.until;
 }
 
+
+double
+MSStop::getSpeed() const {
+    return pars.speed;
+}
+
 /****************************************************************************/
