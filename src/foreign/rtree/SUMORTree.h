@@ -234,7 +234,7 @@ private:
 
     /// @brief remove object from TreeDebug
     bool removeObjectFromTreeDebug(const GUIGlObject* obj) {
-        for (auto &it = myTreeDebug.begin(); it != myTreeDebug.end(); it++) {
+        for (auto it = myTreeDebug.begin(); it != myTreeDebug.end(); it++) {
             if (it->first == obj) {
                 myTreeDebug.erase(it);
                 return true;
