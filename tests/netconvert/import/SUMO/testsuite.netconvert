@@ -117,3 +117,6 @@ junction_name
 
 # use stored option in network (#4397)
 internalJunctionVehicleWidth
+
+# load bidi attribute from input network
+bidi
