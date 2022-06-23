@@ -70,9 +70,9 @@ GNEFixNetworkElements::GNEFixNetworkElements(GNEViewNet* viewNet, const std::vec
     std::vector<GNENetworkElement*> invalidEdges, invalidCrossings;
     // fill groups
     for (const auto& invalidNetworkElement : invalidNetworkElements) {
-        if (invalidNetworkElement->getTagProperty().isEdge()) {
+        if (invalidNetworkElement->getTagProperty().getTag() == SUMO_TAG_EDGE) {
             invalidEdges.push_back(invalidNetworkElement);
-        } else if (invalidNetworkElement->getTagProperty().isCrossing()) {
+        } else if (invalidNetworkElement->getTagProperty().getTag() == SUMO_TAG_CROSSING) {
             invalidCrossings.push_back(invalidNetworkElement);
         }
     }
@@ -263,12 +263,7 @@ GNEFixNetworkElements::FixEdgeOptions::fixElements(bool& abortSaving) {
             myViewNet->getUndoList()->begin(GUIIcon::ROUTE, "delete invalid edges");
             // iterate over invalid edges to delete it
             for (const auto& invalidEdge : myInvalidElements) {
-                // special case for embedded edges
-                if (invalidEdge->getTagProperty().getTag() == GNE_TAG_ROUTE_EMBEDDED) {
-                    myViewNet->getNet()->deleteNetworkElement(invalidEdge->getParentNetworkElements().front(), myViewNet->getUndoList());
-                } else {
-                    myViewNet->getNet()->deleteNetworkElement(invalidEdge, myViewNet->getUndoList());
-                }
+                myViewNet->getNet()->deleteEdge(myViewNet->getNet()->getAttributeCarriers()->retrieveEdge(invalidEdge->getID()), myViewNet->getUndoList(), false);
             }
             // end undo list
             myViewNet->getUndoList()->end();
@@ -349,7 +344,7 @@ GNEFixNetworkElements::FixCrossingOptions::fixElements(bool& abortSaving) {
             myViewNet->getUndoList()->begin(GUIIcon::ROUTE, "delete invalid crossings");
             // iterate over invalid crossings to delete it
             for (const auto& invalidCrossing : myInvalidElements) {
-                myViewNet->getNet()->deleteNetworkElement(invalidCrossing, myViewNet->getUndoList());
+                myViewNet->getNet()->deleteCrossing(myViewNet->getNet()->getAttributeCarriers()->retrieveCrossing(invalidCrossing), myViewNet->getUndoList());
             }
             // end undo list
             myViewNet->getUndoList()->end();
