@@ -480,7 +480,7 @@ GNEPathManager::PathCalculator::optimizeJunctionPath(const std::vector<GNEEdge*>
     const auto fromJunction = edges.front()->getFromJunction();
     const auto toJunction = edges.back()->getToJunction();
     // first optimize from Junction
-    for (auto &it = edges.rbegin(); (it != edges.rend()) && !stop; it++) {
+    for (auto it = edges.rbegin(); (it != edges.rend()) && !stop; it++) {
         solutionA.insert(solutionA.begin(), *it);
         if ((*it)->getFromJunction() == fromJunction) {
             stop = true;
@@ -488,7 +488,7 @@ GNEPathManager::PathCalculator::optimizeJunctionPath(const std::vector<GNEEdge*>
     }
     // optimize to edge
     stop = false;
-    for (auto &it = solutionA.begin(); (it != solutionA.end()) && !stop; it++) {
+    for (auto it = solutionA.begin(); (it != solutionA.end()) && !stop; it++) {
         solutionB.push_back(*it);
         if ((*it)->getToJunction() == toJunction) {
             stop = true;
