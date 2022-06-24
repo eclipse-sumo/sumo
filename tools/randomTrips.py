@@ -31,7 +31,7 @@ import math
 if 'SUMO_HOME' in os.environ:
     sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
 import sumolib  # noqa
-from sumolib.miscutils import euclidean  # noqa
+from sumolib.miscutils import euclidean, parseTime, intIfPossible  # noqa
 from sumolib.geomhelper import naviDegree, minAngleDegreeDiff  # noqa
 
 DUAROUTER = sumolib.checkBinary('duarouter')
@@ -80,7 +80,7 @@ def get_options(args=None):
     optParser.add_argument("-b", "--begin", default=0, help="begin time")
     optParser.add_argument("-e", "--end", default=3600, help="end time (default 3600)")
     optParser.add_argument(
-        "-p", "--period", type=float, default=1, help="Generate vehicles with equidistant departure times and " +
+        "-p", "--period", type=float, default=1.0, nargs="+", help="Generate vehicles with equidistant departure times and " +
         "period=FLOAT (default 1.0). If option --binomial is used, the expected arrival rate is set to 1/period.")
     optParser.add_argument("--random-depart", action="store_true", dest="randomDepart",
                            default=False, help="Distribute departures randomly between begin and end")
@@ -169,7 +169,12 @@ def get_options(args=None):
     if options.validate and options.routefile is None:
         options.routefile = "routes.rou.xml"
 
-    if options.period <= 0:
+    if isinstance(options.period, float):
+        options.period = [options.period]
+        
+    options.period = list(map(intIfPossible, options.period))
+
+    if any(options.period) <= 0:
         print("Error: Period must be positive", file=sys.stderr)
         sys.exit(1)
 
@@ -505,6 +510,10 @@ def main(options):
         options.tripattrs, options.pedestrians, options.vehicle_class)
 
     vias = {}
+    
+    time_delta = (parseTime(options.end) - parseTime(options.begin)) / len(options.period)
+    times = [parseTime(options.begin) + i*time_delta for i in range(len(options.period)+1)]
+    times = list(map(intIfPossible, times))
 
     def generate_origin_destination(trip_generator, options):
         source_edge, sink_edge, intermediate = trip_generator.get_trip(
@@ -512,7 +521,7 @@ def main(options):
             options.junctionTaz)
         return source_edge, sink_edge, intermediate
     
-    def generate_label_attributes(idx, departureTime, arrivalTime, origin, destination, intermediate, options):
+    def generate_attributes(idx, departureTime, arrivalTime, origin, destination, intermediate, options):
         label = "%s%s" % (options.tripprefix, idx)
         combined_attrs = options.tripattrs
         if options.randomDepartPos:
@@ -557,23 +566,25 @@ def main(options):
             fouttrips.write('        <%s%s%s%s/>\n' % (element, attrFrom, attrTo, attrs))
         fouttrips.write('    </person>\n')
         
-    def generate_one_flow(label, combined_attrs, departureTime, arrivalTime, options):
+    def generate_one_flow(label, combined_attrs, departureTime, arrivalTime, period, options, timeIdx):
+        if len(options.period) > 1:
+            label = label + "#%s" % timeIdx
         if options.binomial:
             for j in range(options.binomial):
-                fouttrips.write(('    <flow id="%s#%s" begin="%s" end="%s" probability="%s"%s/>\n') % (
-                    label, j, options.begin, options.end, 1.0 / options.period / options.binomial,
+                fouttrips.write(('    <flow id="%s#%s" begin="%s" end="%s" probability="%.2f"%s/>\n') % (
+                    label, j, departureTime, arrivalTime, 1.0 / period / options.binomial,
                     combined_attrs))
         else:
             fouttrips.write(('    <flow id="%s" begin="%s" end="%s" period="%s"%s/>\n') % (
-                label, options.begin, options.end, options.period * options.flows, combined_attrs))
+                label, departureTime, arrivalTime, period * options.flows, combined_attrs))
         
     def generate_one_trip(label, combined_attrs, departureTime):
         fouttrips.write('    <trip id="%s" depart="%.2f"%s/>\n' % (
             label, departureTime, combined_attrs))
     
-    def generate_one(idx, departureTime, arrivalTime, origin, destination, intermediate):
+    def generate_one(idx, departureTime, arrivalTime, period, origin, destination, intermediate, timeIdx=None):
         try:
-            label, combined_attrs, attrFrom, attrTo, via = generate_label_attributes(idx, departureTime, arrivalTime, origin, destination, intermediate, options)
+            label, combined_attrs, attrFrom, attrTo, via = generate_attributes(idx, departureTime, arrivalTime, origin, destination, intermediate, options)
             
             if options.pedestrians:
                generate_one_person(label, combined_attrs, attrFrom, attrTo, departureTime, intermediate, options)
@@ -584,7 +595,7 @@ def main(options):
                 combined_attrs = attrFrom + attrTo + via + combined_attrs
                 
                 if options.flows > 0:
-                    generate_one_flow(label, combined_attrs, departureTime, arrivalTime, options)
+                    generate_one_flow(label, combined_attrs, departureTime, arrivalTime, period, options, timeIdx)
                 else:
                     generate_one_trip(label, combined_attrs, departureTime)      
                     
@@ -613,55 +624,64 @@ def main(options):
                 fouttrips.write(vTypeDef)
             options.tripattrs += ' type="%s"' % options.vtypeID
             personattrs += ' type="%s"' % options.vtypeID
-        time = begin = sumolib.miscutils.parseTime(options.begin)
-        maxTime = sumolib.miscutils.parseTime(options.end)
+        
         if trip_generator:
             if options.flows == 0:
-                if options.binomial is None:
-                    departures = []
-                    if options.randomDepart:
-                        subsecond = math.fmod(options.period, 1)
-                        while time < maxTime:
-                            rTime = random.randrange(int(begin), int(maxTime))
-                            time += options.period
-                            if subsecond != 0:
-                                # allow all multiples of subsecond to appear
-                                rSubSecond = math.fmod(subsecond * random.randrange(int(begin), int(maxTime)), 1)
-                                rTime = min(maxTime, rTime + rSubSecond)
-                            departures.append(rTime)
-                        departures.sort()
+                for i in range(len(times)-1):
+                    time = departureTime = parseTime(times[i])
+                    arrivalTime = parseTime(times[i+1])
+                    period = options.period[i]
+                    if options.binomial is None:
+                        departures = []
+                        if options.randomDepart:
+                            subsecond = math.fmod(period, 1)
+                            while time < arrivalTime:
+                                rTime = random.randrange(int(departureTime), int(arrivalTime))
+                                time += period
+                                if subsecond != 0:
+                                    # allow all multiples of subsecond to appear
+                                    rSubSecond = math.fmod(subsecond * random.randrange(int(departureTime), int(arrivalTime)), 1)
+                                    rTime = min(arrivalTime, rTime + rSubSecond)
+                                departures.append(rTime)
+                            departures.sort()
+                        else:
+                            while departureTime < arrivalTime:
+                                departures.append(departureTime)
+                                departureTime += period
+    
+                        for time in departures:
+                            # generate with constant spacing
+                            try:
+                                origin, destination, intermediate = generate_origin_destination(trip_generator, options)
+                                idx = generate_one(idx, time, arrivalTime, period, origin, destination, intermediate)
+                            except Exception as exc:
+                                print(exc, file=sys.stderr)
                     else:
-                        while time < maxTime:
-                            departures.append(time)
-                            time += options.period
-
-                    for time in departures:
-                        # generate with constant spacing
-                        try:
-                            origin, destination, intermediate = generate_origin_destination(trip_generator, options)
-                            idx = generate_one(idx, time, maxTime, origin, destination, intermediate)
-                        except Exception as exc:
-                            print(exc, file=sys.stderr)
-                else:
-                    while time < maxTime:
-                        # draw n times from a Bernoulli distribution
-                        # for an average arrival rate of 1 / period
-                        prob = 1.0 / options.period / options.binomial
-                        for _ in range(options.binomial):
-                            if random.random() < prob:
-                                try:
-                                    origin, destination, intermediate = generate_origin_destination(trip_generator, options)
-                                    idx = generate_one(idx, time, maxTime, origin, destination, intermediate)
-                                except Exception as exc:
-                                     print(exc, file=sys.stderr)
-                        time += 1
+                        time = departureTime
+                        while time < arrivalTime:
+                            # draw n times from a Bernoulli distribution
+                            # for an average arrival rate of 1 / period
+                            prob = 1.0 / period / options.binomial
+                            for _ in range(options.binomial):
+                                if random.random() < prob:
+                                    try:
+                                        origin, destination, intermediate = generate_origin_destination(trip_generator, options)
+                                        idx = generate_one(idx, time, arrivalTime, period, origin, destination, intermediate)
+                                    except Exception as exc:
+                                         print(exc, file=sys.stderr)
+                            time += 1.0
             else:
-                for _ in range(options.flows):
-                    try:
-                        origin, destination, intermediate = generate_origin_destination(trip_generator, options)
-                        idx = generate_one(idx, time, maxTime, origin, destination, intermediate)
-                    except Exception as exc:
-                        print(exc, file=sys.stderr)
+                try:
+                    origins_destinations = [generate_origin_destination(trip_generator, options) for _ in range(options.flows)]
+                    for i in range(len(times)-1):
+                        for j in range(options.flows):
+                            departureTime = times[i]
+                            arrivalTime = times[i+1]
+                            period = options.period[i]
+                            origin_destination = origins_destinations[j]
+                            generate_one(j, departureTime, arrivalTime, period, *origin_destination, i)
+                except Exception as exc:
+                    print(exc, file=sys.stderr)
 
         fouttrips.write("</routes>\n")
 
