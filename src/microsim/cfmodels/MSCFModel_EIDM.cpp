@@ -819,8 +819,8 @@ MSCFModel_EIDM::_v(const MSVehicle* const veh, const double gap2pred, const doub
             }
         }
 
-		// Variable for driving off correction term: Here we add the StartupDelay, later on the SlowToStartTerm
-		double a_corr = applyStartupDelay(veh, 1, 1);
+        // Variable for driving off correction term: Here we add the StartupDelay, later on the SlowToStartTerm
+        double a_corr = applyStartupDelay(veh, 1, 1);
 
         // IDM calculation:
         // wantedacc = a_corr*myAccel * (1. - pow(estSpeed / v0, myDelta) - (s * s) / (estGap * estGap));
