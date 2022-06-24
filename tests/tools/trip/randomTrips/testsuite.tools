@@ -66,3 +66,6 @@ viaEdgeType
 
 # This test suite checks that argument forwarding to duarouter works correctly.
 duarouter_options
+
+# This test suite checks that randomTrips behave correctly with multiple periods (when --period 1.0 0.5 is passed as an argument for instance).
+multiple_periods
