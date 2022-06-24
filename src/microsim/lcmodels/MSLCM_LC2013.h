@@ -257,8 +257,8 @@ protected:
     // time for unrestricted driving on the right to accept keepRight change
     double myKeepRightAcceptanceTime;
 
-    // @brief speed difference for overtaking the leader on the neighbor lane before changing to that lane
-    double myOvertakeDeltaSpeed;
+    // @brief speed difference factor for overtaking the leader on the neighbor lane before changing to that lane
+    double myOvertakeDeltaSpeedFactor;
 
     // for feature testing
     const double myExperimentalParam1;
