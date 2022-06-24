@@ -1413,7 +1413,7 @@ SUMOVehicleParserHelper::parseLCParams(SUMOVTypeParameter* into, LaneChangeModel
         lc2013Params.insert(SUMO_ATTR_LCA_OVERTAKE_RIGHT);
         lc2013Params.insert(SUMO_ATTR_LCA_SIGMA);
         lc2013Params.insert(SUMO_ATTR_LCA_KEEPRIGHT_ACCEPTANCE_TIME);
-        lc2013Params.insert(SUMO_ATTR_LCA_OVERTAKE_DELTASPEED);
+        lc2013Params.insert(SUMO_ATTR_LCA_OVERTAKE_DELTASPEED_FACTOR);
         lc2013Params.insert(SUMO_ATTR_LCA_EXPERIMENTAL1);
         allowedLCModelAttrs[LaneChangeModel::LC2013] = lc2013Params;
         // sl2015 (extension of lc2013)
@@ -1479,6 +1479,17 @@ SUMOVehicleParserHelper::parseLCParams(SUMOVTypeParameter* into, LaneChangeModel
                 case SUMO_ATTR_LCA_ACCEL_LAT:
                     if (LCMAttribute <= 0) {
                         WRITE_ERROR("Invalid Lane-Change-Model Attribute " + toString(it) + ". Must be greater than 0");
+                        return false;
+                    }
+                    break;
+                default:
+                    break;
+            }
+            // check limits of attributes
+            switch (it) {
+                case SUMO_ATTR_LCA_OVERTAKE_DELTASPEED_FACTOR:
+                    if (LCMAttribute < -1 || LCMAttribute > 1) {
+                        WRITE_ERROR("Invalid Lane-Change-Model Attribute " + toString(it) + ". Must be between -1 and 1");
                         return false;
                     }
                     break;

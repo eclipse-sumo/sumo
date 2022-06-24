@@ -773,6 +773,10 @@ GNEVehicleTypeDialog::VTypeAtributes::VTypeAttributeRow::filterAttributeName(con
             return "turnAlignDistance";
         case SUMO_ATTR_LCA_OVERTAKE_RIGHT:
             return "overtakeRight";
+        case SUMO_ATTR_LCA_KEEPRIGHT_ACCEPTANCE_TIME:
+            return "keepRightAcceptanceTime";
+        case SUMO_ATTR_LCA_OVERTAKE_DELTASPEED_FACTOR:
+            return "overtakeDeltaSpeedFactor";
         /* case SUMO_ATTR_LCA_EXPERIMENTAL1:
             return "experimental1";
         */
@@ -999,7 +1003,13 @@ GNEVehicleTypeDialog::VTypeAtributes::buildLaneChangeModelAttributes(FXVerticalF
     // 18 create VTypeAttributeRow and Label for overtake right
     myLCAOvertakeRight = new VTypeAttributeRow(this, column, SUMO_ATTR_LCA_OVERTAKE_RIGHT, VTypeAttributeRow::RowAttrType::ROWTYPE_STRING);
 
-    // 19 create VTypeAttributeRow and Label for experimental
+    // 19 create VTypeAttributeRow and Label for keep right acceptance time
+    myLCAKeepRightAcceptanceTime = new VTypeAttributeRow(this, column, SUMO_ATTR_LCA_KEEPRIGHT_ACCEPTANCE_TIME, VTypeAttributeRow::RowAttrType::ROWTYPE_STRING);
+
+    // 20 create VTypeAttributeRow and Label for overtake deltaspeed factor
+    myLCAOvertakeDeltaSpeedFactor = new VTypeAttributeRow(this, column, SUMO_ATTR_LCA_OVERTAKE_DELTASPEED_FACTOR, VTypeAttributeRow::RowAttrType::ROWTYPE_STRING);
+
+    // 21 create VTypeAttributeRow and Label for experimental
     /* myLCAExperimental = new VTypeAttributeRow(this, column, SUMO_ATTR_LCA_EXPERIMENTAL1, VTypeAttributeRow::RowAttrType::ROWTYPE_STRING); */
 }
 
@@ -1065,6 +1075,8 @@ GNEVehicleTypeDialog::VTypeAtributes::updateValues() {
     myLCAMaxSpeedLatFactor->updateValue();
     myLCATurnAlignmentDistance->updateValue();
     myLCAOvertakeRight->updateValue();
+    myLCAKeepRightAcceptanceTime->updateValue();
+    myLCAOvertakeDeltaSpeedFactor->updateValue();
     /* myLCAExperimental->updateValue(); */
     // parameters
     myParameters->updateValue();
@@ -1155,6 +1167,8 @@ GNEVehicleTypeDialog::VTypeAtributes::onCmdSetAttribute(FXObject*, FXSelector, v
     myLCAMaxSpeedLatFactor->setVariable();
     myLCATurnAlignmentDistance->setVariable();
     myLCAOvertakeRight->setVariable();
+    myLCAKeepRightAcceptanceTime->setVariable();
+    myLCAOvertakeDeltaSpeedFactor->setVariable();
     /* myLCAExperimental->setVariable(); */
     myParameters->setVariable();
     return true;

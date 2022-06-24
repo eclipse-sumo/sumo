@@ -5324,6 +5324,19 @@ GNEAttributeCarrier::fillLaneChangingModelAttributes(SumoXMLTag currentTag) {
                                           "0.00");
     myTagProperties[currentTag].addAttribute(attrProperty);
 
+    attrProperty = GNEAttributeProperties(SUMO_ATTR_LCA_KEEPRIGHT_ACCEPTANCE_TIME,
+                                          GNEAttributeProperties::FLOAT | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::EXTENDED,
+                                          "Time threshold for the willingness to change right.",
+                                          "-1");
+    myTagProperties[currentTag].addAttribute(attrProperty);
+
+    attrProperty = GNEAttributeProperties(SUMO_ATTR_LCA_OVERTAKE_DELTASPEED_FACTOR,
+                                          GNEAttributeProperties::FLOAT | GNEAttributeProperties::RANGE | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::EXTENDED,
+                                          "Speed difference factor for the eagerness of overtaking a neighbor vehicle before changing lanes (threshold = factor*speedlimit).",
+                                          "0.00");
+    attrProperty.setRange(-1, 1);
+    myTagProperties[currentTag].addAttribute(attrProperty);
+
     /*
     attrProperty = GNEAttributeProperties(SUMO_ATTR_LCA_EXPERIMENTAL1,
         GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::EXTENDED,

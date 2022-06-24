@@ -112,7 +112,7 @@ MSLCM_LC2013::MSLCM_LC2013(MSVehicle& v) :
     myRoundaboutBonus(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_COOPERATIVE_ROUNDABOUT, myCooperativeParam)),
     myCooperativeSpeed(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_COOPERATIVE_SPEED, myCooperativeParam)),
     myKeepRightAcceptanceTime(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_KEEPRIGHT_ACCEPTANCE_TIME, -1)),
-    myOvertakeDeltaSpeed(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_OVERTAKE_DELTASPEED, 0)),
+    myOvertakeDeltaSpeedFactor(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_OVERTAKE_DELTASPEED_FACTOR, 0)),
     myExperimentalParam1(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_EXPERIMENTAL1, 0)) {
     initDerivedParameters();
 #ifdef DEBUG_CONSTRUCTOR
@@ -504,7 +504,7 @@ MSLCM_LC2013::informLeader(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
         const double overtakeDist = overtakeDistance(&myVehicle, nv, neighLead.second);
         const double dv = plannedSpeed - nv->getSpeed();
 
-        if (dv > myOvertakeDeltaSpeed) {
+        if (dv > myOvertakeDeltaSpeedFactor * myVehicle.getLane()->getSpeedLimit()) {
             overtakeTime = overtakeDist / dv;
         } else {
             // -> set overtakeTime to something indicating impossibility of overtaking
@@ -525,7 +525,7 @@ MSLCM_LC2013::informLeader(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
         }
 #endif
 
-        if ((dv < myOvertakeDeltaSpeed
+        if ((dv < myOvertakeDeltaSpeedFactor * myVehicle.getLane()->getSpeedLimit()
                 // overtaking on the right on an uncongested highway is forbidden (noOvertakeLCLeft)
                 || (dir == LCA_MLEFT && !myVehicle.congested() && !myAllowOvertakingRight)
                 // not enough space to overtake?
@@ -2080,8 +2080,8 @@ MSLCM_LC2013::getParameter(const std::string& key) const {
         return toString(mySigma);
     } else if (key == toString(SUMO_ATTR_LCA_KEEPRIGHT_ACCEPTANCE_TIME)) {
         return toString(myKeepRightAcceptanceTime);
-    } else if (key == toString(SUMO_ATTR_LCA_OVERTAKE_DELTASPEED)) {
-        return toString(myOvertakeDeltaSpeed);
+    } else if (key == toString(SUMO_ATTR_LCA_OVERTAKE_DELTASPEED_FACTOR)) {
+        return toString(myOvertakeDeltaSpeedFactor);
     } else if (key == toString(SUMO_ATTR_LCA_SPEEDGAIN_LOOKAHEAD)) {
         return toString(mySpeedGainLookahead);
     } else if (key == toString(SUMO_ATTR_LCA_COOPERATIVE_ROUNDABOUT)) {
@@ -2145,8 +2145,8 @@ MSLCM_LC2013::setParameter(const std::string& key, const std::string& value) {
         mySigma = doubleValue;
     } else if (key == toString(SUMO_ATTR_LCA_KEEPRIGHT_ACCEPTANCE_TIME)) {
         myKeepRightAcceptanceTime = doubleValue;
-    } else if (key == toString(SUMO_ATTR_LCA_OVERTAKE_DELTASPEED)) {
-        myOvertakeDeltaSpeed = doubleValue;
+    } else if (key == toString(SUMO_ATTR_LCA_OVERTAKE_DELTASPEED_FACTOR)) {
+        myOvertakeDeltaSpeedFactor = doubleValue;
     } else if (key == toString(SUMO_ATTR_LCA_SPEEDGAIN_LOOKAHEAD)) {
         mySpeedGainLookahead = doubleValue;
     } else if (key == toString(SUMO_ATTR_LCA_COOPERATIVE_ROUNDABOUT)) {
