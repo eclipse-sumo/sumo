@@ -429,8 +429,15 @@ class Routes:
         self.edgeIDs = {}
         self.withProb = 0
         for routefile in routefiles:
+            warned = False
             # not all routes may have specified probability, in this case use their number of occurrences
             for r in sumolib.xml.parse(routefile, ['route', 'walk'], heterogeneous=True):
+                if r.edges is None:
+                    if not warned:
+                        print("Warning: Ignoring walk in file '%s' because it does not contain edges." % routefile,
+                                file=sys.stderr)
+                        warned = True
+                    continue
                 edges = tuple(r.edges.split())
                 self.all.append(edges)
                 prob = float(r.getAttributeSecure("probability", 1))
