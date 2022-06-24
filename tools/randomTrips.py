@@ -576,7 +576,7 @@ def main(options):
                     combined_attrs))
         else:
             fouttrips.write(('    <flow id="%s" begin="%s" end="%s" period="%s"%s/>\n') % (
-                label, departureTime, arrivalTime, period * options.flows, combined_attrs))
+                label, departureTime, arrivalTime, intIfPossible(period * options.flows), combined_attrs))
         
     def generate_one_trip(label, combined_attrs, departureTime):
         fouttrips.write('    <trip id="%s" depart="%.2f"%s/>\n' % (
