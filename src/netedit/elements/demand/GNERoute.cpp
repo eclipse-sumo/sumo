@@ -273,9 +273,9 @@ const RGBColor&
 GNERoute::getColor() const {
     if (myColor != RGBColor::INVISIBLE) {
         return myColor;
-    } else if ((myTagProperty.getTag() == GNE_TAG_ROUTE_EMBEDDED) && (getChildDemandElements().front()->getColor() != RGBColor(false))) {
+    } else if ((getParentDemandElements().size() > 0) && (getParentDemandElements().front()->getColor() != RGBColor::INVISIBLE)) {
         return getParentDemandElements().front()->getColor();
-    } else if ((getChildDemandElements().size() > 0) && (getChildDemandElements().front()->getColor() != RGBColor(false))) {
+    } else if ((getChildDemandElements().size() > 0) && (getChildDemandElements().front()->getColor() != RGBColor::INVISIBLE)) {
         return getChildDemandElements().front()->getColor();
     } else {
         return RGBColor::YELLOW;
