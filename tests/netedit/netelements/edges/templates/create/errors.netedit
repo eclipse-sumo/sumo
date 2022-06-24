@@ -126,6 +126,7 @@ Debug: Adding nullptr lane into edge
 Debug: Adding nullptr lane into edge
 Debug: Setting new attribute
 Debug: Key F5 (Compute) pressed
+Debug: network elements saved
 Debug: Deleting unreferenced lane in GNEChange_Attribute
 Debug: Deleting unreferenced lane in GNEChange_Attribute
 Debug: Deleting unreferenced edge 'E0' in AttributeCarriers destructor

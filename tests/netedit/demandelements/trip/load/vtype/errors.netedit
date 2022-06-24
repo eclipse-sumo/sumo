@@ -21,7 +21,7 @@ Error: Invalid vehicle type 'dummy_Type' used in trip 'trip_1'.
 Error: Attribute 'type' in definition of trip 'trip_2' is empty.
 Error: Invalid vehicle type 'id with invalid characters' used in trip 'trip_3'.
 Debug: Adding trip 'trip_4' in GNEChange_DemandElement
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.trip.20Jun093117.9213/netedit.daily.demand.trip/demandelements/trip/load/vtype/input_routes.rou.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.trip.24Jun133819.22487/netedit.daily.demand.trip/demandelements/trip/load/vtype/input_routes.rou.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ5 from SUMORTree with boundary 48.00,-12.00,72.00,12.00
@@ -116,6 +116,7 @@ GLDebug: 	Inserted edge:gneE6 into SUMORTree with boundary -10.00,28.40,70.00,50
 GLDebug: 	Inserted edge:gneE7 into SUMORTree with boundary -10.00,-10.00,70.00,11.60
 GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary -10.00,8.40,40.00,30.00
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary -10.00,10.00,40.00,31.60
+Debug: network elements saved
 Debug: Deleting unreferenced trip
 Debug: Deleting unreferenced trip
 Debug: Deleting unreferenced vType
