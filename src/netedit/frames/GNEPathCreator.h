@@ -44,8 +44,11 @@ public:
         /// @brief constructor for single edge
         Path(const SUMOVehicleClass vClass, GNEEdge* edge);
 
-        /// @brief constructor for multiple edges
+        /// @brief constructor for two edges
         Path(GNEViewNet* viewNet, const SUMOVehicleClass vClass, GNEEdge* edgeFrom, GNEEdge* edgeTo);
+
+        /// @brief constructor for two junctions
+        Path(GNEViewNet* viewNet, const SUMOVehicleClass vClass, GNEJunction* junctionFrom, GNEJunction* junctionTo);
 
         /// @brief get sub path
         const std::vector<GNEEdge*>& getSubPath() const;

@@ -86,6 +86,25 @@ GNEPathCreator::Path::Path(GNEViewNet* viewNet, const SUMOVehicleClass vClass, G
 }
 
 
+GNEPathCreator::Path::Path(GNEViewNet* viewNet, const SUMOVehicleClass vClass, GNEJunction* junctionFrom, GNEJunction* junctionTo) :
+    myFromBusStop(nullptr),
+    myToBusStop(nullptr),
+    myConflictVClass(false),
+    myConflictDisconnected(false) {
+    // calculate subpath
+    mySubPath = viewNet->getNet()->getPathManager()->getPathCalculator()->calculateDijkstraPath(vClass, junctionFrom, junctionTo);
+    // if subPath is empty, try it with pedestrian (i.e. ignoring vCass)
+    if (mySubPath.empty()) {
+        mySubPath = viewNet->getNet()->getPathManager()->getPathCalculator()->calculateDijkstraPath(SVC_PEDESTRIAN, junctionFrom, junctionTo);
+        if (mySubPath.empty()) {
+            myConflictDisconnected = true;
+        } else {
+            myConflictVClass = true;
+        }
+    }
+}
+
+
 const std::vector<GNEEdge*>&
 GNEPathCreator::Path::getSubPath() const {
     return mySubPath;
@@ -957,6 +976,9 @@ GNEPathCreator::recalculatePath() {
     // fill paths
     if (edges.size() == 1) {
         myPath.push_back(Path(myVClass, edges.front()));
+    } else if (mySelectedJunctions.size() == 2) {
+        // add path between two junctions
+        myPath.push_back(Path(myFrameParent->getViewNet(), myVClass, mySelectedJunctions.front(), mySelectedJunctions.back()));
     } else {
         // add every segment
         for (int i = 1; i < (int)edges.size(); i++) {
