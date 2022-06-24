@@ -275,12 +275,6 @@ GNEVType::getAttribute(SumoXMLAttr key) const {
             /* case SUMO_ATTR_LCA_EXPERIMENTAL1: */
             return getLCParamString(key, myTagProperty.getDefaultValue(key));
         //
-        case SUMO_ATTR_COLLISION_MINGAP_FACTOR:
-        case SUMO_ATTR_TMP1:
-        case SUMO_ATTR_TMP2:
-        case SUMO_ATTR_TMP3:
-        case SUMO_ATTR_TMP4:
-        case SUMO_ATTR_TMP5:
         case SUMO_ATTR_CF_EIDM_USEVEHDYNAMICS:
         case SUMO_ATTR_CF_EIDM_MAX_VEH_PREVIEW:
         case SUMO_ATTR_CF_EIDM_T_LOOK_AHEAD:
@@ -296,6 +290,13 @@ GNEVType::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_CF_EIDM_T_ACC_MAX:
         case SUMO_ATTR_CF_EIDM_M_FLATNESS:
         case SUMO_ATTR_CF_EIDM_M_BEGIN:
+            return getCFParamString(key, myTagProperty.getDefaultValue(key));
+        case SUMO_ATTR_COLLISION_MINGAP_FACTOR:
+        case SUMO_ATTR_TMP1:
+        case SUMO_ATTR_TMP2:
+        case SUMO_ATTR_TMP3:
+        case SUMO_ATTR_TMP4:
+        case SUMO_ATTR_TMP5:
         case SUMO_ATTR_CF_PWAGNER2009_TAULAST:
         case SUMO_ATTR_CF_PWAGNER2009_APPROB:
         case SUMO_ATTR_CF_IDMM_ADAPT_FACTOR:
@@ -707,21 +708,6 @@ GNEVType::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_TMP3:
         case SUMO_ATTR_TMP4:
         case SUMO_ATTR_TMP5:
-        case SUMO_ATTR_CF_EIDM_USEVEHDYNAMICS:
-        case SUMO_ATTR_CF_EIDM_MAX_VEH_PREVIEW:
-        case SUMO_ATTR_CF_EIDM_T_LOOK_AHEAD:
-        case SUMO_ATTR_CF_EIDM_T_PERSISTENCE_DRIVE:
-        case SUMO_ATTR_CF_EIDM_T_REACTION:
-        case SUMO_ATTR_CF_EIDM_T_PERSISTENCE_ESTIMATE:
-        case SUMO_ATTR_CF_EIDM_C_COOLNESS:
-        case SUMO_ATTR_CF_EIDM_SIG_LEADER:
-        case SUMO_ATTR_CF_EIDM_SIG_GAP:
-        case SUMO_ATTR_CF_EIDM_SIG_ERROR:
-        case SUMO_ATTR_CF_EIDM_JERK_MAX:
-        case SUMO_ATTR_CF_EIDM_EPSILON_ACC:
-        case SUMO_ATTR_CF_EIDM_T_ACC_MAX:
-        case SUMO_ATTR_CF_EIDM_M_FLATNESS:
-        case SUMO_ATTR_CF_EIDM_M_BEGIN:
         case SUMO_ATTR_CF_PWAGNER2009_TAULAST:
         case SUMO_ATTR_CF_PWAGNER2009_APPROB:
         case SUMO_ATTR_CF_IDMM_ADAPT_FACTOR:
@@ -733,6 +719,36 @@ GNEVType::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_CF_IDM_DELTA:
         case SUMO_ATTR_CF_IDM_STEPPING:
             return canParse<double>(value);
+        case SUMO_ATTR_CF_EIDM_USEVEHDYNAMICS:
+            return canParse<bool>(value);
+        case SUMO_ATTR_CF_EIDM_MAX_VEH_PREVIEW:
+            return canParse<int>(value) && (parse<int>(value) >= 0);
+        case SUMO_ATTR_CF_EIDM_T_LOOK_AHEAD:
+            return canParse<double>(value) && (parse<double>(value) >= 1);
+        case SUMO_ATTR_CF_EIDM_T_PERSISTENCE_DRIVE:
+            return canParse<double>(value) && (parse<double>(value) >= 1);
+        case SUMO_ATTR_CF_EIDM_T_REACTION:
+            return canParse<double>(value) && (parse<double>(value) >= 0);
+        case SUMO_ATTR_CF_EIDM_T_PERSISTENCE_ESTIMATE:
+            return canParse<double>(value) && (parse<double>(value) >= 1);
+        case SUMO_ATTR_CF_EIDM_C_COOLNESS:
+            return canParse<double>(value) && (parse<double>(value) >= 0) && (parse<double>(value) <= 1);
+        case SUMO_ATTR_CF_EIDM_SIG_LEADER:
+            return canParse<double>(value) && (parse<double>(value) >= 0) && (parse<double>(value) <= 1);
+        case SUMO_ATTR_CF_EIDM_SIG_GAP:
+            return canParse<double>(value) && (parse<double>(value) >= 0) && (parse<double>(value) <= 1);
+        case SUMO_ATTR_CF_EIDM_SIG_ERROR:
+            return canParse<double>(value) && (parse<double>(value) >= 0) && (parse<double>(value) <= 1);
+        case SUMO_ATTR_CF_EIDM_JERK_MAX:
+            return canParse<double>(value) && (parse<double>(value) >= 1);
+        case SUMO_ATTR_CF_EIDM_EPSILON_ACC:
+            return canParse<double>(value) && (parse<double>(value) >= 0);
+        case SUMO_ATTR_CF_EIDM_T_ACC_MAX:
+            return canParse<double>(value) && (parse<double>(value) >= 0);
+        case SUMO_ATTR_CF_EIDM_M_FLATNESS:
+            return canParse<double>(value) && (parse<double>(value) >= 1) && (parse<double>(value) <= 5);
+        case SUMO_ATTR_CF_EIDM_M_BEGIN:
+            return canParse<double>(value) && (parse<double>(value) >= 0) && (parse<double>(value) <= 1.5);
         case SUMO_ATTR_TRAIN_TYPE:
             // rail string
             return SUMOXMLDefinitions::TrainTypes.hasString(value);
@@ -1377,6 +1393,27 @@ GNEVType::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_TMP3:
         case SUMO_ATTR_TMP4:
         case SUMO_ATTR_TMP5:
+        case SUMO_ATTR_CF_PWAGNER2009_TAULAST:
+        case SUMO_ATTR_CF_PWAGNER2009_APPROB:
+        case SUMO_ATTR_CF_IDMM_ADAPT_FACTOR:
+        case SUMO_ATTR_CF_IDMM_ADAPT_TIME:
+        case SUMO_ATTR_CF_WIEDEMANN_SECURITY:
+        case SUMO_ATTR_CF_WIEDEMANN_ESTIMATION:
+        case SUMO_ATTR_TRAIN_TYPE:
+        case SUMO_ATTR_K:
+        case SUMO_ATTR_CF_KERNER_PHI:
+        case SUMO_ATTR_CF_IDM_DELTA:
+        case SUMO_ATTR_CF_IDM_STEPPING:
+            // empty values means that value isn't set
+            if (value.empty()) {
+                const auto it = cfParameter.find(key);
+                if (it != cfParameter.end()) {
+                    cfParameter.erase(it);
+                }
+            } else {
+                cfParameter[key] = value;
+            }
+            break;
         case SUMO_ATTR_CF_EIDM_USEVEHDYNAMICS:
         case SUMO_ATTR_CF_EIDM_MAX_VEH_PREVIEW:
         case SUMO_ATTR_CF_EIDM_T_LOOK_AHEAD:
@@ -1392,19 +1429,8 @@ GNEVType::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_CF_EIDM_T_ACC_MAX:
         case SUMO_ATTR_CF_EIDM_M_FLATNESS:
         case SUMO_ATTR_CF_EIDM_M_BEGIN:
-        case SUMO_ATTR_CF_PWAGNER2009_TAULAST:
-        case SUMO_ATTR_CF_PWAGNER2009_APPROB:
-        case SUMO_ATTR_CF_IDMM_ADAPT_FACTOR:
-        case SUMO_ATTR_CF_IDMM_ADAPT_TIME:
-        case SUMO_ATTR_CF_WIEDEMANN_SECURITY:
-        case SUMO_ATTR_CF_WIEDEMANN_ESTIMATION:
-        case SUMO_ATTR_TRAIN_TYPE:
-        case SUMO_ATTR_K:
-        case SUMO_ATTR_CF_KERNER_PHI:
-        case SUMO_ATTR_CF_IDM_DELTA:
-        case SUMO_ATTR_CF_IDM_STEPPING:
-            // empty values means that value isn't set
-            if (value.empty()) {
+            // empty or default values means that value isn't set
+            if (value.empty() || (canParse<double>(value) && (parse<double>(value) == parse<double>(myTagProperty.getDefaultValue(key))))) {
                 const auto it = cfParameter.find(key);
                 if (it != cfParameter.end()) {
                     cfParameter.erase(it);
