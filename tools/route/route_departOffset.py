@@ -27,15 +27,9 @@ if 'SUMO_HOME' in os.environ:
     tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
     sys.path.append(os.path.join(tools))
     from sumolib.output import parse
+    from sumolib.miscutils import intIfPossible
 else:
     sys.exit("please declare environment variable 'SUMO_HOME'")
-
-
-def intIfPossible(val):
-    if int(val) == val:
-        return int(val)
-    else:
-        return val
 
 
 def get_options(args=None):
