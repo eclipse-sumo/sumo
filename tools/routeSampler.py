@@ -430,7 +430,7 @@ class Routes:
         self.withProb = 0
         for routefile in routefiles:
             # not all routes may have specified probability, in this case use their number of occurrences
-            for r in sumolib.xml.parse(routefile, 'route', heterogeneous=True):
+            for r in sumolib.xml.parse(routefile, ['route', 'walk'], heterogeneous=True):
                 edges = tuple(r.edges.split())
                 self.all.append(edges)
                 prob = float(r.getAttributeSecure("probability", 1))
