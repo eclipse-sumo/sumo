@@ -1482,6 +1482,34 @@ GNEJunction::drawDottedContours(const GUIVisualizationSettings& s, const bool dr
                     (junctionExaggeration >= 1) ? junctionExaggeration : 1);
         }
     }
+    // draw dotted contours regarding inspect vehicles over junctions
+    const auto &inspectedACs = myNet->getViewNet()->getInspectedAttributeCarriers();
+    if ((inspectedACs.size() == 1) && 
+        ((inspectedACs.front()->getTagProperty().getTag() == GNE_TAG_TRIP_JUNCTIONS) ||
+         (inspectedACs.front()->getTagProperty().getTag() == GNE_TAG_FLOW_JUNCTIONS))) {
+        // get vehicle
+        const auto vehicle = myNet->getAttributeCarriers()->retrieveDemandElement(inspectedACs.front());
+        // check parent junctions
+        if (vehicle->getParentJunctions().front() == this) {
+            if (drawBubble) {
+            GUIDottedGeometry::drawDottedContourCircle(GUIDottedGeometry::DottedContourType::GREEN, s, myNBNode->getCenter(), s.neteditSizeSettings.junctionBubbleRadius,
+                    (junctionExaggeration >= 1) ? junctionExaggeration : 1);
+            }
+            if (drawShape) {
+                GUIDottedGeometry::drawDottedContourClosedShape(GUIDottedGeometry::DottedContourType::GREEN, s, myNBNode->getShape(),
+                        (junctionExaggeration >= 1) ? junctionExaggeration : 1);
+            }
+        } else if (vehicle->getParentJunctions().back() == this) {
+            if (drawBubble) {
+            GUIDottedGeometry::drawDottedContourCircle(GUIDottedGeometry::DottedContourType::MAGENTA, s, myNBNode->getCenter(), s.neteditSizeSettings.junctionBubbleRadius,
+                    (junctionExaggeration >= 1) ? junctionExaggeration : 1);
+            }
+            if (drawShape) {
+                GUIDottedGeometry::drawDottedContourClosedShape(GUIDottedGeometry::DottedContourType::MAGENTA, s, myNBNode->getShape(),
+                        (junctionExaggeration >= 1) ? junctionExaggeration : 1);
+            }
+        }
+    }
 }
 
 
