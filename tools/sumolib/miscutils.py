@@ -261,3 +261,10 @@ def getFlowNumber(flow):
             return math.ceil(duration / period)
         else:
             return 1
+        
+
+def intIfPossible(val):
+    if int(val) == val:
+        return int(val)
+    else:
+        return val
