@@ -329,8 +329,9 @@ GNEPathManager::PathCalculator::calculateDijkstraPath(const SUMOVehicleClass vCl
     for (const auto &fromEdge : fromEdges) {
         for (const auto &toEdge : toEdges) {
             edges = calculateDijkstraPath(vClass, {fromEdge, toEdge});
+            // if a path was found, clean it
             if (edges.size() > 0) {
-                return edges;
+                return optimizeJunctionPath(edges);
             }
         }
     }
@@ -468,6 +469,32 @@ GNEPathManager::PathCalculator::isPathCalculatorUpdated() const {
 void
 GNEPathManager::PathCalculator::invalidatePathCalculator() {
     myPathCalculatorUpdated = false;
+}
+
+
+std::vector<GNEEdge*>
+GNEPathManager::PathCalculator::optimizeJunctionPath(const std::vector<GNEEdge*>& edges) const {
+    bool stop = false;
+    std::vector<GNEEdge*> solutionA, solutionB;
+    // get from and to junctions
+    const auto fromJunction = edges.front()->getFromJunction();
+    const auto toJunction = edges.back()->getToJunction();
+    // first optimize from Junction
+    for (auto &it = edges.rbegin(); (it != edges.rend()) && !stop; it++) {
+        solutionA.insert(solutionA.begin(), *it);
+        if ((*it)->getFromJunction() == fromJunction) {
+            stop = true;
+        }
+    }
+    // optimize to edge
+    stop = false;
+    for (auto &it = solutionA.begin(); (it != solutionA.end()) && !stop; it++) {
+        solutionB.push_back(*it);
+        if ((*it)->getToJunction() == toJunction) {
+            stop = true;
+        }
+    }
+    return solutionB;
 }
 
 // ---------------------------------------------------------------------------

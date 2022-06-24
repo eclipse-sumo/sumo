@@ -264,6 +264,9 @@ public:
 
         /// @brief SUMO Abstract myDijkstraRouter
         SUMOAbstractRouter<NBRouterEdge, NBVehicle>* myDijkstraRouter;
+
+        /// @brief optimize junction path
+        std::vector<GNEEdge*> optimizeJunctionPath(const std::vector<GNEEdge*>& edges) const;
     };
 
     /// @brief class used to mark path draw
