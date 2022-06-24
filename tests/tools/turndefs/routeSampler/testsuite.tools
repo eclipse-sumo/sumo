@@ -22,6 +22,9 @@ save_template
 # using edgedata as input
 edgedata
 
+# load candidate routes from walk elements (needed for reverse walking)
+walk_input
+
 # using another GEH threshold
 geh
 
