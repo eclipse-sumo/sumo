@@ -65,7 +65,6 @@ Debug: Created connection 'fromgneE9_0togneE11_0' in retrieveGNEConnection()
 Debug: Selected item 'DEFAULT_VEHTYPE' in DemandElementSelector
 Debug: Key ENTER pressed
 Debug: Adding trip 't_0' in GNEChange_DemandElement
-Debug: Value 'dummyLane' for attribute arrivalLane of trip isn't valid
 Debug: Value '500' for attribute arrivalLane of trip isn't valid
 Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
@@ -119,6 +118,7 @@ GLDebug: 	Inserted edge:gneE6 into SUMORTree with boundary -10.00,28.40,70.00,50
 GLDebug: 	Inserted edge:gneE7 into SUMORTree with boundary -10.00,-10.00,70.00,11.60
 GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary -10.00,8.40,40.00,30.00
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary -10.00,10.00,40.00,31.60
+Debug: network elements saved
 Debug: Deleting unreferenced trip
 Debug: Deleting unreferenced edge 'gneE10' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE10_0' in GNEEdge destructor

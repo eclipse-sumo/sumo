@@ -64,6 +64,7 @@ Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Additionals saved
+Debug: network elements saved
 Debug: Deleting unreferenced access
 Debug: Deleting unreferenced busStop
 Debug: Deleting unreferenced access

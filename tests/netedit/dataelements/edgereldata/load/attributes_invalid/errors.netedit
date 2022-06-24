@@ -13,10 +13,10 @@ GLDebug: 	Inserted edge:gneE14 into SUMORTree with boundary -10.00,30.00,50.00,5
 GLDebug: 	Inserted edge:gneE15 into SUMORTree with boundary 30.00,22.00,90.00,50.00
 GLDebug: 	Inserted edge:gneE16 into SUMORTree with boundary 22.00,-10.00,50.00,50.00
 Error: attribute name expected
- In file '/home/palcraft/.texttest/tmp/netedit.daily.data.edgereldata.21Apr123611.3191/netedit.daily.data.edgereldata/dataelements/edgereldata/load/attributes_invalid/input_datas.dat.xml'
+ In file '/home/palcraft/.texttest/tmp/netedit.daily.data.edgereldata.24Jun133818.22423/netedit.daily.data.edgereldata/dataelements/edgereldata/load/attributes_invalid/input_datas.dat.xml'
  At line/column 62/49.
 
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.data.edgereldata.21Apr123611.3191/netedit.daily.data.edgereldata/dataelements/edgereldata/load/attributes_invalid/input_datas.dat.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.data.edgereldata.24Jun133818.22423/netedit.daily.data.edgereldata/dataelements/edgereldata/load/attributes_invalid/input_datas.dat.xml failed.
 Debug: data sets saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ10 from SUMORTree with boundary 28.00,68.00,52.00,92.00
@@ -68,6 +68,7 @@ Debug: Created connection 'fromgneE12_0togneE16_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE12_1togneE16_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE12_2togneE16_2' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE12_2togneE15_2' in retrieveGNEConnection()
+Debug: network elements saved
 Debug: Deleting unreferenced edge '-gneE14' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane '-gneE14_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane '-gneE14_1' in GNEEdge destructor

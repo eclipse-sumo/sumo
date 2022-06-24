@@ -210,6 +210,7 @@ GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary -11.60,-10.00,10.00,3
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary -10.00,-10.00,11.60,30.00
 Debug: Created connection 'from-gneE2_0togneE8_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE5_0to-gneE2_0' in retrieveGNEConnection()
+Debug: network elements saved
 Debug: Deleting unreferenced edge in GNEChange_Attribute
 Debug: Deleting unreferenced lane 'gneE2_0' in GNEEdge destructor
 Debug: Deleting unreferenced busStop

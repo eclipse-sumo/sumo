@@ -66,6 +66,7 @@ GLDebug: 	Inserted junction:J0 into SUMORTree with boundary -10.00,76.80,10.00,1
 GLDebug: 	Inserted junction:J1 into SUMORTree with boundary 10.00,76.80,30.00,100.00
 GLDebug: Add edges during recomputing after calling myNetBuilder->compute(...)
 GLDebug: 	Inserted edge:E0 into SUMORTree with boundary -10.00,78.40,30.00,100.00
+Debug: network elements saved
 Debug: Deleting unreferenced edge 'E0' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'E0_0' in GNEEdge destructor
 Debug: Deleting unreferenced junction 'J0' in AttributeCarriers destructor

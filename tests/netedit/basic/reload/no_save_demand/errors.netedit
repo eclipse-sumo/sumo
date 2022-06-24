@@ -17,6 +17,7 @@ Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Key ENTER pressed
 Debug: Adding route 'r_0' in GNEChange_DemandElement
+Debug: network elements saved
 Debug: Additionals saved
 Debug: Opening FXMessageBox 'Save demand elements before reload'
 Debug: Closed FXMessageBox 'Save demand elements before reload' with 'Quit'

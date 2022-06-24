@@ -27,6 +27,7 @@ Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Removing junction 'gneJ8' from net
+Debug: network elements saved
 Debug: Deleting unreferenced junction in GNEChange_Attribute
 Debug: Deleting NBNode of 'gneJ8' in GNEJunction destructor
 Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor

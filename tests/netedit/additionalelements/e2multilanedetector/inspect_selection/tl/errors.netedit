@@ -66,6 +66,7 @@ Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute
+Debug: network elements saved
 Debug: Additionals saved
 Debug: Deleting unreferenced e2MultilaneDetector
 Debug: Deleting unreferenced e2MultilaneDetector

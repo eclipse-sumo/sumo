@@ -121,6 +121,7 @@ Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
 Debug: Created walkingArea ':S_w0' in retrieveGNEWalkingArea()
 Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
 Debug: Created walkingArea ':W_w0' in retrieveGNEWalkingArea()
+Debug: network elements saved
 Debug: Deleting unreferenced edge 'CE' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'CE_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane 'CE_1' in GNEEdge destructor

@@ -8,6 +8,7 @@ Debug: Adding poi 'POI_3' in GNEChange_Additional
 Debug: Disabled select edges throught alt + 5
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
+Debug: network elements saved
 Debug: Additionals saved
 Debug: Deleting unreferenced poi
 Debug: Deleting unreferenced poi

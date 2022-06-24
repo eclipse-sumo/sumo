@@ -51,6 +51,7 @@ Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Additionals saved
+Debug: network elements saved
 Debug: Deleting unreferenced busStop
 Debug: Deleting unreferenced busStop
 Debug: Deleting unreferenced busStop

@@ -21,8 +21,7 @@ Debug: Created connection 'fromgneE9_0togneE2_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE2_1' in retrieveGNEConnection()
 Debug: Setting new attribute
 Debug: Value 'dummyPriority' for attribute priority of edge isn't valid
-Debug: Setting new attribute
-Debug: Setting new attribute
+Debug: Value 'dummyPriority' for attribute priority of edge isn't valid
 Debug: Key F5 (Compute) pressed
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
@@ -32,6 +31,7 @@ Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute
 Debug: Additionals saved
+Debug: network elements saved
 Debug: Deleting unreferenced busStop
 Debug: Deleting unreferenced busStop
 Debug: Deleting unreferenced busStop

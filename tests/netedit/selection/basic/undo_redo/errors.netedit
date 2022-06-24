@@ -564,6 +564,7 @@ Debug: Restoring previous attribute
 Debug: Restoring previous attribute
 Debug: declaring connections of edge '1' as loaded (It will not be removed)
 Debug: Additionals saved
+Debug: network elements saved
 Debug: Deleting unreferenced connection in GNEChange_Attribute
 Debug: Deleting unreferenced connection in GNEChange_Attribute
 Debug: Deleting unreferenced connection in GNEChange_Attribute

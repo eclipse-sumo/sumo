@@ -12,7 +12,7 @@ Debug: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
 Error: Could not build entry in netedit; lane doesn't exist.
 Debug: Adding detEntry 'e3Detector_0' in GNEChange_Additional
 Debug: Adding detExit 'e3Detector_0' in GNEChange_Additional
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.net.junctions.16Jun091036.28922/netedit.daily.net.junctions/netelements/junctions/load/input_additionals.add.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.net.junctions.24Jun133820.22521/netedit.daily.net.junctions/netelements/junctions/load/input_additionals.add.xml failed.
 Debug: Key F5 (Compute) pressed
 Debug: Created connection 'from-gneE10_0to-gneE9_0' in retrieveGNEConnection()
 Debug: Created connection 'from-gneE10_0to-gneE17_0' in retrieveGNEConnection()
@@ -71,6 +71,7 @@ Debug: Created connection 'fromgneE8_0togneE9_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0to-gneE17_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE10_0' in retrieveGNEConnection()
 Debug: Additionals saved
+Debug: network elements saved
 Debug: Deleting unreferenced detExit
 Debug: Deleting unreferenced detEntry
 Debug: Deleting unreferenced e3Detector

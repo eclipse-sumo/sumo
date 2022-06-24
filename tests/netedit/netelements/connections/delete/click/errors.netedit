@@ -52,6 +52,7 @@ Debug: Setting new attribute
 Debug: declaring connections of edge '7' as loaded (It will not be removed)
 Debug: Removing connection '6_0->1_0' from edge '6'
 Debug: Deleting unreferenced connection 'from6_0to1_0' in removeConnection()
+Debug: network elements saved
 Debug: Deleting unreferenced edge '1' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane '1_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane '1_1' in GNEEdge destructor

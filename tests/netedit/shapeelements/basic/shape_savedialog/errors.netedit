@@ -4,6 +4,7 @@ Debug: Key ENTER pressed
 Debug: Adding poly 'po_0' in GNEChange_Additional
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
+Debug: network elements saved
 Debug: Opening FXMessageBox 'Save additionals before quit'
 Debug: Closed FXMessageBox 'Save additionals before quit' with 'Yes'
 Debug: Additionals saved
@@ -17,4 +18,4 @@ Debug: Deleting unreferenced connection 'fromgneE1_0togneE0_0' in GNEEdge destru
 Debug: Deleting unreferenced junction 'gneJ0' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'gneJ1' in AttributeCarriers destructor
 Debug: Deleting net builder in GNENet destructor
-X connection to :10769.0 broken (explicit kill or server shutdown).
+X connection to :24153.0 broken (explicit kill or server shutdown).

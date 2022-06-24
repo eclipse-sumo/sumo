@@ -38,6 +38,7 @@ Debug: Setting new attribute
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Additionals saved
+Debug: network elements saved
 Debug: Deleting unreferenced space
 Debug: Deleting unreferenced parkingArea
 Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor
@@ -49,4 +50,4 @@ Debug: Deleting unreferenced connection 'fromgneE1_0togneE0_0' in GNEEdge destru
 Debug: Deleting unreferenced junction 'gneJ0' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'gneJ1' in AttributeCarriers destructor
 Debug: Deleting net builder in GNENet destructor
-X connection to :9350.0 broken (explicit kill or server shutdown).
+X connection to :22705.0 broken (explicit kill or server shutdown).

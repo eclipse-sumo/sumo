@@ -614,6 +614,7 @@ Debug: Created connection 'fromE2_0toE3_0' in retrieveGNEConnection()
 Debug: Created connection 'fromE3_0toE4_0' in retrieveGNEConnection()
 Debug: Created connection 'fromE4_0toE5_0' in retrieveGNEConnection()
 Debug: Created connection 'fromE5_0to-E5_0' in retrieveGNEConnection()
+Debug: network elements saved
 Debug: Deleting unreferenced edge '-E0' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane '-E0_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from-E0_0toE0_0' in GNEEdge destructor
@@ -658,3 +659,4 @@ Debug: Deleting unreferenced junction 'J4' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'J5' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'J6' in AttributeCarriers destructor
 Debug: Deleting net builder in GNENet destructor
+X connection to :22815.0 broken (explicit kill or server shutdown).

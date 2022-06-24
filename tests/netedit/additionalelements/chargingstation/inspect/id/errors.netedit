@@ -33,6 +33,7 @@ Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
 Debug: Created walkingArea ':gneJ2_w0' in retrieveGNEWalkingArea()
 Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
 Debug: Created walkingArea ':gneJ3_w0' in retrieveGNEWalkingArea()
+Debug: network elements saved
 Debug: Deleting unreferenced chargingStation
 Debug: Deleting unreferenced chargingStation
 Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor

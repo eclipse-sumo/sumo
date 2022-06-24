@@ -11,6 +11,7 @@ Debug: Key F5 (Compute) pressed
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Removing edge '-gneE16' from net
+Debug: network elements saved
 Debug: Deleting unreferenced edge '-gneE16' GNEChange_Edge
 Debug: Deleting unreferenced lane in GNEChange_Attribute
 Debug: Deleting unreferenced edge '-gneE14' in AttributeCarriers destructor

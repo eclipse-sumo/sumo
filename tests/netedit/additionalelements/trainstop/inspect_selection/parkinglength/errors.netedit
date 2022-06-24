@@ -49,6 +49,7 @@ Debug: Setting new attribute
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Additionals saved
+Debug: network elements saved
 Debug: Deleting unreferenced trainStop
 Debug: Deleting unreferenced trainStop
 Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor

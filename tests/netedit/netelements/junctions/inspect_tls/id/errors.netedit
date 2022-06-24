@@ -101,6 +101,7 @@ Debug: Created walkingArea ':OwnID_w0' in retrieveGNEWalkingArea()
 Debug: Created walkingArea ':OwnID_w1' in retrieveGNEWalkingArea()
 Debug: Created walkingArea ':OwnID_w2' in retrieveGNEWalkingArea()
 Debug: Created walkingArea ':OwnID_w3' in retrieveGNEWalkingArea()
+Debug: network elements saved
 Debug: Deleting unreferenced busStop
 Debug: Deleting unreferenced busStop
 Debug: Deleting unreferenced busStop

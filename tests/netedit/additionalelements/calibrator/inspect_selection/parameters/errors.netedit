@@ -127,6 +127,7 @@ Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE2_1togneE3_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE3_1togneE2_1' in retrieveGNEConnection()
 Debug: Additionals saved
+Debug: network elements saved
 Debug: Deleting unreferenced calibrator
 Debug: Deleting unreferenced calibrator
 Debug: Deleting unreferenced routeProbe
@@ -151,4 +152,4 @@ Debug: Deleting unreferenced junction 'gneJ1' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'gneJ2' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'gneJ3' in AttributeCarriers destructor
 Debug: Deleting net builder in GNENet destructor
-X connection to :9226.0 broken (explicit kill or server shutdown).
+X connection to :22599.0 broken (explicit kill or server shutdown).

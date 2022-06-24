@@ -2382,6 +2382,7 @@ Debug: Created connection 'fromE8_0to-E8_0' in retrieveGNEConnection()
 Debug: Created connection 'fromE9_0toE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromE9_0to-E0_0' in retrieveGNEConnection()
 Debug: Created connection 'fromE9_0to-E9_0' in retrieveGNEConnection()
+Debug: network elements saved
 Debug: Deleting unreferenced edge '-E0' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane '-E0_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from-E0_0to-E7_0' in GNEEdge destructor

@@ -17,6 +17,7 @@ Debug: Adding containerStop 'ct_1' in GNEChange_Additional
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Additionals saved
+Debug: network elements saved
 Debug: Deleting unreferenced containerStop
 Debug: Deleting unreferenced containerStop
 Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor

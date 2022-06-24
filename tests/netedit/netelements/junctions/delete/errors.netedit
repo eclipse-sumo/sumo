@@ -1055,6 +1055,7 @@ Debug: Created connection 'fromgneE11_0togneE12_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE13_0togneE14_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE15_0togneE8_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE10_0' in retrieveGNEConnection()
+Debug: network elements saved
 Debug: Deleting unreferenced edge in GNEChange_Attribute
 Debug: Deleting unreferenced lane 'gneE19_0' in GNEEdge destructor
 Debug: Deleting unreferenced edge in GNEChange_Attribute

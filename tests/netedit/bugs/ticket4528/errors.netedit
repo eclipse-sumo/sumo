@@ -68,6 +68,7 @@ GLDebug: 	Inserted edge:-E2 into SUMORTree with boundary -10.00,-10.00,60.00,11.
 GLDebug: 	Inserted edge:E0 into SUMORTree with boundary -10.00,8.40,60.00,30.00
 GLDebug: 	Inserted edge:E1 into SUMORTree with boundary -10.00,29.50,60.00,50.00
 GLDebug: 	Inserted edge:E2 into SUMORTree with boundary -10.00,-11.60,60.00,10.00
+Debug: network elements saved
 Debug: Deleting unreferenced edge '-E0' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane '-E0_0' in GNEEdge destructor
 Debug: Deleting unreferenced edge '-E1' in AttributeCarriers destructor

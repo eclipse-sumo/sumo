@@ -12,7 +12,7 @@ Debug: Selected item 'busStop' in GNETagSelector
 Debug: Adding busStop 'bs_0' in GNEChange_Additional
 Debug: Selected item 'access' in GNETagSelector
 Debug: Adding access 'bs_0' in GNEChange_Additional
-Debug: Value 'dummyLane' for attribute lane of access isn't valid
+Debug: Value 'access' for attribute lane of access isn't valid
 Debug: Value '' for attribute lane of access isn't valid
 Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
@@ -80,6 +80,7 @@ GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,60.00,1
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,11.60
 GLDebug: 	Inserted edge:gneE2 into SUMORTree with boundary -10.00,5.20,60.00,30.00
 GLDebug: 	Inserted edge:gneE3 into SUMORTree with boundary -10.00,10.00,60.00,34.80
+Debug: network elements saved
 Debug: Deleting unreferenced access
 Debug: Deleting unreferenced busStop
 Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor

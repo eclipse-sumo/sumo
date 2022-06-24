@@ -198,6 +198,7 @@ Debug: Created connection 'fromgneE9_0togneE2_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE2_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE2_2' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE2_3' in retrieveGNEConnection()
+Debug: network elements saved
 Debug: Deleting unreferenced lane 'gneE3_1' in GNEChange_Lane
 Debug: Deleting unreferenced lane 'gneE2_1' in GNEChange_Lane
 Debug: Deleting unreferenced busStop

@@ -103,6 +103,7 @@ Debug: Created connection 'fromgneE12_0togneE16_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE12_1togneE16_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE12_2togneE16_2' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE12_2togneE15_2' in retrieveGNEConnection()
+Debug: network elements saved
 Debug: Deleting unreferenced edgeData
 Debug: Deleting unreferenced edgeData
 Debug: Deleting unreferenced dataInterval [0.00, 3600.00] in ~GNEChange_DataInterval()
@@ -165,4 +166,4 @@ Debug: Deleting unreferenced junction 'gneJ12' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'gneJ13' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'gneJ14' in AttributeCarriers destructor
 Debug: Deleting net builder in GNENet destructor
-X connection to :10203.0 broken (explicit kill or server shutdown).
+X connection to :23182.0 broken (explicit kill or server shutdown).

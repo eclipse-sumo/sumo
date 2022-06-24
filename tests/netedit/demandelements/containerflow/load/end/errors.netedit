@@ -25,7 +25,7 @@ Debug: Adding containerFlow 'p_4' in GNEChange_DemandElement
 Debug: Adding tranship: edge->edge 'p_4' in GNEChange_DemandElement
 Debug: Adding containerFlow 'p_5' in GNEChange_DemandElement
 Debug: Adding tranship: edge->edge 'p_5' in GNEChange_DemandElement
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.containerflow.20Jun093116.9161/netedit.daily.demand.containerflow/demandelements/containerflow/load/end/input_routes.rou.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.containerflow.24Jun133819.22438/netedit.daily.demand.containerflow/demandelements/containerflow/load/end/input_routes.rou.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ5 from SUMORTree with boundary 48.00,-12.00,72.00,12.00
@@ -126,6 +126,7 @@ GLDebug: 	Inserted edge:gneE6 into SUMORTree with boundary -10.00,28.40,70.00,50
 GLDebug: 	Inserted edge:gneE7 into SUMORTree with boundary -10.00,-10.00,70.00,11.60
 GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary -10.00,8.40,40.00,30.00
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary -10.00,10.00,40.00,31.60
+Debug: network elements saved
 Debug: Deleting unreferenced tranship: edge->edge
 Debug: Deleting unreferenced containerFlow
 Debug: Deleting unreferenced tranship: edge->edge

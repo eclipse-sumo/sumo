@@ -12,6 +12,7 @@ Debug: Removing poiLane 'POI_1' in GNEChange_Additional
 Debug: Removing connection 'gneE0_0->gneE1_0' from edge 'gneE0'
 Debug: Removing connection 'gneE1_0->gneE0_0' from edge 'gneE1'
 Debug: Removing edge 'gneE1' from net
+Debug: network elements saved
 Debug: Additionals saved
 Debug: Deleting unreferenced edge in GNEChange_Attribute
 Debug: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor

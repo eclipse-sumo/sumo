@@ -35,6 +35,7 @@ Debug: Deleting unreferenced connection 'fromgneE12_0togneE13_0' in removeConnec
 Debug: Removing edge 'gneE12' from net
 Debug: Removing edge 'gneE22' from net
 Debug: Removing edge 'gneE23' from net
+Debug: network elements saved
 Debug: Deleting unreferenced edge in GNEChange_Attribute
 Debug: Deleting unreferenced lane 'gneE23_0' in GNEEdge destructor
 Debug: Deleting unreferenced edge in GNEChange_Attribute

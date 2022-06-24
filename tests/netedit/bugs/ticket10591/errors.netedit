@@ -261,6 +261,7 @@ Debug: Created connection 'from26547172#0_0to22917233#0_0' in retrieveGNEConnect
 Debug: Adding connection '26547171#2_0->26547172#0_0' into edge '26547171#2'
 Debug: Created connection 'from26547171#2_0to26547172#0_0' in retrieveGNEConnection()
 Debug: Key F5 (Compute) pressed
+Debug: network elements saved
 Debug: Deleting unreferenced type 'highway.bridleway' in AttributeCarriers destructor
 Debug: Deleting unreferenced type 'highway.bus_guideway' in AttributeCarriers destructor
 Debug: Deleting unreferenced type 'highway.cycleway' in AttributeCarriers destructor

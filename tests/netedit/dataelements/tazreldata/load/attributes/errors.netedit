@@ -75,6 +75,7 @@ Debug: Created connection 'fromgneE12_0togneE16_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE12_1togneE16_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE12_2togneE16_2' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE12_2togneE15_2' in retrieveGNEConnection()
+Debug: network elements saved
 Debug: Additionals saved
 Debug: Deleting unreferenced tazRelation
 GLDebug: 	Removed object TAZRelData:dataSetB from SUMORTree with boundary -20.00,-10.50,100.00,29.50

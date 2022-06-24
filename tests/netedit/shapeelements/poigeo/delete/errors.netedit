@@ -18,6 +18,7 @@ Debug: Removing poiGeo 'poi_0' in GNEChange_Additional
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Additionals saved
+Debug: network elements saved
 Debug: Deleting unreferenced poiGeo
 Debug: Deleting unreferenced poiGeo
 Debug: Deleting unreferenced poiGeo

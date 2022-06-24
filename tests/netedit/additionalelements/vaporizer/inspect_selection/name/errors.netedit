@@ -32,6 +32,7 @@ Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Additionals saved
+Debug: network elements saved
 Debug: Deleting unreferenced vaporizer
 Debug: Deleting unreferenced vaporizer
 Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor
