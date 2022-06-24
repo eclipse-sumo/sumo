@@ -499,7 +499,6 @@ class AttributeStore:
 
 
 def parse_args():
-    USAGE = "Usage: " + sys.argv[0] + " <source> <dest> <output-prefix>"
     optParser = ArgumentParser()
     optParser.add_argument("source", help="original network")
     optParser.add_argument("dest", help="modified network")
@@ -652,8 +651,7 @@ def handle_children(xmlfile, handle_parsenode):
 
 
 # run
-def main():
-    options = parse_args()
+def main(options):
     copy_tags = options.copy.split(',') if options.copy else []
 
     selectionOutputFiles = []
@@ -704,11 +702,12 @@ def main():
                 os.remove(options.source + type)
                 os.remove(options.dest + type)
 
-    [f.close() for f in selectionOutputFiles]
+    for f in selectionOutputFiles:
+        f.close()
     for f in shapeOutputFiles:
         f.write("<additional>\n")
         f.close()
 
 
 if __name__ == "__main__":
-    main()
+    main(parse_args())
