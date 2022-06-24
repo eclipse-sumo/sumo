@@ -437,12 +437,6 @@ GNECrossing::isAttributeEnabled(SumoXMLAttr key) const {
 
 
 bool
-GNECrossing::isAttributeComputed(SumoXMLAttr /*key*/) const {
-    return false;
-}
-
-
-bool
 GNECrossing::isValid(SumoXMLAttr key, const std::string& value) {
     const auto crossing = getNBCrossing();
     switch (key) {

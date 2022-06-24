@@ -593,12 +593,6 @@ GNEAdditional::disableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) 
 }
 
 
-bool
-GNEAdditional::isAttributeComputed(SumoXMLAttr /*key*/) const {
-    return false;
-}
-
-
 GNELane*
 GNEAdditional::getFirstPathLane() const {
     return getParentLanes().front();

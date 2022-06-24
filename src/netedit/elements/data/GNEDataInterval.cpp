@@ -307,12 +307,6 @@ GNEDataInterval::isAttributeEnabled(SumoXMLAttr key) const {
 }
 
 
-bool
-GNEDataInterval::isAttributeComputed(SumoXMLAttr /*key*/) const {
-    return false;
-}
-
-
 std::string
 GNEDataInterval::getPopUpID() const {
     return getTagStr();

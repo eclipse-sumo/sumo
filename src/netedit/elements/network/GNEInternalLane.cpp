@@ -260,12 +260,6 @@ GNEInternalLane::isAttributeEnabled(SumoXMLAttr key) const {
 }
 
 
-bool
-GNEInternalLane::isAttributeComputed(SumoXMLAttr /*key*/) const {
-    return false;
-}
-
-
 const Parameterised::Map&
 GNEInternalLane::getACParametersMap() const {
     throw InvalidArgument(getTagStr() + " doesn't have parameters");

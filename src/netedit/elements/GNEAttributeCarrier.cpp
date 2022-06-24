@@ -146,6 +146,13 @@ GNEAttributeCarrier::isAttributeEnabled(SumoXMLAttr /*key*/) const {
 }
 
 
+bool 
+GNEAttributeCarrier::isAttributeComputed(SumoXMLAttr /*key*/) const {
+    // by default, all attributes aren't computed
+    return false;
+}
+
+
 template<> int
 GNEAttributeCarrier::parse(const std::string& string) {
     return StringUtils::toInt(string);

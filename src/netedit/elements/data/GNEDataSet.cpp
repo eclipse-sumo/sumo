@@ -338,12 +338,6 @@ GNEDataSet::isValid(SumoXMLAttr key, const std::string& value) {
 }
 
 
-bool
-GNEDataSet::isAttributeComputed(SumoXMLAttr /*key*/) const {
-    return false;
-}
-
-
 std::string
 GNEDataSet::getPopUpID() const {
     return getTagStr();

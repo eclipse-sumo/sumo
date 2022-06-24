@@ -79,12 +79,6 @@ GNELaneTemplate::isAttributeEnabled(SumoXMLAttr /*key*/) const {
 }
 
 
-bool
-GNELaneTemplate::isAttributeComputed(SumoXMLAttr /*key*/) const {
-    return false;
-}
-
-
 std::string
 GNELaneTemplate::getPopUpID() const {
     return myLane->getPopUpID();

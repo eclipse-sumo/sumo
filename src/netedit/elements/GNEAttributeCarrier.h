@@ -142,7 +142,7 @@ public:
     /* @brief method for check if the value for certain attribute is computed (for example, due a network recomputing)
      * @param[in] key The attribute key
      */
-    virtual bool isAttributeComputed(SumoXMLAttr key) const = 0;
+    virtual bool isAttributeComputed(SumoXMLAttr key) const;
 
     /// @brief get PopPup ID (Used in AC Hierarchy)
     virtual std::string getPopUpID() const = 0;

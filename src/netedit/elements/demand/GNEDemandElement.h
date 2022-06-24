@@ -310,11 +310,6 @@ public:
      */
     virtual bool isValid(SumoXMLAttr key, const std::string& value) = 0;
 
-    /* @brief method for check if the value for certain attribute is computed (for example, due a network recomputing)
-     * @param[in] key The attribute key
-     */
-    bool isAttributeComputed(SumoXMLAttr key) const;
-
     /// @brief get parameters map
     virtual const Parameterised::Map& getACParametersMap() const = 0;
 

@@ -105,12 +105,6 @@ GNEEdgeTemplate::isAttributeEnabled(SumoXMLAttr /*key*/) const {
 }
 
 
-bool
-GNEEdgeTemplate::isAttributeComputed(SumoXMLAttr /*key*/) const {
-    return false;
-}
-
-
 std::string
 GNEEdgeTemplate::getPopUpID() const {
     return myEdge->getPopUpID();

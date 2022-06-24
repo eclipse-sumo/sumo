@@ -259,12 +259,6 @@ GNEWalkingArea::isAttributeEnabled(SumoXMLAttr key) const {
 
 
 bool
-GNEWalkingArea::isAttributeComputed(SumoXMLAttr /*key*/) const {
-    return false;
-}
-
-
-bool
 GNEWalkingArea::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:

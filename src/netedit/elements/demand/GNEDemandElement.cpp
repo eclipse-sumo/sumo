@@ -341,12 +341,6 @@ GNEDemandElement::getPathElementArrivalPos() const {
     }
 }
 
-
-bool
-GNEDemandElement::isAttributeComputed(SumoXMLAttr /*key*/) const {
-    return false;
-}
-
 // ---------------------------------------------------------------------------
 // GNEDemandElement - protected methods
 // ---------------------------------------------------------------------------

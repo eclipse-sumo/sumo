@@ -197,12 +197,6 @@ GNELaneType::isValid(SumoXMLAttr key, const std::string& value) {
 }
 
 
-bool
-GNELaneType::isAttributeComputed(SumoXMLAttr /*key*/) const {
-    return false;
-}
-
-
 const Parameterised::Map&
 GNELaneType::getACParametersMap() const {
     return getParametersMap();
