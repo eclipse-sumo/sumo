@@ -182,7 +182,8 @@ GNEPathManager::Segment::Segment() :
     myNextLane(nullptr),
     myJunction(nullptr),
     myNextSegment(nullptr),
-    myPreviousSegment(nullptr) {
+    myPreviousSegment(nullptr),
+    myLabelSegment(false) {
 }
 
 // ---------------------------------------------------------------------------
@@ -717,6 +718,18 @@ GNEPathManager::calculatePathLanes(PathElement* pathElement, SUMOVehicleClass vC
     }
     // calculate path edges
     calculatePathEdges(pathElement, vClass, edges);
+}
+
+
+void
+GNEPathManager::calculatePathJunctions(PathElement* pathElement, SUMOVehicleClass vClass, const std::vector<GNEJunction*> junctions) {
+    // first calculate edge path between both elements
+    const auto junctionPath = myPathCalculator->calculateDijkstraPath(vClass, junctions.front(), junctions.back());
+    // if exist, then calculate edgePath between the first edges
+    if (junctionPath.size() > 0) {
+        // calculate path edges
+        calculatePathEdges(pathElement, vClass, {junctionPath.front(), junctionPath.back()});
+    }
 }
 
 
