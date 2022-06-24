@@ -101,6 +101,7 @@ GNEEdgeTemplate::isValid(SumoXMLAttr /*key*/, const std::string& /*value*/) {
 
 bool
 GNEEdgeTemplate::isAttributeEnabled(SumoXMLAttr /*key*/) const {
+    // All attributes are disabled in templates
     return false;
 }
 

@@ -581,18 +581,6 @@ GNEAdditional::getMoveOperationMultiLane(const double startPos, const double end
 }
 
 
-void
-GNEAdditional::enableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
-    //
-}
-
-
-void
-GNEAdditional::disableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
-    //
-}
-
-
 GNELane*
 GNEAdditional::getFirstPathLane() const {
     return getParentLanes().front();
