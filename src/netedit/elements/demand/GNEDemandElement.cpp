@@ -283,6 +283,8 @@ GNEDemandElement::getPathElementDepartPos() const {
             // use arrival pos
             return previousPersonPlan->getAttributePosition(SUMO_ATTR_ARRIVALPOS);
         }
+    } else if (getParentJunctions().size() > 0) {
+        return getParentJunctions().front()->getNBNode()->getPosition();
     } else {
         // use pedestrian departPos
         return getParentDemandElements().at(0)->getAttributePosition(SUMO_ATTR_DEPARTPOS);
@@ -336,6 +338,8 @@ GNEDemandElement::getPathElementArrivalPos() const {
         } else {
             return getParentAdditionals().front()->getAdditionalGeometry().getShape().getLineCenter();
         }
+    } else if (getParentJunctions().size() > 0) {
+        return getParentJunctions().back()->getNBNode()->getPosition();
     } else {
         return getAttributePosition(SUMO_ATTR_ARRIVALPOS);
     }

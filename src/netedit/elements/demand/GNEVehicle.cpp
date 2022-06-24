@@ -788,22 +788,16 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
                 if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
                     // draw using drawDottedContourClosedShape
                     GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::INSPECT, s, vehiclePosition, length * 0.5, width * 0.5, length * -0.5, 0, vehicleRotation, exaggeration);
-                    // draw junction line
-                    drawJunctionLine();
                 }
                 if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
                     // draw using drawDottedContourClosedShape
                     GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::FRONT, s, vehiclePosition, length * 0.5, width * 0.5, length * -0.5, 0, vehicleRotation, exaggeration);
-                    // draw junction line
-                    drawJunctionLine();
                 }
                 if (myNet->getViewNet()->getEditModes().isCurrentSupermodeDemand() &&
                         (myNet->getViewNet()->getEditModes().demandEditMode == DemandEditMode::DEMAND_TYPE) &&
                         (myNet->getViewNet()->getViewParent()->getTypeFrame()->getTypeSelector()->getCurrentType() == getParentDemandElements().front())) {
                     // draw using drawDottedContourClosedShape
                     GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::ORANGE, s, vehiclePosition, length * 0.5, width * 0.5, length * -0.5, 0, vehicleRotation, exaggeration);
-                    // draw junction line
-                    drawJunctionLine();
                 }
             }
             // pop name
@@ -817,7 +811,8 @@ void
 GNEVehicle::computePathElement() {
     // calculate path (only for flows and trips)
     if (getParentJunctions().size() > 0) {
-        // currently disabled
+        // calculate path
+        myNet->getPathManager()->calculatePathJunctions(this, getVClass(), getParentJunctions());
     } else if ((myTagProperty.getTag() == SUMO_TAG_FLOW) || (myTagProperty.getTag() == SUMO_TAG_TRIP)) {
         // declare lane stops
         std::vector<GNELane*> laneStopWaypoints;
@@ -835,8 +830,8 @@ GNEVehicle::computePathElement() {
         // declare lane vector
         std::vector<GNELane*> lanes;
         // get first and last lanes
-        GNELane* firstLane = getFirstPathLane();
-        GNELane* lastLane = getLastPathLane();
+        const auto firstLane = getFirstPathLane();
+        const auto lastLane = getLastPathLane();
         // check first and last lanes
         if (firstLane && lastLane) {
             // add first lane
@@ -880,9 +875,9 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane
         // calculate width
         const double width = s.vehicleSize.getExaggeration(s, lane) * s.widthSettings.tripWidth;
         // calculate startPos
-        const double geometryDepartPos = getAttributeDouble(SUMO_ATTR_DEPARTPOS) + getParentDemandElements().at(0)->getAttributeDouble(SUMO_ATTR_LENGTH);
+        const double geometryDepartPos = (getParentJunctions().size() > 0)? 0 : getAttributeDouble(SUMO_ATTR_DEPARTPOS) + getParentDemandElements().at(0)->getAttributeDouble(SUMO_ATTR_LENGTH);
         // get endPos
-        const double geometryEndPos = getAttributeDouble(SUMO_ATTR_ARRIVALPOS);
+        const double geometryEndPos = (getParentJunctions().size() > 0)? lane->getLaneGeometry().getShape().length2D() : getAttributeDouble(SUMO_ATTR_ARRIVALPOS);
         // declare path geometry
         GUIGeometry vehicleGeometry;
         // update pathGeometry depending of first and last segment
@@ -939,7 +934,7 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane
             GLHelper::popMatrix();
         }
         // check if this is the last segment
-        if (segment->isLastSegment()) {
+        if (segment->isLastSegment() && (getParentJunctions().size() == 0)) {
             // get geometryEndPos
             const Position geometryEndPosition = getPathElementArrivalPos();
             // check if endPos can be drawn
@@ -2276,29 +2271,6 @@ GNEVehicle::drawFlowLabel(const Position& vehiclePosition, const double vehicleR
     GLHelper::drawText("Flow", Position(0, length * exaggeration * -0.5), (.1 * exaggeration), (0.6 * exaggeration), RGBColor::BLACK, 90, 0, -1);
     // pop draw matrix
     GLHelper::popMatrix();
-}
-
-
-void
-GNEVehicle::drawJunctionLine() const {
-    // draw line for trip/flows junctions
-    if ((myTagProperty.getTag() == GNE_TAG_TRIP_JUNCTIONS) || (myTagProperty.getTag() == GNE_TAG_FLOW_JUNCTIONS)) {
-        // get two points
-        const Position posA = getParentJunctions().front()->getPositionInView();
-        const Position posB = getParentJunctions().back()->getPositionInView();
-        const double rot = ((double)atan2((posB.x() - posA.x()), (posA.y() - posB.y())) * (double) 180.0 / (double)M_PI);
-        const double len = posA.distanceTo2D(posB);
-        // push draw matrix
-        GLHelper::pushMatrix();
-        // Start with the drawing of the area traslating matrix to origin
-        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, getType() + 0.1);
-        // set trip color
-        GLHelper::setColor(RGBColor::ORANGE);
-        // draw line
-        GLHelper::drawBoxLine(posA, rot, len, 0.25);
-        // pop draw matrix
-        GLHelper::popMatrix();
-    }
 }
 
 /****************************************************************************/
