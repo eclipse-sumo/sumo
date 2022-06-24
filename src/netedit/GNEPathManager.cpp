@@ -320,11 +320,22 @@ GNEPathManager::PathCalculator::calculateDijkstraPath(const SUMOVehicleClass vCl
 
 
 std::vector<GNEEdge*>
-GNEPathManager::PathCalculator::calculateDijkstraPath(const SUMOVehicleClass /*vClass*/, const GNEJunction* /*fromJunction*/, const GNEJunction* /*toJunction*/) const {
-    // implement path between junction here
-    return std::vector<GNEEdge*> ();
+GNEPathManager::PathCalculator::calculateDijkstraPath(const SUMOVehicleClass vClass, const GNEJunction* fromJunction, const GNEJunction* toJunction) const {
+    std::vector<GNEEdge*> edges;
+    // get from and to edges
+    const auto fromEdges = fromJunction->getGNEOutgoingEdges();
+    const auto toEdges = toJunction->getGNEIncomingEdges();
+    // try to find a path
+    for (const auto &fromEdge : fromEdges) {
+        for (const auto &toEdge : toEdges) {
+            edges = calculateDijkstraPath(vClass, {fromEdge, toEdge});
+            if (edges.size() > 0) {
+                return edges;
+            }
+        }
+    }
+    return {};
 }
-
 
 
 void
