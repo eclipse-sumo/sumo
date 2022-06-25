@@ -25,25 +25,25 @@ from collections import defaultdict
 sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..'))
 from sumolib.output import parse  # noqa
 from sumolib.miscutils import uMax, Statistics, parseTime  # noqa
-from sumolib.options import ArgumentParser 
+from sumolib.options import ArgumentParser  # noqa
 
 
 def parse_args():
     optParser = ArgumentParser()
-    optParser.add_argument("orig", help="Original XML File")
-    optParser.add_argument("new", help="New XML File")
-    optParser.add_argument("out", help = "Output File")
-    optParser.add_option("--earliest", action="store_true",
-                         default=False, help="Earliest Output Parameter (Default: False)")
-    options = optParser.parse_args()
-    return options
+    optParser.add_argument("orig", help="original routes file")
+    optParser.add_argument("new", help="new routes file")
+    optParser.add_argument("out", help="output file")
+    optParser.add_option("--earliest", metavar="FILE",
+                         help="write time of the first diff per vehicle to FILE")
+    return optParser.parse_args()
+
 
 def update_earliest(earliest_diffs, diff, timestamp, tag):
     if timestamp < earliest_diffs[diff][0]:
         earliest_diffs[diff] = (timestamp, tag)
 
 
-def write_diff(orig, new, out, earliest_out):
+def write_diff(orig, new, out, earliest_out=None):
     attr_conversions = {"depart": parseTime, "arrival": parseTime}
     earliest_diffs = defaultdict(lambda: (uMax, None))  # diff -> (time, veh)
     vehicles_orig = dict([(v.id, v) for v in parse(orig, 'vehicle',
@@ -62,20 +62,18 @@ def write_diff(orig, new, out, earliest_out):
                     sys.exit("Error: Need route input with 'exitTimes'\n")
                 exitTimes = map(parseTime, v.route[0].exitTimes.split())
                 origExitTimes = map(parseTime, vOrig.route[0].exitTimes.split())
-                exitTimesDiff = [
-                    e - eOrig for e, eOrig in zip(exitTimes, origExitTimes)]
+                exitTimesDiff = [e - eOrig for e, eOrig in zip(exitTimes, origExitTimes)]
 
                 durations.add(v.arrival - v.depart, v.id)
                 origDurations.add(vOrig.arrival - vOrig.depart, v.id)
                 durationDiffs.add(arrivalDiff - departDiff, v.id)
 
-                update_earliest(
-                    earliest_diffs, departDiff, vOrig.depart, v.id + ' (depart)')
+                update_earliest(earliest_diffs, departDiff, vOrig.depart, v.id + ' (depart)')
                 for diff, timestamp in zip(exitTimesDiff, origExitTimes):
                     update_earliest(earliest_diffs, diff, timestamp, v.id)
 
-                f.write('''    <vehicle id="%s" departDiff="%s" arrivalDiff="%s" exitTimesDiff="%s"/>\n''' % (
-                    v.id, departDiff, arrivalDiff, ' '.join(map(str, exitTimesDiff))))
+                f.write('    <vehicle id="%s" departDiff="%s" arrivalDiff="%s" exitTimesDiff="%s"/>\n' %
+                        (v.id, departDiff, arrivalDiff, ' '.join(map(str, exitTimesDiff))))
                 del vehicles_orig[v.id]
             else:
                 f.write('    <vehicle id="%s" comment="new"/>\n' % v.id)
@@ -95,4 +93,4 @@ def write_diff(orig, new, out, earliest_out):
 
 if __name__ == "__main__":
     options = parse_args()
-    write_diff(orig = options.orig, new = options.new , out = options.out, earliest_out = options.earliest)
+    write_diff(options.orig, options.new, options.out, options.earliest)

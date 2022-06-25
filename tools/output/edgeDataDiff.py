@@ -22,32 +22,27 @@ from __future__ import print_function
 import os
 import sys
 from collections import defaultdict
-import optparse
 import math
-sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..'))
-from sumolib.output import parse  # noqa
+sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
+from sumolib.xml import parse  # noqa
 from sumolib.miscutils import Statistics, geh  # noqa
+from sumolib.options import ArgumentParser  # noqa
 
 
 def get_options(args=None):
-    optParser = optparse.OptionParser()
+    optParser = ArgumentParser()
+    optParser.add_argument("orig", help="original data file")
+    optParser.add_argument("new", help="modified data file")
+    optParser.add_argument("out", help="diff output file")
     optParser.add_option("--relative", action="store_true", default=False,
                          help="write relative instead of absolute differences")
     optParser.add_option("--geh", action="store_true", default=False,
                          help="write geh value instead of absolute differences")
-    optParser.add_option("--undefined", type="float", default=-1001, help="value to use if the difference is undefined")
+    optParser.add_option("--undefined", type=float, default=-1001, help="value to use if the difference is undefined")
     optParser.add_option("--no-statistics", action="store_true", default=False,
                          help="otherwise: handle attributes starting with 'std_' as standard"
                          + "deviation and calculate propagated error")
-    (options, args) = optParser.parse_args(args=args)
-
-    if len(args) == 3:
-        options.orig, options.new, options.out = args
-    else:
-        optParser.print_help()
-        sys.exit(1)
-
-    return options
+    return optParser.parse_args(args)
 
 
 def write_diff(options):

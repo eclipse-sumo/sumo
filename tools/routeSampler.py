@@ -435,7 +435,7 @@ class Routes:
                 if r.edges is None:
                     if not warned:
                         print("Warning: Ignoring walk in file '%s' because it does not contain edges." % routefile,
-                                file=sys.stderr)
+                              file=sys.stderr)
                         warned = True
                     continue
                 edges = tuple(r.edges.split())

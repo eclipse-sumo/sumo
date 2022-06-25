@@ -66,9 +66,9 @@ def get_options(args=None):
     optParser.add_argument("--persontrip.transfer.car-walk", dest="carWalkMode",
                            help="Where are mode changes from car to walking allowed " +
                            "(possible values: 'ptStops', 'allJunctions' and combinations)")
-    optParser.add_argument("--persontrip.walkfactor", dest="walkfactor",
+    optParser.add_argument("--persontrip.walkfactor", dest="walkfactor", metavar="FLOAT",
                            help="Use FLOAT as a factor on pedestrian maximum speed during intermodal routing")
-    optParser.add_argument("--persontrip.walk-opposite-factor", dest="walkoppositefactor",
+    optParser.add_argument("--persontrip.walk-opposite-factor", dest="walkoppositefactor", metavar="FLOAT",
                            help="Use FLOAT as a factor on pedestrian maximum speed against vehicle traffic direction")
     optParser.add_argument("--prefix", dest="tripprefix",
                            default="", help="prefix for the trip ids")
@@ -79,9 +79,9 @@ def get_options(args=None):
                            default="", help="additional trip attributes when starting on a fringe.")
     optParser.add_argument("-b", "--begin", default=0, help="begin time")
     optParser.add_argument("-e", "--end", default=3600, help="end time (default 3600)")
-    optParser.add_argument(
-        "-p", "--period", type=float, default=1.0, nargs="+", help="Generate vehicles with equidistant departure times and " +
-        "period=FLOAT (default 1.0). If option --binomial is used, the expected arrival rate is set to 1/period.")
+    optParser.add_argument("-p", "--period", type=float, default=1.0, nargs="+", metavar="FLOAT",
+                           help="Generate vehicles with equidistant departure times and period=FLOAT (default 1.0). " +
+                           "If option --binomial is used, the expected arrival rate is set to 1/period.")
     optParser.add_argument("--random-depart", action="store_true", dest="randomDepart",
                            default=False, help="Distribute departures randomly between begin and end")
     optParser.add_argument("-s", "--seed", type=int, default=42, help="random seed")
@@ -93,9 +93,9 @@ def get_options(args=None):
                            default=False, help="weight edge probability by number of lanes")
     optParser.add_argument("--edge-param", dest="edgeParam",
                            help="use the given edge parameter as factor for edge")
-    optParser.add_argument("--speed-exponent", type=float, dest="speed_exponent",
+    optParser.add_argument("--speed-exponent", type=float, dest="speed_exponent", metavar="FLOAT",
                            default=0.0, help="weight edge probability by speed^<FLOAT> (default 0)")
-    optParser.add_argument("--fringe-speed-exponent", type=float, dest="fringe_speed_exponent",
+    optParser.add_argument("--fringe-speed-exponent", type=float, dest="fringe_speed_exponent", metavar="FLOAT",
                            help="weight fringe edge probability by speed^<FLOAT> (default: speed exponent)")
     optParser.add_argument("--angle", type=float, dest="angle",
                            default=90.0, help="weight edge probability by angle [0-360] relative to the network center")
@@ -113,9 +113,9 @@ def get_options(args=None):
                            "that enter the network, if they have at least the given length")
     optParser.add_argument("--fringe-junctions", action="store_true", dest="fringeJunctions",
                            default=False, help="Determine fringe edges based on junction attribute 'fringe'")
-    optParser.add_argument("--min-distance", type=float, dest="min_distance",
+    optParser.add_argument("--min-distance", type=float, dest="min_distance", metavar="FLOAT",
                            default=0.0, help="require start and end edges for each trip to be at least <FLOAT> m apart")
-    optParser.add_argument("--max-distance", type=float, dest="max_distance",
+    optParser.add_argument("--max-distance", type=float, dest="max_distance", metavar="FLOAT",
                            default=None, help="require start and end edges for each trip to be at most <FLOAT> m " +
                            "apart (default 0 which disables any checks)")
     optParser.add_argument("-i", "--intermediate", type=int,
@@ -171,7 +171,7 @@ def get_options(args=None):
 
     if isinstance(options.period, float):
         options.period = [options.period]
-        
+
     options.period = list(map(intIfPossible, options.period))
 
     if any(options.period) <= 0:
@@ -510,7 +510,7 @@ def main(options):
         options.tripattrs, options.pedestrians, options.vehicle_class)
 
     vias = {}
-    
+
     time_delta = (parseTime(options.end) - parseTime(options.begin)) / len(options.period)
     times = [parseTime(options.begin) + i*time_delta for i in range(len(options.period)+1)]
     times = list(map(intIfPossible, times))
@@ -520,7 +520,7 @@ def main(options):
             options.min_distance, options.max_distance, options.maxtries,
             options.junctionTaz)
         return source_edge, sink_edge, intermediate
-    
+
     def generate_attributes(idx, departureTime, arrivalTime, origin, destination, intermediate, options):
         label = "%s%s" % (options.tripprefix, idx)
         combined_attrs = options.tripattrs
@@ -546,7 +546,7 @@ def main(options):
             if options.validate:
                 vias[label] = via
         return label, combined_attrs, attrFrom, attrTo, via
-    
+
     def generate_one_person(label, combined_attrs, attrFrom, attrTo, departureTime, intermediate, options):
         fouttrips.write(
             '    <person id="%s" depart="%.2f"%s>\n' % (label, departureTime, personattrs))
@@ -565,7 +565,7 @@ def main(options):
         else:
             fouttrips.write('        <%s%s%s%s/>\n' % (element, attrFrom, attrTo, attrs))
         fouttrips.write('    </person>\n')
-        
+
     def generate_one_flow(label, combined_attrs, departureTime, arrivalTime, period, options, timeIdx):
         if len(options.period) > 1:
             label = label + "#%s" % timeIdx
@@ -577,31 +577,32 @@ def main(options):
         else:
             fouttrips.write(('    <flow id="%s" begin="%s" end="%s" period="%s"%s/>\n') % (
                 label, departureTime, arrivalTime, intIfPossible(period * options.flows), combined_attrs))
-        
+
     def generate_one_trip(label, combined_attrs, departureTime):
         fouttrips.write('    <trip id="%s" depart="%.2f"%s/>\n' % (
             label, departureTime, combined_attrs))
-    
+
     def generate_one(idx, departureTime, arrivalTime, period, origin, destination, intermediate, timeIdx=None):
         try:
-            label, combined_attrs, attrFrom, attrTo, via = generate_attributes(idx, departureTime, arrivalTime, origin, destination, intermediate, options)
-            
+            label, combined_attrs, attrFrom, attrTo, via = generate_attributes(
+                idx, departureTime, arrivalTime, origin, destination, intermediate, options)
+
             if options.pedestrians:
-               generate_one_person(label, combined_attrs, attrFrom, attrTo, departureTime, intermediate, options)
+                generate_one_person(label, combined_attrs, attrFrom, attrTo, departureTime, intermediate, options)
             else:
                 if options.jtrrouter:
                     attrTo = ''
-                
+
                 combined_attrs = attrFrom + attrTo + via + combined_attrs
-                
+
                 if options.flows > 0:
                     generate_one_flow(label, combined_attrs, departureTime, arrivalTime, period, options, timeIdx)
                 else:
-                    generate_one_trip(label, combined_attrs, departureTime)      
-                    
+                    generate_one_trip(label, combined_attrs, departureTime)
+
         except Exception as exc:
             print(exc, file=sys.stderr)
-            
+
         return idx + 1
 
     with open(options.tripfile, 'w') as fouttrips:
@@ -624,7 +625,7 @@ def main(options):
                 fouttrips.write(vTypeDef)
             options.tripattrs += ' type="%s"' % options.vtypeID
             personattrs += ' type="%s"' % options.vtypeID
-        
+
         if trip_generator:
             if options.flows == 0:
                 for i in range(len(times)-1):
@@ -640,7 +641,8 @@ def main(options):
                                 time += period
                                 if subsecond != 0:
                                     # allow all multiples of subsecond to appear
-                                    rSubSecond = math.fmod(subsecond * random.randrange(int(departureTime), int(arrivalTime)), 1)
+                                    rSubSecond = math.fmod(
+                                        subsecond * random.randrange(int(departureTime), int(arrivalTime)), 1)
                                     rTime = min(arrivalTime, rTime + rSubSecond)
                                 departures.append(rTime)
                             departures.sort()
@@ -648,7 +650,7 @@ def main(options):
                             while departureTime < arrivalTime:
                                 departures.append(departureTime)
                                 departureTime += period
-    
+
                         for time in departures:
                             # generate with constant spacing
                             try:
@@ -665,21 +667,24 @@ def main(options):
                             for _ in range(options.binomial):
                                 if random.random() < prob:
                                     try:
-                                        origin, destination, intermediate = generate_origin_destination(trip_generator, options)
-                                        idx = generate_one(idx, time, arrivalTime, period, origin, destination, intermediate)
+                                        origin, destination, intermediate = generate_origin_destination(
+                                            trip_generator, options)
+                                        idx = generate_one(idx, time, arrivalTime, period,
+                                                           origin, destination, intermediate)
                                     except Exception as exc:
-                                         print(exc, file=sys.stderr)
+                                        print(exc, file=sys.stderr)
                             time += 1.0
             else:
                 try:
-                    origins_destinations = [generate_origin_destination(trip_generator, options) for _ in range(options.flows)]
+                    origins_destinations = [generate_origin_destination(
+                        trip_generator, options) for _ in range(options.flows)]
                     for i in range(len(times)-1):
                         for j in range(options.flows):
                             departureTime = times[i]
                             arrivalTime = times[i+1]
                             period = options.period[i]
-                            origin_destination = origins_destinations[j]
-                            generate_one(j, departureTime, arrivalTime, period, *origin_destination, i)
+                            origin, destination, intermediate = origins_destinations[j]
+                            generate_one(j, departureTime, arrivalTime, period, origin, destination, intermediate, i)
                 except Exception as exc:
                     print(exc, file=sys.stderr)
 

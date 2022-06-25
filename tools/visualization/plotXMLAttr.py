@@ -25,15 +25,16 @@ import sys
 sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..'))
 from sumolib.output import parse  # noqa
 from sumolib.miscutils import Statistics  # noqa
-from sumolib.options import ArgumentParser 
+from sumolib.options import ArgumentParser  # noqa
+
 
 def parse_args():
     optParser = ArgumentParser()
-    optParser.add_argument("tag", help="Tag of the files to be plotted")
-    optParser.add_argument("attr", help="Attributes of the files to be plotted")
-    optParser.add_argument("xmlfiles", help="Defines the files", nargs = '*')
-    options = optParser.parse_args()
-    return options
+    optParser.add_argument("tag", help="XML tag containing the attribute to be plotted")
+    optParser.add_argument("attr", help="XML attribute to be plotted")
+    optParser.add_argument("xmlfiles", help="XML file(s)", nargs='*')
+    return optParser.parse_args()
+
 
 def main(tag, attr, xmlfiles):
     data = []
@@ -44,16 +45,16 @@ def main(tag, attr, xmlfiles):
         print(stats)
         data.append(stats.values)
     try:
-        import matplotlib.pyplot as plt
-    except Exception as e:
-        sys.exit(e)
-    plt.figure()
-    plt.xticks(range(len(xmlfiles)), xmlfiles)
-    plt.ylabel("%s %s" % (tag, attr))
-    plt.boxplot(data)
-    plt.show()
+        import matplotlib.pyplot as plt  # noqa
+        plt.figure()
+        plt.xticks(range(len(xmlfiles)), xmlfiles)
+        plt.ylabel("%s %s" % (tag, attr))
+        plt.boxplot(data)
+        plt.show()
+    except ImportError:
+        print("Matplotlib not found, cannot generate plot.", file=sys.stderr)
 
 
 if __name__ == "__main__":
     options = parse_args()
-    main(tag = options.tag, attr = options.attr, xmlfiles = options.xmlfiles)
+    main(options.tag, options.attr, options.xmlfiles)

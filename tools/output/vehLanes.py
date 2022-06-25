@@ -22,14 +22,15 @@ import sys
 from collections import defaultdict
 sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..'))
 from sumolib.output import parse  # noqa
-from sumolib.options import ArgumentParser 
+from sumolib.options import ArgumentParser  # noqa
+
 
 def parse_args():
     optParser = ArgumentParser()
     optParser.add_argument("netstate", help="Netstate Dump File")
     optParser.add_argument("out", help="Output file")
-    options = optParser.parse_args()
-    return options
+    return optParser.parse_args()
+
 
 def trackLanes(netstate, out):
     # veh_id -> values
@@ -74,4 +75,4 @@ def trackLanes(netstate, out):
 
 if __name__ == "__main__":
     options = parse_args()
-    trackLanes(netstate = options.netstate, out = options.out)
+    trackLanes(options.netstate, options.out)
