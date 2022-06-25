@@ -69,7 +69,7 @@ title: ChangeLog
     - Exported viewport settings mismatch with actual 3D-view #10949
     - Fixed Crash when setting up GL2 compatible shaders. Issue #10895
     - Visualisation settings now maintain their type (3D/2D). Issue #11000
-    - Coloring vehicles by type attribute or randomly is now working
+    - Coloring vehicles by type attribute or randomly is now working. Issue #2120
    
 - netconvert
   - Fixed invalid edge reduction in edge shape detail at very dense geometry. Issue #10727 (regression in 1.12.0)
