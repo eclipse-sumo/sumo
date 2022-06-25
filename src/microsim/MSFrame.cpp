@@ -804,6 +804,9 @@ MSFrame::checkOptions() {
     if (string2time(oc.getString("device.fcd.begin")) < 0) {
         oc.setDefault("device.fcd.begin", oc.getString("begin"));
     }
+    if (string2time(oc.getString("device.emissions.begin")) < 0) {
+        oc.setDefault("device.emissions.begin", oc.getString("begin"));
+    }
     const SUMOTime begin = string2time(oc.getString("begin"));
     const SUMOTime end = string2time(oc.getString("end"));
     if (begin < 0) {
