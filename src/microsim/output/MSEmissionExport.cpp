@@ -43,10 +43,10 @@ void
 MSEmissionExport::write(OutputDevice& of, SUMOTime timestep, int precision) {
     const OptionsCont& oc = OptionsCont::getOptions();
     const SUMOTime period = string2time(oc.getString("device.emissions.period"));
-    const SUMOTime begin = string2time(oc.getString("begin"));
+    const SUMOTime begin = string2time(oc.getString("device.emissions.begin"));
     const bool scaled = oc.getBool("emission-output.step-scaled");
     const bool useGeo = oc.getBool("emission-output.geo");
-    if (period > 0 && (timestep - begin) % period != 0) {
+    if ((period > 0 && (timestep - begin) % period != 0) || timestep < begin) {
         return;
     }
     of.openTag("timestep").writeAttr("time", time2string(timestep));
