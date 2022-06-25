@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-06-21 15:09:55 by Eclipse SUMO sumo Version v1_13_0+1078-7422078
+<!-- generated on 2022-06-24 20:07:04 by Eclipse SUMO sumo Version v1_13_0+1210-1db8e862314
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -668,6 +668,9 @@
 
         <!-- The &apos;emissions&apos; devices are set deterministic using a fraction of 1000 -->
         <device.emissions.deterministic value="false" type="BOOL"/>
+
+        <!-- Recording begin time for emission-data -->
+        <device.emissions.begin value="-1" type="STR"/>
 
         <!-- Recording period for emission-output -->
         <device.emissions.period value="0" type="STR"/>

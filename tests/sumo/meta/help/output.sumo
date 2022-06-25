@@ -1,4 +1,4 @@
-Eclipse SUMO sumo Version v1_13_0+1078-7422078
+Eclipse SUMO sumo Version v1_13_0+1210-1db8e862314
  Copyright (C) 2001-2022 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -469,6 +469,7 @@ Emissions Options:
                                         vehicles
   --device.emissions.deterministic     The 'emissions' devices are set
                                         deterministic using a fraction of 1000
+  --device.emissions.begin STR         Recording begin time for emission-data
   --device.emissions.period STR        Recording period for emission-output
 
 Communication Options:
