@@ -31,12 +31,12 @@ jobs:
 
     - name: Building SUMO
       run: |
-        mkdir -p sumo/cmake-build 
-        cd sumo/cmake-build
+        mkdir cmake-build 
+        cd cmake-build
         cmake .. 
         build-wrapper-linux-x86-64 --out-dir bw-output make -j$(nproc)
 
     - name: Run sonarqube
       run: sonar-scanner
            -Dsonar.login=${{ secrets.SONAR_TOKEN }}
-           -Dsonar.cfamily.build-wrapper-output=bw-output
+           -Dsonar.cfamily.build-wrapper-output=cmake-build/bw-output
