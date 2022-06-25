@@ -14,7 +14,10 @@ If you don't need to simulate a shared service, you can directly use the taxi de
 in sumo and don't need this tool. See [Taxi](../Simulation/Taxi.md) and the
 respective [Taxi service tutorial ](../Tutorials/TaxiService.md).
 
-The tool requires python3 and the python LP (Linear Programming) modeler [PuLP](https://coin-or.github.io/pulp/).
+The tool requires python3 and the python LP (Linear Programming) modeler
+[PuLP](https://coin-or.github.io/pulp/) at least in version 2.0.
+Please do not install the python3-pulp package on ubuntu 20.04 (or earlier)
+use pip instead.
 
 The minimal call is:
 
@@ -62,7 +65,7 @@ the drt service that a person can accept. The maximum travel time with the drt s
 cannot be greater than the direct travel time multiplied by this factor, which by 
 default has a value equal to 2.
 
-# rtvAlgorithm.py
+# darpSolvers.py
 
 This is an auxiliary tool used by the drtOnline.py that contains the algorithms
 available for the routing of the drt vehicles.
