@@ -89,7 +89,7 @@ public:
      * @note Inherited from GUIGlObject
      * @return This object's parent id
      */
-    std::string getParentName() const {
+    std::string getParentName() const override {
         return getEdge().getID();
     }
 
@@ -106,7 +106,7 @@ public:
      * @return The vehicles on this lane
      * @see MSLane::getVehiclesSecure
      */
-    const VehCont& getVehiclesSecure() const;
+    const VehCont& getVehiclesSecure() const override;
 
 
     /** @brief Allows to use the container for microsimulation again
@@ -114,7 +114,7 @@ public:
      * Unlocks "myLock" preventing usage by microsimulation.
      * @see MSLane::releaseVehicles
      */
-    void releaseVehicles() const;
+    void releaseVehicles() const override;
     /// @}
 
 
@@ -124,33 +124,33 @@ public:
 
     /** the same as in MSLane, but locks the access for the visualisation
         first; the access will be granted at the end of this method */
-    void planMovements(const SUMOTime t);
+    void planMovements(const SUMOTime t) override;
 
     /** the same as in MSLane, but locks the access for the visualisation
         first; the access will be granted at the end of this method */
-    void setJunctionApproaches(const SUMOTime t) const;
+    void setJunctionApproaches(const SUMOTime t) const override;
 
     /** the same as in MSLane, but locks the access for the visualisation
         first; the access will be granted at the end of this method */
-    void executeMovements(const SUMOTime t);
+    void executeMovements(const SUMOTime t) override;
 
     /** the same as in MSLane, but locks the access for the visualisation
         first; the access will be granted at the end of this method */
-    void integrateNewVehicles();
+    void integrateNewVehicles() override;
     ///@}
 
 
     /** the same as in MSLane, but locks the access for the visualisation
         first; the access will be granted at the end of this method */
-    void detectCollisions(SUMOTime timestep, const std::string& stage);
+    void detectCollisions(SUMOTime timestep, const std::string& stage) override;
 
 
     /** the same as in MSLane, but locks the access for the visualisation
         first; the access will be granted at the end of this method */
-    MSVehicle* removeVehicle(MSVehicle* remVehicle, MSMoveReminder::Notification notification, bool notify);
+    MSVehicle* removeVehicle(MSVehicle* remVehicle, MSMoveReminder::Notification notification, bool notify) override;
 
     /// @brief remove parking vehicle
-    void removeParking(MSBaseVehicle* veh);
+    void removeParking(MSBaseVehicle* veh) override;
 
     /** @brief Sets the information about a vehicle lapping into this lane
      *
@@ -159,13 +159,12 @@ public:
      * @param[in] v The vehicle which laps into this lane
      * @return This lane's length
      */
-    double setPartialOccupation(MSVehicle* v);
+    double setPartialOccupation(MSVehicle* v) override;
 
     /** @brief Removes the information about a vehicle lapping into this lane
      * @param[in] v The vehicle which laps into this lane
      */
-    void resetPartialOccupation(MSVehicle* v);
-
+    void resetPartialOccupation(MSVehicle* v) override;
 
     /// @name inherited from GUIGlObject
     //@{
@@ -177,9 +176,7 @@ public:
      * @return The built popup-menu
      * @see GUIGlObject::getPopUpMenu
      */
-    GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app,
-                                       GUISUMOAbstractView& parent);
-
+    GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) override;
 
     /** @brief Returns an own parameter window
      *
@@ -188,32 +185,26 @@ public:
      * @return The built parameter window
      * @see GUIGlObject::getParameterWindow
      */
-    GUIParameterTableWindow* getParameterWindow(GUIMainWindow& app,
-            GUISUMOAbstractView& parent);
-
+    GUIParameterTableWindow* getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent) override;
 
     /// @brief return exaggeration associated with this GLObject
-    double getExaggeration(const GUIVisualizationSettings& s) const;
-
+    double getExaggeration(const GUIVisualizationSettings& s) const override;
 
     /** @brief Returns the boundary to which the view shall be centered in order to show the object
      *
      * @return The boundary the object is within
      * @see GUIGlObject::getCenteringBoundary
      */
-    Boundary getCenteringBoundary() const;
-
+    Boundary getCenteringBoundary() const override;
 
     /** @brief Draws the object
      * @param[in] s The settings for the current view (may influence drawing)
      * @see GUIGlObject::drawGL
      */
-    void drawGL(const GUIVisualizationSettings& s) const;
+    void drawGL(const GUIVisualizationSettings& s) const override;
 
     double getClickPriority() const override;
     //@}
-
-
 
     const PositionVector& getShape() const;
     const std::vector<double>& getShapeRotations() const;
@@ -271,7 +262,7 @@ public:
     }
 
     /// @brief gets the color value according to the current scheme index
-    double getColorValue(const GUIVisualizationSettings& s, int activeScheme) const;
+    double getColorValue(const GUIVisualizationSettings& s, int activeScheme) const override;
 
     /// @brief gets the color value according to the current scheme index including values for things that set the color indirectly
     double getColorValueWithFunctional(const GUIVisualizationSettings& s, int activeScheme) const;
@@ -280,7 +271,7 @@ public:
     double getColorValueForTracker() const;
 
     /// @brief whether this lane is selected in the GUI
-    bool isSelected() const;
+    bool isSelected() const override;
 
     /* @brief sets the color according to the current scheme index and some lane function
      * @param[in] id override active scheme when calling from meso gui
@@ -290,10 +281,9 @@ public:
     /// @brief whether to draw this lane as a railway
     bool drawAsRailway(const GUIVisualizationSettings& s) const;
 
-
 protected:
     /// moves myTmpVehicles int myVehicles after a lane change procedure
-    void swapAfterLaneChange(SUMOTime t);
+    void swapAfterLaneChange(SUMOTime t) override;
 
     /** @brief Inserts the vehicle into this lane, and informs it about entering the network
      *
@@ -307,16 +297,17 @@ protected:
      * @param[in] notification The cause of insertion (i.e. departure, teleport, parking) defaults to departure
      * @see MSLane::incorporateVehicle
      */
-    virtual void incorporateVehicle(MSVehicle* veh, double pos, double speed, double posLat,
-                                    const MSLane::VehCont::iterator& at,
-                                    MSMoveReminder::Notification notification = MSMoveReminder::NOTIFICATION_DEPARTED);
+    void incorporateVehicle(MSVehicle* veh, double pos, double speed, double posLat,
+                            const MSLane::VehCont::iterator& at,
+                            MSMoveReminder::Notification notification = MSMoveReminder::NOTIFICATION_DEPARTED) override;
 
 private:
     /// @brief helper methods
     void drawLinkNo(const GUIVisualizationSettings& s) const;
     void drawTLSLinkNo(const GUIVisualizationSettings& s, const GUINet& net) const;
     void drawLinkRules(const GUIVisualizationSettings& s, const GUINet& net) const;
-    void drawLinkRule(const GUIVisualizationSettings& s, const GUINet& net, const MSLink* link, const PositionVector& shape, double x1, double x2) const;
+    void drawLinkRule(const GUIVisualizationSettings& s, const GUINet& net, const MSLink* link,
+                      const PositionVector& shape, double x1, double x2) const;
     void drawArrows() const;
     void drawLane2LaneConnections(double exaggeration) const;
 

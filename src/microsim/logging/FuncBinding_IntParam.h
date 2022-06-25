@@ -17,7 +17,7 @@
 /// @author  Michael Behrisch
 /// @date    Fri, 29.04.2005
 ///
-// �Function type template
+//  Function type template
 /****************************************************************************/
 #pragma once
 #include <config.h>
