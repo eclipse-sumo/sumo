@@ -25,9 +25,17 @@ import sys
 sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..'))
 from sumolib.output import parse  # noqa
 from sumolib.miscutils import Statistics  # noqa
+from sumolib.options import ArgumentParser 
 
+def parse_args():
+    optParser = ArgumentParser()
+    optParser.add_argument("tripinfos", help="Trip Info file")
+    optParser.add_option("--length", action="store_true", required = False,
+                         default=0.1, help="Length Threshold (Default: 0.1)")
+    options = optParser.parse_args()
+    return options
 
-def main(tripinfos, lengthThreshold=0.1):
+def main(tripinfos, lengthThreshold):
     lengthThreshold = float(lengthThreshold)
     stats = Statistics('walkfactor')
     statsZeroDuration = Statistics('length of zero-duration walks')
@@ -62,4 +70,5 @@ def main(tripinfos, lengthThreshold=0.1):
 
 
 if __name__ == "__main__":
-    main(*sys.argv[1:])
+    options = parse_args()
+    main(tripinfos = options.tripinfos, lengthThreshold = options.length)

@@ -22,6 +22,15 @@ from __future__ import print_function
 import sys
 import re
 from collections import defaultdict
+from sumolib.options import ArgumentParser 
+
+
+def parse_args():
+    optParser = ArgumentParser()
+    optParser.add_argument("logfile", help = "log file")
+    options = optParser.parse_args()
+    return options
+
 
 
 def parse_log(logfile, edges=True, aggregate=3600):
@@ -104,4 +113,5 @@ def main(logfile):
 
 
 if __name__ == "__main__":
-    main(*sys.argv[1:])
+    options = parse_args()
+    main(logfile = options.logfile)
