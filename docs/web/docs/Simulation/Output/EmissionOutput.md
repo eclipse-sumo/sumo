@@ -22,6 +22,8 @@ options or
 parameters](../../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#devices)
 (i.e. **--device.emissions.probability 0.25**) the set of vehicles which generate emission output can be reduced.
 The output period can be set by using option **--device.emissions.period** {{DT_TIME}}.
+To delay output (i.e. until some warm-up time has passed), the option **--device.emissions.begin** {{DT_TIME}} may be used.
+
 
 ## Generated Output
 
