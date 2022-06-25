@@ -33,11 +33,13 @@ title: ChangeLog
   - Fixed ride arrival position when using option **--persontrip.transfer.taxi-walk ptStops**. Issue #10919
   - routeProbReroute is now triggered only once per edge regardless of lane-changing. Issue #10943
   - Fixed inconsistent value for previous vehicle speed after loading simulation state. Issue #10922
+  - Fixed errors when using departSpeed=avg or departSpeed=last. Issue #10868
   
 - netedit
   - Fixed crash when loading a network (on very slow computers / builds). Issue #10750 (regression in 1.9.0)
   - Greatly increased rendering speed. Issue #10425 (regression in 1.11.0)
   - Fixed crash when drawing tazRelations. Issue #10929 (regression in 1.11.0)
+  - Loaded named routes are now visible again. Issue #11008 (regression in 1.12.0)
   - tls mode coloring of 'yellow' phase is now consistent with sumo-gui. Issue #10651
   - Loading a demand file only triggers a 'demand is modified' warning after actual modification. Issue #9529
   - Locate dialog buttons "select all" and "deselect all" now toggle selection status. Issue #10707
@@ -53,6 +55,7 @@ title: ChangeLog
   - tlType selection from drop-down list is now working after changing junction type. Issue #10956
   - Fixed bug where lanes could not be clicked after changing attribute numLanes. Issue #10964
   - Fixed narrow drop-down boxes in inspect mode. Issue #10955
+  - Fixed wrong shortcuts listed in the Edit menu. Issue #10940
   
 - sumo-gui
   - Background images (decals) and multi-view settings are now restored on reload. Issue #10788 (regression in 1.13.0)
@@ -64,6 +67,9 @@ title: ChangeLog
     - Fixed Vehicle orientation on sloped edges in 3D view. Issue #10905
     - Fixed invalid OSG light def written in decal (background image) settings. Issue #10950
     - Exported viewport settings mismatch with actual 3D-view #10949
+    - Fixed Crash when setting up GL2 compatible shaders. Issue #10895
+    - Visualisation settings now maintain their type (3D/2D). Issue #11000
+    - Coloring vehicles by type attribute or randomly is now working
    
 - netconvert
   - Fixed invalid edge reduction in edge shape detail at very dense geometry. Issue #10727 (regression in 1.12.0)
@@ -81,6 +87,9 @@ title: ChangeLog
   - Function traci.load now resets a previous log file by the same name. Issue #10979
   - Fixed invalid mapping with `vehicle.moveToXY` onto intersections with parallel internal edges. Issue #10952
   - Fixed missing collision detection after `vehicle.moveToXY` where the vehicle makes a large "jump". Issue #10952
+  - Fixed incomplete rail signal state reset after calling simulation.loadState. Issue #11001
+  - Fixed crash when calling inductionloop.getVehicleData for detected pedestrians. Issue #11011
+  - Fixed non-deterministic results for `simulation.convertRoad`. Issue #11002
 
 - tools
   - sumolib no longer crashes in an environment where rtree and stderr are missing. Issue #10666
@@ -105,6 +114,8 @@ title: ChangeLog
   - Vehicles at longer planned stops now switch off their engine. Issue #10491, #4019
   - Automated engine start/stop can be modelled. Issue #10441
   - Attribute 'period' is now an alias for attribute 'freq' in all detectors and both are now optional. Issue #10390
+  - Added option **--device.fcd.begin** to customize begin time of fcd-output. Issue #10996
+  - Added option **--device.emissions.begin** to customize begin time of emission-output. Issue #11052
   
 - netedit
   - Persons and personFlows can now be transformed into each other via context menu (similar to vehicles and flows). Issue #10607
@@ -122,12 +133,20 @@ title: ChangeLog
   - Walkingareas can now be located by id. Issue #8580
   - Added 'confirm relation' button to tazRelation mode. Issue #10733
   - Shift-click in demand-stop mode should now sets parent element (i.e. vehicle). Issue #10288
+  - Added gzip file endings in file selection dialogs. Issue #10513
+  - Create edge mode now indicates whether a new junction will be created or an existing junction will be re-used. Issue #8454
+  - A click-preview-indicator is now provided when creating tazRelations and vehicle-over-route. Issue #10997
+  - A click-preview-indicater is now provided when splitting edges in in create-edge-mode. Issue #10998
+  - The hide/show-TAZRel buttons can now be used to hide all relations. Issue #10972
+  - Added dialog for fixing / reporting network element problems. Issue #10151
 
 - sumo-gui
   - InductionLoop detectors now list the time of continuos occupation in their parameter dialog. Issue #10671
   - 3D-view now permits opening vehicle context menu via right-click. Issue #10191
   - Geometry points of polygons junctions and walkingareas can now be annotated to aid in debugging (activated in the openGL settings). Issue #10594
   - Can now color polygons (and TAZ) randomly. Issue #10938
+  - Added gzip file endings in file selection dialogs. Issue #10513
+  - Right clicking on a pedestrian crossing now always opens it's context menu (rather than the menu for the junction). Issue #10914
 
 - netconvert
   - Now supports generating NEMA controllers. Issue #9599
@@ -147,13 +166,19 @@ title: ChangeLog
   - generateRailSignalConstraints.py: Can now write discarded constraints as inactive by setting option **--write-inactive**. Issue #10800
   - plotTrajectories.py: Now supports plotting type 'g' to plot by leaderGap (requires fcd output with option **--fcd-output.max-leader-distance**). Issue #10839
   - addStops2Routes.py: Added various options to randomize stop assignment. Issue #10871
+  - route2OD.py: now supports loading trips with attributes fromTaz and toTaz. Issue #10924
   - routeSampler.py: now supports option **--write-flows poisson** to generate flows with poisson arrival pattern. Issue #10886
+  - routeSampler.py: Can now load pedestrian walks as candidate routes. Issue #11041
+  - randomTrips.py: Can now set explicitly randomized departPos and arrivalPos attributes. Issue #7977
+  - randomTrips.py: Can now pass any kind of duarouter option using **--duarouter-option-name VALUE**. Issue #7347
+  - randomTrips.py: CAn now define a timeline of different demand levels. Issue #5739
 
 ### Miscellaneous
 
   - Outputfile comment header no longer includes options that were set automatically (only user defined options). Issue #10712
   - PHEMlight5 has been added as a new emission model allowing also for modelling of aging fleets. Issue #10237
   - Outputs now use attribute `period` instead of `freq` whenever denoting a time period. Issue #10657
+  - Updated default bicycle speed on highway.path and highway.cycleway. Issue #10976
 
 ## Version 1.13.0 (03.05.2022)
 
