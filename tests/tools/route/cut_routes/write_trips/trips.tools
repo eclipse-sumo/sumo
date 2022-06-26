@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2019-09-27 14:51:33.055000 by cutRoutes.py
+<!-- generated on 2022-06-26 20:44:41.390206 by cutRoutes.py v1_13_0+1226-3cd33ed4291
   options: input_net.net.xml input_routes.rou.xml <doubleminus>trips-output trips.trips.xml
 -->
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <vType id="fast" maxSpeed="50"/>
     <vType id="slow" maxSpeed="5"/>
-    <trip depart="0.00" id="straight" from="middle" to="end" type="slow"/>
+    <trip depart="0.00" id="straight" from="middle" to="end" type="slow" departLane="best" departSpeed="max"/>
 </routes>

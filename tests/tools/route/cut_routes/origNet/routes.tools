@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2019-09-27 14:51:39.726000 by cutRoutes.py
+<!-- generated on 2022-06-26 20:44:41.503284 by cutRoutes.py v1_13_0+1226-3cd33ed4291
   options: input_net.net.xml input_routes.rou.xml <doubleminus>routes-output out.rou.xml <doubleminus>orig-net three_split.net.xml
 -->
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <vType id="fast" maxSpeed="50"/>
     <vType id="slow" maxSpeed="5"/>
-    <vehicle depart="17.81" id="straight" type="slow">
+    <vehicle depart="17.81" id="straight" type="slow" departLane="best" departSpeed="max">
         <route edges="middle end"/>
     </vehicle>
 </routes>
