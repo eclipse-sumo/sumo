@@ -1175,23 +1175,22 @@ class VehicleDomain(VTypeDomain):
     def rerouteTraveltime(self, vehID, currentTravelTimes=True):
         """rerouteTraveltime(string, bool) -> None
         Reroutes a vehicle. If
-        currentTravelTimes is True (default) then the current traveltime of the
-        edges is loaded and used for rerouting. If currentTravelTimes is False
-        custom travel times are used. The various functions and options for
+        currentTravelTimes is True (default) then the ROUTING_MODE_AGGREGATED
+        gets activated temporarily (if it is not activated already)
+        and used for rerouting. The various functions and options for
         customizing travel times are described at https://sumo.dlr.de/wiki/Simulation/Routing
 
         When rerouteTraveltime has been called once with option
-        currentTravelTimes=True, all edge weights are set to the current travel
-        times at the time of that call (even for subsequent simulation steps).
+        currentTravelTimes=True, edge weight storage and update gets activated
+        which might slow down the simulation.
         """
         if currentTravelTimes:
-            time = self._connection.simulation.getTime()
-            if time != self.LAST_TRAVEL_TIME_UPDATE:
-                self.LAST_TRAVEL_TIME_UPDATE = time
-                for edge in self._connection.edge.getIDList():
-                    self._connection.edge.adaptTraveltime(
-                        edge, self._connection.edge.getTraveltime(edge))
+            routingMode = self.getRoutingMode(vehID)
+            if routingMode != tc.ROUTING_MODE_AGGREGATED:
+                self.setRoutingMode(vehID, tc.ROUTING_MODE_AGGREGATED)
         self._setCmd(tc.CMD_REROUTE_TRAVELTIME, vehID, "t", 0)
+        if currentTravelTimes and routingMode != tc.ROUTING_MODE_AGGREGATED:
+            self.setRoutingMode(vehID, routingMode)
 
     def rerouteEffort(self, vehID):
         """rerouteEffort(string) -> None

@@ -805,7 +805,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 if (inputStorage.readInt() != 0) {
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Rerouting should obtain an empty compound object.", outputStorage);
                 }
-                libsumo::Vehicle::rerouteTraveltime(id);
+                libsumo::Vehicle::rerouteTraveltime(id, false);
             }
             break;
             case libsumo::CMD_REROUTE_EFFORT: {
