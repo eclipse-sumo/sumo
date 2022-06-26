@@ -269,7 +269,10 @@ private:
     * @param[in] vMax The wanted speed in the next time step
     * @return The corrected speed with dawdling / driving error
     */
-    double patchSpeedBeforeLCEIDM(const MSVehicle* veh, double vMin, double vMax, VehicleVariables* vars) const;
+    double patchSpeedBeforeLCEIDM(const MSVehicle* veh, double vMin, double vMax, const VehicleVariables* vars) const;
+
+	// @brief calculates the slow to start term when driving off
+	double slowToStartTerm(MSVehicle* const veh, const double newSpeed, const double currentSpeed, const double vMax, VehicleVariables* vars) const;
 
     // @brief contains the main CF-model calculations
     double _v(const MSVehicle* const veh, const double gap2pred, const double mySpeed,
