@@ -45,7 +45,7 @@ MSDetectorFileOutput::MSDetectorFileOutput(const std::string& id,
     myDetectPersons(detectPersons) {
     const std::vector<std::string> vt = StringTokenizer(vTypes).getVector();
     myVehicleTypes.insert(vt.begin(), vt.end());
-    for (const std::string edgeID : StringTokenizer(nextEdges).getVector()) {
+    for (const std::string& edgeID : StringTokenizer(nextEdges).getVector()) {
         const MSEdge* e = MSEdge::dictionary(edgeID);
         if (e) {
             myNextEdges.push_back(e);

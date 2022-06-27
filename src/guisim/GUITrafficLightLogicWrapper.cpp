@@ -312,7 +312,7 @@ GUITrafficLightLogicWrapper::drawGL(const GUIVisualizationSettings& s) const {
     if (s.gaming) {
         if (!MSNet::getInstance()->getTLSControl().isActive(&myTLLogic)) {
             return;
-        };
+        }
         const std::string& curState = myTLLogic.getCurrentPhaseDef().getState();
         if (curState.find_first_of("gG") == std::string::npos) {
             // no link is 'green' at the moment. find those that turn green next
@@ -334,19 +334,18 @@ GUITrafficLightLogicWrapper::drawGL(const GUIVisualizationSettings& s) const {
                 phaseIdx = (phaseIdx + 1) % phases.size();
             }
             // highlight nextGreen links
-            for (std::vector<int>::iterator it_idx = nextGreen.begin(); it_idx != nextGreen.end(); it_idx++) {
-                const MSTrafficLightLogic::LaneVector& lanes = myTLLogic.getLanesAt(*it_idx);
-                for (MSTrafficLightLogic::LaneVector::const_iterator it_lane = lanes.begin(); it_lane != lanes.end(); it_lane++) {
+            for (const int idx : nextGreen) {
+                for (const MSLane* const lane : myTLLogic.getLanesAt(idx)) {
                     GLHelper::pushMatrix();
                     // split circle in red and yellow
-                    Position pos = (*it_lane)->getShape().back();
+                    const Position& pos = lane->getShape().back();
                     glTranslated(pos.x(), pos.y(), GLO_MAX);
-                    double rot = RAD2DEG((*it_lane)->getShape().angleAt2D((int)(*it_lane)->getShape().size() - 2)) - 90;
+                    double rot = RAD2DEG(lane->getShape().angleAt2D((int)lane->getShape().size() - 2)) - 90;
                     glRotated(rot, 0, 0, 1);
                     GLHelper::setColor(s.getLinkColor(LINKSTATE_TL_RED));
-                    GLHelper::drawFilledCircle((*it_lane)->getWidth() / 2., 8, -90, 90);
+                    GLHelper::drawFilledCircle(lane->getWidth() / 2., 8, -90, 90);
                     GLHelper::setColor(s.getLinkColor(LINKSTATE_TL_YELLOW_MAJOR));
-                    GLHelper::drawFilledCircle((*it_lane)->getWidth() / 2., 8, 90, 270);
+                    GLHelper::drawFilledCircle(lane->getWidth() / 2., 8, 90, 270);
                     GLHelper::popMatrix();
                 }
             }
