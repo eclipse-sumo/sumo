@@ -1,5 +1,8 @@
 # prefix junction and edge ids
 prefix
 
+# prefix junction and edge ids (part of the input already has that prefix)
+prefix_prefixed
+
 # rename junction and edge ids to prefix+number
 prefix_renumber
