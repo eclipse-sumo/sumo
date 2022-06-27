@@ -30,7 +30,11 @@ import sumolib  # noqa
 import simpla  # noqa
 from simpla import SimplaException  # noqa
 
-traci.start([sumolib.checkBinary('sumo'),
+binary = 'sumo-gui'
+if 'nogui' in sys.argv:
+    binary = 'sumo'
+
+traci.start([sumolib.checkBinary(binary),
             '-c', 'sumo.sumocfg',
             '--step-length', '0.5',
             '--fcd-output', 'fcd.xml',
