@@ -1,0 +1,5 @@
+# prefix junction and edge ids
+prefix
+
+# rename junction and edge ids to prefix+number
+prefix_renumber
