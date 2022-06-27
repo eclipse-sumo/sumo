@@ -130,7 +130,7 @@ GNEContainerStop::drawGL(const GUIVisualizationSettings& s) const {
             } else if (drawUsingSelectColor()) {
                 baseColor = s.colorSettings.selectedAdditionalColor;
                 signColor = baseColor.changedBrightness(-32);
-            } else if (myColor.isValid()) {
+            } else if (myColor != RGBColor::INVISIBLE) {
                 baseColor = myColor;
                 signColor = s.colorSettings.containerStopColorSign;
             } else {
@@ -223,7 +223,7 @@ GNEContainerStop::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_PARKING_LENGTH:
             return toString(myParkingLength);
         case SUMO_ATTR_COLOR:
-            if (!myColor.isValid()) {
+            if (myColor != RGBColor::INVISIBLE) {
                 return "";
             } else {
                 return toString(myColor);
@@ -367,7 +367,7 @@ GNEContainerStop::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_COLOR:
             if (value.empty()) {
-                myColor.setValid(false);
+                myColor = RGBColor::INVISIBLE;
             } else {
                 myColor = GNEAttributeCarrier::parse<RGBColor>(value);
             }
