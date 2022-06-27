@@ -2153,6 +2153,7 @@ GUIApplicationWindow::setBreakpoints(const std::vector<SUMOTime>& breakpoints) {
         myRunThread->getBreakpointLock().lock();
         myRunThread->getBreakpoints().assign(breakpoints.begin(), breakpoints.end());
         myRunThread->getBreakpointLock().unlock();
+        updateChildren(MID_TIMELINK_BREAKPOINT);
     }
 }
 

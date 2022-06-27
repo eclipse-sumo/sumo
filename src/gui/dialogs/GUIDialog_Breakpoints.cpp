@@ -54,6 +54,7 @@ FXDEFMAP(GUIDialog_Breakpoints) GUIDialog_BreakpointsMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_SAVE,  GUIDialog_Breakpoints::onCmdSave),
     FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_CLEAR, GUIDialog_Breakpoints::onCmdClear),
     FXMAPFUNC(SEL_COMMAND,  MID_CANCEL,        GUIDialog_Breakpoints::onCmdClose),
+    FXMAPFUNC(SEL_COMMAND,  MID_TIMELINK_BREAKPOINT,  GUIDialog_Breakpoints::onCmdUpdateBreakpoints),
     FXMAPFUNC(SEL_REPLACED, MID_TABLE,         GUIDialog_Breakpoints::onCmdEditTable),
 };
 
@@ -189,6 +190,13 @@ GUIDialog_Breakpoints::onCmdClear(FXObject*, FXSelector, void*) {
     return 1;
 }
 
+
+long
+GUIDialog_Breakpoints::onCmdUpdateBreakpoints(FXObject*, FXSelector, void*) {
+    FXMutexLock lock(*myBreakpointLock);
+    rebuildList();
+    return 1;
+}
 
 
 long

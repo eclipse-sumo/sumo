@@ -65,6 +65,9 @@ public:
     /// @brief Called when the user presses the Clear-button
     long onCmdClear(FXObject*, FXSelector, void*);
 
+    /// @brief Called when the user presses the Clear-button
+    long onCmdUpdateBreakpoints(FXObject*, FXSelector, void*);
+
     /// @brief Called when the user presses the Close-button
     long onCmdClose(FXObject*, FXSelector, void*);
 
