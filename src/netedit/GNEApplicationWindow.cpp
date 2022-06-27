@@ -3436,6 +3436,21 @@ GNEApplicationWindow::onCmdOpenAdditionals(FXObject*, FXSelector, void*) {
     if (opendialog.execute()) {
         // close additional dialog
         WRITE_DEBUG("Close additional dialog");
+        // check if open question dialog box
+        if (opendialog.getFilename().text() == OptionsCont::getOptions().getString("additional-files")) {
+            // open question dialog box
+            const auto answer = FXMessageBox::question(myNet->getViewNet()->getApp(), MBOX_YES_NO, "Load same additional file",
+                                        "Selected additional file was previously already loaded. Continue?");
+            if (answer != 1) { //1:yes, 2:no, 4:esc
+                // write warning if netedit is running in testing mode
+                if (answer == 2) {
+                    WRITE_DEBUG("Closed FXMessageBox 'Load same additional file' with 'No'");
+                } else if (answer == 4) {
+                    WRITE_DEBUG("Closed FXMessageBox 'Load same additional file' with 'ESC'");
+                }
+                return 0;
+            }
+        }
         // save previous status save
         const bool requireSaveAdditionals = !myNet->isAdditionalsSaved();
         const bool requireSaveDemandElements = !myNet->isDemandElementsSaved();
@@ -3462,6 +3477,10 @@ GNEApplicationWindow::onCmdOpenAdditionals(FXObject*, FXSelector, void*) {
         myNet->requireSaveAdditionals(requireSaveAdditionals);
         myNet->requireSaveDemandElements(requireSaveDemandElements);
         myNet->requireSaveDataElements(requireSaveDataElements);
+        // change value of "route-files"
+        OptionsCont& oc = OptionsCont::getOptions();
+        oc.resetWritable();
+        oc.set("additional-files", opendialog.getFilename().text());
     } else {
         // write debug information
         WRITE_DEBUG("Cancel additional dialog");
@@ -3614,6 +3633,21 @@ GNEApplicationWindow::onCmdOpenDemandElements(FXObject*, FXSelector, void*) {
     if (opendialog.execute()) {
         // close additional dialog
         WRITE_DEBUG("Close demand element dialog");
+        // check if open question dialog box
+        if (opendialog.getFilename().text() == OptionsCont::getOptions().getString("route-files")) {
+            // open question dialog box
+            const auto answer = FXMessageBox::question(myNet->getViewNet()->getApp(), MBOX_YES_NO, "Load same route file",
+                                        "Selected route file was previously already loaded. Continue?");
+            if (answer != 1) { //1:yes, 2:no, 4:esc
+                // write warning if netedit is running in testing mode
+                if (answer == 2) {
+                    WRITE_DEBUG("Closed FXMessageBox 'Load same route file' with 'No'");
+                } else if (answer == 4) {
+                    WRITE_DEBUG("Closed FXMessageBox 'Load same route file' with 'ESC'");
+                }
+                return 0;
+            }
+        }
         // save previous status save
         const bool requireSaveAdditionals = !myNet->isAdditionalsSaved();
         const bool requireSaveDemandElements = !myNet->isDemandElementsSaved();
@@ -3640,6 +3674,10 @@ GNEApplicationWindow::onCmdOpenDemandElements(FXObject*, FXSelector, void*) {
         myNet->requireSaveAdditionals(requireSaveAdditionals);
         myNet->requireSaveDemandElements(requireSaveDemandElements);
         myNet->requireSaveDataElements(requireSaveDataElements);
+        // change value of "route-files"
+        OptionsCont& oc = OptionsCont::getOptions();
+        oc.resetWritable();
+        oc.set("route-files", opendialog.getFilename().text());
     } else {
         // write debug information
         WRITE_DEBUG("Cancel demand element dialog");
@@ -3790,6 +3828,21 @@ GNEApplicationWindow::onCmdOpenDataElements(FXObject*, FXSelector, void*) {
     if (opendialog.execute()) {
         // close additional dialog
         WRITE_DEBUG("Close data element dialog");
+        // check if open question dialog box
+        if (opendialog.getFilename().text() == OptionsCont::getOptions().getString("data-files")) {
+            // open question dialog box
+            const auto answer = FXMessageBox::question(myNet->getViewNet()->getApp(), MBOX_YES_NO, "Load same data file",
+                                        "Selected data file was previously already loaded. Continue?");
+            if (answer != 1) { //1:yes, 2:no, 4:esc
+                // write warning if netedit is running in testing mode
+                if (answer == 2) {
+                    WRITE_DEBUG("Closed FXMessageBox 'Load same data file' with 'No'");
+                } else if (answer == 4) {
+                    WRITE_DEBUG("Closed FXMessageBox 'Load same data file' with 'ESC'");
+                }
+                return 0;
+            }
+        }
         // save previous status save
         const bool requireSaveAdditionals = !myNet->isAdditionalsSaved();
         const bool requireSaveDemandElements = !myNet->isDemandElementsSaved();
@@ -3821,6 +3874,10 @@ GNEApplicationWindow::onCmdOpenDataElements(FXObject*, FXSelector, void*) {
         myNet->requireSaveAdditionals(requireSaveAdditionals);
         myNet->requireSaveDemandElements(requireSaveDemandElements);
         myNet->requireSaveDataElements(requireSaveDataElements);
+        // change value of "route-files"
+        OptionsCont& oc = OptionsCont::getOptions();
+        oc.resetWritable();
+        oc.set("data-files", opendialog.getFilename().text());
     } else {
         // write debug information
         WRITE_DEBUG("Cancel data element dialog");
