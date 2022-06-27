@@ -229,33 +229,35 @@ MSCFModel_EIDM::patchSpeedBeforeLCEIDM(const MSVehicle* /*veh*/, double vMin, do
 
 double
 MSCFModel_EIDM::slowToStartTerm(MSVehicle* const veh, const double newSpeed, const double currentSpeed, const double vMax, VehicleVariables* vars) const {
-	// Drive Off Activation and Term
-	double v_corr = currentSpeed;
-	if (newSpeed == 0 || newSpeed <= currentSpeed) {
-		return newSpeed;
-	}
+    // Drive Off Activation and Term
 
-	double remainingDelay = 0.0;
-	if (newSpeed != vMax) {
-		remainingDelay = STEPS2TIME(DELTA_T - (myStartupDelay - (veh->getTimeSinceStartup() - DELTA_T)));
-	}
-	for (int i = 0; i < myIterations; i++) {
-		if (currentSpeed < ClutchEngageSpeed || vars->t_off + myTaccmax + NUMERICAL_EPS > (SIMTIME - remainingDelay - TS * (myIterations - i - 1) / myIterations)) {
-			// @ToDo: Check if all clauses are still needed or if we need to add more for all possible drive off cases?!
-			// Activation of the Drive Off term, when
-			if (currentSpeed < ClutchEngageSpeed && // The start speed is lower than ClutchEngageSpeed m/s
-				vars->t_off + 4. - NUMERICAL_EPS < (SIMTIME - remainingDelay - TS * (myIterations - i - 1) / myIterations) && vars->myap_update == 0 && // the last activation is at least 4 seconds ago AND an Action Point was reached
-				((vars->myv_est_l > 5. && veh->getAcceleration() >= -NUMERICAL_EPS) || (newSpeed > currentSpeed)) // a leader is accelerating and at least 5m/s fast (is needed for junctions) OR the calculated next speed is higher than the current
-				&& veh->getAcceleration() < 0.2) { // && respectMinGap) { // the driver hasn't started accelerating yet (<0.2)
-				vars->t_off = (SIMTIME - remainingDelay - TS * (myIterations - i - 1) / myIterations); // activate the drive off term
-			}
-			// Calculation of the Drive Off term (when we reach this point, "newSpeed > currentSpeed" holds)
-			if (vars->t_off + myTaccmax + NUMERICAL_EPS > (SIMTIME - remainingDelay - TS * (myIterations - i - 1) / myIterations)) {
-				v_corr = v_corr + (newSpeed - currentSpeed) / myIterations * (tanh((((SIMTIME - remainingDelay - TS * (myIterations - i - 1) / myIterations) - vars->t_off) * 2 / myTaccmax - myMbegin) * myMflatness) + 1) / 2;
-			}
-		}
-	}
-	return v_corr;
+    if (newSpeed == 0 || newSpeed <= currentSpeed) {
+        return newSpeed;
+    }
+
+    double remainingDelay = 0.0;
+    if (newSpeed != vMax) {
+        remainingDelay = STEPS2TIME(DELTA_T - (myStartupDelay - (veh->getTimeSinceStartup() - DELTA_T)));
+    }
+
+    double v_corr = currentSpeed;
+    for (int i = 0; i < myIterations; i++) {
+        // @ToDo: Check if all clauses are still needed or if we need to add more for all possible drive off cases?!
+        // When we reach this point, "newSpeed > currentSpeed" already holds
+        // Activation of the Drive Off term, when
+        if (currentSpeed < ClutchEngageSpeed && // The start speed is lower than ClutchEngageSpeed m/s
+            vars->t_off + 4. - NUMERICAL_EPS < (SIMTIME - remainingDelay - TS * (myIterations - i - 1) / myIterations) && vars->myap_update == 0 && // the last activation is at least 4 seconds ago AND an Action Point was reached
+            veh->getAcceleration() < 0.2) { // && respectMinGap) { // the driver hasn't started accelerating yet (<0.2)
+            vars->t_off = (SIMTIME - remainingDelay - TS * (myIterations - i - 1) / myIterations); // activate the drive off term
+        }
+        // Calculation of the Drive Off term
+        if (vars->t_off + myTaccmax + NUMERICAL_EPS > (SIMTIME - remainingDelay - TS * (myIterations - i - 1) / myIterations)) {
+            v_corr = v_corr + (newSpeed - currentSpeed) / myIterations * (tanh((((SIMTIME - remainingDelay - TS * (myIterations - i - 1) / myIterations) - vars->t_off) * 2 / myTaccmax - myMbegin) * myMflatness) + 1) / 2;
+        } else {
+            v_corr = v_corr + (newSpeed - currentSpeed) / myIterations;
+        }
+    }
+    return v_corr;
 }
 
 double
@@ -288,16 +290,10 @@ MSCFModel_EIDM::finalizeSpeed(MSVehicle* const veh, double vPos) const {
     double vMax = MIN2(maxNextSpeed(oldV, veh), vStop);
     vMax = MAX2(vMin, vMax);
 
-	// Driving off correction term: First we check for StartupDelay, then calculate Speed with SlowToStartTerm
-	// Apply Startup delay (time) before driving off
-	double vDelay = applyStartupDelay(veh, vMin, vMax);
-	// Apply the slow to start term to the acceleration/speed when driving off
-	double vNext = slowToStartTerm(veh, vDelay, oldV, vMax, vars);
-
 #ifdef DEBUG_V
     gDebugFlag1 = veh->isSelected();
     if (gDebugFlag1) {
-        std::cout << "finalizeSpeed " << SIMTIME << 
+        std::cout << "finalizeSpeed " << SIMTIME <<
             "s, veh=" << veh->getID() <<
             " oldV=" << oldV <<
             " vPos=" << vPos <<
@@ -305,10 +301,19 @@ MSCFModel_EIDM::finalizeSpeed(MSVehicle* const veh, double vPos) const {
             " vStop=" << vStop <<
             " vMinEmergency=" << vMinEmergency <<
             " vMin=" << vMin <<
-            " vMax=" << vMax <<
-		    " vStartUp=" << vNext << "\n";
+            " vMax=" << vMax << "\n";
     }
 #endif
+
+    // Driving off correction term: First we check for StartupDelay, then calculate Speed with SlowToStartTerm
+    // Apply Startup delay (time) before driving off
+    SUMOTime addTime = vars->myap_update * DELTA_T;
+    if (myStartupDelay + addTime - (veh->getTimeSinceStartup() - DELTA_T) < DELTA_T) {
+        addTime = (SUMOTime)0;
+    }
+    double vDelay = applyStartupDelay(veh, vMin, vMax, addTime);
+    // Apply the slow to start term to the acceleration/speed when driving off
+    double vNext = slowToStartTerm(veh, vDelay, oldV, vMax, vars);
 
     // apply further speed adaptations
     vNext = patchSpeedBeforeLCEIDM(veh, vMin, vNext, vars);
@@ -317,7 +322,9 @@ MSCFModel_EIDM::finalizeSpeed(MSVehicle* const veh, double vPos) const {
 
         // The model does not directly use vNext from patchSpeed (like the original MSCFModel::finalizeSpeed function),
         // but rather slowly adapts to vNext.
-        vNext = veh->getLaneChangeModel().patchSpeed(vMin, vNext, vMax, *this);
+        if (vNext > 0.) {
+            vNext = veh->getLaneChangeModel().patchSpeed(vMin, vNext, vMax, *this);
+        }
 
         // Bound the positive change of the acceleration with myJerkmax
         if (vNext > oldV && oldV > EST_REAC_THRESHOLD) {
@@ -347,7 +354,9 @@ MSCFModel_EIDM::finalizeSpeed(MSVehicle* const veh, double vPos) const {
 
         // for ballistic update, negative vnext must be allowed to
         // indicate a stop within the coming timestep (i.e., to attain negative values)
-        vNext = veh->getLaneChangeModel().patchSpeed(vMin, vMax, vMax, *this);
+        if (vNext > 0.) {
+            vNext = veh->getLaneChangeModel().patchSpeed(vMin, vMax, vMax, *this);
+        }
         // (Leo) finalizeSpeed() is responsible for assuring that the next
         // velocity is chosen in accordance with maximal decelerations.
         // At this point vNext may also be negative indicating a stop within next step.
@@ -409,11 +418,9 @@ MSCFModel_EIDM::followSpeed(const MSVehicle* const veh, double speed, double gap
     // This update-variable is used to check what called followSpeed (LC- or CF-model)
     // Here we don't directly use gComputeLC, which is also 0 and 1, because in freeSpeed we have another call (update = 2),
     // which is needed to differentiate between the different cases/calculations/needed output/saved variables
-    int update;
+    int update = 1;
     if (MSGlobals::gComputeLC) {
         update = 0;
-    } else {
-        update = 1;
     }
 
 #ifdef DEBUG_V
@@ -537,12 +544,23 @@ MSCFModel_EIDM::freeSpeed(const MSVehicle* const veh, double speed, double seen,
     // This update-variable is used to check what called freeSpeed (LC- or CF-model)
     // Here we don't directly use gComputeLC, which is also 0 and 1, because in we have another possible call (update = 2),
     // which is needed to differentiate between the different cases/calculations/needed output/saved variables
-    int update;
+    int update = 1;
     if (MSGlobals::gComputeLC) {
         update = 0;
-    } else {
-        update = 1;
     }
+
+#ifdef DEBUG_V
+    gDebugFlag1 = veh->isSelected();
+    if (gDebugFlag1) {
+        std::cout << "freeSpeed " << SIMTIME <<
+            "s, veh=" << veh->getID() <<
+            " speed=" << speed <<
+            " seen=" << seen <<
+            " maxSpeed=" << maxSpeed <<
+            " update=" << update <<
+            " onInsertion=" << onInsertion << "\n";
+    }
+#endif
 
     VehicleVariables* vars = (VehicleVariables*)veh->getCarFollowVariables();
 
@@ -555,8 +573,9 @@ MSCFModel_EIDM::freeSpeed(const MSVehicle* const veh, double speed, double seen,
     } else {
         // driver needs to brake, because he is faster than the desired speed limit <maxSpeed> on the next lane or the next upcoming event (e.g. red light violation)
         // The adaption/braking starts when the <seen> time-distance is lower than myTpreview+myTreaction
-        update = update == 0 ? 0 : 2;
         if (maxSpeed < speed && seen < speed * (myTpreview + myTreaction)) {
+
+            update = update == 0 ? 0 : 2;
 
             remaining_time = MAX3((seen - speed * myTreaction) / speed, myTreaction / 2, TS); // The remaining time is at least a time step or the reaction time of the driver
             targetDecel = (speed - maxSpeed) / remaining_time; // The needed constant deceleration to reach maxSpeed before reaching the next lane/event
@@ -1031,6 +1050,30 @@ MSCFModel_EIDM::_v(const MSVehicle* const veh, const double gap2pred, const doub
 
     // The "real" acceleration after iterations
     acc = SPEED2ACCEL(MIN2(newSpeed, maxNextSpeed(egoSpeed, veh)) - veh->getSpeed());
+
+#ifdef DEBUG_V
+    gDebugFlag1 = veh->isSelected();
+    if (gDebugFlag1) {
+        std::cout << "_v " << SIMTIME <<
+            "s, veh=" << veh->getID() <<
+            " vars->minaccel=" << wantedacc <<
+            " vars->myap_update=" << vars->myap_update <<
+            " vars->myv_est_l=" << vars->myv_est_l <<
+            " vars->myv_est=" << vars->myv_est <<
+            " vars->mys_est=" << vars->mys_est <<
+            " vars->wouldacc=" << vars->wouldacc <<
+            " vars->realacc=" << vars->realacc << "\n";
+        std::cout << "_v " << SIMTIME <<
+            "s, veh=" << veh->getID() <<
+            " newSpeed=" << newSpeed <<
+            " newGap=" << newGap <<
+            " predSpeed=" << predSpeed <<
+            " estSpeed=" << estSpeed <<
+            " estleaderSpeed=" << estleaderSpeed <<
+            " estGap=" << estGap <<
+            " acc=" << acc << "\n";
+    }
+#endif
 
     // wantedacc is already calculated at this point. acc may still change (because of coolness and drive off), but the ratio should stay the same!
     // this means when vars->minaccel > wantedacc stands, so should vars->minaccel > acc!
