@@ -1688,7 +1688,7 @@ GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent* e) {
                 mySimDelaySlider->setValue((int)mySimDelay);
                 mySimDelaySpinner->setValue(mySimDelay);
             }
-            if (!OptionsCont::getOptions().isDefault("breakpoints")) {
+            if (!OptionsCont::getOptions().isDefault("breakpoints") && !myIsReload) {
                 std::vector<SUMOTime> breakpoints;
                 for (const std::string& val : OptionsCont::getOptions().getStringVector("breakpoints")) {
                     SUMOTime t = string2time(val);
