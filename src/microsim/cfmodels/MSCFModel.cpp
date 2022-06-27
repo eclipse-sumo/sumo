@@ -230,12 +230,12 @@ MSCFModel::finalizeSpeed(MSVehicle* const veh, double vPos) const {
 
 
 double
-MSCFModel::applyStartupDelay(const MSVehicle* veh, double vMin, double vMax) const {
+MSCFModel::applyStartupDelay(const MSVehicle* veh, const double vMin, const double vMax, const SUMOTime addTime) const {
     UNUSED_PARAMETER(vMin);
     // timeSinceStartup was already incremented by DELTA_T
-    if (veh->getTimeSinceStartup() > 0 && veh->getTimeSinceStartup() - DELTA_T < myStartupDelay) {
+    if (veh->getTimeSinceStartup() > 0 && veh->getTimeSinceStartup() - DELTA_T < myStartupDelay + addTime) {
         assert(veh->getSpeed() <= SUMO_const_haltingSpeed);
-        const SUMOTime remainingDelay = myStartupDelay  - (veh->getTimeSinceStartup() - DELTA_T);
+        const SUMOTime remainingDelay = myStartupDelay + addTime - (veh->getTimeSinceStartup() - DELTA_T);
         //std::cout << SIMTIME << " applyStartupDelay veh=" << veh->getID() << " remainingDelay=" << remainingDelay << "\n";
         if (remainingDelay >= DELTA_T) {
             // delay startup by at least a whole step

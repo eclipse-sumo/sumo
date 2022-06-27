@@ -91,7 +91,7 @@ public:
     }
 
     /// @brief apply speed adaptation on startup
-    virtual double applyStartupDelay(const MSVehicle* veh, double vMin, double vMax) const;
+    virtual double applyStartupDelay(const MSVehicle* veh, const double vMin, const double vMax, const SUMOTime addTime = 0) const;
 
 
     /** @brief Computes the vehicle's safe speed without a leader
