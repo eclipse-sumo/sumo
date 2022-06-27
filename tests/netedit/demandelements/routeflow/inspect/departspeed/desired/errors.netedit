@@ -68,6 +68,7 @@ Debug: Selected item 'DEFAULT_VEHTYPE' in DemandElementSelector
 Debug: Selected item 'DEFAULT_VEHTYPE' in DemandElementSelector
 Debug: Selected item 'flow (over route)' in GNETagSelector
 Debug: Adding flowRoute 'f_0' in GNEChange_DemandElement
+Debug: Value 'dummySpeed' for attribute departSpeed of flowRoute isn't valid
 Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
@@ -124,6 +125,7 @@ GLDebug: 	Inserted edge:gneE6 into SUMORTree with boundary -10.00,28.40,70.00,50
 GLDebug: 	Inserted edge:gneE7 into SUMORTree with boundary -10.00,-10.00,70.00,11.60
 GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary -10.00,8.40,40.00,30.00
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary -10.00,10.00,40.00,31.60
+Debug: network elements saved
 Debug: Deleting unreferenced flowRoute
 Debug: Deleting unreferenced route
 Debug: Deleting unreferenced edge 'gneE10' in AttributeCarriers destructor

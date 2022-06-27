@@ -69,7 +69,7 @@ Debug: Selected item 'DEFAULT_VEHTYPE' in DemandElementSelector
 Debug: Selected item 'vehicle (over route)' in GNETagSelector
 Debug: Adding vehicle 'v_0' in GNEChange_DemandElement
 Debug: Value 'dummyPos' for attribute arrivalPos of vehicle isn't valid
-Debug: Value 'dummyPos' for attribute arrivalPos of vehicle isn't valid
+Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
@@ -80,10 +80,10 @@ Debug: Calling GNEUndoList::undo()
 Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing vehicle 'v_0' in GNEChange_DemandElement
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Adding vehicle 'v_0' in GNEChange_DemandElement
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute
@@ -127,6 +127,7 @@ GLDebug: 	Inserted edge:gneE6 into SUMORTree with boundary -10.00,28.40,70.00,50
 GLDebug: 	Inserted edge:gneE7 into SUMORTree with boundary -10.00,-10.00,70.00,11.60
 GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary -10.00,8.40,40.00,30.00
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary -10.00,10.00,40.00,31.60
+Debug: network elements saved
 Debug: Deleting unreferenced vehicle
 Debug: Deleting unreferenced route
 Debug: Deleting unreferenced edge 'gneE10' in AttributeCarriers destructor
