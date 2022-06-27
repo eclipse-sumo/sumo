@@ -117,6 +117,12 @@ NBLoadedSUMOTLDef::addConnection(NBEdge* from, NBEdge* to, int fromLane, int toL
 }
 
 void
+NBLoadedSUMOTLDef::setID(const std::string& newID) {
+    Named::setID(newID);
+    myTLLogic->setID(newID);
+}
+
+void
 NBLoadedSUMOTLDef::setProgramID(const std::string& programID) {
     NBTrafficLightDefinition::setProgramID(programID);
     myTLLogic->setProgramID(programID);

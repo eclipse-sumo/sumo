@@ -113,6 +113,9 @@ public:
     void extract(NBTrafficLightDefinition* definition);
 
 
+    /// @brief rename traffic light
+    void rename(NBTrafficLightDefinition* tlDef, const std::string& newID);
+
     /// @brief return the number of extracted traffic light definitions
     int getNumExtracted() const {
         return (int)myExtracted.size();

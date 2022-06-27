@@ -60,6 +60,8 @@ public:
     /// @brief Destructor
     ~NBLoadedSUMOTLDef();
 
+    void setID(const std::string& newID); 
+
     /** @brief Sets the programID
      * @param[in] programID The new ID of the program (subID)
      */

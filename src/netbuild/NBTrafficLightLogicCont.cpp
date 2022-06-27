@@ -372,4 +372,24 @@ NBTrafficLightLogicCont::getDefinitions() const {
 }
 
 
+void
+NBTrafficLightLogicCont::rename(NBTrafficLightDefinition* tlDef, const std::string& newID) {
+    auto it = myDefinitions.find(tlDef->getID());
+    if (it != myDefinitions.end()) {
+        for (auto item : it->second) {
+            item.second->setID(newID);
+        }
+        myDefinitions[newID] = it->second;
+        myDefinitions.erase(it);
+    }
+    auto it2 = myComputed.find(tlDef->getID());
+    if (it2 != myComputed.end()) {
+        for (auto item : it2->second) {
+            item.second->setID(newID);
+        }
+        myComputed[newID] = it2->second;
+        myComputed.erase(it2);
+    }
+}
+
 /****************************************************************************/

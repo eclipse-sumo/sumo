@@ -2476,7 +2476,7 @@ NBNodeCont::discardRailSignals() {
 
 
 int
-NBNodeCont::remapIDs(bool numericaIDs, bool reservedIDs, const std::string& prefix) {
+NBNodeCont::remapIDs(bool numericaIDs, bool reservedIDs, const std::string& prefix, NBTrafficLightLogicCont& tlc) {
     bool startGiven = !OptionsCont::getOptions().isDefault("numerical-ids.node-start");
     if (!numericaIDs && !reservedIDs && prefix == "" && !startGiven) {
         return 0;
@@ -2531,6 +2531,11 @@ NBNodeCont::remapIDs(bool numericaIDs, bool reservedIDs, const std::string& pref
         for (auto item : oldNodes) {
             if (!StringUtils::startsWith(item.first, prefix)) {
                 rename(item.second, prefix + item.first);
+                for (NBTrafficLightDefinition* tlDef : item.second->getControllingTLS()) {
+                    if (!StringUtils::startsWith(tlDef->getID(), prefix)) {
+                        tlc.rename(tlDef, prefix + tlDef->getID());
+                    }
+                }
                 renamed++;
             }
         }
