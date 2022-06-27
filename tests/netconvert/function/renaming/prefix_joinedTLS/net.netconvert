@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-06-27 11:34:23 by Eclipse SUMO netconvert Version v1_13_0+1227-0d5036f
+<!-- generated on 2022-06-27 12:07:38 by Eclipse SUMO netconvert Version v1_13_0+1230-c0f09f0
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -115,7 +115,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="foo_top2C0_0" index="0" speed="13.89" length="100.00" shape="298.40,200.00 298.40,107.20"/>
     </edge>
 
-    <tlLogic id="joined" type="static" programID="0" offset="0">
+    <tlLogic id="foo_joined" type="static" programID="0" offset="0">
         <phase duration="31" state="GGGgGgggrrrrrrrrrrrrGGggrrrrGGggrrrrrrrrrrrrGGGG"/>
         <phase duration="3"  state="yyyyyyyyrrrrrrrrrrrryyyyrrrryyyyrrrrrrrrrrrryyyy"/>
         <phase duration="31" state="rrrrggggGGGgrrrrrrrrGGggrrrrGGggrrrrrrrrrrrrGGGG"/>
@@ -213,61 +213,61 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <request index="0" response="0" foes="0"/>
     </junction>
 
-    <connection from="foo_A0B0" to="foo_B0bottom1" fromLane="0" toLane="0" tl="joined" linkIndex="28" dir="r" state="o"/>
-    <connection from="foo_A0B0" to="foo_B0C0" fromLane="0" toLane="0" tl="joined" linkIndex="29" dir="s" state="o"/>
-    <connection from="foo_A0B0" to="foo_B0top1" fromLane="0" toLane="0" tl="joined" linkIndex="30" dir="l" state="o"/>
-    <connection from="foo_A0B0" to="foo_B0A0" fromLane="0" toLane="0" tl="joined" linkIndex="31" dir="t" state="o"/>
+    <connection from="foo_A0B0" to="foo_B0bottom1" fromLane="0" toLane="0" tl="foo_joined" linkIndex="28" dir="r" state="o"/>
+    <connection from="foo_A0B0" to="foo_B0C0" fromLane="0" toLane="0" tl="foo_joined" linkIndex="29" dir="s" state="o"/>
+    <connection from="foo_A0B0" to="foo_B0top1" fromLane="0" toLane="0" tl="foo_joined" linkIndex="30" dir="l" state="o"/>
+    <connection from="foo_A0B0" to="foo_B0A0" fromLane="0" toLane="0" tl="foo_joined" linkIndex="31" dir="t" state="o"/>
     <connection from="foo_A0bottom0" to="foo_bottom0A0" fromLane="0" toLane="0" dir="t" state="M"/>
     <connection from="foo_A0left0" to="foo_left0A0" fromLane="0" toLane="0" dir="t" state="M"/>
     <connection from="foo_A0top0" to="foo_top0A0" fromLane="0" toLane="0" dir="t" state="M"/>
-    <connection from="foo_B0A0" to="foo_A0top0" fromLane="0" toLane="0" tl="joined" linkIndex="4" dir="r" state="o"/>
-    <connection from="foo_B0A0" to="foo_A0left0" fromLane="0" toLane="0" tl="joined" linkIndex="5" dir="s" state="o"/>
-    <connection from="foo_B0A0" to="foo_A0bottom0" fromLane="0" toLane="0" tl="joined" linkIndex="6" dir="l" state="o"/>
-    <connection from="foo_B0A0" to="foo_A0B0" fromLane="0" toLane="0" tl="joined" linkIndex="7" dir="t" state="o"/>
-    <connection from="foo_B0C0" to="foo_C0bottom2" fromLane="0" toLane="0" tl="joined" linkIndex="44" dir="r" state="o"/>
-    <connection from="foo_B0C0" to="foo_C0right0" fromLane="0" toLane="0" tl="joined" linkIndex="45" dir="s" state="o"/>
-    <connection from="foo_B0C0" to="foo_C0top2" fromLane="0" toLane="0" tl="joined" linkIndex="46" dir="l" state="o"/>
-    <connection from="foo_B0C0" to="foo_C0B0" fromLane="0" toLane="0" tl="joined" linkIndex="47" dir="t" state="o"/>
+    <connection from="foo_B0A0" to="foo_A0top0" fromLane="0" toLane="0" tl="foo_joined" linkIndex="4" dir="r" state="o"/>
+    <connection from="foo_B0A0" to="foo_A0left0" fromLane="0" toLane="0" tl="foo_joined" linkIndex="5" dir="s" state="o"/>
+    <connection from="foo_B0A0" to="foo_A0bottom0" fromLane="0" toLane="0" tl="foo_joined" linkIndex="6" dir="l" state="o"/>
+    <connection from="foo_B0A0" to="foo_A0B0" fromLane="0" toLane="0" tl="foo_joined" linkIndex="7" dir="t" state="o"/>
+    <connection from="foo_B0C0" to="foo_C0bottom2" fromLane="0" toLane="0" tl="foo_joined" linkIndex="44" dir="r" state="o"/>
+    <connection from="foo_B0C0" to="foo_C0right0" fromLane="0" toLane="0" tl="foo_joined" linkIndex="45" dir="s" state="o"/>
+    <connection from="foo_B0C0" to="foo_C0top2" fromLane="0" toLane="0" tl="foo_joined" linkIndex="46" dir="l" state="o"/>
+    <connection from="foo_B0C0" to="foo_C0B0" fromLane="0" toLane="0" tl="foo_joined" linkIndex="47" dir="t" state="o"/>
     <connection from="foo_B0bottom1" to="foo_bottom1B0" fromLane="0" toLane="0" dir="t" state="M"/>
     <connection from="foo_B0top1" to="foo_top1B0" fromLane="0" toLane="0" dir="t" state="M"/>
-    <connection from="foo_C0B0" to="foo_B0top1" fromLane="0" toLane="0" tl="joined" linkIndex="20" dir="r" state="o"/>
-    <connection from="foo_C0B0" to="foo_B0A0" fromLane="0" toLane="0" tl="joined" linkIndex="21" dir="s" state="o"/>
-    <connection from="foo_C0B0" to="foo_B0bottom1" fromLane="0" toLane="0" tl="joined" linkIndex="22" dir="l" state="o"/>
-    <connection from="foo_C0B0" to="foo_B0C0" fromLane="0" toLane="0" tl="joined" linkIndex="23" dir="t" state="o"/>
+    <connection from="foo_C0B0" to="foo_B0top1" fromLane="0" toLane="0" tl="foo_joined" linkIndex="20" dir="r" state="o"/>
+    <connection from="foo_C0B0" to="foo_B0A0" fromLane="0" toLane="0" tl="foo_joined" linkIndex="21" dir="s" state="o"/>
+    <connection from="foo_C0B0" to="foo_B0bottom1" fromLane="0" toLane="0" tl="foo_joined" linkIndex="22" dir="l" state="o"/>
+    <connection from="foo_C0B0" to="foo_B0C0" fromLane="0" toLane="0" tl="foo_joined" linkIndex="23" dir="t" state="o"/>
     <connection from="foo_C0bottom2" to="foo_bottom2C0" fromLane="0" toLane="0" dir="t" state="M"/>
     <connection from="foo_C0right0" to="foo_right0C0" fromLane="0" toLane="0" dir="t" state="M"/>
     <connection from="foo_C0top2" to="foo_top2C0" fromLane="0" toLane="0" dir="t" state="M"/>
-    <connection from="foo_bottom0A0" to="foo_A0B0" fromLane="0" toLane="0" tl="joined" linkIndex="8" dir="r" state="O"/>
-    <connection from="foo_bottom0A0" to="foo_A0top0" fromLane="0" toLane="0" tl="joined" linkIndex="9" dir="s" state="O"/>
-    <connection from="foo_bottom0A0" to="foo_A0left0" fromLane="0" toLane="0" tl="joined" linkIndex="10" dir="l" state="o"/>
-    <connection from="foo_bottom0A0" to="foo_A0bottom0" fromLane="0" toLane="0" tl="joined" linkIndex="11" dir="t" state="o"/>
-    <connection from="foo_bottom1B0" to="foo_B0C0" fromLane="0" toLane="0" tl="joined" linkIndex="24" dir="r" state="O"/>
-    <connection from="foo_bottom1B0" to="foo_B0top1" fromLane="0" toLane="0" tl="joined" linkIndex="25" dir="s" state="O"/>
-    <connection from="foo_bottom1B0" to="foo_B0A0" fromLane="0" toLane="0" tl="joined" linkIndex="26" dir="l" state="o"/>
-    <connection from="foo_bottom1B0" to="foo_B0bottom1" fromLane="0" toLane="0" tl="joined" linkIndex="27" dir="t" state="o"/>
-    <connection from="foo_bottom2C0" to="foo_C0right0" fromLane="0" toLane="0" tl="joined" linkIndex="40" dir="r" state="O"/>
-    <connection from="foo_bottom2C0" to="foo_C0top2" fromLane="0" toLane="0" tl="joined" linkIndex="41" dir="s" state="O"/>
-    <connection from="foo_bottom2C0" to="foo_C0B0" fromLane="0" toLane="0" tl="joined" linkIndex="42" dir="l" state="o"/>
-    <connection from="foo_bottom2C0" to="foo_C0bottom2" fromLane="0" toLane="0" tl="joined" linkIndex="43" dir="t" state="o"/>
-    <connection from="foo_left0A0" to="foo_A0bottom0" fromLane="0" toLane="0" tl="joined" linkIndex="12" dir="r" state="o"/>
-    <connection from="foo_left0A0" to="foo_A0B0" fromLane="0" toLane="0" tl="joined" linkIndex="13" dir="s" state="o"/>
-    <connection from="foo_left0A0" to="foo_A0top0" fromLane="0" toLane="0" tl="joined" linkIndex="14" dir="l" state="o"/>
-    <connection from="foo_left0A0" to="foo_A0left0" fromLane="0" toLane="0" tl="joined" linkIndex="15" dir="t" state="o"/>
-    <connection from="foo_right0C0" to="foo_C0top2" fromLane="0" toLane="0" tl="joined" linkIndex="36" dir="r" state="o"/>
-    <connection from="foo_right0C0" to="foo_C0B0" fromLane="0" toLane="0" tl="joined" linkIndex="37" dir="s" state="o"/>
-    <connection from="foo_right0C0" to="foo_C0bottom2" fromLane="0" toLane="0" tl="joined" linkIndex="38" dir="l" state="o"/>
-    <connection from="foo_right0C0" to="foo_C0right0" fromLane="0" toLane="0" tl="joined" linkIndex="39" dir="t" state="o"/>
-    <connection from="foo_top0A0" to="foo_A0left0" fromLane="0" toLane="0" tl="joined" linkIndex="0" dir="r" state="O"/>
-    <connection from="foo_top0A0" to="foo_A0bottom0" fromLane="0" toLane="0" tl="joined" linkIndex="1" dir="s" state="O"/>
-    <connection from="foo_top0A0" to="foo_A0B0" fromLane="0" toLane="0" tl="joined" linkIndex="2" dir="l" state="o"/>
-    <connection from="foo_top0A0" to="foo_A0top0" fromLane="0" toLane="0" tl="joined" linkIndex="3" dir="t" state="o"/>
-    <connection from="foo_top1B0" to="foo_B0A0" fromLane="0" toLane="0" tl="joined" linkIndex="16" dir="r" state="O"/>
-    <connection from="foo_top1B0" to="foo_B0bottom1" fromLane="0" toLane="0" tl="joined" linkIndex="17" dir="s" state="O"/>
-    <connection from="foo_top1B0" to="foo_B0C0" fromLane="0" toLane="0" tl="joined" linkIndex="18" dir="l" state="o"/>
-    <connection from="foo_top1B0" to="foo_B0top1" fromLane="0" toLane="0" tl="joined" linkIndex="19" dir="t" state="o"/>
-    <connection from="foo_top2C0" to="foo_C0B0" fromLane="0" toLane="0" tl="joined" linkIndex="32" dir="r" state="O"/>
-    <connection from="foo_top2C0" to="foo_C0bottom2" fromLane="0" toLane="0" tl="joined" linkIndex="33" dir="s" state="O"/>
-    <connection from="foo_top2C0" to="foo_C0right0" fromLane="0" toLane="0" tl="joined" linkIndex="34" dir="l" state="o"/>
-    <connection from="foo_top2C0" to="foo_C0top2" fromLane="0" toLane="0" tl="joined" linkIndex="35" dir="t" state="o"/>
+    <connection from="foo_bottom0A0" to="foo_A0B0" fromLane="0" toLane="0" tl="foo_joined" linkIndex="8" dir="r" state="O"/>
+    <connection from="foo_bottom0A0" to="foo_A0top0" fromLane="0" toLane="0" tl="foo_joined" linkIndex="9" dir="s" state="O"/>
+    <connection from="foo_bottom0A0" to="foo_A0left0" fromLane="0" toLane="0" tl="foo_joined" linkIndex="10" dir="l" state="o"/>
+    <connection from="foo_bottom0A0" to="foo_A0bottom0" fromLane="0" toLane="0" tl="foo_joined" linkIndex="11" dir="t" state="o"/>
+    <connection from="foo_bottom1B0" to="foo_B0C0" fromLane="0" toLane="0" tl="foo_joined" linkIndex="24" dir="r" state="O"/>
+    <connection from="foo_bottom1B0" to="foo_B0top1" fromLane="0" toLane="0" tl="foo_joined" linkIndex="25" dir="s" state="O"/>
+    <connection from="foo_bottom1B0" to="foo_B0A0" fromLane="0" toLane="0" tl="foo_joined" linkIndex="26" dir="l" state="o"/>
+    <connection from="foo_bottom1B0" to="foo_B0bottom1" fromLane="0" toLane="0" tl="foo_joined" linkIndex="27" dir="t" state="o"/>
+    <connection from="foo_bottom2C0" to="foo_C0right0" fromLane="0" toLane="0" tl="foo_joined" linkIndex="40" dir="r" state="O"/>
+    <connection from="foo_bottom2C0" to="foo_C0top2" fromLane="0" toLane="0" tl="foo_joined" linkIndex="41" dir="s" state="O"/>
+    <connection from="foo_bottom2C0" to="foo_C0B0" fromLane="0" toLane="0" tl="foo_joined" linkIndex="42" dir="l" state="o"/>
+    <connection from="foo_bottom2C0" to="foo_C0bottom2" fromLane="0" toLane="0" tl="foo_joined" linkIndex="43" dir="t" state="o"/>
+    <connection from="foo_left0A0" to="foo_A0bottom0" fromLane="0" toLane="0" tl="foo_joined" linkIndex="12" dir="r" state="o"/>
+    <connection from="foo_left0A0" to="foo_A0B0" fromLane="0" toLane="0" tl="foo_joined" linkIndex="13" dir="s" state="o"/>
+    <connection from="foo_left0A0" to="foo_A0top0" fromLane="0" toLane="0" tl="foo_joined" linkIndex="14" dir="l" state="o"/>
+    <connection from="foo_left0A0" to="foo_A0left0" fromLane="0" toLane="0" tl="foo_joined" linkIndex="15" dir="t" state="o"/>
+    <connection from="foo_right0C0" to="foo_C0top2" fromLane="0" toLane="0" tl="foo_joined" linkIndex="36" dir="r" state="o"/>
+    <connection from="foo_right0C0" to="foo_C0B0" fromLane="0" toLane="0" tl="foo_joined" linkIndex="37" dir="s" state="o"/>
+    <connection from="foo_right0C0" to="foo_C0bottom2" fromLane="0" toLane="0" tl="foo_joined" linkIndex="38" dir="l" state="o"/>
+    <connection from="foo_right0C0" to="foo_C0right0" fromLane="0" toLane="0" tl="foo_joined" linkIndex="39" dir="t" state="o"/>
+    <connection from="foo_top0A0" to="foo_A0left0" fromLane="0" toLane="0" tl="foo_joined" linkIndex="0" dir="r" state="O"/>
+    <connection from="foo_top0A0" to="foo_A0bottom0" fromLane="0" toLane="0" tl="foo_joined" linkIndex="1" dir="s" state="O"/>
+    <connection from="foo_top0A0" to="foo_A0B0" fromLane="0" toLane="0" tl="foo_joined" linkIndex="2" dir="l" state="o"/>
+    <connection from="foo_top0A0" to="foo_A0top0" fromLane="0" toLane="0" tl="foo_joined" linkIndex="3" dir="t" state="o"/>
+    <connection from="foo_top1B0" to="foo_B0A0" fromLane="0" toLane="0" tl="foo_joined" linkIndex="16" dir="r" state="O"/>
+    <connection from="foo_top1B0" to="foo_B0bottom1" fromLane="0" toLane="0" tl="foo_joined" linkIndex="17" dir="s" state="O"/>
+    <connection from="foo_top1B0" to="foo_B0C0" fromLane="0" toLane="0" tl="foo_joined" linkIndex="18" dir="l" state="o"/>
+    <connection from="foo_top1B0" to="foo_B0top1" fromLane="0" toLane="0" tl="foo_joined" linkIndex="19" dir="t" state="o"/>
+    <connection from="foo_top2C0" to="foo_C0B0" fromLane="0" toLane="0" tl="foo_joined" linkIndex="32" dir="r" state="O"/>
+    <connection from="foo_top2C0" to="foo_C0bottom2" fromLane="0" toLane="0" tl="foo_joined" linkIndex="33" dir="s" state="O"/>
+    <connection from="foo_top2C0" to="foo_C0right0" fromLane="0" toLane="0" tl="foo_joined" linkIndex="34" dir="l" state="o"/>
+    <connection from="foo_top2C0" to="foo_C0top2" fromLane="0" toLane="0" tl="foo_joined" linkIndex="35" dir="t" state="o"/>
 
 </net>
