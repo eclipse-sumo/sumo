@@ -300,8 +300,6 @@ private:
 protected:
     GUIOSGView() {}
 
-	float myOSGNormalizedCursorX, myOSGNormalizedCursorY;
-
     osg::ref_ptr<FXOSGAdapter> myAdapter;
     osg::ref_ptr<osgViewer::Viewer> myViewer;
     osg::ref_ptr<osg::Group> myRoot;
@@ -311,6 +309,8 @@ private:
     osg::ref_ptr<SUMOTerrainManipulator> myCameraManipulator;
 
     SUMOTime myLastUpdate;
+
+	float myOSGNormalizedCursorX, myOSGNormalizedCursorY;
 
     std::map<MSVehicle*, OSGMovable > myVehicles;
     std::map<MSTransportable*, OSGMovable > myPersons;

@@ -57,7 +57,7 @@ std::map<std::string, osg::ref_ptr<osg::Node> > GUIOSGBuilder::myCars;
 // ===========================================================================
 
 osg::Group*
-GUIOSGBuilder::buildOSGScene(osg::Node* const tlg, osg::Node* const tly, osg::Node* const tlr, osg::Node* const tlu) {
+GUIOSGBuilder::buildOSGScene(osg::Node* const /*tlg*/, osg::Node* const /*tly*/, osg::Node* const /*tlr*/, osg::Node* const /*tlu*/) {
     osgUtil::Tessellator tesselator;
     osg::Group* root = new osg::Group();
     GUINet* net = static_cast<GUINet*>(MSNet::getInstance());
