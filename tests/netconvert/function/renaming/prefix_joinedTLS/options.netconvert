@@ -1,0 +1,3 @@
+--no-internal-links -v -s input_net.net.xml
+--output=net.net.xml 
+--prefix foo_
