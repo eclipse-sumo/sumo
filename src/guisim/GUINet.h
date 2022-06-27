@@ -347,7 +347,7 @@ public:
     void updateGUI() const override;
 
     /// @brief register custom hotkey action
-    void addHotkey(int key, Command* press, Command* release);
+    void addHotkey(int key, Command* press, Command* release=nullptr);
 
 private:
     /// @brief Initialises the tl-logic map and wrappers

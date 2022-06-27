@@ -47,6 +47,7 @@
 #include <microsim/traffic_lights/MSTrafficLightLogic.h>
 #include <microsim/traffic_lights/MSTLLogicControl.h>
 #include <microsim/MSJunctionControl.h>
+#include <guisim/Command_Hotkey_TrafficLight.h>
 #include <guisim/GUIEdge.h>
 #include <guisim/GUILane.h>
 #include <guisim/GUITransportableControl.h>
@@ -160,8 +161,10 @@ GUINet::createTLWrapper(MSTrafficLightLogic* tll) {
         return;
     }
     // build the wrapper
-    GUITrafficLightLogicWrapper* tllw =
-        new GUITrafficLightLogicWrapper(*myLogics, *tll);
+    GUITrafficLightLogicWrapper* tllw = new GUITrafficLightLogicWrapper(*myLogics, *tll);
+    if (tll->knowsParameter("hotkeyAbort")) {
+        Command_Hotkey_TrafficLight::registerHotkey(tll->getParameter("hotkeyAbort"), *tll);
+    }
     // build the association link->wrapper
     MSTrafficLightLogic::LinkVectorVector::const_iterator j;
     for (j = links.begin(); j != links.end(); ++j) {
