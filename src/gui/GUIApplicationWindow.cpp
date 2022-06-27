@@ -519,11 +519,9 @@ GUIApplicationWindow::fillMenuBar() {
     GUIDesigns::buildFXMenuCommandShortcut(myLocatorMenu,
                                            "Locate &Edges", "Shift+E", "Open a Dialog for Locating an Edge.",
                                            GUIIconSubSys::getIcon(GUIIcon::LOCATEEDGE), this, MID_LOCATEEDGE);
-    if (!MSGlobals::gUseMesoSim) { // there are no gui-vehicles in mesosim
-        GUIDesigns::buildFXMenuCommandShortcut(myLocatorMenu,
-                                               "Locate &Vehicles", "Shift+V", "Open a Dialog for Locating a Vehicle.",
-                                               GUIIconSubSys::getIcon(GUIIcon::LOCATEVEHICLE), this, MID_LOCATEVEHICLE);
-    }
+    GUIDesigns::buildFXMenuCommandShortcut(myLocatorMenu,
+                                           "Locate &Vehicles", "Shift+V", "Open a Dialog for Locating a Vehicle.",
+                                           GUIIconSubSys::getIcon(GUIIcon::LOCATEVEHICLE), this, MID_LOCATEVEHICLE);
     GUIDesigns::buildFXMenuCommandShortcut(myLocatorMenu,
                                            "Locate &Persons", "Shift+P", "Open a Dialog for Locating a Person.",
                                            GUIIconSubSys::getIcon(GUIIcon::LOCATEPERSON), this, MID_LOCATEPERSON);
