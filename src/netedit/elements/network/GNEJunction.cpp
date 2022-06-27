@@ -1024,6 +1024,11 @@ GNEJunction::setJunctionType(const std::string &value, GNEUndoList* undoList) {
         const std::set<NBTrafficLightDefinition*> copyOfTls = myNBNode->getControllingTLS();
         for (const auto& TLS : copyOfTls) {
             undoList->add(new GNEChange_TLS(this, TLS, false, false), true);
+            const std::vector<NBNode*> copyOfNodes = TLS->getNodes(); // make a copy!
+            for (const auto& node : copyOfNodes) {
+                GNEJunction* sharing = myNet->getAttributeCarriers()->retrieveJunction(node->getID());
+                sharing->invalidateTLS(undoList);
+            }
         }
     }
     // must be the final step, otherwise we do not know which traffic lights to remove via GNEChange_TLS
