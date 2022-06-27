@@ -28,6 +28,7 @@
 #include <map>
 #include <utils/common/StdDefs.h>
 #include <utils/common/SUMOTime.h>
+#include "GUIAppEnum.h"
 
 
 // ===========================================================================
@@ -75,7 +76,7 @@ public:
     const std::vector<GUIGlChildWindow*>& getViews() const;
 
     /// @brief update childrens
-    void updateChildren();
+    void updateChildren(int msg = MID_SIMSTEP);
 
     /// @brief get bold front
     FXFont* getBoldFont();

@@ -74,12 +74,13 @@ public:
 
     virtual void layout();
 
+    /// @brief Rebuilds the entire list
+    void rebuildList();
+
 protected:
     FOX_CONSTRUCTOR(GUIDialog_Breakpoints)
 
 private:
-    /// @brief Rebuilds the entire list
-    void rebuildList();
 
     /** @brief Builds a text representation of the items in the list
      * @return Breakpoints encoded as a string

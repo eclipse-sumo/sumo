@@ -37,7 +37,6 @@
 #include <utils/foxtools/MFXImageHelper.h>
 #include <utils/gui/images/GUITexturesHelper.h>
 #include <utils/options/OptionsCont.h>
-#include "GUIAppEnum.h"
 #include "GUIMainWindow.h"
 #include "GUIGlChildWindow.h"
 
@@ -167,13 +166,13 @@ GUIMainWindow::getViews() const {
 
 
 void
-GUIMainWindow::updateChildren() {
+GUIMainWindow::updateChildren(int msg) {
     // inform views
-    myMDIClient->forallWindows(this, FXSEL(SEL_COMMAND, MID_SIMSTEP), nullptr);
+    myMDIClient->forallWindows(this, FXSEL(SEL_COMMAND, msg), nullptr);
     // inform other windows
     myTrackerLock.lock();
     for (int i = 0; i < (int)myTrackerWindows.size(); i++) {
-        myTrackerWindows[i]->handle(this, FXSEL(SEL_COMMAND, MID_SIMSTEP), nullptr);
+        myTrackerWindows[i]->handle(this, FXSEL(SEL_COMMAND, msg), nullptr);
     }
     myTrackerLock.unlock();
 }
