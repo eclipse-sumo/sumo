@@ -63,7 +63,7 @@ python tools/randomTrips.py --help
 The arrival rate is controlled by option **--period** {{DT_FLOAT}} (*default 1*). By default this
 generates vehicles with a constant period and arrival rate of (1/period)
 per second. By using values below 1, multiple arrivals per second can be
-achieved.
+achieved. If several {{DT_FLOAT}} numbers are passed, like in **--period 1.0 0.5** for example, the time interval will be divided equally into subintervals, and the arrival rate for each subinterval is controlled by the corresponding period (in the preceding example, a period of 1.0 will be used for the first subinterval and a period of 0.5 will be used for the second.)
 
 When adding option **--binomial** {{DT_INT}} the arrivals will be randomized using a binomial
 distribution where *n* (the maximum number of simultaneous arrivals) is
@@ -266,3 +266,6 @@ and define only the file *example.src.xml* as follows:
 </edgedata>
 ```
 
+## Forwarding options to duarouter
+
+When generating the route *.rou.xml* file, duarouter is called. Some arguments are already passed to duarouter directly from arguments received by randomTrips. However, should you need so, you can directly pass an argument to duarouter with the syntax `--duarouter-option value`; for instance using `--duarouter-exit-times true` with randomTrips will forward the argument `--exit-times` to duarouter when it is called, and with the value `true`. Please note that it is compulsory to pass a value together with the option, for instance `--duarouter-exit-times` wouldn't be valid in this context.
