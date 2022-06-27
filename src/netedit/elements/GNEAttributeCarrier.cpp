@@ -203,7 +203,7 @@ GNEAttributeCarrier::parse(const std::string& string) {
 template<> RGBColor
 GNEAttributeCarrier::parse(const std::string& string) {
     if (string.empty()) {
-        return RGBColor(false);
+        return RGBColor::INVISIBLE;
     } else {
         return RGBColor::parseColor(string);
     }
