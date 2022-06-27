@@ -2104,15 +2104,19 @@ GUIApplicationWindow::onKeyPress(FXObject* o, FXSelector sel, void* ptr) {
     } else if (e->code == FX::KEY_Page_Down) {
         onCmdDelayDec(nullptr, 0, nullptr);
     } else {
-        const long handled = FXMainWindow::onKeyPress(o, sel, ptr);
+        // disable hotkeys without modifiers for the game
+        const bool ignoreSimple = myAmGaming && (e->state & (CONTROLMASK | SHIFTMASK | ALTMASK)) == 0;
+        const long handled = ignoreSimple ? 0 : FXMainWindow::onKeyPress(o, sel, ptr);
         if (handled == 0 && myMDIClient->numChildren() > 0) {
             auto it = myHotkeyPress.find(e->code);
             if (it != myHotkeyPress.end()) {
                 it->second->execute(SIMSTEP);
             }
-            GUISUMOViewParent* w = dynamic_cast<GUISUMOViewParent*>(myMDIClient->getActiveChild());
-            if (w != nullptr) {
-                w->onKeyPress(nullptr, sel, ptr);
+            if (!ignoreSimple) {
+                GUISUMOViewParent* w = dynamic_cast<GUISUMOViewParent*>(myMDIClient->getActiveChild());
+                if (w != nullptr) {
+                    w->onKeyPress(nullptr, sel, ptr);
+                }
             }
         }
     }

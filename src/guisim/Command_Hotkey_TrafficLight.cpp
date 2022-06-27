@@ -39,7 +39,7 @@ Command_Hotkey_TrafficLight::~Command_Hotkey_TrafficLight() { }
 SUMOTime
 Command_Hotkey_TrafficLight::execute(SUMOTime currentTime) {
     int next = (myLogic.getCurrentPhaseIndex() + 1) % myLogic.getPhaseNumber();
-    myLogic.changeStepAndDuration(MSNet::getInstance()->getTLSControl(), currentTime, next, myLogic.getPhase(next).duration);
+    myLogic.changeStepAndDuration(MSNet::getInstance()->getTLSControl(), currentTime, next, -1);
     return 1;
 }
 

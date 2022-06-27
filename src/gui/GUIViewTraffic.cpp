@@ -415,9 +415,9 @@ void
 GUIViewTraffic::onGamingClick(Position pos) {
     if (myTLSGame) {
         MSTLLogicControl& tlsControl = MSNet::getInstance()->getTLSControl();
-        const MSTrafficLightLogic* minTll = nullptr;
+        MSTrafficLightLogic* minTll = nullptr;
         double minDist = std::numeric_limits<double>::infinity();
-        for (const MSTrafficLightLogic* const tll : tlsControl.getAllLogics()) {
+        for (MSTrafficLightLogic* const tll : tlsControl.getAllLogics()) {
             if (tlsControl.isActive(tll) && tll->getProgramID() != "off") {
                 // get the links
                 const MSTrafficLightLogic::LaneVector& lanes = tll->getLanesAt(0);
@@ -431,22 +431,9 @@ GUIViewTraffic::onGamingClick(Position pos) {
             }
         }
         if (minTll != nullptr) {
-            const MSTLLogicControl::TLSLogicVariants& vars = tlsControl.get(minTll->getID());
-            const std::vector<MSTrafficLightLogic*> logics = vars.getAllLogics();
-            if (logics.size() > 1) {
-                MSSimpleTrafficLightLogic* l = (MSSimpleTrafficLightLogic*) logics[0];
-                for (int i = 0; i < (int)logics.size() - 1; ++i) {
-                    if (minTll->getProgramID() == logics[i]->getProgramID()) {
-                        l = (MSSimpleTrafficLightLogic*) logics[i + 1];
-                        tlsControl.switchTo(minTll->getID(), l->getProgramID());
-                    }
-                }
-                if (l == logics[0]) {
-                    tlsControl.switchTo(minTll->getID(), l->getProgramID());
-                }
-                l->changeStepAndDuration(tlsControl, MSNet::getInstance()->getCurrentTimeStep(), 0, l->getPhase(0).duration);
-                update();
-            }
+            int next = (minTll->getCurrentPhaseIndex() + 1) % minTll->getPhaseNumber();
+            minTll->changeStepAndDuration(tlsControl, MSNet::getInstance()->getCurrentTimeStep(), next, -1);
+            update();
         }
     } else {
         // DRT game
