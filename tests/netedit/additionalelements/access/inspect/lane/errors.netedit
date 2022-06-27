@@ -12,7 +12,7 @@ Debug: Selected item 'busStop' in GNETagSelector
 Debug: Adding busStop 'bs_0' in GNEChange_Additional
 Debug: Selected item 'access' in GNETagSelector
 Debug: Adding access 'bs_0' in GNEChange_Additional
-Debug: Value 'access' for attribute lane of access isn't valid
+Debug: Value 'dummyLane' for attribute lane of access isn't valid
 Debug: Value '' for attribute lane of access isn't valid
 Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed

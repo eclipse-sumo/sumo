@@ -40,9 +40,12 @@ netedit.vehicleMode()
 # set color using dialog color
 netedit.changeColorUsingDialog(netedit.attrs.tripFromToEdge.create.colorButton, 5)
 
-# try to create trip
+# create trip
 netedit.leftClick(referencePosition, 274, 392)
 netedit.leftClick(referencePosition, 280, 55)
+
+# press enter to create trip
+netedit.typeEnter()
 
 # set invalid color
 netedit.changeDefaultValue(netedit.attrs.tripFromToEdge.create.color, "dummyColor")

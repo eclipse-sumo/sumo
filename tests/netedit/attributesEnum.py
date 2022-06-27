@@ -1300,7 +1300,7 @@ class tripFromToEdge:
         departPosLat = 20
         arrivalPosLat = 21
         insertionChecks = 22
-        depart = 22
+        depart = 23
 
     class inspect:
         id = 1
@@ -1321,9 +1321,9 @@ class tripFromToEdge:
         containerNumber = 16
         departPosLat = 17
         arrivalPosLat = 18
-        insertionChecks = 22
-        depart = 19
-        parameters = 22
+        insertionChecks = 19
+        depart = 20
+        parameters = 23
 
     class inspectSelection:
         type = 1
@@ -1340,9 +1340,9 @@ class tripFromToEdge:
         containerNumber = 12
         departPosLat = 13
         arrivalPosLat = 14
-        insertionChecks = 22
-        depart = 15
-        parameters = 18
+        insertionChecks = 15
+        depart = 16
+        parameters = 19
 
 # trip (from-to junctions)
 
@@ -1365,7 +1365,7 @@ class tripFromToJunction:
         departPosLat = 20
         arrivalPosLat = 21
         insertionChecks = 22
-        depart = 22
+        depart = 23
 
     class inspect:
         id = 1
@@ -1385,9 +1385,9 @@ class tripFromToJunction:
         containerNumber = 15
         departPosLat = 16
         arrivalPosLat = 17
-        insertionChecks = 22
-        depart = 18
-        parameters = 21
+        insertionChecks = 18
+        depart = 19
+        parameters = 22
 
     class inspectSelection:
         type = 1
@@ -1404,9 +1404,9 @@ class tripFromToJunction:
         containerNumber = 12
         departPosLat = 13
         arrivalPosLat = 14
-        insertionChecks = 22
-        depart = 15
-        parameters = 18
+        insertionChecks = 15
+        depart = 16
+        parameters = 19
 
 # vehicle (over route)
 
