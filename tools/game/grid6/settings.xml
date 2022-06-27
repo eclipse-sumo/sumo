@@ -1,7 +1,7 @@
 <viewsettings>
-    <viewport zoom="300" x="180" y="140"/>
+    <viewport zoom="300" x="330" y="290"/>
     <delay value="500.00"/>
-    <decal file="dlr.gif" centerX="140" centerY="140" width="50" height="50" rotation="0.00"/>
+    <decal file="dlr.gif" centerX="290" centerY="290" width="50" height="50" rotation="0.00"/>
     <scheme name="game_square">
         <opengl antialiase="0" dither="0"/>
         <background backgroundColor="0.20,0.50,0.20"

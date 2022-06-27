@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed May 27 15:37:58 2015 by SUMO netconvert Version dev-SVN-r18449I
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="grid6.net.xml"/>
+    </input>
+
+    <output>
+        <plain-output-prefix value="grid6"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+</configuration>
+-->
+
+<tlLogics version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tllogic_file.xsd">
+    <tlLogic id="A0" type="static" programID="manual" offset="0">
+        <phase duration="1"     state="uuuuyyyyuuuuyyyy"/>
+        <phase duration="1"     state="uuuurrrruuuurrrr"/>
+        <phase duration="10000" state="GGggrrrrGGggrrrr"/>
+        <phase duration="1"     state="yyyyuuuuyyyyuuuu"/>
+        <phase duration="1"     state="rrrruuuurrrruuuu"/>
+        <phase duration="10000" state="rrrrGGggrrrrGGgg"/>
+        <param key="hotkeyAbort" value="y"/>
+    </tlLogic>
+    <tlLogic id="A1" type="static" programID="manual" offset="0">
+        <phase duration="1"     state="uuuuyyyyuuuuyyyy"/>
+        <phase duration="1"     state="uuuurrrruuuurrrr"/>
+        <phase duration="10000" state="GGggrrrrGGggrrrr"/>
+        <phase duration="1"     state="yyyyuuuuyyyyuuuu"/>
+        <phase duration="1"     state="rrrruuuurrrruuuu"/>
+        <phase duration="10000" state="rrrrGGggrrrrGGgg"/>
+        <param key="hotkeyAbort" value="q"/>
+    </tlLogic>
+    <tlLogic id="B0" type="static" programID="manual" offset="0">
+        <phase duration="1"     state="uuuuyyyyuuuuyyyy"/>
+        <phase duration="1"     state="uuuurrrruuuurrrr"/>
+        <phase duration="10000" state="GGggrrrrGGggrrrr"/>
+        <phase duration="1"     state="yyyyuuuuyyyyuuuu"/>
+        <phase duration="1"     state="rrrruuuurrrruuuu"/>
+        <phase duration="10000" state="rrrrGGggrrrrGGgg"/>
+        <param key="hotkeyAbort" value="v"/>
+    </tlLogic>
+    <tlLogic id="B1" type="static" programID="manual" offset="0">
+        <phase duration="1"     state="uuuuyyyyuuuuyyyy"/>
+        <phase duration="1"     state="uuuurrrruuuurrrr"/>
+        <phase duration="10000" state="GGggrrrrGGggrrrr"/>
+        <phase duration="1"     state="yyyyuuuuyyyyuuuu"/>
+        <phase duration="1"     state="rrrruuuurrrruuuu"/>
+        <phase duration="10000" state="rrrrGGggrrrrGGgg"/>
+        <param key="hotkeyAbort" value="t"/>
+    </tlLogic>
+</tlLogics>

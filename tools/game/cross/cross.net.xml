@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-06-27 15:39:42 by Eclipse SUMO netconvert Version v1_13_0+1237-ae70b5f7a6c
+<!-- generated on 2022-06-27 17:27:21 by Eclipse SUMO netconvert Version v1_13_0+1237-ae70b5f7a6c
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <node-files value="cross.nod.xml"/>
-        <edge-files value="cross.edg.xml"/>
-        <connection-files value="cross.con.xml"/>
+        <node-files value="cross/cross.nod.xml"/>
+        <edge-files value="cross/cross.edg.xml"/>
+        <connection-files value="cross/cross.con.xml"/>
     </input>
 
     <output>
-        <output-file value="cross.net.xml"/>
+        <output-file value="cross/cross.net.xml"/>
     </output>
 
     <junctions>
