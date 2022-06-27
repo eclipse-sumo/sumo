@@ -20,6 +20,7 @@ Debug: Adding route 'r_0' in GNEChange_DemandElement
 Debug: Additionals saved
 Debug: demand elements saved
 Debug: Opening FXMessageBox 'Confirm quit network'
+Debug: network elements saved
 Debug: Deleting unreferenced route
 Debug: Deleting unreferenced poly
 Debug: Deleting unreferenced busStop

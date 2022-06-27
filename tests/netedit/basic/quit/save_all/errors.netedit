@@ -18,6 +18,7 @@ Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Key ENTER pressed
 Debug: Adding route 'r_0' in GNEChange_DemandElement
 Debug: Opening FXMessageBox 'Confirm quit network'
+Debug: network elements saved
 Debug: Opening FXMessageBox 'Save additionals before quit'
 Debug: Closed FXMessageBox 'Save additionals before quit' with 'Yes'
 Debug: Additionals saved
@@ -40,4 +41,3 @@ Debug: Deleting unreferenced junction 'J1' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'gneJ0' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'gneJ1' in AttributeCarriers destructor
 Debug: Deleting net builder in GNENet destructor
-X connection to :9518.0 broken (explicit kill or server shutdown).
