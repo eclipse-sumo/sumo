@@ -67,12 +67,16 @@ if __name__ == "__main__":
     roundabouts = set()
     with open(options.output_file, 'w') as f:
         f.write('<edges>\n')
+        totalLength = 0.
+        totalReduced = 0.
         for edge in net.getEdges():
             edgeID = edge.getID()
+            length = min(polyLength(edge.getShape()), edge.getLength())
+            totalLength += length
             if edge.getPriority() <= options.max_priority and edge.getLaneNumber() > options.min_lane_number:
                 if any([lane.getPermissions() in (set(["bus"]), set(["tram"])) for lane in edge.getLanes()]):
                     continue
-                if polyLength(edge.getShape()) >= options.min_length:
+                if length >= options.min_length:
                     if edgeID not in allRoundabouts:
                         modifiedEdges += 1
                         lanes = edge.getLaneNumber()
@@ -82,6 +86,7 @@ if __name__ == "__main__":
                         f.write('        <split pos="%s" idBefore="%s" idAfter="%s"/>\n' %
                                 (-options.junction_distance, edgeID, edgeID + ".after"))
                         f.write('    </edge>\n')
+                        totalReduced += length - 2 * options.junction_distance
                     else:
                         roundabouts.add(edgeID)
                 else:
@@ -89,6 +94,8 @@ if __name__ == "__main__":
         f.write('</edges>\n')
     print("added splits for %s edges (%s were to short to qualify and %s were roundabouts)" %
           (modifiedEdges, len(tooShort), len(roundabouts)))
+    print("total road length: %.2fm, total lane reduced length: %.2fm." %
+          (totalLength, totalReduced))
 
     if tooShort and options.too_short_output:
         with open(options.too_short_output, 'w') as f:
