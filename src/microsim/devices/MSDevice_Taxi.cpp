@@ -43,6 +43,7 @@
 #include "MSIdling.h"
 
 #include "MSRoutingEngine.h"
+#include "MSDevice_Routing.h"
 #include "MSDevice_Taxi.h"
 
 //#define DEBUG_DISPATCH
@@ -245,6 +246,7 @@ MSDevice_Taxi::MSDevice_Taxi(SUMOVehicle& holder, const std::string& id) :
         throw ProcessError("Idle algorithm '" + algo + "' is not known for vehicle '" + myHolder.getID() + "'");
     }
     myServiceEnd = string2time(getStringParam(holder, OptionsCont::getOptions(), "taxi.end", defaultServiceEnd, false));
+    myRoutingDevice = static_cast<MSDevice_Routing*>(myHolder.getDevice(typeid(MSDevice_Routing)));
 }
 
 
@@ -558,10 +560,16 @@ MSDevice_Taxi::updateMove(const SUMOTime traveltime, const double travelledDist)
     if (isEmpty()) {
         if (MSNet::getInstance()->getCurrentTimeStep() < myServiceEnd) {
             myIdleAlgorithm->idle(this);
+            if (myRoutingDevice != nullptr) {
+                // prevent rerouting during idling (#11079)
+                myRoutingDevice->setActive(false);
+            }
         } else if (!myReachedServiceEnd) {
             WRITE_WARNINGF("Taxi '%' reaches scheduled end of service at time=%.", myHolder.getID(), time2string(SIMSTEP));
             myReachedServiceEnd = true;
         }
+    } else if (myRoutingDevice != nullptr) {
+        myRoutingDevice->setActive(true);
     }
     if (myHolder.isStopped()) {
         if (!myIsStopped) {

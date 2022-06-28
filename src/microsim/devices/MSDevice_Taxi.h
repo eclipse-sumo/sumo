@@ -31,6 +31,7 @@
 class SUMOTrafficObject;
 class MSDispatch;
 class MSIdling;
+class MSDevice_Routing;
 struct Reservation;
 
 
@@ -251,6 +252,9 @@ private:
 
     /// @brief reservations currently being served
     std::set<const Reservation*> myCurrentReservations;
+
+    /// @brief routing device (if the vehicle has one)
+    MSDevice_Routing* myRoutingDevice = nullptr;
 
     /// @brief the time between successive calls to the dispatcher
     static SUMOTime myDispatchPeriod;

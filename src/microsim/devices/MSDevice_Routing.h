@@ -167,6 +167,9 @@ public:
     /// @brief try to set the given parameter for this device. Throw exception for unsupported key
     void setParameter(const std::string& key, const std::string& value);
 
+    void setActive(bool active) {
+        myActive = active;
+    }
 
 private:
 
@@ -235,6 +238,9 @@ private:
 
     /// @brief Whether the equipped vehicle missed a reroute while stopping and should do so after the stop has ended
     bool myRerouteAfterStop;
+
+    /// @brief Whether the equipped vehicle may perform rerouting
+    bool myActive;
 
 private:
     /// @brief Invalidated copy constructor.
