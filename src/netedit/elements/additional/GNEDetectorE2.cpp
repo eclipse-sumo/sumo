@@ -99,7 +99,8 @@ GNEDetectorE2::writeAdditional(OutputDevice& device) const {
     }
     if (myTrafficLight.size() > 0) {
         device.writeAttr(SUMO_ATTR_TLID, myTrafficLight);
-    } else if (getAttribute(SUMO_ATTR_FREQUENCY).size() > 0){
+    } 
+    if (getAttribute(SUMO_ATTR_FREQUENCY).size() > 0){
         device.writeAttr(SUMO_ATTR_PERIOD, time2string(myPeriod));
     }
     if (myFilename.size() > 0) {
@@ -511,7 +512,7 @@ GNEDetectorE2::getAttribute(SumoXMLAttr key) const {
             return toString(myEndPositionOverLane);
         case SUMO_ATTR_PERIOD:
         case SUMO_ATTR_FREQUENCY:
-            if ((myTrafficLight.empty()) || (myPeriod == (SUMOTime_MAX - SUMOTime_MAX % DELTA_T))) {
+            if (myPeriod == (SUMOTime_MAX - SUMOTime_MAX % DELTA_T)) {
                 return "";
             } else {
                 return time2string(myPeriod);
