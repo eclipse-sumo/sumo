@@ -102,8 +102,16 @@ MSVehicleTransfer::checkInsertions(SUMOTime time) {
             // handle parking vehicles
             if (time != desc.myTransferTime) {
                 // avoid calling processNextStop twice in the transfer step
+                const MSLane* lane = desc.myVeh->getLane();
+                // lane must be locked because pedestrians may be added in during stop processing while existing passengers are being drawn simultaneously
+                if (lane != nullptr) {
+                    lane->getVehiclesSecure();
+                }
                 desc.myVeh->processNextStop(1);
                 desc.myVeh->updateParkingState();
+                if (lane != nullptr) {
+                    lane->releaseVehicles();
+                }
             }
             if (desc.myVeh->keepStopping(true)) {
                 i++;
