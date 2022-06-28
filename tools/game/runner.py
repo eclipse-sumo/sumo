@@ -548,7 +548,7 @@ base = os.path.dirname(sys.argv[0])
 high = loadHighscore()
 
 
-guisimPath = sumolib.checkBinary("sumo-gui")
+guisimPath = sumolib.checkBinary("sumo-gui", os.path.dirname(os.path.abspath(__file__)))
 haveOSG = "OSG" in subprocess.check_output(sumolib.checkBinary("sumo"), universal_newlines=True)
 
 if options.stereo:
