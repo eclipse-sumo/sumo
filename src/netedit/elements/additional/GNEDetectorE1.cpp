@@ -61,7 +61,7 @@ GNEDetectorE1::writeAdditional(OutputDevice& device) const {
     }
     device.writeAttr(SUMO_ATTR_LANE, getParentLanes().front()->getID());
     device.writeAttr(SUMO_ATTR_POSITION, myPositionOverLane);
-    if (getAttribute(SUMO_ATTR_FREQUENCY).size() > 0) {
+    if (getAttribute(SUMO_ATTR_PERIOD).size() > 0) {
         device.writeAttr(SUMO_ATTR_PERIOD, time2string(myPeriod));
     }
     if (myFilename.size() > 0) {
@@ -202,7 +202,6 @@ GNEDetectorE1::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_POSITION:
             return toString(myPositionOverLane);
         case SUMO_ATTR_PERIOD:
-        case SUMO_ATTR_FREQUENCY:
             if (myPeriod == (SUMOTime_MAX - SUMOTime_MAX % DELTA_T)) {
                 return "";
             } else {
@@ -246,7 +245,6 @@ GNEDetectorE1::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
         case SUMO_ATTR_LANE:
         case SUMO_ATTR_POSITION:
         case SUMO_ATTR_PERIOD:
-        case SUMO_ATTR_FREQUENCY:
         case SUMO_ATTR_NAME:
         case SUMO_ATTR_FILE:
         case SUMO_ATTR_VTYPES:
@@ -276,7 +274,6 @@ GNEDetectorE1::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_POSITION:
             return canParse<double>(value) && fabs(parse<double>(value)) < getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
         case SUMO_ATTR_PERIOD:
-        case SUMO_ATTR_FREQUENCY:
             if (value.empty()) {
                 return true;
             } else { 
@@ -321,7 +318,6 @@ GNEDetectorE1::setAttribute(SumoXMLAttr key, const std::string& value) {
             myPositionOverLane = parse<double>(value);
             break;
         case SUMO_ATTR_PERIOD:
-        case SUMO_ATTR_FREQUENCY:
             if (value.empty()) {
                 myPeriod = (SUMOTime_MAX - SUMOTime_MAX % DELTA_T);
             } else {
