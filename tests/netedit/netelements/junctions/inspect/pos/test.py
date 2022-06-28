@@ -48,7 +48,13 @@ netedit.modifyAttribute(netedit.attrs.junction.inspect.pos, "dummy position", Fa
 netedit.modifyAttribute(netedit.attrs.junction.inspect.pos, "0.00,50.00", False)
 
 # avoid merging
-netedit.typeTwoKeys('n', 'alt')
+netedit.typeTwoKeys('alt', 'n')
+
+# rebuild network
+netedit.rebuildNetwork()
+
+# inspect central node in new position
+netedit.leftClick(referencePosition, 0, 250)
 
 # change position with a valid value
 netedit.modifyAttribute(netedit.attrs.junction.inspect.pos, "40.00,40.00", False)

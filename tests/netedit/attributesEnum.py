@@ -109,12 +109,12 @@ class junction:
 
     class inspectSelection:
         type = 1
-        radius = 2
-        keepClear = 3
-        rightOfWay = 4
-        fringe = 5
-        name = 6
-        parameters = 9
+        radius = 3
+        keepClear = 4
+        rightOfWay = 5
+        fringe = 7
+        name = 9
+        parameters = 12
 
     class inspectSelectionTLS:
         type = 1
