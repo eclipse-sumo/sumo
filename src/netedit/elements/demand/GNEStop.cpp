@@ -40,8 +40,8 @@
 
 GNEStop::GNEStop(SumoXMLTag tag, GNENet* net) :
     GNEDemandElement("", net, GLO_STOP, tag, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
-{}, {}, {}, {}, {}, {}),
-myCreationIndex(myNet->getAttributeCarriers()->getStopIndex()) {
+        {}, {}, {}, {}, {}, {}),
+    myCreationIndex(myNet->getAttributeCarriers()->getStopIndex()) {
     // reset default values
     resetDefaultValues();
     // enable parking for stops in parkin)gAreas
@@ -57,9 +57,9 @@ myCreationIndex(myNet->getAttributeCarriers()->getStopIndex()) {
 
 GNEStop::GNEStop(SumoXMLTag tag, GNENet* net, GNEDemandElement* stopParent, GNEAdditional* stoppingPlace, const SUMOVehicleParameter::Stop& stopParameter) :
     GNEDemandElement(stopParent, net, GLO_STOP, tag, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
-{}, {}, {}, {stoppingPlace}, {stopParent}, {}),
-SUMOVehicleParameter::Stop(stopParameter),
-myCreationIndex(myNet->getAttributeCarriers()->getStopIndex()) {
+        {}, {}, {}, {stoppingPlace}, {stopParent}, {}),
+    SUMOVehicleParameter::Stop(stopParameter),
+    myCreationIndex(myNet->getAttributeCarriers()->getStopIndex()) {
     // enable parking for stops in parkingAreas
     if ((tag == SUMO_TAG_STOP_PARKINGAREA) || (tag == GNE_TAG_WAYPOINT_PARKINGAREA)) {
         parametersSet |= STOP_PARKING_SET;
@@ -69,6 +69,7 @@ myCreationIndex(myNet->getAttributeCarriers()->getStopIndex()) {
     // set tripID and line
     (stopParameter.tripId.size() > 0) ? parametersSet |= STOP_TRIP_ID_SET : parametersSet &= ~STOP_TRIP_ID_SET;
     (stopParameter.line.size() > 0) ? parametersSet |= STOP_LINE_SET : parametersSet &= ~STOP_LINE_SET;
+    stopParameter.onDemand ? parametersSet |= STOP_ONDEMAND_SET : parametersSet &= ~STOP_ONDEMAND_SET;
     // set waypoint speed
     myTagProperty.isWaypoint() ? parametersSet |= STOP_SPEED_SET : parametersSet &= ~STOP_SPEED_SET;
 }
@@ -76,14 +77,15 @@ myCreationIndex(myNet->getAttributeCarriers()->getStopIndex()) {
 
 GNEStop::GNEStop(SumoXMLTag tag, GNENet* net, GNEDemandElement* stopParent, GNELane* lane, const SUMOVehicleParameter::Stop& stopParameter) :
     GNEDemandElement(stopParent, net, GLO_STOP, tag, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
-{}, {}, {lane}, {}, {stopParent}, {}),
-SUMOVehicleParameter::Stop(stopParameter),
-myCreationIndex(myNet->getAttributeCarriers()->getStopIndex()) {
+        {}, {}, {lane}, {}, {stopParent}, {}),
+    SUMOVehicleParameter::Stop(stopParameter),
+    myCreationIndex(myNet->getAttributeCarriers()->getStopIndex()) {
     // set flags
     parking = (parametersSet & STOP_PARKING_SET);
     // set tripID and line
     (stopParameter.tripId.size() > 0) ? parametersSet |= STOP_TRIP_ID_SET : parametersSet &= ~STOP_TRIP_ID_SET;
     (stopParameter.line.size() > 0) ? parametersSet |= STOP_LINE_SET : parametersSet &= ~STOP_LINE_SET;
+    stopParameter.onDemand ? parametersSet |= STOP_ONDEMAND_SET : parametersSet &= ~STOP_ONDEMAND_SET;
     // set waypoint speed
     myTagProperty.isWaypoint() ? parametersSet |= STOP_SPEED_SET : parametersSet &= ~STOP_SPEED_SET;
 }
@@ -106,6 +108,7 @@ myCreationIndex(myNet->getAttributeCarriers()->getStopIndex()) {
     // set tripID and line
     (stopParameter.tripId.size() > 0) ? parametersSet |= STOP_TRIP_ID_SET : parametersSet &= ~STOP_TRIP_ID_SET;
     (stopParameter.line.size() > 0) ? parametersSet |= STOP_LINE_SET : parametersSet &= ~STOP_LINE_SET;
+    stopParameter.onDemand ? parametersSet |= STOP_ONDEMAND_SET : parametersSet &= ~STOP_ONDEMAND_SET;
     // set waypoint speed
     myTagProperty.isWaypoint() ? parametersSet |= STOP_SPEED_SET : parametersSet &= ~STOP_SPEED_SET;
 }
@@ -591,6 +594,8 @@ GNEStop::getAttribute(SumoXMLAttr key) const {
             return tripId;
         case SUMO_ATTR_LINE:
             return line;
+        case SUMO_ATTR_ONDEMAND:
+            return toString(onDemand);
         // only for waypoints
         case SUMO_ATTR_SPEED:
             return toString(speed);
@@ -712,6 +717,7 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
         case SUMO_ATTR_ACTTYPE:
         case SUMO_ATTR_TRIP_ID:
         case SUMO_ATTR_LINE:
+        case SUMO_ATTR_ONDEMAND:
         // only for waypoints
         case SUMO_ATTR_SPEED:
         // specific of Stops over stoppingPlaces
@@ -862,6 +868,8 @@ GNEStop::isValid(SumoXMLAttr key, const std::string& value) {
             return SUMOXMLDefinitions::isValidVehicleID(value);
         case SUMO_ATTR_LINE:
             return true;
+        case SUMO_ATTR_ONDEMAND:
+            return canParse<bool>(value);
         // only for waypoints
         case SUMO_ATTR_SPEED:
             if (canParse<double>(value)) {
@@ -1443,6 +1451,15 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value) {
             line = value;
             toggleAttribute(key, (value.size() > 0));
             break;
+        case SUMO_ATTR_ONDEMAND:
+            if (parse<bool>(value)) {
+                parametersSet |= STOP_ONDEMAND_SET;
+            } else {
+                parametersSet &= ~STOP_ONDEMAND_SET;
+            }
+            // set flag
+            onDemand = ((parametersSet & STOP_ONDEMAND_SET) != 0);
+            break;
         // only for waypoints
         case SUMO_ATTR_SPEED:
             speed = parse<double>(value);
@@ -1553,6 +1570,13 @@ GNEStop::toggleAttribute(SumoXMLAttr key, const bool value) {
                 parametersSet |= STOP_LINE_SET;
             } else {
                 parametersSet &= ~STOP_LINE_SET;
+            }
+            break;
+        case SUMO_ATTR_ONDEMAND:
+            if (value) {
+                parametersSet |= STOP_ONDEMAND_SET;
+            } else {
+                parametersSet &= ~STOP_ONDEMAND_SET;
             }
             break;
         default:

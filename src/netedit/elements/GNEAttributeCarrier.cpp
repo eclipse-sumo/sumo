@@ -5431,13 +5431,13 @@ GNEAttributeCarrier::fillCommonStopAttributes(SumoXMLTag currentTag, const bool 
 
     attrProperty = GNEAttributeProperties(SUMO_ATTR_PARKING,
                                           GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE,
-                                          "whether the vehicle stops on the road or beside ",
+                                          "whether the vehicle stops on the road or beside",
                                           "false");
     myTagProperties[currentTag].addAttribute(attrProperty);
 
     attrProperty = GNEAttributeProperties(SUMO_ATTR_ACTTYPE,
                                           GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE,
-                                          "Activity displayed for stopped person in GUI and output files ");
+                                          "Activity displayed for stopped person in GUI and output files");
     myTagProperties[currentTag].addAttribute(attrProperty);
 
     attrProperty = GNEAttributeProperties(SUMO_ATTR_TRIP_ID,
@@ -5448,6 +5448,12 @@ GNEAttributeCarrier::fillCommonStopAttributes(SumoXMLTag currentTag, const bool 
     attrProperty = GNEAttributeProperties(SUMO_ATTR_LINE,
                                           GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE,
                                           "New line attribute to be set on the vehicle when reaching this stop (for cyclical public transport route)");
+    myTagProperties[currentTag].addAttribute(attrProperty);
+
+    attrProperty = GNEAttributeProperties(SUMO_ATTR_ONDEMAND,
+                                          GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE,
+                                          "whether the stop may be skipped if no passengers wants to embark or disembark",
+                                          "false");
     myTagProperties[currentTag].addAttribute(attrProperty);
 
     if (waypoint) {
