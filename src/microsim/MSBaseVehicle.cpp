@@ -411,6 +411,9 @@ MSBaseVehicle::replaceRoute(const MSRoute* newRoute, const std::string& info, bo
             if (msgReturn != nullptr) {
                 *msgReturn = "current edge '" + (*myCurrEdge)->getID() + "' not found in new route";
             }
+#ifdef DEBUG_REPLACE_ROUTE
+            if (DEBUG_COND) std::cout << "  newCurrEdge not found\n";
+#endif
             return false;
         }
         if (getLane() != nullptr) {
@@ -419,6 +422,9 @@ MSBaseVehicle::replaceRoute(const MSRoute* newRoute, const std::string& info, bo
                 if (msgReturn != nullptr) {
                     *msgReturn = "Vehicle is on junction-internal edge leading elsewhere";
                 }
+#ifdef DEBUG_REPLACE_ROUTE
+                if (DEBUG_COND) std::cout << "  Vehicle is on junction-internal edge leading elsewhere\n";
+#endif
                 return false;
             } else if (getPositionOnLane() > getLane()->getLength()
                        && (myCurrEdge + 1) != myRoute->end()
@@ -427,6 +433,9 @@ MSBaseVehicle::replaceRoute(const MSRoute* newRoute, const std::string& info, bo
                 if (msgReturn != nullptr) {
                     *msgReturn = "Vehicle is moving past junction and committed to move to another successor edge";
                 }
+#ifdef DEBUG_REPLACE_ROUTE
+                if (DEBUG_COND) std::cout << "  Vehicle is moving past junction and committed to move to another successor edge\n";
+#endif
                 return false;
             }
         }
@@ -444,6 +453,17 @@ MSBaseVehicle::replaceRoute(const MSRoute* newRoute, const std::string& info, bo
     myNumberReroutes++;
     myStopUntilOffset += myRoute->getPeriod();
     MSNet::getInstance()->informVehicleStateListener(this, MSNet::VehicleState::NEWROUTE, info);
+#ifdef DEBUG_REPLACE_ROUTE
+    if (DEBUG_COND) {
+        std::cout << SIMTIME << " replaceRoute info=" << info << " on " << (*myCurrEdge)->getID()
+            << " lane=" << Named::getIDSecure(getLane())
+            << " stopsFromScratch=" << stopsFromScratch
+            << "  newSize=" << newRoute->getEdges().size()
+            << " newIndex=" << (myCurrEdge - newRoute->begin())
+            << " edges=" << toString(newRoute->getEdges())
+            << "\n";
+    }
+#endif
     // if we did not drive yet it may be best to simply reassign the stops from scratch
     if (stopsFromScratch) {
         myStops.clear();
@@ -458,11 +478,6 @@ MSBaseVehicle::replaceRoute(const MSRoute* newRoute, const std::string& info, bo
             // relative to that edge must be adapted
             lastPos += (*myCurrEdge)->getLength();
         }
-#ifdef DEBUG_REPLACE_ROUTE
-        if (DEBUG_COND) {
-            std::cout << SIMTIME << " replaceRoute info=" << info << " on " << (*myCurrEdge)->getID() << " lane=" << Named::getIDSecure(getLane()) << " stopsFromScratch=" << stopsFromScratch << "\n";
-        }
-#endif
         for (std::list<MSStop>::iterator iter = myStops.begin(); iter != myStops.end();) {
             double endPos = iter->getEndPos(*this);
 #ifdef DEBUG_REPLACE_ROUTE

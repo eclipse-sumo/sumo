@@ -98,7 +98,6 @@
 //#define DEBUG_NEXT_TURN
 //#define DEBUG_TRACI
 //#define DEBUG_REVERSE_BIDI
-//#define DEBUG_REPLACE_ROUTE
 //#define DEBUG_EXTRAPOLATE_DEPARTPOS
 //#define DEBUG_REMOTECONTROL
 //#define DEBUG_COND (getID() == "ego")
