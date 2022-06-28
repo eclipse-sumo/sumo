@@ -693,11 +693,7 @@ GNEDetectorE2::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_PERIOD:
         case SUMO_ATTR_FREQUENCY:
             if (value.empty()) {
-                if (myTrafficLight.empty()) {
-                    myPeriod = -1;
-                } else {
-                    myPeriod = (SUMOTime_MAX - SUMOTime_MAX % DELTA_T);
-                }
+                myPeriod = (SUMOTime_MAX - SUMOTime_MAX % DELTA_T);
             } else {
                 myPeriod = string2time(value);
             }

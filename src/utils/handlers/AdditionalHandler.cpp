@@ -942,12 +942,6 @@ void
 AdditionalHandler::parseE2Attributes(const SUMOSAXAttributes& attrs) {
     // declare Ok Flag
     bool parsedOk = true;
-    // check that period/frequency and trafficLight aren't defined together
-    if ((!(attrs.hasAttribute(SUMO_ATTR_PERIOD) || attrs.hasAttribute(SUMO_ATTR_FREQUENCY)) && !attrs.hasAttribute(SUMO_ATTR_TLID)) ||
-        ((attrs.hasAttribute(SUMO_ATTR_PERIOD) || attrs.hasAttribute(SUMO_ATTR_FREQUENCY)) && attrs.hasAttribute(SUMO_ATTR_TLID))) {
-        WRITE_ERROR("Define either '" + toString(SUMO_ATTR_PERIOD) + "' (alias: '" + toString(SUMO_ATTR_FREQUENCY) + "') or '" + toString(SUMO_ATTR_TLID) + "' in a lane area detector.");
-        parsedOk = false;
-    }
     // check that lane and length are defined together
     if (attrs.hasAttribute(SUMO_ATTR_LANE) && !attrs.hasAttribute(SUMO_ATTR_LENGTH)) {
         WRITE_ERROR("'lane' and 'length' must be defined together in a lane area detector.");
@@ -967,9 +961,9 @@ AdditionalHandler::parseE2Attributes(const SUMOSAXAttributes& attrs) {
     const std::vector<std::string> laneIds = attrs.getOpt<std::vector<std::string> >(SUMO_ATTR_LANES, id.c_str(), parsedOk, std::vector<std::string>());
     const double length = attrs.getOpt<double>(SUMO_ATTR_LENGTH, id.c_str(), parsedOk, 0);
     const double endPos = attrs.getOpt<double>(SUMO_ATTR_ENDPOS, id.c_str(), parsedOk, 0);
-    const SUMOTime period = attrs.getOptPeriod(id.c_str(), parsedOk, -1);
-    const std::string trafficLight = attrs.getOpt<std::string>(SUMO_ATTR_TLID, id.c_str(), parsedOk, "");
     // optional attributes
+    const SUMOTime period = attrs.getOptPeriod(id.c_str(), parsedOk, (SUMOTime_MAX - SUMOTime_MAX % DELTA_T));
+    const std::string trafficLight = attrs.getOpt<std::string>(SUMO_ATTR_TLID, id.c_str(), parsedOk, "");
     const std::string name = attrs.getOpt<std::string>(SUMO_ATTR_NAME, id.c_str(), parsedOk, "");
     const SUMOTime haltingTimeThreshold = attrs.getOptSUMOTimeReporting(SUMO_ATTR_HALTING_TIME_THRESHOLD, id.c_str(), parsedOk, TIME2STEPS(1));
     const double haltingSpeedThreshold = attrs.getOpt<double>(SUMO_ATTR_HALTING_SPEED_THRESHOLD, id.c_str(), parsedOk, 1.39);
