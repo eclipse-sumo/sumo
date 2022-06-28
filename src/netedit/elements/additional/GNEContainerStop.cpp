@@ -223,7 +223,7 @@ GNEContainerStop::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_PARKING_LENGTH:
             return toString(myParkingLength);
         case SUMO_ATTR_COLOR:
-            if (myColor != RGBColor::INVISIBLE) {
+            if (myColor == RGBColor::INVISIBLE) {
                 return "";
             } else {
                 return toString(myColor);
