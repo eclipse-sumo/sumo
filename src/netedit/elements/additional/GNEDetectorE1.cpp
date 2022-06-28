@@ -61,7 +61,9 @@ GNEDetectorE1::writeAdditional(OutputDevice& device) const {
     }
     device.writeAttr(SUMO_ATTR_LANE, getParentLanes().front()->getID());
     device.writeAttr(SUMO_ATTR_POSITION, myPositionOverLane);
-    device.writeAttr(SUMO_ATTR_PERIOD, time2string(myFreq));
+    if (getAttribute(SUMO_ATTR_FREQUENCY).size() > 0) {
+        device.writeAttr(SUMO_ATTR_PERIOD, time2string(myPeriod));
+    }
     if (myFilename.size() > 0) {
         device.writeAttr(SUMO_ATTR_FILE, myFilename);
     }
@@ -201,7 +203,11 @@ GNEDetectorE1::getAttribute(SumoXMLAttr key) const {
             return toString(myPositionOverLane);
         case SUMO_ATTR_PERIOD:
         case SUMO_ATTR_FREQUENCY:
-            return time2string(myFreq);
+            if (myPeriod == (SUMOTime_MAX - SUMOTime_MAX % DELTA_T)) {
+                return "";
+            } else {
+                return time2string(myPeriod);
+            }
         case SUMO_ATTR_NAME:
             return myAdditionalName;
         case SUMO_ATTR_FILE:
@@ -271,7 +277,11 @@ GNEDetectorE1::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<double>(value) && fabs(parse<double>(value)) < getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
         case SUMO_ATTR_PERIOD:
         case SUMO_ATTR_FREQUENCY:
-            return (canParse<double>(value) && (parse<double>(value) >= 0));
+            if (value.empty()) {
+                return true;
+            } else { 
+                return (canParse<double>(value) && (parse<double>(value) >= 0));
+            }
         case SUMO_ATTR_NAME:
             return SUMOXMLDefinitions::isValidAttribute(value);
         case SUMO_ATTR_FILE:
@@ -312,7 +322,11 @@ GNEDetectorE1::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_PERIOD:
         case SUMO_ATTR_FREQUENCY:
-            myFreq = string2time(value);
+            if (value.empty()) {
+                myPeriod = (SUMOTime_MAX - SUMOTime_MAX % DELTA_T);
+            } else {
+                myPeriod = string2time(value);
+            }
             break;
         case SUMO_ATTR_FILE:
             myFilename = value;

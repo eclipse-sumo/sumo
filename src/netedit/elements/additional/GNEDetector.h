@@ -37,7 +37,7 @@ public:
      * @param[in] type GUIGlObjectType of detector
      * @param[in] tag Type of xml tag that define the detector (SUMO_TAG_E1DETECTOR, SUMO_TAG_LANE_AREA_DETECTOR, etc...)
      * @param[in] pos position of the detector on the lane
-     * @param[in] freq the aggregation period the values the detector collects shall be summed up.
+     * @param[in] period the aggregation period the values the detector collects shall be summed up.
      * @param[in] parentLanes vector of parent lanes
      * @param[in] vehicleTypes space separated list of vehicle type ids to consider
      * @param[in] filename The path to the output file.
@@ -45,7 +45,7 @@ public:
      * @param[in] friendlyPos enable or disable friendly positions
      * @param[in] parameters generic parameters
      */
-    GNEDetector(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, const double pos, const SUMOTime freq,
+    GNEDetector(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, const double pos, const SUMOTime period,
                 const std::vector<GNELane*>& parentLanes, const std::string& filename, const std::vector<std::string>& vehicleTypes,
                 const std::string& name, const bool friendlyPos, const Parameterised::Map& parameters);
 
@@ -55,14 +55,14 @@ public:
      * @param[in] type GUIGlObjectType of detector
      * @param[in] tag Type of xml tag that define the detector (SUMO_TAG_E1DETECTOR, SUMO_TAG_LANE_AREA_DETECTOR, etc...)
      * @param[in] pos position of the detector on the lane
-     * @param[in] freq the aggregation period the values the detector collects shall be summed up.
+     * @param[in] period the aggregation period the values the detector collects shall be summed up.
      * @param[in] parentLanes vector of parent lanes
      * @param[in] filename The path to the output file.
      * @param[in] name detector name
      * @param[in] friendlyPos enable or disable friendly positions
      * @param[in] parameters generic parameters
      */
-    GNEDetector(GNEAdditional* additionalParent, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, const double pos, const SUMOTime freq,
+    GNEDetector(GNEAdditional* additionalParent, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, const double pos, const SUMOTime period,
                 const std::vector<GNELane*>& parentLanes, const std::string& filename, const std::string& name, const bool friendlyPos,
                 const Parameterised::Map& parameters);
 
@@ -172,7 +172,7 @@ protected:
     double myPositionOverLane;
 
     /// @brief The aggregation period the values the detector collects shall be summed up.
-    SUMOTime myFreq;
+    SUMOTime myPeriod;
 
     /// @brief The path to the output file
     std::string myFilename;

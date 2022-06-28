@@ -133,8 +133,8 @@ protected:
     /// @brief position of E3 in view
     Position myPosition;
 
-    /// @brief frequency of E3 detector
-    SUMOTime myFreq;
+    /// @brief period of E3 detector
+    SUMOTime myPeriod;
 
     /// @brief fielname of E3 detector
     std::string myFilename;

@@ -30,11 +30,11 @@
 
 GNEDetectorE3::GNEDetectorE3(GNENet* net) :
     GNEAdditional("", net, GLO_E3DETECTOR, SUMO_TAG_E3DETECTOR, "",
-{}, {}, {}, {}, {}, {}),
-myFreq(0),
-myFilename(""),
-myTimeThreshold(0),
-mySpeedThreshold(0) {
+        {}, {}, {}, {}, {}, {}),
+    myPeriod(0),
+    myFilename(""),
+    myTimeThreshold(0),
+    mySpeedThreshold(0) {
     // reset default values
     resetDefaultValues();
 }
@@ -44,14 +44,14 @@ GNEDetectorE3::GNEDetectorE3(const std::string& id, GNENet* net, const Position 
                              const std::vector<std::string>& vehicleTypes, const std::string& name, SUMOTime timeThreshold, double speedThreshold,
                              const Parameterised::Map& parameters) :
     GNEAdditional(id, net, GLO_E3DETECTOR, SUMO_TAG_E3DETECTOR, name,
-{}, {}, {}, {}, {}, {}),
-Parameterised(parameters),
-myPosition(pos),
-myFreq(freq),
-myFilename(filename),
-myVehicleTypes(vehicleTypes),
-myTimeThreshold(timeThreshold),
-mySpeedThreshold(speedThreshold) {
+        {}, {}, {}, {}, {}, {}),
+    Parameterised(parameters),
+    myPosition(pos),
+    myPeriod(freq),
+    myFilename(filename),
+    myVehicleTypes(vehicleTypes),
+    myTimeThreshold(timeThreshold),
+    mySpeedThreshold(speedThreshold) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -87,7 +87,9 @@ GNEDetectorE3::writeAdditional(OutputDevice& device) const {
             device.writeAttr(SUMO_ATTR_NAME, StringUtils::escapeXML(myAdditionalName));
         }
         device.writeAttr(SUMO_ATTR_POSITION, myPosition);
-        device.writeAttr(SUMO_ATTR_PERIOD, time2string(myFreq));
+        if (getAttribute(SUMO_ATTR_FREQUENCY).size() > 0) {
+            device.writeAttr(SUMO_ATTR_PERIOD, time2string(myPeriod));
+        }
         if (myFilename.size() > 0) {
             device.writeAttr(SUMO_ATTR_FILE, myFilename);
         }
@@ -179,7 +181,11 @@ GNEDetectorE3::getAttribute(SumoXMLAttr key) const {
             return toString(myPosition);
         case SUMO_ATTR_PERIOD:
         case SUMO_ATTR_FREQUENCY:
-            return time2string(myFreq);
+            if (myPeriod == (SUMOTime_MAX - SUMOTime_MAX % DELTA_T)) {
+                return "";
+            } else {
+                return time2string(myPeriod);
+            }
         case SUMO_ATTR_NAME:
             return myAdditionalName;
         case SUMO_ATTR_FILE:
@@ -246,7 +252,11 @@ GNEDetectorE3::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<Position>(value);
         case SUMO_ATTR_PERIOD:
         case SUMO_ATTR_FREQUENCY:
-            return canParse<SUMOTime>(value);
+            if (value.empty()) {
+                return true;
+            } else { 
+                return (canParse<double>(value) && (parse<double>(value) >= 0));
+            }
         case SUMO_ATTR_NAME:
             return SUMOXMLDefinitions::isValidAttribute(value);
         case SUMO_ATTR_FILE:
@@ -330,7 +340,11 @@ GNEDetectorE3::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_PERIOD:
         case SUMO_ATTR_FREQUENCY:
-            myFreq = string2time(value);
+            if (value.empty()) {
+                myPeriod = (SUMOTime_MAX - SUMOTime_MAX % DELTA_T);
+            } else {
+                myPeriod = string2time(value);
+            }
             break;
         case SUMO_ATTR_NAME:
             myAdditionalName = value;

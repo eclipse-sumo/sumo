@@ -99,8 +99,8 @@ GNEDetectorE2::writeAdditional(OutputDevice& device) const {
     }
     if (myTrafficLight.size() > 0) {
         device.writeAttr(SUMO_ATTR_TLID, myTrafficLight);
-    } else {
-        device.writeAttr(SUMO_ATTR_PERIOD, time2string(myFreq));
+    } else if (getAttribute(SUMO_ATTR_FREQUENCY).size() > 0){
+        device.writeAttr(SUMO_ATTR_PERIOD, time2string(myPeriod));
     }
     if (myFilename.size() > 0) {
         device.writeAttr(SUMO_ATTR_FILE, myFilename);
@@ -511,10 +511,10 @@ GNEDetectorE2::getAttribute(SumoXMLAttr key) const {
             return toString(myEndPositionOverLane);
         case SUMO_ATTR_PERIOD:
         case SUMO_ATTR_FREQUENCY:
-            if (myFreq == -1) {
+            if ((myTrafficLight.empty()) || (myPeriod == (SUMOTime_MAX - SUMOTime_MAX % DELTA_T))) {
                 return "";
             } else {
-                return time2string(myFreq);
+                return time2string(myPeriod);
             }
         case SUMO_ATTR_TLID:
             return myTrafficLight;
@@ -624,7 +624,11 @@ GNEDetectorE2::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<double>(value);
         case SUMO_ATTR_PERIOD:
         case SUMO_ATTR_FREQUENCY:
-            return value.empty() || (canParse<double>(value) && (parse<double>(value) >= 0));
+            if (value.empty()) {
+                return true;
+            } else { 
+                return (canParse<double>(value) && (parse<double>(value) >= 0));
+            }
         case SUMO_ATTR_TLID:
             // temporal
             return SUMOXMLDefinitions::isValidNetID(value);
@@ -689,9 +693,13 @@ GNEDetectorE2::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_PERIOD:
         case SUMO_ATTR_FREQUENCY:
             if (value.empty()) {
-                myFreq = -1;
+                if (myTrafficLight.empty()) {
+                    myPeriod = -1;
+                } else {
+                    myPeriod = (SUMOTime_MAX - SUMOTime_MAX % DELTA_T);
+                }
             } else {
-                myFreq = string2time(value);
+                myPeriod = string2time(value);
             }
             break;
         case SUMO_ATTR_TLID:
