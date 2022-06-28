@@ -100,7 +100,7 @@ Debug: Created connection 'fromgneE9_0togneE1_0' in retrieveGNEConnection()
 Debug: Keys Shift + F5 (Compute with volatile options) pressed
 Debug: Opening FXMessageBox 'Volatile Recomputing'
 Debug: Closed FXMessageBox 'Volatile Recomputing' with 'Yes'
-Debug: Additionals saved after dialog
+Debug: Additionals saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -13.20,-13.20,13.20,13.20
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 36.80,-13.20,63.20,13.20
@@ -123,11 +123,11 @@ GLDebug: 	Removed object edge:gneE6 from SUMORTree with boundary -10.00,8.40,60.
 GLDebug: 	Removed object edge:gneE7 from SUMORTree with boundary -10.00,10.00,60.00,31.60
 GLDebug: 	Removed object edge:gneE8 from SUMORTree with boundary -11.60,-10.00,10.00,30.00
 GLDebug: 	Removed object edge:gneE9 from SUMORTree with boundary 38.40,-10.00,60.00,30.00
-Debug: Deleting unreferenced e2MultilaneDetector 'e2MultilaneDetector_4'
-Debug: Deleting unreferenced e2MultilaneDetector 'e2MultilaneDetector_3'
-Debug: Deleting unreferenced e2MultilaneDetector 'e2MultilaneDetector_2'
-Debug: Deleting unreferenced e2MultilaneDetector 'e2MultilaneDetector_1'
-Debug: Deleting unreferenced e2MultilaneDetector 'e2MultilaneDetector_0'
+Debug: Deleting unreferenced e2MultilaneDetector
+Debug: Deleting unreferenced e2MultilaneDetector
+Debug: Deleting unreferenced e2MultilaneDetector
+Debug: Deleting unreferenced e2MultilaneDetector
+Debug: Deleting unreferenced e2MultilaneDetector
 GLDebug: initJunctionsAndEdges function called in computeAndUpdate(...) due recomputing with volatile options
 GLDebug: 	Inserted junction:gneJ0 into SUMORTree with boundary -15.20,-15.20,15.20,15.20
 Debug: Created crossing ':gneJ0_c0' in retrieveGNECrossing()
@@ -159,11 +159,6 @@ GLDebug: 	Inserted edge:gneE6 into SUMORTree with boundary -10.00,5.80,60.00,30.
 GLDebug: 	Inserted edge:gneE7 into SUMORTree with boundary -10.00,10.00,60.00,34.20
 GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary -14.20,-10.00,10.00,30.00
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary 35.80,-10.00,60.00,30.00
-Error: Could not build e2Detector with ID 'e2MultilaneDetector_0' in netedit; Lanes aren't consecutives.
-Error: Could not build e2Detector with ID 'e2MultilaneDetector_1' in netedit; Lanes aren't consecutives.
-Error: Could not build e2Detector with ID 'e2MultilaneDetector_2' in netedit; Lanes aren't consecutives.
-Error: Could not build e2Detector with ID 'e2MultilaneDetector_3' in netedit; Lanes aren't consecutives.
-Error: Could not build e2Detector with ID 'e2MultilaneDetector_4' in netedit; Lanes aren't consecutives.
 Debug: Key F5 (Compute) pressed
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -15.20,-15.20,15.20,15.20
@@ -251,7 +246,7 @@ Debug: Created walkingArea ':gneJ4_w2' in retrieveGNEWalkingArea()
 Debug: Created walkingArea ':gneJ5_w0' in retrieveGNEWalkingArea()
 Debug: Created walkingArea ':gneJ5_w1' in retrieveGNEWalkingArea()
 Debug: Created walkingArea ':gneJ5_w2' in retrieveGNEWalkingArea()
-Debug: Additionals saved
+Debug: Additionals saved after dialog
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -15.20,-15.20,15.20,15.20
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 34.80,-15.20,65.20,15.20
@@ -324,6 +319,7 @@ Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
 Debug: Created walkingArea ':gneJ5_w0' in retrieveGNEWalkingArea()
 Debug: Created walkingArea ':gneJ5_w1' in retrieveGNEWalkingArea()
 Debug: Created walkingArea ':gneJ5_w2' in retrieveGNEWalkingArea()
+Debug: network elements saved
 Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane 'gneE0_1' in GNEEdge destructor
@@ -427,5 +423,10 @@ Debug: Deleting unreferenced crossing ':gneJ5_c2' in GNEJunction destructor
 Debug: Deleting unreferenced walkingArea ':gneJ5_w0' in GNEJunction destructor
 Debug: Deleting unreferenced walkingArea ':gneJ5_w1' in GNEJunction destructor
 Debug: Deleting unreferenced walkingArea ':gneJ5_w2' in GNEJunction destructor
+Debug: Deleting unreferenced e2MultilaneDetector in AttributeCarriers destructor
+Debug: Deleting unreferenced e2MultilaneDetector in AttributeCarriers destructor
+Debug: Deleting unreferenced e2MultilaneDetector in AttributeCarriers destructor
+Debug: Deleting unreferenced e2MultilaneDetector in AttributeCarriers destructor
+Debug: Deleting unreferenced e2MultilaneDetector in AttributeCarriers destructor
 Debug: Deleting net builder in GNENet destructor
 GLDebug: Number of objects in SUMORTree during call of the destructor: 20

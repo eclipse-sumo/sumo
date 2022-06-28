@@ -1,4 +1,2 @@
-Error: Define either 'period' (alias: 'freq') or 'tl' in a lane area detector.
-Error: Define either 'period' (alias: 'freq') or 'tl' in a lane area detector.
 Error: Could not build e2Detector with ID 'E2_03' in netedit; invalid traffic light ID.
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.e2detector.20Jun093115.9099/netedit.daily.additional.e2detector/additionalelements/e2detector/load/tl/input_additionals.add.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.28Jun133526.4749/netedit.gui/additionalelements/e2detector/load/tl/input_additionals.add.xml failed.
