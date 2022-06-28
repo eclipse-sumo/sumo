@@ -19,7 +19,6 @@ Debug: Enabled show connections throught alt + 6
 Debug: Value 'DummyAllowed' for attribute allow of connection isn't valid
 Debug: Setting new attribute
 Debug: Value 'authority  army, passenger; taxi. tram' for attribute allow of connection isn't valid
-Debug: Value 'authority  army, passenger; taxi. tram' for attribute allow of connection isn't valid
 Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Key F5 (Compute) pressed
