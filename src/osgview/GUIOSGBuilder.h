@@ -64,11 +64,14 @@ public:
     /// @brief Build traffic light models with poles and cantilevers automatically
     static void buildTrafficLightDetails(MSTLLogicControl::TLSLogicVariants& vars, osg::Node* const tlg, osg::Node* const tly, osg::Node* const tlr, osg::Node* const tlu, osg::Node* poleBase, osg::Group& addTo);
 
-    static osg::PositionAttitudeTransform* getTrafficLight(const GUISUMOAbstractView::Decal& d, MSTLLogicControl::TLSLogicVariants& vars, const MSLink* link, osg::Node* const tlg, osg::Node* const tly, osg::Node* const tlr, osg::Node* const tlu, osg::Node* const pole, const bool withPole = false, const double size = -1, double poleHeight = -1);
+    static osg::PositionAttitudeTransform* getTrafficLight(const GUISUMOAbstractView::Decal& d, MSTLLogicControl::TLSLogicVariants& vars, const MSLink* link, osg::Node* const tlg, 
+        osg::Node* const tly, osg::Node* const tlr, osg::Node* const tlu, osg::Node* const pole, const bool withPole = false, const double size = -1, double poleHeight = 1.8, double transparency = .3);
 
     static GUIOSGView::OSGMovable buildMovable(const MSVehicleType& type);
 
 private:
+    static osg::PositionAttitudeTransform* createTrafficLightState(const GUISUMOAbstractView::Decal& d, osg::Node* tl, const double withPole, const double size, osg::Vec4d color);
+
     static void buildOSGEdgeGeometry(const MSEdge& edge,
                                      osg::Group& addTo, osgUtil::Tessellator& tessellator);
 

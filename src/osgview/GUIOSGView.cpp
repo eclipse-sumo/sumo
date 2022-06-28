@@ -345,16 +345,8 @@ GUIOSGView::onPaint(FXObject*, FXSelector, void*) {
                         throw NumberFormatException("");
                     }
                     const MSLink* const link = vars.getActive()->getLinksAt(linkIdx)[0];
-
-                    osg::Group* tlNode = GUIOSGBuilder::getTrafficLight(d, vars, link, myGreenLight, myYellowLight, myRedLight, myRedYellowLight, myPoleBase, true);
+                    osg::Group* tlNode = GUIOSGBuilder::getTrafficLight(d, vars, link, myGreenLight, myYellowLight, myRedLight, myRedYellowLight, myPoleBase, true, 0.5);
                     tlNode->setName("tlLogic:" + tlLogic);
-                    //osg::Switch* switchNode = new osg::Switch();
-     //               switchNode->addChild(GUIOSGBuilder::getTrafficLight(d, d.layer < 0 ? 0 : myGreenLight, osg::Vec4d(0., 1., 0., .3), 0.5, 1 << NODESET_TLSDOMES));
-     //               switchNode->addChild(GUIOSGBuilder::getTrafficLight(d, d.layer < 0 ? 0 : myYellowLight, osg::Vec4d(1., 1., 0., .3), 0.5, 1 << NODESET_TLSDOMES));
-     //               switchNode->addChild(GUIOSGBuilder::getTrafficLight(d, d.layer < 0 ? 0 : myRedLight, osg::Vec4d(1., 0., 0., .3), 0.5, 1 << NODESET_TLSDOMES));
-     //               switchNode->addChild(GUIOSGBuilder::getTrafficLight(d, d.layer < 0 ? 0 : myRedYellowLight, osg::Vec4d(1., .5, 0., .3), 0.5, 1 << NODESET_TLSDOMES));
-					//switchNode->addChild(GUIOSGBuilder::getTrafficLight(d, d.layer < 0 ? 0 : myRedYellowLight, osg::Vec4d(.5, .25, 0., .3), 0.5, 1 << NODESET_TLSDOMES));
-     //               myRoot->addChild(switchNode);
                     myRoot->addChild(tlNode);
                 } catch (NumberFormatException&) {
                     WRITE_ERROR("Invalid link index in '" + d.filename + "'.");
@@ -477,6 +469,7 @@ GUIOSGView::onPaint(FXObject*, FXSelector, void*) {
     unsigned int cullMask = 0xFFFFFFFF;
     cullMask ^= (-myVisualizationSettings->show3DTLSDomes ^ cullMask) & (1UL << NODESET_TLSDOMES);
     cullMask ^= (-myVisualizationSettings->show3DTLSLinkMarkers ^ cullMask) & (1UL << NODESET_TLSLINKMARKERS);
+    cullMask ^= (-myVisualizationSettings->generate3DTLSModels ^ cullMask) & (1UL << NODESET_TLSMODELS);
     myViewer->getCamera()->setCullMask(cullMask);
 
     if (myAdapter->makeCurrent()) {

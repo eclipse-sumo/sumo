@@ -77,6 +77,7 @@ GUIOSGBuilder::buildOSGScene(osg::Node* const tlg, osg::Node* const tly, osg::No
     for (std::vector<std::string>::const_iterator i = tlids.begin(); i != tlids.end(); ++i) {
         MSTLLogicControl::TLSLogicVariants& vars = net->getTLSControl().get(*i);
         buildTrafficLightDetails(vars, tlg, tly, tlr, tlu, pole, *root);
+
         const MSTrafficLightLogic::LaneVectorVector& lanes = vars.getActive()->getLaneVectors();
         const MSLane* lastLane = 0;
         int idx = 0;
@@ -96,18 +97,9 @@ GUIOSGBuilder::buildOSGScene(osg::Node* const tlg, osg::Node* const tly, osg::No
                 d.centerX = pos.x() - 1.5 * sin(angle);
                 d.centerY = pos.y() - 1.5 * cos(angle);
             }
-            /* // TODO: refactor so that it works with update getTrafficLight and the layer mask of OSG
-            osg::Switch* switchNode = new osg::Switch();
-            switchNode->addChild(getTrafficLight(d, nullptr, osg::Vec4d(0.1, 0.5, 0.1, 1.0), .25, 1 << GUIOSGView::NODESET_TLSLINKMARKERS), false);
-            switchNode->addChild(getTrafficLight(d, nullptr, osg::Vec4d(0.5, 0.5, 0.1, 1.0), .25, 1 << GUIOSGView::NODESET_TLSLINKMARKERS), false);
-            switchNode->addChild(getTrafficLight(d, nullptr, osg::Vec4d(0.5, 0.1, 0.1, 1.0), .25, 1 << GUIOSGView::NODESET_TLSLINKMARKERS), false);
-            switchNode->addChild(getTrafficLight(d, nullptr, osg::Vec4d(0.8, 0.4, 0.0, 1.0), .25, 1 << GUIOSGView::NODESET_TLSLINKMARKERS), false);
-            switchNode->addChild(getTrafficLight(d, nullptr, osg::Vec4d(0.5, 0.25, 0.0, 1.0), .25, 1 << GUIOSGView::NODESET_TLSLINKMARKERS), false);
-            switchNode->setName("tlLogic:" + *i);
-            root->addChild(switchNode);
-            const MSLink* const l = vars.getActive()->getLinksAt(idx)[0];
-            vars.addSwitchCommand(new GUIOSGView::Command_TLSChange(l, switchNode));
-            */
+            osg::PositionAttitudeTransform* tlNode = getTrafficLight(d, vars, vars.getActive()->getLinksAt(idx)[0], nullptr, nullptr, nullptr, nullptr, nullptr, false, .25, -1, 1.);
+            tlNode->setName("tlLogic:" + *i);
+            root->addChild(tlNode);          
             lastLane = lane;
         }
     }
@@ -315,7 +307,7 @@ GUIOSGBuilder::buildTrafficLightDetails(MSTLLogicControl::TLSLogicVariants& vars
         appBase->addChild(rightPoleBase);
         unsigned int laneCount = appLanes.size();
         if (laneCount < 3) { // cantilever
-            const double cantiWidth = edgeWidth - .2 * appLanes.back()->getWidth();
+            const double cantiWidth = edgeWidth - .1 * appLanes.back()->getWidth() + poleOffset;
             const double holderWidth = cantiWidth - .4 * appLanes.back()->getWidth();
             const double holderAngle = 7.5; // degrees
             const double extraHeight = sin(DEG2RAD(holderAngle)) * holderWidth;
@@ -355,34 +347,38 @@ GUIOSGBuilder::buildTrafficLightDetails(MSTLLogicControl::TLSLogicVariants& vars
             appBase->addChild(bridgeBase);
         }
         // Add signals and position them along the cantilever/bridge
-        double refPos = -.5 * appLanes[0]->getWidth() - poleOffset;
+        double refPos = poleOffset;
         for (MSLane* lane : appLanes) {
-            // get tlLinkIndices
-            const std::vector<MSLink*>& links = lane->getLinkCont();
-            std::set<int> tlIndices;
-            for (MSLink* link : links) {
-                if (link->getTLIndex() > -1) {
-                    tlIndices.insert(link->getTLIndex());
+            // skip bike lanes for the moment
+            bool isBikePath = isBikepath(lane->getPermissions());
+            if (!isBikepath(lane->getPermissions())) {
+                // get tlLinkIndices
+                const std::vector<MSLink*>& links = lane->getLinkCont();
+                std::set<int> tlIndices;
+                for (MSLink* link : links) {
+                    if (link->getTLIndex() > -1) {
+                        tlIndices.insert(link->getTLIndex());
+                    }
+                }
+                std::set<int> seenTlIndices;
+                for (MSLink* link : links) {
+                    int tlIndex = link->getTLIndex();
+                    if (tlIndex < 0 || seenTlIndices.find(tlIndex) != seenTlIndices.end()) {
+                        continue;
+                    }
+                    GUISUMOAbstractView::Decal d;
+                    d.centerX = 0.2;
+                    d.centerY = -(refPos + .5*lane->getWidth() - (tlIndices.size() / 2. - 1 + seenTlIndices.size()) * 1.5 * tlWidth);
+                    d.centerZ = 3.8;
+                    osg::PositionAttitudeTransform* tlNode = getTrafficLight(d, vars, links[0], tlg, tly, tlr, tlu, poleBase, false);
+                    tlNode->setAttitude(osg::Quat(0., osg::Vec3d(1, 0, 0),
+                        0., osg::Vec3d(0, 1, 0),
+                        DEG2RAD(180.), osg::Vec3d(0, 0, 1)));
+                    appBase->addChild(tlNode);
+                    seenTlIndices.insert(tlIndex);
                 }
             }
-            std::set<int> seenTlIndices;
-            for (MSLink* link : links) {
-                int tlIndex = link->getTLIndex();
-                if (tlIndex < 0 || seenTlIndices.find(tlIndex) != seenTlIndices.end()) {
-                    continue;
-                }
-                GUISUMOAbstractView::Decal d;
-                d.centerX = 0.2;
-                d.centerY = refPos + seenTlIndices.size() * 1.5 * tlWidth * (tlIndices.size() - 1);
-                d.centerZ = 3.8;
-                osg::PositionAttitudeTransform* tlNode = getTrafficLight(d, vars, links[0], tlg, tly, tlr, tlu, poleBase);
-                tlNode->setAttitude(osg::Quat(0., osg::Vec3d(1, 0, 0),
-                    0., osg::Vec3d(0, 1, 0),
-                    DEG2RAD(180.), osg::Vec3d(0, 0, 1)));
-                appBase->addChild(tlNode);
-                seenTlIndices.insert(tlIndex);
-            }
-            refPos -= lane->getWidth();
+            refPos += lane->getWidth();
         }
         // interaction
         appBase->setNodeMask(1 << GUIOSGView::NODESET_TLSMODELS);
@@ -439,29 +435,26 @@ GUIOSGBuilder::buildDecal(const GUISUMOAbstractView::Decal& d, osg::Group& addTo
 
 
 osg::PositionAttitudeTransform*
-GUIOSGBuilder::getTrafficLight(const GUISUMOAbstractView::Decal& d, MSTLLogicControl::TLSLogicVariants& vars, const MSLink* link, osg::Node* const tlg, osg::Node* const tly, osg::Node* const tlr, osg::Node* const tlu, osg::Node* const pole, const bool withPole, const double size, double poleHeight) {
+GUIOSGBuilder::getTrafficLight(const GUISUMOAbstractView::Decal& d, MSTLLogicControl::TLSLogicVariants& vars, const MSLink* link, osg::Node* const tlg, osg::Node* const tly, osg::Node* const tlr, osg::Node* const tlu, osg::Node* const pole, const bool withPole, const double size, double poleHeight, double transparency) {
     osg::PositionAttitudeTransform* ret = new osg::PositionAttitudeTransform();
-    osg::ComputeBoundsVisitor bboxCalc;
-    tlg->accept(bboxCalc);
-    const osg::BoundingBox& bbox = bboxCalc.getBoundingBox();
-    double xScale = d.width > 0 ? d.width / (bbox.xMax() - bbox.xMin()) : 1.;
-    double yScale = d.height > 0 ? d.height / (bbox.yMax() - bbox.yMin()) : 1.;
-    if (poleHeight < 0) {
-        poleHeight = 1.8;
+    double xScale = 1., yScale = 1., zScale = 1.;
+    if (tlg != nullptr) {
+        osg::ComputeBoundsVisitor bboxCalc;
+        tlg->accept(bboxCalc);
+        const osg::BoundingBox& bbox = bboxCalc.getBoundingBox();
+        xScale = d.width > 0 ? d.width / (bbox.xMax() - bbox.xMin()) : 1.;
+        yScale = d.height > 0 ? d.height / (bbox.yMax() - bbox.yMin()) : 1.;
+        zScale = d.altitude > 0 ? d.altitude / (poleHeight + bbox.zMax() - bbox.zMin()) : 1.;
     }
-    const double zScale = d.altitude > 0 ? d.altitude / (poleHeight + bbox.zMax() - bbox.zMin()) : 1.;
     if (d.width < 0 && d.height < 0 && d.altitude > 0) {
         xScale = yScale = zScale;
     }
     osg::PositionAttitudeTransform* base = new osg::PositionAttitudeTransform();
-    base->setAttitude(osg::Quat(osg::DegreesToRadians(d.roll), osg::Vec3(1, 0, 0),
-                                osg::DegreesToRadians(d.tilt), osg::Vec3(0, 1, 0),
-                                osg::DegreesToRadians(d.rot), osg::Vec3(0, 0, 1)));
     osg::Switch* switchNode = new osg::Switch();
-    switchNode->addChild(tlg);
-    switchNode->addChild(tly);
-    switchNode->addChild(tlr);
-    switchNode->addChild(tlu);
+    switchNode->addChild(createTrafficLightState(d, tlg, withPole, size, osg::Vec4d(0., 1., 0., transparency)));
+    switchNode->addChild(createTrafficLightState(d, tly, withPole, size, osg::Vec4d(1., 1., 0., transparency)));
+    switchNode->addChild(createTrafficLightState(d, tlr, withPole, size, osg::Vec4d(1., 0., 0., transparency)));
+    switchNode->addChild(createTrafficLightState(d, tlu, withPole, size, osg::Vec4d(1., .5, 0., transparency)));
     base->addChild(switchNode);
     vars.addSwitchCommand(new GUIOSGView::Command_TLSChange(link, switchNode));
     if (withPole) {
@@ -471,27 +464,45 @@ GUIOSGBuilder::getTrafficLight(const GUISUMOAbstractView::Decal& d, MSTLLogicCon
         poleBase->setScale(osg::Vec3d(1., 1., poleHeight));
         ret->addChild(poleBase);
     }
+    ret->setAttitude(osg::Quat(osg::DegreesToRadians(d.roll), osg::Vec3(1, 0, 0),
+        osg::DegreesToRadians(d.tilt), osg::Vec3(0, 1, 0),
+        osg::DegreesToRadians(d.rot), osg::Vec3(0, 0, 1)));
     ret->setPosition(osg::Vec3d(d.centerX, d.centerY, d.centerZ));
     ret->setScale(osg::Vec3d(xScale, yScale, zScale));
     ret->addChild(base);
+    return ret;
+}
 
-    //if (size > 0.) {
-    //    osg::Geode* geode = new osg::Geode();
-    //    osg::Vec3d center(d.centerX, d.centerY, d.centerZ);
-    //    osg::ShapeDrawable* shape = new osg::ShapeDrawable(new osg::Sphere(center, (float)size));
-    //    geode->addDrawable(shape);
-    //    osg::ref_ptr<osg::StateSet> ss = shape->getOrCreateStateSet();
-    //    ss->setRenderingHint(osg::StateSet::TRANSPARENT_BIN);
-    //    ss->setMode(GL_BLEND, osg::StateAttribute::OVERRIDE | osg::StateAttribute::PROTECTED | osg::StateAttribute::ON);
-    //    shape->setColor(color);
-    //    osg::PositionAttitudeTransform* ellipse = new osg::PositionAttitudeTransform();
-    //    ellipse->addChild(geode);
-    //    ellipse->setPivotPoint(center);
-    //    ellipse->setPosition(center);
-    //    ellipse->setScale(osg::Vec3d(4., 4., 2.5 * d.altitude + 1.1));
-    //    ellipse->setNodeMask(nodeMask);
-    //    ret->addChild(ellipse);
-    //}
+
+osg::PositionAttitudeTransform*
+GUIOSGBuilder::createTrafficLightState(const GUISUMOAbstractView::Decal& d, osg::Node* tl, const double withPole, const double size, osg::Vec4d color) {
+    osg::PositionAttitudeTransform* ret = new osg::PositionAttitudeTransform();
+    if (tl != nullptr) {
+        ret->addChild(tl);
+    }
+    if (size > 0.) {
+        unsigned int nodeMask = (withPole) ? 1 << GUIOSGView::NodeSetGroup::NODESET_TLSDOMES : 1 << GUIOSGView::NodeSetGroup::NODESET_TLSLINKMARKERS;
+        osg::Geode* geode = new osg::Geode();
+        osg::Vec3d center = osg::Vec3d(0., 0., (withPole)? -1.8 : 0.);
+        osg::ShapeDrawable* shape = new osg::ShapeDrawable(new osg::Sphere(center, (float)size));
+        geode->addDrawable(shape);
+        osg::ref_ptr<osg::StateSet> ss = shape->getOrCreateStateSet();
+        ss->setRenderingHint(osg::StateSet::TRANSPARENT_BIN);
+        ss->setMode(GL_BLEND, osg::StateAttribute::OVERRIDE | osg::StateAttribute::PROTECTED | osg::StateAttribute::ON);
+        shape->setColor(color);
+        osg::PositionAttitudeTransform* ellipse = new osg::PositionAttitudeTransform();
+        ellipse->addChild(geode);
+        ellipse->setPosition(center);
+        ellipse->setPivotPoint(center);
+        if (withPole) {
+            ellipse->setScale(osg::Vec3d(4., 4., 2.5 * d.altitude + 1.1));
+        }
+        else {
+            ellipse->setScale(osg::Vec3d(4., 4., 1.1));
+        }
+        ellipse->setNodeMask(nodeMask);
+        ret->addChild(ellipse);
+    }
     return ret;
 }
 
