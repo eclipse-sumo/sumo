@@ -2208,12 +2208,14 @@ GNENet::saveDemandElementsConfirmed(const std::string& filename) {
     writeRouteComment(device, false);
     writeRoutes(device, false);
     // sort vehicles/persons by depart
-    std::map<double, std::map<std::string, GNEDemandElement*> > vehiclesSortedByDepart;
+    std::map<double, std::map<std::pair<SumoXMLTag, std::string>, GNEDemandElement*> > vehiclesSortedByDepart;
     for (const auto& demandElementTag : myAttributeCarriers->getDemandElements()) {
         for (const auto& demandElement : demandElementTag.second) {
             if (demandElement->getTagProperty().isVehicle() || demandElement->getTagProperty().isPerson() || demandElement->getTagProperty().isContainer()) {
+                // get depart
+                const auto depart = GNEAttributeCarrier::parse<double>(demandElement->getBegin());
                 // save it in myVehiclesSortedByDepart
-                vehiclesSortedByDepart[GNEAttributeCarrier::parse<double>(demandElement->getBegin())][demandElement->getID()] = demandElement;
+                vehiclesSortedByDepart[depart][std::make_pair(demandElement->getTagProperty().getTag(), demandElement->getID())] = demandElement;
             }
         }
     }
