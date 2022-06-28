@@ -283,7 +283,9 @@ changes in mode. They are child elements to the person. In order to
 process a personTrip with mode *public*, the [public transport
 network](../IntermodalRouting.md) has to be defined as well.
 Currently bicycle and/or car can only be the first mode. It is not
-possible to switch to a car or bicycle after a different mode.
+possible to switch to a car or bicycle after a different mode except when adding 'taxi' to the available modes.
+
+The rules for selecting the best itinerary through the network are described at [intermodal routing](../IntermodalRouting.md).
 
 If the computed plan starts with a car or bicycle, a vehicle for use by the person will be automatically generated and set to depart="triggered". A car will be named 'PERSON_ID_0' and bicycle will be named 'PERSON_ID_b0' where 'PERSON_ID' is the id of the person. If a vehicle with this id already exists in the simulation, this vehicle will be used instead (and the user has to ensure that it starts at an appropriate location).
 
