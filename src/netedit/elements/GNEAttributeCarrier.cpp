@@ -5431,7 +5431,7 @@ GNEAttributeCarrier::fillCommonStopAttributes(SumoXMLTag currentTag, const bool 
 
     attrProperty = GNEAttributeProperties(SUMO_ATTR_PARKING,
                                           GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE,
-                                          "whether the vehicle stops on the road or beside",
+                                          "Whether the vehicle stops on the road or beside",
                                           "false");
     myTagProperties[currentTag].addAttribute(attrProperty);
 
@@ -5450,17 +5450,17 @@ GNEAttributeCarrier::fillCommonStopAttributes(SumoXMLTag currentTag, const bool 
                                           "New line attribute to be set on the vehicle when reaching this stop (for cyclical public transport route)");
     myTagProperties[currentTag].addAttribute(attrProperty);
 
-    attrProperty = GNEAttributeProperties(SUMO_ATTR_ONDEMAND,
-                                          GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE,
-                                          "whether the stop may be skipped if no passengers wants to embark or disembark",
-                                          "false");
-    myTagProperties[currentTag].addAttribute(attrProperty);
-
     if (waypoint) {
         attrProperty = GNEAttributeProperties(SUMO_ATTR_SPEED,
                                               GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE,
-                                              "speed to be kept while driving between startPos and endPos",
+                                              "Speed to be kept while driving between startPos and endPos",
                                               "0.00");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+    } else {
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_ONDEMAND,
+                                          GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE,
+                                          "Whether the stop may be skipped if no passengers wants to embark or disembark",
+                                          "false");
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
 }
