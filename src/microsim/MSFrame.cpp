@@ -175,6 +175,8 @@ MSFrame::fillOptions() {
     oc.addDescription("fcd-output.filter-edges.input-file", "Output", "Restrict fcd output to the edge selection from the given input file");
     oc.doRegister("fcd-output.attributes", new Option_StringVector());
     oc.addDescription("fcd-output.attributes", "Output", "List attributes that should be included in the FCD output");
+    oc.doRegister("fcd-output.filter-shapes", new Option_StringVector());
+    oc.addDescription("fcd-output.filter-shapes", "Output", "List shape names that should be used to filter the FCD output");
 
     oc.doRegister("device.ssm.filter-edges.input-file", new Option_FileName());
     oc.addDescription("device.ssm.filter-edges.input-file", "Output", "Restrict SSM device output to the edge selection from the given input file");

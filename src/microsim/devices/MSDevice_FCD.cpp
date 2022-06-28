@@ -26,6 +26,8 @@
 #include <utils/options/OptionsCont.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/vehicle/SUMOVehicle.h>
+#include <utils/shapes/ShapeContainer.h>
+#include <utils/shapes/SUMOPolygon.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSEdge.h>
@@ -34,15 +36,16 @@
 
 // some attributes are not written by default and must be enabled via option fcd-output.attributes
 const long long int MSDevice_FCD::myDefaultMask(~(
-            ((long long int)1 << SUMO_ATTR_VEHICLE) |
-            ((long long int)1 << SUMO_ATTR_ODOMETER) |
-            ((long long int)1 << SUMO_ATTR_POSITION_LAT)
+    ((long long int)1 << SUMO_ATTR_VEHICLE) |
+    ((long long int)1 << SUMO_ATTR_ODOMETER) |
+    ((long long int)1 << SUMO_ATTR_POSITION_LAT)
     ));
 
 // ===========================================================================
 // static members
 // ===========================================================================
 std::set<const MSEdge*> MSDevice_FCD::myEdgeFilter;
+std::vector<const PositionVector*> MSDevice_FCD::myShape4Filters;
 bool MSDevice_FCD::myEdgeFilterInitialized(false);
 long long int MSDevice_FCD::myWrittenAttributes(myDefaultMask);
 
@@ -90,6 +93,18 @@ MSDevice_FCD::MSDevice_FCD(SUMOVehicle& holder, const std::string& id) :
 MSDevice_FCD::~MSDevice_FCD() {
 }
 
+bool
+MSDevice_FCD::shapeFilter(Position frontPos, const MSVehicle* microsimVehicle) {
+    for (auto shape : myShape4Filters) {
+        if (shape->around(frontPos) || 
+            ((microsimVehicle != nullptr) && shape->around(microsimVehicle->getBackPosition()))
+            ) {
+            return true;
+        }
+    }
+    return false;
+}
+
 
 void
 MSDevice_FCD::initOnce() {
@@ -120,7 +135,8 @@ MSDevice_FCD::initOnce() {
             if (!SUMOXMLDefinitions::Attrs.hasString(attrName)) {
                 if (attrName == "all") {
                     myWrittenAttributes = std::numeric_limits<long long int>::max() - 1;
-                } else {
+                }
+                else {
                     WRITE_ERROR("Unknown attribute '" + attrName + "' to write in fcd output.");
                 }
                 continue;
@@ -128,6 +144,18 @@ MSDevice_FCD::initOnce() {
             int attr = SUMOXMLDefinitions::Attrs.get(attrName);
             assert(attr < 63);
             myWrittenAttributes |= ((long long int)1 << attr);
+        }
+    }
+    if (oc.isSet("fcd-output.filter-shapes")) {
+        ShapeContainer &loadedPolys = MSNet::getInstance()->getShapeContainer();
+        for (std::string attrName : oc.getStringVector("fcd-output.filter-shapes")) {
+            if (loadedPolys.getPolygons().get(attrName) == 0) {
+                WRITE_ERROR("Specified shape '" + attrName + "' for filtering fcd-output could not be found.");
+            }
+            else {
+                myShape4Filters.push_back(& loadedPolys.getPolygons().get(attrName)->getShape());
+            }
+
         }
     }
     //std::cout << "mask=" << myWrittenAttributes << " binary=" << std::bitset<64>(myWrittenAttributes) << "\n";
