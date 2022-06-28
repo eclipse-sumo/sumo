@@ -65,7 +65,7 @@ public:
     /// @brief Called when the user presses the Clear-button
     long onCmdClear(FXObject*, FXSelector, void*);
 
-    /// @brief Called when the user presses the Clear-button
+    /// @brief Called when the user clicks a time link in the message window
     long onCmdUpdateBreakpoints(FXObject*, FXSelector, void*);
 
     /// @brief Called when the user presses the Close-button
