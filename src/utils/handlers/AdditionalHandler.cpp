@@ -915,7 +915,7 @@ AdditionalHandler::parseE1Attributes(const SUMOSAXAttributes& attrs) {
     const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk);
     const std::string laneId = attrs.get<std::string>(SUMO_ATTR_LANE, id.c_str(), parsedOk);
     const double position = attrs.get<double>(SUMO_ATTR_POSITION, id.c_str(), parsedOk);
-    const SUMOTime period = attrs.getOptPeriod(id.c_str(), parsedOk, SUMOTime_MAX - SUMOTime_MAX % DELTA_T);
+    const SUMOTime period = attrs.getOptPeriod(id.c_str(), parsedOk, SUMOTime_MAX_PERIOD);
     const std::string file = attrs.get<std::string>(SUMO_ATTR_FILE, id.c_str(), parsedOk);
     // optional attributes
     const std::string name = attrs.getOpt<std::string>(SUMO_ATTR_NAME, id.c_str(), parsedOk, "");
@@ -962,7 +962,7 @@ AdditionalHandler::parseE2Attributes(const SUMOSAXAttributes& attrs) {
     const double length = attrs.getOpt<double>(SUMO_ATTR_LENGTH, id.c_str(), parsedOk, 0);
     const double endPos = attrs.getOpt<double>(SUMO_ATTR_ENDPOS, id.c_str(), parsedOk, 0);
     // optional attributes
-    const SUMOTime period = attrs.getOptPeriod(id.c_str(), parsedOk, (SUMOTime_MAX - SUMOTime_MAX % DELTA_T));
+    const SUMOTime period = attrs.getOptPeriod(id.c_str(), parsedOk, SUMOTime_MAX_PERIOD);
     const std::string trafficLight = attrs.getOpt<std::string>(SUMO_ATTR_TLID, id.c_str(), parsedOk, "");
     const std::string name = attrs.getOpt<std::string>(SUMO_ATTR_NAME, id.c_str(), parsedOk, "");
     const SUMOTime haltingTimeThreshold = attrs.getOptSUMOTimeReporting(SUMO_ATTR_HALTING_TIME_THRESHOLD, id.c_str(), parsedOk, TIME2STEPS(1));
@@ -1005,7 +1005,7 @@ AdditionalHandler::parseE3Attributes(const SUMOSAXAttributes& attrs) {
     // needed attributes
     const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk);
     const std::string file = attrs.get<std::string>(SUMO_ATTR_FILE, id.c_str(), parsedOk);
-    const SUMOTime period = attrs.getOptPeriod(id.c_str(), parsedOk, SUMOTime_MAX - SUMOTime_MAX % DELTA_T);
+    const SUMOTime period = attrs.getOptPeriod(id.c_str(), parsedOk, SUMOTime_MAX_PERIOD);
     // optional attributes
     const Position pos = attrs.getOpt<Position>(SUMO_ATTR_POSITION, id.c_str(), parsedOk, Position());
     const std::vector<std::string> vehicleTypes = attrs.getOpt<std::vector<std::string> >(SUMO_ATTR_VTYPES, id.c_str(), parsedOk, std::vector<std::string>());
@@ -1480,7 +1480,7 @@ AdditionalHandler::parseRouteProbeAttributes(const SUMOSAXAttributes& attrs) {
     const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk);
     const std::string edge = attrs.get<std::string>(SUMO_ATTR_EDGE, id.c_str(), parsedOk);
     const std::string file = attrs.get<std::string>(SUMO_ATTR_FILE, id.c_str(), parsedOk);
-    const SUMOTime period = attrs.getOptPeriod(id.c_str(), parsedOk, SUMOTime_MAX - SUMOTime_MAX % DELTA_T);
+    const SUMOTime period = attrs.getOptPeriod(id.c_str(), parsedOk, SUMOTime_MAX_PERIOD);
     const SUMOTime begin = attrs.getOptSUMOTimeReporting(SUMO_ATTR_BEGIN, id.c_str(), parsedOk, -1);
     // optional attributes
     const std::string name = attrs.getOpt<std::string>(SUMO_ATTR_NAME, id.c_str(), parsedOk, "");

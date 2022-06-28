@@ -180,7 +180,7 @@ GNEDetectorE3::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_POSITION:
             return toString(myPosition);
         case SUMO_ATTR_PERIOD:
-            if (myPeriod == (SUMOTime_MAX - SUMOTime_MAX % DELTA_T)) {
+            if (myPeriod == SUMOTime_MAX_PERIOD) {
                 return "";
             } else {
                 return time2string(myPeriod);
@@ -337,7 +337,7 @@ GNEDetectorE3::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_PERIOD:
             if (value.empty()) {
-                myPeriod = (SUMOTime_MAX - SUMOTime_MAX % DELTA_T);
+                myPeriod = SUMOTime_MAX_PERIOD;
             } else {
                 myPeriod = string2time(value);
             }
