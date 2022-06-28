@@ -26,6 +26,7 @@
 #include <utils/options/OptionsCont.h>
 #include <utils/geom/GeoConvHelper.h>
 #include <utils/geom/GeomHelper.h>
+#include <utils/shapes/SUMOPolygon.h>
 #include <libsumo/Helper.h>
 #include <microsim/devices/MSDevice_FCD.h>
 #include <microsim/devices/MSTransportableDevice_FCD.h>
@@ -65,6 +66,7 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep, bool elevation) {
     MSVehicleControl& vc = net->getVehicleControl();
     const double radius = oc.getFloat("device.fcd.radius");
     const bool filter = MSDevice_FCD::getEdgeFilter().size() > 0;
+    const bool shapeFilter = MSDevice_FCD::hasShapeFilter();
     std::set<const Named*> inRadius;
     if (radius > 0) {
         // collect all vehicles in radius around equipped vehicles
@@ -73,7 +75,8 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep, bool elevation) {
             MSDevice_FCD* fcdDevice = (MSDevice_FCD*)veh->getDevice(typeid(MSDevice_FCD));
             if (fcdDevice != nullptr
                     && (veh->isOnRoad() || veh->isParking() || veh->isRemoteControlled())
-                    && (!filter || MSDevice_FCD::getEdgeFilter().count(veh->getEdge()) > 0)) {
+                    && (!filter || MSDevice_FCD::getEdgeFilter().count(veh->getEdge()) > 0)
+                    && (!shapeFilter || MSDevice_FCD::shapeFilter(veh->getPosition(), dynamic_cast<const MSVehicle*>(veh)))) {
                 PositionVector shape;
                 shape.push_back(veh->getPosition());
                 libsumo::Helper::collectObjectsInRange(libsumo::CMD_GET_VEHICLE_VARIABLE, shape, radius, inRadius);
@@ -90,6 +93,7 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep, bool elevation) {
         if ((veh->isOnRoad() || veh->isParking() || veh->isRemoteControlled())
                 // only filter on normal edges
                 && (!filter || MSDevice_FCD::getEdgeFilter().count(veh->getEdge()) > 0)
+                && (!shapeFilter || MSDevice_FCD::shapeFilter(veh->getPosition(), microVeh))
                 && (veh->getDevice(typeid(MSDevice_FCD)) != nullptr || (radius > 0 && inRadius.count(veh) > 0))) {
             Position pos = veh->getPosition();
             if (useGeo) {
