@@ -1898,12 +1898,12 @@ class stop:
         extensionEnable = 5
         extension = 6
         triggered = 7
-        expected = 8
-        permitted = 9
-        parking = 10
-        actType = 11
-        tripID = 12
-        line = 13
+        expected = 9
+        permitted = 10
+        parking = 11
+        actType = 12
+        tripID = 13
+        line = 14
 
 # stop (over parkings)
 
@@ -1945,11 +1945,11 @@ class stopParking:
         extensionEnable = 5
         extension = 6
         triggered = 7
-        expected = 8
-        permitted = 9
-        actType = 10
-        tripID = 11
-        line = 12
+        expected = 9
+        permitted = 10
+        actType = 11
+        tripID = 12
+        line = 13
 
 # stop (over lane)
 
@@ -2002,12 +2002,12 @@ class stopLane:
         extensionEnable = 7
         extension = 8
         triggered = 9
-        expected = 10
-        permitted = 11
-        parking = 12
-        actType = 13
-        tripID = 14
-        line = 15
+        expected = 11
+        permitted = 12
+        parking = 13
+        actType = 14
+        tripID = 15
+        line = 16
 
 # waypoint (over busStop/containerStop/chargingStation)
 
@@ -2053,13 +2053,13 @@ class waypoint:
         extensionEnable = 5
         extension = 6
         triggered = 7
-        expected = 8
-        permitted = 9
-        parking = 10
-        actType = 11
-        tripID = 12
-        line = 13
-        speed = 14
+        expected = 9
+        permitted = 10
+        parking = 11
+        actType = 12
+        tripID = 13
+        line = 14
+        speed = 15
 
 # waypoint (over parkings)
 
@@ -2103,12 +2103,12 @@ class waypointParking:
         extensionEnable = 5
         extension = 6
         triggered = 7
-        expected = 8
-        permitted = 9
-        actType = 10
-        tripID = 11
-        line = 12
-        speed = 13
+        expected = 9
+        permitted = 10
+        actType = 11
+        tripID = 12
+        line = 13
+        speed = 14
 
 # waypoint (over lane)
 
@@ -2163,13 +2163,13 @@ class waypointLane:
         extensionEnable = 7
         extension = 8
         triggered = 9
-        expected = 10
-        permitted = 11
-        parking = 12
-        actType = 13
-        tripID = 14
-        line = 15
-        speed = 16
+        expected = 11
+        permitted = 12
+        parking = 13
+        actType = 14
+        tripID = 15
+        line = 16
+        speed = 17
 
 # Person
 
