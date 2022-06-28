@@ -1874,6 +1874,7 @@ class stop:
         actType = 16
         tripID = 17
         line = 18
+        onDemad = 19
 
     class inspect:
         durationEnable = 1
@@ -1889,6 +1890,7 @@ class stop:
         actType = 9
         tripID = 10
         line = 11
+        onDemad = 12
 
     class inspectSelection:
         durationEnable = 1
@@ -1904,6 +1906,7 @@ class stop:
         actType = 12
         tripID = 13
         line = 14
+        onDemad = 15
 
 # stop (over parkings)
 
@@ -1922,6 +1925,7 @@ class stopParking:
         actType = 15
         tripID = 16
         line = 17
+        onDemad = 18
 
     class inspect:
         durationEnable = 1
@@ -1936,6 +1940,7 @@ class stopParking:
         actType = 8
         tripID = 9
         line = 10
+        onDemad = 11
 
     class inspectSelection:
         durationEnable = 1
@@ -1950,6 +1955,7 @@ class stopParking:
         actType = 11
         tripID = 12
         line = 13
+        onDemad = 14
 
 # stop (over lane)
 
@@ -1971,6 +1977,7 @@ class stopLane:
         actType = 18
         tripID = 19
         line = 20
+        onDemad = 21
 
     class inspect:
         lane = 1
@@ -1991,6 +1998,7 @@ class stopLane:
         actType = 14
         tripID = 15
         line = 16
+        onDemad = 17
 
     class inspectSelection:
         friendlyPos = 1
@@ -2008,6 +2016,7 @@ class stopLane:
         actType = 14
         tripID = 15
         line = 16
+        onDemad = 17
 
 # waypoint (over busStop/containerStop/chargingStation)
 
