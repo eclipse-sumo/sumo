@@ -14,6 +14,9 @@ bikeAvoidConflictWithBike
 # Check if a bike avoid conflict with a vehicle.
 bikeAvoidConflictWithVeh
 
+# the car is driving on the right side and so the oncoming bike must also stay on (its) right side to pass.
+bikeOvertakeRight
+
 # a single pair of bidi-edges and 2 vehicles
 1edge
 
