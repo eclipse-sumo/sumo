@@ -96,7 +96,7 @@ public:
     static void cleanup();
 
     /// @brief checks if in polygon
-    static bool shapeFilter(Position frontPos, const MSVehicle* microsimVehicle);
+    static bool shapeFilter(const SUMOVehicle* veh);
 
     /// @brief is there a filter based on shapes?
     inline static bool hasShapeFilter() {
@@ -117,7 +117,7 @@ private:
     static bool myEdgeFilterInitialized;
 
     /// @brief polygon spatial filter for FCD output
-    static std::vector<const PositionVector*> myShape4Filters;
+    static std::vector<PositionVector> myShape4Filters;
 
     /// @brief bit mask for checking attributes to be written
     static long long int myWrittenAttributes;

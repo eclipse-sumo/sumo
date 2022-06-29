@@ -76,7 +76,7 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep, bool elevation) {
             if (fcdDevice != nullptr
                     && (veh->isOnRoad() || veh->isParking() || veh->isRemoteControlled())
                     && (!filter || MSDevice_FCD::getEdgeFilter().count(veh->getEdge()) > 0)
-                    && (!shapeFilter || MSDevice_FCD::shapeFilter(veh->getPosition(), dynamic_cast<const MSVehicle*>(veh)))) {
+                    && (!shapeFilter || MSDevice_FCD::shapeFilter(veh))) {
                 PositionVector shape;
                 shape.push_back(veh->getPosition());
                 libsumo::Helper::collectObjectsInRange(libsumo::CMD_GET_VEHICLE_VARIABLE, shape, radius, inRadius);
@@ -93,7 +93,7 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep, bool elevation) {
         if ((veh->isOnRoad() || veh->isParking() || veh->isRemoteControlled())
                 // only filter on normal edges
                 && (!filter || MSDevice_FCD::getEdgeFilter().count(veh->getEdge()) > 0)
-                && (!shapeFilter || MSDevice_FCD::shapeFilter(veh->getPosition(), microVeh))
+                && (!shapeFilter || MSDevice_FCD::shapeFilter(veh))
                 && (veh->getDevice(typeid(MSDevice_FCD)) != nullptr || (radius > 0 && inRadius.count(veh) > 0))) {
             Position pos = veh->getPosition();
             if (useGeo) {

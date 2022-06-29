@@ -45,7 +45,7 @@ const long long int MSDevice_FCD::myDefaultMask(~(
 // static members
 // ===========================================================================
 std::set<const MSEdge*> MSDevice_FCD::myEdgeFilter;
-std::vector<const PositionVector*> MSDevice_FCD::myShape4Filters;
+std::vector<PositionVector> MSDevice_FCD::myShape4Filters;
 bool MSDevice_FCD::myEdgeFilterInitialized(false);
 long long int MSDevice_FCD::myWrittenAttributes(myDefaultMask);
 
@@ -94,11 +94,10 @@ MSDevice_FCD::~MSDevice_FCD() {
 }
 
 bool
-MSDevice_FCD::shapeFilter(Position frontPos, const MSVehicle* microsimVehicle) {
+MSDevice_FCD::shapeFilter(const SUMOVehicle* veh) {
+    const MSVehicle* msVeh = dynamic_cast<const MSVehicle*>(veh);
     for (auto shape : myShape4Filters) {
-        if (shape->around(frontPos) || 
-            ((microsimVehicle != nullptr) && shape->around(microsimVehicle->getBackPosition()))
-            ) {
+        if (shape.around(veh->getPosition()) || ((msVeh != nullptr) && shape.around(msVeh->getBackPosition()))) {
             return true;
         }
     }
@@ -147,15 +146,15 @@ MSDevice_FCD::initOnce() {
         }
     }
     if (oc.isSet("fcd-output.filter-shapes")) {
-        ShapeContainer &loadedPolys = MSNet::getInstance()->getShapeContainer();
+        const ShapeContainer &loadedShapes = MSNet::getInstance()->getShapeContainer();
         for (std::string attrName : oc.getStringVector("fcd-output.filter-shapes")) {
-            if (loadedPolys.getPolygons().get(attrName) == 0) {
+            if (loadedShapes.getPolygons().get(attrName) == 0) {
                 WRITE_ERROR("Specified shape '" + attrName + "' for filtering fcd-output could not be found.");
             }
             else {
-                myShape4Filters.push_back(& loadedPolys.getPolygons().get(attrName)->getShape());
+                // store the PositionVector, not reference, as traci can manipulate / detete the polygons 
+                myShape4Filters.push_back(loadedShapes.getPolygons().get(attrName)->getShape());
             }
-
         }
     }
     //std::cout << "mask=" << myWrittenAttributes << " binary=" << std::bitset<64>(myWrittenAttributes) << "\n";
@@ -165,6 +164,7 @@ MSDevice_FCD::initOnce() {
 void
 MSDevice_FCD::cleanup() {
     myEdgeFilter.clear();
+    myShape4Filters.clear();
     myEdgeFilterInitialized = false;
     myWrittenAttributes = myDefaultMask;
 }
