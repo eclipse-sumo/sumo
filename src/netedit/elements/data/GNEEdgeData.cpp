@@ -56,8 +56,8 @@ GNEEdgeData::~GNEEdgeData() {}
 
 void
 GNEEdgeData::setColor(const GUIVisualizationSettings& s) const {
-    RGBColor col = RGBColor::RED; // default
-
+    // set default color
+    RGBColor col = RGBColor::RED;
     if (isAttributeCarrierSelected()) {
         col = s.colorSettings.selectedEdgeDataColor;
     } else if (s.dataColorer.getScheme().getName() == GUIVisualizationSettings::SCHEME_NAME_DATA_ATTRIBUTE_NUMERICAL) {
@@ -210,41 +210,48 @@ GNEEdgeData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lan
     if (myNet->getViewNet()->getEditModes().isCurrentSupermodeData()) {
         // get flag for only draw contour
         const bool onlyDrawContour = !isGenericDataVisible();
-        // get lane width
-        const double laneWidth = s.addSize.getExaggeration(s, lane) * (lane->getParentEdge()->getNBEdge()->getLaneWidth(lane->getIndex()) * 0.5);
         // Start drawing adding an gl identificator
         if (!onlyDrawContour) {
             GLHelper::pushName(getGlID());
         }
-        // Add a draw matrix
-        GLHelper::pushMatrix();
-        // Start with the drawing of the area translating matrix to origin
-        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_EDGEDATA, offsetFront);
-        GLHelper::setColor(RGBColor::BLACK);
-        // draw box lines
-        GUIGeometry::drawLaneGeometry(s, myNet->getViewNet()->getPositionInformation(), lane->getLaneShape(), lane->getShapeRotations(), lane->getShapeLengths(), {}, laneWidth, onlyDrawContour);
-        // translate to top
-        glTranslated(0, 0, 0.01);
-        setColor(s);
-        // draw interne box lines
-        GUIGeometry::drawLaneGeometry(s, myNet->getViewNet()->getPositionInformation(), lane->getLaneShape(), lane->getShapeRotations(), lane->getShapeLengths(), {}, laneWidth - 0.1, onlyDrawContour);
-        // Pop last matrix
-        GLHelper::popMatrix();
+        // draw over all edge's lanes
+        for (const auto &laneEdge : lane->getParentEdge()->getLanes()) {
+            // get lane width
+            const double laneWidth = s.addSize.getExaggeration(s, laneEdge) * (laneEdge->getParentEdge()->getNBEdge()->getLaneWidth(laneEdge->getIndex()) * 0.5);
+            // Add a draw matrix
+            GLHelper::pushMatrix();
+            // Start with the drawing of the area translating matrix to origin
+            myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_EDGEDATA, offsetFront);
+            GLHelper::setColor(RGBColor::BLACK);
+            // draw box lines
+            GUIGeometry::drawLaneGeometry(s, myNet->getViewNet()->getPositionInformation(), 
+                laneEdge->getLaneShape(), laneEdge->getShapeRotations(), 
+                laneEdge->getShapeLengths(), {}, laneWidth, onlyDrawContour);
+            // translate to top
+            glTranslated(0, 0, 0.01);
+            setColor(s);
+            // draw interne box lines
+            GUIGeometry::drawLaneGeometry(s, myNet->getViewNet()->getPositionInformation(),
+                laneEdge->getLaneShape(), laneEdge->getShapeRotations(), 
+                laneEdge->getShapeLengths(), {}, laneWidth - 0.1, onlyDrawContour);
+            // Pop last matrix
+            GLHelper::popMatrix();
+            // draw lock icon
+            GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), 1);
+            // draw filtered attribute
+            if (getParentEdges().front()->getLanes().front() == laneEdge) {
+                drawFilteredAttribute(s, laneEdge->getLaneShape(),
+                    myNet->getViewNet()->getViewParent()->getEdgeDataFrame()->getAttributeSelector()->getFilteredAttribute(),
+                    myNet->getViewNet()->getViewParent()->getEdgeDataFrame()->getIntervalSelector()->getDataInterval());
+            }
+            // check if shape dotted contour has to be drawn
+            if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
+                GNEEdge::drawDottedContourEdge(GUIDottedGeometry::DottedContourType::INSPECT, s, laneEdge->getParentEdge(), true, true);
+            }
+        }
         // Pop name
         if (!onlyDrawContour) {
             GLHelper::popName();
-        }
-        // draw lock icon
-        GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), 1);
-        // draw filtered attribute
-        if (getParentEdges().front()->getLanes().front() == lane) {
-            drawFilteredAttribute(s, lane->getLaneShape(),
-                myNet->getViewNet()->getViewParent()->getEdgeDataFrame()->getAttributeSelector()->getFilteredAttribute(),
-                myNet->getViewNet()->getViewParent()->getEdgeDataFrame()->getIntervalSelector()->getDataInterval());
-        }
-        // check if shape dotted contour has to be drawn
-        if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-            GNEEdge::drawDottedContourEdge(GUIDottedGeometry::DottedContourType::INSPECT, s, lane->getParentEdge(), true, true);
         }
     }
 }
