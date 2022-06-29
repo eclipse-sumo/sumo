@@ -1,4 +1,5 @@
 -tp appdata=netedit.gui
+
 additionalelements/basic/relative_positions
 additionalelements/calibrator/inspect_selection/output
 additionalelements/calibratorlane/inspect_selection/parameters
@@ -12,16 +13,14 @@ bugs/grid/ticket3278
 bugs/processing/ticket2327
 bugs/ticket5552
 dataelements/edgereldata/load/parameters
-demandelements/container/create/default_stop/default_stop_containerstop
-demandelements/containerflow/create/default_stop/default_stop_containerstop
 demandelements/containerflow/inspect/period
 demandelements/flow_embedded/inspect_selection/vehsperhour
 demandelements/trip_junctions/inspect_selection/arrivalpos/float
-demandelements/person/create/default_stop/default_stop_busstop
-demandelements/personflow/create/default_stop/default_stop_busstop
+
 demandelements/routeflow/inspect/vehsperhour
 demandelements/routeflow/inspect_selection/end
 demandelements/routeflow/inspect_selection/number
+demandelements/routeflow/inspect_selection/parameters
 demandelements/routeflow/inspect_selection/parameters
 demandelements/routeflow/inspect_selection/period
 demandelements/routeflow/inspect_selection/poisson
@@ -29,13 +28,9 @@ demandelements/routeflow/inspect_selection/probability
 demandelements/routeflow/inspect_selection/vehsperhour
 demandelements/stop/lane/inspect_selection/tripid
 demandelements/stop/parkingarea/inspect_selection/extension
-demandelements/trip_junctions/create/color
-demandelements/trip_junctions/inspect_selection/arrivalpos/float
-demandelements/vehicle/inspect/id
+
 demandelements/vehicle/volatilerecomputing
 demandelements/vehicle_embedded/create/arrivalpos
-demandelements/vehicle_embedded/inspect/color
-demandelements/vehicle_embedded/inspect/id
 demandelements/vehicle_embedded/inspect_selection/departposlat/right
 demandelements/vehicle_embedded/inspect_selection/departspeed/max
 netelements/crossings/without_tls/inspect/edges

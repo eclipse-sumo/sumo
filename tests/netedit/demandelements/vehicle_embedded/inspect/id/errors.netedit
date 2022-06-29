@@ -71,7 +71,7 @@ Debug: Adding vehicleWithRoute 'v_0' in GNEChange_DemandElement
 Debug: Adding routeEmbedded 'v_0' in GNEChange_DemandElement
 Debug: Value '' for attribute id of vehicleWithRoute isn't valid
 Debug: Value ';;;;;;;;' for attribute id of vehicleWithRoute isn't valid
-Debug: Value ';;;;;;;;' for attribute id of vehicleWithRoute isn't valid
+Debug: Value 'id with spaces' for attribute id of vehicleWithRoute isn't valid
 Debug: Value 'duplicatedVehicle' for attribute id of vehicleWithRoute isn't valid
 Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
