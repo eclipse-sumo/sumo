@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-06-24 20:07:04 by Eclipse SUMO sumo Version v1_13_0+1210-1db8e862314
+<!-- generated on 2022-06-29 09:41:42 by Eclipse SUMO sumo Version v1_13_0+1249-28527ac26db
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -147,6 +147,9 @@
         <!-- List attributes that should be included in the FCD output -->
         <fcd-output.attributes value="" type="STR[]"/>
 
+        <!-- List shape names that should be used to filter the FCD output -->
+        <fcd-output.filter-shapes value="" type="STR[]"/>
+
         <!-- Restrict SSM device output to the edge selection from the given input file -->
         <device.ssm.filter-edges.input-file value="" type="FILE"/>
 
@@ -254,6 +257,12 @@
 
         <!-- Write overall statistics into FILE -->
         <statistic-output value="" synonymes="statistics-output" type="FILE"/>
+
+        <!-- Save movereminder states of selected vehicles into FILE -->
+        <movereminder-output value="" type="FILE"/>
+
+        <!-- List of vehicle ids which shall save their movereminder states -->
+        <movereminder-output.vehicles value="" type="STR[]"/>
 
         <!-- Use TIME[] as times at which a network state written -->
         <save-state.times value="" type="STR[]"/>
