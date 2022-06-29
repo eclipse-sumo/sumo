@@ -69,3 +69,6 @@ extended_attributes
 
 # filter written attributes with "all"
 all_attributes
+
+# filter output with shape
+shape_filter
