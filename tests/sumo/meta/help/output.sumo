@@ -87,6 +87,8 @@ Output Options:
                                         selection from the given input file
   --fcd-output.attributes STR[]        List attributes that should be included
                                         in the FCD output
+  --fcd-output.filter-shapes STR[]     List shape names that should be used to
+                                        filter the FCD output
   --device.ssm.filter-edges.input-file FILE  Restrict SSM device output to the
                                         edge selection from the given input file
   --full-output FILE                   Save a lot of information for each
