@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-06-29 12:21:19 by Eclipse SUMO netconvert Version v1_13_0+1300-cb922bb
+<!-- generated on 2022-06-29 12:22:55 by Eclipse SUMO netconvert Version v1_13_0+1301-b910e52
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -107,8 +107,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <connection from="-E1" to="E1" fromLane="0" toLane="0" via=":J2_0_0" dir="t" state="M"/>
     <connection from="-E2" to="-E1" fromLane="0" toLane="0" via=":J0_0_0" dir="s" state="M"/>
     <connection from="-E3" to="-E2" fromLane="0" toLane="0" via=":J1_0_0" dir="s" state="M"/>
-    <connection from="-E4" to="-E3" fromLane="0" toLane="0" via=":J3_0_0" dir="s" state="M"/>
-    <connection from="E1" to="E2" fromLane="0" toLane="0" via=":J0_1_0" dir="s" state="M"/>
+    <connection from="-E4" to="-E3" fromLane="0" toLane="0" via=":J3_0_0" dir="s" state="m"/>
+    <connection from="E1" to="E2" fromLane="0" toLane="0" via=":J0_1_0" dir="s" state="m"/>
     <connection from="E2" to="E3" fromLane="0" toLane="0" via=":J1_1_0" dir="s" state="M"/>
     <connection from="E3" to="E4" fromLane="0" toLane="0" via=":J3_1_0" dir="s" state="M"/>
     <connection from="E4" to="-E4" fromLane="0" toLane="0" via=":J4_0_0" dir="t" state="M"/>
