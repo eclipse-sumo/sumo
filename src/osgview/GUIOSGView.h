@@ -239,10 +239,39 @@ private:
 
     class SUMOTerrainManipulator : public osgGA::TerrainManipulator {
     public:
-        SUMOTerrainManipulator() {
+        SUMOTerrainManipulator(): myLastY(0) {
             setAllowThrow(false);
             setVerticalAxisFixed(false);
         }
+
+        bool handle(const osgGA::GUIEventAdapter& ea, osgGA::GUIActionAdapter& aa, osg::Object* /**/, osg::NodeVisitor* /**/) {
+            if (ea.getButton() == osgGA::GUIEventAdapter::RIGHT_MOUSE_BUTTON) {
+                std::string type;
+                switch (ea.getEventType()) {
+                case osgGA::GUIEventAdapter::NONE:
+                    type = "none";
+                    break;
+                case osgGA::GUIEventAdapter::PUSH:
+                    type = "push";
+                    myLastY = ea.getY();
+                    break;
+                case osgGA::GUIEventAdapter::DRAG:
+                    type = "drag";
+                    break;
+                case osgGA::GUIEventAdapter::MOVE:
+                    type = "move";
+                    break;
+                case osgGA::GUIEventAdapter::RELEASE:
+                    type = (abs(myLastY - ea.getY()) < 10)? "context menu" : "release / drag end";
+                    break;
+                default:
+                    type = "unknown";
+                }
+                WRITE_MESSAGE("OSG right mouse click: " + type);
+            }
+            return osgGA::TerrainManipulator::handle(ea, aa);
+        }
+
         bool performMovementLeftMouseButton(const double eventTimeDelta, const double dx, const double dy) {
             return osgGA::TerrainManipulator::performMovementMiddleMouseButton(eventTimeDelta, dx, dy);
         }
@@ -252,6 +281,8 @@ private:
         bool performMovementRightMouseButton(const double eventTimeDelta, const double dx, const double dy) {
             return osgGA::TerrainManipulator::performMovementRightMouseButton(eventTimeDelta, dx, -dy);
         }
+    private:
+        float myLastY;
     };
 
     class FXOSGAdapter : public osgViewer::GraphicsWindow {
