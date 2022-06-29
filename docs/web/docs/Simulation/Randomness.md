@@ -131,3 +131,25 @@ When setting the lane change mode attribute `lcSigma` to a positive value, Vehic
 - [duarouter](../duarouter.md) adds randomness when performing [Demand/Dynamic_User_Assignment](../Demand/Dynamic_User_Assignment.md)
 - [duarouter](../duarouter.md) can randomly disturb the fastest-paths by setting option **--weights.random-factor**
 - [Simulation routing can be randomized](../Demand/Automatic_Routing.md#randomness) to ensure usage of alternative routes.
+
+
+# Reproducibility
+
+Generally, all SUMO applicaitons and tools are expected to produce the same results when running the same version repeatedly with the same arguments and inputs. This also includes running on different platforms (Windows/Linux/Mac). 
+
+There are some situations that are know to violate this rule (either by design or due to technical reasons) and they are listed in the following.
+
+## Violated reproducibility by design
+
+Option **--random** is supported by many applications ([sumo](../sumo.md), [duarouter](../duarouter.md), ...) and tools ([randomTrips.py](../Tools/Trip.md#randomtripspy), ...). It randomizes the [random seed](#random_number_generation_rng) and thereby gives a different random behavior each run.
+
+## Violated reproducibility for other reasons
+
+The following differences are either due to bugs or hard-to-solve problems in libraries used by SUMO.
+
+### Platform differences
+
+- **Differences in generated networks by platform**: When importing network data with geo-coordinates, the transformation to x,y (Cartesian) coordinates are performed by the [Proj](https://proj.org/). This library has differences from one version to the next and differnt platforms usually provide different library versions. The same problem may also manifest when using TraCI-functions for coordinate transformations.
+- **non-deterministic vehicler routing with options --device.rerouting.threads --weights.random-factor** (Issue #10292)
+- **Different Simulation behavior due to using the `log` function**. Observed differences for the EIDM-Model (Issue #8921) and also for Simulations with the DriverState-device. Could in principe also affect the Wiedemann-Model and the ToC-device.
+
