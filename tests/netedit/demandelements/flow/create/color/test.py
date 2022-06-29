@@ -44,6 +44,9 @@ netedit.changeColorUsingDialog(netedit.attrs.flowFromToEdge.create.colorButton, 
 netedit.leftClick(referencePosition, 274, 392)
 netedit.leftClick(referencePosition, 280, 55)
 
+# press enter to create flow
+netedit.typeEnter()
+
 # set invalid color
 netedit.changeDefaultValue(netedit.attrs.flowFromToEdge.create.color, "dummyColor")
 

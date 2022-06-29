@@ -44,6 +44,9 @@ netedit.changeColorUsingDialog(netedit.attrs.flowEmbedded.create.colorButton, 5)
 netedit.leftClick(referencePosition, 274, 392)
 netedit.leftClick(referencePosition, 280, 55)
 
+# press enter to create flow with embedded route
+netedit.typeEnter()
+
 # set invalid color
 netedit.changeDefaultValue(netedit.attrs.flowEmbedded.create.color, "dummyColor")
 

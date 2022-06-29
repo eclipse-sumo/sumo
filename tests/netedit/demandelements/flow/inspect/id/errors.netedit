@@ -69,7 +69,7 @@ Debug: Selected item 'flow (from-to edges)' in GNETagSelector
 Debug: Key ENTER pressed
 Debug: Adding flow 'f_0' in GNEChange_DemandElement
 Debug: Value '' for attribute id of flow isn't valid
-Debug: Value '' for attribute id of flow isn't valid
+Debug: Value ';;;;;;;;' for attribute id of flow isn't valid
 Debug: Value 'id with spaces' for attribute id of flow isn't valid
 Debug: Value 'duplicatedVehicle' for attribute id of flow isn't valid
 Debug: Setting new attribute

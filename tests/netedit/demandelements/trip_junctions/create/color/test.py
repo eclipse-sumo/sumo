@@ -44,6 +44,9 @@ netedit.changeColorUsingDialog(netedit.attrs.tripFromToJunction.create.colorButt
 netedit.leftClick(referencePosition, 80, 360)
 netedit.leftClick(referencePosition, 85, 77)
 
+# press enter to create trip
+netedit.typeEnter()
+
 # set invalid color
 netedit.changeDefaultValue(netedit.attrs.tripFromToJunction.create.color, "dummyColor")
 

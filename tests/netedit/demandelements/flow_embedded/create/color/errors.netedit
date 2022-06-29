@@ -65,11 +65,12 @@ Debug: Created connection 'fromgneE9_0togneE11_0' in retrieveGNEConnection()
 Debug: Selected item 'DEFAULT_VEHTYPE' in DemandElementSelector
 Debug: Selected item 'DEFAULT_VEHTYPE' in DemandElementSelector
 Debug: Selected item 'flow (embedded route)' in GNETagSelector
-Debug: Invalid input parameter of flowWithRoute
-Debug: Invalid input parameter of flowWithRoute
 Debug: Key ENTER pressed
 Debug: Adding flowWithRoute 'f_0' in GNEChange_DemandElement
 Debug: Adding routeEmbedded 'f_0' in GNEChange_DemandElement
+Debug: Invalid input parameter of flowWithRoute
+Debug: Invalid input parameter of flowWithRoute
+Debug: Key ENTER pressed
 Debug: Key ENTER pressed
 Debug: Adding flowWithRoute 'f_1' in GNEChange_DemandElement
 Debug: Adding routeEmbedded 'f_1' in GNEChange_DemandElement
@@ -127,8 +128,8 @@ GLDebug: 	Inserted junction:gneJ7 into SUMORTree with boundary -12.00,25.30,13.5
 GLDebug: 	Inserted junction:gneJ8 into SUMORTree with boundary -12.00,6.80,13.50,34.70
 GLDebug: 	Inserted junction:gneJ9 into SUMORTree with boundary 20.00,6.80,40.00,33.20
 GLDebug: Add edges during recomputing after calling myNetBuilder->compute(...)
-GLDebug: 	Inserted edge:gneE10 into SUMORTree with boundary -11.60,10.00,10.00,50.00
-GLDebug: 	Inserted edge:gneE11 into SUMORTree with boundary -10.00,10.00,11.60,50.00
+GLDebug: 	Inserted edge:gneE10 into SUMORTree with boundary -11.00,10.00,10.00,50.00
+GLDebug: 	Inserted edge:gneE11 into SUMORTree with boundary -10.00,10.00,11.00,50.00
 GLDebug: 	Inserted edge:gneE2 into SUMORTree with boundary -10.00,-11.60,70.00,10.00
 GLDebug: 	Inserted edge:gneE3 into SUMORTree with boundary 45.20,-10.00,70.00,50.00
 GLDebug: 	Inserted edge:gneE4 into SUMORTree with boundary 50.00,-10.00,74.80,50.00
@@ -137,12 +138,13 @@ GLDebug: 	Inserted edge:gneE6 into SUMORTree with boundary -10.00,28.40,70.00,50
 GLDebug: 	Inserted edge:gneE7 into SUMORTree with boundary -10.00,-10.00,70.00,11.60
 GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary -10.00,8.40,40.00,30.00
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary -10.00,10.00,40.00,31.60
-Debug: Deleting unreferenced routeEmbedded 'f_2'
-Debug: Deleting unreferenced flowWithRoute 'f_2'
-Debug: Deleting unreferenced routeEmbedded 'f_1'
-Debug: Deleting unreferenced flowWithRoute 'f_1'
-Debug: Deleting unreferenced routeEmbedded 'f_0'
-Debug: Deleting unreferenced flowWithRoute 'f_0'
+Debug: network elements saved
+Debug: Deleting unreferenced routeEmbedded
+Debug: Deleting unreferenced flowWithRoute
+Debug: Deleting unreferenced routeEmbedded
+Debug: Deleting unreferenced flowWithRoute
+Debug: Deleting unreferenced routeEmbedded
+Debug: Deleting unreferenced flowWithRoute
 Debug: Deleting unreferenced edge 'gneE10' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE10_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE10_0togneE8_0' in GNEEdge destructor
