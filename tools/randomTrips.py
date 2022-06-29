@@ -745,7 +745,7 @@ def main(options):
         sys.stdout.flush()
         os.remove(options.tripfile)  # on windows, rename does not overwrite
         os.rename(tmpTrips, options.tripfile)
-        
+
         with open(options.tripfile, 'r') as fouttrips:
             contents = fouttrips.readlines()
         config = '\n<!-- generated on %s by %s %s\n%s-->' % (datetime.datetime.now(), os.path.basename(sys.argv[0]), sumolib.version.gitDescribe(), options.config_as_string)
