@@ -129,6 +129,11 @@ public:
         return myDecals;
     }
 
+    /** @brief Clear the default decals
+     */
+    void clearDecals() {
+        myDecals.clear();
+    }
 
 protected:
     /// @brief A map of settings referenced by their names
