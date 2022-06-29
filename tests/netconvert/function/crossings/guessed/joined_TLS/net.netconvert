@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-04-19 17:28:07 by Eclipse SUMO netconvert Version v1_12_0+2154-21e08c91f73
+<!-- generated on 2022-06-29 14:16:26 by Eclipse SUMO netconvert Version v1_13_0+1304-4c85731
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -29,7 +29,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <report>
         <xml-validation value="never"/>
-        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
@@ -51,7 +50,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id=":21487229_c0_0" index="0" allow="pedestrian" speed="1.00" length="6.40" width="4.00" shape="98.92,101.70 102.59,96.45"/>
     </edge>
     <edge id=":21487229_w0" function="walkingarea">
-        <lane id=":21487229_w0_0" index="0" allow="pedestrian" speed="1.00" length="9.41" width="4.00" shape="105.75,106.98 108.63,107.84 102.10,93.67 100.95,95.31 102.99,96.96 104.54,98.74 105.58,100.62 106.14,102.63 106.19,104.75"/>
+        <lane id=":21487229_w0_0" index="0" allow="pedestrian" speed="1.00" length="9.41" width="4.00" shape="105.75,106.98 108.63,107.84 109.36,104.51 109.35,101.84 108.60,99.63 107.13,97.67 104.96,95.75 102.10,93.67 100.95,95.31 102.99,96.96 104.54,98.74 105.58,100.62 106.14,102.63 106.19,104.75"/>
     </edge>
     <edge id=":21487229_w1" function="walkingarea">
         <lane id=":21487229_w1_0" index="0" allow="pedestrian" speed="1.00" length="2.24" width="4.00" shape="97.28,100.55 96.14,102.19 96.77,103.66 97.06,102.97 97.34,102.24 97.52,101.54 97.53,100.95"/>

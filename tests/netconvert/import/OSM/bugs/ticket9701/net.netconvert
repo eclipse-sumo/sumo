@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-06-22 08:14:32 by Eclipse SUMO netconvert Version v1_13_0+1094-d2dab2e946c
+<!-- generated on 2022-06-29 15:23:21 by Eclipse SUMO netconvert Version v1_13_0+1304-4c85731
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -112,7 +112,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id=":1619563436_0_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="11.11" length="6.16" shape="312.27,269.99 310.95,271.03 310.50,272.38 310.05,273.70 308.70,274.65"/>
     </edge>
     <edge id=":1619563436_w0" function="walkingarea">
-        <lane id=":1619563436_w0_0" index="0" allow="pedestrian" speed="1.00" length="6.06" width="2.00" shape="309.17,276.18 309.75,278.10 315.72,279.38 315.03,277.51 313.81,277.71 312.89,277.43 312.12,276.90 311.34,276.36 310.40,276.05"/>
+        <lane id=":1619563436_w0_0" index="0" allow="pedestrian" speed="1.00" length="6.06" width="2.00" shape="309.17,276.18 309.75,278.10 311.01,277.95 311.96,278.27 312.75,278.80 313.55,279.32 314.48,279.59 315.72,279.38 315.03,277.51 313.81,277.71 312.89,277.43 312.12,276.90 311.34,276.36 310.40,276.05"/>
     </edge>
     <edge id=":1619563440_0" function="internal">
         <lane id=":1619563440_0_0" index="0" allow="bus delivery bicycle" speed="5.56" length="33.86" shape="336.74,319.92 368.10,307.16"/>
@@ -169,7 +169,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id=":1976554004_0_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="0.22" shape="264.39,194.71 264.38,194.64 264.37,194.60 264.37,194.55 264.37,194.49"/>
     </edge>
     <edge id=":1976554004_w0" function="walkingarea">
-        <lane id=":1976554004_w0_0" index="0" allow="pedestrian" speed="1.00" length="0.58" width="2.00" shape="262.77,194.48 260.77,194.47 260.82,195.19 262.80,194.92 262.79,194.83 262.78,194.76 262.78,194.70 262.77,194.65 262.77,194.58"/>
+        <lane id=":1976554004_w0_0" index="0" allow="pedestrian" speed="1.00" length="0.58" width="2.00" shape="262.77,194.48 260.77,194.47 260.77,194.62 260.77,194.74 260.78,194.83 260.79,194.92 260.80,195.03 260.82,195.19 262.80,194.92 262.79,194.83 262.78,194.76 262.78,194.70 262.77,194.65 262.77,194.58"/>
     </edge>
     <edge id=":1976554013_0" function="internal">
         <lane id=":1976554013_0_0" index="0" allow="bus delivery bicycle" speed="5.56" length="13.38" shape="396.22,175.96 390.39,188.00"/>
@@ -255,7 +255,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id=":1976554037_w0_0" index="0" allow="pedestrian" speed="1.00" length="9.47" width="4.00" shape="277.55,185.37 279.45,184.74 278.86,175.01 277.66,175.73 276.84,176.85 276.42,178.38 276.40,180.31 276.78,182.64"/>
     </edge>
     <edge id=":1976554037_w1" function="walkingarea">
-        <lane id=":1976554037_w1_0" index="0" allow="pedestrian" speed="1.00" length="14.25" width="4.00" shape="277.75,172.01 277.05,170.13 261.25,186.03 263.24,186.25 263.84,184.08 265.25,181.07 267.34,178.36 270.13,175.94 273.60,173.83"/>
+        <lane id=":1976554037_w1_0" index="0" allow="pedestrian" speed="1.00" length="14.25" width="4.00" shape="277.75,172.01 277.05,170.13 272.70,171.83 269.03,173.59 266.05,175.66 263.75,178.27 262.15,181.65 261.25,186.03 263.24,186.25 263.84,184.08 265.25,181.07 267.34,178.36 270.13,175.94 273.60,173.83"/>
     </edge>
     <edge id=":1976554040_0" function="internal">
         <lane id=":1976554040_0_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="22.22" length="16.48" shape="286.91,284.95 281.60,269.39"/>
@@ -362,7 +362,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id=":2583821388_0_0" index="0" allow="bus delivery bicycle" speed="5.56" length="0.26" shape="440.99,340.08 440.92,340.05 440.87,340.03 440.83,340.00 440.76,339.96"/>
     </edge>
     <edge id=":2583821388_w0" function="walkingarea">
-        <lane id=":2583821388_w0_0" index="0" allow="pedestrian" speed="1.00" length="0.69" width="2.00" shape="439.88,341.29 438.78,342.96 439.52,343.37 440.34,341.55 440.24,341.50 440.16,341.46 440.10,341.43 440.04,341.40 439.97,341.35"/>
+        <lane id=":2583821388_w0_0" index="0" allow="pedestrian" speed="1.00" length="0.69" width="2.00" shape="439.88,341.29 438.78,342.96 438.93,343.06 439.04,343.13 439.14,343.19 439.24,343.24 439.36,343.30 439.52,343.37 440.34,341.55 440.24,341.50 440.16,341.46 440.10,341.43 440.04,341.40 439.97,341.35"/>
     </edge>
     <edge id=":2583821389_0" function="internal">
         <lane id=":2583821389_0_0" index="0" allow="bus delivery bicycle" speed="5.56" length="0.22" shape="420.93,326.82 420.75,326.69"/>
@@ -389,7 +389,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id=":2583917451_0_0" index="0" allow="delivery bicycle" speed="5.56" length="0.34" shape="399.84,333.30 399.90,333.38 399.93,333.44 399.96,333.51 400.00,333.60"/>
     </edge>
     <edge id=":2583917451_w0" function="walkingarea">
-        <lane id=":2583917451_w0_0" index="0" allow="pedestrian" speed="1.00" length="0.90" width="2.00" shape="401.50,333.05 403.37,332.35 402.88,331.36 401.19,332.44 401.27,332.56 401.33,332.65 401.37,332.73 401.41,332.81 401.44,332.91"/>
+        <lane id=":2583917451_w0_0" index="0" allow="pedestrian" speed="1.00" length="0.90" width="2.00" shape="401.50,333.05 403.37,332.35 403.29,332.13 403.22,331.97 403.16,331.84 403.10,331.71 403.01,331.56 402.88,331.36 401.19,332.44 401.27,332.56 401.33,332.65 401.37,332.73 401.41,332.81 401.44,332.91"/>
     </edge>
     <edge id=":2583917455_0" function="internal">
         <lane id=":2583917455_0_0" index="0" allow="bus delivery bicycle" speed="5.56" length="15.08" shape="413.66,368.25 399.38,373.09"/>
@@ -1072,7 +1072,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id=":4613999171_0_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="22.22" length="0.29" shape="343.19,376.47 343.11,376.44 343.05,376.42 343.00,376.40 342.92,376.35"/>
     </edge>
     <edge id=":4613999171_w0" function="walkingarea">
-        <lane id=":4613999171_w0_0" index="0" allow="pedestrian" speed="1.00" length="0.77" width="2.00" shape="342.17,377.77 341.23,379.53 342.10,379.90 342.71,377.99 342.59,377.95 342.50,377.93 342.43,377.90 342.36,377.87 342.28,377.82"/>
+        <lane id=":4613999171_w0_0" index="0" allow="pedestrian" speed="1.00" length="0.77" width="2.00" shape="342.17,377.77 341.23,379.53 341.40,379.62 341.54,379.69 341.65,379.74 341.77,379.79 341.91,379.84 342.10,379.90 342.71,377.99 342.59,377.95 342.50,377.93 342.43,377.90 342.36,377.87 342.28,377.82"/>
     </edge>
     <edge id=":4895078277_0" function="internal">
         <lane id=":4895078277_0_0" index="0" allow="bus delivery bicycle" speed="5.56" length="0.30" shape="672.36,265.82 672.08,265.90"/>

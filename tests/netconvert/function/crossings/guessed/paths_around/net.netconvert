@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-01-07 16:21:18 by Eclipse SUMO netconvert Version v1_11_0+0928-18c1b433e84
+<!-- generated on 2022-06-29 15:23:26 by Eclipse SUMO netconvert Version v1_13_0+1304-4c85731
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -24,7 +29,6 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
-        <aggregate-warnings value="5"/>
         <ignore-errors.edge-type value="true"/>
     </report>
 
@@ -42,7 +46,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":4024888872_w0_0" index="0" allow="pedestrian" speed="1.00" length="4.62" width="2.00" shape="89.58,135.08 87.58,135.12 84.72,137.40 85.62,139.19 85.62,139.19 86.51,140.98 87.98,141.81 89.97,141.64 91.28,138.61 90.38,136.82"/>
     </edge>
     <edge id=":4024888887_w0" function="walkingarea">
-        <lane id=":4024888887_w0_0" index="0" allow="pedestrian" speed="1.00" length="3.53" width="2.00" shape="72.03,96.50 73.59,95.25 68.66,94.75 69.94,96.29 71.70,96.15 71.38,95.93 71.04,95.83 70.70,95.86 70.33,96.01"/>
+        <lane id=":4024888887_w0_0" index="0" allow="pedestrian" speed="1.00" length="3.53" width="2.00" shape="72.03,96.50 73.59,95.25 72.83,94.43 72.05,93.91 71.26,93.68 70.44,93.74 69.58,94.10 68.66,94.75 69.94,96.29 71.70,96.15 71.38,95.93 71.04,95.83 70.70,95.86 70.33,96.01"/>
     </edge>
     <edge id=":4024905289_w0" function="walkingarea">
         <lane id=":4024905289_w0_0" index="0" allow="pedestrian" speed="1.00" length="4.03" width="2.00" shape="77.73,103.66 79.29,102.42 76.18,98.51 74.61,99.75 74.36,101.91 75.64,103.45 77.40,103.32 77.07,103.09 76.74,103.00 76.39,103.02 76.03,103.17"/>
