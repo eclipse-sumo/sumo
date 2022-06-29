@@ -2,6 +2,7 @@
 
 # cross a road
 2_arm
+2_corner
 
 # attempt to specify an invalid crossing
 2_arm_oneway_invalid
