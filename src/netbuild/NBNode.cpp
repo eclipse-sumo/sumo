@@ -1900,6 +1900,10 @@ NBNode::mustBrake(const NBEdge* const from, const NBEdge* const to, int fromLane
     if (to == nullptr) {
         return true;
     }
+    // maybe we need to brake due to entering a bidi-edge
+    if (to->isBidiEdge() && !from->isBidiEdge()) {
+        return true;
+    }
     // check whether any other connection on this node prohibits this connection
     return myRequest->mustBrake(from, to, fromLane, toLane, includePedCrossings);
 }
