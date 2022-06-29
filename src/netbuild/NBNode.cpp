@@ -3046,6 +3046,7 @@ NBNode::buildWalkingAreas(int cornerDetail, double joinMinDist) {
         const int prev = startIdx > 0 ? startIdx - 1 : (int)normalizedLanes.size() - 1;
         const int count = waIndices[i].second;
         const int end = (startIdx + count) % normalizedLanes.size();
+        const int lastIdx = (startIdx + count - 1) % normalizedLanes.size();
 
         WalkingArea wa(":" + getID() + "_w" + toString(index++), 1);
         if (gDebugFlag1) {
@@ -3194,39 +3195,75 @@ NBNode::buildWalkingAreas(int cornerDetail, double joinMinDist) {
             }
             PositionVector begShape = normalizedLanes[smoothEnd].second.shape;
             begShape = begShape.reverse();
+            PositionVector begShapeOuter = normalizedLanes[lastIdx].second.shape;
+            begShapeOuter = begShapeOuter.reverse();
             //begShape.extrapolate(endCrossingWidth);
             begShape.move2side(normalizedLanes[smoothEnd].second.width / 2);
+            begShapeOuter.move2side(normalizedLanes[lastIdx].second.width / 2);
             PositionVector endShape = normalizedLanes[smoothPrev].second.shape;
+            PositionVector endShapeOuter = normalizedLanes[startIdx].second.shape;;
             endShape.move2side(normalizedLanes[smoothPrev].second.width / 2);
+            endShapeOuter.move2side(normalizedLanes[startIdx].second.width / 2);
             //endShape.extrapolate(startCrossingWidth);
             PositionVector curve;
-            if ((normalizedLanes[smoothEnd].first->getPermissions() & normalizedLanes[smoothPrev].first->getPermissions() &
-                    ~(SVC_PEDESTRIAN | SVC_RAIL_CLASSES)) != 0) {
-                curve = computeSmoothShape(begShape, endShape, cornerDetail + 2, false, 25, 25);
-                if (curve.length2D() - begShape.back().distanceTo2D(endShape.front()) > 5) {
-                    // recompute less bulging curve
-                    //std::cout << " directLength=" << begShape.back().distanceTo2D(endShape.front()) << " curveLength=" << curve.length2D()
-                    //        << " delta=" << curve.length2D() - begShape.back().distanceTo2D(endShape.front()) << "\n";
-                    curve = computeSmoothShape(begShape, endShape, cornerDetail + 2, false, 25, 25, nullptr, AVOID_WIDE_LEFT_TURN | AVOID_INTERSECTING_LEFT_TURNS);
-                }
-            } else {
-                const double extend = MIN2(10.0, begShape.back().distanceTo2D(endShape.front()) / 2);
-                curve = computeSmoothShape(begShape, endShape, cornerDetail + 2, false, extend, extend, nullptr, FOUR_CONTROL_POINTS);
-            }
+            const double angle = GeomHelper::angleDiff(begShape.angleAt2D(-2), endShape.angleAt2D(0));
+            const double angleOuter = GeomHelper::angleDiff(begShapeOuter.angleAt2D(-2), endShapeOuter.angleAt2D(0));
             if (gDebugFlag1) std::cout
-                        << " end=" << smoothEnd << " prev=" << smoothPrev
+                        << " begAngle=" << RAD2DEG(begShape.angleAt2D(-2))
+                        << " endAngle=" << RAD2DEG(endShape.angleAt2D(0))
+                        << " angleDiff=" << RAD2DEG(angle)
+                        << "\n";
+            if (gDebugFlag1) std::cout
+                        << " begAngleOuter=" << RAD2DEG(begShapeOuter.angleAt2D(-2))
+                        << " endAngleOuter=" << RAD2DEG(endShapeOuter.angleAt2D(0))
+                        << " angleDiffOuter=" << RAD2DEG(angleOuter)
+                        << "\n";
+            // XXX test angle and avoid building an inner curve if the angles are wrong
+            if (true) {
+                if ((normalizedLanes[smoothEnd].first->getPermissions() & normalizedLanes[smoothPrev].first->getPermissions() &
+                            ~(SVC_PEDESTRIAN | SVC_RAIL_CLASSES)) != 0) {
+                    curve = computeSmoothShape(begShape, endShape, cornerDetail + 2, false, 25, 25);
+                    if (curve.length2D() - begShape.back().distanceTo2D(endShape.front()) > 5) {
+                        // recompute less bulging curve
+                        //std::cout << " directLength=" << begShape.back().distanceTo2D(endShape.front()) << " curveLength=" << curve.length2D()
+                        //        << " delta=" << curve.length2D() - begShape.back().distanceTo2D(endShape.front()) << "\n";
+                        curve = computeSmoothShape(begShape, endShape, cornerDetail + 2, false, 25, 25, nullptr, AVOID_WIDE_LEFT_TURN | AVOID_INTERSECTING_LEFT_TURNS);
+                    }
+                } else {
+                    const double extend = MIN2(10.0, begShape.back().distanceTo2D(endShape.front()) / 2);
+                    curve = computeSmoothShape(begShape, endShape, cornerDetail + 2, false, extend, extend, nullptr, FOUR_CONTROL_POINTS);
+                }
+                if (gDebugFlag1) std::cout
+                    << " end=" << smoothEnd << " prev=" << smoothPrev
                         << " endCrossingWidth=" << endCrossingWidth << " startCrossingWidth=" << startCrossingWidth
-                        << "  begShape=" << begShape << " endShape=" << endShape << " smooth curve=" << curve << "\n";
-            if (curve.size() > 2) {
-                curve.erase(curve.begin());
-                curve.pop_back();
-                if (endCrossingWidth > 0) {
-                    wa.shape.pop_back();
+                        << "  begShape=" << begShape << " endShape=" << endShape << " smooth curve=" << curve
+                        << "  begShapeOuter=" << begShapeOuter << " endShapeOuter=" << endShapeOuter
+                        << "\n";
+                if (curve.size() > 2) {
+                    curve.erase(curve.begin());
+                    curve.pop_back();
+                    if (endCrossingWidth > 0) {
+                        wa.shape.pop_back();
+                    }
+                    if (startCrossingWidth > 0) {
+                        wa.shape.erase(wa.shape.begin());
+                    }
+                    wa.shape.append(curve, 0);
                 }
-                if (startCrossingWidth > 0) {
-                    wa.shape.erase(wa.shape.begin());
+            }
+            if (curve.size() > 2 && count == 2) {
+                const double innerDist = begShape.back().distanceTo2D(endShape[0]);
+                const double outerDist = begShapeOuter.back().distanceTo2D(endShapeOuter[0]);
+                if (gDebugFlag1) std::cout << " innerDist=" << innerDist << " outerDist=" << outerDist << "\n";
+                if (outerDist > innerDist) {
+                    // we also need a rounded outer curve (unless we have only a single walkingarea)
+                    const double extend = MIN2(10.0, begShapeOuter.back().distanceTo2D(endShapeOuter.front()) / 2);
+                    curve = computeSmoothShape(begShapeOuter, endShapeOuter, cornerDetail + 2, false, extend, extend, nullptr, FOUR_CONTROL_POINTS);
+                    curve = curve.reverse();
+                    wa.shape.erase(wa.shape.begin() + 1, wa.shape.begin() + 3);
+                    wa.shape.insert(wa.shape.begin() + 1, curve.begin(), curve.end());
+                    if (gDebugFlag1) std::cout << " outerCurve=" << curve << "\n";
                 }
-                wa.shape.append(curve, 0);
             }
         }
         // apply custom shapes
