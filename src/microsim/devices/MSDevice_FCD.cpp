@@ -47,6 +47,8 @@ const long long int MSDevice_FCD::myDefaultMask(~(
 std::set<const MSEdge*> MSDevice_FCD::myEdgeFilter;
 std::vector<PositionVector> MSDevice_FCD::myShape4Filters;
 bool MSDevice_FCD::myEdgeFilterInitialized(false);
+bool MSDevice_FCD::myShapeFilterInitialized(false);
+bool MSDevice_FCD::myShapeFilterDesired(false);
 long long int MSDevice_FCD::myWrittenAttributes(myDefaultMask);
 
 // ===========================================================================
@@ -95,6 +97,10 @@ MSDevice_FCD::~MSDevice_FCD() {
 
 bool
 MSDevice_FCD::shapeFilter(const SUMOVehicle* veh) {
+    // lazily build the shape filter in the case where route file is loaded as an additional file
+    if (!myShapeFilterInitialized){
+        buildShapeFilter();
+    }
     const MSVehicle* msVeh = dynamic_cast<const MSVehicle*>(veh);
     for (auto shape : myShape4Filters) {
         if (shape.around(veh->getPosition()) || ((msVeh != nullptr) && shape.around(msVeh->getBackPosition()))) {
@@ -102,6 +108,29 @@ MSDevice_FCD::shapeFilter(const SUMOVehicle* veh) {
         }
     }
     return false;
+}
+
+
+void
+MSDevice_FCD::buildShapeFilter(void){
+    const OptionsCont& oc = OptionsCont::getOptions();
+    if (oc.isSet("fcd-output.filter-shapes")) {
+        const ShapeContainer &loadedShapes = MSNet::getInstance()->getShapeContainer();
+        if (loadedShapes.getPolygons().size() > 0) {
+            for (std::string attrName : oc.getStringVector("fcd-output.filter-shapes")) {
+                if (loadedShapes.getPolygons().get(attrName) == 0) {
+                    WRITE_ERROR("Specified shape '" + attrName + "' for filtering fcd-output could not be found.");
+                }
+                else {
+                    // store the PositionVector, not reference, as traci can manipulate / detete the polygons 
+                    myShape4Filters.push_back(loadedShapes.getPolygons().get(attrName)->getShape());
+                }
+            }
+            myShapeFilterInitialized = true;    
+        }    
+    } else {
+        myShapeFilterInitialized = true;
+    }
 }
 
 
@@ -145,17 +174,11 @@ MSDevice_FCD::initOnce() {
             myWrittenAttributes |= ((long long int)1 << attr);
         }
     }
+    
     if (oc.isSet("fcd-output.filter-shapes")) {
-        const ShapeContainer &loadedShapes = MSNet::getInstance()->getShapeContainer();
-        for (std::string attrName : oc.getStringVector("fcd-output.filter-shapes")) {
-            if (loadedShapes.getPolygons().get(attrName) == 0) {
-                WRITE_ERROR("Specified shape '" + attrName + "' for filtering fcd-output could not be found.");
-            }
-            else {
-                // store the PositionVector, not reference, as traci can manipulate / detete the polygons 
-                myShape4Filters.push_back(loadedShapes.getPolygons().get(attrName)->getShape());
-            }
-        }
+        // build the shape filter if it is desired
+        myShapeFilterDesired = true;
+        buildShapeFilter();
     }
     //std::cout << "mask=" << myWrittenAttributes << " binary=" << std::bitset<64>(myWrittenAttributes) << "\n";
 }
@@ -166,6 +189,8 @@ MSDevice_FCD::cleanup() {
     myEdgeFilter.clear();
     myShape4Filters.clear();
     myEdgeFilterInitialized = false;
+    myShapeFilterInitialized = false;
+    myShapeFilterDesired = false;
     myWrittenAttributes = myDefaultMask;
 }
 

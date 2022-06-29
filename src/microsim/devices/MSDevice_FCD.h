@@ -100,7 +100,7 @@ public:
 
     /// @brief is there a filter based on shapes?
     inline static bool hasShapeFilter() {
-        return myShape4Filters.size() > 0;
+        return myShapeFilterDesired == true;
     }
 
 private:
@@ -118,6 +118,8 @@ private:
 
     /// @brief polygon spatial filter for FCD output
     static std::vector<PositionVector> myShape4Filters;
+    static bool myShapeFilterInitialized;
+    static bool myShapeFilterDesired;
 
     /// @brief bit mask for checking attributes to be written
     static long long int myWrittenAttributes;
@@ -129,6 +131,8 @@ private:
 
     /// @brief Invalidated assignment operator.
     MSDevice_FCD& operator=(const MSDevice_FCD&);
+
+    static void buildShapeFilter();
 
 
 };
