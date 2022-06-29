@@ -150,6 +150,6 @@ The following differences are either due to bugs or hard-to-solve problems in li
 ### Platform differences
 
 - **Differences in generated networks by platform**: When importing network data with geo-coordinates, the transformation to x,y (Cartesian) coordinates are performed by the [Proj](https://proj.org/). This library has differences from one version to the next and differnt platforms usually provide different library versions. The same problem may also manifest when using TraCI-functions for coordinate transformations.
-- **non-deterministic vehicler routing with options --device.rerouting.threads --weights.random-factor** (Issue #10292)
+- **Non-deterministic vehicle routing with options --device.rerouting.threads --weights.random-factor** (Issue #10292)
 - **Different Simulation behavior due to using the `log` function**. Observed differences for the EIDM-Model (Issue #8921) and also for Simulations with the DriverState-device. Could in principe also affect the Wiedemann-Model and the ToC-device.
 
