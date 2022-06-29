@@ -35,10 +35,10 @@ if 'nogui' in sys.argv:
     binary = 'sumo'
 
 traci.start([sumolib.checkBinary(binary),
-            '-c', 'sumo.sumocfg',
-            '--step-length', '0.5',
-            '--fcd-output', 'fcd.xml',
-            '--fcd-output.max-leader-distance', '100'])
+             '-c', 'sumo.sumocfg',
+             '--step-length', '0.5',
+             '--fcd-output', 'fcd.xml',
+             '--fcd-output.max-leader-distance', '100'])
 
 simpla.load("simpla.cfg.xml")
 
