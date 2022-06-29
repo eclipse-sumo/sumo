@@ -100,6 +100,12 @@ Debug: Setting new attribute into flowWithRoute 'flowA'
 Debug: Setting new attribute into flowWithRoute 'flowB'
 Debug: Setting new attribute
 Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Restoring previous attribute
@@ -116,10 +122,6 @@ Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute into flowWithRoute 'flowB'
 Debug: Setting previous attribute into flowWithRoute 'flowA'
-Debug: Keys Ctrl+Z (Undo) pressed
-Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute into flowWithRoute 'flowB'
-Debug: Setting previous attribute into flowWithRoute 'flowA'
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute into flowWithRoute 'flowA'
@@ -134,8 +136,8 @@ Debug: Setting new attribute into flowWithRoute 'flowA'
 Debug: Setting new attribute into flowWithRoute 'flowB'
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute into flowWithRoute 'flowA'
-Debug: Setting new attribute into flowWithRoute 'flowB'
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute

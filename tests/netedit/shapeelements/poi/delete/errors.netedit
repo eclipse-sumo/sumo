@@ -1,18 +1,18 @@
 Debug: Adding poi 'POI_A' in GNEChange_Additional
 Debug: Adding poi 'POI_B' in GNEChange_Additional
-Debug: Selected invalid item in GNETagSelector
+Debug: Selected item 'poi' in GNETagSelector
+Debug: Adding poi 'poi_0' in GNEChange_Additional
+Debug: Removing poi 'poi_0' in GNEChange_Additional
 Debug: Removing poi 'POI_A' in GNEChange_Additional
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Adding poi 'POI_A' in GNEChange_Additional
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing poi 'POI_B' in GNEChange_Additional
-Debug: Removing poi 'POI_A' in GNEChange_Additional
+Debug: Adding poi 'poi_0' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Adding poi 'POI_A' in GNEChange_Additional
-Debug: Adding poi 'POI_B' in GNEChange_Additional
+Debug: Removing poi 'poi_0' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Removing poi 'POI_A' in GNEChange_Additional
@@ -20,6 +20,7 @@ Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Additionals saved
 Debug: network elements saved
+Debug: Deleting unreferenced poi
 Debug: Deleting unreferenced poi
 Debug: Deleting unreferenced poi
 Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor

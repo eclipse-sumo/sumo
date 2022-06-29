@@ -59,5 +59,8 @@ netedit.redo(referencePosition, 2)
 # save network
 netedit.saveNetwork(referencePosition)
 
+# press space to fix crossings
+netedit.typeSpace()
+
 # quit netedit
 netedit.quit(neteditProcess)

@@ -1771,7 +1771,7 @@ class routeflow:
         arrivalPosLat = 14
         insertionChecks = 15
         begin = 16
-        terminate = 17
+        terminate = 19
         spacing = 21
         terminateOption = 23
         spacingOption = 24
