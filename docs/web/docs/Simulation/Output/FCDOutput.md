@@ -127,6 +127,8 @@ edge:id2
 ...
 ```
 
+The option **--fcd-output.filter-shapes KEY1,KEY2,..** can be used to filter fcd-output based on [polygons](../Shapes.md#polygon_definitions), where **KEY1** is the name of the loaded polygon. This functionality can be used to simulate the output of a radar or camera system.
+
 ### Restricting output by sensor range
 When not all vehicles are equipped with an **fcd**-device, other ehicles and persons in a radius around the equipped vehicles can be included in the output by setting option **--device.fcd.radius** to the desired range in m.
 
