@@ -74,6 +74,8 @@ repositories include a nightly build as well (called ***sumo-git***).
 - [CentOS 7 repository](http://download.opensuse.org/repositories/science:/dlr/CentOS_7/)
 - [CentOS 8 repository](http://download.opensuse.org/repositories/science:/dlr/CentOS_8/)
 
+### Examples
+
 Adding the repository and installing (the quick and dirty way without checking GPG keys!) looks like this, for yum on CentOS 7:
 ```
 yum-config-manager --add-repo=https://download.opensuse.org/repositories/science:/dlr/CentOS_7/
@@ -86,6 +88,11 @@ zypper ar http://download.opensuse.org/repositories/science:/dlr/15.3/ science:d
 zypper in sumo={{Version}}
 ```
 I you leave out the version number it will install the latest nightly build.
+
+Direct installation without adding the repository can be done in CentOS 8 like this:
+```
+sudo yum --nogpgcheck --repofrompath=centos,https://download.opensuse.org/repositories/science:/dlr/CentOS_8 install sumo
+```
 
 Ubuntu, Debian and Arch users please see the community repositories above.
 
