@@ -261,17 +261,10 @@ class Statistics:
         return self.toString()
 
     def normalise_to_range(self, n_min = 0, n_max = 1):
-        """
-            Normalises the stored list of values between n_min and n_max
-            Default: [0,1]
-        """
+        """Normalises the stored list of values between n_min and n_max, Default: [0,1]"""
         ret = []
-
-        # Constructing the range differences
         range_length = n_max - n_min
         values_diff = max(self.values) - min(self.values)
-        
-        # Constructing the normalised list
         for val in self.values:
             temp = (((val - min(self.values))*range_length)/values_diff) + n_min
             ret.append(temp)
@@ -285,15 +278,12 @@ def geh(m, c):
         return math.sqrt(2 * (m - c) * (m - c) / (m + c))
 
 def sqv(self, m, c, scaling_factor = 1000):
-    """
-        Scaling Quality Value Calculation
-        Ref: https://journals.sagepub.com/doi/10.1177/0361198119838849
-
-        Typical values for scaling factor
-        - Number of person trips per day (total, per mode, per purpose) - 1
-        - Mean trip distance in kilometers - 10
-        - Duration of all trips per person per day in minutes - 100
-        - Traffic volume per hour - 1000
-        - Traffic volume per day - 10000
+    """Scaling Quality Value Calculation, Ref: https://journals.sagepub.com/doi/10.1177/0361198119838849
+        scaling_factor:
+        Number of person trips per day (total, per mode, per purpose) : 1
+        Mean trip distance in kilometers : 10
+        Duration of all trips per person per day in minutes : 100
+        Traffic volume per hour : 1000
+        Traffic volume per day : 10000
     """
     return 1/(1 + math.sqrt(((m-c)*(m-c))/(scaling_factor*c)))
