@@ -127,6 +127,11 @@ edge:id2
 ...
 ```
 
+### Restricting the locations by shape
+
+Output can be restricted to vehicles within a specified area by setting a list of `<poly>` ids with option **--fcd-output.filter-shapes**.
+The [polygon shapes](Shapes.md) must have been loaded from an additional file.
+
 ### Restricting output by sensor range
 When not all vehicles are equipped with an **fcd**-device, other ehicles and persons in a radius around the equipped vehicles can be included in the output by setting option **--device.fcd.radius** to the desired range in m.
 
