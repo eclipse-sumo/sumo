@@ -26,11 +26,13 @@ try:
 except ImportError:
     from math import sqrt
 
+
 def round(value):  # to round in Python 3 like in Python 2
     if value < 0:
         return math.ceil(value - 0.5)
     else:
         return math.floor(value + 0.5)
+
 
 class _ExtremeType(object):
     """
@@ -111,7 +113,7 @@ class Statistics:
     def update(self, other):
         for v in other.values:
             self.add(v)
-    
+
     def clear(self):
         self.min = uMax
         self.min_label = None
@@ -260,7 +262,7 @@ class Statistics:
     def __str__(self):
         return self.toString()
 
-    def normalise_to_range(self, n_min = 0, n_max = 1):
+    def normalise_to_range(self, n_min=0, n_max=1):
         """Normalises the stored list of values between n_min and n_max, Default: [0,1]"""
         ret = []
         range_length = n_max - n_min
@@ -269,7 +271,8 @@ class Statistics:
             temp = (((val - min(self.values))*range_length)/values_diff) + n_min
             ret.append(temp)
         return ret
-        
+
+
 def geh(m, c):
     """Error function for hourly traffic flow measures after Geoffrey E. Havers"""
     if m + c == 0:
@@ -277,7 +280,8 @@ def geh(m, c):
     else:
         return math.sqrt(2 * (m - c) * (m - c) / (m + c))
 
-def sqv(self, m, c, scaling_factor = 1000):
+
+def sqv(self, m, c, scaling_factor=1000):
     """Scaling Quality Value Calculation, Ref: https://journals.sagepub.com/doi/10.1177/0361198119838849
         scaling_factor:
         Number of person trips per day (total, per mode, per purpose) : 1
