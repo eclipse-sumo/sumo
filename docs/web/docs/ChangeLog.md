@@ -194,10 +194,10 @@ title: ChangeLog
 
 ### Miscellaneous
 
-  - Outputfile comment header no longer includes options that were set automatically (only user defined options). Issue #10712
-  - PHEMlight5 has been added as a new emission model allowing also for modelling of aging fleets. Issue #10237
-  - Outputs now use attribute `period` instead of `freq` whenever denoting a time period. Issue #10657
-  - Updated default bicycle speed on highway.path and highway.cycleway. Issue #10976
+- Outputfile comment header no longer includes options that were set automatically (only user defined options). Issue #10712
+- PHEMlight5 has been added as a new emission model allowing also for modelling of aging fleets. Issue #10237
+- Outputs now use attribute `period` instead of `freq` whenever denoting a time period. Issue #10657
+- Updated default bicycle speed on highway.path and highway.cycleway. Issue #10976
 
 ## Version 1.13.0 (03.05.2022)
 
