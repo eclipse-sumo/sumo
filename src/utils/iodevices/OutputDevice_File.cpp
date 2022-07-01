@@ -61,7 +61,7 @@ OutputDevice_File::OutputDevice_File(const std::string& fullName, const bool com
     }
 #else
     UNUSED_PARAMETER(compressed);
-    myFileStream = new std::ofstream(localName.c_str(), binary ? std::ios::binary : std::ios_base::out);
+    myFileStream = new std::ofstream(localName.c_str(), std::ios_base::out);
 #endif
     if (!myFileStream->good()) {
         delete myFileStream;
