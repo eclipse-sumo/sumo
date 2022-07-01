@@ -206,7 +206,8 @@ class LaneDomain(Domain):
     def getElectricityConsumption(self, laneID):
         """getElectricityConsumption(string) -> double
 
-        Returns the electricity consumption in Wh for the last time step.
+        Returns the electricity consumption in Wh/s for the last time step.
+        Multiply by the step length to get the value for one step.
         """
         return self._getUniversal(tc.VAR_ELECTRICITYCONSUMPTION, laneID)
 
