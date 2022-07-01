@@ -8,7 +8,7 @@ add_executable(TraCITestClient ${TraCITestClient_SRCS})
 set_target_properties(TraCITestClient PROPERTIES OUTPUT_NAME TraCITestClient${BINARY_SUFFIX})
 set_target_properties(TraCITestClient PROPERTIES OUTPUT_NAME_DEBUG TraCITestClient${BINARY_SUFFIX}D)
 target_link_libraries(TraCITestClient utils_traci foreign_tcpip)
-if (MSVC)
+if (WIN32)
     target_link_libraries(TraCITestClient ws2_32)
 endif ()
 

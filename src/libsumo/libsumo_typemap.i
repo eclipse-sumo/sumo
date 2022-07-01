@@ -441,4 +441,15 @@ static PyObject* parseSubscriptionMap(const std::map<int, std::shared_ptr<libsum
     }
 }
 
+#if SWIG_VERSION < 0x040100 && defined(SWIGJAVA)
+// see https://github.com/supranational/blst/issues/53
+/* SWIG versions prior 4.1 were crossing the MinGW's ways on the path
+ * to JNI 'jlong' type */
+%begin %{
+#if defined(__MINGW32__) && defined(__int64)
+# undef __int64
+#endif
+%}
+#endif // SWIGJAVA
+
 // %feature("compactdefaultargs") libsumo::Simulation::findRoute;

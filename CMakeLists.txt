@@ -406,7 +406,7 @@ set(commonlibs
         utils_distribution utils_handlers utils_shapes utils_options
         utils_xml utils_geom utils_common utils_importio utils_iodevices utils_traction_wire foreign_tcpip
         ${XercesC_LIBRARIES} ${ZLIB_LIBRARIES} ${PROJ_LIBRARY})
-if (MSVC)
+if (WIN32)
     set(commonlibs ${commonlibs} ws2_32)
 endif ()
 if (PPROF)

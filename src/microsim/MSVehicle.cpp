@@ -4278,12 +4278,12 @@ MSVehicle::executeMove() {
                     myState.myBackPos = getLength() - myState.myPos;
                     myAngle = computeAngle();
                 } else {
-#ifdef WIN32
+#ifdef _MSC_VER
 #pragma warning(push)
 #pragma warning(disable: 4127) // do not warn about constant conditional expression
 #endif
                     SOFT_ASSERT(false);
-#ifdef WIN32
+#ifdef _MSC_VER
 #pragma warning(pop)
 #endif
                 }
@@ -4618,12 +4618,12 @@ MSVehicle::getBackPositionOnLane(const MSLane* lane, bool calledByGetPosition) c
         }
         WRITE_WARNING("Request backPos of vehicle '" + getID() + "' for invalid lane '" + Named::getIDSecure(lane)
                       + "' time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".")
-#ifdef WIN32
+#ifdef _MSC_VER
 #pragma warning(push)
 #pragma warning(disable: 4127) // do not warn about constant conditional expression
 #endif
         SOFT_ASSERT(false);
-#ifdef WIN32
+#ifdef _MSC_VER
 #pragma warning(pop)
 #endif
         return  myState.myBackPos;
