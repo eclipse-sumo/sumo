@@ -44,7 +44,11 @@ jobs:
     - name: Preparing Build System
       run: |
         brew install --cask xquartz
-        brew install xerces-c fox proj gdal gl2ps
+        brew install xerces-c fox proj gdal gl2ps ccache
+
+    - name: ccache
+      if: github.event_name != 'schedule'
+      uses: hendrikmuhs/ccache-action@v1.2.2
 
     - name: Building Libsumo wheels
       run: |
