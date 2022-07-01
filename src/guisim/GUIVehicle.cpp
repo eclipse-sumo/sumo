@@ -167,7 +167,7 @@ GUIVehicle::getParameterWindow(GUIMainWindow& app,
                 new FunctionBinding<GUIVehicle, double>(this, &MSVehicle::getEmissions<PollutantsInterface::NO_X>));
     ret->mkItem("PMx [mg/s]", true,
                 new FunctionBinding<GUIVehicle, double>(this, &MSVehicle::getEmissions<PollutantsInterface::PM_X>));
-    ret->mkItem("fuel [ml/s]", true,
+    ret->mkItem("fuel [mg/s]", true,
                 new FunctionBinding<GUIVehicle, double>(this, &MSVehicle::getEmissions<PollutantsInterface::FUEL>));
     ret->mkItem("electricity [Wh/s]", true,
                 new FunctionBinding<GUIVehicle, double>(this, &MSVehicle::getEmissions<PollutantsInterface::ELEC>));
