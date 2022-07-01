@@ -12,7 +12,7 @@ on:
     paths-ignore:  # but ignore everything in the docs subfolder 
       - 'docs/**'
   schedule:
-    - cron:  '25 1 * * *'
+    - cron:  '5 0 * * *'
 
 jobs:
   build:
