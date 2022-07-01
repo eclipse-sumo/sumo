@@ -272,9 +272,9 @@ MSCFModel_EIDM::finalizeSpeed(MSVehicle* const veh, double vPos) const {
     // @ToDo: Could check which call resulted in speed update with stop-vector containing all calculated accelerations!
     // Check whether the speed update results from a stop calculation, if so, run _v-function again with the saved variables from stopSpeed
     double _vPos = vPos;
-    if (!(_vPos > oldV + ACCEL2SPEED(vars->realacc) - NUMERICAL_EPS && _vPos < oldV + ACCEL2SPEED(vars->realacc) + NUMERICAL_EPS)) {
+    if ((vPos <= SUMO_const_haltingSpeed && vPos <= oldV) || !(vPos > oldV + ACCEL2SPEED(vars->realacc) - NUMERICAL_EPS && vPos < oldV + ACCEL2SPEED(vars->realacc) + NUMERICAL_EPS)) {
         for (auto it = vars->stop.cbegin(); it != vars->stop.cend(); ++it) {
-            if (_vPos > oldV + ACCEL2SPEED(it->first) - NUMERICAL_EPS && _vPos < oldV + ACCEL2SPEED(it->first) + NUMERICAL_EPS) {
+            if (vPos > oldV + ACCEL2SPEED(it->first) - NUMERICAL_EPS && vPos < oldV + ACCEL2SPEED(it->first) + NUMERICAL_EPS) {
                 _vPos = _v(veh, it->second, oldV, 0, vars->v0_int, false, 1);
             }
         }
@@ -305,26 +305,14 @@ MSCFModel_EIDM::finalizeSpeed(MSVehicle* const veh, double vPos) const {
     }
 #endif
 
-    // Driving off correction term: First we check for StartupDelay, then calculate Speed with SlowToStartTerm
-    // Apply Startup delay (time) before driving off
-    SUMOTime addTime = vars->myap_update * DELTA_T;
-    if (myStartupDelay + addTime - (veh->getTimeSinceStartup() - DELTA_T) < DELTA_T) {
-        addTime = (SUMOTime)0;
-    }
-    double vDelay = applyStartupDelay(veh, vMin, vMax, addTime);
-    // Apply the slow to start term to the acceleration/speed when driving off
-    double vNext = slowToStartTerm(veh, vDelay, oldV, vMax, vars);
-
     // apply further speed adaptations
-    vNext = patchSpeedBeforeLCEIDM(veh, vMin, vNext, vars);
+    double vNext = patchSpeedBeforeLCEIDM(veh, vMin, vMax, vars);
 
     if (MSGlobals::gSemiImplicitEulerUpdate) {
 
         // The model does not directly use vNext from patchSpeed (like the original MSCFModel::finalizeSpeed function),
         // but rather slowly adapts to vNext.
-        if (vNext > 0.) {
-            vNext = veh->getLaneChangeModel().patchSpeed(vMin, vNext, vMax, *this);
-        }
+        vNext = veh->getLaneChangeModel().patchSpeed(vMin, vNext, vMax, *this);
 
         // Bound the positive change of the acceleration with myJerkmax
         if (vNext > oldV && oldV > EST_REAC_THRESHOLD) {
@@ -354,9 +342,7 @@ MSCFModel_EIDM::finalizeSpeed(MSVehicle* const veh, double vPos) const {
 
         // for ballistic update, negative vnext must be allowed to
         // indicate a stop within the coming timestep (i.e., to attain negative values)
-        if (vNext > 0.) {
-            vNext = veh->getLaneChangeModel().patchSpeed(vMin, vMax, vMax, *this);
-        }
+        vNext = veh->getLaneChangeModel().patchSpeed(vMin, vMax, vMax, *this);
         // (Leo) finalizeSpeed() is responsible for assuring that the next
         // velocity is chosen in accordance with maximal decelerations.
         // At this point vNext may also be negative indicating a stop within next step.
@@ -364,6 +350,16 @@ MSCFModel_EIDM::finalizeSpeed(MSVehicle* const veh, double vPos) const {
         // vNext can be a large negative value at this point. We cap vNext here.
         vNext = MAX2(vNext, vMin);
     }
+
+    // Driving off correction term: First we check for StartupDelay, then calculate Speed with SlowToStartTerm
+    // Apply Startup delay (time) before driving off
+    SUMOTime addTime = vars->myap_update * DELTA_T;
+    if (myStartupDelay + addTime - (veh->getTimeSinceStartup() - DELTA_T) < DELTA_T) {
+        addTime = (SUMOTime)0;
+    }
+    double vDelay = applyStartupDelay(veh, vMin, vNext, addTime);
+    // Apply the slow to start term to the acceleration/speed when driving off
+    vNext = slowToStartTerm(veh, vDelay, oldV, vNext, vars);
 
     // Update the desired speed
     internalspeedlimit(veh, oldV);
@@ -943,6 +939,7 @@ MSCFModel_EIDM::_v(const MSVehicle* const veh, const double gap2pred, const doub
                 wantedacc = a_free;
             }
         }
+        wantedacc = SPEED2ACCEL(MAX2(0.0, estSpeed + ACCEL2SPEED(wantedacc)) - estSpeed);
 
         // IIDM calculation from the original Treiber/Kesting publication:
         // With the current variables (what would the acceleration be without reaction time)
@@ -965,6 +962,7 @@ MSCFModel_EIDM::_v(const MSVehicle* const veh, const double gap2pred, const doub
                     wouldacc = woulda_free;
                 }
             }
+            wouldacc = SPEED2ACCEL(MAX2(0.0, current_estSpeed + ACCEL2SPEED(wouldacc)) - current_estSpeed);
         }
 
         // @ToDo: calc_gap is just estGap here, used to have an extra calc_gap calculation (like jmax), but doesn't work well here with the junction calculation:
@@ -1056,7 +1054,7 @@ MSCFModel_EIDM::_v(const MSVehicle* const veh, const double gap2pred, const doub
     if (gDebugFlag1) {
         std::cout << "_v " << SIMTIME <<
             "s, veh=" << veh->getID() <<
-            " vars->minaccel=" << wantedacc <<
+            " vars->minaccel=" << vars->minaccel <<
             " vars->myap_update=" << vars->myap_update <<
             " vars->myv_est_l=" << vars->myv_est_l <<
             " vars->myv_est=" << vars->myv_est <<
@@ -1071,6 +1069,8 @@ MSCFModel_EIDM::_v(const MSVehicle* const veh, const double gap2pred, const doub
             " estSpeed=" << estSpeed <<
             " estleaderSpeed=" << estleaderSpeed <<
             " estGap=" << estGap <<
+            " wantedacc=" << wantedacc <<
+            " wouldacc=" << wouldacc <<
             " acc=" << acc << "\n";
     }
 #endif
