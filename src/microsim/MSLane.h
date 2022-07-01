@@ -1085,6 +1085,7 @@ public:
 
 
     /** @brief Returns the sum of last step emissions
+     * The value is always per 1s, so multiply by step length if necessary.
      * @return emissions of vehicles on this lane during the last step
      */
     template<PollutantsInterface::EmissionType ET>
