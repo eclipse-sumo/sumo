@@ -2764,7 +2764,7 @@ MSLCM_SL2015::checkStrategicChange(int ret,
         ret |= LCA_STRATEGIC | LCA_URGENT;
     } else {
         // VARIANT_20 (noOvertakeRight)
-        if (!myAllowOvertakingRight && left && !myVehicle.congested() && neighLeaders.hasVehicles() && myVehicle.getVehicleType().getVehicleClass() != SVC_EMERGENCY) {
+        if (left && avoidOvertakeRight() && neighLeaders.hasVehicles()) {
             // check for slower leader on the left. we should not overtake but
             // rather move left ourselves (unless congested)
             // XXX only adapt as much as possible to get a lateral gap
