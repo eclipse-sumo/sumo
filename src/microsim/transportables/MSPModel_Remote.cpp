@@ -18,7 +18,7 @@
 // The pedestrian following model for remote controlled pedestrian movement
 /****************************************************************************/
 
-#include <jps.h>
+#include <jupedsim/jupedsim.h>
 #include "microsim/MSEdge.h"
 #include "microsim/MSLane.h"
 #include "microsim/MSEdgeControl.h"
@@ -42,7 +42,7 @@ MSPModel_Remote::add(MSTransportable* person, MSStageMoving* stage, SUMOTime now
 
     PState* state = new PState(static_cast<MSPerson*>(person), stage);
 
-    JPS_Agent req;
+    // JPS_Agent req;
     int id = myLastId++;
     remoteIdPStateMapping[id] = state;
     /*    req.set_id(id);
@@ -219,7 +219,10 @@ MSPModel_Remote::remove(MSTransportableStateAdapter* state) {
 
 void
 MSPModel_Remote::initialize() {
-    JPS_SimulationContext* context = JPS_initialize("geometry_file");
+    // auto geoBuilder = JPS_GeometryBuilder_Create();
+    // std::vector<double> box1{0, 0, 1, 0, 1, 1, 0, 1};
+    // JPS_GeometryBuilder_AddAccessibleArea(geoBuilder, box1.data(), box1.size() / 2);
+    // auto jpsGeometry = JPS_GeometryBuilder_Build(geoBuilder, nullptr);
 }
 
 

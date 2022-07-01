@@ -387,12 +387,14 @@ if (CHECK_OPTIONAL_LIBS)
         set(ENABLED_FEATURES "${ENABLED_FEATURES} Eigen")
     endif (EIGEN3_FOUND)
 
-    # set(JPS_FOUND 1)
+    set(JPS_FOUND 1)
+    # find_package(jupedsim)
     if (JPS_FOUND)
-        add_library(jps SHARED IMPORTED) # or STATIC instead of SHARED
-        set_target_properties(jps PROPERTIES IMPORTED_LOCATION "/tmp/libjps.so")
-        include_directories(SYSTEM "/tmp/include")
+        add_library(jupedsim::jupedsim SHARED IMPORTED) # or STATIC instead of SHARED
+        set_target_properties(jupedsim::jupedsim PROPERTIES IMPORTED_LOCATION "/home/matthias/workspace/jupedsim/jpscore-build/lib/libjupedsim.so")
+        include_directories(SYSTEM "/home/matthias/workspace/jupedsim/jpscore/libjupedsim/include")
         set(HAVE_JPS 1)
+        set(ENABLED_FEATURES "${ENABLED_FEATURES} JPS")
     endif (JPS_FOUND)
 
     # add optional libraries

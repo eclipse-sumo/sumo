@@ -56,7 +56,7 @@ set_target_properties(sumo PROPERTIES OUTPUT_NAME sumo${BINARY_SUFFIX})
 set_target_properties(sumo PROPERTIES OUTPUT_NAME_DEBUG sumo${BINARY_SUFFIX}D)
 target_link_libraries(sumo microsim traciserver libsumostatic ${sumolibs} ${TCMALLOC_LIBRARY})
 if (JPS_FOUND)
-    target_link_libraries(sumo jps)
+    target_link_libraries(sumo jupedsim::jupedsim)
 endif()
 add_dependencies(sumo generate-version-h install_dll)
 
