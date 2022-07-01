@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2021-08-23 12:17:07 by Eclipse SUMO sumo Version v1_10_0+0129-6ada7b0
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="motorway.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <tripinfo-output value="tripinfos.xml"/>
+    </output>
+
+    <processing>
+        <step-method.ballistic value="true"/>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <tripinfo id="overtaking" depart="4.00" departLane="beg_0" departPos="1000.00" departSpeed="36.00" departDelay="0.00" arrival="61.00" arrivalLane="beg_0" arrivalPos="2996.00" arrivalSpeed="36.00" duration="57.00" routeLength="1996.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="1.54" rerouteNo="0" devices="tripinfo_overtaking" vType="fast" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="slow_middle" depart="0.00" departLane="beg_1" departPos="1000.00" departSpeed="15.00" departDelay="0.00" arrival="134.00" arrivalLane="beg_1" arrivalPos="2996.00" arrivalSpeed="15.00" duration="134.00" routeLength="1996.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_slow_middle" vType="slow" speedFactor="1.00" vaporized=""/>
+</tripinfos>

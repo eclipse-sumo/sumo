@@ -1,0 +1,24 @@
+# overtaking on the right forbidden on german motorways (unless congested)
+overtaking_right_forbidden
+
+# overtaking on the right forbidden on german motorways (unless congested)
+overtaking_right_congested
+
+# overtaking on the right allowed at low road speed (regardless of speed factor)
+overtaking_right_road_speed
+
+# overtaking on the right forbidden on german motorways (unless congested) but the driver is configured to ignore it
+overtaking_right_forbidden_violate
+
+# overtaking on the right forbidden on german motorways (unless congested).
+# The ego vehicle is approaching very fast and cannot avoid overtaking but should at least slow down
+overtaking_right_forbidden_to_fast_to_stop
+
+# overtaking on the right side allowed (regardless of speed) via option
+overtaking_right_allowed
+
+# vehicles with vClass emergency may always overtake on the right	
+overtaking_right_emergency
+
+# when there is a slower leader vehicle on the left lane, small speed differences do not triggere immediate braking
+#overtaking_right_smallDifference
