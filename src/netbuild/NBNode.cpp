@@ -3206,20 +3206,7 @@ NBNode::buildWalkingAreas(int cornerDetail, double joinMinDist) {
             endShapeOuter.move2side(normalizedLanes[startIdx].second.width / 2);
             //endShape.extrapolate(startCrossingWidth);
             PositionVector curve;
-            const double angle = GeomHelper::angleDiff(begShape.angleAt2D(-2), endShape.angleAt2D(0));
-            const double angleOuter = GeomHelper::angleDiff(begShapeOuter.angleAt2D(-2), endShapeOuter.angleAt2D(0));
-            if (gDebugFlag1) std::cout
-                        << " begAngle=" << RAD2DEG(begShape.angleAt2D(-2))
-                        << " endAngle=" << RAD2DEG(endShape.angleAt2D(0))
-                        << " angleDiff=" << RAD2DEG(angle)
-                        << "\n";
-            if (gDebugFlag1) std::cout
-                        << " begAngleOuter=" << RAD2DEG(begShapeOuter.angleAt2D(-2))
-                        << " endAngleOuter=" << RAD2DEG(endShapeOuter.angleAt2D(0))
-                        << " angleDiffOuter=" << RAD2DEG(angleOuter)
-                        << "\n";
-            // XXX test angle and avoid building an inner curve if the angles are wrong
-            if (true) {
+            if (count != (int)normalizedLanes.size() || count == 2) {
                 if ((normalizedLanes[smoothEnd].first->getPermissions() & normalizedLanes[smoothPrev].first->getPermissions() &
                             ~(SVC_PEDESTRIAN | SVC_RAIL_CLASSES)) != 0) {
                     curve = computeSmoothShape(begShape, endShape, cornerDetail + 2, false, 25, 25);
@@ -3247,6 +3234,9 @@ NBNode::buildWalkingAreas(int cornerDetail, double joinMinDist) {
                     }
                     if (startCrossingWidth > 0) {
                         wa.shape.erase(wa.shape.begin());
+                    }
+                    if (count == (int)normalizedLanes.size()) {
+                        curve =curve.reverse();
                     }
                     wa.shape.append(curve, 0);
                 }
