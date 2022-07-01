@@ -185,3 +185,12 @@ To clean up the states:
 3. press the 'Clean States' button (this shortens the state and re-assigns indices to controlled connections)
 4. save the program
 5. recompute the network (F5) to see updated tls indices (when inspecting connections or drawing 'tls link index')
+
+## Deleting all sidewalks
+
+1. enter select mode (S)
+2. in the [Match Attribute](editModesCommon.md#match_attribute) controls select:
+  - Object type: Lane
+  - Attribute: allow
+  - Value: "=pedestrian"
+3. press the `<del>` key.
