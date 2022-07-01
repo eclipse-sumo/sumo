@@ -34,12 +34,14 @@ title: ChangeLog
   - routeProbReroute is now triggered only once per edge regardless of lane-changing. Issue #10943
   - Fixed inconsistent value for previous vehicle speed after loading simulation state. Issue #10922
   - Fixed errors when using departSpeed=avg or departSpeed=last. Issue #10868
+  - Fixed teleporting taxis when combining randomCircling with automatic rerouting. Issue #11079
   
 - netedit
   - Fixed crash when loading a network (on very slow computers / builds). Issue #10750 (regression in 1.9.0)
   - Greatly increased rendering speed. Issue #10425 (regression in 1.11.0)
   - Fixed crash when drawing tazRelations. Issue #10929 (regression in 1.11.0)
   - Loaded named routes are now visible again. Issue #11008 (regression in 1.12.0)
+  - Fixed incomplete demand output when defining a `<flow>` and a `<pedestrianFlow>` with the same id. Issue #11049
   - tls mode coloring of 'yellow' phase is now consistent with sumo-gui. Issue #10651
   - Loading a demand file only triggers a 'demand is modified' warning after actual modification. Issue #9529
   - Locate dialog buttons "select all" and "deselect all" now toggle selection status. Issue #10707
@@ -56,12 +58,16 @@ title: ChangeLog
   - Fixed bug where lanes could not be clicked after changing attribute numLanes. Issue #10964
   - Fixed narrow drop-down boxes in inspect mode. Issue #10955
   - Fixed wrong shortcuts listed in the Edit menu. Issue #10940
+  - Fixed inconsistent traffic light settings when removing node from a joined traffic light by changing its type. Issue #11012
+  - Fixed visualization of edge-data elements in dataMode. Issue #11032
   
 - sumo-gui
   - Background images (decals) and multi-view settings are now restored on reload. Issue #10788 (regression in 1.13.0)
   - Background grid configured in settings is now shown when first opening gui. Issue #10789
   - Fixed invalid tranship color when coloring container by mode. Issue #10849    
   - Fixed inconsistent treatment of missing data when coloring by attribute/param. Issue #10932
+  - An opened breakpoint editor is now updated when clicking on 'time' links. Issue #11035
+  - Fixed crash when drawing persons that enter a vehicle. Issue #11076
   - 3D View:
     - Fixed 3D rendering of edge geometry with varying incline. Issue #4952
     - Fixed Vehicle orientation on sloped edges in 3D view. Issue #10905
@@ -70,6 +76,7 @@ title: ChangeLog
     - Fixed Crash when setting up GL2 compatible shaders. Issue #10895
     - Visualisation settings now maintain their type (3D/2D). Issue #11000
     - Coloring vehicles by type attribute or randomly is now working. Issue #2120
+    - Avoid duplicated background objects after loading/realoding. Issue #11047
    
 - netconvert
   - Fixed invalid edge reduction in edge shape detail at very dense geometry. Issue #10727 (regression in 1.12.0)
@@ -79,6 +86,7 @@ title: ChangeLog
   - Fixed missing tram connections at sharper turns on large junctions. Issue #10826
   - Option **--geometry.remove** now works correctly when merging networks. Issue #10853
   - Fixed generation of invalid pedestrian crossings. Issue #7625, #10894
+  - Fixed invalid walkingarea shapes. Issue #11087, #11090
 
 - TraCI
   - Function `vehicle.setAcceleration` now supports negative values. Issue #10693
@@ -90,6 +98,7 @@ title: ChangeLog
   - Fixed incomplete rail signal state reset after calling simulation.loadState. Issue #11001
   - Fixed crash when calling inductionloop.getVehicleData for detected pedestrians. Issue #11011
   - Fixed non-deterministic results for `simulation.convertRoad`. Issue #11002
+  - Function 'traci.vehicle.rerouteTraveltime' now behaves the same in traci and libsumo in all cases. Previously, the argument `currentTravelTimes` was ignored by libsumoe. The behavior in traci changed slightly: instead of using the current edge speeds and updating them for all vehicles, it now uses the aggregated routing mode (which also reacts to current speeds). Issue #5943
 
 - tools
   - sumolib no longer crashes in an environment where rtree and stderr are missing. Issue #10666
@@ -116,6 +125,9 @@ title: ChangeLog
   - Attribute 'period' is now an alias for attribute 'freq' in all detectors and both are now optional. Issue #10390
   - Added option **--device.fcd.begin** to customize begin time of fcd-output. Issue #10996
   - Added option **--device.emissions.begin** to customize begin time of emission-output. Issue #11052
+  - Vehicle stops now support attribute `onDemand="true"` which lets them skip stopping if no persons wish to embark or disembark. Issue  #11039
+  - Added option **--fcd-output.filter-shapes** to restrict output to custom polygonal areas. Issue #11055
+  - VType attribute 'lcOvertakeRight' is now supported by the sublane mode. Issue #11097
   
 - netedit
   - Persons and personFlows can now be transformed into each other via context menu (similar to vehicles and flows). Issue #10607
@@ -139,6 +151,8 @@ title: ChangeLog
   - A click-preview-indicater is now provided when splitting edges in in create-edge-mode. Issue #10998
   - The hide/show-TAZRel buttons can now be used to hide all relations. Issue #10972
   - Added dialog for fixing / reporting network element problems. Issue #10151
+  - Improved visualization of trips between junctions. Issue #9901
+  - Added warning dialog if the same additional/demand/data file is loaded twice. Issue #11057
 
 - sumo-gui
   - InductionLoop detectors now list the time of continuos occupation in their parameter dialog. Issue #10671
@@ -147,9 +161,11 @@ title: ChangeLog
   - Can now color polygons (and TAZ) randomly. Issue #10938
   - Added gzip file endings in file selection dialogs. Issue #10513
   - Right clicking on a pedestrian crossing now always opens it's context menu (rather than the menu for the junction). Issue #10914
+  - Breakpoints set in sumo-gui now override breakpoints from option **--breakpoints**. Issue #11061
 
 - netconvert
   - Now supports generating NEMA controllers. Issue #9599
+  - Option **--prefix** now also modifies tlLogic ids. Issue #11062
 
 - netgenerate
   - Add option synonyms **--random.lanenumber** and **--random.priority** for options that apply to all network types. Issue #10775
@@ -171,7 +187,10 @@ title: ChangeLog
   - routeSampler.py: Can now load pedestrian walks as candidate routes. Issue #11041
   - randomTrips.py: Can now set explicitly randomized departPos and arrivalPos attributes. Issue #7977
   - randomTrips.py: Can now pass any kind of duarouter option using **--duarouter-option-name VALUE**. Issue #7347
-  - randomTrips.py: CAn now define a timeline of different demand levels. Issue #5739
+  - randomTrips.py: Can now define a timeline of different demand levels. Issue #5739
+  - cutRoutes.py: now adapts the departSpeed to 'max' if vehicles start on a cut route. Issue #10611
+  - The traffic light game can now be controlled with the keyboard. Issue #11056
+  - sumolib.shapes.polygon now handles missing attributes. Issue #11092
 
 ### Miscellaneous
 
