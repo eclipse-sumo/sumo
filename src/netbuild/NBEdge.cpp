@@ -775,7 +775,8 @@ NBEdge::isBidiEdge(bool checkPotential) const {
         && myLaneSpreadFunction == LaneSpreadFunction::CENTER
         && myPossibleTurnDestination->getLaneSpreadFunction() == LaneSpreadFunction::CENTER
         && myPossibleTurnDestination->getToNode() == getFromNode()
-        && myPossibleTurnDestination->getGeometry().reverse() == getGeometry();
+        && (myPossibleTurnDestination->getGeometry().reverse() == getGeometry()
+                || (checkPotential && getGeometry().size() == 2 && myPossibleTurnDestination->getGeometry().size() == 2));
 }
 
 

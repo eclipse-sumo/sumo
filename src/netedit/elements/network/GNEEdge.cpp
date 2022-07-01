@@ -1037,6 +1037,12 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
             if (myNBEdge->getTurnDestination(true) != nullptr) {
                 GNEEdge* bidi = myNet->getAttributeCarriers()->retrieveEdge(myNBEdge->getTurnDestination(true)->getID());
                 undoList->changeAttribute(new GNEChange_Attribute(bidi, key, value));
+                if (myNBEdge->getGeometry() != bidi->getNBEdge()->getGeometry().reverse() && myNBEdge->getGeometry().size() == 2 && bidi->getNBEdge()->getGeometry().size() == 2) {
+                    // NBEdge::avoidOverlap was already active so we need to reset the
+                    // geometry to it's default
+                    resetBothEndpoint(undoList);
+                    bidi->resetBothEndpoint(undoList);
+                }
             }
             undoList->end();
             break;
