@@ -60,7 +60,7 @@ while traci.simulation.getMinExpectedNumber() > 0:
         lanePos = traci.vehicle.getLanePosition(vehID)
         # if the speed is sufficiently high, we'll make it drive a bit slower
         # (retroactively)
-        DELTA_V = 1;
+        DELTA_V = 1
         if v > DELTA_V:
             v2 = v - DELTA_V
             lanePos2 = lanePos - TS * DELTA_V
