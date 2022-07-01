@@ -3440,7 +3440,7 @@ GNEApplicationWindow::onCmdOpenAdditionals(FXObject*, FXSelector, void*) {
         if (opendialog.getFilename().text() == OptionsCont::getOptions().getString("additional-files")) {
             // open question dialog box
             const auto answer = FXMessageBox::question(myNet->getViewNet()->getApp(), MBOX_YES_NO, "Load same additional file",
-                                        "Selected additional file was previously already loaded. Continue?");
+                                        "Selected additional file was already loaded. Continue?");
             if (answer != 1) { //1:yes, 2:no, 4:esc
                 // write warning if netedit is running in testing mode
                 if (answer == 2) {
@@ -3637,7 +3637,7 @@ GNEApplicationWindow::onCmdOpenDemandElements(FXObject*, FXSelector, void*) {
         if (opendialog.getFilename().text() == OptionsCont::getOptions().getString("route-files")) {
             // open question dialog box
             const auto answer = FXMessageBox::question(myNet->getViewNet()->getApp(), MBOX_YES_NO, "Load same route file",
-                                        "Selected route file was previously already loaded. Continue?");
+                                        "Selected route file was already loaded. Continue?");
             if (answer != 1) { //1:yes, 2:no, 4:esc
                 // write warning if netedit is running in testing mode
                 if (answer == 2) {
@@ -3832,7 +3832,7 @@ GNEApplicationWindow::onCmdOpenDataElements(FXObject*, FXSelector, void*) {
         if (opendialog.getFilename().text() == OptionsCont::getOptions().getString("data-files")) {
             // open question dialog box
             const auto answer = FXMessageBox::question(myNet->getViewNet()->getApp(), MBOX_YES_NO, "Load same data file",
-                                        "Selected data file was previously already loaded. Continue?");
+                                        "Selected data file was already loaded. Continue?");
             if (answer != 1) { //1:yes, 2:no, 4:esc
                 // write warning if netedit is running in testing mode
                 if (answer == 2) {
