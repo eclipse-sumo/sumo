@@ -83,13 +83,12 @@
 // ===========================================================================
 // Debug flags
 // ===========================================================================
-//#define DEBUG_MANEUVER
-//#define DEBUG_WANTSCHANGE
+#define DEBUG_MANEUVER
+#define DEBUG_WANTSCHANGE
 //#define DEBUG_STRATEGIC_CHANGE
 //#define DEBUG_KEEP_LATGAP
-//#define DEBUG_STATE
+#define DEBUG_STATE
 //#define DEBUG_ACTIONSTEPS
-//#define DEBUG_SURROUNDING
 //#define DEBUG_COMMITTED_SPEED
 //#define DEBUG_PATCHSPEED
 //#define DEBUG_INFORM
@@ -99,7 +98,7 @@
 //#define DEBUG_SAVE_BLOCKER_LENGTH
 //#define DEBUG_BLOCKING
 //#define DEBUG_TRACI
-//#define DEBUG_EXPECTED_SLSPEED
+#define DEBUG_EXPECTED_SLSPEED
 //#define DEBUG_SLIDING
 //#define DEBUG_COND (myVehicle.getID() == "moped.18" || myVehicle.getID() == "moped.16")
 //#define DEBUG_COND (myVehicle.getID() == "Togliatti_71_0")
@@ -1561,8 +1560,13 @@ MSLCM_SL2015::_wantsChangeSublane(
             if (laneOffset != 0 && overlap(sublaneSides[i], sublaneSides[i] + vehWidth, laneBoundary, laneBoundary)) {
                 vMin *= (1 - myLaneDiscipline);
             }
-            const double relativeGain = (vMin - defaultNextSpeed) / MAX2(vMin, RELGAIN_NORMALIZATION_MIN_SPEED);
+            double relativeGain = (vMin - defaultNextSpeed) / MAX2(vMin, RELGAIN_NORMALIZATION_MIN_SPEED);
             const double currentLatDist = MIN2(MAX2(sublaneSides[i] - rightVehSide, minLatDist), maxLatDist);
+            if (currentLatDist > 0 && myVehicle.getLane()->getBidiLane() != nullptr) {
+                // penalize overtaking on the left if the lane is used in both
+                // directions
+                relativeGain *= 0.5;
+            }
             // @note this is biased for changing to the left since we compare the sublanes in ascending order
             if (relativeGain > maxGain) {
                 maxGain = relativeGain;
@@ -1752,6 +1756,7 @@ MSLCM_SL2015::_wantsChangeSublane(
             }
         }
 
+        const double bidiRightFactor = myVehicle.getLane()->getBidiLane() == nullptr ? 1 : 0.05;
 #ifdef DEBUG_WANTSCHANGE
         if (gDebugFlag2) {
             std::cout << STEPS2TIME(currentTime)
@@ -1760,13 +1765,13 @@ MSLCM_SL2015::_wantsChangeSublane(
                       << " neighDist=" << neighDist
                       << " neighTime=" << neighDist / MAX2(.1, myVehicle.getSpeed())
                       << " rThresh=" << myChangeProbThresholdRight
+                      << " rThresh2=" << myChangeProbThresholdRight * bidiRightFactor
                       << " latDist=" << latDist
                       << "\n";
         }
 #endif
 
         // make changing on the right more attractive on bidi edges
-        const double bidiRightFactor = myVehicle.getLane()->getBidiLane() == nullptr ? 1 : 0.05;
         if (latDist < 0 && mySpeedGainProbabilityRight >= MAX2(myChangeProbThresholdRight * bidiRightFactor, mySpeedGainProbabilityLeft)
                 && neighDist / MAX2(.1, myVehicle.getSpeed()) > 20.) {
             ret |= LCA_SPEEDGAIN;
