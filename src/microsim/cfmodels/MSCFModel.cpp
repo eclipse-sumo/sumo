@@ -194,12 +194,7 @@ MSCFModel::finalizeSpeed(MSVehicle* const veh, double vPos) const {
 #endif
 
     vMax = MAX2(vMin, vMax);
-    // apply further speed adaptations
-    double vNext = applyStartupDelay(veh, vMin, vMax);
-#ifdef DEBUG_FINALIZE_SPEED
-    double vStartupDelay = vNext;
-#endif
-    vNext = patchSpeedBeforeLC(veh, vMin, vNext);
+    double vNext = patchSpeedBeforeLC(veh, vMin, vMax);
 #ifdef DEBUG_FINALIZE_SPEED
     double vDawdle = vNext;
 #endif
@@ -207,6 +202,12 @@ MSCFModel::finalizeSpeed(MSVehicle* const veh, double vPos) const {
     assert(vNext <= vMax);
     // apply lane-changing related speed adaptations
     vNext = veh->getLaneChangeModel().patchSpeed(vMin, vNext, vMax, *this);
+#ifdef DEBUG_FINALIZE_SPEED
+    double vPatchLC = vNext;
+#endif
+    // apply further speed adaptations
+    vNext = applyStartupDelay(veh, vMin, vNext);
+
     assert(vNext >= vMinEmergency); // stronger braking is permitted in lane-changing related emergencies
     assert(vNext <= vMax);
 
@@ -218,8 +219,8 @@ MSCFModel::finalizeSpeed(MSVehicle* const veh, double vPos) const {
                   << " vMin=" << vMin
                   << " vMax=" << vMax
                   << " vStop=" << vStop
-                  << " vStartupDelay=" << vStartupDelay
                   << " vDawdle=" << vDawdle
+                  << " vPatchLC=" << vSPatchLC
                   << " vNext=" << vNext
                   << "\n";
     }
