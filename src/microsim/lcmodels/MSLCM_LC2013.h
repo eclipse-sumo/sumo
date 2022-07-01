@@ -251,8 +251,6 @@ protected:
     double myRoundaboutBonus;
     // @brief factor for cooperative speed adjustment
     double myCooperativeSpeed;
-    // allow overtaking right even though it is prohibited
-    double myOvertakeRightParam;
 
     // time for unrestricted driving on the right to accept keepRight change
     double myKeepRightAcceptanceTime;

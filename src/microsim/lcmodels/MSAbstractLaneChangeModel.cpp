@@ -131,6 +131,7 @@ MSAbstractLaneChangeModel::MSAbstractLaneChangeModel(MSVehicle& v, const LaneCha
                          // prevent lateral sliding for cars but permit for two-wheelers due to better maneuverability
                          (v.getVClass() & (SVC_BICYCLE | SVC_MOTORCYCLE | SVC_MOPED)) != 0 ? std::numeric_limits<double>::max() : 1.6)),
     mySigma(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_SIGMA, 0.0)),
+    myOvertakeRightParam(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_OVERTAKE_RIGHT, 0)),
     myHaveBlueLight(v.getDevice(typeid(MSDevice_Bluelight)) != nullptr), // see MSVehicle::initDevices
     myLastLaneChangeOffset(0),
     myAmOpposite(false),
@@ -269,6 +270,13 @@ MSAbstractLaneChangeModel::congested(const MSVehicle* const neighLeader) {
 }
 
 
+bool
+MSAbstractLaneChangeModel::avoidOvertakeRight() const {
+    return (!myAllowOvertakingRight
+        && !myVehicle.congested()
+        && myVehicle.getVehicleType().getVehicleClass() != SVC_EMERGENCY
+        && (myOvertakeRightParam == 0 || myOvertakeRightParam < RandHelper::rand(myVehicle.getRNG())));
+}
 
 bool
 MSAbstractLaneChangeModel::predInteraction(const std::pair<MSVehicle*, double>& leader) {

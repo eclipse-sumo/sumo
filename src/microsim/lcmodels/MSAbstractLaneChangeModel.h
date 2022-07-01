@@ -599,6 +599,8 @@ protected:
 
     virtual bool predInteraction(const std::pair<MSVehicle*, double>& leader);
 
+    virtual bool avoidOvertakeRight() const;
+
     /// @brief whether the influencer cancels the given request
     bool cancelRequest(int state, int laneOffset);
 
@@ -719,6 +721,8 @@ protected:
     double myMaxDistLatStanding;
     // @brief factor for lane keeping imperfection
     double mySigma;
+    // allow overtaking right even though it is prohibited
+    double myOvertakeRightParam;
 
     /// @brief whether this vehicle is driving with special permissions and behavior
     bool myHaveBlueLight;
