@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-06-22 08:14:25 by Eclipse SUMO netconvert Version v1_13_0+1094-d2dab2e946c
+<!-- generated on 2022-07-01 08:13:34 by Eclipse SUMO netconvert Version v1_13_0+1331-a3a1a97
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -96,10 +96,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id=":1403553705_1_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="8.33" length="4.82" shape="2027.44,740.27 2028.87,740.38 2029.84,740.49 2030.81,740.66 2032.21,740.92"/>
     </edge>
     <edge id=":1403553705_w0" function="walkingarea">
-        <lane id=":1403553705_w0_0" index="0" allow="pedestrian" speed="1.00" length="4.87" width="3.20" shape="2031.32,745.64 2031.92,742.50 2031.92,742.50 2032.51,739.35 2031.41,737.62 2029.47,737.12 2027.55,738.67 2027.33,741.86 2027.33,741.86 2027.11,745.06 2030.43,745.47 2029.77,745.35 2029.23,745.26 2028.68,745.18 2028.02,745.12"/>
+        <lane id=":1403553705_w0_0" index="0" allow="pedestrian" speed="1.00" length="4.87" width="3.20" shape="2031.32,745.64 2031.92,742.50 2031.92,742.50 2032.51,739.35 2031.41,737.62 2029.47,737.12 2027.55,738.67 2027.33,741.86 2027.33,741.86 2027.11,745.06"/>
     </edge>
     <edge id=":2475741815_w0" function="walkingarea">
-        <lane id=":2475741815_w0_0" index="0" allow="pedestrian" speed="1.00" length="4.13" width="2.00" shape="1995.67,727.02 1996.22,725.09 1995.51,723.36 1993.75,722.40 1991.11,725.88 1992.42,727.39 1994.97,726.81 1994.40,726.67 1993.92,726.63 1993.46,726.71 1992.98,726.96"/>
+        <lane id=":2475741815_w0_0" index="0" allow="pedestrian" speed="1.00" length="4.13" width="2.00" shape="1995.67,727.02 1996.22,725.09 1995.51,723.36 1993.75,722.40 1991.11,725.88 1992.42,727.39"/>
     </edge>
     <edge id=":32444599_0" function="internal">
         <lane id=":32444599_0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="3.65" length="4.67" shape="2066.33,747.35 2067.37,748.36 2067.61,749.22 2067.07,749.93 2065.74,750.50"/>
