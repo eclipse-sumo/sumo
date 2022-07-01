@@ -62,6 +62,15 @@ Afterwards, you will have to recompute the junction shape to see how it looks (F
 
 This will create a single joined junction but keep the endpoints at the original junction positions.
 
+### Restoring edge geometry to its default state
+
+The reverse operation to *Setting a custom geometry endpoint* as explained above is *Restoring the geometry endpoint* and it may be accomplished in any of the following ways:
+
+- delete the edge attributes `shapeStart` and `shapeEnd`
+- right-click on an edge and from the *edge operations* menu select *Restore geometry endpoint* (this only restores the end near the click)
+- right-click on an edge and select *Reset edge endpoints*
+- In move-mode, shift-click on a custom endpoint (a geometry point marked with `S` or `E`)
+
 ## Setting connection attributes
 
 1.  after opening the network press F5 to compute connection objects
