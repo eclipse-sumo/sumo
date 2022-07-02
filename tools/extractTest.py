@@ -217,6 +217,8 @@ for d, p in [
                             idx = appOptions.index(o)
                             if idx < len(appOptions) - 1 and appOptions[idx + 1][0] != "-":
                                 del appOptions[idx:idx+2]
+                            else:
+                                del appOptions[idx:idx+1]
                         newOptions.append(o)
                         if "=" in o:
                             o = o.split("=")[-1]

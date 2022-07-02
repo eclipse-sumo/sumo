@@ -41,8 +41,11 @@ if '--compare' in sys.argv:
 idx = sys.argv.index(":")
 saveParams = sys.argv[1:idx]
 loadParams = sys.argv[idx + 1:]
-if '--mesosim' in loadParams:
+# work around texttests limitation of removing duplicate options
+if '--mesosim' in loadParams and not '--mesosim' in saveParams:
     saveParams.append('--mesosim')
+if '--mesosim' in saveParams and not '--mesosim' in loadParams:
+    loadParams.append('--mesosim')
 
 # need to add runner.py again in options.complex.meso to ensure it is the
 # last entry
