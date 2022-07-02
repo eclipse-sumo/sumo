@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-07-02 15:46:42 by Eclipse SUMO netedit Version v1_13_0+1320-f1d54c0f166
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- Shapes -->
+    <poi id="M" color="red" layer="202.00" x="410.36" y="249.04"/>
+    <poi id="P" color="red" layer="202.00" x="411.14" y="330.86"/>
+    <poi id="Q" color="red" layer="202.00" x="250.09" y="330.08"/>
+    <poi id="T" color="red" layer="202.00" x="330.36" y="329.56"/>
+    <poi id="V" color="red" layer="202.00" x="328.80" y="250.08"/>
+    <poi id="Y" color="red" layer="202.00" x="249.06" y="250.85"/>
+</additional>
