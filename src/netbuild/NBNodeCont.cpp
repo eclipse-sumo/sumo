@@ -1913,7 +1913,6 @@ NBNodeCont::guessTLs(OptionsCont& oc, NBTrafficLightLogicCont& tlc) {
     myGuessedTLS.clear();
     // build list of definitely not tls-controlled junctions
     const double laneSpeedThreshold = oc.getFloat("tls.guess.threshold");
-    std::vector<NBNode*> ncontrolled;
     if (oc.isSet("tls.unset")) {
         std::vector<std::string> notTLControlledNodes = oc.getStringVector("tls.unset");
         for (std::vector<std::string>::const_iterator i = notTLControlledNodes.begin(); i != notTLControlledNodes.end(); ++i) {
@@ -1926,7 +1925,7 @@ NBNodeCont::guessTLs(OptionsCont& oc, NBTrafficLightLogicCont& tlc) {
                 (*j)->removeNode(n);
             }
             n->removeTrafficLights();
-            ncontrolled.push_back(n);
+            myUnsetTLS.insert(n);
         }
     }
 
@@ -1936,7 +1935,7 @@ NBNodeCont::guessTLs(OptionsCont& oc, NBTrafficLightLogicCont& tlc) {
     if (oc.exists("tls.taz-nodes") && oc.getBool("tls.taz-nodes")) {
         for (NodeCont::iterator i = myNodes.begin(); i != myNodes.end(); i++) {
             NBNode* cur = (*i).second;
-            if (cur->isNearDistrict() && std::find(ncontrolled.begin(), ncontrolled.end(), cur) == ncontrolled.end()) {
+            if (cur->isNearDistrict() && myUnsetTLS.count(cur) == 0) {
                 setAsTLControlled(cur, tlc, type);
             }
         }
@@ -2002,7 +2001,7 @@ NBNodeCont::guessTLs(OptionsCont& oc, NBTrafficLightLogicCont& tlc) {
         // check which nodes should be controlled
         for (std::map<std::string, NBNode*>::const_iterator i = myNodes.begin(); i != myNodes.end(); ++i) {
             NBNode* node = i->second;
-            if (find(ncontrolled.begin(), ncontrolled.end(), node) != ncontrolled.end()) {
+            if (myUnsetTLS.count(node) != 0) {
                 continue;
             }
             const EdgeVector& incoming = node->getIncomingEdges();
@@ -2093,7 +2092,7 @@ NBNodeCont::guessTLs(OptionsCont& oc, NBTrafficLightLogicCont& tlc) {
             // regard only junctions which are not yet controlled and are not
             //  forbidden to be controlled
             for (NodeSet::iterator j = c.begin(); j != c.end();) {
-                if ((*j)->isTLControlled() || std::find(ncontrolled.begin(), ncontrolled.end(), *j) != ncontrolled.end()) {
+                if ((*j)->isTLControlled() || myUnsetTLS.count(*j) != 0) {
                     c.erase(j++);
                 } else {
                     ++j;
@@ -2135,7 +2134,7 @@ NBNodeCont::guessTLs(OptionsCont& oc, NBTrafficLightLogicCont& tlc) {
                 continue;
             }
             // do nothing if in the list of explicit non-controlled junctions
-            if (find(ncontrolled.begin(), ncontrolled.end(), cur) != ncontrolled.end()) {
+            if (myUnsetTLS.count(cur) != 0) {
                 continue;
             }
             NodeSet c;

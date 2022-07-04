@@ -418,6 +418,9 @@ private:
     /// @brief nodes that received a traffic light due to guessing (--tls.guess)
     std::set<NBNode*> myGuessedTLS;
 
+    /// @brief nodes that are excluded from tls-guessing
+    std::set<NBNode*> myUnsetTLS;
+
     /// @brief node positions for faster lookup
     NamedRTree myRTree;
 
