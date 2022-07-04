@@ -142,6 +142,9 @@ public:
     /// @brief return whether this is a 3D view
     virtual bool is3DView() const;
 
+    /// @brief zoom interface for 3D view
+    virtual void zoom2Pos(Position& camera, Position& lookAt, double zoom);
+
     /// @brief mouse functions
     //@{
     virtual long onConfigure(FXObject*, FXSelector, void*);

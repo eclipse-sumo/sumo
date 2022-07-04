@@ -33,7 +33,6 @@
 #include <utils/options/OptionsCont.h>
 
 #include "GUISUMOAbstractView.h"
-#include "osgview/GUIOSGView.h"
 #include "GUIDialog_EditViewport.h"
 
 
@@ -189,7 +188,7 @@ GUIDialog_EditViewport::onCmdChanged(FXObject* o, FXSelector, void*) {
 		if (myParent->is3DView()) {
 			Position camera(myXOff->getValue(), myYOff->getValue(), myZOff->getValue()), lookAt(myLookAtX->getValue(), myLookAtY->getValue(), 
 				myLookAtZ->getValue());
-			dynamic_cast<GUIOSGView*>(myParent)->zoom2Pos(camera, lookAt, myZoom->getValue());
+			myParent->zoom2Pos(camera, lookAt, myZoom->getValue());
 		}
 		else {
 			myZOff->setValue(myParent->getChanger().zoom2ZPos(myZoom->getValue()));
