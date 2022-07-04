@@ -178,6 +178,7 @@ NIXMLNodesHandler::processNodeType(const SUMOSAXAttributes& attrs, NBNode* node,
     }
     std::set<NBTrafficLightDefinition*> oldTLS;
     // check whether a prior node shall be modified
+    const bool isPatch = node != nullptr;
     if (node == nullptr) {
         node = new NBNode(nodeID, position, type);
         if (!nc.insert(node)) {
@@ -194,6 +195,8 @@ NIXMLNodesHandler::processNodeType(const SUMOSAXAttributes& attrs, NBNode* node,
     // process traffic light definition
     if (NBNode::isTrafficLight(type)) {
         processTrafficLightDefinitions(attrs, node, tlc);
+    } else if (isPatch && typeS != "") {
+        nc.markAsNotTLS(node);
     }
     // remove previously set tls if this node is not controlled by them
     for (std::set<NBTrafficLightDefinition*>::iterator i = oldTLS.begin(); i != oldTLS.end(); ++i) {
