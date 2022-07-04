@@ -25,5 +25,5 @@ else:
 from sumolib.xml import parse_fast_structured  # noqa
 
 for step in parse_fast_structured("input_data.xml", 'routes', [],
-                                    {'vehicle': ['depart'], 'person': ['depart']}):
+                                  {'vehicle': ['depart'], 'person': ['depart']}):
     print(step)

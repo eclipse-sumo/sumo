@@ -38,4 +38,3 @@ with open('out.add.xml', 'w') as outf:
     for p in polygons:
         outf.write(' ' * 4 + p.toXML() + '\n')
     outf.write('</additional\n')
-

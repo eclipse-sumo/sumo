@@ -102,7 +102,6 @@ class PolygonReader(handler.ContentHandler):
                 cshape.append((float(p[0]), float(p[1])))
             if name == 'poly' and not self._includeTaz:
                 c = color.decodeXML(attrs['color'])
-                type = hasattr
                 poly = Polygon(attrs['id'], attrs.get('type'), c,
                                attrs.get('layer'), attrs.get('fill'), cshape)
             else:
