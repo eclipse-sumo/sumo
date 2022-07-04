@@ -45,7 +45,7 @@ SOURCE_DEST_SEP = ';'
 
 
 def get_options(args=None):
-    optParser = sumolib.options.ArgumentParser(usage="%prog <options> <test directory>")
+    optParser = sumolib.options.ArgumentParser(usage="%(prog)s <options> <test directory>")
     optParser.add_option("-o", "--output", default=".", help="send output to directory")
     optParser.add_option("-f", "--file", help="read list of source and target dirs from")
     optParser.add_option("-p", "--python-script",
