@@ -20,6 +20,7 @@ from __future__ import absolute_import
 
 from xml.sax import handler, parse
 from .. import color
+from .. import miscutils
 
 
 def getBoundingBox(shape):
@@ -42,7 +43,7 @@ class Polygon:
         self.type = type
         self.color = color
         if layer is not None:
-            layer = float(layer)
+            layer = miscutils.intIfPossible(float(layer))
         self.layer = layer
         self.fill = fill
         self.shape = shape
