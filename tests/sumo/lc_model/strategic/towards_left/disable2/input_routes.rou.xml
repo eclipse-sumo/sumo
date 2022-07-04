@@ -1,0 +1,5 @@
+<routes>
+    <route id="r" edges="beg end"/>
+    <vehicle id="veh" type="t0" route="r" depart="0"/>
+    <vehicle id="veh2" type="t0" route="r" depart="0"/>
+</routes>

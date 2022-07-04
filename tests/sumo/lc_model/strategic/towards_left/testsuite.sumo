@@ -8,3 +8,6 @@ change_later2
 
 # disable strategic (urgent) strategic changes
 disable
+
+# disable all strategic changes
+disable2
