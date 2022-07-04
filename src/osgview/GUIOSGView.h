@@ -217,6 +217,8 @@ public:
 	/// @brief highlight edges according to reachability
 	long onCmdShowReachability(FXObject*, FXSelector, void*);
 
+    // @brief get the new camera position given a zoom value
+    void zoom2Pos(Position& camera, Position& lookAt, double zoom);
 protected:
 	/// @brief Store the normalized OSG window cursor coordinates
 	void setWindowCursorPosition(float x, float y);
@@ -233,10 +235,6 @@ protected:
 	 * @return The first found GUILane found or nullptr
 	 */
 	GUILane* getLaneUnderCursor();
-
-	// @brief get the new camera position given a zoom value
-	void zoom2Pos(Position& camera, Position& lookAt, double zoom);
-
 private:
     double calculateRotation(const osg::Vec3d& lookFrom, const osg::Vec3d& lookAt, const osg::Vec3d& up);
 
