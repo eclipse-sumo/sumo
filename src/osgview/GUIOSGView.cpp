@@ -519,7 +519,7 @@ GUIOSGView::showViewportEditor() {
     myCameraManipulator->getInverseMatrix().getLookAt(lookFrom, lookAt, up);
     Position from(lookFrom[0], lookFrom[1], lookFrom[2]), at(lookAt[0], lookAt[1], lookAt[2]);
     myViewportChooser->setOldValues(from, at, calculateRotation(lookFrom, lookAt, up));
-	myViewportChooser->setZoomValue(1);
+	myViewportChooser->setZoomValue(100);
     myViewportChooser->show();
 }
 
@@ -551,9 +551,9 @@ GUIOSGView::setViewportFromToRot(const Position& lookFrom, const Position& lookA
     up = normal * cos(angle) - orthogonal * sin(angle);
     up.normalize();
 
-    double zoom = (myViewportChooser != nullptr) ? myViewportChooser->getZoomValue() : 100.;
-    lookFromOSG = lookFromOSG + viewAxis * (100. - zoom);
-    lookAtOSG = lookFromOSG - viewAxis;
+	double zoom = (myViewportChooser != nullptr)? myViewportChooser->getZoomValue() : 100.;
+	lookFromOSG = lookFromOSG + viewAxis * (100. - zoom);
+	lookAtOSG = lookFromOSG - viewAxis;
     myCameraManipulator->setVerticalAxisFixed(true);
     myViewer->getCameraManipulator()->setHomePosition(lookFromOSG, lookAtOSG, up);
     myViewer->home();
@@ -981,7 +981,7 @@ GUIOSGView::zoom2Pos(Position& camera, Position& lookAt, double zoom) {
 	viewAxis.normalize();
 
 	// compute new camera and lookAt pos
-	osg::Vec3f cameraUpdate = lookFromOSG + viewAxis * zoom;
+	osg::Vec3f cameraUpdate = lookFromOSG + viewAxis * (zoom - 100);
 	osg::Vec3f lookAtUpdate = cameraUpdate + viewAxis;
 
 	myViewer->getCameraManipulator()->setHomePosition(cameraUpdate, lookAtUpdate, up);
