@@ -1561,7 +1561,8 @@ MSLaneChanger::changeOpposite(MSVehicle* vehicle, std::pair<MSVehicle*, double> 
     std::pair<MSVehicle* const, double> neighFollow = opposite->getOppositeFollower(vehicle);
     double oppositeLength = vehicle->getBestLanes().back().length;
     if (isOpposite) {
-        oppositeLength = computeSafeOppositeLength(vehicle, oppositeLength, source, usableDist, oncoming, vMax, oncomingSpeed, neighLead, overtaken, neighFollow, surplusGap, opposite);
+        const bool canOvertake = spaceToOvertake <= OPPOSITE_OVERTAKING_MAX_SPACE_TO_OVERTAKE;
+        oppositeLength = computeSafeOppositeLength(vehicle, oppositeLength, source, usableDist, oncoming, vMax, oncomingSpeed, neighLead, overtaken, neighFollow, surplusGap, opposite, canOvertake);
         leader.first = nullptr;
         if (neighLead.first != nullptr && neighLead.first->getLaneChangeModel().isOpposite()) {
             // ignore oncoming vehicle on the target lane (it might even change back in this step)
@@ -1842,7 +1843,8 @@ MSLaneChanger::computeSafeOppositeLength(MSVehicle* vehicle, double oppositeLeng
         std::pair<MSVehicle*, double> neighLead,
         std::pair<MSVehicle*, double> overtaken,
         std::pair<MSVehicle*, double> neighFollow,
-        double surplusGap, const MSLane* opposite) {
+        double surplusGap, const MSLane* opposite,
+        bool canOvertake) {
     // compute the remaining distance that can be driven on the opposite side
     // this value will put into oppositeLength of the opposite lanes
     // @note: length counts from the start of the current lane
@@ -1915,7 +1917,7 @@ MSLaneChanger::computeSafeOppositeLength(MSVehicle* vehicle, double oppositeLeng
             }
         }
     } else {
-        if (overtaken.first == nullptr) {
+        if (overtaken.first == nullptr || !canOvertake) {
             // there is no reason to stay on the opposite side
             std::pair<MSVehicle* const, double> oppFollow = opposite->getOppositeFollower(vehicle);
             if (oppFollow.first == nullptr) {
