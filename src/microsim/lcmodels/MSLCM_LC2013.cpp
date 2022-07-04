@@ -1842,6 +1842,7 @@ MSLCM_LC2013::_wantsChange(
     }
     // --------
     if (changeToBest && bestLaneOffset == curr.bestLaneOffset
+            && myStrategicParam >= 0
             && relativeGain >= 0
             && (right ? mySpeedGainProbability < 0 : mySpeedGainProbability > 0)) {
         // change towards the correct lane, speedwise it does not hurt
