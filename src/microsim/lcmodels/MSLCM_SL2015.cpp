@@ -2569,6 +2569,18 @@ MSLCM_SL2015::updateCFRelated(const MSLeaderDistanceInfo& vehicles, double foeOf
         if (vehDist.first != 0 && myCFRelated.count(vehDist.first) == 0) {
             double foeRight, foeLeft;
             vehicles.getSublaneBorders(i, foeOffset, foeRight, foeLeft);
+#ifdef DEBUG_BLOCKING
+            if (gDebugFlag2) {
+                std::cout << "    foe=" << vehDist.first->getID() << " gap=" << vehDist.second
+                    << " sublane=" << i
+                    << " foeOffset=" << foeOffset
+                    << " egoR=" << rightVehSide << " egoL=" << leftVehSide
+                    << " iR=" << foeRight << " iL=" << foeLeft
+                    << " egoV=" << myVehicle.getSpeed() << " foeV=" << vehDist.first->getSpeed()
+                    << " egoE=" << myVehicle.getLane()->getEdge().getID() << " foeE=" << vehDist.first->getLane()->getEdge().getID()
+                    << "\n";
+            }
+#endif
             if (overlap(rightVehSide, leftVehSide, foeRight, foeLeft) && (vehDist.second >= 0
                     // avoid deadlock due to #3729
                     || (!leaders
@@ -2580,14 +2592,7 @@ MSLCM_SL2015::updateCFRelated(const MSLeaderDistanceInfo& vehicles, double foeOf
                                                                          )) {
 #ifdef DEBUG_BLOCKING
                 if (gDebugFlag2) {
-                    std::cout << " ignoring cfrelated foe=" << vehDist.first->getID() << " gap=" << vehDist.second
-                              << " sublane=" << i
-                              << " foeOffset=" << foeOffset
-                              << " egoR=" << rightVehSide << " egoL=" << leftVehSide
-                              << " iR=" << foeRight << " iL=" << foeLeft
-                              << " egoV=" << myVehicle.getSpeed() << " foeV=" << vehDist.first->getSpeed()
-                              << " egoE=" << myVehicle.getLane()->getEdge().getID() << " egoE=" << vehDist.first->getLane()->getEdge().getID()
-                              << "\n";
+                    std::cout << "       ignoring cfrelated foe=" << vehDist.first->getID()  << "\n";
                 }
 #endif
                 myCFRelated.insert(vehDist.first);
@@ -3790,7 +3795,7 @@ MSLCM_SL2015::getVehicleCenter() const {
 double
 MSLCM_SL2015::getNeighRight(const MSLane& neighLane) const {
     if (isOpposite()) {
-        return myVehicle.getLane()->getRightSideOnEdge() - neighLane.getWidth();
+        return myVehicle.getLane()->getRightSideOnEdge() - neighLane.getWidth(); // + 2 * myVehicle.getLateralPositionOnLane();
     } else if ((&myVehicle.getLane()->getEdge() != &neighLane.getEdge())) {
         return myVehicle.getLane()->getRightSideOnEdge() + myVehicle.getLane()->getWidth();
     } else {
