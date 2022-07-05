@@ -323,6 +323,16 @@ MSLeaderDistanceInfo::fixOppositeGaps(bool isFollower) {
     }
 }
 
+
+void
+MSLeaderDistanceInfo::patchGaps(double amount) {
+    for (int i = 0; i < (int)myVehicles.size(); ++i) {
+        if (myVehicles[i] != nullptr) {
+            myDistances[i] += amount;
+        }
+    }
+}
+
 CLeaderDist
 MSLeaderDistanceInfo::getClosest() const {
     double minGap = -1;

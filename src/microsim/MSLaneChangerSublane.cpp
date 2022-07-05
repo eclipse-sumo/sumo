@@ -751,10 +751,12 @@ MSLaneChangerSublane::checkChangeOpposite(
         leaders.fixOppositeGaps(false);
         curLane->addLeaders(vehicle, vehicle->getBackPositionOnLane(), followers);
         followers.fixOppositeGaps(true);
-        const double posOnTarget = backPosOnTarget + vehicle->getVehicleType().getLength() + POSITION_EPS;
         neighFollowers = targetLane->getFollowersOnConsecutive(vehicle, backPosOnTarget, true);
         neighFollowers.fixOppositeGaps(false);
+        // artificially increase the position to ensure that ego is not added as a leader
+        const double posOnTarget = backPosOnTarget + vehicle->getVehicleType().getLength() + POSITION_EPS;
         targetLane->addLeaders(vehicle, posOnTarget, neighLeaders);
+        neighLeaders.patchGaps(2 * POSITION_EPS);
         int sublaneIndex = 0;
         for (int i = 0; i < targetLane->getIndex(); i++) {
             sublaneIndex += MSLeaderInfo(targetLane->getEdge().getLanes()[i]->getWidth()).numSublanes();

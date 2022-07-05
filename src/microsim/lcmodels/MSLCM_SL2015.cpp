@@ -3795,7 +3795,7 @@ MSLCM_SL2015::getVehicleCenter() const {
 double
 MSLCM_SL2015::getNeighRight(const MSLane& neighLane) const {
     if (isOpposite()) {
-        return myVehicle.getLane()->getRightSideOnEdge() - neighLane.getWidth(); // + 2 * myVehicle.getLateralPositionOnLane();
+        return myVehicle.getLane()->getRightSideOnEdge() - neighLane.getWidth() + 2 * myVehicle.getLateralPositionOnLane();
     } else if ((&myVehicle.getLane()->getEdge() != &neighLane.getEdge())) {
         return myVehicle.getLane()->getRightSideOnEdge() + myVehicle.getLane()->getWidth();
     } else {
