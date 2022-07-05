@@ -123,3 +123,6 @@ ticket10212
 
 # do not return left+right in lanechange state
 ticket10212b
+
+# bestlanes must be updated after changing vClass
+ticket11117
