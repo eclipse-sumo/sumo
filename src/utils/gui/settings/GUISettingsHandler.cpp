@@ -481,7 +481,7 @@ GUISettingsHandler::addSettings(GUISUMOAbstractView* view) const {
 
 void
 GUISettingsHandler::applyViewport(GUISUMOAbstractView* view) const {
-    if (myLookFrom.z() > 0) {
+    if (myLookFrom.z() > 0 || myZoom > 0) {
 		// z value stores zoom so we must convert first
 		double z = (view->is3DView()) ? myLookFrom.z() : view->getChanger().zoom2ZPos(myZoom);
 		Position lookFrom(myLookFrom.x(), myLookFrom.y(), z);
