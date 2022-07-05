@@ -2291,7 +2291,7 @@ MSLCM_SL2015::checkBlocking(const MSLane& neighLane, double& latDist, double man
     }
 
     // reduce latDist to avoid blockage with overlapping vehicles (no minGapLat constraints)
-    const double center = myVehicle.getCenterOnEdge() - (isOpposite() ? 2 * myVehicle.getLateralPositionOnLane() : 0);
+    const double center = myVehicle.getCenterOnEdge();
     updateGaps(leaders, myVehicle.getLane()->getRightSideOnEdge(), center, gapFactor, mySafeLatDistRight, mySafeLatDistLeft, false, 0, latDist, collectLeadBlockers);
     updateGaps(followers, myVehicle.getLane()->getRightSideOnEdge(), center, gapFactor, mySafeLatDistRight, mySafeLatDistLeft, false, 0, latDist, collectFollowBlockers);
     if (laneOffset != 0) {
