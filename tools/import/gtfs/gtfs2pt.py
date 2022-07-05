@@ -44,7 +44,7 @@ def get_options(args=None):
     ap = sumolib.options.ArgumentParser()
     ap = gtfs2fcd.add_options()
     # ----------------------- general options ---------------------------------
-    ap.add_argument("-n", "--network", fix_path=True,
+    ap.add_argument("-n", "--network", fix_path=True, required=True,
                     help="sumo network to use")
     ap.add_argument("--route-output",
                     help="file to write the generated public transport vehicles to")  # noqa
@@ -102,8 +102,6 @@ def get_options(args=None):
 
     options = gtfs2fcd.check_options(options)
 
-    if options.network is None:
-        sys.exit("Please give a network file using --network FILE.")
     if options.additional_output is None:
         options.additional_output = options.region + "_publictransport.add.xml"
     if options.route_output is None:
@@ -127,7 +125,10 @@ def splitNet(options):
     if not os.path.exists(options.network_split):
         os.makedirs(options.network_split)
     numIdNet = os.path.join(options.network_split, "numerical.net.xml")
-    subprocess.call(netcCall + ["-s", options.network, "-o", numIdNet, "--discard-params", "origId,origFrom,origTo"])
+    if os.path.exists(numIdNet) and os.path.getmtime(numIdNet) > os.path.getmtime(options.network):
+        print("Reusing old", numIdNet)
+    else:
+        subprocess.call(netcCall + ["-s", options.network, "-o", numIdNet, "--discard-params", "origId,origFrom,origTo"])
     edgeMap = {}
     seenTypes = set()
     for e in sumolib.net.readNet(numIdNet).getEdges():
@@ -152,9 +153,12 @@ def splitNet(options):
                         edgeTypes.append("highway." + hwType)
             edgeType = ",".join(filter(lambda t: t in seenTypes, edgeTypes))
             if edgeType:
-                subprocess.call(netcCall + ["-s", numIdNet, "-o", netPrefix + ".net.xml",
-                                            "--dlr-navteq-output", netPrefix,
-                                            "--dismiss-vclasses", "--keep-edges.by-type", edgeType])
+                if os.path.exists(netPrefix + ".net.xml") and os.path.getmtime(netPrefix + ".net.xml") > os.path.getmtime(numIdNet):
+                    print("Reusing old", netPrefix + ".net.xml")
+                else:
+                    subprocess.call(netcCall + ["-s", numIdNet, "-o", netPrefix + ".net.xml",
+                                                "--dlr-navteq-output", netPrefix,
+                                                "--dismiss-vclasses", "--keep-edges.by-type", edgeType])
                 typedNets[mode] = (inp, netPrefix)
     return edgeMap, typedNets
 
