@@ -1778,8 +1778,9 @@ Vehicle::updateBestLanes(const std::string& vehID) {
         WRITE_ERROR("updateBestLanes not applicable for meso");
         return;
     }
-
-    veh->updateBestLanes(true);
+    if (veh->isOnRoad()) {
+        veh->updateBestLanes(true);
+    }
 }
 
 
