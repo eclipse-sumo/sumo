@@ -467,6 +467,7 @@ traci.vehicle.setParameter(electricVeh, "device.rerouting.edge:2si", "123")
 print("edge rerouting traveltime:", traci.vehicle.getParameter(electricVeh, "device.rerouting.edge:2si"))
 
 traci.vehicle.setType(electricVeh, "long")
+traci.vehicle.updateBestLanes(electricVeh)
 check(electricVeh)
 traci.vehicle.setLength(electricVeh, 8)
 traci.vehicle.setMaxSpeed(electricVeh, 10)
