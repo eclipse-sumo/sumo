@@ -4173,7 +4173,7 @@ MSVehicle::executeMove() {
     updateWaitingTime(vNext);
 
     // update position and speed
-    int oldLaneIndex = myLane->getIndex();
+    int oldLaneOffset = myLane->getEdge().getNumLanes() - myLane->getIndex();
     const MSLane* oldLaneMaybeOpposite = myLane;
     if (myLaneChangeModel->isOpposite()) {
         // transform to the forward-direction lane, move and then transform back
@@ -4259,7 +4259,12 @@ MSVehicle::executeMove() {
         MSLane* newOpposite = nullptr;
         const MSEdge* newOppositeEdge = myLane->getEdge().getOppositeEdge();
         if (newOppositeEdge != nullptr) {
-            newOpposite = newOppositeEdge->getLanes()[MIN2(oldLaneIndex, newOppositeEdge->getNumLanes() - 1)];
+            newOpposite = newOppositeEdge->getLanes()[newOppositeEdge->getNumLanes() - MAX2(1, oldLaneOffset )];
+#ifdef DEBUG_EXEC_MOVE
+            if (DEBUG_COND) {
+                std::cout << SIMTIME << "   newOppositeEdge=" << newOppositeEdge->getID() << " oldLaneOffset=" << oldLaneOffset << " leftMost=" << newOppositeEdge->getNumLanes() - 1 << " newOpposite=" << Named::getIDSecure(newOpposite) << "\n";
+            }
+#endif
         }
         if (newOpposite == nullptr) {
             if (!myLaneChangeModel->hasBlueLight()) {
