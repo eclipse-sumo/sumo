@@ -3523,11 +3523,16 @@ MSLane::getFollowersOnConsecutive(const MSVehicle* ego, double backOffset,
                             if (agap > 0 && &v->getLane()->getEdge() != &ego->getLane()->getEdge()) {
                                 // Only if ego overlaps we treat v as if it were a real follower
                                 // Otherwise we ignore it and look for another follower
-                                v = firstFront[i];
-                                if (v != nullptr && v != ego) {
-                                    agap = (*it).length - v->getPositionOnLane() + backOffset - v->getVehicleType().getMinGap();
-                                } else {
-                                    v = nullptr;
+                                if (!getOppositeLeaders) {
+                                    // even if the vehicle is not a real
+                                    // follower, it still forms a real
+                                    // obstruction in opposite direction driving
+                                    v = firstFront[i];
+                                    if (v != nullptr && v != ego) {
+                                        agap = (*it).length - v->getPositionOnLane() + backOffset - v->getVehicleType().getMinGap();
+                                    } else {
+                                        v = nullptr;
+                                    }
                                 }
                             }
                         } else {
