@@ -2,4 +2,6 @@
 -a input_additional.add.xml
 --step-length 0.2
 --fcd-output fcd.xml
--e 40
+--fcd-output.attributes posLat,lane
+--device.fcd.period 1
+-e 100
