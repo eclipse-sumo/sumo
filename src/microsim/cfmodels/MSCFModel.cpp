@@ -217,10 +217,11 @@ MSCFModel::finalizeSpeed(MSVehicle* const veh, double vPos) const {
                   << "veh '" << veh->getID() << "' oldV=" << oldV
                   << " vPos" << vPos
                   << " vMin=" << vMin
+                  << " aMax=" << aMax
                   << " vMax=" << vMax
                   << " vStop=" << vStop
                   << " vDawdle=" << vDawdle
-                  << " vPatchLC=" << vSPatchLC
+                  << " vPatchLC=" << vPatchLC
                   << " vNext=" << vNext
                   << "\n";
     }
