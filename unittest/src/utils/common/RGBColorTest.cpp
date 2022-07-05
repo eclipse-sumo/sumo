@@ -48,6 +48,12 @@ TEST(RGBColor, test_parseColor) {
     EXPECT_EQ(0, color.red());
     EXPECT_EQ(1, color.green());
     EXPECT_EQ(255, color.blue());
+
+    RGBColor color2 = RGBColor::parseColor("RED");
+    EXPECT_EQ(255, color2.red());
+    EXPECT_EQ(0, color2.green());
+    EXPECT_EQ(0, color2.blue());
+
 }
 
 /* Test the method 'parseColor' with thrown EmptyData Exception*/
