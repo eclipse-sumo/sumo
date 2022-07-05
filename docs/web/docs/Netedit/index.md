@@ -251,7 +251,6 @@ Netedit is used to create and edit a variety of different objects. Each object m
 - [Shape Elements](elementsShape.md)
 - [TAZ elements](elementsTAZ.md)
 - [Demand elements](elementsDemand.md)
-- [Data elements](elementsData.md)
 
 # [Popup-Menu functions](neteditPopupFunctions.md)
 
