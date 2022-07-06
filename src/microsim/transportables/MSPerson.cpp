@@ -307,10 +307,7 @@ MSPerson::MSPersonStage_Walking::moveToNextEdge(MSTransportable* person, SUMOTim
                                    ? getArrivalPos() + tl
                                    : getArrivalPos() - tl)
                                 : person->getPositionOnLane());
-        for (MSMoveReminder* rem : myMoveReminders) {
-            rem->updateDetector(*person, 0.0, lane->getLength(), myLastEdgeEntryTime, currentTime, currentTime, true);
-            rem->notifyLeave(*person, lastPos, arrived ? MSMoveReminder::NOTIFICATION_ARRIVED : MSMoveReminder::NOTIFICATION_JUNCTION);
-        }
+        activateLeaveReminders(person, lane, lastPos, currentTime, arrived);
     }
     if (myExitTimes != nullptr && nextInternal == nullptr) {
         myExitTimes->push_back(currentTime);
@@ -340,6 +337,16 @@ MSPerson::MSPersonStage_Walking::moveToNextEdge(MSTransportable* person, SUMOTim
         myCurrentInternalEdge = nextInternal;
         ((MSEdge*) getEdge())->addTransportable(person);
         return false;
+    }
+}
+
+
+void
+MSPerson::MSPersonStage_Walking::activateLeaveReminders(MSTransportable* person, const MSLane* lane, double lastPos, SUMOTime t, bool arrived) {
+    MSMoveReminder::Notification notification = arrived ? MSMoveReminder::NOTIFICATION_ARRIVED : MSMoveReminder::NOTIFICATION_JUNCTION;
+    for (MSMoveReminder* rem : myMoveReminders) {
+        rem->updateDetector(*person, 0.0, lane->getLength(), myLastEdgeEntryTime, t, t, true);
+        rem->notifyLeave(*person, lastPos, notification);
     }
 }
 

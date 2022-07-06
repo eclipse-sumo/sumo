@@ -126,6 +126,8 @@ public:
 
         void activateEntryReminders(MSTransportable* person);
 
+        void activateLeaveReminders(MSTransportable* person, const MSLane* lane, double lastPos, SUMOTime t, bool arrived);
+
         /// @brief accessors to be used by MSPModel
         //@{
         double getMaxSpeed(const MSTransportable* const person) const;
