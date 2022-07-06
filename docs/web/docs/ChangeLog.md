@@ -7,19 +7,8 @@ title: ChangeLog
 ### Bugfixes
 
 - Simulation
-  - Vehicles waiting at a red light no longer change lanes in response to vehicles passing the intersection. #10665
-  - Fixed crash when loading NEMA controller with invalid phases. Issue #10704
-  - Fixed crash when loading NEMA controller embedded in .net.xml. Issue #10705
-  - Lane-specific speed limits now influence lane-changing decisions. Issue #8984
-  - Inconvenience of slower lanes is now taken into account for cooperative changing. Issue #10714  
-  - NEMA controller: fixed invalid initial state (until the first switch). Issue #10743
-  - NEMA controller: fixed crash when custom detectors are missing. Issue #10745
-  - NEMA Controller prioritizes permitted left 'y' & 'r' over linked phase 'g'. Issue #10897
-  - Fixed bug where vehicles would enter lanes that are separated from a required lane by a forbidden lane. Issue #10512
   - Fixed invalid speed when approaching stop for carFollowModel IDM. Issue #8577
-  - Fixed unsafe insertion speed when the insertion lane requires multiple lane changes close to the insertion point. Issue #10761
-  - Fixed invalid estimation of the number of required lane changes if multiple lanes are equally suitable. Issue #10769
-  - Fixed unsafe speed adaptation for lane changing. Issue #10767
+  - Fixed unsafe insertion speed when the insertion lane requires multiple lane changes close to the insertion point. Issue #10761  
   - Fixed invalid warnings about missing green phase for "off" and "stop" links. Issue #10835
   - Fixed pedestrian collision after jamming. Issue #10823
   - Fixed invalid jamming that persists after an overfilled busStop has cleared. Issue #10822
@@ -33,8 +22,25 @@ title: ChangeLog
   - Fixed ride arrival position when using option **--persontrip.transfer.taxi-walk ptStops**. Issue #10919
   - routeProbReroute is now triggered only once per edge regardless of lane-changing. Issue #10943
   - Fixed inconsistent value for previous vehicle speed after loading simulation state. Issue #10922
-  - Fixed errors when using departSpeed=avg or departSpeed=last. Issue #10868
+  - Fixed errors when using `departSpeed="avg"` or `departSpeed="last"`. Issue #10868
   - Fixed teleporting taxis when combining randomCircling with automatic rerouting. Issue #11079
+  - Attribute `startupDelay` now has higher priority than speed adaptations for lane changing. Issue #11067  
+  - Lane changing fixes
+    - Vehicles waiting at a red light no longer change lanes in response to vehicles passing the intersection. #10665
+    - Lane-specific speed limits now influence lane-changing decisions. Issue #8984
+    - Inconvenience of slower lanes is now taken into account for cooperative changing. Issue #10714
+    - Fixed invalid estimation of the number of required lane changes if multiple lanes are equally suitable. Issue #10769
+    - Fixed bug where vehicles would enter lanes that are separated from a required lane by a forbidden lane. Issue #10512
+    - Fixed unsafe speed adaptation for lane changing. Issue #10767
+    - Fixed bug where cars performed strategic changes despite setting `lcStrategic="-1"`. Issue #11109
+    - Fixed collision during opposite direction driving. Issue #11118
+    - Fixed issues with opposite-overtaking with the sublane model. Issue #10927  
+  - NEMA controller fixes
+    - Fixed crash when loading NEMA controller with invalid phases. Issue #10704
+    - Fixed crash when loading NEMA controller embedded in .net.xml. Issue #10705
+    - Fixed invalid initial state (until the first switch). Issue #10743
+    - Fixed crash when custom detectors are missing. Issue #10745
+    - NEMA Controller now prioritizes permitted left 'y' & 'r' over linked phase 'g'. Issue #10897
   
 - netedit
   - Fixed crash when loading a network (on very slow computers / builds). Issue #10750 (regression in 1.9.0)
@@ -77,6 +83,7 @@ title: ChangeLog
     - Visualisation settings now maintain their type (3D/2D). Issue #11000
     - Coloring vehicles by type attribute or randomly is now working. Issue #2120
     - Avoid duplicated background objects after loading/realoding. Issue #11047
+    - Fixed rendering of walkingareas (they are now raised above the road level). Issue #10773
    
 - netconvert
   - Fixed invalid edge reduction in edge shape detail at very dense geometry. Issue #10727 (regression in 1.12.0)
@@ -87,6 +94,7 @@ title: ChangeLog
   - Option **--geometry.remove** now works correctly when merging networks. Issue #10853
   - Fixed generation of invalid pedestrian crossings. Issue #7625, #10894
   - Fixed invalid walkingarea shapes. Issue #11087, #11090
+  - Patching the type of a loaded junction now has priority over option **--tls.guess**. Issue #11013
 
 - TraCI
   - Function `vehicle.setAcceleration` now supports negative values. Issue #10693
@@ -99,6 +107,8 @@ title: ChangeLog
   - Fixed crash when calling inductionloop.getVehicleData for detected pedestrians. Issue #11011
   - Fixed non-deterministic results for `simulation.convertRoad`. Issue #11002
   - Function 'traci.vehicle.rerouteTraveltime' now behaves the same in traci and libsumo in all cases. Previously, the argument `currentTravelTimes` was ignored by libsumoe. The behavior in traci changed slightly: instead of using the current edge speeds and updating them for all vehicles, it now uses the aggregated routing mode (which also reacts to current speeds). Issue #5943
+  - Fixed crash when calling `traci.vehicle.updateBestLanes` for vehicles not on the road network. Issue #11121
+  - Fixed invalid choice of lane after calling `traci.vehicletype.setVehicleClass`. Issue #11117
 
 - tools
   - sumolib no longer crashes in an environment where rtree and stderr are missing. Issue #10666
@@ -113,21 +123,23 @@ title: ChangeLog
 
 - Simulation
   - Added support for PHEM light V5. Issue #10237
+  - Added support for the [HBEFA4 emission model](Models/Emissions/HBEFA4-based.md) with more than 800 emission classes. Issue #7277
+  - Vehicles at longer planned stops now switch off their engine. Issue #10491, #4019
+  - Automated engine start/stop can be modelled. Issue #10441
   - Jammed detectors of actuated traffic lights can now be ignored for phase extension after a configurable time threshold. Issue #5212
   - When jam detection is activated (i.e. via option **--tls.actuated.jam-threshold**), all detectors are usable for activation and this eliminates the warnings about "no controlling detectors". Issue #9280, #10682
   - InductionLoop detectors now support optional attribute 'length'. Issue #10668
   - Actuated traffic lights now support param key 'detector-length' to set the default length of it's detectors. Issue #10668
   - Option **--fcd-output.attributes** now supports the value **posLat** to include lateral positions in fcd-output. Issue #10695
-  - Setting lcSpeedGain=0 now fully disables changing for speedGain. Issue #10709
-  - RailSignalConstraints can now be loaded in a deactivated state by setting attribute `active="false"`. They can still be retrieved via TraCI. Issue #10799
-  - Vehicles at longer planned stops now switch off their engine. Issue #10491, #4019
-  - Automated engine start/stop can be modelled. Issue #10441
+  - Setting `lcSpeedGain="0"` now fully disables changing for speedGain. Issue #10709
+  - RailSignalConstraints can now be loaded in a deactivated state by setting attribute `active="false"`. They can still be retrieved via TraCI. Issue #10799  
   - Attribute 'period' is now an alias for attribute 'freq' in all detectors and both are now optional. Issue #10390
   - Added option **--device.fcd.begin** to customize begin time of fcd-output. Issue #10996
   - Added option **--device.emissions.begin** to customize begin time of emission-output. Issue #11052
   - Vehicle stops now support attribute `onDemand="true"` which lets them skip stopping if no persons wish to embark or disembark. Issue  #11039
   - Added option **--fcd-output.filter-shapes** to restrict output to custom polygonal areas. Issue #11055
   - VType attribute 'lcOvertakeRight' is now supported by the sublane mode. Issue #11097
+  - CarFollowModel *EIDM* now supports attribute `startupDelay`. Issue #10736
   
 - netedit
   - Persons and personFlows can now be transformed into each other via context menu (similar to vehicles and flows). Issue #10607
@@ -191,6 +203,8 @@ title: ChangeLog
   - cutRoutes.py: now adapts the departSpeed to 'max' if vehicles start on a cut route. Issue #10611
   - The traffic light game can now be controlled with the keyboard. Issue #11056
   - sumolib.shapes.polygon now handles missing attributes. Issue #11092
+  - netdiff.py: now support saving and loading configuration files. Issue #10942
+  - The new function `sumolib.xml.parse_fast_structured` now provides very fast parsing for hetergeneous nested xml files (i.e. tripinfo-output for vehicles and persons). Issue #9033
 
 ### Miscellaneous
 
@@ -198,6 +212,8 @@ title: ChangeLog
 - PHEMlight5 has been added as a new emission model allowing also for modelling of aging fleets. Issue #10237
 - Outputs now use attribute `period` instead of `freq` whenever denoting a time period. Issue #10657
 - Updated default bicycle speed on highway.path and highway.cycleway. Issue #10976
+- Fuel consumption is now given in mg/s instead of ml/s to achieve consistency across liquid an gaseous fuels. For backward compatibility, the option **--emissions.volumetric-fuel** may be set. Issues #7277, #11026
+- The default parameters of the battery model have been changed to that of a KIA Soul EV. (formerly the parameters were for a large electric bus). Issue #10883
 
 ## Version 1.13.0 (03.05.2022)
 
