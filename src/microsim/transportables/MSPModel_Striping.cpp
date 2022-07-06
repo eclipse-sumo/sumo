@@ -2190,6 +2190,31 @@ MSPModel_Striping::PState::getNextEdge(const MSStageMoving&) const {
     return myNLI.lane == nullptr ? nullptr : &myNLI.lane->getEdge();
 }
 
+
+void
+MSPModel_Striping::PState::moveTo(MSPerson* p, MSLane* lane, double lanePos, double lanePosLat, SUMOTime t) {
+    Position pos = lane->geometryPositionAtOffset(lanePos, lanePosLat);
+    const double angle = GeomHelper::naviDegree(p->getPosition().angleTo2D(pos));
+    ConstMSEdgeVector newEdges; // keep route
+    int routeOffset = 0;
+    bool laneOnRoute = false;
+    const MSJunction* laneOnJunction = lane->isNormal() ? nullptr : lane->getEdge().getToJunction();
+    for (const MSEdge* edge : myStage->getRoute()) {
+        if (edge == &lane->getEdge()
+                || edge->getToJunction() == laneOnJunction
+                || edge->getFromJunction() == laneOnJunction) {
+            laneOnRoute = true;
+            break;
+        }
+        routeOffset++;
+    }
+    if (!laneOnRoute) {
+        throw ProcessError("Lane '" + lane->getID() + "' is not on the route of person '" + getID() + "'.");
+    }
+    moveToXY(p, pos, lane, lanePos, lanePosLat, angle, routeOffset, newEdges, t);
+}
+
+
 void
 MSPModel_Striping::PState::moveToXY(MSPerson* p, Position pos, MSLane* lane, double lanePos,
                                     double lanePosLat, double angle, int routeOffset,

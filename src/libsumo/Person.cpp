@@ -792,6 +792,12 @@ Person::moveTo(const std::string& personID, const std::string& laneID, double po
     if (l == nullptr) {
         throw TraCIException("Unknown lane '" + laneID + "'.");
     }
+    if (posLat == INVALID_DOUBLE_VALUE) {
+        posLat = 0;
+    } else if (fabs(posLat) >= (0.5 * (l->getWidth() + p->getVehicleType().getWidth()) + MSPModel::SIDEWALK_OFFSET)) {
+        // see MSPModel_Striping::moveToXY
+        throw TraCIException("Invalid lateral position " + toString(posLat) + " on lane '" + laneID + "'.");
+    }
     switch (p->getStageType(0)) {
        case MSStageType::WALKING: {
            MSPerson::MSPersonStage_Walking* s = dynamic_cast<MSPerson::MSPersonStage_Walking*>(p->getCurrentStage());
