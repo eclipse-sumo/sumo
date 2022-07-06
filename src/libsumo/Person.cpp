@@ -25,6 +25,7 @@
 #include <microsim/MSLane.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSStoppingPlace.h>
+#include <microsim/transportables/MSPModel.h>
 #include <microsim/transportables/MSPerson.h>
 #include <microsim/transportables/MSStageDriving.h>
 #include <microsim/transportables/MSStageWaiting.h>
@@ -785,27 +786,22 @@ Person::rerouteTraveltime(const std::string& personID) {
 
 
 void
-Person::moveTo(const std::string& personID, const std::string& edgeID, double /* position */) {
+Person::moveTo(const std::string& personID, const std::string& laneID, double pos, double posLat) {
     MSPerson* p = getPerson(personID);
-    MSEdge* e = MSEdge::dictionary(edgeID);
-    if (e == nullptr) {
-        throw TraCIException("Unknown edge '" + edgeID + "'.");
+    MSLane* l = MSLane::dictionary(laneID);
+    if (l == nullptr) {
+        throw TraCIException("Unknown lane '" + laneID + "'.");
     }
-    /*
     switch (p->getStageType(0)) {
-       case MSTransportable::MOVING_WITHOUT_VEHICLE: {
+       case MSStageType::WALKING: {
            MSPerson::MSPersonStage_Walking* s = dynamic_cast<MSPerson::MSPersonStage_Walking*>(p->getCurrentStage());
             assert(s != 0);
-            const std::string error = s->moveTo(p, Simulation::getCurrentTime());
-            if (error != "") {
-                throw TraCIException("Command moveTo failed for person '" + personID + "' (" + error + ").");
-            }
+            s->getState()->moveTo(p, l, pos, posLat, SIMSTEP);
             break;
         }
         default:
-        */
-    throw TraCIException("Command moveTo is not supported for person '" + personID + "' while " + p->getCurrentStageDescription() + ".");
-    //}
+            throw TraCIException("Command moveTo is not supported for person '" + personID + "' while " + p->getCurrentStageDescription() + ".");
+    }
 }
 
 
