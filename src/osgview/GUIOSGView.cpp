@@ -1052,12 +1052,12 @@ bool GUIOSGView::PickHandler::handle(const osgGA::GUIEventAdapter& ea, osgGA::GU
         myDrag = true;
     } else if (ea.getEventType() == osgGA::GUIEventAdapter::RELEASE && ea.getButton() == osgGA::GUIEventAdapter::RIGHT_MOUSE_BUTTON) {
         if (!myDrag) {
-            std::vector<GUIGlObject*> objects = myParent->getGUIGlObjectsUnderCursor();
-            if (objects.size() > 0) {
-                if (myParent->makeCurrent()) {
-                    myParent->openObjectDialog(objects[0]);
-                    myParent->makeNonCurrent();
+            if (myParent->makeCurrent()) {
+                std::vector<GUIGlObject*> objects = myParent->getGUIGlObjectsUnderCursor();
+                if (objects.size() > 0) {
+                    myParent->openObjectDialog(objects[0]);                   
                 }
+                myParent->makeNonCurrent();
             }
         }
         myDrag = false;
