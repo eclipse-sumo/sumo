@@ -2285,7 +2285,9 @@ MSPModel_Striping::PState::moveToXY(MSPerson* p, Position pos, MSLane* lane, dou
             // walkingarea. Use pos instead
             const Position relPos = myWalkingAreaPath->shape.transformToVectorCoordinates(pos);
             if (relPos == Position::INVALID) {
-                WRITE_WARNING("Could not map position " + toString(pos) + " onto lane '" + myLane->getID() + "'");
+                WRITE_WARNING("Could not map position " + toString(pos) + " onto lane '" + myLane->getID()
+                        + "' (fromLane='" + myWalkingAreaPath->from->getID()
+                        + "' toLane='" + myWalkingAreaPath->to->getID() + "') for person '" + getID() + "' time=" + time2string(t) + ".");
                 myRemoteXYPos = pos;
             } else {
                 myRelX = relPos.x();
