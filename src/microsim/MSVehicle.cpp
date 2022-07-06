@@ -3143,7 +3143,7 @@ MSVehicle::checkLinkLeader(const MSLink* link, const MSLane* lane, double seen,
             } else {
 #ifdef DEBUG_PLAN_MOVE
                 if (DEBUG_COND) {
-                    std::cout << SIMTIME << " veh=" << getID() << " linkLeader=" << leader->getID()
+                    std::cout << SIMTIME << " veh=" << getID() << " linkLeader=" << leader->getID() << " gap=" << it->vehAndGap.second
                               << " ET=" << myJunctionEntryTime << " lET=" << leader->myJunctionEntryTime
                               << " ETN=" << myJunctionEntryTimeNeverYield << " lETN=" << leader->myJunctionEntryTimeNeverYield
                               << " CET=" << myJunctionConflictEntryTime << " lCET=" << leader->myJunctionConflictEntryTime
