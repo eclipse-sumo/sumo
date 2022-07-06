@@ -1,5 +1,6 @@
 # moveToXY for persons
 moveToXY
+moveTo
 
 # Tests the person API
 person

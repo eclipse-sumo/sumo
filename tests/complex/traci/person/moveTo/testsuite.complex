@@ -1,0 +1,2 @@
+# call moveToXY directly after person.add
+after_creation
