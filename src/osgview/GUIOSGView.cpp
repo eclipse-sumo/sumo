@@ -1049,7 +1049,7 @@ void GUIOSGView::FXOSGAdapter::swapBuffersImplementation() {
 }
 
 
-bool GUIOSGView::PickHandler::handle(const osgGA::GUIEventAdapter& ea, osgGA::GUIActionAdapter& aa) {
+bool GUIOSGView::PickHandler::handle(const osgGA::GUIEventAdapter& ea, osgGA::GUIActionAdapter& /* aa */) {
     if (ea.getEventType() == osgGA::GUIEventAdapter::DRAG) {
         myDrag = true;
     }

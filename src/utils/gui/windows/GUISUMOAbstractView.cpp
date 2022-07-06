@@ -272,7 +272,7 @@ GUISUMOAbstractView::is3DView() const {
 }
 
 
-void GUISUMOAbstractView::zoom2Pos(Position& camera, Position& lookAt, double zoom) {
+void GUISUMOAbstractView::zoom2Pos(Position& /* camera */, Position& /* lookAt */, double /* zoom */) {
 }
 
 

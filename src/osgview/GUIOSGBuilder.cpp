@@ -350,7 +350,6 @@ GUIOSGBuilder::buildTrafficLightDetails(MSTLLogicControl::TLSLogicVariants& vars
         double refPos = poleOffset;
         for (MSLane* lane : appLanes) {
             // skip bike lanes for the moment
-            bool isBikePath = isBikepath(lane->getPermissions());
             if (!isBikepath(lane->getPermissions())) {
                 // get tlLinkIndices
                 const std::vector<MSLink*>& links = lane->getLinkCont();
