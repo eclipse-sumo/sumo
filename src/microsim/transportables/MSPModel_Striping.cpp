@@ -2215,6 +2215,14 @@ MSPModel_Striping::PState::moveTo(MSPerson* p, MSLane* lane, double lanePos, dou
         const MSEdge* prevEdge = myStage->getRoute()[routeOffset];
         const MSEdge* nextEdge = routeOffset + 1 < (int)myStage->getRoute().size() ? myStage->getRoute()[routeOffset + 1] : nullptr;
         const WalkingAreaPath* guessed = guessPath(&lane->getEdge(), prevEdge, nextEdge);
+        const double maxPos = guessed->shape.length() - NUMERICAL_EPS;
+        if (lanePos > maxPos + POSITION_EPS || lanePos < -POSITION_EPS) {
+            throw ProcessError("Lane position " + toString(lanePos) + " cannot be mapped onto walkingarea '" + lane->getID()
+                        + "' (fromLane='" + guessed->from->getID()
+                        + "' toLane='" + guessed->to->getID() + "') for person '" + getID() + "' time=" + time2string(t) + ".");
+        }
+        // give some slack
+        lanePos = MIN2(maxPos, MAX2(NUMERICAL_EPS, lanePos));
         pos = guessed->shape.positionAtOffset(lanePos, lanePosLat);
     }
     const double angle = GeomHelper::naviDegree(p->getPosition().angleTo2D(pos));
