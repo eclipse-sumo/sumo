@@ -36,6 +36,6 @@ p = "0"
 traci.person.removeStage(p, 0)
 while traci.simulation.getMinExpectedNumber() > 0:
     traci.simulationStep()
-print("simulation ends at time=%s", traci.simulation.getTime())
+print("simulation ends at time=%s" % traci.simulation.getTime())
 
 traci.close()
