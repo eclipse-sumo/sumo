@@ -1,0 +1,3 @@
+Warning: Network contains internal links which are ignored. Vehicles will 'jump' across junctions and thus underestimate route lengths and travel times.
+Warning: setStop not yet implemented for meso
+Warning: setStop not yet implemented for meso
