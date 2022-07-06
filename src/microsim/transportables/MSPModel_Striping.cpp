@@ -2193,8 +2193,6 @@ MSPModel_Striping::PState::getNextEdge(const MSStageMoving&) const {
 
 void
 MSPModel_Striping::PState::moveTo(MSPerson* p, MSLane* lane, double lanePos, double lanePosLat, SUMOTime t) {
-    Position pos = lane->geometryPositionAtOffset(lanePos, lanePosLat);
-    const double angle = GeomHelper::naviDegree(p->getPosition().angleTo2D(pos));
     ConstMSEdgeVector newEdges; // keep route
     int routeOffset = 0;
     bool laneOnRoute = false;
@@ -2211,6 +2209,15 @@ MSPModel_Striping::PState::moveTo(MSPerson* p, MSLane* lane, double lanePos, dou
     if (!laneOnRoute) {
         throw ProcessError("Lane '" + lane->getID() + "' is not on the route of person '" + getID() + "'.");
     }
+    Position pos = lane->geometryPositionAtOffset(lanePos, lanePosLat);
+    if (lane->getEdge().isWalkingArea() && (myWalkingAreaPath == nullptr || myWalkingAreaPath->lane != lane)) {
+        // entered new walkingarea. Determine path to guess position
+        const MSEdge* prevEdge = myStage->getRoute()[routeOffset];
+        const MSEdge* nextEdge = routeOffset + 1 < (int)myStage->getRoute().size() ? myStage->getRoute()[routeOffset + 1] : nullptr;
+        const WalkingAreaPath* guessed = guessPath(&lane->getEdge(), prevEdge, nextEdge);
+        pos = guessed->shape.positionAtOffset(lanePos, lanePosLat);
+    }
+    const double angle = GeomHelper::naviDegree(p->getPosition().angleTo2D(pos));
     moveToXY(p, pos, lane, lanePos, lanePosLat, angle, routeOffset, newEdges, t);
 }
 
