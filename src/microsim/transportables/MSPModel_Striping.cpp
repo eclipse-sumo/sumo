@@ -2332,6 +2332,7 @@ MSPModel_Striping::PState::moveToXY(MSPerson* p, Position pos, MSLane* lane, dou
             // assume that we will eventually move back onto the sidewalk if
             // there is one
             myNLI = getNextLane(*this, sidewalk == nullptr ? myLane : sidewalk, nullptr);
+            myStage->activateEntryReminders(myPerson);
 #ifdef DEBUG_MOVETOXY
             std::cout << " myNLI=" << Named::getIDSecure(myNLI.lane) << " link=" << (myNLI.link == nullptr ? "NULL" : myNLI.link->getDescription()) << " dir=" << myNLI.dir << "\n";
 #endif
