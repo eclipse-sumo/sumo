@@ -5,8 +5,8 @@ set(netedit_dialogs_SRCS
    GNEVariableSpeedSignDialog.cpp
    GNEAbout.h
    GNEAbout.cpp
-   GNEAllowDisallow.h
-   GNEAllowDisallow.cpp
+   GNEAllowVClasses.h
+   GNEAllowVClasses.cpp
    GNESingleParametersDialog.h
    GNESingleParametersDialog.cpp
    GNEMultipleParametersDialog.h
