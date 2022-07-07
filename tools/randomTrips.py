@@ -27,7 +27,6 @@ import bisect
 import subprocess
 from collections import defaultdict
 import math
-import datetime
 
 if 'SUMO_HOME' in os.environ:
     sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
@@ -748,7 +747,7 @@ def main(options):
 
         with open(options.tripfile, 'r') as fouttrips:
             contents = fouttrips.readlines()
-        config = '\n<!-- generated on %s by %s %s\n%s-->' % (datetime.datetime.now(), os.path.basename(sys.argv[0]), sumolib.version.gitDescribe(), options.config_as_string)
+        config = sumolib.xml.buildHeader(options=options, xmlDeclaration=False)
         contents.insert(1, config)
         with open(options.tripfile, "w") as fouttrips:
             contents = "".join(contents)
