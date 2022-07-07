@@ -27,7 +27,6 @@ import bisect
 import subprocess
 from collections import defaultdict
 import math
-import fileinput
 
 if 'SUMO_HOME' in os.environ:
     sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
@@ -488,15 +487,6 @@ def samplePosition(edge):
     return random.uniform(0.0, edge.getLength())
 
 
-def addRandomTripsHeader(filename, options):
-    randomTripsConfig = sumolib.xml.buildHeader(options=options)
-    with fileinput.FileInput(filename, inplace=1) as routefile:
-        for line in routefile:
-            if '-->' in line:
-                line = line.replace(line, line + '\n' + randomTripsConfig)
-            print(line, end='')
-
-
 def main(options):
     if not options.random:
         random.seed(options.seed)
@@ -741,7 +731,7 @@ def main(options):
         sys.stdout.flush()
         subprocess.call(args2)
         sys.stdout.flush()
-        addRandomTripsHeader(options.routefile, options)
+        sumolib.xml.insertOptionsHeader(options.routefile, options)
 
     if options.validate:
         # write to temporary file because the input is read incrementally
@@ -755,7 +745,7 @@ def main(options):
         sys.stdout.flush()
         os.remove(options.tripfile)  # on windows, rename does not overwrite
         os.rename(tmpTrips, options.tripfile)
-        addRandomTripsHeader(options.tripfile, options)
+        sumolib.xml.insertOptionsHeader(options.tripfile, options)
 
     if options.weights_outprefix:
         idPrefix = ""
