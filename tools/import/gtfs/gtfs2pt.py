@@ -128,7 +128,8 @@ def splitNet(options):
     if os.path.exists(numIdNet) and os.path.getmtime(numIdNet) > os.path.getmtime(options.network):
         print("Reusing old", numIdNet)
     else:
-        subprocess.call(netcCall + ["-s", options.network, "-o", numIdNet, "--discard-params", "origId,origFrom,origTo"])
+        subprocess.call(netcCall + ["-s", options.network, "-o", numIdNet,
+                                    "--discard-params", "origId,origFrom,origTo"])
     edgeMap = {}
     seenTypes = set()
     for e in sumolib.net.readNet(numIdNet).getEdges():
@@ -153,7 +154,8 @@ def splitNet(options):
                         edgeTypes.append("highway." + hwType)
             edgeType = ",".join(filter(lambda t: t in seenTypes, edgeTypes))
             if edgeType:
-                if os.path.exists(netPrefix + ".net.xml") and os.path.getmtime(netPrefix + ".net.xml") > os.path.getmtime(numIdNet):
+                if (os.path.exists(netPrefix + ".net.xml") and
+                        os.path.getmtime(netPrefix + ".net.xml") > os.path.getmtime(numIdNet)):
                     print("Reusing old", netPrefix + ".net.xml")
                 else:
                     subprocess.call(netcCall + ["-s", numIdNet, "-o", netPrefix + ".net.xml",

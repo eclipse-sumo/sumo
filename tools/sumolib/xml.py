@@ -472,8 +472,7 @@ def parse_fast_structured(xmlfile, element_name, attrnames, nested,
 def buildHeader(script=None, root=None, schemaPath=None, rootAttrs="", options=None, includeXMLDeclaration=False):
     """
     Builds an XML header with schema information and a comment on how the file has been generated
-    (script name, arguments and datetime). Please use this as first call whenever you open a
-    SUMO related XML file for writing from your script.
+    (script name, arguments and datetime).
     If script name is not given, it is determined from the command line call.
     If root is not given, no root element is printed (and thus no schema).
     If schemaPath is not given, it is derived from the root element.
@@ -482,18 +481,16 @@ def buildHeader(script=None, root=None, schemaPath=None, rootAttrs="", options=N
     """
     if script is None or script == "$Id$":
         script = os.path.basename(sys.argv[0])
-        
     if options is None:
-        options = "  options: %s\n" % (' '.join(sys.argv[1:]).replace('--', '<doubleminus>'))
+        optionString = "  options: %s\n" % (' '.join(sys.argv[1:]).replace('--', '<doubleminus>'))
     else:
-        options = options.config_as_string
-
+        optionString = options.config_as_string
     if includeXMLDeclaration:
         header = '<?xml version="1.0" encoding="UTF-8"?>\n\n'
     else:
         header = ''
-    header += '<!-- generated on %s by %s %s\n%s-->\n\n' % (datetime.datetime.now(), script, version.gitDescribe(), options)
-    
+    header += '<!-- generated on %s by %s %s\n%s-->\n\n' % (datetime.datetime.now(), script,
+                                                            version.gitDescribe(), optionString)
     if root is not None:
         if rootAttrs is None:
             header += '<%s>\n' % root
@@ -501,8 +498,7 @@ def buildHeader(script=None, root=None, schemaPath=None, rootAttrs="", options=N
             if schemaPath is None:
                 schemaPath = root + "_file.xsd"
             header += ('<%s%s xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ' +
-                        'xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/%s">\n') % (root, rootAttrs, schemaPath)
-            
+                       'xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/%s">\n') % (root, rootAttrs, schemaPath)
     return header
 
 
@@ -521,11 +517,14 @@ def writeHeader(outf, script=None, root=None, schemaPath=None, rootAttrs="", opt
 
 
 def insertOptionsHeader(filename, options):
+    """
+    Inserts a comment header with the options used to call the script into an existing file.
+    """
     header = buildHeader(options=options)
     with fileinput.FileInput(filename, inplace=True) as fileToPatch:
         for lineNbr, line in enumerate(fileToPatch):
             if lineNbr == 2:
-                line = line.replace(line, header + line)
+                print(header, end='')
             print(line, end='')
 
 
