@@ -468,7 +468,7 @@ def parse_fast_structured(xmlfile, element_name, attrnames, nested,
                         record = Record(*args)
 
 
-def buildHeader(script=None, root=None, schemaPath=None, rootAttrs="", options=None, xmlDeclaration=False):
+def buildHeader(script=None, root=None, schemaPath=None, rootAttrs="", options=None, includeXMLDeclaration=False, includeFinalNewLine=False):
     """
     Builds an XML header with schema information and a comment on how the file has been generated
     (script name, arguments and datetime). Please use this as first call whenever you open a
@@ -481,17 +481,20 @@ def buildHeader(script=None, root=None, schemaPath=None, rootAttrs="", options=N
     """
     if script is None or script == "$Id$":
         script = os.path.basename(sys.argv[0])
+        
     if options is None:
-        optionString = "  options: %s" % (' '.join(sys.argv[1:]).replace('--', '<doubleminus>'))
+        options = "  options: %s" % (' '.join(sys.argv[1:]).replace('--', '<doubleminus>'))
     else:
-        optionString = options.config_as_string
+        options = options.config_as_string
 
-    if xmlDeclaration:
-        header = '<?xml version="1.0" encoding="UTF-8"?>\n'
+    if includeXMLDeclaration:
+        header = '<?xml version="1.0" encoding="UTF-8"?>\n\n'
     else:
         header = ''
-    header += '<!-- generated on %s by %s %s\n%s\n-->\n' % (datetime.datetime.now(), script, version.gitDescribe(), optionString)
-        
+    header += '<!-- generated on %s by %s %s\n%s-->\n' % (datetime.datetime.now(), script, version.gitDescribe(), options)
+    if includeFinalNewLine:
+        header += '\n'
+    
     if root is not None:
         if rootAttrs is None:
             header += '<%s>\n' % root
@@ -502,6 +505,7 @@ def buildHeader(script=None, root=None, schemaPath=None, rootAttrs="", options=N
                         'xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/%s">\n') % (root, rootAttrs, schemaPath)
             
     return header
+
 
 def writeHeader(outf, script=None, root=None, schemaPath=None, rootAttrs="", options=None):
     """
@@ -514,7 +518,7 @@ def writeHeader(outf, script=None, root=None, schemaPath=None, rootAttrs="", opt
     If rootAttrs is given as a string, it can be used to add further attributes to the root element.
     If rootAttrs is set to None, the schema related attributes are not printed.
     """
-    outf.write(buildHeader(script, root, schemaPath, rootAttrs, options, True))
+    outf.write(buildHeader(script, root, schemaPath, rootAttrs, options, True, True))
 
 
 def quoteattr(val):
