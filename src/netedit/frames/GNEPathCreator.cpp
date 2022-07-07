@@ -413,8 +413,7 @@ GNEPathCreator::addJunction(GNEJunction* junction, const bool /* shiftKeyPressed
 bool
 GNEPathCreator::addEdge(GNEEdge* edge, const bool shiftKeyPressed, const bool controlKeyPressed) {
     // check if edges are allowed
-    if (((myCreationMode & CONSECUTIVE_EDGES) + (myCreationMode & NONCONSECUTIVE_EDGES) +
-            (myCreationMode & START_EDGE) + (myCreationMode & END_EDGE)) == 0) {
+    if (((myCreationMode & START_EDGE) == 0) && ((myCreationMode & END_EDGE) == 0)) {
         return false;
     }
     // check if only an edge is allowed
@@ -519,7 +518,7 @@ GNEPathCreator::addStoppingPlace(GNEAdditional* stoppingPlace, const bool /*shif
         return false;
     }
     // avoid select first an stopping place
-    if (((myCreationMode & START_EDGE) == 0) && mySelectedEdges.empty()) {
+    if (((myCreationMode & START_EDGE) != 0) && mySelectedEdges.empty()) {
         WRITE_WARNING("first select an edge");
         return false;
     }
