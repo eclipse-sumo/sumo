@@ -9,7 +9,6 @@ Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Setting new attribute
-Debug: Setting new attribute
 Debug: Adding junction 'J2' into net
 Debug: Adding junction 'J3' into net
 Debug: Adding edge 'E1' from net
@@ -30,10 +29,8 @@ Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Setting new attribute
-Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Restoring previous attribute
 Debug: Restoring previous attribute
 Debug: Restoring previous attribute
 Debug: Restoring previous attribute
@@ -64,7 +61,6 @@ Debug: Restoring previous attribute
 Debug: Restoring previous attribute
 Debug: Restoring previous attribute
 Debug: Restoring previous attribute
-Debug: Restoring previous attribute
 Debug: invalidating (removing) connections of edge 'E0' due it were guessed
 Debug: Restoring previous attribute
 Debug: Removing edge 'E0' from net
@@ -78,7 +74,6 @@ Debug: Adding edge 'E0' from net
 Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge 'E0' due it were guessed
-Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Setting new attribute
@@ -103,7 +98,6 @@ Debug: Adding edge 'E2' from net
 Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge 'E2' due it were guessed
-Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Setting new attribute

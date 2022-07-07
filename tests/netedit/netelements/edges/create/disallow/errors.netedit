@@ -9,14 +9,12 @@ Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Setting new attribute
-Debug: Setting new attribute
 Debug: Adding junction 'J2' into net
 Debug: Adding junction 'J3' into net
 Debug: Adding edge 'E1' from net
 Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge 'E1' due it were guessed
-Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Setting new attribute
@@ -33,10 +31,8 @@ Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Setting new attribute
-Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Restoring previous attribute
 Debug: Restoring previous attribute
 Debug: Restoring previous attribute
 Debug: Restoring previous attribute
@@ -56,7 +52,6 @@ Debug: Restoring previous attribute
 Debug: Restoring previous attribute
 Debug: Restoring previous attribute
 Debug: Restoring previous attribute
-Debug: Restoring previous attribute
 Debug: invalidating (removing) connections of edge 'E1' due it were guessed
 Debug: Restoring previous attribute
 Debug: Removing edge 'E1' from net
@@ -64,7 +59,6 @@ Debug: Removing junction 'J3' from net
 Debug: Removing junction 'J2' from net
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Restoring previous attribute
 Debug: Restoring previous attribute
 Debug: Restoring previous attribute
 Debug: Restoring previous attribute
@@ -89,7 +83,6 @@ Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Setting new attribute
-Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding junction 'J2' into net
@@ -103,7 +96,6 @@ Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Setting new attribute
-Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding junction 'J4' into net
@@ -112,7 +104,6 @@ Debug: Adding edge 'E2' from net
 Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge 'E2' due it were guessed
-Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Setting new attribute
