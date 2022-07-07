@@ -2,15 +2,19 @@ Debug: Selected item 'e2Detector' in GNETagSelector
 Debug: Adding e2Detector 'e2_0' in GNEChange_Additional
 Debug: Value 'dummyFrequency' for attribute period of e2Detector isn't valid
 Debug: Value '-100' for attribute period of e2Detector isn't valid
-Debug: Value '-100' for attribute period of e2Detector isn't valid
+Debug: Setting new attribute
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing e2Detector 'e2_0' in GNEChange_Additional
-Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding e2Detector 'e2_0' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
+Debug: Setting new attribute
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE2_1togneE3_1' in retrieveGNEConnection()

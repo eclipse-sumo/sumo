@@ -1,13 +1,12 @@
 -tp appdata=netedit.gui
-additionalelements/e2detector/inspect/period
+
 additionalelements/e2multilanedetector/volatilerecomputing
 
 
-dataelements/edgereldata/load/parameters
-demandelements/container/create/default_stop/default_stop_containerstop
-demandelements/containerflow/create/default_stop/default_stop_containerstop
+
 demandelements/flow/volatilerecomputing
 demandelements/flow_embedded/volatilerecomputing
+
 demandelements/flow_junctions/create/color
 demandelements/flow_junctions/create/probability
 demandelements/flow_junctions/delete
@@ -17,8 +16,8 @@ demandelements/flow_junctions/inspect_selection/line
 demandelements/flow_junctions/inspect_selection/parameters
 demandelements/flow_junctions/inspect_selection/personnumber
 demandelements/flow_junctions/volatilerecomputing
-demandelements/person/create/default_stop/default_stop_busstop
-demandelements/personflow/create/default_stop/default_stop_busstop
+
+
 demandelements/route/volatilerecomputing
 demandelements/routeflow/volatilerecomputing
 demandelements/stop/chargingstation/volatilerecomputing
@@ -32,8 +31,6 @@ demandelements/vehicle_embedded/volatilerecomputing
 demandelements/waypoint/chargingstation/volatilerecomputing
 demandelements/waypoint/containerstop/volatilerecomputing
 demandelements/waypoint/parkingarea/volatilerecomputing
-netelements/crossings/load_big
-netelements/edges/inspect/distance
 netelements/junctions/inspect/shape
 netelements/junctions/inspect_tls/pos
 netelements/junctions/inspect_tls_selected/fringe
