@@ -21,7 +21,7 @@
 
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
-#include <netedit/dialogs/GNEAllowVClasses.h>
+#include <netedit/dialogs/GNEAllowVClassesDialog.h>
 #include <netedit/dialogs/GNESingleParametersDialog.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/windows/GUIAppEnum.h>
@@ -426,7 +426,7 @@ GNEAttributesCreatorRow::onCmdOpenAttributeDialog(FXObject*, FXSelector, void*) 
         // get accept changes
         bool acceptChanges = false;
         // opena allowDisallow dialog
-        GNEAllowVClasses(myAttributesCreatorParent->getFrameParent()->getViewNet(), &allow, &acceptChanges).execute();
+        GNEAllowVClassesDialog(myAttributesCreatorParent->getFrameParent()->getViewNet(), &allow, &acceptChanges).execute();
         // continue depending of acceptChanges
         if (acceptChanges) {
             /// @brief Constructor (For string

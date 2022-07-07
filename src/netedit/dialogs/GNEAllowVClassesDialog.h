@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEAllowVClasses.h
+/// @file    GNEAllowVClassesDialog.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Feb 2017
 ///
@@ -34,22 +34,22 @@ class GNEViewNet;
 // ===========================================================================
 
 /**
- * @class GNEAllowVClasses
+ * @class GNEAllowVClassesDialog
  * @brief Dialog for edit rerouters
  */
-class GNEAllowVClasses : public FXDialogBox {
+class GNEAllowVClassesDialog : public FXDialogBox {
     /// @brief FOX-declaration
-    FXDECLARE(GNEAllowVClasses)
+    FXDECLARE(GNEAllowVClassesDialog)
 
 public:
     /// @brief Constructor (for AC)
-    GNEAllowVClasses(GNEViewNet* viewNet, GNEAttributeCarrier* AC, SumoXMLAttr attr, bool* acceptChanges);
+    GNEAllowVClassesDialog(GNEViewNet* viewNet, GNEAttributeCarrier* AC, SumoXMLAttr attr, bool* acceptChanges);
 
     /// @brief Constructor (For
-    GNEAllowVClasses(GNEViewNet* viewNet, std::string* allow, bool* acceptChanges);
+    GNEAllowVClassesDialog(GNEViewNet* viewNet, std::string* allow, bool* acceptChanges);
 
     /// @brief destructor
-    ~GNEAllowVClasses();
+    ~GNEAllowVClassesDialog();
 
     /// @name FOX-callbacks
     /// @{
@@ -80,7 +80,7 @@ public:
 
 protected:
     /// @brief FOX need this
-    FOX_CONSTRUCTOR(GNEAllowVClasses)
+    FOX_CONSTRUCTOR(GNEAllowVClassesDialog)
 
     /// @pointer to viewNet
     GNEViewNet* myViewNet;
@@ -117,9 +117,9 @@ private:
     void buildVClass(FXVerticalFrame* contentsFrame, SUMOVehicleClass vclass, GUIIcon vclassIcon, const std::string& description);
 
     /// @brief Invalidated copy constructor.
-    GNEAllowVClasses(const GNEAllowVClasses&) = delete;
+    GNEAllowVClassesDialog(const GNEAllowVClassesDialog&) = delete;
 
     /// @brief Invalidated assignment operator.
-    GNEAllowVClasses& operator=(const GNEAllowVClasses&) = delete;
+    GNEAllowVClassesDialog& operator=(const GNEAllowVClassesDialog&) = delete;
 };
 
