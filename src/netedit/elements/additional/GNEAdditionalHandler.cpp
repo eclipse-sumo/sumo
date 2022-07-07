@@ -384,7 +384,7 @@ GNEAdditionalHandler::buildParkingSpace(const CommonXMLStructure::SumoBaseObject
 
 void
 GNEAdditionalHandler::buildE1Detector(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& laneID,
-                                      const double position, const SUMOTime frequency, const std::string& file, const std::vector<std::string>& vehicleTypes, const std::string& name,
+                                      const double position, const SUMOTime period, const std::string& file, const std::vector<std::string>& vehicleTypes, const std::string& name,
                                       const bool friendlyPos, const Parameterised::Map& parameters) {
     // check conditions
     if (!SUMOXMLDefinitions::isValidDetectorID(id)) {
@@ -399,7 +399,7 @@ GNEAdditionalHandler::buildE1Detector(const CommonXMLStructure::SumoBaseObject* 
             writeErrorInvalidParent(SUMO_TAG_E1DETECTOR, SUMO_TAG_LANE);
         } else if (!checkLanePosition(position, 0, lane->getParentEdge()->getNBEdge()->getFinalLength(), friendlyPos)) {
             writeErrorInvalidPosition(SUMO_TAG_E1DETECTOR, id);
-        } else if (frequency < 0) {
+        } else if (period < 0) {
             writeErrorInvalidNegativeValue(SUMO_TAG_E1DETECTOR, id, SUMO_ATTR_PERIOD);
         } else if (!SUMOXMLDefinitions::isValidFilename(file)) {
             writeErrorInvalidFilename(SUMO_TAG_E1DETECTOR, id);
@@ -407,7 +407,7 @@ GNEAdditionalHandler::buildE1Detector(const CommonXMLStructure::SumoBaseObject* 
             writeErrorInvalidVTypes(SUMO_TAG_E1DETECTOR, id);
         } else {
             // build E1
-            GNEAdditional* detectorE1 = new GNEDetectorE1(id, lane, myNet, position, frequency, file, vehicleTypes, name, friendlyPos, parameters);
+            GNEAdditional* detectorE1 = new GNEDetectorE1(id, lane, myNet, position, period, file, vehicleTypes, name, friendlyPos, parameters);
             // insert depending of allowUndoRedo
             if (myAllowUndoRedo) {
                 myNet->getViewNet()->getUndoList()->begin(GUIIcon::E1, "add " + toString(SUMO_TAG_E1DETECTOR) + " '" + id + "'");
@@ -427,7 +427,7 @@ GNEAdditionalHandler::buildE1Detector(const CommonXMLStructure::SumoBaseObject* 
 
 void
 GNEAdditionalHandler::buildSingleLaneDetectorE2(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& laneID,
-        const double pos, const double length, const SUMOTime freq, const std::string& trafficLight, const std::string& filename, const std::vector<std::string>& vehicleTypes,
+        const double pos, const double length, const SUMOTime period, const std::string& trafficLight, const std::string& filename, const std::vector<std::string>& vehicleTypes,
         const std::string& name, const SUMOTime timeThreshold, const double speedThreshold, const double jamThreshold, const bool friendlyPos,
         const Parameterised::Map& parameters) {
     // check conditions
@@ -446,7 +446,7 @@ GNEAdditionalHandler::buildSingleLaneDetectorE2(const CommonXMLStructure::SumoBa
             writeErrorInvalidPosition(SUMO_TAG_E2DETECTOR, id);
         } else if (length < 0) {
             writeErrorInvalidNegativeValue(SUMO_TAG_E2DETECTOR, id, SUMO_ATTR_LENGTH);
-        } else if ((freq != -1) && (freq < 0)) {
+        } else if ((period != -1) && (period < 0)) {
             writeErrorInvalidNegativeValue(SUMO_TAG_E2DETECTOR, id, SUMO_ATTR_PERIOD);
         } else if ((trafficLight.size() > 0) && !(SUMOXMLDefinitions::isValidNetID(trafficLight))) {
             // temporal
@@ -470,7 +470,7 @@ GNEAdditionalHandler::buildSingleLaneDetectorE2(const CommonXMLStructure::SumoBa
         } else {
             // build E2 single lane
             GNEAdditional* detectorE2 = new GNEDetectorE2(
-                id, lane, myNet, pos, length, freq, trafficLight, filename,
+                id, lane, myNet, pos, length, period, trafficLight, filename,
                 vehicleTypes, name, timeThreshold, speedThreshold, jamThreshold,
                 friendlyPos, parameters);
             // insert depending of allowUndoRedo
@@ -492,7 +492,7 @@ GNEAdditionalHandler::buildSingleLaneDetectorE2(const CommonXMLStructure::SumoBa
 
 void
 GNEAdditionalHandler::buildMultiLaneDetectorE2(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::vector<std::string>& laneIDs,
-        const double pos, const double endPos, const SUMOTime freq, const std::string& trafficLight, const std::string& filename, const std::vector<std::string>& vehicleTypes,
+        const double pos, const double endPos, const SUMOTime period, const std::string& trafficLight, const std::string& filename, const std::vector<std::string>& vehicleTypes,
         const std::string& name, const SUMOTime timeThreshold, const double speedThreshold, const double jamThreshold, const bool friendlyPos,
         const Parameterised::Map& parameters) {
     // check conditions
@@ -513,7 +513,7 @@ GNEAdditionalHandler::buildMultiLaneDetectorE2(const CommonXMLStructure::SumoBas
                            pos, lanes.front()->getParentEdge()->getNBEdge()->getFinalLength(),
                            endPos, lanes.back()->getParentEdge()->getNBEdge()->getFinalLength(), friendlyPos)) {
                 writeErrorInvalidPosition(SUMO_TAG_E2DETECTOR, id);
-            } else if ((freq != -1) && (freq < 0)) {
+            } else if ((period != -1) && (period < 0)) {
                 writeErrorInvalidNegativeValue(SUMO_TAG_E2DETECTOR, id, SUMO_ATTR_PERIOD);
             } else if ((trafficLight.size() > 0) && !(SUMOXMLDefinitions::isValidNetID(trafficLight))) {
                 // temporal
@@ -531,7 +531,7 @@ GNEAdditionalHandler::buildMultiLaneDetectorE2(const CommonXMLStructure::SumoBas
             } else {
                 // build E2 multilane detector
                 GNEAdditional* detectorE2 = new GNEDetectorE2(
-                    id, lanes, myNet, pos, endPos, freq, trafficLight, filename,
+                    id, lanes, myNet, pos, endPos, period, trafficLight, filename,
                     vehicleTypes, name, timeThreshold, speedThreshold, jamThreshold,
                     friendlyPos, parameters);
                 // insert depending of allowUndoRedo
@@ -557,13 +557,13 @@ GNEAdditionalHandler::buildMultiLaneDetectorE2(const CommonXMLStructure::SumoBas
 
 
 void
-GNEAdditionalHandler::buildDetectorE3(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const Position& pos, const SUMOTime freq,
+GNEAdditionalHandler::buildDetectorE3(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const Position& pos, const SUMOTime period,
                                       const std::string& filename, const std::vector<std::string>& vehicleTypes, const std::string& name, const SUMOTime timeThreshold, const double speedThreshold,
                                       const Parameterised::Map& parameters) {
     // check conditions
     if (!SUMOXMLDefinitions::isValidDetectorID(id)) {
         writeInvalidID(SUMO_TAG_E3DETECTOR, id);
-    } else if (freq < 0) {
+    } else if (period < 0) {
         writeErrorInvalidNegativeValue(SUMO_TAG_E3DETECTOR, id, SUMO_ATTR_PERIOD);
     } else if (timeThreshold < 0) {
         writeErrorInvalidNegativeValue(SUMO_TAG_E3DETECTOR, id, SUMO_ATTR_HALTING_TIME_THRESHOLD);
@@ -577,7 +577,7 @@ GNEAdditionalHandler::buildDetectorE3(const CommonXMLStructure::SumoBaseObject* 
         // get NETEDIT parameters
         NeteditParameters neteditParameters(sumoBaseObject);
         // build E3
-        GNEAdditional* E3 = new GNEDetectorE3(id, myNet, pos, freq, filename, vehicleTypes, name, timeThreshold, speedThreshold, parameters);
+        GNEAdditional* E3 = new GNEDetectorE3(id, myNet, pos, period, filename, vehicleTypes, name, timeThreshold, speedThreshold, parameters);
         // insert depending of allowUndoRedo
         if (myAllowUndoRedo) {
             myNet->getViewNet()->getUndoList()->begin(GUIIcon::E3, "add " + toString(SUMO_TAG_E3DETECTOR) + " '" + id + "'");
@@ -701,7 +701,7 @@ GNEAdditionalHandler::buildDetectorE1Instant(const CommonXMLStructure::SumoBaseO
 
 void
 GNEAdditionalHandler::buildLaneCalibrator(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& laneID, const double pos,
-        const std::string& name, const std::string& outfile, const SUMOTime freq, const std::string& routeprobeID, const double jamThreshold, const std::vector<std::string>& vTypes,
+        const std::string& name, const std::string& outfile, const SUMOTime period, const std::string& routeprobeID, const double jamThreshold, const std::vector<std::string>& vTypes,
         const Parameterised::Map& parameters) {
     // get lane
     GNELane* lane = myNet->getAttributeCarriers()->retrieveLane(laneID, false);
@@ -723,15 +723,15 @@ GNEAdditionalHandler::buildLaneCalibrator(const CommonXMLStructure::SumoBaseObje
         // check lane
         if (!checkLanePosition(pos, 0, lane->getParentEdge()->getNBEdge()->getFinalLength(), false)) {
             writeErrorInvalidPosition(SUMO_TAG_CALIBRATOR, id);
-        } else if (freq < 0) {
+        } else if (period < 0) {
             writeErrorInvalidNegativeValue(SUMO_TAG_CALIBRATOR, id, SUMO_ATTR_PERIOD);
         } else if (jamThreshold < 0) {
             writeErrorInvalidNegativeValue(SUMO_TAG_CALIBRATOR, id, SUMO_ATTR_JAM_DIST_THRESHOLD);
         } else {
             // build Calibrator
             GNEAdditional* calibrator = (routeProbe == nullptr) ?
-                                        new GNECalibrator(id, myNet, lane, pos, freq, name, outfile, jamThreshold, vTypes, parameters) :
-                                        new GNECalibrator(id, myNet, lane, pos, freq, name, outfile, routeProbe, jamThreshold, vTypes, parameters);
+                                        new GNECalibrator(id, myNet, lane, pos, period, name, outfile, jamThreshold, vTypes, parameters) :
+                                        new GNECalibrator(id, myNet, lane, pos, period, name, outfile, routeProbe, jamThreshold, vTypes, parameters);
             // insert depending of allowUndoRedo
             if (myAllowUndoRedo) {
                 myNet->getViewNet()->getUndoList()->begin(GUIIcon::CALIBRATOR, "add " + toString(SUMO_TAG_CALIBRATOR) + " '" + id + "'");
@@ -756,7 +756,7 @@ GNEAdditionalHandler::buildLaneCalibrator(const CommonXMLStructure::SumoBaseObje
 
 void
 GNEAdditionalHandler::buildEdgeCalibrator(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& edgeID, const double pos,
-        const std::string& name, const std::string& outfile, const SUMOTime freq, const std::string& routeprobeID, const double jamThreshold, const std::vector<std::string>& vTypes,
+        const std::string& name, const std::string& outfile, const SUMOTime period, const std::string& routeprobeID, const double jamThreshold, const std::vector<std::string>& vTypes,
         const Parameterised::Map& parameters) {
     // get edge
     GNEEdge* edge = myNet->getAttributeCarriers()->retrieveEdge(edgeID, false);
@@ -777,15 +777,15 @@ GNEAdditionalHandler::buildEdgeCalibrator(const CommonXMLStructure::SumoBaseObje
         NeteditParameters neteditParameters(sumoBaseObject);
         if (!checkLanePosition(pos, 0, edge->getLanes().front()->getParentEdge()->getNBEdge()->getFinalLength(), false)) {
             writeErrorInvalidPosition(SUMO_TAG_CALIBRATOR, id);
-        } else if (freq < 0) {
+        } else if (period < 0) {
             writeErrorInvalidNegativeValue(SUMO_TAG_CALIBRATOR, id, SUMO_ATTR_PERIOD);
         } else if (jamThreshold < 0) {
             writeErrorInvalidNegativeValue(SUMO_TAG_CALIBRATOR, id, SUMO_ATTR_JAM_DIST_THRESHOLD);
         } else {
             // build Calibrator
             GNEAdditional* calibrator = (routeProbe == nullptr) ?
-                                        new GNECalibrator(id, myNet, edge, pos, freq, name, outfile, jamThreshold, vTypes, parameters) :
-                                        new GNECalibrator(id, myNet, edge, pos, freq, name, outfile, routeProbe, jamThreshold, vTypes, parameters);
+                                        new GNECalibrator(id, myNet, edge, pos, period, name, outfile, jamThreshold, vTypes, parameters) :
+                                        new GNECalibrator(id, myNet, edge, pos, period, name, outfile, routeProbe, jamThreshold, vTypes, parameters);
             // insert depending of allowUndoRedo
             if (myAllowUndoRedo) {
                 myNet->getViewNet()->getUndoList()->begin(GUIIcon::CALIBRATOR, "add " + toString(SUMO_TAG_CALIBRATOR) + " '" + id + "'");
@@ -1078,7 +1078,7 @@ GNEAdditionalHandler::buildRouteProbReroute(const CommonXMLStructure::SumoBaseOb
 
 
 void
-GNEAdditionalHandler::buildRouteProbe(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& edgeID, const SUMOTime freq,
+GNEAdditionalHandler::buildRouteProbe(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& edgeID, const SUMOTime period,
                                       const std::string& name, const std::string& file, const SUMOTime begin, const Parameterised::Map& parameters) {
     // check conditions
     if (!SUMOXMLDefinitions::isValidAdditionalID(id)) {
@@ -1091,7 +1091,7 @@ GNEAdditionalHandler::buildRouteProbe(const CommonXMLStructure::SumoBaseObject* 
         // check lane
         if (edge == nullptr) {
             writeErrorInvalidParent(SUMO_TAG_ROUTEPROBE, SUMO_TAG_EDGE);
-        } else if (freq < 0) {
+        } else if (period < 0) {
             writeErrorInvalidNegativeValue(SUMO_TAG_ROUTEPROBE, id, SUMO_ATTR_PERIOD);
         } else if (begin < 0) {
             writeErrorInvalidNegativeValue(SUMO_TAG_ROUTEPROBE, id, SUMO_ATTR_BEGIN);
@@ -1099,7 +1099,7 @@ GNEAdditionalHandler::buildRouteProbe(const CommonXMLStructure::SumoBaseObject* 
             writeErrorInvalidFilename(SUMO_TAG_ROUTEPROBE, id);
         } else {
             // build route probe
-            GNEAdditional* routeProbe = new GNERouteProbe(id, myNet, edge, freq, name, file, begin, parameters);
+            GNEAdditional* routeProbe = new GNERouteProbe(id, myNet, edge, period, name, file, begin, parameters);
             // insert depending of allowUndoRedo
             if (myAllowUndoRedo) {
                 myNet->getViewNet()->getUndoList()->begin(GUIIcon::ROUTEPROBE, "add " + toString(SUMO_TAG_ROUTEPROBE) + " '" + id + "'");
