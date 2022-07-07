@@ -11,11 +11,11 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEAllowDisallow.h
+/// @file    GNEAllowVClasses.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Feb 2017
 ///
-// Dialog for edit allow and disallow attributes
+// Dialog for edit allow VClass attribute
 /****************************************************************************/
 #pragma once
 #include <config.h>
@@ -34,22 +34,22 @@ class GNEViewNet;
 // ===========================================================================
 
 /**
- * @class GNEAllowDisallow
+ * @class GNEAllowVClasses
  * @brief Dialog for edit rerouters
  */
-class GNEAllowDisallow : public FXDialogBox {
+class GNEAllowVClasses : public FXDialogBox {
     /// @brief FOX-declaration
-    FXDECLARE(GNEAllowDisallow)
+    FXDECLARE(GNEAllowVClasses)
 
 public:
     /// @brief Constructor (for AC)
-    GNEAllowDisallow(GNEViewNet* viewNet, GNEAttributeCarrier* AC, SumoXMLAttr attr, bool* acceptChanges);
+    GNEAllowVClasses(GNEViewNet* viewNet, GNEAttributeCarrier* AC, SumoXMLAttr attr, bool* acceptChanges);
 
     /// @brief Constructor (For
-    GNEAllowDisallow(GNEViewNet* viewNet, std::string* allow, bool* acceptChanges);
+    GNEAllowVClasses(GNEViewNet* viewNet, std::string* allow, bool* acceptChanges);
 
     /// @brief destructor
-    ~GNEAllowDisallow();
+    ~GNEAllowVClasses();
 
     /// @name FOX-callbacks
     /// @{
@@ -80,7 +80,7 @@ public:
 
 protected:
     /// @brief FOX need this
-    FOX_CONSTRUCTOR(GNEAllowDisallow)
+    FOX_CONSTRUCTOR(GNEAllowVClasses)
 
     /// @pointer to viewNet
     GNEViewNet* myViewNet;
@@ -117,9 +117,9 @@ private:
     void buildVClass(FXVerticalFrame* contentsFrame, SUMOVehicleClass vclass, GUIIcon vclassIcon, const std::string& description);
 
     /// @brief Invalidated copy constructor.
-    GNEAllowDisallow(const GNEAllowDisallow&) = delete;
+    GNEAllowVClasses(const GNEAllowVClasses&) = delete;
 
     /// @brief Invalidated assignment operator.
-    GNEAllowDisallow& operator=(const GNEAllowDisallow&) = delete;
+    GNEAllowVClasses& operator=(const GNEAllowVClasses&) = delete;
 };
 

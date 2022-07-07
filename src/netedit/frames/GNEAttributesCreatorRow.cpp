@@ -426,7 +426,7 @@ GNEAttributesCreatorRow::onCmdOpenAttributeDialog(FXObject*, FXSelector, void*) 
         // get accept changes
         bool acceptChanges = false;
         // opena allowDisallow dialog
-        GNEAllowDisallow(myAttributesCreatorParent->getFrameParent()->getViewNet(), &allow, &acceptChanges).execute();
+        GNEAllowVClasses(myAttributesCreatorParent->getFrameParent()->getViewNet(), &allow, &acceptChanges).execute();
         // continue depending of acceptChanges
         if (acceptChanges) {
             /// @brief Constructor (For string

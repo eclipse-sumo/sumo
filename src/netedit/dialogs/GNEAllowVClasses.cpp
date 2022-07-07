@@ -11,11 +11,11 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEAllowDisallow.cpp
+/// @file    GNEAllowVClasses.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    April 2016
 ///
-// Dialog for edit rerouters
+// Dialog for edit allow VClass attribute
 /****************************************************************************/
 #include <config.h>
 
@@ -33,25 +33,25 @@
 // FOX callback mapping
 // ===========================================================================
 
-FXDEFMAP(GNEAllowDisallow) GNEAllowDisallowMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ALLOWDISALLOW_CHANGE,       GNEAllowDisallow::onCmdValueChanged),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ALLOWDISALLOW_SELECTALL,    GNEAllowDisallow::onCmdSelectAll),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ALLOWDISALLOW_UNSELECTALL,  GNEAllowDisallow::onCmdUnselectAll),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ALLOWDISALLOW_ONLY_ROAD,    GNEAllowDisallow::onCmdSelectOnlyRoad),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ALLOWDISALLOW_ONLY_RAIL,    GNEAllowDisallow::onCmdSelectOnlyRail),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_ACCEPT,              GNEAllowDisallow::onCmdAccept),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_CANCEL,              GNEAllowDisallow::onCmdCancel),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_RESET,               GNEAllowDisallow::onCmdReset),
+FXDEFMAP(GNEAllowVClasses) GNEAllowVClassesMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ALLOWDISALLOW_CHANGE,       GNEAllowVClasses::onCmdValueChanged),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ALLOWDISALLOW_SELECTALL,    GNEAllowVClasses::onCmdSelectAll),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ALLOWDISALLOW_UNSELECTALL,  GNEAllowVClasses::onCmdUnselectAll),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ALLOWDISALLOW_ONLY_ROAD,    GNEAllowVClasses::onCmdSelectOnlyRoad),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ALLOWDISALLOW_ONLY_RAIL,    GNEAllowVClasses::onCmdSelectOnlyRail),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_ACCEPT,              GNEAllowVClasses::onCmdAccept),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_CANCEL,              GNEAllowVClasses::onCmdCancel),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_RESET,               GNEAllowVClasses::onCmdReset),
 };
 
 // Object implementation
-FXIMPLEMENT(GNEAllowDisallow, FXDialogBox, GNEAllowDisallowMap, ARRAYNUMBER(GNEAllowDisallowMap))
+FXIMPLEMENT(GNEAllowVClasses, FXDialogBox, GNEAllowVClassesMap, ARRAYNUMBER(GNEAllowVClassesMap))
 
 // ===========================================================================
 // member method definitions
 // ===========================================================================
 
-GNEAllowDisallow::GNEAllowDisallow(GNEViewNet* viewNet, GNEAttributeCarrier* AC, SumoXMLAttr attr, bool* acceptChanges) :
+GNEAllowVClasses::GNEAllowVClasses(GNEViewNet* viewNet, GNEAttributeCarrier* AC, SumoXMLAttr attr, bool* acceptChanges) :
     FXDialogBox(viewNet->getApp(), ("Edit " + toString(attr) + " " + toString(SUMO_ATTR_VCLASS) + "es").c_str(), GUIDesignDialogBox),
     myViewNet(viewNet),
     myAC(AC),
@@ -63,7 +63,7 @@ GNEAllowDisallow::GNEAllowDisallow(GNEViewNet* viewNet, GNEAttributeCarrier* AC,
 }
 
 
-GNEAllowDisallow::GNEAllowDisallow(GNEViewNet* viewNet, std::string* allow, bool* acceptChanges) :
+GNEAllowVClasses::GNEAllowVClasses(GNEViewNet* viewNet, std::string* allow, bool* acceptChanges) :
     FXDialogBox(viewNet->getApp(), ("Edit " + toString(SUMO_ATTR_ALLOW) + " " + toString(SUMO_ATTR_VCLASS) + "es").c_str(), GUIDesignDialogBox),
     myViewNet(viewNet),
     myAC(nullptr),
@@ -75,12 +75,12 @@ GNEAllowDisallow::GNEAllowDisallow(GNEViewNet* viewNet, std::string* allow, bool
 }
 
 
-GNEAllowDisallow::~GNEAllowDisallow() {
+GNEAllowVClasses::~GNEAllowVClasses() {
 }
 
 
 long
-GNEAllowDisallow::onCmdValueChanged(FXObject* obj, FXSelector, void*) {
+GNEAllowVClasses::onCmdValueChanged(FXObject* obj, FXSelector, void*) {
     FXButton* buttonPressed = dynamic_cast<FXButton*>(obj);
     // change icon of button
     for (const auto& vClass : myVClassMap) {
@@ -98,7 +98,7 @@ GNEAllowDisallow::onCmdValueChanged(FXObject* obj, FXSelector, void*) {
 
 
 long
-GNEAllowDisallow::onCmdSelectAll(FXObject*, FXSelector, void*) {
+GNEAllowVClasses::onCmdSelectAll(FXObject*, FXSelector, void*) {
     // change all icons to accept
     for (const auto& vClass : myVClassMap) {
         vClass.second.first->setIcon(GUIIconSubSys::getIcon(GUIIcon::ACCEPT));
@@ -108,7 +108,7 @@ GNEAllowDisallow::onCmdSelectAll(FXObject*, FXSelector, void*) {
 
 
 long
-GNEAllowDisallow::onCmdUnselectAll(FXObject*, FXSelector, void*) {
+GNEAllowVClasses::onCmdUnselectAll(FXObject*, FXSelector, void*) {
     // change all icons to cancel
     for (const auto& vClass : myVClassMap) {
         vClass.second.first->setIcon(GUIIconSubSys::getIcon(GUIIcon::CANCEL));
@@ -118,7 +118,7 @@ GNEAllowDisallow::onCmdUnselectAll(FXObject*, FXSelector, void*) {
 
 
 long
-GNEAllowDisallow::onCmdSelectOnlyRoad(FXObject*, FXSelector, void*) {
+GNEAllowVClasses::onCmdSelectOnlyRoad(FXObject*, FXSelector, void*) {
     // change all non-road icons to disallow, and allow for the rest
     for (const auto& vClass : myVClassMap) {
         if ((vClass.first & (SVC_PEDESTRIAN | SVC_NON_ROAD)) == 0) {
@@ -132,7 +132,7 @@ GNEAllowDisallow::onCmdSelectOnlyRoad(FXObject*, FXSelector, void*) {
 
 
 long
-GNEAllowDisallow::onCmdSelectOnlyRail(FXObject*, FXSelector, void*) {
+GNEAllowVClasses::onCmdSelectOnlyRail(FXObject*, FXSelector, void*) {
     // change all non-road icons to disallow, and allow for the rest
     for (const auto& vClass : myVClassMap) {
         if ((vClass.first & (SVC_TRAM | SVC_RAIL_URBAN | SVC_RAIL | SVC_RAIL_ELECTRIC | SVC_RAIL_FAST)) != 0) {
@@ -146,7 +146,7 @@ GNEAllowDisallow::onCmdSelectOnlyRail(FXObject*, FXSelector, void*) {
 
 
 long
-GNEAllowDisallow::onCmdAccept(FXObject*, FXSelector, void*) {
+GNEAllowVClasses::onCmdAccept(FXObject*, FXSelector, void*) {
     // clear allow and disallow VClasses
     std::vector<std::string> allowedVehicles, disallowedVehicles;
     for (const auto& vClass : myVClassMap) {
@@ -173,7 +173,7 @@ GNEAllowDisallow::onCmdAccept(FXObject*, FXSelector, void*) {
 
 
 long
-GNEAllowDisallow::onCmdCancel(FXObject*, FXSelector, void*) {
+GNEAllowVClasses::onCmdCancel(FXObject*, FXSelector, void*) {
     // disable accept flag
     *myAcceptChanges = false;
     // Stop Modal
@@ -183,7 +183,7 @@ GNEAllowDisallow::onCmdCancel(FXObject*, FXSelector, void*) {
 
 
 long
-GNEAllowDisallow::onCmdReset(FXObject*, FXSelector, void*) {
+GNEAllowVClasses::onCmdReset(FXObject*, FXSelector, void*) {
     std::string allow;
     // set allow depending of myAC
     if (myAC) {
@@ -215,7 +215,7 @@ GNEAllowDisallow::onCmdReset(FXObject*, FXSelector, void*) {
 
 
 void
-GNEAllowDisallow::constructor() {
+GNEAllowVClasses::constructor() {
     // set vehicle icon for this dialog
     setIcon(GUIIconSubSys::getIcon(GUIIcon::GREENVEHICLE));
     // create main frame
@@ -284,7 +284,7 @@ GNEAllowDisallow::constructor() {
 
 
 void
-GNEAllowDisallow::buildVClass(FXVerticalFrame* contentsFrame, SUMOVehicleClass vclass, GUIIcon vclassIcon, const std::string& description) {
+GNEAllowVClasses::buildVClass(FXVerticalFrame* contentsFrame, SUMOVehicleClass vclass, GUIIcon vclassIcon, const std::string& description) {
     // add frame for vehicle icons
     FXHorizontalFrame* vehicleFrame = new FXHorizontalFrame(contentsFrame, GUIDesignAuxiliarHorizontalFrame);
     FXLabel* labelVehicleIcon = new FXLabel(vehicleFrame, "", GUIIconSubSys::getIcon(vclassIcon), GUIDesignLabelIcon64x32Thicked);
