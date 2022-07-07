@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2022-02-22 09:46:49.285015 by randomTrips.py v1_12_0+0750-f11252fa105
+
+<!-- generated on 2022-07-07 10:55:33.542844 by randomTrips.py v1_13_0+1343-240e5d48340
 <configuration>
     <end value="10"/>
     <fringe-factor value="1000.0"/>
@@ -7,8 +8,8 @@
     <random-routing-factor value="2.0"/>
     <route-file value="out.rou.xml"/>
 </configuration>
-
 -->
+
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <trip id="0" depart="0.00" from="beg" to="rend"/>
     <trip id="1" depart="1.00" from="beg" to="rend"/>

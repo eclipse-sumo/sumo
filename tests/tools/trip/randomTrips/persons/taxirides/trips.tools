@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2019-12-17 13:49:37.878596 by randomTrips.py v1_4_0+0146-613ed8e
-  options: -n net.net.xml -s 42 <doubleminus>taxirides -e 100 -p 10 <doubleminus>route-file out.rou.xml
+
+<!-- generated on 2022-07-07 10:55:32.223567 by randomTrips.py v1_13_0+1343-240e5d48340
+<configuration>
+    <end value="100"/>
+    <net-file value="net.net.xml"/>
+    <period value="10.0"/>
+    <personrides value="taxi"/>
+</configuration>
 -->
+
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <person id="0" depart="0.00">
         <ride from="NC" to="CS" lines="taxi"/>

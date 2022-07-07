@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2022-05-13 14:05:16.550068 by osmTaxiStop.py v1_13_0+0235-8bb10ccdc07
+
+<!-- generated on 2022-07-07 11:18:42.766570 by osmTaxiStop.py v1_13_0+1343-240e5d48340
   options: <doubleminus>fleet-size 0.1 -f out.rou.xml -s osm_bbox.osm.xml -o out.add.xml
 -->
+
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <chargingStation id="chargingStation_0" name="Grand Hotel" lane="-194069450#0_0" startPos="7.20" endPos="27.20"/>
     <chargingStation id="chargingStation_1" name="Radisson" lane="24913519#2_0" startPos="-16.59" endPos="28.41"/>

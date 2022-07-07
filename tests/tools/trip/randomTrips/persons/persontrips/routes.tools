@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Dec 14 08:33:14 2017 by SUMO duarouter Version v0_31_0+1588-722b73c
-This data file and the accompanying materials
-are made available under the terms of the Eclipse Public License v2.0
-which accompanies this distribution, and is available at
-http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+<!-- generated on 2022-07-07 10:55:32.098079 by randomTrips.py v1_13_0+1343-240e5d48340
+<configuration>
+    <end value="100"/>
+    <min-distance value="1.0"/>
+    <net-file value="net.net.xml"/>
+    <persontrips value="True"/>
+    <route-file value="out.rou.xml"/>
+    <trip-attributes value="departPos=&quot;random&quot; color=&quot;red&quot; modes=&quot;car public&quot;"/>
+</configuration>
+-->
+
+<!-- generated on 2022-07-07 10:55:32 by Eclipse SUMO duarouter Version v1_13_0+1341-b0c4d231fea
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
 
     <input>
@@ -15,20 +21,17 @@ SPDX-License-Identifier: EPL-2.0
 
     <output>
         <output-file value="out.rou.xml"/>
-        <alternatives-output value="out.rou.alt.xml"/>
+        <alternatives-output value="NUL"/>
     </output>
-
-    <processing>
-        <ignore-errors value="true"/>
-    </processing>
 
     <time>
         <begin value="0"/>
-        <end value="100.0"/>
+        <end value="100"/>
     </time>
 
     <report>
         <no-warnings value="true"/>
+        <ignore-errors value="true"/>
         <no-step-log value="true"/>
     </report>
 

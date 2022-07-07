@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2022-05-22 11:45:25.349988 by net2poly.py v1_13_0+0387-45bf8a0b6a0
+
+<!-- generated on 2022-07-07 11:16:43.811095 by net2poly.py v1_13_0+1343-240e5d48340
   options: -n input_net.net.xml -o pois.add.xml
 -->
+
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <poly id="-142575691#0" color="red" layer="10" lineWidth="5.2" shape="13.531263,52.429818 13.531081,52.429940 13.531059,52.429955" geo="1"/>
     <poly id="128643753#0" color="red" layer="10" lineWidth="2.0" shape="13.529194,52.429342 13.529197,52.429338" geo="1"/>

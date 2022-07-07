@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2019-03-21 09:59:36.246311 by $Id: edgesInDistricts.py v1_0_1+0098-8affe8886f evamarie.wiessner@dlr.de 2018-07-06 12:17:18 +0200 $
+
+<!-- generated on 2022-07-07 11:20:22.593557 by edgesInDistricts.py v1_13_0+1343-240e5d48340
   options: -n input_net.net.xml -t input_districts.xml -o out.add.xml <doubleminus>weighted -s
 -->
+
 <tazs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/taz_file.xsd">
     <taz id="b" shape="-5.0,-5.0 5.0,-5.0 5.0,5.0 -5.0,5.0 -5.0,-5.0">
         <tazSource id="absBeg" weight="13859.69"/>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2021-11-24 14:30:03.488994 by generateParkingAreaRerouters.py v1_11_0+0048-59b9988292f
+
+<!-- generated on 2022-07-07 11:20:59.238715 by generateParkingAreaRerouters.py v1_13_0+1343-240e5d48340
 <configuration>
     <min-capacity-visibility-true value="50"/>
     <max-distance-alternatives value="1000.0"/>
@@ -10,8 +11,8 @@
     <parking-areas value="input_additional.add.xml"/>
     <sumo-net value="net.net.xml"/>
 </configuration>
-
 -->
+
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
 
     <rerouter id="parking_-c" edges="-c c">
