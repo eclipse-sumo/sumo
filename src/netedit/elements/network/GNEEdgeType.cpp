@@ -389,6 +389,10 @@ GNEEdgeType::setAttribute(SumoXMLAttr key, const std::string& value) {
                 attrs.insert(SUMO_ATTR_ALLOW);
                 attrs.insert(SUMO_ATTR_DISALLOW);
             }
+            // also change it in all lanes
+            for (auto &laneType : myLaneTypes) {
+                laneType->setAttribute(SUMO_ATTR_ALLOW, value);
+            }
             break;
         case SUMO_ATTR_DISALLOW:
             // parse invert permissions
@@ -403,6 +407,10 @@ GNEEdgeType::setAttribute(SumoXMLAttr key, const std::string& value) {
             } else {
                 attrs.insert(SUMO_ATTR_ALLOW);
                 attrs.insert(SUMO_ATTR_DISALLOW);
+            }
+            // also change it in all lanes
+            for (auto &laneType : myLaneTypes) {
+                laneType->setAttribute(SUMO_ATTR_DISALLOW, value);
             }
             break;
         case SUMO_ATTR_SPREADTYPE:
