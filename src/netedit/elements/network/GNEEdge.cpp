@@ -1807,8 +1807,12 @@ GNEEdge::setNumLanes(int numLanes, GNEUndoList* undoList) {
     getToJunction()->setLogicValid(false, undoList);
     // disable update geometry (see #6336)
     myUpdateGeometry = false;
+    // remove edge from grid
+    myNet->removeGLObjectFromGrid(this);
+    // save old number of lanes
     const int oldNumLanes = (int)myLanes.size();
-    std::string oppositeID = myLanes.back()->getAttribute(GNE_ATTR_OPPOSITE);
+    // get opposite ID
+    const auto oppositeID = myLanes.back()->getAttribute(GNE_ATTR_OPPOSITE);
     if (oppositeID != "") {
         // we'll have a different leftmost lane after adding/removing lanes
         undoList->changeAttribute(new GNEChange_Attribute(myLanes.back(), GNE_ATTR_OPPOSITE, ""));
@@ -1830,8 +1834,10 @@ GNEEdge::setNumLanes(int numLanes, GNEUndoList* undoList) {
     updateGeometry();
     // end undo list
     undoList->end();
-    // update centering boundary and grid
-    updateCenteringBoundary(true);
+    // update centering boundary (without updating RTREE)
+    updateCenteringBoundary(false);
+    // insert edge in grid again
+    myNet->addGLObjectIntoGrid(this);
 }
 
 
@@ -1892,12 +1898,12 @@ GNEEdge::addLane(GNELane* lane, const NBEdge::Lane& laneAttrs, bool recomputeCon
     // Remake connections for this edge and all edges that target this lane
     remakeGNEConnections();
     // remake connections of all edges of junction source and destiny
-    for (auto i : getFromJunction()->getChildEdges()) {
-        i->remakeGNEConnections();
+    for (const auto &fromEdge : getFromJunction()->getChildEdges()) {
+        fromEdge->remakeGNEConnections();
     }
     // remake connections of all edges of junction source and destiny
-    for (auto i : getToJunction()->getChildEdges()) {
-        i->remakeGNEConnections();
+    for (const auto &toEdge : getToJunction()->getChildEdges()) {
+        toEdge->remakeGNEConnections();
     }
     // Update geometry with the new lane
     updateGeometry();
