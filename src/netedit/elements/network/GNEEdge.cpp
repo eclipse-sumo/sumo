@@ -1135,7 +1135,11 @@ GNEEdge::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ENDOFFSET:
             return canParse<double>(value) && parse<double>(value) >= 0 && parse<double>(value) < myNBEdge->getLoadedLength();
         case SUMO_ATTR_DISTANCE:
-            return canParse<double>(value);
+            if (value.empty()) {
+                return true;
+            } else {
+                return canParse<double>(value);
+            }
         case GNE_ATTR_SHAPE_START: {
             if (value.empty()) {
                 return true;
@@ -1671,7 +1675,11 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_DISALLOW:
             break; // no edge value
         case SUMO_ATTR_DISTANCE:
-            myNBEdge->setDistance(parse<double>(value));
+            if (value.empty()) {
+                myNBEdge->setDistance(0.0);
+            } else {
+                myNBEdge->setDistance(parse<double>(value));
+            }
             break;
         case GNE_ATTR_MODIFICATION_STATUS:
             myConnectionStatus = value;
