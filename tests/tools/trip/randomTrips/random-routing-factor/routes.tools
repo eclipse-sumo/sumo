@@ -1,16 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-02-17 13:15:00 by Eclipse SUMO duarouter Version v1_12_0+0628-6dce9a8
+<!-- generated on 2022-07-07 10:55:33.791489 by randomTrips.py v1_13_0+1343-240e5d48340
+<configuration>
+    <end value="10"/>
+    <fringe-factor value="1000.0"/>
+    <net-file value="net2.net.xml"/>
+    <random-routing-factor value="2.0"/>
+    <route-file value="out.rou.xml"/>
+</configuration>
+-->
+
+<!-- generated on 2022-07-07 10:55:33 by Eclipse SUMO duarouter Version v1_13_0+1341-b0c4d231fea
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
 
     <input>
         <net-file value="net2.net.xml"/>
-        <route-files value="NUL"/>
+        <route-files value="trips.trips.xml"/>
     </input>
 
     <output>
         <output-file value="out.rou.xml"/>
-        <alternatives-output value="out.rou.alt.xml"/>
+        <alternatives-output value="NUL"/>
     </output>
 
     <processing>

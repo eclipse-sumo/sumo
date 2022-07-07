@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2021-04-20 19:36:51.828196 by $Id$ v1_9_0+0129-5219d47f05
-  options: -r input_routes.rou.xml -t input_turns.xml -o out.rou.xml -f number -u routeDist
+
+<!-- generated on 2022-07-07 11:09:28.049047 by routeSampler.py v1_13_0+1343-240e5d48340
+<configuration>
+    <route-files value="input_routes.rou.xml"/>
+    <turn-files value="input_turns.xml"/>
+    <write-flows value="number"/>
+    <write-route-distribution value="routeDist"/>
+</configuration>
 -->
+
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 <!-- begin="0.0" end="200.0" -->
     <routeDistribution id="0_routeDist">

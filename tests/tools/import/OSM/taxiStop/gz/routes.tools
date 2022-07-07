@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2022-01-10 09:31:36.090847 by osmTaxiStop.py v1_11_0+0972-393245ee984
-  options: -f out.rou.xml -s data/osm_bbox.osm.xml.gz -o out.add.xml
--->
+
+<!-- generated on 2022-07-07 11:08:07.525923 by osmTaxiStop.py v1_13_0+1343-240e5d48340
+  options: -f out.rou.xml -s data/osm_bbox.osm.xml.gz -o out.add.xml-->
+
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
      <vType id="taxi" vClass="taxi">
         <param key="has.taxi.device" value="true"/>

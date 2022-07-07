@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2020-05-10 20:05:13.558737 by randomTrips.py v1_6_0+0167-c327852d01
-  options: -n net.net.xml -s 42 <doubleminus>junction-taz -r out.rou.xml
+
+<!-- generated on 2022-07-07 10:55:35.355421 by randomTrips.py v1_13_0+1343-240e5d48340
+<configuration>
+    <junction-taz value="True"/>
+    <net-file value="net.net.xml"/>
+    <route-file value="out.rou.xml"/>
+</configuration>
 -->
+
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <trip id="0" depart="0.00" fromJunction="m3" toJunction="1"/>
     <trip id="1" depart="1.00" fromJunction="2" toJunction="0"/>

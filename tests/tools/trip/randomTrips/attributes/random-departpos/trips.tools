@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2022-06-14 08:39:26.122428 by randomTrips.py v1_13_0+0809-45992ea
+
+<!-- generated on 2022-07-07 10:55:31.042057 by randomTrips.py v1_13_0+1343-240e5d48340
 <configuration>
     <end value="10"/>
     <net-file value="net.net.xml"/>
     <random-departpos value="True"/>
 </configuration>
-
 -->
+
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <trip id="0" depart="0.00" from="3si" to="1o" departPos="65.22"/>
     <trip id="1" depart="1.00" from="1si" to="3si" departPos="160.48"/>

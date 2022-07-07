@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2019-03-21 09:58:39.446334 by $Id: randomTrips.py v1_0_1+0098-8affe8886f jakob.erdmann@dlr.de 2018-08-29 20:55:11 +0200 $
-  options: -n net.net.xml -e 10 -s 42 <doubleminus>vclass passenger <doubleminus>vehicle-class passenger <doubleminus>trip-attributes color="blue" departPos="last" speedDev="0.2"
+
+<!-- generated on 2022-07-07 10:55:31.025420 by randomTrips.py v1_13_0+1343-240e5d48340
+<configuration>
+    <end value="10"/>
+    <net-file value="net.net.xml"/>
+    <trip-attributes value="color=&quot;blue&quot; departPos=&quot;last&quot; speedDev=&quot;0.2&quot;"/>
+    <vehicle-class value="passenger"/>
+</configuration>
 -->
+
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <vType id="passenger" vClass="passenger" color="blue" speedDev="0.2"/>
     <trip id="0" depart="0.00" from="3fi" to="2o" departPos="last" type="passenger"/>

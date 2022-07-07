@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2019-05-25 01:12:55.340817 by $Id$
-  options: -n net.net.xml -s 42 <doubleminus>angle-factor 10
+
+<!-- generated on 2022-07-07 10:55:30.148818 by randomTrips.py v1_13_0+1343-240e5d48340
+<configuration>
+    <angle-factor value="10.0"/>
+    <net-file value="net.net.xml"/>
+    <weights-output-prefix value="weights"/>
+</configuration>
 -->
+
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <trip id="0" depart="0.00" from="3si" to="2o"/>
     <trip id="1" depart="1.00" from="1si" to="2o"/>
