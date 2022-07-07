@@ -25,6 +25,7 @@
 #include <netedit/dialogs/GNESingleParametersDialog.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/windows/GUIAppEnum.h>
+#include <utils/common/SUMOVehicleClass.h>
 
 #include "GNEAttributesCreatorRow.h"
 #include "GNEAttributesCreator.h"
@@ -405,6 +406,8 @@ GNEAttributesCreatorRow::onCmdSetAttribute(FXObject* obj, FXSelector, void*) {
 
 long
 GNEAttributesCreatorRow::onCmdOpenAttributeDialog(FXObject*, FXSelector, void*) {
+    // declare bool for accept changes
+    bool acceptChanges = false;
     // continue depending of attribute
     if (myAttrProperties.getAttr() == SUMO_ATTR_COLOR) {
         // create FXColorDialog
@@ -420,17 +423,25 @@ GNEAttributesCreatorRow::onCmdOpenAttributeDialog(FXObject*, FXSelector, void*) 
         if (colordialog.execute()) {
             myValueTextField->setText(toString(MFXUtils::getRGBColor(colordialog.getRGBA())).c_str(), TRUE);
         }
-    } else if ((myAttrProperties.getAttr() == SUMO_ATTR_ALLOW) || (myAttrProperties.getAttr() == SUMO_ATTR_DISALLOW)) {
+    } else if (myAttrProperties.getAttr() == SUMO_ATTR_ALLOW) {
         // get allow string
         std::string allow = myValueTextField->getText().text();
-        // get accept changes
-        bool acceptChanges = false;
         // opena allowDisallow dialog
         GNEAllowVClassesDialog(myAttributesCreatorParent->getFrameParent()->getViewNet(), &allow, &acceptChanges).execute();
         // continue depending of acceptChanges
         if (acceptChanges) {
-            /// @brief Constructor (For string
+            // update text field
             myValueTextField->setText(allow.c_str(), TRUE);
+        }
+    } else if (myAttrProperties.getAttr() == SUMO_ATTR_DISALLOW) {
+        // transform disallow to allow
+        std::string allow = getVehicleClassNames(~parseVehicleClasses(myValueTextField->getText().text()));
+        // opena allowDisallow dialog
+        GNEAllowVClassesDialog(myAttributesCreatorParent->getFrameParent()->getViewNet(), &allow, &acceptChanges).execute();
+        // continue depending of acceptChanges
+        if (acceptChanges) {
+            // update text field
+            myValueTextField->setText(getVehicleClassNames(~parseVehicleClasses(allow)).c_str(), TRUE);
         }
     }
     return 0;
