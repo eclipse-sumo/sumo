@@ -462,7 +462,6 @@ MSLane::lastInsertion(MSVehicle& veh, double mspeed, double posLat, bool patchSp
 bool
 MSLane::freeInsertion(MSVehicle& veh, double mspeed, double posLat,
                       MSMoveReminder::Notification notification) {
-    bool adaptableSpeed = true;
     // try to insert teleporting vehicles fully on this lane
     const double minPos = (notification == MSMoveReminder::NOTIFICATION_TELEPORT ?
                            MIN2(myLength, veh.getVehicleType().getLength()) : 0);
@@ -479,24 +478,23 @@ MSLane::freeInsertion(MSVehicle& veh, double mspeed, double posLat,
                 // deceleration values there might be another insertion
                 // positions that would be successful be we do not look for it.
                 //std::cout << SIMTIME << " freeInsertion lane=" << getID() << " veh=" << veh.getID() << " unclear @(340)\n";
-                return isInsertionSuccess(&veh, mspeed, minPos + missingRearGap, posLat, adaptableSpeed, notification);
-            } else {
-                return false;
+                return isInsertionSuccess(&veh, mspeed, minPos + missingRearGap, posLat, true, notification);
             }
+            return false;
         } else {
-            return isInsertionSuccess(&veh, mspeed, minPos, posLat, adaptableSpeed, notification);
+            return isInsertionSuccess(&veh, mspeed, minPos, posLat, true, notification);
         }
 
     } else {
         // check whether the vehicle can be put behind the last one if there is such
-        MSVehicle* leader = myVehicles.back(); // @todo reproduction of bogus old behavior. see #1961
+        const MSVehicle* const leader = myVehicles.back(); // @todo reproduction of bogus old behavior. see #1961
         const double leaderPos = leader->getBackPositionOnLane(this);
-        const double speed = adaptableSpeed ? leader->getSpeed() : mspeed;
+        const double speed = leader->getSpeed();
         const double frontGapNeeded = veh.getCarFollowModel().getSecureGap(&veh, leader, speed, leader->getSpeed(), leader->getCarFollowModel().getMaxDecel()) + veh.getVehicleType().getMinGap();
         if (leaderPos >= frontGapNeeded) {
             const double tspeed = MIN2(veh.getCarFollowModel().insertionFollowSpeed(&veh, mspeed, frontGapNeeded, leader->getSpeed(), leader->getCarFollowModel().getMaxDecel(), leader), mspeed);
             // check whether we can insert our vehicle behind the last vehicle on the lane
-            if (isInsertionSuccess(&veh, tspeed, minPos, posLat, adaptableSpeed, notification)) {
+            if (isInsertionSuccess(&veh, tspeed, minPos, posLat, true, notification)) {
                 //std::cout << SIMTIME << " freeInsertion lane=" << getID() << " veh=" << veh.getID() << " pos=" << minPos<< " speed=" << speed  << " tspeed=" << tspeed << " frontGapNeeded=" << frontGapNeeded << " lead=" << leader->getID() << " lPos=" << leaderPos << "\n   vehsOnLane=" << toString(myVehicles) << " @(358)\n";
                 return true;
             }
@@ -515,7 +513,7 @@ MSLane::freeInsertion(MSVehicle& veh, double mspeed, double posLat,
 
         // patch speed if allowed
         double speed = mspeed;
-        if (adaptableSpeed && leader != nullptr) {
+        if (leader != nullptr) {
             speed = MIN2(leader->getSpeed(), mspeed);
         }
 
@@ -534,7 +532,7 @@ MSLane::freeInsertion(MSVehicle& veh, double mspeed, double posLat,
         // check whether there is enough room (given some extra space for rounding errors)
         if (frontMax > minPos && backMin + POSITION_EPS < frontMax) {
             // try to insert vehicle (should be always ok)
-            if (isInsertionSuccess(&veh, speed, backMin + POSITION_EPS, posLat, adaptableSpeed, notification)) {
+            if (isInsertionSuccess(&veh, speed, backMin + POSITION_EPS, posLat, true, notification)) {
                 //std::cout << SIMTIME << " freeInsertion lane=" << getID() << " veh=" << veh.getID() << " @(393)\n";
                 return true;
             }

@@ -722,10 +722,8 @@ Helper::findObjectShape(int domain, const std::string& id, PositionVector& shape
         case libsumo::CMD_SUBSCRIBE_EDGE_CONTEXT:
             Edge::storeShape(id, shape);
             break;
-        case libsumo::CMD_SUBSCRIBE_SIM_CONTEXT:
-            Simulation::storeShape(shape);
-            break;
         default:
+            Simulation::storeShape(shape);
             break;
     }
 }
