@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-03-21 12:22:14 by Eclipse SUMO netedit Version v1_12_0+1543-06f48ec75fb
+<!-- generated on 2022-07-07 09:33:15 by Eclipse SUMO netedit Version v1_13_0+1454-7665d3b34a8
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.21Mar095115.1576\netedit.gui\bugs\crossings\ticket3149\input_net.net.xml"/>
+        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Jul093139.14180\netedit.gui\bugs\crossings\ticket3149\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.21Mar095115.1576\netedit.gui\bugs\crossings\ticket3149\net.net.xml"/>
+        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Jul093139.14180\netedit.gui\bugs\crossings\ticket3149\net.net.xml"/>
     </output>
 
     <processing>
@@ -31,26 +31,25 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.21Mar095115.1576\netedit.gui\bugs\crossings\ticket3149\additionals.xml"/>
-        <additionals-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.21Mar095115.1576\netedit.gui\bugs\crossings\ticket3149\additionals.xml"/>
-        <route-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.21Mar095115.1576\netedit.gui\bugs\crossings\ticket3149\routes.xml"/>
-        <demandelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.21Mar095115.1576\netedit.gui\bugs\crossings\ticket3149\routes.xml"/>
-        <data-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.21Mar095115.1576\netedit.gui\bugs\crossings\ticket3149\datas.xml"/>
-        <dataelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.21Mar095115.1576\netedit.gui\bugs\crossings\ticket3149\datas.xml"/>
+        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Jul093139.14180\netedit.gui\bugs\crossings\ticket3149\additionals.xml"/>
+        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Jul093139.14180\netedit.gui\bugs\crossings\ticket3149\additionals.xml"/>
+        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Jul093139.14180\netedit.gui\bugs\crossings\ticket3149\routes.xml"/>
+        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Jul093139.14180\netedit.gui\bugs\crossings\ticket3149\routes.xml"/>
+        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Jul093139.14180\netedit.gui\bugs\crossings\ticket3149\datas.xml"/>
+        <dataelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Jul093139.14180\netedit.gui\bugs\crossings\ticket3149\datas.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.21Mar095115.1576\netedit.gui\bugs\crossings\ticket3149\gui-settings.xml"/>
+        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Jul093139.14180\netedit.gui\bugs\crossings\ticket3149\gui-settings.xml"/>
         <window-size value="936,697"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
-        <gui-testing.setting-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.21Mar095115.1576\netedit.gui\bugs\crossings\ticket3149\guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Jul093139.14180\netedit.gui\bugs\crossings\ticket3149\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <aggregate-warnings value="5"/>
-        <error-log value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.21Mar095115.1576\netedit.gui\bugs\crossings\ticket3149\log.txt"/>
+        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Jul093139.14180\netedit.gui\bugs\crossings\ticket3149\log.txt"/>
     </report>
 
 </configuration>
@@ -87,7 +86,7 @@
         <lane id=":A_w1_0" index="0" allow="pedestrian" speed="1.00" length="2.19" width="3.20" shape="56.40,11.10 59.60,11.10 59.36,9.49 58.29,8.82 57.47,8.64 56.87,8.96 56.52,9.78"/>
     </edge>
     <edge id=":A_w2" function="walkingarea">
-        <lane id=":A_w2_0" index="0" allow="pedestrian" speed="1.00" length="32.64" width="3.20" shape="65.19,6.14 67.45,3.87 32.55,3.87 34.81,6.14 39.88,1.92 44.94,-0.61 50.00,-1.46 55.06,-0.61 60.12,1.92"/>
+        <lane id=":A_w2_0" index="0" allow="pedestrian" speed="1.00" length="32.64" width="3.20" shape="65.19,6.14 67.45,3.87 62.90,0.93 56.83,-0.84 50.00,-1.43 43.17,-0.84 37.10,0.93 32.55,3.87 34.81,6.14 39.88,1.92 44.94,-0.61 50.00,-1.46 55.06,-0.61 60.12,1.92"/>
     </edge>
     <edge id=":B_0" function="internal">
         <lane id=":B_0_0" index="0" disallow="pedestrian" speed="11.79" length="32.06" shape="64.05,92.73 57.03,98.00 50.00,99.76 42.97,98.00 35.95,92.73"/>
@@ -110,7 +109,7 @@
         <lane id=":B_c0_0" index="0" allow="pedestrian" speed="1.00" length="12.80" width="3.00" shape="43.60,90.40 56.40,90.40"/>
     </edge>
     <edge id=":B_w0" function="walkingarea">
-        <lane id=":B_w0_0" index="0" allow="pedestrian" speed="1.00" length="32.64" width="3.20" shape="34.81,93.86 32.55,96.13 67.45,96.13 65.19,93.86 60.12,98.08 55.06,100.61 50.00,101.46 44.94,100.61 39.88,98.08"/>
+        <lane id=":B_w0_0" index="0" allow="pedestrian" speed="1.00" length="32.64" width="3.20" shape="34.81,93.86 32.55,96.13 37.10,99.07 43.17,100.84 50.00,101.43 56.83,100.84 62.90,99.07 67.45,96.13 65.19,93.86 60.12,98.08 55.06,100.61 50.00,101.46 44.94,100.61 39.88,98.08"/>
     </edge>
     <edge id=":B_w1" function="walkingarea">
         <lane id=":B_w1_0" index="0" allow="pedestrian" speed="1.00" length="2.19" width="3.20" shape="59.60,88.90 56.40,88.90 56.52,90.22 56.87,91.04 57.47,91.36 58.29,91.18 59.36,90.51"/>
