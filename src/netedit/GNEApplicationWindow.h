@@ -233,6 +233,9 @@ public:
     /// @brief called when the update/FXCall needs network is executed
     long onUpdNeedsNetwork(FXObject*, FXSelector, void*);
 
+    /// @brief called when the update/FXCall needs at least one newtork element is executed
+    long onUpdNeedsNetworkElement(FXObject*, FXSelector, void*);
+
     /// @brief called when the update/FXCall needs front element is executed
     long onUpdNeedsFrontElement(FXObject*, FXSelector, void*);
 
