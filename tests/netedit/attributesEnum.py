@@ -121,12 +121,12 @@ class junction:
         radius = 3
         keepClear = 4
         rightOfWay = 5
-        fringe = 6
-        name = 7
-        tlType = 8
-        tlLayout = 9
-        tl = 10
-        parameters = 14
+        fringe = 7
+        name = 9
+        tlType = 10
+        tlLayout = 11
+        tl = 12
+        parameters = 17
 
 # edge
 

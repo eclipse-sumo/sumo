@@ -1,10 +1,3 @@
 -tp appdata=netedit.gui
-
-netelements/junctions/inspect/shape
-netelements/junctions/inspect_tls/pos
-netelements/junctions/inspect_tls_selected/fringe
-netelements/junctions/inspect_tls_selected/name
-netelements/junctions/inspect_tls_selected/parameters
-
-netelements/lanes/inspect_selected/width
-tazelements/taz/inspect/shape
+bugs/crossings/ticket3288
+bugs/ticket5552

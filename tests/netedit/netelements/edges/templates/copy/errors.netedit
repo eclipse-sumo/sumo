@@ -31,30 +31,28 @@ Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Setting new attribute
-Debug: Setting new attribute
-Debug: Setting new attribute
-Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge 'E0' due it were guessed
 Debug: Setting new attribute
 Debug: Adding nullptr lane into edge
 Debug: Adding nullptr lane into edge
 Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
 Debug: Removing nullptr lane from edge
-Debug: Deleting unreferenced lane 'E0_2' in removeLane()
 Debug: Removing nullptr lane from edge
-Debug: Deleting unreferenced lane 'E0_1' in removeLane()
 Debug: Restoring previous attribute
 Debug: Restoring previous attribute
 Debug: invalidating (removing) connections of edge 'E0' due it were guessed
 Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Restoring previous attribute
-Debug: Restoring previous attribute
-Debug: Restoring previous attribute
 Debug: Restoring previous attribute
 Debug: Restoring previous attribute
 Debug: Restoring previous attribute
@@ -123,9 +121,6 @@ Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Setting new attribute
-Debug: Setting new attribute
-Debug: Setting new attribute
-Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute
@@ -135,8 +130,13 @@ Debug: Setting new attribute
 Debug: Adding nullptr lane into edge
 Debug: Adding nullptr lane into edge
 Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Key F5 (Compute) pressed
 Debug: network elements saved
+Debug: Deleting unreferenced lane in GNEChange_Attribute
+Debug: Deleting unreferenced lane in GNEChange_Attribute
 Debug: Deleting unreferenced lane in GNEChange_Attribute
 Debug: Deleting unreferenced lane in GNEChange_Attribute
 Debug: Deleting unreferenced edge 'E0' in AttributeCarriers destructor
