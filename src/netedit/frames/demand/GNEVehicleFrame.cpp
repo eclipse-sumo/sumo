@@ -473,7 +473,7 @@ GNEVehicleFrame::createPath(const bool useLastRoute) {
 }
 
 
-bool 
+bool
 GNEVehicleFrame::buildVehicleOverRoute(SumoXMLTag vehicleTag, GNEDemandElement* route) {
     if (route && (route->getTagProperty().isRoute())) {
         // check if departLane is valid

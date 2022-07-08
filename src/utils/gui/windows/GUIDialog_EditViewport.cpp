@@ -189,13 +189,13 @@ GUIDialog_EditViewport::onCmdChanged(FXObject* o, FXSelector, void*) {
             myZoom->setValue(myParent->getChanger().zPos2Zoom(myZOff->getValue()));
         }
     } else if (o == myZoom) {
-		if (myParent->is3DView()) {
-			Position camera(myXOff->getValue(), myYOff->getValue(), myZOff->getValue()), lookAt(myLookAtX->getValue(), myLookAtY->getValue(), 
-				myLookAtZ->getValue());
-			myParent->zoom2Pos(camera, lookAt, myZoom->getValue());
-		} else {
-			myZOff->setValue(myParent->getChanger().zoom2ZPos(myZoom->getValue()));
-		}
+        if (myParent->is3DView()) {
+            Position camera(myXOff->getValue(), myYOff->getValue(), myZOff->getValue()), lookAt(myLookAtX->getValue(), myLookAtY->getValue(),
+                    myLookAtZ->getValue());
+            myParent->zoom2Pos(camera, lookAt, myZoom->getValue());
+        } else {
+            myZOff->setValue(myParent->getChanger().zoom2ZPos(myZoom->getValue()));
+        }
     }
     myParent->setViewportFromToRot(Position(myXOff->getValue(), myYOff->getValue(), myZOff->getValue()),
 #ifdef HAVE_OSG
@@ -253,7 +253,7 @@ GUIDialog_EditViewport::writeXML(OutputDevice& dev) {
     dev.writeAttr(SUMO_ATTR_ZOOM, myZoom->getValue());
     dev.writeAttr(SUMO_ATTR_X, myXOff->getValue());
     dev.writeAttr(SUMO_ATTR_Y, myYOff->getValue());
-    if(myParent->is3DView()) {
+    if (myParent->is3DView()) {
         dev.writeAttr(SUMO_ATTR_Z, myZOff->getValue());
     }
     dev.writeAttr(SUMO_ATTR_ANGLE, myRotation->getValue());
@@ -287,9 +287,9 @@ GUIDialog_EditViewport::setValues(const Position& lookFrom, const Position& look
     myXOff->setValue(lookFrom.x());
     myYOff->setValue(lookFrom.y());
     myZOff->setValue(lookFrom.z());
-	if (!myParent->is3DView()) {
-		myZoom->setValue(myParent->getChanger().zPos2Zoom(lookFrom.z()));
-	}
+    if (!myParent->is3DView()) {
+        myZoom->setValue(myParent->getChanger().zPos2Zoom(lookFrom.z()));
+    }
 #ifdef HAVE_OSG
     myLookAtX->setValue(lookAt.x());
     myLookAtY->setValue(lookAt.y());
@@ -317,14 +317,14 @@ GUIDialog_EditViewport::haveGrabbed() const {
 }
 
 
-double 
+double
 GUIDialog_EditViewport::getZoomValue() const {
-	return myZoom->getValue();
+    return myZoom->getValue();
 }
 
 void
 GUIDialog_EditViewport::setZoomValue(double zoom) {
-	myZoom->setValue(zoom);
+    myZoom->setValue(zoom);
 }
 
 

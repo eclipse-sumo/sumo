@@ -30,11 +30,11 @@
 
 GNEDetectorE3::GNEDetectorE3(GNENet* net) :
     GNEAdditional("", net, GLO_E3DETECTOR, SUMO_TAG_E3DETECTOR, "",
-        {}, {}, {}, {}, {}, {}),
-    myPeriod(0),
-    myFilename(""),
-    myTimeThreshold(0),
-    mySpeedThreshold(0) {
+{}, {}, {}, {}, {}, {}),
+myPeriod(0),
+myFilename(""),
+myTimeThreshold(0),
+mySpeedThreshold(0) {
     // reset default values
     resetDefaultValues();
 }
@@ -44,14 +44,14 @@ GNEDetectorE3::GNEDetectorE3(const std::string& id, GNENet* net, const Position 
                              const std::vector<std::string>& vehicleTypes, const std::string& name, SUMOTime timeThreshold, double speedThreshold,
                              const Parameterised::Map& parameters) :
     GNEAdditional(id, net, GLO_E3DETECTOR, SUMO_TAG_E3DETECTOR, name,
-        {}, {}, {}, {}, {}, {}),
-    Parameterised(parameters),
-    myPosition(pos),
-    myPeriod(freq),
-    myFilename(filename),
-    myVehicleTypes(vehicleTypes),
-    myTimeThreshold(timeThreshold),
-    mySpeedThreshold(speedThreshold) {
+{}, {}, {}, {}, {}, {}),
+Parameterised(parameters),
+myPosition(pos),
+myPeriod(freq),
+myFilename(filename),
+myVehicleTypes(vehicleTypes),
+myTimeThreshold(timeThreshold),
+mySpeedThreshold(speedThreshold) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -251,7 +251,7 @@ GNEDetectorE3::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_PERIOD:
             if (value.empty()) {
                 return true;
-            } else { 
+            } else {
                 return (canParse<double>(value) && (parse<double>(value) >= 0));
             }
         case SUMO_ATTR_NAME:

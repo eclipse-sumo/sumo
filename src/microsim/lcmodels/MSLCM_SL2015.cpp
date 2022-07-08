@@ -1412,16 +1412,16 @@ MSLCM_SL2015::_wantsChangeSublane(
 #ifdef DEBUG_COOPERATE
     if (gDebugFlag2) {
         std::cout << STEPS2TIME(currentTime)
-            << " veh=" << myVehicle.getID()
-            << " amBlocking=" << amBlockingFollowerPlusNB()
-            << " state=" << toString((LaneChangeAction)myOwnState)
-            << " myLca=" << toString((LaneChangeAction)myLca)
-            << " prevState=" << toString((LaneChangeAction)myPreviousState)
-            << " inconvenience=" << inconvenience
-            << " origLatDist=" << getManeuverDist()
-            << " wantsChangeToHelp=" << (right ? "right" : "left")
-            << " state=" << myOwnState
-            << "\n";
+                  << " veh=" << myVehicle.getID()
+                  << " amBlocking=" << amBlockingFollowerPlusNB()
+                  << " state=" << toString((LaneChangeAction)myOwnState)
+                  << " myLca=" << toString((LaneChangeAction)myLca)
+                  << " prevState=" << toString((LaneChangeAction)myPreviousState)
+                  << " inconvenience=" << inconvenience
+                  << " origLatDist=" << getManeuverDist()
+                  << " wantsChangeToHelp=" << (right ? "right" : "left")
+                  << " state=" << myOwnState
+                  << "\n";
     }
 #endif
 
@@ -1765,7 +1765,7 @@ MSLCM_SL2015::_wantsChangeSublane(
                       << " neighDist=" << neighDist
                       << " neighTime=" << neighDist / MAX2(.1, myVehicle.getSpeed())
                       << " rThresh=" << myChangeProbThresholdRight
-                      << " rThresh2=" << myChangeProbThresholdRight * bidiRightFactor
+                      << " rThresh2=" << myChangeProbThresholdRight* bidiRightFactor
                       << " latDist=" << latDist
                       << "\n";
         }
@@ -2398,10 +2398,10 @@ MSLCM_SL2015::checkBlockingVehicles(
     std::vector<CLeaderDist>* collectBlockers) const {
     // determine borders where safety/no-overlap conditions must hold
     const LaneChangeAction blockType = (laneOffset == 0
-            ? (leaders ? LCA_BLOCKED_BY_LEADER : LCA_BLOCKED_BY_FOLLOWER)
-            : (laneOffset > 0
-                ? (leaders ? LCA_BLOCKED_BY_LEFT_LEADER : LCA_BLOCKED_BY_LEFT_FOLLOWER)
-                : (leaders ? LCA_BLOCKED_BY_RIGHT_LEADER : LCA_BLOCKED_BY_RIGHT_FOLLOWER)));
+                                        ? (leaders ? LCA_BLOCKED_BY_LEADER : LCA_BLOCKED_BY_FOLLOWER)
+                                        : (laneOffset > 0
+                                           ? (leaders ? LCA_BLOCKED_BY_LEFT_LEADER : LCA_BLOCKED_BY_LEFT_FOLLOWER)
+                                           : (leaders ? LCA_BLOCKED_BY_RIGHT_LEADER : LCA_BLOCKED_BY_RIGHT_FOLLOWER)));
     const double vehWidth = getWidth();
     const double rightVehSide = ego->getRightSideOnEdge();
     const double leftVehSide = rightVehSide + vehWidth;
@@ -2574,13 +2574,13 @@ MSLCM_SL2015::updateCFRelated(const MSLeaderDistanceInfo& vehicles, double foeOf
 #ifdef DEBUG_BLOCKING
             if (gDebugFlag2) {
                 std::cout << "    foe=" << vehDist.first->getID() << " gap=" << vehDist.second
-                    << " sublane=" << i
-                    << " foeOffset=" << foeOffset
-                    << " egoR=" << rightVehSide << " egoL=" << leftVehSide
-                    << " iR=" << foeRight << " iL=" << foeLeft
-                    << " egoV=" << myVehicle.getSpeed() << " foeV=" << vehDist.first->getSpeed()
-                    << " egoE=" << myVehicle.getLane()->getEdge().getID() << " foeE=" << vehDist.first->getLane()->getEdge().getID()
-                    << "\n";
+                          << " sublane=" << i
+                          << " foeOffset=" << foeOffset
+                          << " egoR=" << rightVehSide << " egoL=" << leftVehSide
+                          << " iR=" << foeRight << " iL=" << foeLeft
+                          << " egoV=" << myVehicle.getSpeed() << " foeV=" << vehDist.first->getSpeed()
+                          << " egoE=" << myVehicle.getLane()->getEdge().getID() << " foeE=" << vehDist.first->getLane()->getEdge().getID()
+                          << "\n";
             }
 #endif
             if (overlap(rightVehSide, leftVehSide, foeRight, foeLeft) && (vehDist.second >= 0

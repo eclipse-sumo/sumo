@@ -551,7 +551,7 @@ struct GNEViewNetHelper {
 
         /// @brief checkable button to show additional sub-elements
         MFXCheckableButton* menuCheckShowAdditionalSubElements;
-        
+
         /// @brief checkable button to show TAZ elements
         MFXCheckableButton* menuCheckShowTAZElements;
 

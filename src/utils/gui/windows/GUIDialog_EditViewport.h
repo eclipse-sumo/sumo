@@ -111,16 +111,16 @@ public:
     */
     bool haveGrabbed() const;
 
-	/** @brief Returns the current zoom value stored in the corresponding spin dialer
-	 * @return The current zoom value in the spin dialer
-	*/
-	double getZoomValue() const;
+    /** @brief Returns the current zoom value stored in the corresponding spin dialer
+     * @return The current zoom value in the spin dialer
+    */
+    double getZoomValue() const;
 
 
-	/** @brief Resets the zoom spin dialer 
-	 * @param[in] zoom the value to set the spin dialer to
-	 */
-	void setZoomValue(double zoom);
+    /** @brief Resets the zoom spin dialer
+     * @param[in] zoom the value to set the spin dialer to
+     */
+    void setZoomValue(double zoom);
 
 protected:
     FOX_CONSTRUCTOR(GUIDialog_EditViewport)

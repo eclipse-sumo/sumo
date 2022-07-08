@@ -195,6 +195,6 @@ class Node:
         if outgoingNodes:
             edges = self._outgoing
             for e in edges:
-                if not (e.getToNode() in neighboring)and not(e.getToNode().getID() == self.getID()):
+                if not (e.getToNode() in neighboring) and not(e.getToNode().getID() == self.getID()):
                     neighboring.append(e.getToNode())
         return neighboring

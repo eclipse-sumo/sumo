@@ -1534,8 +1534,8 @@ MSLCM_LC2013::_wantsChange(
     // - high occupancy on the neighboring lane while in a roundabout
 
     double inconvenience = laneOffset < 0
-        ? mySpeedGainProbability / myChangeProbThresholdRight
-        : -mySpeedGainProbability / myChangeProbThresholdLeft;
+                           ? mySpeedGainProbability / myChangeProbThresholdRight
+                           : -mySpeedGainProbability / myChangeProbThresholdLeft;
 
     inconvenience = MAX2(thisLaneVSafe / neighLaneVSafe - 1, inconvenience);
     inconvenience = MIN2(1.0, inconvenience);
@@ -1545,13 +1545,13 @@ MSLCM_LC2013::_wantsChange(
 #ifdef DEBUG_WANTS_CHANGE
     if (DEBUG_COND) {
         std::cout << STEPS2TIME(currentTime)
-            << " veh=" << myVehicle.getID()
-            << " speedGainProb=" << mySpeedGainProbability
-            << " neighSpeedFactor=" << (thisLaneVSafe / neighLaneVSafe - 1)
-            << " inconvenience=" << inconvenience
-            << " speedInconv=" << speedGainInconvenient
-            << " occInconv=" << neighOccupancyInconvenient
-            << "\n";
+                  << " veh=" << myVehicle.getID()
+                  << " speedGainProb=" << mySpeedGainProbability
+                  << " neighSpeedFactor=" << (thisLaneVSafe / neighLaneVSafe - 1)
+                  << " inconvenience=" << inconvenience
+                  << " speedInconv=" << speedGainInconvenient
+                  << " occInconv=" << neighOccupancyInconvenient
+                  << "\n";
     }
 #endif
 

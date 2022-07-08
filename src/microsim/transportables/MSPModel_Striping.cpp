@@ -1722,9 +1722,9 @@ double
 MSPModel_Striping::PState::distToLaneEnd() const {
     if (myStage->getNextRouteEdge() == nullptr) {
         return myDir * (myStage->getArrivalPos() - myRelX) - POSITION_EPS - (
-                (myWaitingTime > DELTA_T && (myStage->getDestinationStop() == nullptr ||
-                                             myStage->getDestinationStop()->getWaitingCapacity() > myStage->getDestinationStop()->getNumWaitingPersons()))
-                ? getMinGap() : 0);
+                   (myWaitingTime > DELTA_T && (myStage->getDestinationStop() == nullptr ||
+                                                myStage->getDestinationStop()->getWaitingCapacity() > myStage->getDestinationStop()->getNumWaitingPersons()))
+                   ? getMinGap() : 0);
     } else {
         const double length = myWalkingAreaPath == nullptr ? myLane->getLength() : myWalkingAreaPath->length;
         return myDir == FORWARD ? length - myRelX : myRelX;
@@ -2218,8 +2218,8 @@ MSPModel_Striping::PState::moveTo(MSPerson* p, MSLane* lane, double lanePos, dou
         const double maxPos = guessed->shape.length() - NUMERICAL_EPS;
         if (lanePos > maxPos + POSITION_EPS || lanePos < -POSITION_EPS) {
             throw ProcessError("Lane position " + toString(lanePos) + " cannot be mapped onto walkingarea '" + lane->getID()
-                        + "' (fromLane='" + guessed->from->getID()
-                        + "' toLane='" + guessed->to->getID() + "') for person '" + getID() + "' time=" + time2string(t) + ".");
+                               + "' (fromLane='" + guessed->from->getID()
+                               + "' toLane='" + guessed->to->getID() + "') for person '" + getID() + "' time=" + time2string(t) + ".");
         }
         // give some slack
         lanePos = MIN2(maxPos, MAX2(NUMERICAL_EPS, lanePos));
@@ -2301,8 +2301,8 @@ MSPModel_Striping::PState::moveToXY(MSPerson* p, Position pos, MSLane* lane, dou
             const Position relPos = myWalkingAreaPath->shape.transformToVectorCoordinates(pos);
             if (relPos == Position::INVALID) {
                 WRITE_WARNING("Could not map position " + toString(pos) + " onto lane '" + myLane->getID()
-                        + "' (fromLane='" + myWalkingAreaPath->from->getID()
-                        + "' toLane='" + myWalkingAreaPath->to->getID() + "') for person '" + getID() + "' time=" + time2string(t) + ".");
+                              + "' (fromLane='" + myWalkingAreaPath->from->getID()
+                              + "' toLane='" + myWalkingAreaPath->to->getID() + "') for person '" + getID() + "' time=" + time2string(t) + ".");
                 myRemoteXYPos = pos;
             } else {
                 myRelX = relPos.x();

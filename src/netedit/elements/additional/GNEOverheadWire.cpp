@@ -104,8 +104,8 @@ GNEOverheadWire::isAdditionalValid() const {
         if (myFriendlyPosition) {
             return true;
         } else {
-            return (myStartPos >= 0) && 
-                   (myEndPos >= 0) && 
+            return (myStartPos >= 0) &&
+                   (myEndPos >= 0) &&
                    ((myStartPos) <= getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength()) &&
                    ((myEndPos) <= getParentLanes().back()->getParentEdge()->getNBEdge()->getFinalLength());
         }

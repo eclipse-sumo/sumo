@@ -53,7 +53,7 @@ public:
 
     public:
         /// @brief parameter constructor (reference)
-        LaneDrawingConstants(const GUIVisualizationSettings  &s, const GNELane* lane);
+        LaneDrawingConstants(const GUIVisualizationSettings&  s, const GNELane* lane);
 
         /// @brief selection scale
         const double selectionScale;

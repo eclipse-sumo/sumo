@@ -2299,7 +2299,7 @@ NIImporter_OpenDrive::myStartElement(int element,
             int fromLane = attrs.get<int>(OPENDRIVE_ATTR_FROMLANE, myCurrentEdge.id.c_str(), ok);
             int toLane = attrs.get<int>(OPENDRIVE_ATTR_TOLANE, myCurrentEdge.id.c_str(), ok);
             if (myElementStack.size() >= 1 && (myElementStack.back() == OPENDRIVE_TAG_SIGNAL
-                        || myElementStack.back() == OPENDRIVE_TAG_SIGNALREFERENCE)) {
+                                               || myElementStack.back() == OPENDRIVE_TAG_SIGNALREFERENCE)) {
                 myCurrentEdge.signals.back().minLane = fromLane;
                 myCurrentEdge.signals.back().maxLane = toLane;
             }

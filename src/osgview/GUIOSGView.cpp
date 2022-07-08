@@ -108,10 +108,10 @@ GUIOSGView::Command_TLSChange::execute() {
         case LINKSTATE_TL_REDYELLOW:
             mySwitch->setSingleChildOn(3);
             break;
-		case LINKSTATE_TL_OFF_BLINKING:
-		case LINKSTATE_TL_OFF_NOSIGNAL:
-			mySwitch->setSingleChildOn(3);
-			break;
+        case LINKSTATE_TL_OFF_BLINKING:
+        case LINKSTATE_TL_OFF_NOSIGNAL:
+            mySwitch->setSingleChildOn(3);
+            break;
         default:
             mySwitch->setAllChildrenOff();
     }
@@ -129,8 +129,8 @@ GUIOSGView::GUIOSGView(
     GUINet& net, FXGLVisual* glVis,
     FXGLCanvas* share) :
     GUISUMOAbstractView(p, app, parent, net.getVisualisationSpeedUp(), glVis, share),
-    myTracked(0), myCameraManipulator(new SUMOTerrainManipulator()), myLastUpdate(-1), 
-	myOSGNormalizedCursorX(0.), myOSGNormalizedCursorY(0.) {
+    myTracked(0), myCameraManipulator(new SUMOTerrainManipulator()), myLastUpdate(-1),
+    myOSGNormalizedCursorX(0.), myOSGNormalizedCursorY(0.) {
 
     //FXGLVisual* glVisual=new FXGLVisual(getApp(),VISUAL_DOUBLEBUFFER|VISUAL_STEREO);
 
@@ -143,9 +143,9 @@ GUIOSGView::GUIOSGView(
     myViewer = new osgViewer::Viewer();
     myViewer->getCamera()->setGraphicsContext(myAdapter);
     myViewer->getCamera()->setViewport(0, 0, w, h);
-	myViewer->getCamera()->setNearFarRatio(0.005);
+    myViewer->getCamera()->setNearFarRatio(0.005);
     myViewer->setThreadingModel(osgViewer::Viewer::SingleThreaded);
-	myViewer->addEventHandler(new PickHandler(this));
+    myViewer->addEventHandler(new PickHandler(this));
 
     const char* sumoPath = getenv("SUMO_HOME");
     if (sumoPath != 0) {
@@ -190,11 +190,11 @@ GUIOSGView::~GUIOSGView() {
 }
 
 
-Position 
+Position
 GUIOSGView::getPositionInformation() const {
-	Position pos;
-	getPositionAtCursor(myOSGNormalizedCursorX, myOSGNormalizedCursorY, pos);
-	return pos;
+    Position pos;
+    getPositionAtCursor(myOSGNormalizedCursorX, myOSGNormalizedCursorY, pos);
+    return pos;
 }
 
 
@@ -290,20 +290,20 @@ GUIOSGView::recenterView() {
 
 void
 GUIOSGView::centerTo(GUIGlID id, bool /* applyZoom */, double /* zoomDist */) {
-	GUIGlObject* o = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
-	if (o != nullptr && dynamic_cast<GUIGlObject*>(o) != nullptr) {
-		// get OSG object from GLObject
-		osg::Node* objectNode = o->getNode();
-		if (objectNode != nullptr) {
-			// center to current position
-			osg::Vec3d lookFromOSG, lookAtOSG, up;
-			myCameraManipulator->getHomePosition(lookFromOSG, lookAtOSG, up);
-			myCameraManipulator->setHomePosition(lookFromOSG, objectNode->getBound().center(), up);
-			myViewer->home();
-			updatePositionInformation();
-		}
-	}
-	GUIGlObjectStorage::gIDStorage.unblockObject(id);
+    GUIGlObject* o = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
+    if (o != nullptr && dynamic_cast<GUIGlObject*>(o) != nullptr) {
+        // get OSG object from GLObject
+        osg::Node* objectNode = o->getNode();
+        if (objectNode != nullptr) {
+            // center to current position
+            osg::Vec3d lookFromOSG, lookAtOSG, up;
+            myCameraManipulator->getHomePosition(lookFromOSG, lookAtOSG, up);
+            myCameraManipulator->setHomePosition(lookFromOSG, objectNode->getBound().center(), up);
+            myViewer->home();
+            updatePositionInformation();
+        }
+    }
+    GUIGlObjectStorage::gIDStorage.unblockObject(id);
 }
 
 
@@ -338,7 +338,7 @@ GUIOSGView::onPaint(FXObject*, FXSelector, void*) {
                 const int linkStringIdx = (int)d.filename.find(':', 3);
                 GUINet* net = (GUINet*) MSNet::getInstance();
                 try {
-					const std::string tlLogic = d.filename.substr(3, linkStringIdx - 3);
+                    const std::string tlLogic = d.filename.substr(3, linkStringIdx - 3);
                     MSTLLogicControl::TLSLogicVariants& vars = net->getTLSControl().get(tlLogic);
                     const int linkIdx = StringUtils::toInt(d.filename.substr(linkStringIdx + 1));
                     if (linkIdx < 0 || linkIdx >= static_cast<int>(vars.getActive()->getLinks().size())) {
@@ -374,8 +374,8 @@ GUIOSGView::onPaint(FXObject*, FXSelector, void*) {
         if (itVeh == myVehicles.end()) {
             myVehicles[veh] = GUIOSGBuilder::buildMovable(veh->getVehicleType());
             myRoot->addChild(myVehicles[veh].pos);
-			myVehicles[veh].pos->setName("vehicle:"+veh->getID());
-			veh->setNode(myVehicles[veh].pos);
+            myVehicles[veh].pos->setName("vehicle:" + veh->getID());
+            veh->setNode(myVehicles[veh].pos);
         } else {
             itVeh->second.active = true;
         }
@@ -383,9 +383,9 @@ GUIOSGView::onPaint(FXObject*, FXSelector, void*) {
         n->setPosition(osg::Vec3d(veh->getPosition().x(), veh->getPosition().y(), veh->getPosition().z()));
         const double dir = veh->getAngle() + M_PI / 2.;
         const double slope = -veh->getSlope();
-		n->setAttitude(osg::Quat(osg::DegreesToRadians(slope), osg::Vec3(1, 0, 0),
-			0, osg::Vec3(0, 1, 0),
-			dir, osg::Vec3(0, 0, 1)));
+        n->setAttitude(osg::Quat(osg::DegreesToRadians(slope), osg::Vec3(1, 0, 0),
+                                 0, osg::Vec3(0, 1, 0),
+                                 dir, osg::Vec3(0, 0, 1)));
         /*
         osg::ref_ptr<osg::AnimationPath> path = new osg::AnimationPath;
         // path->setLoopMode( osg::AnimationPath::NO_LOOPING );
@@ -397,10 +397,10 @@ GUIOSGView::onPaint(FXObject*, FXSelector, void*) {
         path->insert(0.5f, pointB);
         n->setUpdateCallback(new osg::AnimationPathCallback(path));
         */
-		RGBColor col;
-		if (!GUIBaseVehicle::setFunctionalColor(myVisualizationSettings->vehicleColorer.getActive(), veh, col)) {
-			col = myVisualizationSettings->vehicleColorer.getScheme().getColor(veh->getColorValue(*myVisualizationSettings, myVisualizationSettings->vehicleColorer.getActive()));
-		}
+        RGBColor col;
+        if (!GUIBaseVehicle::setFunctionalColor(myVisualizationSettings->vehicleColorer.getActive(), veh, col)) {
+            col = myVisualizationSettings->vehicleColorer.getScheme().getColor(veh->getColorValue(*myVisualizationSettings, myVisualizationSettings->vehicleColorer.getActive()));
+        }
         myVehicles[veh].mat->setDiffuse(osg::Material::FRONT_AND_BACK, osg::Vec4d(col.red() / 255., col.green() / 255., col.blue() / 255., col.alpha() / 255.));
         myVehicles[veh].lights->setValue(0, veh->signalSet(MSVehicle::VEH_SIGNAL_BLINKER_RIGHT | MSVehicle::VEH_SIGNAL_BLINKER_EMERGENCY));
         myVehicles[veh].lights->setValue(1, veh->signalSet(MSVehicle::VEH_SIGNAL_BLINKER_LEFT | MSVehicle::VEH_SIGNAL_BLINKER_EMERGENCY));
@@ -508,7 +508,7 @@ void GUIOSGView::updateViewportValues() {
     osg::Vec3d lookFrom, lookAt, up;
     myCameraManipulator->getInverseMatrix().getLookAt(lookFrom, lookAt, up);
     myViewportChooser->setValues(Position(lookFrom[0], lookFrom[1], lookFrom[2]),
-        Position(lookAt[0], lookAt[1], lookAt[2]), calculateRotation(lookFrom, lookAt, up));
+                                 Position(lookAt[0], lookAt[1], lookAt[2]), calculateRotation(lookFrom, lookAt, up));
 }
 
 
@@ -519,7 +519,7 @@ GUIOSGView::showViewportEditor() {
     myCameraManipulator->getInverseMatrix().getLookAt(lookFrom, lookAt, up);
     Position from(lookFrom[0], lookFrom[1], lookFrom[2]), at(lookAt[0], lookAt[1], lookAt[2]);
     myViewportChooser->setOldValues(from, at, calculateRotation(lookFrom, lookAt, up));
-	myViewportChooser->setZoomValue(100);
+    myViewportChooser->setZoomValue(100);
     myViewportChooser->show();
 }
 
@@ -551,9 +551,9 @@ GUIOSGView::setViewportFromToRot(const Position& lookFrom, const Position& lookA
     up = normal * cos(angle) - orthogonal * sin(angle);
     up.normalize();
 
-	double zoom = (myViewportChooser != nullptr)? myViewportChooser->getZoomValue() : 100.;
-	lookFromOSG = lookFromOSG + viewAxis * (100. - zoom);
-	lookAtOSG = lookFromOSG - viewAxis;
+    double zoom = (myViewportChooser != nullptr) ? myViewportChooser->getZoomValue() : 100.;
+    lookFromOSG = lookFromOSG + viewAxis * (100. - zoom);
+    lookAtOSG = lookFromOSG - viewAxis;
     myCameraManipulator->setVerticalAxisFixed(true);
     myViewer->getCameraManipulator()->setHomePosition(lookFromOSG, lookAtOSG, up);
     myViewer->home();
@@ -742,19 +742,19 @@ long GUIOSGView::onRightBtnRelease(FXObject* sender, FXSelector sel, void* ptr) 
 
 long
 GUIOSGView::onMouseMove(FXObject* sender, FXSelector sel, void* ptr) {
-	// if popup exist but isn't shown, destroy it first
-	if (myPopup && (myPopup->shown() == false)) {
-		destroyPopup();
-	}
+    // if popup exist but isn't shown, destroy it first
+    if (myPopup && (myPopup->shown() == false)) {
+        destroyPopup();
+    }
 
     FXEvent* event = (FXEvent*)ptr;
     osgGA::GUIEventAdapter* ea = myAdapter->getEventQueue()->mouseMotion((float)event->win_x, (float)event->win_y);
-	setWindowCursorPosition(ea->getXnormalized(), ea->getYnormalized());
+    setWindowCursorPosition(ea->getXnormalized(), ea->getYnormalized());
 
     if (myViewportChooser != nullptr && myViewportChooser->shown()) {
         updateViewportValues();
     }
-	updatePositionInformation();
+    updatePositionInformation();
     return FXGLCanvas::onMotion(sender, sel, ptr);
 }
 
@@ -770,97 +770,97 @@ GUIOSGView::OnIdle(FXObject* /* sender */, FXSelector /* sel */, void*) {
 
 long
 GUIOSGView::onCmdCloseLane(FXObject*, FXSelector, void*) {
-	GUILane* lane = getLaneUnderCursor();
-	if (lane != nullptr) {
-		lane->closeTraffic();
-		GUIGlObjectStorage::gIDStorage.unblockObject(lane->getGlID());
-		update();
-	}
-	return 1;
+    GUILane* lane = getLaneUnderCursor();
+    if (lane != nullptr) {
+        lane->closeTraffic();
+        GUIGlObjectStorage::gIDStorage.unblockObject(lane->getGlID());
+        update();
+    }
+    return 1;
 }
 
 
 long
 GUIOSGView::onCmdCloseEdge(FXObject*, FXSelector, void*) {
-	GUILane* lane = getLaneUnderCursor();
-	if (lane != nullptr) {
-		dynamic_cast<GUIEdge*>(&lane->getEdge())->closeTraffic(lane);
-		GUIGlObjectStorage::gIDStorage.unblockObject(lane->getGlID());
-		update();
-	}
-	return 1;
+    GUILane* lane = getLaneUnderCursor();
+    if (lane != nullptr) {
+        dynamic_cast<GUIEdge*>(&lane->getEdge())->closeTraffic(lane);
+        GUIGlObjectStorage::gIDStorage.unblockObject(lane->getGlID());
+        update();
+    }
+    return 1;
 }
 
 
 long
 GUIOSGView::onCmdAddRerouter(FXObject*, FXSelector, void*) {
-	GUILane* lane = getLaneUnderCursor();
-	if (lane != nullptr) {
-		dynamic_cast<GUIEdge*>(&lane->getEdge())->addRerouter();
-		GUIGlObjectStorage::gIDStorage.unblockObject(lane->getGlID());
-		update();
-	}
-	return 1;
+    GUILane* lane = getLaneUnderCursor();
+    if (lane != nullptr) {
+        dynamic_cast<GUIEdge*>(&lane->getEdge())->addRerouter();
+        GUIGlObjectStorage::gIDStorage.unblockObject(lane->getGlID());
+        update();
+    }
+    return 1;
 }
 
 
 long
 GUIOSGView::onCmdShowReachability(FXObject* menu, FXSelector, void*) {
     GUILane* lane = getLaneUnderCursor();
-	if (lane != nullptr) {
-		// reset
-		const double UNREACHABLE = -1;
-		gSelected.clear();
-		for (const MSEdge* const e : MSEdge::getAllEdges()) {
-			for (MSLane* const l : e->getLanes()) {
-				GUILane* gLane = dynamic_cast<GUILane*>(l);
-				gLane->setReachability(UNREACHABLE);
-			}
-		}
-		// prepare
-		FXMenuCommand* mc = dynamic_cast<FXMenuCommand*>(menu);
-		const SUMOVehicleClass svc = SumoVehicleClassStrings.get(mc->getText().text());
-		const double defaultMaxSpeed = SUMOVTypeParameter::VClassDefaultValues(svc).maxSpeed;
-		// find reachable
-		std::map<MSEdge*, double> reachableEdges;
-		reachableEdges[&lane->getEdge()] = 0;
-		MSEdgeVector check;
-		check.push_back(&lane->getEdge());
-		while (check.size() > 0) {
-			MSEdge* e = check.front();
-			check.erase(check.begin());
-			double traveltime = reachableEdges[e];
-			for (MSLane* const l : e->getLanes()) {
-				if (l->allowsVehicleClass(svc)) {
-					GUILane* gLane = dynamic_cast<GUILane*>(l);
-					gSelected.select(gLane->getGlID());
-					gLane->setReachability(traveltime);
-				}
-			}
-			traveltime += e->getLength() / MIN2(e->getSpeedLimit(), defaultMaxSpeed);
-			for (MSEdge* const nextEdge : e->getSuccessors(svc)) {
-				if (reachableEdges.count(nextEdge) == 0 ||
-					// revisit edge via faster path
-					reachableEdges[nextEdge] > traveltime) {
-					reachableEdges[nextEdge] = traveltime;
-					check.push_back(nextEdge);
-				}
-			}
-		}
-		// switch to 'color by selection' unless coloring 'by reachability'
-		if (myVisualizationSettings->laneColorer.getActive() != 36) {
-			myVisualizationSettings->laneColorer.setActive(1);
-		}
-		update();
-	}
-	return 1;
+    if (lane != nullptr) {
+        // reset
+        const double UNREACHABLE = -1;
+        gSelected.clear();
+        for (const MSEdge* const e : MSEdge::getAllEdges()) {
+            for (MSLane* const l : e->getLanes()) {
+                GUILane* gLane = dynamic_cast<GUILane*>(l);
+                gLane->setReachability(UNREACHABLE);
+            }
+        }
+        // prepare
+        FXMenuCommand* mc = dynamic_cast<FXMenuCommand*>(menu);
+        const SUMOVehicleClass svc = SumoVehicleClassStrings.get(mc->getText().text());
+        const double defaultMaxSpeed = SUMOVTypeParameter::VClassDefaultValues(svc).maxSpeed;
+        // find reachable
+        std::map<MSEdge*, double> reachableEdges;
+        reachableEdges[&lane->getEdge()] = 0;
+        MSEdgeVector check;
+        check.push_back(&lane->getEdge());
+        while (check.size() > 0) {
+            MSEdge* e = check.front();
+            check.erase(check.begin());
+            double traveltime = reachableEdges[e];
+            for (MSLane* const l : e->getLanes()) {
+                if (l->allowsVehicleClass(svc)) {
+                    GUILane* gLane = dynamic_cast<GUILane*>(l);
+                    gSelected.select(gLane->getGlID());
+                    gLane->setReachability(traveltime);
+                }
+            }
+            traveltime += e->getLength() / MIN2(e->getSpeedLimit(), defaultMaxSpeed);
+            for (MSEdge* const nextEdge : e->getSuccessors(svc)) {
+                if (reachableEdges.count(nextEdge) == 0 ||
+                        // revisit edge via faster path
+                        reachableEdges[nextEdge] > traveltime) {
+                    reachableEdges[nextEdge] = traveltime;
+                    check.push_back(nextEdge);
+                }
+            }
+        }
+        // switch to 'color by selection' unless coloring 'by reachability'
+        if (myVisualizationSettings->laneColorer.getActive() != 36) {
+            myVisualizationSettings->laneColorer.setActive(1);
+        }
+        update();
+    }
+    return 1;
 }
 
 
 void
 GUIOSGView::setWindowCursorPosition(float x, float y) {
-	myOSGNormalizedCursorX = x;
-	myOSGNormalizedCursorY = y;
+    myOSGNormalizedCursorX = x;
+    myOSGNormalizedCursorY = y;
 }
 
 
@@ -881,83 +881,81 @@ GUIOSGView::calculateRotation(const osg::Vec3d& lookFrom, const osg::Vec3d& look
 }
 
 
-void 
+void
 GUIOSGView::updatePositionInformation() const {
-	Position pos;
-	if (getPositionAtCursor(myOSGNormalizedCursorX, myOSGNormalizedCursorY, pos)) {
-		myApp->getCartesianLabel()->setText(("x:" + toString(pos.x()) + ", y:" + toString(pos.y())).c_str());
-		// set geo position
-		GeoConvHelper::getFinal().cartesian2geo(pos);
-		if (GeoConvHelper::getFinal().usingGeoProjection()) {
-			myApp->getGeoLabel()->setText(("lat:" + toString(pos.y(), gPrecisionGeo) + ", lon:" + toString(pos.x(), gPrecisionGeo)).c_str());
-		}
-		else {
-			myApp->getGeoLabel()->setText(("x:" + toString(pos.x()) + ", y:" + toString(pos.y()) + " (No projection defined)").c_str());
-		}
-	}
-	else {
-		// set placeholder
-		myApp->getCartesianLabel()->setText("N/A");
-		myApp->getGeoLabel()->setText("N/A");
-	}
+    Position pos;
+    if (getPositionAtCursor(myOSGNormalizedCursorX, myOSGNormalizedCursorY, pos)) {
+        myApp->getCartesianLabel()->setText(("x:" + toString(pos.x()) + ", y:" + toString(pos.y())).c_str());
+        // set geo position
+        GeoConvHelper::getFinal().cartesian2geo(pos);
+        if (GeoConvHelper::getFinal().usingGeoProjection()) {
+            myApp->getGeoLabel()->setText(("lat:" + toString(pos.y(), gPrecisionGeo) + ", lon:" + toString(pos.x(), gPrecisionGeo)).c_str());
+        } else {
+            myApp->getGeoLabel()->setText(("x:" + toString(pos.x()) + ", y:" + toString(pos.y()) + " (No projection defined)").c_str());
+        }
+    } else {
+        // set placeholder
+        myApp->getCartesianLabel()->setText("N/A");
+        myApp->getGeoLabel()->setText("N/A");
+    }
 }
 
 
-bool 
+bool
 GUIOSGView::getPositionAtCursor(float xNorm, float yNorm, Position& pos) const {
-	// only reasonable if view axis points to the ground (not parallel to the ground or in the sky)
-	osg::Vec3d lookFrom, lookAt, up, viewAxis;
-	myCameraManipulator->getInverseMatrix().getLookAt(lookFrom, lookAt, up);
-	if ((lookAt - lookFrom).z() >= 0.) {
-		// looking to the sky makes position at ground pointless
-		return false;
-	}
-	// solve linear equation of ray crossing the ground plane
-	osg::Matrixd iVP = osg::Matrixd::inverse(myViewer->getCamera()->getViewMatrix() * myViewer->getCamera()->getProjectionMatrix());
-	osg::Vec3 nearPoint = osg::Vec3(xNorm, yNorm, 0.0f) * iVP;
-	osg::Vec3 farPoint = osg::Vec3(xNorm, yNorm, 1.0f) * iVP;
-	osg::Vec3 ray = farPoint - nearPoint;
-	osg::Vec3 groundPos = nearPoint - ray * nearPoint.z() / ray.z();
-	pos.setx(groundPos.x());
-	pos.sety(groundPos.y());
-	pos.setz(0.);
-	return true;
+    // only reasonable if view axis points to the ground (not parallel to the ground or in the sky)
+    osg::Vec3d lookFrom, lookAt, up, viewAxis;
+    myCameraManipulator->getInverseMatrix().getLookAt(lookFrom, lookAt, up);
+    if ((lookAt - lookFrom).z() >= 0.) {
+        // looking to the sky makes position at ground pointless
+        return false;
+    }
+    // solve linear equation of ray crossing the ground plane
+    osg::Matrixd iVP = osg::Matrixd::inverse(myViewer->getCamera()->getViewMatrix() * myViewer->getCamera()->getProjectionMatrix());
+    osg::Vec3 nearPoint = osg::Vec3(xNorm, yNorm, 0.0f) * iVP;
+    osg::Vec3 farPoint = osg::Vec3(xNorm, yNorm, 1.0f) * iVP;
+    osg::Vec3 ray = farPoint - nearPoint;
+    osg::Vec3 groundPos = nearPoint - ray * nearPoint.z() / ray.z();
+    pos.setx(groundPos.x());
+    pos.sety(groundPos.y());
+    pos.setz(0.);
+    return true;
 }
 
 
-std::vector<GUIGlObject*> 
+std::vector<GUIGlObject*>
 GUIOSGView::getGUIGlObjectsUnderCursor() {
-	std::vector<GUIGlObject*> result;
-	osgUtil::LineSegmentIntersector::Intersections intersections;
-	if (myViewer->computeIntersections(myViewer->getCamera(), osgUtil::Intersector::CoordinateFrame::PROJECTION, myOSGNormalizedCursorX, myOSGNormalizedCursorY, intersections)) {
-		for (auto intersection : intersections) {
-			if (!intersection.nodePath.empty()) {
-				// the object is identified by the ID stored in OSG
-				for (osg::Node* currentNode : intersection.nodePath) {
-					if (currentNode->getName().length() > 0 && currentNode->getName().find(":") != std::string::npos) {
-						const std::string objID = currentNode->getName();
-						GUIGlObject* o = GUIGlObjectStorage::gIDStorage.getObjectBlocking(objID);
-						// check that GUIGlObject exist
-						if (o == nullptr) {
-							continue;
-						}
-						// check that GUIGlObject isn't the network
-						if (o->getGlID() == 0) {
-							continue;
-						}
-						result.push_back(o);
-						// unblock object
-						GUIGlObjectStorage::gIDStorage.unblockObject(o->getGlID());
-					}
-				}
-			}
-		}
-	}
-	return result;
+    std::vector<GUIGlObject*> result;
+    osgUtil::LineSegmentIntersector::Intersections intersections;
+    if (myViewer->computeIntersections(myViewer->getCamera(), osgUtil::Intersector::CoordinateFrame::PROJECTION, myOSGNormalizedCursorX, myOSGNormalizedCursorY, intersections)) {
+        for (auto intersection : intersections) {
+            if (!intersection.nodePath.empty()) {
+                // the object is identified by the ID stored in OSG
+                for (osg::Node* currentNode : intersection.nodePath) {
+                    if (currentNode->getName().length() > 0 && currentNode->getName().find(":") != std::string::npos) {
+                        const std::string objID = currentNode->getName();
+                        GUIGlObject* o = GUIGlObjectStorage::gIDStorage.getObjectBlocking(objID);
+                        // check that GUIGlObject exist
+                        if (o == nullptr) {
+                            continue;
+                        }
+                        // check that GUIGlObject isn't the network
+                        if (o->getGlID() == 0) {
+                            continue;
+                        }
+                        result.push_back(o);
+                        // unblock object
+                        GUIGlObjectStorage::gIDStorage.unblockObject(o->getGlID());
+                    }
+                }
+            }
+        }
+    }
+    return result;
 }
 
 
-GUILane* 
+GUILane*
 GUIOSGView::getLaneUnderCursor() {
     std::vector<GUIGlObject*> objects = getGUIGlObjectsUnderCursor();
     if (objects.size() > 0) {
@@ -969,23 +967,23 @@ GUIOSGView::getLaneUnderCursor() {
 
 void
 GUIOSGView::zoom2Pos(Position& camera, Position& lookAt, double zoom) {
-	osg::Vec3f lookFromOSG, lookAtOSG, viewAxis, up;
-	myCameraManipulator->getInverseMatrix().getLookAt(lookFromOSG, lookAtOSG, up);
-	lookFromOSG[0] = camera.x();
-	lookFromOSG[1] = camera.y();
-	lookFromOSG[2] = camera.z();
-	lookAtOSG[0] = lookAt.x();
-	lookAtOSG[1] = lookAt.y();
-	lookAtOSG[2] = lookAt.z();
-	viewAxis = lookAtOSG - lookFromOSG;
-	viewAxis.normalize();
+    osg::Vec3f lookFromOSG, lookAtOSG, viewAxis, up;
+    myCameraManipulator->getInverseMatrix().getLookAt(lookFromOSG, lookAtOSG, up);
+    lookFromOSG[0] = camera.x();
+    lookFromOSG[1] = camera.y();
+    lookFromOSG[2] = camera.z();
+    lookAtOSG[0] = lookAt.x();
+    lookAtOSG[1] = lookAt.y();
+    lookAtOSG[2] = lookAt.z();
+    viewAxis = lookAtOSG - lookFromOSG;
+    viewAxis.normalize();
 
-	// compute new camera and lookAt pos
-	osg::Vec3f cameraUpdate = lookFromOSG + viewAxis * (zoom - 100);
-	osg::Vec3f lookAtUpdate = cameraUpdate + viewAxis;
+    // compute new camera and lookAt pos
+    osg::Vec3f cameraUpdate = lookFromOSG + viewAxis * (zoom - 100);
+    osg::Vec3f lookAtUpdate = cameraUpdate + viewAxis;
 
-	myViewer->getCameraManipulator()->setHomePosition(cameraUpdate, lookAtUpdate, up);
-	myViewer->home();
+    myViewer->getCameraManipulator()->setHomePosition(cameraUpdate, lookAtUpdate, up);
+    myViewer->home();
 }
 
 
@@ -1052,8 +1050,7 @@ void GUIOSGView::FXOSGAdapter::swapBuffersImplementation() {
 bool GUIOSGView::PickHandler::handle(const osgGA::GUIEventAdapter& ea, osgGA::GUIActionAdapter& /* aa */) {
     if (ea.getEventType() == osgGA::GUIEventAdapter::DRAG) {
         myDrag = true;
-    }
-	else if (ea.getEventType() == osgGA::GUIEventAdapter::RELEASE && ea.getButton() == osgGA::GUIEventAdapter::RIGHT_MOUSE_BUTTON) {
+    } else if (ea.getEventType() == osgGA::GUIEventAdapter::RELEASE && ea.getButton() == osgGA::GUIEventAdapter::RIGHT_MOUSE_BUTTON) {
         if (!myDrag) {
             std::vector<GUIGlObject*> objects = myParent->getGUIGlObjectsUnderCursor();
             if (objects.size() > 0) {
@@ -1064,8 +1061,8 @@ bool GUIOSGView::PickHandler::handle(const osgGA::GUIEventAdapter& ea, osgGA::GU
             }
         }
         myDrag = false;
-	}
-	return false;
+    }
+    return false;
 }
 
 

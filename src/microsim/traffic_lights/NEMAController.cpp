@@ -158,9 +158,9 @@ NEMALogic::constructTimingAndPhaseDefs(std::string& barriers, std::string& coord
                 std::string state = tempPhase->getState();
 
                 // check that all phases have the same length. myPhaseStrLen is initially set to -1.
-                if (myPhaseStrLen < 0){
+                if (myPhaseStrLen < 0) {
                     myPhaseStrLen = (int)state.size();
-                } else if (myPhaseStrLen != (int)state.size()){
+                } else if (myPhaseStrLen != (int)state.size()) {
                     throw ProcessError("At NEMA tlLogic '" + getID() + "', different sizes of NEMA phase states. Please check the NEMA XML");
                 }
 
@@ -168,7 +168,7 @@ NEMALogic::constructTimingAndPhaseDefs(std::string& barriers, std::string& coord
                 StringVector laneIDs;
                 IntVector controlledStateIndexes;
                 getLaneInfoFromNEMAState(state, laneIDs, controlledStateIndexes);
-                
+
                 std::vector<std::string> laneIDs_vector;
                 for (std::string laneID : laneIDs) {
                     laneIDs_vector.push_back(laneID);
@@ -719,8 +719,8 @@ NEMALogic::ModeCycle(SUMOTime a, SUMOTime b) {
 }
 
 
-void 
-NEMALogic::getLaneInfoFromNEMAState(std::string state, StringVector &laneIDs, IntVector &stateIndex) {
+void
+NEMALogic::getLaneInfoFromNEMAState(std::string state, StringVector& laneIDs, IntVector& stateIndex) {
     std::set<std::string> output;
     for (int i = 0; i < (int)state.size(); i++) {
         char ch = state[i];
@@ -1109,24 +1109,24 @@ std::string
 NEMALogic::composeLightString() {
     // FIX with plan to support #10742
     std::string out(myPhaseStrLen, 'r');
-    for (int i = 0; i < myPhaseStrLen; i++){
+    for (int i = 0; i < myPhaseStrLen; i++) {
         bool controlled = false;
         std::string phaseChars = "";
-        for (auto &p: myActivePhaseObjs){
+        for (auto& p : myActivePhaseObjs) {
             phaseChars += p->getNEMAChar(i);
-            if (p->controlledIndex(i)){
+            if (p->controlledIndex(i)) {
                 out[i] = p->getNEMAChar(i);
                 controlled = true;
             }
         }
         // if the index wasn't a controlled one, the prior priority order still stands
-        if (!controlled){
-            for (auto priority_char: lightHeadPriority){
-                if (std::count(phaseChars.begin(), phaseChars.end(), priority_char)){
+        if (!controlled) {
+            for (auto priority_char : lightHeadPriority) {
+                if (std::count(phaseChars.begin(), phaseChars.end(), priority_char)) {
                     out[i] = priority_char;
                     break;
                 }
-            } 
+            }
         }
     }
     return out;
@@ -1242,8 +1242,7 @@ NEMAPhase::NEMAPhase(int phaseName, bool isBarrier, bool isGreenRest, bool isCoo
     fixForceOff(fixForceOff),
     ringNum(ringNum),
     myCorePhase(phase),
-    myPhaseStringInds(phaseStringInds)
-    {
+    myPhaseStringInds(phaseStringInds) {
     // Public
     readyToSwitch = false;
     greenRestTimer = 0;
@@ -1312,7 +1311,7 @@ NEMAPhase::recalculateTiming(void) {
 
 // TODO: this can be computed once.
 char
-NEMAPhase::getNEMAChar(int i) { 
+NEMAPhase::getNEMAChar(int i) {
     if (myLightState >= LightState::Green) {
         return myGreenString[i];
     } else if (myLightState <= LightState::Red) {
@@ -1323,7 +1322,7 @@ NEMAPhase::getNEMAChar(int i) {
 }
 
 void
-NEMAPhase::setMyNEMAStates(){
+NEMAPhase::setMyNEMAStates() {
     myGreenString = myCorePhase->getState();
     myRedString = "";
     myYellowString = "";
@@ -1333,7 +1332,7 @@ NEMAPhase::setMyNEMAStates(){
             myYellowString += 'y';
         } else {
             myYellowString += ch;
-        } 
+        }
     }
 }
 

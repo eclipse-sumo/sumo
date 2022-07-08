@@ -898,9 +898,8 @@ GUIDialog_ViewSettings::saveDecals(OutputDevice& dev) const {
         bool isLight = d.filename.substr(0, 5) == "light" && d.filename.length() == 6 && isdigit(d.filename[5]);
         if (isLight) {
             dev.openTag(SUMO_TAG_VIEWSETTINGS_LIGHT);
-            dev.writeAttr(SUMO_ATTR_INDEX, d.filename.substr(5,1));
-        }
-        else {
+            dev.writeAttr(SUMO_ATTR_INDEX, d.filename.substr(5, 1));
+        } else {
             dev.openTag(SUMO_TAG_VIEWSETTINGS_DECAL);
             dev.writeAttr("file", d.filename);
             dev.writeAttr("screenRelative", d.screenRelative);
@@ -1655,7 +1654,7 @@ GUIDialog_ViewSettings::NamePanel::update(const GUIVisualizationTextSettings& se
 
 
 GUIDialog_ViewSettings::SizePanel::SizePanel(FXMatrix* parent, GUIDialog_ViewSettings* target,
-    const GUIVisualizationSizeSettings& settings, GUIGlObjectType type):
+        const GUIVisualizationSizeSettings& settings, GUIGlObjectType type):
     myDialogViewSettings(target),
     myType(type) {
     myCheck = new FXCheckButton(parent, "Draw with constant size when zoomed out", this, MID_SIMPLE_VIEW_SIZECHANGE, GUIDesignCheckButtonViewSettings);

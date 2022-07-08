@@ -161,7 +161,7 @@ GNEGenericData::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& /* p
 }
 
 
-void 
+void
 GNEGenericData::updateGLObject() {
     updateGeometry();
 }
@@ -298,9 +298,9 @@ GNEGenericData::replaceParentTAZElement(const int index, const std::string& valu
 
 std::string
 GNEGenericData::getPartialID() const {
-    return getDataIntervalParent()->getDataSetParent()->getID() + "[" + 
-        getDataIntervalParent()->getAttribute(SUMO_ATTR_BEGIN) + "," +
-        getDataIntervalParent()->getAttribute(SUMO_ATTR_END) + "]:"; 
+    return getDataIntervalParent()->getDataSetParent()->getID() + "[" +
+           getDataIntervalParent()->getAttribute(SUMO_ATTR_BEGIN) + "," +
+           getDataIntervalParent()->getAttribute(SUMO_ATTR_END) + "]:";
 }
 
 /****************************************************************************/

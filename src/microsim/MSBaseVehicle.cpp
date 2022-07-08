@@ -228,7 +228,7 @@ MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<M
             // avoid superfluous waypoints for first and last edge
             const bool skipFirst = stops.front() == source && (source != getEdge() || sourcePos + getBrakeGap() <= firstPos);
             const bool skipLast = stops.back() == sink && myArrivalPos >= lastPos && (
-                    stops.size() < 2 || stops.back() != stops[stops.size() - 2]);
+                                      stops.size() < 2 || stops.back() != stops[stops.size() - 2]);
 #ifdef DEBUG_REROUTE
             if (DEBUG_COND) {
                 std::cout << SIMTIME << " reroute " << info << " veh=" << getID() << " lane=" << Named::getIDSecure(getLane())
@@ -412,7 +412,9 @@ MSBaseVehicle::replaceRoute(const MSRoute* newRoute, const std::string& info, bo
                 *msgReturn = "current edge '" + (*myCurrEdge)->getID() + "' not found in new route";
             }
 #ifdef DEBUG_REPLACE_ROUTE
-            if (DEBUG_COND) std::cout << "  newCurrEdge not found\n";
+            if (DEBUG_COND) {
+                std::cout << "  newCurrEdge not found\n";
+            }
 #endif
             return false;
         }
@@ -423,7 +425,9 @@ MSBaseVehicle::replaceRoute(const MSRoute* newRoute, const std::string& info, bo
                     *msgReturn = "Vehicle is on junction-internal edge leading elsewhere";
                 }
 #ifdef DEBUG_REPLACE_ROUTE
-                if (DEBUG_COND) std::cout << "  Vehicle is on junction-internal edge leading elsewhere\n";
+                if (DEBUG_COND) {
+                    std::cout << "  Vehicle is on junction-internal edge leading elsewhere\n";
+                }
 #endif
                 return false;
             } else if (getPositionOnLane() > getLane()->getLength()
@@ -434,7 +438,9 @@ MSBaseVehicle::replaceRoute(const MSRoute* newRoute, const std::string& info, bo
                     *msgReturn = "Vehicle is moving past junction and committed to move to another successor edge";
                 }
 #ifdef DEBUG_REPLACE_ROUTE
-                if (DEBUG_COND) std::cout << "  Vehicle is moving past junction and committed to move to another successor edge\n";
+                if (DEBUG_COND) {
+                    std::cout << "  Vehicle is moving past junction and committed to move to another successor edge\n";
+                }
 #endif
                 return false;
             }
@@ -456,12 +462,12 @@ MSBaseVehicle::replaceRoute(const MSRoute* newRoute, const std::string& info, bo
 #ifdef DEBUG_REPLACE_ROUTE
     if (DEBUG_COND) {
         std::cout << SIMTIME << " replaceRoute info=" << info << " on " << (*myCurrEdge)->getID()
-            << " lane=" << Named::getIDSecure(getLane())
-            << " stopsFromScratch=" << stopsFromScratch
-            << "  newSize=" << newRoute->getEdges().size()
-            << " newIndex=" << (myCurrEdge - newRoute->begin())
-            << " edges=" << toString(newRoute->getEdges())
-            << "\n";
+                  << " lane=" << Named::getIDSecure(getLane())
+                  << " stopsFromScratch=" << stopsFromScratch
+                  << "  newSize=" << newRoute->getEdges().size()
+                  << " newIndex=" << (myCurrEdge - newRoute->begin())
+                  << " edges=" << toString(newRoute->getEdges())
+                  << "\n";
     }
 #endif
     // if we did not drive yet it may be best to simply reassign the stops from scratch
@@ -1053,9 +1059,9 @@ MSBaseVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& e
 #ifdef DEBUG_ADD_STOP
     if (DEBUG_COND) {
         std::cout << "addStop desc=" << stop.getDescription() << " stopEdge=" << stopEdge->getID()
-            << " searchStart=" << ((*searchStart) == myRoute->end() ? "END" : (**searchStart)->getID())
-            << " index=" << (int)((*searchStart) - myRoute->begin()) << " route=" << toString(myRoute->getEdges())
-            << "\n";
+                  << " searchStart=" << ((*searchStart) == myRoute->end() ? "END" : (**searchStart)->getID())
+                  << " index=" << (int)((*searchStart) - myRoute->begin()) << " route=" << toString(myRoute->getEdges())
+                  << "\n";
     }
 #endif
     stop.edge = std::find(*searchStart, myRoute->end(), stopEdge);
@@ -1079,7 +1085,7 @@ MSBaseVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& e
 #ifdef DEBUG_ADD_STOP
             if (DEBUG_COND) {
                 std::cout << " (@end) prevStopEdge=" << (*prevStopEdge)->getID() << " index=" << (int)(prevStopEdge - myRoute->begin())
-                    << " foundIndex=" << (stop.edge == myRoute->end() ? -1 : (int)(stop.edge - myRoute->begin())) << "\n";
+                          << " foundIndex=" << (stop.edge == myRoute->end() ? -1 : (int)(stop.edge - myRoute->begin())) << "\n";
             }
 #endif
         }

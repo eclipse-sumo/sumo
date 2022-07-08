@@ -75,7 +75,9 @@ StringUtils::pruneZeros(const std::string& str, int max) {
 std::string
 StringUtils::to_lower_case(const std::string& str) {
     std::string s = str;
-    std::transform(s.begin(), s.end(), s.begin(), [](char c) { return (char)::tolower(c); });
+    std::transform(s.begin(), s.end(), s.begin(), [](char c) {
+        return (char)::tolower(c);
+    });
     return s;
 }
 
@@ -422,7 +424,7 @@ StringUtils::toBool(const std::string& sData) {
     const std::string s = to_lower_case(sData);
     if (s == "1" || s == "yes" || s == "true" || s == "on" || s == "x" || s == "t") {
         return true;
-    } 
+    }
     if (s == "0" || s == "no" || s == "false" || s == "off" || s == "-" || s == "f") {
         return false;
     }

@@ -608,8 +608,8 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
         // draw lock icon
         GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), 1);
         // check if mark lane (and their parent edge)
-        if ((gPostDrawing.markedLane == nullptr) && 
-            (myLaneGeometry.getShape().distance2D(myNet->getViewNet()->getPositionInformation()) <= laneDrawingConstants.halfWidth)) {
+        if ((gPostDrawing.markedLane == nullptr) &&
+                (myLaneGeometry.getShape().distance2D(myNet->getViewNet()->getPositionInformation()) <= laneDrawingConstants.halfWidth)) {
             // mark lane and their parent edge
             gPostDrawing.markedLane = this;
             gPostDrawing.markedEdge = myParentEdge;
@@ -637,8 +637,8 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
 }
 
 
- void
- GNELane::updateGLObject() {
+void
+GNELane::updateGLObject() {
     updateGeometry();
 }
 

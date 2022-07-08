@@ -85,7 +85,7 @@ long
 MFXCheckableButton::onEnter(FXObject* sender, FXSelector sel, void* ptr) {
     // create on first enter
     if (myStaticToolTip == nullptr) {
-        myStaticToolTip = new FXStaticToolTip(getApp()); 
+        myStaticToolTip = new FXStaticToolTip(getApp());
         myStaticToolTip->create();
     }
     // show tip show
@@ -94,7 +94,7 @@ MFXCheckableButton::onEnter(FXObject* sender, FXSelector sel, void* ptr) {
 }
 
 
-long 
+long
 MFXCheckableButton::onLeave(FXObject* sender, FXSelector sel, void* ptr) {
     // hide tip show
     myStaticToolTip->onTipHide(sender, sel, this);

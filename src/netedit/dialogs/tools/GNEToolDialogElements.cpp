@@ -31,7 +31,7 @@
 // member method definitions
 // ===========================================================================
 
-GNEToolDialogElements::Argument::Argument(GNEToolDialog *_toolDialogParent, const std::string name, const std::string parameter_) :
+GNEToolDialogElements::Argument::Argument(GNEToolDialog* _toolDialogParent, const std::string name, const std::string parameter_) :
     toolDialogParent(_toolDialogParent),
     argumentName(name),
     parameter(parameter_) {
@@ -46,10 +46,10 @@ GNEToolDialogElements::Argument::~Argument() {}
 GNEToolDialogElements::Argument::Argument() {}
 
 
-GNEToolDialogElements::FileNameArgument::FileNameArgument(FXComposite *parent, GNEToolDialog *toolDialogParent, const std::string name, const std::string parameter) :
+GNEToolDialogElements::FileNameArgument::FileNameArgument(FXComposite* parent, GNEToolDialog* toolDialogParent, const std::string name, const std::string parameter) :
     FXVerticalFrame(parent, GUIDesignAuxiliarHorizontalFrame),
     Argument(toolDialogParent, name, parameter) {
-    new FXLabel(this, parameter.empty()? name.c_str() : (name + " (" + parameter + ")").c_str(),nullptr, GUIDesignLabelLeftThick);
+    new FXLabel(this, parameter.empty() ? name.c_str() : (name + " (" + parameter + ")").c_str(), nullptr, GUIDesignLabelLeftThick);
     // Create Open button
     auto horizontalFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     myFilenameButton = new FXButton(horizontalFrame, "\t\tSelect filename", GUIIconSubSys::getIcon(GUIIcon::OPEN_NET), this, FXDialogBox::ID_ACCEPT, GUIDesignButtonIcon);
@@ -57,7 +57,7 @@ GNEToolDialogElements::FileNameArgument::FileNameArgument(FXComposite *parent, G
 }
 
 
-std::string 
+std::string
 GNEToolDialogElements::FileNameArgument::getArgument() const {
     return "";
 }
@@ -69,7 +69,7 @@ GNEToolDialogElements::FileNameArgument::resetValues() {
 }
 
 
-GNEToolDialogElements::Separator::Separator(FXComposite *parent, const std::string name) :
+GNEToolDialogElements::Separator::Separator(FXComposite* parent, const std::string name) :
     FXVerticalFrame(parent, GUIDesignAuxiliarHorizontalFrame) {
     new FXLabel(this, name.c_str(), nullptr, GUIDesignLabelCenterThick);
 }

@@ -45,7 +45,7 @@ GUISettingsHandler::GUISettingsHandler(const std::string& content, bool isFile, 
     mySettings("TEMPORARY_NAME", netedit),
     myDelay(-1), myLookFrom(-1, -1, -1), myLookAt(-1, -1, -1),
     myRotation(0),
-	myZoom(-1),
+    myZoom(-1),
     myCurrentColorer(SUMO_TAG_NOTHING),
     myCurrentScheme(nullptr),
     myJamSoundTime(-1) {
@@ -93,7 +93,7 @@ GUISettingsHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) 
             const double y = attrs.getOpt<double>(SUMO_ATTR_Y, nullptr, ok, myLookFrom.y());
             const double z = attrs.getOpt<double>(SUMO_ATTR_Z, nullptr, ok, myLookFrom.z());
             myLookFrom.set(x, y, z);
-			myZoom = attrs.getOpt<double>(SUMO_ATTR_ZOOM, nullptr, ok, myZoom);
+            myZoom = attrs.getOpt<double>(SUMO_ATTR_ZOOM, nullptr, ok, myZoom);
             const double cx = attrs.getOpt<double>(SUMO_ATTR_CENTER_X, nullptr, ok, myLookAt.x());
             const double cy = attrs.getOpt<double>(SUMO_ATTR_CENTER_Y, nullptr, ok, myLookAt.y());
             const double cz = attrs.getOpt<double>(SUMO_ATTR_CENTER_Z, nullptr, ok, myLookAt.z());
@@ -482,9 +482,9 @@ GUISettingsHandler::addSettings(GUISUMOAbstractView* view) const {
 void
 GUISettingsHandler::applyViewport(GUISUMOAbstractView* view) const {
     if (myLookFrom.z() > 0 || myZoom > 0) {
-		// z value stores zoom so we must convert first
-		double z = (view->is3DView()) ? myLookFrom.z() : view->getChanger().zoom2ZPos(myZoom);
-		Position lookFrom(myLookFrom.x(), myLookFrom.y(), z);
+        // z value stores zoom so we must convert first
+        double z = (view->is3DView()) ? myLookFrom.z() : view->getChanger().zoom2ZPos(myZoom);
+        Position lookFrom(myLookFrom.x(), myLookFrom.y(), z);
         view->setViewportFromToRot(lookFrom, myLookAt, myRotation);
     }
 }

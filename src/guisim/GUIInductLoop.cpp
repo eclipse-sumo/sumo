@@ -94,8 +94,8 @@ GUIInductLoop::MyWrapper::MyWrapper(GUIInductLoop& detector, double pos) :
         const double endPos = detector.getEndPosition();
         myFGShape = lane.getShape();
         myFGShape = myFGShape.getSubpart(
-                lane.interpolateLanePosToGeometryPos(pos),
-                lane.interpolateLanePosToGeometryPos(endPos));
+                        lane.interpolateLanePosToGeometryPos(pos),
+                        lane.interpolateLanePosToGeometryPos(endPos));
         myFGShapeRotations.reserve(myFGShape.size() - 1);
         myFGShapeLengths.reserve(myFGShape.size() - 1);
         int e = (int) myFGShape.size() - 1;

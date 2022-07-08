@@ -695,7 +695,7 @@ GNEApplicationWindowHelper::EditMenuCommands::NetworkViewOptions::hideNetworkVie
 }
 
 
-void 
+void
 GNEApplicationWindowHelper::EditMenuCommands::NetworkViewOptions::updateShortcuts() {
     int index = 2;
     // update all accel text
@@ -2261,7 +2261,7 @@ GNEApplicationWindowHelper::toggleEditOptionsData(GNEViewNet* viewNet, const MFX
 
 
 bool
-GNEApplicationWindowHelper::stringEndsWith(const std::string &str, const std::string &suffix) {
+GNEApplicationWindowHelper::stringEndsWith(const std::string& str, const std::string& suffix) {
     if (str.length() < suffix.length()) {
         return false;
     } else {

@@ -813,8 +813,8 @@ protected:
     std::string getInsertionChecks() const;
 
     /// @brief check if given insertion checks are valid
-    bool areInsertionChecksValid(const std::string &value) const;
+    bool areInsertionChecksValid(const std::string& value) const;
 
     /// @brief parses insertion checks
-    void parseInsertionChecks(const std::string &value);
+    void parseInsertionChecks(const std::string& value);
 };

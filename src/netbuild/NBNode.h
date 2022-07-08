@@ -728,7 +728,7 @@ public:
     Crossing* getCrossing(const EdgeVector& edges, bool hardFail = true) const;
 
     /// @brief return the walkingArea with the given ID
-    WalkingArea &getWalkingArea(const std::string &id);
+    WalkingArea& getWalkingArea(const std::string& id);
 
     /* @brief set tl indices of this nodes crossing starting at the given index
      * @return Whether a custom index was used

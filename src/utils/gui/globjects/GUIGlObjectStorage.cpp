@@ -36,8 +36,8 @@ GUIGlObjectStorage GUIGlObjectStorage::gIDStorage;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUIGlObjectStorage::GUIGlObjectStorage() : 
-    myNextID(1), 
+GUIGlObjectStorage::GUIGlObjectStorage() :
+    myNextID(1),
     myLock(true) {
     myObjects.push_back(nullptr);
 }
@@ -130,7 +130,7 @@ GUIGlObjectStorage::unblockObject(GUIGlID id) {
 
 const std::vector<GUIGlObject*>&
 GUIGlObjectStorage::getAllGLObjects() const {
-    return myObjects; 
+    return myObjects;
 }
 
 /****************************************************************************/

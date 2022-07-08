@@ -104,7 +104,9 @@ XMLSubSys::setValidation(const std::string& validationScheme, const std::string&
             WRITE_WARNING("Environment variable SUMO_HOME is not set, schema resolution will use slow website lookups.");
             return;
         }
-        for (const char* const& filetype : { "additional", "routes", "net" }) {
+        for (const char* const& filetype : {
+                    "additional", "routes", "net"
+                }) {
             const std::string file = sumoPath + std::string("/data/xsd/") + filetype + "_file.xsd";
             if (!parser->loadGrammar(file.c_str(), XERCES_CPP_NAMESPACE::Grammar::SchemaGrammarType, true)) {
                 WRITE_WARNING("Cannot read local schema '" + file + "', will try website lookup.");

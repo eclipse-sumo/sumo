@@ -472,10 +472,10 @@ public:
     void drawTranslateFrontAttributeCarrier(const GNEAttributeCarrier* AC, double typeOrLayer, const double extraOffset = 0);
 
     /// @brief get last created route
-    GNEDemandElement *getLastCreatedRoute() const;
+    GNEDemandElement* getLastCreatedRoute() const;
 
     /// @brief set last created route
-    void setLastCreatedRoute(GNEDemandElement *lastCreatedRoute);
+    void setLastCreatedRoute(GNEDemandElement* lastCreatedRoute);
 
     /// @brief set statusBar text
     void setStatusBarText(const std::string& text);

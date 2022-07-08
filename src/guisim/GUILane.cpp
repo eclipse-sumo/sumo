@@ -1299,7 +1299,7 @@ GUILane::getColorValue(const GUIVisualizationSettings& s, int activeScheme) cons
         }
         case 32: {
             // by numerical lane param value
-            if  (knowsParameter(s.laneParam)) {
+            if (knowsParameter(s.laneParam)) {
                 try {
                     return StringUtils::toDouble(getParameter(s.laneParam, "0"));
                 } catch (NumberFormatException&) {

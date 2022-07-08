@@ -604,7 +604,7 @@ GUIVisualizationSettings::GUIVisualizationSettings(const std::string& _name, boo
 }
 
 
-void 
+void
 GUIVisualizationSettings::copy(const GUIVisualizationSettings& s) {
     // just copy. Note: By default = operator is disabled to avoid accidental copies)
     *this = s;

@@ -225,13 +225,13 @@ GNEFixNetworkElements::FixEdgeOptions::FixEdgeOptions(GNEFixNetworkElements* fix
     FixOptions(fixNetworkElementsParent->myLeftFrame, "Edges", viewNet) {
     // Remove invalid edges
     removeInvalidEdges = new FXRadioButton(myLeftFrame, "Remove invalid edges",
-        fixNetworkElementsParent, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
+                                           fixNetworkElementsParent, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
     // Save invalid edges
     saveInvalidEdges = new FXRadioButton(myLeftFrame, "Save invalid edges",
-        fixNetworkElementsParent, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
+                                         fixNetworkElementsParent, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
     // Select invalid edges
     selectInvalidEdgesAndCancel = new FXRadioButton(myRightFrame, "Select conflicted edges",
-        fixNetworkElementsParent, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
+            fixNetworkElementsParent, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
     // leave option "removeInvalidEdges" as default
     removeInvalidEdges->setCheck(true);
 }
@@ -306,13 +306,13 @@ GNEFixNetworkElements::FixCrossingOptions::FixCrossingOptions(GNEFixNetworkEleme
     FixOptions(fixNetworkElementsParent->myLeftFrame, "Crossings", viewNet) {
     // Remove invalid crossings
     removeInvalidCrossings = new FXRadioButton(myLeftFrame, "Remove invalid crossings",
-        fixNetworkElementsParent, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
+            fixNetworkElementsParent, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
     // Save invalid crossings
     saveInvalidCrossings = new FXRadioButton(myLeftFrame, "Save invalid crossings",
-        fixNetworkElementsParent, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
+            fixNetworkElementsParent, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
     // Select invalid crossing
     selectInvalidCrossingsAndCancel = new FXRadioButton(myRightFrame, "Select conflicted crossing",
-        fixNetworkElementsParent, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
+            fixNetworkElementsParent, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
     // by default remove invalid crossings
     removeInvalidCrossings->setCheck(TRUE);
 }

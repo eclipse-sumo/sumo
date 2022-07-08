@@ -43,7 +43,7 @@ class GNEToolDialog : protected FXTopWindow {
 
 public:
     /// @brief Constructor
-    GNEToolDialog(GNEApplicationWindow* GNEApp, const std::string &name, const int dialogWidth, const int dialogHeight);
+    GNEToolDialog(GNEApplicationWindow* GNEApp, const std::string& name, const int dialogWidth, const int dialogHeight);
 
     /// @brief destructor
     ~GNEToolDialog();
@@ -58,7 +58,7 @@ public:
     bool shown() const;
 
     /// @brief add argument
-    void addArgument(GNEToolDialogElements::Argument *argument);
+    void addArgument(GNEToolDialogElements::Argument* argument);
 
     /// @name FOX-callbacks
     /// @{
@@ -81,7 +81,7 @@ protected:
     GNEApplicationWindow* myGNEApp;
 
     /// @brief vertical frame for contents
-    FXVerticalFrame *myContentFrame = nullptr;
+    FXVerticalFrame* myContentFrame = nullptr;
 
     /// @brief execute dialog as modal
     FXint openAsModalDialog(FXuint placement = PLACEMENT_CURSOR);

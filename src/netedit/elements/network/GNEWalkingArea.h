@@ -47,7 +47,7 @@ public:
      * @param[in] parentJunction GNEJunction in which this crossing is placed
      * @param[in] ID walkingArea ID
      */
-    GNEWalkingArea(GNEJunction* parentJunction, const std::string &ID);
+    GNEWalkingArea(GNEJunction* parentJunction, const std::string& ID);
 
     /// @brief Destructor
     ~GNEWalkingArea();

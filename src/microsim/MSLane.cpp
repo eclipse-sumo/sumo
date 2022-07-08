@@ -114,8 +114,7 @@ std::vector<SumoRNG> MSLane::myRNGs;
 void
 MSLane::StoringVisitor::add(const MSLane* const l) const {
     switch (myDomain) {
-        case libsumo::CMD_GET_VEHICLE_VARIABLE:
-        {
+        case libsumo::CMD_GET_VEHICLE_VARIABLE: {
             for (const MSVehicle* veh : l->getVehiclesSecure()) {
                 if (myShape.distance2D(veh->getPosition()) <= myRange) {
                     myObjects.insert(veh);
@@ -129,8 +128,7 @@ MSLane::StoringVisitor::add(const MSLane* const l) const {
             l->releaseVehicles();
         }
         break;
-        case libsumo::CMD_GET_PERSON_VARIABLE:
-        {
+        case libsumo::CMD_GET_PERSON_VARIABLE: {
             l->getVehiclesSecure();
             std::vector<MSTransportable*> persons = l->getEdge().getSortedPersons(MSNet::getInstance()->getCurrentTimeStep(), true);
             for (auto p : persons) {
@@ -141,15 +139,13 @@ MSLane::StoringVisitor::add(const MSLane* const l) const {
             l->releaseVehicles();
         }
         break;
-        case libsumo::CMD_GET_EDGE_VARIABLE:
-        {
+        case libsumo::CMD_GET_EDGE_VARIABLE: {
             if (myShape.size() != 1 || l->getShape().distance2D(myShape[0]) <= myRange) {
                 myObjects.insert(&l->getEdge());
             }
         }
         break;
-        case libsumo::CMD_GET_LANE_VARIABLE:
-        {
+        case libsumo::CMD_GET_LANE_VARIABLE: {
             if (myShape.size() != 1 || l->getShape().distance2D(myShape[0]) <= myRange) {
                 myObjects.insert(l);
             }
@@ -1186,12 +1182,12 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
 #ifdef DEBUG_INSERTION
         if (DEBUG_COND2(aVehicle) || DEBUG_COND) {
             std::cout << "\nIS_INSERTION_SUCCESS\n"
-                << SIMTIME << " veh=" << aVehicle->getID() << " bestLaneOffset=" << bestLaneOffset << " bestLaneDist=" << aVehicle->getBestLaneDist() << " extraReservation=" << extraReservation
-                << " distToStop=" << distToStop << " v=" << speed << " v2=" << stopSpeed << "\n";
+                      << SIMTIME << " veh=" << aVehicle->getID() << " bestLaneOffset=" << bestLaneOffset << " bestLaneDist=" << aVehicle->getBestLaneDist() << " extraReservation=" << extraReservation
+                      << " distToStop=" << distToStop << " v=" << speed << " v2=" << stopSpeed << "\n";
         }
 #endif
         if (checkFailure(aVehicle, speed, distToStop, MAX2(0.0, stopSpeed),
-                    patchSpeed, msg.str(), InsertionCheck::LANECHANGE)) {
+                         patchSpeed, msg.str(), InsertionCheck::LANECHANGE)) {
             // we may not drive with the given velocity - we cannot reserve enough space for lane changing
             return false;
         }

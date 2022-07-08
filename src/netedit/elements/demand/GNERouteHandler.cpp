@@ -1346,7 +1346,7 @@ GNERouteHandler::buildContainerPlan(SumoXMLTag tag, GNEDemandElement* containerP
     }
     // get container
     const auto container = myNet->getAttributeCarriers()->retrieveDemandElement(containerPlanObject->getParentSumoBaseObject()->getTag(),
-        containerPlanObject->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID), false);
+                           containerPlanObject->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID), false);
     if (container) {
         // compute container (and all container plans)
         container->computePathElement();
@@ -1722,7 +1722,7 @@ GNERouteHandler::transformToPerson(GNEPerson* originalPerson) {
     // create personFlow
     routeHandler.buildPerson(nullptr, personParameters);
     // move all person plans to new person
-    for (const auto &personPlan : personPlans) {
+    for (const auto& personPlan : personPlans) {
         personPlan->setAttribute(GNE_ATTR_PARENT, "%dummyID%", net->getViewNet()->getUndoList());
     }
     // delete original person plan
@@ -1754,7 +1754,7 @@ GNERouteHandler::transformToPersonFlow(GNEPerson* originalPerson) {
     // create personFlow
     routeHandler.buildPersonFlow(nullptr, personParameters);
     // move all person plans to new person
-    for (const auto &personPlan : personPlans) {
+    for (const auto& personPlan : personPlans) {
         personPlan->setAttribute(GNE_ATTR_PARENT, "%dummyID%", net->getViewNet()->getUndoList());
     }
     // delete original person plan
@@ -1789,7 +1789,7 @@ GNERouteHandler::transformToContainer(GNEContainer* originalContainer) {
     // create containerFlow
     routeHandler.buildContainer(nullptr, containerParameters);
     // move all container plans to new container
-    for (const auto &containerPlan : containerPlans) {
+    for (const auto& containerPlan : containerPlans) {
         containerPlan->setAttribute(GNE_ATTR_PARENT, "%dummyID%", net->getViewNet()->getUndoList());
     }
     // delete original container plan
@@ -1821,7 +1821,7 @@ GNERouteHandler::transformToContainerFlow(GNEContainer* originalContainer) {
     // create containerFlow
     routeHandler.buildContainerFlow(nullptr, containerParameters);
     // move all container plans to new container
-    for (const auto &containerPlan : containerPlans) {
+    for (const auto& containerPlan : containerPlans) {
         containerPlan->setAttribute(GNE_ATTR_PARENT, "%dummyID%", net->getViewNet()->getUndoList());
     }
     // delete original container plan

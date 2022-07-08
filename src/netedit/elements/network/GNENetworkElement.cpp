@@ -69,7 +69,7 @@ GNENetworkElement::GNENetworkElement::isNetworkElementValid() const {
 }
 
 
-std::string 
+std::string
 GNENetworkElement::GNENetworkElement::getNetworkElementProblem() const {
     // implement in children
     return "";

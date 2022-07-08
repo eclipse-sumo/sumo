@@ -124,7 +124,7 @@ public:
     /** @brief Tries to read the SUMOTime 'period' attribute
      *
      * If 'period' cannot be found, tries 'freq' as an alias.
-     * 
+     *
      * If an error occurs (the attribute is not there, it is not numeric), "ok" is
      *  set to false and an error message is written to MsgHandler::getErrorInstance.
      *

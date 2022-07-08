@@ -773,8 +773,8 @@ GNEAdditional::areLaneConnected(const std::vector<GNELane*>& lanes) {
         // if there is a connection betwen "from" lane and "to" lane of connection, change connectionFound to true
         for (const auto& connection : lane->getParentEdge()->getNBEdge()->getConnections()) {
             if ((connection.toEdge == nextLane->getParentEdge()->getNBEdge()) &&
-                (connection.fromLane == lane->getIndex()) &&
-                (connection.toLane == nextLane->getIndex())) {
+                    (connection.fromLane == lane->getIndex()) &&
+                    (connection.toLane == nextLane->getIndex())) {
                 connectionFound = true;
             }
         }

@@ -51,7 +51,7 @@ public:
     * @param[in] type TrafficLightType
     */
     GNEChange_TLS(GNEJunction* junction, NBTrafficLightDefinition* tlDef, bool forward, TrafficLightType type,
-        bool forceInsert = false, const std::string tlID = "");
+                  bool forceInsert = false, const std::string tlID = "");
 
     /// @brief Destructor
     ~GNEChange_TLS();

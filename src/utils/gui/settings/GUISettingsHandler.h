@@ -161,8 +161,8 @@ private:
     /// @brief View rotation
     double myRotation;
 
-	/// @brief Zoom level
-	double myZoom;
+    /// @brief Zoom level
+    double myZoom;
 
     /// @brief mappig of time steps to filenames for potential snapshots
     std::map<SUMOTime, std::vector<std::string> > mySnapshots;

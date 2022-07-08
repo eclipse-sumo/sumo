@@ -58,7 +58,7 @@ FXIMPLEMENT(FXMenuCheckIcon, FXMenuCommand, FXMenuCheckIconMap, ARRAYNUMBER(FXMe
 // member method definitions
 // ===========================================================================
 
-FXMenuCheckIcon::FXMenuCheckIcon(FXComposite* p, const std::string &text, const std::string &shortcut, const std::string &info, const FXIcon* icon, FXObject* tgt, FXSelector sel, FXuint opts) :
+FXMenuCheckIcon::FXMenuCheckIcon(FXComposite* p, const std::string& text, const std::string& shortcut, const std::string& info, const FXIcon* icon, FXObject* tgt, FXSelector sel, FXuint opts) :
     FXMenuCommand(p, (text + "\t" + shortcut + "\t" + info).c_str(), NULL, tgt, sel, opts),
     myIcon(icon),
     myCheck(FALSE),

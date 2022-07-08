@@ -99,8 +99,8 @@ GNEDetectorE2::writeAdditional(OutputDevice& device) const {
     }
     if (myTrafficLight.size() > 0) {
         device.writeAttr(SUMO_ATTR_TLID, myTrafficLight);
-    } 
-    if (getAttribute(SUMO_ATTR_PERIOD).size() > 0){
+    }
+    if (getAttribute(SUMO_ATTR_PERIOD).size() > 0) {
         device.writeAttr(SUMO_ATTR_PERIOD, time2string(myPeriod));
     }
     if (myFilename.size() > 0) {
@@ -143,7 +143,7 @@ GNEDetectorE2::isAdditionalValid() const {
             if (myFriendlyPosition) {
                 return true;
             } else {
-                return (myPositionOverLane >= 0) && 
+                return (myPositionOverLane >= 0) &&
                        (myEndPositionOverLane >= 0) &&
                        (myPositionOverLane <= getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength()) &&
                        (myEndPositionOverLane <= getParentLanes().back()->getParentEdge()->getNBEdge()->getFinalLength());
@@ -624,7 +624,7 @@ GNEDetectorE2::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_PERIOD:
             if (value.empty()) {
                 return true;
-            } else { 
+            } else {
                 return (canParse<double>(value) && (parse<double>(value) >= 0));
             }
         case SUMO_ATTR_TLID:

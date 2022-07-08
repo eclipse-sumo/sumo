@@ -39,10 +39,10 @@ public:
     long onPaint(FXObject* obj, FXSelector sel, void* ptr);
 
     /// @brief show tip
-    long onTipShow(FXObject*,FXSelector,void*);
+    long onTipShow(FXObject*, FXSelector, void*);
 
     /// @brief hide tip
-    long onTipHide(FXObject*,FXSelector,void*);
+    long onTipHide(FXObject*, FXSelector, void*);
 
 protected:
     /// @brief FOX need this

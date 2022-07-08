@@ -316,7 +316,7 @@ NBFrame::fillOptions(bool forNetgen) {
 
     oc.doRegister("junctions.join-same", new Option_Bool(false));
     oc.addDescription("junctions.join-same", "Junctions",
-            "Joins junctions that have the same coordinates even if not connected");
+                      "Joins junctions that have the same coordinates even if not connected");
 
     if (!forNetgen) {
         oc.doRegister("speed.offset", new Option_Float(0));

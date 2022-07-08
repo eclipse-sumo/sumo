@@ -48,7 +48,7 @@ FXIMPLEMENT(GNEToolDialog, FXTopWindow, GNEToolDialogMap, ARRAYNUMBER(GNEToolDia
 // member method definitions
 // ===========================================================================
 
-GNEToolDialog::GNEToolDialog(GNEApplicationWindow* GNEApp, const std::string &name, const int dialogWidth, const int dialogHeight) :
+GNEToolDialog::GNEToolDialog(GNEApplicationWindow* GNEApp, const std::string& name, const int dialogWidth, const int dialogHeight) :
     FXTopWindow(GNEApp->getApp(), name.c_str(), GUIIconSubSys::getIcon(GUIIcon::EMPTY), GUIIconSubSys::getIcon(GUIIcon::EMPTY), GUIDesignDialogBoxExplicit(dialogWidth, dialogHeight)),
     myGNEApp(GNEApp) {
     // create main frame
@@ -75,7 +75,7 @@ GNEToolDialog::openToolDialog() {
     show(PLACEMENT_SCREEN);
     // open as modal dialog (will block all windows until stop() or stopModal() is called)
     myGNEApp->getApp()->runModalFor(this);
-    
+
 }
 
 
@@ -91,7 +91,7 @@ GNEToolDialog::shown() const {
 
 
 void
-GNEToolDialog::addArgument(GNEToolDialogElements::Argument *argument) {
+GNEToolDialog::addArgument(GNEToolDialogElements::Argument* argument) {
     myArguments.push_back(argument);
 }
 
@@ -122,7 +122,7 @@ GNEToolDialog::onCmdCancel(FXObject*, FXSelector, void*) {
 long
 GNEToolDialog::onCmdReset(FXObject*, FXSelector, void*) {
     // iterate over all arguments and reset values
-    for (const auto &argument : myArguments) {
+    for (const auto& argument : myArguments) {
         argument->resetValues();
     }
     return 1;

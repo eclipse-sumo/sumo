@@ -246,8 +246,8 @@ MSCFModel_EIDM::slowToStartTerm(MSVehicle* const veh, const double newSpeed, con
         // When we reach this point, "newSpeed > currentSpeed" already holds
         // Activation of the Drive Off term, when
         if (currentSpeed < ClutchEngageSpeed && // The start speed is lower than ClutchEngageSpeed m/s
-            vars->t_off + 4. - NUMERICAL_EPS < (SIMTIME - remainingDelay - TS * (myIterations - i - 1) / myIterations) && vars->myap_update == 0 && // the last activation is at least 4 seconds ago AND an Action Point was reached
-            veh->getAcceleration() < 0.2) { // && respectMinGap) { // the driver hasn't started accelerating yet (<0.2)
+                vars->t_off + 4. - NUMERICAL_EPS < (SIMTIME - remainingDelay - TS * (myIterations - i - 1) / myIterations) && vars->myap_update == 0 && // the last activation is at least 4 seconds ago AND an Action Point was reached
+                veh->getAcceleration() < 0.2) { // && respectMinGap) { // the driver hasn't started accelerating yet (<0.2)
             vars->t_off = (SIMTIME - remainingDelay - TS * (myIterations - i - 1) / myIterations); // activate the drive off term
         }
         // Calculation of the Drive Off term
@@ -294,14 +294,14 @@ MSCFModel_EIDM::finalizeSpeed(MSVehicle* const veh, double vPos) const {
     gDebugFlag1 = veh->isSelected();
     if (gDebugFlag1) {
         std::cout << "finalizeSpeed " << SIMTIME <<
-            "s, veh=" << veh->getID() <<
-            " oldV=" << oldV <<
-            " vPos=" << vPos <<
-            " _vPos=" << _vPos <<
-            " vStop=" << vStop <<
-            " vMinEmergency=" << vMinEmergency <<
-            " vMin=" << vMin <<
-            " vMax=" << vMax << "\n";
+                  "s, veh=" << veh->getID() <<
+                  " oldV=" << oldV <<
+                  " vPos=" << vPos <<
+                  " _vPos=" << _vPos <<
+                  " vStop=" << vStop <<
+                  " vMinEmergency=" << vMinEmergency <<
+                  " vMin=" << vMin <<
+                  " vMax=" << vMax << "\n";
     }
 #endif
 
@@ -423,12 +423,12 @@ MSCFModel_EIDM::followSpeed(const MSVehicle* const veh, double speed, double gap
     gDebugFlag1 = veh->isSelected();
     if (gDebugFlag1) {
         std::cout << "followSpeed " << SIMTIME <<
-            "s, veh=" << veh->getID() <<
-            " speed=" << speed <<
-            " gap2pred=" << gap2pred <<
-            " predSpeed=" << predSpeed <<
-            " vars->v0_int=" << vars->v0_int <<
-            " update=" << update << "\n";
+                  "s, veh=" << veh->getID() <<
+                  " speed=" << speed <<
+                  " gap2pred=" << gap2pred <<
+                  " predSpeed=" << predSpeed <<
+                  " vars->v0_int=" << vars->v0_int <<
+                  " update=" << update << "\n";
     }
 #endif
 
@@ -449,10 +449,10 @@ MSCFModel_EIDM::stopSpeed(const MSVehicle* const veh, const double speed, double
     gDebugFlag1 = veh->isSelected();
     if (gDebugFlag1) {
         std::cout << "stopSpeed " << SIMTIME <<
-            "s, veh=" << veh->getID() <<
-            " speed=" << speed <<
-            " gap=" << gap <<
-            " vars->v0_int=" << vars->v0_int << "\n";
+                  "s, veh=" << veh->getID() <<
+                  " speed=" << speed <<
+                  " gap=" << gap <<
+                  " vars->v0_int=" << vars->v0_int << "\n";
     }
 #endif
 
@@ -549,12 +549,12 @@ MSCFModel_EIDM::freeSpeed(const MSVehicle* const veh, double speed, double seen,
     gDebugFlag1 = veh->isSelected();
     if (gDebugFlag1) {
         std::cout << "freeSpeed " << SIMTIME <<
-            "s, veh=" << veh->getID() <<
-            " speed=" << speed <<
-            " seen=" << seen <<
-            " maxSpeed=" << maxSpeed <<
-            " update=" << update <<
-            " onInsertion=" << onInsertion << "\n";
+                  "s, veh=" << veh->getID() <<
+                  " speed=" << speed <<
+                  " seen=" << seen <<
+                  " maxSpeed=" << maxSpeed <<
+                  " update=" << update <<
+                  " onInsertion=" << onInsertion << "\n";
     }
 #endif
 
@@ -1053,25 +1053,25 @@ MSCFModel_EIDM::_v(const MSVehicle* const veh, const double gap2pred, const doub
     gDebugFlag1 = veh->isSelected();
     if (gDebugFlag1) {
         std::cout << "_v " << SIMTIME <<
-            "s, veh=" << veh->getID() <<
-            " vars->minaccel=" << vars->minaccel <<
-            " vars->myap_update=" << vars->myap_update <<
-            " vars->myv_est_l=" << vars->myv_est_l <<
-            " vars->myv_est=" << vars->myv_est <<
-            " vars->mys_est=" << vars->mys_est <<
-            " vars->wouldacc=" << vars->wouldacc <<
-            " vars->realacc=" << vars->realacc << "\n";
+                  "s, veh=" << veh->getID() <<
+                  " vars->minaccel=" << vars->minaccel <<
+                  " vars->myap_update=" << vars->myap_update <<
+                  " vars->myv_est_l=" << vars->myv_est_l <<
+                  " vars->myv_est=" << vars->myv_est <<
+                  " vars->mys_est=" << vars->mys_est <<
+                  " vars->wouldacc=" << vars->wouldacc <<
+                  " vars->realacc=" << vars->realacc << "\n";
         std::cout << "_v " << SIMTIME <<
-            "s, veh=" << veh->getID() <<
-            " newSpeed=" << newSpeed <<
-            " newGap=" << newGap <<
-            " predSpeed=" << predSpeed <<
-            " estSpeed=" << estSpeed <<
-            " estleaderSpeed=" << estleaderSpeed <<
-            " estGap=" << estGap <<
-            " wantedacc=" << wantedacc <<
-            " wouldacc=" << wouldacc <<
-            " acc=" << acc << "\n";
+                  "s, veh=" << veh->getID() <<
+                  " newSpeed=" << newSpeed <<
+                  " newGap=" << newGap <<
+                  " predSpeed=" << predSpeed <<
+                  " estSpeed=" << estSpeed <<
+                  " estleaderSpeed=" << estleaderSpeed <<
+                  " estGap=" << estGap <<
+                  " wantedacc=" << wantedacc <<
+                  " wouldacc=" << wouldacc <<
+                  " acc=" << acc << "\n";
     }
 #endif
 

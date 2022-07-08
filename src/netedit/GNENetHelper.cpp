@@ -1141,8 +1141,8 @@ GNENetHelper::AttributeCarriers::getNumberOfSelectedAdditionals() const {
 
 int
 GNENetHelper::AttributeCarriers::getNumberOfSelectedPureAdditionals() const {
-    return getNumberOfSelectedAdditionals() - getNumberOfSelectedPolygons() - 
-           getNumberOfSelectedPOIs() - getNumberOfSelectedTAZs() - getNumberOfSelectedTAZSources() - 
+    return getNumberOfSelectedAdditionals() - getNumberOfSelectedPolygons() -
+           getNumberOfSelectedPOIs() - getNumberOfSelectedTAZs() - getNumberOfSelectedTAZSources() -
            getNumberOfSelectedTAZSinks() - getNumberOfSelectedWires();
 }
 

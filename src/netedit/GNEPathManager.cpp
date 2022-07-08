@@ -327,8 +327,8 @@ GNEPathManager::PathCalculator::calculateDijkstraPath(const SUMOVehicleClass vCl
     const auto fromEdges = fromJunction->getGNEOutgoingEdges();
     const auto toEdges = toJunction->getGNEIncomingEdges();
     // try to find a path
-    for (const auto &fromEdge : fromEdges) {
-        for (const auto &toEdge : toEdges) {
+    for (const auto& fromEdge : fromEdges) {
+        for (const auto& toEdge : toEdges) {
             edges = calculateDijkstraPath(vClass, {fromEdge, toEdge});
             // if a path was found, clean it
             if (edges.size() > 0) {

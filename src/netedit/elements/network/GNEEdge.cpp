@@ -120,7 +120,7 @@ GNEEdge::~GNEEdge() {
 }
 
 
-bool 
+bool
 GNEEdge::isNetworkElementValid() const {
     if (getFromJunction()->getNBNode()->getPosition() != getToJunction()->getNBNode()->getPosition()) {
         return true;
@@ -132,9 +132,9 @@ GNEEdge::isNetworkElementValid() const {
 
 std::string
 GNEEdge::getNetworkElementProblem() const {
-    return "Parent junctions are in the same position: " + 
-        toString(getFromJunction()->getNBNode()->getPosition().x()) + ", " +
-        toString(getFromJunction()->getNBNode()->getPosition().y());
+    return "Parent junctions are in the same position: " +
+           toString(getFromJunction()->getNBNode()->getPosition().x()) + ", " +
+           toString(getFromJunction()->getNBNode()->getPosition().y());
 }
 
 
@@ -456,9 +456,9 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
 }
 
 
-void 
+void
 GNEEdge::updateGLObject() {
-    updateGeometry(); 
+    updateGeometry();
 }
 
 
@@ -1523,8 +1523,8 @@ GNEEdge::hasPredecessors() const {
     // get incoming edges
     const auto incomingEdges = getFromJunction()->getGNEIncomingEdges();
     // iterate over connections
-    for (const auto &incomingEdge : incomingEdges) {
-        for (const auto &connection : incomingEdge->getGNEConnections()) {
+    for (const auto& incomingEdge : incomingEdges) {
+        for (const auto& connection : incomingEdge->getGNEConnections()) {
             if (connection->getEdgeTo() == this) {
                 return true;
             }
@@ -1534,7 +1534,7 @@ GNEEdge::hasPredecessors() const {
 }
 
 
-bool 
+bool
 GNEEdge::hasSuccessors() const {
     return (myGNEConnections.size() > 0);
 }
@@ -1906,11 +1906,11 @@ GNEEdge::addLane(GNELane* lane, const NBEdge::Lane& laneAttrs, bool recomputeCon
     // Remake connections for this edge and all edges that target this lane
     remakeGNEConnections();
     // remake connections of all edges of junction source and destiny
-    for (const auto &fromEdge : getFromJunction()->getChildEdges()) {
+    for (const auto& fromEdge : getFromJunction()->getChildEdges()) {
         fromEdge->remakeGNEConnections();
     }
     // remake connections of all edges of junction source and destiny
-    for (const auto &toEdge : getToJunction()->getChildEdges()) {
+    for (const auto& toEdge : getToJunction()->getChildEdges()) {
         toEdge->remakeGNEConnections();
     }
     // Update geometry with the new lane
@@ -2365,9 +2365,9 @@ GNEEdge::drawTAZElements(const GUIVisualizationSettings& s) const {
     if (myNet->getViewNet()->getNetworkViewOptions().showTAZElements()) {
         std::vector<GNEAdditional*> TAZSourceSinks;
         // get all TAZ source/sinks vinculated with this edge
-        for (const auto &additional : getChildAdditionals()) {
+        for (const auto& additional : getChildAdditionals()) {
             if ((additional->getTagProperty().getTag() == SUMO_TAG_TAZSOURCE) ||
-                (additional->getTagProperty().getTag() == SUMO_TAG_TAZSINK)) {
+                    (additional->getTagProperty().getTag() == SUMO_TAG_TAZSINK)) {
                 TAZSourceSinks.push_back(additional);
             }
         }
@@ -2375,25 +2375,25 @@ GNEEdge::drawTAZElements(const GUIVisualizationSettings& s) const {
             // check if current front element is a Source/sink
             const auto frontAC = myNet->getViewNet()->getFrontAttributeCarrier();
             // push all GLIDs
-            for (const auto &TAZSourceSink : TAZSourceSinks) {
+            for (const auto& TAZSourceSink : TAZSourceSinks) {
                 if (TAZSourceSink == frontAC) {
                     GLHelper::pushName(TAZSourceSink->getGUIGlObject()->getGlID());
                 }
             }
-            for (const auto &TAZSourceSink : TAZSourceSinks) {
+            for (const auto& TAZSourceSink : TAZSourceSinks) {
                 if (TAZSourceSink != frontAC) {
                     GLHelper::pushName(TAZSourceSink->getGlID());
                 }
             }
             // check if TAZ Source/sink is selected
             bool selected = false;
-            for (const auto &TAZSourceSink : TAZSourceSinks) {
+            for (const auto& TAZSourceSink : TAZSourceSinks) {
                 if (TAZSourceSink->isAttributeCarrierSelected()) {
                     selected = true;
                 }
             }
             // iterate over lanes
-            for (const auto &lane : myLanes) {
+            for (const auto& lane : myLanes) {
                 // get lane drawing constants
                 GNELane::LaneDrawingConstants laneDrawingConstants(s, lane);
                 // Push layer matrix
@@ -2415,24 +2415,24 @@ GNEEdge::drawTAZElements(const GUIVisualizationSettings& s) const {
                     GLHelper::setColor(RGBColor::CYAN);
                 }
                 // draw as box lines
-                GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), 
-                    lane->getLaneGeometry(), laneDrawingConstants.halfWidth);
+                GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(),
+                                          lane->getLaneGeometry(), laneDrawingConstants.halfWidth);
                 // Pop layer matrix
                 GLHelper::popMatrix();
             }
             // pop all GLIDs
-            for (const auto &TAZSourceSink : TAZSourceSinks) {
+            for (const auto& TAZSourceSink : TAZSourceSinks) {
                 if (TAZSourceSink == frontAC) {
                     GLHelper::popName();
                 }
             }
-            for (const auto &TAZSourceSink : TAZSourceSinks) {
+            for (const auto& TAZSourceSink : TAZSourceSinks) {
                 if (TAZSourceSink != frontAC) {
                     GLHelper::popName();
                 }
             }
             // check if curently we're inspecting a TAZ Source/Sink
-            for (const auto &TAZSourceSink : TAZSourceSinks) {
+            for (const auto& TAZSourceSink : TAZSourceSinks) {
                 if (myNet->getViewNet()->isAttributeCarrierInspected(TAZSourceSink)) {
                     drawDottedContourEdge(GUIDottedGeometry::DottedContourType::INSPECT, s, this, true, true);
                 } else if (TAZSourceSink == frontAC) {

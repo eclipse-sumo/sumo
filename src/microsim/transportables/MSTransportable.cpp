@@ -51,8 +51,7 @@ MSTransportable::MSTransportable(const SUMOVehicleParameter* pars, MSVehicleType
     SUMOTrafficObject(pars->id),
     myParameter(pars), myVType(vtype), myPlan(plan),
     myAmPerson(isPerson),
-    myNumericalID(myCurrentNumericalIndex++)
-{
+    myNumericalID(myCurrentNumericalIndex++) {
     myStep = myPlan->begin();
     // init devices
     MSDevice::buildTransportableDevices(*this, myDevices);

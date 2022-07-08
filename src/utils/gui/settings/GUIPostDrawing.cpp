@@ -25,12 +25,12 @@
 GUIPostDrawing::GUIPostDrawing() {}
 
 
-void 
+void
 GUIPostDrawing::executePostDrawingTasks() {
     // reset recompute boundaries
     recomputeBoundaries = GLO_NETWORK;
     // udate AC geometries
-    for (const auto &GLObject : myGLObjectsToUpdate) {
+    for (const auto& GLObject : myGLObjectsToUpdate) {
         GLObject->updateGLObject();
     }
     myGLObjectsToUpdate.clear();
@@ -43,7 +43,7 @@ GUIPostDrawing::executePostDrawingTasks() {
 }
 
 
-void 
+void
 GUIPostDrawing::markGLObjectToUpdate(GUIGlObject* GLObject) {
     if (GLObject) {
         myGLObjectsToUpdate.push_back(GLObject);

@@ -799,8 +799,8 @@ Person::moveTo(const std::string& personID, const std::string& laneID, double po
         throw TraCIException("Invalid lateral position " + toString(posLat) + " on lane '" + laneID + "'.");
     }
     switch (p->getStageType(0)) {
-       case MSStageType::WALKING: {
-           MSPerson::MSPersonStage_Walking* s = dynamic_cast<MSPerson::MSPersonStage_Walking*>(p->getCurrentStage());
+        case MSStageType::WALKING: {
+            MSPerson::MSPersonStage_Walking* s = dynamic_cast<MSPerson::MSPersonStage_Walking*>(p->getCurrentStage());
             assert(s != 0);
             s->getState()->moveTo(p, l, pos, posLat, SIMSTEP);
             break;

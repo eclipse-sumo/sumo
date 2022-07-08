@@ -160,7 +160,7 @@ bool
 EnergyParams::isEngineOff() const {
     // they all got a default in the constructor so getDouble is safe here
     return getDouble(SUMO_ATTR_DURATION) > getDouble(SUMO_ATTR_SHUT_OFF_STOP) ||
-        getDouble(SUMO_ATTR_WAITINGTIME) > getDouble(SUMO_ATTR_SHUT_OFF_AUTO);
+           getDouble(SUMO_ATTR_WAITINGTIME) > getDouble(SUMO_ATTR_SHUT_OFF_AUTO);
 }
 
 

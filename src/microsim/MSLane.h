@@ -87,7 +87,7 @@ public:
     public:
         /// @brief Constructor
         StoringVisitor(std::set<const Named*>& objects, const PositionVector& shape,
-            const double range, const int domain)
+                       const double range, const int domain)
             : myObjects(objects), myShape(shape), myRange(range), myDomain(domain) {}
 
         /// @brief Adds the given object to the container

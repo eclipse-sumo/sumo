@@ -276,7 +276,7 @@ GNEDetectorE1::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_PERIOD:
             if (value.empty()) {
                 return true;
-            } else { 
+            } else {
                 return (canParse<double>(value) && (parse<double>(value) >= 0));
             }
         case SUMO_ATTR_NAME:

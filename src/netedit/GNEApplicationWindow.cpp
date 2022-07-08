@@ -955,75 +955,75 @@ GNEApplicationWindow::onCmdToolNetDiff(FXObject*, FXSelector, void*) {
     // open a NetDiff tool dialog
     GNEToolNetDiff(this);
 
-/*
-    OptionsCont& oc = OptionsCont::getOptions();
-    // check that currently there is a View
-    if (myViewNet == nullptr) {
-        return 0;
-    }
-#ifdef WIN32
-    // check that python folder is defined in PATH
-    const char* path = getenv("PATH");
-    if ((strstr(path, "Python") == nullptr) && (strstr(path, "python") == nullptr)) {
-        WRITE_ERROR("Python folder must be defined in PATH");
-        return 0;
-    }
-#endif
-    // check that SUMO_HOME is defined
-    const char* sumoPath = getenv("SUMO_HOME");
-    if (sumoPath == nullptr) {
-        WRITE_ERROR("Enviroment variable SUMO_HOME must be defined");
-        return 0;
-    }
-    // get netdiff path
-    const std::string netDiff = std::string(sumoPath) + "/tools/net/netdiff.py";
-    if (!FileHelpers::isReadable(netDiff)) {
-        WRITE_ERROR("netdiff.py cannot be found in path '" + netDiff + "'");
-        return 0;
-    }
-    // check if network is saved
-    if (!myViewNet->getNet()->isNetSaved()) {
-        // save network
-        onCmdSaveNetwork(nullptr, 0, nullptr);
+    /*
+        OptionsCont& oc = OptionsCont::getOptions();
+        // check that currently there is a View
+        if (myViewNet == nullptr) {
+            return 0;
+        }
+    #ifdef WIN32
+        // check that python folder is defined in PATH
+        const char* path = getenv("PATH");
+        if ((strstr(path, "Python") == nullptr) && (strstr(path, "python") == nullptr)) {
+            WRITE_ERROR("Python folder must be defined in PATH");
+            return 0;
+        }
+    #endif
+        // check that SUMO_HOME is defined
+        const char* sumoPath = getenv("SUMO_HOME");
+        if (sumoPath == nullptr) {
+            WRITE_ERROR("Enviroment variable SUMO_HOME must be defined");
+            return 0;
+        }
+        // get netdiff path
+        const std::string netDiff = std::string(sumoPath) + "/tools/net/netdiff.py";
+        if (!FileHelpers::isReadable(netDiff)) {
+            WRITE_ERROR("netdiff.py cannot be found in path '" + netDiff + "'");
+            return 0;
+        }
+        // check if network is saved
         if (!myViewNet->getNet()->isNetSaved()) {
-            return 0;
+            // save network
+            onCmdSaveNetwork(nullptr, 0, nullptr);
+            if (!myViewNet->getNet()->isNetSaved()) {
+                return 0;
+            }
         }
-    }
-    // get the second network to ddiff
-    FXFileDialog opendialog(this, "Open diff Network");
-    opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::OPEN_NET));
-    opendialog.setSelectMode(SELECTFILE_EXISTING);
-    opendialog.setPatternList("SUMO nets (*.net.xml,*.net.xml.gz)\nAll files (*)");
-    if (gCurrentFolder.length() != 0) {
-        opendialog.setDirectory(gCurrentFolder);
-    }
-    if (opendialog.execute()) {
-        // get file
-        const std::string secondNet = opendialog.getFilename().text();
-        // check if secondNet isn't empty
-        if (secondNet.empty()) {
-            return 0;
+        // get the second network to ddiff
+        FXFileDialog opendialog(this, "Open diff Network");
+        opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::OPEN_NET));
+        opendialog.setSelectMode(SELECTFILE_EXISTING);
+        opendialog.setPatternList("SUMO nets (*.net.xml,*.net.xml.gz)\nAll files (*)");
+        if (gCurrentFolder.length() != 0) {
+            opendialog.setDirectory(gCurrentFolder);
         }
-        // extract folder
-        const std::string secondNetFolder = getFolder(secondNet).text();
-        // declare python command
-        std::string cmd = "cd " + secondNetFolder + "&" +  // folder to save diff files (the same of second net)
-                          "python " + netDiff +                           // netdiff.py
-                          " " + oc.getString("output-file") +             // netA (current)
-                          " " + secondNet +                               // net B
-                          " diff";                                        // netdiff options
-        // start in background
-#ifndef WIN32
-        cmd = cmd + " &";
-#else
-        // see "help start" for the parameters
-        cmd = "start /B \"\" " + cmd;
-#endif
-        WRITE_MESSAGE("Running " + cmd + ".");
-        // yay! fun with dangerous commands... Never use this over the internet
-        SysUtils::runHiddenCommand(cmd);
-    }
-    */
+        if (opendialog.execute()) {
+            // get file
+            const std::string secondNet = opendialog.getFilename().text();
+            // check if secondNet isn't empty
+            if (secondNet.empty()) {
+                return 0;
+            }
+            // extract folder
+            const std::string secondNetFolder = getFolder(secondNet).text();
+            // declare python command
+            std::string cmd = "cd " + secondNetFolder + "&" +  // folder to save diff files (the same of second net)
+                              "python " + netDiff +                           // netdiff.py
+                              " " + oc.getString("output-file") +             // netA (current)
+                              " " + secondNet +                               // net B
+                              " diff";                                        // netdiff options
+            // start in background
+    #ifndef WIN32
+            cmd = cmd + " &";
+    #else
+            // see "help start" for the parameters
+            cmd = "start /B \"\" " + cmd;
+    #endif
+            WRITE_MESSAGE("Running " + cmd + ".");
+            // yay! fun with dangerous commands... Never use this over the internet
+            SysUtils::runHiddenCommand(cmd);
+        }
+        */
     return 1;
 }
 
@@ -2502,13 +2502,13 @@ GNEApplicationWindow::onCmdSaveAsNetwork(FXObject*, FXSelector, void*) {
     std::string fileWithExtension = file.text();
     // clear wildcard
     const size_t pos = fileWithExtension.find(wildcard);
-    if (pos != std::string::npos){
+    if (pos != std::string::npos) {
         // If found then erase it from string
         fileWithExtension.erase(pos, wildcard.length());
     }
     // check xml extension
-    if (!GNEApplicationWindowHelper::stringEndsWith(fileWithExtension, netExtension) && 
-        !GNEApplicationWindowHelper::stringEndsWith(fileWithExtension, zipNetExtension)) {
+    if (!GNEApplicationWindowHelper::stringEndsWith(fileWithExtension, netExtension) &&
+            !GNEApplicationWindowHelper::stringEndsWith(fileWithExtension, zipNetExtension)) {
         fileWithExtension = FileHelpers::addExtension(fileWithExtension, netExtension);
     }
     // check that file with extension is valid
@@ -3440,7 +3440,7 @@ GNEApplicationWindow::onCmdOpenAdditionals(FXObject*, FXSelector, void*) {
         if (opendialog.getFilename().text() == OptionsCont::getOptions().getString("additional-files")) {
             // open question dialog box
             const auto answer = FXMessageBox::question(myNet->getViewNet()->getApp(), MBOX_YES_NO, "Load same additional file",
-                                        "Selected additional file was already loaded. Continue?");
+                                "Selected additional file was already loaded. Continue?");
             if (answer != 1) { //1:yes, 2:no, 4:esc
                 // write warning if netedit is running in testing mode
                 if (answer == 2) {
@@ -3637,7 +3637,7 @@ GNEApplicationWindow::onCmdOpenDemandElements(FXObject*, FXSelector, void*) {
         if (opendialog.getFilename().text() == OptionsCont::getOptions().getString("route-files")) {
             // open question dialog box
             const auto answer = FXMessageBox::question(myNet->getViewNet()->getApp(), MBOX_YES_NO, "Load same route file",
-                                        "Selected route file was already loaded. Continue?");
+                                "Selected route file was already loaded. Continue?");
             if (answer != 1) { //1:yes, 2:no, 4:esc
                 // write warning if netedit is running in testing mode
                 if (answer == 2) {
@@ -3832,7 +3832,7 @@ GNEApplicationWindow::onCmdOpenDataElements(FXObject*, FXSelector, void*) {
         if (opendialog.getFilename().text() == OptionsCont::getOptions().getString("data-files")) {
             // open question dialog box
             const auto answer = FXMessageBox::question(myNet->getViewNet()->getApp(), MBOX_YES_NO, "Load same data file",
-                                        "Selected data file was already loaded. Continue?");
+                                "Selected data file was already loaded. Continue?");
             if (answer != 1) { //1:yes, 2:no, 4:esc
                 // write warning if netedit is running in testing mode
                 if (answer == 2) {

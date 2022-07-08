@@ -550,7 +550,7 @@ GNEGenericDataFrame::hide() {
 }
 
 
-void 
+void
 GNEGenericDataFrame::updateFrameAfterUndoRedo() {
     // refresh data set selector
     myDataSetSelector->refreshDataSetSelector(nullptr);

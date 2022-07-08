@@ -81,7 +81,7 @@ public:
         TS2
     };
 
-    /// @brief constant for storing the priority order for light heads. Iterates left to right and stops when finds a match. 
+    /// @brief constant for storing the priority order for light heads. Iterates left to right and stops when finds a match.
     const std::string lightHeadPriority = "GgyuOs";
 
     typedef std::vector<transitionInfo> TransitionPairs;
@@ -163,7 +163,7 @@ public:
      * @param state the light state string
      * @return std::set<std::string>
      */
-    void getLaneInfoFromNEMAState(std::string state, StringVector &laneIDs, IntVector &stateIndex);
+    void getLaneInfoFromNEMAState(std::string state, StringVector& laneIDs, IntVector& stateIndex);
 
     /**
      * @brief Set the max green of all phases.
@@ -752,7 +752,7 @@ public:
     }
 
     /// @brief Return whether or not the phase index is controlled by me
-    inline bool controlledIndex(int i){
+    inline bool controlledIndex(int i) {
         return std::count(myPhaseStringInds.begin(), myPhaseStringInds.end(), i) > 0;
     }
 

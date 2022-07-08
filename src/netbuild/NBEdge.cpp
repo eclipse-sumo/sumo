@@ -308,8 +308,7 @@ NBEdge::NBEdge(const std::string& id, NBNode* from, NBNode* to,
     mySignalNode(nullptr),
     myIsOffRamp(false),
     myIsBidi(false),
-    myIndex(-1)
-{
+    myIndex(-1) {
     init(nolanes, false, "");
 }
 
@@ -341,8 +340,7 @@ NBEdge::NBEdge(const std::string& id, NBNode* from, NBNode* to,
     mySignalNode(nullptr),
     myIsOffRamp(false),
     myIsBidi(false),
-    myIndex(-1)
-{
+    myIndex(-1) {
     init(nolanes, tryIgnoreNodePositions, origID);
 }
 
@@ -372,8 +370,7 @@ NBEdge::NBEdge(const std::string& id, NBNode* from, NBNode* to, const NBEdge* tp
     mySignalNode(to == tpl->myTo ? tpl->mySignalNode : nullptr),
     myIsOffRamp(false),
     myIsBidi(false),
-    myIndex(-1)
-{
+    myIndex(-1) {
     init(numLanes > 0 ? numLanes : tpl->getNumLanes(), myGeom.size() > 0, "");
     for (int i = 0; i < getNumLanes(); i++) {
         const int tplIndex = MIN2(i, tpl->getNumLanes() - 1);
@@ -771,12 +768,12 @@ NBEdge::isBidiRail(bool ignoreSpread) const {
 bool
 NBEdge::isBidiEdge(bool checkPotential) const {
     return myPossibleTurnDestination != nullptr
-        && (myIsBidi || myPossibleTurnDestination->myIsBidi || checkPotential)
-        && myLaneSpreadFunction == LaneSpreadFunction::CENTER
-        && myPossibleTurnDestination->getLaneSpreadFunction() == LaneSpreadFunction::CENTER
-        && myPossibleTurnDestination->getToNode() == getFromNode()
-        && (myPossibleTurnDestination->getGeometry().reverse() == getGeometry()
-                || (checkPotential && getGeometry().size() == 2 && myPossibleTurnDestination->getGeometry().size() == 2));
+           && (myIsBidi || myPossibleTurnDestination->myIsBidi || checkPotential)
+           && myLaneSpreadFunction == LaneSpreadFunction::CENTER
+           && myPossibleTurnDestination->getLaneSpreadFunction() == LaneSpreadFunction::CENTER
+           && myPossibleTurnDestination->getToNode() == getFromNode()
+           && (myPossibleTurnDestination->getGeometry().reverse() == getGeometry()
+               || (checkPotential && getGeometry().size() == 2 && myPossibleTurnDestination->getGeometry().size() == 2));
 }
 
 

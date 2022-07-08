@@ -61,7 +61,7 @@ GNEChange_TLS::GNEChange_TLS(GNEJunction* junction, NBTrafficLightDefinition* tl
 
 
 GNEChange_TLS::GNEChange_TLS(GNEJunction* junction, NBTrafficLightDefinition* tlDef, bool forward, TrafficLightType type,
-    bool forceInsert, const std::string tlID) :
+                             bool forceInsert, const std::string tlID) :
     GNEChange(Supermode::NETWORK, forward, false),
     myJunction(junction),
     myTlDef(tlDef),

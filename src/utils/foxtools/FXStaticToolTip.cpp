@@ -58,7 +58,7 @@ FXStaticToolTip::FXStaticToolTip(FXApp* app) :
 FXStaticToolTip::~FXStaticToolTip() {}
 
 
-long 
+long
 FXStaticToolTip::onPaint(FXObject* obj, FXSelector sel, void*) {
     // draw tooltip using myToolTippedObject
     if (myToolTippedObject) {

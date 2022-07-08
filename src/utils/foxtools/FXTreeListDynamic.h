@@ -81,9 +81,9 @@ public:
     FXWindow* getFXWindow();
 
     /// @brief Get item at x,y, if any
-    FXTreeItem* getItemAt(FXint x,FXint y) const;
+    FXTreeItem* getItemAt(FXint x, FXint y) const;
 
-    /// @brief Get item 
+    /// @brief Get item
     FXTreeItemDynamic* getItem(FXint index) const;
 
     /// @brief reset selected item
@@ -103,7 +103,7 @@ protected:
 
     /// @brief selected item
     FXint mySelectedItem = -1;
-    
+
 private:
     /// @brief Invalidated copy constructor.
     FXTreeListDynamic(const FXTreeListDynamic&) = delete;

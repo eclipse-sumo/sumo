@@ -289,9 +289,9 @@ GNESelectorFrame::SelectionOperation::onCmdLoad(FXObject*, FXSelector, void*) {
         // convert all glObjects into GNEAttributeCarriers
         std::map<const std::string, GNEAttributeCarrier*> GLFUllNameAC;
         const auto GLObjects = GUIGlObjectStorage::gIDStorage.getAllGLObjects();
-        for (const auto &GLObject : GLObjects) {
+        for (const auto& GLObject : GLObjects) {
             // try to parse GLObject to AC
-            GNEAttributeCarrier *AC = dynamic_cast<GNEAttributeCarrier*>(GLObject);
+            GNEAttributeCarrier* AC = dynamic_cast<GNEAttributeCarrier*>(GLObject);
             // if was sucesfully parsed and is NOT a template, add into GLFUllNameAC using fullName
             if (AC && !AC->isTemplate()) {
                 GLFUllNameAC[GUIGlObject::TypeNames.getString(GLObject->getType()) + ":" + AC->getID()] = AC;
@@ -304,13 +304,13 @@ GNESelectorFrame::SelectionOperation::onCmdLoad(FXObject*, FXSelector, void*) {
             // check if line isn't empty
             if (line.length() != 0) {
                 // obtain AC from GLFUllNameAC
-                GNEAttributeCarrier* AC = GLFUllNameAC.count(line) > 0? GLFUllNameAC.at(line) : nullptr;
+                GNEAttributeCarrier* AC = GLFUllNameAC.count(line) > 0 ? GLFUllNameAC.at(line) : nullptr;
                 // check if AC exist, is selectable, and isn't locked
                 if (AC && AC->getTagProperty().isSelectable() && !mySelectorFrameParent->getViewNet()->getLockManager().isObjectLocked(AC->getGUIGlObject()->getType(), false)) {
                     // now check if we're in the correct supermode to load this element
                     if (((mySelectorFrameParent->myViewNet->getEditModes().isCurrentSupermodeNetwork()) && !AC->getTagProperty().isDemandElement()) ||
-                        ((mySelectorFrameParent->myViewNet->getEditModes().isCurrentSupermodeDemand()) && AC->getTagProperty().isDemandElement()) ||
-                        ((mySelectorFrameParent->myViewNet->getEditModes().isCurrentSupermodeData()) && AC->getTagProperty().isDataElement())) {
+                            ((mySelectorFrameParent->myViewNet->getEditModes().isCurrentSupermodeDemand()) && AC->getTagProperty().isDemandElement()) ||
+                            ((mySelectorFrameParent->myViewNet->getEditModes().isCurrentSupermodeData()) && AC->getTagProperty().isDataElement())) {
                         loadedACs.push_back(AC);
                     }
                 }

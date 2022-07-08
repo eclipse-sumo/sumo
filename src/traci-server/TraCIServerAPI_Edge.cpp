@@ -157,7 +157,7 @@ TraCIServerAPI_Edge::processSet(TraCIServer& server, tcpip::Storage& inputStorag
                 const double value = StoHelp::readTypedDouble(inputStorage, "The friction must be given as a double.");
                 libsumo::Edge::setFriction(id, value);
                 break;
-            }            
+            }
             case libsumo::VAR_PARAMETER: {
                 // read and check item number
                 StoHelp::readCompound(inputStorage, 2, "A compound object of size 2 is needed for setting a parameter.");

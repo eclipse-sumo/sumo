@@ -99,7 +99,7 @@ public:
 
         /// @brief update
         void update(const GUIVisualizationSizeSettings& settings);
-        
+
         /// @name FOX-callbacks
         /// @{
         /// @brief Called if something (color, width, etc.) has been changed
@@ -314,7 +314,7 @@ protected:
     FXCheckButton* myShowLaneBorders = nullptr;
     FXCheckButton* myShowBikeMarkings = nullptr;
     FXCheckButton* myShowLaneDecals = nullptr;
-    FXCheckButton* myRealisticLinkRules = nullptr; 
+    FXCheckButton* myRealisticLinkRules = nullptr;
     FXCheckButton* myShowLinkRules = nullptr;
     FXCheckButton* myShowRails = nullptr;
     FXCheckButton* myHideMacroConnectors = nullptr;
@@ -340,13 +340,13 @@ protected:
     std::vector<FXButton*> myVehicleScaleButtons;
     FXCheckButton* myVehicleScaleInterpolation = nullptr;
 
-    FXCheckButton* myShowBlinker = nullptr; 
-    FXCheckButton* myShowMinGap = nullptr; 
-    FXCheckButton* myShowBrakeGap = nullptr; 
-    FXCheckButton* myShowBTRange = nullptr; 
-    FXCheckButton* myShowRouteIndex = nullptr; 
-    FXCheckButton* myScaleLength = nullptr; 
-    FXCheckButton* myShowParkingInfo = nullptr; 
+    FXCheckButton* myShowBlinker = nullptr;
+    FXCheckButton* myShowMinGap = nullptr;
+    FXCheckButton* myShowBrakeGap = nullptr;
+    FXCheckButton* myShowBTRange = nullptr;
+    FXCheckButton* myShowRouteIndex = nullptr;
+    FXCheckButton* myScaleLength = nullptr;
+    FXCheckButton* myShowParkingInfo = nullptr;
     /*FXCheckButton* myShowLaneChangePreference = nullptr;*/
 
     FXComboBox* myVehicleParamKey = nullptr;
@@ -431,37 +431,37 @@ protected:
     FXButton* myRecalculateBoundaries = nullptr;
 
     /// @brief name panels
-    NamePanel* myEdgeNamePanel = nullptr; 
-    NamePanel* myInternalEdgeNamePanel = nullptr; 
-    NamePanel* myCwaEdgeNamePanel = nullptr; 
-    NamePanel* myStreetNamePanel = nullptr; 
+    NamePanel* myEdgeNamePanel = nullptr;
+    NamePanel* myInternalEdgeNamePanel = nullptr;
+    NamePanel* myCwaEdgeNamePanel = nullptr;
+    NamePanel* myStreetNamePanel = nullptr;
     NamePanel* myEdgeValuePanel = nullptr;
-    NamePanel* myJunctionIndexPanel = nullptr; 
+    NamePanel* myJunctionIndexPanel = nullptr;
     NamePanel* myTLIndexPanel = nullptr;
-    NamePanel* myJunctionIDPanel = nullptr; 
-    NamePanel* myJunctionNamePanel = nullptr; 
+    NamePanel* myJunctionIDPanel = nullptr;
+    NamePanel* myJunctionNamePanel = nullptr;
     NamePanel* myInternalJunctionNamePanel = nullptr;
-    NamePanel* myTLSPhaseIndexPanel = nullptr; 
+    NamePanel* myTLSPhaseIndexPanel = nullptr;
     NamePanel* myTLSPhaseNamePanel = nullptr;
-    NamePanel* myVehicleNamePanel = nullptr; 
+    NamePanel* myVehicleNamePanel = nullptr;
     NamePanel* myVehicleValuePanel = nullptr;
-    NamePanel* myVehicleScaleValuePanel = nullptr; 
+    NamePanel* myVehicleScaleValuePanel = nullptr;
     NamePanel* myVehicleTextPanel = nullptr;
-    NamePanel* myPersonNamePanel = nullptr; 
+    NamePanel* myPersonNamePanel = nullptr;
     NamePanel* myPersonValuePanel = nullptr;
     NamePanel* myContainerNamePanel = nullptr;
-    NamePanel* myAddNamePanel = nullptr; 
+    NamePanel* myAddNamePanel = nullptr;
     NamePanel* myAddFullNamePanel = nullptr;
-    NamePanel* myPOINamePanel = nullptr; 
-    NamePanel* myPOITypePanel = nullptr; 
+    NamePanel* myPOINamePanel = nullptr;
+    NamePanel* myPOITypePanel = nullptr;
     NamePanel* myPOITextPanel = nullptr;
-    NamePanel* myPolyNamePanel = nullptr; 
+    NamePanel* myPolyNamePanel = nullptr;
     NamePanel* myPolyTypePanel = nullptr;
-    NamePanel* myDataValuePanel = nullptr; 
+    NamePanel* myDataValuePanel = nullptr;
     NamePanel* myGeometryIndicesPanel = nullptr;
 
     /// @brief size panels
-    SizePanel* myVehicleSizePanel = nullptr; 
+    SizePanel* myVehicleSizePanel = nullptr;
     SizePanel* myPersonSizePanel = nullptr;
     SizePanel* myContainerSizePanel = nullptr;
     SizePanel* myPOISizePanel = nullptr;

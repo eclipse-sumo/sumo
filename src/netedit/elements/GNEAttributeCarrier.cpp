@@ -58,7 +58,7 @@ GNEAttributeCarrier::GNEAttributeCarrier(const SumoXMLTag tag, GNENet* net) :
 GNEAttributeCarrier::~GNEAttributeCarrier() {}
 
 
-const std::string 
+const std::string
 GNEAttributeCarrier::getID() const {
     return getAttribute(SUMO_ATTR_ID);
 }
@@ -126,27 +126,27 @@ GNEAttributeCarrier::resetDefaultValues() {
 }
 
 
-void 
+void
 GNEAttributeCarrier::enableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
     throw ProcessError("Nothing to enable, implement in Children");
 
 }
 
 
-void 
+void
 GNEAttributeCarrier::disableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
     throw ProcessError("Nothing to disable, implement in Children");
 }
 
 
-bool 
+bool
 GNEAttributeCarrier::isAttributeEnabled(SumoXMLAttr /*key*/) const {
     // by default, all attributes are enabled
     return true;
 }
 
 
-bool 
+bool
 GNEAttributeCarrier::isAttributeComputed(SumoXMLAttr /*key*/) const {
     // by default, all attributes aren't computed
     return false;
@@ -1323,9 +1323,9 @@ GNEAttributeCarrier::fillNetworkElements() {
     {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                                       GNETagProperties::NETWORKELEMENT,
-                                                       GNETagProperties::NOPARAMETERS,
-                                                       GUIIcon::WALKINGAREA, currentTag);
+                                      GNETagProperties::NETWORKELEMENT,
+                                      GNETagProperties::NOPARAMETERS,
+                                      GUIIcon::WALKINGAREA, currentTag);
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::AUTOMATICID,
@@ -5458,9 +5458,9 @@ GNEAttributeCarrier::fillCommonStopAttributes(SumoXMLTag currentTag, const bool 
         myTagProperties[currentTag].addAttribute(attrProperty);
     } else {
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ONDEMAND,
-                                          GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE,
-                                          "Whether the stop may be skipped if no passengers wants to embark or disembark",
-                                          "false");
+                                              GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE,
+                                              "Whether the stop may be skipped if no passengers wants to embark or disembark",
+                                              "false");
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
 }

@@ -72,7 +72,7 @@ MSDevice_Friction::MSDevice_Friction(SUMOVehicle& holder, const std::string& id,
     myMeasuredFrictionCoefficient(1.),
     myRawFriction(1.),
     myStdDeviation(stdDev),
-    myOffset(offset){
+    myOffset(offset) {
 }
 
 
@@ -82,7 +82,7 @@ MSDevice_Friction::~MSDevice_Friction() {
 
 bool
 MSDevice_Friction::notifyMove(SUMOTrafficObject& /* tObject */, double /* oldPos */,
-                             double /* newPos */, double /* newSpeed */) {
+                              double /* newPos */, double /* newSpeed */) {
     myRawFriction = myHolder.getLane()->getFrictionCoefficient();
     myMeasuredFrictionCoefficient = myOffset + RandHelper::randNorm(myRawFriction, myStdDeviation, myHolder.getRNG());
     return true; // keep the device
@@ -91,7 +91,7 @@ MSDevice_Friction::notifyMove(SUMOTrafficObject& /* tObject */, double /* oldPos
 
 std::string
 MSDevice_Friction::getParameter(const std::string& key) const {
-    if (key == "frictionCoefficient") {        
+    if (key == "frictionCoefficient") {
         return toString(myMeasuredFrictionCoefficient);
     } else if (key == "stdDev") {
         return toString(myStdDeviation);

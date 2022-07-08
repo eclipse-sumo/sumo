@@ -38,12 +38,12 @@ GNEDetector::GNEDetector(const std::string& id, GNENet* net, GUIGlObjectType typ
                          const std::vector<GNELane*>& parentLanes, const std::string& filename, const std::vector<std::string>& vehicleTypes, const std::string& name,
                          const bool friendlyPos, const Parameterised::Map& parameters) :
     GNEAdditional(id, net, type, tag, name, {}, {}, parentLanes, {}, {}, {}),
-        Parameterised(parameters),
-        myPositionOverLane(pos),
-        myPeriod(period),
-        myFilename(filename),
-        myVehicleTypes(vehicleTypes),
-    myFriendlyPosition(friendlyPos) {
+              Parameterised(parameters),
+              myPositionOverLane(pos),
+              myPeriod(period),
+              myFilename(filename),
+              myVehicleTypes(vehicleTypes),
+myFriendlyPosition(friendlyPos) {
 }
 
 
@@ -51,11 +51,11 @@ GNEDetector::GNEDetector(GNEAdditional* additionalParent, GNENet* net, GUIGlObje
                          const std::vector<GNELane*>& parentLanes, const std::string& filename, const std::string& name, const bool friendlyPos,
                          const Parameterised::Map& parameters) :
     GNEAdditional(net, type, tag, name, {}, {}, parentLanes, {additionalParent}, {}, {}),
-        Parameterised(parameters),
-        myPositionOverLane(pos),
-        myPeriod(period),
-        myFilename(filename),
-    myFriendlyPosition(friendlyPos) {
+Parameterised(parameters),
+myPositionOverLane(pos),
+myPeriod(period),
+myFilename(filename),
+myFriendlyPosition(friendlyPos) {
 }
 
 

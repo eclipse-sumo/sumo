@@ -35,9 +35,9 @@
 
 GNERouteProbe::GNERouteProbe(GNENet* net) :
     GNEAdditional("", net, GLO_ROUTEPROBE, SUMO_TAG_ROUTEPROBE, "",
-        {}, {}, {}, {}, {}, {}),
-    myPeriod(SUMOTime_MAX_PERIOD),
-    myBegin(0) {
+{}, {}, {}, {}, {}, {}),
+myPeriod(SUMOTime_MAX_PERIOD),
+myBegin(0) {
     // reset default values
     resetDefaultValues();
     // update centering boundary without updating grid
@@ -48,11 +48,11 @@ GNERouteProbe::GNERouteProbe(GNENet* net) :
 GNERouteProbe::GNERouteProbe(const std::string& id, GNENet* net, GNEEdge* edge, const SUMOTime period, const std::string& name,
                              const std::string& filename, SUMOTime begin, const Parameterised::Map& parameters) :
     GNEAdditional(id, net, GLO_ROUTEPROBE, SUMO_TAG_ROUTEPROBE, name,
-        {}, {edge}, {}, {}, {}, {}),
-    Parameterised(parameters),
-    myPeriod(period),
-    myFilename(filename),
-    myBegin(begin) {
+{}, {edge}, {}, {}, {}, {}),
+Parameterised(parameters),
+myPeriod(period),
+myFilename(filename),
+myBegin(begin) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -69,7 +69,7 @@ GNERouteProbe::writeAdditional(OutputDevice& device) const {
     // write parameters
     device.writeAttr(SUMO_ATTR_ID, getID());
     device.writeAttr(SUMO_ATTR_BEGIN, time2string(myBegin));
-    if (getAttribute(SUMO_ATTR_PERIOD).size() > 0){
+    if (getAttribute(SUMO_ATTR_PERIOD).size() > 0) {
         device.writeAttr(SUMO_ATTR_PERIOD, time2string(myPeriod));
     }
     device.writeAttr(SUMO_ATTR_EDGE, getParentEdges().front()->getID());
@@ -306,7 +306,7 @@ GNERouteProbe::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_FREQUENCY:
             if (value.empty()) {
                 return true;
-            } else { 
+            } else {
                 return (canParse<double>(value) && (parse<double>(value) >= 0));
             }
         case SUMO_ATTR_BEGIN:

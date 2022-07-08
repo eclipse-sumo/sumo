@@ -107,7 +107,7 @@ public:
                                       const std::vector<NBNode::Crossing*>& crossings, const EdgeVector& fromEdges, const EdgeVector& toEdges);
 
     /// @brief add 1 or 2 phases depending on the presence of pedestrian crossings
-    static std::string addPedestrianPhases(NBTrafficLightLogic* logic, const SUMOTime greenTime, const SUMOTime minDur, const SUMOTime maxDur, 
+    static std::string addPedestrianPhases(NBTrafficLightLogic* logic, const SUMOTime greenTime, const SUMOTime minDur, const SUMOTime maxDur,
                                            const SUMOTime earliestEnd, const SUMOTime latestEnd,
                                            std::string state, const std::vector<NBNode::Crossing*>& crossings, const EdgeVector& fromEdges, const EdgeVector& toEdges);
 
@@ -175,14 +175,14 @@ protected:
     /// @brief test whether a joined tls with layout 'opposites' would be built without dedicated left-turn phase
     bool corridorLike() const;
 
-NBTrafficLightLogic* buildNemaPhases(
+    NBTrafficLightLogic* buildNemaPhases(
         const EdgeVector& fromEdges,
         const std::vector<std::pair<NBEdge*, NBEdge*> >& chosenList,
         const std::vector<std::string>& straightStates,
         const std::vector<std::string>& leftStates);
 
     /// @brief mask out all greens that do not originate at the given edge
-    std::string filterState(std::string state, const EdgeVector& fromEdges, const NBEdge* e); 
+    std::string filterState(std::string state, const EdgeVector& fromEdges, const NBEdge* e);
 
     /// @brief keep only valid NEMA phase names (for params)
     void filterMissingNames(std::vector<int>& vec, const std::map<int, int>& names, bool isBarrier);
