@@ -1,20 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2022-05-13 12:18:57.927820 by osmWebWizard.py v1_13_0+0234-b8e58c6a531
+
+<!-- generated on 2022-07-10 23:58:39.460359 by osmWebWizard.py v1_13_0+1482-3a0ef0fcfa2
 <configuration>
-    <additional-files value="/home/kobo/.texttest/tmp/tools.13May121823.1673112/tools/import/OSM/webWizard/test/osm_stops.add.xml,/home/kobo/.texttest/tmp/tools.13May121823.1673112/tools/import/OSM/webWizard/test/osm_pt.rou.xml"/>
+    <additional-files value="/home/kobo/.texttest/tmp/tools.10Jul235816.1093592/tools/import/OSM/webWizard/test/osm_stops.add.xml,/home/kobo/.texttest/tmp/tools.10Jul235816.1093592/tools/import/OSM/webWizard/test/osm_pt.rou.xml"/>
     <end value="900"/>
-    <net-file value="/home/kobo/.texttest/tmp/tools.13May121823.1673112/tools/import/OSM/webWizard/test/osm.net.xml"/>
+    <net-file value="/home/kobo/.texttest/tmp/tools.10Jul235816.1093592/tools/import/OSM/webWizard/test/osm.net.xml"/>
     <period value="4.765595198482757"/>
     <persontrips value="True"/>
-    <route-file value="/home/kobo/.texttest/tmp/tools.13May121823.1673112/tools/import/OSM/webWizard/test/osm.pedestrian.rou.xml"/>
+    <route-file value="/home/kobo/.texttest/tmp/tools.10Jul235816.1093592/tools/import/OSM/webWizard/test/osm.pedestrian.rou.xml"/>
     <trip-attributes value="modes=&quot;public&quot;"/>
-    <output-trip-file value="/home/kobo/.texttest/tmp/tools.13May121823.1673112/tools/import/OSM/webWizard/test/osm.pedestrian.trips.xml"/>
+    <output-trip-file value="/home/kobo/.texttest/tmp/tools.10Jul235816.1093592/tools/import/OSM/webWizard/test/osm.pedestrian.trips.xml"/>
     <prefix value="ped"/>
     <vehicle-class value="pedestrian"/>
     <persontrip.walk-opposite-factor value="0.8"/>
 </configuration>
-
 -->
+
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <vType id="ped_pedestrian" vClass="pedestrian"/>
     <person id="ped0" depart="0.00" type="ped_pedestrian">
