@@ -40,6 +40,14 @@ SOURCE_SUFFIX = ".src.xml"
 SINK_SUFFIX = ".dst.xml"
 VIA_SUFFIX = ".via.xml"
 
+net = None # Used as a cache for the net throughout the whole script.
+
+def get_network(options):
+    global net
+    if net is None:
+        net = sumolib.net.readNet(options.netfile)
+    return net
+    
 
 def get_options(args=None):
     optParser = sumolib.options.ArgumentParser(description="Generate trips between random locations")
@@ -182,7 +190,7 @@ def get_options(args=None):
 
     if options.insertionDensity:
         # Compute length of the network.
-        net = sumolib.net.readNet(options.netfile) # randomTrips will end up reading the network two times!
+        net = get_network(options)
         length = 0.0 # In meters.
         for edge in net.getEdges():
             if edge.allows(options.vclass):
@@ -511,7 +519,7 @@ def main(options):
     if not options.random:
         random.seed(options.seed)
 
-    net = sumolib.net.readNet(options.netfile)
+    net = get_network(options)
     if options.min_distance > net.getBBoxDiameter() * (options.intermediate + 1):
         options.intermediate = int(
             math.ceil(options.min_distance / net.getBBoxDiameter())) - 1
