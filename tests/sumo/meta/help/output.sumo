@@ -1,4 +1,4 @@
-Eclipse SUMO sumo Version v1_13_0+1210-1db8e862314
+Eclipse SUMO sumo Version v1_13_0+1506-f0fbece2894
  Copyright (C) 2001-2022 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -521,7 +521,7 @@ SSM Device Options:
                                         using a fraction of 1000
   --device.ssm.measures STR            Specifies which measures will be logged
                                         (as a space separated sequence of IDs in
-                                        ('TTC', 'DRAC', 'PET')).
+                                        ('TTC', 'DRAC', 'PET'))
   --device.ssm.thresholds STR          Specifies thresholds corresponding to
                                         the specified measures (see
                                         documentation and watch the order!).
@@ -529,25 +529,23 @@ SSM Device Options:
                                         will be logged.
   --device.ssm.trajectories            Specifies whether trajectories will be
                                         logged (if false, only the extremal
-                                        values and times are reported, this is
-                                        the default).
-  --device.ssm.range FLOAT             Specifies the detection range in meters
-                                        (default is 50.00m.). For vehicles below
-                                        this distance from the equipped vehicle,
-                                        SSM values are traced.
+                                        values and times are reported).
+  --device.ssm.range FLOAT             Specifies the detection range in meters.
+                                        For vehicles below this distance from
+                                        the equipped vehicle, SSM values are
+                                        traced.
   --device.ssm.extratime FLOAT         Specifies the time in seconds to be
-                                        logged after a conflict is over (default
-                                        is 5.00secs.). Required >0 if PET is to
-                                        be calculated for crossing conflicts.
+                                        logged after a conflict is over.
+                                        Required >0 if PET is to be calculated
+                                        for crossing conflicts.
   --device.ssm.file STR                Give a global default filename for the
-                                        SSM output.
+                                        SSM output
   --device.ssm.geo                     Whether to use coordinates of the
                                         original reference system in output
-                                        (default is false).
   --device.ssm.write-positions         Whether to write positions (coordinates)
-                                        for each timestep.
+                                        for each timestep
   --device.ssm.write-lane-positions    Whether to write lanes and their
-                                        positions for each timestep.
+                                        positions for each timestep
 
 ToC Device Options:
   --device.toc.probability FLOAT       The probability for a vehicle to have a
