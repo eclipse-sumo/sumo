@@ -1,3 +1,11 @@
+This file contains the full names and emails (if they could be retrieved and the authors did not object)
+of all contributors. Please note that the emails may be outdated but are kept here for reference and
+unique identification.
+The last entry is the sourceforge / github account name used when contributing. A * denotes
+entries which have been added by automated retrieval and still may need review.
+If you find missing or duplicate authors please open
+an issue or pull request at https://github.com/eclipse/sumo/issues
+
 Alessio Bonfietti <alessio.bonfietti@unibo.it> bonfioale
 Alexander Brummer <> alexbrummer
 Alexander Weidinger *
@@ -12,17 +20,18 @@ Angelo Banse <Olaf.BanseBueno@dlr.de> angelobanse
 Anna Chiara Bellini <acbellini@users.sf.net> acbellini
 Axel Wegener <wegener@itm.uni-luebeck.de> awegener
 Behzad Bamdad Mehrabani <bm.bamdad@gmail.com>
+Benjamin Couéraud <benjamin.coueraud@dlr.de> bcoueraud87
 Bernd Lehmann *
 Bill Baxter
 Bjoern Hendriks <bjhend@users.sf.net> bjhend
-bstriner <bstriner@gmail.com> *
+Benjamin Striner <bstriner@gmail.com> bstriner
 Caner Ipek *
 Christian Roessel <roessel@zpr.uni-koeln.de> roessel croessel
 Christian Schmidt <ch.schmidt@dlr.de> cschmidt87
 Christoph Sommer <christoph.sommer@informatik.uni-erlangen.de> sommer
 Claudius Ellsel <claudius.ellsel@live.de> *
 Clemens Honomichl <c.honomichl@googlemail.com> chonomichl
-Costin Chiriac <Anisotrop@users.noreply.github.com> *
+Costin Chiriac <> Anisotrop *
 Daniel Krajzewicz <Daniel.Krajzewicz@dlr.de> dkrajzew
 Danilot Teta Boyom <Danilot.Tete-Boyom@dlr.de> boyom
 Danny Behnecke <Danny.Behnecke@dlr.de> DannyBehnecke
@@ -40,7 +49,7 @@ Farkas Tamás Gábor <farkastamas1095@gmail.com> *
 Federico Caselli <f.caselli@unibo.it> fcaselli-it
 Felix Brack <fb@ltec.ch> fxrb
 @finn0 *
-Flip <Philhil@users.noreply.github.com> *
+Flip <> Philhil *
 Fredrik Jagenheim *
 Friedemann Wesner <wesner@itm.uni-luebeck.de> fwesner
 Georg Hertkorn <georg.hertkorn@dlr.de> georg
@@ -50,7 +59,8 @@ Gregor Laemmel <gregor.laemmel@dlr.de> laemmel
 Gregory Albiston *
 Harald Schaefer <fechsaer@gmail.com>
 Hollow Man <hollowman@hollowman.ml> *
-HONGYC <9068301+iamhyc@users.noreply.github.com> *
+HONGYC <> iamhyc *
+Ioan-Alexandru Stef <alexstef35@gmail.com>
 Jakob Erdmann <jakob.erdmann@dlr.de> namdre
 Jakob Stigloher
 Jakub Sevcik <jsevcik@rice.zcu.cz>
@@ -64,9 +74,11 @@ Jose *
 Julia Ringel <Julia.Ringel@dlr.de> jringel
 Karl Schrab <karl.schrab@fokus.fraunhofer.de> *
 Karol Stosiek <kstosiek@users.sf.net> kstosiek
-kubasevca <34377384+kubasevca@users.noreply.github.com> *
+Kevin Badalian <> kevbad
+Kevin Tee <andythe_great@protonmail.com>
+kubasevca <> kubasevca *
 Lara Codeca <lara.codeca@eurecom.fr> lcodeca
-Lara Kaiser <65860507+LaraKaiser@users.noreply.github.com> LaraKaiser
+Lara Kaiser <> LaraKaiser
 Laura Bieker-Walz <laura.bieker@dlr.de> lbieker
 Leander Flamm <leander.flamm@dlr.de>
 Lena Kalleske <Lena.Kalleske@dlr.de> kalleske
@@ -111,13 +123,14 @@ Peter Wagner <peter.wagner@dlr.de> piwagner
 Philippe <extern.philippe.kaeufer@porsche.de> *
 Pieter Loof *
 Piotr Woznica <piwoz@users.sf.net> piwoz
-Qichao Wang
+Qichao Wang <qichao@vt.edu>
 Quentin Bragard *
 Raphael Riebl <raphael.riebl@thi.de>
 Riccardo Belletti <riccardo.belletti2@studio.unibo.it> rickybo89
 Robbin Blokpoel <robbin.blokpoel@imtech.com> rblokpoel
 Robert Hilbrich <robert.hilbrich@dlr.de> RobertHilbrich
 Ronald Nippold <Ronald.Nippold@dlr.de> RNippold
+sabrib <> sab-inf
 Sandesh Uppoor <suppoor@gmail.com> suppoor 
 Sascha Krieg <sascha.krieg@dlr.de> SaschaKrieg saschaKrieg
 Sebastian Ehmann <sebastian@dipolmoment.de>
@@ -136,8 +149,10 @@ Tobias Jacobowitz <tobias.jacobowitz@posteo.de> jacobowitz
 Tobias Mayer <mayer.tobias (at) web.de>
 Tobias Rink *
 ts501 *
+Tucker Alban <mtuck2005@yahoo.ca>
+Vijay Jaisankar <vijay.jaisankar@iiitb.org>
 Vipul <finn02@disroot.org> *
 Walid *
 Walter Bamberger <w.bamberger@arcor.de> simsiem w-bamberger
 Wolfgang Schnerring <wosc@wosc.de> wosc
-Yun-Pang Floetteroed <Yun-Pang.Floetteroed@dlr.de> yunpangfloetteroed
+Yun-Pang Flötteröd <Yun-Pang.Floetteroed@dlr.de> yunpangfloetteroed
