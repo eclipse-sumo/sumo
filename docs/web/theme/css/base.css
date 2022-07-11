@@ -641,6 +641,10 @@ word-break: keep-all !important;
 white-space: nowrap;
 }
 
+.cellNoWrap {
+white-space:nowrap !important;
+}
+
 thead th {
 vertical-align: center;
 text-align: center;
