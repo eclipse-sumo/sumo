@@ -40,7 +40,8 @@ SOURCE_SUFFIX = ".src.xml"
 SINK_SUFFIX = ".dst.xml"
 VIA_SUFFIX = ".via.xml"
 
-NET = None # Used as a cache for the net throughout the whole script.
+NET = None  # Used as a cache for the net throughout the whole script.
+
 
 def get_network(options):
     global NET
@@ -51,7 +52,7 @@ def get_network(options):
 
 def get_options(args=None):
     optParser = sumolib.options.ArgumentParser(description="Generate trips between random locations")
-    optParser.add_argument("-n", "--net-file", dest="netfile",
+    optParser.add_argument("-n", "--net-file", dest="netfile", required=True,
                            help="define the net file (mandatory)")
     optParser.add_argument("-a", "--additional-files", dest="additional",
                            help="define additional files to be loaded by the router")
@@ -80,8 +81,8 @@ def get_options(args=None):
                            help="Use FLOAT as a factor on pedestrian maximum speed against vehicle traffic direction")
     optParser.add_argument("--prefix", dest="tripprefix",
                            default="", help="prefix for the trip ids")
-    optParser.add_argument("-t", "--trip-attributes", dest="tripattrs",
-                           default="", help="additional trip attributes. When generating pedestrians, attributes for " +
+    optParser.add_argument("-t", "--trip-attributes", dest="tripattrs", default="",
+                           help="additional trip attributes. When generating pedestrians, attributes for " +
                            "<person> and <walk> are supported.")
     optParser.add_argument("--fringe-start-attributes", dest="fringeattrs",
                            default="", help="additional trip attributes when starting on a fringe.")
@@ -102,14 +103,14 @@ def get_options(args=None):
                            default=0.0, help="weight edge probability by speed^<FLOAT> (default 0)")
     optParser.add_argument("--fringe-speed-exponent", type=float, dest="fringe_speed_exponent", metavar="FLOAT",
                            help="weight fringe edge probability by speed^<FLOAT> (default: speed exponent)")
-    optParser.add_argument("--angle", type=float, dest="angle",
-                           default=90.0, help="weight edge probability by angle [0-360] relative to the network center")
+    optParser.add_argument("--angle", type=float, dest="angle", default=90.0,
+                           help="weight edge probability by angle [0-360] relative to the network center")
     optParser.add_argument("--angle-factor", type=float, dest="angle_weight",
                            default=1.0, help="maximum weight factor for angle")
     optParser.add_argument("--fringe-factor", type=float, dest="fringe_factor",
                            default=1.0, help="multiply weight of fringe edges by <FLOAT> (default 1")
-    optParser.add_argument("--fringe-threshold", type=float, dest="fringe_threshold",
-                           default=0.0, help="only consider edges with speed above <FLOAT> as fringe edges (default 0)")
+    optParser.add_argument("--fringe-threshold", type=float, dest="fringe_threshold", default=0.0,
+                           help="only consider edges with speed above <FLOAT> as fringe edges (default 0)")
     optParser.add_argument("--allow-fringe", dest="allow_fringe", action="store_true", default=False,
                            help="Allow departing on edges that leave the network and arriving on edges " +
                            "that enter the network (via turnarounds or as 1-edge trips")
@@ -118,10 +119,10 @@ def get_options(args=None):
                            "that enter the network, if they have at least the given length")
     optParser.add_argument("--fringe-junctions", action="store_true", dest="fringeJunctions",
                            default=False, help="Determine fringe edges based on junction attribute 'fringe'")
-    optParser.add_argument("--min-distance", type=float, dest="min_distance", metavar="FLOAT",
-                           default=0.0, help="require start and end edges for each trip to be at least <FLOAT> m apart")
+    optParser.add_argument("--min-distance", type=float, dest="min_distance", metavar="FLOAT", default=0.0,
+                           help="require start and end edges for each trip to be at least <FLOAT> m apart")
     optParser.add_argument("--max-distance", type=float, dest="max_distance", metavar="FLOAT",
-                           default=None, help="require start and end edges for each trip to be at most <FLOAT> m " +
+                           help="require start and end edges for each trip to be at most <FLOAT> m " +
                            "apart (default 0 which disables any checks)")
     optParser.add_argument("-i", "--intermediate", type=int,
                            default=0, help="generates the given number of intermediate way points")
@@ -157,21 +158,19 @@ def get_options(args=None):
                            help="Randomly choose a position on the starting edge of the trip")
     optParser.add_argument("--random-arrivalpos", dest="randomArrivalPos", action="store_true",
                            help="Randomly choose a position on the ending edge of the trip")
-    
+
     insertionArgs = optParser.add_mutually_exclusive_group()
     insertionArgs.add_argument("-p", "--period", type=float, nargs="+", metavar="FLOAT",
-                                 help="Generate vehicles with equidistant departure times and period=FLOAT (default 1.0). " +
-                                 "If option --binomial is used, the expected arrival rate is set to 1/period.")
+                               help="Generate vehicles with equidistant departure times and period=FLOAT (default 1). "
+                               "If option --binomial is used, the expected arrival rate is set to 1/period.")
     insertionArgs.add_argument("--insertion-rate", dest="insertionRate", type=float, nargs="+", metavar="FLOAT",
-                                 help="How much vehicles arrive in the simulation per hour (alternative to the period option).")
+                               help="How much vehicles arrive in the simulation per hour " +
+                               "(alternative to the period option).")
     insertionArgs.add_argument("--insertion-density", dest="insertionDensity", type=float, nargs="+", metavar="FLOAT",
-                                 help="How much vehicles arrive in the simulation per hour per kilometer of road (alternative to the period option).")                             
-    
+                               help="How much vehicles arrive in the simulation per hour per kilometer of road "
+                               "(alternative to the period option).")
+
     options = optParser.parse_args(args=args)
-    
-    if not options.netfile:
-        optParser.print_help()
-        sys.exit(1)
 
     if options.persontrips or options.personrides:
         options.pedestrians = True
@@ -186,12 +185,12 @@ def get_options(args=None):
         options.routefile = "routes.rou.xml"
 
     if options.period is None and options.insertionRate is None and options.insertionDensity is None:
-        options.period = [1.0]
+        options.period = [1.]
 
     if options.insertionDensity:
-        # Compute length of the network.
+        # Compute length of the network
         net = get_network(options)
-        length = 0.0 # In meters.
+        length = 0.  # In meters
         for edge in net.getEdges():
             if edge.allows(options.vclass):
                 length += edge.getLaneNumber() * edge.getLength()
@@ -205,7 +204,7 @@ def get_options(args=None):
             print("Error: Period must be positive", file=sys.stderr)
             sys.exit(1)
         options.period = list(map(intIfPossible, options.period))
-    
+
     if options.jtrrouter and options.flows <= 0:
         print("Error: Option --jtrrouter must be used with option --flows", file=sys.stderr)
         sys.exit(1)
