@@ -1,6 +1,6 @@
-usage: randomTrips.py [-h] [-c FILE] [-C FILE] [--save-template FILE]
-                      [-n NETFILE] [-a ADDITIONAL] [-o TRIPFILE]
-                      [-r ROUTEFILE] [--vtype-output VTYPEOUT]
+usage: randomTrips.py [-h] [-c FILE] [-C FILE] [--save-template FILE] -n
+                      NETFILE [-a ADDITIONAL] [-o TRIPFILE] [-r ROUTEFILE]
+                      [--vtype-output VTYPEOUT]
                       [--weights-prefix WEIGHTSPREFIX]
                       [--weights-output-prefix WEIGHTS_OUTPREFIX]
                       [--pedestrians] [--persontrips]
