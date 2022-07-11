@@ -204,10 +204,10 @@ MFXIconComboBox::disable() {
 FXint
 MFXIconComboBox::getDefaultWidth() {
     FXint ww, pw;
-    if (myIconLabel) {
-        ww = myTextFieldIcon->getDefaultWidth() + myButton->getDefaultWidth() + (border << 1);
-    } else {
+    if (myIconLabel->shown()) {
         ww = myIconLabel->getDefaultWidth() + myTextFieldIcon->getDefaultWidth() + myButton->getDefaultWidth() + (border << 1);
+    } else {
+        ww = myTextFieldIcon->getDefaultWidth() + myButton->getDefaultWidth() + (border << 1);
     }
     pw = myPane->getDefaultWidth();
     return FXMAX(ww, pw);
