@@ -1793,7 +1793,8 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
                         }
                         // compute foe incoming lanes
                         const bool signalised = hasSignalisedConnectionTo(con.toEdge);
-                        if ((n.forbids(i2, k2.toEdge, this, con.toEdge, signalised) || rightTurnConflict || indirectTurnConflit) && (needsCont || dir == LinkDirection::TURN)) {
+                        if ((n.forbids(i2, k2.toEdge, this, con.toEdge, signalised) || rightTurnConflict || indirectTurnConflit)
+                                && (needsCont || dir == LinkDirection::TURN || (!signalised && this != i2 && !con.indirectLeft))) {
                             tmpFoeIncomingLanes.insert(i2->getID() + "_" + toString(k2.fromLane));
                         }
                         if (bothPrio && oppositeLeftIntersect && getID() < i2->getID()) {
