@@ -55,7 +55,7 @@ can be loaded into [sumo](sumo.md) and
 ## Macroscopic Outputs
 
 marouter can create macroscopic traffic data for all network edges by
-using the option **--netload-output**.  hese values can either be
+using the option **--netload-output**. These values can either be
 written aggregated for the whole day (default) or split into intervals
 according to the time-granularity of the input data and the value of option **--aggregation-interval**).
 

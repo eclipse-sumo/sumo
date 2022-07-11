@@ -108,4 +108,4 @@ title: Shortcuts
 
 | Shortcut | Network mode | Demand Mode | Data Mode |
 |:---:|:---:|:-:|:---:|
-| alt + 0-9 | | <span style="color:orange">Toogle view / edit checkbox option</span> | |
+| alt + 0-9 | | <span style="color:orange">Toggle view / edit checkbox option</span> | |

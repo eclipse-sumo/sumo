@@ -82,7 +82,7 @@ title: ChangeLog
     - Fixed Crash when setting up GL2 compatible shaders. Issue #10895
     - Visualisation settings now maintain their type (3D/2D). Issue #11000
     - Coloring vehicles by type attribute or randomly is now working. Issue #2120
-    - Avoid duplicated background objects after loading/realoding. Issue #11047
+    - Avoid duplicated background objects after loading/reloading. Issue #11047
     - Fixed rendering of walkingareas (they are now raised above the road level). Issue #10773
    
 - netconvert
@@ -106,7 +106,7 @@ title: ChangeLog
   - Fixed incomplete rail signal state reset after calling simulation.loadState. Issue #11001
   - Fixed crash when calling inductionloop.getVehicleData for detected pedestrians. Issue #11011
   - Fixed non-deterministic results for `simulation.convertRoad`. Issue #11002
-  - Function 'traci.vehicle.rerouteTraveltime' now behaves the same in traci and libsumo in all cases. Previously, the argument `currentTravelTimes` was ignored by libsumoe. The behavior in traci changed slightly: instead of using the current edge speeds and updating them for all vehicles, it now uses the aggregated routing mode (which also reacts to current speeds). Issue #5943
+  - Function 'traci.vehicle.rerouteTraveltime' now behaves the same in traci and libsumo in all cases. Previously, the argument `currentTravelTimes` was ignored by libsumo. The behavior in traci changed slightly: instead of using the current edge speeds and updating them for all vehicles, it now uses the aggregated routing mode (which also reacts to current speeds). Issue #5943
   - Fixed crash when calling `traci.vehicle.updateBestLanes` for vehicles not on the road network. Issue #11121
   - Fixed invalid choice of lane after calling `traci.vehicletype.setVehicleClass`. Issue #11117
 
@@ -117,7 +117,7 @@ title: ChangeLog
   - generateRailSignalConstraints.py: Fixed bug where constraints for invalid stops were generated. Issue #10843
   - route2OD.py: Fixed invalid handling of TAZ defined with tazSource and tazSink elements. Issue #10873
   - routeSampler.py: now longer writes flows with probability > 1. Issue #10887
-  - osmWebwizard.py: No longer creates temporary route files in the base working directory. Issue #10878
+  - osmWebWizard.py: No longer creates temporary route files in the base working directory. Issue #10878
 
 ### Enhancements
 
@@ -160,7 +160,7 @@ title: ChangeLog
   - Added gzip file endings in file selection dialogs. Issue #10513
   - Create edge mode now indicates whether a new junction will be created or an existing junction will be re-used. Issue #8454
   - A click-preview-indicator is now provided when creating tazRelations and vehicle-over-route. Issue #10997
-  - A click-preview-indicater is now provided when splitting edges in in create-edge-mode. Issue #10998
+  - A click-preview-indicator is now provided when splitting edges in in create-edge-mode. Issue #10998
   - The hide/show-TAZRel buttons can now be used to hide all relations. Issue #10972
   - Added dialog for fixing / reporting network element problems. Issue #10151
   - Improved visualization of trips between junctions. Issue #9901
@@ -204,7 +204,7 @@ title: ChangeLog
   - The traffic light game can now be controlled with the keyboard. Issue #11056
   - sumolib.shapes.polygon now handles missing attributes. Issue #11092
   - netdiff.py: now support saving and loading configuration files. Issue #10942
-  - The new function `sumolib.xml.parse_fast_structured` now provides very fast parsing for hetergeneous nested xml files (i.e. tripinfo-output for vehicles and persons). Issue #9033
+  - The new function `sumolib.xml.parse_fast_structured` now provides very fast parsing for heterogeneous nested xml files (i.e. tripinfo-output for vehicles and persons). Issue #9033
 
 ### Miscellaneous
 

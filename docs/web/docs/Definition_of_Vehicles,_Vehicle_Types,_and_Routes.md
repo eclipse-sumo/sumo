@@ -113,7 +113,7 @@ following additional parameters are known:
 | begin          | float (s) or [human-readable-time](Other/Glossary.md#t) or one of *triggered*, *containerTriggered* | first vehicle departure time |
 | end            | float(s)       | end of departure interval (if undefined, defaults to 24 hours) |
 | vehsPerHour    | float(\#/h)    | number of vehicles per hour, equally spaced (not together with period or probability)  |
-| period         | float(s) or "exp(X)" where x is float  | if float is given, insert equally spaced vehicles at that period. If exp(X) is given, insert vehicless with exponentially distributed time gaps. This turns insertion into a [Poisson process](https://en.wikipedia.org/wiki/Poisson_point_process) with an expected value of *X* insertions per second. (not together with vehsPerHour or probability), see also [Simulation/Randomness](Simulation/Randomness.md#flows_with_a_random_number_of_vehicles)  |
+| period         | float(s) or "exp(X)" where x is float  | if float is given, insert equally spaced vehicles at that period. If exp(X) is given, insert vehicles with exponentially distributed time gaps. This turns insertion into a [Poisson process](https://en.wikipedia.org/wiki/Poisson_point_process) with an expected value of *X* insertions per second. (not together with vehsPerHour or probability), see also [Simulation/Randomness](Simulation/Randomness.md#flows_with_a_random_number_of_vehicles)  |
 | probability    | float(\[0,1\]) | probability for emitting a vehicle each second (not together with vehsPerHour or period), see also [Simulation/Randomness](Simulation/Randomness.md#flows_with_a_random_number_of_vehicles) |
 | number         | int(\#)        | total number of vehicles, equally spaced                                                                                                                                                            |
 
@@ -325,7 +325,7 @@ vehicle.
 - "`desired`": The maxSpeed is used. If that speed is unsafe, departure is delayed.
 - "`speedLimit`": The speed limit of the lane is used. If that speed is unsafe, departure is delayed.
 - "`last`": The current speed of the last vehicle on the departure lane is used (or 'desired' speed if the lane is empty). If that speed is unsafe, departure is delayed.
-- "`avg`": The average speed on the departure lane is ised (or the minimum of 'speedLimit' and 'desired' if the lane is empty). If that speed is unsafe, departure is delayed.
+- "`avg`": The average speed on the departure lane is used (or the minimum of 'speedLimit' and 'desired' if the lane is empty). If that speed is unsafe, departure is delayed.
 
 ### departEdge
 
@@ -486,11 +486,11 @@ While it is possible to assign the individual speedFactor value directly in a `<
 
 Having a distribution of speed factors (and hence of desired speeds) is beneficial to the realism of a simulation. If the desired speed is constant among a fleet of vehicles, this implies that gaps between vehicles will keep their size constant over a long time. For this reason, the individual speed factor for each simulated vehicle (whether defined as `<vehicle>`, `<trip>` or part of a `<flow>`) is drawn from a distribution by default. 
 
-The speedFactor of a vehicle is writen to various outputs ([tripinfo-output](Simulation/Output/TripInfo.md), [vehroute-output](https://sumo.dlr.de/docs/Simulation/Output/VehRoutes.md)) and can also be checked via the [vehicle parameter dialog](sumo-gui.md#object_properties_right-click-functions).
+The speedFactor of a vehicle is written to various outputs ([tripinfo-output](Simulation/Output/TripInfo.md), [vehroute-output](https://sumo.dlr.de/docs/Simulation/Output/VehRoutes.md)) and can also be checked via the [vehicle parameter dialog](sumo-gui.md#object_properties_right-click-functions).
 
 ### Defining a normal distribution for vehicle speeds
 
-Two types of distributions can be defined for sampling the individual speedFactor of each vehicl by giving one of the following attributes in the `<vType>` element:
+Two types of distributions can be defined for sampling the individual speedFactor of each vehicle by giving one of the following attributes in the `<vType>` element:
 
 - normal distribution:  `speedFactor="norm(mean,deviation)"`
 - truncated normal distribution:   `speedFactor="normc(mean,deviation,lowerCutOff,upperCutOff)"`

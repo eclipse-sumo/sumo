@@ -50,11 +50,11 @@ minimum time gap of tau between the rear bumper of their leader and
 their own (front-bumper + minGap) to assure the possibility to brake in
 time when their leader starts braking.
 
-The use of minGap with respect to the desired (minimum) time headway varies by model. I.e. the Krauss model selects a speed that ensures minGap can always be maintaned whereas other models may not do this.
+The use of minGap with respect to the desired (minimum) time headway varies by model. I.e. the Krauss model selects a speed that ensures minGap can always be maintained whereas other models may not do this.
 
 As explained [above](#actionsteplength), the reaction time is defined by the simulation step length and the **actionStepLength** parameter. fundamentally limited by the simulation step size ([sumo](sumo.md) option **--step-length** {{DT_FLOAT}}).
 
-By setting a value of tau that is higher than the reaction time, the driving saftey can be increased since vehicles will use large gaps and have enough time to react. Conversely, setting a value of tau that is lower than the reaction time leads to unsafe driving. In the simulation this can manifest as  high deceleration or even collisions.
+By setting a value of tau that is higher than the reaction time, the driving safety can be increased since vehicles will use large gaps and have enough time to react. Conversely, setting a value of tau that is lower than the reaction time leads to unsafe driving. In the simulation this can manifest as  high deceleration or even collisions.
 
 ### decel, apparentDecel, emergencyDecel
 
