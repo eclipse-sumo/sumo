@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-01-23 14:36:27 by Eclipse SUMO netgenerate Version v1_11_0+1386-3dcddef099b
+<!-- generated on 2022-07-11 15:42:09 by Eclipse SUMO netgenerate Version v1_13_0+1506-f0fbece2894
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -69,8 +69,9 @@
             <xsd:element name="rand.neighbor-dist4" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="rand.neighbor-dist5" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="rand.neighbor-dist6" type="floatOptionType" minOccurs="0"/>
-            <xsd:element name="rand.random-lanenumber" type="boolOptionType" minOccurs="0"/>
-            <xsd:element name="rand.random-priority" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="random-lanenumber" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="random-priority" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="random-type" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="rand.grid" type="boolOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
@@ -116,6 +117,8 @@
             <xsd:element name="numerical-ids.node-start" type="intOptionType" minOccurs="0"/>
             <xsd:element name="numerical-ids.edge-start" type="intOptionType" minOccurs="0"/>
             <xsd:element name="reserved-ids" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="geometry.split" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="geometry.max-segment-length" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="geometry.max-grade" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="geometry.max-grade.fix" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="offset.disable-normalization" type="boolOptionType" minOccurs="0"/>
@@ -139,6 +142,7 @@
             <xsd:element name="default.lanewidth" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="default.spreadtype" type="strOptionType" minOccurs="0"/>
             <xsd:element name="default.speed" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="default.friction" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="default.priority" type="intOptionType" minOccurs="0"/>
             <xsd:element name="default.type" type="strOptionType" minOccurs="0"/>
             <xsd:element name="default.sidewalk-width" type="floatOptionType" minOccurs="0"/>
@@ -174,6 +178,9 @@
             <xsd:element name="tls.allred.time" type="intOptionType" minOccurs="0"/>
             <xsd:element name="tls.minor-left.max-speed" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="tls.left-green.time" type="intOptionType" minOccurs="0"/>
+            <xsd:element name="tls.nema.vehExt" type="intOptionType" minOccurs="0"/>
+            <xsd:element name="tls.nema.yellow" type="intOptionType" minOccurs="0"/>
+            <xsd:element name="tls.nema.red" type="intOptionType" minOccurs="0"/>
             <xsd:element name="tls.crossing-min.time" type="intOptionType" minOccurs="0"/>
             <xsd:element name="tls.crossing-clearance.time" type="intOptionType" minOccurs="0"/>
             <xsd:element name="tls.scramble.time" type="intOptionType" minOccurs="0"/>
@@ -222,6 +229,7 @@
             <xsd:element name="no-left-connections" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="junctions.join" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="junctions.join-dist" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="junctions.join-same" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="junctions.corner-detail" type="intOptionType" minOccurs="0"/>
             <xsd:element name="junctions.internal-link-detail" type="intOptionType" minOccurs="0"/>
             <xsd:element name="junctions.scurve-stretch" type="floatOptionType" minOccurs="0"/>
