@@ -40,14 +40,14 @@ SOURCE_SUFFIX = ".src.xml"
 SINK_SUFFIX = ".dst.xml"
 VIA_SUFFIX = ".via.xml"
 
-net = None # Used as a cache for the net throughout the whole script.
+NET = None # Used as a cache for the net throughout the whole script.
 
 def get_network(options):
-    global net
-    if net is None:
-        net = sumolib.net.readNet(options.netfile)
-    return net
-    
+    global NET
+    if NET is None:
+        NET = sumolib.net.readNet(options.netfile)
+    return NET
+
 
 def get_options(args=None):
     optParser = sumolib.options.ArgumentParser(description="Generate trips between random locations")

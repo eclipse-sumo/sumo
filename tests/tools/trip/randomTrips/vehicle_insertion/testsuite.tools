@@ -7,8 +7,8 @@ multiple_insertion_rates
 # Test for multiple densities.
 multiple_insertion_densities
 
-# Test for multiple densities for a specific vehicle class.
-multiple_insertion_densities_vehicle_class
+# Test insertion density for a specific vehicle class.
+insertion_density_vehicle_class
 
 # Test for the conflict between arguments --period and --insertion-rate.
 period_insertion_rate_conflict
