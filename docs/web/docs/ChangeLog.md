@@ -24,7 +24,9 @@ title: ChangeLog
   - Fixed inconsistent value for previous vehicle speed after loading simulation state. Issue #10922
   - Fixed errors when using `departSpeed="avg"` or `departSpeed="last"`. Issue #10868
   - Fixed teleporting taxis when combining randomCircling with automatic rerouting. Issue #11079
-  - Attribute `startupDelay` now has higher priority than speed adaptations for lane changing. Issue #11067  
+  - Attribute `startupDelay` now has higher priority than speed adaptations for lane changing. Issue #11067
+  - Fixed emergency breaking on approach to junction. Issue #11130
+  - Fixed invalid vehicle angle during lane changing on internal edge. Issue #5879
   - Lane changing fixes
     - Vehicles waiting at a red light no longer change lanes in response to vehicles passing the intersection. #10665
     - Lane-specific speed limits now influence lane-changing decisions. Issue #8984
@@ -47,6 +49,7 @@ title: ChangeLog
   - Greatly increased rendering speed. Issue #10425 (regression in 1.11.0)
   - Fixed crash when drawing tazRelations. Issue #10929 (regression in 1.11.0)
   - Loaded named routes are now visible again. Issue #11008 (regression in 1.12.0)
+  - Setting allow/disallow in create-edge frame is now working again. Issue #11096 (regression in 1.12.0)
   - Fixed incomplete demand output when defining a `<flow>` and a `<pedestrianFlow>` with the same id. Issue #11049
   - tls mode coloring of 'yellow' phase is now consistent with sumo-gui. Issue #10651
   - Loading a demand file only triggers a 'demand is modified' warning after actual modification. Issue #9529
@@ -66,6 +69,8 @@ title: ChangeLog
   - Fixed wrong shortcuts listed in the Edit menu. Issue #10940
   - Fixed inconsistent traffic light settings when removing node from a joined traffic light by changing its type. Issue #11012
   - Fixed visualization of edge-data elements in dataMode. Issue #11032
+  - Fixed inconsistent behavior of allow/disallow dialog in create-edge frame. Issue #11095
+  
   
 - sumo-gui
   - Background images (decals) and multi-view settings are now restored on reload. Issue #10788 (regression in 1.13.0)
@@ -74,6 +79,7 @@ title: ChangeLog
   - Fixed inconsistent treatment of missing data when coloring by attribute/param. Issue #10932
   - An opened breakpoint editor is now updated when clicking on 'time' links. Issue #11035
   - Fixed crash when drawing persons that enter a vehicle. Issue #11076
+  - Detectors are no longer drawn on top of traffic light signals and right-of-way indicators. Issue #11132
   - 3D View:
     - Fixed 3D rendering of edge geometry with varying incline. Issue #4952
     - Fixed Vehicle orientation on sloped edges in 3D view. Issue #10905
@@ -95,6 +101,7 @@ title: ChangeLog
   - Fixed generation of invalid pedestrian crossings. Issue #7625, #10894
   - Fixed invalid walkingarea shapes. Issue #11087, #11090
   - Patching the type of a loaded junction now has priority over option **--tls.guess**. Issue #11013
+  - Fixed invalid right-of-way rules when using custom `contPos` at connections from a side road. Issue #11146
 
 - TraCI / libsumo
   - Function `vehicle.setAcceleration` now supports negative values. Issue #10693
@@ -110,6 +117,9 @@ title: ChangeLog
   - Fixed crash when calling `traci.vehicle.updateBestLanes` for vehicles not on the road network. Issue #11121
   - Fixed invalid choice of lane after calling `traci.vehicletype.setVehicleClass`. Issue #11117
   - Fixed some corner case of non-existing dll search paths for libsumo on Windows. Issue #10995
+  - Fixed invalid active person count after removing waiting-for-depart stage. Issue #11127
+  - Function `traci.person.moveTo` is now working (for pedestrians). Issue #11081
+  - Fixed crash when calling `inductionloop.getVehicleData` for detected pedestrians. Issue #11011
 
 - tools
   - sumolib now raises an exception instead of calling sys.exit if rtree module is missing and fallback is disabled. Issue #10666
@@ -168,6 +178,7 @@ title: ChangeLog
   - Added dialog for fixing / reporting network element problems. Issue #10151
   - Improved visualization of trips between junctions. Issue #9901
   - Added warning dialog if the same additional/demand/data file is loaded twice. Issue #11057
+  - Routes between junctions are now visualized. Issue #9901
 
 - sumo-gui
   - InductionLoop detectors now list the time of continuos occupation in their parameter dialog. Issue #10671
@@ -219,6 +230,7 @@ title: ChangeLog
 - Updated default bicycle speed on highway.path and highway.cycleway. Issue #10976
 - Fuel consumption is now given in mg/s instead of ml/s to achieve consistency across liquid an gaseous fuels. For backward compatibility, the option **--emissions.volumetric-fuel** may be set. Issues #7277, #11026
 - The default parameters of the battery model have been changed to that of a KIA Soul EV (formerly the parameters were for a large electric bus). Issue #10883
+- The documentation now has a `Copy`-button next to every code block. Issue #11050
 
 ## Version 1.13.0 (03.05.2022)
 
