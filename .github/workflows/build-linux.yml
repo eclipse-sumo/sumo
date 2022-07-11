@@ -51,6 +51,8 @@ jobs:
     - name: Validate CITATION.cff
       if: matrix.build_type == 'full' && github.repository == 'DLR-TS/sumo'
       uses: dieghernan/cff-validator@main
+      with:
+        citation-path: sumo/CITATION.cff
 
     - name: ccache
       if: github.event_name != 'schedule'
