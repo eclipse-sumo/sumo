@@ -25,8 +25,7 @@ title: ChangeLog
   - Fixed errors when using `departSpeed="avg"` or `departSpeed="last"`. Issue #10868
   - Fixed teleporting taxis when combining randomCircling with automatic rerouting. Issue #11079
   - Attribute `startupDelay` now has higher priority than speed adaptations for lane changing. Issue #11067
-  - Fixed emergency breaking on approach to junction. Issue #11130
-  - Fixed invalid vehicle angle during lane changing on internal edge. Issue #5879
+  - Fixed emergency breaking on approach to junction. Issue #11130  
   - Lane changing fixes
     - Vehicles waiting at a red light no longer change lanes in response to vehicles passing the intersection. #10665
     - Lane-specific speed limits now influence lane-changing decisions. Issue #8984
@@ -36,7 +35,8 @@ title: ChangeLog
     - Fixed unsafe speed adaptation for lane changing. Issue #10767
     - Fixed bug where cars performed strategic changes despite setting `lcStrategic="-1"`. Issue #11109
     - Fixed collision during opposite direction driving. Issue #11118
-    - Fixed issues with opposite-overtaking with the sublane model. Issue #10927  
+    - Fixed issues with opposite-overtaking with the sublane model. Issue #10927
+    - Fixed invalid vehicle angle during lane changing on internal edge. Issue #5879
   - NEMA controller fixes
     - Fixed crash when loading NEMA controller with invalid phases. Issue #10704
     - Fixed crash when loading NEMA controller embedded in .net.xml. Issue #10705
@@ -118,14 +118,13 @@ title: ChangeLog
   - Fixed invalid choice of lane after calling `traci.vehicletype.setVehicleClass`. Issue #11117
   - Fixed some corner case of non-existing dll search paths for libsumo on Windows. Issue #10995
   - Fixed invalid active person count after removing waiting-for-depart stage. Issue #11127
-  - Function `traci.person.moveTo` is now working (for pedestrians). Issue #11081
-  - Fixed crash when calling `inductionloop.getVehicleData` for detected pedestrians. Issue #11011
+  - Function `traci.person.moveTo` is now working (for pedestrians). Issue #11081 
 
 - tools
-  - sumolib now raises an exception instead of calling sys.exit if rtree module is missing and fallback is disabled. Issue #10666
-  - sumolib uses the warnings module if rtree is missing which can be used to disable warnings. Issue #10666
-  - [emissionsDrivingCycle](Tools/Emissions.md#emissionsdrivingcycle) now aborts on an unreadable cycle. Issue #10754
   - game/racing.py now uses the intended vehicle scaling and simulation delay. Issues #10783 (regression in 1.0.0)
+  - sumolib now raises an exception instead of calling `sys.exit` if rtree module is missing and fallback is disabled. Issue #10666
+  - sumolib uses the warnings module if rtree is missing which can be used to disable warnings. Issue #10666
+  - [emissionsDrivingCycle](Tools/Emissions.md#emissionsdrivingcycle) now aborts on an unreadable cycle. Issue #10754  
   - generateRailSignalConstraints.py: Fixed bug where constraints for invalid stops were generated. Issue #10843
   - route2OD.py: Fixed invalid handling of TAZ defined with tazSource and tazSink elements. Issue #10873
   - routeSampler.py: now longer writes flows with probability > 1. Issue #10887
@@ -134,7 +133,7 @@ title: ChangeLog
 ### Enhancements
 
 - Simulation
-  - Added support for PHEM light V5. Issue #10237
+  - Added support for PHEMlight V5. Among other things, this permits modelling of fleet aging. Issue #10237
   - Added support for the [HBEFA4 emission model](Models/Emissions/HBEFA4-based.md) with more than 800 emission classes. Issue #7277
   - Vehicles at longer planned stops now switch off their engine. Issue #10491, #4019
   - Automated engine start/stop can be modelled. Issue #10441
@@ -178,7 +177,6 @@ title: ChangeLog
   - Added dialog for fixing / reporting network element problems. Issue #10151
   - Improved visualization of trips between junctions. Issue #9901
   - Added warning dialog if the same additional/demand/data file is loaded twice. Issue #11057
-  - Routes between junctions are now visualized. Issue #9901
 
 - sumo-gui
   - InductionLoop detectors now list the time of continuos occupation in their parameter dialog. Issue #10671
@@ -207,13 +205,15 @@ title: ChangeLog
   - osmWebWizard now uses a different projection when activating the "satellite background" option  to ensure that the network matches the background.
   - generateRailSignalConstraints.py: Can now write discarded constraints as inactive by setting option **--write-inactive**. Issue #10800
   - plotTrajectories.py: Now supports plotting type 'g' to plot by leaderGap (requires fcd output with option **--fcd-output.max-leader-distance**). Issue #10839
-  - addStops2Routes.py: Added various options to randomize stop assignment. Issue #10871
+  - addStops2Routes.py: Added various options to randomize stop assignment (i.e. to model random break-down of cars). Issue #10871
   - route2OD.py: now supports loading trips with attributes fromTaz and toTaz. Issue #10924
   - routeSampler.py: now supports option **--write-flows poisson** to generate flows with poisson arrival pattern. Issue #10886
   - routeSampler.py: Can now load pedestrian walks as candidate routes. Issue #11041
   - randomTrips.py: Can now set explicitly randomized departPos and arrivalPos attributes. Issue #7977
   - randomTrips.py: Can now pass any kind of duarouter option using **--duarouter-option-name VALUE**. Issue #7347
   - randomTrips.py: Can now define a timeline of different demand levels. Issue #5739
+  - randomTrips.py: Now supports option **--insertion-rate** to define demand as vehicles-per-hour and option **--insertion-density** to define demand as vehicles-per-hour-per-km. Issue#11053
+  - randomTrips.py: All generated trips and route files now record the used ranomTrips options. Issue #10973
   - cutRoutes.py: now adapts the departSpeed to 'max' and departLane to 'best' if vehicles start on a cut route. Issue #10611
   - The traffic light games with multipe junctions can now be controlled with the keyboard. Issue #11056
   - The traffic light games now use phase switching instead of program switching. Issue #11063
@@ -225,7 +225,6 @@ title: ChangeLog
 ### Miscellaneous
 
 - Outputfile comment header no longer includes options that were set automatically (only user defined options). Issue #10712
-- PHEMlight5 has been added as a new emission model allowing also for modelling of aging fleets. Issue #10237
 - Outputs now use attribute `period` instead of `freq` whenever denoting a time period. Issue #10657
 - Updated default bicycle speed on highway.path and highway.cycleway. Issue #10976
 - Fuel consumption is now given in mg/s instead of ml/s to achieve consistency across liquid an gaseous fuels. For backward compatibility, the option **--emissions.volumetric-fuel** may be set. Issues #7277, #11026
