@@ -228,6 +228,7 @@ output:00000 *${REPLACE 00000}
 output:Cache: hits
 output:function .* called at .*
 output:function .* finished after .*
+output:optional arguments:{REPLACE options:}
 dualog:uration:.*ms
 dualog:uration:.*s
 dualog:Real time factor
