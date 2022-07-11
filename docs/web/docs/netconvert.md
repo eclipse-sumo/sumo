@@ -225,7 +225,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 
 | Option | Description |
 |--------|-------------|
-| **--speed-in-kmh** {{DT_BOOL}} | vmax is parsed as given in km/h (some); *default:* **false** |
+| **--speed-in-kmh** {{DT_BOOL}} | vmax is parsed as given in km/h; *default:* **false** |
 | **--construction-date** {{DT_STR}} | Use YYYY-MM-DD date to determine the readiness of features under construction |
 | **--flatten** {{DT_BOOL}} | Remove all z-data; *default:* **false** |
 | **--plain.extend-edge-shape** {{DT_BOOL}} | If edge shapes do not end at the node positions, extend them; *default:* **false** |
@@ -281,6 +281,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--default.lanewidth** {{DT_FLOAT}} | The default width of lanes; *default:* **-1** |
 | **--default.spreadtype** {{DT_STR}} | The default method for computing lane shapes from edge shapes; *default:* **right** |
 | **-S** {{DT_FLOAT}}<br> **--default.speed** {{DT_FLOAT}} | The default speed on an edge (in m/s); *default:* **13.89** |
+| **--default.friction** {{DT_FLOAT}} | The default friction on an edge; *default:* **1** |
 | **-P** {{DT_INT}}<br> **--default.priority** {{DT_INT}} | The default priority of an edge; *default:* **-1** |
 | **--default.type** {{DT_STR}} | The default edge type |
 | **--default.sidewalk-width** {{DT_FLOAT}} | The default width of added sidewalks; *default:* **2** |
@@ -320,6 +321,9 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--tls.allred.time** {{DT_INT}} | Set INT as fixed time for intermediate red phase after every switch; *default:* **0** |
 | **--tls.minor-left.max-speed** {{DT_FLOAT}} | Use FLOAT as threshold for allowing left-turning vehicles to move in the same phase as oncoming straight-going vehicles; *default:* **19.44** |
 | **--tls.left-green.time** {{DT_INT}} | Use INT as green phase duration for left turns (s). Setting this value to 0 disables additional left-turning phases; *default:* **6** |
+| **--tls.nema.vehExt** {{DT_INT}} | Set INT as fixed time for intermediate vehext phase after every switch; *default:* **2** |
+| **--tls.nema.yellow** {{DT_INT}} | Set INT as fixed time for intermediate NEMA yelow phase after every switch; *default:* **3** |
+| **--tls.nema.red** {{DT_INT}} | Set INT as fixed time for intermediate NEMA red phase after every switch; *default:* **2** |
 | **--tls.crossing-min.time** {{DT_INT}} | Use INT as minimum green duration for pedestrian crossings (s).; *default:* **4** |
 | **--tls.crossing-clearance.time** {{DT_INT}} | Use INT as clearance time for pedestrian crossings (s).; *default:* **5** |
 | **--tls.scramble.time** {{DT_INT}} | Use INT as green phase duration for pedestrian scramble phase (s).; *default:* **5** |

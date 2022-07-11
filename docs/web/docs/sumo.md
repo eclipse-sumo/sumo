@@ -102,6 +102,7 @@ configuration:
 | **--fcd-output.params** {{DT_STR[]}} | Add generic parameter values to the FCD output |
 | **--fcd-output.filter-edges.input-file** {{DT_FILE}} | Restrict fcd output to the edge selection from the given input file |
 | **--fcd-output.attributes** {{DT_STR[]}} | List attributes that should be included in the FCD output |
+| **--fcd-output.filter-shapes** {{DT_STR[]}} | List shape names that should be used to filter the FCD output |
 | **--device.ssm.filter-edges.input-file** {{DT_FILE}} | Restrict SSM device output to the edge selection from the given input file |
 | **--full-output** {{DT_FILE}} | Save a lot of information for each timestep (very redundant) |
 | **--queue-output** {{DT_FILE}} | Save the vehicle queues at the junctions (experimental) |
@@ -196,6 +197,7 @@ configuration:
 | **--lanechange.overtake-right** {{DT_BOOL}} | Whether overtaking on the right on motorways is permitted; *default:* **false** |
 | **--tls.all-off** {{DT_BOOL}} | Switches off all traffic lights.; *default:* **false** |
 | **--tls.actuated.show-detectors** {{DT_BOOL}} | Sets default visibility for actuation detectors; *default:* **false** |
+| **--tls.actuated.jam-threshold** {{DT_FLOAT}} | Sets default jam-treshold parameter for all actuation detectors; *default:* **-1** |
 | **--tls.delay_based.detector-range** {{DT_FLOAT}} | Sets default range for detecting delayed vehicles; *default:* **100** |
 | **--tls.yellow.min-decel** {{DT_FLOAT}} | Minimum deceleration when braking at yellow; *default:* **3** |
 | **--railsignal-moving-block** {{DT_BOOL}} | Let railsignals operate in moving-block mode by default; *default:* **false** |
@@ -288,10 +290,14 @@ configuration:
 
 | Option | Description |
 |--------|-------------|
-| **--phemlight-path** {{DT_FILE}} | Determines where to load PHEMlight definitions from.; *default:* **./PHEMlight/** |
+| **--emissions.volumetric-fuel** {{DT_BOOL}} | Return fuel consumption values in (legacy) unit l instead of mg; *default:* **false** |
+| **--phemlight-path** {{DT_FILE}} | Determines where to load PHEMlight definitions from; *default:* **./PHEMlight/** |
+| **--phemlight-year** {{DT_INT}} | Enable fleet age modelling with the given reference year in PHEMlight5; *default:* **0** |
+| **--phemlight-temperature** {{DT_FLOAT}} | Set ambient temperature to correct NOx emissions in PHEMlight5; *default:* **1.79769e+308** |
 | **--device.emissions.probability** {{DT_FLOAT}} | The probability for a vehicle to have a 'emissions' device; *default:* **-1** |
 | **--device.emissions.explicit** {{DT_STR[]}} | Assign a 'emissions' device to named vehicles |
 | **--device.emissions.deterministic** {{DT_BOOL}} | The 'emissions' devices are set deterministic using a fraction of 1000; *default:* **false** |
+| **--device.emissions.begin** {{DT_STR}} | Recording begin time for emission-data; *default:* **-1** |
 | **--device.emissions.period** {{DT_STR}} | Recording period for emission-output; *default:* **0** |
 
 ### Communication
@@ -333,15 +339,15 @@ configuration:
 | **--device.ssm.probability** {{DT_FLOAT}} | The probability for a vehicle to have a 'ssm' device; *default:* **-1** |
 | **--device.ssm.explicit** {{DT_STR[]}} | Assign a 'ssm' device to named vehicles |
 | **--device.ssm.deterministic** {{DT_BOOL}} | The 'ssm' devices are set deterministic using a fraction of 1000; *default:* **false** |
-| **--device.ssm.measures** {{DT_STR}} | Specifies which measures will be logged (as a space separated sequence of IDs in ('TTC', 'DRAC', 'PET')). |
+| **--device.ssm.measures** {{DT_STR}} | Specifies which measures will be logged (as a space separated sequence of IDs in ('TTC', 'DRAC', 'PET')) |
 | **--device.ssm.thresholds** {{DT_STR}} | Specifies thresholds corresponding to the specified measures (see documentation and watch the order!). Only events exceeding the thresholds will be logged. |
-| **--device.ssm.trajectories** {{DT_BOOL}} | Specifies whether trajectories will be logged (if false, only the extremal values and times are reported, this is the default). |
-| **--device.ssm.range** {{DT_FLOAT}} | Specifies the detection range in meters (default is 50.00m.). For vehicles below this distance from the equipped vehicle, SSM values are traced. |
-| **--device.ssm.extratime** {{DT_FLOAT}} | Specifies the time in seconds to be logged after a conflict is over (default is 5.00secs.). Required >0 if PET is to be calculated for crossing conflicts. |
-| **--device.ssm.file** {{DT_STR}} | Give a global default filename for the SSM output. |
-| **--device.ssm.geo** {{DT_BOOL}} | Whether to use coordinates of the original reference system in output (default is false). |
-| **--device.ssm.write-positions** {{DT_BOOL}} | Whether to write positions (coordinates) for each timestep. |
-| **--device.ssm.write-lane-positions** {{DT_BOOL}} | Whether to write lanes and their positions for each timestep. |
+| **--device.ssm.trajectories** {{DT_BOOL}} | Specifies whether trajectories will be logged (if false, only the extremal values and times are reported).; *default:* **false** |
+| **--device.ssm.range** {{DT_FLOAT}} | Specifies the detection range in meters. For vehicles below this distance from the equipped vehicle, SSM values are traced.; *default:* **50** |
+| **--device.ssm.extratime** {{DT_FLOAT}} | Specifies the time in seconds to be logged after a conflict is over. Required >0 if PET is to be calculated for crossing conflicts.; *default:* **5** |
+| **--device.ssm.file** {{DT_STR}} | Give a global default filename for the SSM output |
+| **--device.ssm.geo** {{DT_BOOL}} | Whether to use coordinates of the original reference system in output; *default:* **false** |
+| **--device.ssm.write-positions** {{DT_BOOL}} | Whether to write positions (coordinates) for each timestep; *default:* **false** |
+| **--device.ssm.write-lane-positions** {{DT_BOOL}} | Whether to write lanes and their positions for each timestep; *default:* **false** |
 
 ### Toc Device
 
@@ -403,6 +409,7 @@ configuration:
 | **--device.fcd.probability** {{DT_FLOAT}} | The probability for a vehicle to have a 'fcd' device; *default:* **-1** |
 | **--device.fcd.explicit** {{DT_STR[]}} | Assign a 'fcd' device to named vehicles |
 | **--device.fcd.deterministic** {{DT_BOOL}} | The 'fcd' devices are set deterministic using a fraction of 1000; *default:* **false** |
+| **--device.fcd.begin** {{DT_STR}} | Recording begin time for FCD-data; *default:* **-1** |
 | **--device.fcd.period** {{DT_STR}} | Recording period for FCD-data; *default:* **0** |
 | **--device.fcd.radius** {{DT_FLOAT}} | Record objects in a radius around equipped vehicles; *default:* **0** |
 | **--person-device.fcd.probability** {{DT_FLOAT}} | The probability for a person to have a 'fcd' device; *default:* **-1** |
@@ -453,6 +460,15 @@ configuration:
 | **--device.vehroute.probability** {{DT_FLOAT}} | The probability for a vehicle to have a 'vehroute' device; *default:* **-1** |
 | **--device.vehroute.explicit** {{DT_STR[]}} | Assign a 'vehroute' device to named vehicles |
 | **--device.vehroute.deterministic** {{DT_BOOL}} | The 'vehroute' devices are set deterministic using a fraction of 1000; *default:* **false** |
+
+### Friction Device
+| Option | Description |
+|--------|-------------|
+| **--device.friction.probability** {{DT_FLOAT}} | The probability for a vehicle to have a 'friction' device; *default:* **-1** |
+| **--device.friction.explicit** {{DT_STR[]}} | Assign a 'friction' device to named vehicles |
+| **--device.friction.deterministic** {{DT_BOOL}} | The 'friction' devices are set deterministic using a fraction of 1000; *default:* **false** |
+| **--device.friction.stdDev** {{DT_FLOAT}} | The measurement noise parameter which can be applied to the friction device; *default:* **0.1** |
+| **--device.friction.offset** {{DT_FLOAT}} | The measurement offset parameter which can be applied to the friction device -> e.g. to force false measurements; *default:* **0** |
 
 ### Traci Server
 | Option | Description |
