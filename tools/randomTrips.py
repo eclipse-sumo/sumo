@@ -79,9 +79,6 @@ def get_options(args=None):
                            default="", help="additional trip attributes when starting on a fringe.")
     optParser.add_argument("-b", "--begin", default=0, help="begin time")
     optParser.add_argument("-e", "--end", default=3600, help="end time (default 3600)")
-    optParser.add_argument("-p", "--period", type=float, default=1.0, nargs="+", metavar="FLOAT",
-                           help="Generate vehicles with equidistant departure times and period=FLOAT (default 1.0). " +
-                           "If option --binomial is used, the expected arrival rate is set to 1/period.")
     optParser.add_argument("--random-depart", action="store_true", dest="randomDepart",
                            default=False, help="Distribute departures randomly between begin and end")
     optParser.add_argument("-s", "--seed", type=int, default=42, help="random seed")
@@ -152,7 +149,18 @@ def get_options(args=None):
                            help="Randomly choose a position on the starting edge of the trip")
     optParser.add_argument("--random-arrivalpos", dest="randomArrivalPos", action="store_true",
                            help="Randomly choose a position on the ending edge of the trip")
+    
+    insertionArgs = optParser.add_mutually_exclusive_group()
+    insertionArgs.add_argument("-p", "--period", type=float, nargs="+", metavar="FLOAT",
+                                 help="Generate vehicles with equidistant departure times and period=FLOAT (default 1.0). " +
+                                 "If option --binomial is used, the expected arrival rate is set to 1/period.")
+    insertionArgs.add_argument("--insertion-rate", dest="insertionRate", type=float, nargs="+", metavar="FLOAT",
+                                 help="How much vehicles arrive in the simulation per hour (alternative to the period option).")
+    insertionArgs.add_argument("--insertion-density", dest="insertionDensity", type=float, nargs="+", metavar="FLOAT",
+                                 help="How much vehicles arrive in the simulation per hour per kilometer of road (alternative to the period option).")                             
+    
     options = optParser.parse_args(args=args)
+    
     if not options.netfile:
         optParser.print_help()
         sys.exit(1)
@@ -169,15 +177,27 @@ def get_options(args=None):
     if options.validate and options.routefile is None:
         options.routefile = "routes.rou.xml"
 
-    if isinstance(options.period, float):
-        options.period = [options.period]
+    if options.period is None and options.insertionRate is None and options.insertionDensity is None:
+        options.period = [1.0]
 
-    options.period = list(map(intIfPossible, options.period))
+    if options.insertionDensity:
+        # Compute length of the network.
+        net = sumolib.net.readNet(options.netfile) # randomTrips will end up reading the network two times!
+        length = 0.0 # In meters.
+        for edge in net.getEdges():
+            if edge.allows(options.vclass):
+                length += edge.getLaneNumber() * edge.getLength()
+        options.insertionRate = [density * (length / 1000.0) for density in options.insertionDensity]
 
-    if any(options.period) <= 0:
-        print("Error: Period must be positive", file=sys.stderr)
-        sys.exit(1)
+    if options.insertionRate:
+        options.period = [3600.0 / rate for rate in options.insertionRate]
 
+    if options.period:
+        if any(options.period) <= 0:
+            print("Error: Period must be positive", file=sys.stderr)
+            sys.exit(1)
+        options.period = list(map(intIfPossible, options.period))
+    
     if options.jtrrouter and options.flows <= 0:
         print("Error: Option --jtrrouter must be used with option --flows", file=sys.stderr)
         sys.exit(1)
