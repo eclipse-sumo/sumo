@@ -14,7 +14,7 @@
 
 # @file    updateReleaseInfo.py
 # @author  Michael Behrisch
-# @date    2022-04-26
+# @date    2022-07-11
 
 from __future__ import absolute_import
 from __future__ import print_function
@@ -35,10 +35,10 @@ dot_release = last_release.replace("_", ".")[1:]
 version = sys.argv[1]
 next_release = version.replace(".", "_")
 if len(sys.argv) > 2:
-    date = sys.argv[2]
+    date = datetime.datetime.strptime(sys.argv[2], "%Y-%m-%d")
 else:
-    date = (datetime.datetime.now() + datetime.timedelta(days=1)).strftime("%Y-%m-%d")
-print(dot_release, date)
+    date = datetime.datetime.now() + datetime.timedelta(days=1)
+print("updating", dot_release, "to", version, "release date", date)
 author_names = []
 with open(os.path.join(SUMO_HOME, "AUTHORS")) as authors:
     header_seen = False
@@ -85,13 +85,16 @@ with fileinput.FileInput(os.path.join(SUMO_HOME, "src", "config.h.cmake"), inpla
 with fileinput.FileInput(os.path.join(SUMO_HOME, "CMakeLists.txt"), inplace=True) as cmake:
     for line in cmake:
         if line == 'set(PACKAGE_VERSION "git")\n':
-            print(line.replace("git", dot_release), end='')
+            print(line.replace("git", version), end='')
         else:
             print(line, end='')
 
 with fileinput.FileInput(os.path.join(SUMO_HOME, "docs", "web", "mkdocs.yml"), inplace=True) as mkdocs:
     for line in mkdocs:
-        print(line.replace(dot_release, version), end='')
+        if "ReleaseDate:" in line:
+            print('    ReleaseDate:', date.strftime("%d.%m.%Y"))
+        else:
+            print(line.replace(dot_release, version), end='')
 
 with fileinput.FileInput(os.path.join(SUMO_HOME, "build", "package", "sumo.metainfo.xml"), inplace=True) as metainfo:
     have_next = False
@@ -99,5 +102,5 @@ with fileinput.FileInput(os.path.join(SUMO_HOME, "build", "package", "sumo.metai
         if next_release in line:
             have_next = True
         if not have_next and last_release in line:
-            print('        <release version="v%s" date="%s"/>' % (next_release, date))
+            print('        <release version="v%s" date="%s"/>' % (next_release, date.strftime("%Y-%m-%d")))
         print(line, end='')
