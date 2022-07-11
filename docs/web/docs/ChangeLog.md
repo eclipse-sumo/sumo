@@ -2,7 +2,7 @@
 title: ChangeLog
 ---
 
-## Git Main
+## Version 1.14.0 (12.07.2022)
 
 ### Bugfixes
 
@@ -96,7 +96,7 @@ title: ChangeLog
   - Fixed invalid walkingarea shapes. Issue #11087, #11090
   - Patching the type of a loaded junction now has priority over option **--tls.guess**. Issue #11013
 
-- TraCI
+- TraCI / libsumo
   - Function `vehicle.setAcceleration` now supports negative values. Issue #10693
   - Fixed invalid added stop on previous edge while already on junction. Issue #10859
   - Fixed invalid taxi state after re-dispatch (causing early taxi removal). Issue #10933
@@ -109,9 +109,11 @@ title: ChangeLog
   - Function 'traci.vehicle.rerouteTraveltime' now behaves the same in traci and libsumo in all cases. Previously, the argument `currentTravelTimes` was ignored by libsumo. The behavior in traci changed slightly: instead of using the current edge speeds and updating them for all vehicles, it now uses the aggregated routing mode (which also reacts to current speeds). Issue #5943
   - Fixed crash when calling `traci.vehicle.updateBestLanes` for vehicles not on the road network. Issue #11121
   - Fixed invalid choice of lane after calling `traci.vehicletype.setVehicleClass`. Issue #11117
+  - Fixed some corner case of non-existing dll search paths for libsumo on Windows. Issue #10995
 
 - tools
-  - sumolib no longer crashes in an environment where rtree and stderr are missing. Issue #10666
+  - sumolib now raises an exception instead of calling sys.exit if rtree module is missing and fallback is disabled. Issue #10666
+  - sumolib uses the warnings module if rtree is missing which can be used to disable warnings. Issue #10666
   - [emissionsDrivingCycle](Tools/Emissions.md#emissionsdrivingcycle) now aborts on an unreadable cycle. Issue #10754
   - game/racing.py now uses the intended vehicle scaling and simulation delay. Issues #10783 (regression in 1.0.0)
   - generateRailSignalConstraints.py: Fixed bug where constraints for invalid stops were generated. Issue #10843
@@ -140,6 +142,7 @@ title: ChangeLog
   - Added option **--fcd-output.filter-shapes** to restrict output to custom polygonal areas. Issue #11055
   - VType attribute 'lcOvertakeRight' is now supported by the sublane mode. Issue #11097
   - CarFollowModel *EIDM* now supports attribute `startupDelay`. Issue #10736
+  - There is no warning about a missing green phase any longer for traffic light links which show "off" or "stop". Issue #10835
   
 - netedit
   - Persons and personFlows can now be transformed into each other via context menu (similar to vehicles and flows). Issue #10607
@@ -200,11 +203,13 @@ title: ChangeLog
   - randomTrips.py: Can now set explicitly randomized departPos and arrivalPos attributes. Issue #7977
   - randomTrips.py: Can now pass any kind of duarouter option using **--duarouter-option-name VALUE**. Issue #7347
   - randomTrips.py: Can now define a timeline of different demand levels. Issue #5739
-  - cutRoutes.py: now adapts the departSpeed to 'max' if vehicles start on a cut route. Issue #10611
-  - The traffic light game can now be controlled with the keyboard. Issue #11056
+  - cutRoutes.py: now adapts the departSpeed to 'max' and departLane to 'best' if vehicles start on a cut route. Issue #10611
+  - The traffic light games with multipe junctions can now be controlled with the keyboard. Issue #11056
+  - The traffic light games now use phase switching instead of program switching. Issue #11063
   - sumolib.shapes.polygon now handles missing attributes. Issue #11092
   - netdiff.py: now support saving and loading configuration files. Issue #10942
   - The new function `sumolib.xml.parse_fast_structured` now provides very fast parsing for heterogeneous nested xml files (i.e. tripinfo-output for vehicles and persons). Issue #9033
+  - The new reduceLanes.py script can reduce the number of lanes for multi lane roads in a network splitting the edges before and after junctions
 
 ### Miscellaneous
 
@@ -213,7 +218,7 @@ title: ChangeLog
 - Outputs now use attribute `period` instead of `freq` whenever denoting a time period. Issue #10657
 - Updated default bicycle speed on highway.path and highway.cycleway. Issue #10976
 - Fuel consumption is now given in mg/s instead of ml/s to achieve consistency across liquid an gaseous fuels. For backward compatibility, the option **--emissions.volumetric-fuel** may be set. Issues #7277, #11026
-- The default parameters of the battery model have been changed to that of a KIA Soul EV. (formerly the parameters were for a large electric bus). Issue #10883
+- The default parameters of the battery model have been changed to that of a KIA Soul EV (formerly the parameters were for a large electric bus). Issue #10883
 
 ## Version 1.13.0 (03.05.2022)
 
