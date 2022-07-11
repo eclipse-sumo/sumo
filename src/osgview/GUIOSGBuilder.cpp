@@ -283,7 +283,7 @@ GUIOSGBuilder::buildTrafficLightDetails(MSTLLogicControl::TLSLogicVariants& vars
         }
     }
     for (const MSEdge* approach : seenEdges) {
-        if (approach->isWalkingArea()) {
+        if (approach->isWalkingArea() || approach->isCrossing()) {
             continue;
         }
         const std::vector<MSLane*> appLanes = approach->getLanes();
