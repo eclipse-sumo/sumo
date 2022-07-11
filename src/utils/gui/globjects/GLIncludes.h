@@ -23,9 +23,13 @@
 #include <config.h>
 
 #ifdef WIN32
+#ifndef NOMINMAX
 #define NOMINMAX
 #include <windows.h>
 #undef NOMINMAX
+#else
+#include <windows.h>
+#endif
 #endif
 
 #include <GL/gl.h>
