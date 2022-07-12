@@ -15,8 +15,10 @@
 # @author  Giuliana Armellini
 # @date
 
+from __future__ import print_function
 import os
 import sys
+from collections import OrderedDict
 if 'SUMO_HOME' in os.environ:
     tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
     sys.path.append(tools)
@@ -24,6 +26,6 @@ else:
     sys.exit("please declare environment variable 'SUMO_HOME'")
 from sumolib.xml import parse_fast_structured  # noqa
 
-for step in parse_fast_structured("input_data.xml", 'timestep', ['time'],
-                                  {'vehicle': ['id', 'speed', 'lane'], 'person': ['id', 'speed', 'edge']}):
+nested = OrderedDict((('vehicle', ['id', 'speed', 'lane']), ('person', ['id', 'speed', 'edge'])))
+for step in parse_fast_structured("input_data.xml", 'timestep', ['time'], nested):
     print(step)
