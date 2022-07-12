@@ -117,7 +117,7 @@ GNEStopFrame::HelpCreation::updateHelpCreation() {
 
 GNEStopFrame::GNEStopFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet) :
     GNEFrame(horizontalFrameParent, viewNet, "Stops"),
-    myRouteHandler("", viewNet->getNet(), true),
+    myRouteHandler("", viewNet->getNet(), true, false),
     myStopParentBaseObject(new CommonXMLStructure::SumoBaseObject(nullptr)) {
 
     // Create Stop parent selector

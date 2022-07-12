@@ -35,7 +35,7 @@
 GNEGeneralHandler::GNEGeneralHandler(GNENet* net, const std::string& file, const bool allowUndoRedo, const bool overwrite) :
     GeneralHandler(file),
     myAdditionalHandler(net, allowUndoRedo, overwrite),
-    myDemandHandler(file, net, allowUndoRedo) {
+    myDemandHandler(file, net, allowUndoRedo, overwrite) {
 }
 
 

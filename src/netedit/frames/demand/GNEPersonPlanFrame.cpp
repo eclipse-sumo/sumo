@@ -35,7 +35,7 @@
 
 GNEPersonPlanFrame::GNEPersonPlanFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet) :
     GNEFrame(horizontalFrameParent, viewNet, "PersonPlans"),
-    myRouteHandler("", viewNet->getNet(), true) {
+    myRouteHandler("", viewNet->getNet(), true, false) {
 
     // create person types selector modul
     myPersonSelector = new DemandElementSelector(this, {GNETagProperties::TagType::PERSON});

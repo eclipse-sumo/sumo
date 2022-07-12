@@ -697,7 +697,8 @@ protected:
         /// @brief invalidate assignment operator
         NeteditParameters& operator=(const NeteditParameters& s) = delete;
     };
-
+    
+private:
     /// @brief pointer to GNENet
     GNENet* myNet;
 
@@ -710,7 +711,6 @@ protected:
     /// @brief additional to overwrite (using undor-redo
     GNEAdditional* myAdditionalToOverwrite = nullptr;
 
-private:
     /// @brief invalidate default constructo
     GNEAdditionalHandler();
 

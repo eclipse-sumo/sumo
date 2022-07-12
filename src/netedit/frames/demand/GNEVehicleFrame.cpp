@@ -98,7 +98,7 @@ GNEVehicleFrame::HelpCreation::updateHelpCreation() {
 
 GNEVehicleFrame::GNEVehicleFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet) :
     GNEFrame(horizontalFrameParent, viewNet, "Vehicles"),
-    myRouteHandler("", viewNet->getNet()),
+    myRouteHandler("", viewNet->getNet(), true, false),
     myVehicleBaseObject(new CommonXMLStructure::SumoBaseObject(nullptr)) {
 
     // Create item Selector modul for vehicles

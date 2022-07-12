@@ -54,7 +54,7 @@ class GNERouteHandler : public RouteHandler {
 
 public:
     /// @brief Constructor
-    GNERouteHandler(const std::string& file, GNENet* net, bool undoDemandElements = true);
+    GNERouteHandler(const std::string& file, GNENet* net, const bool allowUndoRedo, const bool overwrite);
 
     /// @brief Destructor
     virtual ~GNERouteHandler();
@@ -224,8 +224,14 @@ private:
     /// @brief pointer for person and container plans
     CommonXMLStructure::SumoBaseObject* myPlanObject;
 
-    /// @brief flag to check if created demand elements must be undo and redo
-    bool myUndoDemandElements;
+    /// @brief allow undo/redo
+    const bool myAllowUndoRedo;
+
+    /// @brief check if overwrite
+    const bool myOverwrite;
+
+    /// @brief additional to overwrite (using undor-redo
+    GNEAdditional* myAdditionalToOverwrite = nullptr;
 };
 
 
