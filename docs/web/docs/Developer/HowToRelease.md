@@ -93,6 +93,8 @@ and committing the changes after careful inspection
 - If it is the first release of the year, create a new Eclipse release at https://projects.eclipse.org/projects/automotive.sumo (after login there should be a "Create Release" button)
   - add an IP Log to the release
   - send an email to the PMC at automotive-pmc@eclipse.org asking for review (include links to the release and the IP log)
+- check presence of RPMs on
+  <https://build.opensuse.org/package/show/science:dlr/sumo_nightly>
 - add a new version tag
 ```
 > git tag -a v0_13_7 -m "tagging release 0.13.7, refs #563"
@@ -109,10 +111,8 @@ following things need to be there:
 - the platform independent part of the distribution;
   - source and all inclusive distributions (.tar.gz, .zip) ("make dist")
 - the binary part of the distribution
-  - windows binary distribution (zip, includes docs)
+  - windows binary distribution (zip, unzip the x64 file and run at least sumo-gui)
   - windows installer (msi, Win32 and x64, includes docs)
-  - check presence of RPMs on
-    <https://build.opensuse.org/package/show/home:behrisch/sumo_nightly>
 - check the wheels on PyPI
   - https://pypi.org/project/eclipse-sumo/ 
   - https://pypi.org/project/libsumo/
@@ -131,7 +131,7 @@ If everything is fine:
   - make a new release within the sumo package (named "version x.y.z")
   - add files to the release
   - change default download attributes
-  - update files at the [opensuse build
+- update files at the [opensuse build
     service](https://build.opensuse.org/package/show/science:dlr/sumo)
 - update the ubuntu ppa (see
 <https://askubuntu.com/questions/642632/how-to-bump-the-version-of-a-package-available-in-another-users-ppa>)
