@@ -44,3 +44,6 @@ looped
 # 
 # foe2 waits for foe, ego is behind foe2
 egoLeader
+
+# a single swap would cause deadlock involving an insertionPredecessor constraint and so requires an additional swap
+insertion
