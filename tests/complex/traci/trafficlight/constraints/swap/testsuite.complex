@@ -47,3 +47,6 @@ egoLeader
 
 # a single swap would cause deadlock involving an insertionPredecessor constraint and so requires an additional swap
 insertion
+
+# a single swap would cause deadlock involving an insertionPredecessor constraint and so requires an additional swap, using a mix of vehID and tripId in constraints
+insertion_tripId
