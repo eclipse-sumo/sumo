@@ -61,7 +61,7 @@ for laneID in ["SC_0", ":C_w2_0"]:
 
 for laneID in ["CN_0", ":C_w2_0"]:
     lane2 = net.getLane(laneID)
-    print("lanes to %s: %s" % (lane2.getID(), ' '.join(sorted([l.getID() for l in lane2.getIncoming()]))))
+    print("lanes to %s: %s" % (lane2.getID(), ' '.join(sorted([li.getID() for li in lane2.getIncoming()]))))
 
 internal_edge = net.getEdge(":C_0")
 internal_lane = net.getLane(":C_0_0")
@@ -70,7 +70,7 @@ print("connections from %s:\n%s" % (internal_lane.getID(),
                                     '\n'.join(map(str, internal_lane_cons))))
 internal_lane_incoming = sorted(internal_lane.getIncoming())
 print("lanes to %s: %s" % (internal_lane.getID(),
-                           ' '.join([l.getID() for l in internal_lane_incoming])))
+                           ' '.join([li.getID() for li in internal_lane_incoming])))
 assert(internal_edge.getFunction() == 'internal')
 assert(internal_edge.isSpecial())
 assert(internal_lane.getEdge().isSpecial())
@@ -85,8 +85,8 @@ print("junctionParams", printSorted(net.getNode("C").getParams()))
 print("tlsParams",      printSorted(net.getTLS("C").getPrograms()["0"].getParams()))
 
 # functions
-print("getNeighboringEdges", ' '.join(sorted([e.getID() for e, d in net.getNeighboringEdges(100, 0, 10)])))
-print("getNeighboringLanes", ' '.join(sorted([l.getID() for l, d in net.getNeighboringLanes(100, 0, 10)])))
+print("getNeighboringEdges", ' '.join(sorted([e.getID() for e, _ in net.getNeighboringEdges(100, 0, 10)])))
+print("getNeighboringLanes", ' '.join(sorted([ln.getID() for ln, _ in net.getNeighboringLanes(100, 0, 10)])))
 print("getNeighboringNodes only for incoming edges",
       ' '.join(sorted([n.getID() for n in net.getNode("N").getNeighboringNodes(False, True)])))
 print("getNeighboringNodes only for outgoing edges",
