@@ -306,6 +306,9 @@ MSRailSignalConstraint_Predecessor::write(OutputDevice& out, SumoXMLTag tag, con
     if (myLimit > 1) {
         out.writeAttr(SUMO_ATTR_LIMIT, myLimit);
     }
+    if (!myAmActive) {
+        out.writeAttr(SUMO_ATTR_ACTIVE, myAmActive);
+    }
     out.closeTag();
 }
 
