@@ -32,6 +32,7 @@
 
 FXDEFMAP(GNEOverwriteElementsDialog) GNEOverwriteElementsDialogMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECT,  GNEOverwriteElementsDialog::onCmdSelectOption),
+    FXMAPFUNC(SEL_CLOSE,    0,               GNEOverwriteElementsDialog::onCmdCancel),
 };
 
 // Object implementation
@@ -45,12 +46,29 @@ FXIMPLEMENT(GNEOverwriteElementsDialog, FXDialogBox, GNEOverwriteElementsDialogM
 // GNEOverwriteElementsDialog - methods
 // ---------------------------------------------------------------------------
 
-GNEOverwriteElementsDialog::GNEOverwriteElementsDialog(GNEApplicationWindow* applicationWindow) :
-    FXDialogBox(applicationWindow->getApp(), "Fix demand elements problems", GUIDesignDialogBoxExplicit(300, 400)) {
+GNEOverwriteElementsDialog::GNEOverwriteElementsDialog(GNEApplicationWindow* applicationWindow, const std::string elementType) :
+    FXDialogBox(applicationWindow->getApp(), ("Overwrite " + elementType + " elements").c_str(), GUIDesignDialogBoxExplicit(310, 90)) {
     // set busStop icon for this dialog
     setIcon(GUIIconSubSys::getIcon(GUIIcon::SUPERMODEDEMAND));
     // create main frame
     FXVerticalFrame* mainFrame = new FXVerticalFrame(this, GUIDesignAuxiliarFrame);
+    // create label
+    new FXLabel(mainFrame, ("Selected " + elementType + " file was already loaded.\n Continue or overwrite elements?").c_str(), nullptr, GUIDesignLabelOverwrite);
+    // create buttons centered
+    FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(mainFrame, GUIDesignHorizontalFrame);
+    new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
+    myAcceptButton = new FXButton(buttonsFrame, "accept\t\tload elements",  GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, MID_GNE_SELECT, GUIDesignButtonAccept);
+    myCancelButton = new FXButton(buttonsFrame, "cancel\t\tcancel loading of elements", GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, MID_GNE_SELECT, GUIDesignButtonCancel);
+    myOverwriteButton = new FXButton(buttonsFrame, "overwrite\t\toverwrite elements",  GUIIconSubSys::getIcon(GUIIcon::RESET),  this, MID_GNE_SELECT, GUIDesignButtonOverwrite);
+    new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
+    // create Dialog
+    create();
+    // show in the given position
+    show(PLACEMENT_SCREEN);
+    // refresh APP
+    getApp()->refresh();
+    // open as modal dialog (will block all windows until stop() or stopModal() is called)
+    applicationWindow->getApp()->runModalFor(this);
 }
 
 
@@ -58,8 +76,28 @@ GNEOverwriteElementsDialog::~GNEOverwriteElementsDialog() {
 }
 
 
+GNEOverwriteElementsDialog::Result
+GNEOverwriteElementsDialog::getResult() const {
+    return myResult;
+}
+
+
 long
 GNEOverwriteElementsDialog::onCmdSelectOption(FXObject* obj, FXSelector, void*) {
+    if (obj == myAcceptButton) {
+        myResult = Result::ACCEPT;
+    } else if (obj == myOverwriteButton) {
+        myResult = Result::OVERWRITE;
+    }
+    // Stop Modal
+    getApp()->stopModal(this, FALSE);
+    return 1;
+}
+
+long
+GNEOverwriteElementsDialog::onCmdClose(FXObject*, FXSelector, void*) {
+    // Stop Modal
+    getApp()->stopModal(this, FALSE);
     return 1;
 }
 

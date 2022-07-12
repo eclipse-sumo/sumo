@@ -2057,7 +2057,9 @@ GNEAdditionalHandler::checkDuplicatedAdditional(const SumoXMLTag tag, const std:
 void 
 GNEAdditionalHandler::overwriteAdditional() {
     if (myAdditionalToOverwrite) {
-        myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(myAdditionalToOverwrite, false), true);
+        // remove element
+        myNet->deleteAdditional(myAdditionalToOverwrite, myNet->getViewNet()->getUndoList());
+        // reset pointer
         myAdditionalToOverwrite = nullptr;
     }
 }

@@ -40,22 +40,48 @@ class GNEOverwriteElementsDialog : public FXDialogBox {
     FXDECLARE(GNEOverwriteElementsDialog)
 
 public:
+    /// @brief result
+    enum class Result {
+        ACCEPT,     // load elements
+        CANCEL,     // cancel load
+        OVERWRITE   // load elements, overwritting elements with the same ID
+
+    };
+
     /// @brief Constructor
-    GNEOverwriteElementsDialog(GNEApplicationWindow* applicationWindow);
+    GNEOverwriteElementsDialog(GNEApplicationWindow* applicationWindow, const std::string elementType);
 
     /// @brief destructor
     ~GNEOverwriteElementsDialog();
+
+    /// @brief get result
+    Result getResult() const;
 
     /// @name FOX-callbacks
     /// @{
     /// @brief event when user select an option
     long onCmdSelectOption(FXObject* obj, FXSelector, void*);
 
+    /// @brief event when dialog is closed
+    long onCmdClose(FXObject* obj, FXSelector, void*);
+
     /// @}
 
 protected:
     /// @brief FOX need this
     FOX_CONSTRUCTOR(GNEOverwriteElementsDialog)
+
+    /// @brief button for accept
+    FXButton *myAcceptButton = nullptr;
+
+    /// @brief button for cancel
+    FXButton *myCancelButton = nullptr;
+
+    /// @brief button for overwritte
+    FXButton *myOverwriteButton = nullptr;
+
+    /// @brief result (by default cancel)
+    Result myResult = Result::CANCEL;
 
 private:
     /// @brief Invalidated copy constructor.

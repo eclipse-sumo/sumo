@@ -20,6 +20,7 @@
 #include <netbuild/NBFrame.h>
 #include <netedit/dialogs/GNEAbout.h>
 #include <netedit/dialogs/GNEUndoListDialog.h>
+#include <netedit/dialogs/GNEOverwriteElementsDialog.h>
 #include <netedit/dialogs/tools/GNEToolNetDiff.h>
 #include <netedit/elements/network/GNECrossing.h>
 #include <netedit/elements/network/GNEEdgeType.h>
@@ -3447,19 +3448,19 @@ GNEApplicationWindow::onCmdOpenAdditionals(FXObject*, FXSelector, void*) {
     if (opendialog.execute()) {
         // close additional dialog
         WRITE_DEBUG("Close additional dialog");
+        // declare overwrite flag
+        bool overwriteElements = false;
         // check if open question dialog box
         if (opendialog.getFilename().text() == OptionsCont::getOptions().getString("additional-files")) {
-            // open question dialog box
-            const auto answer = FXMessageBox::question(myNet->getViewNet()->getApp(), MBOX_YES_NO, "Load same additional file",
-                                "Selected additional file was already loaded. Continue?");
-            if (answer != 1) { //1:yes, 2:no, 4:esc
-                // write warning if netedit is running in testing mode
-                if (answer == 2) {
-                    WRITE_DEBUG("Closed FXMessageBox 'Load same additional file' with 'No'");
-                } else if (answer == 4) {
-                    WRITE_DEBUG("Closed FXMessageBox 'Load same additional file' with 'ESC'");
-                }
+            // open overwrite dialog
+            GNEOverwriteElementsDialog overwriteDialog(this, "additional");
+            // continue depending of result
+            if (overwriteDialog.getResult() == GNEOverwriteElementsDialog::Result::CANCEL) {
+                // abort load
                 return 0;
+            } else if (overwriteDialog.getResult() == GNEOverwriteElementsDialog::Result::OVERWRITE) {
+                // enable overwriteElements
+                overwriteElements = true;
             }
         }
         // save previous status save
@@ -3472,7 +3473,7 @@ GNEApplicationWindow::onCmdOpenAdditionals(FXObject*, FXSelector, void*) {
         // disable validation for additionals
         XMLSubSys::setValidation("never", "auto", "auto");
         // Create additional handler
-        GNEGeneralHandler generalHandler(myNet, file, true, false);
+        GNEGeneralHandler generalHandler(myNet, file, true, overwriteElements);
         // begin undoList operation
         myUndoList->begin(Supermode::NETWORK, GUIIcon::SUPERMODENETWORK, "reloading additionals from '" + file + "'");
         // Run parser
