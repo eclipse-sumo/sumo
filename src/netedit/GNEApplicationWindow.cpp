@@ -3645,19 +3645,19 @@ GNEApplicationWindow::onCmdOpenDemandElements(FXObject*, FXSelector, void*) {
     if (opendialog.execute()) {
         // close additional dialog
         WRITE_DEBUG("Close demand element dialog");
+        // declare overwrite flag
+        bool overwriteElements = false;
         // check if open question dialog box
         if (opendialog.getFilename().text() == OptionsCont::getOptions().getString("route-files")) {
-            // open question dialog box
-            const auto answer = FXMessageBox::question(myNet->getViewNet()->getApp(), MBOX_YES_NO, "Load same route file",
-                                "Selected route file was already loaded. Continue?");
-            if (answer != 1) { //1:yes, 2:no, 4:esc
-                // write warning if netedit is running in testing mode
-                if (answer == 2) {
-                    WRITE_DEBUG("Closed FXMessageBox 'Load same route file' with 'No'");
-                } else if (answer == 4) {
-                    WRITE_DEBUG("Closed FXMessageBox 'Load same route file' with 'ESC'");
-                }
+            // open overwrite dialog
+            GNEOverwriteElementsDialog overwriteDialog(this, "route");
+            // continue depending of result
+            if (overwriteDialog.getResult() == GNEOverwriteElementsDialog::Result::CANCEL) {
+                // abort load
                 return 0;
+            } else if (overwriteDialog.getResult() == GNEOverwriteElementsDialog::Result::OVERWRITE) {
+                // enable overwriteElements
+                overwriteElements = true;
             }
         }
         // save previous status save
@@ -3670,7 +3670,7 @@ GNEApplicationWindow::onCmdOpenDemandElements(FXObject*, FXSelector, void*) {
         // disable validation for additionals
         XMLSubSys::setValidation("never", "auto", "auto");
         // Create generic handler
-        GNEGeneralHandler handler(myNet, file, true, false);
+        GNEGeneralHandler handler(myNet, file, true, overwriteElements);
         // begin undoList operation
         myUndoList->begin(Supermode::DEMAND, GUIIcon::SUPERMODEDEMAND, "loading demand elements from '" + file + "'");
         // Run parser for additionals

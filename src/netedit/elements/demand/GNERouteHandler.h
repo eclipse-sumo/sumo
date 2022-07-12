@@ -151,13 +151,13 @@ public:
     bool buildContainerPlan(SumoXMLTag tag, GNEDemandElement* containerParent, GNEAttributesCreator* containerPlanAttributes, GNEPathCreator* pathCreator, const bool centerAfterCreation);
 
     /// @brief check if there is already a vehicle (Vehicle, Trip, Flow or Flow) with the given ID
-    static bool isVehicleIdDuplicated(GNENet* net, const std::string& id);
+    bool isVehicleIdDuplicated(const std::string& id);
 
     /// @brief check if there is already a person (Person or PersonFlow) with the given ID
-    static bool isPersonIdDuplicated(GNENet* net, const std::string& id);
+    bool isPersonIdDuplicated(const std::string& id);
 
     /// @brief check if there is already a container (Container or ContainerFlow) with the given ID
-    static bool isContainerIdDuplicated(GNENet* net, const std::string& id);
+    bool isContainerIdDuplicated(const std::string& id);
 
     /// @brief transform vehicle functions
     /// @{
@@ -217,6 +217,12 @@ protected:
     /// @brief get previos person/container plan edge
     GNEEdge* getPreviousPlanEdge(const bool person, const CommonXMLStructure::SumoBaseObject* obj) const;
 
+    /// @brief check if given ID correspond to a duplicated demand element
+    bool checkDuplicatedDemandElement(const SumoXMLTag tag, const std::string &id);
+
+    /// @brief remove overwrited demand element
+    void overwriteDemandElement();
+
 private:
     /// @brief pointer to GNENet
     GNENet* myNet;
@@ -230,8 +236,8 @@ private:
     /// @brief check if overwrite
     const bool myOverwrite;
 
-    /// @brief additional to overwrite (using undor-redo
-    GNEAdditional* myAdditionalToOverwrite = nullptr;
+    /// @brief demand to overwrite (using undor-redo
+    GNEDemandElement* myDemandToOverwrite = nullptr;
 };
 
 

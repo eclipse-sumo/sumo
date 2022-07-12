@@ -66,13 +66,14 @@ GNERouteHandler::buildVType(const CommonXMLStructure::SumoBaseObject* sumoBaseOb
     if (DEFAULT_VTYPES.count(vTypeParameter.id) > 0) {
         // overwrite default vehicle type
         GNEVType::overwriteVType(myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, vTypeParameter.id, false), vTypeParameter, myNet->getViewNet()->getUndoList());
-    } else if (myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, vTypeParameter.id, false) != nullptr) {
+    } else if (!checkDuplicatedDemandElement(SUMO_TAG_VTYPE, vTypeParameter.id)) {
         WRITE_ERROR("There is another " + toString(SUMO_TAG_VTYPE) + " with the same ID='" + vTypeParameter.id + "'.");
     } else {
         // create vType/pType using myCurrentVType
         GNEDemandElement* vType = new GNEVType(myNet, vTypeParameter);
         if (myAllowUndoRedo) {
             myNet->getViewNet()->getUndoList()->begin(GUIIcon::VTYPE, "add " + vType->getTagStr() + " '" + vTypeParameter.id + "'");
+            overwriteDemandElement();
             myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(vType, true), true);
             // check if place this vType within a vTypeDistribution
             if (vTypeDistribution) {
@@ -94,7 +95,7 @@ void
 GNERouteHandler::buildVTypeDistribution(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id,
                                         const std::vector<std::string>& vTypes) {
     // first check conditions
-    if (myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE_DISTRIBUTION, id, false) != nullptr) {
+    if (!checkDuplicatedDemandElement(SUMO_TAG_VTYPE_DISTRIBUTION, id)) {
         WRITE_ERROR("There is another " + toString(SUMO_TAG_VTYPE) + " with the same ID='" + id + "'.");
     } else if (vTypes.empty() && sumoBaseObject->getSumoBaseObjectChildren().empty()) {
         WRITE_ERROR(toString(SUMO_TAG_VTYPE_DISTRIBUTION) + " need at least one " + toString(SUMO_TAG_VTYPE));
@@ -122,6 +123,7 @@ GNERouteHandler::buildVTypeDistribution(const CommonXMLStructure::SumoBaseObject
             GNEVTypeDistribution* vTypeDistribution = new GNEVTypeDistribution(myNet, id);
             if (myAllowUndoRedo) {
                 myNet->getViewNet()->getUndoList()->begin(GUIIcon::VTYPEDISTRIBUTION, "add " + vTypeDistribution->getTagStr() + " '" + id + "'");
+                overwriteDemandElement();
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(vTypeDistribution, true), true);
                 // set this vTypeDistribution as parent of the other vTypes
                 for (const auto& vTypeID : vTypes) {
@@ -149,13 +151,14 @@ GNERouteHandler::buildRoute(const CommonXMLStructure::SumoBaseObject* /*sumoBase
     // parse edges
     const auto edges = parseEdges(SUMO_TAG_ROUTE, edgeIDs);
     // check conditions
-    if (myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_ROUTE, id, false) != nullptr) {
+    if (!checkDuplicatedDemandElement(SUMO_TAG_ROUTE, id)) {
         WRITE_ERROR("There is another " + toString(SUMO_TAG_ROUTE) + " with the same ID='" + id + "'.");
     } else {
         // create GNERoute
         GNEDemandElement* route = new GNERoute(myNet, id, vClass, edges, color, repeat, cycleTime, routeParameters);
         if (myAllowUndoRedo) {
             myNet->getViewNet()->getUndoList()->begin(GUIIcon::ROUTE, "add " + route->getTagStr() + " '" + id + "'");
+            overwriteDemandElement();
             myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(route, true), true);
             myNet->getViewNet()->getUndoList()->end();
         } else {
@@ -180,7 +183,7 @@ GNERouteHandler::buildEmbeddedRoute(const CommonXMLStructure::SumoBaseObject* su
     // parse route edges
     const auto edges = parseEdges(SUMO_TAG_ROUTE, edgeIDs);
     // check if ID is duplicated
-    if ((edges.size() > 0) && !isVehicleIdDuplicated(myNet, vehicleParameters.id)) {
+    if ((edges.size() > 0) && !isVehicleIdDuplicated(vehicleParameters.id)) {
         // obtain routes and vtypes
         GNEDemandElement* vType = myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, vehicleParameters.vtypeid, false);
         if (vType == nullptr) {
@@ -196,6 +199,7 @@ GNERouteHandler::buildEmbeddedRoute(const CommonXMLStructure::SumoBaseObject* su
             GNEDemandElement* route = new GNERoute(myNet, vehicle, edges, color, repeat, cycleTime, routeParameters);
             if (myAllowUndoRedo) {
                 myNet->getViewNet()->getUndoList()->begin(GUIIcon::ROUTE, "add " + route->getTagStr() + " in '" + vehicle->getID() + "'");
+                overwriteDemandElement();
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(vehicle, true), true);
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(route, true), true);
                 myNet->getViewNet()->getUndoList()->end();
@@ -226,7 +230,7 @@ GNERouteHandler::buildRouteDistribution(const CommonXMLStructure::SumoBaseObject
 void
 GNERouteHandler::buildVehicleOverRoute(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const SUMOVehicleParameter& vehicleParameters) {
     // first check if ID is duplicated
-    if (!isVehicleIdDuplicated(myNet, vehicleParameters.id)) {
+    if (!isVehicleIdDuplicated(vehicleParameters.id)) {
         // obtain routes and vtypes
         GNEDemandElement* vType = myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, vehicleParameters.vtypeid, false);
         GNEDemandElement* route = myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_ROUTE, vehicleParameters.routeid, false);
@@ -243,6 +247,7 @@ GNERouteHandler::buildVehicleOverRoute(const CommonXMLStructure::SumoBaseObject*
             GNEDemandElement* vehicle = new GNEVehicle(SUMO_TAG_VEHICLE, myNet, vType, route, vehicleParameters);
             if (myAllowUndoRedo) {
                 myNet->getViewNet()->getUndoList()->begin(vehicle->getTagProperty().getGUIIcon(), "add " + vehicle->getTagStr() + " '" + vehicleParameters.id + "'");
+                overwriteDemandElement();
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(vehicle, true), true);
                 myNet->getViewNet()->getUndoList()->end();
             } else {
@@ -262,7 +267,7 @@ GNERouteHandler::buildVehicleOverRoute(const CommonXMLStructure::SumoBaseObject*
 void
 GNERouteHandler::buildFlowOverRoute(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const SUMOVehicleParameter& vehicleParameters) {
     // first check if ID is duplicated
-    if (!isVehicleIdDuplicated(myNet, vehicleParameters.id)) {
+    if (!isVehicleIdDuplicated(vehicleParameters.id)) {
         // obtain routes and vtypes
         GNEDemandElement* vType = myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, vehicleParameters.vtypeid, false);
         GNEDemandElement* route = myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_ROUTE, vehicleParameters.routeid, false);
@@ -279,6 +284,7 @@ GNERouteHandler::buildFlowOverRoute(const CommonXMLStructure::SumoBaseObject* /*
             GNEDemandElement* flow = new GNEVehicle(GNE_TAG_FLOW_ROUTE, myNet, vType, route, vehicleParameters);
             if (myAllowUndoRedo) {
                 myNet->getViewNet()->getUndoList()->begin(flow->getTagProperty().getGUIIcon(), "add " + flow->getTagStr() + " '" + vehicleParameters.id + "'");
+                overwriteDemandElement();
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(flow, true), true);
                 myNet->getViewNet()->getUndoList()->end();
             } else {
@@ -303,7 +309,7 @@ GNERouteHandler::buildTrip(const CommonXMLStructure::SumoBaseObject* /*sumoBaseO
     const auto toEdge = parseEdge(SUMO_TAG_TRIP, toEdgeID);
     const auto via = parseEdges(SUMO_TAG_TRIP, viaIDs);
     // check if exist another vehicle with the same ID (note: Vehicles, Flows and Trips share namespace)
-    if (fromEdge && toEdge && !isVehicleIdDuplicated(myNet, vehicleParameters.id)) {
+    if (fromEdge && toEdge && !isVehicleIdDuplicated(vehicleParameters.id)) {
         // obtain  vtypes
         GNEDemandElement* vType = myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, vehicleParameters.vtypeid, false);
         if (vType == nullptr) {
@@ -321,6 +327,7 @@ GNERouteHandler::buildTrip(const CommonXMLStructure::SumoBaseObject* /*sumoBaseO
             GNEDemandElement* trip = new GNEVehicle(SUMO_TAG_TRIP, myNet, vType, fromEdge, toEdge, via, vehicleParameters);
             if (myAllowUndoRedo) {
                 myNet->getViewNet()->getUndoList()->begin(trip->getTagProperty().getGUIIcon(), "add " + trip->getTagStr() + " '" + vehicleParameters.id + "'");
+                overwriteDemandElement();
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(trip, true), true);
                 myNet->getViewNet()->getUndoList()->end();
             } else {
@@ -349,7 +356,7 @@ GNERouteHandler::buildTrip(const CommonXMLStructure::SumoBaseObject* /*sumoBaseO
     const auto fromJunction = parseJunction(SUMO_TAG_TRIP, fromJunctionID);
     const auto toJunction = parseJunction(SUMO_TAG_TRIP, toJunctionID);
     // check if exist another vehicle with the same ID (note: Vehicles, Flows and Trips share namespace)
-    if (fromJunction && toJunction && !isVehicleIdDuplicated(myNet, vehicleParameters.id)) {
+    if (fromJunction && toJunction && !isVehicleIdDuplicated(vehicleParameters.id)) {
         // obtain  vtypes
         GNEDemandElement* vType = myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, vehicleParameters.vtypeid, false);
         if (vType == nullptr) {
@@ -363,6 +370,7 @@ GNERouteHandler::buildTrip(const CommonXMLStructure::SumoBaseObject* /*sumoBaseO
             GNEDemandElement* flow = new GNEVehicle(GNE_TAG_TRIP_JUNCTIONS, myNet, vType, fromJunction, toJunction, vehicleParameters);
             if (myAllowUndoRedo) {
                 myNet->getViewNet()->getUndoList()->begin(flow->getTagProperty().getGUIIcon(), "add " + flow->getTagStr() + " '" + vehicleParameters.id + "'");
+                overwriteDemandElement();
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(flow, true), true);
                 myNet->getViewNet()->getUndoList()->end();
             } else {
@@ -388,7 +396,7 @@ GNERouteHandler::buildFlow(const CommonXMLStructure::SumoBaseObject* /*sumoBaseO
     const auto toEdge = parseEdge(SUMO_TAG_FLOW, toEdgeID);
     const auto via = parseEdges(SUMO_TAG_FLOW, viaIDs);
     // check if exist another vehicle with the same ID (note: Vehicles, Flows and Trips share namespace)
-    if (fromEdge && toEdge && !isVehicleIdDuplicated(myNet, vehicleParameters.id)) {
+    if (fromEdge && toEdge && !isVehicleIdDuplicated(vehicleParameters.id)) {
         // obtain  vtypes
         GNEDemandElement* vType = myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, vehicleParameters.vtypeid, false);
         if (vType == nullptr) {
@@ -406,6 +414,7 @@ GNERouteHandler::buildFlow(const CommonXMLStructure::SumoBaseObject* /*sumoBaseO
             GNEDemandElement* flow = new GNEVehicle(SUMO_TAG_FLOW, myNet, vType, fromEdge, toEdge, via, vehicleParameters);
             if (myAllowUndoRedo) {
                 myNet->getViewNet()->getUndoList()->begin(flow->getTagProperty().getGUIIcon(), "add " + flow->getTagStr() + " '" + vehicleParameters.id + "'");
+                overwriteDemandElement();
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(flow, true), true);
                 myNet->getViewNet()->getUndoList()->end();
             } else {
@@ -434,7 +443,7 @@ GNERouteHandler::buildFlow(const CommonXMLStructure::SumoBaseObject* /*sumoBaseO
     const auto fromJunction = parseJunction(SUMO_TAG_TRIP, fromJunctionID);
     const auto toJunction = parseJunction(SUMO_TAG_TRIP, toJunctionID);
     // check if exist another vehicle with the same ID (note: Vehicles, Flows and Trips share namespace)
-    if (fromJunction && toJunction && !isVehicleIdDuplicated(myNet, vehicleParameters.id)) {
+    if (fromJunction && toJunction && !isVehicleIdDuplicated(vehicleParameters.id)) {
         // obtain  vtypes
         GNEDemandElement* vType = myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, vehicleParameters.vtypeid, false);
         if (vType == nullptr) {
@@ -448,6 +457,7 @@ GNERouteHandler::buildFlow(const CommonXMLStructure::SumoBaseObject* /*sumoBaseO
             GNEDemandElement* flow = new GNEVehicle(GNE_TAG_FLOW_JUNCTIONS, myNet, vType, fromJunction, toJunction, vehicleParameters);
             if (myAllowUndoRedo) {
                 myNet->getViewNet()->getUndoList()->begin(flow->getTagProperty().getGUIIcon(), "add " + flow->getTagStr() + " '" + vehicleParameters.id + "'");
+                overwriteDemandElement();
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(flow, true), true);
                 myNet->getViewNet()->getUndoList()->end();
             } else {
@@ -469,7 +479,7 @@ GNERouteHandler::buildFlow(const CommonXMLStructure::SumoBaseObject* /*sumoBaseO
 void
 GNERouteHandler::buildPerson(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const SUMOVehicleParameter& personParameters) {
     // first check if ID is duplicated
-    if (!isPersonIdDuplicated(myNet, personParameters.id)) {
+    if (!isPersonIdDuplicated(personParameters.id)) {
         // obtain type
         GNEDemandElement* type = myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, personParameters.vtypeid, false);
         if (type == nullptr) {
@@ -479,6 +489,7 @@ GNERouteHandler::buildPerson(const CommonXMLStructure::SumoBaseObject* /*sumoBas
             GNEDemandElement* person = new GNEPerson(SUMO_TAG_PERSON, myNet, type, personParameters);
             if (myAllowUndoRedo) {
                 myNet->getViewNet()->getUndoList()->begin(person->getTagProperty().getGUIIcon(), "add " + person->getTagStr() + " '" + personParameters.id + "'");
+                overwriteDemandElement();
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(person, true), true);
                 myNet->getViewNet()->getUndoList()->end();
             } else {
@@ -495,7 +506,7 @@ GNERouteHandler::buildPerson(const CommonXMLStructure::SumoBaseObject* /*sumoBas
 void
 GNERouteHandler::buildPersonFlow(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const SUMOVehicleParameter& personFlowParameters) {
     // first check if ID is duplicated
-    if (!isPersonIdDuplicated(myNet, personFlowParameters.id)) {
+    if (!isPersonIdDuplicated(personFlowParameters.id)) {
         // obtain type
         GNEDemandElement* type = myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, personFlowParameters.vtypeid, false);
         if (type == nullptr) {
@@ -505,6 +516,7 @@ GNERouteHandler::buildPersonFlow(const CommonXMLStructure::SumoBaseObject* /*sum
             GNEDemandElement* personFlow = new GNEPerson(SUMO_TAG_PERSONFLOW, myNet, type, personFlowParameters);
             if (myAllowUndoRedo) {
                 myNet->getViewNet()->getUndoList()->begin(personFlow->getTagProperty().getGUIIcon(), "add " + personFlow->getTagStr() + " '" + personFlowParameters.id + "'");
+                overwriteDemandElement();
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(personFlow, true), true);
                 myNet->getViewNet()->getUndoList()->end();
             } else {
@@ -536,6 +548,7 @@ GNERouteHandler::buildPersonTrip(const CommonXMLStructure::SumoBaseObject* sumoB
             GNEDemandElement* personTrip = new GNEPersonTrip(myNet, personParent, fromEdge, toEdge, arrivalPos, types, modes);
             if (myAllowUndoRedo) {
                 myNet->getViewNet()->getUndoList()->begin(personTrip->getTagProperty().getGUIIcon(), "add " + personTrip->getTagStr() + " in '" + personParent->getID() + "'");
+                overwriteDemandElement();
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(personTrip, true), true);
                 myNet->getViewNet()->getUndoList()->end();
             } else {
@@ -551,6 +564,7 @@ GNERouteHandler::buildPersonTrip(const CommonXMLStructure::SumoBaseObject* sumoB
             GNEDemandElement* personTrip = new GNEPersonTrip(myNet, personParent, fromEdge, toBusStop, arrivalPos, types, modes);
             if (myAllowUndoRedo) {
                 myNet->getViewNet()->getUndoList()->begin(personTrip->getTagProperty().getGUIIcon(), "add " + personTrip->getTagStr() + " in '" + personParent->getID() + "'");
+                overwriteDemandElement();
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(personTrip, true), true);
                 myNet->getViewNet()->getUndoList()->end();
             } else {
@@ -566,6 +580,7 @@ GNERouteHandler::buildPersonTrip(const CommonXMLStructure::SumoBaseObject* sumoB
             GNEDemandElement* personTrip = new GNEPersonTrip(myNet, personParent, fromJunction, toJunction, arrivalPos, types, modes);
             if (myAllowUndoRedo) {
                 myNet->getViewNet()->getUndoList()->begin(personTrip->getTagProperty().getGUIIcon(), "add " + personTrip->getTagStr() + " in '" + personParent->getID() + "'");
+                overwriteDemandElement();
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(personTrip, true), true);
                 myNet->getViewNet()->getUndoList()->end();
             } else {
@@ -603,6 +618,7 @@ GNERouteHandler::buildWalk(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
             GNEDemandElement* walk = new GNEWalk(myNet, personParent, edges, arrivalPos);
             if (myAllowUndoRedo) {
                 myNet->getViewNet()->getUndoList()->begin(walk->getTagProperty().getGUIIcon(), "add " + walk->getTagStr() + " '" + personParent->getID() + "'");
+                overwriteDemandElement();
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(walk, true), true);
                 myNet->getViewNet()->getUndoList()->end();
             } else {
@@ -619,6 +635,7 @@ GNERouteHandler::buildWalk(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
             GNEDemandElement* walk = new GNEWalk(myNet, personParent, route, arrivalPos);
             if (myAllowUndoRedo) {
                 myNet->getViewNet()->getUndoList()->begin(walk->getTagProperty().getGUIIcon(), "add " + walk->getTagStr() + " in '" + personParent->getID() + "'");
+                overwriteDemandElement();
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(walk, true), true);
                 myNet->getViewNet()->getUndoList()->end();
             } else {
@@ -633,6 +650,7 @@ GNERouteHandler::buildWalk(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
             GNEDemandElement* walk = new GNEWalk(myNet, personParent, fromEdge, toEdge, arrivalPos);
             if (myAllowUndoRedo) {
                 myNet->getViewNet()->getUndoList()->begin(walk->getTagProperty().getGUIIcon(), "add " + walk->getTagStr() + " in '" + personParent->getID() + "'");
+                overwriteDemandElement();
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(walk, true), true);
                 myNet->getViewNet()->getUndoList()->end();
             } else {
@@ -648,6 +666,7 @@ GNERouteHandler::buildWalk(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
             GNEDemandElement* walk = new GNEWalk(myNet, personParent, fromEdge, toBusStop, arrivalPos);
             if (myAllowUndoRedo) {
                 myNet->getViewNet()->getUndoList()->begin(walk->getTagProperty().getGUIIcon(), "add " + walk->getTagStr() + " in '" + personParent->getID() + "'");
+                overwriteDemandElement();
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(walk, true), true);
                 myNet->getViewNet()->getUndoList()->end();
             } else {
@@ -663,6 +682,7 @@ GNERouteHandler::buildWalk(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
             GNEDemandElement* walk = new GNEWalk(myNet, personParent, fromJunction, toJunction, arrivalPos);
             if (myAllowUndoRedo) {
                 myNet->getViewNet()->getUndoList()->begin(walk->getTagProperty().getGUIIcon(), "add " + walk->getTagStr() + " in '" + personParent->getID() + "'");
+                overwriteDemandElement();
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(walk, true), true);
                 myNet->getViewNet()->getUndoList()->end();
             } else {
@@ -693,6 +713,7 @@ GNERouteHandler::buildRide(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
             GNEDemandElement* ride = new GNERide(myNet, personParent, fromEdge, toEdge, arrivalPos, lines);
             if (myAllowUndoRedo) {
                 myNet->getViewNet()->getUndoList()->begin(ride->getTagProperty().getGUIIcon(), "add " + ride->getTagStr() + " in '" + personParent->getID() + "'");
+                overwriteDemandElement();
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(ride, true), true);
                 myNet->getViewNet()->getUndoList()->end();
             } else {
@@ -708,6 +729,7 @@ GNERouteHandler::buildRide(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
             GNEDemandElement* ride = new GNERide(myNet, personParent, fromEdge, toBusStop, arrivalPos, lines);
             if (myAllowUndoRedo) {
                 myNet->getViewNet()->getUndoList()->begin(ride->getTagProperty().getGUIIcon(), "add " + ride->getTagStr() + " in '" + personParent->getID() + "'");
+                overwriteDemandElement();
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(ride, true), true);
                 myNet->getViewNet()->getUndoList()->end();
             } else {
@@ -726,7 +748,7 @@ GNERouteHandler::buildRide(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
 void
 GNERouteHandler::buildContainer(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const SUMOVehicleParameter& containerParameters) {
     // first check if ID is duplicated
-    if (!isContainerIdDuplicated(myNet, containerParameters.id)) {
+    if (!isContainerIdDuplicated(containerParameters.id)) {
         // obtain type
         GNEDemandElement* type = myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, containerParameters.vtypeid, false);
         if (type == nullptr) {
@@ -736,6 +758,7 @@ GNERouteHandler::buildContainer(const CommonXMLStructure::SumoBaseObject* /*sumo
             GNEDemandElement* container = new GNEContainer(SUMO_TAG_CONTAINER, myNet, type, containerParameters);
             if (myAllowUndoRedo) {
                 myNet->getViewNet()->getUndoList()->begin(GUIIcon::CONTAINER, "add " + container->getTagStr() + " '" + container->getID() + "'");
+                overwriteDemandElement();
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(container, true), true);
                 myNet->getViewNet()->getUndoList()->end();
             } else {
@@ -752,7 +775,7 @@ GNERouteHandler::buildContainer(const CommonXMLStructure::SumoBaseObject* /*sumo
 void
 GNERouteHandler::buildContainerFlow(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const SUMOVehicleParameter& containerFlowParameters) {
     // first check if ID is duplicated
-    if (!isContainerIdDuplicated(myNet, containerFlowParameters.id)) {
+    if (!isContainerIdDuplicated(containerFlowParameters.id)) {
         // obtain type
         GNEDemandElement* type = myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, containerFlowParameters.vtypeid, false);
         if (type == nullptr) {
@@ -762,6 +785,7 @@ GNERouteHandler::buildContainerFlow(const CommonXMLStructure::SumoBaseObject* /*
             GNEDemandElement* containerFlow = new GNEContainer(SUMO_TAG_CONTAINERFLOW, myNet, type, containerFlowParameters);
             if (myAllowUndoRedo) {
                 myNet->getViewNet()->getUndoList()->begin(GUIIcon::CONTAINERFLOW, "add " + containerFlow->getTagStr() + " '" + containerFlow->getID() + "'");
+                overwriteDemandElement();
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(containerFlow, true), true);
                 myNet->getViewNet()->getUndoList()->end();
             } else {
@@ -790,6 +814,7 @@ GNERouteHandler::buildTransport(const CommonXMLStructure::SumoBaseObject* sumoBa
             GNEDemandElement* transport = new GNETransport(myNet, containerParent, fromEdge, toEdge, lines, arrivalPos);
             if (myAllowUndoRedo) {
                 myNet->getViewNet()->getUndoList()->begin(transport->getTagProperty().getGUIIcon(), "add " + transport->getTagStr() + " in '" + containerParent->getID() + "'");
+                overwriteDemandElement();
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(transport, true), true);
                 myNet->getViewNet()->getUndoList()->end();
             } else {
@@ -805,6 +830,7 @@ GNERouteHandler::buildTransport(const CommonXMLStructure::SumoBaseObject* sumoBa
             GNEDemandElement* transport = new GNETransport(myNet, containerParent, fromEdge, toContainerStop, lines, arrivalPos);
             if (myAllowUndoRedo) {
                 myNet->getViewNet()->getUndoList()->begin(transport->getTagProperty().getGUIIcon(), "add " + transport->getTagStr() + " in '" + containerParent->getID() + "'");
+                overwriteDemandElement();
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(transport, true), true);
                 myNet->getViewNet()->getUndoList()->end();
             } else {
@@ -838,6 +864,7 @@ GNERouteHandler::buildTranship(const CommonXMLStructure::SumoBaseObject* sumoBas
             GNEDemandElement* tranship = new GNETranship(myNet, containerParent, edges, speed, departPosition, arrivalPosition);
             if (myAllowUndoRedo) {
                 myNet->getViewNet()->getUndoList()->begin(tranship->getTagProperty().getGUIIcon(), "add " + tranship->getTagStr() + " in '" + containerParent->getID() + "'");
+                overwriteDemandElement();
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(tranship, true), true);
                 myNet->getViewNet()->getUndoList()->end();
             } else {
@@ -854,6 +881,7 @@ GNERouteHandler::buildTranship(const CommonXMLStructure::SumoBaseObject* sumoBas
             GNEDemandElement* tranship = new GNETranship(myNet, containerParent, fromEdge, toEdge, speed, departPosition, arrivalPosition);
             if (myAllowUndoRedo) {
                 myNet->getViewNet()->getUndoList()->begin(tranship->getTagProperty().getGUIIcon(), "add " + tranship->getTagStr() + " in '" + containerParent->getID() + "'");
+                overwriteDemandElement();
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(tranship, true), true);
                 myNet->getViewNet()->getUndoList()->end();
             } else {
@@ -869,6 +897,7 @@ GNERouteHandler::buildTranship(const CommonXMLStructure::SumoBaseObject* sumoBas
             GNEDemandElement* tranship = new GNETranship(myNet, containerParent, fromEdge, toContainerStop, speed, departPosition, arrivalPosition);
             if (myAllowUndoRedo) {
                 myNet->getViewNet()->getUndoList()->begin(tranship->getTagProperty().getGUIIcon(), "add " + tranship->getTagStr() + " '" + containerParent->getID() + "'");
+                overwriteDemandElement();
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(tranship, true), true);
                 myNet->getViewNet()->getUndoList()->end();
             } else {
@@ -993,6 +1022,7 @@ GNERouteHandler::buildStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
                 // add it depending of undoDemandElements
                 if (myAllowUndoRedo) {
                     myNet->getViewNet()->getUndoList()->begin(stop->getTagProperty().getGUIIcon(), "add " + stop->getTagStr() + " in '" + stopParent->getID() + "'");
+                    overwriteDemandElement();
                     myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(stop, true), true);
                     myNet->getViewNet()->getUndoList()->end();
                 } else {
@@ -1007,6 +1037,7 @@ GNERouteHandler::buildStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
                 // add it depending of undoDemandElements
                 if (myAllowUndoRedo) {
                     myNet->getViewNet()->getUndoList()->begin(stop->getTagProperty().getGUIIcon(), "add " + stop->getTagStr() + " in '" + stopParent->getID() + "'");
+                    overwriteDemandElement();
                     myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(stop, true), true);
                     myNet->getViewNet()->getUndoList()->end();
                 } else {
@@ -1026,6 +1057,7 @@ GNERouteHandler::buildStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
                 // add it depending of undoDemandElements
                 if (myAllowUndoRedo) {
                     myNet->getViewNet()->getUndoList()->begin(stop->getTagProperty().getGUIIcon(), "add " + stop->getTagStr() + " in '" + stopParent->getID() + "'");
+                    overwriteDemandElement();
                     myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(stop, true), true);
                     myNet->getViewNet()->getUndoList()->end();
                 } else {
@@ -1361,11 +1393,11 @@ GNERouteHandler::buildContainerPlan(SumoXMLTag tag, GNEDemandElement* containerP
 
 
 bool
-GNERouteHandler::isVehicleIdDuplicated(GNENet* net, const std::string& id) {
+GNERouteHandler::isVehicleIdDuplicated(const std::string& id) {
     // declare vehicle tags vector
     std::vector<SumoXMLTag> vehicleTags = {SUMO_TAG_VEHICLE, GNE_TAG_VEHICLE_WITHROUTE, SUMO_TAG_TRIP, GNE_TAG_FLOW_ROUTE, GNE_TAG_FLOW_WITHROUTE, SUMO_TAG_FLOW};
     for (const auto& vehicleTag : vehicleTags) {
-        if (net->getAttributeCarriers()->retrieveDemandElement(vehicleTag, id, false) != nullptr) {
+        if (!checkDuplicatedDemandElement(vehicleTag, id)) {
             WRITE_ERROR("There is another " + toString(vehicleTag) + " with the same ID='" + id + "'.");
             return true;
         }
@@ -1375,9 +1407,9 @@ GNERouteHandler::isVehicleIdDuplicated(GNENet* net, const std::string& id) {
 
 
 bool
-GNERouteHandler::isPersonIdDuplicated(GNENet* net, const std::string& id) {
+GNERouteHandler::isPersonIdDuplicated(const std::string& id) {
     for (SumoXMLTag personTag : std::vector<SumoXMLTag>({SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW})) {
-        if (net->getAttributeCarriers()->retrieveDemandElement(personTag, id, false) != nullptr) {
+        if (!checkDuplicatedDemandElement(personTag, id)) {
             WRITE_ERROR("There is another " + toString(personTag) + " with the same ID='" + id + "'.");
             return true;
         }
@@ -1387,9 +1419,9 @@ GNERouteHandler::isPersonIdDuplicated(GNENet* net, const std::string& id) {
 
 
 bool
-GNERouteHandler::isContainerIdDuplicated(GNENet* net, const std::string& id) {
+GNERouteHandler::isContainerIdDuplicated(const std::string& id) {
     for (SumoXMLTag containerTag : std::vector<SumoXMLTag>({SUMO_TAG_CONTAINER, SUMO_TAG_CONTAINERFLOW})) {
-        if (net->getAttributeCarriers()->retrieveDemandElement(containerTag, id, false) != nullptr) {
+        if (!checkDuplicatedDemandElement(containerTag, id)) {
             WRITE_ERROR("There is another " + toString(containerTag) + " with the same ID='" + id + "'.");
             return true;
         }
@@ -1997,6 +2029,42 @@ GNERouteHandler::getPreviousPlanEdge(const bool person, const CommonXMLStructure
         }
     }
     return nullptr;
+}
+
+
+
+bool 
+GNERouteHandler::checkDuplicatedDemandElement(const SumoXMLTag tag, const std::string &id) {
+    // retrieve demand element
+    auto demandElement = myNet->getAttributeCarriers()->retrieveDemandElement(tag, id, false);
+    // if demand exist, check if overwrite (delete)
+    if (demandElement) {
+        if (myAllowUndoRedo == false) {
+            // only overwrite if allow undo-redo
+            return false;
+        } else if (myOverwrite) {
+            // update demand to overwrite
+            myDemandToOverwrite = demandElement;
+            return true;
+        } else {
+            // duplicated demand
+            return false;
+        }
+    } else {
+        // demand with these id doesn't exist, then all ok
+        return true;
+    }
+}
+
+
+void 
+GNERouteHandler::overwriteDemandElement() {
+    if (myDemandToOverwrite) {
+        // remove element
+        myNet->deleteDemandElement(myDemandToOverwrite, myNet->getViewNet()->getUndoList());
+        // reset pointer
+        myDemandToOverwrite = nullptr;
+    }
 }
 
 /****************************************************************************/
