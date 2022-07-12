@@ -11,6 +11,7 @@ copy_test_path:three_split.net.xml
 copy_test_path:input_net.net.xml
 copy_test_path:input_edges.edg.xml
 copy_test_path:input_nodes.nod.xml
+copy_test_path:input_plain.tll.xml
 copy_test_path:input_trips.trips.xml
 copy_test_path:input_trips.trips_foo.xml
 copy_test_path:input_trips.trips_bar.xml
@@ -149,6 +150,7 @@ dualog:dua.log
 image:image.svg
 csv:out*.csv
 csv:1.csv
+csv:1_*.csv
 xml:out.xml
 xml2:out2.xml
 net:net.net.xml
