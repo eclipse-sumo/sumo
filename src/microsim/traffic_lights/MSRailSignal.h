@@ -224,17 +224,10 @@ public:
     /// @brief register contraint for signal switching
     void addConstraint(const std::string& tripId, MSRailSignalConstraint* constraint);
 
-    /// @brief register contraint for vehicle insertion
-    void addInsertionConstraint(const std::string& tripId, MSRailSignalConstraint* constraint);
-
     /// @name TraCI access to constraints
     /// @{
     const std::map<std::string, std::vector<MSRailSignalConstraint*> >&  getConstraints() const {
         return myConstraints;
-    }
-
-    const std::map<std::string, std::vector<MSRailSignalConstraint*> >&  getInsertionConstraints() const {
-        return myInsertionConstraints;
     }
 
     /// @brief remove contraint for signal switching
@@ -461,7 +454,6 @@ protected:
 
     /// @brief map from tripId to constraint list
     std::map<std::string, std::vector<MSRailSignalConstraint*> > myConstraints;
-    std::map<std::string, std::vector<MSRailSignalConstraint*> > myInsertionConstraints;
 
     static int myNumWarnings;
 

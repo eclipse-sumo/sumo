@@ -269,14 +269,6 @@ TrafficLight::getConstraints(const std::string& tlsID, const std::string& tripId
             result.push_back(buildConstraint(tlsID, item.first, c));
         }
     }
-    for (auto item : s->getInsertionConstraints()) {
-        if (tripId != "" && tripId != item.first) {
-            continue;
-        }
-        for (MSRailSignalConstraint* c : item.second) {
-            result.push_back(buildConstraint(tlsID, item.first, c));
-        }
-    }
     return result;
 }
 
@@ -290,15 +282,6 @@ TrafficLight::getConstraintsByFoe(const std::string& foeSignal, const std::strin
         MSRailSignal* s = dynamic_cast<MSRailSignal*>(active);
         if (s != nullptr) {
             for (auto item : s->getConstraints()) {
-                for (MSRailSignalConstraint* cand : item.second) {
-                    MSRailSignalConstraint_Predecessor* pc = dynamic_cast<MSRailSignalConstraint_Predecessor*>(cand);
-                    if (pc != nullptr && pc->myFoeSignal->getID() == foeSignal
-                            && (foeId == "" || pc->myTripId == foeId)) {
-                        result.push_back(buildConstraint(s->getID(), item.first, pc));
-                    }
-                }
-            }
-            for (auto item : s->getInsertionConstraints()) {
                 for (MSRailSignalConstraint* cand : item.second) {
                     MSRailSignalConstraint_Predecessor* pc = dynamic_cast<MSRailSignalConstraint_Predecessor*>(cand);
                     if (pc != nullptr && pc->myFoeSignal->getID() == foeSignal
@@ -363,18 +346,6 @@ TrafficLight::removeConstraints(const std::string& tlsID, const std::string& tri
             MSRailSignal* s = dynamic_cast<MSRailSignal*>(active);
             if (s != nullptr) {
                 for (auto item : s->getConstraints()) {
-                    if (tripId == "" || item.first == tripId) {
-                        for (MSRailSignalConstraint* cand : item.second) {
-                            MSRailSignalConstraint_Predecessor* pc = dynamic_cast<MSRailSignalConstraint_Predecessor*>(cand);
-                            if (pc != nullptr
-                                    && (foeId == "" || pc->myTripId == foeId)
-                                    && (foeSignal == "" || pc->myFoeSignal->getID() == foeSignal)) {
-                                cand->setActive(false);
-                            }
-                        }
-                    }
-                }
-                for (auto item : s->getInsertionConstraints()) {
                     if (tripId == "" || item.first == tripId) {
                         for (MSRailSignalConstraint* cand : item.second) {
                             MSRailSignalConstraint_Predecessor* pc = dynamic_cast<MSRailSignalConstraint_Predecessor*>(cand);

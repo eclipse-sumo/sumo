@@ -1727,10 +1727,8 @@ NLHandler::addPredecessorConstraint(int element, const SUMOSAXAttributes& attrs,
                 ? MSRailSignalConstraint::ConstraintType::PREDECESSOR
                 : MSRailSignalConstraint::ConstraintType::INSERTION_PREDECESSOR;
             MSRailSignalConstraint* c = new MSRailSignalConstraint_Predecessor(type, signal, foe, limit, active);
-            if (element == SUMO_TAG_PREDECESSOR) {
+            if (element == SUMO_TAG_PREDECESSOR || element == SUMO_TAG_INSERTION_PREDECESSOR) {
                 rs->addConstraint(tripId, c);
-            } else if (element == SUMO_TAG_INSERTION_PREDECESSOR) {
-                rs->addInsertionConstraint(tripId, c);
             } else {
                 throw InvalidArgument("Unsupported rail signal constraint '" + toString((SumoXMLTag)element) + "'");
             }

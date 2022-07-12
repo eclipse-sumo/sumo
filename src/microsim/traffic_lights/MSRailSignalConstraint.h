@@ -63,10 +63,14 @@ public:
         return "RailSignalConstraint";
     }
 
-    virtual void write(OutputDevice& out, SumoXMLTag tag, const std::string& tripId) const = 0;
+    virtual void write(OutputDevice& out, const std::string& tripId) const = 0;
 
     ConstraintType getType() const {
         return myType;
+    }
+
+    SumoXMLTag getTag() const {
+        return myType == PREDECESSOR ? SUMO_TAG_PREDECESSOR : SUMO_TAG_INSERTION_PREDECESSOR;
     }
 
     /// @brief clean up state
@@ -97,7 +101,7 @@ public:
     /// @brief Destructor
     ~MSRailSignalConstraint_Predecessor() {};
 
-    void write(OutputDevice& out, SumoXMLTag tag, const std::string& tripId) const;
+    void write(OutputDevice& out, const std::string& tripId) const;
 
     /// @brief clean up state
     static void cleanup();
