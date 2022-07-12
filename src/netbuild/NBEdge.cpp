@@ -1689,12 +1689,7 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
         // crossingPosition, list of foe link indices
         std::pair<double, std::vector<int> > crossingPositions(-1, std::vector<int>());
         std::set<std::string> tmpFoeIncomingLanes;
-        switch (dir) {
-            case LinkDirection::RIGHT:
-            case LinkDirection::PARTRIGHT:
-            case LinkDirection::LEFT:
-            case LinkDirection::PARTLEFT:
-            case LinkDirection::TURN: {
+        if (dir != LinkDirection::STRAIGHT || con.contPos != UNSPECIFIED_CONTPOS) {
                 int index = 0;
                 std::vector<PositionVector> otherShapes;
                 const double width1 = MIN2(interalJunctionVehicleWidth / 2, getLaneWidth(con.fromLane) / 2);
@@ -1838,10 +1833,6 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
                     // (if endOffset is used, the crossing point is in the middle of the part within the junction shape)
                     crossingPositions.first = (double)(shape.length() + getEndOffset(con.fromLane)) / 2.;
                 }
-            }
-            break;
-            default:
-                break;
         }
         if (con.contPos != UNSPECIFIED_CONTPOS) {
             // apply custom internal junction position
