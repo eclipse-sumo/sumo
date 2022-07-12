@@ -43,8 +43,8 @@
     <connection from="SC" to="CE" fromLane="0" toLane="0"/>
     <connection from="SC" to="CN" fromLane="0" toLane="0"/>
 
-    <connection from="WC" to="CS" fromLane="0" toLane="0"/>
-    <connection from="WC" to="CE" fromLane="0" toLane="0"/>
+    <connection from="WC" to="CS" fromLane="0" toLane="0" contPos="7.00"/>
+    <connection from="WC" to="CE" fromLane="0" toLane="0" contPos="7.00"/>
     <connection from="WC" to="CN" fromLane="0" toLane="0" contPos="7.00"/>
 
 </connections>
