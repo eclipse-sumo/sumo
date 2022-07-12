@@ -32,9 +32,9 @@
 // method definitions
 // ===========================================================================
 
-GNEGeneralHandler::GNEGeneralHandler(GNENet* net, const std::string& file, const bool allowUndoRedo, const bool overwritte) :
+GNEGeneralHandler::GNEGeneralHandler(GNENet* net, const std::string& file, const bool allowUndoRedo, const bool overwrite) :
     GeneralHandler(file),
-    myAdditionalHandler(net, allowUndoRedo, overwritte),
+    myAdditionalHandler(net, allowUndoRedo, overwrite),
     myDemandHandler(file, net, allowUndoRedo) {
 }
 
