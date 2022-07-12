@@ -139,7 +139,7 @@ class ReroutersGeneration(object):
         self._sumo_rerouters = dict()
 
         print('Loading SUMO network: {}'.format(options.sumo_net_definition))
-        self._sumo_net = sumolib.net.readNet(options.sumo_net_definition)
+        self._sumo_net = sumolib.net.readNet(options.sumo_net_definition, withInternal=True)
         for pafile in options.parking_area_definition.split(','):
             print('Loading parking file: {}'.format(pafile))
             self._load_parking_areas_from_file(pafile)
@@ -294,7 +294,7 @@ def isVisible(pID, altID, dist, net, parking_areas, dist_threshold,
 def generate_rerouters_process(parameters):
     """ Compute the rerouters for the given parking areas."""
 
-    sumo_net = sumolib.net.readNet(parameters['net_file'])
+    sumo_net = sumolib.net.readNet(parameters['net_file'], withInternal=True)
     rtree = initRTree(parameters['all_parking_areas'])
     ret_rerouters = dict()
 
