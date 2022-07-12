@@ -1690,149 +1690,149 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
         std::pair<double, std::vector<int> > crossingPositions(-1, std::vector<int>());
         std::set<std::string> tmpFoeIncomingLanes;
         if (dir != LinkDirection::STRAIGHT || con.contPos != UNSPECIFIED_CONTPOS) {
-                int index = 0;
-                std::vector<PositionVector> otherShapes;
-                const double width1 = MIN2(interalJunctionVehicleWidth / 2, getLaneWidth(con.fromLane) / 2);
-                const double width1OppositeLeft = 0; // using width1 changes a lot of curves even though they are rarely responsible for collisions
-                for (const NBEdge* i2 : n.getIncomingEdges()) {
-                    for (const Connection& k2 : i2->getConnections()) {
-                        if (k2.toEdge == nullptr) {
-                            continue;
-                        }
-                        // vehicles are typically less wide than the lane
-                        // they drive on but but bicycle lanes should be kept clear for their whole width
-                        double width2 = k2.toEdge->getLaneWidth(k2.toLane);
-                        if (k2.toEdge->getPermissions(k2.toLane) != SVC_BICYCLE) {
-                            width2 *= 0.5;
-                        }
-                        const bool foes = n.foes(this, con.toEdge, i2, k2.toEdge);
-                        LinkDirection dir2 = n.getDirection(i2, k2.toEdge);
-                        bool needsCont = !isRailway(conPermissions) && n.needsCont(this, i2, con, k2);
-                        const bool avoidIntersectCandidate = !foes && bothLeftTurns(dir, i2, dir2);
-                        bool oppositeLeftIntersect = avoidIntersectCandidate && haveIntersection(n, shape, i2, k2, numPoints, width1OppositeLeft, width2);
-                        int shapeFlag = 0;
-                        SVCPermissions warn = SVCAll & ~(SVC_PEDESTRIAN | SVC_BICYCLE | SVC_DELIVERY | SVC_RAIL_CLASSES);
-                        // do not warn if only bicycles, pedestrians or delivery vehicles are involved as this is a typical occurence
-                        if (con.customShape.size() == 0
-                                && k2.customShape.size() == 0
-                                && (oppositeLeftIntersect || (avoidedIntersectingLeftOriginLane < con.fromLane  && avoidIntersectCandidate))
-                                && ((i2->getPermissions(k2.fromLane) & warn) != 0
-                                    && (k2.toEdge->getPermissions(k2.toLane) & warn) != 0)) {
-                            // recompute with different curve parameters (unless
-                            // the other connection is "unimportant"
-                            shapeFlag = NBNode::AVOID_INTERSECTING_LEFT_TURNS;
-                            PositionVector origShape = shape;
-                            shape = n.computeInternalLaneShape(this, con, numPoints, myTo, shapeFlag);
-                            oppositeLeftIntersect = haveIntersection(n, shape, i2, k2, numPoints, width1OppositeLeft, width2, shapeFlag);
-                            if (oppositeLeftIntersect
-                                    && (conPermissions & (SVCAll & ~(SVC_BICYCLE | SVC_PEDESTRIAN))) == 0) {
-                                shape = origShape;
-                            } else {
-                                // recompute previously computed crossing positions
-                                if (avoidedIntersectingLeftOriginLane == std::numeric_limits<int>::max()
-                                        || avoidedIntersectingLeftOriginLane < con.fromLane) {
-                                    for (const PositionVector& otherShape : otherShapes) {
-                                        const bool secondIntersection = con.indirectLeft && this == i2 && con.fromLane == k2.fromLane;
-                                        const double minDV = firstIntersection(shape, otherShape, width1OppositeLeft, width2,
-                                                                               "Could not compute intersection of conflicting internal lanes at node '" + myTo->getID() + "'", secondIntersection);
-                                        if (minDV < shape.length() - POSITION_EPS && minDV > POSITION_EPS) { // !!!?
-                                            assert(minDV >= 0);
-                                            if (crossingPositions.first < 0 || crossingPositions.first > minDV) {
-                                                crossingPositions.first = minDV;
-                                            }
+            int index = 0;
+            std::vector<PositionVector> otherShapes;
+            const double width1 = MIN2(interalJunctionVehicleWidth / 2, getLaneWidth(con.fromLane) / 2);
+            const double width1OppositeLeft = 0; // using width1 changes a lot of curves even though they are rarely responsible for collisions
+            for (const NBEdge* i2 : n.getIncomingEdges()) {
+                for (const Connection& k2 : i2->getConnections()) {
+                    if (k2.toEdge == nullptr) {
+                        continue;
+                    }
+                    // vehicles are typically less wide than the lane
+                    // they drive on but but bicycle lanes should be kept clear for their whole width
+                    double width2 = k2.toEdge->getLaneWidth(k2.toLane);
+                    if (k2.toEdge->getPermissions(k2.toLane) != SVC_BICYCLE) {
+                        width2 *= 0.5;
+                    }
+                    const bool foes = n.foes(this, con.toEdge, i2, k2.toEdge);
+                    LinkDirection dir2 = n.getDirection(i2, k2.toEdge);
+                    bool needsCont = !isRailway(conPermissions) && n.needsCont(this, i2, con, k2);
+                    const bool avoidIntersectCandidate = !foes && bothLeftTurns(dir, i2, dir2);
+                    bool oppositeLeftIntersect = avoidIntersectCandidate && haveIntersection(n, shape, i2, k2, numPoints, width1OppositeLeft, width2);
+                    int shapeFlag = 0;
+                    SVCPermissions warn = SVCAll & ~(SVC_PEDESTRIAN | SVC_BICYCLE | SVC_DELIVERY | SVC_RAIL_CLASSES);
+                    // do not warn if only bicycles, pedestrians or delivery vehicles are involved as this is a typical occurence
+                    if (con.customShape.size() == 0
+                            && k2.customShape.size() == 0
+                            && (oppositeLeftIntersect || (avoidedIntersectingLeftOriginLane < con.fromLane  && avoidIntersectCandidate))
+                            && ((i2->getPermissions(k2.fromLane) & warn) != 0
+                                && (k2.toEdge->getPermissions(k2.toLane) & warn) != 0)) {
+                        // recompute with different curve parameters (unless
+                        // the other connection is "unimportant"
+                        shapeFlag = NBNode::AVOID_INTERSECTING_LEFT_TURNS;
+                        PositionVector origShape = shape;
+                        shape = n.computeInternalLaneShape(this, con, numPoints, myTo, shapeFlag);
+                        oppositeLeftIntersect = haveIntersection(n, shape, i2, k2, numPoints, width1OppositeLeft, width2, shapeFlag);
+                        if (oppositeLeftIntersect
+                                && (conPermissions & (SVCAll & ~(SVC_BICYCLE | SVC_PEDESTRIAN))) == 0) {
+                            shape = origShape;
+                        } else {
+                            // recompute previously computed crossing positions
+                            if (avoidedIntersectingLeftOriginLane == std::numeric_limits<int>::max()
+                                    || avoidedIntersectingLeftOriginLane < con.fromLane) {
+                                for (const PositionVector& otherShape : otherShapes) {
+                                    const bool secondIntersection = con.indirectLeft && this == i2 && con.fromLane == k2.fromLane;
+                                    const double minDV = firstIntersection(shape, otherShape, width1OppositeLeft, width2,
+                                            "Could not compute intersection of conflicting internal lanes at node '" + myTo->getID() + "'", secondIntersection);
+                                    if (minDV < shape.length() - POSITION_EPS && minDV > POSITION_EPS) { // !!!?
+                                        assert(minDV >= 0);
+                                        if (crossingPositions.first < 0 || crossingPositions.first > minDV) {
+                                            crossingPositions.first = minDV;
                                         }
                                     }
                                 }
-                                // make sure connections further to the left do not get a wider angle
-                                avoidedIntersectingLeftOriginLane = con.fromLane;
+                            }
+                            // make sure connections further to the left do not get a wider angle
+                            avoidedIntersectingLeftOriginLane = con.fromLane;
+                        }
+                    }
+                    const bool bothPrio = getJunctionPriority(&n) > 0 && i2->getJunctionPriority(&n) > 0;
+                    //std::cout << "n=" << n.getID() << " e1=" << getID() << " prio=" << getJunctionPriority(&n) << " e2=" << i2->getID() << " prio2=" << i2->getJunctionPriority(&n) << " both=" << bothPrio << " bothLeftIntersect=" << bothLeftIntersect(n, shape, dir, i2, k2, numPoints, width2) << " needsCont=" << needsCont << "\n";
+                    // the following special case might get obsolete once we have solved #9745
+                    const bool isBicycleLeftTurn = k2.indirectLeft || (dir2 == LinkDirection::LEFT && (i2->getPermissions(k2.fromLane) & k2.toEdge->getPermissions(k2.toLane)) == SVC_BICYCLE);
+                    // compute the crossing point
+                    if ((needsCont || (bothPrio && oppositeLeftIntersect)) && (!con.indirectLeft || dir2 == LinkDirection::STRAIGHT) && !isBicycleLeftTurn) {
+                        crossingPositions.second.push_back(index);
+                        const PositionVector otherShape = n.computeInternalLaneShape(i2, k2, numPoints, 0, shapeFlag);
+                        otherShapes.push_back(otherShape);
+                        const bool secondIntersection = con.indirectLeft && this == i2 && con.fromLane == k2.fromLane;
+                        const double minDV = firstIntersection(shape, otherShape, width1, width2,
+                                "Could not compute intersection of conflicting internal lanes at node '" + myTo->getID() + "'", secondIntersection);
+                        if (minDV < shape.length() - POSITION_EPS && minDV > POSITION_EPS) { // !!!?
+                            assert(minDV >= 0);
+                            if (crossingPositions.first < 0 || crossingPositions.first > minDV) {
+                                crossingPositions.first = minDV;
                             }
                         }
-                        const bool bothPrio = getJunctionPriority(&n) > 0 && i2->getJunctionPriority(&n) > 0;
-                        //std::cout << "n=" << n.getID() << " e1=" << getID() << " prio=" << getJunctionPriority(&n) << " e2=" << i2->getID() << " prio2=" << i2->getJunctionPriority(&n) << " both=" << bothPrio << " bothLeftIntersect=" << bothLeftIntersect(n, shape, dir, i2, k2, numPoints, width2) << " needsCont=" << needsCont << "\n";
-                        // the following special case might get obsolete once we have solved #9745
-                        const bool isBicycleLeftTurn = k2.indirectLeft || (dir2 == LinkDirection::LEFT && (i2->getPermissions(k2.fromLane) & k2.toEdge->getPermissions(k2.toLane)) == SVC_BICYCLE);
-                        // compute the crossing point
-                        if ((needsCont || (bothPrio && oppositeLeftIntersect)) && (!con.indirectLeft || dir2 == LinkDirection::STRAIGHT) && !isBicycleLeftTurn) {
-                            crossingPositions.second.push_back(index);
-                            const PositionVector otherShape = n.computeInternalLaneShape(i2, k2, numPoints, 0, shapeFlag);
-                            otherShapes.push_back(otherShape);
-                            const bool secondIntersection = con.indirectLeft && this == i2 && con.fromLane == k2.fromLane;
-                            const double minDV = firstIntersection(shape, otherShape, width1, width2,
-                                                                   "Could not compute intersection of conflicting internal lanes at node '" + myTo->getID() + "'", secondIntersection);
-                            if (minDV < shape.length() - POSITION_EPS && minDV > POSITION_EPS) { // !!!?
+                    }
+                    const bool rightTurnConflict = NBNode::rightTurnConflict(
+                            this, con.toEdge, con.fromLane, i2, k2.toEdge, k2.fromLane);
+                    const bool indirectTurnConflit = con.indirectLeft && this == i2 && dir2 == LinkDirection::STRAIGHT;
+                    const bool mergeConflict = myTo->mergeConflict(this, con, i2, k2, true);
+                    // compute foe internal lanes
+                    if (foes || rightTurnConflict || oppositeLeftIntersect || mergeConflict || indirectTurnConflit) {
+                        foeInternalLinks.push_back(index);
+                    }
+                    // only warn once per pair of intersecting turns
+                    if (oppositeLeftIntersect && getID() > i2->getID()
+                            && (getPermissions(con.fromLane) & warn) != 0
+                            && (con.toEdge->getPermissions(con.toLane) & warn) != 0
+                            && (i2->getPermissions(k2.fromLane) & warn) != 0
+                            && (k2.toEdge->getPermissions(k2.toLane) & warn) != 0
+                            // do not warn for unregulated nodes
+                            && n.getType() != SumoXMLNodeType::NOJUNCTION
+                       ) {
+                        WRITE_WARNINGF("Intersecting left turns at junction '%' from lane '%' and lane '%' (increase junction radius to avoid this).",
+                                n.getID(), getLaneID(con.fromLane), i2->getLaneID(k2.fromLane));
+                    }
+                    // compute foe incoming lanes
+                    const bool signalised = hasSignalisedConnectionTo(con.toEdge);
+                    if ((n.forbids(i2, k2.toEdge, this, con.toEdge, signalised) || rightTurnConflict || indirectTurnConflit)
+                            && (needsCont || dir == LinkDirection::TURN || (!signalised && this != i2 && !con.indirectLeft))) {
+                        tmpFoeIncomingLanes.insert(i2->getID() + "_" + toString(k2.fromLane));
+                    }
+                    if (bothPrio && oppositeLeftIntersect && getID() < i2->getID()) {
+                        //std::cout << " c1=" << con.getDescription(this) << " c2=" << k2.getDescription(i2) << " bothPrio=" << bothPrio << " oppositeLeftIntersect=" << oppositeLeftIntersect << "\n";
+                        // break symmetry using edge id
+                        // only store link index and resolve actual lane id later (might be multi-lane internal edge)
+                        tmpFoeIncomingLanes.insert(":" + toString(index));
+                    }
+                    index++;
+                }
+            }
+            // foe pedestrian crossings
+            std::vector<NBNode::Crossing*> crossings = n.getCrossings();
+            for (auto c : crossings) {
+                const NBNode::Crossing& crossing = *c;
+                for (EdgeVector::const_iterator it_e = crossing.edges.begin(); it_e != crossing.edges.end(); ++it_e) {
+                    const NBEdge* edge = *it_e;
+                    // compute foe internal lanes
+                    if (this == edge || con.toEdge == edge) {
+                        foeInternalLinks.push_back(index);
+                        if (con.toEdge == edge &&
+                                ((isRightTurn && getJunctionPriority(&n) > 0) || (isTurn && con.tlID != ""))) {
+                            // build internal junctions (not for left turns at uncontrolled intersections)
+                            PositionVector crossingShape = crossing.shape;
+                            crossingShape.extrapolate(5.0); // sometimes shapes miss each other by a small margin
+                            const double minDV = firstIntersection(shape, crossingShape, 0, crossing.width / 2);
+                            if (minDV < shape.length() - POSITION_EPS && minDV > POSITION_EPS) {
                                 assert(minDV >= 0);
                                 if (crossingPositions.first < 0 || crossingPositions.first > minDV) {
                                     crossingPositions.first = minDV;
                                 }
                             }
                         }
-                        const bool rightTurnConflict = NBNode::rightTurnConflict(
-                                                           this, con.toEdge, con.fromLane, i2, k2.toEdge, k2.fromLane);
-                        const bool indirectTurnConflit = con.indirectLeft && this == i2 && dir2 == LinkDirection::STRAIGHT;
-                        const bool mergeConflict = myTo->mergeConflict(this, con, i2, k2, true);
-                        // compute foe internal lanes
-                        if (foes || rightTurnConflict || oppositeLeftIntersect || mergeConflict || indirectTurnConflit) {
-                            foeInternalLinks.push_back(index);
-                        }
-                        // only warn once per pair of intersecting turns
-                        if (oppositeLeftIntersect && getID() > i2->getID()
-                                && (getPermissions(con.fromLane) & warn) != 0
-                                && (con.toEdge->getPermissions(con.toLane) & warn) != 0
-                                && (i2->getPermissions(k2.fromLane) & warn) != 0
-                                && (k2.toEdge->getPermissions(k2.toLane) & warn) != 0
-                                // do not warn for unregulated nodes
-                                && n.getType() != SumoXMLNodeType::NOJUNCTION
-                           ) {
-                            WRITE_WARNINGF("Intersecting left turns at junction '%' from lane '%' and lane '%' (increase junction radius to avoid this).",
-                                           n.getID(), getLaneID(con.fromLane), i2->getLaneID(k2.fromLane));
-                        }
-                        // compute foe incoming lanes
-                        const bool signalised = hasSignalisedConnectionTo(con.toEdge);
-                        if ((n.forbids(i2, k2.toEdge, this, con.toEdge, signalised) || rightTurnConflict || indirectTurnConflit)
-                                && (needsCont || dir == LinkDirection::TURN || (!signalised && this != i2 && !con.indirectLeft))) {
-                            tmpFoeIncomingLanes.insert(i2->getID() + "_" + toString(k2.fromLane));
-                        }
-                        if (bothPrio && oppositeLeftIntersect && getID() < i2->getID()) {
-                            //std::cout << " c1=" << con.getDescription(this) << " c2=" << k2.getDescription(i2) << " bothPrio=" << bothPrio << " oppositeLeftIntersect=" << oppositeLeftIntersect << "\n";
-                            // break symmetry using edge id
-                            // only store link index and resolve actual lane id later (might be multi-lane internal edge)
-                            tmpFoeIncomingLanes.insert(":" + toString(index));
-                        }
-                        index++;
                     }
                 }
-                // foe pedestrian crossings
-                std::vector<NBNode::Crossing*> crossings = n.getCrossings();
-                for (auto c : crossings) {
-                    const NBNode::Crossing& crossing = *c;
-                    for (EdgeVector::const_iterator it_e = crossing.edges.begin(); it_e != crossing.edges.end(); ++it_e) {
-                        const NBEdge* edge = *it_e;
-                        // compute foe internal lanes
-                        if (this == edge || con.toEdge == edge) {
-                            foeInternalLinks.push_back(index);
-                            if (con.toEdge == edge &&
-                                    ((isRightTurn && getJunctionPriority(&n) > 0) || (isTurn && con.tlID != ""))) {
-                                // build internal junctions (not for left turns at uncontrolled intersections)
-                                PositionVector crossingShape = crossing.shape;
-                                crossingShape.extrapolate(5.0); // sometimes shapes miss each other by a small margin
-                                const double minDV = firstIntersection(shape, crossingShape, 0, crossing.width / 2);
-                                if (minDV < shape.length() - POSITION_EPS && minDV > POSITION_EPS) {
-                                    assert(minDV >= 0);
-                                    if (crossingPositions.first < 0 || crossingPositions.first > minDV) {
-                                        crossingPositions.first = minDV;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    index++;
-                }
+                index++;
+            }
 
-                if (dir == LinkDirection::TURN && crossingPositions.first < 0 && crossingPositions.second.size() != 0 && shape.length() > 2. * POSITION_EPS) {
-                    // let turnarounds wait in the middle if no other crossing point was found and it has a sensible length
-                    // (if endOffset is used, the crossing point is in the middle of the part within the junction shape)
-                    crossingPositions.first = (double)(shape.length() + getEndOffset(con.fromLane)) / 2.;
-                }
+            if (dir == LinkDirection::TURN && crossingPositions.first < 0 && crossingPositions.second.size() != 0 && shape.length() > 2. * POSITION_EPS) {
+                // let turnarounds wait in the middle if no other crossing point was found and it has a sensible length
+                // (if endOffset is used, the crossing point is in the middle of the part within the junction shape)
+                crossingPositions.first = (double)(shape.length() + getEndOffset(con.fromLane)) / 2.;
+            }
         }
         if (con.contPos != UNSPECIFIED_CONTPOS) {
             // apply custom internal junction position
