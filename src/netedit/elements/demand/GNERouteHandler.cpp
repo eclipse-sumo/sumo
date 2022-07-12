@@ -24,6 +24,7 @@
 #include <netedit/GNEViewParent.h>
 #include <netedit/changes/GNEChange_DemandElement.h>
 #include <netedit/frames/demand/GNEVehicleFrame.h>
+#include <netedit/frames/common/GNEInspectorFrame.h>
 
 #include "GNEContainer.h"
 #include "GNEPerson.h"
@@ -1436,6 +1437,8 @@ GNERouteHandler::transformToVehicle(GNEVehicle* originalVehicle, bool createEmbe
     SumoXMLTag tag = originalVehicle->getTagProperty().getTag();
     // get pointer to net
     GNENet* net = originalVehicle->getNet();
+    // check if transform after creation
+    const bool inspectAfterTransform = net->getViewNet()->isAttributeCarrierInspected(originalVehicle);
     // declare route handler
     GNERouteHandler routeHandler("", net, true, false);
     // obtain vehicle parameters
@@ -1494,6 +1497,7 @@ GNERouteHandler::transformToVehicle(GNEVehicle* originalVehicle, bool createEmbe
             vehicleBaseOBject->setVehicleParameter(&vehicleParameters);
             // build embedded route
             routeHandler.buildEmbeddedRoute(routeBaseOBject, edgeIDs, RGBColor::INVISIBLE, false, 0, {});
+            // delete vehicle base object
             delete vehicleBaseOBject;
         } else {
             // change tag in vehicle parameters
@@ -1509,6 +1513,13 @@ GNERouteHandler::transformToVehicle(GNEVehicle* originalVehicle, bool createEmbe
         }
         // end undo-redo operation
         net->getViewNet()->getUndoList()->end();
+        // check if inspect
+        if (inspectAfterTransform) {
+            // get created element
+            auto transformedVehicle = net->getAttributeCarriers()->retrieveDemandElement(vehicleParameters.tag, vehicleParameters.id);
+            // inspect it
+            net->getViewNet()->getViewParent()->getInspectorFrame()->inspectSingleElement(transformedVehicle);
+        }
     }
 }
 
@@ -1519,6 +1530,8 @@ GNERouteHandler::transformToRouteFlow(GNEVehicle* originalVehicle, bool createEm
     SumoXMLTag tag = originalVehicle->getTagProperty().getTag();
     // get pointer to net
     GNENet* net = originalVehicle->getNet();
+    // check if transform after creation
+    const bool inspectAfterTransform = net->getViewNet()->isAttributeCarrierInspected(originalVehicle);
     // declare route handler
     GNERouteHandler routeHandler("", net, true, false);
     // obtain vehicle parameters
@@ -1589,6 +1602,7 @@ GNERouteHandler::transformToRouteFlow(GNEVehicle* originalVehicle, bool createEm
             vehicleBaseOBject->setVehicleParameter(&vehicleParameters);
             // build embedded route
             routeHandler.buildEmbeddedRoute(routeBaseOBject, edgeIDs, RGBColor::INVISIBLE, false, 0, {});
+            // delete vehicle base object
             delete vehicleBaseOBject;
         } else {
             // change tag in vehicle parameters
@@ -1604,6 +1618,13 @@ GNERouteHandler::transformToRouteFlow(GNEVehicle* originalVehicle, bool createEm
         }
         // end undo-redo operation
         net->getViewNet()->getUndoList()->end();
+        // check if inspect
+        if (inspectAfterTransform) {
+            // get created element
+            auto transformedVehicle = net->getAttributeCarriers()->retrieveDemandElement(vehicleParameters.tag, vehicleParameters.id);
+            // inspect it
+            net->getViewNet()->getViewParent()->getInspectorFrame()->inspectSingleElement(transformedVehicle);
+        }
     }
 }
 
@@ -1614,6 +1635,8 @@ GNERouteHandler::transformToTrip(GNEVehicle* originalVehicle) {
     SumoXMLTag tag = originalVehicle->getTagProperty().getTag();
     // get pointer to net
     GNENet* net = originalVehicle->getNet();
+    // check if transform after creation
+    const bool inspectAfterTransform = net->getViewNet()->isAttributeCarrierInspected(originalVehicle);
     // declare route handler
     GNERouteHandler routeHandler("", net, true, false);
     // obtain vehicle parameters
@@ -1662,6 +1685,13 @@ GNERouteHandler::transformToTrip(GNEVehicle* originalVehicle) {
         routeHandler.buildTrip(nullptr, vehicleParameters, edges.front()->getID(), edges.back()->getID(), {});
         // end undo-redo operation
         net->getViewNet()->getUndoList()->end();
+        // check if inspect
+        if (inspectAfterTransform) {
+            // get created element
+            auto transformedVehicle = net->getAttributeCarriers()->retrieveDemandElement(vehicleParameters.tag, vehicleParameters.id);
+            // inspect it
+            net->getViewNet()->getViewParent()->getInspectorFrame()->inspectSingleElement(transformedVehicle);
+        }
     }
 }
 
@@ -1672,6 +1702,8 @@ GNERouteHandler::transformToFlow(GNEVehicle* originalVehicle) {
     SumoXMLTag tag = originalVehicle->getTagProperty().getTag();
     // get pointer to net
     GNENet* net = originalVehicle->getNet();
+    // check if transform after creation
+    const bool inspectAfterTransform = net->getViewNet()->isAttributeCarrierInspected(originalVehicle);
     // declare route handler
     GNERouteHandler routeHandler("", net, true, false);
     // obtain vehicle parameters
@@ -1732,6 +1764,13 @@ GNERouteHandler::transformToFlow(GNEVehicle* originalVehicle) {
         routeHandler.buildFlow(nullptr, vehicleParameters, edges.front()->getID(), edges.back()->getID(), {});
         // end undo-redo operation
         net->getViewNet()->getUndoList()->end();
+        // check if inspect
+        if (inspectAfterTransform) {
+            // get created element
+            auto transformedVehicle = net->getAttributeCarriers()->retrieveDemandElement(vehicleParameters.tag, vehicleParameters.id);
+            // inspect it
+            net->getViewNet()->getViewParent()->getInspectorFrame()->inspectSingleElement(transformedVehicle);
+        }
     }
 }
 
@@ -1740,6 +1779,8 @@ void
 GNERouteHandler::transformToPerson(GNEPerson* originalPerson) {
     // get pointer to net
     GNENet* net = originalPerson->getNet();
+    // check if transform after creation
+    const bool inspectAfterTransform = net->getViewNet()->isAttributeCarrierInspected(originalPerson);
     // declare route handler
     GNERouteHandler routeHandler("", net, true, false);
     // obtain person parameters
@@ -1765,6 +1806,13 @@ GNERouteHandler::transformToPerson(GNEPerson* originalPerson) {
     newPerson->setAttribute(SUMO_ATTR_ID, ID, net->getViewNet()->getUndoList());
     // finish undoList
     net->getViewNet()->getUndoList()->end();
+    // check if inspect
+    if (inspectAfterTransform) {
+        // get created element
+        auto transformedPerson = net->getAttributeCarriers()->retrieveDemandElement(personParameters.tag, personParameters.id);
+        // inspect it
+        net->getViewNet()->getViewParent()->getInspectorFrame()->inspectSingleElement(transformedPerson);
+    }
 }
 
 
@@ -1772,6 +1820,8 @@ void
 GNERouteHandler::transformToPersonFlow(GNEPerson* originalPerson) {
     // get pointer to net
     GNENet* net = originalPerson->getNet();
+    // check if transform after creation
+    const bool inspectAfterTransform = net->getViewNet()->isAttributeCarrierInspected(originalPerson);
     // declare route handler
     GNERouteHandler routeHandler("", net, true, false);
     // obtain person parameters
@@ -1800,6 +1850,13 @@ GNERouteHandler::transformToPersonFlow(GNEPerson* originalPerson) {
     newPerson->enableAttribute(SUMO_ATTR_PERSONSPERHOUR, net->getViewNet()->getUndoList());
     // finish undoList
     net->getViewNet()->getUndoList()->end();
+    // check if inspect
+    if (inspectAfterTransform) {
+        // get created element
+        auto transformedPerson = net->getAttributeCarriers()->retrieveDemandElement(personParameters.tag, personParameters.id);
+        // inspect it
+        net->getViewNet()->getViewParent()->getInspectorFrame()->inspectSingleElement(transformedPerson);
+    }
 }
 
 
@@ -1807,6 +1864,8 @@ void
 GNERouteHandler::transformToContainer(GNEContainer* originalContainer) {
     // get pointer to net
     GNENet* net = originalContainer->getNet();
+    // check if transform after creation
+    const bool inspectAfterTransform = net->getViewNet()->isAttributeCarrierInspected(originalContainer);
     // declare route handler
     GNERouteHandler routeHandler("", net, true, false);
     // obtain container parameters
@@ -1832,6 +1891,13 @@ GNERouteHandler::transformToContainer(GNEContainer* originalContainer) {
     newContainer->setAttribute(SUMO_ATTR_ID, ID, net->getViewNet()->getUndoList());
     // finish undoList
     net->getViewNet()->getUndoList()->end();
+    // check if inspect
+    if (inspectAfterTransform) {
+        // get created element
+        auto transformedContainer = net->getAttributeCarriers()->retrieveDemandElement(containerParameters.tag, containerParameters.id);
+        // inspect it
+        net->getViewNet()->getViewParent()->getInspectorFrame()->inspectSingleElement(transformedContainer);
+    }
 }
 
 
@@ -1839,6 +1905,8 @@ void
 GNERouteHandler::transformToContainerFlow(GNEContainer* originalContainer) {
     // get pointer to net
     GNENet* net = originalContainer->getNet();
+    // check if transform after creation
+    const bool inspectAfterTransform = net->getViewNet()->isAttributeCarrierInspected(originalContainer);
     // declare route handler
     GNERouteHandler routeHandler("", net, true, false);
     // obtain container parameters
@@ -1867,6 +1935,13 @@ GNERouteHandler::transformToContainerFlow(GNEContainer* originalContainer) {
     newContainer->enableAttribute(SUMO_ATTR_CONTAINERSPERHOUR, net->getViewNet()->getUndoList());
     // finish undoList
     net->getViewNet()->getUndoList()->end();
+    // check if inspect
+    if (inspectAfterTransform) {
+        // get created element
+        auto transformedContainer = net->getAttributeCarriers()->retrieveDemandElement(containerParameters.tag, containerParameters.id);
+        // inspect it
+        net->getViewNet()->getViewParent()->getInspectorFrame()->inspectSingleElement(transformedContainer);
+    }
 }
 
 // ===========================================================================
