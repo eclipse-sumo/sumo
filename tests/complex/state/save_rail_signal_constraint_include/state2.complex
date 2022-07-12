@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-03-29 15:43:03 by Eclipse SUMO sumo Version v1_12_0+1743-2adbd7c
+<!-- generated on 2022-07-12 14:00:24 by Eclipse SUMO sumo Version v1_14_0+0018-d8e78fe
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -29,7 +29,7 @@
 </configuration>
 -->
 
-<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_12_0+1743-2adbd7c" time="10.00" type="micro" constraints="1">
+<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_14_0+0018-d8e78fe" time="10.00" type="micro" constraints="1">
     <route id="!between" state="0" edges="d e"/>
     <route id="!t0!var#1" state="0" edges="a b c"/>
     <route id="!t1" state="0" edges="d c c"/>
@@ -62,5 +62,6 @@
     </lane>
     <railSignalConstraints id="A">
         <predecessor tripId="t0" tl="D" foes="t1" limit="3"/>
+        <predecessor tripId="t42" tl="D" foes="t23" limit="3"/>
     </railSignalConstraints>
 </snapshot>
