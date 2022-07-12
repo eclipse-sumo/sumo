@@ -1726,37 +1726,37 @@ void
 GNEApplicationWindowHelper::LocateMenuCommands::buildLocateMenuCommands(FXMenuPane* locateMenu) {
     // build locate menu commands
     GUIDesigns::buildFXMenuCommandShortcut(locateMenu,
-                                           "Locate &Junctions", "Shift+J", "Open a dialog for locating a Junction.",
+                                           "&Junctions", "Shift+J", "Open a dialog for locating a Junction.",
                                            GUIIconSubSys::getIcon(GUIIcon::LOCATEJUNCTION), myGNEApp, MID_LOCATEJUNCTION);
     GUIDesigns::buildFXMenuCommandShortcut(locateMenu,
-                                           "Locate &Edges", "Shift+E", "Open a dialog for locating an Edge.",
+                                           "&Edges", "Shift+E", "Open a dialog for locating an Edge.",
                                            GUIIconSubSys::getIcon(GUIIcon::LOCATEEDGE), myGNEApp, MID_LOCATEEDGE);
     GUIDesigns::buildFXMenuCommandShortcut(locateMenu,
-                                           "Locate &WalkingAreas", "Shift+W", "Open a dialog for locating a Walking Area.",
+                                           "&WalkingAreas", "Shift+W", "Open a dialog for locating a Walking Area.",
                                            GUIIconSubSys::getIcon(GUIIcon::LOCATEWALKINGAREA), myGNEApp, MID_LOCATEWALKINGAREA);
     GUIDesigns::buildFXMenuCommandShortcut(locateMenu,
-                                           "Locate &Vehicles", "Shift+V", "Open a dialog for locating a Vehicle.",
+                                           "&Vehicles", "Shift+V", "Open a dialog for locating a Vehicle.",
                                            GUIIconSubSys::getIcon(GUIIcon::LOCATEVEHICLE), myGNEApp, MID_LOCATEVEHICLE);
     GUIDesigns::buildFXMenuCommandShortcut(locateMenu,
-                                           "Locate &Persons", "Shift+P", "Open a dialog for locating a Person.",
+                                           "&Persons", "Shift+P", "Open a dialog for locating a Person.",
                                            GUIIconSubSys::getIcon(GUIIcon::LOCATEPERSON), myGNEApp, MID_LOCATEPERSON);
     GUIDesigns::buildFXMenuCommandShortcut(locateMenu,
-                                           "Locate &Route", "Shift+R", "Open a dialog for locating a Route.",
+                                           "&Route", "Shift+R", "Open a dialog for locating a Route.",
                                            GUIIconSubSys::getIcon(GUIIcon::LOCATEROUTE), myGNEApp, MID_LOCATEROUTE);
     GUIDesigns::buildFXMenuCommandShortcut(locateMenu,
-                                           "Locate &Stops", "Shift+S", "Open a dialog for locating a Stop.",
+                                           "&Stops", "Shift+S", "Open a dialog for locating a Stop.",
                                            GUIIconSubSys::getIcon(GUIIcon::LOCATESTOP), myGNEApp, MID_LOCATESTOP);
     GUIDesigns::buildFXMenuCommandShortcut(locateMenu,
-                                           "Locate &TLS", "Shift+T", "Open a dialog for locating a Traffic Light.",
+                                           "&TLS", "Shift+T", "Open a dialog for locating a Traffic Light.",
                                            GUIIconSubSys::getIcon(GUIIcon::LOCATETLS), myGNEApp, MID_LOCATETLS);
     GUIDesigns::buildFXMenuCommandShortcut(locateMenu,
-                                           "Locate &Additional", "Shift+A", "Open a dialog for locating an Additional Structure.",
+                                           "&Additional", "Shift+A", "Open a dialog for locating an Additional Structure.",
                                            GUIIconSubSys::getIcon(GUIIcon::LOCATEADD), myGNEApp, MID_LOCATEADD);
     GUIDesigns::buildFXMenuCommandShortcut(locateMenu,
-                                           "Locate P&oI", "Shift+O", "Open a dialog for locating a Point of Interest.",
+                                           "P&oI", "Shift+O", "Open a dialog for locating a Point of Interest.",
                                            GUIIconSubSys::getIcon(GUIIcon::LOCATEPOI), myGNEApp, MID_LOCATEPOI);
     GUIDesigns::buildFXMenuCommandShortcut(locateMenu,
-                                           "Locate Po&lygon", "Shift+L", "Open a dialog for locating a Polygon.",
+                                           "Po&lygon", "Shift+L", "Open a dialog for locating a Polygon.",
                                            GUIIconSubSys::getIcon(GUIIcon::LOCATEPOLY), myGNEApp, MID_LOCATEPOLY);
 }
 
