@@ -121,12 +121,7 @@ MSRailSignal::init(NLDetectorBuilder&) {
 
 
 MSRailSignal::~MSRailSignal() {
-    for (auto item : myConstraints) {
-        for (MSRailSignalConstraint* c : item.second) {
-            delete c;
-        }
-    }
-    myConstraints.clear();
+    removeConstraints();
 }
 
 
