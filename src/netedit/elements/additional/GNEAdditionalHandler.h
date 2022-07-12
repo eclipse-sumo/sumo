@@ -42,7 +42,7 @@ class GNEAdditionalHandler : public AdditionalHandler {
 
 public:
     /// @brief Constructor
-    GNEAdditionalHandler(GNENet* net, const bool allowUndoRedo);
+    GNEAdditionalHandler(GNENet* net, const bool allowUndoRedo, const bool overwritte);
 
     /// @brief Destructor
     ~GNEAdditionalHandler();
@@ -667,6 +667,12 @@ protected:
     /// @brief parse lanes
     std::vector<GNELane*> parseLanes(const SumoXMLTag tag, const std::vector<std::string>& laneIDs) const;
 
+    /// @brief check if given ID correspond to a duplicated additional
+    bool checkDuplicatedAdditional(const SumoXMLTag tag, const std::string &id);
+
+    /// @brief remove overwritted additional
+    void overwritteAdditional();
+
     /// @brief struct for Netedit parameters
     struct NeteditParameters {
         /// @brief parameter constructor
@@ -697,6 +703,12 @@ protected:
 
     /// @brief allow undo/redo
     const bool myAllowUndoRedo;
+
+    /// @brief check if overwritte
+    const bool myOverwritte;
+
+    /// @brief additional to overwritte (using undor-redo
+    GNEAdditional* myAdditionalToOverwritte = nullptr;
 
 private:
     /// @brief invalidate default constructo

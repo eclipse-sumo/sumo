@@ -134,7 +134,7 @@ GNEWireFrame::createPath(const bool /* useLastRoute */) {
                     myWireAttributes->showWarningMessage();
                 } else {
                     // declare additional handler
-                    GNEAdditionalHandler additionalHandler(getViewNet()->getNet(), true);
+                    GNEAdditionalHandler additionalHandler(getViewNet()->getNet(), true, false);
                     // build additional
                     additionalHandler.parseSumoBaseObject(myBaseWire);
                     // Refresh wire Parent Selector (For additionals that have a limited number of children)
@@ -252,7 +252,7 @@ GNEWireFrame::buildWireOverView(const GNETagProperties& tagProperties) {
         return false;
     } else {
         // declare additional handler
-        GNEAdditionalHandler additionalHandler(myViewNet->getNet(), true);
+        GNEAdditionalHandler additionalHandler(myViewNet->getNet(), true, false);
         // build wire
         additionalHandler.parseSumoBaseObject(myBaseWire);
         // Refresh wire Parent Selector (For wires that have a limited number of children)

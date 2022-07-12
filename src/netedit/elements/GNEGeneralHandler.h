@@ -45,8 +45,9 @@ public:
      * @param[in] net GNENet
      * @param[in] file Name of the parsed file
      * @param[in] allowUndoRedo enable or disable undoRedo
+     * @param[in] overwritte enable or disable overwritte elements
      */
-    GNEGeneralHandler(GNENet* net, const std::string& file, const bool allowUndoRedo);
+    GNEGeneralHandler(GNENet* net, const std::string& file, const bool allowUndoRedo, const bool overwritte);
 
     /// @brief Destructor
     ~GNEGeneralHandler();
