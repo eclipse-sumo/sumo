@@ -122,8 +122,10 @@ jobs:
     - name: Extra tests
       if: matrix.build_type == 'full' && github.repository == 'DLR-TS/sumo'
       run: |
+        sudo apt-get install python2
         sumo/tests/runTests.sh -b ci -a sumo.meso.ci
         sumo/tests/runTests.sh -b ci -a netconvert.gdal.ci,polyconvert.gdal.ci
+        sumo/tests/runTests.sh -b ci -a tools.python2.ci
 
     - name: Uploading artifacts (SUMO binaries)
       uses: actions/upload-artifact@v1

@@ -1,0 +1,71 @@
+# modifying, saving and loading of edge probability weights
+weights
+
+# various tests for setting additional vehicle attributes
+attributes
+
+# generate persons instead of vehicles
+persons
+saveConfig
+loadConfig
+simple
+begin_end_human_readable
+
+# randomize departure times
+#random-depart
+
+# randomize subsecond departure times
+#random-depart_subsecond
+
+# fractional depart times
+fractional
+
+# make sure that source and sink are a minimum distance appart
+minimum_distance
+minimum_distance_exceeded
+
+# disturb fastest-path-search
+random-routing-factor
+
+# consider vehicle class when picking source- and destination edges if option --vclass is used
+vclass
+
+# test trips with intermediate waypoints
+intermediate
+no_valid_edges
+no_valid_intermediate_edges
+
+# option --intermediate is given but no intermediate edges are available
+no_valid_intermediate_edges_fail
+
+# use binomially distributed arrivals
+binomial
+
+# generate validated trips
+validate
+validate_intermediate
+
+# setting non-positive period should fail
+period_positive
+all_fringe_network
+flows
+
+# create flows for jtrrouter (no to)
+flows_jtrrouter
+flows_binomial
+
+# use fromJunction and toJunction
+junctionTaz
+
+# use fromJunction and toJunction with flows
+junctionTaz_flow
+junctionTaz_validate
+
+# prevent some edge types from being used as source or destination
+viaEdgeType
+
+# This test suite checks that argument forwarding to duarouter works correctly.
+#duarouter_options
+
+# This test suite checks that randomTrips behave correctly with multiple periods (when --period 1.0 0.5 is passed as an argument for instance), or equivalently when multiple insertion rates or densities are passed.
+vehicle_insertion
