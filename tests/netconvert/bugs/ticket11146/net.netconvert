@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-07-12 10:49:11 by Eclipse SUMO netconvert Version 1.14.0
+<!-- generated on 2022-07-12 11:57:36 by Eclipse SUMO netconvert Version 1.14.0
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -113,7 +113,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <junction id=":C_7_0" type="internal" x="99.12" y="104.24" incLanes=":C_1_0 SC_0" intLanes=":C_2_0 :C_3_0 :C_5_0 :C_6_0"/>
     <junction id=":C_8_0" type="internal" x="95.36" y="96.38" incLanes=":C_4_0 NC_0" intLanes=":C_0_0"/>
-    <junction id=":C_9_0" type="internal" x="95.80" y="98.40" incLanes=":C_5_0" intLanes=""/>
+    <junction id=":C_9_0" type="internal" x="95.80" y="98.40" incLanes=":C_5_0 NC_0 SC_0" intLanes=":C_0_0 :C_1_0 :C_2_0 :C_3_0"/>
     <junction id=":C_10_0" type="internal" x="95.65" y="99.56" incLanes=":C_6_0 NC_0 SC_0" intLanes=":C_0_0 :C_1_0 :C_3_0"/>
 
     <connection from="CN" to="NC" fromLane="0" toLane="0" via=":N_0_0" dir="t" state="M"/>
