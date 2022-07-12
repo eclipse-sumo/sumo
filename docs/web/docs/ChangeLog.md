@@ -27,7 +27,7 @@ title: ChangeLog
   - Attribute `startupDelay` now has higher priority than speed adaptations for lane changing. Issue #11067
   - Fixed emergency breaking on approach to junction. Issue #11130  
   - Lane changing fixes
-    - Vehicles waiting at a red light no longer change lanes in response to vehicles passing the intersection. #10665
+    - Vehicles waiting at a red light no longer change lanes in response to vehicles passing the intersection. Issue #10665
     - Lane-specific speed limits now influence lane-changing decisions. Issue #8984
     - Inconvenience of slower lanes is now taken into account for cooperative changing. Issue #10714
     - Fixed invalid estimation of the number of required lane changes if multiple lanes are equally suitable. Issue #10769
@@ -35,7 +35,7 @@ title: ChangeLog
     - Fixed unsafe speed adaptation for lane changing. Issue #10767
     - Fixed bug where cars performed strategic changes despite setting `lcStrategic="-1"`. Issue #11109
     - Fixed collision during opposite direction driving. Issue #11118
-    - Fixed issues with opposite-overtaking with the sublane model. Issue #10927
+    - Fixed issues during opposite-overtaking with the sublane model. Issue #10927
     - Fixed invalid vehicle angle during lane changing on internal edge. Issue #5879
   - NEMA controller fixes
     - Fixed crash when loading NEMA controller with invalid phases. Issue #10704
@@ -59,8 +59,7 @@ title: ChangeLog
   - Fixed crash selecting tractionSubstation with rectangle selection. Issue #10896
   - Fixed handling of disconnected lanes of consecutive edges for e2Detectors and wires. Issue #10903
   - Fixed tazRelation coloring issues. Issue #10930
-  - Checkbox 'Draw TAZ fill' now overrides taz attribute fill as intended. Issue #10928
-  - A custom color rainbow is now supported for all data elements. Issue #10934
+  - Checkbox 'Draw TAZ fill' now overrides taz attribute fill as intended. Issue #10928  
   - Loading and saving a selection is now working for all data elements. Issue #10936
   - Fixed duplicate TAZ id when rendering filled taz. Issue #10944
   - tlType selection from drop-down list is now working after changing junction type. Issue #10956
@@ -92,7 +91,7 @@ title: ChangeLog
     - Fixed rendering of walkingareas (they are now raised above the road level). Issue #10773
    
 - netconvert
-  - Fixed invalid edge reduction in edge shape detail at very dense geometry. Issue #10727 (regression in 1.12.0)
+  - Fixed invalid reduction in edge shape detail at very dense geometry. Issue #10727 (regression in 1.12.0)
   - Fixed crash when importing plain-xml with self-looped edge and re-occurring edge ids. Issue #10700
   - Fixed crash when loading OpenDRIVE road object validity record. Issue #10701
   - Reduced overly verbose ambiguous node type warnings. Issue #10827
@@ -168,15 +167,16 @@ title: ChangeLog
   - Walkingareas are now shown. Issue #9168
   - Walkingareas can now be located by id. Issue #8580
   - Added 'confirm relation' button to tazRelation mode. Issue #10733
-  - Shift-click in demand-stop mode should now sets parent element (i.e. vehicle). Issue #10288
+  - Shift-click in demand-stop mode now sets parent element (i.e. vehicle). Issue #10288
   - Added gzip file endings in file selection dialogs. Issue #10513
-  - Create edge mode now indicates whether a new junction will be created or an existing junction will be re-used. Issue #8454
+  - Create edge mode now visually previews whether a new junction will be created or an existing junction will be re-used. Issue #8454
   - A click-preview-indicator is now provided when creating tazRelations and vehicle-over-route. Issue #10997
   - A click-preview-indicator is now provided when splitting edges in in create-edge-mode. Issue #10998
   - The hide/show-TAZRel buttons can now be used to hide all relations. Issue #10972
   - Added dialog for fixing / reporting network element problems. Issue #10151
   - Improved visualization of trips between junctions. Issue #9901
   - Added warning dialog if the same additional/demand/data file is loaded twice. Issue #11057
+  - A custom color rainbow is now supported for all data elements. Issue #10934
 
 - sumo-gui
   - InductionLoop detectors now list the time of continuos occupation in their parameter dialog. Issue #10671
