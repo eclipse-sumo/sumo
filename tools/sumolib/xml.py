@@ -521,11 +521,12 @@ def insertOptionsHeader(filename, options):
     Inserts a comment header with the options used to call the script into an existing file.
     """
     header = buildHeader(options=options)
-    with fileinput.FileInput(filename, inplace=True) as fileToPatch:
-        for lineNbr, line in enumerate(fileToPatch):
-            if lineNbr == 2:
-                print(header, end='')
-            print(line, end='')
+    fileToPatch = fileinput.FileInput(filename, inplace=True)
+    for lineNbr, line in enumerate(fileToPatch):
+        if lineNbr == 2:
+            print(header, end='')
+        print(line, end='')
+    fileToPatch.close()
 
 
 def quoteattr(val):
