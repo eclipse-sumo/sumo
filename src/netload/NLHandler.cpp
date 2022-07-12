@@ -1723,7 +1723,10 @@ NLHandler::addPredecessorConstraint(int element, const SUMOSAXAttributes& attrs,
     }
     if (ok) {
         for (const std::string& foe : foes) {
-            MSRailSignalConstraint* c = new MSRailSignalConstraint_Predecessor(signal, foe, limit, active);
+            MSRailSignalConstraint::ConstraintType type = element == SUMO_TAG_PREDECESSOR 
+                ? MSRailSignalConstraint::ConstraintType::PREDECESSOR
+                : MSRailSignalConstraint::ConstraintType::INSERTION_PREDECESSOR;
+            MSRailSignalConstraint* c = new MSRailSignalConstraint_Predecessor(type, signal, foe, limit, active);
             if (element == SUMO_TAG_PREDECESSOR) {
                 rs->addConstraint(tripId, c);
             } else if (element == SUMO_TAG_INSERTION_PREDECESSOR) {

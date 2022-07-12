@@ -38,9 +38,16 @@ class SUMOSAXAttributes;
  */
 class MSRailSignalConstraint {
 public:
+
+    enum ConstraintType {
+       PREDECESSOR = 0,
+       INSERTION_PREDECESSOR = 1
+       //FOE_INSERTION = 2
+    };
+
     /** @brief Constructor
      */
-    MSRailSignalConstraint() {};
+    MSRailSignalConstraint(ConstraintType type) : myType(type) {};
 
     /// @brief Destructor
     virtual ~MSRailSignalConstraint() {};
@@ -58,6 +65,10 @@ public:
 
     virtual void write(OutputDevice& out, SumoXMLTag tag, const std::string& tripId) const = 0;
 
+    ConstraintType getType() const {
+        return myType;
+    }
+
     /// @brief clean up state
     static void cleanup();
 
@@ -72,6 +83,8 @@ public:
 
 protected:
     static std::string getVehID(const std::string& tripID);
+
+    ConstraintType myType;
 };
 
 
@@ -79,7 +92,7 @@ class MSRailSignalConstraint_Predecessor : public MSRailSignalConstraint {
 public:
     /** @brief Constructor
      */
-    MSRailSignalConstraint_Predecessor(const MSRailSignal* signal, const std::string& tripId, int limit, bool active);
+    MSRailSignalConstraint_Predecessor(ConstraintType type, const MSRailSignal* signal, const std::string& tripId, int limit, bool active);
 
     /// @brief Destructor
     ~MSRailSignalConstraint_Predecessor() {};

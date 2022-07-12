@@ -100,7 +100,8 @@ MSRailSignalConstraint::getVehID(const std::string& tripID) {
 // ===========================================================================
 // MSRailSignalConstraint_Predecessor method definitions
 // ===========================================================================
-MSRailSignalConstraint_Predecessor::MSRailSignalConstraint_Predecessor(const MSRailSignal* signal, const std::string& tripId, int limit, bool active) :
+MSRailSignalConstraint_Predecessor::MSRailSignalConstraint_Predecessor(ConstraintType type, const MSRailSignal* signal, const std::string& tripId, int limit, bool active) :
+    MSRailSignalConstraint(type),
     myTripId(tripId),
     myLimit(limit),
     myAmActive(active),
