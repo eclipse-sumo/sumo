@@ -291,17 +291,18 @@ MSCFModel_EIDM::finalizeSpeed(MSVehicle* const veh, double vPos) const {
     vMax = MAX2(vMin, vMax);
 
 #ifdef DEBUG_V
-    gDebugFlag1 = veh->isSelected();
-    if (gDebugFlag1) {
-        std::cout << "finalizeSpeed " << SIMTIME <<
-                  "s, veh=" << veh->getID() <<
-                  " oldV=" << oldV <<
-                  " vPos=" << vPos <<
-                  " _vPos=" << _vPos <<
-                  " vStop=" << vStop <<
-                  " vMinEmergency=" << vMinEmergency <<
-                  " vMin=" << vMin <<
-                  " vMax=" << vMax << "\n";
+    if (veh->isSelected()) {
+        std::cout << SIMTIME
+            << " EIDM::finalizeSpeed "
+            << "s, veh=" << veh->getID()
+            << " oldV=" << oldV
+            << " vPos=" << vPos
+            << " _vPos=" << _vPos
+            << " vStop=" << vStop
+            << " vMinEmergency=" << vMinEmergency
+            << " vMin=" << vMin
+            << " vMax=" << vMax
+            << "\n";
     }
 #endif
 
@@ -360,6 +361,20 @@ MSCFModel_EIDM::finalizeSpeed(MSVehicle* const veh, double vPos) const {
     double vDelay = applyStartupDelay(veh, vMin, vNext, addTime);
     // Apply the slow to start term to the acceleration/speed when driving off
     vNext = slowToStartTerm(veh, vDelay, oldV, vNext, vars);
+#ifdef DEBUG_V
+    if (veh->isSelected()) {
+        std::cout << SIMTIME
+            << " EIDM::finalizeSpeed (2) "
+            << "s, veh=" << veh->getID()
+            << " timeSinceStartup=" << veh->getTimeSinceStartup()
+            << " myap_update=" << vars->myap_update
+            << " addTime=" << addTime
+            << " vDelay=" << vDelay
+            << " oldV=" << oldV
+            << " vNext=" << vNext
+            << "\n";
+    }
+#endif
 
     // Update the desired speed
     internalspeedlimit(veh, oldV);
@@ -420,8 +435,7 @@ MSCFModel_EIDM::followSpeed(const MSVehicle* const veh, double speed, double gap
     }
 
 #ifdef DEBUG_V
-    gDebugFlag1 = veh->isSelected();
-    if (gDebugFlag1) {
+    if (veh->isSelected()) {
         std::cout << "followSpeed " << SIMTIME <<
                   "s, veh=" << veh->getID() <<
                   " speed=" << speed <<
@@ -446,8 +460,7 @@ MSCFModel_EIDM::stopSpeed(const MSVehicle* const veh, const double speed, double
     VehicleVariables* vars = (VehicleVariables*)veh->getCarFollowVariables();
 
 #ifdef DEBUG_V
-    gDebugFlag1 = veh->isSelected();
-    if (gDebugFlag1) {
+    if (veh->isSelected()) {
         std::cout << "stopSpeed " << SIMTIME <<
                   "s, veh=" << veh->getID() <<
                   " speed=" << speed <<
@@ -546,8 +559,7 @@ MSCFModel_EIDM::freeSpeed(const MSVehicle* const veh, double speed, double seen,
     }
 
 #ifdef DEBUG_V
-    gDebugFlag1 = veh->isSelected();
-    if (gDebugFlag1) {
+    if (veh->isSelected()) {
         std::cout << "freeSpeed " << SIMTIME <<
                   "s, veh=" << veh->getID() <<
                   " speed=" << speed <<
@@ -1050,8 +1062,7 @@ MSCFModel_EIDM::_v(const MSVehicle* const veh, const double gap2pred, const doub
     acc = SPEED2ACCEL(MIN2(newSpeed, maxNextSpeed(egoSpeed, veh)) - veh->getSpeed());
 
 #ifdef DEBUG_V
-    gDebugFlag1 = veh->isSelected();
-    if (gDebugFlag1) {
+    if (veh->isSelected()) {
         std::cout << "_v " << SIMTIME <<
                   "s, veh=" << veh->getID() <<
                   " vars->minaccel=" << vars->minaccel <<
