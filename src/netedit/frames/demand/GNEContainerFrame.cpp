@@ -239,9 +239,9 @@ GNEContainerFrame::demandElementSelected() {
             myPathCreator->showPathCreatorModule(myContainerPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTag(), false, false);
             // show warning if we have selected a vType oriented to persons or vehicles
             if (myTypeSelector->getCurrentDemandElement()->getVClass() == SVC_PEDESTRIAN) {
-                WRITE_WARNING("Current selected vType is oriented to persons");
+                WRITE_WARNING("VType with vClass == 'pedestrian' is oriented to pedestrians");
             } else if (myTypeSelector->getCurrentDemandElement()->getVClass() != SVC_IGNORING) {
-                WRITE_WARNING("Current selected vType is oriented to vehicles");
+                WRITE_WARNING("VType with vClass != 'ignoring' is not oriented to containers");
             }
         } else {
             // hide modules
