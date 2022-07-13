@@ -114,6 +114,7 @@ car_public_walk5
 
 # check correct routing network when using internal edges
 car_public_walk_internal
+car_public_walk_parkingAreas
 
 # output bus route as well
 ptline_routing
