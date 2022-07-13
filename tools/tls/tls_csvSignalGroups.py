@@ -610,11 +610,12 @@ def toTll(options):
 
 def toCsv(options):
     # read the network first
-    net = sumolib.net.readNet(options.net, withInternal=True, withPedestrianConnections=True)
+    net = sumolib.net.readNet(options.net, withInternal=True, withPedestrianConnections=True, withPrograms=True)
     # load tll files
     addLogics = {}
     filterIDs = options.tlsFilter.split(",") if len(options.tlsFilter) > 0 else []
-    for tllFile in options.input.split(","):
+    tllFiles = [f for f in options.input.split(",") if f]
+    for tllFile in tllFiles:
         if len(filterIDs) == 0:
             tlLogics = [item for item in TlLogic.createFromXML(tllFile, net=net, group=options.group, debug=options.debug)]
         else: 
