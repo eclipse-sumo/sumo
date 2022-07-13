@@ -31,7 +31,6 @@ import math
 if 'SUMO_HOME' in os.environ:
     sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
 import sumolib  # noqa
-from sumolib.options import ArgumentParser, SplitAction, get_prefixed_options
 from sumolib.miscutils import euclidean, parseTime, intIfPossible  # noqa
 from sumolib.geomhelper import naviDegree, minAngleDegreeDiff  # noqa
 
@@ -52,7 +51,7 @@ def get_network(options):
 
 
 def get_options(args=None):
-    optParser = ArgumentParser(description="Generate trips between random locations")
+    optParser = sumolib.options.ArgumentParser(description="Generate trips between random locations")
     optParser.add_argument("-n", "--net-file", dest="netfile", required=True,
                            help="define the net file (mandatory)")
     optParser.add_argument("-a", "--additional-files", dest="additional",
@@ -163,11 +162,11 @@ def get_options(args=None):
     insertionArgs = optParser.add_mutually_exclusive_group()
     insertionArgs.add_argument("-p", "--period", type=str, nargs="+", metavar="FLOAT",
                                  help="Generate vehicles with equidistant departure times and period=FLOAT (default 1.0). " +
-                                 "If option --binomial is used, the expected arrival rate is set to 1/period.", action=SplitAction)
+                                 "If option --binomial is used, the expected arrival rate is set to 1/period.", action=sumolib.options.SplitAction)
     insertionArgs.add_argument("--insertion-rate", dest="insertionRate", type=str, nargs="+", metavar="FLOAT",
-                                 help="How much vehicles arrive in the simulation per hour (alternative to the period option).", action=SplitAction)
+                                 help="How much vehicles arrive in the simulation per hour (alternative to the period option).", action=sumolib.options.SplitAction)
     insertionArgs.add_argument("--insertion-density", dest="insertionDensity", type=str, nargs="+", metavar="FLOAT",
-                                 help="How much vehicles arrive in the simulation per hour per kilometer of road (alternative to the period option).", action=SplitAction)                             
+                                 help="How much vehicles arrive in the simulation per hour per kilometer of road (alternative to the period option).", action=sumolib.options.SplitAction)                             
     
     options = optParser.parse_args(args=args)
 
@@ -742,7 +741,7 @@ def main(options):
     else:
         args += ['-v']
 
-    options_to_forward = get_prefixed_options(options)
+    options_to_forward = sumolib.options.get_prefixed_options(options)
     if 'duarouter' in options_to_forward:
         for option in options_to_forward['duarouter']:
             option[0] = '--' + option[0]
