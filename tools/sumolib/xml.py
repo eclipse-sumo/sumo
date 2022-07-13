@@ -92,12 +92,12 @@ def _prefix_keyword(name, warn=False):
     return result
 
 
-def compound_object(element_name, attrnames, warn=False):
+def compound_object(element_name, attrnames, warn=False, sort=True):
     """return a class which delegates bracket access to an internal dict.
        Missing attributes are delegated to the child dict for convenience.
        @note: Care must be taken when child nodes and attributes have the same names"""
     class CompoundObject():
-        _original_fields = sorted(attrnames)
+        _original_fields = sorted(attrnames) if sort else tuple(attrnames)
         _fields = [_prefix_keyword(a, warn) for a in _original_fields]
 
         def __init__(self, values, child_dict=None, text=None, child_list=None):
@@ -136,11 +136,11 @@ def compound_object(element_name, attrnames, warn=False):
         def getChild(self, name):
             return self._child_dict[name]
 
-        def addChild(self, name, attrs=None):
+        def addChild(self, name, attrs=None, sortAttrs=True):
             if attrs is None:
                 attrs = {}
-            clazz = compound_object(name, attrs.keys())
-            child = clazz([attrs.get(a) for a in sorted(attrs.keys())])
+            clazz = compound_object(name, attrs.keys(), sort=sortAttrs)
+            child = clazz([attrs.get(a) for a in (sorted(attrs.keys()) if sortAttrs else attrs.keys())])
             self._child_dict.setdefault(name, []).append(child)
             self._child_list.append(child)
             return child
