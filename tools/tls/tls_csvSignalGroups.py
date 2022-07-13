@@ -112,7 +112,10 @@ class TlLogic(sumolib.net.TLSProgram):
     def createFromTLSProgram(tl, tlsProgram, net, debug=False):
         # derive cycle time
         cycleTime = sum([int(phase.duration) for phase in tlsProgram.getPhases()])
-        return TlLogic(tl.getID(), tlsProgram._id, cycleTime, tlsProgram._offset, tlsProgram._type != "static", tlsProgram.getParams(), net=net, debug=debug)
+        tlLogic = TlLogic(tl.getID(), tlsProgram._id, cycleTime, tlsProgram._offset, [], tlsProgram.getParams(), net=net, debug=debug)
+        tlLogic._phases = tlsProgram.getPhases()
+        tlLogic.__patchActuationTimes()
+        return tlLogic
      
     @staticmethod
     def createFromXML(tllFile, net, group, debug=False):
@@ -127,9 +130,12 @@ class TlLogic(sumolib.net.TLSProgram):
                 params = {paramEl.attrib["key"]:paramEl.attrib["value"] for paramEl in paramEls}
                 cycleTime = sum(int(phaseEl.attrib["duration"]) for phaseEl in phaseEls)
                 tlLogic = TlLogic(tlLogicEl.attrib["id"], tlLogicEl.attrib["programID"], cycleTime, tlLogicEl.attrib["offset"], 
-                                  tlLogicEl.attrib["type"] != "static", params, net=net, debug=debug)
-                phases = [sumolib.net.Phase(int(phaseEl.attrib["duration"]), phaseEl.attrib["state"]) for phaseEl in phaseEls]
-                tlLogic.createSignalGroupsFromPhases(phases, group=group)
+                                  [], params, net=net, debug=debug)
+                tlLogic._phases = [sumolib.net.Phase(int(phaseEl.attrib["duration"]), phaseEl.attrib["state"], 
+                                                     minDur=-1 if "minDur" not in phaseEl.attrib else int(phaseEl.attrib["minDur"]), 
+                                                     maxDur=-1 if "maxDur" not in phaseEl.attrib else int(phaseEl.attrib["maxDur"])) for phaseEl in phaseEls]
+                tlLogic.createSignalGroupsFromPhases(group=group)
+                tlLogic.__patchActuationTimes()
                 tlLogics.append(tlLogic)
         return tlLogics
     
@@ -147,6 +153,15 @@ class TlLogic(sumolib.net.TLSProgram):
         self._signalGroups[signalGroup._id].tlLogic = self
         for tlIndex in tlIndices:
             self._tlIndexToSignalGroup[tlIndex] = signalGroup._id
+    
+    def __patchActuationTimes(self):
+        tx = 0
+        for phase in self._phases:
+            if phase.minDur > 0:
+                self._actuated.extend([tx + phase.minDur, tx + phase.duration])
+            tx += phase.duration
+        if len(self._actuated) > 0:
+            self._type = "actuated"
       
     def __assignConnections(self):
         if self.net is None:
@@ -156,12 +171,12 @@ class TlLogic(sumolib.net.TLSProgram):
             if conn[2] in self._tlIndexToSignalGroup:
                 self._signalGroups[self._tlIndexToSignalGroup[conn[2]]].addConnection(*conn)
     
-    def createSignalGroupsFromPhases(self, phases, group=False):
+    def createSignalGroupsFromPhases(self, group=False):
         # only for fresh instances
         if len(self._signalGroups) > 0:
             return
         # create signal state patterns by aggregating the phase states vertically
-        states = [l for phase in phases for l in [phase.state]*int(phase.duration)]
+        states = [l for phase in self._phases for l in [phase.state]*int(phase.duration)]
         sgStates = [''.join(state) for state in zip(*states)]
         tlIndexMap = [[i] for i in range(len(sgStates))]
         j = 0
@@ -320,7 +335,8 @@ class TlLogic(sumolib.net.TLSProgram):
         '''
         Print out the TL Logic in the CSV input format
         '''
-        content = "[general]\ncycle time;%d\nkey;%s\nsubkey;%s\noffset;%s\n" % (self._cycleTime, self._id, self._programID, self._offset)
+        content = "[general]\ncycle time;%d\nkey;%s\nsubkey;%s\noffset;%s\n%s" % (self._cycleTime, self._id, self._programID, self._offset,
+                                                                                  "actuated;%s\n" % ";".join([str(value) for value in self._actuated]) if len(self._actuated) > 0 else "")
         for key, value in self._parameters.items():
             content += "param;%s;%s\n" % (key, value)
         content += "[links]\n"
@@ -596,7 +612,10 @@ def toCsv(options):
     addLogics = {}
     filterIDs = options.tlsFilter.split(",") if len(options.tlsFilter) > 0 else []
     for tllFile in options.input.split(","):
-        tlLogics = [item for item in TlLogic.createFromXML(tllFile, net=net, group=options.group, debug=options.debug) if item._id in filterIDs]
+        if len(filterIDs) == 0:
+            tlLogics = [item for item in TlLogic.createFromXML(tllFile, net=net, group=options.group, debug=options.debug)]
+        else: 
+            tlLogics = [item for item in TlLogic.createFromXML(tllFile, net=net, group=options.group, debug=options.debug) if item._id in filterIDs]
         for tlLogic in tlLogics:
             if tlLogic._id not in addLogics:
                 addLogics[tlLogic._id] = []
@@ -605,14 +624,14 @@ def toCsv(options):
     tlLogicsTotal = []
     tlss = net.getTrafficLights()
     for tls in tlss:
-        if tls.getID() not in filterIDs:
+        if len(filterIDs) > 0 and tls.getID() not in filterIDs:
             continue
         tlLogics = addLogics[tls.getID()] if tls.getID() in addLogics else []
         if options.tlsFromNet:
             tlPrograms = tls.getPrograms()
             for tlProgram in tlPrograms.values():
                 tlLogic = TlLogic.createFromTLSProgram(tls, tlProgram, net=net, debug=options.debug)
-                tlLogic.createSignalGroupsFromPhases(tlProgram.getPhases(), group=options.group)
+                tlLogic.createSignalGroupsFromPhases(group=options.group)
                 tlLogics.append(tlLogic)
         # check for same signal groups
         if options.group:
