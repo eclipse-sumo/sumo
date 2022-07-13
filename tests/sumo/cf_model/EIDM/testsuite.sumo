@@ -4,8 +4,8 @@ emergencyDecel
 # stuck at low speed
 ticket11165
 
-# something strange
-emergencyStop
+# emergency stop
+ticket11182
 
 # something strange
 emergencyBraking
