@@ -31,7 +31,7 @@ def parseTimeSteps(inputFile):
         timestepFloat = float(timeStep.time)
         # create substructure
         result[timestepFloat] = {}
-        for vehicle in timeStep.vehicle:
+        for vehicle in timeStep.vehicle or []:
             # add vehicle
             result[timestepFloat][vehicle.id] = {}
             # add vehicle values
