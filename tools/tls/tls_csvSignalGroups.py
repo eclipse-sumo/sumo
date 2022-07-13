@@ -335,7 +335,7 @@ class TlLogic(sumolib.net.TLSProgram):
         '''
         Print out the TL Logic in the CSV input format
         '''
-        content = "[general]\ncycle time;%d\nkey;%s\nsubkey;%s\noffset;%s\n%s" % (self._cycleTime, self._id, self._programID, self._offset,
+        content = "[general]\ncycle time;%d\nkey;%s\nsubkey;%s\noffset;%s\n%s" % (self._cycleTime, self._id, self._programID, int(float(self._offset)),
                                                                                   "actuated;%s\n" % ";".join([str(value) for value in self._actuated]) if len(self._actuated) > 0 else "")
         for key, value in self._parameters.items():
             content += "param;%s;%s\n" % (key, value)
