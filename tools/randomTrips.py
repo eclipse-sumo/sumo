@@ -27,11 +27,11 @@ import bisect
 import subprocess
 from collections import defaultdict
 import math
-import argparse
 
 if 'SUMO_HOME' in os.environ:
     sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
 import sumolib  # noqa
+from sumolib.options import ArgumentParser, SplitAction, get_prefixed_options
 from sumolib.miscutils import euclidean, parseTime, intIfPossible  # noqa
 from sumolib.geomhelper import naviDegree, minAngleDegreeDiff  # noqa
 
@@ -51,18 +51,8 @@ def get_network(options):
     return NET
 
 
-class SplitAction(argparse.Action):
-    def __call__(self, parser, args, values, option_string=None):
-        if len(values) == 1:
-            values = [float(x) for x in values[0].split(',')]
-        else:
-            values = [float(x) for x in values]
-            
-        setattr(args, self.dest, values)
-
-
 def get_options(args=None):
-    optParser = sumolib.options.ArgumentParser(description="Generate trips between random locations")
+    optParser = ArgumentParser(description="Generate trips between random locations")
     optParser.add_argument("-n", "--net-file", dest="netfile", required=True,
                            help="define the net file (mandatory)")
     optParser.add_argument("-a", "--additional-files", dest="additional",
@@ -752,7 +742,7 @@ def main(options):
     else:
         args += ['-v']
 
-    options_to_forward = sumolib.options.get_prefixed_options(options)
+    options_to_forward = get_prefixed_options(options)
     if 'duarouter' in options_to_forward:
         for option in options_to_forward['duarouter']:
             option[0] = '--' + option[0]
