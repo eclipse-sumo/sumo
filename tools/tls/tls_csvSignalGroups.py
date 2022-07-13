@@ -344,12 +344,12 @@ class TlLogic(sumolib.net.TLSProgram):
             edge2edge = [(conn.getFrom().getID(), conn.getTo().getID()) for conn in sg._connections]
             edge2edge = sorted(edge2edge, key=lambda t: (t[1], t[0]))
             for entry in edge2edge:
-                content += "%s;%s;%s\n" % (id, *entry)                       
+                content += "%s;%s;%s\n" % (id, entry[0], entry[1])
         content += "[signal groups]\nid;on1;off1;on2;off2;transOn;transOff\n"
         for id, sg in self._signalGroups.items():
             freeTimes = [str(t) for freeTime in sg._freeTimes for t in freeTime]
             freeTimes.extend(['']*(4-len(freeTimes)))
-            content += "%s;%s;%d;%d\n" % (id, ";".join(freeTimes), *sg._transTimes)
+            content += "%s;%s;%d;%d\n" % (id, ";".join(freeTimes), sg._transTimes[0], sg._transTimes[1])
         f.write(content)
 
 class SignalGroup(object):
@@ -482,7 +482,10 @@ def writeInputTemplates(net, outputDir, delimiter):
             data.append(["SG_" + str(tlIndex)])
 
         # write the template file
-        with io.open(os.path.join(outputDir, "%s.csv" % tlsID), 'w', newline='') as inputTemplate:
+        fopenArgs = {'mode' : 'w', 'newline' : ''}
+        if sys.version_info.major < 3:
+            fopenArgs = {'mode' : 'wb'}
+        with io.open(os.path.join(outputDir, "%s.csv" % tlsID), **fopenArgs) as inputTemplate:
             csvWriter = csv.writer(inputTemplate, quoting=csv.QUOTE_NONE, delimiter=delimiter)
             csvWriter.writerows(data)
 
