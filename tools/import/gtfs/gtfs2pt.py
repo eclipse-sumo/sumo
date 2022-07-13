@@ -22,6 +22,7 @@ Maps GTFS data to a given network, generating routes, stops and vehicles
 
 from __future__ import print_function
 from __future__ import absolute_import
+from __future__ import division
 import os
 import sys
 import glob
@@ -258,10 +259,10 @@ def map_stops(options, net, routes, rout):
                     path, _ = typedNet.getShortestPath(typedNet.getEdge(routeFixed[-1]), typedNet.getEdge(routeEdgeID))
                     if path is None or len(path) > options.fill_gaps + 2:
                         error = "no path found" if path is None else "path too long (%s)" % len(path)
-                        print("Warning! Skipping disconnected route '%s', %s." % (rid, error))
-                        seen.add(rid)
-                        del routes[rid]
-                        break
+                        print("Warning! Disconnected route '%s', %s. Keeping longer part." % (rid, error))
+                        if len(routeFixed) > len(route) // 2:
+                            break
+                        routeFixed = [routeEdgeID]
                     else:
                         if len(path) > 2:
                             print("Warning! Fixed connection", rid, len(path))
