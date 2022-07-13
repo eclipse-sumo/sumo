@@ -4796,8 +4796,6 @@ GNEViewNet::drawTemporalRoundabout() const {
     if (myCurrentObjectDialog && (myCurrentObjectDialog->getType() == GLO_JUNCTION) && myDrawPreviewRoundabout) {
         // get junction
         const auto junction = myNet->getAttributeCarriers()->retrieveJunction(myCurrentObjectDialog->getMicrosimID());
-        // get bubble color
-        RGBColor bubbleColor = myVisualizationSettings->junctionColorer.getScheme().getColor(1).changedBrightness(-15);
         // push layer matrix
         GLHelper::pushMatrix();
         // translate to temporal shape layer
@@ -4807,7 +4805,7 @@ GNEViewNet::drawTemporalRoundabout() const {
         // move matrix junction center
         glTranslated(junction->getNBNode()->getPosition().x(), junction->getNBNode()->getPosition().y(), 0.1);
         // set color
-        GLHelper::setColor(bubbleColor);
+        GLHelper::setColor(RGBColor::GREEN);
         // draw outline circle
         const double circleWidth = (junction->getNBNode()->getRadius() < 0)? 4.0 : junction->getNBNode()->getRadius();
         GLHelper::drawOutlineCircle(circleWidth * 1.30, circleWidth, myVisualizationSettings->getCircleResolution());
