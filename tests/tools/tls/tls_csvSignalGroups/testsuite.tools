@@ -13,3 +13,4 @@ template
 # convert from SUMO tll to csv
 reverseGroup
 reverse
+fromNet
