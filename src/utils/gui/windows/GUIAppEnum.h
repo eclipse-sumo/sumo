@@ -1112,6 +1112,8 @@ enum {
     MID_GNE_JUNCTION_EDIT_SHAPE,
     /// @brief reset junction shape
     MID_GNE_JUNCTION_RESET_SHAPE,
+    /// @brief reset edge endpoints
+    MID_GNE_JUNCTION_RESET_EDGE_ENDPOINTS,
     /// @brief select all roundabout nodes and edges of the current roundabout
     MID_GNE_JUNCTION_SELECT_ROUNDABOUT,
     /// @brief convert junction to roundabout

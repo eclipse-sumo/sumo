@@ -252,6 +252,9 @@ public:
     long onCmdOpenAdditionalDialog(FXObject*, FXSelector, void*);
 
     /// @brief edit junction shape
+    long onCmdResetEdgeEndPoints(FXObject*, FXSelector, void*);
+
+    /// @brief edit junction shape
     long onCmdEditJunctionShape(FXObject*, FXSelector, void*);
 
     /// @brief reset junction shape

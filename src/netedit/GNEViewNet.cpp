@@ -149,6 +149,7 @@ FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_GNE_ADDSELECT_EDGE,                          GNEViewNet::onCmdAddEdgeSelected),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_REMOVESELECT_EDGE,                       GNEViewNet::onCmdRemoveEdgeSelected),
     // Junctions
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_JUNCTION_RESET_EDGE_ENDPOINTS,           GNEViewNet::onCmdResetEdgeEndPoints),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_JUNCTION_EDIT_SHAPE,                     GNEViewNet::onCmdEditJunctionShape),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_JUNCTION_RESET_SHAPE,                    GNEViewNet::onCmdResetJunctionShape),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_JUNCTION_REPLACE,                        GNEViewNet::onCmdReplaceJunction),
@@ -2863,6 +2864,44 @@ GNEViewNet::updateCursor() {
         setDefaultCursor(GUICursorSubSys::getCursor(GUICursor::DEFAULT));
         setDragCursor(GUICursorSubSys::getCursor(GUICursor::DEFAULT));
     }
+}
+
+
+long 
+GNEViewNet::onCmdResetEdgeEndPoints(FXObject*, FXSelector, void*) {
+    // Obtain junction under mouse
+    GNEJunction* junction = getJunctionAtPopupPosition();
+    if (junction) {
+        myUndoList->begin(GUIIcon::EDGE, "reset edge endpoints");
+        // are, otherwise recompute them
+        if (junction->isAttributeCarrierSelected()) {
+            const auto selectedJunctions = myNet->getAttributeCarriers()->getSelectedJunctions();
+            for (const auto& selectedJunction : selectedJunctions) {
+                // reset shape end from incoming edges
+                for (const auto &incomingEdge : selectedJunction->getGNEIncomingEdges()) {
+                    incomingEdge->setAttribute(GNE_ATTR_SHAPE_END, "", myUndoList);
+                }
+                // reset shape start from outgoing edges
+                for (const auto &outgoingEdge : selectedJunction->getGNEOutgoingEdges()) {
+                    outgoingEdge->setAttribute(GNE_ATTR_SHAPE_START, "", myUndoList);
+                }
+            }
+        } else {
+            // reset shape end from incoming edges
+            for (const auto &incomingEdge : junction->getGNEIncomingEdges()) {
+                incomingEdge->setAttribute(GNE_ATTR_SHAPE_END, "", myUndoList);
+            }
+            // reset shape start from outgoing edges
+            for (const auto &outgoingEdge : junction->getGNEOutgoingEdges()) {
+                outgoingEdge->setAttribute(GNE_ATTR_SHAPE_START, "", myUndoList);
+            }
+        }
+        myUndoList->end();
+    }
+    // destroy pop-up and set focus in view net
+    destroyPopup();
+    setFocus();
+    return 1;
 }
 
 
