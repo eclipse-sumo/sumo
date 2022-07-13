@@ -391,7 +391,7 @@ class VehicleDomain(VTypeDomain):
     def getFuelConsumption(self, vehID):
         """getFuelConsumption(string) -> double
 
-        Returns the fuel consumption in ml/s for the last time step.
+        Returns the fuel consumption in mg/s for the last time step.
         Multiply by the step length to get the value for one step.
         """
         return self._getUniversal(tc.VAR_FUELCONSUMPTION, vehID)

@@ -1,5 +1,6 @@
 # moveToXY for persons
 moveToXY
+moveTo
 
 # Tests the person API
 person
@@ -26,3 +27,6 @@ junctionModel.ignore
 
 # test ignoring foes with a specific speed
 junctionModel.ignoreProb
+
+# test early insertion by removing a stage
+force_depart

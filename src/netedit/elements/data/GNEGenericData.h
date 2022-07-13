@@ -251,7 +251,7 @@ protected:
     void replaceParentTAZElement(const int index, const std::string& value);
 
     /// @brief get partial ID
-    std::string getPartialID() const; 
+    std::string getPartialID() const;
 
 private:
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)

@@ -494,7 +494,7 @@ class Net:
 
     def getOptimalPath(self, fromEdge, toEdge, fastest=False, maxCost=1e400, vClass=None, reversalPenalty=0,
                        includeFromToCost=True, withInternal=False, ignoreDirection=False,
-                       fromPos=0, toPos=0):
+                       fromPos=None, toPos=None):
         """
         Finds the optimal (shortest or fastest) path for vClass from fromEdge to toEdge
         by using using Dijkstra's algorithm.
@@ -510,6 +510,11 @@ class Net:
         def speedFunc(edge):
             return edge.getSpeed() if fastest else 1.0
 
+        def remainder(edge, pos):
+            if pos < 0:
+                return min(-pos, edge.getLength())
+            return max(0., edge.getLength() - pos)
+
         if self.hasInternal:
             appendix = ()
             appendixCost = 0.
@@ -517,17 +522,16 @@ class Net:
                 appendix = (toEdge,) + appendix
                 appendixCost += toEdge.getLength() / speedFunc(toEdge)
                 toEdge = list(toEdge.getIncoming().keys())[0]
-        fromCost = fromEdge.getLength() / speedFunc(fromEdge) if includeFromToCost else 0
-        q = [(fromCost, fromEdge.getID(), (fromEdge, ), ())]
-        if fromEdge == toEdge and fromPos > toPos and not ignoreDirection:
+        q = [(0., fromEdge.getID(), (fromEdge, ), ())]
+        if (fromEdge == toEdge and fromPos is not None and toPos is not None and fromPos > toPos and
+                not ignoreDirection):
             # start search on successors of fromEdge
             q = []
-            startCost = (fromEdge.getLength() - fromPos) / speedFunc(fromEdge) if includeFromToCost else 0
             for e2, conn in fromEdge.getAllowedOutgoing(vClass).items():
-                q.append((startCost + e2.getLength() / speedFunc(e2), e2.getID(), (fromEdge, e2), ()))
+                q.append((e2.getLength() / speedFunc(e2), e2.getID(), (fromEdge, e2), ()))
 
         seen = set()
-        dist = {fromEdge: fromEdge.getLength() / speedFunc(fromEdge)}
+        dist = {fromEdge: 0.}
         while q:
             cost, _, e1via, path = heapq.heappop(q)
             e1 = e1via[-1]
@@ -536,12 +540,18 @@ class Net:
             seen.add(e1)
             path += e1via
             if e1 == toEdge:
+                if includeFromToCost:
+                    # add costs for (part of) the first edge, still needs to be fixed for wrong direction travel
+                    remainFrom = fromEdge.getLength() if fromPos is None else remainder(fromEdge, fromPos)
+                    cost += remainFrom / speedFunc(fromEdge)
+                    # remove costs for (part of) the last edge, still needs to be fixed for wrong direction travel
+                    removeTo = 0. if toPos is None else remainder(toEdge, toPos)
+                else:
+                    removeTo = toEdge.getLength() if len(path) > 1 else 0.
+                cost -= removeTo / speedFunc(fromEdge)
                 if self.hasInternal:
                     return path + appendix, cost + appendixCost
-                if includeFromToCost and toPos == 0:
-                    # assume toPos=0 is the default value
-                    return path, cost
-                return path, cost + (-toEdge.getLength() + toPos) / speedFunc(toEdge)
+                return path, cost
             if cost > maxCost:
                 return None, cost
 
@@ -566,7 +576,7 @@ class Net:
 
     def getShortestPath(self, fromEdge, toEdge, maxCost=1e400, vClass=None, reversalPenalty=0,
                         includeFromToCost=True, withInternal=False, ignoreDirection=False,
-                        fromPos=0, toPos=0):
+                        fromPos=None, toPos=None):
         """
         Finds the shortest path from fromEdge to toEdge respecting vClass, using Dijkstra's algorithm.
         It returns a pair of a tuple of edges and the cost. If no path is found the first element is None.
@@ -582,7 +592,7 @@ class Net:
 
     def getFastestPath(self, fromEdge, toEdge, maxCost=1e400, vClass=None, reversalPenalty=0,
                        includeFromToCost=True, withInternal=False, ignoreDirection=False,
-                       fromPos=0, toPos=0):
+                       fromPos=None, toPos=None):
         """
         Finds the fastest path from fromEdge to toEdge respecting vClass, using Dijkstra's algorithm.
         It returns a pair of a tuple of edges and the cost. If no path is found the first element is None.

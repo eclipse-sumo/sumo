@@ -1,7 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2020-09-07 11:40:15.118743 by routeSampler.py v1_6_0+1981-181bb7fdbe
-  options: -r input_routes.rou.xml -d input_edgedata.xml -o out.rou.xml <doubleminus>edgedata-attribute count <doubleminus>write-route-ids <doubleminus>write-flows number -v <doubleminus>optimize full
+
+<!-- generated on 2022-07-07 11:09:41.028527 by routeSampler.py v1_13_0+1343-240e5d48340
+<configuration>
+    <edgedata-attribute value="count"/>
+    <edgedata-files value="input_edgedata.xml"/>
+    <optimize value="full"/>
+    <route-files value="input_routes.rou.xml"/>
+    <verbose value="True"/>
+    <write-flows value="number"/>
+    <write-route-ids value="True"/>
+</configuration>
 -->
+
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 <!-- begin="0.0" end="300.0" -->
     <route id="0_2" edges="-3 -3.180.00 5"/> <!-- 10 (route_0) -->

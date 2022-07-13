@@ -12,11 +12,9 @@ GLDebug: 	Inserted edge:gneE13 into SUMORTree with boundary 30.00,30.00,58.00,90
 GLDebug: 	Inserted edge:gneE14 into SUMORTree with boundary -10.00,30.00,50.00,58.00
 GLDebug: 	Inserted edge:gneE15 into SUMORTree with boundary 30.00,22.00,90.00,50.00
 GLDebug: 	Inserted edge:gneE16 into SUMORTree with boundary 22.00,-10.00,50.00,50.00
-Error: expected end of tag 'interval'
- In file '/home/palcraft/.texttest/tmp/netedit.daily.data.edgereldata.21Apr123611.3191/netedit.daily.data.edgereldata/dataelements/edgereldata/load/parameters/input_datas.dat.xml'
- At line/column 92/5.
-
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.data.edgereldata.21Apr123611.3191/netedit.daily.data.edgereldata/dataelements/edgereldata/load/parameters/input_datas.dat.xml failed.
+Debug: Adding dataSet 'newDataSet' in GNEChange_DataSet
+Debug: adding dataInterval [0.00, 3600.00] in GNEChange_DataInterval
+Debug: Adding edgeRelation 'newDataSet[0.00,3600.00]:gneE12' in GNEChange_GenericData
 Debug: data sets saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ10 from SUMORTree with boundary 28.00,68.00,52.00,92.00
@@ -68,6 +66,10 @@ Debug: Created connection 'fromgneE12_0togneE16_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE12_1togneE16_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE12_2togneE16_2' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE12_2togneE15_2' in retrieveGNEConnection()
+Debug: network elements saved
+Debug: Deleting unreferenced edgeRelation
+Debug: Deleting unreferenced dataInterval [0.00, 3600.00] in ~GNEChange_DataInterval()
+Debug: Deleting unreferenced dataSet 'newDataSet'
 Debug: Deleting unreferenced edge '-gneE14' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane '-gneE14_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane '-gneE14_1' in GNEEdge destructor

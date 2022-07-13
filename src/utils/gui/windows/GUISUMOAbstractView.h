@@ -142,6 +142,9 @@ public:
     /// @brief return whether this is a 3D view
     virtual bool is3DView() const;
 
+    /// @brief zoom interface for 3D view
+    virtual void zoom2Pos(Position& camera, Position& lookAt, double zoom);
+
     /// @brief mouse functions
     //@{
     virtual long onConfigure(FXObject*, FXSelector, void*);
@@ -164,13 +167,13 @@ public:
     virtual long onKeyRelease(FXObject* o, FXSelector sel, void* data);
     //@}
 
-	/// @brief interaction with the simulation
-	virtual long onCmdCloseLane(FXObject*, FXSelector, void*);
-	virtual long onCmdCloseEdge(FXObject*, FXSelector, void*);
-	virtual long onCmdAddRerouter(FXObject*, FXSelector, void*);
+    /// @brief interaction with the simulation
+    virtual long onCmdCloseLane(FXObject*, FXSelector, void*);
+    virtual long onCmdCloseEdge(FXObject*, FXSelector, void*);
+    virtual long onCmdAddRerouter(FXObject*, FXSelector, void*);
 
-	/// @brief highlight edges according to reachability
-	virtual long onCmdShowReachability(FXObject*, FXSelector, void*);
+    /// @brief highlight edges according to reachability
+    virtual long onCmdShowReachability(FXObject*, FXSelector, void*);
 
     /// @brief open object dialog at the cursor position
     virtual void openObjectDialogAtCursor();
@@ -235,7 +238,7 @@ public:
     virtual bool setColorScheme(const std::string&);
 
     /// @brief get visualization settings (read only)
-    const GUIVisualizationSettings &getVisualisationSettings() const;
+    const GUIVisualizationSettings& getVisualisationSettings() const;
 
     /// @brief edit visualization settings (allow modify VisualizationSetings, use carefully)
     GUIVisualizationSettings* editVisualisationSettings() const;
@@ -432,8 +435,8 @@ protected:
     /// @brief Draws frames-per-second indicator
     void drawFPS();
 
-	/// @brief returns the GUILane at cursor position (implementation depends on view)
-	virtual GUILane* getLaneUnderCursor();
+    /// @brief returns the GUILane at cursor position (implementation depends on view)
+    virtual GUILane* getLaneUnderCursor();
 
     /// @brief returns the id of the front object under the cursor using GL_SELECT
     GUIGlID getObjectUnderCursor();

@@ -77,7 +77,7 @@ GNEUndoListDialog::open() {
     show(PLACEMENT_SCREEN);
     // open as modal dialog (will block all windows until stop() or stopModal() is called)
     myGNEApp->getApp()->runModalFor(this);
-    
+
 }
 
 
@@ -111,7 +111,7 @@ GNEUndoListDialog::onCmdClose(FXObject*, FXSelector, void*) {
 }
 
 
-long 
+long
 GNEUndoListDialog::onCmdUpdate(FXObject*, FXSelector, void*) {
     // first check if shown
     if (shown() && (myLastUndoElement != myTreeListDinamic->getSelectedIndex())) {

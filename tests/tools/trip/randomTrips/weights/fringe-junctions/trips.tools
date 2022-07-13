@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2022-01-14 16:49:32.495225 by randomTrips.py v1_11_0+1161-943c085
-  options: -n net2.net.xml -s 42 <doubleminus>fringe-factor 100 -e 10 <doubleminus>fringe-junctions
+
+<!-- generated on 2022-07-07 10:55:30.094168 by randomTrips.py v1_13_0+1343-240e5d48340
+<configuration>
+    <end value="10"/>
+    <fringe-junctions value="True"/>
+    <fringe-factor value="100.0"/>
+    <net-file value="net2.net.xml"/>
+</configuration>
 -->
+
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <trip id="0" depart="0.00" from="right1C1" to="A1left1"/>
     <trip id="1" depart="1.00" from="left1A1" to="A1left1"/>

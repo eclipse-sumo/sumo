@@ -34,14 +34,11 @@ netedit.supermodeDemand()
 # force save additionals
 netedit.forceSaveAdditionals()
 
-# go to stop mode
-netedit.stopMode()
+# go to select mode
+netedit.selectMode()
 
-# change stop type with a valid value
-netedit.changeStopType("stopLane")
-
-# create stop
-netedit.leftClick(referencePosition, 400, 185)
+# select all using invert
+netedit.selectionInvert()
 
 # go to inspect mode
 netedit.inspectMode()

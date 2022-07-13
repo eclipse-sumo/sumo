@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2020-09-07 11:40:13.858733 by routeSampler.py v1_6_0+1981-181bb7fdbe
-  options: -r input_routes.rou.xml -t input_turns.xml -o out.rou.xml -f number -I
+
+<!-- generated on 2022-07-07 11:09:26.787229 by routeSampler.py v1_13_0+1343-240e5d48340
+<configuration>
+    <route-files value="input_routes.rou.xml"/>
+    <turn-files value="input_turns.xml"/>
+    <write-flows value="number"/>
+    <write-route-ids value="True"/>
+</configuration>
 -->
+
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 <!-- begin="0.0" end="200.0" -->
     <route id="0_2" edges="-3 -3.180.00 5"/> <!-- 10 (route_0) -->

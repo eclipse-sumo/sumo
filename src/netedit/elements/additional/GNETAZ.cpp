@@ -281,7 +281,7 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
         // Obtain constants
         const double TAZExaggeration = getExaggeration(s);
         const Position mousePosition = myNet->getViewNet()->getPositionInformation();
-        const bool drawFill = (myNet->getViewNet()->getEditModes().isCurrentSupermodeData() && myNet->getViewNet()->getDataViewOptions().TAZDrawFill())? true : getFill();
+        const bool drawFill = (myNet->getViewNet()->getEditModes().isCurrentSupermodeData() && myNet->getViewNet()->getDataViewOptions().TAZDrawFill()) ? true : getFill();
         // get colors
         const RGBColor color = GUIPolygon::setColor(s, this, this, drawUsingSelectColor(), -1);
         const RGBColor invertedColor = color.invertedColor();
@@ -655,19 +655,19 @@ GNETAZ::drawDottedContours(const GUIVisualizationSettings& s, const double TAZEx
     // now check if mouse is over TAZ
     if (TAZRelDataFrame->shown() && (gPostDrawing.markedTAZ == nullptr) && ((TAZRelDataFrame->getFirstTAZ() == nullptr) || (TAZRelDataFrame->getSecondTAZ() == nullptr))) {
         // get dotted contour type
-        const auto dottedContourType = (TAZRelDataFrame->getFirstTAZ() == nullptr)? GUIDottedGeometry::DottedContourType::GREEN : GUIDottedGeometry::DottedContourType::MAGENTA;
+        const auto dottedContourType = (TAZRelDataFrame->getFirstTAZ() == nullptr) ? GUIDottedGeometry::DottedContourType::GREEN : GUIDottedGeometry::DottedContourType::MAGENTA;
         // draw depending if is closed
         if (getFill() || myNet->getViewNet()->getDataViewOptions().TAZDrawFill()) {
             if (myAdditionalGeometry.getShape().around(myNet->getViewNet()->getPositionInformation())) {
                 GUIDottedGeometry::drawDottedContourClosedShape(dottedContourType, s, myAdditionalGeometry.getShape(), 1, s.neteditSizeSettings.polylineWidth * TAZExaggeration);
             }
         } else {
-            // scale shape 
+            // scale shape
             auto scaledShape = myAdditionalGeometry.getShape();
             scaledShape.scaleAbsolute(1);
             // check if mouse is around scaled shape
-            if ((scaledShape.around(myNet->getViewNet()->getPositionInformation()) && (scaledShape.distance2D(myNet->getViewNet()->getPositionInformation()) <= 1.3)) || 
-                (myAdditionalGeometry.getShape().around(myNet->getViewNet()->getPositionInformation()) && (myAdditionalGeometry.getShape().distance2D(myNet->getViewNet()->getPositionInformation()) <= 1))) {
+            if ((scaledShape.around(myNet->getViewNet()->getPositionInformation()) && (scaledShape.distance2D(myNet->getViewNet()->getPositionInformation()) <= 1.3)) ||
+                    (myAdditionalGeometry.getShape().around(myNet->getViewNet()->getPositionInformation()) && (myAdditionalGeometry.getShape().distance2D(myNet->getViewNet()->getPositionInformation()) <= 1))) {
                 GUIDottedGeometry::drawDottedContourClosedShape(dottedContourType, s, myAdditionalGeometry.getShape(), 1, s.neteditSizeSettings.polylineWidth * TAZExaggeration);
             }
         }

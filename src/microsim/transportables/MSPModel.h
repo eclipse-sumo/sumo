@@ -156,6 +156,16 @@ public:
     virtual const MSEdge* getNextEdge(const MSStageMoving& stage) const = 0;
 
     /// @brief try to move transportable to the given position
+    virtual void moveTo(MSPerson* p, MSLane* lane, double lanePos, double lanePosLat, SUMOTime t) {
+        UNUSED_PARAMETER(p);
+        UNUSED_PARAMETER(lane);
+        UNUSED_PARAMETER(lanePos);
+        UNUSED_PARAMETER(lanePosLat);
+        UNUSED_PARAMETER(t);
+        WRITE_WARNING("moveTo is ignored by the current movement model");
+    }
+
+    /// @brief try to move transportable to the given position
     virtual void moveToXY(MSPerson* p, Position pos, MSLane* lane, double lanePos,
                           double lanePosLat, double angle, int routeOffset,
                           const ConstMSEdgeVector& edges, SUMOTime t) {

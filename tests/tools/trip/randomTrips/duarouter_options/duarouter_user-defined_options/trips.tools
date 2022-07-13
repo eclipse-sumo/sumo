@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2022-06-16 15:14:48.153530 by randomTrips.py v1_13_0+0824-3684b747648
+
+<!-- generated on 2022-07-07 10:55:35.803384 by randomTrips.py v1_13_0+1343-240e5d48340
 <configuration>
     <allow-fringe value="True"/>
     <duarouter-exit-times value="true"/>
@@ -11,8 +12,8 @@
     <vehicle-class value="passenger"/>
     <vtype-output value="out.add.xml"/>
 </configuration>
-
 -->
+
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <trip id="0" depart="0.00" from="left2end" to="beg" type="passenger"/>
     <trip id="1" depart="1.00" from="beg2left" to="beg2left" type="passenger"/>

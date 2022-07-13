@@ -323,6 +323,13 @@ class PersonDomain(VTypeDomain):
            Reasons are defined in module constants and start with REMOVE_'''
         self._setCmd(tc.REMOVE, personID, "b", reason)
 
+    def moveTo(self, personID, laneID, pos, posLat=tc.INVALID_DOUBLE_VALUE):
+        """moveTo(string, string, double, double) -> None
+
+        Move a person to a new position along it's current route.
+        """
+        self._setCmd(tc.VAR_MOVE_TO, personID, "tsdd", 3, laneID, pos, posLat)
+
     def moveToXY(self, personID, edgeID, x, y, angle=tc.INVALID_DOUBLE_VALUE, keepRoute=1, matchThreshold=100):
         '''Place person at the given x,y coordinates and force it's angle to
         the given value (for drawing).

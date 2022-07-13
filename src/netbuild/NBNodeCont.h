@@ -342,6 +342,11 @@ public:
         mySplit.insert(node);
     }
 
+    /// @brief mark a node as explicitly not controlled by a TLS
+    void markAsNotTLS(const NBNode* node) {
+        myUnsetTLS.insert(node);
+    }
+
     /// @brief remap node IDs accoring to options --numerical-ids and --reserved-ids
     int remapIDs(bool numericaIDs, bool reservedIDs, const std::string& prefix, NBTrafficLightLogicCont& tlc);
 
@@ -417,6 +422,9 @@ private:
 
     /// @brief nodes that received a traffic light due to guessing (--tls.guess)
     std::set<NBNode*> myGuessedTLS;
+
+    /// @brief nodes that are excluded from tls-guessing
+    std::set<const NBNode*> myUnsetTLS;
 
     /// @brief node positions for faster lookup
     NamedRTree myRTree;

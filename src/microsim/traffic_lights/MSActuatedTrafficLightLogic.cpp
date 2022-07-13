@@ -822,7 +822,7 @@ MSActuatedTrafficLightLogic::gapControl() {
             loopInfo->loop->setSpecialColor(&RGBColor::GREEN);
         }
         const double actualGap = loop->getTimeSinceLastDetection();
-        if (actualGap < loopInfo->maxGap && !loopInfo->isJammed() ) {
+        if (actualGap < loopInfo->maxGap && !loopInfo->isJammed()) {
             result = MIN2(result, actualGap);
         }
     }
@@ -932,11 +932,11 @@ MSActuatedTrafficLightLogic::getDetectorPriority(const InductLoopInfo& loopInfo)
 #ifdef DEBUG_PHASE_SELECTION
                 if (DEBUG_COND) {
                     std::cout << "    loop=" << loop->getID()
-                        << " actDuration=" << STEPS2TIME(actDuration)
-                        << " maxDur=" << STEPS2TIME(getCurrentPhaseDef().maxDuration)
-                        << " getLatest=" << STEPS2TIME(getLatest())
-                        << " canExtend=" << canExtend
-                        << "\n";
+                              << " actDuration=" << STEPS2TIME(actDuration)
+                              << " maxDur=" << STEPS2TIME(getCurrentPhaseDef().maxDuration)
+                              << " getLatest=" << STEPS2TIME(getLatest())
+                              << " canExtend=" << canExtend
+                              << "\n";
                 }
 #endif
                 if (canExtend) {

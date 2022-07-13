@@ -185,6 +185,9 @@ public:
     /// @brief subtract vehicle length from all gaps if the leader vehicle is driving in the opposite direction
     void fixOppositeGaps(bool isFollower);
 
+    /// @brief add given value to all gaps
+    void patchGaps(double amount);
+
     /// @brief return vehicle with the smalles gap
     CLeaderDist getClosest() const;
 

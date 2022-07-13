@@ -591,6 +591,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "lcLaneDiscipline",           SUMO_ATTR_LCA_LANE_DISCIPLINE },
     { "lcSigma",                    SUMO_ATTR_LCA_SIGMA },
     { "lcKeepRightAcceptanceTime",  SUMO_ATTR_LCA_KEEPRIGHT_ACCEPTANCE_TIME },
+    { "lcOvertakeDeltaSpeedFactor", SUMO_ATTR_LCA_OVERTAKE_DELTASPEED_FACTOR },
     { "lcExperimental1",            SUMO_ATTR_LCA_EXPERIMENTAL1 },
 
     { "jmCrossingGap",          SUMO_ATTR_JM_CROSSING_GAP },

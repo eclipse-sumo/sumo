@@ -1232,7 +1232,7 @@ GNENet::computeNetwork(GNEApplicationWindow* window, bool force, bool volatileOp
     // load additionals if was recomputed with volatile options
     if (additionalPath != "") {
         // Create additional handler
-        GNEGeneralHandler generalHandler(this, additionalPath, false);
+        GNEGeneralHandler generalHandler(this, additionalPath, false, false);
         // Run parser
         if (!generalHandler.parse()) {
             WRITE_MESSAGE("Loading of " + additionalPath + " failed.");
@@ -1243,7 +1243,7 @@ GNENet::computeNetwork(GNEApplicationWindow* window, bool force, bool volatileOp
     // load demand elements if was recomputed with volatile options
     if (demandPath != "") {
         // Create general handler
-        GNEGeneralHandler handler(this, demandPath, false);
+        GNEGeneralHandler handler(this, demandPath, false, false);
         // Run parser
         if (!handler.parse()) {
             WRITE_MESSAGE("Loading of " + demandPath + " failed.");

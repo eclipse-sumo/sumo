@@ -20,31 +20,30 @@ You can find a test case for these implementations at
 To define an electric vehicle, it must be equipped with a battery
 device. This may be done using the option **--device.battery.explicit <vehID1,vehID2,...\>** or simply setting **--device.battery.probability 1** to equip
 all vehicles. Alternatively, the device may be specified using [Generic
-vehicle
-parameters](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#devices).
+vehicle parameters](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#devices).
 
 Additional properties of the vehicle and its electrical components must
 then be defined via [parameters of the vehicle or its
 type](../Simulation/GenericParameters.md).
 
-These values have the following meanings:
+These values have the following meanings (the defaults are from the Kia below):
 
-| key                     | Value Type | Default    | Description                                             |
-| ----------------------- | ---------- | ---------- | ------------------------------------------------------- |
-| maximumBatteryCapacity  | float      | 0 (Wh)     | Maximum battery capacity *E<sub>max</sub>*              |
-| maximumPower            | float      | 0 (W)      | Maximum power which the vehicle can reach               |
-| vehicleMass             | float      | 0 (kg)     | Vehicle mass *m<sub>veh</sub>*                          |
-| frontSurfaceArea        | float      | 0 (m2)     | Front surface area *A<sub>veh</sub>*                    |
-| airDragCoefficient      | float      | 0          | Air drag coefficient *c<sub>w</sub>*                    |
-| internalMomentOfInertia | float      | 0 (kg·m2)  | Mom. of inertia of int. rot. elements *J<sub>int</sub>* |
-| radialDragCoefficient   | float      | 0          | Radial drag coefficient c<sub>rad</sub>                 |
-| rollDragCoefficient     | float      | 0          | Rolling resistance coefficient *c<sub>roll</sub>*       |
-| constantPowerIntake     | float      | 0 (W)      | Avg. (constant) power of consumers *P<sub>const</sub>*  |
-| propulsionEfficiency    | float      | 0          | Drive efficiency *η<sub>prop</sub>*                     |
-| recuperationEfficiency  | float      | 0          | Recuperation efficiency *η<sub>recup</sub>*             |
-| stoppingTreshold        | float      | 0.1 (km/h) | Minimum velocity to start charging                      |
+| key                     | Value Type | Default           | Description                                             |
+| ----------------------- | ---------- | ----------------- | ------------------------------------------------------- |
+| maximumBatteryCapacity  | float      | 35000 (Wh)        | Maximum battery capacity *E<sub>max</sub>*              |
+| maximumPower            | float      | 150000 (W)        | Maximum power which the vehicle can reach (unused)      |
+| vehicleMass             | float      | 1830 (kg)         | Vehicle mass *m<sub>veh</sub>*                          |
+| frontSurfaceArea        | float      | 2.6 (m<sup>2</sup>)      | Front surface area *A<sub>veh</sub>*                    |
+| airDragCoefficient      | float      | 0.35              | Air drag coefficient *c<sub>w</sub>*                    |
+| internalMomentOfInertia | float      | 0.01 (kg·m<sup>2</sup>)  | Mom. of inertia of int. rot. elements *J<sub>int</sub>* |
+| radialDragCoefficient   | float      | 0.1               | Radial drag coefficient c<sub>rad</sub>                 |
+| rollDragCoefficient     | float      | 0.01              | Rolling resistance coefficient *c<sub>roll</sub>*       |
+| constantPowerIntake     | float      | 100 (W)           | Avg. (constant) power of consumers *P<sub>const</sub>*  |
+| propulsionEfficiency    | float      | 0.98              | Drive efficiency *η<sub>prop</sub>*                     |
+| recuperationEfficiency  | float      | 0.96              | Recuperation efficiency *η<sub>recup</sub>*             |
+| stoppingTreshold        | float      | 0.1 (km/h)        | Minimum velocity to start charging                      |
 
-An example of a vehicle with electric attribute:
+An example of a vehicle with electric attribute (those are the values for a city bus from the original publication):
 
 ```
 <routes>
@@ -93,7 +92,7 @@ of bus stops were used for the implementation of charging stations.
 | **lane**            | string     | valid lane id                                                                              |           | Lane of the charging station location                                                                                           |
 | **startPos**        | float      | lane.length < x < lane.length (negative values count backwards from the end of the lane) | 0         | Begin position in the specified lane                                                                                            |
 | **endPos**          | float      | lane.length < x < lane.length (negative values count backwards from the end of the lane) |           | End position in the specified lane                                                                                              |
-| **power**           | float  (W/h) or (ml/s)  | power \> 0  | 0  | Charging power *P<sub>chrg</sub>*  (If the battery device being charged  [is configured to track fuel](#tracking_fuel_consumption_for_non-electrical_vehicles), charging power will be interpreted as ml/s)  |
+| **power**           | float  (W) or (mg/s)  | power \> 0  | 0  | Charging power *P<sub>chrg</sub>*  (If the battery device being charged  [is configured to track fuel](#tracking_fuel_consumption_for_non-electrical_vehicles), charging power will be interpreted as mg/s)  |
 | **efficiency**      | float      | 0 <= efficiency <= 1                                                                       | 0.95   | Charging efficiency *η<sub>chrg</sub>*                                                                                          |
 | **chargeInTransit** | bool       | 0 or 1                                                                                     | 0         | Enable or disable charge in transit, i.e. vehicle is forced/not forced to stop for charging                                     |
 | **chargeDelay**     | float      | chargeDelay \> 0                                                                           | 0         | Time delay after the vehicles have reached / stopped on the charging station, before the energy transfer (charging) is starting |
@@ -262,7 +261,7 @@ SUMO can be used together with the battery device when setting the
 
 # Tracking fuel consumption for non-electrical vehicles
 
-By setting option **--device.battery.track-fuel**, equipped vehicles with a conventional drive train (emissionClass other than `Energy`) will monitor their fuel level based on the fuel consumption of their respective emission class. All capacity values are then interpreted as ml instead of Wh. Also, the chargingStation power is re-interpreted as ml/s when charging fuel.
+By setting option **--device.battery.track-fuel**, equipped vehicles with a conventional drive train (emissionClass other than `Energy`) will monitor their fuel level based on the fuel consumption of their respective emission class. All capacity values are then interpreted as mg instead of Wh. Also, the chargingStation power is re-interpreted as mg/s when charging fuel.
 
 # TraCI
 

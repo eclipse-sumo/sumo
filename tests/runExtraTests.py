@@ -52,7 +52,7 @@ def run(suffix, args, guiTests=False, chrouter=True):
         apps += ",sumo.meso.gui,sumo.gui.osg"
 #        if os.name == "posix":
 #            apps += ",complex.libsumo.gui"
-    process = subprocess.Popen("%s %s -a %s" % ("texttest", args, apps), env=env, 
+    process = subprocess.Popen("%s %s -a %s" % ("texttest", args, apps), env=env,
                                stdout=subprocess.PIPE, stderr=subprocess.STDOUT, shell=True)
     with process.stdout:
         for line in process.stdout:

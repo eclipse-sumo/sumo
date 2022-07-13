@@ -36,11 +36,11 @@
 // method definitions
 // ===========================================================================
 
-GNEWalkingArea::GNEWalkingArea(GNEJunction* parentJunction, const std::string &ID) :
+GNEWalkingArea::GNEWalkingArea(GNEJunction* parentJunction, const std::string& ID) :
     GNENetworkElement(parentJunction->getNet(), ID, GLO_WALKINGAREA, SUMO_TAG_WALKINGAREA,
-        {}, {}, {}, {}, {}, {}),
-    myParentJunction(parentJunction),
-    myTesselation(ID, "", RGBColor::GREY, parentJunction->getNBNode()->getWalkingArea(ID).shape, false, true, 0) {
+{}, {}, {}, {}, {}, {}),
+myParentJunction(parentJunction),
+myTesselation(ID, "", RGBColor::GREY, parentJunction->getNBNode()->getWalkingArea(ID).shape, false, true, 0) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -90,7 +90,7 @@ GNEWalkingArea::drawGL(const GUIVisualizationSettings& s) const {
     const Position mousePosition = myNet->getViewNet()->getPositionInformation();
     const double walkingAreaExaggeration = getExaggeration(s);
     // get walking area shape
-    const auto &walkingAreaShape = myParentJunction->getNBNode()->getWalkingArea(getID()).shape;
+    const auto& walkingAreaShape = myParentJunction->getNBNode()->getWalkingArea(getID()).shape;
     // only continue if exaggeration is greather than 0
     if ((walkingAreaShape.size() > 0) && s.drawCrossingsAndWalkingareas) {
         // push junction name
@@ -100,7 +100,7 @@ GNEWalkingArea::drawGL(const GUIVisualizationSettings& s) const {
         // translate to front
         myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_WALKINGAREA);
         // set shape color
-        const RGBColor walkingAreaColor = isAttributeCarrierSelected()? RGBColor::BLUE : RGBColor::GREY;
+        const RGBColor walkingAreaColor = isAttributeCarrierSelected() ? RGBColor::BLUE : RGBColor::GREY;
         // recognize full transparency and simply don't draw
         if (walkingAreaColor.alpha() != 0) {
             // set color
@@ -141,18 +141,18 @@ GNEWalkingArea::drawGL(const GUIVisualizationSettings& s) const {
         // check if dotted contour has to be drawn
         if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
             GUIDottedGeometry::drawDottedContourClosedShape(GUIDottedGeometry::DottedContourType::INSPECT, s, walkingAreaShape,
-                (walkingAreaExaggeration >= 1) ? walkingAreaExaggeration : 1);
+                    (walkingAreaExaggeration >= 1) ? walkingAreaExaggeration : 1);
         }
         // check if dotted contour has to be drawn
         if ((myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
             GUIDottedGeometry::drawDottedContourClosedShape(GUIDottedGeometry::DottedContourType::FRONT, s, walkingAreaShape,
-                (walkingAreaExaggeration >= 1) ? walkingAreaExaggeration : 1);
+                    (walkingAreaExaggeration >= 1) ? walkingAreaExaggeration : 1);
         }
     }
 }
 
 
-void 
+void
 GNEWalkingArea::updateGLObject() {
     updateGeometry();
 }
@@ -208,7 +208,7 @@ GNEWalkingArea::getAttribute(SumoXMLAttr key) const {
         // for security purposes, avoid get WalkingArea if we want only the ID
         return getMicrosimID();
     }
-    const auto &walkingArea = myParentJunction->getNBNode()->getWalkingArea(getMicrosimID());
+    const auto& walkingArea = myParentJunction->getNBNode()->getWalkingArea(getMicrosimID());
     switch (key) {
         case SUMO_ATTR_WIDTH:
             return toString(walkingArea.width);

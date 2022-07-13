@@ -46,16 +46,16 @@ EnergyParams::EnergyParams(const SUMOVTypeParameter* typeParams) {
     myMap[SUMO_ATTR_WAITINGTIME] = -1.;
 
     // default values from
-    // Kurczveil, T., López, P.Á., & Schnieder, E. (2014). Implementation of an Energy Model and a Charging Infrastructure in SUMO.
-    myMap[SUMO_ATTR_VEHICLEMASS] = 1000.;
-    myMap[SUMO_ATTR_FRONTSURFACEAREA] = 5.;
-    myMap[SUMO_ATTR_AIRDRAGCOEFFICIENT] = 0.6;
+    // https://sumo.dlr.de/docs/Models/Electric.html#kia_soul_ev_2020
+    myMap[SUMO_ATTR_VEHICLEMASS] = 1830.;
+    myMap[SUMO_ATTR_FRONTSURFACEAREA] = 2.6;
+    myMap[SUMO_ATTR_AIRDRAGCOEFFICIENT] = 0.35;
     myMap[SUMO_ATTR_INTERNALMOMENTOFINERTIA] = 0.01;
-    myMap[SUMO_ATTR_RADIALDRAGCOEFFICIENT] = 0.5;
+    myMap[SUMO_ATTR_RADIALDRAGCOEFFICIENT] = 0.1;
     myMap[SUMO_ATTR_ROLLDRAGCOEFFICIENT] = 0.01;
     myMap[SUMO_ATTR_CONSTANTPOWERINTAKE] = 100.;
-    myMap[SUMO_ATTR_PROPULSIONEFFICIENCY] = 0.9;
-    myMap[SUMO_ATTR_RECUPERATIONEFFICIENCY] = 0.8;
+    myMap[SUMO_ATTR_PROPULSIONEFFICIENCY] = 0.98;
+    myMap[SUMO_ATTR_RECUPERATIONEFFICIENCY] = 0.96;
     myMap[SUMO_ATTR_RECUPERATIONEFFICIENCY_BY_DECELERATION] = 0.0;
     myMap[SUMO_ATTR_ANGLE] = 0.;  // actually angleDiff in the last step
     // @todo set myVecMap defaults as needed
@@ -160,7 +160,7 @@ bool
 EnergyParams::isEngineOff() const {
     // they all got a default in the constructor so getDouble is safe here
     return getDouble(SUMO_ATTR_DURATION) > getDouble(SUMO_ATTR_SHUT_OFF_STOP) ||
-        getDouble(SUMO_ATTR_WAITINGTIME) > getDouble(SUMO_ATTR_SHUT_OFF_AUTO);
+           getDouble(SUMO_ATTR_WAITINGTIME) > getDouble(SUMO_ATTR_SHUT_OFF_AUTO);
 }
 
 

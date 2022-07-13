@@ -264,7 +264,7 @@ GNETLSEditorFrame::onCmdOK(FXObject*, FXSelector, void*) {
         if (myTLSModifications->checkHaveModifications()) {
             NBTrafficLightDefinition* oldDefinition = myTLSAttributes->getCurrentTLSDefinition();
             std::vector<NBNode*> nodes = oldDefinition->getNodes();
-            for (const auto &node : nodes) {
+            for (const auto& node : nodes) {
                 GNEJunction* junction = myViewNet->getNet()->getAttributeCarriers()->retrieveJunction(node->getID());
                 myViewNet->getUndoList()->add(new GNEChange_TLS(junction, oldDefinition, false), true);
                 myViewNet->getUndoList()->add(new GNEChange_TLS(junction, myEditedDef, true), true);
@@ -519,7 +519,7 @@ GNETLSEditorFrame::onCmdPhaseCreate(FXObject*, FXSelector, void*) {
     int oldIndex = MAX2(0, myTLSPhases->getPhaseTable()->getSelStartRow());
     // copy current row
     SUMOTime duration = getSUMOTime(myTLSPhases->getPhaseTable()->getItemText(oldIndex, 0).text());
-    const std::string oldState = myTLSPhases->getPhaseTable()->getItemText(oldIndex, TLSStatic? 1 : 3).text();
+    const std::string oldState = myTLSPhases->getPhaseTable()->getItemText(oldIndex, TLSStatic ? 1 : 3).text();
     std::string state = oldState;
 
     std::set<int> crossingIndices;
@@ -575,7 +575,7 @@ GNETLSEditorFrame::onCmdPhaseCreate(FXObject*, FXSelector, void*) {
     }
     // fix continuous green states
     const int nextIndex = myTLSPhases->getPhaseTable()->getNumRows() > newIndex ? newIndex : 0;
-    const std::string state2 = myTLSPhases->getPhaseTable()->getItemText(nextIndex, TLSStatic? 1 : 3).text();
+    const std::string state2 = myTLSPhases->getPhaseTable()->getItemText(nextIndex, TLSStatic ? 1 : 3).text();
     for (int i = 0; i < (int)state.size(); i++) {
         if ((oldState[i] == LINKSTATE_TL_GREEN_MAJOR || oldState[i] == LINKSTATE_TL_GREEN_MINOR)
                 && (state2[i] == LINKSTATE_TL_GREEN_MAJOR || state2[i] == LINKSTATE_TL_GREEN_MINOR)) {
@@ -1124,7 +1124,7 @@ GNETLSEditorFrame::getSUMOTime(const std::string& string) {
     return TIME2STEPS(GNEAttributeCarrier::parse<double>(string));
 }
 
-const std::string 
+const std::string
 GNETLSEditorFrame::getSteps2Time(const SUMOTime value) {
     return toString(STEPS2TIME(value));
 }
@@ -1189,7 +1189,7 @@ GNETLSEditorFrame::TLSAttributes::initTLSAttributes(GNEJunction* junction) {
     myParametersTextField->enable();
     myParametersTextField->setTextColor(MFXUtils::getFXColor(RGBColor::BLACK));
     // obtain TLSs
-    for (const auto &TLS : junction->getNBNode()->getControllingTLS()) {
+    for (const auto& TLS : junction->getNBNode()->getControllingTLS()) {
         myTLSDefinitions.push_back(TLS);
         myIDTextField->setText(TLS->getID().c_str());
         myIDTextField->enable();
@@ -1357,8 +1357,8 @@ GNETLSEditorFrame::TLSDefinition::TLSDefinition(GNETLSEditorFrame* TLSEditorPare
     FXGroupBoxModule(TLSEditorParent, "Traffic Light Programs") {
     // create auxiliar frames
     FXHorizontalFrame* horizontalFrameAux = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrameUniform);
-    FXVerticalFrame * verticalFrameAuxA = new FXVerticalFrame(horizontalFrameAux, GUIDesignAuxiliarHorizontalFrame);
-    FXVerticalFrame * verticalFrameAuxB = new FXVerticalFrame(horizontalFrameAux, GUIDesignAuxiliarHorizontalFrame);
+    FXVerticalFrame* verticalFrameAuxA = new FXVerticalFrame(horizontalFrameAux, GUIDesignAuxiliarHorizontalFrame);
+    FXVerticalFrame* verticalFrameAuxB = new FXVerticalFrame(horizontalFrameAux, GUIDesignAuxiliarHorizontalFrame);
     // create create tlDef button
     myNewTLProgram = new FXButton(verticalFrameAuxA, "Create\t\tCreate a new traffic light program",
                                   GUIIconSubSys::getIcon(GUIIcon::MODETLS), TLSEditorParent, MID_GNE_TLSFRAME_CREATE, GUIDesignButton);
@@ -1448,7 +1448,7 @@ GNETLSEditorFrame::TLSPhases::initPhaseTable(int index) {
             initStaticPhaseTable(index);
         } else if (myTLSEditorParent->myEditedDef->getType() == TrafficLightType::ACTUATED) {
             initActuatedPhaseTable(index);
-        } else if(myTLSEditorParent->myEditedDef->getType() == TrafficLightType::DELAYBASED) {
+        } else if (myTLSEditorParent->myEditedDef->getType() == TrafficLightType::DELAYBASED) {
             initDelayBasePhaseTable(index);
         } else if (myTLSEditorParent->myEditedDef->getType() == TrafficLightType::NEMA) {
             initNEMAPhaseTable(index);
@@ -1480,7 +1480,7 @@ GNETLSEditorFrame::TLSPhases::updateCycleDuration() {
 }
 
 
-void 
+void
 GNETLSEditorFrame::TLSPhases::initStaticPhaseTable(const int index) {
     // declare constants for columns
     const int cols = 4;
@@ -1529,7 +1529,7 @@ GNETLSEditorFrame::TLSPhases::initStaticPhaseTable(const int index) {
 }
 
 
-void 
+void
 GNETLSEditorFrame::TLSPhases::initActuatedPhaseTable(const int index) {
     // declare constants for columns
     const int cols = 8;
@@ -1596,7 +1596,7 @@ GNETLSEditorFrame::TLSPhases::initActuatedPhaseTable(const int index) {
 }
 
 
-void 
+void
 GNETLSEditorFrame::TLSPhases::initDelayBasePhaseTable(const int index) {
     // declare constants for columns
     const int cols = 8;
@@ -1655,7 +1655,7 @@ GNETLSEditorFrame::TLSPhases::initDelayBasePhaseTable(const int index) {
 }
 
 
-void 
+void
 GNETLSEditorFrame::TLSPhases::initNEMAPhaseTable(const int index) {
     // declare constants for columns
     const int cols = 9;
@@ -1867,7 +1867,7 @@ GNETLSEditorFrame::TLSFile::onCmdSaveTLSProgram(FXObject*, FXSelector, void*) {
         const bool TLSNEMA = (myTLSEditorParent->myEditedDef->getLogic()->getType() == TrafficLightType::NEMA);
         // write the phases
         const std::vector<NBTrafficLightLogic::PhaseDefinition>& phases = myTLSEditorParent->myEditedDef->getLogic()->getPhases();
-        for (const auto &phase : phases) {
+        for (const auto& phase : phases) {
             device.openTag(SUMO_TAG_PHASE);
             device.writeAttr(SUMO_ATTR_DURATION, writeSUMOTime(phase.duration));
             device.writeAttr(SUMO_ATTR_STATE, phase.state);

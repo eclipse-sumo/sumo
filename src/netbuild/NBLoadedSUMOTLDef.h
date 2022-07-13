@@ -60,7 +60,7 @@ public:
     /// @brief Destructor
     ~NBLoadedSUMOTLDef();
 
-    void setID(const std::string& newID); 
+    void setID(const std::string& newID);
 
     /** @brief Sets the programID
      * @param[in] programID The new ID of the program (subID)
@@ -106,8 +106,8 @@ public:
      * @param[in] earliestEnd The early end of the phase to add
      * @param[in] latestEnd The latest end of the phase to add
      */
-    void addPhase(const SUMOTime duration, const std::string& state, const SUMOTime minDur, const SUMOTime maxDur, 
-                  const SUMOTime earliestEnd, const SUMOTime latestEnd, const SUMOTime vehExt, const SUMOTime yellow, 
+    void addPhase(const SUMOTime duration, const std::string& state, const SUMOTime minDur, const SUMOTime maxDur,
+                  const SUMOTime earliestEnd, const SUMOTime latestEnd, const SUMOTime vehExt, const SUMOTime yellow,
                   const SUMOTime red, const std::vector<int>& next, const std::string& name);
 
     /// @brief mark phases as load

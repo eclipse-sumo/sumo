@@ -46,3 +46,5 @@ write_shapes
 
 # generate plain geo output
 plain_geo
+save_config
+load_config

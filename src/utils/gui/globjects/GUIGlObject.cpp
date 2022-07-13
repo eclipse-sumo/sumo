@@ -182,7 +182,7 @@ GUIGlObject::getTypeParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& par
 }
 
 
-void 
+void
 GUIGlObject::updateGLObject() {
     // by default nothing to update
 }

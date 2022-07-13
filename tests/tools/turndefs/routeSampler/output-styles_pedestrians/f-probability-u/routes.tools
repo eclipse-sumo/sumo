@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2022-02-22 07:52:34.153841 by routeSampler.py v1_12_0+0744-bdcac826e5c
+
+<!-- generated on 2022-07-07 11:19:51.436472 by routeSampler.py v1_13_0+1343-240e5d48340
 <configuration>
     <pedestrians value="True"/>
     <route-files value="input_routes.rou.xml"/>
@@ -7,8 +8,8 @@
     <write-flows value="probability"/>
     <write-route-distribution value="routeDist"/>
 </configuration>
-
 -->
+
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 <!-- begin="0.0" end="99.0" -->
     <routeDistribution id="routeDist">
@@ -86,5 +87,5 @@
         <route id="96" edges="71.121.42 -3 -3.180.00 15 15.180.00" probability="1"/>
     </routeDistribution>
 
-    <flow id="routeDist" begin="0.00" end="99.00" probability="0.8787878787878788" route="routeDist"/>
+    <flow id="routeDist" begin="0.00" end="99.00" probability="0.8788" route="routeDist"/>
 </routes>

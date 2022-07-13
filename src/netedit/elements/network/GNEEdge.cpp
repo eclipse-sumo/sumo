@@ -120,7 +120,7 @@ GNEEdge::~GNEEdge() {
 }
 
 
-bool 
+bool
 GNEEdge::isNetworkElementValid() const {
     if (getFromJunction()->getNBNode()->getPosition() != getToJunction()->getNBNode()->getPosition()) {
         return true;
@@ -132,9 +132,9 @@ GNEEdge::isNetworkElementValid() const {
 
 std::string
 GNEEdge::getNetworkElementProblem() const {
-    return "Parent junctions are in the same position: " + 
-        toString(getFromJunction()->getNBNode()->getPosition().x()) + ", " +
-        toString(getFromJunction()->getNBNode()->getPosition().y());
+    return "Parent junctions are in the same position: " +
+           toString(getFromJunction()->getNBNode()->getPosition().x()) + ", " +
+           toString(getFromJunction()->getNBNode()->getPosition().y());
 }
 
 
@@ -456,9 +456,9 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
 }
 
 
-void 
+void
 GNEEdge::updateGLObject() {
-    updateGeometry(); 
+    updateGeometry();
 }
 
 
@@ -1037,6 +1037,12 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
             if (myNBEdge->getTurnDestination(true) != nullptr) {
                 GNEEdge* bidi = myNet->getAttributeCarriers()->retrieveEdge(myNBEdge->getTurnDestination(true)->getID());
                 undoList->changeAttribute(new GNEChange_Attribute(bidi, key, value));
+                if (myNBEdge->getGeometry() != bidi->getNBEdge()->getGeometry().reverse() && myNBEdge->getGeometry().size() == 2 && bidi->getNBEdge()->getGeometry().size() == 2) {
+                    // NBEdge::avoidOverlap was already active so we need to reset the
+                    // geometry to it's default
+                    resetBothEndpoint(undoList);
+                    bidi->resetBothEndpoint(undoList);
+                }
             }
             undoList->end();
             break;
@@ -1129,7 +1135,11 @@ GNEEdge::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ENDOFFSET:
             return canParse<double>(value) && parse<double>(value) >= 0 && parse<double>(value) < myNBEdge->getLoadedLength();
         case SUMO_ATTR_DISTANCE:
-            return canParse<double>(value);
+            if (value.empty()) {
+                return true;
+            } else {
+                return canParse<double>(value);
+            }
         case GNE_ATTR_SHAPE_START: {
             if (value.empty()) {
                 return true;
@@ -1513,8 +1523,8 @@ GNEEdge::hasPredecessors() const {
     // get incoming edges
     const auto incomingEdges = getFromJunction()->getGNEIncomingEdges();
     // iterate over connections
-    for (const auto &incomingEdge : incomingEdges) {
-        for (const auto &connection : incomingEdge->getGNEConnections()) {
+    for (const auto& incomingEdge : incomingEdges) {
+        for (const auto& connection : incomingEdge->getGNEConnections()) {
             if (connection->getEdgeTo() == this) {
                 return true;
             }
@@ -1524,7 +1534,7 @@ GNEEdge::hasPredecessors() const {
 }
 
 
-bool 
+bool
 GNEEdge::hasSuccessors() const {
     return (myGNEConnections.size() > 0);
 }
@@ -1665,7 +1675,11 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_DISALLOW:
             break; // no edge value
         case SUMO_ATTR_DISTANCE:
-            myNBEdge->setDistance(parse<double>(value));
+            if (value.empty()) {
+                myNBEdge->setDistance(0.0);
+            } else {
+                myNBEdge->setDistance(parse<double>(value));
+            }
             break;
         case GNE_ATTR_MODIFICATION_STATUS:
             myConnectionStatus = value;
@@ -1801,8 +1815,12 @@ GNEEdge::setNumLanes(int numLanes, GNEUndoList* undoList) {
     getToJunction()->setLogicValid(false, undoList);
     // disable update geometry (see #6336)
     myUpdateGeometry = false;
+    // remove edge from grid
+    myNet->removeGLObjectFromGrid(this);
+    // save old number of lanes
     const int oldNumLanes = (int)myLanes.size();
-    std::string oppositeID = myLanes.back()->getAttribute(GNE_ATTR_OPPOSITE);
+    // get opposite ID
+    const auto oppositeID = myLanes.back()->getAttribute(GNE_ATTR_OPPOSITE);
     if (oppositeID != "") {
         // we'll have a different leftmost lane after adding/removing lanes
         undoList->changeAttribute(new GNEChange_Attribute(myLanes.back(), GNE_ATTR_OPPOSITE, ""));
@@ -1824,8 +1842,10 @@ GNEEdge::setNumLanes(int numLanes, GNEUndoList* undoList) {
     updateGeometry();
     // end undo list
     undoList->end();
-    // update centering boundary and grid
-    updateCenteringBoundary(true);
+    // update centering boundary (without updating RTREE)
+    updateCenteringBoundary(false);
+    // insert edge in grid again
+    myNet->addGLObjectIntoGrid(this);
 }
 
 
@@ -1886,12 +1906,12 @@ GNEEdge::addLane(GNELane* lane, const NBEdge::Lane& laneAttrs, bool recomputeCon
     // Remake connections for this edge and all edges that target this lane
     remakeGNEConnections();
     // remake connections of all edges of junction source and destiny
-    for (auto i : getFromJunction()->getChildEdges()) {
-        i->remakeGNEConnections();
+    for (const auto& fromEdge : getFromJunction()->getChildEdges()) {
+        fromEdge->remakeGNEConnections();
     }
     // remake connections of all edges of junction source and destiny
-    for (auto i : getToJunction()->getChildEdges()) {
-        i->remakeGNEConnections();
+    for (const auto& toEdge : getToJunction()->getChildEdges()) {
+        toEdge->remakeGNEConnections();
     }
     // Update geometry with the new lane
     updateGeometry();
@@ -2345,9 +2365,9 @@ GNEEdge::drawTAZElements(const GUIVisualizationSettings& s) const {
     if (myNet->getViewNet()->getNetworkViewOptions().showTAZElements()) {
         std::vector<GNEAdditional*> TAZSourceSinks;
         // get all TAZ source/sinks vinculated with this edge
-        for (const auto &additional : getChildAdditionals()) {
+        for (const auto& additional : getChildAdditionals()) {
             if ((additional->getTagProperty().getTag() == SUMO_TAG_TAZSOURCE) ||
-                (additional->getTagProperty().getTag() == SUMO_TAG_TAZSINK)) {
+                    (additional->getTagProperty().getTag() == SUMO_TAG_TAZSINK)) {
                 TAZSourceSinks.push_back(additional);
             }
         }
@@ -2355,25 +2375,25 @@ GNEEdge::drawTAZElements(const GUIVisualizationSettings& s) const {
             // check if current front element is a Source/sink
             const auto frontAC = myNet->getViewNet()->getFrontAttributeCarrier();
             // push all GLIDs
-            for (const auto &TAZSourceSink : TAZSourceSinks) {
+            for (const auto& TAZSourceSink : TAZSourceSinks) {
                 if (TAZSourceSink == frontAC) {
                     GLHelper::pushName(TAZSourceSink->getGUIGlObject()->getGlID());
                 }
             }
-            for (const auto &TAZSourceSink : TAZSourceSinks) {
+            for (const auto& TAZSourceSink : TAZSourceSinks) {
                 if (TAZSourceSink != frontAC) {
                     GLHelper::pushName(TAZSourceSink->getGlID());
                 }
             }
             // check if TAZ Source/sink is selected
             bool selected = false;
-            for (const auto &TAZSourceSink : TAZSourceSinks) {
+            for (const auto& TAZSourceSink : TAZSourceSinks) {
                 if (TAZSourceSink->isAttributeCarrierSelected()) {
                     selected = true;
                 }
             }
             // iterate over lanes
-            for (const auto &lane : myLanes) {
+            for (const auto& lane : myLanes) {
                 // get lane drawing constants
                 GNELane::LaneDrawingConstants laneDrawingConstants(s, lane);
                 // Push layer matrix
@@ -2395,24 +2415,24 @@ GNEEdge::drawTAZElements(const GUIVisualizationSettings& s) const {
                     GLHelper::setColor(RGBColor::CYAN);
                 }
                 // draw as box lines
-                GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), 
-                    lane->getLaneGeometry(), laneDrawingConstants.halfWidth);
+                GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(),
+                                          lane->getLaneGeometry(), laneDrawingConstants.halfWidth);
                 // Pop layer matrix
                 GLHelper::popMatrix();
             }
             // pop all GLIDs
-            for (const auto &TAZSourceSink : TAZSourceSinks) {
+            for (const auto& TAZSourceSink : TAZSourceSinks) {
                 if (TAZSourceSink == frontAC) {
                     GLHelper::popName();
                 }
             }
-            for (const auto &TAZSourceSink : TAZSourceSinks) {
+            for (const auto& TAZSourceSink : TAZSourceSinks) {
                 if (TAZSourceSink != frontAC) {
                     GLHelper::popName();
                 }
             }
             // check if curently we're inspecting a TAZ Source/Sink
-            for (const auto &TAZSourceSink : TAZSourceSinks) {
+            for (const auto& TAZSourceSink : TAZSourceSinks) {
                 if (myNet->getViewNet()->isAttributeCarrierInspected(TAZSourceSink)) {
                     drawDottedContourEdge(GUIDottedGeometry::DottedContourType::INSPECT, s, this, true, true);
                 } else if (TAZSourceSink == frontAC) {

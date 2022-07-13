@@ -116,10 +116,10 @@ FXDEFMAP(GUISUMOAbstractView) GUISUMOAbstractViewMap[] = {
     FXMAPFUNC(SEL_LEAVE,                0,      GUISUMOAbstractView::onMouseLeft),
     FXMAPFUNC(SEL_KEYPRESS,             0,      GUISUMOAbstractView::onKeyPress),
     FXMAPFUNC(SEL_KEYRELEASE,           0,      GUISUMOAbstractView::onKeyRelease),
-	FXMAPFUNC(SEL_COMMAND, MID_CLOSE_LANE,      GUISUMOAbstractView::onCmdCloseLane),
-	FXMAPFUNC(SEL_COMMAND, MID_CLOSE_EDGE,      GUISUMOAbstractView::onCmdCloseEdge),
-	FXMAPFUNC(SEL_COMMAND, MID_ADD_REROUTER,    GUISUMOAbstractView::onCmdAddRerouter),
-	FXMAPFUNC(SEL_COMMAND, MID_REACHABILITY,    GUISUMOAbstractView::onCmdShowReachability),
+    FXMAPFUNC(SEL_COMMAND, MID_CLOSE_LANE,      GUISUMOAbstractView::onCmdCloseLane),
+    FXMAPFUNC(SEL_COMMAND, MID_CLOSE_EDGE,      GUISUMOAbstractView::onCmdCloseEdge),
+    FXMAPFUNC(SEL_COMMAND, MID_ADD_REROUTER,    GUISUMOAbstractView::onCmdAddRerouter),
+    FXMAPFUNC(SEL_COMMAND, MID_REACHABILITY,    GUISUMOAbstractView::onCmdShowReachability),
 };
 
 
@@ -272,6 +272,10 @@ GUISUMOAbstractView::is3DView() const {
 }
 
 
+void GUISUMOAbstractView::zoom2Pos(Position& /* camera */, Position& /* lookAt */, double /* zoom */) {
+}
+
+
 void
 GUISUMOAbstractView::paintGL() {
     // reset debug counters
@@ -329,30 +333,30 @@ GUISUMOAbstractView::paintGL() {
 
 long
 GUISUMOAbstractView::onCmdCloseLane(FXObject*, FXSelector, void*) {
-	return 1;
+    return 1;
 }
 
 
 long
 GUISUMOAbstractView::onCmdCloseEdge(FXObject*, FXSelector, void*) {
-	return 1;
+    return 1;
 }
 
 
 long
 GUISUMOAbstractView::onCmdAddRerouter(FXObject*, FXSelector, void*) {
-	return 1;
+    return 1;
 }
 
 
 long
 GUISUMOAbstractView::onCmdShowReachability(FXObject*, FXSelector, void*) {
-	return 1;
+    return 1;
 }
 
 
 GUILane* GUISUMOAbstractView::getLaneUnderCursor() {
-	return nullptr;
+    return nullptr;
 }
 
 
@@ -1433,8 +1437,8 @@ GUISUMOAbstractView::getViewportEditor() {
 
 void GUISUMOAbstractView::updateViewportValues() {
     myViewportChooser->setValues(myChanger->getZoom(),
-        myChanger->getXPos(), myChanger->getYPos(),
-        myChanger->getRotation());
+                                 myChanger->getXPos(), myChanger->getYPos(),
+                                 myChanger->getRotation());
 }
 
 

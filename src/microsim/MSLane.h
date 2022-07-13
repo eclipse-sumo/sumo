@@ -87,7 +87,7 @@ public:
     public:
         /// @brief Constructor
         StoringVisitor(std::set<const Named*>& objects, const PositionVector& shape,
-            const double range, const int domain)
+                       const double range, const int domain)
             : myObjects(objects), myShape(shape), myRange(range), myDomain(domain) {}
 
         /// @brief Adds the given object to the container
@@ -1085,6 +1085,7 @@ public:
 
 
     /** @brief Returns the sum of last step emissions
+     * The value is always per 1s, so multiply by step length if necessary.
      * @return emissions of vehicles on this lane during the last step
      */
     template<PollutantsInterface::EmissionType ET>

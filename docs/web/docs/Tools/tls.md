@@ -228,11 +228,10 @@ And obtain the following programs after loading them into
 # tls_csvSignalGroups.py
 
 Converts a csv-tls-description into one SUMO can read as additional
-file. This tool differs from **tls_csv2SUMO.py** by being based on
+file (and vice versa). This tool differs from **tls_csv2SUMO.py** by being based on
 signal groups in a way that is closer to the typical representation used
 by traffic engineers. It accepts green times per signal group and
-creates the [sumo](../sumo.md) tls representation out of it using
-the . Example call to convert two csv-tls-descriptions into the
+creates the [sumo](../sumo.md) tls representation out of it. Example call to convert two csv-tls-descriptions into the
 additional file *tls.add.xml*:
 
 ```
@@ -246,6 +245,19 @@ and completed by hand:
 ```
 python tools/tls/tls_csvSignalgroups.py -n net.net.xml -m .
 ```
+It also provides a mechanism to convert an additional file *tls.add.xml* or the TL logic contained in a 
+net file *net.net.xml* directly into a csv-tls-representation. Example call to convert an additional file *tls.add.xml* 
+into csv-tls-representation(s):
+
+```
+python tools/tls/tls_csvSignalgroups.py -n net.net.xml -i tls.add.xml -r -n net.net.xml --group
+```
+The csv output files (one per found TL logic) are written to the current working directory and named *tlID_programID.csv*. 
+When adding the parameter **--group**, signal groups with identical signal states across all examined TL logics are joined.
+
+!!! caution
+    The conversion from an additional file *tls.add.xml* to csv may be lossy in some cases, e.g. when using variable green durations.
+    Phase data other than the signal states and the standard duration are currently disregarded.
 
 The input csv file contains input blocks divided by titles in brackets.
 The block \[general\] sets general information relating to the signal

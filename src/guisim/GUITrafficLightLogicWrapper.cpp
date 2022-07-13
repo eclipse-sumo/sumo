@@ -163,7 +163,6 @@ GUITrafficLightLogicWrapper::getPopUpMenu(GUIMainWindow& app,
     GUIGLObjectPopupMenu* ret = new GUITrafficLightLogicWrapperPopupMenu(app, parent, *this);
     buildPopupHeader(ret, app);
     buildCenterPopupEntry(ret);
-    //
     const MSTLLogicControl::TLSLogicVariants& vars = myTLLogicControl.get(myTLLogic.getID());
     std::vector<MSTrafficLightLogic*> logics = vars.getAllLogics();
     if (logics.size() > 1) {
@@ -177,7 +176,7 @@ GUITrafficLightLogicWrapper::getPopUpMenu(GUIMainWindow& app,
         }
         new FXMenuSeparator(ret);
     }
-    MSOffTrafficLightLogic* offLogic = dynamic_cast<MSOffTrafficLightLogic*>(&myTLLogic);
+    MSOffTrafficLightLogic* offLogic = dynamic_cast<MSOffTrafficLightLogic*>(vars.getActive());
     if (offLogic == nullptr) {
         GUIDesigns::buildFXMenuCommand(ret, "Switch off", GUIIconSubSys::getIcon(GUIIcon::FLAG_MINUS), ret, MID_SWITCH_OFF);
     }

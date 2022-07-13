@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-07-01 10:40:14 by Eclipse SUMO netedit Version v1_13_0+1344-f38ea9a
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- Shapes -->
+    <poly id="po_0" color="red" fill="1" layer="0.00" shape="40,120 130,120 130,50 40,50"/>
+    <poly id="po_1" color="0,0,255" fill="1" layer="0.00" shape="40,120 130,120 130,50 40,50" type="foo"/>
+</additional>

@@ -739,6 +739,7 @@ public:
     //@{
 
     /** @brief Returns emissions of the current state
+     * The value is always per 1s, so multiply by step length if necessary.
      * @return The current emission
      */
     template<PollutantsInterface::EmissionType ET>

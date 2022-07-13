@@ -27,7 +27,6 @@ import bisect
 import subprocess
 from collections import defaultdict
 import math
-import datetime
 
 if 'SUMO_HOME' in os.environ:
     sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
@@ -41,10 +40,19 @@ SOURCE_SUFFIX = ".src.xml"
 SINK_SUFFIX = ".dst.xml"
 VIA_SUFFIX = ".via.xml"
 
+NET = None  # Used as a cache for the net throughout the whole script.
+
+
+def get_network(options):
+    global NET
+    if NET is None:
+        NET = sumolib.net.readNet(options.netfile)
+    return NET
+
 
 def get_options(args=None):
     optParser = sumolib.options.ArgumentParser(description="Generate trips between random locations")
-    optParser.add_argument("-n", "--net-file", dest="netfile",
+    optParser.add_argument("-n", "--net-file", dest="netfile", required=True,
                            help="define the net file (mandatory)")
     optParser.add_argument("-a", "--additional-files", dest="additional",
                            help="define additional files to be loaded by the router")
@@ -73,16 +81,13 @@ def get_options(args=None):
                            help="Use FLOAT as a factor on pedestrian maximum speed against vehicle traffic direction")
     optParser.add_argument("--prefix", dest="tripprefix",
                            default="", help="prefix for the trip ids")
-    optParser.add_argument("-t", "--trip-attributes", dest="tripattrs",
-                           default="", help="additional trip attributes. When generating pedestrians, attributes for " +
+    optParser.add_argument("-t", "--trip-attributes", dest="tripattrs", default="",
+                           help="additional trip attributes. When generating pedestrians, attributes for " +
                            "<person> and <walk> are supported.")
     optParser.add_argument("--fringe-start-attributes", dest="fringeattrs",
                            default="", help="additional trip attributes when starting on a fringe.")
     optParser.add_argument("-b", "--begin", default=0, help="begin time")
     optParser.add_argument("-e", "--end", default=3600, help="end time (default 3600)")
-    optParser.add_argument("-p", "--period", type=float, default=1.0, nargs="+", metavar="FLOAT",
-                           help="Generate vehicles with equidistant departure times and period=FLOAT (default 1.0). " +
-                           "If option --binomial is used, the expected arrival rate is set to 1/period.")
     optParser.add_argument("--random-depart", action="store_true", dest="randomDepart",
                            default=False, help="Distribute departures randomly between begin and end")
     optParser.add_argument("-s", "--seed", type=int, default=42, help="random seed")
@@ -98,14 +103,14 @@ def get_options(args=None):
                            default=0.0, help="weight edge probability by speed^<FLOAT> (default 0)")
     optParser.add_argument("--fringe-speed-exponent", type=float, dest="fringe_speed_exponent", metavar="FLOAT",
                            help="weight fringe edge probability by speed^<FLOAT> (default: speed exponent)")
-    optParser.add_argument("--angle", type=float, dest="angle",
-                           default=90.0, help="weight edge probability by angle [0-360] relative to the network center")
+    optParser.add_argument("--angle", type=float, dest="angle", default=90.0,
+                           help="weight edge probability by angle [0-360] relative to the network center")
     optParser.add_argument("--angle-factor", type=float, dest="angle_weight",
                            default=1.0, help="maximum weight factor for angle")
     optParser.add_argument("--fringe-factor", type=float, dest="fringe_factor",
                            default=1.0, help="multiply weight of fringe edges by <FLOAT> (default 1")
-    optParser.add_argument("--fringe-threshold", type=float, dest="fringe_threshold",
-                           default=0.0, help="only consider edges with speed above <FLOAT> as fringe edges (default 0)")
+    optParser.add_argument("--fringe-threshold", type=float, dest="fringe_threshold", default=0.0,
+                           help="only consider edges with speed above <FLOAT> as fringe edges (default 0)")
     optParser.add_argument("--allow-fringe", dest="allow_fringe", action="store_true", default=False,
                            help="Allow departing on edges that leave the network and arriving on edges " +
                            "that enter the network (via turnarounds or as 1-edge trips")
@@ -114,10 +119,10 @@ def get_options(args=None):
                            "that enter the network, if they have at least the given length")
     optParser.add_argument("--fringe-junctions", action="store_true", dest="fringeJunctions",
                            default=False, help="Determine fringe edges based on junction attribute 'fringe'")
-    optParser.add_argument("--min-distance", type=float, dest="min_distance", metavar="FLOAT",
-                           default=0.0, help="require start and end edges for each trip to be at least <FLOAT> m apart")
+    optParser.add_argument("--min-distance", type=float, dest="min_distance", metavar="FLOAT", default=0.0,
+                           help="require start and end edges for each trip to be at least <FLOAT> m apart")
     optParser.add_argument("--max-distance", type=float, dest="max_distance", metavar="FLOAT",
-                           default=None, help="require start and end edges for each trip to be at most <FLOAT> m " +
+                           help="require start and end edges for each trip to be at most <FLOAT> m " +
                            "apart (default 0 which disables any checks)")
     optParser.add_argument("-i", "--intermediate", type=int,
                            default=0, help="generates the given number of intermediate way points")
@@ -153,10 +158,19 @@ def get_options(args=None):
                            help="Randomly choose a position on the starting edge of the trip")
     optParser.add_argument("--random-arrivalpos", dest="randomArrivalPos", action="store_true",
                            help="Randomly choose a position on the ending edge of the trip")
+
+    insertionArgs = optParser.add_mutually_exclusive_group()
+    insertionArgs.add_argument("-p", "--period", type=float, nargs="+", metavar="FLOAT",
+                               help="Generate vehicles with equidistant departure times and period=FLOAT (default 1). "
+                               "If option --binomial is used, the expected arrival rate is set to 1/period.")
+    insertionArgs.add_argument("--insertion-rate", dest="insertionRate", type=float, nargs="+", metavar="FLOAT",
+                               help="How much vehicles arrive in the simulation per hour " +
+                               "(alternative to the period option).")
+    insertionArgs.add_argument("--insertion-density", dest="insertionDensity", type=float, nargs="+", metavar="FLOAT",
+                               help="How much vehicles arrive in the simulation per hour per kilometer of road "
+                               "(alternative to the period option).")
+
     options = optParser.parse_args(args=args)
-    if not options.netfile:
-        optParser.print_help()
-        sys.exit(1)
 
     if options.persontrips or options.personrides:
         options.pedestrians = True
@@ -170,14 +184,26 @@ def get_options(args=None):
     if options.validate and options.routefile is None:
         options.routefile = "routes.rou.xml"
 
-    if isinstance(options.period, float):
-        options.period = [options.period]
+    if options.period is None and options.insertionRate is None and options.insertionDensity is None:
+        options.period = [1.]
 
-    options.period = list(map(intIfPossible, options.period))
+    if options.insertionDensity:
+        # Compute length of the network
+        net = get_network(options)
+        length = 0.  # In meters
+        for edge in net.getEdges():
+            if edge.allows(options.vclass):
+                length += edge.getLaneNumber() * edge.getLength()
+        options.insertionRate = [density * (length / 1000.0) for density in options.insertionDensity]
 
-    if any(options.period) <= 0:
-        print("Error: Period must be positive", file=sys.stderr)
-        sys.exit(1)
+    if options.insertionRate:
+        options.period = [3600.0 / rate for rate in options.insertionRate]
+
+    if options.period:
+        if any(options.period) <= 0:
+            print("Error: Period must be positive", file=sys.stderr)
+            sys.exit(1)
+        options.period = list(map(intIfPossible, options.period))
 
     if options.jtrrouter and options.flows <= 0:
         print("Error: Option --jtrrouter must be used with option --flows", file=sys.stderr)
@@ -492,7 +518,7 @@ def main(options):
     if not options.random:
         random.seed(options.seed)
 
-    net = sumolib.net.readNet(options.netfile)
+    net = get_network(options)
     if options.min_distance > net.getBBoxDiameter() * (options.intermediate + 1):
         options.intermediate = int(
             math.ceil(options.min_distance / net.getBBoxDiameter())) - 1
@@ -732,6 +758,7 @@ def main(options):
         sys.stdout.flush()
         subprocess.call(args2)
         sys.stdout.flush()
+        sumolib.xml.insertOptionsHeader(options.routefile, options)
 
     if options.validate:
         # write to temporary file because the input is read incrementally
@@ -745,14 +772,7 @@ def main(options):
         sys.stdout.flush()
         os.remove(options.tripfile)  # on windows, rename does not overwrite
         os.rename(tmpTrips, options.tripfile)
-
-        with open(options.tripfile, 'r') as fouttrips:
-            contents = fouttrips.readlines()
-        config = '\n<!-- generated on %s by %s %s\n%s-->' % (datetime.datetime.now(), os.path.basename(sys.argv[0]), sumolib.version.gitDescribe(), options.config_as_string)
-        contents.insert(1, config)
-        with open(options.tripfile, "w") as fouttrips:
-            contents = "".join(contents)
-            fouttrips.write(contents)
+        sumolib.xml.insertOptionsHeader(options.tripfile, options)
 
     if options.weights_outprefix:
         idPrefix = ""

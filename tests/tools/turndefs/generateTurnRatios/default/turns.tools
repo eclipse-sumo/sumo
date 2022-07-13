@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2022-02-10 17:05:51.511932 by generateTurnRatios.py v1_12_0+0466-1d2f7db
+
+<!-- generated on 2022-07-07 11:19:38.790005 by generateTurnRatios.py v1_13_0+1343-240e5d48340
   options: -r input_routes.rou.xml -o turns.xml -v
 -->
+
 <data xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/datamode_file.xsd">
     <interval id="generated" begin="0.0" end="99.0">
         <edgeRelation from="-109" to="-109.80.00" count="10"/>

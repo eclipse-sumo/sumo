@@ -728,7 +728,7 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
             delete logic;
             logic = nemaLogic;
         }
-    } 
+    }
 
     SUMOTime totalDuration = logic->getDuration();
 
@@ -797,7 +797,7 @@ NBOwnTLDef::hasCrossing(const NBEdge* from, const NBEdge* to, const std::vector<
 
 
 std::string
-NBOwnTLDef::addPedestrianPhases(NBTrafficLightLogic* logic, const SUMOTime greenTime, const SUMOTime minDur, const SUMOTime maxDur, 
+NBOwnTLDef::addPedestrianPhases(NBTrafficLightLogic* logic, const SUMOTime greenTime, const SUMOTime minDur, const SUMOTime maxDur,
                                 const SUMOTime earliestEnd, const SUMOTime latestEnd,
                                 std::string state, const std::vector<NBNode::Crossing*>& crossings, const EdgeVector& fromEdges, const EdgeVector& toEdges) {
     // compute based on length of the crossing if not set by the user
@@ -1361,7 +1361,7 @@ NBOwnTLDef::corridorLike() const {
         }
     }
     delete tllDummy;
-    for (const auto &controlledNode : myControlledNodes) {
+    for (const auto& controlledNode : myControlledNodes) {
         controlledNode->removeTrafficLight(&dummy);
     }
     return greenPhases <= 2;
@@ -1370,11 +1370,10 @@ NBOwnTLDef::corridorLike() const {
 
 NBTrafficLightLogic*
 NBOwnTLDef::buildNemaPhases(
-        const EdgeVector& fromEdges,
-        const std::vector<std::pair<NBEdge*, NBEdge*> >& chosenList,
-        const std::vector<std::string>& straightStates,
-        const std::vector<std::string>& leftStates)
-{
+    const EdgeVector& fromEdges,
+    const std::vector<std::pair<NBEdge*, NBEdge*> >& chosenList,
+    const std::vector<std::string>& straightStates,
+    const std::vector<std::string>& leftStates) {
     if (chosenList.size() != 2) {
         return nullptr;
     }
@@ -1389,10 +1388,10 @@ NBOwnTLDef::buildNemaPhases(
 
     const int totalNumLinks = (int)straightStates[0].size();
     NBTrafficLightLogic* logic = new NBTrafficLightLogic(getID(), getProgramID(), totalNumLinks, myOffset, myType);
-    std::vector<int> ring1({1,2,3,4});
-    std::vector<int> ring2({5,6,7,8});
-    std::vector<int> barrier1({4,8});
-    std::vector<int> barrier2({2,6});
+    std::vector<int> ring1({1, 2, 3, 4});
+    std::vector<int> ring2({5, 6, 7, 8});
+    std::vector<int> barrier1({4, 8});
+    std::vector<int> barrier2({2, 6});
     int phaseNameLeft = 1;
     for (int i = 0; i < (int)chosenList.size(); i++) {
         NBEdge* e1 = chosenList[i].first;

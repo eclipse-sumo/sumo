@@ -209,16 +209,16 @@ GLHelper::drawFilledPoly(const PositionVector& v, bool close) {
     for (PositionVector::const_iterator i = v.begin(); i != v.end(); i++) {
         const Position& p = *i;
         glVertex2d(p.x(), p.y());
-    #ifdef CHECK_ELEMENTCOUNTER
+#ifdef CHECK_ELEMENTCOUNTER
         myVertexCounter++;
-    #endif
+#endif
     }
     if (close) {
         const Position& p = *(v.begin());
         glVertex2d(p.x(), p.y());
-    #ifdef CHECK_ELEMENTCOUNTER
+#ifdef CHECK_ELEMENTCOUNTER
         myVertexCounter++;
-    #endif
+#endif
     }
     glEnd();
 }
@@ -458,9 +458,9 @@ GLHelper::drawLine(const PositionVector& v) {
     for (int i = 0; i < e; ++i) {
         glVertex2d(v[i].x(), v[i].y());
         glVertex2d(v[i + 1].x(), v[i + 1].y());
-    #ifdef CHECK_ELEMENTCOUNTER
+#ifdef CHECK_ELEMENTCOUNTER
         myVertexCounter += 2;
-    #endif
+#endif
     }
     glEnd();
 }
@@ -474,9 +474,9 @@ GLHelper::drawLine(const PositionVector& v, const std::vector<RGBColor>& cols) {
         setColor(cols[i]);
         glVertex2d(v[i].x(), v[i].y());
         glVertex2d(v[i + 1].x(), v[i + 1].y());
-    #ifdef CHECK_ELEMENTCOUNTER
+#ifdef CHECK_ELEMENTCOUNTER
         myVertexCounter += 2;
-    #endif
+#endif
     }
     glEnd();
 }
@@ -514,9 +514,9 @@ GLHelper::drawFilledCircle(double width, int steps, double beg, double end) {
         glVertex2d(0, 0);
         glEnd();
         p1 = p2;
-    #ifdef CHECK_ELEMENTCOUNTER
+#ifdef CHECK_ELEMENTCOUNTER
         myVertexCounter += 2;
-    #endif
+#endif
     }
 }
 
@@ -547,9 +547,9 @@ GLHelper::drawOutlineCircle(double width, double iwidth, int steps,
 
         glEnd();
         p1 = p2;
-    #ifdef CHECK_ELEMENTCOUNTER
+#ifdef CHECK_ELEMENTCOUNTER
         myVertexCounter += 6;
-    #endif
+#endif
     }
 }
 
@@ -804,9 +804,9 @@ GLHelper::drawCrossTies(const PositionVector& geom,
                 glVertex2d(halfWidth, -t - length);
                 glVertex2d(halfWidth, -t);
                 glEnd();
-            #ifdef CHECK_ELEMENTCOUNTER
+#ifdef CHECK_ELEMENTCOUNTER
                 myVertexCounter += 4;
-            #endif
+#endif
             }
         } else {
             // only draw a single rectangle if it's being drawn only for selecting
@@ -816,9 +816,9 @@ GLHelper::drawCrossTies(const PositionVector& geom,
             glVertex2d(halfWidth, -lengths.back());
             glVertex2d(halfWidth, 0);
             glEnd();
-        #ifdef CHECK_ELEMENTCOUNTER
+#ifdef CHECK_ELEMENTCOUNTER
             myVertexCounter += 4;
-        #endif
+#endif
         }
         // pop three draw matrix
         GLHelper::popMatrix();
@@ -853,9 +853,9 @@ GLHelper::drawInverseMarkings(const PositionVector& geom,
                 glVertex2d(-mw2, -t - length);
                 glVertex2d(-mw2, -t);
                 glEnd();
-            #ifdef CHECK_ELEMENTCOUNTER
+#ifdef CHECK_ELEMENTCOUNTER
                 myVertexCounter += 4;
-            #endif
+#endif
                 if (!cl || !cr) {
                     // draw inverse marking between asymmetrical lane markings
                     const double length2 = MIN2((double)6, lengths[i] - t);
@@ -865,9 +865,9 @@ GLHelper::drawInverseMarkings(const PositionVector& geom,
                     glVertex2d(-halfWidth - 0.02, -t - length);
                     glVertex2d(-halfWidth - 0.02, -t - length2);
                     glEnd();
-                #ifdef CHECK_ELEMENTCOUNTER
+#ifdef CHECK_ELEMENTCOUNTER
                     myVertexCounter += 4;
-                #endif
+#endif
                 }
             }
             GLHelper::popMatrix();
@@ -881,11 +881,11 @@ GLHelper::debugVertices(const PositionVector& shape, const GUIVisualizationTextS
     RGBColor color = RGBColor::randomHue();
     for (int i = 0; i < (int)shape.size(); ++i) {
         drawTextBox(toString(i), shape[i], layer,
-                settings.scaledSize(scale),
-                color,
-                settings.bgColor,
-                RGBColor::INVISIBLE,
-                0, 0, 0.2);
+                    settings.scaledSize(scale),
+                    color,
+                    settings.bgColor,
+                    RGBColor::INVISIBLE,
+                    0, 0, 0.2);
     }
 }
 

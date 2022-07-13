@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2021-09-23 16:27:52.072846 by gtfs2pt.py v1_10_0+0956-4d48838f15b
+
+<!-- generated on 2022-07-07 11:18:52.325581 by gtfs2pt.py v1_13_0+1343-240e5d48340
   options: -n net.net.xml <doubleminus>gtfs gtfs.zip <doubleminus>date 20201111 <doubleminus>vtype-output vehtypes.xml <doubleminus>modes bus <doubleminus>end 122400
 -->
+
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <busStop id="27220216:0.00" lane="27220216_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="Braunschweig Rathaus">
     </busStop>

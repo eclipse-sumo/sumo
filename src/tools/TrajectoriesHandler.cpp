@@ -157,11 +157,11 @@ TrajectoriesHandler::writeOptional(std::ostream& o, long long int attributes, co
 
 bool
 TrajectoriesHandler::writeEmissions(std::ostream& o, const std::string id,
-    const SUMOEmissionClass c,
-    EnergyParams* params,
-    long long int attributes,
-    double t, double& v,
-    double& a, double& s) {
+                                    const SUMOEmissionClass c,
+                                    EnergyParams* params,
+                                    long long int attributes,
+                                    double t, double& v,
+                                    double& a, double& s) {
     if (myComputeA && myLastV.count(id) == 0) {
         myLastV[id] = v;
         myLastSlope[id] = s;

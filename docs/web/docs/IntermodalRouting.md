@@ -64,7 +64,7 @@ An example for a bus line and a person that may uses this line are given below:
 
 # Switching between modes
 
-Not all places in a traffic network are suitable for transfering between walking and riding modes (i.e. parking facilities may be needed to switch from a private car to walking or public transport). The following options are provided for this purpose:
+Not all places in a traffic network are suitable for transferring between walking and riding modes (i.e. parking facilities may be needed to switch from a private car to walking or public transport). The following options are provided for this purpose:
 
 - **--persontrip.transfer.car-walk**: set a list of any of the following values: parkingAreas, ptStops, allJunctions (default *parkingAreas*)  
 - **--persontrip.transfer.taxi-walk**: set a list of any of the following values: ptStops, allJunctions (default *allJunctions*)

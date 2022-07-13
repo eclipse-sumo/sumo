@@ -72,9 +72,6 @@
 // ===========================================================================
 // Constants
 // ===========================================================================
-// default value for the detection range of potential opponents
-#define DEFAULT_RANGE 50.0
-
 // list of implemented SSMs (NOTE: To add more SSMs, identifiers are added to AVAILABLE_SSMS
 //                                 and a default threshold must be defined. A corresponding
 //                                 case should be added to the switch in buildVehicleDevices,
@@ -212,6 +209,7 @@ MSDevice_SSM::cleanup() {
     }
 }
 
+
 void
 MSDevice_SSM::insertOptions(OptionsCont& oc) {
     oc.addOptionSubTopic("SSM Device");
@@ -219,25 +217,25 @@ MSDevice_SSM::insertOptions(OptionsCont& oc) {
 
     // custom options
     oc.doRegister("device.ssm.measures", new Option_String(""));
-    oc.addDescription("device.ssm.measures", "SSM Device", "Specifies which measures will be logged (as a space separated sequence of IDs in ('TTC', 'DRAC', 'PET')).");
+    oc.addDescription("device.ssm.measures", "SSM Device", "Specifies which measures will be logged (as a space separated sequence of IDs in ('TTC', 'DRAC', 'PET'))");
     oc.doRegister("device.ssm.thresholds", new Option_String(""));
     oc.addDescription("device.ssm.thresholds", "SSM Device", "Specifies thresholds corresponding to the specified measures (see documentation and watch the order!). Only events exceeding the thresholds will be logged.");
     oc.doRegister("device.ssm.trajectories",  new Option_Bool(false));
-    oc.addDescription("device.ssm.trajectories", "SSM Device", "Specifies whether trajectories will be logged (if false, only the extremal values and times are reported, this is the default).");
-    oc.doRegister("device.ssm.range", new Option_Float(DEFAULT_RANGE));
-    oc.addDescription("device.ssm.range", "SSM Device", "Specifies the detection range in meters (default is " + ::toString(DEFAULT_RANGE) + "m.). For vehicles below this distance from the equipped vehicle, SSM values are traced.");
+    oc.addDescription("device.ssm.trajectories", "SSM Device", "Specifies whether trajectories will be logged (if false, only the extremal values and times are reported).");
+    oc.doRegister("device.ssm.range", new Option_Float(50.));
+    oc.addDescription("device.ssm.range", "SSM Device", "Specifies the detection range in meters. For vehicles below this distance from the equipped vehicle, SSM values are traced.");
     oc.doRegister("device.ssm.extratime", new Option_Float(DEFAULT_EXTRA_TIME));
-    oc.addDescription("device.ssm.extratime", "SSM Device", "Specifies the time in seconds to be logged after a conflict is over (default is " + ::toString(DEFAULT_EXTRA_TIME) + "secs.). Required >0 if PET is to be calculated for crossing conflicts.");
+    oc.addDescription("device.ssm.extratime", "SSM Device", "Specifies the time in seconds to be logged after a conflict is over. Required >0 if PET is to be calculated for crossing conflicts.");
     oc.doRegister("device.ssm.file", new Option_String(""));
-    oc.addDescription("device.ssm.file", "SSM Device", "Give a global default filename for the SSM output.");
+    oc.addDescription("device.ssm.file", "SSM Device", "Give a global default filename for the SSM output");
     oc.doRegister("device.ssm.geo", new Option_Bool(false));
-    oc.addDescription("device.ssm.geo", "SSM Device", "Whether to use coordinates of the original reference system in output (default is false).");
+    oc.addDescription("device.ssm.geo", "SSM Device", "Whether to use coordinates of the original reference system in output");
     oc.doRegister("device.ssm.write-positions", new Option_Bool(false));
-    oc.addDescription("device.ssm.write-positions", "SSM Device", "Whether to write positions (coordinates) for each timestep.");
+    oc.addDescription("device.ssm.write-positions", "SSM Device", "Whether to write positions (coordinates) for each timestep");
     oc.doRegister("device.ssm.write-lane-positions", new Option_Bool(false));
-    oc.addDescription("device.ssm.write-lane-positions", "SSM Device", "Whether to write lanes and their positions for each timestep.");
-
+    oc.addDescription("device.ssm.write-lane-positions", "SSM Device", "Whether to write lanes and their positions for each timestep");
 }
+
 
 void
 MSDevice_SSM::initEdgeFilter() {

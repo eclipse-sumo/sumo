@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2020-05-10 20:05:12.618730 by randomTrips.py v1_6_0+0167-c327852d01
-  options: -n net.net.xml -s 42 <doubleminus>pedestrians -e 100 <doubleminus>min-distance 1 <doubleminus>trip-attributes departPos="random" color="red" <doubleminus>junction-taz
+
+<!-- generated on 2022-07-07 10:55:31.987583 by randomTrips.py v1_13_0+1343-240e5d48340
+<configuration>
+    <end value="100"/>
+    <junction-taz value="True"/>
+    <min-distance value="1.0"/>
+    <net-file value="net.net.xml"/>
+    <pedestrians value="True"/>
+    <trip-attributes value="departPos=&quot;random&quot; color=&quot;red&quot;"/>
+</configuration>
 -->
+
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <person id="0" depart="0.00" departPos="random" color="red">
         <walk fromJunction="N" toJunction="S"/>

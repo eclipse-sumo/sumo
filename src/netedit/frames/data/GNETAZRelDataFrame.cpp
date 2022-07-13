@@ -67,7 +67,7 @@ GNETAZRelDataFrame::ConfirmTAZRelation::onCmdConfirmTAZRelation(FXObject*, FXSel
 }
 
 
-long 
+long
 GNETAZRelDataFrame::ConfirmTAZRelation::onUpdConfirmTAZRelation(FXObject*, FXSelector, void*) {
     if (myTAZRelDataFrame->myFirstTAZ && myTAZRelDataFrame->mySecondTAZ) {
         myConfirmTAZButton->enable();

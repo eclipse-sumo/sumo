@@ -1401,6 +1401,11 @@ MSVehicle::computeAngle() const {
     if (myLaneChangeModel->isChangingLanes()) {
         // cannot use getPosition() because it already includes the offset to the side and thus messes up the angle
         p1 = myLane->geometryPositionAtOffset(myState.myPos, lefthandSign * posLat);
+        if (p1 == Position::INVALID && myLane->getShape().length2D() == 0. && myLane->isInternal()) {
+            // workaround: extrapolate the preceding lane shape
+            MSLane* predecessorLane = myLane->getCanonicalPredecessorLane();
+            p1 = predecessorLane->geometryPositionAtOffset(predecessorLane->getLength() + myState.myPos, lefthandSign * posLat);
+        }
     } else {
         p1 = getPosition();
     }
@@ -1680,9 +1685,9 @@ MSVehicle::processNextStop(double currentVelocity) {
         if (stop.pars.onDemand && !stop.skipOnDemand && myStopDist <= getCarFollowModel().brakeGap(myLane->getVehicleMaxSpeed(this))) {
             MSNet* const net = MSNet::getInstance();
             const bool noExits = ((myPersonDevice == nullptr || !myPersonDevice->anyLeavingAtStop(stop))
-                    && (myContainerDevice == nullptr || !myContainerDevice->anyLeavingAtStop(stop)));
+                                  && (myContainerDevice == nullptr || !myContainerDevice->anyLeavingAtStop(stop)));
             const bool noEntries = ((!net->hasPersons() || !net->getPersonControl().hasAnyWaiting(stop.getEdge(), this))
-                    && (!net->hasContainers() || !net->getContainerControl().hasAnyWaiting(stop.getEdge(), this)));
+                                    && (!net->hasContainers() || !net->getContainerControl().hasAnyWaiting(stop.getEdge(), this)));
             if (noExits && noEntries) {
                 //std::cout << " skipOnDemand\n";
                 stop.skipOnDemand = true;
@@ -3138,7 +3143,7 @@ MSVehicle::checkLinkLeader(const MSLink* link, const MSLane* lane, double seen,
             } else {
 #ifdef DEBUG_PLAN_MOVE
                 if (DEBUG_COND) {
-                    std::cout << SIMTIME << " veh=" << getID() << " linkLeader=" << leader->getID()
+                    std::cout << SIMTIME << " veh=" << getID() << " linkLeader=" << leader->getID() << " gap=" << it->vehAndGap.second
                               << " ET=" << myJunctionEntryTime << " lET=" << leader->myJunctionEntryTime
                               << " ETN=" << myJunctionEntryTimeNeverYield << " lETN=" << leader->myJunctionEntryTimeNeverYield
                               << " CET=" << myJunctionConflictEntryTime << " lCET=" << leader->myJunctionConflictEntryTime
@@ -4173,7 +4178,7 @@ MSVehicle::executeMove() {
     updateWaitingTime(vNext);
 
     // update position and speed
-    int oldLaneIndex = myLane->getIndex();
+    int oldLaneOffset = myLane->getEdge().getNumLanes() - myLane->getIndex();
     const MSLane* oldLaneMaybeOpposite = myLane;
     if (myLaneChangeModel->isOpposite()) {
         // transform to the forward-direction lane, move and then transform back
@@ -4259,7 +4264,12 @@ MSVehicle::executeMove() {
         MSLane* newOpposite = nullptr;
         const MSEdge* newOppositeEdge = myLane->getEdge().getOppositeEdge();
         if (newOppositeEdge != nullptr) {
-            newOpposite = newOppositeEdge->getLanes()[MIN2(oldLaneIndex, newOppositeEdge->getNumLanes() - 1)];
+            newOpposite = newOppositeEdge->getLanes()[newOppositeEdge->getNumLanes() - MAX2(1, oldLaneOffset)];
+#ifdef DEBUG_EXEC_MOVE
+            if (DEBUG_COND) {
+                std::cout << SIMTIME << "   newOppositeEdge=" << newOppositeEdge->getID() << " oldLaneOffset=" << oldLaneOffset << " leftMost=" << newOppositeEdge->getNumLanes() - 1 << " newOpposite=" << Named::getIDSecure(newOpposite) << "\n";
+            }
+#endif
         }
         if (newOpposite == nullptr) {
             if (!myLaneChangeModel->hasBlueLight()) {
@@ -4278,12 +4288,12 @@ MSVehicle::executeMove() {
                     myState.myBackPos = getLength() - myState.myPos;
                     myAngle = computeAngle();
                 } else {
-#ifdef WIN32
+#ifdef _MSC_VER
 #pragma warning(push)
 #pragma warning(disable: 4127) // do not warn about constant conditional expression
 #endif
                     SOFT_ASSERT(false);
-#ifdef WIN32
+#ifdef _MSC_VER
 #pragma warning(pop)
 #endif
                 }
@@ -4618,12 +4628,12 @@ MSVehicle::getBackPositionOnLane(const MSLane* lane, bool calledByGetPosition) c
         }
         WRITE_WARNING("Request backPos of vehicle '" + getID() + "' for invalid lane '" + Named::getIDSecure(lane)
                       + "' time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".")
-#ifdef WIN32
+#ifdef _MSC_VER
 #pragma warning(push)
 #pragma warning(disable: 4127) // do not warn about constant conditional expression
 #endif
         SOFT_ASSERT(false);
-#ifdef WIN32
+#ifdef _MSC_VER
 #pragma warning(pop)
 #endif
         return  myState.myBackPos;
@@ -5512,13 +5522,13 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
                     (*j).bestLaneOffset = bestThisMaxIndex - index;
                 }
                 if ((*j).bestLaneOffset < 0 && (!(*j).lane->allowsChangingRight(getVClass())
-                            || !(*j).lane->getParallelLane(-1, false)->allowsVehicleClass(getVClass())
-                            || requiredChangeRightForbidden)) {
+                                                || !(*j).lane->getParallelLane(-1, false)->allowsVehicleClass(getVClass())
+                                                || requiredChangeRightForbidden)) {
                     // this lane and all further lanes to the left cannot be used
                     requiredChangeRightForbidden = true;
                     (*j).length -= (*j).currentLength;
                 } else if ((*j).bestLaneOffset > 0 && (!(*j).lane->allowsChangingLeft(getVClass())
-                            || !(*j).lane->getParallelLane(1, false)->allowsVehicleClass(getVClass()))) {
+                                                       || !(*j).lane->getParallelLane(1, false)->allowsVehicleClass(getVClass()))) {
                     // this lane and all previous lanes to the right cannot be used
                     requireChangeToLeftForbidden = (*j).lane->getIndex();
                 }
@@ -5587,8 +5597,8 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
                     bestThisIndex = index;
                     bestThisMaxIndex = index;
                 } else if (clanes[bestThisIndex].length == (*j).length
-                        && abs(clanes[bestThisIndex].bestLaneOffset) == abs((*j).bestLaneOffset)
-                        && nextLinkPriority(clanes[bestThisIndex].bestContinuations) == nextLinkPriority((*j).bestContinuations)) {
+                           && abs(clanes[bestThisIndex].bestLaneOffset) == abs((*j).bestLaneOffset)
+                           && nextLinkPriority(clanes[bestThisIndex].bestContinuations) == nextLinkPriority((*j).bestContinuations)) {
                     bestThisMaxIndex = index;
                 }
             }
@@ -5648,13 +5658,13 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
                     (*j).length = (*j).currentLength;
                 }
                 if ((*j).bestLaneOffset < 0 && (!(*j).lane->allowsChangingRight(getVClass())
-                            || !(*j).lane->getParallelLane(-1, false)->allowsVehicleClass(getVClass())
-                            || requiredChangeRightForbidden)) {
+                                                || !(*j).lane->getParallelLane(-1, false)->allowsVehicleClass(getVClass())
+                                                || requiredChangeRightForbidden)) {
                     // this lane and all further lanes to the left cannot be used
                     requiredChangeRightForbidden = true;
                     (*j).length -= (*j).currentLength;
                 } else if ((*j).bestLaneOffset > 0 && (!(*j).lane->allowsChangingLeft(getVClass())
-                            || !(*j).lane->getParallelLane(1, false)->allowsVehicleClass(getVClass()))) {
+                                                       || !(*j).lane->getParallelLane(1, false)->allowsVehicleClass(getVClass()))) {
                     // this lane and all previous lanes to the right cannot be used
                     requireChangeToLeftForbidden = (*j).lane->getIndex();
                 }

@@ -273,9 +273,9 @@ MSAbstractLaneChangeModel::congested(const MSVehicle* const neighLeader) {
 bool
 MSAbstractLaneChangeModel::avoidOvertakeRight() const {
     return (!myAllowOvertakingRight
-        && !myVehicle.congested()
-        && myVehicle.getVehicleType().getVehicleClass() != SVC_EMERGENCY
-        && (myOvertakeRightParam == 0 || myOvertakeRightParam < RandHelper::rand(myVehicle.getRNG())));
+            && !myVehicle.congested()
+            && myVehicle.getVehicleType().getVehicleClass() != SVC_EMERGENCY
+            && (myOvertakeRightParam == 0 || myOvertakeRightParam < RandHelper::rand(myVehicle.getRNG())));
 }
 
 bool

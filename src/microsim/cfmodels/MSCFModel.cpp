@@ -194,12 +194,7 @@ MSCFModel::finalizeSpeed(MSVehicle* const veh, double vPos) const {
 #endif
 
     vMax = MAX2(vMin, vMax);
-    // apply further speed adaptations
-    double vNext = applyStartupDelay(veh, vMin, vMax);
-#ifdef DEBUG_FINALIZE_SPEED
-    double vStartupDelay = vNext;
-#endif
-    vNext = patchSpeedBeforeLC(veh, vMin, vNext);
+    double vNext = patchSpeedBeforeLC(veh, vMin, vMax);
 #ifdef DEBUG_FINALIZE_SPEED
     double vDawdle = vNext;
 #endif
@@ -207,6 +202,12 @@ MSCFModel::finalizeSpeed(MSVehicle* const veh, double vPos) const {
     assert(vNext <= vMax);
     // apply lane-changing related speed adaptations
     vNext = veh->getLaneChangeModel().patchSpeed(vMin, vNext, vMax, *this);
+#ifdef DEBUG_FINALIZE_SPEED
+    double vPatchLC = vNext;
+#endif
+    // apply further speed adaptations
+    vNext = applyStartupDelay(veh, vMin, vNext);
+
     assert(vNext >= vMinEmergency); // stronger braking is permitted in lane-changing related emergencies
     assert(vNext <= vMax);
 
@@ -216,10 +217,11 @@ MSCFModel::finalizeSpeed(MSVehicle* const veh, double vPos) const {
                   << "veh '" << veh->getID() << "' oldV=" << oldV
                   << " vPos" << vPos
                   << " vMin=" << vMin
+                  << " aMax=" << aMax
                   << " vMax=" << vMax
                   << " vStop=" << vStop
-                  << " vStartupDelay=" << vStartupDelay
                   << " vDawdle=" << vDawdle
+                  << " vPatchLC=" << vPatchLC
                   << " vNext=" << vNext
                   << "\n";
     }
@@ -229,12 +231,12 @@ MSCFModel::finalizeSpeed(MSVehicle* const veh, double vPos) const {
 
 
 double
-MSCFModel::applyStartupDelay(const MSVehicle* veh, double vMin, double vMax) const {
+MSCFModel::applyStartupDelay(const MSVehicle* veh, const double vMin, const double vMax, const SUMOTime addTime) const {
     UNUSED_PARAMETER(vMin);
     // timeSinceStartup was already incremented by DELTA_T
-    if (veh->getTimeSinceStartup() > 0 && veh->getTimeSinceStartup() - DELTA_T < myStartupDelay) {
+    if (veh->getTimeSinceStartup() > 0 && veh->getTimeSinceStartup() - DELTA_T < myStartupDelay + addTime) {
         assert(veh->getSpeed() <= SUMO_const_haltingSpeed);
-        const SUMOTime remainingDelay = myStartupDelay  - (veh->getTimeSinceStartup() - DELTA_T);
+        const SUMOTime remainingDelay = myStartupDelay + addTime - (veh->getTimeSinceStartup() - DELTA_T);
         //std::cout << SIMTIME << " applyStartupDelay veh=" << veh->getID() << " remainingDelay=" << remainingDelay << "\n";
         if (remainingDelay >= DELTA_T) {
             // delay startup by at least a whole step

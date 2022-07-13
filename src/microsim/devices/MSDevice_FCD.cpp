@@ -36,10 +36,10 @@
 
 // some attributes are not written by default and must be enabled via option fcd-output.attributes
 const long long int MSDevice_FCD::myDefaultMask(~(
-    ((long long int)1 << SUMO_ATTR_VEHICLE) |
-    ((long long int)1 << SUMO_ATTR_ODOMETER) |
-    ((long long int)1 << SUMO_ATTR_POSITION_LAT)
-    ));
+            ((long long int)1 << SUMO_ATTR_VEHICLE) |
+            ((long long int)1 << SUMO_ATTR_ODOMETER) |
+            ((long long int)1 << SUMO_ATTR_POSITION_LAT)
+        ));
 
 // ===========================================================================
 // static members
@@ -98,7 +98,7 @@ MSDevice_FCD::~MSDevice_FCD() {
 bool
 MSDevice_FCD::shapeFilter(const SUMOVehicle* veh) {
     // lazily build the shape filter in the case where route file is loaded as an additional file
-    if (!myShapeFilterInitialized){
+    if (!myShapeFilterInitialized) {
         buildShapeFilter();
     }
     const MSVehicle* msVeh = dynamic_cast<const MSVehicle*>(veh);
@@ -112,22 +112,21 @@ MSDevice_FCD::shapeFilter(const SUMOVehicle* veh) {
 
 
 void
-MSDevice_FCD::buildShapeFilter(void){
+MSDevice_FCD::buildShapeFilter(void) {
     const OptionsCont& oc = OptionsCont::getOptions();
     if (oc.isSet("fcd-output.filter-shapes")) {
-        const ShapeContainer &loadedShapes = MSNet::getInstance()->getShapeContainer();
+        const ShapeContainer& loadedShapes = MSNet::getInstance()->getShapeContainer();
         if (loadedShapes.getPolygons().size() > 0) {
             for (std::string attrName : oc.getStringVector("fcd-output.filter-shapes")) {
                 if (loadedShapes.getPolygons().get(attrName) == 0) {
                     WRITE_ERROR("Specified shape '" + attrName + "' for filtering fcd-output could not be found.");
-                }
-                else {
-                    // store the PositionVector, not reference, as traci can manipulate / detete the polygons 
+                } else {
+                    // store the PositionVector, not reference, as traci can manipulate / detete the polygons
                     myShape4Filters.push_back(loadedShapes.getPolygons().get(attrName)->getShape());
                 }
             }
-            myShapeFilterInitialized = true;    
-        }    
+            myShapeFilterInitialized = true;
+        }
     } else {
         myShapeFilterInitialized = true;
     }
@@ -163,8 +162,7 @@ MSDevice_FCD::initOnce() {
             if (!SUMOXMLDefinitions::Attrs.hasString(attrName)) {
                 if (attrName == "all") {
                     myWrittenAttributes = std::numeric_limits<long long int>::max() - 1;
-                }
-                else {
+                } else {
                     WRITE_ERROR("Unknown attribute '" + attrName + "' to write in fcd output.");
                 }
                 continue;
@@ -174,7 +172,7 @@ MSDevice_FCD::initOnce() {
             myWrittenAttributes |= ((long long int)1 << attr);
         }
     }
-    
+
     if (oc.isSet("fcd-output.filter-shapes")) {
         // build the shape filter if it is desired
         myShapeFilterDesired = true;

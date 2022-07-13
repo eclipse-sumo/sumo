@@ -240,13 +240,13 @@ public:
     GNECrossing* retrieveGNECrossing(NBNode::Crossing* NBNodeCrossing, bool createIfNoExist = true);
 
     /// @brief get GNEWalkingArea if exist, and if not create it if create is enabled
-    GNEWalkingArea* retrieveGNEWalkingArea(const std::string &NBNodeWalkingAreaID, bool createIfNoExist = true);
+    GNEWalkingArea* retrieveGNEWalkingArea(const std::string& NBNodeWalkingAreaID, bool createIfNoExist = true);
 
     /// @brief mark connections as deprecated
     void markConnectionsDeprecated(bool includingNeighbours);
 
     /// @brief set junction Type (using undo/redo)
-    void setJunctionType(const std::string &value, GNEUndoList* undoList);
+    void setJunctionType(const std::string& value, GNEUndoList* undoList);
 
     /// @brief get the maximum size (in either x-, or y-dimension) for determining whether to draw or not
     double getMaxDrawingSize() const;

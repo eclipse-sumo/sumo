@@ -204,10 +204,10 @@ MFXIconComboBox::disable() {
 FXint
 MFXIconComboBox::getDefaultWidth() {
     FXint ww, pw;
-    if (myIconLabel) {
-        ww = myTextFieldIcon->getDefaultWidth() + myButton->getDefaultWidth() + (border << 1);
-    } else {
+    if (myIconLabel->shown()) {
         ww = myIconLabel->getDefaultWidth() + myTextFieldIcon->getDefaultWidth() + myButton->getDefaultWidth() + (border << 1);
+    } else {
+        ww = myTextFieldIcon->getDefaultWidth() + myButton->getDefaultWidth() + (border << 1);
     }
     pw = myPane->getDefaultWidth();
     return FXMAX(ww, pw);
@@ -226,7 +226,7 @@ MFXIconComboBox::getDefaultHeight() {
 void
 MFXIconComboBox::layout() {
     const FXint itemHeight = height - (border << 1);
-    const FXint iconSize = myHaveIcons? itemHeight : 0;
+    const FXint iconSize = myHaveIcons ? itemHeight : 0;
     const FXint buttonWidth = myButton->getDefaultWidth();
     const FXint textWidth = width - buttonWidth - iconSize - (border << 1);
     myIconLabel->position(border, border, iconSize, iconSize);
@@ -408,7 +408,7 @@ MFXIconComboBox::setItem(const FXString& text, FXIcon* icon) {
             myTextFieldIcon->setBackColor(item->getBackGroundColor());
             myIconLabel->setIcon(item->getIcon());
             myIconLabel->setBackColor(item->getBackGroundColor());
-            myTextFieldIcon->setTextColor(FXRGB(0,0,0));
+            myTextFieldIcon->setTextColor(FXRGB(0, 0, 0));
             return true;
         }
     }

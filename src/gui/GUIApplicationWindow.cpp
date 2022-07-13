@@ -514,31 +514,31 @@ GUIApplicationWindow::fillMenuBar() {
     myLocatorMenu = new FXMenuPane(this);
     GUIDesigns::buildFXMenuTitle(myMenuBar, "&Locate", nullptr, myLocatorMenu);
     GUIDesigns::buildFXMenuCommandShortcut(myLocatorMenu,
-                                           "Locate &Junctions", "Shift+J", "Open a Dialog for Locating a Junction.",
+                                           "&Junctions", "Shift+J", "Open a Dialog for Locating a Junction.",
                                            GUIIconSubSys::getIcon(GUIIcon::LOCATEJUNCTION), this, MID_LOCATEJUNCTION);
     GUIDesigns::buildFXMenuCommandShortcut(myLocatorMenu,
-                                           "Locate &Edges", "Shift+E", "Open a Dialog for Locating an Edge.",
+                                           "&Edges", "Shift+E", "Open a Dialog for Locating an Edge.",
                                            GUIIconSubSys::getIcon(GUIIcon::LOCATEEDGE), this, MID_LOCATEEDGE);
     GUIDesigns::buildFXMenuCommandShortcut(myLocatorMenu,
-                                           "Locate &Vehicles", "Shift+V", "Open a Dialog for Locating a Vehicle.",
+                                           "&Vehicles", "Shift+V", "Open a Dialog for Locating a Vehicle.",
                                            GUIIconSubSys::getIcon(GUIIcon::LOCATEVEHICLE), this, MID_LOCATEVEHICLE);
     GUIDesigns::buildFXMenuCommandShortcut(myLocatorMenu,
-                                           "Locate &Persons", "Shift+P", "Open a Dialog for Locating a Person.",
+                                           "&Persons", "Shift+P", "Open a Dialog for Locating a Person.",
                                            GUIIconSubSys::getIcon(GUIIcon::LOCATEPERSON), this, MID_LOCATEPERSON);
     GUIDesigns::buildFXMenuCommandShortcut(myLocatorMenu,
-                                           "Locate &Container", "Shift+C", "Open a Dialog for Locating a Container.",
+                                           "&Container", "Shift+C", "Open a Dialog for Locating a Container.",
                                            GUIIconSubSys::getIcon(GUIIcon::LOCATECONTAINER), this, MID_LOCATECONTAINER);
     GUIDesigns::buildFXMenuCommandShortcut(myLocatorMenu,
-                                           "Locate &TLS", "Shift+T", "Open a Dialog for Locating a Traffic Light.",
+                                           "&TLS", "Shift+T", "Open a Dialog for Locating a Traffic Light.",
                                            GUIIconSubSys::getIcon(GUIIcon::LOCATETLS), this, MID_LOCATETLS);
     GUIDesigns::buildFXMenuCommandShortcut(myLocatorMenu,
-                                           "Locate &Additional", "Shift+A", "Open a Dialog for Locating an Additional Structure.",
+                                           "&Additional", "Shift+A", "Open a Dialog for Locating an Additional Structure.",
                                            GUIIconSubSys::getIcon(GUIIcon::LOCATEADD), this, MID_LOCATEADD);
     GUIDesigns::buildFXMenuCommandShortcut(myLocatorMenu,
-                                           "Locate P&oI", "Shift+O", "Open a Dialog for Locating a Point of Interest.",
+                                           "P&oI", "Shift+O", "Open a Dialog for Locating a Point of Interest.",
                                            GUIIconSubSys::getIcon(GUIIcon::LOCATEPOI), this, MID_LOCATEPOI);
     GUIDesigns::buildFXMenuCommandShortcut(myLocatorMenu,
-                                           "Locate Po&lygon", "Shift+L", "Open a Dialog for Locating a Polygon.",
+                                           "Po&lygon", "Shift+L", "Open a Dialog for Locating a Polygon.",
                                            GUIIconSubSys::getIcon(GUIIcon::LOCATEPOLY), this, MID_LOCATEPOLY);
     new FXMenuSeparator(myLocatorMenu);
     new FXMenuCheck(myLocatorMenu,
@@ -714,10 +714,10 @@ GUIApplicationWindow::buildToolBars() {
         new FXToolBarGrip(myToolBar5, myToolBar5, FXToolBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
         // build view tools
         new MFXButtonTooltip(myToolBar5, "\tOpen new view\tOpen a new microscopic view.",
-                     GUIIconSubSys::getIcon(GUIIcon::MICROVIEW), this, MID_NEW_MICROVIEW, GUIDesignButtonToolbar);
+                             GUIIconSubSys::getIcon(GUIIcon::MICROVIEW), this, MID_NEW_MICROVIEW, GUIDesignButtonToolbar);
 #ifdef HAVE_OSG
         new MFXButtonTooltip(myToolBar5, "\tOpen new 3D view\tOpen a new 3D view.",
-                     GUIIconSubSys::getIcon(GUIIcon::OSGVIEW), this, MID_NEW_OSGVIEW, GUIDesignButtonToolbar);
+                             GUIIconSubSys::getIcon(GUIIcon::OSGVIEW), this, MID_NEW_OSGVIEW, GUIDesignButtonToolbar);
 #endif
     }
     {

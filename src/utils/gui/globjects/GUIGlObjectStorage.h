@@ -129,7 +129,7 @@ public:
     static GUIGlObjectStorage gIDStorage;
 
     /// @brief Returns the set of all known objects
-    const std::vector<GUIGlObject*> &getAllGLObjects() const;
+    const std::vector<GUIGlObject*>& getAllGLObjects() const;
 
 private:
     /// @brief The known objects

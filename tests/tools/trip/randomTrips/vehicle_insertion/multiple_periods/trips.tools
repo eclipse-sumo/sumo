@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-07-07 10:55:36.693872 by randomTrips.py v1_13_0+1343-240e5d48340
+<configuration>
+    <begin value="0"/>
+    <end value="10"/>
+    <net-file value="net.net.xml"/>
+    <period value="1.0 0.5"/>
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <trip id="0" depart="0.00" from="3si" to="1o"/>
+    <trip id="1" depart="1.00" from="2fi" to="1si"/>
+    <trip id="2" depart="2.00" from="3si" to="3si"/>
+    <trip id="3" depart="3.00" from="4si" to="1o"/>
+    <trip id="4" depart="4.00" from="2si" to="1o"/>
+    <trip id="5" depart="5.00" from="1si" to="3o"/>
+    <trip id="6" depart="5.50" from="1fi" to="1si"/>
+    <trip id="7" depart="6.00" from="3si" to="3o"/>
+    <trip id="8" depart="6.50" from="1si" to="3o"/>
+    <trip id="9" depart="7.00" from="4fi" to="1o"/>
+    <trip id="10" depart="7.50" from="4fi" to="3si"/>
+    <trip id="11" depart="8.00" from="2fi" to="1si"/>
+    <trip id="12" depart="8.50" from="4si" to="2o"/>
+    <trip id="13" depart="9.00" from="1fi" to="1o"/>
+    <trip id="14" depart="9.50" from="4fi" to="3o"/>
+</routes>

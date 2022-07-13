@@ -474,7 +474,7 @@ GNEShapeFrame::tagSelected() {
 void
 GNEShapeFrame::addShape() {
     // declare additional handler
-    GNEAdditionalHandler additionalHandler(myViewNet->getNet(), true);
+    GNEAdditionalHandler additionalHandler(myViewNet->getNet(), true, false);
     // build shape
     additionalHandler.parseSumoBaseObject(myBaseShape);
 }

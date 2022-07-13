@@ -1709,7 +1709,12 @@ Vehicle::setType(const std::string& vehID, const std::string& typeID) {
     if (vehicleType == nullptr) {
         throw TraCIException("Vehicle type '" + typeID + "' is not known");
     }
-    Helper::getVehicle(vehID)->replaceVehicleType(vehicleType);
+    MSBaseVehicle* veh = Helper::getVehicle(vehID);
+    veh->replaceVehicleType(vehicleType);
+    MSVehicle* microVeh = dynamic_cast<MSVehicle*>(veh);
+    if (microVeh != nullptr && microVeh->isOnRoad()) {
+        microVeh->updateBestLanes(true);
+    }
 }
 
 void
@@ -1773,8 +1778,9 @@ Vehicle::updateBestLanes(const std::string& vehID) {
         WRITE_ERROR("updateBestLanes not applicable for meso");
         return;
     }
-
-    veh->updateBestLanes(true);
+    if (veh->isOnRoad()) {
+        veh->updateBestLanes(true);
+    }
 }
 
 
@@ -2065,7 +2071,12 @@ Vehicle::setMaxSpeed(const std::string& vehID, double speed) {
 
 void
 Vehicle::setVehicleClass(const std::string& vehID, const std::string& clazz) {
-    Helper::getVehicle(vehID)->getSingularType().setVClass(getVehicleClassID(clazz));
+    MSBaseVehicle* veh = Helper::getVehicle(vehID);
+    veh->getSingularType().setVClass(getVehicleClassID(clazz));
+    MSVehicle* microVeh = dynamic_cast<MSVehicle*>(veh);
+    if (microVeh != nullptr && microVeh->isOnRoad()) {
+        microVeh->updateBestLanes(true);
+    }
 }
 
 

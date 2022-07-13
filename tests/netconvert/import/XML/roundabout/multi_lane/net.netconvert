@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-01-21 11:23:23 by Eclipse SUMO netconvert Version v1_11_0+1362-6a26938
+<!-- generated on 2022-07-11 16:23:54 by Eclipse SUMO netconvert Version v1_13_0+1503-9394720
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -21,7 +26,6 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
-        <aggregate-warnings value="5"/>
         <ignore-errors.edge-type value="true"/>
     </report>
 
@@ -245,7 +249,7 @@ SPDX-License-Identifier: EPL-2.0
         <request index="5" response="000000" foes="000100" cont="0"/>
     </junction>
 
-    <junction id=":524_8_0" type="internal" x="94.83" y="144.00" incLanes=":524_2_0 -8_0" intLanes=":524_1_0 :524_4_0 :524_6_0"/>
+    <junction id=":524_8_0" type="internal" x="94.83" y="144.00" incLanes=":524_2_0 -11_0 -11_1 -8_0" intLanes=":524_1_0 :524_4_0 :524_6_0"/>
     <junction id=":594_4_0" type="internal" x="100.33" y="127.00" incLanes=":594_2_0 -10_0" intLanes=":594_1_0"/>
     <junction id=":685_4_0" type="internal" x="73.25" y="117.29" incLanes=":685_2_0 -14_0" intLanes=":685_1_0"/>
 

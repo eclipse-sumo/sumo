@@ -166,7 +166,7 @@ def main(options, platform="x64"):
     if ret == 0:
         try:
             for f in (glob.glob(os.path.join(SUMO_HOME, "*.md")) +
-                      [os.path.join(SUMO_HOME, n) for n in ("AUTHORS", "ChangeLog", "LICENSE")]):
+                      [os.path.join(SUMO_HOME, n) for n in ("AUTHORS", "ChangeLog", "CITATION.cff", "LICENSE")]):
                 shutil.copy(f, installDir)
             if options.suffix == "extra":
                 shutil.copy(os.path.join(SUMO_HOME, "build", "wix", "gpl-2.0.txt"), os.path.join(installDir, "LICENSE"))

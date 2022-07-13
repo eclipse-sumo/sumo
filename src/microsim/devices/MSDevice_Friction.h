@@ -37,7 +37,7 @@ class SUMOTrafficObject;
  * @class MSDevice_Friction
  * @brief A device which collects info on current friction Coefficient on the road
  *
- * Each device collects friction -> insert Measurment modell if applicapble 
+ * Each device collects friction -> insert Measurment modell if applicapble
  *
  * @see MSDevice
  */

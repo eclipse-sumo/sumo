@@ -63,7 +63,7 @@ GNECrossing::~GNECrossing() {
 }
 
 
-bool 
+bool
 GNECrossing::isNetworkElementValid() const {
     return getNBCrossing()->valid;
 }
@@ -213,7 +213,7 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::pushName(getGlID());
             // push layer matrix
             GLHelper::pushMatrix();
-            // translate to front   
+            // translate to front
             myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_CROSSING);
             // set color
             GLHelper::setColor(crossingColor);
@@ -286,7 +286,7 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
 }
 
 
-void 
+void
 GNECrossing::updateGLObject() {
     updateGeometry();
 }

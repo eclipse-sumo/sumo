@@ -20,6 +20,7 @@
 #include <netbuild/NBFrame.h>
 #include <netedit/dialogs/GNEAbout.h>
 #include <netedit/dialogs/GNEUndoListDialog.h>
+#include <netedit/dialogs/GNEOverwriteElementsDialog.h>
 #include <netedit/dialogs/tools/GNEToolNetDiff.h>
 #include <netedit/elements/network/GNECrossing.h>
 #include <netedit/elements/network/GNEEdgeType.h>
@@ -276,7 +277,7 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBAREDIT_LOADDEMAND,                 GNEApplicationWindow::onUpdNeedsNetwork),
 
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_T_OPENSUMONETEDIT,              GNEApplicationWindow::onCmdOpenSUMOGUI),
-    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_T_OPENSUMONETEDIT,              GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_T_OPENSUMONETEDIT,              GNEApplicationWindow::onUpdNeedsNetworkElement),
     /* Prepared for #6042
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_X_CUT,                          GNEApplicationWindow::onCmdCut),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_C_COPY,                         GNEApplicationWindow::onCmdCopy),
@@ -955,75 +956,75 @@ GNEApplicationWindow::onCmdToolNetDiff(FXObject*, FXSelector, void*) {
     // open a NetDiff tool dialog
     GNEToolNetDiff(this);
 
-/*
-    OptionsCont& oc = OptionsCont::getOptions();
-    // check that currently there is a View
-    if (myViewNet == nullptr) {
-        return 0;
-    }
-#ifdef WIN32
-    // check that python folder is defined in PATH
-    const char* path = getenv("PATH");
-    if ((strstr(path, "Python") == nullptr) && (strstr(path, "python") == nullptr)) {
-        WRITE_ERROR("Python folder must be defined in PATH");
-        return 0;
-    }
-#endif
-    // check that SUMO_HOME is defined
-    const char* sumoPath = getenv("SUMO_HOME");
-    if (sumoPath == nullptr) {
-        WRITE_ERROR("Enviroment variable SUMO_HOME must be defined");
-        return 0;
-    }
-    // get netdiff path
-    const std::string netDiff = std::string(sumoPath) + "/tools/net/netdiff.py";
-    if (!FileHelpers::isReadable(netDiff)) {
-        WRITE_ERROR("netdiff.py cannot be found in path '" + netDiff + "'");
-        return 0;
-    }
-    // check if network is saved
-    if (!myViewNet->getNet()->isNetSaved()) {
-        // save network
-        onCmdSaveNetwork(nullptr, 0, nullptr);
+    /*
+        OptionsCont& oc = OptionsCont::getOptions();
+        // check that currently there is a View
+        if (myViewNet == nullptr) {
+            return 0;
+        }
+    #ifdef WIN32
+        // check that python folder is defined in PATH
+        const char* path = getenv("PATH");
+        if ((strstr(path, "Python") == nullptr) && (strstr(path, "python") == nullptr)) {
+            WRITE_ERROR("Python folder must be defined in PATH");
+            return 0;
+        }
+    #endif
+        // check that SUMO_HOME is defined
+        const char* sumoPath = getenv("SUMO_HOME");
+        if (sumoPath == nullptr) {
+            WRITE_ERROR("Enviroment variable SUMO_HOME must be defined");
+            return 0;
+        }
+        // get netdiff path
+        const std::string netDiff = std::string(sumoPath) + "/tools/net/netdiff.py";
+        if (!FileHelpers::isReadable(netDiff)) {
+            WRITE_ERROR("netdiff.py cannot be found in path '" + netDiff + "'");
+            return 0;
+        }
+        // check if network is saved
         if (!myViewNet->getNet()->isNetSaved()) {
-            return 0;
+            // save network
+            onCmdSaveNetwork(nullptr, 0, nullptr);
+            if (!myViewNet->getNet()->isNetSaved()) {
+                return 0;
+            }
         }
-    }
-    // get the second network to ddiff
-    FXFileDialog opendialog(this, "Open diff Network");
-    opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::OPEN_NET));
-    opendialog.setSelectMode(SELECTFILE_EXISTING);
-    opendialog.setPatternList("SUMO nets (*.net.xml,*.net.xml.gz)\nAll files (*)");
-    if (gCurrentFolder.length() != 0) {
-        opendialog.setDirectory(gCurrentFolder);
-    }
-    if (opendialog.execute()) {
-        // get file
-        const std::string secondNet = opendialog.getFilename().text();
-        // check if secondNet isn't empty
-        if (secondNet.empty()) {
-            return 0;
+        // get the second network to ddiff
+        FXFileDialog opendialog(this, "Open diff Network");
+        opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::OPEN_NET));
+        opendialog.setSelectMode(SELECTFILE_EXISTING);
+        opendialog.setPatternList("SUMO nets (*.net.xml,*.net.xml.gz)\nAll files (*)");
+        if (gCurrentFolder.length() != 0) {
+            opendialog.setDirectory(gCurrentFolder);
         }
-        // extract folder
-        const std::string secondNetFolder = getFolder(secondNet).text();
-        // declare python command
-        std::string cmd = "cd " + secondNetFolder + "&" +  // folder to save diff files (the same of second net)
-                          "python " + netDiff +                           // netdiff.py
-                          " " + oc.getString("output-file") +             // netA (current)
-                          " " + secondNet +                               // net B
-                          " diff";                                        // netdiff options
-        // start in background
-#ifndef WIN32
-        cmd = cmd + " &";
-#else
-        // see "help start" for the parameters
-        cmd = "start /B \"\" " + cmd;
-#endif
-        WRITE_MESSAGE("Running " + cmd + ".");
-        // yay! fun with dangerous commands... Never use this over the internet
-        SysUtils::runHiddenCommand(cmd);
-    }
-    */
+        if (opendialog.execute()) {
+            // get file
+            const std::string secondNet = opendialog.getFilename().text();
+            // check if secondNet isn't empty
+            if (secondNet.empty()) {
+                return 0;
+            }
+            // extract folder
+            const std::string secondNetFolder = getFolder(secondNet).text();
+            // declare python command
+            std::string cmd = "cd " + secondNetFolder + "&" +  // folder to save diff files (the same of second net)
+                              "python " + netDiff +                           // netdiff.py
+                              " " + oc.getString("output-file") +             // netA (current)
+                              " " + secondNet +                               // net B
+                              " diff";                                        // netdiff options
+            // start in background
+    #ifndef WIN32
+            cmd = cmd + " &";
+    #else
+            // see "help start" for the parameters
+            cmd = "start /B \"\" " + cmd;
+    #endif
+            WRITE_MESSAGE("Running " + cmd + ".");
+            // yay! fun with dangerous commands... Never use this over the internet
+            SysUtils::runHiddenCommand(cmd);
+        }
+        */
     return 1;
 }
 
@@ -1171,7 +1172,7 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
         for (const auto& additionalFile : additionalFiles) {
             WRITE_MESSAGE("loading additionals and shapes from '" + additionalFile + "'");
             // declare general handler
-            GNEGeneralHandler generalHandler(myNet, additionalFile, true);
+            GNEGeneralHandler generalHandler(myNet, additionalFile, true, false);
             // disable validation for additionals
             XMLSubSys::setValidation("never", "auto", "auto");
             // Run parser
@@ -1195,7 +1196,7 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
         // iterate over every route file
         for (const auto& demandElementsFile : demandElementsFiles) {
             WRITE_MESSAGE("Loading demand elements from '" + demandElementsFile + "'");
-            GNEGeneralHandler handler(myNet, demandElementsFile, true);
+            GNEGeneralHandler handler(myNet, demandElementsFile, true, false);
             // disable validation for demand elements
             XMLSubSys::setValidation("never", "auto", "auto");
             if (!handler.parse()) {
@@ -2502,13 +2503,13 @@ GNEApplicationWindow::onCmdSaveAsNetwork(FXObject*, FXSelector, void*) {
     std::string fileWithExtension = file.text();
     // clear wildcard
     const size_t pos = fileWithExtension.find(wildcard);
-    if (pos != std::string::npos){
+    if (pos != std::string::npos) {
         // If found then erase it from string
         fileWithExtension.erase(pos, wildcard.length());
     }
     // check xml extension
-    if (!GNEApplicationWindowHelper::stringEndsWith(fileWithExtension, netExtension) && 
-        !GNEApplicationWindowHelper::stringEndsWith(fileWithExtension, zipNetExtension)) {
+    if (!GNEApplicationWindowHelper::stringEndsWith(fileWithExtension, netExtension) &&
+            !GNEApplicationWindowHelper::stringEndsWith(fileWithExtension, zipNetExtension)) {
         fileWithExtension = FileHelpers::addExtension(fileWithExtension, netExtension);
     }
     // check that file with extension is valid
@@ -2629,6 +2630,17 @@ GNEApplicationWindow::onUpdNeedsNetwork(FXObject* sender, FXSelector, void*) {
         myFileMenuCommands.additionalMenuCascade->disable();
         myFileMenuCommands.demandMenuCascade->disable();
         myFileMenuCommands.dataMenuCascade->disable();
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
+    }
+}
+
+
+long 
+GNEApplicationWindow::onUpdNeedsNetworkElement(FXObject* sender, FXSelector, void*) {
+    // check if at least there is one edge in the network
+    if (myNet && (myNet->getAttributeCarriers()->getEdges().size() > 0)) {
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
+    } else {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     }
 }
@@ -3436,19 +3448,19 @@ GNEApplicationWindow::onCmdOpenAdditionals(FXObject*, FXSelector, void*) {
     if (opendialog.execute()) {
         // close additional dialog
         WRITE_DEBUG("Close additional dialog");
+        // declare overwrite flag
+        bool overwriteElements = false;
         // check if open question dialog box
         if (opendialog.getFilename().text() == OptionsCont::getOptions().getString("additional-files")) {
-            // open question dialog box
-            const auto answer = FXMessageBox::question(myNet->getViewNet()->getApp(), MBOX_YES_NO, "Load same additional file",
-                                        "Selected additional file was previously already loaded. Continue?");
-            if (answer != 1) { //1:yes, 2:no, 4:esc
-                // write warning if netedit is running in testing mode
-                if (answer == 2) {
-                    WRITE_DEBUG("Closed FXMessageBox 'Load same additional file' with 'No'");
-                } else if (answer == 4) {
-                    WRITE_DEBUG("Closed FXMessageBox 'Load same additional file' with 'ESC'");
-                }
+            // open overwrite dialog
+            GNEOverwriteElementsDialog overwriteDialog(this, "additional");
+            // continue depending of result
+            if (overwriteDialog.getResult() == GNEOverwriteElementsDialog::Result::CANCEL) {
+                // abort load
                 return 0;
+            } else if (overwriteDialog.getResult() == GNEOverwriteElementsDialog::Result::OVERWRITE) {
+                // enable overwriteElements
+                overwriteElements = true;
             }
         }
         // save previous status save
@@ -3461,7 +3473,7 @@ GNEApplicationWindow::onCmdOpenAdditionals(FXObject*, FXSelector, void*) {
         // disable validation for additionals
         XMLSubSys::setValidation("never", "auto", "auto");
         // Create additional handler
-        GNEGeneralHandler generalHandler(myNet, file, true);
+        GNEGeneralHandler generalHandler(myNet, file, true, overwriteElements);
         // begin undoList operation
         myUndoList->begin(Supermode::NETWORK, GUIIcon::SUPERMODENETWORK, "reloading additionals from '" + file + "'");
         // Run parser
@@ -3496,7 +3508,7 @@ GNEApplicationWindow::onCmdReloadAdditionals(FXObject*, FXSelector, void*) {
     // disable validation for additionals
     XMLSubSys::setValidation("never", "auto", "auto");
     // Create general handler
-    GNEGeneralHandler generalHandler(myNet, file, true);
+    GNEGeneralHandler generalHandler(myNet, file, true, true);
     // begin undoList operation
     myUndoList->begin(Supermode::DEMAND, GUIIcon::SUPERMODENETWORK, "reloading additionals from '" + file + "'");
     // clear additionals
@@ -3633,19 +3645,19 @@ GNEApplicationWindow::onCmdOpenDemandElements(FXObject*, FXSelector, void*) {
     if (opendialog.execute()) {
         // close additional dialog
         WRITE_DEBUG("Close demand element dialog");
+        // declare overwrite flag
+        bool overwriteElements = false;
         // check if open question dialog box
         if (opendialog.getFilename().text() == OptionsCont::getOptions().getString("route-files")) {
-            // open question dialog box
-            const auto answer = FXMessageBox::question(myNet->getViewNet()->getApp(), MBOX_YES_NO, "Load same route file",
-                                        "Selected route file was previously already loaded. Continue?");
-            if (answer != 1) { //1:yes, 2:no, 4:esc
-                // write warning if netedit is running in testing mode
-                if (answer == 2) {
-                    WRITE_DEBUG("Closed FXMessageBox 'Load same route file' with 'No'");
-                } else if (answer == 4) {
-                    WRITE_DEBUG("Closed FXMessageBox 'Load same route file' with 'ESC'");
-                }
+            // open overwrite dialog
+            GNEOverwriteElementsDialog overwriteDialog(this, "route");
+            // continue depending of result
+            if (overwriteDialog.getResult() == GNEOverwriteElementsDialog::Result::CANCEL) {
+                // abort load
                 return 0;
+            } else if (overwriteDialog.getResult() == GNEOverwriteElementsDialog::Result::OVERWRITE) {
+                // enable overwriteElements
+                overwriteElements = true;
             }
         }
         // save previous status save
@@ -3658,7 +3670,7 @@ GNEApplicationWindow::onCmdOpenDemandElements(FXObject*, FXSelector, void*) {
         // disable validation for additionals
         XMLSubSys::setValidation("never", "auto", "auto");
         // Create generic handler
-        GNEGeneralHandler handler(myNet, file, true);
+        GNEGeneralHandler handler(myNet, file, true, overwriteElements);
         // begin undoList operation
         myUndoList->begin(Supermode::DEMAND, GUIIcon::SUPERMODEDEMAND, "loading demand elements from '" + file + "'");
         // Run parser for additionals
@@ -3693,7 +3705,7 @@ GNEApplicationWindow::onCmdReloadDemandElements(FXObject*, FXSelector, void*) {
     // disable validation for additionals
     XMLSubSys::setValidation("never", "auto", "auto");
     // Create handler
-    GNEGeneralHandler handler(myNet, file, true);
+    GNEGeneralHandler handler(myNet, file, true, true);
     // begin undoList operation
     myUndoList->begin(Supermode::DEMAND, GUIIcon::SUPERMODEDEMAND, "reloading demand elements from '" + file + "'");
     // clear demand elements
@@ -3832,7 +3844,7 @@ GNEApplicationWindow::onCmdOpenDataElements(FXObject*, FXSelector, void*) {
         if (opendialog.getFilename().text() == OptionsCont::getOptions().getString("data-files")) {
             // open question dialog box
             const auto answer = FXMessageBox::question(myNet->getViewNet()->getApp(), MBOX_YES_NO, "Load same data file",
-                                        "Selected data file was previously already loaded. Continue?");
+                                "Selected data file was already loaded. Continue?");
             if (answer != 1) { //1:yes, 2:no, 4:esc
                 // write warning if netedit is running in testing mode
                 if (answer == 2) {

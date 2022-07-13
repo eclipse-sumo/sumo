@@ -5,8 +5,8 @@ set(netedit_dialogs_SRCS
    GNEVariableSpeedSignDialog.cpp
    GNEAbout.h
    GNEAbout.cpp
-   GNEAllowDisallow.h
-   GNEAllowDisallow.cpp
+   GNEAllowVClassesDialog.h
+   GNEAllowVClassesDialog.cpp
    GNESingleParametersDialog.h
    GNESingleParametersDialog.cpp
    GNEMultipleParametersDialog.h
@@ -39,6 +39,8 @@ set(netedit_dialogs_SRCS
    GNEGeometryPointDialog.cpp
    GNEUndoListDialog.h
    GNEUndoListDialog.cpp
+   GNEOverwriteElementsDialog.h
+   GNEOverwriteElementsDialog.cpp
    )
 
 add_library(netedit_dialogs STATIC ${netedit_dialogs_SRCS})

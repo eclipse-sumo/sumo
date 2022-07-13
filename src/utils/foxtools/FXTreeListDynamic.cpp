@@ -47,7 +47,7 @@ FXTreeItemDynamic::FXTreeItemDynamic(const FXString& text, FXIcon* oi, FXIcon* c
 }
 
 
-void 
+void
 FXTreeItemDynamic::setTextColor(FXColor clr) {
     myTextColor = clr;
 }
@@ -117,26 +117,26 @@ FXTreeListDynamic::update() {
 }
 
 
-void 
+void
 FXTreeListDynamic::clearItems() {
     myFXTreeItemDynamicItems.clear();
     return FXTreeList::clearItems();
 }
 
 
-FXint 
+FXint
 FXTreeListDynamic::getNumItems() {
     return FXTreeList::getNumItems();
 }
 
 
-FXint 
+FXint
 FXTreeListDynamic::getSelectedIndex() {
     return mySelectedItem;
 }
 
 
-FXTreeItem* 
+FXTreeItem*
 FXTreeListDynamic::prependItem(FXTreeItem* father, const FXString& text, FXIcon* oi, FXColor tColor) {
     FXTreeItemDynamic* newItem = dynamic_cast<FXTreeItemDynamic*>(FXTreeList::prependItem(father, new FXTreeItemDynamic(text, oi, oi, nullptr), false));
     if (newItem != nullptr) {
@@ -148,7 +148,7 @@ FXTreeListDynamic::prependItem(FXTreeItem* father, const FXString& text, FXIcon*
 }
 
 
-FXTreeItem* 
+FXTreeItem*
 FXTreeListDynamic::appendItem(FXTreeItem* father, const FXString& text, FXIcon* oi, FXColor tColor) {
     FXTreeItemDynamic* newItem = dynamic_cast<FXTreeItemDynamic*>(FXTreeList::appendItem(father, new FXTreeItemDynamic(text, oi, oi, nullptr), false));
     if (newItem != nullptr) {
@@ -160,19 +160,19 @@ FXTreeListDynamic::appendItem(FXTreeItem* father, const FXString& text, FXIcon* 
 }
 
 
-FXWindow* 
+FXWindow*
 FXTreeListDynamic::getFXWindow() {
     return this;
 }
 
 
-FXTreeItem* 
-FXTreeListDynamic::getItemAt(FXint x,FXint y) const {
+FXTreeItem*
+FXTreeListDynamic::getItemAt(FXint x, FXint y) const {
     return FXTreeList::getItemAt(x, y);
 }
 
 
-FXTreeItemDynamic* 
+FXTreeItemDynamic*
 FXTreeListDynamic::getItem(FXint index) const {
     return myFXTreeItemDynamicItems.at(index);
 }

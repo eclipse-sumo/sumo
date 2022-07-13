@@ -684,17 +684,20 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
                     }
                     glTranslated(0, 0, .1);
                 }
-                // make sure link rules are drawn so tls can be selected via right-click
-                if (s.showLinkRules && (drawDetails || s.drawForPositionSelection)
-                        && !isWalkingArea
-                        && (!myEdge->isInternal() || (getLinkCont().size() > 0 && getLinkCont()[0]->isInternalJunctionLink()))) {
-                    drawLinkRules(s, *net);
-                }
                 if ((drawDetails || junctionExaggeration > 1) && s.showLane2Lane) {
                     //  draw from end of first to the begin of second but respect junction scaling
                     drawLane2LaneConnections(junctionExaggeration);
                 }
                 GLHelper::popMatrix();
+                // make sure link rules are drawn so tls can be selected via right-click
+                if (s.showLinkRules && (drawDetails || s.drawForPositionSelection)
+                        && !isWalkingArea
+                        && (!myEdge->isInternal() || (getLinkCont().size() > 0 && getLinkCont()[0]->isInternalJunctionLink()))) {
+                    GLHelper::pushMatrix();
+                    glTranslated(0, 0, GLO_SHAPE); // must draw on top of junction shape and additionals
+                    drawLinkRules(s, *net);
+                    GLHelper::popMatrix();
+                }
             }
         }
         if (mustDrawMarkings && drawDetails && s.laneShowBorders && !hiddenBidi) { // needs matrix reset
@@ -1296,7 +1299,7 @@ GUILane::getColorValue(const GUIVisualizationSettings& s, int activeScheme) cons
         }
         case 32: {
             // by numerical lane param value
-            if  (knowsParameter(s.laneParam)) {
+            if (knowsParameter(s.laneParam)) {
                 try {
                     return StringUtils::toDouble(getParameter(s.laneParam, "0"));
                 } catch (NumberFormatException&) {

@@ -42,7 +42,7 @@ class GNEAdditionalHandler : public AdditionalHandler {
 
 public:
     /// @brief Constructor
-    GNEAdditionalHandler(GNENet* net, const bool allowUndoRedo);
+    GNEAdditionalHandler(GNENet* net, const bool allowUndoRedo, const bool overwrite);
 
     /// @brief Destructor
     ~GNEAdditionalHandler();
@@ -178,7 +178,7 @@ public:
      * @param[in] id The id of the detector
      * @param[in] laneID The lane the detector is placed on
      * @param[in] pos position of the detector on the lane
-     * @param[in] freq the aggregation period the values the detector collects shall be summed up.
+     * @param[in] period the aggregation period the values the detector collects shall be summed up.
      * @param[in] filename The path to the output file.
      * @param[in] vtypes list of vehicle types to be reported
      * @param[in] name E1 detector name
@@ -186,7 +186,7 @@ public:
      * @param[in] parameters generic parameters
      */
     void buildE1Detector(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& laneID,
-                         const double position, const SUMOTime frequency, const std::string& file, const std::vector<std::string>& vehicleTypes,
+                         const double position, const SUMOTime period, const std::string& file, const std::vector<std::string>& vehicleTypes,
                          const std::string& name, const bool friendlyPos, const Parameterised::Map& parameters);
 
     /**@brief Builds a single-lane Area Detector (E2)
@@ -195,7 +195,7 @@ public:
      * @param[in] laneID The lane the detector is placed on
      * @param[in] pos position of the detector on the lane
      * @param[in[ length length of the detector
-     * @param[in] freq the aggregation period the values the detector collects shall be summed up.
+     * @param[in] period the aggregation period the values the detector collects shall be summed up.
      * @param[in] trafficLight The traffic light that triggers aggregation when switching.
      * @param[in] filename The path to the output file.
      * @param[in] vtypes list of vehicle types to be reported
@@ -207,7 +207,7 @@ public:
      * @param[in] parameters generic parameters
      */
     void buildSingleLaneDetectorE2(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& laneID,
-                                   const double pos, const double length, const SUMOTime freq, const std::string& trafficLight, const std::string& filename,
+                                   const double pos, const double length, const SUMOTime period, const std::string& trafficLight, const std::string& filename,
                                    const std::vector<std::string>& vehicleTypes, const std::string& name, const SUMOTime timeThreshold, const double speedThreshold,
                                    const double jamThreshold, const bool friendlyPos, const Parameterised::Map& parameters);
 
@@ -217,7 +217,7 @@ public:
      * @param[in] lanes The lanes the detector is placed on
      * @param[in] pos position of the detector on the first lane
      * @param[in] endPos position of the detector on the last lane
-     * @param[in] freq the aggregation period the values the detector collects shall be summed up.
+     * @param[in] period the aggregation period the values the detector collects shall be summed up.
      * @param[in] trafficLight The traffic light that triggers aggregation when switching.
      * @param[in] filename The path to the output file.
      * @param[in] vtypes list of vehicle types to be reported
@@ -229,7 +229,7 @@ public:
      * @param[in] parameters generic parameters
      */
     void buildMultiLaneDetectorE2(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::vector<std::string>& lanes,
-                                  const double pos, const double endPos, const SUMOTime freq, const std::string& trafficLight, const std::string& filename,
+                                  const double pos, const double endPos, const SUMOTime period, const std::string& trafficLight, const std::string& filename,
                                   const std::vector<std::string>& vehicleTypes, const std::string& name, const SUMOTime timeThreshold, const double speedThreshold,
                                   const double jamThreshold, const bool friendlyPos, const Parameterised::Map& parameters);
 
@@ -237,7 +237,7 @@ public:
      * @param[in] sumoBaseObject sumo base object used for build
      * @param[in] id The id of the detector
      * @param[in] pos position of the detector in the map
-     * @param[in] freq the aggregation period the values the detector collects shall be summed up.
+     * @param[in] period the aggregation period the values the detector collects shall be summed up.
      * @param[in] filename The path to the output file.
      * @param[in] vtypes list of vehicle types to be reported
      * @param[in] name E2 detector name
@@ -245,7 +245,7 @@ public:
      * @param[in] speedThreshold The speed-based threshold that describes how slow a vehicle has to be to be recognized as halting
      * @param[in] parameters generic parameters
      */
-    void buildDetectorE3(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const Position& pos, const SUMOTime freq,
+    void buildDetectorE3(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const Position& pos, const SUMOTime period,
                          const std::string& filename, const std::vector<std::string>& vehicleTypes, const std::string& name, const SUMOTime timeThreshold,
                          const double speedThreshold, const Parameterised::Map& parameters);
 
@@ -295,7 +295,7 @@ public:
      * @param[in] parameters generic parameters
      */
     void buildLaneCalibrator(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& laneID,
-                             const double pos, const std::string& name, const std::string& outfile, const SUMOTime freq, const std::string& routeprobe,
+                             const double pos, const std::string& name, const std::string& outfile, const SUMOTime period, const std::string& routeprobe,
                              const double jamThreshold, const std::vector<std::string>& vTypes, const Parameterised::Map& parameters);
 
     /**@brief builds a microscopic calibrator over an edge
@@ -311,7 +311,7 @@ public:
      * @param[in] parameters generic parameters
      */
     void buildEdgeCalibrator(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& edgeID,
-                             const double pos, const std::string& name, const std::string& outfile, const SUMOTime freq, const std::string& routeprobe,
+                             const double pos, const std::string& name, const std::string& outfile, const SUMOTime period, const std::string& routeprobe,
                              const double jamThreshold, const std::vector<std::string>& vTypes, const Parameterised::Map& parameters);
 
     /**@brief builds a calibrator flow
@@ -379,13 +379,13 @@ public:
      * @param[in] sumoBaseObject sumo base object used for build
      * @param[in] id The id of the routeprobe
      * @param[in] edgeID The edges the routeprobe is placed at
-     * @param[in] freq the aggregation period the values the routeprobe collects shall be summed up.
+     * @param[in] period the aggregation period the values the routeprobe collects shall be summed up.
      * @param[in] name Calibrator name
      * @param[in] file The file to read the routeprobe definitions from
      * @param[in] begin The time at which to start generating output
      * @param[in] parameters generic parameters
      */
-    void buildRouteProbe(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& edgeID, const SUMOTime freq,
+    void buildRouteProbe(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& edgeID, const SUMOTime period,
                          const std::string& name, const std::string& file, const SUMOTime begin, const Parameterised::Map& parameters);
 
     /**@brief Builds a VariableSpeedSign (lane speed additional)
@@ -667,6 +667,12 @@ protected:
     /// @brief parse lanes
     std::vector<GNELane*> parseLanes(const SumoXMLTag tag, const std::vector<std::string>& laneIDs) const;
 
+    /// @brief check if given ID correspond to a duplicated additional
+    bool checkDuplicatedAdditional(const SumoXMLTag tag, const std::string &id);
+
+    /// @brief remove overwrited additional
+    void overwriteAdditional();
+
     /// @brief struct for Netedit parameters
     struct NeteditParameters {
         /// @brief parameter constructor
@@ -691,14 +697,20 @@ protected:
         /// @brief invalidate assignment operator
         NeteditParameters& operator=(const NeteditParameters& s) = delete;
     };
-
+    
+private:
     /// @brief pointer to GNENet
     GNENet* myNet;
 
     /// @brief allow undo/redo
     const bool myAllowUndoRedo;
 
-private:
+    /// @brief check if overwrite
+    const bool myOverwrite;
+
+    /// @brief additional to overwrite (using undor-redo
+    GNEAdditional* myAdditionalToOverwrite = nullptr;
+
     /// @brief invalidate default constructo
     GNEAdditionalHandler();
 

@@ -459,9 +459,9 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
 }
 
 
-void 
-GNEConnection::updateGLObject() { 
-    updateGeometry(); 
+void
+GNEConnection::updateGLObject() {
+    updateGeometry();
 }
 
 

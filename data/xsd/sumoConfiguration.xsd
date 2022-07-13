@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-05-02 19:08:09 by Eclipse SUMO sumo Version v1_12_0+2434-3307e8578f4
+<!-- generated on 2022-07-11 15:42:09 by Eclipse SUMO sumo Version v1_13_0+1506-f0fbece2894
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -30,6 +30,7 @@
             <xsd:element name="glosa_device" type="glosa_deviceTopicType" minOccurs="0"/>
             <xsd:element name="tripinfo_device" type="tripinfo_deviceTopicType" minOccurs="0"/>
             <xsd:element name="vehroutes_device" type="vehroutes_deviceTopicType" minOccurs="0"/>
+            <xsd:element name="friction_device" type="friction_deviceTopicType" minOccurs="0"/>
             <xsd:element name="traci_server" type="traci_serverTopicType" minOccurs="0"/>
             <xsd:element name="mesoscopic" type="mesoscopicTopicType" minOccurs="0"/>
             <xsd:element name="random_number" type="random_numberTopicType" minOccurs="0"/>
@@ -83,6 +84,7 @@
             <xsd:element name="fcd-output.params" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="fcd-output.filter-edges.input-file" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="fcd-output.attributes" type="strArrayOptionType" minOccurs="0"/>
+            <xsd:element name="fcd-output.filter-shapes" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="device.ssm.filter-edges.input-file" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="full-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="queue-output" type="fileOptionType" minOccurs="0"/>
@@ -177,6 +179,7 @@
             <xsd:element name="lanechange.overtake-right" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="tls.all-off" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="tls.actuated.show-detectors" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="tls.actuated.jam-threshold" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="tls.delay_based.detector-range" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="tls.yellow.min-decel" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="railsignal-moving-block" type="boolOptionType" minOccurs="0"/>
@@ -269,10 +272,14 @@
 
     <xsd:complexType name="emissionsTopicType">
         <xsd:all>
+            <xsd:element name="emissions.volumetric-fuel" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="phemlight-path" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="phemlight-year" type="intOptionType" minOccurs="0"/>
+            <xsd:element name="phemlight-temperature" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="device.emissions.probability" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="device.emissions.explicit" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="device.emissions.deterministic" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="device.emissions.begin" type="strOptionType" minOccurs="0"/>
             <xsd:element name="device.emissions.period" type="strOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
@@ -384,6 +391,7 @@
             <xsd:element name="device.fcd.probability" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="device.fcd.explicit" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="device.fcd.deterministic" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="device.fcd.begin" type="strOptionType" minOccurs="0"/>
             <xsd:element name="device.fcd.period" type="strOptionType" minOccurs="0"/>
             <xsd:element name="device.fcd.radius" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="person-device.fcd.probability" type="floatOptionType" minOccurs="0"/>
@@ -439,6 +447,16 @@
             <xsd:element name="device.vehroute.probability" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="device.vehroute.explicit" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="device.vehroute.deterministic" type="boolOptionType" minOccurs="0"/>
+        </xsd:all>
+    </xsd:complexType>
+
+    <xsd:complexType name="friction_deviceTopicType">
+        <xsd:all>
+            <xsd:element name="device.friction.probability" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="device.friction.explicit" type="strArrayOptionType" minOccurs="0"/>
+            <xsd:element name="device.friction.deterministic" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="device.friction.stdDev" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="device.friction.offset" type="floatOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
 

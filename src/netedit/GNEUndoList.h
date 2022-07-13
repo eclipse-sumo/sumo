@@ -82,7 +82,7 @@ public:
     };
 
     /// @brief undo iterator
-    class UndoIterator : public Iterator{
+    class UndoIterator : public Iterator {
 
     public:
         /// @brief constructor for GNEUndoList

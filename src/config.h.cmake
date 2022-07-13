@@ -154,17 +154,11 @@
         /* Define for dynamic Fox linkage */
         #define FOXDLL 1
 
-        /* Define default constructor for FOX moduls (MinGW32) */
-        #define FOX_CONSTRUCTOR(classname) classname() {}
-
-    /* Linux and OS */
-    #else
-
-        /* Define default constructor for FOX moduls (Linux and OS) */
-        #define FOX_CONSTRUCTOR(classname) classname() {}
-
     /* MinGW32 */
     #endif
+
+    /* Define default constructor for FOX moduls */
+    #define FOX_CONSTRUCTOR(classname) classname() {}
 
 /* Visual Studio */
 #endif
@@ -207,7 +201,7 @@
 #define HAVE_VERSION_H
 #ifndef HAVE_VERSION_H
     /* Define if auto-generated version.h is unavailable. */
-    #define VERSION_STRING "1.13.0"
+    #define VERSION_STRING "1.14.0"
 #endif
 
 /* defines the epsilon to use on general floating point comparison */

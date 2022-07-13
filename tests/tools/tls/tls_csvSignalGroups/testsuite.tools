@@ -9,3 +9,7 @@ leftTurnPhase
 # declare signal groups for pedestrian crossings
 pedestrians
 template
+
+# convert from SUMO tll to csv
+reverseGroup
+reverse

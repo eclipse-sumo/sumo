@@ -114,8 +114,7 @@ std::vector<SumoRNG> MSLane::myRNGs;
 void
 MSLane::StoringVisitor::add(const MSLane* const l) const {
     switch (myDomain) {
-        case libsumo::CMD_GET_VEHICLE_VARIABLE:
-        {
+        case libsumo::CMD_GET_VEHICLE_VARIABLE: {
             for (const MSVehicle* veh : l->getVehiclesSecure()) {
                 if (myShape.distance2D(veh->getPosition()) <= myRange) {
                     myObjects.insert(veh);
@@ -129,8 +128,7 @@ MSLane::StoringVisitor::add(const MSLane* const l) const {
             l->releaseVehicles();
         }
         break;
-        case libsumo::CMD_GET_PERSON_VARIABLE:
-        {
+        case libsumo::CMD_GET_PERSON_VARIABLE: {
             l->getVehiclesSecure();
             std::vector<MSTransportable*> persons = l->getEdge().getSortedPersons(MSNet::getInstance()->getCurrentTimeStep(), true);
             for (auto p : persons) {
@@ -141,15 +139,13 @@ MSLane::StoringVisitor::add(const MSLane* const l) const {
             l->releaseVehicles();
         }
         break;
-        case libsumo::CMD_GET_EDGE_VARIABLE:
-        {
+        case libsumo::CMD_GET_EDGE_VARIABLE: {
             if (myShape.size() != 1 || l->getShape().distance2D(myShape[0]) <= myRange) {
                 myObjects.insert(&l->getEdge());
             }
         }
         break;
-        case libsumo::CMD_GET_LANE_VARIABLE:
-        {
+        case libsumo::CMD_GET_LANE_VARIABLE: {
             if (myShape.size() != 1 || l->getShape().distance2D(myShape[0]) <= myRange) {
                 myObjects.insert(l);
             }
@@ -462,7 +458,6 @@ MSLane::lastInsertion(MSVehicle& veh, double mspeed, double posLat, bool patchSp
 bool
 MSLane::freeInsertion(MSVehicle& veh, double mspeed, double posLat,
                       MSMoveReminder::Notification notification) {
-    bool adaptableSpeed = true;
     // try to insert teleporting vehicles fully on this lane
     const double minPos = (notification == MSMoveReminder::NOTIFICATION_TELEPORT ?
                            MIN2(myLength, veh.getVehicleType().getLength()) : 0);
@@ -479,24 +474,23 @@ MSLane::freeInsertion(MSVehicle& veh, double mspeed, double posLat,
                 // deceleration values there might be another insertion
                 // positions that would be successful be we do not look for it.
                 //std::cout << SIMTIME << " freeInsertion lane=" << getID() << " veh=" << veh.getID() << " unclear @(340)\n";
-                return isInsertionSuccess(&veh, mspeed, minPos + missingRearGap, posLat, adaptableSpeed, notification);
-            } else {
-                return false;
+                return isInsertionSuccess(&veh, mspeed, minPos + missingRearGap, posLat, true, notification);
             }
+            return false;
         } else {
-            return isInsertionSuccess(&veh, mspeed, minPos, posLat, adaptableSpeed, notification);
+            return isInsertionSuccess(&veh, mspeed, minPos, posLat, true, notification);
         }
 
     } else {
         // check whether the vehicle can be put behind the last one if there is such
-        MSVehicle* leader = myVehicles.back(); // @todo reproduction of bogus old behavior. see #1961
+        const MSVehicle* const leader = myVehicles.back(); // @todo reproduction of bogus old behavior. see #1961
         const double leaderPos = leader->getBackPositionOnLane(this);
-        const double speed = adaptableSpeed ? leader->getSpeed() : mspeed;
+        const double speed = leader->getSpeed();
         const double frontGapNeeded = veh.getCarFollowModel().getSecureGap(&veh, leader, speed, leader->getSpeed(), leader->getCarFollowModel().getMaxDecel()) + veh.getVehicleType().getMinGap();
         if (leaderPos >= frontGapNeeded) {
             const double tspeed = MIN2(veh.getCarFollowModel().insertionFollowSpeed(&veh, mspeed, frontGapNeeded, leader->getSpeed(), leader->getCarFollowModel().getMaxDecel(), leader), mspeed);
             // check whether we can insert our vehicle behind the last vehicle on the lane
-            if (isInsertionSuccess(&veh, tspeed, minPos, posLat, adaptableSpeed, notification)) {
+            if (isInsertionSuccess(&veh, tspeed, minPos, posLat, true, notification)) {
                 //std::cout << SIMTIME << " freeInsertion lane=" << getID() << " veh=" << veh.getID() << " pos=" << minPos<< " speed=" << speed  << " tspeed=" << tspeed << " frontGapNeeded=" << frontGapNeeded << " lead=" << leader->getID() << " lPos=" << leaderPos << "\n   vehsOnLane=" << toString(myVehicles) << " @(358)\n";
                 return true;
             }
@@ -515,7 +509,7 @@ MSLane::freeInsertion(MSVehicle& veh, double mspeed, double posLat,
 
         // patch speed if allowed
         double speed = mspeed;
-        if (adaptableSpeed && leader != nullptr) {
+        if (leader != nullptr) {
             speed = MIN2(leader->getSpeed(), mspeed);
         }
 
@@ -534,7 +528,7 @@ MSLane::freeInsertion(MSVehicle& veh, double mspeed, double posLat,
         // check whether there is enough room (given some extra space for rounding errors)
         if (frontMax > minPos && backMin + POSITION_EPS < frontMax) {
             // try to insert vehicle (should be always ok)
-            if (isInsertionSuccess(&veh, speed, backMin + POSITION_EPS, posLat, adaptableSpeed, notification)) {
+            if (isInsertionSuccess(&veh, speed, backMin + POSITION_EPS, posLat, true, notification)) {
                 //std::cout << SIMTIME << " freeInsertion lane=" << getID() << " veh=" << veh.getID() << " @(393)\n";
                 return true;
             }
@@ -1188,12 +1182,12 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
 #ifdef DEBUG_INSERTION
         if (DEBUG_COND2(aVehicle) || DEBUG_COND) {
             std::cout << "\nIS_INSERTION_SUCCESS\n"
-                << SIMTIME << " veh=" << aVehicle->getID() << " bestLaneOffset=" << bestLaneOffset << " bestLaneDist=" << aVehicle->getBestLaneDist() << " extraReservation=" << extraReservation
-                << " distToStop=" << distToStop << " v=" << speed << " v2=" << stopSpeed << "\n";
+                      << SIMTIME << " veh=" << aVehicle->getID() << " bestLaneOffset=" << bestLaneOffset << " bestLaneDist=" << aVehicle->getBestLaneDist() << " extraReservation=" << extraReservation
+                      << " distToStop=" << distToStop << " v=" << speed << " v2=" << stopSpeed << "\n";
         }
 #endif
         if (checkFailure(aVehicle, speed, distToStop, MAX2(0.0, stopSpeed),
-                    patchSpeed, msg.str(), InsertionCheck::LANECHANGE)) {
+                         patchSpeed, msg.str(), InsertionCheck::LANECHANGE)) {
             // we may not drive with the given velocity - we cannot reserve enough space for lane changing
             return false;
         }
@@ -3523,11 +3517,16 @@ MSLane::getFollowersOnConsecutive(const MSVehicle* ego, double backOffset,
                             if (agap > 0 && &v->getLane()->getEdge() != &ego->getLane()->getEdge()) {
                                 // Only if ego overlaps we treat v as if it were a real follower
                                 // Otherwise we ignore it and look for another follower
-                                v = firstFront[i];
-                                if (v != nullptr && v != ego) {
-                                    agap = (*it).length - v->getPositionOnLane() + backOffset - v->getVehicleType().getMinGap();
-                                } else {
-                                    v = nullptr;
+                                if (!getOppositeLeaders) {
+                                    // even if the vehicle is not a real
+                                    // follower, it still forms a real
+                                    // obstruction in opposite direction driving
+                                    v = firstFront[i];
+                                    if (v != nullptr && v != ego) {
+                                        agap = (*it).length - v->getPositionOnLane() + backOffset - v->getVehicleType().getMinGap();
+                                    } else {
+                                        v = nullptr;
+                                    }
                                 }
                             }
                         } else {

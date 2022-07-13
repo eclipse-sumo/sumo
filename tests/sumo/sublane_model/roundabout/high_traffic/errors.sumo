@@ -1,0 +1,3 @@
+Warning: Vehicle 'NE.24' performs emergency braking on lane 'RNW_1' with decel=9.00, wished=4.50, severity=1.00, time=420.00.
+Warning: Vehicle 'NS.72' performs emergency braking on lane ':RW_2_1' with decel=9.00, wished=4.50, severity=1.00, time=957.00.
+Warning: Vehicle 'WN.56' performs emergency braking on lane ':RE_4_1' with decel=9.00, wished=4.50, severity=1.00, time=1024.00.

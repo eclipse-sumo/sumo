@@ -1,17 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri May 10 13:15:33 2019 by Eclipse SUMO duarouter Version v1_2_0+0252-83989c2
+<!-- generated on 2022-07-07 10:55:36.087495 by randomTrips.py v1_13_0+1343-240e5d48340
+<configuration>
+    <allow-fringe value="True"/>
+    <end value="20"/>
+    <net-file value="net2.net.xml"/>
+    <remove-loops value="True"/>
+    <route-file value="out.rou.xml"/>
+    <vehicle-class value="passenger"/>
+    <vtype-output value="out.add.xml"/>
+</configuration>
+-->
+
+<!-- generated on 2022-07-07 10:55:36 by Eclipse SUMO duarouter Version v1_13_0+1341-b0c4d231fea
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
 
     <input>
         <net-file value="net2.net.xml"/>
+        <additional-files value="out.add.xml"/>
         <route-files value="trips.trips.xml"/>
     </input>
 
     <output>
         <output-file value="out.rou.xml"/>
         <vtype-output value="out.add.xml"/>
-        <alternatives-output value="out.rou.alt.xml"/>
+        <alternatives-output value="NUL"/>
     </output>
 
     <processing>
@@ -20,7 +33,7 @@
 
     <time>
         <begin value="0"/>
-        <end value="20.0"/>
+        <end value="20"/>
     </time>
 
     <report>

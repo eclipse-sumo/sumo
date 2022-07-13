@@ -170,7 +170,7 @@ MSLaneSpeedTrigger::myStartElement(int element, const SUMOSAXAttributes& attrs) 
     double friction = attrs.getOpt<double>(SUMO_ATTR_FRICTION, getID().c_str(), ok, -1);
     // check the values
     if (next < 0 || (speed > 0 && !myLoadedSpeeds.empty() && myLoadedSpeeds.back().first > next) ||
-        (friction > 0 && !myLoadedFrictions.empty() && myLoadedFrictions.back().first > next)) {
+            (friction > 0 && !myLoadedFrictions.empty() && myLoadedFrictions.back().first > next)) {
         WRITE_ERROR("Invalid or unsorted time entry in vss '" + getID() + "'.");
         return;
     }

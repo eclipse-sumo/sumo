@@ -169,7 +169,7 @@ GNEAdditionalFrame::createPath(const bool /* useLastRoute */) {
                         myAdditionalAttributes->showWarningMessage();
                     } else {
                         // declare additional handler
-                        GNEAdditionalHandler additionalHandler(getViewNet()->getNet(), true);
+                        GNEAdditionalHandler additionalHandler(getViewNet()->getNet(), true, false);
                         // build additional
                         additionalHandler.parseSumoBaseObject(myBaseAdditional);
                         // Refresh additional Parent Selector (For additionals that have a limited number of children)
@@ -353,7 +353,7 @@ GNEAdditionalFrame::buildAdditionalOverEdge(GNELane* lane, const GNETagPropertie
         return false;
     } else {
         // declare additional handler
-        GNEAdditionalHandler additionalHandler(myViewNet->getNet(), true);
+        GNEAdditionalHandler additionalHandler(myViewNet->getNet(), true, false);
         // build additional
         additionalHandler.parseSumoBaseObject(myBaseAdditional);
         // Refresh additional Parent Selector (For additionals that have a limited number of children)
@@ -395,7 +395,7 @@ GNEAdditionalFrame::buildAdditionalOverLane(GNELane* lane, const GNETagPropertie
         return false;
     } else {
         // declare additional handler
-        GNEAdditionalHandler additionalHandler(myViewNet->getNet(), true);
+        GNEAdditionalHandler additionalHandler(myViewNet->getNet(), true, false);
         // build additional
         additionalHandler.parseSumoBaseObject(myBaseAdditional);
         // Refresh additional Parent Selector (For additionals that have a limited number of children)
@@ -472,7 +472,7 @@ GNEAdditionalFrame::buildAdditionalOverView(const GNETagProperties& tagPropertie
         return false;
     } else {
         // declare additional handler
-        GNEAdditionalHandler additionalHandler(myViewNet->getNet(), true);
+        GNEAdditionalHandler additionalHandler(myViewNet->getNet(), true, false);
         // build additional
         additionalHandler.parseSumoBaseObject(myBaseAdditional);
         // Refresh additional Parent Selector (For additionals that have a limited number of children)

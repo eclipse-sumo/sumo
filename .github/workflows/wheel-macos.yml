@@ -23,6 +23,8 @@ jobs:
         python_version: [3.6, 3.7, 3.8, 3.9, '3.10']
 #    runs-on: ${{ matrix.os }}
     runs-on: macos-10.15
+    env:
+      CCACHE_COMPILERTYPE: clang
 
     steps:
     - name: Cloning SUMO
@@ -44,7 +46,11 @@ jobs:
     - name: Preparing Build System
       run: |
         brew install --cask xquartz
-        brew install xerces-c fox proj gdal gl2ps
+        brew install xerces-c fox proj gdal gl2ps ccache
+
+    - name: ccache
+      if: github.event_name != 'schedule'
+      uses: hendrikmuhs/ccache-action@v1.2.2
 
     - name: Building Libsumo wheels
       run: |

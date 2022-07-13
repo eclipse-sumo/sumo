@@ -24,6 +24,7 @@ import re
 import gzip
 import io
 import datetime
+import fileinput
 try:
     import xml.etree.cElementTree as ET
 except ImportError as e:
@@ -91,12 +92,12 @@ def _prefix_keyword(name, warn=False):
     return result
 
 
-def compound_object(element_name, attrnames, warn=False):
+def compound_object(element_name, attrnames, warn=False, sort=True):
     """return a class which delegates bracket access to an internal dict.
        Missing attributes are delegated to the child dict for convenience.
        @note: Care must be taken when child nodes and attributes have the same names"""
     class CompoundObject():
-        _original_fields = sorted(attrnames)
+        _original_fields = sorted(attrnames) if sort else tuple(attrnames)
         _fields = [_prefix_keyword(a, warn) for a in _original_fields]
 
         def __init__(self, values, child_dict=None, text=None, child_list=None):
@@ -135,11 +136,11 @@ def compound_object(element_name, attrnames, warn=False):
         def getChild(self, name):
             return self._child_dict[name]
 
-        def addChild(self, name, attrs=None):
+        def addChild(self, name, attrs=None, sortAttrs=True):
             if attrs is None:
                 attrs = {}
-            clazz = compound_object(name, attrs.keys())
-            child = clazz([attrs.get(a) for a in sorted(attrs.keys())])
+            clazz = compound_object(name, attrs.keys(), sort=sortAttrs)
+            child = clazz([attrs.get(a) for a in (sorted(attrs.keys()) if sortAttrs else attrs.keys())])
             self._child_dict.setdefault(name, []).append(child)
             self._child_list.append(child)
             return child
@@ -468,6 +469,39 @@ def parse_fast_structured(xmlfile, element_name, attrnames, nested,
                         record = Record(*args)
 
 
+def buildHeader(script=None, root=None, schemaPath=None, rootAttrs="", options=None, includeXMLDeclaration=False):
+    """
+    Builds an XML header with schema information and a comment on how the file has been generated
+    (script name, arguments and datetime).
+    If script name is not given, it is determined from the command line call.
+    If root is not given, no root element is printed (and thus no schema).
+    If schemaPath is not given, it is derived from the root element.
+    If rootAttrs is given as a string, it can be used to add further attributes to the root element.
+    If rootAttrs is set to None, the schema related attributes are not printed.
+    """
+    if script is None or script == "$Id$":
+        script = os.path.basename(sys.argv[0])
+    if options is None:
+        optionString = "  options: %s\n" % (' '.join(sys.argv[1:]).replace('--', '<doubleminus>'))
+    else:
+        optionString = options.config_as_string
+    if includeXMLDeclaration:
+        header = '<?xml version="1.0" encoding="UTF-8"?>\n\n'
+    else:
+        header = ''
+    header += '<!-- generated on %s by %s %s\n%s-->\n\n' % (datetime.datetime.now(), script,
+                                                            version.gitDescribe(), optionString)
+    if root is not None:
+        if rootAttrs is None:
+            header += '<%s>\n' % root
+        else:
+            if schemaPath is None:
+                schemaPath = root + "_file.xsd"
+            header += ('<%s%s xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ' +
+                       'xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/%s">\n') % (root, rootAttrs, schemaPath)
+    return header
+
+
 def writeHeader(outf, script=None, root=None, schemaPath=None, rootAttrs="", options=None):
     """
     Writes an XML header with schema information and a comment on how the file has been generated
@@ -479,27 +513,20 @@ def writeHeader(outf, script=None, root=None, schemaPath=None, rootAttrs="", opt
     If rootAttrs is given as a string, it can be used to add further attributes to the root element.
     If rootAttrs is set to None, the schema related attributes are not printed.
     """
-    if script is None or script == "$Id$":
-        script = os.path.basename(sys.argv[0])
-    if options is None:
-        optionString = "  options: %s" % (' '.join(sys.argv[1:]).replace('--', '<doubleminus>'))
-    else:
-        optionString = options.config_as_string
+    outf.write(buildHeader(script, root, schemaPath, rootAttrs, options, True))
 
-    outf.write(u"""<?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on %s by %s %s
-%s
--->
-""" % (datetime.datetime.now(), script, version.gitDescribe(), optionString))
-    if root is not None:
-        if rootAttrs is None:
-            outf.write((u'<%s>\n') % root)
-        else:
-            if schemaPath is None:
-                schemaPath = root + "_file.xsd"
-            outf.write((u'<%s%s xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ' +
-                        u'xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/%s">\n') %
-                       (root, rootAttrs, schemaPath))
+
+def insertOptionsHeader(filename, options):
+    """
+    Inserts a comment header with the options used to call the script into an existing file.
+    """
+    header = buildHeader(options=options)
+    fileToPatch = fileinput.FileInput(filename, inplace=True)
+    for lineNbr, line in enumerate(fileToPatch):
+        if lineNbr == 2:
+            print(header, end='')
+        print(line, end='')
+    fileToPatch.close()
 
 
 def quoteattr(val):

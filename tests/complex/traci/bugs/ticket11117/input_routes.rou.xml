@@ -1,0 +1,12 @@
+<routes>
+    <vType id="special" vClass="custom1" sigma="0"/>
+    <vType id="default" sigma="0"/>
+
+    <route id="r0" edges="beg"/>
+
+    <vehicle id="blocker" type="default" route="r0" depart="0">
+        <stop edge="beg" endPos="300" duration="200"/>
+    </vehicle>
+    <vehicle id="ego"  type="default"  route="r0" depart="2"/>
+
+</routes>

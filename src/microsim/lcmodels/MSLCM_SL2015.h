@@ -263,7 +263,7 @@ protected:
 
     /// @brief check whether any of the vehicles overlaps with ego
     int checkBlockingVehicles(const MSVehicle* ego, const MSLeaderDistanceInfo& vehicles,
-                              double latDist, double foeOffset, bool leaders, LaneChangeAction blockType,
+                              int laneOffset, double latDist, double foeOffset, bool leaders,
                               double& safeLatGapRight, double& safeLatGapLeft,
                               std::vector<CLeaderDist>* collectBlockers = 0) const;
 
@@ -449,6 +449,8 @@ protected:
     double myCooperativeSpeed;
     // time for unrestricted driving on the right to accept keepRight change
     double myKeepRightAcceptanceTime;
+    // @brief speed difference factor for overtaking the leader on the neighbor lane before changing to that lane
+    double myOvertakeDeltaSpeedFactor;
     //@}
 
     /// @name derived parameters

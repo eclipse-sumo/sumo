@@ -56,7 +56,7 @@ public:
     void setDemandElement(GNEDemandElement* demandElement);
 
     /// @brief set multiple demand elements to filter
-    void setDemandElements(const std::vector<GNEDemandElement*> &demandElements);
+    void setDemandElements(const std::vector<GNEDemandElement*>& demandElements);
 
     /// @brief show demand element selector
     void showDemandElementSelector();

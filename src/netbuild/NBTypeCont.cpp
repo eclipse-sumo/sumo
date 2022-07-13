@@ -115,8 +115,8 @@ NBTypeCont::EdgeTypeDefinition::EdgeTypeDefinition(const EdgeTypeDefinition* edg
 
 
 NBTypeCont::EdgeTypeDefinition::EdgeTypeDefinition(int numLanes, double _speed, double _friction, int _priority,
-    double _width, SVCPermissions _permissions, LaneSpreadFunction _spreadType, bool _oneWay, double _sideWalkWidth,
-    double _bikeLaneWidth, double _widthResolution, double _maxWidth, double _minWidth) :
+        double _width, SVCPermissions _permissions, LaneSpreadFunction _spreadType, bool _oneWay, double _sideWalkWidth,
+        double _bikeLaneWidth, double _widthResolution, double _maxWidth, double _minWidth) :
     speed(_speed), friction(_friction), priority(_priority), //TODO
     permissions(_permissions),
     spreadType(_spreadType),
@@ -207,8 +207,8 @@ NBTypeCont::insertEdgeType(const std::string& id, int numLanes, double maxSpeed,
                            double widthResolution, double maxWidth, double minWidth) {
     // Create edge type definition
     EdgeTypeDefinition* newType = new EdgeTypeDefinition(numLanes, maxSpeed, NBEdge::UNSPECIFIED_FRICTION, prio,
-                                                         width, permissions, spreadType, oneWayIsDefault, sidewalkWidth,
-                                                         bikeLaneWidth, widthResolution, maxWidth, minWidth);
+            width, permissions, spreadType, oneWayIsDefault, sidewalkWidth,
+            bikeLaneWidth, widthResolution, maxWidth, minWidth);
     // check if edgeType already exist in types
     TypesCont::iterator old = myEdgeTypes.find(id);
     // if exists, then update restrictions and attributes

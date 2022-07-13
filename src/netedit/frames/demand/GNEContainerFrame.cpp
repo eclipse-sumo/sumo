@@ -37,7 +37,7 @@
 
 GNEContainerFrame::GNEContainerFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet) :
     GNEFrame(horizontalFrameParent, viewNet, "Containers"),
-    myRouteHandler("", viewNet->getNet(), true),
+    myRouteHandler("", viewNet->getNet(), true, false),
     myContainerBaseObject(new CommonXMLStructure::SumoBaseObject(nullptr)) {
 
     // create tag Selector modul for containers
@@ -270,14 +270,14 @@ GNEContainerFrame::createPath(const bool /* useLastRoute */) {
     } else {
         // begin undo-redo operation
         myViewNet->getUndoList()->begin(myContainerTagSelector->getCurrentTemplateAC()->getTagProperty().getGUIIcon(), "create " +
-            myContainerTagSelector->getCurrentTemplateAC()->getTagProperty().getTagStr() + " and " +
-            myContainerPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTagStr());
+                                        myContainerTagSelector->getCurrentTemplateAC()->getTagProperty().getTagStr() + " and " +
+                                        myContainerPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTagStr());
         // create person
         GNEDemandElement* person = buildContainer();
         // check if person and person plan can be created
         if (myRouteHandler.buildContainerPlan(
-            myContainerPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTag(),
-            person, myContainerPlanAttributes, myPathCreator, true)) {
+                    myContainerPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTag(),
+                    person, myContainerPlanAttributes, myPathCreator, true)) {
             // end undo-redo operation
             myViewNet->getUndoList()->end();
             // abort path creation

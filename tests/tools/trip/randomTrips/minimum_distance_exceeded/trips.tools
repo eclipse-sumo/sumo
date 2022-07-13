@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2019-03-21 09:58:38.358185 by $Id: randomTrips.py v1_0_1+0098-8affe8886f jakob.erdmann@dlr.de 2018-08-29 20:55:11 +0200 $
-  options: -n net.net.xml -s 42 <doubleminus>min-distance 2000 <doubleminus>maxtries 10
+
+<!-- generated on 2022-07-07 10:55:33.439033 by randomTrips.py v1_13_0+1343-240e5d48340
+<configuration>
+    <maxtries value="10"/>
+    <min-distance value="2000.0"/>
+    <net-file value="net.net.xml"/>
+</configuration>
 -->
+
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 </routes>

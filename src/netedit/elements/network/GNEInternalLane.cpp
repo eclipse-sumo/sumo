@@ -159,7 +159,7 @@ GNEInternalLane::drawGL(const GUIVisualizationSettings& s) const {
 }
 
 
-void 
+void
 GNEInternalLane::updateGLObject() {
     updateGeometry();
 }

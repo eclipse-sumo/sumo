@@ -66,9 +66,7 @@ Debug: Created walkingArea ':Center_w1' in retrieveGNEWalkingArea()
 Debug: Created walkingArea ':Center_w2' in retrieveGNEWalkingArea()
 Debug: Created walkingArea ':Center_w3' in retrieveGNEWalkingArea()
 Debug: Created walkingArea ':D_w0' in retrieveGNEWalkingArea()
-Debug: Keys Ctrl+Z (Undo) pressed
-Debug: Calling GNEUndoList::undo()
-Debug: Restoring previous attribute
+Debug: Setting new attribute
 Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
 Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
 Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
@@ -81,6 +79,30 @@ Debug: Key F5 (Compute) pressed
 Debug: Created walkingArea ':A_w0' in retrieveGNEWalkingArea()
 Debug: Created walkingArea ':B_w0' in retrieveGNEWalkingArea()
 Debug: Created walkingArea ':C_w0' in retrieveGNEWalkingArea()
+Debug: Created walkingArea ':Center_w0' in retrieveGNEWalkingArea()
+Debug: Created walkingArea ':Center_w1' in retrieveGNEWalkingArea()
+Debug: Created walkingArea ':Center_w2' in retrieveGNEWalkingArea()
+Debug: Created walkingArea ':Center_w3' in retrieveGNEWalkingArea()
+Debug: Created walkingArea ':D_w0' in retrieveGNEWalkingArea()
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
+Debug: Restoring previous attribute
+Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
+Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
+Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
+Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
+Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
+Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
+Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
+Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
+Debug: Created crossing ':Center_c1' in retrieveGNECrossing()
+Debug: Deleting unreferenced crossing in rebuildGNECrossings()
+Debug: Key F5 (Compute) pressed
+Debug: Created walkingArea ':A_w0' in retrieveGNEWalkingArea()
+Debug: Created walkingArea ':B_w0' in retrieveGNEWalkingArea()
+Debug: Created walkingArea ':C_w0' in retrieveGNEWalkingArea()
+Debug: Created crossing ':Center_c1' in retrieveGNECrossing()
+Debug: Deleting unreferenced crossing in rebuildGNECrossings()
 Debug: Created walkingArea ':Center_w0' in retrieveGNEWalkingArea()
 Debug: Created walkingArea ':Center_w1' in retrieveGNEWalkingArea()
 Debug: Created walkingArea ':Center_w2' in retrieveGNEWalkingArea()
@@ -97,22 +119,15 @@ Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
 Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
 Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
 Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
-Debug: Created crossing ':Center_c1' in retrieveGNECrossing()
-Debug: Deleting unreferenced crossing in rebuildGNECrossings()
 Debug: Key F5 (Compute) pressed
 Debug: Created walkingArea ':A_w0' in retrieveGNEWalkingArea()
 Debug: Created walkingArea ':B_w0' in retrieveGNEWalkingArea()
 Debug: Created walkingArea ':C_w0' in retrieveGNEWalkingArea()
-Debug: Created crossing ':Center_c1' in retrieveGNECrossing()
-Debug: Deleting unreferenced crossing in rebuildGNECrossings()
 Debug: Created walkingArea ':Center_w0' in retrieveGNEWalkingArea()
 Debug: Created walkingArea ':Center_w1' in retrieveGNEWalkingArea()
 Debug: Created walkingArea ':Center_w2' in retrieveGNEWalkingArea()
 Debug: Created walkingArea ':Center_w3' in retrieveGNEWalkingArea()
 Debug: Created walkingArea ':D_w0' in retrieveGNEWalkingArea()
-Debug: Setting new attribute
-Debug: Setting new attribute
-Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Additionals saved after dialog
 Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
@@ -131,6 +146,7 @@ Debug: Created walkingArea ':Center_w2' in retrieveGNEWalkingArea()
 Debug: Created walkingArea ':Center_w3' in retrieveGNEWalkingArea()
 Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
 Debug: Created walkingArea ':D_w0' in retrieveGNEWalkingArea()
+Debug: network elements saved
 Debug: Deleting unreferenced busStop
 Debug: Deleting unreferenced busStop
 Debug: Deleting unreferenced busStop

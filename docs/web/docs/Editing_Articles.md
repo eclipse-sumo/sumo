@@ -50,7 +50,20 @@ Sections and subsections in a document are marked by using the `#` character.
 #### This is a sub section, equivalent to <h4\>
 
 
+<br><br>
+# **CSS classes, IDs and key/value pairs**
 
+Markdown allows to use css classes, ids and key/value pairs: <https://python-markdown.github.io/extensions/attr_list/>
+
+Custom classes:
+
+- `.cellNoWrap` : Avoid a line break (useful in tables).
+
+## Example
+
+```
+{: #someid .someclass somekey='some value' }
+```
 
 <br><br>
 # **Styling text**

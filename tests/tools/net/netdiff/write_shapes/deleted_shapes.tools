@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2021-10-23 23:47:07.037728 by netdiff.py v1_10_0+1647-f5bbe16
+
+<!-- generated on 2022-07-07 11:16:40.982807 by netdiff.py v1_13_0+1343-240e5d48340
 <configuration>
+    <dest value="dest.net.xml"/>
+    <outprefix value="diff"/>
+    <source value="source.net.xml"/>
     <write-shapes value="True"/>
 </configuration>
-
 -->
+
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
 <poly id="301292612" type="node" shape="45.57,61.54 48.33,55.65 48.34,49.92 42.06,48.24 40.22,49.33 37.06,62.05" fill="True" layer="11" color="red"/>
 <poly id="38919945" type="node" shape="37.77,62.22 40.92,49.51 39.73,47.67 33.32,46.55 30.73,52.74 30.38,55.92" fill="True" layer="11" color="red"/>

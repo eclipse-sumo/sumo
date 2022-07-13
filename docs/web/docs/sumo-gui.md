@@ -309,7 +309,7 @@ The following detectors support overriding detection From their context menu:
 
 If the override is active, the context menu allows to reset the override.
 
-Overriding detection can influnce the [operation of traffic lights](Simulation/Traffic_Lights.md#traffic_lights_that_respond_to_traffic) (type 'actuated' and 'NEMA'). For this it is useful, the [make their detectors visible](Simulation/Traffic_Lights.md#visualization).
+Overriding detection can influence the [operation of traffic lights](Simulation/Traffic_Lights.md#traffic_lights_that_respond_to_traffic) (type 'actuated' and 'NEMA'). For this it is useful, the [make their detectors visible](Simulation/Traffic_Lights.md#visualization).
 
 ## Planned Interactions
 
@@ -565,8 +565,8 @@ value/range
 
 - Show blinkers / brake lights
 - Show brake gap
-- Show route index: When activating *show route* in the vehicle context menu, each highlighted edge is annoted with it's index along the route (permitting to analyze looped routes)
-- Show parking info: When activating *show route* in the vehicle context menu, the vehicle is annoted with the number of failed parking attempts and each parking area is annoted with the last target selection score
+- Show route index: When activating *show route* in the vehicle context menu, each highlighted edge is annotated with it's index along the route (permitting to analyze looped routes)
+- Show parking info: When activating *show route* in the vehicle context menu, the vehicle is annotated with the number of failed parking attempts and each parking area is annotated with the last target selection score
 - Show minimum gap
 - Show [Bluetooth range](Simulation/Bluetooth.md)
 - Scale length with gemeotry (see [length-geometry-mismatch](Simulation/Distances.md#vehicle_lengths_in_sumo-gui)
@@ -823,7 +823,7 @@ It possible to reference a predefined scheme by it's name alone:
 </viewsettings>
 ```
 
-The name may either be one of the "native" schemese ("standard", "real world", ...) or any schema [stored in the registry](#changing_the_appearancevisualisation_of_the_simulation) by the user.
+The name may either be one of the "native" schemes ("standard", "real world", ...) or any schema [stored in the registry](#changing_the_appearancevisualisation_of_the_simulation) by the user.
 
 ## Breakpoints
 

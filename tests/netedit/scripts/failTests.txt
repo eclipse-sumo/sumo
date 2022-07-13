@@ -1,12 +1,3 @@
 -tp appdata=netedit.gui
-netelements\edges\inspect\distance
-netelements\junctions\inspect\shape
-netelements\junctions\inspect_tls\pos
-netelements\junctions\inspect_tls_selected\fringe
-netelements\junctions\inspect_tls_selected\name
-netelements\junctions\inspect_tls_selected\parameters
-netelements\lanes\inspect_selected\width
-additionalelements\e2detector\inspect\period
-additionalelements\routeprobe\load\period
-tazelements\taz\inspect\shape
-dataelements\edgereldata\load\parameters
+bugs/crossings/ticket3288
+bugs/ticket5552

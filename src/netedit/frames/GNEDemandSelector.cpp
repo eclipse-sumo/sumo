@@ -49,7 +49,7 @@ DemandElementSelector::DemandElementSelector(GNEFrame* frameParent, SumoXMLTag d
     myFrameParent(frameParent),
     myCurrentDemandElement(defaultElement),
     myDemandElementTags({demandElementTag}),
-    mySelectingMultipleElements(false) {
+mySelectingMultipleElements(false) {
     // Create MFXIconComboBox
     myDemandElementsMatchBox = new MFXIconComboBox(getCollapsableFrame(), GUIDesignComboBoxNCol, true, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
     // create info label
@@ -122,12 +122,12 @@ DemandElementSelector::setDemandElement(GNEDemandElement* demandElement) {
 }
 
 
-void 
-DemandElementSelector::setDemandElements(const std::vector<GNEDemandElement*> &demandElements) {
+void
+DemandElementSelector::setDemandElements(const std::vector<GNEDemandElement*>& demandElements) {
     mySelectingMultipleElements = true;
     myCurrentDemandElement = nullptr;
     myDemandElementsMatchBox->clearItems();
-    for (const auto &demandElement : demandElements) {
+    for (const auto& demandElement : demandElements) {
         myDemandElementsMatchBox->appendIconItem(demandElement->getID().c_str(), demandElement->getIcon());
     }
     myDemandElementsMatchBox->setCustomText("select sub-item...");

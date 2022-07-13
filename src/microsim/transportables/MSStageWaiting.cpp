@@ -153,6 +153,9 @@ MSStageWaiting::abort(MSTransportable* t) {
                                   MSNet::getInstance()->getPersonControl() :
                                   MSNet::getInstance()->getContainerControl());
     tc.abortWaiting(t);
+    if (myType == MSStageType::WAITING_FOR_DEPART) {
+        tc.forceDeparture();
+    }
 }
 
 std::string

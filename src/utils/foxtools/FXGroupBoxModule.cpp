@@ -148,12 +148,12 @@ FXGroupBoxModule::onCmdCollapseButton(FXObject*, FXSelector, void*) {
 }
 
 
-long 
+long
 FXGroupBoxModule::onCmdExtendButton(FXObject*, FXSelector, void*) {
     if (myFrameParent) {
         int maximumWidth = -1;
-        // search in every child 
-        for(auto child = getFirst(); child != nullptr; child = child->getNext()) {
+        // search in every child
+        for (auto child = getFirst(); child != nullptr; child = child->getNext()) {
             // check if child is an scrollWindow
             auto scrollWindow = dynamic_cast<FXScrollWindow*>(child->getFirst());
             if (scrollWindow && (scrollWindow->getContentWidth() > maximumWidth)) {
@@ -169,7 +169,7 @@ FXGroupBoxModule::onCmdExtendButton(FXObject*, FXSelector, void*) {
 }
 
 
-long 
+long
 FXGroupBoxModule::onCmdResetButton(FXObject*, FXSelector, void*) {
     if (myFrameParent) {
         myFrameParent->getViewNet()->getViewParent()->setFrameAreaWith(220);
@@ -178,7 +178,7 @@ FXGroupBoxModule::onCmdResetButton(FXObject*, FXSelector, void*) {
 }
 
 
-long 
+long
 FXGroupBoxModule::onUpdResetButton(FXObject* sender, FXSelector, void*) {
     if (myFrameParent) {
         if (myFrameParent->getViewNet()->getViewParent()->getFrameAreaWith() == 220) {

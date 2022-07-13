@@ -66,7 +66,7 @@ GNEDeleteFrame::MultipleDeletePane::MultipleDeletePane(GNEDeleteFrame* deleteFra
     // add separators
     new FXMenuSeparator(this);
     // add elements
-    for (const auto &demandElement : myClickedDemandElements) {
+    for (const auto& demandElement : myClickedDemandElements) {
         GUIDesigns::buildFXMenuCommand(this, demandElement->getTagStr() + ": " + demandElement->getID(), demandElement->getIcon(), this, MID_GNE_SELECT);
     }
     // obtain cursor position
@@ -102,7 +102,7 @@ GNEDeleteFrame::MultipleDeletePane::onCmdSelect(FXObject* obj, FXSelector, void*
         // remove all selected attribute carrier susing the following parent-child sequence
         myDeleteFrameParent->getViewNet()->getUndoList()->begin(GUIIcon::MODEDELETE, "remove clicked items");
         // add elements
-        for (const auto &demandElement : myClickedDemandElements) {
+        for (const auto& demandElement : myClickedDemandElements) {
             if (myDeleteFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveDemandElement(demandElement, false)) {
                 myDeleteFrameParent->getViewNet()->getNet()->deleteDemandElement(demandElement, myDeleteFrameParent->getViewNet()->getUndoList());
             }
@@ -112,7 +112,7 @@ GNEDeleteFrame::MultipleDeletePane::onCmdSelect(FXObject* obj, FXSelector, void*
     } else {
         // get menu command
         const std::string menuCommandStr = dynamic_cast<FXMenuCommand*>(obj)->getText().text();
-        for (const auto &demandElement : myClickedDemandElements) {
+        for (const auto& demandElement : myClickedDemandElements) {
             if (menuCommandStr == (demandElement->getTagStr() + ": " + demandElement->getID())) {
                 myDeleteFrameParent->getViewNet()->getNet()->deleteDemandElement(demandElement, myDeleteFrameParent->getViewNet()->getUndoList());
                 return 1;
@@ -271,7 +271,7 @@ GNEDeleteFrame::removeSelectedAttributeCarriers() {
             // additionals (including Polygons, POIs, TAZs and Wires)
             while (attributeCarriers->getNumberOfSelectedAdditionals() > 0) {
                 myViewNet->getNet()->deleteAdditional(attributeCarriers->getSelectedAdditionals().front(), myViewNet->getUndoList());
-            } 
+            }
         } else if (myViewNet->getEditModes().isCurrentSupermodeDemand()) {
             // demand elements
             while (attributeCarriers->getNumberOfSelectedDemandElements() > 0) {
@@ -297,10 +297,10 @@ GNEDeleteFrame::removeAttributeCarrier(const GNEViewNetHelper::ObjectsUnderCurso
     // first check if there is at leas an AC under cursor)
     if (objectsUnderCursor.getClickedDemandElements().size() > 1) {
         // show multiple delete pane
-    if (myMultipleDeletePane) {
-        delete myMultipleDeletePane;
-    }
-    myMultipleDeletePane = new MultipleDeletePane(this, objectsUnderCursor.getClickedDemandElements());
+        if (myMultipleDeletePane) {
+            delete myMultipleDeletePane;
+        }
+        myMultipleDeletePane = new MultipleDeletePane(this, objectsUnderCursor.getClickedDemandElements());
     } else if (objectsUnderCursor.getAttributeCarrierFront()) {
         // disable update geometry
         myViewNet->getNet()->disableUpdateGeometry();

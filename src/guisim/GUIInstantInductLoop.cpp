@@ -42,7 +42,7 @@
 GUIInstantInductLoop::GUIInstantInductLoop(const std::string& id, OutputDevice& od,
         MSLane* const lane, double positionInMeters,
         const std::string& vTypes,
-        const std::string& nextEdges) : 
+        const std::string& nextEdges) :
     MSInstantInductLoop(id, od, lane, positionInMeters, vTypes, nextEdges) {}
 
 

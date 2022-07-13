@@ -36,7 +36,7 @@
 
 GNEContainerPlanFrame::GNEContainerPlanFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet) :
     GNEFrame(horizontalFrameParent, viewNet, "ContainerPlans"),
-    myRouteHandler("", viewNet->getNet(), true) {
+    myRouteHandler("", viewNet->getNet(), true, false) {
 
     // create container types selector modul
     myContainerSelector = new DemandElementSelector(this, {GNETagProperties::TagType::CONTAINER});

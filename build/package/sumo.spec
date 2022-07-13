@@ -187,6 +187,7 @@ cd cmake-build
 %endif
 %{python3_sitelib}/sumolib*/
 %{python3_sitelib}/traci*/
+%{python3_sitelib}/simpla*/
 %{python3_sitearch}/libsumo*/
 %{python3_sitearch}/libtraci*/
 

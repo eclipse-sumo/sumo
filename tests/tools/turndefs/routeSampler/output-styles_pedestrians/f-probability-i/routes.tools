@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2022-02-22 07:52:34.114520 by routeSampler.py v1_12_0+0744-bdcac826e5c
+
+<!-- generated on 2022-07-07 11:19:50.939914 by routeSampler.py v1_13_0+1343-240e5d48340
 <configuration>
     <pedestrians value="True"/>
     <route-files value="input_routes.rou.xml"/>
@@ -7,8 +8,8 @@
     <write-flows value="probability"/>
     <write-route-ids value="True"/>
 </configuration>
-
 -->
+
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 <!-- begin="0.0" end="99.0" -->
     <route id="0" edges="-109.80.00 -11 -11.80.00 3 3.180.00 27 27.80.00 -27"/> <!-- 1 -->
@@ -84,220 +85,220 @@
     <route id="95" edges="71 71.121.42 -3 -3.180.00 11 11.80.00 109 109.80.00 -120"/> <!-- 1 -->
     <route id="96" edges="71.121.42 -3 -3.180.00 15 15.180.00"/> <!-- 1 -->
 
-    <personFlow id="77" begin="0.00" end="66.00" probability="0.03030303030303027">
+    <personFlow id="77" begin="0.00" end="66.00" probability="0.0303">
         <walk route="77"/>
     </personFlow>
-    <personFlow id="82" begin="1.14" end="23.90" probability="0.0878787878787879">
+    <personFlow id="82" begin="1.14" end="23.90" probability="0.0879">
         <walk route="82"/>
     </personFlow>
-    <personFlow id="22" begin="2.28" end="3.28" probability="1.0">
+    <personFlow id="22" begin="2.28" end="3.28" probability="1.0000">
         <walk route="22"/>
     </personFlow>
-    <personFlow id="43" begin="3.41" end="48.93" probability="0.04393939393939391">
+    <personFlow id="43" begin="3.41" end="48.93" probability="0.0439">
         <walk route="43"/>
     </personFlow>
-    <personFlow id="78" begin="4.55" end="5.55" probability="1.0">
+    <personFlow id="78" begin="4.55" end="5.55" probability="1.0000">
         <walk route="78"/>
     </personFlow>
-    <personFlow id="96" begin="5.69" end="6.69" probability="1.0">
+    <personFlow id="96" begin="5.69" end="6.69" probability="1.0000">
         <walk route="96"/>
     </personFlow>
-    <personFlow id="10" begin="6.83" end="79.66" probability="0.027462121212121174">
+    <personFlow id="10" begin="6.83" end="79.66" probability="0.0275">
         <walk route="10"/>
     </personFlow>
-    <personFlow id="14" begin="7.97" end="8.97" probability="1.0">
+    <personFlow id="14" begin="7.97" end="8.97" probability="1.0000">
         <walk route="14"/>
     </personFlow>
-    <personFlow id="30" begin="9.10" end="10.10" probability="1.0">
+    <personFlow id="30" begin="9.10" end="10.10" probability="1.0000">
         <walk route="30"/>
     </personFlow>
-    <personFlow id="44" begin="10.24" end="97.86" probability="0.02282565918929551">
+    <personFlow id="44" begin="10.24" end="97.86" probability="0.0228">
         <walk route="44"/>
     </personFlow>
-    <personFlow id="79" begin="11.38" end="43.24" probability="0.06277056277056274">
+    <personFlow id="79" begin="11.38" end="43.24" probability="0.0628">
         <walk route="79"/>
     </personFlow>
-    <personFlow id="17" begin="12.52" end="62.59" probability="0.03994490358126716">
+    <personFlow id="17" begin="12.52" end="62.59" probability="0.0399">
         <walk route="17"/>
     </personFlow>
-    <personFlow id="19" begin="13.66" end="14.66" probability="1.0">
+    <personFlow id="19" begin="13.66" end="14.66" probability="1.0000">
         <walk route="19"/>
     </personFlow>
-    <personFlow id="28" begin="14.79" end="68.28" probability="0.03739522888459053">
+    <personFlow id="28" begin="14.79" end="68.28" probability="0.0374">
         <walk route="28"/>
     </personFlow>
-    <personFlow id="80" begin="15.93" end="16.93" probability="0.9999999999999982">
+    <personFlow id="80" begin="15.93" end="16.93" probability="1.0000">
         <walk route="80"/>
     </personFlow>
-    <personFlow id="50" begin="17.07" end="18.07" probability="1.0">
+    <personFlow id="50" begin="17.07" end="18.07" probability="1.0000">
         <walk route="50"/>
     </personFlow>
-    <personFlow id="49" begin="18.21" end="22.76" probability="0.4393939393939396">
+    <personFlow id="49" begin="18.21" end="22.76" probability="0.4394">
         <walk route="49"/>
     </personFlow>
-    <personFlow id="5" begin="19.34" end="20.34" probability="1.0">
+    <personFlow id="5" begin="19.34" end="20.34" probability="1.0000">
         <walk route="5"/>
     </personFlow>
-    <personFlow id="41" begin="20.48" end="21.48" probability="1.0">
+    <personFlow id="41" begin="20.48" end="21.48" probability="1.0000">
         <walk route="41"/>
     </personFlow>
-    <personFlow id="84" begin="21.62" end="22.62" probability="1.0">
+    <personFlow id="84" begin="21.62" end="22.62" probability="1.0000">
         <walk route="84"/>
     </personFlow>
-    <personFlow id="70" begin="25.03" end="26.03" probability="1.0">
+    <personFlow id="70" begin="25.03" end="26.03" probability="1.0000">
         <walk route="70"/>
     </personFlow>
-    <personFlow id="88" begin="26.17" end="44.38" probability="0.10984848484848467">
+    <personFlow id="88" begin="26.17" end="44.38" probability="0.1098">
         <walk route="88"/>
     </personFlow>
-    <personFlow id="61" begin="27.31" end="28.31" probability="1.0">
+    <personFlow id="61" begin="27.31" end="28.31" probability="1.0000">
         <walk route="61"/>
     </personFlow>
-    <personFlow id="15" begin="28.45" end="29.45" probability="1.0">
+    <personFlow id="15" begin="28.45" end="29.45" probability="1.0000">
         <walk route="15"/>
     </personFlow>
-    <personFlow id="69" begin="29.59" end="30.59" probability="1.0">
+    <personFlow id="69" begin="29.59" end="30.59" probability="1.0000">
         <walk route="69"/>
     </personFlow>
-    <personFlow id="52" begin="30.72" end="31.72" probability="1.0">
+    <personFlow id="52" begin="30.72" end="31.72" probability="1.0000">
         <walk route="52"/>
     </personFlow>
-    <personFlow id="71" begin="31.86" end="32.86" probability="1.0">
+    <personFlow id="71" begin="31.86" end="32.86" probability="1.0000">
         <walk route="71"/>
     </personFlow>
-    <personFlow id="18" begin="33.00" end="42.10" probability="0.21969696969696914">
+    <personFlow id="18" begin="33.00" end="42.10" probability="0.2197">
         <walk route="18"/>
     </personFlow>
-    <personFlow id="65" begin="34.14" end="51.21" probability="0.11717171717171687">
+    <personFlow id="65" begin="34.14" end="51.21" probability="0.1172">
         <walk route="65"/>
     </personFlow>
-    <personFlow id="63" begin="35.28" end="36.28" probability="1.0">
+    <personFlow id="63" begin="35.28" end="36.28" probability="1.0000">
         <walk route="63"/>
     </personFlow>
-    <personFlow id="31" begin="36.41" end="37.41" probability="1.0">
+    <personFlow id="31" begin="36.41" end="37.41" probability="1.0000">
         <walk route="31"/>
     </personFlow>
-    <personFlow id="47" begin="37.55" end="38.55" probability="1.0">
+    <personFlow id="47" begin="37.55" end="38.55" probability="1.0000">
         <walk route="47"/>
     </personFlow>
-    <personFlow id="26" begin="38.69" end="39.69" probability="1.0">
+    <personFlow id="26" begin="38.69" end="39.69" probability="1.0000">
         <walk route="26"/>
     </personFlow>
-    <personFlow id="24" begin="39.83" end="40.83" probability="1.0">
+    <personFlow id="24" begin="39.83" end="40.83" probability="1.0000">
         <walk route="24"/>
     </personFlow>
-    <personFlow id="72" begin="40.97" end="93.31" probability="0.057312252964426734">
+    <personFlow id="72" begin="40.97" end="93.31" probability="0.0573">
         <walk route="72"/>
     </personFlow>
-    <personFlow id="81" begin="45.52" end="46.52" probability="1.0">
+    <personFlow id="81" begin="45.52" end="46.52" probability="1.0000">
         <walk route="81"/>
     </personFlow>
-    <personFlow id="89" begin="46.66" end="47.66" probability="1.0">
+    <personFlow id="89" begin="46.66" end="47.66" probability="1.0000">
         <walk route="89"/>
     </personFlow>
-    <personFlow id="3" begin="47.79" end="48.79" probability="1.0">
+    <personFlow id="3" begin="47.79" end="48.79" probability="1.0000">
         <walk route="3"/>
     </personFlow>
-    <personFlow id="57" begin="50.07" end="51.07" probability="1.0">
+    <personFlow id="57" begin="50.07" end="51.07" probability="1.0000">
         <walk route="57"/>
     </personFlow>
-    <personFlow id="27" begin="52.34" end="53.34" probability="1.0">
+    <personFlow id="27" begin="52.34" end="53.34" probability="1.0000">
         <walk route="27"/>
     </personFlow>
-    <personFlow id="8" begin="53.48" end="54.48" probability="1.0">
+    <personFlow id="8" begin="53.48" end="54.48" probability="1.0000">
         <walk route="8"/>
     </personFlow>
-    <personFlow id="1" begin="54.62" end="55.62" probability="1.0">
+    <personFlow id="1" begin="54.62" end="55.62" probability="1.0000">
         <walk route="1"/>
     </personFlow>
-    <personFlow id="12" begin="55.76" end="56.76" probability="1.0">
+    <personFlow id="12" begin="55.76" end="56.76" probability="1.0000">
         <walk route="12"/>
     </personFlow>
-    <personFlow id="85" begin="56.90" end="57.90" probability="1.0">
+    <personFlow id="85" begin="56.90" end="57.90" probability="1.0000">
         <walk route="85"/>
     </personFlow>
-    <personFlow id="20" begin="58.03" end="59.03" probability="1.0">
+    <personFlow id="20" begin="58.03" end="59.03" probability="1.0000">
         <walk route="20"/>
     </personFlow>
-    <personFlow id="74" begin="59.17" end="60.17" probability="1.0">
+    <personFlow id="74" begin="59.17" end="60.17" probability="1.0000">
         <walk route="74"/>
     </personFlow>
-    <personFlow id="37" begin="60.31" end="61.31" probability="1.0">
+    <personFlow id="37" begin="60.31" end="61.31" probability="1.0000">
         <walk route="37"/>
     </personFlow>
-    <personFlow id="58" begin="61.45" end="62.45" probability="1.0">
+    <personFlow id="58" begin="61.45" end="62.45" probability="1.0000">
         <walk route="58"/>
     </personFlow>
-    <personFlow id="42" begin="63.72" end="64.72" probability="0.9999999999999929">
+    <personFlow id="42" begin="63.72" end="64.72" probability="1.0000">
         <walk route="42"/>
     </personFlow>
-    <personFlow id="93" begin="64.86" end="65.86" probability="1.0">
+    <personFlow id="93" begin="64.86" end="65.86" probability="1.0000">
         <walk route="93"/>
     </personFlow>
-    <personFlow id="40" begin="67.14" end="68.14" probability="1.0">
+    <personFlow id="40" begin="67.14" end="68.14" probability="1.0000">
         <walk route="40"/>
     </personFlow>
-    <personFlow id="87" begin="69.41" end="70.41" probability="1.0">
+    <personFlow id="87" begin="69.41" end="70.41" probability="1.0000">
         <walk route="87"/>
     </personFlow>
-    <personFlow id="55" begin="70.55" end="71.55" probability="1.0">
+    <personFlow id="55" begin="70.55" end="71.55" probability="1.0000">
         <walk route="55"/>
     </personFlow>
-    <personFlow id="0" begin="71.69" end="72.69" probability="1.0">
+    <personFlow id="0" begin="71.69" end="72.69" probability="1.0000">
         <walk route="0"/>
     </personFlow>
-    <personFlow id="4" begin="72.83" end="73.83" probability="1.0">
+    <personFlow id="4" begin="72.83" end="73.83" probability="1.0000">
         <walk route="4"/>
     </personFlow>
-    <personFlow id="95" begin="73.97" end="74.97" probability="1.0">
+    <personFlow id="95" begin="73.97" end="74.97" probability="1.0000">
         <walk route="95"/>
     </personFlow>
-    <personFlow id="7" begin="75.10" end="76.10" probability="1.0">
+    <personFlow id="7" begin="75.10" end="76.10" probability="1.0000">
         <walk route="7"/>
     </personFlow>
-    <personFlow id="36" begin="76.24" end="77.24" probability="1.0">
+    <personFlow id="36" begin="76.24" end="77.24" probability="1.0000">
         <walk route="36"/>
     </personFlow>
-    <personFlow id="59" begin="77.38" end="91.03" probability="0.14646464646464608">
+    <personFlow id="59" begin="77.38" end="91.03" probability="0.1465">
         <walk route="59"/>
     </personFlow>
-    <personFlow id="66" begin="78.52" end="79.52" probability="1.0">
+    <personFlow id="66" begin="78.52" end="79.52" probability="1.0000">
         <walk route="66"/>
     </personFlow>
-    <personFlow id="68" begin="80.79" end="81.79" probability="1.0">
+    <personFlow id="68" begin="80.79" end="81.79" probability="1.0000">
         <walk route="68"/>
     </personFlow>
-    <personFlow id="23" begin="81.93" end="82.93" probability="1.0">
+    <personFlow id="23" begin="81.93" end="82.93" probability="1.0000">
         <walk route="23"/>
     </personFlow>
-    <personFlow id="46" begin="83.07" end="84.07" probability="1.0">
+    <personFlow id="46" begin="83.07" end="84.07" probability="1.0000">
         <walk route="46"/>
     </personFlow>
-    <personFlow id="6" begin="84.21" end="85.21" probability="1.0">
+    <personFlow id="6" begin="84.21" end="85.21" probability="1.0000">
         <walk route="6"/>
     </personFlow>
-    <personFlow id="83" begin="85.34" end="86.34" probability="1.0">
+    <personFlow id="83" begin="85.34" end="86.34" probability="1.0000">
         <walk route="83"/>
     </personFlow>
-    <personFlow id="60" begin="87.62" end="88.62" probability="1.0">
+    <personFlow id="60" begin="87.62" end="88.62" probability="1.0000">
         <walk route="60"/>
     </personFlow>
-    <personFlow id="13" begin="88.76" end="89.76" probability="1.0">
+    <personFlow id="13" begin="88.76" end="89.76" probability="1.0000">
         <walk route="13"/>
     </personFlow>
-    <personFlow id="75" begin="89.90" end="90.90" probability="1.0">
+    <personFlow id="75" begin="89.90" end="90.90" probability="1.0000">
         <walk route="75"/>
     </personFlow>
-    <personFlow id="45" begin="92.17" end="93.17" probability="1.0">
+    <personFlow id="45" begin="92.17" end="93.17" probability="1.0000">
         <walk route="45"/>
     </personFlow>
-    <personFlow id="33" begin="94.45" end="95.45" probability="1.0">
+    <personFlow id="33" begin="94.45" end="95.45" probability="1.0000">
         <walk route="33"/>
     </personFlow>
-    <personFlow id="2" begin="95.59" end="96.59" probability="1.0">
+    <personFlow id="2" begin="95.59" end="96.59" probability="1.0000">
         <walk route="2"/>
     </personFlow>
-    <personFlow id="62" begin="96.72" end="97.72" probability="1.0">
+    <personFlow id="62" begin="96.72" end="97.72" probability="1.0000">
         <walk route="62"/>
     </personFlow>
 </routes>

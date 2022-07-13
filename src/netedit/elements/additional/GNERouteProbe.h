@@ -39,13 +39,13 @@ public:
      * @param[in] id The storage of gl-ids to get the one for this lane representation from
      * @param[in] net pointer to GNENet of this additional element belongs
      * @param[in] edge edge in which this routeProbe is placed
-     * @param[in] frequency The frequency in which to report the distribution
+     * @param[in] period The period in which to report the distribution
      * @oaran[in] name Route Probe Name
      * @param[in] filename The file for generated output
      * @param[in] begin The time at which to start generating output
      * @param[in] parameters generic parameters
      */
-    GNERouteProbe(const std::string& id, GNENet* net, GNEEdge* edge, const SUMOTime frequency, const std::string& name,
+    GNERouteProbe(const std::string& id, GNENet* net, GNEEdge* edge, const SUMOTime period, const std::string& name,
                   const std::string& filename, SUMOTime begin, const Parameterised::Map& parameters);
 
     /// @brief Destructor
@@ -128,8 +128,8 @@ public:
     /// @}
 
 protected:
-    /// @brief Frequency of RouteProbe
-    SUMOTime myFrequency;
+    /// @brief RouteProbe period
+    SUMOTime myPeriod;
 
     /// @brief filename of RouteProbe
     std::string myFilename;

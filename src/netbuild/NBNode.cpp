@@ -2725,7 +2725,7 @@ NBNode::buildCrossingsAndWalkingAreas() {
             if (waIDs.count(crossing->prevWalkingArea) == 0 || waIDs.count(crossing->nextWalkingArea) == 0 || !crossing->valid) {
                 if (crossing->valid) {
                     WRITE_WARNINGF("Discarding invalid crossing '%' at junction '%' with edges [%] (no walkingarea found).",
-                            crossing->id, getID(), toString(crossing->edges));
+                                   crossing->id, getID(), toString(crossing->edges));
                     recheck = true;
                 }
                 for (auto waIt = myWalkingAreas.begin(); waIt != myWalkingAreas.end();) {
@@ -3208,7 +3208,7 @@ NBNode::buildWalkingAreas(int cornerDetail, double joinMinDist) {
             PositionVector curve;
             if (count != (int)normalizedLanes.size() || count == 2) {
                 if ((normalizedLanes[smoothEnd].first->getPermissions() & normalizedLanes[smoothPrev].first->getPermissions() &
-                            ~(SVC_PEDESTRIAN | SVC_RAIL_CLASSES)) != 0) {
+                        ~(SVC_PEDESTRIAN | SVC_RAIL_CLASSES)) != 0) {
                     curve = computeSmoothShape(begShape, endShape, cornerDetail + 2, false, 25, 25);
                     if (curve.length2D() - begShape.back().distanceTo2D(endShape.front()) > 5) {
                         // recompute less bulging curve
@@ -3221,11 +3221,11 @@ NBNode::buildWalkingAreas(int cornerDetail, double joinMinDist) {
                     curve = computeSmoothShape(begShape, endShape, cornerDetail + 2, false, extend, extend, nullptr, FOUR_CONTROL_POINTS);
                 }
                 if (gDebugFlag1) std::cout
-                    << " end=" << smoothEnd << " prev=" << smoothPrev
-                        << " endCrossingWidth=" << endCrossingWidth << " startCrossingWidth=" << startCrossingWidth
-                        << "  begShape=" << begShape << " endShape=" << endShape << " smooth curve=" << curve
-                        << "  begShapeOuter=" << begShapeOuter << " endShapeOuter=" << endShapeOuter
-                        << "\n";
+                            << " end=" << smoothEnd << " prev=" << smoothPrev
+                            << " endCrossingWidth=" << endCrossingWidth << " startCrossingWidth=" << startCrossingWidth
+                            << "  begShape=" << begShape << " endShape=" << endShape << " smooth curve=" << curve
+                            << "  begShapeOuter=" << begShapeOuter << " endShapeOuter=" << endShapeOuter
+                            << "\n";
                 if (curve.size() > 2) {
                     curve.erase(curve.begin());
                     curve.pop_back();
@@ -3236,7 +3236,7 @@ NBNode::buildWalkingAreas(int cornerDetail, double joinMinDist) {
                         wa.shape.erase(wa.shape.begin());
                     }
                     if (count == (int)normalizedLanes.size()) {
-                        curve =curve.reverse();
+                        curve = curve.reverse();
                     }
                     wa.shape.append(curve, 0);
                 }
@@ -3244,7 +3244,9 @@ NBNode::buildWalkingAreas(int cornerDetail, double joinMinDist) {
             if (curve.size() > 2 && count == 2) {
                 const double innerDist = begShape.back().distanceTo2D(endShape[0]);
                 const double outerDist = begShapeOuter.back().distanceTo2D(endShapeOuter[0]);
-                if (gDebugFlag1) std::cout << " innerDist=" << innerDist << " outerDist=" << outerDist << "\n";
+                if (gDebugFlag1) {
+                    std::cout << " innerDist=" << innerDist << " outerDist=" << outerDist << "\n";
+                }
                 if (outerDist > innerDist) {
                     // we also need a rounded outer curve (unless we have only a single walkingarea)
                     const double extend = MIN2(10.0, begShapeOuter.back().distanceTo2D(endShapeOuter.front()) / 2);
@@ -3252,7 +3254,9 @@ NBNode::buildWalkingAreas(int cornerDetail, double joinMinDist) {
                     curve = curve.reverse();
                     wa.shape.erase(wa.shape.begin() + 1, wa.shape.begin() + 3);
                     wa.shape.insert(wa.shape.begin() + 1, curve.begin(), curve.end());
-                    if (gDebugFlag1) std::cout << " outerCurve=" << curve << "\n";
+                    if (gDebugFlag1) {
+                        std::cout << " outerCurve=" << curve << "\n";
+                    }
                 }
             }
         }
@@ -3532,7 +3536,7 @@ NBNode::getCrossing(const EdgeVector& edges, bool hardFail) const {
 
 
 NBNode::WalkingArea&
-NBNode::getWalkingArea(const std::string &id) {
+NBNode::getWalkingArea(const std::string& id) {
     for (auto& walkingArea : myWalkingAreas) {
         if (walkingArea.id == id) {
             return walkingArea;

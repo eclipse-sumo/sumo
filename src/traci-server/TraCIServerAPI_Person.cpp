@@ -134,6 +134,7 @@ TraCIServerAPI_Person::processSet(TraCIServer& server, tcpip::Storage& inputStor
             && variable != libsumo::REPLACE_STAGE
             && variable != libsumo::REMOVE_STAGE
             && variable != libsumo::CMD_REROUTE_TRAVELTIME
+            && variable != libsumo::VAR_MOVE_TO
             && variable != libsumo::MOVE_TO_XY
             && variable != libsumo::VAR_SPEED
             && variable != libsumo::VAR_TYPE
@@ -346,6 +347,30 @@ TraCIServerAPI_Person::processSet(TraCIServer& server, tcpip::Storage& inputStor
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "Rerouting should obtain an empty compound object.", outputStorage);
                 }
                 libsumo::Person::rerouteTraveltime(id);
+            }
+            break;
+            case libsumo::VAR_MOVE_TO: {
+                if (inputStorage.readUnsignedByte() != libsumo::TYPE_COMPOUND) {
+                    return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "Setting position requires a compound object.", outputStorage);
+                }
+                const int numArgs = inputStorage.readInt();
+                if (numArgs != 3) {
+                    return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "Setting position should obtain the edge id, the position and the lateral position.", outputStorage);
+                }
+                std::string laneID;
+                if (!server.readTypeCheckingString(inputStorage, laneID)) {
+                    return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "The first parameter for setting a position must be the laneID given as a string.", outputStorage);
+                }
+                double position = 0;
+                if (!server.readTypeCheckingDouble(inputStorage, position)) {
+                    return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "The second parameter for setting a position must be the position given as a double.", outputStorage);
+                }
+                double posLat = 0;
+                if (!server.readTypeCheckingDouble(inputStorage, posLat)) {
+                    return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "The third parameter for setting a position must be the lateral position given as a double.", outputStorage);
+                }
+                // process
+                libsumo::Person::moveTo(id, laneID, position, posLat);
             }
             break;
             case libsumo::MOVE_TO_XY: {

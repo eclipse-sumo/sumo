@@ -272,15 +272,11 @@ GNEVType::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_LCA_MAXSPEEDLATFACTOR:
         case SUMO_ATTR_LCA_TURN_ALIGNMENT_DISTANCE:
         case SUMO_ATTR_LCA_OVERTAKE_RIGHT:
+        case SUMO_ATTR_LCA_KEEPRIGHT_ACCEPTANCE_TIME:
+        case SUMO_ATTR_LCA_OVERTAKE_DELTASPEED_FACTOR:
             /* case SUMO_ATTR_LCA_EXPERIMENTAL1: */
             return getLCParamString(key, myTagProperty.getDefaultValue(key));
         //
-        case SUMO_ATTR_COLLISION_MINGAP_FACTOR:
-        case SUMO_ATTR_TMP1:
-        case SUMO_ATTR_TMP2:
-        case SUMO_ATTR_TMP3:
-        case SUMO_ATTR_TMP4:
-        case SUMO_ATTR_TMP5:
         case SUMO_ATTR_CF_EIDM_USEVEHDYNAMICS:
         case SUMO_ATTR_CF_EIDM_MAX_VEH_PREVIEW:
         case SUMO_ATTR_CF_EIDM_T_LOOK_AHEAD:
@@ -296,6 +292,13 @@ GNEVType::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_CF_EIDM_T_ACC_MAX:
         case SUMO_ATTR_CF_EIDM_M_FLATNESS:
         case SUMO_ATTR_CF_EIDM_M_BEGIN:
+            return getCFParamString(key, myTagProperty.getDefaultValue(key));
+        case SUMO_ATTR_COLLISION_MINGAP_FACTOR:
+        case SUMO_ATTR_TMP1:
+        case SUMO_ATTR_TMP2:
+        case SUMO_ATTR_TMP3:
+        case SUMO_ATTR_TMP4:
+        case SUMO_ATTR_TMP5:
         case SUMO_ATTR_CF_PWAGNER2009_TAULAST:
         case SUMO_ATTR_CF_PWAGNER2009_APPROB:
         case SUMO_ATTR_CF_IDMM_ADAPT_FACTOR:
@@ -617,6 +620,8 @@ GNEVType::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* u
         case SUMO_ATTR_LCA_MAXSPEEDLATFACTOR:
         case SUMO_ATTR_LCA_TURN_ALIGNMENT_DISTANCE:
         case SUMO_ATTR_LCA_OVERTAKE_RIGHT:
+        case SUMO_ATTR_LCA_KEEPRIGHT_ACCEPTANCE_TIME:
+        case SUMO_ATTR_LCA_OVERTAKE_DELTASPEED_FACTOR:
         /* case SUMO_ATTR_LCA_EXPERIMENTAL1: */
         //
         case SUMO_ATTR_LENGTH:
@@ -707,21 +712,6 @@ GNEVType::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_TMP3:
         case SUMO_ATTR_TMP4:
         case SUMO_ATTR_TMP5:
-        case SUMO_ATTR_CF_EIDM_USEVEHDYNAMICS:
-        case SUMO_ATTR_CF_EIDM_MAX_VEH_PREVIEW:
-        case SUMO_ATTR_CF_EIDM_T_LOOK_AHEAD:
-        case SUMO_ATTR_CF_EIDM_T_PERSISTENCE_DRIVE:
-        case SUMO_ATTR_CF_EIDM_T_REACTION:
-        case SUMO_ATTR_CF_EIDM_T_PERSISTENCE_ESTIMATE:
-        case SUMO_ATTR_CF_EIDM_C_COOLNESS:
-        case SUMO_ATTR_CF_EIDM_SIG_LEADER:
-        case SUMO_ATTR_CF_EIDM_SIG_GAP:
-        case SUMO_ATTR_CF_EIDM_SIG_ERROR:
-        case SUMO_ATTR_CF_EIDM_JERK_MAX:
-        case SUMO_ATTR_CF_EIDM_EPSILON_ACC:
-        case SUMO_ATTR_CF_EIDM_T_ACC_MAX:
-        case SUMO_ATTR_CF_EIDM_M_FLATNESS:
-        case SUMO_ATTR_CF_EIDM_M_BEGIN:
         case SUMO_ATTR_CF_PWAGNER2009_TAULAST:
         case SUMO_ATTR_CF_PWAGNER2009_APPROB:
         case SUMO_ATTR_CF_IDMM_ADAPT_FACTOR:
@@ -733,6 +723,36 @@ GNEVType::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_CF_IDM_DELTA:
         case SUMO_ATTR_CF_IDM_STEPPING:
             return canParse<double>(value);
+        case SUMO_ATTR_CF_EIDM_USEVEHDYNAMICS:
+            return canParse<bool>(value);
+        case SUMO_ATTR_CF_EIDM_MAX_VEH_PREVIEW:
+            return canParse<int>(value) && (parse<int>(value) >= 0);
+        case SUMO_ATTR_CF_EIDM_T_LOOK_AHEAD:
+            return canParse<double>(value) && (parse<double>(value) >= 1);
+        case SUMO_ATTR_CF_EIDM_T_PERSISTENCE_DRIVE:
+            return canParse<double>(value) && (parse<double>(value) >= 1);
+        case SUMO_ATTR_CF_EIDM_T_REACTION:
+            return canParse<double>(value) && (parse<double>(value) >= 0);
+        case SUMO_ATTR_CF_EIDM_T_PERSISTENCE_ESTIMATE:
+            return canParse<double>(value) && (parse<double>(value) >= 1);
+        case SUMO_ATTR_CF_EIDM_C_COOLNESS:
+            return canParse<double>(value) && (parse<double>(value) >= 0) && (parse<double>(value) <= 1);
+        case SUMO_ATTR_CF_EIDM_SIG_LEADER:
+            return canParse<double>(value) && (parse<double>(value) >= 0) && (parse<double>(value) <= 1);
+        case SUMO_ATTR_CF_EIDM_SIG_GAP:
+            return canParse<double>(value) && (parse<double>(value) >= 0) && (parse<double>(value) <= 1);
+        case SUMO_ATTR_CF_EIDM_SIG_ERROR:
+            return canParse<double>(value) && (parse<double>(value) >= 0) && (parse<double>(value) <= 1);
+        case SUMO_ATTR_CF_EIDM_JERK_MAX:
+            return canParse<double>(value) && (parse<double>(value) >= 1);
+        case SUMO_ATTR_CF_EIDM_EPSILON_ACC:
+            return canParse<double>(value) && (parse<double>(value) >= 0);
+        case SUMO_ATTR_CF_EIDM_T_ACC_MAX:
+            return canParse<double>(value) && (parse<double>(value) >= 0);
+        case SUMO_ATTR_CF_EIDM_M_FLATNESS:
+            return canParse<double>(value) && (parse<double>(value) >= 1) && (parse<double>(value) <= 5);
+        case SUMO_ATTR_CF_EIDM_M_BEGIN:
+            return canParse<double>(value) && (parse<double>(value) >= 0) && (parse<double>(value) <= 1.5);
         case SUMO_ATTR_TRAIN_TYPE:
             // rail string
             return SUMOXMLDefinitions::TrainTypes.hasString(value);
@@ -779,6 +799,10 @@ GNEVType::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_LCA_ACCEL_LAT:
         case SUMO_ATTR_LCA_MAXSPEEDLATFACTOR:
             return canParse<double>(value) && (parse<double>(value) > 0);
+        case SUMO_ATTR_LCA_KEEPRIGHT_ACCEPTANCE_TIME:
+            return canParse<double>(value) && (parse<double>(value) >= 0 || parse<double>(value) == -1);
+        case SUMO_ATTR_LCA_OVERTAKE_DELTASPEED_FACTOR:
+            return canParse<double>(value) && (parse<double>(value) >= -1) && (parse<double>(value) <= 1);
         /* case SUMO_ATTR_LCA_EXPERIMENTAL1:
             return true;
         */
@@ -1039,92 +1063,98 @@ GNEVType::overwriteVType(GNEDemandElement* vType, const SUMOVTypeParameter newVT
     }
     // JM values
     if (!newVTypeParameter.getJMParamString(SUMO_ATTR_JM_CROSSING_GAP, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_JM_CROSSING_GAP, toString(newVTypeParameter.getCFParam(SUMO_ATTR_JM_CROSSING_GAP, 0)), undoList);
+        vType->setAttribute(SUMO_ATTR_JM_CROSSING_GAP, toString(newVTypeParameter.getJMParam(SUMO_ATTR_JM_CROSSING_GAP, 0)), undoList);
     }
     if (!newVTypeParameter.getJMParamString(SUMO_ATTR_JM_IGNORE_KEEPCLEAR_TIME, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_JM_IGNORE_KEEPCLEAR_TIME, toString(newVTypeParameter.getCFParam(SUMO_ATTR_JM_IGNORE_KEEPCLEAR_TIME, 0)), undoList);
+        vType->setAttribute(SUMO_ATTR_JM_IGNORE_KEEPCLEAR_TIME, toString(newVTypeParameter.getJMParam(SUMO_ATTR_JM_IGNORE_KEEPCLEAR_TIME, 0)), undoList);
     }
     if (!newVTypeParameter.getJMParamString(SUMO_ATTR_JM_DRIVE_AFTER_YELLOW_TIME, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_JM_DRIVE_AFTER_YELLOW_TIME, toString(newVTypeParameter.getCFParam(SUMO_ATTR_JM_DRIVE_AFTER_YELLOW_TIME, 0)), undoList);
+        vType->setAttribute(SUMO_ATTR_JM_DRIVE_AFTER_YELLOW_TIME, toString(newVTypeParameter.getJMParam(SUMO_ATTR_JM_DRIVE_AFTER_YELLOW_TIME, 0)), undoList);
     }
     if (!newVTypeParameter.getJMParamString(SUMO_ATTR_JM_DRIVE_AFTER_RED_TIME, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_JM_DRIVE_AFTER_RED_TIME, toString(newVTypeParameter.getCFParam(SUMO_ATTR_JM_DRIVE_AFTER_RED_TIME, 0)), undoList);
+        vType->setAttribute(SUMO_ATTR_JM_DRIVE_AFTER_RED_TIME, toString(newVTypeParameter.getJMParam(SUMO_ATTR_JM_DRIVE_AFTER_RED_TIME, 0)), undoList);
     }
     if (!newVTypeParameter.getJMParamString(SUMO_ATTR_JM_DRIVE_RED_SPEED, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_JM_DRIVE_RED_SPEED, toString(newVTypeParameter.getCFParam(SUMO_ATTR_JM_DRIVE_RED_SPEED, 0)), undoList);
+        vType->setAttribute(SUMO_ATTR_JM_DRIVE_RED_SPEED, toString(newVTypeParameter.getJMParam(SUMO_ATTR_JM_DRIVE_RED_SPEED, 0)), undoList);
     }
     if (!newVTypeParameter.getJMParamString(SUMO_ATTR_JM_IGNORE_FOE_PROB, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_JM_IGNORE_FOE_PROB, toString(newVTypeParameter.getCFParam(SUMO_ATTR_JM_IGNORE_FOE_PROB, 0)), undoList);
+        vType->setAttribute(SUMO_ATTR_JM_IGNORE_FOE_PROB, toString(newVTypeParameter.getJMParam(SUMO_ATTR_JM_IGNORE_FOE_PROB, 0)), undoList);
     }
     if (!newVTypeParameter.getJMParamString(SUMO_ATTR_JM_IGNORE_FOE_SPEED, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_JM_IGNORE_FOE_SPEED, toString(newVTypeParameter.getCFParam(SUMO_ATTR_JM_IGNORE_FOE_SPEED, 0)), undoList);
+        vType->setAttribute(SUMO_ATTR_JM_IGNORE_FOE_SPEED, toString(newVTypeParameter.getJMParam(SUMO_ATTR_JM_IGNORE_FOE_SPEED, 0)), undoList);
     }
     if (!newVTypeParameter.getJMParamString(SUMO_ATTR_JM_SIGMA_MINOR, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_JM_SIGMA_MINOR, toString(newVTypeParameter.getCFParam(SUMO_ATTR_JM_SIGMA_MINOR, 0)), undoList);
+        vType->setAttribute(SUMO_ATTR_JM_SIGMA_MINOR, toString(newVTypeParameter.getJMParam(SUMO_ATTR_JM_SIGMA_MINOR, 0)), undoList);
     }
     if (!newVTypeParameter.getJMParamString(SUMO_ATTR_JM_TIMEGAP_MINOR, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_JM_TIMEGAP_MINOR, toString(newVTypeParameter.getCFParam(SUMO_ATTR_JM_TIMEGAP_MINOR, 0)), undoList);
+        vType->setAttribute(SUMO_ATTR_JM_TIMEGAP_MINOR, toString(newVTypeParameter.getJMParam(SUMO_ATTR_JM_TIMEGAP_MINOR, 0)), undoList);
     }
     if (newVTypeParameter.wasSet(VTYPEPARS_IMPATIENCE_SET)) {
         vType->setAttribute(SUMO_ATTR_IMPATIENCE, toString(newVTypeParameter.impatience), undoList);
     }
     // LCM values
-    if (!newVTypeParameter.getJMParamString(SUMO_ATTR_LCA_STRATEGIC_PARAM, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_LCA_STRATEGIC_PARAM, toString(newVTypeParameter.getCFParam(SUMO_ATTR_LCA_STRATEGIC_PARAM, 0)), undoList);
+    if (!newVTypeParameter.getLCParamString(SUMO_ATTR_LCA_STRATEGIC_PARAM, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_LCA_STRATEGIC_PARAM, toString(newVTypeParameter.getLCParam(SUMO_ATTR_LCA_STRATEGIC_PARAM, 0)), undoList);
     }
-    if (!newVTypeParameter.getJMParamString(SUMO_ATTR_LCA_COOPERATIVE_PARAM, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_LCA_COOPERATIVE_PARAM, toString(newVTypeParameter.getCFParam(SUMO_ATTR_LCA_COOPERATIVE_PARAM, 0)), undoList);
+    if (!newVTypeParameter.getLCParamString(SUMO_ATTR_LCA_COOPERATIVE_PARAM, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_LCA_COOPERATIVE_PARAM, toString(newVTypeParameter.getLCParam(SUMO_ATTR_LCA_COOPERATIVE_PARAM, 0)), undoList);
     }
-    if (!newVTypeParameter.getJMParamString(SUMO_ATTR_LCA_SPEEDGAIN_PARAM, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_LCA_SPEEDGAIN_PARAM, toString(newVTypeParameter.getCFParam(SUMO_ATTR_LCA_SPEEDGAIN_PARAM, 0)), undoList);
+    if (!newVTypeParameter.getLCParamString(SUMO_ATTR_LCA_SPEEDGAIN_PARAM, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_LCA_SPEEDGAIN_PARAM, toString(newVTypeParameter.getLCParam(SUMO_ATTR_LCA_SPEEDGAIN_PARAM, 0)), undoList);
     }
-    if (!newVTypeParameter.getJMParamString(SUMO_ATTR_LCA_KEEPRIGHT_PARAM, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_LCA_KEEPRIGHT_PARAM, toString(newVTypeParameter.getCFParam(SUMO_ATTR_LCA_KEEPRIGHT_PARAM, 0)), undoList);
+    if (!newVTypeParameter.getLCParamString(SUMO_ATTR_LCA_KEEPRIGHT_PARAM, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_LCA_KEEPRIGHT_PARAM, toString(newVTypeParameter.getLCParam(SUMO_ATTR_LCA_KEEPRIGHT_PARAM, 0)), undoList);
     }
-    if (!newVTypeParameter.getJMParamString(SUMO_ATTR_LCA_SUBLANE_PARAM, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_LCA_SUBLANE_PARAM, toString(newVTypeParameter.getCFParam(SUMO_ATTR_LCA_SUBLANE_PARAM, 0)), undoList);
+    if (!newVTypeParameter.getLCParamString(SUMO_ATTR_LCA_SUBLANE_PARAM, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_LCA_SUBLANE_PARAM, toString(newVTypeParameter.getLCParam(SUMO_ATTR_LCA_SUBLANE_PARAM, 0)), undoList);
     }
-    if (!newVTypeParameter.getJMParamString(SUMO_ATTR_LCA_OPPOSITE_PARAM, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_LCA_OPPOSITE_PARAM, toString(newVTypeParameter.getCFParam(SUMO_ATTR_LCA_OPPOSITE_PARAM, 0)), undoList);
+    if (!newVTypeParameter.getLCParamString(SUMO_ATTR_LCA_OPPOSITE_PARAM, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_LCA_OPPOSITE_PARAM, toString(newVTypeParameter.getLCParam(SUMO_ATTR_LCA_OPPOSITE_PARAM, 0)), undoList);
     }
-    if (!newVTypeParameter.getJMParamString(SUMO_ATTR_LCA_PUSHY, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_LCA_PUSHY, toString(newVTypeParameter.getCFParam(SUMO_ATTR_LCA_PUSHY, 0)), undoList);
+    if (!newVTypeParameter.getLCParamString(SUMO_ATTR_LCA_PUSHY, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_LCA_PUSHY, toString(newVTypeParameter.getLCParam(SUMO_ATTR_LCA_PUSHY, 0)), undoList);
     }
-    if (!newVTypeParameter.getJMParamString(SUMO_ATTR_LCA_PUSHYGAP, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_LCA_PUSHYGAP, toString(newVTypeParameter.getCFParam(SUMO_ATTR_LCA_PUSHYGAP, 0)), undoList);
+    if (!newVTypeParameter.getLCParamString(SUMO_ATTR_LCA_PUSHYGAP, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_LCA_PUSHYGAP, toString(newVTypeParameter.getLCParam(SUMO_ATTR_LCA_PUSHYGAP, 0)), undoList);
     }
-    if (!newVTypeParameter.getJMParamString(SUMO_ATTR_LCA_ASSERTIVE, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_LCA_ASSERTIVE, toString(newVTypeParameter.getCFParam(SUMO_ATTR_LCA_ASSERTIVE, 0)), undoList);
+    if (!newVTypeParameter.getLCParamString(SUMO_ATTR_LCA_ASSERTIVE, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_LCA_ASSERTIVE, toString(newVTypeParameter.getLCParam(SUMO_ATTR_LCA_ASSERTIVE, 0)), undoList);
     }
-    if (!newVTypeParameter.getJMParamString(SUMO_ATTR_LCA_IMPATIENCE, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_LCA_IMPATIENCE, toString(newVTypeParameter.getCFParam(SUMO_ATTR_LCA_IMPATIENCE, 0)), undoList);
+    if (!newVTypeParameter.getLCParamString(SUMO_ATTR_LCA_IMPATIENCE, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_LCA_IMPATIENCE, toString(newVTypeParameter.getLCParam(SUMO_ATTR_LCA_IMPATIENCE, 0)), undoList);
     }
-    if (!newVTypeParameter.getJMParamString(SUMO_ATTR_LCA_TIME_TO_IMPATIENCE, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_LCA_TIME_TO_IMPATIENCE, toString(newVTypeParameter.getCFParam(SUMO_ATTR_LCA_TIME_TO_IMPATIENCE, 0)), undoList);
+    if (!newVTypeParameter.getLCParamString(SUMO_ATTR_LCA_TIME_TO_IMPATIENCE, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_LCA_TIME_TO_IMPATIENCE, toString(newVTypeParameter.getLCParam(SUMO_ATTR_LCA_TIME_TO_IMPATIENCE, 0)), undoList);
     }
-    if (!newVTypeParameter.getJMParamString(SUMO_ATTR_LCA_ACCEL_LAT, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_LCA_ACCEL_LAT, toString(newVTypeParameter.getCFParam(SUMO_ATTR_LCA_ACCEL_LAT, 0)), undoList);
+    if (!newVTypeParameter.getLCParamString(SUMO_ATTR_LCA_ACCEL_LAT, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_LCA_ACCEL_LAT, toString(newVTypeParameter.getLCParam(SUMO_ATTR_LCA_ACCEL_LAT, 0)), undoList);
     }
-    if (!newVTypeParameter.getJMParamString(SUMO_ATTR_LCA_LOOKAHEADLEFT, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_LCA_LOOKAHEADLEFT, toString(newVTypeParameter.getCFParam(SUMO_ATTR_LCA_LOOKAHEADLEFT, 0)), undoList);
+    if (!newVTypeParameter.getLCParamString(SUMO_ATTR_LCA_LOOKAHEADLEFT, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_LCA_LOOKAHEADLEFT, toString(newVTypeParameter.getLCParam(SUMO_ATTR_LCA_LOOKAHEADLEFT, 0)), undoList);
     }
-    if (!newVTypeParameter.getJMParamString(SUMO_ATTR_LCA_SPEEDGAINRIGHT, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_LCA_SPEEDGAINRIGHT, toString(newVTypeParameter.getCFParam(SUMO_ATTR_LCA_SPEEDGAINRIGHT, 0)), undoList);
+    if (!newVTypeParameter.getLCParamString(SUMO_ATTR_LCA_SPEEDGAINRIGHT, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_LCA_SPEEDGAINRIGHT, toString(newVTypeParameter.getLCParam(SUMO_ATTR_LCA_SPEEDGAINRIGHT, 0)), undoList);
     }
-    if (!newVTypeParameter.getJMParamString(SUMO_ATTR_LCA_MAXSPEEDLATSTANDING, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_LCA_MAXSPEEDLATSTANDING, toString(newVTypeParameter.getCFParam(SUMO_ATTR_LCA_MAXSPEEDLATSTANDING, 0)), undoList);
+    if (!newVTypeParameter.getLCParamString(SUMO_ATTR_LCA_MAXSPEEDLATSTANDING, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_LCA_MAXSPEEDLATSTANDING, toString(newVTypeParameter.getLCParam(SUMO_ATTR_LCA_MAXSPEEDLATSTANDING, 0)), undoList);
     }
-    if (!newVTypeParameter.getJMParamString(SUMO_ATTR_LCA_MAXSPEEDLATFACTOR, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_LCA_MAXSPEEDLATFACTOR, toString(newVTypeParameter.getCFParam(SUMO_ATTR_LCA_MAXSPEEDLATFACTOR, 0)), undoList);
+    if (!newVTypeParameter.getLCParamString(SUMO_ATTR_LCA_MAXSPEEDLATFACTOR, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_LCA_MAXSPEEDLATFACTOR, toString(newVTypeParameter.getLCParam(SUMO_ATTR_LCA_MAXSPEEDLATFACTOR, 0)), undoList);
     }
-    if (!newVTypeParameter.getJMParamString(SUMO_ATTR_LCA_TURN_ALIGNMENT_DISTANCE, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_LCA_TURN_ALIGNMENT_DISTANCE, toString(newVTypeParameter.getCFParam(SUMO_ATTR_LCA_TURN_ALIGNMENT_DISTANCE, 0)), undoList);
+    if (!newVTypeParameter.getLCParamString(SUMO_ATTR_LCA_TURN_ALIGNMENT_DISTANCE, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_LCA_TURN_ALIGNMENT_DISTANCE, toString(newVTypeParameter.getLCParam(SUMO_ATTR_LCA_TURN_ALIGNMENT_DISTANCE, 0)), undoList);
     }
-    if (!newVTypeParameter.getJMParamString(SUMO_ATTR_LCA_OVERTAKE_RIGHT, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_LCA_OVERTAKE_RIGHT, toString(newVTypeParameter.getCFParam(SUMO_ATTR_LCA_OVERTAKE_RIGHT, 0)), undoList);
+    if (!newVTypeParameter.getLCParamString(SUMO_ATTR_LCA_OVERTAKE_RIGHT, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_LCA_OVERTAKE_RIGHT, toString(newVTypeParameter.getLCParam(SUMO_ATTR_LCA_OVERTAKE_RIGHT, 0)), undoList);
     }
-    if (!newVTypeParameter.getJMParamString(SUMO_ATTR_LCA_EXPERIMENTAL1, "").empty()) {
-        vType->setAttribute(SUMO_ATTR_LCA_EXPERIMENTAL1, toString(newVTypeParameter.getCFParam(SUMO_ATTR_LCA_EXPERIMENTAL1, 0)), undoList);
+    if (!newVTypeParameter.getLCParamString(SUMO_ATTR_LCA_KEEPRIGHT_ACCEPTANCE_TIME, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_LCA_KEEPRIGHT_ACCEPTANCE_TIME, toString(newVTypeParameter.getLCParam(SUMO_ATTR_LCA_KEEPRIGHT_ACCEPTANCE_TIME, 0)), undoList);
+    }
+    if (!newVTypeParameter.getLCParamString(SUMO_ATTR_LCA_OVERTAKE_DELTASPEED_FACTOR, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_LCA_OVERTAKE_DELTASPEED_FACTOR, toString(newVTypeParameter.getLCParam(SUMO_ATTR_LCA_OVERTAKE_DELTASPEED_FACTOR, 0)), undoList);
+    }
+    if (!newVTypeParameter.getLCParamString(SUMO_ATTR_LCA_EXPERIMENTAL1, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_LCA_EXPERIMENTAL1, toString(newVTypeParameter.getLCParam(SUMO_ATTR_LCA_EXPERIMENTAL1, 0)), undoList);
     }
     //
     if (newVTypeParameter.wasSet(VTYPEPARS_LENGTH_SET)) {
@@ -1365,6 +1395,27 @@ GNEVType::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_TMP3:
         case SUMO_ATTR_TMP4:
         case SUMO_ATTR_TMP5:
+        case SUMO_ATTR_CF_PWAGNER2009_TAULAST:
+        case SUMO_ATTR_CF_PWAGNER2009_APPROB:
+        case SUMO_ATTR_CF_IDMM_ADAPT_FACTOR:
+        case SUMO_ATTR_CF_IDMM_ADAPT_TIME:
+        case SUMO_ATTR_CF_WIEDEMANN_SECURITY:
+        case SUMO_ATTR_CF_WIEDEMANN_ESTIMATION:
+        case SUMO_ATTR_TRAIN_TYPE:
+        case SUMO_ATTR_K:
+        case SUMO_ATTR_CF_KERNER_PHI:
+        case SUMO_ATTR_CF_IDM_DELTA:
+        case SUMO_ATTR_CF_IDM_STEPPING:
+            // empty values means that value isn't set
+            if (value.empty()) {
+                const auto it = cfParameter.find(key);
+                if (it != cfParameter.end()) {
+                    cfParameter.erase(it);
+                }
+            } else {
+                cfParameter[key] = value;
+            }
+            break;
         case SUMO_ATTR_CF_EIDM_USEVEHDYNAMICS:
         case SUMO_ATTR_CF_EIDM_MAX_VEH_PREVIEW:
         case SUMO_ATTR_CF_EIDM_T_LOOK_AHEAD:
@@ -1380,19 +1431,8 @@ GNEVType::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_CF_EIDM_T_ACC_MAX:
         case SUMO_ATTR_CF_EIDM_M_FLATNESS:
         case SUMO_ATTR_CF_EIDM_M_BEGIN:
-        case SUMO_ATTR_CF_PWAGNER2009_TAULAST:
-        case SUMO_ATTR_CF_PWAGNER2009_APPROB:
-        case SUMO_ATTR_CF_IDMM_ADAPT_FACTOR:
-        case SUMO_ATTR_CF_IDMM_ADAPT_TIME:
-        case SUMO_ATTR_CF_WIEDEMANN_SECURITY:
-        case SUMO_ATTR_CF_WIEDEMANN_ESTIMATION:
-        case SUMO_ATTR_TRAIN_TYPE:
-        case SUMO_ATTR_K:
-        case SUMO_ATTR_CF_KERNER_PHI:
-        case SUMO_ATTR_CF_IDM_DELTA:
-        case SUMO_ATTR_CF_IDM_STEPPING:
-            // empty values means that value isn't set
-            if (value.empty()) {
+            // empty or default values means that value isn't set
+            if (value.empty() || (canParse<double>(value) && (parse<double>(value) == parse<double>(myTagProperty.getDefaultValue(key))))) {
                 const auto it = cfParameter.find(key);
                 if (it != cfParameter.end()) {
                     cfParameter.erase(it);
@@ -1461,9 +1501,21 @@ GNEVType::setAttribute(SumoXMLAttr key, const std::string& value) {
                 lcParameter[key] = value;
             }
             break;
+        case SUMO_ATTR_LCA_KEEPRIGHT_ACCEPTANCE_TIME:
+            // empty or -1 value means that value isn't set
+            if (value.empty() || (canParse<double>(value) && (parse<double>(value) == -1))) {
+                const auto it = lcParameter.find(key);
+                if (it != lcParameter.end()) {
+                    lcParameter.erase(it);
+                }
+            } else {
+                lcParameter[key] = value;
+            }
+            break;
         case SUMO_ATTR_LCA_TURN_ALIGNMENT_DISTANCE:
         case SUMO_ATTR_LCA_TIME_TO_IMPATIENCE:
         case SUMO_ATTR_LCA_OVERTAKE_RIGHT:
+        case SUMO_ATTR_LCA_OVERTAKE_DELTASPEED_FACTOR:
             // empty or null values means that value isn't set
             if (value.empty() || (canParse<double>(value) && (parse<double>(value) == 0))) {
                 const auto it = lcParameter.find(key);

@@ -372,7 +372,7 @@ Boundary::set(double xmin, double ymin, double xmax, double ymax) {
             - xmin > xmax
             - ymin > ymax
     */
-    
+
     myXmin = MIN2(xmin, xmax);
     myYmin = MIN2(ymin, ymax);
     myXmax = MAX2(xmin, xmax);

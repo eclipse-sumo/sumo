@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-06-29 09:41:42 by Eclipse SUMO sumo Version v1_13_0+1249-28527ac26db
+<!-- generated on 2022-07-11 15:35:27 by Eclipse SUMO sumo Version v1_13_0+1506-f0fbece2894
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -94,8 +94,6 @@
         <stop-output.write-unfinished value="false" type="BOOL" help="Write stop output for stops which have not ended at simulation end"/>
         <collision-output value="" type="FILE" help="Write collision information into FILE"/>
         <statistic-output value="" synonymes="statistics-output" type="FILE" help="Write overall statistics into FILE"/>
-        <movereminder-output value="" type="FILE" help="Save movereminder states of selected vehicles into FILE"/>
-        <movereminder-output.vehicles value="" type="STR[]" help="List of vehicle ids which shall save their movereminder states"/>
         <save-state.times value="" type="STR[]" help="Use TIME[] as times at which a network state written"/>
         <save-state.period value="-1" type="TIME" help="save state repeatedly after TIME period"/>
         <save-state.period.keep value="0" type="INT" help="Keep only the last INT periodic state files"/>
@@ -278,15 +276,15 @@
         <device.ssm.probability value="-1" type="FLOAT" help="The probability for a vehicle to have a &apos;ssm&apos; device"/>
         <device.ssm.explicit value="" synonymes="device.ssm.knownveh" type="STR[]" help="Assign a &apos;ssm&apos; device to named vehicles"/>
         <device.ssm.deterministic value="false" type="BOOL" help="The &apos;ssm&apos; devices are set deterministic using a fraction of 1000"/>
-        <device.ssm.measures value="" type="STR" help="Specifies which measures will be logged (as a space separated sequence of IDs in (&apos;TTC&apos;, &apos;DRAC&apos;, &apos;PET&apos;))."/>
+        <device.ssm.measures value="" type="STR" help="Specifies which measures will be logged (as a space separated sequence of IDs in (&apos;TTC&apos;, &apos;DRAC&apos;, &apos;PET&apos;))"/>
         <device.ssm.thresholds value="" type="STR" help="Specifies thresholds corresponding to the specified measures (see documentation and watch the order!). Only events exceeding the thresholds will be logged."/>
-        <device.ssm.trajectories value="false" type="BOOL" help="Specifies whether trajectories will be logged (if false, only the extremal values and times are reported, this is the default)."/>
-        <device.ssm.range value="50" type="FLOAT" help="Specifies the detection range in meters (default is 50.00m.). For vehicles below this distance from the equipped vehicle, SSM values are traced."/>
-        <device.ssm.extratime value="5" type="FLOAT" help="Specifies the time in seconds to be logged after a conflict is over (default is 5.00secs.). Required &gt;0 if PET is to be calculated for crossing conflicts."/>
-        <device.ssm.file value="" type="STR" help="Give a global default filename for the SSM output."/>
-        <device.ssm.geo value="false" type="BOOL" help="Whether to use coordinates of the original reference system in output (default is false)."/>
-        <device.ssm.write-positions value="false" type="BOOL" help="Whether to write positions (coordinates) for each timestep."/>
-        <device.ssm.write-lane-positions value="false" type="BOOL" help="Whether to write lanes and their positions for each timestep."/>
+        <device.ssm.trajectories value="false" type="BOOL" help="Specifies whether trajectories will be logged (if false, only the extremal values and times are reported)."/>
+        <device.ssm.range value="50" type="FLOAT" help="Specifies the detection range in meters. For vehicles below this distance from the equipped vehicle, SSM values are traced."/>
+        <device.ssm.extratime value="5" type="FLOAT" help="Specifies the time in seconds to be logged after a conflict is over. Required &gt;0 if PET is to be calculated for crossing conflicts."/>
+        <device.ssm.file value="" type="STR" help="Give a global default filename for the SSM output"/>
+        <device.ssm.geo value="false" type="BOOL" help="Whether to use coordinates of the original reference system in output"/>
+        <device.ssm.write-positions value="false" type="BOOL" help="Whether to write positions (coordinates) for each timestep"/>
+        <device.ssm.write-lane-positions value="false" type="BOOL" help="Whether to write lanes and their positions for each timestep"/>
     </ssm_device>
 
     <toc_device>

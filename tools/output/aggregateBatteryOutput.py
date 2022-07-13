@@ -16,80 +16,54 @@
 # @author  Pablo Alvarez Lopez
 # @date    2022-04-25
 
-import xml.etree.ElementTree as ET
-import xml.dom.minidom
+import os
 import sys
 import getopt
+from collections import OrderedDict
+sys.path += [os.path.join(os.environ["SUMO_HOME"], "tools")]
+import sumolib  # noqa
 
-"""
-@brief parse time steps
-"""
-
-
-def parseTimeSteps(tree):
+def parseTimeSteps(inputFile):
     # create matrix for result
     result = {}
     # iterate over timeSteps
-    for timeStep in tree.getroot():
-        # get timeStep in float format
-        timestepFloat = float(timeStep.attrib["time"])
+    for timeStep in sumolib.xml.parse(inputFile, 'timestep'):
+        timestepFloat = float(timeStep.time)
         # create substructure
         result[timestepFloat] = {}
-        for vehicle in timeStep:
-            # get vehicle ID
-            vehicleID = vehicle.attrib["id"]
+        for vehicle in timeStep.vehicle:
             # add vehicle
-            result[timestepFloat][vehicleID] = {}
+            result[timestepFloat][vehicle.id] = {}
             # add vehicle values
-            result[timestepFloat][vehicleID]["energyConsumed"] = float(vehicle.attrib["energyConsumed"])
-            result[timestepFloat][vehicleID]["totalEnergyConsumed"] = float(vehicle.attrib["totalEnergyConsumed"])
-            result[timestepFloat][vehicleID]["totalEnergyRegenerated"] = float(vehicle.attrib["totalEnergyRegenerated"])
-            result[timestepFloat][vehicleID]["energyChargedInTransit"] = float(vehicle.attrib["energyChargedInTransit"])
-            result[timestepFloat][vehicleID]["energyChargedStopped"] = float(vehicle.attrib["energyChargedStopped"])
-            result[timestepFloat][vehicleID]["timeStopped"] = float(vehicle.attrib["timeStopped"])
+            result[timestepFloat][vehicle.id]["energyConsumed"] = float(vehicle.energyConsumed)
+            result[timestepFloat][vehicle.id]["totalEnergyConsumed"] = float(vehicle.totalEnergyConsumed)
+            result[timestepFloat][vehicle.id]["totalEnergyRegenerated"] = float(vehicle.totalEnergyRegenerated)
+            result[timestepFloat][vehicle.id]["energyChargedInTransit"] = float(vehicle.energyChargedInTransit)
+            result[timestepFloat][vehicle.id]["energyChargedStopped"] = float(vehicle.energyChargedStopped)
+            result[timestepFloat][vehicle.id]["timeStopped"] = float(vehicle.timeStopped)
     # return result
     return result
 
 
-"""
-@brief save time steps
-"""
-
-
 def writeTimeSteps(result):
-    # convert result in xml format
-    outputRoot = ET.Element('battery-export')
-    # iterate over result
-    for timeStep in result:
-        # create ET subElement (node) for timeStep
-        timeStepOutput = ET.SubElement(outputRoot, 'timestep')
-        timeStepOutput.set("interval", str(timeStep[0]) + "-" + str(timeStep[1]))
-        # iterate over timeStep's vehicles
-        for vehicleID in timeStep[2]:
-            # create ET sub element (node) for vehicle
-            vehicleOutput = ET.SubElement(timeStepOutput, 'vehicle')
-            # get vehicle attributes map
-            vehicleAttributes = timeStep[2][vehicleID]
-            # write vehicle values
-            vehicleOutput.set("id", vehicleID)
-            vehicleOutput.set("energyConsumed", str(vehicleAttributes["energyConsumed"]))
-            vehicleOutput.set("totalEnergyConsumed", str(vehicleAttributes["totalEnergyConsumed"]))
-            vehicleOutput.set("totalEnergyRegenerated", str(vehicleAttributes["totalEnergyRegenerated"]))
-            vehicleOutput.set("energyChargedInTransit", str(vehicleAttributes["energyChargedInTransit"]))
-            vehicleOutput.set("energyChargedStopped", str(vehicleAttributes["energyChargedStopped"]))
-            vehicleOutput.set("timeStopped", str(vehicleAttributes["timeStopped"]))
-            vehicleOutput.set("aggregateNumber", str(vehicleAttributes["aggregateNumber"]))
-    # write Output
-    outputRootStr = ET.tostring(outputRoot, encoding="utf-8", method="xml")
-    dom = xml.dom.minidom.parseString(outputRootStr)
-    prettyDom = dom.toprettyxml()
     with open(outputFile, "w") as f:
-        f.write(prettyDom)
-
-
-"""
-@brief process matrix
-"""
+        sumolib.xml.writeHeader(f)
+        f.write("<battery-export>\n")
+        Step = sumolib.xml.compound_object('timestep', ['interval'])
+        for timeStep in result:
+            # create ET subElement (node) for timeStep
+            step = Step([str(timeStep[0]) + "-" + str(timeStep[1])])
+            # iterate over timeStep's vehicles
+            for vehicleID in timeStep[2]:
+                vehicleAttributes = timeStep[2][vehicleID]
+                attrs = ("energyConsumed", "totalEnergyConsumed", "totalEnergyRegenerated",
+                         "energyChargedInTransit", "energyChargedStopped", "timeStopped", "aggregateNumber")
+                attrValues = OrderedDict([("id", vehicleID)] + [(a, str(vehicleAttributes[a])) for a in attrs])
+                # create ET sub element (node) for vehicle
+                step.addChild('vehicle', attrValues, sortAttrs=False)
+            # write Output
+            f.write(step.toXML("    "))
+        f.write("</battery-export>\n")
 
 
 def processMatrix(matrix, timeToSplit):
@@ -184,17 +158,9 @@ for opt, arg in opts:
     elif opt in ("-t", "--time"):
         timeToSplit = int(arg)
 
-# declare timeStep counter
-timeStepCounter = 0
-currentTimeStep = 0
-
-# load battery outuput
-tree = ET.parse(inputFile)
-
 # create matrix with timeSteps
-matrix = parseTimeSteps(tree)
+matrix = parseTimeSteps(inputFile)
 
-# process matrix
 matrix = processMatrix(matrix, timeToSplit)
 
 # write matrix

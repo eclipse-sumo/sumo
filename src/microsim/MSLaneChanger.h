@@ -290,7 +290,8 @@ protected:
                                      std::pair<MSVehicle*, double> neighLead,
                                      std::pair<MSVehicle*, double> overtaken,
                                      std::pair<MSVehicle*, double> neighFollow,
-                                     double surplusGap, const MSLane* opposite);
+                                     double surplusGap, const MSLane* opposite,
+                                     bool canOvertake);
 
     // @brief compute distance that can safely be driven on the opposite side
     static double computeSurplusGap(const MSVehicle* vehicle, const MSLane* opposite, std::pair<MSVehicle*, double> oncoming, double timeToOvertake,

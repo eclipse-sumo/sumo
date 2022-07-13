@@ -100,9 +100,9 @@ public:
 
         /// @brief parameter Constructor
         EdgeTypeDefinition(int numLanes, double speed, double friction, int priority,
-            double width, SVCPermissions permissions, LaneSpreadFunction spreadType,
-            bool oneWay, double sideWalkWidth, double bikeLaneWidth,
-            double widthResolution, double maxWidth, double minWidth);
+                           double width, SVCPermissions permissions, LaneSpreadFunction spreadType,
+                           bool oneWay, double sideWalkWidth, double bikeLaneWidth,
+                           double widthResolution, double maxWidth, double minWidth);
 
         /// @brief whether any lane attributes deviate from the edge attributes
         bool needsLaneType() const;

@@ -134,8 +134,8 @@ public:
     /// @brief destructor
     virtual ~GUIOSGView();
 
-	/// @brief Returns the cursor's x/y position within the network
-	Position getPositionInformation() const;
+    /// @brief Returns the cursor's x/y position within the network
+    Position getPositionInformation() const;
 
     /// @brief recalculate boundaries
     void recalculateBoundaries();
@@ -209,37 +209,38 @@ public:
     long onPaint(FXObject*, FXSelector, void*);
     long OnIdle(FXObject* sender, FXSelector sel, void* ptr);
 
-	/// @brief interaction with the simulation
-	long onCmdCloseLane(FXObject*, FXSelector, void*);
-	long onCmdCloseEdge(FXObject*, FXSelector, void*);
-	long onCmdAddRerouter(FXObject*, FXSelector, void*);
+    /// @brief interaction with the simulation
+    long onCmdCloseLane(FXObject*, FXSelector, void*);
+    long onCmdCloseEdge(FXObject*, FXSelector, void*);
+    long onCmdAddRerouter(FXObject*, FXSelector, void*);
 
-	/// @brief highlight edges according to reachability
-	long onCmdShowReachability(FXObject*, FXSelector, void*);
+    /// @brief highlight edges according to reachability
+    long onCmdShowReachability(FXObject*, FXSelector, void*);
 
+    // @brief get the new camera position given a zoom value
+    void zoom2Pos(Position& camera, Position& lookAt, double zoom);
 protected:
-	/// @brief Store the normalized OSG window cursor coordinates
-	void setWindowCursorPosition(float x, float y);
+    /// @brief Store the normalized OSG window cursor coordinates
+    void setWindowCursorPosition(float x, float y);
 
-	void updatePositionInformation() const;
+    void updatePositionInformation() const;
 
-	/// @brief Compute the world coordinate on the ground plane given the normalized cursor position inside the OSG view (range X, Y [-1;1])
-	bool getPositionAtCursor(float xNorm, float yNorm, Position& pos) const;
+    /// @brief Compute the world coordinate on the ground plane given the normalized cursor position inside the OSG view (range X, Y [-1;1])
+    bool getPositionAtCursor(float xNorm, float yNorm, Position& pos) const;
 
-	/// @brief returns the GUIGlObject under the cursor using OSG ray intersecting
-	std::vector<GUIGlObject*> getGUIGlObjectsUnderCursor();
+    /// @brief returns the GUIGlObject under the cursor using OSG ray intersecting
+    std::vector<GUIGlObject*> getGUIGlObjectsUnderCursor();
 
-	/* @brief Find GUILane which intersects with a ray from the camera to the stored cursor position
-	 * @return The first found GUILane found or nullptr
-	 */
-	GUILane* getLaneUnderCursor();
-
+    /* @brief Find GUILane which intersects with a ray from the camera to the stored cursor position
+     * @return The first found GUILane found or nullptr
+     */
+    GUILane* getLaneUnderCursor();
 private:
     double calculateRotation(const osg::Vec3d& lookFrom, const osg::Vec3d& lookAt, const osg::Vec3d& up);
 
     class SUMOTerrainManipulator : public osgGA::TerrainManipulator {
     public:
-        SUMOTerrainManipulator() {
+        SUMOTerrainManipulator(): myLastY(0) {
             setAllowThrow(false);
             setVerticalAxisFixed(false);
         }
@@ -252,6 +253,8 @@ private:
         bool performMovementRightMouseButton(const double eventTimeDelta, const double dx, const double dy) {
             return osgGA::TerrainManipulator::performMovementRightMouseButton(eventTimeDelta, dx, -dy);
         }
+    private:
+        float myLastY;
     };
 
     class FXOSGAdapter : public osgViewer::GraphicsWindow {
@@ -287,15 +290,16 @@ private:
         FXCursor* const myOldCursor;
     };
 
-	class PickHandler : public osgGA::GUIEventHandler {
-	public:
-		PickHandler(GUIOSGView* parent) : myParent(parent) {};
-		bool handle(const osgGA::GUIEventAdapter& ea, osgGA::GUIActionAdapter& aa);
-	protected:
-		~PickHandler() {};
-	private:
-		GUIOSGView* const myParent;
-	};
+    class PickHandler : public osgGA::GUIEventHandler {
+    public:
+        PickHandler(GUIOSGView* parent) : myParent(parent), myDrag(false) {};
+        bool handle(const osgGA::GUIEventAdapter& ea, osgGA::GUIActionAdapter& aa);
+    protected:
+        ~PickHandler() {};
+    private:
+        GUIOSGView* const myParent;
+        bool myDrag;
+    };
 
 protected:
     GUIOSGView() {}
@@ -310,7 +314,7 @@ private:
 
     SUMOTime myLastUpdate;
 
-	float myOSGNormalizedCursorX, myOSGNormalizedCursorY;
+    float myOSGNormalizedCursorX, myOSGNormalizedCursorY;
 
     std::map<MSVehicle*, OSGMovable > myVehicles;
     std::map<MSTransportable*, OSGMovable > myPersons;
