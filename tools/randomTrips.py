@@ -50,6 +50,16 @@ def get_network(options):
     return NET
 
 
+class SplitAction(argparse.Action):
+    def __call__(self, parser, args, values, option_string=None):
+        if len(values) == 1:
+            values = [float(x) for x in values[0].split(',')]
+        else:
+            values = [float(x) for x in values]
+            
+        setattr(args, self.dest, values)
+
+
 def get_options(args=None):
     optParser = sumolib.options.ArgumentParser(description="Generate trips between random locations")
     optParser.add_argument("-n", "--net-file", dest="netfile", required=True,
@@ -160,16 +170,14 @@ def get_options(args=None):
                            help="Randomly choose a position on the ending edge of the trip")
 
     insertionArgs = optParser.add_mutually_exclusive_group()
-    insertionArgs.add_argument("-p", "--period", type=float, nargs="+", metavar="FLOAT",
-                               help="Generate vehicles with equidistant departure times and period=FLOAT (default 1). "
-                               "If option --binomial is used, the expected arrival rate is set to 1/period.")
-    insertionArgs.add_argument("--insertion-rate", dest="insertionRate", type=float, nargs="+", metavar="FLOAT",
-                               help="How much vehicles arrive in the simulation per hour " +
-                               "(alternative to the period option).")
-    insertionArgs.add_argument("--insertion-density", dest="insertionDensity", type=float, nargs="+", metavar="FLOAT",
-                               help="How much vehicles arrive in the simulation per hour per kilometer of road "
-                               "(alternative to the period option).")
-
+    insertionArgs.add_argument("-p", "--period", type=str, nargs="+", metavar="FLOAT",
+                                 help="Generate vehicles with equidistant departure times and period=FLOAT (default 1.0). " +
+                                 "If option --binomial is used, the expected arrival rate is set to 1/period.", action=SplitAction)
+    insertionArgs.add_argument("--insertion-rate", dest="insertionRate", type=str, nargs="+", metavar="FLOAT",
+                                 help="How much vehicles arrive in the simulation per hour (alternative to the period option).", action=SplitAction)
+    insertionArgs.add_argument("--insertion-density", dest="insertionDensity", type=str, nargs="+", metavar="FLOAT",
+                                 help="How much vehicles arrive in the simulation per hour per kilometer of road (alternative to the period option).", action=SplitAction)                             
+    
     options = optParser.parse_args(args=args)
 
     if options.persontrips or options.personrides:
