@@ -27,7 +27,6 @@ import bisect
 import subprocess
 from collections import defaultdict
 import math
-import argparse
 
 if 'SUMO_HOME' in os.environ:
     sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
@@ -49,16 +48,6 @@ def get_network(options):
     if NET is None:
         NET = sumolib.net.readNet(options.netfile)
     return NET
-
-
-class SplitAction(argparse.Action):
-    def __call__(self, parser, args, values, option_string=None):
-        if len(values) == 1:
-            values = [float(x) for x in values[0].split(',')]
-        else:
-            values = [float(x) for x in values]
-            
-        setattr(args, self.dest, values)
 
 
 def get_options(args=None):
@@ -173,11 +162,11 @@ def get_options(args=None):
     insertionArgs = optParser.add_mutually_exclusive_group()
     insertionArgs.add_argument("-p", "--period", type=str, nargs="+", metavar="FLOAT",
                                  help="Generate vehicles with equidistant departure times and period=FLOAT (default 1.0). " +
-                                 "If option --binomial is used, the expected arrival rate is set to 1/period.", action=SplitAction)
+                                 "If option --binomial is used, the expected arrival rate is set to 1/period.", action=sumolib.options.SplitAction)
     insertionArgs.add_argument("--insertion-rate", dest="insertionRate", type=str, nargs="+", metavar="FLOAT",
-                                 help="How much vehicles arrive in the simulation per hour (alternative to the period option).", action=SplitAction)
+                                 help="How much vehicles arrive in the simulation per hour (alternative to the period option).", action=sumolib.options.SplitAction)
     insertionArgs.add_argument("--insertion-density", dest="insertionDensity", type=str, nargs="+", metavar="FLOAT",
-                                 help="How much vehicles arrive in the simulation per hour per kilometer of road (alternative to the period option).", action=SplitAction)                             
+                                 help="How much vehicles arrive in the simulation per hour per kilometer of road (alternative to the period option).", action=sumolib.options.SplitAction)                             
     
     options = optParser.parse_args(args=args)
 

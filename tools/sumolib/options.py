@@ -304,3 +304,13 @@ class ArgumentParser(argparse.ArgumentParser):
         self.write_config_file(extended_namespace)
         namespace.config_as_string = self.write_config_file(extended_namespace, toString=True)
         return namespace, unknown_args
+    
+
+class SplitAction(argparse.Action):
+    def __call__(self, parser, args, values, option_string=None):
+        if len(values) == 1:
+            values = [float(x) for x in values[0].split(',')]
+        else:
+            values = [float(x) for x in values]
+            
+        setattr(args, self.dest, values)
