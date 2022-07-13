@@ -157,6 +157,8 @@ FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_GNE_JUNCTION_SPLIT_RECONNECT,                GNEViewNet::onCmdSplitJunctionReconnect),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_JUNCTION_SELECT_ROUNDABOUT,              GNEViewNet::onCmdSelectRoundabout),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_JUNCTION_CONVERT_ROUNDABOUT,             GNEViewNet::onCmdConvertRoundabout),
+    FXMAPFUNC(SEL_ENTER,   MID_GNE_JUNCTION_CONVERT_ROUNDABOUT,             GNEViewNet::onEnterConvertRoundabout),
+    FXMAPFUNC(SEL_LEAVE,   MID_GNE_JUNCTION_CONVERT_ROUNDABOUT,             GNEViewNet::onLeaveConvertRoundabout),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_JUNCTION_CLEAR_CONNECTIONS,              GNEViewNet::onCmdClearConnections),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_JUNCTION_RESET_CONNECTIONS,              GNEViewNet::onCmdResetConnections),
     // Connections
@@ -482,6 +484,8 @@ void
 GNEViewNet::openObjectDialogAtCursor() {
     // reimplemented from GUISUMOAbstractView due GNEOverlappedInspection
     ungrab();
+    // reset current object dialog
+    myCurrentObjectDialog = nullptr;
     // make network current
     if (isEnabled() && myAmInitialised && makeCurrent()) {
         // fill objects under cursor
@@ -498,6 +502,8 @@ GNEViewNet::openObjectDialogAtCursor() {
         if (o == nullptr) {
             o = myNet;
         }
+        // set current object dialog
+        myCurrentObjectDialog = o;
         openObjectDialog(o);
         makeNonCurrent();
     }
@@ -3015,6 +3021,22 @@ GNEViewNet::onCmdConvertRoundabout(FXObject*, FXSelector, void*) {
     // destroy pop-up and set focus in view net
     destroyPopup();
     setFocus();
+    return 1;
+}
+
+
+long 
+GNEViewNet::onEnterConvertRoundabout(FXObject*, FXSelector, void*) {
+    myDrawPreviewRoundabout = true;
+    update();
+    return 1;
+}
+
+
+long
+GNEViewNet::onLeaveConvertRoundabout(FXObject*, FXSelector, void*) {
+    myDrawPreviewRoundabout = false;
+    update();
     return 1;
 }
 

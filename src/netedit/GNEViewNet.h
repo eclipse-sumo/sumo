@@ -275,6 +275,12 @@ public:
     /// @brief convert junction to roundabout
     long onCmdConvertRoundabout(FXObject*, FXSelector, void*);
 
+    /// @brief enter to convert junction to roundabout
+    long onEnterConvertRoundabout(FXObject*, FXSelector, void*);
+
+    /// @brief leave to convert junction to roundabout
+    long onLeaveConvertRoundabout(FXObject*, FXSelector, void*);
+
     /// @brief clear junction connections
     long onCmdClearConnections(FXObject*, FXSelector, void*);
 
@@ -618,6 +624,12 @@ private:
 
     /// @brief last created route
     GNEDemandElement* myLastCreatedRoute = nullptr;
+
+    /// @brief current object dialog 
+    GUIGlObject* myCurrentObjectDialog = nullptr;
+
+    /// @brief draw preview roundabout
+    bool myDrawPreviewRoundabout = false;
 
     /// @brief create edit mode buttons and elements
     void buildEditModeControls();

@@ -283,7 +283,7 @@ GNEJunction::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
             if (radius == NBNode::UNSPECIFIED_RADIUS) {
                 radius = OptionsCont::getOptions().getFloat("default.junctions.radius");
             }
-            const std::string menuEntry = "Convert to roundabout (using junction radius " + toString(radius) + ")";
+            const std::string menuEntry = "Convert to roundabout (using junction attribute radius " + toString(radius) + ")";
             FXMenuCommand* mcRoundabout = GUIDesigns::buildFXMenuCommand(ret, menuEntry.c_str(), nullptr, &parent, MID_GNE_JUNCTION_CONVERT_ROUNDABOUT);
             if (getChildEdges().size() < 2 ||
                     (myGNEIncomingEdges.size() == 1
