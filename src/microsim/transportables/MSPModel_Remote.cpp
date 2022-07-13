@@ -219,10 +219,11 @@ MSPModel_Remote::remove(MSTransportableStateAdapter* state) {
 
 void
 MSPModel_Remote::initialize() {
-    // auto geoBuilder = JPS_GeometryBuilder_Create();
-    // std::vector<double> box1{0, 0, 1, 0, 1, 1, 0, 1};
-    // JPS_GeometryBuilder_AddAccessibleArea(geoBuilder, box1.data(), box1.size() / 2);
-    // auto jpsGeometry = JPS_GeometryBuilder_Build(geoBuilder, nullptr);
+    auto geoBuilder = JPS_GeometryBuilder_Create();
+    std::vector<double> box1{0, 0, 1, 0, 1, 1, 0, 1};
+    JPS_GeometryBuilder_AddAccessibleArea(geoBuilder, box1.data(), box1.size() / 2);
+    auto jpsGeometry = JPS_GeometryBuilder_Build(geoBuilder, nullptr);
+    // std::cout << "initialized JPS" << std::endl;
 }
 
 
