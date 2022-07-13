@@ -333,7 +333,7 @@ GNENet::deleteJunction(GNEJunction* junction, GNEUndoList* undoList) {
     myPathManager->invalidateJunctionPath(junction);
     // delete junction child demand elements
     while (junction->getChildDemandElements().size() > 0) {
-        deleteDemandElement(junction    ->getChildDemandElements().front(), undoList);
+        deleteDemandElement(junction->getChildDemandElements().front(), undoList);
     }
     // delete all crossings vinculated with junction
     while (junction->getGNECrossings().size() > 0) {
@@ -1037,6 +1037,14 @@ GNENet::selectRoundabout(GNEJunction* junction, GNEUndoList* undoList) {
 void
 GNENet::createRoundabout(GNEJunction* junction, GNEUndoList* undoList) {
     undoList->begin(GUIIcon::JUNCTION, "create roundabout");
+    // reset shape end from incoming edges
+    for (const auto &incomingEdge : junction->getGNEIncomingEdges()) {
+        incomingEdge->setAttribute(GNE_ATTR_SHAPE_END, "", undoList);
+    }
+    // reset shape start from outgoing edges
+    for (const auto &outgoingEdge : junction->getGNEOutgoingEdges()) {
+        outgoingEdge->setAttribute(GNE_ATTR_SHAPE_START, "", undoList);
+    }
     junction->getNBNode()->updateSurroundingGeometry();
     double radius = junction->getNBNode()->getRadius();
     if (radius == NBNode::UNSPECIFIED_RADIUS) {
