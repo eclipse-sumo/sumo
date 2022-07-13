@@ -943,12 +943,14 @@ GUISUMOAbstractView::getPopupPosition() const {
     return myPopupPosition;
 }
 
+
 void
 GUISUMOAbstractView::destroyPopup() {
     if (myPopup != nullptr) {
         delete myPopup;
         myPopupPosition.set(0, 0);
         myPopup = nullptr;
+        myCurrentObjectDialog = nullptr;
     }
 }
 
@@ -1123,6 +1125,7 @@ void
 GUISUMOAbstractView::openObjectDialog(GUIGlObject* o) {
     if (o != nullptr) {
         myPopup = o->getPopUpMenu(*myApp, *this);
+        myCurrentObjectDialog = o;
         int x, y;
         FXuint b;
         myApp->getCursorPosition(x, y, b);

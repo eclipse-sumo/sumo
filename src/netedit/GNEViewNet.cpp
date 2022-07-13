@@ -484,8 +484,6 @@ void
 GNEViewNet::openObjectDialogAtCursor() {
     // reimplemented from GUISUMOAbstractView due GNEOverlappedInspection
     ungrab();
-    // reset current object dialog
-    myCurrentObjectDialog = nullptr;
     // make network current
     if (isEnabled() && myAmInitialised && makeCurrent()) {
         // fill objects under cursor
@@ -502,8 +500,6 @@ GNEViewNet::openObjectDialogAtCursor() {
         if (o == nullptr) {
             o = myNet;
         }
-        // set current object dialog
-        myCurrentObjectDialog = o;
         openObjectDialog(o);
         makeNonCurrent();
     }
@@ -975,6 +971,8 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
     }
     // draw temporal split junction
     drawTemporalSplitJunction();
+    // draw temporal roundabout
+    drawTemporalRoundabout();
     // pop draw matrix
     GLHelper::popMatrix();
     // update interval bar
@@ -4788,6 +4786,35 @@ GNEViewNet::drawTemporalSplitJunction() const {
             // pop layer matrix
             GLHelper::popMatrix();
         }
+    }
+}
+
+
+void 
+GNEViewNet::drawTemporalRoundabout() const {
+    // check conditions
+    if (myCurrentObjectDialog && (myCurrentObjectDialog->getType() == GLO_JUNCTION) && myDrawPreviewRoundabout) {
+        // get junction
+        const auto junction = myNet->getAttributeCarriers()->retrieveJunction(myCurrentObjectDialog->getMicrosimID());
+        // get bubble color
+        RGBColor bubbleColor = myVisualizationSettings->junctionColorer.getScheme().getColor(1).changedBrightness(-15);
+        // push layer matrix
+        GLHelper::pushMatrix();
+        // translate to temporal shape layer
+        glTranslated(0, 0, GLO_TEMPORALSHAPE);
+        // push junction matrix
+        GLHelper::pushMatrix();
+        // move matrix junction center
+        glTranslated(junction->getNBNode()->getPosition().x(), junction->getNBNode()->getPosition().y(), 0.1);
+        // set color
+        GLHelper::setColor(bubbleColor);
+        // draw outline circle
+        const double circleWidth = (junction->getNBNode()->getRadius() < 0)? 4.0 : junction->getNBNode()->getRadius();
+        GLHelper::drawOutlineCircle(circleWidth * 1.30, circleWidth, myVisualizationSettings->getCircleResolution());
+        // pop junction matrix
+        GLHelper::popMatrix();
+        // pop layer matrix
+        GLHelper::popMatrix();
     }
 }
 

@@ -625,9 +625,6 @@ private:
     /// @brief last created route
     GNEDemandElement* myLastCreatedRoute = nullptr;
 
-    /// @brief current object dialog 
-    GUIGlObject* myCurrentObjectDialog = nullptr;
-
     /// @brief draw preview roundabout
     bool myDrawPreviewRoundabout = false;
 
@@ -705,6 +702,9 @@ private:
 
     /// @brief draw temporal split junction in create edge mode
     void drawTemporalSplitJunction() const;
+
+    /// @brief draw temporal roundabout
+    void drawTemporalRoundabout() const;
     /// @}
 
     /// @brief mouse process functions

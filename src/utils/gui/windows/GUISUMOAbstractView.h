@@ -501,6 +501,9 @@ protected:
     /// @brief The current popup-menu
     GUIGLObjectPopupMenu* myPopup;
 
+    /// @brief current object dialog 
+    GUIGlObject* myCurrentObjectDialog = nullptr;
+
     /// @brief The current popup-menu position
     Position myPopupPosition;
 
