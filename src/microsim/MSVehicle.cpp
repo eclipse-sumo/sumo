@@ -883,10 +883,10 @@ MSVehicle::Influencer::postProcessRemoteControl(MSVehicle* v) {
         double vNext = v->processTraCISpeedControl(
                            v->getVehicleType().getMaxSpeed(), v->getSpeed());
         v->setBrakingSignals(vNext);
-        v->updateWaitingTime(vNext);
         v->myState.myPreviousSpeed = v->getSpeed();
         v->myAcceleration = SPEED2ACCEL(vNext - v->getSpeed());
         v->myState.mySpeed = vNext;
+        v->updateWaitingTime(vNext);
         //std::cout << "outside network p=" << myRemoteXYPos << " a=" << myRemoteAngle << " l=" << Named::getIDSecure(myRemoteLane) << "\n";
     }
     // ensure that the position is correct (i.e. when the lanePosition is ambiguous at corners)
@@ -3744,7 +3744,7 @@ MSVehicle::setBrakingSignals(double vNext) {
 
 void
 MSVehicle::updateWaitingTime(double vNext) {
-    if (vNext <= SUMO_const_haltingSpeed && (!isStopped() || isIdling())) { // cf issue 2233
+    if (vNext <= SUMO_const_haltingSpeed && (!isStopped() || isIdling()) && myAcceleration <= 0.5 * getCarFollowModel().getMaxAccel())  {
         myWaitingTime += DELTA_T;
         myWaitingTimeCollector.passTime(DELTA_T, true);
     } else {
@@ -4175,7 +4175,6 @@ MSVehicle::executeMove() {
     }
 
     setBrakingSignals(vNext);
-    updateWaitingTime(vNext);
 
     // update position and speed
     int oldLaneOffset = myLane->getEdge().getNumLanes() - myLane->getIndex();
@@ -4186,6 +4185,7 @@ MSVehicle::executeMove() {
         myLane = myLane->getParallelOpposite();
     }
     updateState(vNext);
+    updateWaitingTime(vNext);
 
     // Lanes, which the vehicle touched at some moment of the executed simstep
     std::vector<MSLane*> passedLanes;
