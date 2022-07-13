@@ -401,11 +401,15 @@ GNENet::deleteEdge(GNEEdge* edge, GNEUndoList* undoList, bool recomputeConnectio
             const auto person = edge->getChildDemandElements().front()->getParentDemandElements().front();
             if (person->getChildDemandElements().size() == 1) {
                 deleteDemandElement(person, undoList);
+            } else {
+                deleteDemandElement(edge->getChildDemandElements().front(), undoList);
             }
         } else if (edge->getChildDemandElements().front()->getTagProperty().isContainerPlan()) {
             const auto container = edge->getChildDemandElements().front()->getParentDemandElements().front();
             if (container->getChildDemandElements().size() == 1) {
                 deleteDemandElement(container, undoList);
+            } else {
+                deleteDemandElement(edge->getChildDemandElements().front(), undoList);
             }
         } else {
             deleteDemandElement(edge->getChildDemandElements().front(), undoList);
