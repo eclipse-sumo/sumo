@@ -98,6 +98,7 @@ private:
     /// @brief perform swapConstraints to resolve deadlocks and return the new constraints
     static std::vector<libsumo::TraCISignalConstraint> findConstraintsDeadLocks(const std::string& foeId, const std::string& tripId, const std::string& foeSignal, const std::string& tlsID);
     static SUMOVehicle* getVehicleByTripId(const std::string tripOrVehID);
+    static std::vector<std::string> getFutureTripIds(const std::string vehID);
 
 private:
     static SubscriptionResults mySubscriptionResults;
