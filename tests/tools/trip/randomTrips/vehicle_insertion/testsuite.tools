@@ -7,6 +7,9 @@ multiple_insertion_rates
 # Test for multiple densities.
 multiple_insertion_densities
 
+# Test for multiple densities passed as comma separated values.
+split_action
+
 # Test insertion density for a specific vehicle class.
 insertion_density_vehicle_class
 
