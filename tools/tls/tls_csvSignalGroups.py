@@ -27,6 +27,7 @@ cycle time;<CYCLE TIME [s]>
 key;<TLS ID>
 subkey;<PROGRAM ID>
 offset;<OFFSET [s]>
+actuated;<CYCLESEC START>;<CYCLESEC END>[;<CYCLESEC START>;<CYCLESEC END>]
 param;<KEY>;<VALUE>
 param;<KEY>;<VALUE>
 
@@ -102,7 +103,7 @@ class TlLogic(sumolib.net.TLSProgram):
         self._actuated = actuated
         self._parameters = parameters
         self.net = net
-        self._signalGroups = {}
+        self._signalGroups = OrderedDict()
         self.__signalGroupOrder = []
         self._allTimes = [0]
         self._debug = debug
@@ -182,6 +183,7 @@ class TlLogic(sumolib.net.TLSProgram):
         j = 0
         if group:
             uniqueSgStates = list(dict.fromkeys(sgStates))
+            uniqueSgStates.sort()
             if len(uniqueSgStates) < len(sgStates):
                 tlIndexMap = [[i for i, value in enumerate(sgStates) if value == sgState] for sgState in uniqueSgStates]                             
             sgStates = uniqueSgStates
@@ -342,7 +344,9 @@ class TlLogic(sumolib.net.TLSProgram):
         content += "[links]\n"
         for id, sg in self._signalGroups.items():
             edge2edge = [(conn.getFrom().getID(), conn.getTo().getID()) for conn in sg._connections]
-            edge2edge = sorted(edge2edge, key=lambda t: (t[1], t[0]))
+            edge2edge.sort(key=lambda t: t[1])
+            edge2edge.sort(key=lambda t: t[0])
+            #edge2edge = sorted(edge2edge, key=lambda t: (t[1], t[0]))
             for entry in edge2edge:
                 content += "%s;%s;%s\n" % (id, entry[0], entry[1])
         content += "[signal groups]\nid;on1;off1;on2;off2;transOn;transOff\n"
