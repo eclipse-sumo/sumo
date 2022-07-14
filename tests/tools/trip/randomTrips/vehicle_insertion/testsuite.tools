@@ -13,14 +13,5 @@ split_action
 # Test insertion density for a specific vehicle class.
 insertion_density_vehicle_class
 
-# Test for the conflict between arguments --period and --insertion-rate.
-period_insertion_rate_conflict
-
-# Test for the conflict between arguments --insertion-rate and --insertion-density.
-insertion_rate_insertion_density_conflict
-
-# Test for the conflict between arguments --period and --insertion-density.
-period_insertion_density_conflict
-
 # Test for multiple periods with multiple flows.
 multiple_periods_multiple_flows

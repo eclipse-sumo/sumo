@@ -69,3 +69,6 @@ duarouter_options
 
 # This test suite checks that randomTrips behave correctly with multiple periods (when --period 1.0 0.5 is passed as an argument for instance), or equivalently when multiple insertion rates or densities are passed.
 vehicle_insertion
+
+# A test suite that tests error management for randomTrips.
+errors
