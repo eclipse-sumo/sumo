@@ -61,6 +61,10 @@ SUMO_VEHICLE_CLASSES = set([
     "custom2"])
 
 
+def is_vehicle_class(s):
+    return s in SUMO_VEHICLE_CLASSES
+
+
 def get_allowed(allow, disallow):
     """Normalize the given string attributes as a set of all allowed vClasses."""
     if allow is None and disallow is None:
