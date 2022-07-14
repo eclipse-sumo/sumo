@@ -507,6 +507,17 @@ def map_gtfs_osm(options, net, osm_routes, gtfs_data, shapes, shapes_dict, filte
     return map_routes, map_stops, missing_stops, missing_lines
 
 
+def write_vtypes(options, seen=None):
+    if options.vtype_output:
+        with io.open(options.vtype_output, 'w', encoding="utf8") as vout:
+            sumolib.xml.writeHeader(vout, root="additional")
+            for osm_type, sumo_class in OSM2SUMO_MODES.items():
+                if osm_type in options.modes and (seen is None or osm_type in seen):
+                    vout.write('    <vType id="%s" vClass="%s"/>\n' %
+                               (osm_type, sumo_class))
+            vout.write(u'</additional>\n')
+
+
 def write_gtfs_osm_outputs(options, map_routes, map_stops, missing_stops, missing_lines, gtfs_data, trip_list, shapes_dict, net):   # noqa
     """
     Generates stops and routes for sumo and saves the unmapped elements.
@@ -541,15 +552,7 @@ def write_gtfs_osm_outputs(options, map_routes, map_stops, missing_stops, missin
         output_file.write('</additional>\n')
 
     sequence_errors = []
-
-    if options.vtype_output:
-        with io.open(options.vtype_output, 'w', encoding="utf8") as vout:
-            sumolib.xml.writeHeader(vout, root="additional")
-            for osm_type, sumo_class in OSM2SUMO_MODES.items():
-                if osm_type in options.modes:
-                    vout.write('    <vType id="%s" vClass="%s"/>\n' %
-                               (osm_type, sumo_class))
-            vout.write(u'</additional>\n')
+    write_vtypes(options)
 
     with io.open(options.route_output, 'w', encoding="utf8") as output_file:
         sumolib.xml.writeHeader(output_file, root="routes")

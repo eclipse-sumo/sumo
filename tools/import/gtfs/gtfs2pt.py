@@ -104,9 +104,9 @@ def get_options(args=None):
     options = gtfs2fcd.check_options(options)
 
     if options.additional_output is None:
-        options.additional_output = options.region + "_publictransport.add.xml"
+        options.additional_output = options.region + "_pt_stops.add.xml"
     if options.route_output is None:
-        options.route_output = options.region + "_publictransport.rou.xml"
+        options.route_output = options.region + "_pt_vehicles.add.xml"
     if options.warning_output is None:
         options.warning_output = options.region + "_missing.xml"
     if options.dua_repair_output is None:
@@ -333,25 +333,29 @@ def filter_trips(options, routes, stops, outfile, begin, end):
     if end % 86400 != 0:
         numDays += 1
     with open(outfile, 'w', encoding="utf8") as outf:
-        sumolib.xml.writeHeader(outf, os.path.basename(__file__), "routes")
+        sumolib.xml.writeHeader(outf, os.path.basename(__file__), "routes", options=options)
+        if options.sort:
+            vehs = defaultdict(lambda: "")
         for inp in glob.glob(os.path.join(options.fcd, "*.rou.xml")):
             for veh in sumolib.xml.parse_fast(inp, "vehicle", ("id", "route", "type", "depart", "line")):
-                if len(routes.get(veh.route, [])) > 0 and len(stops.get(veh.route, [])) > 1:
-                    until = stops[veh.route][0][1]
+                if len(routes.get(veh.line, [])) > 0 and len(stops.get(veh.line, [])) > 1:
+                    until = stops[veh.line][0][1]
                     for d in range(numDays):
                         depart = max(0, d * 86400 + int(veh.depart) + until - options.duration)
                         if begin <= depart < end:
                             if d != 0 and veh.id.endswith(".trimmed"):
                                 # only add trimmed trips the first day
                                 continue
-                            outf.write('    <vehicle id="%s.%s" route="%s" type="%s" depart="%s" line="%s"/>\n' %
-                                       (veh.id, d, veh.route, veh.type, depart, veh.line))
+                            line = ('    <vehicle id="%s.%s" route="%s" type="%s" depart="%s" line="%s"/>\n' %
+                                    (veh.id, d, veh.route, veh.type, depart, veh.line))
+                            if options.sort:
+                                vehs[depart] += line
+                            else:
+                                outf.write(line)
+        if options.sort:
+            for _, vehs in sorted(vehs.items()):
+                outf.write(vehs)
         outf.write('</routes>\n')
-    if options.sort:
-        path = os.path.join(os.environ["SUMO_HOME"], "tools", "route", "sort_routes.py")
-        subprocess.call(["python", path, outfile, "-o", "temp.xml"])
-        os.remove(outfile)
-        os.rename("temp.xml", outfile)
 
 
 def main(options):

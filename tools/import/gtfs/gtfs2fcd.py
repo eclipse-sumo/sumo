@@ -122,9 +122,9 @@ def main(options):
                 stopSeq.append(d.stop_id)
                 departureSec = d.departure_time + timeIndex
                 until = 0 if firstDep is None else departureSec - timeIndex - firstDep
-                buf += ((u'    <timestep time="%s"><vehicle id="%s" x="%s" y="%s" until="%s" ' +
+                buf += ((u'    <timestep time="%s"><vehicle id="%s_%s" x="%s" y="%s" until="%s" ' +
                          u'name=%s fareZone="%s" fareSymbol="%s" startFare="%s" speed="20"/></timestep>\n') %
-                        (arrivalSec - offset, trip_id, d.stop_lon, d.stop_lat, until,
+                        (arrivalSec - offset, d.route_short_name, trip_id, d.stop_lon, d.stop_lat, until,
                          sumolib.xml.quoteattr(d.stop_name), d.fare_zone, d.fare_token, d.start_char))
                 if firstDep is None:
                     firstDep = departureSec - timeIndex
@@ -136,8 +136,9 @@ def main(options):
                     seqs[s] = trip_id
                     fcdFile[mode].write(buf)
                     timeIndex = arrivalSec
-                tripFile[mode].write(u'    <vehicle id="%s" route="%s" type="%s" depart="%s" line="%s_%s"/>\n' %
-                                     (trip_id, seqs[s], mode, firstDep, d.route_short_name, seqs[s]))
+                tripFile[mode].write(u'    <vehicle id="%s_%s" route="%s" type="%s" depart="%s" line="%s_%s"/>\n' %
+                                     (d.route_short_name, trip_id, seqs[s], mode, firstDep,
+                                      d.route_short_name, seqs[s]))
                 seenModes.add(mode)
     if options.gpsdat:
         if not os.path.exists(options.gpsdat):
@@ -153,13 +154,7 @@ def main(options):
             else:
                 os.remove(fcdFile[mode].name)
                 os.remove(tripFile[mode].name)
-    if options.vtype_output:
-        with io.open(options.vtype_output, 'w', encoding="utf8") as vout:
-            sumolib.xml.writeHeader(vout, root="additional")
-            for mode in sorted(seenModes):
-                vout.write(u'    <vType id="%s" vClass="%s"/>\n' %
-                           (mode, gtfs2osm.OSM2SUMO_MODES[mode]))
-            vout.write(u'</additional>\n')
+    gtfs2osm.write_vtypes(options, seenModes)
 
 
 if __name__ == "__main__":
