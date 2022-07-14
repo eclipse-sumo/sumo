@@ -69,8 +69,7 @@ def time2sec(s):
     return int(t[0]) * 3600 + int(t[1]) * 60 + int(t[2])
 
 
-def main(options):
-
+def get_merged_data(options):
     gtfsZip = zipfile.ZipFile(sumolib.open(options.gtfs, False))
     routes, trips_on_day, shapes, stops, stop_times = gtfs2osm.import_gtfs(options, gtfsZip)
 
@@ -87,13 +86,15 @@ def main(options):
         stops_merged['start_char'] = ''
 
     trips_routes_merged = pd.merge(trips_on_day, routes, on='route_id')
-    full_data_merged = pd.merge(stops_merged,
-                                trips_routes_merged,
-                                on='trip_id')[['trip_id', 'route_id', 'route_short_name', 'route_type',
-                                               'stop_id', 'stop_name', 'stop_lat', 'stop_lon', 'stop_sequence',
-                                               'fare_zone', 'fare_token', 'start_char',
-                                               'arrival_time', 'departure_time']].drop_duplicates()
+    return pd.merge(stops_merged, trips_routes_merged,
+                    on='trip_id')[['trip_id', 'route_id', 'route_short_name', 'route_type',
+                                    'stop_id', 'stop_name', 'stop_lat', 'stop_lon', 'stop_sequence',
+                                    'fare_zone', 'fare_token', 'start_char',
+                                    'arrival_time', 'departure_time']].drop_duplicates()
 
+
+def main(options):
+    full_data_merged = get_merged_data(options)
     fcdFile = {}
     tripFile = {}
     if not os.path.exists(options.fcd):
@@ -103,7 +104,7 @@ def main(options):
     for mode in modes:
         filePrefix = os.path.join(options.fcd, mode)
         fcdFile[mode] = io.open(filePrefix + '.fcd.xml', 'w', encoding="utf8")
-        sumolib.writeXMLHeader(fcdFile[mode], "gtfs2fcd.py")
+        sumolib.writeXMLHeader(fcdFile[mode], "gtfs2fcd.py", options=options)
         fcdFile[mode].write(u'<fcd-export>\n')
         if options.verbose:
             print('Writing fcd file "%s"' % fcdFile[mode].name)

@@ -511,7 +511,7 @@ def write_vtypes(options, seen=None):
     if options.vtype_output:
         with io.open(options.vtype_output, 'w', encoding="utf8") as vout:
             sumolib.xml.writeHeader(vout, root="additional")
-            for osm_type, sumo_class in OSM2SUMO_MODES.items():
+            for osm_type, sumo_class in sorted(OSM2SUMO_MODES.items()):
                 if osm_type in options.modes and (seen is None or osm_type in seen):
                     vout.write('    <vType id="%s" vClass="%s"/>\n' %
                                (osm_type, sumo_class))
