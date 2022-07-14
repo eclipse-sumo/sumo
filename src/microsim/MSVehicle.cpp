@@ -3744,7 +3744,7 @@ MSVehicle::setBrakingSignals(double vNext) {
 
 void
 MSVehicle::updateWaitingTime(double vNext) {
-    if (vNext <= SUMO_const_haltingSpeed && (!isStopped() || isIdling()) && myAcceleration <= 0.5 * getCarFollowModel().getMaxAccel())  {
+    if (vNext <= SUMO_const_haltingSpeed && (!isStopped() || isIdling()) && myAcceleration <= accelThresholdForWaiting())  {
         myWaitingTime += DELTA_T;
         myWaitingTimeCollector.passTime(DELTA_T, true);
     } else {
@@ -4110,7 +4110,8 @@ MSVehicle::executeMove() {
     // Determine vNext = speed after current sim step (ballistic), resp. in current simstep (euler)
     // Call to finalizeSpeed applies speed reduction due to dawdling / lane changing but ensures minimum safe speed
     double vNext = vSafe;
-    if (vNext <= SUMO_const_haltingSpeed && myWaitingTime > MSGlobals::gStartupWaitThreshold) {
+    const double rawAccel = SPEED2ACCEL(MAX2(vNext, 0.) - myState.mySpeed);
+    if (vNext <= SUMO_const_haltingSpeed && myWaitingTime > MSGlobals::gStartupWaitThreshold && rawAccel <= accelThresholdForWaiting()) {
         myTimeSinceStartup = 0;
     } else {
         // identify potential startup (before other effects reduce the speed again)
