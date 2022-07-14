@@ -44,7 +44,7 @@ def add_options():
     argParser.add_argument("--gpsdat", help="directory to write / read the generated gpsdat files to / from")
     argParser.add_argument("--modes", default="bus,tram,train,subway,ferry",
                            help="comma separated list of modes to import (bus, tram, train, subway and/or ferry)")
-    argParser.add_argument("--vtype-output", default="vType.xml",
+    argParser.add_argument("--vtype-output", default="vtypes.xml",
                            help="file to write the generated vehicle types to")
     argParser.add_argument("-v", "--verbose", action="store_true", default=False, help="tell me what you are doing")
     argParser.add_argument("-b", "--begin", default=0,

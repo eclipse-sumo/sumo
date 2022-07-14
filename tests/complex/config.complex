@@ -79,6 +79,9 @@ ssm:ssm.xml
 summary:summary.xml
 statistics:statistics.xml
 statistics2:statistics2.xml
+gtfs_routes:gtfs_publictransport.rou.xml
+gtfs_additional:gtfs_publictransport.add.xml
+vtypes:vtypes.xml
 
 [run_dependent_text]
 output:<!--{[->]}-->
@@ -152,6 +155,9 @@ errors:Network contains internal links which are ignored.
 errors:Matplotlib is building the font cache; this may take a moment.
 errors:apport/report.py:13: DeprecationWarning: the imp{LINES 2}
 ps:%%CreationDate
+gtfs_additional:<!-- generated on{[->]}-->
+gtfs_routes:<!-- generated on{[->]}-->
+vtypes:<!-- generated on{[->]}-->
 
 [unordered_text]
 output:^Simulation ended at time:
