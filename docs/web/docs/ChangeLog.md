@@ -17,7 +17,6 @@ title: ChangeLog
   
 - TraCI
   - Fixed railSignalConstraints-deadlock after calling `traci.trafficligght.swapConstraints`. Issue #11007
-  - 
   
 - tools
   - Restored support for Python version 2 (regression in 1.14.0). Issue #11159
