@@ -79,8 +79,8 @@ ssm:ssm.xml
 summary:summary.xml
 statistics:statistics.xml
 statistics2:statistics2.xml
-gtfs_routes:gtfs_publictransport.rou.xml
-gtfs_additional:gtfs_publictransport.add.xml
+gtfs_routes:gtfs_pt_vehicles.add.xml
+gtfs_additional:gtfs_pt_stops.add.xml
 vtypes:vtypes.xml
 
 [run_dependent_text]

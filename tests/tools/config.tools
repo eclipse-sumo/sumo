@@ -200,8 +200,8 @@ validate1800:validate1800.rou.xml
 vehtypes:vehtypes.xml
 tripinfos:tripinfos.xml
 gtfs_missing:gtfs_missing.xml
-gtfs_routes:gtfs_publictransport.rou.xml
-gtfs_additional:gtfs_publictransport.add.xml
+gtfs_routes:gtfs_pt_vehicles.add.xml
+gtfs_additional:gtfs_pt_stops.add.xml
 aggregatebattery:aggregatebattery.xml
 
 [run_dependent_text]
