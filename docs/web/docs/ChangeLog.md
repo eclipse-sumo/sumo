@@ -6,6 +6,43 @@ title: ChangeLog
 
 ### Bugfixes
 
+- Simulation
+  - RailSignalConstraint-attribute 'active' is now saved in simulation state. Issue #11150
+
+- netedit
+  - Fixed frezzing when deleting an edge that is part of a multi-step person plan. Issue #11176 (regression in 1.14.0)
+
+- netconvert
+  - Fixed invalid right of way rules when using custom contPos from side road at straight connection. Issue #11160
+  
+- TraCI
+  - Fixed railSignalConstraints-deadlock after calling `traci.trafficligght.swapConstraints`. Issue #11007
+  - 
+  
+- tools
+  - Restored support for Python version 2 (regression in 1.14.0). Issue #11159
+  - generateParkingAreaRerouters.py: fixed distance computation. Issue #11170
+  - drtonline.py: now works with Ubuntu 22 stock pulp package. Issue #11179
+
+### Enhancements
+
+- Simulation
+  - Added new laneChangeModel parameter `lcOvertakeDeltaSpeedFactor` to configure the threshold for *not* overtaking a slightly faster leader vehicle. Issue #11010
+
+- netedit
+  - Warning dialog for loading the same file twice now permits overwriting duplicate elements. Issue #11058
+  - View focus is now kept when transforming vehicles and persons between their trip/flow variants. Issue #11072
+  - Improved generation of roundabouts involving edges with custom geometry endpoints. Issue #11045
+  - Added junction context menu function for resetting edge endpoints. Issue #11044
+  - Now showing a radius preview before converting junction to roundabout. Issue #11178
+
+- tools
+  - Objects parsed from XML (sumolib.xml.CompoundObject) can now maintain their attribute order. Issue #11174
+  - randomTrips.py: options (**--period**, **--insertion-rate**, **--insertion-density**) now permit a comma-separated list of time values (not only space-separated). Issue #11151
+  - runSeeds.py: Now supports option **--threads** to enable parallelization. Issue #11187
+
+### Miscellaneous
+
 ## Version 1.14.0 (12.07.2022)
 
 ### Bugfixes
