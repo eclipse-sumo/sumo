@@ -33,6 +33,7 @@ if 'SUMO_HOME' in os.environ:
 import sumolib  # noqa
 from sumolib.miscutils import euclidean, parseTime, intIfPossible  # noqa
 from sumolib.geomhelper import naviDegree, minAngleDegreeDiff  # noqa
+from sumolib.net.lane import is_vehicle_class
 
 DUAROUTER = sumolib.checkBinary('duarouter')
 
@@ -178,6 +179,11 @@ def get_options(args=None):
         print(e, file=sys.stderr)
         sys.exit(1)
 
+    if options.vclass:
+        if not is_vehicle_class(options.vclass):
+            print("Error: The string '%s' doesn't correspond to a legit vehicle class" % options.vclass, file=sys.stderr)
+            sys.exit(1)
+
     if options.persontrips or options.personrides:
         options.pedestrians = True
 
@@ -216,6 +222,10 @@ def get_options(args=None):
         sys.exit(1)
 
     if options.vehicle_class:
+        if not is_vehicle_class(options.vehicle_class):
+            print("Error: The string '%s' doesn't correspond to a legit vehicle class" % options.vehicle_class, file=sys.stderr)
+            sys.exit(1)
+        
         if options.tripprefix:
             options.vtypeID = "%s_%s" % (options.tripprefix, options.vehicle_class)
         else:
