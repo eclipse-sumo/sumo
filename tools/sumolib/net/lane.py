@@ -208,7 +208,16 @@ class Lane:
         self._outgoing.append(conn)
 
     def getOutgoing(self):
+        """
+        Returns all outgoing connections from this lane.
+        """
         return self._outgoing
+    
+    def getOutgoingLanes(self):
+        """
+        Returns all outgoing lanes from this lane.
+        """
+        return [conn.getToLane() for conn in self.getOutgoing()]
 
     def getIncoming(self, onlyDirect=False):
         """
