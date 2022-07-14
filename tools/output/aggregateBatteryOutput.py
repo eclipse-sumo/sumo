@@ -23,6 +23,7 @@ from collections import OrderedDict
 sys.path += [os.path.join(os.environ["SUMO_HOME"], "tools")]
 import sumolib  # noqa
 
+
 def parseTimeSteps(inputFile):
     # create matrix for result
     result = {}
