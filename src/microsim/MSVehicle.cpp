@@ -2927,7 +2927,12 @@ MSVehicle::adaptToLeader(const std::pair<const MSVehicle*, double> leaderInfo,
             }
 #endif
             if (!backOnRoute) {
-                vsafeLeader = cfModel.stopSpeed(this, getSpeed(), seen - current->getLength() - POSITION_EPS);
+                double stopDist = seen - current->getLength() - POSITION_EPS;
+                if (lastLink->myLink->getInternalLaneBefore() != nullptr) {
+                    // do not drive onto the junction conflict area
+                    stopDist -= lastLink->myLink->getInternalLaneBefore()->getLength();
+                }
+                vsafeLeader = cfModel.stopSpeed(this, getSpeed(), stopDist);
             }
         }
         if (backOnRoute) {
