@@ -1,11 +1,6 @@
-Warning: Teleporting vehicle '0'; collision with vehicle '1.6', lane='CN_0', gap=-5.84, time=212.50 stage=move.
-Warning: Vehicle '0' ends teleporting on edge 'CN2', time=212.50.
-Warning: Vehicle '0' performs emergency braking on lane ':C_7_0' with decel=9.00, wished=4.50, severity=1.00, time=256.80.
-Warning: Teleporting vehicle '0'; waited too long (jam), lane=':C_7_0', time=652.60.
-Warning: Vehicle '0' ends teleporting on edge 'CN2', time=656.60.
-Warning: Vehicle '0' performs emergency braking on lane ':C_7_0' with decel=9.00, wished=4.50, severity=1.00, time=700.40.
-Warning: Teleporting vehicle '0'; collision with vehicle '1.23', lane='CN_0', gap=-5.86, time=795.60 stage=move.
-Warning: Vehicle '0' ends teleporting on edge 'CN2', time=795.60.
-Warning: Vehicle '0' performs emergency braking on lane ':C_7_0' with decel=9.00, wished=4.50, severity=1.00, time=839.60.
-Warning: Teleporting vehicle '0'; collision with vehicle '1.37', lane='CN_0', gap=-5.86, time=1291.50 stage=move.
-Warning: Vehicle '0' ends teleporting on edge 'CN2', time=1291.50.
+Warning: Teleporting vehicle '0'; collision with vehicle '1.7', lane='CN_0', gap=-5.84, time=246.00 stage=move.
+Warning: Vehicle '0' ends teleporting on edge 'CN2', time=246.00.
+Warning: Vehicle '0' performs emergency braking on lane ':C_7_0' with decel=9.00, wished=4.50, severity=1.00, time=289.70.
+Warning: Teleporting vehicle '0'; waited too long (jam), lane=':C_7_0', time=685.20.
+Warning: Vehicle '0' ends teleporting on edge 'CN2', time=689.20.
+Warning: Vehicle '0' performs emergency braking on lane ':C_7_0' with decel=9.00, wished=4.50, severity=1.00, time=733.10.
