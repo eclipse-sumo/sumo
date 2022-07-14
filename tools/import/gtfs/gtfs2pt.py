@@ -141,15 +141,16 @@ def splitNet(options):
         mode = os.path.basename(inp)[7:-4]
         if not options.modes or mode in options.modes.split(","):
             netPrefix = os.path.join(options.network_split, mode)
-            edgeTypes = [mode]
-            if "rail" in mode or mode == "subway":
-                edgeTypes = ["railway." + mode]
-            elif mode in ("tram", "bus"):
-                edgeTypes = ["railway.tram"] if mode == "tram" else []
+            sumoType = gtfs2osm.OSM2SUMO_MODES[mode]
+            edgeTypes = [sumoType]
+            if "rail" in sumoType or sumoType == "subway":
+                edgeTypes = ["railway." + sumoType]
+            elif sumoType in ("tram", "bus"):
+                edgeTypes = ["railway.tram"] if sumoType == "tram" else []
                 for hwType in ("bus_guideway", "living_street", "motorway", "motorway_link", "primary", "primary_link",
                                "residential", "secondary", "secondary_link", "tertiary", "tertiary_link",
                                "trunk", "trunk_link", "unclassified", "unsurfaced"):
-                    if mode == "tram":
+                    if sumoType == "tram":
                         edgeTypes.append("highway.%s|railway.tram" % hwType)
                     else:
                         edgeTypes.append("highway." + hwType)
