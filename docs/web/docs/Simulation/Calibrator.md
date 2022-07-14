@@ -111,7 +111,7 @@ The normal behavior is to replace the type of the passing vehicles with the type
     When calibrating types, the 'route' attribute can be omitted from the flow definition    
 
 !!! caution
-    The type modification happens when the vehicle enters the calibrator edge regardless of the configuration calibraor position.
+    The type modification happens when the vehicle enters the calibrator edge regardless of the configuration calibrator position.
 
 ### Type-dependent mapping
 
