@@ -61,7 +61,7 @@ MSCFModel_EIDM::MSCFModel_EIDM(const MSVehicleType* vtype) :
     myCcoolness(vtype->getParameter().getCFParam(SUMO_ATTR_CF_EIDM_C_COOLNESS, 0.99)),
     mySigmaleader(vtype->getParameter().getCFParam(SUMO_ATTR_CF_EIDM_SIG_LEADER, 0.02)),
     mySigmagap(vtype->getParameter().getCFParam(SUMO_ATTR_CF_EIDM_SIG_GAP, 0.1)),
-    mySigmaerror(vtype->getParameter().getCFParam(SUMO_ATTR_CF_EIDM_SIG_ERROR, 0.1)),
+    mySigmaerror(vtype->getParameter().getCFParam(SUMO_ATTR_CF_EIDM_SIG_ERROR, 0.04)),
     myJerkmax(vtype->getParameter().getCFParam(SUMO_ATTR_CF_EIDM_JERK_MAX, 3.)),
     myEpsilonacc(vtype->getParameter().getCFParam(SUMO_ATTR_CF_EIDM_EPSILON_ACC, 1.)),
     myTaccmax(vtype->getParameter().getCFParam(SUMO_ATTR_CF_EIDM_T_ACC_MAX, 1.2)),
@@ -202,25 +202,15 @@ MSCFModel_EIDM::patchSpeedBeforeLCEIDM(const MSVehicle* /*veh*/, double vMin, do
     // dawdling/drivingerror is now calculated here (in finalizeSpeed, not in stop-/follow-/freeSpeed anymore):
     // Instead of just multiplying mySigmaerror with vars->myw_error, we add a factor depending on the criticality of the situation,
     // measured with s*/gap. Because when the driver drives "freely" (nothing in front) he may dawdle more than in e.g. congested traffic!
-    double drivingerror = 0.0;
     const double s = myType->getMinGap() + MAX2(0., vars->myv_est * myHeadwayTime + vars->myv_est * (vars->myv_est - vars->myv_est_l) / myTwoSqrtAccelDecel);
-    if (vMax > EST_REAC_THRESHOLD) {
-        if (s / vars->mys_est >= 0.5) {
-            drivingerror = mySigmaerror * vars->myw_error;
-        } else if (s / vars->mys_est < 0.1) {
-            drivingerror = mySigmaerror * vars->myw_error * 2.5;
-        } else if (s / vars->mys_est < 0.15) {
-            drivingerror = mySigmaerror * vars->myw_error * 2.1;
-        } else if (s / vars->mys_est < 0.2) {
-            drivingerror = mySigmaerror * vars->myw_error * 1.8;
-        } else if (s / vars->mys_est < 0.25) {
-            drivingerror = mySigmaerror * vars->myw_error * 1.5;
-        } else if (s / vars->mys_est < 0.3) {
-            drivingerror = mySigmaerror * vars->myw_error * 1.3;
-        } else if (s / vars->mys_est < 0.5) {
-            drivingerror = mySigmaerror * vars->myw_error * 1.1;
-        }
-    }
+    const double intensity = MIN2(myAccel, MAX2(vMax - 0.5 * myAccel, 0.0));
+    const double criticality = MIN2(MAX2(s / vars->mys_est - 0.5, -0.4), 0.0);
+
+    const double drivingerror = mySigmaerror * vars->myw_error * intensity * (2.75 * 2.75 * criticality * criticality + 1.0);
+
+    // else: the vehicle is very slow and we do not add driving error (= 0), because
+    // we should not prevent vehicles from driving just due to dawdling
+    // if someone is starting, he should definitely start
 
     //const double vDawdle = MAX2(vMin, dawdle2(vMax, sigma, veh->getRNG()));
     const double vDawdle = MAX2(vMin, vMax + ACCEL2SPEED(drivingerror));
