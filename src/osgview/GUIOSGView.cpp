@@ -35,6 +35,7 @@
 #include <guisim/GUILane.h>
 #include <guisim/GUINet.h>
 #include <guisim/GUIVehicle.h>
+#include <guisim/GUIVehicleControl.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSVehicleControl.h>
@@ -360,12 +361,15 @@ GUIOSGView::onPaint(FXObject*, FXSelector, void*) {
         }
     }
     myDecalsLock.unlock();
-    MSVehicleControl::constVehIt it = MSNet::getInstance()->getVehicleControl().loadedVehBegin();
+
     // reset active flag
     for (auto& item : myVehicles) {
         item.second.active = false;
     }
-    for (; it != MSNet::getInstance()->getVehicleControl().loadedVehEnd(); it++) {
+    GUIVehicleControl* vc = GUINet::getGUIInstance()->getGUIVehicleControl();
+    vc->secureVehicles();
+    GUIVehicleControl::constVehIt it = GUINet::getGUIInstance()->getGUIVehicleControl()->loadedVehBegin();
+    for (; it != vc->loadedVehEnd(); it++) {
         GUIVehicle* veh = static_cast<GUIVehicle*>(it->second);
         if (!(veh->isOnRoad() || veh->isParking() || veh->wasRemoteControlled())) {
             continue;
@@ -406,6 +410,8 @@ GUIOSGView::onPaint(FXObject*, FXSelector, void*) {
         myVehicles[veh].lights->setValue(1, veh->signalSet(MSVehicle::VEH_SIGNAL_BLINKER_LEFT | MSVehicle::VEH_SIGNAL_BLINKER_EMERGENCY));
         myVehicles[veh].lights->setValue(2, veh->signalSet(MSVehicle::VEH_SIGNAL_BRAKELIGHT));
     }
+    vc->releaseVehicles();
+
     // remove inactive
     for (auto veh = myVehicles.begin(); veh != myVehicles.end();) {
         if (!veh->second.active) {
