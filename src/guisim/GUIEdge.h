@@ -150,6 +150,31 @@ public:
         MSEdge::removeTransportable(t);
     }
 
+    /// @name Access to persons
+    /// @{
+
+    /** @brief Returns this edge's persons set; locks it for microsimulation
+     *  @brief Avoids the creation of new vector as in getSortedPersons
+     *
+     * @return 
+     * Please note that it is necessary to release the person container
+     *  afterwards using "releasePersons".
+     * @return This edge's persons.
+     */
+    const std::set<MSTransportable*, ComparatorNumericalIdLess>& getPersonsSecure() const {
+        myLock.lock();
+        return myPersons;
+    }
+
+    /** @brief Allows to use the container for microsimulation again
+     *
+     * Unlocks "myLock" preventing usage by microsimulation.
+     */
+    void releasePersons() const {
+        myLock.unlock();
+    }
+    /// @}
+
     double getAllowedSpeed() const;
     /// @brief return meanSpead divided by allowedSpeed
     double getRelativeSpeed() const;
