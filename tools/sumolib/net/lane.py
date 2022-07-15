@@ -212,7 +212,7 @@ class Lane:
         Returns all outgoing connections from this lane.
         """
         return self._outgoing
-    
+
     def getOutgoingLanes(self):
         """
         Returns all outgoing lanes from this lane.

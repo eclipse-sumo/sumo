@@ -113,7 +113,8 @@ class TlLogic(sumolib.net.TLSProgram):
     def createFromTLSProgram(tl, tlsProgram, net, debug=False):
         # derive cycle time
         cycleTime = sum([int(phase.duration) for phase in tlsProgram.getPhases()])
-        tlLogic = TlLogic(tl.getID(), tlsProgram._id, cycleTime, tlsProgram._offset, [], tlsProgram.getParams(), net=net, debug=debug)
+        tlLogic = TlLogic(tl.getID(), tlsProgram._id, cycleTime, tlsProgram._offset,
+                          [], tlsProgram.getParams(), net=net, debug=debug)
         tlLogic._phases = tlsProgram.getPhases()
         tlLogic.__patchActuationTimes()
         return tlLogic
@@ -128,13 +129,13 @@ class TlLogic(sumolib.net.TLSProgram):
             phaseEls = tlLogicEl.findall("phase")
             if len(phaseEls) > 0:
                 paramEls = tlLogicEl.findall("param")
-                params = {paramEl.attrib["key"]:paramEl.attrib["value"] for paramEl in paramEls}
+                params = {paramEl.attrib["key"]: paramEl.attrib["value"] for paramEl in paramEls}
                 cycleTime = sum(int(phaseEl.attrib["duration"]) for phaseEl in phaseEls)
-                tlLogic = TlLogic(tlLogicEl.attrib["id"], tlLogicEl.attrib["programID"], cycleTime, tlLogicEl.attrib["offset"],
-                                  [], params, net=net, debug=debug)
+                tlLogic = TlLogic(tlLogicEl.attrib["id"], tlLogicEl.attrib["programID"], cycleTime,
+                                  tlLogicEl.attrib["offset"], [], params, net=net, debug=debug)
                 tlLogic._phases = [sumolib.net.Phase(int(phaseEl.attrib["duration"]), phaseEl.attrib["state"],
-                                                     minDur=-1 if "minDur" not in phaseEl.attrib else int(phaseEl.attrib["minDur"]),
-                                                     maxDur=-1 if "maxDur" not in phaseEl.attrib else int(phaseEl.attrib["maxDur"])) for phaseEl in phaseEls]
+                                                     int(phaseEl.attrib.get("minDur", -1)),
+                                                     int(phaseEl.attrib.get("maxDur", -1))) for phaseEl in phaseEls]
                 tlLogic.createSignalGroupsFromPhases(group=group)
                 tlLogic.__patchActuationTimes()
                 tlLogics.append(tlLogic)
@@ -188,7 +189,7 @@ class TlLogic(sumolib.net.TLSProgram):
                 tlIndexMap = [[i for i, value in enumerate(sgStates) if value == sgState] for sgState in uniqueSgStates]
             sgStates = uniqueSgStates
         for sgState in sgStates:
-            sgState = sgState.lower() # ignore minor/major semantics
+            sgState = sgState.lower()  # ignore minor/major semantics
             greenPhases = re.findall("(u*)(g+)(y*)", sgState)[:2]
             switchTimes = []
             if len(greenPhases) > 0:
@@ -356,6 +357,7 @@ class TlLogic(sumolib.net.TLSProgram):
             content += "%s;%s;%d;%d\n" % (id, ";".join(freeTimes), sg._transTimes[0], sg._transTimes[1])
         f.write(content)
 
+
 class SignalGroup(object):
 
     def __init__(self, id, free="g", transTimeOn=0, transTimeOff=0, off=False, debug=False):
@@ -486,9 +488,9 @@ def writeInputTemplates(net, outputDir, delimiter):
             data.append(["SG_" + str(tlIndex)])
 
         # write the template file
-        fopenArgs = {'mode' : 'w', 'newline' : ''}
+        fopenArgs = {'mode': 'w', 'newline': ''}
         if sys.version_info.major < 3:
-            fopenArgs = {'mode' : 'wb'}
+            fopenArgs = {'mode': 'wb'}
         with io.open(os.path.join(outputDir, "%s.csv" % tlsID), **fopenArgs) as inputTemplate:
             csvWriter = csv.writer(inputTemplate, quoting=csv.QUOTE_NONE, delimiter=delimiter)
             csvWriter.writerows(data)
@@ -621,9 +623,11 @@ def toCsv(options):
     tllFiles = [f for f in options.input.split(",") if f]
     for tllFile in tllFiles:
         if len(filterIDs) == 0:
-            tlLogics = [item for item in TlLogic.createFromXML(tllFile, net=net, group=options.group, debug=options.debug)]
+            tlLogics = [item for item in TlLogic.createFromXML(
+                tllFile, net=net, group=options.group, debug=options.debug)]
         else:
-            tlLogics = [item for item in TlLogic.createFromXML(tllFile, net=net, group=options.group, debug=options.debug) if item._id in filterIDs]
+            tlLogics = [item for item in TlLogic.createFromXML(
+                tllFile, net=net, group=options.group, debug=options.debug) if item._id in filterIDs]
         for tlLogic in tlLogics:
             if tlLogic._id not in addLogics:
                 addLogics[tlLogic._id] = []
@@ -693,4 +697,3 @@ if __name__ == "__main__":
             toCsv(options)
     else:
         toTll(options)
-

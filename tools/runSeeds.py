@@ -79,6 +79,7 @@ def get_options(args=None):
 def main(options):
 
     q = Queue()
+
     def runSim():
         while True:
             seed = q.get()
@@ -93,9 +94,9 @@ def main(options):
             q.task_done()
 
     for i in range(options.threads):
-         t = Thread(target=runSim)
-         t.daemon = True
-         t.start()
+        t = Thread(target=runSim)
+        t.daemon = True
+        t.start()
 
     for seed in options.seeds:
         q.put(seed)

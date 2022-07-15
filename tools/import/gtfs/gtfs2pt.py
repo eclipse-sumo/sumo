@@ -194,14 +194,18 @@ def traceMap(options, typedNets, radius=100):
             print("mapping", railType)
         net = sumolib.net.readNet(os.path.join(options.network_split, railType + ".net.xml"))
         netBox = net.getBBoxXY()
+        numTraces = 0
         traces = tracemapper.readFCD(os.path.join(options.fcd, railType + ".fcd.xml"), net, True)
         for tid, trace in traces:
+            numTraces += 1
             minX, minY, maxX, maxY = sumolib.geomhelper.addToBoundingBox(trace)
             if (minX < netBox[1][0] + radius and minY < netBox[1][1] + radius and
                     maxX > netBox[0][0] - radius and maxY > netBox[0][1] - radius):
                 mappedRoute = sumolib.route.mapTrace(trace, net, radius, fillGaps=options.fill_gaps)
                 if mappedRoute:
                     routes[tid] = [e.getID() for e in mappedRoute]
+        if options.verbose:
+            print("mapped", numTraces, "traces to", len(routes), "routes.")
     return routes
 
 

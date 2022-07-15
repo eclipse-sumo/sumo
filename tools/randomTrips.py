@@ -116,8 +116,8 @@ def get_options(args=None):
                     help="Allow departing on edges that leave the network and arriving on edges " +
                     "that enter the network (via turnarounds or as 1-edge trips")
     op.add_argument("--allow-fringe.min-length", type=float, dest="allow_fringe_min_length",
-                           help="Allow departing on edges that leave the network and arriving on edges " +
-                           "that enter the network, if they have at least the given length")
+                    help="Allow departing on edges that leave the network and arriving on edges " +
+                    "that enter the network, if they have at least the given length")
     op.add_argument("--fringe-junctions", action="store_true", dest="fringeJunctions",
                     default=False, help="Determine fringe edges based on junction attribute 'fringe'")
     op.add_argument("--min-distance", type=float, dest="min_distance", metavar="FLOAT", default=0.0,
@@ -169,10 +169,10 @@ def get_options(args=None):
                        action=sumolib.options.SplitAction,
                        help="How much vehicles arrive in the simulation per hour (alternative to the period option).")
     group.add_argument("--insertion-density", dest="insertionDensity", type=str, nargs="+", metavar="FLOAT",
-                       action=sumolib.options.SplitAction,                             
+                       action=sumolib.options.SplitAction,
                        help="How much vehicles arrive in the simulation per hour per kilometer of road " +
                        "(alternative to the period option).")
-    
+
     try:
         options = op.parse_args(args=args)
     except NotImplementedError as e:
@@ -181,7 +181,8 @@ def get_options(args=None):
 
     if options.vclass:
         if not is_vehicle_class(options.vclass):
-            print("Error: The string '%s' doesn't correspond to a legit vehicle class" % options.vclass, file=sys.stderr)
+            print("Error: The string '%s' doesn't correspond to a legit vehicle class" % options.vclass,
+                  file=sys.stderr)
             sys.exit(1)
 
     if options.persontrips or options.personrides:
@@ -223,9 +224,10 @@ def get_options(args=None):
 
     if options.vehicle_class:
         if not is_vehicle_class(options.vehicle_class):
-            print("Error: The string '%s' doesn't correspond to a legit vehicle class" % options.vehicle_class, file=sys.stderr)
+            print("Error: The string '%s' doesn't correspond to a legit vehicle class" %
+                  options.vehicle_class, file=sys.stderr)
             sys.exit(1)
-        
+
         if options.tripprefix:
             options.vtypeID = "%s_%s" % (options.tripprefix, options.vehicle_class)
         else:
