@@ -243,27 +243,31 @@ NBNodeTypeComputer::validateRailCrossings(NBNodeCont& nc, NBTrafficLightLogicCon
         if (n->myType == SumoXMLNodeType::RAIL_CROSSING) {
             // check if it really is a rail crossing
             int numRailway = 0;
-            int numNonRailway = 0;
+            int numNonRailIn = 0;
+            int numNonRailOut = 0;
+            std::set<const NBNode*> nonRailNodes;
             int numNonRailwayNonPed = 0;
             for (NBEdge* e : n->getIncomingEdges()) {
                 if ((e->getPermissions() & ~SVC_RAIL_CLASSES) != 0) {
-                    numNonRailway++;
+                    numNonRailIn += 1;
                     if (e->getPermissions() != SVC_PEDESTRIAN) {
                         numNonRailwayNonPed++;
                     }
+                    nonRailNodes.insert(e->getFromNode());
                 } else if ((e->getPermissions() & SVC_RAIL_CLASSES) != 0) {
                     numRailway++;
                 }
             }
             for (NBEdge* e : n->getOutgoingEdges()) {
-                if (e->getPermissions() == SVC_PEDESTRIAN) {
-                    numNonRailway++;
+                if ((e->getPermissions() & ~SVC_RAIL_CLASSES) != 0) {
+                    numNonRailOut += 1;
+                    nonRailNodes.insert(e->getToNode());
                 }
             }
-            if (numNonRailway == 0 || numRailway == 0) {
+            if (numNonRailIn == 0 || numNonRailOut == 0 || numRailway == 0) {
                 // not a crossing (maybe unregulated or rail_signal)
                 n->myType = SumoXMLNodeType::PRIORITY;
-            } else if (numNonRailwayNonPed > 2) {
+            } else if (numNonRailwayNonPed > 2 or nonRailNodes.size() > 2) {
                 // does not look like a rail crossing (roads in conflict). maybe a traffic light?
                 WRITE_WARNINGF("Converting invalid rail_crossing to traffic_light at junction '%'.", n->getID());
                 TrafficLightType type = SUMOXMLDefinitions::TrafficLightTypes.get(OptionsCont::getOptions().getString("tls.default-type"));
