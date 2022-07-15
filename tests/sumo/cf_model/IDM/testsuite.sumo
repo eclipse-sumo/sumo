@@ -39,3 +39,6 @@ ticket11199
 
 # exhibit extreme minGap violation inherent in the model (with some parameter combinations) - see #11199
 violateMingap
+
+# exhibit extreme minGap violation inherent in the model (with some parameter combinations) - see #11199
+violateMingap_warn
