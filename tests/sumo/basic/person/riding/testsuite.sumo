@@ -1,6 +1,9 @@
 # person with a single ride
 ride
 
+# define rides that end at a busStop, parkingArea, etc.
+ride_stoppingPlace
+
 # person with a single ride aborted
 ride_teleport
 

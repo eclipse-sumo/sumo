@@ -75,4 +75,7 @@ ride_access_busstop
 
 # vehicle ride ends at a containerStop but the person is set to arrive at a busStop (and depends on it's access)
 ride_stopMismatch
+
+# define rides that end at a busStop, parkingArea, etc.
+stop_stoppingPlace
 errors
