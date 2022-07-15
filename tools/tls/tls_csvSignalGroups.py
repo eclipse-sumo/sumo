@@ -178,7 +178,7 @@ class TlLogic(sumolib.net.TLSProgram):
         if len(self._signalGroups) > 0:
             return
         # create signal state patterns by aggregating the phase states vertically
-        states = [l for phase in self._phases for l in [phase.state]*int(phase.duration)]
+        states = [s for phase in self._phases for s in [phase.state] * int(phase.duration)]
         sgStates = [''.join(state) for state in zip(*states)]
         tlIndexMap = [[i] for i in range(len(sgStates))]
         j = 0
@@ -338,24 +338,25 @@ class TlLogic(sumolib.net.TLSProgram):
         '''
         Print out the TL Logic in the CSV input format
         '''
-        content = "[general]\ncycle time;%d\nkey;%s\nsubkey;%s\noffset;%s\n%s" % (self._cycleTime, self._id, self._programID, int(float(self._offset)),
-                                                                                  "actuated;%s\n" % ";".join([str(value) for value in self._actuated]) if len(self._actuated) > 0 else "")
+        print("[general]\ncycle time;%d\nkey;%s\nsubkey;%s\noffset;%s" %
+              (self._cycleTime, self._id, self._programID, int(float(self._offset))), file=f)
+        if self._actuated:
+            print("actuated;%s" % ";".join([str(value) for value in self._actuated]), file=f)
         for key, value in self._parameters.items():
-            content += "param;%s;%s\n" % (key, value)
-        content += "[links]\n"
+            print("param;%s;%s" % (key, value), file=f)
+        print("[links]", file=f)
         for id, sg in self._signalGroups.items():
             edge2edge = [(conn.getFrom().getID(), conn.getTo().getID()) for conn in sg._connections]
             edge2edge.sort(key=lambda t: t[1])
             edge2edge.sort(key=lambda t: t[0])
-            #edge2edge = sorted(edge2edge, key=lambda t: (t[1], t[0]))
+            # edge2edge = sorted(edge2edge, key=lambda t: (t[1], t[0]))
             for entry in edge2edge:
-                content += "%s;%s;%s\n" % (id, entry[0], entry[1])
-        content += "[signal groups]\nid;on1;off1;on2;off2;transOn;transOff\n"
+                print("%s;%s;%s" % (id, entry[0], entry[1]), file=f)
+        print("[signal groups]\nid;on1;off1;on2;off2;transOn;transOff", file=f)
         for id, sg in self._signalGroups.items():
             freeTimes = [str(t) for freeTime in sg._freeTimes for t in freeTime]
             freeTimes.extend(['']*(4-len(freeTimes)))
-            content += "%s;%s;%d;%d\n" % (id, ";".join(freeTimes), sg._transTimes[0], sg._transTimes[1])
-        f.write(content)
+            print("%s;%s;%d;%d" % (id, ";".join(freeTimes), sg._transTimes[0], sg._transTimes[1]), file=f)
 
 
 class SignalGroup(object):
@@ -648,7 +649,8 @@ def toCsv(options):
         # check for same signal groups
         if options.group:
             if not len(set([len(tlLogic._signalGroups) for tlLogic in tlLogics])) == 1:
-                print("Signal states of TL %s cannot be grouped unambiguously. Please remove the group option or the contradictory tll file." % tls.getID())
+                print("Signal states of TL %s cannot be grouped unambiguously. "
+                      "Please remove the group option or the contradictory tll file." % tls.getID())
                 return
         tlLogicsTotal.extend(tlLogics)
     # write the csv format

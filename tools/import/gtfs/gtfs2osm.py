@@ -376,8 +376,7 @@ def import_osm(options, net):
 
 
 def _addToDataFrame(gtfs_data, row, shapes_dict, stop, edge):
-    shape_list = [sec_shape for sec_shape, main_shape in shapes_dict.items()  # noqa
-                    if main_shape == row.shape_id]
+    shape_list = [sec_shape for sec_shape, main_shape in shapes_dict.items() if main_shape == row.shape_id]
     gtfs_data.loc[(gtfs_data["stop_id"] == row.stop_id) &
                   (gtfs_data["shape_id"].isin(shape_list)),
                   "stop_item_id"] = stop

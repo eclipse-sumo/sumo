@@ -301,11 +301,11 @@ def map_stops(options, net, routes, rout):
                         stopDef.add(stop)
                         startPos = max(0, pos - stopLength)
                         if railType == "bus":
-                            for l in edge.getLanes():
-                                if l.allows(railType):
+                            for rl in edge.getLanes():
+                                if rl.allows(railType):
                                     break
                             rout.write('    <busStop id="%s" lane="%s_%s" startPos="%.2f" endPos="%.2f"%s>\n%s' %
-                                       (stop, origEdgeID, l.getIndex(),
+                                       (stop, origEdgeID, rl.getIndex(),
                                         startPos, pos + stopLength, addAttrs, params))
                             rout.write('    </busStop>\n')
                         else:

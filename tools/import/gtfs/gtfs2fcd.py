@@ -88,9 +88,9 @@ def get_merged_data(options):
     trips_routes_merged = pd.merge(trips_on_day, routes, on='route_id')
     return pd.merge(stops_merged, trips_routes_merged,
                     on='trip_id')[['trip_id', 'route_id', 'route_short_name', 'route_type',
-                                    'stop_id', 'stop_name', 'stop_lat', 'stop_lon', 'stop_sequence',
-                                    'fare_zone', 'fare_token', 'start_char',
-                                    'arrival_time', 'departure_time']].drop_duplicates()
+                                   'stop_id', 'stop_name', 'stop_lat', 'stop_lon', 'stop_sequence',
+                                   'fare_zone', 'fare_token', 'start_char',
+                                   'arrival_time', 'departure_time']].drop_duplicates()
 
 
 def main(options):
