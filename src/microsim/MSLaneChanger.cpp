@@ -623,7 +623,15 @@ MSLaneChanger::getRealFollower(const ChangerIt& target) const {
     }
 #endif
     const double candiPos = vehicle->getPositionOnLane();
-    MSVehicle* neighFollow = veh(target);
+    MSVehicle* neighFollow = nullptr;
+    if (target != myCandi) {
+        neighFollow = veh(target);
+    } else {
+        // veh(target) would return the ego vehicle so we use it's predecessor instead
+        if (target->lane->myVehicles.size() > 1) {
+            neighFollow = target->lane->myVehicles[target->lane->myVehicles.size() - 2];
+        }
+    }
 
 #ifdef DEBUG_SURROUNDING_VEHICLES
     if (DEBUG_COND) {
@@ -659,7 +667,7 @@ MSLaneChanger::getRealFollower(const ChangerIt& target) const {
     // or a follower which is partially lapping into the target lane
     neighFollow = getCloserFollower(candiPos, neighFollow, target->lane->getPartialBehind(vehicle));
 
-    if (neighFollow == nullptr || neighFollow == vehicle) {
+    if (neighFollow == nullptr) {
         CLeaderDist consecutiveFollower = target->lane->getFollowersOnConsecutive(vehicle, vehicle->getBackPositionOnLane(), true)[0];
 #ifdef DEBUG_SURROUNDING_VEHICLES
         if (DEBUG_COND) {
