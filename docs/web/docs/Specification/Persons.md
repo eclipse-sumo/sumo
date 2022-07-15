@@ -291,7 +291,7 @@ If the computed plan starts with a car or bicycle, a vehicle for use by the pers
 
 | Attribute  | Type     | Range                                         | Default | Remark                                                        |
 | ---------- | -------- | --------------------------------------------- | ------- | ------------------------------------------------------------- |
-| from       | string   | valid edge ids                                | \-      | id of the start edge                                          |
+| from       | string   | valid edge ids                                | \-      | id of the start edge (optional, if it is a subsequent movement)  |
 | to         | string   | valid edge ids                                | \-      | id of the destination edge                                    |
 | via        | string   | valid edge ids                                | \-      | ids of the intermediate edges (not implemented yet)           |
 | busStop    | string   | valid bus stop ids                            | \-      | id of the destination stop                                    |
