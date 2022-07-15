@@ -7,7 +7,7 @@ title: Calibrator
 These trigger-type objects may be specified within an {{AdditionalFile}} and allow the
 dynamic adaption of traffic flows, speeds and vehicle parameters (vTypes). The syntax for such an
 object is: `<calibrator id="<ID>" lane="<LANE_ID>" output="<OUTPUT_FILE>"/\>`. They can be used to modify simulation
-scenario based on induction loop measurements. They can also be used to model location-base change in driving behavior.
+scenario based on induction loop measurements. They can also be used to model location-base changes in driving behavior.
 
 A calibrator will remove vehicles in excess of the specified flow and it will insert new vehicles (of the specified type)
 if the normal traffic demand of the simulation does not meet the
@@ -101,6 +101,35 @@ specified, a route is sampled from the distribution of the named [route
 probe detector](../Simulation/Output/RouteProbe.md). Otherwise the `route`
 attribute of the flow is used. Note, that this value may also specify
 the name of a route distribution.
+
+## Calibrating only Flow
+
+If attribute 'speed' is omitted from the `<flow>` definition, the calibrator will only affect flow by removing or insertion vehicles:
+
+```
+<additional>
+  <vType id="t0" speedDev="0.1" speedFactor="1.2" sigma="0"/>
+  <route id="c1" edges="beg middle end rend"/>
+
+  <calibrator id="calibtest_edge" edge="beg" pos="0" output="detector.xml">
+    <flow begin="0"    end="1800" route="c1" vehsPerHour="2500" type="t0"/>
+    <flow begin="1800" end="3600" route="c1" vehsPerHour="2500" type="t0"/>
+  </calibrator> 
+</additional>
+```
+
+## Calibrating only Speed
+
+If only attribute 'speed' is given in the `<flow>` definition, the calibrator acts similar to a [variableSpeedSign](Variable_Speed_Signs.md):
+
+```
+<additional>
+  <calibrator id="calibtest_edge" edge="beg" pos="0" output="detector.xml">
+    <flow begin="0"    end="1800" speed="10"/>
+    <flow begin="1800" end="3600" speed="20"/>
+  </calibrator> 
+</additional>
+```
 
 ## Calibrating vehicle types
 When a calibrator flow is defined without attribute `vehsPerHour` but with attribute `type`, this defines a type-calibrator.
