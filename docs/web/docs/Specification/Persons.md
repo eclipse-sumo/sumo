@@ -114,11 +114,15 @@ definitions.
 
 | Attribute  | Type     | Range                              | Default | Remark                                            |
 | ---------- | -------- | ---------------------------------- | ------- | ------------------------------------------------- |
+| **lines**  | list     | valid line or vehicle ids or *ANY* | \-      | list of vehicle alternatives to take for the ride |
 | from       | string   | valid edge ids                     | \-      | id of the start edge (optional, if it is a subsequent movement or [starts in a vehicle](Persons.md#starting_the_simulation_in_a_vehicle)) |
-| to         | string   | valid edge ids                     | \-      | id of the destination edge                        |
-| busStop    | string   | valid bus stop ids                 | \-      | id of the destination stop                        |
-| lines      | list     | valid line or vehicle ids or *ANY* | \-      | list of vehicle alternatives to take for the ride |
+| to         | string   | valid edge ids                     | \-      | id of the destination edge (optional, if a busStop or other stopping place is given)  |
 | arrivalPos | float(m) |                                    | end of edge  | arrival position on the destination edge          |
+| busStop    | string   | valid bus stop ids                 | \-      | id of the destination stop                        |
+| parkingArea| string   | valid parkingArea ids              | \-      | id of the destination stop                        |
+| trainStop  | string   | valid trainStop ids              | \-      | id of the destination stop                        |
+| chargingStation| string   | valid chargingStation ids              | \-      | id of the destination stop                        |
+| containerStop| string   | valid containerStop ids              | \-      | id of the destination stop                        |
 
 The vehicle to use has to exist already (either public transport or some
 existing passenger car) and the route to take is defined by the vehicle.
@@ -137,7 +141,7 @@ the following conditions are met
 The position of the person is either it's `departPos` or the arrival position of
 the preceding plan element
 
-A given bus stop may serve as a replacement for a destination edge and
+A given bus stop (or any other stopping place) may serve as a replacement for a destination edge and
 arrival position. If an arrival position is given nevertheless it has to
 be inside the range of the stop.
 
@@ -153,12 +157,16 @@ They are child elements of plan definitions.
 | route      | string     | valid route id     | \-      | the id of the route to walk                                                     |
 | edges      | list       | valid edge ids     | \-      | id of the edges to walk                                                         |
 | from       | string     | valid edge ids     | \-      | id of the start edge  (optional, if it is a subsequent movement)                |
-| to         | string     | valid edge ids     | \-      | id of the destination edge                                                      |
-| busStop    | string     | valid bus stop ids | \-      | id of the destination stop                                                      |
+| to         | string     | valid edge ids                     | \-      | id of the destination edge (optional, if a busStop or other stopping place is given)  |
 | duration   | float(s)   | \>0                | \-      | override walk duration (otherwise determined by the person type and the pedestrian dynamics)         |
 | speed      | float(m/s) | \>0                | \-      | override walking speed (otherwise determined by the person type and individual speed factor)         |
 | arrivalPos | float(m)   |                    | middle of edge  | arrival position on the destination edge                                        |
 | departPosLat | float(m)   |                    | right side in walking direction  | custom lateral position on lane at departure |
+| busStop    | string     | valid bus stop ids | \-      | id of the destination stop                                                      |
+| parkingArea| string   | valid parkingArea ids              | \-      | id of the destination stop                        |
+| trainStop  | string   | valid trainStop ids              | \-      | id of the destination stop                        |
+| chargingStation| string   | valid chargingStation ids              | \-      | id of the destination stop                        |
+| containerStop| string   | valid containerStop ids              | \-      | id of the destination stop                        |
 
 You can define either a `route`-id, or a list of `edges` to travel or a `from` and a `to` edge.
 In the first and second case the route edges are traveled in the listed
@@ -171,7 +179,7 @@ When given as router input input using the attributes `from` and `to` will be
 transformed into a walk using the attribute `edges` by routing along edges
 permissible for pedestrian (i.e. sidewalks).
 
-A given bus stop may serve as a replacement for a destination edge and
+A given bus stop (or other stopping place) may serve as a replacement for a destination edge and
 arrival position. If an arrival position is given nevertheless, it has
 to be inside the range of the stop.
 
