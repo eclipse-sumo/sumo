@@ -1,0 +1,7 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <calibrator id="c1" lane="middle_0" pos="0" output="detector.xml">
+        <flow begin="0"    end="3600" speed="10.0"/>
+    </calibrator>
+
+    <edgeData id="expect_speed_10"  begin="0"       end="3600"  file="aggregated_25.xml"/>
+</additional>
