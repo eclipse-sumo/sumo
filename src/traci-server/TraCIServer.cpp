@@ -903,38 +903,56 @@ TraCIServer::dispatchCommand() {
                 writeStatusCmd(libsumo::CMD_SETORDER, libsumo::RTYPE_OK, "");
                 break;
             }
+            case libsumo::CMD_SUBSCRIBE_BUSSTOP_VARIABLE:
+            case libsumo::CMD_SUBSCRIBE_CALIBRATOR_VARIABLE:
+            case libsumo::CMD_SUBSCRIBE_CHARGINGSTATION_VARIABLE:
+            case libsumo::CMD_SUBSCRIBE_EDGE_VARIABLE:
+            case libsumo::CMD_SUBSCRIBE_GUI_VARIABLE:
             case libsumo::CMD_SUBSCRIBE_INDUCTIONLOOP_VARIABLE:
-            case libsumo::CMD_SUBSCRIBE_LANEAREA_VARIABLE:
-            case libsumo::CMD_SUBSCRIBE_MULTIENTRYEXIT_VARIABLE:
-            case libsumo::CMD_SUBSCRIBE_TL_VARIABLE:
+            case libsumo::CMD_SUBSCRIBE_JUNCTION_VARIABLE:
             case libsumo::CMD_SUBSCRIBE_LANE_VARIABLE:
-            case libsumo::CMD_SUBSCRIBE_VEHICLE_VARIABLE:
+            case libsumo::CMD_SUBSCRIBE_LANEAREA_VARIABLE:
+            case libsumo::CMD_SUBSCRIBE_MEANDATA_VARIABLE:
+            case libsumo::CMD_SUBSCRIBE_MULTIENTRYEXIT_VARIABLE:
+            case libsumo::CMD_SUBSCRIBE_OVERHEADWIRE_VARIABLE:
+            case libsumo::CMD_SUBSCRIBE_PARKINGAREA_VARIABLE:
             case libsumo::CMD_SUBSCRIBE_PERSON_VARIABLE:
-            case libsumo::CMD_SUBSCRIBE_VEHICLETYPE_VARIABLE:
-            case libsumo::CMD_SUBSCRIBE_ROUTE_VARIABLE:
             case libsumo::CMD_SUBSCRIBE_POI_VARIABLE:
             case libsumo::CMD_SUBSCRIBE_POLYGON_VARIABLE:
-            case libsumo::CMD_SUBSCRIBE_JUNCTION_VARIABLE:
-            case libsumo::CMD_SUBSCRIBE_EDGE_VARIABLE:
+            case libsumo::CMD_SUBSCRIBE_REROUTER_VARIABLE:
+            case libsumo::CMD_SUBSCRIBE_ROUTE_VARIABLE:
+            case libsumo::CMD_SUBSCRIBE_ROUTEPROBE_VARIABLE:
             case libsumo::CMD_SUBSCRIBE_SIM_VARIABLE:
-            case libsumo::CMD_SUBSCRIBE_GUI_VARIABLE:
+            case libsumo::CMD_SUBSCRIBE_TL_VARIABLE:
+            case libsumo::CMD_SUBSCRIBE_VARIABLESPEEDSIGN_VARIABLE:
+            case libsumo::CMD_SUBSCRIBE_VEHICLE_VARIABLE:
+            case libsumo::CMD_SUBSCRIBE_VEHICLETYPE_VARIABLE:
                 success = addObjectVariableSubscription(commandId, false);
                 break;
+            case libsumo::CMD_SUBSCRIBE_BUSSTOP_CONTEXT:
+            case libsumo::CMD_SUBSCRIBE_CALIBRATOR_CONTEXT:
+            case libsumo::CMD_SUBSCRIBE_CHARGINGSTATION_CONTEXT:
+            case libsumo::CMD_SUBSCRIBE_EDGE_CONTEXT:
+            case libsumo::CMD_SUBSCRIBE_GUI_CONTEXT:
             case libsumo::CMD_SUBSCRIBE_INDUCTIONLOOP_CONTEXT:
-            case libsumo::CMD_SUBSCRIBE_LANEAREA_CONTEXT:
-            case libsumo::CMD_SUBSCRIBE_MULTIENTRYEXIT_CONTEXT:
-            case libsumo::CMD_SUBSCRIBE_TL_CONTEXT:
+            case libsumo::CMD_SUBSCRIBE_JUNCTION_CONTEXT:
             case libsumo::CMD_SUBSCRIBE_LANE_CONTEXT:
-            case libsumo::CMD_SUBSCRIBE_VEHICLE_CONTEXT:
+            case libsumo::CMD_SUBSCRIBE_LANEAREA_CONTEXT:
+            case libsumo::CMD_SUBSCRIBE_MEANDATA_CONTEXT:
+            case libsumo::CMD_SUBSCRIBE_MULTIENTRYEXIT_CONTEXT:
+            case libsumo::CMD_SUBSCRIBE_OVERHEADWIRE_CONTEXT:
+            case libsumo::CMD_SUBSCRIBE_PARKINGAREA_CONTEXT:
             case libsumo::CMD_SUBSCRIBE_PERSON_CONTEXT:
-            case libsumo::CMD_SUBSCRIBE_VEHICLETYPE_CONTEXT:
-            case libsumo::CMD_SUBSCRIBE_ROUTE_CONTEXT:
             case libsumo::CMD_SUBSCRIBE_POI_CONTEXT:
             case libsumo::CMD_SUBSCRIBE_POLYGON_CONTEXT:
-            case libsumo::CMD_SUBSCRIBE_JUNCTION_CONTEXT:
-            case libsumo::CMD_SUBSCRIBE_EDGE_CONTEXT:
+            case libsumo::CMD_SUBSCRIBE_REROUTER_CONTEXT:
+            case libsumo::CMD_SUBSCRIBE_ROUTE_CONTEXT:
+            case libsumo::CMD_SUBSCRIBE_ROUTEPROBE_CONTEXT:
             case libsumo::CMD_SUBSCRIBE_SIM_CONTEXT:
-            case libsumo::CMD_SUBSCRIBE_GUI_CONTEXT:
+            case libsumo::CMD_SUBSCRIBE_TL_CONTEXT:
+            case libsumo::CMD_SUBSCRIBE_VARIABLESPEEDSIGN_CONTEXT:
+            case libsumo::CMD_SUBSCRIBE_VEHICLE_CONTEXT:
+            case libsumo::CMD_SUBSCRIBE_VEHICLETYPE_CONTEXT:
                 success = addObjectVariableSubscription(commandId, true);
                 break;
             case libsumo::CMD_ADD_SUBSCRIPTION_FILTER:

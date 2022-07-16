@@ -33,24 +33,37 @@
 #include <microsim/MSLink.h>
 #include <microsim/MSStoppingPlace.h>
 #include <microsim/MSVehicle.h>
+#include <microsim/output/MSE3Collector.h>
 #include <microsim/transportables/MSTransportable.h>
 #include <microsim/transportables/MSTransportableControl.h>
 #include <microsim/transportables/MSPerson.h>
 #include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
 #include <libsumo/StorageHelper.h>
 #include <libsumo/TraCIDefs.h>
+#include <libsumo/BusStop.h>
+#include <libsumo/Calibrator.h>
+#include <libsumo/ChargingStation.h>
 #include <libsumo/Edge.h>
+#ifdef HAVE_LIBSUMOGUI
+#include <libsumo/GUI.h>
+#endif
 #include <libsumo/InductionLoop.h>
 #include <libsumo/Junction.h>
 #include <libsumo/Lane.h>
 #include <libsumo/LaneArea.h>
+#include <libsumo/MeanData.h>
 #include <libsumo/MultiEntryExit.h>
+#include <libsumo/OverheadWire.h>
+#include <libsumo/ParkingArea.h>
 #include <libsumo/Person.h>
 #include <libsumo/POI.h>
 #include <libsumo/Polygon.h>
+#include <libsumo/Rerouter.h>
 #include <libsumo/Route.h>
+#include <libsumo/RouteProbe.h>
 #include <libsumo/Simulation.h>
 #include <libsumo/TrafficLight.h>
+#include <libsumo/VariableSpeedSign.h>
 #include <libsumo/Vehicle.h>
 #include <libsumo/VehicleType.h>
 #include <libsumo/TraCIConstants.h>
@@ -227,18 +240,30 @@ Helper::handleSingleSubscription(const Subscription& s) {
         objIDs.insert(s.id);
     }
     if (myWrapper.empty()) {
+        myWrapper[libsumo::CMD_GET_BUSSTOP_VARIABLE] = BusStop::makeWrapper();
+        myWrapper[libsumo::CMD_GET_CALIBRATOR_VARIABLE] = Calibrator::makeWrapper();
+        myWrapper[libsumo::CMD_GET_CHARGINGSTATION_VARIABLE] = ChargingStation::makeWrapper();
         myWrapper[libsumo::CMD_GET_EDGE_VARIABLE] = Edge::makeWrapper();
+#ifdef HAVE_LIBSUMOGUI
+        myWrapper[libsumo::CMD_GET_GUI_VARIABLE] = GUI::makeWrapper();
+#endif
         myWrapper[libsumo::CMD_GET_INDUCTIONLOOP_VARIABLE] = InductionLoop::makeWrapper();
         myWrapper[libsumo::CMD_GET_JUNCTION_VARIABLE] = Junction::makeWrapper();
         myWrapper[libsumo::CMD_GET_LANE_VARIABLE] = Lane::makeWrapper();
         myWrapper[libsumo::CMD_GET_LANEAREA_VARIABLE] = LaneArea::makeWrapper();
+        myWrapper[libsumo::CMD_GET_MEANDATA_VARIABLE] = MeanData::makeWrapper();
         myWrapper[libsumo::CMD_GET_MULTIENTRYEXIT_VARIABLE] = MultiEntryExit::makeWrapper();
+        myWrapper[libsumo::CMD_GET_OVERHEADWIRE_VARIABLE] = OverheadWire::makeWrapper();
+        myWrapper[libsumo::CMD_GET_PARKINGAREA_VARIABLE] = ParkingArea::makeWrapper();
         myWrapper[libsumo::CMD_GET_PERSON_VARIABLE] = Person::makeWrapper();
         myWrapper[libsumo::CMD_GET_POI_VARIABLE] = POI::makeWrapper();
         myWrapper[libsumo::CMD_GET_POLYGON_VARIABLE] = Polygon::makeWrapper();
+        myWrapper[libsumo::CMD_GET_REROUTER_VARIABLE] = Rerouter::makeWrapper();
         myWrapper[libsumo::CMD_GET_ROUTE_VARIABLE] = Route::makeWrapper();
+        myWrapper[libsumo::CMD_GET_ROUTEPROBE_VARIABLE] = RouteProbe::makeWrapper();
         myWrapper[libsumo::CMD_GET_SIM_VARIABLE] = Simulation::makeWrapper();
         myWrapper[libsumo::CMD_GET_TL_VARIABLE] = TrafficLight::makeWrapper();
+        myWrapper[libsumo::CMD_GET_VARIABLESPEEDSIGN_VARIABLE] = VariableSpeedSign::makeWrapper();
         myWrapper[libsumo::CMD_GET_VEHICLE_VARIABLE] = Vehicle::makeWrapper();
         myWrapper[libsumo::CMD_GET_VEHICLETYPE_VARIABLE] = VehicleType::makeWrapper();
     }
@@ -285,7 +310,6 @@ Helper::handleSingleSubscription(const Subscription& s) {
         }
     }
 }
-
 
 
 void
@@ -496,6 +520,16 @@ Helper::getTLS(const std::string& id) {
 }
 
 
+MSStoppingPlace*
+Helper::getStoppingPlace(const std::string& id, const SumoXMLTag type) {
+    MSStoppingPlace* s = MSNet::getInstance()->getStoppingPlace(id, type);
+    if (s == nullptr) {
+        throw TraCIException(toString(type) + " '" + id + "' is not known");
+    }
+    return s;
+}
+
+
 SUMOVehicleParameter::Stop
 Helper::buildStopParameters(const std::string& edgeOrStoppingPlaceID,
                             double pos, int laneIndex, double startPos, int flags, double duration, double until) {
@@ -639,10 +673,11 @@ Helper::buildStopData(const SUMOVehicleParameter::Stop& stopPar) {
 void
 Helper::cleanup() {
     // clean up NamedRTrees
-    Polygon::cleanup();
-    POI::cleanup();
     InductionLoop::cleanup();
     Junction::cleanup();
+    LaneArea::cleanup();
+    POI::cleanup();
+    Polygon::cleanup();
     Helper::clearStateChanges();
     Helper::clearSubscriptions();
     delete myLaneTree;
@@ -695,18 +730,54 @@ Helper::getCalibratorState(const MSCalibrator* c) {
 void
 Helper::findObjectShape(int domain, const std::string& id, PositionVector& shape) {
     switch (domain) {
+        case libsumo::CMD_SUBSCRIBE_BUSSTOP_CONTEXT: {
+            MSStoppingPlace* const stop = getStoppingPlace(id, SUMO_TAG_BUS_STOP);
+            shape.push_back(stop->getLane().getShape().positionAtOffset(stop->getBeginLanePosition()));
+            shape.push_back(stop->getLane().getShape().positionAtOffset(stop->getEndLanePosition()));
+            break;
+        }
+        case libsumo::CMD_SUBSCRIBE_CALIBRATOR_CONTEXT: {
+            MSCalibrator* const calib = Calibrator::getCalibrator(id);
+            shape.push_back(calib->getLane()->getShape()[0]);
+            break;
+        }
+        case libsumo::CMD_SUBSCRIBE_CHARGINGSTATION_CONTEXT: {
+            MSStoppingPlace* const stop = getStoppingPlace(id, SUMO_TAG_CHARGING_STATION);
+            shape.push_back(stop->getLane().getShape().positionAtOffset(stop->getBeginLanePosition()));
+            shape.push_back(stop->getLane().getShape().positionAtOffset(stop->getEndLanePosition()));
+            break;
+        }
+        case libsumo::CMD_SUBSCRIBE_EDGE_CONTEXT:
+            Edge::storeShape(id, shape);
+            break;
         case libsumo::CMD_SUBSCRIBE_INDUCTIONLOOP_CONTEXT:
             InductionLoop::storeShape(id, shape);
             break;
-        case libsumo::CMD_SUBSCRIBE_LANEAREA_VARIABLE:
-            LaneArea::storeShape(id, shape);
+        case libsumo::CMD_SUBSCRIBE_JUNCTION_CONTEXT:
+            Junction::storeShape(id, shape);
             break;
         case libsumo::CMD_SUBSCRIBE_LANE_CONTEXT:
             Lane::storeShape(id, shape);
             break;
-        case libsumo::CMD_SUBSCRIBE_VEHICLE_CONTEXT:
-            Vehicle::storeShape(id, shape);
+        case libsumo::CMD_SUBSCRIBE_LANEAREA_CONTEXT:
+            LaneArea::storeShape(id, shape);
             break;
+        case libsumo::CMD_SUBSCRIBE_MULTIENTRYEXIT_CONTEXT: {
+            MSE3Collector* const det = MultiEntryExit::getDetector(id);
+            for (const MSCrossSection& cs : det->getEntries()) {
+                shape.push_back(cs.myLane->getShape().positionAtOffset(cs.myPosition));
+            }
+            for (const MSCrossSection& cs : det->getExits()) {
+                shape.push_back(cs.myLane->getShape().positionAtOffset(cs.myPosition));
+            }
+            break;
+        }
+        case libsumo::CMD_SUBSCRIBE_PARKINGAREA_CONTEXT: {
+            MSStoppingPlace* const stop = getStoppingPlace(id, SUMO_TAG_PARKING_AREA);
+            shape.push_back(stop->getLane().getShape().positionAtOffset(stop->getBeginLanePosition()));
+            shape.push_back(stop->getLane().getShape().positionAtOffset(stop->getEndLanePosition()));
+            break;
+        }
         case libsumo::CMD_SUBSCRIBE_PERSON_CONTEXT:
             Person::storeShape(id, shape);
             break;
@@ -716,11 +787,8 @@ Helper::findObjectShape(int domain, const std::string& id, PositionVector& shape
         case libsumo::CMD_SUBSCRIBE_POLYGON_CONTEXT:
             Polygon::storeShape(id, shape);
             break;
-        case libsumo::CMD_SUBSCRIBE_JUNCTION_CONTEXT:
-            Junction::storeShape(id, shape);
-            break;
-        case libsumo::CMD_SUBSCRIBE_EDGE_CONTEXT:
-            Edge::storeShape(id, shape);
+        case libsumo::CMD_SUBSCRIBE_VEHICLE_CONTEXT:
+            Vehicle::storeShape(id, shape);
             break;
         default:
             Simulation::storeShape(shape);
@@ -744,22 +812,50 @@ Helper::collectObjectsInRange(int domain, const PositionVector& shape, double ra
     const Boundary b = shape.getBoxBoundary().grow(range);
     const float cmin[2] = {(float) b.xmin(), (float) b.ymin()};
     const float cmax[2] = {(float) b.xmax(), (float) b.ymax()};
-    Named::StoringVisitor sv(into);
     switch (domain) {
+        case libsumo::CMD_GET_BUSSTOP_VARIABLE:
+            for (const auto& stop: MSNet::getInstance()->getStoppingPlaces(SUMO_TAG_BUS_STOP)) {
+                if (shape.distance2D(stop.second->getCenterPos()) <= range) {
+                    into.insert(stop.second);
+                }
+            }
+            break;
+        case libsumo::CMD_GET_CHARGINGSTATION_VARIABLE:
+            for (const auto& stop: MSNet::getInstance()->getStoppingPlaces(SUMO_TAG_CHARGING_STATION)) {
+                if (shape.distance2D(stop.second->getCenterPos()) <= range) {
+                    into.insert(stop.second);
+                }
+            }
+            break;
+        case libsumo::CMD_GET_CALIBRATOR_VARIABLE:
+            for (const auto& calib: MSCalibrator::getInstances()) {
+                if (shape.distance2D(calib.second->getLane()->getShape()[0]) <= range) {
+                    // into.insert(calib.second);
+                }
+            }
+            break;
         case libsumo::CMD_GET_INDUCTIONLOOP_VARIABLE:
-            InductionLoop::getTree()->Search(cmin, cmax, sv);
-            break;
-        case libsumo::CMD_GET_LANEAREA_VARIABLE:
-            LaneArea::getTree()->Search(cmin, cmax, sv);
-            break;
-        case libsumo::CMD_GET_POI_VARIABLE:
-            POI::getTree()->Search(cmin, cmax, sv);
-            break;
-        case libsumo::CMD_GET_POLYGON_VARIABLE:
-            Polygon::getTree()->Search(cmin, cmax, sv);
+            InductionLoop::getTree()->Search(cmin, cmax, Named::StoringVisitor(into));
             break;
         case libsumo::CMD_GET_JUNCTION_VARIABLE:
-            Junction::getTree()->Search(cmin, cmax, sv);
+            Junction::getTree()->Search(cmin, cmax, Named::StoringVisitor(into));
+            break;
+        case libsumo::CMD_GET_LANEAREA_VARIABLE:
+            LaneArea::getTree()->Search(cmin, cmax, Named::StoringVisitor(into));
+            break;
+        case libsumo::CMD_GET_PARKINGAREA_VARIABLE: {
+            for (const auto& stop: MSNet::getInstance()->getStoppingPlaces(SUMO_TAG_PARKING_AREA)) {
+                if (shape.distance2D(stop.second->getCenterPos()) <= range) {
+                    into.insert(stop.second);
+                }
+            }
+            break;
+        }
+        case libsumo::CMD_GET_POI_VARIABLE:
+            POI::getTree()->Search(cmin, cmax, Named::StoringVisitor(into));
+            break;
+        case libsumo::CMD_GET_POLYGON_VARIABLE:
+            Polygon::getTree()->Search(cmin, cmax, Named::StoringVisitor(into));
             break;
         case libsumo::CMD_GET_EDGE_VARIABLE:
         case libsumo::CMD_GET_LANE_VARIABLE:

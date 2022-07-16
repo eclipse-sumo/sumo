@@ -58,12 +58,18 @@ FXApp* GUI::myApp = nullptr;
 // ===========================================================================
 std::vector<std::string>
 GUI::getIDList() {
+    if (myWindow == nullptr) {
+        throw TraCIException("GUI is not running, command not implemented in command line sumo");
+    }
     return myWindow->getViewIDs();
 }
 
 
 int
 GUI::getIDCount() {
+    if (myWindow == nullptr) {
+        throw TraCIException("GUI is not running, command not implemented in command line sumo");
+    }
     return (int)myWindow->getViewIDs().size();
 }
 
@@ -362,15 +368,33 @@ GUI::close(const std::string& /*reason*/) {
 GUISUMOAbstractView*
 GUI::getView(const std::string& id) {
     if (myWindow == nullptr) {
-        return nullptr;
+        throw TraCIException("GUI is not running, command not implemented in command line sumo");
     }
     GUIGlChildWindow* const c = myWindow->getViewByID(id);
     if (c == nullptr) {
-        return nullptr;
+        throw TraCIException("View '" + id + "' is not known");
     }
     return c->getView();
 }
 
+
+std::shared_ptr<VariableWrapper>
+GUI::makeWrapper() {
+    return std::make_shared<Helper::SubscriptionWrapper>(handleVariable, mySubscriptionResults, myContextSubscriptionResults);
+}
+
+
+bool
+GUI::handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper, tcpip::Storage* /* paramData */) {
+    switch (variable) {
+        case TRACI_ID_LIST:
+            return wrapper->wrapStringList(objID, variable, getIDList());
+        case ID_COUNT:
+            return wrapper->wrapInt(objID, variable, getIDCount());
+        default:
+            return false;
+    }
+}
 
 }
 
