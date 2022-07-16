@@ -228,8 +228,9 @@ MSStageDriving::proceed(MSNet* net, MSTransportable* transportable, SUMOTime now
         myStopWaitPos = Position::INVALID;
         myWaitingPos = previous->getEdgePos(now);
     }
-    if (myOrigin != nullptr && myOrigin != myWaitingEdge) {
-        // transfer at junction
+    if (myOrigin != nullptr && myOrigin != myWaitingEdge
+            && (myOriginStop == nullptr || myOriginStop->getAccessPos(myOrigin) < 0)) {
+        // transfer at junction (rather than access)
         myWaitingEdge = myOrigin;
         myWaitingPos = 0;
     }
