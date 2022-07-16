@@ -33,7 +33,7 @@ if 'SUMO_HOME' in os.environ:
 import sumolib  # noqa
 from sumolib.miscutils import euclidean, parseTime, intIfPossible  # noqa
 from sumolib.geomhelper import naviDegree, minAngleDegreeDiff  # noqa
-from sumolib.net.lane import is_vehicle_class
+from sumolib.net.lane import is_vehicle_class  # noqa
 
 DUAROUTER = sumolib.checkBinary('duarouter')
 
