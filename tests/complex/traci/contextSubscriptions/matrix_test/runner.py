@@ -31,7 +31,7 @@ import traci  # noqa
 def runSingle(viewRange, domain, domain2):
     name = domain._name if hasattr(domain, "_name") else domain.__name__
     name2 = domain2._name if hasattr(domain2, "_name") else domain2.__name__
-    ids = domain.getIDList()
+    ids = domain.getIDList() if name != "simulation" else [""]
     if not ids:
         print("No objects for domain '%s' at time %s" %
               (name, traci.simulation.getTime()))
@@ -71,6 +71,8 @@ for domain in traci.DOMAINS:
             print("restarting sumo due to FatalTraCIError '%s'" % e)
             traci.close()
             restart()
-        except traci.TraCIException:
-            print("Quitting (on error).", file=sys.stderr)
-            sys.exit()
+        except traci.TraCIException as e:  # libsumo case
+            print("restarting sumo due to FatalTraCIError '%s'" % e)
+            traci.close()
+            restart()
+traci.close()
