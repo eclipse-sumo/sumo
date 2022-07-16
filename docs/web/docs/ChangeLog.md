@@ -7,13 +7,19 @@ title: ChangeLog
 ### Bugfixes
 
 - Simulation
+  - Fixed avoidable simulation slow-down (~20% in some scenarios). #11203 (regression in 1.9.0)
   - RailSignalConstraint-attribute 'active' is now saved in simulation state. Issue #11150
+  - Fixed collisions with carFollowModel EIDM when running with option **--ignore-junction-blocker**. Issue #11184
+  - Fixed bug where carFollowModel EIDM gets "stuck" at low speed. Issue #11165
+  - Fixed emergency braking after lane change on junction. Issue #10988
+  - Fixed IDM collision warnings due to imprecise braking when configured with low 'accel'. Issue #11199
 
 - netedit
   - Fixed frezzing when deleting an edge that is part of a multi-step person plan. Issue #11176 (regression in 1.14.0)
 
 - netconvert
   - Fixed invalid right of way rules when using custom contPos from side road at straight connection. Issue #11160
+  - Fixed generation of rail crossing at junctions that require a traffic light. Issue #10777
   
 - TraCI
   - Fixed railSignalConstraints-deadlock after calling `traci.trafficligght.swapConstraints`. Issue #11007
@@ -22,6 +28,7 @@ title: ChangeLog
   - Restored support for Python version 2 (regression in 1.14.0). Issue #11159
   - generateParkingAreaRerouters.py: fixed distance computation. Issue #11170
   - drtonline.py: now works with Ubuntu 22 stock pulp package. Issue #11179
+  - gtfs2pt.py: Fixed import of railway types. Issue #9550
 
 ### Enhancements
 
@@ -39,6 +46,7 @@ title: ChangeLog
   - Objects parsed from XML (sumolib.xml.CompoundObject) can now maintain their attribute order. Issue #11174
   - randomTrips.py: options (**--period**, **--insertion-rate**, **--insertion-density**) now permit a comma-separated list of time values (not only space-separated). Issue #11151
   - runSeeds.py: Now supports option **--threads** to enable parallelization. Issue #11187
+  - randomTrips.py: Added validation of vehicle class options. Issue #11195
 
 ### Miscellaneous
 
