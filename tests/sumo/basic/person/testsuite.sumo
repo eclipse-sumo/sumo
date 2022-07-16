@@ -78,4 +78,11 @@ ride_stopMismatch
 
 # define rides that end at a busStop, parkingArea, etc.
 stop_stoppingPlace
+
+# a walk and subsequent ride use redundant declarations of 
+# walk: to + busStop
+# ride: from
+# 
+# this triggers #11210
+ride_access_redundancy
 errors
