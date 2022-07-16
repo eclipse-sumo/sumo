@@ -1,5 +1,6 @@
-function import_gtfs called at Thu, 14 Jul 2022 14:33:14 +0000
-function import_gtfs finished after 9.243716 seconds
+function import_gtfs called at Sat, 16 Jul 2022 09:05:57 +0000
+function import_gtfs finished after 28.086377 seconds
+Success.
 Success.
 Success.
 Success.
@@ -28,7 +29,6 @@ Warning! Fixed connection N68_236759 55
 Warning! Fixed connection N68_236778 30
 Warning! No net resources/gtfs/ferry.net.xml
 Warning! No net resources/gtfs/subway.net.xml
-Warning! No net resources/gtfs/train.net.xml
 Warning! Disconnected route '62_257596', no path found. Keeping longer part.
 Warning! Disconnected route '62_257696.trimmed', no path found. Keeping longer part.
 Warning! Disconnected route '62_257768', no path found. Keeping longer part.

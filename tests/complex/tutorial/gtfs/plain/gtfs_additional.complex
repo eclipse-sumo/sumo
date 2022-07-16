@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-07-14 14:37:12.403993 by gtfs2pt.py v1_14_0+0097-18db435eed4
+<!-- generated on 2022-07-16 09:20:00.221193 by gtfs2pt.py v1_14_0+0136-cef3bbb7c86
   options: -n data/eichwalde.net.xml.gz <doubleminus>gtfs https://sumo.dlr.de/daily/GTFS_VBB_Juni-Dezember-2016.zip <doubleminus>date 20160713
 -->
 
@@ -373,6 +373,94 @@
     </busStop>
     <busStop id="26427739#2:15.17" lane="26427739#2_0" startPos="2.17" endPos="28.17" friendlyPos="true" name="Ludwigshöheweg (Berlin)">
     </busStop>
+    <trainStop id="31094941:102.98" lane="31094941_0" startPos="0.00" endPos="212.98" friendlyPos="true" name="S Grünau (Berlin)">
+        <access friendlyPos="true" lane="65421534_0" pos="18.63" length="54.13"/>
+        <access friendlyPos="true" lane="-65421534_0" pos="93.20" length="58.93"/>
+        <access friendlyPos="true" lane="399203604#2_0" pos="0.21" length="62.83"/>
+        <access friendlyPos="true" lane="399203605#2_0" pos="0.00" length="63.36"/>
+        <access friendlyPos="true" lane="399203605#1_0" pos="0.19" length="63.35"/>
+        <access friendlyPos="true" lane="399203590_0" pos="0.00" length="67.05"/>
+        <access friendlyPos="true" lane="399203605#0_0" pos="0.20" length="63.91"/>
+        <access friendlyPos="true" lane="399203599_0" pos="0.00" length="67.30"/>
+        <access friendlyPos="true" lane="399203604#1_0" pos="0.19" length="64.78"/>
+        <access friendlyPos="true" lane="399203598_0" pos="0.00" length="67.33"/>
+    </trainStop>
+    <trainStop id="248740648#0:712.34" lane="248740648#0_0" startPos="602.34" endPos="822.34" friendlyPos="true" name="S Wildau">
+    </trainStop>
+    <trainStop id="248740648#2:277.03" lane="248740648#2_0" startPos="167.03" endPos="387.03" friendlyPos="true" name="S Zeuthen">
+        <access friendlyPos="true" lane="-112698780#1_0" pos="2.78" length="1.60"/>
+        <access friendlyPos="true" lane="112698780#1_0" pos="94.20" length="3.19"/>
+        <access friendlyPos="true" lane="-7941954_0" pos="123.38" length="17.85"/>
+        <access friendlyPos="true" lane="23973629#0_0" pos="0.00" length="18.35"/>
+        <access friendlyPos="true" lane="7941954_0" pos="0.00" length="15.08"/>
+        <access friendlyPos="true" lane="36936023_0" pos="2.17" length="20.00"/>
+        <access friendlyPos="true" lane="23973629#1_0" pos="0.00" length="23.71"/>
+        <access friendlyPos="true" lane="36936022_0" pos="7.54" length="22.51"/>
+        <access friendlyPos="true" lane="36936019_0" pos="0.00" length="37.76"/>
+        <access friendlyPos="true" lane="23973629#2_0" pos="0.00" length="44.23"/>
+    </trainStop>
+    <trainStop id="441932172#2:588.10" lane="441932172#2_0" startPos="478.10" endPos="698.10" friendlyPos="true" name="S Eichwalde">
+        <access friendlyPos="true" lane="48124924_0" pos="3.94" length="13.29"/>
+        <access friendlyPos="true" lane="89406714_0" pos="0.00" length="19.56"/>
+        <access friendlyPos="true" lane="24278281_0" pos="16.36" length="29.55"/>
+        <access friendlyPos="true" lane="-24278281_0" pos="19.54" length="34.35"/>
+        <access friendlyPos="true" lane="318345126_0" pos="0.00" length="46.21"/>
+        <access friendlyPos="true" lane="318345128_0" pos="2.68" length="44.82"/>
+        <access friendlyPos="true" lane="318345127_0" pos="0.00" length="47.24"/>
+        <access friendlyPos="true" lane="4935155#5_0" pos="0.00" length="48.35"/>
+        <access friendlyPos="true" lane="318345129_0" pos="0.00" length="50.21"/>
+        <access friendlyPos="true" lane="4935155#4_0" pos="1.82" length="49.82"/>
+    </trainStop>
+    <trainStop id="4914193#1:77.83" lane="4914193#1_0" startPos="0.00" endPos="187.83" friendlyPos="true" name="S Grünau (Berlin)">
+        <access friendlyPos="true" lane="65421534_0" pos="18.63" length="54.13"/>
+        <access friendlyPos="true" lane="-65421534_0" pos="93.20" length="58.93"/>
+        <access friendlyPos="true" lane="399203604#2_0" pos="0.21" length="62.83"/>
+        <access friendlyPos="true" lane="399203605#2_0" pos="0.00" length="63.36"/>
+        <access friendlyPos="true" lane="399203605#1_0" pos="0.19" length="63.35"/>
+        <access friendlyPos="true" lane="399203590_0" pos="0.00" length="67.05"/>
+        <access friendlyPos="true" lane="399203605#0_0" pos="0.20" length="63.91"/>
+        <access friendlyPos="true" lane="399203599_0" pos="0.00" length="67.30"/>
+        <access friendlyPos="true" lane="399203604#1_0" pos="0.19" length="64.78"/>
+        <access friendlyPos="true" lane="399203598_0" pos="0.00" length="67.33"/>
+    </trainStop>
+    <trainStop id="410955388#0:72.41" lane="410955388#0_0" startPos="0.00" endPos="182.41" friendlyPos="true" name="S Grünau (Berlin)">
+        <access friendlyPos="true" lane="65421534_0" pos="18.63" length="54.13"/>
+        <access friendlyPos="true" lane="-65421534_0" pos="93.20" length="58.93"/>
+        <access friendlyPos="true" lane="399203604#2_0" pos="0.21" length="62.83"/>
+        <access friendlyPos="true" lane="399203605#2_0" pos="0.00" length="63.36"/>
+        <access friendlyPos="true" lane="399203605#1_0" pos="0.19" length="63.35"/>
+        <access friendlyPos="true" lane="399203590_0" pos="0.00" length="67.05"/>
+        <access friendlyPos="true" lane="399203605#0_0" pos="0.20" length="63.91"/>
+        <access friendlyPos="true" lane="399203599_0" pos="0.00" length="67.30"/>
+        <access friendlyPos="true" lane="399203604#1_0" pos="0.19" length="64.78"/>
+        <access friendlyPos="true" lane="399203598_0" pos="0.00" length="67.33"/>
+    </trainStop>
+    <trainStop id="441932173#7:436.35" lane="441932173#7_0" startPos="326.35" endPos="546.35" friendlyPos="true" name="S Eichwalde">
+        <access friendlyPos="true" lane="48124924_0" pos="3.94" length="13.29"/>
+        <access friendlyPos="true" lane="89406714_0" pos="0.00" length="19.56"/>
+        <access friendlyPos="true" lane="24278281_0" pos="16.36" length="29.55"/>
+        <access friendlyPos="true" lane="-24278281_0" pos="19.54" length="34.35"/>
+        <access friendlyPos="true" lane="318345126_0" pos="0.00" length="46.21"/>
+        <access friendlyPos="true" lane="318345128_0" pos="2.68" length="44.82"/>
+        <access friendlyPos="true" lane="318345127_0" pos="0.00" length="47.24"/>
+        <access friendlyPos="true" lane="4935155#5_0" pos="0.00" length="48.35"/>
+        <access friendlyPos="true" lane="318345129_0" pos="0.00" length="50.21"/>
+        <access friendlyPos="true" lane="4935155#4_0" pos="1.82" length="49.82"/>
+    </trainStop>
+    <trainStop id="6074658#1:859.91" lane="6074658#1_0" startPos="749.91" endPos="969.91" friendlyPos="true" name="S Zeuthen">
+        <access friendlyPos="true" lane="-112698780#1_0" pos="2.78" length="1.60"/>
+        <access friendlyPos="true" lane="112698780#1_0" pos="94.20" length="3.19"/>
+        <access friendlyPos="true" lane="-7941954_0" pos="123.38" length="17.85"/>
+        <access friendlyPos="true" lane="23973629#0_0" pos="0.00" length="18.35"/>
+        <access friendlyPos="true" lane="7941954_0" pos="0.00" length="15.08"/>
+        <access friendlyPos="true" lane="36936023_0" pos="2.17" length="20.00"/>
+        <access friendlyPos="true" lane="23973629#1_0" pos="0.00" length="23.71"/>
+        <access friendlyPos="true" lane="36936022_0" pos="7.54" length="22.51"/>
+        <access friendlyPos="true" lane="36936019_0" pos="0.00" length="37.76"/>
+        <access friendlyPos="true" lane="23973629#2_0" pos="0.00" length="44.23"/>
+    </trainStop>
+    <trainStop id="6074658#5:945.88" lane="6074658#5_0" startPos="835.88" endPos="1055.88" friendlyPos="true" name="S Wildau">
+    </trainStop>
     <trainStop id="171419641:225.64" lane="171419641_0" startPos="165.64" endPos="285.64" friendlyPos="true" name="Wendenschloß (Berlin)">
         <access friendlyPos="true" lane="-32204604#1_0" pos="18.47" length="0.38"/>
         <access friendlyPos="true" lane="32204604#1_0" pos="9.44" length="4.41"/>
@@ -2139,5 +2227,145 @@
     </route>
     <route id="X69_61318.trimmed" edges="-26427693#0">
         <stop busStop="-26427693#0:825.72" duration="10" until="0"/>
+    </route>
+    <route id="S45_92570" edges="31094941">
+        <stop busStop="31094941:102.98" duration="10" until="0"/>
+    </route>
+    <route id="S45_92708" edges="31094941">
+        <stop busStop="31094941:102.98" duration="10" until="0"/>
+    </route>
+    <route id="S46_92988" edges="248740648#0 248740648#1 248740648#2 248740648#3 441932172#1 441932172#2 441932172#3 441932172#4 441932172#5 392159878#0 392159878#1 22955303#1 22945413 410955358#1 4914193#0 4914193#1">
+        <stop busStop="248740648#0:712.34" duration="10" until="0"/>
+        <stop busStop="248740648#2:277.03" duration="10" until="240"/>
+        <stop busStop="441932172#2:588.10" duration="10" until="420"/>
+        <stop busStop="4914193#1:77.83" duration="10" until="720"/>
+    </route>
+    <route id="S46_93347" edges="410955388#0 410955388#1 46843155#0 46843155#1 46843155#2 46843155#3 46843155#4 392159908#1 724167913 441932173#1 441932173#2 441932173#3 441932173#4 441932173#5 441932173#6 441932173#7 441932173#8 441932173#9 6074658#1 6074658#2 6074658#3 6074658#4 6074658#5">
+        <stop busStop="410955388#0:72.41" duration="10" until="0"/>
+        <stop busStop="441932173#7:436.35" duration="10" until="360"/>
+        <stop busStop="6074658#1:859.91" duration="10" until="600"/>
+        <stop busStop="6074658#5:945.88" duration="10" until="840"/>
+    </route>
+    <route id="S46_93545" edges="31094941">
+        <stop busStop="31094941:102.98" duration="10" until="0"/>
+    </route>
+    <route id="S46_93547" edges="31094941">
+        <stop busStop="31094941:102.98" duration="10" until="0"/>
+    </route>
+    <route id="S46_92929" edges="248740648#0 248740648#1 248740648#2 248740648#3 441932172#1 441932172#2 441932172#3 441932172#4 441932172#5 392159878#0 392159878#1 22955303#1 22945413 410955358#1 4914193#0 4914193#1">
+        <stop busStop="248740648#0:712.34" duration="10" until="0"/>
+        <stop busStop="248740648#2:277.03" duration="10" until="240"/>
+        <stop busStop="441932172#2:588.10" duration="10" until="420"/>
+        <stop busStop="4914193#1:77.83" duration="10" until="720"/>
+    </route>
+    <route id="S46_93008" edges="31094941">
+        <stop busStop="31094941:102.98" duration="10" until="0"/>
+    </route>
+    <route id="S46_93014" edges="31094941">
+        <stop busStop="31094941:102.98" duration="10" until="0"/>
+    </route>
+    <route id="S46_93017" edges="248740648#0 248740648#1 248740648#2 248740648#3 441932172#1 441932172#2 441932172#3 441932172#4 441932172#5 392159878#0 392159878#1 22955303#1 22945413 410955358#1 4914193#0 4914193#1">
+        <stop busStop="248740648#0:712.34" duration="10" until="0"/>
+        <stop busStop="248740648#2:277.03" duration="10" until="240"/>
+        <stop busStop="441932172#2:588.10" duration="10" until="420"/>
+        <stop busStop="4914193#1:77.83" duration="10" until="720"/>
+    </route>
+    <route id="S46_93095" edges="248740648#0 248740648#1 248740648#2 248740648#3 441932172#1 441932172#2 441932172#3 441932172#4 441932172#5 392159878#0 392159878#1 22955303#1 22945413 410955358#1 4914193#0 4914193#1">
+        <stop busStop="248740648#0:712.34" duration="10" until="0"/>
+        <stop busStop="248740648#2:277.03" duration="10" until="240"/>
+        <stop busStop="441932172#2:588.10" duration="10" until="420"/>
+        <stop busStop="4914193#1:77.83" duration="10" until="720"/>
+    </route>
+    <route id="S46_93224" edges="410955388#0 410955388#1 46843155#0 46843155#1 46843155#2 46843155#3 46843155#4 392159908#1 724167913 441932173#1 441932173#2 441932173#3 441932173#4 441932173#5 441932173#6 441932173#7 441932173#8 441932173#9 6074658#1 6074658#2 6074658#3 6074658#4 6074658#5">
+        <stop busStop="410955388#0:72.41" duration="10" until="0"/>
+        <stop busStop="441932173#7:436.35" duration="10" until="360"/>
+        <stop busStop="6074658#1:859.91" duration="10" until="600"/>
+        <stop busStop="6074658#5:945.88" duration="10" until="840"/>
+    </route>
+    <route id="S46_93285" edges="410955388#0 410955388#1 46843155#0 46843155#1 46843155#2 46843155#3 46843155#4 392159908#1 724167913 441932173#1 441932173#2 441932173#3 441932173#4 441932173#5 441932173#6 441932173#7 441932173#8 441932173#9 6074658#1 6074658#2 6074658#3 6074658#4 6074658#5">
+        <stop busStop="410955388#0:72.41" duration="10" until="0"/>
+        <stop busStop="441932173#7:436.35" duration="10" until="360"/>
+        <stop busStop="6074658#1:859.91" duration="10" until="600"/>
+        <stop busStop="6074658#5:945.88" duration="10" until="840"/>
+    </route>
+    <route id="S46_93309.trimmed" edges="441932173#7 441932173#8 441932173#9 6074658#1 6074658#2 6074658#3 6074658#4 6074658#5">
+        <stop busStop="441932173#7:436.35" duration="10" until="0"/>
+        <stop busStop="6074658#1:859.91" duration="10" until="240"/>
+        <stop busStop="6074658#5:945.88" duration="10" until="480"/>
+    </route>
+    <route id="S46_93310.trimmed" edges="410955388#0 410955388#1 46843155#0 46843155#1 46843155#2 46843155#3 46843155#4 392159908#1 724167913 441932173#1 441932173#2 441932173#3 441932173#4 441932173#5 441932173#6 441932173#7 441932173#8 441932173#9 6074658#1 6074658#2 6074658#3 6074658#4 6074658#5">
+        <stop busStop="410955388#0:72.41" duration="10" until="0"/>
+        <stop busStop="441932173#7:436.35" duration="10" until="360"/>
+        <stop busStop="6074658#1:859.91" duration="10" until="600"/>
+        <stop busStop="6074658#5:945.88" duration="10" until="840"/>
+    </route>
+    <route id="S46_93342" edges="31094941">
+        <stop busStop="31094941:102.98" duration="10" until="0"/>
+    </route>
+    <route id="S46_93342.trimmed" edges="31094941">
+        <stop busStop="31094941:102.98" duration="10" until="0"/>
+    </route>
+    <route id="S46_93351" edges="410955388#0 410955388#1 46843155#0 46843155#1 46843155#2 46843155#3 46843155#4 392159908#1 724167913 441932173#1 441932173#2 441932173#3 441932173#4 441932173#5 441932173#6 441932173#7 441932173#8 441932173#9 6074658#1 6074658#2 6074658#3 6074658#4 6074658#5">
+        <stop busStop="410955388#0:72.41" duration="10" until="0"/>
+        <stop busStop="441932173#7:436.35" duration="10" until="360"/>
+        <stop busStop="6074658#1:859.91" duration="10" until="600"/>
+        <stop busStop="6074658#5:945.88" duration="10" until="840"/>
+    </route>
+    <route id="S46_93359" edges="410955388#0 410955388#1 46843155#0 46843155#1 46843155#2 46843155#3 46843155#4 392159908#1 724167913 441932173#1 441932173#2 441932173#3 441932173#4 441932173#5 441932173#6 441932173#7 441932173#8 441932173#9 6074658#1 6074658#2 6074658#3 6074658#4 6074658#5">
+        <stop busStop="410955388#0:72.41" duration="10" until="0"/>
+        <stop busStop="441932173#7:436.35" duration="10" until="360"/>
+        <stop busStop="6074658#1:859.91" duration="10" until="600"/>
+        <stop busStop="6074658#5:945.88" duration="10" until="840"/>
+    </route>
+    <route id="S8_96468" edges="31094941">
+        <stop busStop="31094941:102.98" duration="10" until="0"/>
+    </route>
+    <route id="S8_96476" edges="248740648#2 248740648#3 441932172#1 441932172#2 441932172#3 441932172#4 441932172#5 392159878#0 392159878#1 22955303#1 22945413 410955358#1 4914193#0 4914193#1">
+        <stop busStop="248740648#2:277.03" duration="10" until="0"/>
+        <stop busStop="441932172#2:588.10" duration="10" until="180"/>
+        <stop busStop="4914193#1:77.83" duration="10" until="540"/>
+    </route>
+    <route id="S8_96509" edges="31094941">
+        <stop busStop="31094941:102.98" duration="10" until="0"/>
+    </route>
+    <route id="S8_96597" edges="31094941">
+        <stop busStop="31094941:102.98" duration="10" until="0"/>
+    </route>
+    <route id="S8_96601" edges="31094941">
+        <stop busStop="31094941:102.98" duration="10" until="0"/>
+    </route>
+    <route id="S8_96602" edges="410955388#0 410955388#1 46843155#0 46843155#1 46843155#2 46843155#3 46843155#4 392159908#1 724167913 441932173#1 441932173#2 441932173#3 441932173#4 441932173#5 441932173#6 441932173#7 441932173#8 441932173#9 6074658#1">
+        <stop busStop="410955388#0:72.41" duration="10" until="0"/>
+        <stop busStop="441932173#7:436.35" duration="10" until="300"/>
+        <stop busStop="6074658#1:859.91" duration="10" until="480"/>
+    </route>
+    <route id="S8_96648.trimmed" edges="31094941">
+        <stop busStop="31094941:102.98" duration="10" until="0"/>
+    </route>
+    <route id="S8_96673" edges="31094941">
+        <stop busStop="31094941:102.98" duration="10" until="0"/>
+    </route>
+    <route id="S8_96699.trimmed" edges="31094941">
+        <stop busStop="31094941:102.98" duration="10" until="0"/>
+    </route>
+    <route id="S8_96700" edges="410955388#0 410955388#1 46843155#0 46843155#1 46843155#2 46843155#3 46843155#4 392159908#1 724167913 441932173#1 441932173#2 441932173#3 441932173#4 441932173#5 441932173#6 441932173#7 441932173#8 441932173#9 6074658#1">
+        <stop busStop="410955388#0:72.41" duration="10" until="0"/>
+        <stop busStop="441932173#7:436.35" duration="10" until="300"/>
+        <stop busStop="6074658#1:859.91" duration="10" until="480"/>
+    </route>
+    <route id="S8_96701" edges="31094941">
+        <stop busStop="31094941:102.98" duration="10" until="0"/>
+    </route>
+    <route id="S85_96776" edges="31094941">
+        <stop busStop="31094941:102.98" duration="10" until="0"/>
+    </route>
+    <route id="S85_96819" edges="31094941">
+        <stop busStop="31094941:102.98" duration="10" until="0"/>
+    </route>
+    <route id="S85_96852" edges="31094941">
+        <stop busStop="31094941:102.98" duration="10" until="0"/>
+    </route>
+    <route id="S9_96941" edges="31094941">
+        <stop busStop="31094941:102.98" duration="10" until="0"/>
     </route>
 </additional>
