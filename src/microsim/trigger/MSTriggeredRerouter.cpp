@@ -76,7 +76,7 @@ std::map<std::string, MSTriggeredRerouter*> MSTriggeredRerouter::myInstances;
 MSTriggeredRerouter::MSTriggeredRerouter(const std::string& id,
         const MSEdgeVector& edges, double prob, bool off,
         SUMOTime timeThreshold, const std::string& vTypes) :
-    MSTrigger(id),
+    Named(id),
     MSMoveReminder(id),
     myEdges(edges),
     myProbability(prob),
@@ -108,6 +108,7 @@ MSTriggeredRerouter::MSTriggeredRerouter(const std::string& id,
 MSTriggeredRerouter::~MSTriggeredRerouter() {
     myInstances.erase(getID());
 }
+
 
 // ------------ loading begin
 void

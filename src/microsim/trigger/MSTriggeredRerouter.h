@@ -26,8 +26,8 @@
 #include <string>
 #include <vector>
 #include <utils/common/Command.h>
+#include <utils/common/Named.h>
 #include <microsim/MSMoveReminder.h>
-#include "MSTrigger.h"
 #include <utils/xml/SUMOSAXHandler.h>
 #include <utils/distribution/RandomDistributor.h>
 
@@ -57,7 +57,7 @@ class MSParkingArea;
  *  the old destination or by choosing a new one from a set of existing ones.
  */
 class MSTriggeredRerouter :
-    public MSTrigger, public MSMoveReminder,
+    public Named, public MSMoveReminder,
     public SUMOSAXHandler {
 
     friend class GUIEdge; // dynamic instantiation

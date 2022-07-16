@@ -830,7 +830,7 @@ Helper::collectObjectsInRange(int domain, const PositionVector& shape, double ra
         case libsumo::CMD_GET_CALIBRATOR_VARIABLE:
             for (const auto& calib: MSCalibrator::getInstances()) {
                 if (shape.distance2D(calib.second->getLane()->getShape()[0]) <= range) {
-                    // into.insert(calib.second);
+                    into.insert(calib.second);
                 }
             }
             break;

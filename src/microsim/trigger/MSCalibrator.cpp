@@ -51,8 +51,8 @@
 // ===========================================================================
 // static members
 // ===========================================================================
-std::vector<MSMoveReminder*> MSCalibrator::LeftoverReminders;
-std::vector<SUMOVehicleParameter*> MSCalibrator::LeftoverVehicleParameters;
+std::vector<MSMoveReminder*> MSCalibrator::myLeftoverReminders;
+std::vector<SUMOVehicleParameter*> MSCalibrator::myLeftoverVehicleParameters;
 std::map<std::string, MSCalibrator*> MSCalibrator::myInstances;
 
 // ===========================================================================
@@ -83,7 +83,6 @@ MSCalibrator::MSCalibrator(const std::string& id,
                            const double invalidJamThreshold,
                            const std::string& vTypes,
                            bool addLaneMeanData) :
-    MSTrigger(id),
     MSRouteHandler(aXMLFilename, true),
     MSDetectorFileOutput(id, vTypes, "", (int)PersonMode::NONE), // detecting persons not yet supported
     myEdge(edge),
@@ -120,10 +119,10 @@ MSCalibrator::MSCalibrator(const std::string& id,
                 //std::cout << " cali=" << getID() << " myLane=" << Named::getIDSecure(myLane) << " checkLane=" << i << "\n";
                 MSMeanData_Net::MSLaneMeanDataValues* laneData = new MSMeanData_Net::MSLaneMeanDataValues(eLane, eLane->getLength(), true, &myMeanDataParent);
                 laneData->setDescription("meandata_calibrator_" + eLane->getID());
-                LeftoverReminders.push_back(laneData);
+                myLeftoverReminders.push_back(laneData);
                 myLaneMeanData.push_back(laneData);
                 VehicleRemover* remover = new VehicleRemover(eLane, this);
-                LeftoverReminders.push_back(remover);
+                myLeftoverReminders.push_back(remover);
                 myVehicleRemovers.push_back(remover);
             }
         }
@@ -187,7 +186,7 @@ MSCalibrator::myStartElement(int element,
             state.end = attrs.getOptSUMOTimeReporting(SUMO_ATTR_END, getID().c_str(), ok, -1);
             state.vehicleParameter = SUMOVehicleParserHelper::parseVehicleAttributes(element, attrs, true, true, true);
             state.vehicleParameter->parametersSet &= ~VEHPARS_CALIBRATORSPEED_SET;
-            LeftoverVehicleParameters.push_back(state.vehicleParameter);
+            myLeftoverVehicleParameters.push_back(state.vehicleParameter);
             // vehicles should be inserted with max speed unless stated otherwise
             if (state.vehicleParameter->departSpeedProcedure == DepartSpeedDefinition::DEFAULT) {
                 state.vehicleParameter->departSpeedProcedure = DepartSpeedDefinition::MAX;
@@ -269,6 +268,7 @@ MSCalibrator::isCurrentStateActive(SUMOTime time) {
            myCurrentStateInterval->begin <= time && myCurrentStateInterval->end > time;
 }
 
+
 int
 MSCalibrator::totalWished() const {
     if (myCurrentStateInterval != myIntervals.end()) {
@@ -285,6 +285,7 @@ MSCalibrator::currentFlow() const {
     const double totalHourFraction = STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep() - myCurrentStateInterval->begin) / (double) 3600.;
     return passed() / totalHourFraction;
 }
+
 
 double
 MSCalibrator::currentSpeed() const {
@@ -480,8 +481,8 @@ MSCalibrator::execute(SUMOTime currentTime) {
 void
 MSCalibrator::reset() {
     myEdgeMeanData.reset();
-    for (std::vector<MSMeanData_Net::MSLaneMeanDataValues*>::iterator it = myLaneMeanData.begin(); it != myLaneMeanData.end(); ++it) {
-        (*it)->reset();
+    for (MSMeanData_Net::MSLaneMeanDataValues* const val : myLaneMeanData) {
+        val->reset();
     }
 }
 
@@ -537,16 +538,17 @@ MSCalibrator::remainingVehicleCapacity(int laneIndex) const {
 
 void
 MSCalibrator::cleanup() {
-    for (std::vector<MSMoveReminder*>::iterator it = LeftoverReminders.begin(); it != LeftoverReminders.end(); ++it) {
-        delete *it;
+    while (!myInstances.empty()) {
+        delete myInstances.begin()->second;
     }
-    LeftoverReminders.clear();
-    for (std::vector<SUMOVehicleParameter*>::iterator it = LeftoverVehicleParameters.begin();
-            it != LeftoverVehicleParameters.end(); ++it) {
-        delete *it;
+    for (MSMoveReminder* rem : myLeftoverReminders) {
+        delete rem;
     }
-    LeftoverVehicleParameters.clear();
-    myInstances.clear(); // deletion is performed in MSTrigger::cleanup()
+    myLeftoverReminders.clear();
+    for (SUMOVehicleParameter* par : myLeftoverVehicleParameters) {
+        delete par;
+    }
+    myLeftoverVehicleParameters.clear();
 }
 
 
