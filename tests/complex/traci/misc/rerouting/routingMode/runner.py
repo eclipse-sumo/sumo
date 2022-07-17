@@ -32,11 +32,15 @@ traci.simulationStep()
 while traci.simulation.getMinExpectedNumber() > 0:
     timeS = traci.simulation.getTime()
     for vehID in traci.simulation.getDepartedIDList():
-        if len(sys.argv) > 1:
+        if "custom" in sys.argv:
+            traci.vehicle.setAdaptedTraveltime(vehID, "detour", 1)
+        if "raw" in sys.argv:
+            traci.vehicle.rerouteTraveltime(vehID, False)
+        elif "aggregated" in sys.argv:
             traci.vehicle.setRoutingMode(vehID, traci.constants.ROUTING_MODE_AGGREGATED)
             traci.vehicle.rerouteTraveltime(vehID)
         else:
-            traci.vehicle.rerouteTraveltime(vehID, False)
+            traci.vehicle.rerouteTraveltime(vehID)
         print("step=%s rerouted=%s" % (timeS, vehID))
     # print("step=%s", timeS)
     # for edgeID in traci.edge.getIDList():

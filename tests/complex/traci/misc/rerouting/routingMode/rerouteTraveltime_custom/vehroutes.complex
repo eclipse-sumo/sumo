@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-07-17 12:35:22 by Eclipse SUMO sumo Version v1_14_0+0150-2dd591c28a4
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <vehroute-output value="vehroutes.xml"/>
+    </output>
+
+    <processing>
+        <time-to-teleport value="-1"/>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <routing>
+        <device.rerouting.adaptation-steps value="20"/>
+    </routing>
+
+    <report>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <traci_server>
+        <remote-port value="52935"/>
+    </traci_server>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="flow.0" depart="0.00" arrival="60.00">
+        <route edges="beg detour end"/>
+    </vehicle>
+
+    <vehicle id="flow.1" depart="10.00" arrival="70.00">
+        <route edges="beg detour end"/>
+    </vehicle>
+
+    <vehicle id="flow.2" depart="20.00" arrival="80.00">
+        <route edges="beg detour end"/>
+    </vehicle>
+
+    <vehicle id="flow.3" depart="30.00" arrival="90.00">
+        <route edges="beg detour end"/>
+    </vehicle>
+
+    <vehicle id="flow.4" depart="40.00" arrival="100.00">
+        <route edges="beg detour end"/>
+    </vehicle>
+
+    <vehicle id="flow.5" depart="50.00" arrival="110.00">
+        <route edges="beg detour end"/>
+    </vehicle>
+
+    <vehicle id="flow.6" depart="60.00" arrival="120.00">
+        <route edges="beg detour end"/>
+    </vehicle>
+
+    <vehicle id="flow.7" depart="70.00" arrival="130.00">
+        <route edges="beg detour end"/>
+    </vehicle>
+
+    <vehicle id="flow.8" depart="80.00" arrival="140.00">
+        <route edges="beg detour end"/>
+    </vehicle>
+
+    <vehicle id="flow.9" depart="90.00" arrival="150.00">
+        <route edges="beg detour end"/>
+    </vehicle>
+
+</routes>

@@ -1,3 +1,15 @@
 # Copy of rerouteTraveltime_default
 rerouteTraveltime_default
 rerouteTraveltime_aggregated
+
+# Copy of rerouteTraveltime_aggregated
+rerouteTraveltime_raw
+
+# rerouteTraveltime_default with custom weights
+rerouteTraveltime_custom
+
+# rerouteTraveltime_aggregated with custom weights
+rerouteTraveltime_aggregated_custom
+
+# rerouteTraveltime_aggregated with custom weights
+rerouteTraveltime_raw_custom

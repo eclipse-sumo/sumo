@@ -27,7 +27,7 @@
     </report>
 
     <traci_server>
-        <remote-port value="44965"/>
+        <remote-port value="33075"/>
     </traci_server>
 
 </configuration>
@@ -62,33 +62,42 @@
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="flow.4" depart="40.00" arrival="113.00">
-        <route edges="beg detour end"/>
+    <vehicle id="flow.4" depart="40.00" arrival="85.00">
+        <routeDistribution>
+            <route replacedOnEdge="beg" reason="traci:rerouteTraveltime" replacedAtTime="41.00" probability="0" edges="beg detour end"/>
+            <route edges="beg middle middle2 end"/>
+        </routeDistribution>
     </vehicle>
 
-    <vehicle id="flow.5" depart="50.00" arrival="115.00">
-        <route edges="beg detour end"/>
+    <vehicle id="flow.5" depart="50.00" arrival="86.00">
+        <routeDistribution>
+            <route replacedOnEdge="beg" reason="traci:rerouteTraveltime" replacedAtTime="51.00" probability="0" edges="beg detour end"/>
+            <route edges="beg middle middle2 end"/>
+        </routeDistribution>
     </vehicle>
 
-    <vehicle id="flow.6" depart="60.00" arrival="120.00">
-        <route edges="beg detour end"/>
+    <vehicle id="flow.6" depart="60.00" arrival="141.00">
+        <routeDistribution>
+            <route replacedOnEdge="beg" reason="traci:rerouteTraveltime" replacedAtTime="61.00" probability="0" edges="beg detour end"/>
+            <route edges="beg middle middle2 end"/>
+        </routeDistribution>
     </vehicle>
 
-    <vehicle id="flow.7" depart="70.00" arrival="141.00">
+    <vehicle id="flow.7" depart="70.00" arrival="143.00">
         <routeDistribution>
             <route replacedOnEdge="beg" reason="traci:rerouteTraveltime" replacedAtTime="71.00" probability="0" edges="beg detour end"/>
             <route edges="beg middle middle2 end"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="flow.8" depart="80.00" arrival="143.00">
+    <vehicle id="flow.8" depart="80.00" arrival="145.00">
         <routeDistribution>
             <route replacedOnEdge="beg" reason="traci:rerouteTraveltime" replacedAtTime="81.00" probability="0" edges="beg detour end"/>
             <route edges="beg middle middle2 end"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="flow.9" depart="90.00" arrival="145.00">
+    <vehicle id="flow.9" depart="90.00" arrival="146.00">
         <routeDistribution>
             <route replacedOnEdge="beg" reason="traci:rerouteTraveltime" replacedAtTime="91.00" probability="0" edges="beg detour end"/>
             <route edges="beg middle middle2 end"/>
