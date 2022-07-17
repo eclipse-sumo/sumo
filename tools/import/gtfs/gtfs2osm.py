@@ -590,7 +590,7 @@ def write_gtfs_osm_outputs(options, map_routes, map_stops, missing_stops, missin
                     continue
 
                 if main_shape not in shapes_written:
-                    output_file.write('    <route id="%s" edges="%s"/>\n' % (main_shape, " ".join(edges_list)))
+                    output_file.write(u'    <route id="%s" edges="%s"/>\n' % (main_shape, " ".join(edges_list)))
                     shapes_written.add(main_shape)
 
                 stopSeq = tuple([stop.stop_item_id for stop in stop_list.itertuples()])
@@ -603,7 +603,7 @@ def write_gtfs_osm_outputs(options, map_routes, map_stops, missing_stops, missin
                             min(stop_index), max(stop_index), pt_type,
                             row.route_short_name,
                             sumolib.xml.quoteattr(row.trip_headsign, True))
-                output_file.write('    <vehicle id="%s_%s.%s" route="%s" line="%s_%s" depart="%s:%s" departEdge="%s" arrivalEdge="%s" type="%s"><!--%s %s-->\n' % veh_attr)  # noqa
+                output_file.write(u'    <vehicle id="%s_%s.%s" route="%s" line="%s_%s" depart="%s:%s" departEdge="%s" arrivalEdge="%s" type="%s"><!--%s %s-->\n' % veh_attr)  # noqa
 
                 check_seq = -1
                 for stop in stop_list.itertuples():
@@ -619,7 +619,7 @@ def write_gtfs_osm_outputs(options, map_routes, map_stops, missing_stops, missin
                                      options.duration, stop.departure_fixed.days + day,
                                      str(stop.departure_fixed).split(' ')[2],
                                      sumolib.xml.quoteattr(stop.stop_name, True))
-                        output_file.write('        <stop busStop="%s" arrival="%s:%s" duration="%s" until="%s:%s"/><!--%s-->\n' % stop_attr)  # noqa
+                        output_file.write(u'        <stop busStop="%s" arrival="%s:%s" duration="%s" until="%s:%s"/><!--%s-->\n' % stop_attr)  # noqa
                     elif stop_index < check_seq:
                         # stop not downstream
                         sequence_errors.append((stop.stop_item_id,
@@ -627,18 +627,18 @@ def write_gtfs_osm_outputs(options, map_routes, map_stops, missing_stops, missin
                                                 sumolib.xml.quoteattr(row.trip_headsign, True),
                                                 stop.trip_id))
 
-                output_file.write('    </vehicle>\n')
-        output_file.write('</routes>\n')
+                output_file.write(u'    </vehicle>\n')
+        output_file.write(u'</routes>\n')
 
     # -----------------------   Save missing data ------------------
     if any([missing_stops, missing_lines, sequence_errors]):
         print("Not all given gtfs elements have been mapped, see %s for more information" % options.warning_output)  # noqa
         with io.open(options.warning_output, 'w', encoding="utf8") as output_file:
-            output_file.write('<missingElements>\n')
+            output_file.write(u'<missingElements>\n')
             for stop in sorted(set(missing_stops)):
-                output_file.write('    <stop id="%s" name=%s ptLine="%s"/>\n' % stop)
+                output_file.write(u'    <stop id="%s" name=%s ptLine="%s"/>\n' % stop)
             for line in sorted(set(missing_lines)):
-                output_file.write('    <ptLine id="%s" trip_headsign=%s/>\n' % line)
+                output_file.write(u'    <ptLine id="%s" trip_headsign=%s/>\n' % line)
             for stop in sorted(set(sequence_errors)):
-                output_file.write('    <stopSequence stop_id="%s" ptLine="%s" trip_headsign=%s trip_id="%s"/>\n' % stop)  # noqa
-            output_file.write('</missingElements>\n')
+                output_file.write(u'    <stopSequence stop_id="%s" ptLine="%s" trip_headsign=%s trip_id="%s"/>\n' % stop)  # noqa
+            output_file.write(u'</missingElements>\n')
