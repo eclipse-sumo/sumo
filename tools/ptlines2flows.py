@@ -18,7 +18,6 @@
 # @date    2017-06-23
 
 from __future__ import print_function
-import os
 import sys
 import codecs
 import subprocess
@@ -29,6 +28,7 @@ from optparse import OptionParser
 
 import sumolib
 from sumolib.xml import quoteattr
+
 
 def get_options(args=None):
     optParser = OptionParser()
