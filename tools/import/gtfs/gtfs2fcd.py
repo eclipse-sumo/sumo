@@ -126,7 +126,7 @@ def main(options):
                 buf += ((u'    <timestep time="%s"><vehicle id="%s_%s" x="%s" y="%s" until="%s" ' +
                          u'name=%s fareZone="%s" fareSymbol="%s" startFare="%s" speed="20"/></timestep>\n') %
                         (arrivalSec - offset, d.route_short_name, trip_id, d.stop_lon, d.stop_lat, until,
-                         sumolib.xml.quoteattr(d.stop_name), d.fare_zone, d.fare_token, d.start_char))
+                         sumolib.xml.quoteattr(d.stop_name, True), d.fare_zone, d.fare_token, d.start_char))
                 if firstDep is None:
                     firstDep = departureSec - timeIndex
                 offset += departureSec - arrivalSec

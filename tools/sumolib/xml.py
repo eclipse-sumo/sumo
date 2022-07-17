@@ -529,7 +529,9 @@ def insertOptionsHeader(filename, options):
     fileToPatch.close()
 
 
-def quoteattr(val):
+def quoteattr(val, ensureUnicode=False):
     # saxutils sometimes uses single quotes around the attribute
     # we can prevent this by adding an artificial single quote to the value and removing it again
+    if ensureUnicode and hasattr(val, "decode"):
+        val.decode("utf-8")
     return '"' + xml.sax.saxutils.quoteattr("'" + val)[2:]

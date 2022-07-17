@@ -25,6 +25,7 @@ from __future__ import absolute_import
 from __future__ import division
 import os
 import sys
+import io
 import glob
 import subprocess
 from collections import defaultdict
@@ -318,7 +319,7 @@ def map_stops(options, net, routes, rout):
                                     _, accessPos, accessDist = accessEdge.getClosestLanePosDist(ap)
                                     rout.write((u'        <access friendlyPos="true" ' +
                                                 u'lane="%s_0" pos="%.2f" length="%.2f"/>\n') %
-                                                (accessEdge.getID(), accessPos, 1.5 * accessDist))
+                                               (accessEdge.getID(), accessPos, 1.5 * accessDist))
                                     numAccess += 1
                                     if numAccess == 10:
                                         break
@@ -336,7 +337,7 @@ def filter_trips(options, routes, stops, outfile, begin, end):
     numDays = end // 86400
     if end % 86400 != 0:
         numDays += 1
-    with open(outfile, 'w', encoding="utf8") as outf:
+    with io.open(outfile, 'w', encoding="utf8") as outf:
         sumolib.xml.writeHeader(outf, os.path.basename(__file__), "routes", options=options)
         if options.sort:
             vehs = defaultdict(lambda: "")
@@ -420,7 +421,7 @@ def main(options):
 
         if options.poly_output:
             generate_polygons(net, routes, options.poly_output)
-        with open(options.additional_output, 'w', encoding="utf8") as rout:
+        with io.open(options.additional_output, 'w', encoding="utf8") as rout:
             sumolib.xml.writeHeader(rout, os.path.basename(__file__), "additional")
             stops = map_stops(options, net, routes, rout)
             for vehID, edges in routes.items():
