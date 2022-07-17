@@ -191,7 +191,7 @@ def filter_gtfs(options, routes, trips_on_day, shapes, stops, stop_times):
     shapes['shape_pt_sequence'] = shapes['shape_pt_sequence'].astype(float)
 
     # merge gtfs data from stop_times / trips / routes / stops
-    gtfs_data = pd.merge(pd.merge(pd.merge(trips_on_day, stop_times, on='trip_id'),  # noqa
+    gtfs_data = pd.merge(pd.merge(pd.merge(trips_on_day, stop_times, on='trip_id'),
                          stops, on='stop_id'), routes, on='route_id')
 
     # filter relevant information
@@ -219,12 +219,11 @@ def filter_gtfs(options, routes, trips_on_day, shapes, stops, stop_times):
 
     # search main and secondary shapes for each pt line (route and direction)
     filtered_stops = gtfs_data.groupby(['route_id', 'direction_id', 'shape_id']
-                                       ).agg({'stop_sequence': 'max'}).reset_index()  # noqa
-    group_shapes = filtered_stops.groupby(['route_id', 'direction_id']
-                                          ).shape_id.aggregate(lambda x: set(x)).reset_index()  # noqa
+                                       ).agg({'stop_sequence': 'max'}).reset_index()
+    group_shapes = filtered_stops.groupby(['route_id', 'direction_id']).shape_id.aggregate(set).reset_index()
     filtered_stops = filtered_stops.loc[filtered_stops.groupby(['route_id', 'direction_id'])['stop_sequence'].idxmax()][[  # noqa
                                     'route_id', 'shape_id', 'direction_id']]
-    filtered_stops = pd.merge(filtered_stops, group_shapes, on=['route_id', 'direction_id'])  # noqa
+    filtered_stops = pd.merge(filtered_stops, group_shapes, on=['route_id', 'direction_id'])
 
     # create dict with shapes and their main shape
     shapes_dict = {}
@@ -233,11 +232,11 @@ def filter_gtfs(options, routes, trips_on_day, shapes, stops, stop_times):
             shapes_dict[sec_shape] = row.shape_id_x
 
     # create data frame with main shape for stop location
-    filtered_stops = gtfs_data[gtfs_data['shape_id'].isin(filtered_stops.shape_id_x)]  # noqa
+    filtered_stops = gtfs_data[gtfs_data['shape_id'].isin(filtered_stops.shape_id_x)]
     filtered_stops = filtered_stops[['route_id', 'shape_id', 'stop_id',
                                      'route_short_name', 'route_type',
                                      'trip_headsign', 'direction_id',
-                                     'stop_name', 'stop_lat', 'stop_lon']].drop_duplicates()  # noqa
+                                     'stop_name', 'stop_lat', 'stop_lon']].drop_duplicates()
 
     return gtfs_data, trip_list, filtered_stops, shapes, shapes_dict
 
@@ -514,7 +513,8 @@ def write_vtypes(options, seen=None):
             vout.write(u'</additional>\n')
 
 
-def write_gtfs_osm_outputs(options, map_routes, map_stops, missing_stops, missing_lines, gtfs_data, trip_list, shapes_dict, net):   # noqa
+def write_gtfs_osm_outputs(options, map_routes, map_stops, missing_stops, missing_lines,
+                           gtfs_data, trip_list, shapes_dict, net):
     """
     Generates stops and routes for sumo and saves the unmapped elements.
     """
