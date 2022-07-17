@@ -512,7 +512,7 @@ def write_vtypes(options, seen=None):
             sumolib.xml.writeHeader(vout, root="additional")
             for osm_type, sumo_class in sorted(OSM2SUMO_MODES.items()):
                 if osm_type in options.modes and (seen is None or osm_type in seen):
-                    vout.write('    <vType id="%s" vClass="%s"/>\n' %
+                    vout.write(u'    <vType id="%s" vClass="%s"/>\n' %
                                (osm_type, sumo_class))
             vout.write(u'</additional>\n')
 
@@ -529,26 +529,26 @@ def write_gtfs_osm_outputs(options, map_routes, map_stops, missing_stops, missin
         for stop, value in map_stops.items():
             name, lane, start_pos, end_pos, v_type = value[:5]
             if v_type == "bus":
-                output_file.write('    <busStop id="%s" lane="%s" startPos="%.2f" endPos="%.2f" name="%s" friendlyPos="true"/>\n' %  # noqa
+                output_file.write(u'    <busStop id="%s" lane="%s" startPos="%.2f" endPos="%.2f" name="%s" friendlyPos="true"/>\n' %  # noqa
                                   (stop, lane, start_pos, end_pos, name))
             else:
                 # from gtfs2pt.py
-                output_file.write('    <trainStop id="%s" lane="%s" startPos="%.2f" endPos="%.2f" name="%s" friendlyPos="true">\n' %  # noqa
+                output_file.write(u'    <trainStop id="%s" lane="%s" startPos="%.2f" endPos="%.2f" name="%s" friendlyPos="true">\n' %  # noqa
                                   (stop, lane, start_pos, end_pos, name))
 
-                ap = sumolib.geomhelper.positionAtShapeOffset(net.getLane(lane).getShape(), start_pos)  # noqa
+                ap = sumolib.geomhelper.positionAtShapeOffset(net.getLane(lane).getShape(), start_pos)
                 numAccess = 0
-                for accessEdge, _ in sorted(net.getNeighboringEdges(*ap, r=100), key=lambda i: i[1]):  # noqa
-                    if accessEdge.getID() != stop.split("_")[0] and accessEdge.allows("pedestrian"):  # noqa
-                        lane_id = [lane.getID() for lane in accessEdge.getLanes() if lane.allows("pedestrian")][0]  # noqa
-                        _, accessPos, accessDist = accessEdge.getClosestLanePosDist(ap)  # noqa
-                        output_file.write(('        <access friendlyPos="true" lane="%s" pos="%.2f" length="%.2f"/>\n') %  # noqa
-                                          (lane_id, accessPos, 1.5 * accessDist))  # noqa
+                for accessEdge, _ in sorted(net.getNeighboringEdges(*ap, r=100), key=lambda i: i[1]):
+                    if accessEdge.getID() != stop.split("_")[0] and accessEdge.allows("pedestrian"):
+                        lane_id = [lane.getID() for lane in accessEdge.getLanes() if lane.allows("pedestrian")][0]
+                        _, accessPos, accessDist = accessEdge.getClosestLanePosDist(ap)
+                        output_file.write((u'        <access friendlyPos="true" lane="%s" pos="%.2f" length="%.2f"/>\n') %  # noqa
+                                          (lane_id, accessPos, 1.5 * accessDist))
                         numAccess += 1
                         if numAccess == 5:
                             break
-                output_file.write('    </trainStop>\n')
-        output_file.write('</additional>\n')
+                output_file.write(u'    </trainStop>\n')
+        output_file.write(u'</additional>\n')
 
     sequence_errors = []
     write_vtypes(options)

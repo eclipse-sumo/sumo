@@ -304,26 +304,25 @@ def map_stops(options, net, routes, rout):
                             for rl in edge.getLanes():
                                 if rl.allows(railType):
                                     break
-                            rout.write('    <busStop id="%s" lane="%s_%s" startPos="%.2f" endPos="%.2f"%s>\n%s' %
+                            rout.write(u'    <busStop id="%s" lane="%s_%s" startPos="%.2f" endPos="%.2f"%s>\n%s' %
                                        (stop, origEdgeID, rl.getIndex(),
                                         startPos, pos + stopLength, addAttrs, params))
-                            rout.write('    </busStop>\n')
+                            rout.write(u'    </busStop>\n')
                         else:
-                            rout.write('    <trainStop id="%s" lane="%s_0" startPos="%.2f" endPos="%.2f"%s>\n%s' %
-                                       (stop, origEdgeID,
-                                        startPos, pos + stopLength, addAttrs, params))
+                            rout.write(u'    <trainStop id="%s" lane="%s_0" startPos="%.2f" endPos="%.2f"%s>\n%s' %
+                                       (stop, origEdgeID, startPos, pos + stopLength, addAttrs, params))
                             ap = net.convertLonLat2XY(float(veh.x), float(veh.y))
                             numAccess = 0
                             for accessEdge, _ in sorted(net.getNeighboringEdges(*ap, r=100), key=lambda i: i[1]):
                                 if accessEdge.getID() != edge.getID() and accessEdge.allows("pedestrian"):
                                     _, accessPos, accessDist = accessEdge.getClosestLanePosDist(ap)
-                                    rout.write(('        <access friendlyPos="true" ' +
-                                                'lane="%s_0" pos="%.2f" length="%.2f"/>\n') %
-                                               (accessEdge.getID(), accessPos, 1.5 * accessDist))
+                                    rout.write((u'        <access friendlyPos="true" ' +
+                                                u'lane="%s_0" pos="%.2f" length="%.2f"/>\n') %
+                                                (accessEdge.getID(), accessPos, 1.5 * accessDist))
                                     numAccess += 1
                                     if numAccess == 10:
                                         break
-                            rout.write('    </trainStop>\n')
+                            rout.write(u'    </trainStop>\n')
                     stops[rid].append((stop, int(veh.until)))
                     found = True
                     break
@@ -351,7 +350,7 @@ def filter_trips(options, routes, stops, outfile, begin, end):
                             if d != 0 and veh.id.endswith(".trimmed"):
                                 # only add trimmed trips the first day
                                 continue
-                            line = ('    <vehicle id="%s.%s" route="%s" type="%s" depart="%s" line="%s"/>\n' %
+                            line = (u'    <vehicle id="%s.%s" route="%s" type="%s" depart="%s" line="%s"/>\n' %
                                     (veh.id, d, veh.route, veh.type, depart, veh.line))
                             if options.sort:
                                 vehs[depart] += line
@@ -360,7 +359,7 @@ def filter_trips(options, routes, stops, outfile, begin, end):
         if options.sort:
             for _, vehs in sorted(vehs.items()):
                 outf.write(vehs)
-        outf.write('</routes>\n')
+        outf.write(u'</routes>\n')
 
 
 def main(options):
@@ -395,9 +394,8 @@ def main(options):
             osm_routes = gtfs2osm.import_osm(options, net)
 
             (mapped_routes, mapped_stops,
-            missing_stops, missing_lines) = gtfs2osm.map_gtfs_osm(options, net, osm_routes,  # noqa
-                                                                gtfs_data, shapes,  # noqa
-                                                                shapes_dict, filtered_stops)  # noqa
+             missing_stops, missing_lines) = gtfs2osm.map_gtfs_osm(options, net, osm_routes, gtfs_data, shapes,
+                                                                   shapes_dict, filtered_stops)
 
             gtfs2osm.write_gtfs_osm_outputs(options, mapped_routes, mapped_stops,
                                             missing_stops, missing_lines,
@@ -427,17 +425,17 @@ def main(options):
             stops = map_stops(options, net, routes, rout)
             for vehID, edges in routes.items():
                 if edges:
-                    rout.write('    <route id="%s" edges="%s">\n' % (vehID, " ".join([edgeMap[e] for e in edges])))
+                    rout.write(u'    <route id="%s" edges="%s">\n' % (vehID, " ".join([edgeMap[e] for e in edges])))
                     offset = None
                     for stop in stops[vehID]:
                         if offset is None:
                             offset = stop[1]
-                        rout.write('        <stop busStop="%s" duration="%s" until="%s"/>\n' %
+                        rout.write(u'        <stop busStop="%s" duration="%s" until="%s"/>\n' %
                                    (stop[0], options.duration, stop[1] - offset))
-                    rout.write('    </route>\n')
+                    rout.write(u'    </route>\n')
                 else:
                     print("Warning! Empty route", vehID)
-            rout.write('</additional>\n')
+            rout.write(u'</additional>\n')
         filter_trips(options, routes, stops, options.route_output, options.begin, options.end)
 
 
