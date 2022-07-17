@@ -627,6 +627,8 @@ TRACI_CONST int ROUTING_MODE_AGGREGATED = 0x01;
 TRACI_CONST int ROUTING_MODE_EFFORT = 0x02;
 // use combined costs
 TRACI_CONST int ROUTING_MODE_COMBINED = 0x03;
+// use aggregated travel times from device.rerouting enriched with custom weights
+TRACI_CONST int ROUTING_MODE_AGGREGATED_CUSTOM = 0x04;
 
 // ****************************************
 // Traffic light types

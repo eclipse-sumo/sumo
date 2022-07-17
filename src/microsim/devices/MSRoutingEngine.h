@@ -70,7 +70,7 @@ public:
     /// @brief initialize the edge weights if not done before
     static void initEdgeWeights(SUMOVehicleClass svc);
 
-    /// @brief returns whether any routing actions take place
+    /// @brief returns whether any edge weight updates will take place
     static bool hasEdgeUpdates() {
         return myEdgeWeightSettingCommand != nullptr;
     }

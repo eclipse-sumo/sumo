@@ -29,6 +29,7 @@
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/emissions/PollutantsInterface.h>
 #include <utils/emissions/HelpersHarmonoise.h>
+#include <libsumo/TraCIConstants.h>
 #include <mesosim/MELoop.h>
 #include <mesosim/MEVehicle.h>
 #include <microsim/devices/MSRoutingEngine.h>
@@ -75,12 +76,12 @@ SUMOTrafficObject::NumericalID MSBaseVehicle::myCurrentNumericalIndex = 0;
 // ===========================================================================
 
 MSBaseVehicle::BaseInfluencer::BaseInfluencer() :
-    myRoutingMode(0)
+    myRoutingMode(libsumo::ROUTING_MODE_DEFAULT)
 {}
 
 SUMOAbstractRouter<MSEdge, SUMOVehicle>&
 MSBaseVehicle::BaseInfluencer::getRouterTT(const int rngIndex, SUMOVehicleClass svc) const {
-    if (myRoutingMode == 1) {
+    if (myRoutingMode == libsumo::ROUTING_MODE_AGGREGATED) {
         return MSRoutingEngine::getRouterTT(rngIndex, svc);
     } else {
         return MSNet::getInstance()->getRouterTT(rngIndex);

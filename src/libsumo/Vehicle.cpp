@@ -1840,12 +1840,12 @@ void
 Vehicle::rerouteTraveltime(const std::string& vehID, const bool currentTravelTimes) {
     MSBaseVehicle* veh = Helper::getVehicle(vehID);
     const int routingMode = veh->getBaseInfluencer().getRoutingMode();
-    if (currentTravelTimes && routingMode != ROUTING_MODE_AGGREGATED) {
-        veh->getBaseInfluencer().setRoutingMode(ROUTING_MODE_AGGREGATED);
+    if (currentTravelTimes && routingMode == ROUTING_MODE_DEFAULT) {
+        veh->getBaseInfluencer().setRoutingMode(ROUTING_MODE_AGGREGATED_CUSTOM);
     }
     veh->reroute(MSNet::getInstance()->getCurrentTimeStep(), "traci:rerouteTraveltime",
                  veh->getBaseInfluencer().getRouterTT(veh->getRNGIndex(), veh->getVClass()), isOnInit(vehID));
-    if (currentTravelTimes && routingMode != ROUTING_MODE_AGGREGATED) {
+    if (currentTravelTimes && routingMode == ROUTING_MODE_DEFAULT) {
         veh->getBaseInfluencer().setRoutingMode(routingMode);
     }
 }
