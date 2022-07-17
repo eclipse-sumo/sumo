@@ -482,23 +482,23 @@ def buildHeader(script=None, root=None, schemaPath=None, rootAttrs="", options=N
     if script is None or script == "$Id$":
         script = os.path.basename(sys.argv[0])
     if options is None:
-        optionString = "  options: %s\n" % (' '.join(sys.argv[1:]).replace('--', '<doubleminus>'))
+        optionString = u"  options: %s\n" % (' '.join(sys.argv[1:]).replace('--', '<doubleminus>'))
     else:
         optionString = options.config_as_string
     if includeXMLDeclaration:
-        header = '<?xml version="1.0" encoding="UTF-8"?>\n\n'
+        header = u'<?xml version="1.0" encoding="UTF-8"?>\n\n'
     else:
-        header = ''
-    header += '<!-- generated on %s by %s %s\n%s-->\n\n' % (datetime.datetime.now(), script,
-                                                            version.gitDescribe(), optionString)
+        header = u''
+    header += u'<!-- generated on %s by %s %s\n%s-->\n\n' % (datetime.datetime.now(), script,
+                                                             version.gitDescribe(), optionString)
     if root is not None:
         if rootAttrs is None:
-            header += '<%s>\n' % root
+            header += u'<%s>\n' % root
         else:
             if schemaPath is None:
                 schemaPath = root + "_file.xsd"
-            header += ('<%s%s xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ' +
-                       'xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/%s">\n') % (root, rootAttrs, schemaPath)
+            header += (u'<%s%s xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ' +
+                       u'xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/%s">\n') % (root, rootAttrs, schemaPath)
     return header
 
 
