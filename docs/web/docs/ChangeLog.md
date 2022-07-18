@@ -22,7 +22,7 @@ title: ChangeLog
   - Fixed generation of rail crossing at junctions that require a traffic light. Issue #10777
   
 - TraCI
-  - Fixed railSignalConstraints-deadlock after calling `traci.trafficligght.swapConstraints`. Issue #11007
+  - Fixed railSignalConstraints-deadlock after calling `traci.trafficlight.swapConstraints`. Issue #11007
   
 - tools
   - Restored support for Python version 2 (regression in 1.14.0). Issue #11159
