@@ -63,7 +63,7 @@ serves as a template can be found in the installation directory
 
 ```
 <configuration>
-    <vehicleSelector value="pkw" />
+    <vehicleSelectors value="pkw" />
     <vTypeMap original="simple_pkw" leader="simple_pkw_as_platoon_leader"  follower="simple_pkw_as_platoon_follower"/>
     ...
 </configuration>
