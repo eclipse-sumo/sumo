@@ -48,6 +48,7 @@ BuildRequires:  fdupes
 BuildRequires:  pkgconfig(gdal)
 BuildRequires:  pkgconfig(proj)
 BuildRequires:  gl2ps-devel
+BuildRequires:  eigen3-devel
 %if 0%{?fedora_version} || 0%{?centos_version} || 0%{?rhel_version} || 0%{?scientificlinux_version}
 BuildRequires:  libGLU-devel
 BuildRequires:  libjpeg-devel
@@ -108,7 +109,11 @@ cd cmake-build
 %if 0%{?centos_version} && 0%{?centos_version} < 800
 cmake3 -DCMAKE_INSTALL_PREFIX:PATH=/usr -DPYTHON_EXECUTABLE=/usr/bin/python3 ..
 %else
+%if 0%{?suse_version}
+cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr -DEIGEN3_INCLUDE_DIR=/usr/include/eigen3 -DPYTHON_EXECUTABLE=/usr/bin/python3 ..
+%else
 cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr -DPYTHON_EXECUTABLE=/usr/bin/python3 ..
+%endif
 %endif
 make %{?_smp_mflags}
 make %{?_smp_mflags} man
