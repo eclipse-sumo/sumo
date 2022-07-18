@@ -15,7 +15,7 @@ title: ChangeLog
   - Fixed IDM collision warnings due to imprecise braking when configured with low 'accel'. Issue #11199
 
 - netedit
-  - Fixed frezzing when deleting an edge that is part of a multi-step person plan. Issue #11176 (regression in 1.14.0)
+  - Fixed freezing when deleting an edge that is part of a multi-step person plan. Issue #11176 (regression in 1.14.0)
 
 - netconvert
   - Fixed invalid right of way rules when using custom contPos from side road at straight connection. Issue #11160
@@ -261,9 +261,9 @@ title: ChangeLog
   - randomTrips.py: Can now pass any kind of duarouter option using **--duarouter-option-name VALUE**. Issue #7347
   - randomTrips.py: Can now define a timeline of different demand levels. Issue #5739
   - randomTrips.py: Now supports option **--insertion-rate** to define demand as vehicles-per-hour and option **--insertion-density** to define demand as vehicles-per-hour-per-km. Issue#11053
-  - randomTrips.py: All generated trips and route files now record the used ranomTrips options. Issue #10973
+  - randomTrips.py: All generated trips and route files now record the used randomTrips options. Issue #10973
   - cutRoutes.py: now adapts the departSpeed to 'max' and departLane to 'best' if vehicles start on a cut route. Issue #10611
-  - The traffic light games with multipe junctions can now be controlled with the keyboard. Issue #11056
+  - The traffic light games with multiple junctions can now be controlled with the keyboard. Issue #11056
   - The traffic light games now use phase switching instead of program switching. Issue #11063
   - sumolib.shapes.polygon now handles missing attributes. Issue #11092
   - netdiff.py: now support saving and loading configuration files. Issue #10942
