@@ -12,6 +12,7 @@
 
 # @file    _platoonmanager.py
 # @author Leonhard Luecken
+# @author Mirko Barthauer
 # @date   2017-04-09
 
 
@@ -114,7 +115,11 @@ class PlatoonManager(traci.StepListener):
 #                 traci.vehicletype.setColor(catchupFollowerType, (0, 255, 200, 0))
 
         # fill global lookup table for vType parameters (used below in safetycheck)
-        knownVTypes = traci.vehicletype.getIDList()
+        knownVTypes = {typeID : traci.vehicletype.getVehicleClass(typeID) for typeID in traci.vehicletype.getIDList()}
+        vTypesToCheck = set()
+        if cfg.VEH_SELECTORS[0] == '':
+            vTypesToCheck.update([typeID for typeID, vClass in knownVTypes.items() if vClass not in ('bicycle', 'pedestrian')])
+          
         for origType, mappings in cfg.PLATOON_VTYPES.items():
             if origType not in knownVTypes:
                 raise SimplaException(
@@ -137,11 +142,13 @@ class PlatoonManager(traci.StepListener):
                         warn(("emergencyDecel of mapped vType '%s' (%gm.) does not equal emergencyDecel of original " +
                               "vType '%s' (%gm.)") % (
                              typeID, mappedEmergencyDecel, origType, origEmergencyDecel), True)
-                simpla._pvehicle.vTypeParameters[typeID][tc.VAR_TAU] = traci.vehicletype.getTau(typeID)
-                simpla._pvehicle.vTypeParameters[typeID][tc.VAR_DECEL] = traci.vehicletype.getDecel(typeID)
-                simpla._pvehicle.vTypeParameters[typeID][tc.VAR_MINGAP] = traci.vehicletype.getMinGap(typeID)
-                simpla._pvehicle.vTypeParameters[typeID][tc.VAR_EMERGENCY_DECEL] = traci.vehicletype.getEmergencyDecel(
-                    typeID)
+                vTypesToCheck.add(typeID)
+        for typeID in vTypesToCheck:
+            simpla._pvehicle.vTypeParameters[typeID][tc.VAR_TAU] = traci.vehicletype.getTau(typeID)
+            simpla._pvehicle.vTypeParameters[typeID][tc.VAR_DECEL] = traci.vehicletype.getDecel(typeID)
+            simpla._pvehicle.vTypeParameters[typeID][tc.VAR_MINGAP] = traci.vehicletype.getMinGap(typeID)
+            simpla._pvehicle.vTypeParameters[typeID][tc.VAR_EMERGENCY_DECEL] = traci.vehicletype.getEmergencyDecel(
+                typeID)
 
     def step(self, t=0):
         '''step(int)
