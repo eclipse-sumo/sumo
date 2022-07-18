@@ -60,6 +60,10 @@ with open(os.path.join(SUMO_HOME, "AUTHORS")) as authors:
 with fileinput.FileInput(os.path.join(SUMO_HOME, "CITATION.cff"), inplace=True) as cff:
     have_authors = False
     for line in cff:
+        if line[:14] == "date-released:":
+            line = date.strftime('date-released: "%Y-%m-%d"\n')
+        if line[:8] == "version:":
+            line = 'version: %s\n' % version
         if line[:8] == "message:":
             last = None
             for a in sorted(author_names):

@@ -142,8 +142,8 @@ keywords:
   - simulation
   - microscopic
   - traffic
-date-released: "2022-07-12"
-version: 1.14.0
+date-released: "2022-07-19"
+version: 1.14.1
 repository-code: "https://github.com/eclipse/sumo"
 type: software
 url: "https://www.eclipse.org/sumo/"
