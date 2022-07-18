@@ -2,7 +2,7 @@
 title: ChangeLog
 ---
 
-## Git Main
+## Version 1.14.1 (19.07.2022)
 
 ### Bugfixes
 
@@ -28,7 +28,15 @@ title: ChangeLog
   - Restored support for Python version 2 (regression in 1.14.0). Issue #11159
   - generateParkingAreaRerouters.py: fixed distance computation. Issue #11170
   - drtonline.py: now works with Ubuntu 22 stock pulp package. Issue #11179
-  - gtfs2pt.py: Fixed import of railway types. Issue #9550
+  - gtfs2pt.py: Fixed import of railway types and usability with python2. Issue #9550
+  - traceMapper.py: fixed mapping loops when the first point was off the map
+
+- TraCI / libsumo
+  - Function 'traci.vehicle.rerouteTraveltime' now again respects custom travel times if currentTravelTimes is set to True. Issue #5943
+
+- Linux packaging
+  - enabled Eigen3 support (needed for the overheadwires) for the RPM packages
+
 
 ### Enhancements
 
@@ -48,7 +56,6 @@ title: ChangeLog
   - runSeeds.py: Now supports option **--threads** to enable parallelization. Issue #11187
   - randomTrips.py: Added validation of vehicle class options. Issue #11195
 
-### Miscellaneous
 
 ## Version 1.14.0 (12.07.2022)
 
