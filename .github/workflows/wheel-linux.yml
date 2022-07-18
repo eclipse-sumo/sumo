@@ -98,11 +98,13 @@ jobs:
     - name: Downloading Wheels artifact
       uses: actions/download-artifact@v2
 
+    # this step removes the pypy versions until someone needs them to save some space
     - name: Moving artifacts
       run: |
         ls -lR
         mkdir dist
         mv ./*-wheels/* dist
+        rm -f dist/libsumo*-pypy* dist/libtraci*-pypy*
 
     - name: Publish to Test PyPI
       uses: pypa/gh-action-pypi-publish@master

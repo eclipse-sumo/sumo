@@ -129,11 +129,13 @@ jobs:
     steps:
     - uses: actions/download-artifact@v2
 
+    # this step removes the sumolib and traci packages which linux takes care of
     - name: Moving artifacts
       run: |
         ls -lR
         mkdir dist
         mv ./*-wheels/* dist
+        rm -f dist/sumolib* dist/traci*
         mv dist/eclipse_sumo-*cp38* `echo dist/eclipse_sumo-*cp38* | sed 's/cp38-cp38/py2.py3-none/'`
 
     - name: Publish to Test PyPI
