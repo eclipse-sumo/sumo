@@ -1,6 +1,7 @@
 name: documentation
 
 on:
+  workflow_dispatch:
   schedule:
   - cron: '0 0 * * *' # daily at 00:00 UTC
 
