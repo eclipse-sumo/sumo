@@ -1,4 +1,3 @@
-Loading configuration ... done.
  Retrying in 1 seconds
 step 0
 step 1
@@ -35,6 +34,7 @@ step 4
 step 5
 {0: ('DEFAULT_BIKETYPE', 'DEFAULT_CONTAINERTYPE', 'DEFAULT_PEDTYPE', 'DEFAULT_TAXITYPE', 'DEFAULT_VEHTYPE')}
 length 1.0
+scale 1.4
 maxSpeed 1.0
 speedFactor 1.1
 speedDev 1.1

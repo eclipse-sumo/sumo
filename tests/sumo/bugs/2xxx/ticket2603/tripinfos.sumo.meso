@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Oct 12 14:43:12 2020 by Eclipse SUMO sumo Version v1_7_0+0591-54c0d1ca00
+<!-- generated on 2022-04-05 10:32:43 by Eclipse SUMO sumo Version v1_12_0+1949-1d2ae20f770
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -47,11 +52,11 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <tripinfo id="stopped" depart="0.00" departLane="" departPos="2899.35" departSpeed="0.19" departDelay="0.00" arrival="505.40" arrivalLane="" arrivalPos="10.00" arrivalSpeed="36.00" duration="505.40" routeLength="106.65" waitingTime="0.00" waitingCount="0" stopTime="500.00" timeLoss="500.00" rerouteNo="0" devices="tripinfo_stopped" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="stopped" depart="0.00" departLane="" departPos="2899.35" departSpeed="0.00" departDelay="0.00" arrival="505.40" arrivalLane="" arrivalPos="10.00" arrivalSpeed="36.00" duration="505.40" routeLength="106.65" waitingTime="0.00" waitingCount="0" stopTime="500.00" timeLoss="500.00" rerouteNo="0" devices="tripinfo_stopped" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
     <tripinfo id="overtaking" depart="0.00" departLane="" departPos="2899.35" departSpeed="0.19" departDelay="0.00" arrival="506.10" arrivalLane="" arrivalPos="10.00" arrivalSpeed="35.99" duration="506.10" routeLength="106.65" waitingTime="0.22" waitingCount="0" stopTime="0.00" timeLoss="500.67" rerouteNo="0" devices="tripinfo_overtaking" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
     <tripinfo id="overtaking2" depart="10.00" departLane="" departPos="2802.71" departSpeed="35.99" departDelay="0.00" arrival="506.80" arrivalLane="" arrivalPos="10.00" arrivalSpeed="35.97" duration="496.80" routeLength="203.29" waitingTime="0.22" waitingCount="0" stopTime="0.00" timeLoss="488.65" rerouteNo="0" devices="tripinfo_overtaking2" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
     <tripinfo id="overtaking3" depart="20.00" departLane="" departPos="2802.71" departSpeed="35.99" departDelay="0.00" arrival="507.40" arrivalLane="" arrivalPos="10.00" arrivalSpeed="35.96" duration="487.40" routeLength="203.29" waitingTime="0.22" waitingCount="0" stopTime="0.00" timeLoss="479.32" rerouteNo="0" devices="tripinfo_overtaking3" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
-    <tripinfo id="overtaking4" depart="30.00" departLane="" departPos="2802.71" departSpeed="35.99" departDelay="0.00" arrival="508.10" arrivalLane="" arrivalPos="10.00" arrivalSpeed="35.95" duration="478.10" routeLength="203.29" waitingTime="0.22" waitingCount="0" stopTime="1.00" timeLoss="469.99" rerouteNo="0" devices="tripinfo_overtaking4" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
-    <tripinfo id="stopped2" depart="50.00" departLane="" departPos="2899.35" departSpeed="0.19" departDelay="0.00" arrival="555.40" arrivalLane="" arrivalPos="10.00" arrivalSpeed="36.00" duration="505.40" routeLength="106.65" waitingTime="0.00" waitingCount="0" stopTime="500.00" timeLoss="500.00" rerouteNo="0" devices="tripinfo_stopped2" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="overtaking4" depart="30.00" departLane="" departPos="2802.71" departSpeed="35.99" departDelay="0.00" arrival="508.10" arrivalLane="" arrivalPos="10.00" arrivalSpeed="35.95" duration="478.10" routeLength="203.29" waitingTime="0.00" waitingCount="0" stopTime="1.00" timeLoss="469.99" rerouteNo="0" devices="tripinfo_overtaking4" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="stopped2" depart="50.00" departLane="" departPos="2899.35" departSpeed="0.00" departDelay="0.00" arrival="555.40" arrivalLane="" arrivalPos="10.00" arrivalSpeed="36.00" duration="505.40" routeLength="106.65" waitingTime="0.00" waitingCount="0" stopTime="500.00" timeLoss="500.00" rerouteNo="0" devices="tripinfo_stopped2" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
     <tripinfo id="overtaking5" depart="50.00" departLane="" departPos="2802.71" departSpeed="35.99" departDelay="0.00" arrival="556.10" arrivalLane="" arrivalPos="10.00" arrivalSpeed="35.99" duration="506.10" routeLength="203.29" waitingTime="0.22" waitingCount="0" stopTime="0.00" timeLoss="497.98" rerouteNo="0" devices="tripinfo_overtaking5" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
 </tripinfos>

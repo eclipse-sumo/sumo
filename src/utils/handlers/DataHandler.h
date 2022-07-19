@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -69,7 +69,7 @@ public:
      * @param[in] parameters parameters map
      */
     virtual void buildEdgeData(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& edgeID,
-                               const std::map<std::string, std::string>& parameters) = 0;
+                               const Parameterised::Map& parameters) = 0;
 
     /**@brief Builds edgeRelationData
      * @param[in] sumoBaseObject sumo base object used for build
@@ -78,7 +78,7 @@ public:
      * @param[in] parameters parameters map
      */
     virtual void buildEdgeRelationData(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& fromEdgeID,
-                                       const std::string& toEdgeID, const std::map<std::string, std::string>& parameters) = 0;
+                                       const std::string& toEdgeID, const Parameterised::Map& parameters) = 0;
 
     /**@brief Builds TAZRelationData
      * @param[in] sumoBaseObject sumo base object used for build
@@ -87,7 +87,7 @@ public:
      * @param[in] parameters parameters map
      */
     virtual void buildTAZRelationData(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& fromTAZID,
-                                      const std::string& toTAZID, const std::map<std::string, std::string>& parameters) = 0;
+                                      const std::string& toTAZID, const Parameterised::Map& parameters) = 0;
     /// @}
 
 private:
@@ -130,6 +130,9 @@ private:
     /// @brief parse TAZRelationData attributes
     void parseTAZRelationData(const SUMOSAXAttributes& attrs);
     /// @}
+
+    /// @brief parse attributes as parameters
+    void getAttributes(const SUMOSAXAttributes& attrs, const std::vector<SumoXMLAttr> avoidAttributes) const;
 
     /// @brief check parents
     void checkParent(const SumoXMLTag currentTag, const SumoXMLTag parentTag, bool& ok) const;

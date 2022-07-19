@@ -19,3 +19,15 @@ ticket5124
 
 # lane change decision should be independent of step length
 ticket8804
+
+# lcSigma should not cause deadlock
+ticket9395
+
+# intermediate bus lane
+ticket10512
+
+# counter lanechange with bus
+ticket10763
+
+# unsafe lane changing on junction causes emergency braking 
+ticket10988

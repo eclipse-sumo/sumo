@@ -1,0 +1,25 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- Without errors -->
+    <entryExitDetector id="entryExitDetector_0" period="100.00" file="fileA.txt" timeThreshold="1.00" speedThreshold="1.39" pos="0,10">
+        <detEntry lane="gneE1_0" pos="2" friendlyPos="0"/>
+        <detExit lane="gneE0_0" pos="2" friendlyPos="0"/>
+    </entryExitDetector>
+
+    <!-- non valid ID -->
+    <entryExitDetector id="id with spaces" period="100.00" file="fileA.txt" timeThreshold="1.00" speedThreshold="1.39" pos="2,10">
+        <detEntry lane="gneE1_0" pos="4" friendlyPos="0"/>
+        <detExit lane="gneE0_0" pos="4" friendlyPos="0"/>
+    </entryExitDetector>
+
+    <!-- non valid ID (Duplicated) -->
+    <entryExitDetector id="entryExitDetector_0" period="100.00" file="fileA.txt" timeThreshold="1.00" speedThreshold="1.39" pos="2,10">
+        <detEntry lane="gneE1_0" pos="6" friendlyPos="0"/>
+        <detExit lane="gneE0_0" pos="6" friendlyPos="0"/>
+    </entryExitDetector>
+
+    <!-- non valid ID (Missing) -->
+    <entryExitDetector period="100.00" file="fileA.txt" timeThreshold="1.00" speedThreshold="1.39" pos="4,10">
+        <detEntry lane="gneE1_0" pos="8" friendlyPos="0"/>
+        <detExit lane="gneE0_0" pos="8" friendlyPos="0"/>
+    </entryExitDetector>
+</additional>

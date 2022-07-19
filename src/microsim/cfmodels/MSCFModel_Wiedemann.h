@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -136,14 +136,14 @@ private:
     /* @brief the main enty point for the speed computation
      * @param[in] gap The netto gap (front bumper of ego to back bumper of leader)
      */
-    double _v(const MSVehicle* veh, double predSpeed, double gap) const;
+    double _v(const MSVehicle* veh, double predSpeed, double gap, double predAccel) const;
 
     /// @name acceleration based on the 'driving regime'
     /// @{
     double fullspeed(double v, double vpref, double dx, double bx) const; // also 'WUNSCH'
     double following(double sign) const; // also 'FOLGEN'
-    double approaching(double dv, double dx, double abx) const;  // also 'BREMSBX'
-    double emergency(double dv, double dx) const; // also 'BREMSAX'
+    double approaching(double dv, double dx, double abx, double predAccel) const;  // also 'BREMSBX'
+    double emergency(double dv, double dx, double predAccel, double v, double gap, double abx, double bx) const; // also 'BREMSAX'
     /// @}
 
 private:
@@ -164,6 +164,9 @@ private:
 
     /// @brief The vehicle's minimum acceleration [m/s^2] // also b_null
     const double myMinAccel;
+
+    /// @brief The maximum deceleration when approaching
+    const double myMaxApproachingDecel;
 
     /// @brief free-flow distance in m
     static const double D_MAX;

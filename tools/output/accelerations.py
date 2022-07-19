@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2008-2021 German Aerospace Center (DLR) and others.
+# Copyright (C) 2008-2022 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -27,8 +27,7 @@ from sumolib.miscutils import Statistics  # noqa
 
 def accelStats(netstate):
     lastSpeed = {}
-    stats = Statistics(
-        "Accelerations", histogram=True, printMin=True, scale=0.2)
+    stats = Statistics("Accelerations", histogram=True, printMin=True, scale=0.2)
     for vehicle in parse_fast(netstate, 'vehicle', ['id', 'speed']):
         speed = float(vehicle.speed)
         prevSpeed = lastSpeed.get(vehicle.id, speed)
@@ -40,4 +39,4 @@ def accelStats(netstate):
 if __name__ == "__main__":
     if len(sys.argv) != 2:
         sys.exit("call %s <netstate-dump>" % sys.argv[0])
-    accelStats(*sys.argv[1:])
+    accelStats(sys.argv[1])

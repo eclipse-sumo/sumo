@@ -37,9 +37,55 @@ that [\#common options](#common_options) may be applied to
 all the scripts listed in the following sub-sections albeit few options
 may not work for certain scripts.
 
+## plotXMLAttributes.py
+
+Create multiple 2D-plots of 2 arbitrary attributes from an xml file aggregated by an third attribute (i.e. detector-id).
+
+Example use:
+
+```
+python  tools/visualization/plotXMLAttributes.py fcd.xml -x x -y y -s
+```
+
+The above example draws the paths of all vehicles through the network based on fcd-output. (It is a special case that can also be accomplished with  #plot_trajectoriespy)
+
+When option **-s** is set, a interactive plot is opened that allows identifying data points vehicles by clicking on the plot (dataID is printed on the console)
+
+Option **--filter-ids ID1,ID2,...** allows restricting the plot to the given data element ids
+
+Further examples are shown below...
+
+### Inductionloop Speed over Time
+
+Input is [inductionloop-output](../Simulation/Output/Induction_Loops_Detectors_(E1).md) with 30s aggregation from 2 detectors (`<e1Detector id="e1Detector_-109_0_0" lane="-109_0" pos="54.06" period="30.00" file="data.xml"/>`
+
+Call: `python tools/visualization/plotXMLAttributes.py data.xml -x begin -y speed -s`
+
+![plotAttrs_detector.png](../images/plotAttrs_detector.png "plotAttrs_detector.png")
+
+### boarding passengers vs delay for each station
+
+Input is [stop-output](../Simulation/Output/StopOutput.md)
+
+Call: `python tools/visualization/plotXMLAttributes.py stopinfos.xml -i busStop -x loadedPersons -y delay -s --scatterplot --legend`
+
+![plotAttrs_boardingDelay.png](../images/plotAttrs_boardingDelay.png "plotAttrs_boardingDelay.png")
+
+### Fundamental Diagram from edgeData
+
+Input is [edgeData-output](../Simulation/Output/Lane-_or_Edge-based_Traffic_Measures.md) with 1-minute aggregation (`<edgeData id="example" file="data.xml" period="60"/>`)
+
+Call: `python tools/visualization/plotXMLAttributes.py data.xml -i id -x density -y left -s  --scatterplot --yfactor 60 --ylabel vehs/hour`
+
+Each color gives encodes a different edge-id. Option **--factor 60** is used to convert from vehicles per 60s (edgeData-period 60) to vehicles per hour.
+
+![plotAttrs_fundamental.png](../images/plotAttrs_fundamental.png "plotAttrs_fundamental.png")
+
+
+
 ## plot_trajectories.py
 
-Show plots for all trajectories in a given **--fcd-output** file. This tool in particular is located in {{SUMO}}/tools.
+Create plot of all trajectories in a given **--fcd-output** file. This tool in particular is located in {{SUMO}}/tools.
 
 Example use:
 
@@ -47,22 +93,45 @@ Example use:
 python tools/plot_trajectories.py fcd.xml -t td -o plot.png -s
 ```
 
-The option **-t (--trajectory-type)** supports different plot styles:
+The option **-t (--trajectory-type)** supports different attributes that can be plotted against each other. The argument is a two-letter code with each letter encoding an attribute that is derived from the fcd input.
 
-- td: time vs distance
-- ts: time vs speed
-- ta: time vs acceleration
-- ds: distance vs speed
-- da: distance vs acceleration
+### Available Attributes
+
+- **t**: Time in s
+- **d**: Distance driven (starts with 0 at the first fcd datapoint for each vehicle). Distance is computed based on speed using Euler-integration. Set option **--ballistic** for [ballistic integration](../Simulation/Basic_Definition.md#defining_the_integration_method).
+- **a**: Acceleration
+- **s**: Speed (m/s)
+- **i**: Vehicle angle (navigational degrees)
+- **x**: X-Position in m
+- **y**: Y-Position in m
+- **k**: [Kilometrage](../Simulation/Railways.md#kilometrage_mileage_chainage) (requires **--fcd-output.distance**)
+- **g**: gap to leader (requires **--fcd-output.max-leader-distance**)
+
+### Examples Trajectory Types
+
+- **td**: time vs distance
+- **ts**: time vs speed
+- **ta**: time vs acceleration
+- **ds**: distance vs speed
+- **da**: distance vs acceleration
+- **xy**: Spatial plot of driving path
+- **kt**: kilometrage vs time (combine with option **--invert-yaxis** to get a classic railway diagram).
+
+![plot_trajectories.png](../images/Plot_trajectories.png "plot_trajectories.png")
+
+### Interactive Plot
 
 When option **-s** is set, a interactive plot is opened that allows
 identifying vehicles by clicking on the respective line (vehicle ids is
 printed in the console).
 
+### Filtering
+
 Option **--filter-route EDGE1,EDGE2,...** allows restricting the plot to all trajectories that contain the
 given set of edges.
 
-![plot_trajectories.png](../images/Plot_trajectories.png "plot_trajectories.png")
+Option **--filter-ids ID1,ID2,...** allows restricting the plot to the given vehicle ids
+
 
 ## plot_net_dump.py
 
@@ -80,7 +149,7 @@ noise](../Simulation/Output/Lane-_or_Edge-based_Noise_Measures.md).
 <tr class="odd">
 <td><figure>
 <img src="../images/Plot_net_dump.png" title="plot_net_dump.png" width="500" alt="" /></figure></td>
-<td><p><code>python plot_dump_net.py -v -n bs.net.xml \</code><br />
+<td><p><code>python plot_net_dump.py -v -n bs.net.xml \</code><br />
 <code> --xticks 7000,14001,2000,16 --yticks 9000,16001,1000,16 \</code><br />
 <code> --measures entered,entered --xlabel [m] --ylabel [m] \</code><br />
 <code> --default-width 1 -i base-jr.xml,base-jr.xml \</code><br />
@@ -89,13 +158,13 @@ noise](../Simulation/Output/Lane-_or_Edge-based_Noise_Measures.md).
 <code> --min-color-value -1000 --max-color-value 1000 \</code><br />
 <code> --max-width-value 1000 --min-width-value -1000  \</code><br />
 <code> --max-width 3 --min-width .5 \</code><br />
-<code> --colormap #0:#0000c0,.25:#404080,.5:#808080,.75:#804040,1:#c00000</code></p>
+<code> --colormap "#0:#0000c0,.25:#404080,.5:#808080,.75:#804040,1:#c00000"</code></p>
 <p>It shows the shift in traffic in the city of Brunswick, Tuesday-Thursday week type after establishing an environmental zone.</p></td>
 </tr>
 <tr class="even">
 <td><figure>
 <img src="../images/Plot_net_dump2.png" title="plot_net_dump2.png" width="500" alt="" /></figure></td>
-<td><p><code>python plot_dump_net.py -v -n bs.net.xml \</code><br />
+<td><p><code>python plot_net_dump.py -v -n bs.net.xml \</code><br />
 <code> --xticks 7000,14001,2000,16 --yticks 9000,16001,1000,16 \</code><br />
 <code> --measures NOx_normed,NOx_normed --xlabel [m] --ylabel [m] \</code><br />
 <code> --default-width 1 -i HBEFA_base-jr.xml,HBEFA_base-jr.xml \</code><br />
@@ -103,7 +172,7 @@ noise](../Simulation/Output/Lane-_or_Edge-based_Noise_Measures.md).
 <code> --default-width .5 --default-color #606060 \</code><br />
 <code> --min-color-value -.1 --max-color-value .1 \</code><br />
 <code> --max-width-value .1  --max-width 3 --min-width .5 \</code><br />
-<code> --colormap #0:#00c000,.25:#408040,.5:#808080,.75:#804040,1:#c00000</code></p>
+<code> --colormap "#0:#00c000,.25:#408040,.5:#808080,.75:#804040,1:#c00000"</code></p>
 <p>Showing the according changes in NOx emissions.</p></td>
 </tr>
 </tbody>
@@ -119,13 +188,15 @@ noise](../Simulation/Output/Lane-_or_Edge-based_Noise_Measures.md).
 
 **Options**
 
+Here the most important options are listed. Use **--help** to see all options.
+
 | Option                                               | Description                                         |
 |------------------------------------------------------|-----------------------------------------------------|
 | **-n** {{DT_FILE}}<br>**--net** {{DT_FILE}}                            | Defines the network to read                         |
 | **-i** {{DT_FILE}},{{DT_FILE}}<br>**--dump-inputs** {{DT_FILE}},{{DT_FILE}}      | Defines the dump-output files to use as input       |
 | **-m** {{DT_STR}},{{DT_STR}}<br>**--measures** {{DT_STR}},{{DT_STR}} | Define which measure to plot;default: speed,entered |
 | **-w** {{DT_FLOAT}}<br>**--default-width** {{DT_FLOAT}}                | Defines the default edge width; default: .1         |
-| **-c** {{DT_Color}}<br> **--default-color** {{DT_Color}}                | If set, the progress is printed on the screen       |
+| **-c** {{DT_Color}}<br> **--default-color** {{DT_Color}}                | Defines the default edge color       |
 | **--min-width** {{DT_FLOAT}}                                  | Defines the minimum edge width; default: .5         |
 | **--max-width** {{DT_FLOAT}}                                  | Defines the maximumedge width; default: 3           |
 | **--log-colors**                                         | If set, colors are log-scaled                       |
@@ -135,6 +206,7 @@ noise](../Simulation/Output/Lane-_or_Edge-based_Noise_Measures.md).
 | **--min-width-value** {{DT_FLOAT}}                            | If set, defines the minimum edge width value        |
 | **--max-width-value** {{DT_FLOAT}}                            | If set, defines the maximum edge width value        |
 | **-v**<br>**--verbose**                                     | If set, the progress is printed on the screen       |
+| **--internal**                                     | If set, internal edges (of junctions) are included to the genrated shapes.       |
 
 ## plot_net_selection.py
 

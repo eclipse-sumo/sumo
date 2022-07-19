@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2006-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2006-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -94,15 +94,14 @@ public:
      *  given values. This cell is added to the list of known cells (myContainer).
      *
      * @param[in] vehicleNumber The number of vehicles to store within the cell
-     * @param[in] begin The begin of the interval the cell is valid for
-     * @param[in] end The end of the interval the cell is valid for
+     * @param[in] beginEnd The begin and the end of the interval the cell is valid for
      * @param[in] origin The origin district to use for the cell's flows
      * @param[in] destination The destination district to use for the cell's flows
      * @param[in] vehicleType The vehicle type to use for the cell's flows
      * @return whether the cell could be added
      */
-    bool add(double vehicleNumber, SUMOTime begin,
-             SUMOTime end, const std::string& origin, const std::string& destination,
+    bool add(double vehicleNumber, const std::pair<SUMOTime, SUMOTime>& beginEnd,
+             const std::string& origin, const std::string& destination,
              const std::string& vehicleType,
              const bool originIsEdge = false, const bool destinationIsEdge = false);
 
@@ -260,7 +259,7 @@ public:
     }
 
     void addTazRelWeight(const std::string intervalID, const std::string& from, const std::string& to,
-            double val, double beg, double end);
+                         double val, double beg, double end);
 
 protected:
     /**

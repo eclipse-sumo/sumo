@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2011-2021 German Aerospace Center (DLR) and others.
+# Copyright (C) 2011-2022 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -24,6 +24,7 @@ import re
 import gzip
 import io
 import datetime
+import fileinput
 try:
     import xml.etree.cElementTree as ET
 except ImportError as e:
@@ -73,7 +74,7 @@ def _prefix_keyword(name, warn=False):
     result = ''.join([c for c in name if c.isalnum() or c == '_'])
     if result != name:
         if result == '':
-            result == 'attr_'
+            result = 'attr_'
         if warn:
             print("Warning: Renaming attribute '%s' to '%s' because it contains illegal characters" % (
                 name, result), file=sys.stderr)
@@ -91,12 +92,12 @@ def _prefix_keyword(name, warn=False):
     return result
 
 
-def compound_object(element_name, attrnames, warn=False):
+def compound_object(element_name, attrnames, warn=False, sort=True):
     """return a class which delegates bracket access to an internal dict.
        Missing attributes are delegated to the child dict for convenience.
        @note: Care must be taken when child nodes and attributes have the same names"""
     class CompoundObject():
-        _original_fields = sorted(attrnames)
+        _original_fields = sorted(attrnames) if sort else tuple(attrnames)
         _fields = [_prefix_keyword(a, warn) for a in _original_fields]
 
         def __init__(self, values, child_dict=None, text=None, child_list=None):
@@ -135,11 +136,11 @@ def compound_object(element_name, attrnames, warn=False):
         def getChild(self, name):
             return self._child_dict[name]
 
-        def addChild(self, name, attrs=None):
+        def addChild(self, name, attrs=None, sortAttrs=True):
             if attrs is None:
                 attrs = {}
-            clazz = compound_object(name, attrs.keys())
-            child = clazz([attrs.get(a) for a in sorted(attrs.keys())])
+            clazz = compound_object(name, attrs.keys(), sort=sortAttrs)
+            child = clazz([attrs.get(a) for a in (sorted(attrs.keys()) if sortAttrs else attrs.keys())])
             self._child_dict.setdefault(name, []).append(child)
             self._child_list.append(child)
             return child
@@ -222,7 +223,20 @@ def compound_object(element_name, attrnames, warn=False):
     return CompoundObject
 
 
-def parse(xmlfile, element_names, element_attrs={}, attr_conversions={},
+def parselines(xmlline, element_name, element_attrs=None, attr_conversions=None,
+               heterogeneous=True, warn=False, addRoot="dummy"):
+    tagStart1 = "<%s>" % element_name
+    tagStart2 = "<%s " % element_name
+    if tagStart1 in xmlline or tagStart2 in xmlline:
+        if addRoot is not None:
+            xmlline = "<%s>\n%s</%s>\n" % (addRoot, xmlline, addRoot)
+        xmlfile = io.StringIO(xmlline)
+        for x in parse(xmlfile, element_name, element_attrs, attr_conversions,
+                       heterogeneous, warn):
+            yield x
+
+
+def parse(xmlfile, element_names, element_attrs=None, attr_conversions=None,
           heterogeneous=True, warn=False):
     """
     Parses the given element_names from xmlfile and yield compound objects for
@@ -249,10 +263,14 @@ def parse(xmlfile, element_names, element_attrs={}, attr_conversions={},
     """
     if isinstance(element_names, str):
         element_names = [element_names]
-    elementTypes = {}
+    if element_attrs is None:
+        element_attrs = {}
+    if attr_conversions is None:
+        attr_conversions = {}
+    element_types = {}
     for _, parsenode in ET.iterparse(_open(xmlfile, None)):
         if parsenode.tag in element_names:
-            yield _get_compound_object(parsenode, elementTypes,
+            yield _get_compound_object(parsenode, element_types,
                                        parsenode.tag, element_attrs,
                                        attr_conversions, heterogeneous, warn)
             parsenode.clear()
@@ -262,26 +280,26 @@ def _IDENTITY(x):
     return x
 
 
-def _get_compound_object(node, elementTypes, element_name, element_attrs, attr_conversions, heterogeneous, warn):
-    if element_name not in elementTypes or heterogeneous:
+def _get_compound_object(node, element_types, element_name, element_attrs, attr_conversions, heterogeneous, warn):
+    if element_name not in element_types or heterogeneous:
         # initialized the compound_object type from the first encountered #
         # element
         attrnames = element_attrs.get(element_name, node.keys())
         if len(attrnames) != len(set(attrnames)):
             raise Exception(
                 "non-unique attributes %s for element '%s'" % (attrnames, element_name))
-        elementTypes[element_name] = compound_object(
+        element_types[element_name] = compound_object(
             element_name, attrnames, warn)
     # prepare children
     child_dict = {}
     child_list = []
     if len(node) > 0:
         for c in node:
-            child = _get_compound_object(c, elementTypes, c.tag, element_attrs, attr_conversions, heterogeneous, warn)
+            child = _get_compound_object(c, element_types, c.tag, element_attrs, attr_conversions, heterogeneous, warn)
             child_dict.setdefault(c.tag, []).append(child)
             child_list.append(child)
-    attrnames = elementTypes[element_name]._original_fields
-    return elementTypes[element_name](
+    attrnames = element_types[element_name]._original_fields
+    return element_types[element_name](
         [attr_conversions.get(a, _IDENTITY)(node.get(a)) for a in attrnames],
         child_dict, node.text, child_list)
 
@@ -311,7 +329,7 @@ def average(elements, attrname):
         raise Exception("average of 0 elements is not defined")
 
 
-def _createRecordAndPattern(element_name, attrnames, warn, optional):
+def _createRecordAndPattern(element_name, attrnames, warn, optional, extra=None):
     if isinstance(attrnames, str):
         attrnames = [attrnames]
     prefixedAttrnames = [_prefix_keyword(a, warn) for a in attrnames]
@@ -321,6 +339,8 @@ def _createRecordAndPattern(element_name, attrnames, warn, optional):
     else:
         pattern = '.*'.join(['<%s' % element_name] +
                             ['%s="([^"]*)"' % attr for attr in attrnames])
+    if extra is not None:
+        prefixedAttrnames += [_prefix_keyword(a, warn) for a in extra]
     Record = namedtuple(_prefix_keyword(element_name, warn), prefixedAttrnames)
     reprog = re.compile(pattern)
     return Record, reprog
@@ -329,10 +349,29 @@ def _createRecordAndPattern(element_name, attrnames, warn, optional):
 def _open(xmlfile, encoding="utf8"):
     if isinstance(xmlfile, str):
         if xmlfile.endswith(".gz"):
+            if encoding is None:
+                return gzip.open(xmlfile, "r")
             return gzip.open(xmlfile, "rt")
         if encoding is not None:
             return io.open(xmlfile, encoding=encoding)
     return xmlfile
+
+
+def _comment_filter(stream):
+    """
+    Filters given stream for comments. Is used by parse_fast and parse_fast_nested
+    """
+    in_comment = False
+    for line in stream:
+        if "<!--" in line or in_comment:
+            if "-->" in line:
+                yield re.sub(".*-->" if in_comment else "<!--.*-->", "", line)
+                in_comment = False
+            elif not in_comment:
+                yield re.sub("<!--.*", "", line)
+                in_comment = True
+        else:
+            yield line
 
 
 def parse_fast(xmlfile, element_name, attrnames, warn=False, optional=False, encoding="utf8"):
@@ -343,13 +382,14 @@ def parse_fast(xmlfile, element_name, attrnames, warn=False, optional=False, enc
     @Example: parse_fast('plain.edg.xml', 'edge', ['id', 'speed'])
     """
     Record, reprog = _createRecordAndPattern(element_name, attrnames, warn, optional)
-    for line in _open(xmlfile, encoding):
-        m = reprog.search(line)
-        if m:
-            if optional:
-                yield Record(**m.groupdict())
-            else:
-                yield Record(*m.groups())
+    with _open(xmlfile, encoding) as xml_in:
+        for line in _comment_filter(xml_in):
+            m = reprog.search(line)
+            if m:
+                if optional:
+                    yield Record(**m.groupdict())
+                else:
+                    yield Record(*m.groups())
 
 
 def parse_fast_nested(xmlfile, element_name, attrnames, element_name2, attrnames2,
@@ -364,22 +404,102 @@ def parse_fast_nested(xmlfile, element_name, attrnames, element_name2, attrnames
     Record, reprog = _createRecordAndPattern(element_name, attrnames, warn, optional)
     Record2, reprog2 = _createRecordAndPattern(element_name2, attrnames2, warn, optional)
     record = None
-    for line in _open(xmlfile, encoding):
-        m2 = reprog2.search(line)
-        if record and m2:
-            if optional:
-                yield record, Record2(**m2.groupdict())
-            else:
-                yield record, Record2(*m2.groups())
-        else:
-            m = reprog.search(line)
-            if m:
+    with _open(xmlfile, encoding) as xml_in:
+        for line in _comment_filter(xml_in):
+            m2 = reprog2.search(line)
+            if record and m2:
                 if optional:
-                    record = Record(**m.groupdict())
+                    yield record, Record2(**m2.groupdict())
                 else:
-                    record = Record(*m.groups())
-            elif element_name in line:
-                record = None
+                    yield record, Record2(*m2.groups())
+            else:
+                m = reprog.search(line)
+                if m:
+                    if optional:
+                        record = Record(**m.groupdict())
+                    else:
+                        record = Record(*m.groups())
+                elif element_name in line:
+                    record = None
+
+
+def parse_fast_structured(xmlfile, element_name, attrnames, nested,
+                          warn=False, optional=False, encoding="utf8"):
+    """
+    Parses the given attrnames from all elements with element_name and nested elements of level 1.
+    Unlike parse_fast_nested this function can handle multiple different child elements and
+    returns objects where the child elements can be accessed by name (e.g. timestep.vehicle[0])
+    as with the parse method. The returned object is not modifiable though.
+    @Note: Every element must be on its own line and the attributes must appear in the given order.
+    @Example: parse_fast_structured('fcd.xml', 'timestep', ['time'],
+                                    {'vehicle': ['id', 'speed', 'lane'], 'person': ['id', 'speed', 'edge']}):
+    """
+    Record, reprog = _createRecordAndPattern(element_name, attrnames, warn, optional, nested.keys())
+    re2 = [(elem,) + _createRecordAndPattern(elem, attr, warn, optional) for elem, attr in nested.items()]
+    finalizer = "</%s>" % element_name
+    record = None
+    with _open(xmlfile, encoding) as xml_in:
+        for line in _comment_filter(xml_in):
+            if record:
+                for name2, Record2, reprog2 in re2:
+                    m2 = reprog2.search(line)
+                    if m2:
+                        if optional:
+                            inner = Record2(**m2.groupdict())
+                        else:
+                            inner = Record2(*m2.groups())
+                        getattr(record, name2).append(inner)
+                        break
+                else:
+                    if finalizer in line:
+                        yield record
+                        record = None
+            else:
+                m = reprog.search(line)
+                if m:
+                    if optional:
+                        args = dict(m.groupdict())
+                        for name, _, __ in re2:
+                            args[name] = []
+                        record = Record(**args)
+                    else:
+                        args = list(m.groups())
+                        for _ in range(len(re2)):
+                            args.append([])
+                        record = Record(*args)
+
+
+def buildHeader(script=None, root=None, schemaPath=None, rootAttrs="", options=None, includeXMLDeclaration=False):
+    """
+    Builds an XML header with schema information and a comment on how the file has been generated
+    (script name, arguments and datetime).
+    If script name is not given, it is determined from the command line call.
+    If root is not given, no root element is printed (and thus no schema).
+    If schemaPath is not given, it is derived from the root element.
+    If rootAttrs is given as a string, it can be used to add further attributes to the root element.
+    If rootAttrs is set to None, the schema related attributes are not printed.
+    """
+    if script is None or script == "$Id$":
+        script = os.path.basename(sys.argv[0])
+    if options is None:
+        optionString = u"  options: %s\n" % (' '.join(sys.argv[1:]).replace('--', '<doubleminus>'))
+    else:
+        optionString = options.config_as_string
+    if includeXMLDeclaration:
+        header = u'<?xml version="1.0" encoding="UTF-8"?>\n\n'
+    else:
+        header = u''
+    header += u'<!-- generated on %s by %s %s\n%s-->\n\n' % (datetime.datetime.now(), script,
+                                                             version.gitDescribe(), optionString)
+    if root is not None:
+        if rootAttrs is None:
+            header += u'<%s>\n' % root
+        else:
+            if schemaPath is None:
+                schemaPath = root + "_file.xsd"
+            header += (u'<%s%s xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ' +
+                       u'xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/%s">\n') % (root, rootAttrs, schemaPath)
+    return header
 
 
 def writeHeader(outf, script=None, root=None, schemaPath=None, rootAttrs="", options=None):
@@ -393,30 +513,25 @@ def writeHeader(outf, script=None, root=None, schemaPath=None, rootAttrs="", opt
     If rootAttrs is given as a string, it can be used to add further attributes to the root element.
     If rootAttrs is set to None, the schema related attributes are not printed.
     """
-    if script is None or script == "$Id$":
-        script = os.path.basename(sys.argv[0])
-    if options is None:
-        optionString = "  options: %s" % (' '.join(sys.argv[1:]).replace('--', '<doubleminus>'))
-    else:
-        optionString = options.config_as_string
-
-    outf.write(u"""<?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on %s by %s %s
-%s
--->
-""" % (datetime.datetime.now(), script, version.gitDescribe(), optionString))
-    if root is not None:
-        if rootAttrs is None:
-            outf.write((u'<%s>\n') % root)
-        else:
-            if schemaPath is None:
-                schemaPath = root + "_file.xsd"
-            outf.write((u'<%s%s xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ' +
-                        u'xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/%s">\n') %
-                       (root, rootAttrs, schemaPath))
+    outf.write(buildHeader(script, root, schemaPath, rootAttrs, options, True))
 
 
-def quoteattr(val):
+def insertOptionsHeader(filename, options):
+    """
+    Inserts a comment header with the options used to call the script into an existing file.
+    """
+    header = buildHeader(options=options)
+    fileToPatch = fileinput.FileInput(filename, inplace=True)
+    for lineNbr, line in enumerate(fileToPatch):
+        if lineNbr == 2:
+            print(header, end='')
+        print(line, end='')
+    fileToPatch.close()
+
+
+def quoteattr(val, ensureUnicode=False):
     # saxutils sometimes uses single quotes around the attribute
     # we can prevent this by adding an artificial single quote to the value and removing it again
+    if ensureUnicode and type(val) is bytes:
+        val = val.decode("utf-8")
     return '"' + xml.sax.saxutils.quoteattr("'" + val)[2:]

@@ -1,0 +1,25 @@
+[general]
+cycle time;88
+key;1
+subkey;1
+offset;0
+param;test;1
+[links]
+SG0;-468;--472
+SG0;-468;--474
+SG0;-474;--468
+SG0;-474;--470
+SG1;-468;--470
+SG1;-474;--472
+SG2;-470;--468
+SG2;-470;--472
+SG2;-472;--470
+SG2;-472;--474
+SG3;-470;--474
+SG3;-472;--468
+[signal groups]
+id;on1;off1;on2;off2;transOn;transOff
+SG0;0;31;;;0;3
+SG1;0;40;;;0;5
+SG2;45;76;;;0;3
+SG3;45;85;;;0;3

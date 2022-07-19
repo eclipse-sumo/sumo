@@ -1,0 +1,6 @@
+Warning: ParkingArea 'parkA1A0' is targeted by rerouter 'parkA0A1' but doesn't have it's own rerouter. This may cause parking search to abort.
+Warning: ParkingArea 'parkB0B1' is targeted by rerouter 'parkA0A1' but doesn't have it's own rerouter. This may cause parking search to abort.
+Warning: ParkingArea 'parkB1B2' is targeted by rerouter 'parkA0A1' but doesn't have it's own rerouter. This may cause parking search to abort.
+Warning: ParkingArea 'parkB2B3' is targeted by rerouter 'parkD2D3' but doesn't have it's own rerouter. This may cause parking search to abort.
+Warning: ParkingArea 'parkC1C2' is targeted by rerouter 'parkD2D3' but doesn't have it's own rerouter. This may cause parking search to abort.
+Warning: ParkingArea 'parkC2C3' is targeted by rerouter 'parkD2D3' but doesn't have it's own rerouter. This may cause parking search to abort.

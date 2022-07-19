@@ -1,4 +1,4 @@
-Loading configuration ... done.
+ Retrying in 1 seconds
 step 0
 step 1
 step 2
@@ -27,3 +27,4 @@ veh selected: False
 edge selected: False
 veh selected: True
 edge selected: True
+screenshot dimensions (500, 500, 4)

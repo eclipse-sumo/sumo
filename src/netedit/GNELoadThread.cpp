@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -81,7 +81,7 @@ GNELoadThread::run() {
         }
     }
     if (oc.isDefault("aggregate-warnings")) {
-        oc.set("aggregate-warnings", "5");
+        oc.setDefault("aggregate-warnings", "5");
     }
     MsgHandler::initOutputOptions();
     if (!(NIFrame::checkOptions() &&
@@ -171,14 +171,14 @@ GNELoadThread::run() {
         }
     }
     // only a single setting file is supported
-    submitEndAndCleanup(net, oc.getString("gui-settings-file"), oc.getBool("registry-viewport"));
+    submitEndAndCleanup(net, myNewNet, oc.getString("gui-settings-file"), oc.getBool("registry-viewport"));
     return 0;
 }
 
 
 
 void
-GNELoadThread::submitEndAndCleanup(GNENet* net, const std::string& guiSettingsFile, const bool viewportFromRegistry) {
+GNELoadThread::submitEndAndCleanup(GNENet* net, const bool newNet, const std::string& guiSettingsFile, const bool viewportFromRegistry) {
     // remove message callbacks
     MsgHandler::getDebugInstance()->removeRetriever(myDebugRetriever);
     MsgHandler::getGLDebugInstance()->removeRetriever(myGLDebugRetriever);
@@ -186,7 +186,7 @@ GNELoadThread::submitEndAndCleanup(GNENet* net, const std::string& guiSettingsFi
     MsgHandler::getWarningInstance()->removeRetriever(myWarningRetriever);
     MsgHandler::getMessageInstance()->removeRetriever(myMessageRetriever);
     // inform parent about the process
-    GUIEvent* e = new GNEEvent_NetworkLoaded(net, myFile, guiSettingsFile, viewportFromRegistry);
+    GUIEvent* e = new GNEEvent_NetworkLoaded(net, newNet, myFile, guiSettingsFile, viewportFromRegistry);
     myEventQue.push_back(e);
     myEventThrow.signal();
 }
@@ -221,6 +221,8 @@ GNELoadThread::fillOptions(OptionsCont& oc) {
     oc.doRegister("new", new Option_Bool(false)); // !!!
     oc.addDescription("new", "Input", "Start with a new network");
 
+    // files
+
     oc.doRegister("additional-files", 'a', new Option_FileName());
     oc.addSynonyme("additional-files", "additional");
     oc.addDescription("additional-files", "Netedit", "Load additional and shapes descriptions from FILE(s)");
@@ -247,6 +249,95 @@ GNELoadThread::fillOptions(OptionsCont& oc) {
 
     oc.doRegister("edgeTypes-output", new Option_String());
     oc.addDescription("edgeTypes-output", "Netedit", "file in which edgeTypes must be saved");
+
+    // network prefixes
+
+    oc.doRegister("node-prefix", new Option_String("J"));
+    oc.addDescription("node-prefix", "Netedit", "prefix for node naming");
+
+    oc.doRegister("edge-prefix", new Option_String("E"));
+    oc.addDescription("edge-prefix", "Netedit", "prefix for edge naming");
+
+    oc.doRegister("edge-infix", new Option_String(""));
+    oc.addDescription("edge-infix", "Netedit", "enable edge-infix (<fromNodeID><infix><toNodeID>)");
+
+    // additional prefixes
+
+    oc.doRegister("busStop-prefix", new Option_String("bs"));
+    oc.addDescription("busStop-prefix", "Netedit", "prefix for busStop naming");
+
+    oc.doRegister("trainStop-prefix", new Option_String("ts"));
+    oc.addDescription("trainStop-prefix", "Netedit", "prefix for trainStop naming");
+
+    oc.doRegister("containerStop-prefix", new Option_String("ct"));
+    oc.addDescription("containerStop-prefix", "Netedit", "prefix for containerStop naming");
+
+    oc.doRegister("chargingStation-prefix", new Option_String("cs"));
+    oc.addDescription("chargingStation-prefix", "Netedit", "prefix for chargingStation naming");
+
+    oc.doRegister("parkingArea-prefix", new Option_String("pa"));
+    oc.addDescription("parkingArea-prefix", "Netedit", "prefix for parkingArea naming");
+
+    oc.doRegister("e1Detector-prefix", new Option_String("e1"));
+    oc.addDescription("e1Detector-prefix", "Netedit", "prefix for e1Detector naming");
+
+    oc.doRegister("e2Detector-prefix", new Option_String("e2"));
+    oc.addDescription("e2Detector-prefix", "Netedit", "prefix for e2Detector naming");
+
+    oc.doRegister("e3Detector-prefix", new Option_String("e3"));
+    oc.addDescription("e3Detector-prefix", "Netedit", "prefix for e3Detector naming");
+
+    oc.doRegister("e1InstantDetector-prefix", new Option_String("e1i"));
+    oc.addDescription("e1InstantDetector-prefix", "Netedit", "prefix for e1InstantDetector naming");
+
+    oc.doRegister("rerouter-prefix", new Option_String("rr"));
+    oc.addDescription("rerouter-prefix", "Netedit", "prefix for rerouter naming");
+
+    oc.doRegister("calibrator-prefix", new Option_String("ca"));
+    oc.addDescription("calibrator-prefix", "Netedit", "prefix for calibrator naming");
+
+    oc.doRegister("routeProbe-prefix", new Option_String("rp"));
+    oc.addDescription("routeProbe-prefix", "Netedit", "prefix for routeProbe naming");
+
+    oc.doRegister("vss-prefix", new Option_String("vs"));
+    oc.addDescription("vss-prefix", "Netedit", "prefix for variable speed sign naming");
+
+    oc.doRegister("tractionSubstation-prefix", new Option_String("tr"));
+    oc.addDescription("tractionSubstation-prefix", "Netedit", "prefix for traction substation naming");
+
+    oc.doRegister("overheadWire-prefix", new Option_String("ow"));
+    oc.addDescription("overheadWire-prefix", "Netedit", "prefix for overhead wire naming");
+
+    oc.doRegister("polygon-prefix", new Option_String("po"));
+    oc.addDescription("polygon-prefix", "Netedit", "prefix for polygon naming");
+
+    oc.doRegister("poi-prefix", new Option_String("poi"));
+    oc.addDescription("poi-prefix", "Netedit", "prefix for poi naming");
+
+    // demand prefixes
+
+    oc.doRegister("route-prefix", new Option_String("r"));
+    oc.addDescription("route-prefix", "Netedit", "prefix for route naming");
+
+    oc.doRegister("vType-prefix", new Option_String("t"));
+    oc.addDescription("vType-prefix", "Netedit", "prefix for vType naming");
+
+    oc.doRegister("vehicle-prefix", new Option_String("v"));
+    oc.addDescription("vehicle-prefix", "Netedit", "prefix for vehicle naming");
+
+    oc.doRegister("trip-prefix", new Option_String("t"));
+    oc.addDescription("trip-prefix", "Netedit", "prefix for trip naming");
+
+    oc.doRegister("flow-prefix", new Option_String("f"));
+    oc.addDescription("flow-prefix", "Netedit", "prefix for flow naming");
+
+    oc.doRegister("person-prefix", new Option_String("p"));
+    oc.addDescription("person-prefix", "Netedit", "prefix for person naming");
+
+    oc.doRegister("container-prefix", new Option_String("c"));
+    oc.addDescription("container-prefix", "Netedit", "prefix for container naming");
+
+    // drawing
 
     oc.doRegister("disable-laneIcons", new Option_Bool(false));
     oc.addDescription("disable-laneIcons", "Visualisation", "Disable icons of special lanes");
@@ -289,6 +380,9 @@ GNELoadThread::fillOptions(OptionsCont& oc) {
 
     oc.doRegister("default.action-step-length", new Option_Float(0.0));
     oc.addDescription("default.action-step-length", "Processing", "Length of the default interval length between action points for the car-following and lane-change models (in seconds). If not specified, the simulation step-length is used per default. Vehicle- or VType-specific settings override the default. Must be a multiple of the simulation step-length.");
+
+    oc.doRegister("default.speeddev", new Option_Float(-1));
+    oc.addDescription("default.speeddev", "Processing", "Select default speed deviation. A negative value implies vClass specific defaults (0.1 for the default passenger class");
 
     NIFrame::fillOptions(true);
     NBFrame::fillOptions(false);

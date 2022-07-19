@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -50,10 +50,10 @@ FXIMPLEMENT(GNEProhibitionFrame, FXVerticalFrame, GNEProhibitionFrameMap, ARRAYN
 // ---------------------------------------------------------------------------
 
 GNEProhibitionFrame::RelativeToConnection::RelativeToConnection(GNEProhibitionFrame* prohibitionFrameParent) :
-    FXGroupBox(prohibitionFrameParent->myContentFrame, "Relative to connection", GUIDesignGroupBoxFrame),
+    FXGroupBoxModule(prohibitionFrameParent, "Relative to connection"),
     myProhibitionFrameParent(prohibitionFrameParent) {
     // Create label for current connection description and update it
-    myConnDescriptionLabel = new FXLabel(this, "", nullptr, GUIDesignLabelFrameInformation);
+    myConnDescriptionLabel = new FXLabel(getCollapsableFrame(), "", nullptr, GUIDesignLabelFrameInformation);
     // update description
     updateDescription();
 }
@@ -77,64 +77,64 @@ GNEProhibitionFrame::RelativeToConnection::updateDescription() const {
 // GNEProhibitionFrame::ProhibitionLegend - methods
 // ---------------------------------------------------------------------------
 
-GNEProhibitionFrame::ProhibitionLegend::ProhibitionLegend(GNEProhibitionFrame* prohibitionFrameParent) :
-    FXGroupBox(prohibitionFrameParent->myContentFrame, "Legend", GUIDesignGroupBoxFrame),
+GNEProhibitionFrame::Legend::Legend(GNEProhibitionFrame* prohibitionFrameParent) :
+    FXGroupBoxModule(prohibitionFrameParent, "Information"),
     myUndefinedColor(RGBColor::GREY),
     myProhibitedColor(RGBColor(0, 179, 0)),
     myProhibitingColor(RGBColor::RED),
     myUnregulatedConflictColor(RGBColor::ORANGE),
     myMutualConflictColor(RGBColor::CYAN) {
     // Create labels for color legend
-    FXLabel* legendLabel = new FXLabel(this, "Selected", nullptr, GUIDesignLabelFrameInformation);
+    FXLabel* legendLabel = new FXLabel(getCollapsableFrame(), "Selected", nullptr, GUIDesignLabelFrameInformation);
     legendLabel->setTextColor(MFXUtils::getFXColor(RGBColor::WHITE));
     legendLabel->setBackColor(MFXUtils::getFXColor(prohibitionFrameParent->myViewNet->getVisualisationSettings().colorSettings.selectedProhibitionColor));
     // label for conflicts
-    legendLabel = new FXLabel(this, "No conflict", nullptr, GUIDesignLabelFrameInformation);
+    legendLabel = new FXLabel(getCollapsableFrame(), "No conflict", nullptr, GUIDesignLabelFrameInformation);
     legendLabel->setBackColor(MFXUtils::getFXColor(myUndefinedColor));
     // label for yields
-    legendLabel = new FXLabel(this, "Yields", nullptr, GUIDesignLabelFrameInformation);
+    legendLabel = new FXLabel(getCollapsableFrame(), "Yields", nullptr, GUIDesignLabelFrameInformation);
     legendLabel->setBackColor(MFXUtils::getFXColor(myProhibitedColor));
     // label for right of way
-    legendLabel = new FXLabel(this, "Has right of way", nullptr, GUIDesignLabelFrameInformation);
+    legendLabel = new FXLabel(getCollapsableFrame(), "Has right of way", nullptr, GUIDesignLabelFrameInformation);
     legendLabel->setBackColor(MFXUtils::getFXColor(myProhibitingColor));
     // label for unregulated conflict
-    legendLabel = new FXLabel(this, "Unregulated conflict", nullptr, GUIDesignLabelFrameInformation);
+    legendLabel = new FXLabel(getCollapsableFrame(), "Unregulated conflict", nullptr, GUIDesignLabelFrameInformation);
     legendLabel->setBackColor(MFXUtils::getFXColor(myUnregulatedConflictColor));
     // label for mutual conflict
-    legendLabel = new FXLabel(this, "Mutual conflict", nullptr, GUIDesignLabelFrameInformation);
+    legendLabel = new FXLabel(getCollapsableFrame(), "Mutual conflict", nullptr, GUIDesignLabelFrameInformation);
     legendLabel->setBackColor(MFXUtils::getFXColor(myMutualConflictColor));
 }
 
 
-GNEProhibitionFrame::ProhibitionLegend::~ProhibitionLegend() {}
+GNEProhibitionFrame::Legend::~Legend() {}
 
 
 const RGBColor&
-GNEProhibitionFrame::ProhibitionLegend::getUndefinedColor() const {
+GNEProhibitionFrame::Legend::getUndefinedColor() const {
     return myUndefinedColor;
 }
 
 
 const RGBColor&
-GNEProhibitionFrame::ProhibitionLegend::getProhibitedColor() const {
+GNEProhibitionFrame::Legend::getProhibitedColor() const {
     return myProhibitedColor;
 }
 
 
 const RGBColor&
-GNEProhibitionFrame::ProhibitionLegend::getProhibitingColor() const {
+GNEProhibitionFrame::Legend::getProhibitingColor() const {
     return myProhibitingColor;
 }
 
 
 const RGBColor&
-GNEProhibitionFrame::ProhibitionLegend::getUnregulatedConflictColor() const {
+GNEProhibitionFrame::Legend::getUnregulatedConflictColor() const {
     return myUnregulatedConflictColor;
 }
 
 
 const RGBColor&
-GNEProhibitionFrame::ProhibitionLegend::getMutualConflictColor() const {
+GNEProhibitionFrame::Legend::getMutualConflictColor() const {
     return myMutualConflictColor;
 }
 
@@ -143,14 +143,14 @@ GNEProhibitionFrame::ProhibitionLegend::getMutualConflictColor() const {
 // ---------------------------------------------------------------------------
 
 GNEProhibitionFrame::Modifications::Modifications(GNEProhibitionFrame* prohibitionFrameParent) :
-    FXGroupBox(prohibitionFrameParent->myContentFrame, "Modifications", GUIDesignGroupBoxFrame) {
+    FXGroupBoxModule(prohibitionFrameParent, "Modifications") {
 
     // Create "OK" button
-    mySaveButton = new FXButton(this, "OK\t\tSave prohibition modifications (Enter)",
+    mySaveButton = new FXButton(getCollapsableFrame(), "OK\t\tSave prohibition modifications (Enter)",
                                 GUIIconSubSys::getIcon(GUIIcon::ACCEPT), prohibitionFrameParent, MID_OK, GUIDesignButton);
 
     // Create "Cancel" button
-    myCancelButton = new FXButton(this, "Cancel\t\tDiscard prohibition modifications (Esc)",
+    myCancelButton = new FXButton(getCollapsableFrame(), "Cancel\t\tDiscard prohibition modifications (Esc)",
                                   GUIIconSubSys::getIcon(GUIIcon::CANCEL), prohibitionFrameParent, MID_CANCEL, GUIDesignButton);
 
     // Currently mySaveButton is disabled
@@ -174,8 +174,8 @@ GNEProhibitionFrame::GNEProhibitionFrame(FXHorizontalFrame* horizontalFrameParen
     // create RelativeToConnection
     myRelativeToConnection = new RelativeToConnection(this);
 
-    // create ProhibitionLegend
-    myProhibitionLegend = new ProhibitionLegend(this);
+    // create legend
+    myLegend = new Legend(this);
 
     // create Modifications
     myModifications = new Modifications(this);
@@ -261,16 +261,16 @@ GNEProhibitionFrame::buildProhibition(GNEConnection* conn, bool /* mayDefinitely
                 myConcernedConns.insert(i);
                 // change color depending of prohibition status
                 if (!foes) {
-                    i->setSpecialColor(&myProhibitionLegend->getUndefinedColor());
+                    i->setSpecialColor(&myLegend->getUndefinedColor());
                 } else {
                     if (forbids && forbidden) {
-                        i->setSpecialColor(&myProhibitionLegend->getMutualConflictColor());
+                        i->setSpecialColor(&myLegend->getMutualConflictColor());
                     } else if (forbids) {
-                        i->setSpecialColor(&myProhibitionLegend->getProhibitedColor());
+                        i->setSpecialColor(&myLegend->getProhibitedColor());
                     } else if (forbidden) {
-                        i->setSpecialColor(&myProhibitionLegend->getProhibitingColor());
+                        i->setSpecialColor(&myLegend->getProhibitingColor());
                     } else {
-                        i->setSpecialColor(&myProhibitionLegend->getUnregulatedConflictColor());
+                        i->setSpecialColor(&myLegend->getUnregulatedConflictColor());
                     }
                 }
             }

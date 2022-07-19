@@ -1,0 +1,52 @@
+# tests for adding stops at the end of a route
+basic
+default_type_file
+
+# set stop position
+relpos
+
+# set stop position
+relpos_random
+
+# set stop lane
+lane
+
+# set stop lane
+lane_random
+
+# set relative edge along route
+reledge
+
+# set stop on first edge
+reledge_0
+
+# set relative edge along route
+reledge_random
+duration_random
+
+# assign stops probabilistically
+probability
+
+# tests for adding stops at the end of a trip
+trip
+
+# tests for adding stops at the end of a trip (no suitable lane found)
+disallowed_vClass
+
+# preserve persons in input
+withPersons
+
+# add stops to person plans
+withPersons_stops
+
+# assign parkingArea on the destination edge
+parkingArea
+
+# generated vehicles that start at the destination stop
+stationary
+
+# generate trips that start at the destination stop
+stationary_trips
+
+# generate routes that start at each parkingArea without input route file
+stationary_noRoutes

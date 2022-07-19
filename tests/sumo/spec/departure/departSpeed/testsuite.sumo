@@ -50,3 +50,23 @@ speed_desired
 # departSpeed="speedLimit" 
 # (should not lower speed)
 speed_speedLimit
+
+# departSpeed="last" 
+# should use speed of the last vehicle (increases flow due to homegeneous insertion speeds)
+speed_last
+
+# one vehicle approaching a lane with a lower max speed
+speed_last_approach_slow
+
+# one vehicle approaching an unprioritized intersection
+speed_last_approach_minor
+
+# departSpeed="avg" 
+# should use the avg speed on the lane (increases flow due to homegeneous insertion speeds)
+speed_avg
+
+# one vehicle approaching a lane with a lower max speed
+speed_avg_approach_slow
+
+# one vehicle approaching an unprioritized intersection
+speed_avg_approach_minor

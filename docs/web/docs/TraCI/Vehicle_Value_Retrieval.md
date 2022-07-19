@@ -453,6 +453,12 @@ value is also shown in the table.
 <td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-getStops">getStops</a></p></td>
 </tr>
 <tr class="odd">
+<td><p>timeLoss (0x8c)</p></td>
+<td><p>double</p></td>
+<td><p>Returns the accumulated timeLoss of the vehicle in s </p></td>
+<td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-getTimeLoss">getTimeLoss</a></p></td>
+</tr>
+<tr class="even">
 <td></td>
 <td></td>
 <td></td>

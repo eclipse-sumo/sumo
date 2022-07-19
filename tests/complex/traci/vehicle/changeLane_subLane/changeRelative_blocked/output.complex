@@ -1,0 +1,2 @@
+ Retrying in 1 seconds
+2.0: state=['right', 'blocked by right leader', 'overlapping', 'sublane'] stateTraCI=['right', 'TraCI', 'urgent', 'blocked by right leader', 'overlapping', 'sublane'] couldChange=False wantsAndCould=False

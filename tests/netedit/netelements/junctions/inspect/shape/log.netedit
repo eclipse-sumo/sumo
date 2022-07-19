@@ -1,0 +1,5 @@
+Error: Shape of a(n) user-supplied shape is broken: the position is neither x,y nor x,y,z.
+Warning: Intersecting left turns at junction 'Center' from lane '6_2' and lane '5_2' (increase junction radius to avoid this).
+Warning: Intersecting left turns at junction 'Center' from lane '8_2' and lane '7_2' (increase junction radius to avoid this).
+Warning: Intersecting left turns at junction 'Center' from lane '6_2' and lane '5_2' (increase junction radius to avoid this).
+Warning: Intersecting left turns at junction 'Center' from lane '8_2' and lane '7_2' (increase junction radius to avoid this).

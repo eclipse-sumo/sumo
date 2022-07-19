@@ -1,0 +1,74 @@
+# test branching plans (multiple 'next' phases) with default logic
+multiNext
+
+# exclude jammed detectors from gapControl
+jamDetection
+
+# test custom switching conditions
+conditions
+
+# test actuated coordination
+coordination
+basic
+
+# network contains a static traffic light, load actuated as additional program (new default)
+from_additional
+
+# test supplying additional parameters
+parameters
+
+# test using custom detectors
+custom_detector
+
+# custom detectors should be included in the output even "their" phase has fixed duration
+custom_detector_staticPhase
+
+# set custom max-gap value for a single detector
+custom_detector_maxGap
+
+# check that the initialization can handle different begin times
+simstart_at_100
+minDur_too_short
+
+# test interaction of minDuration and detector position
+80kmh_highFlow
+
+# test interaction of minDuration and detector position
+80kmh_lowFlow
+
+# test detector assignment for a lane where not all links have the green light in in a particular phase (#5161)
+partialy_green_lane
+
+# test detector assignment for a lane where not all links have the green light in in a particular phase (#5161)
+partialy_green_lane_uncontrollable
+
+# joined traffic light with detectors on sequential lanes. prevent jamming (#5187)
+joined_sequential
+
+# joined traffic light with detectors on sequential lanes.
+# detectors should not be moved accross signals (#10837)
+joined_sequential2
+
+# links with green minor should not be used for actuation
+green_minor_uncontrolled
+
+# links with green minor should not be used for actuation (even if there is no dedicated green phase)
+green_minor_uncontrolled2
+
+# test handling of junction with custom link indices (only part of the state is used)
+unused_indices
+
+# test for moving detector upstream when the the lane that is incoming to the intersection is too short.
+short_lane
+
+# network contains a static traffic light, load actuated as additional program (new default) with linkMinDur constraints
+linkMinDur
+
+# test detector usage at joined tls
+joined_tls_controlling_detectors
+
+# test detector usage
+controlling_detectors
+
+# if minDur is set, interpret missing maxDur as unlimited
+maxDur_missing

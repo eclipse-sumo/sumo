@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2004-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2004-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -87,12 +87,10 @@ protected:
      * @param[in] id The id of the rerouter
      * @param[in] edges The edges the rerouter is placed at
      * @param[in] prob The probability the rerouter reoutes vehicles with
-     * @param[in] file The file to read the reroute definitions from
      */
     virtual MSTriggeredRerouter* buildRerouter(MSNet& net,
             const std::string& id, MSEdgeVector& edges,
-            double prob, const std::string& file, bool off,
-            SUMOTime timeThreshold,
+            double prob, bool off, SUMOTime timeThreshold,
             const std::string& vTypes) override;
 
 
@@ -157,7 +155,7 @@ protected:
     virtual void buildChargingStation(MSNet& net, const std::string& id, MSLane* lane,
                                       double frompos, double topos, const std::string& name,
                                       double chargingPower, double efficiency,
-                                      bool chargeInTransit, double chargeDelay) override;
+                                      bool chargeInTransit, SUMOTime chargeDelay) override;
 
     /** @brief Builds an overhead wire segment
     *

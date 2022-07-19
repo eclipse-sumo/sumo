@@ -49,6 +49,7 @@
         <xsd:attribute name="spreadType" type="spreadTypeType"/>
         <xsd:attribute name="avoidOverlap" type="boolType"/>
         <xsd:attribute name="junctionHigherSpeed" type="boolType"/>
+        <xsd:attribute name="internalJunctionsVehicleWidth" type="xsd:float"/>
     </xsd:complexType>
 
     <xsd:complexType name="edgeType">
@@ -102,6 +103,7 @@
         <xsd:attribute name="disallow" type="xsd:string" use="optional"/>
         <xsd:attribute name="prefer" type="xsd:string" use="optional"/>
         <xsd:attribute name="speed" type="positiveFloatType" use="required"/>
+        <xsd:attribute name="friction" type="positiveFloatType" use="optional"/>
         <xsd:attribute name="length" type="positiveFloatType" use="required"/>
         <xsd:attribute name="endOffset" type="positiveFloatType" use="optional"/>
         <xsd:attribute name="width" type="nonNegativeFloatType" use="optional"/>
@@ -221,6 +223,7 @@
         <xsd:attribute name="changeRight" type="xsd:string" use="optional"/>
         <xsd:attribute name="changeLeft" type="xsd:string" use="optional"/>
         <xsd:attribute name="indirect" type="boolType" use="optional"/>
+        <xsd:attribute name="type" type="xsd:string" use="optional"/>
         <xsd:attribute name="dir" use="required">
             <xsd:simpleType>
                 <xsd:restriction base="xsd:string">

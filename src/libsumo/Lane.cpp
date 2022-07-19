@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2017-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2017-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -30,6 +30,7 @@
 #include <microsim/MSVehicle.h>
 #include <microsim/MSLink.h>
 #include <microsim/MSInsertionControl.h>
+#include <libsumo/Helper.h>
 #include <libsumo/TraCIConstants.h>
 #include "Lane.h"
 
@@ -76,6 +77,10 @@ Lane::getMaxSpeed(std::string laneID) {
     return getLane(laneID)->getSpeedLimit();
 }
 
+double
+Lane::getFriction(std::string laneID) {
+    return getLane(laneID)->getFrictionCoefficient();
+}
 
 int
 Lane::getLinkNumber(std::string laneID) {
@@ -144,36 +149,36 @@ Lane::getWidth(std::string laneID) {
 
 double
 Lane::getCO2Emission(std::string laneID) {
-    return getLane(laneID)->getCO2Emissions();
+    return getLane(laneID)->getEmissions<PollutantsInterface::CO2>();
 }
 
 
 double
 Lane::getCOEmission(std::string laneID) {
-    return getLane(laneID)->getCOEmissions();
+    return getLane(laneID)->getEmissions<PollutantsInterface::CO>();
 }
 
 
 double
 Lane::getHCEmission(std::string laneID) {
-    return getLane(laneID)->getHCEmissions();
+    return getLane(laneID)->getEmissions<PollutantsInterface::HC>();
 }
 
 
 double
 Lane::getPMxEmission(std::string laneID) {
-    return getLane(laneID)->getPMxEmissions();
+    return getLane(laneID)->getEmissions<PollutantsInterface::PM_X>();
 }
 
 
 double
 Lane::getNOxEmission(std::string laneID) {
-    return getLane(laneID)->getNOxEmissions();
+    return getLane(laneID)->getEmissions<PollutantsInterface::NO_X>();
 }
 
 double
 Lane::getFuelConsumption(std::string laneID) {
-    return getLane(laneID)->getFuelConsumption();
+    return getLane(laneID)->getEmissions<PollutantsInterface::FUEL>();
 }
 
 
@@ -185,7 +190,7 @@ Lane::getNoiseEmission(std::string laneID) {
 
 double
 Lane::getElectricityConsumption(std::string laneID) {
-    return getLane(laneID)->getElectricityConsumption();
+    return getLane(laneID)->getEmissions<PollutantsInterface::ELEC>();
 }
 
 
@@ -239,6 +244,7 @@ int
 Lane::getLastStepVehicleNumber(std::string laneID) {
     return (int)getLane(laneID)->getVehicleNumber();
 }
+
 
 int
 Lane::getLastStepHaltingNumber(std::string laneID) {
@@ -303,15 +309,16 @@ Lane::getInternalFoes(const std::string& laneID) {
 
 const std::vector<std::string>
 Lane::getPendingVehicles(const std::string& laneID) {
-    getLane(laneID); // validate laneID
+    MSLane* const l = getLane(laneID); // validate laneID
     std::vector<std::string> vehIDs;
     for (const SUMOVehicle* veh : MSNet::getInstance()->getInsertionControl().getPendingVehicles()) {
-        if (veh->getLane() != nullptr && veh->getLane()->getID() == laneID) {
+        if (veh->getLane() == l) {
             vehIDs.push_back(veh->getID());
         }
     }
     return vehIDs;
 }
+
 
 void
 Lane::setAllowed(std::string laneID, std::string allowedClass) {
@@ -321,7 +328,7 @@ Lane::setAllowed(std::string laneID, std::string allowedClass) {
 
 void
 Lane::setAllowed(std::string laneID, std::vector<std::string> allowedClasses) {
-    MSLane* l = const_cast<MSLane*>(getLane(laneID));
+    MSLane* const l = getLane(laneID);
     l->setPermissions(parseVehicleClasses(allowedClasses), MSLane::CHANGE_PERMISSIONS_PERMANENT);
     l->getEdge().rebuildAllowedLanes();
 }
@@ -329,7 +336,7 @@ Lane::setAllowed(std::string laneID, std::vector<std::string> allowedClasses) {
 
 void
 Lane::setDisallowed(std::string laneID, std::vector<std::string> disallowedClasses) {
-    MSLane* l = const_cast<MSLane*>(getLane(laneID));
+    MSLane* const l = getLane(laneID);
     l->setPermissions(invertPermissions(parseVehicleClasses(disallowedClasses)), MSLane::CHANGE_PERMISSIONS_PERMANENT); // negation yields allowed
     l->getEdge().rebuildAllowedLanes();
 }
@@ -337,15 +344,19 @@ Lane::setDisallowed(std::string laneID, std::vector<std::string> disallowedClass
 
 void
 Lane::setMaxSpeed(std::string laneID, double speed) {
-    MSLane* l = const_cast<MSLane*>(getLane(laneID));
-    l->setMaxSpeed(speed);
+    getLane(laneID)->setMaxSpeed(speed);
 }
 
 
 void
 Lane::setLength(std::string laneID, double length) {
-    MSLane* l = const_cast<MSLane*>(getLane(laneID));
-    l->setLength(length);
+    getLane(laneID)->setLength(length);
+}
+
+
+void
+Lane::setFriction(std::string laneID, double friction) {
+    getLane(laneID)->setFrictionCoefficient(friction);
 }
 
 
@@ -360,21 +371,20 @@ LIBSUMO_GET_PARAMETER_WITH_KEY_IMPLEMENTATION(Lane)
 
 void
 Lane::setParameter(const std::string& laneID, const std::string& key, const std::string& value) {
-    MSLane* l = const_cast<MSLane*>(getLane(laneID));
-    l->setParameter(key, value);
+    getLane(laneID)->setParameter(key, value);
 }
 
 
 LIBSUMO_SUBSCRIPTION_IMPLEMENTATION(Lane, LANE)
 
 
-const MSLane*
+MSLane*
 Lane::getLane(const std::string& id) {
-    const MSLane* r = MSLane::dictionary(id);
-    if (r == nullptr) {
+    MSLane* const lane = MSLane::dictionary(id);
+    if (lane == nullptr) {
         throw TraCIException("Lane '" + id + "' is not known");
     }
-    return r;
+    return lane;
 }
 
 
@@ -405,6 +415,8 @@ Lane::handleVariable(const std::string& objID, const int variable, VariableWrapp
             return wrapper->wrapDouble(objID, variable, getLength(objID));
         case VAR_MAXSPEED:
             return wrapper->wrapDouble(objID, variable, getMaxSpeed(objID));
+        case VAR_FRICTION:
+            return wrapper->wrapDouble(objID, variable, getFriction(objID));
         case LANE_ALLOWED:
             return wrapper->wrapStringList(objID, variable, getAllowed(objID));
         case LANE_DISALLOWED:

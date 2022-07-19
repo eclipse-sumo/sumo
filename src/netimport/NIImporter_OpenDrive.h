@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -105,6 +105,7 @@ protected:
         OPENDRIVE_TAG_SPEED,
         OPENDRIVE_TAG_ELEVATION,
         OPENDRIVE_TAG_GEOREFERENCE,
+        OPENDRIVE_TAG_OFFSET,
         OPENDRIVE_TAG_OBJECT,
         OPENDRIVE_TAG_REPEAT
     };
@@ -360,6 +361,9 @@ protected:
         /// @brief the composite type built from all used lane types
         std::string rightType;
         std::string leftType;
+        /// @brief average width of removed inside lanes
+        double discardedInnerWidthLeft;
+        double discardedInnerWidthRight;
     };
 
 
@@ -518,8 +522,6 @@ protected:
         }
 
     private:
-        same_position_finder& operator=(const same_position_finder&); // just to avoid a compiler warning
-    private:
         /// @brief The position to search for
         double myPosition;
 
@@ -583,10 +585,10 @@ private:
     void addGeometryShape(GeometryType type, const std::vector<double>& vals);
     static void setEdgeLinks2(OpenDriveEdge& e, const std::map<std::string, OpenDriveEdge*>& edges);
     static void buildConnectionsToOuter(const Connection& c,
-            const std::map<std::string, OpenDriveEdge*>& innerEdges,
-            const std::map<std::string, OpenDriveEdge*>& edges,
-            const NBTypeCont& tc,
-            std::vector<Connection>& into, std::set<Connection>& seen);
+                                        const std::map<std::string, OpenDriveEdge*>& innerEdges,
+                                        const std::map<std::string, OpenDriveEdge*>& edges,
+                                        const NBTypeCont& tc,
+                                        std::vector<Connection>& into, std::set<Connection>& seen);
     static bool laneSectionsConnected(OpenDriveEdge* edge, int in, int out);
     friend bool operator<(const Connection& c1, const Connection& c2);
     static std::string revertID(const std::string& id);
@@ -602,6 +604,7 @@ private:
     ContactPoint myCurrentContactPoint;
     bool myConnectionWasEmpty;
     std::map<std::string, OpenDriveSignal> mySignals;
+    Position myOffset;
 
     static bool myImportAllTypes;
     static bool myImportWidths;
@@ -644,6 +647,11 @@ protected:
 
     static bool hasNonLinearElevation(OpenDriveEdge& e);
 
+    /// transform Poly3 into a list of offsets, adding intermediate points to geom if needed
+    static std::vector<double> discretizeOffsets(PositionVector& geom, const std::vector<OpenDriveLaneOffset>& offsets, const std::string& id);
+
+    static void addOffsets(bool left, PositionVector& geom, const std::vector<OpenDriveLaneOffset>& offsets, const std::string& id, std::vector<double>& result);
+
     /** @brief Rechecks lane sections of the given edges
      *
      *
@@ -680,5 +688,17 @@ protected:
     static StringBijection<int>::Entry openDriveAttrs[];
 
 
+    class LaneSorter {
+    public:
+        /// constructor
+        explicit LaneSorter() {}
+
+        /// comparing operation
+        int operator()(const OpenDriveLane& a, const OpenDriveLane& b) const {
+            // sort from the reference line outwards (desceding order of sumo lane ids)
+            return abs(a.id) < abs(b.id);
+        }
+
+    };
 
 };

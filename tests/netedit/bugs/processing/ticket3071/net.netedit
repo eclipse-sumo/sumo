@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 08.05.2019 11:43:01 by Eclipse SUMO netedit Version v1_2_0+0242-00a18e6a42
+<!-- generated on 2022-01-20 11:32:46 by Eclipse SUMO netedit Version v1_11_0+1305-0448234e9dc
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.08May082111.2956/netedit.gui/bugs/processing/ticket3071\input_net.net.xml"/>
+        <sumo-net-file value="C:\Users\palva\.texttest\tmp\netedit.gui.20Jan111719.4540\netedit.gui\bugs\processing\ticket3071\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.08May082111.2956/netedit.gui/bugs/processing/ticket3071\net.net.xml"/>
+        <output-file value="C:\Users\palva\.texttest\tmp\netedit.gui.20Jan111719.4540\netedit.gui\bugs\processing\ticket3071\net.net.xml"/>
     </output>
 
     <processing>
+        <geometry.min-radius.fix.railways value="false"/>
         <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
@@ -30,23 +31,27 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.08May082111.2956/netedit.gui/bugs/processing/ticket3071\additionals.xml"/>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.08May082111.2956/netedit.gui/bugs/processing/ticket3071\additionals.xml"/>
-        <route-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.08May082111.2956/netedit.gui/bugs/processing/ticket3071\routes.xml"/>
-        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.08May082111.2956/netedit.gui/bugs/processing/ticket3071\routes.xml"/>
+        <additional-files value="C:\Users\palva\.texttest\tmp\netedit.gui.20Jan111719.4540\netedit.gui\bugs\processing\ticket3071\additionals.xml"/>
+        <additionals-output value="C:\Users\palva\.texttest\tmp\netedit.gui.20Jan111719.4540\netedit.gui\bugs\processing\ticket3071\additionals.xml"/>
+        <route-files value="C:\Users\palva\.texttest\tmp\netedit.gui.20Jan111719.4540\netedit.gui\bugs\processing\ticket3071\routes.xml"/>
+        <demandelements-output value="C:\Users\palva\.texttest\tmp\netedit.gui.20Jan111719.4540\netedit.gui\bugs\processing\ticket3071\routes.xml"/>
+        <data-files value="C:\Users\palva\.texttest\tmp\netedit.gui.20Jan111719.4540\netedit.gui\bugs\processing\ticket3071\datas.xml"/>
+        <dataelements-output value="C:\Users\palva\.texttest\tmp\netedit.gui.20Jan111719.4540\netedit.gui\bugs\processing\ticket3071\datas.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.08May082111.2956/netedit.gui/bugs/processing/ticket3071\gui-settings.xml"/>
-        <window-size value="700,500"/>
+        <gui-settings-file value="C:\Users\palva\.texttest\tmp\netedit.gui.20Jan111719.4540\netedit.gui\bugs\processing\ticket3071\gui-settings.xml"/>
+        <window-size value="936,697"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
+        <gui-testing.setting-output value="C:\Users\palva\.texttest\tmp\netedit.gui.20Jan111719.4540\netedit.gui\bugs\processing\ticket3071\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.08May082111.2956/netedit.gui/bugs/processing/ticket3071\log.txt"/>
+        <aggregate-warnings value="5"/>
+        <error-log value="C:\Users\palva\.texttest\tmp\netedit.gui.20Jan111719.4540\netedit.gui\bugs\processing\ticket3071\log.txt"/>
     </report>
 
 </configuration>
@@ -57,10 +62,10 @@
     <location netOffset="-47.00,-25.00" convBoundary="-0.10,0.00,40.00,40.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
     <edge id=":cluster_gneJ13_gneJ17_gneJ19_0" function="internal">
-        <lane id=":cluster_gneJ13_gneJ17_gneJ19_0_0" index="0" disallow="pedestrian rail_fast" speed="6.04" length="8.17" shape="38.31,21.91 30.14,21.95"/>
+        <lane id=":cluster_gneJ13_gneJ17_gneJ19_0_0" index="0" disallow="pedestrian rail_fast" speed="6.04" length="3.41" shape="38.31,21.91 34.90,21.92"/>
     </edge>
     <edge id=":cluster_gneJ13_gneJ17_gneJ19_1" function="internal">
-        <lane id=":cluster_gneJ13_gneJ17_gneJ19_1_0" index="0" disallow="pedestrian rail_fast" speed="8.64" length="0.41" shape="38.31,21.91 37.90,21.91"/>
+        <lane id=":cluster_gneJ13_gneJ17_gneJ19_1_0" index="0" disallow="pedestrian rail_fast" speed="8.64" length="2.07" shape="38.31,21.91 36.24,21.92"/>
     </edge>
     <edge id=":cluster_gneJ13_gneJ17_gneJ19_2" function="internal">
         <lane id=":cluster_gneJ13_gneJ17_gneJ19_2_0" index="0" disallow="pedestrian rail_fast" speed="13.89" length="41.92" shape="38.31,21.91 32.03,18.47 18.27,19.90 4.53,21.33 -1.69,17.89"/>
@@ -72,10 +77,10 @@
         <lane id=":cluster_gneJ13_gneJ17_gneJ19_4_0" index="0" disallow="pedestrian rail_fast" speed="13.89" length="3.81" shape="38.31,21.91 38.31,18.09"/>
     </edge>
     <edge id=":cluster_gneJ13_gneJ17_gneJ19_30" function="internal">
-        <lane id=":cluster_gneJ13_gneJ17_gneJ19_30_0" index="0" disallow="pedestrian rail_fast" speed="6.04" length="8.63" shape="30.14,21.95 21.51,21.99"/>
+        <lane id=":cluster_gneJ13_gneJ17_gneJ19_30_0" index="0" disallow="pedestrian rail_fast" speed="6.04" length="13.39" shape="34.90,21.92 21.51,21.99"/>
     </edge>
     <edge id=":cluster_gneJ13_gneJ17_gneJ19_31" function="internal">
-        <lane id=":cluster_gneJ13_gneJ17_gneJ19_31_0" index="0" disallow="pedestrian rail_fast" speed="8.64" length="36.39" shape="37.90,21.91 1.51,22.09"/>
+        <lane id=":cluster_gneJ13_gneJ17_gneJ19_31_0" index="0" disallow="pedestrian rail_fast" speed="8.64" length="34.73" shape="36.24,21.92 1.51,22.09"/>
     </edge>
     <edge id=":cluster_gneJ13_gneJ17_gneJ19_5" function="internal">
         <lane id=":cluster_gneJ13_gneJ17_gneJ19_5_0" index="0" disallow="pedestrian rail_fast" speed="13.89" length="3.78" shape="41.51,18.11 41.51,21.89"/>
@@ -198,10 +203,10 @@
         <lane id=":gneJ11_0_0" index="0" disallow="pedestrian rail_fast" speed="13.89" length="14.40" shape="27.17,41.60 12.77,41.60"/>
     </edge>
     <edge id=":gneJ11_1" function="internal">
-        <lane id=":gneJ11_1_0" index="0" disallow="pedestrian rail_fast" speed="8.02" length="5.91" shape="27.17,41.60 23.34,41.05 21.59,40.00"/>
+        <lane id=":gneJ11_1_0" index="0" disallow="pedestrian rail_fast" speed="8.02" length="4.05" shape="27.17,41.60 23.34,41.05 23.19,40.96"/>
     </edge>
     <edge id=":gneJ11_6" function="internal">
-        <lane id=":gneJ11_6_0" index="0" disallow="pedestrian rail_fast" speed="8.02" length="8.29" shape="21.59,40.00 20.59,39.40 18.93,36.64 18.36,32.78"/>
+        <lane id=":gneJ11_6_0" index="0" disallow="pedestrian rail_fast" speed="8.02" length="10.15" shape="23.19,40.96 20.59,39.40 18.93,36.64 18.36,32.78"/>
     </edge>
     <edge id=":gneJ11_2" function="internal">
         <lane id=":gneJ11_2_0" index="0" disallow="pedestrian rail_fast" speed="6.53" length="9.06" shape="21.56,32.77 21.93,35.23 22.98,36.99 24.73,38.05 27.17,38.40"/>
@@ -279,10 +284,10 @@
         <lane id=":gneJ15_2_0" index="0" disallow="pedestrian rail_fast" speed="13.89" length="14.40" shape="12.77,-1.60 27.17,-1.60"/>
     </edge>
     <edge id=":gneJ15_3" function="internal">
-        <lane id=":gneJ15_3_0" index="0" disallow="pedestrian rail_fast" speed="8.00" length="5.93" shape="12.77,-1.60 16.64,-1.05 18.38,0.00"/>
+        <lane id=":gneJ15_3_0" index="0" disallow="pedestrian rail_fast" speed="8.00" length="4.07" shape="12.77,-1.60 16.64,-1.05 16.78,-0.96"/>
     </edge>
     <edge id=":gneJ15_7" function="internal">
-        <lane id=":gneJ15_7_0" index="0" disallow="pedestrian rail_fast" speed="8.00" length="8.29" shape="18.38,0.00 19.39,0.61 21.03,3.37 21.56,7.23"/>
+        <lane id=":gneJ15_7_0" index="0" disallow="pedestrian rail_fast" speed="8.00" length="10.15" shape="16.78,-0.96 19.39,0.61 21.03,3.37 21.56,7.23"/>
     </edge>
     <edge id=":gneJ15_4" function="internal">
         <lane id=":gneJ15_4_0" index="0" disallow="pedestrian rail_fast" speed="6.50" length="9.05" shape="18.36,7.22 18.02,4.76 16.98,3.00 15.23,1.95 12.77,1.60"/>
@@ -501,14 +506,14 @@
         <request index="2" response="001" foes="011" cont="0"/>
     </junction>
 
-    <junction id=":cluster_gneJ13_gneJ17_gneJ19_30_0" type="internal" x="30.14" y="21.95" incLanes=":cluster_gneJ13_gneJ17_gneJ19_0_0 -gneE10_1" intLanes=":cluster_gneJ13_gneJ17_gneJ19_6_0 :cluster_gneJ13_gneJ17_gneJ19_12_0 :cluster_gneJ13_gneJ17_gneJ19_18_0 :cluster_gneJ13_gneJ17_gneJ19_24_0 :cluster_gneJ13_gneJ17_gneJ19_c0_0 :cluster_gneJ13_gneJ17_gneJ19_c5_0"/>
-    <junction id=":cluster_gneJ13_gneJ17_gneJ19_31_0" type="internal" x="37.90" y="21.91" incLanes=":cluster_gneJ13_gneJ17_gneJ19_1_0 -gneE10_1" intLanes=":cluster_gneJ13_gneJ17_gneJ19_6_0 :cluster_gneJ13_gneJ17_gneJ19_7_0 :cluster_gneJ13_gneJ17_gneJ19_12_0 :cluster_gneJ13_gneJ17_gneJ19_13_0 :cluster_gneJ13_gneJ17_gneJ19_18_0 :cluster_gneJ13_gneJ17_gneJ19_19_0 :cluster_gneJ13_gneJ17_gneJ19_24_0 :cluster_gneJ13_gneJ17_gneJ19_25_0 :cluster_gneJ13_gneJ17_gneJ19_26_0 :cluster_gneJ13_gneJ17_gneJ19_27_0 :cluster_gneJ13_gneJ17_gneJ19_28_0 :cluster_gneJ13_gneJ17_gneJ19_29_0 :cluster_gneJ13_gneJ17_gneJ19_c0_0 :cluster_gneJ13_gneJ17_gneJ19_c4_0"/>
+    <junction id=":cluster_gneJ13_gneJ17_gneJ19_30_0" type="internal" x="34.90" y="21.92" incLanes=":cluster_gneJ13_gneJ17_gneJ19_0_0 -gneE10_1" intLanes=":cluster_gneJ13_gneJ17_gneJ19_6_0 :cluster_gneJ13_gneJ17_gneJ19_12_0 :cluster_gneJ13_gneJ17_gneJ19_18_0 :cluster_gneJ13_gneJ17_gneJ19_24_0 :cluster_gneJ13_gneJ17_gneJ19_c0_0 :cluster_gneJ13_gneJ17_gneJ19_c5_0"/>
+    <junction id=":cluster_gneJ13_gneJ17_gneJ19_31_0" type="internal" x="36.24" y="21.92" incLanes=":cluster_gneJ13_gneJ17_gneJ19_1_0 -gneE10_1" intLanes=":cluster_gneJ13_gneJ17_gneJ19_6_0 :cluster_gneJ13_gneJ17_gneJ19_7_0 :cluster_gneJ13_gneJ17_gneJ19_12_0 :cluster_gneJ13_gneJ17_gneJ19_13_0 :cluster_gneJ13_gneJ17_gneJ19_18_0 :cluster_gneJ13_gneJ17_gneJ19_19_0 :cluster_gneJ13_gneJ17_gneJ19_24_0 :cluster_gneJ13_gneJ17_gneJ19_25_0 :cluster_gneJ13_gneJ17_gneJ19_26_0 :cluster_gneJ13_gneJ17_gneJ19_27_0 :cluster_gneJ13_gneJ17_gneJ19_28_0 :cluster_gneJ13_gneJ17_gneJ19_29_0 :cluster_gneJ13_gneJ17_gneJ19_c0_0 :cluster_gneJ13_gneJ17_gneJ19_c4_0"/>
     <junction id=":cluster_gneJ13_gneJ17_gneJ19_32_0" type="internal" x="39.91" y="18.10" incLanes=":cluster_gneJ13_gneJ17_gneJ19_8_0 gneE9_1" intLanes=":cluster_gneJ13_gneJ17_gneJ19_2_0 :cluster_gneJ13_gneJ17_gneJ19_3_0 :cluster_gneJ13_gneJ17_gneJ19_4_0 :cluster_gneJ13_gneJ17_gneJ19_11_0 :cluster_gneJ13_gneJ17_gneJ19_12_0 :cluster_gneJ13_gneJ17_gneJ19_13_0 :cluster_gneJ13_gneJ17_gneJ19_14_0 :cluster_gneJ13_gneJ17_gneJ19_17_0 :cluster_gneJ13_gneJ17_gneJ19_18_0 :cluster_gneJ13_gneJ17_gneJ19_19_0 :cluster_gneJ13_gneJ17_gneJ19_20_0 :cluster_gneJ13_gneJ17_gneJ19_21_0 :cluster_gneJ13_gneJ17_gneJ19_22_0 :cluster_gneJ13_gneJ17_gneJ19_26_0 :cluster_gneJ13_gneJ17_gneJ19_27_0 :cluster_gneJ13_gneJ17_gneJ19_28_0 :cluster_gneJ13_gneJ17_gneJ19_c1_0 :cluster_gneJ13_gneJ17_gneJ19_c3_0"/>
     <junction id=":cluster_gneJ13_gneJ17_gneJ19_33_0" type="internal" x="39.91" y="18.10" incLanes=":cluster_gneJ13_gneJ17_gneJ19_9_0 gneE9_1" intLanes=":cluster_gneJ13_gneJ17_gneJ19_3_0 :cluster_gneJ13_gneJ17_gneJ19_4_0 :cluster_gneJ13_gneJ17_gneJ19_11_0 :cluster_gneJ13_gneJ17_gneJ19_12_0 :cluster_gneJ13_gneJ17_gneJ19_13_0 :cluster_gneJ13_gneJ17_gneJ19_14_0 :cluster_gneJ13_gneJ17_gneJ19_15_0 :cluster_gneJ13_gneJ17_gneJ19_16_0 :cluster_gneJ13_gneJ17_gneJ19_21_0 :cluster_gneJ13_gneJ17_gneJ19_22_0 :cluster_gneJ13_gneJ17_gneJ19_27_0 :cluster_gneJ13_gneJ17_gneJ19_28_0 :cluster_gneJ13_gneJ17_gneJ19_c1_0 :cluster_gneJ13_gneJ17_gneJ19_c2_0"/>
-    <junction id=":gneJ11_6_0" type="internal" x="21.59" y="40.00" incLanes=":gneJ11_1_0 gneE15_1" intLanes=":gneJ11_3_0 :gneJ11_4_0 :gneJ11_5_0 :gneJ11_c0_0 :gneJ11_c1_0"/>
+    <junction id=":gneJ11_6_0" type="internal" x="23.19" y="40.96" incLanes=":gneJ11_1_0 gneE15_1" intLanes=":gneJ11_3_0 :gneJ11_4_0 :gneJ11_5_0 :gneJ11_c0_0 :gneJ11_c1_0"/>
     <junction id=":gneJ11_7_0" type="internal" x="17.10" y="36.79" incLanes=":gneJ11_4_0" intLanes=":gneJ11_1_0 :gneJ11_c1_0 :gneJ11_c2_0"/>
     <junction id=":gneJ15_6_0" type="internal" x="22.84" y="3.24" incLanes=":gneJ15_0_0" intLanes=":gneJ15_3_0 :gneJ15_c0_0 :gneJ15_c2_0"/>
-    <junction id=":gneJ15_7_0" type="internal" x="18.38" y="0.00" incLanes=":gneJ15_3_0 gneE11_1" intLanes=":gneJ15_0_0 :gneJ15_1_0 :gneJ15_5_0 :gneJ15_c1_0 :gneJ15_c2_0"/>
+    <junction id=":gneJ15_7_0" type="internal" x="16.78" y="-0.96" incLanes=":gneJ15_3_0 gneE11_1" intLanes=":gneJ15_0_0 :gneJ15_1_0 :gneJ15_5_0 :gneJ15_c1_0 :gneJ15_c2_0"/>
 
     <connection from="-gneE10" to="-gneE9" fromLane="1" toLane="1" via=":cluster_gneJ13_gneJ17_gneJ19_5_0" dir="s" state="M"/>
     <connection from="-gneE10" to="gneE16" fromLane="1" toLane="1" via=":cluster_gneJ13_gneJ17_gneJ19_6_0" dir="s" state="m"/>
@@ -562,9 +567,9 @@
     <connection from="gneE9" to="gneE10" fromLane="1" toLane="1" via=":cluster_gneJ13_gneJ17_gneJ19_4_0" dir="s" state="M"/>
 
     <connection from=":cluster_gneJ13_gneJ17_gneJ19_0" to="gneE16" fromLane="0" toLane="1" via=":cluster_gneJ13_gneJ17_gneJ19_30_0" dir="l" state="m"/>
-    <connection from=":cluster_gneJ13_gneJ17_gneJ19_30" to="gneE16" fromLane="0" toLane="1" dir="l" state="M"/>
+    <connection from=":cluster_gneJ13_gneJ17_gneJ19_30" to="gneE16" fromLane="0" toLane="1" dir="l" state="m"/>
     <connection from=":cluster_gneJ13_gneJ17_gneJ19_1" to="gneE14" fromLane="0" toLane="1" via=":cluster_gneJ13_gneJ17_gneJ19_31_0" dir="l" state="m"/>
-    <connection from=":cluster_gneJ13_gneJ17_gneJ19_31" to="gneE14" fromLane="0" toLane="1" dir="l" state="M"/>
+    <connection from=":cluster_gneJ13_gneJ17_gneJ19_31" to="gneE14" fromLane="0" toLane="1" dir="l" state="m"/>
     <connection from=":cluster_gneJ13_gneJ17_gneJ19_2" to="-gneE13" fromLane="0" toLane="1" dir="s" state="M"/>
     <connection from=":cluster_gneJ13_gneJ17_gneJ19_3" to="gneE18" fromLane="0" toLane="1" dir="s" state="M"/>
     <connection from=":cluster_gneJ13_gneJ17_gneJ19_4" to="gneE10" fromLane="0" toLane="1" dir="s" state="M"/>
@@ -572,9 +577,9 @@
     <connection from=":cluster_gneJ13_gneJ17_gneJ19_6" to="gneE16" fromLane="0" toLane="1" dir="s" state="M"/>
     <connection from=":cluster_gneJ13_gneJ17_gneJ19_7" to="gneE14" fromLane="0" toLane="1" dir="s" state="M"/>
     <connection from=":cluster_gneJ13_gneJ17_gneJ19_8" to="-gneE13" fromLane="0" toLane="1" via=":cluster_gneJ13_gneJ17_gneJ19_32_0" dir="l" state="m"/>
-    <connection from=":cluster_gneJ13_gneJ17_gneJ19_32" to="-gneE13" fromLane="0" toLane="1" dir="l" state="M"/>
+    <connection from=":cluster_gneJ13_gneJ17_gneJ19_32" to="-gneE13" fromLane="0" toLane="1" dir="l" state="m"/>
     <connection from=":cluster_gneJ13_gneJ17_gneJ19_9" to="gneE18" fromLane="0" toLane="1" via=":cluster_gneJ13_gneJ17_gneJ19_33_0" dir="l" state="m"/>
-    <connection from=":cluster_gneJ13_gneJ17_gneJ19_33" to="gneE18" fromLane="0" toLane="1" dir="l" state="M"/>
+    <connection from=":cluster_gneJ13_gneJ17_gneJ19_33" to="gneE18" fromLane="0" toLane="1" dir="l" state="m"/>
     <connection from=":cluster_gneJ13_gneJ17_gneJ19_10" to="gneE10" fromLane="0" toLane="1" dir="l" state="M"/>
     <connection from=":cluster_gneJ13_gneJ17_gneJ19_11" to="-gneE9" fromLane="0" toLane="1" dir="s" state="M"/>
     <connection from=":cluster_gneJ13_gneJ17_gneJ19_12" to="gneE16" fromLane="0" toLane="1" dir="s" state="M"/>
@@ -597,22 +602,22 @@
     <connection from=":cluster_gneJ13_gneJ17_gneJ19_29" to="-gneE9" fromLane="0" toLane="1" dir="l" state="M"/>
     <connection from=":gneJ11_0" to="-gneE15" fromLane="0" toLane="1" dir="s" state="M"/>
     <connection from=":gneJ11_1" to="-gneE16" fromLane="0" toLane="1" via=":gneJ11_6_0" dir="l" state="m"/>
-    <connection from=":gneJ11_6" to="-gneE16" fromLane="0" toLane="1" dir="l" state="M"/>
+    <connection from=":gneJ11_6" to="-gneE16" fromLane="0" toLane="1" dir="l" state="m"/>
     <connection from=":gneJ11_2" to="gneE8" fromLane="0" toLane="1" dir="r" state="M"/>
     <connection from=":gneJ11_3" to="-gneE15" fromLane="0" toLane="1" dir="l" state="M"/>
     <connection from=":gneJ11_4" to="-gneE16" fromLane="0" toLane="1" via=":gneJ11_7_0" dir="r" state="m"/>
-    <connection from=":gneJ11_7" to="-gneE16" fromLane="0" toLane="1" dir="r" state="M"/>
+    <connection from=":gneJ11_7" to="-gneE16" fromLane="0" toLane="1" dir="r" state="m"/>
     <connection from=":gneJ11_5" to="gneE8" fromLane="0" toLane="1" dir="s" state="M"/>
     <connection from=":gneJ12_0" to="-gneE8" fromLane="0" toLane="1" dir="l" state="M"/>
     <connection from=":gneJ12_1" to="gneE9" fromLane="0" toLane="1" dir="r" state="M"/>
     <connection from=":gneJ14_0" to="-gneE10" fromLane="0" toLane="1" dir="l" state="M"/>
     <connection from=":gneJ14_1" to="gneE11" fromLane="0" toLane="1" dir="r" state="M"/>
     <connection from=":gneJ15_0" to="-gneE18" fromLane="0" toLane="1" via=":gneJ15_6_0" dir="r" state="m"/>
-    <connection from=":gneJ15_6" to="-gneE18" fromLane="0" toLane="1" dir="r" state="M"/>
+    <connection from=":gneJ15_6" to="-gneE18" fromLane="0" toLane="1" dir="r" state="m"/>
     <connection from=":gneJ15_1" to="gneE12" fromLane="0" toLane="1" dir="s" state="M"/>
     <connection from=":gneJ15_2" to="-gneE11" fromLane="0" toLane="1" dir="s" state="M"/>
     <connection from=":gneJ15_3" to="-gneE18" fromLane="0" toLane="1" via=":gneJ15_7_0" dir="l" state="m"/>
-    <connection from=":gneJ15_7" to="-gneE18" fromLane="0" toLane="1" dir="l" state="M"/>
+    <connection from=":gneJ15_7" to="-gneE18" fromLane="0" toLane="1" dir="l" state="m"/>
     <connection from=":gneJ15_4" to="gneE12" fromLane="0" toLane="1" dir="r" state="M"/>
     <connection from=":gneJ15_5" to="-gneE11" fromLane="0" toLane="1" dir="l" state="M"/>
     <connection from=":gneJ16_0" to="gneE13" fromLane="0" toLane="1" dir="r" state="M"/>

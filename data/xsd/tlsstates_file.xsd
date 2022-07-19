@@ -8,6 +8,8 @@
             <xsd:sequence>
                 <xsd:element minOccurs="0" maxOccurs="unbounded" ref="tlsState"/>
             </xsd:sequence>
+        <xsd:attribute name="detectors" use="optional" type="xsd:string"/>
+        <xsd:attribute name="conditions" use="optional" type="xsd:string"/>
         </xsd:complexType>
     </xsd:element>
 
@@ -18,6 +20,9 @@
             <xsd:attribute name="programID" use="required" type="xsd:string"/>
             <xsd:attribute name="phase" use="required" type="xsd:int"/>
             <xsd:attribute name="state" use="required" type="xsd:string"/>
+            <xsd:attribute name="name" use="optional" type="xsd:string"/>
+            <xsd:attribute name="detectors" use="optional" type="xsd:string"/>
+            <xsd:attribute name="conditions" use="optional" type="xsd:string"/>
         </xsd:complexType>
     </xsd:element>
 

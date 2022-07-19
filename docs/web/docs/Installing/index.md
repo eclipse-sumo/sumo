@@ -63,6 +63,20 @@ Fedora can be found at these [repositories for binary Linux versions](http://dow
 These repositories contain nightly builds as well. In the case your
 system is not listed here or you need to modify the sources, [you have to build SUMO from sources](Linux_Build.md).
 
+SUMO's precompiled binary is also available as a Flatpak and is hosted on [Flathub](https://flathub.org/apps/details/org.eclipse.sumo). Any system that supports Flatpak should be able to run SUMO this way. Install Flatpak and add the Flathub repository as [directed here](https://flatpak.org/setup/).
+
+To install SUMO:
+```
+flatpak install flathub org.eclipse.sumo
+```
+There should be a SUMO launcher in your menu.
+
+To uninstall SUMO:
+```
+flatpak remove org.eclipse.sumo
+```
+Send bug reports regarding SUMO packaged as Flatpak [here](https://github.com/flathub/org.eclipse.sumo/issues).
+
 # macOS
 
 SUMO can be easily installed on macOS by using [Homebrew](http://brew.sh). If you did not already install homebrew, you can do so by invoking te following command in a macOS Terminal:
@@ -77,11 +91,12 @@ If you want to use sumo-gui and/or netedit, you need to install XQuartz as a req
 ```
 brew install --cask xquartz
 ```
-You can then install the latest stable release of SUMO with the following commands:
+You can then install the latest stable release of SUMO (with minimal requirements: ```fox```, ```proj```, ```xerces-c```) with the following commands:
 ```
 brew tap dlr-ts/sumo
 brew install sumo
 ```
+If you need to compile SUMO with support for other libraries, such as GDAL, you need to provide further command line options [as described here](https://github.com/DLR-TS/homebrew-sumo#usage).
 To finalize your setup, please make sure to set the **SUMO_HOME** environment variable and have it point to the directory of your SUMO installation. Depending on your shell, you may set this variable either in `.bashrc` or `.zshrc`. To set this variable in `.bashrc` you can use the following commands. 
 ```
 touch ~/.bashrc; open ~/.bashrc

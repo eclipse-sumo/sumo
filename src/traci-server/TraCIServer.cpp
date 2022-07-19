@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2007-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2007-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -49,6 +49,7 @@
 #include <utils/shapes/PointOfInterest.h>
 #include <utils/shapes/ShapeContainer.h>
 #include <utils/xml/XMLSubSys.h>
+#include <libsumo/Helper.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSVehicle.h>
 #include <microsim/MSEdge.h>
@@ -144,6 +145,14 @@ bool
 TraCIServer::wrapStringList(const std::string& /* objID */, const int /* variable */, const std::vector<std::string>& value) {
     myWrapperStorage.writeUnsignedByte(libsumo::TYPE_STRINGLIST);
     myWrapperStorage.writeStringList(value);
+    return true;
+}
+
+
+bool
+TraCIServer::wrapDoubleList(const std::string& /* objID */, const int /* variable */, const std::vector<double>& value) {
+    myWrapperStorage.writeUnsignedByte(libsumo::TYPE_DOUBLELIST);
+    myWrapperStorage.writeDoubleList(value);
     return true;
 }
 
@@ -620,7 +629,7 @@ TraCIServer::processCommandsUntilSimStep(SUMOTime step) {
             while (myCurrentSocket != mySockets.end()) {
 #ifdef DEBUG_MULTI_CLIENTS
                 std::cout << "  current socket: " << myCurrentSocket->second->socket
-                          << " with target time " << myCurrentSocket->second->targetTime
+                          << " with target time=" << myCurrentSocket->second->targetTime
                           << std::endl;
 #endif
 
@@ -628,7 +637,7 @@ TraCIServer::processCommandsUntilSimStep(SUMOTime step) {
                     // this client must wait
 #ifdef DEBUG_MULTI_CLIENTS
                     std::cout <<  "       skipping client " << myCurrentSocket->second->socket
-                              << " with target time " << myCurrentSocket->second->targetTime << std::endl;
+                              << " with target time=" << myCurrentSocket->second->targetTime << std::endl;
 #endif
                     myCurrentSocket++;
                     continue;
@@ -894,38 +903,56 @@ TraCIServer::dispatchCommand() {
                 writeStatusCmd(libsumo::CMD_SETORDER, libsumo::RTYPE_OK, "");
                 break;
             }
+            case libsumo::CMD_SUBSCRIBE_BUSSTOP_VARIABLE:
+            case libsumo::CMD_SUBSCRIBE_CALIBRATOR_VARIABLE:
+            case libsumo::CMD_SUBSCRIBE_CHARGINGSTATION_VARIABLE:
+            case libsumo::CMD_SUBSCRIBE_EDGE_VARIABLE:
+            case libsumo::CMD_SUBSCRIBE_GUI_VARIABLE:
             case libsumo::CMD_SUBSCRIBE_INDUCTIONLOOP_VARIABLE:
-            case libsumo::CMD_SUBSCRIBE_LANEAREA_VARIABLE:
-            case libsumo::CMD_SUBSCRIBE_MULTIENTRYEXIT_VARIABLE:
-            case libsumo::CMD_SUBSCRIBE_TL_VARIABLE:
+            case libsumo::CMD_SUBSCRIBE_JUNCTION_VARIABLE:
             case libsumo::CMD_SUBSCRIBE_LANE_VARIABLE:
-            case libsumo::CMD_SUBSCRIBE_VEHICLE_VARIABLE:
+            case libsumo::CMD_SUBSCRIBE_LANEAREA_VARIABLE:
+            case libsumo::CMD_SUBSCRIBE_MEANDATA_VARIABLE:
+            case libsumo::CMD_SUBSCRIBE_MULTIENTRYEXIT_VARIABLE:
+            case libsumo::CMD_SUBSCRIBE_OVERHEADWIRE_VARIABLE:
+            case libsumo::CMD_SUBSCRIBE_PARKINGAREA_VARIABLE:
             case libsumo::CMD_SUBSCRIBE_PERSON_VARIABLE:
-            case libsumo::CMD_SUBSCRIBE_VEHICLETYPE_VARIABLE:
-            case libsumo::CMD_SUBSCRIBE_ROUTE_VARIABLE:
             case libsumo::CMD_SUBSCRIBE_POI_VARIABLE:
             case libsumo::CMD_SUBSCRIBE_POLYGON_VARIABLE:
-            case libsumo::CMD_SUBSCRIBE_JUNCTION_VARIABLE:
-            case libsumo::CMD_SUBSCRIBE_EDGE_VARIABLE:
+            case libsumo::CMD_SUBSCRIBE_REROUTER_VARIABLE:
+            case libsumo::CMD_SUBSCRIBE_ROUTE_VARIABLE:
+            case libsumo::CMD_SUBSCRIBE_ROUTEPROBE_VARIABLE:
             case libsumo::CMD_SUBSCRIBE_SIM_VARIABLE:
-            case libsumo::CMD_SUBSCRIBE_GUI_VARIABLE:
+            case libsumo::CMD_SUBSCRIBE_TL_VARIABLE:
+            case libsumo::CMD_SUBSCRIBE_VARIABLESPEEDSIGN_VARIABLE:
+            case libsumo::CMD_SUBSCRIBE_VEHICLE_VARIABLE:
+            case libsumo::CMD_SUBSCRIBE_VEHICLETYPE_VARIABLE:
                 success = addObjectVariableSubscription(commandId, false);
                 break;
+            case libsumo::CMD_SUBSCRIBE_BUSSTOP_CONTEXT:
+            case libsumo::CMD_SUBSCRIBE_CALIBRATOR_CONTEXT:
+            case libsumo::CMD_SUBSCRIBE_CHARGINGSTATION_CONTEXT:
+            case libsumo::CMD_SUBSCRIBE_EDGE_CONTEXT:
+            case libsumo::CMD_SUBSCRIBE_GUI_CONTEXT:
             case libsumo::CMD_SUBSCRIBE_INDUCTIONLOOP_CONTEXT:
-            case libsumo::CMD_SUBSCRIBE_LANEAREA_CONTEXT:
-            case libsumo::CMD_SUBSCRIBE_MULTIENTRYEXIT_CONTEXT:
-            case libsumo::CMD_SUBSCRIBE_TL_CONTEXT:
+            case libsumo::CMD_SUBSCRIBE_JUNCTION_CONTEXT:
             case libsumo::CMD_SUBSCRIBE_LANE_CONTEXT:
-            case libsumo::CMD_SUBSCRIBE_VEHICLE_CONTEXT:
+            case libsumo::CMD_SUBSCRIBE_LANEAREA_CONTEXT:
+            case libsumo::CMD_SUBSCRIBE_MEANDATA_CONTEXT:
+            case libsumo::CMD_SUBSCRIBE_MULTIENTRYEXIT_CONTEXT:
+            case libsumo::CMD_SUBSCRIBE_OVERHEADWIRE_CONTEXT:
+            case libsumo::CMD_SUBSCRIBE_PARKINGAREA_CONTEXT:
             case libsumo::CMD_SUBSCRIBE_PERSON_CONTEXT:
-            case libsumo::CMD_SUBSCRIBE_VEHICLETYPE_CONTEXT:
-            case libsumo::CMD_SUBSCRIBE_ROUTE_CONTEXT:
             case libsumo::CMD_SUBSCRIBE_POI_CONTEXT:
             case libsumo::CMD_SUBSCRIBE_POLYGON_CONTEXT:
-            case libsumo::CMD_SUBSCRIBE_JUNCTION_CONTEXT:
-            case libsumo::CMD_SUBSCRIBE_EDGE_CONTEXT:
+            case libsumo::CMD_SUBSCRIBE_REROUTER_CONTEXT:
+            case libsumo::CMD_SUBSCRIBE_ROUTE_CONTEXT:
+            case libsumo::CMD_SUBSCRIBE_ROUTEPROBE_CONTEXT:
             case libsumo::CMD_SUBSCRIBE_SIM_CONTEXT:
-            case libsumo::CMD_SUBSCRIBE_GUI_CONTEXT:
+            case libsumo::CMD_SUBSCRIBE_TL_CONTEXT:
+            case libsumo::CMD_SUBSCRIBE_VARIABLESPEEDSIGN_CONTEXT:
+            case libsumo::CMD_SUBSCRIBE_VEHICLE_CONTEXT:
+            case libsumo::CMD_SUBSCRIBE_VEHICLETYPE_CONTEXT:
                 success = addObjectVariableSubscription(commandId, true);
                 break;
             case libsumo::CMD_ADD_SUBSCRIPTION_FILTER:
@@ -979,7 +1006,7 @@ void
 TraCIServer::postProcessSimulationStep() {
     SUMOTime t = MSNet::getInstance()->getCurrentTimeStep();
 #ifdef DEBUG_MULTI_CLIENTS
-    std::cout << "   postProcessSimulationStep() at time " << t << std::endl;
+    std::cout << "   postProcessSimulationStep() at time=" << t << std::endl;
 #endif
     writeStatusCmd(libsumo::CMD_SIMSTEP, libsumo::RTYPE_OK, "");
     int noActive = 0;
@@ -1233,10 +1260,11 @@ TraCIServer::processSingleSubscription(const libsumo::Subscription& s, tcpip::St
             }
         }
     }
-    int length = (1 + 4) + 1 + (4 + (int)(s.id.length())) + 1 + (int)outputStorage.size();
+    int length = (1 + 4) + 1 + (4 + (int)s.id.length()) + 1 + (int)outputStorage.size();
     if (s.contextDomain > 0) {
-        length += 4;
+        length += 1 + 4;  // context domain and number of objects
     }
+    // we always write extended command length here for backward compatibility
     writeInto.writeUnsignedByte(0); // command length -> extended
     writeInto.writeInt(length);
     writeInto.writeUnsignedByte(s.commandId + 0x10);
@@ -1299,12 +1327,13 @@ TraCIServer::addObjectVariableSubscription(const int commandId, const bool hasCo
 bool
 TraCIServer::addSubscriptionFilter() {
     bool success  = true;
-    if (myLastContextSubscription == nullptr) {
-        WRITE_WARNING("addSubscriptionFilter: No previous vehicle context subscription exists to apply the context filter.");
-        return true;
-    }
     // Read filter type
     int filterType = myInputStorage.readUnsignedByte();
+
+    if (myLastContextSubscription == nullptr) {
+        writeStatusCmd(filterType, libsumo::RTYPE_ERR, "No previous vehicle context subscription exists to apply filter type " + toHex(filterType, 2));
+        return false;
+    }
 
     // dispatch according to filter type
     switch (filterType) {

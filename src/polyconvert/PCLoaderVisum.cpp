@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -376,7 +376,8 @@ PCLoaderVisum::load(const std::string& file, OptionsCont& oc, PCPolyContainer& t
                     while (toFill.getPolygons().get(id) != nullptr) {
                         id = origId + "#" + toString(index++);
                     }
-                    SUMOPolygon* poly = new SUMOPolygon(id, type, color, teilflaechen[flaechenelemente[area]], false, false, 1, layer);
+                    const auto shape = teilflaechen[flaechenelemente[area]];
+                    SUMOPolygon* poly = new SUMOPolygon(id, type, color, shape, false, false, 1, layer);
                     toFill.add(poly);
                 } else {
                     Position pos(x, y);

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2013-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2013-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -20,10 +20,10 @@
 // The base abstract class for SOTL logics
 /****************************************************************************/
 
-#include "MSSOTLTrafficLightLogic.h"
-#include "../MSLane.h"
-#include "../MSEdge.h"
+#include <microsim/MSLane.h>
+#include <microsim/MSEdge.h>
 #include "MSPushButton.h"
+#include "MSSOTLTrafficLightLogic.h"
 //#define SWARM_DEBUG
 //#define ANALYSIS_DEBUG
 
@@ -38,8 +38,8 @@ MSSOTLTrafficLightLogic::MSSOTLTrafficLightLogic(
     const Phases& phases,
     int step,
     SUMOTime delay,
-    const std::map<std::string, std::string>& parameters)
-    : MSPhasedTrafficLightLogic(tlcontrol, id, programID, logicType, phases, step, delay, parameters) {
+    const Parameterised::Map& parameters)
+    : MSPhasedTrafficLightLogic(tlcontrol, id, programID, 0, logicType, phases, step, delay, parameters) {
     this->mySensors = nullptr;
     this->myCountSensors = nullptr;
     sensorsSelfBuilt = true;
@@ -56,9 +56,9 @@ MSSOTLTrafficLightLogic::MSSOTLTrafficLightLogic(
     const Phases& phases,
     int step,
     SUMOTime delay,
-    const std::map<std::string, std::string>& parameters,
+    const Parameterised::Map& parameters,
     MSSOTLSensors* sensors)
-    : MSPhasedTrafficLightLogic(tlcontrol, id, programID, logicType, phases, step, delay, parameters) {
+    : MSPhasedTrafficLightLogic(tlcontrol, id, programID, 0, logicType, phases, step, delay, parameters) {
     this->mySensors = sensors;
     sensorsSelfBuilt = false;
     checkPhases();
@@ -264,18 +264,17 @@ MSSOTLTrafficLightLogic::countVehicles(MSPhaseDefinition phase) {
 
     int accumulator = 0;
     //Iterate over the target lanes for the current target phase to get the number of approaching vehicles
-    MSPhaseDefinition::LaneIdVector targetLanes = phase.getTargetLaneSet();
-    for (MSPhaseDefinition::LaneIdVector::const_iterator laneIterator = targetLanes.begin(); laneIterator != targetLanes.end(); laneIterator++) {
+    for (const std::string& lane : phase.getTargetLaneSet()) {
         //SWITCH between 3 counting vehicles function
         switch (getMode()) {
             case (0):
-                accumulator += mySensors->countVehicles((*laneIterator)); //SUMO
+                accumulator += mySensors->countVehicles(lane); //SUMO
                 break;
             case (1):
-                accumulator += ((MSSOTLE2Sensors*)mySensors)->estimateVehicles((*laneIterator));  //COMPLEX
+                accumulator += ((MSSOTLE2Sensors*)mySensors)->estimateVehicles(lane);  //COMPLEX
                 break;
             case (2):
-                accumulator = MAX2((int)((MSSOTLE2Sensors*)mySensors)->getEstimateQueueLength((*laneIterator)), accumulator);  //QUEUE
+                accumulator = MAX2((int)((MSSOTLE2Sensors*)mySensors)->getEstimateQueueLength(lane), accumulator);  //QUEUE
                 break;
             default:
                 WRITE_ERROR("Unrecognized traffic threshold calculation mode");
@@ -328,7 +327,7 @@ MSSOTLTrafficLightLogic::isThresholdPassed() {
 #ifdef SWARM_DEBUG
             SUMOTime step = MSNet::getInstance()->getCurrentTimeStep();
             std::ostringstream threshold_str;
-            //	threshold_str <<"\tTL " +getID()<<" time " +time2string(step)<< "(getThreshold()= " << getThreshold()
+            //	threshold_str <<"\tTL " +getID()<<" time=" +time2string(step)<< "(getThreshold()= " << getThreshold()
             //		<< ", targetPhaseCTS= " << iterator->second << " )" << " phase="<<getPhase(iterator->first).getState();
             threshold_str << getCurrentPhaseDef().getState() << ";" << time2string(step) << ";" << getThreshold()
                           << ";" << iterator->second << ";" << getPhase(iterator->first).getState() << ";"

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2007-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2007-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -25,6 +25,7 @@
 #include <set>
 #include <vector>
 #include <map>
+#include <thread>
 #include <utils/common/SUMOTime.h>
 #include <utils/common/WrappingCommand.h>
 #include <utils/router/SUMOAbstractRouter.h>
@@ -37,7 +38,6 @@
 #ifdef HAVE_FOX
 #include <utils/foxtools/FXWorkerThread.h>
 #endif
-
 
 // ===========================================================================
 // class definitions
@@ -70,7 +70,7 @@ public:
     /// @brief initialize the edge weights if not done before
     static void initEdgeWeights(SUMOVehicleClass svc);
 
-    /// @brief returns whether any routing actions take place
+    /// @brief returns whether any edge weight updates will take place
     static bool hasEdgeUpdates() {
         return myEdgeWeightSettingCommand != nullptr;
     }
@@ -187,6 +187,9 @@ private:
     /// @brief initialized edge speed storage into the given containers
     static void _initEdgeWeights(std::vector<double>& edgeSpeeds, std::vector<std::vector<double> >& pastEdgeSpeeds);
 
+    /// @brief returns RNG associated with the current thread
+    static SumoRNG* getThreadRNG();
+
 private:
     /// @brief The weights adaptation/overwriting command
     static Command* myEdgeWeightSettingCommand;
@@ -227,6 +230,8 @@ private:
 
     /// @brief The router to use
     static MSRouterProvider* myRouterProvider;
+
+    static std::map<std::thread::id, SumoRNG*> myThreadRNGs;
 
     /// @brief The container of pre-calculated routes
     static std::map<std::pair<const MSEdge*, const MSEdge*>, const MSRoute*> myCachedRoutes;

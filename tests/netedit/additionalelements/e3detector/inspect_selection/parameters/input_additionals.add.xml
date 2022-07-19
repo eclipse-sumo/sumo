@@ -1,0 +1,20 @@
+<additionals>
+    <!-- E3 A -->
+    <entryExitDetector id="entryExitDetector_A" period="100.00" file="entryExitDetector_00.txt" name="A" timeThreshold="1.00" speedThreshold="1.39" pos="7.50,-2">
+        <detEntry lane="gneE1_0" pos="5" friendlyPos="0"/>
+        <detExit lane="gneE1_0" pos="25" friendlyPos="0"/>
+        <param key="keyA1" value="valueA1"/>
+        <param key="keyA2" value="valueA2"/>
+        <param key="keyA3" value="valueA3"/>
+    </entryExitDetector>
+
+    <!-- E3 B -->
+    <entryExitDetector id="entryExitDetector_B" period="120.00" file="entryExitDetector_00.txt" name="B" timeThreshold="2.00" speedThreshold="3.39" pos="17.50,-2">
+        <detEntry lane="gneE1_0" pos="10" friendlyPos="0"/>
+        <detExit lane="gneE1_0" pos="30" friendlyPos="0"/>
+        <param key="keyB1" value="valueB1"/>
+        <param key="keyB2" value="valueB2"/>
+        <param key="keyB3" value="valueB3"/>
+    </entryExitDetector>
+
+</additionals>

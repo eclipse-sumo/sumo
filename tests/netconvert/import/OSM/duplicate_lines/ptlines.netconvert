@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-09-17 10:22:05 by Eclipse SUMO netconvert Version v1_10_0+0759-0b3a782ef3e
+<!-- generated on 2021-12-01 12:01:31 by Eclipse SUMO netconvert Version v1_11_0+0217-deab49b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -37,12 +37,12 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <ptLines xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/ptlines_file.xsd">
-    <ptLine id="1901599" name="Buslinie 104: Neu-Westend, Brixplatz =&gt; Stralau, Tunnelstraße" line="104" type="bus" vClass="bus" color="149,39,110" completeness="1.00">
+    <ptLine id="1901599" name="Buslinie 104: Neu-Westend, Brixplatz =&gt; Stralau, Tunnelstraße" line="104" type="share_taxi" vClass="taxi" color="149,39,110" completeness="1.00">
         <route edges="338412128 7742634 338412126 4619354 245193868 110450334#0 110450334#1 110450334#2 338412122 391493949 391493947 391493950#0 391493950#1 391493952#0 391493952#1 391493952#2 391493954#0 391493954#1 391493954#2 391493954#3 456455657#0 456455657#1 391493953#0 391493953#1 391493946 391493948 456455656 391493951 456455655"/>
         <busStop id="3959807221" name="Kolonnenbrücke"/>
         <busStop id="3959807200" name="Dudenstraße/Katzbachstraße"/>
     </ptLine>
-    <ptLine id="1901600" name="Buslinie 104: Stralau, Tunnelstraße =&gt; Neu-Westend, Brixplatz" line="104" type="bus" vClass="bus" color="149,39,110" completeness="1.00">
+    <ptLine id="1901600" name="Buslinie 104: Stralau, Tunnelstraße =&gt; Neu-Westend, Brixplatz" line="104" type="minibus" vClass="bus" color="149,39,110" completeness="1.00">
         <route edges="-456455655 -391493951 -456455656 -391493948 -391493946 -391493953#1 -391493953#0 -456455657#1 -456455657#0 -391493954#3 -391493954#2 -391493954#1 -391493954#0 -391493952#2 -391493952#1 -391493952#0 -391493950#1 -391493950#0 -391493947 -391493949 -338412122 -110450334#2 -110450334#1 -110450334#0 -245193868 -4619354 -338412126 -7742634 -338412128"/>
         <busStop id="-3959807201" name="Dudenstraße/Katzbachstraße"/>
         <busStop id="-3959807220" name="Kolonnenbrücke"/>

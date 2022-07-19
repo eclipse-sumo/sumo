@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2002-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -146,14 +146,16 @@ GUIParameterTableWindow::onLeftBtnPress(FXObject* sender, FXSelector sel, void* 
         if (i->dynamic() && i->getdoubleSourceCopy() != nullptr) {
             // open tracker directly
             const std::string trackerName = i->getName() + " from " + myObject->getFullName();
-            GUIParameterTracker* tr = new GUIParameterTracker(*myApplication, trackerName);
             TrackerValueDesc* newTracked = new TrackerValueDesc(i->getName(), RGBColor::BLACK, myApplication->getCurrentSimTime(), myApplication->getTrackerInterval());
-            tr->addTracked(*myObject, i->getdoubleSourceCopy(), newTracked);
-            tr->setX(getX() + getWidth() + 10);
-            tr->setY(myTrackerY);
-            tr->create();
-            tr->show();
-            myTrackerY = (myTrackerY + tr->getHeight() + 20) % getApp()->getRootWindow()->getHeight();
+            if (!GUIParameterTracker::addTrackedMultiplot(*myObject, i->getdoubleSourceCopy(), newTracked)) {
+                GUIParameterTracker* tr = new GUIParameterTracker(*myApplication, trackerName);
+                tr->addTracked(*myObject, i->getdoubleSourceCopy(), newTracked);
+                tr->setX(getX() + getWidth() + 10);
+                tr->setY(myTrackerY);
+                tr->create();
+                tr->show();
+                myTrackerY = (myTrackerY + tr->getHeight() + 20) % getApp()->getRootWindow()->getHeight();
+            }
         }
     }
     return FXMainWindow::onLeftBtnPress(sender, sel, eventData);
@@ -249,8 +251,8 @@ GUIParameterTableWindow::closeBuilding(const Parameterised* p) {
         p = dynamic_cast<const Parameterised*>(myObject);
     }
     if (p != nullptr) {
-        const std::map<std::string, std::string>& map = p->getParametersMap();
-        for (std::map<std::string, std::string>::const_iterator it = map.begin(); it != map.end(); ++it) {
+        const Parameterised::Map& map = p->getParametersMap();
+        for (Parameterised::Map::const_iterator it = map.begin(); it != map.end(); ++it) {
             mkItem(("param:" + it->first).c_str(), false, it->second);
         }
     }

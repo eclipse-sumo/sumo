@@ -108,6 +108,11 @@ Count).
 | :---------: | :------------: | :--------------------------------: |
 | filter type | parameter type |          parameter value           |
 
+When adding a context subscription filter, it is applied to the *vehicle* context subscription (command ID 0x84) that was created most recently.
+
+!!! note
+    Context subscription filters are only supported for ego objects of type 'vehicle'.
+
 Currently, the following context subscription filter types are implemented:
 
 | filter name | filter type |   parameter value   |     description     |       uses context range       |

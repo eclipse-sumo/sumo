@@ -1,0 +1,2 @@
+-t tripinfos.xml -a timeLoss tools/output/tripinfoByType.py -o out.xml
+-i 300

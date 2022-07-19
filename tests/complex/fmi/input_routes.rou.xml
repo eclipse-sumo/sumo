@@ -1,0 +1,43 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <route id="r0" edges="WE1 WE2 WE3 WE4"/>
+    <route id="r1" edges="NS3 NS3.2"/>
+    <route id="r3" edges="EW1 SN3"/>
+    <route id="r3.2" edges="EW2 EW3 SN1"/>
+    <route id="r4" edges="SN1.2 SN1"/>
+    <route id="r4.2" edges="SN1.2 EW4"/>
+    <route id="r5" edges="EW1 EW2 EW3 EW4"/>
+    <route id="r5.2" edges="EW1 EW2 NS2.2"/>
+    <route id="r6" edges="NS2 NS2.2"/>
+    <route id="r7" edges="EW1 NS3.2"/>
+    <route id="r7.2" edges="WE3 SN3"/>
+    <route id="r8" edges="SN3.2 EW2 EW3 NS1.2"/>
+
+    <vehicle id="ego" route="r0" depart="0" departPos="0" color="red">
+        <param key="meaningOfLife" value="42"/>
+    </vehicle>
+    <vehicle id="v2" route="r0" depart="0" departPos="10">
+    </vehicle>
+    <vehicle id="v3.2" route="r3.2" depart="0" departPos="10">
+    </vehicle>
+    <vehicle id="v4" route="r4" depart="0" departPos="80">
+    </vehicle>
+    <vehicle id="v5" route="r5" depart="0" departPos="10">
+    </vehicle>
+    <vehicle id="v5.2" route="r5.2" depart="0" departPos="10">
+    </vehicle>
+    <vehicle id="v6" route="r6" depart="0" departPos="0">
+    </vehicle>
+    <vehicle id="v8" route="r0" depart="3" departPos="23">
+    </vehicle>
+    <vehicle id="v4.2" route="r4.2" depart="5" departPos="80">
+    </vehicle>
+    <vehicle id="v7" route="r7" depart="12" departPos="0">
+    </vehicle>
+    <vehicle id="v7.2" route="r7.2" depart="12" departPos="0">
+    </vehicle>
+    <vehicle id="v1" route="r1" depart="15" departPos="0">
+    </vehicle>
+    <vehicle id="v3" route="r3" depart="20" departPos="10">
+    </vehicle>
+
+</routes>

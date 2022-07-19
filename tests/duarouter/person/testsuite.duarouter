@@ -37,3 +37,6 @@ full_plan
 
 # test stages that end at a stopping place (busStop etc)
 stoppingPlace
+
+# mismatch between vehicle stoppingPlace and ride stoppingPlace
+stoppingPlace_mismatch

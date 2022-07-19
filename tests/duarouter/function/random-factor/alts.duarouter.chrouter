@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2021-11-10 20:42:05 by Eclipse SUMO duarouter Version v1_10_0+2133-70660c2
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <output-file value="routes.rou.xml"/>
+        <write-license value="true"/>
+        <alternatives-output value="routes.rou.alt.xml"/>
+    </output>
+
+    <processing>
+        <weights.random-factor value="2"/>
+        <routing-algorithm value="CH"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <person id="ped.0" depart="0.00">
+        <personTrip from="A0B0" to="E5F5" walkFactor="0.75" costs="1234.14"/>
+    </person>
+    <person id="ped.1" depart="1.00">
+        <personTrip from="A0B0" to="E5F5" walkFactor="0.75" costs="1293.51"/>
+    </person>
+    <person id="ped.2" depart="2.00">
+        <personTrip from="A0B0" to="E5F5" walkFactor="0.75" costs="1187.28"/>
+    </person>
+    <person id="ped.3" depart="3.00">
+        <personTrip from="A0B0" to="E5F5" walkFactor="0.75" costs="1301.83"/>
+    </person>
+    <person id="ped.4" depart="4.00">
+        <personTrip from="A0B0" to="E5F5" walkFactor="0.75" costs="1301.89"/>
+    </person>
+    <person id="ped.5" depart="5.00">
+        <personTrip from="A0B0" to="E5F5" walkFactor="0.75" costs="1129.82"/>
+    </person>
+    <person id="ped.6" depart="6.00">
+        <personTrip from="A0B0" to="E5F5" walkFactor="0.75" costs="1369.51"/>
+    </person>
+    <person id="ped.7" depart="7.00">
+        <personTrip from="A0B0" to="E5F5" walkFactor="0.75" costs="1260.71"/>
+    </person>
+    <person id="ped.8" depart="8.00">
+        <personTrip from="A0B0" to="E5F5" walkFactor="0.75" costs="1398.55"/>
+    </person>
+    <person id="ped.9" depart="9.00">
+        <personTrip from="A0B0" to="E5F5" walkFactor="0.75" costs="1351.76"/>
+    </person>
+    <person id="ped.10" depart="10.00">
+        <personTrip from="A0B0" to="E5F5" walkFactor="0.75" costs="1365.85"/>
+    </person>
+    <person id="ped.11" depart="11.00">
+        <personTrip from="A0B0" to="E5F5" walkFactor="0.75" costs="1186.41"/>
+    </person>
+    <person id="ped.12" depart="12.00">
+        <personTrip from="A0B0" to="E5F5" walkFactor="0.75" costs="1311.38"/>
+    </person>
+    <person id="ped.13" depart="13.00">
+        <personTrip from="A0B0" to="E5F5" walkFactor="0.75" costs="1339.70"/>
+    </person>
+    <person id="ped.14" depart="14.00">
+        <personTrip from="A0B0" to="E5F5" walkFactor="0.75" costs="1306.46"/>
+    </person>
+    <person id="ped.15" depart="15.00">
+        <personTrip from="A0B0" to="E5F5" walkFactor="0.75" costs="1296.22"/>
+    </person>
+    <person id="ped.16" depart="16.00">
+        <personTrip from="A0B0" to="E5F5" walkFactor="0.75" costs="1412.97"/>
+    </person>
+    <person id="ped.17" depart="17.00">
+        <personTrip from="A0B0" to="E5F5" walkFactor="0.75" costs="1371.64"/>
+    </person>
+    <person id="ped.18" depart="18.00">
+        <personTrip from="A0B0" to="E5F5" walkFactor="0.75" costs="1492.70"/>
+    </person>
+    <person id="ped.19" depart="19.00">
+        <personTrip from="A0B0" to="E5F5" walkFactor="0.75" costs="1309.16"/>
+    </person>
+    <vehicle id="cars.0" depart="30.00">
+        <routeDistribution last="0">
+            <route cost="98.55" probability="1.00000000" edges="A5B5 B5B4 B4B3 B3C3 C3D3 D3D2 D2D1 D1D0 D0E0 E0F0"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="cars.1" depart="31.00">
+        <routeDistribution last="0">
+            <route cost="99.39" probability="1.00000000" edges="A5B5 B5B4 B4B3 B3C3 C3D3 D3D2 D2D1 D1D0 D0E0 E0F0"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="cars.2" depart="32.00">
+        <routeDistribution last="0">
+            <route cost="104.03" probability="1.00000000" edges="A5B5 B5B4 B4B3 B3C3 C3D3 D3D2 D2D1 D1D0 D0E0 E0F0"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="cars.3" depart="33.00">
+        <routeDistribution last="0">
+            <route cost="94.56" probability="1.00000000" edges="A5B5 B5B4 B4B3 B3C3 C3D3 D3D2 D2D1 D1D0 D0E0 E0F0"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="cars.4" depart="34.00">
+        <routeDistribution last="0">
+            <route cost="108.65" probability="1.00000000" edges="A5B5 B5B4 B4B3 B3C3 C3D3 D3D2 D2D1 D1D0 D0E0 E0F0"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="cars.5" depart="35.00">
+        <routeDistribution last="0">
+            <route cost="108.92" probability="1.00000000" edges="A5B5 B5B4 B4B3 B3C3 C3D3 D3D2 D2D1 D1D0 D0E0 E0F0"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="cars.6" depart="36.00">
+        <routeDistribution last="0">
+            <route cost="113.67" probability="1.00000000" edges="A5B5 B5B4 B4B3 B3C3 C3D3 D3D2 D2D1 D1D0 D0E0 E0F0"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="cars.7" depart="37.00">
+        <routeDistribution last="0">
+            <route cost="107.89" probability="1.00000000" edges="A5B5 B5B4 B4B3 B3C3 C3D3 D3D2 D2D1 D1D0 D0E0 E0F0"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="cars.8" depart="38.00">
+        <routeDistribution last="0">
+            <route cost="105.34" probability="1.00000000" edges="A5B5 B5B4 B4B3 B3C3 C3D3 D3D2 D2D1 D1D0 D0E0 E0F0"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="cars.9" depart="39.00">
+        <routeDistribution last="0">
+            <route cost="111.57" probability="1.00000000" edges="A5B5 B5B4 B4B3 B3C3 C3D3 D3D2 D2D1 D1D0 D0E0 E0F0"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="cars.10" depart="40.00">
+        <routeDistribution last="0">
+            <route cost="105.92" probability="1.00000000" edges="A5B5 B5B4 B4B3 B3C3 C3D3 D3D2 D2D1 D1D0 D0E0 E0F0"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="cars.11" depart="41.00">
+        <routeDistribution last="0">
+            <route cost="112.41" probability="1.00000000" edges="A5B5 B5B4 B4B3 B3C3 C3D3 D3D2 D2D1 D1D0 D0E0 E0F0"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="cars.12" depart="42.00">
+        <routeDistribution last="0">
+            <route cost="105.84" probability="1.00000000" edges="A5B5 B5B4 B4B3 B3C3 C3D3 D3D2 D2D1 D1D0 D0E0 E0F0"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="cars.13" depart="43.00">
+        <routeDistribution last="0">
+            <route cost="121.74" probability="1.00000000" edges="A5B5 B5B4 B4B3 B3C3 C3D3 D3D2 D2D1 D1D0 D0E0 E0F0"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="cars.14" depart="44.00">
+        <routeDistribution last="0">
+            <route cost="111.91" probability="1.00000000" edges="A5B5 B5B4 B4B3 B3C3 C3D3 D3D2 D2D1 D1D0 D0E0 E0F0"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="cars.15" depart="45.00">
+        <routeDistribution last="0">
+            <route cost="118.07" probability="1.00000000" edges="A5B5 B5B4 B4B3 B3C3 C3D3 D3D2 D2D1 D1D0 D0E0 E0F0"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="cars.16" depart="46.00">
+        <routeDistribution last="0">
+            <route cost="107.04" probability="1.00000000" edges="A5B5 B5B4 B4B3 B3C3 C3D3 D3D2 D2D1 D1D0 D0E0 E0F0"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="cars.17" depart="47.00">
+        <routeDistribution last="0">
+            <route cost="119.40" probability="1.00000000" edges="A5B5 B5B4 B4B3 B3C3 C3D3 D3D2 D2D1 D1D0 D0E0 E0F0"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="cars.18" depart="48.00">
+        <routeDistribution last="0">
+            <route cost="97.78" probability="1.00000000" edges="A5B5 B5B4 B4B3 B3C3 C3D3 D3D2 D2D1 D1D0 D0E0 E0F0"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="cars.19" depart="49.00">
+        <routeDistribution last="0">
+            <route cost="102.89" probability="1.00000000" edges="A5B5 B5B4 B4B3 B3C3 C3D3 D3D2 D2D1 D1D0 D0E0 E0F0"/>
+        </routeDistribution>
+    </vehicle>
+</routes>

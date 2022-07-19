@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -62,7 +62,7 @@ GNEPerson::GNEPersonPopupMenu::GNEPersonPopupMenu(GNEPerson* person, GUIMainWind
     myPerson->buildPopupHeader(this, app);
     // build menu command for center button and copy cursor position to clipboard
     myPerson->buildCenterPopupEntry(this);
-    myPerson->buildPositionCopyEntry(this, false);
+    myPerson->buildPositionCopyEntry(this, app);
     // buld menu commands for names
     GUIDesigns::buildFXMenuCommand(this, ("Copy " + myPerson->getTagStr() + " name to clipboard").c_str(), nullptr, this, MID_COPY_NAME);
     GUIDesigns::buildFXMenuCommand(this, ("Copy " + myPerson->getTagStr() + " typed name to clipboard").c_str(), nullptr, this, MID_COPY_TYPED_NAME);
@@ -78,7 +78,7 @@ GNEPerson::GNEPersonPopupMenu::GNEPersonPopupMenu(GNEPerson* person, GUIMainWind
         new FXMenuCascade(this, "transform to", nullptr, transformOperation);
         // Create menu comands for all transformations
         myTransformToPerson = GUIDesigns::buildFXMenuCommand(transformOperation, "Person", GUIIconSubSys::getIcon(GUIIcon::PERSON), this, MID_GNE_PERSON_TRANSFORM);
-        myTransformToPersonFlow = GUIDesigns::buildFXMenuCommand(transformOperation, "Person (embedded route)", GUIIconSubSys::getIcon(GUIIcon::PERSONFLOW), this, MID_GNE_PERSON_TRANSFORM);
+        myTransformToPersonFlow = GUIDesigns::buildFXMenuCommand(transformOperation, "PersonFlow", GUIIconSubSys::getIcon(GUIIcon::PERSONFLOW), this, MID_GNE_PERSON_TRANSFORM);
         // check what menu command has to be disabled
         if (myPerson->getTagProperty().getTag() == SUMO_TAG_PERSON) {
             myTransformToPerson->disable();
@@ -117,7 +117,7 @@ GNEPerson::GNESelectedPersonsPopupMenu::GNESelectedPersonsPopupMenu(GNEPerson* p
     person->buildPopupHeader(this, app);
     // build menu command for center button and copy cursor position to clipboard
     person->buildCenterPopupEntry(this);
-    person->buildPositionCopyEntry(this, false);
+    person->buildPositionCopyEntry(this, app);
     // buld menu commands for names
     GUIDesigns::buildFXMenuCommand(this, ("Copy " + person->getTagStr() + " name to clipboard").c_str(), nullptr, this, MID_COPY_NAME);
     GUIDesigns::buildFXMenuCommand(this, ("Copy " + person->getTagStr() + " typed name to clipboard").c_str(), nullptr, this, MID_COPY_TYPED_NAME);
@@ -160,12 +160,25 @@ GNEPerson::GNESelectedPersonsPopupMenu::onCmdTransform(FXObject* obj, FXSelector
 // member method definitions
 // ===========================================================================
 
+GNEPerson::GNEPerson(SumoXMLTag tag, GNENet* net) :
+    GNEDemandElement("", net, GLO_PERSON, tag, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
+{}, {}, {}, {}, {}, {}) {
+    // reset default values
+    resetDefaultValues();
+    // set end and vehPerHours
+    toggleAttribute(SUMO_ATTR_END, 1);
+    toggleAttribute(SUMO_ATTR_PERSONSPERHOUR, 1);
+}
+
+
 GNEPerson::GNEPerson(SumoXMLTag tag, GNENet* net, GNEDemandElement* pType, const SUMOVehicleParameter& personparameters) :
-    GNEDemandElement(personparameters.id, net, (tag == SUMO_TAG_PERSONFLOW) ? GLO_PERSONFLOW : GLO_PERSON, tag,
-{}, {}, {}, {}, {}, {}, {pType}, {}),
+    GNEDemandElement(personparameters.id, net, (tag == SUMO_TAG_PERSONFLOW) ? GLO_PERSONFLOW : GLO_PERSON, tag, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
+{}, {}, {}, {}, {pType}, {}),
 SUMOVehicleParameter(personparameters) {
     // set manually vtypeID (needed for saving)
     vtypeid = pType->getID();
+    // adjust default flow attributes
+    adjustDefaultFlowAttributes(this);
 }
 
 
@@ -173,7 +186,7 @@ GNEPerson::~GNEPerson() {}
 
 
 GNEMoveOperation*
-GNEPerson::getMoveOperation(const double /*shapeOffset*/) {
+GNEPerson::getMoveOperation() {
     // check first person plan
     if (getChildDemandElements().front()->getTagProperty().isStopPerson()) {
         return nullptr;
@@ -193,13 +206,8 @@ GNEPerson::getMoveOperation(const double /*shapeOffset*/) {
 
 std::string
 GNEPerson::getBegin() const {
-    // obtain depart depending if is a Person, trip or routeFlow
-    std::string departStr;
-    if (myTagProperty.getTag() == SUMO_TAG_PERSONFLOW) {
-        departStr = toString(depart);
-    } else {
-        departStr = getDepart();
-    }
+    // obtain depart
+    std::string departStr = depart < 0 ? "0.00" : time2string(depart);
     // we need to handle depart as a tuple of 20 numbers (format: 000000...00<departTime>)
     departStr.reserve(20 - departStr.size());
     // add 0s at the beginning of departStr until we have 20 numbers
@@ -239,6 +247,9 @@ GNEPerson::writeDemandElement(OutputDevice& device) const {
         if (isAttributeEnabled(SUMO_ATTR_PERIOD)) {
             device.writeAttr(SUMO_ATTR_PERIOD, time2string(repetitionOffset));
         }
+        if (isAttributeEnabled(GNE_ATTR_POISSON)) {
+            device.writeAttr(SUMO_ATTR_PERIOD, "exp(" + time2string(repetitionOffset) + ")");
+        }
         if (isAttributeEnabled(SUMO_ATTR_PROB)) {
             device.writeAttr(SUMO_ATTR_PROB, repetitionProbability);
         }
@@ -254,17 +265,23 @@ GNEPerson::writeDemandElement(OutputDevice& device) const {
 }
 
 
-bool
+GNEDemandElement::Problem
 GNEPerson::isDemandElementValid() const {
-    // a single person is always valid
-    return true;
+    if (getChildDemandElements().size() == 0) {
+        return Problem::NO_PLANS;
+    } else {
+        return Problem::OK;
+    }
 }
 
 
 std::string
 GNEPerson::getDemandElementProblem() const {
-    // A single person cannot habe problem (but their children)
-    return "";
+    if (getChildDemandElements().size() == 0) {
+        return "Person needs at least one plan";
+    } else {
+        return "";
+    }
 }
 
 
@@ -314,6 +331,12 @@ GNEPerson::getParentName() const {
 }
 
 
+double
+GNEPerson::getExaggeration(const GUIVisualizationSettings& s) const {
+    return s.personSize.getExaggeration(s, this, 80);
+}
+
+
 Boundary
 GNEPerson::getCenteringBoundary() const {
     Boundary personBoundary;
@@ -354,7 +377,7 @@ GNEPerson::drawGL(const GUIVisualizationSettings& s) const {
     // continue if person can be drawn
     if (drawPerson) {
         // obtain exaggeration (and add the special personExaggeration)
-        const double exaggeration = s.personSize.getExaggeration(s, this, 80) + s.detailSettings.personExaggeration;
+        const double exaggeration = getExaggeration(s) + s.detailSettings.personExaggeration;
         // obtain width and length
         const double length = getParentDemandElements().at(0)->getAttributeDouble(SUMO_ATTR_LENGTH);
         const double width = getParentDemandElements().at(0)->getAttributeDouble(SUMO_ATTR_WIDTH);
@@ -380,34 +403,34 @@ GNEPerson::drawGL(const GUIVisualizationSettings& s) const {
             // set scale
             glScaled(exaggeration, exaggeration, 1);
             // draw person depending of detail level
-            if (s.drawDetail(s.detailSettings.personShapes, exaggeration)) {
-                GUIBasePersonHelper::drawAction_drawAsImage(0, length, width, file, SVS_PEDESTRIAN, exaggeration);
-            } else if (s.drawDetail(s.detailSettings.personCircles, exaggeration)) {
-                GUIBasePersonHelper::drawAction_drawAsCircle(length, width, s.scale * exaggeration);
-            } else if (s.drawDetail(s.detailSettings.personTriangles, exaggeration)) {
+            if (s.personQuality >= 2) {
+                GUIBasePersonHelper::drawAction_drawAsImage(0, length, width, file, SUMOVehicleShape::PEDESTRIAN, exaggeration);
+            } else if (s.personQuality == 1) {
+                GUIBasePersonHelper::drawAction_drawAsCenteredCircle(length / 2, width / 2, s.scale * exaggeration);
+            } else if (s.personQuality == 0) {
                 GUIBasePersonHelper::drawAction_drawAsTriangle(0, length, width);
             }
-            // draw lock icon
-            GNEViewNetHelper::LockIcon::drawLockIcon(GLO_PERSON, this, personPosition, exaggeration);
             // pop matrix
             GLHelper::popMatrix();
             // pop name
             GLHelper::popName();
             // draw name
             drawName(personPosition, s.scale, s.personName, s.angle);
-            if (s.personValue.show) {
+            if (s.personValue.show(this)) {
                 Position personValuePosition = personPosition + Position(0, 0.6 * s.personName.scaledSize(s.scale));
                 const double value = getColorValue(s, s.personColorer.getActive());
                 GLHelper::drawTextSettings(s.personValue, toString(value), personValuePosition, s.scale, s.angle, GLO_MAX - getType());
             }
+            // draw lock icon
+            GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), personPosition, exaggeration);
             // check if dotted contours has to be drawn
-            if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
+            if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
                 // draw using drawDottedSquaredShape
-                GNEGeometry::drawDottedSquaredShape(GNEGeometry::DottedContourType::INSPECT, s, personPosition, 0.5, 0.5, 0, 0, 0, exaggeration);
+                GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::INSPECT, s, personPosition, 0.5, 0.5, 0, 0, 0, exaggeration);
             }
-            if (s.drawDottedContour() || myNet->getViewNet()->getFrontAttributeCarrier() == this) {
+            if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
                 // draw using drawDottedSquaredShape
-                GNEGeometry::drawDottedSquaredShape(GNEGeometry::DottedContourType::FRONT, s, personPosition, 0.5, 0.5, 0, 0, 0, exaggeration);
+                GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::FRONT, s, personPosition, 0.5, 0.5, 0, 0, 0, exaggeration);
             }
         }
     }
@@ -455,7 +478,7 @@ GNEPerson::getAttribute(SumoXMLAttr key) const {
     std::string error;
     switch (key) {
         case SUMO_ATTR_ID:
-            return getID();
+            return getMicrosimID();
         case SUMO_ATTR_TYPE:
             return getParentDemandElements().at(0)->getID();
         case SUMO_ATTR_COLOR:
@@ -472,15 +495,25 @@ GNEPerson::getAttribute(SumoXMLAttr key) const {
             }
         // Specific of persons
         case SUMO_ATTR_DEPART:
-            return toString(depart);
-        // Specific of personFlows
         case SUMO_ATTR_BEGIN:
-            return time2string(depart);
+            if (departProcedure == DepartDefinition::TRIGGERED) {
+                return "triggered";
+            } else if (departProcedure == DepartDefinition::CONTAINER_TRIGGERED) {
+                return "containerTriggered";
+            } else if (departProcedure == DepartDefinition::SPLIT) {
+                return "split";
+            } else if (departProcedure == DepartDefinition::NOW) {
+                return "now";
+            } else {
+                return time2string(depart);
+            }
+        // Specific of personFlows
         case SUMO_ATTR_END:
             return time2string(repetitionEnd);
         case SUMO_ATTR_PERSONSPERHOUR:
             return toString(3600 / STEPS2TIME(repetitionOffset));
         case SUMO_ATTR_PERIOD:
+        case GNE_ATTR_POISSON:
             return time2string(repetitionOffset);
         case SUMO_ATTR_PROB:
             return toString(repetitionProbability);
@@ -500,6 +533,9 @@ GNEPerson::getAttribute(SumoXMLAttr key) const {
 double
 GNEPerson::getAttributeDouble(SumoXMLAttr key) const {
     switch (key) {
+        case SUMO_ATTR_DEPART:
+        case SUMO_ATTR_BEGIN:
+            return STEPS2TIME(depart);
         case SUMO_ATTR_DEPARTPOS:
             if (departPosProcedure == DepartPosDefinition::GIVEN) {
                 return departPos;
@@ -521,6 +557,8 @@ GNEPerson::getAttributePosition(SumoXMLAttr key) const {
             // first check if first person plan is a stop
             if (personPlan->getTagProperty().isStopPerson()) {
                 return personPlan->getPositionInView();
+            } else if (personPlan->getParentJunctions().size() > 0) {
+                return personPlan->getParentJunctions().front()->getPositionInView();
             } else {
                 // declare lane lane
                 GNELane* lane = nullptr;
@@ -555,12 +593,13 @@ GNEPerson::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* 
         case SUMO_ATTR_DEPARTPOS:
         // Specific of persons
         case SUMO_ATTR_DEPART:
-        // Specific of personFlows
         case SUMO_ATTR_BEGIN:
+        // Specific of personFlows
         case SUMO_ATTR_END:
         case SUMO_ATTR_NUMBER:
         case SUMO_ATTR_PERSONSPERHOUR:
         case SUMO_ATTR_PERIOD:
+        case GNE_ATTR_POISSON:
         case SUMO_ATTR_PROB:
         //
         case GNE_ATTR_PARAMETERS:
@@ -581,67 +620,56 @@ GNEPerson::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
             // Persons and personflows share namespace
             if (SUMOXMLDefinitions::isValidVehicleID(value) &&
-                    (myNet->retrieveDemandElement(SUMO_TAG_PERSON, value, false) == nullptr) &&
-                    (myNet->retrieveDemandElement(SUMO_TAG_PERSONFLOW, value, false) == nullptr)) {
+                    (myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_PERSON, value, false) == nullptr) &&
+                    (myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_PERSONFLOW, value, false) == nullptr)) {
                 return true;
             } else {
                 return false;
             }
         case SUMO_ATTR_TYPE:
-            return SUMOXMLDefinitions::isValidTypeID(value) && (myNet->retrieveDemandElement(SUMO_TAG_VTYPE, value, false) != nullptr);
+            return SUMOXMLDefinitions::isValidTypeID(value) && (myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, value, false) != nullptr);
         case SUMO_ATTR_COLOR:
             return canParse<RGBColor>(value);
         case SUMO_ATTR_DEPARTPOS: {
             double dummyDepartPos;
             DepartPosDefinition dummyDepartPosProcedure;
-            parseDepartPos(value, toString(SUMO_TAG_VEHICLE), id, dummyDepartPos, dummyDepartPosProcedure, error);
+            parseDepartPos(value, toString(SUMO_TAG_PERSON), id, dummyDepartPos, dummyDepartPosProcedure, error);
             // if error is empty, given value is valid
             return error.empty();
         }
         // Specific of persons
-        case SUMO_ATTR_DEPART: {
-            if (canParse<double>(value)) {
-                return (parse<double>(value) >= 0);
-            } else {
-                return false;
-            }
+        case SUMO_ATTR_DEPART:
+        case SUMO_ATTR_BEGIN: {
+            SUMOTime dummyDepart;
+            DepartDefinition dummyDepartProcedure;
+            parseDepart(value, toString(SUMO_TAG_PERSON), id, dummyDepart, dummyDepartProcedure, error);
+            // if error is empty, given value is valid
+            return error.empty();
         }
         // Specific of personflows
-        case SUMO_ATTR_BEGIN:
-            if (canParse<double>(value)) {
-                return (parse<double>(value) >= 0);
-            } else {
-                return false;
-            }
         case SUMO_ATTR_END:
-            if (value.empty()) {
-                return true;
-            } else if (canParse<double>(value)) {
+            if (canParse<double>(value)) {
                 return (parse<double>(value) >= 0);
             } else {
                 return false;
             }
         case SUMO_ATTR_PERSONSPERHOUR:
-            if (value.empty()) {
-                return true;
-            } else if (canParse<double>(value)) {
+            if (canParse<double>(value)) {
                 return (parse<double>(value) > 0);
             } else {
                 return false;
             }
         case SUMO_ATTR_PERIOD:
-            if (value.empty()) {
-                return true;
-            } else if (canParse<double>(value)) {
+        case GNE_ATTR_POISSON:
+            if (canParse<double>(value)) {
                 return (parse<double>(value) > 0);
             } else {
                 return false;
             }
         case SUMO_ATTR_PROB:
-            if (value.empty()) {
-                return true;
-            } else if (canParse<double>(value)) {
-                return (parse<double>(value) >= 0);
+            if (canParse<double>(value)) {
+                const double prob = parse<double>(value);
+                return ((prob >= 0) && (prob <= 1));
             } else {
                 return false;
             }
@@ -664,18 +692,35 @@ GNEPerson::isValid(SumoXMLAttr key, const std::string& value) {
 
 void
 GNEPerson::enableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
-    // obtain a copy of parameter sets
-    int newParametersSet = parametersSet;
-    // modify newParametersSet
-    GNERouteHandler::setFlowParameters(key, newParametersSet);
-    // add GNEChange_EnableAttribute
-    undoList->add(new GNEChange_EnableAttribute(this, parametersSet, newParametersSet), true);
+    switch (key) {
+        case SUMO_ATTR_END:
+        case SUMO_ATTR_NUMBER:
+        case SUMO_ATTR_PERSONSPERHOUR:
+        case SUMO_ATTR_PERIOD:
+        case GNE_ATTR_POISSON:
+        case SUMO_ATTR_PROB:
+            undoList->add(new GNEChange_EnableAttribute(this, key, true, parametersSet), true);
+            return;
+        default:
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+    }
 }
 
 
 void
-GNEPerson::disableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
-    // nothing to disable
+GNEPerson::disableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
+    switch (key) {
+        case SUMO_ATTR_END:
+        case SUMO_ATTR_NUMBER:
+        case SUMO_ATTR_PERSONSPERHOUR:
+        case SUMO_ATTR_PERIOD:
+        case GNE_ATTR_POISSON:
+        case SUMO_ATTR_PROB:
+            undoList->add(new GNEChange_EnableAttribute(this, key, false, parametersSet), true);
+            return;
+        default:
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+    }
 }
 
 
@@ -690,6 +735,8 @@ GNEPerson::isAttributeEnabled(SumoXMLAttr key) const {
             return (parametersSet & VEHPARS_VPH_SET) != 0;
         case SUMO_ATTR_PERIOD:
             return (parametersSet & VEHPARS_PERIOD_SET) != 0;
+        case GNE_ATTR_POISSON:
+            return (parametersSet & VEHPARS_POISSON_SET) != 0;
         case SUMO_ATTR_PROB:
             return (parametersSet & VEHPARS_PROB_SET) != 0;
         default:
@@ -706,31 +753,11 @@ GNEPerson::getPopUpID() const {
 
 std::string
 GNEPerson::getHierarchyName() const {
-    // special case for Trips and flow
-    if ((myTagProperty.getTag() == SUMO_TAG_TRIP) || (myTagProperty.getTag() == SUMO_TAG_FLOW)) {
-        // check if we're inspecting a Edge
-        if (myNet->getViewNet()->getInspectedAttributeCarriers().front() &&
-                myNet->getViewNet()->getInspectedAttributeCarriers().front()->getTagProperty().getTag() == SUMO_TAG_EDGE) {
-            // check if edge correspond to a "from", "to" or "via" edge
-            if (myNet->getViewNet()->isAttributeCarrierInspected(getParentEdges().front())) {
-                return getTagStr() + ": " + getAttribute(SUMO_ATTR_ID) + " (from)";
-            } else if (myNet->getViewNet()->isAttributeCarrierInspected(getParentEdges().front())) {
-                return getTagStr() + ": " + getAttribute(SUMO_ATTR_ID) + " (to)";
-            } else {
-                // iterate over via
-                for (const auto& i : via) {
-                    if (i == myNet->getViewNet()->getInspectedAttributeCarriers().front()->getID()) {
-                        return getTagStr() + ": " + getAttribute(SUMO_ATTR_ID) + " (via)";
-                    }
-                }
-            }
-        }
-    }
     return getTagStr() + ": " + getAttribute(SUMO_ATTR_ID);
 }
 
 
-const std::map<std::string, std::string>&
+const Parameterised::Map&
 GNEPerson::getACParametersMap() const {
     return getParametersMap();
 }
@@ -819,16 +846,21 @@ GNEPerson::setAttribute(SumoXMLAttr key, const std::string& value) {
     std::string error;
     switch (key) {
         case SUMO_ATTR_ID:
-            myNet->getAttributeCarriers()->updateID(this, value);
+            // update microsimID
+            setMicrosimID(value);
+            // update id
+            id = value;
             // Change IDs of all person plans children
             for (const auto& personPlans : getChildDemandElements()) {
                 personPlans->setMicrosimID(getID());
             }
             break;
         case SUMO_ATTR_TYPE:
-            replaceDemandElementParent(SUMO_TAG_PTYPE, value, 0);
-            // set manually vtypeID (needed for saving)
-            vtypeid = value;
+            if (getID().size() > 0) {
+                replaceDemandElementParent(SUMO_TAG_VTYPE, value, 0);
+                // set manually vtypeID (needed for saving)
+                vtypeid = value;
+            }
             break;
         case SUMO_ATTR_COLOR:
             if (!value.empty() && (value != myTagProperty.getDefaultValue(key))) {
@@ -844,12 +876,12 @@ GNEPerson::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_DEPARTPOS:
             if (!value.empty() && (value != myTagProperty.getDefaultValue(key))) {
-                parseDepartPos(value, toString(SUMO_TAG_VEHICLE), id, departPos, departPosProcedure, error);
+                parseDepartPos(value, toString(SUMO_TAG_PERSON), id, departPos, departPosProcedure, error);
                 // mark parameter as set
                 parametersSet |= VEHPARS_DEPARTPOS_SET;
             } else {
                 // set default value
-                parseDepartPos(myTagProperty.getDefaultValue(key), toString(SUMO_TAG_VEHICLE), id, departPos, departPosProcedure, error);
+                parseDepartPos(myTagProperty.getDefaultValue(key), toString(SUMO_TAG_PERSON), id, departPos, departPosProcedure, error);
                 // unset parameter
                 parametersSet &= ~VEHPARS_DEPARTPOS_SET;
             }
@@ -857,15 +889,12 @@ GNEPerson::setAttribute(SumoXMLAttr key, const std::string& value) {
             updateGeometry();
             break;
         // Specific of persons
-        case SUMO_ATTR_DEPART: {
-            parseDepart(value, toString(SUMO_TAG_VEHICLE), id, depart, departProcedure, error);
+        case SUMO_ATTR_DEPART:
+        case SUMO_ATTR_BEGIN: {
+            parseDepart(value, toString(SUMO_TAG_PERSON), id, depart, departProcedure, error);
             break;
         }
         // Specific of personFlows
-        case SUMO_ATTR_BEGIN: {
-            depart = string2time(value);
-            break;
-        }
         case SUMO_ATTR_END:
             repetitionEnd = string2time(value);
             break;
@@ -873,6 +902,7 @@ GNEPerson::setAttribute(SumoXMLAttr key, const std::string& value) {
             repetitionOffset = TIME2STEPS(3600 / parse<double>(value));
             break;
         case SUMO_ATTR_PERIOD:
+        case GNE_ATTR_POISSON:
             repetitionOffset = string2time(value);
             break;
         case SUMO_ATTR_PROB:
@@ -899,8 +929,9 @@ GNEPerson::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 
 void
-GNEPerson::setEnabledAttribute(const int enabledAttributes) {
-    parametersSet = enabledAttributes;
+GNEPerson::toggleAttribute(SumoXMLAttr key, const bool value) {
+    // set flow parameters
+    setFlowParameters(this, key, value);
 }
 
 
@@ -915,7 +946,7 @@ void GNEPerson::setMoveShape(const GNEMoveResult& moveResult) {
 
 void
 GNEPerson::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
-    undoList->begin("departPos of " + getTagStr());
+    undoList->begin(myTagProperty.getGUIIcon(), "departPos of " + getTagStr());
     // now set departPos
     setAttribute(SUMO_ATTR_DEPARTPOS, toString(moveResult.newFirstPos), undoList);
     undoList->end();

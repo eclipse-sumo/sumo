@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-01-13 12:56:59 by Eclipse SUMO netedit Version v1_11_0+1063-8400cadde28
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="prt.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="prt.net.xml"/>
+        <plain-output-prefix value="C:\Users\behr_mi\Projekte\sumo\repos\sumo\tests\_9868_joined_networks\prt_infra\pp"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <report>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+-->
+
+<edges version="1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="Hospital" from="gneJ54" to="gneJ87" priority="-1" numLanes="1" speed="13.89" width="1.50"/>
+    <edge id="Hospital_arrival" from="gneJ131" to="gneJ54" priority="-1" numLanes="1" speed="13.89" width="1.50"/>
+</edges>

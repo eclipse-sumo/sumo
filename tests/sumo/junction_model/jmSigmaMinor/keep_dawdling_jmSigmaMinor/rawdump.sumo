@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Aug 20 15:04:01 2018 by Eclipse SUMO Version 1b3859b
+<!-- generated on 2022-01-11 14:52:58 by Eclipse SUMO sumo Version v1_11_0+1028-cba2d9f
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -24,6 +24,7 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
         <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -42,7 +43,7 @@ SPDX-License-Identifier: EPL-2.0
     <timestep time="1.00">
         <edge id="EC">
             <lane id="EC_0">
-                <vehicle id="noprio" pos="13.89" speed="12.00"/>
+                <vehicle id="noprio" pos="13.89" speed="13.89"/>
             </lane>
         </edge>
     </timestep>
@@ -84,56 +85,56 @@ SPDX-License-Identifier: EPL-2.0
     <timestep time="7.00">
         <edge id=":C_4">
             <lane id=":C_4_0">
-                <vehicle id="noprio" pos="1.01" speed="12.92"/>
+                <vehicle id="noprio" pos="1.29" speed="13.20"/>
             </lane>
         </edge>
     </timestep>
     <timestep time="8.00">
         <edge id="CW">
             <lane id="CW_0">
-                <vehicle id="noprio" pos="5.08" speed="13.57"/>
+                <vehicle id="noprio" pos="4.51" speed="12.72"/>
             </lane>
         </edge>
     </timestep>
     <timestep time="9.00">
         <edge id="CW">
             <lane id="CW_0">
-                <vehicle id="noprio" pos="18.26" speed="13.18"/>
+                <vehicle id="noprio" pos="18.31" speed="13.80"/>
             </lane>
         </edge>
     </timestep>
     <timestep time="10.00">
         <edge id="CW">
             <lane id="CW_0">
-                <vehicle id="noprio" pos="31.18" speed="12.92"/>
+                <vehicle id="noprio" pos="31.72" speed="13.41"/>
             </lane>
         </edge>
     </timestep>
     <timestep time="11.00">
         <edge id="CW">
             <lane id="CW_0">
-                <vehicle id="noprio" pos="45.07" speed="13.88"/>
+                <vehicle id="noprio" pos="44.35" speed="12.63"/>
             </lane>
         </edge>
     </timestep>
     <timestep time="12.00">
         <edge id="CW">
             <lane id="CW_0">
-                <vehicle id="noprio" pos="58.08" speed="13.02"/>
+                <vehicle id="noprio" pos="57.26" speed="12.92"/>
             </lane>
         </edge>
     </timestep>
     <timestep time="13.00">
         <edge id="CW">
             <lane id="CW_0">
-                <vehicle id="noprio" pos="71.37" speed="13.28"/>
+                <vehicle id="noprio" pos="69.92" speed="12.66"/>
             </lane>
         </edge>
     </timestep>
     <timestep time="14.00">
         <edge id="CW">
             <lane id="CW_0">
-                <vehicle id="noprio" pos="84.67" speed="13.30"/>
+                <vehicle id="noprio" pos="83.32" speed="13.40"/>
             </lane>
         </edge>
     </timestep>

@@ -1,0 +1,10 @@
+# uncooordinated
+default
+earliest_latest
+earliest_latest_coordinated
+
+# latestEnd < earliestEnd
+latestEnd_wrap
+
+# latestEnd < earliestEnd
+latestEnd_wrap_coordinated

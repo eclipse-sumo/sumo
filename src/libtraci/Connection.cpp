@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2012-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2012-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -20,6 +20,8 @@
 ///
 // C++ TraCI client API implementation
 /****************************************************************************/
+#include <config.h>
+
 #include <thread>
 #include <chrono>
 #include <array>
@@ -88,29 +90,29 @@ Connection::readOutput() {
 
 void
 Connection::close() {
+    if (mySocket.has_client_connection()) {
+        tcpip::Storage outMsg;
+        // command length
+        outMsg.writeUnsignedByte(1 + 1);
+        // command id
+        outMsg.writeUnsignedByte(libsumo::CMD_CLOSE);
+        mySocket.sendExact(outMsg);
+
+        tcpip::Storage inMsg;
+        std::string acknowledgement;
+        check_resultState(inMsg, libsumo::CMD_CLOSE, false, &acknowledgement);
+        mySocket.close();
+    }
     if (myProcessReader != nullptr) {
         myProcessReader->join();
         delete myProcessReader;
+        myProcessReader = nullptr;
 #ifdef WIN32
         _pclose(myProcessPipe);
 #else
         pclose(myProcessPipe);
 #endif
     }
-    if (!mySocket.has_client_connection()) {
-        return;
-    }
-    tcpip::Storage outMsg;
-    // command length
-    outMsg.writeUnsignedByte(1 + 1);
-    // command id
-    outMsg.writeUnsignedByte(libsumo::CMD_CLOSE);
-    mySocket.sendExact(outMsg);
-
-    tcpip::Storage inMsg;
-    std::string acknowledgement;
-    check_resultState(inMsg, libsumo::CMD_CLOSE, false, &acknowledgement);
-    mySocket.close();
     myConnections.erase(myLabel);
     delete myActive;
     myActive = nullptr;

@@ -22,5 +22,11 @@ depart_random
 # test option --extrapolate-departpos
 extrapolate_departpos
 
+# test insertion on short edge (#10298)
+extrapolate_departpos_short
+
 # Errors on emission
 errors
+
+# tests selective removal of safety checks during insertion
+insertionChecks

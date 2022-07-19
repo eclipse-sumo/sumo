@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2008-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2008-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -27,6 +27,8 @@
  * ======================================================================= */
 #ifdef _MSC_VER
 #define _CRT_SECURE_NO_WARNINGS
+// Avoid some noisy warnings with Visual Studio
+#pragma warning(disable:4820 4514 5045 4710)
 #endif
 #include <vector>
 #include <iostream>
@@ -866,6 +868,14 @@ TraCITestClient::testAPI() {
         answerLog << "      veh=" << vd.id << " length=" << vd.length << " entered=" << vd.entryTime << " left=" << vd.leaveTime << " type=" << vd.typeID << "\n";
     }
 
+    // multi-entry/-exit detector
+    // answerLog << "  multi-entry/-exit detector:\n";
+    // answerLog << "    getLastStepVehicleIDs: " << joinToString(multientryexit.getLastStepVehicleIDs("det2"), " ") << "\n";
+    // answerLog << "    getEntryLanes: " << joinToString(multientryexit.getEntryLanes("det2"), " ") << "\n";
+    // answerLog << "    getExitLanes: " << joinToString(multientryexit.getExitLanes("det2"), " ") << "\n";
+    // answerLog << "    getEntryPositions: " << joinToString(multientryexit.getEntryPositions("det2"), " ") << "\n";
+    // answerLog << "    getExitPositions: " << joinToString(multientryexit.getExitPositions("det2"), " ") << "\n";
+
     // simulation
     answerLog << "  simulation:\n";
     answerLog << "    convert2D: " << simulation.convert2D("e_m5", 0).getString() << "\n";
@@ -1014,11 +1024,10 @@ TraCITestClient::testAPI() {
         }
     }
     libsumo::TraCILogic logic("custom", 0, 3);
-    logic.phases = std::vector<libsumo::TraCIPhase*>({ new libsumo::TraCIPhase(5, "rrrrrrr", 5, 5),
-                     new libsumo::TraCIPhase(10, "ggggggg", 5, 15),
-                     new libsumo::TraCIPhase(3, "GGGGGGG", 3, 3),
-                     new libsumo::TraCIPhase(3, "yyyyyyy", 3, 3)
-    });
+    logic.phases.push_back(std::make_shared<libsumo::TraCIPhase>(5, "rrrrrrr", 5, 5));
+    logic.phases.push_back(std::make_shared<libsumo::TraCIPhase>(10, "ggggggg", 5, 15));
+    logic.phases.push_back(std::make_shared<libsumo::TraCIPhase>(3, "GGGGGGG", 3, 3));
+    logic.phases.push_back(std::make_shared<libsumo::TraCIPhase>(3, "yyyyyyy", 3, 3));
     trafficlights.setProgramLogic("n_m4", logic);
 
     std::vector<libsumo::TraCILogic> logics = trafficlights.getAllProgramLogics("n_m4");
@@ -1040,6 +1049,19 @@ TraCITestClient::testAPI() {
     answerLog << "    stateSet=" << trafficlights.getRedYellowGreenState("n_m4") << "\n";
     answerLog << "    program: " << trafficlights.getProgram("n_m4") << "\n";
 
+    answerLog << "  gui:\n";
+    try {
+        answerLog << "    setScheme: \n";
+        gui.setSchema("View #0", "real world");
+        answerLog << "    getScheme: " << gui.getSchema("View #0") << "\n";
+        gui.setZoom("View #0", 50);
+        answerLog << "    getZoom: " << gui.getZoom() << "\n";
+        answerLog << "    take screenshot: \n";
+        gui.screenshot("View #0", "image.png", 500, 500);
+    } catch (libsumo::TraCIException&) {
+        answerLog << "    no support for gui commands\n";
+    }
+
     answerLog << "  load:\n";
     std::vector<std::string> args;
     args.push_back("-n");
@@ -1054,17 +1076,4 @@ TraCITestClient::testAPI() {
     answerLog << "    getCurrentTime: " << simulation.getCurrentTime() << "\n";
     vehicle.subscribe("0", vars, 0, 100);
     edge.subscribeContext("e_u1", libsumo::CMD_GET_VEHICLE_VARIABLE, 100, vars2, 0, 100);
-
-    answerLog << "  gui:\n";
-    try {
-        answerLog << "    setScheme: \n";
-        gui.setSchema("View #0", "real world");
-        answerLog << "    getScheme: " << gui.getSchema("View #0") << "\n";
-        gui.setZoom("View #0", 50);
-        answerLog << "    getZoom: " << gui.getZoom() << "\n";
-        answerLog << "    take screenshot: \n";
-        gui.screenshot("View #0", "image.png", 500, 500);
-    } catch (libsumo::TraCIException&) {
-        answerLog << "    no support for gui commands\n";
-    }
 }

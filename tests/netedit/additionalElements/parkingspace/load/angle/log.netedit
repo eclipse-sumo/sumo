@@ -1,3 +1,0 @@
-Error: Attribute 'angle' in definition of a space is empty.
-Error: Could not build space with ID 'parkingArea_0' in netedit; attribute angle cannot be parse to float.
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_01Jul104329.7780\netedit.gui\additionalElements\parkingspace\load\angle\input_additionals.add.xml failed.

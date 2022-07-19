@@ -1,0 +1,5 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <timedEvent type="SaveTLSSwitchStates" source="C" dest="tls_state_switch.xml"/>
+
+    <tlLogic id="C" type="actuated" programID="0" offset="0"/>
+</additional>

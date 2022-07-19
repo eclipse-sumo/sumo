@@ -1,0 +1,16 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <route id="SN" edges="SC CN"/>
+    <route id="SE" edges="SC CE"/>
+    <route id="SW" edges="SC CW"/>
+    <personFlow id="straight" begin="0"  period="6" number="20" color="blue">
+        <walk route="SN"/>
+    </personFlow>
+
+    <personFlow id="right"    begin="2"  period="6" number="10" color="red">
+        <walk route="SE"/>
+    </personFlow>
+
+    <personFlow id="left"     begin="4"  period="6" number="5" color="yellow">
+        <walk route="SW"/>
+    </personFlow>
+</routes>

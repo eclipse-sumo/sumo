@@ -1,4 +1,5 @@
 #Error while connecting: tcpip::Socket::connect() @ connect: Connection refused
 Error: Answered with error to command 0xa3: No connection from lane 'e_vu0_0' to lane 'e_m4_1'
 Error: Answered with error to command 0xa3: Lane 'dummy' is not known
+Warning: Vehicle '0' moved by TraCI from 1640.00,491.75 to 2231.61,498.35 (dist 591.61) with implied speed of 591.61 (exceeding maximum speed 30.00). time=5.00.
 Error: Requested command not implemented (0xcc): GUI is not running, command not implemented in command line sumo

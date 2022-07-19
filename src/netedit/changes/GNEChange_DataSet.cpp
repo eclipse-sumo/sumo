@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -21,7 +21,6 @@
 
 #include <netedit/GNENet.h>
 #include <netedit/elements/data/GNEDataSet.h>
-#include <netedit/GNEViewNet.h>
 
 #include "GNEChange_DataSet.h"
 
@@ -70,9 +69,7 @@ GNEChange_DataSet::undo() {
         // insert data set into net
         myDataSet->getNet()->getAttributeCarriers()->insertDataSet(myDataSet);
     }
-    // update toolbar
-    myDataSet->getNet()->getViewNet()->getIntervalBar().updateIntervalBar();
-    // Requiere always save elements
+    // require always save elements
     myDataSet->getNet()->requireSaveDataElements(true);
 }
 
@@ -90,9 +87,7 @@ GNEChange_DataSet::redo() {
         // delete data set from net
         myDataSet->getNet()->getAttributeCarriers()->deleteDataSet(myDataSet);
     }
-    // update toolbar
-    myDataSet->getNet()->getViewNet()->getIntervalBar().updateIntervalBar();
-    // Requiere always save elements
+    // require always save elements
     myDataSet->getNet()->requireSaveDataElements(true);
 }
 

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -22,7 +22,7 @@
 
 #include <utils/common/SUMOVehicleClass.h>
 #include <utils/xml/SUMOSAXHandler.h>
-#include <netedit/frames/GNEFrameAttributesModuls.h>
+#include <netedit/frames/GNEFrameAttributeModules.h>
 #include <netedit/frames/common/GNEInspectorFrame.h>
 
 // ===========================================================================
@@ -110,7 +110,7 @@ public:
             /// @brief disable row
             void disableRow();
 
-            /// @brief enable rlow
+            /// @brief enable row
             void enableRow(const std::string& parameter, const std::string& value) const;
 
             /// @brief toggle add button
@@ -254,7 +254,7 @@ public:
     };
 
     /// @brief Constructor for parameter editor inspector
-    GNEMultipleParametersDialog(GNEInspectorFrame::ParametersEditorInspector* parametersEditorInspector);
+    GNEMultipleParametersDialog(GNEInspectorFrame::ParametersEditor* parametersEditorInspector);
 
     /// @brief destructor
     ~GNEMultipleParametersDialog();
@@ -275,8 +275,8 @@ protected:
     /// @brief FOX need this
     FOX_CONSTRUCTOR(GNEMultipleParametersDialog)
 
-    /// @brief pointer to ParametersEditorInspector
-    GNEInspectorFrame::ParametersEditorInspector* myParametersEditorInspector;
+    /// @brief pointer to ParametersEditor
+    GNEInspectorFrame::ParametersEditor* myParametersEditor;
 
     /// @brief pointer to parameters values
     ParametersValues* myParametersValues;

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -92,7 +92,7 @@ GUIParkingArea::getPopUpMenu(GUIMainWindow& app,
     buildNameCopyPopupEntry(ret);
     buildSelectionPopupEntry(ret);
     buildShowParamsPopupEntry(ret);
-    buildPositionCopyEntry(ret, false);
+    buildPositionCopyEntry(ret, app);
     return ret;
 }
 
@@ -126,9 +126,9 @@ GUIParkingArea::drawGL(const GUIVisualizationSettings& s) const {
     // draw the area
     glTranslated(0, 0, getType());
     GLHelper::setColor(blue);
-    GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, myWidth / 2.);
+    const double exaggeration = getExaggeration(s);
+    GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, myWidth / 2. * MIN2(1.0, exaggeration));
     // draw details unless zoomed out to far
-    const double exaggeration = s.addSize.getExaggeration(s, this);
     if (s.scale * exaggeration >= 1) {
         // draw the lots
         glTranslated(0, 0, .1);
@@ -140,7 +140,7 @@ GUIParkingArea::drawGL(const GUIVisualizationSettings& s) const {
         // calculate index Updater
         int indexUpdater = (int)((double)mySpaceOccupancies.size() / ShapeLength);
         // check if indexUpdater is 0
-        if (indexUpdater == 0) {
+        if (indexUpdater == 0 || (myCapacity != myRoadSideCapacity)) {
             indexUpdater = 1;
         }
         // draw spaceOccupancies
@@ -179,17 +179,19 @@ GUIParkingArea::drawGL(const GUIVisualizationSettings& s) const {
         }
     }
     GLHelper::popMatrix();
-    if (s.addFullName.show && getMyName() != "") {
+    if (s.addFullName.show(this) && getMyName() != "") {
         GLHelper::drawTextSettings(s.addFullName, getMyName(), mySignPos, s.scale, s.getTextAngle(mySignRot), GLO_MAX - getType());
     }
     GLHelper::popName();
     drawName(getCenteringBoundary().getCenter(), s.scale, s.addName, s.angle);
-    // draw parking vehicles (their lane might not be within drawing range. if it is, they are drawn twice)
-    myLane.getVehiclesSecure();
-    for (const MSBaseVehicle* const v : myLane.getParkingVehicles()) {
-        static_cast<const GUIVehicle*>(v)->drawGL(s);
+    if (myCapacity != myRoadSideCapacity) {
+        // draw parking vehicles (their lane might not be within drawing range. if it is, they are drawn twice)
+        myLane.getVehiclesSecure();
+        for (const MSBaseVehicle* const v : myLane.getParkingVehicles()) {
+            static_cast<const GUIVehicle*>(v)->drawGL(s);
+        }
+        myLane.releaseVehicles();
     }
-    myLane.releaseVehicles();
 }
 
 void
@@ -202,6 +204,13 @@ GUIParkingArea::addLotEntry(double x, double y, double z,
     b.grow(MAX2(width, length) + 5);
     myBoundary.add(b);
 }
+
+
+double
+GUIParkingArea::getExaggeration(const GUIVisualizationSettings& s) const {
+    return s.addSize.getExaggeration(s, this);
+}
+
 
 Boundary
 GUIParkingArea::getCenteringBoundary() const {

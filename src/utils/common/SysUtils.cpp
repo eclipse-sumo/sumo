@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2005-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2005-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -21,14 +21,22 @@
 #include <config.h>
 
 #include <stdlib.h>
+#include <sys/types.h>
+#include <sys/stat.h>
 #include "SysUtils.h"
 
 #ifndef WIN32
 #include <sys/time.h>
+#include <unistd.h>
+
 #else
+
 #define NOMINMAX
 #include <windows.h>
 #undef NOMINMAX
+
+#define stat _stat
+
 #endif
 
 
@@ -97,6 +105,16 @@ SysUtils::runHiddenCommand(const std::string& cmd) {
 #else
     return (unsigned long)system(cmd.c_str());
 #endif
+}
+
+
+long long
+SysUtils::getModifiedTime(const std::string& fname) {
+    struct stat result;
+    if (stat(fname.c_str(), &result) == 0) {
+        return result.st_mtime;
+    }
+    return -1;
 }
 
 

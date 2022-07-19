@@ -8,25 +8,39 @@ The following modes are available in all super modes (Network, Demand and Data).
 
 # Inspect
 
-Inspect and modify attributes of edges, lanes, junctions, connections and additional network items (i.e. bus stops). Modifications have to be confirmed by hitting <Enter\> (except for Boolean attributes). If the entered value is not appropriate for the modified attribute, the value will turn red to indicate the problem.
+Inspect and modify attributes of edges, lanes, junctions, connections and additional network items (i.e. bus stops). 
+When there are multiple objects in the same location, the inspection frame will indicate their number and allow switching between them.
+
+Repeatedly clicking on the same location will also cycle through all elements at the same location.
+
+## Setting Attributes
+
+Modifications have to be confirmed by hitting <Enter\> (except for Boolean attributes). If the entered value is not appropriate for the modified attribute, the value will turn red to indicate the problem.
+
+Some attributes have pre-computed values (i.e. edge length) but can be overrule by user-defined input. Pre-computed values are indicated in blue.
+
+## Inspecting Lanes
+
+By default, clicking on an edge will inspect the edge object. To inspect individual lanes of an edge either
+
+- shift-click on the lane
+- deactivate the "click selects edges" toggle button in the top bar (shortcut Alt+4) and then left-click on lanes
+- inspect an edge an then right-click a lane in the hierarchy view and select 'inspect'
+  
+## Inspecting Connections
+
+After opening the network, junctions must be recomputed at least once (F5). Computation happens automatically when switching to connection mode or traffic light mode. After network computation, either of the following can be used to inspect and edit connection attributes while in inspect mode:
+    
+- activate 'show connections' toggle button in the button bar (shortcut Alt + 5) and the left-click on a connection
+- inspect an edge and then right-click a connection in the hierarchy view (lane->outgoing->connections) and select 'inspect'
+
+## Inspecting Selections
 
 When inspecting an element that is [selected](#select) along with multiple elements of the same type this mode behaves differently:
 
 - Only non-unique attributes are listed (i.e. lane-width but not lane-ID)
 - If the elements differ in their attributes, the whole range of occurring values is shown
 - All selected elements of the same type are modified at the same time when setting a new value
-
-![](../images/InspectMode1.png)   
-Changing the number of lanes of an edge
-
-![](../images/InspectMode2.png)   
-Number of lanes of the edge changed
-
-![](../images/InspectMode3.png)   
-Changing the width of a lane. Note that option "select edges" is disabled
-
-![](../images/InspectMode4.png)   
-Width of lane changed (gaps will disappear upon triggering recomputation with **F5**)
 
 ## Generic Parameters
 Most simulation objects support [Generic Parameters](../Simulation/GenericParameters.md) to express custom user data and supplemental configurations. They can be edited with the 'Edit parameters' dialog which is accessible with the 'Edit parameters' button. 
@@ -49,6 +63,21 @@ The following (non-unique) attributes are set/copied:
 - width
 
 When copying attributes from one edge to another, lane-specific attributes will be copied as well.
+
+### Examples
+
+![](../images/InspectMode1.png)   
+Changing the number of lanes of an edge
+
+![](../images/InspectMode2.png)   
+Number of lanes of the edge changed
+
+![](../images/InspectMode3.png)   
+Changing the width of a lane. Note that option "select edges" is disabled
+
+![](../images/InspectMode4.png)   
+Width of lane changed (gaps will disappear upon triggering recomputation with **F5**)
+
 
 # Delete
 
@@ -181,15 +210,25 @@ final shape after saving or activating full recomputation (F5) may be slightly d
 ![](../images/CreateEdge7.png)By setting the option "show junctions as bubbles", circles are drawn instead of detailed junction shapes which can improve visibility.
 
 ## Changing Elevation ###
-When checking the 'Elevation' checkbox, elevation of junctions and existing geometry points can be modified by dragging the with the mouse (with their x,y coordinates remaining unchanged).  At the same time, the numerical elevation value will be displayed for every junction and geometry point.  It is useful to combine this with [elevation or slope coloring](../Networks/Elevation.md#visualizing_elevation_data).
+When activating the 'Move elevation' button in the button bar, junctions and existing geometry points can be modified by dragging the with the mouse (with their x,y coordinates remaining unchanged).  At the same time, the numerical elevation value will be displayed for every junction and geometry point.  It is useful to combine this with [elevation or slope coloring](../Networks/Elevation.md#visualizing_elevation_data).
 
 ## Moving Object Selections
+
+Special movement operations are available when multiple objects are selected (via Selection mode).
+
+### View Operations
 
 - When selecting neighboring edges and dragging one of them, the neighboring edge will receive the same shape modifications
 - When selecting an edge and its junctions and dragging any part of the selection, all parts including edge geometry will be moved in parallel
 - When selecting an edge an one if its junctions:
   - When dragging the junction, only the junction will move
   - When dragging the edge, the edge will move locally and the junction will move in parallel
+
+### Frame Operation
+
+For a selection of edges, the Move-mode sidebar allows to move the whole geometry sideway using the "Shift selected edges geometry" element. A position value shifts geometry to the right (relative to the driving direction) and a negative value shifts geometry to the left.
+
+For a selection edges and/or junctions the Move-mode sidebar allows to move all objects in Z-direction using the "Change Z in selection" element. The applied value can either be set as the new "absolute" Z value or it can be applied relative to the existing Z position.
 
 ## Moving Polygons and TAZs
 

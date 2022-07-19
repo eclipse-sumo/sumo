@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -29,7 +29,6 @@
 #include <microsim/devices/MSDevice_Battery.h>
 #include <microsim/MSNet.h>
 #include "MSChargingStation.h"
-#include "MSTrigger.h"
 
 
 // ===========================================================================
@@ -38,7 +37,7 @@
 
 MSChargingStation::MSChargingStation(const std::string& chargingStationID, MSLane& lane, double startPos, double endPos,
                                      const std::string& name,
-                                     double chargingPower, double efficency, bool chargeInTransit, double chargeDelay) :
+                                     double chargingPower, double efficency, bool chargeInTransit, SUMOTime chargeDelay) :
     MSStoppingPlace(chargingStationID, SUMO_TAG_CHARGING_STATION, std::vector<std::string>(), lane, startPos, endPos, name),
     myChargingPower(0),
     myEfficiency(0),
@@ -97,45 +96,9 @@ MSChargingStation::getChargeInTransit() const {
 }
 
 
-double
+SUMOTime
 MSChargingStation::getChargeDelay() const {
     return myChargeDelay;
-}
-
-
-void
-MSChargingStation::setChargingPower(double chargingPower) {
-    if (chargingPower < 0) {
-        WRITE_WARNING("New " + toString(SUMO_ATTR_CHARGINGPOWER) + " for " + toString(SUMO_TAG_CHARGING_STATION) + " with ID = " + getID() + " isn't valid (" + toString(chargingPower) + ").")
-    } else {
-        myChargingPower = chargingPower;
-    }
-}
-
-
-void
-MSChargingStation::setEfficency(double efficency) {
-    if (efficency < 0 || efficency > 1) {
-        WRITE_WARNING("New " + toString(SUMO_ATTR_EFFICIENCY) + " for " + toString(SUMO_TAG_CHARGING_STATION) + " with ID = " + getID() + " isn't valid (" + toString(efficency) + ").")
-    } else {
-        myEfficiency = efficency;
-    }
-}
-
-
-void
-MSChargingStation::setChargeInTransit(bool chargeInTransit) {
-    myChargeInTransit = chargeInTransit;
-}
-
-
-void
-MSChargingStation::setChargeDelay(double chargeDelay) {
-    if (chargeDelay < 0) {
-        WRITE_WARNING("New " + toString(SUMO_ATTR_CHARGEDELAY) + " for " + toString(SUMO_TAG_CHARGING_STATION) + " with ID = " + getID() + " isn't valid (" + toString(chargeDelay) + ").")
-    } else {
-        myChargeDelay = chargeDelay;
-    }
 }
 
 

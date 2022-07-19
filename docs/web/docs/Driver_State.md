@@ -2,7 +2,7 @@
 title: Driver State
 ---
 
-## Overview
+# Overview
 
 The driver state provides a generic mechanism to induce imperfection
 into car-following and lane change models. Although errors may enter the
@@ -19,12 +19,12 @@ car-following model's input parameters of spacing and speed difference
 (for an integration in [contributed car-following
 models](Developer/How_To/Car-Following_Model.md), the
 [implementation in the standard
-model](https://github.com/eclipse/sumo/blob/master/src/microsim/cfmodels/MSCFModel_Krauss.cpp)
+model](https://github.com/eclipse/sumo/blob/main/src/microsim/cfmodels/MSCFModel_Krauss.cpp)
 can be adopted (see `MSCFModel_Krauss::stopSpeed()` and
 `MSCFModel_Krauss::followSpeed()`). Currently (SUMO 1.8.0)
 it is only implemented for the standard Krauss and IDM.
 
-## Equipping a Vehicle with a Driver State
+# Equipping a Vehicle with a Driver State
 
 To apply the imperfect driving functionality for a vehicle it is
 equipped with a **Driver State Device**, see [the description of
@@ -62,9 +62,17 @@ error dynamics.
 | speedDifferenceChangePerceptionThreshold | float | 0.1                         | Constant controlling the threshold for the perception of changes in the speed difference  |
 | headwayChangePerceptionThreshold         | float | 0.1                         | Constant controlling the threshold for the perception of changes in the distance input.      |
 | minAwareness                             | float | 0.1                         | The minimal value for the driver awareness (a technical parameter to avoid a blow up of the term `1/minAwareness`).   |
-| maximalReactionTime                      | float (s) | original action step length | The value for the driver's actionStepLength atained at minimal awareness. The actionStepLength scales linearly between this and the original value with the awareness between minAwareness and 1.0. |
+| maximalReactionTime                      | float (s) | original action step length | The value for the driver's actionStepLength attained at minimal awareness. The actionStepLength scales linearly between this and the original value with the awareness between minAwareness and 1.0. |
 
-## Modeling of Perception Errors
+## Supported carFollowModels    
+
+The following models support the driverstate device:
+    
+- Krauss
+- IDM
+- CACC
+    
+# Modeling of Perception Errors
 
 An underlying
 [Ornstein-Uhlenbeck](https://en.wikipedia.org/wiki/Ornstein%E2%80%93Uhlenbeck_process)

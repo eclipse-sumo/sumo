@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2010-2021 German Aerospace Center (DLR) and others.
+# Copyright (C) 2010-2022 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -18,7 +18,6 @@
 # @date    2017-06-23
 
 from __future__ import print_function
-import os
 import sys
 import codecs
 import subprocess
@@ -29,12 +28,6 @@ from optparse import OptionParser
 
 import sumolib
 from sumolib.xml import quoteattr
-
-if 'SUMO_HOME' in os.environ:
-    tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
-    sys.path.append(tools)
-else:
-    sys.exit("please declare environment variable 'SUMO_HOME'")
 
 
 def get_options(args=None):
@@ -110,14 +103,21 @@ class PTLine:
         self.period = period
         self.color = color
 
+
 def writeTypes(fout, prefix, options):
     # note: public transport vehicles have speedDev="0" by default
-    prefixes_and_sf = [prefix, ""] * 9
+    prefixes_and_sf = [prefix, ""] * 11
     if options:
+        # bus
         prefixes_and_sf[1] = ' speedFactor="%s"' % options.speedFactorBus
+        # tram
         prefixes_and_sf[3] = ' speedFactor="%s"' % options.speedFactorTram
         # trolleybus
         prefixes_and_sf[13] = ' speedFactor="%s"' % options.speedFactorBus
+        # minibus
+        prefixes_and_sf[15] = ' speedFactor="%s"' % options.speedFactorBus
+        # share_taxi
+        prefixes_and_sf[17] = ' speedFactor="%s"' % options.speedFactorBus
 
     print("""    <vType id="%sbus" vClass="bus"%s/>
     <vType id="%stram" vClass="tram"%s/>
@@ -126,6 +126,8 @@ def writeTypes(fout, prefix, options):
     <vType id="%slight_rail" vClass="rail_urban"%s/>
     <vType id="%smonorail" vClass="rail"%s/>
     <vType id="%strolleybus" vClass="bus"%s/>
+    <vType id="%sminibus" vClass="bus"%s/>
+    <vType id="%sshare_taxi" vClass="taxi"%s/>
     <vType id="%saerialway" vClass="bus"%s/>
     <vType id="%sferry" vClass="ship"%s/>""" % tuple(prefixes_and_sf), file=fout)
 
@@ -262,10 +264,10 @@ def createTrips(options):
                         tripID, options.vtypeprefix, line.type, begin, fr, to))
 
             trpMap[tripID] = PTLine(lineRef, line.attr_name, line.completeness,
-                    line.period, line.getAttributeSecure("color", None))
+                                    line.period, line.getAttributeSecure("color", None))
             for stop in stop_ids:
-                fouttrips.write('        <stop busStop="%s" duration="%s"/>\n' % (stop,
-                    options.stopduration + options.stopdurationSlack))
+                dur = options.stopduration + options.stopdurationSlack
+                fouttrips.write('        <stop busStop="%s" duration="%s"/>\n' % (stop, dur))
             fouttrips.write('    </trip>\n')
             typeCount[line.type] += 1
             numLines += 1

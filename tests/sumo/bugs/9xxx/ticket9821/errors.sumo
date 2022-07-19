@@ -1,0 +1,2 @@
+Warning: Person '0' aborted waiting for taxi at edge 'SC'.
+Warning: Vehicle 'trip_A' aborted waiting for a person or container that will never come.

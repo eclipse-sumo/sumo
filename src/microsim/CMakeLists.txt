@@ -81,6 +81,8 @@ set(microsim_STAT_SRCS
    MSStateHandler.cpp
    MSDriverState.h
    MSDriverState.cpp
+   Command_RouteReplacement.h
+   Command_RouteReplacement.cpp
 )
 
 add_library(microsim STATIC ${microsim_STAT_SRCS})

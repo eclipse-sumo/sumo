@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-06-03 11:45:36 by Eclipse SUMO netedit Version v1_13_0+0593-81dd51a759b
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <new value="true"/>
+    </input>
+
+    <output>
+        <output-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.03Jun115020.8176\netedit.gui\netelements\edges\create\speed\net.net.xml"/>
+    </output>
+
+    <processing>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+    <netedit>
+        <additional-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.03Jun115020.8176\netedit.gui\netelements\edges\create\speed\additionals.xml"/>
+        <additionals-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.03Jun115020.8176\netedit.gui\netelements\edges\create\speed\additionals.xml"/>
+        <route-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.03Jun115020.8176\netedit.gui\netelements\edges\create\speed\routes.xml"/>
+        <demandelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.03Jun115020.8176\netedit.gui\netelements\edges\create\speed\routes.xml"/>
+        <data-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.03Jun115020.8176\netedit.gui\netelements\edges\create\speed\datas.xml"/>
+        <dataelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.03Jun115020.8176\netedit.gui\netelements\edges\create\speed\datas.xml"/>
+    </netedit>
+
+    <visualisation>
+        <gui-settings-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.03Jun115020.8176\netedit.gui\netelements\edges\create\speed\gui-settings.xml"/>
+        <window-size value="936,697"/>
+        <window-pos value="50,50"/>
+        <gui-testing value="true"/>
+        <gui-testing-debug value="true"/>
+        <gui-testing.setting-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.03Jun115020.8176\netedit.gui\netelements\edges\create\speed\guisettingsoutput.xml"/>
+    </visualisation>
+
+    <report>
+        <no-warnings value="true"/>
+        <error-log value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.03Jun115020.8176\netedit.gui\netelements\edges\create\speed\log.txt"/>
+    </report>
+
+</configuration>
+-->
+
+<net version="1.9" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="0.00,0.00" convBoundary="0.00,45.00,85.00,45.00" origBoundary="10000000000.00,10000000000.00,-10000000000.00,-10000000000.00" projParameter="!"/>
+
+    <edge id="E0" from="J0" to="J1" priority="-1">
+        <lane id="E0_0" index="0" speed="5.50" length="85.00" shape="0.00,43.40 85.00,43.40"/>
+    </edge>
+
+    <junction id="J0" type="dead_end" x="0.00" y="45.00" incLanes="" intLanes="" shape="0.00,45.00 0.00,41.80"/>
+    <junction id="J1" type="dead_end" x="85.00" y="45.00" incLanes="E0_0" intLanes="" shape="85.00,41.80 85.00,45.00"/>
+
+</net>

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -32,8 +32,7 @@
 
 GNERerouterSymbol::GNERerouterSymbol(GNEAdditional* rerouterParent, GNEEdge* edge) :
     GNEAdditional(rerouterParent->getNet(), GLO_REROUTER, GNE_TAG_REROUTER_SYMBOL, "",
-    {}, {edge}, {}, {rerouterParent}, {}, {}, {}, {},
-    std::map<std::string, std::string>()) {
+{}, {edge}, {}, {rerouterParent}, {}, {}) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -44,9 +43,15 @@ GNERerouterSymbol::~GNERerouterSymbol() {
 
 
 GNEMoveOperation*
-GNERerouterSymbol::getMoveOperation(const double /*shapeOffset*/) {
+GNERerouterSymbol::getMoveOperation() {
     // GNERerouterSymbols cannot be moved
     return nullptr;
+}
+
+
+void
+GNERerouterSymbol::writeAdditional(OutputDevice& /*device*/) const {
+    // noting to write
 }
 
 
@@ -55,33 +60,38 @@ GNERerouterSymbol::updateGeometry() {
     // clear geometries
     mySymbolGeometries.clear();
     // iterate over all lanes
+    NBEdge* nbe = getParentEdges().front()->getNBEdge();
     for (const auto& lane : getParentEdges().front()->getLanes()) {
+        if ((nbe->getPermissions(lane->getIndex()) & ~SVC_PEDESTRIAN) == 0) {
+            continue;
+        }
         // declare geometry
-        GNEGeometry::Geometry symbolGeometry;
+        GUIGeometry symbolGeometry;
         // update it with lane and pos over lane
         symbolGeometry.updateGeometry(lane->getLaneShape(), lane->getLaneShape().length2D() - 6, 0);
         // add in mySymbolGeometries
         mySymbolGeometries.push_back(symbolGeometry);
     }
-    // add shape boundary
-    myBoundary = mySymbolGeometries.front().getShape().getBoxBoundary();
-    // grow
-    myBoundary.grow(10);
-    // update connections
-    getParentAdditionals().front()->updateHierarchicalConnections();
 }
 
 
 Position
 GNERerouterSymbol::getPositionInView() const {
-    return mySymbolGeometries.front().getShape().getCentroid();
+    if (mySymbolGeometries.size() > 0) {
+        return mySymbolGeometries.front().getShape().getPolygonCenter();
+    } else {
+        return myAdditionalGeometry.getShape().getPolygonCenter();
+    }
 }
 
 
 void
 GNERerouterSymbol::updateCenteringBoundary(const bool /*updateGrid*/) {
-    // just update geometry
-    updateGeometry();
+    myAdditionalBoundary.reset();
+    // add center
+    myAdditionalBoundary.add(getPositionInView());
+    // grow
+    myAdditionalBoundary.grow(10);
 }
 
 
@@ -104,6 +114,8 @@ GNERerouterSymbol::drawGL(const GUIVisualizationSettings& s) const {
     const double rerouteExaggeration = s.addSize.getExaggeration(s, getParentAdditionals().front());
     // first check if additional has to be drawn
     if (s.drawAdditionals(rerouteExaggeration) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
+        // draw parent and child lines
+        drawParentChildLines(s, s.additionalSettings.connectionColor);
         // Start drawing adding an gl identificator (except in Move mode)
         if (myNet->getViewNet()->getEditModes().networkEditMode != NetworkEditMode::NETWORK_MOVE) {
             GLHelper::pushName(getParentAdditionals().front()->getGlID());
@@ -119,7 +131,7 @@ GNERerouterSymbol::drawGL(const GUIVisualizationSettings& s) const {
             // translate to position
             glTranslated(symbolGeometry.getShape().front().x(), symbolGeometry.getShape().front().y(), 0);
             // rotate over lane
-            GNEGeometry::rotateOverLane(symbolGeometry.getShapeRotations().front() + 90);
+            GUIGeometry::rotateOverLane(symbolGeometry.getShapeRotations().front() + 90);
             // scale
             glScaled(rerouteExaggeration, rerouteExaggeration, 1);
             // set color
@@ -165,16 +177,16 @@ GNERerouterSymbol::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::popName();
         }
         // check if dotted contour has to be drawn
-        if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(getParentAdditionals().front())) {
+        if (myNet->getViewNet()->isAttributeCarrierInspected(getParentAdditionals().front())) {
             // iterate over symbol geometries
             for (const auto& symbolGeometry : mySymbolGeometries) {
-                GNEGeometry::drawDottedSquaredShape(GNEGeometry::DottedContourType::INSPECT, s, symbolGeometry.getShape().front(), 1, 3, 0, 3, symbolGeometry.getShapeRotations().front() + 90, rerouteExaggeration);
+                GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::INSPECT, s, symbolGeometry.getShape().front(), 1, 3, 0, 3, symbolGeometry.getShapeRotations().front() + 90, rerouteExaggeration);
             }
         }
-        if (s.drawDottedContour() || (myNet->getViewNet()->getFrontAttributeCarrier() == getParentAdditionals().front())) {
+        if ((myNet->getViewNet()->getFrontAttributeCarrier() == getParentAdditionals().front())) {
             // iterate over symbol geometries
             for (const auto& symbolGeometry : mySymbolGeometries) {
-                GNEGeometry::drawDottedSquaredShape(GNEGeometry::DottedContourType::FRONT, s, symbolGeometry.getShape().front(), 1, 3, 0, 3, symbolGeometry.getShapeRotations().front() + 90, rerouteExaggeration);
+                GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::FRONT, s, symbolGeometry.getShape().front(), 1, 3, 0, 3, symbolGeometry.getShapeRotations().front() + 90, rerouteExaggeration);
             }
         }
     }
@@ -184,6 +196,7 @@ GNERerouterSymbol::drawGL(const GUIVisualizationSettings& s) const {
 std::string
 GNERerouterSymbol::getAttribute(SumoXMLAttr key) const {
     switch (key) {
+        case SUMO_ATTR_ID:
         case SUMO_ATTR_EDGE:
             return getParentEdges().front()->getID();
         default:
@@ -195,6 +208,12 @@ GNERerouterSymbol::getAttribute(SumoXMLAttr key) const {
 double
 GNERerouterSymbol::getAttributeDouble(SumoXMLAttr /*key*/) const {
     throw InvalidArgument("Symbols cannot be edited");
+}
+
+
+const Parameterised::Map&
+GNERerouterSymbol::getACParametersMap() const {
+    return PARAMETERS_EMPTY;
 }
 
 
@@ -210,21 +229,15 @@ GNERerouterSymbol::isValid(SumoXMLAttr /*key*/, const std::string& /*value*/) {
 }
 
 
-bool
-GNERerouterSymbol::isAttributeEnabled(SumoXMLAttr /*key*/) const {
-    return true;
-}
-
-
 std::string
 GNERerouterSymbol::getPopUpID() const {
-    return getParentAdditionals().at(0)->getPopUpID();
+    return getParentEdges().front()->getPopUpID();
 }
 
 
 std::string
 GNERerouterSymbol::getHierarchyName() const {
-    return getParentAdditionals().at(0)->getHierarchyName();
+    return getParentEdges().front()->getID();
 }
 
 // ===========================================================================

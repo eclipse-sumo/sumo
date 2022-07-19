@@ -1,0 +1,23 @@
+ Retrying in 1 seconds
+t=5.0 laneIndex=0 state(1)=(['stay', 'sublane'], ['sublane'])
+t=6.0 laneIndex=0 state(1)=(['left', 'sublane'], ['left', 'TraCI', 'urgent', 'sublane'])
+t=7.0 laneIndex=1 state(1)=(['left', 'TraCI'], ['left', 'TraCI'])
+t=8.0 laneIndex=1 state(1)=(['left', 'TraCI'], ['left', 'TraCI'])
+t=9.0 laneIndex=1 state(1)=([], ['stay', 'TraCI'])
+t=10.0 laneIndex=1 state(-1)=(['left', 'sublane'], [])
+t=11.0 laneIndex=0 state(-1)=(['right', 'sublane'], ['right', 'TraCI', 'urgent', 'sublane'])
+t=12.0 laneIndex=0 state(-1)=([], [])
+t=13.0 laneIndex=0 state(-1)=([], [])
+t=14.0 laneIndex=0 state(-1)=([], [])
+t=15.0 laneIndex=0 state(1)=(['right', 'sublane'], [])
+t=16.0 laneIndex=1 state(1)=(['left', 'sublane'], ['left', 'TraCI', 'urgent', 'sublane'])
+t=17.0 laneIndex=1 state(1)=(['left', 'TraCI'], ['left', 'TraCI'])
+t=18.0 laneIndex=1 state(1)=(['left', 'sublane'], ['left', 'TraCI', 'urgent', 'sublane'])
+t=19.0 laneIndex=1 state(1)=(['left', 'TraCI'], ['left', 'TraCI'])
+t=20.0 laneIndex=2 state(1)=(['left', 'TraCI'], ['left', 'TraCI'])
+t=21.0 laneIndex=2 state(1)=([], [])
+t=22.0 laneIndex=2 state(1)=([], [])
+t=23.0 laneIndex=2 state(1)=([], [])
+t=24.0 laneIndex=2 state(1)=([], [])
+0.60
+0.10

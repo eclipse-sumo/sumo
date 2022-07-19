@@ -1,4 +1,0 @@
-Error: a route must be defined either within a vehicle/flow or with an ID attribute
-Error: Attribute 'id' in definition of a route is empty.
-Error: There is another route with the same ID='route_0'.
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_30Aug092205.7020\netedit.gui\demandElements\route\load\id\input_routes.rou.xml failed.

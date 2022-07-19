@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2004-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2004-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -43,6 +43,7 @@
 #include <utils/common/ToString.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/options/OptionsCont.h>
+#include <utils/options/OptionsIO.h>
 
 
 // ===========================================================================
@@ -56,7 +57,7 @@ int OutputDevice::myPrevConsoleCP = -1;
 // static method definitions
 // ===========================================================================
 OutputDevice&
-OutputDevice::getDevice(const std::string& name) {
+OutputDevice::getDevice(const std::string& name, bool usePrefix) {
 #ifdef WIN32
     // fix the windows console output on first call
     if (myPrevConsoleCP == -1) {
@@ -85,21 +86,21 @@ OutputDevice::getDevice(const std::string& name) {
             throw IOError("No port number given.");
         }
     } else {
-        const int len = (int)name.length();
-        std::string name2 = name;
-        if (OptionsCont::getOptions().isSet("output-prefix") && name != "/dev/null") {
+        std::string name2 = (name == "nul" || name == "NUL") ? "/dev/null" : name;
+        if (usePrefix && OptionsCont::getOptions().isSet("output-prefix") && name2 != "/dev/null") {
             std::string prefix = OptionsCont::getOptions().getString("output-prefix");
             const std::string::size_type metaTimeIndex = prefix.find("TIME");
             if (metaTimeIndex != std::string::npos) {
-                time_t rawtime;
+                const time_t rawtime = std::chrono::system_clock::to_time_t(OptionsIO::getLoadTime());
                 char buffer [80];
-                time(&rawtime);
                 struct tm* timeinfo = localtime(&rawtime);
                 strftime(buffer, 80, "%Y-%m-%d-%H-%M-%S", timeinfo);
-                prefix.replace(metaTimeIndex, 4, std::string(buffer));
+                prefix.replace(metaTimeIndex, 4, buffer);
             }
             name2 = FileHelpers::prependToLastPathComponent(prefix, name);
         }
+        name2 = StringUtils::substituteEnvironment(name2, &OptionsIO::getLoadTime());
+        const int len = (int)name.length();
         dev = new OutputDevice_File(name2, len > 3 && name.substr(len - 3) == ".gz");
     }
     dev->setPrecision();
@@ -233,15 +234,22 @@ OutputDevice::setPrecision(int precision) {
 }
 
 
+int
+OutputDevice::precision() {
+    return (int)getOStream().precision();
+}
+
+
 bool
 OutputDevice::writeXMLHeader(const std::string& rootElement,
                              const std::string& schemaFile,
-                             std::map<SumoXMLAttr, std::string> attrs) {
+                             std::map<SumoXMLAttr, std::string> attrs,
+                             bool includeConfig) {
     if (schemaFile != "") {
         attrs[SUMO_ATTR_XMLNS] = "http://www.w3.org/2001/XMLSchema-instance";
         attrs[SUMO_ATTR_SCHEMA_LOCATION] = "http://sumo.dlr.de/xsd/" + schemaFile;
     }
-    return myFormatter->writeXMLHeader(getOStream(), rootElement, attrs);
+    return myFormatter->writeXMLHeader(getOStream(), rootElement, attrs, includeConfig);
 }
 
 

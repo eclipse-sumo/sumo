@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -80,6 +80,9 @@ public:
         /// @brief get time attribute
         SUMOTime getTimeAttribute(const SumoXMLAttr attr) const;
 
+        /// @brief get 'period' attribute
+        SUMOTime getPeriodAttribute() const;
+
         /// @brief get color attribute
         const RGBColor& getColorAttribute(const SumoXMLAttr attr) const;
 
@@ -93,13 +96,13 @@ public:
         SUMOVehicleClass getVClass() const;
 
         /// @brief get current vType
-        const SUMOVTypeParameter &getVehicleTypeParameter() const;
+        const SUMOVTypeParameter& getVehicleTypeParameter() const;
 
         /// @brief get vehicle parameters
-        const SUMOVehicleParameter &getVehicleParameter() const;
+        const SUMOVehicleParameter& getVehicleParameter() const;
 
         /// @brief get stop parameters
-        const SUMOVehicleParameter::Stop &getStopParameter() const;
+        const SUMOVehicleParameter::Stop& getStopParameter() const;
 
         /// @brief get parameters
         const std::map<std::string, std::string>& getParameters() const;
@@ -179,7 +182,7 @@ public:
         void setVehicleParameter(const SUMOVehicleParameter* vehicleParameter);
 
         /// @brief add stop parameters
-        void setStopParameter(const SUMOVehicleParameter::Stop &stopParameter);
+        void setStopParameter(const SUMOVehicleParameter::Stop& stopParameter);
 
         /// @brief add parameter into current SumoBaseObject node
         void addParameter(const std::string& key, const std::string& value);
@@ -254,7 +257,7 @@ public:
         bool myDefinedStopParameter;
 
         /// @brief handle attribute error
-        void handleAttributeError(const SumoXMLAttr attr, const std::string &type) const;
+        void handleAttributeError(const SumoXMLAttr attr, const std::string& type) const;
 
         /// @brief invalidate copy constructor
         SumoBaseObject(const SumoBaseObject& s) = delete;

@@ -122,7 +122,7 @@ train can only leave by reversing direction. [netconvert](../netconvert.md) prov
 
 - **--railway.topology.output** {{DT_FILE}}: Identify problematic tracks (i.e. for manual correction).
 - **--railway.topology.repair** : Automatically fixes problems by analyzing rail network topology and adding bidirectional tracks
-- **--railway.topology.repair.minimal** : Applys automated fixes but only those which are needed for the operation loaded public transport lines
+- **--railway.topology.repair.minimal** : Apply automated fixes but only those which are needed for the operation loaded public transport lines
 - **--railway.topology.repair.connect-straight** : Allow bidirectional rail use wherever rails with opposite directions meet at a straight angle
 - **--railway.topology.repair.stop-turn** : Add turn-around connections at all loaded stops (to enable direction reversal).
 - **--railway.topology.all-bidi** : make all tracks usable in both directions.
@@ -151,6 +151,33 @@ the crossings may have to be specified [via additional xml
 files](../Tutorials/ScenarioGuide.md#modifying_an_imported_network_via_plainxml)
 or set via [netedit](../Netedit/index.md) after importing.
 
+### Rail Crossing Parameters
+
+The following parameters may be defined in an additional file to configure timing and behavior of a rail crossing (example below).
+Time values are in seconds.
+
+- time-gap : time headway of approaching train that triggers closing the crossing (default 15)
+- space-gap : space headway of approaching train that triggers closing the crossing (default -1, which disables this check)
+- min-green-time : minimum green time for opening the crossing when another train is approaching (default 5)
+- opening-delay : time after train has passed the crossing before the opening sequence starts (default 3)
+- opening-time : time for opening the crossing (indicated by red-yellow state 'u') (default 3)
+- yellow-time : time for closing the crossing (default 3)
+
+When setting parameters, 'id' indicates the id of the rail-crossing junction and programID is always '0'.
+
+```
+additional_file.xsd">
+    <tlLogic id="C" programID="0">
+        <param key="time-gap" value="15.0"
+        <param key="space-gap" value="-1.0"
+        <param key="min-green-time" value="5.0"
+        <param key="opening-delay" value="3.0"/>
+        <param key="opening-time" value="3.0"/>
+        <param key="yellow-time" value="3.0"/>
+    </tlLogic>
+</additional>
+```
+
 ## Kilometrage (Mileage, Chainage)
 
 Edges support the attribute *distance* to denote the distance at the
@@ -164,6 +191,8 @@ The distance value along an edge is computed as:
 ```
 
 Edge distance is imported from OSM and can also be be set along a route in [netedit](../Netedit/index.md#route)
+
+The distances value can be written in [fcd-output](Output/FCDOutput.md#further_options) using option **--fcd-output.distance**. It may then be used for plotting by [plot_trajectories.py](../Tools/Visualization.md#plot_trajectoriespy) using the code `k` (i.e. -t kt). The distances can also be visualized in sumo-gui (color edges by distance).
 
 !!! note
     Negative distance values are not currently supported (pending introduction of another attribute)
@@ -279,9 +308,9 @@ Rail signals perform the following safety functions automatically
 - c) guard the track so that vehicles cannot enter bidirectional sections at the same time. This prevents head-on collisions.
 - d) prevent deadlocks on bidirectional sections
 
-Functionality **a)** corresponds to the "classic" safety behavior of rail signals ([PZB](https://en.wikipedia.org/wiki/Punktf%C3%B6rmige_Zugbeeinflussung)). When option **--railsignal-moving-block** is set or individual signals are configured with paramter *moving-block* (see below), feature **a)** is disabled and trains will use their configured carFollowModel (i.e. 'Rail') for distance keeping. This correspnds to the [LZB](https://en.wikipedia.org/wiki/Linienzugbeeinflussung) safety system.
+Functionality **a)** corresponds to the "classic" safety behavior of rail signals ([PZB](https://en.wikipedia.org/wiki/Punktf%C3%B6rmige_Zugbeeinflussung)). When option **--railsignal-moving-block** is set or individual signals are configured with parameter *moving-block* (see below), feature **a)** is disabled and trains will use their configured carFollowModel (i.e. 'Rail') for distance keeping. This is similar to the [LZB](https://en.wikipedia.org/wiki/Linienzugbeeinflussung) safety system when used with extremely short virtual blocks.
 
-To switch a single signal into LZB-mode, the following additional file may be loaded:
+To switch a single signal into moving-block-mode, the following additional file may be loaded:
 ```
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/additional_file.xsd">
     <tlLogic id="gneJ8" programID="0">
@@ -293,7 +322,7 @@ To switch a single signal into LZB-mode, the following additional file may be lo
 Parameter *moving-block* may also be updated at runtime with `traci.trafficlight.setParameter`.
 
 ## Schedule Constraints
-Additionally, rail signals can enforce train ordering to ensure that a scheduled order at stations can be kept.
+Additionally, rail signals can enforce train ordering to ensure that a [scheduled order at stations](Public_Transport.md#public_transport_schedules) can be kept.
 To make use of this, the following elements can be loaded from an additional file:
 
 ```
@@ -312,8 +341,19 @@ This constrain defines that a given vehicle id (or tripId) can only pass the cur
 ### insertionPredecessor constraint
 This constrain defines that a given vehicle id (or tripId) can only be inserted on the block leading up to the current signal after some other vehicle ('foe') with the given id or tripId has passed signal 'tl'. The foe vehicle must have been the last vehicle to do so or it must have been one of the last 'limit' vehicles at the time of switching green.
 
+### Constraint Attributes
+
+| Attribute Name  | Value Type             | Description                            |
+| --------------- | ---------------------- | -------------------------------------- |
+| **tripId**      | id (string)            | The 'tripId' param of a vehicle or the id of a vehicle to which this constraint applies   |
+| **tl**          | id (string)            | The id of a railSignal   |
+| **foes**        | ids (string list)      | The ids of one or more vehicles that must have passed **tl** before the parent rail signal permits **tripID** to pass   |
+| limit           | int                    | The number of intermediate vehicles that may pass **tl** after the **foes** before the consraint is evaluated for **tripId**.  default: number of given **foes**. (setting a high number has now downside besides memory use but setting a low number may cause the constraint to block **tripId** indefinitely because the ids of the passed foes were *overwritten* by later trains)     |
+| active         | bool                    |  Whether this constraint is active (inactive constraints may still be retrieved via TraCI) |         
+
+
 ### constraints generation
-Constraints can be generated using the tool [generateRailSignalConstraints.py](../Tools/Railways.md#generaterailsignalconstraintspy).
+Constraints can be generated using the tool [generateRailSignalConstraints.py](../Tools/Railways.md#generaterailsignalconstraintspy) by using a route file with [stops that define a schedule](Public_Transport.md#public_transport_schedules).
 
 # TraCI
 
@@ -331,7 +371,7 @@ Furthermore the following functions are available for rail signals:
 Constraints can be queried and modified via TraCI:
 
 - getConstraints(self, tlsID, tripId=""): Returns the list of rail signal constraints for the given rail signal. If tripId is not "", only constraints with the given tripId are returned. Otherwise, all constraints are returned
-- getConstraintsByFoe(self, foeSignal, foeId=""): Returns the list of rail signal constraints that have the given rail signal id as their foeSignal. If foeId is not "", only constraints with the given foeId are returned. Otherwise, all constraints are returne
+- getConstraintsByFoe(self, foeSignal, foeId=""): Returns the list of rail signal constraints that have the given rail signal id as their foeSignal. If foeId is not "", only constraints with the given foeId are returned. Otherwise, all constraints are returned
 - swapConstraints(self, tlsID, tripId, foeSignal, foeId):  Reverse the given constraint and return list of new constraints that were created (by swapping) to avoid deadlock.
 - removeConstraints(self, tlsID, tripId, foeSignal, foeId): remove constraints with the given values. Any combination of inputs may be set to "" to act as a wildcard filter """
 
@@ -344,6 +384,8 @@ parameters](../Simulation/GenericParameters.md):
 - carriageLength
 - locomotiveLength
 - carriageGap
+
+These parameters control the appearance of trains in [sumo-gui](../sumo-gui.md) when drawing vehicles with the style 'simple shapes'.
 
 # Miscellaneous
 - Error checking for [railway schedules](Public_Transport.md#single_vehicles_and_trips) can be done with the tool [checkStopOrder.py](../Tools/Routes.md#checkstoporderpy) 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec 14 11:32:36 2020 by Eclipse SUMO netconvert Version v1_8_0+0240-6f1f621077
+<!-- generated on 2021-11-29 08:31:03 by Eclipse SUMO netconvert Version v1_11_0+0165-4261a27
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -62,12 +62,12 @@ SPDX-License-Identifier: EPL-2.0
     <type id="stop" priority="1" speed="13.89" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" width="3.65"/>
     <type id="tram" priority="2" speed="13.89" allow="tram" width="3.65"/>
 
-    <edge id="-190.0.00" from="146" to="268" priority="1" type="driving" shape="173.42,0.00 153.69,4.64 66.30,32.80 0.00,55.89">
-        <lane id="-190.0.00_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="22.22" length="181.96" width="3.20" shape="174.52,4.67 154.98,9.27 67.82,37.35 1.58,60.42" type="driving"/>
-        <lane id="-190.0.00_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="22.22" length="181.96" width="3.20" shape="173.79,1.56 154.12,6.18 66.81,34.32 0.53,57.40" type="driving"/>
+    <edge id="-190" from="146" to="268" priority="1" type="driving" shape="173.42,0.00 153.69,4.64 66.30,32.80 0.00,55.89">
+        <lane id="-190_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="22.22" length="181.96" width="3.20" shape="174.52,4.67 154.98,9.27 67.82,37.35 1.58,60.42" type="driving"/>
+        <lane id="-190_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="22.22" length="181.96" width="3.20" shape="173.79,1.56 154.12,6.18 66.81,34.32 0.53,57.40" type="driving"/>
     </edge>
 
     <junction id="146" type="dead_end" x="173.42" y="0.00" incLanes="" intLanes="" shape="173.42,0.00 174.89,6.23"/>
-    <junction id="268" type="dead_end" x="0.00" y="55.89" incLanes="-190.0.00_0 -190.0.00_1" intLanes="" shape="2.10,61.93 -0.00,55.89"/>
+    <junction id="268" type="dead_end" x="0.00" y="55.89" incLanes="-190_0 -190_1" intLanes="" shape="2.10,61.93 -0.00,55.89"/>
 
 </net>

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -21,6 +21,10 @@
 #include <config.h>
 
 #include <netedit/frames/GNEFrame.h>
+#include <netedit/frames/GNEAttributesCreator.h>
+#include <netedit/frames/GNEDemandSelector.h>
+#include <netedit/frames/GNETagSelector.h>
+#include <netedit/frames/GNEElementTree.h>
 
 
 // ===========================================================================
@@ -50,39 +54,39 @@ public:
     /**@brief add container plan element
      * @param objectsUnderCursor collection of objects under cursor after click over view
      * @param mouseButtonKeyPressed key pressed during click
-     * @return true if element was sucesfully added
+     * @return true if element was successfully added
      */
     bool addContainerPlanElement(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, const GNEViewNetHelper::MouseButtonKeyPressed& mouseButtonKeyPressed);
 
     /// @brief get path creator modul
-    GNEFrameModuls::PathCreator* getPathCreator() const;
+    GNEPathCreator* getPathCreator() const;
 
 protected:
-    /// @brief Tag selected in TagSelector
+    /// @brief Tag selected in GNETagSelector
     void tagSelected();
 
     /// @brief selected demand element in DemandElementSelector
     void demandElementSelected();
 
     /// @brief create path
-    void createPath();
+    void createPath(const bool useLastRoute);
 
 private:
     /// @brief route handler
     GNERouteHandler myRouteHandler;
 
     /// @brief Container selectors
-    GNEFrameModuls::DemandElementSelector* myContainerSelector;
+    DemandElementSelector* myContainerSelector;
 
     /// @brief containerPlan selector
-    GNEFrameModuls::TagSelector* myContainerPlanTagSelector;
+    GNETagSelector* myContainerPlanTagSelector;
 
     /// @brief internal vehicle attributes
-    GNEFrameAttributesModuls::AttributesCreator* myContainerPlanAttributes;
+    GNEAttributesCreator* myContainerPlanAttributes;
 
     /// @brief Path Creator
-    GNEFrameModuls::PathCreator* myPathCreator;
+    GNEPathCreator* myPathCreator;
 
     /// @brief Container Hierarchy
-    GNEFrameModuls::HierarchicalElementTree* myContainerHierarchy;
+    GNEElementTree* myContainerHierarchy;
 };

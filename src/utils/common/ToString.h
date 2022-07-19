@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2002-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -151,6 +151,13 @@ template <>
 inline std::string toString<TrafficLightLayout>(const TrafficLightLayout& layout, std::streamsize accuracy) {
     UNUSED_PARAMETER(accuracy);
     return SUMOXMLDefinitions::TrafficLightLayouts.getString(layout);
+}
+
+
+template <>
+inline std::string toString<InsertionCheck>(const InsertionCheck& check, std::streamsize accuracy) {
+    UNUSED_PARAMETER(accuracy);
+    return SUMOXMLDefinitions::InsertionChecks.getString(check);
 }
 
 
@@ -383,6 +390,6 @@ inline std::string joinToString(const std::map<KEY, VAL>& s, const T_BETWEEN& be
 
 
 template <>
-inline std::string toString(const std::map<std::string, std::string>& v, std::streamsize) {
+inline std::string toString(const Parameterised::Map& v, std::streamsize) {
     return joinToString(v, ", ", ":");
 }

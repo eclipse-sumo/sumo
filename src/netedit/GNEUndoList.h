@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -44,6 +44,59 @@ class GNEUndoList : public GNEChangeGroup {
     FXDECLARE_ABSTRACT(GNEUndoList)
 
 public:
+    /// @brief iterator
+    class Iterator {
+
+    public:
+        /// @brief destructor
+        ~Iterator();
+
+        /// @brief check if iterator is at the end
+        bool end() const;
+
+        /// @brief get index
+        int getIndex() const;
+
+        /// @brief get description
+        const std::string getDescription() const;
+
+        /// @brief get icon
+        FXIcon* getIcon() const;
+
+        /// @brief increment operator
+        Iterator& operator++(int);
+
+    protected:
+        /// @brief constructor for GNEUndoList
+        Iterator(GNEChange* change);
+
+    private:
+        /// @brief default constructor
+        Iterator();
+
+        /// @brief current change
+        GNEChange* myCurrentChange;
+
+        /// @brief counter
+        int myIndex;
+    };
+
+    /// @brief undo iterator
+    class UndoIterator : public Iterator {
+
+    public:
+        /// @brief constructor for GNEUndoList
+        UndoIterator(const GNEUndoList* undoList);
+    };
+
+    /// @brief redo iterator
+    class RedoIterator : public Iterator {
+
+    public:
+        /// @brief constructor for GNEUndoList
+        RedoIterator(const GNEUndoList* undoList);
+    };
+
     /// @brief constructor
     GNEUndoList(GNEApplicationWindow* parent);
 
@@ -66,21 +119,21 @@ public:
      */
     std::string redoName() const;
 
-    /**@brief Begin undo command sub-group with current supermode. 
+    /**@brief Begin undo command sub-group with current supermode.
      * This begins a new group of commands that
      * are treated as a single command.  Must eventually be followed by a
      * matching end() after recording the sub-commands. The new sub-group
      * will be appended to its parent group's undo list when end() is called.
      */
-    void begin(const std::string& description);
+    void begin(GUIIcon icon, const std::string& description);
 
-    /**@brief Begin undo command sub-group specifing supermode. 
+    /**@brief Begin undo command sub-group specifing supermode.
      * This begins a new group of commands that
      * are treated as a single command.  Must eventually be followed by a
      * matching end() after recording the sub-commands. The new sub-group
      * will be appended to its parent group's undo list when end() is called.
      */
-    void begin(Supermode supermode, const std::string& description);
+    void begin(Supermode supermode, GUIIcon icon, const std::string& description);
 
     /**@brief End undo command sub-group.  If the sub-group is still empty, it will
      * be deleted; otherwise, the sub-group will be added as a new command
@@ -97,7 +150,7 @@ public:
      * all redo commands will be deleted since it is no longer possible to redo
      * from this point.
      */
-    void add(GNEChange* command, bool doit=false, bool merge=true);
+    void add(GNEChange* command, bool doit = false, bool merge = true);
 
     /// @brief special method for change attributes, avoid empty changes, always execute
     void changeAttribute(GNEChange_Attribute* change);
@@ -134,16 +187,16 @@ public:
     /// @name FOX-callbacks
     /// @{
     /// @brief undo change
-    long onCmdUndo(FXObject*,FXSelector,void*);
+    long onCmdUndo(FXObject*, FXSelector, void*);
 
     /// @brief event after Undo
-    long onUpdUndo(FXObject*,FXSelector,void*);
+    long onUpdUndo(FXObject*, FXSelector, void*);
 
     /// @brief redo change
-    long onCmdRedo(FXObject*,FXSelector,void*);
+    long onCmdRedo(FXObject*, FXSelector, void*);
 
     /// @brief event after Redo
-    long onUpdRedo(FXObject*,FXSelector,void*);
+    long onUpdRedo(FXObject*, FXSelector, void*);
     /// @}
 
 protected:
@@ -166,7 +219,7 @@ protected:
 
 private:
     /// @brief  Currently busy with undo or redo
-    bool myWorking;    
+    bool myWorking;
 
     // @brief the stack of currently active change groups
     std::stack<GNEChangeGroup*> myChangeGroups;

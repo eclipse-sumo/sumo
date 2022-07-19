@@ -16,178 +16,23 @@ Warning: Network contains internal links which are ignored. Vehicles will 'jump'
 Warning: Network contains internal links which are ignored. Vehicles will 'jump' across junctions and thus underestimate route lengths and travel times.
 Warning: Network contains internal links which are ignored. Vehicles will 'jump' across junctions and thus underestimate route lengths and travel times.
 Warning: Network contains internal links which are ignored. Vehicles will 'jump' across junctions and thus underestimate route lengths and travel times.
-Warning: Teleporting vehicle 'flow_0.1270'; waited too long, from edge 'D3E3':4 to edge 'E3E4':3, time 3803.59.
 Warning: Network contains internal links which are ignored. Vehicles will 'jump' across junctions and thus underestimate route lengths and travel times.
 Warning: Network contains internal links which are ignored. Vehicles will 'jump' across junctions and thus underestimate route lengths and travel times.
-Warning: Teleporting vehicle 'flow_0.1270'; waited too long, from edge 'D3E3':4 to edge 'E3E4':3, time 3803.59.
 Warning: Network contains internal links which are ignored. Vehicles will 'jump' across junctions and thus underestimate route lengths and travel times.
 Warning: Network contains internal links which are ignored. Vehicles will 'jump' across junctions and thus underestimate route lengths and travel times.
-Warning: Teleporting vehicle 'flow_0.290'; waited too long, from edge 'D3E3':3 to edge 'E3E4':2, time 1942.70.
-Warning: Teleporting vehicle 'flow_0.1327'; waited too long, from edge 'D1D2':3, time 3150.43.
-Warning: Vehicle 'flow_0.1327' ends teleporting on edge 'E2E3':2, time 3185.39.
-Warning: Teleporting vehicle 'flow_0.1253'; waited too long, from edge 'C2D2':2, time 3350.91.
-Warning: Teleporting vehicle 'flow_0.1177'; waited too long, from edge 'C2D2':3 to edge 'D2E2':1, time 3370.06.
-Warning: Vehicle 'flow_0.1253' ends teleporting on edge 'E3E4':2, time 3420.83.
 Warning: Network contains internal links which are ignored. Vehicles will 'jump' across junctions and thus underestimate route lengths and travel times.
 Warning: Network contains internal links which are ignored. Vehicles will 'jump' across junctions and thus underestimate route lengths and travel times.
-Warning: Teleporting vehicle 'flow_0.290'; waited too long, from edge 'D3E3':3 to edge 'E3E4':2, time 1942.70.
-Warning: Teleporting vehicle 'flow_0.1327'; waited too long, from edge 'D1D2':3, time 3150.43.
-Warning: Vehicle 'flow_0.1327' ends teleporting on edge 'E2E3':2, time 3185.39.
-Warning: Teleporting vehicle 'flow_0.1253'; waited too long, from edge 'C2D2':2, time 3350.91.
-Warning: Teleporting vehicle 'flow_0.1177'; waited too long, from edge 'C2D2':3 to edge 'D2E2':1, time 3370.06.
-Warning: Vehicle 'flow_0.1253' ends teleporting on edge 'E3E4':2, time 3420.83.
 Warning: Network contains internal links which are ignored. Vehicles will 'jump' across junctions and thus underestimate route lengths and travel times.
 Warning: Network contains internal links which are ignored. Vehicles will 'jump' across junctions and thus underestimate route lengths and travel times.
-Warning: Teleporting vehicle 'flow_0.290'; waited too long, from edge 'D3E3':3 to edge 'E3E4':2, time 1942.70.
-Warning: Teleporting vehicle 'flow_0.1327'; waited too long, from edge 'D1D2':3, time 3150.43.
-Warning: Vehicle 'flow_0.1327' ends teleporting on edge 'E2E3':2, time 3185.39.
-Warning: Teleporting vehicle 'flow_0.1253'; waited too long, from edge 'C2D2':2, time 3350.91.
-Warning: Teleporting vehicle 'flow_0.1177'; waited too long, from edge 'C2D2':3 to edge 'D2E2':1, time 3370.06.
-Warning: Vehicle 'flow_0.1253' ends teleporting on edge 'E3E4':2, time 3420.83.
 Warning: Network contains internal links which are ignored. Vehicles will 'jump' across junctions and thus underestimate route lengths and travel times.
 Warning: Network contains internal links which are ignored. Vehicles will 'jump' across junctions and thus underestimate route lengths and travel times.
-Warning: Teleporting vehicle 'flow_0.220'; waited too long, from edge 'C3D3':2 to edge 'D3E3':1, time 954.29.
-Warning: Teleporting vehicle 'flow_0.602'; waited too long, from edge 'D1E1':2, time 1708.32.
-Warning: Teleporting vehicle 'flow_0.589'; waited too long, from edge 'D2E2':2 to edge 'E2E3':1, time 1722.13.
-Warning: Vehicle 'flow_0.602' ends teleporting on edge 'E2E3':0, time 1743.28.
-Warning: Teleporting vehicle 'flow_0.568'; waited too long, from edge 'D2D3':2, time 1989.91.
-Warning: Vehicle 'flow_0.568' ends teleporting on edge 'E3E4':1, time 2024.87.
-Warning: Teleporting vehicle 'flow_0.722'; waited too long, from edge 'D2E2':1, time 2215.83.
-Warning: Teleporting vehicle 'flow_0.607'; waited too long, from edge 'D2E2':2, time 2217.31.
-Warning: Vehicle 'flow_0.722' ends teleporting on edge 'E3E4':0, time 2250.79.
-Warning: Vehicle 'flow_0.607' ends teleporting on edge 'E3E4':0, time 2252.27.
-Warning: Teleporting vehicle 'flow_0.359'; waited too long, from edge 'C3D3':1, time 2256.74.
-Warning: Teleporting vehicle 'flow_0.282'; waited too long, from edge 'C3D3':2, time 2282.74.
-Warning: Vehicle 'flow_0.359' ends teleporting on edge 'E3E4':1, time 2291.70.
-Warning: Vehicle 'flow_0.282' ends teleporting on edge 'E3E4':0, time 2317.70.
 Warning: Network contains internal links which are ignored. Vehicles will 'jump' across junctions and thus underestimate route lengths and travel times.
 Warning: Network contains internal links which are ignored. Vehicles will 'jump' across junctions and thus underestimate route lengths and travel times.
-Warning: Teleporting vehicle 'flow_0.220'; waited too long, from edge 'C3D3':2 to edge 'D3E3':1, time 954.29.
-Warning: Teleporting vehicle 'flow_0.602'; waited too long, from edge 'D1E1':2, time 1708.32.
-Warning: Teleporting vehicle 'flow_0.589'; waited too long, from edge 'D2E2':2 to edge 'E2E3':1, time 1722.13.
-Warning: Vehicle 'flow_0.602' ends teleporting on edge 'E2E3':0, time 1743.28.
-Warning: Teleporting vehicle 'flow_0.568'; waited too long, from edge 'D2D3':2, time 1989.91.
-Warning: Vehicle 'flow_0.568' ends teleporting on edge 'E3E4':1, time 2024.87.
-Warning: Teleporting vehicle 'flow_0.722'; waited too long, from edge 'D2E2':1, time 2215.83.
-Warning: Teleporting vehicle 'flow_0.607'; waited too long, from edge 'D2E2':2, time 2217.31.
-Warning: Vehicle 'flow_0.722' ends teleporting on edge 'E3E4':0, time 2250.79.
-Warning: Vehicle 'flow_0.607' ends teleporting on edge 'E3E4':0, time 2252.27.
-Warning: Teleporting vehicle 'flow_0.359'; waited too long, from edge 'C3D3':1, time 2256.74.
-Warning: Teleporting vehicle 'flow_0.282'; waited too long, from edge 'C3D3':2, time 2282.74.
-Warning: Vehicle 'flow_0.359' ends teleporting on edge 'E3E4':1, time 2291.70.
-Warning: Vehicle 'flow_0.282' ends teleporting on edge 'E3E4':0, time 2317.70.
 Warning: Network contains internal links which are ignored. Vehicles will 'jump' across junctions and thus underestimate route lengths and travel times.
 Warning: Network contains internal links which are ignored. Vehicles will 'jump' across junctions and thus underestimate route lengths and travel times.
-Warning: Teleporting vehicle 'flow_0.220'; waited too long, from edge 'C3D3':2 to edge 'D3E3':1, time 954.29.
-Warning: Teleporting vehicle 'flow_0.602'; waited too long, from edge 'D1E1':2, time 1708.32.
-Warning: Teleporting vehicle 'flow_0.589'; waited too long, from edge 'D2E2':2 to edge 'E2E3':1, time 1722.13.
-Warning: Vehicle 'flow_0.602' ends teleporting on edge 'E2E3':0, time 1743.28.
-Warning: Teleporting vehicle 'flow_0.568'; waited too long, from edge 'D2D3':2, time 1989.91.
-Warning: Vehicle 'flow_0.568' ends teleporting on edge 'E3E4':1, time 2024.87.
-Warning: Teleporting vehicle 'flow_0.722'; waited too long, from edge 'D2E2':1, time 2215.83.
-Warning: Teleporting vehicle 'flow_0.607'; waited too long, from edge 'D2E2':2, time 2217.31.
-Warning: Vehicle 'flow_0.722' ends teleporting on edge 'E3E4':0, time 2250.79.
-Warning: Vehicle 'flow_0.607' ends teleporting on edge 'E3E4':0, time 2252.27.
-Warning: Teleporting vehicle 'flow_0.359'; waited too long, from edge 'C3D3':1, time 2256.74.
-Warning: Teleporting vehicle 'flow_0.282'; waited too long, from edge 'C3D3':2, time 2282.74.
-Warning: Vehicle 'flow_0.359' ends teleporting on edge 'E3E4':1, time 2291.70.
-Warning: Vehicle 'flow_0.282' ends teleporting on edge 'E3E4':0, time 2317.70.
 Warning: Network contains internal links which are ignored. Vehicles will 'jump' across junctions and thus underestimate route lengths and travel times.
 Warning: Network contains internal links which are ignored. Vehicles will 'jump' across junctions and thus underestimate route lengths and travel times.
-Warning: Teleporting vehicle 'flow_0.220'; waited too long, from edge 'C3D3':2 to edge 'D3E3':1, time 954.29.
-Warning: Teleporting vehicle 'flow_0.602'; waited too long, from edge 'D1E1':2, time 1708.32.
-Warning: Teleporting vehicle 'flow_0.589'; waited too long, from edge 'D2E2':2 to edge 'E2E3':1, time 1722.13.
-Warning: Vehicle 'flow_0.602' ends teleporting on edge 'E2E3':0, time 1743.28.
-Warning: Teleporting vehicle 'flow_0.568'; waited too long, from edge 'D2D3':2, time 1989.91.
-Warning: Vehicle 'flow_0.568' ends teleporting on edge 'E3E4':1, time 2024.87.
-Warning: Teleporting vehicle 'flow_0.722'; waited too long, from edge 'D2E2':1, time 2215.83.
-Warning: Teleporting vehicle 'flow_0.607'; waited too long, from edge 'D2E2':2, time 2217.31.
-Warning: Vehicle 'flow_0.722' ends teleporting on edge 'E3E4':0, time 2250.79.
-Warning: Vehicle 'flow_0.607' ends teleporting on edge 'E3E4':0, time 2252.27.
-Warning: Teleporting vehicle 'flow_0.359'; waited too long, from edge 'C3D3':1, time 2256.74.
-Warning: Teleporting vehicle 'flow_0.282'; waited too long, from edge 'C3D3':2, time 2282.74.
-Warning: Vehicle 'flow_0.359' ends teleporting on edge 'E3E4':1, time 2291.70.
-Warning: Vehicle 'flow_0.282' ends teleporting on edge 'E3E4':0, time 2317.70.
 Warning: Network contains internal links which are ignored. Vehicles will 'jump' across junctions and thus underestimate route lengths and travel times.
 Warning: Network contains internal links which are ignored. Vehicles will 'jump' across junctions and thus underestimate route lengths and travel times.
-Warning: Teleporting vehicle 'flow_0.220'; waited too long, from edge 'C3D3':2 to edge 'D3E3':1, time 954.29.
-Warning: Teleporting vehicle 'flow_0.602'; waited too long, from edge 'D1E1':2, time 1708.32.
-Warning: Teleporting vehicle 'flow_0.589'; waited too long, from edge 'D2E2':2 to edge 'E2E3':1, time 1722.13.
-Warning: Vehicle 'flow_0.602' ends teleporting on edge 'E2E3':0, time 1743.28.
-Warning: Teleporting vehicle 'flow_0.568'; waited too long, from edge 'D2D3':2, time 1989.91.
-Warning: Vehicle 'flow_0.568' ends teleporting on edge 'E3E4':1, time 2024.87.
-Warning: Teleporting vehicle 'flow_0.722'; waited too long, from edge 'D2E2':1, time 2215.83.
-Warning: Teleporting vehicle 'flow_0.607'; waited too long, from edge 'D2E2':2, time 2217.31.
-Warning: Vehicle 'flow_0.722' ends teleporting on edge 'E3E4':0, time 2250.79.
-Warning: Vehicle 'flow_0.607' ends teleporting on edge 'E3E4':0, time 2252.27.
-Warning: Teleporting vehicle 'flow_0.359'; waited too long, from edge 'C3D3':1, time 2256.74.
-Warning: Teleporting vehicle 'flow_0.282'; waited too long, from edge 'C3D3':2, time 2282.74.
-Warning: Vehicle 'flow_0.359' ends teleporting on edge 'E3E4':1, time 2291.70.
-Warning: Vehicle 'flow_0.282' ends teleporting on edge 'E3E4':0, time 2317.70.
 Warning: Network contains internal links which are ignored. Vehicles will 'jump' across junctions and thus underestimate route lengths and travel times.
 Warning: Network contains internal links which are ignored. Vehicles will 'jump' across junctions and thus underestimate route lengths and travel times.
-Warning: Teleporting vehicle 'flow_0.220'; waited too long, from edge 'C3D3':2 to edge 'D3E3':1, time 954.29.
-Warning: Teleporting vehicle 'flow_0.602'; waited too long, from edge 'D1E1':2, time 1708.32.
-Warning: Teleporting vehicle 'flow_0.589'; waited too long, from edge 'D2E2':2 to edge 'E2E3':1, time 1722.13.
-Warning: Vehicle 'flow_0.602' ends teleporting on edge 'E2E3':0, time 1743.28.
-Warning: Teleporting vehicle 'flow_0.568'; waited too long, from edge 'D2D3':2, time 1989.91.
-Warning: Vehicle 'flow_0.568' ends teleporting on edge 'E3E4':1, time 2024.87.
-Warning: Teleporting vehicle 'flow_0.722'; waited too long, from edge 'D2E2':1, time 2215.83.
-Warning: Teleporting vehicle 'flow_0.607'; waited too long, from edge 'D2E2':2, time 2217.31.
-Warning: Vehicle 'flow_0.722' ends teleporting on edge 'E3E4':0, time 2250.79.
-Warning: Vehicle 'flow_0.607' ends teleporting on edge 'E3E4':0, time 2252.27.
-Warning: Teleporting vehicle 'flow_0.359'; waited too long, from edge 'C3D3':1, time 2256.74.
-Warning: Teleporting vehicle 'flow_0.282'; waited too long, from edge 'C3D3':2, time 2282.74.
-Warning: Vehicle 'flow_0.359' ends teleporting on edge 'E3E4':1, time 2291.70.
-Warning: Vehicle 'flow_0.282' ends teleporting on edge 'E3E4':0, time 2317.70.
-Warning: Teleporting vehicle 'flow_0.321'; waited too long, from edge 'D3E3':6, time 1675.46.
-Warning: Vehicle 'flow_0.321' teleports beyond arrival edge 'E3E4', time 1711.46.
-Warning: Teleporting vehicle 'flow_0.1096'; waited too long, from edge 'D2E2':5 to edge 'E2E3':2, time 2882.68.
-Warning: Teleporting vehicle 'flow_0.1096'; waited too long, from edge 'D2E2':5 to edge 'E2E3':2, time 2882.68.
-Warning: Teleporting vehicle 'flow_0.282'; waited too long, from edge 'D3E3':4 to edge 'E3E4':4, time 1828.53.
-Warning: Teleporting vehicle 'flow_0.282'; waited too long, from edge 'D3E3':4 to edge 'E3E4':4, time 1828.53.
-Warning: Teleporting vehicle 'flow_0.396'; waited too long, from edge 'D2E2':2 to edge 'E2E3':1, time 1405.98.
-Warning: Teleporting vehicle 'flow_0.461'; waited too long, from edge 'D2D3':2, time 1462.08.
-Warning: Vehicle 'flow_0.461' ends teleporting on edge 'E3E4':1, time 1498.07.
-Warning: Teleporting vehicle 'flow_0.517'; waited too long, from edge 'D1E1':2 to edge 'E1E2':2, time 1530.92.
-Warning: Teleporting vehicle 'flow_0.379'; waited too long, from edge 'C3D3':2, time 1555.55.
-Warning: Vehicle 'flow_0.379' ends teleporting on edge 'E3E4':0, time 1591.55.
-Warning: Teleporting vehicle 'flow_0.1118'; waited too long, from edge 'D3E3':2 to edge 'E3E4':1, time 3200.37.
-Warning: Teleporting vehicle 'flow_0.1120'; waited too long, from edge 'D3E3':2, time 3657.69.
-Warning: Vehicle 'flow_0.1120' teleports beyond arrival edge 'E3E4', time 3693.69.
-Warning: Teleporting vehicle 'flow_0.396'; waited too long, from edge 'D2E2':2 to edge 'E2E3':1, time 1405.98.
-Warning: Teleporting vehicle 'flow_0.461'; waited too long, from edge 'D2D3':2, time 1462.08.
-Warning: Vehicle 'flow_0.461' ends teleporting on edge 'E3E4':1, time 1498.07.
-Warning: Teleporting vehicle 'flow_0.517'; waited too long, from edge 'D1E1':2 to edge 'E1E2':2, time 1530.92.
-Warning: Teleporting vehicle 'flow_0.379'; waited too long, from edge 'C3D3':2, time 1555.55.
-Warning: Vehicle 'flow_0.379' ends teleporting on edge 'E3E4':0, time 1591.55.
-Warning: Teleporting vehicle 'flow_0.1118'; waited too long, from edge 'D3E3':2 to edge 'E3E4':1, time 3200.37.
-Warning: Teleporting vehicle 'flow_0.1120'; waited too long, from edge 'D3E3':2, time 3657.69.
-Warning: Vehicle 'flow_0.1120' teleports beyond arrival edge 'E3E4', time 3693.69.
-Warning: Teleporting vehicle 'flow_0.396'; waited too long, from edge 'D2E2':2 to edge 'E2E3':1, time 1405.98.
-Warning: Teleporting vehicle 'flow_0.461'; waited too long, from edge 'D2D3':2, time 1462.08.
-Warning: Vehicle 'flow_0.461' ends teleporting on edge 'E3E4':1, time 1498.07.
-Warning: Teleporting vehicle 'flow_0.517'; waited too long, from edge 'D1E1':2 to edge 'E1E2':2, time 1530.92.
-Warning: Teleporting vehicle 'flow_0.379'; waited too long, from edge 'C3D3':2, time 1555.55.
-Warning: Vehicle 'flow_0.379' ends teleporting on edge 'E3E4':0, time 1591.55.
-Warning: Teleporting vehicle 'flow_0.1118'; waited too long, from edge 'D3E3':2 to edge 'E3E4':1, time 3200.37.
-Warning: Teleporting vehicle 'flow_0.1120'; waited too long, from edge 'D3E3':2, time 3657.69.
-Warning: Vehicle 'flow_0.1120' teleports beyond arrival edge 'E3E4', time 3693.69.
-Warning: Teleporting vehicle 'flow_0.396'; waited too long, from edge 'D2E2':2 to edge 'E2E3':1, time 1405.98.
-Warning: Teleporting vehicle 'flow_0.461'; waited too long, from edge 'D2D3':2, time 1462.08.
-Warning: Vehicle 'flow_0.461' ends teleporting on edge 'E3E4':1, time 1498.07.
-Warning: Teleporting vehicle 'flow_0.517'; waited too long, from edge 'D1E1':2 to edge 'E1E2':2, time 1530.92.
-Warning: Teleporting vehicle 'flow_0.379'; waited too long, from edge 'C3D3':2, time 1555.55.
-Warning: Vehicle 'flow_0.379' ends teleporting on edge 'E3E4':0, time 1591.55.
-Warning: Teleporting vehicle 'flow_0.1118'; waited too long, from edge 'D3E3':2 to edge 'E3E4':1, time 3200.37.
-Warning: Teleporting vehicle 'flow_0.1120'; waited too long, from edge 'D3E3':2, time 3657.69.
-Warning: Vehicle 'flow_0.1120' teleports beyond arrival edge 'E3E4', time 3693.69.
-Warning: Teleporting vehicle 'flow_0.396'; waited too long, from edge 'D2E2':2 to edge 'E2E3':1, time 1405.98.
-Warning: Teleporting vehicle 'flow_0.461'; waited too long, from edge 'D2D3':2, time 1462.08.
-Warning: Vehicle 'flow_0.461' ends teleporting on edge 'E3E4':1, time 1498.07.
-Warning: Teleporting vehicle 'flow_0.517'; waited too long, from edge 'D1E1':2 to edge 'E1E2':2, time 1530.92.
-Warning: Teleporting vehicle 'flow_0.379'; waited too long, from edge 'C3D3':2, time 1555.55.
-Warning: Vehicle 'flow_0.379' ends teleporting on edge 'E3E4':0, time 1591.55.
-Warning: Teleporting vehicle 'flow_0.1118'; waited too long, from edge 'D3E3':2 to edge 'E3E4':1, time 3200.37.
-Warning: Teleporting vehicle 'flow_0.1120'; waited too long, from edge 'D3E3':2, time 3657.69.
-Warning: Vehicle 'flow_0.1120' teleports beyond arrival edge 'E3E4', time 3693.69.

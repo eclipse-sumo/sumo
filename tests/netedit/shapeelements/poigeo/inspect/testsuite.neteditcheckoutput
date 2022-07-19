@@ -1,0 +1,39 @@
+# all test check also the undo-redo of modifications and save the poi into a file
+# edit poi id
+id
+
+# edit poi lon
+lon
+
+# edit poi lat
+lat
+
+# edit poi color
+color
+
+# edit poi type
+type
+
+# edit poi name
+name
+
+# edit poi layer
+layer
+
+# edit poi width
+width
+
+# edit poi height
+height
+
+# edit poi imgfile
+imgfile
+
+# edit poi relative path
+relativepath
+
+# edit poi angle
+angle
+
+# edit poi parameters
+parameters

@@ -41,7 +41,11 @@ right-corner of the window.
   geo-coordinates (lon,lat) and vice versa
 - using [sumolib](Tools/Sumolib.md#coordinate_transformations)
   , coordinates can be transformed between network-coordinates (m,m)
-  and geo-coordinates (lon,lat) and vice versa
+  and geo-coordinates (lon,lat) and vice versa. Converting back and forth between lon,lat and raw UTM (m,m) is also supported.
+
+# Using geo-coordinates in XML-inputs
+
+The [duarouter](duarouter.md) application supports attributes [fromLonLat, toLonLat, viaLonLat]((Demand/Shortest_or_Optimal_Path_Routing.md#trip_definitions) to map trips directly onto the closest network [edge or junction](Demand/Shortest_or_Optimal_Path_Routing.md#mapmatching) for the given coordinates.
 
 # Obtaining output with geo-coordinates
 
@@ -54,3 +58,16 @@ netconvert --sumo-net-file myNet.net.xml --plain-output-prefix plain --proj
 
 - [FCD-output](Simulation/Output/FCDOutput.md) can be obtained
   in geo-coordinates by adding the option **--fcd-output.geo**
+  
+- [duarouter](duarouter.md) supports option **--write-trips.geo** to create trip definitions with geo-coordinates (see above)
+  
+# Mapping geo-coordinates
+
+It is often desirable to convert between geo-coordinates (lon,lat) and road coordinates (laneID, offset). 
+This is typically accomplished in a 2-step process of first converting lon,lat to x,y-network coordinates (in m) and the matching those coordinates to the closest lane. The following resources can be useful for this task:
+
+- [how to match trajectories](FAQ.md#how_do_i_generate_sumo_routes_from_gps_traces)
+- [traci.moveToXY](TraCI/Change_Vehicle_State.md#move_to_xy_0xb4) moves a vehicle to an appropriate network position
+- [convert geo-coordinates to edge with sumolib](Tools/Sumolib.md#locate_nearby_edges_based_on_the_geo-coordinate)
+- [TraCI](TraCI/Simulation_Value_Retrieval.md#command_0x82_position_conversion) converts between coordinates (x,y or lon,lat) and edges
+

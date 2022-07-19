@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Sep  3 17:20:17 2020 by Eclipse SUMO sumo Version v1_6_0+1961-95c187100c
+<!-- generated on 2021-12-08 14:35:32 by Eclipse SUMO sumo Version v1_11_0+0353-0fe5fe321c1
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -48,10 +48,10 @@ SPDX-License-Identifier: EPL-2.0
         <route edges="beg"/>
     </vehicle>
 
-    <person id="p0" depart="0.00" arrival="773.00">
+    <person id="p0" depart="0.00" arrival="766.00">
         <ride from="beg" to="beg" arrivalPos="500.00" lines="p0_0"/>
-        <walk edges="beg2left" busStop="beg2left"/>
-        <ride from="gneE0" to="gneE0" busStop="left2end" lines="train" intended="train.1" depart="310.00"/>
+        <walk edges="beg2left" trainStop="beg2left"/>
+        <ride from="gneE0" to="gneE0" trainStop="left2end" lines="train" intended="train.1" depart="310.00"/>
         <walk edges="left2end end"/>
     </person>
 

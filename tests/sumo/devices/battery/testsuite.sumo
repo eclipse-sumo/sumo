@@ -10,6 +10,9 @@ chargingStations
 # track fuel consumption from vehicle emissionClass instead of electricity
 trackFuel
 
+# track fuel consumption from vehicle emissionClass instead of electricity
+trackFuel_truck
+
 # track fuel consumption from vehicle emissionClass instead of electricity but emissionClass is Energy
 trackFuel_elec
 

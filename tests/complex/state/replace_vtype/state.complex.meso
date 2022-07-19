@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2021-08-10 12:58:40 by Eclipse SUMO sumo Version v1_9_2+0915-d5bb258209
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <save-state.times value="15"/>
+        <save-state.files value="state.xml"/>
+    </output>
+
+    <processing>
+        <default.speeddev value="0"/>
+        <pedestrian.model value="nonInteracting"/>
+    </processing>
+
+    <report>
+        <verbose value="true"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+    </mesoscopic>
+
+</configuration>
+-->
+
+<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_9_2+0915-d5bb258209" time="15.00" type="meso">
+    <route id="r0" state="1" edges="beg middle end"/>
+    <delay number="1" begin="1" end="0" depart="0.00" time="0.00"/>
+    <vType id="t0" sigma="0"/>
+    <vehicle id="v0" type="t0" depart="0.00" departEdge="1" route="r0" distance="0 0" speedFactor="1.00" state="0 1 0 1 0 14398 7199 9223372036854775807"/>
+    <segment id="middle:0">
+        <vehicles time="8868" value=""/>
+    </segment>
+    <segment id="middle:1">
+        <vehicles time="-1" value="v0"/>
+    </segment>
+</snapshot>

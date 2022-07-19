@@ -13,6 +13,7 @@
                 <xsd:element name="decal" type="decalType" minOccurs="0"/>
                 <xsd:element name="light" type="lightType" minOccurs="0"/>
             </xsd:choice>
+            <xsd:attribute name="type" type="xsd:string" use="optional"/>
         </xsd:complexType>
     </xsd:element>
 

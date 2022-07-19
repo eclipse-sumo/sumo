@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2012-2021 German Aerospace Center (DLR) and others.
+# Copyright (C) 2012-2022 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -35,7 +35,7 @@ def get_options(args=None):
     parser = ArgumentParser(description="Analyze person plans")
     parser.add_argument("-r", "--route-files", dest="routeFiles", help="Input route files")
     parser.add_argument("-w", "--merge-walks", dest="mergeWalks", action="store_true", help="merge subsequent walks")
-    parser.add_argument("-p", "--public-prefixes", dest="public", help="Distinguis public transport modes by prefix")
+    parser.add_argument("-p", "--public-prefixes", dest="public", help="Distinguish public transport modes by prefix")
     parser.add_argument("-i", "--ids", dest="ids", default=0, type=int,
                         help="List the given number of person ids for each type of plan")
     options = parser.parse_args(args=args)

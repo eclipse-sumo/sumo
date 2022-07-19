@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -33,12 +33,20 @@ class GNEChange_EnableAttribute : public GNEChange {
     FXDECLARE_ABSTRACT(GNEChange_EnableAttribute)
 
 public:
-    /**@brief Constructor
+    /**@brief constructor
      * @param[in] ac The attribute-carrier to be modified
-     * @param[in] originalAttributes original set of attributes
-     * @param[in] newAttributes new set of attributes
+     * @param[in] key The attribute key
+     * @param[in] value The new value
      */
-    GNEChange_EnableAttribute(GNEAttributeCarrier* ac, const int originalAttributes, const int newAttributes);
+    GNEChange_EnableAttribute(GNEAttributeCarrier* ac, const SumoXMLAttr key, const bool value);
+
+    /**@brief constructor
+     * @param[in] ac The attribute-carrier to be modified
+     * @param[in] key The attribute key
+     * @param[in] value The new value
+     * @param[in] previousParameters previous values (used by flows)
+     */
+    GNEChange_EnableAttribute(GNEAttributeCarrier* ac, const SumoXMLAttr key, const bool value, const int previousParameters);
 
     /// @brief Destructor
     ~GNEChange_EnableAttribute();
@@ -64,9 +72,12 @@ private:
      */
     GNEAttributeCarrier* myAC;
 
-    /// @brief original attributes
-    const int myOriginalAttributes;
+    /// @brief The attribute name
+    const SumoXMLAttr myKey;
 
-    /// @brief original attributes
-    const int myNewAttributes;
+    /// @brief the original value
+    const bool myOrigValue;
+
+    /// @brief the new value
+    const bool myNewValue;
 };

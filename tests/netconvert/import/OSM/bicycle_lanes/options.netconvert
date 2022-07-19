@@ -1,2 +1,2 @@
- --osm-files osm.xml --type-files input_types.typ.xml
+ --osm-files osm.xml,osm2.xml --type-files input_types.typ.xml
  --osm.extra-attributes lit

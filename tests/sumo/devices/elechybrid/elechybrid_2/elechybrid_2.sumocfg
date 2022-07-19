@@ -10,7 +10,7 @@
     
     <processing>
         <ignore-route-errors value="true"/>
-        <overhead-wire-solver value="true"/>
+        <overhead-wire.solver value="true"/>
         <no-internal-links value="true"/>
     </processing>
     

@@ -1,1 +1,34 @@
 example
+
+# minimum parkingArea attributes
+bare_parkingAreas
+opposite_visible
+
+# parkingAreas are only on one side but vehicles driving past should still see them
+opposite_visible_oneSided
+
+# exclude low-capacity destinations
+minCapacity
+
+# handle multiple parkingAreas on the same edge
+sameEdge
+
+# distibute alternatives over a larger area
+distribute_3_1
+
+# distibute alternatives over a larger area
+distribute_3_1_only2
+
+# distibute alternatives over a larger area
+distribute_1_1_1_1
+
+# distibute alternatives over a larger area
+distribute_1_1
+minCapacityVisible
+
+# parking areas that are visible should be preferred as alternatives
+visible_preferredAlternative
+
+# parking areas that are visible should be preferred as alternatives
+visible_preferredAlternative_minCount
+visible_explicit

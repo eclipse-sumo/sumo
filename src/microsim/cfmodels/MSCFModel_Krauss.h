@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -88,6 +88,24 @@ public:
      */
     MSCFModel* duplicate(const MSVehicleType* vtype) const;
 
+    VehicleVariables* createVehicleVariables() const {
+        if (myDawdleStep > DELTA_T) {
+            return new VehicleVariables(myDawdleStep);
+        }
+        return 0;
+    }
+
+
+private:
+    class VehicleVariables : public MSCFModel::VehicleVariables {
+    public:
+        // no speed update happens in the insertion step
+        VehicleVariables(SUMOTime dawdleStep);
+
+        /// @brief the accleration due to dawdling
+        double accelDawdle;
+        SUMOTime updateOffset;
+    };
 
 protected:
 
@@ -97,6 +115,10 @@ protected:
      * @return The speed after dawdling
      */
     double dawdle2(double speed, double sigma, SumoRNG* rng) const;
+
+    /// @brief The vehicle's update period for dawdling
+    SUMOTime myDawdleStep;
+
 
 };
 

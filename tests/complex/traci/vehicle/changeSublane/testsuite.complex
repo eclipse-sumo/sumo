@@ -1,0 +1,23 @@
+left_0.6
+
+# change more than can be covered in a single step (maxSpeedLat * stepLength)
+left_1.2
+
+# 1 lane width
+left_3.2
+
+# 2 lane widths
+left_6.4
+right_0.6
+
+# change more than can be covered in a single step (maxSpeedLat * stepLength)
+right_1.2
+
+# change right by 1 lane width starting at the leftmost lane
+right_3.2
+
+# change right by 2 lane widths starting at the leftmost lane
+right_6.4
+
+# change left by 1 lane width starting at the leftmost lane	
+opposite_3.2

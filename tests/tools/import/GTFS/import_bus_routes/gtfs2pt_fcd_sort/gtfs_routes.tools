@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-07-14 15:42:20.019115 by gtfs2pt.py v1_14_0+0106-54d45e1ea8e
+<configuration>
+    <date value="20201111"/>
+    <gtfs value="gtfs.zip"/>
+    <modes value="bus"/>
+    <network value="net.net.xml"/>
+    <sort value="True"/>
+    <vtype-output value="vehtypes.xml"/>
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="418_132185783.0" route="132185783" type="bus" depart="18890" line="418_132185783"/>
+    <vehicle id="620_132244371.0" route="132244371" type="bus" depart="19970" line="620_132244371"/>
+    <vehicle id="730_132218462.0" route="132218462" type="bus" depart="22610" line="730_132218462"/>
+    <vehicle id="413_132189814.0" route="132189814" type="bus" depart="36890" line="413_132189814"/>
+    <vehicle id="413_132190299.0" route="132190299" type="bus" depart="43310" line="413_132190299"/>
+    <vehicle id="418_132185786.0" route="132185783" type="bus" depart="86090" line="418_132185783"/>
+</routes>

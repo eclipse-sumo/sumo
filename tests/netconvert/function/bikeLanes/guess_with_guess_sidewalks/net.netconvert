@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec 14 11:32:52 2020 by Eclipse SUMO netconvert Version v1_8_0+0240-6f1f621077
+<!-- generated on 2022-01-27 23:56:44 by Eclipse SUMO netconvert Version v1_12_0+0084-0d8fc346dad
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -53,7 +53,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":C_1_0" index="0" allow="bicycle" speed="8.25" length="15.16" width="1.00" shape="98.40,107.20 98.89,102.43 100.35,99.03 102.79,96.98 106.20,96.30"/>
     </edge>
     <edge id=":C_2" function="internal">
-        <lane id=":C_2_0" index="0" allow="bicycle" speed="5.38" length="6.56" shape="106.20,103.70 104.19,103.92 102.75,104.58 101.89,105.67 101.60,107.20"/>
+        <lane id=":C_2_0" index="0" allow="bicycle" speed="5.38" length="6.56" width="1.00" shape="106.20,103.70 104.19,103.92 102.75,104.58 101.89,105.67 101.60,107.20"/>
     </edge>
     <edge id=":C_3" function="internal">
         <lane id=":C_3_0" index="0" allow="bicycle" speed="13.89" length="12.40" width="1.00" shape="106.20,103.70 93.80,103.70"/>
@@ -63,13 +63,13 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":C_5_0" index="0" allow="bicycle" speed="13.89" length="12.40" width="1.00" shape="93.80,96.30 106.20,96.30"/>
     </edge>
     <edge id=":C_6" function="internal">
-        <lane id=":C_6_0" index="0" allow="bicycle" speed="8.07" length="7.72" shape="93.80,96.30 97.21,96.98 99.65,99.02 100.07,100.00"/>
+        <lane id=":C_6_0" index="0" allow="bicycle" speed="8.07" length="7.01" width="1.00" shape="93.80,96.30 97.21,96.98 99.65,99.02 99.79,99.35"/>
     </edge>
     <edge id=":C_7" function="internal">
         <lane id=":C_7_0" index="0" allow="passenger" speed="13.89" length="12.40" shape="93.80,98.40 106.20,98.40"/>
     </edge>
     <edge id=":C_8" function="internal">
-        <lane id=":C_8_0" index="0" allow="bicycle" speed="8.07" length="7.44" shape="100.07,100.00 101.11,102.43 101.60,107.20"/>
+        <lane id=":C_8_0" index="0" allow="bicycle" speed="8.07" length="8.15" width="1.00" shape="99.79,99.35 101.11,102.43 101.60,107.20"/>
     </edge>
 
     <edge id="CE" from="C" to="E" priority="2">
@@ -129,7 +129,7 @@ SPDX-License-Identifier: EPL-2.0
     <junction id="S" type="dead_end" x="100.00" y="0.00" incLanes="CS_0" intLanes="" shape="100.00,0.00 96.80,0.00 100.00,0.00"/>
     <junction id="W" type="dead_end" x="0.00" y="100.00" incLanes="CW_0 CW_1 CW_2" intLanes="" shape="0.00,100.00 0.00,105.70 0.00,100.00"/>
 
-    <junction id=":C_8_0" type="internal" x="100.07" y="100.00" incLanes=":C_6_0 EC_1 EC_2" intLanes=":C_1_0 :C_2_0 :C_3_0 :C_3_1 :C_7_0"/>
+    <junction id=":C_8_0" type="internal" x="99.79" y="99.35" incLanes=":C_6_0 EC_1 EC_2" intLanes=":C_1_0 :C_2_0 :C_3_0 :C_3_1 :C_7_0"/>
 
     <connection from="EC" to="CN" fromLane="1" toLane="1" via=":C_2_0" tl="C" linkIndex="2" dir="r" state="O"/>
     <connection from="EC" to="CW" fromLane="1" toLane="1" via=":C_3_0" tl="C" linkIndex="3" dir="s" state="O"/>

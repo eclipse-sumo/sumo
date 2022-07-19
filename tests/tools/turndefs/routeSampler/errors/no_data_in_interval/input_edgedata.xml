@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- generated on 2020-02-15 23:29:52.505222 by turnCount2EdgeCount.py v1_5_0+0092-24382ab578
+  options: -t input_turns.xml -o edgedata.xml <doubleminus>edgedata-attribute count
+-->
+<meandata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/meandata_file.xsd">
+    <interval id="generated" begin="0.0" end="99.0">
+    </interval>
+</meandata>

@@ -18,3 +18,6 @@ trip_taz_noedge_disconnected_parallel
 
 # public transport and walk possible
 public_walk
+
+# randomize weights while routing
+parallel_random_weights

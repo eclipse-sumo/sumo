@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2014-2021 German Aerospace Center (DLR) and others.
+# Copyright (C) 2014-2022 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -27,9 +27,9 @@ import struct
 import contextlib
 
 from optparse import OptionParser
-import google.protobuf.descriptor
 import xml2csv
 import xml2protobuf
+import google.protobuf.descriptor  # we need to do this late because the xml2protobuf import modifies sys.path
 
 
 def get_options():

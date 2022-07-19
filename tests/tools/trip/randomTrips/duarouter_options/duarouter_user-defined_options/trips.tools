@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-07-07 10:55:35.803384 by randomTrips.py v1_13_0+1343-240e5d48340
+<configuration>
+    <allow-fringe value="True"/>
+    <duarouter-exit-times value="true"/>
+    <duarouter-route-length value="true"/>
+    <end value="20"/>
+    <net-file value="net2.net.xml"/>
+    <remove-loops value="True"/>
+    <route-file value="out.rou.xml"/>
+    <vehicle-class value="passenger"/>
+    <vtype-output value="out.add.xml"/>
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <trip id="0" depart="0.00" from="left2end" to="beg" type="passenger"/>
+    <trip id="1" depart="1.00" from="beg2left" to="beg2left" type="passenger"/>
+    <trip id="2" depart="2.00" from="middle" to="left2end" type="passenger"/>
+    <trip id="3" depart="3.00" from="rend" to="beg" type="passenger"/>
+    <trip id="4" depart="4.00" from="end" to="beg" type="passenger"/>
+    <trip id="5" depart="5.00" from="beg2left" to="left" type="passenger"/>
+    <trip id="6" depart="6.00" from="beg" to="beg2left" type="passenger"/>
+    <trip id="7" depart="7.00" from="left2end" to="left" type="passenger"/>
+    <trip id="8" depart="8.00" from="beg2left" to="left2end" type="passenger"/>
+    <trip id="9" depart="9.00" from="middle" to="beg" type="passenger"/>
+    <trip id="10" depart="10.00" from="middle" to="left2end" type="passenger"/>
+    <trip id="11" depart="11.00" from="end" to="beg2left" type="passenger"/>
+    <trip id="12" depart="12.00" from="rend" to="end" type="passenger"/>
+    <trip id="13" depart="13.00" from="beg" to="beg" type="passenger"/>
+    <trip id="14" depart="14.00" from="middle" to="left2end" type="passenger"/>
+    <trip id="15" depart="15.00" from="middle" to="middle" type="passenger"/>
+    <trip id="16" depart="16.00" from="left" to="rend" type="passenger"/>
+    <trip id="17" depart="17.00" from="end" to="left" type="passenger"/>
+    <trip id="18" depart="18.00" from="middle" to="left2end" type="passenger"/>
+    <trip id="19" depart="19.00" from="rend" to="left2end" type="passenger"/>
+</routes>

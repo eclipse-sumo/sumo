@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -86,6 +86,9 @@ public:
      */
     GUIParameterTableWindow* getTypeParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent) override;
 
+    /// @brief return exaggeration associated with this GLObject
+    double getExaggeration(const GUIVisualizationSettings& s) const override;
+
     /** @brief Returns the boundary to which the view shall be centered in order to show the object
      *
      * @return The boundary the object is within
@@ -152,6 +155,15 @@ public:
 
     /// @brief get destination edge ID
     std::string getDestinationEdgeID() const;
+
+    /// @brief get destination stop ID
+    std::string getDestinationStopID() const;
+
+    /// @brief get current vehicle id if applicable
+    std::string getVehicleID() const;
+
+    /// @brief get remaining duration of current stop or -1
+    double getStopDuration() const;
 
     /// @brief get stage arrival position
     double getStageArrivalPos() const;

@@ -17,6 +17,9 @@ simple_remove
 # Tests whether calibrators can reduce vehicle speed to 0
 speed_0
 
+# Tests whether undefined speed can be set explicitly
+speed_-1
+
 # test whether arrivals are added to current flow
 flow_at_destination_edge
 
@@ -37,6 +40,9 @@ swallow_downstream_jam_disabled
 
 # test calibrator without flow value (speed has to be given)
 speed_only
+
+# test calibrator without flow value (speed has to be given) and no route attribute
+speed_only2
 
 # check that speed-only calibrators also swallow invalid downstream jams
 speed_only_swallow_downstream_jam

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -42,17 +42,23 @@
 GUIE2Collector::GUIE2Collector(const std::string& id, DetectorUsage usage,
                                MSLane* lane, double startPos, double endPos, double detLength,
                                SUMOTime haltingTimeThreshold, double haltingSpeedThreshold,
-                               double jamDistThreshold, const std::string& vTypes, bool showDetector)
+                               double jamDistThreshold,
+                               const std::string& vTypes,
+                               const std::string& nextEdges,
+                               int detectPersons, bool showDetector)
     : MSE2Collector(id, usage, lane, startPos, endPos, detLength, haltingTimeThreshold,
-                    haltingSpeedThreshold, jamDistThreshold, vTypes),
+                    haltingSpeedThreshold, jamDistThreshold, vTypes, nextEdges, detectPersons),
       myShow(showDetector) {}
 
 GUIE2Collector::GUIE2Collector(const std::string& id, DetectorUsage usage,
                                std::vector<MSLane*> lanes, double startPos, double endPos,
                                SUMOTime haltingTimeThreshold, double haltingSpeedThreshold,
-                               double jamDistThreshold, const std::string& vTypes, bool showDetector)
+                               double jamDistThreshold,
+                               const std::string& vTypes,
+                               const std::string& nextEdges,
+                               int detectPersons, bool showDetector)
     : MSE2Collector(id, usage, lanes, startPos, endPos, haltingTimeThreshold,
-                    haltingSpeedThreshold, jamDistThreshold, vTypes),
+                    haltingSpeedThreshold, jamDistThreshold, vTypes, nextEdges, detectPersons),
       myShow(showDetector) {}
 
 GUIE2Collector::~GUIE2Collector() {}
@@ -70,6 +76,7 @@ GUIE2Collector::buildDetectorGUIRepresentation() {
 GUIE2Collector::MyWrapper::MyWrapper(GUIE2Collector& detector) :
     GUIDetectorWrapper(GLO_E2DETECTOR, detector.getID()),
     myDetector(detector) {
+    mySupportsOverride = true;
     // collect detector shape into one vector (v)
     const std::vector<MSLane*> lanes = detector.getLanes();
     for (std::vector<MSLane*>::const_iterator li = lanes.begin(); li != lanes.end(); ++li) {
@@ -95,6 +102,12 @@ GUIE2Collector::MyWrapper::MyWrapper(GUIE2Collector& detector) :
 
 
 GUIE2Collector::MyWrapper::~MyWrapper() {}
+
+
+double
+GUIE2Collector::MyWrapper::getExaggeration(const GUIVisualizationSettings& s) const {
+    return s.addSize.getExaggeration(s, this);
+}
 
 
 Boundary
@@ -137,7 +150,7 @@ GUIE2Collector::MyWrapper::getParameterWindow(GUIMainWindow& app,
     ret->mkItem("started halts [#]", true,
                 new FunctionBinding<MSE2Collector, int>(&myDetector, &MSE2Collector::getCurrentStartedHalts));
     // close building
-    ret->closeBuilding();
+    ret->closeBuilding(&myDetector);
     return ret;
 }
 
@@ -151,13 +164,17 @@ GUIE2Collector::MyWrapper::drawGL(const GUIVisualizationSettings& s) const {
     GLHelper::pushMatrix();
     glTranslated(0, 0, getType());
     double dwidth = 1;
-    const double exaggeration = s.addSize.getExaggeration(s, this);
+    const double exaggeration = getExaggeration(s);
     if (exaggeration > 0) {
-        if (myDetector.getUsageType() == DU_TL_CONTROL) {
-            dwidth = (double) 0.3;
+        if (haveOverride()) {
+            glColor3d(1, 0, 1);
+        } else if (myDetector.getUsageType() == DU_TL_CONTROL) {
             glColor3d(0, (double) .6, (double) .8);
         } else {
             glColor3d(0, (double) .8, (double) .8);
+        }
+        if (myDetector.getUsageType() == DU_TL_CONTROL) {
+            dwidth = (double) 0.3;
         }
         double width = (double) 2.0 * s.scale;
         if (width * exaggeration > 1.0) {
@@ -178,6 +195,21 @@ GUIE2Collector::MyWrapper::drawGL(const GUIVisualizationSettings& s) const {
 GUIE2Collector&
 GUIE2Collector::MyWrapper::getDetector() {
     return myDetector;
+}
+
+bool
+GUIE2Collector::MyWrapper::haveOverride() const {
+    return myDetector.getOverrideVehNumber() >= 0;
+}
+
+
+void
+GUIE2Collector::MyWrapper::toggleOverride() const {
+    if (haveOverride()) {
+        myDetector.overrideVehicleNumber(-1);
+    } else {
+        myDetector.overrideVehicleNumber(1);
+    }
 }
 
 

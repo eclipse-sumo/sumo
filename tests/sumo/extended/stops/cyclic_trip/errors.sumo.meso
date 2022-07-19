@@ -1,2 +1,2 @@
 Warning: Network contains internal links which are ignored. Vehicles will 'jump' across junctions and thus underestimate route lengths and travel times.
-Warning: Vehicle 'veh0' has multiple stops on segment 'SC:0', time 24.00 (stop-output will be merged)
+Warning: Vehicle 'veh0' has multiple stops on segment 'SC:0', time=43.24 (stop-output will be merged).

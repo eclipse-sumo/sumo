@@ -1,21 +1,24 @@
-# Folder with bugs related to additionals
+# folder with bugs related to additionals
 additionals
 
-# Folder with bugs related to crossings
+# folder with bugs related to crossings
 crossings
 
-# Folder with bugs related to processing
+# folder with bugs related to processing
 grid
 
-# Folder with bugs related to processing
+# folder with bugs related to processing
 processing
 
-# In revision [24081] was solved a bug, that provoke a crash 
+# folder with bugs related to viewport
+viewport
+
+# in revision [24081] was solved a bug, that provoke a crash 
 # when the position of a node was changed using inspector node,
-# due a call to computeSingleNode(...)
+# due a call to computesinglenode(...)
 revision24081
 
-# Loading a net.xml with prohibitions and deleting edges fails 
+# loading a net.xml with prohibitions and deleting edges fails 
 ticket1711
 
 # warm about unsaved additionals
@@ -27,11 +30,14 @@ ticket2948
 # crash on opening lefthand network
 ticket3900
 
-# After recomputing Green verge change to bikelanes
+# after recomputing green verge change to bikelanes
 ticket4528
 
-# crash when moving edges
-ticket5540
-
-# Crash after sequence of Undo-redo, recomputings and Join junctions 
+# crash after sequence of undo-redo, recomputings and join junctions 
 ticket5552
+
+# Crash after undo lane deletion
+ticket10588
+
+ # Crash after undo edge deletion
+ticket10591

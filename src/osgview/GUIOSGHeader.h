@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -13,9 +13,9 @@
 /****************************************************************************/
 /// @file    GUIOSGHeader.h
 /// @author  Pablo Alvarez lopez
-/// @date    Marz 2021
+/// @date    March 2021
 ///
-// Headers for OSG
+// Headers for OSG -- Oldest supported version is OSG 3.2.1
 /****************************************************************************/
 #pragma once
 #include <config.h>
@@ -46,6 +46,7 @@
 #include <osg/Group>
 #include <osg/Light>
 #include <osg/LightSource>
+#include <osg/Material>
 #include <osg/Node>
 #include <osg/PositionAttitudeTransform>
 #include <osg/Sequence>
@@ -61,6 +62,7 @@
 #include <osgGA/TerrainManipulator>
 #include <osgGA/TrackballManipulator>
 #include <osgUtil/Tessellator>
+#include <osgUtil/SmoothingVisitor>
 #include <osgViewer/Viewer>
 #include <osgViewer/ViewerEventHandlers>
 

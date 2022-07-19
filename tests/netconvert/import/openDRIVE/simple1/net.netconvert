@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec 14 11:32:35 2020 by Eclipse SUMO netconvert Version v1_8_0+0240-6f1f621077
+<!-- generated on 2021-11-29 08:31:02 by Eclipse SUMO netconvert Version v1_11_0+0165-4261a27
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -73,24 +73,24 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":1.end_0_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="3.53" length="4.38" width="3.00" shape="50.00,-1.50 51.12,-0.75 51.50,0.00 51.12,0.75 50.00,1.50"/>
     </edge>
 
-    <edge id="-1.0.00" from="1.begin" to="1.end" priority="1" type="driving">
-        <lane id="-1.0.00_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="50.00" width="3.00" shape="0.00,-1.50 50.00,-1.50" type="driving"/>
+    <edge id="-1" from="1.begin" to="1.end" priority="1" type="driving">
+        <lane id="-1_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="50.00" width="3.00" shape="0.00,-1.50 50.00,-1.50" type="driving"/>
     </edge>
-    <edge id="1.0.00" from="1.end" to="1.begin" priority="1" type="driving">
-        <lane id="1.0.00_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="50.00" width="3.00" shape="50.00,1.50 0.00,1.50" type="driving"/>
+    <edge id="1" from="1.end" to="1.begin" priority="1" type="driving">
+        <lane id="1_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="50.00" width="3.00" shape="50.00,1.50 0.00,1.50" type="driving"/>
     </edge>
 
-    <junction id="1.begin" type="priority" x="0.00" y="0.00" incLanes="1.0.00_0" intLanes=":1.begin_0_0" shape="0.00,0.00 0.00,3.00 0.00,0.00">
+    <junction id="1.begin" type="priority" x="0.00" y="0.00" incLanes="1_0" intLanes=":1.begin_0_0" shape="0.00,0.00 0.00,3.00 0.00,0.00">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="1.end" type="priority" x="50.00" y="0.00" incLanes="-1.0.00_0" intLanes=":1.end_0_0" shape="50.00,0.00 50.00,-3.00 50.00,0.00">
+    <junction id="1.end" type="priority" x="50.00" y="0.00" incLanes="-1_0" intLanes=":1.end_0_0" shape="50.00,0.00 50.00,-3.00 50.00,0.00">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
 
-    <connection from="-1.0.00" to="1.0.00" fromLane="0" toLane="0" via=":1.end_0_0" dir="t" state="M"/>
-    <connection from="1.0.00" to="-1.0.00" fromLane="0" toLane="0" via=":1.begin_0_0" dir="t" state="M"/>
+    <connection from="-1" to="1" fromLane="0" toLane="0" via=":1.end_0_0" dir="t" state="M"/>
+    <connection from="1" to="-1" fromLane="0" toLane="0" via=":1.begin_0_0" dir="t" state="M"/>
 
-    <connection from=":1.begin_0" to="-1.0.00" fromLane="0" toLane="0" dir="t" state="M"/>
-    <connection from=":1.end_0" to="1.0.00" fromLane="0" toLane="0" dir="t" state="M"/>
+    <connection from=":1.begin_0" to="-1" fromLane="0" toLane="0" dir="t" state="M"/>
+    <connection from=":1.end_0" to="1" fromLane="0" toLane="0" dir="t" state="M"/>
 
 </net>

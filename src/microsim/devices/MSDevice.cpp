@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2013-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2013-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -45,13 +45,14 @@
 #include "MSTransportableDevice_Routing.h"
 #include "MSTransportableDevice_FCD.h"
 #include "MSRoutingEngine.h"
+#include "MSDevice_Friction.h"
 
 
 // ===========================================================================
 // static member variables
 // ===========================================================================
 std::map<std::string, std::set<std::string> > MSDevice::myExplicitIDs;
-SumoRNG MSDevice::myEquipmentRNG;
+SumoRNG MSDevice::myEquipmentRNG("deviceEquipment");
 
 // ===========================================================================
 // debug flags
@@ -83,6 +84,7 @@ MSDevice::insertOptions(OptionsCont& oc) {
     MSDevice_GLOSA::insertOptions(oc);
     MSDevice_Tripinfo::insertOptions(oc);
     MSDevice_Vehroutes::insertOptions(oc);
+    MSDevice_Friction::insertOptions(oc);
 
     MSTransportableDevice_Routing::insertOptions(oc);
     MSTransportableDevice_FCD::insertOptions(oc);
@@ -115,6 +117,7 @@ MSDevice::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>& int
     MSDevice_ElecHybrid::buildVehicleDevices(v, into);
     MSDevice_Taxi::buildVehicleDevices(v, into);
     MSDevice_GLOSA::buildVehicleDevices(v, into);
+    MSDevice_Friction::buildVehicleDevices(v, into);
 }
 
 
@@ -205,6 +208,19 @@ MSDevice::getBoolParam(const SUMOVehicle& v, const OptionsCont& oc, std::string 
         return StringUtils::toBool(val);
     } catch (...) {
         WRITE_ERROR("Invalid bool value '" + val + "'for parameter '" + key + "'");
+        return deflt;
+    }
+}
+
+
+SUMOTime
+MSDevice::getTimeParam(const SUMOVehicle& v, const OptionsCont& oc, std::string paramName, SUMOTime deflt, bool required) {
+    const std::string key = "device." + paramName;
+    std::string val = getStringParam(v, oc, paramName, toString(deflt), required);
+    try {
+        return string2time(val);
+    } catch (...) {
+        WRITE_ERROR("Invalid time value '" + val + "'for parameter '" + key + "'");
         return deflt;
     }
 }

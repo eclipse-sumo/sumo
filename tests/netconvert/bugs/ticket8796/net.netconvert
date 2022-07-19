@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-06-29 16:39:08 by Eclipse SUMO netconvert Version v1_9_2+0722-7b4a023
+<!-- generated on 2022-01-07 16:21:23 by Eclipse SUMO netconvert Version v1_11_0+0928-18c1b433e84
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -37,7 +37,8 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":gneJ2_1_0" index="0" speed="13.89" length="31.77" shape="17.73,3.86 26.20,4.19 35.48,4.21 43.82,4.00 49.48,3.67"/>
     </edge>
     <edge id=":gneJ2_2" function="internal">
-        <lane id=":gneJ2_2_0" index="0" speed="13.89" length="31.98" shape="17.51,7.06 25.21,8.13 33.16,10.03 41.05,12.28 48.57,14.44"/>
+        <lane id=":gneJ2_2_0" index="0" speed="13.89" length="32.29" shape="17.73,3.86 25.53,4.96 33.69,6.89 41.79,9.18 49.41,11.35"/>
+        <lane id=":gneJ2_2_1" index="1" speed="13.89" length="32.29" shape="17.51,7.06 25.21,8.13 33.16,10.03 41.05,12.28 48.57,14.44"/>
     </edge>
     <edge id=":gneJ3_0" function="internal">
         <lane id=":gneJ3_0_0" index="0" speed="3.65" length="4.67" shape="102.67,-1.59 103.94,-0.91 104.42,-0.16 104.10,0.68 102.99,1.59"/>
@@ -53,10 +54,10 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":gneJ5_2_0" index="0" speed="13.89" length="11.44" shape="52.26,12.13 55.45,13.50 57.56,15.05 59.59,16.29 62.54,16.68"/>
     </edge>
     <edge id=":gneJ5_3" function="internal">
-        <lane id=":gneJ5_3_0" index="0" speed="4.04" length="3.30" shape="52.29,15.45 53.75,16.41 54.25,17.37 54.04,17.79"/>
+        <lane id=":gneJ5_3_0" index="0" speed="4.04" length="2.33" shape="52.29,15.45 53.75,16.41 54.02,16.93"/>
     </edge>
     <edge id=":gneJ5_4" function="internal">
-        <lane id=":gneJ5_4_0" index="0" speed="4.04" length="2.36" shape="54.04,17.79 53.77,18.35 52.33,19.33"/>
+        <lane id=":gneJ5_4_0" index="0" speed="4.04" length="3.33" shape="54.02,16.93 54.25,17.37 53.77,18.35 52.33,19.33"/>
     </edge>
 
     <edge id="gneE0" from="gneJ1" to="gneJ2" priority="-1" spreadType="center" shape="1.01,4.31 17.62,5.46">
@@ -85,10 +86,11 @@ SPDX-License-Identifier: EPL-2.0
     </edge>
 
     <junction id="gneJ1" type="dead_end" x="1.01" y="4.31" incLanes="" intLanes="" shape="0.79,7.50 1.23,1.12"/>
-    <junction id="gneJ2" type="priority" x="40.54" y="7.81" incLanes="gneE3_0 gneE0_0 gneE0_1" intLanes=":gneJ2_0_0 :gneJ2_1_0 :gneJ2_2_0" shape="48.15,15.99 49.83,9.81 49.95,8.37 49.32,2.08 42.64,2.70 37.69,3.06 33.60,3.16 29.50,3.05 24.54,2.74 17.84,2.27 17.40,8.65 24.09,9.29 28.99,10.12 32.97,11.18 36.90,12.49 41.67,14.08">
-        <request index="0" response="000" foes="000" cont="0"/>
-        <request index="1" response="000" foes="000" cont="0"/>
-        <request index="2" response="000" foes="000" cont="0"/>
+    <junction id="gneJ2" type="priority" x="40.54" y="7.81" incLanes="gneE3_0 gneE0_0 gneE0_1" intLanes=":gneJ2_0_0 :gneJ2_1_0 :gneJ2_2_0 :gneJ2_2_1" shape="48.15,15.99 49.83,9.81 49.95,8.37 49.32,2.08 42.64,2.70 37.69,3.06 33.60,3.16 29.50,3.05 24.54,2.74 17.84,2.27 17.40,8.65 24.09,9.29 28.99,10.12 32.97,11.18 36.90,12.49 41.67,14.08">
+        <request index="0" response="1100" foes="1100" cont="0"/>
+        <request index="1" response="0000" foes="0000" cont="0"/>
+        <request index="2" response="0000" foes="0001" cont="0"/>
+        <request index="3" response="0000" foes="0001" cont="0"/>
     </junction>
     <junction id="gneJ3" type="priority" x="102.83" y="0.00" incLanes="gneE2_0" intLanes=":gneJ3_0_0" shape="102.83,0.00 103.14,3.18 102.52,-3.18">
         <request index="0" response="0" foes="0" cont="0"/>
@@ -104,12 +106,13 @@ SPDX-License-Identifier: EPL-2.0
     </junction>
     <junction id="gneJ6" type="dead_end" x="0.00" y="21.41" incLanes="gneE5_0 gneE5_1" intLanes="" shape="0.03,24.61 -0.03,18.21"/>
 
-    <junction id=":gneJ5_4_0" type="internal" x="54.04" y="17.79" incLanes=":gneJ5_3_0 gneE4_0" intLanes=":gneJ5_0_0 :gneJ5_0_1"/>
+    <junction id=":gneJ5_4_0" type="internal" x="54.02" y="16.93" incLanes=":gneJ5_3_0 gneE4_0" intLanes=":gneJ5_0_0 :gneJ5_0_1"/>
 
-    <connection from="gneE0" to="gneE2" fromLane="0" toLane="0" via=":gneJ2_1_0" dir="s" state="M"/>
-    <connection from="gneE0" to="gneE7" fromLane="1" toLane="1" via=":gneJ2_2_0" dir="L" state="M"/>
+    <connection from="gneE0" to="gneE2" fromLane="0" toLane="0" via=":gneJ2_1_0" dir="R" state="M"/>
+    <connection from="gneE0" to="gneE7" fromLane="0" toLane="0" via=":gneJ2_2_0" dir="s" state="M"/>
+    <connection from="gneE0" to="gneE7" fromLane="1" toLane="1" via=":gneJ2_2_1" dir="s" state="M"/>
     <connection from="gneE2" to="gneE3" fromLane="0" toLane="0" via=":gneJ3_0_0" dir="t" state="M"/>
-    <connection from="gneE3" to="gneE7" fromLane="0" toLane="0" via=":gneJ2_0_0" dir="r" state="M"/>
+    <connection from="gneE3" to="gneE7" fromLane="0" toLane="0" via=":gneJ2_0_0" dir="r" state="m"/>
     <connection from="gneE4" to="gneE5" fromLane="0" toLane="0" keepClear="0" via=":gneJ5_0_0" dir="s" state="M"/>
     <connection from="gneE4" to="gneE5" fromLane="0" toLane="1" keepClear="0" via=":gneJ5_0_1" dir="s" state="M"/>
     <connection from="gneE6" to="gneE4" fromLane="0" toLane="0" via=":gneJ4_0_0" dir="t" state="M"/>
@@ -117,8 +120,9 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="gneE7" to="gneE5" fromLane="1" toLane="1" via=":gneJ5_3_0" dir="t" state="m"/>
 
     <connection from=":gneJ2_0" to="gneE7" fromLane="0" toLane="0" dir="r" state="M"/>
-    <connection from=":gneJ2_1" to="gneE2" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":gneJ2_2" to="gneE7" fromLane="0" toLane="1" dir="L" state="M"/>
+    <connection from=":gneJ2_1" to="gneE2" fromLane="0" toLane="0" dir="R" state="M"/>
+    <connection from=":gneJ2_2" to="gneE7" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":gneJ2_2" to="gneE7" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from=":gneJ3_0" to="gneE3" fromLane="0" toLane="0" dir="t" state="M"/>
     <connection from=":gneJ4_0" to="gneE4" fromLane="0" toLane="0" dir="t" state="M"/>
     <connection from=":gneJ5_0" to="gneE5" fromLane="0" toLane="0" dir="s" state="M"/>

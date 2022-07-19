@@ -6,6 +6,7 @@
 <node id="2" lat="52.3772315" lon="13.6170273">
   <tag k="" v="tag with missing key should be ignored"/>
 </node>
+<node id="3" lat="52.38" lon="13.6076206"/>
 
 <way id="10860201">
   <nd ref="1"/>
@@ -14,6 +15,13 @@
   <tag k="tracks" v="1; 2"/>
   <tag k="railway" v="tram"/>
   <tag k="highway" v="secondary"/>
+</way>
+
+<way id="10860203">
+  <nd ref="2"/>
+  <nd ref="3"/>
+  <tag k="highway" v="secondary"/>
+  <tag k="maxspeed" v="nan"/>
 </way>
 
 </osm-derived>

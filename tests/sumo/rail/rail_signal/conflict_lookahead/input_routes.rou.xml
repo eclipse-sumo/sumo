@@ -1,0 +1,7 @@
+<routes>
+    <vType id="train" vClass="rail" carFollowModel="Rail" maxSpeed="20"/>
+    <trip id="train2" type="train" depart="0" from="a2" to="d" departPos="-10"/>
+    <vehicle id="train1" type="train" depart="0" departPos="-20">
+        <route edges="a b c d"/>
+    </vehicle>
+</routes>

@@ -5,6 +5,7 @@
     <end value="None" help="custom end time (seconds or H:M:S)"/>
     <geh-ok value="5" help="threshold for acceptable GEH values"/>
     <interval value="None" help="custom aggregation interval (seconds or H:M:S)"/>
+    <min-count value="1" help="Set minimum number of counting locations that a route must visit"/>
     <minimize-vehicles value="0" help="Set optimization factor from [0, 1[ for reducing the number of vehicles(prefer routes that pass multiple counting locations over routes that pass fewer)"/>
     <mismatch-output value="None" help="write cout-data with overflow/underflow information to FILE"/>
     <od-files value="None" help="Input edgeRelation file for origin-destination counts"/>
@@ -23,7 +24,7 @@
     <verbose value="False" help="tell me what you are doing"/>
     <verbose.histograms value="False" help="print histograms of edge numbers and detector passing count"/>
     <weighted value="False" help="Sample routes according to their probability (or count)"/>
-    <write-flows value="None" help="write flows with the give style instead of vehicles [number|probability]"/>
+    <write-flows value="None" help="write flows with the give style instead of vehicles [number|probability|poisson]"/>
     <write-route-distribution value="None" help="write routeDistribution with the given ID instead of individual routes"/>
     <write-route-ids value="False" help="write routes with ids"/>
 </configuration>

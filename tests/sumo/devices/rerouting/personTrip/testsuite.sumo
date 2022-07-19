@@ -7,6 +7,12 @@ opposite-factor
 # Copy of basic
 basic
 
+# Copy of basic
+2persontrips
+
+# Copy of basic
+2persontrips_disconnected
+
 # person with a type
 vtype
 
@@ -84,6 +90,9 @@ intermodal_car_walk_input
 # car and walk in one trip but no stop for changing modes
 intermodal_car_walk_no_place
 
+# car and walk in one trip
+intermodal_car_walk_junctionTaz
+
 # train access
 access
 
@@ -111,6 +120,7 @@ car_public_walk5
 
 # check correct routing network when using internal edges
 car_public_walk_internal
+car_public_walk_parkingAreas
 
 # output bus route as well
 ptline_routing

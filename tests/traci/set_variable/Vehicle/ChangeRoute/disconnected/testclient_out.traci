@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Mon Jul 01 13:28:05 2013
+TraCITestClient output file. Date: Wed Nov  3 23:00:07 2021
 
 
 -> Command sent: <SimulationStep>:
@@ -93,7 +93,7 @@ TraCITestClient output file. Date: Mon Jul 01 13:28:05 2013
 
 -> Command sent: <SetValue>:
   domID=196 varID=87 objID=veh0
-.. Answered with error to command (196), [description: Route replacement failed for veh0]
+.. Answered with error to command (196), [description: Route replacement failed for vehicle 'veh0' (No connection between edge 'e_m6' and edge 'e_o1'.).]
 
 -> Command sent: <SimulationStep>:
 .. Command acknowledged (2), [description: ]

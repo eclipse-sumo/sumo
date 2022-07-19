@@ -1,9 +1,5 @@
-Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
-Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Opening about dialog
-Debug: Modules:  AMD64 MSVC 19.29.30037.0 Release Proj GUI SWIG GDAL FFmpeg OSG GL2PS Eigen
+Debug: Modules:  x86_64 GNU 9.3.0 Release FMI Proj GUI SWIG GDAL FFmpeg GL2PS Eigen
 Debug: Closed about dialog
-Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in AttributeCarriers destructor
-Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in AttributeCarriers destructor
-Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in AttributeCarriers destructor
+Debug: network elements saved
 Debug: Deleting net builder in GNENet destructor

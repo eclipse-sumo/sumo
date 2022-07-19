@@ -1,15 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Mar  5 10:45:26 2021 by Eclipse SUMO netconvert Version v1_8_0+1515-e589325
+<!-- generated on 2022-06-22 08:14:28 by Eclipse SUMO netconvert Version v1_13_0+1094-d2dab2e946c
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <osm-files value="osm.xml"/>
+        <osm-files value="osm.xml,osm2.xml"/>
     </input>
 
     <output>
@@ -21,13 +26,11 @@ SPDX-License-Identifier: EPL-2.0
     </projection>
 
     <formats>
-        <osm.all-attributes value="true"/>
         <osm.extra-attributes value="all"/>
     </formats>
 
     <report>
         <xml-validation value="never"/>
-        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
@@ -39,13 +42,13 @@ SPDX-License-Identifier: EPL-2.0
 
     <type id="highway.bridleway" priority="1" numLanes="1" speed="2.78" allow="pedestrian" oneway="1" width="2.00"/>
     <type id="highway.bus_guideway" priority="1" numLanes="1" speed="27.78" allow="bus" oneway="1"/>
-    <type id="highway.cycleway" priority="1" numLanes="1" speed="8.33" allow="bicycle" oneway="0" width="1.00"/>
+    <type id="highway.cycleway" priority="1" numLanes="1" speed="5.56" allow="bicycle" oneway="0" width="1.00"/>
     <type id="highway.footway" priority="1" numLanes="1" speed="2.78" allow="pedestrian" oneway="1" width="2.00"/>
     <type id="highway.ford" priority="1" numLanes="1" speed="2.78" allow="army" oneway="0"/>
     <type id="highway.living_street" priority="2" numLanes="1" speed="2.78" disallow="tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
     <type id="highway.motorway" priority="14" numLanes="2" speed="39.44" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" oneway="1"/>
     <type id="highway.motorway_link" priority="9" numLanes="1" speed="22.22" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" oneway="1"/>
-    <type id="highway.path" priority="1" numLanes="1" speed="2.78" allow="pedestrian bicycle" oneway="0" width="2.00"/>
+    <type id="highway.path" priority="1" numLanes="1" speed="5.56" allow="pedestrian bicycle" oneway="0" width="2.00"/>
     <type id="highway.pedestrian" priority="1" numLanes="1" speed="2.78" allow="pedestrian" oneway="1" width="2.00"/>
     <type id="highway.primary" priority="12" numLanes="2" speed="27.78" disallow="tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
     <type id="highway.primary_link" priority="7" numLanes="1" speed="22.22" disallow="tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
@@ -102,13 +105,13 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":833044434_3_0" index="0" allow="bus bicycle" speed="13.89" length="9.41" shape="1545.61,2681.25 1547.65,2690.44"/>
     </edge>
     <edge id=":833044434_4" function="internal">
-        <lane id=":833044434_4_0" index="0" allow="pedestrian delivery bicycle" speed="6.25" length="2.89" shape="1542.49,2681.95 1543.16,2683.09 1544.57,2683.76"/>
+        <lane id=":833044434_4_0" index="0" allow="pedestrian delivery bicycle" speed="6.25" length="1.58" shape="1542.49,2681.95 1543.16,2683.09 1543.39,2683.20"/>
     </edge>
     <edge id=":833044434_5" function="internal">
         <lane id=":833044434_5_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="9.41" shape="1542.49,2681.95 1544.52,2691.13"/>
     </edge>
     <edge id=":833044434_6" function="internal">
-        <lane id=":833044434_6_0" index="0" allow="pedestrian delivery bicycle" speed="6.25" length="5.03" shape="1544.57,2683.76 1546.71,2683.94 1549.58,2683.65"/>
+        <lane id=":833044434_6_0" index="0" allow="pedestrian delivery bicycle" speed="6.25" length="6.34" shape="1543.39,2683.20 1544.57,2683.76 1546.71,2683.94 1549.58,2683.65"/>
     </edge>
     <edge id=":833045069_0" function="internal">
         <lane id=":833045069_0_0" index="0" allow="pedestrian delivery bicycle" speed="3.65" length="4.67" shape="1562.21,2681.55 1563.53,2682.14 1564.05,2682.87 1563.79,2683.72 1562.74,2684.71"/>
@@ -362,7 +365,7 @@ SPDX-License-Identifier: EPL-2.0
         <request index="1" response="00" foes="00" cont="0"/>
     </junction>
 
-    <junction id=":833044434_6_0" type="internal" x="1544.57" y="2683.76" incLanes=":833044434_4_0 319539204#1_0" intLanes=":833044434_2_0 :833044434_3_0"/>
+    <junction id=":833044434_6_0" type="internal" x="1543.39" y="2683.20" incLanes=":833044434_4_0 319539204#1_0" intLanes=":833044434_2_0 :833044434_3_0"/>
 
     <connection from="-153959895" to="22721677#1" fromLane="0" toLane="0" via=":1665723004_0_0" dir="r" state="m"/>
     <connection from="-153959895" to="153959895" fromLane="0" toLane="0" via=":1665723004_1_0" dir="t" state="m"/>

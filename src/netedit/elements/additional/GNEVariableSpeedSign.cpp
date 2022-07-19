@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -34,12 +34,20 @@
 // member method definitions
 // ===========================================================================
 
+GNEVariableSpeedSign::GNEVariableSpeedSign(GNENet* net) :
+    GNEAdditional("", net, GLO_VSS, SUMO_TAG_VSS, "",
+{}, {}, {}, {}, {}, {}) {
+    // reset default values
+    resetDefaultValues();
+}
+
+
 GNEVariableSpeedSign::GNEVariableSpeedSign(const std::string& id, GNENet* net, const Position& pos, const std::string& name,
-        const std::vector<std::string>& vTypes, const std::map<std::string, std::string>& parameters) :
+        const std::vector<std::string>& vTypes, const Parameterised::Map& parameters) :
     GNEAdditional(id, net, GLO_VSS, SUMO_TAG_VSS, name,
-{}, {}, {}, {}, {}, {}, {}, {},
-parameters),
-            myPosition(pos),
+{}, {}, {}, {}, {}, {}),
+Parameterised(parameters),
+myPosition(pos),
 myVehicleTypes(vTypes) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
@@ -50,8 +58,32 @@ GNEVariableSpeedSign::~GNEVariableSpeedSign() {
 }
 
 
+void
+GNEVariableSpeedSign::writeAdditional(OutputDevice& device) const {
+    device.openTag(SUMO_TAG_VSS);
+    device.writeAttr(SUMO_ATTR_ID, getID());
+    device.writeAttr(SUMO_ATTR_LANES, getAttribute(SUMO_ATTR_LANES));
+    device.writeAttr(SUMO_ATTR_POSITION, myPosition);
+    if (!myAdditionalName.empty()) {
+        device.writeAttr(SUMO_ATTR_NAME, StringUtils::escapeXML(myAdditionalName));
+    }
+    if (!myVehicleTypes.empty()) {
+        device.writeAttr(SUMO_ATTR_VTYPES, myVehicleTypes);
+    }
+    // write all rerouter interval
+    for (const auto& step : getChildAdditionals()) {
+        if (!step->getTagProperty().isSymbol()) {
+            step->writeAdditional(device);
+        }
+    }
+    // write parameters (Always after children to avoid problems with additionals.xsd)
+    writeParams(device);
+    device.closeTag();
+}
+
+
 GNEMoveOperation*
-GNEVariableSpeedSign::getMoveOperation(const double /*shapeOffset*/) {
+GNEVariableSpeedSign::getMoveOperation() {
     // return move operation for additional placed in view
     return new GNEMoveOperation(this, myPosition);
 }
@@ -61,8 +93,10 @@ void
 GNEVariableSpeedSign::updateGeometry() {
     // update additional geometry
     myAdditionalGeometry.updateSinglePosGeometry(myPosition, 0);
-    // Update Hierarchical connections geometry
-    myHierarchicalConnections.update();
+    // update geometries (boundaries of all children)
+    for (const auto& additionalChildren : getChildAdditionals()) {
+        additionalChildren->updateGeometry();
+    }
 }
 
 
@@ -81,21 +115,19 @@ GNEVariableSpeedSign::updateCenteringBoundary(const bool updateGrid) {
     // update geometry
     updateGeometry();
     // add shape boundary
-    myBoundary = myAdditionalGeometry.getShape().getBoxBoundary();
-    // add positions of all childrens
+    myAdditionalBoundary = myAdditionalGeometry.getShape().getBoxBoundary();
+    // add positions of all childrens (symbols and steps)
     for (const auto& additionalChildren : getChildAdditionals()) {
-        if (additionalChildren->getTagProperty().isSymbol()) {
-            myBoundary.add(additionalChildren->getPositionInView());
-        }
+        myAdditionalBoundary.add(additionalChildren->getPositionInView());
+        // also update centering boundary
+        additionalChildren->updateCenteringBoundary(false);
     }
     // grow
-    myBoundary.grow(10);
+    myAdditionalBoundary.grow(10);
     // add additional into RTREE again
     if (updateGrid) {
         myNet->addGLObjectIntoGrid(this);
     }
-    // Update Hierarchical connections geometry
-    myHierarchicalConnections.update();
 }
 
 
@@ -120,8 +152,20 @@ GNEVariableSpeedSign::getParentName() const {
 
 void
 GNEVariableSpeedSign::drawGL(const GUIVisualizationSettings& s) const {
+    // draw parent and child lines
+    drawParentChildLines(s, s.additionalSettings.connectionColor, true);
     // draw VSS
     drawSquaredAdditional(s, myPosition, s.additionalSettings.VSSSize, GUITexture::VARIABLESPEEDSIGN, GUITexture::VARIABLESPEEDSIGN_SELECTED);
+    // iterate over additionals and check if drawn
+    for (const auto& step : getChildAdditionals()) {
+        // if rerouter or their intevals are selected, then draw
+        if (myNet->getViewNet()->getNetworkViewOptions().showSubAdditionals() ||
+                isAttributeCarrierSelected() || myNet->getViewNet()->isAttributeCarrierInspected(this) ||
+                step->isAttributeCarrierSelected() || myNet->getViewNet()->isAttributeCarrierInspected(step) ||
+                (myNet->getViewNet()->getFrontAttributeCarrier() == step)) {
+            step->drawGL(s);
+        }
+    }
 }
 
 
@@ -129,7 +173,7 @@ std::string
 GNEVariableSpeedSign::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
-            return getID();
+            return getMicrosimID();
         case SUMO_ATTR_LANES: {
             std::vector<std::string> lanes;
             for (const auto& VSSSymbol : getChildAdditionals()) {
@@ -158,6 +202,12 @@ GNEVariableSpeedSign::getAttribute(SumoXMLAttr key) const {
 double
 GNEVariableSpeedSign::getAttributeDouble(SumoXMLAttr key) const {
     throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
+}
+
+
+const Parameterised::Map&
+GNEVariableSpeedSign::getACParametersMap() const {
+    return getParametersMap();
 }
 
 
@@ -206,16 +256,10 @@ GNEVariableSpeedSign::isValid(SumoXMLAttr key, const std::string& value) {
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
         case GNE_ATTR_PARAMETERS:
-            return Parameterised::areParametersValid(value);
+            return areParametersValid(value);
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
-}
-
-
-bool
-GNEVariableSpeedSign::isAttributeEnabled(SumoXMLAttr /* key */) const {
-    return true;
 }
 
 
@@ -240,12 +284,15 @@ GNEVariableSpeedSign::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_LANES:
             throw InvalidArgument(getTagStr() + " cannot be edited");
         case SUMO_ATTR_ID:
-            myNet->getAttributeCarriers()->updateID(this, value);
+            // update microsimID
+            setMicrosimID(value);
             break;
         case SUMO_ATTR_POSITION:
             myPosition = parse<Position>(value);
-            // update boundary
-            updateCenteringBoundary(true);
+            // update boundary (except for template)
+            if (getID().size() > 0) {
+                updateCenteringBoundary(true);
+            }
             break;
         case SUMO_ATTR_NAME:
             myAdditionalName = value;
@@ -280,7 +327,7 @@ GNEVariableSpeedSign::setMoveShape(const GNEMoveResult& moveResult) {
 
 void
 GNEVariableSpeedSign::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
-    undoList->begin("position of " + getTagStr());
+    undoList->begin(GUIIcon::VARIABLESPEEDSIGN, "position of " + getTagStr());
     undoList->changeAttribute(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(moveResult.shapeToUpdate.front())));
     undoList->end();
 }
@@ -288,7 +335,7 @@ GNEVariableSpeedSign::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoLi
 
 void
 GNEVariableSpeedSign::rebuildVSSSymbols(const std::string& value, GNEUndoList* undoList) {
-    undoList->begin(("change " + getTagStr() + " attribute").c_str());
+    undoList->begin(GUIIcon::VARIABLESPEEDSIGN, ("change " + getTagStr() + " attribute").c_str());
     // drop all additional children
     while (getChildAdditionals().size() > 0) {
         undoList->add(new GNEChange_Additional(getChildAdditionals().front(), false), true);

@@ -1,0 +1,46 @@
+
+<add>
+    <timedEvent type="SaveTLSSwitchStates" source="0" dest="tls_state_switch.xml"/>
+
+    <tlLogic id="0" programID="01" type="NEMA" offset="30">
+
+        <!-- Layout -->
+        <param key="ring1" value="1,2,3,4"/>
+        <param key="ring2" value="5,6,7,8"/>
+        <param key="barrierPhases" value="4,8"/>
+        <param key="barrier2Phases" value="2,6"/>
+        <param key="show-detectors" value="true"/>
+        <param key="whetherOutputState" value="true"/>
+        <param key="greenTransfer" value="true"/>
+
+        <!-- Coordination Settings -->
+        <param key="coordinate-mode" value="true"/>
+        <param key="coordinatePhases" value="2,6"/>
+        <param key="total-cycle-length" value="150"/>
+
+        <!-- Recall Settings -->
+        <param key="minRecall" value="2,6"/>
+        
+        <!-- Custom Detectors -->
+        <param value="Detector_1" key="1si_1"/>
+        <param value="Detector_6" key="1si_0"/>
+        <param value="Detector_2" key="2si_0"/>
+        <param value="Detector_5" key="2si_1"/>
+        <param value="Detector_4" key="3si_0"/>
+        <param value="Detector_7" key="3si_1"/>
+        <param value="Detector_8" key="4si_0"/>
+        <param value="Detector_3" key="4si_1"/>
+
+        <!-- Phase Parameters -->
+        <phase duration="99" minDur="6"  maxDur="19.5" vehext="4" yellow="3.5" red="2" name="1" state="srrsrrsrrsrG"/>
+        <phase duration="99" minDur="25" maxDur="53.5" vehext="5" yellow="4.5" red="2" name="2" state="srrGGgsrrsrr"/>
+        <phase duration="99" minDur="10" maxDur="34.5" vehext="4" yellow="3.5" red="2" name="3" state="srGsrrsrrsrr"/>
+        <phase duration="99" minDur="10" maxDur="19.5" vehext="4" yellow="3.5" red="2" name="4" state="srrsrrsGgsrr"/>
+        <phase duration="99" minDur="6"  maxDur="9.5"  vehext="4" yellow="3.5" red="2" name="5" state="srrsrGsrrsrr"/>
+        <phase duration="99" minDur="25" maxDur="63.5" vehext="5" yellow="4.5" red="2" name="6" state="srrsrrsrrGGg"/>
+        <phase duration="99" minDur="10" maxDur="19.5" vehext="4" yellow="3.5" red="2" name="7" state="srrsrrsrGsrr"/>
+        <phase duration="99" minDur="10" maxDur="34.5" vehext="4" yellow="3.5" red="2" name="8" state="GGgsrrsrrsrr"/>
+        
+    </tlLogic>
+</add>
+

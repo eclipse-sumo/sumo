@@ -37,6 +37,9 @@ deprecated_option
 # Tests command line option list
 option_list
 
+# Tests appending to an option list
+option_list_append
+
 # Tests command line option list with equal sign
 option_list_equal_sign
 
@@ -60,3 +63,9 @@ space_input_path
 
 # Tests percent in input file names
 percent
+
+# Tests relative paths
+rel_path
+
+# Tests configuration loading vebosity
+verbose

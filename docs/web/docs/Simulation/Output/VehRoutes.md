@@ -88,6 +88,7 @@ For example, setting the option **--device.vehroute.probability 0.25** will equi
 
 ## Further Options
 
+- **--personroute-output FILE**: Writes output for persons/containers to a separate FILE 
 - **--vehroute-output.exit-times**: Write the exit times for all edges, the attributes 'started' and 'ended' for stops and include attribute 'ended' for rides.
 - **--vehroute-output.last-route**: Only write the final route (if the vehicle was rerouted during the simulation)
 - **--vehroute-output.sorted**:     Sorts the written vehicles by departure time

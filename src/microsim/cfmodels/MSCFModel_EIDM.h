@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -262,6 +262,18 @@ private:
     };
 
 private:
+
+    /** @brief Applies dawdling / driving error
+    * @param[in] veh The ego vehicle
+    * @param[in] vMin The minimum possible speed in the next time step
+    * @param[in] vMax The wanted speed in the next time step
+    * @return The corrected speed with dawdling / driving error
+    */
+    double patchSpeedBeforeLCEIDM(const MSVehicle* veh, double vMin, double vMax, const VehicleVariables* vars) const;
+
+    // @brief calculates the slow to start term when driving off
+    double slowToStartTerm(MSVehicle* const veh, const double newSpeed, const double currentSpeed, const double vMax, VehicleVariables* vars) const;
+
     // @brief contains the main CF-model calculations
     double _v(const MSVehicle* const veh, const double gap2pred, const double mySpeed,
               const double predSpeed, const double desSpeed, const bool respectMinGap, const int update) const;

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -39,7 +39,7 @@ class RGBColor {
 public:
     /** @brief Constructor
      */
-    RGBColor(bool valid=true);
+    RGBColor(bool valid = true);
 
     /** @brief Constructor
      * @param[in] red The red component's value
@@ -93,6 +93,9 @@ public:
      * @return The new color
      */
     RGBColor changedBrightness(int change, int toChange = 3) const;
+
+    /// @brief Returns a new color with altered opacity
+    RGBColor changedAlpha(int change) const;
 
     /** @brief Returns a new color with altered brightness
      * @param[in] factor The multiplicative change applied to all color channels (within bounds)

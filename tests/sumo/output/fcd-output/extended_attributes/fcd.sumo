@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2021-11-23 15:46:04 by Eclipse SUMO sumo Version v1_11_0+0022-87b9aa0
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <additional-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <fcd-output value="fcd.xml"/>
+        <fcd-output.attributes value="signals,acceleration,distance"/>
+    </output>
+
+    <time>
+        <end value="5"/>
+    </time>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<fcd-export xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/fcd_file.xsd">
+    <timestep time="0.00">
+        <vehicle id="0" signals="0" acceleration="0.00" distance="100.00"/>
+    </timestep>
+    <timestep time="1.00">
+        <vehicle id="0" signals="0" acceleration="0.00" distance="110.00"/>
+    </timestep>
+    <timestep time="2.00">
+        <vehicle id="0" signals="0" acceleration="0.00" distance="120.00"/>
+    </timestep>
+    <timestep time="3.00">
+        <vehicle id="0" signals="0" acceleration="0.00" distance="130.00"/>
+    </timestep>
+    <timestep time="4.00">
+        <vehicle id="0" signals="0" acceleration="0.00" distance="140.00"/>
+    </timestep>
+</fcd-export>

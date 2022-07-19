@@ -1,0 +1,6 @@
+input_data.xml -o image.png --csv-output out.csv 
+-x depart -y routeLength
+--xelem tripinfo
+--yelem tripinfo
+--idelem tripinfo
+tools/visualization/plotXMLAttributes.py

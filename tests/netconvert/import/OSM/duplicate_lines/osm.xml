@@ -12674,7 +12674,7 @@
     <tag k='operator:short' v='BVG' />
     <tag k='public_transport:version' v='2' />
     <tag k='ref' v='104' />
-    <tag k='route' v='bus' />
+    <tag k='route' v='share_taxi' />
     <tag k='to' v='Tunnelstraße' />
     <tag k='type' v='route' />
   </relation>
@@ -12711,7 +12711,7 @@
     <tag k='operator:short' v='BVG' />
     <tag k='public_transport:version' v='2' />
     <tag k='ref' v='104' />
-    <tag k='route' v='bus' />
+    <tag k='route' v='minibus' />
     <tag k='to' v='Brixplatz' />
     <tag k='type' v='route' />
   </relation>

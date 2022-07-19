@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -114,7 +114,7 @@ GNEAdditionalDialog::changeAdditionalDialogHeader(const std::string& newHeader) 
 void
 GNEAdditionalDialog::initChanges() {
     // init commandGroup
-    myEditedAdditional->getNet()->getViewNet()->getUndoList()->begin(myChangesDescription);
+    myEditedAdditional->getNet()->getViewNet()->getUndoList()->begin(myEditedAdditional->getTagProperty().getGUIIcon(), myChangesDescription);
     // save number of command group changes
     myNumberOfChanges = myEditedAdditional->getNet()->getViewNet()->getUndoList()->currentCommandGroupSize();
 }
@@ -141,7 +141,7 @@ void
 GNEAdditionalDialog::resetChanges() {
     // abort last command group an start editing again
     myEditedAdditional->getNet()->getViewNet()->getUndoList()->abortLastChangeGroup();
-    myEditedAdditional->getNet()->getViewNet()->getUndoList()->begin(myChangesDescription);
+    myEditedAdditional->getNet()->getViewNet()->getUndoList()->begin(myEditedAdditional->getTagProperty().getGUIIcon(), myChangesDescription);
 }
 
 

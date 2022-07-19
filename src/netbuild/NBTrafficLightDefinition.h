@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2002-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -65,8 +65,9 @@ class NBTrafficLightLogic;
 class NBTrafficLightDefinition : public Named, public Parameterised {
 public:
 
-    static const SUMOTime UNSPECIFIED_DURATION;
     static const std::string DefaultProgramID;
+    static const SUMOTime UNSPECIFIED_DURATION;
+    static const int MIN_YELLOW_SECONDS;
 
     /**
      * @enum TLColor
@@ -128,7 +129,6 @@ public:
     /// @brief Destructor
     virtual ~NBTrafficLightDefinition();
 
-
     /** @brief Computes the traffic light logic
      *
      * Does some initialisation at first, then calls myCompute to finally
@@ -138,8 +138,6 @@ public:
      * @return The built logic (may be 0)
      */
     NBTrafficLightLogic* compute(OptionsCont& oc);
-
-
 
     /// @name Access to controlled nodes
     /// @{

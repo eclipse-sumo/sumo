@@ -1,0 +1,120 @@
+name: linux-wheels
+
+on: 
+  push:            # run on push events
+    paths-ignore:  # but ignore everything in the docs subfolder 
+      - 'docs/**'
+    branches:
+      - '**'
+    tags:
+      - '*'
+  pull_request:    # run on pull requests
+    paths-ignore:  # but ignore everything in the docs subfolder 
+      - 'docs/**'
+  schedule:
+    - cron:  '5 1 * * *'
+
+jobs:
+  build-manylinux-wheels:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Cloning SUMO
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+
+    - name: Fetching SUMO tags
+      run: |
+        git fetch --tags --force
+
+    - name: Building helper wheels for later tests
+      run: |
+        cd tools
+        python build/setup-sumolib.py bdist_wheel
+        python build/setup-traci.py bdist_wheel
+
+    - name: Uploading artifacts (Helper wheels)
+      uses: actions/upload-artifact@v1
+      with:
+        name: helper-wheels
+        path: tools/dist
+
+    - name: Building Python wheels
+      uses: docker://quay.io/pypa/manylinux2014_x86_64
+      with:
+        entrypoint: tools/build/build_wheels.sh
+
+    - name: Uploading artifacts (Python wheels)
+      uses: actions/upload-artifact@v1
+      with:
+        name: manylinux-wheels
+        path: wheelhouse
+
+  test-wheels:
+    needs: [build-manylinux-wheels]
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python: [3.6, 3.7, 3.8, 3.9, '3.10']
+
+    steps:
+    - name: Cloning SUMO
+      uses: actions/checkout@v2
+
+    - name: Downloading Wheels artifact
+      uses: actions/download-artifact@v2
+
+    - name: Configuring Python
+      uses: actions/setup-python@v1
+      with:
+        python-version: ${{ matrix.python }}
+
+    - name: Running libsumo tests
+      run: |
+        python -m pip install wheel  # need to do this separately because the texttest install wants it
+        python -m pip install texttest
+        python -m pip install helper-wheels/sumolib-* helper-wheels/traci-*
+        PYTHON_VERSION=${{ matrix.python }}
+        python -m pip install manylinux-wheels/libsumo-*cp3${PYTHON_VERSION:2}*
+        cd tests
+        texttest -b ci -v ci -a complex.libsumo
+
+    - name: Uploading test results
+      if: failure()
+      uses: actions/upload-artifact@v2
+      with:
+        name: texttesttmp-${{ matrix.python }}
+        path: ~/.texttest/tmp
+        if-no-files-found: warn
+
+  publish-wheels:
+    if: github.repository == 'eclipse/sumo' && (github.event_name == 'schedule' || startsWith(github.ref, 'refs/tags'))
+    needs: [test-wheels]
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Downloading Wheels artifact
+      uses: actions/download-artifact@v2
+
+    # this step removes the pypy versions until someone needs them to save some space
+    - name: Moving artifacts
+      run: |
+        ls -lR
+        mkdir dist
+        mv ./*-wheels/* dist
+        rm -f dist/libsumo*-pypy* dist/libtraci*-pypy*
+
+    - name: Publish to Test PyPI
+      uses: pypa/gh-action-pypi-publish@master
+      with:
+        password: ${{ secrets.TEST_PYPI_TOKEN }}
+        repository_url: https://test.pypi.org/legacy/
+        skip_existing: true
+
+    - name: Publish to PyPI
+      if: startsWith(github.ref, 'refs/tags')
+      uses: pypa/gh-action-pypi-publish@master
+      with:
+        password: ${{ secrets.PYPI_TOKEN }}

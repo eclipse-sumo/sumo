@@ -1,26 +1,27 @@
 -------------------------------------------------------------------------------
-['/home/kobo/dlr/sumo/bin/duarouter', '-c', '0/iteration_000_input_trips.duarcfg']
-Loading configuration ... done.
+['/scr1/sumo/bin/duarouter', '-c', '000/iteration_000_input_trips.duarcfg']
 Success.
 -------------------------------------------------------------------------------
-['/home/kobo/dlr/sumo/bin/sumo', '-c', '0/iteration_000.sumocfg']
-Loading configuration ... done.
-Loading net-file from '0/../input_net.net.xml' ... done (12ms).
-Loading additional-files from '0/dua_dump_000.add.xml' ... done (1ms).
-Loading additional-files from '0/../input_additional.add.xml' ... done (19ms).
+['/scr1/sumo/bin/sumo', '-c', '000/iteration_000.sumocfg']
+Loading net-file from '000/../input_net.net.xml' ... done (11ms).
+Loading additional-files from '000/dua_dump_000.add.xml' ... done (1ms).
+Loading additional-files from '000/../input_additional.add.xml' ... done (10ms).
 Loading done.
-Simulation version v1_6_0+1679-d6a6a53e15 started with time: 0.00
-Simulation ended at time: 3468.00
+Simulation version v1_12_0+1537-154bb43 started with time: 0.00
+Warning: Teleporting vehicle 'p0_0'; waited too long (blocked), lane='e2_4', time=320.00.
+Warning: Vehicle 'p0_0' ends teleporting on edge 'e3', time=320.00.
+Simulation ended at time: 3467.00
 Reason: All vehicles have left the simulation.
 Performance: 
- Duration: 0.23s
- Real time factor: 15413.3
- UPS: 19053.333333
- UPS-Persons: 10106.666667
+ Duration: 0.26s
+ Real time factor: 13232.8
+ UPS: 15431.297710
+ UPS-Persons: 7748.091603
 Vehicles: 
  Inserted: 16
  Running: 0
  Waiting: 0
+Teleports: 1 (Jam: 1)
 Persons: 
  Inserted: 4
  Running: 0
@@ -28,29 +29,30 @@ Persons:
 DijkstraRouter answered 7 queries and explored 16.71 edges on average.
 DijkstraRouter spent 0.00s answering queries (0.00ms on average).
 -------------------------------------------------------------------------------
-['/home/kobo/dlr/sumo/bin/duarouter', '-c', '1/iteration_001_input_trips_000.duarcfg']
-Loading configuration ... done.
+['/scr1/sumo/bin/duarouter', '-c', '001/iteration_001_input_trips_000.duarcfg']
 Success.
 -------------------------------------------------------------------------------
-['/home/kobo/dlr/sumo/bin/sumo', '-c', '1/iteration_001.sumocfg']
-Loading configuration ... done.
-Loading net-file from '1/../input_net.net.xml' ... done (12ms).
-Loading additional-files from '1/dua_dump_001.add.xml' ... done (1ms).
-Loading additional-files from '1/../input_additional.add.xml' ... done (18ms).
+['/scr1/sumo/bin/sumo', '-c', '001/iteration_001.sumocfg']
+Loading net-file from '001/../input_net.net.xml' ... done (10ms).
+Loading additional-files from '001/dua_dump_001.add.xml' ... done (1ms).
+Loading additional-files from '001/../input_additional.add.xml' ... done (10ms).
 Loading done.
-Simulation version v1_6_0+1679-d6a6a53e15 started with time: 0.00
+Simulation version v1_12_0+1537-154bb43 started with time: 0.00
+Warning: Teleporting vehicle 'p1_0'; waited too long (blocked), lane='e2_4', time=321.00.
+Warning: Vehicle 'p1_0' ends teleporting on edge 'e3', time=321.00.
 Warning: Vehicle 'p0_0' aborted waiting for a person or container that will never come.
 Simulation ended at time: 3467.00
 Reason: All vehicles have left the simulation.
 Performance: 
- Duration: 0.20s
- Real time factor: 17335
- UPS: 18505.000000
- UPS-Persons: 10905.000000
+ Duration: 0.23s
+ Real time factor: 15273.1
+ UPS: 15255.506608
+ UPS-Persons: 8546.255507
 Vehicles: 
  Inserted: 15 (Loaded: 16)
  Running: 0
  Waiting: 0
+Teleports: 1 (Jam: 1)
 Persons: 
  Inserted: 4
  Running: 0
@@ -58,29 +60,59 @@ Persons:
 DijkstraRouter answered 9 queries and explored 14.78 edges on average.
 DijkstraRouter spent 0.00s answering queries (0.00ms on average).
 -------------------------------------------------------------------------------
-['/home/kobo/dlr/sumo/bin/duarouter', '-c', '2/iteration_002_input_trips_001.duarcfg']
-Loading configuration ... done.
+['/scr1/sumo/bin/duarouter', '-c', '002/iteration_002_input_trips_001.duarcfg']
 Success.
 -------------------------------------------------------------------------------
-['/home/kobo/dlr/sumo/bin/sumo', '-c', '2/iteration_002.sumocfg']
-Loading configuration ... done.
-Loading net-file from '2/../input_net.net.xml' ... done (12ms).
-Loading additional-files from '2/dua_dump_002.add.xml' ... done (0ms).
-Loading additional-files from '2/../input_additional.add.xml' ... done (20ms).
+['/scr1/sumo/bin/sumo', '-c', '002/iteration_002.sumocfg']
+Loading net-file from '002/../input_net.net.xml' ... done (12ms).
+Loading additional-files from '002/dua_dump_002.add.xml' ... done (1ms).
+Loading additional-files from '002/../input_additional.add.xml' ... done (11ms).
 Loading done.
-Simulation version v1_6_0+1679-d6a6a53e15 started with time: 0.00
+Simulation version v1_12_0+1537-154bb43 started with time: 0.00
 Warning: Vehicle 'p0_0' aborted waiting for a person or container that will never come.
+Warning: Vehicle 'p1_0' aborted waiting for a person or container that will never come.
 Simulation ended at time: 3467.00
 Reason: All vehicles have left the simulation.
 Performance: 
  Duration: 0.20s
  Real time factor: 17078.8
- UPS: 18231.527094
- UPS-Persons: 10743.842365
+ UPS: 15334.975369
+ UPS-Persons: 10990.147783
+Vehicles: 
+ Inserted: 14 (Loaded: 16)
+ Running: 0
+ Waiting: 0
+Persons: 
+ Inserted: 4
+ Running: 0
+
+DijkstraRouter answered 14 queries and explored 16.71 edges on average.
+DijkstraRouter spent 0.00s answering queries (0.00ms on average).
+-------------------------------------------------------------------------------
+['/scr1/sumo/bin/duarouter', '-c', '003/iteration_003_input_trips_002.duarcfg']
+Success.
+-------------------------------------------------------------------------------
+['/scr1/sumo/bin/sumo', '-c', '003/iteration_003.sumocfg']
+Loading net-file from '003/../input_net.net.xml' ... done (10ms).
+Loading additional-files from '003/dua_dump_003.add.xml' ... done (1ms).
+Loading additional-files from '003/../input_additional.add.xml' ... done (10ms).
+Loading done.
+Simulation version v1_12_0+1537-154bb43 started with time: 0.00
+Warning: Teleporting vehicle 'p1_0'; waited too long (blocked), lane='e2_4', time=321.00.
+Warning: Vehicle 'p1_0' ends teleporting on edge 'e3', time=321.00.
+Warning: Vehicle 'p0_0' aborted waiting for a person or container that will never come.
+Simulation ended at time: 3467.00
+Reason: All vehicles have left the simulation.
+Performance: 
+ Duration: 0.21s
+ Real time factor: 16748.8
+ UPS: 16729.468599
+ UPS-Persons: 9371.980676
 Vehicles: 
  Inserted: 15 (Loaded: 16)
  Running: 0
  Waiting: 0
+Teleports: 1 (Jam: 1)
 Persons: 
  Inserted: 4
  Running: 0
@@ -88,62 +120,31 @@ Persons:
 DijkstraRouter answered 9 queries and explored 14.78 edges on average.
 DijkstraRouter spent 0.00s answering queries (0.00ms on average).
 -------------------------------------------------------------------------------
-['/home/kobo/dlr/sumo/bin/duarouter', '-c', '3/iteration_003_input_trips_002.duarcfg']
-Loading configuration ... done.
+['/scr1/sumo/bin/duarouter', '-c', '004/iteration_004_input_trips_003.duarcfg']
 Success.
 -------------------------------------------------------------------------------
-['/home/kobo/dlr/sumo/bin/sumo', '-c', '3/iteration_003.sumocfg']
-Loading configuration ... done.
-Loading net-file from '3/../input_net.net.xml' ... done (12ms).
-Loading additional-files from '3/dua_dump_003.add.xml' ... done (1ms).
-Loading additional-files from '3/../input_additional.add.xml' ... done (19ms).
+['/scr1/sumo/bin/sumo', '-c', '004/iteration_004.sumocfg']
+Loading net-file from '004/../input_net.net.xml' ... done (11ms).
+Loading additional-files from '004/dua_dump_004.add.xml' ... done (1ms).
+Loading additional-files from '004/../input_additional.add.xml' ... done (10ms).
 Loading done.
-Simulation version v1_6_0+1679-d6a6a53e15 started with time: 0.00
+Simulation version v1_12_0+1537-154bb43 started with time: 0.00
 Warning: Vehicle 'p0_0' aborted waiting for a person or container that will never come.
+Warning: Vehicle 'p1_0' aborted waiting for a person or container that will never come.
 Simulation ended at time: 3467.00
 Reason: All vehicles have left the simulation.
 Performance: 
- Duration: 0.20s
- Real time factor: 17335
- UPS: 18505.000000
- UPS-Persons: 10905.000000
+ Duration: 0.15s
+ Real time factor: 22960.3
+ UPS: 20615.894040
+ UPS-Persons: 14774.834437
 Vehicles: 
- Inserted: 15 (Loaded: 16)
+ Inserted: 14 (Loaded: 16)
  Running: 0
  Waiting: 0
 Persons: 
  Inserted: 4
  Running: 0
 
-DijkstraRouter answered 9 queries and explored 14.78 edges on average.
-DijkstraRouter spent 0.00s answering queries (0.00ms on average).
--------------------------------------------------------------------------------
-['/home/kobo/dlr/sumo/bin/duarouter', '-c', '4/iteration_004_input_trips_003.duarcfg']
-Loading configuration ... done.
-Success.
--------------------------------------------------------------------------------
-['/home/kobo/dlr/sumo/bin/sumo', '-c', '4/iteration_004.sumocfg']
-Loading configuration ... done.
-Loading net-file from '4/../input_net.net.xml' ... done (12ms).
-Loading additional-files from '4/dua_dump_004.add.xml' ... done (1ms).
-Loading additional-files from '4/../input_additional.add.xml' ... done (18ms).
-Loading done.
-Simulation version v1_6_0+1679-d6a6a53e15 started with time: 0.00
-Warning: Vehicle 'p0_0' aborted waiting for a person or container that will never come.
-Simulation ended at time: 3467.00
-Reason: All vehicles have left the simulation.
-Performance: 
- Duration: 0.20s
- Real time factor: 17510.1
- UPS: 18691.919192
- UPS-Persons: 11015.151515
-Vehicles: 
- Inserted: 15 (Loaded: 16)
- Running: 0
- Waiting: 0
-Persons: 
- Inserted: 4
- Running: 0
-
-DijkstraRouter answered 9 queries and explored 14.78 edges on average.
+DijkstraRouter answered 14 queries and explored 16.71 edges on average.
 DijkstraRouter spent 0.00s answering queries (0.00ms on average).

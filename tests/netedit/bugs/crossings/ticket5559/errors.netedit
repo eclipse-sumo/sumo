@@ -12,8 +12,6 @@ GLDebug: 	Inserted edge:EC into SUMORTree with boundary 90.00,90.00,210.00,111.6
 GLDebug: 	Inserted edge:NC into SUMORTree with boundary 78.80,90.00,110.00,210.00
 GLDebug: 	Inserted edge:SC into SUMORTree with boundary 90.00,-10.00,121.20,110.00
 GLDebug: 	Inserted edge:WC into SUMORTree with boundary -10.00,88.40,110.00,110.00
-Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
-Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:C from SUMORTree with boundary 88.00,88.00,112.00,112.00
 GLDebug: 	Removed object junction:E from SUMORTree with boundary 188.00,88.00,212.00,112.00
@@ -52,6 +50,13 @@ Debug: Created connection 'fromSC_3toCN_3' in retrieveGNEConnection()
 Debug: Created connection 'fromWC_0toCE_0' in retrieveGNEConnection()
 Debug: Created crossing ':C_c0' in retrieveGNECrossing()
 Debug: Created crossing ':C_c1' in retrieveGNECrossing()
+Debug: Created walkingArea ':C_w0' in retrieveGNEWalkingArea()
+Debug: Created walkingArea ':C_w1' in retrieveGNEWalkingArea()
+Debug: Created walkingArea ':C_w2' in retrieveGNEWalkingArea()
+Debug: Created walkingArea ':C_w3' in retrieveGNEWalkingArea()
+Debug: Created walkingArea ':N_w0' in retrieveGNEWalkingArea()
+Debug: Created walkingArea ':S_w0' in retrieveGNEWalkingArea()
+Debug: network elements saved
 Debug: Deleting unreferenced edge 'CE' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'CE_0' in GNEEdge destructor
 Debug: Deleting unreferenced edge 'CN' in AttributeCarriers destructor
@@ -89,12 +94,15 @@ Debug: Deleting unreferenced connection 'fromWC_0toCE_0' in GNEEdge destructor
 Debug: Deleting unreferenced junction 'C' in AttributeCarriers destructor
 Debug: Deleting unreferenced crossing ':C_c0' in GNEJunction destructor
 Debug: Deleting unreferenced crossing ':C_c1' in GNEJunction destructor
+Debug: Deleting unreferenced walkingArea ':C_w0' in GNEJunction destructor
+Debug: Deleting unreferenced walkingArea ':C_w1' in GNEJunction destructor
+Debug: Deleting unreferenced walkingArea ':C_w2' in GNEJunction destructor
+Debug: Deleting unreferenced walkingArea ':C_w3' in GNEJunction destructor
 Debug: Deleting unreferenced junction 'E' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'N' in AttributeCarriers destructor
+Debug: Deleting unreferenced walkingArea ':N_w0' in GNEJunction destructor
 Debug: Deleting unreferenced junction 'S' in AttributeCarriers destructor
+Debug: Deleting unreferenced walkingArea ':S_w0' in GNEJunction destructor
 Debug: Deleting unreferenced junction 'W' in AttributeCarriers destructor
-Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in AttributeCarriers destructor
-Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in AttributeCarriers destructor
-Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in AttributeCarriers destructor
 Debug: Deleting net builder in GNENet destructor
 GLDebug: Number of objects in SUMORTree during call of the destructor: 13

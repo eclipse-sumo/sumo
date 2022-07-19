@@ -39,10 +39,10 @@ During normal simulation behavior two vehicles will never occupy the same stripe
 If three bicycles should be able to ride side by side on a 3.6m wide lane, the lateral resolution must not be higher than 1.2m.
 
 !!! note
-    Vehicles move **continously** between the sublanes. This means, even when the lateral resolution is set equal to the lane width, vehicles will occupy many intermediate positions while changing between lanes (whenever it takes multiple simulation steps to achieve the desired maneuver).
+    Vehicles move **continuously** between the sublanes. This means, even when the lateral resolution is set equal to the lane width, vehicles will occupy many intermediate positions while changing between lanes (whenever it takes multiple simulation steps to achieve the desired maneuver).
 
 !!! note
-    It is recommended to set the lateral resolution to a value that divides the lane width evenly to avoid artefacts from varyings stripe width (stripes end at the lane border).
+    It is recommended to set the lateral resolution to a value that divides the lane width evenly to avoid artifacts from varying stripe width (stripes end at the lane border).
 
 !!! caution
     The smaller the value of **--lateral-resolution**, the higher the running time for computing the simulation state.
@@ -52,7 +52,7 @@ If three bicycles should be able to ride side by side on a 3.6m wide lane, the l
 The vehicle behavior is subject to model-specific [vType attributes
 (maxSpeedLat, minGapLat,
 latAlignment)](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#vehicle_types)
-and [lane-changing-modell attributes (lcSublane,
+and [lane-changing-model attributes (lcSublane,
 lcPushy)](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#lane-changing_models).
 
 When describing the state of a vehicle in
@@ -64,7 +64,7 @@ attributes are used:
   lane in meters
 - shadow lane: Each vehicle in the sublane model occupies 1 or 2
   lanes. The lane that contains the center of the
-  front-bumper is refered to as its *lane*. If the vehicle
+  front-bumper is referred to as its *lane*. If the vehicle
   front-bumper also reaches into another lane, this is called the
   *shadow lane*
 - target lane: if the vehicle has started a lane changing manoeuvre to
@@ -117,11 +117,11 @@ In addition to these motivation, an additional behavioral layer is
 responsible for maintaining safe lateral gaps. The desired gap can be
 set using the vType attribute `minGapLat`. Distances keeping is only performed in
 regard to vehicles that are not too far behind the ego vehicle. If the
-front bumper of a neighbouring vehicle is behind the longitudinal
-midpoint of the ego vehicle, that neighbour is ignored.
+front bumper of a neighboring vehicle is behind the longitudinal
+midpoint of the ego vehicle, that neighbor is ignored.
 
 !!! note
-    the lateral extend of neighbouring vehicles is only computed within the set **--lateral-resolution**
+    the lateral extend of neighboring vehicles is only computed within the set **--lateral-resolution**
 
 The model *SL2015* supports these additional parameters:
 
@@ -173,7 +173,7 @@ vehicles will be placed at the exact longitudinal and lateral position
 to match the specified coordinates. This allows for full control of
 sublane-placement.
 
-# Simple Continous lane-change model
+# Simple Continuous lane-change model
 
 The sublane model described above allows simulating a wide range of
 phenomena related to lateral vehicle dynamics at the price of increased
@@ -187,7 +187,7 @@ If only the non-instantaneous aspect of lane-changing needs to be
 modelled, a simplified (and thus faster) model may be used as an
 alternative to the sublane model.
 
-The *Simple continous lane-change model* is activated by setting the
+The *Simple continuos lane-change model* is activated by setting the
 option **--lanechange.duration** {{DT_FLOAT}} which specifies the default time for changing between adjacent
 lanes in seconds (instead of setting option **--lateral-resolution**).
 

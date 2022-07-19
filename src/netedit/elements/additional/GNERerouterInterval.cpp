@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -19,9 +19,11 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <netedit/GNENet.h>
+#include <netedit/GNEUndoList.h>
+#include <netedit/GNEViewNet.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/dialogs/GNERerouterDialog.h>
-#include <netedit/GNEUndoList.h>
 
 #include "GNERerouterInterval.h"
 
@@ -29,35 +31,59 @@
 // member method definitions
 // ===========================================================================
 
+GNERerouterInterval::GNERerouterInterval(GNENet* net) :
+    GNEAdditional("", net, GLO_REROUTER_INTERVAL, SUMO_TAG_INTERVAL, "",
+{}, {}, {}, {}, {}, {}),
+myBegin(0),
+myEnd(0) {
+    // reset default values
+    resetDefaultValues();
+}
+
+
 GNERerouterInterval::GNERerouterInterval(GNERerouterDialog* rerouterDialog) :
-    GNEAdditional(rerouterDialog->getEditedAdditional()->getNet(), GLO_REROUTER, SUMO_TAG_INTERVAL, "",
-    {}, {}, {}, {rerouterDialog->getEditedAdditional()}, {}, {}, {}, {},
-    std::map<std::string, std::string>()),
-    myBegin(0),
-    myEnd(0) {
-    // update centering boundary without updating grid
-    updateCenteringBoundary(false);
-    // fill reroute interval with default values
-    setDefaultValues();
+    GNEAdditional(rerouterDialog->getEditedAdditional()->getNet(), GLO_REROUTER_INTERVAL, SUMO_TAG_INTERVAL, "",
+{}, {}, {}, {rerouterDialog->getEditedAdditional()}, {}, {}),
+myBegin(0),
+myEnd(0) {
+    // reset default values
+    resetDefaultValues();
+    // update boundary of rerouter parent
+    rerouterDialog->getEditedAdditional()->updateCenteringBoundary(true);
 }
 
 
 GNERerouterInterval::GNERerouterInterval(GNEAdditional* rerouterParent, SUMOTime begin, SUMOTime end) :
     GNEAdditional(rerouterParent->getNet(), GLO_REROUTER, SUMO_TAG_INTERVAL, "",
-    {}, {}, {}, {rerouterParent}, {}, {}, {}, {},
-    std::map<std::string, std::string>()),
-    myBegin(begin),
-    myEnd(end) {
-    // update centering boundary without updating grid
-    updateCenteringBoundary(false);
+{}, {}, {}, {rerouterParent}, {}, {}),
+myBegin(begin),
+myEnd(end) {
+    // update boundary of rerouter parent
+    rerouterParent->updateCenteringBoundary(true);
 }
 
 
 GNERerouterInterval::~GNERerouterInterval() {}
 
 
+void
+GNERerouterInterval::writeAdditional(OutputDevice& device) const {
+    // avoid write empty intervals
+    if (getChildAdditionals().size() > 0) {
+        device.openTag(SUMO_TAG_INTERVAL);
+        device.writeAttr(SUMO_ATTR_BEGIN, getAttribute(SUMO_ATTR_BEGIN));
+        device.writeAttr(SUMO_ATTR_END, getAttribute(SUMO_ATTR_END));
+        // write all rerouter interval
+        for (const auto& rerouterElement : getChildAdditionals()) {
+            rerouterElement->writeAdditional(device);
+        }
+        device.closeTag();
+    }
+}
+
+
 GNEMoveOperation*
-GNERerouterInterval::getMoveOperation(const double /*shapeOffset*/) {
+GNERerouterInterval::getMoveOperation() {
     // rerouter intervals cannot be moved
     return nullptr;
 }
@@ -65,20 +91,31 @@ GNERerouterInterval::getMoveOperation(const double /*shapeOffset*/) {
 
 void
 GNERerouterInterval::updateGeometry() {
-    // This additional doesn't own a geometry
+    // update centering boundary (needed for centering)
+    updateCenteringBoundary(false);
+    // update geometries (boundaries of all children)
+    for (const auto& rerouterElement : getChildAdditionals()) {
+        rerouterElement->updateGeometry();
+    }
 }
 
 
 Position
 GNERerouterInterval::getPositionInView() const {
-    return myBoundary.getCenter();
+    // get rerouter parent position
+    Position signPosition = getParentAdditionals().front()->getPositionInView();
+    // set position depending of indexes
+    signPosition.add(4.5, (getDrawPositionIndex() * -1) + 1, 0);
+    // return signPosition
+    return signPosition;
 }
 
 
 void
 GNERerouterInterval::updateCenteringBoundary(const bool /*updateGrid*/) {
-    // use boundary of parent element
-    myBoundary = getParentAdditionals().front()->getCenteringBoundary();
+    myAdditionalBoundary.reset();
+    myAdditionalBoundary.add(getPositionInView());
+    myAdditionalBoundary.grow(5);
 }
 
 
@@ -95,8 +132,20 @@ GNERerouterInterval::getParentName() const {
 
 
 void
-GNERerouterInterval::drawGL(const GUIVisualizationSettings&) const {
-    // Currently This additional isn't drawn
+GNERerouterInterval::drawGL(const GUIVisualizationSettings& s) const {
+    // draw rerouter interval as listed attribute
+    drawListedAddtional(s, getParentAdditionals().front()->getPositionInView(),
+                        0, 0, RGBColor::RED, RGBColor::YELLOW, GUITexture::REROUTER_INTERVAL,
+                        getAttribute(SUMO_ATTR_BEGIN) + " -> " + getAttribute(SUMO_ATTR_END));
+    // iterate over additionals and check if drawn
+    for (const auto& rerouterElement : getChildAdditionals()) {
+        // if rerouter or their child is selected, then draw
+        if (isAttributeCarrierSelected() || myNet->getViewNet()->isAttributeCarrierInspected(this) ||
+                rerouterElement->isAttributeCarrierSelected() || myNet->getViewNet()->isAttributeCarrierInspected(rerouterElement) ||
+                (myNet->getViewNet()->getFrontAttributeCarrier() == rerouterElement)) {
+            rerouterElement->drawGL(s);
+        }
+    }
 }
 
 
@@ -111,8 +160,8 @@ GNERerouterInterval::getAttribute(SumoXMLAttr key) const {
             return time2string(myEnd);
         case GNE_ATTR_PARENT:
             return getParentAdditionals().at(0)->getID();
-        case GNE_ATTR_PARAMETERS:
-            return getParametersStr();
+        case GNE_ATTR_SELECTED:
+            return toString(isAttributeCarrierSelected());
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -132,6 +181,12 @@ GNERerouterInterval::getAttributeDouble(SumoXMLAttr key) const {
 }
 
 
+const Parameterised::Map&
+GNERerouterInterval::getACParametersMap() const {
+    return PARAMETERS_EMPTY;
+}
+
+
 void
 GNERerouterInterval::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     if (value == getAttribute(key)) {
@@ -140,7 +195,7 @@ GNERerouterInterval::setAttribute(SumoXMLAttr key, const std::string& value, GNE
     switch (key) {
         case SUMO_ATTR_BEGIN:
         case SUMO_ATTR_END:
-        case GNE_ATTR_PARAMETERS:
+        case GNE_ATTR_SELECTED:
             undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
             break;
         default:
@@ -156,17 +211,11 @@ GNERerouterInterval::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<SUMOTime>(value) && (parse<SUMOTime>(value) < myEnd);
         case SUMO_ATTR_END:
             return canParse<SUMOTime>(value) && (parse<SUMOTime>(value) > myBegin);
-        case GNE_ATTR_PARAMETERS:
-            return Parameterised::areParametersValid(value);
+        case GNE_ATTR_SELECTED:
+            return canParse<bool>(value);
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
-}
-
-
-bool
-GNERerouterInterval::isAttributeEnabled(SumoXMLAttr /* key */) const {
-    return true;
 }
 
 
@@ -194,8 +243,12 @@ GNERerouterInterval::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_END:
             myEnd = parse<SUMOTime>(value);
             break;
-        case GNE_ATTR_PARAMETERS:
-            setParametersStr(value);
+        case GNE_ATTR_SELECTED:
+            if (parse<bool>(value)) {
+                selectAttributeCarrier();
+            } else {
+                unselectAttributeCarrier();
+            }
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
@@ -203,14 +256,15 @@ GNERerouterInterval::setAttribute(SumoXMLAttr key, const std::string& value) {
 }
 
 
-void GNERerouterInterval::setMoveShape(const GNEMoveResult& /*moveResult*/) {
+void
+GNERerouterInterval::setMoveShape(const GNEMoveResult& /*moveResult*/) {
     // nothing to do
 }
 
 
-void GNERerouterInterval::commitMoveShape(const GNEMoveResult& /*moveResult*/, GNEUndoList* /*undoList*/) {
+void
+GNERerouterInterval::commitMoveShape(const GNEMoveResult& /*moveResult*/, GNEUndoList* /*undoList*/) {
     // nothing to do
 }
-
 
 /****************************************************************************/

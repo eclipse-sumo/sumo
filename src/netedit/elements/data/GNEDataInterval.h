@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -43,7 +43,7 @@ class GNEGenericData;
 
 /**
  * @class GNEDataInterval
- * @brief An Element which don't belongs to GNENet but has influency in the simulation
+ * @brief An Element which don't belong to GNENet but has influence in the simulation
  */
 class GNEDataInterval : public GNEHierarchicalElement, public Parameterised {
 
@@ -70,9 +70,6 @@ public:
     /// @brief specific attribute colors
     const std::map<SumoXMLTag, GNEDataSet::AttributeColors>& getSpecificAttributeColors() const;
 
-    /// @brief get ID
-    const std::string& getID() const;
-
     /// @brief get GUIGlObject associated with this AttributeCarrier
     GUIGlObject* getGUIGlObject();
 
@@ -84,7 +81,7 @@ public:
 
     /// @name members and functions relative to write data elements into XML
     /// @{
-    /// @brief check if current data element is valid to be writed into XML (by default true, can be reimplemented in children)
+    /// @brief check if current data element is valid to be written into XML (by default true, can be reimplemented in children)
     bool isDataIntervalValid() const;
 
     /// @brief return a string with the current data element problem (by default empty, can be reimplemented in children)
@@ -113,10 +110,10 @@ public:
     const std::vector<GNEGenericData*>& getGenericDataChildren() const;
 
     /// @brief check if there is already a TAZRel defined in one TAZ
-    bool TAZRelExists(const GNETAZElement *TAZ) const;
+    bool TAZRelExists(const GNEAdditional* TAZ) const;
 
     /// @brief check if there is already a TAZRel defined between two TAZs
-    bool TAZRelExists(const GNETAZElement *fromTAZ, const GNETAZElement *toTAZ) const;
+    bool TAZRelExists(const GNEAdditional* fromTAZ, const GNEAdditional* toTAZ) const;
 
     /// @}
 
@@ -143,24 +140,10 @@ public:
 
     /**@brief method for checking if the key and their conrrespond attribute are valids
      * @param[in] key The attribute key
-     * @param[in] value The value asociated to key key
+     * @param[in] value The value associated to key key
      * @return true if the value is valid, false in other case
      */
     bool isValid(SumoXMLAttr key, const std::string& value);
-
-    /* @brief method for enable attribute
-     * @param[in] key The attribute key
-     * @param[in] undoList The undoList on which to register changes
-     * @note certain attributes can be only enabled, and can produce the disabling of other attributes
-     */
-    void enableAttribute(SumoXMLAttr key, GNEUndoList* undoList);
-
-    /* @brief method for disable attribute
-     * @param[in] key The attribute key
-     * @param[in] undoList The undoList on which to register changes
-     * @note certain attributes can be only enabled, and can produce the disabling of other attributes
-     */
-    void disableAttribute(SumoXMLAttr key, GNEUndoList* undoList);
 
     /* @brief method for check if the value for certain attribute is set
      * @param[in] key The attribute key
@@ -175,7 +158,7 @@ public:
     /// @}
 
     /// @brief get parameters map
-    const std::map<std::string, std::string>& getACParametersMap() const;
+    const Parameterised::Map& getACParametersMap() const;
 
 protected:
     /// @brief all attribute colors
@@ -199,9 +182,6 @@ protected:
 private:
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)
     void setAttribute(SumoXMLAttr key, const std::string& value);
-
-    /// @brief method for enabling the attribute and nothing else (used in GNEChange_EnableAttribute)
-    void setEnabledAttribute(const int enabledAttributes);
 
     /// @brief Invalidated copy constructor.
     GNEDataInterval(const GNEDataInterval&) = delete;

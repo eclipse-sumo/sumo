@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration>
+
+    <input>
+        <net-file value="net.netedit"/>
+        <route-files value="routes.netedit"/>
+    </input>
+
+    <junction-taz value="true"/>
+
+</configuration>

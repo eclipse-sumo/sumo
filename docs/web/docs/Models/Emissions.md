@@ -12,14 +12,23 @@ SUMO includes the following emission models:
 - [HBEFA v3.1-based](../Models/Emissions/HBEFA3-based.md): A
   continuous reformulation of the [HBEFA](http://www.hbefa.net/) v3.1
   emissions data base (open source);
+- [HBEFA v4.2-based](../Models/Emissions/HBEFA4-based.md): A
+  continuous reformulation of the [HBEFA](http://www.hbefa.net/) v4.2
+  emissions data base (open source);
 - [PHEMlight](../Models/Emissions/PHEMlight.md), a derivation of
   the original
   [PHEM](https://www.ivt.tugraz.at/en/research/areas/em/)
-  emission model (closed source, commercial).
+  emission model (model is open source, but full data sets are only commercially available);
+- [PHEMlight5](../Models/Emissions/PHEMlight5.md), the V5 version of PHEMlight
+  supporting deterioration emission model (model is open source, but full data sets are only commercially available);
 - [Electric Vehicle
   Model](../Models/Electric.md#emission_output): an
   electricity-consumption model by [Kurczveil, T., López, P.A.,
   Schnieder](../Models/Electric.md#publications).
+- [MMP Electric Vehicle Model](../Models/MMPEVEM.md): an
+  electricity-consumption model by [Kevin Badalian from Teaching and Research
+  Area Mechatronics in Mobile Propulsion (MMP), RWTH Aachen
+  University](../Models/MMPEVEM.md#publications).
 
 Literature on the Models and their implementation can be found at [the
 DLR electronic library
@@ -37,14 +46,20 @@ in the output. There is one special model `Zero` which does not
 generate emissions or energy consumption at all.
 
 Available emission classes
-can be found within the emission model descriptions ([HBEFA
-v2.1-based](../Models/Emissions/HBEFA-based.md), [HBEFA
-v3.1-based](../Models/Emissions/HBEFA3-based.md),
-[PHEMlight](../Models/Emissions/PHEMlight.md)). The current default
+can be found within the emission model descriptions
+([HBEFA v2.1-based](../Models/Emissions/HBEFA-based.md),
+[HBEFA v3.1-based](../Models/Emissions/HBEFA3-based.md),
+[HBEFA v4.2-based](../Models/Emissions/HBEFA4-based.md),
+[PHEMlight](../Models/Emissions/PHEMlight.md),
+[PHEMlight5](../Models/Emissions/PHEMlight5.md)). The current default
 model is `HBEFA3/PC_G_EU4` (a gasoline powered Euro norm 4 passenger car
 modeled using the HBEFA3 based model).
 
 # Pollutants / Measurements covered by models
+
+!!! caution
+    Please note the the unit of fuel-related outputs changed with SUMO 1.14.0 from liters to milligram.
+	For the old behavior use the option **--emissions.volumetric-fuel**.
 
 <table class="tg">
   <tr>
@@ -81,6 +96,16 @@ modeled using the HBEFA3 based model).
     <td class="tg-c3ow">-</td>
   </tr>
   <tr>
+    <td class="tg-0pky">HBEFA v4.2-based<br><code>emissionClass="HBEFA4/..."</code></td>
+    <td class="tg-c3ow">x</td>
+    <td class="tg-c3ow">x</td>
+    <td class="tg-c3ow">x</td>
+    <td class="tg-c3ow">x</td>
+    <td class="tg-c3ow">x</td>
+    <td class="tg-c3ow">x</td>
+    <td class="tg-c3ow">x</td>
+  </tr>
+  <tr>
     <td class="tg-0pky">PHEMlight<br><code>emissionClass="PHEMlight/..."</code></td>
     <td class="tg-c3ow">x</td>
     <td class="tg-c3ow">x</td>
@@ -88,7 +113,17 @@ modeled using the HBEFA3 based model).
     <td class="tg-c3ow">x</td>
     <td class="tg-c3ow">x</td>
     <td class="tg-c3ow">x</td>
-    <td class="tg-c3ow">-</td>
+    <td class="tg-c3ow">(x)</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">PHEMlight<br><code>emissionClass="PHEMlight5/..."</code></td>
+    <td class="tg-c3ow">x</td>
+    <td class="tg-c3ow">x</td>
+    <td class="tg-c3ow">x</td>
+    <td class="tg-c3ow">x</td>
+    <td class="tg-c3ow">x</td>
+    <td class="tg-c3ow">x</td>
+    <td class="tg-c3ow">(x)</td>
   </tr>
   <tr>
     <td class="tg-0pky">Electric Vehicle Model<br><code>emissionClass="Energy"</code></td>
@@ -111,6 +146,10 @@ modeled using the HBEFA3 based model).
     <td class="tg-9wq8">-</td>
   </tr>
 </table>
+
+PHEMlight and PHEMlight5 generate electricity consumption values only if the
+data files for battery powered or hybrid vehicles are available (which are not part of
+the free data set).
 
 # Outputs
 
@@ -141,6 +180,17 @@ following output can be used:
   This can be used to show the emissions for all vehicles on a lane
   during each simulation step (or for the whole edge in
   [Simulation/Meso](../Simulation/Meso.md)).
+
+# Standing vehicles
+
+A vehicle can have either a foreseeable stop on its route or stop at a junction or in a jam.
+In both cases it will still produce emissions / consume energy as long as the motor is running.
+For planned stops SUMO will switch off the engine immediately if the duration is longer than 300s
+(configurable via the vehicle type parameter `shutOffStopDuration`).
+
+The automated start/stop also for unplanned stops is not enabled by default but can be set using
+the vehicle type parameter `shutOffAutoDuration`. This expects a value in seconds and will switch
+off the engine automatically if the vehicle does not move for longer than the given time.
 
 # Further Interfaces
 

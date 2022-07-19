@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -46,7 +46,7 @@ FXIMPLEMENT(GNEFixAdditionalElements, FXDialogBox, GNEFixAdditionalElementsMap, 
 // ===========================================================================
 
 GNEFixAdditionalElements::GNEFixAdditionalElements(GNEViewNet* viewNet, const std::vector<GNEAdditional*>& invalidSingleLaneAdditionals, const std::vector<GNEAdditional*>& invalidMultiLaneAdditionals) :
-    FXDialogBox(viewNet->getApp(), ("Fix additional problems"), GUIDesignDialogBoxExplicit(500, 380)),
+    FXDialogBox(viewNet->getApp(), ("Fix additional problems"), GUIDesignDialogBoxExplicitStretchable(500, 380)),
     myViewNet(viewNet) {
     // set busStop icon for this dialog
     setIcon(GUIIconSubSys::getIcon(GUIIcon::BUSSTOP));
@@ -95,21 +95,24 @@ GNEFixAdditionalElements::onCmdAccept(FXObject*, FXSelector, void*) {
     // first check options from single lane additionals
     if (myAdditionalList->myInvalidSingleLaneAdditionals.size() > 0) {
         if (myPositionOptions->activateFriendlyPositionAndSave->getCheck() == TRUE) {
-            myViewNet->getUndoList()->begin("change " + toString(SUMO_ATTR_FRIENDLY_POS) + " of invalid additionals");
+            myViewNet->getUndoList()->begin(myAdditionalList->myInvalidSingleLaneAdditionals.front()->getTagProperty().getGUIIcon(),
+                                            "change " + toString(SUMO_ATTR_FRIENDLY_POS) + " of invalid additionals");
             // iterate over invalid single lane elements to enable friendly position
             for (auto i : myAdditionalList->myInvalidSingleLaneAdditionals) {
                 i->setAttribute(SUMO_ATTR_FRIENDLY_POS, "true", myViewNet->getUndoList());
             }
             myViewNet->getUndoList()->end();
         } else if (myPositionOptions->fixPositionsAndSave->getCheck() == TRUE) {
-            myViewNet->getUndoList()->begin("fix positions of invalid additionals");
+            myViewNet->getUndoList()->begin(myAdditionalList->myInvalidSingleLaneAdditionals.front()->getTagProperty().getGUIIcon(),
+                                            "fix positions of invalid additionals");
             // iterate over invalid single lane elements to fix positions
             for (auto i : myAdditionalList->myInvalidSingleLaneAdditionals) {
                 i->fixAdditionalProblem();
             }
             myViewNet->getUndoList()->end();
         } else if (myPositionOptions->selectInvalidStopsAndCancel->getCheck() == TRUE) {
-            myViewNet->getUndoList()->begin("select invalid additionals");
+            myViewNet->getUndoList()->begin(myAdditionalList->myInvalidSingleLaneAdditionals.front()->getTagProperty().getGUIIcon(),
+                                            "select invalid additionals");
             // iterate over invalid single lane elements to select all elements
             for (auto i : myAdditionalList->myInvalidSingleLaneAdditionals) {
                 i->setAttribute(GNE_ATTR_SELECTED, "true", myViewNet->getUndoList());
@@ -121,7 +124,8 @@ GNEFixAdditionalElements::onCmdAccept(FXObject*, FXSelector, void*) {
     }
     // now check options from multi lane additionals
     if (myAdditionalList->myInvalidMultiLaneAdditionals.size() > 0) {
-        myViewNet->getUndoList()->begin("fix multilane additionals problems");
+        myViewNet->getUndoList()->begin(myAdditionalList->myInvalidMultiLaneAdditionals.front()->getTagProperty().getGUIIcon(),
+                                        "fix multilane additionals problems");
         // fix problems of consecutive lanes
         if (myConsecutiveLaneOptions->buildConnectionBetweenLanes->getCheck() == TRUE) {
             // iterate over invalid single lane elements to enable friendly position
@@ -246,7 +250,7 @@ GNEFixAdditionalElements::AdditionalList::AdditionalList(GNEFixAdditionalElement
 // ---------------------------------------------------------------------------
 
 GNEFixAdditionalElements::PositionOptions::PositionOptions(GNEFixAdditionalElements* fixAdditionalPositions) :
-    FXGroupBox(fixAdditionalPositions->myMainFrame, "Select a solution for StoppingPlaces and E2 detectors", GUIDesignGroupBoxFrame) {
+    FXGroupBoxModule(fixAdditionalPositions->myMainFrame, "Select a solution for StoppingPlaces and E2 detectors") {
     // create horizontal frames for radio buttons
     FXHorizontalFrame* RadioButtons = new FXHorizontalFrame(this, GUIDesignHorizontalFrame);
     // create Vertical Frame for left options
@@ -314,7 +318,7 @@ GNEFixAdditionalElements::PositionOptions::disablePositionOptions() {
 // ---------------------------------------------------------------------------
 
 GNEFixAdditionalElements::ConsecutiveLaneOptions::ConsecutiveLaneOptions(GNEFixAdditionalElements* fixAdditionalPositions) :
-    FXGroupBox(fixAdditionalPositions->myMainFrame, "Select a solution for Multilane E2 detectors", GUIDesignGroupBoxFrame) {
+    FXGroupBoxModule(fixAdditionalPositions->myMainFrame, "Select a solution for Multilane E2 detectors") {
     // create horizontal frames for radio buttons
     FXHorizontalFrame* RadioButtons = new FXHorizontalFrame(this, GUIDesignHorizontalFrame);
     // create Vertical Frame for left options
@@ -323,7 +327,7 @@ GNEFixAdditionalElements::ConsecutiveLaneOptions::ConsecutiveLaneOptions(GNEFixA
             fixAdditionalPositions, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
     removeInvalidElements = new FXRadioButton(RadioButtonsLeft, "Remove invalid E2 detectors\t\tRemove Multilane E2 Detectors with non-connected lanes",
             fixAdditionalPositions, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
-    // add a vertical separator beween both options
+    // add a vertical separator between both options
     new FXVerticalSeparator(RadioButtons, GUIDesignVerticalSeparator);
     // create Vertical Frame for right options
     FXVerticalFrame* RadioButtonsRight = new FXVerticalFrame(RadioButtons, GUIDesignAuxiliarVerticalFrame);

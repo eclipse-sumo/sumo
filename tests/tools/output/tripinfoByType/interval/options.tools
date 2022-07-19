@@ -1,0 +1,2 @@
+-t tripinfos.xml -a timeLoss tools/output/tripinfoByType.py
+--interval 300

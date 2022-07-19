@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -22,6 +22,13 @@
 #include <config.h>
 
 #include <netedit/frames/GNEFrame.h>
+#include <netedit/frames/GNEOverlappedInspection.h>
+#include <netedit/frames/GNEElementTree.h>
+
+// ===========================================================================
+// class declaration
+// ===========================================================================
+class GNEEdgeTemplate;
 
 // ===========================================================================
 // class definitions
@@ -39,7 +46,7 @@ public:
     // class NeteditAttributesEditor
     // ===========================================================================
 
-    class NeteditAttributesEditor : private FXGroupBox {
+    class NeteditAttributesEditor : public FXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNEInspectorFrame::NeteditAttributesEditor)
 
@@ -58,6 +65,15 @@ public:
 
         /// @brief refresh netedit attributes
         void refreshNeteditAttributesEditor(bool forceRefresh);
+
+        /// @brief check if we're selecting a new parent
+        bool isSelectingParent() const;
+
+        /// @brief set new parent
+        void setNewParent(GNEAttributeCarrier* clickedAC);
+
+        /// @brief stop select new parent
+        void stopSelectParent();
 
         /// @name FOX-callbacks
         /// @{
@@ -79,14 +95,17 @@ public:
         /// @brief pointer to inspector frame parent
         GNEInspectorFrame* myInspectorFrameParent;
 
-        /// @frame horizontal frame for replace the parent additional
-        FXHorizontalFrame* myHorizontalFrameParentAdditional;
+        /// @brief button for set element as front button
+        FXButton* myMarkFrontElementButton;
 
         /// @brief Label for parent additional
         FXLabel* myLabelParentAdditional;
 
         /// @brief pointer for replace the parent additional
         FXTextField* myTextFieldParentAdditional;
+
+        /// @brief button for set new parent
+        MFXCheckableButton* mySetNewParentButton;
 
         /// @frame horizontal frame for close shape
         FXHorizontalFrame* myHorizontalFrameCloseShape;
@@ -97,9 +116,6 @@ public:
         /// @brief pointer to check box "Block movement"
         FXCheckButton* myCheckBoxCloseShape;
 
-        /// @brief button for set element as front button
-        FXButton* myMarkFrontElementButton;
-
         /// @brief button for help
         FXButton* myHelpButton;
     };
@@ -108,7 +124,7 @@ public:
     // class GEOAttributesEditor
     // ===========================================================================
 
-    class GEOAttributesEditor : private FXGroupBox {
+    class GEOAttributesEditor : public FXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNEInspectorFrame::GEOAttributesEditor)
 
@@ -172,26 +188,11 @@ public:
     // class TemplateEditor
     // ===========================================================================
 
-    class TemplateEditor : private FXGroupBox {
+    class TemplateEditor : public FXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNEInspectorFrame::TemplateEditor)
 
     public:
-        /// @brief edgeTemplate
-        struct EdgeTemplate {
-            /// @brief default constructor
-            EdgeTemplate();
-
-            /// @brief constructor
-            EdgeTemplate(const GNEEdge* edge);
-
-            /// @brief edge parameters
-            std::map<SumoXMLAttr, std::string> edgeParameters;
-
-            /// @brief lane parameters
-            std::vector<std::map<SumoXMLAttr, std::string> > laneParameters;
-        };
-
         /// @brief constructor
         TemplateEditor(GNEInspectorFrame* inspectorFrameParent);
 
@@ -204,14 +205,14 @@ public:
         /// @brief hide template editor
         void hideTemplateEditor();
 
-        /// @brief there is a template
-        bool hasTemplate() const;
+        /// @brief get edge template (to copy attributes from)
+        GNEEdgeTemplate* getEdgeTemplate() const;
 
-        /// @brief get the template edge (to copy attributes from)
-        const TemplateEditor::EdgeTemplate& getEdgeTemplate() const;
+        /// @brief set edge template
+        void setEdgeTemplate(const GNEEdge* edge);
 
         /// @brief update edge template
-        void updateEdgeTemplate(const GNEEdge* edge);
+        void updateEdgeTemplate();
 
         /// @brief set template (used by shortcut)
         void setTemplate();
@@ -238,9 +239,6 @@ public:
         /// @brief FOX need this
         FOX_CONSTRUCTOR(TemplateEditor)
 
-        /// @brief seh the template edge (we assume shared responsibility via reference counting)
-        void setEdgeTemplate(GNEEdge* edgeTemplate);
-
         /// @brief update buttons
         void updateButtons();
 
@@ -257,36 +255,33 @@ public:
         /// @brief clear template button
         FXButton* myClearTemplateButton;
 
-        /// @brief flag for edge template
-        bool myHasEdgeTemplate;
-
-        /// @brief map with edge template
-        TemplateEditor::EdgeTemplate myEdgeTemplate;
+        /// @brief edge Template
+        GNEEdgeTemplate* myEdgeTemplate;
     };
 
     // ===========================================================================
-    // class ParametersEditorInspector
+    // class ParametersEditor
     // ===========================================================================
 
-    class ParametersEditorInspector : private FXGroupBox {
+    class ParametersEditor : public FXGroupBoxModule {
         /// @brief FOX-declaration
-        FXDECLARE(GNEInspectorFrame::ParametersEditorInspector)
+        FXDECLARE(GNEInspectorFrame::ParametersEditor)
 
     public:
         /// @brief constructor
-        ParametersEditorInspector(GNEInspectorFrame* inspectorFrameParent);
+        ParametersEditor(GNEInspectorFrame* inspectorFrameParent);
 
         /// @brief destructor
-        ~ParametersEditorInspector();
+        ~ParametersEditor();
 
         /// @brief show netedit attributes EditorInspector
-        void showParametersEditorInspector();
+        void showParametersEditor();
 
         /// @brief hide netedit attributes EditorInspector
-        void hideParametersEditorInspector();
+        void hideParametersEditor();
 
         /// @brief refresh netedit attributes
-        void refreshParametersEditorInspector();
+        void refreshParametersEditor();
 
         /// @brief get inspector frame parent
         GNEInspectorFrame* getInspectorFrameParent() const;
@@ -302,7 +297,7 @@ public:
 
     protected:
         /// @brief FOX need this
-        FOX_CONSTRUCTOR(ParametersEditorInspector)
+        FOX_CONSTRUCTOR(ParametersEditor)
 
     private:
         /// @brief current GNEInspectorFrame parent
@@ -319,7 +314,7 @@ public:
     // class AdditionalDialog
     // ===========================================================================
 
-    class AdditionalDialog : private FXGroupBox {
+    class AdditionalDialog : public FXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNEInspectorFrame::AdditionalDialog)
 
@@ -406,7 +401,7 @@ public:
     void clearInspectedAC();
 
     /// @brief get AttributesEditor
-    GNEFrameAttributesModuls::AttributesEditor* getAttributesEditor() const;
+    GNEFrameAttributeModules::AttributesEditor* getAttributesEditor() const;
 
     /// @brief get Netedit Attributes editor
     GNEInspectorFrame::NeteditAttributesEditor* getNeteditAttributesEditor() const;
@@ -414,11 +409,11 @@ public:
     /// @brief get template editor
     TemplateEditor* getTemplateEditor() const;
 
-    /// @brief get OverlappedInspection modul
-    GNEFrameModuls::OverlappedInspection* getOverlappedInspection() const;
+    /// @brief get GNEOverlappedInspection modul
+    GNEOverlappedInspection* getOverlappedInspection() const;
 
-    /// @brief get HierarchicalElementTree modul
-    GNEFrameModuls::HierarchicalElementTree* getHierarchicalElementTree() const;
+    /// @brief get GNEElementTree modul
+    GNEElementTree* getHierarchicalElementTree() const;
 
     /// @name FOX-callbacks
     /// @{
@@ -430,7 +425,7 @@ public:
     /// @brief function called after undo/redo in the current frame (can be reimplemented in frame children)
     void updateFrameAfterUndoRedo();
 
-    /// @brief open AttributesCreator extended dialog (can be reimplemented in frame children)
+    /// @brief open GNEAttributesCreator extended dialog (can be reimplemented in frame children)
     void selectedOverlappedElement(GNEAttributeCarrier* AC);
 
 protected:
@@ -445,10 +440,10 @@ protected:
 
 private:
     /// @brief Overlapped Inspection
-    GNEFrameModuls::OverlappedInspection* myOverlappedInspection;
+    GNEOverlappedInspection* myOverlappedInspection;
 
     /// @brief Attribute editor
-    GNEFrameAttributesModuls::AttributesEditor* myAttributesEditor;
+    GNEFrameAttributeModules::AttributesEditor* myAttributesEditor;
 
     /// @brief Netedit Attributes editor
     NeteditAttributesEditor* myNeteditAttributesEditor;
@@ -457,7 +452,7 @@ private:
     GEOAttributesEditor* myGEOAttributesEditor;
 
     /// @brief Parameters editor inspector
-    ParametersEditorInspector* myParametersEditorInspector;
+    ParametersEditor* myParametersEditor;
 
     /// @brief Additional dialog
     AdditionalDialog* myAdditionalDialog;
@@ -466,7 +461,7 @@ private:
     TemplateEditor* myTemplateEditor;
 
     /// @brief Attribute Carrier Hierarchy
-    GNEFrameModuls::HierarchicalElementTree* myHierarchicalElementTree;
+    GNEElementTree* myHierarchicalElementTree;
 
     /// @brief Back Button
     FXButton* myBackButton;

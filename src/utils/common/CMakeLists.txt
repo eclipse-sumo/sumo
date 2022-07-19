@@ -18,6 +18,7 @@ set(utils_common_STAT_SRCS
    RandHelper.cpp
    RGBColor.cpp
    RGBColor.h
+   ScopedLocker.h
    StaticCommand.h
    StdDefs.h
    StdDefs.cpp

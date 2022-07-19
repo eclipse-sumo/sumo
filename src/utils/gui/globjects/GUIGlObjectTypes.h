@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -51,19 +51,24 @@ enum GUIGlObjectType {
     GLO_JUNCTION = 4,
     /// @brief a connection
     GLO_CONNECTION = 5,
+    /// @brief a walkingArea
+    GLO_WALKINGAREA = 6,
     /// @brief a tl-logic
-    GLO_CROSSING = 6,
+    GLO_CROSSING = 7,
     /// @brief a tl-logic
-    GLO_TLLOGIC = 7,
+    GLO_TLLOGIC = 8,
     /// @brief an edge_type
-    GLO_TYPE = 8,
+    GLO_TYPE = 9,
 
     /// @}
+
+    /// @brief line between parent and childrens
+    GLO_PARENTCHILDLINE = 90,
 
     /// @name additional elements
     /// @{
 
-    /// @brief reserved GLO type to pack all additionals elements
+    /// @brief reserved GLO type for packing all additionals elements
     GLO_ADDITIONALELEMENT = 100,
     /// @brief a busStop
     GLO_BUS_STOP = 101,
@@ -91,20 +96,38 @@ enum GUIGlObjectType {
     GLO_DET_EXIT = 112,
     /// @brief a Rerouter
     GLO_REROUTER = 113,
-    /// @brief a Rerouter
-    GLO_REROUTER_EDGE = 114,
+    /// @brief a rerouter interval
+    GLO_REROUTER_INTERVAL = 114,
+    /// @brief a closing reroute
+    GLO_REROUTER_CLOSINGREROUTE = 115,
+    /// @brief a closing lane reroute
+    GLO_REROUTER_CLOSINGLANEREROUTE = 116,
+    /// @brief a parking area reroute
+    GLO_REROUTER_PARKINGAREAREROUTE = 117,
+    /// @brief a destiny probability reroute
+    GLO_REROUTER_DESTPROBREROUTE = 118,
+    /// @brief a route probability reroute
+    GLO_REROUTER_ROUTEPROBREROUTE = 119,
+    /// @brief a Rerouter over edge
+    GLO_REROUTER_EDGE = 120,
     /// @brief a Variable Speed Sign
-    GLO_VSS = 115,
+    GLO_VSS = 121,
+    /// @brief a Variable Speed Sign step
+    GLO_VSS_STEP = 122,
     /// @brief a Calibrator
-    GLO_CALIBRATOR = 116,
+    GLO_CALIBRATOR = 123,
     /// @brief a RouteProbe
-    GLO_ROUTEPROBE = 117,
+    GLO_ROUTEPROBE = 124,
     /// @brief a Vaporizer
-    GLO_VAPORIZER = 118,
+    GLO_VAPORIZER = 125,
     /// @brief a Acces
-    GLO_ACCESS = 119,
+    GLO_ACCESS = 126,
+    /// @brief reserved GLO type for packing all wire elements
+    GLO_WIRE = 140,
     /// @brief a segment of an overhead line
-    GLO_OVERHEAD_WIRE_SEGMENT = 120,
+    GLO_OVERHEAD_WIRE_SEGMENT = 141,
+    /// @brief a segment of an overhead line
+    GLO_TRACTIONSUBSTATION = 142,
 
     /// @}
 
@@ -218,23 +241,26 @@ enum GUIGlObjectType {
     /// @name other
     /// @{
 
+    /// @brief Lock icon (used in NETEDIT)
+    GLO_LOCKICON = 1000,
+
     /// @brief text element (used in NETEDIT)
-    GLO_TEXTNAME = 1000,
+    GLO_TEXTNAME = 1010,
 
     /// @brief dotted contour front element (used in NETEDIT)
-    GLO_DOTTEDCONTOUR_FRONT = 1010,
+    GLO_DOTTEDCONTOUR_FRONT = 1020,
 
     /// @brief dotted contour inspected element (used in NETEDIT)
-    GLO_DOTTEDCONTOUR_INSPECTED = 1020,
+    GLO_DOTTEDCONTOUR_INSPECTED = 1030,
 
     /// @brief temporal shape (used in NETEDIT)
-    GLO_TEMPORALSHAPE = 1030,
+    GLO_TEMPORALSHAPE = 1040,
 
     /// @brief rectangle selection shape (used in NETEDIT)
-    GLO_RECTANGLESELECTION = 1040,
+    GLO_RECTANGLESELECTION = 1050,
 
     /// @brief test element (used in NETEDIT)
-    GLO_TESTELEMENT = 1050,
+    GLO_TESTELEMENT = 1060,
 
     /// @}
 

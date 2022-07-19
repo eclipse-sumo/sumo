@@ -1,0 +1,8 @@
+<routes>
+   <vehicle id="left" depart="0">
+         <route edges="beg beg2left left left2end end rend"/>
+   </vehicle>
+   <vehicle id="middle" depart="0">
+         <route edges="beg middle end rend"/>
+   </vehicle>
+</routes>

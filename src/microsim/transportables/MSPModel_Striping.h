@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2014-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2014-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -63,6 +63,9 @@ public:
     /// @brief register the given person as a pedestrian
     MSTransportableStateAdapter* add(MSTransportable* transportable, MSStageMoving* stage, SUMOTime now);
 
+    /// @brief load the state of the given transportable
+    MSTransportableStateAdapter* loadState(MSTransportable* transportable, MSStageMoving* stage, std::istringstream& in);
+
     /// @brief remove the specified person from the pedestrian simulation
     void remove(MSTransportableStateAdapter* state);
 
@@ -95,6 +98,9 @@ public:
 
     // @brief the factor for random slow-down
     static double dawdling;
+
+    // @brief the safety buffer to vehicles
+    static double minGapToVehicle;
 
     // @brief the time threshold before becoming jammed
     static SUMOTime jamTime;
@@ -235,10 +241,6 @@ protected:
         const int dir; // the direction when entering this path
         const double length;
 
-    private:
-        /// @brief Invalidated assignment operator
-        WalkingAreaPath& operator=(const WalkingAreaPath& s) = delete;
-
     };
 
     class walkingarea_path_sorter {
@@ -274,6 +276,7 @@ protected:
         SUMOTime getWaitingTime(const MSStageMoving& stage, SUMOTime now) const;
         double getSpeed(const MSStageMoving& stage) const;
         const MSEdge* getNextEdge(const MSStageMoving& stage) const;
+        void moveTo(MSPerson* p, MSLane* lane, double lanePos, double lanePosLat, SUMOTime t);
         void moveToXY(MSPerson* p, Position pos, MSLane* lane, double lanePos,
                       double lanePosLat, double angle, int routeOffset,
                       const ConstMSEdgeVector& edges, SUMOTime t);
@@ -284,6 +287,8 @@ protected:
 
         PState(MSPerson* person, MSStageMoving* stage, const MSLane* lane);
 
+        /// @brief constructor for loading state
+        PState(MSPerson* person, MSStageMoving* stage, std::istringstream* in = nullptr);
 
         ~PState() {};
         MSPerson* myPerson;
@@ -371,6 +376,10 @@ protected:
         /// @brief whether the person is currently being controlled via TraCI
         bool isRemoteControlled() const;
 
+        /** @brief Saves the current state into the given stream
+         */
+        void saveState(std::ostringstream& out);
+
     protected:
         /// @brief constructor for PStateVehicle
         PState();
@@ -422,10 +431,6 @@ protected:
 
     private:
         const int myDir;
-
-    private:
-        /// @brief Invalidated assignment operator.
-        by_xpos_sorter& operator=(const by_xpos_sorter&) = delete;
     };
 
 

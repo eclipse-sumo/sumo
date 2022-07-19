@@ -1,2 +1,1 @@
-Error: Vehicle 'VehicleClosedAlready' is not allowed to depart on its first edge.
-Quitting (on error).
+Warning: Vehicle 'VehicleClosedAlready' is not allowed to depart on its first edge.

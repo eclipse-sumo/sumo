@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-09-03 14:49:56 by Eclipse SUMO sumo Version v1_10_0+0487-96e8a8620ec
+<!-- generated on 2021-12-08 14:33:23 by Eclipse SUMO sumo Version v1_11_0+0353-0fe5fe321c1
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -43,7 +43,7 @@ SPDX-License-Identifier: EPL-2.0
     <tripinfo id="train0" depart="50.00" departLane="" departPos="0.00" departSpeed="13.90" departDelay="0.00" arrival="194.00" arrivalLane="" arrivalPos="90.50" arrivalSpeed="13.90" duration="144.00" routeLength="455.50" waitingTime="0.00" waitingCount="0" stopTime="110.36" timeLoss="110.36" rerouteNo="0" devices="tripinfo_train0 person_train0" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
     <personinfo id="person0" depart="0.00" type="DEFAULT_PEDTYPE">
         <walk depart="0.00" departPos="80.00" arrival="49.00" arrivalPos="55.00" duration="49.00" routeLength="65.50" timeLoss="1.84" maxSpeed="1.39"/>
-        <ride waitingTime="78.00" vehicle="train0" depart="127.00" arrival="134.00" arrivalPos="0.00" duration="7.00" routeLength="92.00" timeLoss="0.00"/>
+        <ride waitingTime="71.49" vehicle="train0" depart="120.49" arrival="134.00" arrivalPos="0.00" duration="13.51" routeLength="182.50" timeLoss="0.00"/>
         <walk depart="134.00" departPos="0.00" arrival="234.00" arrivalPos="45.00" duration="100.00" routeLength="137.00" timeLoss="1.36" maxSpeed="1.39"/>
         <stop duration="20.00" arrival="254.00" arrivalPos="45.00" actType="singing"/>
         <ride waitingTime="0.00" vehicle="car0" depart="254.00" arrival="274.00" arrivalPos="92.00" duration="20.00" routeLength="181.00" timeLoss="0.00"/>

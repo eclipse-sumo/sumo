@@ -20,15 +20,23 @@ environment:
           ver: 2019
           generator: "Visual Studio 16 2019"
           configuration: Release
+          cmake_opts: "-DENABLE_JAVA_BINDINGS=0"
           PYTHON: C:\Python37-x64
         - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
           ver: 2019
           generator: "Visual Studio 16 2019"
           configuration: Release
+          cmake_opts: "-DENABLE_JAVA_BINDINGS=0"
           PYTHON: C:\Python27-x64
+        - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2022
+          ver: 2022
+          generator: "Visual Studio 17 2022"
+          configuration: Release
+          cmake_opts: "-DENABLE_JAVA_BINDINGS=0"
+          PYTHON: C:\Python37-x64
 
 install:
-    - git clone --recurse-submodules https://github.com/DLR-TS/SUMOLibraries
+    - git clone --depth 1 https://github.com/DLR-TS/SUMOLibraries
     - set SUMO_LIBRARIES=%CD%\SUMOLibraries
     - "%PYTHON%\\python.exe -m pip install wheel"
 
@@ -36,8 +44,8 @@ build_script:
     - cd %APPVEYOR_BUILD_FOLDER%
     - mkdir build_msvc%ver% &&
       cd build_msvc%ver% &&
-      cmake .. -G"%generator%" -A x64 -DPYTHON_EXECUTABLE=%PYTHON%\python.exe &&
-      cmake --build . --config %configuration% && cd .. &&
+      cmake .. -G"%generator%" -A x64 -DPYTHON_EXECUTABLE=%PYTHON%\python.exe %cmake_opts% &&
+      cmake --build . --config %configuration% -j 4 && cd .. &&
       %PYTHON%\python.exe tools\build\setup-libsumo.py bdist_wheel
 
 

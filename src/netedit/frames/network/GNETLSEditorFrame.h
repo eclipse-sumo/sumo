@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -22,6 +22,8 @@
 
 #include <netedit/frames/GNEFrame.h>
 #include <netbuild/NBTrafficLightLogic.h>
+#include <netedit/frames/GNEOverlappedInspection.h>
+
 
 // ===========================================================================
 // class declarations
@@ -48,7 +50,7 @@ public:
     // class TLSJunction
     // ===========================================================================
 
-    class TLSJunction : protected FXGroupBox {
+    class TLSJunction : public FXGroupBoxModule {
 
     public:
         /// @brief constructor
@@ -81,7 +83,7 @@ public:
     // class TLSDefinition
     // ===========================================================================
 
-    class TLSDefinition : protected FXGroupBox {
+    class TLSDefinition : public FXGroupBoxModule {
 
     public:
         /// @brief constructor
@@ -96,13 +98,16 @@ public:
 
         /// @brief button for delete traffic light program
         FXButton* myDeleteTLProgram;
+
+        /// @brief button for regenerate traffic light program
+        FXButton* myRegenerateTLProgram;
     };
 
     // ===========================================================================
     // class TLSAttributes
     // ===========================================================================
 
-    class TLSAttributes : protected FXGroupBox {
+    class TLSAttributes : public FXGroupBoxModule {
 
     public:
         /// @brief constructor
@@ -123,11 +128,23 @@ public:
         /// @brief get current program ID
         const std::string getCurrentTLSProgramID() const;
 
-        /// @brief get current offset in SUMOTIme
+        /// @brief get current offset in string format
         SUMOTime getOffset() const;
 
         /// @brief set new offset
-        void setOffset(SUMOTime offset);
+        void setOffset(const SUMOTime& offset);
+
+        /// @brief is current offset valid
+        bool isValidOffset();
+
+        /// @brief get current parameters in string format
+        std::string getParameters() const;
+
+        /// @brief set new parameters
+        void setParameters(const std::string& parameters);
+
+        /// @brief are current parameter valid
+        bool isValidParameters();
 
         /// @brief get number of definitions
         int getNumberOfTLSDefinitions() const;
@@ -142,30 +159,30 @@ public:
         /// @brief the list of Definitions for the current junction
         std::vector<NBTrafficLightDefinition*> myTLSDefinitions;
 
-        /// @brief name label
-        FXLabel* myNameLabel;
+        /// @brief TLS Type text field
+        FXTextField* myTLSType;
 
-        /// @brief name text field
-        FXTextField* myNameTextField;
-
-        /// @brief program label
-        FXLabel* myProgramLabel;
+        /// @brief id text field
+        FXTextField* myIDTextField;
 
         /// @brief the comboBox for selecting the tl-definition to edit
         FXComboBox* myProgramComboBox;
 
-        /// @brief offset label
-        FXLabel* myOffsetLabel;
-
-        /// @brief the control for modifying offset
+        /// @brief the TextField for modifying offset
         FXTextField* myOffsetTextField;
+
+        /// @brief button for edit parameters
+        FXButton* myButtonEditParameters;
+
+        /// @brief the TextField for modifying parameters
+        FXTextField* myParametersTextField;
     };
 
     // ===========================================================================
     // class TLSPhases
     // ===========================================================================
 
-    class TLSPhases : protected FXGroupBox {
+    class TLSPhases : public FXGroupBoxModule {
 
     public:
         /// @brief constructor
@@ -190,6 +207,19 @@ public:
 
         /// @brief recomputes cycle duration and updates label
         void updateCycleDuration();
+
+    protected:
+        /// @brief init static phase table
+        void initStaticPhaseTable(const int index);
+
+        /// @brief init actuated phase table
+        void initActuatedPhaseTable(const int index);
+
+        /// @brief init delayBase phase table
+        void initDelayBasePhaseTable(const int index);
+
+        /// @brief init NEMA phase table
+        void initNEMAPhaseTable(const int index);
 
     private:
         /// @brief pointer to TLSEditor Parent
@@ -218,7 +248,7 @@ public:
     // class TLSModifications
     // ===========================================================================
 
-    class TLSModifications : protected FXGroupBox {
+    class TLSModifications : public FXGroupBoxModule {
 
     public:
         /// @brief constructor
@@ -251,7 +281,7 @@ public:
     // class TLSFile
     // ===========================================================================
 
-    class TLSFile : protected FXGroupBox {
+    class TLSFile : public FXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNETLSEditorFrame::TLSFile)
 
@@ -338,8 +368,14 @@ public:
     /// @brief Called when the user deletes a TLS
     long onCmdDefDelete(FXObject*, FXSelector, void*);
 
+    /// @brief Called when the user regenerates a TLS
+    long onCmdDefRegenerate(FXObject*, FXSelector, void*);
+
     /// @brief Called when the user changes the offset of a TLS
-    long onCmdDefOffset(FXObject*, FXSelector, void*);
+    long onCmdSetOffset(FXObject*, FXSelector, void*);
+
+    /// @brief Called when the user changes parameters of a TLS
+    long onCmdSetParameters(FXObject*, FXSelector, void*);
 
     /// @brief Called when the user switchs a TLS
     long onCmdDefSwitch(FXObject*, FXSelector, void*);
@@ -380,6 +416,9 @@ public:
     /// @brief Called when the user edits a Phase
     long onCmdPhaseEdit(FXObject*, FXSelector, void*);
 
+    /// @brief Called when user press edit parameters button
+    long onCmdEditParameters(FXObject*, FXSelector, void* ptr);
+
     /// @brief Called when the user makes RILSA
     long onCmdMakeRILSAConforming(FXObject*, FXSelector, void*);
 
@@ -411,10 +450,7 @@ public:
     /// @brief whether the given edge is controlled by the currently edited tlDef
     bool controlsEdge(GNEEdge* edge) const;
 
-    /// @brief whether the current traffic light uses fixed phase durations
-    bool fixedDuration() const;
-
-    /// @brief open AttributesCreator extended dialog (can be reimplemented in frame children)
+    /// @brief open GNEAttributesCreator extended dialog (can be reimplemented in frame children)
     void selectedOverlappedElement(GNEAttributeCarrier* AC);
 
 protected:
@@ -426,11 +462,14 @@ protected:
     void editJunction(GNEJunction* junction);
 
     /// @brief converts to SUMOTime
-    static SUMOTime getSUMOTime(const FXString& string);
+    static SUMOTime getSUMOTime(const std::string& value);
+
+    /// @brief converts to SUMOTime
+    static const std::string getSteps2Time(const SUMOTime value);
 
 private:
     /// @brief Overlapped Inspection
-    GNEFrameModuls::OverlappedInspection* myOverlappedInspection;
+    GNEOverlappedInspection* myOverlappedInspection;
 
     /// @brief modul for TLS Junction
     GNETLSEditorFrame::TLSJunction* myTLSJunction;
@@ -458,7 +497,7 @@ private:
     NBLoadedSUMOTLDef* myEditedDef;
 
     /// @brief index of the phase being shown
-    int myPhaseIndex;
+    int myPhaseIndex = 0;
 
     /// @brief cleans up previous lanes
     void cleanup();

@@ -13,7 +13,6 @@ In this document, we describe how Visual Studio Code can be installed and which 
 The proprietary binaries for Visual Studio Code can be downloaded from [here](https://code.visualstudio.com/). There are also open source binaries which can be downloaded from [here](https://vscodium.com) (MIT license).
 
 
-
 ## Plugins
 
 The standard installation of Visual Studio Code does provide only basic support for source code editing in C/C++ and Python. For this purpose, Visual Studio Code can be extended with plugins to provide additional functionality. We recommend (at least) the following plugins:
@@ -22,6 +21,8 @@ The standard installation of Visual Studio Code does provide only basic support 
 * **CMake Tools** from Microsoft to benefit from CMake build support 
 * **Python** by Microsoft to benefit from code browing, code completion and debugging in Python
 * **CMake** by twxs to have support for the CMake specification language when editing `CMakeLists.txt` files
+
+You do not need to select them manually. Usually it is also fine if you open some .cpp and some .py file and just install the plugins Visual Studio Code recommends.
 
 ![Visual Studio Code Recommended Plugins](../images/VSCodePlugins.png)
 
@@ -37,7 +38,7 @@ Please note, that you can set these settings either for the **user** or for the 
 
 We would recommend to modify the following settings:
 
-* **Cmake: Build Directory**: set to your out of source build directory, e.g. `${workspaceFolder}/build/vscode`
+* **Cmake: Build Directory**: set to your out of source build directory, e.g. `${workspaceFolder}/build/vscode/${buildType}`
 * **Cmake: Parallel Jobs**: if you have multiple CPUs or multiple CPU cores, set to a value of `2 * N`, whereas `N` denotes the number of cores on your machine, e.g. `2`
 
 ## Working with the SUMO Repository

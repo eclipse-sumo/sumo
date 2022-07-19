@@ -1,4 +1,0 @@
-Error: Attribute 'startPos' in definition of parkingArea 'parkingArea_1' is not of type float.
-Error: Could not build parkingArea with ID 'parkingArea_2' in netedit; Invalid position over lane.
-Error: Could not build parkingArea with ID 'parkingArea_3' in netedit; Invalid position over lane.
-Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.16Jun095412.18776\netedit.gui\additionalElements\parkingarea\load\startpos\input_additionals.add.xml failed.

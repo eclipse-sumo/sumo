@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2017-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2017-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -23,18 +23,11 @@
 #include <config.h>
 
 #define LIBTRACI 1
-#include <netload/NLDetectorBuilder.h>
 #include <libsumo/StorageHelper.h>
 #include <libsumo/TraCIConstants.h>
 #include <libsumo/TrafficLight.h>
 #include "Domain.h"
 
-// TODO remove the following line once the implementation is mature
-#ifdef _MSC_VER
-#pragma warning(disable: 4100)
-#else
-#pragma GCC diagnostic ignored "-Wunused-parameter"
-#endif
 
 namespace libtraci {
 
@@ -209,6 +202,7 @@ TrafficLight::getConstraints(const std::string& tlsID, const std::string& tripId
         c.limit = StoHelp::readTypedInt(ret);
         c.type = StoHelp::readTypedInt(ret);
         c.mustWait = StoHelp::readTypedByte(ret) != 0;
+        c.active = StoHelp::readTypedByte(ret) != 0;
         result.push_back(c);
     }
     return result;
@@ -233,6 +227,7 @@ TrafficLight::getConstraintsByFoe(const std::string& foeSignal, const std::strin
         c.limit = StoHelp::readTypedInt(ret);
         c.type = StoHelp::readTypedInt(ret);
         c.mustWait = StoHelp::readTypedByte(ret) != 0;
+        c.active = StoHelp::readTypedByte(ret) != 0;
         result.push_back(c);
     }
     return result;
@@ -278,7 +273,7 @@ TrafficLight::setProgramLogic(const std::string& tlsID, const libsumo::TraCILogi
     StoHelp::writeTypedInt(content, logic.type);
     StoHelp::writeTypedInt(content, logic.currentPhaseIndex);
     StoHelp::writeCompound(content, (int)logic.phases.size());
-    for (const libsumo::TraCIPhase* const phase : logic.phases) {
+    for (const std::shared_ptr<libsumo::TraCIPhase>& phase : logic.phases) {
         StoHelp::writeCompound(content, 6);
         StoHelp::writeTypedDouble(content, phase->duration);
         StoHelp::writeTypedString(content, phase->state);
@@ -336,6 +331,38 @@ TrafficLight::removeConstraints(const std::string& tlsID, const std::string& tri
     StoHelp::writeTypedString(content, foeSignal);
     StoHelp::writeTypedString(content, foeId);
     Dom::set(libsumo::TL_CONSTRAINT_REMOVE, tlsID, &content);
+}
+
+std::string
+to_string(const std::vector<double>& value) {
+    std::ostringstream tmp;
+    for (double d : value) {
+        tmp << d << " ";
+    }
+    std::string tmp2 = tmp.str();
+    tmp2.pop_back();
+    return tmp2;
+}
+
+
+void
+TrafficLight::setNemaSplits(const std::string& tlsID, const std::vector<double>& splits) {
+    setParameter(tlsID, "NEMA.splits", to_string(splits));
+}
+
+void
+TrafficLight::setNemaMaxGreens(const std::string& tlsID, const std::vector<double>& maxGreens) {
+    setParameter(tlsID, "NEMA.maxGreens", to_string(maxGreens));
+}
+
+void
+TrafficLight::setNemaCycleLength(const std::string& tlsID, double cycleLength) {
+    setParameter(tlsID, "NEMA.cycleLength", std::to_string(cycleLength));
+}
+
+void
+TrafficLight::setNemaOffset(const std::string& tlsID, double offset) {
+    setParameter(tlsID, "NEMA.offset", std::to_string(offset));
 }
 
 

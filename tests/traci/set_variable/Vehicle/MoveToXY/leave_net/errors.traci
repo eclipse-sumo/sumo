@@ -1,1 +1,2 @@
 #Error while connecting: tcpip::Socket::connect() @ connect: Connection refused
+Warning: Vehicle 'veh0' moved by TraCI from 8.00,492.00 to 1794.00,728.00 (dist 1801.52) with implied speed of 1801.52 (exceeding maximum speed 70.00). time=5.00.

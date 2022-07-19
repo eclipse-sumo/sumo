@@ -1,0 +1,5 @@
+--no-step-log --no-duration-log --net-file=net.net.xml
+-r input_routes.rou.xml
+--device.taxi.idle-algorithm randomCircling
+--device.rerouting.period 30
+-e 2:0:0

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2010-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2010-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -25,11 +25,14 @@
 #include <iostream>
 #include <vector>
 #include <set>
-#include <utils/vehicle/SUMOVehicle.h>
 #include <utils/common/StdDefs.h>
+#include <utils/emissions/EnergyParams.h>
+#include <utils/emissions/PollutantsInterface.h>
+#include <utils/vehicle/SUMOVehicle.h>
 #include "MSRoute.h"
 #include "MSMoveReminder.h"
 #include "MSVehicleType.h"
+
 
 // ===========================================================================
 // class declarations
@@ -37,6 +40,7 @@
 class MSLane;
 class MSStop;
 class MSDevice_Transportable;
+class MSDevice_Emissions;
 class MSVehicleDevice;
 class MSEdgeWeightsStorage;
 
@@ -106,12 +110,6 @@ public:
     /// @brief retrieve parameters of devices, models and the vehicle itself
     std::string getPrefixedParameter(const std::string& key, std::string& error) const;
 
-    /** @brief Returns the vehicle's emission model parameter
-     *
-     * @return The vehicle's emission parameters
-     */
-    const std::map<int, double>* getEmissionParameters() const;
-
     /// @brief replace the vehicle parameter (deleting the old one)
     void replaceParameter(const SUMOVehicleParameter* newParameter);
 
@@ -174,6 +172,17 @@ public:
      */
     const MSEdge* getEdge() const;
 
+    /** @brief Returns the edge the vehicle is currently at (possibly an
+     * internal edge)
+     */
+    virtual const MSEdge* getCurrentEdge() const {
+        return getEdge();
+    }
+
+    /// @brief returns the next edge (possibly an internal edge)
+    virtual const MSEdge* getNextEdgePtr() const {
+        return nullptr;
+    }
 
     /** @brief Returns the information whether the vehicle is on a road (is simulated)
      * @return Whether the vehicle is simulated
@@ -210,6 +219,16 @@ public:
         return 0;
     }
 
+    /** @brief Get the vehicle's lateral position on the edge of the given lane
+     * (or its current edge if lane == 0)
+     * @return The lateral position of the vehicle (in m distance between right
+     * side of vehicle and ride side of edge
+     */
+    virtual double getRightSideOnEdge(const MSLane* lane = 0) const {
+        UNUSED_PARAMETER(lane);
+        return 0;
+    }
+
     /** @brief Returns the starting point for reroutes (usually the current edge)
      *
      * This differs from *myCurrEdge only if the vehicle is on an internal edge
@@ -225,6 +244,18 @@ public:
         // better timeLoss for meso?
         return 0;
     }
+
+    /** @brief Returns the number of seconds waited (speed was lesser than 0.1m/s)
+     *
+     * The value is reset if the vehicle moves faster than 0.1m/s
+     * Intentional stopping does not count towards this time.
+     * @return The time the vehicle is standing
+     */
+    double getWaitingSeconds() const {
+        return STEPS2TIME(getWaitingTime());
+    }
+
+
 
     /** @brief Returns an iterator pointing to the current edge in this vehicles route
      * @return The current route pointer
@@ -258,7 +289,8 @@ public:
      * @param[in] removeStops Whether stops should be removed if they do not fit onto the new route
      * @return Whether the new route was accepted
      */
-    bool replaceRouteEdges(ConstMSEdgeVector& edges, double cost, double savings, const std::string& info, bool onInit = false, bool check = false, bool removeStops = true);
+    bool replaceRouteEdges(ConstMSEdgeVector& edges, double cost, double savings, const std::string& info, bool onInit = false, bool check = false, bool removeStops = true,
+                           std::string* msgReturn = nullptr);
 
     /** @brief Replaces the current route by the given one
      *
@@ -270,7 +302,8 @@ public:
      * @param[in] removeStops Whether stops should be removed if they do not fit onto the new route
      * @return Whether the new route was accepted
      */
-    virtual bool replaceRoute(const MSRoute* route, const std::string& info, bool onInit = false, int offset = 0, bool addStops = true, bool removeStops = true);
+    virtual bool replaceRoute(const MSRoute* route, const std::string& info, bool onInit = false, int offset = 0, bool addStops = true, bool removeStops = true,
+                              std::string* msgReturn = nullptr);
 
     /** @brief Returns the vehicle's acceleration
      *
@@ -401,7 +434,7 @@ public:
     }
 
     /// @brief whether the given transportable is allowed to board this vehicle
-    bool allowsBoarding(MSTransportable* t) const;
+    bool allowsBoarding(const MSTransportable* t) const;
 
     /** @brief Adds a person or container to this vehicle
      *
@@ -432,7 +465,7 @@ public:
     virtual bool hasValidRouteStart(std::string& msg);
 
     /// @brief check for route validity at first insertion attempt
-    int getRouteValidity(bool update = true, bool silent = false);
+    int getRouteValidity(bool update = true, bool silent = false, std::string* msgReturn = nullptr);
 
     /** @brief Adds a MoveReminder dynamically
      *
@@ -524,7 +557,7 @@ public:
 
     //@}
 
-    virtual bool handleCollisionStop(MSStop& stop, const bool collision, const double distToStop, const std::string& errorMsgStart, std::string& errorMsg);
+    virtual bool handleCollisionStop(MSStop& stop, const double distToStop);
 
     /** @brief Returns whether the vehicle is at a stop
      * @return Whether the vehicle has stopped
@@ -541,9 +574,14 @@ public:
      */
     bool isStoppedTriggered() const;
 
+    /** @brief Returns whether the vehicle is on a parking stop
+     * @return whether the vehicle is on a parking stop
+     */
+    bool isStoppedParking() const;
+
     /** @brief return whether the given position is within range of the current stop
      */
-    bool isStoppedInRange(const double pos, const double tolerance) const;
+    bool isStoppedInRange(const double pos, const double tolerance, bool checkFuture = false) const;
 
     /** @brief Returns whether the vehicle has to stop somewhere
      * @return Whether the vehicle has to stop somewhere
@@ -571,7 +609,7 @@ public:
      *
      * @param[in] ignoreStopErrors whether invalid stops trigger a warning only
      */
-    void addStops(const bool ignoreStopErrors, MSRouteIterator* searchStart = nullptr);
+    void addStops(const bool ignoreStopErrors, MSRouteIterator* searchStart = nullptr, bool addRouteStops = true);
 
     /// @brief check whether all stop.edge MSRouteIterators are valid and in order
     bool haveValidStopEdges() const;
@@ -602,6 +640,15 @@ public:
     */
     MSStop& getNextStop();
 
+    /// @brief get remaining stop duration or 0 if the vehicle isn't stopped
+    SUMOTime getStopDuration() const;
+
+    /**
+    * returns the upcoming stop with the given index in the stop queue
+    * @return an upcoming stop
+    */
+    MSStop& getStop(int nextStopIndex);
+
     /// @brief return parameters for the next stop (SUMOVehicle Interface)
     const SUMOVehicleParameter::Stop* getNextStopParameter() const;
 
@@ -627,12 +674,34 @@ public:
      * will wait for the given duration before continuing on its route
      * The route between start other stops and destination will be kept unchanged and
      * only the part around the replacement index will be adapted according to the new stop location
-     * @param[in] nextStopDist The replacement index
+     * @param[in] nextStopIndex The replacement index
      * @param[in] stop Stop parameters
+     * @param[in] info The rerouting info
      * @param[in] teleport Whether to cover the route to the replacement stop via teleporting
      * @param[out] errorMsg returned error message
      */
     bool replaceStop(int nextStopIndex, SUMOVehicleParameter::Stop stop, const std::string& info, bool teleport, std::string& errorMsg);
+
+    /**
+     * reroute between stops nextStopIndex - 1 and nextStopIndex (defaults to current position / final edge) if the respective stops do not exist
+     * @param[in] nextStopIndex The replacement index
+     * @param[in] info The rerouting info
+     * @param[in] teleport Whether to cover the route between stops via teleporting
+     * @param[out] errorMsg returned error message
+     */
+    bool rerouteBetweenStops(int nextStopIndex, const std::string& info, bool teleport, std::string& errorMsg);
+
+    /**
+     * insert stop at the given index with the given stop parameters
+     * will wait for the given duration before continuing on its route
+     * The route will be adapted to pass the new stop edge but only from the previous stop (or start) to the new stop and only up to the next stop (or end).
+     * @param[in] nextStopIndex The replacement index
+     * @param[in] stop Stop parameters
+     * @param[in] info The rerouting info
+     * @param[in] teleport Whether to cover the route to the new stop via teleporting
+     * @param[out] errorMsg returned error message
+     */
+    bool insertStop(int nextStopIndex, SUMOVehicleParameter::Stop stop, const std::string& info, bool teleport, std::string& errorMsg);
 
 
     /// @brief whether this vehicle is selected in the GUI
@@ -658,50 +727,28 @@ public:
         return myContainerDevice;
     }
 
+    /// @brief retrieve parameters for the energy consumption model
+    inline EnergyParams* getEmissionParameters() const {
+        if (myEnergyParams == nullptr) {
+            myEnergyParams = new EnergyParams(getVehicleType().getEmissionParameters());
+        }
+        return myEnergyParams;
+    }
 
     /// @name Emission retrieval
     //@{
 
-    /** @brief Returns CO2 emission of the current state
-     * @return The current CO2 emission
+    /** @brief Returns emissions of the current state
+     * The value is always per 1s, so multiply by step length if necessary.
+     * @return The current emission
      */
-    double getCO2Emissions() const;
-
-
-    /** @brief Returns CO emission of the current state
-     * @return The current CO emission
-     */
-    double getCOEmissions() const;
-
-
-    /** @brief Returns HC emission of the current state
-     * @return The current HC emission
-     */
-    double getHCEmissions() const;
-
-
-    /** @brief Returns NOx emission of the current state
-     * @return The current NOx emission
-     */
-    double getNOxEmissions() const;
-
-
-    /** @brief Returns PMx emission of the current state
-     * @return The current PMx emission
-     */
-    double getPMxEmissions() const;
-
-
-    /** @brief Returns fuel consumption of the current state
-    * @return The current fuel consumption
-    */
-    double getFuelConsumption() const;
-
-
-    /** @brief Returns electricity consumption of the current state
-    * @return The current electricity consumption
-    */
-    double getElectricityConsumption() const;
+    template<PollutantsInterface::EmissionType ET>
+    double getEmissions() const {
+        if (isOnRoad() || isIdling()) {
+            return PollutantsInterface::compute(myType->getEmissionClass(), ET, getSpeed(), getAcceleration(), getSlope(), getEmissionParameters());
+        }
+        return 0.;
+    }
 
     /** @brief Returns actual state of charge of battery (Wh)
     * RICE_CHECK: This may be a misnomer, SOC is typically percentage of the maximum battery capacity.
@@ -710,7 +757,8 @@ public:
     double getStateOfCharge() const;
 
     /** @brief Returns actual current (A) of ElecHybrid device
-    * RICE_CHECK: Is this the current consumed from the overhead wire or the current driving the poweertrain of the vehicle?
+    * RICE_CHECK: Is this the current consumed from the overhead wire or the current driving the powertrain of the vehicle?
+    * RICE_REV_JS: It is the current drawn from the overhead wire (value if the vehicle is not connected to overhead wire?)
     * @return The current of ElecHybrid device
     */
     double getElecHybridCurrent() const;
@@ -827,6 +875,37 @@ public:
     /// @brief interpret stop lane on opposite side of the road
     static MSLane* interpretOppositeStop(SUMOVehicleParameter::Stop& stop);
 
+    /// @name state io
+    //@{
+    void rememberBlockedParkingArea(const MSParkingArea* pa, bool local);
+    SUMOTime sawBlockedParkingArea(const MSParkingArea* pa, bool local) const;
+
+    /// @brief score only needed when running with gui
+    void rememberParkingAreaScore(const MSParkingArea* pa, const std::string& score);
+    void resetParkingAreaScores();
+
+    /// @brief store information for a single parking area
+    struct PaMemory {
+        PaMemory() : blockedAtTime(-1), blockedAtTimeLocal(-1) {}
+
+        SUMOTime blockedAtTime;
+        SUMOTime blockedAtTimeLocal;
+        std::string score;
+    };
+
+    int getNumberParkingReroutes() const {
+        return myNumberParkingReroutes;
+    }
+    void setNumberParkingReroutes(int value) {
+        myNumberParkingReroutes = value;
+    }
+
+    typedef std::map<const MSParkingArea*, PaMemory, ComparatorIdLess> ParkingMemory;
+    const ParkingMemory* getParkingMemory() const {
+        return myParkingMemory;
+    }
+    //@}
+
 protected:
     /// @brief This vehicle's parameter.
     const SUMOVehicleParameter* myParameter;
@@ -873,6 +952,9 @@ protected:
     /// @brief The containers this vehicle may have
     MSDevice_Transportable* myContainerDevice;
 
+    /// @brief The emission parameters this vehicle may have
+    mutable EnergyParams* myEnergyParams;
+
     /// @brief The real departure time
     SUMOTime myDeparture;
 
@@ -896,6 +978,13 @@ protected:
 
     /// @brief status of the current vehicle route
     int myRouteValidity;
+
+    /// memory for parking search
+    ParkingMemory* myParkingMemory = nullptr;
+    int myNumberParkingReroutes = 0;
+
+    /// @brief Whether this vehicle is registered as waiting for a person or container (for deadlock-recognition)
+    bool myAmRegisteredAsWaiting = false;
 
     /* @brief magic value for undeparted vehicles
      * @note: in previous versions this was -1

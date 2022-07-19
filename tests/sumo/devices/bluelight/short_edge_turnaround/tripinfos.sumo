@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Sep 29 14:49:43 2020 by Eclipse SUMO sumo Version v1_7_0+0326-b14789bdf4
+<!-- generated on 2021-12-11 22:16:26 by Eclipse SUMO sumo Version v1_11_0+0489-eed1b29
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -38,7 +38,7 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <tripinfo id="rescue" depart="0.00" departLane="SC_0" departPos="0.00" departPosLat="0.00" departSpeed="0.00" departDelay="0.00" arrival="22.00" arrivalLane="CN_0" arrivalPos="92.00" arrivalPosLat="-1.05" arrivalSpeed="23.76" duration="22.00" routeLength="200.00" waitingTime="1.00" waitingCount="1" stopTime="0.00" timeLoss="14.33" rerouteNo="0" devices="tripinfo_rescue bluelight_rescue" vType="rescue" speedFactor="2.00" vaporized="">
+    <tripinfo id="rescue" depart="0.00" departLane="SC_0" departPos="0.00" departPosLat="0.00" departSpeed="0.00" departDelay="0.00" arrival="22.00" arrivalLane="CN_0" arrivalPos="92.00" arrivalPosLat="-1.00" arrivalSpeed="23.76" duration="22.00" routeLength="200.00" waitingTime="1.00" waitingCount="1" stopTime="0.00" timeLoss="14.33" rerouteNo="0" devices="tripinfo_rescue bluelight_rescue" vType="rescue" speedFactor="2.00" vaporized="">
         <bluelight/>
     </tripinfo>
     <tripinfo id="blocker" depart="0.00" departLane="CS_0" departPos="3.92" departPosLat="0.00" departSpeed="0.00" departDelay="0.00" arrival="56.00" arrivalLane="CN_0" arrivalPos="92.00" arrivalPosLat="0.00" arrivalSpeed="12.70" duration="56.00" routeLength="117.81" waitingTime="39.00" waitingCount="1" stopTime="0.00" timeLoss="46.83" rerouteNo="0" devices="tripinfo_blocker" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>

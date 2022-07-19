@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-04-11 15:07:07 by Eclipse SUMO netedit Version v1_12_0+2089-993e6bc0e38
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <!-- VTypes -->
+    <vType id="vType01" latAlignment="-3.00"/>
+    <vType id="vType02" latAlignment="0.00"/>
+    <vType id="vType03" latAlignment="12.00"/>
+    <vType id="vType04" latAlignment="4.50"/>
+    <vType id="vType05" latAlignment="left"/>
+    <vType id="vType06" latAlignment="right"/>
+    <vType id="vType07" latAlignment="center"/>
+    <vType id="vType08" latAlignment="compact"/>
+    <vType id="vType09" latAlignment="nice"/>
+    <vType id="vType10" latAlignment="arbitrary"/>
+</routes>

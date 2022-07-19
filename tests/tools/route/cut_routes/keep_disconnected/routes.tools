@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2019-09-27 14:51:35.489000 by cutRoutes.py
-  options: input_net.net.xml input_routes.rou.xml <doubleminus>routes-output out.rou.xml <doubleminus>disconnected-action keep
--->
+
+<!-- generated on 2022-07-07 11:06:15.457493 by cutRoutes.py v1_13_0+1343-240e5d48340
+  options: input_net.net.xml input_routes.rou.xml <doubleminus>routes-output out.rou.xml <doubleminus>disconnected-action keep-->
+
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <vType id="fast" maxSpeed="50"/>
     <vType id="slow" maxSpeed="5"/>
-    <vehicle depart="0.00" id="left_part0" type="fast">
+    <vehicle depart="0.00" id="left_part0" type="fast" departLane="best" departSpeed="max">
         <route edges="beg2left"/>
     </vehicle>
-    <vehicle depart="0.00" id="left_part1" type="fast">
+    <vehicle depart="0.00" id="left_part1" type="fast" departLane="best" departSpeed="max">
         <route edges="left2end end"/>
     </vehicle>
-    <vehicle depart="0.00" id="straight" type="slow">
+    <vehicle depart="0.00" id="straight" type="slow" departLane="best" departSpeed="max">
         <route edges="middle end"/>
     </vehicle>
 </routes>

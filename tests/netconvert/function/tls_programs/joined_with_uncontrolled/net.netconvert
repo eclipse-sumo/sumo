@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec 14 11:32:46 2020 by Eclipse SUMO netconvert Version v1_8_0+0240-6f1f621077
+<!-- generated on 2022-06-18 17:38:33 by Eclipse SUMO netconvert Version v1_13_0+0998-ce5fa9bc486
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -21,7 +26,6 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
-        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
@@ -112,14 +116,16 @@ SPDX-License-Identifier: EPL-2.0
     </edge>
 
     <tlLogic id="220" type="static" programID="0" offset="0">
-        <phase duration="18" state="GGGrrrrrGGGrr"/>
+        <phase duration="19" state="GGGrrrrrGGGrr"/>
         <phase duration="3"  state="yyyrrrrryyyrr"/>
-        <phase duration="20" state="rrrGGrrrGGGrr"/>
+        <phase duration="1"  state="rrrrrrrrrrrrr"/>
+        <phase duration="19" state="rrrGGrrrGGGrr"/>
         <phase duration="3"  state="rrryyrrryyyrr"/>
-        <phase duration="20" state="rrrrrrrGrrrrr"/>
+        <phase duration="19" state="rrrrrrrGrrrrr"/>
         <phase duration="3"  state="rrrrrrryrrrrr"/>
-        <phase duration="20" state="rrrrrGGrGGGGG"/>
+        <phase duration="19" state="rrrrrGGrGGGGG"/>
         <phase duration="3"  state="rrrrryyryyyyy"/>
+        <phase duration="1"  state="rrrrrrrrrrrrr"/>
     </tlLogic>
 
     <junction id="15" type="traffic_light" x="276.57" y="165.25" incLanes="18_0 18_1 191_0 72[1]_0 72[1]_1" intLanes=":15_0_0 :15_0_1 :15_2_0 :15_3_0 :15_4_0 :15_5_0 :15_5_1" shape="282.82,207.66 288.68,205.10 287.46,199.58 288.92,195.60 292.51,193.07 297.68,191.89 303.85,191.96 310.48,193.18 311.00,186.70 301.97,184.21 294.56,181.94 288.75,179.89 284.56,178.05 281.98,176.43 281.02,175.04 277.84,175.43 277.89,178.90 277.12,182.07 275.54,184.92 273.15,187.47 269.95,189.71 265.94,191.65 271.74,206.36 274.54,205.41 276.96,204.93 279.00,204.91 280.65,205.36 281.92,206.28">

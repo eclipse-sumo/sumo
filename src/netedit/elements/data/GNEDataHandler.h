@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -44,7 +44,7 @@ public:
 
     /// @name build functions
     /// @{
-    /**@brief Builds DataSet (exlcusive of NETEDIT)
+    /**@brief Builds DataSet (exclusive of NETEDIT)
      * @param[in] dataSetID new dataSet
      */
     void buildDataSet(const std::string& dataSetID);
@@ -64,7 +64,7 @@ public:
      * @param[in] parameters parameters map
      */
     void buildEdgeData(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& edgeID,
-                       const std::map<std::string, std::string>& parameters);
+                       const Parameterised::Map& parameters);
 
     /**@brief Builds edgeRelationData
      * @param[in] sumoBaseObject sumo base object used for build
@@ -73,7 +73,7 @@ public:
      * @param[in] parameters parameters map
      */
     void buildEdgeRelationData(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& fromEdgeID,
-                               const std::string& toEdgeID, const std::map<std::string, std::string>& parameters);
+                               const std::string& toEdgeID, const Parameterised::Map& parameters);
 
     /**@brief Builds TAZRelationData
      * @param[in] sumoBaseObject sumo base object used for build
@@ -82,7 +82,7 @@ public:
      * @param[in] parameters parameters map
      */
     void buildTAZRelationData(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& fromTAZID,
-                              const std::string& toTAZID, const std::map<std::string, std::string>& parameters);
+                              const std::string& toTAZID, const Parameterised::Map& parameters);
     /// @}
 
 protected:
@@ -99,7 +99,7 @@ protected:
     void writeErrorInvalidParent(const SumoXMLTag tag, const SumoXMLTag parent) const;
 
     /// @brief write error "invalid parent element" giving ID
-    void writeErrorInvalidParent(const SumoXMLTag tag, const SumoXMLTag parent, const std::string &ID) const;
+    void writeErrorInvalidParent(const SumoXMLTag tag, const SumoXMLTag parent, const std::string& ID) const;
 
 private:
     /// @brief invalidate copy constructor

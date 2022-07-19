@@ -1,0 +1,5 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <personFlow id="p" begin="0" end="10" period="2">
+        <walk from="beg" to="end"/>
+    </personFlow>
+</routes>

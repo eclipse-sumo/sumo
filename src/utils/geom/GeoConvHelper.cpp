@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -25,6 +25,7 @@
 #include <cmath>
 #include <cassert>
 #include <climits>
+#include <regex>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
 #include <utils/geom/GeomHelper.h>
@@ -76,11 +77,15 @@ GeoConvHelper::GeoConvHelper(const std::string& proj, const Position& offset,
 #ifdef PROJ_API_FILE
     } else {
         myProjectionMethod = PROJ;
-#ifdef PROJ_VERSION_MAJOR
-        myProjection = proj_create(PJ_DEFAULT_CTX, proj.c_str());
-#else
-        myProjection = pj_init_plus(proj.c_str());
-#endif
+        initProj(proj);
+        if (myProjection == nullptr) {
+            // avoid error about missing datum shift file
+            myProjString = std::regex_replace(proj, std::regex("\\+geoidgrids[^ ]*"), std::string(""));
+            if (myProjString != proj) {
+                WRITE_WARNING("Ignoring geoidgrids in projection");
+                initProj(myProjString);
+            }
+        }
         if (myProjection == nullptr) {
             // !!! check pj_errno
             throw ProcessError("Could not build projection!");
@@ -88,6 +93,18 @@ GeoConvHelper::GeoConvHelper(const std::string& proj, const Position& offset,
 #endif
     }
 }
+
+
+#ifdef PROJ_API_FILE
+void
+GeoConvHelper::initProj(const std::string& proj) {
+#ifdef PROJ_VERSION_MAJOR
+    myProjection = proj_create(PJ_DEFAULT_CTX, proj.c_str());
+#else
+    myProjection = pj_init_plus(proj.c_str());
+#endif
+}
+#endif
 
 
 GeoConvHelper::~GeoConvHelper() {
@@ -453,6 +470,7 @@ GeoConvHelper::x2cartesian_const(Position& from) const {
         }
 #endif
         if (myProjectionMethod == SIMPLE) {
+            // Sinusoidal projection (https://en.wikipedia.org/wiki/Sinusoidal_projection)
             x *= 111320. * cos(DEG2RAD(y));
             y *= 111136.;
             //!!! recheck whether the axes are mirrored

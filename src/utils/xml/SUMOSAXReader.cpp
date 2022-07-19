@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2012-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2012-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -47,13 +47,15 @@ using XERCES_CPP_NAMESPACE::XMLUni;
 // method definitions
 // ===========================================================================
 SUMOSAXReader::SUMOSAXReader(GenericSAXHandler& handler, const SAX2XMLReader::ValSchemes validationScheme, XERCES_CPP_NAMESPACE::XMLGrammarPool* grammarPool)
-    : myHandler(nullptr), myValidationScheme(validationScheme), myGrammarPool(grammarPool), myXMLReader(nullptr), myIStream(nullptr), myInputStream(nullptr) {
+    : myHandler(nullptr), myValidationScheme(validationScheme), myGrammarPool(grammarPool), myXMLReader(nullptr),
+      myIStream(nullptr), myInputStream(nullptr), myNextSection(-1, nullptr) {
     setHandler(handler);
 }
 
 
 SUMOSAXReader::~SUMOSAXReader() {
     delete myXMLReader;
+    delete myNextSection.second;
 }
 
 
@@ -142,6 +144,30 @@ SUMOSAXReader::parseNext() {
         throw ProcessError("The XML-parser was not initialized.");
     }
     return myXMLReader->parseNext(myToken);
+}
+
+
+bool
+SUMOSAXReader::parseSection(int element) {
+    if (myXMLReader == nullptr) {
+        throw ProcessError("The XML-parser was not initialized.");
+    }
+    bool started = false;
+    if (myNextSection.first != -1) {
+        started = myNextSection.first == element;
+        myHandler->myStartElement(myNextSection.first, *myNextSection.second);
+        delete myNextSection.second;
+        myNextSection.first = -1;
+        myNextSection.second = nullptr;
+    }
+    myHandler->setSection(element, started);
+    while (!myHandler->sectionFinished()) {
+        if (!myXMLReader->parseNext(myToken)) {
+            return false;
+        }
+    }
+    myNextSection = myHandler->retrieveNextSectionStart();
+    return true;
 }
 
 

@@ -1,0 +1,17 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <personFlow id="PB" begin="0" end="100" period="10">
+        <stop busStop="stop1" duration="1"/>
+        <ride busStop="stop2" lines="ANY"/>
+    </personFlow>
+    <personFlow id="BP" begin="0" end="100" period="15">
+        <stop busStop="stop2" duration="1"/>
+        <ride busStop="stop1" lines="ANY"/>
+    </personFlow>
+
+    <route id="PBP" edges="WC CE EC CW">
+        <stop busStop="stop1" duration="10"/>
+        <stop busStop="stop2" duration="10"/>
+    </route>
+    <vType id="bus" vClass="coach"/>
+    <flow id="PBP" route="PBP" line="Paris-Berlin-Paris" type="bus" begin="0" end="15" period="5"/>
+</routes>

@@ -1,0 +1,8 @@
+# declare bidi-edge from plain xml
+simple
+
+# only one of the edge pair has attribute bidi
+one_declared
+
+# a sequence of non-bidi, bidi, bidi, non-bidi edges
+4edges

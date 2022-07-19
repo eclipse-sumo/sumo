@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2013-2021 German Aerospace Center (DLR) and others.
+# Copyright (C) 2013-2022 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -24,7 +24,7 @@ optParser = OptionParser(usage="usage: %prog [options]")
 optParser.add_option(
     "-f", "--flows", type="string", help="read detector flows from FILE(s) (mandatory)", metavar="FILE")
 optParser.add_option("-o", "--output", type="string", help="filtered file", metavar="FILE")
-optParser.add_option("-d", "--detectors", help="read detector list from file")
+optParser.add_option("-d", "--detectors", help="list of detectors to keep (defaults to *all*)")
 optParser.add_option("-b", "--begin", type="int", default=0, help="begin interval in minutes (inclusive)")
 optParser.add_option("-e", "--end", type="int", default=1440, help="end interval in minutes (exclusive)")
 (options, args) = optParser.parse_args()

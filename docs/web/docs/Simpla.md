@@ -36,7 +36,7 @@ the normal traveling mode (see section
   traveling in a platoon, with a platoon leader in catchup mode)
 
 !!! note
-    The corresponding vTypes have to be known by SUMO at startup. This means, they should be placed at the beginning of the [demand definitions](Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md). When using [duarouter](duarouter.md) for route generation, please use the option **--vtype-output** to generate a seperate file containing the vTypes, which can be loaded upfront.
+    The corresponding vTypes have to be known by SUMO at startup. This means, they should be placed at the beginning of the [demand definitions](Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md). When using [duarouter](duarouter.md) for route generation, please use the option **--vtype-output** to generate a separate file containing the vTypes, which can be loaded upfront.
 
 
 It suffices to specify the platoon leader mode to use simpla. The
@@ -63,7 +63,7 @@ serves as a template can be found in the installation directory
 
 ```
 <configuration>
-    <vehicleSelector value="pkw" />
+    <vehicleSelectors value="pkw" />
     <vTypeMap original="simple_pkw" leader="simple_pkw_as_platoon_leader"  follower="simple_pkw_as_platoon_follower"/>
     ...
 </configuration>
@@ -80,8 +80,8 @@ The following table summarizes all admissible configuration parameters:
 | **catchupDist**            | float                                                                         | If a catch-up mode was defined, vehicles switch their type to the corresponding catch-up vehicle type as soon as a platoon is ahead closer than the given value (in m.). Defaults to 50.0 m.                                                                                                                                                                                                                                                        |
 | **switchImpatienceFactor** | float                                                                         | The switch impatience factor determines the magnitude of the effect that an increasing waiting time for a mode switch (due to safety constraints) has on the active speed factor of a vehicle. The active speed factor is calculated as `activeSpeedFactor = modeSpecificSpeedFactor/(1+impatienceFactor*waitingTime)`. The default value for the switch impatience factor is 0.1. Providing values <= 0 will deactivate the impatience mechanism. |
 | **lcMode**                 | integers (binary code) {original, leader, follower, catchup, catchupFollower} | Specifies the [lane-change modes](TraCI/Change_Vehicle_State.md#lane_change_mode_0xb6) to be used during the corresponding operation modes (e.g. `<lcMode leader=597 follower=514 .../>`). The modes *leader* and *original* default to 594 and *follower* and *catch-up* modes default to 514.                                                                                                                                                                              |
-| **speedFactor**            | floats {original, leader, follower, catchup, catchupFollower}                 | Specifies the [speed factors](Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#speed_distributions) to be used during the corresponding operation modes (e.g. `<speedFactor follower="1.1" catchup="1.2" .../>`). All modes default to 1.0.                                                                                                                                                                                                                                              |
-| **vTypeMap**               | strings {original, leader, follower, catchup, catchupFollower}                | Specifies the [vehicle types](Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#vehicle_types) to be used during the corresponding operation modes (e.g. `<vTypeMap original="type1" leader="leader_type1" .../>`).                                                                                                                                                                                                                                                                              |
+| **speedFactor**            | floats for attributes: original, leader, follower, catchup, catchupFollower              | Specifies the [speed factors](Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#speed_distributions) to be used during the corresponding operation modes (e.g. `<speedFactor follower="1.1" catchup="1.2" .../>`). All modes default to 1.0.                                                                                                                                                                                                                                              |
+| **vTypeMap**               | strings for attributes: original, leader, follower, catchup, catchupFollower                | Specifies the [vehicle types](Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#vehicle_types) to be used during the corresponding operation modes (e.g. `<vTypeMap original="type1" leader="leader_type1" .../>`)  If `catchup` is not defined, the original type will be used, if `catchupFollower` is not defined `follower` will be used.                                                                                                                                                                                                                                                                              |
 | **vTypeMapFile**           | string                                                                        | Specifies the name of a file containing the specification of vehicle type mappings. The referenced file should contain lines of the form `origTypeID:leaderTypeID:followerTypeID:catchupTypeID:catchupFollowerTypeID`. The given vehicle type IDs can be empty strings leading to the default behavior as described above.<br>**Note:** Mappings specified in such a file override mappings given as xml-elements of type `vTypeMap`.                                                                                                                          |
 | **verbosity**              | int                                                                           | Specifies the level of output during the simulation. |
 
@@ -155,3 +155,9 @@ not braking harder than maximumDecel. Internally, an object of the class
 GapCreator is created to manage the vehicle state and is added to traci
 as a
 [stepListener](TraCI/Interfacing_TraCI_from_Python.md#adding_a_steplistener).
+
+
+# Example
+
+An example can be downloaded [from the nightly test suite](https://sumo.dlr.de/extractTest.php?path=complex/simpla/basic)
+This can be executed by calling `python runner.py`

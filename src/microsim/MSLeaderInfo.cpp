@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2002-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -32,16 +32,12 @@
 
 
 // ===========================================================================
-// static member variables
-// ===========================================================================
-
-
-// ===========================================================================
 // MSLeaderInfo member method definitions
 // ===========================================================================
-MSLeaderInfo::MSLeaderInfo(const MSLane* lane, const MSVehicle* ego, double latOffset) :
-    myWidth(lane->getWidth()),
-    myVehicles(MAX2(1, int(ceil(myWidth / MSGlobals::gLateralResolution))), (MSVehicle*)nullptr),
+MSLeaderInfo::MSLeaderInfo(const double laneWidth, const MSVehicle* ego, const double latOffset) :
+    myWidth(laneWidth),
+    myOffset(0),
+    myVehicles(MAX2(1, int(ceil(laneWidth / MSGlobals::gLateralResolution))), (MSVehicle*)nullptr),
     myFreeSublanes((int)myVehicles.size()),
     egoRightMost(-1),
     egoLeftMost(-1),
@@ -110,7 +106,7 @@ MSLeaderInfo::getSubLanes(const MSVehicle* veh, double latOffset, int& rightmost
         return;
     }
     // map center-line based coordinates into [0, myWidth] coordinates
-    const double vehCenter = veh->getLateralPositionOnLane() + 0.5 * myWidth + latOffset;
+    const double vehCenter = veh->getLateralPositionOnLane() + 0.5 * myWidth + latOffset + myOffset * MSGlobals::gLateralResolution;
     const double vehHalfWidth = 0.5 * veh->getVehicleType().getWidth();
     double rightVehSide = vehCenter - vehHalfWidth;
     double leftVehSide = vehCenter + vehHalfWidth;
@@ -154,8 +150,8 @@ MSLeaderInfo::getSublaneBorders(int sublane, double latOffset, double& rightSide
     assert(sublane >= 0);
     assert(sublane < (int)myVehicles.size());
     const double res = MSGlobals::gLateralResolution > 0 ? MSGlobals::gLateralResolution : myWidth;
-    rightSide = sublane * res + latOffset;
-    leftSide = MIN2((sublane + 1) * res, myWidth) + latOffset;
+    rightSide = sublane * res + latOffset - myOffset * MSGlobals::gLateralResolution;
+    leftSide = MIN2((sublane + 1) * res, myWidth) + latOffset - myOffset * MSGlobals::gLateralResolution;
 }
 
 
@@ -183,6 +179,13 @@ MSLeaderInfo::toString() const {
 }
 
 
+void
+MSLeaderInfo::setSublaneOffset(int offset) {
+    assert(MSGlobals::gLateralResolution > 0);
+    myOffset = offset;
+}
+
+
 bool
 MSLeaderInfo::hasStoppedVehicle() const {
     if (!myHasVehicles) {
@@ -202,25 +205,24 @@ MSLeaderInfo::removeOpposite(const MSLane* lane) {
         const MSVehicle* veh = myVehicles[i];
         if (veh != 0 &&
                 (veh->getLaneChangeModel().isOpposite()
-                || &lane->getEdge() != &veh->getLane()->getEdge())) {
+                 || &lane->getEdge() != &veh->getLane()->getEdge())) {
             myVehicles[i] = nullptr;
         }
     }
 }
 
+
 // ===========================================================================
 // MSLeaderDistanceInfo member method definitions
 // ===========================================================================
-
-
-MSLeaderDistanceInfo::MSLeaderDistanceInfo(const MSLane* lane, const MSVehicle* ego, double latOffset) :
-    MSLeaderInfo(lane, ego, latOffset),
+MSLeaderDistanceInfo::MSLeaderDistanceInfo(const double laneWidth, const MSVehicle* ego, const double latOffset) :
+    MSLeaderInfo(laneWidth, ego, latOffset),
     myDistances(myVehicles.size(), std::numeric_limits<double>::max()) {
 }
 
 
-MSLeaderDistanceInfo::MSLeaderDistanceInfo(const CLeaderDist& cLeaderDist, const MSLane* dummy) :
-    MSLeaderInfo(dummy, nullptr, 0),
+MSLeaderDistanceInfo::MSLeaderDistanceInfo(const CLeaderDist& cLeaderDist, const double laneWidth) :
+    MSLeaderInfo(laneWidth, nullptr, 0.),
     myDistances(1, cLeaderDist.second) {
     assert(myVehicles.size() == 1);
     myVehicles[0] = cLeaderDist.first;
@@ -321,6 +323,16 @@ MSLeaderDistanceInfo::fixOppositeGaps(bool isFollower) {
     }
 }
 
+
+void
+MSLeaderDistanceInfo::patchGaps(double amount) {
+    for (int i = 0; i < (int)myVehicles.size(); ++i) {
+        if (myVehicles[i] != nullptr) {
+            myDistances[i] += amount;
+        }
+    }
+}
+
 CLeaderDist
 MSLeaderDistanceInfo::getClosest() const {
     double minGap = -1;
@@ -337,13 +349,28 @@ MSLeaderDistanceInfo::getClosest() const {
     return std::make_pair(veh, minGap);
 }
 
+
+void
+MSLeaderDistanceInfo::moveSamePosTo(const MSVehicle* ego, MSLeaderDistanceInfo& other) {
+    const double pos = ego->getPositionOnLane();
+    for (int i = 0; i < (int)myVehicles.size(); ++i) {
+        if (myVehicles[i] != nullptr && myDistances[i] < 0 && myVehicles[i]->getPositionOnLane() == pos
+                && &myVehicles[i]->getLane()->getEdge() == &ego->getLane()->getEdge()) {
+            other.myVehicles[i] = myVehicles[i];
+            other.myDistances[i] = myDistances[i];
+            myVehicles[i] = nullptr;
+            myDistances[i] = -1;
+        }
+    }
+}
+
 // ===========================================================================
 // MSCriticalFollowerDistanceInfo member method definitions
 // ===========================================================================
 
 
-MSCriticalFollowerDistanceInfo::MSCriticalFollowerDistanceInfo(const MSLane* lane, const MSVehicle* ego, double latOffset, bool haveOppositeLeaders) :
-    MSLeaderDistanceInfo(lane, ego, latOffset),
+MSCriticalFollowerDistanceInfo::MSCriticalFollowerDistanceInfo(const double laneWidth, const MSVehicle* ego, const double latOffset, const bool haveOppositeLeaders) :
+    MSLeaderDistanceInfo(laneWidth, ego, latOffset),
     myMissingGaps(myVehicles.size(), -std::numeric_limits<double>::max()),
     myHaveOppositeLeaders(haveOppositeLeaders)
 { }

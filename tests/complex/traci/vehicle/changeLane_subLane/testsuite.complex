@@ -1,0 +1,23 @@
+# test changeLane and changeLaneRelative
+basic
+
+# prevent strategic change
+stay
+
+# use changeLaneRelative to change to the opposite side and back using the default laneChangeMode
+changeOpposite_default
+
+# use changeLaneRelative to change to the opposite side and back
+changeOpposite
+
+# test relative lane changes
+changeRelative
+
+# test relative lane changes
+changeRelative_blocked
+
+# test reaction to an invalid changeRelative command in a network that allows opposite direction driving (#6576)
+changeRelative_invalid
+
+# move fully into the current lane
+changeCurrent

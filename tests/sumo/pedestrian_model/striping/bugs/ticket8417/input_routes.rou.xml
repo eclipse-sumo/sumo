@@ -1,5 +1,5 @@
 <routes>
-	<vType id="bike_bicycle" vClass="bicycle"/>
+	<vType id="bike_bicycle" vClass="bicycle" latAlignment="center"/>
     <vType id="ped_pedestrian" vClass="pedestrian"/>
 	
     <person id="ped4843" type="ped_pedestrian" depart="176.71"> <!--depart="29176.80">-->

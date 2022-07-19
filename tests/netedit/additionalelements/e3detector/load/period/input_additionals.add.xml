@@ -1,0 +1,19 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- non valid period (Dummy period) -->
+    <entryExitDetector id="entryExitDetector_0" period="dummyFreq" file="fileA.txt" timeThreshold="1.00" speedThreshold="1.39" pos="6,10">
+        <detEntry lane="gneE1_0" pos="10" friendlyPos="0"/>
+        <detExit lane="gneE0_0" pos="10" friendlyPos="0"/>
+    </entryExitDetector>
+
+    <!-- non valid period (negative) -->
+    <entryExitDetector id="entryExitDetector_1" period="-30.00" file="fileA.txt" timeThreshold="1.00" speedThreshold="1.39" pos="8,10">
+        <detEntry lane="gneE1_0" pos="12" friendlyPos="0"/>
+        <detExit lane="gneE0_0" pos="12" friendlyPos="0"/>
+    </entryExitDetector>
+
+    <!-- valid period -->
+    <entryExitDetector id="entryExitDetector_2" period="120.00" file="fileA.txt" timeThreshold="1.00" speedThreshold="1.39" pos="10,10">
+        <detEntry lane="gneE1_0" pos="14" friendlyPos="0"/>
+        <detExit lane="gneE0_0" pos="14" friendlyPos="0"/>
+    </entryExitDetector>
+</additional>

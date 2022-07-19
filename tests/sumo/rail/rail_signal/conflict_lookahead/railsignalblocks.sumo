@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2021-11-22 13:18:48 by Eclipse SUMO sumo Version v1_10_0+2484-18dba7a
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <tripinfo-output value="tripinfos.xml"/>
+        <railsignal-block-output value="railsignal_blocks.xml"/>
+    </output>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<railsignal-block-output>
+    <railSignal id="A">
+        <link linkIndex="0" from="a_0" to=":A_0_0">
+            <driveWay edges="b c">
+                <forward lanes=":A_0_0 b_0 :B_0_0 c_0"/>
+                <bidi lanes=""/>
+                <flank lanes=":B_1_0 b2.122_0 :J4_0_0"/>
+                <protectingSwitches links="J4_0"/>
+                <conflictLinks signals=""/>
+            </driveWay>
+        </link>
+    </railSignal>
+    <railSignal id="A2">
+        <link linkIndex="0" from="a2_0" to=":A2_0_0">
+            <driveWay edges="b2 b2.10 b2.20 b2.38 b2.54 b2.67 b2.77 b2.89 b2.105 b2.122 c">
+                <forward lanes=":A2_0_0 b2_0 :J8_0_0 b2.10_0 :J7_0_0 b2.20_0 :J2_0_0 b2.38_0 :J6_0_0 b2.54_0 :J1_0_0 b2.67_0 :J9_0_0 b2.77_0 :J5_0_0 b2.89_0 :J3_0_0 b2.105_0 :J4_0_0 b2.122_0 :B_1_0 c_0"/>
+                <bidi lanes=""/>
+                <flank lanes=":B_0_0 b_0 :A_0_0"/>
+                <protectingSwitches links=""/>
+                <conflictLinks signals="A_0"/>
+            </driveWay>
+        </link>
+    </railSignal>
+    <railSignal id="C">
+        <link linkIndex="0" from="c_0" to=":C_0_0">
+            <driveWay edges="d">
+                <forward lanes=":C_0_0 d_0"/>
+                <bidi lanes=""/>
+                <flank lanes=""/>
+                <protectingSwitches links=""/>
+                <conflictLinks signals=""/>
+            </driveWay>
+        </link>
+    </railSignal>
+</railsignal-block-output>

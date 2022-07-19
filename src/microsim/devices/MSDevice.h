@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2007-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2007-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -148,9 +148,6 @@ public:
         throw InvalidArgument("Setting parameter '" + key + "' is not supported for device of type '" + deviceName() + "'");
     }
 
-    /// @brief called to update state for parking vehicles
-    virtual void notifyParking() {}
-
 protected:
     /// @name Helper methods for device assignment
     /// @{
@@ -180,6 +177,7 @@ protected:
     static std::string getStringParam(const SUMOVehicle& v, const OptionsCont& oc, std::string paramName, std::string deflt, bool required);
     static double getFloatParam(const SUMOVehicle& v, const OptionsCont& oc, std::string paramName, double deflt, bool required);
     static bool getBoolParam(const SUMOVehicle& v, const OptionsCont& oc, std::string paramName, bool deflt, bool required);
+    static SUMOTime getTimeParam(const SUMOVehicle& v, const OptionsCont& oc, std::string paramName, SUMOTime deflt, bool required);
     /// @}
 
 private:
@@ -237,6 +235,10 @@ MSDevice::equippedByDefaultAssignmentOptions(const OptionsCont& oc, const std::s
     } else if (v.getVehicleType().getParameter().knowsParameter(key)) {
         parameterGiven = true;
         haveByParameter = StringUtils::toBool(v.getVehicleType().getParameter().getParameter(key, "false"));
+    } else if (v.getVehicleType().getParameter().knowsParameter(prefix + ".probability")) {
+        // override global options
+        numberGiven = true;
+        haveByNumber = RandHelper::rand(&myEquipmentRNG) < StringUtils::toDouble(v.getVehicleType().getParameter().getParameter(prefix + ".probability", "0"));
     }
     //std::cout << " deviceName=" << deviceName << " holder=" << v.getID()
     //    << " nameGiven=" << nameGiven << " haveByName=" << haveByName

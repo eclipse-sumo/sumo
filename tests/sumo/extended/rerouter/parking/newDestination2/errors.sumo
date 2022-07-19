@@ -1,0 +1,1 @@
+Warning: ParkingArea 'ParkAreaB' is targeted by rerouter 'rr' but doesn't have it's own rerouter. This may cause parking search to abort.

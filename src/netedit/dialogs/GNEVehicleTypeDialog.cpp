@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -99,7 +99,7 @@ GNEVehicleTypeDialog::VTypeAtributes::VClassRow::setVariable() {
             setVClassLabelImage();
             // obtain default vType parameters
             SUMOVTypeParameter::VClassDefaultValues defaultVTypeParameters(myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->getVClass());
-            // check if mutable rows haben to be updated
+            // check if mutable rows need to be updated
             if (!myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->isAttributeEnabled(SUMO_ATTR_LENGTH)) {
                 myVTypeAtributesParent->myLength->updateValue(toString(defaultVTypeParameters.length));
             }
@@ -156,7 +156,7 @@ GNEVehicleTypeDialog::VTypeAtributes::VClassRow::updateValue() {
 
 void
 GNEVehicleTypeDialog::VTypeAtributes::VClassRow::setVClassLabelImage() {
-    // by default vclass is passenger
+    // by default vClass is passenger
     if (myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_VCLASS).empty()) {
         myComboBoxVClassLabelImage->setIcon(GUIIconSubSys::getIcon(GUIIcon::VCLASS_PASSENGER));
     } else {
@@ -265,7 +265,7 @@ GNEVehicleTypeDialog::VTypeAtributes::VShapeRow::VShapeRow(VTypeAtributes* VType
     // fill combo Box with all vehicle shapes
     std::vector<std::string> VShapeStrings = SumoVehicleShapeStrings.getStrings();
     for (auto i : VShapeStrings) {
-        if (i != SumoVehicleShapeStrings.getString(SVS_UNKNOWN)) {
+        if (i != SumoVehicleShapeStrings.getString(SUMOVehicleShape::UNKNOWN)) {
             myComboBoxShape->appendItem(i.c_str());
         }
     }
@@ -301,87 +301,92 @@ void
 GNEVehicleTypeDialog::VTypeAtributes::VShapeRow::setVShapeLabelImage() {
     // set Icon in label depending of current VClass
     switch (getVehicleShapeID(myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_GUISHAPE))) {
-        case SVS_UNKNOWN:
+        case SUMOVehicleShape::UNKNOWN:
             myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(GUIIcon::VSHAPE_UNKNOWN));
             break;
-        case SVS_PEDESTRIAN:
+        case SUMOVehicleShape::PEDESTRIAN:
             myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(GUIIcon::VSHAPE_PEDESTRIAN));
             break;
-        case SVS_BICYCLE:
+        case SUMOVehicleShape::BICYCLE:
             myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(GUIIcon::VSHAPE_BICYCLE));
             break;
-        case SVS_MOPED:
+        case SUMOVehicleShape::MOPED:
             myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(GUIIcon::VSHAPE_MOPED));
             break;
-        case SVS_MOTORCYCLE:
+        case SUMOVehicleShape::MOTORCYCLE:
             myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(GUIIcon::VSHAPE_MOTORCYCLE));
             break;
-        case SVS_PASSENGER:
+        case SUMOVehicleShape::PASSENGER:
             myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(GUIIcon::VSHAPE_PASSENGER));
             break;
-        case SVS_PASSENGER_SEDAN:
+        case SUMOVehicleShape::PASSENGER_SEDAN:
             myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(GUIIcon::VSHAPE_PASSENGER_SEDAN));
             break;
-        case SVS_PASSENGER_HATCHBACK:
+        case SUMOVehicleShape::PASSENGER_HATCHBACK:
             myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(GUIIcon::VSHAPE_PASSENGER_HATCHBACK));
             break;
-        case SVS_PASSENGER_WAGON:
+        case SUMOVehicleShape::PASSENGER_WAGON:
             myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(GUIIcon::VSHAPE_PASSENGER_WAGON));
             break;
-        case SVS_PASSENGER_VAN:
+        case SUMOVehicleShape::PASSENGER_VAN:
             myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(GUIIcon::VSHAPE_PASSENGER_VAN));
             break;
-        case SVS_DELIVERY:
+        case SUMOVehicleShape::DELIVERY:
             myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(GUIIcon::VSHAPE_DELIVERY));
             break;
-        case SVS_TRUCK:
+        case SUMOVehicleShape::TRUCK:
             myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(GUIIcon::VSHAPE_TRUCK));
             break;
-        case SVS_TRUCK_SEMITRAILER:
+        case SUMOVehicleShape::TRUCK_SEMITRAILER:
             myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(GUIIcon::VSHAPE_TRUCK_SEMITRAILER));
             break;
-        case SVS_TRUCK_1TRAILER:
+        case SUMOVehicleShape::TRUCK_1TRAILER:
             myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(GUIIcon::VSHAPE_TRUCK_1TRAILER));
             break;
-        case SVS_BUS:
+        case SUMOVehicleShape::BUS:
             myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(GUIIcon::VSHAPE_BUS));
             break;
-        case SVS_BUS_COACH:
+        case SUMOVehicleShape::BUS_COACH:
             myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(GUIIcon::VSHAPE_BUS_COACH));
             break;
-        case SVS_BUS_FLEXIBLE:
+        case SUMOVehicleShape::BUS_FLEXIBLE:
             myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(GUIIcon::VSHAPE_BUS_FLEXIBLE));
             break;
-        case SVS_BUS_TROLLEY:
+        case SUMOVehicleShape::BUS_TROLLEY:
             myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(GUIIcon::VSHAPE_BUS_TROLLEY));
             break;
-        case SVS_RAIL:
+        case SUMOVehicleShape::RAIL:
             myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(GUIIcon::VSHAPE_RAIL));
             break;
-        case SVS_RAIL_CAR:
+        case SUMOVehicleShape::RAIL_CAR:
             myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(GUIIcon::VSHAPE_RAIL_CAR));
             break;
-        case SVS_RAIL_CARGO:
+        case SUMOVehicleShape::RAIL_CARGO:
             myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(GUIIcon::VSHAPE_RAIL_CARGO));
             break;
-        case SVS_E_VEHICLE:
+        case SUMOVehicleShape::E_VEHICLE:
             myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(GUIIcon::VSHAPE_E_VEHICLE));
             break;
-        case SVS_ANT:
+        case SUMOVehicleShape::ANT:
             myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(GUIIcon::VSHAPE_ANT));
             break;
-        case SVS_SHIP:
+        case SUMOVehicleShape::SHIP:
             myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(GUIIcon::VSHAPE_SHIP));
             break;
-        case SVS_EMERGENCY:
-        case SVS_FIREBRIGADE:
+        case SUMOVehicleShape::EMERGENCY:
             myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(GUIIcon::VSHAPE_EMERGENCY));
             break;
-        case SVS_POLICE:
+        case SUMOVehicleShape::FIREBRIGADE:
+            myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(GUIIcon::VSHAPE_FIREBRIGADE));
+            break;
+        case SUMOVehicleShape::POLICE:
             myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(GUIIcon::VSHAPE_POLICE));
             break;
-        case SVS_RICKSHAW:
+        case SUMOVehicleShape::RICKSHAW:
             myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(GUIIcon::VSHAPE_RICKSHAW));
+            break;
+        case SUMOVehicleShape::SCOOTER:
+            myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(GUIIcon::VSHAPE_SCOOTER));
             break;
         default:
             myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(GUIIcon::VCLASS_IGNORING));
@@ -768,6 +773,10 @@ GNEVehicleTypeDialog::VTypeAtributes::VTypeAttributeRow::filterAttributeName(con
             return "turnAlignDistance";
         case SUMO_ATTR_LCA_OVERTAKE_RIGHT:
             return "overtakeRight";
+        case SUMO_ATTR_LCA_KEEPRIGHT_ACCEPTANCE_TIME:
+            return "keepRightAcceptanceTime";
+        case SUMO_ATTR_LCA_OVERTAKE_DELTASPEED_FACTOR:
+            return "overtakeDeltaSpeedFactor";
         /* case SUMO_ATTR_LCA_EXPERIMENTAL1:
             return "experimental1";
         */
@@ -994,7 +1003,13 @@ GNEVehicleTypeDialog::VTypeAtributes::buildLaneChangeModelAttributes(FXVerticalF
     // 18 create VTypeAttributeRow and Label for overtake right
     myLCAOvertakeRight = new VTypeAttributeRow(this, column, SUMO_ATTR_LCA_OVERTAKE_RIGHT, VTypeAttributeRow::RowAttrType::ROWTYPE_STRING);
 
-    // 19 create VTypeAttributeRow and Label for experimental
+    // 19 create VTypeAttributeRow and Label for keep right acceptance time
+    myLCAKeepRightAcceptanceTime = new VTypeAttributeRow(this, column, SUMO_ATTR_LCA_KEEPRIGHT_ACCEPTANCE_TIME, VTypeAttributeRow::RowAttrType::ROWTYPE_STRING);
+
+    // 20 create VTypeAttributeRow and Label for overtake deltaspeed factor
+    myLCAOvertakeDeltaSpeedFactor = new VTypeAttributeRow(this, column, SUMO_ATTR_LCA_OVERTAKE_DELTASPEED_FACTOR, VTypeAttributeRow::RowAttrType::ROWTYPE_STRING);
+
+    // 21 create VTypeAttributeRow and Label for experimental
     /* myLCAExperimental = new VTypeAttributeRow(this, column, SUMO_ATTR_LCA_EXPERIMENTAL1, VTypeAttributeRow::RowAttrType::ROWTYPE_STRING); */
 }
 
@@ -1008,7 +1023,7 @@ GNEVehicleTypeDialog::VTypeAtributes::updateValues() {
     myVShapeRow->updateValues();
     // update rows
     myLaneChangeModel->updateValue();
-    myLatAlignment->updateValue();
+    myLatAlignment->updateValue(toString(defaultVTypeParameters.latAlignmentProcedure));
     myColor->updateValue();
     myLength->updateValue(toString(defaultVTypeParameters.length));
     myMinGap->updateValue(toString(defaultVTypeParameters.minGap));
@@ -1060,6 +1075,8 @@ GNEVehicleTypeDialog::VTypeAtributes::updateValues() {
     myLCAMaxSpeedLatFactor->updateValue();
     myLCATurnAlignmentDistance->updateValue();
     myLCAOvertakeRight->updateValue();
+    myLCAKeepRightAcceptanceTime->updateValue();
+    myLCAOvertakeDeltaSpeedFactor->updateValue();
     /* myLCAExperimental->updateValue(); */
     // parameters
     myParameters->updateValue();
@@ -1099,7 +1116,7 @@ GNEVehicleTypeDialog::VTypeAtributes::onCmdSetAttribute(FXObject*, FXSelector, v
     myOSGFile->setVariable(toString(defaultVTypeParameters.osgFile));
     // set attributes in rows
     myLaneChangeModel->setVariable();
-    myLatAlignment->setVariable();
+    myLatAlignment->setVariable(toString(defaultVTypeParameters.latAlignmentProcedure));
     myLength->setVariable(toString(defaultVTypeParameters.length));
     myMinGap->setVariable(toString(defaultVTypeParameters.minGap));
     myMaxSpeed->setVariable(toString(defaultVTypeParameters.maxSpeed));
@@ -1150,6 +1167,8 @@ GNEVehicleTypeDialog::VTypeAtributes::onCmdSetAttribute(FXObject*, FXSelector, v
     myLCAMaxSpeedLatFactor->setVariable();
     myLCATurnAlignmentDistance->setVariable();
     myLCAOvertakeRight->setVariable();
+    myLCAKeepRightAcceptanceTime->setVariable();
+    myLCAOvertakeDeltaSpeedFactor->setVariable();
     /* myLCAExperimental->setVariable(); */
     myParameters->setVariable();
     return true;
@@ -1366,7 +1385,7 @@ GNEVehicleTypeDialog::CarFollowingModelParameters::CarFollowingModelParameters(G
     myLabelIncompleteAttribute = new FXLabel(myVerticalFrameRows, "Some attributes wasn't\nimplemented yet", nullptr, GUIDesignLabelAboutInfoCenter);
     myLabelIncompleteAttribute->hide();
 
-    // show or hidde ComboBox depending of current selected CFM
+    // show or hide ComboBox depending of current selected CFM
     refreshCFMFields();
 }
 
@@ -1675,7 +1694,7 @@ GNEVehicleTypeDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     } else {
         // accept changes before closing dialog
         acceptChanges();
-        // stop dialgo sucesfully
+        // stop dialog successfully
         getApp()->stopModal(this, TRUE);
         return 1;
     }

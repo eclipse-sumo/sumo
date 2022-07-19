@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec 14 11:32:55 2020 by Eclipse SUMO netconvert Version v1_8_0+0240-6f1f621077
+<!-- generated on 2022-01-07 16:21:17 by Eclipse SUMO netconvert Version v1_11_0+0928-18c1b433e84
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -70,10 +70,10 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":C2_3_1" index="1" allow="passenger" speed="13.89" length="13.90" shape="198.50,98.40 212.40,98.40"/>
     </edge>
     <edge id=":C2_5" function="internal">
-        <lane id=":C2_5_0" index="0" allow="passenger" speed="5.04" length="1.54" shape="198.50,98.40 199.86,98.59 200.00,98.68"/>
+        <lane id=":C2_5_0" index="0" allow="passenger" speed="5.04" length="1.37" shape="198.50,98.40 199.86,98.59"/>
     </edge>
     <edge id=":C2_6" function="internal">
-        <lane id=":C2_6_0" index="0" allow="passenger" speed="5.04" length="3.46" shape="200.00,98.68 200.83,99.18 201.41,100.14 201.60,101.50"/>
+        <lane id=":C2_6_0" index="0" allow="passenger" speed="5.04" length="3.63" shape="199.86,98.59 200.83,99.18 201.41,100.14 201.60,101.50"/>
     </edge>
     <edge id=":C2_c0" function="crossing" crossingEdges="S2C2">
         <lane id=":C2_c0_0" index="0" allow="pedestrian" speed="1.00" length="6.40" width="4.50" shape="200.00,89.85 206.40,89.85"/>
@@ -161,7 +161,7 @@ SPDX-License-Identifier: EPL-2.0
     <junction id="S2" type="dead_end" x="200.00" y="0.00" incLanes="" intLanes="" shape="200.00,0.00 210.90,0.00"/>
     <junction id="W" type="dead_end" x="0.00" y="100.00" incLanes="" intLanes="" shape="0.00,100.00 0.00,89.10"/>
 
-    <junction id=":C2_6_0" type="internal" x="200.00" y="98.68" incLanes=":C2_5_0 S2C2_2 S2C2_3" intLanes=":C2_1_0 :C2_1_1"/>
+    <junction id=":C2_6_0" type="internal" x="199.86" y="98.59" incLanes=":C2_5_0 S2C2_2 S2C2_3" intLanes=":C2_1_0 :C2_1_1"/>
 
     <connection from="CC2" to="C2E" fromLane="2" toLane="2" via=":C2_3_0" tl="CC2" linkIndex="9" dir="s" state="o"/>
     <connection from="CC2" to="C2E" fromLane="3" toLane="3" via=":C2_3_1" tl="CC2" linkIndex="10" dir="s" state="o"/>

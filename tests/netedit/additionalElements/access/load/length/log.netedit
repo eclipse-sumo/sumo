@@ -1,3 +1,0 @@
-Error: Attribute 'length' in definition of a access is not of type float.
-Error: Could not build access with ID 'busStop_0' in netedit; attribute length cannot be negative.
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.09Jun100858.6532\netedit.gui\additionalElements\access\load\length\input_additionals.add.xml failed.

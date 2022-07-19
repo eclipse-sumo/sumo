@@ -95,11 +95,12 @@ below.
   \[<https://wiki.openstreetmap.org/wiki/Key:usage> usage information
   for railways (main,branch,industrial,...). This typemap only works
   in combination with other typemaps.
-- **osmBidiRailNetconvert.typ.xml**. Changes the default from
+- **osmNetconvertBidiRail.typ.xml**. Changes the default from
   uni-directional railroads to bi-directional railroads. This may be
   useful in some regions of the world where OSM contributors used
   this style of date representation. The use of this typemap supplants
   the older option **--osm.railway.oneway-default** {{DT_BOOL}}.
+- **osmNetconvertAirport.typ.xml**. Imports aeroways (runway, taxiway, etc.)
 
 !!! caution
     When specifying a typemap using the option **--type-files**, the defaults are not loaded. To achieve the desired types, the user should load the default typemap along with the desired modification (**--type-files <SUMO_HOME\>/data/typemap/osmNetconvert.typ.xml,<SUMO_HOME\>/data/typemap/osmNetconvertUrbanDe.typ.xml**) or create a fully specified typemap file by himself.
@@ -111,6 +112,18 @@ The first will evaluate the [bike=yes/no tags](https://wiki.openstreetmap.org/wi
 as well as oneway information for bicycles. This usually applies only to the permissions
 for existing lanes and streets. If you want to add further bike lanes use the bicycle
 type map mentioned above.
+
+### Pedestrian Traffic
+
+By default only footpaths (osm ways dedicated for pedestrian use) are imported.
+To import all sidewalk related information, the option **--sidewalks** can be set. Alternatively, sidwalks can be added heuristically via typemaps (see above) or [guessing-options](../../Simulation/Pedestrians.md#generating_a_network_with_sidewalks)
+
+### Lane-To-Lane Connections
+
+By default, lane-to-lane connections are guessed by [netconvert](../../netconvert.md) and only turning restrictions are loaded from OSM to influence connection generation. When setting option **--osm.turn-lanes**, the turn direction road markings form OSM are evaluated to guide connection generation.
+
+!!! caution
+    At roads where some lanes have turn markings and others do not, the unmarked lanes are interpreted as through-lanes. This may not be correct in all cases.
 
 # Importing additional Polygons (Buildings, Water, etc.)
 
@@ -558,6 +571,28 @@ The following data is imported:
 Public transport schedules which are needed to make use of the above data
 are generated with a user-defined service period based on a simulation
 of the lines.
+
+# Importing Sidewalks
+
+By default (osmNetconvert.typ.xml), only dedicated edges for pedestrians will be built and all other roads (except motorway) will permit pedestrians on all lanes.
+For a [pedestrian simulation](../../Simulation/Pedestrians.md#building_a_network_for_pedestrian_simulation), sidewalks are needed and pedestrians should be forbidden on most road lanes.
+
+OSM data coverage and definition style for sidewalks varies by region which may require different import options to achieve adequate sidewalk coverage.
+
+## Sidewalks from typemap
+
+By adding a typemap such as {{SUMO_HOME}}/data/osmNetconvertPedestrians.typ.xml, sidewalks of a pre-configured width a added to a specific set of road types and all non-sidewalk lanes are forbidden for pedestrians.
+
+OSM-sidewalk data will only be considered if it explicitly disables sidewalks on an edge.
+This ensures good sidewalk coverage but may lead to double-sidewalks if OSM modellers have added the "sidewalks" as parallel foot paths edges.
+
+## Sidwalks from OSM
+
+By setting option **--osm.sidewalks**, all sidewalk data from OSM will be loaded. When combined with a typemap such as {{SUMO_HOME}}/data/osmNetconvertPedestrians.typ.xml, the typemap will only be used to configure sidewalk widths but no extra sidewalks will be added.
+
+This definition style prevents double-sidewalks but may lead to missing sidewalks wherever OSM modellers did not add sidewalk information.
+
+[osmWebWizard](../../Tutorials/OSMWebWizard.md) uses this style beginning with version 1.11.0. 
 
 # Importing OSM Data via Python/ Overpass API
 

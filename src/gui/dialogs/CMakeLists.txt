@@ -7,6 +7,8 @@ set(gui_dialogs_STAT_SRCS
    GUIDialog_Breakpoints.h
    GUIDialog_HallOfFame.cpp
    GUIDialog_HallOfFame.h
+   GUIDialog_GLObjChooser.cpp
+   GUIDialog_GLObjChooser.h
 )
 
 add_library(gui_dialogs STATIC ${gui_dialogs_STAT_SRCS})

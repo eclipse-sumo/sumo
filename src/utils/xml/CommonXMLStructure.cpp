@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -110,31 +110,31 @@ CommonXMLStructure::SumoBaseObject::getParentSumoBaseObject() const {
 std::map<std::string, std::string>
 CommonXMLStructure::SumoBaseObject::getAllAttributes() const {
     std::map<std::string, std::string> result;
-    for (const auto &attr : myStringAttributes) {
+    for (const auto& attr : myStringAttributes) {
         result[toString(attr.first)] = attr.second;
     }
-    for (const auto &attr : myIntAttributes) {
+    for (const auto& attr : myIntAttributes) {
         result[toString(attr.first)] = toString(attr.second);
     }
-    for (const auto &attr : myDoubleAttributes) {
+    for (const auto& attr : myDoubleAttributes) {
         result[toString(attr.first)] = toString(attr.second);
     }
-    for (const auto &attr : myBoolAttributes) {
+    for (const auto& attr : myBoolAttributes) {
         result[toString(attr.first)] = toString(attr.second);
     }
-    for (const auto &attr : myPositionAttributes) {
+    for (const auto& attr : myPositionAttributes) {
         result[toString(attr.first)] = toString(attr.second);
     }
-    for (const auto &attr : myTimeAttributes) {
+    for (const auto& attr : myTimeAttributes) {
         result[toString(attr.first)] = time2string(attr.second);
     }
-    for (const auto &attr : myColorAttributes) {
+    for (const auto& attr : myColorAttributes) {
         result[toString(attr.first)] = toString(attr.second);
     }
-    for (const auto &attr : myStringListAttributes) {
+    for (const auto& attr : myStringListAttributes) {
         result[toString(attr.first)] = toString(attr.second);
     }
-    for (const auto &attr : myPositionVectorAttributes) {
+    for (const auto& attr : myPositionVectorAttributes) {
         result[toString(attr.first)] = toString(attr.second);
     }
     return result;
@@ -207,6 +207,23 @@ CommonXMLStructure::SumoBaseObject::getTimeAttribute(const SumoXMLAttr attr) con
 }
 
 
+SUMOTime
+CommonXMLStructure::SumoBaseObject::getPeriodAttribute() const {
+    SumoXMLAttr attr = SUMO_ATTR_PERIOD;
+    if (hasTimeAttribute(attr)) {
+        return myTimeAttributes.at(attr);
+    } else {
+        // try 'freq' as alias for 'period'
+        attr = SUMO_ATTR_FREQUENCY;
+        if (hasTimeAttribute(attr)) {
+            return myTimeAttributes.at(attr);
+        }
+        handleAttributeError(SUMO_ATTR_PERIOD, "time");
+        throw ProcessError();
+    }
+}
+
+
 const RGBColor&
 CommonXMLStructure::SumoBaseObject::getColorAttribute(const SumoXMLAttr attr) const {
     if (hasColorAttribute(attr)) {
@@ -235,12 +252,12 @@ CommonXMLStructure::SumoBaseObject::getPositionVectorAttribute(const SumoXMLAttr
         return myPositionVectorAttributes.at(attr);
     } else {
         handleAttributeError(attr, "position vector");
-        throw ProcessError();;
+        throw ProcessError();
     }
 }
 
 
-SUMOVehicleClass 
+SUMOVehicleClass
 CommonXMLStructure::SumoBaseObject::getVClass() const {
     return myVClass;
 }
@@ -403,7 +420,7 @@ CommonXMLStructure::SumoBaseObject::setVClass(SUMOVehicleClass vClass) {
 }
 
 
-void 
+void
 CommonXMLStructure::SumoBaseObject::setVehicleTypeParameter(const SUMOVTypeParameter* vehicleTypeParameter) {
     myVehicleTypeParameter = *vehicleTypeParameter;
     myDefinedVehicleTypeParameter = true;
@@ -428,7 +445,7 @@ CommonXMLStructure::SumoBaseObject::setVehicleParameter(const SUMOVehicleParamet
 
 
 void
-CommonXMLStructure::SumoBaseObject::setStopParameter(const SUMOVehicleParameter::Stop &stopParameter) {
+CommonXMLStructure::SumoBaseObject::setStopParameter(const SUMOVehicleParameter::Stop& stopParameter) {
     myStopParameter = stopParameter;
     myDefinedStopParameter = true;
     // set attribute edge
@@ -492,7 +509,7 @@ CommonXMLStructure::SumoBaseObject::removeSumoBaseObjectChild(SumoBaseObject* su
 
 
 void
-CommonXMLStructure::SumoBaseObject::handleAttributeError(const SumoXMLAttr attr, const std::string &type) const {
+CommonXMLStructure::SumoBaseObject::handleAttributeError(const SumoXMLAttr attr, const std::string& type) const {
     WRITE_ERROR("Trying to get undefined " + type + " attribute '" + toString(attr) + "' in SUMOBaseObject '" + toString(myTag) + "'");
 }
 

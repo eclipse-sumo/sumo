@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2013-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2013-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -41,9 +41,11 @@
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/StringUtils.h>
 #include <utils/emissions/PollutantsInterface.h>
+#include <utils/emissions/EnergyParams.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/importio/LineReader.h>
 #include "TrajectoriesHandler.h"
+#include "VTypesHandler.h"
 
 
 // ===========================================================================
@@ -82,9 +84,14 @@ main(int argc, char** argv) {
     oc.addSynonyme("amitran", "netstate-file");
     oc.addDescription("netstate-file", "Input", "Defines the netstate, route and trajectory files to read the driving cycles from.");
 
+    oc.doRegister("additional-files", new Option_FileName());
+    oc.addDescription("additional-files", "Input", "Load emission parameters (vTypes) from FILE(s)");
+
     oc.doRegister("emission-class", 'e', new Option_String("unknown"));
     oc.addDescription("emission-class", "Input", "Defines for which emission class the emissions shall be generated. ");
 
+    oc.doRegister("vtype", new Option_String());
+    oc.addDescription("vtype", "Input", "Defines the vehicle type to use for emission parameters.");
 
     oc.addOptionSubTopic("Processing");
     oc.doRegister("compute-a", 'a', new Option_Bool(false));
@@ -111,7 +118,10 @@ main(int argc, char** argv) {
     oc.addOptionSubTopic("Output");
     oc.doRegister("output-file", 'o', new Option_String());
     oc.addSynonyme("output", "output-file");
-    oc.addDescription("output", "Output", "Defines the file to write the emission cycle results into. ");
+    oc.addDescription("output", "Output", "Defines the file to write the emission cycle results into.");
+
+    oc.doRegister("output.attributes", new Option_StringVector());
+    oc.addDescription("output.attributes", "Output", "Defines the attributes to write.");
 
     oc.doRegister("emission-output", new Option_FileName());
     oc.addDescription("emission-output", "Output", "Save the emission values of each vehicle in XML");
@@ -121,8 +131,23 @@ main(int argc, char** argv) {
     oc.addDescription("sum-output", "Output", "Save the aggregated and normed emission values of each vehicle in CSV");
 
     oc.addOptionSubTopic("Emissions");
+    oc.doRegister("emissions.volumetric-fuel", new Option_Bool(false));
+    oc.addDescription("emissions.volumetric-fuel", "Emissions", "Return fuel consumption values in (legacy) unit l instead of mg");
+
     oc.doRegister("phemlight-path", new Option_FileName(StringVector({ "./PHEMlight/" })));
-    oc.addDescription("phemlight-path", "Emissions", "Determines where to load PHEMlight definitions from.");
+    oc.addDescription("phemlight-path", "Emissions", "Determines where to load PHEMlight definitions from");
+
+    oc.doRegister("phemlight-year", new Option_Integer(0));
+    oc.addDescription("phemlight-year", "Emissions", "Enable fleet age modelling with the given reference year in PHEMlight5");
+
+    oc.doRegister("phemlight-temperature", new Option_Float(INVALID_DOUBLE));
+    oc.addDescription("phemlight-temperature", "Emissions", "Set ambient temperature to correct NOx emissions in PHEMlight5");
+
+    oc.doRegister("begin", new Option_String("0", "TIME"));
+    oc.addDescription("begin", "Processing", "Defines the begin time in seconds;");
+
+    oc.doRegister("end", new Option_String("-1", "TIME"));
+    oc.addDescription("end", "Processing", "Defines the end time in seconds;");
 
     SystemFrame::addReportOptions(oc);
     oc.doRegister("quiet", 'q', new Option_Bool(false));
@@ -152,6 +177,24 @@ main(int argc, char** argv) {
         if (oc.isSet("output-file")) {
             out = new std::ofstream(oc.getString("output-file").c_str());
         }
+        long long int attributes = 0;
+        if (oc.isSet("output.attributes")) {
+            for (std::string attrName : oc.getStringVector("output.attributes")) {
+                if (!SUMOXMLDefinitions::Attrs.hasString(attrName)) {
+                    if (attrName == "all") {
+                        attributes = std::numeric_limits<long long int>::max() - 1;
+                    } else {
+                        WRITE_ERROR("Unknown attribute '" + attrName + "' to write in output.");
+                    }
+                    continue;
+                }
+                int attr = SUMOXMLDefinitions::Attrs.get(attrName);
+                assert(attr < 63);
+                attributes |= ((long long int)1 << attr);
+            }
+        } else {
+            attributes = ~(((long long int)1 << SUMO_ATTR_AMOUNT));
+        }
         OutputDevice::createDeviceByOption("emission-output", "emission-export", "emission_file.xsd");
         OutputDevice* xmlOut = nullptr;
         if (oc.isSet("emission-output")) {
@@ -165,9 +208,30 @@ main(int argc, char** argv) {
             (*sumOut) << "Vehicle,Cycle,Time,Speed,Gradient,Acceleration,FC,FCel,CO2,NOx,CO,HC,PM" << std::endl;
         }
 
+        EnergyParams energyParams;
+        std::map<std::string, SUMOVTypeParameter*> vTypes;
+        if (oc.isSet("vtype")) {
+            if (!oc.isSet("additional-files")) {
+                throw ProcessError("Option --vtype requires option --additional-files for loading vehicle types");
+            }
+            if (!oc.isUsableFileList("additional-files")) {
+                throw ProcessError();
+            }
+            for (auto file : oc.getStringVector("additional-files")) {
+                VTypesHandler typesHandler(file, vTypes);
+                if (!XMLSubSys::runParser(typesHandler, file)) {
+                    throw ProcessError("Loading of " + file + " failed.");
+                }
+            }
+            if (vTypes.count(oc.getString("vtype")) == 0) {
+                throw ProcessError("Vehicle type '" + oc.getString("vtype") + "' is not defined");
+            }
+            energyParams = EnergyParams(vTypes[oc.getString("vtype")]);
+        }
+
         const SUMOEmissionClass defaultClass = PollutantsInterface::getClassByName(oc.getString("emission-class"));
         const bool computeA = oc.getBool("compute-a") || oc.getBool("compute-a.forward");
-        TrajectoriesHandler handler(computeA, oc.getBool("compute-a.forward"), oc.getBool("compute-a.zero-correction"), defaultClass, oc.getFloat("slope"), out, xmlOut);
+        TrajectoriesHandler handler(computeA, oc.getBool("compute-a.forward"), oc.getBool("compute-a.zero-correction"), defaultClass, &energyParams, attributes, oc.getFloat("slope"), out, xmlOut);
 
         if (oc.isSet("timeline-file")) {
             int skip = oc.getBool("skip-first") ? 1 : oc.getInt("timeline-file.skip");
@@ -179,6 +243,9 @@ main(int argc, char** argv) {
             int time = 0;
 
             LineReader lr(oc.getString("timeline-file"));
+            if (!lr.good()) {
+                throw ProcessError("Unreadable file '" + lr.getFileName() + "'.");
+            }
             while (lr.hasMore()) {
                 std::string line = lr.readLine();
                 if (skip > 0) {
@@ -201,7 +268,7 @@ main(int argc, char** argv) {
                         }
                         double a = !computeA && st.hasNext() ? StringUtils::toDouble(st.next()) : TrajectoriesHandler::INVALID_VALUE;
                         double s = haveSlope && st.hasNext() ? StringUtils::toDouble(st.next()) : TrajectoriesHandler::INVALID_VALUE;
-                        if (handler.writeEmissions(*out, "", defaultClass, t, v, a, s)) {
+                        if (handler.writeEmissions(*out, "", defaultClass, &energyParams, attributes, t, v, a, s)) {
                             l += v;
                             totalA += a;
                             totalS += s;
@@ -231,6 +298,7 @@ main(int argc, char** argv) {
             handler.writeSums(std::cout, "");
         }
         delete sumOut;
+
     } catch (InvalidArgument& e) {
         MsgHandler::getErrorInstance()->inform(e.what());
         MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);

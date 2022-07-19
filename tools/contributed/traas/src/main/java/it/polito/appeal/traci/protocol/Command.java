@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2017-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2017-2022 German Aerospace Center (DLR) and others.
 // TraCI4J module
 // Copyright (C) 2011 ApPeAL Group, Politecnico di Torino
 // This program and the accompanying materials are made available under the

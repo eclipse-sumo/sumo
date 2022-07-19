@@ -6,6 +6,13 @@ basic
 # 
 time_gap
 
+# test parameter opening time
+# 
+opening-time
+
+# test parameter opening-delay
+opening-delay
+
 # train is inserted directly in front of the crossing
 # 
 sudden_insertion

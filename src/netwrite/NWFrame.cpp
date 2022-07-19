@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -53,7 +53,7 @@ NWFrame::fillOptions(bool forNetgen) {
     oc.addSynonyme("output-file", "output");
     oc.addDescription("output-file", "Output", "The generated net will be written to FILE");
 
-    oc.doRegister("plain-output-prefix", new Option_FileName());
+    oc.doRegister("plain-output-prefix", 'p', new Option_FileName());
     oc.addSynonyme("plain-output-prefix", "plain-output");
     oc.addSynonyme("plain-output-prefix", "plain");
     oc.addDescription("plain-output-prefix", "Output", "Prefix of files to write plain xml nodes, edges and connections to");
@@ -144,19 +144,19 @@ NWFrame::checkOptions() {
         ok = false;
     }
     if (oc.isSet("opendrive-output") && oc.isDefault("no-internal-links")) {
-        oc.set("no-internal-links", "false");
+        oc.setDefault("no-internal-links", "false");
     }
     if (oc.isSet("opendrive-output") && oc.isDefault("rectangular-lane-cut")) {
-        oc.set("rectangular-lane-cut", "true");
+        oc.setDefault("rectangular-lane-cut", "true");
     }
     if (oc.isSet("opendrive-output") && !oc.getBool("rectangular-lane-cut")) {
         WRITE_WARNING("OpenDRIVE cannot represent oblique lane cuts and should use option 'rectangular-lane-cut'.");
     }
     if (oc.isSet("dlr-navteq-output") && oc.isDefault("numerical-ids")) {
-        oc.set("numerical-ids", "true");
+        oc.setDefault("numerical-ids", "true");
     }
     if (oc.isSet("dlr-navteq-output") && oc.isDefault("osm.all-attributes")) {
-        oc.set("osm.all-attributes", "true");
+        oc.setDefault("osm.all-attributes", "true");
     }
     if (oc.exists("ptline-output") && oc.isSet("ptline-output") && !oc.isSet("ptstop-output")) {
         WRITE_ERROR("public transport lines output requires 'ptstop-output' to be set");
@@ -178,7 +178,7 @@ NWFrame::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     NWWriter_MATSim::writeNetwork(oc, nb);
     NWWriter_OpenDrive::writeNetwork(oc, nb);
     NWWriter_DlrNavteq::writeNetwork(oc, nb);
-    NWWriter_XML::writeNetwork(oc, nb);
+    NWWriter_XML::writeNetwork(oc, oc.isSet("plain-output-prefix") ? oc.getString("plain-output-prefix") : "", nb);
     PROGRESS_TIME_MESSAGE(before);
 }
 

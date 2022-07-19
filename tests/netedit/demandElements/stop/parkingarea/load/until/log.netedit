@@ -1,6 +1,0 @@
-Error: Attribute 'until' in definition of a stop is not a real number.
-Error: Invalid duration or end time is given for a stop at 'parkingArea' in vehicleWithRoute 'vehicle_0'.
-Error: Attribute 'until' in definition of a stop is empty.
-Error: Invalid duration or end time is given for a stop at 'parkingArea' in vehicleWithRoute 'vehicle_0'.
-Error: Invalid duration or end time is given for a stop at 'parkingArea' in vehicleWithRoute 'vehicle_0'.
-Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.02Sep134855.13228\netedit.gui\demandElements\stop\stopParkingArea\load\until\input_routes.rou.xml failed.

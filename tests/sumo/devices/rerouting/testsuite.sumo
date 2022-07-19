@@ -24,6 +24,7 @@ personTrip
 
 # use periodic rerouting to avoid congestion
 reroute_congestions
+tlsPenalty
 
 # handlng stops while rerouting
 stops
@@ -39,3 +40,6 @@ invalid_pre_period
 
 # faulty routes
 disconnected
+
+# faulty routes with a single edge
+single_edge

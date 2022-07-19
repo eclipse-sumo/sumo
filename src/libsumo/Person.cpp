@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2017-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2017-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -25,8 +25,10 @@
 #include <microsim/MSLane.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSStoppingPlace.h>
+#include <microsim/transportables/MSPModel.h>
 #include <microsim/transportables/MSPerson.h>
 #include <microsim/transportables/MSStageDriving.h>
+#include <microsim/transportables/MSStageWaiting.h>
 #include <microsim/devices/MSDevice_Taxi.h>
 #include <microsim/devices/MSDispatch_TraCI.h>
 #include <libsumo/TraCIConstants.h>
@@ -511,15 +513,15 @@ Person::add(const std::string& personID, const std::string& edgeID, double pos, 
 
     if (departInSecs < 0.) {
         const int proc = (int) - departInSecs;
-        if (proc >= static_cast<int>(DEPART_DEF_MAX)) {
+        if (proc >= static_cast<int>(DepartDefinition::DEF_MAX)) {
             throw TraCIException("Invalid departure time." + toString(depart) + " " + toString(proc));
         }
         vehicleParams.departProcedure = (DepartDefinition)proc;
         vehicleParams.depart = MSNet::getInstance()->getCurrentTimeStep();
     } else if (depart < MSNet::getInstance()->getCurrentTimeStep()) {
         vehicleParams.depart = MSNet::getInstance()->getCurrentTimeStep();
-        WRITE_WARNING("Departure time " + toString(departInSecs) + " for person '" + personID
-                      + "' is in the past; using current time " + time2string(vehicleParams.depart) + " instead.");
+        WRITE_WARNING("Departure time=" + toString(departInSecs) + " for person '" + personID
+                      + "' is in the past; using current time=" + time2string(vehicleParams.depart) + " instead.");
     } else {
         vehicleParams.depart = depart;
     }
@@ -784,27 +786,28 @@ Person::rerouteTraveltime(const std::string& personID) {
 
 
 void
-Person::moveTo(const std::string& personID, const std::string& edgeID, double /* position */) {
+Person::moveTo(const std::string& personID, const std::string& laneID, double pos, double posLat) {
     MSPerson* p = getPerson(personID);
-    MSEdge* e = MSEdge::dictionary(edgeID);
-    if (e == nullptr) {
-        throw TraCIException("Unknown edge '" + edgeID + "'.");
+    MSLane* l = MSLane::dictionary(laneID);
+    if (l == nullptr) {
+        throw TraCIException("Unknown lane '" + laneID + "'.");
     }
-    /*
+    if (posLat == INVALID_DOUBLE_VALUE) {
+        posLat = 0;
+    } else if (fabs(posLat) >= (0.5 * (l->getWidth() + p->getVehicleType().getWidth()) + MSPModel::SIDEWALK_OFFSET)) {
+        // see MSPModel_Striping::moveToXY
+        throw TraCIException("Invalid lateral position " + toString(posLat) + " on lane '" + laneID + "'.");
+    }
     switch (p->getStageType(0)) {
-       case MSTransportable::MOVING_WITHOUT_VEHICLE: {
-           MSPerson::MSPersonStage_Walking* s = dynamic_cast<MSPerson::MSPersonStage_Walking*>(p->getCurrentStage());
+        case MSStageType::WALKING: {
+            MSPerson::MSPersonStage_Walking* s = dynamic_cast<MSPerson::MSPersonStage_Walking*>(p->getCurrentStage());
             assert(s != 0);
-            const std::string error = s->moveTo(p, Simulation::getCurrentTime());
-            if (error != "") {
-                throw TraCIException("Command moveTo failed for person '" + personID + "' (" + error + ").");
-            }
+            s->getState()->moveTo(p, l, pos, posLat, SIMSTEP);
             break;
         }
         default:
-        */
-    throw TraCIException("Command moveTo is not supported for person '" + personID + "' while " + p->getCurrentStageDescription() + ".");
-    //}
+            throw TraCIException("Command moveTo is not supported for person '" + personID + "' while " + p->getCurrentStageDescription() + ".");
+    }
 }
 
 
@@ -938,8 +941,6 @@ Person::moveToXY(const std::string& personID, const std::string& edgeID, const d
                 break;
             }
             case MSStageType::WAITING_FOR_DEPART:
-                MSNet::getInstance()->getPersonControl().forceDeparture();
-                FALLTHROUGH;
             case MSStageType::WAITING: {
                 if (p->getNumRemainingStages() <= 1 || p->getStageType(1) != MSStageType::WALKING) {
                     // insert walking stage after the current stage
@@ -979,8 +980,27 @@ Person::moveToXY(const std::string& personID, const std::string& edgeID, const d
 void
 Person::setParameter(const std::string& personID, const std::string& key, const std::string& value) {
     MSTransportable* p = getPerson(personID);
-    ((SUMOVehicleParameter&)p->getParameter()).setParameter(key, value);
+    if (StringUtils::startsWith(key, "device.")) {
+        throw TraCIException("Person '" + personID + "' does not support device parameters\n");
+    } else if (StringUtils::startsWith(key, "laneChangeModel.")) {
+        throw TraCIException("Person '" + personID + "' does not support laneChangeModel parameters\n");
+    } else if (StringUtils::startsWith(key, "carFollowModel.")) {
+        throw TraCIException("Person '" + personID + "' does not support carFollowModel parameters\n");
+    } else if (StringUtils::startsWith(key, "junctionModel.")) {
+        try {
+            // use the whole key (including junctionModel prefix)
+            p->setJunctionModelParameter(key, value);
+        } catch (InvalidArgument& e) {
+            // error message includes id since it is also used for xml input
+            throw TraCIException(e.what());
+        }
+    } else if (StringUtils::startsWith(key, "has.") && StringUtils::endsWith(key, ".device")) {
+        throw TraCIException("Person '" + personID + "' does not support chanigng device status\n");
+    } else {
+        ((SUMOVehicleParameter&)p->getParameter()).setParameter(key, value);
+    }
 }
+
 
 void
 Person::setLength(const std::string& personID, double length) {
@@ -1101,6 +1121,16 @@ Person::setActionStepLength(const std::string& personID, double actionStepLength
     getPerson(personID)->getSingularType().setActionStepLength(SUMOVehicleParserHelper::processActionStepLength(actionStepLength), resetActionOffset);
 }
 
+void
+Person::remove(const std::string& personID, char /*reason*/) {
+    MSPerson* person = getPerson(personID);
+    // remove all stages after the current and then abort the current stage
+    // (without adding a zero-length waiting stage)
+    while (person->getNumRemainingStages() > 1) {
+        person->removeStage(1);
+    }
+    person->removeStage(0, false);
+}
 
 void
 Person::setColor(const std::string& personID, const TraCIColor& c) {

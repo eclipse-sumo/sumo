@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -29,6 +29,7 @@
 // ===========================================================================
 
 class GNELaneType;
+class GNEEdgeTemplate;
 class GNECreateEdgeFrame;
 
 // ===========================================================================
@@ -46,6 +47,9 @@ public:
      */
     GNEEdgeType(GNECreateEdgeFrame* createEdgeFrame);
 
+    /// @brief copy constructor (this doesn't create new lanes)
+    GNEEdgeType(const GNEEdgeType* edgeType);
+
     /**@brief Constructor
      * @param[in] net The net to inform about gui updates
      */
@@ -62,6 +66,9 @@ public:
     /// @brief Destructor.
     ~GNEEdgeType();
 
+    /// @brief copy edge template
+    void copyTemplate(const GNEEdgeTemplate* edgeTemplate);
+
     /// @brief get laneTypes
     const std::vector<GNELaneType*>& getLaneTypes() const;
 
@@ -69,16 +76,10 @@ public:
     int getLaneTypeIndex(const GNELaneType* laneType) const;
 
     /// @brief add laneType
-    void addLaneType(GNELaneType* laneType, const int position);
-
-    /// @brief add laneType (in back and undoList)
-    void addLaneType(GNEUndoList* undoList);
+    void addLaneType(GNELaneType* laneType);
 
     /// @brief remove laneType
-    void removeLaneType(GNELaneType* laneType);
-
-    /// @brief remove laneType (using index and undoList)
-    void removeLaneType(const int index, GNEUndoList* undoList);
+    void removeLaneType(const int index);
 
     /// @name Functions related with geometry of element
     /// @{
@@ -92,7 +93,7 @@ public:
     /// @name Functions related with move elements
     /// @{
     /// @brief get move operation for the given shapeOffset (can be nullptr)
-    GNEMoveOperation* getMoveOperation(const double shapeOffset);
+    GNEMoveOperation* getMoveOperation();
 
     /// @brief remove geometry point in the clicked position
     void removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList);
@@ -109,6 +110,9 @@ public:
      */
     GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent);
 
+    /// @brief return exaggeration associated with this GLObject
+    double getExaggeration(const GUIVisualizationSettings& s) const;
+
     /// @brief update centering boundary (implies change in RTREE)
     void updateCenteringBoundary(const bool updateGrid);
 
@@ -117,6 +121,9 @@ public:
      * @see GUIGlObject::drawGL
      */
     void drawGL(const GUIVisualizationSettings& s) const;
+
+    /// @brief update GLObject (geometry, ID, etc.)
+    void updateGLObject();
     /// @}
 
     /// @name inherited from GNEAttributeCarrier
@@ -136,19 +143,15 @@ public:
 
     /* @brief method for checking if the key and their conrrespond attribute are valids
      * @param[in] key The attribute key
-     * @param[in] value The value asociated to key key
+     * @param[in] value The value associated to key key
      * @return true if the value is valid, false in other case
      */
     bool isValid(SumoXMLAttr key, const std::string& value);
 
-    /* @brief method for check if the value for certain attribute is set
-     * @param[in] key The attribute key
-     */
-    bool isAttributeEnabled(SumoXMLAttr key) const;
     /// @}
 
     /// @brief get parameters map
-    const std::map<std::string, std::string>& getACParametersMap() const;
+    const Parameterised::Map& getACParametersMap() const;
 
 protected:
     /// @brief vector with laneTypes

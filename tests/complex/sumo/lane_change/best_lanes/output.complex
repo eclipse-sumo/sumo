@@ -1,6 +1,5 @@
 -- Test: acosta_busStopNeedsChange#1
 Success.
-Loading configuration ... done.
  Retrying in 1 seconds
 lane -1000+0.-500+0_0:
   length: 1953.6
@@ -12,7 +11,6 @@ lane 0 ok
 
 -- Test: acosta_busStopNeedsChange#2
 Success.
-Loading configuration ... done.
  Retrying in 1 seconds
 lane -500+0.+0+0_0:
   length: 479.2
@@ -36,7 +34,6 @@ lane 2 ok
 
 -- Test: acosta_busStopNeedsChange#3
 Success.
-Loading configuration ... done.
  Retrying in 1 seconds
 lane -500+0.+0+0_0:
   length: 479.2
@@ -60,7 +57,6 @@ lane 2 ok
 
 -- Test: acosta_busStopNeedsChange#4
 Success.
-Loading configuration ... done.
  Retrying in 1 seconds
 lane -500+0.+0+0_0:
   length: 479.2
@@ -84,7 +80,6 @@ lane 2 ok
 
 -- Test: highway_onOffCombo#1
 Success.
-Loading configuration ... done.
  Retrying in 1 seconds
 lane 1_0:
   length: 496.0

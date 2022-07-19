@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -135,6 +135,12 @@ GNEFrame::getViewNet() const {
 }
 
 
+FXVerticalFrame*
+GNEFrame::getContentFrame() const {
+    return myContentFrame;
+}
+
+
 FXLabel*
 GNEFrame::getFrameHeaderLabel() const {
     return myFrameHeaderLabel;
@@ -148,67 +154,16 @@ GNEFrame::getFrameHeaderFont() const {
 
 
 void
-GNEFrame::updateFrameAfterUndoRedo() {
-    // this function has to be reimplemente in all child frames that needs to draw a polygon (for example, GNEFrame or GNETAZFrame)
-}
-
-// ---------------------------------------------------------------------------
-// GNEFrame - protected methods
-// ---------------------------------------------------------------------------
-
-void
-GNEFrame::tagSelected() {
-    // this function has to be reimplemente in all child frames that uses a TagSelector modul
-}
-
-
-void
-GNEFrame::demandElementSelected() {
-    // this function has to be reimplemente in all child frames that uses a DemandElementSelector
-}
-
-
-bool
-GNEFrame::shapeDrawed() {
-    // this function has to be reimplemente in all child frames that needs to draw a polygon (for example, GNEFrame or GNETAZFrame)
-    return false;
-}
-
-
-void
-GNEFrame::attributeUpdated() {
-    // this function has to be reimplemente in all child frames that uses a TagSelector modul
-}
-
-
-void
-GNEFrame::attributesEditorExtendedDialogOpened()  {
-    // this function has to be reimplemente in all child frames that uses a AttributesCreator editor with extended attributes
-}
-
-
-void
-GNEFrame::selectedOverlappedElement(GNEAttributeCarrier* /* AC */) {
-    // this function has to be reimplemente in all child frames that uses a OverlappedInspection
-}
-
-
-void
-GNEFrame::createPath() {
-    // this function has to be reimplemente in all child frames that uses a path
-}
-
-void
-GNEFrame::openHelpAttributesDialog(const GNETagProperties& tagProperties) const {
-    FXDialogBox* attributesHelpDialog = new FXDialogBox(myScrollWindowsContents, ("Parameters of " + tagProperties.getTagStr()).c_str(), GUIDesignDialogBoxResizable, 0, 0, 0, 0, 10, 10, 10, 38, 4, 4);
+GNEFrame::openHelpAttributesDialog(const GNEAttributeCarrier* AC) const {
+    FXDialogBox* attributesHelpDialog = new FXDialogBox(myScrollWindowsContents, ("Parameters of " + AC->getTagStr()).c_str(), GUIDesignDialogBoxResizable, 0, 0, 0, 0, 10, 10, 10, 38, 4, 4);
     // Create FXTable
     FXTable* myTable = new FXTable(attributesHelpDialog, attributesHelpDialog, MID_TABLE, GUIDesignTableNotEditable);
     attributesHelpDialog->setIcon(GUIIconSubSys::getIcon(GUIIcon::MODEINSPECT));
     int sizeColumnDescription = 0;
     int sizeColumnDefinitions = 0;
-    myTable->setVisibleRows((FXint)(tagProperties.getNumberOfAttributes()));
+    myTable->setVisibleRows((FXint)(AC->getTagProperty().getNumberOfAttributes()));
     myTable->setVisibleColumns(3);
-    myTable->setTableSize((FXint)(tagProperties.getNumberOfAttributes()), 3);
+    myTable->setTableSize((FXint)(AC->getTagProperty().getNumberOfAttributes()), 3);
     myTable->setBackColor(FXRGB(255, 255, 255));
     myTable->setColumnText(0, "Attribute");
     myTable->setColumnText(1, "Description");
@@ -216,22 +171,22 @@ GNEFrame::openHelpAttributesDialog(const GNETagProperties& tagProperties) const 
     myTable->getRowHeader()->setWidth(0);
     // Iterate over vector of additional parameters
     int itemIndex = 0;
-    for (const auto& i : tagProperties) {
+    for (const auto& tagProperty : AC->getTagProperty()) {
         // Set attribute
-        FXTableItem* attribute = new FXTableItem(i.getAttrStr().c_str());
+        FXTableItem* attribute = new FXTableItem(tagProperty.getAttrStr().c_str());
         attribute->setJustify(FXTableItem::CENTER_X);
         myTable->setItem(itemIndex, 0, attribute);
         // Set description of element
         FXTableItem* type = new FXTableItem("");
-        type->setText(i.getDescription().c_str());
-        sizeColumnDescription = MAX2(sizeColumnDescription, (int)i.getDescription().size());
+        type->setText(tagProperty.getDescription().c_str());
+        sizeColumnDescription = MAX2(sizeColumnDescription, (int)tagProperty.getDescription().size());
         type->setJustify(FXTableItem::CENTER_X);
         myTable->setItem(itemIndex, 1, type);
         // Set definition
-        FXTableItem* definition = new FXTableItem(i.getDefinition().c_str());
+        FXTableItem* definition = new FXTableItem(tagProperty.getDefinition().c_str());
         definition->setJustify(FXTableItem::LEFT);
         myTable->setItem(itemIndex, 2, definition);
-        sizeColumnDefinitions = MAX2(sizeColumnDefinitions, (int)i.getDefinition().size());
+        sizeColumnDefinitions = MAX2(sizeColumnDefinitions, (int)tagProperty.getDefinition().size());
         itemIndex++;
     }
     // set header
@@ -251,7 +206,7 @@ GNEFrame::openHelpAttributesDialog(const GNETagProperties& tagProperties) const 
     new FXButton(myHorizontalFrameOKButton, "OK\t\tclose", GUIIconSubSys::getIcon(GUIIcon::ACCEPT), attributesHelpDialog, FXDialogBox::ID_ACCEPT, GUIDesignButtonOK);
     new FXHorizontalFrame(myHorizontalFrameOKButton, GUIDesignAuxiliarHorizontalFrame);
     // Write Warning in console if we're in testing mode
-    WRITE_DEBUG("Opening HelpAttributes dialog for tag '" + tagProperties.getTagStr() + "' showing " + toString(tagProperties.getNumberOfAttributes()) + " attributes");
+    WRITE_DEBUG("Opening HelpAttributes dialog for tag '" + AC->getTagProperty().getTagStr() + "' showing " + toString(AC->getTagProperty().getNumberOfAttributes()) + " attributes");
     // create Dialog
     attributesHelpDialog->create();
     // show in the given position
@@ -261,13 +216,80 @@ GNEFrame::openHelpAttributesDialog(const GNETagProperties& tagProperties) const 
     // open as modal dialog (will block all windows until stop() or stopModal() is called)
     getApp()->runModalFor(attributesHelpDialog);
     // Write Warning in console if we're in testing mode
-    WRITE_DEBUG("Closing HelpAttributes dialog for tag '" + tagProperties.getTagStr() + "'");
+    WRITE_DEBUG("Closing HelpAttributes dialog for tag '" + AC->getTagProperty().getTagStr() + "'");
+}
+
+
+void
+GNEFrame::updateFrameAfterUndoRedo() {
+    // this function has to be reimplemente in all child frames that needs to draw a polygon (for example, GNEFrame or GNETAZFrame)
+}
+
+// ---------------------------------------------------------------------------
+// GNEFrame - protected methods
+// ---------------------------------------------------------------------------
+
+void
+GNEFrame::tagSelected() {
+    // this function has to be reimplemente in all child frames that uses a GNETagSelector modul
+}
+
+
+void
+GNEFrame::demandElementSelected() {
+    // this function has to be reimplemente in all child frames that uses a DemandElementSelector
+}
+
+
+bool
+GNEFrame::shapeDrawed() {
+    // this function has to be reimplemente in all child frames that needs to draw a polygon (for example, GNEFrame or GNETAZFrame)
+    return false;
+}
+
+
+void
+GNEFrame::attributeUpdated() {
+    // this function has to be reimplemente in all child frames that uses a GNETagSelector modul
+}
+
+
+void
+GNEFrame::attributesEditorExtendedDialogOpened()  {
+    // this function has to be reimplemente in all child frames that uses a GNEAttributesCreator editor with extended attributes
+}
+
+
+void
+GNEFrame::selectedOverlappedElement(GNEAttributeCarrier* /* AC */) {
+    // this function has to be reimplemente in all child frames that uses a GNEOverlappedInspection
+}
+
+
+void
+GNEFrame::createPath(const bool /*useLastRoute*/) {
+    // this function has to be reimplemente in all child frames that uses a path or consecutiveLanePath
 }
 
 
 const std::vector<std::string>&
 GNEFrame::getPredefinedTagsMML() const {
     return myPredefinedTagsMML;
+}
+
+
+FXLabel*
+GNEFrame::buildRainbow(FXComposite* parent) {
+    // create label for color information
+    FXLabel* label = new FXLabel(parent, "Scale: Min -> Max", nullptr, GUIDesignLabelCenterThick);
+    // create frame for color scale
+    FXHorizontalFrame* horizontalFrameColors = new FXHorizontalFrame(parent, GUIDesignAuxiliarHorizontalFrame);
+    for (const auto& color : GNEViewNetHelper::getRainbowScaledColors()) {
+        FXLabel* colorLabel = new FXLabel(horizontalFrameColors, "", nullptr, GUIDesignLabelLeft);
+        colorLabel->setBackColor(MFXUtils::getFXColor(color));
+    }
+    // return label
+    return label;
 }
 
 /****************************************************************************/

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2011-2021 German Aerospace Center (DLR) and others.
+# Copyright (C) 2011-2022 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -59,7 +59,7 @@ class LaneAreaDomain(Domain):
         return self._getUniversal(tc.LAST_STEP_VEHICLE_ID_LIST, detID)
 
     def getLastStepOccupancy(self, detID):
-        """getLastStepMeanSpeed(string) -> double
+        """getLastStepOccupancy(string) -> double
 
         Returns the percentage of space the detector was occupied by a vehicle [%]
         """
@@ -99,3 +99,10 @@ class LaneAreaDomain(Domain):
         Returns the number of vehicles which were halting during the last time step.
         """
         return self._getUniversal(tc.LAST_STEP_VEHICLE_HALTING_NUMBER, detID)
+
+    def overrideVehicleNumber(self, detID, vehNum):
+        """overrideVehicleNumber(string, integer) -> None
+        Persistently overrides the number of vehicles on the detector.
+        Setting a negative value resets the override.
+        """
+        return self._setCmd(tc.VAR_VIRTUAL_DETECTION, detID, "i", vehNum)

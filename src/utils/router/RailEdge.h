@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -28,6 +28,8 @@
 //#define RailEdge_DEBUG_COND(obj) ((obj != 0 && (obj)->getID() == RailEdge_DEBUGID))
 #define RailEdge_DEBUG_COND(obj) (true)
 
+#define REVERSAL_SLACK (POSITION_EPS + NUMERICAL_EPS)
+
 // ===========================================================================
 // class definitions
 // ===========================================================================
@@ -51,7 +53,7 @@ public:
         myOriginal(nullptr),
         myTurnaround(nullptr),
         myIsVirtual(true),
-        myMaxLength(turnStart->getLength()),
+        myMaxLength(turnStart->getLength() - REVERSAL_SLACK),
         myStartLength(turnStart->getLength()) {
         myViaSuccessors.push_back(std::make_pair(turnEnd->getRailwayRoutingEdge(), nullptr));
     }
@@ -108,7 +110,7 @@ public:
 
                 if (notFound) {
                     // prevent loops in replacementEdges
-                    prevRailEdge->myTurnaround->update(prev->getLength() + maxTrainLength, replacementEdges);
+                    prevRailEdge->myTurnaround->update(prev->getLength() + maxTrainLength - REVERSAL_SLACK, replacementEdges);
                     std::vector<const E*> replacementEdges2;
                     replacementEdges2.push_back(prev);
                     replacementEdges2.insert(replacementEdges2.end(), replacementEdges.begin(), replacementEdges.end());

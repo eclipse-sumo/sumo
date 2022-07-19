@@ -529,6 +529,7 @@ border-radius: 3px;
 border: 1px solid #ddd !important;
 padding: 12px 8px;
 color: var(--hljs-color);
+min-height: 37px;
 }
 
 .hljs-tag,
@@ -636,11 +637,21 @@ td {
 border: 1px solid #dee2e6;
 }
 
+td:nth-child(1) {  
+word-break: keep-all !important;
+white-space: nowrap;
+}
+
+.cellNoWrap {
+white-space:nowrap !important;
+}
+
 thead th {
 vertical-align: center;
 text-align: center;
 background: #dfd; /* for incompatible Browsers  */
 background: var(--thead-color);
+word-break: keep-all !important;
 }
 
 .table th, .table td {
@@ -718,3 +729,27 @@ color: #338033;
 position: relative;
 list-style-type: none;
 }
+
+/* COPY CODE BLOCKS - based on https://www.roboleary.net/2022/01/13/copy-code-to-clipboard-blog.html */
+pre[class="codehilite"] {
+position:relative;
+}
+
+copyCodeButton {
+position:absolute;
+top:5px;
+right:5px;
+
+padding:.15rem;
+background-color:#bcbabb30;
+color: #1e1e1e;
+border:ridge 1px #7b7b7c;
+border-radius:5px;
+text-shadow:#c4c4c4 0 0 2px;
+}
+
+copyCodeButton:hover {
+cursor:pointer;
+background-color:#bcbabb;
+}
+/* ---- */

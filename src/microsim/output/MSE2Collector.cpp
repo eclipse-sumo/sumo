@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -39,13 +39,16 @@
 #include <cassert>
 #include <algorithm>
 #ifdef HAVE_FOX
-#include <utils/foxtools/FXConditionalLock.h>
+#include <utils/common/ScopedLocker.h>
 #endif
 #include <microsim/MSLane.h>
+#include <microsim/MSEdge.h>
 #include <microsim/MSLink.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSVehicle.h>
 #include <microsim/MSVehicleType.h>
+#include <microsim/transportables/MSTransportable.h>
+#include <microsim/transportables/MSPModel.h>
 #include "MSE2Collector.h"
 
 //#define DEBUG_E2_CONSTRUCTOR
@@ -64,9 +67,11 @@
 MSE2Collector::MSE2Collector(const std::string& id,
                              DetectorUsage usage, MSLane* lane, double startPos, double endPos, double length,
                              SUMOTime haltingTimeThreshold, double haltingSpeedThreshold, double jamDistThreshold,
-                             const std::string& vTypes) :
+                             const std::string& vTypes,
+                             const std::string& nextEdges,
+                             int detectPersons) :
     MSMoveReminder(id, lane, false),
-    MSDetectorFileOutput(id, vTypes),
+    MSDetectorFileOutput(id, vTypes, nextEdges, detectPersons),
     myUsage(usage),
     myJamHaltingSpeedThreshold(haltingSpeedThreshold),
     myJamHaltingTimeThreshold(haltingTimeThreshold),
@@ -79,9 +84,11 @@ MSE2Collector::MSE2Collector(const std::string& id,
     myCurrentMeanSpeed(0),
     myCurrentMeanLength(0),
     myCurrentJamNo(0),
+    myCurrentMaxJamLengthInMeters(0),
     myCurrentJamLengthInMeters(0),
     myCurrentJamLengthInVehicles(0),
-    myCurrentHaltingsNumber(0) {
+    myCurrentHaltingsNumber(0),
+    myOverrideVehNumber(-1) {
     reset();
 
 #ifdef DEBUG_E2_CONSTRUCTOR
@@ -158,9 +165,11 @@ MSE2Collector::MSE2Collector(const std::string& id,
 MSE2Collector::MSE2Collector(const std::string& id,
                              DetectorUsage usage, std::vector<MSLane*> lanes, double startPos, double endPos,
                              SUMOTime haltingTimeThreshold, double haltingSpeedThreshold, double jamDistThreshold,
-                             const std::string& vTypes) :
+                             const std::string& vTypes,
+                             const std::string& nextEdges,
+                             int detectPersons) :
     MSMoveReminder(id, lanes[lanes.size() - 1], false), // assure that lanes.size() > 0 at caller side!!!
-    MSDetectorFileOutput(id, vTypes),
+    MSDetectorFileOutput(id, vTypes, nextEdges, detectPersons),
     myUsage(usage),
     myFirstLane(lanes[0]),
     myLastLane(lanes[lanes.size() - 1]),
@@ -179,7 +188,8 @@ MSE2Collector::MSE2Collector(const std::string& id,
     myCurrentJamNo(0),
     myCurrentJamLengthInMeters(0),
     myCurrentJamLengthInVehicles(0),
-    myCurrentHaltingsNumber(0) {
+    myCurrentHaltingsNumber(0),
+    myOverrideVehNumber(-1) {
     reset();
 
     for (std::vector<MSLane*>::const_iterator i = lanes.begin(); i != lanes.end(); ++i) {
@@ -315,7 +325,7 @@ MSE2Collector::recalculateDetectorLength() {
 
 MSE2Collector::~MSE2Collector() {
     // clear move notifications
-    clearState();
+    clearState(SUMOTime_MAX);
 }
 
 
@@ -606,17 +616,30 @@ MSE2Collector::getLanes() {
 
 
 bool
-MSE2Collector::notifyMove(SUMOTrafficObject& tObject, double oldPos,
+MSE2Collector::notifyMove(SUMOTrafficObject& veh, double oldPos,
                           double newPos, double newSpeed) {
-    if (!tObject.isVehicle()) {
-        return false;
+
+    if (myDetectPersons > (int)PersonMode::WALK && !veh.isPerson()) {
+        bool keep = false;
+        MSBaseVehicle& v = dynamic_cast<MSBaseVehicle&>(veh);
+        for (MSTransportable* p : v.getPersons()) {
+            keep = notifyMove(*p, oldPos, newPos, newSpeed);
+        }
+        return keep;
     }
-    SUMOVehicle& veh = static_cast<SUMOVehicle&>(tObject);
 #ifdef HAVE_FOX
-    FXConditionalLock lock(myNotificationMutex, MSGlobals::gNumSimThreads > 1);
+    ScopedLocker<> lock(myNotificationMutex, MSGlobals::gNumSimThreads > 1);
 #endif
     VehicleInfoMap::iterator vi = myVehicleInfos.find(veh.getID());
-    assert(vi != myVehicleInfos.end()); // all vehicles calling notifyMove() should have called notifyEnter() before
+    if (vi == myVehicleInfos.end()) {
+        const std::string objectType = veh.isPerson() ? "Person" : "Vehicle";
+        if (myNextEdges.size() > 0) {
+            WRITE_WARNING(objectType + " '" + veh.getID() + "' appeared inside detector '" + getID() + "' after previously being filtered out. time=" + time2string(SIMSTEP) + ".");
+        } else {
+            WRITE_WARNING(objectType + " '" + veh.getID() + "' suddenly appeared inside detector '" + getID() + "'. time=" + time2string(SIMSTEP) + ".");
+        }
+        return false;
+    }
 
     const std::string& vehID = veh.getID();
     VehicleInfo& vehInfo = *(vi->second);
@@ -630,7 +653,7 @@ MSE2Collector::notifyMove(SUMOTrafficObject& tObject, double oldPos,
 #ifdef DEBUG_E2_NOTIFY_MOVE
     if (DEBUG_COND) {
         std::cout << "\n" << SIMTIME
-                  << " MSE2Collector::notifyMove() (detID = " << myID << "on lane '" << myLane->getID() << "')"
+                  << " MSE2Collector::notifyMove() (detID = " << myID << " on lane '" << myLane->getID() << "')"
                   << " called by vehicle '" << vehID << "'"
                   << " at relative position " << relPos
                   << ", distToDetectorEnd = " << vehInfo.distToDetectorEnd << std::endl;
@@ -686,22 +709,18 @@ MSE2Collector::notifyMove(SUMOTrafficObject& tObject, double oldPos,
 }
 
 bool
-MSE2Collector::notifyLeave(SUMOTrafficObject& tObject, double /* lastPos */, MSMoveReminder::Notification reason, const MSLane* enteredLane) {
-    if (!tObject.isVehicle()) {
-        return false;
-    }
-    SUMOVehicle& veh = static_cast<SUMOVehicle&>(tObject);
+MSE2Collector::notifyLeave(SUMOTrafficObject& veh, double /*lastPos*/, MSMoveReminder::Notification reason, const MSLane* enteredLane) {
 #ifdef DEBUG_E2_NOTIFY_ENTER_AND_LEAVE
     if (DEBUG_COND) {
-        std::cout << "\n" << SIMTIME << " notifyLeave() (detID = " << myID << "on lane '" << myLane->getID() << "')"
+        std::cout << "\n" << SIMTIME << " notifyLeave() (detID = " << myID << " on lane '" << myLane->getID() << "')"
                   << "called by vehicle '" << veh.getID() << "'" << std::endl;
     }
 #endif
 
 #ifdef HAVE_FOX
-    FXConditionalLock lock(myNotificationMutex, MSGlobals::gNumSimThreads > 1);
+    ScopedLocker<> lock(myNotificationMutex, MSGlobals::gNumSimThreads > 1);
 #endif
-    if (reason == MSMoveReminder::NOTIFICATION_JUNCTION) {
+    if (reason == MSMoveReminder::NOTIFICATION_JUNCTION && !veh.isPerson()) {
         // vehicle left lane via junction, unsubscription and registering in myLeftVehicles when
         // moving beyond the detector end is controlled in notifyMove.
 #ifdef DEBUG_E2_NOTIFY_ENTER_AND_LEAVE
@@ -710,7 +729,7 @@ MSE2Collector::notifyLeave(SUMOTrafficObject& tObject, double /* lastPos */, MSM
         }
 #endif
 
-        if (std::find(myLanes.begin(), myLanes.end(), enteredLane->getID()) == myLanes.end()) {
+        if (enteredLane == nullptr || std::find(myLanes.begin(), myLanes.end(), enteredLane->getID()) == myLanes.end()) {
             // Entered lane is not part of the detector
             VehicleInfoMap::iterator vi = myVehicleInfos.find(veh.getID());
             // Determine exit offset, where vehicle left the detector
@@ -726,28 +745,28 @@ MSE2Collector::notifyLeave(SUMOTrafficObject& tObject, double /* lastPos */, MSM
         return true;
     } else {
         VehicleInfoMap::iterator vi = myVehicleInfos.find(veh.getID());
-        // erase vehicle, which leaves in a non-longitudinal way, immediately
-        if (vi->second->hasEntered) {
-            myNumberOfLeftVehicles++;
-        }
-        delete vi->second;
-        myVehicleInfos.erase(vi);
+        if (vi != myVehicleInfos.end()) {
+            // erase vehicle, which leaves in a non-longitudinal way, immediately
+            if (vi->second->hasEntered) {
+                myNumberOfLeftVehicles++;
+            }
+            delete vi->second;
+            myVehicleInfos.erase(vi);
 #ifdef DEBUG_E2_NOTIFY_ENTER_AND_LEAVE
-        if (DEBUG_COND) {
-            std::cout << SIMTIME << " Left non-longitudinally (lanechange, teleport, parking, etc) -> discard subscription" << std::endl;
-        }
+            if (DEBUG_COND) {
+                std::cout << SIMTIME << " Left non-longitudinally (lanechange, teleport, parking, etc) -> discard subscription" << std::endl;
+            }
 #endif
+        } else {
+            assert(veh.isPerson());
+        }
         return false;
     }
 }
 
 
 bool
-MSE2Collector::notifyEnter(SUMOTrafficObject& tObject, MSMoveReminder::Notification reason, const MSLane* enteredLane) {
-    if (!tObject.isVehicle()) {
-        return false;
-    }
-    SUMOVehicle& veh = static_cast<SUMOVehicle&>(tObject);
+MSE2Collector::notifyEnter(SUMOTrafficObject& veh, MSMoveReminder::Notification reason, const MSLane* enteredLane) {
 #ifdef DEBUG_E2_NOTIFY_ENTER_AND_LEAVE
     if (DEBUG_COND) {
         std::cout << std::endl << SIMTIME << " notifyEnter() (detID = " << myID << " on lane '" << myLane->getID() << "')"
@@ -759,9 +778,18 @@ MSE2Collector::notifyEnter(SUMOTrafficObject& tObject, MSMoveReminder::Notificat
     assert(std::find(myLanes.begin(), myLanes.end(), enteredLane->getID()) != myLanes.end());
     assert(veh.getLane() == enteredLane);
 
-    if (!vehicleApplies(veh)) {
+    // vehicles must be kept if the "inductionloop" wants to detect passeengers
+    if (!vehicleApplies(veh) && (veh.isPerson() || myDetectPersons <= (int)PersonMode::WALK)) {
         // That's not my type...
         return false;
+    }
+    if (myDetectPersons > (int)PersonMode::WALK && !veh.isPerson()) {
+        bool keep = false;
+        MSBaseVehicle& v = dynamic_cast<MSBaseVehicle&>(veh);
+        for (MSTransportable* p : v.getPersons()) {
+            keep = notifyEnter(*p, reason, enteredLane);
+        }
+        return keep;
     }
 
     // determine whether the vehicle entered the lane behind the detector end
@@ -784,7 +812,7 @@ MSE2Collector::notifyEnter(SUMOTrafficObject& tObject, MSMoveReminder::Notificat
 
 #ifdef DEBUG_E2_NOTIFY_ENTER_AND_LEAVE
     if (DEBUG_COND) {
-        if (!veh.isOnRoad()) {
+        if (veh.isVehicle() && !dynamic_cast<SUMOVehicle&>(veh).isOnRoad()) {
             // Vehicle is teleporting over the edge
             std::cout << "Vehicle is off road (teleporting over edge)..." << std::endl;
         }
@@ -792,7 +820,7 @@ MSE2Collector::notifyEnter(SUMOTrafficObject& tObject, MSMoveReminder::Notificat
 #endif
 
 #ifdef HAVE_FOX
-    FXConditionalLock lock(myNotificationMutex, MSGlobals::gNumSimThreads > 1);
+    ScopedLocker<> lock(myNotificationMutex, MSGlobals::gNumSimThreads > 1);
 #endif
     const std::string& vehID = veh.getID();
     VehicleInfoMap::iterator vi = myVehicleInfos.find(vehID);
@@ -833,7 +861,7 @@ MSE2Collector::notifyEnter(SUMOTrafficObject& tObject, MSMoveReminder::Notificat
 
 
 MSE2Collector::VehicleInfo*
-MSE2Collector::makeVehicleInfo(const SUMOVehicle& veh, const MSLane* enteredLane) const {
+MSE2Collector::makeVehicleInfo(const SUMOTrafficObject& veh, const MSLane* enteredLane) const {
     // The vehicle's distance to the detector end
     int j = (int)(std::find(myLanes.begin(), myLanes.end(), enteredLane->getID()) - myLanes.begin());
     assert(j >= 0 && j < (int)myLanes.size());
@@ -854,8 +882,42 @@ MSE2Collector::makeVehicleInfo(const SUMOVehicle& veh, const MSLane* enteredLane
                            myOffsets[j] - myDetectorLength, distToDetectorEnd, onDetector);
 }
 
+
+void
+MSE2Collector::notifyMovePerson(MSTransportable* p, int dir, double pos) {
+    if (personApplies(*p, dir)) {
+        const double newSpeed = p->getSpeed();
+        const double newPos = (dir == MSPModel::FORWARD
+                               ? pos
+                               // position relative to detector end position
+                               : myEndPos - (pos - myEndPos));
+        const double oldPos = newPos - SPEED2DIST(newSpeed);
+        if (oldPos - p->getVehicleType().getLength() <= myEndPos) {
+            notifyMove(*p, oldPos, newPos, newSpeed);
+        }
+    }
+}
+
+
 void
 MSE2Collector::detectorUpdate(const SUMOTime /* step */) {
+
+    if (myDetectPersons != (int)PersonMode::NONE) {
+        if (myLanes.size() > 1) {
+            /// code is more complicated because we have to make persons with
+            //dir=BACKWARD send a virtual forward-lane-sequence
+            throw ProcessError("Multi-lane e2Detector does not support detecting persons yet");
+        }
+        for (MSLane* lane : getLanes()) {
+            if (lane->hasPedestrians()) {
+                for (MSTransportable* p : myLane->getEdge().getPersons()) {
+                    if (p->getLane() == lane && vehicleApplies(*p)) {
+                        notifyMovePerson(p, p->getDirection(), p->getPositionOnLane());
+                    }
+                }
+            }
+        }
+    }
 
 #ifdef DEBUG_E2_DETECTOR_UPDATE
     if (DEBUG_COND) {
@@ -1020,7 +1082,7 @@ MSE2Collector::integrateMoveNotification(VehicleInfo* vi, const MoveNotification
 
 
 MSE2Collector::MoveNotificationInfo*
-MSE2Collector::makeMoveNotification(const SUMOVehicle& veh, double oldPos, double newPos, double newSpeed, const VehicleInfo& vehInfo) const {
+MSE2Collector::makeMoveNotification(const SUMOTrafficObject& veh, double oldPos, double newPos, double newSpeed, const VehicleInfo& vehInfo) const {
 #ifdef DEBUG_E2_NOTIFY_MOVE
     if (DEBUG_COND) {
         std::cout << SIMTIME << " makeMoveNotification() for vehicle '" << veh.getID() << "'"
@@ -1229,7 +1291,7 @@ MSE2Collector::processJams(std::vector<JamInfo*>& jams, JamInfo* currentJam) {
 }
 
 void
-MSE2Collector::calculateTimeLossAndTimeOnDetector(const SUMOVehicle& veh, double oldPos, double newPos, const VehicleInfo& vi, double& timeOnDetector, double& timeLoss) const {
+MSE2Collector::calculateTimeLossAndTimeOnDetector(const SUMOTrafficObject& veh, double oldPos, double newPos, const VehicleInfo& vi, double& timeOnDetector, double& timeLoss) const {
     assert(veh.getID() == vi.id);
     assert(newPos + vi.entryOffset >= 0);
 
@@ -1295,6 +1357,10 @@ MSE2Collector::writeXMLDetectorProlog(OutputDevice& dev) const {
 
 void
 MSE2Collector::writeXMLOutput(OutputDevice& dev, SUMOTime startTime, SUMOTime stopTime) {
+    if (dev.isNull()) {
+        reset();
+        return;
+    }
     dev << "   <interval begin=\"" << time2string(startTime) << "\" end=\"" << time2string(stopTime) << "\" " << "id=\"" << getID() << "\" ";
 
     const double meanSpeed = myVehicleSamples != 0 ? mySpeedSum / myVehicleSamples : -1;
@@ -1373,7 +1439,6 @@ MSE2Collector::writeXMLOutput(OutputDevice& dev, SUMOTime startTime, SUMOTime st
         << "maxVehicleNumber=\"" << myMaxVehicleNumber << "\" "
         << "/>\n";
     reset();
-
 }
 
 void
@@ -1408,12 +1473,21 @@ MSE2Collector::reset() {
 int
 MSE2Collector::getCurrentVehicleNumber() const {
     int result = 0;
-    for (VehicleInfoMap::const_iterator it = myVehicleInfos.begin(); it != myVehicleInfos.end(); it++) {
-        if (it->second->onDetector) {
-            result++;
+    if (myOverrideVehNumber >= 0) {
+        result = myOverrideVehNumber;
+    } else {
+        for (VehicleInfoMap::const_iterator it = myVehicleInfos.begin(); it != myVehicleInfos.end(); it++) {
+            if (it->second->onDetector) {
+                result++;
+            }
         }
     }
     return result;
+}
+
+void
+MSE2Collector::overrideVehicleNumber(int num) {
+    myOverrideVehNumber = num;
 }
 
 
@@ -1510,7 +1584,7 @@ MSE2Collector::getEstimateQueueLength() const {
 
 
 void
-MSE2Collector::clearState() {
+MSE2Collector::clearState(SUMOTime /* step */) {
     for (std::vector<MoveNotificationInfo*>::iterator j = myMoveNotifications.begin(); j != myMoveNotifications.end(); ++j) {
         delete *j;
     }

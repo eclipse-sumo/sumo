@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2020-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2020-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -13,14 +13,14 @@
 /****************************************************************************/
 /// @file    libsumocpp2c.h
 /// @author  Robert Hilbrich
+/// @author  Matthias Schwamborn
 /// @date    Mon, 15 Aug 2020
 ///
 // Declaration of the libsumo c++ to c wrapper functions
 /****************************************************************************/
 
-#ifndef LIBSUMOCPP2C_H
-#define LIBSUMOCPP2C_H
-
+#pragma once
+#include "sumo2fmi_bridge.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -28,12 +28,14 @@ extern "C" {
 
 void libsumo_load(char*);
 void libsumo_close();
-int libsumo_vehicle_getIDCount();
 void libsumo_step(double);
+int  libsumo_vehicle_getIDCount();
+void libsumo_vehicle_moveToXY(const char*);
+void libsumo_vehicle_getParameterWithKey(ModelInstance*, const char**);
+void libsumo_vehicle_getLaneID(ModelInstance*, const char**);
+void libsumo_vehicle_getPosition(ModelInstance*, const char**);
 
 #ifdef __cplusplus
 }
 #endif
-
-#endif /* LIBSUMOCPP2C_H */
 

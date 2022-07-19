@@ -1,2 +1,4 @@
 Warning: No connection between edge 'beg2' and edge 'end2' found.
 Warning: No route for vehicle 'tripCloseEnroute' found.
+Warning: Teleporting vehicle 'tripCloseEnroute'; waited too long, from edge 'middle':4, time=336.99.
+Warning: Vehicle 'tripCloseEnroute' ends teleporting on edge 'end':0, time=354.99.

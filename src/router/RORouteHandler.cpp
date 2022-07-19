@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -59,7 +59,7 @@ RORouteHandler::RORouteHandler(RONet& net, const std::string& file,
     myNet(net),
     myActiveRouteRepeat(0),
     myActiveRoutePeriod(0),
-    myActivePerson(nullptr),
+    myActivePlan(nullptr),
     myActiveContainerPlan(nullptr),
     myActiveContainerPlanSize(0),
     myTryRepair(tryRepair),
@@ -69,6 +69,7 @@ RORouteHandler::RORouteHandler(RONet& net, const std::string& file,
     myKeepVTypeDist(OptionsCont::getOptions().getBool("keep-vtype-distributions")),
     myMapMatchingDistance(OptionsCont::getOptions().getFloat("mapmatch.distance")),
     myMapMatchJunctions(OptionsCont::getOptions().getBool("mapmatch.junctions")),
+    myUnsortedInput(OptionsCont::getOptions().exists("unsorted-input") && OptionsCont::getOptions().getBool("unsorted-input")),
     myCurrentVTypeDistribution(nullptr),
     myCurrentAlternatives(nullptr),
     myLaneTree(nullptr) {
@@ -77,6 +78,7 @@ RORouteHandler::RORouteHandler(RONet& net, const std::string& file,
 
 
 RORouteHandler::~RORouteHandler() {
+    delete myLaneTree;
 }
 
 
@@ -108,11 +110,11 @@ RORouteHandler::parseFromViaTo(SumoXMLTag tag, const SUMOSAXAttributes& attrs, b
             myActiveRoute.push_back(fromTaz);
         }
     } else if (attrs.hasAttribute(SUMO_ATTR_FROMXY)) {
-        parseGeoEdges(attrs.get<PositionVector>(SUMO_ATTR_FROMXY, myVehicleParameter->id.c_str(), ok, true), false, myActiveRoute, rid, true, ok);
+        parseGeoEdges(attrs.get<PositionVector>(SUMO_ATTR_FROMXY, myVehicleParameter->id.c_str(), ok), false, myActiveRoute, rid, true, ok);
     } else if (attrs.hasAttribute(SUMO_ATTR_FROMLONLAT)) {
-        parseGeoEdges(attrs.get<PositionVector>(SUMO_ATTR_FROMLONLAT, myVehicleParameter->id.c_str(), ok, true), true, myActiveRoute, rid, true, ok);
+        parseGeoEdges(attrs.get<PositionVector>(SUMO_ATTR_FROMLONLAT, myVehicleParameter->id.c_str(), ok), true, myActiveRoute, rid, true, ok);
     } else {
-        parseEdges(attrs.getOpt<std::string>(SUMO_ATTR_FROM, myVehicleParameter->id.c_str(), ok, "", true), myActiveRoute, rid, ok);
+        parseEdges(attrs.getOpt<std::string>(SUMO_ATTR_FROM, myVehicleParameter->id.c_str(), ok), myActiveRoute, rid, ok);
     }
     if (!attrs.hasAttribute(SUMO_ATTR_VIA) && !attrs.hasAttribute(SUMO_ATTR_VIALONLAT) && !attrs.hasAttribute(SUMO_ATTR_VIAXY)) {
         myInsertStopEdgesAt = (int)myActiveRoute.size();
@@ -121,11 +123,11 @@ RORouteHandler::parseFromViaTo(SumoXMLTag tag, const SUMOSAXAttributes& attrs, b
     // via-attributes
     ConstROEdgeVector viaEdges;
     if (attrs.hasAttribute(SUMO_ATTR_VIAXY)) {
-        parseGeoEdges(attrs.get<PositionVector>(SUMO_ATTR_VIAXY, myVehicleParameter->id.c_str(), ok, true), false, viaEdges, rid, false, ok);
+        parseGeoEdges(attrs.get<PositionVector>(SUMO_ATTR_VIAXY, myVehicleParameter->id.c_str(), ok), false, viaEdges, rid, false, ok);
     } else if (attrs.hasAttribute(SUMO_ATTR_VIALONLAT)) {
-        parseGeoEdges(attrs.get<PositionVector>(SUMO_ATTR_VIALONLAT, myVehicleParameter->id.c_str(), ok, true), true, viaEdges, rid, false, ok);
+        parseGeoEdges(attrs.get<PositionVector>(SUMO_ATTR_VIALONLAT, myVehicleParameter->id.c_str(), ok), true, viaEdges, rid, false, ok);
     } else if (attrs.hasAttribute(SUMO_ATTR_VIAJUNCTIONS)) {
-        for (std::string junctionID : attrs.getStringVector(SUMO_ATTR_VIAJUNCTIONS)) {
+        for (std::string junctionID : attrs.get<std::vector<std::string> >(SUMO_ATTR_VIAJUNCTIONS, myVehicleParameter->id.c_str(), ok)) {
             const ROEdge* viaSink = myNet.getEdge(junctionID + "-sink");
             if (viaSink == nullptr) {
                 myErrorOutput->inform("Junction-taz '" + junctionID + "' not found." + JUNCTION_TAZ_MISSING_HELP);
@@ -176,9 +178,9 @@ RORouteHandler::parseFromViaTo(SumoXMLTag tag, const SUMOSAXAttributes& attrs, b
 void
 RORouteHandler::myStartElement(int element,
                                const SUMOSAXAttributes& attrs) {
-    if (myActivePerson != nullptr && myActivePerson->getPlan().empty() && myVehicleParameter->departProcedure == DEPART_TRIGGERED && element != SUMO_TAG_RIDE) {
+    if (myActivePlan != nullptr && myActivePlan->empty() && myVehicleParameter->departProcedure == DepartDefinition::TRIGGERED && element != SUMO_TAG_RIDE) {
         throw ProcessError("Triggered departure for person '" + myVehicleParameter->id + "' requires starting with a ride.");
-    } else if (myActiveContainerPlan != nullptr && myActiveContainerPlanSize == 0 && myVehicleParameter->departProcedure == DEPART_TRIGGERED && element != SUMO_TAG_TRANSPORT) {
+    } else if (myActiveContainerPlan != nullptr && myActiveContainerPlanSize == 0 && myVehicleParameter->departProcedure == DepartDefinition::TRIGGERED && element != SUMO_TAG_TRANSPORT) {
         throw ProcessError("Triggered departure for container '" + myVehicleParameter->id + "' requires starting with a transport.");
     }
     SUMORouteHandler::myStartElement(element, attrs);
@@ -186,12 +188,7 @@ RORouteHandler::myStartElement(int element,
     switch (element) {
         case SUMO_TAG_PERSON:
         case SUMO_TAG_PERSONFLOW: {
-            SUMOVTypeParameter* type = myNet.getVehicleTypeSecure(myVehicleParameter->vtypeid);
-            if (type == nullptr) {
-                myErrorOutput->inform("The vehicle type '" + myVehicleParameter->vtypeid + "' for person '" + myVehicleParameter->id + "' is not known.");
-                type = myNet.getVehicleTypeSecure(DEFAULT_PEDTYPE_ID);
-            }
-            myActivePerson = new ROPerson(*myVehicleParameter, type);
+            myActivePlan = new std::vector<ROPerson::PlanItem*>();
             break;
         }
         case SUMO_TAG_RIDE:
@@ -506,8 +503,9 @@ RORouteHandler::closeRouteDistribution() {
 
 void
 RORouteHandler::closeVehicle() {
+    checkLastDepart();
     // get the vehicle id
-    if (myVehicleParameter->departProcedure == DEPART_GIVEN && myVehicleParameter->depart < myBegin) {
+    if (myVehicleParameter->departProcedure == DepartDefinition::GIVEN && myVehicleParameter->depart < myBegin) {
         return;
     }
     // get vehicle type
@@ -560,24 +558,41 @@ RORouteHandler::closeVType() {
 
 void
 RORouteHandler::closePerson() {
-    if (myActivePerson->getPlan().empty()) {
+    SUMOVTypeParameter* type = myNet.getVehicleTypeSecure(myVehicleParameter->vtypeid);
+    if (type == nullptr) {
+        myErrorOutput->inform("The vehicle type '" + myVehicleParameter->vtypeid + "' for person '" + myVehicleParameter->id + "' is not known.");
+        type = myNet.getVehicleTypeSecure(DEFAULT_PEDTYPE_ID);
+    }
+    if (myActivePlan == nullptr || myActivePlan->empty()) {
         WRITE_WARNING("Discarding person '" + myVehicleParameter->id + "' because it's plan is empty");
     } else {
-        if (myNet.addPerson(myActivePerson)) {
+        ROPerson* person = new ROPerson(*myVehicleParameter, type);
+        for (ROPerson::PlanItem* item : *myActivePlan) {
+            person->getPlan().push_back(item);
+        }
+        if (myNet.addPerson(person)) {
+            checkLastDepart();
             registerLastDepart();
         }
     }
     delete myVehicleParameter;
     myVehicleParameter = nullptr;
-    myActivePerson = nullptr;
+    delete myActivePlan;
+    myActivePlan = nullptr;
 }
 
 
 void
 RORouteHandler::closePersonFlow() {
-    if (myActivePerson->getPlan().empty()) {
-        WRITE_WARNING("Discarding person '" + myVehicleParameter->id + "' because it's plan is empty");
+    SUMOVTypeParameter* type = myNet.getVehicleTypeSecure(myVehicleParameter->vtypeid);
+    if (type == nullptr) {
+        myErrorOutput->inform("The vehicle type '" + myVehicleParameter->vtypeid + "' for personFlow '" + myVehicleParameter->id + "' is not known.");
+        type = myNet.getVehicleTypeSecure(DEFAULT_PEDTYPE_ID);
+    }
+    if (myActivePlan == nullptr || myActivePlan->empty()) {
+        WRITE_WARNING("Discarding personFlow '" + myVehicleParameter->id + "' because it's plan is empty");
     } else {
+        checkLastDepart();
         // instantiate all persons of this flow
         int i = 0;
         std::string baseID = myVehicleParameter->id;
@@ -587,38 +602,57 @@ RORouteHandler::closePersonFlow() {
             } else {
                 for (SUMOTime t = myVehicleParameter->depart; t < myVehicleParameter->repetitionEnd; t += TIME2STEPS(1)) {
                     if (RandHelper::rand() < myVehicleParameter->repetitionProbability) {
-                        addFlowPerson(t, baseID, i++);
+                        addFlowPerson(type, t, baseID, i++);
                     }
                 }
             }
         } else {
             SUMOTime depart = myVehicleParameter->depart;
-            for (; i < myVehicleParameter->repetitionNumber; i++) {
-                addFlowPerson(depart, baseID, i);
-                depart += myVehicleParameter->repetitionOffset;
+            // uniform sampling of departures from range is equivalent to poisson flow (encoded by negative offset)
+            if (OptionsCont::getOptions().getBool("randomize-flows") && myVehicleParameter->repetitionOffset >= 0) {
+                std::vector<SUMOTime> departures;
+                const SUMOTime range = myVehicleParameter->repetitionNumber * myVehicleParameter->repetitionOffset;
+                for (int j = 0; j < myVehicleParameter->repetitionNumber; ++j) {
+                    departures.push_back(depart + RandHelper::rand(range));
+                }
+                std::sort(departures.begin(), departures.end());
+                std::reverse(departures.begin(), departures.end());
+                for (; i < myVehicleParameter->repetitionNumber; i++) {
+                    addFlowPerson(type, departures[i], baseID, i);
+                    depart += myVehicleParameter->repetitionOffset;
+                }
+            } else {
+                const bool triggered = myVehicleParameter->departProcedure == DepartDefinition::TRIGGERED;
+                if (myVehicleParameter->repetitionOffset < 0) {
+                    // poisson: randomize first depart
+                    myVehicleParameter->incrementFlow(1);
+                }
+                for (; i < myVehicleParameter->repetitionNumber && (triggered || depart + myVehicleParameter->repetitionTotalOffset <= myVehicleParameter->repetitionEnd); i++) {
+                    addFlowPerson(type, depart + myVehicleParameter->repetitionTotalOffset, baseID, i);
+                    if (myVehicleParameter->departProcedure != DepartDefinition::TRIGGERED) {
+                        myVehicleParameter->incrementFlow(1);
+                    }
+                }
             }
         }
     }
     delete myVehicleParameter;
     myVehicleParameter = nullptr;
-    myActivePerson = nullptr;
+    delete myActivePlan;
+    myActivePlan = nullptr;
 }
 
 
 void
-RORouteHandler::addFlowPerson(SUMOTime depart, const std::string& baseID, int i) {
-    SUMOVehicleParameter pars = myActivePerson->getParameter();
+RORouteHandler::addFlowPerson(SUMOVTypeParameter* type, SUMOTime depart, const std::string& baseID, int i) {
+    SUMOVehicleParameter pars = *myVehicleParameter;
     pars.id = baseID + "." + toString(i);
     pars.depart = depart;
-    ROPerson* copyPerson = new ROPerson(pars, myActivePerson->getType());
-    for (ROPerson::PlanItem* item : myActivePerson->getPlan()) {
-        copyPerson->getPlan().push_back(item->clone());
+    ROPerson* person = new ROPerson(pars, type);
+    for (ROPerson::PlanItem* item : *myActivePlan) {
+        person->getPlan().push_back(item->clone());
     }
-    if (i == 0) {
-        delete myActivePerson;
-    }
-    myActivePerson = copyPerson;
-    if (myNet.addPerson(myActivePerson)) {
+    if (myNet.addPerson(person)) {
         if (i == 0) {
             registerLastDepart();
         }
@@ -630,6 +664,7 @@ RORouteHandler::closeContainer() {
     myActiveContainerPlan->closeTag();
     if (myActiveContainerPlanSize > 0) {
         myNet.addContainer(myVehicleParameter->depart, myActiveContainerPlan->getString());
+        checkLastDepart();
         registerLastDepart();
     } else {
         WRITE_WARNING("Discarding container '" + myVehicleParameter->id + "' because it's plan is empty");
@@ -645,6 +680,7 @@ void RORouteHandler::closeContainerFlow() {
     myActiveContainerPlan->closeTag();
     if (myActiveContainerPlanSize > 0) {
         myNet.addContainer(myVehicleParameter->depart, myActiveContainerPlan->getString());
+        checkLastDepart();
         registerLastDepart();
     } else {
         WRITE_WARNING("Discarding containerFlow '" + myVehicleParameter->id + "' because it's plan is empty");
@@ -659,6 +695,7 @@ void RORouteHandler::closeContainerFlow() {
 
 void
 RORouteHandler::closeFlow() {
+    checkLastDepart();
     // @todo: consider myScale?
     if (myVehicleParameter->repetitionNumber == 0) {
         delete myVehicleParameter;
@@ -668,8 +705,8 @@ RORouteHandler::closeFlow() {
     // let's check whether vehicles had to depart before the simulation starts
     myVehicleParameter->repetitionsDone = 0;
     const SUMOTime offsetToBegin = myBegin - myVehicleParameter->depart;
-    while (myVehicleParameter->repetitionsDone * myVehicleParameter->repetitionOffset < offsetToBegin) {
-        myVehicleParameter->repetitionsDone++;
+    while (myVehicleParameter->repetitionTotalOffset < offsetToBegin) {
+        myVehicleParameter->incrementFlow(1);
         if (myVehicleParameter->repetitionsDone == myVehicleParameter->repetitionNumber) {
             delete myVehicleParameter;
             myVehicleParameter = nullptr;
@@ -771,7 +808,7 @@ RORouteHandler::addStop(const SUMOSAXAttributes& attrs) {
         return;
     }
     std::string errorSuffix;
-    if (myActivePerson != nullptr) {
+    if (myActivePlan != nullptr) {
         errorSuffix = " in person '" + myVehicleParameter->id + "'.";
     } else if (myActiveContainerPlan != nullptr) {
         errorSuffix = " in container '" + myVehicleParameter->id + "'.";
@@ -852,8 +889,8 @@ RORouteHandler::addStop(const SUMOSAXAttributes& attrs) {
         }
     }
     stop.edge = edge->getID();
-    if (myActivePerson != nullptr) {
-        myActivePerson->addStop(stop, edge);
+    if (myActivePlan != nullptr) {
+        ROPerson::addStop(*myActivePlan, stop, edge);
     } else if (myVehicleParameter != nullptr) {
         myVehicleParameter->stops.push_back(stop);
     } else {
@@ -879,7 +916,7 @@ RORouteHandler::addContainer(const SUMOSAXAttributes& /*attrs*/) {
 void
 RORouteHandler::addRide(const SUMOSAXAttributes& attrs) {
     bool ok = true;
-    std::vector<ROPerson::PlanItem*>& plan = myActivePerson->getPlan();
+    std::vector<ROPerson::PlanItem*>& plan = *myActivePlan;
     const std::string pid = myVehicleParameter->id;
 
     ROEdge* from = nullptr;
@@ -909,11 +946,11 @@ RORouteHandler::addRide(const SUMOSAXAttributes& attrs) {
         }
     }
     double arrivalPos = attrs.getOpt<double>(SUMO_ATTR_ARRIVALPOS, myVehicleParameter->id.c_str(), ok,
-            stop == nullptr ? std::numeric_limits<double>::infinity() : stop->endPos);
+                        stop == nullptr ? std::numeric_limits<double>::infinity() : stop->endPos);
     const std::string desc = attrs.get<std::string>(SUMO_ATTR_LINES, pid.c_str(), ok);
     const std::string group = attrs.getOpt<std::string>(SUMO_ATTR_GROUP, pid.c_str(), ok, "");
 
-    if (plan.empty() && myVehicleParameter->departProcedure == DEPART_TRIGGERED) {
+    if (plan.empty() && myVehicleParameter->departProcedure == DepartDefinition::TRIGGERED) {
         StringTokenizer st(desc);
         if (st.size() != 1) {
             throw ProcessError("Triggered departure for person '" + pid + "' requires a unique lines value.");
@@ -926,15 +963,15 @@ RORouteHandler::addRide(const SUMOSAXAttributes& attrs) {
         if (vehDepart == -1) {
             throw ProcessError("Cannot use triggered vehicle '" + vehID + "' in triggered departure for person '" + pid + "'.");
         }
-        myActivePerson->setDepart(vehDepart + 1); // write person after vehicle
+        myVehicleParameter->depart = vehDepart + 1; // write person after vehicle
     }
-    myActivePerson->addRide(from, to, desc, arrivalPos, stoppingPlaceID, group);
+    ROPerson::addRide(plan, from, to, desc, arrivalPos, stoppingPlaceID, group);
 }
 
 
 void
 RORouteHandler::addTransport(const SUMOSAXAttributes& attrs) {
-    if (myActiveContainerPlan != nullptr && myActiveContainerPlanSize == 0 && myVehicleParameter->departProcedure == DEPART_TRIGGERED) {
+    if (myActiveContainerPlan != nullptr && myActiveContainerPlanSize == 0 && myVehicleParameter->departProcedure == DepartDefinition::TRIGGERED) {
         bool ok = true;
         const std::string pid = myVehicleParameter->id;
         const std::string desc = attrs.get<std::string>(SUMO_ATTR_LINES, pid.c_str(), ok);
@@ -1103,7 +1140,7 @@ RORouteHandler::parseWalkPositions(const SUMOSAXAttributes& attrs, const std::st
     if (attrs.hasAttribute(SUMO_ATTR_DEPARTPOS)) {
         WRITE_WARNING("The attribute departPos is no longer supported for walks, please use the person attribute, the arrivalPos of the previous step or explicit stops.");
     }
-    departPos = myActivePerson->getParameter().departPos;
+    departPos = myVehicleParameter->departPos;
     if (lastStage != nullptr) {
         departPos = lastStage->getDestinationPos();
     }
@@ -1141,10 +1178,10 @@ RORouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
         if (ok) {
             from = myActiveRoute.front();
         }
-    } else if (myActivePerson->getPlan().empty()) {
+    } else if (myActivePlan->empty()) {
         throw ProcessError("Start edge not defined for person '" + myVehicleParameter->id + "'.");
     } else {
-        from = myActivePerson->getPlan().back()->getDestination();
+        from = myActivePlan->back()->getDestination();
     }
     if (attrs.hasAttribute(SUMO_ATTR_TO) || attrs.hasAttribute(SUMO_ATTR_TOJUNCTION) || attrs.hasAttribute(SUMO_ATTR_TO_TAZ)
             || attrs.hasAttribute(SUMO_ATTR_TOLONLAT) || attrs.hasAttribute(SUMO_ATTR_TOXY)) {
@@ -1159,7 +1196,7 @@ RORouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
     double departPos = 0;
     double arrivalPos = std::numeric_limits<double>::infinity();
     std::string busStopID;
-    const ROPerson::PlanItem* const lastStage = myActivePerson->getPlan().empty() ? nullptr : myActivePerson->getPlan().back();
+    const ROPerson::PlanItem* const lastStage = myActivePlan->empty() ? nullptr : myActivePlan->back();
     parseWalkPositions(attrs, myVehicleParameter->id, from, to, departPos, arrivalPos, busStopID, lastStage, ok);
 
     const std::string modes = attrs.getOpt<std::string>(SUMO_ATTR_MODES, id, ok, "");
@@ -1182,7 +1219,9 @@ RORouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
     const std::string types = attrs.getOpt<std::string>(SUMO_ATTR_VTYPES, id, ok, "");
     double walkFactor = attrs.getOpt<double>(SUMO_ATTR_WALKFACTOR, id, ok, OptionsCont::getOptions().getFloat("persontrip.walkfactor"));
     if (ok) {
-        myActivePerson->addTrip(from, to, modeSet, types, departPos, arrivalPos, busStopID, walkFactor, group);
+        const std::string originStopID = myActivePlan->empty() ?  "" : myActivePlan->back()->getStopDest();
+        ROPerson::addTrip(*myActivePlan, myVehicleParameter->id, from, to, modeSet, types,
+                          departPos, originStopID, arrivalPos, busStopID, walkFactor, group);
     }
 }
 
@@ -1226,7 +1265,7 @@ RORouteHandler::addWalk(const SUMOSAXAttributes& attrs) {
         const std::string errorSuffix = " for walk of person '" + myVehicleParameter->id + "'";
         retrieveStoppingPlace(attrs, errorSuffix, stoppingPlaceID);
         if (ok) {
-            myActivePerson->addWalk(myActiveRoute, duration, speed, departPos, arrivalPos, stoppingPlaceID);
+            ROPerson::addWalk(*myActivePlan, myActiveRoute, duration, speed, departPos, arrivalPos, stoppingPlaceID);
         }
     } else {
         addPersonTrip(attrs);
@@ -1250,5 +1289,12 @@ RORouteHandler::getLaneTree() {
     return myLaneTree;
 }
 
+bool
+RORouteHandler::checkLastDepart() {
+    if (!myUnsortedInput) {
+        return SUMORouteHandler::checkLastDepart();
+    }
+    return true;
+}
 
 /****************************************************************************/

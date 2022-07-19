@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2014-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2014-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -154,6 +154,16 @@ public:
 
     /// @brief return the list of internal edges if the transportable is on an intersection
     virtual const MSEdge* getNextEdge(const MSStageMoving& stage) const = 0;
+
+    /// @brief try to move transportable to the given position
+    virtual void moveTo(MSPerson* p, MSLane* lane, double lanePos, double lanePosLat, SUMOTime t) {
+        UNUSED_PARAMETER(p);
+        UNUSED_PARAMETER(lane);
+        UNUSED_PARAMETER(lanePos);
+        UNUSED_PARAMETER(lanePosLat);
+        UNUSED_PARAMETER(t);
+        WRITE_WARNING("moveTo is ignored by the current movement model");
+    }
 
     /// @brief try to move transportable to the given position
     virtual void moveToXY(MSPerson* p, Position pos, MSLane* lane, double lanePos,

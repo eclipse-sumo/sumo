@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2007-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2007-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -50,7 +50,8 @@ struct Reservation {
                 SUMOTime _pickupTime,
                 const MSEdge* _from, double _fromPos,
                 const MSEdge* _to, double _toPos,
-                const std::string& _group) :
+                const std::string& _group,
+                const std::string& _line) :
         id(_id),
         persons(_persons.begin(), _persons.end()),
         reservationTime(_reservationTime),
@@ -60,6 +61,7 @@ struct Reservation {
         to(_to),
         toPos(_toPos),
         group(_group),
+        line(_line),
         recheck(_reservationTime),
         state(NEW)
     {}
@@ -73,6 +75,7 @@ struct Reservation {
     const MSEdge* to;
     double toPos;
     std::string group;
+    std::string line;
     SUMOTime recheck;
     ReservationState state;
 
@@ -84,7 +87,8 @@ struct Reservation {
                && fromPos == other.fromPos
                && to == other.to
                && toPos == other.toPos
-               && group == other.group;
+               && group == other.group
+               && line == other.line;
     }
 
     /// @brief debug identification
@@ -111,7 +115,7 @@ public:
     };
 
     /// @brief Constructor;
-    MSDispatch(const std::map<std::string, std::string>& params);
+    MSDispatch(const Parameterised::Map& params);
 
     /// @brief Destructor
     virtual ~MSDispatch() { }
@@ -123,6 +127,7 @@ public:
                                         const MSEdge* from, double fromPos,
                                         const MSEdge* to, double toPos,
                                         std::string group,
+                                        const std::string& line,
                                         int maxCapacity,
                                         int maxContainerCapacity);
 

@@ -60,10 +60,13 @@ python tools/randomTrips.py --help
 
 ## Traffic Volume / Arrival rate
 
-The arrival rate is controlled by option **--period** {{DT_FLOAT}} (*default 1*). By default this
+The arrival rate (also known as the departure rate or the insertion rate) is controlled by option **--period** {{DT_FLOAT}} (*default 1*). By default this
 generates vehicles with a constant period and arrival rate of (1/period)
 per second. By using values below 1, multiple arrivals per second can be
-achieved.
+achieved. If several {{DT_FLOAT}} numbers are passed, like in **--period 1.0 0.5** (or **--period="1.0,0.5"**) for example, the time interval will be divided equally into subintervals, and the arrival rate for each subinterval is controlled by the corresponding period (in the preceding example, a period of 1.0 will be used for the first subinterval and a period of 0.5 will be used for the second). There are two other ways to specify the insertion rate:
+
+- Either by using the **--insertion-rate** argument (with one or several values as explained before): this is the number of vehicles per hour that the user expects.
+- Or by using the **--insertion-density** argument (with one or several values): this is the number of vehicles per hour per kilometer of road that the user expects (the total length of the road is computed with respect to a certain vehicle class that can be changed with the option **--edge-permission**). 
 
 When adding option **--binomial** {{DT_INT}} the arrivals will be randomized using a binomial
 distribution where *n* (the maximum number of simultaneous arrivals) is
@@ -80,6 +83,16 @@ To let *n* vehicles depart between times *t0* and *t1* set the options
 
 !!! note
     The actual number of departures may be lower if the road capacity is [insufficient to accommodate that number of vehicles](../Simulation/VehicleInsertion.md#delayed_departure) or if the network is not fully connected (in this case some of the generated trips will be invalid).
+
+## Insertion Distribution
+
+The number of inserted vehicles (if all trips are valid) is fixed for a given set of randomTrips option: `(end-begin)/period`.
+Randomness appears in the insertion pattern on any given edge.
+
+By default the departures of all vehicles are equally spaced in time. Since the inserted vehicle are spread randomly over the whole network, this comes out as a binomial distribution of inserted vehicles for each individual edge which gives a good approximation to the Poisson distribution if the network is large (and hence the insertion probability of each edge is small).
+
+By setting set option **--random-depart**, the (still fixed) number of departure times are drawn from a uniform distribution over `[begin, end]`.
+This leads to an exponential distribution of insertion time headways between vehicles on all edges (which is the headway pattern of the Poisson distribution). Hence, this is useful to have a more varied insertion time pattern for small networks.
 
 ## Validated routes and trips
 
@@ -256,3 +269,6 @@ and define only the file *example.src.xml* as follows:
 </edgedata>
 ```
 
+## Forwarding options to duarouter
+
+When generating the route *.rou.xml* file, duarouter is called. Some arguments are already passed to duarouter directly from arguments received by randomTrips. However, should you need so, you can directly pass an argument to duarouter with the syntax `--duarouter-option value`; for instance using `--duarouter-exit-times true` with randomTrips will forward the argument `--exit-times` to duarouter when it is called, and with the value `true`. Please note that it is compulsory to pass a value together with the option, for instance `--duarouter-exit-times` wouldn't be valid in this context.

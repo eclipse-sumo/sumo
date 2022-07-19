@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -96,10 +96,9 @@ public:
     static void writeRoundabouts(OutputDevice& into, const std::set<EdgeSet>& roundabouts,
                                  const NBEdgeCont& ec);
 
-
     /** @brief Write a stopOffset element into output device
      */
-    static void writeStopOffsets(OutputDevice& into, const std::map<SVCPermissions, double>& stopOffsets);
+    static void writeStopOffsets(OutputDevice& into, const StopOffset& stopOffset);
 
     /** @brief Writes a district
      * @param[in] into The device to write the edge into
@@ -140,10 +139,11 @@ private:
      * @param[in] customShape whether this lane has a custom shape
      */
     static void writeLane(OutputDevice& into, const std::string& lID,
-                          double speed, SVCPermissions permissions, SVCPermissions preferred,
+                          double speed, double friction,
+                          SVCPermissions permissions, SVCPermissions preferred,
                           SVCPermissions changeLeft, SVCPermissions changeRight,
                           double startOffset, double endOffset,
-                          std::map<SVCPermissions, double> stopOffsets, double width, PositionVector shape,
+                          const StopOffset& stopOffset, double width, PositionVector shape,
                           const Parameterised* params, double length, int index,
                           const std::string& oppositeID, const std::string& type,
                           bool accelRamp = false,
@@ -183,6 +183,7 @@ private:
                                         LinkDirection dir = LinkDirection::STRAIGHT,
                                         const std::string& tlID = "",
                                         int linkIndex = NBConnection::InvalidTlIndex,
+                                        bool minor = false,
                                         double visibility = NBEdge::UNSPECIFIED_VISIBILITY_DISTANCE);
 
     /// @brief writes a SUMOTime as int if possible, otherwise as a float

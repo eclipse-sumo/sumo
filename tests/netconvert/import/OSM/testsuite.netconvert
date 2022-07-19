@@ -82,6 +82,9 @@ elevation
 # add sidewalks to appropriate edges
 adlershof_dlr_sidewalks
 
+# add sidewalks from raw data (rather than from typemap heuristic)
+adlershof_dlr_sidewalks_option
+
 # check for working around a xerces transcoding bug
 xerces_bug_1947
 
@@ -146,4 +149,16 @@ bike_access
 
 # additional bike access with oneway bikes
 oneway_bike
+
+# complex intermodal junction in Brunswick
+tostmannplatz
+
+# import turn-lane information
+turn-lanes
+
+# import turn-lane information merge_to_right
+turn-lanes2
+
+# import key junction=circular
+junction_circular
 bugs

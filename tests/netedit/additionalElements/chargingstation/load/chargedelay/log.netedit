@@ -1,3 +1,0 @@
-Error: Attribute 'chargeDelay' in definition of chargingStation 'chargingStation_1' is not a real number.
-Error: Could not build chargingStation with ID 'chargingStation_2' in netedit; attribute chargeDelay cannot be negative.
-Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.16Jun150511.14604\netedit.gui\additionalElements\chargingstation\load\chargedelay\input_additionals.add.xml failed.

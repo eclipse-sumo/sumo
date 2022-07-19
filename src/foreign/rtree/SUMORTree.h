@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -121,7 +121,7 @@ public:
     /** @brief Adds an additional object (detector/shape/trigger) for visualisation
      * @param[in] o The object to add
      */
-    void addAdditionalGLObject(GUIGlObject *o) {
+    void addAdditionalGLObject(GUIGlObject *o, const double exaggeration = 1) {
         // check if lock is locked before insert objects
         if (myLock.locked()) {
             throw ProcessError("Mutex of SUMORTree is locked before object insertion");
@@ -130,6 +130,10 @@ public:
         FXMutexLock locker(myLock);
         // obtain boundary of object
         Boundary b = o->getCenteringBoundary();
+        // grow using exaggeration
+        if (exaggeration > 1) {
+            b.scale(exaggeration);
+        }
         // show information in gui testing debug gl mode
         if (MsgHandler::writeDebugGLMessages()) {
             if ((b.getWidth() == 0) || (b.getHeight() == 0)) {
@@ -146,12 +150,14 @@ public:
         const float cmin[2] = {(float) b.xmin(), (float) b.ymin()};
         const float cmax[2] = {(float) b.xmax(), (float) b.ymax()};
         Insert(cmin, cmax, o);
+        // update tree size
+        myTreeSize++;
     }
 
     /** @brief Removes an additional object (detector/shape/trigger) from being visualised
      * @param[in] o The object to remove
      */
-    void removeAdditionalGLObject(GUIGlObject *o) {
+    void removeAdditionalGLObject(GUIGlObject *o, const double exaggeration = 1) {
         // check if lock is locked remove insert objects
         if (myLock.locked()) {
             throw ProcessError("Mutex of SUMORTree is locked before object remove");
@@ -160,6 +166,10 @@ public:
         FXMutexLock locker(myLock);
         // obtain boundary of object
         Boundary b = o->getCenteringBoundary();
+        // grow using exaggeration
+        if (exaggeration > 1) {
+            b.scale(exaggeration);
+        }
         // show information in gui testing debug gl mode
         if (MsgHandler::writeDebugGLMessages()) {
             if ((b.getWidth() == 0) || (b.getHeight() == 0)) {
@@ -179,15 +189,57 @@ public:
         const float cmin[2] = {(float) b.xmin(), (float) b.ymin()};
         const float cmax[2] = {(float) b.xmax(), (float) b.ymax()};
         Remove(cmin, cmax, o);
+        // update tree size
+        myTreeSize--;
+    }
+
+    /// @brief update boundaries
+    void updateBoundaries(GUIGlObjectType type) {
+        // declare vector with glObjects to update
+        std::vector<GUIGlObject*> glObjects;
+        glObjects.reserve(myTreeSize);
+        // declare iterator 
+        GUI_RTREE_QUAL::Iterator it;
+        GetFirst(it);
+        // iterate over entire tree and keep glObject in glObjects
+        while (!IsNull(it)) {
+            const auto glType = (*it)->getType();
+            if ((glType == type) || 
+                ((glType > GLO_ADDITIONALELEMENT) && (glType < GLO_SHAPE)) ||   // Additionals
+                ((glType >= GLO_TAZ) && (glType < GLO_LOCKICON))) {             // TAZ Elements
+                glObjects.push_back(*it);
+            }
+            GetNext(it);
+        }
+        // remove and insert all elements again with the new boundary
+        for (const auto &glObject : glObjects) {
+            removeAdditionalGLObject(glObject);
+            removeObjectFromTreeDebug(glObject);
+            addAdditionalGLObject(glObject);
+        }
     }
 
 protected:
     /// @brief A mutex avoiding parallel change and traversal of the tree
     mutable FXMutex myLock;
 
+    /// @brief number of inserted elements
+    int myTreeSize = 0;
+
 private:
     /**@brief Map only used for check that SUMORTree works as expected, only is used if option "gui-testing-debug-gl" is enabled.
      * @note Warning: DO NOT USE in release mode and use it in debug mode carefully, due it produces a slowdown.
      */
     std::map<GUIGlObject*, Boundary> myTreeDebug;
+
+    /// @brief remove object from TreeDebug
+    bool removeObjectFromTreeDebug(const GUIGlObject* obj) {
+        for (auto it = myTreeDebug.begin(); it != myTreeDebug.end(); it++) {
+            if (it->first == obj) {
+                myTreeDebug.erase(it);
+                return true;
+            }
+        }
+        return false;
+    }
 };

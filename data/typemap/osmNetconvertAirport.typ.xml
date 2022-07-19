@@ -1,0 +1,9 @@
+<types xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/types_file.xsd">
+    <type id="aeroway.stopway"          numLanes="1" speed="13.89" priority="30" oneway="false" allow="authority"/>
+    <type id="aeroway.parking_position" numLanes="1" speed="13.89" priority="31" oneway="false" allow="authority emergency"/>
+    <type id="aeroway.taxiway"          numLanes="1" speed="27.78" priority="32" oneway="false" allow="authority emergency"/>
+    <type id="aeroway.taxilane"         numLanes="1" speed="27.78" priority="34" oneway="false" allow="authority emergency"/>
+    <type id="aeroway.runway"           numLanes="1" speed="100.0" priority="35" oneway="false" allow="authority emergency"/>
+    <type id="aeroway.highway_strip"    numLanes="1" speed="100.0" priority="36" oneway="false" allow="authority emergency"/>
+
+</types>

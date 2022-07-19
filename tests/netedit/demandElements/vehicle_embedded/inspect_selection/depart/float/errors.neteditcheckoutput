@@ -1,3 +1,0 @@
-Error: Vehicle 'vehicle_embeddedB' will not be able to depart using the given velocity (junction 'gneJ6' too close)!
-Warning: Teleporting vehicle 'vehicle_embeddedA'; waited too long (jam), lane=':gneJ5_1_1', time=321.00.
-Warning: Vehicle 'vehicle_embeddedA' ends teleporting on edge 'gneE4', time 321.00.

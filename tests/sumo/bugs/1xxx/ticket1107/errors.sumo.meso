@@ -1,2 +1,2 @@
-Warning: Teleporting vehicle 'unsafe_insertion_after_teleport'; waited too long, from edge 'beg2':0, time 8.54.
-Warning: Vehicle 'unsafe_insertion_after_teleport' ends teleporting on edge 'end2':0, time 11.09.
+Warning: Teleporting vehicle 'unsafe_insertion_after_teleport'; waited too long, from edge 'beg2':0, time=8.54.
+Warning: Vehicle 'unsafe_insertion_after_teleport' ends teleporting on edge 'end2':0, time=11.09.

@@ -1,0 +1,7 @@
+[run_dependent_text]
+output:\\{REPLACE /}
+output:ignoring variant (.*) for '.*/tests/{REPLACE ignoring variant \1 for 'sumo/tests/}
+output:{INTERNAL writedir}{REPLACE <TEXTTEST_SANDBOX>}
+output:calling .* for testPath (.*){REPLACE calling <application> for testPath \1}
+output:python2{REPLACE python}
+output:python3{REPLACE python}

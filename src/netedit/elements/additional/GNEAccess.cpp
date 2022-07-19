@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -20,9 +20,7 @@
 #include <config.h>
 
 #include <netedit/GNENet.h>
-#include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
-#include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
 #include <netedit/changes/GNEChange_Attribute.h>
@@ -37,13 +35,24 @@
 // member method definitions
 // ===========================================================================
 
+GNEAccess::GNEAccess(GNENet* net) :
+    GNEAdditional("", net, GLO_ACCESS, SUMO_TAG_ACCESS, "",
+{}, {}, {}, {}, {}, {}),
+myPositionOverLane(0),
+myLength(0),
+myFriendlyPosition(false) {
+    // reset default values
+    resetDefaultValues();
+}
+
+
 GNEAccess::GNEAccess(GNEAdditional* busStop, GNELane* lane, GNENet* net, double pos, const double length, bool friendlyPos,
-                     const std::map<std::string, std::string>& parameters) :
+                     const Parameterised::Map& parameters) :
     GNEAdditional(net, GLO_ACCESS, SUMO_TAG_ACCESS, "",
-{}, {}, {lane}, {busStop}, {}, {}, {}, {},
-parameters),
-            myPositionOverLane(pos),
-            myLength(length),
+{}, {}, {lane}, {busStop}, {}, {}),
+Parameterised(parameters),
+myPositionOverLane(pos),
+myLength(length),
 myFriendlyPosition(friendlyPos) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
@@ -55,7 +64,7 @@ GNEAccess::~GNEAccess() {
 
 
 GNEMoveOperation*
-GNEAccess::getMoveOperation(const double /*shapeOffset*/) {
+GNEAccess::getMoveOperation() {
     // return move operation for additional placed over shape
     return new GNEMoveOperation(this, getParentLanes().front(), myPositionOverLane,
                                 myNet->getViewNet()->getViewParent()->getMoveFrame()->getCommonModeOptions()->getAllowChangeLane());
@@ -82,18 +91,17 @@ GNEAccess::updateGeometry() {
 
 Position
 GNEAccess::getPositionInView() const {
-    return myBoundary.getCenter();
+    return myAdditionalGeometry.getShape().getPolygonCenter();
 }
 
 
 void
 GNEAccess::updateCenteringBoundary(const bool /*updateGrid*/) {
-    // now update geometry
-    updateGeometry();
-    // add shape boundary
-    myBoundary = myAdditionalGeometry.getShape().getBoxBoundary();
+    myAdditionalBoundary.reset();
+    // add center
+    myAdditionalBoundary.add(getPositionInView());
     // grow
-    myBoundary.grow(10);
+    myAdditionalBoundary.grow(10);
 }
 
 
@@ -123,7 +131,7 @@ GNEAccess::isAccessPositionFixed() const {
 }
 
 
-void 
+void
 GNEAccess::writeAdditional(OutputDevice& device) const {
     device.openTag(SUMO_TAG_ACCESS);
     device.writeAttr(SUMO_ATTR_LANE, getParentLanes().front()->getID());
@@ -153,25 +161,30 @@ GNEAccess::getParentName() const {
 void
 GNEAccess::drawGL(const GUIVisualizationSettings& s) const {
     // Obtain exaggeration
-    const double accessExaggeration = s.addSize.getExaggeration(s, this);
+    const double accessExaggeration = getExaggeration(s);
     // declare width
     const double radius = 0.5;
     // first check if additional has to be drawn
     if (s.drawAdditionals(accessExaggeration) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
+        // get color
+        RGBColor color;
+        if (drawUsingSelectColor()) {
+            color = s.colorSettings.selectedAdditionalColor;
+        } else if (!getParentAdditionals().front()->getAttribute(SUMO_ATTR_COLOR).empty()) {
+            color = parse<RGBColor>(getParentAdditionals().front()->getAttribute(SUMO_ATTR_COLOR));
+        } else {
+            color = s.colorSettings.busStopColor;
+        }
+        // draw parent and child lines
+        drawParentChildLines(s, color);
         // Start drawing adding an gl identificator
         GLHelper::pushName(getGlID());
         // push layer matrix
         GLHelper::pushMatrix();
         // translate to front
         myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_ACCESS);
-        // set color depending of selection
-        if (drawUsingSelectColor()) {
-            GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
-        } else if (!getParentAdditionals().front()->getAttribute(SUMO_ATTR_COLOR).empty()) {
-            GLHelper::setColor(parse<RGBColor>(getParentAdditionals().front()->getAttribute(SUMO_ATTR_COLOR)));
-        } else {
-            GLHelper::setColor(s.colorSettings.busStopColor);
-        }
+        // set color
+        GLHelper::setColor(color);
         // translate to geometry position
         glTranslated(myAdditionalGeometry.getShape().front().x(), myAdditionalGeometry.getShape().front().y(), 0);
         // draw circle
@@ -180,18 +193,18 @@ GNEAccess::drawGL(const GUIVisualizationSettings& s) const {
         } else {
             GLHelper::drawFilledCircle(radius * accessExaggeration, 16);
         }
-        // draw lock icon
-        GNEViewNetHelper::LockIcon::drawLockIcon(getType(), this, myAdditionalGeometry.getShape().front(), accessExaggeration, 0.3);
         // pop layer matrix
         GLHelper::popMatrix();
-        // pop gl identficador
+        // pop gl identificator
         GLHelper::popName();
+        // draw lock icon
+        GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), myAdditionalGeometry.getShape().front(), accessExaggeration, 0.3);
         // check if dotted contours has to be drawn
-        if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-            GNEGeometry::drawDottedContourCircle(GNEGeometry::DottedContourType::INSPECT, s, myAdditionalGeometry.getShape().front(), 0.5, accessExaggeration);
+        if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
+            GUIDottedGeometry::drawDottedContourCircle(GUIDottedGeometry::DottedContourType::INSPECT, s, myAdditionalGeometry.getShape().front(), 0.5, accessExaggeration);
         }
-        if (s.drawDottedContour() || myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-            GNEGeometry::drawDottedContourCircle(GNEGeometry::DottedContourType::FRONT, s, myAdditionalGeometry.getShape().front(), 0.5, accessExaggeration);
+        if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
+            GUIDottedGeometry::drawDottedContourCircle(GUIDottedGeometry::DottedContourType::FRONT, s, myAdditionalGeometry.getShape().front(), 0.5, accessExaggeration);
         }
     }
 }
@@ -216,6 +229,8 @@ GNEAccess::getAttribute(SumoXMLAttr key) const {
             return toString(isAttributeCarrierSelected());
         case GNE_ATTR_PARAMETERS:
             return getParametersStr();
+        case GNE_ATTR_SHIFTLANEINDEX:
+            return "";
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -228,18 +243,23 @@ GNEAccess::getAttributeDouble(SumoXMLAttr key) const {
 }
 
 
+const Parameterised::Map&
+GNEAccess::getACParametersMap() const {
+    return getParametersMap();
+}
+
+
 void
 GNEAccess::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
-    if (value == getAttribute(key)) {
-        return; //avoid needless changes, later logic relies on the fact that attributes have changed
-    }
     switch (key) {
         case SUMO_ATTR_LANE:
         case SUMO_ATTR_POSITION:
         case SUMO_ATTR_LENGTH:
         case SUMO_ATTR_FRIENDLY_POS:
+        case GNE_ATTR_PARENT:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
+        case GNE_ATTR_SHIFTLANEINDEX:
             undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
             break;
         default:
@@ -252,7 +272,7 @@ bool
 GNEAccess::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_LANE: {
-            GNELane* lane = myNet->retrieveLane(value, false);
+            GNELane* lane = myNet->getAttributeCarriers()->retrieveLane(value, false);
             if (lane != nullptr) {
                 if (getParentLanes().front()->getParentEdge()->getID() != lane->getParentEdge()->getID()) {
                     return GNEAdditionalHandler::accessCanBeCreated(getParentAdditionals().at(0), lane->getParentEdge());
@@ -278,19 +298,16 @@ GNEAccess::isValid(SumoXMLAttr key, const std::string& value) {
             }
         case SUMO_ATTR_FRIENDLY_POS:
             return canParse<bool>(value);
+        case GNE_ATTR_PARENT:
+            return ((myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_BUS_STOP, value, false) != nullptr) ||
+                    (myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_TRAIN_STOP, value, false) != nullptr));
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
         case GNE_ATTR_PARAMETERS:
-            return Parameterised::areParametersValid(value);
+            return areParametersValid(value);
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
-}
-
-
-bool
-GNEAccess::isAttributeEnabled(SumoXMLAttr /* key */) const {
-    return true;
 }
 
 
@@ -324,6 +341,13 @@ GNEAccess::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_FRIENDLY_POS:
             myFriendlyPosition = parse<bool>(value);
             break;
+        case GNE_ATTR_PARENT:
+            if (myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_BUS_STOP, value, false) != nullptr) {
+                replaceAdditionalParent(SUMO_TAG_BUS_STOP, value, 0);
+            } else {
+                replaceAdditionalParent(SUMO_TAG_TRAIN_STOP, value, 0);
+            }
+            break;
         case GNE_ATTR_SELECTED:
             if (parse<bool>(value)) {
                 selectAttributeCarrier();
@@ -333,6 +357,9 @@ GNEAccess::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case GNE_ATTR_PARAMETERS:
             setParametersStr(value);
+            break;
+        case GNE_ATTR_SHIFTLANEINDEX:
+            shiftLaneIndex();
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
@@ -355,7 +382,7 @@ void
 GNEAccess::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
     // reset lateral offset
     myMoveElementLateralOffset = 0;
-    undoList->begin("position of " + getTagStr());
+    undoList->begin(GUIIcon::ACCESS, "position of " + getTagStr());
     // now adjust start position
     setAttribute(SUMO_ATTR_POSITION, toString(moveResult.newFirstPos), undoList);
     // check if lane has to be changed

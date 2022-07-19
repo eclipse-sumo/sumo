@@ -1,0 +1,7 @@
+--osm-files osm.xml
+--ptstop-output additional.xml --ptline-output ptlines.xml
+--ptline-clean-up
+--sidewalks.guess.from-permissions
+--crossings.guess
+--keep-edges.by-vclass passenger,bus,pedestrian
+--keep-edges.components 1

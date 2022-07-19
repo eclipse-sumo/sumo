@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -23,6 +23,7 @@
 
 #include <netedit/frames/GNEFrame.h>
 #include <netedit/GNEViewNetHelper.h>
+#include <utils/foxtools/MFXIconComboBox.h>
 
 // ===========================================================================
 // class declaration
@@ -46,7 +47,7 @@ public:
     // class SelectionInformation
     // ===========================================================================
 
-    class SelectionInformation : protected FXGroupBox {
+    class SelectionInformation : public FXGroupBoxModule {
 
     public:
         /// @brief constructor
@@ -60,14 +61,14 @@ public:
 
     protected:
         /// @brief update information label
-        void updateInformationLabel(const std::string &element, int number);
+        void updateInformationLabel(const std::string& element, int number);
 
     private:
         /// @brief  string for keep information
         std::string myInformation;
 
         /// @brief information label
-        FXLabel *myInformationLabel;
+        FXLabel* myInformationLabel;
 
         /// @brief pointer to Selector Frame Parent
         GNESelectorFrame* mySelectorFrameParent;
@@ -83,7 +84,7 @@ public:
     // class ModificationMode
     // ===========================================================================
 
-    class ModificationMode : protected FXGroupBox {
+    class ModificationMode : public FXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNESelectorFrame::ModificationMode)
 
@@ -108,7 +109,7 @@ public:
 
         /// @name FOX-callbacks
         /// @{
-        /// @brief called when user change type of selction operation
+        /// @brief called when user change type of selection operation
         long onCmdSelectModificationMode(FXObject*, FXSelector, void*);
 
         /// @}
@@ -144,7 +145,7 @@ public:
     // class VisualScaling
     // ===========================================================================
 
-    class VisualScaling : protected FXGroupBox {
+    class VisualScaling : public FXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNESelectorFrame::VisualScaling)
 
@@ -185,7 +186,7 @@ public:
     // class SelectionOperation
     // ===========================================================================
 
-    class SelectionOperation : protected FXGroupBox {
+    class SelectionOperation : public FXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNESelectorFrame::SelectionOperation)
 
@@ -195,6 +196,9 @@ public:
 
         /// @brief destructor
         ~SelectionOperation();
+
+        /// @brief get reduce button
+        FXButton* getReduceButton() const;
 
         /// @name FOX-callbacks
         /// @{
@@ -207,7 +211,7 @@ public:
 
         /** @brief Called when the user presses the Save-button
          * @note Opens a file dialog and forces the selection container to save the list
-           of selected objects when a file was chosen. If the saveing failed, a message window is shown.
+           of selected objects when a file was chosen. If the saving failed, a message window is shown.
          */
         long onCmdSave(FXObject*, FXSelector, void*);
 
@@ -225,6 +229,11 @@ public:
          */
         long onCmdInvert(FXObject*, FXSelector, void*);
 
+        /**@brief Called when the user presses the Reduce-button
+         * @note Reduce network
+         */
+        long onCmdReduce(FXObject*, FXSelector, void*);
+
         /// @}
 
     protected:
@@ -232,13 +241,16 @@ public:
         FOX_CONSTRUCTOR(SelectionOperation)
 
         /// @brief process network element selection
-        bool processNetworkElementSelection(const bool onlyCount, const bool onlyUnselect);
+        bool processNetworkElementSelection(const bool onlyCount, const bool onlyUnselect, bool& ignoreLocking);
 
         /// @brief process demand element selection
-        bool processDemandElementSelection(const bool onlyCount, const bool onlyUnselect);
+        bool processDemandElementSelection(const bool onlyCount, const bool onlyUnselect, bool& ignoreLocking);
 
         /// @brief process data element selection
-        bool processDataElementSelection(const bool onlyCount, const bool onlyUnselect);
+        bool processDataElementSelection(const bool onlyCount, const bool onlyUnselect, bool& ignoreLocking);
+
+        /// @brief ask if continue due locking
+        bool askContinueIfLock() const;
 
     private:
         /// @brief pointer to Selector Frame Parent
@@ -249,6 +261,115 @@ public:
 
         /// @brief Invalidated assignment operator.
         SelectionOperation& operator=(const SelectionOperation&) = delete;
+    };
+
+    // ===========================================================================
+    // class SelectionHierarchy
+    // ===========================================================================
+
+    class SelectionHierarchy : public FXGroupBoxModule {
+        /// @brief FOX-declaration
+        FXDECLARE(GNESelectorFrame::SelectionHierarchy)
+
+    public:
+        /// @brief constructor
+        SelectionHierarchy(GNESelectorFrame* selectorFrameParent);
+
+        /// @brief destructor
+        ~SelectionHierarchy();
+
+        /// @name FOX-callbacks
+        /// @{
+
+        /// @brief called when user select an item in comboBox
+        long onCmdSelectItem(FXObject* obj, FXSelector, void*);
+
+        /// @brief called when user press select/unselect parents button
+        long onCmdParents(FXObject* obj, FXSelector, void*);
+
+        /// @brief called when user press select/unselect children button
+        long onCmdChildren(FXObject* obj, FXSelector, void*);
+
+        /// @}
+
+    protected:
+        /// @brief FOX need this
+        FOX_CONSTRUCTOR(SelectionHierarchy)
+
+    private:
+        /// @brief enum used in comboBox
+        enum class Selection {
+            ALL,
+            JUNCTION,
+            EDGE,
+            LANE,
+            ADDITIONAL,
+            WIRE,
+            SHAPE,
+            DEMAND,
+            DATA,
+            NOTHING,
+        };
+
+        /// @brief pointer to Selector Frame Parent
+        GNESelectorFrame* mySelectorFrameParent;
+
+        /// @brief comboBox for parents
+        FXComboBox* myParentsComboBox = nullptr;
+
+        /// @brief comboBox for children
+        FXComboBox* myChildrenComboBox = nullptr;
+
+        /// @brief select parents button
+        FXButton* mySelectParentsButton = nullptr;
+
+        /// @brief unselect parents button
+        FXButton* myUnselectParentsButton = nullptr;
+
+        /// @brief select children button
+        FXButton* mySelectChildrenButton = nullptr;
+
+        /// @brief unselect parents button
+        FXButton* myUnselectChildrenButton = nullptr;
+
+        // @brief items
+        const std::vector<std::pair<Selection, std::string> > myItems = {
+            std::make_pair(Selection::ALL, "all"),
+            std::make_pair(Selection::JUNCTION, "junction"),
+            std::make_pair(Selection::EDGE, "edge"),
+            std::make_pair(Selection::LANE, "lane"),
+            std::make_pair(Selection::ADDITIONAL, "additionalElements"),
+            std::make_pair(Selection::WIRE, "wireElements"),
+            std::make_pair(Selection::SHAPE, "shapeElements"),
+            std::make_pair(Selection::DEMAND, "demandElements"),
+            std::make_pair(Selection::DATA, "dataElements")
+        };
+
+        /// @brief current selected parent
+        Selection myCurrentSelectedParent;
+
+        /// @brief current selected child
+        Selection myCurrentSelectedChild;
+
+        /// @brief Invalidated copy constructor.
+        SelectionHierarchy(const SelectionHierarchy&) = delete;
+
+        /// @brief Invalidated assignment operator.
+        SelectionHierarchy& operator=(const SelectionHierarchy&) = delete;
+    };
+
+    // ===========================================================================
+    // class Legend
+    // ===========================================================================
+
+    class Information : public FXGroupBoxModule {
+
+    public:
+        /// @brief constructor
+        Information(GNESelectorFrame* selectorFrameParent);
+
+        /// @brief destructor
+        ~Information();
     };
 
     /**@brief Constructor
@@ -295,32 +416,38 @@ public:
     FXVerticalFrame* getContentFrame() const;
 
     /// @brief get modification mode modul
-    ModificationMode* getModificationModeModul() const;
+    ModificationMode* getModificationModeModule() const;
 
-    /// @brief getmodul for selection information
+    /// @brief get modul for selection information
     SelectionInformation* getSelectionInformation() const;
 
 private:
     /// @brief modul for selection information
-    SelectionInformation* mySelectionInformation;
+    GNESelectorFrame::SelectionInformation* mySelectionInformation = nullptr;
 
     /// @brief modul for change modification mode
-    ModificationMode* myModificationMode;
+    GNESelectorFrame::ModificationMode* myModificationMode = nullptr;
 
     /// @brief moduls for select network element set
-    GNEElementSet* myNetworkElementSet;
+    GNEElementSet* myNetworkElementSet = nullptr;
 
     /// @brief moduls for select demand element set
-    GNEElementSet* myDemandElementSet;
+    GNEElementSet* myDemandElementSet = nullptr;
 
     /// @brief moduls for select data element set
-    GNEElementSet* myDataElementSet;
+    GNEElementSet* myDataElementSet = nullptr;
 
     /// @brief modul for visual scaling
-    VisualScaling* myVisualScaling;
+    GNESelectorFrame::VisualScaling* myVisualScaling = nullptr;
 
     /// @brief modul for selection operations
-    SelectionOperation* mySelectionOperation;
+    GNESelectorFrame::SelectionOperation* mySelectionOperation = nullptr;
+
+    /// @brief modul for selection hierarchy
+    GNESelectorFrame::SelectionHierarchy* mySelectionHierarchy = nullptr;
+
+    /// @brief information modul
+    GNESelectorFrame::Information* myInformation = nullptr;
 
     /// @brief Invalidated copy constructor.
     GNESelectorFrame(const GNESelectorFrame&) = delete;

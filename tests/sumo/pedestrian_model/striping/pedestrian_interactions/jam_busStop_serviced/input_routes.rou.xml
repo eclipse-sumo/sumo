@@ -1,0 +1,18 @@
+<!-- generated on 2015-12-01 08:08:28.189000 by "pedestrianFlow.py flow.xml -r AB BC CD DE -p 1 -e 300 -s -1.1" -->
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <personFlow id="A" begin="0" end="10" number="20" color="red">
+        <walk from="SC" busStop="stop"/>
+        <ride to="CN" lines="shuttle"/>
+    </personFlow>
+
+    <personFlow id="B" begin="0" end="10" number="20" departPos="80" color="blue">
+        <walk from="SC" busStop="stop"/>
+        <ride to="CN" lines="shuttle"/>
+    </personFlow>
+
+    <vType id="shuttle" personCapacity="4" guiShape="bus"/>
+    <flow id="C" type="shuttle" begin="340" period="20" number="10" line="shuttle">
+        <route edges="SC CN"/>
+        <stop busStop="stop" duration="10"/>
+    </flow>
+</routes>

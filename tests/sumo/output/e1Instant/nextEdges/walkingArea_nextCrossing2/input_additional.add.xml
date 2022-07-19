@@ -1,0 +1,7 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+
+   <instantInductionLoop id="all" lane=":C_w2_0" pos="2" file="detector.xml" detectPersons="walk"/>
+   <instantInductionLoop id="cSN" lane=":C_w2_0" pos="2" file="detector.xml" nextEdges=":C_c1" detectPersons="walk"/>
+   <instantInductionLoop id="cSW" lane=":C_w2_0" pos="2" file="detector.xml" nextEdges=":C_c2" detectPersons="walk"/>
+
+</additional>

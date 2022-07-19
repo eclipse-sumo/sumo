@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2008-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2008-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -87,8 +87,7 @@ std::set<std::string> PCLoaderOSM::initMyKeysToInclude() {
 }
 
 void
-PCLoaderOSM::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill,
-                       PCTypeMap& tm) {
+PCLoaderOSM::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill, PCTypeMap& tm) {
     if (!oc.isSet("osm-files")) {
         return;
     }
@@ -484,13 +483,13 @@ PCLoaderOSM::RelationsHandler::myStartElement(int element, const SUMOSAXAttribut
     // parse "relation" elements
     if (element == SUMO_TAG_RELATION) {
         myCurrentWays.clear();
-        const std::string action = attrs.hasAttribute("action") ? attrs.getStringSecure("action", "") : "";
-        if (action == "delete") {
+        bool ok = true;
+        const std::string& action = attrs.getOpt<std::string>(SUMO_ATTR_ACTION, nullptr, ok);
+        if (action == "delete" || !ok) {
             myCurrentRelation = nullptr;
         } else {
             myCurrentRelation = new PCOSMRelation();
             myCurrentRelation->keep = false;
-            bool ok = true;
             myCurrentRelation->id = attrs.get<long long int>(SUMO_ATTR_ID, nullptr, ok);
             myRelations.push_back(myCurrentRelation);
         }
@@ -575,7 +574,7 @@ PCLoaderOSM::EdgesHandler::myStartElement(int element, const SUMOSAXAttributes& 
     if (element == SUMO_TAG_WAY) {
         bool ok = true;
         const long long int id = attrs.get<long long int>(SUMO_ATTR_ID, nullptr, ok);
-        const std::string action = attrs.hasAttribute("action") ? attrs.getStringSecure("action", "") : "";
+        const std::string& action = attrs.getOpt<std::string>(SUMO_ATTR_ACTION, nullptr, ok);
         if (action == "delete" || !ok) {
             myCurrentEdge = nullptr;
             return;

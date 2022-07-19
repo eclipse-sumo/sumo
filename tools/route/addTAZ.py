@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2010-2021 German Aerospace Center (DLR) and others.
+# Copyright (C) 2010-2022 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -70,10 +70,10 @@ def main(options):
     ambiguousSink = []
     for edge, tazs in edgeFromTaz.items():
         if len(tazs) > 1:
-            ambiguousSource.push_back(edge)
+            ambiguousSource.append(edge)
     for edge, tazs in edgeToTaz.items():
         if len(tazs) > 1:
-            ambiguousSink.push_back(edge)
+            ambiguousSink.append(edge)
 
     print("read %s TAZ" % numTaz)
 
@@ -85,6 +85,7 @@ def main(options):
               (ambiguousSink[:5], len(ambiguousSink)))
 
     inputRoutes = ET.parse(options.routefile)
+
     class nl:  # nonlocal integral variables
         numFromNotFound = 0
         numToNotFound = 0

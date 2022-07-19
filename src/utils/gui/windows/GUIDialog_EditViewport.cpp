@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2005-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2005-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -118,12 +118,12 @@ GUIDialog_EditViewport::GUIDialog_EditViewport(GUISUMOAbstractView* parent, cons
     new FXLabel(lookAtZFrame, "LookAtZ:", nullptr, GUIDesignLabelLeftThick);
     myLookAtZ = new FXRealSpinner(lookAtZFrame, 16, this, MID_CHANGED, GUIDesignSpinDialViewPort);
 
-    // only show LookAt elements if OSG is enabled
-#ifdef HAVE_OSG
-    lookAtFrame->show();
-#else
-    lookAtFrame->hide();
-#endif
+    // only show LookAt elements for OSG views
+    if (parent->is3DView()) {
+        lookAtFrame->show();
+    } else {
+        lookAtFrame->hide();
+    }
 
     // create buttons ok/cancel
     new FXHorizontalSeparator(contentsFrame, GUIDesignHorizontalSeparator);
@@ -183,9 +183,19 @@ GUIDialog_EditViewport::onCmdCancel(FXObject*, FXSelector, void*) {
 long
 GUIDialog_EditViewport::onCmdChanged(FXObject* o, FXSelector, void*) {
     if (o == myZOff) {
-        myZoom->setValue(myParent->getChanger().zPos2Zoom(myZOff->getValue()));
+        if (myParent->is3DView()) {
+            myZoom->setValue(100.0);
+        } else {
+            myZoom->setValue(myParent->getChanger().zPos2Zoom(myZOff->getValue()));
+        }
     } else if (o == myZoom) {
-        myZOff->setValue(myParent->getChanger().zoom2ZPos(myZoom->getValue()));
+        if (myParent->is3DView()) {
+            Position camera(myXOff->getValue(), myYOff->getValue(), myZOff->getValue()), lookAt(myLookAtX->getValue(), myLookAtY->getValue(),
+                    myLookAtZ->getValue());
+            myParent->zoom2Pos(camera, lookAt, myZoom->getValue());
+        } else {
+            myZOff->setValue(myParent->getChanger().zoom2ZPos(myZoom->getValue()));
+        }
     }
     myParent->setViewportFromToRot(Position(myXOff->getValue(), myYOff->getValue(), myZOff->getValue()),
 #ifdef HAVE_OSG
@@ -202,9 +212,9 @@ GUIDialog_EditViewport::onCmdChanged(FXObject* o, FXSelector, void*) {
 long
 GUIDialog_EditViewport::onCmdLoad(FXObject*, FXSelector, void*) {
     FXFileDialog opendialog(this, "Load Viewport");
-    opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::EMPTY));
+    opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::OPEN_CONFIG));
     opendialog.setSelectMode(SELECTFILE_ANY);
-    opendialog.setPatternList("*.xml");
+    opendialog.setPatternList("*.xml,*.xml.gz");
     if (gCurrentFolder.length() != 0) {
         opendialog.setDirectory(gCurrentFolder);
     }
@@ -220,12 +230,12 @@ GUIDialog_EditViewport::onCmdLoad(FXObject*, FXSelector, void*) {
 
 long
 GUIDialog_EditViewport::onCmdSave(FXObject*, FXSelector, void*) {
-    FXString file = MFXUtils::getFilename2Write(this, "Save Viewport", ".xml", GUIIconSubSys::getIcon(GUIIcon::EMPTY), gCurrentFolder);
+    FXString file = MFXUtils::getFilename2Write(this, "Save Viewport", ".xml", GUIIconSubSys::getIcon(GUIIcon::SAVE), gCurrentFolder);
     if (file == "") {
         return 1;
     }
     try {
-        OutputDevice& dev = OutputDevice::getDevice(file.text());
+        OutputDevice& dev = OutputDevice::getDevice(file.text(), false);
         dev.openTag(SUMO_TAG_VIEWSETTINGS);
         writeXML(dev);
         dev.closeTag();
@@ -243,12 +253,21 @@ GUIDialog_EditViewport::writeXML(OutputDevice& dev) {
     dev.writeAttr(SUMO_ATTR_ZOOM, myZoom->getValue());
     dev.writeAttr(SUMO_ATTR_X, myXOff->getValue());
     dev.writeAttr(SUMO_ATTR_Y, myYOff->getValue());
+    if (myParent->is3DView()) {
+        dev.writeAttr(SUMO_ATTR_Z, myZOff->getValue());
+    }
     dev.writeAttr(SUMO_ATTR_ANGLE, myRotation->getValue());
-#ifdef HAVE_OSG
-    dev.writeAttr(SUMO_ATTR_CENTER_X, myLookAtX->getValue());
-    dev.writeAttr(SUMO_ATTR_CENTER_Y, myLookAtY->getValue());
-    dev.writeAttr(SUMO_ATTR_CENTER_Z, myLookAtZ->getValue());
-#endif
+    if (myParent->is3DView()) {
+        if (myLookAtX->getValue() != Position::INVALID.x()) {
+            dev.writeAttr(SUMO_ATTR_CENTER_X, myLookAtX->getValue());
+        }
+        if (myLookAtY->getValue() != Position::INVALID.y()) {
+            dev.writeAttr(SUMO_ATTR_CENTER_Y, myLookAtY->getValue());
+        }
+        if (myLookAtZ->getValue() != Position::INVALID.z()) {
+            dev.writeAttr(SUMO_ATTR_CENTER_Z, myLookAtZ->getValue());
+        }
+    }
     dev.closeTag();
 }
 
@@ -268,7 +287,9 @@ GUIDialog_EditViewport::setValues(const Position& lookFrom, const Position& look
     myXOff->setValue(lookFrom.x());
     myYOff->setValue(lookFrom.y());
     myZOff->setValue(lookFrom.z());
-    myZoom->setValue(myParent->getChanger().zPos2Zoom(lookFrom.z()));
+    if (!myParent->is3DView()) {
+        myZoom->setValue(myParent->getChanger().zPos2Zoom(lookFrom.z()));
+    }
 #ifdef HAVE_OSG
     myLookAtX->setValue(lookAt.x());
     myLookAtY->setValue(lookAt.y());
@@ -294,6 +315,18 @@ GUIDialog_EditViewport::haveGrabbed() const {
     return false;
     //return myZoom->getDial().grabbed() || myXOff->getDial().grabbed() || myYOff->getDial().grabbed();
 }
+
+
+double
+GUIDialog_EditViewport::getZoomValue() const {
+    return myZoom->getValue();
+}
+
+void
+GUIDialog_EditViewport::setZoomValue(double zoom) {
+    myZoom->setValue(zoom);
+}
+
 
 void
 GUIDialog_EditViewport::saveWindowPos() {

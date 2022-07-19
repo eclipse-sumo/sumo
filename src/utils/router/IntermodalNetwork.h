@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -300,25 +300,19 @@ public:
             throw ProcessError("Depart edge '" + e->getID() + "' not found in intermodal network.");
         }
         if ((e->getPermissions() & SVC_PEDESTRIAN) == 0) {
-            // use closest split (best trainStop, quay etc)
-            double totalLength = 0.;
+            // use most specific split (best trainStop, quay etc)
             double bestDist = std::numeric_limits<double>::max();
             const _IntermodalEdge* best = nullptr;
-            for (const _IntermodalEdge* split : it->second) {
-                totalLength += split->getLength();
-                double dist = fabs(totalLength - pos);
-                if (dist < bestDist) {
-                    // make sure to use a stop rather than the final departConnector since walking is not possible
-                    if (bestDist != std::numeric_limits<double>::max() && split == it->second.back()) {
-                        break;
+            for (const _IntermodalEdge* const split : it->second) {
+                if (pos >= split->getStartPos() - POSITION_EPS && pos <= split->getEndPos() + POSITION_EPS) {
+                    const double dist = split->getEndPos() - split->getStartPos();
+                    if (dist < bestDist) {
+                        bestDist = dist;
+                        best = split;
                     }
-                    bestDist = dist;
-                    best = split;
-                } else {
-                    break;
                 }
             }
-            assert(best != 0);
+            assert(best != nullptr);
             return best;
         } else {
             // use next downstream edge
@@ -496,22 +490,25 @@ public:
     *
     * @param[in] stopId The id of the stop to add
     * @param[in] stopEdge The edge on which the stop is located
-    * @param[in] pos The relative position on the edge where the stop is located
+    * @param[in] startPos The relative position on the edge where the stop starts
+    * @param[in] endPos The relative position on the edge where the stop ends
+    * @param[in] length The length of the access edge to build
     * @param[in] category The type of stop
     * @param[in] isAccess Whether an <access> element is being connected
     * @param[in] taxiWait Expected time to wait for a taxi
     */
-    void addAccess(const std::string& stopId, const E* stopEdge, const double pos, const double length, const SumoXMLTag category, bool isAccess, double taxiWait) {
+    void addAccess(const std::string& stopId, const E* stopEdge, const double startPos, const double endPos, const double length, const SumoXMLTag category, bool isAccess, double taxiWait) {
         assert(stopEdge != nullptr);
         const bool transferCarWalk = ((category == SUMO_TAG_PARKING_AREA && (myCarWalkTransfer & PARKING_AREAS) != 0) ||
                                       (category == SUMO_TAG_BUS_STOP && (myCarWalkTransfer & PT_STOPS) != 0));
         const bool transferTaxiWalk = (category == SUMO_TAG_BUS_STOP && (myCarWalkTransfer & TAXI_DROPOFF_PT) != 0);
         const bool transferWalkTaxi = (category == SUMO_TAG_BUS_STOP && (myCarWalkTransfer & TAXI_PICKUP_PT) != 0);
+        const double pos = (startPos + endPos) / 2.;
 #ifdef IntermodalRouter_DEBUG_ACCESS
         std::cout << "addAccess stopId=" << stopId << " stopEdge=" << stopEdge->getID() << " pos=" << pos << " length=" << length << " cat=" << category << "\n";
 #endif
         if (myStopConnections.count(stopId) == 0) {
-            myStopConnections[stopId] = new StopEdge<E, L, N, V>(stopId, myNumericalID++, stopEdge);
+            myStopConnections[stopId] = new StopEdge<E, L, N, V>(stopId, myNumericalID++, stopEdge, startPos, endPos);
             addEdge(myStopConnections[stopId]);
         }
         _IntermodalEdge* const stopConn = myStopConnections[stopId];
@@ -544,8 +541,8 @@ public:
                             addEdge(access);
                             beforeSplit->addSuccessor(access);
                             access->addSuccessor(conn);
-                        } else {
-                            addRestrictedCarExit(beforeSplit, conn, SVC_TAXI);
+                        } else if (transferTaxiWalk) {
+                            addRestrictedCarExit(beforeSplit, stopConn, SVC_TAXI);
                         }
                     }
                 }
@@ -591,29 +588,14 @@ public:
             }
         } else {
             // pedestrians cannot walk here:
-            // add depart connectors on the stop edge so that pedestrians may start at the stop
+            // add stop edge as depart connector so that pedestrians may start at the stop
             std::vector<_IntermodalEdge*>& splitList = myDepartLookup[stopEdge];
             assert(splitList.size() > 0);
             typename std::vector<_IntermodalEdge*>::iterator splitIt = splitList.begin();
-            double totalLength = 0.;
-            _IntermodalEdge* last = nullptr;
-            while (splitIt != splitList.end() && totalLength < pos) {
-                totalLength += (*splitIt)->getLength();
-                last = *splitIt;
+            while (splitIt != splitList.end() && startPos > (*splitIt)->getEndPos()) {
                 ++splitIt;
             }
-            // insert before last
-            const double newLength = pos - (totalLength - last->getLength());
-            stopConn->setLength(newLength);
-            splitList.insert(splitIt - 1, stopConn);
-            // correct length of subsequent edge
-            last->setLength(last->getLength() - newLength);
-#ifdef IntermodalRouter_DEBUG_ACCESS
-            std::cout << "  splitList:\n";
-            for (auto conEdge : splitList) {
-                std::cout << "    " << conEdge->getID() << " length=" << conEdge->getLength() << "\n";
-            }
-#endif
+            splitList.insert(splitIt, stopConn);
         }
     }
 
@@ -674,24 +656,24 @@ public:
             }
         } else {
             if (validStops.size() != lineEdges.size() + 1) {
-                WRITE_WARNING("Number of stops for public transport line '" + pars.line + "' does not match earlier definitions, ignoring schedule.");
+                WRITE_WARNINGF("Number of stops for public transport line '%' does not match earlier definitions, ignoring schedule.", pars.line);
                 return;
             }
             if (lineEdges.front()->getEntryStop() != myStopConnections[validStops.front().busstop]) {
-                WRITE_WARNING("Different stop for '" + pars.line + "' compared to earlier definitions, ignoring schedule.");
+                WRITE_WARNINGF("Different stop for '%' compared to earlier definitions, ignoring schedule.", pars.line);
                 return;
             }
             typename std::vector<_PTEdge*>::const_iterator lineEdge = lineEdges.begin();
             typename std::vector<SUMOVehicleParameter::Stop>::const_iterator s = validStops.begin() + 1;
             for (; s != validStops.end(); ++s, ++lineEdge) {
                 if ((*lineEdge)->getSuccessors(SVC_IGNORING)[0] != myStopConnections[s->busstop]) {
-                    WRITE_WARNING("Different stop for '" + pars.line + "' compared to earlier definitions, ignoring schedule.");
+                    WRITE_WARNINGF("Different stop for '%' compared to earlier definitions, ignoring schedule.", pars.line);
                     return;
                 }
             }
             SUMOTime lastTime = validStops.front().until;
             if (lineEdges.front()->hasSchedule(lastTime)) {
-                WRITE_WARNING("Duplicate schedule for '" + pars.line + "' at time " + time2string(lastTime) + ".");
+                WRITE_WARNINGF("Duplicate schedule for '%' at time=%.", pars.line, time2string(lastTime));
             }
             for (lineEdge = lineEdges.begin(), s = validStops.begin() + 1; lineEdge != lineEdges.end(); ++lineEdge, ++s) {
                 (*lineEdge)->addSchedule(pars.id, lastTime, pars.repetitionNumber, pars.repetitionOffset, s->until - lastTime);
@@ -741,21 +723,21 @@ private:
     * @param[out] needSplit whether a new split is needed or we reuse an exisiting one
     * @return the index in the split list where the split edge needs to be added or reused
     */
-    int findSplitIndex(_IntermodalEdge* const toSplit, const double pos, double& relPos, bool& needSplit) {
+    int findSplitIndex(_IntermodalEdge* const toSplit, const double pos, double& relPos, bool& needSplit) const {
         relPos = pos;
         needSplit = true;
         int splitIndex = 0;
-        std::vector<_IntermodalEdge*>& splitList = myAccessSplits[toSplit];
-        if (!splitList.empty()) {
-            for (const _IntermodalEdge* const split : splitList) {
+        const auto& splitList = myAccessSplits.find(toSplit);
+        if (splitList != myAccessSplits.end() && !splitList->second.empty()) {
+            for (const _IntermodalEdge* const split : splitList->second) {
                 if (relPos < split->getLength() + POSITION_EPS) {
                     break;
                 }
                 relPos -= split->getLength();
                 splitIndex++;
             }
-            assert(splitIndex < (int)splitList.size());
-            if (splitIndex + 1 < (int)splitList.size() && fabs(relPos - splitList[splitIndex]->getLength()) < POSITION_EPS) {
+            assert(splitIndex < (int)splitList->second.size());
+            if (splitIndex + 1 < (int)splitList->second.size() && fabs(relPos - splitList->second[splitIndex]->getLength()) < POSITION_EPS) {
                 needSplit = false;
             }
         }

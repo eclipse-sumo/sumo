@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -95,7 +95,7 @@ public:
     /// @brief handle event of type Network loaded
     void handleEvent_NetworkLoaded(GUIEvent* e);
 
-    /// @brief hanlde event of type message
+    /// @brief handle event of type message
     void handleEvent_Message(GUIEvent* e);
     /// @}
 
@@ -119,8 +119,20 @@ public:
     /// @brief called when the command/FXCall open TLS programs is executed
     long onCmdOpenTLSPrograms(FXObject*, FXSelector, void*);
 
+    /// @brief called when the command/FXCall reload TLS programs is executed
+    long onCmdReloadTLSPrograms(FXObject*, FXSelector, void*);
+
+    /// @brief called when the command/FXCall reload TLS programs is updated
+    long onUpdReloadTLSPrograms(FXObject*, FXSelector, void*);
+
     /// @brief called when the command/FXCall open edgeType is executed
     long onCmdOpenEdgeTypes(FXObject*, FXSelector, void*);
+
+    /// @brief called when the command/FXCall reload edge types is executed
+    long onCmdReloadEdgeTypes(FXObject*, FXSelector, void*);
+
+    /// @brief called when the command/FXCall reload edge types is updated
+    long onUpdReloadEdgeTypes(FXObject*, FXSelector, void*);
 
     /// @brief called when the command/FXCall reload is executed
     long onCmdReload(FXObject*, FXSelector, void*);
@@ -140,6 +152,9 @@ public:
     /// @brief called when the command/FXCall locate is executed
     long onCmdLocate(FXObject*, FXSelector, void*);
 
+    /// @brief called when the command/FXCall run NetDiff is executed
+    long onCmdToolNetDiff(FXObject*, FXSelector, void*);
+
     /// @brief called when the command/FXCall save all elements is executed
     long onCmdSaveAllElements(FXObject*, FXSelector, void*);
 
@@ -149,14 +164,23 @@ public:
     /// @brief called when the command/FXCall save TLSPrograms is executed
     long onCmdSaveTLSPrograms(FXObject*, FXSelector, void*);
 
+    /// @brief called when the command/FXCall save TLSPrograms is updated
+    long onUpdSaveTLSPrograms(FXObject*, FXSelector, void*);
+
     /// @brief called when the command/FXCall save edge types is executed
     long onCmdSaveEdgeTypes(FXObject*, FXSelector, void*);
+
+    /// @brief called when the command/FXCall save edge types is updated
+    long onUpdSaveEdgeTypes(FXObject*, FXSelector, void*);
 
     /// @brief called when the command/FXCall save TLSPrograms as is executed
     long onCmdSaveTLSProgramsAs(FXObject*, FXSelector, void*);
 
     /// @brief called when the command/FXCall save edgeTypes as is executed
     long onCmdSaveEdgeTypesAs(FXObject*, FXSelector, void*);
+
+    /// @brief called when the command/FXCall save edgeTypes as is updated
+    long onUpdSaveEdgeTypesAs(FXObject*, FXSelector, void*);
 
     /// @brief called when the command/FXCall open additionals is executed
     long onCmdOpenAdditionals(FXObject*, FXSelector, void*);
@@ -209,6 +233,9 @@ public:
     /// @brief called when the update/FXCall needs network is executed
     long onUpdNeedsNetwork(FXObject*, FXSelector, void*);
 
+    /// @brief called when the update/FXCall needs at least one newtork element is executed
+    long onUpdNeedsNetworkElement(FXObject*, FXSelector, void*);
+
     /// @brief called when the update/FXCall needs front element is executed
     long onUpdNeedsFrontElement(FXObject*, FXSelector, void*);
 
@@ -224,11 +251,20 @@ public:
     /// @brief called when the update/FXCall save additionals is executed
     long onUpdSaveAdditionals(FXObject*, FXSelector, void*);
 
+    /// @brief called when the update/FXCall save additionals as is executed
+    long onUpdSaveAdditionalsAs(FXObject*, FXSelector, void*);
+
     /// @brief called when the update/FXCall save demand elements is executed
     long onUpdSaveDemandElements(FXObject*, FXSelector, void*);
 
+    /// @brief called when the update/FXCall save demand elements as is executed
+    long onUpdSaveDemandElementsAs(FXObject*, FXSelector, void*);
+
     /// @brief called when the update/FXCall save data elements is executed
     long onUpdSaveDataElements(FXObject*, FXSelector, void*);
+
+    /// @brief called when the update/FXCall save data elements as is executed
+    long onUpdSaveDataElementsAs(FXObject*, FXSelector, void*);
 
     /// @brief called when the update/FXCall undo is executed
     long onUpdUndo(FXObject* obj, FXSelector sel, void* ptr);
@@ -301,6 +337,9 @@ public:
     /// @brief called when user press unlock all elements button
     long onCmdUnlockAllElements(FXObject*, FXSelector sel, void*);
 
+    /// @brief called when user press lock select elements button
+    long onCmdLockSelectElements(FXObject*, FXSelector sel, void*);
+
     /// @brief enable or disable lock menu title
     long onUpdLockMenuTitle(FXObject*, FXSelector sel, void*);
 
@@ -338,10 +377,13 @@ public:
     long onCmdFocusFrame(FXObject* sender, FXSelector sel, void* ptr);
 
     /// @brief enable or disable sender object depending if viewNet exist
-    long onUpdRequiereViewNet(FXObject* sender, FXSelector sel, void* ptr);
+    long onUpdRequireViewNet(FXObject* sender, FXSelector sel, void* ptr);
 
     /// @brief called if the user press key combination Ctrl + G to toggle grid
     long onCmdToggleGrid(FXObject*, FXSelector, void*);
+
+    /// @brief called if the user press key combination Ctrl + J to toggle draw junction shape
+    long onCmdToggleDrawJunctionShape(FXObject*, FXSelector, void*);
 
     /// @brief called if the user call set front element
     long onCmdSetFrontElement(FXObject*, FXSelector, void*);
@@ -360,6 +402,12 @@ public:
 
     // @brief called when user press Ctrl+Y
     long onCmdRedo(FXObject*, FXSelector, void*);
+
+    // @brief called when user press open undoList dialog
+    long onCmdOpenUndoListDialog(FXObject*, FXSelector, void*);
+
+    // @brief called when openUndoList is updated
+    long onUpdOpenUndoListDialog(FXObject*, FXSelector, void*);
 
     // @brief called when user press compute path manager
     long onCmdComputePathManager(FXObject*, FXSelector, void*);
@@ -402,6 +450,9 @@ public:
     /// @brief get pointer to undoList
     GNEUndoList* getUndoList();
 
+    /// @brief get pointer to undoList dialog
+    GNEUndoListDialog* getUndoListDialog();
+
     /// @brief get pointer to viewNet
     GNEViewNet* getViewNet();
 
@@ -437,37 +488,41 @@ protected:
     GNEApplicationWindow();
 
     /// @brief the thread that loads the network
-    GNELoadThread* myLoadThread;
+    GNELoadThread* myLoadThread = nullptr;
 
     /// @brief information whether the gui is currently loading and the load-options shall be greyed out
-    bool myAmLoading;
+    bool myAmLoading = false;
+
+    /// @brief information whether the gui is currently reloading
+    bool myReloading = false;
 
     /// @brief the submenus
-    FXMenuPane* myFileMenu,
-                *myFileMenuTLS,
-                *myFileMenuEdgeTypes,
-                *myFileMenuAdditionals,
-                *myFileMenuDemandElements,
-                *myFileMenuDataElements,
-                *myModesMenu,
-                *myEditMenu,
-                *myLockMenu,
-                *myProcessingMenu,
-                *myLocatorMenu,
-                *myWindowsMenu,
-                *myHelpMenu;
+    FXMenuPane* myFileMenu = nullptr,
+                *myFileMenuTLS = nullptr,
+                 *myFileMenuEdgeTypes = nullptr,
+                  *myFileMenuAdditionals = nullptr,
+                   *myFileMenuDemandElements = nullptr,
+                    *myFileMenuDataElements = nullptr,
+                     *myModesMenu = nullptr,
+                      *myEditMenu = nullptr,
+                       *myLockMenu = nullptr,
+                        *myProcessingMenu = nullptr,
+                         *myLocatorMenu = nullptr,
+                          *myToolsMenu = nullptr,
+                           *myWindowMenu = nullptr,
+                            *myHelpMenu = nullptr;
 
     /// @brief menu title for modes
-    FXMenuTitle* myModesMenuTitle;
+    FXMenuTitle* myModesMenuTitle = nullptr;
 
     /// @brief menu title for lock
-    FXMenuTitle* myLockMenuTitle;
+    FXMenuTitle* myLockMenuTitle = nullptr;
 
     /// @brief A window to display messages, warnings and error in
-    GUIMessageWindow* myMessageWindow;
+    GUIMessageWindow* myMessageWindow = nullptr;
 
     /// @brief The splitter that divides the main window into view and the log window
-    FXSplitter* myMainSplitter;
+    FXSplitter* myMainSplitter = nullptr;
 
     /// @brief List of got requests
     FXSynchQue<GUIEvent*> myEvents;
@@ -476,13 +531,16 @@ protected:
     FXEX::FXThreadEvent myLoadThreadEvent;
 
     /// @brief check if had dependent build
-    bool hadDependentBuild;
+    bool myHadDependentBuild = false;
 
     /// @brief we are responsible for the net
-    GNENet* myNet;
+    GNENet* myNet = nullptr;
 
     /// @brief the one and only undo list
-    GNEUndoList* myUndoList;
+    GNEUndoList* myUndoList = nullptr;
+
+    /// @brief undoList dialog
+    GNEUndoListDialog* myUndoListDialog = nullptr;
 
     /// @brief Input file pattern
     std::string myConfigPattern;
@@ -515,6 +573,9 @@ private:
     /// @brief Locate Menu Commands
     GNEApplicationWindowHelper::LocateMenuCommands myLocateMenuCommands;
 
+    /// @brief Tools Menu Commands
+    GNEApplicationWindowHelper::ToolsMenuCommands myToolsMenuCommands;
+
     /// @brief Windows Menu Commands
     GNEApplicationWindowHelper::WindowsMenuCommands myWindowsMenuCommands;
 
@@ -522,13 +583,13 @@ private:
     GNEApplicationWindowHelper::SupermodeCommands mySupermodeCommands;
 
     /// @brief pointer to current view net
-    GNEViewNet* myViewNet;
+    GNEViewNet* myViewNet = nullptr;
 
     /// @brief the prefix for the window title
     const FXString myTitlePrefix;
 
     /// @brief The menu used for the MDI-windows
-    FXMDIMenu* myMDIMenu;
+    FXMDIMenu* myMDIMenu = nullptr;
 
     /// @brief Builds the menu bar
     void fillMenuBar();

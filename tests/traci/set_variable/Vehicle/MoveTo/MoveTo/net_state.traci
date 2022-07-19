@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Mar  7 10:54:19 2014 by SUMO sumo Version dev-SVN-r15863
+<!-- generated on 2022-05-06 13:23:59 by Eclipse SUMO sumo Version v1_13_0+0080-acf42d6
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -14,16 +19,22 @@ SPDX-License-Identifier: EPL-2.0
     </input>
 
     <output>
+        <write-license value="true"/>
         <netstate-dump value="netstate_dump.xml"/>
     </output>
 
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
     <report>
         <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
         <no-step-log value="true"/>
     </report>
 
     <traci_server>
-        <remote-port value="8804"/>
+        <remote-port value="33245"/>
     </traci_server>
 
 </configuration>
@@ -167,55 +178,55 @@ SPDX-License-Identifier: EPL-2.0
     </timestep>
     <timestep time="15.00">
         <edge id="e_m4">
-            <lane id="e_m4_0">
+            <lane id="e_m4_0"/>
+            <lane id="e_m4_1">
                 <vehicle id="veh0" pos="22.00" speed="12.00"/>
             </lane>
-            <lane id="e_m4_1"/>
             <lane id="e_m4_2"/>
         </edge>
     </timestep>
     <timestep time="16.00">
         <edge id="e_m4">
-            <lane id="e_m4_0">
+            <lane id="e_m4_0"/>
+            <lane id="e_m4_1">
                 <vehicle id="veh0" pos="34.80" speed="12.80"/>
             </lane>
-            <lane id="e_m4_1"/>
             <lane id="e_m4_2"/>
         </edge>
     </timestep>
     <timestep time="17.00">
         <edge id="e_m4">
-            <lane id="e_m4_0">
+            <lane id="e_m4_0"/>
+            <lane id="e_m4_1">
                 <vehicle id="veh0" pos="48.40" speed="13.60"/>
             </lane>
-            <lane id="e_m4_1"/>
             <lane id="e_m4_2"/>
         </edge>
     </timestep>
     <timestep time="18.00">
         <edge id="e_m4">
-            <lane id="e_m4_0">
+            <lane id="e_m4_0"/>
+            <lane id="e_m4_1">
                 <vehicle id="veh0" pos="62.80" speed="14.40"/>
             </lane>
-            <lane id="e_m4_1"/>
             <lane id="e_m4_2"/>
         </edge>
     </timestep>
     <timestep time="19.00">
         <edge id="e_m4">
-            <lane id="e_m4_0">
+            <lane id="e_m4_0"/>
+            <lane id="e_m4_1">
                 <vehicle id="veh0" pos="78.00" speed="15.20"/>
             </lane>
-            <lane id="e_m4_1"/>
             <lane id="e_m4_2"/>
         </edge>
     </timestep>
     <timestep time="20.00">
         <edge id="e_m4">
-            <lane id="e_m4_0">
+            <lane id="e_m4_0"/>
+            <lane id="e_m4_1">
                 <vehicle id="veh0" pos="94.00" speed="16.00"/>
             </lane>
-            <lane id="e_m4_1"/>
             <lane id="e_m4_2"/>
         </edge>
     </timestep>

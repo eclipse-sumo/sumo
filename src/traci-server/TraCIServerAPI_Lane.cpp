@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2009-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2009-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -135,6 +135,11 @@ TraCIServerAPI_Lane::processSet(TraCIServer& server, tcpip::Storage& inputStorag
             case libsumo::VAR_MAXSPEED: {
                 const double value = StoHelp::readTypedDouble(inputStorage, "The speed must be given as a double.");
                 libsumo::Lane::setMaxSpeed(id, value);
+                break;
+            }
+            case libsumo::VAR_FRICTION: {
+                const double value = StoHelp::readTypedDouble(inputStorage, "The friction must be given as a double.");
+                libsumo::Lane::setFriction(id, value);
                 break;
             }
             case libsumo::VAR_LENGTH: {

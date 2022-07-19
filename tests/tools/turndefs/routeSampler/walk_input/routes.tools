@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-07-07 11:09:41.209350 by routeSampler.py v1_13_0+1343-240e5d48340
+<configuration>
+    <edgedata-attribute value="count"/>
+    <edgedata-files value="input_edgedata.xml"/>
+    <pedestrians value="True"/>
+    <route-files value="input_routes.rou.xml"/>
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+<!-- begin="0.0" end="99.0" -->
+    <person id="0" depart="0.00">
+        <walk edges="-27"/>
+    </person>
+    <person id="1" depart="0.93">
+        <walk edges="-11 -23.80.00 -23"/>
+    </person>
+    <person id="2" depart="1.85">
+        <walk edges="-58 37 -23 -23.80.00"/>
+    </person>
+    <person id="3" depart="2.78">
+        <walk edges="58 -31 -31.80.00 23.80.00 23 11.80.00 11 -3.180.00 -3 71.121.42"/>
+    </person>
+    <person id="4" depart="3.70">
+        <walk edges="-15 -15.180.00 -3.180.00 -3 -71 -55"/>
+    </person>
+    <person id="5" depart="4.63">
+        <walk edges="-27"/>
+    </person>
+    <person id="6" depart="5.55">
+        <walk edges="-31 -31.80.00 23.80.00 23 -11 -11.80.00 -3.180.00 -3"/>
+    </person>
+    <person id="7" depart="6.48">
+        <walk edges="-109.80.00 11.80.00 11 -3.180.00 -3 27 27.80.00 43 68"/>
+    </person>
+    <person id="8" depart="7.40">
+        <walk edges="92 -75.121.42 -75 120 120.180.00 131"/>
+    </person>
+    <person id="9" depart="8.33">
+        <walk edges="-27"/>
+    </person>
+    <person id="10" depart="9.25">
+        <walk edges="-60.80.00 -60 -79.80.00"/>
+    </person>
+    <person id="11" depart="10.18">
+        <walk edges="-60 60.80.00 60 -31 -31.80.00 23.80.00 23 11.80.00 11 -3.180.00 -3 27 27.80.00 -45.80.00 -45 -68"/>
+    </person>
+    <person id="12" depart="11.10">
+        <walk edges="45 27.80.00 27 -3 -3.180.00 3"/>
+    </person>
+    <person id="13" depart="12.03">
+        <walk edges="-27"/>
+    </person>
+    <person id="14" depart="12.95">
+        <walk edges="-71 -3 -3.180.00 11 11.80.00 109"/>
+    </person>
+    <person id="15" depart="13.88">
+        <walk edges="-3 27 27.80.00 43 68"/>
+    </person>
+    <person id="16" depart="14.80">
+        <walk edges="-123.121.42 120.180.00 120 -75"/>
+    </person>
+    <person id="17" depart="15.73">
+        <walk edges="-131"/>
+    </person>
+    <person id="18" depart="16.65">
+        <walk edges="31.80.00 31 23.80.00 23 -11 -11.80.00 15"/>
+    </person>
+    <person id="19" depart="17.58">
+        <walk edges="31.80.00 31 23.80.00 23 -11 -11.80.00 15"/>
+    </person>
+    <person id="20" depart="18.50">
+        <walk edges="58 -31 -31.80.00 23.80.00 23 11.80.00 11 -3.180.00 -3 71.121.42"/>
+    </person>
+    <person id="21" depart="19.43">
+        <walk edges="27.80.00 27 -3 -3.180.00 -15.180.00 -15 -144 -144.121.42"/>
+    </person>
+    <person id="22" depart="20.36">
+        <walk edges="31.80.00 31 23.80.00 23 -109.80.00 -109"/>
+    </person>
+    <person id="23" depart="21.28">
+        <walk edges="-60.80.00 -60 -79.80.00"/>
+    </person>
+    <person id="24" depart="22.21">
+        <walk edges="-27"/>
+    </person>
+    <person id="25" depart="23.13">
+        <walk edges="-27"/>
+    </person>
+    <person id="26" depart="24.06">
+        <walk edges="31 -31.80.00 -31 60 60.80.00 -60"/>
+    </person>
+    <person id="27" depart="24.98">
+        <walk edges="-27"/>
+    </person>
+    <person id="28" depart="25.91">
+        <walk edges="15.180.00 123.121.42 123 -120"/>
+    </person>
+    <person id="29" depart="26.83">
+        <walk edges="-27"/>
+    </person>
+    <person id="30" depart="27.76">
+        <walk edges="-58 37 -23 -23.80.00"/>
+    </person>
+    <person id="31" depart="28.68">
+        <walk edges="-60.80.00 -60 -79.80.00"/>
+    </person>
+    <person id="32" depart="29.61">
+        <walk edges="-58 37 -23 -23.80.00"/>
+    </person>
+    <person id="33" depart="30.53">
+        <walk edges="-5.80.00 -11.80.00 -11 -23.80.00"/>
+    </person>
+    <person id="34" depart="31.46">
+        <walk edges="-27 27.80.00 27 -3 -3.180.00 11 11.80.00"/>
+    </person>
+    <person id="35" depart="32.38">
+        <walk edges="109 -109.80.00 -109 -120"/>
+    </person>
+    <person id="36" depart="33.31">
+        <walk edges="-23.80.00 -23 -31.80.00 -31 60 60.80.00 -75.121.42"/>
+    </person>
+    <person id="37" depart="34.23">
+        <walk edges="-109.80.00 -109 131 131.180.00 152"/>
+    </person>
+    <person id="38" depart="35.16">
+        <walk edges="75.121.42 -64 -64.80.00 -31 -31.80.00 23.80.00 23 11.80.00 11 -3.180.00 -3 27 27.80.00 55"/>
+    </person>
+    <person id="39" depart="36.08">
+        <walk edges="-131.180.00 -109 -109.80.00 -23.80.00 -23 -31.80.00"/>
+    </person>
+    <person id="40" depart="37.01">
+        <walk edges="92 79 -79"/>
+    </person>
+    <person id="41" depart="37.93">
+        <walk edges="43 27.80.00 27 -3 -3.180.00 -11.80.00 -11 -109.80.00 -109 123"/>
+    </person>
+    <person id="42" depart="38.86">
+        <walk edges="-60.80.00 -60 -79.80.00"/>
+    </person>
+    <person id="43" depart="39.79">
+        <walk edges="-144.121.42 -144 -15 -15.180.00 -3.180.00 -3 27 27.80.00 -27"/>
+    </person>
+    <person id="44" depart="40.71">
+        <walk edges="-37.80.00 -31.80.00 -31 -64.80.00 -64 -120.180.00"/>
+    </person>
+    <person id="45" depart="41.64">
+        <walk edges="31.80.00 31 23.80.00 23 -11 -11.80.00 15"/>
+    </person>
+    <person id="46" depart="42.56">
+        <walk edges="-27"/>
+    </person>
+    <person id="47" depart="43.49">
+        <walk edges="-60.80.00 -60 -79.80.00"/>
+    </person>
+    <person id="48" depart="44.41">
+        <walk edges="-60.80.00 -60 -79.80.00"/>
+    </person>
+    <person id="49" depart="45.34">
+        <walk edges="-27"/>
+    </person>
+    <person id="50" depart="46.26">
+        <walk edges="-131"/>
+    </person>
+    <person id="51" depart="47.19">
+        <walk edges="92 -75.121.42 -75 120 120.180.00 131 131.180.00"/>
+    </person>
+    <person id="52" depart="48.11">
+        <walk edges="-131"/>
+    </person>
+    <person id="53" depart="49.04">
+        <walk edges="-27.80.00 -3 -3.180.00 -15.180.00 -15 144.121.42 144"/>
+    </person>
+    <person id="54" depart="49.96">
+        <walk edges="-11 -23.80.00 -23"/>
+    </person>
+    <person id="55" depart="50.89">
+        <walk edges="-11 -23.80.00 -23"/>
+    </person>
+    <person id="56" depart="51.81">
+        <walk edges="-37.80.00 23.80.00 23 -109.80.00 -109 131"/>
+    </person>
+    <person id="57" depart="52.74">
+        <walk edges="-27"/>
+    </person>
+    <person id="58" depart="53.66">
+        <walk edges="-27"/>
+    </person>
+    <person id="59" depart="54.59">
+        <walk edges="31.80.00 31 23.80.00 23"/>
+    </person>
+    <person id="60" depart="55.51">
+        <walk edges="-15.180.00 -11.80.00 -11 23"/>
+    </person>
+    <person id="61" depart="56.44">
+        <walk edges="-58 37 -23 -23.80.00"/>
+    </person>
+    <person id="62" depart="57.36">
+        <walk edges="-131"/>
+    </person>
+    <person id="63" depart="58.29">
+        <walk edges="-23.80.00 -109.80.00 -109 131 131.180.00 148 -148"/>
+    </person>
+    <person id="64" depart="59.21">
+        <walk edges="31.80.00 31 23.80.00 23 -11 -11.80.00 15"/>
+    </person>
+    <person id="65" depart="60.14">
+        <walk edges="-71 3.180.00"/>
+    </person>
+    <person id="66" depart="61.07">
+        <walk edges="-109.80.00 11.80.00 11 -3.180.00 -3 27 27.80.00 43 68"/>
+    </person>
+    <person id="67" depart="61.99">
+        <walk edges="71 -71 -3 -3.180.00 -11.80.00 -11 109 109.80.00"/>
+    </person>
+    <person id="68" depart="62.92">
+        <walk edges="75.121.42 -64 -64.80.00 -31 -31.80.00 23.80.00 23 11.80.00 11 -3.180.00 -3 27 27.80.00 55"/>
+    </person>
+    <person id="69" depart="63.84">
+        <walk edges="-11 -23.80.00 -23"/>
+    </person>
+    <person id="70" depart="64.77">
+        <walk edges="31.80.00 31 23.80.00 23"/>
+    </person>
+    <person id="71" depart="65.69">
+        <walk edges="-11 -23.80.00 -23"/>
+    </person>
+    <person id="72" depart="66.62">
+        <walk edges="131 120.180.00"/>
+    </person>
+    <person id="73" depart="67.54">
+        <walk edges="-144 123.121.42 123 120.180.00 120 -64 -64.80.00 -60.80.00"/>
+    </person>
+    <person id="74" depart="68.47">
+        <walk edges="-5.80.00 -11.80.00 -11 -23.80.00"/>
+    </person>
+    <person id="75" depart="69.39">
+        <walk edges="-152.80.00 131.180.00 131 120.180.00 120 -64"/>
+    </person>
+    <person id="76" depart="70.32">
+        <walk edges="-27"/>
+    </person>
+    <person id="77" depart="71.24">
+        <walk edges="23 -109.80.00 -109 -123.121.42 -123 144.121.42"/>
+    </person>
+    <person id="78" depart="72.17">
+        <walk edges="-109 -109.80.00 -11 -11.80.00 -3.180.00 -3 27 27.80.00 -43.80.00"/>
+    </person>
+    <person id="79" depart="73.09">
+        <walk edges="-71 3.180.00"/>
+    </person>
+    <person id="80" depart="74.02">
+        <walk edges="31.80.00 31 23.80.00 23 -11 -11.80.00 15"/>
+    </person>
+    <person id="81" depart="74.94">
+        <walk edges="-27"/>
+    </person>
+    <person id="82" depart="75.87">
+        <walk edges="92 79 -79"/>
+    </person>
+    <person id="83" depart="76.79">
+        <walk edges="-131"/>
+    </person>
+    <person id="84" depart="77.72">
+        <walk edges="58 -31 -31.80.00 23.80.00 23 11.80.00 11 -3.180.00"/>
+    </person>
+    <person id="85" depart="78.64">
+        <walk edges="92 79 -79"/>
+    </person>
+    <person id="86" depart="79.57">
+        <walk edges="-58 37 -23 -23.80.00"/>
+    </person>
+    <person id="87" depart="80.50">
+        <walk edges="131.180.00 131 120.180.00 120 75.121.42 75 -92.180.00"/>
+    </person>
+    <person id="88" depart="81.42">
+        <walk edges="-92 92 75 75.121.42"/>
+    </person>
+    <person id="89" depart="82.35">
+        <walk edges="-131"/>
+    </person>
+    <person id="90" depart="83.27">
+        <walk edges="-58 37 -23 -23.80.00"/>
+    </person>
+    <person id="91" depart="84.20">
+        <walk edges="-27"/>
+    </person>
+    <person id="92" depart="85.12">
+        <walk edges="-71 3.180.00"/>
+    </person>
+    <person id="93" depart="86.05">
+        <walk edges="-27"/>
+    </person>
+    <person id="94" depart="86.97">
+        <walk edges="-27 27.80.00 27 -3 -3.180.00 -11.80.00 -11 -23.80.00 -23 -31.80.00 -31 64"/>
+    </person>
+    <person id="95" depart="87.90">
+        <walk edges="-71 3.180.00"/>
+    </person>
+    <person id="96" depart="88.82">
+        <walk edges="109.80.00 109 11.80.00 11 -3.180.00"/>
+    </person>
+    <person id="97" depart="89.75">
+        <walk edges="-27"/>
+    </person>
+    <person id="98" depart="90.67">
+        <walk edges="-27"/>
+    </person>
+    <person id="99" depart="91.60">
+        <walk edges="-37.80.00 -31.80.00 -31 -64.80.00 -64 -120.180.00"/>
+    </person>
+    <person id="100" depart="92.52">
+        <walk edges="31.80.00 31 23.80.00 23 -11 -11.80.00 15"/>
+    </person>
+    <person id="101" depart="93.45">
+        <walk edges="-27"/>
+    </person>
+    <person id="102" depart="94.37">
+        <walk edges="120.180.00 131 131.180.00 -148.80.00"/>
+    </person>
+    <person id="103" depart="95.30">
+        <walk edges="43 27.80.00 27 -3 -3.180.00 -11.80.00 -11 -109.80.00 -109 123"/>
+    </person>
+    <person id="104" depart="96.22">
+        <walk edges="-15.180.00 -11.80.00 -11 23"/>
+    </person>
+    <person id="105" depart="97.15">
+        <walk edges="-27.80.00 -3 -3.180.00 -15.180.00 -15 144.121.42 144"/>
+    </person>
+    <person id="106" depart="98.07">
+        <walk edges="-71 3.180.00"/>
+    </person>
+</routes>

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -44,6 +44,8 @@
 const std::string NBTrafficLightDefinition::DefaultProgramID = "0";
 const std::string NBTrafficLightDefinition::DummyID = "dummy";
 const SUMOTime NBTrafficLightDefinition::UNSPECIFIED_DURATION(-1);
+const int NBTrafficLightDefinition::MIN_YELLOW_SECONDS(3);
+
 
 // ===========================================================================
 // method definitions
@@ -134,15 +136,15 @@ NBTrafficLightDefinition::amInvalid() const {
 
 int
 NBTrafficLightDefinition::computeBrakingTime(double minDecel) const {
-    if (myIncomingEdges.size() == 0) {
+    if (myIncomingEdges.empty()) {
         // don't crash
-        return 3;
+        return MIN_YELLOW_SECONDS;
     }
     const double vmax = NBContHelper::maxSpeed(myIncomingEdges);
     if (vmax < 71 / 3.6) {
         // up to 50kmh: 3 seconds , 60km/h: 4, 70kmh: 5
         // @note: these are German regulations, other countries may differ
-        return 3 + (int)MAX2(0.0, (floor((vmax - 50 / 3.6) * 0.37)));
+        return MIN_YELLOW_SECONDS + (int)MAX2(0.0, (floor((vmax - 50 / 3.6) * 0.37)));
     } else {
         // above 70km/h we use a function that grows according to the "natural"
         // formula (vmax / 2 * minDecel) but continues smoothly where the german

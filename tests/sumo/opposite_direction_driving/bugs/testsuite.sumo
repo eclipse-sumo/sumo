@@ -7,3 +7,16 @@ ticket4610
 # lcOpposite=0
 ticket5238
 ticket5860
+ticket9718
+
+# 4 arm priority junction
+ticket9721
+
+# avoid unrealistic overtaking speed estimation
+ticket10194
+
+# rerouting while opposite direction driving
+ticket10312
+
+# occupancy after overtaking
+ticket10314

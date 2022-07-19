@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2017-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2017-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -17,6 +17,7 @@
 ///
 // C++ TraCI client API implementation
 /****************************************************************************/
+#include <config.h>
 
 #define LIBTRACI 1
 #include <iterator>
@@ -146,6 +147,10 @@ Edge::getLastStepMeanSpeed(const std::string& edgeID) {
     return Dom::getDouble(libsumo::LAST_STEP_MEAN_SPEED, edgeID);
 }
 
+double
+Edge::getMeanFriction(const std::string& edgeID) {
+    return Dom::getDouble(libsumo::VAR_FRICTION, edgeID);
+}
 
 double
 Edge::getLastStepOccupancy(const std::string& edgeID) {
@@ -238,6 +243,11 @@ Edge::setEffort(const std::string& edgeID, double effort, double beginSeconds, d
 void
 Edge::setMaxSpeed(const std::string& edgeID, double speed) {
     Dom::setDouble(libsumo::VAR_MAXSPEED, edgeID, speed);
+}
+
+void
+Edge::setFriction(const std::string& edgeID, double friction) {
+    Dom::setDouble(libsumo::VAR_MAXSPEED, edgeID, friction);
 }
 
 }

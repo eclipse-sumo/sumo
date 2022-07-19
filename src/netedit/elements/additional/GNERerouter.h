@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -34,30 +34,37 @@ class GNEEdge;
  * @class GNERerouter
  * Rerouter changes the route of a vehicle as soon as the vehicle moves onto a specified edge.
  */
-class GNERerouter : public GNEAdditional {
+class GNERerouter : public GNEAdditional, public Parameterised {
 
 public:
+    /// @brief default Constructor
+    GNERerouter(GNENet* net);
+
     /**@brief Constructor
      * @param[in] id The storage of gl-ids to get the one for this lane representation from
      * @param[in] net pointer to GNENet of this additional element belongs
      * @param[in] pos position (center) of the rerouter in the map
      * @param[in] name Rerouter name
-     * @param[in] filename The path to the definition file
      * @param[in] probability The probability for vehicle rerouting
      * @param[in] off Whether the router should be inactive initially
      * @param[in] parameters generic parameters
      */
-    GNERerouter(const std::string& id, GNENet* net, const Position& pos, const std::string& name, const std::string& filename,
+    GNERerouter(const std::string& id, GNENet* net, const Position& pos, const std::string& name,
                 double probability, bool off, SUMOTime timeThreshold, const std::vector<std::string>& vTypes,
-                const std::map<std::string, std::string>& parameters);
+                const Parameterised::Map& parameters);
 
     /// @brief Destructor
     ~GNERerouter();
 
-    /**@brief get move operation for the given shapeOffset
+    /**@brief write additional element into a xml file
+     * @param[in] device device in which write parameters of additional element
+     */
+    void writeAdditional(OutputDevice& device) const;
+
+    /**@brief get move operation
     * @note returned GNEMoveOperation can be nullptr
     */
-    GNEMoveOperation* getMoveOperation(const double shapeOffset);
+    GNEMoveOperation* getMoveOperation();
 
     /// @brief open GNERerouterDialog
     void openAdditionalDialog();
@@ -104,6 +111,9 @@ public:
      */
     double getAttributeDouble(SumoXMLAttr key) const;
 
+    /// @brief get parameters map
+    const Parameterised::Map& getACParametersMap() const;
+
     /* @brief method for setting the attribute and letting the object perform additional changes
      * @param[in] key The attribute key
      * @param[in] value The new value
@@ -113,15 +123,10 @@ public:
 
     /* @brief method for checking if the key and their correspond attribute are valids
      * @param[in] key The attribute key
-     * @param[in] value The value asociated to key key
+     * @param[in] value The value associated to key key
      * @return true if the value is valid, false in other case
      */
     bool isValid(SumoXMLAttr key, const std::string& value);
-
-    /* @brief method for check if the value for certain attribute is set
-     * @param[in] key The attribute key
-     */
-    bool isAttributeEnabled(SumoXMLAttr key) const;
 
     /// @brief get PopPup ID (Used in AC Hierarchy)
     std::string getPopUpID() const;
@@ -133,9 +138,6 @@ public:
 protected:
     /// @brief position of rerouter in view
     Position myPosition;
-
-    /// @brief filename of rerouter
-    std::string myFilename;
 
     /// @brief probability of rerouter
     double myProbability;

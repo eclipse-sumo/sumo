@@ -1,0 +1,8 @@
+<additional>
+
+  <parkingArea id="parking_b" lane="b_0" startPos="6" endPos="40" friendlyPos="true" roadsideCapacity="6" angle="0" onRoad="false"/>
+  <parkingArea id="parking_c" lane="c_0" startPos="6" endPos="40" friendlyPos="true" roadsideCapacity="6" angle="0" onRoad="false"/>
+  <parkingArea id="parking_d" lane="d_0" startPos="6" endPos="40" friendlyPos="true" roadsideCapacity="6" angle="0" onRoad="false"/>
+  <parkingArea id="parking_e" lane="e_0" startPos="6" endPos="40" friendlyPos="true" roadsideCapacity="6" angle="0" onRoad="false"/>
+
+</additional>

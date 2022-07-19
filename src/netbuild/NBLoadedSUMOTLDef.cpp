@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2011-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2011-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -117,6 +117,12 @@ NBLoadedSUMOTLDef::addConnection(NBEdge* from, NBEdge* to, int fromLane, int toL
 }
 
 void
+NBLoadedSUMOTLDef::setID(const std::string& newID) {
+    Named::setID(newID);
+    myTLLogic->setID(newID);
+}
+
+void
 NBLoadedSUMOTLDef::setProgramID(const std::string& programID) {
     NBTrafficLightDefinition::setProgramID(programID);
     myTLLogic->setProgramID(programID);
@@ -174,8 +180,10 @@ NBLoadedSUMOTLDef::replaceRemoved(NBEdge* removed, int removedLane, NBEdge* by, 
 
 
 void
-NBLoadedSUMOTLDef::addPhase(SUMOTime duration, const std::string& state, SUMOTime minDur, SUMOTime maxDur, const std::vector<int>& next, const std::string& name) {
-    myTLLogic->addStep(duration, state, minDur, maxDur, next, name);
+NBLoadedSUMOTLDef::addPhase(const SUMOTime duration, const std::string& state, const SUMOTime minDur, const SUMOTime maxDur,
+                            const SUMOTime earliestEnd, const SUMOTime latestEnd, const SUMOTime vehExt, const SUMOTime yellow,
+                            const SUMOTime red, const std::vector<int>& next, const std::string& name) {
+    myTLLogic->addStep(duration, state, minDur, maxDur, earliestEnd, latestEnd, vehExt, yellow, red, name, next);
 }
 
 
@@ -336,9 +344,10 @@ NBLoadedSUMOTLDef::patchIfCrossingsAdded() {
             NBTrafficLightLogic* newLogic = new NBTrafficLightLogic(getID(), getProgramID(), 0, myOffset, myType);
             SUMOTime brakingTime = TIME2STEPS(computeBrakingTime(OptionsCont::getOptions().getFloat("tls.yellow.min-decel")));
             //std::cout << "patchIfCrossingsAdded for " << getID() << " numPhases=" << phases.size() << "\n";
-            for (std::vector<NBTrafficLightLogic::PhaseDefinition>::const_iterator it = phases.begin(); it != phases.end(); it++) {
-                const std::string state = it->state.substr(0, numNormalLinks) + crossingDefaultState;
-                NBOwnTLDef::addPedestrianPhases(newLogic, it->duration, it->minDur, it->maxDur, state, crossings, fromEdges, toEdges);
+            for (const auto& phase : phases) {
+                const std::string state = phase.state.substr(0, numNormalLinks) + crossingDefaultState;
+                NBOwnTLDef::addPedestrianPhases(newLogic, phase.duration, phase.minDur, phase.maxDur, phase.earliestEnd, phase.latestEnd,
+                                                state, crossings, fromEdges, toEdges);
             }
             NBOwnTLDef::addPedestrianScramble(newLogic, noLinksAll, TIME2STEPS(10), brakingTime, crossings, fromEdges, toEdges);
 
@@ -689,13 +698,25 @@ NBLoadedSUMOTLDef::groupSignals() {
     cleanupStates();
     //std::cout << "oldMaxIndex=" << maxIndex << " newMaxIndex=" << getMaxIndex() << " unused=" << toString(unusedIndices) << "\n";
     setTLControllingInformation();
+    // patch crossing indices
+    for (NBNode* n : myControlledNodes) {
+        for (NBNode::Crossing* c : n->getCrossings()) {
+            for (int i = (int)unusedIndices.size() - 1; i >= 0; i--) {
+                if (c->customTLIndex > i) {
+                    c->customTLIndex--;
+                }
+                if (c->customTLIndex2 > i) {
+                    c->customTLIndex2--;
+                }
+            }
+        }
+    }
 }
 
 void
 NBLoadedSUMOTLDef::ungroupSignals() {
     NBConnectionVector defaultOrdering;
     collectAllLinks(defaultOrdering);
-    myTLLogic->setStateLength((int)myControlledLinks.size());
     std::vector<std::string> states; // organized per link rather than phase
     int index = 0;
     for (NBConnection& c : defaultOrdering) {
@@ -706,13 +727,14 @@ NBLoadedSUMOTLDef::ungroupSignals() {
     for (NBNode* n : myControlledNodes) {
         for (NBNode::Crossing* c : n->getCrossings()) {
             states.push_back(getStates(c->tlLinkIndex));
-            c->tlLinkIndex = index++;
+            c->customTLIndex = index++;
             if (c->tlLinkIndex2 != NBConnection::InvalidTlIndex) {
                 states.push_back(getStates(c->tlLinkIndex2));
-                c->tlLinkIndex2 = index++;
+                c->customTLIndex2 = index++;
             }
         }
     }
+    myTLLogic->setStateLength(index);
     for (int i = 0; i < (int)states.size(); i++) {
         for (int p = 0; p < (int)states[i].size(); p++) {
             myTLLogic->setPhaseState(p, i, (LinkState)states[i][p]);

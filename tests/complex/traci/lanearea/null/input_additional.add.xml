@@ -1,0 +1,7 @@
+<additional>
+    <laneAreaDetector id="det0" lane="2fi_0" freq="1" pos="100" length="25" file="NUL" >
+        <param key="loadedFromXML" value="1338"/>
+    </laneAreaDetector>
+
+    <laneAreaDetector id="det1" lanes="3fi_0 3si_0 2o_0" freq="1" pos="148.5" endPos="62.85" file="nul" />
+</additional>

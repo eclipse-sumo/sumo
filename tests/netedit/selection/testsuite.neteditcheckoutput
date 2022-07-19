@@ -1,7 +1,7 @@
 # basic test
 basic
 
-# check draws selections (Rectangle, polygons, etc.)
+# check draws selections (rectangle, polygons, etc.)
 draws
 
 # view options (toggle edges, show connections, etc.)

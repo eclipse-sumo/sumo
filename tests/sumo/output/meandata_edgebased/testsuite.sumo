@@ -10,8 +10,14 @@ print_defaults
 # one vehicle is moving
 one_vehicle
 
-# one vehicle stopped across mutiple lanes
+# one vehicle stopped across multiple lanes
 long_stopped_vehicle
+
+# test occupancy on short edges
+short_edge
+
+# test occupancy on short edges
+short_edge_2lanes
 
 # one vehicle is moving, subsecond
 one_vehicle_subsecond
@@ -57,3 +63,6 @@ vtypes
 
 # two vehicles sampling at 15s with internal lanes
 internal
+
+# count teleporting vehicles
+teleporting

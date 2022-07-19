@@ -1,0 +1,6 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <entryExitDetector id="entryExitDetector_1" period="100" file="entryExitDetector_4.txt" timeThreshold="5.00" speedThreshold="2.51" pos="31.65,6.36">
+        <detEntry lane="gneE1_0" pos="15" friendlyPos="0"/>
+        <detExit lane="gneE1_0" pos="20" friendlyPos="0"/>
+    </entryExitDetector>
+</additional>

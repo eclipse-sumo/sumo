@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2021-12-10 14:30:13 by Eclipse SUMO sumo Version v1_11_0+0480-562403d
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net2.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <tripinfo-output value="tripinfos.xml"/>
+    </output>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <bluelight_device>
+        <device.bluelight.explicit value="rescue"/>
+    </bluelight_device>
+
+</configuration>
+-->
+
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <tripinfo id="right.0" depart="0.00" departLane="SC_0" departPos="7.20" departSpeed="13.89" departDelay="0.00" arrival="135.00" arrivalLane="CE_0" arrivalPos="89.60" arrivalSpeed="13.89" duration="135.00" routeLength="181.03" waitingTime="114.00" waitingCount="1" stopTime="0.00" timeLoss="120.99" rerouteNo="0" devices="tripinfo_right.0" vType="car" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="right.1" depart="2.00" departLane="SC_0" departPos="7.20" departSpeed="13.89" departDelay="0.00" arrival="136.00" arrivalLane="CE_0" arrivalPos="89.60" arrivalSpeed="13.89" duration="134.00" routeLength="181.03" waitingTime="114.00" waitingCount="1" stopTime="0.00" timeLoss="120.68" rerouteNo="0" devices="tripinfo_right.1" vType="car" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="right.2" depart="4.00" departLane="SC_0" departPos="7.20" departSpeed="13.89" departDelay="0.00" arrival="138.00" arrivalLane="CE_0" arrivalPos="89.60" arrivalSpeed="13.89" duration="134.00" routeLength="181.03" waitingTime="114.00" waitingCount="1" stopTime="0.00" timeLoss="120.38" rerouteNo="0" devices="tripinfo_right.2" vType="car" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="right.3" depart="6.00" departLane="SC_0" departPos="7.20" departSpeed="13.89" departDelay="0.00" arrival="140.00" arrivalLane="CE_0" arrivalPos="89.60" arrivalSpeed="13.89" duration="134.00" routeLength="181.03" waitingTime="113.00" waitingCount="1" stopTime="0.00" timeLoss="120.07" rerouteNo="0" devices="tripinfo_right.3" vType="car" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="right.4" depart="8.00" departLane="SC_0" departPos="7.20" departSpeed="13.89" departDelay="0.00" arrival="141.00" arrivalLane="CE_0" arrivalPos="89.60" arrivalSpeed="13.89" duration="133.00" routeLength="181.03" waitingTime="113.00" waitingCount="1" stopTime="0.00" timeLoss="119.76" rerouteNo="0" devices="tripinfo_right.4" vType="car" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="rescue" depart="12.00" departLane="SC_0" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="143.00" arrivalLane="CE_0" arrivalPos="89.60" arrivalSpeed="19.09" duration="131.00" routeLength="188.23" waitingTime="108.00" waitingCount="1" stopTime="0.00" timeLoss="123.68" rerouteNo="0" devices="tripinfo_rescue bluelight_rescue" vType="rescue" speedFactor="2.00" vaporized="">
+        <bluelight/>
+    </tripinfo>
+</tripinfos>

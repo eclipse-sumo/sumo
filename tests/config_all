@@ -25,6 +25,8 @@ errors:comment or processing instruction expected{REPLACE Expected comment or pr
 errors:input ended before all started tags were ended; last tag started is{REPLACE The input ended before all started tags were ended. Last tag started was}
 errors:attribute '(.*)' is already specified for element '(.*)'{REPLACE The attribute '\1' is already used in element '\2'}
 errors:std::_Ios_Fmtflags
+errors:Suppressions used:{[->]}--------------------------------------------
+errors:--------------------------------------------{LINES 2}
 shapes:imgFile=\"(.*?)berlin_icon.ico\"{REPLACE imgFile="berlin_icon.ico"}
 shapes:imgFile=\"(.*?)paris.ico\"{REPLACE imgFile="paris.ico"}
 cfg:<!-- generated on{[->]}-->

@@ -1,15 +1,13 @@
 >>> Building the network (with internal)
-Loading configuration ... done.
 Success.
-Loading configuration ... done.
 >>> Checking Simulation (network: internal, simulation: internal)
-Loading configuration ... done.
+ Retrying in 1 seconds
 >>> Checking Simulation (network: internal, simulation: no internal)
+ Retrying in 1 seconds
 
 >>> Building the network (without internal)
-Loading configuration ... done.
 Success.
-Loading configuration ... done.
 >>> Checking Simulation (network: no internal, simulation: internal)
-Loading configuration ... done.
+ Retrying in 1 seconds
 >>> Checking Simulation (network: no internal, simulation: no internal)
+ Retrying in 1 seconds

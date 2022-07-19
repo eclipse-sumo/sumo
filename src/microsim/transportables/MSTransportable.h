@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -24,6 +24,7 @@
 #include <cassert>
 #include <utils/common/SUMOTime.h>
 #include <utils/common/SUMOVehicleClass.h>
+#include <utils/common/WrappingCommand.h>
 #include <utils/geom/Position.h>
 #include <utils/geom/PositionVector.h>
 #include <utils/geom/Boundary.h>
@@ -67,6 +68,14 @@ public:
         return !myAmPerson;
     }
 
+    std::string getObjectType() {
+        return myAmPerson ? "Person" : "Container";
+    }
+
+    inline NumericalID getNumericalID() const {
+        return myNumericalID;
+    }
+
     bool isStopped() const {
         return getCurrentStageType() == MSStageType::WAITING;
     }
@@ -95,9 +104,7 @@ public:
         return getEdgePos();
     }
 
-    double getBackPositionOnLane(const MSLane* /*lane*/) const {
-        return getEdgePos();
-    }
+    double getBackPositionOnLane(const MSLane* lane) const;
 
     Position getPosition(const double /*offset*/) const {
         return getPosition();
@@ -142,6 +149,9 @@ public:
 
     /// logs depart time of the current stage
     void setDeparted(SUMOTime now);
+
+    /// logs depart time of the current stage
+    SUMOTime getDeparture() const;
 
     /// Returns the current destination.
     const MSEdge* getDestination() const {
@@ -236,6 +246,16 @@ public:
     /// @brief Return the total number stages in this persons plan
     int getNumStages() const;
 
+    /// @brief return index of edge within route
+    int getRoutePosition() const {
+        return (*myStep)->getRoutePosition();
+    }
+
+    /// @brief returns the next edge ptr (used by walking persons)
+    virtual const MSEdge* getNextEdgePtr() const {
+        return nullptr;
+    }
+
     /** @brief Called on writing tripinfo output
      *
      * @param[in] os The stream to write the information into
@@ -260,6 +280,11 @@ public:
         return (*myStep)->isWaiting4Vehicle();
     }
 
+    void setAbortWaiting(const SUMOTime timeout);
+
+    /// @brief Abort current stage (used for aborting waiting for a vehicle)
+    SUMOTime abortStage(SUMOTime step);
+
     /// @brief The vehicle associated with this transportable
     SUMOVehicle* getVehicle() const {
         return (*myStep)->getVehicle();
@@ -269,9 +294,9 @@ public:
     void appendStage(MSStage* stage, int next = -1);
 
     /// @brief removes the nth next stage
-    void removeStage(int next);
+    void removeStage(int next, bool stayInSim = true);
 
-    /// sets the walking speed (ignored in other stages)
+    /// @brief set the speed for all present and future (walking) stages and modify the vType so that stages added later are also affected
     void setSpeed(double speed);
 
     /// @brief returns the final arrival pos
@@ -320,6 +345,9 @@ public:
     /// @brief Returns a device of the given type if it exists or 0
     MSTransportableDevice* getDevice(const std::type_info& type) const;
 
+    /// @brief set individual junction model paramete (not type related)
+    void setJunctionModelParameter(const std::string& key, const std::string& value);
+
     /** @brief Returns this vehicle's devices
      * @return This vehicle's devices
      */
@@ -366,6 +394,12 @@ protected:
 
 private:
     const bool myAmPerson;
+
+    const NumericalID myNumericalID;
+
+    WrappingCommand<MSTransportable>* myAbortCommand;
+
+    static NumericalID myCurrentNumericalIndex;
 
 private:
     /// @brief Invalidated copy constructor.

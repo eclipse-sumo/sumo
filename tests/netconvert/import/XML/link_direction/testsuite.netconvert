@@ -1,0 +1,5 @@
+# multiple edges on top of each other
+2turnarounds_overlayed
+
+# multiple parallel edges between the same junctions
+2turnarounds_spread

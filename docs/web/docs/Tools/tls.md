@@ -27,7 +27,7 @@ sumo -n net.net.xml -r routes.rou.xml -a tlsOffsets.add.xml
 # tlsCycleAdaptation.py
 
 This script modifies the duration of green phases according to Websters
-formula to best accomodate a given traffic demand. Example call:
+formula to best accommodate a given traffic demand. Example call:
 
 ```
 python tools/tlsCycleAdaptation.py -n net.net.xml -r routes.rou.xml -o newTLS.add.xml
@@ -228,11 +228,10 @@ And obtain the following programs after loading them into
 # tls_csvSignalGroups.py
 
 Converts a csv-tls-description into one SUMO can read as additional
-file. This tool differs from **tls_csv2SUMO.py** by being based on
+file (and vice versa). This tool differs from **tls_csv2SUMO.py** by being based on
 signal groups in a way that is closer to the typical representation used
 by traffic engineers. It accepts green times per signal group and
-creates the [sumo](../sumo.md) tls representation out of it using
-the . Example call to convert two csv-tls-descriptions into the
+creates the [sumo](../sumo.md) tls representation out of it. Example call to convert two csv-tls-descriptions into the
 additional file *tls.add.xml*:
 
 ```
@@ -246,6 +245,20 @@ and completed by hand:
 ```
 python tools/tls/tls_csvSignalgroups.py -n net.net.xml -m .
 ```
+It also provides a mechanism to convert an additional file *tls.add.xml* or the TL logic contained in a 
+net file *net.net.xml* directly into a csv-tls-representation. Example call to convert an additional file *tls.add.xml* 
+into csv-tls-representation(s):
+
+```
+python tools/tls/tls_csvSignalgroups.py -n net.net.xml -i tls.add.xml -r -n net.net.xml --group
+```
+The csv output files (one per found TL logic) are written to the current working directory and named *tlID_programID.csv*. 
+When adding the parameter **--group**, signal groups with identical signal states across all examined TL logics are joined.
+
+!!! caution
+    The conversion from an additional file *tls.add.xml* to csv may be lossy in some cases, as only a limited subset of actuated 
+    traffic lights is supported. If `minDur` attribute is set, then the time between the respective cycle second and the phase end after 
+    `duration` seconds is recorded in the csv output.
 
 The input csv file contains input blocks divided by titles in brackets.
 The block \[general\] sets general information relating to the signal
@@ -324,6 +337,32 @@ FZ32;0;15;1;3;40;55
 FZ41;25;35;1;3;;
 ```
 
+## Example for an actuated traffic light
+
+The **actuated** setting defines a list of times (given as cycleSeconds). Each pair defines the start and end of an actuation range.
+The difference between each pair of values corresponds to the difference between *minDur* and *maxDur* and thus the possible length extension.
+
+```
+[general];;;;;;
+cycle time;60;;;;;
+key;1;;;;;
+subkey;SZP_Prio;;;;;
+offset;5;;;;;
+actuated;5;10
+[links];;;;;;
+FZ11;-474_0;;;;;
+FZ11;-474_1;;;;;
+FZ21;-472_0;;;;;
+FZ31;-468_0;;;;;
+FZ31;-468_1;;;;;
+FZ41;-470_0;;;;;
+[signal groups];;;;;;
+id;on1;off1;transOn;transOff;;
+FZ11;0;10;1;3;;
+FZ21;15;25;1;3;;
+FZ31;30;40;1;3;;
+FZ41;45;55;1;3;;
+```
 
 # buildTransitions.py
 

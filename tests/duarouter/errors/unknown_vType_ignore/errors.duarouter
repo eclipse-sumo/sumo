@@ -1,1 +1,3 @@
 Warning: The vehicle type 'foo' for vehicle '0' is not known.
+Warning: The vehicle type 'x' for flow 'a' is not known.
+Warning: The vehicle type 'y' for flow 'b' is not known.

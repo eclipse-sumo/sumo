@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -48,7 +48,7 @@ class GLHelper {
 
 public:
     /// @brief Storage for precomputed sin/cos-values describing a circle
-    static const std::vector<std::pair<double, double> > &getCircleCoords();
+    static const std::vector<std::pair<double, double> >& getCircleCoords();
 
     /// @brief normalize angle for lookup in myCircleCoords
     static int angleLookup(double angleDeg);
@@ -65,10 +65,22 @@ public:
     /// @brief pop Name
     static void popName();
 
-    /// @brief check counter matrix
+    /// @brief get matrix counter
+    static int getMatrixCounter();
+
+    /// @brief reset matrix counter
+    static void resetMatrixCounter();
+
+    /// @brief get vertex counter
+    static int getVertexCounter();
+
+    /// @brief reset vertex counter
+    static void resetVertexCounter();
+
+    /// @brief check counter matrix (for debug purposes)
     static void checkCounterMatrix();
 
-    /// @brief check counter name
+    /// @brief check counter name (for debug purposes)
     static void checkCounterName();
 
     /** @brief Draws a filled polygon described by the list of points
@@ -294,7 +306,7 @@ public:
      * @param[in] tWidth The width of the triangle
      * @param[in] extraOffset extra offset at end
      */
-    static void drawTriangleAtEnd(const Position& p1, const Position& p2, double tLength, 
+    static void drawTriangleAtEnd(const Position& p1, const Position& p2, double tLength,
                                   double tWidth, const double extraOffset = 0);
 
     /// @brief Sets the gl-color to this value
@@ -302,6 +314,9 @@ public:
 
     /// @brief gets the gl-color
     static RGBColor getColor();
+
+    /// @brief get required width of text
+    static double getTextWidth(const std::string& text, double size);
 
     /* @brief draw Text with given parameters
      * when width is not given (negative) the font is scaled proportionally in
@@ -345,8 +360,15 @@ public:
                               const std::vector<double>& lengths,
                               double length, double spacing, double halfWidth, bool drawForSelection);
 
+    /// @bried draw the space between markings (in road color)
+    static void drawInverseMarkings(const PositionVector& geom,
+                                    const std::vector<double>& rots,
+                                    const std::vector<double>& lengths,
+                                    double maxLength, double spacing,
+                                    double halfWidth, bool cl, bool cr, bool lefthand, double scale);
+
     /// @brief draw vertex numbers for the given shape (in a random color)
-    static void debugVertices(const PositionVector& shape, double size, double layer = 256);
+    static void debugVertices(const PositionVector& shape, const GUIVisualizationTextSettings& settings, double scale, double layer = 1024);
 
     /// @brief Draw a boundary (used for debugging)
     static void drawBoundary(const Boundary& b);
@@ -371,8 +393,14 @@ private:
     /// @brief get dotted contour colors (black and white). Vector will be automatically increased if current size is minor than size
     static const std::vector<RGBColor>& getDottedcontourColors(const int size);
 
-    /// @brief matrix counter
+    /// @brief matrix counter (for debug purposes)
     static int myMatrixCounter;
+
+    /// @brief matrix counter (for debug purposes)
+    static int myVertexCounter;
+
+    /// @brief matrix counter (for debug purposes)
+    static int myMatrixCounterDebug;
 
     /// @brief name counter
     static int myNameCounter;

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -208,10 +208,10 @@ ROLoader::processRoutes(const SUMOTime start, const SUMOTime end, const SUMOTime
             break;
         }
         lastStep = net.saveAndRemoveRoutesUntil(myOptions, provider, time);
-        if ((!net.furtherStored() && myLoaders.haveAllLoaded()) || MsgHandler::getErrorInstance()->wasInformed()) {
+        if (time == end || (!net.furtherStored() && myLoaders.haveAllLoaded()) || MsgHandler::getErrorInstance()->wasInformed()) {
             break;
         }
-        if (time < end && time + increment > end) {
+        if (time < end && time > end - increment) {
             time = end;
         } else {
             time += increment;

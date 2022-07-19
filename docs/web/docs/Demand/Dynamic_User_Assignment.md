@@ -37,7 +37,9 @@ python tools/assign/duaIterate.py -n <network-file> -t <trip-file> -l <nr
 *duaIterate.py* supports many of the same options as
 [sumo](../sumo.md). Any options not listed when calling
 *duaIterate.py* ***--help*** can be passed to [sumo](../sumo.md) by adding **sumo--long-option-name arg**
-after the regular options (i.e. **sumo--step-length 0.5**).
+after the regular options (i.e. **sumo--step-length 0.5**). The same is true for duarouter options
+using **duarouter--long-option-name arg**. Be aware that those options have to come *after* the regular
+options.
 
 This script tries to calculate a user equilibrium, that is, it tries to
 find a route for each vehicle (each trip from the trip-file above) such
@@ -145,6 +147,18 @@ Option **--convergence-steps** may used to force convergence by iteratively redu
 - If a positive value x is used, the fraction of vehicles that keep their old route is set to `max(0, min(step / x, 1)` which prevents changes in assignment after step x.
 - If a negative value x is used, the fraction of vehicles that keep their old route is set to `1 - 1.0 / (step - |x|)` for steps after `|x|` which asymptotically reduces assignment after `|x|` steps.
 
+## Speeding up Iterations
+
+There is currently now way to speed up duaIteraty.py by parallelization.
+However, the total running time of duaIterate is strongly influenced by the total running time of "jammed" iterations.
+This is a frequent occurrence in the early iterations where many cars try to take the fastest route while disregarding capacity.
+There are several options to mitigate this:
+
+- by ramping up the traffic scaling so the first iterations have fewer traffic (**--inc-start, --inc-base, --inc-max, --incrementation**)
+- by aborting earlier iterations at an earlier time (**--time-inc**)
+- by giving the initial demand with a sensible starting solution (i.e. computed by marouter) along with option **--skip-first-routing**
+- by trying to carry more information between runs (**--weight-memory, --pessimism**)
+
 ## Usage Examples
 
 ### Loading vehicle types from an additional file
@@ -178,9 +192,10 @@ departure which prevents all vehicles from driving blindly into the same
 jam and works pretty well empirically (for larger scenarios).
 
 The routes for this incremental assignment are computed using the
-[Automatic Routing / Routing
-Device](../Demand/Automatic_Routing.md) mechanism. Since this
-device allows for various configuration options, the script
+[Automatic Routing / Routing Device](../Demand/Automatic_Routing.md) mechanism. 
+It is also possible to enable periodic rerouting to allow increased reactivity to developing jams.
+
+Since automatic rerouting allows for various configuration options, the script
 [Tools/Assign\#one-shot.py](../Tools/Assign.md#one-shotpy) may be
 used to automatically try different parameter settings.
 

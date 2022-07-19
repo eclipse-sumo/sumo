@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2017-2021 German Aerospace Center (DLR) and others.
+# Copyright (C) 2017-2022 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -35,6 +35,7 @@ setup(
     description=("Python helper modules to read networks, parse output data and " +
                  "do other useful stuff related to the traffic simulation Eclipse SUMO"),
     long_description=open(os.path.join(os.path.dirname(package_dir), 'README.md')).read(),
+    long_description_content_type='text/markdown',
 
     classifiers=[
         'Development Status :: 5 - Production/Stable',
@@ -42,14 +43,7 @@ setup(
         'Intended Audience :: Science/Research',
         'License :: OSI Approved :: Eclipse Public License 2.0 (EPL-2.0)',
         'Programming Language :: Python :: 2',
-        'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.3',
-        'Programming Language :: Python :: 3.4',
-        'Programming Language :: Python :: 3.5',
-        'Programming Language :: Python :: 3.6',
-        'Programming Language :: Python :: 3.7',
-        'Programming Language :: Python :: 3.8',
     ],
     keywords='traffic simulation traci sumo',
 

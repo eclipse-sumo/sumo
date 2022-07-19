@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -77,8 +77,10 @@ void GNEChange_Crossing::undo() {
         myJunctionParent->getNBNode()->removeCrossing(myEdges);
         // rebuild GNECrossings
         myJunctionParent->rebuildGNECrossings();
+        // clean walking areas
+        myJunctionParent->clearWalkingAreas();
         // Check if Flag "haveNetworkCrossings" has to be disabled
-        if ((myJunctionParent->getNet()->netHasGNECrossings() == false) && (myJunctionParent->getNet()->getNetBuilder()->haveNetworkCrossings())) {
+        if (myJunctionParent->getNet()->getAttributeCarriers()->getCrossings().empty() && (myJunctionParent->getNet()->getNetBuilder()->haveNetworkCrossings())) {
             // change flag of NetBuilder (For build GNECrossing)
             myJunctionParent->getNet()->getNetBuilder()->setHaveNetworkCrossings(false);
             // show extra information for tests
@@ -97,6 +99,8 @@ void GNEChange_Crossing::undo() {
         }
         // rebuild GNECrossings
         myJunctionParent->rebuildGNECrossings();
+        // clean walking areas
+        myJunctionParent->clearWalkingAreas();
         // select if mySelectedElement is enabled
         if (mySelectedElement) {
             myJunctionParent->retrieveGNECrossing(c, false)->selectAttributeCarrier();
@@ -121,6 +125,8 @@ void GNEChange_Crossing::redo() {
         }
         // rebuild GNECrossings
         myJunctionParent->rebuildGNECrossings();
+        // clean walking areas
+        myJunctionParent->clearWalkingAreas();
         // select if mySelectedElement is enabled
         if (mySelectedElement) {
             myJunctionParent->retrieveGNECrossing(c, false)->selectAttributeCarrier();
@@ -136,8 +142,10 @@ void GNEChange_Crossing::redo() {
         myJunctionParent->getNBNode()->removeCrossing(myEdges);
         // rebuild GNECrossings
         myJunctionParent->rebuildGNECrossings();
+        // clean walking areas
+        myJunctionParent->clearWalkingAreas();
         // Check if Flag "haveNetworkCrossings" has to be disabled
-        if ((myJunctionParent->getNet()->netHasGNECrossings() == false) && (myJunctionParent->getNet()->getNetBuilder()->haveNetworkCrossings())) {
+        if (myJunctionParent->getNet()->getAttributeCarriers()->getCrossings().empty() && (myJunctionParent->getNet()->getNetBuilder()->haveNetworkCrossings())) {
             // change flag of NetBuilder (For build GNECrossing)
             myJunctionParent->getNet()->getNetBuilder()->setHaveNetworkCrossings(false);
             // show extra information for tests

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-03-07 09:59:19 by Eclipse SUMO netedit Version v1_12_0+1177-f6b46b7e4a3
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- StoppingPlaces -->
+    <containerStop id="containerStopA" lane="gneE0_0" startPos="19.75" endPos="29.75" friendlyPos="true"/>
+    <containerStop id="containerStopB" lane="gneE1_0" startPos="28.41" endPos="38.41" friendlyPos="true"/>
+    <containerStop id="containerStopC" lane="gneE2_0" startPos="16.48" endPos="26.48" friendlyPos="true"/>
+    <containerStop id="containerStopD" lane="gneE2_1" startPos="21.73" endPos="31.73" friendlyPos="true"/>
+    <containerStop id="containerStopE" lane="gneE2_2" startPos="23.79" endPos="33.79" friendlyPos="true"/>
+    <containerStop id="containerStopF" lane="gneE2_3" startPos="27.13" endPos="37.13" friendlyPos="true"/>
+    <containerStop id="containerStopG" lane="gneE2_4" startPos="31.03" endPos="41.03" friendlyPos="true"/>
+    <containerStop id="containerStopH" lane="gneE4_0" startPos="17.90" endPos="27.90" friendlyPos="true"/>
+</additional>

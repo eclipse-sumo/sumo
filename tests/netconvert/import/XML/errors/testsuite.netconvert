@@ -10,6 +10,12 @@ xml_false_nod
 # Tests what happens if no xml-nodes are given
 xml_no_nod
 
+# Tests what happens if type-file cannot be read
+xml_false_type
+
+# Tests what happens if type-file cannot be read
+xml_false_type_ignore
+
 # Tests what happens if from-node and to-node are identical
 xml_looped_edge
 

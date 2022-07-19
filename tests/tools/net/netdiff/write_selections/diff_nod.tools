@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-07-07 11:16:41.372876 by netdiff.py v1_13_0+1343-240e5d48340
+  options: source.net.xml dest.net.xml diff <doubleminus>write-selections
+-->
+
+<nodes version="1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+    <!-- Deleted Elements -->
+    <delete id="301292612"/>
+    <delete id="38919945"/>
+    <delete id="56231397"/>
+    <delete id="59993001"/>
+    <!-- Created Elements -->
+    <node id="cluster_301292612_38919945_56231397_59993001" tl="cluster_301292612_38919945_56231397_59993001" type="traffic_light" x="40.27" y="50.75"/>
+    <!-- Changed Elements -->
+</nodes>

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -61,7 +61,7 @@ GNEChange_Attribute::~GNEChange_Attribute() {
     // remove if is unreferenced
     if (myAC->unreferenced()) {
         // show extra information for tests
-        WRITE_DEBUG("Deleting unreferenced " + myAC->getTagStr() + " '" + myAC->getID() + "' in GNEChange_Attribute");
+        WRITE_DEBUG("Deleting unreferenced " + myAC->getTagStr() + " in GNEChange_Attribute");
         // delete AC
         delete myAC;
     }
@@ -71,7 +71,7 @@ GNEChange_Attribute::~GNEChange_Attribute() {
 void
 GNEChange_Attribute::undo() {
     // show extra information for tests
-    WRITE_DEBUG("Setting previous attribute " + toString(myKey) + " '" + myOrigValue + "' into " + myAC->getTagStr() + " '" + myAC->getID() + "'");
+    WRITE_DEBUG("Restoring previous attribute"/* + toString(myKey)*/);
     // set original value
     myAC->setAttribute(myKey, myOrigValue);
     // certain attributes needs extra operations
@@ -83,19 +83,19 @@ GNEChange_Attribute::undo() {
         // if is a dataelement, update attribute colors
         if (myAC->getTagProperty().isDataElement()) {
             if (myAC->getTagProperty().isGenericData()) {
-                myAC->getNet()->retrieveDataSet(myAC->getAttribute(GNE_ATTR_DATASET))->updateAttributeColors();
+                myAC->getNet()->getAttributeCarriers()->retrieveDataSet(myAC->getAttribute(GNE_ATTR_DATASET))->updateAttributeColors();
             } else {
-                myAC->getNet()->retrieveDataSet(myAC->getAttribute(SUMO_ATTR_ID))->updateAttributeColors();
+                myAC->getNet()->getAttributeCarriers()->retrieveDataSet(myAC->getAttribute(SUMO_ATTR_ID))->updateAttributeColors();
             }
         }
         // check if networkElements, additional or shapes has to be saved (only if key isn't GNE_ATTR_SELECTED)
         if (myAC->getTagProperty().isNetworkElement()) {
             myAC->getNet()->requireSaveNet(true);
-        } else if (myAC->getTagProperty().isAdditionalElement() || myAC->getTagProperty().isShape() || myAC->getTagProperty().isTAZElement()) {
+        } else if (myAC->getTagProperty().isAdditionalElement()) {
             myAC->getNet()->requireSaveAdditionals(true);
         } else if (myAC->getTagProperty().isDemandElement()) {
             myAC->getNet()->requireSaveDemandElements(true);
-        } else if (myAC->getTagProperty().isDemandElement()) {
+        } else if (myAC->getTagProperty().isDataElement()) {
             myAC->getNet()->requireSaveDataElements(true);
         }
     }
@@ -105,7 +105,7 @@ GNEChange_Attribute::undo() {
 void
 GNEChange_Attribute::redo() {
     // show extra information for tests
-    WRITE_DEBUG("Setting new attribute " + toString(myKey) + " '" + myNewValue + "' into " + myAC->getTagStr() + " '" + myAC->getID() + "'");
+    WRITE_DEBUG("Setting new attribute"/* + toString(myKey)*/);
     // set new value
     myAC->setAttribute(myKey, myNewValue);
     // certain attributes needs extra operations
@@ -117,19 +117,19 @@ GNEChange_Attribute::redo() {
         // if is a dataelement, update attribute colors
         if (myAC->getTagProperty().isDataElement()) {
             if (myAC->getTagProperty().isGenericData()) {
-                myAC->getNet()->retrieveDataSet(myAC->getAttribute(GNE_ATTR_DATASET))->updateAttributeColors();
+                myAC->getNet()->getAttributeCarriers()->retrieveDataSet(myAC->getAttribute(GNE_ATTR_DATASET))->updateAttributeColors();
             } else {
-                myAC->getNet()->retrieveDataSet(myAC->getAttribute(SUMO_ATTR_ID))->updateAttributeColors();
+                myAC->getNet()->getAttributeCarriers()->retrieveDataSet(myAC->getAttribute(SUMO_ATTR_ID))->updateAttributeColors();
             }
         }
         // check if networkElements, additional or shapes has to be saved (only if key isn't GNE_ATTR_SELECTED)
         if (myAC->getTagProperty().isNetworkElement()) {
             myAC->getNet()->requireSaveNet(true);
-        } else if (myAC->getTagProperty().isAdditionalElement() || myAC->getTagProperty().isShape() || myAC->getTagProperty().isTAZElement()) {
+        } else if (myAC->getTagProperty().isAdditionalElement()) {
             myAC->getNet()->requireSaveAdditionals(true);
         } else if (myAC->getTagProperty().isDemandElement()) {
             myAC->getNet()->requireSaveDemandElements(true);
-        } else if (myAC->getTagProperty().isDemandElement()) {
+        } else if (myAC->getTagProperty().isDataElement()) {
             myAC->getNet()->requireSaveDataElements(true);
         }
     }

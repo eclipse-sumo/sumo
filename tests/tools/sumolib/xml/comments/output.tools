@@ -1,0 +1,20 @@
+data/ptlines.xml
+0,bus0,line0,bus
+edge0
+2,bus2,line2,bus
+edge0 edge1 edge2
+0,line0,bus
+1,line1,bus
+2,line2,bus
+3,line3,bus
+4,line4,bus
+data/ptlines2.xml.gz
+0,bus0,line0,bus
+edge0
+2,bus2,line2,bus
+edge0 edge1 edge2
+0,line0,bus
+1,line1,bus
+2,line2,bus
+3,line3,bus
+4,line4,bus

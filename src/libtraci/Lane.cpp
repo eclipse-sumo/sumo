@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2017-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2017-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -66,6 +66,11 @@ Lane::getLength(std::string laneID) {
 double
 Lane::getMaxSpeed(std::string laneID) {
     return Dom::getDouble(libsumo::VAR_MAXSPEED, laneID);
+}
+
+double
+Lane::getFriction(std::string laneID) {
+    return Dom::getDouble(libsumo::VAR_FRICTION, laneID);
 }
 
 
@@ -286,6 +291,11 @@ Lane::setDisallowed(std::string laneID, std::vector<std::string> disallowedClass
 void
 Lane::setMaxSpeed(std::string laneID, double speed) {
     Dom::setDouble(libsumo::VAR_MAXSPEED, laneID, speed);
+}
+
+void
+Lane::setFriction(std::string laneID, double friction) {
+    Dom::setDouble(libsumo::VAR_FRICTION, laneID, friction);
 }
 
 

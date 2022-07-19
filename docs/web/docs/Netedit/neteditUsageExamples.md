@@ -9,8 +9,7 @@ title: neteditUsageExamples
 1.  switch to [selection mode](editModesCommon.md#select)
 2.  enable the *auto-select junctions* checkbox in the top menu bar (enabled by default since version 1.9.0)
 3.  select the portion of the network you wish to keep (i.e. by holding *<SHIFT\>* and performing a rectangle-selection)
-4.  invert the selection with the *Invert* button
-5.  delete the inverted selection using the *<DELETE\>* key
+4.  press the *Reduce* button
 
 !!! caution
     If the checkbox *auto-select junctions* is not set, and connections are not visible during the rectangle selection, all connections will be removed during the *invert+delete* steps.
@@ -63,6 +62,15 @@ Afterwards, you will have to recompute the junction shape to see how it looks (F
 
 This will create a single joined junction but keep the endpoints at the original junction positions.
 
+### Restoring edge geometry to its default state
+
+The reverse operation to *Setting a custom geometry endpoint* as explained above is *Restoring the geometry endpoint* and it may be accomplished in any of the following ways:
+
+- delete the edge attributes `shapeStart` and `shapeEnd`
+- right-click on an edge and from the *edge operations* menu select *Restore geometry endpoint* (this only restores the end near the click)
+- right-click on an edge and select *Reset edge endpoints*
+- In move-mode, shift-click on a custom endpoint (a geometry point marked with `S` or `E`)
+
 ## Setting connection attributes
 
 1.  after opening the network press F5 to compute connection objects
@@ -73,6 +81,13 @@ This will create a single joined junction but keep the endpoints at the original
 
 1. set junction attribute 'radius' to the desired roundabout radius
 2. right-click on junction and select 'Convert to roundabout'
+
+## Converting a roundabout into a simple intersection
+
+1. select all junctions that are part of the roundabout
+2. join selected junctions (F7)
+3. select all edges that connected to the joined intersection
+4. right-click selection and select 'edge operations'->'restore geometry endpoints'
 
 ## Converting an intersection into a roundabout (old manual method)
 
@@ -167,3 +182,24 @@ directions. To make a unidirectional track usable in both directions,
 3. optionally: use inspect mode and enable 'show connections' (Alt+5). Click on the zipper connections (brown) and customize 'visibilityDistance' to set the range where vehicles start zipper merging.
 
 ![](../images/neteditZipper.png)
+
+## Simplify TLS program state after changing connections
+
+After deleting connections at a junction of type traffic_light, the traffic light program will remain unchanged by default.
+This stability implies that the length of the phase state may be longer than needed and the list of used can contain gaps (where the unused states are).
+To clean up the states:
+
+1. enter traffic light mode (T)
+2. click on the junction
+3. press the 'Clean States' button (this shortens the state and re-assigns indices to controlled connections)
+4. save the program
+5. recompute the network (F5) to see updated tls indices (when inspecting connections or drawing 'tls link index')
+
+## Deleting all sidewalks
+
+1. enter select mode (S)
+2. in the [Match Attribute](editModesCommon.md#match_attribute) controls select:
+  - Object type: Lane
+  - Attribute: allow
+  - Value: "=pedestrian"
+3. press the `<del>` key.

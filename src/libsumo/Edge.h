@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2017-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2017-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -61,6 +61,7 @@ public:
     static double getElectricityConsumption(const std::string& edgeID);
     static int getLastStepVehicleNumber(const std::string& edgeID);
     static double getLastStepMeanSpeed(const std::string& edgeID);
+    static double getMeanFriction(const std::string& edgeID);
     static double getLastStepOccupancy(const std::string& edgeID);
     static int getLastStepHaltingNumber(const std::string& edgeID);
     static double getLastStepLength(const std::string& edgeID);
@@ -76,6 +77,7 @@ public:
     static void adaptTraveltime(const std::string& edgeID, double time, double beginSeconds = 0., double endSeconds = std::numeric_limits<double>::max());
     static void setEffort(const std::string& edgeID, double effort, double beginSeconds = 0., double endSeconds = std::numeric_limits<double>::max());
     static void setMaxSpeed(const std::string& edgeID, double speed);
+    static void setFriction(const std::string& edgeID, double value);
 
 #ifndef LIBTRACI
 #ifndef SWIG

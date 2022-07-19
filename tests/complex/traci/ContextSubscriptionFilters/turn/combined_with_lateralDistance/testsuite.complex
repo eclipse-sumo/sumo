@@ -1,0 +1,5 @@
+# Return all foes approaching junctions, which are closer than 50m, at a distance < 50m as well as all vehicles within downstream and lateral distance of 50m.
+lateral50_down50_up0_foe50
+
+# Return all foes approaching junctions, which are closer than 50m, at a distance < 50m as well as all vehicles within downstream, upstream, and lateral distance of 50m.
+lateral50_down50_up50_foe50

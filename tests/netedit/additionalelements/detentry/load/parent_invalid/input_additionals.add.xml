@@ -1,0 +1,9 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+
+    <!-- Entry with non valid E3 parent  (Without ID) -->
+    <entryExitDetector period="100.00" file="entryExitDetector_0.txt" timeThreshold="1.00" speedThreshold="1.39" pos="22.97,6.36">
+        <detEntry lane="gneE1_0" pos="10"/>
+        <detExit lane="gneE1_0" pos="10"/>
+    </entryExitDetector>
+
+</additional>

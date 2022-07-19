@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2016-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2016-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -64,9 +64,10 @@ public:
         GNERoutePopupMenu() {}
     };
 
-    /**@brief default constructor
-     * @param[in] viewNet view in which this Route is placed
-     */
+    /// @brief default constructor
+    GNERoute(SumoXMLTag tag, GNENet* net);
+
+    /// @brief default constructor (used in calibrators)
     GNERoute(GNENet* net);
 
     /**@brief parameter constructor
@@ -75,24 +76,24 @@ public:
      * @param[in] vClass vehicle class
      * @param[in] edges route edges
      * @param[in] color route color
-     * @param[in] repea tthe number of times that the edges of this route shall be repeated
+     * @param[in] repeat the number of times that the edges of this route shall be repeated
      * @param[in] cycleType the times will be shifted forward by 'cycleTime' on each repeat
      * @param[in] parameters generic parameters
      */
-    GNERoute(GNENet* net, const std::string &id, SUMOVehicleClass vClass, const std::vector<GNEEdge*> &edges, const RGBColor &color, 
-             const int repeat, const SUMOTime cycleTime, const std::map<std::string, std::string> &parameters);
+    GNERoute(GNENet* net, const std::string& id, SUMOVehicleClass vClass, const std::vector<GNEEdge*>& edges, const RGBColor& color,
+             const int repeat, const SUMOTime cycleTime, const Parameterised::Map& parameters);
 
     /**@brief parameter constructor for embedded routes
      * @param[in] viewNet view in which this Route is placed
      * @param[in] vehicleParent vehicle parent of this embedded route
      * @param[in] edges route edges
      * @param[in] color route color
-     * @param[in] repea tthe number of times that the edges of this route shall be repeated
+     * @param[in] repeat the number of times that the edges of this route shall be repeated
      * @param[in] cycleType the times will be shifted forward by 'cycleTime' on each repeat
      * @param[in] parameters generic parameters
      */
-    GNERoute(GNENet* net, GNEDemandElement* vehicleParent, const std::vector<GNEEdge*> &edges, const RGBColor &color, 
-             const int repeat, const SUMOTime cycleTime, const std::map<std::string, std::string> &parameters);
+    GNERoute(GNENet* net, GNEDemandElement* vehicleParent, const std::vector<GNEEdge*>& edges, const RGBColor& color,
+             const int repeat, const SUMOTime cycleTime, const Parameterised::Map& parameters);
 
     /// @brief copy constructor (used to create a route based on the parameters of other GNERoute)
     GNERoute(GNEDemandElement* route);
@@ -100,18 +101,18 @@ public:
     /// @brief destructor
     ~GNERoute();
 
-    /**@brief get move operation for the given shapeOffset
+    /**@brief get move operation
      * @note returned GNEMoveOperation can be nullptr
      */
-    GNEMoveOperation* getMoveOperation(const double shapeOffset);
+    GNEMoveOperation* getMoveOperation();
 
-    /**@brief writte demand element element into a xml file
+    /**@brief write demand element element into a xml file
      * @param[in] device device in which write parameters of demand element element
      */
     void writeDemandElement(OutputDevice& device) const;
 
     /// @brief check if current demand element is valid to be writed into XML (by default true, can be reimplemented in children)
-    bool isDemandElementValid() const;
+    Problem isDemandElementValid() const;
 
     /// @brief return a string with the current demand element problem (by default empty, can be reimplemented in children)
     std::string getDemandElementProblem() const;
@@ -154,6 +155,9 @@ public:
      * @return This object's parent id
      */
     std::string getParentName() const;
+
+    /// @brief return exaggeration associated with this GLObject
+    double getExaggeration(const GUIVisualizationSettings& s) const;
 
     /**@brief Returns the boundary to which the view shall be centered in order to show the object
      * @return The boundary the object is within
@@ -236,25 +240,6 @@ public:
      */
     bool isValid(SumoXMLAttr key, const std::string& value);
 
-    /* @brief method for enable attribute
-     * @param[in] key The attribute key
-     * @param[in] undoList The undoList on which to register changes
-     * @note certain attributes can be only enabled, and can produce the disabling of other attributes
-     */
-    void enableAttribute(SumoXMLAttr key, GNEUndoList* undoList);
-
-    /* @brief method for disable attribute
-     * @param[in] key The attribute key
-     * @param[in] undoList The undoList on which to register changes
-     * @note certain attributes can be only enabled, and can produce the disabling of other attributes
-     */
-    void disableAttribute(SumoXMLAttr key, GNEUndoList* undoList);
-
-    /* @brief method for check if the value for certain attribute is set
-     * @param[in] key The attribute key
-     */
-    bool isAttributeEnabled(SumoXMLAttr key) const;
-
     /// @brief get PopPup ID (Used in AC Hierarchy)
     std::string getPopUpID() const;
 
@@ -263,7 +248,7 @@ public:
     /// @}
 
     /// @brief get parameters map
-    const std::map<std::string, std::string>& getACParametersMap() const;
+    const Parameterised::Map& getACParametersMap() const;
 
     /** @brief check if a route is valid
      * @param[in] edges vector with the route's edges
@@ -287,9 +272,6 @@ protected:
 private:
     /// @brief method for setting the attribute and nothing else
     void setAttribute(SumoXMLAttr key, const std::string& value);
-
-    /// @brief method for enabling the attribute and nothing else (used in GNEChange_EnableAttribute)
-    void setEnabledAttribute(const int enabledAttributes);
 
     /// @brief set move shape
     void setMoveShape(const GNEMoveResult& moveResult);

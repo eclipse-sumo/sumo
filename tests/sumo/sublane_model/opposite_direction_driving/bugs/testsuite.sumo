@@ -17,3 +17,6 @@ ticket8889
 
 # crash on invalid Changer iterator
 ticket8890
+
+# invalid movements while on the opposite side
+ticket10927

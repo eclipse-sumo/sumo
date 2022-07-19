@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -208,6 +208,8 @@ public:
         double pos = INVALID_DOUBLE;
         /// @brief The speed after this change
         double speed = INVALID_DOUBLE;
+        /// @brief The friction after this change
+        double friction = INVALID_DOUBLE;
         /// @brief The new node that is created for this split
         NBNode* node = nullptr;
         /// @brief The id for the edge before the split
@@ -259,6 +261,7 @@ public:
      * @param[in] noLanesFirstEdge The number of lanes the second part of the split edge shall have
      * @param[in] noLanesSecondEdge The number of lanes the second part of the split edge shall have
      * @param[in] speed The speed for the edge after the split
+     * @param[in] friction The friction for the edge after the split
      * @param[in] changedLeft The number of lanes that is added or removed on the left side of the edge
      *            (By default all added/removed lanes are assumed to be on the right when computing connections)
      * @return Whether the edge could be split
@@ -268,7 +271,7 @@ public:
     bool splitAt(NBDistrictCont& dc, NBEdge* edge, NBNode* node,
                  const std::string& firstEdgeName, const std::string& secondEdgeName,
                  int noLanesFirstEdge, int noLanesSecondEdge,
-                 const double speed = -1., const int changedLeft = 0);
+                 const double speed = -1., const double friction = 1., const int changedLeft = 0);
 
 
     /** @brief Splits the edge at the position nearest to the given node using the given modifications
@@ -289,7 +292,7 @@ public:
     bool splitAt(NBDistrictCont& dc, NBEdge* edge, double edgepos, NBNode* node,
                  const std::string& firstEdgeName, const std::string& secondEdgeName,
                  int noLanesFirstEdge, int noLanesSecondEdge,
-                 const double speed = -1., const int changedLeft = 0);
+                 const double speed = -1., const double friction = 1., const int changedLeft = 0);
     /// @}
 
 
@@ -533,17 +536,19 @@ public:
      * @param[in] contPos Custom position for internal junction
      * @param[in] visibility Custom foe visiblity connection
      * @param[in] speed Custom speed
+     * @param[in] friction Custom friction
      * @param[in] customShape Custom shape
      * @param[in] warnOnly Whether a failure to set this connection should only result in a warning
      */
     void addPostProcessConnection(const std::string& from, int fromLane, const std::string& to, int toLane, bool mayDefinitelyPass,
                                   KeepClear keepClear, double contPos, double visibility,
-                                  double speed, double length,
+                                  double speed, double friction, double length,
                                   const PositionVector& customShape,
                                   bool uncontrolled,
                                   bool warnOnly,
                                   SVCPermissions permissions = SVC_UNSPECIFIED,
                                   bool indirectLeft = false,
+                                  const std::string& edgeType = "",
                                   SVCPermissions changeLeft = SVC_UNSPECIFIED,
                                   SVCPermissions changeRight = SVC_UNSPECIFIED);
 
@@ -560,13 +565,17 @@ public:
 
     /// @brief add sidwalks to edges within the given limits or permissions and return the number of edges affected
     int guessSpecialLanes(SUMOVehicleClass svc, double width, double minSpeed, double maxSpeed, bool fromPermissions, const std::string& excludeOpt,
-            NBTrafficLightLogicCont& tlc);
+                          NBTrafficLightLogicCont& tlc);
 
 
     /** @brief Returns the determined roundabouts
      * @return The list of roundabout edges
      */
     const std::set<EdgeSet> getRoundabouts() const;
+
+    bool hasGuessedRoundabouts() const {
+        return myGuessedRoundabouts.size() > 0;
+    }
 
     /// @brief add user specified roundabout
     void addRoundabout(const EdgeSet& roundabout);
@@ -643,22 +652,25 @@ private:
          */
         PostProcessConnection(const std::string& from_, int fromLane_, const std::string& to_, int toLane_,
                               bool mayDefinitelyPass_, KeepClear keepClear_, double contPos_, double visibility_, double speed_,
-                              double length_,
+                              double friction_, double length_,
                               const PositionVector& customShape_,
                               bool uncontrolled_,
                               bool warnOnly_,
                               SVCPermissions permissions_,
                               bool indirectLeft_,
+                              const std::string& edgeType_,
                               SVCPermissions changeLeft_,
                               SVCPermissions changeRight_) :
             from(from_), fromLane(fromLane_), to(to_), toLane(toLane_), mayDefinitelyPass(mayDefinitelyPass_), keepClear(keepClear_), contPos(contPos_),
             visibility(visibility_),
             speed(speed_),
+            friction(friction_),
             customLength(length_),
             customShape(customShape_),
             uncontrolled(uncontrolled_),
             permissions(permissions_),
             indirectLeft(indirectLeft_),
+            edgeType(edgeType_),
             changeLeft(changeLeft_),
             changeRight(changeRight_),
             warnOnly(warnOnly_)
@@ -681,6 +693,8 @@ private:
         double visibility;
         /// @brief custom speed for connection
         double speed;
+        /// @brief custom friction for connection
+        double friction;
         /// @brief custom length for connection
         double customLength;
         /// @brief custom shape for connection
@@ -691,6 +705,8 @@ private:
         SVCPermissions permissions;
         /// @brief whether this connection is an indirect left turn
         bool indirectLeft;
+        /// @brief custom edge type
+        std::string edgeType;
         /// @brief custom lane changing permissions for connection
         SVCPermissions changeLeft;
         /// @brief custom lane changing permissions for connection

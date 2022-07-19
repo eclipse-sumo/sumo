@@ -1,0 +1,4 @@
+-s input_net.net.xml -v
+--railway.topology.extend-priority
+
+

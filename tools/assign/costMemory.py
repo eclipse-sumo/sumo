@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2012-2021 German Aerospace Center (DLR) and others.
+# Copyright (C) 2012-2022 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -52,12 +52,12 @@ class CostMemory(handler.ContentHandler):
         # whether data was seen in the last call of load_costs()
         # start -> (edge_id -> EdgeMemory)
         self.intervals = defaultdict(dict)
-        # the intervall length (only known for certain if multiple intervals
+        # the interval length (only known for certain if multiple intervals
         # have been seen)
         self.interval_length = 214748  # SUMOTIME_MAXSTRING
-        # the intervall currently being parsed
+        # the interval currently being parsed
         self.current_interval = None
-        # the combined weigth of all previously loaded costs
+        # the combined weight of all previously loaded costs
         self.memory_weight = 0.0
         # update is done according to: memory * memory_factor + new * (1 -
         # memory_factor)

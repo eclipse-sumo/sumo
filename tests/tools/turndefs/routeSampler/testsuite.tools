@@ -22,6 +22,9 @@ save_template
 # using edgedata as input
 edgedata
 
+# load candidate routes from walk elements (needed for reverse walking)
+walk_input
+
 # using another GEH threshold
 geh
 
@@ -66,8 +69,9 @@ via
 # define sequence restriction with gap
 turn-max-gap
 
-# invalid options
-invalid_options
+# set minimum number of visited counting locations per route
+min_count
 
-# test bad input
-no_routes
+# set minimum number of visited counting locations per route
+min_count_optimize
+errors

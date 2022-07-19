@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -203,10 +203,10 @@ NBTrafficLightLogicCont::computeSingleLogic(OptionsCont& oc, NBTrafficLightDefin
     // compute offset
     SUMOTime T = built->getDuration();
     if (myHalfOffsetTLS.count(id)) {
-        built->setOffset(TIME2STEPS(floor(STEPS2TIME(T / 2.))));
+        built->setOffset(TIME2STEPS(floor(STEPS2TIME(T / 2))));
     }
     if (myQuarterOffsetTLS.count(id)) {
-        built->setOffset(TIME2STEPS(floor(STEPS2TIME(T / 4.))));
+        built->setOffset(TIME2STEPS(floor(STEPS2TIME(T / 4))));
     }
     // and insert the result after computation
     // make sure we don't leak memory if computeSingleLogic is called externally
@@ -371,5 +371,25 @@ NBTrafficLightLogicCont::getDefinitions() const {
     return result;
 }
 
+
+void
+NBTrafficLightLogicCont::rename(NBTrafficLightDefinition* tlDef, const std::string& newID) {
+    auto it = myDefinitions.find(tlDef->getID());
+    if (it != myDefinitions.end()) {
+        for (auto item : it->second) {
+            item.second->setID(newID);
+        }
+        myDefinitions[newID] = it->second;
+        myDefinitions.erase(it);
+    }
+    auto it2 = myComputed.find(tlDef->getID());
+    if (it2 != myComputed.end()) {
+        for (auto item : it2->second) {
+            item.second->setID(newID);
+        }
+        myComputed[newID] = it2->second;
+        myComputed.erase(it2);
+    }
+}
 
 /****************************************************************************/

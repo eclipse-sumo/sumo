@@ -4,5 +4,8 @@ config
 # Tests basic platoon manager functionalities.
 platoon_manager
 
+# minimal platooning with a few vehicles
+basic
+
 # Tests the openGap method
 openGap

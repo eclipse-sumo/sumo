@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2008-2021 German Aerospace Center (DLR) and others.
+# Copyright (C) 2008-2022 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -24,8 +24,8 @@ from __future__ import absolute_import
 import os
 import sys
 
-SUMO_HOME = os.path.join(os.path.dirname(__file__), "..", "..", "..", "..", "..")
-sys.path.append(os.path.join(os.environ.get("SUMO_HOME", SUMO_HOME), "tools"))
+if "SUMO_HOME" in os.environ:
+    sys.path.append(os.path.join(os.environ["SUMO_HOME"], "tools"))
 import traci  # noqa
 import traci.constants as tc  # noqa
 import sumolib  # noqa
@@ -221,6 +221,10 @@ except traci.TraCIException:
 traci.vehicle.addLegacy("1", "horizontal")
 traci.vehicle.setStop("1", "2fi", pos=50.0, laneIndex=0, duration=1, flags=1)
 check("1")
+try:
+    traci.vehicle.changeTarget("1", "disconnected")
+except traci.TraCIException:
+    pass
 traci.vehicle.changeTarget("1", "4fi")
 print("routeID", traci.vehicle.getRouteID(vehID))
 print("route", traci.vehicle.getRoute(vehID))
@@ -290,8 +294,12 @@ print(traci.vehicle.getSubscriptionResults(vehID))
 print("step", step())
 print(traci.vehicle.getSubscriptionResults(vehID))
 print("speed", traci.vehicle.getSpeed(vehID))
-traci.vehicle.setPreviousSpeed(vehID, 19)
+traci.vehicle.setPreviousSpeed(vehID, 18)
 print("speed", traci.vehicle.getSpeed(vehID))
+print("acceleration", traci.vehicle.getAcceleration(vehID))
+traci.vehicle.setPreviousSpeed(vehID, 17, 0.5)
+print("speed", traci.vehicle.getSpeed(vehID))
+print("acceleration", traci.vehicle.getAcceleration(vehID))
 # test different departure options
 traci.vehicle.addLegacy("departInThePast", "horizontal", depart=5)
 print("step", step())
@@ -339,7 +347,11 @@ for i in range(14):
     print("vehicle", busVeh,
           "lane", traci.vehicle.getLaneID(busVeh),
           "lanePos", traci.vehicle.getLanePosition(busVeh),
-          "stopped", traci.vehicle.isStopped(busVeh))
+          "stopped", traci.vehicle.isStopped(busVeh),
+          "\n stoppedParking", traci.vehicle.isStoppedParking(busVeh),
+          "stoppeTriggered", traci.vehicle.isStoppedTriggered(busVeh),
+          "stoppeBusStop", traci.vehicle.isAtBusStop(busVeh),
+          "stoppeContainerStop", traci.vehicle.isAtContainerStop(busVeh))
 # test for adding a trip
 traci.route.add("trip", ["3si"])
 traci.vehicle.addLegacy("triptest", "trip")
@@ -455,6 +467,7 @@ traci.vehicle.setParameter(electricVeh, "device.rerouting.edge:2si", "123")
 print("edge rerouting traveltime:", traci.vehicle.getParameter(electricVeh, "device.rerouting.edge:2si"))
 
 traci.vehicle.setType(electricVeh, "long")
+traci.vehicle.updateBestLanes(electricVeh)
 check(electricVeh)
 traci.vehicle.setLength(electricVeh, 8)
 traci.vehicle.setMaxSpeed(electricVeh, 10)

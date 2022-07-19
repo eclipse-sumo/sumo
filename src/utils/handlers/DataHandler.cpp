@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -87,7 +87,7 @@ DataHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) {
 void
 DataHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
     // obtain tag
-    const SumoXMLTag tag = (element == 0)? SUMO_TAG_ROOTFILE : static_cast<SumoXMLTag>(element);
+    const SumoXMLTag tag = (element == 0) ? SUMO_TAG_ROOTFILE : static_cast<SumoXMLTag>(element);
     // open SUMOBaseOBject
     myCommonXMLStructure.openSUMOBaseOBject();
     // check tag
@@ -106,6 +106,9 @@ DataHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
                 break;
             case SUMO_TAG_TAZREL:
                 parseTAZRelationData(attrs);
+                break;
+            case SUMO_TAG_PARAM:
+                WRITE_WARNING("Data elements cannot load attributes as params");
                 break;
             default:
                 break;
@@ -165,14 +168,8 @@ DataHandler::parseEdgeData(const SUMOSAXAttributes& attrs) {
     bool parsedOk = true;
     // needed attributes
     const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk);
-    // obtain all attributes
-    const std::vector<std::string> attributes = attrs.getAttributeNames();
-    // iterate over attributes and fill parameters map
-    for (const auto& attribute : attributes) {
-        if (attribute != toString(SUMO_ATTR_ID)) {
-            myCommonXMLStructure.getCurrentSumoBaseObject()->addParameter(attribute, attrs.getStringSecure(attribute, ""));
-        }
-    }
+    // fill attributes
+    getAttributes(attrs, {SUMO_ATTR_ID});
     // continue if flag is ok
     if (parsedOk) {
         // set tag
@@ -190,14 +187,8 @@ DataHandler::parseEdgeRelationData(const SUMOSAXAttributes& attrs) {
     // needed attributes
     const std::string from = attrs.get<std::string>(SUMO_ATTR_FROM, "", parsedOk);
     const std::string to = attrs.get<std::string>(SUMO_ATTR_TO, "", parsedOk);
-    // obtain all attributes
-    const std::vector<std::string> attributes = attrs.getAttributeNames();
-    // iterate over attributes and fill parameters map
-    for (const auto& attribute : attributes) {
-        if ((attribute != toString(SUMO_ATTR_FROM)) && (attribute != toString(SUMO_ATTR_TO))) {
-            myCommonXMLStructure.getCurrentSumoBaseObject()->addParameter(attribute, attrs.getStringSecure(attribute, ""));
-        }
-    }
+    // fill attributes
+    getAttributes(attrs, {SUMO_ATTR_FROM, SUMO_ATTR_TO});
     // continue if flag is ok
     if (parsedOk) {
         // set tag
@@ -216,14 +207,8 @@ DataHandler::parseTAZRelationData(const SUMOSAXAttributes& attrs) {
     // needed attributes
     const std::string from = attrs.get<std::string>(SUMO_ATTR_FROM, "", parsedOk);
     const std::string to = attrs.get<std::string>(SUMO_ATTR_TO, "", parsedOk);
-    // obtain all attributes
-    const std::vector<std::string> attributes = attrs.getAttributeNames();
-    // iterate over attributes and fill parameters map
-    for (const auto& attribute : attributes) {
-        if ((attribute != toString(SUMO_ATTR_FROM)) && (attribute != toString(SUMO_ATTR_TO))) {
-            myCommonXMLStructure.getCurrentSumoBaseObject()->addParameter(attribute, attrs.getStringSecure(attribute, ""));
-        }
-    }
+    // fill attributes
+    getAttributes(attrs, {SUMO_ATTR_FROM, SUMO_ATTR_TO});
     // continue if flag is ok
     if (parsedOk) {
         // set tag
@@ -231,6 +216,22 @@ DataHandler::parseTAZRelationData(const SUMOSAXAttributes& attrs) {
         // add all attributes
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_FROM, from);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_TO, to);
+    }
+}
+
+
+void
+DataHandler::getAttributes(const SUMOSAXAttributes& attrs, const std::vector<SumoXMLAttr> avoidAttributes) const {
+    // transform avoidAttributes to strings
+    std::vector<std::string> avoidAttributesStr;
+    for (const SumoXMLAttr& avoidAttribute : avoidAttributes) {
+        avoidAttributesStr.push_back(toString(avoidAttribute));
+    }
+    // iterate over attributes and fill parameters map
+    for (const std::string& attribute : attrs.getAttributeNames()) {
+        if (std::find(avoidAttributesStr.begin(), avoidAttributesStr.end(), attribute) == avoidAttributesStr.end()) {
+            myCommonXMLStructure.getCurrentSumoBaseObject()->addParameter(attribute, attrs.getStringSecure(attribute, ""));
+        }
     }
 }
 

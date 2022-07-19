@@ -1,12 +1,17 @@
 # Format matches Extraction version: V6.5 
 # <?xml version="1.0" encoding="UTF-8"?>
 # 
-# <!-- generated on Mon Dec  2 14:09:07 2019 by Eclipse SUMO netconvert Version v1_3_1+1219-1be072e
+# <!-- generated on 2022-06-22 08:14:28 by Eclipse SUMO netconvert Version v1_13_0+1094-d2dab2e946c
 # This data file and the accompanying materials
 # are made available under the terms of the Eclipse Public License v2.0
 # which accompanies this distribution, and is available at
 # http://www.eclipse.org/legal/epl-v20.html
-# SPDX-License-Identifier: EPL-2.0
+# This file may also be made available under the following Secondary
+# Licenses when the conditions for such availability set forth in the Eclipse
+# Public License 2.0 are satisfied: GNU General Public License, version 2
+# or later which is available at
+# https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+# SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 # -->
 # 
 # <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -39,14 +44,9 @@
 #         <junctions.join value="true"/>
 #     </junctions>
 # 
-#     <formats>
-#         <osm.all-attributes value="true"/>
-#     </formats>
-# 
 #     <report>
 #         <verbose value="true"/>
 #         <xml-validation value="never"/>
-#         <aggregate-warnings value="5"/>
 #     </report>
 # 
 # </configuration>
@@ -55,7 +55,7 @@
 # LINK_ID	NODE_ID_FROM	NODE_ID_TO	BETWEEN_NODE_ID	LENGTH	VEHICLE_TYPE	FORM_OF_WAY	BRUNNEL_TYPE	FUNCTIONAL_ROAD_CLASS	SPEED_CATEGORY	NUMBER_OF_LANES	SPEED_LIMIT	SPEED_RESTRICTION	NAME_ID1_REGIONAL	NAME_ID2_LOCAL	HOUSENUMBERS_RIGHT	HOUSENUMBERS_LEFT	ZIP_CODE	AREA_ID	SUBAREA_ID	THROUGH_TRAFFIC	SPECIAL_RESTRICTIONS	EXTENDED_NUMBER_OF_LANES	ISRAMP	CONNECTION
 -22917251	32266936	32266938	-1	58.42	011111111111	3	1	3	4	11	90	80	-1	0	-1	-1	-1	-1	-1	1	-1	-1	-1	0	
 -24214694	32266938	32266935	-1	13.87	011111111111	3	-1	3	4	11	90	80	-1	1	-1	-1	-1	-1	-1	1	-1	-1	-1	0	
--25951490	32266938	175648134	-1	466.10	000000000010	3	-1	4	7	11	30	30	-1	-1	-1	-1	-1	-1	-1	1	-1	-1	-1	0	
+-25951490	32266938	175648134	-1	466.10	000000000010	3	-1	4	7	11	30	20	-1	-1	-1	-1	-1	-1	-1	1	-1	-1	-1	0	
 -26816553	294168972	294831566	-26816553	241.32	000000010011	14	-1	4	7	11	30	20	-1	-1	-1	-1	-1	-1	-1	1	-1	-1	-1	0	
 -26816627	294169618	294831566	-1	166.67	000000010011	14	-1	4	7	11	30	20	-1	-1	-1	-1	-1	-1	-1	1	-1	-1	-1	0	
 -26843019	294829798	294829385	-1	98.96	000000010011	14	-1	4	7	11	30	20	-1	-1	-1	-1	-1	-1	-1	1	-1	-1	-1	0	
@@ -65,7 +65,7 @@
 22917251	32266938	32266936	-1	58.42	011111111111	3	1	3	4	11	90	80	-1	0	-1	-1	-1	-1	-1	1	-1	-1	-1	0	
 24214694	32266935	32266938	-1	13.87	011111111111	3	-1	3	4	11	90	80	-1	1	-1	-1	-1	-1	-1	1	-1	-1	-1	0	
 25944605	283018937	283018842	25944605	38.43	000000000001	15	-1	4	8	11	10	10	-1	-1	-1	-1	-1	-1	-1	1	-1	-1	-1	0	
-25951490	175648134	32266938	-1	466.10	000000000010	3	-1	4	7	11	30	30	-1	-1	-1	-1	-1	-1	-1	1	-1	-1	-1	0	
+25951490	175648134	32266938	-1	466.10	000000000010	3	-1	4	7	11	30	20	-1	-1	-1	-1	-1	-1	-1	1	-1	-1	-1	0	
 26816541	294831566	294168710	26816541	127.19	000000010011	14	-1	4	7	11	30	20	-1	-1	-1	-1	-1	-1	-1	1	-1	-1	-1	0	
 26816553	294831566	294168972	26816553	241.32	000000010011	14	-1	4	7	11	30	20	-1	-1	-1	-1	-1	-1	-1	1	-1	-1	-1	0	
 26816627	294831566	294169618	-1	166.67	000000010011	14	-1	4	7	11	30	20	-1	-1	-1	-1	-1	-1	-1	1	-1	-1	-1	0	

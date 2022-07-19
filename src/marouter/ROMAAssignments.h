@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -50,7 +50,8 @@ public:
     /// Constructor
     ROMAAssignments(const SUMOTime begin, const SUMOTime end, const bool additiveTraffic,
                     const double adaptionFactor, const int maxAlternatives, const bool defaultCapacities,
-                    RONet& net, ODMatrix& matrix, SUMOAbstractRouter<ROEdge, ROVehicle>& router);
+                    RONet& net, ODMatrix& matrix, SUMOAbstractRouter<ROEdge, ROVehicle>& router,
+                    OutputDevice* netloadOutput);
 
     /// Destructor
     ~ROMAAssignments();
@@ -67,6 +68,9 @@ public:
 
     // @brief clear effort storage
     void resetFlows();
+
+    // @brief Writes the travel times for a single interval
+    void writeInterval(const SUMOTime begin, const SUMOTime end);
 
     // @brief incremental method
     void incremental(const int numIter, const bool verbose);
@@ -137,12 +141,13 @@ private:
     SUMOAbstractRouter<ROEdge, ROVehicle>& myRouter;
     static std::map<const ROEdge* const, double> myPenalties;
     ROVehicle* myDefaultVehicle;
+    OutputDevice* const myNetloadOutput;
 
 #ifdef HAVE_FOX
 private:
     class RoutingTask : public FXWorkerThread::Task {
     public:
-        RoutingTask(ROMAAssignments& assign, ODCell* c, const SUMOTime begin, const double linkFlow, double setBulkMode = false)
+        RoutingTask(ROMAAssignments& assign, ODCell* c, const SUMOTime begin, const double linkFlow, const bool setBulkMode = false)
             : myAssign(assign), myCell(c), myBegin(begin), myLinkFlow(linkFlow), mySetBulkMode(setBulkMode) {}
         void run(FXWorkerThread* context);
     private:
@@ -150,17 +155,17 @@ private:
         ODCell* const myCell;
         const SUMOTime myBegin;
         const double myLinkFlow;
-        bool mySetBulkMode;
+        const bool mySetBulkMode;
     private:
         /// @brief Invalidated assignment operator.
-        RoutingTask& operator=(const RoutingTask&);
+        RoutingTask& operator=(const RoutingTask&) = delete;
     };
 #endif
 
 
 private:
     /// @brief Invalidated assignment operator
-    ROMAAssignments& operator=(const ROMAAssignments& src);
+    ROMAAssignments& operator=(const ROMAAssignments& src) = delete;
 
 };
 

@@ -1,0 +1,18 @@
+<additionals>
+
+    <!-- Without errors -->
+    <taz id="TAZ_0" color="green" shape="-50.00,40.00 -40.00,40.00 -40.00,30.00 -50.00,30.00 -50.00,40.00"/>
+
+    <!-- non valid ID (missing) -->
+    <taz color="green" shape="-30.00,40.00 -20.00,40.00 -20.00,30.00 -30.00,30.00 -30.00,40.00"/>
+
+    <!-- non valid ID (invalid) -->
+    <taz id="%%%%;;$$$%" color="green" shape="-30.00,40.00 -20.00,40.00 -20.00,30.00 -30.00,30.00 -30.00,40.00"/>
+
+    <!-- non valid ID (duplicated) -->
+    <taz id="TAZ_0" color="green" shape="-30.00,40.00 -20.00,40.00 -20.00,30.00 -30.00,30.00 -30.00,40.00"/>
+
+    <!-- valid ID -->
+    <taz id="TAZ_1" color="green" shape="-30.00,40.00 -20.00,40.00 -20.00,30.00 -30.00,30.00 -30.00,40.00"/>
+
+</additionals>

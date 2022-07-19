@@ -1,3 +1,0 @@
-Error: Attribute 'lineWidth' in definition of poly 'poly_1' is not of type float.
-Error: Could not build poly with ID 'poly_2' in netedit; attribute lineWidth cannot be negative.
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.shape.poly.02Jul080812.2544/netedit.daily.shape.poly/shapeElements/poly/load/linewidth/input_additionals.add.xml failed.

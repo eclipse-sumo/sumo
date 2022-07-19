@@ -1,0 +1,11 @@
+Loading net-file from 'net.net.xml' ... done (11ms).
+Loading done.
+Simulation version v1_11_0+0538-9ff46a63fcb started with time: 1576800000.00
+Simulation ended at time: 1576801053.00
+Reason: All vehicles have left the simulation.
+Loading net-file from 'net.net.xml' ... done (10ms).
+Loading state from 'state.xml' ... done (22ms).
+Loading done.
+Simulation version v1_11_0+0538-9ff46a63fcb started with time: 1576800330.00
+Simulation ended at time: 1576801058.00
+Reason: All vehicles have left the simulation.

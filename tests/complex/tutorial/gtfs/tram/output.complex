@@ -1,32 +1,14 @@
-function import_gtfs called at Wed, 01 Sep 2021 14:39:03 +0000
-function import_gtfs finished after 103.403849 seconds
+function import_gtfs called at Thu, 14 Jul 2022 14:33:29 +0000
+function import_gtfs finished after 9.460137 seconds
 Success.
 Success.
 Warning! No mapping library found, falling back to tracemapper.
-Warning! No stop for coordinates 4783.73, 13579.17 on vehicle(id='257596', x='13.5828510', y='52.4344350', until='1980', attr_name='Segewaldweg (Berlin)', fareZone='', fareSymbol='', startFare='')
-Warning! No stop for coordinates 4848.26, 13134.29 on vehicle(id='257596', x='13.5839280', y='52.4304480', until='2040', attr_name='Pritstabelstr. (Berlin)', fareZone='', fareSymbol='', startFare='')
-Warning! No stop for coordinates 4931.65, 12804.76 on vehicle(id='257596', x='13.5852490', y='52.4275010', until='2100', attr_name='Dregerhoffstr. (Berlin)', fareZone='', fareSymbol='', startFare='')
-Warning! No stop for coordinates 5007.95, 12522.44 on vehicle(id='257596', x='13.5864520', y='52.4249770', until='2160', attr_name='Zur Nachtheide (Berlin)', fareZone='', fareSymbol='', startFare='')
-Warning! No stop for coordinates 5103.53, 12150.28 on vehicle(id='257596', x='13.5879640', y='52.4216490', until='2220', attr_name='Lienhardweg (Berlin)', fareZone='', fareSymbol='', startFare='')
-Warning! No stop for coordinates 5166.76, 11793.55 on vehicle(id='257596', x='13.5889960', y='52.4184540', until='2280', attr_name='Müggelbergallee (Berlin)', fareZone='', fareSymbol='', startFare='')
-Warning! No stop for coordinates 5188.42, 11665.62 on vehicle(id='257596', x='13.5893510', y='52.4173080', until='2340', attr_name='Wendenschloß (Berlin)', fareZone='', fareSymbol='', startFare='')
-Warning! No stop for coordinates 4783.73, 13579.17 on vehicle(id='257768', x='13.5828510', y='52.4344350', until='120', attr_name='Segewaldweg (Berlin)', fareZone='', fareSymbol='', startFare='')
-Warning! No stop for coordinates 4848.26, 13134.29 on vehicle(id='257768', x='13.5839280', y='52.4304480', until='180', attr_name='Pritstabelstr. (Berlin)', fareZone='', fareSymbol='', startFare='')
-Warning! No stop for coordinates 4931.65, 12804.76 on vehicle(id='257768', x='13.5852490', y='52.4275010', until='240', attr_name='Dregerhoffstr. (Berlin)', fareZone='', fareSymbol='', startFare='')
-Warning! No stop for coordinates 5007.95, 12522.44 on vehicle(id='257768', x='13.5864520', y='52.4249770', until='300', attr_name='Zur Nachtheide (Berlin)', fareZone='', fareSymbol='', startFare='')
-Warning! No stop for coordinates 5103.53, 12150.28 on vehicle(id='257768', x='13.5879640', y='52.4216490', until='360', attr_name='Lienhardweg (Berlin)', fareZone='', fareSymbol='', startFare='')
-Warning! No stop for coordinates 5166.76, 11793.55 on vehicle(id='257768', x='13.5889960', y='52.4184540', until='420', attr_name='Müggelbergallee (Berlin)', fareZone='', fareSymbol='', startFare='')
-Warning! No stop for coordinates 5188.42, 11665.62 on vehicle(id='257768', x='13.5893510', y='52.4173080', until='480', attr_name='Wendenschloß (Berlin)', fareZone='', fareSymbol='', startFare='')
-Warning! No stop for coordinates 4783.73, 13579.17 on vehicle(id='257791', x='13.5828510', y='52.4344350', until='960', attr_name='Segewaldweg (Berlin)', fareZone='', fareSymbol='', startFare='')
-Warning! No stop for coordinates 4848.26, 13134.29 on vehicle(id='257791', x='13.5839280', y='52.4304480', until='1020', attr_name='Pritstabelstr. (Berlin)', fareZone='', fareSymbol='', startFare='')
-Warning! No stop for coordinates 4931.65, 12804.76 on vehicle(id='257791', x='13.5852490', y='52.4275010', until='1080', attr_name='Dregerhoffstr. (Berlin)', fareZone='', fareSymbol='', startFare='')
-Warning! No stop for coordinates 5007.95, 12522.44 on vehicle(id='257791', x='13.5864520', y='52.4249770', until='1140', attr_name='Zur Nachtheide (Berlin)', fareZone='', fareSymbol='', startFare='')
-Warning! No stop for coordinates 5103.53, 12150.28 on vehicle(id='257791', x='13.5879640', y='52.4216490', until='1200', attr_name='Lienhardweg (Berlin)', fareZone='', fareSymbol='', startFare='')
-Warning! No stop for coordinates 5166.76, 11793.55 on vehicle(id='257791', x='13.5889960', y='52.4184540', until='1260', attr_name='Müggelbergallee (Berlin)', fareZone='', fareSymbol='', startFare='')
-Warning! No stop for coordinates 5188.42, 11665.62 on vehicle(id='257791', x='13.5893510', y='52.4173080', until='1320', attr_name='Wendenschloß (Berlin)', fareZone='', fareSymbol='', startFare='')
-Warning! Skipping disconnected route '259570', no path found.
-Warning! Skipping disconnected route '259578', no path found.
-Warning! Skipping disconnected route '259780', no path found.
-Warning! Skipping disconnected route '259865', no path found.
-Warning! Skipping disconnected route '68252', no path found.
-Warning! Skipping disconnected route '68266', no path found.
+Warning! Disconnected route '62_257596', no path found. Keeping longer part.
+Warning! Disconnected route '62_257696.trimmed', no path found. Keeping longer part.
+Warning! Disconnected route '62_257768', no path found. Keeping longer part.
+Warning! Disconnected route '62_257791', no path found. Keeping longer part.
+Warning! Disconnected route '68_259570', no path found. Keeping longer part.
+Warning! Disconnected route '68_259578', no path found. Keeping longer part.
+Warning! Disconnected route '68_259634.trimmed', no path found. Keeping longer part.
+Warning! Disconnected route '68_68252', no path found. Keeping longer part.
+Warning! Disconnected route '68_68266', no path found. Keeping longer part.

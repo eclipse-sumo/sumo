@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2003-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2003-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -221,9 +221,9 @@ Distribution_Parameterized
 NGNet::getDistribution(const std::string& option) {
     std::string val = OptionsCont::getOptions().getString(option);
     try {
-        return Distribution_Parameterized("peturb", 0, StringUtils::toDouble(val));
+        return Distribution_Parameterized(option, 0, StringUtils::toDouble(val));
     } catch (NumberFormatException&) {
-        Distribution_Parameterized result("perturb", 0, 0);
+        Distribution_Parameterized result(option, 0, 0);
         result.parse(val, true);
         return result;
     }
@@ -235,15 +235,12 @@ NGNet::toNB() const {
     Distribution_Parameterized perturbx = getDistribution("perturb-x");
     Distribution_Parameterized perturby = getDistribution("perturb-y");
     Distribution_Parameterized perturbz = getDistribution("perturb-z");
-    std::vector<NBNode*> nodes;
-    for (NGNodeList::const_iterator i1 = myNodeList.begin(); i1 != myNodeList.end(); i1++) {
-        Position perturb(
-            perturbx.sample(),
-            perturby.sample(),
-            perturbz.sample());
-        NBNode* node = (*i1)->buildNBNode(myNetBuilder, perturb);
-        nodes.push_back(node);
-        myNetBuilder.getNodeCont().insert(node);
+    for (const NGNode* const ngNode : myNodeList) {
+        // we need to sample in separate instructions because evaluation order is compiler dependent
+        Position perturb(perturbx.sample(), 0.);
+        perturb.sety(perturby.sample());
+        perturb.setz(perturbz.sample());
+        myNetBuilder.getNodeCont().insert(ngNode->buildNBNode(myNetBuilder, perturb));
     }
     const std::string type = OptionsCont::getOptions().getString("default.type");
     const double bidiProb = OptionsCont::getOptions().getFloat("rand.bidi-probability");

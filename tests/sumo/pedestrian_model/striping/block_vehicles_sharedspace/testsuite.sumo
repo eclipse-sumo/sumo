@@ -23,6 +23,9 @@ walkingarea_exit
 # walkingarea shared by pedestrians and vehicles moving in all directions
 walkingarea_shared
 
+# walkingarea shared by pedestrians and vehicles moving in all directions
+walkingarea_shared_sublane
+
 # stress test with lots of vehicle and pedestrian traffic on a 2-lane road
 complex
 

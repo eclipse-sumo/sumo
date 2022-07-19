@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2017-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2017-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -51,7 +51,11 @@
 #include <mesosim/MELoop.h>
 #include <mesosim/MESegment.h>
 #include <netload/NLBuilder.h>
+#include <libsumo/Helper.h>
 #include <libsumo/TraCIConstants.h>
+#ifdef HAVE_LIBSUMOGUI
+#include "GUI.h"
+#endif
 #include "Simulation.h"
 #include <libsumo/TraCIDefs.h>
 
@@ -70,6 +74,11 @@ ContextSubscriptionResults Simulation::myContextSubscriptionResults;
 std::pair<int, std::string>
 Simulation::start(const std::vector<std::string>& cmd, int /* port */, int /* numRetries */, const std::string& /* label */, const bool /* verbose */,
                   const std::string& /* traceFile */, bool /* traceGetters */, void* /* _stdout */) {
+#ifdef HAVE_LIBSUMOGUI
+    if (GUI::start(cmd)) {
+        return getVersion();
+    }
+#endif
     load(std::vector<std::string>(cmd.begin() + 1, cmd.end()));
     return getVersion();
 }
@@ -77,6 +86,11 @@ Simulation::start(const std::vector<std::string>& cmd, int /* port */, int /* nu
 
 void
 Simulation::load(const std::vector<std::string>& args) {
+#ifdef HAVE_LIBSUMOGUI
+    if (GUI::load(args)) {
+        return;
+    }
+#endif
     close("Libsumo issued load command.");
     try {
         gSimulation = true;
@@ -94,6 +108,16 @@ Simulation::load(const std::vector<std::string>& args) {
 
 
 bool
+Simulation::hasGUI() {
+#ifdef HAVE_LIBSUMOGUI
+    return GUI::hasInstance();
+#else
+    return false;
+#endif
+}
+
+
+bool
 Simulation::isLoaded() {
     return MSNet::hasInstance();
 }
@@ -101,16 +125,21 @@ Simulation::isLoaded() {
 
 void
 Simulation::step(const double time) {
-    Helper::clearVehicleStates();
-    Helper::clearTransportableStates();
+    Helper::clearStateChanges();
     const SUMOTime t = TIME2STEPS(time);
-    if (t == 0) {
-        MSNet::getInstance()->simulationStep();
-    } else {
-        while (MSNet::getInstance()->getCurrentTimeStep() < t) {
+#ifdef HAVE_LIBSUMOGUI
+    if (!GUI::step(t)) {
+#endif
+        if (t == 0) {
             MSNet::getInstance()->simulationStep();
+        } else {
+            while (MSNet::getInstance()->getCurrentTimeStep() < t) {
+                MSNet::getInstance()->simulationStep();
+            }
         }
+#ifdef HAVE_LIBSUMOGUI
     }
+#endif
     Helper::handleSubscriptions(t);
 }
 
@@ -118,10 +147,13 @@ Simulation::step(const double time) {
 void
 Simulation::close(const std::string& reason) {
     Helper::clearSubscriptions();
-    if (MSNet::hasInstance()) {
+    if (
+#ifdef HAVE_LIBSUMOGUI
+        !GUI::close(reason) &&
+#endif
+        MSNet::hasInstance()) {
         MSNet::getInstance()->closeSimulation(0, reason);
         delete MSNet::getInstance();
-        XMLSubSys::close();
         SystemFrame::close();
     }
 }
@@ -380,6 +412,11 @@ Simulation::getCollisions() {
         }
     }
     return result;
+}
+
+double
+Simulation::getScale() {
+    return MSNet::getInstance()->getVehicleControl().getScale();
 }
 
 double
@@ -649,7 +686,7 @@ Simulation::findIntermodalRoute(const std::string& from, const std::string& to,
             }
         }
         std::vector<MSNet::MSIntermodalRouter::TripItem> items;
-        if (router.compute(fromEdge, toEdge, departPos, arrivalPos, destStop,
+        if (router.compute(fromEdge, toEdge, departPos, "", arrivalPos, destStop,
                            speed * walkFactor, vehicle, modeSet, departStep, items, externalFactor)) {
             double cost = 0;
             for (std::vector<MSNet::MSIntermodalRouter::TripItem>::iterator it = items.begin(); it != items.end(); ++it) {
@@ -775,6 +812,11 @@ Simulation::setParameter(const std::string& objectID, const std::string& param, 
 }
 
 void
+Simulation::setScale(double value) {
+    MSNet::getInstance()->getVehicleControl().setScale(value);
+}
+
+void
 Simulation::clearPending(const std::string& routeID) {
     MSNet::getInstance()->getInsertionControl().clearPendingVehicles(routeID);
 }
@@ -788,29 +830,26 @@ Simulation::saveState(const std::string& fileName) {
 double
 Simulation::loadState(const std::string& fileName) {
     long before = PROGRESS_BEGIN_TIME_MESSAGE("Loading state from '" + fileName + "'");
-    // XXX reset transportable state
-    // load time only
-    const SUMOTime newTime = MSStateHandler::MSStateTimeHandler::getTime(fileName);
-    // clean up state
-    MSNet::getInstance()->clearState(newTime);
-    MSNet::getInstance()->getVehicleControl().initDefaultTypes();
-    // load state
-    MSStateHandler h(fileName, 0);
-    XMLSubSys::runParser(h, fileName);
-    if (MsgHandler::getErrorInstance()->wasInformed()) {
+    try {
+        const SUMOTime newTime = MSNet::getInstance()->loadState(fileName);
+        Helper::clearStateChanges();
+        Helper::clearSubscriptions();
+        PROGRESS_TIME_MESSAGE(before);
+        return STEPS2TIME(newTime);
+    } catch (ProcessError&) {
         throw TraCIException("Loading state from '" + fileName + "' failed.");
     }
-    Helper::clearVehicleStates();
-    Helper::clearTransportableStates();
-    Helper::clearSubscriptions();
-    PROGRESS_TIME_MESSAGE(before);
-    MSNet::getInstance()->updateGUI();
-    return STEPS2TIME(newTime);
 }
 
 void
 Simulation::writeMessage(const std::string& msg) {
     WRITE_MESSAGE(msg);
+}
+
+
+void
+Simulation::storeShape(PositionVector& shape) {
+    shape = GeoConvHelper::getFinal().getConvBoundary().getShape(true);
 }
 
 
@@ -881,6 +920,8 @@ Simulation::handleVariable(const std::string& objID, const int variable, Variabl
             return wrapper->wrapInt(objID, variable, getArrivedPersonNumber());
         case VAR_ARRIVED_PERSONS_IDS:
             return wrapper->wrapStringList(objID, variable, getArrivedPersonIDList());
+        case VAR_SCALE:
+            return wrapper->wrapDouble(objID, variable, getScale());
         case VAR_DELTA_T:
             return wrapper->wrapDouble(objID, variable, getDeltaT());
         case VAR_MIN_EXPECTED_VEHICLES:

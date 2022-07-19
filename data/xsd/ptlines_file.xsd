@@ -11,11 +11,7 @@
             <xsd:element name="route" type="routeType" minOccurs="0"/>
             <xsd:element name="flow" type="flowType" minOccurs="0"/>
             <xsd:element name="trip" type="tripType" minOccurs="0"/>
-            <xsd:element name="include" minOccurs="0">
-                <xsd:complexType>
-                    <xsd:attribute name="href" type="xsd:string"/>
-                </xsd:complexType>
-            </xsd:element>
+            <xsd:element name="include" type="includeType" minOccurs="0"/>
         </xsd:choice>
     </xsd:complexType>
 

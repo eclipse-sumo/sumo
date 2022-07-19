@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2005-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2005-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -28,7 +28,6 @@
 #include <sstream>
 #include <iostream>
 
-//#define DEBUG_RANDCALLS
 
 
 // ===========================================================================
@@ -92,8 +91,16 @@ private:
 
 };
 
-//typedef XoShiRo256PlusPlus SumoRNG;
-typedef std::mt19937 SumoRNG;
+
+//class SumoRNG : public XoShiRo256PlusPlus {
+class SumoRNG : public std::mt19937 {
+public:
+    SumoRNG(const std::string& _id) : id(_id) {}
+
+    unsigned long long int count = 0;
+    std::string id;
+};
+
 
 /**
  * @class RandHelper
@@ -111,22 +118,7 @@ public:
     static void initRandGlobal(SumoRNG* which = nullptr);
 
     /// @brief Returns a random real number in [0, 1)
-    static inline double rand(SumoRNG* rng = nullptr) {
-        if (rng == nullptr) {
-            rng = &myRandomNumberGenerator;
-        }
-        const double res = double((*rng)() / 4294967296.0);
-        myCallCount[rng]++; // this slows down the rand call to about 180% on Windows, using an unordered_map makes it even worse
-#ifdef DEBUG_RANDCALLS
-        if (myCallCount[rng] == myDebugIndex) {
-            std::cout << "DEBUG\n"; // for setting breakpoint
-        }
-        std::stringstream stream; // to reduce output interleaving from different threads
-        stream << " rng" << myRngId.find(rng)->second << " rand call=" << myCallCount[rng] << " val=" << res << "\n";
-        std::cout << stream.str();
-#endif
-        return res;
-    }
+    static double rand(SumoRNG* rng = nullptr);
 
     /// @brief Returns a random real number in [0, maxV)
     static inline double rand(double maxV, SumoRNG* rng = nullptr) {
@@ -154,7 +146,7 @@ public:
         int result;
         do {
             result = (*rng)() & usedBits;
-            myCallCount[rng]++;
+            rng->count++;
         } while (result >= maxV);
         return result;
     }
@@ -184,7 +176,7 @@ public:
         long long int result;
         do {
             result = (((unsigned long long int)(*rng)() << 32) | (*rng)()) & usedBits;    // toss unused bits to shorten search
-            myCallCount[rng] += 2;
+            rng->count += 2;
         } while (result >= maxV);
         return result;
     }
@@ -195,16 +187,10 @@ public:
     }
 
     /// @brief Access to a random number from a normal distribution
-    static inline double randNorm(double mean, double variance, SumoRNG* rng = nullptr) {
-        // Polar method to avoid cosine
-        double u, q;
-        do {
-            u = rand(2.0, rng) - 1;
-            const double v = rand(2.0, rng) - 1;
-            q = u * u + v * v;
-        } while (q == 0.0 || q >= 1.0);
-        return (double)(mean + variance * u * sqrt(-2 * log(q) / q));
-    }
+    static double randNorm(double mean, double variance, SumoRNG* rng = nullptr);
+
+    /// @brief Access to a random number from an exponential distribution
+    static double randExp(double rate, SumoRNG* rng = nullptr);
 
     /// @brief Returns a random element from the given vector
     template<class T>
@@ -220,8 +206,8 @@ public:
             rng = &myRandomNumberGenerator;
         }
         std::ostringstream oss;
-        if (myCallCount[rng] < 1000000) { // TODO make this configurable
-            oss << myCallCount[rng];
+        if (rng->count < 1000000) { // TODO make this configurable
+            oss << rng->count;
         } else {
             oss << (*rng);
         }
@@ -235,8 +221,8 @@ public:
         }
         std::istringstream iss(state);
         if (state.size() < 10) {
-            iss >> myCallCount[rng];
-            rng->discard(myCallCount[rng]);
+            iss >> rng->count;
+            rng->discard(rng->count);
         } else {
             iss >> (*rng);
         }
@@ -246,11 +232,5 @@ public:
 protected:
     /// @brief the default random number generator to use
     static SumoRNG myRandomNumberGenerator;
-
-    static std::map<SumoRNG*, unsigned long long int> myCallCount;
-#ifdef DEBUG_RANDCALLS
-    static std::map<SumoRNG*, int> myRngId;
-    static int myDebugIndex;
-#endif
 
 };

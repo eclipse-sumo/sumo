@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2010-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2010-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -29,7 +29,7 @@
 // ===========================================================================
 MSSwarmTrafficLightLogic::MSSwarmTrafficLightLogic(MSTLLogicControl& tlcontrol, const std::string& id,
         const std::string& programID, const Phases& phases, int step, SUMOTime delay,
-        const std::map<std::string, std::string>& parameters) :
+        const Parameterised::Map& parameters) :
     MSSOTLHiLevelTrafficLightLogic(tlcontrol, id, programID, TrafficLightType::SWARM_BASED, phases, step, delay, parameters) {
 
     std::string pols = getPoliciesParam();
@@ -554,7 +554,7 @@ double MSSwarmTrafficLightLogic::getPheromoneForInputLanes() {
     o_str << " TOTpheromoneIN  " << pheroIn << " return  " << pheroIn / pheromoneInputLanes.size() << getID() << " .";
     WRITE_MESSAGE(time2string(MSNet::getInstance()->getCurrentTimeStep()) + " MSSwarmTrafficLightLogic::getPheromoneForInputLanes::" + o_str.str());
 #endif
-    return pheroIn / pheromoneInputLanes.size();
+    return pheroIn / (double)pheromoneInputLanes.size();
 }
 
 double MSSwarmTrafficLightLogic::getPheromoneForOutputLanes() {
@@ -576,7 +576,7 @@ double MSSwarmTrafficLightLogic::getPheromoneForOutputLanes() {
     o_str << " TOTpheromoneOUT  " << pheroOut << " return  " << pheroOut / pheromoneOutputLanes.size() << " id " << getID() << " .";
     WRITE_MESSAGE(time2string(MSNet::getInstance()->getCurrentTimeStep()) + " MSSwarmTrafficLightLogic::getPheromoneForOutputLanes::" + o_str.str());
 #endif
-    return pheroOut / pheromoneOutputLanes.size();
+    return pheroOut / (double)pheromoneOutputLanes.size();
 }
 
 double MSSwarmTrafficLightLogic::getDispersionForInputLanes(double average_phero_in) {
@@ -590,7 +590,7 @@ double MSSwarmTrafficLightLogic::getDispersionForInputLanes(double average_phero
         sum += pow(iterator->second - average_phero_in, 2);
     }
 
-    double result = sqrt(sum / pheromoneInputLanes.size()) * getScaleFactorDispersionIn();
+    double result = sqrt(sum / (double)pheromoneInputLanes.size()) * getScaleFactorDispersionIn();
 #ifdef SWARM_DEBUG
     ostringstream so_str;
     so_str << " dispersionIn " << result;
@@ -609,7 +609,7 @@ double MSSwarmTrafficLightLogic::getDispersionForOutputLanes(double average_pher
         sum += pow(iterator->second - average_phero_out, 2);
     }
 
-    double result = sqrt(sum / pheromoneOutputLanes.size()) * getScaleFactorDispersionOut();
+    double result = sqrt(sum / (double)pheromoneOutputLanes.size()) * getScaleFactorDispersionOut();
 #ifdef SWARM_DEBUG
     ostringstream so_str;
     so_str << " dispersionOut " << result;
@@ -717,7 +717,7 @@ void MSSwarmTrafficLightLogic::decidePolicy() {
             SUMOTime step = MSNet::getInstance()->getCurrentTimeStep();
             std::ostringstream phero_str;
             phero_str << " (pheroIn= " << pheroIn << " ,pheroOut= " << pheroOut << " )";
-            WRITE_MESSAGE("TL " + getID() + " time " + time2string(step) + " Policy: " + newPolicy->getName() + phero_str.str() + " OldPolicy: " + oldPolicy->getName() + " id " + getID() + " .");
+            WRITE_MESSAGE("TL " + getID() + " time=" + time2string(step) + " Policy: " + newPolicy->getName() + phero_str.str() + " OldPolicy: " + oldPolicy->getName() + " id " + getID() + " .");
 #endif
             if (oldPolicy->getName().compare("Congestion") == 0) {
                 congestion_steps = 0;
@@ -727,7 +727,7 @@ void MSSwarmTrafficLightLogic::decidePolicy() {
             std::ostringstream phero_str;
             phero_str << " (pheroIn= " << pheroIn << " ,pheroOut= " << pheroOut << " )";
             SUMOTime step = MSNet::getInstance()->getCurrentTimeStep();
-            WRITE_MESSAGE("TL " + getID() + " time " + time2string(step) + " Policy: Nochanges" + phero_str.str() + " OldPolicy: " + oldPolicy->getName() + " id " + getID() + " .");
+            WRITE_MESSAGE("TL " + getID() + " time=" + time2string(step) + " Policy: Nochanges" + phero_str.str() + " OldPolicy: " + oldPolicy->getName() + " id " + getID() + " .");
 #endif
         }
 

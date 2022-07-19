@@ -1,3 +1,6 @@
+# spread types
+spread_types
+
 # Tests for using laneTypes
 laneTypes
 
@@ -37,5 +40,5 @@ cross_usingtypes_overwrite
 # test invalid default lanenumber and width
 cross_default_invalid
 
-# spread types
-spread_types
+# load two type files, values from the second file should overwrite the first
+overwrite_type

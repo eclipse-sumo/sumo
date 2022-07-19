@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -25,11 +25,12 @@
 #include <config.h>
 
 #include <iostream>
-#include "MSDetectorControl.h"
-#include "MSMeanData_Net.h"
 #include <utils/options/OptionsCont.h>
 #include <utils/options/Option.h>
 #include <utils/common/MsgHandler.h>
+#include "MSMeanData_Emissions.h"
+#include "MSMeanData_Net.h"
+#include "MSDetectorControl.h"
 
 
 // ===========================================================================
@@ -70,14 +71,12 @@ MSDetectorControl::add(SumoXMLTag type, MSDetectorFileOutput* d, const std::stri
 }
 
 
-
 void
 MSDetectorControl::add(SumoXMLTag type, MSDetectorFileOutput* d) {
     if (!myDetectors[type].add(d->getID(), d)) {
         throw ProcessError(toString(type) + " detector '" + d->getID() + "' could not be build (declared twice?).");
     }
 }
-
 
 
 void
@@ -88,6 +87,7 @@ MSDetectorControl::add(MSMeanData* md, const std::string& device,
     if (begin <= string2time(OptionsCont::getOptions().getString("begin"))) {
         md->init();
     }
+    MSGlobals::gHaveEmissions |= typeid(*md) == typeid(MSMeanData_Emissions);
 }
 
 
@@ -181,10 +181,10 @@ MSDetectorControl::addDetectorAndInterval(MSDetectorFileOutput* det,
 }
 
 void
-MSDetectorControl::clearState() {
+MSDetectorControl::clearState(SUMOTime step) {
     for (const auto& i : myDetectors) {
         for (const auto& j : getTypedDetectors(i.first)) {
-            j.second->clearState();
+            j.second->clearState(step);
         }
     }
 }

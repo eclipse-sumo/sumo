@@ -36,7 +36,7 @@ supported.
 
 - [SAGA](https://github.com/lcodeca/SUMOActivityGen/blob/master/docs/SUMOActivityGen.md)
     
-    a scriptable and user-defined activity-based mobility scenario generator for SUMO. [Generate intermodal traffic demand from OSM input](https://github.com/eclipse/sumo/tree/master/tools/contributed) [howto](https://github.com/lcodeca/SUMOActivityGen/blob/master/docs/HOWTO.md)
+    a scriptable and user-defined activity-based mobility scenario generator for SUMO. [Generate intermodal traffic demand from OSM input](https://github.com/eclipse/sumo/tree/main/tools/contributed) [howto](https://github.com/lcodeca/SUMOActivityGen/blob/master/docs/HOWTO.md)
 
 - ~~[SUMO Traffic Modeler](SUMO_Traffic_Modeler.md)~~
 
@@ -115,6 +115,10 @@ The following extensions are managed and supported by other parties.
 - [SumoNetVis](https://pypi.org/project/SumoNetVis/)
 
     A python library to render Sumo network files and trajectories with matplotlib or as an OBJ file.
+    
+- [SESAM](https://sesam.co4e.com)
+
+    SUMO as a cloud service to build, run and analyze simulation scenarios, developed by the DLR spin-off company co4e GmbH
 
 # Purgatory
 

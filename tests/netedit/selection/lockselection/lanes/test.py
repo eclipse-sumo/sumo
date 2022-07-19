@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2009-2021 German Aerospace Center (DLR) and others.
+# Copyright (C) 2009-2022 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -38,10 +38,10 @@ netedit.forceSaveAdditionals()
 netedit.selectMode()
 
 # show connections
-netedit.changeEditMode('3')
+netedit.changeEditMode(netedit.attrs.modes.network.showConnections)
 
 # disable select edges
-netedit.changeEditMode('2')
+netedit.changeEditMode(netedit.attrs.modes.network.selectLane)
 
 # use a rectangle to check add mode
 netedit.selectionRectangle(referencePosition, 25, 0, 590, 460)
@@ -50,7 +50,7 @@ netedit.selectionRectangle(referencePosition, 25, 0, 590, 460)
 netedit.selectionClear()
 
 # lock lanes
-netedit.lockSelection(3)
+netedit.lockSelection(netedit.attrs.selection.lockSelectionNetwork.lanes)
 
 # use a rectangle to check add mode
 netedit.selectionRectangle(referencePosition, 25, 0, 590, 460)
@@ -58,9 +58,15 @@ netedit.selectionRectangle(referencePosition, 25, 0, 590, 460)
 # clear selection
 netedit.selectionClear()
 
+# select no
+netedit.typeTwoKeys('alt', 'o')
+
+# lock lanes
+netedit.lockSelection(netedit.attrs.selection.lockSelectionNetwork.lanes)
+
 # check undo and redo
-netedit.undo(referencePosition, 6)
-netedit.redo(referencePosition, 6)
+netedit.undo(referencePosition, 5)
+netedit.redo(referencePosition, 5)
 
 # save additionals and shapes
 netedit.saveAdditionals(referencePosition)

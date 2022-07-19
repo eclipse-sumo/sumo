@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2009-2021 German Aerospace Center (DLR) and others.
+# Copyright (C) 2009-2022 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -21,9 +21,8 @@ from __future__ import absolute_import
 
 import os
 import subprocess
-from os import path
 
-import sumolib  # noqa
+import sumolib
 
 
 vclassRemove = {"passenger": ["--keep-edges.by-vclass", "passenger"],
@@ -77,13 +76,13 @@ def build(args=None, bindir=None):
             not (options.oldapi_prefix or options.osm_file)):
         optParser.error(
             "exactly one of the options --osm-file and --oldapi-prefix must be supplied")
-    if options.typemap and not path.isfile(options.typemap):
+    if options.typemap and not os.path.isfile(options.typemap):
         # fail early because netconvert may take a long time
         optParser.error('typemap file "%s" not found' % options.typemap)
     if not (options.vehicle_classes in vclassRemove):
         optParser.error('invalid vehicle class "%s" given' %
                         options.vehicle_classes)
-    if not path.isdir(options.output_directory):
+    if not os.path.isdir(options.output_directory):
         optParser.error('output directory "%s" does not exist' %
                         options.output_directory)
 
@@ -109,7 +108,7 @@ def build(args=None, bindir=None):
     else:  # used new API
         netconvertOpts += [options.osm_file]
         polyconvertOpts += [options.osm_file]
-        prefix = path.basename(options.osm_file).replace('.osm.xml', '')
+        prefix = os.path.basename(options.osm_file).replace('.osm.xml', '')
 
     if options.prefix:
         prefix = options.prefix

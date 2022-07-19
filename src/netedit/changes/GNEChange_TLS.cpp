@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -38,16 +38,40 @@ FXIMPLEMENT_ABSTRACT(GNEChange_TLS, GNEChange, nullptr, 0)
 
 
 /// @brief constructor for creating an edge
-GNEChange_TLS::GNEChange_TLS(GNEJunction* junction, NBTrafficLightDefinition* tlDef, bool forward, bool forceInsert, const std::string tlID):
+GNEChange_TLS::GNEChange_TLS(GNEJunction* junction, NBTrafficLightDefinition* tlDef, bool forward, bool forceInsert, const std::string tlID) :
     GNEChange(Supermode::NETWORK, forward, false),
     myJunction(junction),
     myTlDef(tlDef),
     myForceInsert(forceInsert) {
     myJunction->incRef("GNEChange_TLS");
     if (myTlDef == nullptr) {
-        assert(forward);
+        // check forward
+        if (!forward) {
+            throw ProcessError("If myTlDef is null, forward cannot be false");
+        }
         // potential memory leak if this change is never executed
         TrafficLightType type = SUMOXMLDefinitions::TrafficLightTypes.get(OptionsCont::getOptions().getString("tls.default-type"));
+        if (myJunction->getNBNode()->isTLControlled()) {
+            // copy existing type
+            type = (*myJunction->getNBNode()->getControllingTLS().begin())->getType();
+        }
+        myTlDef = new NBOwnTLDef(tlID == "" ? myJunction->getMicrosimID() : tlID, 0, type);
+    }
+}
+
+
+GNEChange_TLS::GNEChange_TLS(GNEJunction* junction, NBTrafficLightDefinition* tlDef, bool forward, TrafficLightType type,
+                             bool forceInsert, const std::string tlID) :
+    GNEChange(Supermode::NETWORK, forward, false),
+    myJunction(junction),
+    myTlDef(tlDef),
+    myForceInsert(forceInsert) {
+    myJunction->incRef("GNEChange_TLS");
+    if (myTlDef == nullptr) {
+        // check forward
+        if (!forward) {
+            throw ProcessError("If myTlDef is null, forward cannot be false");
+        }
         if (myJunction->getNBNode()->isTLControlled()) {
             // copy existing type
             type = (*myJunction->getNBNode()->getControllingTLS().begin())->getType();

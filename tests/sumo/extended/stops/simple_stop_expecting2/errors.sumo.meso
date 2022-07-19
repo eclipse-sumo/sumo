@@ -1,2 +1,2 @@
-Warning: Person 'p1' aborted waiting for veh0 at edge '1to2'.
+Warning: Network contains internal links which are ignored. Vehicles will 'jump' across junctions and thus underestimate route lengths and travel times.
 Warning: Person 'p2' aborted waiting for veh0 at edge '1to2'.

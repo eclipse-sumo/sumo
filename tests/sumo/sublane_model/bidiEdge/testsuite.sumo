@@ -1,0 +1,34 @@
+# two consecutive pairs of bidi-edges (between normal edges), 1 vehicle and 2 bikes
+# Check if a vehicle wiggles when bikes are passing by.
+bikePassingWithoutWiggledVeh
+
+# two consecutive pairs of bidi-edges (between normal edges), 1 vehicle and 1 bike
+# Check if SUMO identifies fault collisions, and if everlasting stop exists.
+bikeFaultCollision
+
+# two consecutive pairs of bidi-edges (between normal edges), 1 vehicle and 2 bikes
+# Check if a bike avoid conflict with another bike, and if delayedTeleporting exists.
+bikeAvoidConflictWithBike
+
+# two consecutive pairs of bidi-edges (between normal edges), 1 vehicle and 1 bike
+# Check if a bike avoid conflict with a vehicle.
+bikeAvoidConflictWithVeh
+
+# the car is driving on the right side and so the oncoming bike must also stay on (its) right side to pass.
+bikeOvertakeRight
+
+# the car is driving in the center side and  the oncoming bike should prefer passing on the right to passing on the left.
+bikePreferOvertakeRight
+
+# a single pair of bidi-edges and 2 vehicles
+1edge
+
+# a single pair of bidi-edges (between normal edges) and 2 vehicles
+1edge_between
+
+# two consecutive pairs of bidi-edges (between normal edges) and 2 vehicles
+2edges_between
+
+# two consecutive pairs of bidi-edges (between normal edges) and 2 vehicles,
+# broken departure symmetry
+2edges_between2

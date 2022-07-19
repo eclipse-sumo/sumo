@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -342,8 +342,13 @@ public:
         mySplit.insert(node);
     }
 
+    /// @brief mark a node as explicitly not controlled by a TLS
+    void markAsNotTLS(const NBNode* node) {
+        myUnsetTLS.insert(node);
+    }
+
     /// @brief remap node IDs accoring to options --numerical-ids and --reserved-ids
-    int remapIDs(bool numericaIDs, bool reservedIDs, const std::string& prefix);
+    int remapIDs(bool numericaIDs, bool reservedIDs, const std::string& prefix, NBTrafficLightLogicCont& tlc);
 
     /// @brief guess and mark fringe nodes
     int guessFringe();
@@ -417,6 +422,9 @@ private:
 
     /// @brief nodes that received a traffic light due to guessing (--tls.guess)
     std::set<NBNode*> myGuessedTLS;
+
+    /// @brief nodes that are excluded from tls-guessing
+    std::set<const NBNode*> myUnsetTLS;
 
     /// @brief node positions for faster lookup
     NamedRTree myRTree;

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -46,7 +46,7 @@ MSEdgeControl::MSEdgeControl(const std::vector< MSEdge* >& edges)
     : myEdges(edges),
       myLanes(MSLane::dictSize()),
       myWithVehicles2Integrate(MSGlobals::gNumSimThreads > 1),
-      myLastLaneChange(MSEdge::dictSize()),
+      myLastLaneChange(edges.size()),
       myInactiveCheckCollisions(MSGlobals::gNumSimThreads > 1),
       myMinLengthGeometryFactor(1.),
 #ifdef THREAD_POOL
@@ -104,6 +104,13 @@ MSEdgeControl::~MSEdgeControl() {
 #endif
 }
 
+void
+MSEdgeControl::setActiveLanes(std::list<MSLane*> lanes) {
+    myActiveLanes = lanes;
+    for (MSLane* lane : lanes) {
+        myLanes[lane->getNumericalID()].amActive = true;
+    }
+}
 
 void
 MSEdgeControl::patchActiveLanes() {
@@ -288,6 +295,9 @@ MSEdgeControl::changeLanes(const SUMOTime t) {
                             toAdd.push_back(lane);
                             lu.amActive = true;
                         }
+                        if (MSGlobals::gLateralResolution > 0) {
+                            lane->sortManeuverReservations();
+                        }
                     }
 #ifdef PARALLEL_CHANGE_LANES
                 }
@@ -308,6 +318,9 @@ MSEdgeControl::changeLanes(const SUMOTime t) {
                     toAdd.push_back(l);
                     lu.amActive = true;
                 }
+                if (MSGlobals::gLateralResolution > 0) {
+                    l->sortManeuverReservations();
+                }
             }
         }
     }
@@ -316,12 +329,6 @@ MSEdgeControl::changeLanes(const SUMOTime t) {
     MSGlobals::gComputeLC = false;
     for (std::vector<MSLane*>::iterator i = toAdd.begin(); i != toAdd.end(); ++i) {
         myActiveLanes.push_front(*i);
-    }
-    if (MSGlobals::gLateralResolution > 0) {
-        // sort maneuver reservations
-        for (LaneUsageVector::iterator it = myLanes.begin(); it != myLanes.end(); ++it) {
-            (*it).lane->sortManeuverReservations();
-        }
     }
 }
 
@@ -372,5 +379,11 @@ MSEdgeControl::setMesoTypes() {
     }
 }
 
+void
+MSEdgeControl::saveState(OutputDevice& out) {
+    out.openTag(SUMO_TAG_EDGECONTROL);
+    out.writeAttr(SUMO_ATTR_LANES, myActiveLanes);
+    out.closeTag();
+}
 
 /****************************************************************************/

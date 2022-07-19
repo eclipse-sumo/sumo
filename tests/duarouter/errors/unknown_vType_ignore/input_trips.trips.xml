@@ -1,3 +1,5 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <trip id="0" depart="0" from="beg" to="end" type="foo"/>
+    <flow id="a" begin="0" from="beg" to="end" period="10" number="3" type="x"/>
+    <flow id="b" begin="3600" from="beg" to="end" probability="0.1" end="3660" type="y"/>
 </routes>

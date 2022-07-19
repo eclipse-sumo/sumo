@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-04-20 09:45:29 by Eclipse SUMO netedit Version v1_12_0+2162-c3148f59955
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <!-- Vehicles, containers and containers (sorted by depart) -->
+    <containerFlow id="p_0" end="23.00" containersPerHour="1200.00">
+        <tranship from="gneE2" to="gneE5"/>
+    </containerFlow>
+
+    <containerFlow id="p_1" begin="" end="23.00" containersPerHour="1200.00">
+        <tranship from="gneE2" to="gneE5"/>
+    </containerFlow>
+
+    <containerFlow id="p_2" begin="dummyDepart" end="23.00" containersPerHour="1200.00">
+        <tranship from="gneE2" to="gneE5"/>
+    </containerFlow>
+
+    <containerFlow id="p_3" begin="-12.00" end="23.00" containersPerHour="1200.00">
+        <tranship from="gneE2" to="gneE5"/>
+    </containerFlow>
+
+    <containerFlow id="p_4" begin="4.00" end="23.00" containersPerHour="1200.00">
+        <tranship from="gneE2" to="gneE5"/>
+    </containerFlow>
+
+    <containerFlow id="p_5" begin="5.20" end="23.00" containersPerHour="1200.00">
+        <tranship from="gneE2" to="gneE5"/>
+    </containerFlow>
+</routes>

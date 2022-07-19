@@ -1,4 +1,3 @@
-Loading configuration ... done.
  Retrying in 1 seconds
 current program '1' has 8 phases
 max-gap: 
@@ -45,10 +44,10 @@ max-gap:
 40.0 phase=0
 41.0 phase=0
 42.0 phase=0
-43.0 phase=0
+43.0 phase=1
 44.0 phase=1
 45.0 phase=1
-46.0 phase=1
+46.0 phase=2
 47.0 phase=2
 48.0 phase=2
 49.0 phase=2
@@ -184,3 +183,11 @@ jumping from phase 2 to 5
 178.0 phase=4
 179.0 phase=4
 max-gap: 10
+cycleSecond (before): 89.00
+cycleTime (before): 90.00
+cycleTime (after): 55.00
+coordinated (before): 0
+coordinated (after): 1
+offset (before): 0.00
+offset (after): 12.00
+cycleSecond (after): 18.00

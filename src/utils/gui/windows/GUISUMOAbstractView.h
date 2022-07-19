@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -56,7 +56,7 @@ class GUIGlObject;
 class GUIDialog_EditViewport;
 class GUIDialog_ViewSettings;
 class GUIVisualizationSettings;
-
+class GUILane;
 
 // ===========================================================================
 // class definitions
@@ -76,6 +76,9 @@ public:
 
     /// @brief destructor
     virtual ~GUISUMOAbstractView();
+
+    /// @brief recalculate boundaries
+    virtual void recalculateBoundaries() = 0;
 
     /// @brief builds the view toolbars
     virtual void buildViewToolBars(GUIGlChildWindow*) { }
@@ -114,7 +117,7 @@ public:
     /// @brief pixels-to-meters conversion method
     double p2m(double pixel) const;
 
-    /// @brief Returns the information whether rotation is allowd
+    /// @brief Returns the information whether rotation is allowed
     ///@note disabled
     //bool allowRotation() const;
 
@@ -135,6 +138,12 @@ public:
 
     /// @brief get visible boundary
     Boundary getVisibleBoundary() const;
+
+    /// @brief return whether this is a 3D view
+    virtual bool is3DView() const;
+
+    /// @brief zoom interface for 3D view
+    virtual void zoom2Pos(Position& camera, Position& lookAt, double zoom);
 
     /// @brief mouse functions
     //@{
@@ -157,6 +166,14 @@ public:
     virtual long onKeyPress(FXObject* o, FXSelector sel, void* data);
     virtual long onKeyRelease(FXObject* o, FXSelector sel, void* data);
     //@}
+
+    /// @brief interaction with the simulation
+    virtual long onCmdCloseLane(FXObject*, FXSelector, void*);
+    virtual long onCmdCloseEdge(FXObject*, FXSelector, void*);
+    virtual long onCmdAddRerouter(FXObject*, FXSelector, void*);
+
+    /// @brief highlight edges according to reachability
+    virtual long onCmdShowReachability(FXObject*, FXSelector, void*);
 
     /// @brief open object dialog at the cursor position
     virtual void openObjectDialogAtCursor();
@@ -183,11 +200,11 @@ public:
      * @param[in] destFile The name of the file to write the snapshot into
      * @param[in] w The snapshot image width
      * @param[in] w The snapshot image height
-     * @return The error message, if an error occcured; "" otherwise
+     * @return The error message, if an error occurred; "" otherwise
      */
     std::string makeSnapshot(const std::string& destFile, const int w = -1, const int h = -1);
 
-    /// @brief Adds a frame to a video snapshot which will be initialized if neccessary
+    /// @brief Adds a frame to a video snapshot which will be initialized if necessary
     virtual void saveFrame(const std::string& destFile, FXColor* buf);
 
     /// @brief Ends a video snapshot
@@ -205,6 +222,9 @@ public:
     /// @brief get the viewport and create it on first access
     GUIDialog_EditViewport* getViewportEditor();
 
+    /// @brief update the viewport chooser with the current view values
+    virtual void updateViewportValues();
+
     /// @brief show viewport editor
     virtual void showViewportEditor();
 
@@ -217,8 +237,11 @@ public:
     /// @brief set color scheme
     virtual bool setColorScheme(const std::string&);
 
-    /// @brief get visualization settings
-    GUIVisualizationSettings& getVisualisationSettings() const;
+    /// @brief get visualization settings (read only)
+    const GUIVisualizationSettings& getVisualisationSettings() const;
+
+    /// @brief edit visualization settings (allow modify VisualizationSetings, use carefully)
+    GUIVisualizationSettings* editVisualisationSettings() const;
 
     /// @brief recalibrate color scheme according to the current value range
     virtual void buildColorRainbow(const GUIVisualizationSettings& /*s*/, GUIColorScheme& /*scheme*/, int /*active*/, GUIGlObjectType /*objectType*/,
@@ -289,7 +312,7 @@ public:
     bool addAdditionalGLVisualisation(GUIGlObject* const which);
 
     /** @brief Removes an object from the list of objects that show additional things
-     * @param[in] which The object to remoe
+     * @param[in] which The object to remove
      * @return True if the object was known, false otherwise
      * @see GUIGlObject::drawGLAdditional
      */
@@ -305,7 +328,7 @@ public:
     /// @brief get position of current popup
     const Position& getPopupPosition() const;
 
-    /// @brief destoys the popup
+    /// @brief destroys the popup
     void destroyPopup();
 
 public:
@@ -354,7 +377,7 @@ public:
     FXComboBox* getColoringSchemesCombo();
 
     /// @brief Returns the cursor's x/y position within the network
-    Position getPositionInformation() const;
+    virtual Position getPositionInformation() const;
 
     /**@brief Returns a position that is mapped to the closest grid point if the grid is active
      * @brief note: formats are pos(x,y,0) por pos(0,0,z)
@@ -389,7 +412,7 @@ protected:
     void paintGL();
 
     /// @brief update position information
-    void updatePositionInformation() const;
+    virtual void updatePositionInformation() const;
 
     /// @brief paint GL
     virtual int doPaintGL(int /*mode*/, const Boundary& /*boundary*/);
@@ -411,6 +434,9 @@ protected:
 
     /// @brief Draws frames-per-second indicator
     void drawFPS();
+
+    /// @brief returns the GUILane at cursor position (implementation depends on view)
+    virtual GUILane* getLaneUnderCursor();
 
     /// @brief returns the id of the front object under the cursor using GL_SELECT
     GUIGlID getObjectUnderCursor();
@@ -474,6 +500,9 @@ protected:
 
     /// @brief The current popup-menu
     GUIGLObjectPopupMenu* myPopup;
+
+    /// @brief current object dialog 
+    GUIGlObject* myCurrentObjectDialog = nullptr;
 
     /// @brief The current popup-menu position
     Position myPopupPosition;

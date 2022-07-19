@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -83,7 +83,7 @@ GUIE3Collector::MyWrapper::getParameterWindow(GUIMainWindow& app,
     ret->mkItem("haltings [#]", true,
                 new FunctionBinding<MSE3Collector, int>(&myDetector, &MSE3Collector::getCurrentHaltingNumber));
     // close building
-    ret->closeBuilding();
+    ret->closeBuilding(&myDetector);
     return ret;
 }
 
@@ -96,7 +96,7 @@ GUIE3Collector::MyWrapper::drawGL(const GUIVisualizationSettings& s) const {
     typedef std::vector<SingleCrossingDefinition> CrossingDefinitions;
     CrossingDefinitions::const_iterator i;
     GLHelper::setColor(s.detectorSettings.E3EntryColor);
-    const double exaggeration = s.addSize.getExaggeration(s, this);
+    const double exaggeration = getExaggeration(s);
     for (i = myEntryDefinitions.begin(); i != myEntryDefinitions.end(); ++i) {
         drawSingleCrossing((*i).myFGPosition, (*i).myFGRotation, exaggeration);
     }
@@ -139,6 +139,12 @@ GUIE3Collector::MyWrapper::drawSingleCrossing(const Position& pos,
 }
 
 
+double
+GUIE3Collector::MyWrapper::getExaggeration(const GUIVisualizationSettings& s) const {
+    return s.addSize.getExaggeration(s, this);
+}
+
+
 Boundary
 GUIE3Collector::MyWrapper::getCenteringBoundary() const {
     Boundary b(myBoundary);
@@ -159,8 +165,13 @@ GUIE3Collector::MyWrapper::getDetector() {
 GUIE3Collector::GUIE3Collector(const std::string& id,
                                const CrossSectionVector& entries,  const CrossSectionVector& exits,
                                double haltingSpeedThreshold,
-                               SUMOTime haltingTimeThreshold, const std::string& vTypes, bool openEntry)
-    : MSE3Collector(id, entries,  exits, haltingSpeedThreshold, haltingTimeThreshold, vTypes, openEntry) {}
+                               SUMOTime haltingTimeThreshold,
+                               const std::string& vTypes,
+                               const std::string& nextEdges,
+                               int detectPersons,
+                               bool openEntry):
+    MSE3Collector(id, entries,  exits, haltingSpeedThreshold, haltingTimeThreshold, vTypes, nextEdges, detectPersons, openEntry)
+{}
 
 
 GUIE3Collector::~GUIE3Collector() {}

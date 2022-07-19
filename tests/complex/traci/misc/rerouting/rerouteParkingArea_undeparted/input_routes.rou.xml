@@ -1,0 +1,10 @@
+<routes>
+    <vType id="DEFAULT_VEHTYPE" sigma="0"/>
+    <route id="egoRoute" edges="A0A1 A1A2 A2A3">
+        <stop parkingArea="parkA1A2" duration="10"/>
+    </route>
+    <person id="p0" depart="0">
+        <ride from="A0A1" to="A2A3" lines="ego"/>
+        <walk to="A3B3"/>
+    </person>
+</routes>

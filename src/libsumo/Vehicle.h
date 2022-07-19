@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2012-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2012-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -87,6 +87,8 @@ public:
     static std::vector<libsumo::TraCINextStopData> getNextStops(const std::string& vehID);
     static std::vector<libsumo::TraCINextStopData> getStops(const std::string& vehID, int limit = 0);
     static int getStopState(const std::string& vehID);
+    static std::string getStopParameter(const std::string& vehID, int nextStopIndex, const std::string& param);
+
     static double getDistance(const std::string& vehID);
     static double getDrivingDistance(const std::string& vehID, const std::string& edgeID, double position, int laneIndex = 0);
     static double getDrivingDistance2D(const std::string& vehID, double x, double y);
@@ -134,6 +136,20 @@ public:
                             double until = libsumo::INVALID_DOUBLE_VALUE,
                             int teleport = 0);
 
+    static void insertStop(const std::string& vehID,
+                           int nextStopIndex,
+                           const std::string& edgeID,
+                           double pos = 1.,
+                           int laneIndex = 0,
+                           double duration = libsumo::INVALID_DOUBLE_VALUE,
+                           int flags = libsumo::STOP_DEFAULT,
+                           double startPos = libsumo::INVALID_DOUBLE_VALUE,
+                           double until = libsumo::INVALID_DOUBLE_VALUE,
+                           int teleport = 0);
+
+    static void setStopParameter(const std::string& vehID, int nextStopIndex,
+                                 const std::string& param, const std::string& value);
+
     static void rerouteParkingArea(const std::string& vehID,
                                    const std::string& parkingAreaID);
 
@@ -165,7 +181,8 @@ public:
     static void deactivateGapControl(const std::string& vehID);
     static void requestToC(const std::string& vehID, double leadTime);
     static void setSpeed(const std::string& vehID, double speed);
-    static void setPreviousSpeed(const std::string& vehID, double prevspeed);
+    static void setAcceleration(const std::string& vehID, double accel, double duration);
+    static void setPreviousSpeed(const std::string& vehID, double prevSpeed, double prevAcceleration = libsumo::INVALID_DOUBLE_VALUE);
     static void setSpeedMode(const std::string& vehID, int speedMode);
     static void setLaneChangeMode(const std::string& vehID, int laneChangeMode);
     static void setRoutingMode(const std::string& vehID, int routingMode);

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2007-2021 German Aerospace Center (DLR) and others.
+# Copyright (C) 2007-2022 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -28,7 +28,6 @@ from __future__ import print_function
 import os
 import sys
 from collections import defaultdict
-from optparse import OptionParser
 import matplotlib
 if 'matplotlib.backends' not in sys.modules:
     if 'TEXTTEST_SANDBOX' in os.environ or (os.name == 'posix' and 'DISPLAY' not in os.environ):
@@ -38,13 +37,27 @@ import math  # noqa
 
 from sumolib.xml import parse_fast_nested  # noqa
 from sumolib.miscutils import uMin, uMax, parseTime  # noqa
+from sumolib.options import ArgumentParser  # noqa
+
+KEYS = {
+    't': 'Time',
+    's': 'Speed',
+    'd': 'Distance',
+    'a': 'Acceleration',
+    'i': 'Angle',
+    'x': 'x-Position',
+    'y': 'y-Position',
+    'k': 'kilometrage',
+    'g': 'gap',
+}
 
 
 def getOptions(args=None):
-    optParser = OptionParser()
+    optParser = ArgumentParser()
     optParser.add_option("-t", "--trajectory-type", dest="ttype", default="ds",
-                         help="select two letters from [t, s, d, a, i, x, y, k] to plot"
-                         + " Time, Speed, Distance, Acceleration, Angle, x-Position, y-Position, Kilometrage."
+                         help="select two letters from [t, s, d, a, i, x, y, k, g] to plot"
+                         + " Time, Speed, Distance, Acceleration, Angle,"
+                         + " x-Position, y-Position, Kilometrage, leaderGap."
                          + " Default 'ds' plots Distance vs. Speed")
     optParser.add_option("--persons", action="store_true", default=False, help="plot person trajectories")
     optParser.add_option("-s", "--show", action="store_true", default=False, help="show plot directly")
@@ -58,9 +71,9 @@ def getOptions(args=None):
                          help="only consider data for the given list of edges")
     optParser.add_option("--filter-ids", dest="filterIDs",
                          help="only consider data for the given list of vehicle (or person) ids")
-    optParser.add_option("-p", "--pick-distance", dest="pickDist", type="float", default=1,
+    optParser.add_option("-p", "--pick-distance", dest="pickDist", type=float, default=1,
                          help="pick lines within the given distance in interactive plot mode")
-    optParser.add_option("-i", "--invert-distance-angle", dest="invertDistanceAngle", type="float",
+    optParser.add_option("-i", "--invert-distance-angle", dest="invertDistanceAngle", type=float,
                          help="invert distance for trajectories with a average angle near FLOAT")
     optParser.add_option("--label", help="plot label (default input file name")
     optParser.add_option("--invert-yaxis", dest="invertYAxis", action="store_true",
@@ -68,7 +81,7 @@ def getOptions(args=None):
     optParser.add_option("--legend", action="store_true", default=False, help="Add legend")
     optParser.add_option("-v", "--verbose", action="store_true", default=False, help="tell me what you are doing")
 
-    options, args = optParser.parse_args(args=args)
+    options, args = optParser.parse_known_args(args=args)
     if len(args) < 1:
         sys.exit("mandatory argument FCD_FILE missing")
     options.fcdfiles = args
@@ -86,7 +99,7 @@ def write_csv(data, fname):
     with open(fname, 'w') as f:
         for veh, vals in sorted(data.items()):
             f.write('"%s"\n' % veh)
-            for x in zip(*vals):
+            for x in zip(*[vals[k] for k in KEYS if k in vals]):
                 f.write(" ".join(map(str, x)) + "\n")
             f.write('\n')
 
@@ -109,25 +122,16 @@ def main(options):
     fig = plt.figure(figsize=(14, 9), dpi=100)
     fig.canvas.mpl_connect('pick_event', onpick)
 
-    xdata = 2
-    ydata = 1
-    typespec = {
-        't': ('Time', 0),
-        's': ('Speed', 1),
-        'd': ('Distance', 2),
-        'a': ('Acceleration', 3),
-        'i': ('Angle', 4),
-        'x': ('x-Position', 5),
-        'y': ('y-Position', 6),
-        'k': ('kilometrage', 7),
-    }
-
+    xdata = None
+    ydata = None
     shortFileNames = short_names(options.fcdfiles)
+    xdata = options.ttype[0]
+    ydata = options.ttype[1]
     if (len(options.ttype) == 2
-            and options.ttype[0] in typespec
-            and options.ttype[1] in typespec):
-        xLabel, xdata = typespec[options.ttype[0]]
-        yLabel, ydata = typespec[options.ttype[1]]
+            and xdata in KEYS
+            and ydata in KEYS):
+        xLabel = KEYS[xdata]
+        yLabel = KEYS[ydata]
         plt.xlabel(xLabel)
         plt.ylabel(yLabel)
         plt.title(','.join(shortFileNames) if options.label is None else options.label)
@@ -145,7 +149,9 @@ def main(options):
     attrs = ['id', 'x', 'y', 'angle', 'speed', location]
     if 'k' in options.ttype:
         attrs.append('distance')
-    data = defaultdict(lambda: tuple(([] for i in range(len(attrs) + 1))))
+    if 'g' in options.ttype:
+        attrs.append('leaderGap')
+    data = defaultdict(lambda: defaultdict(list))
     for fileIndex, fcdfile in enumerate(options.fcdfiles):
         totalVehs = 0
         filteredVehs = 0
@@ -173,30 +179,35 @@ def main(options):
             prevSpeed = speed
             prevDist = 0
             if vehID in data:
-                prevTime = data[vehID][0][-1]
-                prevSpeed = data[vehID][1][-1]
-                prevDist = data[vehID][2][-1]
-            data[vehID][0].append(time)
-            data[vehID][1].append(speed)
-            data[vehID][4].append(float(vehicle.angle))
-            data[vehID][5].append(float(vehicle.x))
-            data[vehID][6].append(float(vehicle.y))
+                prevTime = data[vehID]['t'][-1]
+                prevSpeed = data[vehID]['s'][-1]
+                prevDist = data[vehID]['d'][-1]
+            data[vehID]['t'].append(time)
+            data[vehID]['s'].append(speed)
+            data[vehID]['i'].append(float(vehicle.angle))
+            data[vehID]['x'].append(float(vehicle.x))
+            data[vehID]['y'].append(float(vehicle.y))
             if 'k' in options.ttype:
-                data[vehID][7].append(float(vehicle.distance))
+                data[vehID]['k'].append(float(vehicle.distance))
+            if 'g' in options.ttype:
+                data[vehID]['g'].append(float(vehicle.leaderGap))
             if prevTime == time:
-                data[vehID][3].append(0)
+                data[vehID]['a'].append(0)
             else:
-                data[vehID][3].append((speed - prevSpeed) / (time - prevTime))
+                data[vehID]['a'].append((speed - prevSpeed) / (time - prevTime))
 
             if options.ballistic:
                 avgSpeed = (speed + prevSpeed) / 2
             else:
                 avgSpeed = speed
-            data[vehID][2].append(prevDist + (time - prevTime) * avgSpeed)
+            data[vehID]['d'].append(prevDist + (time - prevTime) * avgSpeed)
             filteredVehs += 1
         if totalVehs == 0 or filteredVehs == 0 or options.verbose:
             print("Found %s datapoints in %s and kept %s" % (
                 totalVehs, fcdfile, filteredVehs))
+
+    if filteredVehs == 0:
+        sys.exit()
 
     def line_picker(line, mouseevent):
         if mouseevent.xdata is None:

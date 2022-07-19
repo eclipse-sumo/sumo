@@ -13,6 +13,9 @@ examples
 # testing import
 import
 
+# tests for writing external formats
+export
+
 # Tests whether other options work
 function
 

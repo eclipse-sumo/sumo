@@ -57,6 +57,16 @@ to collapse the static test suites on program start. E.g.:
    static_collapse_suites:1
 ```
 
+## Recommended python packages
+
+The following packes are used by some of the tools under test
+
+`pip install pyproj rtree numpy scipy`
+
+For a "naked" python installation, the following may be needed to allow TextTest to work:
+
+`pip install gobject PyGObject psutil`
+
 # Running the Tests
 
 Within the  `$SUMO_HOME/tests` folder you can find batch files for Windows and shell files for Linux & macOS which start
@@ -250,3 +260,12 @@ not already there).
 
 # Running tests outside TextTest
 Different methods to extract TextTest tests (offline and online) are explained [here](../Tutorials/index.md#using_examples_from_the_test_suite).
+
+## Developing for Python2 and Python3
+
+SUMO is downwards compatible, hence contributed code should be able to 
+run with both Python 2.7 and Python 3.5 and above. On Windows you can either use python launcher
+to have access to both Python versions, or use free online tools
+like [paiza.io](https://paiza.io/en/languages/python) to check for compatibility.
+If you cannot support both Python versions because for instance your library is not
+available you should of course prefer Python3.

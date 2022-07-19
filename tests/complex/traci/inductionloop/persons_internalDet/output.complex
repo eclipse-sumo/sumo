@@ -1,0 +1,119 @@
+ Retrying in 1 seconds
+step 0
+step 1
+step 2
+inductionloops ('0',)
+inductionloop count 1
+examining 0
+vehNum 1
+meanSpeed -1.0
+vehIDs ('p0',)
+occupancy 100.0
+meanLength -1.0
+timeSinceDet 0.0
+vehData [('p0', 0.215, 1.8265353173167695, -1.0, 'DEFAULT_PEDTYPE')]
+position 0.0
+laneID :C_w0_0
+parameter 42
+parameter from XML 
+{16: 1}
+step 3
+{16: 1}
+step 4
+{16: 1}
+step 5
+{16: 1}
+step=6.0 occ=100.0 num=1 detVehs=('p0',) vehData=[('p0', 0.215, 1.8265353173167695, -1.0, 'DEFAULT_PEDTYPE')]
+step=7.0 occ=100.0 num=1 detVehs=('p0',) vehData=[('p0', 0.215, 1.8265353173167695, -1.0, 'DEFAULT_PEDTYPE')]
+step=8.0 occ=100.0 num=1 detVehs=('p0',) vehData=[('p0', 0.215, 1.8265353173167695, -1.0, 'DEFAULT_PEDTYPE')]
+step=9.0 occ=100.0 num=1 detVehs=('p0',) vehData=[('p0', 0.215, 1.8265353173167695, -1.0, 'DEFAULT_PEDTYPE')]
+step=10.0 occ=100.0 num=1 detVehs=('p0',) vehData=[('p0', 0.215, 1.8265353173167695, -1.0, 'DEFAULT_PEDTYPE')]
+step=11.0 occ=100.0 num=1 detVehs=('p0',) vehData=[('p0', 0.215, 1.8265353173167695, -1.0, 'DEFAULT_PEDTYPE')]
+step=12.0 occ=100.0 num=1 detVehs=('p0',) vehData=[('p0', 0.215, 1.8265353173167695, -1.0, 'DEFAULT_PEDTYPE')]
+step=13.0 occ=100.0 num=1 detVehs=('p0',) vehData=[('p0', 0.215, 1.8265353173167695, -1.0, 'DEFAULT_PEDTYPE')]
+step=14.0 occ=100.0 num=1 detVehs=('p0',) vehData=[('p0', 0.215, 1.8265353173167695, -1.0, 'DEFAULT_PEDTYPE')]
+step=15.0 occ=100.0 num=1 detVehs=('p0',) vehData=[('p0', 0.215, 1.8265353173167695, -1.0, 'DEFAULT_PEDTYPE')]
+step=16.0 occ=100.0 num=1 detVehs=('p0',) vehData=[('p0', 0.215, 1.8265353173167695, -1.0, 'DEFAULT_PEDTYPE')]
+step=17.0 occ=100.0 num=1 detVehs=('p0',) vehData=[('p0', 0.215, 1.8265353173167695, -1.0, 'DEFAULT_PEDTYPE')]
+step=18.0 occ=100.0 num=1 detVehs=('p0',) vehData=[('p0', 0.215, 1.8265353173167695, -1.0, 'DEFAULT_PEDTYPE')]
+step=19.0 occ=100.0 num=1 detVehs=('p0',) vehData=[('p0', 0.215, 1.8265353173167695, -1.0, 'DEFAULT_PEDTYPE')]
+step=20.0 occ=100.0 num=1 detVehs=('p0',) vehData=[('p0', 0.215, 1.8265353173167695, -1.0, 'DEFAULT_PEDTYPE')]
+step=21.0 occ=100.0 num=1 detVehs=('p0',) vehData=[('p0', 0.215, 1.8265353173167695, -1.0, 'DEFAULT_PEDTYPE')]
+step=22.0 occ=100.0 num=1 detVehs=('p0',) vehData=[('p0', 0.215, 1.8265353173167695, -1.0, 'DEFAULT_PEDTYPE')]
+step=23.0 occ=100.0 num=1 detVehs=('p0',) vehData=[('p0', 0.215, 1.8265353173167695, -1.0, 'DEFAULT_PEDTYPE')]
+step=24.0 occ=100.0 num=1 detVehs=('p0',) vehData=[('p0', 0.215, 1.8265353173167695, -1.0, 'DEFAULT_PEDTYPE')]
+step=25.0 occ=100.0 num=1 detVehs=('p0',) vehData=[('p0', 0.215, 1.8265353173167695, -1.0, 'DEFAULT_PEDTYPE')]
+step=26.0 occ=100.0 num=1 detVehs=('p0',) vehData=[('p0', 0.215, 1.8265353173167695, -1.0, 'DEFAULT_PEDTYPE')]
+step=27.0 occ=100.0 num=1 detVehs=('p0',) vehData=[('p0', 0.215, 1.8265353173167695, -1.0, 'DEFAULT_PEDTYPE')]
+step=28.0 occ=100.0 num=1 detVehs=('p0',) vehData=[('p0', 0.215, 1.8265353173167695, -1.0, 'DEFAULT_PEDTYPE')]
+step=29.0 occ=100.0 num=1 detVehs=('p0',) vehData=[('p0', 0.215, 1.8265353173167695, -1.0, 'DEFAULT_PEDTYPE')]
+step=30.0 occ=100.0 num=1 detVehs=('p0',) vehData=[('p0', 0.215, 1.8265353173167695, -1.0, 'DEFAULT_PEDTYPE')]
+step=31.0 occ=100.0 num=1 detVehs=('p0',) vehData=[('p0', 0.215, 1.8265353173167695, -1.0, 'DEFAULT_PEDTYPE')]
+step=32.0 occ=100.0 num=1 detVehs=('p0',) vehData=[('p0', 0.215, 1.8265353173167695, -1.0, 'DEFAULT_PEDTYPE')]
+step=33.0 occ=100.0 num=1 detVehs=('p0',) vehData=[('p0', 0.215, 1.8265353173167695, -1.0, 'DEFAULT_PEDTYPE')]
+step=34.0 occ=100.0 num=1 detVehs=('p0',) vehData=[('p0', 0.215, 1.8265353173167695, -1.0, 'DEFAULT_PEDTYPE')]
+step=35.0 occ=100.0 num=1 detVehs=('p0',) vehData=[('p0', 0.215, 1.8265353173167695, -1.0, 'DEFAULT_PEDTYPE')]
+step=36.0 occ=100.0 num=1 detVehs=('p0',) vehData=[('p0', 0.215, 1.8265353173167695, -1.0, 'DEFAULT_PEDTYPE')]
+step=37.0 occ=100.0 num=1 detVehs=('p0',) vehData=[('p0', 0.215, 1.8265353173167695, -1.0, 'DEFAULT_PEDTYPE')]
+step=38.0 occ=100.0 num=1 detVehs=('p0',) vehData=[('p0', 0.215, 1.8265353173167695, -1.0, 'DEFAULT_PEDTYPE')]
+step=39.0 occ=100.0 num=1 detVehs=('p0',) vehData=[('p0', 0.215, 1.8265353173167695, -1.0, 'DEFAULT_PEDTYPE')]
+step=40.0 occ=100.0 num=1 detVehs=('p0',) vehData=[('p0', 0.215, 1.8265353173167695, -1.0, 'DEFAULT_PEDTYPE')]
+step=41.0 occ=100.0 num=1 detVehs=('p0',) vehData=[('p0', 0.215, 1.8265353173167695, -1.0, 'DEFAULT_PEDTYPE')]
+step=42.0 occ=100.0 num=1 detVehs=('p0',) vehData=[('p0', 0.215, 1.8265353173167695, -1.0, 'DEFAULT_PEDTYPE')]
+step=43.0 occ=100.0 num=1 detVehs=('p0',) vehData=[('p0', 0.215, 1.8265353173167695, -1.0, 'DEFAULT_PEDTYPE')]
+step=44.0 occ=100.0 num=1 detVehs=('p0',) vehData=[('p0', 0.215, 1.8265353173167695, -1.0, 'DEFAULT_PEDTYPE')]
+step=45.0 occ=100.0 num=1 detVehs=('p0',) vehData=[('p0', 0.215, 1.8265353173167695, -1.0, 'DEFAULT_PEDTYPE')]
+step=46.0 occ=0.0 num=1 detVehs=('p0',) vehData=[('p0', 0.215, 1.8265353173167695, 46.0, 'DEFAULT_PEDTYPE')]
+step=47.0 occ=0.0 num=1 detVehs=('p0',) vehData=[('p0', 0.215, 1.8265353173167695, 46.0, 'DEFAULT_PEDTYPE')]
+step=48.0 occ=0.0 num=0 detVehs=() vehData=[]
+step=49.0 occ=0.0 num=0 detVehs=() vehData=[]
+step=50.0 occ=0.0 num=0 detVehs=() vehData=[]
+step=51.0 occ=0.0 num=0 detVehs=() vehData=[]
+step=52.0 occ=0.0 num=0 detVehs=() vehData=[]
+step=53.0 occ=0.0 num=0 detVehs=() vehData=[]
+step=54.0 occ=0.0 num=0 detVehs=() vehData=[]
+step=55.0 occ=0.0 num=0 detVehs=() vehData=[]
+step=56.0 occ=0.0 num=0 detVehs=() vehData=[]
+step=57.0 occ=0.0 num=0 detVehs=() vehData=[]
+step=58.0 occ=0.0 num=0 detVehs=() vehData=[]
+step=59.0 occ=0.0 num=0 detVehs=() vehData=[]
+step=60.0 occ=0.0 num=0 detVehs=() vehData=[]
+step=61.0 occ=0.0 num=0 detVehs=() vehData=[]
+step=62.0 occ=0.0 num=0 detVehs=() vehData=[]
+step=63.0 occ=0.0 num=0 detVehs=() vehData=[]
+step=64.0 occ=0.0 num=0 detVehs=() vehData=[]
+step=65.0 occ=0.0 num=0 detVehs=() vehData=[]
+step=66.0 occ=0.0 num=0 detVehs=() vehData=[]
+step=67.0 occ=0.0 num=0 detVehs=() vehData=[]
+step=68.0 occ=0.0 num=0 detVehs=() vehData=[]
+step=69.0 occ=0.0 num=0 detVehs=() vehData=[]
+step=70.0 occ=0.0 num=0 detVehs=() vehData=[]
+step=71.0 occ=0.0 num=0 detVehs=() vehData=[]
+step=72.0 occ=0.0 num=0 detVehs=() vehData=[]
+step=73.0 occ=0.0 num=0 detVehs=() vehData=[]
+step=74.0 occ=0.0 num=0 detVehs=() vehData=[]
+step=75.0 occ=0.0 num=0 detVehs=() vehData=[]
+step=76.0 occ=0.0 num=0 detVehs=() vehData=[]
+step=77.0 occ=0.0 num=0 detVehs=() vehData=[]
+step=78.0 occ=0.0 num=0 detVehs=() vehData=[]
+step=79.0 occ=0.0 num=0 detVehs=() vehData=[]
+step=80.0 occ=0.0 num=0 detVehs=() vehData=[]
+step=81.0 occ=0.0 num=0 detVehs=() vehData=[]
+step=82.0 occ=0.0 num=0 detVehs=() vehData=[]
+step=83.0 occ=0.0 num=0 detVehs=() vehData=[]
+step=84.0 occ=0.0 num=0 detVehs=() vehData=[]
+step=85.0 occ=0.0 num=0 detVehs=() vehData=[]
+step=86.0 occ=0.0 num=0 detVehs=() vehData=[]
+step=87.0 occ=0.0 num=0 detVehs=() vehData=[]
+step=88.0 occ=0.0 num=0 detVehs=() vehData=[]
+step=89.0 occ=0.0 num=0 detVehs=() vehData=[]
+step=90.0 occ=0.0 num=0 detVehs=() vehData=[]
+step=91.0 occ=0.0 num=0 detVehs=() vehData=[]
+step=92.0 occ=0.0 num=0 detVehs=() vehData=[]
+step=93.0 occ=0.0 num=0 detVehs=() vehData=[]
+step=94.0 occ=0.0 num=0 detVehs=() vehData=[]
+step=95.0 occ=0.0 num=0 detVehs=() vehData=[]
+step=96.0 occ=0.0 num=0 detVehs=() vehData=[]
+step=97.0 occ=0.0 num=0 detVehs=() vehData=[]
+step=98.0 occ=0.0 num=0 detVehs=() vehData=[]
+step=99.0 occ=0.0 num=0 detVehs=() vehData=[]

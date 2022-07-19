@@ -1,5 +1,0 @@
-Error: Attribute 'pos' is missing in definition of a detExit.
-Error: Attribute 'pos' in definition of a detExit is not of type float.
-Error: Attribute 'pos' in definition of a detExit is empty.
-Error: Could not build entry with ID 'e3Detector_0' in netedit; Invalid position over lane.
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.15Jun151050.2480\netedit.gui\additionalElements\detexit\load\pos\input_additionals.add.xml failed.

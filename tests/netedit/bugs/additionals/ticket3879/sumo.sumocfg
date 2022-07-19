@@ -6,5 +6,5 @@
         <net-file value="net.netedit"/>
         <additional-files value="additionals.netedit"/>
     </input>
-	
+
 </configuration>

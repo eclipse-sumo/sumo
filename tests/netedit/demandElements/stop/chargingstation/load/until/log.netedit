@@ -1,6 +1,0 @@
-Error: Attribute 'until' in definition of a stop is not a real number.
-Error: Invalid duration or end time is given for a stop at 'chargingStation' in flow 'flow'.
-Error: Attribute 'until' in definition of a stop is empty.
-Error: Invalid duration or end time is given for a stop at 'chargingStation' in flow 'flow'.
-Error: Invalid duration or end time is given for a stop at 'chargingStation' in flow 'flow'.
-Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.02Sep110229.3764\netedit.gui\demandElements\stop\stopChargingStation\load\until\input_routes.rou.xml failed.

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -70,6 +70,8 @@ const int VTYPEPARS_LOCOMOTIVE_LENGTH_SET = 1 << 26;
 const int VTYPEPARS_CARRIAGE_GAP_SET = 1 << 27;
 const int VTYPEPARS_MANEUVER_ANGLE_TIMES_SET = 1 << 28;
 const int VTYPEPARS_FRONT_SEAT_POS_SET = 1 << 29;
+const int VTYPEPARS_SCALE_SET = 1 << 30;
+const int VTYPEPARS_MASS_SET = 1 << 31;
 
 
 const int VTYPEPARS_DEFAULT_EMERGENCYDECEL_DEFAULT = -1;
@@ -139,6 +141,9 @@ public:
         /// @brief The emission class of this vehicle
         SUMOEmissionClass emissionClass;
 
+        /// @brief This class' mass
+        double mass;
+
         /// @brief The factor by which the maximum speed may deviate from the allowed max speed on the street
         Distribution_Parameterized speedFactor;
 
@@ -156,6 +161,9 @@ public:
 
         /// @brief the length of train locomotive
         double locomotiveLength;
+
+        /// @brief the lateral alignment procedure
+        LatAlignmentDefinition latAlignmentProcedure;
 
     private:
         /// @brief default constructor
@@ -264,6 +272,9 @@ public:
     /// @brief The emission class of this vehicle
     SUMOEmissionClass emissionClass;
 
+    /// @brief The mass
+    double mass;
+
     /// @brief The color
     RGBColor color;
 
@@ -284,6 +295,9 @@ public:
 
     /// @brief The time a container needs to get loaded on the vehicle
     SUMOTime loadingDuration;
+
+    /// @brief individual scaling factor (-1 for undefined)
+    double scale;
 
     /// @name Values for drawing this class' vehicles
     /// @{

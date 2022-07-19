@@ -1,3 +1,0 @@
-Error: Attribute 'parkingLength' in definition of busStop 'busStop_02' is not of type float.
-Error: Could not build busStop with ID 'busStop_03' in netedit; attribute parkingLength cannot be negative.
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_28May143559.5028\netedit.gui\additionalElements\busstop\load\parkingLength\input_additionals.add.xml failed.

@@ -14,7 +14,7 @@ If You use SUMO, please tell us about your
 The content of this Documentation is freely editable. In order to edit a certain page, click on the "Edit on GitHub" button on the upper right corner and submit a Pull Request.
 Here is a short help on [editing articles](Editing_Articles.md). You can also [Build](Developer/Documentation_Build.md) the documentation locally, or [Download](https://sumo.dlr.de/sumo_documentation.zip) a copy.
 
-This Documentation is continuously updated and always refers to the latest development version. Documentation for a specific release version of SUMO is included in the download of that version.
+This Documentation is continuously updated and always refers to the latest development version. Documentation for a specific release version of SUMO is included in the download of that version and can be viewed by opening {{SUMO}}/docs/userdoc/index.html.
 
 # Introduction
 
@@ -92,7 +92,7 @@ This Documentation is continuously updated and always refers to the latest devel
 
 ## TraCI (On-line Interaction)
 - [TraCI overview](TraCI.md) - The **Tra**ffic **C**ontrol **I**nterface
-- [Libtraci](Libtraci.md) - Using sumo as a library
+- [Libsumo](Libsumo.md) - Using sumo as a library
 
 ## Traffic Management and Other Structures
 
@@ -131,6 +131,7 @@ This Documentation is continuously updated and always refers to the latest devel
 - [Vehicle speed](Simulation/VehicleSpeed.md)
 - [Vehicle insertion](Simulation/VehicleInsertion.md)
 - [Vehicle permissions (access restrictions)](Simulation/VehiclePermissions.md)
+- [Road capacity](Simulation/RoadCapacity.md)
 - [Intersection dynamics](Simulation/Intersections.md)
 - [Randomness](Simulation/Randomness.md)
 - [Routing and Re-routing](Simulation/Routing.md)

@@ -1,0 +1,1 @@
+--no-internal-links -v --edge-files=input_edges.edg.xml --node-files=input_nodes.nod.xml --output=net.net.xml

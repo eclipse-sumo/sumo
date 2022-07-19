@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2002-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -104,7 +104,7 @@ XMLSubSys::setValidation(const std::string& validationScheme, const std::string&
             WRITE_WARNING("Environment variable SUMO_HOME is not set, schema resolution will use slow website lookups.");
             return;
         }
-        for (const std::string& filetype : {
+        for (const char* const& filetype : {
                     "additional", "routes", "net"
                 }) {
             const std::string file = sumoPath + std::string("/data/xsd/") + filetype + "_file.xsd";

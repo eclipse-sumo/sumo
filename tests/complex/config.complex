@@ -9,6 +9,7 @@ copy_test_path:input_nodes.nod.xml
 copy_test_path:input_connections.con.xml
 copy_test_path:input_routes.rou.xml
 copy_test_path:input_routes2.rou.xml
+copy_test_path:input_routes3.rou.xml
 copy_test_path:net.net.xml
 copy_test_path:input_net.net.xml
 copy_test_path:input_net2.net.xml
@@ -56,18 +57,19 @@ vehroutes2:vehroutes2.xml
 state:state.xml
 state2:state2.xml
 tripinfo:tripinfo.xml
+tripinfo2:tripinfo2.xml
 net:net.net.xml
 vss:vss.xml
 rawdump:rawdump.xml
 fcd:fcd.xml
+fcd2:fcd2.xml
 lanechanges:lanechanges.xml
 results:results.csv
 tls_state:tls_state.xml
+tls_state2:tls_state2.xml
 log:log.txt
 log2:log2.txt
 cadytslog:cadySumo-log.txt
-png:out.png
-png2:out2.png
 detector:detector.xml
 tocs:tocs.xml
 stops:stops.xml
@@ -75,6 +77,11 @@ stopinfos:stopinfos.xml
 collisions:collisions.xml
 ssm:ssm.xml
 summary:summary.xml
+statistics:statistics.xml
+statistics2:statistics2.xml
+gtfs_routes:gtfs_pt_vehicles.add.xml
+gtfs_additional:gtfs_pt_stops.add.xml
+vtypes:vtypes.xml
 
 [run_dependent_text]
 output:<!--{[->]}-->
@@ -106,17 +113,22 @@ net:<!--{[->]}-->
 vehroutes:<!--{[->]}-->
 vehroutes2:<!--{[->]}-->
 tripinfo:<!--{[->]}-->
+tripinfo2:<!--{[->]}-->
 rawdump:<!--{[->]}-->
 fcd:<!--{[->]}-->
+fcd2:<!--{[->]}-->
 stops:<!--{[->]}-->
 stopinfos:<!--{[->]}-->
 collisions:<!--{[->]}-->
 ssm:<!--{[->]}-->
 summary:<!--{[->]}-->
+statistics:<!--{[->]}-->
+statistics2:<!--{[->]}-->
 lanechanges:<!--{[->]}-->
 state:<!--{[->]}-->
 state2:<!--{[->]}-->
 tls_state:<!--{[->]}-->
+tls_state2:<!--{[->]}-->
 state:<snapshot (.*) version="[^"]*"{REPLACE <snapshot \1 version="<version>"}
 state2:<snapshot (.*) version="[^"]*"{REPLACE <snapshot \1 version="<version>"}
 detector:<!--{[->]}-->
@@ -140,14 +152,19 @@ errors:Warning: State was written with sumo version
 errors:Warning: Overhead wire solver (Eigen) not compiled in, expect errors in overhead wire simulation
 errors:Error: Overhead wire solver is on, but the Eigen library has not been compiled in!
 errors:Network contains internal links which are ignored.
+errors:Matplotlib is building the font cache; this may take a moment.
+errors:apport/report.py:13: DeprecationWarning: the imp{LINES 2}
 ps:%%CreationDate
+gtfs_additional:<!-- generated on{[->]}-->
+gtfs_routes:<!-- generated on{[->]}-->
+vtypes:<!-- generated on{[->]}-->
 
 [unordered_text]
 output:^Simulation ended at time:
 output:^Reason: TraCI requested termination.
 output:[0-9] vehicle subscription results:
 output:[0-9] simulation subscription results:
-output:Process [0-9]:
+output:Process [0-9]
 output:Starting process
 output:[0-9] stepping \(step 
 output:^Loading configuration ... done.
@@ -156,6 +173,8 @@ output:does not supply vehicle parameter
 errors:^This will probably
 errors:^[0-9]*\.*[0-9]*: WARNING:
 errors:^WARNING:
+errors:^UserWarning:
+errors:getNextStops
 
 
 [floating_point_tolerance]

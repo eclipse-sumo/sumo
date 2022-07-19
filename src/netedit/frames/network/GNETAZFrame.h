@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -21,6 +21,7 @@
 #include <config.h>
 
 #include <netedit/frames/GNEFrame.h>
+#include <netedit/frames/GNEDrawingShape.h>
 
 
 // ===========================================================================
@@ -44,7 +45,7 @@ public:
     // class CurrentTAZ
     // ===========================================================================
 
-    class CurrentTAZ : protected FXGroupBox {
+    class CurrentTAZ : public FXGroupBoxModule {
 
     public:
         /// @brief struct for edges and the source/sink colors
@@ -104,9 +105,6 @@ public:
         /// @brief check if given edge belongs to current TAZ
         bool isTAZEdge(GNEEdge* edge) const;
 
-        /// @brief get current net edges
-        const std::vector<GNEEdge*>& getNetEdges() const;
-
         /// @brief get current selected edges
         const std::vector<GNEEdge*>& getSelectedEdges() const;
 
@@ -126,9 +124,6 @@ public:
 
         /// @brief current edited TAZ
         GNETAZ* myEditedTAZ;
-
-        /// @brief vector with pointers to edges (it's used to avoid slowdowns during Source/Sinks manipulations)
-        std::vector<GNEEdge*> myNetEdges;
 
         /// @brief vector with pointers to selected edges
         std::vector<GNEEdge*> mySelectedEdges;
@@ -156,7 +151,7 @@ public:
     // class TAZCommonStatistics
     // ===========================================================================
 
-    class TAZCommonStatistics : protected FXGroupBox {
+    class TAZCommonStatistics : public FXGroupBoxModule {
 
     public:
         /// @brief constructor
@@ -165,11 +160,11 @@ public:
         /// @brief destructor
         ~TAZCommonStatistics();
 
-        /// @brief show TAZ Common Statistics Modul
-        void showTAZCommonStatisticsModul();
+        /// @brief show TAZ Common Statistics Module
+        void showTAZCommonStatisticsModule();
 
-        /// @brief hide TAZ Common Statistics Modul
-        void hideTAZCommonStatisticsModul();
+        /// @brief hide TAZ Common Statistics Module
+        void hideTAZCommonStatisticsModule();
 
         /// @brief update Statistics label
         void updateStatistics();
@@ -186,7 +181,7 @@ public:
     // class TAZSaveChanges
     // ===========================================================================
 
-    class TAZSaveChanges : protected FXGroupBox {
+    class TAZSaveChanges : public FXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNETAZFrame::TAZSaveChanges)
 
@@ -197,11 +192,11 @@ public:
         /// @brief destructor
         ~TAZSaveChanges();
 
-        /// @brief show TAZ Save Changes Modul
-        void showTAZSaveChangesModul();
+        /// @brief show TAZ Save Changes Module
+        void showTAZSaveChangesModule();
 
-        /// @brief hide TAZ Save Changes Modul
-        void hideTAZSaveChangesModul();
+        /// @brief hide TAZ Save Changes Module
+        void hideTAZSaveChangesModule();
 
         /// @brief enable buttons save and cancel changes (And begin Undo List)
         void enableButtonsAndBeginUndoList();
@@ -236,7 +231,7 @@ public:
     // class TAZChildDefaultParameters
     // ===========================================================================
 
-    class TAZChildDefaultParameters : protected FXGroupBox {
+    class TAZChildDefaultParameters : public FXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNETAZFrame::TAZChildDefaultParameters)
 
@@ -247,11 +242,11 @@ public:
         /// @brief destructor
         ~TAZChildDefaultParameters();
 
-        /// @brief show TAZ child default parameters Modul
-        void showTAZChildDefaultParametersModul();
+        /// @brief extend TAZ child default parameters Module (if we have selected a TAZ)
+        void extendTAZChildDefaultParameters();
 
-        /// @brief hide TAZ child default parameters Modul
-        void hideTAZChildDefaultParametersModul();
+        /// @brief collapse TAZ child default parameters Module (if we have selected a TAZ)
+        void collapseTAZChildDefaultParameters();
 
         /// @brief update "select edges button"
         void updateSelectEdgesButton();
@@ -270,11 +265,15 @@ public:
         /// @brief Called when the user changes default values
         long onCmdSetDefaultValues(FXObject* obj, FXSelector, void*);
 
-        /// @brief Called when the user press use selected edges
+        /// @brief Called when the user press "use selected edges" button
         long onCmdUseSelectedEdges(FXObject* obj, FXSelector, void*);
+
+        /// @brief Called when the user press "zero fringe probabilities" button
+        long onCmdSetZeroFringeProbabilities(FXObject* obj, FXSelector, void*);
         /// @}
 
     protected:
+        /// @brief FOX need this
         FOX_CONSTRUCTOR(TAZChildDefaultParameters)
 
     private:
@@ -283,6 +282,9 @@ public:
 
         /// @brief CheckButton to enable or disable Toggle edge Membership
         FXCheckButton* myToggleMembership;
+
+        /// @brief Horizontal Frame toggle membership
+        FXHorizontalFrame* myToggleMembershipFrame;
 
         /// @brief Horizontal Frame for default TAZ Source Weight
         FXHorizontalFrame* myDefaultTAZSourceFrame;
@@ -299,6 +301,9 @@ public:
         /// @brief button for use selected edges
         FXButton* myUseSelectedEdges;
 
+        /// @brief button for setting zero fringe probabilities
+        FXButton* myZeroFringeProbabilities;
+
         /// @brief information label
         FXLabel* myInformationLabel;
 
@@ -313,7 +318,7 @@ public:
     // class TAZSelectionStatistics
     // ===========================================================================
 
-    class TAZSelectionStatistics : protected FXGroupBox {
+    class TAZSelectionStatistics : public FXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNETAZFrame::TAZSelectionStatistics)
 
@@ -324,11 +329,11 @@ public:
         /// @brief destructor
         ~TAZSelectionStatistics();
 
-        /// @brief show TAZ Selection Statistics Modul
-        void showTAZSelectionStatisticsModul();
+        /// @brief show TAZ Selection Statistics Module
+        void showTAZSelectionStatisticsModule();
 
-        /// @brief hide TAZ Selection Statistics Modul
-        void hideTAZSelectionStatisticsModul();
+        /// @brief hide TAZ Selection Statistics Module
+        void hideTAZSelectionStatisticsModule();
 
         /// @brief add an edge and their TAZ Children in the list of selected items
         bool selectEdge(const CurrentTAZ::TAZEdgeColor& edge);
@@ -387,7 +392,7 @@ public:
     // class TAZParameters
     // ===========================================================================
 
-    class TAZParameters : protected FXGroupBox {
+    class TAZParameters : public FXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNETAZFrame::TAZParameters)
 
@@ -399,10 +404,10 @@ public:
         ~TAZParameters();
 
         /// @brief show TAZ parameters and set the default value of parameters
-        void showTAZParametersModul();
+        void showTAZParametersModule();
 
         /// @brief hide TAZ parameters
-        void hideTAZParametersModul();
+        void hideTAZParametersModule();
 
         /// @brief check if current parameters are valid
         bool isCurrentParametersValid() const;
@@ -432,17 +437,20 @@ public:
         /// @brief pointer to GNETAZFrame parent
         GNETAZFrame* myTAZFrameParent;
 
+        /// @brief TAZ
+        GNETAZ* myTAZTemplate;
+
         /// @brief Button for open color editor
         FXButton* myColorEditor;
+
+        /// @brief text field center
+        FXTextField* myTextFieldCenter;
 
         /// @brief CheckButton to enable or disable fill
         FXCheckButton* myCheckButtonFill;
 
         /// @brief textField to modify the default value of color parameter
         FXTextField* myTextFieldColor;
-
-        /// @brief Button for open name editor
-        FXLabel* myNameEditor;
 
         /// @brief textField to modify the default value of name parameter
         FXTextField* myTextFieldName;
@@ -458,7 +466,7 @@ public:
     // class TAZEdgesGraphic
     // ===========================================================================
 
-    class TAZEdgesGraphic : protected FXGroupBox {
+    class TAZEdgesGraphic : public FXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNETAZFrame::TAZEdgesGraphic)
 
@@ -469,11 +477,11 @@ public:
         /// @brief destructor
         ~TAZEdgesGraphic();
 
-        /// @brief show TAZ Edges Graphic Modul
-        void showTAZEdgesGraphicModul();
+        /// @brief show TAZ Edges Graphic Module
+        void showTAZEdgesGraphicModule();
 
-        /// @brief hide TAZ Edges Graphic Modul
-        void hideTAZEdgesGraphicModul();
+        /// @brief hide TAZ Edges Graphic Module
+        void hideTAZEdgesGraphicModule();
 
         /// @brief update edge colors;
         void updateEdgeColors();
@@ -533,23 +541,23 @@ public:
     void processEdgeSelection(const std::vector<GNEEdge*>& edges);
 
     /// @brief get drawing mode modul
-    GNEFrameModuls::DrawingShape* getDrawingShapeModul() const;
+    GNEDrawingShape* getDrawingShapeModule() const;
 
     /// @brief get Current TAZ modul
-    CurrentTAZ* getCurrentTAZModul() const;
+    CurrentTAZ* getCurrentTAZModule() const;
 
     /// @brief get TAZ Selection Statistics modul
-    TAZSelectionStatistics* getTAZSelectionStatisticsModul() const;
+    TAZSelectionStatistics* getTAZSelectionStatisticsModule() const;
 
     /// @brief get TAZ Save Changes modul
-    TAZSaveChanges* getTAZSaveChangesModul() const;
+    TAZSaveChanges* getTAZSaveChangesModule() const;
 
 protected:
     /// @brief SumoBaseObject used for creating TAZ
     CommonXMLStructure::SumoBaseObject* myBaseTAZ;
 
     /**@brief build a shaped element using the drawed shape
-     * return true if was sucesfully created
+     * return true if was successfully created
      * @note called when user stop drawing shape
      */
     bool shapeDrawed();
@@ -570,11 +578,8 @@ private:
     /// @brief TAZ parameters
     TAZParameters* myTAZParameters;
 
-    /// @brief Netedit parameter
-    GNEFrameAttributesModuls::NeteditAttributes* myNeteditAttributes;
-
     /// @brief Drawing shape
-    GNEFrameModuls::DrawingShape* myDrawingShape;
+    GNEDrawingShape* myDrawingShape;
 
     /// @brief save TAZ Edges
     TAZSaveChanges* myTAZSaveChanges;

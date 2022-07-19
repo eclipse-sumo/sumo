@@ -8,7 +8,7 @@
     <input>
         <net-file value="grid6/grid6.net.xml"/>
         <route-files value="grid6/grid6.rou.xml"/>
-        <additional-files value="input_additional.add.xml"/>
+        <additional-files value="grid6/grid6.tll.xml,grid6/grid6.poi.xml,input_additional.add.xml"/>
     </input>
 
     <time>

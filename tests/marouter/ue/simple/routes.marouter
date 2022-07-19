@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 01/09/19 15:48:03 by Eclipse SUMO marouter Version v1_1_0+0040-b68edb7a21e
+<!-- generated on 2022-01-20 15:03:23 by Eclipse SUMO marouter Version v1_11_0+1326-900074debd9
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -15,8 +15,8 @@ SPDX-License-Identifier: EPL-2.0
     </input>
 
     <output>
-        <write-license value="true"/>
         <output-file value="routes.rou.xml"/>
+        <write-license value="true"/>
     </output>
 
     <processing>
@@ -25,6 +25,7 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
     </report>
 
 </configuration>
@@ -33,10 +34,8 @@ SPDX-License-Identifier: EPL-2.0
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <flow id="0" begin="0.00" end="86400.00" number="100" type="1" fromTaz="91" toTaz="93" departLane="free" departSpeed="max">
         <routeDistribution>
-            <route cost="1962.85" probability="26.02720014" edges="D1 L2 L5 L7 L6 L10 L13 L15 L16 D3"/>
-            <route cost="1976.73" probability="22.66043222" edges="D1 L2 L4 L12 L16 D3"/>
-            <route cost="2002.38" probability="17.52778441" edges="D1 L2 L5 L7 L6 L11 L15 L16 D3"/>
-            <route cost="1936.77" probability="33.78458323" edges="D1 L2 L5 L8 L9 L14 L15 L16 D3"/>
+            <route cost="273.02" probability="49.77585586" edges="D1 L2 L5 L8 L9 L14 L15 L16 D3"/>
+            <route cost="272.13" probability="50.22414414" edges="D1 L2 L5 L7 L6 L10 L13 L15 L16 D3"/>
         </routeDistribution>
     </flow>
 </routes>

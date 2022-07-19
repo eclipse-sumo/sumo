@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Mar  5 10:46:42 2021 by Eclipse SUMO netconvert Version v1_8_0+1515-e589325
+<!-- generated on 2022-06-22 08:14:28 by Eclipse SUMO netconvert Version v1_13_0+1094-d2dab2e946c
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -36,14 +41,9 @@ SPDX-License-Identifier: EPL-2.0
         <junctions.join value="true"/>
     </junctions>
 
-    <formats>
-        <osm.all-attributes value="true"/>
-    </formats>
-
     <report>
         <verbose value="true"/>
         <xml-validation value="never"/>
-        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
@@ -55,7 +55,7 @@ SPDX-License-Identifier: EPL-2.0
         <param key="layer" value="1"/>
     </edge>
     <edge id="-24214694" from="32266938" to="32266935" name="Wegedornstraße" priority="10" type="highway.tertiary" numLanes="1" speed="22.22" disallow="tram rail_urban rail rail_electric rail_fast ship"/>
-    <edge id="-25951490" from="32266938" to="175648134" priority="1" type="highway.cycleway" numLanes="1" speed="8.33" width="1.00" allow="bicycle"/>
+    <edge id="-25951490" from="32266938" to="175648134" priority="1" type="highway.cycleway" numLanes="1" speed="5.56" width="1.00" allow="bicycle"/>
     <edge id="-26816553" from="294168972" to="294831566" priority="1" type="highway.service" numLanes="1" speed="5.56" shape="714.97,226.01 706.28,235.54 682.39,261.75 633.73,223.14 570.98,302.73 563.73,311.92 566.45,321.65" allow="pedestrian delivery bicycle"/>
     <edge id="-26816627" from="294169618" to="294831566" priority="1" type="highway.service" numLanes="1" speed="5.56" shape="541.18,150.49 558.41,308.54" allow="pedestrian delivery bicycle"/>
     <edge id="-26843019" from="294829798" to="294829385" priority="1" type="highway.service" numLanes="1" speed="5.56" allow="pedestrian delivery bicycle"/>
@@ -68,7 +68,7 @@ SPDX-License-Identifier: EPL-2.0
     </edge>
     <edge id="24214694" from="32266935" to="32266938" name="Wegedornstraße" priority="10" type="highway.tertiary" numLanes="1" speed="22.22" disallow="tram rail_urban rail rail_electric rail_fast ship"/>
     <edge id="25944605" from="283018937" to="283018842" priority="1" type="highway.footway" numLanes="1" speed="2.78" shape="506.58,550.58 494.62,536.85 480.89,521.99" spreadType="center" width="2.00" allow="pedestrian"/>
-    <edge id="25951490" from="175648134" to="32266938" priority="1" type="highway.cycleway" numLanes="1" speed="8.33" width="1.00" allow="bicycle"/>
+    <edge id="25951490" from="175648134" to="32266938" priority="1" type="highway.cycleway" numLanes="1" speed="5.56" width="1.00" allow="bicycle"/>
     <edge id="26816541" from="294831566" to="294168710" priority="1" type="highway.service" numLanes="1" speed="5.56" shape="566.45,321.65 534.87,327.64 539.54,356.67 560.71,364.39 585.57,339.15" spreadType="center" allow="pedestrian delivery bicycle"/>
     <edge id="26816553" from="294831566" to="294168972" priority="1" type="highway.service" numLanes="1" speed="5.56" shape="566.45,321.65 563.73,311.92 570.98,302.73 633.73,223.14 682.39,261.75 706.28,235.54 714.97,226.01" allow="pedestrian delivery bicycle"/>
     <edge id="26816627" from="294831566" to="294169618" priority="1" type="highway.service" numLanes="1" speed="5.56" shape="558.41,308.54 541.18,150.49" allow="pedestrian delivery bicycle"/>

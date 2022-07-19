@@ -57,15 +57,15 @@ where you have to put the call to your model's constructor into.
 ```
 case SUMO_TAG_CF_SMART_SK:
   model = new MSCFModel_SmartSK(vtype,
-                                from.get(SUMO_ATTR_ACCEL, SUMOVTypeParameter::getDefaultAccel(from.vehicleClass)),
-                                from.get(SUMO_ATTR_DECEL, SUMOVTypeParameter::getDefaultDecel(from.vehicleClass)),
-                                from.get(SUMO_ATTR_SIGMA, SUMOVTypeParameter::getDefaultImperfection(from.vehicleClass)),
-                                from.get(SUMO_ATTR_TAU, 1.),
-                                from.get(SUMO_ATTR_TMP1, 1.),
-                                from.get(SUMO_ATTR_TMP1, 1.),
-                                from.get(SUMO_ATTR_TMP1, 1.),
-                                from.get(SUMO_ATTR_TMP1, 1.),
-                                from.get(SUMO_ATTR_TMP1, 1.));
+                                from.getCFParam(SUMO_ATTR_ACCEL, SUMOVTypeParameter::getDefaultAccel(from.vehicleClass)),
+                                from.getCFParam(SUMO_ATTR_DECEL, SUMOVTypeParameter::getDefaultDecel(from.vehicleClass)),
+                                from.getCFParam(SUMO_ATTR_SIGMA, SUMOVTypeParameter::getDefaultImperfection(from.vehicleClass)),
+                                from.getCFParam(SUMO_ATTR_TAU, 1.),
+                                from.getCFParam(SUMO_ATTR_TMP1, 1.),
+                                from.getCFParam(SUMO_ATTR_TMP1, 1.),
+                                from.getCFParam(SUMO_ATTR_TMP1, 1.),
+                                from.getCFParam(SUMO_ATTR_TMP1, 1.),
+                                from.getCFParam(SUMO_ATTR_TMP1, 1.));
 ```
 
 You may note that the constructor is read with values from "from". The

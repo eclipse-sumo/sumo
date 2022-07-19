@@ -7,8 +7,6 @@ set(netedit_elements_additional_SRCS
    GNEAdditionalHandler.cpp
    GNEAdditional.h
    GNEAdditional.cpp
-   GNEShape.h
-   GNEShape.cpp
    GNEChargingStation.h
    GNEChargingStation.cpp
    GNEStoppingPlace.h
@@ -23,24 +21,22 @@ set(netedit_elements_additional_SRCS
    GNEParkingArea.cpp
    GNEParkingSpace.h
    GNEParkingSpace.cpp
-   GNETAZElement.h
-   GNETAZElement.cpp 
    GNETAZ.h
    GNETAZ.cpp 
    GNETAZSourceSink.h
    GNETAZSourceSink.cpp
    GNEDetector.h
    GNEDetector.cpp
-   GNEDetectorE1.h
-   GNEDetectorE1.cpp
-   GNEDetectorE1Instant.h
-   GNEDetectorE1Instant.cpp
-   GNEDetectorE2.h
-   GNEDetectorE2.cpp
-   GNEDetectorE3.h
-   GNEDetectorE3.cpp
-   GNEDetectorEntryExit.h
-   GNEDetectorEntryExit.cpp
+   GNEEntryExitDetector.h
+   GNEEntryExitDetector.cpp
+   GNEInductionLoopDetector.h
+   GNEInductionLoopDetector.cpp
+   GNEInstantInductionLoopDetector.h
+   GNEInstantInductionLoopDetector.cpp
+   GNELaneAreaDetector.h
+   GNELaneAreaDetector.cpp
+   GNEMultiEntryExitDetector.h
+   GNEMultiEntryExitDetector.cpp
    GNERerouter.h
    GNERerouter.cpp
    GNERerouterSymbol.h
@@ -71,6 +67,10 @@ set(netedit_elements_additional_SRCS
    GNERouteProbReroute.cpp
    GNERerouterInterval.h
    GNERerouterInterval.cpp
+   GNETractionSubstation.h
+   GNETractionSubstation.cpp
+   GNEOverheadWire.h
+   GNEOverheadWire.cpp
    )
 
 add_library(netedit_elements_additional STATIC ${netedit_elements_additional_SRCS})

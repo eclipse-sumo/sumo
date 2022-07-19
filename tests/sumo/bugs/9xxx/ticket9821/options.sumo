@@ -1,0 +1,5 @@
+--no-step-log --net-file=net2.net.xml
+-r input_routes.rou.xml
+--tripinfo-output tripinfos.xml
+--tripinfo-output.write-unfinished
+-t

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -164,6 +164,9 @@ public:
     /// @brief notify object about popup menu removal
     void removedPopupMenu();
 
+    /// @brief return exaggeration associated with this GLObject
+    double getExaggeration(const GUIVisualizationSettings& s) const;
+
     /** @brief Returns the boundary to which the view shall be centered in order to show the object
      *
      * @return The boundary the object is within
@@ -281,8 +284,10 @@ public:
         long onCmdShowLFLinkItems(FXObject*, FXSelector, void*);
         /// @brief Called if all routes of the vehicle shall be hidden
         long onCmdHideLFLinkItems(FXObject*, FXSelector, void*);
-        /// @brief Called when show a vehicles foes
+        /// @brief Called to show (select) a vehicles foes
         long onCmdShowFoes(FXObject*, FXSelector, void*);
+        /// @brief Called to select all riding persons and continers
+        long onCmdSelectTransported(FXObject*, FXSelector, void*);
         /// @brief Called when removing the vehicle
         long onCmdRemoveObject(FXObject*, FXSelector, void*);
         /// @brief Called when toggling stop state
@@ -327,8 +332,17 @@ public:
      */
     void drawRoute(const GUIVisualizationSettings& s, int routeNo, double darken, bool future = false, bool noLoop = false) const;
 
+    void drawStopLabels(const GUIVisualizationSettings& s, bool noLoop, const RGBColor& col) const;
 
+    void drawParkingInfo(const GUIVisualizationSettings& s, const RGBColor& col) const;
     /// @}
+
+    const MSBaseVehicle& getVehicle() {
+        return myVehicle;
+    }
+
+    /// @brief gets the size multiplier value according to the current scheme index
+    double getScaleValue(const GUIVisualizationSettings& s, int activeScheme) const;
 
     /// @brief sets the color according to the current scheme index and some vehicle function
     static bool setFunctionalColor(int activeScheme, const MSBaseVehicle* veh, RGBColor& col);

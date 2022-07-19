@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -45,67 +45,67 @@ class SUMOSAXAttributes;
  * @enum SUMOVehicleShape
  * @brief Definition of vehicle classes to differ between different appearences
  */
-enum SUMOVehicleShape {
+enum class SUMOVehicleShape {
     /// @brief not defined
-    SVS_UNKNOWN,
+    UNKNOWN,
     /// @brief render as a pedestrian
-    SVS_PEDESTRIAN,
+    PEDESTRIAN,
     /// @brief render as a bicycle
-    SVS_BICYCLE,
+    BICYCLE,
     /// @brief render as a moped
-    SVS_MOPED,
+    MOPED,
     /// @brief render as a motorcycle
-    SVS_MOTORCYCLE,
+    MOTORCYCLE,
     /// @brief render as a passenger vehicle
-    SVS_PASSENGER,
+    PASSENGER,
     /// @brief render as a sedan passenger vehicle ("Stufenheck")
-    SVS_PASSENGER_SEDAN,
+    PASSENGER_SEDAN,
     /// @brief render as a hatchback passenger vehicle ("Fliessheck")
-    SVS_PASSENGER_HATCHBACK,
+    PASSENGER_HATCHBACK,
     /// @brief render as a wagon passenger vehicle ("Combi")
-    SVS_PASSENGER_WAGON,
+    PASSENGER_WAGON,
     /// @brief render as a van
-    SVS_PASSENGER_VAN,
+    PASSENGER_VAN,
     /// @brief automated car (with cruise controllers)
-    //SVS_PASSENGER_AUTOMATED,
+    //PASSENGER_AUTOMATED,
     /// @brief render as a delivery vehicle
-    SVS_DELIVERY,
+    DELIVERY,
     /// @brief render as a transport vehicle
-    SVS_TRUCK,
+    TRUCK,
     /// @brief render as a semi-trailer transport vehicle ("Sattelschlepper")
-    SVS_TRUCK_SEMITRAILER,
+    TRUCK_SEMITRAILER,
     /// @brief render as a transport vehicle with one trailer
-    SVS_TRUCK_1TRAILER,
+    TRUCK_1TRAILER,
     /// @brief render as a bus
-    SVS_BUS,
+    BUS,
     /// @brief render as a coach
-    SVS_BUS_COACH,
+    BUS_COACH,
     /// @brief render as a flexible city bus
-    SVS_BUS_FLEXIBLE,
+    BUS_FLEXIBLE,
     /// @brief render as a trolley bus
-    SVS_BUS_TROLLEY,
+    BUS_TROLLEY,
     /// @brief render as a rail
-    SVS_RAIL,
+    RAIL,
     /// @brief render as a (city) rail without locomotive
-    SVS_RAIL_CAR,
+    RAIL_CAR,
     /// @brief render as a cargo train
-    SVS_RAIL_CARGO,
+    RAIL_CARGO,
     /// @brief render as a (futuristic) e-vehicle
-    SVS_E_VEHICLE,
+    E_VEHICLE,
     /// @brief render as a giant ant
-    SVS_ANT,
+    ANT,
     /// @brief render as a arbitrary ship
-    SVS_SHIP,
+    SHIP,
     /// @brief render as an emergency vehicle
-    SVS_EMERGENCY,
+    EMERGENCY,
     /// @brief render as a fire brigade
-    SVS_FIREBRIGADE,
+    FIREBRIGADE,
     /// @brief render as a police car
-    SVS_POLICE,
+    POLICE,
     /// @brief render as a rickshaw
-    SVS_RICKSHAW,
+    RICKSHAW,
     /// @brief render as a scooter
-    SVS_SCOOTER
+    SCOOTER
 };
 
 
@@ -232,6 +232,57 @@ extern const SVCPermissions SVC_UNSPECIFIED;
  */
 typedef int SUMOEmissionClass;
 
+// ===========================================================================
+// Stop Offsets
+// ===========================================================================
+
+/// @brief stop offset
+class StopOffset {
+
+public:
+    /// @brief constructor
+    StopOffset();
+
+    /// @brief constructor (parser)
+    StopOffset(const SUMOSAXAttributes& attrs, bool& ok);
+
+    /// @brief check if stopOffset was defined
+    bool isDefined() const;
+
+    /// @brief reset stopOffset
+    void reset();
+
+    /// @brief get permissions
+    SVCPermissions getPermissions() const;
+
+    /// @brief get exceptions (used in NETEDIT)
+    std::string getExceptions() const;
+
+    /// @brief get offset
+    double getOffset() const;
+
+    /// @brief update permissions
+    void setPermissions(const SVCPermissions permissions);
+
+    /// @brief set exceptions (used in NETEDIT)
+    void setExceptions(const std::string permissions);
+
+    /// @brief set offset
+    void setOffset(const double offset);
+
+    /// @brief comparator
+    bool operator==(StopOffset const& other) const;
+
+    /// @brief comparator
+    bool operator!=(StopOffset const& other) const;
+
+private:
+    /// @brief permissions (allowed)
+    SVCPermissions myPermissions;
+
+    /// @brief offset
+    double myOffset;
+};
 
 // ===========================================================================
 // method declarations
@@ -240,6 +291,7 @@ typedef int SUMOEmissionClass;
 // ---------------------------------------------------------------------------
 // abstract vehicle class / purpose
 // ---------------------------------------------------------------------------
+
 /** @brief Returns the ids of the given classes, divided using a ' '
  * @param[in] the permissions to encode
  * @param[in] expand whether 'all' should be used
@@ -299,12 +351,10 @@ extern void writePermissions(OutputDevice& into, SVCPermissions permissions);
 /// @brief writes allowed disallowed attributes if needed;
 extern void writePreferences(OutputDevice& into, SVCPermissions preferred);
 
-/// @brief Extract stopOffsets from attributes of stopOffset element
-extern std::map<SVCPermissions, double> parseStopOffsets(const SUMOSAXAttributes& attrs, bool& ok);
-
 // ---------------------------------------------------------------------------
 // vehicle shape class
 // ---------------------------------------------------------------------------
+
 /** @brief Returns the class name of the shape class given by its id
  * @param[in] id The id of the shape class
  * @return The string representation of this class
@@ -377,6 +427,7 @@ extern const std::string DEFAULT_PEDTYPE_ID;
 extern const std::string DEFAULT_BIKETYPE_ID;
 extern const std::string DEFAULT_CONTAINERTYPE_ID;
 extern const std::string DEFAULT_TAXITYPE_ID;
+extern const std::set<std::string> DEFAULT_VTYPES;
 
 extern const double DEFAULT_VEH_PROB; // !!! does this belong here?
 

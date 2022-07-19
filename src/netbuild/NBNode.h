@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -182,6 +182,8 @@ public:
         PositionVector shape;
         /// @brief the lane-id of the next crossing(s)
         std::vector<std::string> nextCrossings;
+        /// @brief the lane-id of the previous crossing(s)
+        std::vector<std::string> prevCrossings;
         /// @brief the lane-id of the next sidewalk lane or ""
         std::vector<std::string> nextSidewalks;
         /// @brief the lane-id of the previous sidewalk lane or ""
@@ -462,6 +464,9 @@ public:
      */
     bool mustBrakeForCrossing(const NBEdge* const from, const NBEdge* const to, const Crossing& crossing) const;
 
+    /// @brief whether a connection to the given edge must brake for a crossing when leaving the intersection
+    bool brakeForCrossingOnExit(const NBEdge* to) const;
+
     /// @brief return whether the given laneToLane connection is a right turn which must yield to a bicycle crossings
     static bool rightTurnConflict(const NBEdge* from, const NBEdge* to, int fromLane,
                                   const NBEdge* prohibitorFrom, const NBEdge* prohibitorTo, int prohibitorFromLane);
@@ -641,7 +646,7 @@ public:
     bool checkCrossingDuplicated(EdgeVector edges);
 
     /// @brief build internal lanes, pedestrian crossings and walking areas
-    void buildInnerEdges();
+    double buildInnerEdges();
 
     /**@brief build pedestrian crossings
      * @return The next index for creating internal lanes
@@ -721,6 +726,9 @@ public:
 
     /// @brief return the crossing with the given Edges
     Crossing* getCrossing(const EdgeVector& edges, bool hardFail = true) const;
+
+    /// @brief return the walkingArea with the given ID
+    WalkingArea& getWalkingArea(const std::string& id);
 
     /* @brief set tl indices of this nodes crossing starting at the given index
      * @return Whether a custom index was used
@@ -846,6 +854,9 @@ private:
 
     /// @brief check whether this edge has extra lanes on the right side
     int addedLanesRight(NBEdge* out, int addedLanes) const;
+
+    /// @brief check whether the candidate edge is more likely to be the straight continuation
+    bool isStraighter(const NBEdge* const incoming, const double angle, const SVCPermissions vehPerm, const int modeLanes, const NBEdge* const candidate) const;
 
 private:
     /// @brief The position the node lies at

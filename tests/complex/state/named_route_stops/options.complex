@@ -1,0 +1,15 @@
+--no-step-log --no-duration-log -v --net-file=net.net.xml
+-r input_routes.rou.xml 
+-a input_additional.add.xml
+--save-state.times 20 --save-state.files state.xml
+--vehroute-output vehroutes.xml
+--default.speeddev 0
+:
+--no-step-log --no-duration-log -v --net-file=net.net.xml
+-r input_routes.rou.xml 
+-b 20 --load-state state.xml 
+-a input_additional.add.xml
+--vehroute-output vehroutes2.xml
+--default.speeddev 0
+--compare vehroutes:31:34
+tests/complex/state/runner.py

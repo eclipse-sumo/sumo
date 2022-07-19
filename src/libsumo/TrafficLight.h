@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2012-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2012-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -81,6 +81,12 @@ public:
     inline static void setCompleteRedYellowGreenDefinition(const std::string& tlsID, const libsumo::TraCILogic& logic) {
         setProgramLogic(tlsID, logic);
     }
+
+    static void setNemaSplits(const std::string& tlsID, const std::vector<double>& splits);
+    static void setNemaMaxGreens(const std::string& tlsID, const std::vector<double>& maxGreens);
+    static void setNemaCycleLength(const std::string& tlsID,  double cycleLength);
+    static void setNemaOffset(const std::string& tlsID, double offset);
+
 #ifndef LIBTRACI
 #ifndef SWIG
     static std::shared_ptr<VariableWrapper> makeWrapper();
@@ -88,10 +94,11 @@ public:
     static bool handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper, tcpip::Storage* paramData);
 
 private:
-    static libsumo::TraCISignalConstraint buildConstraint(const std::string& tlsID, const std::string& tripId, MSRailSignalConstraint* constraint, bool insertionConstraint);
+    static libsumo::TraCISignalConstraint buildConstraint(const std::string& tlsID, const std::string& tripId, MSRailSignalConstraint* constraint);
     /// @brief perform swapConstraints to resolve deadlocks and return the new constraints
     static std::vector<libsumo::TraCISignalConstraint> findConstraintsDeadLocks(const std::string& foeId, const std::string& tripId, const std::string& foeSignal, const std::string& tlsID);
     static SUMOVehicle* getVehicleByTripId(const std::string tripOrVehID);
+    static std::vector<std::string> getFutureTripIds(const std::string vehID);
 
 private:
     static SubscriptionResults mySubscriptionResults;

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -50,7 +50,6 @@ class MSRoute;
  * Microsocopic view at the simulation
  */
 class GUIViewTraffic : public GUISUMOAbstractView {
-    FXDECLARE(GUIViewTraffic)
 public:
     /// @brief constructor
     GUIViewTraffic(FXComposite* p, GUIMainWindow& app,
@@ -58,6 +57,9 @@ public:
                    FXGLCanvas* share);
     /// @brief destructor
     virtual ~GUIViewTraffic();
+
+    /// @brief recalculate boundaries
+    void recalculateBoundaries();
 
     /// @brief builds the view toolbars
     virtual void buildViewToolBars(GUIGlChildWindow*);
@@ -104,14 +106,6 @@ public:
     /// @brief get the current simulation time
     SUMOTime getCurrentTimeStep() const;
 
-    /// @brief interaction with the simulation
-    long onCmdCloseLane(FXObject*, FXSelector, void*);
-    long onCmdCloseEdge(FXObject*, FXSelector, void*);
-    long onCmdAddRerouter(FXObject*, FXSelector, void*);
-
-    /// @brief highlight edges according to reachability
-    long onCmdShowReachability(FXObject*, FXSelector, void*);
-
     long onDoubleClicked(FXObject*, FXSelector, void*);
 
     /** @brief Adds a frame to a video snapshot which will be initialized if neccessary
@@ -131,6 +125,9 @@ public:
 
 protected:
     int doPaintGL(int mode, const Boundary& bound);
+
+    /// @brief update position information
+    void updatePositionInformation() const;
 
     GUILane* getLaneUnderCursor();
 

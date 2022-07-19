@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -43,6 +43,16 @@ public:
      */
     GNEChange_TLS(GNEJunction* junction, NBTrafficLightDefinition* tlDef, bool forward, bool forceInsert = false, const std::string tlID = "");
 
+    /**@brief Constructor for creating/deleting an edge
+    * @param[in] junction The junction to which the traffic light belong
+    * @param[in] tlDef The traffic light definition (may be 0 on creation)
+    * @param[in] forward Whether to create/delete (true/false)
+    * @param[in] tlID The id for the newly created tlDef (set to junction id if * "" is given)
+    * @param[in] type TrafficLightType
+    */
+    GNEChange_TLS(GNEJunction* junction, NBTrafficLightDefinition* tlDef, bool forward, TrafficLightType type,
+                  bool forceInsert = false, const std::string tlID = "");
+
     /// @brief Destructor
     ~GNEChange_TLS();
 
@@ -64,11 +74,11 @@ public:
 
 private:
     /**@brief we need the junction because it is the target of our change commands
-     * @note we assume shared responsiblity for the junction via reference counting
+     * @note we assume shared responsibilty for the junction via reference counting
      */
     GNEJunction* myJunction;
 
-    /**@brief the traffic light to be created/deleted. We assume no responsiblity for the pointer
+    /**@brief the traffic light to be created/deleted. We assume no responsibility for the pointer
      * @note since it is hard to track by which NBnodes a tlDef is used (may be more than one).
      */
     NBTrafficLightDefinition* myTlDef;

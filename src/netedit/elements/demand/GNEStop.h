@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -19,7 +19,6 @@
 /****************************************************************************/
 #pragma once
 #include <config.h>
-#include <utils/vehicle/SUMOVehicleParameter.h>
 
 #include "GNEDemandElement.h"
 
@@ -32,19 +31,25 @@
 class GNEStop : public GNEDemandElement, public SUMOVehicleParameter::Stop {
 
 public:
-    /// @brief constructor used for stops over stoppingPlaces
-    GNEStop(SumoXMLTag tag, GNENet* net, const SUMOVehicleParameter::Stop& stopParameter, GNEAdditional* stoppingPlace, GNEDemandElement* stopParent);
+    /// @brief default constructor
+    GNEStop(SumoXMLTag tag, GNENet* net);
 
-    /// @brief constructor used for stops over lanes
-    GNEStop(GNENet* net, const SUMOVehicleParameter::Stop& stopParameter, GNELane* lane, GNEDemandElement* stopParent);
+    /// @brief constructor used for stops over stoppingPlaces
+    GNEStop(SumoXMLTag tag, GNENet* net, GNEDemandElement* stopParent, GNEAdditional* stoppingPlace, const SUMOVehicleParameter::Stop& stopParameter);
+
+    /// @brief constructor used for stops over lane (only for vehicle/route stops)
+    GNEStop(SumoXMLTag tag, GNENet* net, GNEDemandElement* stopParent, GNELane* lane, const SUMOVehicleParameter::Stop& stopParameter);
+
+    /// @brief constructor used for stops over edge (only for person/container stops)
+    GNEStop(SumoXMLTag tag, GNENet* net, GNEDemandElement* stopParent, GNEEdge* edge, const SUMOVehicleParameter::Stop& stopParameter);
 
     /// @brief destructor
     ~GNEStop();
 
-    /**@brief get move operation for the given shapeOffset
+    /**@brief get move operation
      * @note returned GNEMoveOperation can be nullptr
      */
-    GNEMoveOperation* getMoveOperation(const double shapeOffset);
+    GNEMoveOperation* getMoveOperation();
 
     /**@brief get begin time of demand element
      * @note: used by demand elements of type "Vehicle", and it has to be implemented as children
@@ -52,13 +57,13 @@ public:
      */
     std::string getBegin() const;
 
-    /**@brief writte demand element element into a xml file
+    /**@brief write demand element element into a xml file
      * @param[in] device device in which write parameters of demand element element
      */
     void writeDemandElement(OutputDevice& device) const;
 
     /// @brief check if current demand element is valid to be writed into XML (by default true, can be reimplemented in children)
-    bool isDemandElementValid() const;
+    Problem isDemandElementValid() const;
 
     /// @brief return a string with the current demand element problem (by default empty, can be reimplemented in children)
     std::string getDemandElementProblem() const;
@@ -91,6 +96,9 @@ public:
      * @return This object's parent id
      */
     std::string getParentName() const;
+
+    /// @brief return exaggeration associated with this GLObject
+    double getExaggeration(const GUIVisualizationSettings& s) const;
 
     /**@brief Returns the boundary to which the view shall be centered in order to show the object
      * @return The boundary the object is within
@@ -200,7 +208,7 @@ public:
     /// @}
 
     /// @brief get parameters map
-    const std::map<std::string, std::string>& getACParametersMap() const;
+    const Parameterised::Map& getACParametersMap() const;
 
     /// @brief get start position over lane that is applicable to the shape
     double getStartGeometryPositionOverLane() const;
@@ -221,18 +229,42 @@ protected:
     /// @brief value for saving second original position over lane before moving
     std::string mySecondOriginalPosition;
 
+    /// @brief creation index (using for saving sorted)
+    const int myCreationIndex;
+
+    /// @brief get first valid lane
+    const GNELane* getFirstAllowedLane() const;
+
+    /// @brief check if vehicle stop can be draw
+    bool canDrawVehicleStop() const;
+
+    /// @brief draw vehicle stop
+    void drawVehicleStop(const GUIVisualizationSettings& s, const double exaggeration) const;
+
+    /// @brief draw stopPerson over lane
+    void drawStopPersonOverEdge(const GUIVisualizationSettings& s, const double exaggeration) const;
+
+    /// @brief draw stopPerson over busStop
+    void drawStopPersonOverBusStop(const GUIVisualizationSettings& s, const double exaggeration) const;
+
+    /// @brief draw index
+    bool drawIndex() const;
+
 private:
     /// @brief method for setting the attribute and nothing else
     void setAttribute(SumoXMLAttr key, const std::string& value);
 
-    /// @brief method for enabling the attribute and nothing else (used in GNEChange_EnableAttribute)
-    void setEnabledAttribute(const int enabledAttributes);
+    /// @brief method for enable or disable the attribute and nothing else (used in GNEChange_EnableAttribute)
+    void toggleAttribute(SumoXMLAttr key, const bool value);
 
     /// @brief set move shape
     void setMoveShape(const GNEMoveResult& moveResult);
 
     /// @brief commit move shape
     void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList);
+
+    /// @brief draw geometry points
+    void drawGeometryPoints(const GUIVisualizationSettings& s, const RGBColor& baseColor) const;
 
     /// @brief Invalidated copy constructor.
     GNEStop(const GNEStop&) = delete;

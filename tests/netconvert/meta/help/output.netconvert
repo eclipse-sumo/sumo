@@ -1,5 +1,5 @@
-Eclipse SUMO netconvert Version v1_9_2+0975-19cfc19
- Copyright (C) 2001-2021 German Aerospace Center (DLR) and others; https://sumo.dlr.de
+Eclipse SUMO netconvert Version v1_13_0+0773-f0267577d88
+ Copyright (C) 2001-2022 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Network importer / builder for the microscopic, multi-modal traffic simulation
  SUMO.
 
@@ -7,6 +7,8 @@ Usage: netconvert [OPTION]*
 Configuration Options:
   -c, --configuration-file FILE        Loads the named config on startup
   -C, --save-configuration FILE        Saves current configuration into FILE
+  --save-configuration.relative        Enforce relative paths when saving the
+                                        configuration
   --save-template FILE                 Saves a configuration template (empty)
                                         into FILE
   --save-schema FILE                   Saves the configuration schema into FILE
@@ -54,7 +56,7 @@ Output Options:
                                         seconds
   -o, --output-file FILE               The generated net will be written to
                                         FILE
-  --plain-output-prefix FILE           Prefix of files to write plain xml
+  -p, --plain-output-prefix FILE       Prefix of files to write plain xml
                                         nodes, edges and connections to
   --junctions.join-output FILE         Writes information about joined
                                         junctions to FILE (can be loaded as
@@ -107,7 +109,7 @@ Projection Options:
   --proj.plain-geo                     Write geo coordinates in plain-xml
 
 Processing Options:
-  --speed-in-kmh                       vmax is parsed as given in km/h (some)
+  --speed-in-kmh                       vmax is parsed as given in km/h
   --construction-date STR              Use YYYY-MM-DD date to determine the
                                         readiness of features under construction
   --flatten                            Remove all z-data
@@ -211,6 +213,7 @@ Building Defaults Options:
   --default.spreadtype STR             The default method for computing lane
                                         shapes from edge shapes
   -S, --default.speed FLOAT            The default speed on an edge (in m/s)
+  --default.friction FLOAT             The default friction on an edge
   -P, --default.priority INT           The default priority of an edge
   --default.type STR                   The default edge type
   --default.sidewalk-width FLOAT       The default width of added sidewalks
@@ -281,6 +284,12 @@ TLS Building Options:
   --tls.left-green.time INT            Use INT as green phase duration for left
                                         turns (s). Setting this value to 0
                                         disables additional left-turning phases
+  --tls.nema.vehExt INT                Set INT as fixed time for intermediate
+                                        vehext phase after every switch
+  --tls.nema.yellow INT                Set INT as fixed time for intermediate
+                                        NEMA yelow phase after every switch
+  --tls.nema.red INT                   Set INT as fixed time for intermediate
+                                        NEMA red phase after every switch
   --tls.crossing-min.time INT          Use INT as minimum green duration for
                                         pedestrian crossings (s).
   --tls.crossing-clearance.time INT    Use INT as clearance time for pedestrian
@@ -432,6 +441,8 @@ Junctions Options:
   --junctions.higher-speed             Use maximum value of incoming and
                                         outgoing edge speed on junction instead
                                         of average
+  --internal-junctions.vehicle-width FLOAT  Assumed vehicle width for computing
+                                        internal junction positions
   --rectangular-lane-cut               Forces rectangular cuts between lanes
                                         and intersections
   --check-lane-foes.roundabout         Allow driving onto a multi-lane road if
@@ -493,6 +504,8 @@ Railway Options:
                                         FILE usable in both direction
   --railway.topology.direction-priority  Set edge priority values based on
                                         estimated main direction
+  --railway.topology.extend-priority   Extend loaded edge priority values based
+                                        on estimated main direction
   --railway.access-distance FLOAT      The search radius for finding suitable
                                         road accesses for rail stops
   --railway.max-accesses INT           The maximum roud accesses registered per
@@ -521,6 +534,9 @@ Formats Options:
   --osm.lane-access                    Import lane-specific access restrictions
   --osm.bike-access                    Check additional attributes to fix
                                         directions and permissions on bike paths
+  --osm.sidewalks                      Import sidewalks
+  --osm.turn-lanes                     Import turning arrows from OSM to help
+                                        with connection building
   --osm.stop-output.length FLOAT       The default length of a public transport
                                         stop in FLOAT m
   --osm.stop-output.length.bus FLOAT   The default length of a bus stop in
@@ -588,6 +604,10 @@ Formats Options:
   --opendrive.min-width FLOAT          The minimum lane width for determining
                                         start or end of variable-width lanes
   --opendrive.internal-shapes          Import internal lane shapes
+  --opendrive.position-ids             Sets edge-id based on road-id and offset
+                                        in m (legacy)
+  --opendrive.lane-shapes              Use custom lane shapes to compensate
+                                        discarded lane types
 
 Report Options:
   -v, --verbose                        Switches to verbose output

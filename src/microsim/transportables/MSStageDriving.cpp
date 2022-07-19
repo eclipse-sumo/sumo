@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -29,6 +29,7 @@
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSNet.h>
+#include <microsim/MSStop.h>
 #include <microsim/MSInsertionControl.h>
 #include <microsim/MSVehicleControl.h>
 #include <microsim/MSStoppingPlace.h>
@@ -115,10 +116,15 @@ MSStageDriving::getDirection() const {
     } else if (myArrived >= 0) {
         return MSPModel::UNDEFINED_DIRECTION;
     } else {
-        // vehicle may already have passed the lane (check whether this is correct)
         return MSPModel::FORWARD;
     }
 }
+
+const MSLane*
+MSStageDriving::getLane() const {
+    return myVehicle != nullptr ? myVehicle->getLane() : nullptr;
+}
+
 
 Position
 MSStageDriving::getPosition(SUMOTime /* now */) const {
@@ -177,7 +183,7 @@ MSStageDriving::getStageSummary(const bool isPerson) const {
                               " stop '" + getDestinationStop()->getID() + "'" + (
                                   getDestinationStop()->getMyName() != "" ? " (" + getDestinationStop()->getMyName() + ")" : ""));
     const std::string intended = myIntendedVehicleID != "" ?
-                                 " (vehicle " + myIntendedVehicleID + " at time " + time2string(myIntendedDepart) + ")" :
+                                 " (vehicle " + myIntendedVehicleID + " at time=" + time2string(myIntendedDepart) + ")" :
                                  "";
     const std::string modeName = isPerson ? "driving" : "transported";
     return isWaiting4Vehicle() ?
@@ -193,7 +199,7 @@ MSStageDriving::proceed(MSNet* net, MSTransportable* transportable, SUMOTime now
                     : previous->getDestinationStop());
     myWaitingSince = now;
     const bool isPerson = transportable->isPerson();
-    if (transportable->getParameter().departProcedure == DEPART_TRIGGERED
+    if (transportable->getParameter().departProcedure == DepartDefinition::TRIGGERED
             && transportable->getNumRemainingStages() == transportable->getNumStages() - 1) {
         // we are the first real stage (stage 0 is WAITING_FOR_DEPART)
         const std::string vehID = *myLines.begin();
@@ -222,15 +228,16 @@ MSStageDriving::proceed(MSNet* net, MSTransportable* transportable, SUMOTime now
         myStopWaitPos = Position::INVALID;
         myWaitingPos = previous->getEdgePos(now);
     }
-    if (myOrigin != nullptr && myOrigin != myWaitingEdge) {
-        // transfer at junction
+    if (myOrigin != nullptr && myOrigin != myWaitingEdge
+            && (myOriginStop == nullptr || myOriginStop->getAccessPos(myOrigin) < 0)) {
+        // transfer at junction (rather than access)
         myWaitingEdge = myOrigin;
         myWaitingPos = 0;
     }
     SUMOVehicle* const availableVehicle = myWaitingEdge->getWaitingVehicle(transportable, myWaitingPos);
     const bool triggered = availableVehicle != nullptr &&
-                           ((isPerson && availableVehicle->getParameter().departProcedure == DEPART_TRIGGERED) ||
-                            (!isPerson && availableVehicle->getParameter().departProcedure == DEPART_CONTAINER_TRIGGERED));
+                           ((isPerson && availableVehicle->getParameter().departProcedure == DepartDefinition::TRIGGERED) ||
+                            (!isPerson && availableVehicle->getParameter().departProcedure == DepartDefinition::CONTAINER_TRIGGERED));
     if (triggered && !availableVehicle->hasDeparted()) {
         setVehicle(availableVehicle);
         if (myOriginStop != nullptr) {
@@ -238,48 +245,57 @@ MSStageDriving::proceed(MSNet* net, MSTransportable* transportable, SUMOTime now
         }
         myVehicle->addTransportable(transportable);
         net->getInsertionControl().add(myVehicle);
-        myWaitingEdge->removeWaiting(myVehicle);
+        if (myVehicle->getEdge()->isTazConnector()) {
+            for (MSEdge* out : myVehicle->getEdge()->getSuccessors()) {
+                out->removeWaiting(myVehicle);
+            }
+        } else {
+            myWaitingEdge->removeWaiting(myVehicle);
+        }
         net->getVehicleControl().unregisterOneWaiting();
     } else {
-        // check if the ride can be conducted and reserve it
-        if (MSDevice_Taxi::isReservation(getLines())) {
-            const MSEdge* to = getDestination();
-            double toPos = getArrivalPos();
-            if ((to->getPermissions() & SVC_TAXI) == 0 && getDestinationStop() != nullptr) {
-                // try to find usable access edge
-                for (const auto& tuple : getDestinationStop()->getAllAccessPos()) {
-                    const MSEdge* access = &std::get<0>(tuple)->getEdge();
-                    if ((access->getPermissions() & SVC_TAXI) != 0) {
-                        to = access;
-                        toPos = std::get<1>(tuple);
-                        break;
-                    }
-                }
-            }
-            if ((myWaitingEdge->getPermissions() & SVC_TAXI) == 0 && myOriginStop != nullptr) {
-                // try to find usable access edge
-                for (const auto& tuple : myOriginStop->getAllAccessPos()) {
-                    const MSEdge* access = &std::get<0>(tuple)->getEdge();
-                    if ((access->getPermissions() & SVC_TAXI) != 0) {
-                        myWaitingEdge = access;
-                        myStopWaitPos = Position::INVALID;
-                        myWaitingPos = std::get<1>(tuple);
-                        break;
-                    }
-                }
-            }
-            MSDevice_Taxi::addReservation(transportable, getLines(), now, now, myWaitingEdge, myWaitingPos, to, toPos, myGroup);
-        }
-        if (isPerson) {
-            net->getPersonControl().addWaiting(myWaitingEdge, transportable);
-            myWaitingEdge->addPerson(transportable);
-        } else {
-            net->getContainerControl().addWaiting(myWaitingEdge, transportable);
-            myWaitingEdge->addContainer(transportable);
-        }
+        registerWaiting(transportable, now);
     }
 }
 
+void
+MSStageDriving::registerWaiting(MSTransportable* transportable, SUMOTime now) {
+    // check if the ride can be conducted and reserve it
+    if (MSDevice_Taxi::isReservation(getLines())) {
+        const MSEdge* to = getDestination();
+        double toPos = getArrivalPos();
+        if ((to->getPermissions() & SVC_TAXI) == 0 && getDestinationStop() != nullptr) {
+            // try to find usable access edge
+            for (const auto& tuple : getDestinationStop()->getAllAccessPos()) {
+                const MSEdge* access = &std::get<0>(tuple)->getEdge();
+                if ((access->getPermissions() & SVC_TAXI) != 0) {
+                    to = access;
+                    toPos = std::get<1>(tuple);
+                    break;
+                }
+            }
+        }
+        if ((myWaitingEdge->getPermissions() & SVC_TAXI) == 0 && myOriginStop != nullptr) {
+            // try to find usable access edge
+            for (const auto& tuple : myOriginStop->getAllAccessPos()) {
+                const MSEdge* access = &std::get<0>(tuple)->getEdge();
+                if ((access->getPermissions() & SVC_TAXI) != 0) {
+                    myWaitingEdge = access;
+                    myStopWaitPos = Position::INVALID;
+                    myWaitingPos = std::get<1>(tuple);
+                    break;
+                }
+            }
+        }
+        MSDevice_Taxi::addReservation(transportable, getLines(), now, now, myWaitingEdge, myWaitingPos, to, toPos, myGroup);
+    }
+    if (transportable->isPerson()) {
+        MSNet::getInstance()->getPersonControl().addWaiting(myWaitingEdge, transportable);
+    } else {
+        MSNet::getInstance()->getContainerControl().addWaiting(myWaitingEdge, transportable);
+    }
+    myWaitingEdge->addTransportable(transportable);
+}
 
 void
 MSStageDriving::tripInfoOutput(OutputDevice& os, const MSTransportable* const transportable) const {
@@ -293,10 +309,10 @@ MSStageDriving::tripInfoOutput(OutputDevice& os, const MSTransportable* const tr
     os.writeAttr("vehicle", myVehicleID);
     os.writeAttr("depart", myDeparted >= 0 ? time2string(myDeparted) : "-1");
     os.writeAttr("arrival", myArrived >= 0 ? time2string(myArrived) : "-1");
-    os.writeAttr("arrivalPos", toString(getArrivalPos()));
+    os.writeAttr("arrivalPos", myArrived >= 0 ? toString(getArrivalPos()) : "-1");
     os.writeAttr("duration", myArrived >= 0 ? time2string(duration) :
                  (myDeparted >= 0 ? time2string(now - myDeparted) : "-1"));
-    os.writeAttr("routeLength", myVehicleDistance);
+    os.writeAttr("routeLength", myArrived >= 0 || myVehicle != nullptr ? toString(getDistance()) : "-1");
     os.writeAttr("timeLoss", myArrived >= 0 ? time2string(myTimeLoss) : "-1");
     os.closeTag();
 }
@@ -304,7 +320,7 @@ MSStageDriving::tripInfoOutput(OutputDevice& os, const MSTransportable* const tr
 
 void
 MSStageDriving::routeOutput(const bool isPerson, OutputDevice& os, const bool withRouteLength, const MSStage* const previous) const {
-    os.openTag(isPerson ? "ride" : "transport");
+    os.openTag(isPerson ? SUMO_TAG_RIDE : SUMO_TAG_TRANSPORT);
     if (getFromEdge() != nullptr) {
         os.writeAttr(SUMO_ATTR_FROM, getFromEdge()->getID());
     } else if (previous != nullptr && previous->getStageType() == MSStageType::WAITING_FOR_DEPART) {
@@ -340,8 +356,10 @@ MSStageDriving::routeOutput(const bool isPerson, OutputDevice& os, const bool wi
 
 bool
 MSStageDriving::isWaitingFor(const SUMOVehicle* vehicle) const {
+    assert(myLines.size() > 0);
     return (myLines.count(vehicle->getID()) > 0
             || myLines.count(vehicle->getParameter().line) > 0
+            || MSDevice_Taxi::compatibleLine(vehicle->getParameter().line, *myLines.begin())
             || (myLines.count("ANY") > 0 && (
                     myDestinationStop == nullptr
                     ? vehicle->stopsAtEdge(myDestination)
@@ -455,18 +473,18 @@ MSStageDriving::getWaitingDescription() const {
 
 
 bool
-MSStageDriving::canLeaveVehicle(const MSTransportable* t, const SUMOVehicle& veh) {
+MSStageDriving::canLeaveVehicle(const MSTransportable* t, const SUMOVehicle& veh, const MSStop& stop) {
+    const MSEdge* stopEdge = stop.getEdge();
     bool canLeave = false;
-    if (t->getDestination() == veh.getEdge()) {
+    if (t->getDestination() == stopEdge) {
         // if this is the last stage, we can use the arrivalPos of the person
         const bool unspecifiedAP = unspecifiedArrivalPos() && (
                                        t->getNumRemainingStages() > 1 || !t->getParameter().wasSet(VEHPARS_ARRIVALPOS_SET));
         const double arrivalPos = (unspecifiedArrivalPos()
-                                   ? SUMOVehicleParameter::interpretEdgePos(t->getParameter().arrivalPos, veh.getEdge()->getLength(),
+                                   ? SUMOVehicleParameter::interpretEdgePos(t->getParameter().arrivalPos, stopEdge->getLength(),
                                            SUMO_ATTR_ARRIVALPOS, t->getID(), true)
                                    : getArrivalPos());
-        if (unspecifiedAP ||
-                veh.isStoppedInRange(arrivalPos, veh.getLength() + MSGlobals::gStopTolerance)) {
+        if (unspecifiedAP || stop.isInRange(arrivalPos, veh.getLength() + MSGlobals::gStopTolerance)) {
             canLeave = true;
         }
     }
@@ -481,11 +499,8 @@ MSStageDriving::canLeaveVehicle(const MSTransportable* t, const SUMOVehicle& veh
                     // accessPos is in the middle of the stop
                     tolerance += (myDestinationStop->getEndLanePosition() - myDestinationStop->getBeginLanePosition()) / 2;
                 }
-                canLeave = veh.isStoppedInRange(accessPos, tolerance);
+                canLeave = stop.isInRange(accessPos, tolerance);
             }
-        }
-        if (canLeave) {
-            myDestinationStop->addTransportable(t);
         }
     }
     return canLeave;
@@ -513,6 +528,24 @@ MSStageDriving::loadState(MSTransportable* transportable, std::istringstream& st
         setVehicle(startVeh);
         myVehicle->addTransportable(transportable);
         state >> myVehicleDistance;
+    } else {
+        // there should always be at least one prior WAITING_FOR_DEPART stage
+        MSStage* previous = transportable->getNextStage(-1);
+        myOriginStop = (previous->getStageType() == MSStageType::TRIP
+                        ? previous->getOriginStop()
+                        : previous->getDestinationStop());
+        if (myOriginStop != nullptr) {
+            // the arrival stop may have an access point
+            myOriginStop->addTransportable(transportable);
+            myWaitingEdge = &myOriginStop->getLane().getEdge();
+            myStopWaitPos = myOriginStop->getWaitPosition(transportable);
+            myWaitingPos = myOriginStop->getWaitingPositionOnLane(transportable);
+        } else {
+            myWaitingEdge = previous->getEdge();
+            myStopWaitPos = Position::INVALID;
+            myWaitingPos = previous->getArrivalPos();
+        }
+        registerWaiting(transportable, SIMSTEP);
     }
 }
 

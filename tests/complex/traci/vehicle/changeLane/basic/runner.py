@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2008-2021 German Aerospace Center (DLR) and others.
+# Copyright (C) 2008-2022 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -19,8 +19,8 @@
 import os
 import sys
 
-SUMO_HOME = os.path.join(os.path.dirname(__file__), "..", "..", "..", "..", "..")
-sys.path.append(os.path.join(os.environ.get("SUMO_HOME", SUMO_HOME), "tools"))
+if "SUMO_HOME" in os.environ:
+    sys.path.append(os.path.join(os.environ["SUMO_HOME"], "tools"))
 
 import traci  # noqa
 import sumolib  # noqa
@@ -32,6 +32,16 @@ traci.start([sumoBinary,
              "--lanechange-output", "lanechanges.xml",
              "--no-step-log",
              ])
+
+
+def reportState(vehID, direction):
+    print("t=%s laneIndex=%s state(%s)=%s" % (
+        traci.simulation.getTime(),
+        traci.vehicle.getLaneIndex(vehID),
+        direction,
+        traci.vehicle.getLaneChangeStatePretty(vehID, direction)))
+
+
 vehID = "v0"
 traci.vehicle.add(vehID, "r0")
 traci.vehicle.setLaneChangeMode(vehID, 0)
@@ -40,10 +50,12 @@ for i in range(5):
 traci.vehicle.setParameter(vehID, "lcReason", " relativeRight")
 traci.vehicle.changeLaneRelative(vehID, 1, 0)
 for i in range(5):
+    reportState(vehID, 1)
     traci.simulationStep()
 traci.vehicle.setParameter(vehID, "lcReason", " relativeLeft")
 traci.vehicle.changeLaneRelative(vehID, -1, 0)
 for i in range(5):
+    reportState(vehID, -1)
     traci.simulationStep()
 traci.vehicle.setParameter(vehID, "lcReason", " absolute2")
 traci.vehicle.changeLane(vehID, 2, 5)

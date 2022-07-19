@@ -10,6 +10,9 @@ option_join-dist
 # guess the joined tls
 guess
 
+# types loaded from a patch file override guessing.
+patch_overrides_guess
+
 # avoid joining a large dense cluster of junctions
 guess_large
 

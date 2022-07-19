@@ -1,0 +1,30 @@
+# stopped vehicles on both sides of the road and traffic and a single encounter that requires waiting
+2stopped_wait
+
+# stopped vehicles on both sides of the road and traffic from both directions
+2stopped
+
+# queued stopped vehicles on both sides of the road and traffic from both directions
+2queues
+
+# queued and stopped vehicles on both sides of the road and traffic from both directions
+1stopped_1queue
+
+# stopped vehicles on both sides of the road and traffic from both directions,
+# traffic must be anticipated beyond junctions
+2stopped_junction
+
+# stopped vehicles on both sides of the road in a deadlock inducing configuration and traffic from both directions
+2deadlock
+
+# stopped vehicles on both sides of the road in a deadlock inducing configuration and sparse traffic from both directions
+2deadlock_sparse
+
+# stopped queued vehicles on both sides of the road in a deadlock inducing configuration and traffic from both directions
+2queues_deadlock
+
+# repeated groups of stopped queued vehicles on both sides of the road in a deadlock inducing configuration and traffic from both directions
+3queues_deadlock
+
+# repeated groups of stopped queued vehicles on both sides of the road in a deadlock inducing configuration and traffic from both directions
+4queues_deadlock

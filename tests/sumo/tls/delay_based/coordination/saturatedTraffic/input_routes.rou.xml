@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2021-12-08 13:53:19 by Eclipse SUMO netedit Version v1_11_0+0403-0176cbb
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <flow id="SN_B" begin="0.00" end="3600.00" number="600">
+        <route edges="B1B0 B0bottom1"/>
+    </flow>
+    <flow id="SN_C" begin="0.00" end="3600.00" number="450">
+        <route edges="C1C0 C0bottom2"/>
+    </flow>
+    <flow id="WE" begin="0.00" end="3600.00" number="1200">
+        <route edges="A0B0 B0C0 C0right0"/>
+    </flow>
+</routes>

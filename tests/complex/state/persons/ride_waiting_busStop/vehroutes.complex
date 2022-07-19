@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-04-22 12:20:15 by Eclipse SUMO sumo Version v1_12_0+2241-8b511a2
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <output>
+        <fcd-output value="fcd.xml"/>
+        <vehroute-output value="vehroutes.xml"/>
+        <vehroute-output.write-unfinished value="true"/>
+        <save-state.times value="3"/>
+        <save-state.files value="state.xml"/>
+        <save-state.transportables value="true"/>
+    </output>
+
+    <time>
+        <end value="10"/>
+    </time>
+
+    <report>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="v0" depart="0.00">
+        <route edges="3/1to2/1 2/1to1/1 1/1to0/1"/>
+        <stop edge="3/1to2/1" startPos="0.00" endPos="20.00" duration="10.00"/>
+    </vehicle>
+
+    <person id="persontrip_car" depart="2.00" departPos="10.00">
+        <stop busStop="bs0" duration="0.00"/>
+        <ride from="3/1to2/1" to="1/1to0/1" lines="v0"/>
+    </person>
+
+</routes>

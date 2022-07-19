@@ -24,6 +24,7 @@
 
     <xsd:complexType name="edgeLaneDataType">
         <xsd:attribute name="id" use="required" type="xsd:string"/>
+        <xsd:attribute name="numEdges" use="optional" type="nonNegativeIntType"/>
         <xsd:attribute name="sampledSeconds" use="optional" type="nonNegativeFloatType"/>
         <xsd:attribute name="traveltime" use="optional" type="nonNegativeFloatType"/>
         <xsd:attribute name="overlapTraveltime" use="optional" type="nonNegativeFloatType"/>
@@ -34,6 +35,7 @@
         <xsd:attribute name="waitingTime" use="optional" type="nonNegativeFloatType"/>
         <xsd:attribute name="timeLoss" use="optional" type="xsd:float"/>
         <xsd:attribute name="speed" use="optional" type="nonNegativeFloatType"/>
+        <xsd:attribute name="speedRelative" use="optional" type="nonNegativeFloatType"/>
         <xsd:attribute name="departed" use="optional" type="xsd:integer"/>
         <xsd:attribute name="arrived" use="optional" type="xsd:integer"/>
         <xsd:attribute name="entered" use="optional" type="nonNegativeFloatType"/>
@@ -41,6 +43,8 @@
         <xsd:attribute name="laneChangedFrom" use="optional" type="xsd:integer"/>
         <xsd:attribute name="laneChangedTo" use="optional" type="xsd:integer"/>
         <xsd:attribute name="vaporized" use="optional" type="xsd:integer"/>
+        <xsd:attribute name="vaporizedOnNextEdge" use="optional" type="xsd:integer"/>
+        <xsd:attribute name="teleported" use="optional" type="xsd:integer"/>
 
         <xsd:attribute name="CO_abs" use="optional" type="nonNegativeFloatType"/>
         <xsd:attribute name="CO2_abs" use="optional" type="nonNegativeFloatType"/>

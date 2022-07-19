@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2007-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2007-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -83,6 +83,10 @@ SAXWeightsHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
             myCurrentID = attrs.getOpt<std::string>(SUMO_ATTR_ID, nullptr, ok, "");
             myCurrentTimeBeg = STEPS2TIME(attrs.getSUMOTimeReporting(SUMO_ATTR_BEGIN, nullptr, ok));
             myCurrentTimeEnd = STEPS2TIME(attrs.getSUMOTimeReporting(SUMO_ATTR_END, nullptr, ok));
+            if (myCurrentTimeEnd < myCurrentTimeBeg) {
+                WRITE_ERROR("Interval end time " + toString(myCurrentTimeEnd) + " is lower than interval begin time " + toString(myCurrentTimeBeg));
+                myCurrentTimeEnd = myCurrentTimeBeg;
+            }
         }
         break;
         case SUMO_TAG_EDGE: {
@@ -174,8 +178,8 @@ SAXWeightsHandler::tryParseTazRel(const SUMOSAXAttributes& attrs) {
         for (ToRetrieveDefinition* ret : myDefinitions) {
             if (attrs.hasAttribute(ret->myAttributeName)) {
                 ret->myDestination.addTazRelWeight(myCurrentID, from, to,
-                                                    attrs.getFloat(ret->myAttributeName),
-                                                    myCurrentTimeBeg, myCurrentTimeEnd);
+                                                   attrs.getFloat(ret->myAttributeName),
+                                                   myCurrentTimeBeg, myCurrentTimeEnd);
             }
         }
     }

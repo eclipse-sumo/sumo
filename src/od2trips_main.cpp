@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2002-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -128,7 +128,7 @@ fillOptions() {
     oc.doRegister("begin", 'b', new Option_String("0", "TIME"));
     oc.addDescription("begin", "Time", "Defines the begin time; Previous trips will be discarded");
 
-    oc.doRegister("end", 'e', new Option_String(SUMOTIME_MAXSTRING, "TIME"));
+    oc.doRegister("end", 'e', new Option_String("-1", "TIME"));
     oc.addDescription("end", "Time", "Defines the end time; Later trips will be discarded; Defaults to the maximum time that SUMO can represent");
 
 
@@ -293,8 +293,9 @@ main(int argc, char** argv) {
         const std::string modes = toString(oc.getStringVector("persontrips.modes"));
         // write
         bool haveOutput = false;
+        const SUMOTime end = oc.isDefault("end") ? SUMOTime_MAX : string2time(oc.getString("end"));
         if (OutputDevice::createDeviceByOption("output-file", "routes", "routes_file.xsd")) {
-            matrix.write(string2time(oc.getString("begin")), string2time(oc.getString("end")),
+            matrix.write(string2time(oc.getString("begin")), end,
                          OutputDevice::getDeviceByOption("output-file"),
                          oc.getBool("spread.uniform"), oc.getBool("different-source-sink"),
                          oc.getBool("ignore-vehicle-type"),
@@ -304,7 +305,7 @@ main(int argc, char** argv) {
             haveOutput = true;
         }
         if (OutputDevice::createDeviceByOption("flow-output", "routes", "routes_file.xsd")) {
-            matrix.writeFlows(string2time(oc.getString("begin")), string2time(oc.getString("end")),
+            matrix.writeFlows(string2time(oc.getString("begin")), end,
                               OutputDevice::getDeviceByOption("flow-output"),
                               oc.getBool("ignore-vehicle-type"), oc.getString("prefix"),
                               oc.getBool("flow-output.probability"), oc.getBool("pedestrians"),

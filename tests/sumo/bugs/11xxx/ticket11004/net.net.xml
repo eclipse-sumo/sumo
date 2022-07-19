@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-06-22 09:54:57 by Eclipse SUMO netedit Version v1_13_0+1063-2ad84c5b8e8
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="miv.net.xml.gz"/>
+    </input>
+
+    <output>
+        <output-file value="/home/behr_mi/sumo-scenarios/brunswick/miv/net.net.xml"/>
+        <output.street-names value="true"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <netedit>
+        <route-files value="/home/behr_mi/sumo-scenarios/brunswick/miv/input_routes.rou.xml"/>
+    </netedit>
+
+</configuration>
+-->
+
+<net version="1.9" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="-598668.09,-5783261.49" convBoundary="4666.08,10192.93,4900.43,10243.49" origBoundary="10.393336,52.146541,10.787296,52.408126" projParameter="+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <type id="highway.bridleway" priority="1" numLanes="1" speed="2.78" allow="pedestrian" oneway="1" width="2.00"/>
+    <type id="highway.bus_guideway" priority="1" numLanes="1" speed="27.78" allow="bus" oneway="1"/>
+    <type id="highway.cycleway" priority="1" numLanes="1" speed="8.33" allow="bicycle" oneway="0" width="1.00"/>
+    <type id="highway.footway" priority="1" numLanes="1" speed="2.78" allow="pedestrian" oneway="1" width="2.00"/>
+    <type id="highway.ford" priority="1" numLanes="1" speed="2.78" allow="army" oneway="0"/>
+    <type id="highway.living_street" priority="2" numLanes="1" speed="2.78" disallow="tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
+    <type id="highway.motorway" priority="14" numLanes="2" speed="39.44" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" oneway="1"/>
+    <type id="highway.motorway_link" priority="9" numLanes="1" speed="22.22" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" oneway="1"/>
+    <type id="highway.path" priority="1" numLanes="1" speed="2.78" allow="pedestrian bicycle" oneway="0" width="2.00"/>
+    <type id="highway.pedestrian" priority="1" numLanes="1" speed="2.78" allow="pedestrian" oneway="1" width="2.00"/>
+    <type id="highway.primary" priority="12" numLanes="2" speed="27.78" disallow="tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
+    <type id="highway.primary_link" priority="7" numLanes="1" speed="22.22" disallow="tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
+    <type id="highway.raceway" priority="15" numLanes="2" speed="83.33" allow="vip" oneway="0"/>
+    <type id="highway.residential" priority="3" numLanes="1" speed="13.89" disallow="tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
+    <type id="highway.secondary" priority="11" numLanes="1" speed="27.78" disallow="tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
+    <type id="highway.secondary_link" priority="6" numLanes="1" speed="22.22" disallow="tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
+    <type id="highway.service" priority="1" numLanes="1" speed="5.56" allow="pedestrian delivery bicycle" oneway="0"/>
+    <type id="highway.service|railway.tram" priority="17" numLanes="1" speed="13.89" allow="pedestrian delivery bicycle tram" oneway="0"/>
+    <type id="highway.stairs" priority="1" numLanes="1" speed="1.39" allow="pedestrian" oneway="1" width="2.00"/>
+    <type id="highway.step" priority="1" numLanes="1" speed="1.39" allow="pedestrian" oneway="1" width="2.00"/>
+    <type id="highway.steps" priority="1" numLanes="1" speed="1.39" allow="pedestrian" oneway="1" width="2.00"/>
+    <type id="highway.tertiary" priority="10" numLanes="1" speed="22.22" disallow="tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
+    <type id="highway.tertiary_link" priority="5" numLanes="1" speed="22.22" disallow="tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
+    <type id="highway.tertiary|railway.tram" priority="17" numLanes="1" speed="22.22" disallow="rail_urban rail rail_electric rail_fast ship" oneway="0"/>
+    <type id="highway.track" priority="1" numLanes="1" speed="5.56" allow="pedestrian motorcycle moped bicycle" oneway="0"/>
+    <type id="highway.trunk" priority="13" numLanes="2" speed="27.78" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
+    <type id="highway.trunk_link" priority="8" numLanes="1" speed="22.22" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
+    <type id="highway.unclassified" priority="4" numLanes="1" speed="13.89" disallow="tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
+    <type id="highway.unsurfaced" priority="1" numLanes="1" speed="8.33" disallow="tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
+    <type id="railway.highspeed" priority="21" numLanes="1" speed="69.44" allow="rail_fast" oneway="1"/>
+    <type id="railway.light_rail" priority="19" numLanes="1" speed="27.78" allow="rail_urban" oneway="1"/>
+    <type id="railway.preserved" priority="16" numLanes="1" speed="27.78" allow="rail" oneway="1"/>
+    <type id="railway.rail" priority="20" numLanes="1" speed="44.44" allow="rail" oneway="1"/>
+    <type id="railway.subway" priority="18" numLanes="1" speed="27.78" allow="rail_urban" oneway="1"/>
+    <type id="railway.tram" priority="17" numLanes="1" speed="13.89" allow="tram" oneway="1"/>
+
+    <edge id=":26154204_0" function="internal">
+        <lane id=":26154204_0_0" index="0" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="17.14" length="13.72" shape="4874.35,10221.63 4870.90,10219.73 4868.35,10218.76 4865.64,10218.39 4861.69,10218.30"/>
+        <lane id=":26154204_0_1" index="1" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="22.22" length="13.72" shape="4875.29,10218.54 4871.33,10217.16 4868.62,10216.09 4865.86,10215.38 4861.73,10215.10"/>
+    </edge>
+    <edge id=":26154204_2" function="internal">
+        <lane id=":26154204_2_0" index="0" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="22.22" length="13.66" shape="4875.23,10214.58 4871.30,10216.11 4868.60,10217.30 4865.83,10218.06 4861.69,10218.30"/>
+        <lane id=":26154204_2_1" index="1" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="22.22" length="13.66" shape="4874.22,10211.54 4870.58,10212.98 4868.10,10214.12 4865.56,10214.86 4861.73,10215.10"/>
+    </edge>
+
+    <edge id="26229175" from="26154204" to="287216320" priority="9" type="highway.motorway_link" spreadType="center" shape="4863.75,10216.72 4839.67,10216.44 4815.13,10213.45 4792.81,10208.96 4761.41,10203.92 4729.72,10200.18 4666.08,10192.93">
+        <lane id="26229175_0" index="0" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="22.22" length="197.30" shape="4861.69,10218.30 4839.56,10218.04 4814.88,10215.03 4792.53,10210.53 4761.19,10205.51 4729.54,10201.77 4665.90,10194.52"/>
+        <lane id="26229175_1" index="1" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="22.22" length="197.30" shape="4861.73,10215.10 4839.78,10214.84 4815.38,10211.87 4793.09,10207.39 4761.63,10202.33 4729.90,10198.59 4666.26,10191.34"/>
+    </edge>
+    <edge id="26229178#0" from="268401509" to="26154204" priority="9" type="highway.motorway_link" spreadType="center" shape="4900.43,10243.49 4885.34,10226.17 4882.30,10224.41 4874.86,10220.08 4863.75,10216.72">
+        <lane id="26229178#0_0" index="0" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="22.22" length="35.13" shape="4899.22,10244.54 4884.31,10227.42 4881.50,10225.79 4874.35,10221.63"/>
+        <lane id="26229178#0_1" index="1" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="22.22" length="35.13" shape="4901.64,10242.44 4886.37,10224.92 4883.10,10223.03 4875.50,10218.60 4875.29,10218.54"/>
+    </edge>
+    <edge id="26691822#0" from="A392_AS_Hamburger" to="26154204" priority="9" type="highway.motorway_link" spreadType="center">
+        <lane id="26691822#0_0" index="0" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="22.22" length="10.48" shape="4885.18,10211.27 4875.23,10214.58"/>
+        <lane id="26691822#0_1" index="1" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="22.22" length="10.48" shape="4884.16,10208.23 4874.22,10211.54"/>
+    </edge>
+
+    <tlLogic id="A392_AS_Hamburger" type="actuated" programID="0" offset="0">
+        <phase duration="10" state="GGgg"/>
+        <phase duration="5"  state="yygg"/>
+        <phase duration="30" state="rrGG"/>
+        <phase duration="5"  state="rrgg"/>
+    </tlLogic>
+
+    <junction id="26154204" type="traffic_light" x="4863.75" y="10216.72" incLanes="26229178#0_0 26229178#0_1 26691822#0_0 26691822#0_1" intLanes=":26154204_0_0 :26154204_0_1 :26154204_2_0 :26154204_2_1" shape="4873.87,10223.21 4875.75,10217.01 4875.11,10216.71 4875.03,10216.56 4875.11,10216.41 4875.34,10216.26 4875.74,10216.10 4873.72,10210.03 4871.21,10210.97 4869.37,10211.82 4867.85,10212.53 4866.31,10213.07 4864.39,10213.40 4861.75,10213.50 4861.67,10219.90 4864.39,10219.95 4866.43,10220.08 4868.09,10220.39 4869.68,10220.95 4871.51,10221.86">
+        <request index="0" response="0000" foes="1100" cont="0"/>
+        <request index="1" response="0000" foes="1100" cont="0"/>
+        <request index="2" response="0011" foes="0011" cont="0"/>
+        <request index="3" response="0011" foes="0011" cont="0"/>
+    </junction>
+    <junction id="268401509" type="dead_end" x="4900.43" y="10243.49" incLanes="" intLanes="" shape="4902.84,10241.39 4898.02,10245.59"/>
+    <junction id="287216320" type="dead_end" x="4666.08" y="10192.93" incLanes="26229175_0 26229175_1" intLanes="" shape="4665.72,10196.11 4666.44,10189.75"/>
+    <junction id="A392_AS_Hamburger" type="dead_end" x="4884.67" y="10209.75" incLanes="" intLanes="" shape="4883.66,10206.71 4885.68,10212.79"/>
+
+    <connection from="26229178#0" to="26229175" fromLane="0" toLane="0" via=":26154204_0_0" tl="A392_AS_Hamburger" linkIndex="0" dir="s" state="O"/>
+    <connection from="26229178#0" to="26229175" fromLane="1" toLane="1" via=":26154204_0_1" tl="A392_AS_Hamburger" linkIndex="1" dir="s" state="O"/>
+    <connection from="26691822#0" to="26229175" fromLane="0" toLane="0" via=":26154204_2_0" tl="A392_AS_Hamburger" linkIndex="2" dir="s" state="o"/>
+    <connection from="26691822#0" to="26229175" fromLane="1" toLane="1" via=":26154204_2_1" tl="A392_AS_Hamburger" linkIndex="3" dir="s" state="o"/>
+
+    <connection from=":26154204_0" to="26229175" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":26154204_0" to="26229175" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from=":26154204_2" to="26229175" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":26154204_2" to="26229175" fromLane="1" toLane="1" dir="s" state="M"/>
+
+
+</net>

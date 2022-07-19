@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -207,8 +207,8 @@ public:
      * @param[in] from_srs The spatial reference system of the input coordinate
      * @notde These methods are located outside of GeoConvHelper to avoid linker-dependencies on GDAL for libgeom
      */
-    static bool transformCoordinate(Position& from, bool includeInBoundary = true, GeoConvHelper* from_srs = 0);
-    static bool transformCoordinates(PositionVector& from, bool includeInBoundary = true, GeoConvHelper* from_srs = 0);
+    static bool transformCoordinate(Position& from, bool includeInBoundary = true, GeoConvHelper* from_srs = nullptr);
+    static bool transformCoordinates(PositionVector& from, bool includeInBoundary = true, GeoConvHelper* from_srs = nullptr);
 
     /// @brief insertion geometry points to ensure maximum segment length between points
     static int addGeometrySegments(PositionVector& from, const PositionVector& cartesian, const double maxLength);

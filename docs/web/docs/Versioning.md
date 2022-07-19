@@ -29,7 +29,7 @@ There is only one line of development.
 
 It is denoted by a string consisting of a "v", the last release (e.g. "1_6_0"), a plus sign with the number of 
 commits since last release (e.g. "+1520") and a minus followed by the first letters of the hash of the last commit to 
-the master branch on github (e.g. "-cb474809f6"). For the python packages this is translated into "1.6.0.post1520" to be compliant
+the main branch on github (e.g. "-cb474809f6"). For the python packages this is translated into "1.6.0.post1520" to be compliant
 with PEP440.
 
 ## Network version

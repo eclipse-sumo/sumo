@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -28,6 +28,8 @@
 #include <microsim/output/MSStopOut.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSEdge.h>
+#include <microsim/MSStop.h>
+#include <microsim/MSStoppingPlace.h>
 #include <microsim/transportables/MSPerson.h>
 #include <microsim/transportables/MSTransportableControl.h>
 #include <microsim/transportables/MSStageDriving.h>
@@ -52,9 +54,12 @@ MSDevice_Transportable::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicl
 // ---------------------------------------------------------------------------
 // MSDevice_Transportable-methods
 // ---------------------------------------------------------------------------
-MSDevice_Transportable::MSDevice_Transportable(SUMOVehicle& holder, const std::string& id, const bool isContainer)
-    : MSVehicleDevice(holder, id), myAmContainer(isContainer), myTransportables(), myStopped(holder.isStopped()) {
-}
+MSDevice_Transportable::MSDevice_Transportable(SUMOVehicle& holder, const std::string& id, const bool isContainer) :
+    MSVehicleDevice(holder, id),
+    myAmContainer(isContainer),
+    myTransportables(),
+    myStopped(holder.isStopped())
+{ }
 
 
 MSDevice_Transportable::~MSDevice_Transportable() {
@@ -79,37 +84,76 @@ MSDevice_Transportable::~MSDevice_Transportable() {
 void
 MSDevice_Transportable::notifyMoveInternal(const SUMOTrafficObject& veh,
         const double /* frontOnLane */,
-        const double /* timeOnLane*/,
+        const double /* timeOnLane */,
         const double /* meanSpeedFrontOnLane */,
-        const double /*meanSpeedVehicleOnLane */,
-        const double /* travelledDistanceFrontOnLane */,
+        const double /* meanSpeedVehicleOnLane */,
+        const double travelledDistanceFrontOnLane,
         const double /* travelledDistanceVehicleOnLane */,
         const double /* meanLengthOnLane */) {
-    notifyMove(const_cast<SUMOTrafficObject&>(veh), -1, -1, -1);
+    notifyMove(const_cast<SUMOTrafficObject&>(veh), -1, travelledDistanceFrontOnLane, veh.getEdge()->getVehicleMaxSpeed(&veh));
 }
 
+bool
+MSDevice_Transportable::anyLeavingAtStop(const MSStop& stop) const {
+    for (const MSTransportable* t : myTransportables) {
+        MSStageDriving* const stage = dynamic_cast<MSStageDriving*>(t->getCurrentStage());
+        if (stage->canLeaveVehicle(t, myHolder, stop)) {
+            return true;
+        }
+    }
+    return false;
+}
 
 bool
-MSDevice_Transportable::notifyMove(SUMOTrafficObject& veh, double /*oldPos*/, double /*newPos*/, double /*newSpeed*/) {
+MSDevice_Transportable::notifyMove(SUMOTrafficObject& /*tObject*/, double /*oldPos*/, double newPos, double newSpeed) {
+    SUMOVehicle& veh = myHolder;
+    const SUMOTime currentTime = MSNet::getInstance()->getCurrentTimeStep();
     if (myStopped) {
         if (!veh.isStopped()) {
-            for (std::vector<MSTransportable*>::iterator i = myTransportables.begin(); i != myTransportables.end(); ++i) {
-                (*i)->setDeparted(MSNet::getInstance()->getCurrentTimeStep());
+            const SUMOTime freeFlowTimeCorrection = MSGlobals::gUseMesoSim ? TIME2STEPS(newPos / newSpeed) : 0;
+            for (MSTransportable* const transportable : myTransportables) {
+                transportable->setDeparted(currentTime - freeFlowTimeCorrection);
             }
             myStopped = false;
         }
     } else {
         if (veh.isStopped()) {
+            myStopped = true;
+            MSStop& stop = veh.getNextStop();
+            const SUMOTime boardingDuration = veh.getVehicleType().getLoadingDuration(!myAmContainer);
             for (std::vector<MSTransportable*>::iterator i = myTransportables.begin(); i != myTransportables.end();) {
                 MSTransportable* transportable = *i;
                 MSStageDriving* const stage = dynamic_cast<MSStageDriving*>(transportable->getCurrentStage());
-                if (stage->canLeaveVehicle(transportable, myHolder)) {
+                if (stage->canLeaveVehicle(transportable, myHolder, stop)) {
+                    if (stop.timeToBoardNextPerson - DELTA_T > currentTime) {
+                        // try deboarding again in the next step
+                        myStopped = false;
+                        break;
+                    }
+                    if (stage->getDestinationStop() != nullptr) {
+                        stage->getDestinationStop()->addTransportable(transportable);
+                    }
+
+                    SUMOTime arrivalTime = currentTime;
+                    if (MSGlobals::gUseMesoSim) {
+                        arrivalTime += 1;
+                    } else {
+                        // no boarding / unboarding time in meso
+                        if (stop.timeToBoardNextPerson > currentTime - DELTA_T) {
+                            stop.timeToBoardNextPerson += boardingDuration;
+                        } else {
+                            stop.timeToBoardNextPerson = currentTime + boardingDuration;
+                        }
+                    }
+                    //ensure that vehicle stops long enough for deboarding
+                    stop.duration = MAX2(stop.duration, stop.timeToBoardNextPerson - currentTime);
+
                     i = myTransportables.erase(i); // erase first in case proceed throws an exception
                     MSDevice_Taxi* taxiDevice = static_cast<MSDevice_Taxi*>(myHolder.getDevice(typeid(MSDevice_Taxi)));
                     if (taxiDevice != nullptr) {
                         taxiDevice->customerArrived(transportable);
                     }
-                    if (!transportable->proceed(MSNet::getInstance(), MSNet::getInstance()->getCurrentTimeStep())) {
+                    if (!transportable->proceed(MSNet::getInstance(), arrivalTime)) {
                         if (myAmContainer) {
                             MSNet::getInstance()->getContainerControl().erase(transportable);
                         } else {
@@ -128,7 +172,6 @@ MSDevice_Transportable::notifyMove(SUMOTrafficObject& veh, double /*oldPos*/, do
                 }
                 ++i;
             }
-            myStopped = true;
         }
     }
     return true;
@@ -138,8 +181,9 @@ MSDevice_Transportable::notifyMove(SUMOTrafficObject& veh, double /*oldPos*/, do
 bool
 MSDevice_Transportable::notifyEnter(SUMOTrafficObject& veh, MSMoveReminder::Notification reason, const MSLane* /* enteredLane */) {
     if (reason == MSMoveReminder::NOTIFICATION_DEPARTED) {
-        for (std::vector<MSTransportable*>::iterator i = myTransportables.begin(); i != myTransportables.end(); ++i) {
-            (*i)->setDeparted(MSNet::getInstance()->getCurrentTimeStep());
+        const SUMOTime currentTime = MSNet::getInstance()->getCurrentTimeStep();
+        for (MSTransportable* const transportable : myTransportables) {
+            transportable->setDeparted(currentTime);
         }
     }
     if (MSGlobals::gUseMesoSim) {
@@ -159,7 +203,7 @@ MSDevice_Transportable::notifyLeave(SUMOTrafficObject& veh, double /*lastPos*/,
             if (transportable->getDestination() != veh.getEdge()) {
                 WRITE_WARNING((myAmContainer ? "Teleporting container '" : "Teleporting person '") + transportable->getID() +
                               "' from vehicle destination edge '" + veh.getEdge()->getID() +
-                              "' to intended destination edge '" + transportable->getDestination()->getID() + "'");
+                              "' to intended destination edge '" + transportable->getDestination()->getID() + "' time=" + time2string(SIMSTEP));
             }
             if (!transportable->proceed(MSNet::getInstance(), MSNet::getInstance()->getCurrentTimeStep(), true)) {
                 if (myAmContainer) {

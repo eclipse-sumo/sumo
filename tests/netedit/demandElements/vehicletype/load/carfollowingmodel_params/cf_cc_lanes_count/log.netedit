@@ -1,5 +1,0 @@
-Error: attribute 'lanesCount' is already specified for element 'vType'
- In file 'C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.01Jul154511.6200\netedit.gui\demandElements\vehicletype\load\carfollowingmodel_params\cf_cc_lanes_count\input_routes.rou.xml'
- At line/column 42/70.
-
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.01Jul154511.6200\netedit.gui\demandElements\vehicletype\load\carfollowingmodel_params\cf_cc_lanes_count\input_routes.rou.xml failed.

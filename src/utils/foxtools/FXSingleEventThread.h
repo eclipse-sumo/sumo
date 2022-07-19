@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2004-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2004-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -31,26 +31,18 @@
 class MFXInterThreadEventClient;
 
 class FXSingleEventThread : public FXObject, public FXThread {
+    /// @brief FOX declaration
     FXDECLARE(FXSingleEventThread)
-
-private:
-    FXEX::FXThreadEventHandle event;
-
-private:
-    FXSingleEventThread(const FXSingleEventThread&);
-    FXSingleEventThread& operator=(const FXSingleEventThread&);
 
 public:
     enum {
         ID_THREAD_EVENT
     };
 
-public:
-    long onThreadSignal(FXObject*, FXSelector, void*);
-    long onThreadEvent(FXObject*, FXSelector, void*);
-
-public:
+    /// @brief constructor
     FXSingleEventThread(FXApp* a, MFXInterThreadEventClient* client);
+
+    virtual ~FXSingleEventThread();
 
     void signal();
 
@@ -60,16 +52,31 @@ public:
         return 0;
     }
 
-    virtual ~FXSingleEventThread();
-
     static void sleep(long ms);
 
-private:
-    FXApp* myApp;
-    MFXInterThreadEventClient* myClient;
+    long onThreadSignal(FXObject*, FXSelector, void*);
+
+    long onThreadEvent(FXObject*, FXSelector, void*);
 
 protected:
+    /// @brief FOX need this
     FXSingleEventThread() { }
+
+    /// @brief pointer to APP
+    FXApp* myApp = nullptr;
+
+    /// @brief thread client
+    MFXInterThreadEventClient* myClient = nullptr;
+
+private:
+    /// @brief event
+    FXEX::FXThreadEventHandle event;
+
+    /// @brief invalidate copy constructor
+    FXSingleEventThread(const FXSingleEventThread&) = delete;
+
+    /// @brief invalidate assignment constructor
+    FXSingleEventThread& operator=(const FXSingleEventThread&) = delete;
 };
 
 

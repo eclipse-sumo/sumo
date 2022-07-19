@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -30,7 +30,7 @@
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
-#include <utils/gui/globjects/GUIPolygon.h>
+#include <utils/gui/div/GUIGlobalPostDrawing.h>
 
 #include "GNETAZ.h"
 
@@ -46,18 +46,35 @@ const double GNETAZ::myHintSizeSquared = 0.64;
 // member method definitions
 // ===========================================================================
 
-GNETAZ::GNETAZ(const std::string& id, GNENet* net, const PositionVector &shape, const bool fill, const RGBColor &color, 
-               const std::string& name, const std::map<std::string, std::string>& parameters) :
-    GNETAZElement(id, net, GLO_TAZ, SUMO_TAG_TAZ,
-        {}, {}, {}, {}, {}, {}, {}, {},
-    parameters),
-    SUMOPolygon(id, name, color, shape, false, fill, 1),
-    myMaxWeightSource(0),
-    myMinWeightSource(0),
-    myAverageWeightSource(0),
-    myMaxWeightSink(0),
-    myMinWeightSink(0),
-    myAverageWeightSink(0) {
+GNETAZ::GNETAZ(GNENet* net) :
+    GNEAdditional("", net, GLO_TAZ, SUMO_TAG_TAZ, "",
+{}, {}, {}, {}, {}, {}),
+TesselatedPolygon("", "", RGBColor::BLACK, {}, false, false, 1, Shape::DEFAULT_LAYER, Shape::DEFAULT_ANGLE, Shape::DEFAULT_IMG_FILE, Shape::DEFAULT_RELATIVEPATH, ""),
+myMaxWeightSource(0),
+myMinWeightSource(0),
+myAverageWeightSource(0),
+myMaxWeightSink(0),
+myMinWeightSink(0),
+myAverageWeightSink(0) {
+    // reset default values
+    resetDefaultValues();
+}
+
+
+GNETAZ::GNETAZ(const std::string& id, GNENet* net, const PositionVector& shape, const Position& center, const bool fill,
+               const RGBColor& color, const std::string& name, const Parameterised::Map& parameters) :
+    GNEAdditional(id, net, GLO_TAZ, SUMO_TAG_TAZ, "",
+{}, {}, {}, {}, {}, {}),
+TesselatedPolygon(id, "", color, shape, false, fill, 1, Shape::DEFAULT_LAYER, Shape::DEFAULT_ANGLE, Shape::DEFAULT_IMG_FILE, Shape::DEFAULT_RELATIVEPATH, name, parameters),
+myTAZCenter(center),
+myMaxWeightSource(0),
+myMinWeightSource(0),
+myAverageWeightSource(0),
+myMaxWeightSink(0),
+myMinWeightSink(0),
+myAverageWeightSink(0) {
+    // update centering boundary without updating grid
+    updateCenteringBoundary(false);
     // update geometry
     updateGeometry();
 }
@@ -67,39 +84,19 @@ GNETAZ::~GNETAZ() {}
 
 
 GNEMoveOperation*
-GNETAZ::getMoveOperation(const double shapeOffset) {
-    // edit depending if shape is blocked
-    if (myNet->getViewNet()->getViewParent()->getMoveFrame()->getNetworkModeOptions()->getMoveWholePolygons()) {
+GNETAZ::getMoveOperation() {
+    // get snap radius
+    const double snap_radius = myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.polygonGeometryPointRadius;
+    // check if we're moving center or shape
+    if (myTAZCenter.distanceSquaredTo2D(myNet->getViewNet()->getPositionInformation()) < (snap_radius * snap_radius)) {
+        // move entire shape
+        return new GNEMoveOperation(this, myTAZCenter);
+    } else if (myNet->getViewNet()->getViewParent()->getMoveFrame()->getNetworkModeOptions()->getMoveWholePolygons()) {
         // move entire shape
         return new GNEMoveOperation(this, myShape);
     } else {
-        // declare shape to move
-        PositionVector shapeToMove = myShape;
-        // first check if in the given shapeOffset there is a geometry point
-        const Position positionAtOffset = shapeToMove.positionAtOffset2D(shapeOffset);
-        // check if position is valid
-        if (positionAtOffset == Position::INVALID) {
-            return nullptr;
-        } else {
-            // obtain index
-            const int index = myShape.indexOfClosest(positionAtOffset);
-            // declare new index
-            int newIndex = index;
-            // get snap radius
-            const double snap_radius = myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.polygonGeometryPointRadius;
-            // check if we have to create a new index
-            if (positionAtOffset.distanceSquaredTo2D(shapeToMove[index]) > (snap_radius * snap_radius)) {
-                newIndex = shapeToMove.insertAtClosest(positionAtOffset, true);
-            }
-            // get last index
-            const int lastIndex = ((int)shapeToMove.size() - 1);
-            // return move operation for edit shape
-            if (myShape.isClosed() && ((index == 0) || (index == lastIndex))) {
-                return new GNEMoveOperation(this, myShape, {0, lastIndex}, shapeToMove, {0, lastIndex});
-            } else {
-                return new GNEMoveOperation(this, myShape, {index}, shapeToMove, {newIndex});
-            }
-        }
+        // calculate move shape operation
+        return calculateMoveShapeOperation(myShape, myNet->getViewNet()->getPositionInformation(), snap_radius, true);
     }
 }
 
@@ -146,7 +143,7 @@ GNETAZ::removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoLis
                 shape.erase(shape.begin() + index);
             }
             // commit new shape
-            undoList->begin("remove geometry point of " + getTagStr());
+            undoList->begin(GUIIcon::TAZ, "remove geometry point of " + getTagStr());
             undoList->changeAttribute(new GNEChange_Attribute(this, SUMO_ATTR_SHAPE, toString(shape)));
             undoList->end();
         }
@@ -154,29 +151,34 @@ GNETAZ::removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoLis
 }
 
 
-const PositionVector&
-GNETAZ::getTAZElementShape() const {
-    return myShape;
-}
-
-
 void
-GNETAZ::writeTAZElement(OutputDevice& device) const {
+GNETAZ::writeAdditional(OutputDevice& device) const {
     // first open TAZ tag
     device.openTag(SUMO_TAG_TAZ);
     // write TAZ attributes
     device.writeAttr(SUMO_ATTR_ID, getID());
     device.writeAttr(SUMO_ATTR_SHAPE, myShape);
+    if (myTAZCenter != myShape.getCentroid()) {
+        device.writeAttr(SUMO_ATTR_CENTER, myTAZCenter);
+    }
     if (myFill) {
         device.writeAttr(SUMO_ATTR_FILL, true);
     }
+    if (getShapeName().size() > 0) {
+        device.writeAttr(SUMO_ATTR_NAME, getShapeName());
+    }
     device.writeAttr(SUMO_ATTR_COLOR, getShapeColor());
+    // sort all Source/Sinks by ID
+    std::map<std::pair<std::string, SumoXMLTag>, GNEAdditional*> sortedSourceSinks;
+    for (const auto& sourceSink : getChildAdditionals()) {
+        sortedSourceSinks[std::make_pair(sourceSink->getAttribute(SUMO_ATTR_EDGE), sourceSink->getTagProperty().getTag())] = sourceSink;
+    }
     // write all TAZ Source/sinks
-    for (const auto& sourceSink : getChildTAZElements()) {
-        sourceSink->writeTAZElement(device);
+    for (const auto& sortedSourceSink : sortedSourceSinks) {
+        sortedSourceSink.second->writeAdditional(device);
     }
     // write params
-    GNETAZElement::writeParams(device);
+    writeParams(device);
     // close TAZ tag
     device.closeTag();
 }
@@ -185,11 +187,12 @@ GNETAZ::writeTAZElement(OutputDevice& device) const {
 void
 GNETAZ::updateGeometry() {
     // just update geometry
-    myTAZGeometry.updateGeometry(myShape);
+    myAdditionalGeometry.updateGeometry(myShape);
     // update geometry of TAZRelDatas
-    for (const auto &TAZRelData : getChildGenericDatas()) {
+    for (const auto& TAZRelData : getChildGenericDatas()) {
         TAZRelData->updateGeometry();
     }
+    myTesselation.clear();
 }
 
 
@@ -199,18 +202,41 @@ GNETAZ::getPositionInView() const {
 }
 
 
-Boundary
-GNETAZ::getCenteringBoundary() const {
-    // Return Boundary depending if myMovingGeometryBoundary is initialised (important for move geometry)
-    if (myMovingGeometryBoundary.isInitialised()) {
-        return myMovingGeometryBoundary;
-    } else if (myShape.size() > 0) {
-        Boundary b = myShape.getBoxBoundary();
-        b.grow(40);
-        return b;
-    } else {
-        return Boundary(-0.1, -0.1, 0.1, 0.1);
+double
+GNETAZ::getExaggeration(const GUIVisualizationSettings& s) const {
+    return s.polySize.getExaggeration(s, this);
+}
+
+
+void
+GNETAZ::updateCenteringBoundary(const bool updateGrid) {
+    // Remove object from net
+    if (updateGrid) {
+        myNet->removeGLObjectFromGrid(this);
+        for (const auto& TAZRelData : getChildGenericDatas()) {
+            myNet->removeGLObjectFromGrid(TAZRelData);
+        }
     }
+    // use shape as boundary
+    myAdditionalBoundary = myShape.getBoxBoundary();
+    // add center
+    myAdditionalBoundary.add(myTAZCenter);
+    // grow boundary
+    myAdditionalBoundary.grow(10);
+    // add object into net
+    if (updateGrid) {
+        myNet->addGLObjectIntoGrid(this);
+        for (const auto& TAZRelData : getChildGenericDatas()) {
+            TAZRelData->updateGeometry();
+            myNet->addGLObjectIntoGrid(TAZRelData);
+        }
+    }
+}
+
+
+void
+GNETAZ::splitEdgeGeometry(const double /*splitPosition*/, const GNENetworkElement* /*originalElement*/, const GNENetworkElement* /*newElement*/, GNEUndoList* /*undoList*/) {
+    // Nothing to split
 }
 
 
@@ -240,12 +266,6 @@ GNETAZ::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     return ret;
 }
 
-bool
-GNETAZ::getFill() const {
-    // getFill gets called when myViewNet isn't yet available
-    return SUMOPolygon::getFill() || myNet->getViewNet()->getDataViewOptions().TAZDrawFill();
-}
-
 
 void
 GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
@@ -255,24 +275,28 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
     }
     // first check if poly can be drawn
     if (myNet->getViewNet()->getDemandViewOptions().showShapes() && GUIPolygon::checkDraw(s, this, this)) {
+        // check if draw start und end
+        const bool drawExtremeSymbols = myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() &&
+                                        myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE;
         // Obtain constants
-        const double TAZExaggeration = s.polySize.getExaggeration(s, (GNETAZElement*)this);
+        const double TAZExaggeration = getExaggeration(s);
         const Position mousePosition = myNet->getViewNet()->getPositionInformation();
+        const bool drawFill = (myNet->getViewNet()->getEditModes().isCurrentSupermodeData() && myNet->getViewNet()->getDataViewOptions().TAZDrawFill()) ? true : getFill();
         // get colors
-        const RGBColor color = isAttributeCarrierSelected() ? s.colorSettings.selectionColor : getShapeColor();
+        const RGBColor color = GUIPolygon::setColor(s, this, this, drawUsingSelectColor(), -1);
         const RGBColor invertedColor = color.invertedColor();
         const RGBColor darkerColor = color.changedBrightness(-32);
         // push name (needed for getGUIGlObjectsUnderCursor(...)
-        GLHelper::pushName(GNETAZElement::getGlID());
+        GLHelper::pushName(GNEAdditional::getGlID());
         // push layer matrix
         GLHelper::pushMatrix();
         // translate to front
         myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, getShapeLayer());
         // check if we're drawing a polygon or a polyline
-        if (getFill()) {
+        if (getFill() || myNet->getViewNet()->getDataViewOptions().TAZDrawFill()) {
             if (s.drawForPositionSelection) {
                 // check if mouse is within geometry
-                if (myTAZGeometry.getShape().around(mousePosition)) {
+                if (myAdditionalGeometry.getShape().around(mousePosition)) {
                     // push matrix
                     GLHelper::pushMatrix();
                     // move to mouse position
@@ -287,7 +311,7 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
             } else {
                 // draw inner polygon
                 const int alphaOverride = myNet->getViewNet()->getDataViewOptions().TAZDrawFill() ? 128 : -1;
-                GUIPolygon::drawInnerPolygon(s, this, this, myTAZGeometry.getShape(), 0, drawUsingSelectColor(), alphaOverride);
+                GUIPolygon::drawInnerPolygon(s, this, this, myAdditionalGeometry.getShape(), 0, drawFill, drawUsingSelectColor(), alphaOverride, true);
             }
         } else {
             // push matrix
@@ -295,7 +319,7 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
             // set color
             GLHelper::setColor(color);
             // draw geometry (polyline)
-            GNEGeometry::drawGeometry(myNet->getViewNet(), myTAZGeometry, s.neteditSizeSettings.polylineWidth * TAZExaggeration);
+            GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myAdditionalGeometry, s.neteditSizeSettings.polylineWidth * TAZExaggeration);
             // pop matrix
             GLHelper::popMatrix();
         }
@@ -308,33 +332,56 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
             // set color
             GLHelper::setColor(darkerColor);
             // draw polygon contour
-            GNEGeometry::drawGeometry(myNet->getViewNet(), myTAZGeometry, s.neteditSizeSettings.polygonContourWidth * TAZExaggeration);
+            GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myAdditionalGeometry, s.neteditSizeSettings.polygonContourWidth * TAZExaggeration);
             // pop contour matrix
             GLHelper::popMatrix();
             // draw shape points only in Network supemode
             if (s.drawMovingGeometryPoint(TAZExaggeration, s.neteditSizeSettings.polygonGeometryPointRadius) && myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
+                // check move mode flag
+                const bool moveMode = (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE);
                 // draw geometry points
-                GNEGeometry::drawGeometryPoints(s, myNet->getViewNet(), myTAZGeometry.getShape(), darkerColor, invertedColor, s.neteditSizeSettings.polygonGeometryPointRadius, TAZExaggeration);
+                GUIGeometry::drawGeometryPoints(s, myNet->getViewNet()->getPositionInformation(), myAdditionalGeometry.getShape(), darkerColor, invertedColor,
+                                                s.neteditSizeSettings.polygonGeometryPointRadius * (moveMode ? 1 : 0.5), TAZExaggeration,
+                                                myNet->getViewNet()->getNetworkViewOptions().editingElevation(), drawExtremeSymbols);
                 // draw moving hint points
-                if (!myNet->getViewNet()->getLockManager().isObjectLocked(GLO_TAZ)) {
-                    GNEGeometry::drawMovingHint(s, myNet->getViewNet(), myTAZGeometry.getShape(), invertedColor, s.neteditSizeSettings.polygonGeometryPointRadius, TAZExaggeration);
+                if (!myNet->getViewNet()->getLockManager().isObjectLocked(GLO_TAZ, isAttributeCarrierSelected()) && moveMode) {
+                    GUIGeometry::drawMovingHint(s, myNet->getViewNet()->getPositionInformation(), myAdditionalGeometry.getShape(), invertedColor,
+                                                s.neteditSizeSettings.polygonGeometryPointRadius, TAZExaggeration);
                 }
             }
         }
+        // draw center
+        const double centerRadius = s.neteditSizeSettings.polygonGeometryPointRadius * TAZExaggeration;
+        // push center matrix
+        GLHelper::pushMatrix();
+        // move to vertex
+        glTranslated(myTAZCenter.x(), myTAZCenter.y(), 0.3);
+        // set color
+        GLHelper::setColor(darkerColor);
+        // draw circle
+        GLHelper::drawFilledCircle(centerRadius, s.getCircleResolution());
+        // move to front
+        glTranslated(0, 0, 0.1);
+        // set color
+        GLHelper::setColor(color);
+        // draw circle
+        GLHelper::drawFilledCircle(centerRadius * 0.8, s.getCircleResolution());
+        // pop center matrix
+        GLHelper::popMatrix();
         // draw dotted contours
         drawDottedContours(s, TAZExaggeration);
-        // draw lock icon
-        GNEViewNetHelper::LockIcon::drawLockIcon(getType(), this, getPositionInView(), TAZExaggeration);
         // pop layer matrix
         GLHelper::popMatrix();
         // pop name
         GLHelper::popName();
+        // draw lock icon
+        GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), TAZExaggeration);
         // get name position
-        const Position& namePos = myTAZGeometry.getShape().getPolygonCenter();
+        const Position& namePos = myAdditionalGeometry.getShape().getPolygonCenter();
         // draw name
-        drawName(namePos, s.scale, s.polyName, s.angle);
+        drawName(myTAZCenter, s.scale, s.polyName, s.angle);
         // check if draw poly type
-        if (s.polyType.show) {
+        if (s.polyType.show(this)) {
             const Position p = namePos + Position(0, -0.6 * s.polyType.size / s.scale);
             GLHelper::drawTextSettings(s.polyType, getShapeType(), p, s.scale, s.angle);
         }
@@ -346,9 +393,15 @@ std::string
 GNETAZ::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
-            return getID();
+            return getMicrosimID();
         case SUMO_ATTR_SHAPE:
             return toString(myShape);
+        case SUMO_ATTR_CENTER:
+            if (myTAZCenter == myShape.getCentroid()) {
+                return "";
+            } else {
+                return toString(myTAZCenter);
+            }
         case SUMO_ATTR_COLOR:
             return toString(getShapeColor());
         case SUMO_ATTR_NAME:
@@ -357,7 +410,7 @@ GNETAZ::getAttribute(SumoXMLAttr key) const {
             return toString(myFill);
         case SUMO_ATTR_EDGES: {
             std::vector<std::string> edgeIDs;
-            for (const auto &TAZChild : getChildAdditionals()) {
+            for (const auto& TAZChild : getChildAdditionals()) {
                 edgeIDs.push_back(TAZChild->getAttribute(SUMO_ATTR_EDGE));
             }
             return toString(edgeIDs);
@@ -365,7 +418,7 @@ GNETAZ::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_SELECTED:
             return toString(isAttributeCarrierSelected());
         case GNE_ATTR_PARAMETERS:
-            return GNETAZElement::getParametersStr();
+            return getParametersStr();
         case GNE_ATTR_MIN_SOURCE:
             if (myMinWeightSource == INVALID_DOUBLE) {
                 return "undefined";
@@ -429,6 +482,23 @@ GNETAZ::getAttributeDouble(SumoXMLAttr key) const {
 }
 
 
+Position
+GNETAZ::getAttributePosition(SumoXMLAttr key) const {
+    switch (key) {
+        case SUMO_ATTR_CENTER:
+            return myTAZCenter;
+        default:
+            throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
+    }
+}
+
+
+const Parameterised::Map&
+GNETAZ::getACParametersMap() const {
+    return getParametersMap();
+}
+
+
 void
 GNETAZ::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     if (value == getAttribute(key)) {
@@ -437,6 +507,7 @@ GNETAZ::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* und
     switch (key) {
         case SUMO_ATTR_ID:
         case SUMO_ATTR_SHAPE:
+        case SUMO_ATTR_CENTER:
         case SUMO_ATTR_COLOR:
         case SUMO_ATTR_NAME:
         case SUMO_ATTR_FILL:
@@ -455,12 +526,20 @@ bool
 GNETAZ::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            return isValidTAZElementID(value);
+            return SUMOXMLDefinitions::isValidAdditionalID(value) &&
+                   (myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_TAZ, value, false) == nullptr) &&
+                   (myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_POLY, value, false) == nullptr);
         case SUMO_ATTR_SHAPE:
             if (value.empty()) {
                 return false;
             } else {
                 return canParse<PositionVector>(value);
+            }
+        case SUMO_ATTR_CENTER:
+            if (value.empty()) {
+                return true;
+            } else {
+                return canParse<Position>(value);
             }
         case SUMO_ATTR_COLOR:
             return canParse<RGBColor>(value);
@@ -477,16 +556,10 @@ GNETAZ::isValid(SumoXMLAttr key, const std::string& value) {
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
         case GNE_ATTR_PARAMETERS:
-            return Parameterised::areParametersValid(value);
+            return areParametersValid(value);
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
-}
-
-
-bool
-GNETAZ::isAttributeEnabled(SumoXMLAttr /* key */) const {
-    return true;
 }
 
 
@@ -515,7 +588,7 @@ GNETAZ::updateTAZStadistic() {
     int numberOfSources = 0;
     int numberOfSinks = 0;
     // iterate over child additional
-    for (const auto& TAZChild : getChildTAZElements()) {
+    for (const auto& TAZChild : getChildAdditionals()) {
         if (TAZChild->getTagProperty().getTag() == SUMO_TAG_TAZSOURCE) {
             const double weight = TAZChild->getAttributeDouble(SUMO_ATTR_WEIGHT);
             // check max Weight
@@ -561,44 +634,42 @@ GNETAZ::updateTAZStadistic() {
 
 void
 GNETAZ::drawDottedContours(const GUIVisualizationSettings& s, const double TAZExaggeration) const {
+    // get TAZRelDataFrame
+    const auto TAZRelDataFrame = myNet->getViewNet()->getViewParent()->getTAZRelDataFrame();
     // dotted contour for inspect
-    if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-        // draw depending if is closed
-        if (getFill() || myTAZGeometry.getShape().isClosed()) {
-            GNEGeometry::drawDottedContourClosedShape(GNEGeometry::DottedContourType::INSPECT, s, myTAZGeometry.getShape(), 1);
-        } else {
-            GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::INSPECT, s, myTAZGeometry.getShape(), s.neteditSizeSettings.polylineWidth, 
-                                                TAZExaggeration, 1, 1);
-        }
+    if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
+        GUIDottedGeometry::drawDottedContourClosedShape(GUIDottedGeometry::DottedContourType::INSPECT, s, myAdditionalGeometry.getShape(), 1);
     }
     // dotted contour for front
-    if (s.drawDottedContour() || (myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
-        // draw depending if is closed
-        if (getFill() || myTAZGeometry.getShape().isClosed()) {
-            GNEGeometry::drawDottedContourClosedShape(GNEGeometry::DottedContourType::FRONT, s, myTAZGeometry.getShape(), 1);
-        } else {
-            GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::FRONT, s, myTAZGeometry.getShape(), s.neteditSizeSettings.polylineWidth, 
-                                                TAZExaggeration, 1, 1);
-        }
+    if ((myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
+        GUIDottedGeometry::drawDottedContourClosedShape(GUIDottedGeometry::DottedContourType::FRONT, s, myAdditionalGeometry.getShape(), 1);
     }
-    // dotted contour for first TAZ 
-    if (s.drawDottedContour() || (myNet->getViewNet()->getViewParent()->getTAZRelDataFrame()->getFirstTAZ() == this)) {
-        // draw depending if is closed
-        if (getFill() || myTAZGeometry.getShape().isClosed()) {
-            GNEGeometry::drawDottedContourClosedShape(GNEGeometry::DottedContourType::GREEN, s, myTAZGeometry.getShape(), 1, s.neteditSizeSettings.polylineWidth * TAZExaggeration);
-        } else {
-            GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::GREEN, s, myTAZGeometry.getShape(), s.neteditSizeSettings.polylineWidth, 
-                                                TAZExaggeration, 1, 1);
-        }
+    // dotted contour for first TAZ
+    if ((myNet->getViewNet()->getViewParent()->getTAZRelDataFrame()->getFirstTAZ() == this)) {
+        GUIDottedGeometry::drawDottedContourClosedShape(GUIDottedGeometry::DottedContourType::GREEN, s, myAdditionalGeometry.getShape(), 1, s.neteditSizeSettings.polylineWidth * TAZExaggeration);
     }
     // dotted contour for second TAZ
-    if (s.drawDottedContour() || (myNet->getViewNet()->getViewParent()->getTAZRelDataFrame()->getSecondTAZ() == this)) {
+    if ((myNet->getViewNet()->getViewParent()->getTAZRelDataFrame()->getSecondTAZ() == this)) {
+        GUIDottedGeometry::drawDottedContourClosedShape(GUIDottedGeometry::DottedContourType::MAGENTA, s, myAdditionalGeometry.getShape(), 1, s.neteditSizeSettings.polylineWidth * TAZExaggeration);
+    }
+    // now check if mouse is over TAZ
+    if (TAZRelDataFrame->shown() && (gPostDrawing.markedTAZ == nullptr) && ((TAZRelDataFrame->getFirstTAZ() == nullptr) || (TAZRelDataFrame->getSecondTAZ() == nullptr))) {
+        // get dotted contour type
+        const auto dottedContourType = (TAZRelDataFrame->getFirstTAZ() == nullptr) ? GUIDottedGeometry::DottedContourType::GREEN : GUIDottedGeometry::DottedContourType::MAGENTA;
         // draw depending if is closed
-        if (getFill() || myTAZGeometry.getShape().isClosed()) {
-            GNEGeometry::drawDottedContourClosedShape(GNEGeometry::DottedContourType::MAGENTA, s, myTAZGeometry.getShape(), 1, s.neteditSizeSettings.polylineWidth * TAZExaggeration);
+        if (getFill() || myNet->getViewNet()->getDataViewOptions().TAZDrawFill()) {
+            if (myAdditionalGeometry.getShape().around(myNet->getViewNet()->getPositionInformation())) {
+                GUIDottedGeometry::drawDottedContourClosedShape(dottedContourType, s, myAdditionalGeometry.getShape(), 1, s.neteditSizeSettings.polylineWidth * TAZExaggeration);
+            }
         } else {
-            GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::MAGENTA, s, myTAZGeometry.getShape(), s.neteditSizeSettings.polylineWidth, 
-                                                TAZExaggeration, 1, 1);
+            // scale shape
+            auto scaledShape = myAdditionalGeometry.getShape();
+            scaledShape.scaleAbsolute(1);
+            // check if mouse is around scaled shape
+            if ((scaledShape.around(myNet->getViewNet()->getPositionInformation()) && (scaledShape.distance2D(myNet->getViewNet()->getPositionInformation()) <= 1.3)) ||
+                    (myAdditionalGeometry.getShape().around(myNet->getViewNet()->getPositionInformation()) && (myAdditionalGeometry.getShape().distance2D(myNet->getViewNet()->getPositionInformation()) <= 1))) {
+                GUIDottedGeometry::drawDottedContourClosedShape(dottedContourType, s, myAdditionalGeometry.getShape(), 1, s.neteditSizeSettings.polylineWidth * TAZExaggeration);
+            }
         }
     }
 }
@@ -608,24 +679,42 @@ void
 GNETAZ::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            myNet->getAttributeCarriers()->updateID(this, value);
+            // update microsimID
+            setMicrosimID(value);
             break;
-        case SUMO_ATTR_SHAPE:
-            // remove TAZ and TAZRelDatas
-            myNet->removeGLObjectFromGrid(this);
-            for (const auto &TAZRelData : getChildGenericDatas()) {
-                myNet->removeGLObjectFromGrid(TAZRelData);
-            }
+        case SUMO_ATTR_SHAPE: {
+            const bool updateCenter = (myTAZCenter == myShape.getCentroid());
+            // set new shape
             myShape = parse<PositionVector>(value);
             // always close shape
             if ((myShape.size() > 1) && (myShape.front() != myShape.back())) {
                 myShape.push_back(myShape.front());
             }
-            // add TAZ and TAZRelDatas
-            myNet->addGLObjectIntoGrid(this);
-            for (const auto &TAZRelData : getChildGenericDatas()) {
-                TAZRelData->updateGeometry();
-                myNet->addGLObjectIntoGrid(TAZRelData);
+            // update center
+            if (myShape.size() == 0) {
+                myTAZCenter = Position(0, 0, 0);
+            } else if (updateCenter) {
+                myTAZCenter = myShape.getCentroid();
+            }
+            // update geometry
+            updateGeometry();
+            // update centering boundary
+            if (!isTemplate()) {
+                updateCenteringBoundary(true);
+            }
+            break;
+        }
+        case SUMO_ATTR_CENTER:
+            if (value.empty()) {
+                myTAZCenter = myShape.getCentroid();
+            } else {
+                myTAZCenter = parse<Position>(value);
+            }
+            // update geometry
+            updateGeometry();
+            // update centering boundary
+            if (!isTemplate()) {
+                updateCenteringBoundary(true);
             }
             break;
         case SUMO_ATTR_COLOR:
@@ -647,7 +736,7 @@ GNETAZ::setAttribute(SumoXMLAttr key, const std::string& value) {
             }
             break;
         case GNE_ATTR_PARAMETERS:
-            GNETAZElement::setParametersStr(value);
+            setParametersStr(value);
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
@@ -655,22 +744,68 @@ GNETAZ::setAttribute(SumoXMLAttr key, const std::string& value) {
 }
 
 
-
 void
 GNETAZ::setMoveShape(const GNEMoveResult& moveResult) {
-    // update new shape
-    myShape = moveResult.shapeToUpdate;
-    // update geometry
-    myTAZGeometry.updateGeometry(myShape);
+    if (moveResult.operationType == GNEMoveOperation::OperationType::POSITION) {
+        // update new center
+        myTAZCenter = moveResult.shapeToUpdate.front();
+    } else if (moveResult.operationType == GNEMoveOperation::OperationType::ENTIRE_SHAPE) {
+        // update new shape and center
+        myTAZCenter.add(moveResult.shapeToUpdate.getCentroid() - myShape.getCentroid());
+        myShape = moveResult.shapeToUpdate;
+        // update geometry
+        myAdditionalGeometry.updateGeometry(myShape);
+    } else {
+        // get lastIndex
+        const int lastIndex = (int)moveResult.shapeToUpdate.size() - 1;
+        // update new shape
+        myShape = moveResult.shapeToUpdate;
+        // adjust first and last position
+        if (moveResult.geometryPointsToMove.front() == 0) {
+            myShape[lastIndex] = moveResult.shapeToUpdate[0];
+        } else if (moveResult.geometryPointsToMove.front() == lastIndex) {
+            myShape[0] = moveResult.shapeToUpdate[lastIndex];
+        }
+        myShape.closePolygon();
+        // update geometry
+        myAdditionalGeometry.updateGeometry(myShape);
+    }
+    myTesselation.clear();
 }
 
 
 void
 GNETAZ::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
-    // commit new shape
-    undoList->begin("moving " + toString(SUMO_ATTR_SHAPE) + " of " + getTagStr());
-    undoList->changeAttribute(new GNEChange_Attribute(this, SUMO_ATTR_SHAPE, toString(moveResult.shapeToUpdate)));
-    undoList->end();
+    if (moveResult.operationType == GNEMoveOperation::OperationType::POSITION) {
+        // commit center
+        undoList->begin(GUIIcon::TAZ, "moving " + toString(SUMO_ATTR_CENTER) + " of " + getTagStr());
+        undoList->changeAttribute(new GNEChange_Attribute(this, SUMO_ATTR_CENTER, toString(moveResult.shapeToUpdate.front())));
+        undoList->end();
+    } else if (moveResult.operationType == GNEMoveOperation::OperationType::ENTIRE_SHAPE) {
+        // calculate offset between old and new shape
+        Position newCenter = myTAZCenter;
+        newCenter.add(moveResult.shapeToUpdate.getCentroid() - myShape.getCentroid());
+        // commit new shape and center
+        undoList->begin(GUIIcon::TAZ, "moving " + toString(SUMO_ATTR_SHAPE) + " of " + getTagStr());
+        undoList->changeAttribute(new GNEChange_Attribute(this, SUMO_ATTR_CENTER, toString(newCenter)));
+        undoList->changeAttribute(new GNEChange_Attribute(this, SUMO_ATTR_SHAPE, toString(moveResult.shapeToUpdate)));
+        undoList->end();
+    } else {
+        // get lastIndex
+        const int lastIndex = (int)moveResult.shapeToUpdate.size() - 1;
+        // close shapeToUpdate
+        auto closedShape = moveResult.shapeToUpdate;
+        // adjust first and last position
+        if (moveResult.geometryPointsToMove.front() == 0) {
+            closedShape[lastIndex] = moveResult.shapeToUpdate[0];
+        } else if (moveResult.geometryPointsToMove.front() == lastIndex) {
+            closedShape[0] = moveResult.shapeToUpdate[lastIndex];
+        }
+        // commit new shape
+        undoList->begin(GUIIcon::TAZ, "moving " + toString(SUMO_ATTR_SHAPE) + " of " + getTagStr());
+        undoList->changeAttribute(new GNEChange_Attribute(this, SUMO_ATTR_SHAPE, toString(closedShape)));
+        undoList->end();
+    }
 }
 
 /****************************************************************************/

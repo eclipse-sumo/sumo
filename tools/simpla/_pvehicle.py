@@ -1,5 +1,5 @@
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2017-2021 German Aerospace Center (DLR) and others.
+# Copyright (C) 2017-2022 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -259,8 +259,9 @@ class PVehicle(object):
         TODO: This mechanism does not work on highways, where the vehicles maxspeed is determining
               the travel speed and not the road's speed limit.
         '''
-        self._activeSpeedFactor = cfg.SPEEDFACTOR[self._currentPlatoonMode] \
-            / (1. + self._switchImpatienceFactor * switchWaitingTime)
+        speedFactorBase = self._speedFactors[self._currentPlatoonMode] \
+            if self._currentPlatoonMode is PlatoonMode.NONE else cfg.SPEEDFACTOR[self._currentPlatoonMode]
+        self._activeSpeedFactor = speedFactorBase / (1. + self._switchImpatienceFactor * switchWaitingTime)
         traci.vehicle.setSpeedFactor(self._ID, self._activeSpeedFactor)
 
     def _resetActiveSpeedFactor(self):

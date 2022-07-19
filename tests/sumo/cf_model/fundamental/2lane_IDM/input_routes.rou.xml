@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-04-02 08:29:33 by Eclipse SUMO netedit Version v1_12_0+1877-3d0686d
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <!-- Routes -->
+    <route id="r_0" edges="0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98 99"/>
+    <!-- Vehicles, persons and containers (sorted by depart) -->
+    <vType id="car"                  speedFactor="normc(1.1,0.2,1,2)"    tau="1.2" minGap="12" scale="300" carFollowModel="IDM"/>
+    <vTypeDistribution id="truck">
+        <vType id="truck0" probability="29" vClass="truck" speedFactor="normc(0.625,0.1,0.6,0.8)" minGap="10" sigma="0.5" lcSpeedGain="0" carFollowModel="IDM"/>
+        <vType id="truck1" probability="01" vClass="truck" speedFactor="normc(0.7,0.01,0.6,0.8)"  minGap="10" sigma="0.5"  carFollowModel="IDM"/>
+    </vTypeDistribution>
+    <flow id="c" type="car"   begin="0.00" route="r_0" end="18000" probability="0.004" departSpeed="36" departLane="1"/>
+    <flow id="t" type="truck" begin="0.00" route="r_0" end="18000" period="exp(0.5)" departSpeed="24" departLane="0"/>
+</routes>

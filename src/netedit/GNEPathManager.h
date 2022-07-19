@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -30,9 +30,12 @@
 // class definitions
 // ===========================================================================
 
-class GNEAttributeCarrier;
-class GNELane;
 class GNENet;
+class GNEAttributeCarrier;
+class GNEEdge;
+class GNELane;
+class GNEJunction;
+class GNEAdditional;
 
 class GNEPathManager {
 
@@ -76,17 +79,17 @@ public:
         /// @brief get junction associated with this segment
         const GNEJunction* getJunction() const;
 
-        /// @brief check if segment is valid
-        bool isValid() const;
-
-        /// @brief mark segment as invalid
-        void markSegmentInvalid();
-
         /// @brief get next segment
         Segment* getNextSegment() const;
 
         /// @brief set next segment
         void setNextSegment(Segment* nexSegment);
+
+        /// @brief get previous segment
+        Segment* getPreviousSegment() const;
+
+        /// @brief set previous segment
+        void setPreviousSegment(Segment* nexSegment);
 
         /// @brief check if segment is label segment
         bool isLabelSegment() const;
@@ -119,11 +122,11 @@ public:
         /// @brief junction associated with this segment
         const GNEJunction* myJunction;
 
-        /// @brief flag for check if segment is valid
-        bool myValid;
-
-        /// @brief pointer to next segment (use for draw a red line)
+        /// @brief pointer to next segment (use for draw red line)
         Segment* myNextSegment;
+
+        /// @brief pointer to previous segment (use for draw red line)
+        Segment* myPreviousSegment;
 
         /// @brief flag for check if this segment is a label segment
         bool myLabelSegment;
@@ -143,18 +146,19 @@ public:
     class PathElement {
 
     public:
-        enum class Options {
-            NETWORK_ELEMENT,    // Network element
-            ADDITIONAL_ELEMENT, // Additional element
-            DEMAND_ELEMENT,     // Demand element
-            DATA_ELEMENT        //Data element
+        enum Options {
+            NETWORK_ELEMENT =       1 << 0, // Network element
+            ADDITIONAL_ELEMENT =    1 << 1, // Additional element
+            DEMAND_ELEMENT =        1 << 2, // Demand element
+            DATA_ELEMENT =          1 << 3, // Data element
+            ROUTE =                 1 << 4, // Route (needed for overlapping labels)
         };
 
         /// @brief constructor
-        PathElement(const Options option);
+        PathElement(const int options);
 
         /// @brief destructor
-        ~PathElement();
+        virtual ~PathElement();
 
         /// @brief check if pathElement is a network element
         bool isNetworkElement() const;
@@ -167,6 +171,9 @@ public:
 
         /// @brief check if pathElement is a data element
         bool isDataElement() const;
+
+        /// @brief check if pathElement is a route
+        bool isRoute() const;
 
         /// @brief compute pathElement
         virtual void computePathElement() = 0;
@@ -211,7 +218,7 @@ public:
         PathElement();
 
         /// @brief pathElement option
-        const Options myOption;
+        const int myOption;
     };
 
     /// @brief class used to calculate paths in nets
@@ -229,6 +236,9 @@ public:
 
         /// @brief calculate Dijkstra path between a list of partial edges
         std::vector<GNEEdge*> calculateDijkstraPath(const SUMOVehicleClass vClass, const std::vector<GNEEdge*>& partialEdges) const;
+
+        /// @brief calculate Dijkstra path between two Junctions
+        std::vector<GNEEdge*> calculateDijkstraPath(const SUMOVehicleClass vClass, const GNEJunction* fromJunction, const GNEJunction* toJunction) const;
 
         /// @brief calculate reachability for given edge
         void calculateReachability(const SUMOVehicleClass vClass, GNEEdge* originEdge);
@@ -254,6 +264,9 @@ public:
 
         /// @brief SUMO Abstract myDijkstraRouter
         SUMOAbstractRouter<NBRouterEdge, NBVehicle>* myDijkstraRouter;
+
+        /// @brief optimize junction path
+        std::vector<GNEEdge*> optimizeJunctionPath(const std::vector<GNEEdge*>& edges) const;
     };
 
     /// @brief class used to mark path draw
@@ -301,11 +314,14 @@ public:
     /// @brief get first lane associated with path element
     const GNELane* getFirstLane(const PathElement* pathElement) const;
 
-    /// @brief calculate path edges (using dijkstra, requiere path calculator updated)
+    /// @brief calculate path edges (using dijkstra, require path calculator updated)
     void calculatePathEdges(PathElement* pathElement, SUMOVehicleClass vClass, const std::vector<GNEEdge*> edges);
 
-    /// @brief calculate path lanes (using dijkstra, requiere path calculator updated)
+    /// @brief calculate path lanes (using dijkstra, require path calculator updated)
     void calculatePathLanes(PathElement* pathElement, SUMOVehicleClass vClass, const std::vector<GNELane*> lanes);
+
+    /// @brief calculate path junctions (using dijkstra, require path calculator updated)
+    void calculatePathJunctions(PathElement* pathElement, SUMOVehicleClass vClass, const std::vector<GNEJunction*> junctions);
 
     /// @brief calculate consecutive path edges
     void calculateConsecutivePathEdges(PathElement* pathElement, SUMOVehicleClass vClass, const std::vector<GNEEdge*> edges);
@@ -321,6 +337,9 @@ public:
 
     /// @brief draw junction path elements
     void drawJunctionPathElements(const GUIVisualizationSettings& s, const GNEJunction* junction);
+
+    /// @brief force draw path (used carefully, ONLY when we're inspecting a path element, due slowdowns)
+    void forceDrawPath(const GUIVisualizationSettings& s, const PathElement* pathElement) const;
 
     /// @brief invalidate lane path
     void invalidateLanePath(const GNELane* lane);
@@ -353,7 +372,7 @@ protected:
     /// @brief PathDraw instance
     PathDraw* myPathDraw;
 
-    /// @brief map with path element and their asociated segments
+    /// @brief map with path element and their associated segments
     std::map<const PathElement*, std::vector<Segment*> > myPaths;
 
     /// @brief map with lane segments

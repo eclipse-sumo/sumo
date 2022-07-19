@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -236,7 +236,11 @@ NIImporter_DlrNavteq::NodesHandler::report(const std::string& result) {
         NBNode* n = new NBNode(id, geoms[0]);
         if (!myNodeCont.insert(n)) {
             delete n;
-            throw ProcessError("Could not add node '" + id + "'.");
+            if (OptionsCont::getOptions().getBool("ignore-errors")) {
+                WRITE_WARNINGF("Could not add add node '%'", id);
+            } else {
+                throw ProcessError("Could not add node '" + id + "'.");
+            }
         }
     } else {
         myGeoms[id] = geoms;
@@ -367,7 +371,7 @@ NIImporter_DlrNavteq::EdgesHandler::report(const std::string& result) {
     NBEdge* e = nullptr;
     const std::string interID = getColumn(st, BETWEEN_NODE_ID);
     if (interID == "-1") {
-        e = new NBEdge(id, from, to, myTypeCont.knows(navTeqTypeId) ? navTeqTypeId : "", speed, numLanes, priority,
+        e = new NBEdge(id, from, to, myTypeCont.knows(navTeqTypeId) ? navTeqTypeId : "", speed, NBEdge::UNSPECIFIED_FRICTION, numLanes, priority,
                        NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET, LaneSpreadFunction::RIGHT, streetName);
     } else {
         PositionVector geoms = myGeoms[interID];
@@ -377,7 +381,7 @@ NIImporter_DlrNavteq::EdgesHandler::report(const std::string& result) {
         geoms.insert(geoms.begin(), from->getPosition());
         geoms.push_back(to->getPosition());
         const std::string origID = OptionsCont::getOptions().getBool("output.original-names") ? id : "";
-        e = new NBEdge(id, from, to, myTypeCont.knows(navTeqTypeId) ? navTeqTypeId : "", speed, numLanes, priority,
+        e = new NBEdge(id, from, to, myTypeCont.knows(navTeqTypeId) ? navTeqTypeId : "", speed, NBEdge::UNSPECIFIED_FRICTION, numLanes, priority,
                        NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET, geoms, LaneSpreadFunction::CENTER, streetName, origID);
     }
 
@@ -820,7 +824,7 @@ NIImporter_DlrNavteq::ConnectedLanesHandler::report(const std::string& result) {
         const bool warnOnly = st.size() > 7;
         myEdgeCont.addPostProcessConnection(from->getID(), fromLane, to->getID(), toLane, false, KEEPCLEAR_UNSPECIFIED,
                                             NBEdge::UNSPECIFIED_CONTPOS, NBEdge::UNSPECIFIED_VISIBILITY_DISTANCE,
-                                            NBEdge::UNSPECIFIED_SPEED, NBEdge::UNSPECIFIED_LOADED_LENGTH, PositionVector::EMPTY, false, warnOnly);
+                                            NBEdge::UNSPECIFIED_SPEED, NBEdge::UNSPECIFIED_FRICTION, NBEdge::UNSPECIFIED_LOADED_LENGTH, PositionVector::EMPTY, false, warnOnly);
     }
     // ensure that connections for other lanes are guessed if not specified
     from->declareConnectionsAsLoaded(NBEdge::EdgeBuildingStep::INIT);

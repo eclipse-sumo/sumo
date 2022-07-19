@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2011-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2011-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -109,6 +109,12 @@ MSCFModel_W99::followSpeed(const MSVehicle* const veh, double speed, double gap2
     if (dv < sdvo && dx <= sdxc) {
         // 'Decelerate - Increase Distance';
         accel = 0;
+        // code in addtion to w99-demo to fix collision (#10472)
+        if (dx - SPEED2DIST(speed) < myType->getMinGap() * myCollisionMinGapFactor) {
+            // prevent crashin in the next step
+            accel = -SPEED2ACCEL(speed);
+            status = 9;
+        }
         if (predSpeed > 0) {
             if (dv < 0) {
                 if (dx > cc0) {

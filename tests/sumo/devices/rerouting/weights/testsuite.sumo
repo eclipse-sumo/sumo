@@ -6,6 +6,9 @@ init_with_loaded_weights
 # using option --device.rerouting.output
 weight_output
 
+# using option --device.rerouting.output with a stopped vehicle
+stopped_vehicle
+
 # average over a fixed window instead of exponential average
 weight_average_steps
 

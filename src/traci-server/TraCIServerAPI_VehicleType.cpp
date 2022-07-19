@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -69,6 +69,7 @@ TraCIServerAPI_VehicleType::processSet(TraCIServer& server, tcpip::Storage& inpu
             && variable != libsumo::VAR_ACCEL && variable != libsumo::VAR_IMPERFECTION
             && variable != libsumo::VAR_DECEL && variable != libsumo::VAR_EMERGENCY_DECEL && variable != libsumo::VAR_APPARENT_DECEL
             && variable != libsumo::VAR_TAU && variable != libsumo::VAR_COLOR && variable != libsumo::VAR_ACTIONSTEPLENGTH
+            && variable != libsumo::VAR_SCALE
             && variable != libsumo::VAR_HEIGHT
             && variable != libsumo::VAR_MINGAP_LAT
             && variable != libsumo::VAR_MAXSPEED_LAT
@@ -297,6 +298,17 @@ TraCIServerAPI_VehicleType::setVariable(const int cmd, const int variable,
                 return server.writeErrorStatusCmd(cmd, "Invalid deceleration.", outputStorage);
             }
             libsumo::VehicleType::setApparentDecel(id, value);
+        }
+        break;
+        case libsumo::VAR_SCALE: {
+            double value = 0;
+            if (!server.readTypeCheckingDouble(inputStorage, value)) {
+                return server.writeErrorStatusCmd(cmd, "Setting traffic scale requires a double.", outputStorage);
+            }
+            if (value < 0.0) {
+                return server.writeErrorStatusCmd(cmd, "Traffic scale may not be negative.", outputStorage);
+            }
+            libsumo::VehicleType::setScale(id, value);
         }
         break;
         case libsumo::VAR_ACTIONSTEPLENGTH: {

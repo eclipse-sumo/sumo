@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec 14 11:32:07 2020 by Eclipse SUMO netconvert Version v1_8_0+0240-6f1f621077
+<!-- generated on 2022-01-07 16:20:36 by Eclipse SUMO netconvert Version v1_11_0+0928-18c1b433e84
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -36,10 +36,10 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":61052071_0_2" index="2" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="15.15" shape="76.99,7.98 72.75,10.36 70.47,12.90 68.76,16.11 66.24,20.52"/>
     </edge>
     <edge id=":61052071_3" function="internal">
-        <lane id=":61052071_3_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="3.65" length="2.34" shape="76.99,7.98 75.57,7.73 74.89,7.15"/>
+        <lane id=":61052071_3_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="3.65" length="1.44" shape="76.99,7.98 75.57,7.73"/>
     </edge>
     <edge id=":61052071_10" function="internal">
-        <lane id=":61052071_10_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="3.65" length="2.34" shape="74.89,7.15 74.93,6.26 75.71,5.05"/>
+        <lane id=":61052071_10_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="3.65" length="3.23" shape="75.57,7.73 74.89,7.15 74.93,6.26 75.71,5.05"/>
     </edge>
     <edge id=":61052071_4" function="internal">
         <lane id=":61052071_4_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="26.88" shape="49.63,12.34 54.32,11.09 60.46,8.54 67.39,5.33 74.44,2.11"/>
@@ -108,7 +108,7 @@ SPDX-License-Identifier: EPL-2.0
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
 
-    <junction id=":61052071_10_0" type="internal" x="74.89" y="7.15" incLanes=":61052071_3_0 -724296805_0 -724296805_1 -733322203_0" intLanes=":61052071_4_0 :61052071_7_0 :61052071_7_1"/>
+    <junction id=":61052071_10_0" type="internal" x="75.57" y="7.73" incLanes=":61052071_3_0 -724296805_0 -724296805_1 -733322203_0" intLanes=":61052071_4_0 :61052071_7_0 :61052071_7_1"/>
     <junction id=":61052071_11_0" type="internal" x="63.10" y="16.55" incLanes=":61052071_9_0 -733322203_0 53500509_0 53500509_1 53500509_2" intLanes=":61052071_0_0 :61052071_0_1 :61052071_0_2 :61052071_5_0 :61052071_5_1"/>
 
     <connection from="-53500509" to="53500509" fromLane="1" toLane="2" via=":61052096_0_0" dir="t" state="M"/>

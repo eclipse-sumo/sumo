@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2008-2021 German Aerospace Center (DLR) and others.
+# Copyright (C) 2008-2022 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -40,12 +40,12 @@ class RouteCounter(handler.ContentHandler):
             route = attrs["edges"]
             edges = route.split(" ")
             od = (edges[0], edges[-1])
-            # count od occurences
+            # count od occurrences
             if od in self._odCounts:
                 self._odCounts[od] = self._odCounts[od] + 1
             else:
                 self._odCounts[od] = 1
-            # count route occurences
+            # count route occurrences
             if route in self._routeCounts:
                 self._routeCounts[route] = self._routeCounts[route] + 1
             else:
@@ -104,15 +104,15 @@ class RoutePatcher(handler.ContentHandler):
 if len(sys.argv) < 3:
     print("Usage: route2alts.py <INPUT_FILE> <OUTPUT_FILE>")
     sys.exit()
-# count occurences
-print("Counting alternatives occurences...")
+# count occurrences
+print("Counting alternative occurrences...")
 parser = make_parser()
 counter = RouteCounter()
 parser.setContentHandler(counter)
 parser.parse(sys.argv[1])
 # build alternatives
 print("Building alternatives...")
-out = open(sys.argv[2], "w")
-parser = make_parser()
-parser.setContentHandler(RoutePatcher(counter, out))
-parser.parse(sys.argv[1])
+with open(sys.argv[2], "w") as out:
+    parser = make_parser()
+    parser.setContentHandler(RoutePatcher(counter, out))
+    parser.parse(sys.argv[1])

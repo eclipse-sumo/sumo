@@ -1,1 +1,2 @@
-Warning: Could not compute intersection of conflicting internal lanes at node 'C'
+Warning: The traffic light 'C' cannot be adapted to a cycle time of 90.00.
+Warning: The traffic light 'C' has a high cycle time of 5489.00.

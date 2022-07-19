@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -100,6 +100,10 @@ main(int argc, char** argv) {
             } else {
                 break;
             }
+            // flush warnings and prepare reinit of all outputs
+            MsgHandler::getWarningInstance()->clear();
+            OutputDevice::closeAll();
+            MsgHandler::cleanupOnEnd();
         }
     } catch (const ProcessError& e) {
         if (std::string(e.what()) != std::string("Process Error") && std::string(e.what()) != std::string("")) {

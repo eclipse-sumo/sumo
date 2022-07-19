@@ -1,0 +1,10 @@
+# uncooordinated
+default
+earliestEnd
+earliestEnd_coordinated
+
+# should take no effect without traffic
+latestEnd
+
+# should take no effect without traffic
+latestEnd_coordinated

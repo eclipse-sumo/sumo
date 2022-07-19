@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2011-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2011-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -60,6 +60,8 @@ public:
     /// @brief Destructor
     ~NBLoadedSUMOTLDef();
 
+    void setID(const std::string& newID);
+
     /** @brief Sets the programID
      * @param[in] programID The new ID of the program (subID)
      */
@@ -98,8 +100,15 @@ public:
      * @param[in] state The state definition of a tls phase
      * @param[in] minDur The minimum duration of the phase to add
      * @param[in] maxDur The maximum duration of the phase to add
+     * @param[in] vehExt The vehExt of the phase to add
+     * @param[in] yellow The yellow of the phase to add
+     * @param[in] red The red of the phase to add
+     * @param[in] earliestEnd The early end of the phase to add
+     * @param[in] latestEnd The latest end of the phase to add
      */
-    void addPhase(SUMOTime duration, const std::string& state, SUMOTime minDur, SUMOTime maxDur, const std::vector<int>& next, const std::string& name);
+    void addPhase(const SUMOTime duration, const std::string& state, const SUMOTime minDur, const SUMOTime maxDur,
+                  const SUMOTime earliestEnd, const SUMOTime latestEnd, const SUMOTime vehExt, const SUMOTime yellow,
+                  const SUMOTime red, const std::vector<int>& next, const std::string& name);
 
     /// @brief mark phases as load
     void phasesLoaded() {
@@ -164,13 +173,10 @@ public:
     void copyIndices(NBTrafficLightDefinition* def);
 
 protected:
-    /** @brief Collects the links participating in this traffic light
-     *    (only if not previously loaded)
-     */
+    /// @brief Collects the links participating in this traffic light (only if not previously loaded)
     void collectLinks();
 
-    /** @brief Build the list of participating edges
-     */
+    /// @brief Build the list of participating edges
     void collectEdges();
 
     /** @brief Computes the traffic light logic finally in dependence to the type
@@ -181,7 +187,7 @@ protected:
 
     bool amInvalid() const;
 
-    /* initialize myNeedsContRelation and set myNeedsContRelationReady to true */
+    /// @brief initialize myNeedsContRelation and set myNeedsContRelationReady to true
     void initNeedsContRelation() const;
 
     /// @brief return the highest known tls link index used by any controlled connection or crossing
@@ -204,7 +210,7 @@ protected:
 
 private:
 
-    /** @brief phases are added directly to myTLLogic which is then returned in myCompute() */
+    /// @brief phases are added directly to myTLLogic which is then returned in myCompute()
     NBTrafficLightLogic* myTLLogic;
 
     /// @brief repair the plan if controlled nodes received pedestrian crossings
@@ -244,10 +250,6 @@ private:
         }
     private:
         const NBConnection& myC;
-    private:
-        /// @brief invalidated assignment operator
-        connection_equal& operator=(const connection_equal& s);
-
     };
 
 };

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-07-07 10:55:31.814536 by randomTrips.py v1_13_0+1343-240e5d48340
+<configuration>
+    <end value="10"/>
+    <intermediate value="3"/>
+    <net-file value="net.net.xml"/>
+    <pedestrians value="True"/>
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <person id="0" depart="0.00">
+        <walk from="3o" to="1fi"/>
+        <walk to="2fi"/>
+        <walk to="1si"/>
+        <walk to="3si"/>
+    </person>
+    <person id="1" depart="1.00">
+        <walk from="3si" to="4o"/>
+        <walk to="1o"/>
+        <walk to="2si"/>
+        <walk to="1fi"/>
+    </person>
+    <person id="2" depart="2.00">
+        <walk from="1si" to="3fi"/>
+        <walk to="1fi"/>
+        <walk to="1si"/>
+        <walk to="3o"/>
+    </person>
+    <person id="3" depart="3.00">
+        <walk from="3fi" to="1si"/>
+        <walk to="3o"/>
+        <walk to="4fi"/>
+        <walk to="1fi"/>
+    </person>
+    <person id="4" depart="4.00">
+        <walk from="4fi" to="3si"/>
+        <walk to="2o"/>
+        <walk to="1o"/>
+        <walk to="4si"/>
+    </person>
+    <person id="5" depart="5.00">
+        <walk from="2o" to="1o"/>
+        <walk to="1o"/>
+        <walk to="4o"/>
+        <walk to="3o"/>
+    </person>
+    <person id="6" depart="6.00">
+        <walk from="4fi" to="3si"/>
+        <walk to="3fi"/>
+        <walk to="4si"/>
+        <walk to="2o"/>
+    </person>
+    <person id="7" depart="7.00">
+        <walk from="3fi" to="4fi"/>
+        <walk to="3o"/>
+        <walk to="4o"/>
+        <walk to="3fi"/>
+    </person>
+    <person id="8" depart="8.00">
+        <walk from="3si" to="1fi"/>
+        <walk to="1si"/>
+        <walk to="2fi"/>
+        <walk to="1fi"/>
+    </person>
+    <person id="9" depart="9.00">
+        <walk from="1si" to="1o"/>
+        <walk to="2fi"/>
+        <walk to="3o"/>
+        <walk to="2o"/>
+    </person>
+</routes>

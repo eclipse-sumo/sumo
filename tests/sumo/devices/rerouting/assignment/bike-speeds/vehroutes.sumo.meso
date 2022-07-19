@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Nov 25 18:32:59 2020 by Eclipse SUMO sumo Version v1_7_0+1296-45fee5e4a0
+<!-- generated on 2022-02-11 11:28:55 by Eclipse SUMO sumo Version v1_12_0+0490-00f3a0f
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -56,56 +61,56 @@ SPDX-License-Identifier: EPL-2.0
         <stop lane="middle_1" endPos="200.00" duration="100.00"/>
     </vehicle>
 
-    <vehicle id="veh.0" depart="0.00" arrival="191.00">
+    <vehicle id="veh.0" depart="0.00" arrival="192.00">
         <route cost="89.93" savings="0.00" edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="veh.1" depart="20.00" arrival="192.00">
-        <route cost="93.16" savings="0.00" edges="beg middle end rend"/>
-    </vehicle>
-
     <vehicle id="veh.4" depart="80.00" arrival="244.00">
-        <route cost="151.45" savings="0.00" edges="beg beg2left left left2end end rend"/>
+        <route cost="151.56" savings="0.00" edges="beg beg2left left left2end end rend"/>
     </vehicle>
 
     <vehicle id="veh.5" depart="100.00" arrival="264.00">
-        <route cost="158.30" savings="0.00" edges="beg beg2left left left2end end rend"/>
+        <route cost="159.18" savings="0.00" edges="beg beg2left left left2end end rend"/>
     </vehicle>
 
     <vehicle id="veh.6" depart="120.00" arrival="284.00">
-        <route cost="162.60" savings="0.00" edges="beg beg2left left left2end end rend"/>
+        <route cost="164.08" savings="0.00" edges="beg beg2left left left2end end rend"/>
     </vehicle>
 
     <vehicle id="veh.7" depart="140.00" arrival="304.00">
-        <route cost="165.04" savings="0.00" edges="beg beg2left left left2end end rend"/>
+        <route cost="166.90" savings="0.00" edges="beg beg2left left left2end end rend"/>
     </vehicle>
 
     <vehicle id="bike.0" type="bike" depart="0.00" arrival="452.00">
         <route cost="450.00" savings="0.00" edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="veh.2" depart="40.00" arrival="452.00">
-        <route cost="99.31" savings="0.00" edges="beg middle end rend"/>
+    <vehicle id="veh.1" depart="20.00" arrival="453.00">
+        <route cost="93.37" savings="0.00" edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="veh.8" depart="160.00" arrival="453.00">
-        <route cost="166.34" savings="0.00" edges="beg beg2left left left2end end rend"/>
+    <vehicle id="veh.8" depart="160.00" arrival="454.00">
+        <route cost="167.30" savings="0.00" edges="beg beg2left left left2end end rend"/>
     </vehicle>
 
     <vehicle id="bike.1" type="bike" depart="20.00" arrival="470.00">
         <route cost="450.00" savings="0.00" edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="veh.3" depart="60.00" arrival="471.00">
-        <route cost="140.86" savings="0.00" edges="beg middle end rend"/>
+    <vehicle id="veh.2" depart="40.00" arrival="471.00">
+        <route cost="99.48" savings="0.00" edges="beg middle end rend"/>
     </vehicle>
 
     <vehicle id="veh.9" depart="180.00" arrival="472.00">
-        <route cost="167.02" savings="0.00" edges="beg beg2left left left2end end rend"/>
+        <route cost="167.50" savings="0.00" edges="beg beg2left left left2end end rend"/>
     </vehicle>
 
     <vehicle id="bike.2" type="bike" depart="40.00" arrival="490.00">
         <route cost="450.00" savings="0.00" edges="beg middle end rend"/>
+    </vehicle>
+
+    <vehicle id="veh.3" depart="60.00" arrival="491.00">
+        <route cost="141.01" savings="0.00" edges="beg middle end rend"/>
     </vehicle>
 
     <vehicle id="bike.3" type="bike" depart="60.00" arrival="510.00">
@@ -117,15 +122,15 @@ SPDX-License-Identifier: EPL-2.0
     </vehicle>
 
     <vehicle id="bike.5" type="bike" depart="100.00" arrival="550.00">
-        <route cost="491.44" savings="0.00" edges="beg middle end rend"/>
+        <route cost="501.50" savings="0.00" edges="beg middle end rend"/>
     </vehicle>
 
     <vehicle id="bike.6" type="bike" depart="120.00" arrival="570.00">
-        <route cost="519.16" savings="0.00" edges="beg middle end rend"/>
+        <route cost="533.85" savings="0.00" edges="beg middle end rend"/>
     </vehicle>
 
     <vehicle id="bike.7" type="bike" depart="140.00" arrival="590.00">
-        <route cost="519.89" savings="0.00" edges="beg middle end rend"/>
+        <route cost="532.05" savings="0.00" edges="beg middle end rend"/>
     </vehicle>
 
     <vehicle id="bike.8" type="bike" depart="160.00" arrival="610.00">

@@ -3,3 +3,6 @@ moveTo_detector
 
 # test vehicle.getDistance
 odometer
+
+# continously correct vehicle positions
+controller_loop

@@ -49,7 +49,7 @@ title: Projects
   management approaches
 - [OIS](https://web.archive.org/web/20040826034935/http://www.dlr.de/vf/forschung/projekte/ois): Verification of
   using optical sensors for optimization of traffic lights
-- [CityMobil](http://www.citymobil.org/) Automatic urban
+- [CityMobil](https://web.archive.org/web/20191204150245/http://www.citymobil-project.eu:80/) Automatic urban
   transportation. A [simulation for a parking lot](../Tutorials/CityMobil.md) inspired by the Rome
   demonstrator is included with SUMO.
 - [DRIVE C2X](https://web.archive.org/web/20170311043037/http://www.drive-c2x.eu/project) Driving implementation
@@ -132,7 +132,7 @@ title: Projects
   many thanks go to students who have extendended SUMO: Maik
   Drozdzynski, Andreas Gaubatz and Miguel Liebe
   publications: [Edelkamp, Jabar, Mehrer, 2005](../Publications.md#edelkampjabarmehrer2005)
-- [Rapid Generation of Realistic Simulation for VANET](https://lens.csie.ncku.edu.tw/R03_rapid-vanet.html)
+- [Rapid Generation of Realistic Simulation for VANET](https://lens.csie.ncku.edu.tw/index.php/research-projects/past/18-rapid-vanet)
   by Feliz Karnadi, Zhi Hai Mo, and Kun Chan Lan from the University
   of New South Wales, Sydney, Australia
   many thanks for extending SUMO\!
@@ -145,7 +145,7 @@ title: Projects
   mobiler
   Kommunikation" by Clemens Honomichl; Diploma thesis; 2008
 - [emil - Elektrobusse mit induktiver Ladetechnik (german only)](https://web.archive.org/web/20150722031908/http://www.verkehr-bs.de/unternehmen/forschungsprojekt-emil.html)
-- [Metro Traffic Simulator](https://tech.d-itlab.co.jp/author/osamumasutani/)
+- [Metro Traffic Simulator](https://www.youtube.com/watch?v=P9rHo6yHRNc)
 
 ## Code repositories with SUMO related stuff
 

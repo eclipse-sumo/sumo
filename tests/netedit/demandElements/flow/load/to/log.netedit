@@ -1,4 +1,0 @@
-Error: from and to atribute must de defined together
-Error: Attribute 'to' in definition of flow 'flow_1' is empty.
-Error: Could not build trip in netedit; edge doesn't exist.
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_30Aug092831.8312\netedit.gui\demandElements\flow\load\to\input_routes.rou.xml failed.

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-07-07 11:06:31.975788 by addStops2Routes.py v1_13_0+1343-240e5d48340
+<configuration>
+    <duration value="1800"/>
+    <net-file value="input_net.net.xml"/>
+    <output-file value="out.rou.xml"/>
+    <route-files value="input_routes.rou.xml"/>
+    <typesfile value="input_routes.rou.xml"/>
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="type1" vClass="ship"/>
+    <trip color="1,0,0" depart="0" from="SC" id="0" to="CN" type="type1"/>
+</routes>

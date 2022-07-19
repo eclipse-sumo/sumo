@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed Sep  2 09:53:20 2020 by Eclipse SUMO sumo Version v1_6_0+1904-84cb2799ee
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <tripinfo-output value="tripinfos.xml"/>
+        <railsignal-block-output value="railsignal_blocks.xml"/>
+    </output>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<railsignal-block-output>
+    <railSignal id="A">
+        <link linkIndex="0" from="a_0" to="b_0">
+            <driveWay edges="b c">
+                <forward lanes="b_0 c_0"/>
+                <bidi lanes=""/>
+                <flank lanes="e_0"/>
+                <protectingSwitches links=""/>
+                <conflictLinks signals="D_0"/>
+            </driveWay>
+        </link>
+    </railSignal>
+    <railSignal id="D">
+        <link linkIndex="0" from="d_0" to="e_0">
+            <driveWay edges="e c">
+                <forward lanes="e_0 c_0"/>
+                <bidi lanes=""/>
+                <flank lanes="b_0"/>
+                <protectingSwitches links=""/>
+                <conflictLinks signals="A_0"/>
+            </driveWay>
+        </link>
+    </railSignal>
+</railsignal-block-output>

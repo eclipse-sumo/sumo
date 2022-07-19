@@ -1,0 +1,28 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <timedEvent type="SaveTLSSwitchStates" source="C0" dest="tls_state_switch.xml"/>
+    <timedEvent type="SaveTLSSwitchStates" source="B0" dest="tls_state_switch.xml"/>
+
+    <!-- arrival pattern shaping for the two side flows -->
+    <tlLogic id="B1" type="static" programID="custom" offset="0">
+        <phase duration="42" state="GGggrrrrGGggrrrr"/>
+        <phase duration="3"  state="yyyyrrrryyyyrrrr"/>
+        <phase duration="72" state="rrrrGGggrrrrGGgg"/>
+        <phase duration="3"  state="rrrryyyyrrrryyyy"/>
+    </tlLogic>
+
+    <tlLogic id="C1" type="static" programID="custom" offset="0">
+        <phase duration="22" state="GGggrrrrGGggrrrr"/>
+        <phase duration="3"  state="yyyyrrrryyyyrrrr"/>
+        <phase duration="22" state="rrrrGGggrrrrGGgg"/>
+        <phase duration="3"  state="rrrryyyyrrrryyyy"/>
+    </tlLogic>
+
+    <!-- arrival pattern shaping for the main flow -->
+    <tlLogic id="A0" type="static" programID="custom" offset="0">
+        <phase duration="22" state="GGggrrrrGGggrrrr"/>
+        <phase duration="3"  state="yyyyrrrryyyyrrrr"/>
+        <phase duration="62" state="rrrrGGggrrrrGGgg"/>
+        <phase duration="3"  state="rrrryyyyrrrryyyy"/>
+    </tlLogic>
+
+</additional>

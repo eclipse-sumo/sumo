@@ -1,0 +1,20 @@
+Error: Attribute 'triggered' in definition of a stop is empty.
+Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop at 'chargingStation' in vehicle 'flow_0'.
+Error: Attribute 'triggered' in definition of a stop is empty.
+Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop at 'chargingStation' in vehicle 'flow_2'.
+Error: Attribute 'triggered' in definition of a stop is empty.
+Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop at 'chargingStation' in vehicle 'flow_3'.
+Error: Attribute 'triggered' in definition of a stop is empty.
+Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop at 'chargingStation' in vehicle 'flow_4'.
+Warning: Teleporting vehicle 'flow_5.2'; waited too long (wrong lane), lane='gneE0_0', time=363.00.
+Warning: Vehicle 'flow_5.2' skips stop on lane 'gneE0_0' time=363.00.
+Warning: Vehicle 'flow_5.2' ends teleporting on edge 'gneE1', time=363.00.
+Warning: Teleporting vehicle 'flow_5.3'; waited too long (wrong lane), lane='gneE0_0', time=679.00.
+Warning: Vehicle 'flow_5.3' skips stop on lane 'gneE0_0' time=679.00.
+Warning: Vehicle 'flow_5.3' ends teleporting on edge 'gneE1', time=679.00.
+Warning: Teleporting vehicle 'flow_5.4'; waited too long (wrong lane), lane='gneE0_0', time=999.00.
+Warning: Vehicle 'flow_5.4' skips stop on lane 'gneE0_0' time=999.00.
+Warning: Vehicle 'flow_5.4' ends teleporting on edge 'gneE1', time=999.00.
+Warning: Teleporting vehicle 'flow_5.5'; waited too long (wrong lane), lane='gneE0_0', time=1315.00.
+Warning: Vehicle 'flow_5.5' skips stop on lane 'gneE0_0' time=1315.00.
+Warning: Vehicle 'flow_5.5' ends teleporting on edge 'gneE1', time=1315.00.

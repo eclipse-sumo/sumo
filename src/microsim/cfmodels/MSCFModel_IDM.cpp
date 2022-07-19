@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -27,6 +27,10 @@
 //#define DEBUG_V
 //#define DEBUG_INSERTION_SPEED
 
+#define DEBUG_COND (veh->isSelected())
+//#define DEBUG_COND true
+
+
 // ===========================================================================
 // method definitions
 // ===========================================================================
@@ -39,10 +43,24 @@ MSCFModel_IDM::MSCFModel_IDM(const MSVehicleType* vtype, bool idmm) :
     myIterations(MAX2(1, int(TS / vtype->getParameter().getCFParam(SUMO_ATTR_CF_IDM_STEPPING, .25) + .5))),
     myTwoSqrtAccelDecel(double(2 * sqrt(myAccel * myDecel))) {
     // IDM does not drive very precise and may violate minGap on occasion
-    myCollisionMinGapFactor = vtype->getParameter().getCFParam(SUMO_ATTR_COLLISION_MINGAP_FACTOR, 0.5);
+    myCollisionMinGapFactor = vtype->getParameter().getCFParam(SUMO_ATTR_COLLISION_MINGAP_FACTOR, 0.1);
 }
 
 MSCFModel_IDM::~MSCFModel_IDM() {}
+
+
+double
+MSCFModel_IDM::minNextSpeed(double speed, const MSVehicle* const /*veh*/) const {
+    // permit exceeding myDecel when approaching stops
+    const double decel = MAX2(myDecel, MIN2(myEmergencyDecel, 1.5));
+    if (MSGlobals::gSemiImplicitEulerUpdate) {
+        return MAX2(speed - ACCEL2SPEED(decel), 0.);
+    } else {
+        // NOTE: ballistic update allows for negative speeds to indicate a stop within the next timestep
+        return speed - ACCEL2SPEED(decel);
+    }
+}
+
 
 
 double
@@ -85,9 +103,6 @@ MSCFModel_IDM::freeSpeed(const MSVehicle* const veh, double speed, double seen, 
 double
 MSCFModel_IDM::followSpeed(const MSVehicle* const veh, double speed, double gap2pred, double predSpeed, double predMaxDecel, const MSVehicle* const pred) const {
     applyHeadwayAndSpeedDifferencePerceptionErrors(veh, speed, gap2pred, predSpeed, predMaxDecel, pred);
-#ifdef DEBUG_V
-    gDebugFlag1 = veh->isSelected();
-#endif
     return _v(veh, gap2pred, speed, predSpeed, veh->getLane()->getVehicleMaxSpeed(veh));
 }
 
@@ -126,7 +141,7 @@ MSCFModel_IDM::stopSpeed(const MSVehicle* const veh, const double speed, double 
     if (gap < 0.01) {
         return 0;
     }
-    double result = _v(veh, gap, speed, 0, veh->getLane()->getVehicleMaxSpeed(veh));
+    double result = _v(veh, gap, speed, 0, veh->getLane()->getVehicleMaxSpeed(veh), false);
     if (gap > 0 && speed < NUMERICAL_EPS && result < NUMERICAL_EPS) {
         // ensure that stops can be reached:
         //std::cout << " switching to krauss: " << veh->getID() << " gap=" << gap << " speed=" << speed << " res1=" << result << " res2=" << maximumSafeStopSpeed(gap, speed, false, veh->getActionStepLengthSecs())<< "\n";
@@ -177,6 +192,11 @@ MSCFModel_IDM::_v(const MSVehicle* const veh, const double gap2pred, const doubl
         // gap2pred comes with minGap already subtracted so we need to add it here again
         gap += myType->getMinGap();
     }
+#ifdef DEBUG_V
+    if (DEBUG_COND) {
+        std::cout << SIMTIME << " veh=" << veh->getID() << " gap2pred=" << gap2pred << " egoSpeed=" << egoSpeed << " predSpeed=" << predSpeed << " desSpeed=" << desSpeed << " rMG=" << respectMinGap << " hw=" << headwayTime << "\n";
+    }
+#endif
     for (int i = 0; i < myIterations; i++) {
         const double delta_v = newSpeed - predSpeed;
         double s = MAX2(0., newSpeed * headwayTime + newSpeed * delta_v / myTwoSqrtAccelDecel);
@@ -184,16 +204,16 @@ MSCFModel_IDM::_v(const MSVehicle* const veh, const double gap2pred, const doubl
             s += myType->getMinGap();
         }
         gap = MAX2(NUMERICAL_EPS, gap); // avoid singularity
-        const double acc = myAccel * (1. - pow(newSpeed / desSpeed, myDelta) - (s * s) / (gap * gap));
+        const double acc = myAccel * (1. - pow(newSpeed / MAX2(NUMERICAL_EPS, desSpeed), myDelta) - (s * s) / (gap * gap));
 #ifdef DEBUG_V
-        if (gDebugFlag1) {
-            std::cout << " gap=" << gap << " t=" << myHeadwayTime << " t2=" << headwayTime << " s=" << s << " pow=" << pow(newSpeed / desSpeed, myDelta) << " gapDecel=" << (s * s) / (gap * gap) << " a=" << acc;
+        if (DEBUG_COND) {
+            std::cout << "   i=" << i << " gap=" << gap << " t=" << myHeadwayTime << " t2=" << headwayTime << " s=" << s << " pow=" << pow(newSpeed / desSpeed, myDelta) << " gapDecel=" << (s * s) / (gap * gap) << " a=" << acc;
         }
 #endif
         newSpeed = MAX2(0.0, newSpeed + ACCEL2SPEED(acc) / myIterations);
 #ifdef DEBUG_V
-        if (gDebugFlag1) {
-            std::cout << " v2=" << newSpeed << "\n";
+        if (DEBUG_COND) {
+            std::cout << " v2=" << newSpeed << " gLC=" << MSGlobals::gComputeLC << "\n";
         }
 #endif
         //TODO use more realistic position update which takes accelerated motion into account

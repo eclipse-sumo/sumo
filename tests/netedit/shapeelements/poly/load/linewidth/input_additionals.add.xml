@@ -1,0 +1,15 @@
+<additionals>
+
+    <!-- non valid lineWidth (missing) -->
+    <poly id="poly_0" color="green" fill="1" shape="-50.00,20.00 -40.00,20.00 -40.00,10.00 -50.00,10.00 -50.00,20.00"/>
+
+    <!-- non valid lineWidth (dummy) -->
+    <poly id="poly_1" color="green" fill="1" lineWidth="dummyLineWidth" shape="-50.00,0.00 -40.00,0.00 -40.00,-10.00 -50.00,-10.00 -50.00,0.00"/>
+
+    <!-- non valid lineWidth (negative) -->
+    <poly id="poly_2" color="green" fill="1" lineWidth="-3" shape="-50.00,-20.00 -40.00,-20.00 -40.00,-30.00 -50.00,-30.00 -50.00,-20.00"/>
+
+    <!-- valid lineWidth -->
+    <poly id="poly_3" color="green" fill="1" lineWidth="2.5" shape="-50.00,-20.00 -40.00,-20.00 -40.00,-30.00 -50.00,-30.00 -50.00,-20.00"/>
+
+</additionals>

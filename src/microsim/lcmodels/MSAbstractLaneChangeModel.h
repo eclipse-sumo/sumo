@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -197,8 +197,13 @@ public:
         }
     }
 
-    void saveLCState(const int dir, const int stateWithoutTraCI, const int state) {
-        const auto pair = std::make_pair(stateWithoutTraCI | getCanceledState(dir), state);
+    void saveLCState(const int dir, int stateWithoutTraCI, const int state) {
+        int canceledStrategic = getCanceledState(dir);
+        // avoid conflicting directions
+        if ((canceledStrategic & LCA_WANTS_LANECHANGE_OR_STAY) != 0) {
+            stateWithoutTraCI = canceledStrategic;
+        }
+        const auto pair = std::make_pair(stateWithoutTraCI, state);
         if (dir == -1) {
             mySavedStateRight = pair;
         } else if (dir == 0) {
@@ -345,6 +350,9 @@ public:
      * the custom variables of each child implementation */
     virtual void changed() = 0;
 
+    /* @brief called once when the vehicle moves to a new lane in an "irregular"  way (i.e. by teleporting)
+     * resets custom variables of each child implementation */
+    virtual void resetState() {};
 
     /// @brief return factor for modifying the safety constraints of the car-following model
     virtual double getSafetyFactor() const {
@@ -497,8 +505,8 @@ public:
     void cleanupTargetLane();
 
     /// @brief reserve space at the end of the lane to avoid dead locks
-    virtual void saveBlockerLength(double length) {
-        UNUSED_PARAMETER(length);
+    virtual bool saveBlockerLength(double /* length */, double /* foeLeftSpace */) {
+        return true;
     }
 
     void setShadowPartialOccupator(MSLane* lane) {
@@ -528,6 +536,9 @@ public:
     bool isOpposite() const {
         return myAmOpposite;
     }
+
+    /// brief return lane index that treats opposite lanes like normal lanes to the left of the forward lanes
+    int getNormalizedLaneIndex();
 
     double getCommittedSpeed() const {
         return myCommittedSpeed;
@@ -565,6 +576,10 @@ public:
         throw InvalidArgument("Setting parameter '" + key + "' is not supported for laneChangeModel of type '" + toString(myModel) + "'");
     }
 
+    /// reserve extra space for unseen blockers when more tnan one lane change is required
+    virtual double getExtraReservation(int /*bestLaneOffset*/) const {
+        return 0;
+    }
 
     /// @brief Check for commands issued for the vehicle via TraCI and apply the appropriate state changes
     ///        For the sublane case, this includes setting a new maneuver distance if appropriate.
@@ -573,12 +588,18 @@ public:
     /// @brief get vehicle position relative to the forward direction lane
     double getForwardPos() const;
 
+    bool hasBlueLight() const {
+        return myHaveBlueLight;
+    }
+
     static const double NO_NEIGHBOR;
 
 protected:
     virtual bool congested(const MSVehicle* const neighLeader);
 
     virtual bool predInteraction(const std::pair<MSVehicle*, double>& leader);
+
+    virtual bool avoidOvertakeRight() const;
 
     /// @brief whether the influencer cancels the given request
     bool cancelRequest(int state, int laneOffset);
@@ -700,6 +721,11 @@ protected:
     double myMaxDistLatStanding;
     // @brief factor for lane keeping imperfection
     double mySigma;
+    // allow overtaking right even though it is prohibited
+    double myOvertakeRightParam;
+
+    /// @brief whether this vehicle is driving with special permissions and behavior
+    bool myHaveBlueLight;
 
     /* @brief to be called by derived classes in their changed() method.
      * If dir=0 is given, the current value remains unchanged */

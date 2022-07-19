@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -40,7 +40,10 @@ class GNEEdge;
  * editor (hence inheritance from FXDelegator)
  */
 class GNECrossing : public GNENetworkElement {
+
 public:
+    /// @brief default constructor
+    GNECrossing(GNENet* net);
 
     /**@brief Constructor
      * @param[in] parentJunction GNEJunction in which this crossing is placed
@@ -50,6 +53,12 @@ public:
 
     /// @brief Destructor
     ~GNECrossing();
+
+    /// @brief check if current network element is valid to be written into XML
+    bool isNetworkElementValid() const;
+
+    /// @brief return a string with the current network element problem
+    std::string getNetworkElementProblem() const;
 
     /// @name Functions related with geometry of element
     /// @{
@@ -66,7 +75,7 @@ public:
     /// @name Functions related with move elements
     /// @{
     /// @brief get move operation for the given shapeOffset (can be nullptr)
-    GNEMoveOperation* getMoveOperation(const double shapeOffset);
+    GNEMoveOperation* getMoveOperation();
 
     /// @brief remove geometry point in the clicked position
     void removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList);
@@ -92,6 +101,9 @@ public:
      */
     GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent);
 
+    /// @brief return exaggeration associated with this GLObject
+    double getExaggeration(const GUIVisualizationSettings& s) const;
+
     /// @brief update centering boundary (implies change in RTREE)
     void updateCenteringBoundary(const bool updateGrid);
 
@@ -100,6 +112,9 @@ public:
      * @see GUIGlObject::drawGL
      */
     void drawGL(const GUIVisualizationSettings& s) const;
+
+    /// @brief update GLObject (geometry, ID, etc.)
+    void updateGLObject();
     /// @}
 
     /// @name inherited from GNEAttributeCarrier
@@ -119,7 +134,7 @@ public:
 
     /* @brief method for checking if the key and their correspond attribute are valids
      * @param[in] key The attribute key
-     * @param[in] value The value asociated to key key
+     * @param[in] value The value associated to key key
      * @return true if the value is valid, false in other case
      */
     bool isValid(SumoXMLAttr key, const std::string& value);
@@ -128,10 +143,11 @@ public:
      * @param[in] key The attribute key
      */
     bool isAttributeEnabled(SumoXMLAttr key) const;
+
     /// @}
 
     /// @brief get parameters map
-    const std::map<std::string, std::string>& getACParametersMap() const;
+    const Parameterised::Map& getACParametersMap() const;
 
     /// @brief return true if a edge belongs to crossing's edges
     bool checkEdgeBelong(GNEEdge* edges) const;
@@ -147,7 +163,10 @@ protected:
     std::vector<NBEdge*> myCrossingEdges;
 
     /// @brief crossing geometry
-    GNEGeometry::Geometry myCrossingGeometry;
+    GUIGeometry myCrossingGeometry;
+
+    /// @brief template NBCrossing
+    NBNode::Crossing* myTemplateNBCrossing;
 
 private:
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)

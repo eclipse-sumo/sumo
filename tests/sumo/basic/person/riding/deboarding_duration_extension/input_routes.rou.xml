@@ -1,0 +1,16 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+   <vType id="DEFAULT_VEHTYPE" vClass="bus" sigma="0" boardingDuration="5" personCapacity="12"/>
+    <vehicle id="bus" line="l100" depart="0" departPos="0" >
+        <route edges="beg beg2left left left2end end">
+            <stop lane="beg_0" startPos="10" endPos="50" duration="10"/>
+            <stop lane="left_0" startPos="10" endPos="50" duration="10"/>
+            <stop lane="end_0" startPos="10" endPos="50" duration="10"/>
+        </route>
+    </vehicle>
+    <personFlow id="p" begin="0" end="1" number="10" departPos="40" color="blue">
+        <ride from="beg" to="left" lines="l100"/>
+    </personFlow>
+    <personFlow id="p2" begin="0" end="1" number="10" departPos="40" color="cyan">
+        <ride from="left" to="end" lines="l100"/>
+    </personFlow>
+</routes>

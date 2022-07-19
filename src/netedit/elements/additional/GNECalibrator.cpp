@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -32,17 +32,41 @@
 // member method definitions
 // ===========================================================================
 
+GNECalibrator::GNECalibrator(SumoXMLTag tag, GNENet* net) :
+    GNEAdditional("", net, GLO_CALIBRATOR, tag, "", {}, {}, {}, {}, {}, {}),
+              myPositionOverLane(0),
+              myFrequency(0),
+myJamThreshold(0) {
+    // reset default values
+    resetDefaultValues();
+}
+
+
 GNECalibrator::GNECalibrator(const std::string& id, GNENet* net, GNEEdge* edge, double pos, SUMOTime frequency, const std::string& name,
-                             const std::string& output, const std::string& routeprobe, const double jamThreshold, const std::vector<std::string>& vTypes,
-                             const std::map<std::string, std::string>& parameters) :
+                             const std::string& output, const double jamThreshold, const std::vector<std::string>& vTypes, const Parameterised::Map& parameters) :
     GNEAdditional(id, net, GLO_CALIBRATOR, SUMO_TAG_CALIBRATOR, name,
-{}, {edge}, {}, {}, {}, {}, {}, {},
-parameters),
-            myPositionOverLane(pos),
-            myFrequency(frequency),
-            myOutput(output),
-            myRouteProbe(routeprobe),
-            myJamThreshold(jamThreshold),
+{}, {edge}, {}, {}, {}, {}),
+Parameterised(parameters),
+myPositionOverLane(pos),
+myFrequency(frequency),
+myOutput(output),
+myJamThreshold(jamThreshold),
+myVTypes(vTypes) {
+    // update centering boundary without updating grid
+    updateCenteringBoundary(false);
+}
+
+
+GNECalibrator::GNECalibrator(const std::string& id, GNENet* net, GNEEdge* edge, double pos, SUMOTime frequency, const std::string& name,
+                             const std::string& output, GNEAdditional* routeProbe, const double jamThreshold, const std::vector<std::string>& vTypes,
+                             const Parameterised::Map& parameters) :
+    GNEAdditional(id, net, GLO_CALIBRATOR, SUMO_TAG_CALIBRATOR, name,
+{}, {edge}, {}, {routeProbe}, {}, {}),
+Parameterised(parameters),
+myPositionOverLane(pos),
+myFrequency(frequency),
+myOutput(output),
+myJamThreshold(jamThreshold),
 myVTypes(vTypes) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
@@ -50,15 +74,29 @@ myVTypes(vTypes) {
 
 
 GNECalibrator::GNECalibrator(const std::string& id, GNENet* net, GNELane* lane, double pos, SUMOTime frequency, const std::string& name,
-                             const std::string& output, const std::string& routeprobe, const double jamThreshold, const std::vector<std::string>& vTypes,
-                             const std::map<std::string, std::string>& parameters) :
-    GNEAdditional(id, net, GLO_CALIBRATOR, SUMO_TAG_LANECALIBRATOR, name,
-{}, {}, {lane}, {}, {}, {}, {}, {},
-parameters),
+                             const std::string& output, const double jamThreshold, const std::vector<std::string>& vTypes, const Parameterised::Map& parameters) :
+    GNEAdditional(id, net, GLO_CALIBRATOR, GNE_TAG_CALIBRATOR_LANE, name,
+{}, {}, {lane}, {}, {}, {}),
+Parameterised(parameters),
 myPositionOverLane(pos),
 myFrequency(frequency),
 myOutput(output),
-myRouteProbe(routeprobe),
+myJamThreshold(jamThreshold),
+myVTypes(vTypes) {
+    // update centering boundary without updating grid
+    updateCenteringBoundary(false);
+}
+
+
+GNECalibrator::GNECalibrator(const std::string& id, GNENet* net, GNELane* lane, double pos, SUMOTime frequency, const std::string& name,
+                             const std::string& output, GNEAdditional* routeProbe, const double jamThreshold, const std::vector<std::string>& vTypes,
+                             const Parameterised::Map& parameters) :
+    GNEAdditional(id, net, GLO_CALIBRATOR, GNE_TAG_CALIBRATOR_LANE, name,
+{}, {}, {lane}, {routeProbe}, {}, {}),
+Parameterised(parameters),
+myPositionOverLane(pos),
+myFrequency(frequency),
+myOutput(output),
 myJamThreshold(jamThreshold),
 myVTypes(vTypes) {
     // update centering boundary without updating grid
@@ -69,8 +107,51 @@ myVTypes(vTypes) {
 GNECalibrator::~GNECalibrator() {}
 
 
+void
+GNECalibrator::writeAdditional(OutputDevice& device) const {
+    // open tag
+    device.openTag(SUMO_TAG_CALIBRATOR);
+    // write parameters
+    device.writeAttr(SUMO_ATTR_ID, getID());
+    if (getParentEdges().size() > 0) {
+        device.writeAttr(SUMO_ATTR_EDGE, getParentEdges().front()->getID());
+    }
+    if (getParentLanes().size() > 0) {
+        device.writeAttr(SUMO_ATTR_LANE, getParentLanes().front()->getID());
+    }
+    device.writeAttr(SUMO_ATTR_POSITION, myPositionOverLane);
+    if (time2string(myFrequency) != "1.00") {
+        device.writeAttr(SUMO_ATTR_PERIOD, time2string(myFrequency));
+    }
+    if (!myAdditionalName.empty()) {
+        device.writeAttr(SUMO_ATTR_NAME, myAdditionalName);
+    }
+    if (!myOutput.empty()) {
+        device.writeAttr(SUMO_ATTR_OUTPUT, myOutput);
+    }
+    if (getParentAdditionals().size() > 0) {
+        device.writeAttr(SUMO_ATTR_ROUTEPROBE, getParentAdditionals().front()->getID());
+    }
+    if (myJamThreshold != 0.5) {
+        device.writeAttr(SUMO_ATTR_JAM_DIST_THRESHOLD, myJamThreshold);
+    }
+    if (myVTypes.size() > 0) {
+        device.writeAttr(SUMO_ATTR_VTYPES, myVTypes);
+    }
+    // write calibrator flows
+    for (const auto& calibratorFlow : getChildAdditionals()) {
+        if (calibratorFlow->getTagProperty().getTag() == GNE_TAG_CALIBRATOR_FLOW) {
+            calibratorFlow->writeAdditional(device);
+        }
+    }
+    // write parameters (Always after children to avoid problems with additionals.xsd)
+    writeParams(device);
+    device.closeTag();
+}
+
+
 GNEMoveOperation*
-GNECalibrator::getMoveOperation(const double /*shapeOffset*/) {
+GNECalibrator::getMoveOperation() {
     // calibrators cannot be moved
     return nullptr;
 }
@@ -90,7 +171,7 @@ GNECalibrator::updateGeometry() {
         // iterate over every lane and get point
         for (int i = 1; i < (int)getParentEdges().front()->getLanes().size(); i++) {
             // add new calibrator geometry
-            GNEGeometry::Geometry calibratorGeometry;
+            GUIGeometry calibratorGeometry;
             calibratorGeometry.updateGeometry(getParentEdges().front()->getLanes().at(i)->getLaneShape(), myPositionOverLane, 0);
             myEdgeCalibratorGeometries.push_back(calibratorGeometry);
         }
@@ -102,20 +183,17 @@ GNECalibrator::updateGeometry() {
 
 Position
 GNECalibrator::getPositionInView() const {
-    return myBoundary.getCenter();
+    return myAdditionalGeometry.getShape().getPolygonCenter();
 }
 
 
 void
 GNECalibrator::updateCenteringBoundary(const bool /*updateGrid*/) {
-    // first reset boundary
-    myBoundary.reset();
-    // now update geometry
-    updateGeometry();
-    // add shape boundary
-    myBoundary = myAdditionalGeometry.getShape().getBoxBoundary();
+    myAdditionalBoundary.reset();
+    // add center
+    myAdditionalBoundary.add(getPositionInView());
     // grow
-    myBoundary.grow(10);
+    myAdditionalBoundary.grow(10);
 }
 
 
@@ -150,23 +228,29 @@ GNECalibrator::getParentName() const {
 void
 GNECalibrator::drawGL(const GUIVisualizationSettings& s) const {
     // get values
-    const double exaggeration = s.addSize.getExaggeration(s, this);
+    const double exaggeration = getExaggeration(s);
     // first check if additional has to be drawn
     if (myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
         if (s.drawAdditionals(exaggeration)) {
-            // begin push name
-            GLHelper::pushName(getGlID());
             // draw first symbol
-            drawCalibratorSymbol(s, exaggeration, myAdditionalGeometry.getShape().front(), myAdditionalGeometry.getShapeRotations().front());
+            drawCalibratorSymbol(s, exaggeration, myAdditionalGeometry.getShape().front(), myAdditionalGeometry.getShapeRotations().front() + 90);
             // continue with the other symbols
             for (const auto& edgeCalibratorGeometry : myEdgeCalibratorGeometries) {
-                drawCalibratorSymbol(s, exaggeration, edgeCalibratorGeometry.getShape().front(), edgeCalibratorGeometry.getShapeRotations().front());
+                drawCalibratorSymbol(s, exaggeration, edgeCalibratorGeometry.getShape().front(), edgeCalibratorGeometry.getShapeRotations().front() + 90);
             }
-            // pop name
-            GLHelper::popName();
+            // draw additional ID
+            drawAdditionalID(s);
+            // iterate over additionals and check if drawn
+            for (const auto& calibratorFlow : getChildAdditionals()) {
+                // if calibrator is being inspected or selected, then draw
+                if (myNet->getViewNet()->getNetworkViewOptions().showSubAdditionals() ||
+                        isAttributeCarrierSelected() || myNet->getViewNet()->isAttributeCarrierInspected(this) ||
+                        calibratorFlow->isAttributeCarrierSelected() || myNet->getViewNet()->isAttributeCarrierInspected(calibratorFlow) ||
+                        (myNet->getViewNet()->getFrontAttributeCarrier() == calibratorFlow)) {
+                    calibratorFlow->drawGL(s);
+                }
+            }
         }
-        // draw additional ID
-        drawAdditionalID(s);
     }
 }
 
@@ -182,13 +266,14 @@ std::string
 GNECalibrator::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
-            return getID();
+            return getMicrosimID();
         case SUMO_ATTR_EDGE:
             return getParentEdges().front()->getID();
         case SUMO_ATTR_LANE:
             return getParentLanes().front()->getID();
         case SUMO_ATTR_POSITION:
             return toString(myPositionOverLane);
+        case SUMO_ATTR_PERIOD:
         case SUMO_ATTR_FREQUENCY:
             return time2string(myFrequency);
         case SUMO_ATTR_NAME:
@@ -196,7 +281,11 @@ GNECalibrator::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_OUTPUT:
             return myOutput;
         case SUMO_ATTR_ROUTEPROBE:
-            return myRouteProbe;
+            if (getParentAdditionals().size() > 0) {
+                return getParentAdditionals().front()->getID();
+            } else {
+                return "";
+            }
         case SUMO_ATTR_JAM_DIST_THRESHOLD:
             return toString(myJamThreshold);
         case SUMO_ATTR_VTYPES:
@@ -205,6 +294,8 @@ GNECalibrator::getAttribute(SumoXMLAttr key) const {
             return toString(isAttributeCarrierSelected());
         case GNE_ATTR_PARAMETERS:
             return getParametersStr();
+        case GNE_ATTR_SHIFTLANEINDEX:
+            return "";
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -217,16 +308,20 @@ GNECalibrator::getAttributeDouble(SumoXMLAttr key) const {
 }
 
 
+const Parameterised::Map&
+GNECalibrator::getACParametersMap() const {
+    return getParametersMap();
+}
+
+
 void
 GNECalibrator::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
-    if (value == getAttribute(key)) {
-        return; //avoid needless changes, later logic relies on the fact that attributes have changed
-    }
     switch (key) {
         case SUMO_ATTR_ID:
         case SUMO_ATTR_EDGE:
         case SUMO_ATTR_LANE:
         case SUMO_ATTR_POSITION:
+        case SUMO_ATTR_PERIOD:
         case SUMO_ATTR_FREQUENCY:
         case SUMO_ATTR_NAME:
         case SUMO_ATTR_OUTPUT:
@@ -235,6 +330,7 @@ GNECalibrator::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
         case SUMO_ATTR_VTYPES:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
+        case GNE_ATTR_SHIFTLANEINDEX:
             undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
             break;
         default:
@@ -250,13 +346,13 @@ GNECalibrator::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
             return isValidAdditionalID(value);
         case SUMO_ATTR_EDGE:
-            if (myNet->retrieveEdge(value, false) != nullptr) {
+            if (myNet->getAttributeCarriers()->retrieveEdge(value, false) != nullptr) {
                 return true;
             } else {
                 return false;
             }
         case SUMO_ATTR_LANE:
-            if (myNet->retrieveLane(value, false) != nullptr) {
+            if (myNet->getAttributeCarriers()->retrieveLane(value, false) != nullptr) {
                 return true;
             } else {
                 return false;
@@ -264,7 +360,11 @@ GNECalibrator::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_POSITION:
             if (canParse<double>(value)) {
                 // obtain position and check if is valid
-                double newPosition = parse<double>(value);
+                const double newPosition = parse<double>(value);
+                if (isTemplate()) {
+                    return (newPosition >= 0);
+                }
+                // get shape
                 PositionVector shape = (getParentLanes().size() > 0) ? getParentLanes().front()->getLaneShape() : getParentEdges().front()->getLanes().at(0)->getLaneShape();
                 if ((newPosition < 0) || (newPosition > shape.length())) {
                     return false;
@@ -274,6 +374,7 @@ GNECalibrator::isValid(SumoXMLAttr key, const std::string& value) {
             } else {
                 return false;
             }
+        case SUMO_ATTR_PERIOD:
         case SUMO_ATTR_FREQUENCY:
             return canParse<SUMOTime>(value);
         case SUMO_ATTR_NAME:
@@ -281,7 +382,11 @@ GNECalibrator::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_OUTPUT:
             return SUMOXMLDefinitions::isValidFilename(value);
         case SUMO_ATTR_ROUTEPROBE:
-            return SUMOXMLDefinitions::isValidAdditionalID(value);
+            if (value.empty()) {
+                return true;
+            } else {
+                return (myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_ROUTEPROBE, value, false) != nullptr);
+            }
         case SUMO_ATTR_JAM_DIST_THRESHOLD:
             return canParse<double>(value) ? (parse<double>(value) >= 0) : false;
         case SUMO_ATTR_VTYPES:
@@ -293,16 +398,10 @@ GNECalibrator::isValid(SumoXMLAttr key, const std::string& value) {
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
         case GNE_ATTR_PARAMETERS:
-            return Parameterised::areParametersValid(value);
+            return areParametersValid(value);
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
-}
-
-
-bool
-GNECalibrator::isAttributeEnabled(SumoXMLAttr /* key */) const {
-    return true;
 }
 
 
@@ -321,7 +420,10 @@ GNECalibrator::getHierarchyName() const {
 // private
 // ===========================================================================
 
-void GNECalibrator::drawCalibratorSymbol(const GUIVisualizationSettings& s, const double exaggeration, const Position& pos, const double rot) const {
+void
+GNECalibrator::drawCalibratorSymbol(const GUIVisualizationSettings& s, const double exaggeration, const Position& pos, const double rot) const {
+    // begin push name
+    GLHelper::pushName(getGlID());
     // push layer matrix
     GLHelper::pushMatrix();
     // translate to front
@@ -329,7 +431,7 @@ void GNECalibrator::drawCalibratorSymbol(const GUIVisualizationSettings& s, cons
     // translate to position
     glTranslated(pos.x(), pos.y(), 0);
     // rotate over lane
-    GNEGeometry::rotateOverLane(rot - 90);
+    GUIGeometry::rotateOverLane(rot);
     // scale
     glScaled(exaggeration, exaggeration, 1);
     // set drawing mode
@@ -366,12 +468,20 @@ void GNECalibrator::drawCalibratorSymbol(const GUIVisualizationSettings& s, cons
     }
     // pop layer matrix
     GLHelper::popMatrix();
+    // pop name
+    GLHelper::popName();
     // check if dotted contours has to be drawn
-    if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-        GNEGeometry::drawDottedSquaredShape(GNEGeometry::DottedContourType::INSPECT, s, pos, 2, 1, 2, 0, rot, exaggeration);
+    if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
+        GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::INSPECT, s, pos,
+                s.additionalSettings.calibratorWidth, s.additionalSettings.calibratorHeight * 0.5,
+                0, s.additionalSettings.calibratorHeight * 0.5,
+                rot, exaggeration);
     }
-    if (s.drawDottedContour() || myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-        GNEGeometry::drawDottedSquaredShape(GNEGeometry::DottedContourType::FRONT, s, pos, 2, 1, 2, 0, rot, exaggeration);
+    if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
+        GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::FRONT, s, pos,
+                s.additionalSettings.calibratorWidth, s.additionalSettings.calibratorHeight * 0.5,
+                0, s.additionalSettings.calibratorHeight * 0.5,
+                rot, exaggeration);
     }
 }
 
@@ -379,7 +489,8 @@ void
 GNECalibrator::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            myNet->getAttributeCarriers()->updateID(this, value);
+            // update microsimID
+            setMicrosimID(value);
             break;
         case SUMO_ATTR_EDGE:
             replaceAdditionalParentEdges(value);
@@ -390,6 +501,7 @@ GNECalibrator::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_POSITION:
             myPositionOverLane = parse<double>(value);
             break;
+        case SUMO_ATTR_PERIOD:
         case SUMO_ATTR_FREQUENCY:
             myFrequency = parse<SUMOTime>(value);
             break;
@@ -400,7 +512,7 @@ GNECalibrator::setAttribute(SumoXMLAttr key, const std::string& value) {
             myOutput = value;
             break;
         case SUMO_ATTR_ROUTEPROBE:
-            myRouteProbe = value;
+            replaceAdditionalParent(SUMO_TAG_ROUTEPROBE, value, 0);
             break;
         case SUMO_ATTR_JAM_DIST_THRESHOLD:
             myJamThreshold = parse<double>(value);
@@ -417,6 +529,9 @@ GNECalibrator::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case GNE_ATTR_PARAMETERS:
             setParametersStr(value);
+            break;
+        case GNE_ATTR_SHIFTLANEINDEX:
+            shiftLaneIndex();
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");

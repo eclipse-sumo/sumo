@@ -1,5 +1,0 @@
-Error: Could not build e3Detector with ID 'e3Detector_0' in netedit; declared twice.
-Error: Attribute 'id' is missing in definition of a e3Detector.
-Error: detEntry must be defined within the definition of a e3Detector
-Error: detExit must be defined within the definition of a e3Detector
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.15Jun141421.868\netedit.gui\additionalElements\e3detector\load\id\input_additionals.add.xml failed.

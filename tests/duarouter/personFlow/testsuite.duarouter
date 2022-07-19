@@ -1,5 +1,7 @@
 personTrip
+basic_randomize
 basic
+walk_poisson
 
 # use edges instead of from and to
 edges

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -37,7 +37,6 @@
 #include <utils/foxtools/MFXImageHelper.h>
 #include <utils/gui/images/GUITexturesHelper.h>
 #include <utils/options/OptionsCont.h>
-#include "GUIAppEnum.h"
 #include "GUIMainWindow.h"
 #include "GUIGlChildWindow.h"
 
@@ -86,6 +85,7 @@ GUIMainWindow::~GUIMainWindow() {
     delete myBottomDock;
     delete myLeftDock;
     delete myRightDock;
+    //myInstance = nullptr;
 }
 
 
@@ -166,13 +166,13 @@ GUIMainWindow::getViews() const {
 
 
 void
-GUIMainWindow::updateChildren() {
+GUIMainWindow::updateChildren(int msg) {
     // inform views
-    myMDIClient->forallWindows(this, FXSEL(SEL_COMMAND, MID_SIMSTEP), nullptr);
+    myMDIClient->forallWindows(this, FXSEL(SEL_COMMAND, msg), nullptr);
     // inform other windows
     myTrackerLock.lock();
     for (int i = 0; i < (int)myTrackerWindows.size(); i++) {
-        myTrackerWindows[i]->handle(this, FXSEL(SEL_COMMAND, MID_SIMSTEP), nullptr);
+        myTrackerWindows[i]->handle(this, FXSEL(SEL_COMMAND, msg), nullptr);
     }
     myTrackerLock.unlock();
 }
@@ -184,15 +184,21 @@ GUIMainWindow::getGLVisual() const {
 }
 
 
-FXLabel&
+FXLabel*
 GUIMainWindow::getCartesianLabel() {
-    return *myCartesianCoordinate;
+    return myCartesianCoordinate;
 }
 
 
-FXLabel&
+FXLabel*
 GUIMainWindow::getGeoLabel() {
-    return *myGeoCoordinate;
+    return myGeoCoordinate;
+}
+
+
+FXLabel*
+GUIMainWindow::getTestLabel() {
+    return myTestCoordinate;
 }
 
 

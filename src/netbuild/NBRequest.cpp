@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -490,20 +490,19 @@ NBRequest::resetSignalised() {
 
 std::pair<int, int>
 NBRequest::getSizes() const {
-    int noLanes = 0;
-    int noLinks = 0;
-    for (EdgeVector::const_iterator i = myIncoming.begin();
-            i != myIncoming.end(); i++) {
-        int noLanesEdge = (*i)->getNumLanes();
-        for (int j = 0; j < noLanesEdge; j++) {
-            int numConnections = (int)(*i)->getConnectionsFromLane(j).size();
-            noLinks += numConnections;
+    int numLanes = 0;
+    int numLinks = 0;
+    for (const NBEdge* const e : myIncoming) {
+        const int numLanesEdge = e->getNumLanes();
+        for (int j = 0; j < numLanesEdge; j++) {
+            int numConnections = (int)e->getConnectionsFromLane(j).size();
+            numLinks += numConnections;
             if (numConnections > 0) {
-                noLanes++;
+                numLanes++;
             }
         }
     }
-    return std::make_pair(noLanes, noLinks);
+    return std::make_pair(numLanes, numLinks);
 }
 
 
@@ -578,17 +577,15 @@ NBRequest::computeCrossingResponse(const NBNode::Crossing& crossing, int pos) {
     std::string response(myJunction->getCrossings().size(), '0');
     // conflicts with normal connections
     for (EdgeVector::const_reverse_iterator i = myIncoming.rbegin(); i != myIncoming.rend(); i++) {
-        //const std::vector<NBEdge::Connection> &allConnections = (*i)->getConnections();
         const NBEdge* from = *i;
-        int noLanes = from->getNumLanes();
-        for (int j = noLanes; j-- > 0;) {
-            std::vector<NBEdge::Connection> connected = from->getConnectionsFromLane(j);
-            int size = (int) connected.size();
+        for (int j = from->getNumLanes(); j-- > 0;) {
+            const std::vector<NBEdge::Connection>& connected = from->getConnectionsFromLane(j);
+            const int size = (int) connected.size();
             for (int k = size; k-- > 0;) {
                 const NBEdge* to = connected[k].toEdge;
                 bool foe = false;
-                for (EdgeVector::const_iterator it_e = crossing.edges.begin(); it_e != crossing.edges.end(); ++it_e) {
-                    if ((*it_e) == from || (*it_e) == to) {
+                for (const NBEdge* const e : crossing.edges) {
+                    if (e == from || e == to) {
                         foe = true;
                         break;
                     }
@@ -622,7 +619,7 @@ NBRequest::getResponseString(const NBEdge* const from, const NBEdge::Connection&
     for (std::vector<NBNode::Crossing*>::const_reverse_iterator i = crossings.rbegin(); i != crossings.rend(); i++) {
         result += mustBrakeForCrossing(myJunction, from, to, **i) ? '1' : '0';
     }
-    NBEdge::Connection queryCon = from->getConnection(fromLane, to, toLane);
+    const NBEdge::Connection& queryCon = from->getConnection(fromLane, to, toLane);
     // normal connections
     for (EdgeVector::const_reverse_iterator i = myIncoming.rbegin(); i != myIncoming.rend(); i++) {
         //const std::vector<NBEdge::Connection> &allConnections = (*i)->getConnections();
@@ -722,13 +719,11 @@ NBRequest::getFoesString(NBEdge* from, NBEdge* to, int fromLane, int toLane, con
         }
         result += foes ? '1' : '0';
     }
-    NBEdge::Connection queryCon = from->getConnection(fromLane, to, toLane);
+    const NBEdge::Connection& queryCon = from->getConnection(fromLane, to, toLane);
     // normal connections
-    for (EdgeVector::const_reverse_iterator i = myIncoming.rbegin();
-            i != myIncoming.rend(); i++) {
-
-        for (int j = (int)(*i)->getNumLanes() - 1; j >= 0; --j) {
-            std::vector<NBEdge::Connection> connected = (*i)->getConnectionsFromLane(j);
+    for (EdgeVector::const_reverse_iterator i = myIncoming.rbegin(); i != myIncoming.rend(); i++) {
+        for (int j = (*i)->getNumLanes() - 1; j >= 0; --j) {
+            const std::vector<NBEdge::Connection>& connected = (*i)->getConnectionsFromLane(j);
             int size = (int) connected.size();
             for (int k = size; k-- > 0;) {
                 const bool hasLaneConflict = (!(checkLaneFoes || checkLaneFoesByClass(queryCon, *i, connected[k])
@@ -825,9 +820,10 @@ NBRequest::oppositeLeftTurnConflict(const NBEdge* from, const NBEdge::Connection
     if (from == prohibitorFrom || NBRequest::foes(from, con.toEdge, prohibitorFrom, prohibitorCon.toEdge)) {
         // not an opposite pair
         return false;
-    };
+    }
 
-    double width2 = prohibitorCon.toEdge->getLaneWidth(prohibitorCon.toLane) / 2;
+    const double width1 = MIN2(from->getLaneWidth(con.fromLane) / 2, OptionsCont::getOptions().getFloat("internal-junctions.vehicle-width") / 2);
+    const double width2 = prohibitorCon.toEdge->getLaneWidth(prohibitorCon.toLane) / 2;
     PositionVector shape = con.shape;
     shape.append(con.viaShape);
     PositionVector otherShape = prohibitorCon.shape;
@@ -836,13 +832,12 @@ NBRequest::oppositeLeftTurnConflict(const NBEdge* from, const NBEdge::Connection
         // no internal lanes built
         return false;
     }
-    const double minDV = NBEdge::firstIntersection(shape, otherShape, width2);
+    const double minDV = NBEdge::firstIntersection(shape, otherShape, width1, width2);
     if (minDV < shape.length() - POSITION_EPS && minDV > POSITION_EPS) {
         // break symmetry using edge id
         return foes || from->getID() < prohibitorFrom->getID();
-    } else {
-        return false;
     }
+    return false;
 }
 
 bool
@@ -884,12 +879,12 @@ NBRequest::checkLaneFoesByCooperation(const NBEdge* from, const NBEdge::Connecti
     // (and should always happen unless the connections cross for some byzantine reason)
 
     std::set<int> fromTargetLanes;
-    for (const auto& c : from->getConnections()) {
+    for (const NBEdge::Connection& c : from->getConnections()) {
         if (c.toEdge == con.toEdge) {
             fromTargetLanes.insert(c.toLane);
         }
     }
-    for (const auto& c : prohibitorFrom->getConnections()) {
+    for (const NBEdge::Connection& c : prohibitorFrom->getConnections()) {
         if (c.toEdge == con.toEdge && fromTargetLanes.count(c.toLane) != 0) {
             //std::cout << " con=" << con->getDescription(from) << " foe=" << prohibitorCon.getDescription(prohibitorFrom)
             //    << " no cooperation (targets=" << joinToString(fromTargetLanes, ' ') << " index=" << c.toLane << "\n";
@@ -995,7 +990,7 @@ NBRequest::mustBrake(const NBEdge* const from, const NBEdge* const to, int fromL
     }
     // maybe we need to brake due to a right-turn conflict with straight-going
     // bicycles
-    NBEdge::Connection queryCon = from->getConnection(fromLane, to, toLane);
+    const NBEdge::Connection& queryCon = from->getConnection(fromLane, to, toLane);
     LinkDirection dir = myJunction->getDirection(from, to);
     if (dir == LinkDirection::RIGHT || dir == LinkDirection::PARTRIGHT) {
         for (const NBEdge::Connection& fromCon : from->getConnections()) {
@@ -1036,9 +1031,9 @@ NBRequest::mustBrakeForCrossing(const NBNode* node, const NBEdge* const from, co
     const LinkDirection dir = node->getDirection(from, to);
     const bool mustYield = dir == LinkDirection::LEFT || dir == LinkDirection::RIGHT;
     if (crossing.priority || mustYield) {
-        for (EdgeVector::const_iterator it_e = crossing.edges.begin(); it_e != crossing.edges.end(); ++it_e) {
+        for (const NBEdge* const e : crossing.edges) {
             // left and right turns must yield to unprioritized crossings only on their destination edge
-            if (((*it_e) == from && crossing.priority) || (*it_e) == to) {
+            if ((e == from && crossing.priority) || e == to) {
                 return true;
             }
         }
@@ -1069,28 +1064,27 @@ NBRequest::reportWarnings() {
 void
 NBRequest::resetCooperating() {
     // map from edge to number of incoming connections
-    std::map<NBEdge*, int> incomingCount; // initialized to 0
+    std::map<const NBEdge*, int> incomingCount; // initialized to 0
     // map from edge to indices of approached lanes
-    std::map<NBEdge*, std::set<int> > approachedLanes;
+    std::map<const NBEdge*, std::set<int> > approachedLanes;
     // map from edge to list of incoming edges
-    std::map<NBEdge*, EdgeVector> incomingEdges;
-    for (EdgeVector::const_iterator it_e = myIncoming.begin(); it_e != myIncoming.end(); it_e++) {
-        const std::vector<NBEdge::Connection> connections = (*it_e)->getConnections();
-        for (std::vector<NBEdge::Connection>::const_iterator it_c = connections.begin(); it_c != connections.end(); ++it_c) {
-            incomingCount[it_c->toEdge]++;
-            approachedLanes[it_c->toEdge].insert(it_c->toLane);
-            incomingEdges[it_c->toEdge].push_back(*it_e);
+    std::map<const NBEdge*, std::vector<const NBEdge*> > incomingEdges;
+    for (const NBEdge* const e : myIncoming) {
+        for (const NBEdge::Connection& con : e->getConnections()) {
+            incomingCount[con.toEdge]++;
+            approachedLanes[con.toEdge].insert(con.toLane);
+            incomingEdges[con.toEdge].push_back(e);
         }
     }
-    for (std::map<NBEdge*, int>::iterator it = incomingCount.begin(); it != incomingCount.end(); ++it) {
-        NBEdge* to = it->first;
+    for (std::map<const NBEdge*, int>::iterator it = incomingCount.begin(); it != incomingCount.end(); ++it) {
+        const NBEdge* const to = it->first;
         // we cannot test against to->getNumLanes() since not all lanes may be used
         if ((int)approachedLanes[to].size() >= it->second) {
-            EdgeVector& incoming = incomingEdges[to];
+            const std::vector<const NBEdge*>& incoming = incomingEdges[to];
             // make these connections mutually unconflicting
-            for (EdgeVector::iterator it_e1 = incoming.begin(); it_e1 != incoming.end(); ++it_e1) {
-                for (EdgeVector::iterator it_e2 = incoming.begin(); it_e2 != incoming.end(); ++it_e2) {
-                    myForbids[getIndex(*it_e1, to)][getIndex(*it_e2, to)] = false;
+            for (const NBEdge* const e1 : incoming) {
+                for (const NBEdge* const e2 : incoming) {
+                    myForbids[getIndex(e1, to)][getIndex(e2, to)] = false;
                 }
             }
         }

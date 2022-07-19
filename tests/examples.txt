@@ -53,7 +53,7 @@ tools/assign/dua-iterate/simple;../docs/examples/tools/dua-iterate
 tools/detector/flowrouter/bell_pfe/plain;../docs/examples/tools/flowrouter
 tools/output/traceExporter/ns2/mobility_only;../docs/examples/tools/traceExporter
 complex/tutorial/circles;../docs/tutorial/circles
-complex/tutorial/city_mobil;../docs/tutorial/city_mobil
+complex/tutorial/city_mobil/simple;../docs/tutorial/city_mobil
 #complex/tutorial/gtfs/plain;../docs/tutorial/gtfs
 complex/tutorial/hello;../docs/tutorial/hello
 complex/tutorial/manhattan;../docs/tutorial/manhattan
@@ -65,3 +65,4 @@ complex/tutorial/sumolympics;../docs/tutorial/sumolympics
 complex/tutorial/traci_pedestrian_crossing;../docs/tutorial/traci_pedestrian_crossing
 complex/tutorial/traci_taxi;../docs/tutorial/traci_taxi
 complex/tutorial/traci_tls/plain;../docs/tutorial/traci_tls
+complex/tutorial/public_transport;../docs/tutorial/public_transport

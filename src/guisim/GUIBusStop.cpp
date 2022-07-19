@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -108,7 +108,7 @@ GUIBusStop::getPopUpMenu(GUIMainWindow& app,
     buildNameCopyPopupEntry(ret);
     buildSelectionPopupEntry(ret);
     buildShowParamsPopupEntry(ret);
-    buildPositionCopyEntry(ret, false);
+    buildPositionCopyEntry(ret, app);
     return ret;
 }
 
@@ -177,9 +177,9 @@ GUIBusStop::drawGL(const GUIVisualizationSettings& s) const {
     // draw the area
     glTranslated(0, 0, getType());
     GLHelper::setColor(color);
-    const double exaggeration = s.addSize.getExaggeration(s, this);
-    const double offset = myWidth * 0.5 * MAX2(0.0, exaggeration - 1);
-    GLHelper::drawBoxLines(myFGShape, myFGShapeRotations, myFGShapeLengths, myWidth * 0.5 * exaggeration, 0, offset);
+    const double exaggeration = getExaggeration(s);
+    // only shrink the box but never enlarge it (only enlarge the sign)
+    GLHelper::drawBoxLines(myFGShape, myFGShapeRotations, myFGShapeLengths, myWidth * 0.5 * MIN2(1.0, exaggeration), 0, 0);
     // draw details unless zoomed out to far
     if (s.drawDetail(s.detailSettings.stoppingPlaceDetails, exaggeration)) {
         GLHelper::pushMatrix();
@@ -227,12 +227,18 @@ GUIBusStop::drawGL(const GUIVisualizationSettings& s) const {
         }
         GLHelper::popMatrix();
     }
-    if (s.addFullName.show && getMyName() != "") {
+    if (s.addFullName.show(this) && getMyName() != "") {
         GLHelper::drawTextSettings(s.addFullName, getMyName(), myFGSignPos, s.scale, s.getTextAngle(myFGSignRot), GLO_MAX - getType());
     }
     GLHelper::popMatrix();
     GLHelper::popName();
     drawName(myFGSignPos, s.scale, s.addName, s.angle);
+}
+
+
+double
+GUIBusStop::getExaggeration(const GUIVisualizationSettings& s) const {
+    return s.addSize.getExaggeration(s, this);
 }
 
 

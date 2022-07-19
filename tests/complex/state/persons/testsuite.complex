@@ -1,0 +1,32 @@
+# test walking person
+walk
+
+# test pedestrian model 'nonInteracting'
+walk_nonInteracting
+
+# test walking person saved on junction
+walk_junction
+
+# state contains person that hasn't yet departed
+walk_undeparted
+
+# state contains person that hasn't yet departed
+walk_trip_undeparted
+
+# test riding person
+ride
+
+# test riding person (saved while waiting for vehicle)
+ride_waiting
+
+# test riding person (saved while waiting for vehicle)
+ride_waiting_busStop
+
+# test riding person, car doesn't come
+ride_aborted
+
+# test riding person
+ride_carTriggered
+
+# test stopping person	
+stop

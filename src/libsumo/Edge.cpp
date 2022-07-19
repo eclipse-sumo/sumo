@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2017-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2017-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -17,6 +17,7 @@
 ///
 // C++ TraCI client API implementation
 /****************************************************************************/
+#include <config.h>
 
 #include <iterator>
 #include <microsim/MSEdge.h>
@@ -25,6 +26,7 @@
 #include <microsim/transportables/MSTransportable.h>
 #include <microsim/MSVehicle.h>
 #include <microsim/MSInsertionControl.h>
+#include <libsumo/Helper.h>
 #include <libsumo/TraCIDefs.h>
 #include <libsumo/TraCIConstants.h>
 #include <utils/emissions/HelpersHarmonoise.h>
@@ -126,7 +128,7 @@ double
 Edge::getCO2Emission(const std::string& edgeID) {
     double sum = 0;
     for (MSLane* lane : getEdge(edgeID)->getLanes()) {
-        sum += lane->getCO2Emissions();
+        sum += lane->getEmissions<PollutantsInterface::CO2>();
     }
     return sum;
 }
@@ -136,7 +138,7 @@ double
 Edge::getCOEmission(const std::string& edgeID) {
     double sum = 0;
     for (MSLane* lane : getEdge(edgeID)->getLanes()) {
-        sum += lane->getCOEmissions();
+        sum += lane->getEmissions<PollutantsInterface::CO>();
     }
     return sum;
 }
@@ -146,7 +148,7 @@ double
 Edge::getHCEmission(const std::string& edgeID) {
     double sum = 0;
     for (MSLane* lane : getEdge(edgeID)->getLanes()) {
-        sum += lane->getHCEmissions();
+        sum += lane->getEmissions<PollutantsInterface::HC>();
     }
     return sum;
 }
@@ -156,7 +158,7 @@ double
 Edge::getPMxEmission(const std::string& edgeID) {
     double sum = 0;
     for (MSLane* lane : getEdge(edgeID)->getLanes()) {
-        sum += lane->getPMxEmissions();
+        sum += lane->getEmissions<PollutantsInterface::PM_X>();
     }
     return sum;
 }
@@ -166,7 +168,7 @@ double
 Edge::getNOxEmission(const std::string& edgeID) {
     double sum = 0;
     for (MSLane* lane : getEdge(edgeID)->getLanes()) {
-        sum += lane->getNOxEmissions();
+        sum += lane->getEmissions<PollutantsInterface::NO_X>();
     }
     return sum;
 }
@@ -176,7 +178,7 @@ double
 Edge::getFuelConsumption(const std::string& edgeID) {
     double sum = 0;
     for (MSLane* lane : getEdge(edgeID)->getLanes()) {
-        sum += lane->getFuelConsumption();
+        sum += lane->getEmissions<PollutantsInterface::FUEL>();
     }
     return sum;
 }
@@ -199,7 +201,7 @@ double
 Edge::getElectricityConsumption(const std::string& edgeID) {
     double sum = 0;
     for (MSLane* lane : getEdge(edgeID)->getLanes()) {
-        sum += lane->getElectricityConsumption();
+        sum += lane->getEmissions<PollutantsInterface::ELEC>();
     }
     return sum;
 }
@@ -214,6 +216,11 @@ Edge::getLastStepVehicleNumber(const std::string& edgeID) {
 double
 Edge::getLastStepMeanSpeed(const std::string& edgeID) {
     return getEdge(edgeID)->getMeanSpeed();
+}
+
+double
+Edge::getMeanFriction(const std::string& edgeID) {
+    return getEdge(edgeID)->getMeanFriction();
 }
 
 
@@ -326,6 +333,12 @@ Edge::setMaxSpeed(const std::string& edgeID, double speed) {
     }
 }
 
+void
+Edge::setFriction(const std::string& edgeID, double value) {
+    for (MSLane* lane : getEdge(edgeID)->getLanes()) {
+        lane->setFrictionCoefficient(value);
+    }
+}
 
 void
 Edge::setParameter(const std::string& edgeID, const std::string& name, const std::string& value) {
@@ -388,6 +401,8 @@ Edge::handleVariable(const std::string& objID, const int variable, VariableWrapp
             return wrapper->wrapInt(objID, variable, getLastStepVehicleNumber(objID));
         case LAST_STEP_MEAN_SPEED:
             return wrapper->wrapDouble(objID, variable, getLastStepMeanSpeed(objID));
+        case VAR_FRICTION:
+            return wrapper->wrapDouble(objID, variable, getMeanFriction(objID));
         case LAST_STEP_OCCUPANCY:
             return wrapper->wrapDouble(objID, variable, getLastStepOccupancy(objID));
         case LAST_STEP_VEHICLE_HALTING_NUMBER:

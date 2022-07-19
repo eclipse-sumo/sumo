@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2012-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2012-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -1061,7 +1061,25 @@ TraCIAPI::MeMeScope::getLastStepHaltingNumber(const std::string& detID) const {
     return getInt(libsumo::LAST_STEP_VEHICLE_HALTING_NUMBER, detID);
 }
 
+std::vector<std::string>
+TraCIAPI::MeMeScope::getEntryLanes(const std::string& detID) const {
+    return getStringVector(libsumo::VAR_LANES, detID);
+}
 
+std::vector<std::string>
+TraCIAPI::MeMeScope::getExitLanes(const std::string& detID) const {
+    return getStringVector(libsumo::VAR_EXIT_LANES, detID);
+}
+
+std::vector<double>
+TraCIAPI::MeMeScope::getEntryPositions(const std::string& detID) const {
+    return getDoubleVector(libsumo::VAR_POSITION, detID);
+}
+
+std::vector<double>
+TraCIAPI::MeMeScope::getExitPositions(const std::string& detID) const {
+    return getDoubleVector(libsumo::VAR_EXIT_POSITIONS, detID);
+}
 
 // ---------------------------------------------------------------------------
 // TraCIAPI::POIScope-methods
@@ -1803,7 +1821,7 @@ TraCIAPI::TrafficLightScope::setProgramLogic(const std::string& tlsID, const lib
     content.writeInt(logic.currentPhaseIndex);
     content.writeUnsignedByte(libsumo::TYPE_COMPOUND);
     content.writeInt((int)logic.phases.size());
-    for (const libsumo::TraCIPhase* p : logic.phases) {
+    for (const std::shared_ptr<libsumo::TraCIPhase>& p : logic.phases) {
         content.writeUnsignedByte(libsumo::TYPE_COMPOUND);
         content.writeInt(6);
         content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
@@ -2863,10 +2881,27 @@ TraCIAPI::VehicleScope::setSpeed(const std::string& vehicleID, double speed) con
 }
 
 void
-TraCIAPI::VehicleScope::setPreviousSpeed(const std::string& vehicleID, double prevspeed) const {
+TraCIAPI::VehicleScope::setAcceleration(const std::string& vehicleID, double accel, double duration) const {
     tcpip::Storage content;
+    content.writeUnsignedByte(libsumo::TYPE_COMPOUND);
+    content.writeInt(2);
     content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    content.writeDouble(prevspeed);
+    content.writeDouble(accel);
+    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
+    content.writeDouble(duration);
+    myParent.createCommand(libsumo::CMD_SET_VEHICLE_VARIABLE, libsumo::VAR_ACCELERATION, vehicleID, &content);
+    myParent.processSet(libsumo::CMD_SET_VEHICLE_VARIABLE);
+}
+
+void
+TraCIAPI::VehicleScope::setPreviousSpeed(const std::string& vehicleID, double prevSpeed, double prevAcceleration) const {
+    tcpip::Storage content;
+    content.writeUnsignedByte(libsumo::TYPE_COMPOUND);
+    content.writeInt(2);
+    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
+    content.writeDouble(prevSpeed);
+    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
+    content.writeDouble(prevAcceleration);
     myParent.createCommand(libsumo::CMD_SET_VEHICLE_VARIABLE, libsumo::VAR_PREV_SPEED, vehicleID, &content);
     myParent.processSet(libsumo::CMD_SET_VEHICLE_VARIABLE);
 }
@@ -3619,6 +3654,20 @@ TraCIAPI::TraCIScopeWrapper::getStringVector(int var, const std::string& id, tcp
         const int size = myParent.myInput.readInt();
         for (int i = 0; i < size; ++i) {
             r.push_back(myParent.myInput.readString());
+        }
+    }
+    return r;
+}
+
+
+std::vector<double>
+TraCIAPI::TraCIScopeWrapper::getDoubleVector(int var, const std::string& id, tcpip::Storage* add) const {
+    std::vector<double> r;
+    myParent.createCommand(myCmdGetID, var, id, add);
+    if (myParent.processGet(myCmdGetID, libsumo::TYPE_DOUBLELIST)) {
+        const int size = myParent.myInput.readInt();
+        for (int i = 0; i < size; ++i) {
+            r.push_back(myParent.myInput.readDouble());
         }
     }
     return r;

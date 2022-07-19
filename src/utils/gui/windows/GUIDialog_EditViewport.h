@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -111,6 +111,17 @@ public:
     */
     bool haveGrabbed() const;
 
+    /** @brief Returns the current zoom value stored in the corresponding spin dialer
+     * @return The current zoom value in the spin dialer
+    */
+    double getZoomValue() const;
+
+
+    /** @brief Resets the zoom spin dialer
+     * @param[in] zoom the value to set the spin dialer to
+     */
+    void setZoomValue(double zoom);
+
 protected:
     FOX_CONSTRUCTOR(GUIDialog_EditViewport)
 
@@ -119,27 +130,33 @@ protected:
 
 private:
     /// @brief The calling view
-    GUISUMOAbstractView* myParent;
+    GUISUMOAbstractView* myParent = nullptr;
 
     /// @brief The old viewport
     Position myOldLookFrom, myOldLookAt;
     double myOldRotation;
 
     /// @brief load button
-    FXButton* myLoadButton;
+    FXButton* myLoadButton = nullptr;
 
     /// @brief save button
-    FXButton* mySaveButton;
+    FXButton* mySaveButton = nullptr;
 
     /// @brief The spin dialers used to change the view
-    FXRealSpinner* myZoom, *myXOff, *myYOff, *myZOff, *myRotation;
+    FXRealSpinner* myZoom = nullptr;
+    FXRealSpinner* myXOff = nullptr;
+    FXRealSpinner* myYOff = nullptr;
+    FXRealSpinner* myZOff = nullptr;
+    FXRealSpinner* myRotation = nullptr;
 
     /// @brief The spin dialers used to change the view at (osg only)
-    FXRealSpinner* myLookAtX, *myLookAtY, *myLookAtZ;
+    FXRealSpinner* myLookAtX = nullptr;
+    FXRealSpinner* myLookAtY = nullptr;
+    FXRealSpinner* myLookAtZ = nullptr;
 
     /// @brief OK button
-    FXButton* myOKButton;
+    FXButton* myOKButton = nullptr;
 
     /// @brief Cancel button
-    FXButton* myCancelButton;
+    FXButton* myCancelButton = nullptr;
 };

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Mar 22 13:39:05 2021 by Eclipse SUMO sumo Version v1_8_0+1741-5942aa5
+<!-- generated on 2021-10-01 22:04:33 by Eclipse SUMO sumo Version v1_10_0+1164-7d4c2ab
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -40,10 +40,10 @@ SPDX-License-Identifier: EPL-2.0
     <containerinfo id="p1" depart="0.00" type="DEFAULT_CONTAINERTYPE">
         <transport waitingTime="139.00" vehicle="trip_0" depart="139.00" arrival="256.00" arrivalPos="287.60" duration="117.00" routeLength="1362.09" timeLoss="17.35"/>
     </containerinfo>
-    <tripinfo id="trip_0" depart="0.00" departLane="A0B0_1" departPos="15.10" departSpeed="0.00" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="317.00" routeLength="1858.34" waitingTime="3.00" waitingCount="2" stopTime="152.00" timeLoss="28.17" rerouteNo="3" devices="tripinfo_trip_0 routing_trip_0 taxi_trip_0 container_trip_0" vType="taxi" speedFactor="1.00" vaporized="">
+    <tripinfo id="trip_0" depart="0.00" departLane="A0B0_1" departPos="15.10" departSpeed="0.00" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="347.00" routeLength="1858.34" waitingTime="3.00" waitingCount="2" stopTime="182.00" timeLoss="28.17" rerouteNo="3" devices="tripinfo_trip_0 routing_trip_0 taxi_trip_0 container_trip_0" vType="taxi" speedFactor="1.00" vaporized="">
         <taxi customers="1" occupiedDistance="1362.09" occupiedTime="119.00"/>
     </tripinfo>
-    <tripinfo id="trip_1" depart="0.00" departLane="A2B2_1" departPos="15.10" departSpeed="0.00" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="317.00" routeLength="1663.92" waitingTime="3.00" waitingCount="1" stopTime="169.00" timeLoss="26.24" rerouteNo="3" devices="tripinfo_trip_1 routing_trip_1 taxi_trip_1 container_trip_1" vType="taxi" speedFactor="1.00" vaporized="">
+    <tripinfo id="trip_1" depart="0.00" departLane="A2B2_1" departPos="15.10" departSpeed="0.00" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="347.00" routeLength="1663.92" waitingTime="3.00" waitingCount="1" stopTime="199.00" timeLoss="26.24" rerouteNo="3" devices="tripinfo_trip_1 routing_trip_1 taxi_trip_1 container_trip_1" vType="taxi" speedFactor="1.00" vaporized="">
         <taxi customers="1" occupiedDistance="1362.12" occupiedTime="122.00"/>
     </tripinfo>
 </tripinfos>

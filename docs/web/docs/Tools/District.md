@@ -30,6 +30,9 @@ python tools/edgesInDistricts.py -n <net-file> -t <taz-files>
 
 Call option **--help** for additional details.
 
+!!! caution
+    The provided taz shapes must use the same coordinate projection as the network file. The best way to ensure this when importing shapes with [polyconvert](../polyconvert.md) is by setting option **--net-file**
+
 ## filterDistricts.py
 
 Filter a taz (district) file using a network file and a vehicle class so

@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Feb 19 09:10:23 2019 by Eclipse SUMO netconvert Version v1_1_0+0919-80296dbfce
+<!-- generated on 2022-06-29 10:09:58 by Eclipse SUMO netconvert Version v1_13_0+1291-82ac0ee5f81
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <node-files value=".\netedit\basic\quit_noSave\input_net.nod.xml"/>
-        <edge-files value=".\netedit\basic\quit_noSave\input_net.edg.xml"/>
-        <connection-files value=".\netedit\basic\quit_noSave\input_net.con.xml"/>
-        <tllogic-files value=".\netedit\basic\quit_noSave\input_net.tll.xml"/>
+        <node-files value=".\netedit\basic\reload\input_net.nod.xml"/>
+        <edge-files value=".\netedit\basic\reload\input_net.edg.xml"/>
+        <connection-files value=".\netedit\basic\reload\input_net.con.xml"/>
+        <tllogic-files value=".\netedit\basic\reload\input_net.tll.xml"/>
     </input>
 
     <output>
-        <output-file value=".\netedit\basic\quit_noSave\input_net.net.xml"/>
+        <output-file value=".\netedit\basic\reload\input_net.net.xml"/>
     </output>
 
     <report>
@@ -21,7 +21,7 @@
 </configuration>
 -->
 
-<net version="1.1" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.9" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="25.00,0.00" convBoundary="0.00,0.00,50.00,0.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 

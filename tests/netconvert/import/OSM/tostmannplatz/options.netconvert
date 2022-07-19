@@ -1,0 +1,10 @@
+--osm-files osm.xml
+--type-files $SUMO_HOME/data/typemap/osmNetconvert.typ.xml,$SUMO_HOME/data/typemap/osmNetconvertUrbanDe.typ.xml,$SUMO_HOME/data/typemap/osmNetconvertPedestrians.typ.xml
+--osm.sidewalks
+--tls.discard-simple
+--tls.join
+--tls.guess-signals
+--tls.default-type actuated
+--junctions.join
+--crossings.guess
+-R

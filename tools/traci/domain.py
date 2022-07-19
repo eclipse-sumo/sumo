@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2008-2021 German Aerospace Center (DLR) and others.
+# Copyright (C) 2008-2022 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -23,12 +23,11 @@ from __future__ import print_function
 from __future__ import absolute_import
 import copy
 import warnings
-from functools import wraps
 
 from . import constants as tc
 from .exceptions import FatalTraCIError
 
-_defaultDomains = []
+DOMAINS = []
 
 
 def _readParameterWithKey(result):
@@ -126,9 +125,9 @@ class Domain:
         self._deprecatedFor = deprecatedFor
         self._subscriptionDefault = subscriptionDefault
         self._connection = None
-        self._traceFile = None
-        self._hasTracingWrapper = False
-        _defaultDomains.append(self)
+        DOMAINS.append(self)
+        # alias
+        self.DOMAIN_ID = cmdGetID
 
     def _register(self, connection, mapping):
         dom = copy.copy(self)
@@ -141,30 +140,6 @@ class Domain:
 
     def _setConnection(self, connection):
         self._connection = connection
-
-    def _setTraceFile(self, traceFile, traceGetters):
-        if self._traceFile is None and not self._hasTracingWrapper:
-            self._hasTracingWrapper = True
-            # decorate all methods
-            for attrName in dir(self):
-                if (not attrName.startswith("_")
-                        and attrName != 'unsubscribe'
-                        and (traceGetters or not attrName.startswith("get"))):
-                    attr = getattr(self, attrName)
-                    if callable(attr):
-                        setattr(self, attrName, self._addTracing(attr))
-        self._traceFile = traceFile
-
-    def _addTracing(self, method):
-        @wraps(method)
-        def tracingWrapper(*args, **kwargs):
-            if self._traceFile:
-                self._traceFile.write("traci.%s.%s(%s)\n" % (
-                    self._name,
-                    method.__name__,
-                    ', '.join(list(map(repr, args)) + ["%s=%s" % (n, repr(v)) for n, v in kwargs.items()])))
-            return method(*args, **kwargs)
-        return tracingWrapper
 
     def _getUniversal(self, varID, objectID="", format="", *values):
         if self._deprecatedFor:
@@ -217,7 +192,8 @@ class Domain:
 
         Unsubscribe from receiving object values.
         """
-        self.subscribe(objectID, [])
+        self._connection._subscribe(self._subscribeID, tc.INVALID_DOUBLE_VALUE, tc.INVALID_DOUBLE_VALUE,
+                                    objectID, [], None)
 
     def getSubscriptionResults(self, objectID):
         """getSubscriptionResults(string) -> dict(integer: <value_type>)
@@ -248,11 +224,11 @@ class Domain:
         """
         if varIDs is None:
             varIDs = self._subscriptionDefault
-        self._connection._subscribeContext(
-            self._contextID, begin, end, objectID, domain, dist, varIDs, parameters)
+        self._connection._subscribeContext(self._contextID, begin, end, objectID, domain, dist, varIDs, parameters)
 
     def unsubscribeContext(self, objectID, domain, dist):
-        self.subscribeContext(objectID, domain, dist, [])
+        self._connection._subscribeContext(self._contextID, tc.INVALID_DOUBLE_VALUE, tc.INVALID_DOUBLE_VALUE,
+                                           objectID, domain, dist, [], None)
 
     def getContextSubscriptionResults(self, objectID):
         return self._connection._getSubscriptionResults(self._contextResponseID).getContext(objectID)

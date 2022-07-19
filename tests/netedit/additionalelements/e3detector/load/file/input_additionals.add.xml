@@ -1,0 +1,25 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- non valid file (missing) -->
+    <entryExitDetector id="entryExitDetector_0" period="100.00" timeThreshold="1.00" speedThreshold="1.39" pos="12,10">
+        <detEntry lane="gneE1_0" pos="16" friendlyPos="0"/>
+        <detExit lane="gneE0_0" pos="16" friendlyPos="0"/>
+    </entryExitDetector>
+
+    <!-- non valid file (invalid) -->
+    <entryExitDetector id="entryExitDetector_1" period="100.00" file="%%$$$%%" timeThreshold="1.00" speedThreshold="1.39" pos="12,10">
+        <detEntry lane="gneE1_0" pos="18" friendlyPos="0"/>
+        <detExit lane="gneE0_0" pos="18" friendlyPos="0"/>
+    </entryExitDetector>
+
+    <!-- valid file (empty) -->
+    <entryExitDetector id="entryExitDetector_2" period="100.00" file="" timeThreshold="1.00" speedThreshold="1.39" pos="14,10">
+        <detEntry lane="gneE1_0" pos="20" friendlyPos="0"/>
+        <detExit lane="gneE0_0" pos="20" friendlyPos="0"/>
+    </entryExitDetector>
+
+    <!-- valid file -->
+    <entryExitDetector id="entryExitDetector_3" period="100.00" file="fileA.txt" timeThreshold="1.00" speedThreshold="1.39" pos="16,10">
+        <detEntry lane="gneE1_0" pos="22" friendlyPos="0"/>
+        <detExit lane="gneE0_0" pos="22" friendlyPos="0"/>
+    </entryExitDetector>
+</additional>

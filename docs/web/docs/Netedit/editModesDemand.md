@@ -22,7 +22,7 @@ Inspecting route.
 
 ## Vehicle mode
 
-Vehicles, flows and trips can be created using this mode. The term "vehicle" includes three different elements: Vehicles, flows (both placed over a Route) and Trips (placed over a "from" edge). Also every vehicle need to be a "Vehicle Type", therefore both parameters has to be selected in both list of left frame.
+Vehicles, flows and trips can be created using this mode. The term "vehicle" includes three different elements: Vehicles, flows (both placed over a Route) and Trips (placed over a "from" edge). Also every vehicle need to have a "Vehicle Type", therefore both parameters has to be selected in both list of left frame.
 
 ![](../images/neteditVehicleMode1.png)   
 General view of vehicle mode, highlighting the list of vehicles and vehicle types

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2012-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2012-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -26,6 +26,7 @@
 #include <utils/options/OptionsCont.h>
 #include <utils/geom/GeoConvHelper.h>
 #include <utils/geom/GeomHelper.h>
+#include <utils/shapes/SUMOPolygon.h>
 #include <libsumo/Helper.h>
 #include <microsim/devices/MSDevice_FCD.h>
 #include <microsim/devices/MSTransportableDevice_FCD.h>
@@ -47,21 +48,25 @@
 // ===========================================================================
 void
 MSFCDExport::write(OutputDevice& of, SUMOTime timestep, bool elevation) {
-    const bool useGeo = OptionsCont::getOptions().getBool("fcd-output.geo");
-    const bool signals = OptionsCont::getOptions().getBool("fcd-output.signals");
-    const bool writeAccel = OptionsCont::getOptions().getBool("fcd-output.acceleration");
-    const bool writeDistance = OptionsCont::getOptions().getBool("fcd-output.distance");
-    const double maxLeaderDistance = OptionsCont::getOptions().getFloat("fcd-output.max-leader-distance");
-    std::vector<std::string> params = OptionsCont::getOptions().getStringVector("fcd-output.params");
-    const SUMOTime period = string2time(OptionsCont::getOptions().getString("device.fcd.period"));
-    const SUMOTime begin = string2time(OptionsCont::getOptions().getString("begin"));
-    if (period > 0 && (timestep - begin) % period != 0) {
+    const OptionsCont& oc = OptionsCont::getOptions();
+    const SUMOTime period = string2time(oc.getString("device.fcd.period"));
+    const SUMOTime begin = string2time(oc.getString("device.fcd.begin"));
+    if ((period > 0 && (timestep - begin) % period != 0) || timestep < begin) {
         return;
     }
     const long long int mask = MSDevice_FCD::getWrittenAttributes();
-    MSVehicleControl& vc = MSNet::getInstance()->getVehicleControl();
-    const double radius = OptionsCont::getOptions().getFloat("device.fcd.radius");
+    const bool maskSet = oc.isSet("fcd-output.attributes");
+    const bool useGeo = oc.getBool("fcd-output.geo");
+    const bool signals = oc.getBool("fcd-output.signals") || (maskSet && of.useAttribute(SUMO_ATTR_SIGNALS, mask));
+    const bool writeAccel = oc.getBool("fcd-output.acceleration") || (maskSet && of.useAttribute(SUMO_ATTR_ACCELERATION, mask));
+    const bool writeDistance = oc.getBool("fcd-output.distance") || (maskSet && of.useAttribute(SUMO_ATTR_DISTANCE, mask));
+    const double maxLeaderDistance = oc.getFloat("fcd-output.max-leader-distance");
+    std::vector<std::string> params = oc.getStringVector("fcd-output.params");
+    MSNet* net = MSNet::getInstance();
+    MSVehicleControl& vc = net->getVehicleControl();
+    const double radius = oc.getFloat("device.fcd.radius");
     const bool filter = MSDevice_FCD::getEdgeFilter().size() > 0;
+    const bool shapeFilter = MSDevice_FCD::hasShapeFilter();
     std::set<const Named*> inRadius;
     if (radius > 0) {
         // collect all vehicles in radius around equipped vehicles
@@ -70,7 +75,8 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep, bool elevation) {
             MSDevice_FCD* fcdDevice = (MSDevice_FCD*)veh->getDevice(typeid(MSDevice_FCD));
             if (fcdDevice != nullptr
                     && (veh->isOnRoad() || veh->isParking() || veh->isRemoteControlled())
-                    && (!filter || MSDevice_FCD::getEdgeFilter().count(veh->getEdge()) > 0)) {
+                    && (!filter || MSDevice_FCD::getEdgeFilter().count(veh->getEdge()) > 0)
+                    && (!shapeFilter || MSDevice_FCD::shapeFilter(veh))) {
                 PositionVector shape;
                 shape.push_back(veh->getPosition());
                 libsumo::Helper::collectObjectsInRange(libsumo::CMD_GET_VEHICLE_VARIABLE, shape, radius, inRadius);
@@ -87,6 +93,7 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep, bool elevation) {
         if ((veh->isOnRoad() || veh->isParking() || veh->isRemoteControlled())
                 // only filter on normal edges
                 && (!filter || MSDevice_FCD::getEdgeFilter().count(veh->getEdge()) > 0)
+                && (!shapeFilter || MSDevice_FCD::shapeFilter(veh))
                 && (veh->getDevice(typeid(MSDevice_FCD)) != nullptr || (radius > 0 && inRadius.count(veh) > 0))) {
             Position pos = veh->getPosition();
             if (useGeo) {
@@ -97,6 +104,7 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep, bool elevation) {
             of.writeAttr(SUMO_ATTR_ID, veh->getID());
             of.writeOptionalAttr(SUMO_ATTR_X, pos.x(), mask);
             of.writeOptionalAttr(SUMO_ATTR_Y, pos.y(), mask);
+            of.setPrecision(gPrecision);
             if (elevation) {
                 of.writeOptionalAttr(SUMO_ATTR_Z, pos.z(), mask);
             }
@@ -136,6 +144,8 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep, bool elevation) {
                 // if the kilometrage runs counter to the edge direction edge->getDistance() is negative
                 of.writeOptionalAttr(SUMO_ATTR_DISTANCE, fabs(distance), mask);
             }
+            of.writeOptionalAttr(SUMO_ATTR_ODOMETER, veh->getOdometer(), mask);
+            of.writeOptionalAttr(SUMO_ATTR_POSITION_LAT, veh->getLateralPositionOnLane(), mask);
             if (maxLeaderDistance >= 0 && microVeh != nullptr) {
                 std::pair<const MSVehicle* const, double> leader = microVeh->getLeader(maxLeaderDistance);
                 if (leader.first != nullptr) {
@@ -161,17 +171,17 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep, bool elevation) {
 
             const std::vector<MSTransportable*>& persons = veh->getPersons();
             for (MSTransportable* person : persons) {
-                writeTransportable(of, edge, person, veh, true, SUMO_TAG_PERSON, useGeo, elevation, mask);
+                writeTransportable(of, edge, person, veh, inRadius.count(person) > 0, SUMO_TAG_PERSON, useGeo, elevation, mask);
             }
             const std::vector<MSTransportable*>& containers = veh->getContainers();
             for (MSTransportable* container : containers) {
-                writeTransportable(of, edge, container, veh, true, SUMO_TAG_CONTAINER, useGeo, elevation, mask);
+                writeTransportable(of, edge, container, veh, inRadius.count(container) > 0, SUMO_TAG_CONTAINER, useGeo, elevation, mask);
             }
         }
     }
-    if (MSNet::getInstance()->getPersonControl().hasTransportables()) {
+    if (net->hasPersons() && net->getPersonControl().hasTransportables()) {
         // write persons
-        MSEdgeControl& ec = MSNet::getInstance()->getEdgeControl();
+        MSEdgeControl& ec = net->getEdgeControl();
         const MSEdgeVector& edges = ec.getEdges();
         for (MSEdgeVector::const_iterator e = edges.begin(); e != edges.end(); ++e) {
             if (filter && MSDevice_FCD::getEdgeFilter().count(*e) == 0) {
@@ -183,9 +193,9 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep, bool elevation) {
             }
         }
     }
-    if (MSNet::getInstance()->getContainerControl().hasTransportables()) {
+    if (net->hasContainers() && net->getContainerControl().hasTransportables()) {
         // write containers
-        MSEdgeControl& ec = MSNet::getInstance()->getEdgeControl();
+        MSEdgeControl& ec = net->getEdgeControl();
         const std::vector<MSEdge*>& edges = ec.getEdges();
         for (std::vector<MSEdge*>::const_iterator e = edges.begin(); e != edges.end(); ++e) {
             if (filter && MSDevice_FCD::getEdgeFilter().count(*e) == 0) {

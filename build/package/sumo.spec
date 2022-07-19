@@ -2,7 +2,7 @@
 # spec file for package sumo
 #
 # Copyright (c) 2018 SUSE LINUX GmbH, Nuernberg, Germany.
-# Copyright (c) 2001-2020 DLR (http://www.dlr.de/) and contributors
+# Copyright (c) 2001-2022 DLR (http://www.dlr.de/) and contributors
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -27,9 +27,9 @@ Summary:        Eclipse Simulation of Urban Mobility - A Microscopic Traffic Sim
 License:        EPL-2.0
 Group:          Productivity/Scientific/Other
 URL:            https://sumo.dlr.de/
-Source0:        https://sumo.dlr.de/daily/sumo-all-%{version}.tar.gz
+Source0:        https://sumo.dlr.de/daily/sumo_%{version}.orig.tar.gz
 BuildRequires:  gcc-c++
-%if 0%{?centos_version}
+%if 0%{?centos_version} && 0%{?centos_version} < 800
 BuildRequires:  cmake3
 %else
 BuildRequires:  cmake
@@ -48,6 +48,7 @@ BuildRequires:  fdupes
 BuildRequires:  pkgconfig(gdal)
 BuildRequires:  pkgconfig(proj)
 BuildRequires:  gl2ps-devel
+BuildRequires:  eigen3-devel
 %if 0%{?fedora_version} || 0%{?centos_version} || 0%{?rhel_version} || 0%{?scientificlinux_version}
 BuildRequires:  libGLU-devel
 BuildRequires:  libjpeg-devel
@@ -105,10 +106,14 @@ find . -name "*.py" -o -name "*.pyw" | xargs sed -i 's,^#!%{_bindir}/env python3
 %build
 mkdir cmake-build
 cd cmake-build
-%if 0%{?centos_version}
+%if 0%{?centos_version} && 0%{?centos_version} < 800
 cmake3 -DCMAKE_INSTALL_PREFIX:PATH=/usr -DPYTHON_EXECUTABLE=/usr/bin/python3 ..
 %else
+%if 0%{?suse_version}
+cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr -DEIGEN3_INCLUDE_DIR=/usr/include/eigen3 -DPYTHON_EXECUTABLE=/usr/bin/python3 ..
+%else
 cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr -DPYTHON_EXECUTABLE=/usr/bin/python3 ..
+%endif
 %endif
 make %{?_smp_mflags}
 make %{?_smp_mflags} man
@@ -187,6 +192,7 @@ cd cmake-build
 %endif
 %{python3_sitelib}/sumolib*/
 %{python3_sitelib}/traci*/
+%{python3_sitelib}/simpla*/
 %{python3_sitearch}/libsumo*/
 %{python3_sitearch}/libtraci*/
 

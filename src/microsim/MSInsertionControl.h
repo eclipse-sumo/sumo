@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -135,6 +135,8 @@ public:
     /// @brief stops trying to emit the given vehicle (and delete it)
     void descheduleDeparture(const SUMOVehicle* veh);
 
+    /// @brief reverts a previous call to descheduleDeparture (only needed for departPos="random_free")
+    void retractDescheduleDeparture(const SUMOVehicle* veh);
 
     /// @brief clears out all pending vehicles from a route, "" for all routes
     void clearPendingVehicles(const std::string& route);
@@ -193,6 +195,10 @@ private:
     void checkCandidates(SUMOTime time, const bool preCheck);
 
 
+private:
+
+    /// @brief init scale value of flow
+    static double initScale(const std::string vtypeid);
 
 private:
     /// @brief The assigned vehicle control (needed for vehicle re-insertion and deletion)
@@ -218,6 +224,8 @@ private:
         SUMOVehicleParameter* pars;
         /// @brief the running index
         int index;
+        /// @brief the type scaling of this flow. Negative value indicates inhomogenous type distribution
+        double scale;
     };
 
     /// @brief Container for periodical vehicle parameters

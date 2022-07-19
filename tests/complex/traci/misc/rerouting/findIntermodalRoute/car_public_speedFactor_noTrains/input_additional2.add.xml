@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- generated on 2018-08-09 13:44:25.628253 by $Id$
+  options: -n net.net.xml -s stops.xml -l ptlines.xml -o pt.rou.xml <doubleminus>random-begin -e 10000
+-->
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="bus" vClass="bus"/>
+    <route id="bus_bus1:0" edges="A1A0 A0B0 B0B1 B1A1 A1A0 A0B0 B0B1" >
+        <stop busStop="busStopA" duration="30.00" until="76.0"/> <!-- A -->
+        <stop busStop="busStopB" duration="30.00" until="299.0"/> <!-- B -->
+        <stop busStop="busStopC" duration="30.00" until="452.0"/> <!-- C -->
+        <stop busStop="busStopD" duration="30.00" until="536.0"/> <!-- D -->
+    </route>
+    <flow id="bus_bus1:0" type="bus" route="bus_bus1:0" begin="5.0" end="10005.0" period="1200" line="bus1:0" >
+        <param key="name" value="BusABCD"/>
+        <param key="completeness" value="1.00"/>
+    </flow>
+</routes>

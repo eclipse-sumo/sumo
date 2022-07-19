@@ -1,4 +1,0 @@
-Traceback (most recent call last):
-  File "test.py", line 2, in <module>
-    netedit.setZoom("14", "17", "12") 
-NameError: name 'netedit' is not defined

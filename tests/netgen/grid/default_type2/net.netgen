@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec 14 11:33:06 2020 by Eclipse SUMO netgenerate Version v1_8_0+0240-6f1f621077
+<!-- generated on 2022-07-11 20:54:10 by Eclipse SUMO netgenerate Version 1.14.0
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
 
     <grid_network>
@@ -94,10 +99,10 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":B1_1_0" index="0" allow="rail" speed="13.89" length="9.40" shape="98.40,104.70 98.40,95.30"/>
     </edge>
     <edge id=":B1_2" function="internal">
-        <lane id=":B1_2_0" index="0" allow="rail" speed="7.91" length="2.03" shape="98.40,104.70 98.69,102.69"/>
+        <lane id=":B1_2_0" index="0" allow="rail" speed="7.91" length="1.72" shape="98.40,104.70 98.64,102.99"/>
     </edge>
     <edge id=":B1_12" function="internal">
-        <lane id=":B1_12_0" index="0" allow="rail" speed="7.91" length="8.13" shape="98.69,102.69 98.79,101.94 99.98,99.97 101.94,98.79 104.70,98.40"/>
+        <lane id=":B1_12_0" index="0" allow="rail" speed="7.91" length="8.44" shape="98.64,102.99 98.79,101.94 99.98,99.97 101.94,98.79 104.70,98.40"/>
     </edge>
     <edge id=":B1_3" function="internal">
         <lane id=":B1_3_0" index="0" allow="rail" speed="5.75" length="5.00" shape="104.70,101.60 103.34,101.79 102.38,102.37 101.79,103.34 101.60,104.70"/>
@@ -115,10 +120,10 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":B1_7_0" index="0" allow="rail" speed="13.89" length="9.40" shape="101.60,95.30 101.60,104.70"/>
     </edge>
     <edge id=":B1_8" function="internal">
-        <lane id=":B1_8_0" index="0" allow="rail" speed="7.91" length="2.03" shape="101.60,95.30 101.31,97.31"/>
+        <lane id=":B1_8_0" index="0" allow="rail" speed="7.91" length="1.72" shape="101.60,95.30 101.36,97.01"/>
     </edge>
     <edge id=":B1_13" function="internal">
-        <lane id=":B1_13_0" index="0" allow="rail" speed="7.91" length="8.13" shape="101.31,97.31 101.21,98.06 100.02,100.03 98.06,101.21 95.30,101.60"/>
+        <lane id=":B1_13_0" index="0" allow="rail" speed="7.91" length="8.44" shape="101.36,97.01 101.21,98.06 100.02,100.03 98.06,101.21 95.30,101.60"/>
     </edge>
     <edge id=":B1_9" function="internal">
         <lane id=":B1_9_0" index="0" allow="rail" speed="5.75" length="5.00" shape="95.30,98.40 96.66,98.21 97.62,97.63 98.21,96.66 98.40,95.30"/>
@@ -314,8 +319,8 @@ SPDX-License-Identifier: EPL-2.0
         <request index="1" response="00" foes="00" cont="0"/>
     </junction>
 
-    <junction id=":B1_12_0" type="internal" x="98.69" y="102.69" incLanes=":B1_2_0" intLanes=":B1_4_0 :B1_5_0 :B1_6_0 :B1_7_0 :B1_8_0 :B1_10_0 :B1_11_0"/>
-    <junction id=":B1_13_0" type="internal" x="101.31" y="97.31" incLanes=":B1_8_0 :B1_2_0" intLanes=":B1_12_0 :B1_0_0 :B1_1_0 :B1_2_0 :B1_4_0 :B1_5_0 :B1_10_0 :B1_11_0"/>
+    <junction id=":B1_12_0" type="internal" x="98.64" y="102.99" incLanes=":B1_2_0 B0B1_0" intLanes=":B1_4_0 :B1_5_0 :B1_6_0 :B1_7_0 :B1_8_0 :B1_10_0 :B1_11_0"/>
+    <junction id=":B1_13_0" type="internal" x="101.36" y="97.01" incLanes=":B1_8_0 :B1_2_0 B2B1_0" intLanes=":B1_12_0 :B1_0_0 :B1_1_0 :B1_2_0 :B1_4_0 :B1_5_0 :B1_10_0 :B1_11_0"/>
 
     <connection from="A0A1" to="A1B1" fromLane="0" toLane="0" via=":A1_4_0" dir="r" state="M"/>
     <connection from="A0A1" to="A1A2" fromLane="0" toLane="0" via=":A1_5_0" dir="s" state="M"/>

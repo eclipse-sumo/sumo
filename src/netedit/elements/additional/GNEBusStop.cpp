@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -17,13 +17,14 @@
 ///
 // A lane area vehicles can halt at (GNE version)
 /****************************************************************************/
+#include <config.h>
+
 #include <foreign/fontstash/fontstash.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <utils/options/OptionsCont.h>
-#include <utils/gui/globjects/GLIncludes.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/vehicle/SUMORouteHandler.h>
 
@@ -33,9 +34,19 @@
 // method definitions
 // ===========================================================================
 
+GNEBusStop::GNEBusStop(SumoXMLTag tag, GNENet* net) :
+    GNEStoppingPlace("", net, GLO_BUS_STOP, tag, nullptr, 0, 0, "", false, Parameterised::Map()),
+    myPersonCapacity(0),
+    myParkingLength(0),
+    myColor(RGBColor::BLACK) {
+    // reset default values
+    resetDefaultValues();
+}
+
+
 GNEBusStop::GNEBusStop(SumoXMLTag tag, const std::string& id, GNELane* lane, GNENet* net, const double startPos, const double endPos,
                        const std::string& name, const std::vector<std::string>& lines, int personCapacity, double parkingLength, const RGBColor& color,
-                       bool friendlyPosition, const std::map<std::string, std::string>& parameters) :
+                       bool friendlyPosition, const Parameterised::Map& parameters) :
     GNEStoppingPlace(id, net, GLO_BUS_STOP, tag, lane, startPos, endPos, name, friendlyPosition, parameters),
     myLines(lines),
     myPersonCapacity(personCapacity),
@@ -66,20 +77,20 @@ GNEBusStop::writeAdditional(OutputDevice& device) const {
     if (myFriendlyPosition) {
         device.writeAttr(SUMO_ATTR_FRIENDLY_POS, "true");
     }
-    if (myLines.size() > 0) {
+    if (getAttribute(SUMO_ATTR_LINES) != myTagProperty.getDefaultValue(SUMO_ATTR_LINES)) {
         device.writeAttr(SUMO_ATTR_LINES, toString(myLines));
     }
-    if (myPersonCapacity != 6) {
+    if (getAttribute(SUMO_ATTR_PERSON_CAPACITY) != myTagProperty.getDefaultValue(SUMO_ATTR_PERSON_CAPACITY)) {
         device.writeAttr(SUMO_ATTR_PERSON_CAPACITY, myPersonCapacity);
     }
-    if (myParkingLength > 0) {
+    if (getAttribute(SUMO_ATTR_PARKING_LENGTH) != myTagProperty.getDefaultValue(SUMO_ATTR_PARKING_LENGTH)) {
         device.writeAttr(SUMO_ATTR_PARKING_LENGTH, myParkingLength);
     }
-    if (myColor.isValid()) {
+    if (getAttribute(SUMO_ATTR_COLOR).size() > 0) {
         device.writeAttr(SUMO_ATTR_COLOR, myColor);
     }
     // write all access
-    for (const auto &access : getChildAdditionals()) {
+    for (const auto& access : getChildAdditionals()) {
         access->writeAdditional(device);
     }
     // write parameters (Always after children to avoid problems with additionals.xsd)
@@ -110,7 +121,7 @@ GNEBusStop::updateGeometry() {
 void
 GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
     // Obtain exaggeration of the draw
-    const double busStopExaggeration = s.addSize.getExaggeration(s, this);
+    const double busStopExaggeration = getExaggeration(s);
     // first check if additional has to be drawn
     if (myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
         // check exaggeration
@@ -126,7 +137,7 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
             } else if (drawUsingSelectColor()) {
                 baseColor = s.colorSettings.selectedAdditionalColor;
                 signColor = baseColor.changedBrightness(-32);
-            } else if (myColor.isValid()){
+            } else if (myColor != RGBColor::INVISIBLE) {
                 baseColor = myColor;
                 signColor = s.colorSettings.busStopColorSign;
             } else if (myTagProperty.getTag() == SUMO_TAG_TRAIN_STOP) {
@@ -136,39 +147,46 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
                 baseColor = s.colorSettings.busStopColor;
                 signColor = s.colorSettings.busStopColorSign;
             }
+            // draw parent and child lines
+            drawParentChildLines(s, baseColor);
             // Start drawing adding an gl identificator
             GLHelper::pushName(getGlID());
-            // Add a draw matrix
+            // Add layer matrix
             GLHelper::pushMatrix();
             // translate to front
             myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_BUS_STOP);
             // set base color
             GLHelper::setColor(baseColor);
             // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
-            GNEGeometry::drawGeometry(myNet->getViewNet(), myAdditionalGeometry, stopWidth * busStopExaggeration);
+            GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myAdditionalGeometry, stopWidth * MIN2(1.0, busStopExaggeration));
             // draw detail
             if (s.drawDetail(s.detailSettings.stoppingPlaceDetails, busStopExaggeration)) {
                 // draw lines
                 drawLines(s, myLines, baseColor);
                 // draw sign
                 drawSign(s, busStopExaggeration, baseColor, signColor, (myTagProperty.getTag() == SUMO_TAG_BUS_STOP) ? "H" : "T");
-                // draw lock icon
-                GNEViewNetHelper::LockIcon::drawLockIcon(getType(), this, myAdditionalGeometry.getShape().getCentroid(), busStopExaggeration, (myTagProperty.getTag() == SUMO_TAG_BUS_STOP) ? 0.5 : 0.25);
             }
-            // pop draw matrix
+            // draw geometry points
+            if (myStartPosition != INVALID_DOUBLE) {
+                drawLeftGeometryPoint(myNet->getViewNet(), myAdditionalGeometry.getShape().front(), myAdditionalGeometry.getShapeRotations().front(), baseColor);
+            }
+            if (myEndPosition != INVALID_DOUBLE) {
+                drawRightGeometryPoint(myNet->getViewNet(), myAdditionalGeometry.getShape().back(), myAdditionalGeometry.getShapeRotations().back(), baseColor);
+            }
+            // pop layer matrix
             GLHelper::popMatrix();
             // Pop name
             GLHelper::popName();
-            // draw connection betwen access
-            drawConnectionAccess(s, baseColor);
+            // draw lock icon
+            GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), myAdditionalGeometry.getShape().getCentroid(), busStopExaggeration, (myTagProperty.getTag() == SUMO_TAG_BUS_STOP) ? 0.5 : 0.25);
             // check if dotted contours has to be drawn
-            if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-                GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::INSPECT, s, myAdditionalGeometry.getShape(), stopWidth, 
-                                                    busStopExaggeration, true, true);
+            if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
+                GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, myAdditionalGeometry.getShape(), stopWidth,
+                        busStopExaggeration, true, true);
             }
-            if (s.drawDottedContour() || myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-                GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::FRONT, s, myAdditionalGeometry.getShape(), stopWidth, 
-                                                    busStopExaggeration, true, true);
+            if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
+                GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::FRONT, s, myAdditionalGeometry.getShape(), stopWidth,
+                        busStopExaggeration, true, true);
             }
             // draw child demand elements
             for (const auto& demandElement : getChildDemandElements()) {
@@ -189,7 +207,7 @@ std::string
 GNEBusStop::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
-            return getID();
+            return getMicrosimID();
         case SUMO_ATTR_LANE:
             return getParentLanes().front()->getID();
         case SUMO_ATTR_STARTPOS:
@@ -215,7 +233,7 @@ GNEBusStop::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_PARKING_LENGTH:
             return toString(myParkingLength);
         case SUMO_ATTR_COLOR:
-            if (!myColor.isValid()) {
+            if (myColor == RGBColor::INVISIBLE) {
                 return "";
             } else {
                 return toString(myColor);
@@ -224,6 +242,8 @@ GNEBusStop::getAttribute(SumoXMLAttr key) const {
             return toString(isAttributeCarrierSelected());
         case GNE_ATTR_PARAMETERS:
             return getParametersStr();
+        case GNE_ATTR_SHIFTLANEINDEX:
+            return "";
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -232,9 +252,6 @@ GNEBusStop::getAttribute(SumoXMLAttr key) const {
 
 void
 GNEBusStop::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
-    if (value == getAttribute(key)) {
-        return; //avoid needless changes, later logic relies on the fact that attributes have changed
-    }
     switch (key) {
         case SUMO_ATTR_ID:
         case SUMO_ATTR_LANE:
@@ -248,6 +265,7 @@ GNEBusStop::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList*
         case SUMO_ATTR_PARKING_LENGTH:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
+        case GNE_ATTR_SHIFTLANEINDEX:
             undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
             break;
         default:
@@ -262,7 +280,7 @@ GNEBusStop::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
             return isValidAdditionalID(value);
         case SUMO_ATTR_LANE:
-            if (myNet->retrieveLane(value, false) != nullptr) {
+            if (myNet->getAttributeCarriers()->retrieveLane(value, false) != nullptr) {
                 return true;
             } else {
                 return false;
@@ -302,7 +320,7 @@ GNEBusStop::isValid(SumoXMLAttr key, const std::string& value) {
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
         case GNE_ATTR_PARAMETERS:
-            return Parameterised::areParametersValid(value);
+            return areParametersValid(value);
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -316,10 +334,17 @@ void
 GNEBusStop::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            myNet->getAttributeCarriers()->updateID(this, value);
-            // Change IDs of all access children
+            // update microsimID
+            setMicrosimID(value);
+            // change IDs of all access children
             for (const auto& access : getChildAdditionals()) {
                 access->setMicrosimID(getID());
+            }
+            // enable save demand elements if there are stops
+            for (const auto& stop : getChildDemandElements()) {
+                if (stop->getTagProperty().isStop() || stop->getTagProperty().isStopPerson()) {
+                    myNet->requireSaveDemandElements(true);
+                }
             }
             break;
         case SUMO_ATTR_LANE:
@@ -356,7 +381,7 @@ GNEBusStop::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_COLOR:
             if (value.empty()) {
-                myColor.setValid(false);
+                myColor = RGBColor::INVISIBLE;
             } else {
                 myColor = GNEAttributeCarrier::parse<RGBColor>(value);
             }
@@ -371,33 +396,11 @@ GNEBusStop::setAttribute(SumoXMLAttr key, const std::string& value) {
         case GNE_ATTR_PARAMETERS:
             setParametersStr(value);
             break;
+        case GNE_ATTR_SHIFTLANEINDEX:
+            shiftLaneIndex();
+            break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
-    }
-}
-
-
-void
-GNEBusStop::drawConnectionAccess(const GUIVisualizationSettings& s, const RGBColor& color) const {
-    if (!s.drawForPositionSelection && !s.drawForRectangleSelection) {
-        // Add a draw matrix for details
-        GLHelper::pushMatrix();
-        // move to GLO_BUS_STOP
-        glTranslated(0, 0, GLO_BUS_STOP);
-        // set color
-        GLHelper::setColor(color);
-        // draw lines between BusStops and Access
-        for (const auto& access : getChildAdditionals()) {
-            // get busStop center
-            const Position busStopCenter = myAdditionalGeometry.getShape().getLineCenter();
-            // get access center
-            const Position accessCenter = access->getAdditionalGeometry().getShape().front();
-            GLHelper::drawBoxLine(accessCenter,
-                                  RAD2DEG(busStopCenter.angleTo2D(accessCenter)) - 90,
-                                  busStopCenter.distanceTo2D(accessCenter), .05);
-        }
-        // pop draw matrix
-        GLHelper::popMatrix();
     }
 }
 

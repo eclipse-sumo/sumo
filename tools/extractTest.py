@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2009-2021 German Aerospace Center (DLR) and others.
+# Copyright (C) 2009-2022 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -25,9 +25,9 @@ that is mentioned in the config under copy_test_path.
 from __future__ import absolute_import
 from __future__ import print_function
 import os
+import stat
 import sys
 from os.path import join
-import optparse
 import glob
 import shutil
 import shlex
@@ -38,14 +38,14 @@ THIS_DIR = os.path.abspath(os.path.dirname(__file__))
 SUMO_HOME = os.path.dirname(THIS_DIR)
 sys.path.append(join(SUMO_HOME, "tools"))
 
-from sumolib import checkBinary  # noqa
+import sumolib  # noqa
 
 # cannot use ':' because it is a component of absolute paths on windows
 SOURCE_DEST_SEP = ';'
 
 
 def get_options(args=None):
-    optParser = optparse.OptionParser(usage="%prog <options> <test directory>")
+    optParser = sumolib.options.ArgumentParser(usage="%(prog)s <options> <test directory>")
     optParser.add_option("-o", "--output", default=".", help="send output to directory")
     optParser.add_option("-f", "--file", help="read list of source and target dirs from")
     optParser.add_option("-p", "--python-script",
@@ -60,7 +60,8 @@ def get_options(args=None):
                          help="remove all options related to XML validation")
     optParser.add_option("-d", "--no-subdir", dest="noSubdir", action="store_true",
                          default=False, help="store test files directly in the output directory")
-    options, args = optParser.parse_args(args=args)
+    optParser.add_option("--depth", type=int, default=1, help="maximum depth when descending into testsuites")
+    options, args = optParser.parse_known_args(args)
     if not options.file and len(args) == 0:
         optParser.print_help()
         sys.exit(1)
@@ -103,6 +104,24 @@ def main(options):
     for val in options.args:
         source_and_maybe_target = val.split(SOURCE_DEST_SEP) + ["", ""]
         targets.append(source_and_maybe_target[:3])
+    depth = options.depth
+    while depth > 0:
+        newTargets = []
+        for source, target, app in targets:
+            source = os.path.realpath(source)
+            suites = glob.glob(os.path.join(source, "testsuite.*"))
+            if suites:
+                with open(suites[0]) as s:
+                    for line in s:
+                        line = line.strip()
+                        if line and not line.startswith("#"):
+                            if target == "" and not options.noSubdir:
+                                target = generateTargetName(os.path.realpath(join(SUMO_HOME, "tests")), source)
+                            newTargets.append((os.path.join(source, line), os.path.join(target, line), app))
+            else:
+                newTargets.append((source, target, app))
+        targets = newTargets
+        depth -= 1
 
     if options.python_script:
         if not os.path.exists(os.path.dirname(options.python_script)):
@@ -147,7 +166,7 @@ for d, p in [
                     app = v
                     break
         haveVariant = False
-        for variant in set(optionsFiles.keys()) | set(configFiles.keys()):
+        for variant in sorted(set(optionsFiles.keys()) | set(configFiles.keys())):
             if options.application not in (None, "ALL", variant, variant.split(".")[-1]):
                 continue
             if options.application is None and len(glob.glob(os.path.join(source, "*" + variant))) == 0:
@@ -166,25 +185,46 @@ for d, p in [
             appOptions = []
             optFiles = optionsFiles[app] + ([] if variant == app else optionsFiles[variant])
             for f in sorted(optFiles, key=lambda o: o.count(os.sep)):
-                for o in shlex.split(open(f).read()):
-                    if skip:
-                        skip = False
-                        continue
-                    if o == "--xml-validation" and options.skip_validation:
-                        skip = True
-                        continue
-                    if o == "{CLEAR}":
-                        appOptions = []
-                        continue
-                    if o[0] == "-" and o in appOptions:
-                        idx = appOptions.index(o)
-                        if idx < len(appOptions) - 1 and appOptions[idx + 1][0] != "-":
-                            del appOptions[idx:idx+2]
-                    appOptions.append(o)
-                    if "=" in o:
-                        o = o.split("=")[-1]
-                    if o[-8:] == ".net.xml":
-                        net = o
+                newOptions = []
+                clearOptions = None
+                with open(f) as oFile:
+                    for o in shlex.split(oFile.read()):
+                        if skip:
+                            skip = False
+                            continue
+                        if o == "--xml-validation" and options.skip_validation:
+                            skip = True
+                            continue
+                        if o == "{CLEAR}":
+                            appOptions = []
+                            continue
+                        if o == "{CLEAR":
+                            clearOptions = []
+                            continue
+                        if clearOptions is not None:
+                            if o[-1] == "}":
+                                clearOptions.append(o[:-1])
+                                numClear = len(clearOptions)
+                                for idx in range(len(appOptions) - numClear + 1):
+                                    if appOptions[idx:idx+numClear] == clearOptions:
+                                        del appOptions[idx:idx+numClear]
+                                        clearOptions = None
+                                        break
+                            else:
+                                clearOptions.append(o)
+                            continue
+                        if o[0] == "-" and o in appOptions:
+                            idx = appOptions.index(o)
+                            if idx < len(appOptions) - 1 and appOptions[idx + 1][0] != "-":
+                                del appOptions[idx:idx+2]
+                            else:
+                                del appOptions[idx:idx+1]
+                        newOptions.append(o)
+                        if "=" in o:
+                            o = o.split("=")[-1]
+                        if o[-8:] == ".net.xml":
+                            net = o
+                appOptions += newOptions
             nameBase = "test"
             if options.names:
                 nameBase = os.path.basename(target)
@@ -192,33 +232,35 @@ for d, p in [
                 nameBase += variant.split(".")[-1]
             exclude = []
             # gather copy_test_path exclusions
-            for config in cfg:
-                for line in open(config):
-                    entry = line.strip().split(':')
-                    if entry and entry[0] == "test_data_ignore":
-                        exclude.append(entry[1])
+            for configFile in cfg:
+                with open(configFile) as config:
+                    for line in config:
+                        entry = line.strip().split(':')
+                        if entry and entry[0] == "test_data_ignore":
+                            exclude.append(entry[1])
             # copy test data from the tree
-            for config in cfg:
-                for line in open(config):
-                    entry = line.strip().split(':')
-                    if entry and "copy_test_path" in entry[0] and entry[1] in potentials:
-                        if "net" in app or not net or entry[1][-8:] != ".net.xml" or entry[1] == net:
-                            toCopy = potentials[entry[1]][0]
-                            if os.path.isdir(toCopy):
-                                # copy from least specific to most specific
-                                merge = entry[0] == "copy_test_path_merge"
-                                for toCopy in reversed(potentials[entry[1]]):
-                                    copy_merge(toCopy, join(testPath, os.path.basename(toCopy)), merge, exclude)
-                            else:
-                                shutil.copy2(toCopy, testPath)
+            for configFile in cfg:
+                with open(configFile) as config:
+                    for line in config:
+                        entry = line.strip().split(':')
+                        if entry and "copy_test_path" in entry[0] and entry[1] in potentials:
+                            if "net" in app or not net or entry[1][-8:] != ".net.xml" or entry[1] == net:
+                                toCopy = potentials[entry[1]][0]
+                                if os.path.isdir(toCopy):
+                                    # copy from least specific to most specific
+                                    merge = entry[0] == "copy_test_path_merge"
+                                    for toCopy in reversed(potentials[entry[1]]):
+                                        copy_merge(toCopy, join(testPath, os.path.basename(toCopy)), merge, exclude)
+                                else:
+                                    shutil.copy2(toCopy, testPath)
             if options.python_script:
                 if app == "netgen":
                     call = ['join(SUMO_HOME, "bin", "netgenerate")'] + ['"%s"' % a for a in appOptions]
                 elif app == "tools":
-                    call = ['"python"'] + ['"%s"' % a for a in appOptions]
+                    call = ['sys.executable'] + ['"%s"' % a for a in appOptions]
                     call[1] = 'join(SUMO_HOME, "%s")' % appOptions[0]
                 elif app == "complex":
-                    call = ['"python"']
+                    call = ['sys.executable']
                     for a in appOptions:
                         if a.endswith(".py"):
                             if os.path.exists(join(testPath, os.path.basename(a))):
@@ -245,9 +287,9 @@ for d, p in [
                     app = "netgenerate"
                 if options.verbose:
                     print("calling %s for testPath '%s' with options '%s'" %
-                          (checkBinary(app), testPath, " ".join(appOptions)))
+                          (sumolib.checkBinary(app), testPath, " ".join(appOptions)))
                 try:
-                    haveConfig = subprocess.call([checkBinary(app)] + appOptions +
+                    haveConfig = subprocess.call([sumolib.checkBinary(app)] + appOptions +
                                                  ['--save-configuration', '%s.%scfg' %
                                                   (nameBase, app[:4])]) == 0
                 except OSError:
@@ -279,9 +321,12 @@ for d, p in [
                     print("generating shell scripts for testPath '%s' with call '%s'" %
                           (testPath, " ".join(appOptions)))
                 cmd = [o if " " not in o else "'%s'" % o for o in appOptions]
-                open(nameBase + ".sh", "w").write(" ".join(cmd))
+                with open(nameBase + ".sh", "w") as sh:
+                    sh.write(" ".join(cmd))
+                os.chmod(nameBase + ".sh", os.stat(nameBase + ".sh").st_mode | stat.S_IXUSR)
                 cmd = [o.replace("$SUMO_HOME", "%SUMO_HOME%") if " " not in o else '"%s"' % o for o in appOptions]
-                open(nameBase + ".bat", "w").write(" ".join(cmd))
+                with open(nameBase + ".bat", "w") as bat:
+                    bat.write(" ".join(cmd))
             os.chdir(oldWorkDir)
         if not haveVariant:
             print("No suitable variant found for %s." % source, file=sys.stderr)

@@ -1,0 +1,3 @@
+Warning: Network contains internal links which are ignored. Vehicles will 'jump' across junctions and thus underestimate route lengths and travel times.
+Warning: Missing yellow phase in tlLogic 'C', program '1' for tl-index 0 when switching to phase 1
+Warning: Missing yellow phase in tlLogic 'C', program '1' for tl-index 5 when switching to phase 4

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-08-05 11:23:27 by Eclipse SUMO netconvert Version v1_9_2+0975-19cfc19
+<!-- generated on 2022-06-11 22:44:09 by Eclipse SUMO netconvert Version v1_13_0+0773-f0267577d88
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -11,6 +11,9 @@
 
         <!-- Saves current configuration into FILE -->
         <save-configuration value="" synonymes="C save-config" type="FILE"/>
+
+        <!-- Enforce relative paths when saving the configuration -->
+        <save-configuration.relative value="false" synonymes="save-config.relative" type="BOOL"/>
 
         <!-- Saves a configuration template (empty) into FILE -->
         <save-template value="" type="FILE"/>
@@ -106,7 +109,7 @@
         <output-file value="" synonymes="o output sumo-output" type="FILE"/>
 
         <!-- Prefix of files to write plain xml nodes, edges and connections to -->
-        <plain-output-prefix value="" synonymes="plain plain-output" type="FILE"/>
+        <plain-output-prefix value="" synonymes="p plain plain-output" type="FILE"/>
 
         <!-- Writes information about joined junctions to FILE (can be loaded as additional node-file to reproduce joins -->
         <junctions.join-output value="" type="FILE"/>
@@ -192,7 +195,7 @@
     </projection>
 
     <processing>
-        <!-- vmax is parsed as given in km/h (some) -->
+        <!-- vmax is parsed as given in km/h -->
         <speed-in-kmh value="false" type="BOOL"/>
 
         <!-- Use YYYY-MM-DD date to determine the readiness of features under construction -->
@@ -310,7 +313,7 @@
         <opposites.guess value="false" type="BOOL"/>
 
         <!-- Ensure that opposite edges have the same length -->
-        <opposites.guess.fix-lengths value="false" type="BOOL"/>
+        <opposites.guess.fix-lengths value="true" type="BOOL"/>
 
         <!-- Enable guessing of network fringe nodes -->
         <fringe.guess value="false" type="BOOL"/>
@@ -347,6 +350,9 @@
 
         <!-- The default speed on an edge (in m/s) -->
         <default.speed value="13.89" synonymes="S speed" type="FLOAT"/>
+
+        <!-- The default friction on an edge -->
+        <default.friction value="1" synonymes="friction" type="FLOAT"/>
 
         <!-- The default priority of an edge -->
         <default.priority value="-1" synonymes="P priority" type="INT"/>
@@ -452,6 +458,15 @@
 
         <!-- Use INT as green phase duration for left turns (s). Setting this value to 0 disables additional left-turning phases -->
         <tls.left-green.time value="6" type="INT"/>
+
+        <!-- Set INT as fixed time for intermediate vehext phase after every switch -->
+        <tls.nema.vehExt value="2" type="INT"/>
+
+        <!-- Set INT as fixed time for intermediate NEMA yelow phase after every switch -->
+        <tls.nema.yellow value="3" type="INT"/>
+
+        <!-- Set INT as fixed time for intermediate NEMA red phase after every switch -->
+        <tls.nema.red value="2" type="INT"/>
 
         <!-- Use INT as minimum green duration for pedestrian crossings (s). -->
         <tls.crossing-min.time value="4" type="INT"/>
@@ -651,6 +666,9 @@
         <!-- Use maximum value of incoming and outgoing edge speed on junction instead of average -->
         <junctions.higher-speed value="false" type="BOOL"/>
 
+        <!-- Assumed vehicle width for computing internal junction positions -->
+        <internal-junctions.vehicle-width value="1.8" type="FLOAT"/>
+
         <!-- Forces rectangular cuts between lanes and intersections -->
         <rectangular-lane-cut value="false" type="BOOL"/>
 
@@ -735,6 +753,9 @@
         <!-- Set edge priority values based on estimated main direction -->
         <railway.topology.direction-priority value="false" type="BOOL"/>
 
+        <!-- Extend loaded edge priority values based on estimated main direction -->
+        <railway.topology.extend-priority value="false" type="BOOL"/>
+
         <!-- The search radius for finding suitable road accesses for rail stops -->
         <railway.access-distance value="150" synonymes="osm.stop-output.footway-access-distance" type="FLOAT"/>
 
@@ -773,6 +794,12 @@
 
         <!-- Check additional attributes to fix directions and permissions on bike paths -->
         <osm.bike-access value="false" type="BOOL"/>
+
+        <!-- Import sidewalks -->
+        <osm.sidewalks value="false" type="BOOL"/>
+
+        <!-- Import turning arrows from OSM to help with connection building -->
+        <osm.turn-lanes value="false" type="BOOL"/>
 
         <!-- The default length of a public transport stop in FLOAT m -->
         <osm.stop-output.length value="25" type="FLOAT"/>
@@ -902,6 +929,12 @@
 
         <!-- Import internal lane shapes -->
         <opendrive.internal-shapes value="false" type="BOOL"/>
+
+        <!-- Sets edge-id based on road-id and offset in m (legacy) -->
+        <opendrive.position-ids value="false" type="BOOL"/>
+
+        <!-- Use custom lane shapes to compensate discarded lane types -->
+        <opendrive.lane-shapes value="false" type="BOOL"/>
 
     </formats>
 

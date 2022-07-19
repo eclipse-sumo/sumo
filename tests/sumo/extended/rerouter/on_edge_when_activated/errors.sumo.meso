@@ -1,0 +1,8 @@
+Warning: Teleporting vehicle 'flow_maybe_detour.1'; waited too long, from edge 'beg':4, time=320.58.
+Warning: Teleporting vehicle 'flow_maybe_detour.0'; waited too long, from edge 'middle':0, time=322.58.
+Warning: Vehicle 'flow_maybe_detour.1' ends teleporting on edge 'end':0, time=338.57.
+Warning: Vehicle 'flow_maybe_detour.0' ends teleporting on edge 'rend':0, time=358.55.
+Warning: Teleporting vehicle 'flow_maybe_detour.2'; waited too long, from edge 'beg':4, time=621.58.
+Warning: Vehicle 'flow_maybe_detour.2' ends teleporting on edge 'end':0, time=639.57.
+Warning: Teleporting vehicle 'flow_maybe_detour.3'; waited too long, from edge 'beg':4, time=922.58.
+Warning: Vehicle 'flow_maybe_detour.3' ends teleporting on edge 'end':0, time=940.57.

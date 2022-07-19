@@ -185,6 +185,17 @@ Other attributes can be selected using option **--attribute** (e.g. 'routeLength
 Output is given as plain text on the command line or in xml format if
 option **--output** is set.
 
+## tripinfoByType.py
+
+Aggregates tripinfo data by vType and person stage type for the given attribute
+
+```
+python tripinfoByType.py -t tripinfos.xml -a timeLoss
+
+```
+
+Output is given as plain text on the command line or in xml format if option **--output** is set.
+
 ## attributeStats.py
 
 Computes statistics on an arbitrary numerical attribute in a flat xml
@@ -193,11 +204,13 @@ document. (eg. attribute *timeLoss* for element *tripinfo* in
 results to standard output. When the attribute contains time data in HH:MM:SS format, the values will automatically be converted to seconds.
 
 ```
-python tools/output/attributeStats --element tripinfo --attribute timeLoss
+python tools/output/attributeStats --element tripinfo --attribute timeLoss input.xml
 ```
 
 With option **--hist-output** {{DT_FILE}} a histogram data file (e.g. for plotting with gnuplot) is
 generated.
+
+It is also possible to give multiple files as input as a space separated list or via shell expenasion (i.e. `*.input.xml`)
 
 ## computeCoordination.py
 
@@ -256,5 +269,35 @@ A distinct output file will be created for each stopping place.
 
 Example:
 ```
-python tools/output/computeStoppingPlaceUsage.py -s input_routes.rou.xml -o 
+python tools/output/computeStoppingPlaceUsage.py -s stopinfos.xml
+```
+
+## computePassengerCounts.py
+This tool reads stop-output and generates occupancy-over-time for vehicles
+A distinct output file will be created for each vehicle.
+
+Example:
+```
+python tools/output/computePassengerCounts.py -s stopinfos.xml
+```
+
+## parkingSearchTraffic.py
+This tool reads [vehroute-output](../Simulation/Output/VehRoutes.md) with [exit-times](../Simulation/Output/VehRoutes.md#further_options) and generates statistics for the time and the distance vehicles
+spent on searching parking locations as well as the length of the walking way back.
+It evaluates the time and distance between the first reroute and the arrival at the final stop.
+It currently outputs only basic statistics (mean, avg, quartiles etc.).
+
+Example:
+```
+python tools/output/parkingSearchTraffic.py net.net.xml vehroutes.xml
+```
+
+
+## aggregateBatteryOutput.py
+
+Script for aggregate battery outputs in intervals.
+
+Example usage:
+```
+python tools\output\aggregateBatteryOutput.py -i battery.xml -o batteryAggregatedx.xml -t 60 -v veh0')
 ```

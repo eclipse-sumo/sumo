@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -49,6 +49,7 @@
 // ===========================================================================
 int OptionsIO::myArgC = 0;
 char** OptionsIO::myArgV;
+std::chrono::time_point<std::chrono::system_clock> OptionsIO::myLoadTime;
 
 
 // ===========================================================================
@@ -83,6 +84,7 @@ OptionsIO::setArgs(const std::vector<std::string>& args) {
 
 void
 OptionsIO::getOptions(const bool commandLineOnly) {
+    myLoadTime = std::chrono::system_clock::now();
     if (myArgC == 2 && myArgV[1][0] != '-') {
         // special case only one parameter, check who can handle it
         if (OptionsCont::getOptions().setByRootElement(getRoot(myArgV[1]), myArgV[1])) {
@@ -114,7 +116,10 @@ OptionsIO::loadConfiguration() {
     if (!FileHelpers::isReadable(path)) {
         throw ProcessError("Could not access configuration '" + oc.getString("configuration-file") + "'.");
     }
-    PROGRESS_BEGIN_MESSAGE("Loading configuration");
+    const bool verbose = !oc.exists("verbose") || oc.getBool("verbose");
+    if (verbose) {
+        PROGRESS_BEGIN_MESSAGE("Loading configuration");
+    }
     oc.resetWritable();
     // build parser
     XERCES_CPP_NAMESPACE::SAXParser parser;
@@ -139,7 +144,9 @@ OptionsIO::loadConfiguration() {
         oc.resetWritable();
         OptionsParser::parse(myArgC, myArgV);
     }
-    PROGRESS_DONE_MESSAGE();
+    if (verbose) {
+        PROGRESS_DONE_MESSAGE();
+    }
 }
 
 

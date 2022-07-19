@@ -7,6 +7,9 @@ reversal_possible_maxLengthShort
 # vehicle cannot reach reverse because there is insufficient space after the switch
 reversal_impossible
 
+# the train is just as long as the available reversal section. This would make it get stuck in the simulation so routing should fail
+reversal_impossible_slack
+
 # vehicle has sufficient space after the switch but no turn-around connection is defined
 missing_turnaround
 

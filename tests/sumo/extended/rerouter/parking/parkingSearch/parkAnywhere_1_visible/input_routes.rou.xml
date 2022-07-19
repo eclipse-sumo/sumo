@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+
+    <flow id="occupy0" type="car" begin="0" period="2" number="1" departSpeed="max">
+        <stop parkingArea="parkA2A3" duration="3600"/>
+    </flow>   
+    <flow id="occupy1" type="car" begin="0" period="2" number="1" departSpeed="max">
+        <stop parkingArea="parkD0D1" duration="3600"/>
+    </flow>   
+
+    <flow id="ego" type="car" begin="2" period="2" number="1" departSpeed="max" from="A0A1">
+        <stop parkingArea="parkA2A3" duration="3600"/>
+    </flow>
+    
+</routes>

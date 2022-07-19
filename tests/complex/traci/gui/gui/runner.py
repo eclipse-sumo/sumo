@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2008-2021 German Aerospace Center (DLR) and others.
+# Copyright (C) 2008-2022 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -23,6 +23,7 @@ from __future__ import absolute_import
 import os
 import sys
 import time
+from matplotlib.pyplot import imread
 sys.path.append(os.path.join(
     os.path.dirname(sys.argv[0]), "..", "..", "..", "..", "..", "tools"))
 import traci  # noqa
@@ -72,4 +73,6 @@ traci.gui.toggleSelection("2fi", "edge")
 print("veh selected:", traci.gui.isSelected("horiz"))
 print("edge selected:", traci.gui.isSelected("2fi", "edge"))
 traci.simulationStep()
+pic = imread("out.png")
+print("screenshot dimensions", pic.shape)
 traci.close()

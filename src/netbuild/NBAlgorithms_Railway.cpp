@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2012-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2012-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -1098,29 +1098,46 @@ NBRailwayTopologyAnalyzer::getTravelTimeStatic(const Track* const track, const N
 
 
 void
-NBRailwayTopologyAnalyzer::assignDirectionPriority(NBNetBuilder& nb) {
-    // assign priority value for each railway edge:
+NBRailwayTopologyAnalyzer::extendDirectionPriority(NBNetBuilder& nb, bool fromUniDir) {
+    // if fromUniDir=true, assign priority value for each railway edge:
     // 4: edge is unidirectional
     // 3: edge is in main direction of bidirectional track
     // 2: edge is part of bidirectional track, main direction unknown - both edges are extensions of unidirectional edges
     // 1: edge is part of bidirectional track, main direction unknown - neither edge is an extension of a unidirectional edge
     // 0: edge is part of bidirectional track in reverse of main direction
+    //
+    // otherwise:
+    // assign priority value for each railway edge with priority -1 (undefined):
+    // x: edges with priority >= 0 keep their priority
+    // x-1 : edge is in direct (no switch) sequence of an edge with initial priority x
+    // x-2 : edge and its opposite-direction are in direct (no switch) sequence of an edge with initial priority x
+    // x-3 : edge is part of bidirectional track, both directions are indirect extensions of x-1 edges
+    // x-4 : edge is reverse direction of an x-1 edge
 
-    EdgeSet bidi;
+    std::set<NBEdge*, ComparatorIdLess> bidi;
     EdgeSet uni;
     for (NBEdge* edge : nb.getEdgeCont().getAllEdges()) {
         if (isRailway(edge->getPermissions())) {
-            if (!edge->isBidiRail()) {
-                edge->setPriority(4);
-                uni.insert(edge);
+            if (fromUniDir) {
+                if (!edge->isBidiRail()) {
+                    edge->setPriority(4);
+                    uni.insert(edge);
+                } else {
+                    bidi.insert(edge);
+                }
             } else {
-                bidi.insert(edge);
+                if (edge->getPriority() >= 0) {
+                    uni.insert(edge);
+                } else {
+                    bidi.insert(edge);
+                }
             }
         }
     }
+
     if (uni.size() == 0) {
         if (bidi.size() != 0) {
-            WRITE_WARNING("Cannot assign track direction priority because there are no unidirectional tracks.");
+            WRITE_WARNING("Cannot extend track direction priority because there are no track edges with positive priority");
         }
         return;
     }
@@ -1154,31 +1171,52 @@ NBRailwayTopologyAnalyzer::assignDirectionPriority(NBNetBuilder& nb) {
 
     for (NBEdge* edge : bidi) {
         NBEdge* bidiEdge = const_cast<NBEdge*>(edge->getBidiEdge());
+        int prio;
+        int bidiPrio;
         if (forward.count(edge) != 0) {
             if (forward.count(bidiEdge) == 0) {
-                edge->setPriority(3);
-                bidiEdge->setPriority(0);
+                prio = 3;
+                bidiPrio = 0;
             } else {
                 // both forward
-                edge->setPriority(2);
-                bidiEdge->setPriority(2);
+                prio = 2;
+                bidiPrio = 2;
             }
         } else {
             if (forward.count(bidiEdge) != 0) {
-                edge->setPriority(0);
-                bidiEdge->setPriority(3);
+                prio = 0;
+                bidiPrio = 3;
             } else {
                 // neither forward
-                edge->setPriority(1);
-                bidiEdge->setPriority(1);
+                prio = 1;
+                bidiPrio = 1;
             }
+        }
+        if (bidiEdge == nullptr) {
+            WRITE_WARNINGF("Edge '%' was loaded with undefined priority (%) but has unambiguous main direction (no bidi edge)", edge->getID(), edge->getPriority());
+        }
+        if (edge->getPriority() >= 0) {
+            bidiPrio = 0;
+        }
+        if (bidiEdge != nullptr && bidiEdge->getPriority() >= 0) {
+            prio = 0;
+        }
+        if (edge->getPriority() < 0) {
+            edge->setPriority(prio);
+        }
+        if (bidiEdge != nullptr && bidiEdge->getPriority() < 0) {
+            bidiEdge->setPriority(bidiPrio);
         }
     }
     std::map<int, int> numPrios;
     for (NBEdge* edge : bidi) {
         numPrios[edge->getPriority()]++;
     }
-    WRITE_MESSAGE("Assigned edge priority based on main direction: " + joinToString(numPrios, " ", ":") + ".")
+    if (fromUniDir) {
+        WRITE_MESSAGE("Assigned edge priority based on main direction: " + joinToString(numPrios, " ", ":") + ".")
+    } else {
+        WRITE_MESSAGE("Extended edge priority based on main direction: " + joinToString(numPrios, " ", ":") + ".")
+    }
 }
 
 

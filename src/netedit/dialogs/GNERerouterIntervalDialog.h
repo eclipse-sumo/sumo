@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -112,7 +112,7 @@ public:
     /// @brief /edit parkingAreaReroute
     long onCmdEditParkingAreaReroute(FXObject*, FXSelector, void*);
 
-    /// @brief called when begin or endis changed
+    /// @brief called when begin or end is changed
     long onCmdChangeBeginEnd(FXObject*, FXSelector, void*);
 
     /// @}
@@ -199,10 +199,10 @@ private:
     /// @brief update data of closing reroute table
     void updateClosingReroutesTable();
 
-    /// @brief update data of destiny probabilitry reroute table
+    /// @brief update data of destiny probability reroute table
     void updateDestProbReroutesTable();
 
-    /// @brief update data of probabilitry reroutes table
+    /// @brief update data of probability reroutes table
     void updateRouteProbReroutesTable();
 
     /// @brief update data of parkingAreaReroute table

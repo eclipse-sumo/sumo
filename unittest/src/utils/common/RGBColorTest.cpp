@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2009-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2009-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -48,14 +48,20 @@ TEST(RGBColor, test_parseColor) {
     EXPECT_EQ(0, color.red());
     EXPECT_EQ(1, color.green());
     EXPECT_EQ(255, color.blue());
+
+    RGBColor color2 = RGBColor::parseColor("RED");
+    EXPECT_EQ(255, color2.red());
+    EXPECT_EQ(0, color2.green());
+    EXPECT_EQ(0, color2.blue());
+
 }
 
 /* Test the method 'parseColor' with thrown EmptyData Exception*/
 TEST(RGBColor, test_parseColor_with_a_short_string) {
-    ASSERT_THROW(RGBColor::parseColor(""), EmptyData) << "Expect an EmptyData exception.";
-    ASSERT_THROW(RGBColor::parseColor("1,2"), EmptyData) << "Expect an EmptyData exception.";
-    ASSERT_THROW(RGBColor::parseColor("test"), EmptyData) << "Expect an EmptyData exception.";
-    ASSERT_THROW(RGBColor::parseColor("1,2,3,5,432test"), EmptyData) << "Expect an EmptyData exception.";
+    ASSERT_THROW(RGBColor::parseColor(""), InvalidArgument) << "Expect an EmptyData exception.";
+    ASSERT_THROW(RGBColor::parseColor("1,2"), InvalidArgument) << "Expect an EmptyData exception.";
+    ASSERT_THROW(RGBColor::parseColor("test"), InvalidArgument) << "Expect an EmptyData exception.";
+    ASSERT_THROW(RGBColor::parseColor("1,2,3,5,432test"), InvalidArgument) << "Expect an EmptyData exception.";
 }
 
 /* Test the method 'interpolate'*/

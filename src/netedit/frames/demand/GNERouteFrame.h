@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -22,6 +22,14 @@
 
 #include <netedit/frames/GNEFrame.h>
 #include <netedit/elements/demand/GNERouteHandler.h>
+#include <netedit/frames/GNEPathLegend.h>
+
+
+// ===========================================================================
+// class definitions
+// ===========================================================================
+
+class GNERoute;
 
 // ===========================================================================
 // class definitions
@@ -45,7 +53,7 @@ public:
     // class RouteModeSelector
     // ===========================================================================
 
-    class RouteModeSelector : protected FXGroupBox {
+    class RouteModeSelector : public FXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNERouteFrame::RouteModeSelector)
 
@@ -85,16 +93,19 @@ public:
         GNERouteFrame* myRouteFrameParent;
 
         /// @brief comboBox with the list of route modes
-        FXComboBox* myRouteModeMatchBox;
+        FXComboBox* myRouteModeMatchBox = nullptr;
 
         /// @brief comboBox with the list of VClass
-        FXComboBox* myVClassMatchBox;
+        FXComboBox* myVClassMatchBox = nullptr;
 
         /// @brief current selected route mode
-        RouteMode myCurrentRouteMode;
+        RouteMode myCurrentRouteMode = RouteMode::NONCONSECUTIVE_EDGES;
+
+        /// @brief route template
+        GNERoute* myRouteTemplate = nullptr;
 
         /// @brief flag to check if VClass is Valid
-        bool myValidVClass;
+        bool myValidVClass = true;
 
         /// @brief list of Route modes that will be shown in Match Box
         std::vector<std::pair<RouteMode, std::string> > myRouteModesStrings;
@@ -118,16 +129,16 @@ public:
     /**@brief add route edge
     * @param edge edge to be added
     * @param mouseButtonKeyPressed key pressed during click
-    * @return true if element was sucesfully added
+    * @return true if element was successfully added
     */
     bool addEdgeRoute(GNEEdge* clickedEdge, const GNEViewNetHelper::MouseButtonKeyPressed& mouseButtonKeyPressed);
 
-    /// @brief get path creator modul
-    GNEFrameModuls::PathCreator* getPathCreator() const;
+    /// @brief get path creator module
+    GNEPathCreator* getPathCreator() const;
 
 protected:
     /// @brief create path
-    void createPath();
+    void createPath(const bool useLastRoute);
 
 private:
     /// @brief route handler
@@ -140,11 +151,11 @@ private:
     RouteModeSelector* myRouteModeSelector;
 
     /// @brief internal route attributes
-    GNEFrameAttributesModuls::AttributesCreator* myRouteAttributes;
+    GNEAttributesCreator* myRouteAttributes;
 
     /// @brief path creator modul
-    GNEFrameModuls::PathCreator* myPathCreator;
+    GNEPathCreator* myPathCreator;
 
     /// @brief path legend modul
-    GNEFrameModuls::PathLegend* myPathLegend;
+    GNEM_PathLegend* myPathLegend;
 };

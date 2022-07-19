@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2017-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2017-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -458,14 +458,16 @@ Person::rerouteTraveltime(const std::string& personID) {
 
 
 void
-Person::moveTo(const std::string& personID, const std::string& edgeID, double position) {
+Person::moveTo(const std::string& personID, const std::string& laneID, double pos, double posLat) {
     tcpip::Storage content;
     content.writeUnsignedByte(libsumo::TYPE_COMPOUND);
-    content.writeInt(2);
+    content.writeInt(3);
     content.writeUnsignedByte(libsumo::TYPE_STRING);
-    content.writeString(edgeID);
+    content.writeString(laneID);
     content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    content.writeDouble(position);
+    content.writeDouble(pos);
+    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
+    content.writeDouble(posLat);
     Dom::set(libsumo::VAR_MOVE_TO, personID, &content);
 }
 
@@ -606,6 +608,14 @@ Person::setActionStepLength(const std::string& personID, double actionStepLength
         actionStepLength *= -1;
     }
     Dom::setDouble(libsumo::VAR_ACTIONSTEPLENGTH, personID, actionStepLength);
+}
+
+void
+Person::remove(const std::string& personID, char reason) {
+    tcpip::Storage content;
+    content.writeUnsignedByte(libsumo::TYPE_BYTE);
+    content.writeUnsignedByte(reason);
+    Dom::set(libsumo::REMOVE, personID, &content);
 }
 
 

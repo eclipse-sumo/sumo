@@ -74,8 +74,14 @@ geometry.avoidOverlap
 # tests for railway related network analysis and modification
 railway
 
+# test option --prefix and --numerical-ids
+renaming
+
 # tests whether removing self-loop edges works
 self_loop_edges
+
+# tests whether removing self-loop edges works
+self_loop_edges2
 
 # test speed factor and offset
 speed_modification
@@ -90,12 +96,6 @@ rightTurnConflict
 # a service road (allowing pedestrians and delivery) enters a street with sidewalks at a T-junction
 3_arm_service_entering
 scale
-
-# prefix junction and edge ids
-prefix
-
-# rename junction and edge ids to prefix+number
-prefix_renumber
 
 # rotate the input network
 rotate

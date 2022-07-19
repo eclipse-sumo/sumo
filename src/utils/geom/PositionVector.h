@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -217,16 +217,13 @@ public:
     //// @brief check if two positions crosses
     bool crosses(const Position& p1, const Position& p2) const;
 
-    //// @brief add a position
+    //// @brief add an offset to all positions
     void add(double xoff, double yoff, double zoff);
 
-    //// @brief substract a position
+    //// @brief add an offset to all positions
     void add(const Position& offset);
 
-    //// @brief add a position
-    void sub(double xoff, double yoff, double zoff);
-
-    //// @brief substract a position
+    //// @brief subtract an offset from all positions
     void sub(const Position& offset);
 
     //// @brief adds a position without modifying the vector itself but returning the result
@@ -240,6 +237,9 @@ public:
 
     //// @brief append the given vector to this one
     void append(const PositionVector& v, double sameThreshold = 2.0);
+
+    //// @brief prepend the given vector to this one
+    void prepend(const PositionVector& v, double sameThreshold = 2.0);
 
     /// @brief get subpart of a position vector
     PositionVector getSubpart(double beginOffset, double endOffset) const;
@@ -272,7 +272,7 @@ public:
     void move2side(double amount, double maxExtension = 100);
 
     /// @brief move position vector to side using a custom offset for each geometry point
-    void move2side(std::vector<double> amount, double maxExtension = 100);
+    void move2sideCustom(std::vector<double> amount, double maxExtension = 100);
 
     /// @brief get angle in certain position of position vector
     double angleAt2D(int pos) const;
@@ -379,7 +379,7 @@ public:
      * @param[in] minDist The minimum accepted distance; default: POSITION_EPS
      * @param[in] assertLength Whether the result must at least contain two points (be a line); default: false, to ensure original behaviour
      */
-    void removeDoublePoints(double minDist = POSITION_EPS, bool assertLength = false);
+    void removeDoublePoints(double minDist = POSITION_EPS, bool assertLength = false, int beginOffset = 0, int endOffset = 0, bool resample = false);
 
     /// @brief return whether two positions differ in z-coordinate
     bool hasElevation() const;
@@ -403,8 +403,8 @@ public:
     PositionVector interpolateZ(double zStart, double zEnd) const;
 
     /**@brief resample shape (i.e. transform to segments, equal spacing)
-     * @param[in] maxLength lenght of every segment
-     * @param[in] adjustEnd enable or disable adjust end (i.e. result has the same original lenght, last segment could be short)
+     * @param[in] maxLength length of every segment
+     * @param[in] adjustEnd enable or disable adjust end (i.e. result has the same original length, last segment could be short)
      */
     PositionVector resample(double maxLength, const bool adjustEnd) const;
 
@@ -418,6 +418,8 @@ public:
 
     /// @brief return a bezier interpolation
     PositionVector bezier(int numPoints);
+
+    static double localAngle(const Position& from, const Position& pos, const Position& to);
 
 private:
     /// @brief return whether the line segments defined by Line p11,p12 and Line p21,p22 intersect

@@ -1,0 +1,11 @@
+Error: Attribute 'triggered' in definition of a stop is empty.
+Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop at 'parkingArea' in vehicle 'vehicle_0'.
+Error: Attribute 'triggered' in definition of a stop is empty.
+Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop at 'parkingArea' in vehicle 'vehicle_2'.
+Error: Attribute 'triggered' in definition of a stop is empty.
+Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop at 'parkingArea' in vehicle 'vehicle_3'.
+Error: Attribute 'triggered' in definition of a stop is empty.
+Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop at 'parkingArea' in vehicle 'vehicle_4'.
+Warning: Teleporting vehicle 'vehicle_5'; waited too long (wrong lane), lane='gneE0_0', time=321.00.
+Warning: Vehicle 'vehicle_5' skips stop on lane 'gneE0_0' time=321.00.
+Warning: Vehicle 'vehicle_5' ends teleporting on edge 'gneE1', time=321.00.

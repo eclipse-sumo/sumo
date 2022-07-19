@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -58,6 +58,7 @@ class GUIVehicle;
 class GUIVehicleControl;
 class MSVehicleControl;
 class GUIMEVehicleControl;
+class Command;
 
 
 // ===========================================================================
@@ -119,7 +120,6 @@ public:
      */
     GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) override;
 
-
     /** @brief Returns an own parameter window
      *
      * @param[in] app The application needed to build the parameter window
@@ -129,7 +129,6 @@ public:
      */
     GUIParameterTableWindow* getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent) override;
 
-
     /** @brief Returns the boundary to which the view shall be centered in order to show the object
      *
      * @return The boundary the object is within
@@ -137,6 +136,8 @@ public:
      */
     Boundary getCenteringBoundary() const override;
 
+    /// @brief return exaggeration associated with this GLObject
+    double getExaggeration(const GUIVisualizationSettings& s) const override;
 
     /** @brief Draws the object
      * @param[in] s The settings for the current view (may influence drawing)
@@ -344,6 +345,9 @@ public:
 
     /// @brief update view after simulation.loadState
     void updateGUI() const override;
+
+    /// @brief register custom hotkey action
+    void addHotkey(int key, Command* press, Command* release = nullptr);
 
 private:
     /// @brief Initialises the tl-logic map and wrappers

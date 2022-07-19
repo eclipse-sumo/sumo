@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-03-04 10:44:54 by Eclipse SUMO netedit Version v1_12_0+1137-e9106068858
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- TAZs -->
+    <taz id="TAZ_0" shape="0.00,20.00 10.00,20.00 10.00,10.00 0.00,10.00 0.00,20.00" color="red"/>
+    <taz id="TAZ_1" shape="30.00,20.00 30.00,10.00 20.00,10.00 20.00,20.00 30.00,20.00" color="green"/>
+    <taz id="TAZ_2" shape="50.00,10.00 40.00,10.00 40.00,20.00 50.00,20.00 50.00,10.00" color="blue"/>
+    <taz id="TAZ_3" shape="0.00,-20.00 0.00,-10.00 10.00,-10.00 10.00,-20.00 0.00,-20.00" color="orange"/>
+    <taz id="TAZ_4" shape="20.00,-10.00 30.00,-10.00 30.00,-20.00 30.00,-20.00 20.00,-20.00" color="yellow"/>
+    <taz id="TAZ_5" shape="50.00,-10.00 50.00,-20.00 50.00,-20.00 40.00,-20.00 40.00,-10.00" color="black"/>
+</additional>

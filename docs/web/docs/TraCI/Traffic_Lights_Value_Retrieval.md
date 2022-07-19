@@ -97,3 +97,24 @@ Each link is described by a string list with three entries: the lane
 which is incoming into the junction, the lane which is outgoing from the
 junction, and the lane across the junction (junction-internal). Empty
 strings indicate missing lanes.
+
+The method basically returns a list of lists of 3-tuples. The outer list has a length that corresponds to the length of the 'state' attribute of each phase.
+Each inner list (at position i of the outer list) describes the connections that are controlled by the state at index i.
+
+By default, each index of the state controls exactly one connection so the inner lists all have length 1. However, the inner lists may be longer if [signal-groups](../Simulation/Traffic_Lights.md#defining_signal_groups) are used to simplify the 'state' attribute.
+
+# Getting Traffic light parameters (0x7e)
+
+Traffic lights support retrieval of additional parameters using the [generic
+parameter retrieval call](../TraCI/GenericParameters.md#get_parameter).
+
+|      key           | return value type (expressed as string) | supported by tlType |  description |
+| :----------------: | :------------------------------: | :-----------------: | :----------: |
+| cycleTime          | double (s)  | static, actuated, delay_based | default cycle duration (has no effect for static tls) |
+| cycleSecond        | double (s)  | static, actuated, delay_based | time within cycle  |
+| offset             | double (s)  | static, actuated, delay_based | offset for cycle start relative to simulation start |
+| coordinated        | bool        | static, actuated, delay_based | whether time in cycle is computed relative to simulation time |
+| max-gap            | double (s)  | actuated                      | detector time-out for abandoning phase
+| show-detectors     | bool        | actuated                      | show/hide detectors in view
+| inactive-threshold | double (s)  | actuated                      | time-out for switching to an unserved phase when running with the default phase-skipping logic
+| condition.CONDITION_ID | double  | actuated                      | retrieve current value of [custom switching condition](../Simulation/Traffic_Lights.md#named_expressions) with id = *CONDITION_ID*.

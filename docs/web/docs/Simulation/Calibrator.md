@@ -7,7 +7,7 @@ title: Calibrator
 These trigger-type objects may be specified within an {{AdditionalFile}} and allow the
 dynamic adaption of traffic flows, speeds and vehicle parameters (vTypes). The syntax for such an
 object is: `<calibrator id="<ID>" lane="<LANE_ID>" output="<OUTPUT_FILE>"/\>`. They can be used to modify simulation
-scenario based on induction loop measurements. They can also be used to model location-base change in driving behavior.
+scenario based on induction loop measurements. They can also be used to model location-base changes in driving behavior.
 
 A calibrator will remove vehicles in excess of the specified flow and it will insert new vehicles (of the specified type)
 if the normal traffic demand of the simulation does not meet the
@@ -48,7 +48,7 @@ element:
 | edge           | id (string)   | The id of an edge for measuring and calibrating flow. (Either *edge* or *lane* must be specified)               |
 | lane           | id (string)   | The id of a lane for measuring and calibrating flow (Either *edge* or *lane* must be specified)                 |
 | **pos**        | float         | The position of the calibrator on the specified lane (currently ignored, see [\[1\]](https://github.com/eclipse/sumo/issues/1331)   |
-| freq           | float         | The aggregation interval in which to calibrate the flows. default is step-length                                |
+| period (alias freq) | float    | The time interval between calibration attempts. default is step-length. Setting a high value limits the maximum achievable flow  |
 | routeProbe     | id (string)   | The id of the [routeProbe](../Simulation/Output/RouteProbe.md) element from which to determine the route distribution for generated vehicles.|
 | jamThreshold    | float | A threshold value to detect and clear unexpected jamming if the mean edge speed drops below FLOAT * speedLimit. Range [0, 1]. Default: 0.5 (0.8 in meso)|
 | output         | file (string) | The output file for writing calibrator information or *NULL*                                                    |
@@ -83,9 +83,9 @@ intervals.
   lated because the calibrator tries to wait for existing vehicles
   that might still appear
 
-The *freq* attribute defines how often a check for inserting vehicles
+The *period* attribute defines how often a check for inserting vehicles
 takes place. This value defaults to the simulation step-length. Larger
-values conserve computation time but may also lead to a tigher
+values conserve computation time but may also lead to a tighter
 clustering of inserted vehicles.
 
 The algorithm for deciding when exactly to insert (and remove) vehicles
@@ -102,6 +102,35 @@ probe detector](../Simulation/Output/RouteProbe.md). Otherwise the `route`
 attribute of the flow is used. Note, that this value may also specify
 the name of a route distribution.
 
+## Calibrating only Flow
+
+If attribute 'speed' is omitted from the `<flow>` definition, the calibrator will only affect flow by removing or insertion vehicles:
+
+```
+<additional>
+  <vType id="t0" speedDev="0.1" speedFactor="1.2" sigma="0"/>
+  <route id="c1" edges="beg middle end rend"/>
+
+  <calibrator id="calibtest_edge" edge="beg" pos="0" output="detector.xml">
+    <flow begin="0"    end="1800" route="c1" vehsPerHour="2500" type="t0"/>
+    <flow begin="1800" end="3600" route="c1" vehsPerHour="2500" type="t0"/>
+  </calibrator> 
+</additional>
+```
+
+## Calibrating only Speed
+
+If only attribute 'speed' is given in the `<flow>` definition, the calibrator acts similar to a [variableSpeedSign](Variable_Speed_Signs.md):
+
+```
+<additional>
+  <calibrator id="calibtest_edge" edge="beg" pos="0" output="detector.xml">
+    <flow begin="0"    end="1800" speed="10"/>
+    <flow begin="1800" end="3600" speed="20"/>
+  </calibrator> 
+</additional>
+```
+
 ## Calibrating vehicle types
 When a calibrator flow is defined without attribute `vehsPerHour` but with attribute `type`, this defines a type-calibrator.
 This type of calibrator will modify the types of all passing vehicles (or all vehicles that match the `vTypes` attribute of the calibrator).
@@ -109,6 +138,32 @@ The normal behavior is to replace the type of the passing vehicles with the type
 
 !!! note
     When calibrating types, the 'route' attribute can be omitted from the flow definition    
+
+!!! caution
+    The type modification happens when the vehicle enters the calibrator edge regardless of the configuration calibrator position.
+
+### Type-dependent mapping
+
+If the traffic consists of multiple vehicle types (i.e. passenger cars and trucks) it may be desirable to either
+
+- modify only some of the observed types 
+- perform a dependent mapping: carType -> carType2, truckType -> truckType2
+
+Both can be accomplished by using the `vTypes` attribute of the calibrator to make it apply to a subset of types only.
+For a dependent mapping, multiple calibrators (each with a different `vTypes` attribute) may be defined.
+However, if there are very many types this may be cumbersome to define. In this case it may be better to define a mapping between type distributions as described below.
+
+```
+<additional>
+  ... 
+  <calibrator id="forCars" edge="E1" pos="0" type="myCarType">
+    <flow begin="0" end="1800" type="myCarType2"/>    
+  </calibrator>
+  <calibrator id="forTrucks" edge="E1" pos="0" type="myTruckType">
+    <flow begin="0" end="1800" type="myTruckType2"/>    
+  </calibrator>  
+</additional>
+```
 
 ### Mapping between vTypeDistributions
 A special behavior is activated if the following conditions are met:
@@ -142,16 +197,16 @@ In this example, all cars will be mapped to slower cars (type 'car' to 'car2') a
 
 # Building a scenario without knowledge of routes, based on flow measurements
 
+!!! note
+    A simpler and more robust approach is provided by the [routeSampler](../Tools/Turns.md#routesamplerpy) tool.
+
 Due to their ability of adapting higher as as well as lower flows to a
 specified value, calibrators may be used to adapt (almost) arbitrary
 traffic demand to a given set of measurements. One strategy for building
 a scenario from measurements is therefore, to [generated random
 traffic](../Tools/Trip.md#randomtripspy) and use Calibrators in
 conjunction with [route probe
-detectors](../Simulation/Output/RouteProbe.md). While this can in
-principle be done with [dfrouter](../dfrouter.md) as well, the
-method described here is more robust for highly meshed networks as found
-in cities.
+detectors](../Simulation/Output/RouteProbe.md).
 
 Each edge where measurements are given should receive a calibrator and a
 route probe detector. As soon as the first vehicle has passed the route
@@ -165,9 +220,9 @@ Example {{AdditionalFile}}:
 ```
 <additional>
    <vType id="t0" speedDev="0.1"/>
-   <routeProbe id="cali_edge1_probe" edge="edge1" freq="60" file="output.xml"/>
-   <calibrator id="cali_edge1" lane="edge1_0" pos="0" output="detector.xml" freq="60" routeProbe="cali_edge1_probe">
-      <route id="cali1_fallback" edges="edge1"/>
+   <routeProbe id="cali_edge1_probe" edge="edge1" period="60" file="output.xml"/>
+   <route id="cali1_fallback" edges="edge1"/>
+   <calibrator id="cali_edge1" lane="edge1_0" pos="0" output="detector.xml" period="60" routeProbe="cali_edge1_probe">      
       <flow begin="0"    end="1800" route="cal1_fallback" vehsPerHour="2500" speed="27.8" type="t0" departPos="free" departSpeed="max"/>
       <flow begin="1800" end="3600" route="cal1_fallback" vehsPerHour="2500" speed="15.0" type="t0" departPos="free" departSpeed="max"/>
    </calibrator>

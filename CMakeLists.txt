@@ -9,7 +9,7 @@ option(PROFILING "Enable output of profiling data (applies to gcc/clang builds o
 option(PPROF "Link the pprof profiler library (applies to gcc/clang builds only)" false)
 option(COVERAGE "Enable output of coverage data (applies to gcc/clang builds only)" false)
 option(SUMO_UTILS "Enable generation of a shared library for the utility functions for option handling, XML parsing etc." false)
-option(FMI "Enable generation of an FMI library for SUMO" false)
+option(FMI "Enable generation of an FMI library for SUMO" true)
 set(BINARY_SUFFIX "" CACHE STRING "Append the suffix to every generated binary")
 set(COMPILE_DEFINITIONS "" CACHE STRING "Macros or defines to add when compiling")
 set(CCACHE_SUPPORT ON CACHE BOOL "Enable ccache support if installed")
@@ -30,12 +30,40 @@ endif ()
 
 project(SUMO CXX C)
 set(PACKAGE_VERSION "git")
-cmake_minimum_required(VERSION 3.1)
+cmake_minimum_required(VERSION 3.4)
 
-find_program(CCACHE_FOUND "ccache")
-if (CCACHE_FOUND AND CCACHE_SUPPORT)
-    message(STATUS "Enabling ccache")
-    set_property(GLOBAL PROPERTY RULE_LAUNCH_COMPILE "ccache")
+# Check if libraries have to be found, depending on SUMO_LIBRARIES
+set(SUMO_LIBRARIES "$ENV{SUMO_LIBRARIES}" CACHE PATH "Location of SUMOLibraries dependencies")
+
+# some user place SUMOLibraries in the same SUMO folder
+if (NOT SUMO_LIBRARIES AND EXISTS "${CMAKE_SOURCE_DIR}/../SUMOLibraries")
+    set(SUMO_LIBRARIES "${CMAKE_SOURCE_DIR}/../SUMOLibraries")
+endif ()
+
+if (CCACHE_SUPPORT)
+    if (MSVC)
+        file(GLOB SCCACHE_ROOT "${SUMO_LIBRARIES}/sccache-*")
+        find_program(SCCACHE_PROGRAM sccache ${SCCACHE_ROOT})
+        if (SCCACHE_PROGRAM)
+            message(STATUS "Found sccache: ${SCCACHE_PROGRAM}")
+            set(CMAKE_C_COMPILER_LAUNCHER "${SCCACHE_PROGRAM}")
+            set(CMAKE_CXX_COMPILER_LAUNCHER "${SCCACHE_PROGRAM}")
+            if (CMAKE_BUILD_TYPE STREQUAL "Debug")
+                string(REPLACE "/Zi" "/Z7" CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG}")
+                string(REPLACE "/Zi" "/Z7" CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG}")
+            elseif (CMAKE_BUILD_TYPE STREQUAL "RelWithDebInfo")
+                string(REPLACE "/Zi" "/Z7" CMAKE_CXX_FLAGS_RELWITHDEBINFO "${CMAKE_CXX_FLAGS_RELWITHDEBINFO}")
+                string(REPLACE "/Zi" "/Z7" CMAKE_C_FLAGS_RELWITHDEBINFO "${CMAKE_C_FLAGS_RELWITHDEBINFO}")
+            endif()
+        endif()
+    else()
+        find_program(CCACHE_PROGRAM ccache)
+        if (CCACHE_PROGRAM)
+            message(STATUS "Found ccache: ${CCACHE_PROGRAM}")
+            set(CMAKE_C_COMPILER_LAUNCHER "${CCACHE_PROGRAM}")
+            set(CMAKE_CXX_COMPILER_LAUNCHER "${CCACHE_PROGRAM}")
+        endif()
+    endif()
 endif()
 
 set(CMAKE_COLOR_MAKEFILE ON)
@@ -80,13 +108,21 @@ if (GNU_COMPILER OR CLANG_COMPILER)
     endif ()
 elseif (MSVC)
     # enabling /WX is not possible due to warnings in external headers
-    # /Wall brings MSVC 2013 to complete halt
-    if ("${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
+    if (CMAKE_BUILD_TYPE STREQUAL "Debug")
         # this is a workaround to disable lots of warnings for replacing /W3 with /W4 in VS 2019
         # there is a policy for that starting with CMake 3.15
-        string(REPLACE "/W3" "/W4" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
+        if (MSVC_VERSION GREATER 1900)
+            string(REPLACE "/W3" "/Wall" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
+        else ()
+            string(REPLACE "/W3" "/W4" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
+        endif ()
     else ()
-        set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /W4")
+        # /Wall brings MSVC 2013 to complete halt
+        if (MSVC_VERSION GREATER 1900)
+            set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /Wall")
+        else ()
+            set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /W4")
+        endif ()
     endif ()
     if (MULTITHREADED_BUILD)
         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /MP")
@@ -143,7 +179,6 @@ if (CMAKE_GENERATOR MATCHES Xcode)
 endif ()
 message(STATUS "")
 
-#set(Python_ADDITIONAL_VERSIONS 3.7 3.6 3.5 3.4 3.3 2.7) # it may help in finding the correct python for libsumo
 find_package(PythonInterp REQUIRED)
 message(STATUS "Found Python: " ${PYTHON_EXECUTABLE})
 execute_process(COMMAND ${PYTHON_EXECUTABLE} -c "import setuptools" RESULT_VARIABLE SETUPTOOLS_MISSING)
@@ -151,19 +186,6 @@ execute_process(COMMAND ${PYTHON_EXECUTABLE} -c "import setuptools" RESULT_VARIA
 if (APPLE)
     # we know that openGL is deprecated for newer MacOS
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DGL_SILENCE_DEPRECATION")
-    # http://stackoverflow.com/questions/1487752/how-do-i-instruct-cmake-to-look-for-libraries-installed-by-macports
-    link_directories(/opt/X11/lib)
-    include_directories(SYSTEM /opt/X11/include)
-    # Detect if the "port" command is valid on this system; if so, return full path
-    execute_process(COMMAND which port RESULT_VARIABLE DETECT_MACPORTS OUTPUT_VARIABLE MACPORTS_PREFIX ERROR_QUIET OUTPUT_STRIP_TRAILING_WHITESPACE)
-    if (${DETECT_MACPORTS} EQUAL 0)
-        # MACPORTS_PREFIX contains now something like "/opt/local/bin/port", so we get the parent directory
-        get_filename_component(MACPORTS_PREFIX ${MACPORTS_PREFIX} DIRECTORY)
-        # "/opt/local" is where MacPorts lives, add `/lib` suffix and link
-        link_directories(${MACPORTS_PREFIX}/../lib)
-        include_directories(${MACPORTS_PREFIX}/../include)
-        message(STATUS "Macports detected: ${MACPORTS_PREFIX}")
-    endif ()
 
     # Recommendation, also add a "brew --prefix" custom command to detect a homebrew build environment
     execute_process(COMMAND brew --prefix RESULT_VARIABLE DETECT_BREW OUTPUT_VARIABLE BREW_PREFIX ERROR_QUIET OUTPUT_STRIP_TRAILING_WHITESPACE)
@@ -172,6 +194,18 @@ if (APPLE)
         include_directories(${BREW_PREFIX}/include)
         message(STATUS "Brew detected: ${BREW_PREFIX}")
     endif ()
+
+    # Detect if the "port" command is valid on this system; if so, return full path
+    execute_process(COMMAND which port RESULT_VARIABLE DETECT_MACPORTS OUTPUT_VARIABLE MACPORTS_PREFIX ERROR_QUIET OUTPUT_STRIP_TRAILING_WHITESPACE)
+    if (${DETECT_MACPORTS} EQUAL 0)
+        # MACPORTS_PREFIX contains now something like "/opt/local/bin/port", so we get the parent directory
+        get_filename_component(MACPORTS_PREFIX ${MACPORTS_PREFIX} DIRECTORY)
+        # "/opt/local" is where MacPorts lives, add `/lib` suffix and link
+        # http://stackoverflow.com/questions/1487752/how-do-i-instruct-cmake-to-look-for-libraries-installed-by-macports
+        link_directories(/opt/X11/lib ${MACPORTS_PREFIX}/../lib)
+        include_directories(SYSTEM /opt/X11/include ${MACPORTS_PREFIX}/../include)
+        message(STATUS "Macports detected: ${MACPORTS_PREFIX}")
+    endif ()
 endif (APPLE)
 
 #  Specifically define variable WIN32 for compilations under windows (due an error in Shawn)
@@ -179,14 +213,6 @@ if (GNU_COMPILER AND WIN32)
     option(USE_MINGW_64BITS "Use 64 bits libraries for the compilation with MinGW" true)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DWIN32 -D_WIN32_WINNT=0x0501")
     set(MINGW32 1)
-endif ()
-
-# Check if libraries have to be found, depending on SUMO_LIBRARIES
-set(SUMO_LIBRARIES "$ENV{SUMO_LIBRARIES}" CACHE PATH "Location of SUMOLibraries dependencies")
-
-# some user place SUMOLibraries in the same SUMO folder
-if (NOT SUMO_LIBRARIES AND EXISTS "${CMAKE_SOURCE_DIR}/../SUMOLibraries")
-    set(SUMO_LIBRARIES "${CMAKE_SOURCE_DIR}/../SUMOLibraries")
 endif ()
 
 # check if SUMOLibraries was found (Only in Windows)
@@ -317,7 +343,7 @@ if (CHECK_OPTIONAL_LIBS)
     file(GLOB OSG_PATH "${SUMO_LIBRARIES}/OSG-?.?.?")
     file(GLOB GL2PS_PATH "${SUMO_LIBRARIES}${LIB_VERSION}/gl2ps-?.?.?")
     set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${GDAL_PATH};${FFMPEG_PATH};${OSG_PATH};${GL2PS_PATH}")
-    file(GLOB SUMO_OPTIONAL_LIBRARIES_DLL "${GDAL_PATH}/bin/*.dll" "${FFMPEG_PATH}/bin/*.dll" "${GL2PS_PATH}/bin/*.dll")
+    file(GLOB SUMO_OPTIONAL_LIBRARIES_DLL "${GDAL_PATH}/bin/*.dll" "${FFMPEG_PATH}/bin/*.dll" "${OSG_PATH}/bin/*.dll" "${GL2PS_PATH}/bin/*.dll")
 
     # GDAL (for geopositioning)
     find_package(GDAL)
@@ -329,29 +355,31 @@ if (CHECK_OPTIONAL_LIBS)
         set(GDAL_LIBRARY "")
     endif (GDAL_FOUND)
 
-    # FFMPEG (for recording videos)
-    find_package(FFMPEG)
-    if (FFMPEG_FOUND)
-        include_directories(SYSTEM ${FFMPEG_INCLUDE_DIR})
-        set(HAVE_FFMPEG 1)
-        set(ENABLED_FEATURES "${ENABLED_FEATURES} FFmpeg")
-    endif ()
+    if (FOX_FOUND)
+        # FFMPEG (for recording videos)
+        find_package(FFMPEG)
+        if (FFMPEG_FOUND)
+            include_directories(SYSTEM ${FFMPEG_INCLUDE_DIR})
+            set(HAVE_FFMPEG 1)
+            set(ENABLED_FEATURES "${ENABLED_FEATURES} FFmpeg")
+        endif ()
 
-    # OSG (For 3D view)
-    find_package(OpenSceneGraph 3.4.0 COMPONENTS osgGA osgViewer osgUtil osgDB osgText)
-    if (OPENSCENEGRAPH_FOUND)
-        include_directories(SYSTEM ${OPENSCENEGRAPH_INCLUDE_DIRS})
-        set(HAVE_OSG 1)
-        set(ENABLED_FEATURES "${ENABLED_FEATURES} OSG")
-    endif ()
+        # OSG (For 3D view)
+        find_package(OpenSceneGraph 3.4.0 COMPONENTS osgGA osgViewer osgUtil osgDB osgText)
+        if (OPENSCENEGRAPH_FOUND)
+            include_directories(SYSTEM ${OPENSCENEGRAPH_INCLUDE_DIRS})
+            set(HAVE_OSG 1)
+            set(ENABLED_FEATURES "${ENABLED_FEATURES} OSG")
+        endif ()
 
-    # GL2PS (deprecated, will be changed by FreeType
-    find_package(GL2PS)
-    if (GL2PS_FOUND)
-        include_directories(SYSTEM ${GL2PS_INCLUDE_DIR})
-        set(HAVE_GL2PS 1)
-        set(ENABLED_FEATURES "${ENABLED_FEATURES} GL2PS")
-    endif (GL2PS_FOUND)
+        # GL2PS (deprecated, will be changed by FreeType
+        find_package(GL2PS)
+        if (GL2PS_FOUND)
+            include_directories(SYSTEM ${GL2PS_INCLUDE_DIR})
+            set(HAVE_GL2PS 1)
+            set(ENABLED_FEATURES "${ENABLED_FEATURES} GL2PS")
+        endif (GL2PS_FOUND)
+    endif ()
 
     # Eigen (for overhead wire / electric circuit simulation)
     find_package(Eigen3 3.2)
@@ -379,33 +407,44 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src)
 set(commonlibs
         utils_distribution utils_handlers utils_shapes utils_options
         utils_xml utils_geom utils_common utils_importio utils_iodevices utils_traction_wire foreign_tcpip
-        ${XercesC_LIBRARIES} ${ZLIB_LIBRARIES} ${PROJ_LIBRARY} ${TCMALLOC_LIBRARY})
-if (MSVC)
+        ${XercesC_LIBRARIES} ${ZLIB_LIBRARIES} ${PROJ_LIBRARY})
+if (WIN32)
     set(commonlibs ${commonlibs} ws2_32)
 endif ()
 if (PPROF)
     set(commonlibs ${commonlibs} profiler)
 endif ()
 set(commonvehiclelibs
-        utils_emissions foreign_phemlight utils_vehicle ${commonlibs} ${FOX_LIBRARY})
+        utils_emissions foreign_phemlight foreign_phemlight_V5 utils_vehicle ${commonlibs} ${FOX_LIBRARY})
 
 # set custom name and folder for ALL_BUILD and ZERO_CHECK in visual studio solutions
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 set_property(GLOBAL PROPERTY PREDEFINED_TARGETS_FOLDER "CMake")
 
 # installation
-if (NOT MSVC)
+if (MSVC)
+    if (CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
+        set(CMAKE_INSTALL_PREFIX "sumo-${PACKAGE_VERSION}")
+    endif()
+    install(DIRECTORY bin/ DESTINATION bin
+            FILES_MATCHING
+            PATTERN "*.bat"
+            PATTERN "*.dll"
+            PATTERN "*d.dll" EXCLUDE
+            PATTERN "gtest*.dll" EXCLUDE
+            PATTERN "FOXDLLD-1.6.dll" EXCLUDE)
+else ()
     include(GNUInstallDirs)
 endif ()
-if (SKBUILD)
+if (SKBUILD OR MSVC)
     set(DATA_PATH "")
 else ()
     set(DATA_PATH "share/sumo/")
 endif ()
-install(DIRECTORY bin/ DESTINATION bin
-        FILES_MATCHING PATTERN "*.dll"
-        PATTERN "*d.dll" EXCLUDE
-        PATTERN "FOXDLLD-1.6.dll" EXCLUDE)
+if (SKBUILD)
+    set(EXCLUDE_LIBSUMO "libsumo")
+    set(EXCLUDE_LIBTRACI "libtraci")
+endif ()
 install(DIRECTORY data/ DESTINATION ${DATA_PATH}data)
 install(DIRECTORY tools/ DESTINATION ${DATA_PATH}tools
         USE_SOURCE_PERMISSIONS
@@ -414,14 +453,19 @@ install(DIRECTORY tools/ DESTINATION ${DATA_PATH}tools
         PATTERN "lisum-core" EXCLUDE
         PATTERN "lisum-gui" EXCLUDE
         PATTERN "sumolib4matlab/src" EXCLUDE
+        PATTERN "${EXCLUDE_LIBSUMO}" EXCLUDE
+        PATTERN "${EXCLUDE_LIBTRACI}" EXCLUDE
         PATTERN "traas" EXCLUDE
         PATTERN "traci4matlab/src" EXCLUDE
         PATTERN "__pycache__" EXCLUDE
         PATTERN "*.pyc" EXCLUDE
+        PATTERN "*.egg-info" EXCLUDE
         PATTERN ".git" EXCLUDE)
 if (DATA_PATH)
     install(CODE "execute_process(COMMAND ${CMAKE_COMMAND} -E create_symlink ../../bin \$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/${DATA_PATH}bin)")
 endif ()
+
+install(EXPORT SUMOConfig DESTINATION ${DATA_PATH}cmake NAMESPACE SUMO::)
 
 if (NOT ${SETUPTOOLS_MISSING})
     install(CODE "execute_process(COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/tools/build/setup-sumolib.py clean --all install --root=\$ENV{DESTDIR}/ --prefix=${CMAKE_INSTALL_PREFIX} --optimize=1)"
@@ -431,49 +475,52 @@ if (NOT ${SETUPTOOLS_MISSING})
 endif ()
 
 if (SUMO_LIBRARIES AND WIN32)
-    if ("${CMAKE_ORIGINAL_BUILD_TYPE}" STREQUAL "Release")
-        execute_process(COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/tools/build/filterDebugDLL.py ${SUMO_LIBRARIES_DLL} OUTPUT_VARIABLE SUMO_LIBRARIES_DLL)
-    endif ()
-    # copy common dlls
-    foreach(DLL ${SUMO_LIBRARIES_DLL} ${GTEST_DLL})
-        message(STATUS "DLL ${DLL}")
-        get_filename_component(DLL_BASENAME ${DLL} NAME)
+    # filter release DLLs
+    execute_process(COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/tools/build/filterDebugDLL.py ${SUMO_LIBRARIES_DLL}
+                    OUTPUT_VARIABLE SUMO_LIBRARIES_RELEASE_DLL)
+    # copy debug dlls
+    foreach(DLL_PATH ${SUMO_LIBRARIES_DLL} ${GTEST_DLL})
+        get_filename_component(DLL_BASENAME ${DLL_PATH} NAME)
         set(TARGET_DLL ${CMAKE_SOURCE_DIR}/bin/${DLL_BASENAME})
-        list(FIND TARGET_DLLS ${TARGET_DLL} DLL_KNOWN)
-        list(FIND GTEST_DLL ${DLL} IS_TEST_DLL)
+        list(FIND TARGET_ALL_DLLS ${TARGET_DLL} DLL_KNOWN)
+        list(FIND SUMO_LIBRARIES_RELEASE_DLL ${DLL_PATH} IS_RELEASE_DLL)
+        list(FIND GTEST_DLL ${DLL_PATH} IS_TEST_DLL)
         if (DLL_KNOWN EQUAL -1)
             add_custom_command(OUTPUT ${TARGET_DLL}
-                               COMMAND ${CMAKE_COMMAND} -E copy ${DLL} ${TARGET_DLL}
-                               DEPENDS ${DLL})
-            if (IS_TEST_DLL EQUAL -1)
-                list(APPEND TARGET_DLLS ${TARGET_DLL})
-            else ()
+                               COMMAND ${CMAKE_COMMAND} -E copy ${DLL_PATH} ${TARGET_DLL}
+                               DEPENDS ${DLL_PATH})
+            if (IS_TEST_DLL GREATER -1)
                 list(APPEND TARGET_TEST_DLLS ${TARGET_DLL})
+            elseif (IS_RELEASE_DLL GREATER -1)
+                list(APPEND TARGET_ALL_DLLS ${TARGET_DLL})
+            else ()
+                list(APPEND TARGET_ALL_DLLS $<$<CONFIG:Debug>:${TARGET_DLL}>)
             endif ()
         endif()
-    endforeach(DLL)
+    endforeach(DLL_PATH)
     # copy OSG dlls
     if (HAVE_OSG)
-        file(GLOB OSG_DLL "${OSG_PATH}/bin/*osg.dll")
-        get_filename_component(OSG_DLL_BASENAME ${OSG_DLL} NAME)
-        set(OSG_TARGET ${CMAKE_SOURCE_DIR}/bin/${OSG_DLL_BASENAME})
+        file(GLOB OSG_PLUGIN_DLL "${OSG_PATH}/bin/osgPlugins*/osgdb_osg.dll")
+        get_filename_component(OSG_PLUGIN_DLL_BASENAME ${OSG_PLUGIN_DLL} NAME)
+        get_filename_component(OSG_PLUGIN_DIR ${OSG_PLUGIN_DLL} DIRECTORY)
+        get_filename_component(OSG_PLUGIN_DIR ${OSG_PLUGIN_DIR} NAME)
+        set(OSG_TARGET ${CMAKE_SOURCE_DIR}/bin/${OSG_PLUGIN_DIR}/${OSG_PLUGIN_DLL_BASENAME})
         add_custom_command(OUTPUT ${OSG_TARGET}
-                           COMMAND ${CMAKE_COMMAND} -E copy_directory ${OSG_PATH}/bin ${CMAKE_SOURCE_DIR}/bin
-                           DEPENDS ${OSG_PATH})
+                           COMMAND ${CMAKE_COMMAND} -E copy_directory ${OSG_PATH}/bin/${OSG_PLUGIN_DIR} ${CMAKE_SOURCE_DIR}/bin/${OSG_PLUGIN_DIR}
+                           DEPENDS ${OSG_PLUGIN_DLL})
     endif (HAVE_OSG)
     # proj 7 needs to copy "share/proj" folder in SUMO_HOME/share
     set(PROJ_DATA ${CMAKE_SOURCE_DIR}/share/proj/proj.db)
     add_custom_command(OUTPUT ${PROJ_DATA}
                        COMMAND ${CMAKE_COMMAND} -E copy_directory ${PROJ_PATH}/share/proj ${CMAKE_SOURCE_DIR}/share/proj
-                       DEPENDS ${PROJ_PATH})
+                       DEPENDS ${PROJ_PATH}/share/proj/proj.db)
     install(DIRECTORY share/ DESTINATION ${DATA_PATH}share)
-    # set install_dll target
-    add_custom_target(install_dll ALL DEPENDS ${TARGET_DLLS} ${OSG_TARGET} ${PROJ_DATA})
-    add_custom_target(install_test_dll DEPENDS ${TARGET_TEST_DLLS})
-    set_property(TARGET install_dll PROPERTY FOLDER "CMake")
-else ()
-    add_custom_target(install_test_dll)  # dummy target for non-Windows
-endif ()
+endif()
+# set install dll targets, for non-Windows they depend on nothing
+add_custom_target(install_dll DEPENDS ${TARGET_ALL_DLLS} ${OSG_TARGET} ${PROJ_DATA})
+add_custom_target(install_test_dll DEPENDS ${TARGET_TEST_DLLS})
+set_property(TARGET install_dll PROPERTY FOLDER "CMake")
+set_property(TARGET install_test_dll PROPERTY FOLDER "CMake")
 
 # java targets
 find_program(MVN_EXECUTABLE mvn)
@@ -483,13 +530,14 @@ if (MVN_EXECUTABLE AND Java_FOUND)
         get_filename_component(JAVA_BIN ${Java_JAVAC_EXECUTABLE} DIRECTORY)
         get_filename_component(JAVA_HOME ${JAVA_BIN} DIRECTORY)
         set(MVN_COMMAND_PREFIX ${CMAKE_COMMAND} -E env JAVA_HOME=${JAVA_HOME})
+        set(MVN_REPO "-Dmaven.repo.local=${CMAKE_BINARY_DIR}/m2")
     endif ()
     add_custom_target(traas
-        COMMAND ${MVN_COMMAND_PREFIX} ${MVN_EXECUTABLE} --batch-mode -f tools/contributed/traas/pom.xml clean install
+        COMMAND ${MVN_COMMAND_PREFIX} ${MVN_EXECUTABLE} ${MVN_REPO} --batch-mode -f tools/contributed/traas/pom.xml clean install
         COMMAND ${CMAKE_COMMAND} -E copy tools/contributed/traas/target/traas-1.1.jar bin/TraaS.jar
         WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
     add_custom_target(lisum
-        COMMAND ${MVN_COMMAND_PREFIX} ${MVN_EXECUTABLE} --batch-mode -f tools/contributed/lisum/pom.xml clean install
+        COMMAND ${MVN_COMMAND_PREFIX} ${MVN_EXECUTABLE} ${MVN_REPO} --batch-mode -f tools/contributed/lisum/pom.xml clean install
         COMMAND ${CMAKE_COMMAND} -E copy tools/contributed/lisum/lisum-core/target/lisum-core-1.0.2.jar bin/lisum-core.jar
         COMMAND ${CMAKE_COMMAND} -E copy tools/contributed/lisum/lisum-gui/target/lisum-gui-1.1.jar bin/lisum-gui.jar
         WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
@@ -614,7 +662,7 @@ add_test(exampletest ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/docs/examples/runA
 find_package(Git)
 if (GIT_FOUND)
     add_custom_target(dist
-        COMMAND rm -rf sumo-${PACKAGE_VERSION} sumo-${PACKAGE_VERSION}.zip sumo-src-${PACKAGE_VERSION}.tar.gz sumo-src-${PACKAGE_VERSION}.zip sumo-all-${PACKAGE_VERSION}.tar.gz sumo-all-${PACKAGE_VERSION}.zip sumo-gui-macos-${PACKAGE_VERSION}.zip
+        COMMAND rm -rf sumo-${PACKAGE_VERSION} sumo-${PACKAGE_VERSION}.zip sumo-src-${PACKAGE_VERSION}.tar.gz sumo-src-${PACKAGE_VERSION}.zip sumo-gui-macos-${PACKAGE_VERSION}.zip
         COMMAND ${GIT_EXECUTABLE} archive --prefix sumo-${PACKAGE_VERSION}/ -o sumo-${PACKAGE_VERSION}.zip HEAD
         COMMAND unzip -q sumo-${PACKAGE_VERSION}.zip
         COMMAND cp -a docs/tutorial docs/examples sumo-${PACKAGE_VERSION}/docs
@@ -624,11 +672,9 @@ if (GIT_FOUND)
         COMMAND zip -rq sumo-src-${PACKAGE_VERSION}.zip sumo-${PACKAGE_VERSION}
         COMMAND tar -czf sumo-src-${PACKAGE_VERSION}.tar.gz sumo-${PACKAGE_VERSION}
         COMMAND cp -a docs/userdoc docs/pydoc docs/javadoc docs/man sumo-${PACKAGE_VERSION}/docs
-        COMMAND tar -czf sumo_${PACKAGE_VERSION}+dfsg1.orig.tar.gz --exclude "*.jar" sumo-${PACKAGE_VERSION}
-        COMMAND cp bin/*.jar sumo-${PACKAGE_VERSION}/bin
-        COMMAND cp -a tests sumo-${PACKAGE_VERSION}
-        COMMAND zip -rq sumo-all-${PACKAGE_VERSION}.zip sumo-${PACKAGE_VERSION}
-        COMMAND tar -czf sumo-all-${PACKAGE_VERSION}.tar.gz sumo-${PACKAGE_VERSION}
+        COMMAND rm -r sumo-${PACKAGE_VERSION}/docs/web/docs/images
+        COMMAND ln -s ../../userdoc/images sumo-${PACKAGE_VERSION}/docs/web/docs/images
+        COMMAND tar -czf sumo_${PACKAGE_VERSION}.orig.tar.gz --exclude "*.jar" sumo-${PACKAGE_VERSION}
         COMMAND mkdir sumo-${PACKAGE_VERSION}/sumo-gui-macos
         COMMAND cp -a build/macos/*/*.app sumo-${PACKAGE_VERSION}/sumo-gui-macos
         COMMAND zip -rq sumo-gui-macos-${PACKAGE_VERSION}.zip sumo-${PACKAGE_VERSION}/sumo-gui-macos/*.app
@@ -642,7 +688,7 @@ if (GIT_FOUND)
         COMMAND rm -rf sumo-${PACKAGE_VERSION}
         COMMAND unzip -q sumo-src-${PACKAGE_VERSION}.zip
         COMMAND cd sumo-${PACKAGE_VERSION} && mkdir _cmake_build _cmake_install && cd _cmake_build
-                && cmake -DCMAKE_INSTALL_PREFIX=../_cmake_install .. || (echo "ERROR: the cmake configuration failed." && false)
+                && cmake -DCMAKE_INSTALL_PREFIX=../_cmake_install -DCHECK_OPTIONAL_LIBS=${CHECK_OPTIONAL_LIBS} .. || (echo "ERROR: the cmake configuration failed." && false)
                 && make -j8 || (echo "ERROR: the compilation failed." && false)
                 && make test || (echo "ERROR: the test suite failed." && false)
                 && make install || (echo "ERROR: the install target failed." && false)

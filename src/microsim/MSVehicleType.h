@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -33,6 +33,7 @@
 #include <utils/common/RandHelper.h>
 #include <utils/vehicle/SUMOVTypeParameter.h>
 #include <utils/common/RGBColor.h>
+#include <utils/emissions/EnergyParams.h>
 
 
 // ===========================================================================
@@ -192,6 +193,14 @@ public:
     }
 
 
+    /** @brief Get this vehicle type's mass
+     * @return The mass of this vehicle type
+     */
+    inline double getMass() const {
+        return myParameter.mass;
+    }
+
+
     /** @brief Returns this type's color
      * @return The color of this type
      */
@@ -290,18 +299,11 @@ public:
         return myParameter.containerCapacity;
     }
 
-    /** @brief Get this vehicle type's boarding duration
-     * @return The time a person needs to board a vehicle of this type
-     */
-    SUMOTime getBoardingDuration() const {
-        return myParameter.boardingDuration;
-    }
-
     /** @brief Get this vehicle type's loading duration
-     * @return The time a container needs to get laoded on a vehicle of this type
+     * @return The time a container / person needs to get loaded on a vehicle of this type
      */
-    SUMOTime getLoadingDuration() const {
-        return myParameter.loadingDuration;
+    SUMOTime getLoadingDuration(const bool isPerson) const {
+        return isPerson ? myParameter.boardingDuration : myParameter.loadingDuration;
     }
 
     /** @brief Get vehicle's maximum lateral speed [m/s].
@@ -480,6 +482,12 @@ public:
     void setEmissionClass(SUMOEmissionClass eclass);
 
 
+    /** @brief Set a new value for this type's mass
+     * @param[in] mass The new mass of this type
+     */
+    void setMass(double mass);
+
+
     /** @brief Set a new value for this type's color
      * @param[in] color The new color of this type
      */
@@ -509,6 +517,10 @@ public:
     /** @brief Set vehicle's preferred lateral alignment
      */
     void setPreferredLateralAlignment(const LatAlignmentDefinition& latAlignment, double latAlignmentOffset = 0.0);
+
+    /** @brief Set traffic scaling factor
+     */
+    void setScale(double value);
     /// @}
 
 
@@ -576,9 +588,16 @@ public:
      */
     void check();
 
+    /// @brief retrieve parameters for the energy consumption model
+    inline const EnergyParams* getEmissionParameters() const {
+        return &myEnergyParams;
+    }
+
 private:
     /// @brief the parameter container
     SUMOVTypeParameter myParameter;
+
+    const EnergyParams myEnergyParams;
 
     /// @brief the vtypes actionsStepLength in seconds (cached because needed very often)
     double myCachedActionStepLengthSecs;
@@ -587,6 +606,7 @@ private:
     ///        larger than the desired time headway.
     bool myWarnedActionStepLengthTauOnce;
     bool myWarnedActionStepLengthBallisticOnce;
+    bool myWarnedStepLengthTauOnce;
 
     /// @brief the running index
     const int myIndex;

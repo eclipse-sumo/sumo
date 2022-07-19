@@ -1,0 +1,5 @@
+read 25 TAZ
+edges ['D0E0'] (total 1) are sources for more than one TAZ
+edges ['D0E0'] (total 1) are sinks for more than one TAZ
+read 10 vehicles
+Wrote 10 OD-pairs (10 distinct) in 1 intervals (10 vehicles total)

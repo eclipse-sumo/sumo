@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Mar 12 15:26:00 2021 by Eclipse SUMO sumo Version v1_8_0+1630-2b9a38d
+<!-- generated on 2021-11-12 17:19:55 by Eclipse SUMO sumo Version v1_10_0+1679-b93cd5866ee
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -55,64 +55,40 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <substations-export>
-    <overheadWireSegment id="ovrhdSgmnt_-gneE10_0_6" tractionSubstationId="trSubstation2" totalEnergyCharged="164.33" chargingSteps="6">
-        <vehicle id="test2" type="trolleybus" totalEnergyChargedIntoVehicle="164.33" chargingBegin="1.00" chargingEnd="6.00" maximumBatteryCapacity="46000.00">
-            <step time="1.00" chargingStatus="charging" energyCharged="16.17" partialCharge="16.17" voltage="599.61" actualBatteryCapacity="23011.11"/>
-            <step time="2.00" chargingStatus="charging" energyCharged="20.66" partialCharge="36.83" voltage="599.54" actualBatteryCapacity="23022.22"/>
-            <step time="3.00" chargingStatus="charging" energyCharged="25.15" partialCharge="61.98" voltage="599.53" actualBatteryCapacity="23033.33"/>
-            <step time="4.00" chargingStatus="charging" energyCharged="29.66" partialCharge="91.64" voltage="599.57" actualBatteryCapacity="23044.44"/>
-            <step time="5.00" chargingStatus="charging" energyCharged="34.17" partialCharge="125.81" voltage="599.69" actualBatteryCapacity="23055.56"/>
-            <step time="6.00" chargingStatus="charging" energyCharged="38.52" partialCharge="164.33" voltage="599.90" actualBatteryCapacity="23066.67"/>
-        </vehicle>
-    </overheadWireSegment>
-    <overheadWireSegment id="ovrhdSgmnt_-gneE13_0_8" tractionSubstationId="" totalEnergyCharged="0.00" chargingSteps="0"/>
-    <overheadWireSegment id="ovrhdSgmnt_-gneE14_0_9" tractionSubstationId="" totalEnergyCharged="0.00" chargingSteps="0"/>
-    <overheadWireSegment id="ovrhdSgmnt_-gneE7_0_7" tractionSubstationId="trSubstation2" totalEnergyCharged="0.00" chargingSteps="0"/>
-    <overheadWireSegment id="ovrhdSgmnt_-gneE8_0_5" tractionSubstationId="trSubstation2" totalEnergyCharged="13.43" chargingSteps="2">
-        <vehicle id="test2" type="trolleybus" totalEnergyChargedIntoVehicle="13.43" chargingBegin="7.00" chargingEnd="8.00" maximumBatteryCapacity="46000.00">
-            <step time="7.00" chargingStatus="charging" energyCharged="6.07" partialCharge="6.07" voltage="599.99" actualBatteryCapacity="23077.78"/>
-            <step time="8.00" chargingStatus="charging" energyCharged="7.35" partialCharge="13.43" voltage="599.98" actualBatteryCapacity="23088.89"/>
-        </vehicle>
-    </overheadWireSegment>
-    <overheadWireSegment id="ovrhdSgmnt_gneE0_0_0" tractionSubstationId="trSubstation1" totalEnergyCharged="250.89" chargingSteps="11">
-        <vehicle id="test1" type="trolleybus" totalEnergyChargedIntoVehicle="250.89" chargingBegin="1.00" chargingEnd="11.00" maximumBatteryCapacity="46000.00">
-            <step time="1.00" chargingStatus="charging" energyCharged="16.17" partialCharge="16.17" voltage="699.98" actualBatteryCapacity="23011.11"/>
-            <step time="2.00" chargingStatus="charging" energyCharged="20.66" partialCharge="36.83" voltage="699.94" actualBatteryCapacity="23022.22"/>
-            <step time="3.00" chargingStatus="charging" energyCharged="25.15" partialCharge="61.98" voltage="699.86" actualBatteryCapacity="23033.33"/>
-            <step time="4.00" chargingStatus="charging" energyCharged="29.66" partialCharge="91.64" voltage="699.72" actualBatteryCapacity="23044.44"/>
-            <step time="5.00" chargingStatus="charging" energyCharged="34.17" partialCharge="125.81" voltage="699.52" actualBatteryCapacity="23055.56"/>
-            <step time="6.00" chargingStatus="charging" energyCharged="38.70" partialCharge="164.51" voltage="699.24" actualBatteryCapacity="23066.67"/>
-            <step time="7.00" chargingStatus="charging" energyCharged="43.24" partialCharge="207.75" voltage="698.87" actualBatteryCapacity="23077.78"/>
-            <step time="8.00" chargingStatus="charging" energyCharged="23.74" partialCharge="231.49" voltage="699.23" actualBatteryCapacity="23088.89"/>
-            <step time="9.00" chargingStatus="charging" energyCharged="5.19" partialCharge="236.68" voltage="699.80" actualBatteryCapacity="23100.00"/>
-            <step time="10.00" chargingStatus="charging" energyCharged="6.46" partialCharge="243.14" voltage="699.73" actualBatteryCapacity="23111.11"/>
-            <step time="11.00" chargingStatus="charging" energyCharged="7.75" partialCharge="250.89" voltage="699.65" actualBatteryCapacity="23122.22"/>
-        </vehicle>
-    </overheadWireSegment>
-    <overheadWireSegment id="ovrhdSgmnt_gneE1_1_1" tractionSubstationId="trSubstation1" totalEnergyCharged="187.15" chargingSteps="7">
-        <vehicle id="test1" type="trolleybus" totalEnergyChargedIntoVehicle="187.15" chargingBegin="12.00" chargingEnd="18.00" maximumBatteryCapacity="46000.00">
-            <step time="12.00" chargingStatus="charging" energyCharged="30.15" partialCharge="30.15" voltage="698.54" actualBatteryCapacity="23133.33"/>
-            <step time="13.00" chargingStatus="charging" energyCharged="34.66" partialCharge="64.81" voltage="698.15" actualBatteryCapacity="23144.44"/>
-            <step time="14.00" chargingStatus="charging" energyCharged="39.19" partialCharge="104.00" voltage="697.69" actualBatteryCapacity="23155.56"/>
-            <step time="15.00" chargingStatus="charging" energyCharged="36.06" partialCharge="140.06" voltage="697.65" actualBatteryCapacity="23166.67"/>
-            <step time="16.00" chargingStatus="charging" energyCharged="5.33" partialCharge="145.39" voltage="699.63" actualBatteryCapacity="23177.78"/>
-            <step time="17.00" chargingStatus="charging" energyCharged="6.60" partialCharge="151.99" voltage="699.51" actualBatteryCapacity="23188.89"/>
-            <step time="18.00" chargingStatus="charging" energyCharged="35.16" partialCharge="187.15" voltage="697.21" actualBatteryCapacity="23200.00"/>
-        </vehicle>
-    </overheadWireSegment>
-    <overheadWireSegment id="ovrhdSgmnt_gneE2_0_3" tractionSubstationId="trSubstation1" totalEnergyCharged="0.00" chargingSteps="0"/>
-    <overheadWireSegment id="ovrhdSgmnt_gneE2_1_2" tractionSubstationId="trSubstation1" totalEnergyCharged="132.74" chargingSteps="3">
-        <vehicle id="test1" type="trolleybus" totalEnergyChargedIntoVehicle="132.74" chargingBegin="19.00" chargingEnd="21.00" maximumBatteryCapacity="46000.00">
-            <step time="19.00" chargingStatus="charging" energyCharged="39.69" partialCharge="39.69" voltage="696.62" actualBatteryCapacity="23211.11"/>
-            <step time="20.00" chargingStatus="charging" energyCharged="44.24" partialCharge="83.93" voltage="695.93" actualBatteryCapacity="23222.22"/>
-            <step time="21.00" chargingStatus="charging" energyCharged="48.80" partialCharge="132.74" voltage="695.13" actualBatteryCapacity="23233.33"/>
-        </vehicle>
-    </overheadWireSegment>
-    <overheadWireSegment id="ovrhdSgmnt_gneE6_0_7" tractionSubstationId="trSubstation2" totalEnergyCharged="109.17" chargingSteps="3">
-        <vehicle id="test2" type="trolleybus" totalEnergyChargedIntoVehicle="109.17" chargingBegin="9.00" chargingEnd="11.00" maximumBatteryCapacity="46000.00">
-            <step time="9.00" chargingStatus="charging" energyCharged="31.87" partialCharge="31.87" voltage="599.96" actualBatteryCapacity="23100.00"/>
-            <step time="10.00" chargingStatus="charging" energyCharged="36.39" partialCharge="68.25" voltage="599.74" actualBatteryCapacity="23111.11"/>
-            <step time="11.00" chargingStatus="charging" energyCharged="40.92" partialCharge="109.17" voltage="599.42" actualBatteryCapacity="23122.22"/>
-        </vehicle>
-    </overheadWireSegment>
+    <tractionSubstation id="trSubstation1" totalEnergyCharged="-572.31" length="114.96" numVoltageSources="1" numClamps="1" chargingSteps="21">
+        <step time="1.00" vehicleIDs="elecHybrid_test1" numVehicles="1" energyCharged="-16.17" current="83.15" currents="83.1489" voltage="700.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="2.00" vehicleIDs="elecHybrid_test1" numVehicles="1" energyCharged="-20.66" current="106.25" currents="106.2526" voltage="700.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="3.00" vehicleIDs="elecHybrid_test1" numVehicles="1" energyCharged="-25.16" current="129.39" currents="129.3924" voltage="700.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="4.00" vehicleIDs="elecHybrid_test1" numVehicles="1" energyCharged="-29.67" current="152.59" currents="152.5882" voltage="700.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="5.00" vehicleIDs="elecHybrid_test1" numVehicles="1" energyCharged="-34.20" current="175.86" currents="175.8614" voltage="700.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="6.00" vehicleIDs="elecHybrid_test1" numVehicles="1" energyCharged="-38.74" current="199.24" currents="199.2355" voltage="700.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="7.00" vehicleIDs="elecHybrid_test1" numVehicles="1" energyCharged="-43.31" current="222.74" currents="222.7354" voltage="700.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="8.00" vehicleIDs="elecHybrid_test1" numVehicles="1" energyCharged="-23.77" current="122.24" currents="122.2419" voltage="700.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="9.00" vehicleIDs="elecHybrid_test1" numVehicles="1" energyCharged="-5.19" current="26.69" currents="26.6867" voltage="700.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="10.00" vehicleIDs="elecHybrid_test1" numVehicles="1" energyCharged="-6.46" current="33.24" currents="33.2436" voltage="700.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="11.00" vehicleIDs="elecHybrid_test1" numVehicles="1" energyCharged="-7.75" current="39.87" currents="39.8737" voltage="700.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="12.00" vehicleIDs="elecHybrid_test1" numVehicles="1" energyCharged="-30.21" current="155.36" currents="155.3597" voltage="700.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="13.00" vehicleIDs="elecHybrid_test1" numVehicles="1" energyCharged="-34.75" current="178.73" currents="178.7268" voltage="700.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="14.00" vehicleIDs="elecHybrid_test1" numVehicles="1" energyCharged="-39.32" current="202.21" currents="202.2096" voltage="700.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="15.00" vehicleIDs="elecHybrid_test1" numVehicles="1" energyCharged="-36.18" current="186.09" currents="186.0887" voltage="700.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="16.00" vehicleIDs="elecHybrid_test1" numVehicles="1" energyCharged="-5.33" current="27.42" currents="27.4164" voltage="700.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="17.00" vehicleIDs="elecHybrid_test1" numVehicles="1" energyCharged="-6.61" current="33.99" currents="33.9860" voltage="700.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="18.00" vehicleIDs="elecHybrid_test1" numVehicles="1" energyCharged="-35.30" current="181.57" currents="181.5675" voltage="700.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="19.00" vehicleIDs="elecHybrid_test1" numVehicles="1" energyCharged="-39.89" current="205.13" currents="205.1294" voltage="700.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="20.00" vehicleIDs="elecHybrid_test1" numVehicles="1" energyCharged="-44.50" current="228.84" currents="228.8446" voltage="700.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="21.00" vehicleIDs="elecHybrid_test1" numVehicles="1" energyCharged="-49.14" current="252.74" currents="252.7415" voltage="700.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+    </tractionSubstation>
+    <tractionSubstation id="trSubstation2" totalEnergyCharged="-287.08" length="50.20" numVoltageSources="2" numClamps="0" chargingSteps="11">
+        <step time="1.00" vehicleIDs="elecHybrid_test2" numVehicles="1" energyCharged="-16.18" current="97.07" currents="97.0684 0.0000" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="2.00" vehicleIDs="elecHybrid_test2" numVehicles="1" energyCharged="-20.67" current="124.05" currents="124.0453 -0.0000" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="3.00" vehicleIDs="elecHybrid_test2" numVehicles="1" energyCharged="-25.17" current="151.05" currents="151.0465 -0.0000" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="4.00" vehicleIDs="elecHybrid_test2" numVehicles="1" energyCharged="-29.68" current="178.08" currents="178.0766 -0.0000" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="5.00" vehicleIDs="elecHybrid_test2" numVehicles="1" energyCharged="-34.19" current="205.14" currents="205.1373 -0.0000" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="6.00" vehicleIDs="elecHybrid_test2" numVehicles="1" energyCharged="-38.53" current="231.16" currents="231.1599 -0.0000" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="7.00" vehicleIDs="elecHybrid_test2" numVehicles="1" energyCharged="-6.07" current="36.43" currents="26.9212 9.5053" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="8.00" vehicleIDs="elecHybrid_test2" numVehicles="1" energyCharged="-7.36" current="44.13" currents="15.9884 28.1427" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="9.00" vehicleIDs="elecHybrid_test2" numVehicles="1" energyCharged="-31.87" current="191.22" currents="0.0000 191.2170" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="10.00" vehicleIDs="elecHybrid_test2" numVehicles="1" energyCharged="-36.40" current="218.42" currents="0.0000 218.4175" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="11.00" vehicleIDs="elecHybrid_test2" numVehicles="1" energyCharged="-40.96" current="245.76" currents="0.0000 245.7618" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+    </tractionSubstation>
 </substations-export>

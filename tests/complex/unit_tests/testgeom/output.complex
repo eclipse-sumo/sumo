@@ -1,7 +1,7 @@
 Running main() from gtest_main.cc
-[==========] Running 26 tests from 3 test cases.
+[==========] Running 28 tests from 3 test cases.
 [----------] Global test environment set-up.
-[----------] 10 tests from Boundary
+[----------] 12 tests from Boundary
 [ RUN      ] Boundary.test_method_add
 [       OK ] Boundary.test_method_add (0 ms)
 [ RUN      ] Boundary.test_method_add_multiple
@@ -22,12 +22,16 @@ Running main() from gtest_main.cc
 [       OK ] Boundary.test_method_flipY (0 ms)
 [ RUN      ] Boundary.test_method_moveby
 [       OK ] Boundary.test_method_moveby (0 ms)
-[----------] 10 tests from Boundary (0 ms total)
+[ RUN      ] Boundary.test_method_growWidth
+[       OK ] Boundary.test_method_growWidth (0 ms)
+[ RUN      ] Boundary.test_method_growHeight
+[       OK ] Boundary.test_method_growHeight (0 ms)
+[----------] 12 tests from Boundary (0 ms total)
 
 [----------] 1 test from GeoConvHelper
 [ RUN      ] GeoConvHelper.test_method_x2cartesian
-[       OK ] GeoConvHelper.test_method_x2cartesian (1 ms)
-[----------] 1 test from GeoConvHelper (1 ms total)
+[       OK ] GeoConvHelper.test_method_x2cartesian (0 ms)
+[----------] 1 test from GeoConvHelper (0 ms total)
 
 [----------] 15 tests from PositionVectorTest
 [ RUN      ] PositionVectorTest.test_method_around
@@ -60,8 +64,8 @@ Running main() from gtest_main.cc
 [       OK ] PositionVectorTest.test_method_distances (0 ms)
 [ RUN      ] PositionVectorTest.test_method_overlapsWith
 [       OK ] PositionVectorTest.test_method_overlapsWith (0 ms)
-[----------] 15 tests from PositionVectorTest (0 ms total)
+[----------] 15 tests from PositionVectorTest (1 ms total)
 
 [----------] Global test environment tear-down
-[==========] 26 tests from 3 test cases ran. (2 ms total)
-[  PASSED  ] 26 tests.
+[==========] 28 tests from 3 test cases ran. (1 ms total)
+[  PASSED  ] 28 tests.

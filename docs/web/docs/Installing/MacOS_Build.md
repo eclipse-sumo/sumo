@@ -44,6 +44,10 @@ Depending on the SUMO features you want to enable during compilation, you may wa
 brew install python swig eigen pygobject3 gtk+3 adwaita-icon-theme
 python3 -m pip install texttest
 ```
+You can optionally include OSG (OpenSceneGraph) to enable the experimental [3D-Visualization](../sumo-gui.md#3d_visualization):
+```
+brew install open-scene-graph
+```
 
 ### Troubleshooting the fox library on macOS Catalina
 If you encounter segmentation faults on macOS Catalina, please follow the following steps (see [Issue 6242](https://github.com/eclipse/sumo/issues/6242#issuecomment-553458710)).

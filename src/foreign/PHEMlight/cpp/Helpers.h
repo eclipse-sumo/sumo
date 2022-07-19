@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2016-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2016-2022 German Aerospace Center (DLR) and others.
 // PHEMlight module
 // Copyright 2016 Technische Universitaet Graz, https://www.tugraz.at/
 // This program and the accompanying materials are made available under the
@@ -20,10 +20,8 @@
 ///
 //
 /****************************************************************************/
-
-
-#ifndef PHEMlightHELPERS
-#define PHEMlightHELPERS
+#pragma once
+#include <config.h>
 
 #include <string>
 
@@ -94,6 +92,3 @@ namespace PHEMlightdll {
 
     };
 }
-
-
-#endif	//#ifndef PHEMlightHELPERS

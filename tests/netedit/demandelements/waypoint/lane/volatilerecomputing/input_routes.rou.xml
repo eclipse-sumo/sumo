@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 26.08.2019 14:17:31 by Eclipse SUMO netedit Version v1_3_0+0089-e417f0f6df
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="D:\sumo\tests\netedit\demandElements\stop\stopBusStop\volatileRecomputing\input_net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="D:\sumo\tests\netedit\demandElements\stop\stopBusStop\volatileRecomputing\input_net.net.xml"/>
+    </output>
+
+    <processing>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <opposites.guess.fix-lengths value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <netedit>
+        <route-files value="D:\sumo\tests\netedit\demandElements\stop\stopBusStop\volatileRecomputing\input_routes.rou.xml"/>
+    </netedit>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <route id="routeA" edges="gneE0 gneE1" color="yellow"/>
+
+    <route id="routeB" edges="gneE1" color="orange"/>
+
+    <flow id="routeFlowA" begin="0.00" route="routeA" end="3600.00" number="18">
+        <stop lane="gneE1_1" startPos="7.00" speed="30" endPos="17.00"/>
+        <stop lane="gneE1_1" startPos="8.00" speed="30" endPos="17.00"/>
+        <stop lane="gneE1_1" startPos="9.00" speed="30" endPos="17.00"/>
+        <stop lane="gneE1_1" startPos="10.00" speed="30" endPos="17.00"/>
+        <stop lane="gneE1_1" startPos="11.00" speed="30" endPos="17.00"/>
+    </flow>
+
+    <flow id="routeFlowB" begin="0.00" route="routeB" end="3600.00" number="18">
+        <stop lane="gneE1_1" startPos="7.00" speed="20" endPos="17.00"/>
+        <stop lane="gneE1_1" startPos="8.00" speed="20" endPos="17.00"/>
+        <stop lane="gneE1_1" startPos="9.00" speed="20" endPos="17.00"/>
+        <stop lane="gneE1_1" startPos="10.00" speed="20" endPos="17.00"/>
+        <stop lane="gneE1_1" startPos="11.00" speed="20" endPos="17.00"/>
+    </flow>
+</routes>

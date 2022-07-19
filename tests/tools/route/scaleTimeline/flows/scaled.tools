@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-07-07 11:16:44.740568 by scaleTimeLine.py v1_13_0+1343-240e5d48340
+<configuration>
+    <output-file value="scaled.rou.xml"/>
+    <route-files value="input_flows.flows.xml"/>
+    <timeline-list value="3600,400"/>
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <personFlow begin="0.00" end="3600.00" id="0" number="400">
+        <walk arrivalPos="random" fromTaz="1" toTaz="2"/>
+    </personFlow>
+</routes>

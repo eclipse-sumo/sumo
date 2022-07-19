@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2005-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2005-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -87,6 +87,8 @@ public:
     SUMOTime endBoarding = SUMOTime_MAX;
     /// @brief whether this an opposite-direction stop
     bool isOpposite = false;
+    /// @brief whether the decision to skip this stop has been made
+    bool skipOnDemand = false;
 
     /// @brief Write the current stop configuration (used for state saving)
     void write(OutputDevice& dev) const;
@@ -94,14 +96,29 @@ public:
     /// @brief return halting position for upcoming stop;
     double getEndPos(const SUMOVehicle& veh) const;
 
+    /// @brief return startPos taking into account opposite stopping
+    double getReachedThreshold() const;
+
     /// @brief get a short description for showing in the gui
     std::string getDescription() const;
 
     /// @brief initialize attributes from the given stop parameters
     void initPars(const SUMOVehicleParameter::Stop& stopPar);
 
-private:
-    /// @brief Invalidated assignment operator
-    MSStop& operator=(const MSStop& src) = delete;
+    const MSEdge* getEdge() const;
 
+    /// @brief return flags as used by Vehicle::getStopState
+    int getStateFlagsOld() const;
+
+    /// @brief return minimum stop duration when starting stop at time
+    SUMOTime getMinDuration(SUMOTime time) const;
+
+    /// @brief return until / ended time
+    SUMOTime getUntil() const;
+
+    /// @brief return speed for passing waypoint / skipping on-demand stop
+    double getSpeed() const;
+
+    /// @brief whether the stop is in range of the given position
+    bool isInRange(const double pos, const double tolerance) const;
 };

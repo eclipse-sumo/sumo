@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -19,6 +19,7 @@
 ///
 // Tests the class PositionVector
 /****************************************************************************/
+#include <config.h>
 
 #include <gtest/gtest.h>
 #include <utils/geom/PositionVector.h>
@@ -341,9 +342,9 @@ TEST_F(PositionVectorTest, test_method_move2side) {
         vec3.push_back(Position(3, 0, 0));
         vec3.push_back(Position(1, 0, 0));
         vec3.move2side(.5);
+        // clipping removal eliminates the middle point
         EXPECT_EQ(Position(0, -.5), vec3[0]);
-        EXPECT_EQ(Position(3.5, 0), vec3[1]);
-        EXPECT_EQ(Position(1, .5), vec3[2]);
+        EXPECT_EQ(Position(1, -.5), vec3[1]);
     }
     // bad input: subsequent identical points
     {

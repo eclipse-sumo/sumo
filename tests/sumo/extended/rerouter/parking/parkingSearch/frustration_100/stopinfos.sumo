@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2021-11-25 22:44:48 by Eclipse SUMO sumo Version v1_11_0+0103-2bf86f8
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml,input_routes2.rou.xml"/>
+        <additional-files value="input_additional.add.xml,input_additional2.add.xml,input_additional3.add.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <tripinfo-output value="tripinfos.xml"/>
+        <tripinfo-output.write-unfinished value="true"/>
+        <vehroute-output value="vehroutes.xml"/>
+        <vehroute-output.exit-times value="true"/>
+        <vehroute-output.cost value="true"/>
+        <vehroute-output.route-length value="true"/>
+        <vehroute-output.write-unfinished value="true"/>
+        <stop-output value="stopinfos.xml"/>
+        <stop-output.write-unfinished value="true"/>
+    </output>
+
+    <time>
+        <end value="500"/>
+    </time>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <gui_only>
+        <gui-settings-file value="settings.xml"/>
+    </gui_only>
+
+</configuration>
+-->
+
+<stops xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/stopinfo_file.xsd">
+    <stopinfo id="paA2A3.0" type="DEFAULT_VEHTYPE" lane="A2A3_0" pos="92.10" parking="1" started="1.00" ended="-1" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="paA2A3"/>
+    <stopinfo id="paA2A1.0" type="DEFAULT_VEHTYPE" lane="A2A1_0" pos="90.60" parking="1" started="1.00" ended="-1" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="paA2A1"/>
+    <stopinfo id="paA3A2.0" type="DEFAULT_VEHTYPE" lane="A3A2_0" pos="92.10" parking="1" started="1.00" ended="-1" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="paA3A2"/>
+    <stopinfo id="paB1C1.0" type="DEFAULT_VEHTYPE" lane="B1C1_0" pos="90.60" parking="1" started="1.00" ended="-1" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="paB1C1"/>
+    <stopinfo id="paC3D3.0" type="DEFAULT_VEHTYPE" lane="C3D3_0" pos="92.10" parking="1" started="1.00" ended="-1" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="paC3D3"/>
+    <stopinfo id="paC1B1.0" type="DEFAULT_VEHTYPE" lane="C1B1_0" pos="90.60" parking="1" started="1.00" ended="-1" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="paC1B1"/>
+    <stopinfo id="paD2D3.0" type="DEFAULT_VEHTYPE" lane="D2D3_0" pos="92.10" parking="1" started="1.00" ended="-1" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="paD2D3"/>
+    <stopinfo id="paC0B0.0" type="DEFAULT_VEHTYPE" lane="C0B0_0" pos="90.60" parking="1" started="1.00" ended="-1" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="paC0B0"/>
+    <stopinfo id="paB1B0.0" type="DEFAULT_VEHTYPE" lane="B1B0_0" pos="90.60" parking="1" started="1.00" ended="-1" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="paB1B0"/>
+    <stopinfo id="paB0C0.0" type="DEFAULT_VEHTYPE" lane="B0C0_0" pos="90.60" parking="1" started="1.00" ended="-1" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="paB0C0"/>
+    <stopinfo id="paB1A1.0" type="DEFAULT_VEHTYPE" lane="B1A1_0" pos="90.60" parking="1" started="1.00" ended="-1" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="paB1A1"/>
+    <stopinfo id="paC2B2.0" type="DEFAULT_VEHTYPE" lane="C2B2_0" pos="90.60" parking="1" started="1.00" ended="-1" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="paC2B2"/>
+    <stopinfo id="paD3D2.0" type="DEFAULT_VEHTYPE" lane="D3D2_0" pos="46.05" parking="1" started="1.00" ended="-1" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="paD3D2"/>
+    <stopinfo id="paB0A0.0" type="DEFAULT_VEHTYPE" lane="B0A0_0" pos="92.10" parking="1" started="1.00" ended="-1" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="paB0A0"/>
+    <stopinfo id="paB2A2.0" type="DEFAULT_VEHTYPE" lane="B2A2_0" pos="90.60" parking="1" started="1.00" ended="-1" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="paB2A2"/>
+    <stopinfo id="paB3C3.0" type="DEFAULT_VEHTYPE" lane="B3C3_0" pos="90.60" parking="1" started="1.00" ended="-1" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="paB3C3"/>
+    <stopinfo id="paA0B0.0" type="DEFAULT_VEHTYPE" lane="A0B0_0" pos="92.10" parking="1" started="1.00" ended="-1" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="paA0B0"/>
+    <stopinfo id="paC1D1.0" type="DEFAULT_VEHTYPE" lane="C1D1_0" pos="90.60" parking="1" started="1.00" ended="-1" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="paC1D1"/>
+    <stopinfo id="paB2C2.0" type="DEFAULT_VEHTYPE" lane="B2C2_0" pos="90.60" parking="1" started="1.00" ended="-1" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="paB2C2"/>
+    <stopinfo id="paB3A3.0" type="DEFAULT_VEHTYPE" lane="B3A3_0" pos="92.10" parking="1" started="1.00" ended="-1" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="paB3A3"/>
+    <stopinfo id="paD1D2.0" type="DEFAULT_VEHTYPE" lane="D1D2_0" pos="90.60" parking="1" started="1.00" ended="-1" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="paD1D2"/>
+    <stopinfo id="paD1D0.0" type="DEFAULT_VEHTYPE" lane="D1D0_0" pos="92.10" parking="1" started="1.00" ended="-1" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="paD1D0"/>
+    <stopinfo id="paC3C2.0" type="DEFAULT_VEHTYPE" lane="C3C2_0" pos="90.60" parking="1" started="1.00" ended="-1" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="paC3C2"/>
+    <stopinfo id="paC3B3.0" type="DEFAULT_VEHTYPE" lane="C3B3_0" pos="90.60" parking="1" started="1.00" ended="-1" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="paC3B3"/>
+    <stopinfo id="paC1C0.0" type="DEFAULT_VEHTYPE" lane="C1C0_0" pos="90.60" parking="1" started="1.00" ended="-1" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="paC1C0"/>
+    <stopinfo id="paC1C2.0" type="DEFAULT_VEHTYPE" lane="C1C2_0" pos="90.60" parking="1" started="1.00" ended="-1" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="paC1C2"/>
+    <stopinfo id="paA3B3.0" type="DEFAULT_VEHTYPE" lane="A3B3_0" pos="92.10" parking="1" started="1.00" ended="-1" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="paA3B3"/>
+    <stopinfo id="paB1B2.0" type="DEFAULT_VEHTYPE" lane="B1B2_0" pos="90.60" parking="1" started="1.00" ended="-1" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="paB1B2"/>
+    <stopinfo id="paA2B2.0" type="DEFAULT_VEHTYPE" lane="A2B2_0" pos="90.60" parking="1" started="1.00" ended="-1" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="paA2B2"/>
+    <stopinfo id="paC2C3.0" type="DEFAULT_VEHTYPE" lane="C2C3_0" pos="90.60" parking="1" started="1.00" ended="-1" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="paC2C3"/>
+    <stopinfo id="paA1B1.0" type="DEFAULT_VEHTYPE" lane="A1B1_0" pos="90.60" parking="1" started="1.00" ended="-1" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="paA1B1"/>
+    <stopinfo id="paC0C1.0" type="DEFAULT_VEHTYPE" lane="C0C1_0" pos="90.60" parking="1" started="1.00" ended="-1" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="paC0C1"/>
+    <stopinfo id="paD3C3.0" type="DEFAULT_VEHTYPE" lane="D3C3_0" pos="92.10" parking="1" started="1.00" ended="-1" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="paD3C3"/>
+    <stopinfo id="paD0C0.0" type="DEFAULT_VEHTYPE" lane="D0C0_0" pos="92.10" parking="1" started="1.00" ended="-1" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="paD0C0"/>
+    <stopinfo id="paC2C1.0" type="DEFAULT_VEHTYPE" lane="C2C1_0" pos="90.60" parking="1" started="1.00" ended="-1" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="paC2C1"/>
+    <stopinfo id="paB0B1.0" type="DEFAULT_VEHTYPE" lane="B0B1_0" pos="90.60" parking="1" started="1.00" ended="-1" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="paB0B1"/>
+    <stopinfo id="paD2D1.0" type="DEFAULT_VEHTYPE" lane="D2D1_0" pos="90.60" parking="1" started="1.00" ended="-1" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="paD2D1"/>
+    <stopinfo id="paD2C2.0" type="DEFAULT_VEHTYPE" lane="D2C2_0" pos="90.60" parking="1" started="1.00" ended="-1" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="paD2C2"/>
+    <stopinfo id="paD0D1.0" type="DEFAULT_VEHTYPE" lane="D0D1_0" pos="92.10" parking="1" started="1.00" ended="-1" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="paD0D1"/>
+    <stopinfo id="paB3B2.0" type="DEFAULT_VEHTYPE" lane="B3B2_0" pos="90.60" parking="1" started="1.00" ended="-1" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="paB3B2"/>
+    <stopinfo id="paC2D2.0" type="DEFAULT_VEHTYPE" lane="C2D2_0" pos="90.60" parking="1" started="1.00" ended="-1" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="paC2D2"/>
+    <stopinfo id="paB2B3.0" type="DEFAULT_VEHTYPE" lane="B2B3_0" pos="90.60" parking="1" started="1.00" ended="-1" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="paB2B3"/>
+    <stopinfo id="paB2B1.0" type="DEFAULT_VEHTYPE" lane="B2B1_0" pos="90.60" parking="1" started="1.00" ended="-1" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="paB2B1"/>
+    <stopinfo id="paA1A0.0" type="DEFAULT_VEHTYPE" lane="A1A0_0" pos="92.10" parking="1" started="1.00" ended="-1" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="paA1A0"/>
+    <stopinfo id="paA1A2.0" type="DEFAULT_VEHTYPE" lane="A1A2_0" pos="90.60" parking="1" started="1.00" ended="-1" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="paA1A2"/>
+    <stopinfo id="paD1C1.0" type="DEFAULT_VEHTYPE" lane="D1C1_0" pos="90.60" parking="1" started="1.00" ended="-1" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="paD1C1"/>
+    <stopinfo id="paC0D0.0" type="DEFAULT_VEHTYPE" lane="C0D0_0" pos="92.10" parking="1" started="1.00" ended="-1" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="paC0D0"/>
+    <stopinfo id="paA0A1.0" type="DEFAULT_VEHTYPE" lane="A0A1_0" pos="92.10" parking="1" started="1.00" ended="-1" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="paA0A1"/>
+    <stopinfo id="ego.0" type="car" lane="D3D2_0" pos="92.10" parking="1" started="215.00" ended="-1" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="paD3D2"/>
+</stops>

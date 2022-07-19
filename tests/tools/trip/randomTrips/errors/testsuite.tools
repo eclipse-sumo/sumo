@@ -1,0 +1,14 @@
+# Test for invalid vclass/edge-permission values.
+invalid_vclass_edge-permission
+
+# Test for invalid vehicle-class values.
+invalid_vehicle_class
+
+# Test for the conflict between arguments --period and --insertion-rate.
+period_insertion_rate_conflict
+
+# Test for the conflict between arguments --insertion-rate and --insertion-density.
+insertion_rate_insertion_density_conflict
+
+# Test for the conflict between arguments --period and --insertion-density.
+period_insertion_density_conflict

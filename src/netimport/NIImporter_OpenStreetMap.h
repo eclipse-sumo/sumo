@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -74,7 +74,7 @@ protected:
     struct NIOSMNode {
         NIOSMNode(long long int _id, double _lon, double _lat)
             :
-            id(_id), lon(_lon), lat(_lat), ele(0),
+            id(_id), lon(_lon), lat(_lat), ele(0.),
             tlsControlled(false),
             railwayCrossing(false),
             railwaySignal(false),
@@ -82,7 +82,7 @@ protected:
             ptStopPosition(false), ptStopLength(0), name(""),
             permissions(SVC_IGNORING),
             positionMeters(std::numeric_limits<double>::max()),
-            node(0) { }
+            node(nullptr) { }
 
         /// @brief The node's id
         const long long int id;
@@ -232,6 +232,9 @@ protected:
         bool myCurrentIsPlatform;
         /// @brief Information whether this is railway is electrified
         bool myCurrentIsElectrified;
+        /// @brief turning direction (arrows printed on the road)
+        std::vector<int> myTurnSignsForward;
+        std::vector<int> myTurnSignsBackward;
 
     private:
         /// invalidated assignment operator
@@ -286,6 +289,12 @@ private:
     /// @brief import lane specific access restrictions
     bool myImportLaneAccess;
 
+    /// @brief import sidewalks
+    bool myImportSidewalks;
+
+    /// @brief import turning signals (turn:lanes) to guide connection building
+    bool myImportTurnSigns;
+
     /** @brief Builds an NBNode
      *
      * If a node with the given id is already known, nothing is done.
@@ -312,11 +321,14 @@ private:
      * @param[in] passed The list of passed nodes (geometry information)
      * @param[in] osmNodes Container of node definitions for getting information about nodes from
      * @param[in, out] The NetBuilder instance
+     * @param[in] first The first node of the way
+     * @param[in] last The last node of the way
      * @return the new index if the edge is split
      * @exception ProcessError If the edge could not be added to the container
      */
     int insertEdge(Edge* e, int index, NBNode* from, NBNode* to,
-                   const std::vector<long long int>& passed, NBNetBuilder& nb);
+                   const std::vector<long long int>& passed, NBNetBuilder& nb,
+                   const NBNode* first, const NBNode* last);
 
     /// @brief reconstruct elevation from layer info
     void reconstructLayerElevation(double layerElevation, NBNetBuilder& nb);
@@ -340,6 +352,7 @@ protected:
 
     static void applyChangeProhibition(NBEdge* e, int changeProhibition);
     void applyLaneUseInformation(NBEdge* e, const std::vector<SVCPermissions>& laneUse);
+    void applyTurnSigns(NBEdge* e, const std::vector<int>& turnSigns);
 
     /**
      * @class NodesHandler
@@ -362,6 +375,10 @@ protected:
 
         int getDuplicateNodes() const {
             return myDuplicateNodes;
+        }
+
+        void resetHierarchy() {
+            myHierarchyLevel = 0;
         }
 
     protected:
@@ -389,15 +406,14 @@ protected:
 
 
     private:
-
         /// @brief The nodes container to fill
         std::map<long long int, NIOSMNode*>& myToFill;
 
-        /// @brief ID of the currently parsed node, for reporting mainly
-        long long int myLastNodeID;
+        /// @brief id of the currently parsed node
+        std::string myLastNodeID;
 
-        /// @brief Hierarchy helper for parsing a node's tags
-        bool myIsInValidNodeTag;
+        /// @brief the currently parsed node
+        NIOSMNode* myCurrentNode;
 
         /// @brief The current hierarchy level
         int myHierarchyLevel;
@@ -483,10 +499,7 @@ protected:
         std::map<long long int, Edge*>& myPlatformShapesMap;
 
         /// @brief The currently built edge
-        Edge* myCurrentEdge;
-
-        /// @brief The element stack
-        std::vector<int> myParentElements;
+        Edge* myCurrentEdge = nullptr;
 
         /// @brief A map of non-numeric speed descriptions to their numeric values
         std::map<std::string, double> mySpeedMap;
@@ -498,7 +511,6 @@ protected:
 
         /// @brief import bike path specific permissions and directions
         bool myImportBikeAccess;
-
 
     private:
         /** @brief invalidated copy constructor */
@@ -572,9 +584,6 @@ protected:
 
         /// @brief The currently parsed relation
         long long int myCurrentRelation;
-
-        /// @brief The element stack
-        std::vector<int> myParentElements;
 
         /// @brief whether the currently parsed relation is a restriction
         bool myIsRestriction;

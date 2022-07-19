@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -32,13 +32,13 @@
 typedef long long int SUMOTime;
 #define SUMOTime_MAX std::numeric_limits<SUMOTime>::max()
 #define SUMOTime_MIN std::numeric_limits<SUMOTime>::min()
-#define SUMOTIME_MAXSTRING "9223372036854774" // SUMOTime_MAX / 1000 - 1 (because of rounding errors)
+#define SUMOTime_MAX_PERIOD (SUMOTime_MAX - SUMOTime_MAX % DELTA_T)
 
 // the step length in ms
 extern SUMOTime DELTA_T;
 
 // the step length in seconds as double
-#define TS (static_cast<double>(DELTA_T/1000.))
+#define TS (static_cast<double>(DELTA_T)/1000.)
 
 // x*deltaT
 #define SPEED2DIST(x) ((x)*TS)
@@ -51,7 +51,7 @@ extern SUMOTime DELTA_T;
 // x*deltaT
 #define SPEED2ACCEL(x) ((x)/TS)
 
-#define STEPS2TIME(x) (static_cast<double>((x)/1000.))
+#define STEPS2TIME(x) (static_cast<double>(x)/1000.)
 // static cast to long long int truncates so we must pad away from 0 for correct rounding
 #define TIME2STEPS(x) (static_cast<SUMOTime>((x) * 1000. + ((x) >= 0 ? 0.5 : -0.5)))
 #define STEPFLOOR(x) (int(x/DELTA_T)*DELTA_T)

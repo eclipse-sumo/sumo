@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2013-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2013-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -29,6 +29,10 @@
 // Debug flags
 // ===========================================================================
 //#define DEBUG_WANTS_CHANGE
+//#define DEBUG_SAVE_BLOCKER_LENGTH
+
+#define DEBUG_COND (veh.isSelected())
+//#define DEBUG_COND (true)
 
 
 // ===========================================================================
@@ -211,6 +215,72 @@ MSLCHelper::getRoundaboutDistBonus(const MSVehicle& veh,
     return result;
 }
 
+
+bool
+MSLCHelper::saveBlockerLength(const MSVehicle& veh,  MSVehicle* blocker, int lcaCounter, double leftSpace, bool reliefConnection, double& leadingBlockerLength) {
+#ifdef DEBUG_SAVE_BLOCKER_LENGTH
+    if (DEBUG_COND) {
+        std::cout << SIMTIME
+                  << " veh=" << veh.getID()
+                  << " saveBlockerLength blocker=" << Named::getIDSecure(blocker)
+                  << " bState=" << (blocker == 0 ? "None" : toString((LaneChangeAction)blocker->getLaneChangeModel().getOwnState()))
+                  << "\n";
+    }
+#endif
+    if (blocker != nullptr && (blocker->getLaneChangeModel().getOwnState() & lcaCounter) != 0) {
+        // is there enough space in front of us for the blocker?
+        const double potential = leftSpace - veh.getCarFollowModel().brakeGap(
+                                     veh.getSpeed(), veh.getCarFollowModel().getMaxDecel(), 0);
+        if (blocker->getVehicleType().getLengthWithGap() <= potential) {
+            // save at least his length in myLeadingBlockerLength
+            leadingBlockerLength = MAX2(blocker->getVehicleType().getLengthWithGap(), leadingBlockerLength);
+#ifdef DEBUG_SAVE_BLOCKER_LENGTH
+            if (DEBUG_COND) {
+                std::cout << SIMTIME
+                          << " veh=" << veh.getID()
+                          << " blocker=" << Named::getIDSecure(blocker)
+                          << " saving myLeadingBlockerLength=" << leadingBlockerLength
+                          << "\n";
+            }
+#endif
+        } else {
+            // we cannot save enough space for the blocker. It needs to save
+            // space for ego instead
+            const bool canReserve = blocker->getLaneChangeModel().saveBlockerLength(veh.getVehicleType().getLengthWithGap(), leftSpace);
+            //reliefConnection ? std::numeric_limits<double>::max() : leftSpace);
+#ifdef DEBUG_SAVE_BLOCKER_LENGTH
+            if (DEBUG_COND) {
+                std::cout << SIMTIME
+                          << " veh=" << veh.getID()
+                          << " blocker=" << Named::getIDSecure(blocker)
+                          << " cannot save space=" << blocker->getVehicleType().getLengthWithGap()
+                          << " potential=" << potential
+                          << " myReserved=" << leadingBlockerLength
+                          << " canReserve=" << canReserve
+                          << "\n";
+            }
+#endif
+            if (!canReserve && !reliefConnection) {
+                // reserve anyway and try to avoid deadlock with emergency deceleration
+                leadingBlockerLength = MAX2(blocker->getVehicleType().getLengthWithGap(), leadingBlockerLength);
+            }
+            return canReserve;
+        }
+    }
+    return true;
+}
+
+
+bool
+MSLCHelper::canSaveBlockerLength(const MSVehicle& veh, double requested, double leftSpace) {
+    const double potential = leftSpace - veh.getCarFollowModel().brakeGap(veh.getSpeed(), veh.getCarFollowModel().getMaxDecel(), veh.getActionStepLengthSecs());
+#ifdef DEBUG_SAVE_BLOCKER_LENGTH
+    if (DEBUG_COND) {
+        std::cout << SIMTIME << " canSaveBlockerLength veh=" << veh.getID() << " requested=" << requested << " leftSpace=" << leftSpace << " potential=" << potential << "\n";
+    }
+#endif
+    return potential >= requested;
+}
 
 
 /****************************************************************************/

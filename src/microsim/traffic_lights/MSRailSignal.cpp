@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -93,9 +93,9 @@ std::string MSRailSignal::myConstraintInfo;
 // ===========================================================================
 MSRailSignal::MSRailSignal(MSTLLogicControl& tlcontrol,
                            const std::string& id, const std::string& programID, SUMOTime delay,
-                           const std::map<std::string, std::string>& parameters) :
-    MSTrafficLightLogic(tlcontrol, id, programID, TrafficLightType::RAIL_SIGNAL, delay, parameters),
-    myCurrentPhase(DELTA_T, std::string(SUMO_MAX_CONNECTIONS, 'X'), -1), // dummy phase
+                           const Parameterised::Map& parameters) :
+    MSTrafficLightLogic(tlcontrol, id, programID, 0, TrafficLightType::RAIL_SIGNAL, delay, parameters),
+    myCurrentPhase(DELTA_T, std::string(SUMO_MAX_CONNECTIONS, 'X')), // dummy phase
     myPhaseIndex(0) {
     myDefaultCycleTime = DELTA_T;
     myMovingBlock = OptionsCont::getOptions().getBool("railsignal-moving-block");
@@ -121,12 +121,7 @@ MSRailSignal::init(NLDetectorBuilder&) {
 
 
 MSRailSignal::~MSRailSignal() {
-    for (auto item : myConstraints) {
-        for (MSRailSignalConstraint* c : item.second) {
-            delete c;
-        }
-    }
-    myConstraints.clear();
+    removeConstraints();
 }
 
 
@@ -221,7 +216,8 @@ MSRailSignal::constraintsAllow(const SUMOVehicle* veh) const {
         auto it = myConstraints.find(tripID);
         if (it != myConstraints.end()) {
             for (MSRailSignalConstraint* c : it->second) {
-                if (!c->cleared()) {
+                // ignore insertion constraints here
+                if (c->getType() != MSRailSignalConstraint::ConstraintType::INSERTION_PREDECESSOR && !c->cleared()) {
 #ifdef DEBUG_SIGNALSTATE
                     if (gDebugFlag4) {
                         std::cout << "  constraint '" << c->getDescription() << "' not cleared\n";
@@ -256,15 +252,6 @@ MSRailSignal::removeConstraint(const std::string& tripId, MSRailSignalConstraint
             return true;
         }
     }
-    if (myInsertionConstraints.count(tripId) != 0) {
-        auto& constraints = myInsertionConstraints[tripId];
-        auto it = std::find(constraints.begin(), constraints.end(), constraint);
-        if (it != constraints.end()) {
-            delete *it;
-            constraints.erase(it);
-            return true;
-        }
-    }
     return false;
 }
 
@@ -276,18 +263,8 @@ MSRailSignal::removeConstraints() {
         }
     }
     myConstraints.clear();
-    for (auto item : myInsertionConstraints) {
-        for (MSRailSignalConstraint* c : item.second) {
-            delete c;
-        }
-    }
-    myInsertionConstraints.clear();
 }
 
-void
-MSRailSignal::addInsertionConstraint(const std::string& tripId, MSRailSignalConstraint* constraint) {
-    myInsertionConstraints[tripId].push_back(constraint);
-}
 
 // ------------ Static Information Retrieval
 int
@@ -480,12 +457,12 @@ bool
 MSRailSignal::hasInsertionConstraint(MSLink* link, const MSVehicle* veh, std::string& info) {
     if (link->getJunction() != nullptr && link->getJunction()->getType() == SumoXMLNodeType::RAIL_SIGNAL) {
         const MSRailSignal* rs = dynamic_cast<const MSRailSignal*>(link->getTLLogic());
-        if (rs != nullptr && rs->myInsertionConstraints.size() > 0) {
+        if (rs != nullptr && rs->myConstraints.size() > 0) {
             const std::string tripID = veh->getParameter().getParameter("tripId", veh->getID());
-            auto it = rs->myInsertionConstraints.find(tripID);
-            if (it != rs->myInsertionConstraints.end()) {
+            auto it = rs->myConstraints.find(tripID);
+            if (it != rs->myConstraints.end()) {
                 for (MSRailSignalConstraint* c : it->second) {
-                    if (!c->cleared()) {
+                    if (c->getType() == MSRailSignalConstraint::ConstraintType::INSERTION_PREDECESSOR && !c->cleared()) {
 #ifdef DEBUG_SIGNALSTATE
                         if (DEBUG_HELPER(rs)) {
                             std::cout << SIMTIME << " rsl=" << rs->getID() << " insertion constraint '" << c->getDescription() << "' for vehicle '" << veh->getID() << "' not cleared\n";

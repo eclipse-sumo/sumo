@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2015-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2015-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -87,6 +87,9 @@ public:
     /// @brief whether vehicles park on the road
     bool parkOnRoad() const;
 
+    /// @brief compute lot for this vehicle
+    int getLotIndex(const SUMOVehicle* veh) const;
+
     /** @brief Returns the area occupancy
      *
      * @return The occupancy computed as number of vehicles in myEndPositions
@@ -133,14 +136,14 @@ public:
     SUMOTime updateOccupancy(SUMOTime currentTime);
 
     /// @brief Returns the last free position on this stop
-    double getLastFreePos(const SUMOVehicle& forVehicle) const;
+    double getLastFreePos(const SUMOVehicle& forVehicle, double brakePos = 0) const;
 
     /** @brief Returns the last free position on this stop including
      * reservatiosn from the current lane and time step
      *
      * @return The last free position of this bus stop
      */
-    double getLastFreePosWithReservation(SUMOTime t, const SUMOVehicle& forVehicle);
+    double getLastFreePosWithReservation(SUMOTime t, const SUMOVehicle& forVehicle, double brakePos);
 
     /// @brief Returns the position of parked vehicle
     Position getVehiclePosition(const SUMOVehicle& forVehicle) const;
@@ -247,9 +250,6 @@ protected:
 
         ///@brief Whether the lot is on the LHS of the lane relative to the lane direction
         bool sideIsLHS;
-
-        /// @brief Invalidated assignment operator.
-        LotSpaceDefinition& operator=(const LotSpaceDefinition&) = delete;
     };
 
     /** @brief Computes the last free position on this stop
@@ -263,7 +263,10 @@ protected:
     /// @brief Last free lot number (-1 no free lot)
     int myLastFreeLot;
 
-    /// @brief Stop area capacity
+    /// @brief Stop area capacity configured via roadsideCapacity
+    int myRoadSideCapacity;
+
+    /// @brief Stop area total capacity
     int myCapacity;
 
     /// @brief Whether vehicles stay on the road

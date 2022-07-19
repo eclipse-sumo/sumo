@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -14,6 +14,7 @@
 /// @file    GUIOSGBuilder.cpp
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
+/// @author  Mirko Barthauer
 /// @date    19.01.2012
 ///
 // Builds OSG nodes from microsim objects
@@ -36,6 +37,8 @@
 #include <microsim/traffic_lights/MSTLLogicControl.h>
 #include <microsim/traffic_lights/MSTrafficLightLogic.h>
 #include <utils/common/MsgHandler.h>
+#include <utils/common/SUMOVehicleClass.h>
+#include <utils/geom/GeomHelper.h>
 #include <utils/gui/windows/GUISUMOAbstractView.h>
 
 #include "GUIOSGView.h"
@@ -54,7 +57,7 @@ std::map<std::string, osg::ref_ptr<osg::Node> > GUIOSGBuilder::myCars;
 // ===========================================================================
 
 osg::Group*
-GUIOSGBuilder::buildOSGScene(osg::Node* const tlg, osg::Node* const tly, osg::Node* const tlr, osg::Node* const tlu) {
+GUIOSGBuilder::buildOSGScene(osg::Node* const tlg, osg::Node* const tly, osg::Node* const tlr, osg::Node* const tlu, osg::Node* const pole) {
     osgUtil::Tessellator tesselator;
     osg::Group* root = new osg::Group();
     GUINet* net = static_cast<GUINet*>(MSNet::getInstance());
@@ -73,6 +76,8 @@ GUIOSGBuilder::buildOSGScene(osg::Node* const tlg, osg::Node* const tly, osg::No
     const std::vector<std::string> tlids = net->getTLSControl().getAllTLIds();
     for (std::vector<std::string>::const_iterator i = tlids.begin(); i != tlids.end(); ++i) {
         MSTLLogicControl::TLSLogicVariants& vars = net->getTLSControl().get(*i);
+        buildTrafficLightDetails(vars, tlg, tly, tlr, tlu, pole, *root);
+
         const MSTrafficLightLogic::LaneVectorVector& lanes = vars.getActive()->getLaneVectors();
         const MSLane* lastLane = 0;
         int idx = 0;
@@ -82,7 +87,7 @@ GUIOSGBuilder::buildOSGScene(osg::Node* const tlg, osg::Node* const tly, osg::No
             }
             const MSLane* const lane = (*j)[0];
             const Position pos = lane->getShape().back();
-            const double angle =  osg::DegreesToRadians(lane->getShape().rotationDegreeAtOffset(-1.) + 90.);
+            const double angle = osg::DegreesToRadians(lane->getShape().rotationDegreeAtOffset(-1.) + 90.);
             d.centerZ = pos.z() + 4.;
             if (lane == lastLane) {
                 d.centerX += 1.2 * sin(angle);
@@ -91,17 +96,16 @@ GUIOSGBuilder::buildOSGScene(osg::Node* const tlg, osg::Node* const tly, osg::No
                 d.centerX = pos.x() - 1.5 * sin(angle);
                 d.centerY = pos.y() - 1.5 * cos(angle);
             }
-            osg::Switch* switchNode = new osg::Switch();
-            switchNode->addChild(getTrafficLight(d, tlg, osg::Vec4d(0.1, 0.5, 0.1, 1.0), .25), false);
-            switchNode->addChild(getTrafficLight(d, tly, osg::Vec4d(0.5, 0.5, 0.1, 1.0), .25), false);
-            switchNode->addChild(getTrafficLight(d, tlr, osg::Vec4d(0.5, 0.1, 0.1, 1.0), .25), false);
-            switchNode->addChild(getTrafficLight(d, tlu, osg::Vec4d(0.8, 0.4, 0.0, 1.0), .25), false);
-            root->addChild(switchNode);
-            const MSLink* const l = vars.getActive()->getLinksAt(idx)[0];
-            vars.addSwitchCommand(new GUIOSGView::Command_TLSChange(l, switchNode));
+            osg::PositionAttitudeTransform* tlNode = getTrafficLight(d, vars, vars.getActive()->getLinksAt(idx)[0], nullptr, nullptr, nullptr, nullptr, nullptr, false, .25, -1, 1.);
+            tlNode->setName("tlLogic:" + *i);
+            root->addChild(tlNode);
             lastLane = lane;
         }
     }
+    /* // BaM: GL_RESCALE_NORMAL possibly related to #7914 on test machine because of old OpenGL version?
+    osg::ref_ptr<osg::StateSet> ss = root->getOrCreateStateSet();
+    ss->setMode(GL_RESCALE_NORMAL, osg::StateAttribute::ON); 
+    */
     return root;
 }
 
@@ -136,50 +140,70 @@ GUIOSGBuilder::buildOSGEdgeGeometry(const MSEdge& edge,
     const std::vector<MSLane*>& lanes = edge.getLanes();
     for (std::vector<MSLane*>::const_iterator j = lanes.begin(); j != lanes.end(); ++j) {
         MSLane* l = (*j);
+        const bool extrude = edge.isWalkingArea() || isSidewalk(l->getPermissions());
+        const int geomFactor = (edge.isWalkingArea()) ? 1 : 2;
         const PositionVector& shape = l->getShape();
+        const int originalSize = (int)shape.size();
         osg::Geode* geode = new osg::Geode();
         osg::Geometry* geom = new osg::Geometry();
         geode->addDrawable(geom);
+        geode->setName("lane:" + l->getID());
         addTo.addChild(geode);
-        const int shapeSize = (int)(edge.isWalkingArea() ? shape.size() : shape.size() * 2);
-        const float zOffset = edge.isWalkingArea() || edge.isCrossing() ? 0.01f : 0.f;
-        osg::Vec3Array* osg_coords = new osg::Vec3Array(shapeSize);
+        dynamic_cast<GUIGlObject*>(l)->setNode(geode);
+        const int upperShapeSize = originalSize * geomFactor;
+        const int totalShapeSize = (extrude) ? originalSize * 2 * geomFactor : originalSize * geomFactor;
+        const float zOffset = (extrude) ? (edge.isCrossing()) ? 0.01f : 0.1f : 0.f;
+        osg::Vec4ubArray* osg_colors = new osg::Vec4ubArray(1);
+        (*osg_colors)[0].set(128, 128, 128, 255);
+        geom->setColorArray(osg_colors, osg::Array::BIND_OVERALL);
+        osg::Vec3Array* osg_coords = new osg::Vec3Array(totalShapeSize);
         geom->setVertexArray(osg_coords);
+        int sizeDiff = 0;
         if (edge.isWalkingArea()) {
-            int index = 0;
-            for (int k = 0; k < (int)shape.size(); ++k, ++index) {
+            int index = upperShapeSize - 1;
+            for (int k = 0; k < upperShapeSize; ++k, --index) {
                 (*osg_coords)[index].set((float)shape[k].x(), (float)shape[k].y(), (float)shape[k].z() + zOffset);
             }
+            geom->addPrimitiveSet(new osg::DrawArrays(osg::PrimitiveSet::POLYGON, 0, upperShapeSize));
         } else {
+            int index = 0;
             PositionVector rshape = shape;
             rshape.move2side(l->getWidth() / 2);
-            int index = 0;
-            for (int k = 0; k < (int)rshape.size(); ++k, ++index) {
+            for (int k = (int)rshape.size() - 1; k >= 0; --k, ++index) {
                 (*osg_coords)[index].set((float)rshape[k].x(), (float)rshape[k].y(), (float)rshape[k].z() + zOffset);
             }
             PositionVector lshape = shape;
             lshape.move2side(-l->getWidth() / 2);
-            for (int k = (int) lshape.size() - 1; k >= 0; --k, ++index) {
+            for (int k = 0; k < (int)lshape.size(); ++k, ++index) {
                 (*osg_coords)[index].set((float)lshape[k].x(), (float)lshape[k].y(), (float)lshape[k].z() + zOffset);
             }
+            sizeDiff = (int)rshape.size() + (int)lshape.size() - upperShapeSize;
+            int minSize = MIN2((int)rshape.size(), (int)lshape.size());
+            osg::DrawElementsUInt* surface = new osg::DrawElementsUInt(osg::PrimitiveSet::TRIANGLE_STRIP, 0);
+            for (int i = 0; i < minSize; ++i) {
+                surface->push_back(i);
+                surface->push_back(upperShapeSize + sizeDiff - 1 - i);
+            }
+            geom->addPrimitiveSet(surface);
         }
-        osg::Vec3Array* osg_normals = new osg::Vec3Array(1);
-        (*osg_normals)[0] = osg::Vec3(0, 0, 1);
-#if OSG_MIN_VERSION_REQUIRED(3,2,0)
-        geom->setNormalArray(osg_normals, osg::Array::BIND_PER_PRIMITIVE_SET);
-#else
-        geom->setNormalArray(osg_normals);
-        geom->setNormalBinding(osg::Geometry::BIND_PER_PRIMITIVE);
-#endif
-        osg::Vec4ubArray* osg_colors = new osg::Vec4ubArray(1);
-        (*osg_colors)[0].set(128, 128, 128, 255);
-#if OSG_MIN_VERSION_REQUIRED(3,2,0)
-        geom->setColorArray(osg_colors, osg::Array::BIND_OVERALL);
-#else
-        geom->setColorArray(osg_colors);
-        geom->setColorBinding(osg::Geometry::BIND_OVERALL);
-#endif
-        geom->addPrimitiveSet(new osg::DrawArrays(osg::PrimitiveSet::POLYGON, 0, shapeSize));
+        if (extrude) {
+            int index = upperShapeSize;
+            for (int k = 0; k < upperShapeSize + sizeDiff; ++k, ++index) {
+                (*osg_coords)[index].set((*osg_coords)[k].x(), (*osg_coords)[k].y(), 0.);
+            }
+            // extrude edge to create the kerb
+            for (int i = 0; i < upperShapeSize + sizeDiff; ++i) {
+                osg::Vec3 surfaceVec = (*osg_coords)[i] - (*osg_coords)[(i + 1) % (upperShapeSize + sizeDiff)];
+                if (surfaceVec.length() > 0.) {
+                    osg::DrawElementsUInt* kerb = new osg::DrawElementsUInt(osg::PrimitiveSet::POLYGON, 0);
+                    kerb->push_back(i);
+                    kerb->push_back(upperShapeSize + i);
+                    kerb->push_back(upperShapeSize + (i + 1) % (upperShapeSize + sizeDiff));
+                    kerb->push_back((i + 1) % (upperShapeSize + sizeDiff));
+                    geom->addPrimitiveSet(kerb);
+                }
+            }
+        }
 
         osg::ref_ptr<osg::StateSet> ss = geode->getOrCreateStateSet();
         ss->setRenderingHint(osg::StateSet::TRANSPARENT_BIN);
@@ -187,6 +211,7 @@ GUIOSGBuilder::buildOSGEdgeGeometry(const MSEdge& edge,
 
         if (shape.size() > 2) {
             tessellator.retessellatePolygons(*geom);
+
 #ifdef DEBUG_TESSEL
             std::cout << "l=" << l->getID() << " origPoints=" << shape.size() << " geomSize=" << geom->getVertexArray()->getNumElements() << " points=";
             for (int i = 0; i < (int)geom->getVertexArray()->getNumElements(); i++) {
@@ -196,6 +221,11 @@ GUIOSGBuilder::buildOSGEdgeGeometry(const MSEdge& edge,
             std::cout << "\n";
 #endif
         }
+        osgUtil::SmoothingVisitor sv;
+#if OSG_MIN_VERSION_REQUIRED(3,5,4)
+        sv.setCreaseAngle(0.6 * osg::PI);
+#endif
+        geom->accept(sv);
         static_cast<GUILane*>(l)->setGeometry(geom);
     }
 }
@@ -209,7 +239,9 @@ GUIOSGBuilder::buildOSGJunctionGeometry(GUIJunctionWrapper& junction,
     osg::Geode* geode = new osg::Geode();
     osg::Geometry* geom = new osg::Geometry();
     geode->addDrawable(geom);
+    geode->setName("junction:" + junction.getMicrosimID());
     addTo.addChild(geode);
+    dynamic_cast<GUIGlObject&>(junction).setNode(geode);
     osg::Vec3Array* osg_coords = new osg::Vec3Array((int)shape.size());
     geom->setVertexArray(osg_coords);
     for (int k = 0; k < (int)shape.size(); ++k) {
@@ -217,20 +249,10 @@ GUIOSGBuilder::buildOSGJunctionGeometry(GUIJunctionWrapper& junction,
     }
     osg::Vec3Array* osg_normals = new osg::Vec3Array(1);
     (*osg_normals)[0] = osg::Vec3(0, 0, 1);
-#if OSG_MIN_VERSION_REQUIRED(3,2,0)
     geom->setNormalArray(osg_normals, osg::Array::BIND_PER_PRIMITIVE_SET);
-#else
-    geom->setNormalArray(osg_normals);
-    geom->setNormalBinding(osg::Geometry::BIND_PER_PRIMITIVE);
-#endif
     osg::Vec4ubArray* osg_colors = new osg::Vec4ubArray(1);
     (*osg_colors)[0].set(128, 128, 128, 255);
-#if OSG_MIN_VERSION_REQUIRED(3,2,0)
     geom->setColorArray(osg_colors, osg::Array::BIND_OVERALL);
-#else
-    geom->setColorArray(osg_colors);
-    geom->setColorBinding(osg::Geometry::BIND_OVERALL);
-#endif
     geom->addPrimitiveSet(new osg::DrawArrays(osg::PrimitiveSet::POLYGON, 0, (int)shape.size()));
 
     osg::ref_ptr<osg::StateSet> ss = geode->getOrCreateStateSet();
@@ -245,19 +267,155 @@ GUIOSGBuilder::buildOSGJunctionGeometry(GUIJunctionWrapper& junction,
 
 
 void
+GUIOSGBuilder::buildTrafficLightDetails(MSTLLogicControl::TLSLogicVariants& vars, osg::Node* const tlg, osg::Node* const tly, osg::Node* const tlr, osg::Node* const tlu, osg::Node* poleBase, osg::Group& addTo) {
+    // get the poleBase diameter for later repositioning
+    osg::ComputeBoundsVisitor bboxCalc;
+    poleBase->accept(bboxCalc);
+    const double poleDiameter = bboxCalc.getBoundingBox().yMax() - bboxCalc.getBoundingBox().yMin();
+    tlg->accept(bboxCalc);
+    const double tlWidth = bboxCalc.getBoundingBox().yMax() - bboxCalc.getBoundingBox().yMin();
+
+    // loop through lanes, collect edges, skip ped and bike infra for the time being
+    MSTrafficLightLogic* tlLogic = vars.getActive();
+    const MSTrafficLightLogic::LaneVectorVector& allLanes = tlLogic->getLaneVectors();
+    std::set<const MSEdge*> seenEdges;
+    for (MSTrafficLightLogic::LaneVectorVector::const_iterator j = allLanes.begin(); j != allLanes.end(); ++j) {
+        for (MSLane* lane : (*j)) {
+            seenEdges.insert(&lane->getEdge());
+        }
+    }
+    for (const MSEdge* approach : seenEdges) {
+        if (approach->isWalkingArea() || approach->isCrossing()) {
+            continue;
+        }
+        const std::vector<MSLane*> appLanes = approach->getLanes();
+        // ref pos
+        const double laneWidth = appLanes[0]->getWidth();
+        const double edgeWidth = approach->getWidth();
+        const double poleMinHeight = 5.;
+        const double poleOffset = .5;
+        double angle = 90. - appLanes[0]->getShape().rotationDegreeAtOffset(-1.);
+        Position pos = appLanes[0]->getShape().back() + Position(-poleOffset * cos(DEG2RAD(angle)) - (.5 * laneWidth + poleOffset) * sin(DEG2RAD(angle)), poleOffset * sin(DEG2RAD(angle)) + (.5 * laneWidth + poleOffset) * cos(DEG2RAD(angle)));
+
+        // start with local coordinate system
+        osg::PositionAttitudeTransform* appBase = new osg::PositionAttitudeTransform();
+        appBase->setPosition(osg::Vec3d(pos.x(), pos.y(), 0.));
+        appBase->setAttitude(osg::Quat(0., osg::Vec3d(1, 0, 0),
+                                       0., osg::Vec3d(0, 1, 0),
+                                       DEG2RAD(angle), osg::Vec3d(0, 0, 1)));
+        osg::PositionAttitudeTransform* rightPoleBase = new osg::PositionAttitudeTransform();
+        rightPoleBase->addChild(poleBase);
+        appBase->addChild(rightPoleBase);
+        unsigned int laneCount = appLanes.size();
+        if (laneCount < 3) { // cantilever
+            const double cantiWidth = edgeWidth - .1 * appLanes.back()->getWidth() + poleOffset;
+            const double holderWidth = cantiWidth - .4 * appLanes.back()->getWidth();
+            const double holderAngle = 7.5; // degrees
+            const double extraHeight = sin(DEG2RAD(holderAngle)) * holderWidth;
+            rightPoleBase->setScale(osg::Vec3d(.25 / poleDiameter, .25 / poleDiameter, poleMinHeight + extraHeight));
+            osg::PositionAttitudeTransform* cantileverBase = new osg::PositionAttitudeTransform();
+            cantileverBase->setPosition(osg::Vec3d(0., 0., poleMinHeight));
+            cantileverBase->setAttitude(osg::Quat(DEG2RAD(90.), osg::Vec3d(1, 0, 0),
+                                                  0., osg::Vec3d(0, 1, 0),
+                                                  0., osg::Vec3d(0, 0, 1)));
+            cantileverBase->setScale(osg::Vec3d(1., 1., cantiWidth));
+            cantileverBase->addChild(poleBase);
+            appBase->addChild(cantileverBase);
+            osg::PositionAttitudeTransform* cantileverHolderBase = new osg::PositionAttitudeTransform();
+            cantileverHolderBase->setPosition(osg::Vec3d(0., 0., poleMinHeight + extraHeight - .02));
+            cantileverHolderBase->setAttitude(osg::Quat(DEG2RAD(90. + holderAngle), osg::Vec3d(1, 0, 0),
+                                              0., osg::Vec3d(0, 1, 0),
+                                              0., osg::Vec3d(0, 0, 1)));
+            cantileverHolderBase->setScale(osg::Vec3d(.04 / poleDiameter, .04 / poleDiameter, sqrt(pow(holderWidth, 2.) + pow(extraHeight, 2.))));
+            cantileverHolderBase->addChild(poleBase);
+            appBase->addChild(cantileverHolderBase);
+        } else { // signal bridge
+            rightPoleBase->setScale(osg::Vec3d(.25 / poleDiameter, .25 / poleDiameter, poleMinHeight));
+            osg::PositionAttitudeTransform* leftPoleBase = new osg::PositionAttitudeTransform();
+            leftPoleBase->addChild(poleBase);
+            leftPoleBase->setScale(osg::Vec3d(.25 / poleDiameter, .25 / poleDiameter, poleMinHeight));
+            osg::Vec3d leftPolePos = osg::Vec3d(0, -(edgeWidth + 2. * poleOffset), 0.);
+            leftPoleBase->setPosition(leftPolePos);
+            appBase->addChild(leftPoleBase);
+            osg::PositionAttitudeTransform* bridgeBase = new osg::PositionAttitudeTransform();
+            bridgeBase->setPosition(osg::Vec3d(0., 0., poleMinHeight - .125));
+            bridgeBase->setAttitude(osg::Quat(DEG2RAD(90.), osg::Vec3d(1, 0, 0),
+                                              0., osg::Vec3d(0, 1, 0),
+                                              0., osg::Vec3d(0, 0, 1)));
+            bridgeBase->setScale(osg::Vec3d(.25 / poleDiameter, .25 / poleDiameter, leftPolePos.length()));
+            bridgeBase->addChild(poleBase);
+            appBase->addChild(bridgeBase);
+        }
+        // Add signals and position them along the cantilever/bridge
+        double refPos = poleOffset;
+        for (MSLane* lane : appLanes) {
+            // skip bike lanes for the moment
+            if (!isBikepath(lane->getPermissions())) {
+                // get tlLinkIndices
+                const std::vector<MSLink*>& links = lane->getLinkCont();
+                std::set<int> tlIndices;
+                for (MSLink* link : links) {
+                    if (link->getTLIndex() > -1) {
+                        tlIndices.insert(link->getTLIndex());
+                    }
+                }
+                std::set<int> seenTlIndices;
+                for (MSLink* link : links) {
+                    int tlIndex = link->getTLIndex();
+                    if (tlIndex < 0 || seenTlIndices.find(tlIndex) != seenTlIndices.end()) {
+                        continue;
+                    }
+                    GUISUMOAbstractView::Decal d;
+                    d.centerX = 0.2;
+                    d.centerY = -(refPos + .5 * lane->getWidth() - (tlIndices.size() / 2. - 1 + seenTlIndices.size()) * 1.5 * tlWidth);
+                    d.centerZ = 3.8;
+                    osg::PositionAttitudeTransform* tlNode = getTrafficLight(d, vars, links[0], tlg, tly, tlr, tlu, poleBase, false);
+                    tlNode->setAttitude(osg::Quat(0., osg::Vec3d(1, 0, 0),
+                                                  0., osg::Vec3d(0, 1, 0),
+                                                  DEG2RAD(180.), osg::Vec3d(0, 0, 1)));
+                    appBase->addChild(tlNode);
+                    seenTlIndices.insert(tlIndex);
+                }
+            }
+            refPos += lane->getWidth();
+        }
+        // interaction
+        appBase->setNodeMask(1 << GUIOSGView::NODESET_TLSMODELS);
+        appBase->setName("tlLogic:" + tlLogic->getID());
+        addTo.addChild(appBase);
+    }
+}
+
+
+void
 GUIOSGBuilder::buildDecal(const GUISUMOAbstractView::Decal& d, osg::Group& addTo) {
     osg::Node* pLoadedModel = osgDB::readNodeFile(d.filename);
-    if (pLoadedModel == nullptr) {
-        WRITE_ERROR("Could not load '" + d.filename + "'.");
-        return;
-    }
-    osg::ShadeModel* sm = new osg::ShadeModel();
-    sm->setMode(osg::ShadeModel::FLAT);
-    pLoadedModel->getOrCreateStateSet()->setAttribute(sm);
     osg::PositionAttitudeTransform* base = new osg::PositionAttitudeTransform();
-    base->addChild(pLoadedModel);
+    double zOffset = 0.;
+    if (pLoadedModel == nullptr) {
+        // check for 2D image
+        osg::Image* pImage = osgDB::readImageFile(d.filename);
+        if (pImage == nullptr) {
+            base = nullptr;
+            WRITE_ERROR("Could not load '" + d.filename + "'.");
+            return;
+        }
+        osg::Texture2D* texture = new osg::Texture2D();
+        texture->setImage(pImage);
+        osg::Geometry* quad = osg::createTexturedQuadGeometry(osg::Vec3d(-0.5 * d.width, -0.5 * d.height, 0.), osg::Vec3d(d.width, 0., 0.), osg::Vec3d(0., d.height, 0.));
+        quad->getOrCreateStateSet()->setTextureAttributeAndModes(0, texture);
+        osg::Geode* const pLoadedModel = new osg::Geode();
+        pLoadedModel->addDrawable(quad);
+        base->addChild(pLoadedModel);
+        zOffset = d.layer;
+    } else {
+        osg::ShadeModel* sm = new osg::ShadeModel();
+        sm->setMode(osg::ShadeModel::FLAT);
+        pLoadedModel->getOrCreateStateSet()->setAttribute(sm);
+        base->addChild(pLoadedModel);
+    }
     osg::ComputeBoundsVisitor bboxCalc;
-    pLoadedModel->accept(bboxCalc);
+    base->accept(bboxCalc);
     const osg::BoundingBox& bbox = bboxCalc.getBoundingBox();
     WRITE_MESSAGE("Loaded decal '" + d.filename + "' with bounding box " + toString(Position(bbox.xMin(), bbox.yMin(), bbox.zMin())) + " " + toString(Position(bbox.xMax(), bbox.yMax(), bbox.zMax())) + ".");
     double xScale = d.width > 0 ? d.width / (bbox.xMax() - bbox.xMin()) : 1.;
@@ -267,7 +425,7 @@ GUIOSGBuilder::buildDecal(const GUISUMOAbstractView::Decal& d, osg::Group& addTo
         xScale = yScale = zScale;
     }
     base->setScale(osg::Vec3d(xScale, yScale, zScale));
-    base->setPosition(osg::Vec3d(d.centerX, d.centerY, d.centerZ));
+    base->setPosition(osg::Vec3d(d.centerX, d.centerY, d.centerZ + zOffset));
     base->setAttitude(osg::Quat(osg::DegreesToRadians(d.roll), osg::Vec3d(1, 0, 0),
                                 osg::DegreesToRadians(d.tilt), osg::Vec3d(0, 1, 0),
                                 osg::DegreesToRadians(d.rot), osg::Vec3d(0, 0, 1)));
@@ -276,41 +434,73 @@ GUIOSGBuilder::buildDecal(const GUISUMOAbstractView::Decal& d, osg::Group& addTo
 
 
 osg::PositionAttitudeTransform*
-GUIOSGBuilder::getTrafficLight(const GUISUMOAbstractView::Decal& d, osg::Node* tl, const osg::Vec4& color, const double size) {
+GUIOSGBuilder::getTrafficLight(const GUISUMOAbstractView::Decal& d, MSTLLogicControl::TLSLogicVariants& vars, const MSLink* link, osg::Node* const tlg, osg::Node* const tly, osg::Node* const tlr, osg::Node* const tlu, osg::Node* const pole, const bool withPole, const double size, double poleHeight, double transparency) {
+    osg::PositionAttitudeTransform* ret = new osg::PositionAttitudeTransform();
+    double xScale = 1., yScale = 1., zScale = 1.;
+    if (tlg != nullptr) {
+        osg::ComputeBoundsVisitor bboxCalc;
+        tlg->accept(bboxCalc);
+        const osg::BoundingBox& bbox = bboxCalc.getBoundingBox();
+        xScale = d.width > 0 ? d.width / (bbox.xMax() - bbox.xMin()) : 1.;
+        yScale = d.height > 0 ? d.height / (bbox.yMax() - bbox.yMin()) : 1.;
+        zScale = d.altitude > 0 ? d.altitude / (poleHeight + bbox.zMax() - bbox.zMin()) : 1.;
+    }
+    if (d.width < 0 && d.height < 0 && d.altitude > 0) {
+        xScale = yScale = zScale;
+    }
+    osg::PositionAttitudeTransform* base = new osg::PositionAttitudeTransform();
+    osg::Switch* switchNode = new osg::Switch();
+    switchNode->addChild(createTrafficLightState(d, tlg, withPole, size, osg::Vec4d(0., 1., 0., transparency)));
+    switchNode->addChild(createTrafficLightState(d, tly, withPole, size, osg::Vec4d(1., 1., 0., transparency)));
+    switchNode->addChild(createTrafficLightState(d, tlr, withPole, size, osg::Vec4d(1., 0., 0., transparency)));
+    switchNode->addChild(createTrafficLightState(d, tlu, withPole, size, osg::Vec4d(1., .5, 0., transparency)));
+    base->addChild(switchNode);
+    vars.addSwitchCommand(new GUIOSGView::Command_TLSChange(link, switchNode));
+    if (withPole) {
+        base->setPosition(osg::Vec3d(0., 0., poleHeight));
+        osg::PositionAttitudeTransform* poleBase = new osg::PositionAttitudeTransform();
+        poleBase->addChild(pole);
+        poleBase->setScale(osg::Vec3d(1., 1., poleHeight));
+        ret->addChild(poleBase);
+    }
+    ret->setAttitude(osg::Quat(osg::DegreesToRadians(d.roll), osg::Vec3(1, 0, 0),
+                               osg::DegreesToRadians(d.tilt), osg::Vec3(0, 1, 0),
+                               osg::DegreesToRadians(d.rot), osg::Vec3(0, 0, 1)));
+    ret->setPosition(osg::Vec3d(d.centerX, d.centerY, d.centerZ));
+    ret->setScale(osg::Vec3d(xScale, yScale, zScale));
+    ret->addChild(base);
+    return ret;
+}
+
+
+osg::PositionAttitudeTransform*
+GUIOSGBuilder::createTrafficLightState(const GUISUMOAbstractView::Decal& d, osg::Node* tl, const double withPole, const double size, osg::Vec4d color) {
     osg::PositionAttitudeTransform* ret = new osg::PositionAttitudeTransform();
     if (tl != nullptr) {
-        osg::PositionAttitudeTransform* base = new osg::PositionAttitudeTransform();
-        base->addChild(tl);
-        osg::ComputeBoundsVisitor bboxCalc;
-        tl->accept(bboxCalc);
-        const osg::BoundingBox& bbox = bboxCalc.getBoundingBox();
-        double xScale = d.width > 0 ? d.width / (bbox.xMax() - bbox.xMin()) : 1.;
-        double yScale = d.height > 0 ? d.height / (bbox.yMax() - bbox.yMin()) : 1.;
-        const double zScale = d.altitude > 0 ? d.altitude / (bbox.zMax() - bbox.zMin()) : 1.;
-        if (d.width < 0 && d.height < 0 && d.altitude > 0) {
-            xScale = yScale = zScale;
-        }
-        base->setScale(osg::Vec3d(xScale, yScale, zScale));
-        base->setPosition(osg::Vec3d(d.centerX, d.centerY, d.centerZ));
-        base->setAttitude(osg::Quat(osg::DegreesToRadians(d.roll), osg::Vec3(1, 0, 0),
-                                    osg::DegreesToRadians(d.tilt), osg::Vec3(0, 1, 0),
-                                    osg::DegreesToRadians(d.rot), osg::Vec3(0, 0, 1)));
-        ret->addChild(base);
+        ret->addChild(tl);
     }
-    osg::Geode* geode = new osg::Geode();
-    osg::Vec3d center(d.centerX, d.centerY, d.centerZ);
-    osg::ShapeDrawable* shape = new osg::ShapeDrawable(new osg::Sphere(center, (float)size));
-    geode->addDrawable(shape);
-    osg::ref_ptr<osg::StateSet> ss = shape->getOrCreateStateSet();
-    ss->setRenderingHint(osg::StateSet::TRANSPARENT_BIN);
-    ss->setMode(GL_BLEND, osg::StateAttribute::OVERRIDE | osg::StateAttribute::PROTECTED | osg::StateAttribute::ON);
-    osg::PositionAttitudeTransform* ellipse = new osg::PositionAttitudeTransform();
-    ellipse->addChild(geode);
-    ellipse->setPivotPoint(center);
-    ellipse->setPosition(center);
-    ellipse->setScale(osg::Vec3d(4., 4., 2.5 * d.altitude + 1.1));
-    shape->setColor(color);
-    ret->addChild(ellipse);
+    if (size > 0.) {
+        unsigned int nodeMask = (withPole) ? 1 << GUIOSGView::NodeSetGroup::NODESET_TLSDOMES : 1 << GUIOSGView::NodeSetGroup::NODESET_TLSLINKMARKERS;
+        osg::Geode* geode = new osg::Geode();
+        osg::Vec3d center = osg::Vec3d(0., 0., (withPole) ? -1.8 : 0.);
+        osg::ShapeDrawable* shape = new osg::ShapeDrawable(new osg::Sphere(center, (float)size));
+        geode->addDrawable(shape);
+        osg::ref_ptr<osg::StateSet> ss = shape->getOrCreateStateSet();
+        ss->setRenderingHint(osg::StateSet::TRANSPARENT_BIN);
+        ss->setMode(GL_BLEND, osg::StateAttribute::OVERRIDE | osg::StateAttribute::PROTECTED | osg::StateAttribute::ON);
+        shape->setColor(color);
+        osg::PositionAttitudeTransform* ellipse = new osg::PositionAttitudeTransform();
+        ellipse->addChild(geode);
+        ellipse->setPosition(center);
+        ellipse->setPivotPoint(center);
+        if (withPole) {
+            ellipse->setScale(osg::Vec3d(4., 4., 2.5 * d.altitude + 1.1));
+        } else {
+            ellipse->setScale(osg::Vec3d(4., 4., 1.1));
+        }
+        ellipse->setNodeMask(nodeMask);
+        ret->addChild(ellipse);
+    }
     return ret;
 }
 
@@ -332,7 +522,13 @@ GUIOSGBuilder::buildMovable(const MSVehicleType& type) {
     if (myCars.find(osgFile) == myCars.end()) {
         myCars[osgFile] = osgDB::readNodeFile(osgFile);
         if (myCars[osgFile] == 0) {
-            WRITE_ERROR("Could not load '" + osgFile + "'.");
+            WRITE_ERROR("Could not load '" + osgFile + "'. The model is replaced by a cone shape.");
+            osg::PositionAttitudeTransform* rot = new osg::PositionAttitudeTransform();
+            rot->addChild(new osg::ShapeDrawable(new osg::Cone(osg::Vec3d(0, 0, 0), 1.0f, 1.0f)));
+            rot->setAttitude(osg::Quat(osg::DegreesToRadians(90.), osg::Vec3(1, 0, 0),
+                                       0., osg::Vec3(0, 1, 0),
+                                       0., osg::Vec3(0, 0, 1)));
+            myCars[osgFile] = rot;
         }
     }
     osg::Node* carNode = myCars[osgFile];
@@ -348,6 +544,13 @@ GUIOSGBuilder::buildMovable(const MSVehicleType& type) {
                                   type.getHeight() / (bbox.zMax() - bbox.zMin())));
         m.pos->addChild(base);
         enlarge = type.getMinGap() / 2.;
+
+        // material for coloring the vehicle body
+        m.mat = new osg::Material();
+        osg::ref_ptr<osg::StateSet> ss = base->getOrCreateStateSet();
+        ss->setAttribute(m.mat, osg::StateAttribute::ON | osg::StateAttribute::OVERRIDE | osg::StateAttribute::PROTECTED);
+        ss->setRenderingHint(osg::StateSet::TRANSPARENT_BIN);
+        ss->setMode(GL_BLEND, osg::StateAttribute::OVERRIDE | osg::StateAttribute::PROTECTED | osg::StateAttribute::ON);
     }
     m.lights = new osg::Switch();
     for (double offset = -0.3; offset < 0.5; offset += 0.6) {
@@ -379,11 +582,7 @@ GUIOSGBuilder::buildMovable(const MSVehicleType& type) {
     setShapeState(brake);
     m.lights->addChild(geode);
 
-    geode = new osg::Geode();
     osg::Vec3d center(0, type.getLength() / 2., type.getHeight() / 2.);
-    m.geom = new osg::ShapeDrawable(new osg::Sphere(center, .5f));
-    geode->addDrawable(m.geom);
-    setShapeState(m.geom);
     osg::PositionAttitudeTransform* ellipse = new osg::PositionAttitudeTransform();
     ellipse->addChild(geode);
     ellipse->addChild(m.lights);

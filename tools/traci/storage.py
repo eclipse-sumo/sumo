@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2008-2021 German Aerospace Center (DLR) and others.
+# Copyright (C) 2008-2022 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -24,8 +24,6 @@ from __future__ import absolute_import
 import struct
 
 from . import constants as tc
-
-_DEBUG = False
 
 
 class Storage:
@@ -97,7 +95,5 @@ class Storage:
     def ready(self):
         return self._pos < len(self._content)
 
-    def printDebug(self):
-        if _DEBUG:
-            for char in self._content[self._pos:]:
-                print("%03i %02x %s" % (ord(char), ord(char), char))
+    def getDebugString(self):
+        return " ".join(["%02x" % (c if type(c) is int else ord(c)) for c in self._content[self._pos:]])

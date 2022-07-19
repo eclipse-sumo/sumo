@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2009-2021 German Aerospace Center (DLR) and others.
+# Copyright (C) 2009-2022 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -26,17 +26,16 @@ except ImportError:
 import pyautogui
 import time
 import pyperclip
+import attributesEnum as attrs  # noqa
 
 # define delay before every operation
-DELAY_KEY = 0.5         # 0.2 0.3
-DELAY_KEY_TAB = 0.5     # 0.1 0.2
-DELAY_MOUSE_MOVE = 0.5  # 0.1
-DELAY_MOUSE_CLICK = 1  # 0.5 0.7
+DELAY_KEY = 0.2
+DELAY_KEY_TAB = 0.2
+DELAY_MOUSE_MOVE = 0.5
+DELAY_MOUSE_CLICK = 1
 DELAY_QUESTION = 3
 DELAY_RELOAD = 5
-DELAY_START_NETEDIT = 3
 DELAY_QUIT_NETEDIT = 5
-DELAY_QUIT_SUMOGUI = 3
 DELAY_UNDOREDO = 1
 DELAY_SELECT = 1
 DELAY_RECOMPUTE = 3
@@ -315,6 +314,11 @@ def Popen(extraParameters, debugInformation):
     if debugInformation:
         neteditCall += ['--gui-testing-debug']
 
+    # check if a gui settings file has to be load
+    if os.path.exists(os.path.join(_TEXTTEST_SANDBOX, "gui-settings.xml")):
+        neteditCall += ['--gui-settings-file',
+                        os.path.join(_TEXTTEST_SANDBOX, "gui-settings.xml")]
+
     # check if an existent net must be loaded
     if os.path.exists(os.path.join(_TEXTTEST_SANDBOX, "input_net.net.xml")):
         neteditCall += ['--sumo-net-file',
@@ -338,11 +342,6 @@ def Popen(extraParameters, debugInformation):
     if os.path.exists(os.path.join(_TEXTTEST_SANDBOX, "input_datas.dat.xml")):
         neteditCall += ['-d',
                         os.path.join(_TEXTTEST_SANDBOX, "input_datas.dat.xml")]
-
-    # check if a gui settings file has to be load
-    if os.path.exists(os.path.join(_TEXTTEST_SANDBOX, "gui-settings.xml")):
-        neteditCall += ['--gui-settings-file',
-                        os.path.join(_TEXTTEST_SANDBOX, "gui-settings.xml")]
 
     # set output for net
     neteditCall += ['--output-file',
@@ -371,21 +370,25 @@ def Popen(extraParameters, debugInformation):
     return subprocess.Popen(neteditCall, env=os.environ, stdout=sys.stdout, stderr=sys.stderr)
 
 
-def getReferenceMatch(neProcess):
+def getReferenceMatch(neProcess, makeScrenshot):
     """
     @brief obtain reference referencePosition (pink square)
     """
     # show information
     print("Finding reference")
+    # make a screenshot
+    errorScreenshot = pyautogui.screenshot()
     try:
         # wait for reference
         time.sleep(DELAY_REFERENCE)
         # capture screen and search reference
-        positionOnScreen = pyautogui.locateOnScreen(_REFERENCE_PNG, 1)
+        positionOnScreen = pyautogui.locateOnScreen(_REFERENCE_PNG, minSearchTime=3)
     except Exception as e:
         # we cannot specify the exception here because some versions of pyautogui use one and some don't
         print(e)
         positionOnScreen = None
+        # make a screenshot
+        errorScreenshot = pyautogui.screenshot()
     # check if pos was found
     if positionOnScreen:
         # adjust position to center
@@ -395,25 +398,29 @@ def getReferenceMatch(neProcess):
               str(referencePosition[0]) + " - " + str(referencePosition[1]))
         # check that position is consistent (due scaling)
         if referencePosition != (304, 168):
-            print("TestFunctions: Position of 'reference.png' isn't consistent. Check that interface scaling " +
-                  "is 100% (See #3746)")
+            print("TestFunctions: Position of 'reference.png' isn't consistent")
         # click over position
         pyautogui.moveTo(referencePosition)
         # wait
         time.sleep(DELAY_MOUSE_MOVE)
+        # press i for inspect mode
+        typeKey("i")
         # click over position (used to center view in window)
         pyautogui.click(button='left')
         # wait after every operation
         time.sleep(DELAY_MOUSE_CLICK)
         # return reference position
         return referencePosition
-    # reference not found, then kill netedit process
+    # referente not found, then write screenshot
+    if (makeScrenshot):
+        errorScreenshot.save("errorScreenshot.png")
+    # kill netedit process
     neProcess.kill()
     # print debug information
     sys.exit("TestFunctions: Killed Netedit process. 'reference.png' not found")
 
 
-def setupAndStart(testRoot, extraParameters=[], debugInformation=True):
+def setupAndStart(testRoot, extraParameters=[], debugInformation=True, makeScrenshot=True):
     """
     @brief setup and start netedit
     """
@@ -430,7 +437,7 @@ def setupAndStart(testRoot, extraParameters=[], debugInformation=True):
     typeKeyUp("control")
     typeKeyUp("alt")
     # Wait for Netedit reference
-    return neteditProcess, getReferenceMatch(neteditProcess)
+    return neteditProcess, getReferenceMatch(neteditProcess, makeScrenshot)
 
 
 def supermodeNetwork():
@@ -479,13 +486,6 @@ def rebuildNetworkWithVolatileOptions(question=True):
         time.sleep(DELAY_RECOMPUTE_VOLATILE)
     else:
         waitQuestion('n')
-
-
-def cleanJunction():
-    """
-    @brief clean junction
-    """
-    typeKey('F6')
 
 
 def joinSelectedJunctions():
@@ -695,6 +695,10 @@ def quit(NeteditProcess, openNetNonSavedDialog=False, saveNet=False,
                 typeKeyUp("alt")
                 # exit
                 return
+        # error closing NETEDIT then make a screenshot
+        errorScreenshot = pyautogui.screenshot()
+        errorScreenshot.save("errorScreenshot.png")
+        # kill netedit
         NeteditProcess.kill()
         print("TestFunctions: Error closing Netedit")
         # all keys up
@@ -751,14 +755,6 @@ def saveNetworkAs(waitTime=2):
     time.sleep(waitTime)
     # wait for debug
     time.sleep(DELAY_RECOMPUTE)
-
-
-def forceSaveNetwork():
-    """
-    @brief force save network
-    """
-    # change network save flag using hotkey
-    typeThreeKeys('ctrl', 'shift', 't')
 
 
 def forceSaveAdditionals():
@@ -950,7 +946,7 @@ def modifyAttribute(attributeNumber, value, overlapped):
     focusOnFrame()
     # jump to attribute depending if it's a overlapped element
     if overlapped:
-        for _ in range(attributeNumber + 5):
+        for _ in range(attributeNumber + 1 + attrs.editElements.overlapped):
             typeTab()
     else:
         for _ in range(attributeNumber + 1):
@@ -969,12 +965,65 @@ def modifyBoolAttribute(attributeNumber, overlapped):
     focusOnFrame()
     # jump to attribute depending if it's a overlapped element
     if overlapped:
-        for _ in range(attributeNumber + 5):
+        for _ in range(attributeNumber + 1 + attrs.editElements.overlapped):
             typeTab()
     else:
         for _ in range(attributeNumber + 1):
             typeTab()
     # type SPACE to change value
+    typeSpace()
+
+
+def modifyColorAttribute(attributeNumber, color, overlapped):
+    """
+    @brief modify color using dialog
+    """
+    # focus current frame
+    focusOnFrame()
+    # jump to attribute depending if it's a overlapped element
+    if overlapped:
+        for _ in range(attributeNumber + 1 + attrs.editElements.overlapped):
+            typeTab()
+    else:
+        for _ in range(attributeNumber + 1):
+            typeTab()
+    typeSpace()
+    # go to list of colors TextField
+    for _ in range(2):
+        typeInvertTab()
+    # select color
+    for _ in range(1 + color):
+        typeKey('down')
+    # go to accept button and press it
+    typeTab()
+    typeSpace()
+
+
+def modifyAllowDisallowValue(numTabs, overlapped):
+    """
+    @brief modify allow/disallow values
+    """
+    # open dialog
+    modifyBoolAttribute(numTabs, overlapped)
+    # select vtypes
+    for _ in range(2):
+        typeTab()
+    # Change current value
+    typeSpace()
+    # select vtypes
+    for _ in range(6):
+        typeTab()
+    # Change current value
+    typeSpace()
+    # select vtypes
+    for _ in range(12):
+        typeTab()
+    # Change current value
+    typeSpace()
+    # select vtypes
+    for _ in range(11):
+        typeTab()
+    # Change current value
     typeSpace()
 
 
@@ -1003,9 +1052,9 @@ def checkParameters(referencePosition, attributeNumber, overlapped):
     # Change generic parameters with a valid value
     modifyAttribute(attributeNumber, "keyFinal1=value1|keyFinal2=value2|keyFinal3=value3", overlapped)
     # Check undo
-    undo(referencePosition, 10)
+    undo(referencePosition, 8)
     # Check redo
-    redo(referencePosition, 10)
+    redo(referencePosition, 8)
 
 
 def checkDoubleParameters(referencePosition, attributeNumber, overlapped, posX=0, posY=0):
@@ -1080,10 +1129,10 @@ def createCrossing(hasTLS):
     focusOnFrame()
     # jump to create crossing button depending of hasTLS
     if hasTLS:
-        for _ in range(6):
+        for _ in range(attrs.TLS.create.TLS):
             typeTab()
     else:
-        for _ in range(7):
+        for _ in range(attrs.TLS.create.noTLS):
             typeTab()
     # type space to create crossing
     typeSpace()
@@ -1096,7 +1145,7 @@ def modifyCrossingDefaultValue(numtabs, value):
     # focus current frame
     focusOnFrame()
     # jump to value
-    for _ in range(numtabs + 1):
+    for _ in range(numtabs + attrs.crossing.firstField):
         typeTab()
     # paste the new value
     pasteIntoTextField(value)
@@ -1111,7 +1160,7 @@ def modifyCrossingDefaultBoolValue(numtabs):
     # focus current frame
     focusOnFrame()
     # jump to value
-    for _ in range(numtabs + 1):
+    for _ in range(numtabs + attrs.crossing.firstField):
         typeTab()
     # type space to change value
     typeSpace()
@@ -1125,11 +1174,11 @@ def crossingClearEdges(useSelectedEdges=False, thereIsSelectedEdges=False):
     focusOnFrame()
     if(useSelectedEdges and thereIsSelectedEdges):
         # jump to clear button
-        for _ in range(1):
+        for _ in range(attrs.crossing.clearEdgesSelected):
             typeTab()
     else:
         # jump to clear button
-        for _ in range(1):
+        for _ in range(attrs.crossing.clearEdges):
             typeTab()
     # type space to activate button
     typeSpace()
@@ -1143,11 +1192,11 @@ def crossingInvertEdges(useSelectedEdges=False, thereIsSelectedEdges=False):
     focusOnFrame()
     if(useSelectedEdges and thereIsSelectedEdges):
         # jump to clear button
-        for _ in range(1):
+        for _ in range(attrs.crossing.clearEdgesSelected):
             typeTab()
     else:
         # jump to clear button
-        for _ in range(2):
+        for _ in range(attrs.crossing.clearEdges):
             typeTab()
     # type space to activate button
     typeSpace()
@@ -1194,7 +1243,7 @@ def saveConnectionEdit():
     # focus current frame
     focusOnFrame()
     # go to cancel button
-    for _ in range(2):
+    for _ in range(attrs.connection.saveConnections):
         typeTab()
     # type space to press button
     typeSpace()
@@ -1215,77 +1264,73 @@ def additionalMode():
     time.sleep(DELAY_CHANGEMODE)
 
 
-def changeElement(additional):
+def changeElement(element):
     """
     @brief change element (Additional, shape, vehicle...)
     """
     # focus current frame
     focusOnFrame()
     # go to first editable element of frame
-    typeTab()
+    for _ in range(attrs.additionals.changeElement):
+        typeTab()
     # paste the new value
-    pasteIntoTextField(additional)
+    pasteIntoTextField(element)
     # type enter to save change
     typeEnter()
 
 
-def changeDefaultValue(numTabs, length):
+def changeDefaultValue(numTabs, value):
     """
     @brief modify default int/double/string value of an additional, shape, vehicle...
     """
     # focus current frame
     focusOnFrame()
-    # go to length TextField
-    for _ in range(numTabs + 1):
+    # go to value TextField
+    for _ in range(numTabs):
         typeTab()
-    # paste new length
-    pasteIntoTextField(length)
-    # type enter to save new length
+    # paste new value
+    pasteIntoTextField(value)
+    # type enter to save new value
     typeEnter()
 
 
 def changeDefaultBoolValue(numTabs):
-    """
-    @brief modify default boolean value of an additional, shape, vehicle...
-    """
+
     # focus current frame
     focusOnFrame()
     # place cursor in check Box position
-    for _ in range(numTabs + 1):
+    for _ in range(numTabs):
         typeTab()
     # Change current value
     typeSpace()
 
 
-def modifyStoppingPlaceLines(numTabs, numLines):
+def changeDefaultAllowDisallowValue(numTabs):
     """
-    @brief modify number of stopping place lines
+    @brief modify allow/disallow values
     """
-    # focus current frame
-    focusOnFrame()
-    # go to add line
-    for _ in range(numTabs + 1):
+    # open dialog
+    changeDefaultBoolValue(numTabs)
+    # select vtypes
+    for _ in range(2):
         typeTab()
-    # add lines using space
-    for _ in range(numLines):
-        typeSpace()
-
-
-def fillStoppingPlaceLines(numTabs, numLines):
-    """
-    @brief fill lines to stopping places
-    """
-    # focus current frame
-    focusOnFrame()
-    # place cursor in the first line
-    for _ in range(numTabs + 1):
+    # Change current value
+    typeSpace()
+    # select vtypes
+    for _ in range(6):
         typeTab()
-    # fill lines
-    for x in range(numLines):
-        # paste line and number
-        pasteIntoTextField("Line" + str(x))
-        # go to next field
+    # Change current value
+    typeSpace()
+    # select vtypes
+    for _ in range(12):
         typeTab()
+    # Change current value
+    typeSpace()
+    # select vtypes
+    for _ in range(11):
+        typeTab()
+    # Change current value
+    typeSpace()
 
 
 def selectAdditionalChild(numTabs, childNumber):
@@ -1343,7 +1388,7 @@ def fixStoppingPlace(solution):
         typeSpace()
 
 #################################################
-# route elements
+# demand elements
 #################################################
 
 
@@ -1363,7 +1408,8 @@ def changeRouteMode(value):
     # focus current frame
     focusOnFrame()
     # jump to route mode
-    typeTab()
+    for _ in range(2):
+        typeTab()
     # paste the new value
     pasteIntoTextField(value)
     # type enter to save change
@@ -1377,12 +1423,27 @@ def changeRouteVClass(value):
     # focus current frame
     focusOnFrame()
     # jump to vClass
-    for _ in range(3):
+    for _ in range(4):
         typeTab()
     # paste the new value
     pasteIntoTextField(value)
     # type enter to save change
     typeEnter()
+
+
+def fixDemandElement(value):
+    """
+    @brief fix demand element
+    """
+    # focus current frame
+    focusOnFrame()
+    # jump to option
+    for _ in range(value):
+        typeInvertTab()
+    # type space to select
+    typeSpace()
+    # accept
+    typeTwoKeys('alt', 'a')
 
 #################################################
 # person elements
@@ -1427,42 +1488,112 @@ def changePersonVClass(value):
     typeEnter()
 
 
-def changePersonPlan(personPlan, subPersonPlan):
+def changePersonPlan(personPlan, flow):
     """
     @brief change personPlan
     """
     # focus current frame
     focusOnFrame()
     # jump to person plan
-    for _ in range(11):
-        typeTab()
+    if (flow):
+        for _ in range(23):
+            typeTab()
+    else:
+        for _ in range(16):
+            typeTab()
     # paste the new personPlan
     pasteIntoTextField(personPlan)
-    # jump to person plan
-    for _ in range(2):
-        typeTab()
-    # paste the new subPersonPlan
-    pasteIntoTextField(subPersonPlan)
     # type enter to save change
     typeEnter()
 
 
-def changePersonFlowPlan(personFlowPlan, subPersonFlowPlan):
+def changePersonFlowPlan(personFlowPlan):
     """
     @brief change personFlowPlan
     """
     # focus current frame
     focusOnFrame()
     # jump to personFlow plan
-    for _ in range(18):
+    for _ in range(23):
         typeTab()
     # paste the new personFlowPlan
     pasteIntoTextField(personFlowPlan)
-    # jump to personFlow plan
-    for _ in range(2):
+    # type enter to save change
+    typeEnter()
+
+#################################################
+# container elements
+#################################################
+
+
+def containerMode():
+    """
+    @brief change to container mode
+    """
+    typeKey('g')
+    # wait for gl debug
+    time.sleep(DELAY_CHANGEMODE)
+
+
+def changeContainerMode(value):
+    """
+    @brief change container mode
+    """
+    # focus current frame
+    focusOnFrame()
+    # jump to container mode
+    typeTab()
+    # paste the new value
+    pasteIntoTextField(value)
+    # type enter to save change
+    typeEnter()
+
+
+def changeContainerVClass(value):
+    """
+    @brief change vClass mode
+    """
+    # focus current frame
+    focusOnFrame()
+    # jump to vClass
+    for _ in range(3):
         typeTab()
-    # paste the new subPersonFlowPlan
-    pasteIntoTextField(subPersonFlowPlan)
+    # paste the new value
+    pasteIntoTextField(value)
+    # type enter to save change
+    typeEnter()
+
+
+def changeContainerPlan(containerPlan, flow):
+    """
+    @brief change containerPlan
+    """
+    # focus current frame
+    focusOnFrame()
+    # jump to container plan
+    if (flow):
+        for _ in range(22):
+            typeTab()
+    else:
+        for _ in range(15):
+            typeTab()
+    # paste the new containerPlan
+    pasteIntoTextField(containerPlan)
+    # type enter to save change
+    typeEnter()
+
+
+def changeContainerFlowPlan(containerFlowPlan):
+    """
+    @brief change containerFlowPlan
+    """
+    # focus current frame
+    focusOnFrame()
+    # jump to containerFlow plan
+    for _ in range(23):
+        typeTab()
+    # paste the new containerFlowPlan
+    pasteIntoTextField(containerFlowPlan)
     # type enter to save change
     typeEnter()
 
@@ -1484,8 +1615,8 @@ def changeStopParent(stopParent):
     """
     # focus current frame
     focusOnFrame()
-    # jump to stop parent
-    typeTab()
+    for _ in range(2):
+        typeTab()
     # paste the new stop parent
     pasteIntoTextField(stopParent)
     # type enter to save change
@@ -1499,7 +1630,7 @@ def changeStopType(stopType):
     # focus current frame
     focusOnFrame()
     # jump to stop type
-    for _ in range(3):
+    for _ in range(5):
         typeTab()
     # paste the new personPlan
     pasteIntoTextField(stopType)
@@ -1518,6 +1649,95 @@ def vehicleMode():
     typeKey('v')
     # wait for gl debug
     time.sleep(DELAY_CHANGEMODE)
+
+#################################################
+# vType elements
+#################################################
+
+
+def typeMode():
+    """
+    @brief change to type mode
+    """
+    typeKey('t')
+    # wait for gl debug
+    time.sleep(DELAY_CHANGEMODE)
+
+
+def createVType():
+    """
+    @brief create vType
+    """
+    # focus current frame
+    focusOnFrame()
+    # jump to stop type
+    for _ in range(attrs.type.buttons.create):
+        typeTab()
+    # type space
+    typeSpace()
+
+
+def deleteVType():
+    """
+    @brief delete vType
+    """
+    # focus current frame
+    focusOnFrame()
+    # jump to stop type
+    for _ in range(attrs.type.buttons.delete):
+        typeTab()
+    # type space
+    typeSpace()
+
+
+def copyVType():
+    """
+    @brief copy vType
+    """
+    # focus current frame
+    focusOnFrame()
+    # jump to stop type
+    for _ in range(attrs.type.buttons.copy):
+        typeTab()
+    # type space
+    typeSpace()
+
+
+def openVTypeDialog():
+    """
+    @brief create vType
+    """
+    # focus current frame
+    focusOnFrame()
+    # jump to stop type
+    for _ in range(attrs.type.buttons.dialog):
+        typeTab()
+    # type space
+    typeSpace()
+    # wait some second to question dialog
+    time.sleep(DELAY_QUESTION)
+
+
+def closeVTypeDialog():
+    """
+    @brief close vType dialog saving elements
+    """
+    typeTwoKeys('alt', 'a')
+
+
+def modifyVTypeAttribute(attributeNumber, value):
+    """
+    @brief modify VType attribute of type int/float/string
+    """
+    # focus dialog
+    typeTwoKeys('alt', 'f')
+    # jump to attribute
+    for _ in range(attributeNumber):
+        typeTab()
+    # paste the new value
+    pasteIntoTextField(value)
+    # type Enter to commit change
+    typeEnter()
 
 #################################################
 # delete
@@ -1554,14 +1774,14 @@ def changeRemoveOnlyGeometryPoint(referencePosition):
     typeSpace()
 
 
-def changeAutomaticallyDeleteAdditionals(referencePosition):
+def changeProtectAdditionalElements(referencePosition):
     """
     @brief Enable or disable 'automatically delete Additionals'
     """
     # select delete mode again to set mode
     deleteMode()
     # jump to checkbox
-    for _ in range(2):
+    for _ in range(4):
         typeTab()
     # type SPACE to change value
     typeSpace()
@@ -1574,20 +1794,7 @@ def changeProtectTAZElements(referencePosition):
     # select delete mode again to set mode
     deleteMode()
     # jump to checkbox
-    for _ in range(3):
-        typeTab()
-    # type SPACE to change value
-    typeSpace()
-
-
-def changeProtectShapeElements(referencePosition):
-    """
-    @brief Enable or disable 'protect shape elements'
-    """
-    # select delete mode again to set mode
-    deleteMode()
-    # jump to checkbox
-    for _ in range(4):
+    for _ in range(5):
         typeTab()
     # type SPACE to change value
     typeSpace()
@@ -1600,7 +1807,7 @@ def changeProtectDemandElements(referencePosition):
     # select delete mode again to set mode
     deleteMode()
     # jump to checkbox
-    for _ in range(5):
+    for _ in range(6):
         typeTab()
     # type SPACE to change value
     typeSpace()
@@ -1613,7 +1820,7 @@ def changeProtectDataElements(referencePosition):
     # select delete mode again to set mode
     deleteMode()
     # jump to checkbox
-    for _ in range(6):
+    for _ in range(7):
         typeTab()
     # type SPACE to change value
     typeSpace()
@@ -1656,9 +1863,13 @@ def lockSelection(glType):
     """
     # focus current frame
     focusOnFrame()
+    # move mouse
+    pyautogui.moveTo(550, 200)
+    # open Lock menu
+    typeTwoKeys('alt', 'o')
     # go to selected glType
     for _ in range(glType):
-        typeTab()
+        typeKey("down")
     # type enter to save change
     typeSpace()
 
@@ -1669,7 +1880,7 @@ def selectDefault():
     """
     # focus current frame
     focusOnFrame()
-    for _ in range(20):
+    for _ in range(15):
         typeTab()
     # type enter to select it
     typeEnter()
@@ -1683,7 +1894,7 @@ def saveSelection():
     """
     focusOnFrame()
     # jump to save
-    for _ in range(16):
+    for _ in range(22):
         typeTab()
     typeSpace()
     # jump to filename TextField
@@ -1699,7 +1910,7 @@ def loadSelection():
     """
     focusOnFrame()
     # jump to save
-    for _ in range(19):
+    for _ in range(25):
         typeTab()
     typeSpace()
     # jump to filename TextField
@@ -1718,12 +1929,12 @@ def selectItems(elementClass, elementType, attribute, value):
     # focus current frame
     focusOnFrame()
     # jump to elementClass
-    for _ in range(5):
+    for _ in range(8):
         typeTab()
     # paste the new elementClass
     pasteIntoTextField(elementClass)
     # jump to element
-    for _ in range(2):
+    for _ in range(3):
         typeTab()
     # paste the new elementType
     pasteIntoTextField(elementType)
@@ -1759,7 +1970,7 @@ def modificationModeAdd():
     # focus current frame
     focusOnFrame()
     # jump to mode "add"
-    for _ in range(1):
+    for _ in range(3):
         typeTab()
     # select it
     typeSpace()
@@ -1772,7 +1983,7 @@ def modificationModeRemove():
     # focus current frame
     focusOnFrame()
     # jump to mode "remove"
-    for _ in range(2):
+    for _ in range(4):
         typeTab()
     # select it
     typeSpace()
@@ -1785,7 +1996,7 @@ def modificationModeKeep():
     # focus current frame
     focusOnFrame()
     # jump to mode "keep"
-    for _ in range(3):
+    for _ in range(5):
         typeTab()
     # select it
     typeSpace()
@@ -1798,7 +2009,7 @@ def modificationModeReplace():
     # focus current frame
     focusOnFrame()
     # jump to mode "replace"
-    for _ in range(4):
+    for _ in range(6):
         typeTab()
     # select it
     typeSpace()
@@ -1826,7 +2037,7 @@ def selectionApply():
     """
     # focus current frame
     focusOnFrame()
-    for _ in range(12):
+    for _ in range(16):
         typeTab()
     # type space to select clear option
     typeSpace()
@@ -1840,7 +2051,7 @@ def selectionClear():
     """
     # focus current frame
     focusOnFrame()
-    for _ in range(15):
+    for _ in range(21):
         typeTab()
     # type space to select clear option
     typeSpace()
@@ -1854,7 +2065,21 @@ def selectionInvert():
     """
     # focus current frame
     focusOnFrame()
-    for _ in range(18):
+    for _ in range(24):
+        typeTab()
+    # type space to select invert operation
+    typeSpace()
+    # wait for gl debug
+    time.sleep(DELAY_SELECT)
+
+
+def selectionInvertData():
+    """
+    @brief invert selection
+    """
+    # focus current frame
+    focusOnFrame()
+    for _ in range(27):
         typeTab()
     # type space to select invert operation
     typeSpace()
@@ -1865,7 +2090,6 @@ def selectionInvert():
 #################################################
 # traffic light
 #################################################
-
 
 def selectTLSMode():
     """
@@ -1883,7 +2107,7 @@ def createTLS():
     # focus current frame
     focusOnFrame()
     # type tab 2 times to jump to create TLS button
-    for _ in range(2):
+    for _ in range(4):
         typeTab()
     # create TLS
     typeSpace()
@@ -1967,7 +2191,7 @@ def changeColorUsingDialog(numTabs, color):
     # focus current frame
     focusOnFrame()
     # go to length TextField
-    for _ in range(numTabs + 1):
+    for _ in range(numTabs):
         typeTab()
     typeSpace()
     # go to list of colors TextField
@@ -2024,7 +2248,6 @@ def GEOPOILatLon():
 # TAZs
 #################################################
 
-
 def TAZMode():
     """
     @brief change to TAZ mode
@@ -2047,26 +2270,6 @@ def createSquaredTAZ(referencePosition, positionx, positiony, size, close):
     leftClick(referencePosition, positionx, positiony - (size / 2))
     leftClick(referencePosition, positionx - (size / 2), positiony - (size / 2))
     leftClick(referencePosition, positionx - (size / 2), positiony)
-    # check if TAZ has to be closed
-    if (close is True):
-        leftClick(referencePosition, positionx, positiony)
-    # finish draw
-    typeEnter()
-
-
-def createRectangledTAZ(referencePosition, positionx, positiony, sizex, sizey, close):
-    """
-    @brief Create rectangle TAZ in position with a certain size
-    """
-    # focus current frame
-    focusOnFrame()
-    # start draw
-    typeEnter()
-    # create TAZ
-    leftClick(referencePosition, positionx, positiony)
-    leftClick(referencePosition, positionx, positiony - (sizey / 2))
-    leftClick(referencePosition, positionx - (sizex / 2), positiony - (sizey / 2))
-    leftClick(referencePosition, positionx - (sizex / 2), positiony)
     # check if TAZ has to be closed
     if (close is True):
         leftClick(referencePosition, positionx, positiony)
@@ -2114,6 +2317,15 @@ def edgeRelData():
     time.sleep(DELAY_CHANGEMODE)
 
 
+def TAZRelData():
+    """
+    @brief change to TAZRelData mode
+    """
+    typeKey('z')
+    # wait for gl debug
+    time.sleep(DELAY_CHANGEMODE)
+
+
 def createDataSet(dataSetID="newDataSet"):
     """
     @brief create dataSet
@@ -2121,7 +2333,8 @@ def createDataSet(dataSetID="newDataSet"):
     # focus current frame
     focusOnFrame()
     # go to create new dataSet
-    typeTab()
+    for _ in range(2):
+        typeTab()
     # enable create dataSet
     typeSpace()
     # go to create new dataSet
@@ -2141,7 +2354,7 @@ def createDataInterval(begin="0", end="3600"):
     # focus current frame
     focusOnFrame()
     # go to create new dataInterval
-    for _ in range(3):
+    for _ in range(5):
         typeTab()
     typeTab()
     # enable create dataInterval

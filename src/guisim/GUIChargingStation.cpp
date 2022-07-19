@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -23,29 +23,29 @@
 /****************************************************************************/
 #include <config.h>
 
-#include <string>
-#include <utils/common/MsgHandler.h>
-#include <utils/geom/PositionVector.h>
-#include <utils/geom/Boundary.h>
-#include <utils/gui/div/GLHelper.h>
-#include <utils/common/ToString.h>
-#include <microsim/MSNet.h>
-#include <microsim/MSLane.h>
+#include <foreign/fontstash/fontstash.h>
+#include <gui/GUIApplicationWindow.h>
+#include <gui/GUIGlobals.h>
 #include <microsim/MSEdge.h>
+#include <microsim/MSLane.h>
+#include <microsim/MSNet.h>
+#include <microsim/logging/FunctionBinding.h>
+#include <utils/common/MsgHandler.h>
+#include <utils/common/ToString.h>
+#include <utils/geom/Boundary.h>
+#include <utils/geom/GeomHelper.h>
+#include <utils/geom/PositionVector.h>
+#include <utils/gui/div/GLHelper.h>
+#include <utils/gui/div/GUIGlobalSelection.h>
+#include <utils/gui/div/GUIParameterTableWindow.h>
+#include <utils/gui/globjects/GLIncludes.h>
+#include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
+#include <utils/gui/windows/GUIAppEnum.h>
+
 #include "GUINet.h"
 #include "GUIEdge.h"
 #include "GUIPerson.h"
 #include "GUIChargingStation.h"
-#include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
-#include <utils/gui/windows/GUIAppEnum.h>
-#include <gui/GUIGlobals.h>
-#include <utils/gui/div/GUIParameterTableWindow.h>
-#include <gui/GUIApplicationWindow.h>
-#include <microsim/logging/FunctionBinding.h>
-#include <utils/gui/div/GUIGlobalSelection.h>
-#include <foreign/fontstash/fontstash.h>
-#include <utils/geom/GeomHelper.h>
-#include <utils/gui/globjects/GLIncludes.h>
 
 
 // ===========================================================================
@@ -53,7 +53,7 @@
 // ===========================================================================
 GUIChargingStation::GUIChargingStation(const std::string& id, MSLane& lane, double frompos, double topos,
                                        const std::string& name,
-                                       double chargingPower, double efficiency, bool chargeInTransit, double chargeDelay) :
+                                       double chargingPower, double efficiency, bool chargeInTransit, SUMOTime chargeDelay) :
     MSChargingStation(id, lane, frompos, topos, name, chargingPower, efficiency, chargeInTransit, chargeDelay),
     GUIGlObject_AbstractAdd(GLO_CHARGING_STATION, id) {
     myFGShape = lane.getShape();
@@ -114,9 +114,16 @@ GUIChargingStation::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent
     buildNameCopyPopupEntry(ret);
     buildSelectionPopupEntry(ret);
     buildShowParamsPopupEntry(ret);
-    buildPositionCopyEntry(ret, false);
+    buildPositionCopyEntry(ret, app);
     return ret;
 }
+
+
+double
+GUIChargingStation::getExaggeration(const GUIVisualizationSettings& s) const {
+    return s.addSize.getExaggeration(s, this);
+}
+
 
 Boundary
 GUIChargingStation::getCenteringBoundary() const {
@@ -141,8 +148,8 @@ GUIChargingStation::drawGL(const GUIVisualizationSettings& s) const {
     } else {
         GLHelper::setColor(s.colorSettings.chargingStationColor);
     }
-    const double exaggeration = s.addSize.getExaggeration(s, this);
-    GLHelper::drawBoxLines(myFGShape, myFGShapeRotations, myFGShapeLengths, exaggeration);
+    const double exaggeration = getExaggeration(s);
+    GLHelper::drawBoxLines(myFGShape, myFGShapeRotations, myFGShapeLengths, MIN2(1.0, exaggeration));
 
     // draw details unless zoomed out to far
     if (s.drawDetail(s.detailSettings.stoppingPlaceDetails, exaggeration)) {
@@ -177,7 +184,7 @@ GUIChargingStation::drawGL(const GUIVisualizationSettings& s) const {
         GLHelper::popMatrix();
 
     }
-    if (s.addFullName.show && getMyName() != "") {
+    if (s.addFullName.show(this) && getMyName() != "") {
         GLHelper::drawTextSettings(s.addFullName, getMyName(), myFGSignPos, s.scale, s.getTextAngle(myFGSignRot), GLO_MAX - getType());
     }
     GLHelper::popMatrix();

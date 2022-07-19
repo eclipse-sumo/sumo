@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -19,7 +19,7 @@
 /****************************************************************************/
 #pragma once
 #include <config.h>
-#include "GNETAZElement.h"
+#include "GNEAdditional.h"
 
 
 // ===========================================================================
@@ -29,27 +29,32 @@
  * @class GNETAZSourceSink
  * class used to represent a interval used in Traffic Assignment Zones
  */
-class GNETAZSourceSink : public GNETAZElement {
+class GNETAZSourceSink : public GNEAdditional, public Parameterised {
 
 public:
+    /// @brief default Constructor
+    GNETAZSourceSink(SumoXMLTag tag, GNENet* net);
+
     /**@brief Constructor
      * @param[in] sourceSinkTag Child Tag (Either SUMO_TAG_TAZSOURCE or SUMO_TAG_TAZINK)
      * @param[in] parent pointer to TAZ of this TAZSourceSinks belongs
      * @param[in] edge Edge of this TAZ Child belongs
      * @param[in] departWeight depart weight of this TAZ child
      */
-    GNETAZSourceSink(SumoXMLTag sourceSinkTag, GNETAZElement* TAZParent, GNEEdge* edge, double departWeight);
+    GNETAZSourceSink(SumoXMLTag sourceSinkTag, GNEAdditional* TAZParent, GNEEdge* edge, double departWeight);
 
     /// @brief destructor
     ~GNETAZSourceSink();
 
-    /// @brief get TAZ Shape
-    const PositionVector& getTAZElementShape() const;
-
-    /**@brief writte TAZElement element into a xml file
-     * @param[in] device device in which write parameters of TAZElement element
+    /**@brief get move operation
+     * @note returned GNEMoveOperation can be nullptr
      */
-    void writeTAZElement(OutputDevice& device) const;
+    GNEMoveOperation* getMoveOperation();
+
+    /**@brief write additional element into a xml file
+     * @param[in] device device in which write parameters of additional element
+     */
+    void writeAdditional(OutputDevice& device) const;
 
     /// @brief get depart weight
     double getDepartWeight() const;
@@ -62,8 +67,14 @@ public:
     /// @brief Returns position of additional in view
     Position getPositionInView() const;
 
+    /// @brief return exaggeration associated with this GLObject
+    double getExaggeration(const GUIVisualizationSettings& s) const;
+
     /// @brief Returns the boundary to which the view shall be centered in order to show the object
     Boundary getCenteringBoundary() const;
+
+    /// @brief update centering boundary (implies change in RTREE)
+    void updateCenteringBoundary(const bool updateGrid);
 
     /// @brief split geometry
     void splitEdgeGeometry(const double splitPosition, const GNENetworkElement* originalElement, const GNENetworkElement* newElement, GNEUndoList* undoList);
@@ -106,6 +117,15 @@ public:
      */
     double getAttributeDouble(SumoXMLAttr key) const;
 
+    /// @brief get parameters map
+    const Parameterised::Map& getACParametersMap() const;
+
+    /* @brief method for getting the Attribute of an XML key in position format (to avoid unnecessary parse<position>(...) for certain attributes)
+     * @param[in] key The attribute key
+     * @return double with the value associated to key
+     */
+    Position getAttributePosition(SumoXMLAttr key) const;
+
     /* @brief method for setting the attribute and letting the object perform additional changes
      * @param[in] key The attribute key
      * @param[in] value The new value
@@ -140,6 +160,12 @@ protected:
 private:
     /// @brief method for setting the attribute and nothing else
     void setAttribute(SumoXMLAttr key, const std::string& value);
+
+    /// @brief set move shape
+    void setMoveShape(const GNEMoveResult& moveResult);
+
+    /// @brief commit move shape
+    void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList);
 
     /// @brief Invalidated copy constructor.
     GNETAZSourceSink(const GNETAZSourceSink&) = delete;

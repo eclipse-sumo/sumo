@@ -1,0 +1,102 @@
+Debug: Key F5 (Compute) pressed
+Debug: Enabled auto opposite edge throught alt + 6
+Debug: Adding junction 'J0' into net
+Debug: Adding junction 'J1' into net
+Debug: Adding edge 'E0' from net
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: invalidating (removing) connections of edge 'E0' due it were guessed
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Adding edge '-E0' from net
+Debug: Setting new attribute
+Debug: invalidating (removing) connections of edge 'E0' due it were guessed
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: invalidating (removing) connections of edge '-E0' due it were guessed
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Adding junction 'J2' into net
+Debug: Adding edge 'E0.40' from net
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Adding connection 'E0_0->E0.40_0' into edge 'E0'
+Debug: Created connection 'fromE0_0toE0.40_0' in retrieveGNEConnection()
+Debug: Key F5 (Compute) pressed
+Debug: Created connection 'from-E0_0toE0_0' in retrieveGNEConnection()
+Debug: Created connection 'fromE0.40_0to-E0_0' in retrieveGNEConnection()
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
+Debug: Removing connection 'E0_0->E0.40_0' from edge 'E0'
+Debug: Deleting unreferenced connection 'fromE0_0toE0.40_0' in removeConnection()
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Removing edge 'E0.40' from net
+Debug: Removing junction 'J2' from net
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: invalidating (removing) connections of edge '-E0' due it were guessed
+Debug: Deleting unreferenced connection 'from-E0_0toE0_0' in clearGNEConnections()
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: invalidating (removing) connections of edge 'E0' due it were guessed
+Debug: Removing edge '-E0' from net
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: invalidating (removing) connections of edge 'E0' due it were guessed
+Debug: Restoring previous attribute
+Debug: Removing edge 'E0' from net
+Debug: Removing junction 'J1' from net
+Debug: Removing junction 'J0' from net
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
+Debug: Adding junction 'J0' into net
+Debug: Adding junction 'J1' into net
+Debug: Adding edge 'E0' from net
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: invalidating (removing) connections of edge 'E0' due it were guessed
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Adding edge '-E0' from net
+Debug: Setting new attribute
+Debug: invalidating (removing) connections of edge 'E0' due it were guessed
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: invalidating (removing) connections of edge '-E0' due it were guessed
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
+Debug: Adding junction 'J2' into net
+Debug: Adding edge 'E0.40' from net
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Adding connection 'E0_0->E0.40_0' into edge 'E0'
+Debug: Created connection 'fromE0_0toE0.40_0' in retrieveGNEConnection()
+Debug: Key F5 (Compute) pressed
+Debug: Created connection 'from-E0_0toE0_0' in retrieveGNEConnection()
+Debug: network elements saved
+Debug: Deleting unreferenced edge '-E0' in AttributeCarriers destructor
+Debug: Deleting unreferenced lane '-E0_0' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'from-E0_0toE0_0' in GNEEdge destructor
+Debug: Deleting unreferenced edge 'E0' in AttributeCarriers destructor
+Debug: Deleting unreferenced lane 'E0_0' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromE0_0toE0.40_0' in GNEEdge destructor
+Debug: Deleting unreferenced edge 'E0.40' in AttributeCarriers destructor
+Debug: Deleting unreferenced lane 'E0.40_0' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromE0.40_0to-E0_0' in GNEEdge destructor
+Debug: Deleting unreferenced junction 'J0' in AttributeCarriers destructor
+Debug: Deleting unreferenced junction 'J1' in AttributeCarriers destructor
+Debug: Deleting unreferenced junction 'J2' in AttributeCarriers destructor
+Debug: Deleting net builder in GNENet destructor

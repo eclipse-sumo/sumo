@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2002-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -199,7 +199,7 @@ ROEdge::getTravelTime(const ROVehicle* const veh, double time) const {
             return MAX2(getMinimumTravelTime(veh), lineTT);
         } else {
             if (!myHaveTTWarned) {
-                WRITE_WARNING("No interval matches passed time " + toString(time)  + " in edge '" + myID + "'.\n Using edge's length / max speed.");
+                WRITE_WARNINGF("No interval matches passed time=% in edge '%'.\n Using edge's length / max speed.", time, myID);
                 myHaveTTWarned = true;
             }
         }
@@ -225,7 +225,7 @@ ROEdge::getStoredEffort(double time, double& ret) const {
     if (myUsingETimeLine) {
         if (!myEfforts.describesTime(time)) {
             if (!myHaveEWarned) {
-                WRITE_WARNING("No interval matches passed time " + toString(time)  + " in edge '" + myID + "'.\n Using edge's length / edge's speed.");
+                WRITE_WARNINGF("No interval matches passed time=% in edge '%'.\n Using edge's length / edge's speed.", time, myID);
                 myHaveEWarned = true;
             }
             return false;
@@ -292,25 +292,25 @@ ROEdge::buildTimeLines(const std::string& measure, const bool boundariesOverride
         double value = myLength / mySpeed;
         const SUMOEmissionClass c = PollutantsInterface::getClassByName("unknown");
         if (measure == "CO") {
-            value = PollutantsInterface::compute(c, PollutantsInterface::CO, mySpeed, 0, 0) * value; // @todo: give correct slope
+            value = PollutantsInterface::compute(c, PollutantsInterface::CO, mySpeed, 0, 0, nullptr) * value; // @todo: give correct slope
         }
         if (measure == "CO2") {
-            value = PollutantsInterface::compute(c, PollutantsInterface::CO2, mySpeed, 0, 0) * value; // @todo: give correct slope
+            value = PollutantsInterface::compute(c, PollutantsInterface::CO2, mySpeed, 0, 0, nullptr) * value; // @todo: give correct slope
         }
         if (measure == "HC") {
-            value = PollutantsInterface::compute(c, PollutantsInterface::HC, mySpeed, 0, 0) * value; // @todo: give correct slope
+            value = PollutantsInterface::compute(c, PollutantsInterface::HC, mySpeed, 0, 0, nullptr) * value; // @todo: give correct slope
         }
         if (measure == "PMx") {
-            value = PollutantsInterface::compute(c, PollutantsInterface::PM_X, mySpeed, 0, 0) * value; // @todo: give correct slope
+            value = PollutantsInterface::compute(c, PollutantsInterface::PM_X, mySpeed, 0, 0, nullptr) * value; // @todo: give correct slope
         }
         if (measure == "NOx") {
-            value = PollutantsInterface::compute(c, PollutantsInterface::NO_X, mySpeed, 0, 0) * value; // @todo: give correct slope
+            value = PollutantsInterface::compute(c, PollutantsInterface::NO_X, mySpeed, 0, 0, nullptr) * value; // @todo: give correct slope
         }
         if (measure == "fuel") {
-            value = PollutantsInterface::compute(c, PollutantsInterface::FUEL, mySpeed, 0, 0) * value; // @todo: give correct slope
+            value = PollutantsInterface::compute(c, PollutantsInterface::FUEL, mySpeed, 0, 0, nullptr) * value; // @todo: give correct slope
         }
         if (measure == "electricity") {
-            value = PollutantsInterface::compute(c, PollutantsInterface::ELEC, mySpeed, 0, 0) * value; // @todo: give correct slope
+            value = PollutantsInterface::compute(c, PollutantsInterface::ELEC, mySpeed, 0, 0, nullptr) * value; // @todo: give correct slope
         }
         myEfforts.fillGaps(value, boundariesOverride);
     }

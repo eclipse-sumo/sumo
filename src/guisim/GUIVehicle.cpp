@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -81,6 +81,7 @@
  * ----------------------------------------------------------------------- */
 #ifdef _MSC_VER
 #pragma warning(push)
+/* Disable warning about using "this" in the constructor */
 #pragma warning(disable: 4355)
 #endif
 GUIVehicle::GUIVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
@@ -111,7 +112,7 @@ GUIVehicle::getParameterWindow(GUIMainWindow& app,
         ret->mkItem("target lane [id]", true, new FunctionBindingString<GUIVehicle>(this, &GUIVehicle::getTargetLaneID));
     }
     if (isSelected()) {
-        ret->mkItem("back lane [id]", true, new FunctionBindingString<GUIVehicle>(this, &GUIVehicle::getBackLaneID));
+        ret->mkItem("back lanes [id,..]", true, new FunctionBindingString<GUIVehicle>(this, &GUIVehicle::getBackLaneIDs));
     }
     ret->mkItem("position [m]", true,
                 new FunctionBinding<GUIVehicle, double>(this, &MSVehicle::getPositionOnLane));
@@ -157,19 +158,19 @@ GUIVehicle::getParameterWindow(GUIMainWindow& app,
     ret->mkItem("stop info", true, new FunctionBindingString<GUIVehicle>(this, &GUIVehicle::getStopInfo));
     ret->mkItem("line", false, myParameter->line);
     ret->mkItem("CO2 [mg/s]", true,
-                new FunctionBinding<GUIVehicle, double>(this, &MSVehicle::getCO2Emissions));
+                new FunctionBinding<GUIVehicle, double>(this, &MSVehicle::getEmissions<PollutantsInterface::CO2>));
     ret->mkItem("CO [mg/s]", true,
-                new FunctionBinding<GUIVehicle, double>(this, &MSVehicle::getCOEmissions));
+                new FunctionBinding<GUIVehicle, double>(this, &MSVehicle::getEmissions<PollutantsInterface::CO>));
     ret->mkItem("HC [mg/s]", true,
-                new FunctionBinding<GUIVehicle, double>(this, &MSVehicle::getHCEmissions));
+                new FunctionBinding<GUIVehicle, double>(this, &MSVehicle::getEmissions<PollutantsInterface::HC>));
     ret->mkItem("NOx [mg/s]", true,
-                new FunctionBinding<GUIVehicle, double>(this, &MSVehicle::getNOxEmissions));
+                new FunctionBinding<GUIVehicle, double>(this, &MSVehicle::getEmissions<PollutantsInterface::NO_X>));
     ret->mkItem("PMx [mg/s]", true,
-                new FunctionBinding<GUIVehicle, double>(this, &MSVehicle::getPMxEmissions));
-    ret->mkItem("fuel [ml/s]", true,
-                new FunctionBinding<GUIVehicle, double>(this, &MSVehicle::getFuelConsumption));
+                new FunctionBinding<GUIVehicle, double>(this, &MSVehicle::getEmissions<PollutantsInterface::PM_X>));
+    ret->mkItem("fuel [mg/s]", true,
+                new FunctionBinding<GUIVehicle, double>(this, &MSVehicle::getEmissions<PollutantsInterface::FUEL>));
     ret->mkItem("electricity [Wh/s]", true,
-                new FunctionBinding<GUIVehicle, double>(this, &MSVehicle::getElectricityConsumption));
+                new FunctionBinding<GUIVehicle, double>(this, &MSVehicle::getEmissions<PollutantsInterface::ELEC>));
     ret->mkItem("noise (Harmonoise) [dB]", true,
                 new FunctionBinding<GUIVehicle, double>(this, &MSVehicle::getHarmonoise_NoiseEmissions));
     ret->mkItem("devices", false, getDeviceDescription());
@@ -230,17 +231,20 @@ GUIVehicle::getTypeParameterWindow(GUIMainWindow& app,
     ret->mkItem("apparent deceleration [m/s^2]", false, getCarFollowModel().getApparentDecel());
     ret->mkItem("imperfection (sigma)", false, getCarFollowModel().getImperfection());
     ret->mkItem("desired headway (tau)", false, getCarFollowModel().getHeadwayTime());
+    ret->mkItem("speedFactor", false, myType->getParameter().speedFactor.toStr(gPrecision));
     if (myType->getParameter().wasSet(VTYPEPARS_ACTIONSTEPLENGTH_SET)) {
         ret->mkItem("action step length [s]", false, myType->getActionStepLengthSecs());
     }
     ret->mkItem("person capacity", false, myType->getPersonCapacity());
-    ret->mkItem("boarding time", false, STEPS2TIME(myType->getBoardingDuration()));
+    ret->mkItem("boarding time", false, STEPS2TIME(myType->getLoadingDuration(true)));
     ret->mkItem("container capacity", false, myType->getContainerCapacity());
-    ret->mkItem("loading time", false, STEPS2TIME(myType->getLoadingDuration()));
+    ret->mkItem("loading time", false, STEPS2TIME(myType->getLoadingDuration(false)));
     if (MSGlobals::gLateralResolution > 0) {
         ret->mkItem("minGapLat", false, myType->getMinGapLat());
         ret->mkItem("maxSpeedLat", false, myType->getMaxSpeedLat());
-        ret->mkItem("latAlignment", false, toString(myType->getPreferredLateralAlignment()));
+        ret->mkItem("latAlignment", false, myType->getPreferredLateralAlignment() == LatAlignmentDefinition::GIVEN
+                    ? toString(myType->getPreferredLateralAlignmentOffset())
+                    : toString(myType->getPreferredLateralAlignment()));
     } else if (MSGlobals::gLaneChangeDuration > 0) {
         ret->mkItem("maxSpeedLat", false, myType->getMaxSpeedLat());
     }
@@ -295,12 +299,13 @@ void
 GUIVehicle::drawAction_drawCarriageClass(const GUIVisualizationSettings& s, bool asImage) const {
     RGBColor current = GLHelper::getColor();
     RGBColor darker = current.changedBrightness(-51);
-    const double exaggeration = s.vehicleSize.getExaggeration(s, this);
+    const double exaggeration = (s.vehicleSize.getExaggeration(s, this)
+                                 * s.vehicleScaler.getScheme().getColor(getScaleValue(s, s.vehicleScaler.getActive())));
     const double totalLength = getVType().getLength();
     double upscaleLength = exaggeration;
     if (exaggeration > 1 && totalLength > 5) {
         // reduce the length/width ratio because this is not usefull at high zoom
-        const double widthLengthFactor = totalLength / getVType().getWidth();
+        const double widthLengthFactor = totalLength / 5;
         const double shrinkFactor = MIN2(widthLengthFactor, sqrt(upscaleLength));
         upscaleLength /= shrinkFactor;
     }
@@ -327,8 +332,8 @@ GUIVehicle::drawAction_drawCarriageClass(const GUIVisualizationSettings& s, bool
         carriageLength = carriageLengthWithGap - carriageGap;
     }
     const int firstPassengerCarriage = defaultLength == locomotiveLength || numCarriages == 1 || (getVClass() & SVC_RAIL_CLASSES) == 0 ? 0 : 1;
-    const int noPersonsBackCarriages = (getVehicleType().getGuiShape() == SVS_TRUCK_SEMITRAILER || getVehicleType().getGuiShape() == SVS_TRUCK_1TRAILER) ? 1 : 0;
-    const int firstContainerCarriage = numCarriages == 1 || getVehicleType().getGuiShape() == SVS_TRUCK_1TRAILER ? 0 : 1;
+    const int noPersonsBackCarriages = (getVehicleType().getGuiShape() == SUMOVehicleShape::TRUCK_SEMITRAILER || getVehicleType().getGuiShape() == SUMOVehicleShape::TRUCK_1TRAILER) && numCarriages > 1 ? 1 : 0;
+    const int firstContainerCarriage = numCarriages == 1 || getVehicleType().getGuiShape() == SUMOVehicleShape::TRUCK_1TRAILER ? 0 : 1;
     const int seatsPerCarriage = (int)ceil(getVType().getPersonCapacity() / (numCarriages - firstPassengerCarriage - noPersonsBackCarriages));
     const int containersPerCarriage = (int)ceil(getVType().getContainerCapacity() / (numCarriages - firstContainerCarriage));
     // lane on which the carriage front is situated
@@ -398,10 +403,10 @@ GUIVehicle::drawAction_drawCarriageClass(const GUIVisualizationSettings& s, bool
         GLHelper::pushMatrix();
         glTranslated(front.x(), front.y(), getType());
         glRotated(angle, 0, 0, 1);
-        if (!asImage || !GUIBaseVehicleHelper::drawAction_drawVehicleAsImage(s, getVType().getImgFile(), this, getVType().getWidth(), curCLength / exaggeration)) {
+        if (!asImage || !GUIBaseVehicleHelper::drawAction_drawVehicleAsImage(s, getVType().getImgFile(), this, getVType().getWidth() * exaggeration, curCLength)) {
             switch (getVType().getGuiShape()) {
-                case SVS_TRUCK_SEMITRAILER:
-                case SVS_TRUCK_1TRAILER:
+                case SUMOVehicleShape::TRUCK_SEMITRAILER:
+                case SUMOVehicleShape::TRUCK_1TRAILER:
                     if (i == 0) {
                         GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(s, getVType().getGuiShape(), getVType().getWidth() * exaggeration, curCLength, i);
                     } else {
@@ -433,7 +438,7 @@ GUIVehicle::drawAction_drawCarriageClass(const GUIVisualizationSettings& s, bool
         carriageOffset -= (curCLength + carriageGap);
         carriageBackOffset -= carriageLengthWithGap;
     }
-    if (getVType().getGuiShape() == SVS_RAIL_CAR) {
+    if (getVType().getGuiShape() == SUMOVehicleShape::RAIL_CAR) {
         GLHelper::pushMatrix();
         glTranslated(front.x(), front.y(), getType());
         glRotated(angle, 0, 0, 1);
@@ -529,6 +534,9 @@ double
 GUIVehicle::getColorValue(const GUIVisualizationSettings& s, int activeScheme) const {
     switch (activeScheme) {
         case 8:
+            if (isStopped()) {
+                return isParking() ? -2 : -1;
+            }
             return getSpeed();
         case 9:
             // color by action step
@@ -551,17 +559,17 @@ GUIVehicle::getColorValue(const GUIVisualizationSettings& s, int activeScheme) c
         case 13:
             return getLane()->getVehicleMaxSpeed(this);
         case 14:
-            return getCO2Emissions();
+            return getEmissions<PollutantsInterface::CO2>();
         case 15:
-            return getCOEmissions();
+            return getEmissions<PollutantsInterface::CO>();
         case 16:
-            return getPMxEmissions();
+            return getEmissions<PollutantsInterface::PM_X>();
         case 17:
-            return getNOxEmissions();
+            return getEmissions<PollutantsInterface::NO_X>();
         case 18:
-            return getHCEmissions();
+            return getEmissions<PollutantsInterface::HC>();
         case 19:
-            return getFuelConsumption();
+            return getEmissions<PollutantsInterface::FUEL>();
         case 20:
             return getHarmonoise_NoiseEmissions();
         case 21:
@@ -577,7 +585,7 @@ GUIVehicle::getColorValue(const GUIVisualizationSettings& s, int activeScheme) c
         case 26:
             return STEPS2TIME(getDepartDelay());
         case 27:
-            return getElectricityConsumption();
+            return getEmissions<PollutantsInterface::ELEC>();
         case 28:
             return getTimeLossSeconds();
         case 29:
@@ -591,7 +599,7 @@ GUIVehicle::getColorValue(const GUIVisualizationSettings& s, int activeScheme) c
             std::string val = getPrefixedParameter(s.vehicleParam, error);
             try {
                 if (val == "") {
-                    return 0;
+                    return GUIVisualizationSettings::MISSING_DATA;
                 } else {
                     return StringUtils::toDouble(val);
                 }
@@ -600,7 +608,7 @@ GUIVehicle::getColorValue(const GUIVisualizationSettings& s, int activeScheme) c
                     return StringUtils::toBool(val);
                 } catch (BoolFormatException&) {
                     WRITE_WARNING("Vehicle parameter '" + myParameter->getParameter(s.vehicleParam, "0") + "' key '" + s.vehicleParam + "' is not a number for vehicle '" + getID() + "'");
-                    return -1;
+                    return GUIVisualizationSettings::MISSING_DATA;
                 }
             }
     }
@@ -656,6 +664,13 @@ GUIVehicle::drawRouteHelper(const GUIVisualizationSettings& s, const MSRoute& r,
     const GUILane* prevLane = nullptr;
     int reversalIndex = 0;
     const int indexDigits = (int)toString(r.size()).size();
+    if (!isOnRoad() && !isParking()) {
+        // simulation time has already advanced so isRemoteControlled is always false
+        const std::string offRoadLabel = hasInfluencer() && getInfluencer()->isRemoteAffected(SIMSTEP) ? "offRoad" : "teleporting";
+        GLHelper::drawTextSettings(s.vehicleValue, offRoadLabel, getPosition(), s.scale, s.angle, 1.0);
+    } else if (myLane->isInternal()) {
+        bestLaneIndex++;
+    }
     for (; i != r.end(); ++i) {
         const GUILane* lane;
         if (bestLaneIndex < (int)bestLaneConts.size() && bestLaneConts[bestLaneIndex] != 0 && (*i) == &(bestLaneConts[bestLaneIndex]->getEdge())) {
@@ -694,79 +709,9 @@ GUIVehicle::drawRouteHelper(const GUIVisualizationSettings& s, const MSRoute& r,
             break;
         }
     }
-    // draw stop labels
-    // (vertical shift for repeated stops at the same position
-    std::map<std::pair<const MSLane*, double>, int> repeat; // count repeated occurrences of the same position
-    int stopIndex = 0;
-    for (const MSStop& stop : myStops) {
-        double stopLanePos;
-        if (stop.pars.speed > 0) {
-            stopLanePos = stop.reached ? stop.pars.endPos : stop.pars.startPos;
-        } else {
-            stopLanePos = stop.reached ? getPositionOnLane() : MAX2(0.0, stop.getEndPos(*this));
-        }
-        if (stop.isOpposite && !stop.reached) {
-            stopLanePos = stop.lane->getLength() - stopLanePos;
-        }
-        Position pos = stop.lane->geometryPositionAtOffset(stopLanePos);
-        GLHelper::setColor(col);
-        GLHelper::drawBoxLines(stop.lane->getShape().getOrthogonal(pos, 10, true, stop.lane->getWidth()), 0.1);
-        std::string label = stop.pars.speed > 0 ? "waypoint" : (stop.reached ? "stopped" : "stop " + toString(stopIndex));
-        if (stop.isOpposite) {
-            label += " (opposite)";
-        }
-#ifdef _DEBUG
-        label += " (" + toString(stop.edge - myCurrEdge) + "e)";
-#endif
-        if (isStoppedTriggered()) {
-            label += " triggered:";
-            if (stop.triggered) {
-                label += "person";
-                if (stop.numExpectedPerson > 0) {
-                    label += "(" + toString(stop.numExpectedPerson) + ")";
-                }
-            }
-            if (stop.containerTriggered) {
-                label += "container";
-                if (stop.numExpectedContainer > 0) {
-                    label += "(" + toString(stop.numExpectedContainer) + ")";
-                }
-            }
-            if (stop.joinTriggered) {
-                label += "join";
-                if (stop.pars.join != "") {
-                    label += "(" + stop.pars.join + ")";
-                }
-            }
-        }
-        if (stop.pars.until >= 0) {
-            label += " until:" + time2string(stop.pars.until);
-        }
-        if (stop.duration >= 0 || stop.pars.duration > 0) {
-            if (STEPS2TIME(stop.duration) > 3600 * 24) {
-                label += " duration:1day+";
-            } else {
-                label += " duration:" + time2string(stop.duration);
-            }
-        }
-        if (stop.pars.speed > 0) {
-            label += " speed:" + toString(stop.pars.speed);
-        }
-        if (stop.pars.actType != "") {
-            label += " actType:" + stop.pars.actType;
-        }
-        std::pair<const MSLane*, double> stopPos = std::make_pair(stop.lane, stopLanePos);
-        const double nameSize = s.vehicleName.size / s.scale;
-        Position pos2 = pos - Position(0, nameSize * repeat[stopPos]);
-        if (noLoop && repeat[stopPos] > 0) {
-            break;
-        }
-        GLHelper::drawTextSettings(s.vehicleText, label, pos2, s.scale, s.angle, 1.0);
-        repeat[stopPos]++;
-        stopIndex++;
-    }
+    drawStopLabels(s, noLoop, col);
+    drawParkingInfo(s, col);
 }
-
 
 
 MSLane*
@@ -852,6 +797,9 @@ GUIVehicle::getStopInfo() const {
     } else {
         result += ", duration=" + time2string(myStops.front().duration);
     }
+    if (myStops.front().pars.actType != "") {
+        result += ", actType=" + myStops.front().pars.actType;
+    }
     return result;
 }
 
@@ -920,7 +868,7 @@ GUIVehicle::selectBlockingFoes() const {
             // the vehicle to enter the junction first has priority
             const GUIVehicle* leader = dynamic_cast<const GUIVehicle*>(it->vehAndGap.first);
             if (leader != nullptr) {
-                if (isLeader(dpi.myLink, leader)) {
+                if (isLeader(dpi.myLink, leader, it->vehAndGap.second)) {
                     gSelected.select(leader->getGlID());
 #ifdef DEBUG_FOES
                     std::cout << "      linkLeader=" << leader->getID() << "\n";
@@ -1009,8 +957,8 @@ GUIVehicle::getLaneID() const {
 }
 
 std::string
-GUIVehicle::getBackLaneID() const {
-    return myFurtherLanes.size() > 0 ? myFurtherLanes.back()->getID() : getLaneID();
+GUIVehicle::getBackLaneIDs() const {
+    return toString(myFurtherLanes);
 }
 
 std::string

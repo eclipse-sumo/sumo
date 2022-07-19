@@ -1,0 +1,20 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+
+    <!-- Valid parent -->
+    <entryExitDetector id="entryExitDetector_0" period="100" file="entryExitDetector_0.txt" timeThreshold="1.00" speedThreshold="1.39" pos="22.97,6.36">
+
+        <!-- non valid lane (missing) -->
+        <detEntry pos="5"/>
+
+        <!-- non valid Lane (dummy) -->
+        <detEntry lane="dummyLane" pos="10"/>
+
+        <!-- Valid lane -->
+        <detEntry lane="gneE1_0" pos="15"/>
+
+        <!-- Extra detExit for parent -->
+        <detExit lane="gneE1_0" pos="50"/>
+
+    </entryExitDetector>
+
+</additional>

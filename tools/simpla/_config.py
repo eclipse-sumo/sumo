@@ -1,5 +1,5 @@
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2017-2021 German Aerospace Center (DLR) and others.
+# Copyright (C) 2017-2022 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -172,7 +172,7 @@ def load(filename):
     global VTYPE_FILE, PLATOON_VTYPES, LC_MODE, SPEEDFACTOR, SWITCH_IMPATIENCE_FACTOR
 
     configDir = os.path.dirname(filename)
-    configElements = ET.parse(filename).getroot().getchildren()
+    configElements = ET.parse(filename).getroot()
     parsedTags = []
     for e in configElements:
         parsedTags.append(e.tag)

@@ -1,0 +1,188 @@
+ Retrying in 1 seconds
+Subscribing to context of vehicle 'ego'
+Adding turn filter ... 
+(downstreamDist=50.0, foeDistToJunction=50.0)
+Adding lateral distance subscription filter ... (lateralDistance=50.0, downstreamDistance=50.0, upstreamDistance=50.0)
+Step 1:
+Context results for veh 'ego':
+ego
+v2
+v4
+Step 2:
+Context results for veh 'ego':
+ego
+v2
+v4
+Step 3:
+Context results for veh 'ego':
+ego
+v2
+v4
+Step 4:
+Context results for veh 'ego':
+ego
+v2
+v4
+Step 5:
+Context results for veh 'ego':
+ego
+v2
+v4
+v4.2
+Step 6:
+Context results for veh 'ego':
+ego
+v2
+v4
+v4.2
+Step 7:
+Context results for veh 'ego':
+ego
+v2
+v4
+v4.2
+v8
+Step 8:
+Context results for veh 'ego':
+ego
+v2
+v4
+v4.2
+v8
+Step 9:
+Context results for veh 'ego':
+ego
+v2
+v4
+v4.2
+v8
+Step 10:
+Context results for veh 'ego':
+ego
+v2
+v4
+v4.2
+v8
+Step 11:
+Context results for veh 'ego':
+ego
+v2
+v3.2
+v4
+v4.2
+v8
+Step 12:
+Context results for veh 'ego':
+ego
+v2
+v3.2
+v6
+Step 13:
+Context results for veh 'ego':
+ego
+v2
+v3.2
+v5
+v6
+Step 14:
+Context results for veh 'ego':
+ego
+v2
+v3.2
+v5
+v6
+Step 15:
+Context results for veh 'ego':
+ego
+v2
+v5
+v5.2
+v6
+Step 16:
+Context results for veh 'ego':
+ego
+v2
+v5
+v5.2
+v6
+Step 17:
+Context results for veh 'ego':
+ego
+v2
+v5.2
+v6
+v7.2
+Step 18:
+Context results for veh 'ego':
+ego
+v2
+v5.2
+v6
+v7.2
+Step 19:
+Context results for veh 'ego':
+ego
+v2
+v5.2
+v6
+v7
+v7.2
+Step 20:
+Context results for veh 'ego':
+ego
+v2
+v7
+v7.2
+Step 21:
+Context results for veh 'ego':
+ego
+v2
+v7
+v7.2
+Step 22:
+Context results for veh 'ego':
+ego
+v2
+v7
+v7.2
+Step 23:
+Context results for veh 'ego':
+ego
+v1
+v2
+v3
+v7
+v7.2
+Step 24:
+Context results for veh 'ego':
+ego
+v1
+v2
+v3
+v7
+v7.2
+Step 25:
+Context results for veh 'ego':
+ego
+v1
+v2
+v3
+v7
+v7.2
+Step 26:
+Context results for veh 'ego':
+ego
+v1
+v3
+v7
+v7.2
+Step 27:
+Context results for veh 'ego':
+ego
+v1
+v3
+v7
+v7.2
+Step 28:
+Context results for veh 'ego':
+Print ended at step 29.0

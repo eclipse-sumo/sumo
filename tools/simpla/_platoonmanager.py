@@ -1,5 +1,5 @@
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2017-2021 German Aerospace Center (DLR) and others.
+# Copyright (C) 2017-2022 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -12,6 +12,7 @@
 
 # @file    _platoonmanager.py
 # @author Leonhard Luecken
+# @author Mirko Barthauer
 # @date   2017-04-09
 
 
@@ -128,7 +129,11 @@ class PlatoonManager(traci.StepListener):
 #                 traci.vehicletype.setColor(catchupFollowerType, (0, 255, 200, 0))
 
         # fill global lookup table for vType parameters (used below in safetycheck)
-        knownVTypes = traci.vehicletype.getIDList()
+        knownVTypes = {typeID : traci.vehicletype.getVehicleClass(typeID) for typeID in traci.vehicletype.getIDList()}
+        vTypesToCheck = set()
+        if cfg.VEH_SELECTORS[0] == '':
+            vTypesToCheck.update([typeID for typeID, vClass in knownVTypes.items() if vClass not in ('bicycle', 'pedestrian')])
+          
         for origType, mappings in cfg.PLATOON_VTYPES.items():
             if origType not in knownVTypes:
                 raise SimplaException(
@@ -151,11 +156,13 @@ class PlatoonManager(traci.StepListener):
                         warn(("emergencyDecel of mapped vType '%s' (%gm.) does not equal emergencyDecel of original " +
                               "vType '%s' (%gm.)") % (
                              typeID, mappedEmergencyDecel, origType, origEmergencyDecel), True)
-                simpla._pvehicle.vTypeParameters[typeID][tc.VAR_TAU] = traci.vehicletype.getTau(typeID)
-                simpla._pvehicle.vTypeParameters[typeID][tc.VAR_DECEL] = traci.vehicletype.getDecel(typeID)
-                simpla._pvehicle.vTypeParameters[typeID][tc.VAR_MINGAP] = traci.vehicletype.getMinGap(typeID)
-                simpla._pvehicle.vTypeParameters[typeID][tc.VAR_EMERGENCY_DECEL] = traci.vehicletype.getEmergencyDecel(
-                    typeID)
+                vTypesToCheck.add(typeID)
+        for typeID in vTypesToCheck:
+            simpla._pvehicle.vTypeParameters[typeID][tc.VAR_TAU] = traci.vehicletype.getTau(typeID)
+            simpla._pvehicle.vTypeParameters[typeID][tc.VAR_DECEL] = traci.vehicletype.getDecel(typeID)
+            simpla._pvehicle.vTypeParameters[typeID][tc.VAR_MINGAP] = traci.vehicletype.getMinGap(typeID)
+            simpla._pvehicle.vTypeParameters[typeID][tc.VAR_EMERGENCY_DECEL] = traci.vehicletype.getEmergencyDecel(
+                typeID)
 
     def step(self, t=0):
         '''step(int)
@@ -671,7 +678,7 @@ class PlatoonManager(traci.StepListener):
                               traci.vehicle.changeLane(veh.getID(), ix, self._controlInterval)
                         except traci.exceptions.TraCIException as e:
                             if rp.VERBOSITY >= 1:
-                                warn("Lanechange advice for vehicle'%s' failed. Message:\n%s" % (veh.getID(), e.message))
+                                warn("Lanechange advice for vehicle'%s' failed. Message:\n%s" % (veh.getID(), str(e)))
                 else:
                     # leader is on another edge, just stay on the current and hope it is the right one
                     try:
@@ -683,8 +690,7 @@ class PlatoonManager(traci.StepListener):
                             
                     except traci.exceptions.TraCIException as e:
                         if rp.VERBOSITY >= 1:
-                            warn("Lanechange advice for vehicle'%s' failed. Message:\n%s" % (veh.getID(), e.message))
-
+                            warn("Lanechange advice for vehicle'%s' failed. Message:\n%s" % (veh.getID(), str(e)))
 
     def _isConnected(self, vehID):
         '''_isConnected(string) -> bool

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -45,13 +45,35 @@ public:
      * @param[in] net GNENet
      * @param[in] file Name of the parsed file
      * @param[in] allowUndoRedo enable or disable undoRedo
+     * @param[in] overwrite enable or disable overwrite elements
      */
-    GNEGeneralHandler(GNENet* net, const std::string& file, const bool allowUndoRedo);
+    GNEGeneralHandler(GNENet* net, const std::string& file, const bool allowUndoRedo, const bool overwrite);
 
     /// @brief Destructor
     ~GNEGeneralHandler();
 
 private:
+    /// @brief tagType
+    struct TagType {
+        /// @brief constructor
+        TagType(SumoXMLTag tag, const bool network, const bool additional, const bool demand);
+
+        /// @brief tag related with this TagType
+        const SumoXMLTag tag;
+
+        /// @brief tagType is network
+        const bool network;
+
+        /// @brief tagType is additional
+        const bool additional;
+
+        /// @brief tagType is demand
+        const bool demand;
+    };
+
+    /// @brief queue with the inserted tags
+    std::list<TagType> myQueue;
+
     /// @brief additional handler
     GNEAdditionalHandler myAdditionalHandler;
 

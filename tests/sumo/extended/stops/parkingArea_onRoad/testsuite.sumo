@@ -1,0 +1,11 @@
+# block on road line while using parkingArea
+onRoad
+
+# vehicles with different stop durations stop sequentially
+different_durations
+
+# vehicles with different stop durations stop sequentially
+long_lots
+
+# not enough parking spaces
+congestion

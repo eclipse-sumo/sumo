@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -53,9 +53,7 @@ RODUAFrame::fillOptions() {
     oc.addOptionSubTopic("Time");
 
     // insert options
-    ROFrame::fillOptions(oc);
-    // to make the transition from --trip-files easier, but has a conflict with jtrrouter
-    oc.addSynonyme("route-files", "t", true);
+    ROFrame::fillOptions(oc, true);
     addImportOptions();
     addDUAOptions();
     // add rand options
@@ -85,29 +83,13 @@ RODUAFrame::addImportOptions() {
     oc.doRegister("write-trips.junctions", new Option_Bool(false));
     oc.addDescription("write-trips.junctions", "Output", "Write trips with fromJunction and toJunction");
 
-    // register import options
-    oc.doRegister("weight-files", 'w', new Option_FileName());
-    oc.addSynonyme("weight-files", "weights");
-    oc.addDescription("weight-files", "Input", "Read network weights from FILE(s)");
-
-    oc.doRegister("lane-weight-files", new Option_FileName());
-    oc.addDescription("lane-weight-files", "Input", "Read lane-based network weights from FILE(s)");
-
-    oc.doRegister("weight-attribute", 'x', new Option_String("traveltime"));
-    oc.addSynonyme("weight-attribute", "measure", true);
-    oc.addDescription("weight-attribute", "Input", "Name of the xml attribute which gives the edge weight");
+    oc.doRegister("write-costs", new Option_Bool(false));
+    oc.addDescription("write-costs", "Output", "Include the cost attribute in route output");
 
     // register further processing options
     // ! The subtopic "Processing" must be initialised earlier !
-    oc.doRegister("weights.expand", new Option_Bool(false));
-    oc.addSynonyme("weights.expand", "expand-weights", true);
-    oc.addDescription("weights.expand", "Processing", "Expand weights behind the simulation's end");
-
     oc.doRegister("weights.random-factor", new Option_Float(1.));
     oc.addDescription("weights.random-factor", "Processing", "Edge weights for routing are dynamically disturbed by a random factor drawn uniformly from [1,FLOAT)");
-
-    oc.doRegister("routing-algorithm", new Option_String("dijkstra"));
-    oc.addDescription("routing-algorithm", "Processing", "Select among routing algorithms ['dijkstra', 'astar', 'CH', 'CHWrapper']");
 
     oc.doRegister("weight-period", new Option_String("3600", "TIME"));
     oc.addDescription("weight-period", "Processing", "Aggregation period for the given weight files; triggers rebuilding of Contraction Hierarchy");
@@ -141,6 +123,9 @@ RODUAFrame::addDUAOptions() {
     oc.doRegister("exit-times", new Option_Bool(false));
     oc.addDescription("exit-times", "Output", "Write exit times (weights) for each edge");
 
+    oc.doRegister("route-length", new Option_Bool(false));
+    oc.addDescription("route-length", "Output", "Include total route length in the output");
+
     oc.doRegister("keep-all-routes", new Option_Bool(false));
     oc.addDescription("keep-all-routes", "Processing", "Save routes with near zero probability");
 
@@ -153,11 +138,11 @@ RODUAFrame::addDUAOptions() {
     oc.doRegister("ptline-routing", new Option_Bool(false));
     oc.addDescription("ptline-routing", "Processing", "Route all public transport input");
 
-    oc.doRegister("logit", new Option_Bool(false)); // deprecated
-    oc.addDescription("logit", "Processing", "Use c-logit model (deprecated in favor of --route-choice-method logit)");
-
     oc.doRegister("route-choice-method", new Option_String("gawron"));
     oc.addDescription("route-choice-method", "Processing", "Choose a route choice method: gawron, logit, or lohse");
+
+    oc.doRegister("logit", new Option_Bool(false)); // deprecated
+    oc.addDescription("logit", "Processing", "Use c-logit model (deprecated in favor of --route-choice-method logit)");
 
     oc.doRegister("logit.beta", new Option_Float(double(-1)));
     oc.addSynonyme("logit.beta", "lBeta", true);
@@ -236,7 +221,7 @@ RODUAFrame::checkOptions() {
         return false;
     }
     if (oc.isDefault("routing-algorithm") && (oc.isSet("astar.all-distances") || oc.isSet("astar.landmark-distances") || oc.isSet("astar.save-landmark-distances"))) {
-        oc.set("routing-algorithm", "astar");
+        oc.setDefault("routing-algorithm", "astar");
     }
 
     if (oc.getString("route-choice-method") != "gawron" && oc.getString("route-choice-method") != "logit") {
@@ -252,16 +237,16 @@ RODUAFrame::checkOptions() {
         const std::string& filename = oc.getString("output-file");
         const int len = (int)filename.length();
         if (len > 4 && filename.substr(len - 4) == ".xml") {
-            oc.set("alternatives-output", filename.substr(0, len - 4) + ".alt.xml");
+            oc.setDefault("alternatives-output", filename.substr(0, len - 4) + ".alt.xml");
         } else if (len > 4 && filename.substr(len - 3) == ".gz") {
-            oc.set("alternatives-output", filename.substr(0, len - 3) + ".alt.gz");
+            oc.setDefault("alternatives-output", filename.substr(0, len - 3) + ".alt.gz");
         } else {
             WRITE_WARNING("Cannot derive file name for alternatives output, skipping it.");
         }
     }
     if (oc.getBool("write-trips.junctions")) {
         if (oc.isDefault("write-trips")) {
-            oc.set("write-trips", "true");
+            oc.setDefault("write-trips", "true");
         } else if (!oc.getBool("write-trips")) {
             WRITE_WARNING("Option --write-trips.junctions takes no affect when --write-trips is disabled.");
         }

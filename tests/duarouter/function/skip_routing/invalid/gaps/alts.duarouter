@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-01-27 08:19:14 by Eclipse SUMO duarouter Version v1_12_0+0058-fce0a9f
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <output-file value="routes.rou.xml"/>
+        <write-license value="true"/>
+        <alternatives-output value="routes.rou.alt.xml"/>
+    </output>
+
+    <processing>
+        <skip-new-routes value="true"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="left" depart="0.00">
+        <routeDistribution last="0">
+            <route cost="126.34" probability="1.00000000" edges="beg beg2left left left2end end rend"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="left_gap" depart="0.00">
+        <routeDistribution last="1">
+            <route cost="108.11" probability="0.50095601" edges="beg beg2left left end rend"/>
+            <route cost="125.90" probability="0.49904399" edges="beg middle end rend"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="middle" depart="0.00">
+        <routeDistribution last="0">
+            <route cost="125.90" probability="1.00000000" edges="beg middle end rend"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="middle_gap" depart="0.00">
+        <routeDistribution last="0">
+            <route cost="107.91" probability="0.50096726" edges="beg middle rend"/>
+            <route cost="125.90" probability="0.49903274" edges="beg middle end rend"/>
+        </routeDistribution>
+    </vehicle>
+</routes>

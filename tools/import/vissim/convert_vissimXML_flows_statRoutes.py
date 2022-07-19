@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2015-2021 German Aerospace Center (DLR) and others.
+# Copyright (C) 2015-2022 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -117,7 +117,7 @@ def parse_length(xmldoc):
     """parses the vehicle type lengths from the VISSIM data
     :param xmldoc:  input VISSIM xml
     :type xmldoc:   xml.dom.minidom.Document
-    :return:    map of lenghts by str(numeric type)
+    :return:    map of lengths by str(numeric type)
     :rtype:     dict
     """
     len_d = dict()
@@ -562,7 +562,7 @@ if __name__ == '__main__':
     create_flow_elems(routes_by_start_d, flow_d, routes_Elem)
     print('OK.\n---')
 
-    print('* wrinting output:')
+    print('* writing output:')
     # write the data into a .rou.xml file
     out_Fn = args.output_file
     if not out_Fn.endswith('.xml'):

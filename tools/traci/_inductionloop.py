@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2011-2021 German Aerospace Center (DLR) and others.
+# Copyright (C) 2011-2022 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -109,3 +109,10 @@ class InductionLoopDomain(Domain):
         Returns a complex structure containing several information about vehicles which passed the detector.
         """
         return self._getUniversal(tc.LAST_STEP_VEHICLE_DATA, loopID)
+
+    def overrideTimeSinceDetection(self, loopID, time):
+        """overrideTimeSinceDetection(string, double) -> None
+        Persistently overrides the measured time since detection with the given value.
+        Setting a negative value resets the override
+        """
+        self._setCmd(tc.VAR_VIRTUAL_DETECTION, loopID, "d", time)

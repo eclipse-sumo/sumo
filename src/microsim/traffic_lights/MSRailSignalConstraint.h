@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2002-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -38,9 +38,16 @@ class SUMOSAXAttributes;
  */
 class MSRailSignalConstraint {
 public:
+
+    enum ConstraintType {
+       PREDECESSOR = 0,
+       INSERTION_PREDECESSOR = 1
+       //FOE_INSERTION = 2
+    };
+
     /** @brief Constructor
      */
-    MSRailSignalConstraint() {};
+    MSRailSignalConstraint(ConstraintType type) : myType(type) {};
 
     /// @brief Destructor
     virtual ~MSRailSignalConstraint() {};
@@ -48,11 +55,23 @@ public:
     /// @brief whether the constraint has been met
     virtual bool cleared() const = 0;
 
+    virtual void setActive(bool active) = 0;
+
+    virtual bool isActive() const = 0;
+
     virtual std::string getDescription() const {
         return "RailSignalConstraint";
     }
 
-    virtual void write(OutputDevice& out, SumoXMLTag tag, const std::string& tripId) const = 0;
+    virtual void write(OutputDevice& out, const std::string& tripId) const = 0;
+
+    ConstraintType getType() const {
+        return myType;
+    }
+
+    SumoXMLTag getTag() const {
+        return myType == PREDECESSOR ? SUMO_TAG_PREDECESSOR : SUMO_TAG_INSERTION_PREDECESSOR;
+    }
 
     /// @brief clean up state
     static void cleanup();
@@ -68,6 +87,8 @@ public:
 
 protected:
     static std::string getVehID(const std::string& tripID);
+
+    ConstraintType myType;
 };
 
 
@@ -75,12 +96,12 @@ class MSRailSignalConstraint_Predecessor : public MSRailSignalConstraint {
 public:
     /** @brief Constructor
      */
-    MSRailSignalConstraint_Predecessor(const MSRailSignal* signal, const std::string& tripId, int limit);
+    MSRailSignalConstraint_Predecessor(ConstraintType type, const MSRailSignal* signal, const std::string& tripId, int limit, bool active);
 
     /// @brief Destructor
     ~MSRailSignalConstraint_Predecessor() {};
 
-    void write(OutputDevice& out, SumoXMLTag tag, const std::string& tripId) const;
+    void write(OutputDevice& out, const std::string& tripId) const;
 
     /// @brief clean up state
     static void cleanup();
@@ -95,6 +116,14 @@ public:
     static void clearState();
 
     bool cleared() const;
+
+    void setActive(bool active) {
+        myAmActive = active;
+    }
+
+    bool isActive() const {
+        return myAmActive;
+    }
 
     std::string getDescription() const;
 
@@ -136,6 +165,9 @@ public:
 
     /// @brief the number of passed vehicles within which tripId must have occured
     const int myLimit;
+
+    /// @brief Whether this constraint is currently active
+    bool myAmActive;
 
     /// @brief store the foe signal (for TraCI access)
     const MSRailSignal* myFoeSignal;

@@ -1,0 +1,96 @@
+name: macos-wheels
+
+on: 
+  push:            # run on push events
+    paths-ignore:  # but ignore everything in the docs subfolder 
+      - 'docs/**'
+    branches:
+      - '**'
+    tags:
+      - '*'
+  pull_request:    # run on pull requests
+    paths-ignore:  # but ignore everything in the docs subfolder 
+      - 'docs/**'
+  schedule:
+    - cron:  '25 2 * * *'
+
+jobs:
+  build-wheels:
+    strategy:
+      fail-fast: false
+      matrix:
+#        os: [macos-10.15, macos-11]
+        python_version: [3.6, 3.7, 3.8, 3.9, '3.10']
+#    runs-on: ${{ matrix.os }}
+    runs-on: macos-10.15
+    env:
+      CCACHE_COMPILERTYPE: clang
+
+    steps:
+    - name: Cloning SUMO
+      uses: actions/checkout@v2
+      with:
+        path: sumo
+        fetch-depth: 0
+
+    - name: Fetching SUMO tags
+      run: |
+        cd sumo
+        git fetch --tags --force
+
+    - name: Set up Python ${{ matrix.python_version }}
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ matrix.python_version }}
+
+    - name: Preparing Build System
+      run: |
+        brew install --cask xquartz
+        brew install xerces-c fox proj gdal gl2ps ccache
+
+    - name: ccache
+      if: github.event_name != 'schedule'
+      uses: hendrikmuhs/ccache-action@v1.2.2
+
+    - name: Building Libsumo wheels
+      run: |
+        cd sumo
+        python3 -m pip install scikit-build
+        python3 tools/build/setup-sumo.py -j 4 bdist_wheel
+        python3 tools/build/setup-libsumo.py bdist_wheel
+        python3 tools/build/setup-libtraci.py bdist_wheel
+        if [[ "${{ matrix.python_version }}" != "3.8" ]]; then rm dist/eclipse_sumo-*; fi
+        if [[ "${{ matrix.python_version }}" == "3.8" ]]; then mv dist/eclipse_sumo-* `echo dist/eclipse_sumo-* | sed 's/cp38-cp38/py2.py3-none/'`; fi
+
+    - name: Uploading artifacts (Python wheels)
+      uses: actions/upload-artifact@v1
+      with:
+        name: python-wheels
+        path: sumo/dist
+
+  publish-wheels:
+    if: github.repository == 'eclipse/sumo' && (github.event_name == 'schedule' || startsWith(github.ref, 'refs/tags'))
+    needs: [build-wheels]
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/download-artifact@v2
+
+    - name: Moving artifacts
+      run: |
+        ls -lR
+        mkdir dist
+        mv ./*-wheels/* dist
+
+    - name: Publish to Test PyPI
+      uses: pypa/gh-action-pypi-publish@master
+      with:
+        password: ${{ secrets.TEST_PYPI_TOKEN }}
+        repository_url: https://test.pypi.org/legacy/
+        skip_existing: true
+
+    - name: Publish to PyPI
+      if: startsWith(github.ref, 'refs/tags')
+      uses: pypa/gh-action-pypi-publish@master
+      with:
+        password: ${{ secrets.PYPI_TOKEN }}

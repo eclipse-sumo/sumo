@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -20,7 +20,7 @@
 #pragma once
 #include <config.h>
 
-#include <utils/foxtools/fxheader.h>
+#include <utils/foxtools/FXGroupBoxModule.h>
 
 // ===========================================================================
 // class declarations
@@ -79,7 +79,7 @@ protected:
     };
 
     /// @brief groupbox for group all radio buttons related to additionals with single lanes
-    class PositionOptions : public FXGroupBox {
+    class PositionOptions : public FXGroupBoxModule {
 
     public:
         /// @brief build Position Options
@@ -108,7 +108,7 @@ protected:
     };
 
     /// @brief groupbox for group all radio buttons related to additionals with consecutive lanes
-    class ConsecutiveLaneOptions : public FXGroupBox {
+    class ConsecutiveLaneOptions : public FXGroupBoxModule {
 
     public:
         /// @brief build consecutive lane Options

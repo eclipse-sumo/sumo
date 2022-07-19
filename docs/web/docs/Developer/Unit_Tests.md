@@ -5,7 +5,7 @@ title: Unit Tests
 # Introduction
 
 The Unit Tests for SUMO are carried out with the help of the Framework
-[Google Test](http://code.google.com/p/googletest/). With *Google Test*
+[Google Test](https://github.com/google/googletest). With *Google Test*
 new Unit Tests can be simple added or existing tests extended. All
 available tests are executed daily and it is checked whether these tests
 run through successfully. This installation guide is for the version

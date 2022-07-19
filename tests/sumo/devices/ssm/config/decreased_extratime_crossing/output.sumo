@@ -1,3 +1,0 @@
-vehicle 'ego' does not supply vehicle parameter 'device.ssm.thresholds'. Using default of ''
-vehicle 'ego' does not supply vehicle parameter 'device.ssm.file'. Using default of 'ssm_ego.xml'
-vehicle 'ego' does not supply vehicle parameter 'device.ssm.geo'. Using default of '0'

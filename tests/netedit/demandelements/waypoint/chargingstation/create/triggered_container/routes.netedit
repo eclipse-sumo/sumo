@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-06-02 14:07:25 by Eclipse SUMO netedit Version v1_13_0+0567-e439ae5985d
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <!-- Vehicles, persons and containers (sorted by depart) -->
+    <flow id="flow" begin="0.00" from="gneE0" to="gneE1" end="36.00" number="18">
+        <stop chargingStation="chargingStationB" duration="60.00" triggered="container" speed="13.89"/>
+        <stop chargingStation="chargingStationB" duration="60.00" triggered="container" speed="13.89"/>
+        <stop chargingStation="chargingStationB" duration="60.00" triggered="container" expectedContainers="containerID1 containerID2 containerID3" speed="13.89"/>
+    </flow>
+</routes>

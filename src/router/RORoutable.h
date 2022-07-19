@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2002-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -139,14 +139,16 @@ public:
      * @param[in] typeos The types - output device to store the vehicle types into
      * @exception IOError If something fails (not yet implemented)
      */
-    void write(OutputDevice& os, OutputDevice* const altos,
+    void write(OutputDevice* os, OutputDevice* const altos,
                OutputDevice* const typeos, OptionsCont& options) const {
-        if (altos == 0 && typeos == 0) {
-            saveAsXML(os, &os, false, options);
-        } else {
-            saveAsXML(os, typeos, false, options);
+        if (os != nullptr) {
+            if (altos == nullptr && typeos == nullptr) {
+                saveAsXML(*os, os, false, options);
+            } else {
+                saveAsXML(*os, typeos, false, options);
+            }
         }
-        if (altos != 0) {
+        if (altos != nullptr) {
             saveAsXML(*altos, typeos, true, options);
         }
     }

@@ -11,3 +11,9 @@ net2geojson
 
 # convert net to jupedsim geometry
 net2jpsgeometry
+
+# convert net to SUMO polygons
+net2poly
+
+# reduce number of lanes on multilane roads
+reduceLanes

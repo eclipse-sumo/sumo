@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2012-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2012-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -15,7 +15,7 @@
 /// @author  Michael Behrisch
 /// @date    07.04.2021
 ///
-// C++ TraCI client API implementation
+// C++ libsumo / TraCI client API implementation
 /****************************************************************************/
 #pragma once
 #include <vector>
@@ -28,7 +28,12 @@
 // class declarations
 // ===========================================================================
 #ifndef LIBTRACI
+namespace FX {
+class FXApp;
+}
 class GUISUMOAbstractView;
+class GUIApplicationWindow;
+typedef long long int SUMOTime;
 #endif
 
 
@@ -36,7 +41,7 @@ class GUISUMOAbstractView;
 // class definitions
 // ===========================================================================
 /**
- * @class POI
+ * @class GUI
  * @brief C++ TraCI client API implementation
  */
 namespace LIBSUMO_NAMESPACE {
@@ -63,12 +68,29 @@ public:
 
 #ifndef LIBTRACI
 #ifndef SWIG
+    static bool start(const std::vector<std::string>& cmd);
+
+    static bool load(const std::vector<std::string>& cmd);
+
+    static bool hasInstance();
+
+    static bool step(SUMOTime t);
+
+    static bool close(const std::string& reason);
+
     static std::shared_ptr<VariableWrapper> makeWrapper();
 
     static bool handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper, tcpip::Storage* paramData);
 
 private:
+    static SubscriptionResults mySubscriptionResults;
+    static ContextSubscriptionResults myContextSubscriptionResults;
     static GUISUMOAbstractView* getView(const std::string& id);
+
+    static GUIApplicationWindow* myWindow;
+
+    static FX::FXApp* myApp;
+
 #endif
 #endif
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2007-2021 German Aerospace Center (DLR) and others.
+# Copyright (C) 2007-2022 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -48,8 +48,13 @@ def get_options(args=None):
     return options
 
 
-def sort_departs(routefilename, outfile):
-    routes_doc = pulldom.parse(routefilename)
+def sort_departs(routefile, outfile):
+    if isinstance(routefile, str):
+        stream = open(routefile, 'rb')
+    else:
+        stream = routefile
+        stream.seek(0)
+    routes_doc = pulldom.parse(stream)
     vehicles = []
     root = None
     for event, parsenode in routes_doc:
@@ -75,12 +80,12 @@ def sort_departs(routefilename, outfile):
 
     print('read %s elements.' % len(vehicles))
     vehicles.sort(key=lambda v: v[0])
-    for depart, vehiclexml in vehicles:
-        outfile.write(" " * 4)
-        outfile.write(vehiclexml)
-        outfile.write("\n")
+    for _, vehiclexml in vehicles:
+        outfile.write(" " * 4 + vehiclexml + "\n")
     outfile.write("</%s>\n" % root)
     print('wrote %s elements.' % len(vehicles))
+    if isinstance(routefile, str):
+        stream.close()
 
 
 class RouteHandler(handler.ContentHandler):
@@ -138,21 +143,19 @@ def get_element_lines(routefilename):
 def copy_elements(routefilename, outfilename, element_lines, line_offsets):
     print("Copying elements from %s to %s sorted by departure" % (
         routefilename, outfilename))
-    outfile = open(outfilename, 'w')
-    # copy header
-    for line in open(routefilename):
-        outfile.write(line)
-        if '<routes' in line:
-            break
     # don't read binary here for line end conversion
-    with open(routefilename) as f:
-        for depart, start, end in element_lines:
+    with open(routefilename) as routefile, open(outfilename, 'w') as outfile:
+        # copy header
+        for line in routefile:
+            outfile.write(line)
+            if '<routes' in line:
+                break
+        for _, start, end in element_lines:
             # convert from 1-based to 0-based indices
-            f.seek(line_offsets[start - 1])
-            for i in range(end - start + 1):
-                outfile.write(f.readline())
-    outfile.write('</routes>')
-    outfile.close()
+            routefile.seek(line_offsets[start - 1])
+            for __ in range(end - start + 1):
+                outfile.write(routefile.readline())
+        outfile.write('</routes>')
 
 
 def main(args=None):
@@ -160,19 +163,15 @@ def main(args=None):
     if options.big:
         line_offsets = create_line_index(options.routefile)
         element_lines = sorted(get_element_lines(options.routefile))
-        copy_elements(
-            options.routefile, options.outfile, element_lines, line_offsets)
+        copy_elements(options.routefile, options.outfile, element_lines, line_offsets)
     else:
-        outfile = open(options.outfile, 'w')
-        # copy header
-        for line in open(options.routefile):
-            if (line.find('<routes') == 0 or
-                    line.find('<additional') == 0):
-                break
-            else:
+        with open(options.routefile) as routefile, open(options.outfile, 'w') as outfile:
+            # copy header
+            for line in routefile:
+                if line.find('<routes') == 0 or line.find('<additional') == 0:
+                    break
                 outfile.write(line)
-        sort_departs(options.routefile, outfile)
-        outfile.close()
+            sort_departs(routefile, outfile)
 
 
 if __name__ == "__main__":

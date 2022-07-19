@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-07-07 11:06:31.695572 by addStops2Routes.py v1_13_0+1343-240e5d48340
+<configuration>
+    <net-file value="input_net.net.xml"/>
+    <output-file value="out.rou.xml"/>
+    <parking value="True"/>
+    <probability value="0.5"/>
+    <route-files value="input_routes2.rou.xml"/>
+    <seed value="43"/>
+    <until value="12:0:0"/>
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="type1" vClass="passenger"/>
+    <vehicle color="1,0,0" depart="0" id="0" type="type1">
+        <route edges="SC CN"/>
+        <stop lane="CN_3" parking="true" until="12:0:0"/>
+    </vehicle>
+    <vehicle color="1,0,0" depart="0" id="1" type="type1">
+        <route edges="EC CW"/>
+    </vehicle>
+    <vehicle color="1,0,0" depart="0" id="2" type="type1">
+        <route edges="NC CW WC CS"/>
+        <stop lane="CS_3" parking="true" until="12:0:0"/>
+    </vehicle>
+</routes>

@@ -70,7 +70,39 @@ This scripts extracts test scenarios if you like to run a simulation scenario wh
 ```
 python tools/extractTest.py <path to test directory>
 ```
-- or use the [online test extraction](https://sumo.dlr.de/extractTest.php). In the online tool you enter the path to the test you like (e.g. [{{SUMO}}/tests/sumo/extended/rerouter/use_routing_device](https://github.com/eclipse/sumo/blob/master/tests/sumo/extended/rerouter/use_routing_device) into the form and get a zip containing all the files.
+- or use the [online test extraction](https://sumo.dlr.de/extractTest.php). In the online tool you enter the path to the test you like (e.g. [{{SUMO}}/tests/sumo/extended/rerouter/use_routing_device](https://github.com/eclipse/sumo/blob/main/tests/sumo/extended/rerouter/use_routing_device) into the form and get a zip containing all the files.
+
+# generateParkingAreas.py
+
+This tool generates parking areas for a network, and saves them in an additional file. If the output filename is not defined (using -o or --output-file), it will use as default *parkingareas.add.xml*.
+
+Most basic call:
+```
+python tools/generateParkingAreas.py -n <my network>
+```
+Other Example:
+```
+python tools/generateParkingAreas.py -n <my network> -o <name of output file> --space-length <visual length per parking space> --min <minimum capacity> --max <maximum capacity>
+```
+
+The required parameter is the network (-n or --net-file). More options can be obtained by calling `python tools/generateParkingAreas.py --help`.
+
+Additional options:
+
+- **--output-file** define the output filename
+- **--probability** probability for an edge to receive a parkingArea
+- **--length** length required per parking space
+- **--space-length** visual length of each parking space
+- **--width** visual width of each parking space
+- **--random-capacity** randomize roadsideCapacity
+- **--min** minimum capacity for parkingAreas
+- **--max** maximum capacity for parkingAreas
+- **--angle** parking area angle
+- **--prefix** prefix for the parkingArea ids
+- **--seed** random seed
+- **--random** use a random seed to initialize the random number generator
+- **--vclass** only use edges which permit the given vehicle class
+- **--verbose** tell me what you are doing
 
 # generateParkingLots.py
 
@@ -159,7 +191,7 @@ random seed generation of 42. These values can be changed with the options
 
 This script determines feasible stop-to-stop travel times and creates a public
 transport schedule (regular interval timetable) for all lines. The stop-to-stop 
-travel times are determined on an empty network. Example:
+travel times are determined by running a background simulation on an empty network using either a given route or shortest paths between stops. Example:
 
 ```
 python tools/ptlines2flows.py -n <net-file> -s <ptstops-file> -l <ptlines-file> -o <output-file>
@@ -171,6 +203,80 @@ changed with the **-p** option.
 
 With the option **--use-osm-routes**, public transport routes from the given osm
 ptlines-file will be used, rather than creating new shortest path routes between stops.
+
+A *ptlines-file* is typically created by [netconvert](../netconvert.md) option **--ptlines-output** when importing OSM data.
+However it can also be customized or created from scratch for a non OSM network.
+
+## Example Input
+
+A minimal description for a bus line looks like this:
+
+```
+<additional>
+    <ptLine id="0" line="123" type="bus">
+        <busStop id="stopA"/>
+        <busStop id="stopB"/>
+        <busStop id="stopC"/>
+    </ptLine>
+</additional>
+```
+
+## Example Output
+
+The used busStops must be defined in an additional file and passed with option **-s** when running the tool.
+The resulting bus definition may look like this:
+
+```
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="bus" vClass="bus"/>
+    <route id="bus_123:0"" edges="110450334#1 110450334#2 338412122 391493949 391493947 391493950#0 391493950#1 391493952#0 391493952#1 391493952#2 391493954#0 391493954#1 391493954#2 391493954#3" >
+        <stop busStop="stopA" duration="20" until="35.0"/> 
+        <stop busStop="stopB" duration="20" until="101.0"/> 
+        <stop busStop="stopC" duration="20" until="221.0"/>
+    </route>
+    <flow id="bus_123:0" type="bus" route="bus_123:0" begin="0.0" end="3600.0" period="600" line="123:0" /> 
+</routes>
+```
+
+## Further Options
+
+- **--types**: only export lines with the given list of types
+- **--bus.parking**: let busses clear the road while stopping
+- **--vtype-prefix**: prefix for generated vehicle types (to allow combining multiple runs in the same simulation)
+- **--stop-duration**: minimum duration for stops (default 20)
+- **--stop-duration.slack**: time to reserve in the schedule per stop (default 10)
+- **--speedfactor.bus**: assumed relative travel speed of busses (default 0.95)
+- **--speedfactor.tram**: assumed relative travel speed of trams (default 1)
+- **--night**: only export lines that run during the night (by default, only lines running during the day are used)
+- **--begin**: flow begin time in output (default 0)
+- **--end**: flow end time in output (default 3600)
+- **--min-stops**: minimum number of stops to use a line (default 2)
+- **--flow-attribute**: additional attributes to include in the flows (i.e. `"departSpeed=\"max\""`)
+- **--extend-to-fringe**: whether vehicles should start on the first route edge rather than the first stop
+- **--random-begin**: whether to set the flow begin time to a random value between options **--begin** and the period of the line
+- **--no-vtypes**: whether to skip writing vTypes for the output
+- **--seed**: set random seed
+- **--ignore-errors**: ignore various input errors
+- **--human-readable-time**: write all times as (H:M:S)
+- **--verbose**: more output
+
+## Available ptLine Attributes
+
+These values have the following meanings:
+
+| Attribute Name    | Value Type                        | Default    | Description                                     |
+| ----------------- | --------------------------------- | ------ | --------------------------------------------------- |
+| **id**            | id (string)     | \-     | The id of the public transport relation (usually from OSM)   |
+| **type**          | string (enum)   | \-     | The [route type](https://wiki.openstreetmap.org/wiki/Relation:route) [bus, tram, train, subway, light_rail, monorail, trolleybus, minibus, share_taxi ,aerialway, ferry] |
+| **line**          | string          | \-     | The official line reference (must not be unique) |
+| **vClass**        | string          | \-     | [sumo vehicle class](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#abstract_vehicle_class) |
+| period            | time (s, H:M:S) | **--period** (600)   | The service period   |
+| night_service     | string (enum)   | false   | The service period   | whether the line runs at night [yes, no, only] |
+| name              | string          |         | Long name for the line |
+| color             | [color](../Basics/Notation.md#referenced_data_types)  |         | Official line color |
+
+
+
 
 # tileGet.py
 
@@ -213,4 +319,18 @@ The given .sumocfg file only needs to include the network and any additional inf
 
 !!! caution
     Option **--save-state.period 1** can slow down a simulation significantly.
+
+# runSeeds.py
+
+Run a (sumo) configuration multiple times with different seeds.
+
+Example:
+
+```
+python tools/runSeeds.py -k test.sumocfg --seeds 7,11,13
+```
+
+- option **--seeds** can either be given as a list or as a range (`0:100`).  
+- the application path can be set with option **--application** (**-a**)
+- option **--output-prefix** (**-p**) can be used to define a prefix for all written output files. The string "SEED" is replaced by the current seed. (default prefix is "SEED.")
 

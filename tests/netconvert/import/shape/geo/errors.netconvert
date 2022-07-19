@@ -1,3 +1,4 @@
+Warning: Could not find geo coordinate system, assuming WGS84.
 Warning: Edge '193442944' connects identical nodes, skipping.
 Warning: Found sharp turn with radius 4.57 at the start of edge '317538660'.
 Warning: Found angle of 105.16 degrees at edge '474640023', segment 2.

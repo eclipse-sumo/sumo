@@ -36,3 +36,6 @@ preserve_old_route
 
 # using zones for start / end
 with_taz
+
+# see #9837
+looped_twice

@@ -4,6 +4,9 @@ junctionTaz
 # Copy of basic
 basic
 
+# Parameters in persons
+param
+
 # person with a type
 vtype
 
@@ -18,6 +21,9 @@ car_type
 
 # car and walk possible
 car_walk
+
+# car and walk possible detailed output
+car_walk_detail
 
 # like car_walk but the network has sidewalks
 car_walk_sidewalk
@@ -103,6 +109,9 @@ car_public_walk4
 
 # bug: car always drives to the end of the access edge
 car_public_walk5
+
+# Copy of car_public_walk
+car_public_walk_detail
 
 # output bus route as well
 ptline_routing

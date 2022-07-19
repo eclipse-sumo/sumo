@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2002-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -95,7 +95,6 @@ public:
         ApproachingVehicleInformation(const SUMOTime _arrivalTime, const SUMOTime _leavingTime,
                                       const double _arrivalSpeed, const double _leaveSpeed,
                                       const bool _willPass,
-                                      const SUMOTime _arrivalTimeBraking,
                                       const double _arrivalSpeedBraking,
                                       const SUMOTime _waitingTime,
                                       const double _dist,
@@ -105,7 +104,6 @@ public:
             arrivalTime(_arrivalTime), leavingTime(_leavingTime),
             arrivalSpeed(_arrivalSpeed), leaveSpeed(_leaveSpeed),
             willPass(_willPass),
-            arrivalTimeBraking(_arrivalTimeBraking),
             arrivalSpeedBraking(_arrivalSpeedBraking),
             waitingTime(_waitingTime),
             dist(_dist),
@@ -123,8 +121,6 @@ public:
         const double leaveSpeed;
         /// @brief Whether the vehicle wants to pass the link (@todo: check semantics)
         const bool willPass;
-        /// @brief The time the vehicle's front arrives at the link if it starts braking
-        const SUMOTime arrivalTimeBraking;
         /// @brief The estimated speed with which the vehicle arrives at the link if it starts braking(for headway computation)
         const double arrivalSpeedBraking;
         /// @brief The waiting duration at the current link
@@ -135,10 +131,6 @@ public:
         const double speed;
         /// @brief The lateral offset from the center of the entering lane
         const double latOffset;
-
-    private:
-        /// invalidated assignment operator
-        ApproachingVehicleInformation& operator=(const ApproachingVehicleInformation& s) = delete;
 
     };
 
@@ -205,7 +197,7 @@ public:
      */
     void setApproaching(const SUMOVehicle* approaching, const SUMOTime arrivalTime,
                         const double arrivalSpeed, const double leaveSpeed, const bool setRequest,
-                        const SUMOTime arrivalTimeBraking, const double arrivalSpeedBraking,
+                        const double arrivalSpeedBraking,
                         const SUMOTime waitingTime, double dist, double latOffset);
 
     /** @brief Sets the information about an approaching vehicle */
@@ -254,12 +246,13 @@ public:
      * @param[in] decel The maximum deceleration of the checking vehicle
      * @param[in] waitingTime The waiting time of the checking vehicle
      * @param[in] collectFoes If a vector is passed the return value is always False, instead all blocking foes are collected and inserted into this vector
+     * @param[in] lastWasContRed Whether the link which is checked, is an internal junction link where the entry has red
      * @return Whether this link is blocked
      * @note Since this needs to be called without a SUMOVehicle (TraCI), we cannot simply pass the checking vehicle itself
      **/
     bool blockedAtTime(SUMOTime arrivalTime, SUMOTime leaveTime, double arrivalSpeed, double leaveSpeed,
                        bool sameTargetLane, double impatience, double decel, SUMOTime waitingTime,
-                       BlockingFoes* collectFoes = nullptr, const SUMOTrafficObject* ego = nullptr) const;
+                       BlockingFoes* collectFoes = nullptr, const SUMOTrafficObject* ego = nullptr, bool lastWasContRed = false) const;
 
 
     bool isBlockingAnyone() const {
@@ -444,8 +437,8 @@ public:
     /// @brief whether this is a link past an internal junction which currently has priority
     bool lastWasContMajor() const;
 
-    /// @brief whether this is a link past an internal junction which currently has green major
-    bool lastWasContMajorGreen() const;
+    /// @brief whether this is a link past an internal junction where the entry to the junction currently has the given state
+    bool lastWasContState(LinkState linkState) const;
 
     /** @brief Returns the cumulative length of all internal lanes after this link
      *  @return sum of the lengths of all internal lanes following this link
@@ -626,6 +619,8 @@ private:
     /// @brief compute point of divergence for geomatries with a common start or end
     double computeDistToDivergence(const MSLane* lane, const MSLane* sibling, double minDist, bool sameSource) const;
 
+    /// @brief compute arrival time if foe vehicle is braking for ego
+    static SUMOTime computeFoeArrivalTimeBraking(SUMOTime arrivalTime, const SUMOVehicle* foe, SUMOTime foeArrivalTime, double impatience, double dist, double& fasb);
 
     /// @brief check whether the given vehicle positions overlap laterally
     static bool lateralOverlap(double posLat, double width, double posLat2, double width2);
@@ -740,6 +735,9 @@ private:
 
     /// @brief whether this connection is an indirect turning movement
     const bool myAmIndirect;
+
+    /// @brief the turning radius for this link or doublemax for straight links
+    double myRadius;
 
     /// @brief the junction to which this link belongs
     MSJunction* myJunction;

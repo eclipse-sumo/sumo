@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2012-2021 German Aerospace Center (DLR) and others.
+# Copyright (C) 2012-2022 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -46,7 +46,7 @@ def parse_args(args):
                          help="brightness for polygons (float from [0,1] or 'random')")
     optParser.add_option("-l", "--layer", default=100, help="layer for generated polygons")
     optParser.add_option("--geo", action="store_true",
-                         default=False, help="write polgyons with geo-coordinates")
+                         default=False, help="write polygons with geo-coordinates")
     optParser.add_option("--internal", action="store_true",
                          default=False, help="include internal edges in generated shapes")
     optParser.add_option("--spread", type="float", help="spread polygons laterally to avoid overlap")
@@ -88,7 +88,7 @@ SPREAD_MAX = [0]
 
 
 def getSpread(lanes):
-    """find the smalles spread value that is available for all lanes"""
+    """find the smallest spread value that is available for all lanes"""
     cands = [0]
     for i in range(1, SPREAD_MAX[0] + 2):
         cands += [i, -i]
@@ -193,9 +193,10 @@ def parseRoutes(options):
     keep = None
     if options.filterOutputFile is not None:
         keep = set()
-        for line in open(options.filterOutputFile):
-            if line.startswith('edge:'):
-                keep.add(line.replace('edge:', '').strip())
+        with open(options.filterOutputFile) as filterOutput:
+            for line in filterOutput:
+                if line.startswith('edge:'):
+                    keep.add(line.replace('edge:', '').strip())
 
     for routefile in options.routefiles:
         print("parsing %s" % routefile)

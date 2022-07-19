@@ -1,5 +1,0 @@
-Error: Attribute 'endPos' in definition of a stop is not of type float.
-Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop on lane 'gneE1_0'
-Error: Attribute 'endPos' in definition of a stop is empty.
-Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop on lane 'gneE1_0'
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.16Sep101129.5652\netedit.gui\demandElements\stop\lane\load\endPos\input_routes.rou.xml failed.

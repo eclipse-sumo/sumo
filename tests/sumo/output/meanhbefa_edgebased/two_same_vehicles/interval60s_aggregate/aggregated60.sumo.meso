@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-06-18 12:23:16 by Eclipse SUMO sumo Version v1_13_0+0980-15ac9f724ae
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <additional-files value="input_routes.rou.xml,input_additional.add.xml,input_additional2.add.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+    </output>
+
+    <time>
+        <begin value="0"/>
+        <end value="150"/>
+    </time>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+    </mesoscopic>
+
+</configuration>
+-->
+
+<meandata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/meandata_file.xsd">
+    <interval begin="0.00" end="60.00" id="dump_60">
+        <edge id="AGGREGATED" sampledSeconds="100.00" numEdges="44" CO_abs="1925.000000" CO2_abs="211222.222222" HC_abs="13.305556" PMx_abs="1.247222" NOx_abs="69.527778" fuel_abs="67372.222222" electricity_abs="0"
+            CO_normed="6.562500" CO2_normed="720.075758" HC_normed="0.045360" PMx_normed="0.004252" NOx_normed="0.237027" fuel_normed="229.678030" electricity_normed="0"
+            traveltime="1760.00" CO_perVeh="33880.000000" CO2_perVeh="3717511.111111" HC_perVeh="234.177778" PMx_perVeh="21.951111" NOx_perVeh="1223.688889" fuel_perVeh="1185751.111111" electricity_perVeh="0"/>
+    </interval>
+    <interval begin="60.00" end="120.00" id="dump_60">
+        <edge id="AGGREGATED" sampledSeconds="120.00" numEdges="44" CO_abs="2310.000000" CO2_abs="253466.666667" HC_abs="15.966667" PMx_abs="1.496667" NOx_abs="83.433333" fuel_abs="80846.666667" electricity_abs="0"
+            CO_normed="7.875000" CO2_normed="864.090909" HC_normed="0.054432" PMx_normed="0.005102" NOx_normed="0.284432" fuel_normed="275.613636" electricity_normed="0"
+            traveltime="1760.00" CO_perVeh="33880.000000" CO2_perVeh="3717511.111111" HC_perVeh="234.177778" PMx_perVeh="21.951111" NOx_perVeh="1223.688889" fuel_perVeh="1185751.111111" electricity_perVeh="0"/>
+    </interval>
+    <interval begin="120.00" end="150.00" id="dump_60">
+        <edge id="AGGREGATED" sampledSeconds="60.00" numEdges="44" CO_abs="1155.000000" CO2_abs="126733.333333" HC_abs="7.983333" PMx_abs="0.748333" NOx_abs="41.716667" fuel_abs="40423.333333" electricity_abs="0"
+            CO_normed="7.875000" CO2_normed="864.090909" HC_normed="0.054432" PMx_normed="0.005102" NOx_normed="0.284432" fuel_normed="275.613636" electricity_normed="0"
+            traveltime="1760.00" CO_perVeh="33880.000000" CO2_perVeh="3717511.111111" HC_perVeh="234.177778" PMx_perVeh="21.951111" NOx_perVeh="1223.688889" fuel_perVeh="1185751.111111" electricity_perVeh="0"/>
+    </interval>
+</meandata>

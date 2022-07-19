@@ -1,8 +1,16 @@
 # each direction gets an exclusive green phase
 prio
+
+# actuation
+actuated
 2green
 leftTurnPhase
 
 # declare signal groups for pedestrian crossings
 pedestrians
 template
+
+# convert from SUMO tll to csv
+reverseGroup
+reverse
+fromNet

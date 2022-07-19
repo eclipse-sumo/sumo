@@ -1,0 +1,15 @@
+Loading net-file from 'net.net.xml' ... done (11ms).
+Loading additional-files from 'input_additional.add.xml' ... done (1ms).
+Loading additional-files from 'input_additional2.add.xml' ... done (0ms).
+Loading done.
+Simulation version v1_11_0+0403-0176cbb started with time: 0.00
+Simulation ended at time: 300.00
+Reason: The final simulation step has been reached.
+Statistics (avg):
+ RouteLength: 0.00
+ Speed: 0.00
+ Duration: 0.00
+ WaitingTime: 0.00
+ TimeLoss: 0.00
+ DepartDelay: 0.00
+

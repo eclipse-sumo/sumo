@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -35,7 +35,7 @@
 // ===========================================================================
 MSOffTrafficLightLogic::MSOffTrafficLightLogic(MSTLLogicControl& tlcontrol,
         const std::string& id) :
-    MSTrafficLightLogic(tlcontrol, id, "off", TrafficLightType::OFF, 0, std::map<std::string, std::string>()) {
+    MSTrafficLightLogic(tlcontrol, id, "off", 0, TrafficLightType::OFF, 0, Parameterised::Map()) {
     myDefaultCycleTime = TIME2STEPS(120);
 }
 
@@ -87,7 +87,7 @@ MSOffTrafficLightLogic::rebuildPhase() {
         delete *i;
     }
     myPhaseDefinition.clear();
-    myPhaseDefinition.push_back(new MSPhaseDefinition(TIME2STEPS(120), state, -1));
+    myPhaseDefinition.push_back(new MSPhaseDefinition(TIME2STEPS(120), state));
 }
 
 

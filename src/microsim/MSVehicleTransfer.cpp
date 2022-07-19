@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -61,7 +61,7 @@ MSVehicleTransfer::add(const SUMOTime t, MSVehicle* veh) {
         veh->getLaneChangeModel().endLaneChangeManeuver(MSMoveReminder::NOTIFICATION_TELEPORT);
         MSNet::getInstance()->informVehicleStateListener(veh, MSNet::VehicleState::STARTING_TELEPORT);
         if (veh->succEdge(1) == nullptr) {
-            WRITE_WARNINGF("Vehicle '%' teleports beyond arrival edge '%', time %.", veh->getID(), veh->getEdge()->getID(), time2string(t));
+            WRITE_WARNINGF("Vehicle '%' teleports beyond arrival edge '%', time=%.", veh->getID(), veh->getEdge()->getID(), time2string(t));
             veh->onRemovalFromNet(MSMoveReminder::NOTIFICATION_TELEPORT_ARRIVED);
             MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(veh);
             return;
@@ -102,8 +102,16 @@ MSVehicleTransfer::checkInsertions(SUMOTime time) {
             // handle parking vehicles
             if (time != desc.myTransferTime) {
                 // avoid calling processNextStop twice in the transfer step
+                const MSLane* lane = desc.myVeh->getLane();
+                // lane must be locked because pedestrians may be added in during stop processing while existing passengers are being drawn simultaneously
+                if (lane != nullptr) {
+                    lane->getVehiclesSecure();
+                }
                 desc.myVeh->processNextStop(1);
                 desc.myVeh->updateParkingState();
+                if (lane != nullptr) {
+                    lane->releaseVehicles();
+                }
             }
             if (desc.myVeh->keepStopping(true)) {
                 i++;
@@ -153,17 +161,21 @@ MSVehicleTransfer::checkInsertions(SUMOTime time) {
                          e->getFreeLane(nullptr, vclass, departPos));
             // handle teleporting vehicles, lane may be 0 because permissions were modified by a closing rerouter or TraCI
             if (l != nullptr && l->freeInsertion(*(desc.myVeh), MIN2(l->getSpeedLimit(), desc.myVeh->getMaxSpeed()), 0, MSMoveReminder::NOTIFICATION_TELEPORT)) {
-                WRITE_WARNINGF("Vehicle '%' ends teleporting on edge '%', time %.", desc.myVeh->getID(), e->getID(), time2string(time));
+                WRITE_WARNINGF("Vehicle '%' ends teleporting on edge '%', time=%.", desc.myVeh->getID(), e->getID(), time2string(time));
                 MSNet::getInstance()->informVehicleStateListener(desc.myVeh, MSNet::VehicleState::ENDING_TELEPORT);
                 i = vehInfos.erase(i);
             } else {
+                // vehicle is visible while show-route is active. Make it's state more obvious
+                desc.myVeh->computeAngle();
+                desc.myVeh->setLateralPositionOnLane(-desc.myVeh->getLane()->getWidth() / 2);
+                desc.myVeh->invalidateCachedPosition();
                 // could not insert. maybe we should proceed in virtual space
                 if (desc.myProceedTime < 0) {
                     // initialize proceed time (delayed to avoid lane-order dependency in executeMove)
                     desc.myProceedTime = time + TIME2STEPS(e->getCurrentTravelTime(TeleportMinSpeed));
                 } else if (desc.myProceedTime < time) {
                     if (desc.myVeh->succEdge(1) == nullptr) {
-                        WRITE_WARNINGF("Vehicle '%' teleports beyond arrival edge '%', time %.", desc.myVeh->getID(), e->getID(), time2string(time));
+                        WRITE_WARNINGF("Vehicle '%' teleports beyond arrival edge '%', time=%.", desc.myVeh->getID(), e->getID(), time2string(time));
                         desc.myVeh->leaveLane(MSMoveReminder::NOTIFICATION_TELEPORT_ARRIVED);
                         MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(desc.myVeh);
                         i = vehInfos.erase(i);

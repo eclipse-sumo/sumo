@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -55,6 +55,7 @@
 #include <microsim/traffic_lights/MSTLLogicControl.h>
 #include "NLBuilder.h"
 #include "NLJunctionControlBuilder.h"
+#include "microsim/traffic_lights/NEMAController.h"
 
 
 // ===========================================================================
@@ -293,19 +294,26 @@ NLJunctionControlBuilder::closeTrafficLightLogic(const std::string& basePath) {
             // @note it is unclear how to apply the given offset in the context
             // of variable-length phases
             tlLogic = new MSActuatedTrafficLightLogic(getTLLogicControlToUse(),
-                    myActiveKey, myActiveProgram,
+                    myActiveKey, myActiveProgram, myOffset,
                     myActivePhases, step, (*i)->minDuration + myNet.getCurrentTimeStep(),
-                    myAdditionalParameter, basePath);
+                    myAdditionalParameter, basePath, myActiveConditions, myActiveAssignments, myActiveFunctions);
+            break;
+        case TrafficLightType::NEMA:
+            tlLogic = new NEMALogic(getTLLogicControlToUse(),
+                                    myActiveKey, myActiveProgram, myOffset,
+                                    myActivePhases, step, (*i)->minDuration + myNet.getCurrentTimeStep(),
+                                    myAdditionalParameter, basePath);
             break;
         case TrafficLightType::DELAYBASED:
             tlLogic = new MSDelayBasedTrafficLightLogic(getTLLogicControlToUse(),
-                    myActiveKey, myActiveProgram,
+                    myActiveKey, myActiveProgram, myOffset,
                     myActivePhases, step, (*i)->minDuration + myNet.getCurrentTimeStep(),
                     myAdditionalParameter, basePath);
             break;
         case TrafficLightType::STATIC:
             tlLogic = new MSSimpleTrafficLightLogic(getTLLogicControlToUse(),
-                                                    myActiveKey, myActiveProgram, TrafficLightType::STATIC,
+                                                    myActiveKey, myActiveProgram, myOffset,
+                                                    TrafficLightType::STATIC,
                                                     myActivePhases, step, firstEventOffset,
                                                     myAdditionalParameter);
             break;
@@ -402,6 +410,9 @@ NLJunctionControlBuilder::initTrafficLightLogic(const std::string& id, const std
     myActiveKey = id;
     myActiveProgram = programID;
     myActivePhases.clear();
+    myActiveConditions.clear();
+    myActiveAssignments.clear();
+    myActiveFunctions.clear();
     myAbsDuration = 0;
     myRequestSize = NO_REQUEST_SIZE;
     myLogicType = type;
@@ -411,23 +422,47 @@ NLJunctionControlBuilder::initTrafficLightLogic(const std::string& id, const std
 
 
 void
-NLJunctionControlBuilder::addPhase(SUMOTime duration, const std::string& state, const std::vector<int>& nextPhases, SUMOTime minDuration, SUMOTime maxDuration, const std::string& name, bool transient_notdecisional, bool commit, MSPhaseDefinition::LaneIdVector* targetLanes) {
+NLJunctionControlBuilder::addPhase(MSPhaseDefinition* phase) {
     // build and add the phase definition to the list
-    myActivePhases.push_back(new MSPhaseDefinition(duration, state, minDuration, maxDuration, nextPhases, name, transient_notdecisional, commit, targetLanes));
+    myActivePhases.push_back(phase);
     // add phase duration to the absolute duration
-    myAbsDuration += duration;
+    myAbsDuration += phase->duration;
+}
+
+
+bool
+NLJunctionControlBuilder::addCondition(const std::string& id, const std::string& value) {
+    if (myActiveConditions.count(id) == 0) {
+        myActiveConditions[id] = value;
+        return true;
+    } else {
+        return false;
+    }
 }
 
 
 void
-NLJunctionControlBuilder::addPhase(SUMOTime duration, const std::string& state, const std::vector<int>& nextPhases,
-                                   SUMOTime minDuration, SUMOTime maxDuration, const std::string& name) {
-    // build and add the phase definition to the list
-    myActivePhases.push_back(new MSPhaseDefinition(duration, state, minDuration, maxDuration, nextPhases, name));
-    // add phase duration to the absolute duration
-    myAbsDuration += duration;
+NLJunctionControlBuilder::addAssignment(const std::string& id, const std::string& check, const std::string& value) {
+    if (myActiveFunction.id == "") {
+        myActiveAssignments.push_back(std::make_tuple(id, check, value));
+    } else {
+        myActiveFunction.assignments.push_back(std::make_tuple(id, check, value));
+    }
 }
 
+
+void
+NLJunctionControlBuilder::addFunction(const std::string& id, int nArgs) {
+    myActiveFunction.id = id;
+    myActiveFunction.nArgs = nArgs;
+}
+
+void
+NLJunctionControlBuilder::closeFunction() {
+    myActiveFunctions[myActiveFunction.id] = myActiveFunction;
+    myActiveFunction.id = "";
+    myActiveFunction.assignments.clear();
+}
 
 void
 NLJunctionControlBuilder::closeJunctionLogic() {

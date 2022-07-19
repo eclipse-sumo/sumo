@@ -8,7 +8,7 @@ inductionloop, junction, multientryexit, polygon, route, person and
 vehicle, which correspond to individual modules. For a detailed list of
 available functions see the [pydoc generated documentation](https://sumo.dlr.de/pydoc/traci.html). The source code
 can be found at
-[\[1\]](https://github.com/eclipse/sumo/tree/master/tools/traci)
+[\[1\]](https://github.com/eclipse/sumo/tree/main/tools/traci)
 
 ## importing **traci** in a script
 
@@ -348,6 +348,16 @@ For this, the function `traci.start` accepts the optional arguments `traceFile` 
 When calling `traci.start([<commands>], traceFile=<LOG_FILE_PATH>)` all traci commands that were sent to sumo will be written to the given LOG_FILE_PATH.
 This allows re-running the scenario without the original runner script.
 When option `traceGetters=False` is set, only functions that change the simulation state are included in the log file. Functions that retrieve simulation data are technically not needed to reproduce a scenario but it may be useful to include them if the data retrieval functions are themselves the cause of a bug.
+
+### Determine why the TraCI client cannot connect
+
+Possibly, the arguments given to `traci.start` generated an error when launching SUMO. This will manifest as
+
+`traci.exceptions.FatalTraCIError: Could not connect.`
+
+To diagnose the problem, add options for writing a log file `traci.start` (i.e. `traci.start(['sumo', '-c', 'example.sumocfg', '--log', 'logfile.txt'])`
+After the script fails to start, look into the written logfile and fix the error reported therein.
+
 
 ## Usage Examples
 

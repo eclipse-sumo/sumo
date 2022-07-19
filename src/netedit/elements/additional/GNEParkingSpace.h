@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -34,9 +34,12 @@ class GNEParkingArea;
  * @class GNEParkingSpace
  * @brief vehicle space used by GNEParkingAreas
  */
-class GNEParkingSpace : public GNEAdditional {
+class GNEParkingSpace : public GNEAdditional, public Parameterised {
 
 public:
+    /// @brief Constructor
+    GNEParkingSpace(GNENet* net);
+
     /**@brief Constructor
      * @param[in] net pointer to GNENet of this additional element belongs
      * @param[in] parkingAreaParent pointer to Parking Area parent
@@ -50,18 +53,23 @@ public:
      */
     GNEParkingSpace(GNENet* net, GNEAdditional* parkingAreaParent, const Position& pos, const std::string& width,
                     const std::string& length, const std::string& angle, double slope, const std::string& name,
-                    const std::map<std::string, std::string>& parameters);
+                    const Parameterised::Map& parameters);
 
     /// @brief Destructor
     ~GNEParkingSpace();
 
-    /**@brief get move operation for the given shapeOffset
+    /**@brief get move operation
     * @note returned GNEMoveOperation can be nullptr
     */
-    GNEMoveOperation* getMoveOperation(const double shapeOffset);
+    GNEMoveOperation* getMoveOperation();
 
     /// @name Functions related with geometry of element
     /// @{
+    /**@brief write additional element into a xml file
+     * @param[in] device device in which write parameters of additional element
+     */
+    void writeAdditional(OutputDevice& device) const;
+
     /// @brief update pre-computed geometry information
     void updateGeometry();
 
@@ -102,6 +110,9 @@ public:
      */
     double getAttributeDouble(SumoXMLAttr key) const;
 
+    /// @brief get parameters map
+    const Parameterised::Map& getACParametersMap() const;
+
     /* @brief method for setting the attribute and letting the object perform additional changes
      * @param[in] key The attribute key
      * @param[in] value The new value
@@ -111,15 +122,10 @@ public:
 
     /* @brief method for checking if the key and their correspond attribute are valids
      * @param[in] key The attribute key
-     * @param[in] value The value asociated to key key
+     * @param[in] value The value associated to key key
      * @return true if the value is valid, false in other case
      */
     bool isValid(SumoXMLAttr key, const std::string& value);
-
-    /* @brief method for check if the value for certain attribute is set
-     * @param[in] key The attribute key
-     */
-    bool isAttributeEnabled(SumoXMLAttr key) const;
 
     /// @brief get PopPup ID (Used in AC Hierarchy)
     std::string getPopUpID() const;
@@ -137,6 +143,12 @@ protected:
 
     /// @brief Length of Parking Space
     std::string myLength;
+
+    /// @brief shape width of Parking Space
+    PositionVector myShapeWidth;
+
+    /// @brief shape length of Parking Space
+    PositionVector myShapeLength;
 
     /// @brief Angle of Parking Space
     std::string myAngle;

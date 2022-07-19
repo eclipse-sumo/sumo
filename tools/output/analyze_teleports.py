@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2012-2021 German Aerospace Center (DLR) and others.
+# Copyright (C) 2012-2022 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -19,9 +19,18 @@
 
 from __future__ import absolute_import
 from __future__ import print_function
+import os
 import sys
 import re
 from collections import defaultdict
+sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
+from sumolib.options import ArgumentParser  # noqa
+
+
+def parse_args():
+    optParser = ArgumentParser()
+    optParser.add_argument("logfile", help="log file")
+    return optParser.parse_args()
 
 
 def parse_log(logfile, edges=True, aggregate=3600):
@@ -104,4 +113,4 @@ def main(logfile):
 
 
 if __name__ == "__main__":
-    main(*sys.argv[1:])
+    main(parse_args().logfile)

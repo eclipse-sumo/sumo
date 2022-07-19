@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -71,7 +71,7 @@ time2string(SUMOTime t) {
         oss << "-";
     }
     // needed for signed zero errors, see #5926
-    t = abs(t);
+    t = llabs(t);
     const SUMOTime scale = (SUMOTime)pow(10, MAX2(0, 3 - gPrecision));
     if (scale > 1 && t != SUMOTime_MAX) {
         t = (t + scale / 2) / scale;
@@ -94,8 +94,9 @@ time2string(SUMOTime t) {
         oss << std::setw(2) << t / second;
         t %= second;
         if (t != 0 || TS < 1.) {
+            oss << ".";
             oss << std::setw(MIN2(3, gPrecision));
-            oss << "." << t;
+            oss << t;
         }
     } else {
         oss << t / second << ".";
@@ -112,7 +113,7 @@ elapsedMs2string(long long int t) {
             // round to seconds
             return time2string((t / 1000) * 1000);
         } else {
-            return toString(t / 1000.0) + "s";
+            return toString((double)t / 1000.0) + "s";
         }
     } else {
         return time2string(t) + "s";

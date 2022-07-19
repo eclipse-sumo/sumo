@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-07-12 17:39:03.166565 by aggregateBatteryOutput.py v1_14_0+0037-3c1b3cc0142
+  options: -i battery.txt -o aggregatebattery.txt -t 30
+-->
+
+<battery-export>
+    <timestep interval="0-29">
+        <vehicle id="veh0" energyConsumed="30.0" totalEnergyConsumed="30.0" totalEnergyRegenerated="30.0" energyChargedInTransit="30.0" energyChargedStopped="30.0" timeStopped="0.0" aggregateNumber="30.0"/>
+    </timestep>
+    <timestep interval="30-59">
+        <vehicle id="veh0" energyConsumed="30.0" totalEnergyConsumed="30.0" totalEnergyRegenerated="30.0" energyChargedInTransit="30.0" energyChargedStopped="30.0" timeStopped="0.0" aggregateNumber="30.0"/>
+    </timestep>
+    <timestep interval="60-89">
+        <vehicle id="veh0" energyConsumed="30.0" totalEnergyConsumed="30.0" totalEnergyRegenerated="30.0" energyChargedInTransit="30.0" energyChargedStopped="30.0" timeStopped="0.0" aggregateNumber="30.0"/>
+    </timestep>
+    <timestep interval="90-119">
+        <vehicle id="veh0" energyConsumed="30.0" totalEnergyConsumed="30.0" totalEnergyRegenerated="30.0" energyChargedInTransit="30.0" energyChargedStopped="30.0" timeStopped="0.0" aggregateNumber="30.0"/>
+    </timestep>
+    <timestep interval="120-149">
+        <vehicle id="veh0" energyConsumed="30.0" totalEnergyConsumed="30.0" totalEnergyRegenerated="30.0" energyChargedInTransit="30.0" energyChargedStopped="30.0" timeStopped="0.0" aggregateNumber="30.0"/>
+    </timestep>
+    <timestep interval="150-179">
+        <vehicle id="veh0" energyConsumed="30.0" totalEnergyConsumed="30.0" totalEnergyRegenerated="30.0" energyChargedInTransit="30.0" energyChargedStopped="30.0" timeStopped="0.0" aggregateNumber="30.0"/>
+    </timestep>
+    <timestep interval="180-209">
+        <vehicle id="veh0" energyConsumed="30.0" totalEnergyConsumed="30.0" totalEnergyRegenerated="30.0" energyChargedInTransit="30.0" energyChargedStopped="30.0" timeStopped="0.0" aggregateNumber="30.0"/>
+    </timestep>
+    <timestep interval="210-239">
+        <vehicle id="veh0" energyConsumed="30.0" totalEnergyConsumed="30.0" totalEnergyRegenerated="30.0" energyChargedInTransit="30.0" energyChargedStopped="30.0" timeStopped="0.0" aggregateNumber="30.0"/>
+    </timestep>
+    <timestep interval="240-269">
+        <vehicle id="veh0" energyConsumed="30.0" totalEnergyConsumed="30.0" totalEnergyRegenerated="30.0" energyChargedInTransit="30.0" energyChargedStopped="30.0" timeStopped="0.0" aggregateNumber="30.0"/>
+    </timestep>
+    <timestep interval="270-299">
+        <vehicle id="veh0" energyConsumed="30.0" totalEnergyConsumed="30.0" totalEnergyRegenerated="30.0" energyChargedInTransit="30.0" energyChargedStopped="30.0" timeStopped="0.0" aggregateNumber="30.0"/>
+    </timestep>
+    <timestep interval="300-329">
+        <vehicle id="veh0" energyConsumed="30.0" totalEnergyConsumed="30.0" totalEnergyRegenerated="30.0" energyChargedInTransit="30.0" energyChargedStopped="30.0" timeStopped="0.0" aggregateNumber="30.0"/>
+    </timestep>
+    <timestep interval="330-359">
+        <vehicle id="veh0" energyConsumed="30.0" totalEnergyConsumed="30.0" totalEnergyRegenerated="30.0" energyChargedInTransit="30.0" energyChargedStopped="30.0" timeStopped="0.0" aggregateNumber="30.0"/>
+    </timestep>
+    <timestep interval="360-389">
+        <vehicle id="veh0" energyConsumed="29.0" totalEnergyConsumed="29.0" totalEnergyRegenerated="29.0" energyChargedInTransit="29.0" energyChargedStopped="29.0" timeStopped="0.0" aggregateNumber="29.0"/>
+    </timestep>
+</battery-export>

@@ -4,11 +4,21 @@ basic
 # turn-alignment of bicycles in right-hand network
 bikes_righthand
 
+# turn-alignment of bicycles in right-hand network with default bike latAlignment=center
+bikes_righthand_center
+
 # lateral shift  (width-split) in lefthand networks
 bikes_lefthand
 
+# turn-alignment of bicycles in left-hand network with default bike latAlignment=center
+bikes_lefthand_center
+
 # lateral connection shift matches turn alignment
 bikes_lefthand_matching_shift
+
+# lateral connection shift matches turn alignment
+# default latAlignment=center
+bikes_lefthand_matching_shift_center
 
 # mopeds make an indirect left turn and wait at the internal junction until the flow across gets the green light. 
 moped_indirect_left

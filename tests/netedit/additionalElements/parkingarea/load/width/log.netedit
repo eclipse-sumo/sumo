@@ -1,3 +1,0 @@
-Error: Attribute 'width' in definition of parkingArea 'parkingArea_1' is not of type float.
-Error: Could not build parkingArea with ID 'parkingArea_2' in netedit; attribute width cannot be negative.
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.25Jun144408.484\netedit.gui\additionalElements\parkingarea\load\width\input_additionals.add.xml failed.

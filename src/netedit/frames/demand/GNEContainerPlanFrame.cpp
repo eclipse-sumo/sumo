@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -36,25 +36,22 @@
 
 GNEContainerPlanFrame::GNEContainerPlanFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet) :
     GNEFrame(horizontalFrameParent, viewNet, "ContainerPlans"),
-    myRouteHandler("", viewNet->getNet(), true) {
+    myRouteHandler("", viewNet->getNet(), true, false) {
 
     // create container types selector modul
-    myContainerSelector = new GNEFrameModuls::DemandElementSelector(this, {GNETagProperties::TagType::CONTAINER});
+    myContainerSelector = new DemandElementSelector(this, {GNETagProperties::TagType::CONTAINER});
 
     // Create tag selector for container plan
-    myContainerPlanTagSelector = new GNEFrameModuls::TagSelector(this, GNETagProperties::TagType::CONTAINERPLAN);
+    myContainerPlanTagSelector = new GNETagSelector(this, GNETagProperties::TagType::CONTAINERPLAN, GNE_TAG_TRANSPORT_EDGE);
 
     // Create container parameters
-    myContainerPlanAttributes = new GNEFrameAttributesModuls::AttributesCreator(this);
+    myContainerPlanAttributes = new GNEAttributesCreator(this);
 
-    // create myPathCreator Modul
-    myPathCreator = new GNEFrameModuls::PathCreator(this);
+    // create myPathCreator Module
+    myPathCreator = new GNEPathCreator(this);
 
-    // Create HierarchicalElementTree modul
-    myContainerHierarchy = new GNEFrameModuls::HierarchicalElementTree(this);
-
-    // set ContainerPlan tag type in tag selector
-    myContainerPlanTagSelector->setCurrentTagType(GNETagProperties::TagType::CONTAINERPLAN);
+    // Create GNEElementTree modul
+    myContainerHierarchy = new GNEElementTree(this);
 }
 
 
@@ -64,26 +61,26 @@ GNEContainerPlanFrame::~GNEContainerPlanFrame() {}
 void
 GNEContainerPlanFrame::show() {
     // get containers maps
-    const std::map<std::string, GNEDemandElement*>& containers = myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_CONTAINER);
-    const std::map<std::string, GNEDemandElement*>& containerFlows = myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_CONTAINERFLOW);
+    const auto& containers = myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_CONTAINER);
+    const auto& containerFlows = myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_CONTAINERFLOW);
     // Only show moduls if there is at least one container
     if ((containers.size() > 0) || (containerFlows.size() > 0)) {
         // show container selector
         myContainerSelector->showDemandElementSelector();
-        // refresh container plan tag selector
-        myContainerPlanTagSelector->refreshTagProperties();
+        // refresh tag selector
+        myContainerPlanTagSelector->refreshTagSelector();
         // set first container as demand element (this will call demandElementSelected() function)
         if (containers.size() > 0) {
-            myContainerSelector->setDemandElement(containers.begin()->second);
+            myContainerSelector->setDemandElement(*containers.begin());
         } else {
-            myContainerSelector->setDemandElement(containerFlows.begin()->second);
+            myContainerSelector->setDemandElement(*containerFlows.begin());
         }
     } else {
         // hide all moduls except helpCreation
         myContainerSelector->hideDemandElementSelector();
         myContainerPlanTagSelector->hideTagSelector();
-        myContainerPlanAttributes->hideAttributesCreatorModul();
-        myPathCreator->hidePathCreatorModul();
+        myContainerPlanAttributes->hideAttributesCreatorModule();
+        myPathCreator->hidePathCreatorModule();
         myContainerHierarchy->hideHierarchicalElementTree();
     }
     // show frame
@@ -110,13 +107,13 @@ GNEContainerPlanFrame::addContainerPlanElement(const GNEViewNetHelper::ObjectsUn
         return false;
     }
     // finally check that container plan selected is valid
-    if (myContainerPlanTagSelector->getCurrentTagProperties().getTag() == SUMO_TAG_NOTHING) {
+    if (myContainerPlanTagSelector->getCurrentTemplateAC() == nullptr) {
         myViewNet->setStatusBarText("Current selected container plan isn't valid.");
         return false;
     }
     // Obtain current container plan tag (only for improve code legibility)
-    SumoXMLTag containerPlanTag = myContainerPlanTagSelector->getCurrentTagProperties().getTag();
-    // declare flags for requierements
+    SumoXMLTag containerPlanTag = myContainerPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTag();
+    // declare flags for requirements
     const bool requireContainerStop = ((containerPlanTag == GNE_TAG_TRANSPORT_CONTAINERSTOP) || (containerPlanTag == GNE_TAG_TRANSHIP_CONTAINERSTOP) ||
                                        (containerPlanTag == GNE_TAG_STOPCONTAINER_CONTAINERSTOP));
     const bool requireEdge = ((containerPlanTag == GNE_TAG_TRANSPORT_EDGE) || (containerPlanTag == GNE_TAG_TRANSHIP_EDGE) ||
@@ -132,7 +129,7 @@ GNEContainerPlanFrame::addContainerPlanElement(const GNEViewNetHelper::ObjectsUn
 }
 
 
-GNEFrameModuls::PathCreator*
+GNEPathCreator*
 GNEContainerPlanFrame::getPathCreator() const {
     return myPathCreator;
 }
@@ -144,29 +141,29 @@ GNEContainerPlanFrame::getPathCreator() const {
 void
 GNEContainerPlanFrame::tagSelected() {
     // first check if container is valid
-    if (myContainerPlanTagSelector->getCurrentTagProperties().getTag() != SUMO_TAG_NOTHING) {
+    if (myContainerPlanTagSelector->getCurrentTemplateAC()) {
         // Obtain current container plan tag (only for improve code legibility)
-        SumoXMLTag containerPlanTag = myContainerPlanTagSelector->getCurrentTagProperties().getTag();
+        SumoXMLTag containerPlanTag = myContainerPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTag();
         // show container attributes
-        myContainerPlanAttributes->showAttributesCreatorModul(myContainerPlanTagSelector->getCurrentTagProperties(), {});
+        myContainerPlanAttributes->showAttributesCreatorModule(myContainerPlanTagSelector->getCurrentTemplateAC(), {});
         // get previous container plan
         GNEEdge* previousEdge = myContainerSelector->getContainerPlanPreviousEdge();
         // set path creator mode depending if previousEdge exist
         if (previousEdge) {
             // set path creator mode
-            myPathCreator->showPathCreatorModul(containerPlanTag, true, false);
+            myPathCreator->showPathCreatorModule(containerPlanTag, true, false);
             // add previous edge
             myPathCreator->addEdge(previousEdge, false, false);
         } else {
             // set path creator mode
-            myPathCreator->showPathCreatorModul(containerPlanTag, false, false);
+            myPathCreator->showPathCreatorModule(containerPlanTag, false, false);
         }
         // show container hierarchy
         myContainerHierarchy->showHierarchicalElementTree(myContainerSelector->getCurrentDemandElement());
     } else {
         // hide moduls if tag selecte isn't valid
-        myContainerPlanAttributes->hideAttributesCreatorModul();
-        myPathCreator->hidePathCreatorModul();
+        myContainerPlanAttributes->hideAttributesCreatorModule();
+        myPathCreator->hidePathCreatorModule();
         myContainerHierarchy->hideHierarchicalElementTree();
     }
 }
@@ -179,44 +176,44 @@ GNEContainerPlanFrame::demandElementSelected() {
         // show container plan tag selector
         myContainerPlanTagSelector->showTagSelector();
         // now check if container plan selected is valid
-        if (myContainerPlanTagSelector->getCurrentTagProperties().getTag() != SUMO_TAG_NOTHING) {
+        if (myContainerPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTag() != SUMO_TAG_NOTHING) {
             // call tag selected
             tagSelected();
         } else {
-            myContainerPlanAttributes->hideAttributesCreatorModul();
-            myPathCreator->hidePathCreatorModul();
+            myContainerPlanAttributes->hideAttributesCreatorModule();
+            myPathCreator->hidePathCreatorModule();
             myContainerHierarchy->hideHierarchicalElementTree();
         }
     } else {
         // hide moduls if container selected isn't valid
         myContainerPlanTagSelector->hideTagSelector();
-        myContainerPlanAttributes->hideAttributesCreatorModul();
-        myPathCreator->hidePathCreatorModul();
+        myContainerPlanAttributes->hideAttributesCreatorModule();
+        myPathCreator->hidePathCreatorModule();
         myContainerHierarchy->hideHierarchicalElementTree();
     }
 }
 
 
 void
-GNEContainerPlanFrame::createPath() {
+GNEContainerPlanFrame::createPath(const bool /*useLastRoute*/) {
     // first check that all attributes are valid
     if (!myContainerPlanAttributes->areValuesValid()) {
-        myViewNet->setStatusBarText("Invalid " + myContainerPlanTagSelector->getCurrentTagProperties().getTagStr() + " parameters.");
+        myViewNet->setStatusBarText("Invalid " + myContainerPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTagStr() + " parameters.");
     } else {
         // check if container plan can be created
         if (myRouteHandler.buildContainerPlan(
-                    myContainerPlanTagSelector->getCurrentTagProperties().getTag(),
+                    myContainerPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTag(),
                     myContainerSelector->getCurrentDemandElement(),
                     myContainerPlanAttributes,
-                    myPathCreator)) {
-            // refresh HierarchicalElementTree
+                    myPathCreator, true)) {
+            // refresh GNEElementTree
             myContainerHierarchy->refreshHierarchicalElementTree();
             // abort path creation
             myPathCreator->abortPathCreation();
             // refresh using tagSelected
             tagSelected();
             // refresh containerPlan attributes
-            myContainerPlanAttributes->refreshRows();
+            myContainerPlanAttributes->refreshAttributesCreator();
         }
     }
 }

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2006-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2006-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -64,8 +64,8 @@ ODMatrix::~ODMatrix() {
 
 
 bool
-ODMatrix::add(double vehicleNumber, SUMOTime begin,
-              SUMOTime end, const std::string& origin, const std::string& destination,
+ODMatrix::add(double vehicleNumber, const std::pair<SUMOTime, SUMOTime>& beginEnd,
+              const std::string& origin, const std::string& destination,
               const std::string& vehicleType, const bool originIsEdge, const bool destinationIsEdge) {
     myNumLoaded += vehicleNumber;
     if (!originIsEdge && !destinationIsEdge && myDistricts.get(origin) == nullptr && myDistricts.get(destination) == nullptr) {
@@ -95,8 +95,8 @@ ODMatrix::add(double vehicleNumber, SUMOTime begin,
         return false;
     }
     ODCell* cell = new ODCell();
-    cell->begin = begin;
-    cell->end = end;
+    cell->begin = beginEnd.first;
+    cell->end = beginEnd.second;
     cell->origin = origin;
     cell->destination = destination;
     cell->vehicleType = vehicleType;
@@ -104,6 +104,12 @@ ODMatrix::add(double vehicleNumber, SUMOTime begin,
     cell->originIsEdge = originIsEdge;
     cell->destinationIsEdge = destinationIsEdge;
     myContainer.push_back(cell);
+    if (myBegin == -1 || cell->begin < myBegin) {
+        myBegin = cell->begin;
+    }
+    if (cell->end > myEnd) {
+        myEnd = cell->end;
+    }
     return true;
 }
 
@@ -129,7 +135,8 @@ ODMatrix::add(const std::string& id, const SUMOTime depart,
     if (cell == nullptr) {
         const SUMOTime interval = string2time(OptionsCont::getOptions().getString("aggregation-interval"));
         const int intervalIdx = (int)(depart / interval);
-        if (add(1., intervalIdx * interval, (intervalIdx + 1) * interval, fromTaz, toTaz, vehicleType, originIsEdge, destinationIsEdge)) {
+        if (add(1., std::make_pair(intervalIdx * interval, (intervalIdx + 1) * interval),
+                fromTaz, toTaz, vehicleType, originIsEdge, destinationIsEdge)) {
             cell = myContainer.back();
             odList.push_back(cell);
         } else {
@@ -422,10 +429,10 @@ ODMatrix::getNextNonCommentLine(LineReader& lr) {
 SUMOTime
 ODMatrix::parseSingleTime(const std::string& time) {
     if (time.find('.') == std::string::npos) {
-        throw OutOfBoundsException();
+        throw NumberFormatException("no separator");
     }
-    std::string hours = time.substr(0, time.find('.'));
-    std::string minutes = time.substr(time.find('.') + 1);
+    const std::string hours = time.substr(0, time.find('.'));
+    const std::string minutes = time.substr(time.find('.') + 1);
     return TIME2STEPS(StringUtils::toInt(hours) * 3600 + StringUtils::toInt(minutes) * 60);
 }
 
@@ -435,16 +442,16 @@ ODMatrix::readTime(LineReader& lr) {
     std::string line = getNextNonCommentLine(lr);
     try {
         StringTokenizer st(line, StringTokenizer::WHITECHARS);
-        myBegin = parseSingleTime(st.next());
-        myEnd = parseSingleTime(st.next());
-        if (myBegin >= myEnd) {
-            throw ProcessError("Matrix begin time " + time2string(myBegin) + " is larger than end time " + time2string(myEnd) + ".");
+        const SUMOTime begin = parseSingleTime(st.next());
+        const SUMOTime end = parseSingleTime(st.next());
+        if (begin >= end) {
+            throw ProcessError("Matrix begin time " + time2string(begin) + " is larger than end time " + time2string(end) + ".");
         }
-        return std::make_pair(myBegin, myEnd);
+        return std::make_pair(begin, end);
     } catch (OutOfBoundsException&) {
         throw ProcessError("Broken period definition '" + line + "'.");
-    } catch (NumberFormatException&) {
-        throw ProcessError("Broken period definition '" + line + "'.");
+    } catch (NumberFormatException& e) {
+        throw ProcessError("Broken period definition '" + line + "' (" + e.what() + ").");
     }
 }
 
@@ -474,13 +481,8 @@ ODMatrix::readV(LineReader& lr, double scale,
         }
     }
 
-    // parse time
-    std::pair<SUMOTime, SUMOTime> times = readTime(lr);
-    SUMOTime begin = times.first;
-    SUMOTime end = times.second;
-
-    // factor
-    double factor = readFactor(lr, scale);
+    const std::pair<SUMOTime, SUMOTime> beginEnd = readTime(lr);
+    const double factor = readFactor(lr, scale);
 
     // districts
     line = getNextNonCommentLine(lr);
@@ -516,7 +518,7 @@ ODMatrix::readV(LineReader& lr, double scale,
                     assert(di != names.end());
                     double vehNumber = StringUtils::toDouble(st2.next()) * factor;
                     if (vehNumber != 0) {
-                        add(vehNumber, begin, end, *si, *di, vehType);
+                        add(vehNumber, beginEnd, *si, *di, vehType);
                     }
                     if (di == names.end()) {
                         throw ProcessError("More entries than districts found.");
@@ -549,13 +551,8 @@ ODMatrix::readO(LineReader& lr, double scale,
         }
     }
 
-    // parse time
-    std::pair<SUMOTime, SUMOTime> times = readTime(lr);
-    SUMOTime begin = times.first;
-    SUMOTime end = times.second;
-
-    // factor
-    double factor = readFactor(lr, scale);
+    const std::pair<SUMOTime, SUMOTime> beginEnd = readTime(lr);
+    const double factor = readFactor(lr, scale);
 
     // parse the cells
     while (lr.hasMore()) {
@@ -572,7 +569,7 @@ ODMatrix::readO(LineReader& lr, double scale,
             std::string destD = st2.next();
             double vehNumber = StringUtils::toDouble(st2.next()) * factor;
             if (vehNumber != 0) {
-                add(vehNumber, begin, end, sourceD, destD, vehType);
+                add(vehNumber, beginEnd, sourceD, destD, vehType);
             }
         } catch (OutOfBoundsException&) {
             throw ProcessError("Missing at least one information in line '" + line + "'.");
@@ -695,8 +692,8 @@ ODMatrix::loadMatrix(OptionsCont& oc) {
 
 void
 ODMatrix::addTazRelWeight(const std::string intervalID, const std::string& from, const std::string& to,
-        double val, double beg, double end) {
-    add(val, TIME2STEPS(beg), TIME2STEPS(end), from, to, myVType == "" ? intervalID : myVType);
+                          double val, double beg, double end) {
+    add(val, std::make_pair(TIME2STEPS(beg), TIME2STEPS(end)), from, to, myVType == "" ? intervalID : myVType);
 }
 
 

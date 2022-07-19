@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-05-28 10:26:08 by Eclipse SUMO sumo Version v1_9_2+0095-99fe47a
+<!-- generated on 2022-03-29 15:42:56 by Eclipse SUMO sumo Version v1_12_0+1743-2adbd7c
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -20,26 +20,26 @@
     </report>
 
     <traci_server>
-        <remote-port value="43945"/>
+        <remote-port value="58756"/>
     </traci_server>
 
 </configuration>
 -->
 
-<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_9_2+0095-99fe47a" time="50.00" type="micro">
+<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_12_0+1743-2adbd7c" time="50.00" type="micro">
     <route id="r1" state="1" edges="4/1to3/1 3/1to2/1 2/1to1/1 1/1to0/1"/>
     <delay number="3" begin="3" end="0" depart="0.00" time="0.00"/>
     <vType id="DEFAULT_VEHTYPE" length="3.00" minGap="2.00" maxSpeed="10.00" accel="0.8" decel="4.5" sigma="1.00"/>
     <vType id="t1" accel="3.00" decel="2.00" emergencyDecel="7.00" apparentDecel="6.00" sigma="1.00" tau="1.30"/>
     <vType id="t2" length="5.00" minGap="1.50" maxSpeed="20.00" color="yellow" accel="2.5" decel="4.5" sigma="0.5"/>
     <vType id="t2@veh2" length="5.00" minGap="1.50" maxSpeed="20.00" color="yellow" accel="3.00" decel="2.00" emergencyDecel="7.00" apparentDecel="6.00" sigma="1.00" tau="1.30"/>
-    <vehicle id="veh0" type="DEFAULT_VEHTYPE" depart="0.00" departPos="100.00" departSpeed="10.00" route="r1" distance="400 0" speedFactor="1.06" state="1048 0 1 100.00 0 18.32 49000 0 0" pos="6.83 3.83 2.00" speed="2.00 1.71" angle="270.00" posLat="0.00" waitingTime="100000 1 6000 17000">
+    <vehicle id="veh0" depart="0.00" departPos="100.00" departSpeed="10.00" route="r1" distance="400 0" speedFactor="1.0600" state="2072 0 1 100.00 0 18.32 49000 0 0" pos="6.83 3.83 2.00" speed="2.00 1.71" angle="270.00" posLat="0.00" waitingTime="100000 1 6000 17000">
         <device id="vehroute_veh0" state="0 0.00 10.00 100.00 0"/>
     </vehicle>
-    <vehicle id="veh1" type="t1" depart="10.00" departPos="100.00" departSpeed="10.00" route="r1" distance="0 0" speedFactor="1.06" state="1050 10000 0 100.00 0 10.95 49000 0 0" pos="397.31 392.31 1.70" speed="1.70 0.79" angle="270.00" posLat="0.00" waitingTime="100000 0">
+    <vehicle id="veh1" type="t1" depart="10.00" departPos="100.00" departSpeed="10.00" route="r1" distance="0 0" speedFactor="1.0600" state="2074 10000 0 100.00 0 10.95 49000 0 0" pos="397.31 392.31 1.70" speed="1.70 0.79" angle="270.00" posLat="0.00" waitingTime="100000 0">
         <device id="vehroute_veh1" state="0 0.00 10.00 100.00 0"/>
     </vehicle>
-    <vehicle id="veh2" type="t2@veh2" depart="20.00" departPos="100.00" departSpeed="10.00" route="r1" distance="0 0" speedFactor="1.01" state="1050 20000 0 100.00 0 2.18 49000 0 0" pos="370.97 365.97 6.46" speed="6.46 8.46" angle="270.00" posLat="0.00" waitingTime="100000 0">
+    <vehicle id="veh2" type="t2@veh2" depart="20.00" departPos="100.00" departSpeed="10.00" route="r1" distance="0 0" speedFactor="1.0104" state="2074 20000 0 100.00 0 2.18 49000 0 0" pos="370.97 365.97 6.45" speed="6.45 8.45" angle="270.00" posLat="0.00" waitingTime="100000 0">
         <device id="vehroute_veh2" state="0 0.00 10.00 100.00 0"/>
     </vehicle>
     <lane id="3/1to2/1_0">

@@ -1,0 +1,18 @@
+# all test check also the undo-redo of modifications
+# create connections
+create
+
+# delete connections
+delete
+
+# inspect connections
+inspect
+
+# inspect connections in a tls junction
+inspect_tls
+
+# inspect selected connections
+inspect_selected
+
+# inspect selected connections in a tls junction
+inspect_selected_tls

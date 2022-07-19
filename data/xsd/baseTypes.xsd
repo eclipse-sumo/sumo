@@ -40,6 +40,16 @@
         </xsd:union>
     </xsd:simpleType>
 
+    <xsd:simpleType name="periodType">
+        <xsd:union memberTypes="timeType">
+            <xsd:simpleType>
+                <xsd:restriction base="xsd:string">
+                    <xsd:pattern value="(exp)\(&FloatPattern;\)"/>
+                </xsd:restriction>
+            </xsd:simpleType>
+        </xsd:union>
+    </xsd:simpleType>
+
     <xsd:simpleType name="positiveIntType">
         <xsd:restriction base="xsd:int">
             <xsd:minExclusive value="0"/>
@@ -100,7 +110,7 @@
             </xsd:simpleType>
             <xsd:simpleType>
                 <xsd:restriction base="xsd:string">
-                    <xsd:pattern value="#[0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F]"/>
+                    <xsd:pattern value="#[0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F]([0-9a-fA-F][0-9a-fA-F])?"/>
                 </xsd:restriction>
             </xsd:simpleType>
         </xsd:union>
@@ -221,6 +231,9 @@
         <xsd:choice minOccurs="0" maxOccurs="unbounded">
             <xsd:element name="phase" type="phaseType"/>
             <xsd:element name="param" type="paramType"/>
+            <xsd:element name="condition" type="conditionType"/>
+            <xsd:element name="assignment" type="assignmentType"/>
+            <xsd:element name="function" type="functionType"/>
         </xsd:choice>
         <xsd:attribute name="id" type="xsd:string" use="required"/>
         <xsd:attribute name="type" type="tlTypeType" use="optional"/>
@@ -233,14 +246,22 @@
             <xsd:enumeration value="actuated"/>
             <xsd:enumeration value="delay_based"/>
             <xsd:enumeration value="static"/>
+            <xsd:enumeration value="NEMA"/>
             <!--xsd:enumeration value="rail"/  only for internal use -->
         </xsd:restriction>
     </xsd:simpleType>
 
     <xsd:complexType name="phaseType">
         <xsd:attribute name="duration" type="nonNegativeFloatType" use="required"/>
-        <xsd:attribute name="minDur" type="nonNegativeFloatType" use="optional"/>
-        <xsd:attribute name="maxDur" type="nonNegativeFloatType" use="optional"/>
+        <xsd:attribute name="minDur" type="nonNegativeFloatTypeWithErrorValue" use="optional"/>
+        <xsd:attribute name="maxDur" type="nonNegativeFloatTypeWithErrorValue" use="optional"/>
+        <xsd:attribute name="earliestEnd" type="nonNegativeFloatTypeWithErrorValue" use="optional"/>
+        <xsd:attribute name="latestEnd" type="nonNegativeFloatTypeWithErrorValue" use="optional"/>
+        <xsd:attribute name="earlyTarget" type="xsd:string" use="optional"/>
+        <xsd:attribute name="finalTarget" type="xsd:string" use="optional"/>
+        <xsd:attribute name="yellow" type="nonNegativeFloatType" use="optional"/>
+        <xsd:attribute name="red" type="nonNegativeFloatType" use="optional"/>
+        <xsd:attribute name="vehext" type="nonNegativeFloatType" use="optional"/>
         <xsd:attribute name="state" use="required">
             <xsd:simpleType>
                 <xsd:restriction base="xsd:string">
@@ -257,6 +278,25 @@
             </xsd:simpleType>
         </xsd:attribute>
         <xsd:attribute name="name" type="xsd:string" use="optional"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="conditionType">
+        <xsd:attribute name="id" type="xsd:string" use="required"/>
+        <xsd:attribute name="value" type="xsd:string" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="assignmentType">
+        <xsd:attribute name="id" type="xsd:string" use="required"/>
+        <xsd:attribute name="check" type="xsd:string" use="required"/>
+        <xsd:attribute name="value" type="xsd:string" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="functionType">
+        <xsd:choice minOccurs="1" maxOccurs="unbounded">
+            <xsd:element name="assignment" type="assignmentType"/>
+        </xsd:choice>
+        <xsd:attribute name="id" type="xsd:string" use="required"/>
+        <xsd:attribute name="nArgs" type="xsd:int" use="required"/>
     </xsd:complexType>
 
     <xsd:complexType name="paramType">
@@ -393,5 +433,9 @@
             <xsd:pattern value="[^\t\n\r|\\;,']+"/>
         </xsd:restriction>
     </xsd:simpleType>
+
+    <xsd:complexType name="includeType">
+        <xsd:attribute name="href" type="xsd:string"/>
+    </xsd:complexType>
 
 </xsd:schema>

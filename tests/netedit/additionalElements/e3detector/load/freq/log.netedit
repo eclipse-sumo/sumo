@@ -1,7 +1,0 @@
-Error: Attribute 'freq' in definition of e3Detector 'e3Detector_0' is not a time value.
-Error: detEntry must be defined within the definition of a e3Detector
-Error: detExit must be defined within the definition of a e3Detector
-Error: Could not build e3Detector with ID 'e3Detector_1' in netedit; attribute freq cannot be negative.
-Error: Could not build entry in netedit; e3Detector doesn't exist.
-Error: Could not build detExit in netedit; e3Detector doesn't exist.
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.28Jun150256.7928\netedit.gui\additionalElements\e3detector\load\freq\input_additionals.add.xml failed.

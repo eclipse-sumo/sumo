@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -27,8 +27,6 @@
 
 #include "GUITextureSubSys.h"
 
-#include "GNETexture_StopContainer.cpp"
-#include "GNETexture_StopContainerSelected.cpp"
 #include "GNETexture_E3.cpp"
 #include "GNETexture_E3Selected.cpp"
 #include "GNETexture_LaneBike.cpp"
@@ -37,19 +35,30 @@
 #include "GNETexture_Lock.cpp"
 #include "GNETexture_NotMoving.cpp"
 #include "GNETexture_NotMovingSelected.cpp"
-#include "GNETexture_StopPerson.cpp"
-#include "GNETexture_StopPersonSelected.cpp"
 #include "GNETexture_Rerouter.cpp"
 #include "GNETexture_RerouterSelected.cpp"
+#include "GNETexture_Rerouter_ClosingLaneReroute.cpp"
+#include "GNETexture_Rerouter_ClosingReroute.cpp"
+#include "GNETexture_Rerouter_DestProbReroute.cpp"
+#include "GNETexture_Rerouter_Interval.cpp"
+#include "GNETexture_Rerouter_ParkingAreaReroute.cpp"
+#include "GNETexture_Rerouter_RouteProbReroute.cpp"
 #include "GNETexture_RouteProbe.cpp"
 #include "GNETexture_RouteProbeSelected.cpp"
 #include "GNETexture_Stop.cpp"
+#include "GNETexture_StopContainer.cpp"
+#include "GNETexture_StopContainerSelected.cpp"
+#include "GNETexture_StopPerson.cpp"
+#include "GNETexture_StopPersonSelected.cpp"
 #include "GNETexture_StopSelected.cpp"
 #include "GNETexture_TLS.cpp"
+#include "GNETexture_TractionSubstation.cpp"
+#include "GNETexture_TractionSubstationSelected.cpp"
 #include "GNETexture_Vaporizer.cpp"
 #include "GNETexture_VaporizerSelected.cpp"
 #include "GNETexture_VariableSpeedSign.cpp"
 #include "GNETexture_VariableSpeedSignSelected.cpp"
+#include "GNETexture_VariableSpeedSign_Step.cpp"
 
 
 // ===========================================================================
@@ -67,25 +76,34 @@ GUITextureSubSys::GUITextureSubSys(FXApp* a) :
     // Fill map of textures
     myTextures[GUITexture::E3] = 0;
     myTextures[GUITexture::E3_SELECTED] = 0;
+    myTextures[GUITexture::LANE_BIKE] = 0;
+    myTextures[GUITexture::LANE_BUS] = 0;
+    myTextures[GUITexture::LANE_PEDESTRIAN] = 0;
     myTextures[GUITexture::LOCK] = 0;
     myTextures[GUITexture::NOTMOVING] = 0;
     myTextures[GUITexture::NOTMOVING_SELECTED] = 0;
     myTextures[GUITexture::REROUTER] = 0;
+    myTextures[GUITexture::REROUTER_CLOSINGLANEREROUTE] = 0;
+    myTextures[GUITexture::REROUTER_CLOSINGREROUTE] = 0;
+    myTextures[GUITexture::REROUTER_DESTPROBREROUTE] = 0;
+    myTextures[GUITexture::REROUTER_INTERVAL] = 0;
+    myTextures[GUITexture::REROUTER_PARKINGAREAREROUTE] = 0;
+    myTextures[GUITexture::REROUTER_ROUTEPROBREROUTE] = 0;
     myTextures[GUITexture::REROUTER_SELECTED] = 0;
     myTextures[GUITexture::ROUTEPROBE] = 0;
     myTextures[GUITexture::ROUTEPROBE_SELECTED] = 0;
+    myTextures[GUITexture::STOPPERSON] = 0;
+    myTextures[GUITexture::STOPPERSON_SELECTED] = 0;
+    myTextures[GUITexture::STOP] = 0;
+    myTextures[GUITexture::STOP_SELECTED] = 0;
     myTextures[GUITexture::TLS] = 0;
+    myTextures[GUITexture::TRACTIONSUBSTATION] = 0;
+    myTextures[GUITexture::TRACTIONSUBSTATION_SELECTED] = 0;
     myTextures[GUITexture::VAPORIZER] = 0;
     myTextures[GUITexture::VAPORIZER_SELECTED] = 0;
     myTextures[GUITexture::VARIABLESPEEDSIGN] = 0;
     myTextures[GUITexture::VARIABLESPEEDSIGN_SELECTED] = 0;
-    myTextures[GUITexture::LANE_BIKE] = 0;
-    myTextures[GUITexture::LANE_BUS] = 0;
-    myTextures[GUITexture::LANE_PEDESTRIAN] = 0;
-    myTextures[GUITexture::STOP] = 0;
-    myTextures[GUITexture::STOP_SELECTED] = 0;
-    myTextures[GUITexture::STOPPERSON] = 0;
-    myTextures[GUITexture::STOPPERSON_SELECTED] = 0;
+    myTextures[GUITexture::VARIABLESPEEDSIGN_STEP] = 0;
 }
 
 
@@ -126,6 +144,24 @@ GUITextureSubSys::getTexture(GUITexture which) {
             case GUITexture::REROUTER_SELECTED :
                 myInstance->myTextures[which] = GUITexturesHelper::add(new FXGIFImage(myInstance->myApp, GNETexture_RerouterSelected, IMAGE_KEEP | IMAGE_SHMI | IMAGE_SHMP));
                 break;
+            case GUITexture::REROUTER_INTERVAL :
+                myInstance->myTextures[which] = GUITexturesHelper::add(new FXGIFImage(myInstance->myApp, GNETexture_Rerouter_Interval, IMAGE_KEEP | IMAGE_SHMI | IMAGE_SHMP));
+                break;
+            case GUITexture::REROUTER_CLOSINGREROUTE :
+                myInstance->myTextures[which] = GUITexturesHelper::add(new FXGIFImage(myInstance->myApp, GNETexture_Rerouter_ClosingReroute, IMAGE_KEEP | IMAGE_SHMI | IMAGE_SHMP));
+                break;
+            case GUITexture::REROUTER_CLOSINGLANEREROUTE :
+                myInstance->myTextures[which] = GUITexturesHelper::add(new FXGIFImage(myInstance->myApp, GNETexture_Rerouter_ClosingLaneReroute, IMAGE_KEEP | IMAGE_SHMI | IMAGE_SHMP));
+                break;
+            case GUITexture::REROUTER_ROUTEPROBREROUTE :
+                myInstance->myTextures[which] = GUITexturesHelper::add(new FXGIFImage(myInstance->myApp, GNETexture_Rerouter_RouteProbReroute, IMAGE_KEEP | IMAGE_SHMI | IMAGE_SHMP));
+                break;
+            case GUITexture::REROUTER_DESTPROBREROUTE :
+                myInstance->myTextures[which] = GUITexturesHelper::add(new FXGIFImage(myInstance->myApp, GNETexture_Rerouter_DestProbReroute, IMAGE_KEEP | IMAGE_SHMI | IMAGE_SHMP));
+                break;
+            case GUITexture::REROUTER_PARKINGAREAREROUTE :
+                myInstance->myTextures[which] = GUITexturesHelper::add(new FXGIFImage(myInstance->myApp, GNETexture_Rerouter_ParkingAreaReroute, IMAGE_KEEP | IMAGE_SHMI | IMAGE_SHMP));
+                break;
             case GUITexture::ROUTEPROBE :
                 myInstance->myTextures[which] = GUITexturesHelper::add(new FXGIFImage(myInstance->myApp, GNETexture_RouteProbe, IMAGE_KEEP | IMAGE_SHMI | IMAGE_SHMP));
                 break;
@@ -146,6 +182,9 @@ GUITextureSubSys::getTexture(GUITexture which) {
                 break;
             case GUITexture::VARIABLESPEEDSIGN_SELECTED :
                 myInstance->myTextures[which] = GUITexturesHelper::add(new FXGIFImage(myInstance->myApp, GNETexture_VariableSpeedSignSelected, IMAGE_KEEP | IMAGE_SHMI | IMAGE_SHMP));
+                break;
+            case GUITexture::VARIABLESPEEDSIGN_STEP :
+                myInstance->myTextures[which] = GUITexturesHelper::add(new FXGIFImage(myInstance->myApp, GNETexture_VariableSpeedSign_Step, IMAGE_KEEP | IMAGE_SHMI | IMAGE_SHMP));
                 break;
             case GUITexture::LANE_BIKE :
                 myInstance->myTextures[which] = GUITexturesHelper::add(new FXGIFImage(myInstance->myApp, GNETexture_LaneBike, IMAGE_KEEP | IMAGE_SHMI | IMAGE_SHMP));
@@ -173,6 +212,12 @@ GUITextureSubSys::getTexture(GUITexture which) {
                 break;
             case GUITexture::STOPCONTAINER_SELECTED:
                 myInstance->myTextures[which] = GUITexturesHelper::add(new FXGIFImage(myInstance->myApp, GNETexture_StopContainerSelected, IMAGE_KEEP | IMAGE_SHMI | IMAGE_SHMP));
+                break;
+            case GUITexture::TRACTIONSUBSTATION:
+                myInstance->myTextures[which] = GUITexturesHelper::add(new FXGIFImage(myInstance->myApp, GNETexture_TractionSubstation, IMAGE_KEEP | IMAGE_SHMI | IMAGE_SHMP));
+                break;
+            case GUITexture::TRACTIONSUBSTATION_SELECTED:
+                myInstance->myTextures[which] = GUITexturesHelper::add(new FXGIFImage(myInstance->myApp, GNETexture_TractionSubstationSelected, IMAGE_KEEP | IMAGE_SHMI | IMAGE_SHMP));
                 break;
             default:
                 throw ProcessError("Undefined texture");

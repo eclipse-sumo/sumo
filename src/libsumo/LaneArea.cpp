@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2012-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2012-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -25,6 +25,7 @@
 #include <microsim/output/MSDetectorControl.h>
 #include <microsim/output/MSE2Collector.h>
 #include <microsim/MSNet.h>
+#include <libsumo/Helper.h>
 #include <libsumo/TraCIConstants.h>
 #include "LaneArea.h"
 
@@ -35,6 +36,7 @@ namespace libsumo {
 // ===========================================================================
 SubscriptionResults LaneArea::mySubscriptionResults;
 ContextSubscriptionResults LaneArea::myContextSubscriptionResults;
+NamedRTree* LaneArea::myTree(nullptr);
 
 
 // ===========================================================================
@@ -144,9 +146,47 @@ LaneArea::getDetector(const std::string& id) {
 }
 
 
+NamedRTree*
+LaneArea::getTree() {
+    if (myTree == nullptr) {
+        myTree = new NamedRTree();
+        for (const std::string& id : getIDList()) {
+            PositionVector shape;
+            storeShape(id, shape);
+            Boundary b = shape.getBoxBoundary();
+            const float cmin[2] = {(float) b.xmin(), (float) b.ymin()};
+            const float cmax[2] = {(float) b.xmax(), (float) b.ymax()};
+            myTree->Insert(cmin, cmax, getDetector(id));
+        }
+    }
+    return myTree;
+}
+
+
+void
+LaneArea::cleanup() {
+    delete myTree;
+    myTree = nullptr;
+}
+
+
+void
+LaneArea::storeShape(const std::string& id, PositionVector& shape) {
+    MSE2Collector* const det = getDetector(id);
+    shape.push_back(det->getLanes().front()->getShape().positionAtOffset(det->getStartPos()));
+    shape.push_back(det->getLanes().back()->getShape().positionAtOffset(det->getEndPos()));
+}
+
+
 std::shared_ptr<VariableWrapper>
 LaneArea::makeWrapper() {
     return std::make_shared<Helper::SubscriptionWrapper>(handleVariable, mySubscriptionResults, myContextSubscriptionResults);
+}
+
+
+void
+LaneArea::overrideVehicleNumber(const std::string& detID, int num) {
+    getDetector(detID)->overrideVehicleNumber(num);
 }
 
 

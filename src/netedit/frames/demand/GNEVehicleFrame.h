@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -22,6 +22,9 @@
 
 #include <netedit/frames/GNEFrame.h>
 #include <netedit/elements/demand/GNERouteHandler.h>
+#include <netedit/frames/GNEAttributesCreator.h>
+#include <netedit/frames/GNETagSelector.h>
+#include <netedit/frames/GNEDemandSelector.h>
 
 
 // ===========================================================================
@@ -38,7 +41,7 @@ public:
     // class HelpCreation
     // ===========================================================================
 
-    class HelpCreation : protected FXGroupBox {
+    class HelpCreation : public FXGroupBoxModule {
 
     public:
         /// @brief constructor
@@ -82,22 +85,28 @@ public:
     /**@brief add vehicle element
      * @param objectsUnderCursor collection of objects under cursor after click over view
      * @param mouseButtonKeyPressed key pressed during click
-     * @return true if element was sucesfully added
+     * @return true if element was successfully added
      */
     bool addVehicle(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, const GNEViewNetHelper::MouseButtonKeyPressed& mouseButtonKeyPressed);
 
-    /// @brief get PathCreator modul
-    GNEFrameModuls::PathCreator* getPathCreator() const;
+    /// @brief get vehicle tag selector (needed for transform vehicles)
+    GNETagSelector* getVehicleTagSelector() const;
+
+    /// @brief get GNEPathCreator module
+    GNEPathCreator* getPathCreator() const;
 
 protected:
-    /// @brief Tag selected in TagSelector
+    /// @brief Tag selected in GNETagSelector
     void tagSelected();
 
     /// @brief selected vehicle type in DemandElementSelector
     void demandElementSelected();
 
     /// @brief create path
-    void createPath();
+    void createPath(const bool useLastRoute);
+
+    /// @brief build vehicle over route
+    bool buildVehicleOverRoute(SumoXMLTag vehicleTag, GNEDemandElement* route);
 
 private:
     /// @brief route handler
@@ -107,16 +116,16 @@ private:
     CommonXMLStructure::SumoBaseObject* myVehicleBaseObject;
 
     /// @brief vehicle tag selector (used to select diffent kind of vehicles)
-    GNEFrameModuls::TagSelector* myVehicleTagSelector;
+    GNETagSelector* myVehicleTagSelector;
 
     /// @brief Vehicle Type selectors
-    GNEFrameModuls::DemandElementSelector* myVTypeSelector;
+    DemandElementSelector* myTypeSelector;
 
     /// @brief internal vehicle attributes
-    GNEFrameAttributesModuls::AttributesCreator* myVehicleAttributes;
+    GNEAttributesCreator* myVehicleAttributes;
 
     /// @brief edge path creator (used for trips and flows)
-    GNEFrameModuls::PathCreator* myPathCreator;
+    GNEPathCreator* myPathCreator;
 
     /// @brief Help creation
     HelpCreation* myHelpCreation;

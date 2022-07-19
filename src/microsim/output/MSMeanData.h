@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -142,7 +142,7 @@ public:
          * @exception IOError If an error on writing occurs (!!! not yet implemented)
          */
         virtual void write(OutputDevice& dev, long long int attributeMask, const SUMOTime period,
-                           const double numLanes, const double defaultTravelTime,
+                           const double numLanes, const double speedLimit, const double defaultTravelTime,
                            const int numVehicles = -1) const = 0;
 
         /** @brief Returns the number of collected sample seconds.
@@ -244,7 +244,7 @@ public:
          * @exception IOError If an error on writing occurs (!!! not yet implemented)
          */
         void write(OutputDevice& dev, long long int attributeMask, const SUMOTime period,
-                   const double numLanes, const double defaultTravelTime,
+                   const double numLanes, const double speedLimit, const double defaultTravelTime,
                    const int numVehicles = -1) const;
 
         int getNumReady() const;
@@ -308,7 +308,9 @@ public:
                const double minSamples,
                const double maxTravelTime,
                const std::string& vTypes,
-               const std::string& writeAttributes);
+               const std::string& writeAttributes,
+               const std::vector<MSEdge*>& edges,
+               bool aggregate);
 
 
     /// @brief Destructor
@@ -401,6 +403,20 @@ protected:
     void writeEdge(OutputDevice& dev, const std::vector<MeanDataValues*>& edgeValues,
                    MSEdge* edge, SUMOTime startTime, SUMOTime stopTime);
 
+
+    /** @brief Writes aggregate of all edge values into the given stream
+     *
+     * microsim: It is checked whether the dump shall be generated edge-
+     *  or lane-wise. In the first case, the lane-data are collected
+     *  and aggregated and written directly. In the second case, "writeLane"
+     *  is used to write each lane's state.
+     *
+     * @param[in] dev The output device to write the data into
+     * @param[in] startTime First time step the data were gathered
+     * @param[in] stopTime Last time step the data were gathered
+     */
+    void writeAggregated(OutputDevice& dev, SUMOTime startTime, SUMOTime stopTime);
+
     /** @brief Writes the interval opener
      *
      * @param[in] dev The output device to write the data into
@@ -460,6 +476,9 @@ private:
 
     /// @brief bit mask for checking attributes to be written
     const long long int myWrittenAttributes;
+
+    /// @brief whether the data for all edges shall be aggregated
+    const bool myAggregate;
 
     /// @brief The intervals for which output still has to be generated (only in the tracking case)
     std::list< std::pair<SUMOTime, SUMOTime> > myPendingIntervals;

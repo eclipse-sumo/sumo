@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -22,7 +22,6 @@
 #include <netedit/GNEViewNet.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <utils/gui/div/GLHelper.h>
-#include <utils/gui/images/GUITextureSubSys.h>
 #include <utils/gui/globjects/GLIncludes.h>
 
 #include "GNEVaporizer.h"
@@ -32,13 +31,23 @@
 // member method definitions
 // ===========================================================================
 
+GNEVaporizer::GNEVaporizer(GNENet* net) :
+    GNEAdditional("", net, GLO_VAPORIZER, SUMO_TAG_VAPORIZER, "",
+{}, {}, {}, {}, {}, {}),
+myBegin(0),
+myEnd(0) {
+    // reset default values
+    resetDefaultValues();
+}
+
+
 GNEVaporizer::GNEVaporizer(GNENet* net, GNEEdge* edge, SUMOTime from, SUMOTime end, const std::string& name,
-                           const std::map<std::string, std::string>& parameters) :
+                           const Parameterised::Map& parameters) :
     GNEAdditional(edge->getID(), net, GLO_VAPORIZER, SUMO_TAG_VAPORIZER, name,
-    {}, {edge}, {}, {}, {}, {}, {}, {},
-    parameters),
-    myBegin(from),
-    myEnd(end) {
+{}, {edge}, {}, {}, {}, {}),
+Parameterised(parameters),
+myBegin(from),
+myEnd(end) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -49,9 +58,24 @@ GNEVaporizer::~GNEVaporizer() {
 
 
 GNEMoveOperation*
-GNEVaporizer::getMoveOperation(const double /*shapeOffset*/) {
+GNEVaporizer::getMoveOperation() {
     // vaporizers cannot be moved
     return nullptr;
+}
+
+
+void
+GNEVaporizer::writeAdditional(OutputDevice& device) const {
+    device.openTag(getTagProperty().getTag());
+    device.writeAttr(SUMO_ATTR_ID, getID());
+    if (!myAdditionalName.empty()) {
+        device.writeAttr(SUMO_ATTR_NAME, StringUtils::escapeXML(myAdditionalName));
+    }
+    device.writeAttr(SUMO_ATTR_BEGIN, time2string(myBegin));
+    device.writeAttr(SUMO_ATTR_END, time2string(myEnd));
+    // write parameters (Always after children to avoid problems with additionals.xsd)
+    writeParams(device);
+    device.closeTag();
 }
 
 
@@ -64,18 +88,17 @@ GNEVaporizer::updateGeometry() {
 
 Position
 GNEVaporizer::getPositionInView() const {
-    return myBoundary.getCenter();
+    return myAdditionalGeometry.getShape().getPolygonCenter();
 }
 
 
 void
 GNEVaporizer::updateCenteringBoundary(const bool /*updateGrid*/) {
-    // update geometry
-    updateGeometry();
-    // add shape boundary
-    myBoundary = myAdditionalGeometry.getShape().getBoxBoundary();
+    myAdditionalBoundary.reset();
+    // add center
+    myAdditionalBoundary.add(getPositionInView());
     // grow
-    myBoundary.grow(10);
+    myAdditionalBoundary.grow(10);
 }
 
 
@@ -94,7 +117,7 @@ GNEVaporizer::getParentName() const {
 void
 GNEVaporizer::drawGL(const GUIVisualizationSettings& s) const {
     // Obtain exaggeration of the draw
-    const double vaporizerExaggeration = s.addSize.getExaggeration(s, this);
+    const double vaporizerExaggeration = getExaggeration(s);
     // first check if additional has to be drawn
     if (s.drawAdditionals(vaporizerExaggeration) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
         // declare colors
@@ -107,6 +130,8 @@ GNEVaporizer::drawGL(const GUIVisualizationSettings& s) const {
             vaporizerColor = s.additionalSettings.vaporizerColor;
             centralLineColor = RGBColor::WHITE;
         }
+        // draw parent and child lines
+        drawParentChildLines(s, s.additionalSettings.connectionColor);
         // Start drawing adding an gl identificator
         GLHelper::pushName(getGlID());
         // Add layer matrix matrix
@@ -116,23 +141,23 @@ GNEVaporizer::drawGL(const GUIVisualizationSettings& s) const {
         // set base color
         GLHelper::setColor(vaporizerColor);
         // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
-        GNEGeometry::drawGeometry(myNet->getViewNet(), myAdditionalGeometry, 0.3 * vaporizerExaggeration);
+        GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myAdditionalGeometry, 0.3 * vaporizerExaggeration);
         // move to front
         glTranslated(0, 0, .1);
         // set central color
         GLHelper::setColor(centralLineColor);
         // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
-        GNEGeometry::drawGeometry(myNet->getViewNet(), myAdditionalGeometry, 0.05 * vaporizerExaggeration);
+        GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myAdditionalGeometry, 0.05 * vaporizerExaggeration);
         // move to icon position and front
         glTranslated(myAdditionalGeometry.getShape().front().x(), myAdditionalGeometry.getShape().front().y(), .1);
         // rotate over lane
-        GNEGeometry::rotateOverLane(myAdditionalGeometry.getShapeRotations().front());
+        GUIGeometry::rotateOverLane(myAdditionalGeometry.getShapeRotations().front() * -1);
         // Draw icon depending of Route Probe is selected and if isn't being drawn for selecting
         if (!s.drawForRectangleSelection && s.drawDetail(s.detailSettings.laneTextures, vaporizerExaggeration)) {
             // set color
             glColor3d(1, 1, 1);
             // rotate texture
-            glRotated(180, 0, 0, 1);
+            glRotated(90, 0, 0, 1);
             // draw texture
             if (drawUsingSelectColor()) {
                 GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GUITexture::VAPORIZER_SELECTED), s.additionalSettings.vaporizerSize * vaporizerExaggeration);
@@ -152,11 +177,13 @@ GNEVaporizer::drawGL(const GUIVisualizationSettings& s) const {
         // draw additional name
         drawAdditionalName(s);
         // check if dotted contours has to be drawn
-        if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-            GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::INSPECT, s, myAdditionalGeometry.getShape(), 0.3, vaporizerExaggeration, 1, 1);
+        if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
+            GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, myAdditionalGeometry.getShape(), 0.5,
+                    vaporizerExaggeration, 1, 1);
         }
-        if (s.drawDottedContour() || myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-            GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::FRONT, s, myAdditionalGeometry.getShape(), 0.3, vaporizerExaggeration, 1, 1);
+        if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
+            GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::FRONT, s, myAdditionalGeometry.getShape(), 0.5,
+                    vaporizerExaggeration, 1, 1);
         }
     }
 }
@@ -167,7 +194,7 @@ GNEVaporizer::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
         case SUMO_ATTR_EDGE:
-            return getID();
+            return getMicrosimID();
         case SUMO_ATTR_BEGIN:
             return time2string(myBegin);
         case SUMO_ATTR_END:
@@ -197,6 +224,12 @@ GNEVaporizer::getAttributeDouble(SumoXMLAttr key) const {
 }
 
 
+const Parameterised::Map&
+GNEVaporizer::getACParametersMap() const {
+    return getParametersMap();
+}
+
+
 void
 GNEVaporizer::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     if (value == getAttribute(key)) {
@@ -223,7 +256,7 @@ GNEVaporizer::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
         case SUMO_ATTR_EDGE:
-            if (myNet->retrieveEdge(value, false) != nullptr) {
+            if (myNet->getAttributeCarriers()->retrieveEdge(value, false) != nullptr) {
                 return isValidAdditionalID(value);
             } else {
                 return false;
@@ -245,16 +278,10 @@ GNEVaporizer::isValid(SumoXMLAttr key, const std::string& value) {
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
         case GNE_ATTR_PARAMETERS:
-            return Parameterised::areParametersValid(value);
+            return areParametersValid(value);
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
-}
-
-
-bool
-GNEVaporizer::isAttributeEnabled(SumoXMLAttr /* key */) const {
-    return true;
 }
 
 
@@ -278,7 +305,8 @@ GNEVaporizer::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
         case SUMO_ATTR_EDGE:
-            myNet->getAttributeCarriers()->updateID(this, value);
+            // update microsimID
+            setMicrosimID(value);
             replaceAdditionalParentEdges(value);
             break;
         case SUMO_ATTR_BEGIN:

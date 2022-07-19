@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec 14 11:32:52 2020 by Eclipse SUMO netconvert Version v1_8_0+0240-6f1f621077
+<!-- generated on 2022-04-19 17:28:06 by Eclipse SUMO netconvert Version v1_12_0+2154-21e08c91f73
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -65,13 +70,13 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":cluster_2292787672_259083790_3_1" index="1" speed="13.89" length="9.02" shape="165.85,152.99 171.20,160.32"/>
     </edge>
     <edge id=":cluster_2292787672_259083790_5" function="internal">
-        <lane id=":cluster_2292787672_259083790_5_0" index="0" speed="8.13" length="9.38" shape="165.85,152.99 166.73,155.41 166.07,158.15 163.87,161.23 163.71,161.36"/>
+        <lane id=":cluster_2292787672_259083790_5_0" index="0" speed="8.13" length="8.19" shape="165.85,152.99 166.73,155.41 166.07,158.15 164.44,160.43"/>
     </edge>
     <edge id=":cluster_2292787672_259083790_6" function="internal">
         <lane id=":cluster_2292787672_259083790_6_0" index="0" allow="tram" speed="5.25" length="11.98" shape="165.85,152.99 165.88,156.69 164.76,158.69 162.49,158.99 159.07,157.59"/>
     </edge>
     <edge id=":cluster_2292787672_259083790_10" function="internal">
-        <lane id=":cluster_2292787672_259083790_10_0" index="0" speed="8.13" length="4.85" shape="163.71,161.36 160.13,164.63"/>
+        <lane id=":cluster_2292787672_259083790_10_0" index="0" speed="8.13" length="6.04" shape="164.44,160.43 163.87,161.23 160.13,164.63"/>
     </edge>
     <edge id=":cluster_2292787672_259083790_7" function="internal">
         <lane id=":cluster_2292787672_259083790_7_0" index="0" allow="tram" speed="5.24" length="5.18" shape="158.14,162.12 159.17,161.06 159.67,159.96 159.64,158.80 159.07,157.59"/>
@@ -80,10 +85,10 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":cluster_2292787672_259083790_8_0" index="0" speed="8.05" length="14.83" shape="158.14,162.12 162.38,159.30 165.96,158.07 168.90,158.41 171.20,160.32"/>
     </edge>
     <edge id=":cluster_2292787672_259083790_9" function="internal">
-        <lane id=":cluster_2292787672_259083790_9_0" index="0" speed="3.65" length="2.56" shape="158.14,162.12 159.58,162.00 160.39,162.38 160.44,162.60"/>
+        <lane id=":cluster_2292787672_259083790_9_0" index="0" speed="3.65" length="1.44" shape="158.14,162.12 159.58,162.00"/>
     </edge>
     <edge id=":cluster_2292787672_259083790_11" function="internal">
-        <lane id=":cluster_2292787672_259083790_11_0" index="0" speed="3.65" length="2.11" shape="160.44,162.60 160.57,163.25 160.13,164.63"/>
+        <lane id=":cluster_2292787672_259083790_11_0" index="0" speed="3.65" length="3.23" shape="159.58,162.00 160.39,162.38 160.57,163.25 160.13,164.63"/>
     </edge>
     <edge id=":gneJ0_0" function="internal">
         <lane id=":gneJ0_0_0" index="0" speed="8.33" length="0.30" shape="155.06,168.63 154.82,168.82"/>
@@ -174,8 +179,8 @@ SPDX-License-Identifier: EPL-2.0
         <request index="1" response="00" foes="00" cont="0"/>
     </junction>
 
-    <junction id=":cluster_2292787672_259083790_10_0" type="internal" x="163.71" y="161.36" incLanes=":cluster_2292787672_259083790_5_0 220153137#1_0" intLanes=":cluster_2292787672_259083790_0_0 :cluster_2292787672_259083790_1_0 :cluster_2292787672_259083790_8_0 :cluster_2292787672_259083790_9_0"/>
-    <junction id=":cluster_2292787672_259083790_11_0" type="internal" x="160.44" y="162.60" incLanes=":cluster_2292787672_259083790_9_0 220153137#1_0 220153140#1_1" intLanes=":cluster_2292787672_259083790_0_0 :cluster_2292787672_259083790_5_0"/>
+    <junction id=":cluster_2292787672_259083790_10_0" type="internal" x="164.44" y="160.43" incLanes=":cluster_2292787672_259083790_5_0 220153137#1_0" intLanes=":cluster_2292787672_259083790_0_0 :cluster_2292787672_259083790_1_0 :cluster_2292787672_259083790_8_0 :cluster_2292787672_259083790_9_0"/>
+    <junction id=":cluster_2292787672_259083790_11_0" type="internal" x="159.58" y="162.00" incLanes=":cluster_2292787672_259083790_9_0 220153137#1_0 220153140#1_1" intLanes=":cluster_2292787672_259083790_0_0 :cluster_2292787672_259083790_5_0"/>
 
     <connection from="-27488602#1" to="-27488602#1.9" fromLane="0" toLane="0" via=":gneJ0_1_0" dir="s" state="M"/>
     <connection from="-27488602#1.9" to="220153139#0" fromLane="0" toLane="0" via=":cluster_2292787672_259083790_7_0" tl="GS_cluster_2292787672_259083790" linkIndex="7" dir="r" state="o"/>
@@ -194,7 +199,7 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="220153140#1" to="220153139#0" fromLane="1" toLane="0" via=":cluster_2292787672_259083790_6_0" tl="GS_cluster_2292787672_259083790" linkIndex="6" dir="t" state="o"/>
     <connection from="27488602#1" to="27488602#1.9" fromLane="0" toLane="0" via=":gneJ0_0_0" dir="s" state="M"/>
     <connection from="27488602#1.9" to="27488602#2" fromLane="0" toLane="0" via=":2292787678_0_0" dir="s" state="M"/>
-    <connection from="27488602#2" to="-27488602#2" fromLane="0" toLane="0" via=":310541110_0_0" dir="t" state="="/>
+    <connection from="27488602#2" to="-27488602#2" fromLane="0" toLane="0" via=":310541110_0_0" dir="t" state="M"/>
 
     <connection from=":2292787678_0" to="27488602#2" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":2292787678_1" to="-27488602#1" fromLane="0" toLane="0" dir="s" state="M"/>

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2009-2021 German Aerospace Center (DLR) and others.
+# Copyright (C) 2009-2022 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -32,10 +32,10 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--n
 netedit.createEdgeMode()
 
 # select two-way mode
-netedit.changeEditMode('5')
+netedit.changeEditMode(netedit.attrs.modes.network.twoWayMode)
 
 # select chain mode
-netedit.changeEditMode('4')
+netedit.changeEditMode(netedit.attrs.modes.network.chainMode)
 
 # create a circular road
 netedit.leftClick(referencePosition, 300, 135)
@@ -60,13 +60,13 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 405, 225)
 
 # Set all Junctions as traffic lighs
-netedit.modifyAttribute(0, "traffic_light", True)
+netedit.modifyAttribute(netedit.attrs.junction.inspectSelection.type, "traffic_light", True)
 
 # inspect set of edges
 netedit.leftClick(referencePosition, 390, 285)
 
 # change all speed of edges
-netedit.modifyAttribute(0, "20", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.speed, "20", False)
 
 # rebuild network
 netedit.rebuildNetwork()

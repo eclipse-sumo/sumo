@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2021-11-10 10:54:24 by Eclipse SUMO sumo Version v1_10_0+2099-1400597
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <tripinfo-output value="tripinfos.xml"/>
+    </output>
+
+    <processing>
+        <time-to-teleport.remove value="true"/>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <tripinfo id="blocked" depart="1.00" departLane="beg_0" departPos="5.10" departSpeed="26.82" departDelay="1.00" arrival="308.00" arrivalLane="beg_0" arrivalPos="100.00" arrivalSpeed="0.00" duration="307.00" routeLength="94.90" waitingTime="301.00" waitingCount="1" stopTime="0.00" timeLoss="303.89" rerouteNo="0" devices="tripinfo_blocked" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized="teleport"/>
+    <tripinfo id="blocker" depart="0.00" departLane="beg_0" departPos="5.10" departSpeed="27.91" departDelay="0.00" arrival="416.00" arrivalLane="end_0" arrivalPos="100.00" arrivalSpeed="13.89" duration="416.00" routeLength="194.90" waitingTime="0.00" waitingCount="0" stopTime="400.00" timeLoss="5.58" rerouteNo="0" devices="tripinfo_blocker" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+</tripinfos>

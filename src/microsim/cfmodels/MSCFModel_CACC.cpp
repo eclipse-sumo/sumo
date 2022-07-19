@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -136,7 +136,7 @@ MSCFModel_CACC::followSpeed(const MSVehicle* const veh, double speed, double gap
             std::cout << "Apply Safe speed, override=" << speedOverride << "\n";
         }
 #endif
-        return vSafe + speedOverride;
+        return MAX2(0.0, vSafe + speedOverride);
     }
     return vCACC;
 }
@@ -309,7 +309,7 @@ MSCFModel_CACC::speedGapControl(const MSVehicle* const veh, const double gap2pre
                 // gap closing mode
 #if DEBUG_CACC == 1
                 if (DEBUG_COND) {
-                    std::cout << "        applying gap closing" << std::endl;
+                    std::cout << "        applying gap closing err=" << spacingErr << " err1=" << spacingErr1 << " predSpeed=" << predSpeed << " speed=" << speed << " accel=" << accel << "\n";
                 }
 #endif
                 newSpeed = speed + myGapClosingControlGainGap * spacingErr + myGapClosingControlGainGapDot * spacingErr1;
@@ -441,13 +441,21 @@ MSCFModel_CACC::_v(const MSVehicle* const veh, const MSVehicle* const pred, cons
     //std::cout << veh->getID() << " commMode: " << commMode << ", caccVehicleMode: " << VehicleModeNames[vehMode]
     //            << ", gap2pred: " << gap2pred << ", newSpeed: " << newSpeed << std::endl;
 
+    // newSpeed is meant for step length 0.1 but this would cause extreme
+    // accelerations at lower step length
+    double newSpeedScaled = newSpeed;
+    if (DELTA_T < 100) {
+        const double accel01 = (newSpeed - speed) * 10;
+        newSpeedScaled = speed + ACCEL2SPEED(accel01);
+    }
+
 #if DEBUG_CACC == 1
     if (DEBUG_COND) {
-        std::cout << "        result: accel=" << SPEED2ACCEL(newSpeed - speed) << " newSpeed=" << newSpeed << std::endl;
+        std::cout << "        result: rawAccel=" << SPEED2ACCEL(newSpeed - speed) << " newSpeed=" << newSpeed << " newSpeedScaled=" << newSpeedScaled << "\n";
     }
 #endif
 
-    return MAX2(0., newSpeed);
+    return MAX2(0., newSpeedScaled);
 }
 
 

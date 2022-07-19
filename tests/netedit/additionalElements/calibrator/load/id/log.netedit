@@ -1,5 +1,0 @@
-Error: Attribute 'id' is missing in definition of a calibrator.
-Error: Could not build calibrator with ID 'ID with spaces' in netedit; ID contains invalid characters.
-Error: Attribute 'id' in definition of a calibrator is empty.
-Error: Could not build calibrator with ID 'calibrator01' in netedit; declared twice.
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.2_from_15Jun162128.7500\netedit.gui\additionalElements\calibrator\load\id\input_additionals.add.xml failed.

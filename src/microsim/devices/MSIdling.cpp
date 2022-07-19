@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2007-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2007-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -28,13 +28,10 @@
 #include "MSRoutingEngine.h"
 #include "MSIdling.h"
 
-//#define DEBUG_RESERVATION
-//#define DEBUG_Idling
-//#define DEBUG_SERVABLE
-//#define DEBUG_TRAVELTIME
-//#define DEBUG_DETOUR
-//#define DEBUG_COND2(obj) (obj->getID() == "p0")
-#define DEBUG_COND2(obj) (true)
+//#define DEBUG_IDLING
+//#define DEBUG_COND(obj) (obj->getHolder().getID() == "p0")
+//#define DEBUG_COND(obj) (obj->getHolder().isSelected())
+#define DEBUG_COND(obj) (true)
 
 
 // ===========================================================================
@@ -44,8 +41,11 @@
 void
 MSIdling_Stop::idle(MSDevice_Taxi* taxi) {
     if (!taxi->getHolder().hasStops()) {
-        //std::cout << SIMTIME << " MSIdling_Stop add stop\n";
-        // add stop
+#ifdef DEBUG_IDLING
+        if (DEBUG_COND(taxi)) {
+            std::cout << SIMTIME << " MSIdling_Stop add stop\n";
+        }
+#endif
         std::string errorOut;
         double brakeGap = 0;
         std::pair<const MSLane*, double> stopPos;
@@ -80,8 +80,12 @@ MSIdling_Stop::idle(MSDevice_Taxi* taxi) {
             WRITE_WARNING("Idle taxi '" + taxi->getHolder().getID() + "' could not stop within " + toString(brakeGap) + "m");
         }
     } else {
-        //std::cout << SIMTIME << " MSIdling_Stop reuse stop\n";
         MSStop& stop = taxi->getHolder().getNextStop();
+#ifdef DEBUG_IDLING
+        if (DEBUG_COND(taxi)) {
+            std::cout << SIMTIME << " MSIdling_Stop reusing stop with duration " << time2string(stop.duration) << "\n";
+        }
+#endif
         if (taxi->getHolder().getVehicleType().getContainerCapacity() > 0) {
             stop.containerTriggered = true;
         } else {
@@ -89,6 +93,7 @@ MSIdling_Stop::idle(MSDevice_Taxi* taxi) {
         }
     }
 }
+
 
 // ===========================================================================
 // MSIdling_RandomCircling methods
@@ -105,7 +110,7 @@ MSIdling_RandomCircling::idle(MSDevice_Taxi* taxi) {
     const int routeLength = (int)edges.size();
     while (routePos + 1 < routeLength && (remainingEdges < 2 || remainingDist < 200)) {
         const MSEdge* edge = edges[routePos];
-        remainingDist = edge->getLength();
+        remainingDist += edge->getLength();
         remainingEdges++;
         routePos++;
         newEdges.push_back(edge);

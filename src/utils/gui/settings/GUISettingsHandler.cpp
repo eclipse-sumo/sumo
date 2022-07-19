@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -42,9 +42,10 @@
 // ===========================================================================
 GUISettingsHandler::GUISettingsHandler(const std::string& content, bool isFile, bool netedit) :
     SUMOSAXHandler(content),
-    mySettings(netedit),
+    mySettings("TEMPORARY_NAME", netedit),
     myDelay(-1), myLookFrom(-1, -1, -1), myLookAt(-1, -1, -1),
     myRotation(0),
+    myZoom(-1),
     myCurrentColorer(SUMO_TAG_NOTHING),
     myCurrentScheme(nullptr),
     myJamSoundTime(-1) {
@@ -79,14 +80,20 @@ GUISettingsHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) 
             myViewType = attrs.getOpt<std::string>(SUMO_ATTR_TYPE, nullptr, ok, "default");
             myViewType = StringUtils::to_lower_case(myViewType);
             break;
+        case SUMO_TAG_VIEWSETTINGS_3D:
+            mySettings.show3DTLSLinkMarkers = StringUtils::toBool(attrs.getStringSecure("show3DTLSLinkMarkers", toString(mySettings.show3DTLSLinkMarkers)));
+            mySettings.show3DTLSDomes = StringUtils::toBool(attrs.getStringSecure("show3DTLSDomes", toString(mySettings.show3DTLSDomes)));
+            mySettings.generate3DTLSModels = StringUtils::toBool(attrs.getStringSecure("generate3DTLSModels", toString(mySettings.generate3DTLSModels)));
+            break;
         case SUMO_TAG_DELAY:
             myDelay = attrs.getOpt<double>(SUMO_ATTR_VALUE, nullptr, ok, myDelay);
             break;
         case SUMO_TAG_VIEWPORT: {
             const double x = attrs.getOpt<double>(SUMO_ATTR_X, nullptr, ok, myLookFrom.x());
             const double y = attrs.getOpt<double>(SUMO_ATTR_Y, nullptr, ok, myLookFrom.y());
-            const double z = attrs.getOpt<double>(SUMO_ATTR_ZOOM, nullptr, ok, myLookFrom.z());
+            const double z = attrs.getOpt<double>(SUMO_ATTR_Z, nullptr, ok, myLookFrom.z());
             myLookFrom.set(x, y, z);
+            myZoom = attrs.getOpt<double>(SUMO_ATTR_ZOOM, nullptr, ok, myZoom);
             const double cx = attrs.getOpt<double>(SUMO_ATTR_CENTER_X, nullptr, ok, myLookAt.x());
             const double cy = attrs.getOpt<double>(SUMO_ATTR_CENTER_Y, nullptr, ok, myLookAt.y());
             const double cz = attrs.getOpt<double>(SUMO_ATTR_CENTER_Z, nullptr, ok, myLookAt.z());
@@ -105,7 +112,7 @@ GUISettingsHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) 
         case SUMO_TAG_VIEWSETTINGS_SCHEME: {
             mySettings.name = attrs.getOpt<std::string>(SUMO_ATTR_NAME, nullptr, ok, mySettings.name);
             if (gSchemeStorage.contains(mySettings.name)) {
-                mySettings = gSchemeStorage.get(mySettings.name);
+                mySettings.copy(gSchemeStorage.get(mySettings.name));
             }
         }
         break;
@@ -115,6 +122,7 @@ GUISettingsHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) 
             mySettings.drawBoundaries = StringUtils::toBool(attrs.getStringSecure("drawBoundaries", toString(mySettings.drawBoundaries)));
             mySettings.forceDrawForRectangleSelection = StringUtils::toBool(attrs.getStringSecure("forceDrawRectangleSelection", toString(mySettings.forceDrawForRectangleSelection)));
             mySettings.forceDrawForPositionSelection = StringUtils::toBool(attrs.getStringSecure("forceDrawPositionSelection", toString(mySettings.forceDrawForPositionSelection)));
+            mySettings.geometryIndices = parseTextSettings("geometryIndices", attrs, mySettings.geometryIndices);
             break;
         case SUMO_TAG_VIEWSETTINGS_BACKGROUND:
             mySettings.backgroundColor = RGBColor::parseColorReporting(attrs.getStringSecure("backgroundColor", toString(mySettings.backgroundColor)), "background", nullptr, true, ok);
@@ -128,6 +136,7 @@ GUISettingsHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) 
             mySettings.laneShowBorders = StringUtils::toBool(attrs.getStringSecure("laneShowBorders", toString(mySettings.laneShowBorders)));
             mySettings.showBikeMarkings = StringUtils::toBool(attrs.getStringSecure("showBikeMarkings", toString(mySettings.showBikeMarkings)));
             mySettings.showLinkDecals = StringUtils::toBool(attrs.getStringSecure("showLinkDecals", toString(mySettings.showLinkDecals)));
+            mySettings.realisticLinkRules = StringUtils::toBool(attrs.getStringSecure("realisticLinkRules", toString(mySettings.realisticLinkRules)));
             mySettings.showLinkRules = StringUtils::toBool(attrs.getStringSecure("showLinkRules", toString(mySettings.showLinkRules)));
             mySettings.showRails = StringUtils::toBool(attrs.getStringSecure("showRails", toString(mySettings.showRails)));
             mySettings.edgeName = parseTextSettings("edgeName", attrs, mySettings.edgeName);
@@ -144,6 +153,7 @@ GUISettingsHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) 
             mySettings.edgeParam = attrs.getStringSecure("edgeParam", mySettings.edgeParam);
             mySettings.laneParam = attrs.getStringSecure("laneParam", mySettings.laneParam);
             mySettings.vehicleParam = attrs.getStringSecure("vehicleParam", mySettings.vehicleParam);
+            mySettings.vehicleScaleParam = attrs.getStringSecure("vehicleScaleParam", mySettings.vehicleScaleParam);
             mySettings.vehicleTextParam = attrs.getStringSecure("vehicleTextParam", mySettings.vehicleTextParam);
             mySettings.edgeData = attrs.getStringSecure("edgeData", mySettings.edgeData);
             mySettings.edgeValueHideCheck = StringUtils::toBool(attrs.getStringSecure("edgeValueHideCheck", toString(mySettings.edgeValueHideCheck)));
@@ -155,35 +165,43 @@ GUISettingsHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) 
             mySettings.laneScaler.setActive(laneEdgeScaleMode);
         }
         break;
-        case SUMO_TAG_COLORSCHEME:
+        case SUMO_TAG_COLORSCHEME: {
             myCurrentScheme = nullptr;
             myCurrentScaleScheme = nullptr;
+            const std::string name = attrs.getStringSecure(SUMO_ATTR_NAME, "");
             if (myCurrentColorer == SUMO_TAG_VIEWSETTINGS_EDGES) {
-                myCurrentScheme = mySettings.laneColorer.getSchemeByName(attrs.getStringSecure(SUMO_ATTR_NAME, ""));
+                if (StringUtils::startsWith(name, "meso:")) {
+                    // see edgeColorer.save() in GUIVisualizationSettings::save
+                    myCurrentScheme = mySettings.edgeColorer.getSchemeByName(name.substr(5));
+                } else {
+                    myCurrentScheme = mySettings.laneColorer.getSchemeByName(name);
+                }
                 if (myCurrentScheme == nullptr) {
-                    myCurrentScheme = mySettings.edgeColorer.getSchemeByName(attrs.getStringSecure(SUMO_ATTR_NAME, ""));
+                    // legacy: meso schemes without prefix
+                    myCurrentScheme = mySettings.edgeColorer.getSchemeByName(name);
                 }
             }
             if (myCurrentColorer == SUMO_TAG_VIEWSETTINGS_VEHICLES) {
-                myCurrentScheme = mySettings.vehicleColorer.getSchemeByName(attrs.getStringSecure(SUMO_ATTR_NAME, ""));
+                myCurrentScheme = mySettings.vehicleColorer.getSchemeByName(name);
             }
             if (myCurrentColorer == SUMO_TAG_VIEWSETTINGS_PERSONS) {
-                myCurrentScheme = mySettings.personColorer.getSchemeByName(attrs.getStringSecure(SUMO_ATTR_NAME, ""));
+                myCurrentScheme = mySettings.personColorer.getSchemeByName(name);
             }
             if (myCurrentColorer == SUMO_TAG_VIEWSETTINGS_JUNCTIONS) {
-                myCurrentScheme = mySettings.junctionColorer.getSchemeByName(attrs.getStringSecure(SUMO_ATTR_NAME, ""));
+                myCurrentScheme = mySettings.junctionColorer.getSchemeByName(name);
             }
             if (myCurrentColorer == SUMO_TAG_VIEWSETTINGS_POIS) {
-                myCurrentScheme = mySettings.poiColorer.getSchemeByName(attrs.getStringSecure(SUMO_ATTR_NAME, ""));
+                myCurrentScheme = mySettings.poiColorer.getSchemeByName(name);
             }
             if (myCurrentColorer == SUMO_TAG_VIEWSETTINGS_POLYS) {
-                myCurrentScheme = mySettings.polyColorer.getSchemeByName(attrs.getStringSecure(SUMO_ATTR_NAME, ""));
+                myCurrentScheme = mySettings.polyColorer.getSchemeByName(name);
             }
             if (myCurrentScheme && !myCurrentScheme->isFixed()) {
                 myCurrentScheme->setInterpolated(attrs.getOpt<bool>(SUMO_ATTR_INTERPOLATED, nullptr, ok, false));
                 myCurrentScheme->clear();
             }
-            break;
+        }
+        break;
         case SUMO_TAG_SCALINGSCHEME:
             myCurrentScheme = nullptr;
             myCurrentScaleScheme = nullptr;
@@ -192,6 +210,9 @@ GUISettingsHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) 
                 if (myCurrentScaleScheme == nullptr) {
                     myCurrentScaleScheme = mySettings.edgeScaler.getSchemeByName(attrs.getStringSecure(SUMO_ATTR_NAME, ""));
                 }
+            }
+            if (myCurrentColorer == SUMO_TAG_VIEWSETTINGS_VEHICLES) {
+                myCurrentScaleScheme = mySettings.vehicleScaler.getSchemeByName(attrs.getStringSecure(SUMO_ATTR_NAME, ""));
             }
             if (myCurrentScaleScheme && !myCurrentScaleScheme->isFixed()) {
                 myCurrentScaleScheme->setInterpolated(attrs.getOpt<bool>(SUMO_ATTR_INTERPOLATED, nullptr, ok, false));
@@ -204,19 +225,24 @@ GUISettingsHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) 
                 if (myCurrentScheme->isFixed()) {
                     myCurrentScheme->setColor(attrs.getStringSecure(SUMO_ATTR_NAME, ""), color);
                 } else {
-                    myCurrentScheme->addColor(color, attrs.getOpt<double>(SUMO_ATTR_THRESHOLD, nullptr, ok, std::numeric_limits<double>::max()));
+                    myCurrentScheme->addColor(color,
+                                              attrs.getOpt<double>(SUMO_ATTR_THRESHOLD, nullptr, ok, std::numeric_limits<double>::max()),
+                                              attrs.getStringSecure(SUMO_ATTR_NAME, ""));
                 }
             } else if (myCurrentScaleScheme != nullptr) {
                 double scale = attrs.get<double>(SUMO_ATTR_COLOR, nullptr, ok);
                 if (myCurrentScaleScheme->isFixed()) {
                     myCurrentScaleScheme->setColor(attrs.getStringSecure(SUMO_ATTR_NAME, ""), scale);
                 } else {
-                    myCurrentScaleScheme->addColor(scale, attrs.getOpt<double>(SUMO_ATTR_THRESHOLD, nullptr, ok, std::numeric_limits<double>::max()));
+                    myCurrentScaleScheme->addColor(scale,
+                                                   attrs.getOpt<double>(SUMO_ATTR_THRESHOLD, nullptr, ok, std::numeric_limits<double>::max()),
+                                                   attrs.getStringSecure(SUMO_ATTR_NAME, ""));
                 }
             }
             break;
         case SUMO_TAG_VIEWSETTINGS_VEHICLES:
             mySettings.vehicleColorer.setActive(StringUtils::toInt(attrs.getStringSecure("vehicleMode", "0")));
+            mySettings.vehicleScaler.setActive(StringUtils::toInt(attrs.getStringSecure("vehicleScaleMode", "0")));
             mySettings.vehicleQuality = StringUtils::toInt(attrs.getStringSecure("vehicleQuality", toString(mySettings.vehicleQuality)));
             mySettings.showBlinker = StringUtils::toBool(attrs.getStringSecure("showBlinker", toString(mySettings.showBlinker)));
             mySettings.drawMinGap = StringUtils::toBool(attrs.getStringSecure("drawMinGap", toString(mySettings.drawMinGap)));
@@ -224,9 +250,11 @@ GUISettingsHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) 
             mySettings.showBTRange = StringUtils::toBool(attrs.getStringSecure("showBTRange", toString(mySettings.showBTRange)));
             mySettings.showRouteIndex = StringUtils::toBool(attrs.getStringSecure("showRouteIndex", toString(mySettings.showRouteIndex)));
             mySettings.scaleLength = StringUtils::toBool(attrs.getStringSecure("scaleLength", toString(mySettings.scaleLength)));
+            mySettings.showParkingInfo = StringUtils::toBool(attrs.getStringSecure("showParkingInfo", toString(mySettings.showParkingInfo)));
             mySettings.vehicleSize = parseSizeSettings("vehicle", attrs, mySettings.vehicleSize);
             mySettings.vehicleName = parseTextSettings("vehicleName", attrs, mySettings.vehicleName);
             mySettings.vehicleValue = parseTextSettings("vehicleValue", attrs, mySettings.vehicleValue);
+            mySettings.vehicleScaleValue = parseTextSettings("vehicleScaleValue", attrs, mySettings.vehicleScaleValue);
             mySettings.vehicleText = parseTextSettings("vehicleText", attrs, mySettings.vehicleText);
             myCurrentColorer = element;
             break;
@@ -267,33 +295,49 @@ GUISettingsHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) 
             mySettings.addName = parseTextSettings("addName", attrs, mySettings.addName);
             mySettings.addFullName = parseTextSettings("addFullName", attrs, mySettings.addFullName);
             // color settings (temporal, will be integrated in a schema
-            mySettings.colorSettings.selectionColor = parseColor(attrs, "selectionColor", mySettings.colorSettings.selectionColor);
-            mySettings.colorSettings.selectedEdgeColor = parseColor(attrs, "selectedEdgeColor", mySettings.colorSettings.selectedEdgeColor);
-            mySettings.colorSettings.selectedLaneColor = parseColor(attrs, "selectedLaneColor", mySettings.colorSettings.selectedLaneColor);
-            mySettings.colorSettings.selectedConnectionColor = parseColor(attrs, "selectedConnectionColor", mySettings.colorSettings.selectedConnectionColor);
-            mySettings.colorSettings.selectedProhibitionColor = parseColor(attrs, "selectedProhibitionColor", mySettings.colorSettings.selectedProhibitionColor);
-            mySettings.colorSettings.selectedCrossingColor = parseColor(attrs, "selectedCrossingColor", mySettings.colorSettings.selectedCrossingColor);
-            mySettings.colorSettings.selectedAdditionalColor = parseColor(attrs, "selectedAdditionalColor", mySettings.colorSettings.selectedAdditionalColor);
-            mySettings.colorSettings.selectedRouteColor = parseColor(attrs, "selectedRouteColor", mySettings.colorSettings.selectedRouteColor);
-            mySettings.colorSettings.selectedVehicleColor = parseColor(attrs, "selectedVehicleColor", mySettings.colorSettings.selectedVehicleColor);
-            mySettings.colorSettings.selectedPersonColor = parseColor(attrs, "selectedPersonColor", mySettings.colorSettings.selectedPersonColor);
-            mySettings.colorSettings.selectedPersonPlanColor = parseColor(attrs, "selectedPersonPlanColor", mySettings.colorSettings.selectedPersonPlanColor);
-            mySettings.colorSettings.selectedContainerColor = parseColor(attrs, "selectedContainerColor", mySettings.colorSettings.selectedContainerColor);
-            mySettings.colorSettings.selectedContainerPlanColor = parseColor(attrs, "selectedContainerPlanColor", mySettings.colorSettings.selectedContainerPlanColor);
-            mySettings.colorSettings.selectedEdgeDataColor = parseColor(attrs, "selectedEdgeDataColor", mySettings.colorSettings.selectedEdgeDataColor);
-            mySettings.colorSettings.busStopColor = parseColor(attrs, "busStopColor", mySettings.colorSettings.busStopColor);
             mySettings.colorSettings.busStopColorSign = parseColor(attrs, "busStopColorSign", mySettings.colorSettings.busStopColorSign);
-            mySettings.colorSettings.trainStopColor = parseColor(attrs, "trainStopColor", mySettings.colorSettings.trainStopColor);
-            mySettings.colorSettings.trainStopColorSign = parseColor(attrs, "trainStopColorSign", mySettings.colorSettings.trainStopColorSign);
+            mySettings.colorSettings.chargingStationColor = parseColor(attrs, "chargingStationColor", mySettings.colorSettings.chargingStationColor);
+            mySettings.colorSettings.chargingStationColorCharge = parseColor(attrs, "chargingStationColorCharge", mySettings.colorSettings.chargingStationColorCharge);
+            mySettings.colorSettings.chargingStationColorSign = parseColor(attrs, "chargingStationColorSign", mySettings.colorSettings.chargingStationColorSign);
             mySettings.colorSettings.containerStopColor = parseColor(attrs, "containerStopColor", mySettings.colorSettings.containerStopColor);
             mySettings.colorSettings.containerStopColorSign = parseColor(attrs, "containerStopColorSign", mySettings.colorSettings.containerStopColorSign);
-            mySettings.colorSettings.chargingStationColor = parseColor(attrs, "chargingStationColor", mySettings.colorSettings.chargingStationColor);
-            mySettings.colorSettings.chargingStationColorSign = parseColor(attrs, "chargingStationColorSign", mySettings.colorSettings.chargingStationColorSign);
-            mySettings.colorSettings.chargingStationColorCharge = parseColor(attrs, "chargingStationColorCharge", mySettings.colorSettings.chargingStationColorCharge);
             mySettings.colorSettings.parkingAreaColor = parseColor(attrs, "parkingAreaColor", mySettings.colorSettings.parkingAreaColor);
             mySettings.colorSettings.parkingAreaColorSign = parseColor(attrs, "parkingAreaColorSign", mySettings.colorSettings.parkingAreaColorSign);
-            mySettings.colorSettings.parkingSpaceColorContour = parseColor(attrs, "parkingSpaceColorContour", mySettings.colorSettings.parkingSpaceColorContour);
             mySettings.colorSettings.parkingSpaceColor = parseColor(attrs, "parkingSpaceColor", mySettings.colorSettings.parkingSpaceColor);
+            mySettings.colorSettings.parkingSpaceColorContour = parseColor(attrs, "parkingSpaceColorContour", mySettings.colorSettings.parkingSpaceColorContour);
+            mySettings.colorSettings.personTripColor = parseColor(attrs, "personTripColor", mySettings.colorSettings.personTripColor);
+            mySettings.colorSettings.rideColor = parseColor(attrs, "rideColor", mySettings.colorSettings.rideColor);
+            mySettings.colorSettings.selectedAdditionalColor = parseColor(attrs, "selectedAdditionalColor", mySettings.colorSettings.selectedAdditionalColor);
+            mySettings.colorSettings.selectedConnectionColor = parseColor(attrs, "selectedConnectionColor", mySettings.colorSettings.selectedConnectionColor);
+            mySettings.colorSettings.selectedContainerColor = parseColor(attrs, "selectedContainerColor", mySettings.colorSettings.selectedContainerColor);
+            mySettings.colorSettings.selectedContainerPlanColor = parseColor(attrs, "selectedContainerPlanColor", mySettings.colorSettings.selectedContainerPlanColor);
+            mySettings.colorSettings.selectedCrossingColor = parseColor(attrs, "selectedCrossingColor", mySettings.colorSettings.selectedCrossingColor);
+            mySettings.colorSettings.selectedEdgeColor = parseColor(attrs, "selectedEdgeColor", mySettings.colorSettings.selectedEdgeColor);
+            mySettings.colorSettings.selectedEdgeDataColor = parseColor(attrs, "selectedEdgeDataColor", mySettings.colorSettings.selectedEdgeDataColor);
+            mySettings.colorSettings.selectedLaneColor = parseColor(attrs, "selectedLaneColor", mySettings.colorSettings.selectedLaneColor);
+            mySettings.colorSettings.selectedPersonColor = parseColor(attrs, "selectedPersonColor", mySettings.colorSettings.selectedPersonColor);
+            mySettings.colorSettings.selectedPersonPlanColor = parseColor(attrs, "selectedPersonPlanColor", mySettings.colorSettings.selectedPersonPlanColor);
+            mySettings.colorSettings.selectedProhibitionColor = parseColor(attrs, "selectedProhibitionColor", mySettings.colorSettings.selectedProhibitionColor);
+            mySettings.colorSettings.selectedRouteColor = parseColor(attrs, "selectedRouteColor", mySettings.colorSettings.selectedRouteColor);
+            mySettings.colorSettings.selectedVehicleColor = parseColor(attrs, "selectedVehicleColor", mySettings.colorSettings.selectedVehicleColor);
+            mySettings.colorSettings.selectionColor = parseColor(attrs, "selectionColor", mySettings.colorSettings.selectionColor);
+            mySettings.colorSettings.stopColor = parseColor(attrs, "stopColor", mySettings.colorSettings.stopColor);
+            mySettings.colorSettings.waypointColor = parseColor(attrs, "waypointColor", mySettings.colorSettings.waypointColor);
+            mySettings.colorSettings.stopContainerColor = parseColor(attrs, "stopContainerColor", mySettings.colorSettings.stopContainerColor);
+            mySettings.colorSettings.stopPersonColor = parseColor(attrs, "stopPersonColor", mySettings.colorSettings.stopPersonColor);
+            mySettings.colorSettings.trainStopColor = parseColor(attrs, "trainStopColor", mySettings.colorSettings.trainStopColor);
+            mySettings.colorSettings.trainStopColorSign = parseColor(attrs, "trainStopColorSign", mySettings.colorSettings.trainStopColorSign);
+            mySettings.colorSettings.transhipColor = parseColor(attrs, "transhipColor", mySettings.colorSettings.transhipColor);
+            mySettings.colorSettings.transportColor = parseColor(attrs, "transportColor", mySettings.colorSettings.transportColor);
+            mySettings.colorSettings.vehicleTripColor = parseColor(attrs, "vehicleTripColor", mySettings.colorSettings.vehicleTripColor);
+            mySettings.colorSettings.walkColor = parseColor(attrs, "walkColor", mySettings.colorSettings.walkColor);
+            mySettings.widthSettings.personTripWidth = StringUtils::toDouble(attrs.getStringSecure("personTripWidth", toString(mySettings.widthSettings.personTripWidth)));
+            mySettings.widthSettings.rideWidth = StringUtils::toDouble(attrs.getStringSecure("rideWidth", toString(mySettings.widthSettings.rideWidth)));
+            mySettings.widthSettings.transhipWidth = StringUtils::toDouble(attrs.getStringSecure("transhipWidth", toString(mySettings.widthSettings.transhipWidth)));
+            mySettings.widthSettings.transportWidth = StringUtils::toDouble(attrs.getStringSecure("transportWidth", toString(mySettings.widthSettings.transportWidth)));
+            mySettings.widthSettings.tripWidth = StringUtils::toDouble(attrs.getStringSecure("tripWidth", toString(mySettings.widthSettings.tripWidth)));
+            mySettings.widthSettings.walkWidth = StringUtils::toDouble(attrs.getStringSecure("walkWidth", toString(mySettings.widthSettings.walkWidth)));
+            mySettings.colorSettings.busStopColor = parseColor(attrs, "busStopColor", mySettings.colorSettings.busStopColor);
             break;
         case SUMO_TAG_VIEWSETTINGS_POIS:
             mySettings.poiTextParam = attrs.getStringSecure("poiTextParam", mySettings.poiTextParam);
@@ -320,7 +364,7 @@ GUISettingsHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) 
         case SUMO_TAG_VIEWSETTINGS_DECAL: {
             GUISUMOAbstractView::Decal d;
             if (attrs.hasAttribute(SUMO_ATTR_FILE)) {
-                d.filename = attrs.get<std::string>(SUMO_ATTR_FILE, nullptr, ok);
+                d.filename = StringUtils::substituteEnvironment(attrs.get<std::string>(SUMO_ATTR_FILE, nullptr, ok));
             } else {
                 d.filename = attrs.getStringSecure("filename", d.filename);
                 WRITE_WARNING("The 'filename' attribute is deprecated for decals. Please use 'file'.");
@@ -388,8 +432,8 @@ GUISettingsHandler::myEndElement(int element) {
 }
 
 
-RGBColor 
-GUISettingsHandler::parseColor(const SUMOSAXAttributes& attrs, const std::string attribute, const RGBColor &defaultValue) const {
+RGBColor
+GUISettingsHandler::parseColor(const SUMOSAXAttributes& attrs, const std::string attribute, const RGBColor& defaultValue) const {
     bool ok = true;
     return RGBColor::parseColorReporting(attrs.getStringSecure(attribute, toString(defaultValue)), attribute.c_str(), nullptr, true, ok);
 }
@@ -401,11 +445,12 @@ GUISettingsHandler::parseTextSettings(
     GUIVisualizationTextSettings defaults) {
     bool ok = true;
     return GUIVisualizationTextSettings(
-               StringUtils::toBool(attrs.getStringSecure(prefix + "_show", toString(defaults.show))),
+               StringUtils::toBool(attrs.getStringSecure(prefix + "_show", toString(defaults.showText))),
                StringUtils::toDouble(attrs.getStringSecure(prefix + "_size", toString(defaults.size))),
                RGBColor::parseColorReporting(attrs.getStringSecure(prefix + "_color", toString(defaults.color)), "textSettings", nullptr, true, ok),
                RGBColor::parseColorReporting(attrs.getStringSecure(prefix + "_bgColor", toString(defaults.bgColor)), "textSettings", nullptr, true, ok),
-               StringUtils::toBool(attrs.getStringSecure(prefix + "_constantSize", toString(defaults.constSize))));
+               StringUtils::toBool(attrs.getStringSecure(prefix + "_constantSize", toString(defaults.constSize))),
+               StringUtils::toBool(attrs.getStringSecure(prefix + "_onlySelected", toString(defaults.onlySelected))));
 }
 
 
@@ -436,9 +481,10 @@ GUISettingsHandler::addSettings(GUISUMOAbstractView* view) const {
 
 void
 GUISettingsHandler::applyViewport(GUISUMOAbstractView* view) const {
-    if (myLookFrom.z() > 0) {
+    if (myLookFrom.z() > 0 || myZoom > 0) {
         // z value stores zoom so we must convert first
-        Position lookFrom(myLookFrom.x(), myLookFrom.y(), view->getChanger().zoom2ZPos(myLookFrom.z()));
+        double z = (view->is3DView()) ? myLookFrom.z() : view->getChanger().zoom2ZPos(myZoom);
+        Position lookFrom(myLookFrom.x(), myLookFrom.y(), z);
         view->setViewportFromToRot(lookFrom, myLookAt, myRotation);
     }
 }

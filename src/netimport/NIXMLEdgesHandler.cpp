@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -109,14 +109,13 @@ NIXMLEdgesHandler::myStartElement(int element,
             break;
         case SUMO_TAG_STOPOFFSET: {
             bool ok = true;
-            std::map<SVCPermissions, double> stopOffsets = parseStopOffsets(attrs, ok);
-            assert(stopOffsets.size() == 1);
+            const StopOffset stopOffset(attrs, ok);
             if (!ok) {
                 std::stringstream ss;
                 ss << "(Error encountered at lane " << myCurrentLaneIndex << " of edge '" << myCurrentID << "' while parsing stopOffsets.)";
                 WRITE_ERROR(ss.str());
             } else {
-                if (myCurrentEdge->getStopOffsets(myCurrentLaneIndex).size() != 0) {
+                if (myCurrentEdge->getLaneStopOffset(myCurrentLaneIndex).isDefined()) {
                     std::stringstream ss;
                     ss << "Duplicate definition of stopOffset for ";
                     if (myCurrentLaneIndex != -1) {
@@ -124,22 +123,21 @@ NIXMLEdgesHandler::myStartElement(int element,
                     }
                     ss << "edge " << myCurrentEdge->getID() << ". Ignoring duplicate specification.";
                     WRITE_WARNING(ss.str());
-                    return;
-                } else if (stopOffsets.begin()->second > myCurrentEdge->getLength() || stopOffsets.begin()->second < 0) {
+                } else if ((stopOffset.getOffset() > myCurrentEdge->getLength()) || (stopOffset.getOffset() < 0)) {
                     std::stringstream ss;
                     ss << "Ignoring invalid stopOffset for ";
                     if (myCurrentLaneIndex != -1) {
                         ss << "lane " << myCurrentLaneIndex << " on ";
                     }
                     ss << "edge " << myCurrentEdge->getID();
-                    if (stopOffsets.begin()->second > myCurrentEdge->getLength()) {
+                    if (stopOffset.getOffset() > myCurrentEdge->getLength()) {
                         ss << " (offset larger than the edge length).";
                     } else {
                         ss << " (negative offset).";
                     }
                     WRITE_WARNING(ss.str());
                 } else {
-                    myCurrentEdge->setStopOffsets(myCurrentLaneIndex, stopOffsets);
+                    myCurrentEdge->setEdgeStopOffset(myCurrentLaneIndex, stopOffset);
                 }
             }
         }
@@ -173,6 +171,7 @@ NIXMLEdgesHandler::addEdge(const SUMOSAXAttributes& attrs) {
         // update existing edge. only update lane-specific settings when explicitly requested
         myIsUpdate = true;
         myCurrentSpeed = NBEdge::UNSPECIFIED_SPEED;
+        myCurrentFriction = NBEdge::UNSPECIFIED_FRICTION;
         myPermissions = SVC_UNSPECIFIED;
         myCurrentWidth = NBEdge::UNSPECIFIED_WIDTH;
         myCurrentType = myCurrentEdge->getTypeID();
@@ -180,6 +179,7 @@ NIXMLEdgesHandler::addEdge(const SUMOSAXAttributes& attrs) {
     } else {
         // this is a completely new edge. get the type specific defaults
         myCurrentSpeed = myTypeCont.getEdgeTypeSpeed(myCurrentType);
+        myCurrentFriction = myTypeCont.getEdgeTypeFriction(myCurrentType);
         myPermissions = myTypeCont.getEdgeTypePermissions(myCurrentType);
         myCurrentWidth = myTypeCont.getEdgeTypeWidth(myCurrentType);
         myLanesSpread = myTypeCont.getEdgeTypeSpreadType(myCurrentType);
@@ -246,6 +246,10 @@ NIXMLEdgesHandler::addEdge(const SUMOSAXAttributes& attrs) {
     if (myOptions.getBool("speed-in-kmh") && myCurrentSpeed != NBEdge::UNSPECIFIED_SPEED) {
         myCurrentSpeed = myCurrentSpeed / (double) 3.6;
     }
+    // try to read the friction value from file
+    if (attrs.hasAttribute(SUMO_ATTR_FRICTION)) {
+        myCurrentFriction = attrs.get<double>(SUMO_ATTR_FRICTION, myCurrentID.c_str(), ok);
+    }
     // try to get the number of lanes
     if (attrs.hasAttribute(SUMO_ATTR_NUMLANES)) {
         myCurrentLaneNo = attrs.get<int>(SUMO_ATTR_NUMLANES, myCurrentID.c_str(), ok);
@@ -298,10 +302,17 @@ NIXMLEdgesHandler::addEdge(const SUMOSAXAttributes& attrs) {
         myCurrentEdge = nullptr;
         return;
     }
+    if (myFromNode == myToNode) {
+        // this might as well be an error. We make this a warning mostly for
+        // backward compatibility
+        WRITE_WARNINGF("Ignoring self-looped edge '%' at junction '%'", myCurrentID, myFromNode->getID());
+        myCurrentEdge = nullptr;
+        return;
+    }
     // check whether a previously defined edge shall be overwritten
     const bool applyLaneType = myCurrentEdge == nullptr;
     if (myCurrentEdge != nullptr) {
-        myCurrentEdge->reinit(myFromNode, myToNode, myCurrentType, myCurrentSpeed,
+        myCurrentEdge->reinit(myFromNode, myToNode, myCurrentType, myCurrentSpeed, myCurrentFriction,
                               myCurrentLaneNo, myCurrentPriority, myShape,
                               myCurrentWidth, myCurrentEndOffset,
                               myCurrentStreetName, myLanesSpread,
@@ -309,11 +320,11 @@ NIXMLEdgesHandler::addEdge(const SUMOSAXAttributes& attrs) {
     } else {
         // the edge must be allocated in dependence to whether a shape is given
         if (myShape.size() == 0) {
-            myCurrentEdge = new NBEdge(myCurrentID, myFromNode, myToNode, myCurrentType, myCurrentSpeed,
+            myCurrentEdge = new NBEdge(myCurrentID, myFromNode, myToNode, myCurrentType, myCurrentSpeed, myCurrentFriction,
                                        myCurrentLaneNo, myCurrentPriority, myCurrentWidth, myCurrentEndOffset,
                                        myLanesSpread, myCurrentStreetName);
         } else {
-            myCurrentEdge = new NBEdge(myCurrentID, myFromNode, myToNode, myCurrentType, myCurrentSpeed,
+            myCurrentEdge = new NBEdge(myCurrentID, myFromNode, myToNode, myCurrentType, myCurrentSpeed, myCurrentFriction,
                                        myCurrentLaneNo, myCurrentPriority, myCurrentWidth, myCurrentEndOffset,
                                        myShape, myLanesSpread, myCurrentStreetName, "",
                                        myKeepEdgeShape);
@@ -335,6 +346,9 @@ NIXMLEdgesHandler::addEdge(const SUMOSAXAttributes& attrs) {
                 if (laneType.attrs.count(SUMO_ATTR_SPEED) > 0) {
                     myCurrentEdge->setSpeed(lane, laneType.speed);
                 }
+                if (laneType.attrs.count(SUMO_ATTR_FRICTION) > 0) {
+                    myCurrentEdge->setFriction(lane, laneType.friction);
+                }
                 if (laneType.attrs.count(SUMO_ATTR_DISALLOW) > 0 || laneType.attrs.count(SUMO_ATTR_ALLOW) > 0) {
                     myCurrentEdge->setPermissions(laneType.permissions, lane);
                 }
@@ -347,6 +361,9 @@ NIXMLEdgesHandler::addEdge(const SUMOSAXAttributes& attrs) {
     }
     // try to get the kilometrage/mileage
     myCurrentEdge->setDistance(attrs.getOpt<double>(SUMO_ATTR_DISTANCE, myCurrentID.c_str(), ok, myCurrentEdge->getDistance()));
+    // preserve bidi edge (only as boo, the actual edge will be recomputed)
+    const std::string bidi = attrs.getOpt<std::string>(SUMO_ATTR_BIDI, myCurrentID.c_str(), ok, "");
+    myCurrentEdge->setBidi(myCurrentEdge->getBidiEdge() != nullptr || bidi != "");
 
     myLastParameterised.push_back(myCurrentEdge);
 }
@@ -407,6 +424,10 @@ NIXMLEdgesHandler::addLane(const SUMOSAXAttributes& attrs) {
     if (attrs.hasAttribute(SUMO_ATTR_SPEED)) {
         myCurrentEdge->setSpeed(lane, attrs.get<double>(SUMO_ATTR_SPEED, myCurrentID.c_str(), ok));
     }
+    // try to get lane specific friction
+    if (attrs.hasAttribute(SUMO_ATTR_FRICTION)) {
+        myCurrentEdge->setFriction(lane, attrs.get<double>(SUMO_ATTR_FRICTION, myCurrentID.c_str(), ok));
+    }
     // check whether this is an acceleration lane
     if (attrs.hasAttribute(SUMO_ATTR_ACCELERATION)) {
         myCurrentEdge->setAcceleration(lane, attrs.get<bool>(SUMO_ATTR_ACCELERATION, myCurrentID.c_str(), ok));
@@ -463,7 +484,7 @@ void NIXMLEdgesHandler::addSplit(const SUMOSAXAttributes& attrs) {
         if (e.pos < 0) {
             e.pos += myCurrentEdge->getGeometry().length();
         }
-        for (const std::string& id : attrs.getOptStringVector(SUMO_ATTR_LANES, myCurrentID.c_str(), ok)) {
+        for (const std::string& id : attrs.getOpt<std::vector<std::string> >(SUMO_ATTR_LANES, myCurrentID.c_str(), ok)) {
             try {
                 int lane = StringUtils::toInt(id);
                 e.lanes.push_back(lane);
@@ -625,10 +646,10 @@ NIXMLEdgesHandler::myEndElement(int element) {
             myCurrentEdge->addSidewalk(mySidewalkWidth);
         }
         // apply default stopOffsets of edge to all lanes without specified stopOffset.
-        std::map<SVCPermissions, double> stopOffsets = myCurrentEdge->getStopOffsets(-1);
-        if (stopOffsets.size() != 0) {
+        const StopOffset stopOffsets = myCurrentEdge->getEdgeStopOffset();
+        if (stopOffsets.isDefined()) {
             for (int i = 0; i < (int)myCurrentEdge->getLanes().size(); i++) {
-                myCurrentEdge->setStopOffsets(i, stopOffsets, false);
+                myCurrentEdge->setEdgeStopOffset(i, stopOffsets, false);
             }
         }
         if (!myIsUpdate) {
@@ -655,22 +676,21 @@ NIXMLEdgesHandler::myEndElement(int element) {
 
 void
 NIXMLEdgesHandler::addRoundabout(const SUMOSAXAttributes& attrs) {
-    if (attrs.hasAttribute(SUMO_ATTR_EDGES)) {
-        std::vector<std::string> edgeIDs = attrs.getStringVector(SUMO_ATTR_EDGES);
+    bool ok = true;
+    const std::vector<std::string>& edgeIDs = attrs.get<std::vector<std::string> >(SUMO_ATTR_EDGES, nullptr, ok);
+    if (ok) {
         EdgeSet roundabout;
-        for (std::vector<std::string>::iterator it = edgeIDs.begin(); it != edgeIDs.end(); ++it) {
-            NBEdge* edge = myEdgeCont.retrieve(*it);
+        for (const std::string& eID : edgeIDs) {
+            NBEdge* edge = myEdgeCont.retrieve(eID);
             if (edge == nullptr) {
-                if (!myEdgeCont.wasIgnored(*it)) {
-                    WRITE_ERROR("Unknown edge '" + (*it) + "' in roundabout");
+                if (!myEdgeCont.wasIgnored(eID)) {
+                    WRITE_ERROR("Unknown edge '" + eID + "' in roundabout.");
                 }
             } else {
                 roundabout.insert(edge);
             }
         }
         myEdgeCont.addRoundabout(roundabout);
-    } else {
-        WRITE_ERROR("Empty edges in roundabout.");
     }
 }
 

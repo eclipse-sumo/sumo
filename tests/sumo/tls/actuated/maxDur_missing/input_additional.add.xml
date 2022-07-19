@@ -1,0 +1,9 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+<tlLogic id="C" type="actuated" programID="custom" offset="45">
+        <phase duration="40" state="GggrrrGGg" minDur="5"/>
+        <phase duration="5"  state="yyyrrryyy"/>
+        <phase duration="40" state="rrrGGgGrr" minDur="5"/>
+        <phase duration="5"  state="rrryyyyrr"/>
+        <param key="show-detectors" value="true"/>
+    </tlLogic>
+</additional>

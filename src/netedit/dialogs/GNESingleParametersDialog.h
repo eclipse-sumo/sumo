@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -22,7 +22,7 @@
 
 #include <utils/common/SUMOVehicleClass.h>
 #include <utils/xml/SUMOSAXHandler.h>
-#include <netedit/frames/GNEFrameAttributesModuls.h>
+#include <netedit/frames/GNEFrameAttributeModules.h>
 #include <netedit/frames/common/GNEInspectorFrame.h>
 #include <netedit/dialogs/GNEVehicleTypeDialog.h>
 
@@ -31,6 +31,7 @@
 // ===========================================================================
 
 class GNEAttributeCarrier;
+class NBLoadedSUMOTLDef;
 class GNEViewNet;
 
 // ===========================================================================
@@ -60,7 +61,7 @@ public:
 
     public:
         /// @brief constructor
-        ParametersValues(FXHorizontalFrame* frame);
+        ParametersValues(FXHorizontalFrame* frame, const std::string& name);
 
         /// @brief destructor
         ~ParametersValues();
@@ -111,7 +112,7 @@ public:
             /// @brief disable row
             void disableRow();
 
-            /// @brief enable rlow
+            /// @brief enable row
             void enableRow(const std::string& parameter, const std::string& value) const;
 
             /// @brief toggle add button
@@ -229,17 +230,20 @@ public:
         FXButton* myHelpButton;
     };
 
-    /// @brief Constructor for parameter editor creator
-    GNESingleParametersDialog(GNEFrameAttributesModuls::ParametersEditorCreator* parametersEditorCreator);
+    /// @brief Constructor for generic data attributes
+    GNESingleParametersDialog(GNEFrameAttributeModules::GenericDataAttributes* genericDataAttributes);
 
-    /// @brief Constructor for parameter editor inspector
-    GNESingleParametersDialog(GNEInspectorFrame::ParametersEditorInspector* parametersEditorInspector);
+    /// @brief Constructor for parameter editor
+    GNESingleParametersDialog(GNEInspectorFrame::ParametersEditor* parametersEditor);
 
     /// @brief Constructor for Vehicle Type Row (Vehicle Type Dialog)
     GNESingleParametersDialog(GNEVehicleTypeDialog::VTypeAtributes::VTypeAttributeRow* VTypeAttributeRow, GNEViewNet* viewNet);
 
     /// @brief Constructor for attribute carriers (used in GNECreateEdgeFrame)
     GNESingleParametersDialog(GNEAttributeCarrier* attributeCarrier);
+
+    /// @brief Constructor for attribute carriers (used in GNETLSEditorFrame)
+    GNESingleParametersDialog(FXApp* app, NBLoadedSUMOTLDef* TLDef);
 
     /// @brief destructor
     ~GNESingleParametersDialog();
@@ -260,17 +264,20 @@ protected:
     /// @brief FOX need this
     FOX_CONSTRUCTOR(GNESingleParametersDialog)
 
-    /// @brief pointer to ParametersEditorCreator
-    GNEFrameAttributesModuls::ParametersEditorCreator* myParametersEditorCreator;
+    /// @brief pointer to GenericDataAttributes
+    GNEFrameAttributeModules::GenericDataAttributes* myGenericDataAttributes;
 
-    /// @brief pointer to ParametersEditorInspector
-    GNEInspectorFrame::ParametersEditorInspector* myParametersEditorInspector;
+    /// @brief pointer to ParametersEditor
+    GNEInspectorFrame::ParametersEditor* myParametersEditor;
 
     /// @brief pointer to VTypeAttributeRow
     GNEVehicleTypeDialog::VTypeAtributes::VTypeAttributeRow* VTypeAttributeRow;
 
     /// @brief pointer to GNEAttributeCarrier
     GNEAttributeCarrier* myAttributeCarrier;
+
+    /// @brief pointer to TLDef
+    NBLoadedSUMOTLDef* myTLDef;
 
     /// @brief pointer to parameters values
     ParametersValues* myParametersValues;
@@ -289,7 +296,7 @@ protected:
 
 private:
     /// @brief auxiliar constructor
-    void constructor();
+    void constructor(const std::string& name);
 
     /// @brief Invalidated copy constructor.
     GNESingleParametersDialog(const GNESingleParametersDialog&) = delete;

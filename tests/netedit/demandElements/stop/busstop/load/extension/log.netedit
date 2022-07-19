@@ -1,5 +1,0 @@
-Error: Attribute 'extension' in definition of a stop is not a real number.
-Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop at 'busStop'
-Error: Attribute 'extension' in definition of a stop is empty.
-Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop at 'busStop'
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.27Aug135052.3908\netedit.gui\demandElements\stop\busstop\load\extension\input_routes.rou.xml failed.

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -42,6 +42,7 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
+class Command;
 class GUILoadThread;
 class GUIRunThread;
 class GUIMessageWindow;
@@ -88,10 +89,13 @@ public:
     virtual void detach();
     /// @}
 
-    void loadOnStartup();
+    void loadOnStartup(const bool wait = false);
 
+    GUIRunThread* getRunner() {
+        return myRunThread;
+    }
 
-    void dependentBuild();
+    void dependentBuild(const bool isLibsumo);
 
     void setStatusBarText(const std::string& text);
 
@@ -139,6 +143,9 @@ public:
     /// @brief Called on reload
     long onCmdReload(FXObject*, FXSelector, void*);
 
+    /// @brief Called on quick-reload
+    long onCmdQuickReload(FXObject*, FXSelector, void*);
+
     /// @brief Called on opening a recent file
     long onCmdOpenRecent(FXObject*, FXSelector, void*);
 
@@ -177,6 +184,9 @@ public:
     /// @brief Toggle gaming mode
     long onCmdGaming(FXObject*, FXSelector, void*);
 
+    /// @brief Toggle draw junction shape
+    long onCmdToggleDrawJunctionShape(FXObject*, FXSelector, void*);
+
     /// @brief Toggle full screen mode
     long onCmdFullScreen(FXObject*, FXSelector, void*);
 
@@ -207,8 +217,17 @@ public:
     /// @brief Called on "save state"
     long onCmdSaveState(FXObject*, FXSelector, void*);
 
+    /// @brief Called on "save state"
+    long onCmdLoadState(FXObject*, FXSelector, void*);
+
     /// @brief Called on "time toggle"
     long onCmdTimeToggle(FXObject*, FXSelector, void*);
+
+    /// @brief Called on "delay inc"
+    long onCmdDelayInc(FXObject*, FXSelector, void*);
+
+    /// @brief Called on "delay dec"
+    long onCmdDelayDec(FXObject*, FXSelector, void*);
 
     /// @brief Called on "delay toggle"
     long onCmdDelayToggle(FXObject*, FXSelector, void*);
@@ -300,6 +319,9 @@ public:
 
     const std::vector<SUMOTime> retrieveBreakpoints() const;
 
+    /// @brief register custom hotkey action
+    void addHotkey(int key, Command* press, Command* release);
+
 protected:
     virtual void addToWindowsMenu(FXMenuPane*) { }
 
@@ -349,10 +371,16 @@ protected:
     /// @brief information whether the gui is currently loading and the load-options shall be greyed out
     bool myAmLoading;
 
+    /// @brief whether we are reloading the simulation
+    bool myIsReload;
+
+    /// @brief last modification time of the gui setting file
+    long long  myGuiSettingsFileMTime;
+
     /// @brief the submenus
     FXMenuPane* myFileMenu = nullptr, *myEditMenu = nullptr, *mySelectByPermissions = nullptr, *mySettingsMenu = nullptr,
                 *myLocatorMenu, *myControlMenu = nullptr,
-                                 *myWindowsMenu, *myHelpMenu = nullptr;
+                                 *myWindowMenu, *myHelpMenu = nullptr;
 
     /// @brief the menu cascades
     FXMenuCascade* mySelectLanesMenuCascade = nullptr;
@@ -454,5 +482,9 @@ protected:
 
     /// last time the simulation view was redrawn due to a simStep
     long myLastStepEventMillis;
+
+    /// @brief custom hotkeys
+    std::map<int, Command*> myHotkeyPress;
+    std::map<int, Command*> myHotkeyRelease;
 
 };

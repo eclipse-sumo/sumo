@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -14,7 +14,7 @@
 /// @file    GUIOverheadWire.cpp
 /// @author  Jakub Sevcik (RICE)
 /// @author  Jan Prikryl (RICE)
-/// @date    2019-11-25
+/// @date    2019-12-15
 ///
 // The gui-version of a MSOverheadWire
 /****************************************************************************/
@@ -24,15 +24,13 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/geom/PositionVector.h>
 #include <utils/geom/Boundary.h>
+#include <utils/geom/GeomHelper.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/common/ToString.h>
+#include <utils/traction_wire/Node.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSEdge.h>
-#include "GUINet.h"
-#include "GUIEdge.h"
-#include "GUIPerson.h"
-#include "GUIOverheadWire.h"
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <gui/GUIGlobals.h>
@@ -41,10 +39,13 @@
 #include <microsim/logging/FunctionBinding.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <foreign/fontstash/fontstash.h>
-#include <utils/geom/GeomHelper.h>
 #include <utils/gui/globjects/GLIncludes.h>
 #include <utils/vehicle/SUMOVehicle.h>
 #include <microsim/MSVehicleType.h>
+#include "GUINet.h"
+#include "GUIEdge.h"
+#include "GUIPerson.h"
+#include "GUIOverheadWire.h"
 
 
 // ===========================================================================
@@ -121,9 +122,16 @@ GUIOverheadWire::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     buildNameCopyPopupEntry(ret);
     buildSelectionPopupEntry(ret);
     buildShowParamsPopupEntry(ret);
-    buildPositionCopyEntry(ret, false);
+    buildPositionCopyEntry(ret, app);
     return ret;
 }
+
+
+double
+GUIOverheadWire::getExaggeration(const GUIVisualizationSettings& s) const {
+    return s.addSize.getExaggeration(s, this);
+}
+
 
 Boundary
 GUIOverheadWire::getCenteringBoundary() const {
@@ -159,20 +167,8 @@ GUIOverheadWire::drawGL(const GUIVisualizationSettings& s) const {
     // draw the area depending if the vehicle is charging
     glTranslated(0, 0, getType());
 
-    //right catenary
-    if (getElecHybridCount() > 0) {
-        GLHelper::setColor(redChargeOverheadWire);
-    } else if (myTractionSubstation != NULL && myTractionSubstation->getElecHybridCount() > 0) {
-        //GLHelper::setColor(redCharge);
-        GLHelper::setColor(yellowCharge);
-    } else {
-        //GLHelper::setColor(lightgray);
-        GLHelper::setColor(green);
-    }
-
-    const double exaggeration = s.addSize.getExaggeration(s, this);
-    //exaggeration - wide of line
-
+    // get relative line thickness
+    const double exaggeration = getExaggeration(s);
 
     //right catenary
     double toPos = getEndLanePosition();
@@ -190,9 +186,12 @@ GUIOverheadWire::drawGL(const GUIVisualizationSettings& s) const {
         GLHelper::setColor(scheme.getColor(MAX2(0.0, voltage - 400)));
     }
 
-    //TODORICE
-    //for (auto it = myChargingVehicles.begin(); it != myChargingVehicles.end(); ++it) {
-    for (std::vector<SUMOVehicle*>::const_iterator it = myChargingVehicles.begin(); it != myChargingVehicles.end(); ++it) {
+    Circuit* circuit = getCircuit();
+    // loop over charging vehicles under the overhead wire segment to color the wire segment parts according to the voltage level
+    // lock access to myChargingVehicles
+    lock();
+    for (auto it = myChargingVehicles.begin(); it != myChargingVehicles.end(); ++it) {
+        // position of the vehicle on the lane
         fromPos = (*it)->getPositionOnLane() - ((*it)->getVehicleType().getLength() / 2);
         if (fromPos < 0) {
             fromPos = 0;
@@ -218,21 +217,25 @@ GUIOverheadWire::drawGL(const GUIVisualizationSettings& s) const {
         }
 
         voltage = 0;
-        if (getCircuit() != nullptr) {
-            //TODORICE it causes crash of SUMO GUI often in debug mode and
+        if (circuit != nullptr) {
+            // RICE_CHECK: it caused crash of SUMO GUI often in debug mode and
             // vector "_STL_VERIFY(_Mycont->_Myfirst <= _Ptr && _Ptr < _Mycont->_Mylast,
-            //"can't dereference out of range vector iterator"); "
-            node = getCircuit()->getNode("pos_" + (*it)->getID());
+            // "can't dereference out of range vector iterator"); "
+            circuit->lock();
+            node = circuit->getNode("pos_" + (*it)->getID());
             if (node != nullptr) {
                 voltage = node->getVoltage();
             }
+            circuit->unlock();
         }
         GLHelper::setColor(scheme.getColor(MAX2(0.0, voltage - 400)));
         GLHelper::drawBoxLines(myFGShape_aux, myFGShapeRotations_aux, myFGShapeLengths_aux, exaggeration / 8, 0, 0.5);
 
         toPos = fromPos;
     }
+    unlock();
 
+    // coloring the last remaining part of wire's segment
     myFGShape_aux = myFGShape;
 
     myFGShape_aux = myFGShape_aux.getSubpart(
@@ -252,26 +255,23 @@ GUIOverheadWire::drawGL(const GUIVisualizationSettings& s) const {
         myFGShapeLengths_aux.push_back(f_aux.distanceTo(s_aux));
         myFGShapeRotations_aux.push_back((double)atan2((s_aux.x() - f_aux.x()), (f_aux.y() - s_aux.y())) * (double) 180.0 / (double)M_PI);
     }
-
-    //GLHelper::setColor(green);
     GLHelper::drawBoxLines(myFGShape_aux, myFGShapeRotations_aux, myFGShapeLengths_aux, exaggeration / 8, 0, 0.5);
 
 
     //left catenary
+    //coloring of left-side overhead wire segment in case of
+    // * a vehicle is under the segment
+    // * a vehicle is at least under the traction substation of the segment
+    // * no vehicle is connected to the traction substation of the segment
     if (getElecHybridCount() > 0) {
-        //GLHelper::setColor(yellowCharge);
         GLHelper::setColor(redChargeOverheadWire);
     } else if (myTractionSubstation != NULL && myTractionSubstation->getElecHybridCount() > 0) {
-        //GLHelper::setColor(yellow);
         GLHelper::setColor(yellowCharge);
     } else {
-        //GLHelper::setColor(lightgray);
         GLHelper::setColor(green);
     }
     GLHelper::drawBoxLines(myFGShape, myFGShapeRotations, myFGShapeLengths, exaggeration / 8, 0, -0.5);
 
-    //a catenary in the centre of lane
-    //GLHelper::drawBoxLines(myFGShape, myFGShapeRotations, myFGShapeLengths, exaggeration / 4);
 
     // draw details unless zoomed out to far
     if (s.scale * exaggeration >= 10 && myVoltageSource) {
@@ -336,8 +336,14 @@ GUIOverheadWireClamp::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& pare
     buildNameCopyPopupEntry(ret);
     buildSelectionPopupEntry(ret);
     buildShowParamsPopupEntry(ret);
-    buildPositionCopyEntry(ret, false);
+    buildPositionCopyEntry(ret, app);
     return ret;
+}
+
+
+double
+GUIOverheadWireClamp::getExaggeration(const GUIVisualizationSettings& s) const {
+    return s.addSize.getExaggeration(s, this);
 }
 
 
@@ -368,7 +374,7 @@ GUIOverheadWireClamp::drawGL(const GUIVisualizationSettings& s) const {
     GLHelper::setColor(redChargeOverheadWire);
 
 
-    const double exaggeration = s.addSize.getExaggeration(s, this);
+    const double exaggeration = getExaggeration(s);
     //exaggeration - wide of line
 
 

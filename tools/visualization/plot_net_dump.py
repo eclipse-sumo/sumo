@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2008-2021 German Aerospace Center (DLR) and others.
+# Copyright (C) 2008-2022 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -92,6 +92,8 @@ def main(args=None):
                          help="If set, the script says what it's doing")
     optParser.add_option("--color-bar-label", dest="colorBarLabel", default="",
                          help="The label to put on the color bar")
+    optParser.add_option("--internal", action="store_true",
+                         default=False, help="include internal edges in generated shapes")
 
     # standard plot options
     helpers.addInteractionOptions(optParser)
@@ -112,7 +114,7 @@ def main(args=None):
         return 1
     if options.verbose:
         print("Reading network from '%s'" % options.net)
-    net = sumolib.net.readNet(options.net)
+    net = sumolib.net.readNet(options.net, withInternal=options.internal)
 
     if options.measures is None:
         print("Error: a dump file must be given.")
@@ -125,7 +127,7 @@ def main(args=None):
     colorMeasure = options.measures.split(",")[0]
     if colorDump:
         if options.verbose:
-            print("Reading colors from '%s'" % colorDump)
+            print("Reading colors from '%s' (attribute:%s)" % (colorDump, colorMeasure))
         hc = WeightsReader(colorMeasure)
         sumolib.output.parse_sax(colorDump, hc)
         times = hc._edge2value
@@ -135,7 +137,7 @@ def main(args=None):
         widthDump = dumps[1]
         widthMeasure = options.measures.split(",")[1]
         if options.verbose:
-            print("Reading widths from '%s'" % widthDump)
+            print("Reading width attribute from '%s' (attribute:%s)" % (widthDump, widthMeasure))
         hw = WeightsReader(widthMeasure)
         sumolib.output.parse_sax(widthDump, hw)
         times = hw._edge2value

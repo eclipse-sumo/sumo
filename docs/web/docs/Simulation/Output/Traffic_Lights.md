@@ -22,6 +22,9 @@ The attributes have herein the following meanings:
 | **type**       | enum (string)     | type of the event trigger; always "SaveTLSStates" herein. |
 | **source**     | referenced tls id | The id of the traffic light which state shall be written. |
 | **dest**       | file name         | The file to save the state into.                          |
+| saveDetectors  | bool              | Whether detector states shall be saved                    |
+| saveConditions | bool              | Whether condition states shall be saved                   |
+
 
 ### Generated Output
 
@@ -49,6 +52,18 @@ the following meaning:
 | programID | id                   | The sub-id of the tls that is (currently) responsible for the link. |
 | phase     | uint                 | The index of the reported phase within the program                  |
 | state     | id                   | The current state                                                   |
+
+### Optional Output
+
+If the the attributes 'saveDetectors' or 'saveConditions' are set, additional attributes are written to the output.
+These attributes are only written for traffic lights [controlled by detectors](../Traffic_Lights.md#traffic_lights_that_respond_to_traffic) and for traffic lights with [custom switching rules](../Traffic_Lights.md#type_actuated_with_custom_switching_rules) respectively.
+
+|Element    | Name           | Type           | Description                                                         |
+|-----------| -------------- | -------------- | ------------------------------------------------------------------- |
+| tlsStates | detectors      | list (strings) | The ids of all detectors that are controlling this traffic light |
+| tlsState  | detectors      | list (int)     | The activation state of all detectors that are controlling this traffic light |
+| tlsStates | conditions     | list (strings) | The ids of all (visible) conditions that are controlling this traffic light |
+| tlsState  | conditions     | list (int)     | The value of all (visible) conditions that are controlling this traffic light |
 
 ## TLS Switches
 
@@ -173,7 +188,7 @@ which are coupled to a traffic light. Then, the tls is used to determine
 the intervals (aggregation) time instead of giving a fixed aggregation
 time. In this case, output will be generated every time the traffic
 light switches. To use this feature set attribute `tl="<TL_ID>"` to the desired
-traffic light id instead off attribute `<freq>`:
+traffic light id instead of attribute `<period>`:
 
 `<e2Detector id="<ID>" lane="<LANE_ID>" pos="<POSITION_ON_LANE>" length="<DETECTOR_LENGTH>" tl="<TL_ID>" file="<OUTPUT_FILE>" [timeThreshold="<FLOAT>"] [speedThreshold="<FLOAT>"] [jamThreshold="<FLOAT>"]/>`
 

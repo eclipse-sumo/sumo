@@ -1,14 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2020-09-07 10:05:07.244387 by routeSampler.py v1_6_0+1981-181bb7fdbe
-  options: -r input_routes.rou.xml <doubleminus>edgedata-file input_edgedata.xml <doubleminus>edgedata-attribute count -o out.rou.xml -I <doubleminus>write-flows number <doubleminus>weighted -v
+
+<!-- generated on 2022-07-07 11:09:36.438737 by routeSampler.py v1_13_0+1343-240e5d48340
+<configuration>
+    <edgedata-attribute value="count"/>
+    <edgedata-files value="input_edgedata.xml"/>
+    <route-files value="input_routes.rou.xml"/>
+    <verbose value="True"/>
+    <weighted value="True"/>
+    <write-flows value="number"/>
+    <write-route-ids value="True"/>
+</configuration>
 -->
+
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 <!-- begin="0.0" end="3600.0" -->
-    <route id="0" edges="-3 -3.180.00 11"/> <!-- 90 -->
-    <route id="1" edges="-3 -3.180.00 15"/> <!-- 602 -->
-    <route id="2" edges="-3 -3.180.00 5"/> <!-- 308 -->
+    <route id="0" edges="-3 -3.180.00 11"/> <!-- 108 -->
+    <route id="1" edges="-3 -3.180.00 15"/> <!-- 604 -->
+    <route id="2" edges="-3 -3.180.00 5"/> <!-- 288 -->
 
-    <flow id="1" begin="0.00" end="3585.60" number="602" route="1"/>
-    <flow id="0" begin="7.20" end="3592.80" number="90" route="0"/>
-    <flow id="2" begin="14.40" end="3596.40" number="308" route="2"/>
+    <flow id="0" begin="0.00" end="3459.60" number="108" route="0"/>
+    <flow id="2" begin="3.60" end="3596.40" number="288" route="2"/>
+    <flow id="1" begin="14.40" end="3589.20" number="604" route="1"/>
 </routes>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-01-19 00:07:26 by Eclipse SUMO sumo Version v1_11_0+1268-6fcf065
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="three_split.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <vehroute-output value="vehroutes.xml"/>
+        <vehroute-output.sorted value="true"/>
+    </output>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <person id="p1.0" depart="0.00" departPos="random" arrival="244.00">
+        <walk edges="beg end"/>
+    </person>
+
+    <person id="p1.1" depart="3.60" departPos="random" arrival="318.00">
+        <walk edges="beg end"/>
+    </person>
+
+    <person id="p1.2" depart="7.20" departPos="random" arrival="591.00">
+        <walk edges="beg end"/>
+    </person>
+
+    <person id="p1.3" depart="10.80" departPos="random" arrival="413.00">
+        <walk edges="beg end"/>
+    </person>
+
+    <person id="p1.4" depart="14.40" departPos="random" arrival="379.00">
+        <walk edges="beg end"/>
+    </person>
+
+    <person id="p1.5" depart="18.00" departPos="random" arrival="600.00">
+        <walk edges="beg end"/>
+    </person>
+
+    <person id="p1.6" depart="21.60" departPos="random" arrival="325.00">
+        <walk edges="beg end"/>
+    </person>
+
+    <person id="p1.7" depart="25.20" departPos="random" arrival="526.00">
+        <walk edges="beg end"/>
+    </person>
+
+    <person id="p1.8" depart="28.80" departPos="random" arrival="412.00">
+        <walk edges="beg end"/>
+    </person>
+
+    <person id="p1.9" depart="32.40" departPos="random" arrival="336.00">
+        <walk edges="beg end"/>
+    </person>
+
+</routes>

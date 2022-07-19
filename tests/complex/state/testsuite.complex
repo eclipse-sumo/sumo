@@ -1,3 +1,6 @@
+# test state saving with persons
+persons
+
 # two vehicles saved and reloaded
 plain
 
@@ -51,9 +54,13 @@ save_rail_signal_constraint_include
 save_rng
 save_routeDistribution
 save_stopped
+save_stopped_until
 
 # like save_stopped but the input already containts started/ended information
 save_stopped_started_ended
+
+# save stops in named routes
+named_route_stops
 
 # restore further lanes according to previous route when loading state
 rail_furtherLane
@@ -69,3 +76,18 @@ default_begin
 
 # test for crash when loading additional file with vehicles before the state
 earlier_begin
+
+# when loading state, replace the vType attributes with new values
+replace_vtype
+
+# teleporting vehicles
+teleporting
+
+# teleporting vehicles
+teleporting_highbegin
+
+# load actuated tls
+actuated
+
+# test saving and load vehicles added by calibrator
+calibrator

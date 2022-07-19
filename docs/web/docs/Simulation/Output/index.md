@@ -178,6 +178,21 @@ controlled railSignal link the following information is generated:
     area (forwardBlock, bidiBlock, backwardBlock) from outside,
     encoded as *<SIGNALID\>_<LINKINDEX\>*
 
+# Commandline Output (step-log)
+
+By default, sumo will print some "heartbeat" information to indicate that it is still running. The following information will be printed every 100 simulation steps:
+
+- Step #: current simulation time
+- duration of the latest step in (**ms**)
+- real-time factor (step-length / duration). (**RT**)
+- number of vehicles updated per second (**UPS**)
+- **TraCI:** time spent with TraCI processing in the current step (including external script)
+- **vehicles TOT**: number of vehicles that departed so far
+- **ACT**: number of currently running vehicles
+- **BUF**: number of vehicles with delayed insertion
+
+This output can be disabled with the option **--no-step-log**. It's period can be configured with the option **--step-log.period TIME**.
+
 # Commandline Output (verbose)
 
 When running the simulation with option **--verbose** (short **-v**) the following data

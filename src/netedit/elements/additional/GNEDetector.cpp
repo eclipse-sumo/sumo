@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -20,12 +20,9 @@
 #include <config.h>
 
 #include <netedit/GNENet.h>
-#include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
 #include <netedit/elements/additional/GNEAdditionalHandler.h>
-#include <netedit/elements/network/GNEEdge.h>
-#include <netedit/elements/network/GNELane.h>
 #include <netedit/frames/common/GNEMoveFrame.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/globjects/GLIncludes.h>
@@ -37,28 +34,26 @@
 // member method definitions
 // ===========================================================================
 
-GNEDetector::GNEDetector(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, double pos, const SUMOTime freq,
+GNEDetector::GNEDetector(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, double pos, const SUMOTime period,
                          const std::vector<GNELane*>& parentLanes, const std::string& filename, const std::vector<std::string>& vehicleTypes, const std::string& name,
-                         const bool friendlyPos, const std::map<std::string, std::string>& parameters) :
-    GNEAdditional(id, net, type, tag, name,
-{}, {}, parentLanes, {}, {}, {}, {}, {},
-parameters),
-            myPositionOverLane(pos),
-            myFreq(freq),
-            myFilename(filename),
-            myVehicleTypes(vehicleTypes),
+                         const bool friendlyPos, const Parameterised::Map& parameters) :
+    GNEAdditional(id, net, type, tag, name, {}, {}, parentLanes, {}, {}, {}),
+              Parameterised(parameters),
+              myPositionOverLane(pos),
+              myPeriod(period),
+              myFilename(filename),
+              myVehicleTypes(vehicleTypes),
 myFriendlyPosition(friendlyPos) {
 }
 
 
-GNEDetector::GNEDetector(GNEAdditional* additionalParent, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, const double pos, const SUMOTime freq,
+GNEDetector::GNEDetector(GNEAdditional* additionalParent, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, const double pos, const SUMOTime period,
                          const std::vector<GNELane*>& parentLanes, const std::string& filename, const std::string& name, const bool friendlyPos,
-                         const std::map<std::string, std::string>& parameters) :
-    GNEAdditional(net, type, tag, name,
-{}, {}, parentLanes, {additionalParent}, {}, {}, {}, {},
-parameters),
+                         const Parameterised::Map& parameters) :
+    GNEAdditional(net, type, tag, name, {}, {}, parentLanes, {additionalParent}, {}, {}),
+Parameterised(parameters),
 myPositionOverLane(pos),
-myFreq(freq),
+myPeriod(period),
 myFilename(filename),
 myFriendlyPosition(friendlyPos) {
 }
@@ -68,10 +63,19 @@ GNEDetector::~GNEDetector() {}
 
 
 GNEMoveOperation*
-GNEDetector::getMoveOperation(const double /*shapeOffset*/) {
-    // return move operation for additional placed over shape
-    return new GNEMoveOperation(this, getParentLanes().front(), myPositionOverLane,
-                                myNet->getViewNet()->getViewParent()->getMoveFrame()->getCommonModeOptions()->getAllowChangeLane());
+GNEDetector::getMoveOperation() {
+    // check modes and detector type
+    if (!myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() || (myNet->getViewNet()->getEditModes().networkEditMode != NetworkEditMode::NETWORK_MOVE)) {
+        return nullptr;
+    } else if (myTagProperty.getTag() == SUMO_TAG_LANE_AREA_DETECTOR) {
+        return getMoveOperationSingleLane(myPositionOverLane, getAttributeDouble(SUMO_ATTR_ENDPOS));
+    } else if (myTagProperty.getTag() == GNE_TAG_MULTI_LANE_AREA_DETECTOR) {
+        return getMoveOperationMultiLane(myPositionOverLane, getAttributeDouble(SUMO_ATTR_ENDPOS));
+    } else {
+        // return move operation for detectors with single position placed over shape (E1, EntryExits..)
+        return new GNEMoveOperation(this, getParentLanes().front(), myPositionOverLane,
+                                    myNet->getViewNet()->getViewParent()->getMoveFrame()->getCommonModeOptions()->getAllowChangeLane());
+    }
 }
 
 
@@ -89,23 +93,24 @@ GNEDetector::getLane() const {
 
 Position
 GNEDetector::getPositionInView() const {
-    return myBoundary.getCenter();
+    return myAdditionalGeometry.getShape().getPolygonCenter();
 }
 
 
 void
 GNEDetector::updateCenteringBoundary(const bool /*updateGrid*/) {
-    // add shape boundary
-    myBoundary = myAdditionalGeometry.getShape().getBoxBoundary();
+    myAdditionalBoundary.reset();
+    // add center
+    myAdditionalBoundary.add(getPositionInView());
     // grow
-    myBoundary.grow(10);
+    myAdditionalBoundary.grow(10);
 }
 
 void
 GNEDetector::splitEdgeGeometry(const double splitPosition, const GNENetworkElement* originalElement,
                                const GNENetworkElement* newElement, GNEUndoList* undoList) {
     // only split geometry of E2 multilane detectors
-    if (myTagProperty.getTag() == GNE_TAG_E2DETECTOR_MULTILANE) {
+    if (myTagProperty.getTag() == GNE_TAG_MULTI_LANE_AREA_DETECTOR) {
         // obtain new list of E2 lanes
         std::string newE2Lanes = getNewListOfParents(originalElement, newElement);
         // update E2 Lanes
@@ -125,8 +130,9 @@ double
 GNEDetector::getGeometryPositionOverLane() const {
     double fixedPos = myPositionOverLane;
     const double len = getLane()->getParentEdge()->getNBEdge()->getFinalLength();
-    GNEAdditionalHandler::fixSinglePositionOverLane(fixedPos, len);
-    return fixedPos * getLane()->getLengthGeometryFactor();
+    double length = 0;
+    GNEAdditionalHandler::fixLanePosition(fixedPos, length, len);
+    return (fixedPos * getLane()->getLengthGeometryFactor());
 }
 
 
@@ -134,6 +140,12 @@ GNEDetector::getGeometryPositionOverLane() const {
 std::string
 GNEDetector::getParentName() const {
     return getLane()->getID();
+}
+
+
+const Parameterised::Map&
+GNEDetector::getACParametersMap() const {
+    return getParametersMap();
 }
 
 
@@ -159,7 +171,7 @@ GNEDetector::drawE1Shape(const GUIVisualizationSettings& s, const double exagger
     // translate to center geometry
     glTranslated(myAdditionalGeometry.getShape().front().x(), myAdditionalGeometry.getShape().front().y(), 0);
     // rotate over lane
-    GNEGeometry::rotateOverLane(myAdditionalGeometry.getShapeRotations().front() + 90);
+    GUIGeometry::rotateOverLane(myAdditionalGeometry.getShapeRotations().front() + 90);
     // scale
     glScaled(exaggeration, exaggeration, 1);
     // set main color
@@ -234,7 +246,7 @@ GNEDetector::drawDetectorLogo(const GUIVisualizationSettings& s, const double ex
         // Traslate to position
         glTranslated(pos.x(), pos.y(), 0.1);
         // rotate over lane
-        GNEGeometry::rotateOverLane(rot);
+        GUIGeometry::rotateOverLane(rot);
         // move
         glTranslated(-1, 0, 0);
         // scale text
@@ -244,35 +256,6 @@ GNEDetector::drawDetectorLogo(const GUIVisualizationSettings& s, const double ex
         // pop matrix
         GLHelper::popMatrix();
     }
-}
-
-
-void
-GNEDetector::setMoveShape(const GNEMoveResult& moveResult) {
-    // change both position
-    myPositionOverLane = moveResult.newFirstPos;
-    // set lateral offset
-    myMoveElementLateralOffset = moveResult.firstLaneOffset;
-    // update geometry
-    updateGeometry();
-}
-
-
-void
-GNEDetector::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
-    // reset lateral offset
-    myMoveElementLateralOffset = 0;
-    // begin change attribute
-    undoList->begin("position of " + getTagStr());
-    // now adjust start position
-    setAttribute(SUMO_ATTR_POSITION, toString(moveResult.newFirstPos), undoList);
-    // check if lane has to be changed
-    if (moveResult.newFirstLane) {
-        // set new lane
-        setAttribute(SUMO_ATTR_LANE, moveResult.newFirstLane->getID(), undoList);
-    }
-    // end change attribute
-    undoList->end();
 }
 
 /****************************************************************************/

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -33,23 +33,15 @@ GNENetworkElement::GNENetworkElement(GNENet* net, const std::string& id, GUIGlOb
                                      const std::vector<GNEEdge*>& edgeParents,
                                      const std::vector<GNELane*>& laneParents,
                                      const std::vector<GNEAdditional*>& additionalParents,
-                                     const std::vector<GNEShape*>& shapeParents,
-                                     const std::vector<GNETAZElement*>& TAZElementParents,
                                      const std::vector<GNEDemandElement*>& demandElementParents,
                                      const std::vector<GNEGenericData*>& genericDataParents) :
     GUIGlObject(type, id),
-    GNEHierarchicalElement(net, tag, junctionParents, edgeParents, laneParents, additionalParents, shapeParents, TAZElementParents, demandElementParents, genericDataParents),
+    GNEHierarchicalElement(net, tag, junctionParents, edgeParents, laneParents, additionalParents, demandElementParents, genericDataParents),
     myShapeEdited(false) {
 }
 
 
 GNENetworkElement::~GNENetworkElement() {}
-
-
-const std::string&
-GNENetworkElement::getID() const {
-    return getMicrosimID();
-}
 
 
 GUIGlObject*
@@ -67,6 +59,20 @@ GNENetworkElement::setShapeEdited(const bool value) {
 bool
 GNENetworkElement::isShapeEdited() const {
     return myShapeEdited;
+}
+
+
+bool
+GNENetworkElement::GNENetworkElement::isNetworkElementValid() const {
+    // implement in children
+    return true;
+}
+
+
+std::string
+GNENetworkElement::GNENetworkElement::getNetworkElementProblem() const {
+    // implement in children
+    return "";
 }
 
 
@@ -95,18 +101,6 @@ GNENetworkElement::getCenteringBoundary() const {
 }
 
 
-void
-GNENetworkElement::enableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
-    //
-}
-
-
-void
-GNENetworkElement::disableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
-    //
-}
-
-
 std::string
 GNENetworkElement::getPopUpID() const {
     if (myTagProperty.getTag() == SUMO_TAG_CONNECTION) {
@@ -129,12 +123,5 @@ GNENetworkElement::getHierarchyName() const {
         return getTagStr();
     }
 }
-
-
-void
-GNENetworkElement::setEnabledAttribute(const int /*enabledAttributes*/) {
-    //
-}
-
 
 /****************************************************************************/

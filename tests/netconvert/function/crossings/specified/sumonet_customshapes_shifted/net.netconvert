@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec 14 11:32:54 2020 by Eclipse SUMO netconvert Version v1_8_0+0240-6f1f621077
+<!-- generated on 2022-06-29 14:16:26 by Eclipse SUMO netconvert Version v1_13_0+1304-4c85731
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -39,7 +44,6 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
-        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
@@ -150,13 +154,13 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":C_w6_0" index="0" allow="pedestrian" speed="1.00" length="13.41" width="4.50" customShape="1" shape="286.91,146.71 270.07,139.68 286.28,131.38"/>
     </edge>
     <edge id=":E_w0" function="walkingarea">
-        <lane id=":E_w0_0" index="0" allow="pedestrian" speed="1.00" length="18.31" width="3.00" shape="401.97,147.65 402.71,150.56 402.22,129.33 401.61,132.27 410.86,134.61 416.44,137.05 418.34,139.57 416.56,142.18 411.10,144.87"/>
+        <lane id=":E_w0_0" index="0" allow="pedestrian" speed="1.00" length="18.31" width="3.00" shape="401.97,147.65 402.71,150.56 406.72,148.26 409.07,144.40 409.77,139.77 408.85,135.18 406.33,131.43 402.22,129.33 401.61,132.27 403.72,133.68 405.04,136.43 405.53,139.87 405.20,143.33 404.01,146.14"/>
     </edge>
     <edge id=":N_w0" function="walkingarea">
-        <lane id=":N_w0_0" index="0" allow="pedestrian" speed="1.00" length="18.47" width="3.00" shape="292.39,237.87 289.50,237.06 308.70,246.57 306.31,244.76 298.92,253.84 293.56,258.84 290.23,259.73 288.92,256.54 289.64,249.25"/>
+        <lane id=":N_w0_0" index="0" allow="pedestrian" speed="1.00" length="18.47" width="3.00" shape="292.39,237.87 289.50,237.06 289.57,241.66 291.94,245.58 295.83,248.42 300.45,249.79 305.00,249.30 308.70,246.57 306.31,244.76 304.10,246.03 301.00,245.92 297.66,244.73 294.69,242.79 292.72,240.40"/>
     </edge>
     <edge id=":S_w0" function="walkingarea">
-        <lane id=":S_w0_0" index="0" allow="pedestrian" speed="1.00" length="17.70" width="3.00" shape="307.26,36.87 310.01,35.69 289.52,36.99 292.41,37.82 294.51,31.89 296.77,28.27 299.17,26.96 301.72,27.96 304.41,31.26"/>
+        <lane id=":S_w0_0" index="0" allow="pedestrian" speed="1.00" length="17.70" width="3.00" shape="307.26,36.87 310.01,35.69 307.31,31.93 303.55,29.81 299.32,29.29 295.18,30.34 291.72,32.92 289.52,36.99 292.41,37.82 293.85,35.78 296.43,34.44 299.61,33.85 302.84,34.04 305.57,35.03"/>
     </edge>
     <edge id=":W_w0" function="walkingarea">
         <lane id=":W_w0_0" index="0" allow="pedestrian" speed="1.00" length="18.80" width="3.00" shape="199.95,132.10 199.93,129.10 200.03,150.90 200.02,147.90"/>
@@ -275,24 +279,24 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="WC" to="CN" fromLane="3" toLane="3" via=":C_15_0" tl="C" linkIndex="15" dir="l" state="o"/>
 
     <connection from=":C_0" to="CW" fromLane="0" toLane="2" via=":C_16_0" dir="r" state="m"/>
-    <connection from=":C_16" to="CW" fromLane="0" toLane="2" dir="r" state="M"/>
+    <connection from=":C_16" to="CW" fromLane="0" toLane="2" dir="r" state="m"/>
     <connection from=":C_1" to="CS" fromLane="0" toLane="2" dir="s" state="M"/>
     <connection from=":C_1" to="CS" fromLane="1" toLane="3" dir="s" state="M"/>
     <connection from=":C_3" to="CE" fromLane="0" toLane="3" via=":C_17_0" dir="l" state="m"/>
-    <connection from=":C_17" to="CE" fromLane="0" toLane="3" dir="l" state="M"/>
+    <connection from=":C_17" to="CE" fromLane="0" toLane="3" dir="l" state="m"/>
     <connection from=":C_4" to="CN" fromLane="0" toLane="2" dir="r" state="M"/>
     <connection from=":C_5" to="CW" fromLane="0" toLane="2" dir="s" state="M"/>
     <connection from=":C_5" to="CW" fromLane="1" toLane="3" dir="s" state="M"/>
     <connection from=":C_7" to="CS" fromLane="0" toLane="3" via=":C_18_0" dir="l" state="m"/>
-    <connection from=":C_18" to="CS" fromLane="0" toLane="3" dir="l" state="M"/>
+    <connection from=":C_18" to="CS" fromLane="0" toLane="3" dir="l" state="m"/>
     <connection from=":C_8" to="CE" fromLane="0" toLane="2" via=":C_19_0" dir="r" state="m"/>
-    <connection from=":C_19" to="CE" fromLane="0" toLane="2" dir="r" state="M"/>
+    <connection from=":C_19" to="CE" fromLane="0" toLane="2" dir="r" state="m"/>
     <connection from=":C_9" to="CN" fromLane="0" toLane="2" dir="s" state="M"/>
     <connection from=":C_9" to="CN" fromLane="1" toLane="3" dir="s" state="M"/>
     <connection from=":C_11" to="CW" fromLane="0" toLane="3" via=":C_20_0" dir="l" state="m"/>
-    <connection from=":C_20" to="CW" fromLane="0" toLane="3" dir="l" state="M"/>
+    <connection from=":C_20" to="CW" fromLane="0" toLane="3" dir="l" state="m"/>
     <connection from=":C_12" to="CS" fromLane="0" toLane="2" via=":C_21_0" dir="r" state="m"/>
-    <connection from=":C_21" to="CS" fromLane="0" toLane="2" dir="r" state="M"/>
+    <connection from=":C_21" to="CS" fromLane="0" toLane="2" dir="r" state="m"/>
     <connection from=":C_13" to="CE" fromLane="0" toLane="2" dir="s" state="M"/>
     <connection from=":C_13" to="CE" fromLane="1" toLane="3" dir="s" state="M"/>
     <connection from=":C_15" to="CN" fromLane="0" toLane="3" via=":C_22_0" dir="l" state="m"/>

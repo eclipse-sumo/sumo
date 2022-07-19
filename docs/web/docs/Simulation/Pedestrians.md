@@ -61,13 +61,17 @@ new sidewalk lane.
 ### Explicit specification of sidewalks
 
 Alternatively to the above method, the `<edge>`-attribute
-[sidewalkWidth may be used](../Networks/PlainXML.md#edge_descriptions).
+[sidewalkWidth may be used](../Networks/PlainXML.md#edge_descriptions) when loading edges from an *.edg.xml*-file.
 It will cause a sidewalk of the specified width to be added to that
 edge, connections to be remapped and pedestrian permissions to be
 removed from all other lanes.
 
 !!! note
     The heuristic methods described below, also perform automatic connection shifting and removal of pedestrian permissions from non-sidewalk lanes.
+
+### Direct Import
+
+When importing [OSM](../Networks/Import/OpenStreetMap.md), the option **--osm.sidwalks** may be used to import sidewalks for all roads that carry this information.
 
 ### Type-base generation
 
@@ -103,7 +107,7 @@ given speed range. This is controlled by using the following [netconvert](../net
 
 ### Permission-based generation
 
-Option **--sidewalks.guess.from-permissons** {{DT_BOOL}} is suitable for networks which specify their edge permissions
+Option **--sidewalks.guess.from-permissions** {{DT_BOOL}} is suitable for networks which specify their edge permissions
 (such as [DlrNavteq](../Networks/Import/DlrNavteq.md)). It adds a
 sidewalk for all edges which allow pedestrians on any of their lanes.
 The option **--sidewalks.guess.exclude** {{DT_IDList}}[,{{DT_IDList}}\]\* applies here as well.
@@ -182,6 +186,13 @@ connectivity in all directions.
 !!! caution
     If pedestrians are simulated in a network without walkingareas, they will assume full-connectivity at every junction.
 
+## Shared space
+
+If persons are not restricted from walking on the roads (i.e. by not defining any sidewalks and keeping roads at their default permissions), the network models shared space. Each junction approached by shared space roads will be modelled as a single *walkingarea* that covers the whole junction.
+Thus, shared space simulations are indicated in [sumo-gui](../sumo-gui.md) by having grey rather than black junction areas.
+
+Cars will interact by pedestrians (by slowing down or stopping) when encountering them on a shared road lane or when passing a walkingarea that is used by pedestrians. Likewise, pedestrians will take some care to avoid walking into vehicles.
+
 # Generating pedestrian demand
 
 ## Explicit
@@ -218,7 +229,7 @@ The tools [routeSampler](../Tools/Turns.md#routesamplerpy) and [flowrouter](../T
 # Pedestrian Models
 
 The pedestrian model to use can be selected by using the simulation
-option **--pedestrian.model** {{DT_STR}} with the available paramters being *nonInteracting* and
+option **--pedestrian.model** {{DT_STR}} with the available parameters being *nonInteracting* and
 *striping* (default is *striping*). The interface between the pedestrian
 model and the rest of the simulation was designed with the aim of having
 a high degree of freedom when implementing new models. It is planned to
@@ -268,7 +279,7 @@ direction of movement (preferring evasion to the right for oncoming
 pedestrians) and the expected distance the pedestrian will be able to
 walk in that stripe without a collision. The model assumes that the pedestrian
 can fit into a single strip when walking in it's center. When **--pedestrian.striping-width** {{DT_FLOAT}} 
-is lower than a given path width, 100% safety is not guaranteed on shared lanes, i.e. collisions may occour.
+is lower than a given path width, 100% safety is not guaranteed on shared lanes, i.e. collisions may occur.
 The warning to change the stripe-width will then be shown during simulation.
 
 During every simulation step, each pedestrian advances as fast as
@@ -345,3 +356,24 @@ Pedestrians are included in the following outputs:
 - [fcd-output](../Simulation/Output/FCDOutput.md)
 - [netstate-dump](../Simulation/Output/RawDump.md)
 - [aggregated simulation statistics](../Simulation/Output/index.md#aggregated_traffic_measures)
+
+## Detectors for Pedestrians
+
+The detector attribute 'detectPersons' for configuring output of pedestrians and riding persons can be used with the following detectors:
+
+- [Inductive loop detectors (E1)](../Simulation/Output/Induction_Loops_Detectors_(E1).md)
+- [Lane area detectors (E2)](../Simulation/Output/Lanearea_Detectors_(E2).md) (only single-lane detectors are supported)
+- [Multi-Entry-Exit detectors (E3)](../Simulation/Output/Multi-Entry-Exit_Detectors_(E3).md)
+
+If the attribute 'detectPersons' is used, all detector output values will pertain to persons (i.e. 'nVehContrib').
+The attribute 'detectPersons' supports the following values:
+
+- walk : detect pedestrians in any direction
+- walkForward : detect pedestrians walking in edge direction
+- walkBackward : detect pedestrians walking against edge direction
+- bicycle : detect persons riding a bicycle
+- public : detect persons riding public transport (bus or any rail vehicle)
+- taxi : detect persons riding taxi
+- car : detect persons riding any other vehicle
+
+

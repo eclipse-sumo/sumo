@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec 14 11:32:39 2020 by Eclipse SUMO netconvert Version v1_8_0+0240-6f1f621077
+<!-- generated on 2022-06-22 08:14:26 by Eclipse SUMO netconvert Version v1_13_0+1094-d2dab2e946c
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -26,7 +31,6 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
-        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
@@ -38,13 +42,13 @@ SPDX-License-Identifier: EPL-2.0
 
     <type id="highway.bridleway" priority="1" numLanes="1" speed="2.78" allow="pedestrian" oneway="1" width="2.00"/>
     <type id="highway.bus_guideway" priority="1" numLanes="1" speed="27.78" allow="bus" oneway="1"/>
-    <type id="highway.cycleway" priority="1" numLanes="1" speed="8.33" allow="bicycle" oneway="0" width="1.00"/>
+    <type id="highway.cycleway" priority="1" numLanes="1" speed="5.56" allow="bicycle" oneway="0" width="1.00"/>
     <type id="highway.footway" priority="1" numLanes="1" speed="2.78" allow="pedestrian" oneway="1" width="2.00"/>
     <type id="highway.ford" priority="1" numLanes="1" speed="2.78" allow="army" oneway="0"/>
     <type id="highway.living_street" priority="2" numLanes="1" speed="2.78" disallow="tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
     <type id="highway.motorway" priority="14" numLanes="2" speed="39.44" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" oneway="1"/>
     <type id="highway.motorway_link" priority="9" numLanes="1" speed="22.22" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" oneway="1"/>
-    <type id="highway.path" priority="1" numLanes="1" speed="2.78" allow="pedestrian bicycle" oneway="0" width="2.00"/>
+    <type id="highway.path" priority="1" numLanes="1" speed="5.56" allow="pedestrian bicycle" oneway="0" width="2.00"/>
     <type id="highway.pedestrian" priority="1" numLanes="1" speed="2.78" allow="pedestrian" oneway="1" width="2.00"/>
     <type id="highway.primary" priority="12" numLanes="2" speed="27.78" disallow="tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
     <type id="highway.primary_link" priority="7" numLanes="1" speed="22.22" disallow="tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
@@ -97,10 +101,10 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":2179717221_9_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="19.77" length="17.56" shape="587.07,541.13 591.27,541.49 595.96,541.92 600.56,541.89 604.46,540.86"/>
     </edge>
     <edge id=":2179717221_10" function="internal">
-        <lane id=":2179717221_10_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="3.65" length="2.34" shape="587.07,541.13 588.23,541.98 588.60,542.79"/>
+        <lane id=":2179717221_10_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="3.65" length="1.44" shape="587.07,541.13 588.23,541.98"/>
     </edge>
     <edge id=":2179717221_11" function="internal">
-        <lane id=":2179717221_11_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="3.65" length="2.34" shape="588.60,542.79 588.16,543.57 586.93,544.32"/>
+        <lane id=":2179717221_11_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="3.65" length="3.23" shape="588.23,541.98 588.60,542.79 588.16,543.57 586.93,544.32"/>
     </edge>
     <edge id=":2179717458_0" function="internal">
         <lane id=":2179717458_0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="5.97" length="9.09" shape="1708.08,1043.51 1705.52,1043.00 1703.66,1043.51 1702.48,1045.05 1701.99,1047.61"/>
@@ -362,7 +366,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="456567144_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="27.78" length="804.10" shape="2.12,-2.40 162.35,139.28 173.63,151.25 447.59,399.29 602.17,532.67">
             <param key="origId" value="456567144"/>
         </lane>
-        <lane id="456567144_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="27.78" length="804.10" shape="-0.00,-0.00 160.12,141.58 171.39,153.53 445.47,401.69 600.08,535.09">
+        <lane id="456567144_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="27.78" length="804.10" shape="-0.00,0.00 160.12,141.58 171.39,153.53 445.47,401.69 600.08,535.09">
             <param key="origId" value="456567144"/>
         </lane>
         <lane id="456567144_2" index="2" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="27.78" length="804.10" shape="-2.12,2.40 157.89,143.88 169.14,155.82 443.35,404.09 597.99,537.52">
@@ -452,7 +456,7 @@ SPDX-License-Identifier: EPL-2.0
         <request index="5" response="000000" foes="000001" cont="0"/>
     </junction>
 
-    <junction id=":2179717221_11_0" type="internal" x="588.60" y="542.79" incLanes=":2179717221_10_0 -444904142#1_0 172556825#3_0" intLanes=":2179717221_0_0 :2179717221_5_0"/>
+    <junction id=":2179717221_11_0" type="internal" x="588.23" y="541.98" incLanes=":2179717221_10_0 -444904142#1_0 172556825#3_0" intLanes=":2179717221_0_0 :2179717221_5_0"/>
 
     <connection from="-444904142#0" to="444904142#0" fromLane="0" toLane="0" via=":4423656648_0_0" dir="t" state="M"/>
     <connection from="-444904142#1" to="-444904142#0" fromLane="0" toLane="0" via=":2179717221_5_0" dir="s" state="m"/>

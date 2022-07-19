@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -18,7 +18,7 @@
 /// @author  Laura Bieker
 /// @date    Sept 2002
 ///
-// APIs for getting/setting edge values via TraCI
+// APIs for getting/setting simulation values via TraCI
 /****************************************************************************/
 #include <config.h>
 
@@ -308,6 +308,7 @@ TraCIServerAPI_Simulation::processSet(TraCIServer& server, tcpip::Storage& input
             && variable != libsumo::CMD_SAVE_SIMSTATE
             && variable != libsumo::CMD_LOAD_SIMSTATE
             && variable != libsumo::VAR_PARAMETER
+            && variable != libsumo::VAR_SCALE
             && variable != libsumo::CMD_MESSAGE
        ) {
         return server.writeErrorStatusCmd(libsumo::CMD_SET_SIM_VARIABLE, "Set Simulation Variable: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
@@ -317,6 +318,17 @@ TraCIServerAPI_Simulation::processSet(TraCIServer& server, tcpip::Storage& input
     // process
     try {
         switch (variable) {
+            case libsumo::VAR_SCALE: {
+                double value;
+                if (!server.readTypeCheckingDouble(inputStorage, value)) {
+                    return server.writeErrorStatusCmd(libsumo::CMD_SET_SIM_VARIABLE, "A double is needed for setting traffic scale.", outputStorage);
+                }
+                if (value < 0.0) {
+                    return server.writeErrorStatusCmd(libsumo::CMD_SET_SIM_VARIABLE, "Traffic scale may not be negative.", outputStorage);
+                }
+                libsumo::Simulation::setScale(value);
+            }
+            break;
             case libsumo::CMD_CLEAR_PENDING_VEHICLES: {
                 //clear any pending vehicle insertions
                 std::string route;

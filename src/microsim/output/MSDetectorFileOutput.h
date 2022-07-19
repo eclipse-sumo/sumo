@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -28,8 +28,8 @@
 #include <set>
 
 #include <utils/common/Named.h>
+#include <utils/common/Parameterised.h>
 #include <utils/common/SUMOTime.h>
-#include <utils/common/FileHelpers.h>
 #include <microsim/MSNet.h>
 
 
@@ -40,6 +40,7 @@ class OutputDevice;
 class GUIDetectorWrapper;
 class SUMOTrafficObject;
 class MSTransportable;
+class MSEdge;
 
 
 // ===========================================================================
@@ -58,14 +59,10 @@ enum DetectorUsage {
  * Pure virtual base class for classes (e.g. MSInductLoop) that should produce
  *  XML-output.
  */
-class MSDetectorFileOutput : public Named {
+class MSDetectorFileOutput : public Named, public Parameterised {
 public:
     /// @brief Constructor
-    MSDetectorFileOutput(const std::string& id, const std::string& vTypes, const int detectPersons = false); 
-
-    /// @brief Constructor
-    MSDetectorFileOutput(const std::string& id, const std::set<std::string>& vTypes, const int detectPersons = false);
-
+    MSDetectorFileOutput(const std::string& id, const std::string& vTypes, const std::string& nextEdges = "", const int detectPersons = false);
 
     /// @brief (virtual) destructor
     virtual ~MSDetectorFileOutput() { }
@@ -129,9 +126,9 @@ public:
     * @param[in] veh the vehicle of which the type is checked.
     * @return whether it should be measured
     */
-    bool vehicleApplies(const SUMOTrafficObject& veh) const; 
+    bool vehicleApplies(const SUMOTrafficObject& veh) const;
 
-    bool personApplies(const MSTransportable& p) const; 
+    bool personApplies(const MSTransportable& p, int dir) const;
 
 
     /** @brief Checks whether the detector is type specific.
@@ -151,11 +148,14 @@ public:
     }
 
     /** @brief Remove all vehicles before quick-loading state */
-    virtual void clearState() {};
+    virtual void clearState(SUMOTime /*step*/) {};
 
 protected:
     /// @brief The vehicle types to look for (empty means all)
     std::set<std::string> myVehicleTypes;
+
+    /// @brief The upcoming edges to filter by (empty means no filtering)
+    std::vector<const MSEdge*> myNextEdges;
 
     /// @brief Whether pedestrians shall be detected instead of vehicles
     const int myDetectPersons;

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -33,7 +33,7 @@
 Parameterised::Parameterised() {}
 
 
-Parameterised::Parameterised(const std::map<std::string, std::string>& mapArg) :
+Parameterised::Parameterised(const Parameterised::Map& mapArg) :
     myMap(mapArg) {
 }
 
@@ -54,7 +54,7 @@ Parameterised::unsetParameter(const std::string& key) {
 
 
 void
-Parameterised::updateParameters(const std::map<std::string, std::string>& mapArg) {
+Parameterised::updateParameters(const Parameterised::Map& mapArg) {
     for (const auto& keyValue : mapArg) {
         setParameter(keyValue.first, keyValue.second);
     }
@@ -95,13 +95,34 @@ Parameterised::getDouble(const std::string& key, const double defaultValue) cons
 }
 
 
+std::vector<double>
+Parameterised::getDoubles(const std::string& key, std::vector<double> defaultValue) const {
+    const auto i = myMap.find(key);
+    if (i != myMap.end()) {
+        try {
+            std::vector<double> result;
+            for (const std::string& s : StringTokenizer(i->second).getVector()) {
+                result.push_back(StringUtils::toDouble(s));
+            }
+            return result;
+        } catch (NumberFormatException&) {
+            WRITE_WARNING("Invalid conversion from string to doubles (" + i->second + ")");
+            return defaultValue;
+        } catch (EmptyData&) {
+            WRITE_WARNING("Invalid conversion from string to doubles (empty value)");
+            return defaultValue;
+        }
+    }
+    return defaultValue;
+}
+
 void
 Parameterised::clearParameter() {
     myMap.clear();
 }
 
 
-const std::map<std::string, std::string>&
+const Parameterised::Map&
 Parameterised::getParametersMap() const {
     return myMap;
 }
@@ -135,7 +156,7 @@ Parameterised::setParameters(const Parameterised& params) {
 
 
 void
-Parameterised::setParametersMap(const std::map<std::string, std::string>& paramsMap) {
+Parameterised::setParametersMap(const Parameterised::Map& paramsMap) {
     // first clear map
     myMap.clear();
     // set parameter
@@ -182,6 +203,38 @@ Parameterised::areParametersValid(const std::string& value, bool report, const s
             // report depending of flag
             if (report) {
                 WRITE_WARNING("Invalid format of parameter (" + keyValueStr + ")");
+            }
+            return false;
+        }
+    }
+    // all ok, then return true
+    return true;
+}
+
+
+bool
+Parameterised::areAttributesValid(const std::string& value, bool report, const std::string kvsep, const std::string sep) {
+    std::vector<std::string> parameters = StringTokenizer(value, sep).getVector();
+    // first check if parsed parameters are valid
+    for (const auto& keyValueStr : parameters) {
+        // check if parameter is valid
+        if (isParameterValid(keyValueStr, kvsep, sep)) {
+            // separate key and value
+            const auto attr = StringTokenizer(value, kvsep).getVector().front();
+            // get first letter
+            const auto letter = StringTokenizer(value, kvsep).getVector().front().front();
+            // check key
+            if (!((letter >= 'a') && (letter <= 'z')) && !((letter >= 'A') && (letter <= 'Z'))) {
+                // report depending of flag
+                if (report) {
+                    WRITE_WARNING("Invalid format of atribute '" + attr + "'. Attribute must start with a letter");
+                }
+                return false;
+            }
+        } else {
+            // report depending of flag
+            if (report) {
+                WRITE_WARNING("Invalid format of atribute (" + keyValueStr + ")");
             }
             return false;
         }

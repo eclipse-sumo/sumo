@@ -1,0 +1,149 @@
+list of all edges
+:C_0
+:C_1
+:C_2
+:C_3
+:C_5
+:C_24
+:C_25
+:C_26
+:C_6
+:C_7
+:C_8
+:C_9
+:C_11
+:C_27
+:C_28
+:C_29
+:C_12
+:C_13
+:C_14
+:C_15
+:C_17
+:C_30
+:C_31
+:C_32
+:C_18
+:C_19
+:C_20
+:C_21
+:C_23
+:C_33
+:C_34
+:C_35
+:C_c0
+:C_c1
+:C_c2
+:C_c3
+:C_w0
+:C_w1
+:C_w2
+:C_w3
+:E_0
+:E_w0
+:N_0
+:N_w0
+:S_0
+:S_w0
+:W_0
+:W_w0
+CE
+CN
+CS
+CW
+EC
+NC
+SC
+WC
+list of internal edgeIDs of node 'C' (attribute)
+:C_24_0
+:C_1_0
+:C_25_0
+:C_3_0
+:C_3_1
+:C_26_0
+:C_27_0
+:C_7_0
+:C_28_0
+:C_9_0
+:C_9_1
+:C_29_0
+:C_30_0
+:C_13_0
+:C_31_0
+:C_15_0
+:C_15_1
+:C_32_0
+:C_33_0
+:C_19_0
+:C_34_0
+:C_21_0
+:C_21_1
+:C_35_0
+:C_c0_0
+:C_c1_0
+:C_c2_0
+:C_c3_0
+list of internal edgeIDs of node 'C' (complete)
+:C_0
+:C_1
+:C_2
+:C_3
+:C_5
+:C_24
+:C_25
+:C_26
+:C_6
+:C_7
+:C_8
+:C_9
+:C_11
+:C_27
+:C_28
+:C_29
+:C_12
+:C_13
+:C_14
+:C_15
+:C_17
+:C_30
+:C_31
+:C_32
+:C_18
+:C_19
+:C_20
+:C_21
+:C_23
+:C_33
+:C_34
+:C_35
+:C_c0
+:C_c1
+:C_c2
+:C_c3
+:C_w0
+:C_w1
+:C_w2
+:C_w3
+connections from SC_0:
+<connection from="SC" to=":C_w2" fromLane="0" toLane="0" direction="s">
+outgoing internal lanes of SC_0: 
+connections from :C_w2_0:
+<connection from=":C_w2" to=":C_c1" fromLane="0" toLane="0" tl="C" linkIndex="25" direction="s">
+<connection from=":C_w2" to="CE" fromLane="0" toLane="0" direction="s">
+outgoing internal lanes of :C_w2_0:  
+lanes to CN_0: :C_w1_0
+lanes to :C_w2_0: :C_c2_0 SC_0
+connections from :C_0_0:
+<connection from=":C_0" to="CW" fromLane="0" toLane="2" direction="r">
+lanes to :C_0_0: NC_2
+edgeParams 
+laneParams 
+laneParams 
+junctionParams 
+tlsParams 
+getNeighboringEdges :S_0 :S_w0 CS SC
+getNeighboringLanes :S_0_0 :S_w0_0 CS_0 CS_1 CS_2 CS_3 CS_4 SC_0 SC_1 SC_2 SC_3 SC_4
+getNeighboringNodes only for incoming edges C
+getNeighboringNodes only for outgoing edges C
+getNeighboringNodes E N S W

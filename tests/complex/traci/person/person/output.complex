@@ -1,4 +1,3 @@
-Loading configuration ... done.
  Retrying in 1 seconds
 0.0: departed=() (0) arrived=() (0)
 step 0.0
@@ -67,7 +66,7 @@ examining bla
 recovering from exception after asking for unknown person
 step 6.0
 getIDList ('detour', 'detour2', 'horiz', 'newPerson', 'tripTest')
-numVehs=0, numPersons=5, minExpected=5
+numVehs=0, numPersons=5, minExpected=6
 step 7.0
 {0: ('detour', 'detour2', 'horiz', 'newPerson', 'tripTest')}
 step 8.0
@@ -121,13 +120,18 @@ recovering from exception after asking for invalid stage index
 221.0 person=tripTest2 edge=2fi pos=17.7396310395
 222.0 person=tripTest2 edge=2fi pos=19.0504063853
 223.0 person=tripTest2 edge=2fi pos=20.2967095385
-remaining stages for 'p3' (before replacement of current stage
+remaining stages for 'p3' (before replacement of current stage)
   0: Stage(type=2, edges=('1fi', '1si'), travelTime=INVALID, cost=INVALID, length=27.2498275842, depart=224.0, departPos=238.5, arrivalPos=10.0, description=walking)
-remaining stages for 'p3' (after replacement
+remaining stages for 'p3' (after replacement)
   0: Stage(type=2, edges=('1fi', '1o'), travelTime=INVALID, cost=INVALID, length=495.25, depart=234.0, departPos=10.0, arrivalPos=10.0, description=walking)
-remaining stages for 'p3' (before replacement of next stage
+remaining stages for 'p3' (before replacement of next stage)
   0: Stage(type=2, edges=('1fi', '1o'), travelTime=INVALID, cost=INVALID, length=495.25, depart=234.0, departPos=10.0, arrivalPos=10.0, description=walking)
   1: Stage(type=2, edges=('1o', '3o'), travelTime=INVALID, cost=INVALID, length=39.9912480851, depart=INVALID, departPos=10.0, arrivalPos=10.0, description=walking)
-remaining stages for 'p3' (after replacement
+remaining stages for 'p3' (after replacement)
   0: Stage(type=2, edges=('1fi', '1o'), travelTime=INVALID, cost=INVALID, length=495.25, depart=234.0, departPos=10.0, arrivalPos=10.0, description=walking)
   1: Stage(type=2, edges=('1o', '4o'), travelTime=INVALID, cost=INVALID, length=39.9912480851, depart=INVALID, departPos=10.0, arrivalPos=10.0, description=walking)
+speed (before setSpeed) 0.0
+maxSpeed (before setSpeed) 1.38888888889
+speed (after setSpeed) 0.0
+maxSpeed (after setSpeed) 4.2
+speed (at end) 3.68846979671

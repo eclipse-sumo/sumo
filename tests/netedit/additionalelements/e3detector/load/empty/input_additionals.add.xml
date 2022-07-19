@@ -1,0 +1,5 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- non valid E3Detector (empty). Will be created, but a warning will be show) -->
+    <entryExitDetector id="entryExitDetector_0" period="100.00" file="fileA.txt" timeThreshold="1.00" speedThreshold="1.39" pos="42,10">
+    </entryExitDetector>
+</additional>

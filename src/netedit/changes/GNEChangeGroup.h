@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2006-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2006-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -36,7 +36,7 @@ public:
     friend class GNEUndoList;
 
     /// @brief Construct initially empty undo command group
-    GNEChangeGroup(Supermode groupSupermode, const std::string &description);
+    GNEChangeGroup(Supermode groupSupermode, GUIIcon icon, const std::string& description);
 
     /// @brief Delete undo command and sub-commands
     ~GNEChangeGroup();
@@ -62,6 +62,9 @@ public:
     /// @brief get supermode associated with this ChangeGroup
     Supermode getGroupSupermode() const;
 
+    /// @brief get icon associated with this ChangeGroup
+    GUIIcon getGroupIcon() const;
+
     /// @brief Return TRUE if empty
     bool empty() const;
 
@@ -75,6 +78,9 @@ protected:
     /// @brief supermode associated with this ChangeGroup
     const Supermode myGroupSupermode;
 
+    /// @brief icon associated with this ChangeGroup
+    GUIIcon myIcon;
+
 private:
     /// @brief undo list command (can be access by GNEUndoList)
     GNEChange* undoList;
@@ -87,7 +93,7 @@ private:
 
     /// @brief invalidate copy constructor
     GNEChangeGroup(const GNEChangeGroup&);
-    
+
     /// @brief invalidate assignment operator
-    GNEChangeGroup &operator=(const GNEChangeGroup&) = delete;
+    GNEChangeGroup& operator=(const GNEChangeGroup&) = delete;
 };

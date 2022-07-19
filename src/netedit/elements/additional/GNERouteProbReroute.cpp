@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -29,22 +29,38 @@
 // member method definitions
 // ===========================================================================
 
-GNERouteProbReroute::GNERouteProbReroute(GNEAdditional* rerouterIntervalParent, const std::string& newRouteId, double probability) :
-    GNEAdditional(rerouterIntervalParent->getNet(), GLO_REROUTER, SUMO_TAG_ROUTE_PROB_REROUTE, "",
-    {}, {}, {}, {rerouterIntervalParent}, {}, {}, {}, {},
-    std::map<std::string, std::string>()),
-    myNewRouteId(newRouteId),
-    myProbability(probability) {
-    // update centering boundary without updating grid
-    updateCenteringBoundary(false);
+GNERouteProbReroute::GNERouteProbReroute(GNENet* net) :
+    GNEAdditional("", net, GLO_REROUTER_ROUTEPROBREROUTE, SUMO_TAG_ROUTE_PROB_REROUTE, "",
+{}, {}, {}, {}, {}, {}),
+myProbability(0) {
+    // reset default values
+    resetDefaultValues();
+}
+
+
+GNERouteProbReroute::GNERouteProbReroute(GNEAdditional* rerouterIntervalParent, GNEDemandElement* route, double probability) :
+    GNEAdditional(rerouterIntervalParent->getNet(), GLO_REROUTER_ROUTEPROBREROUTE, SUMO_TAG_ROUTE_PROB_REROUTE, "",
+{}, {}, {}, {rerouterIntervalParent}, {route}, {}),
+myProbability(probability) {
+    // update boundary of rerouter parent
+    rerouterIntervalParent->getParentAdditionals().front()->updateCenteringBoundary(true);
 }
 
 
 GNERouteProbReroute::~GNERouteProbReroute() {}
 
 
+void
+GNERouteProbReroute::writeAdditional(OutputDevice& device) const {
+    device.openTag(SUMO_TAG_ROUTE_PROB_REROUTE);
+    device.writeAttr(SUMO_ATTR_ID, getAttribute(SUMO_ATTR_ROUTE));
+    device.writeAttr(SUMO_ATTR_PROB, myProbability);
+    device.closeTag();
+}
+
+
 GNEMoveOperation*
-GNERouteProbReroute::getMoveOperation(const double /*shapeOffset*/) {
+GNERouteProbReroute::getMoveOperation() {
     // GNERouteProbReroutes cannot be moved
     return nullptr;
 }
@@ -52,20 +68,27 @@ GNERouteProbReroute::getMoveOperation(const double /*shapeOffset*/) {
 
 void
 GNERouteProbReroute::updateGeometry() {
-    // This additional doesn't own a geometry
+    // update centering boundary (needed for centering)
+    updateCenteringBoundary(false);
 }
 
 
 void
 GNERouteProbReroute::updateCenteringBoundary(const bool /*updateGrid*/) {
-    // use boundary of parent element
-    myBoundary = getParentAdditionals().front()->getCenteringBoundary();
+    myAdditionalBoundary.reset();
+    myAdditionalBoundary.add(getPositionInView());
+    myAdditionalBoundary.grow(5);
 }
 
 
 Position
 GNERouteProbReroute::getPositionInView() const {
-    return myBoundary.getCenter();
+    // get rerouter parent position
+    Position signPosition = getParentAdditionals().front()->getParentAdditionals().front()->getPositionInView();
+    // set position depending of indexes
+    signPosition.add(4.5 + 6.25, (getDrawPositionIndex() * -1) - getParentAdditionals().front()->getDrawPositionIndex() + 1, 0);
+    // return signPosition
+    return signPosition;
 }
 
 
@@ -82,8 +105,12 @@ GNERouteProbReroute::getParentName() const {
 
 
 void
-GNERouteProbReroute::drawGL(const GUIVisualizationSettings&) const {
-    // Currently This additional isn't drawn
+GNERouteProbReroute::drawGL(const GUIVisualizationSettings& s) const {
+    // draw route prob reroute as listed attribute
+    drawListedAddtional(s, getParentAdditionals().front()->getParentAdditionals().front()->getPositionInView(),
+                        1, getParentAdditionals().front()->getDrawPositionIndex(),
+                        RGBColor::RED, RGBColor::YELLOW, GUITexture::REROUTER_ROUTEPROBREROUTE,
+                        getAttribute(SUMO_ATTR_ROUTE) + ": " + getAttribute(SUMO_ATTR_PROB));
 }
 
 
@@ -91,15 +118,15 @@ std::string
 GNERouteProbReroute::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
-            return getID();
+            return getMicrosimID();
         case SUMO_ATTR_ROUTE:
-            return myNewRouteId;
+            return getParentDemandElements().front()->getID();
         case SUMO_ATTR_PROB:
             return toString(myProbability);
         case GNE_ATTR_PARENT:
             return getParentAdditionals().at(0)->getID();
-        case GNE_ATTR_PARAMETERS:
-            return getParametersStr();
+        case GNE_ATTR_SELECTED:
+            return toString(isAttributeCarrierSelected());
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -112,6 +139,12 @@ GNERouteProbReroute::getAttributeDouble(SumoXMLAttr key) const {
 }
 
 
+const Parameterised::Map&
+GNERouteProbReroute::getACParametersMap() const {
+    return PARAMETERS_EMPTY;
+}
+
+
 void
 GNERouteProbReroute::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     if (value == getAttribute(key)) {
@@ -121,7 +154,7 @@ GNERouteProbReroute::setAttribute(SumoXMLAttr key, const std::string& value, GNE
         case SUMO_ATTR_ID:
         case SUMO_ATTR_ROUTE:
         case SUMO_ATTR_PROB:
-        case GNE_ATTR_PARAMETERS:
+        case GNE_ATTR_SELECTED:
             undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
             break;
         default:
@@ -136,20 +169,14 @@ GNERouteProbReroute::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
             return isValidAdditionalID(value);
         case SUMO_ATTR_ROUTE:
-            return SUMOXMLDefinitions::isValidVehicleID(value);
+            return (myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_ROUTE, value, false) != nullptr);
         case SUMO_ATTR_PROB:
             return canParse<double>(value);
-        case GNE_ATTR_PARAMETERS:
-            return Parameterised::areParametersValid(value);
+        case GNE_ATTR_SELECTED:
+            return canParse<bool>(value);
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
-}
-
-
-bool
-GNERouteProbReroute::isAttributeEnabled(SumoXMLAttr /* key */) const {
-    return true;
 }
 
 
@@ -161,7 +188,7 @@ GNERouteProbReroute::getPopUpID() const {
 
 std::string
 GNERouteProbReroute::getHierarchyName() const {
-    return getTagStr() + ": " + myNewRouteId;
+    return getTagStr() + ": " + getParentDemandElements().front()->getID();
 }
 
 // ===========================================================================
@@ -172,16 +199,21 @@ void
 GNERouteProbReroute::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            myNet->getAttributeCarriers()->updateID(this, value);
+            // update microsimID
+            setMicrosimID(value);
             break;
         case SUMO_ATTR_ROUTE:
-            myNewRouteId = value;
+            replaceDemandElementParent(SUMO_TAG_ROUTE, value, 0);
             break;
         case SUMO_ATTR_PROB:
             myProbability = parse<double>(value);
             break;
-        case GNE_ATTR_PARAMETERS:
-            setParametersStr(value);
+        case GNE_ATTR_SELECTED:
+            if (parse<bool>(value)) {
+                selectAttributeCarrier();
+            } else {
+                unselectAttributeCarrier();
+            }
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");

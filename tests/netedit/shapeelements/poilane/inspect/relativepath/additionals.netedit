@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-03-04 11:07:31 by Eclipse SUMO netedit Version v1_12_0+1137-e9106068858
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- Shapes -->
+    <poi id="poi_0" color="red" layer="202.00" lane="gneE1_0" pos="45.00"/>
+    <poi id="poi_1" color="red" layer="202.00" lane="gneE1_0" pos="38.00"/>
+</additional>

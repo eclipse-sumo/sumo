@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="special" sigma="0"/>
+
+    <trip id="trip_A" type="special" depart="0.00">
+        <stop edge="SC" endPos="5"/>
+        <stop edge="CE"/>
+    </trip>
+
+    <person id="0" depart="0.00">
+        <ride from="SC" to="CE" lines="taxi"/>
+    </person>
+</routes>

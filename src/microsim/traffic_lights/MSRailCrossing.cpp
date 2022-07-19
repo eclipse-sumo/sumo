@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -13,6 +13,7 @@
 /****************************************************************************/
 /// @file    MSRailCrossing.cpp
 /// @author  Jakob Erdmann
+/// @author  Erik Tunsch
 /// @date    Dez 2015
 ///
 // A rail signal logic
@@ -39,8 +40,8 @@
 // ===========================================================================
 MSRailCrossing::MSRailCrossing(MSTLLogicControl& tlcontrol,
                                const std::string& id, const std::string& programID, SUMOTime delay,
-                               const std::map<std::string, std::string>& parameters) :
-    MSSimpleTrafficLightLogic(tlcontrol, id, programID, TrafficLightType::RAIL_CROSSING, Phases(), 0, delay, parameters) {
+                               const Parameterised::Map& parameters) :
+    MSSimpleTrafficLightLogic(tlcontrol, id, programID, 0, TrafficLightType::RAIL_CROSSING, Phases(), 0, delay, parameters) {
     // dummy phase, used to avoid crashing in MSTrafficLightLogic::setTrafficLightSignals()
     myPhases.push_back(new MSPhaseDefinition(1, std::string(SUMO_MAX_CONNECTIONS, 'X')));
     myDefaultCycleTime = 1;
@@ -52,11 +53,13 @@ MSRailCrossing::~MSRailCrossing() {}
 
 void
 MSRailCrossing::init(NLDetectorBuilder&) {
+    const Parameterised::Map test = getParametersMap();
     myTimeGap = string2time(getParameter("time-gap", "15"));
+    //use time-gap by default
     mySpaceGap = StringUtils::toDouble(getParameter("space-gap", "-1"));
     myMinGreenTime = string2time(getParameter("min-green", "5"));
-    myOpeningDelay = string2time(getParameter("opening-delay", "0"));
-    myOpeningTime = string2time(getParameter("opening-time", "0")); // red-yellow while opening
+    myOpeningDelay = string2time(getParameter("opening-delay", "3"));
+    myOpeningTime = string2time(getParameter("opening-time", "3")); // red-yellow while opening
     /// XXX compute reasonable time depending on link length
     myYellowTime = string2time(getParameter("yellow-time", "5"));
     delete myPhases.front();
@@ -64,9 +67,7 @@ MSRailCrossing::init(NLDetectorBuilder&) {
     myPhases.push_back(new MSPhaseDefinition(1, std::string(myLinks.size(), LINKSTATE_TL_GREEN_MAJOR)));
     myPhases.push_back(new MSPhaseDefinition(myYellowTime, std::string(myLinks.size(), LINKSTATE_TL_YELLOW_MINOR)));
     myPhases.push_back(new MSPhaseDefinition(1, std::string(myLinks.size(), LINKSTATE_TL_RED)));
-    if (myOpeningTime > 0) {
-        myPhases.push_back(new MSPhaseDefinition(myOpeningTime, std::string(myLinks.size(), LINKSTATE_TL_REDYELLOW)));
-    }
+    myPhases.push_back(new MSPhaseDefinition(myOpeningTime, std::string(myLinks.size(), LINKSTATE_TL_REDYELLOW)));
     // init phases
     updateCurrentPhase();
     setTrafficLightSignals(MSNet::getInstance()->getCurrentTimeStep());
@@ -148,12 +149,22 @@ MSRailCrossing::updateCurrentPhase() {
         // 'y': yellow time is over. switch to red
         myStep++;
         return MAX2(DELTA_T, wait);
-    } else {
+    } else if (myStep == 2) {
         // 'r': check whether we may open again
+        if (wait == 0) {
+            myStep++;
+            return myOpeningTime;
+        } else {
+            return wait;
+        }
+    } else { // (myStep == 3)
+        // 'u': opening time is over, switch to green
         if (wait == 0) {
             myStep = 0;
             return myMinGreenTime;
         } else {
+            // train approached during opening sequence, close again
+            myStep = 2;
             return wait;
         }
     }

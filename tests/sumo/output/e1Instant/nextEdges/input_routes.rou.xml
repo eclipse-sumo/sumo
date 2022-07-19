@@ -1,0 +1,9 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="t1" sigma="0"/>
+    <route id="SN" edges="SC CN"/>
+    <route id="SE" edges="SC CE"/>
+    <route id="SW" edges="SC CW"/>
+    <flow id="straight" begin="0"  period="6" number="2" route="SN" departSpeed="max" type="t1"/>
+    <flow id="right"    begin="2"  period="6" number="3" route="SE" departSpeed="max" type="t1"/>
+    <flow id="left"     begin="4"  period="6" number="4"  route="SW" departSpeed="max" type="t1"/>
+</routes>

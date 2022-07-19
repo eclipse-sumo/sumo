@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-01-21 11:10:36 by Eclipse SUMO netedit Version v1_11_0+1358-7676868
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net.netconvert"/>
+    </input>
+
+    <output>
+        <output-file value="net.netconvert"/>
+        <plain-output-prefix value="/localdata2/debug/roundaboutPermissionBug/input_plain"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="true"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <report>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+-->
+
+<connections version="1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/connections_file.xsd">
+    <connection from="-10" to="55" fromLane="0" toLane="0"/>
+    <connection from="-10" to="-11" fromLane="0" toLane="0"/>
+    <connection from="-10" to="55" fromLane="1" toLane="1"/>
+    <connection from="-10" to="-11" fromLane="1" toLane="1"/>
+
+    <connection from="-11" to="16" fromLane="0" toLane="0"/>
+    <connection from="-11" to="-39" fromLane="0" toLane="0"/>
+    <connection from="-11" to="16" fromLane="1" toLane="1"/>
+    <connection from="-11" to="-39" fromLane="1" toLane="1"/>
+
+    <connection from="-14" to="17" fromLane="0" toLane="0"/>
+    <connection from="-14" to="-15" fromLane="0" toLane="0"/>
+    <connection from="-14" to="17" fromLane="1" toLane="1"/>
+    <connection from="-14" to="-15" fromLane="1" toLane="1"/>
+
+    <connection from="-15" to="-10" fromLane="0" toLane="0"/>
+    <connection from="-15" to="-10" fromLane="1" toLane="1"/>
+
+    <connection from="-26" to="-27" fromLane="0" toLane="0"/>
+    <connection from="-26" to="-41" fromLane="0" toLane="0" visibility="9.00"/>
+    <connection from="-26" to="-41" fromLane="1" toLane="1" visibility="9.00"/>
+
+    <connection from="-27"/>
+
+    <connection from="-31"/>
+
+    <connection from="-39" to="-41" fromLane="0" toLane="0"/>
+    <connection from="-39" to="-27" fromLane="1" toLane="0"/>
+    <connection from="-39" to="-41" fromLane="1" toLane="1"/>
+
+    <connection from="-41" to="-14" fromLane="0" toLane="0"/>
+    <connection from="-41" to="-14" fromLane="1" toLane="1"/>
+
+    <connection from="-8" to="16" fromLane="0" toLane="0"/>
+    <connection from="-8" to="-39" fromLane="0" toLane="0" visibility="9.00"/>
+    <connection from="-8" to="16" fromLane="1" toLane="1"/>
+    <connection from="-8" to="-39" fromLane="1" toLane="1" visibility="9.00"/>
+
+    <connection from="16" to="-31" fromLane="0" toLane="0"/>
+    <connection from="16" to="-31" fromLane="1" toLane="1"/>
+
+    <connection from="17"/>
+
+    <connection from="31" to="-26" fromLane="0" toLane="0"/>
+    <connection from="31" to="-26" fromLane="1" toLane="1"/>
+
+    <connection from="33" to="-10" fromLane="0" toLane="0" visibility="9.00"/>
+    <connection from="33" to="-10" fromLane="1" toLane="1" visibility="9.00"/>
+
+    <connection from="55"/>
+
+    <connection from="67" to="-14" fromLane="0" toLane="0"/>
+
+</connections>

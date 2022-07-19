@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2007-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2007-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -78,8 +78,11 @@ TRACI_CONST int CMD_CHANGESUBLANE = 0x15;
 // command: open gap
 TRACI_CONST int CMD_OPENGAP = 0x16;
 
-// command: replace vehicle stop and updated route
+// command: replace vehicle stop and update route
 TRACI_CONST int CMD_REPLACE_STOP = 0x17;
+
+// command: insert vehicle stop and update route
+TRACI_CONST int CMD_INSERT_STOP = 0x18;
 
 // command: retrieve information about the current taxi fleet and their status
 TRACI_CONST int VAR_TAXI_FLEET = 0x20;
@@ -624,6 +627,8 @@ TRACI_CONST int ROUTING_MODE_AGGREGATED = 0x01;
 TRACI_CONST int ROUTING_MODE_EFFORT = 0x02;
 // use combined costs
 TRACI_CONST int ROUTING_MODE_COMBINED = 0x03;
+// use aggregated travel times from device.rerouting enriched with custom weights
+TRACI_CONST int ROUTING_MODE_AGGREGATED_CUSTOM = 0x04;
 
 // ****************************************
 // Traffic light types
@@ -717,6 +722,18 @@ TRACI_CONST int JAM_LENGTH_VEHICLE = 0x18;
 // last step jam length in meters
 TRACI_CONST int JAM_LENGTH_METERS = 0x19;
 
+// last interval travel time (get: e3)
+TRACI_CONST int VAR_LAST_INTERVAL_TRAVELTIME = 0x58;
+
+// last step vehicle halting number (get: multi-entry/multi-exit detector)
+TRACI_CONST int VAR_LAST_INTERVAL_MEAN_HALTING_NUMBER = 0x20;
+
+// last interval vehicle count(get: e3)
+TRACI_CONST int VAR_LAST_INTERVAL_VEHICLE_NUMBER = 0x21;
+
+// last interval vehicle count(set, get: e1, e2)
+TRACI_CONST int VAR_VIRTUAL_DETECTION = 0x22;
+
 // last step person list (get: edges, vehicles)
 TRACI_CONST int LAST_STEP_PERSON_ID_LIST = 0x1a;
 
@@ -738,7 +755,7 @@ TRACI_CONST int VAR_STOP_DELAY = 0x1f;
 // estimated arrival delay for next stop (get: vehicle)
 TRACI_CONST int VAR_STOP_ARRIVALDELAY = 0x22;
 
-// collected timeLoss since departure (get: vehicle)
+// collected timeLoss since departure (get: vehicle, e3)
 TRACI_CONST int VAR_TIMELOSS = 0x8c;
 
 //  begin time(get: calibrator)
@@ -855,14 +872,20 @@ TRACI_CONST int VAR_SPEED = 0x40;
 // adapt previous speed (set: vehicle)
 TRACI_CONST int VAR_PREV_SPEED = 0x3c;
 
+// friction coefficient (set&get: lanes, set: edges)
+TRACI_CONST int VAR_FRICTION = 0x3d;
+
 // lateral speed (get: vehicle)
 TRACI_CONST int VAR_SPEED_LAT = 0x32;
 
 // maximum allowed/possible speed (get: vehicle types, lanes, set: edges, lanes)
 TRACI_CONST int VAR_MAXSPEED = 0x41;
 
-// position (2D) (get: vehicle, poi, inductionloop, lane area detector; set: poi)
+// position (2D) (get: vehicle, poi, inductionloop, lane area detector, multi-entry/multi-exit detector; set: poi)
 TRACI_CONST int VAR_POSITION = 0x42;
+
+// position (2D) (get: multi-entry/multi-exit detector)
+TRACI_CONST int VAR_EXIT_POSITIONS = 0x43;
 
 // position (3D) (get: vehicle, poi, set: poi)
 TRACI_CONST int VAR_POSITION3D = 0x39;
@@ -933,8 +956,14 @@ TRACI_CONST int VAR_ROUTE_ID = 0x53;
 // edges (get: routes, vehicles)
 TRACI_CONST int VAR_EDGES = 0x54;
 
-// lanes (get: variablespeedsign)
+// filled? (set: vehicles)
+TRACI_CONST int VAR_STOP_PARAMETER = 0x55;
+
+// lanes (get: variablespeedsign, multi-entry/multi-exit detector)
 TRACI_CONST int VAR_LANES = 0x30;
+
+// exit lanes (get: multi-entry/multi-exit detector)
+TRACI_CONST int VAR_EXIT_LANES = 0x31;
 
 // update bestLanes (set: vehicle)
 TRACI_CONST int VAR_UPDATE_BESTLANES = 0x6a;
@@ -957,7 +986,7 @@ TRACI_CONST int VAR_EDGE_TRAVELTIME = 0x58;
 // effort information (get&set: vehicle)
 TRACI_CONST int VAR_EDGE_EFFORT = 0x59;
 
-// last step travel time (get: edge, lane)
+// last step travel time (get: edge, lane, e3)
 TRACI_CONST int VAR_CURRENT_TRAVELTIME = 0x5a;
 
 // signals state (get/set: vehicle)
@@ -1089,7 +1118,7 @@ TRACI_CONST int VAR_NEXT_STOPS = 0x73;
 // upcoming stops with selection (get: vehicle)
 TRACI_CONST int VAR_NEXT_STOPS2 = 0x74;
 
-// current acceleration (get: vehicle)
+// current acceleration (get,set: vehicle)
 TRACI_CONST int VAR_ACCELERATION = 0x72;
 
 // arrival position (get,set: vehicle)
@@ -1205,6 +1234,9 @@ TRACI_CONST int VAR_EMERGENCYSTOPPING_VEHICLES_NUMBER = 0x89;
 
 // ids of vehicles involved in a collision (get: simulation)
 TRACI_CONST int VAR_EMERGENCYSTOPPING_VEHICLES_IDS = 0x8a;
+
+// scale traffic (set, get: simulation, vehicle)
+TRACI_CONST int VAR_SCALE = 0x8e;
 
 // clears the simulation of all not inserted vehicles (set: simulation)
 TRACI_CONST int CMD_CLEAR_PENDING_VEHICLES = 0x94;

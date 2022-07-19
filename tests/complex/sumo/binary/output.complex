@@ -1,11 +1,7 @@
 >>> Building the xml network
-Loading configuration ... done.
 Success.
 >>> Building the binary network
-Loading configuration ... done.
 Success.
-Loading configuration ... done.
 Success.
 >>> Converting the routes to binary
-Loading configuration ... done.
 >>> Running Simulation with binary input

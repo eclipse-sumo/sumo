@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2002-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -65,7 +65,9 @@ public:
     /// Constructor
     MSRoute(const std::string& id, const ConstMSEdgeVector& edges,
             const bool isPermanent, const RGBColor* const c,
-            const std::vector<SUMOVehicleParameter::Stop>& stops);
+            const std::vector<SUMOVehicleParameter::Stop>& stops,
+            SUMOTime replacedTime = -1,
+            int replacedIndex = 0);
 
     /// Destructor
     virtual ~MSRoute();
@@ -90,11 +92,11 @@ public:
 
     /** @brief Output the edge ids up to but not including the id of the given edge
      * @param[in] os The stream to write the routes into (binary)
-     * @param[in] from The first edge to be written
-     * @param[in] upTo The first edge that shall not be written
+     * @param[in] firstIndex index of the first edge to be written
+     * @param[in] lastIndex index of the first edge that shall not be written (-1 writes all remaining)
      * @return The number of edges written
      */
-    int writeEdgeIDs(OutputDevice& os, const MSEdge* const from, const MSEdge* const upTo = 0) const;
+    int writeEdgeIDs(OutputDevice& os, int firstIndex = 0, int lastIndex = -1) const;
 
     bool contains(const MSEdge* const edge) const {
         return std::find(myEdges.begin(), myEdges.end(), edge) != myEdges.end();
@@ -171,6 +173,16 @@ public:
      */
     double getSavings() const {
         return mySavings;
+    }
+
+    /// @brief Returns the time at which this route was replaced (or -1)
+    SUMOTime getReplacedTime() const {
+        return myReplacedTime;
+    }
+
+    /// @brief Returns the index at which this route was replaced
+    int getReplacedIndex() const {
+        return myReplacedIndex;
     }
 
     /// @brief sets the period
@@ -285,6 +297,12 @@ private:
 
     /// @brief List of the stops on the parsed route
     std::vector<SUMOVehicleParameter::Stop> myStops;
+
+    /// The time where this route was replaced with an alternative route (or -1)
+    SUMOTime myReplacedTime;
+
+    /// The index where this route was replaced with an alternative route
+    int myReplacedIndex;
 
 private:
     /// Definition of the dictionary container

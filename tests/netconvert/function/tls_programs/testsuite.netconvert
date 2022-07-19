@@ -16,6 +16,12 @@ left-green.time
 # configure left green time
 allred.time
 
+# configure left green time
+allred.time_extension
+
+# insert all red phase on a large junction
+allred.time_large
+
 # main direction (specified via edge priorities) takes a right turn at a 4-way intersection
 main_road_turns_right
 
@@ -46,5 +52,11 @@ group-signals
 # create tls program with signal groups
 group-signals2
 
+# create tls program with signal groups
+group-signals_crossings
+
 # set distinct tls index for every connection
 ungroup-signals
+
+# give every link it's own tls index
+ungroup-signals_crossings

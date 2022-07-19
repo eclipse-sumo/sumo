@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2004-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2004-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -36,17 +36,18 @@
 // method definitions
 // ===========================================================================
 OutputDevice_File::OutputDevice_File(const std::string& fullName, const bool compressed)
-    : OutputDevice(0, fullName), myFileStream(nullptr) {
-#ifdef WIN32
+    : OutputDevice(0, fullName) {
     if (fullName == "/dev/null") {
+        myAmNull = true;
+#ifdef WIN32
         myFileStream = new std::ofstream("NUL");
         if (!myFileStream->good()) {
             delete myFileStream;
             throw IOError("Could not redirect to NUL device (" + std::string(std::strerror(errno)) + ").");
         }
         return;
-    }
 #endif
+    }
     const std::string& localName = StringUtils::transcodeToLocal(fullName);
 #ifdef HAVE_ZLIB
     if (compressed) {
@@ -60,7 +61,7 @@ OutputDevice_File::OutputDevice_File(const std::string& fullName, const bool com
     }
 #else
     UNUSED_PARAMETER(compressed);
-    myFileStream = new std::ofstream(localName.c_str(), binary ? std::ios::binary : std::ios_base::out);
+    myFileStream = new std::ofstream(localName.c_str(), std::ios_base::out);
 #endif
     if (!myFileStream->good()) {
         delete myFileStream;

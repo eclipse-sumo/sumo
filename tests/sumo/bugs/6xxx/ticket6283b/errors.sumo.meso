@@ -1,3 +1,4 @@
 Warning: Network contains internal links which are ignored. Vehicles will 'jump' across junctions and thus underestimate route lengths and travel times.
+Warning: ParkingArea 'p3' is targeted by rerouter 'rerouter_0' but doesn't have it's own rerouter. This may cause parking search to abort.
 Error: parkingZoneReroute not implemented for meso
 Quitting (on error).

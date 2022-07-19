@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -37,7 +37,7 @@ public:
     // class CommonModeOptions
     // ===========================================================================
 
-    class CommonModeOptions : protected FXGroupBox {
+    class CommonModeOptions : public FXGroupBoxModule {
 
     public:
         /// @brief constructor
@@ -58,7 +58,7 @@ public:
     // class NetworkModeOptions
     // ===========================================================================
 
-    class NetworkModeOptions : protected FXGroupBox {
+    class NetworkModeOptions : public FXGroupBoxModule {
 
     public:
         /// @brief constructor
@@ -88,7 +88,7 @@ public:
     // class DemandMoveOptions
     // ===========================================================================
 
-    class DemandModeOptions : protected FXGroupBox {
+    class DemandModeOptions : public FXGroupBoxModule {
 
     public:
         /// @brief constructor
@@ -115,25 +115,25 @@ public:
     };
 
     // ===========================================================================
-    // class ShiftEdgeGeometry
+    // class ShiftEdgeSelectedGeometry
     // ===========================================================================
 
-    class ShiftEdgeGeometry : protected FXGroupBox {
+    class ShiftEdgeSelectedGeometry : public FXGroupBoxModule {
         /// @brief FOX-declaration
-        FXDECLARE(GNEMoveFrame::ShiftEdgeGeometry)
+        FXDECLARE(GNEMoveFrame::ShiftEdgeSelectedGeometry)
 
     public:
         /// @brief constructor
-        ShiftEdgeGeometry(GNEMoveFrame* moveFrameParent);
+        ShiftEdgeSelectedGeometry(GNEMoveFrame* moveFrameParent);
 
         /// @brief destructor
-        ~ShiftEdgeGeometry();
+        ~ShiftEdgeSelectedGeometry();
 
-        /// @brief show shift edge geometry
-        void showShiftEdgeGeometry();
+        /// @brief enable shift edge geometry
+        void enableShiftEdgeGeometry();
 
-        /// @brief hide change Z in selection
-        void hideShiftEdgeGeometry();
+        /// @brief disable change Z in selection
+        void disableShiftEdgeGeometry();
 
         /// @name FOX-callbacks
         /// @{
@@ -147,7 +147,7 @@ public:
 
     protected:
         /// @brief FOX need this
-        FOX_CONSTRUCTOR(ShiftEdgeGeometry)
+        FOX_CONSTRUCTOR(ShiftEdgeSelectedGeometry)
 
     private:
         /// @brief pointer to move frame parent
@@ -155,13 +155,16 @@ public:
 
         /// @brief textField for shift value
         FXTextField* myShiftValueTextField = nullptr;
+
+        /// @brief button for apply Z value
+        FXButton* myApplyZValue = nullptr;
     };
 
     // ===========================================================================
     // class ChangeZInSelection
     // ===========================================================================
 
-    class ChangeZInSelection : protected FXGroupBox {
+    class ChangeZInSelection : public FXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNEMoveFrame::ChangeZInSelection)
 
@@ -172,11 +175,11 @@ public:
         /// @brief destructor
         ~ChangeZInSelection();
 
-        /// @brief show change Z in selection
-        void showChangeZInSelection();
+        /// @brief enabale change Z in selection
+        void enableChangeZInSelection();
 
-        /// @brief hide change Z in selection
-        void hideChangeZInSelection();
+        /// @brief disable change Z in selection
+        void disableChangeZInSelection();
 
         /// @name FOX-callbacks
         /// @{
@@ -208,6 +211,9 @@ public:
         /// @brief radio button for absolute value
         FXRadioButton* myAbsoluteValue = nullptr;
 
+        /// @brief apply button
+        FXButton* myApplyButton = nullptr;
+
         /// @brief radio button for relative value
         FXRadioButton* myRelativeValue = nullptr;
 
@@ -219,7 +225,7 @@ public:
     // class ShiftShapeGeometry
     // ===========================================================================
 
-    class ShiftShapeGeometry : protected FXGroupBox {
+    class ShiftShapeGeometry : public FXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNEMoveFrame::ShiftShapeGeometry)
 
@@ -304,8 +310,8 @@ private:
     /// @brief modul for DemandMode Options
     DemandModeOptions* myDemandModeOptions = nullptr;
 
-    /// @brief modul for shift edge geometry
-    ShiftEdgeGeometry* myShiftEdgeGeometry = nullptr;
+    /// @brief modul for shift edge selected geometry
+    ShiftEdgeSelectedGeometry* myShiftEdgeSelectedGeometry = nullptr;
 
     /// @brief modul for change Z in selection
     ChangeZInSelection* myChangeZInSelection = nullptr;

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -21,6 +21,7 @@
 #include <config.h>
 
 #include <netedit/elements/GNECandidateElement.h>
+#include <netedit/GNELane2laneConnection.h>
 
 #include "GNENetworkElement.h"
 
@@ -51,8 +52,8 @@ public:
     class LaneDrawingConstants {
 
     public:
-        /// @brief parameter constructor
-        LaneDrawingConstants(const GUIVisualizationSettings& s, const GNELane* lane);
+        /// @brief parameter constructor (reference)
+        LaneDrawingConstants(const GUIVisualizationSettings&  s, const GNELane* lane);
 
         /// @brief selection scale
         const double selectionScale;
@@ -84,7 +85,7 @@ public:
     /// @brief Destructor
     ~GNELane();
 
-    /// @brief get arent edge
+    /// @brief get parent edge
     GNEEdge* getParentEdge() const;
 
     /// @brief check if current lane allow pedestrians
@@ -93,7 +94,7 @@ public:
     /// @name Functions related with geometry of element
     /// @{
     /// @brief get lane geometry
-    const GNEGeometry::Geometry& getLaneGeometry() const;
+    const GUIGeometry& getLaneGeometry() const;
 
     /// @brief get elements shape
     const PositionVector& getLaneShape() const;
@@ -114,7 +115,7 @@ public:
     /// @name Functions related with move elements
     /// @{
     /// @brief get move operation for the given shapeOffset (can be nullptr)
-    GNEMoveOperation* getMoveOperation(const double shapeOffset);
+    GNEMoveOperation* getMoveOperation();
 
     /// @brief remove geometry point in the clicked position
     void removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList);
@@ -150,6 +151,9 @@ public:
     /// @brief multiplexes message to two targets
     long onDefault(FXObject*, FXSelector, void*);
 
+    /// @brief return exaggeration associated with this GLObject
+    double getExaggeration(const GUIVisualizationSettings& s) const;
+
     /// @brief update centering boundary (implies change in RTREE)
     void updateCenteringBoundary(const bool updateGrid);
 
@@ -158,6 +162,9 @@ public:
      * @see GUIGlObject::drawGL
      */
     void drawGL(const GUIVisualizationSettings& s) const;
+
+    /// @brief update GLObject (geometry, ID, etc.)
+    void updateGLObject();
     /// @}
 
     /// @brief returns the index of the lane
@@ -183,7 +190,7 @@ public:
     bool isRestricted(SUMOVehicleClass vclass) const;
 
     /// @brief get Lane2laneConnection struct
-    const GNEGeometry::Lane2laneConnection& getLane2laneConnections() const;
+    const GNELane2laneConnection& getLane2laneConnections() const;
 
     /// @name inherited from GNEAttributeCarrier
     /// @{
@@ -203,7 +210,7 @@ public:
 
     /* @brief method for checking if the key and their correspond attribute are valids
      * @param[in] key The attribute key
-     * @param[in] value The value asociated to key key
+     * @param[in] value The value associated to key key
      * @return true if the value is valid, false in other case
      */
     bool isValid(SumoXMLAttr key, const std::string& value);
@@ -212,10 +219,15 @@ public:
      * @param[in] key The attribute key
      */
     bool isAttributeEnabled(SumoXMLAttr key) const;
+
+    /* @brief method for check if the value for certain attribute is computed (for example, due a network recomputing)
+     * @param[in] key The attribute key
+     */
+    bool isAttributeComputed(SumoXMLAttr key) const;
     /// @}
 
     /// @brief get parameters map
-    const std::map<std::string, std::string>& getACParametersMap() const;
+    const Parameterised::Map& getACParametersMap() const;
 
     /* @brief method for setting the special color of the lane
      * @param[in] color Pointer to new special color
@@ -227,6 +239,12 @@ public:
 
     /// @brief whether to draw this lane as a railway
     bool drawAsRailway(const GUIVisualizationSettings& s) const;
+
+    /// @brief draw overlapped routes
+    void drawOverlappedRoutes(const int numRoutes) const;
+
+    /// @brief draw laneStopOffset
+    void drawLaneStopOffset(const GUIVisualizationSettings& s, const double offset) const;
 
 protected:
     /// @brief FOX needs this
@@ -240,7 +258,7 @@ private:
     int myIndex;
 
     /// @brief lane geometry
-    GNEGeometry::Geometry myLaneGeometry;
+    GUIGeometry myLaneGeometry;
 
     /// @name computed only once (for performance) in updateGeometry()
     /// @{
@@ -262,7 +280,7 @@ private:
     mutable std::vector<RGBColor> myShapeColors;
 
     /// @brief lane2lane connections
-    GNEGeometry::Lane2laneConnection myLane2laneConnections;
+    GNELane2laneConnection myLane2laneConnections;
 
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);

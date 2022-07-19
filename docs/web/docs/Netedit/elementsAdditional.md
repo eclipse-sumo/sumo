@@ -4,11 +4,17 @@ title: elementsAdditional
 
 # Additional elements
 
-*Additionals* are elements which do not belong to the network, but may be used to influence the simulation or generate specific outputs. Additionals are defined in an {{AdditionalFile}} and can be loaded in **netedit**. Additionals are created in the *Additionals* editing mode (shortcut key: a). Once this mode is selected, the first step is to choose what kind of additional should be created in the comboBox "additional element". Once selected and if required, the parameters of the additional can be changed. Finally, with
-a click over a Lane/junction/edge (If the additional should be set over an element of the network), or over an empty area (if the item is independent of the network) the additional will be created.
+Additionals* are elements which do not belong to the network, but may be used to influence the simulation or generate specific outputs. Additionals are defined in an {{AdditionalFile}}.
+
+## Loading and Saving
+
+Additionals can be loaded and saved via the File menu:
 
 ![](../images/GNELoadAdditionals.png)    
 Menu for loading additionals
+
+## Create
+Additionals are created in the *Additionals* editing mode (shortcut key: a). Once this mode is selected, the first step is to choose what kind of additional should be created in the comboBox "additional element". Once selected and if required, the parameters of the additional can be changed. Finally, with a click over a Lane/junction/edge (If the additional should be set over an element of the network), or over an empty area (if the item is independent of the network) the additional will be created.
 
 ![](../images/GNEFrame.png)    
 Frame to insert additionals
@@ -44,14 +50,15 @@ Adding a list of bus stop lines
 ![](../images/GNEReferences.png)    
 Adding additional with different references
 
-## Additional sets
+## Additional hierarchies  
 
-Additional sets are additionals that comprise or contain another  additionals (called childs) (For example, *detectorE3* contains a list
-of *detEntry* and *detExit*). Additional sets are inserted in the same way as an Additional, but the insertion of an additional child is
-different. Before the insertion of an additional child in the map, the ID of the *additionalSet* parent must be selected in the list of IDs placed on the left frame. In this list the IDs of the additional sets only appear when they can be parents of the additional child (Referring to the given example: if the user wants to insert a *detEntry*, than only IDs of *detectorE3* will appear in the list on the left frame). Additional sets and their childs are graphically connected by a yellow line.
+Certain additionals need another previous additionals already placed in the network to be created (For example, a *detEntry* or *detExit* needs a previous *detectorE3* placed in the network. These child additionals are inserted in the same way as an Additional, but the insertion of an additional child is
+different. Before the insertion of an *additional child* in the map, either the ID of the *additional parent* parent must be selected in the list of IDs placed on the left frame or additional parent must be clicked in the view. In the list the IDs of the additional parents only appear when they can be parents of the additional child (Referring to the given example: if the user wants to insert a *detEntry*, than only IDs of *detectorE3* will appear in the list on the left frame). Additional parents and their childs are graphically connected by a yellow line.
 
 ![](../images/GNEAdditionalSet.png)    
 Insertion of an additional Set
+
+Additional parent can be changed during inspection of an additional child, either writing the Id of the new parent in section "Netedit attributes" or clicking over "Set new Parent" button, and then clicking over new parent.
 
 ## Help dialogs
 

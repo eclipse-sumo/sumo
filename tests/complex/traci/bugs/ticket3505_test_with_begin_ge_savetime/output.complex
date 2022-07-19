@@ -1,5 +1,4 @@
-Loading configuration ... done.
-Loading configuration ... done.
 Starting...
 loadParams: ['-c', 'sumo.sumocfg']
-300
+ Retrying in 1 seconds
+300.0

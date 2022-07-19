@@ -349,12 +349,18 @@ python tools/route/addStops2Routes.py -n <net-file> -r <route-file> -t <vTyp
 </routes>
 ```
 
+## Further Options
+
+- **--parking-areas FILE**: Load additional file with parking area definitions. If the final edge of a vehicle has a parkingArea, this will be used as the destination
+- **--person-duration**, **--person-until**: if set, any persons in the input will receive a `<stop>` as the last element of their plan
+- **--start-at-stop**: if set, vehicle routes will be shortened so they start at the final edge. This can be used to define stationary traffic which fills up parkingAreas without driving around.
+
 # vehicle2flow.py
 
 This tool transforms every vehicle definition to a flow definition with the configured end time and period (depart is used as begin time).
 
 ```
-python tools/route/tracegenerator.py <route-file> -o <output-route-file> -e <end-time> -r <repeat-period>
+python tools/route/vehicles2flow.py <route-file> -o <output-route-file> -e <end-time> -r <repeat-period>
 ```
 
 # tracegenerator.py
@@ -434,6 +440,10 @@ The implausibility score is a weighted sum of individual measures of implausibil
 The tool reports routes with an implausibility score above a given threshold.
 It can also be used to generated restrictions for [flowrouter](Detector.md#flowrouterpy).
 
+!!! caution
+    When using a route file with named routes (i.e. flowrouter **--routes-output**), the option **--standalone** must be set.
+    
+
 # addStopDelay.py
 
 This tool adds a random delay to some or all stops that have a 'duration' value by increasing the duration
@@ -475,4 +485,7 @@ This tool generates a [tazRelation-file (OD-Matrix)](../Demand/Importing_O/D_Mat
 python tools/route/route2OD.py -r <route-file> -a <taz-file> -o <output-file>
 ```
 
+Not only route file but also trip file can be used as input. The tool will firstly try to find the start edge and the end edge of each trip or flows and match them to the respective origin and destination TAZ according to the input taz-file. The counts of the TAZ-relations will be calculated and saved. If only TAZ-information in the given trip or route file is available, this tool will directly calculate TAZ-based OD relation counts without using the information in the given taz-file, which connection edges locate in each TAZ. If the option **--edge-relations** is set, edge-based relation counts will be calculated and saved, only when start/end edge information is available. 
+
 When option **--interval TIME** (short **-i**) is set, the OD-Matrix will be split into time slices of the given duration.
+

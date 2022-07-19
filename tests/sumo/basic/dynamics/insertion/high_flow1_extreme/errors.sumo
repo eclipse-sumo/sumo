@@ -1,1 +1,2 @@
-Warning: Value of tau=0.5 in car following model 'carFollowing-Krauss' lower than simulation step size may cause collisions
+Warning: Value of tau=0.50 in vehicle type 't0' lower than simulation step size may cause collisions.
+Warning: Vehicle 'f.595' performs emergency braking on lane 'end2_0' with decel=9.00, wished=4.50, severity=1.00, time=684.00.

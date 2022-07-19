@@ -134,6 +134,16 @@ static PyObject* parseSubscriptionMap(const std::map<int, std::shared_ptr<libsum
             }
         }
         if (pyVal == nullptr) {
+            const libsumo::TraCIDoubleList* const theDoubleList = dynamic_cast<const libsumo::TraCIDoubleList*>(traciVal);
+            if (theDoubleList != nullptr) {
+                const Py_ssize_t size = theDoubleList->value.size();
+                pyVal = PyTuple_New(size);
+                for (Py_ssize_t i = 0; i < size; i++) {
+                    PyTuple_SetItem(pyVal, i, PyFloat_FromDouble(theDoubleList->value[i]));
+                }
+            }
+        }
+        if (pyVal == nullptr) {
             const libsumo::TraCIPosition* const thePosition = dynamic_cast<const libsumo::TraCIPosition*>(traciVal);
             if (thePosition != nullptr) {
                 if (thePosition->z != libsumo::INVALID_DOUBLE_VALUE) {
@@ -329,17 +339,36 @@ static PyObject* parseSubscriptionMap(const std::map<int, std::shared_ptr<libsum
 #ifdef _MSC_VER
 // ignore constant conditional expression (C4127) and unreachable/unsafe code warnings
 // and hidden local declaration (C4456), uninitialized variable (C4701), assignment in conditional expression (C4706)
-#pragma warning(disable:4127 4456 4701 4702 4706 4996)
+// also see config.h.cmake
+#pragma warning(disable:4127 4456 4701 4702 4706 4996 4365 4820 4514 5045 4191 4710 4668)
 #else
 // ignore unused parameter warnings for vector template code
 #pragma GCC diagnostic ignored "-Wunused-parameter"
 // ignore uninitialized fields for typeobject::tp_vectorcall and typeobject::tp_print
 #pragma GCC diagnostic ignored "-Wmissing-field-initializers"
 #endif
+#define SWIG_PYTHON_2_UNICODE
 
 #include <iostream>
 %}
 
+
+%include "std_shared_ptr.i"
+%shared_ptr(libsumo::TraCIPhase)
+#ifndef SWIGPYTHON
+%shared_ptr(libsumo::TraCIResult)
+%shared_ptr(libsumo::TraCIPosition)
+%shared_ptr(libsumo::TraCIRoadPosition)
+%shared_ptr(libsumo::TraCIColor)
+%shared_ptr(libsumo::TraCIPositionVector)
+%shared_ptr(libsumo::TraCIInt)
+%shared_ptr(libsumo::TraCIDouble)
+%shared_ptr(libsumo::TraCIString)
+%shared_ptr(libsumo::TraCIStringList)
+%shared_ptr(libsumo::TraCIDoubleList)
+%shared_ptr(libsumo::TraCINextStopData)
+%shared_ptr(libsumo::TraCINextStopDataVector)
+#endif
 
 // replacing vector instances of standard types, see https://stackoverflow.com/questions/8469138
 %include "std_string.i"
@@ -348,7 +377,11 @@ static PyObject* parseSubscriptionMap(const std::map<int, std::shared_ptr<libsum
 %template(StringVector) std::vector<std::string>;
 %template(IntVector) std::vector<int>;
 %template(DoubleVector) std::vector<double>;
+#ifdef SWIGPYTHON
 %template() std::map<std::string, std::string>;
+#else
+%template(StringStringMap) std::map<std::string, std::string>;
+#endif
 
 // replacing pair instances of standard types, see https://stackoverflow.com/questions/54733078
 %include "std_pair.i"
@@ -356,6 +389,7 @@ static PyObject* parseSubscriptionMap(const std::map<int, std::shared_ptr<libsum
 %template(IntStringPair) std::pair<int, std::string>;
 %template(IntIntPair) std::pair<int, int>;
 %template(StringDoublePair) std::pair<std::string, double>;
+%template(StringDoublePairVector) std::vector<std::pair<std::string, double> >;
 
 // exception handling
 %include "exception.i"
@@ -406,5 +440,16 @@ static PyObject* parseSubscriptionMap(const std::map<int, std::shared_ptr<libsum
         SWIG_exception(SWIG_UnknownError, "unknown exception");
     }
 }
+
+#if SWIG_VERSION < 0x040100 && defined(SWIGJAVA)
+// see https://github.com/supranational/blst/issues/53
+/* SWIG versions prior 4.1 were crossing the MinGW's ways on the path
+ * to JNI 'jlong' type */
+%begin %{
+#if defined(__MINGW32__) && defined(__int64)
+# undef __int64
+#endif
+%}
+#endif // SWIGJAVA
 
 // %feature("compactdefaultargs") libsumo::Simulation::findRoute;

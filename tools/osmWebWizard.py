@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2014-2021 German Aerospace Center (DLR) and others.
+# Copyright (C) 2014-2022 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -176,19 +176,23 @@ class Builder(object):
     def build(self):
         # output name for the osm file, will be used by osmBuild, can be
         # deleted after the process
-        self.filename("osm", "_bbox.osm.xml")
+        self.filename("osm", "_bbox.osm.xml.gz")
         # output name for the net file, will be used by osmBuild, randomTrips and
         # sumo-gui
         self.filename("net", ".net.xml")
 
         if 'osm' in self.data:
             # testing mode
-            shutil.copy(data['osm'], self.files["osm"])
+            self.files["osm"] = data['osm']
         else:
             self.report("Downloading map data")
-            osmArgs = ["-b=" + (",".join(map(str, self.data["coords"]))), "-p", self.prefix, "-d", self.tmp]
+            osmArgs = ["-b=" + (",".join(map(str, self.data["coords"]))), "-p", self.prefix, "-d", self.tmp, "-z"]
+            if self.data["poly"]:
+                osmArgs.append("--shapes")
             if 'osmMirror' in self.data:
                 osmArgs += ["-u", self.data["osmMirror"]]
+            if 'roadTypes' in self.data:
+                osmArgs += ["-r", json.dumps(self.data["roadTypes"])]
             osmGet.get(osmArgs)
 
         options = ["-f", self.files["osm"], "-p", self.prefix, "-d", self.tmp]
@@ -210,6 +214,7 @@ class Builder(object):
         if "pedestrian" in self.data["vehicles"]:
             # sidewalks are already included via typefile
             netconvertOptions += ",--crossings.guess"
+            netconvertOptions += ",--osm.sidewalks"
             typefiles.append(typemaps["urban"])
             typefiles.append(typemaps["pedestrians"])
         if "ship" in self.data["vehicles"]:
@@ -229,6 +234,10 @@ class Builder(object):
             netconvertOptions += ",--railway.topology.repair"
         if self.data["leftHand"]:
             netconvertOptions += ",--lefthand"
+        if self.data["decal"]:
+            # change projection to web-mercator to match the background image projection
+            netconvertOptions += ",--proj,+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs"  # noqa
+
         if self.data["carOnlyNetwork"]:
             if self.data["publicTransport"]:
                 options += ["--vehicle-classes", "publicTransport"]
@@ -317,6 +326,8 @@ class Builder(object):
                     self.routenames.append(self.files["route"])
                 else:
                     self.routenames.append(self.files["trips"])
+                    # clean up unused route file (was only used for validation)
+                    os.remove(self.files["route"])
 
             # create a batch file for reproducing calls to randomTrips.py
             if os.name == "posix":
@@ -324,10 +335,8 @@ class Builder(object):
             else:
                 SUMO_HOME_VAR = "%SUMO_HOME%"
 
-            randomTripsPath = os.path.join(
-                SUMO_HOME_VAR, "tools", "randomTrips.py")
-            ptlines2flowsPath = os.path.join(
-                SUMO_HOME_VAR, "tools", "ptlines2flows.py")
+            randomTripsPath = os.path.join(SUMO_HOME_VAR, "tools", "randomTrips.py")
+            ptlines2flowsPath = os.path.join(SUMO_HOME_VAR, "tools", "ptlines2flows.py")
 
             self.filename("build.bat", "build.bat", False)
             batchFile = self.files["build.bat"]
@@ -340,6 +349,7 @@ class Builder(object):
                 for opts in sorted(randomTripsCalls):
                     f.write('python "%s" %s\n' %
                             (randomTripsPath, " ".join(map(quoted_str, self.getRelative(opts)))))
+            os.chmod(batchFile, BATCH_MODE)
 
     def parseTripOpts(self, vehicle, options, publicTransport):
         "Return an option list for randomTrips.py for a given vehicle"
@@ -353,9 +363,10 @@ class Builder(object):
         period = 3600 / (length / 1000) / options["count"]
 
         opts = ["-n", self.files["net"], "--fringe-factor", options["fringeFactor"],
-                "-p", period, "-o", self.files["trips"], "-e", self.data["duration"]]
-        if "--validate" not in vehicleParameters[vehicle]:
-            opts += ["-r", self.files["route"]]
+                "-p", period,
+                "-o", self.files["trips"],
+                "-r", self.files["route"],
+                "-e", self.data["duration"]]
         if vehicle == "pedestrian" and publicTransport:
             opts += vehicleParameters["persontrips"]
         else:

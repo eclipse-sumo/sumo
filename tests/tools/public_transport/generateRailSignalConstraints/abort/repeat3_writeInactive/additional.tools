@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-07-07 11:20:48.548240 by generateRailSignalConstraints.py v1_13_0+1343-240e5d48340
+<configuration>
+    <abort-unordered value="True"/>
+    <additional-file value="input_additional.add.xml"/>
+    <net-file value="net.net.xml"/>
+    <output-file value="out.add.xml"/>
+    <route-file value="input_routes2.rou.xml"/>
+    <write-inactive value="True"/>
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <railSignalConstraints id="A">
+        <predecessor tripId="t0" tl="D" foes="t1"/>
+        <predecessor tripId="t2" tl="D" foes="t3" active="false"/>
+        <predecessor tripId="t4" tl="D" foes="t5"/>
+    </railSignalConstraints>
+    <railSignalConstraints id="D">
+        <predecessor tripId="t3" tl="A" foes="t0" active="false"/>
+        <predecessor tripId="t5" tl="A" foes="t2"/>
+    </railSignalConstraints>
+</additional>

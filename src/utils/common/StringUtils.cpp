@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -27,6 +27,13 @@
 #include <cstdio>
 #include <cstring>
 #include <regex>
+#ifdef WIN32
+#define NOMINMAX
+#include <windows.h>
+#undef NOMINMAX
+#else
+#include <unistd.h>
+#endif
 #include <xercesc/util/TransService.hpp>
 #include <xercesc/util/TranscodingException.hpp>
 #include <utils/common/UtilExceptions.h>
@@ -56,13 +63,22 @@ StringUtils::prune(const std::string& str) {
 
 
 std::string
-StringUtils::to_lower_case(std::string str) {
-    for (int i = 0; i < (int)str.length(); i++) {
-        if (str[i] >= 'A' && str[i] <= 'Z') {
-            str[i] = str[i] + 'a' - 'A';
-        }
+StringUtils::pruneZeros(const std::string& str, int max) {
+    const std::string::size_type endpos = str.find_last_not_of("0");
+    if (endpos != std::string::npos && str.back() == '0') {
+        std::string res = str.substr(0, MAX2((int)str.size() - max, (int)endpos + 1));
+        return res;
     }
     return str;
+}
+
+std::string
+StringUtils::to_lower_case(const std::string& str) {
+    std::string s = str;
+    std::transform(s.begin(), s.end(), s.begin(), [](char c) {
+        return (char)::tolower(c);
+    });
+    return s;
 }
 
 
@@ -100,16 +116,12 @@ StringUtils::convertUmlaute(std::string str) {
 }
 
 
-
 std::string
-StringUtils::replace(std::string str, const char* what,
-                     const char* by) {
-    const std::string what_tmp(what);
-    const std::string by_tmp(by);
+StringUtils::replace(std::string str, const std::string& what, const std::string& by) {
     std::string::size_type idx = str.find(what);
-    const int what_len = (int)what_tmp.length();
+    const int what_len = (int)what.length();
     if (what_len > 0) {
-        const int by_len = (int)by_tmp.length();
+        const int by_len = (int)by.length();
         while (idx != std::string::npos) {
             str = str.replace(idx, what_len, by);
             idx = str.find(what, idx + by_len);
@@ -119,7 +131,39 @@ StringUtils::replace(std::string str, const char* what,
 }
 
 
-std::string StringUtils::substituteEnvironment(std::string str) {
+std::string
+StringUtils::substituteEnvironment(const std::string& str, const std::chrono::time_point<std::chrono::system_clock>* const timeRef) {
+    std::string s = str;
+    if (timeRef != nullptr) {
+        const std::string::size_type localTimeIndex = str.find("${LOCALTIME}");
+        const std::string::size_type utcIndex = str.find("${UTC}");
+        if (localTimeIndex != std::string::npos || utcIndex != std::string::npos) {
+            const time_t rawtime = std::chrono::system_clock::to_time_t(*timeRef);
+            char buffer [80];
+            struct tm* timeinfo = utcIndex != std::string::npos ? gmtime(&rawtime) : localtime(&rawtime);
+            strftime(buffer, 80, "%Y-%m-%d-%H-%M-%S.", timeinfo);
+            auto seconds = std::chrono::time_point_cast<std::chrono::seconds>(*timeRef);
+            auto microseconds = std::chrono::duration_cast<std::chrono::microseconds>(*timeRef - seconds);
+            const std::string micro = buffer + toString(microseconds.count());
+            if (utcIndex != std::string::npos) {
+                s.replace(utcIndex, 6, micro);
+            } else {
+                s.replace(localTimeIndex, 12, micro);
+            }
+        }
+    }
+    const std::string::size_type pidIndex = str.find("${PID}");
+    if (pidIndex != std::string::npos) {
+#ifdef WIN32
+        s.replace(pidIndex, 6, toString(::GetCurrentProcessId()));
+#else
+        s.replace(pidIndex, 6, toString(::getpid()));
+#endif
+    }
+    if (std::getenv("${SUMO_LOGO}") == nullptr) {
+        s = replace(s, "${SUMO_LOGO}", "${SUMO_HOME}/data/logo/sumo-128x138.png");
+    }
+
     // Expression for an environment variables, e.g. ${NAME}
     // Note: - R"(...)" is a raw string literal syntax to simplify a regex declaration
     //       - .+? looks for the shortest match (non-greedy)
@@ -128,7 +172,7 @@ std::string StringUtils::substituteEnvironment(std::string str) {
 
     // Are there any variables in this string?
     std::smatch match;
-    std::string strIter = str;
+    std::string strIter = s;
 
     // Loop over the entire value string and look for variable names
     while (std::regex_search(strIter, match, envVarExpr)) {
@@ -141,14 +185,14 @@ std::string StringUtils::substituteEnvironment(std::string str) {
         }
 
         // Replace the variable placeholder with its value in the original string
-        str = std::regex_replace(str, std::regex("\\$\\{" + varName + "\\}"), varValue);
+        s = std::regex_replace(s, std::regex("\\$\\{" + varName + "\\}"), varValue);
 
         // Continue the loop with the remainder of the string
         strIter = match.suffix();
     }
-
-    return str;
+    return s;
 }
+
 
 std::string
 StringUtils::toTimeString(int time) {
@@ -183,6 +227,12 @@ StringUtils::endsWith(const std::string& str, const std::string suffix) {
     } else {
         return false;
     }
+}
+
+
+std::string
+StringUtils::padFront(const std::string& str, int length, char padding) {
+    return std::string(MAX2(0, length - (int)str.size()), padding) + str;
 }
 
 
@@ -371,18 +421,14 @@ StringUtils::toBool(const std::string& sData) {
     if (sData.length() == 0) {
         throw EmptyData();
     }
-    std::string s = sData;
-    // Don't use std::transform(..., ::tolower) due a C4244 Warning in MSVC17
-    for (int i = 0; i < (int)s.length(); i++) {
-        s[i] = (char)::tolower((char)s[i]);
-    }
+    const std::string s = to_lower_case(sData);
     if (s == "1" || s == "yes" || s == "true" || s == "on" || s == "x" || s == "t") {
         return true;
-    } else if (s == "0" || s == "no" || s == "false" || s == "off" || s == "-" || s == "f") {
-        return false;
-    } else {
-        throw BoolFormatException(s);
     }
+    if (s == "0" || s == "no" || s == "false" || s == "off" || s == "-" || s == "f") {
+        return false;
+    }
+    throw BoolFormatException(s);
 }
 
 

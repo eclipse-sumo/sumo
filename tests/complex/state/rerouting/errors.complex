@@ -1,14 +1,28 @@
-Warning: Teleporting vehicle 'veh71'; waited too long (yield), lane='gneE2_0', time=1194.00.
-Warning: Vehicle 'veh71' ends teleporting on edge 'gneE3', time 1194.00.
-Warning: Teleporting vehicle 'veh73'; waited too long (yield), lane='gneE2_0', time=1645.00.
-Warning: Vehicle 'veh73' ends teleporting on edge 'gneE3', time 1645.00.
-Warning: Teleporting vehicle 'veh74'; waited too long (yield), lane='gneE2_0', time=1950.00.
-Warning: Vehicle 'veh74' ends teleporting on edge 'gneE3', time 1950.00.
-Warning: Teleporting vehicle 'veh632'; waited too long (yield), lane='gneE2_0', time=2723.00.
-Warning: Vehicle 'veh632' ends teleporting on edge 'gneE3', time 2723.00.
-Warning: Teleporting vehicle 'veh70'; waited too long (yield), lane='gneE2_0', time=1073.00.
-Warning: Vehicle 'veh70' ends teleporting on edge 'gneE3', time 1073.00.
-Warning: Teleporting vehicle 'veh71'; waited too long (yield), lane='gneE2_0', time=1378.00.
-Warning: Vehicle 'veh71' ends teleporting on edge 'gneE3', time 1378.00.
-Warning: Teleporting vehicle 'veh72'; waited too long (yield), lane='gneE2_0', time=1684.00.
-Warning: Vehicle 'veh72' ends teleporting on edge 'gneE3', time 1684.00.
+Warning: Teleporting vehicle 'veh68'; waited too long (yield), lane='gneE2_0', time=565.00.
+Warning: Vehicle 'veh68' ends teleporting on edge 'gneE3', time=565.00.
+Warning: Teleporting vehicle 'veh69'; waited too long (yield), lane='gneE2_0', time=871.00.
+Warning: Vehicle 'veh69' ends teleporting on edge 'gneE3', time=871.00.
+Warning: Teleporting vehicle 'veh70'; waited too long (yield), lane='gneE2_0', time=1177.00.
+Warning: Vehicle 'veh70' ends teleporting on edge 'gneE3', time=1177.00.
+Warning: Teleporting vehicle 'veh71'; waited too long (yield), lane='gneE2_0', time=1482.00.
+Warning: Vehicle 'veh71' ends teleporting on edge 'gneE3', time=1482.00.
+Warning: Teleporting vehicle 'veh72'; waited too long (yield), lane='gneE2_0', time=1787.00.
+Warning: Vehicle 'veh72' ends teleporting on edge 'gneE3', time=1787.00.
+Warning: Teleporting vehicle 'veh73'; waited too long (yield), lane='gneE2_0', time=2092.00.
+Warning: Vehicle 'veh73' ends teleporting on edge 'gneE3', time=2092.00.
+Warning: Teleporting vehicle 'veh74'; waited too long (yield), lane='gneE2_0', time=2397.00.
+Warning: Vehicle 'veh74' ends teleporting on edge 'gneE3', time=2397.00.
+Warning: Teleporting vehicle 'veh75'; waited too long (yield), lane='gneE2_0', time=2703.00.
+Warning: Vehicle 'veh75' ends teleporting on edge 'gneE3', time=2703.00.
+Warning: Teleporting vehicle 'veh68'; waited too long (yield), lane='gneE2_0', time=565.00.
+Warning: Vehicle 'veh68' ends teleporting on edge 'gneE3', time=565.00.
+Warning: Teleporting vehicle 'veh69'; waited too long (yield), lane='gneE2_0', time=869.00.
+Warning: Vehicle 'veh69' ends teleporting on edge 'gneE3', time=869.00.
+Warning: Teleporting vehicle 'veh70'; waited too long (yield), lane='gneE2_0', time=1175.00.
+Warning: Vehicle 'veh70' ends teleporting on edge 'gneE3', time=1175.00.
+Warning: Teleporting vehicle 'veh71'; waited too long (yield), lane='gneE2_0', time=1479.00.
+Warning: Vehicle 'veh71' ends teleporting on edge 'gneE3', time=1479.00.
+Warning: Teleporting vehicle 'veh72'; waited too long (yield), lane='gneE2_0', time=1784.00.
+Warning: Vehicle 'veh72' ends teleporting on edge 'gneE3', time=1784.00.
+Warning: Teleporting vehicle 'veh73'; waited too long (yield), lane='gneE2_0', time=2089.00.
+Warning: Vehicle 'veh73' ends teleporting on edge 'gneE3', time=2089.00.

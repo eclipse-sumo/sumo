@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2007-2021 German Aerospace Center (DLR) and others.
+# Copyright (C) 2007-2022 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -45,7 +45,7 @@ def get_options(args=None):
     parser.add_argument("-o", "--output-file", dest="output",
                         help="output edgeData FILE (mandatory)", metavar="FILE")
     parser.add_argument("-q", "--flow-columns", dest="flowcols", default="qPKW,qLKW",
-                        help="which columns contains flows", metavar="STRING")
+                        help="which columns contains flows (specified via column header)", metavar="STRING")
     parser.add_argument("-b", "--begin", default=0,
                         help="custom begin time (minutes or H:M:S)")
     parser.add_argument("-e", "--end", default=1440,

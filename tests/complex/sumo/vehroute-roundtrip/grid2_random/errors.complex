@@ -1,0 +1,8 @@
+Warning: Teleporting vehicle '1097'; waited too long (yield), lane=':B2_4_0', time=886.00.
+Warning: Vehicle '1097' ends teleporting on edge 'B2C2', time=886.00.
+Warning: Teleporting vehicle '1177'; waited too long (wrong lane), lane='C2B2_0', time=892.00.
+Warning: Vehicle '1177' ends teleporting on edge 'B2B1', time=892.00.
+Warning: Teleporting vehicle '1097'; waited too long (yield), lane=':B2_4_0', time=886.00.
+Warning: Vehicle '1097' ends teleporting on edge 'B2C2', time=886.00.
+Warning: Teleporting vehicle '1177'; waited too long (wrong lane), lane='C2B2_0', time=892.00.
+Warning: Vehicle '1177' ends teleporting on edge 'B2B1', time=892.00.

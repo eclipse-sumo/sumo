@@ -1,6 +1,0 @@
-Error: Value of stop attribute 'trigger' must be 'person', 'container', 'join' or a boolean
-Error: Attribute 'triggered' in definition of a stop is empty.
-Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop on lane 'gneE1_0'
-Error: Value of stop attribute 'trigger' must be 'person', 'container', 'join' or a boolean
-Error: Value of stop attribute 'trigger' must be 'person', 'container', 'join' or a boolean
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.27Aug135052.3908\netedit.gui\demandElements\stop\lane\load\triggered\input_routes.rou.xml failed.

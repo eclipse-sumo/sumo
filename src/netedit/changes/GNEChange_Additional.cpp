@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -43,7 +43,7 @@ GNEChange_Additional::~GNEChange_Additional() {
     myAdditional->decRef("GNEChange_Additional");
     if (myAdditional->unreferenced()) {
         // show extra information for tests
-        WRITE_DEBUG("Deleting unreferenced " + myAdditional->getTagStr() + " '" + myAdditional->getID() + "'");
+        WRITE_DEBUG("Deleting unreferenced " + myAdditional->getTagStr());
         // make sure that additional isn't in net before removing
         if (myAdditional->getNet()->getAttributeCarriers()->additionalExist(myAdditional)) {
             // delete additional from net
@@ -79,7 +79,7 @@ GNEChange_Additional::undo() {
         // restore container
         restoreHierarchicalContainers();
     }
-    // Requiere always save additionals
+    // require always save additionals
     myAdditional->getNet()->requireSaveAdditionals(true);
 }
 
@@ -109,7 +109,7 @@ GNEChange_Additional::redo() {
         // remove additional from parents and children
         removeElementFromParentsAndChildren(myAdditional);
     }
-    // Requiere always save additionals
+    // require always save additionals
     myAdditional->getNet()->requireSaveAdditionals(true);
 }
 

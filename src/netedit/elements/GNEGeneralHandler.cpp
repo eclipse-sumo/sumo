@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -32,10 +32,10 @@
 // method definitions
 // ===========================================================================
 
-GNEGeneralHandler::GNEGeneralHandler(GNENet* net, const std::string& file, const bool allowUndoRedo) :
+GNEGeneralHandler::GNEGeneralHandler(GNENet* net, const std::string& file, const bool allowUndoRedo, const bool overwrite) :
     GeneralHandler(file),
-    myAdditionalHandler(net, allowUndoRedo),
-    myDemandHandler(file, net, allowUndoRedo) {
+    myAdditionalHandler(net, allowUndoRedo, overwrite),
+    myDemandHandler(file, net, allowUndoRedo, overwrite) {
 }
 
 
@@ -44,19 +44,80 @@ GNEGeneralHandler::~GNEGeneralHandler() {}
 
 void
 GNEGeneralHandler::beginTag(SumoXMLTag tag, const SUMOSAXAttributes& attrs) {
-    // parse additional elements
-    myAdditionalHandler.beginParseAttributes(tag, attrs);
-    // parse demand elements
-    myDemandHandler.beginParseAttributes(tag, attrs);
+    switch (tag) {
+        case SUMO_TAG_LOCATION:
+            // process in Network handler
+            myQueue.push_back(TagType(tag, true, false, false));
+            break;
+        case SUMO_TAG_PARAM:
+        case SUMO_TAG_INTERVAL:
+            if (myQueue.size() > 0) {
+                // try to parse additional or demand element depending of last inserted tag
+                if (myQueue.back().additional && myAdditionalHandler.beginParseAttributes(tag, attrs)) {
+                    myQueue.push_back(TagType(tag, false, true, false));
+                } else if (myQueue.back().demand && myDemandHandler.beginParseAttributes(tag, attrs)) {
+                    myQueue.push_back(TagType(tag, false, false, true));
+                } else {
+                    myQueue.push_back(TagType(tag, false, false, false));
+                }
+            } else {
+                myQueue.push_back(TagType(tag, false, false, false));
+            }
+            break;
+        case SUMO_TAG_FLOW:
+            if (myQueue.size() > 0) {
+                // try to parse additional or demand element depending of last inserted tag
+                if (myQueue.back().additional && myAdditionalHandler.beginParseAttributes(tag, attrs)) {
+                    myQueue.push_back(TagType(tag, false, true, false));
+                } else if (myDemandHandler.beginParseAttributes(tag, attrs)) {
+                    myQueue.push_back(TagType(tag, false, false, true));
+                } else {
+                    myQueue.push_back(TagType(tag, false, false, false));
+                }
+            } else {
+                myQueue.push_back(TagType(tag, false, false, false));
+            }
+            break;
+        default:
+            // try to parse additional or demand element
+            if (myAdditionalHandler.beginParseAttributes(tag, attrs)) {
+                myQueue.push_back(TagType(tag, false, true, false));
+            } else if (myDemandHandler.beginParseAttributes(tag, attrs)) {
+                myQueue.push_back(TagType(tag, false, false, true));
+            } else {
+                myQueue.push_back(TagType(tag, false, false, false));
+            }
+            break;
+    }
+    // maximum 10 tagTypes
+    if (myQueue.size() > 10) {
+        myQueue.pop_front();
+    }
 }
 
 
 void
 GNEGeneralHandler::endTag() {
-    // end parse additional elements
-    myAdditionalHandler.endParseAttributes();
-    // end parse demand elements
-    myDemandHandler.endParseAttributes();
+    // check tagType
+    if (myQueue.back().network) {
+        // currently ignored (will be implemented in the future)
+    } else if (myQueue.back().additional) {
+        // end parse additional elements
+        myAdditionalHandler.endParseAttributes();
+    } else if (myQueue.back().demand) {
+        // end parse demand elements
+        myDemandHandler.endParseAttributes();
+    } else {
+        WRITE_ERROR(toString(myQueue.back().tag) + " cannot be processed either with additional handler nor with demand handler");
+    }
+}
+
+
+GNEGeneralHandler::TagType::TagType(SumoXMLTag tag_, const bool network_, const bool additional_, const bool demand_) :
+    tag(tag_),
+    network(network_),
+    additional(additional_),
+    demand(demand_) {
 }
 
 /****************************************************************************/

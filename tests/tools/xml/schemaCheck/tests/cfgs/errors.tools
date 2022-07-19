@@ -1,14 +1,16 @@
 sumo/meta/deprecated_option/sumo.sumocfg:11:0:ERROR:SCHEMASV:SCHEMAV_ELEMENT_CONTENT: Element 'abs-rand': This element is not expected.
 Error on parsing 'sumo/meta/umlaut/sumo.sumocfg'!
 Traceback (most recent call last):
+  File "/home/micha/programming/sumo/tests/../tools/build/schemaCheck.py", line 52, in validate
     doc = etree.parse(f)
-  File "lxml.etree.pyx", line 3197, in lxml.etree.parse (src/lxml/lxml.etree.c:64816)
-  File "parser.pxi", line 1571, in lxml.etree._parseDocument (src/lxml/lxml.etree.c:92729)
-  File "parser.pxi", line 1600, in lxml.etree._parseDocumentFromURL (src/lxml/lxml.etree.c:93013)
-  File "parser.pxi", line 1500, in lxml.etree._parseDocFromFile (src/lxml/lxml.etree.c:92076)
-  File "parser.pxi", line 1047, in lxml.etree._BaseParser._parseDocFromFile (src/lxml/lxml.etree.c:88976)
-  File "parser.pxi", line 577, in lxml.etree._ParserContext._handleParseResultDoc (src/lxml/lxml.etree.c:84385)
-  File "parser.pxi", line 676, in lxml.etree._handleParseResult (src/lxml/lxml.etree.c:85488)
-  File "parser.pxi", line 616, in lxml.etree._raiseParseError (src/lxml/lxml.etree.c:84811)
-XMLSyntaxError: Input is not proper UTF-8, indicate encoding !
-Bytes: 0xF6 0x74 0x2E 0x6E, line 3, column 26
+  File "src/lxml/etree.pyx", line 3519, in lxml.etree.parse
+  File "src/lxml/parser.pxi", line 1839, in lxml.etree._parseDocument
+  File "src/lxml/parser.pxi", line 1865, in lxml.etree._parseDocumentFromURL
+  File "src/lxml/parser.pxi", line 1769, in lxml.etree._parseDocFromFile
+  File "src/lxml/parser.pxi", line 1163, in lxml.etree._BaseParser._parseDocFromFile
+  File "src/lxml/parser.pxi", line 601, in lxml.etree._ParserContext._handleParseResultDoc
+  File "src/lxml/parser.pxi", line 711, in lxml.etree._handleParseResult
+  File "src/lxml/parser.pxi", line 640, in lxml.etree._raiseParseError
+  File "/home/micha/sumo/tests/sumo/meta/umlaut/sumo.sumocfg", line 3
+lxml.etree.XMLSyntaxError: Input is not proper UTF-8, indicate encoding !
+Bytes: 0xF6 0x74 0x2E 0x6E, line 3, column 27

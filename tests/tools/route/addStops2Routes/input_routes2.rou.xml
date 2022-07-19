@@ -1,0 +1,12 @@
+<routes>
+    <vType id="type1" vClass="passenger"/>
+    <vehicle id="0" type="type1" depart="0" color="1,0,0">
+        <route edges="SC CN"/>
+    </vehicle>
+    <vehicle id="1" type="type1" depart="0" color="1,0,0">
+        <route edges="EC CW"/>
+    </vehicle>
+    <vehicle id="2" type="type1" depart="0" color="1,0,0">
+        <route edges="NC CW WC CS"/>
+    </vehicle>
+</routes>

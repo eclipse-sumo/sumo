@@ -1,5 +1,5 @@
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2012-2021 German Aerospace Center (DLR) and others.
+# Copyright (C) 2012-2022 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -93,20 +93,15 @@ class Colorgen:
     def get_value(self, opt, index):
         if opt == 'random':
             return random.random()
-        elif opt == 'cycle':
+        if opt == 'cycle':
             # the 255 below is intentional to get all color values when cycling long enough
             self.cycle[index] = (self.cycle[index] + self.cycleOffset) % 255
             return self.cycle[index] / 255.0
-        elif opt == 'cycle':
-            # the 255 below is intentional to get all color values when cycling long enough
-            self.cycle[index] = (self.cycle[index] + self.cycleOffset) % 255
-            return self.cycle[index] / 255.0
-        elif opt == 'distinct':
+        if opt == 'distinct':
             if index == 0:
                 self.distinctIndex = (self.distinctIndex + 1) % len(self.DISTINCT)
             return self.DISTINCT[self.distinctIndex][index]
-        else:
-            return float(opt)
+        return float(opt)
 
     def floatTuple(self):
         """return color as a tuple of floats each in [0,1]"""
@@ -244,3 +239,32 @@ def parseTime(t, factor=1):
 def parseBool(val):
     # see data/xsd/baseTypes:boolType
     return val in ["true", "True", "x", "1", "yes", "on"]
+
+
+def getFlowNumber(flow):
+    """interpret number of vehicles from a flow parsed by sumolib.xml.parse"""
+    if flow.number is not None:
+        return int(flow.number)
+    if flow.end is not None:
+        duration = parseTime(flow.end) - parseTime(flow.begin)
+        period = 0
+        if flow.period is not None:
+            if 'exp' in flow.period:
+                # use expecte value
+                period = 1 / float(flow.period[4:-2])
+            else:
+                period = float(flow.period)
+        for attr in ['perHour', 'vehsPerHour']:
+            if flow.hasAttribute(attr):
+                period = 3600 / float(flow.getAttributes(attr))
+        if period > 0:
+            return math.ceil(duration / period)
+        else:
+            return 1
+
+
+def intIfPossible(val):
+    if int(val) == val:
+        return int(val)
+    else:
+        return val

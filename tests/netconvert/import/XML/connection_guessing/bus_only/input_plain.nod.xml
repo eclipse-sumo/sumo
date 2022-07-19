@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-04-06 17:13:44 by Eclipse SUMO netedit Version v1_12_0+1989-e251bbc92c8
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net.net.xml"/>
+        <plain-output-prefix value="C:\erdm_ja\sip-svn-trunk\papers\DLR\SUMO_Conference2022\tutorial\bugs\missing_connection\input_plain"/>
+        <output.street-names value="true"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <report>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+-->
+
+<nodes version="1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+    <location netOffset="-403087.80,-5811422.00" convBoundary="0.00,48.27,38.60,165.26" origBoundary="13.455920,52.375706,13.649024,52.459222" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <node id="1531989559" x="2.97" y="48.27" type="dead_end"/>
+    <node id="1531989564" x="1.34" y="56.27" type="priority"/>
+    <node id="1531989567" x="0.36" y="61.27" type="priority"/>
+    <node id="1863260119" x="0.00" y="64.61" type="priority"/>
+    <node id="94945362" x="0.13" y="70.08" type="dead_end"/>
+    <node id="94953622" x="38.60" y="165.26" type="priority"/>
+</nodes>

@@ -1,2 +1,2 @@
-Error: Attribute 'begin' in definition of laneData 'dump_15' is not a real number.
+Error: Attribute 'begin' in definition of laneData 'dump_15' is not a valid time value.
 Quitting (on error).

@@ -1,0 +1,5 @@
+<meandata>
+    <interval begin="0" end="100">
+        <edge id="1" attr="2.0" std_attr="5.0"/>
+    </interval>
+</meandata>

@@ -1,7 +1,21 @@
+# modifying, saving and loading of edge probability weights
+weights
+
+# various tests for setting additional vehicle attributes
+attributes
+
+# generate persons instead of vehicles
+persons
 saveConfig
 loadConfig
 simple
 begin_end_human_readable
+
+# randomize departure times
+random-depart
+
+# randomize subsecond departure times
+random-depart_subsecond
 
 # fractional depart times
 fractional
@@ -10,66 +24,19 @@ fractional
 minimum_distance
 minimum_distance_exceeded
 
-# increase the probability for trips to start and end at the fringe of the network.
-# For this test, the turnarounds at the fringe have been removed since the fringe is detected by limited connectivity
-fringe_factor
-
-# test interaction of fringe factor and edge length (fringe should ignore length)
-short_fringe
-
-# detected the fringe despite turnarounds
-fringe_factor_turnarounds
-
-# modify the edge probability based on the edge position relative to the network center to promote a given direction of travel
-angle
+# disturb fastest-path-search
+random-routing-factor
 
 # consider vehicle class when picking source- and destination edges if option --vclass is used
 vclass
 
-# load the vehicle class to use during routing from an additional file
-vclass_additional_file
-
-# generate vType with the given vehicle_class and extra attributes
-vehicle_class
-
-# handle conflict between generated vType and user-defined vType attribute
-vehicle_class_trip_attribute_vType
-
-# generate vType with the given vehicle_class and extra attributes
-vehicle_class_persontrips
-
 # test trips with intermediate waypoints
 intermediate
-
-# test pedestrian trips with intermediate waypoints
-intermediate_pedestrians
-
-# write weights for visualization
-weights_output
-
-# load some weights
-loaded_weights
-
-# scale probability by edge param
-edge_param
 no_valid_edges
 no_valid_intermediate_edges
 
 # option --intermediate is given but no intermediate edges are available
 no_valid_intermediate_edges_fail
-pedestrians
-
-# generate random persontrips
-persontrips
-
-# walks between junctions
-pedestrians_junctionTaz
-
-# generate random persontrips between junctions
-persontrips_junctionTaz
-
-# generate random taxi rides
-taxirides
 
 # use binomially distributed arrivals
 binomial
@@ -87,12 +54,6 @@ flows
 flows_jtrrouter
 flows_binomial
 
-# load the vehicle type to use during routing from an additional file
-vtype_additional_file_validate
-
-# some extra options that are passed  directly to duarouter
-duarouter_options
-
 # use fromJunction and toJunction
 junctionTaz
 
@@ -102,3 +63,12 @@ junctionTaz_validate
 
 # prevent some edge types from being used as source or destination
 viaEdgeType
+
+# This test suite checks that argument forwarding to duarouter works correctly.
+duarouter_options
+
+# This test suite checks that randomTrips behave correctly with multiple periods (when --period 1.0 0.5 is passed as an argument for instance), or equivalently when multiple insertion rates or densities are passed.
+vehicle_insertion
+
+# A test suite that tests error management for randomTrips.
+errors

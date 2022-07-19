@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- generated on 2021-11-25 21:38:57.181656 by generateParkingAreas.py v1_11_0+0102-321d333
+<configuration>
+    <max value="1"/>
+    <net-file value="net.net.xml"/>
+    <output-file value="input_additional.add.xml"/>
+</configuration>
+
+-->
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <parkingArea id="paA0A1" lane="A0A1_0" roadsideCapacity="1" length="5"/>
+    <parkingArea id="paA0B0" lane="A0B0_0" roadsideCapacity="1" length="5"/>
+    <parkingArea id="paA1A0" lane="A1A0_0" roadsideCapacity="1" length="5"/>
+    <parkingArea id="paA1A2" lane="A1A2_0" roadsideCapacity="1" length="5"/>
+    <parkingArea id="paA1B1" lane="A1B1_0" roadsideCapacity="1" length="5"/>
+    <parkingArea id="paA2A1" lane="A2A1_0" roadsideCapacity="1" length="5"/>
+    <parkingArea id="paA2A3" lane="A2A3_0" roadsideCapacity="1" length="5"/>
+    <parkingArea id="paA2B2" lane="A2B2_0" roadsideCapacity="1" length="5"/>
+    <parkingArea id="paA3A2" lane="A3A2_0" roadsideCapacity="1" length="5"/>
+    <parkingArea id="paA3B3" lane="A3B3_0" roadsideCapacity="1" length="5"/>
+    <parkingArea id="paB0A0" lane="B0A0_0" roadsideCapacity="1" length="5"/>
+    <parkingArea id="paB0B1" lane="B0B1_0" roadsideCapacity="1" length="5"/>
+    <parkingArea id="paB0C0" lane="B0C0_0" roadsideCapacity="1" length="5"/>
+    <parkingArea id="paB1A1" lane="B1A1_0" roadsideCapacity="1" length="5"/>
+    <parkingArea id="paB1B0" lane="B1B0_0" roadsideCapacity="1" length="5"/>
+    <parkingArea id="paB1B2" lane="B1B2_0" roadsideCapacity="1" length="5"/>
+    <parkingArea id="paB1C1" lane="B1C1_0" roadsideCapacity="1" length="5"/>
+    <parkingArea id="paB2A2" lane="B2A2_0" roadsideCapacity="1" length="5"/>
+    <parkingArea id="paB2B1" lane="B2B1_0" roadsideCapacity="1" length="5"/>
+    <parkingArea id="paB2B3" lane="B2B3_0" roadsideCapacity="1" length="5"/>
+    <parkingArea id="paB2C2" lane="B2C2_0" roadsideCapacity="1" length="5"/>
+    <parkingArea id="paB3A3" lane="B3A3_0" roadsideCapacity="1" length="5"/>
+    <parkingArea id="paB3B2" lane="B3B2_0" roadsideCapacity="1" length="5"/>
+    <parkingArea id="paB3C3" lane="B3C3_0" roadsideCapacity="1" length="5"/>
+    <parkingArea id="paC0B0" lane="C0B0_0" roadsideCapacity="1" length="5"/>
+    <parkingArea id="paC0C1" lane="C0C1_0" roadsideCapacity="1" length="5"/>
+    <parkingArea id="paC0D0" lane="C0D0_0" roadsideCapacity="1" length="5"/>
+    <parkingArea id="paC1B1" lane="C1B1_0" roadsideCapacity="1" length="5"/>
+    <parkingArea id="paC1C0" lane="C1C0_0" roadsideCapacity="1" length="5"/>
+    <parkingArea id="paC1C2" lane="C1C2_0" roadsideCapacity="1" length="5"/>
+    <parkingArea id="paC1D1" lane="C1D1_0" roadsideCapacity="1" length="5"/>
+    <parkingArea id="paC2B2" lane="C2B2_0" roadsideCapacity="1" length="5"/>
+    <parkingArea id="paC2C1" lane="C2C1_0" roadsideCapacity="1" length="5"/>
+    <parkingArea id="paC2C3" lane="C2C3_0" roadsideCapacity="1" length="5"/>
+    <parkingArea id="paC2D2" lane="C2D2_0" roadsideCapacity="1" length="5"/>
+    <parkingArea id="paC3B3" lane="C3B3_0" roadsideCapacity="1" length="5"/>
+    <parkingArea id="paC3C2" lane="C3C2_0" roadsideCapacity="1" length="5"/>
+    <parkingArea id="paC3D3" lane="C3D3_0" roadsideCapacity="1" length="5"/>
+    <parkingArea id="paD0C0" lane="D0C0_0" roadsideCapacity="1" length="5"/>
+    <parkingArea id="paD0D1" lane="D0D1_0" roadsideCapacity="1" length="5"/>
+    <parkingArea id="paD1C1" lane="D1C1_0" roadsideCapacity="1" length="5"/>
+    <parkingArea id="paD1D0" lane="D1D0_0" roadsideCapacity="1" length="5"/>
+    <parkingArea id="paD1D2" lane="D1D2_0" roadsideCapacity="1" length="5"/>
+    <parkingArea id="paD2C2" lane="D2C2_0" roadsideCapacity="1" length="5"/>
+    <parkingArea id="paD2D1" lane="D2D1_0" roadsideCapacity="1" length="5"/>
+    <parkingArea id="paD2D3" lane="D2D3_0" roadsideCapacity="1" length="5"/>
+    <parkingArea id="paD3C3" lane="D3C3_0" roadsideCapacity="1" length="5"/>
+    <parkingArea id="paD3D2" lane="D3D2_0" roadsideCapacity="2" length="5"/>
+</additional>

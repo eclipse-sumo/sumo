@@ -13,6 +13,8 @@ set(microsim_devices_STAT_SRCS
    MSDevice_BTsender.h
    MSDevice_Emissions.cpp
    MSDevice_Emissions.h
+   MSDevice_Friction.h
+   MSDevice_Friction.cpp
    MSDevice_Transportable.cpp
    MSDevice_Transportable.h
    MSDevice_Routing.cpp

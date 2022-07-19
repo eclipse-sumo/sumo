@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2014-2021 German Aerospace Center (DLR) and others.
+# Copyright (C) 2014-2022 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -242,7 +242,7 @@ if __name__ == "__main__":
             poi['pos'] = "%e" % (lin_m - max_lin_m)
 
             # get the fitting laneSection from xodr
-            # find last upstream elementa by s offsets of the starts
+            # find last upstream element by s offsets of the starts
             ls_soff = np.r_[r.xpath('.//ns:laneSection/@s',
                                     namespaces={'ns': xodr_ns})].astype(float)
             ls_ind = find_upstream_lin_m(ls_soff, lin_m)

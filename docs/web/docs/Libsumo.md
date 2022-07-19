@@ -25,12 +25,13 @@ following properties:
 
 The following things currently do not work (or work differently than with the TraCI Python client):
 
-- running with [sumo-gui](sumo-gui.md)
+- running with [sumo-gui](sumo-gui.md) does not work on Windows and is still highly experimental on other platforms
 - subscriptions that require additional arguments (except for *vehicle.getLeader*)
 - stricter type checking
   - the TraCI client sometimes accepts any iterable object where Libsumo wants a list
   - TraCI client may accept any object where Libsumo needs a boolean value
-- using traci.init or traci.connect is not possible (you always need to use libsumo.start)
+  - TraCI automatically converts every parameter into a string if a string is needed, Libsumo does not
+- using traci.init or traci.connect is not possible (you always need to use traci.start / libsumo.start)
 - with traci every TraCIException will generate a message on stderr, Libsumo does not generate this message
 
 # Building it
@@ -46,6 +47,9 @@ For the python bindings you will get a libsumo.py and a
 _libsumo.so (or .pyd on Windows). If you place them somewhere on your
 python path you should be able to use them as described below.
 
+!!! note
+    Make sure to add `"/your/path/to/sumo/tools"` to the `PYTHONPATH` environment variable.
+
 # Using libsumo
 
 ## Python
@@ -56,7 +60,7 @@ libsumo.start(["sumo", "-c", "test.sumocfg"])
 libsumo.simulationStep()
 ```
 
-Existing traci scripts can mostly be reused by calling
+Existing traci scripts can be reused (subject to the [limitations](#limitations) mentioned above) by calling
 
 ```py
 import libsumo as traci
@@ -78,7 +82,7 @@ import as above.
 using namespace libsumo;
 
 int main(int argc, char* argv[]) {
-    Simulation::load({"-n", "net.net.xml"});
+    Simulation::load({"-c", "test.sumocfg"});
     for (int i = 0; i < 5; i++) {
         Simulation::step();
     }
@@ -111,7 +115,7 @@ import org.eclipse.sumo.libsumo.StringVector;
 public class Test {
     public static void main(String[] args) {
         System.loadLibrary("libsumojni");
-        Simulation.load(new StringVector(new String[] {"-n", "net.net.xml"}));
+        Simulation.load(new StringVector(new String[] {"-c", "test.sumocfg"}));
         for (int i = 0; i < 5; i++) {
             Simulation.step();
         }

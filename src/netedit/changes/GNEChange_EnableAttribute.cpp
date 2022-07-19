@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -32,11 +32,22 @@ FXIMPLEMENT_ABSTRACT(GNEChange_EnableAttribute, GNEChange, nullptr, 0)
 // member method definitions
 // ===========================================================================
 
-GNEChange_EnableAttribute::GNEChange_EnableAttribute(GNEAttributeCarrier* ac, const int originalAttributes, const int newAttributes) :
+GNEChange_EnableAttribute::GNEChange_EnableAttribute(GNEAttributeCarrier* ac, const SumoXMLAttr key, const bool value) :
     GNEChange(ac->getTagProperty().getSupermode(), true, false),
     myAC(ac),
-    myOriginalAttributes(originalAttributes),
-    myNewAttributes(newAttributes) {
+    myKey(key),
+    myOrigValue(ac->isAttributeEnabled(key)),
+    myNewValue(value) {
+    myAC->incRef("GNEChange_EnableAttribute " + myAC->getTagProperty().getTagStr());
+}
+
+
+GNEChange_EnableAttribute::GNEChange_EnableAttribute(GNEAttributeCarrier* ac, const SumoXMLAttr key, const bool value, const int /* previousParameters */) :
+    GNEChange(ac->getTagProperty().getSupermode(), true, false),
+    myAC(ac),
+    myKey(key),
+    myOrigValue(ac->isAttributeEnabled(key)),
+    myNewValue(value) {
     myAC->incRef("GNEChange_EnableAttribute " + myAC->getTagProperty().getTagStr());
 }
 
@@ -58,12 +69,12 @@ void
 GNEChange_EnableAttribute::undo() {
     // show extra information for tests
     WRITE_DEBUG("Setting previous attribute into " + myAC->getTagStr() + " '" + myAC->getID() + "'");
-    // set original attributes
-    myAC->setEnabledAttribute(myOriginalAttributes);
+    // set original value
+    myAC->toggleAttribute(myKey, myOrigValue);
     // check if networkElements, additional or shapes has to be saved
     if (myAC->getTagProperty().isNetworkElement()) {
         myAC->getNet()->requireSaveNet(true);
-    } else if (myAC->getTagProperty().isAdditionalElement() || myAC->getTagProperty().isShape()) {
+    } else if (myAC->getTagProperty().isAdditionalElement()) {
         myAC->getNet()->requireSaveAdditionals(true);
     } else if (myAC->getTagProperty().isDemandElement()) {
         myAC->getNet()->requireSaveDemandElements(true);
@@ -76,11 +87,11 @@ GNEChange_EnableAttribute::redo() {
     // show extra information for tests
     WRITE_DEBUG("Setting new attribute into " + myAC->getTagStr() + " '" + myAC->getID() + "'");
     // set new attributes
-    myAC->setEnabledAttribute(myNewAttributes);
+    myAC->toggleAttribute(myKey, myNewValue);
     // check if networkElements, additional or shapes has to be saved
     if (myAC->getTagProperty().isNetworkElement()) {
         myAC->getNet()->requireSaveNet(true);
-    } else if (myAC->getTagProperty().isAdditionalElement() || myAC->getTagProperty().isShape()) {
+    } else if (myAC->getTagProperty().isAdditionalElement()) {
         myAC->getNet()->requireSaveAdditionals(true);
     } else if (myAC->getTagProperty().isDemandElement()) {
         myAC->getNet()->requireSaveDemandElements(true);
@@ -90,14 +101,21 @@ GNEChange_EnableAttribute::redo() {
 
 std::string
 GNEChange_EnableAttribute::undoName() const {
-    return ("Undo change " + myAC->getTagStr() + " attribute");
+    if (myNewValue) {
+        return ("Undo enable " + myAC->getTagStr() + " attribute");
+    } else {
+        return ("Undo enable " + myAC->getTagStr() + " attribute");
+    }
 }
 
 
 std::string
 GNEChange_EnableAttribute::redoName() const {
-    return ("Redo change " + myAC->getTagStr() + " attribute");
+    if (myNewValue) {
+        return ("Redo enable " + myAC->getTagStr() + " attribute");
+    } else {
+        return ("Redo enable " + myAC->getTagStr() + " attribute");
+    }
 }
-
 
 /****************************************************************************/

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -40,10 +40,12 @@
  * GUIMEInductLoop-methods
  * ----------------------------------------------------------------------- */
 GUIMEInductLoop::GUIMEInductLoop(const std::string& id, MESegment* s,
-                                 double position, const std::string& vTypes,
+                                 double position,
+                                 const std::string& vTypes,
+                                 const std::string& nextEdges,
                                  int detectPersons,
                                  bool /*show*/):
-    MEInductLoop(id, s, position, vTypes, detectPersons) 
+    MEInductLoop(id, s, position, vTypes, nextEdges, detectPersons)
 {}
 
 
@@ -71,6 +73,12 @@ GUIMEInductLoop::MyWrapper::MyWrapper(GUIMEInductLoop& detector, double pos)
 
 
 GUIMEInductLoop::MyWrapper::~MyWrapper() {}
+
+
+double
+GUIMEInductLoop::MyWrapper::getExaggeration(const GUIVisualizationSettings& s) const {
+    return s.addSize.getExaggeration(s, this);
+}
 
 
 Boundary
@@ -119,7 +127,7 @@ GUIMEInductLoop::MyWrapper::drawGL(const GUIVisualizationSettings& s) const {
     glPolygonOffset(0, -2);
     double width = (double) 2.0 * s.scale;
     glLineWidth(1.0);
-    const double exaggeration = s.addSize.getExaggeration(s, this);
+    const double exaggeration = getExaggeration(s);
     // shape
     glColor3d(1, 1, 0);
     GLHelper::pushMatrix();
@@ -144,10 +152,10 @@ GUIMEInductLoop::MyWrapper::drawGL(const GUIVisualizationSettings& s) const {
         glColor3d(1, 1, 1);
         glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
         glBegin(GL_QUADS);
-        glVertex2f(0 - 1.0, 2);
-        glVertex2f(-1.0, -2);
-        glVertex2f(1.0, -2);
-        glVertex2f(1.0, 2);
+        glVertex2d(0 - 1.0, 2);
+        glVertex2d(-1.0, -2);
+        glVertex2d(1.0, -2);
+        glVertex2d(1.0, 2);
         glEnd();
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     }

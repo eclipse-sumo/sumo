@@ -1,0 +1,8 @@
+<vtypes>
+    <vType id="PKW" accel="2.6" decel="4.5" sigma="0.5" length="7" maxspeed="41.6" color="0,1,0"/>
+    <vType id="LKW" accel="2.6" decel="4.5" sigma="0.5" length="15" maxspeed="25" color="1,0,0"/>
+    <vType id="bus" vClass="bus"/>
+
+    <vType id="tram" vClass="tram"/>
+
+</vtypes>

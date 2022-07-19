@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<stops xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/stopinfo_file.xsd">
+    <stopinfo id="vehicleA" type="DEFAULT_VEHTYPE" lane="gneE7_0" pos="6.40" parking="1" started="10.00" ended="15.00" delay="-1.00" initialPersons="10" loadedPersons="0" unloadedPersons="5" initialContainers="1" loadedContainers="1" unloadedContainers="1" parkingArea="stopA"/>
+    <stopinfo id="vehicleA" type="DEFAULT_VEHTYPE" lane="gneE4_0" pos="6.40" parking="1" started="20.00" ended="40.00" delay="-1.00" initialPersons="0" loadedPersons="6" unloadedPersons="0" initialContainers="0" loadedContainers="1" unloadedContainers="0" parkingArea="stopA"/>
+    <stopinfo id="vehicleA" type="DEFAULT_VEHTYPE" lane="gneE5_0" pos="6.40" parking="1" started="60" ended="80" delay="-1.00" initialPersons="0" loadedPersons="3" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="2" parkingArea="stopA"/>
+    <stopinfo id="vehicleB" type="DEFAULT_VEHTYPE" lane="gneE7_0" pos="6.40" parking="1" started="15" ended="20" delay="-1.00" initialPersons="0" loadedPersons="3" unloadedPersons="2" initialContainers="0" loadedContainers="1" unloadedContainers="0" parkingArea="stopB"/>
+    <stopinfo id="vehicleB" type="DEFAULT_VEHTYPE" lane="gneE6_0" pos="6.40" parking="1" started="25" ended="28" delay="-1.00" initialPersons="0" loadedPersons="5" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="stopA"/>
+</stops>

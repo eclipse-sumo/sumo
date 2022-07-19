@@ -1,0 +1,13 @@
+--no-step-log --no-duration-log -n
+input_net.net.xml -r input_routes.rou.xml --save-state.times 10
+--save-state.files state.xml  --save-state.transportables
+--tripinfo-output tripinfo.xml 
+--tripinfo-output.write-unfinished
+:
+--no-step-log --no-duration-log -n
+input_net.net.xml --load-state state.xml --a input_additional.add.xml 
+--tripinfo-output tripinfo2.xml 
+--tripinfo-output.write-unfinished
+--compare tripinfo:1:1
+
+tests/complex/state/runner.py

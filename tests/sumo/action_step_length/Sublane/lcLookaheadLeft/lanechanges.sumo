@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Oct 18 15:19:15 2017 by SUMO Version dev-SVN-r26551
+<!-- generated on 2022-01-27 00:42:03 by Eclipse SUMO sumo Version v1_12_0+0053-f4b5834
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,22 +14,35 @@ SPDX-License-Identifier: EPL-2.0
     </input>
 
     <output>
+        <write-license value="true"/>
         <lanechange-output value="lanechanges.xml"/>
     </output>
 
+    <time>
+        <step-length value="0.1"/>
+    </time>
+
     <processing>
+        <step-method.ballistic value="true"/>
         <lateral-resolution value="0.4"/>
+        <default.action-step-length value="1"/>
+        <default.speeddev value="0"/>
     </processing>
 
     <report>
         <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
         <no-step-log value="true"/>
     </report>
+
+    <gui_only>
+        <tracker-interval value="0.1"/>
+    </gui_only>
 
 </configuration>
 -->
 
 <lanechanges>
-    <change id="L" type="t0" time="31.00" from="beg_0" to="beg_1" dir="1" speed="33.33" pos="1033.23" reason="strategic|urgent" leaderGap="None" leaderSecureGap="None" followerGap="13.94" followerSecureGap="8.09" origLeaderGap="None" origLeaderSecureGap="None" latGap="None"/>
-    <change id="R" type="t0" time="31.00" from="beg_1" to="beg_0" dir="-1" speed="29.99" pos="1014.29" reason="strategic|urgent" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None" origLeaderGap="None" origLeaderSecureGap="None" latGap="None"/>
+    <change id="R" type="t0" time="32.50" from="beg_1" to="beg_0" dir="-1" speed="33.33" pos="1083.22" reason="strategic|urgent" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="17.47" followerSecureGap="0.00" followerSpeed="28.42" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None" latGap="None"/>
+    <change id="L" type="t0" time="32.50" from="beg_0" to="beg_1" dir="1" speed="28.42" pos="1060.76" reason="strategic|urgent" leaderGap="17.47" leaderSecureGap="0.00" leaderSpeed="33.33" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None" latGap="None"/>
 </lanechanges>

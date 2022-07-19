@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<edges version="1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="Hospital" from="gneJ54" to="gneJ87" width="1.50"/>
+    <edge id="Hospital_arrival" from="gneJ131" to="gneJ54" width="1.50"/>
+</edges>

@@ -7,5 +7,20 @@ default_positions
 # only speed no other attrs
 default_positions_slow
 
+# updated tripId when reaching waypoint
+tripId
+
 # waypoint at the end of a lane that does not continue the route
 wrong_lane
+
+# using waypoint with attribute 'until' should trigger stopping if the vehicle arrives too early
+until
+
+# no stopping necessary if the train passes after the until-time
+until_late
+
+# when option --use-stop-ended is set, waypoint with attributes 'until'  and 'ended' should trigger stopping according to the 'ended' time if the vehicle arrives too early
+use_ended
+
+# ignore capacity on parkingarea
+parkingarea

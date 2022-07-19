@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-04-22 10:59:06 by Eclipse SUMO sumo Version v1_12_0+2232-c4797f9
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml,input_additional2.add.xml,input_additional3.add.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <vehroute-output value="vehroutes.xml"/>
+        <vehroute-output.exit-times value="true"/>
+        <vehroute-output.cost value="true"/>
+        <vehroute-output.route-length value="true"/>
+        <vehroute-output.write-unfinished value="true"/>
+        <stop-output value="stopinfos.xml"/>
+        <stop-output.write-unfinished value="true"/>
+    </output>
+
+    <time>
+        <end value="500"/>
+    </time>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <gui_only>
+        <gui-settings-file value="settings.xml"/>
+    </gui_only>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="ego.0" type="car" depart="0.00" departSpeed="13.89" speedFactor="1.0000" routeLength="49.90">
+        <route cost="0.00" savings="0.00" edges="A0A1" exitTimes="-1"/>
+        <stop parkingArea="parkA0A1" duration="3600.00" started="6.00" ended="-1"/>
+    </vehicle>
+
+    <vehicle id="ego.1" type="car" depart="2.00" departSpeed="13.89" speedFactor="1.0000" routeLength="151.40">
+        <route cost="41.03" savings="-34.37" edges="A0A1 A1A2 A2A1 A1A0 A0A1" exitTimes="13.00 -1 -1 -1 -1"/>
+        <stop parkingArea="parkA1A2" duration="3600.00" started="19.00" ended="-1"/>
+    </vehicle>
+
+    <vehicle id="ego.2" type="car" depart="4.00" departSpeed="13.89" speedFactor="1.0000" routeLength="247.76">
+        <route cost="54.70" savings="-48.04" edges="A0A1 A1B1 B1B2 B2B1 B1B0 B0A0 A0A1" exitTimes="14.00 22.00 -1 -1 -1 -1 -1"/>
+        <stop parkingArea="parkB1B2" duration="3600.00" started="29.00" ended="-1"/>
+    </vehicle>
+
+    <vehicle id="ego.3" type="car" depart="6.00" departSpeed="13.599" speedFactor="1.0000" routeLength="447.76">
+        <routeDistribution>
+            <route cost="41.03" savings="-34.37" replacedOnEdge="A1A2" replacedOnIndex="1" reason="parkA1A2:parkingAreaReroute" replacedAtTime="20.00" probability="0" edges="A0A1 A1A2 A2A1 A1A0 A0A1" routeLength="480.55"/>
+            <route cost="76.35" savings="-42.47" edges="A0A1 A1A2 A2B2 B2C2 C2C3 C3C2 C2C1 C1C0 C0B0 B0A0 A0A1" exitTimes="16.00 24.00 32.00 40.00 -1 -1 -1 -1 -1 -1 -1"/>
+        </routeDistribution>
+        <stop parkingArea="parkC2C3" duration="3600.00" started="47.00" ended="-1"/>
+    </vehicle>
+
+    <vehicle id="ego.4" type="car" depart="8.00" departSpeed="11.1317" speedFactor="1.0000" routeLength="921.30">
+        <routeDistribution>
+            <route cost="41.07" savings="-34.38" replacedOnEdge="A1A2" replacedOnIndex="1" reason="parkA1A2:parkingAreaReroute" replacedAtTime="20.00" probability="0" edges="A0A1 A1A2 A2A1 A1A0 A0A1" routeLength="480.55"/>
+            <route cost="64.24" savings="-30.36" replacedOnEdge="B1B2" replacedOnIndex="4" reason="parkB1B2:parkingAreaReroute" replacedAtTime="42.00" probability="0" edges="A0A1 A1A2 A2B2 B2B1 B1B2 B2B1 B1B0 B0A0 A0A1" routeLength="860.54"/>
+            <route cost="67.73" savings="-28.45" replacedOnEdge="C2C3" replacedOnIndex="6" reason="parkC2C3:parkingAreaReroute" replacedAtTime="58.00" probability="0" edges="A0A1 A1A2 A2B2 B2B1 B1B2 B2C2 C2C3 C3C2 C2C1 C1C0 C0B0 B0A0 A0A1" routeLength="1256.89"/>
+            <route cost="84.69" savings="-32.61" edges="A0A1 A1A2 A2B2 B2B1 B1B2 B2C2 C2C3 C3D3 D3D2 D2D3 D3D2 D2D1 D1D0 D0C0 C0B0 B0A0 A0A1" exitTimes="17.00 26.00 34.00 42.00 49.00 57.00 66.00 73.00 81.00 -1 -1 -1 -1 -1 -1 -1 -1"/>
+        </routeDistribution>
+        <stop parkingArea="parkD2D3" duration="3600.00" started="87.00" ended="-1"/>
+    </vehicle>
+
+    <vehicle id="ego.5" type="car" depart="10.00" departSpeed="8.447" speedFactor="1.0000" routeLength="337.87">
+        <route cost="55.61" savings="-48.88" edges="A0A1 A1B1 B1B0 B0B1 B1B0 B0A0 A0A1" exitTimes="19.00 27.00 35.00 -1 -1 -1 -1"/>
+        <stop parkingArea="parkB0B1" duration="3600.00" started="41.00" ended="-1"/>
+    </vehicle>
+
+    <vehicle id="ego.6" type="car" depart="12.00" departSpeed="6.185" speedFactor="1.0000" routeLength="624.34">
+        <routeDistribution>
+            <route cost="55.68" savings="-48.92" replacedOnEdge="B0B1" replacedOnIndex="3" reason="parkB0B1:parkingAreaReroute" replacedAtTime="42.00" probability="0" edges="A0A1 A1B1 B1B0 B0B1 B1B0 B0A0 A0A1" routeLength="660.53"/>
+            <route cost="62.79" savings="-30.76" edges="A0A1 A1B1 B1B0 B0B1 B1C1 C1C0 C0C1 C1C0 C0B0 B0A0 A0A1" exitTimes="20.00 29.00 37.00 47.00 55.00 63.00 -1 -1 -1 -1 -1"/>
+        </routeDistribution>
+        <stop parkingArea="parkC0C1" duration="3600.00" started="69.00" ended="-1"/>
+    </vehicle>
+
+    <vehicle id="ego.7" type="car" depart="14.00" departSpeed="5.7615" speedFactor="1.0000" routeLength="347.76">
+        <routeDistribution>
+            <route cost="54.95" savings="-48.16" replacedOnEdge="B1B2" replacedOnIndex="2" reason="parkB1B2:parkingAreaReroute" replacedAtTime="32.00" probability="0" edges="A0A1 A1B1 B1B2 B2B1 B1B0 B0A0 A0A1" routeLength="670.42"/>
+            <route cost="52.09" savings="-12.90" edges="A0A1 A1B1 B1B2 B2B3 B3B2 B2B1 B1B0 B0A0 A0A1" exitTimes="22.00 31.00 38.00 -1 -1 -1 -1 -1 -1"/>
+        </routeDistribution>
+        <stop parkingArea="parkB2B3" duration="3600.00" started="45.00" ended="-1"/>
+    </vehicle>
+
+    <vehicle id="ego.8" type="car" depart="16.00" departSpeed="7.3995" speedFactor="1.0000" routeLength="634.23">
+        <routeDistribution>
+            <route cost="55.00" savings="-48.19" replacedOnEdge="B1B2" replacedOnIndex="2" reason="parkB1B2:parkingAreaReroute" replacedAtTime="34.00" probability="0" edges="A0A1 A1B1 B1B2 B2B1 B1B0 B0A0 A0A1" routeLength="670.42"/>
+            <route cost="52.10" savings="-12.90" replacedOnEdge="B2B3" replacedOnIndex="3" reason="parkB2B3:parkingAreaReroute" replacedAtTime="46.00" probability="0" edges="A0A1 A1B1 B1B2 B2B3 B3B2 B2B1 B1B0 B0A0 A0A1" routeLength="870.41"/>
+            <route cost="64.96" savings="-20.00" edges="A0A1 A1B1 B1B2 B2B3 B3B2 B2A2 A2A3 A3A2 A2A1 A1A0 A0A1" exitTimes="24.00 33.00 40.00 53.00 60.00 68.00 -1 -1 -1 -1 -1"/>
+        </routeDistribution>
+        <stop parkingArea="parkA2A3" duration="3600.00" started="74.00" ended="-1"/>
+    </vehicle>
+
+    <vehicle id="ego.9" type="car" depart="18.00" departSpeed="9.9657" speedFactor="1.0000" routeLength="2100.51">
+        <routeDistribution>
+            <route cost="41.37" savings="-34.54" replacedOnEdge="A1A2" replacedOnIndex="1" reason="parkA1A2:parkingAreaReroute" replacedAtTime="26.00" probability="0" edges="A0A1 A1A2 A2A1 A1A0 A0A1" routeLength="480.55"/>
+            <route cost="76.39" savings="-42.47" replacedOnEdge="C2C3" replacedOnIndex="4" reason="parkC2C3:parkingAreaReroute" replacedAtTime="52.00" probability="0" edges="A0A1 A1A2 A2B2 B2C2 C2C3 C3C2 C2C1 C1C0 C0B0 B0A0 A0A1" routeLength="1070.41"/>
+            <route cost="68.78" savings="-16.71" replacedOnEdge="B2B3" replacedOnIndex="7" reason="parkB2B3:parkingAreaReroute" replacedAtTime="74.00" probability="0" edges="A0A1 A1A2 A2B2 B2C2 C2C3 C3C2 C2B2 B2B3 B3B2 B2B1 B1B0 B0A0 A0A1" routeLength="1256.88"/>
+            <route cost="64.97" savings="-19.84" replacedOnEdge="B1B2" replacedOnIndex="10" reason="parkB1B2:parkingAreaReroute" replacedAtTime="97.00" probability="0" edges="A0A1 A1A2 A2B2 B2C2 C2C3 C3C2 C2B2 B2B3 B3B2 B2B1 B1B2 B2B1 B1B0 B0A0 A0A1" routeLength="1447.44"/>
+            <route cost="60.08" savings="-20.78" replacedOnEdge="A2A3" replacedOnIndex="12" reason="parkA2A3:parkingAreaReroute" replacedAtTime="113.00" probability="0" edges="A0A1 A1A2 A2B2 B2C2 C2C3 C3C2 C2B2 B2B3 B3B2 B2B1 B1B2 B2A2 A2A3 A3A2 A2A1 A1A0 A0A1" routeLength="1653.28"/>
+            <route cost="41.34" savings="0.00" replacedOnEdge="A0A1" replacedOnIndex="16" reason="parkA0A1:parkingAreaReroute" replacedAtTime="144.00" probability="0" edges="A0A1 A1A2 A2B2 B2C2 C2C3 C3C2 C2B2 B2B3 B3B2 B2B1 B1B2 B2A2 A2A3 A3A2 A2A1 A1A0 A0A1" routeLength="1653.28"/>
+            <route cost="56.25" savings="-49.41" replacedOnEdge="B0B1" replacedOnIndex="19" reason="parkB0B1:parkingAreaReroute" replacedAtTime="167.00" probability="0" edges="A0A1 A1A2 A2B2 B2C2 C2C3 C3C2 C2B2 B2B3 B3B2 B2B1 B1B2 B2A2 A2A3 A3A2 A2A1 A1A0 A0A1 A1B1 B1B0 B0B1 B1B0 B0A0 A0A1" routeLength="2226.81"/>
+            <route cost="62.19" savings="-29.98" edges="A0A1 A1A2 A2B2 B2C2 C2C3 C3C2 C2B2 B2B3 B3B2 B2B1 B1B2 B2A2 A2A3 A3A2 A2A1 A1A0 A0A1 A1B1 B1B0 B0B1 B1C1 C1C2 C2C1 C1C0 C0B0 B0A0 A0A1" exitTimes="25.00 32.00 41.00 51.00 59.00 66.00 74.00 82.00 89.00 97.00 104.00 113.00 121.00 128.00 135.00 143.00 151.00 159.00 167.00 174.00 182.00 -1 -1 -1 -1 -1 -1"/>
+        </routeDistribution>
+        <stop parkingArea="parkC1C2" duration="3600.00" started="189.00" ended="-1"/>
+    </vehicle>
+
+</routes>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-07-11 14:45:42.113863 by randomTrips.py v1_13_0+1500-608440c8816
+<configuration>
+    <end value="7200"/>
+    <insertion-density value="5.0 2.0"/>
+    <net-file value="net.net.xml"/>
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <trip id="0" depart="0.00" from="3si" to="1o"/>
+    <trip id="1" depart="124.26" from="2fi" to="1si"/>
+    <trip id="2" depart="248.52" from="3si" to="3si"/>
+    <trip id="3" depart="372.77" from="4si" to="1o"/>
+    <trip id="4" depart="497.03" from="2si" to="1o"/>
+    <trip id="5" depart="621.29" from="1si" to="3o"/>
+    <trip id="6" depart="745.55" from="1fi" to="1si"/>
+    <trip id="7" depart="869.81" from="3si" to="3o"/>
+    <trip id="8" depart="994.06" from="1si" to="3o"/>
+    <trip id="9" depart="1118.32" from="4fi" to="1o"/>
+    <trip id="10" depart="1242.58" from="4fi" to="3si"/>
+    <trip id="11" depart="1366.84" from="2fi" to="1si"/>
+    <trip id="12" depart="1491.09" from="4si" to="2o"/>
+    <trip id="13" depart="1615.35" from="1fi" to="1o"/>
+    <trip id="14" depart="1739.61" from="4fi" to="3o"/>
+    <trip id="15" depart="1863.87" from="4fi" to="3si"/>
+    <trip id="16" depart="1988.13" from="3fi" to="4si"/>
+    <trip id="17" depart="2112.38" from="2si" to="3o"/>
+    <trip id="18" depart="2236.64" from="4fi" to="3o"/>
+    <trip id="19" depart="2360.90" from="4fi" to="3o"/>
+    <trip id="20" depart="2485.16" from="3si" to="1o"/>
+    <trip id="21" depart="2609.42" from="1si" to="2o"/>
+    <trip id="22" depart="2733.67" from="1fi" to="1si"/>
+    <trip id="23" depart="2857.93" from="1fi" to="2o"/>
+    <trip id="24" depart="2982.19" from="3si" to="2o"/>
+    <trip id="25" depart="3106.45" from="2fi" to="1si"/>
+    <trip id="26" depart="3230.71" from="2fi" to="4si"/>
+    <trip id="27" depart="3354.96" from="3si" to="3o"/>
+    <trip id="28" depart="3479.22" from="1si" to="3si"/>
+    <trip id="29" depart="3600.00" from="1si" to="2si"/>
+    <trip id="30" depart="3910.64" from="4si" to="3si"/>
+    <trip id="31" depart="4221.29" from="3fi" to="3si"/>
+    <trip id="32" depart="4531.93" from="4fi" to="4o"/>
+    <trip id="33" depart="4842.58" from="1si" to="1o"/>
+    <trip id="34" depart="5153.22" from="2fi" to="2o"/>
+    <trip id="35" depart="5463.87" from="1si" to="4si"/>
+    <trip id="36" depart="5774.51" from="4si" to="2o"/>
+    <trip id="37" depart="6085.16" from="3si" to="2si"/>
+    <trip id="38" depart="6395.80" from="4si" to="2si"/>
+    <trip id="39" depart="6706.45" from="2fi" to="1si"/>
+    <trip id="40" depart="7017.09" from="3fi" to="2o"/>
+</routes>

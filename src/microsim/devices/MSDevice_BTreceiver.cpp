@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2013-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2013-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -43,7 +43,7 @@
 bool MSDevice_BTreceiver::myWasInitialised = false;
 double MSDevice_BTreceiver::myRange = -1.;
 double MSDevice_BTreceiver::myOffTime = -1.;
-SumoRNG MSDevice_BTreceiver::sRecognitionRNG;
+SumoRNG MSDevice_BTreceiver::sRecognitionRNG("btreceiver");
 std::map<std::string, MSDevice_BTreceiver::VehicleInformation*> MSDevice_BTreceiver::sVehicles;
 
 

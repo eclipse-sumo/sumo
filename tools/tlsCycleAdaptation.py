@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2010-2021 German Aerospace Center (DLR) and others.
+# Copyright (C) 2010-2022 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -55,7 +55,7 @@ def get_options(args=None):
     optParser.add_option("-r", "--route-files", dest="routefiles",
                          help="define the route file seperated by comma(mandatory)")
     optParser.add_option("-b", "--begin", dest="begin", type="int",
-                         default=0, help="begin time of the optmization period with unit second")
+                         default=0, help="begin time of the optimization period with unit second")
     optParser.add_option("-y", "--yellow-time", dest="yellowtime", type="int",
                          default=4, help="yellow time")
     optParser.add_option("-a", "--all-red", dest="allred", type="int",
@@ -77,7 +77,7 @@ def get_options(args=None):
     optParser.add_option("-p", "--program", dest="program", default="a",
                          help="save new definitions with this program id")
     optParser.add_option("-H", "--saturation-headway", dest="satheadway", type="float", default=2,
-                         help="saturation headway in seconds for calcuating hourly saturation flows")
+                         help="saturation headway in seconds for calculating hourly saturation flows")
     optParser.add_option("-R", "--restrict-cyclelength", dest="restrict", action="store_true",
                          default=False, help="restrict the max. cycle length as the given one")
     optParser.add_option("-u", "--unified-cycle", dest="unicycle", action="store_true", default=False,
@@ -261,9 +261,9 @@ def getMaxOptimizedCycle(groupFlowsMap, phaseLaneIndexMap, currentLength, cycleL
     lostTime = len(groupFlowsMap) * options.losttime + options.allred
     satFlows = 3600. / options.satheadway
     # calculate the critical flow ratios and the respective sum
-    critialFlowRateMap = {}
+    criticalFlowRateMap = {}
     for i in groupFlowsMap:   # [duration. groupFlow1, groupFlow2...]
-        critialFlowRateMap[i] = 0.
+        criticalFlowRateMap[i] = 0.
         maxFlow = 0
         index = None
         if len(groupFlowsMap[i][1:]) > 0:
@@ -271,19 +271,19 @@ def getMaxOptimizedCycle(groupFlowsMap, phaseLaneIndexMap, currentLength, cycleL
                 if f >= maxFlow:
                     maxFlow = f
                     index = j
-            critialFlowRateMap[i] = (maxFlow / float((len(phaseLaneIndexMap[i][index])))) / satFlows
+            criticalFlowRateMap[i] = (maxFlow / float((len(phaseLaneIndexMap[i][index])))) / satFlows
         else:
-            critialFlowRateMap[i] = 0.
-    sumCritialFlows = sum(critialFlowRateMap.values())
+            criticalFlowRateMap[i] = 0.
+    sumCriticalFlows = sum(criticalFlowRateMap.values())
 
     if options.existcycle:
         optCycle = currentLength
-    elif sumCritialFlows >= 1.:
+    elif sumCriticalFlows >= 1.:
         optCycle = options.maxcycle
         if options.verbose:
-            print("Warning: the sum of the critical flows >= 1:%s" % sumCritialFlows)
+            print("Warning: the sum of the critical flows >= 1:%s" % sumCriticalFlows)
     else:
-        optCycle = int(round((1.5 * lostTime + 5.) / (1. - sumCritialFlows)))
+        optCycle = int(round((1.5 * lostTime + 5.) / (1. - sumCriticalFlows)))
 
     if not options.existcycle and optCycle < options.mincycle:
         optCycle = options.mincycle
@@ -299,9 +299,9 @@ def optimizeGreenTime(tl, groupFlowsMap, phaseLaneIndexMap, currentLength, optio
     lostTime = len(groupFlowsMap) * options.losttime + options.allred
     satFlows = 3600. / options.satheadway
     # calculate the critical flow ratios and the respective sum
-    critialFlowRateMap = {}
+    criticalFlowRateMap = {}
     for i in groupFlowsMap:   # [duration. groupFlow1, groupFlow2...]
-        critialFlowRateMap[i] = 0.
+        criticalFlowRateMap[i] = 0.
         maxFlow = 0
         index = None
         if len(groupFlowsMap[i][1:]) > 0:
@@ -309,21 +309,21 @@ def optimizeGreenTime(tl, groupFlowsMap, phaseLaneIndexMap, currentLength, optio
                 if f >= maxFlow:
                     maxFlow = f
                     index = j
-            critialFlowRateMap[i] = (maxFlow / float((len(phaseLaneIndexMap[i][index])))) / satFlows
+            criticalFlowRateMap[i] = (maxFlow / float((len(phaseLaneIndexMap[i][index])))) / satFlows
         else:
-            critialFlowRateMap[i] = 0.
-    sumCritialFlows = sum(critialFlowRateMap.values())
+            criticalFlowRateMap[i] = 0.
+    sumCriticalFlows = sum(criticalFlowRateMap.values())
     if options.write_critical_flows:
-        print(tl.getID(), critialFlowRateMap)
+        print(tl.getID(), criticalFlowRateMap)
 
     if options.existcycle:
         optCycle = currentLength
-    elif sumCritialFlows >= 1.:
+    elif sumCriticalFlows >= 1.:
         optCycle = options.maxcycle
         if options.verbose:
-            print("Warning: the sum of the critical flows >= 1:%s" % sumCritialFlows)
+            print("Warning: the sum of the critical flows >= 1:%s" % sumCriticalFlows)
     else:
-        optCycle = int(round((1.5 * lostTime + 5.) / (1. - sumCritialFlows)))
+        optCycle = int(round((1.5 * lostTime + 5.) / (1. - sumCriticalFlows)))
 
     if not options.existcycle and optCycle < options.mincycle:
         optCycle = options.mincycle
@@ -337,9 +337,9 @@ def optimizeGreenTime(tl, groupFlowsMap, phaseLaneIndexMap, currentLength, optio
     adjustGreenTimes = 0
     totalGreenTimes = 0
     subtotalGreenTimes = 0
-    for i in critialFlowRateMap:
+    for i in criticalFlowRateMap:
         groupFlowsMap[i][0] = effGreenTime * \
-            (critialFlowRateMap[i] / sum(critialFlowRateMap.values())) - options.yellowtime + options.losttime
+            (criticalFlowRateMap[i] / sum(criticalFlowRateMap.values())) - options.yellowtime + options.losttime
         groupFlowsMap[i][0] = int(round(groupFlowsMap[i][0]))
         totalGreenTimes += groupFlowsMap[i][0]
         if groupFlowsMap[i][0] < options.mingreen:

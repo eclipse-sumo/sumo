@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2004-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2004-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -23,6 +23,7 @@
 
 
 #include "fxheader.h"
+#include <string>
 
 /**
 * The menu check widget is used to change a state in the
@@ -38,7 +39,7 @@ class FXMenuCheckIcon : public FXMenuCommand {
 
 public:
     /// @brief Construct a menu check
-    FXMenuCheckIcon(FXComposite* p, const FXString& text, const FXIcon* icon, FXObject* tgt = NULL, FXSelector sel = 0, FXuint opts = 0);
+    FXMenuCheckIcon(FXComposite* p, const std::string& text, const std::string& shortcut, const std::string& info, const FXIcon* icon, FXObject* tgt = NULL, FXSelector sel = 0, FXuint opts = 0);
 
     /// @brief Return default width
     virtual FXint getDefaultWidth();

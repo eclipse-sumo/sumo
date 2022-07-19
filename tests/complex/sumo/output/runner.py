@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2008-2021 German Aerospace Center (DLR) and others.
+# Copyright (C) 2008-2022 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -23,6 +23,9 @@ import subprocess
 import sys
 from xml.sax import parse, handler
 from collections import defaultdict
+if "SUMO_HOME" in os.environ:
+    sys.path.append(os.path.join(os.environ["SUMO_HOME"], "tools"))
+import sumolib  # noqa
 
 
 class OutputHandler(handler.ContentHandler):
@@ -98,8 +101,7 @@ def flush():
     sys.stderr.flush()
 
 
-sumoBinary = os.environ.get("SUMO_BINARY", os.path.join(
-    os.path.dirname(sys.argv[0]), '..', '..', '..', '..', 'bin', 'sumo'))
+sumoBinary = sumolib.checkBinary('sumo')
 sumoArgStart = len(sys.argv)
 for idx, arg in enumerate(sys.argv):
     if arg[0] == "-":

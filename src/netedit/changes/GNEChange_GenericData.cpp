@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -51,7 +51,7 @@ GNEChange_GenericData::~GNEChange_GenericData() {
     myGenericData->decRef("GNEChange_GenericData");
     if (myGenericData->unreferenced()) {
         // show extra information for tests
-        WRITE_DEBUG("Deleting unreferenced " + myGenericData->getTagStr() + " '" + myGenericData->getID() + "'");
+        WRITE_DEBUG("Deleting unreferenced " + myGenericData->getTagStr());
         // check that generic data don't exist
         if (myGenericData->getNet()->getAttributeCarriers()->dataSetExist(myDataSetParent) &&
                 myDataSetParent->dataIntervalChildrenExist(myDataIntervalParent) &&
@@ -90,7 +90,7 @@ GNEChange_GenericData::undo() {
         // restore container
         restoreHierarchicalContainers();
     }
-    // Requiere always save elements
+    // require always save elements
     myGenericData->getNet()->requireSaveDataElements(true);
 }
 
@@ -120,7 +120,7 @@ GNEChange_GenericData::redo() {
         // remove genericData from parents and children
         removeElementFromParentsAndChildren(myGenericData);
     }
-    // Requiere always save elements
+    // require always save elements
     myGenericData->getNet()->requireSaveDataElements(true);
 }
 

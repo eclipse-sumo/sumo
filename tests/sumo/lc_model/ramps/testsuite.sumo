@@ -1,0 +1,8 @@
+# tests for merging behavior on acceleration lane (lots of vehicles and different network settings)
+onRamp_flows
+
+# tests for on-ramp behavior with only a few vehicles
+on_ramp
+
+# tests where the same ramp is used for merging and leaving the motorway
+onoff_ramp

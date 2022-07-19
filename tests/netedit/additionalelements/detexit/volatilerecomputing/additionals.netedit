@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-06-03 16:10:54 by Eclipse SUMO netedit Version v1_13_0+0610-e5b7f68bfcb
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- Detectors -->
+    <entryExitDetector id="entryExitDetector_0" pos="-9.88,24.71" period="100.00" file="entryExitDetector_0.txt">
+        <detExit lane="gneE1_0" pos="33.51"/>
+        <detExit lane="gneE0_0" pos="14.69"/>
+        <detEntry lane="gneE0_0" pos="10.69"/>
+    </entryExitDetector>
+</additional>

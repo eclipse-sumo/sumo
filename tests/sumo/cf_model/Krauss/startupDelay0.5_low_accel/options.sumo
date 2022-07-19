@@ -1,0 +1,6 @@
+--net-file=net2.net.xml
+-r input_routes.rou.xml
+--no-step-log
+--tripinfo-output tripinfos.xml
+--device.tripinfo.explicit 0
+--step-length 0.1

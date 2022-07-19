@@ -1,0 +1,7 @@
+<configuration>
+    <last-step value="5"/>
+    <net-file value="input_net.net.xml"/>
+    <remaining_args value=""/>
+    <time-to-teleport value="-1.0"/>
+    <trips value="input_trips.trips.xml"/>
+</configuration>

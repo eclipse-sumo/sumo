@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2002-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -54,7 +54,7 @@ public:
      */
     MSRailSignal(MSTLLogicControl& tlcontrol,
                  const std::string& id, const std::string& programID, SUMOTime delay,
-                 const std::map<std::string, std::string>& parameters);
+                 const Parameterised::Map& parameters);
 
 
     /** @brief Initialises the rail signal with information about adjacent rail signals
@@ -224,17 +224,10 @@ public:
     /// @brief register contraint for signal switching
     void addConstraint(const std::string& tripId, MSRailSignalConstraint* constraint);
 
-    /// @brief register contraint for vehicle insertion
-    void addInsertionConstraint(const std::string& tripId, MSRailSignalConstraint* constraint);
-
     /// @name TraCI access to constraints
     /// @{
     const std::map<std::string, std::vector<MSRailSignalConstraint*> >&  getConstraints() const {
         return myConstraints;
-    }
-
-    const std::map<std::string, std::vector<MSRailSignalConstraint*> >&  getInsertionConstraints() const {
-        return myInsertionConstraints;
     }
 
     /// @brief remove contraint for signal switching
@@ -461,7 +454,6 @@ protected:
 
     /// @brief map from tripId to constraint list
     std::map<std::string, std::vector<MSRailSignalConstraint*> > myConstraints;
-    std::map<std::string, std::vector<MSRailSignalConstraint*> > myInsertionConstraints;
 
     static int myNumWarnings;
 

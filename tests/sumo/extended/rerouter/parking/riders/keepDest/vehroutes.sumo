@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-05-06 12:02:27 by Eclipse SUMO sumo Version v1_9_1+0242-7657709
+<!-- generated on 2022-02-02 12:22:12 by Eclipse SUMO sumo Version v1_12_0+0212-f27fcdc
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -46,7 +51,7 @@ SPDX-License-Identifier: EPL-2.0
 
     <vehicle id="ego" depart="triggered" arrival="165.00">
         <routeDistribution>
-            <route replacedOnEdge="D0D1" reason="parkD:parkingAreaReroute" replacedAtTime="24.00" probability="0" edges="A0B0 B0C0 C0D0 D0D1"/>
+            <route replacedOnEdge="D0D1" replacedOnIndex="3" reason="parkD:parkingAreaReroute" replacedAtTime="24.00" probability="0" edges="A0B0 B0C0 C0D0 D0D1"/>
             <route edges="A0B0 B0C0 C0D0 D0D1 D1D2 D2D1 D1D0 D0D1"/>
         </routeDistribution>
         <stop parkingArea="parkD1D2" duration="100.00"/>

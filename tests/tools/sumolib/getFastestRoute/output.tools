@@ -1,0 +1,17 @@
+(<edge id="SC" from="S" to="C"/>, <edge id="CE" from="C" to="E"/>) 13.55
+(<edge id="SC" from="S" to="C"/>, <edge id="CW" from="C" to="W"/>, <edge id="WC" from="W" to="C"/>, <edge id="CE" from="C" to="E"/>) 29.03
+(<edge id="SC" from="S" to="C"/>, <edge id="CE" from="C" to="E"/>) 13.55
+(<edge id="SC" from="S" to="C"/>, <edge id=":C_9" function="internal"/>, <edge id="CE" from="C" to="E"/>) 13.55
+(<edge id="SC" from="S" to="C"/>, <edge id=":C_12" function="internal"/>, <edge id=":C_22" function="internal"/>, <edge id="CW" from="C" to="W"/>, <edge id=":W_0" function="internal"/>, <edge id="WC" from="W" to="C"/>, <edge id=":C_15" function="internal"/>, <edge id="CE" from="C" to="E"/>) 29.03
+(<edge id="SC" from="S" to="C"/>, <edge id=":C_12" function="internal"/>, <edge id=":C_22" function="internal"/>, <edge id="CW" from="C" to="W"/>, <edge id=":W_0" function="internal"/>, <edge id="WC" from="W" to="C"/>, <edge id=":C_15" function="internal"/>, <edge id="CE" from="C" to="E"/>) True
+(<edge id=":C_12" function="internal"/>, <edge id="CW" from="C" to="W"/>, <edge id="WC" from="W" to="C"/>, <edge id="CE" from="C" to="E"/>) 22.58
+(<edge id=":C_22" function="internal"/>, <edge id="CW" from="C" to="W"/>, <edge id="WC" from="W" to="C"/>, <edge id="CE" from="C" to="E"/>) 22.08
+(<edge id="SC" from="S" to="C"/>, <edge id="CW" from="C" to="W"/>, <edge id="WC" from="W" to="C"/>, <edge id=":C_15" function="internal"/>) 22.58
+(<edge id=":C_12" function="internal"/>, <edge id="CW" from="C" to="W"/>, <edge id="WC" from="W" to="C"/>, <edge id=":C_15" function="internal"/>) 16.13
+(<edge id="CE" from="C" to="E"/>, <edge id="EC" from="E" to="C"/>, <edge id="CS" from="C" to="S"/>, <edge id="SC" from="S" to="C"/>) 27.87
+(<edge id="CE" from="C" to="E"/>, <edge id="SC" from="S" to="C"/>) 13.55
+(<edge id="beg" from="absBeg" to="beg"/>, <edge id="middle" from="beg" to="end"/>, <edge id="end" from="end" to="absEnd"/>, <edge id="rend" from="absEnd" to="rabsEnd"/>) 125.90
+(<edge id="rend" from="absEnd" to="rabsEnd"/>, <edge id="end" from="end" to="absEnd"/>, <edge id="right2end" from="endright" to="end"/>, <edge id="right" from="begright" to="endright"/>, <edge id="beg2right" from="beg" to="begright"/>, <edge id="beg" from="absBeg" to="beg"/>) 125.90
+None inf
+(<edge id="beg2left" from="beg" to="begleft"/>, <edge id="left" from="begleft" to="endleft"/>, <edge id="left2end" from="endleft" to="end"/>, <edge id="end" from="end" to="absEnd"/>, <edge id="rend" from="absEnd" to="rabsEnd"/>) 108.36
+(<edge id="rend" from="absEnd" to="rabsEnd"/>, <edge id="end" from="end" to="absEnd"/>, <edge id="left2end" from="endleft" to="end"/>, <edge id="left" from="begleft" to="endleft"/>, <edge id="beg2left" from="beg" to="begleft"/>) 108.36

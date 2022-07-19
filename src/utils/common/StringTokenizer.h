@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -23,6 +23,7 @@
 #include <config.h>
 #include <string>
 #include <vector>
+#include <set>
 
 /**
  * StringTokenizer
@@ -121,6 +122,9 @@ public:
 
     /// @brief return vector of strings
     std::vector<std::string> getVector();
+
+    /// @brief return set of strings
+    std::set<std::string> getSet();
 
 private:
     /// @brief splits the first string at all occurences of the second. If the third parameter is true split at all chars given in the second

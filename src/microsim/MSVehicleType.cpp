@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -61,8 +61,10 @@ int MSVehicleType::myNextIndex = 0;
 // ===========================================================================
 MSVehicleType::MSVehicleType(const SUMOVTypeParameter& parameter) :
     myParameter(parameter),
+    myEnergyParams(&parameter),
     myWarnedActionStepLengthTauOnce(false),
     myWarnedActionStepLengthBallisticOnce(false),
+    myWarnedStepLengthTauOnce(false),
     myIndex(myNextIndex++),
     myCarFollowModel(nullptr),
     myOriginalType(nullptr) {
@@ -84,7 +86,7 @@ MSVehicleType::~MSVehicleType() {
 
 double
 MSVehicleType::computeChosenSpeedDeviation(SumoRNG* rng, const double minDev) const {
-    return MAX2(minDev, myParameter.speedFactor.sample(rng));
+    return roundDecimal(MAX2(minDev, myParameter.speedFactor.sample(rng)), gPrecisionRandom);
 }
 
 
@@ -169,6 +171,10 @@ MSVehicleType::setPreferredLateralAlignment(const LatAlignmentDefinition& latAli
     myParameter.parametersSet |= VTYPEPARS_LATALIGNMENT_SET;
 }
 
+void
+MSVehicleType::setScale(double value) {
+    myParameter.scale = value;
+}
 
 void
 MSVehicleType::setDefaultProbability(const double& prob) {
@@ -205,7 +211,7 @@ MSVehicleType::setSpeedDeviation(const double& dev) {
 
 void
 MSVehicleType::setActionStepLength(const SUMOTime actionStepLength, bool resetActionOffset) {
-    assert(actionStepLength >= 0.);
+    assert(actionStepLength >= 0);
     myParameter.parametersSet |= VTYPEPARS_ACTIONSTEPLENGTH_SET;
 
     if (myParameter.actionStepLength == actionStepLength) {
@@ -243,6 +249,13 @@ void
 MSVehicleType::setEmissionClass(SUMOEmissionClass eclass) {
     myParameter.emissionClass = eclass;
     myParameter.parametersSet |= VTYPEPARS_EMISSIONCLASS_SET;
+}
+
+
+void
+MSVehicleType::setMass(double mass) {
+    myParameter.mass = mass;
+    myParameter.parametersSet |= VTYPEPARS_MASS_SET;
 }
 
 
@@ -354,7 +367,6 @@ MSVehicleType::build(SUMOVTypeParameter& from) {
     }
     // init Rail visualization parameters
     vtype->myParameter.initRailVisualizationParameters();
-    vtype->check();
     return vtype;
 }
 
@@ -414,6 +426,19 @@ MSVehicleType::check() {
         }
         WRITE_WARNINGF("Action step length '%' is used for vehicle type '%' but step-method.ballistic was not set." + warning2
                        , STEPS2TIME(myParameter.actionStepLength), getID())
+    }
+    if (!myWarnedStepLengthTauOnce && TS > getCarFollowModel().getHeadwayTime()
+            && !MSGlobals::gUseMesoSim) {
+        myWarnedStepLengthTauOnce = true;
+        WRITE_WARNINGF("Value of tau=% in vehicle type '%' lower than simulation step size may cause collisions.",
+                       getCarFollowModel().getHeadwayTime(), getID());
+    }
+    if (MSGlobals::gUseMesoSim && getVehicleClass() != SVC_PEDESTRIAN && !OptionsCont::getOptions().getBool("meso-lane-queue")) {
+        SVCPermissions ignoreVClasses = parseVehicleClasses(OptionsCont::getOptions().getStringVector("meso-ignore-lanes-by-vclass"));
+        if ((ignoreVClasses & getVehicleClass()) != 0) {
+            WRITE_WARNINGF("Vehicle class '%' of vType '%' is set as ignored by option --meso-ignore-lanes-by-vclass to ensure default vehicle capacity. Set option --meso-lane-queue for multi-modal meso simulation",
+                           toString(getVehicleClass()), getID());
+        }
     }
 }
 

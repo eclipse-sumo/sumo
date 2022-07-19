@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -50,7 +50,7 @@ ODAmitranHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
             break;
         case SUMO_TAG_OD_PAIR:
             myMatrix.add(attrs.get<double>(SUMO_ATTR_AMOUNT, myVehicleType.c_str(), ok),
-                         myBegin, myEnd, attrs.get<std::string>(SUMO_ATTR_ORIGIN, myVehicleType.c_str(), ok),
+                         std::make_pair(myBegin, myEnd), attrs.get<std::string>(SUMO_ATTR_ORIGIN, myVehicleType.c_str(), ok),
                          attrs.get<std::string>(SUMO_ATTR_DESTINATION, myVehicleType.c_str(), ok), myVehicleType);
             break;
         default:

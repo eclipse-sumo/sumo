@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -83,10 +83,10 @@ ODDistrictHandler::openDistrict(const SUMOSAXAttributes& attrs) {
     }
     myCurrentDistrict = new ODDistrict(id);
     if (attrs.hasAttribute(SUMO_ATTR_EDGES)) {
-        std::vector<std::string> desc = attrs.getStringVector(SUMO_ATTR_EDGES);
-        for (std::vector<std::string>::const_iterator i = desc.begin(); i != desc.end(); ++i) {
-            myCurrentDistrict->addSource(*i, 1.);
-            myCurrentDistrict->addSink(*i, 1.);
+        const std::vector<std::string>& desc = attrs.get<std::vector<std::string> >(SUMO_ATTR_EDGES, id.c_str(), ok);
+        for (const std::string& eID : desc) {
+            myCurrentDistrict->addSource(eID, 1.);
+            myCurrentDistrict->addSink(eID, 1.);
         }
     }
 }

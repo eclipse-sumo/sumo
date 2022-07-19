@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -28,7 +28,7 @@
 // class declarations
 // ===========================================================================
 
-class GNEVehicleType;
+class GNEVType;
 
 // ===========================================================================
 // class definitions
@@ -119,10 +119,10 @@ public:
             /// @brief constructor
             VTypeAttributeRow(VTypeAtributes* VTypeAtributesParent, FXVerticalFrame* verticalFrame, const SumoXMLAttr attr, const RowAttrType rowAttrType, const std::vector<std::string>& values = {});
 
-            /// @brief set Variablen in VehicleType (using default value obtained from GNEAttributeCarrier)
+            /// @brief set Variable in VehicleType (using default value obtained from GNEAttributeCarrier)
             void setVariable();
 
-            /// @brief set Variablen in VehicleType (Specifying default value)
+            /// @brief set Variable in VehicleType (Specifying default value)
             void setVariable(const std::string& defaultValue);
 
             /// @brief update value of Vehicle Type (using default value obtained from GNEAttributeCarrier)
@@ -172,7 +172,7 @@ public:
             FXComboBox* myComboBox;
 
             /// @brief pointer to current parameter map
-            std::map<std::string, std::string> myParameters;
+            Parameterised::Map myParameters;
 
             /// @brief filter attribute name
             FXString filterAttributeName(const SumoXMLAttr attr) const;
@@ -376,7 +376,7 @@ public:
         /// @brief VTypeAttributeRow for accel lat
         VTypeAttributeRow* myLCAAccelLat;
 
-        /// @brief VTypeAttributeRow for loock ahead left
+        /// @brief VTypeAttributeRow for look ahead left
         VTypeAttributeRow* myLCALookAheadLeft;
 
         /// @brief VTypeAttributeRow for speed gain right
@@ -393,6 +393,12 @@ public:
 
         /// @brief VTypeAttributeRow for overtake right
         VTypeAttributeRow* myLCAOvertakeRight;
+
+        /// @brief VTypeAttributeRow for keep right acceptance time
+        VTypeAttributeRow* myLCAKeepRightAcceptanceTime;
+
+        /// @brief VTypeAttributeRow for overtake deltaspeed factor
+        VTypeAttributeRow* myLCAOvertakeDeltaSpeedFactor;
 
         /// @brief VTypeAttributeRow for experimental
         /* VTypeAttributeRow* myLCAExperimental; */
@@ -434,7 +440,7 @@ public:
             /// @brief constructor
             CarFollowingModelRow(CarFollowingModelParameters* carFollowingModelParametersParent, FXVerticalFrame* verticalFrame, SumoXMLAttr attr);
 
-            /// @brief set Variablen in VehicleType
+            /// @brief set Variable in VehicleType
             void setVariable();
 
             /// @brief update value of Vehicle Type
@@ -470,7 +476,7 @@ public:
         /// @brief Row for Decel
         CarFollowingModelRow* myDecelRow;
 
-        /// @brief Row for aparent Decel
+        /// @brief Row for apparent Decel
         CarFollowingModelRow* myApparentDecelRow;
 
         /// @brief Row for emergency Decel

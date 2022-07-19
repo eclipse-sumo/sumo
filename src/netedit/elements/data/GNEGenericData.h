@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -27,7 +27,7 @@
 #include <config.h>
 
 #include <netedit/elements/GNEHierarchicalElement.h>
-#include <netedit/GNEGeometry.h>
+#include <utils/gui/div/GUIGeometry.h>
 #include <netedit/GNEPathManager.h>
 #include <utils/common/Parameterised.h>
 #include <utils/geom/PositionVector.h>
@@ -49,7 +49,7 @@ class GNEDataInterval;
 
 /**
  * @class GNEGenericData
- * @brief An Element which don't belongs to GNENet but has influency in the simulation
+ * @brief An Element which don't belong to GNENet but has influence in the simulation
  */
 class GNEGenericData : public GUIGlObject, public Parameterised, public GNEHierarchicalElement, public GNEPathManager::PathElement {
 
@@ -63,33 +63,23 @@ public:
      * @param[in] edgeParents vector of edge parents
      * @param[in] laneParents vector of lane parents
      * @param[in] additionalParents vector of additional parents
-     * @param[in] shapeParents vector of shape parents
-     * @param[in] TAZElementParents vector of TAZElement parents
      * @param[in] demandElementParents vector of demand element parents
      * @param[in] genericDataParents vector of generic data parents
      */
     GNEGenericData(const SumoXMLTag tag, const GUIGlObjectType type, GNEDataInterval* dataIntervalParent,
-                   const std::map<std::string, std::string>& parameters,
+                   const Parameterised::Map& parameters,
                    const std::vector<GNEJunction*>& junctionParents,
                    const std::vector<GNEEdge*>& edgeParents,
                    const std::vector<GNELane*>& laneParents,
                    const std::vector<GNEAdditional*>& additionalParents,
-                   const std::vector<GNEShape*>& shapeParents,
-                   const std::vector<GNETAZElement*>& TAZElementParents,
                    const std::vector<GNEDemandElement*>& demandElementParents,
                    const std::vector<GNEGenericData*>& genericDataParents);
 
     /// @brief Destructor
     virtual ~GNEGenericData();
 
-    /// @brief get generic data color
-    virtual const RGBColor& getColor() const = 0;
-
     /// @brief check if current generic data is visible
     virtual bool isGenericDataVisible() const = 0;
-
-    /// @brief get ID
-    const std::string& getID() const;
 
     /// @brief get GUIGlObject associated with this AttributeCarrier
     GUIGlObject* getGUIGlObject();
@@ -108,7 +98,7 @@ public:
 
     /// @name members and functions relative to write data sets into XML
     /// @{
-    /**@brief writte data set element into a xml file
+    /**@brief write data set element into a xml file
      * @param[in] device device in which write parameters of data set element
      */
     virtual void writeGenericData(OutputDevice& device) const = 0;
@@ -148,6 +138,12 @@ public:
      * @see GUIGlObject::drawGL
      */
     virtual void drawGL(const GUIVisualizationSettings& s) const = 0;
+
+    /// @brief update GLObject (geometry, ID, etc.)
+    void updateGLObject();
+
+    /// @brief return exaggeration associated with this GLObject
+    virtual double getExaggeration(const GUIVisualizationSettings& s) const = 0;
 
     //// @brief Returns the boundary to which the view shall be centered in order to show the object
     virtual Boundary getCenteringBoundary() const = 0;
@@ -220,29 +216,10 @@ public:
 
     /**@brief method for checking if the key and their conrrespond attribute are valids
      * @param[in] key The attribute key
-     * @param[in] value The value asociated to key key
+     * @param[in] value The value associated to key key
      * @return true if the value is valid, false in other case
      */
     virtual bool isValid(SumoXMLAttr key, const std::string& value) = 0;
-
-    /* @brief method for enable attribute
-     * @param[in] key The attribute key
-     * @param[in] undoList The undoList on which to register changes
-     * @note certain attributes can be only enabled, and can produce the disabling of other attributes
-     */
-    virtual void enableAttribute(SumoXMLAttr key, GNEUndoList* undoList) = 0;
-
-    /* @brief method for disable attribute
-     * @param[in] key The attribute key
-     * @param[in] undoList The undoList on which to register changes
-     * @note certain attributes can be only enabled, and can produce the disabling of other attributes
-     */
-    virtual void disableAttribute(SumoXMLAttr key, GNEUndoList* undoList) = 0;
-
-    /* @brief method for check if the value for certain attribute is set
-     * @param[in] key The attribute key
-     */
-    virtual bool isAttributeEnabled(SumoXMLAttr key) const = 0;
 
     /// @brief get PopPup ID (Used in AC Hierarchy)
     virtual std::string getPopUpID() const = 0;
@@ -252,14 +229,14 @@ public:
     /// @}
 
     /// @brief get parameters map
-    const std::map<std::string, std::string>& getACParametersMap() const;
+    const Parameterised::Map& getACParametersMap() const;
 
 protected:
     /// @brief dataInterval Parent
     GNEDataInterval* myDataIntervalParent;
 
     /// @brief draw filtered attribute
-    void drawFilteredAttribute(const GUIVisualizationSettings& s, const PositionVector& laneShape, const std::string& attribute) const;
+    void drawFilteredAttribute(const GUIVisualizationSettings& s, const PositionVector& laneShape, const std::string& attribute, const GNEDataInterval* dataIntervalParent) const;
 
     /// @brief check if attribute is visible in inspect, delete or select mode
     bool isVisibleInspectDeleteSelect() const;
@@ -271,17 +248,14 @@ protected:
     void replaceLastParentEdge(const std::string& value);
 
     /// @brief replace the first parent TAZElement
-    void replaceFirstParentTAZElement(SumoXMLTag tag, const std::string& value);
+    void replaceParentTAZElement(const int index, const std::string& value);
 
-    /// @brief replace the second parent TAZElement
-    void replaceSecondParentTAZElement(SumoXMLTag tag, const std::string& value);
+    /// @brief get partial ID
+    std::string getPartialID() const;
 
 private:
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)
     virtual void setAttribute(SumoXMLAttr key, const std::string& value) = 0;
-
-    /// @brief method for enabling the attribute and nothing else (used in GNEChange_EnableAttribute)
-    virtual void setEnabledAttribute(const int enabledAttributes) = 0;
 
     /// @brief Invalidated copy constructor.
     GNEGenericData(const GNEGenericData&) = delete;

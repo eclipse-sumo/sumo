@@ -1,14 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2020-09-07 11:40:14.677526 by routeSampler.py v1_6_0+1981-181bb7fdbe
-  options: -r input_routes.rou.xml -d input_edgedata.xml -o out.rou.xml <doubleminus>edgedata-attribute count <doubleminus>write-route-ids <doubleminus>write-flows number -i 3600
+
+<!-- generated on 2022-07-07 11:09:34.994280 by routeSampler.py v1_13_0+1343-240e5d48340
+<configuration>
+    <edgedata-attribute value="count"/>
+    <edgedata-files value="input_edgedata.xml"/>
+    <interval value="3600"/>
+    <route-files value="input_routes.rou.xml"/>
+    <write-flows value="number"/>
+    <write-route-ids value="True"/>
+</configuration>
 -->
+
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 <!-- begin="0.0" end="3600.0" -->
     <route id="0" edges="-3 -3.180.00 11"/> <!-- 8 (route_2) -->
-    <route id="1" edges="-3 -3.180.00 15"/> <!-- 30 (route_1) -->
-    <route id="2" edges="-3 -3.180.00 5"/> <!-- 70 (route_0) -->
+    <route id="1" edges="-3 -3.180.00 15"/> <!-- 18 (route_1) -->
+    <route id="2" edges="-3 -3.180.00 5"/> <!-- 82 (route_0) -->
 
-    <flow id="1" begin="0.00" end="3300.00" number="30" route="1"/>
-    <flow id="2" begin="33.33" end="3566.67" number="70" route="2"/>
-    <flow id="0" begin="366.67" end="2933.33" number="8" route="0"/>
+    <flow id="2" begin="0.00" end="3533.33" number="82" route="2"/>
+    <flow id="1" begin="100.00" end="3566.67" number="18" route="1"/>
+    <flow id="0" begin="166.67" end="3466.67" number="8" route="0"/>
 </routes>

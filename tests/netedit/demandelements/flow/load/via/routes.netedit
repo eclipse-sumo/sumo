@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 05.08.2019 13:49:02 by Eclipse SUMO netedit Version v1_2_0+1408-45cec25169
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <flow id="flow_3" begin="20.00" from="gneE2" to="gneE5" end="50.00" number="100"/>
+</routes>

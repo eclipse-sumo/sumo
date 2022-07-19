@@ -1,0 +1,14 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <entryExitDetector id="entryExitDetector_0" period="100" file="entryExitDetector_0.txt" timeThreshold="5.00" speedThreshold="1.39" pos="27.79,6.36">
+        <detExit lane="gneE1_0" pos="25" friendlyPos="0"/>
+        <detEntry lane="gneE1_0" pos="40" friendlyPos="0"/>
+    </entryExitDetector>
+    <entryExitDetector id="entryExitDetector_1" period="100" file="entryExitDetector_1.txt" timeThreshold="5.00" speedThreshold="2.51" pos="31.65,6.36">
+        <detExit lane="gneE1_0" pos="18" friendlyPos="0"/>
+        <detEntry lane="gneE1_0" pos="41" friendlyPos="0"/>
+    </entryExitDetector>
+    <entryExitDetector id="entryExitDetector_4" period="100" file="entryExitDetector_2.txt" timeThreshold="5.00" speedThreshold="2.51" pos="31.65,-5">
+        <detExit lane="gneE0_0" pos="35.35" friendlyPos="0"/>
+        <detEntry lane="gneE1_0" pos="42" friendlyPos="0"/>
+    </entryExitDetector>
+</additional>

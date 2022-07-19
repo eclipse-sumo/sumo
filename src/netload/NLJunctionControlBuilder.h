@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -164,28 +164,34 @@ public:
 
     /** @brief Adds a phase to the currently built traffic lights logic
      *
-     * @param[in] duration The duration of the phase
-     * @param[in] state The state of the tls
-     * @param[in] min The minimum duration of the phase
-     * @param[in] max The maximum duration of the phase
-     * @todo min/max is used only by one junction type. Recheck
-     * @todo min/max: maybe only one type of a phase definition should be built
+     * @param[in] phase The new phase
      */
-    void addPhase(SUMOTime duration, const std::string& state, const std::vector<int>& nextPhases,
-                  SUMOTime min, SUMOTime max, const std::string& name);
+    void addPhase(MSPhaseDefinition* phase);
 
-    /** @brief Adds a phase to the currently built traffic lights logic
+    /** @brief Adds a condition to the currently built traffic lights logic
      *
-     * @param[in] duration The duration of the phase
-     * @param[in] state The state of the tls
-     * @param[in] minDuration The minimum duration of the phase
-     * @param[in] maxDuration The maximum duration of the phase
-     * @param[in] transient_notdecisional Specifies if this is a transient phase (true) or a decisional one (false)
-     * @param[in] commit Specifies if this is a commit phase
-     * @param[in] targetLanes A reference to the vector containing targeted sensor lanes for this phase, given by lane id
+     * @param[in] id the condition id
+     * @param[in] value the condition expression
      */
-    void addPhase(SUMOTime duration, const std::string& state, const std::vector<int>& nextPhases, SUMOTime minDuration, SUMOTime maxDuration, const std::string& name, bool transient_notdecisional, bool commit, MSPhaseDefinition::LaneIdVector* targetLanes = nullptr);
+    bool addCondition(const std::string& id, const std::string& value);
 
+    /** @brief Adds an assignment to the currently built traffic lights logic
+     *
+     * @param[in] id the condition id
+     * @param[in] check the check condition that guards the assignment
+     * @param[in] value the assigned expression
+     */
+    void addAssignment(const std::string& id, const std::string& check, const std::string& value);
+
+    /** @brief adds a switching condition function to the traffic lights logic currently build
+     *
+     * @param[in] id the function id
+     * @param[in] nArgs the number of arguments
+     */
+    void addFunction(const std::string& id, int nArgs);
+
+    /// closes a switching condition function to the traffic lights logic currently build
+    void closeFunction();
 
     /** @brief Returns a previously build tls logic
      *
@@ -348,6 +354,18 @@ protected:
     /// @brief The current phase definitions for a simple traffic light
     MSSimpleTrafficLightLogic::Phases myActivePhases;
 
+    /// @brief The current switching conditions for an actuated traffic light
+    MSActuatedTrafficLightLogic::ConditionMap myActiveConditions;
+
+    /// @brief The current assignments for an actuated traffic light
+    MSActuatedTrafficLightLogic::AssignmentMap myActiveAssignments;
+
+    /// @brief The current functions for an actuated traffic light
+    MSActuatedTrafficLightLogic::FunctionMap myActiveFunctions;
+
+    /// @brief The current function for an actuated traffic light
+    MSActuatedTrafficLightLogic::Function myActiveFunction;
+
     /// @brief The size of the request
     int myRequestSize;
 
@@ -393,7 +411,7 @@ protected:
 
 
     /// @brief Definition of a parameter map (key->value)
-    typedef std::map<std::string, std::string> StringParameterMap;
+    typedef Parameterised::Map StringParameterMap;
 
     /// @brief Parameter map (key->value)
     StringParameterMap myAdditionalParameter;

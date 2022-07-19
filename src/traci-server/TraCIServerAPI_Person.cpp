@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -129,10 +129,12 @@ TraCIServerAPI_Person::processSet(TraCIServer& server, tcpip::Storage& inputStor
     int variable = inputStorage.readUnsignedByte();
     if (variable != libsumo::VAR_PARAMETER
             && variable != libsumo::ADD
+            && variable != libsumo::REMOVE
             && variable != libsumo::APPEND_STAGE
             && variable != libsumo::REPLACE_STAGE
             && variable != libsumo::REMOVE_STAGE
             && variable != libsumo::CMD_REROUTE_TRAVELTIME
+            && variable != libsumo::VAR_MOVE_TO
             && variable != libsumo::MOVE_TO_XY
             && variable != libsumo::VAR_SPEED
             && variable != libsumo::VAR_TYPE
@@ -164,10 +166,8 @@ TraCIServerAPI_Person::processSet(TraCIServer& server, tcpip::Storage& inputStor
                 if (!server.readTypeCheckingDouble(inputStorage, speed)) {
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "Setting speed requires a double.", outputStorage);
                 }
-                // set the speed for all (walking) stages
+                // set the speed for all present and future (walking) stages and modify the vType so that stages added later are also affected
                 libsumo::Person::setSpeed(id, speed);
-                // modify the vType so that stages added later are also affected
-                TraCIServerAPI_VehicleType::setVariable(libsumo::CMD_SET_VEHICLE_VARIABLE, variable, p->getSingularType().getID(), server, inputStorage, outputStorage);
             }
             break;
             case libsumo::VAR_TYPE: {
@@ -218,6 +218,14 @@ TraCIServerAPI_Person::processSet(TraCIServer& server, tcpip::Storage& inputStor
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "Fourth parameter (position) requires a double.", outputStorage);
                 }
                 libsumo::Person::add(id, edgeID, pos, depart, vTypeID);
+            }
+            break;
+            case libsumo::REMOVE: {
+                int why = 0;
+                if (!server.readTypeCheckingByte(inputStorage, why)) {
+                    return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Removing a person requires a byte.", outputStorage);
+                }
+                libsumo::Person::remove(id, (char)why);
             }
             break;
             case libsumo::APPEND_STAGE: {
@@ -339,6 +347,30 @@ TraCIServerAPI_Person::processSet(TraCIServer& server, tcpip::Storage& inputStor
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "Rerouting should obtain an empty compound object.", outputStorage);
                 }
                 libsumo::Person::rerouteTraveltime(id);
+            }
+            break;
+            case libsumo::VAR_MOVE_TO: {
+                if (inputStorage.readUnsignedByte() != libsumo::TYPE_COMPOUND) {
+                    return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "Setting position requires a compound object.", outputStorage);
+                }
+                const int numArgs = inputStorage.readInt();
+                if (numArgs != 3) {
+                    return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "Setting position should obtain the edge id, the position and the lateral position.", outputStorage);
+                }
+                std::string laneID;
+                if (!server.readTypeCheckingString(inputStorage, laneID)) {
+                    return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "The first parameter for setting a position must be the laneID given as a string.", outputStorage);
+                }
+                double position = 0;
+                if (!server.readTypeCheckingDouble(inputStorage, position)) {
+                    return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "The second parameter for setting a position must be the position given as a double.", outputStorage);
+                }
+                double posLat = 0;
+                if (!server.readTypeCheckingDouble(inputStorage, posLat)) {
+                    return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "The third parameter for setting a position must be the lateral position given as a double.", outputStorage);
+                }
+                // process
+                libsumo::Person::moveTo(id, laneID, position, posLat);
             }
             break;
             case libsumo::MOVE_TO_XY: {

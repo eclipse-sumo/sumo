@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Jun 19 15:33:46 2020 by Eclipse SUMO Version v1_6_0+0852-e16bec9b48
+<!-- generated on 2021-12-11 22:16:26 by Eclipse SUMO sumo Version v1_11_0+0489-eed1b29
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -25,6 +25,7 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
         <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -37,7 +38,7 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <tripinfo id="rescue" depart="50.00" departLane="SC_1" departPos="0.00" departPosLat="0.00" departSpeed="0.00" departDelay="0.00" arrival="75.00" arrivalLane="CN_0" arrivalPos="89.60" arrivalPosLat="1.60" arrivalSpeed="23.76" duration="25.00" routeLength="200.10" waitingTime="4.00" waitingCount="1" stopTime="0.00" timeLoss="17.48" rerouteNo="0" devices="tripinfo_rescue bluelight_rescue" vType="rescue" speedFactor="2.00" vaporized="">
+    <tripinfo id="rescue" depart="50.00" departLane="SC_1" departPos="0.00" departPosLat="0.00" departSpeed="0.00" departDelay="0.00" arrival="74.00" arrivalLane="CN_0" arrivalPos="89.60" arrivalPosLat="1.20" arrivalSpeed="23.76" duration="24.00" routeLength="200.10" waitingTime="3.00" waitingCount="1" stopTime="0.00" timeLoss="16.48" rerouteNo="0" devices="tripinfo_rescue bluelight_rescue" vType="rescue" speedFactor="2.00" vaporized="">
         <bluelight/>
     </tripinfo>
     <tripinfo id="left1" depart="35.00" departLane="SC_1" departPos="0.00" departPosLat="0.00" departSpeed="0.00" departDelay="0.00" arrival="100.00" arrivalLane="CN_1" arrivalPos="89.60" arrivalPosLat="0.00" arrivalSpeed="13.89" duration="65.00" routeLength="200.10" waitingTime="44.00" waitingCount="1" stopTime="0.00" timeLoss="49.81" rerouteNo="0" devices="tripinfo_left1" vType="left" speedFactor="1.00" vaporized=""/>

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -41,18 +41,22 @@ GNETagProperties::GNETagProperties() :
     myTagType(0),
     myTagProperty(0),
     myIcon(GUIIcon::EMPTY),
-    myXMLTag(SUMO_TAG_NOTHING) {
+    myXMLTag(SUMO_TAG_NOTHING),
+    myBackgroundColor(0) {
 }
 
 
-GNETagProperties::GNETagProperties(const SumoXMLTag tag, int tagType, int tagProperty, GUIIcon icon, const SumoXMLTag XMLTag, const std::vector<SumoXMLTag>& masterTags) :
+GNETagProperties::GNETagProperties(const SumoXMLTag tag, const int tagType, const int tagProperty, const GUIIcon icon, const SumoXMLTag XMLTag,
+                                   const std::vector<SumoXMLTag> parentTags, const unsigned int backgroundColor) :
     myTag(tag),
     myTagStr(toString(tag)),
     myTagType(tagType),
     myTagProperty(tagProperty),
     myIcon(icon),
     myXMLTag(XMLTag),
-    myMasterTags(masterTags) {
+    myParentTags(parentTags),
+    myFieldString(toString(tag)),
+    myBackgroundColor(backgroundColor) {
 }
 
 
@@ -65,7 +69,7 @@ GNETagProperties::getTag() const {
 }
 
 
-Supermode 
+Supermode
 GNETagProperties::getSupermode() const {
     if (isDemandElement()) {
         return Supermode::DEMAND;
@@ -86,32 +90,45 @@ GNETagProperties::getTagStr() const {
 void
 GNETagProperties::checkTagIntegrity() const {
     // check that element must ist at least networkElement, Additional, or shape
-    if (!isNetworkElement() && !isAdditionalElement() && !isShape() && !isTAZElement() && !isDemandElement() && !isDataElement() && !isInternalLane()) {
-        throw ProcessError("element must be at leas networkElement, additional, TAZ, shape, demandElement or dataElement");
+    if (!isNetworkElement() && !isAdditionalElement() && !isDemandElement() && !isDataElement() && !isInternalLane()) {
+        throw ProcessError("element must be at leas networkElement, additional, TAZ, demandElement or dataElement");
     }
     // check that element only is networkElement, Additional, or shape at the same time
-    if ((isNetworkElement() + isAdditionalElement() + isShape() + isTAZElement() + isDemandElement() + isDataElement()) > 1) {
-        throw ProcessError("element can be only a networkElement, additional, TAZ, shape, demandElement or dataElement at the same time");
+    if ((isNetworkElement() + isAdditionalElement() + isDemandElement() + isDataElement()) > 1) {
+        throw ProcessError("element can be only a networkElement, additional, demandElement or dataElement at the same time");
+    }
+    // check that element only is shape, TAZ, or wire at the same time
+    if ((isShapeElement() + isTAZElement() + isWireElement()) > 1) {
+        throw ProcessError("element can be only a shape, TAZ or wire element at the same time");
     }
     // if element can mask the start and end position, check that bot attributes exist
     if (canMaskStartEndPos() && (!hasAttribute(SUMO_ATTR_STARTPOS) || !hasAttribute(SUMO_ATTR_ENDPOS))) {
         throw ProcessError("If attribute mask the start and end position, bot attribute has to be defined");
     }
     // check that master tag is valid
-    if (isSlave() && myMasterTags.empty()) {
+    if (isChild() && myParentTags.empty()) {
         throw FormatException("Master tags cannot be empty");
     }
     // check that master was defined
-    if (!isSlave() && !myMasterTags.empty()) {
+    if (!isChild() && !myParentTags.empty()) {
         throw FormatException("Tag doesn't support master elements");
+    }
+    // check reparent
+    if (!isChild() && canBeReparent()) {
+        throw FormatException("Only Child elements can be reparent");
+    }
+    // check vClass icons
+    if (vClassIcon() && !hasAttribute(SUMO_ATTR_VCLASS)) {
+        throw FormatException("Tag require attribute SUMO_ATTR_VCLASS");
     }
     // check integrity of all attributes
     for (const auto& attributeProperty : myAttributeProperties) {
         attributeProperty.checkAttributeIntegrity();
-        // check that if attribute is vehicle classes, own a combination of Allow/disallow attibute
+        // check that if attribute is vehicle classes, own a combination of Allow/disallow attribute
         if (attributeProperty.isVClasses()) {
-            if ((attributeProperty.getAttr() != SUMO_ATTR_ALLOW) && (attributeProperty.getAttr() != SUMO_ATTR_DISALLOW)
-                    && (attributeProperty.getAttr() != SUMO_ATTR_CHANGE_LEFT) && (attributeProperty.getAttr() != SUMO_ATTR_CHANGE_RIGHT)) {
+            if ((attributeProperty.getAttr() != SUMO_ATTR_ALLOW) && (attributeProperty.getAttr() != SUMO_ATTR_DISALLOW) &&
+                    (attributeProperty.getAttr() != SUMO_ATTR_CHANGE_LEFT) && (attributeProperty.getAttr() != SUMO_ATTR_CHANGE_RIGHT) &&
+                    (attributeProperty.getAttr() != GNE_ATTR_STOPOEXCEPTION)) {
                 throw ProcessError("Attributes aren't combinables");
             } else if ((attributeProperty.getAttr() == SUMO_ATTR_ALLOW) && !hasAttribute(SUMO_ATTR_DISALLOW)) {
                 throw ProcessError("allow need a disallow attribute in the same tag");
@@ -128,7 +145,7 @@ GNETagProperties::getDefaultValue(SumoXMLAttr attr) const {
     // iterate over attribute properties
     for (const auto& attributeProperty : myAttributeProperties) {
         if (attributeProperty.getAttr() == attr) {
-            if (!attributeProperty.hasStaticDefaultValue()) {
+            if (!attributeProperty.hasDefaultValue()) {
                 throw ProcessError("attribute '" + attributeProperty.getAttrStr() + "' doesn't have a default value");
             } else {
                 return attributeProperty.getDefaultValue();
@@ -141,9 +158,7 @@ GNETagProperties::getDefaultValue(SumoXMLAttr attr) const {
 
 void
 GNETagProperties::addAttribute(const GNEAttributeProperties& attributeProperty) {
-    if (isAttributeDeprecated(attributeProperty.getAttr())) {
-        throw ProcessError("Attribute '" + attributeProperty.getAttrStr() + "' is deprecated and cannot be inserted");
-    } else if ((myAttributeProperties.size() + 1) >= MAXNUMBEROFATTRIBUTES) {
+    if ((myAttributeProperties.size() + 1) >= MAXNUMBEROFATTRIBUTES) {
         throw ProcessError("Maximum number of attributes for tag " + attributeProperty.getAttrStr() + " exceeded");
     } else {
         // Check that attribute wasn't already inserted
@@ -159,16 +174,21 @@ GNETagProperties::addAttribute(const GNEAttributeProperties& attributeProperty) 
 }
 
 
+const std::string&
+GNETagProperties::getFieldString() const {
+    return myFieldString;
+}
+
+
 void
-GNETagProperties::addDeprecatedAttribute(SumoXMLAttr attr) {
-    // Check that attribute wasn't already inserted
-    for (const auto& attributeProperty : myAttributeProperties) {
-        if (attributeProperty.getAttr() == attr) {
-            throw ProcessError("Attribute '" + toString(attr) + "' is deprecated but was inserted in list of attributes");
-        }
-    }
-    // add it into myDeprecatedAttributes
-    myDeprecatedAttributes.push_back(attr);
+GNETagProperties::setFieldString(const std::string& fieldString) {
+    myFieldString = fieldString;
+}
+
+
+unsigned int
+GNETagProperties::getBackGroundColor() const {
+    return myBackgroundColor;
 }
 
 
@@ -220,9 +240,10 @@ GNETagProperties::getXMLTag() const {
     return myXMLTag;
 }
 
+
 const std::vector<SumoXMLTag>&
-GNETagProperties::getMasterTags() const {
-    return myMasterTags;
+GNETagProperties::getParentTags() const {
+    return myParentTags;
 }
 
 
@@ -249,15 +270,10 @@ GNETagProperties::isAdditionalElement() const {
     return (myTagType & ADDITIONALELEMENT) != 0;
 }
 
-bool
-GNETagProperties::isShape() const {
-    return (myTagType & SHAPE) != 0;
-}
-
 
 bool
-GNETagProperties::isTAZElement() const {
-    return (myTagType & TAZELEMENT) != 0;
+GNETagProperties::isAdditionalPureElement() const {
+    return (isAdditionalElement() && !isShapeElement() && !isTAZElement() && !isWireElement());
 }
 
 
@@ -286,6 +302,30 @@ GNETagProperties::isDetector() const {
 
 
 bool
+GNETagProperties::isCalibrator() const {
+    return (myTagType & CALIBRATOR) != 0;
+}
+
+
+bool
+GNETagProperties::isShapeElement() const {
+    return (myTagType & SHAPE) != 0;
+}
+
+
+bool
+GNETagProperties::isTAZElement() const {
+    return (myTagType & TAZELEMENT) != 0;
+}
+
+
+bool
+GNETagProperties::isWireElement() const {
+    return (myTagType & WIRE) != 0;
+}
+
+
+bool
 GNETagProperties::isVehicleType() const {
     return (myTagType & VTYPE) != 0;
 }
@@ -296,6 +336,7 @@ GNETagProperties::isVehicle() const {
     return (myTagType & VEHICLE) != 0;
 }
 
+
 bool
 GNETagProperties::isRoute() const {
     return (myTagType & ROUTE) != 0;
@@ -305,6 +346,18 @@ GNETagProperties::isRoute() const {
 bool
 GNETagProperties::isStop() const {
     return (myTagType & STOP) != 0;
+}
+
+
+bool
+GNETagProperties::isWaypoint() const {
+    return (myTagType & WAYPOINT) != 0;
+}
+
+
+bool
+GNETagProperties::isFlow() const {
+    return (myTagType & FLOW) != 0;
 }
 
 
@@ -381,8 +434,8 @@ GNETagProperties::isGenericData() const {
 
 
 bool
-GNETagProperties::isSlave() const {
-    return (myTagProperty & SLAVE) != 0;
+GNETagProperties::isChild() const {
+    return (myTagProperty & CHILD) != 0;
 }
 
 
@@ -400,13 +453,14 @@ GNETagProperties::isInternalLane() const {
 
 bool
 GNETagProperties::isDrawable() const {
-    return (myTagProperty & DRAWABLE) != 0;
+    return (myTagProperty & NOTDRAWABLE) == 0;
 }
 
 
 bool
 GNETagProperties::isSelectable() const {
-    return (myTagProperty & SELECTABLE) != 0;
+    // note: By default all elements can be selected, except Tags with "NOTSELECTABLE"
+    return (myTagProperty & NOTSELECTABLE) == 0;
 }
 
 
@@ -429,14 +483,8 @@ GNETagProperties::hasDialog() const {
 
 
 bool
-GNETagProperties::hasMinimumNumberOfChildren() const {
-    return (myTagProperty & MINIMUMCHILDREN) != 0;
-}
-
-
-bool
 GNETagProperties::hasParameters() const {
-    // note: By default all Tags supports parameters, except Tags with "NOPARAMETERS"
+    // note: By default all elements support parameters, except Tags with "NOPARAMETERS"
     return (myTagProperty & NOPARAMETERS) == 0;
 }
 
@@ -454,20 +502,8 @@ GNETagProperties::canBeReparent() const {
 
 
 bool
-GNETagProperties::canWriteChildrenSeparate() const {
-    return (myTagProperty & WRITECHILDRENSEPARATE) != 0;
-}
-
-
-bool
 GNETagProperties::canMaskStartEndPos() const {
     return (myTagProperty & MASKSTARTENDPOS) != 0;
-}
-
-
-bool
-GNETagProperties::canMaskXYZPositions() const {
-    return (myTagProperty & MASKXYZPOSITION) != 0;
 }
 
 
@@ -478,14 +514,20 @@ GNETagProperties::canCenterCameraAfterCreation() const {
 
 
 bool
-GNETagProperties::embebbedRoute() const {
+GNETagProperties::hasEmbebbedRoute() const {
     return (myTagProperty & EMBEDDED_ROUTE) != 0;
 }
 
 
 bool
-GNETagProperties::isAttributeDeprecated(SumoXMLAttr attr) const {
-    return (std::find(myDeprecatedAttributes.begin(), myDeprecatedAttributes.end(), attr) != myDeprecatedAttributes.end());
+GNETagProperties::requireProj() const {
+    return (myTagProperty & REQUIRE_PROJ) != 0;
+}
+
+
+bool
+GNETagProperties::vClassIcon() const {
+    return (myTagProperty & VCLASS_ICON) != 0;
 }
 
 /****************************************************************************/

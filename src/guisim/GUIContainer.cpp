@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -150,7 +150,7 @@ GUIContainer::getPopUpMenu(GUIMainWindow& app,
     buildShowTypeParamsPopupEntry(ret);
     GUIDesigns::buildFXMenuCommand(ret, "Show Plan", GUIIconSubSys::getIcon(GUIIcon::APP_TABLE), ret, MID_SHOWPLAN);
     new FXMenuSeparator(ret);
-    buildPositionCopyEntry(ret, false);
+    buildPositionCopyEntry(ret, app);
     return ret;
 }
 
@@ -197,6 +197,12 @@ GUIContainer::getTypeParameterWindow(GUIMainWindow& app,
 }
 
 
+double
+GUIContainer::getExaggeration(const GUIVisualizationSettings& s) const {
+    return s.containerSize.getExaggeration(s, this);
+}
+
+
 Boundary
 GUIContainer::getCenteringBoundary() const {
     Boundary b;
@@ -222,7 +228,7 @@ GUIContainer::drawGL(const GUIVisualizationSettings& s) const {
     // set container color
     setColor(s);
     // scale
-    const double upscale = s.containerSize.getExaggeration(s, this);
+    const double upscale = getExaggeration(s);
     glScaled(upscale, upscale, 1);
     switch (s.containerQuality) {
         case 0:
@@ -340,7 +346,7 @@ GUIContainer::setFunctionalColor(int activeScheme) const {
         }
         case 9: { // color randomly (by pointer)
             const double hue = (double)((long long int)this % 360); // [0-360]
-            const double sat = (((long long int)this / 360) % 67) / 100.0 + 0.33; // [0.33-1]
+            const double sat = (double)(((long long int)this / 360) % 67) / 100. + 0.33; // [0.33-1]
             GLHelper::setColor(RGBColor::fromHSV(hue, sat, 1.));
             return true;
         }

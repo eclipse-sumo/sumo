@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2009-2021 German Aerospace Center (DLR) and others.
+# Copyright (C) 2009-2022 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -46,9 +46,9 @@ def readFCD(traceFile, net, geo):
             trace = []
             last = v.id
         if geo:
-            trace.append(net.convertLonLat2XY(v.x, v.y))
+            trace.append(net.convertLonLat2XY(float(v.x), float(v.y)))
         else:
-            trace.append((v.x, v.y))
+            trace.append((float(v.x), float(v.y)))
     if trace:
         yield last, trace
 
@@ -83,7 +83,9 @@ if __name__ == "__main__":
                          help="generate polygon output for the mapped edges", metavar="FILE")
     optParser.add_option("--geo", action="store_true",
                          default=False, help="read trace with geo-coordinates")
-    optParser.add_option("--fill-gaps", default=0, type=int,
+    optParser.add_option("--direction", action="store_true",
+                         default=False, help="try to use direction of consecutive points when mapping")
+    optParser.add_option("--fill-gaps", default=0., type=float,
                          help="repair disconnected routes bridging gaps of up to x meters")
     optParser.add_option("-g", "--gap-penalty", default=-1, type="float",
                          help="penalty to add for disconnected routes " +
@@ -134,7 +136,8 @@ if __name__ == "__main__":
                 sumolib.xml.writeHeader(polyOut, root='additional')
                 colorgen = sumolib.miscutils.Colorgen(('random', 1, 1))
             # determine file type by reading the first 10000 bytes
-            head = open(t).read(10000)
+            with open(t) as peek:
+                head = peek.read(10000)
             if "<poi" in head:
                 traces = readPOI(t, net)
             elif "<fcd" in head:
@@ -142,7 +145,7 @@ if __name__ == "__main__":
             else:
                 traces = readLines(t, net, options.geo)
             mapOpts = (options.delta, options.verbose, options.air_dist_factor,
-                       options.fill_gaps, options.gap_penalty, options.debug)
+                       options.fill_gaps, options.gap_penalty, options.debug, options.direction)
             for tid, trace in traces:
                 if poiOut is not None:
                     for idx, pos in enumerate(trace):

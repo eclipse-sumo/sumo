@@ -1,7 +1,8 @@
-Warning: Could not map position 113.85,84.40 onto lane ':C_w2_0'
-Warning: Could not map position 113.86,92.60 onto lane ':C_w2_0'
-Warning: Could not map position 113.86,93.60 onto lane ':C_w2_0'
-Warning: Could not map position 113.52,106.55 onto lane ':C_w1_0'
-Warning: Could not map position 113.52,107.55 onto lane ':C_w1_0'
-Warning: Could not map position 113.52,113.56 onto lane ':C_w1_0'
-Warning: Could not map position 113.52,114.56 onto lane ':C_w1_0'
+Warning: Could not map position 113.85,84.40 onto lane ':C_w2_0' (fromLane='SC_0' toLane=':C_c1_0') for person 'p0' time=8.00.
+Warning: Could not map position 113.86,92.60 onto lane ':C_w2_0' (fromLane='SC_0' toLane=':C_c1_0') for person 'p0' time=16.00.
+Warning: Could not map position 113.86,93.60 onto lane ':C_w2_0' (fromLane='SC_0' toLane=':C_c1_0') for person 'p0' time=17.00.
+Warning: Could not map position 113.75,106.60 onto lane ':C_w1_0' (fromLane=':C_c1_0' toLane='CN_0') for person 'p0' time=30.00.
+Warning: Could not map position 113.75,107.60 onto lane ':C_w1_0' (fromLane=':C_c1_0' toLane='CN_0') for person 'p0' time=31.00.
+Warning: Could not map position 113.74,113.62 onto lane ':C_w1_0' (fromLane=':C_c1_0' toLane='CN_0') for person 'p0' time=37.00.
+Warning: Could not map position 113.74,114.62 onto lane ':C_w1_0' (fromLane=':C_c1_0' toLane='CN_0') for person 'p0' time=38.00.
+Warning: Could not map position 113.74,115.62 onto lane ':C_w1_0' (fromLane=':C_c1_0' toLane='CN_0') for person 'p0' time=39.00.

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -20,11 +20,13 @@
 /****************************************************************************/
 #pragma once
 #include <config.h>
-#include "GNENetworkElement.h"
 
 #include <netbuild/NBEdge.h>
-#include <netedit/frames/common/GNEInspectorFrame.h>
 #include <netedit/elements/GNECandidateElement.h>
+#include <utils/gui/div/GUIGeometry.h>
+#include <utils/gui/div/GUIDottedGeometry.h>
+
+#include "GNENetworkElement.h"
 
 
 // ===========================================================================
@@ -37,6 +39,7 @@ class GNEConnection;
 class GNERouteProbe;
 class GNECrossing;
 class GNEEdgeType;
+class GNEEdgeTemplate;
 
 // ===========================================================================
 // class definitions
@@ -80,6 +83,12 @@ public:
         return getParentJunctions().back();
     }
 
+    /// @brief check if current network element is valid to be written into XML
+    bool isNetworkElementValid() const;
+
+    /// @brief return a string with the current network element problem
+    std::string getNetworkElementProblem() const;
+
     /// @name Functions related with geometry of element
     /// @{
     /// @brief update pre-computed geometry information
@@ -92,7 +101,7 @@ public:
     /// @name Functions related with move elements
     /// @{
     /// @brief get move operation for the given shapeOffset (can be nullptr)
-    GNEMoveOperation* getMoveOperation(const double shapeOffset);
+    GNEMoveOperation* getMoveOperation();
 
     /// @brief remove geometry point in the clicked position
     void removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList);
@@ -127,6 +136,9 @@ public:
      */
     GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent);
 
+    /// @brief return exaggeration associated with this GLObject
+    double getExaggeration(const GUIVisualizationSettings& s) const;
+
     /// @brief update centering boundary (implies change in RTREE)
     void updateCenteringBoundary(const bool updateGrid);
 
@@ -138,6 +150,9 @@ public:
      * @see GUIGlObject::drawGL
      */
     void drawGL(const GUIVisualizationSettings& s) const;
+
+    /// @brief update GLObject (geometry, ID, etc.)
+    void updateGLObject();
     /// @}
 
     /// @brief returns the internal NBEdge
@@ -182,12 +197,18 @@ public:
      * @param[in] key The attribute key
      */
     bool isAttributeEnabled(SumoXMLAttr key) const;
+
+    /* @brief method for check if the value for certain attribute is computed (for example, due a network recomputing)
+     * @param[in] key The attribute key
+     */
+    bool isAttributeComputed(SumoXMLAttr key) const;
+
     /// @}
 
     /// @brief get parameters map
-    const std::map<std::string, std::string>& getACParametersMap() const;
+    const Parameterised::Map& getACParametersMap() const;
 
-    /// @brief set responsibility for deleting internal strctures
+    /// @brief set responsibility for deleting internal structures
     void setResponsible(bool newVal);
 
     /**@brief update edge geometry and inform the lanes
@@ -209,10 +230,10 @@ public:
     const Position getBackDownShapePosition() const;
 
     /// @brief remake connections
-    void remakeGNEConnections();
+    void remakeGNEConnections(bool junctionsReady = false);
 
     /// @brief copy edge attributes from edgetemplate
-    void copyTemplate(const GNEInspectorFrame::TemplateEditor::EdgeTemplate& edgeTemplate, GNEUndoList* undoList);
+    void copyTemplate(const GNEEdgeTemplate* edgeTemplate, GNEUndoList* undoList);
 
     /// @brief copy edge attributes from edgeType
     void copyEdgeType(const GNEEdgeType* edgeType, GNEUndoList* undoList);
@@ -284,6 +305,19 @@ public:
     /// @brief draw edge geometry points (note: This function is called by GNELane::drawGL(...)
     void drawEdgeGeometryPoints(const GUIVisualizationSettings& s, const GNELane* lane) const;
 
+    /// @brief draw dotted contour for the given dottedGeometries
+    static void drawDottedContourEdge(const GUIDottedGeometry::DottedContourType type, const GUIVisualizationSettings& s, const GNEEdge* edge,
+                                      const bool drawFrontExtreme, const bool drawBackExtreme);
+
+    /// @brief check if edge makes a convex angle [0 - 180) degrees
+    bool isConvexAngle() const;
+
+    /// @brief check if this edge has predecessors (note: only for vehicles, this function ignore walking areas!)
+    bool hasPredecessors() const;
+
+    /// @brief check if this edge has successors (note: only for vehicles, this function ignore walking areas!)
+    bool hasSuccessors() const;
+
 protected:
     /// @brief the underlying NBEdge
     NBEdge* myNBEdge;
@@ -338,7 +372,7 @@ private:
         const std::vector<GNEDemandElement*>& getDemandElements() const;
     };
 
-    /// @brif flag to enable/disable update geometry of lanes (used mainly by setNumLanes)
+    /// @brief flag to enable/disable update geometry of lanes (used mainly by setNumLanes)
     bool myUpdateGeometry;
 
     /// @brief set attribute after validation
@@ -391,8 +425,26 @@ private:
     /// @brief draw edge name
     void drawEdgeName(const GUIVisualizationSettings& s) const;
 
+    /// @brief draw edgeStopOffset
+    void drawLaneStopOffset(const GUIVisualizationSettings& s) const;
+
+    /// @brief draw TAZElements
+    void drawTAZElements(const GUIVisualizationSettings& s) const;
+
     /// @brief check if given stacked positions are overlapped
     bool areStackPositionOverlapped(const GNEEdge::StackPosition& vehicleA, const GNEEdge::StackPosition& vehicleB) const;
+
+    /// @brief process moving edge when only from junction is selected
+    GNEMoveOperation* processMoveFromJunctionSelected(const PositionVector originalShape, const Position mousePosition, const double snapRadius);
+
+    /// @brief process moving edge when only to junction is selected
+    GNEMoveOperation* processMoveToJunctionSelected(const PositionVector originalShape, const Position mousePosition, const double snapRadius);
+
+    /// @brief process moving edge when both junctions are selected
+    GNEMoveOperation* processMoveBothJunctionSelected();
+
+    /// @brief process moving edge when none junction are selected
+    GNEMoveOperation* processNoneJunctionSelected(const double snapRadius);
 
     /// @brief invalidated copy constructor
     GNEEdge(const GNEEdge& s) = delete;

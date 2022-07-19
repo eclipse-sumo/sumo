@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -46,8 +46,9 @@ MEInductLoop::MEInductLoop(const std::string& id,
                            MESegment* s,
                            double positionInMeters,
                            const std::string& vTypes,
+                           const std::string& nextEdges,
                            int detectPersons) :
-    MSDetectorFileOutput(id, vTypes, detectPersons),
+    MSDetectorFileOutput(id, vTypes, nextEdges, detectPersons),
     mySegment(s),
     myPosition(positionInMeters),
     myMeanData(nullptr, mySegment->getLength(), false, nullptr) {
@@ -65,7 +66,7 @@ MEInductLoop::writeXMLOutput(OutputDevice& dev,
     mySegment->prepareDetectorForWriting(myMeanData);
     dev.openTag(SUMO_TAG_INTERVAL).writeAttr(SUMO_ATTR_BEGIN, time2string(startTime)).writeAttr(SUMO_ATTR_END, time2string(stopTime));
     dev.writeAttr(SUMO_ATTR_ID, StringUtils::escapeXML(myID)).writeAttr("sampledSeconds", myMeanData.getSamples());
-    myMeanData.write(dev, 0, stopTime - startTime, (double)mySegment->getEdge().getLanes().size(), -1.0);
+    myMeanData.write(dev, 0, stopTime - startTime, (double)mySegment->getEdge().getLanes().size(), mySegment->getEdge().getSpeedLimit(), -1.0);
     myMeanData.reset();
 }
 

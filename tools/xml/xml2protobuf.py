@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2014-2021 German Aerospace Center (DLR) and others.
+# Copyright (C) 2014-2022 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -26,6 +26,7 @@ import sys
 import subprocess
 import importlib
 import struct
+import glob
 from optparse import OptionParser
 import xml.sax
 try:
@@ -36,6 +37,12 @@ except ImportError:
     haveLxml = False
 
 import xml2csv
+
+
+SUMO_LIBRARIES = os.environ.get("SUMO_LIBRARIES", os.path.join(os.environ.get("SUMO_HOME", ""), "..", "SUMOLibraries"))
+protobuf_path = glob.glob(os.path.join(SUMO_LIBRARIES, "3rdPartyLibs", "protobuf*", "python", "build", "lib"))
+if protobuf_path:
+    sys.path.append(protobuf_path[0])
 
 
 def capitalFirst(s):
@@ -173,8 +180,9 @@ def generateProto(tagAttrs, depthTags, enums, protodir, base):
                             count += 1
                     next += 1
                     protof.write("}\n")
-    subprocess.call(
-        ["protoc", "%s.proto" % base, "--python_out=%s" % protodir])
+    protoc = glob.glob(os.path.join(SUMO_LIBRARIES, "3rdPartyLibs", "protobuf*", "bin", "protoc.exe"))
+    protoc = protoc[0] if protoc else "protoc"
+    subprocess.call([protoc, "%s.proto" % base, "--python_out=%s" % protodir])
     sys.path.append(protodir)
     return importlib.import_module("%s_pb2" % base)
 

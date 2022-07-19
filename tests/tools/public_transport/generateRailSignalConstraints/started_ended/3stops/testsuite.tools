@@ -13,3 +13,7 @@ both_ended
 
 # started and ended information is available for both trains and indicates swapped order
 both_ended_swapped
+
+# started and ended information is available for both trains and indicates swapped order
+# subsequent foeInsertion constraints should also be ignored
+both_ended_swapped_foeInsertion

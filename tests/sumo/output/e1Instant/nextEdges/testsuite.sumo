@@ -1,0 +1,17 @@
+# filter cars by their next edge
+20s_10r_5l
+
+# filter cars by their next edge
+20s_10r_5l_internal
+
+# detect persons depending on their next crossing
+nextCrossing
+
+# persons walking the other way should not be detected (since the filtered edge is in their past rather than their future)
+nextCrossing_reverse
+
+# detect person on walkingarea depending on their next crossing
+walkingArea_nextCrossing
+
+# detect person on walkingarea depending on their next crossing (some are walking in negative direction)
+walkingArea_nextCrossing2

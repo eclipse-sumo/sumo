@@ -1,0 +1,10 @@
+<routes>
+   <vType id="car" sigma="0" vClass="passenger"/>
+   <vType id="train" sigma="0" vClass="rail"/>
+
+   <flow id="NS" type="car" from="NC" to="CS" begin="0" end="900" period="4" departSpeed="max"/>
+   <flow id="SN" type="car" from="SC" to="CN" begin="0" end="900" period="5" departSpeed="max"/>
+
+   <flow id="EW" type="train" from="EC" to="CW" begin="0" end="900" period="55" departSpeed="max"/>
+   <flow id="WE" type="train" from="WC" to="CE" begin="0" end="900" period="95" departSpeed="max"/>
+</routes>

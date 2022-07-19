@@ -1,0 +1,10 @@
+Warning: Found angle of 135.00 degrees at edge '-E120', segment 0.
+Warning: Found sharp turn with radius 4.14 at the start of edge '-E120'.
+Warning: Found angle of 135.00 degrees at edge '-E120', segment 15.
+Warning: Found sharp turn with radius 4.14 at the end of edge '-E120'.
+Warning: Found angle of 135.00 degrees at edge '-E13', segment 9.
+Warning: Found angle of 135.00 degrees at edge '-E13', segment 24.
+Warning: Found angle of 135.00 degrees at edge 'E10', segment 0.
+Warning: Found sharp turn with radius 4.14 at the start of edge 'E10'.
+Warning: Found sharp turn with radius 4.14 at the end of edge 'E10'.
+Warning: 8 total messages of type: Found angle of % degrees at edge '%', segment %.

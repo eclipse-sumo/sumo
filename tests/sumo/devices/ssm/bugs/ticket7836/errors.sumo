@@ -2,4 +2,4 @@ Warning: No measures specified for ssm device of vehicle 'trip_0'. Registering a
 Warning: No connection between edge 'end' and edge 'beg' found.
 Warning: No route for vehicle 'trip_0' found.
 Warning: Teleporting vehicle 'trip_0'; waited too long (wrong lane), lane='end_0', time=317.00.
-Warning: Vehicle 'trip_0' ends teleporting on edge 'beg', time 317.00.
+Warning: Vehicle 'trip_0' ends teleporting on edge 'beg', time=317.00.

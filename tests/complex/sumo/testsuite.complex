@@ -45,3 +45,10 @@ meso
 
 # parallelization tests
 parallel
+
+# test insertion capacity for different options and departure attributes
+insertionCapacity
+
+# run a simulation with rerouting and write vehroute-output.
+# Then re-run the simulation with the saved vehroutes as input
+vehroute-roundtrip

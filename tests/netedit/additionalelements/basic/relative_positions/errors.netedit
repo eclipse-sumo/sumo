@@ -1,0 +1,60 @@
+Debug: Adding busStop 'busStop_gneE1_0_0' in GNEChange_Additional
+Debug: Adding calibratorLane 'calibrator_gneE1_0_0' in GNEChange_Additional
+Debug: Adding calibrator 'calibrator_gneE1_1' in GNEChange_Additional
+Debug: Adding chargingStation 'chargingStation_gneE1_2_0' in GNEChange_Additional
+Debug: Adding containerStop 'containerStop_gneE1_1_0' in GNEChange_Additional
+Debug: Adding inductionLoop 'inductionLoop_gneE0_2_0' in GNEChange_Additional
+Debug: Adding laneAreaDetector 'laneAreaDetector_gneE0_1_0' in GNEChange_Additional
+Debug: Adding entryExitDetector 'entryExitDetector_0' in GNEChange_Additional
+Debug: Adding detEntry 'entryExitDetector_0' in GNEChange_Additional
+Debug: Adding detExit 'entryExitDetector_0' in GNEChange_Additional
+Debug: Adding instantInductionLoop 'instantInductionLoop_1' in GNEChange_Additional
+Debug: Adding rerouter 'rerouter_0' in GNEChange_Additional
+Debug: Adding rerouterSymbol 'gneE1' in GNEChange_Additional
+Debug: Adding routeProbe 'routeProbe_gneE1_0' in GNEChange_Additional
+Debug: Adding vaporizer 'gneE1' in GNEChange_Additional
+Debug: Adding variableSpeedSign 'variableSpeedSign_0' in GNEChange_Additional
+Debug: Adding variableSpeedSignSymbol 'gneE1_0' in GNEChange_Additional
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Key F5 (Compute) pressed
+Debug: Created connection 'fromgneE0_2togneE1_2' in retrieveGNEConnection()
+Debug: Created connection 'fromgneE1_2togneE0_2' in retrieveGNEConnection()
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Additionals saved after dialog
+Debug: network elements saved
+Debug: Deleting unreferenced variableSpeedSignSymbol
+Debug: Deleting unreferenced variableSpeedSign
+Debug: Deleting unreferenced vaporizer
+Debug: Deleting unreferenced routeProbe
+Debug: Deleting unreferenced rerouterSymbol
+Debug: Deleting unreferenced rerouter
+Debug: Deleting unreferenced instantInductionLoop
+Debug: Deleting unreferenced detExit
+Debug: Deleting unreferenced detEntry
+Debug: Deleting unreferenced entryExitDetector
+Debug: Deleting unreferenced laneAreaDetector
+Debug: Deleting unreferenced inductionLoop
+Debug: Deleting unreferenced containerStop
+Debug: Deleting unreferenced chargingStation
+Debug: Deleting unreferenced calibrator
+Debug: Deleting unreferenced calibratorLane
+Debug: Deleting unreferenced busStop
+Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor
+Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
+Debug: Deleting unreferenced lane 'gneE0_1' in GNEEdge destructor
+Debug: Deleting unreferenced lane 'gneE0_2' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromgneE0_2togneE1_2' in GNEEdge destructor
+Debug: Deleting unreferenced edge 'gneE1' in AttributeCarriers destructor
+Debug: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
+Debug: Deleting unreferenced lane 'gneE1_1' in GNEEdge destructor
+Debug: Deleting unreferenced lane 'gneE1_2' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromgneE1_2togneE0_2' in GNEEdge destructor
+Debug: Deleting unreferenced junction 'gneJ0' in AttributeCarriers destructor
+Debug: Deleting unreferenced junction 'gneJ1' in AttributeCarriers destructor
+Debug: Deleting net builder in GNENet destructor

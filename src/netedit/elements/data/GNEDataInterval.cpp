@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -43,7 +43,7 @@
 // ---------------------------------------------------------------------------
 
 GNEDataInterval::GNEDataInterval(GNEDataSet* dataSetParent, const double begin, const double end) :
-    GNEHierarchicalElement(dataSetParent->getNet(), SUMO_TAG_DATAINTERVAL, {}, {}, {}, {}, {}, {}, {}, {}),
+    GNEHierarchicalElement(dataSetParent->getNet(), SUMO_TAG_DATAINTERVAL, {}, {}, {}, {}, {}, {}),
                        myDataSetParent(dataSetParent),
                        myBegin(begin),
 myEnd(end) {
@@ -107,12 +107,6 @@ GNEDataInterval::getSpecificAttributeColors() const {
 }
 
 
-const std::string&
-GNEDataInterval::getID() const {
-    return myDataSetParent->getID();
-}
-
-
 GUIGlObject*
 GNEDataInterval::getGUIGlObject() {
     return nullptr;
@@ -171,6 +165,8 @@ GNEDataInterval::addGenericDataChild(GNEGenericData* genericData) {
             // update generic data RTREE
             genericData->updateGeometry();
         }
+        // add reference in attributeCarriers
+        myNet->getAttributeCarriers()->insertGenericData(genericData);
         // update colors
         genericData->getDataIntervalParent()->getDataSetParent()->updateAttributeColors();
     } else {
@@ -186,7 +182,7 @@ GNEDataInterval::removeGenericDataChild(GNEGenericData* genericData) {
     if (it != myGenericDataChildren.end()) {
         // remove generic data child
         myGenericDataChildren.erase(it);
-        // remove it from inspected ACs and HierarchicalElementTree
+        // remove it from inspected ACs and GNEElementTree
         myDataSetParent->getNet()->getViewNet()->removeFromAttributeCarrierInspected(genericData);
         myDataSetParent->getNet()->getViewNet()->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(genericData);
         // update colors
@@ -197,6 +193,8 @@ GNEDataInterval::removeGenericDataChild(GNEGenericData* genericData) {
         if (genericData->getTagProperty().isPlacedInRTree()) {
             myNet->getGrid().removeAdditionalGLObject(genericData->getGUIGlObject());
         }
+        // remove reference from attributeCarriers
+        myNet->getAttributeCarriers()->deleteGenericData(genericData);
     } else {
         throw ProcessError("GenericData wasn't previously inserted");
     }
@@ -216,12 +214,12 @@ GNEDataInterval::getGenericDataChildren() const {
 
 
 bool
-GNEDataInterval::TAZRelExists(const GNETAZElement *TAZ) const {
+GNEDataInterval::TAZRelExists(const GNEAdditional* TAZ) const {
     // interate over all generic datas and check TAZ parents
-    for (const auto & genericData : myGenericDataChildren) {
+    for (const auto& genericData : myGenericDataChildren) {
         if ((genericData->getTagProperty().getTag() == SUMO_TAG_TAZREL) &&
-            (genericData->getParentTAZElements().size() == 1) &&
-            (genericData->getParentTAZElements().front() == TAZ)) {
+                (genericData->getParentAdditionals().size() == 1) &&
+                (genericData->getParentAdditionals().front() == TAZ)) {
             return true;
         }
     }
@@ -230,13 +228,13 @@ GNEDataInterval::TAZRelExists(const GNETAZElement *TAZ) const {
 
 
 bool
-GNEDataInterval::TAZRelExists(const GNETAZElement *fromTAZ, const GNETAZElement *toTAZ) const {
+GNEDataInterval::TAZRelExists(const GNEAdditional* fromTAZ, const GNEAdditional* toTAZ) const {
     // interate over all generic datas and check TAZ parents
-    for (const auto & genericData : myGenericDataChildren) {
+    for (const auto& genericData : myGenericDataChildren) {
         if ((genericData->getTagProperty().getTag() == SUMO_TAG_TAZREL) &&
-            (genericData->getParentTAZElements().size() == 2) &&
-            (genericData->getParentTAZElements().front() == fromTAZ) && 
-            (genericData->getParentTAZElements().back() == toTAZ)) {
+                (genericData->getParentAdditionals().size() == 2) &&
+                (genericData->getParentAdditionals().front() == fromTAZ) &&
+                (genericData->getParentAdditionals().back() == toTAZ)) {
             return true;
         }
     }
@@ -298,18 +296,6 @@ GNEDataInterval::isValid(SumoXMLAttr key, const std::string& value) {
 }
 
 
-void
-GNEDataInterval::enableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
-    // Nothing to enable
-}
-
-
-void
-GNEDataInterval::disableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
-    // Nothing to disable
-}
-
-
 bool
 GNEDataInterval::isAttributeEnabled(SumoXMLAttr key) const {
     switch (key) {
@@ -333,7 +319,7 @@ GNEDataInterval::getHierarchyName() const {
 }
 
 
-const std::map<std::string, std::string>&
+const Parameterised::Map&
 GNEDataInterval::getACParametersMap() const {
     return getParametersMap();
 }
@@ -355,12 +341,8 @@ GNEDataInterval::setAttribute(SumoXMLAttr key, const std::string& value) {
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
-}
-
-
-void
-GNEDataInterval::setEnabledAttribute(const int /*enabledAttributes*/) {
-    throw InvalidArgument("Nothing to enable");
+    // mark interval toolbar for update
+    myNet->getViewNet()->getIntervalBar().markForUpdate();
 }
 
 /****************************************************************************/

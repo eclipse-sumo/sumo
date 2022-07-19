@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2013-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2013-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -98,7 +98,7 @@
 std::set<MSDevice_ToC*, ComparatorNumericalIdLess> MSDevice_ToC::myInstances = std::set<MSDevice_ToC*, ComparatorNumericalIdLess>();
 std::set<std::string> MSDevice_ToC::createdOutputFiles;
 int MSDevice_ToC::LCModeMRM = 768; // = 0b001100000000 - no autonomous changes, no speed adaptation
-SumoRNG MSDevice_ToC::myResponseTimeRNG;
+SumoRNG MSDevice_ToC::myResponseTimeRNG("toc");
 
 
 // ===========================================================================
@@ -168,7 +168,7 @@ MSDevice_ToC::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>&
         const double lcAbstinence = getFloatParam(v, oc, "toc.lcAbstinence", DEFAULT_LCABSTINENCE, false);
         const double initialAwareness = getFloatParam(v, oc, "toc.initialAwareness", DEFAULT_INITIAL_AWARENESS, false);
         const double mrmDecel = getFloatParam(v, oc, "toc.mrmDecel", DEFAULT_MRM_DECEL, false);
-        const bool useColoring = getBoolParam(v, oc, "toc.useColorScheme", "false", false);
+        const bool useColoring = getBoolParam(v, oc, "toc.useColorScheme", true, false);
         const std::string deviceID = "toc_" + v.getID();
         const std::string file = getOutputFilename(v, oc);
         const OpenGapParams ogp = getOpenGapParams(v, oc);
@@ -516,7 +516,9 @@ MSDevice_ToC::requestToC(SUMOTime timeTillMRM, SUMOTime responseTime) {
         // Initialize preparation phase
         if (responseTime == -1000) {
             // Sample response time from distribution
-            responseTime = TIME2STEPS(sampleResponseTime(STEPS2TIME(timeTillMRM)));
+            const double sample = sampleResponseTime(STEPS2TIME(timeTillMRM));
+            // this needs to be a separate line because TIME2STEPS may otherwise do two calls to sampleResponseTime
+            responseTime = TIME2STEPS(sample);
         }
 
         // Schedule ToC Event
@@ -550,9 +552,9 @@ MSDevice_ToC::requestToC(SUMOTime timeTillMRM, SUMOTime responseTime) {
         }
     } else {
         // Switch to automated mode is performed immediately
-        if (timeTillMRM > 0.) {
+        if (timeTillMRM > 0) {
             std::stringstream ss;
-            ss << "[t=" << SIMTIME << "] Positive transition time (" << timeTillMRM / 1000. << "s.) for upward ToC of vehicle '" << myHolder.getID() << "' is ignored.";
+            ss << "[t=" << SIMTIME << "] Positive transition time (" << STEPS2TIME(timeTillMRM) << "s.) for upward ToC of vehicle '" << myHolder.getID() << "' is ignored.";
             WRITE_WARNING(ss.str());
         }
         triggerUpwardToC(SIMSTEP + DELTA_T);
@@ -1029,9 +1031,9 @@ MSDevice_ToC::writeOutput() {
         return;
     }
     while (!myEvents.empty()) {
-        std::pair<SUMOTime, std::string>& e = myEvents.front();
-        std::pair<std::string, double>& l = myEventLanes.front();
-        std::pair<double, double>& p = myEventXY.front();
+        const std::pair<SUMOTime, std::string> e = myEvents.front(); // make a copy, it is used after pop
+        const std::pair<std::string, double>& l = myEventLanes.front();
+        const std::pair<double, double>& p = myEventXY.front();
         myOutputFile->openTag(e.second);
         myOutputFile->writeAttr("id", myHolder.getID()).writeAttr("t", STEPS2TIME(e.first));
         myOutputFile->writeAttr("lane", l.first).writeAttr("lanePos", l.second);

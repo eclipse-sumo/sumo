@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2014-2021 German Aerospace Center (DLR) and others.
+# Copyright (C) 2014-2022 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -62,10 +62,7 @@ def get_options():
                          default=2, help="Set output precision")
     options, args = optParser.parse_args()
 
-    if len(args) != 1:
-        sys.exit(USAGE)
-
-    options.datafile = args[0]
+    options.datafiles = args
     return options
 
 
@@ -80,18 +77,21 @@ def main():
 
     if options.fast:
         def elements():
-            for element in parse_fast(options.datafile, options.element, [options.idAttr, options.attribute]):
-                yield getattr(element, options.idAttr), getattr(element, options.attribute)
+            for datafile in options.datafiles:
+                for element in parse_fast(datafile, options.element, [options.idAttr, options.attribute]):
+                    yield getattr(element, options.idAttr), getattr(element, options.attribute)
     else:
         def elements():
-            for element in parse(options.datafile, options.element, heterogeneous=True):
-                elementID = None
-                if element.hasAttribute(options.idAttr):
-                    elementID = element.getAttribute(options.idAttr)
-                stringVal = None
-                if element.hasAttribute(options.attribute):
-                    stringVal = element.getAttribute(options.attribute)
-                yield elementID, stringVal
+            for datafile in options.datafiles:
+                defaultID = str(None) if len(options.datafiles) == 1 else datafile
+                for element in parse(datafile, options.element, heterogeneous=True):
+                    elementID = defaultID
+                    if element.hasAttribute(options.idAttr):
+                        elementID = element.getAttribute(options.idAttr)
+                    stringVal = None
+                    if element.hasAttribute(options.attribute):
+                        stringVal = element.getAttribute(options.attribute)
+                    yield elementID, stringVal
 
     for elementID, stringVal in elements():
         if stringVal is not None:

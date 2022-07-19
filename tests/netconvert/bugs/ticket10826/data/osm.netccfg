@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-06-01 08:44:50 by Eclipse SUMO netconvert Version v1_13_0+0497-ea965e7
+-->
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="patch.nod.xml"/>
+        <osm-files value="osm_bbox.osm.xml.gz"/>
+    </input>
+
+    <edge_removal>
+        <keep-edges.by-vclass value="passenger,bus,tram"/>
+        <remove-edges.by-type value="highway.track,highway.unsurfaced,highway.service"/>
+    </edge_removal>
+
+</configuration>

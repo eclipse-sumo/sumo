@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2012-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2012-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -33,6 +33,7 @@ class MSLane;
 class PositionVector;
 #endif
 
+
 // ===========================================================================
 // class definitions
 // ===========================================================================
@@ -48,6 +49,7 @@ public:
     static std::string getEdgeID(std::string laneID);
     static double getLength(std::string laneID);
     static double getMaxSpeed(std::string laneID);
+    static double getFriction(std::string laneID);
     static std::vector<std::string> getAllowed(std::string laneID);
     static std::vector<std::string> getDisallowed(std::string laneID);
     static std::vector<libsumo::TraCIConnection> getLinks(std::string laneID);
@@ -82,6 +84,11 @@ public:
     static void setDisallowed(std::string laneID, std::vector<std::string> disallowedClasses);
     static void setMaxSpeed(std::string laneID, double speed);
     static void setLength(std::string laneID, double length);
+    static void setFriction(std::string laneID, double friction);
+
+    // Generic parameter get/set
+    //static std::string getParameter(const std::string& laneID, const std::string& param);
+    //static void setParameter(const std::string& routeID, const std::string& key, const std::string& value); // not needed so far
 
 #ifndef LIBTRACI
 #ifndef SWIG
@@ -96,7 +103,7 @@ public:
     static bool handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper, tcpip::Storage* paramData);
 
 private:
-    static const MSLane* getLane(const std::string& id);
+    static MSLane* getLane(const std::string& id);
 
 private:
     static SubscriptionResults mySubscriptionResults;

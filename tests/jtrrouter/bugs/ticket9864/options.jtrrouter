@@ -1,0 +1,3 @@
+--output-file=routes.rou.xml --net-file=input_net.net.xml 
+--route-files=input_flows.flows.xml 
+--accept-all-destinations

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -75,7 +75,7 @@ private:
     // @brief Operation to be apply
     const Operation myOperation;
 
-    /// @brief copy of child demand elementss before apply operation
+    /// @brief copy of child demand elements before apply operation
     const std::vector<GNEDemandElement*> myOriginalChildElements;
 
     /// @brief element children after apply operation

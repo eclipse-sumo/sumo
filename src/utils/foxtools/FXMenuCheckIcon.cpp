@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2004-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2004-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -58,8 +58,8 @@ FXIMPLEMENT(FXMenuCheckIcon, FXMenuCommand, FXMenuCheckIconMap, ARRAYNUMBER(FXMe
 // member method definitions
 // ===========================================================================
 
-FXMenuCheckIcon::FXMenuCheckIcon(FXComposite* p, const FXString& text, const FXIcon* icon, FXObject* tgt, FXSelector sel, FXuint opts) :
-    FXMenuCommand(p, text, NULL, tgt, sel, opts),
+FXMenuCheckIcon::FXMenuCheckIcon(FXComposite* p, const std::string& text, const std::string& shortcut, const std::string& info, const FXIcon* icon, FXObject* tgt, FXSelector sel, FXuint opts) :
+    FXMenuCommand(p, (text + "\t" + shortcut + "\t" + info).c_str(), NULL, tgt, sel, opts),
     myIcon(icon),
     myCheck(FALSE),
     myBoxColor(getApp()->getBackColor()) {

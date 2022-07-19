@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-09-07 12:27:55 by Eclipse SUMO netconvert Version v1_10_0+0544-e2f47533c3f
+<!-- generated on 2022-06-22 08:14:28 by Eclipse SUMO netconvert Version v1_13_0+1094-d2dab2e946c
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -30,7 +35,6 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
-        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
@@ -42,13 +46,13 @@ SPDX-License-Identifier: EPL-2.0
 
     <type id="highway.bridleway" priority="1" numLanes="1" speed="2.78" allow="pedestrian" oneway="1" width="2.00"/>
     <type id="highway.bus_guideway" priority="1" numLanes="1" speed="27.78" allow="bus" oneway="1"/>
-    <type id="highway.cycleway" priority="1" numLanes="1" speed="8.33" allow="bicycle" oneway="0" width="1.00"/>
+    <type id="highway.cycleway" priority="1" numLanes="1" speed="5.56" allow="bicycle" oneway="0" width="1.00"/>
     <type id="highway.footway" priority="1" numLanes="1" speed="2.78" allow="pedestrian" oneway="1" width="2.00"/>
     <type id="highway.ford" priority="1" numLanes="1" speed="2.78" allow="army" oneway="0"/>
     <type id="highway.living_street" priority="2" numLanes="1" speed="2.78" disallow="tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
     <type id="highway.motorway" priority="14" numLanes="2" speed="39.44" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" oneway="1"/>
     <type id="highway.motorway_link" priority="9" numLanes="1" speed="22.22" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" oneway="1"/>
-    <type id="highway.path" priority="1" numLanes="1" speed="2.78" allow="pedestrian bicycle" oneway="0" width="2.00"/>
+    <type id="highway.path" priority="1" numLanes="1" speed="5.56" allow="pedestrian bicycle" oneway="0" width="2.00"/>
     <type id="highway.pedestrian" priority="1" numLanes="1" speed="2.78" allow="pedestrian" oneway="1" width="2.00"/>
     <type id="highway.primary" priority="12" numLanes="2" speed="27.78" disallow="tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
     <type id="highway.primary_link" priority="7" numLanes="1" speed="22.22" disallow="tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
@@ -83,7 +87,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="-190083608#1_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="186.49" shape="406.10,1.59 403.71,1.86 398.74,2.41 393.77,2.97 388.80,3.52 383.83,4.07 378.86,4.63 373.89,5.18 368.92,5.74 364.87,6.19 359.90,6.75 354.93,7.30 349.96,7.86 344.99,8.41 340.02,8.97 335.05,9.52 330.09,10.07 325.12,10.63 320.15,11.18 315.18,11.74 310.21,12.29 305.24,12.85 300.27,13.40 295.30,13.96 290.33,14.51 285.36,15.07 280.39,15.63 275.43,16.18 270.46,16.74 265.49,17.29 260.52,17.85 255.55,18.40 250.58,18.96 245.61,19.51 240.64,20.07 235.67,20.62 230.70,21.18 225.73,21.73 223.23,22.01"/>
     </edge>
     <edge id="-257131025" from="2627346845" to="1311777490" priority="1" type="highway.cycleway" shape="220.59,20.70 221.11,25.51 221.65,30.48 222.19,35.45 222.72,40.42 223.26,45.39 223.80,50.36">
-        <lane id="-257131025_0" index="0" allow="bicycle" speed="8.33" length="29.84" width="1.00" shape="221.94,28.50 222.14,30.42 222.68,35.39 223.22,40.37 223.76,45.34 224.30,50.31"/>
+        <lane id="-257131025_0" index="0" allow="bicycle" speed="5.56" length="29.84" width="1.00" shape="221.94,28.50 222.14,30.42 222.68,35.39 223.22,40.37 223.76,45.34 224.30,50.31"/>
     </edge>
     <edge id="190083608#0" from="1560223378" to="2627346845" priority="12" type="highway.primary" shape="0.00,52.39 4.98,51.90 9.95,51.42 14.93,50.94 15.68,50.86 20.64,50.19 25.59,49.52 30.55,48.85 35.50,48.18 38.48,47.78 43.38,46.80 48.29,45.83 53.19,44.86 58.10,43.89 63.00,42.92 67.91,41.95 72.81,40.98 77.72,40.01 82.62,39.04 87.53,38.07 92.43,37.10 97.34,36.13 102.24,35.16 107.15,34.19 112.05,33.21 116.56,32.32 121.53,31.77 126.50,31.21 131.46,30.66 136.43,30.10 141.40,29.55 146.37,28.99 151.34,28.44 156.31,27.88 161.28,27.32 166.25,26.77 171.22,26.21 176.19,25.66 181.15,25.10 186.12,24.55 191.09,23.99 196.06,23.44 201.03,22.88 206.00,22.33 210.97,21.77 215.94,21.22 220.59,20.70">
         <lane id="190083608#0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="223.03" shape="-0.46,47.61 4.51,47.13 9.49,46.64 14.47,46.16 15.13,46.10 19.99,45.44 24.95,44.77 29.90,44.09 34.86,43.42 37.69,43.04 42.45,42.10 47.36,41.12 52.26,40.15 57.17,39.18 62.07,38.21 66.98,37.24 71.88,36.27 76.79,35.30 81.69,34.33 86.60,33.36 91.50,32.39 96.41,31.42 101.31,30.45 106.22,29.48 111.12,28.51 115.82,27.58 120.99,27.00 125.96,26.44 130.93,25.89 135.90,25.33 140.87,24.78 145.84,24.22 150.81,23.66 155.78,23.11 160.75,22.55 165.71,22.00 170.68,21.44 175.65,20.89 180.62,20.33 185.59,19.78 190.56,19.22 195.53,18.67 200.50,18.11 205.47,17.56 210.44,17.00 215.41,16.44 217.55,16.21"/>
@@ -94,7 +98,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="190083608#1_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="186.49" shape="222.87,18.83 225.38,18.55 230.35,18.00 235.32,17.44 240.29,16.89 245.26,16.33 250.22,15.78 255.19,15.22 260.16,14.66 265.13,14.11 270.10,13.55 275.07,13.00 280.04,12.44 285.01,11.89 289.98,11.33 294.95,10.78 299.92,10.22 304.88,9.67 309.85,9.11 314.82,8.56 319.79,8.00 324.76,7.45 329.73,6.89 334.70,6.34 339.67,5.78 344.64,5.23 349.61,4.67 354.58,4.12 359.54,3.56 364.51,3.01 368.57,2.56 373.54,2.00 378.51,1.45 383.47,0.89 388.44,0.34 393.41,-0.21 398.38,-0.77 403.35,-1.32 405.74,-1.59"/>
     </edge>
     <edge id="257131025" from="1311777490" to="2627346845" priority="1" type="highway.cycleway" shape="223.80,50.36 223.26,45.39 222.72,40.42 222.19,35.45 221.65,30.48 221.11,25.51 220.59,20.70">
-        <lane id="257131025_0" index="0" allow="bicycle" speed="8.33" length="29.84" width="1.00" shape="223.30,50.41 222.77,45.44 222.23,40.47 221.69,35.50 221.15,30.53 220.94,28.61"/>
+        <lane id="257131025_0" index="0" allow="bicycle" speed="5.56" length="29.84" width="1.00" shape="223.30,50.41 222.77,45.44 222.23,40.47 221.69,35.50 221.15,30.53 220.94,28.61"/>
     </edge>
 
     <junction id="1311777490" type="priority" x="223.80" y="50.36" incLanes="-257131025_0" intLanes="" shape="223.80,50.36 224.80,50.25 223.80,50.36">

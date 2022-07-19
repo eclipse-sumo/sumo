@@ -1,4 +1,0 @@
-Error: Could not build routeProbe with ID 'routeProbe_0' in netedit; attribute begin cannot be negative.
-Error: Attribute 'begin' in definition of routeProbe 'routeProbe_1' is not a real number.
-Error: Could not build routeProbe with ID 'routeProbe_2' in netedit; attribute begin cannot be negative.
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.23Jun142428.2364\netedit.gui\additionalElements\routeprobe\load\begin\input_additionals.add.xml failed.

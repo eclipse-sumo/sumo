@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -41,11 +41,8 @@
 #include <utils/common/NamedObjectCont.h>
 #include <utils/common/NamedRTree.h>
 #include <utils/router/SUMOAbstractRouter.h>
+#include <mesosim/MESegment.h>
 #include "MSJunction.h"
-
-#ifdef HAVE_FOX
-#include <utils/foxtools/FXConditionalLock.h>
-#endif
 
 
 // ===========================================================================
@@ -114,20 +111,6 @@ public:
 
     typedef PedestrianRouter<MSEdge, MSLane, MSJunction, MSVehicle> MSPedestrianRouter;
     typedef IntermodalRouter<MSEdge, MSLane, MSJunction, SUMOVehicle> MSIntermodalRouter;
-
-    /// @brief edge type specific meso parameters
-    struct MesoEdgeType {
-        SUMOTime tauff;
-        SUMOTime taufj;
-        SUMOTime taujf;
-        SUMOTime taujj;
-        double jamThreshold;
-        bool junctionControl;
-        double tlsPenalty;
-        double tlsFlowPenalty;
-        SUMOTime minorPenalty;
-        bool overtaking;
-    };
 
     /// @brief collision tracking
     struct Collision {
@@ -253,12 +236,12 @@ public:
      * @param[in] id The id of the type
      * @param[in] edgeType The parameter object
      */
-    void addMesoType(const std::string& typeID, const MesoEdgeType& edgeType);
+    void addMesoType(const std::string& typeID, const MESegment::MesoEdgeType& edgeType);
 
     /** @brief Returns edge type specific meso parameters
      * if no type specific parameters have been loaded, default values are returned
      */
-    const MesoEdgeType& getMesoType(const std::string& typeID);
+    const MESegment::MesoEdgeType& getMesoType(const std::string& typeID);
 
     /** @brief Clears all dictionaries
      * @todo Try to move all this to the destructor
@@ -320,7 +303,7 @@ public:
      * @return The new simulation state
      * @see SimulationState
      */
-    SimulationState adaptToState(const SimulationState state) const;
+    SimulationState adaptToState(const SimulationState state, const bool isLibsumo = false) const;
 
 
     /** @brief Returns the message to show if a certain state occurs
@@ -348,7 +331,7 @@ public:
     /** @brief Resets events when quick-loading state
      * @param step The new simulation step
      */
-    void clearState(const SUMOTime step);
+    void clearState(const SUMOTime step, bool quickReload = false);
 
     /** @brief Write netstate, summary and detector output
      * @todo Which exceptions may occur?
@@ -604,6 +587,12 @@ public:
     /// @brief update view after simulation.loadState
     virtual void updateGUI() const { }
 
+    /// @brief load state from file and return new time
+    SUMOTime loadState(const std::string& fileName);
+
+    /// @brief reset state to the beginning without reloading the network
+    void quickReload();
+
     /// @name Notification about vehicle state changes
     /// @{
 
@@ -828,6 +817,13 @@ public:
     /// @brief return whether given electrical substation exists in the network
     bool existTractionSubstation(const std::string& substationId);
 
+    /// @brief string constants for simstep stages
+    static const std::string STAGE_EVENTS;
+    static const std::string STAGE_MOVEMENTS;
+    static const std::string STAGE_LANECHANGE;
+    static const std::string STAGE_INSERTIONS;
+    static const std::string STAGE_REMOTECONTROL;
+
 protected:
     /// @brief check all lanes for elevation data
     bool checkElevation();
@@ -944,7 +940,7 @@ protected:
     std::map<std::string, std::map<SUMOVehicleClass, double> > myRestrictions;
 
     /// @brief The edge type specific meso parameters
-    std::map<std::string, MesoEdgeType> myMesoEdgeTypes;
+    std::map<std::string, MESegment::MesoEdgeType> myMesoEdgeTypes;
 
     /// @brief Whether the network contains internal links/lanes/edges
     bool myHasInternalLinks;
@@ -992,6 +988,7 @@ protected:
     /// @brief to avoid concurrent access to the state update function
     FXMutex myTransportableStateListenerMutex;
 #endif
+    static const NamedObjectCont<MSStoppingPlace*> myEmptyStoppingPlaceCont;
 
     /// @brief container to record warnings that shall only be issued once
     std::map<std::string, bool> myWarnedOnce;
@@ -1013,13 +1010,6 @@ protected:
     ///        (ensures removal of shape dynamics when the objects are removed)
     /// @see utils/shapes/PolygonDynamics
     std::unique_ptr<MSDynamicShapeUpdater> myDynamicShapeUpdater;
-
-
-    /// @brief string constants for simstep stages
-    static const std::string STAGE_EVENTS;
-    static const std::string STAGE_MOVEMENTS;
-    static const std::string STAGE_LANECHANGE;
-    static const std::string STAGE_INSERTIONS;
 
 private:
     /// @brief Invalidated copy constructor.

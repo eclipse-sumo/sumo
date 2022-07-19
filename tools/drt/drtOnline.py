@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2007-2021 German Aerospace Center (DLR) and others.
+# Copyright (C) 2007-2022 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -183,7 +183,10 @@ def ilp_solve(options, veh_num, res_num, costs, veh_constraints,
                      for i in order_trips]) >= 1, "Assing_at_least_one_vehicle"
 
     # The problem is solved using PuLP's Solver choice
-    prob.solve(pl.PULP_CBC_CMD(msg=0, timeLimit=options.ilp_time))
+    try:
+        prob.solve(pl.PULP_CBC_CMD(msg=0, timeLimit=options.ilp_time))
+    except pl.apis.core.PulpSolverError:
+        prob.solve(pl.COIN_CMD(msg=0, timeLimit=options.ilp_time, path="/usr/bin/cbc"))
 
     if pl.LpStatus[prob.status] != 'Optimal':
         sys.exit("No optimal solution found: %s" % pl.LpStatus[prob.status])

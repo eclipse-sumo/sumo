@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-09-08 22:41:08 by Eclipse SUMO marouter Version v1_10_0+0595-3ff6633
+<!-- generated on 2022-06-15 13:20:21 by Eclipse SUMO marouter Version v1_13_0+0844-22f88dc7bc3
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/marouterConfiguration.xsd">
@@ -11,6 +11,9 @@
 
         <!-- Saves current configuration into FILE -->
         <save-configuration value="" synonymes="C save-config" type="FILE"/>
+
+        <!-- Enforce relative paths when saving the configuration -->
+        <save-configuration.relative value="false" synonymes="save-config.relative" type="BOOL"/>
 
         <!-- Saves a configuration template (empty) into FILE -->
         <save-template value="" type="FILE"/>
@@ -27,8 +30,32 @@
         <!-- Use FILE as SUMO-network to route on -->
         <net-file value="" synonymes="n net" type="FILE"/>
 
-        <!-- Read additional network data (districts, bus stops) from FILE -->
-        <additional-files value="" synonymes="additional d districts taz-files" type="FILE"/>
+        <!-- Read additional network data (districts, bus stops) from FILE(s) -->
+        <additional-files value="" synonymes="a additional d districts taz-files" type="FILE"/>
+
+        <!-- Read sumo routes, alternatives, flows, and trips from FILE(s) -->
+        <route-files value="" synonymes="alternative-files alternatives-files f flow-files flows r trip-files trips" type="FILE"/>
+
+        <!-- Determines where to load PHEMlight definitions from -->
+        <phemlight-path value="./PHEMlight/" type="FILE"/>
+
+        <!-- Enable fleet age modelling with the given reference year in PHEMlight5 -->
+        <phemlight-year value="0" type="INT"/>
+
+        <!-- Set ambient temperature to correct NOx emissions in PHEMlight5 -->
+        <phemlight-temperature value="1.79769e+308" type="FLOAT"/>
+
+        <!-- Read network weights from FILE(s) -->
+        <weight-files value="" synonymes="w weights" type="FILE"/>
+
+        <!-- Read lane-based network weights from FILE(s) -->
+        <lane-weight-files value="" type="FILE"/>
+
+        <!-- Name of the xml attribute which gives the edge weight -->
+        <weight-attribute value="traveltime" synonymes="measure x" type="STR"/>
+
+        <!-- Initialize a TAZ for every junction to use attributes toJunction and fromJunction -->
+        <junction-taz value="false" type="BOOL"/>
 
         <!-- Loads O/D-files from FILE(s) -->
         <od-matrix-files value="" synonymes="m od-files" type="FILE"/>
@@ -42,26 +69,11 @@
         <!-- Define data attribute for loading counts (default &apos;count&apos;) -->
         <tazrelation-attribute value="count" synonymes="attribute" type="STR"/>
 
-        <!-- Read sumo-routes or trips from FILE(s) -->
-        <route-files value="" synonymes="r routes trip-files trips" type="FILE"/>
-
-        <!-- Read network weights from FILE(s) -->
-        <weight-files value="" synonymes="w weights" type="FILE"/>
-
-        <!-- Read lane-based network weights from FILE(s) -->
-        <lane-weight-files value="" type="FILE"/>
-
-        <!-- Name of the xml attribute which gives the edge weight -->
-        <weight-attribute value="traveltime" synonymes="measure x" type="STR"/>
-
         <!-- The travel time influence of prior intervals -->
         <weight-adaption value="0" type="FLOAT"/>
 
         <!-- Parameter key(s) defining source (and sink) taz -->
         <taz-param value="" type="STR[]"/>
-
-        <!-- Initialize a TAZ for every junction to use attributes toJunction and fromJunction -->
-        <junction-taz value="false" type="BOOL"/>
 
         <!-- Ignore attributes &apos;fromTaz&apos; and &apos;toTaz&apos; -->
         <ignore-taz value="false" type="BOOL"/>
@@ -69,20 +81,20 @@
     </input>
 
     <output>
-        <!-- Write flow definitions with route distributions to FILE -->
+        <!-- Write generated routes to FILE -->
         <output-file value="" synonymes="o output" type="FILE"/>
 
         <!-- Write used vehicle types into separate FILE -->
         <vtype-output value="" type="FILE"/>
 
-        <!-- Does not save vtype information -->
-        <ignore-vehicle-type value="false" synonymes="no-vtype" type="BOOL"/>
+        <!-- Keep vTypeDistribution ids when writing vehicles and their types -->
+        <keep-vtype-distributions value="false" type="BOOL"/>
 
-        <!-- Writes edge loads and final costs into FILE -->
-        <netload-output value="" type="FILE"/>
+        <!-- Return fuel consumption values in (legacy) unit l instead of mg -->
+        <emissions.volumetric-fuel value="false" type="BOOL"/>
 
-        <!-- Writes complete distance matrix into FILE -->
-        <all-pairs-output value="" type="FILE"/>
+        <!-- Write vehicles that reference routes by their id -->
+        <named-routes value="false" type="BOOL"/>
 
         <!-- Include license info into every output file -->
         <write-license value="false" type="BOOL"/>
@@ -99,38 +111,56 @@
         <!-- Write time values as hour:minute:second or day:hour:minute:second rather than seconds -->
         <human-readable-time value="false" synonymes="H" type="BOOL"/>
 
+        <!-- Does not save vtype information -->
+        <ignore-vehicle-type value="false" synonymes="no-vtype" type="BOOL"/>
+
+        <!-- Writes edge loads and final costs into FILE -->
+        <netload-output value="" type="FILE"/>
+
+        <!-- Writes complete distance matrix into FILE -->
+        <all-pairs-output value="" type="FILE"/>
+
         <!-- Write exit times (weights) for each edge -->
         <exit-times value="false" type="BOOL"/>
 
     </output>
 
     <processing>
-        <!-- Defines the time interval when aggregating single vehicle input; Defaults to one hour -->
-        <aggregation-interval value="3600" type="TIME"/>
-
         <!-- Prune the number of alternatives to INT -->
         <max-alternatives value="5" type="INT"/>
 
-        <!-- Ignore edge priorities when calculating capacities and restraints -->
-        <capacities.default value="false" type="BOOL"/>
+        <!-- Use origin and destination zones (districts) for in- and output -->
+        <with-taz value="false" type="BOOL"/>
 
-        <!-- Interpolate edge weights at interval boundaries -->
-        <weights.interpolate value="false" synonymes="interpolate" type="BOOL"/>
-
-        <!-- Expand weights behind the simulation&apos;s end -->
-        <weights.expand value="false" synonymes="expand-weights" type="BOOL"/>
-
-        <!-- Consider edge priorities in addition to travel times, weighted by factor -->
-        <weights.priority-factor value="0" type="FLOAT"/>
+        <!-- The number of parallel execution threads used for routing -->
+        <routing-threads value="0" type="INT"/>
 
         <!-- Select among routing algorithms [&apos;dijkstra&apos;, &apos;astar&apos;, &apos;CH&apos;, &apos;CHWrapper&apos;] -->
         <routing-algorithm value="dijkstra" type="STR"/>
 
+        <!-- Comma separated list of param keys to compare for additional restrictions -->
+        <restriction-params value="" type="STR[]"/>
+
+        <!-- Interpolate edge weights at interval boundaries -->
+        <weights.interpolate value="false" synonymes="interpolate" type="BOOL"/>
+
+        <!-- Expand the end of the last loaded weight interval to infinity -->
+        <weights.expand value="false" synonymes="expand-weights" type="BOOL"/>
+
+        <!-- Apply the given time penalty when computing routing costs for minor-link internal lanes -->
+        <weights.minor-penalty value="1.5" type="FLOAT"/>
+
+        <!-- Defines the time interval when aggregating single vehicle input; Defaults to one hour -->
+        <aggregation-interval value="3600" type="TIME"/>
+
+        <!-- Ignore edge priorities when calculating capacities and restraints -->
+        <capacities.default value="false" type="BOOL"/>
+
+        <!-- Consider edge priorities in addition to travel times, weighted by factor -->
+        <weights.priority-factor value="0" type="FLOAT"/>
+
         <!-- Aggregate routing queries with the same origin for different vehicle types -->
         <bulk-routing.vtypes value="false" type="BOOL"/>
-
-        <!-- The number of parallel execution threads used for routing -->
-        <routing-threads value="0" type="INT"/>
 
         <!-- Aggregation period for the given weight files; triggers rebuilding of Contraction Hierarchy -->
         <weight-period value="3600" type="TIME"/>
@@ -232,7 +262,7 @@
         <begin value="0" synonymes="b" type="TIME"/>
 
         <!-- Defines the end time; Later trips will be discarded; Defaults to the maximum time that SUMO can represent -->
-        <end value="9223372036854774" synonymes="e" type="TIME"/>
+        <end value="-1" synonymes="e" type="TIME"/>
 
     </time>
 
@@ -275,6 +305,12 @@
 
         <!-- Continue if a route could not be build -->
         <ignore-errors value="false" synonymes="continue-on-unbuild dismiss-loading-errors" type="BOOL"/>
+
+        <!-- Defines how often statistics shall be printed -->
+        <stats-period value="-1" type="INT"/>
+
+        <!-- Disable console output of route parsing step -->
+        <no-step-log value="false" type="BOOL"/>
 
     </report>
 

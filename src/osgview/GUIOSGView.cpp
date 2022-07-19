@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -14,6 +14,7 @@
 /// @file    GUIOSGView.cpp
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
+/// @author  Mirko Barthauer
 /// @date    19.01.2012
 ///
 // An OSG-based 3D view on the simulation
@@ -36,12 +37,13 @@
 #include <guisim/GUIVehicle.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSEdgeControl.h>
-#include <microsim/MSJunctionControl.h>
 #include <microsim/MSLane.h>
+#include <microsim/MSNet.h>
 #include <microsim/MSVehicleControl.h>
 #include <microsim/traffic_lights/MSSimpleTrafficLightLogic.h>
 #include <microsim/traffic_lights/MSTLLogicControl.h>
 #include <microsim/transportables/MSTransportableControl.h>
+#include <utils/common/FileHelpers.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/RGBColor.h>
 #include <utils/common/StringUtils.h>
@@ -59,6 +61,8 @@
 #include <utils/gui/windows/GUIDialog_ViewSettings.h>
 #include <utils/gui/windows/GUIPerspectiveChanger.h>
 #include <utils/gui/windows/GUISUMOAbstractView.h>
+#include <utils/gui/div/GUIGlobalSelection.h>
+#include <utils/geom/GeoConvHelper.h>
 
 #include "GUIOSGBuilder.h"
 #include "GUIOSGView.h"
@@ -66,7 +70,7 @@
 
 FXDEFMAP(GUIOSGView) GUIOSGView_Map[] = {
     //________Message_Type_________        ___ID___                        ________Message_Handler________
-    FXMAPFUNC(SEL_CHORE,                MID_CHORE,        GUIOSGView::OnIdle)
+    FXMAPFUNC(SEL_CHORE,                MID_CHORE,			GUIOSGView::OnIdle),
 };
 FXIMPLEMENT(GUIOSGView, GUISUMOAbstractView, GUIOSGView_Map, ARRAYNUMBER(GUIOSGView_Map))
 
@@ -106,6 +110,10 @@ GUIOSGView::Command_TLSChange::execute() {
         case LINKSTATE_TL_REDYELLOW:
             mySwitch->setSingleChildOn(3);
             break;
+        case LINKSTATE_TL_OFF_BLINKING:
+        case LINKSTATE_TL_OFF_NOSIGNAL:
+            mySwitch->setSingleChildOn(3);
+            break;
         default:
             mySwitch->setAllChildrenOff();
     }
@@ -123,7 +131,8 @@ GUIOSGView::GUIOSGView(
     GUINet& net, FXGLVisual* glVis,
     FXGLCanvas* share) :
     GUISUMOAbstractView(p, app, parent, net.getVisualisationSpeedUp(), glVis, share),
-    myTracked(0), myCameraManipulator(new SUMOTerrainManipulator()), myLastUpdate(-1) {
+    myTracked(0), myCameraManipulator(new SUMOTerrainManipulator()), myLastUpdate(-1),
+    myOSGNormalizedCursorX(0.), myOSGNormalizedCursorY(0.) {
 
     //FXGLVisual* glVisual=new FXGLVisual(getApp(),VISUAL_DOUBLEBUFFER|VISUAL_STEREO);
 
@@ -136,7 +145,9 @@ GUIOSGView::GUIOSGView(
     myViewer = new osgViewer::Viewer();
     myViewer->getCamera()->setGraphicsContext(myAdapter);
     myViewer->getCamera()->setViewport(0, 0, w, h);
+    myViewer->getCamera()->setNearFarRatio(0.005);
     myViewer->setThreadingModel(osgViewer::Viewer::SingleThreaded);
+    myViewer->addEventHandler(new PickHandler(this));
 
     const char* sumoPath = getenv("SUMO_HOME");
     if (sumoPath != 0) {
@@ -152,10 +163,11 @@ GUIOSGView::GUIOSGView(
     myYellowLight = osgDB::readNodeFile("tly.obj");
     myRedLight = osgDB::readNodeFile("tlr.obj");
     myRedYellowLight = osgDB::readNodeFile("tlu.obj");
-    if (myGreenLight == 0 || myYellowLight == 0 || myRedLight == 0 || myRedYellowLight == 0) {
+    myPoleBase = osgDB::readNodeFile("poleBase.obj");
+    if (myGreenLight == 0 || myYellowLight == 0 || myRedLight == 0 || myRedYellowLight == 0 || myPoleBase == 0) {
         WRITE_ERROR("Could not load traffic light files.");
     }
-    myRoot = GUIOSGBuilder::buildOSGScene(myGreenLight, myYellowLight, myRedLight, myRedYellowLight);
+    myRoot = GUIOSGBuilder::buildOSGScene(myGreenLight, myYellowLight, myRedLight, myRedYellowLight, myPoleBase);
     // add the stats handler
     myViewer->addEventHandler(new osgViewer::StatsHandler());
     myViewer->setSceneData(myRoot);
@@ -177,6 +189,26 @@ GUIOSGView::~GUIOSGView() {
     myViewer = 0;
     myRoot = 0;
     myAdapter = 0;
+}
+
+
+Position
+GUIOSGView::getPositionInformation() const {
+    Position pos;
+    getPositionAtCursor(myOSGNormalizedCursorX, myOSGNormalizedCursorY, pos);
+    return pos;
+}
+
+
+void
+GUIOSGView::recalculateBoundaries() {
+    // nothing to recalculate
+}
+
+
+bool
+GUIOSGView::is3DView() const {
+    return true;
 }
 
 
@@ -246,21 +278,34 @@ GUIOSGView::recenterView() {
     stopTrack();
     Position center = myGrid->getCenter();
     osg::Vec3d lookFromOSG, lookAtOSG, up;
-    myViewer->getCameraManipulator()->getHomePosition(lookFromOSG, lookAtOSG, up);
+    myCameraManipulator->getHomePosition(lookFromOSG, lookAtOSG, up);
     lookFromOSG[0] = center.x();
     lookFromOSG[1] = center.y();
     lookFromOSG[2] = myChanger->zoom2ZPos(100);
     lookAtOSG[0] = center.x();
     lookAtOSG[1] = center.y();
     lookAtOSG[2] = 0;
-    myViewer->getCameraManipulator()->setHomePosition(lookFromOSG, lookAtOSG, up);
+    myCameraManipulator->setHomePosition(lookFromOSG, lookAtOSG, up);
     myViewer->home();
 }
 
 
 void
 GUIOSGView::centerTo(GUIGlID id, bool /* applyZoom */, double /* zoomDist */) {
-    startTrack(id);
+    GUIGlObject* o = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
+    if (o != nullptr && dynamic_cast<GUIGlObject*>(o) != nullptr) {
+        // get OSG object from GLObject
+        osg::Node* objectNode = o->getNode();
+        if (objectNode != nullptr) {
+            // center to current position
+            osg::Vec3d lookFromOSG, lookAtOSG, up;
+            myCameraManipulator->getHomePosition(lookFromOSG, lookAtOSG, up);
+            myCameraManipulator->setHomePosition(lookFromOSG, objectNode->getBound().center(), up);
+            myViewer->home();
+            updatePositionInformation();
+        }
+    }
+    GUIGlObjectStorage::gIDStorage.unblockObject(id);
 }
 
 
@@ -295,19 +340,16 @@ GUIOSGView::onPaint(FXObject*, FXSelector, void*) {
                 const int linkStringIdx = (int)d.filename.find(':', 3);
                 GUINet* net = (GUINet*) MSNet::getInstance();
                 try {
-                    MSTLLogicControl::TLSLogicVariants& vars = net->getTLSControl().get(d.filename.substr(3, linkStringIdx - 3));
+                    const std::string tlLogic = d.filename.substr(3, linkStringIdx - 3);
+                    MSTLLogicControl::TLSLogicVariants& vars = net->getTLSControl().get(tlLogic);
                     const int linkIdx = StringUtils::toInt(d.filename.substr(linkStringIdx + 1));
                     if (linkIdx < 0 || linkIdx >= static_cast<int>(vars.getActive()->getLinks().size())) {
                         throw NumberFormatException("");
                     }
                     const MSLink* const link = vars.getActive()->getLinksAt(linkIdx)[0];
-                    osg::Switch* switchNode = new osg::Switch();
-                    switchNode->addChild(GUIOSGBuilder::getTrafficLight(d, d.layer < 0 ? 0 : myGreenLight, osg::Vec4d(0., 1., 0., .3)), false);
-                    switchNode->addChild(GUIOSGBuilder::getTrafficLight(d, d.layer < 0 ? 0 : myYellowLight, osg::Vec4d(1., 1., 0., .3)), false);
-                    switchNode->addChild(GUIOSGBuilder::getTrafficLight(d, d.layer < 0 ? 0 : myRedLight, osg::Vec4d(1., 0., 0., .3)), false);
-                    switchNode->addChild(GUIOSGBuilder::getTrafficLight(d, d.layer < 0 ? 0 : myRedYellowLight, osg::Vec4d(1., .5, 0., .3)), false);
-                    myRoot->addChild(switchNode);
-                    vars.addSwitchCommand(new Command_TLSChange(link, switchNode));
+                    osg::Group* tlNode = GUIOSGBuilder::getTrafficLight(d, vars, link, myGreenLight, myYellowLight, myRedLight, myRedYellowLight, myPoleBase, true, 0.5);
+                    tlNode->setName("tlLogic:" + tlLogic);
+                    myRoot->addChild(tlNode);
                 } catch (NumberFormatException&) {
                     WRITE_ERROR("Invalid link index in '" + d.filename + "'.");
                 } catch (InvalidArgument&) {
@@ -320,45 +362,61 @@ GUIOSGView::onPaint(FXObject*, FXSelector, void*) {
         }
     }
     myDecalsLock.unlock();
-    MSVehicleControl::constVehIt it = MSNet::getInstance()->getVehicleControl().loadedVehBegin();
+
     // reset active flag
     for (auto& item : myVehicles) {
         item.second.active = false;
     }
-    for (; it != MSNet::getInstance()->getVehicleControl().loadedVehEnd(); it++) {
-        GUIVehicle* veh = static_cast<GUIVehicle*>(it->second);
-        if (!(veh->isOnRoad() || veh->isParking() || veh->wasRemoteControlled())) {
-            continue;
+
+    GUINet* net = static_cast<GUINet*>(MSNet::getInstance());
+    // build edges
+    for (const MSEdge* e : net->getEdgeControl().getEdges()) {
+        for (const MSLane* l : e->getLanes()) {
+            const MSLane::VehCont& vehicles = l->getVehiclesSecure();
+            for (MSVehicle* msVeh : vehicles) {
+                GUIVehicle* veh = static_cast<GUIVehicle*>(msVeh);
+                if (!(veh->isOnRoad() || veh->isParking() || veh->wasRemoteControlled())) {
+                    continue;
+                }
+                auto itVeh = myVehicles.find(veh);
+                if (itVeh == myVehicles.end()) {
+                    myVehicles[veh] = GUIOSGBuilder::buildMovable(veh->getVehicleType());
+                    myRoot->addChild(myVehicles[veh].pos);
+                    myVehicles[veh].pos->setName("vehicle:" + veh->getID());
+                    veh->setNode(myVehicles[veh].pos);
+                }
+                else {
+                    itVeh->second.active = true;
+                }
+                osg::PositionAttitudeTransform* n = myVehicles[veh].pos;
+                n->setPosition(osg::Vec3d(veh->getPosition().x(), veh->getPosition().y(), veh->getPosition().z()));
+                const double dir = veh->getAngle() + M_PI / 2.;
+                const double slope = -veh->getSlope();
+                n->setAttitude(osg::Quat(osg::DegreesToRadians(slope), osg::Vec3(1, 0, 0),
+                    0, osg::Vec3(0, 1, 0),
+                    dir, osg::Vec3(0, 0, 1)));
+                /*
+                osg::ref_ptr<osg::AnimationPath> path = new osg::AnimationPath;
+                // path->setLoopMode( osg::AnimationPath::NO_LOOPING );
+                osg::AnimationPath::ControlPoint pointA(n->getPosition(), n->getAttitude());
+                osg::AnimationPath::ControlPoint pointB(osg::Vec3(veh->getPosition().x(), veh->getPosition().y(), veh->getPosition().z()),
+                                                        osg::Quat(dir, osg::Vec3(0, 0, 1)) *
+                                                        osg::Quat(osg::DegreesToRadians(slope), osg::Vec3(0, 1, 0)));
+                path->insert(0.0f, pointA);
+                path->insert(0.5f, pointB);
+                n->setUpdateCallback(new osg::AnimationPathCallback(path));
+                */
+                RGBColor col;
+                if (!GUIBaseVehicle::setFunctionalColor(myVisualizationSettings->vehicleColorer.getActive(), veh, col)) {
+                    col = myVisualizationSettings->vehicleColorer.getScheme().getColor(veh->getColorValue(*myVisualizationSettings, myVisualizationSettings->vehicleColorer.getActive()));
+                }
+                myVehicles[veh].mat->setDiffuse(osg::Material::FRONT_AND_BACK, osg::Vec4d(col.red() / 255., col.green() / 255., col.blue() / 255., col.alpha() / 255.));
+                myVehicles[veh].lights->setValue(0, veh->signalSet(MSVehicle::VEH_SIGNAL_BLINKER_RIGHT | MSVehicle::VEH_SIGNAL_BLINKER_EMERGENCY));
+                myVehicles[veh].lights->setValue(1, veh->signalSet(MSVehicle::VEH_SIGNAL_BLINKER_LEFT | MSVehicle::VEH_SIGNAL_BLINKER_EMERGENCY));
+                myVehicles[veh].lights->setValue(2, veh->signalSet(MSVehicle::VEH_SIGNAL_BRAKELIGHT));
+            }
+            l->releaseVehicles();
         }
-        auto itVeh = myVehicles.find(veh);
-        if (itVeh == myVehicles.end()) {
-            myVehicles[veh] = GUIOSGBuilder::buildMovable(veh->getVehicleType());
-            myRoot->addChild(myVehicles[veh].pos);
-        } else {
-            itVeh->second.active = true;
-        }
-        osg::PositionAttitudeTransform* n = myVehicles[veh].pos;
-        n->setPosition(osg::Vec3d(veh->getPosition().x(), veh->getPosition().y(), veh->getPosition().z()));
-        const double dir = veh->getAngle() + M_PI / 2.;
-        const double slope = veh->getSlope();
-        n->setAttitude(osg::Quat(dir, osg::Vec3d(0, 0, 1)) *
-                       osg::Quat(osg::DegreesToRadians(slope), osg::Vec3d(0, 1, 0)));
-        /*
-        osg::ref_ptr<osg::AnimationPath> path = new osg::AnimationPath;
-        // path->setLoopMode( osg::AnimationPath::NO_LOOPING );
-        osg::AnimationPath::ControlPoint pointA(n->getPosition(), n->getAttitude());
-        osg::AnimationPath::ControlPoint pointB(osg::Vec3(veh->getPosition().x(), veh->getPosition().y(), veh->getPosition().z()),
-                                                osg::Quat(dir, osg::Vec3(0, 0, 1)) *
-                                                osg::Quat(osg::DegreesToRadians(slope), osg::Vec3(0, 1, 0)));
-        path->insert(0.0f, pointA);
-        path->insert(0.5f, pointB);
-        n->setUpdateCallback(new osg::AnimationPathCallback(path));
-        */
-        const RGBColor& col = myVisualizationSettings->vehicleColorer.getScheme().getColor(veh->getColorValue(*myVisualizationSettings, myVisualizationSettings->vehicleColorer.getActive()));
-        myVehicles[veh].geom->setColor(osg::Vec4d(col.red() / 255., col.green() / 255., col.blue() / 255., col.alpha() / 255.));
-        myVehicles[veh].lights->setValue(0, veh->signalSet(MSVehicle::VEH_SIGNAL_BLINKER_RIGHT | MSVehicle::VEH_SIGNAL_BLINKER_EMERGENCY));
-        myVehicles[veh].lights->setValue(1, veh->signalSet(MSVehicle::VEH_SIGNAL_BLINKER_LEFT | MSVehicle::VEH_SIGNAL_BLINKER_EMERGENCY));
-        myVehicles[veh].lights->setValue(2, veh->signalSet(MSVehicle::VEH_SIGNAL_BRAKELIGHT));
     }
     // remove inactive
     for (auto veh = myVehicles.begin(); veh != myVehicles.end();) {
@@ -391,26 +449,32 @@ GUIOSGView::onPaint(FXObject*, FXSelector, void*) {
     for (auto& item : myPersons) {
         item.second.active = false;
     }
-    for (auto transIt = MSNet::getInstance()->getPersonControl().loadedBegin(); transIt != MSNet::getInstance()->getPersonControl().loadedEnd(); ++transIt) {
-        MSTransportable* const person = transIt->second;
-        // XXX if not departed: continue
-        if (person->hasArrived() || !person->hasDeparted()) {
-            //std::cout << SIMTIME << " person " << person->getID() << " is loaded but arrived\n";
-            continue;
+
+    for (const MSEdge* e : net->getEdgeControl().getEdges()) {
+        const GUIEdge* ge = static_cast<const GUIEdge*>(e);
+        const std::set<MSTransportable*, ComparatorNumericalIdLess>& persons = ge->getPersonsSecure();
+        for (auto person : persons) {
+            if (person->hasArrived() || !person->hasDeparted()) {
+                //std::cout << SIMTIME << " person " << person->getID() << " is loaded but arrived\n";
+                continue;
+            }
+            auto itPers = myPersons.find(person);
+            if (itPers == myPersons.end()) {
+                myPersons[person] = GUIOSGBuilder::buildMovable(person->getVehicleType());
+                myRoot->addChild(myPersons[person].pos);
+            }
+            else {
+                itPers->second.active = true;
+            }
+            osg::PositionAttitudeTransform* n = myPersons[person].pos;
+            const Position pos = person->getPosition();
+            n->setPosition(osg::Vec3d(pos.x(), pos.y(), pos.z()));
+            const double dir = person->getAngle() + M_PI / 2.;
+            n->setAttitude(osg::Quat(dir, osg::Vec3d(0, 0, 1)));
         }
-        auto itPers = myPersons.find(person);
-        if (itPers == myPersons.end()) {
-            myPersons[person] = GUIOSGBuilder::buildMovable(person->getVehicleType());
-            myRoot->addChild(myPersons[person].pos);
-        } else {
-            itPers->second.active = true;
-        }
-        osg::PositionAttitudeTransform* n = myPersons[person].pos;
-        const Position pos = person->getPosition();
-        n->setPosition(osg::Vec3d(pos.x(), pos.y(), pos.z()));
-        const double dir = person->getAngle() + M_PI / 2.;
-        n->setAttitude(osg::Quat(dir, osg::Vec3d(0, 0, 1)));
+        ge->releasePersons();
     }
+
     // remove inactive
     for (auto person = myPersons.begin(); person != myPersons.end();) {
         if (!person->second.active) {
@@ -419,7 +483,12 @@ GUIOSGView::onPaint(FXObject*, FXSelector, void*) {
             ++person;
         }
     }
-
+    //// show/hide OSG nodes
+    unsigned int cullMask = 0xFFFFFFFF;
+    cullMask ^= (-myVisualizationSettings->show3DTLSDomes ^ cullMask) & (1UL << NODESET_TLSDOMES);
+    cullMask ^= (-myVisualizationSettings->show3DTLSLinkMarkers ^ cullMask) & (1UL << NODESET_TLSLINKMARKERS);
+    cullMask ^= (-myVisualizationSettings->generate3DTLSModels ^ cullMask) & (1UL << NODESET_TLSMODELS);
+    myViewer->getCamera()->setCullMask(cullMask);
 
     if (myAdapter->makeCurrent()) {
         myViewer->frame();
@@ -453,29 +522,60 @@ GUIOSGView::removeTransportable(MSTransportable* t) {
 }
 
 
+void GUIOSGView::updateViewportValues() {
+    osg::Vec3d lookFrom, lookAt, up;
+    myCameraManipulator->getInverseMatrix().getLookAt(lookFrom, lookAt, up);
+    myViewportChooser->setValues(Position(lookFrom[0], lookFrom[1], lookFrom[2]),
+                                 Position(lookAt[0], lookAt[1], lookAt[2]), calculateRotation(lookFrom, lookAt, up));
+}
+
+
 void
 GUIOSGView::showViewportEditor() {
     getViewportEditor(); // make sure it exists;
-    osg::Vec3d lookFromOSG, lookAtOSG, up;
-    myViewer->getCameraManipulator()->getInverseMatrix().getLookAt(lookFromOSG, lookAtOSG, up);
-    Position from(lookFromOSG[0], lookFromOSG[1], lookFromOSG[2]), at(lookAtOSG[0], lookAtOSG[1], lookAtOSG[2]);
-    myViewportChooser->setOldValues(from, at, 0);
+    osg::Vec3d lookFrom, lookAt, up;
+    myCameraManipulator->getInverseMatrix().getLookAt(lookFrom, lookAt, up);
+    Position from(lookFrom[0], lookFrom[1], lookFrom[2]), at(lookAt[0], lookAt[1], lookAt[2]);
+    myViewportChooser->setOldValues(from, at, calculateRotation(lookFrom, lookAt, up));
+    myViewportChooser->setZoomValue(100);
     myViewportChooser->show();
 }
 
 
 void
-GUIOSGView::setViewportFromToRot(const Position& lookFrom, const Position& lookAt, double /*rotation*/) {
+GUIOSGView::setViewportFromToRot(const Position& lookFrom, const Position& lookAt, double rotation) {
     osg::Vec3d lookFromOSG, lookAtOSG, up;
-    myViewer->getCameraManipulator()->getHomePosition(lookFromOSG, lookAtOSG, up);
     lookFromOSG[0] = lookFrom.x();
     lookFromOSG[1] = lookFrom.y();
     lookFromOSG[2] = lookFrom.z();
     lookAtOSG[0] = lookAt.x();
     lookAtOSG[1] = lookAt.y();
     lookAtOSG[2] = lookAt.z();
+
+    osg::Vec3d viewAxis, viewUp, orthogonal, normal;
+    viewAxis = lookFromOSG - lookAtOSG;
+    viewAxis.normalize();
+    viewUp = (viewAxis[0] + viewAxis[1] == 0.) ? osg::Vec3d(0., 1., 0.) : osg::Vec3d(0., 0., 1.); // check for parallel vectors
+    orthogonal = viewUp ^ viewAxis;
+    orthogonal.normalize();
+    normal = viewAxis ^ orthogonal;
+
+    rotation = std::fmod(rotation, 360.);
+    if (rotation < 0) {
+        rotation += 360.;
+    }
+    myChanger->setRotation(rotation);
+    double angle = DEG2RAD(rotation);
+    up = normal * cos(angle) - orthogonal * sin(angle);
+    up.normalize();
+
+    double zoom = (myViewportChooser != nullptr) ? myViewportChooser->getZoomValue() : 100.;
+    lookFromOSG = lookFromOSG + viewAxis * (100. - zoom);
+    lookAtOSG = lookFromOSG - viewAxis;
+    myCameraManipulator->setVerticalAxisFixed(true);
     myViewer->getCameraManipulator()->setHomePosition(lookFromOSG, lookAtOSG, up);
     myViewer->home();
+    myCameraManipulator->setVerticalAxisFixed(false);
 }
 
 
@@ -639,6 +739,7 @@ long GUIOSGView::onMiddleBtnRelease(FXObject* sender, FXSelector sel, void* ptr)
     return FXGLCanvas::onMiddleBtnRelease(sender, sel, ptr);
 }
 
+
 long GUIOSGView::onRightBtnPress(FXObject* sender, FXSelector sel, void* ptr) {
     handle(this, FXSEL(SEL_FOCUS_SELF, 0), ptr);
 
@@ -656,11 +757,22 @@ long GUIOSGView::onRightBtnRelease(FXObject* sender, FXSelector sel, void* ptr) 
     return FXGLCanvas::onRightBtnRelease(sender, sel, ptr);
 }
 
+
 long
 GUIOSGView::onMouseMove(FXObject* sender, FXSelector sel, void* ptr) {
-    FXEvent* event = (FXEvent*)ptr;
-    myAdapter->getEventQueue()->mouseMotion((float)event->win_x, (float)event->win_y);
+    // if popup exist but isn't shown, destroy it first
+    if (myPopup && (myPopup->shown() == false)) {
+        destroyPopup();
+    }
 
+    FXEvent* event = (FXEvent*)ptr;
+    osgGA::GUIEventAdapter* ea = myAdapter->getEventQueue()->mouseMotion((float)event->win_x, (float)event->win_y);
+    setWindowCursorPosition(ea->getXnormalized(), ea->getYnormalized());
+
+    if (myViewportChooser != nullptr && myViewportChooser->shown()) {
+        updateViewportValues();
+    }
+    updatePositionInformation();
     return FXGLCanvas::onMotion(sender, sel, ptr);
 }
 
@@ -671,6 +783,225 @@ GUIOSGView::OnIdle(FXObject* /* sender */, FXSelector /* sel */, void*) {
     update();
     getApp()->addChore(this, MID_CHORE);
     return 1;
+}
+
+
+long
+GUIOSGView::onCmdCloseLane(FXObject*, FXSelector, void*) {
+    GUILane* lane = getLaneUnderCursor();
+    if (lane != nullptr) {
+        lane->closeTraffic();
+        GUIGlObjectStorage::gIDStorage.unblockObject(lane->getGlID());
+        update();
+    }
+    return 1;
+}
+
+
+long
+GUIOSGView::onCmdCloseEdge(FXObject*, FXSelector, void*) {
+    GUILane* lane = getLaneUnderCursor();
+    if (lane != nullptr) {
+        dynamic_cast<GUIEdge*>(&lane->getEdge())->closeTraffic(lane);
+        GUIGlObjectStorage::gIDStorage.unblockObject(lane->getGlID());
+        update();
+    }
+    return 1;
+}
+
+
+long
+GUIOSGView::onCmdAddRerouter(FXObject*, FXSelector, void*) {
+    GUILane* lane = getLaneUnderCursor();
+    if (lane != nullptr) {
+        dynamic_cast<GUIEdge*>(&lane->getEdge())->addRerouter();
+        GUIGlObjectStorage::gIDStorage.unblockObject(lane->getGlID());
+        update();
+    }
+    return 1;
+}
+
+
+long
+GUIOSGView::onCmdShowReachability(FXObject* menu, FXSelector, void*) {
+    GUILane* lane = getLaneUnderCursor();
+    if (lane != nullptr) {
+        // reset
+        const double UNREACHED = -1;
+        gSelected.clear();
+        for (const MSEdge* const e : MSEdge::getAllEdges()) {
+            for (MSLane* const l : e->getLanes()) {
+                GUILane* gLane = dynamic_cast<GUILane*>(l);
+                gLane->setReachability(UNREACHED);
+            }
+        }
+        // prepare
+        FXMenuCommand* mc = dynamic_cast<FXMenuCommand*>(menu);
+        const SUMOVehicleClass svc = SumoVehicleClassStrings.get(mc->getText().text());
+        const double defaultMaxSpeed = SUMOVTypeParameter::VClassDefaultValues(svc).maxSpeed;
+        // find reachable
+        std::map<MSEdge*, double> reachableEdges;
+        reachableEdges[&lane->getEdge()] = 0;
+        MSEdgeVector check;
+        check.push_back(&lane->getEdge());
+        while (check.size() > 0) {
+            MSEdge* e = check.front();
+            check.erase(check.begin());
+            double traveltime = reachableEdges[e];
+            for (MSLane* const l : e->getLanes()) {
+                if (l->allowsVehicleClass(svc)) {
+                    GUILane* gLane = dynamic_cast<GUILane*>(l);
+                    gSelected.select(gLane->getGlID());
+                    gLane->setReachability(traveltime);
+                }
+            }
+            traveltime += e->getLength() / MIN2(e->getSpeedLimit(), defaultMaxSpeed);
+            for (MSEdge* const nextEdge : e->getSuccessors(svc)) {
+                if (reachableEdges.count(nextEdge) == 0 ||
+                        // revisit edge via faster path
+                        reachableEdges[nextEdge] > traveltime) {
+                    reachableEdges[nextEdge] = traveltime;
+                    check.push_back(nextEdge);
+                }
+            }
+        }
+        // switch to 'color by selection' unless coloring 'by reachability'
+        if (myVisualizationSettings->laneColorer.getActive() != 36) {
+            myVisualizationSettings->laneColorer.setActive(1);
+        }
+        update();
+    }
+    return 1;
+}
+
+
+void
+GUIOSGView::setWindowCursorPosition(float x, float y) {
+    myOSGNormalizedCursorX = x;
+    myOSGNormalizedCursorY = y;
+}
+
+
+double
+GUIOSGView::calculateRotation(const osg::Vec3d& lookFrom, const osg::Vec3d& lookAt, const osg::Vec3d& up) {
+    osg::Vec3d viewAxis, viewUp, orthogonal, normal;
+    viewAxis = lookFrom - lookAt;
+    viewAxis.normalize();
+    viewUp = (abs(viewAxis[0]) + abs(viewAxis[1]) == 0.) ? osg::Y_AXIS : osg::Z_AXIS; // check for parallel vectors
+    orthogonal = viewUp ^ viewAxis;
+    orthogonal.normalize();
+    normal = viewAxis ^ orthogonal;
+    double angle = atan2((normal ^ up).length() / (normal.length() * up.length()), (normal * up) / (normal.length() * up.length()));
+    if (angle < 0) {
+        angle += M_PI;
+    }
+    return RAD2DEG(angle);
+}
+
+
+void
+GUIOSGView::updatePositionInformation() const {
+    Position pos;
+    if (getPositionAtCursor(myOSGNormalizedCursorX, myOSGNormalizedCursorY, pos)) {
+        myApp->getCartesianLabel()->setText(("x:" + toString(pos.x()) + ", y:" + toString(pos.y())).c_str());
+        // set geo position
+        GeoConvHelper::getFinal().cartesian2geo(pos);
+        if (GeoConvHelper::getFinal().usingGeoProjection()) {
+            myApp->getGeoLabel()->setText(("lat:" + toString(pos.y(), gPrecisionGeo) + ", lon:" + toString(pos.x(), gPrecisionGeo)).c_str());
+        } else {
+            myApp->getGeoLabel()->setText(("x:" + toString(pos.x()) + ", y:" + toString(pos.y()) + " (No projection defined)").c_str());
+        }
+    } else {
+        // set placeholder
+        myApp->getCartesianLabel()->setText("N/A");
+        myApp->getGeoLabel()->setText("N/A");
+    }
+}
+
+
+bool
+GUIOSGView::getPositionAtCursor(float xNorm, float yNorm, Position& pos) const {
+    // only reasonable if view axis points to the ground (not parallel to the ground or in the sky)
+    osg::Vec3d lookFrom, lookAt, up, viewAxis;
+    myCameraManipulator->getInverseMatrix().getLookAt(lookFrom, lookAt, up);
+    if ((lookAt - lookFrom).z() >= 0.) {
+        // looking to the sky makes position at ground pointless
+        return false;
+    }
+    // solve linear equation of ray crossing the ground plane
+    osg::Matrixd iVP = osg::Matrixd::inverse(myViewer->getCamera()->getViewMatrix() * myViewer->getCamera()->getProjectionMatrix());
+    osg::Vec3 nearPoint = osg::Vec3(xNorm, yNorm, 0.0f) * iVP;
+    osg::Vec3 farPoint = osg::Vec3(xNorm, yNorm, 1.0f) * iVP;
+    osg::Vec3 ray = farPoint - nearPoint;
+    osg::Vec3 groundPos = nearPoint - ray * nearPoint.z() / ray.z();
+    pos.setx(groundPos.x());
+    pos.sety(groundPos.y());
+    pos.setz(0.);
+    return true;
+}
+
+
+std::vector<GUIGlObject*>
+GUIOSGView::getGUIGlObjectsUnderCursor() {
+    std::vector<GUIGlObject*> result;
+    osgUtil::LineSegmentIntersector::Intersections intersections;
+    if (myViewer->computeIntersections(myViewer->getCamera(), osgUtil::Intersector::CoordinateFrame::PROJECTION, myOSGNormalizedCursorX, myOSGNormalizedCursorY, intersections)) {
+        for (auto intersection : intersections) {
+            if (!intersection.nodePath.empty()) {
+                // the object is identified by the ID stored in OSG
+                for (osg::Node* currentNode : intersection.nodePath) {
+                    if (currentNode->getName().length() > 0 && currentNode->getName().find(":") != std::string::npos) {
+                        const std::string objID = currentNode->getName();
+                        GUIGlObject* o = GUIGlObjectStorage::gIDStorage.getObjectBlocking(objID);
+                        // check that GUIGlObject exist
+                        if (o == nullptr) {
+                            continue;
+                        }
+                        // check that GUIGlObject isn't the network
+                        if (o->getGlID() == 0) {
+                            continue;
+                        }
+                        result.push_back(o);
+                        // unblock object
+                        GUIGlObjectStorage::gIDStorage.unblockObject(o->getGlID());
+                    }
+                }
+            }
+        }
+    }
+    return result;
+}
+
+
+GUILane*
+GUIOSGView::getLaneUnderCursor() {
+    std::vector<GUIGlObject*> objects = getGUIGlObjectsUnderCursor();
+    if (objects.size() > 0) {
+        return dynamic_cast<GUILane*>(objects[0]);
+    }
+    return nullptr;
+}
+
+
+void
+GUIOSGView::zoom2Pos(Position& camera, Position& lookAt, double zoom) {
+    osg::Vec3f lookFromOSG, lookAtOSG, viewAxis, up;
+    myCameraManipulator->getInverseMatrix().getLookAt(lookFromOSG, lookAtOSG, up);
+    lookFromOSG[0] = camera.x();
+    lookFromOSG[1] = camera.y();
+    lookFromOSG[2] = camera.z();
+    lookAtOSG[0] = lookAt.x();
+    lookAtOSG[1] = lookAt.y();
+    lookAtOSG[2] = lookAt.z();
+    viewAxis = lookAtOSG - lookFromOSG;
+    viewAxis.normalize();
+
+    // compute new camera and lookAt pos
+    osg::Vec3f cameraUpdate = lookFromOSG + viewAxis * (zoom - 100);
+    osg::Vec3f lookAtUpdate = cameraUpdate + viewAxis;
+
+    myViewer->getCameraManipulator()->setHomePosition(cameraUpdate, lookAtUpdate, up);
+    myViewer->home();
 }
 
 
@@ -731,6 +1062,25 @@ bool GUIOSGView::FXOSGAdapter::releaseContext() {
 
 void GUIOSGView::FXOSGAdapter::swapBuffersImplementation() {
     myParent->swapBuffers();
+}
+
+
+bool GUIOSGView::PickHandler::handle(const osgGA::GUIEventAdapter& ea, osgGA::GUIActionAdapter& /* aa */) {
+    if (ea.getEventType() == osgGA::GUIEventAdapter::DRAG) {
+        myDrag = true;
+    } else if (ea.getEventType() == osgGA::GUIEventAdapter::RELEASE && ea.getButton() == osgGA::GUIEventAdapter::RIGHT_MOUSE_BUTTON) {
+        if (!myDrag) {
+            if (myParent->makeCurrent()) {
+                std::vector<GUIGlObject*> objects = myParent->getGUIGlObjectsUnderCursor();
+                if (objects.size() > 0) {
+                    myParent->openObjectDialog(objects[0]);                   
+                }
+                myParent->makeNonCurrent();
+            }
+        }
+        myDrag = false;
+    }
+    return false;
 }
 
 

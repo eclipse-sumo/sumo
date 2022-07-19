@@ -72,3 +72,6 @@ ticket8791
 
 # complex junction in adlershof that must be joined
 ticket9062
+
+# faulty permissions leading to a faulty network (triggered by ptlines)
+ticket9701

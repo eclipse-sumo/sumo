@@ -1,0 +1,6 @@
+Warning: Intersecting left turns at junction 'J8' from lane '-E9_0' and lane '-E13_0' (increase junction radius to avoid this).
+Warning: Intersecting left turns at junction 'J8' from lane '-E14_0' and lane '-E10_0' (increase junction radius to avoid this).
+Warning: Intersecting left turns at junction 'J8' from lane '-E8_0' and lane '-E12_0' (increase junction radius to avoid this).
+Warning: Intersecting left turns at junction 'J8' from lane '-E9_0' and lane '-E13_0' (increase junction radius to avoid this).
+Warning: Intersecting left turns at junction 'J8' from lane '-E14_0' and lane '-E10_0' (increase junction radius to avoid this).
+Warning: 6 total messages of type: Intersecting left turns at junction '%' from lane '%' and lane '%' (increase junction radius to avoid this).

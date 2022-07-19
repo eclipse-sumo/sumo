@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-01-21 11:10:36 by Eclipse SUMO netedit Version v1_11_0+1358-7676868
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net.netconvert"/>
+    </input>
+
+    <output>
+        <output-file value="net.netconvert"/>
+        <plain-output-prefix value="/localdata2/debug/roundaboutPermissionBug/input_plain"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="true"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <report>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+-->
+
+<edges version="1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="-10" from="584" to="594" priority="1" type="driving" numLanes="2" speed="13.89" shape="8.23,-12.49 12.39,-7.96" width="3.50" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship"/>
+    <edge id="-11" from="594" to="524" priority="1" type="driving" numLanes="2" speed="13.89" shape="14.53,-1.42 14.44,1.45" width="3.50" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship"/>
+    <edge id="-14" from="678" to="685" priority="1" type="driving" numLanes="2" speed="13.89" shape="-14.02,-6.87 -11.16,-10.71" width="3.50" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship"/>
+    <edge id="-15" from="685" to="584" priority="1" type="driving" numLanes="2" speed="13.89" shape="-4.03,-15.01 1.18,-15.35" width="3.50" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship"/>
+    <edge id="-26" from="731" to="831" priority="1" type="driving" numLanes="2" speed="13.89" shape="-0.57,41.95 -1.20,33.64 -2.78,25.05" width="3.50" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship"/>
+    <edge id="-27" from="831" to="422" priority="1" type="driving" numLanes="1" speed="13.89" shape="-24.84,6.05 -31.84,1.96 -39.76,0.45 -44.68,1.10 -67.32,1.21" width="3.50" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship"/>
+    <edge id="-31" from="731" to="604" priority="1" type="driving" numLanes="2" speed="13.89" shape="2.36,43.96 2.55,51.78 2.69,57.65 2.84,63.52 2.98,69.39 3.13,75.26 3.27,81.13 3.42,87.00 3.56,92.87 3.71,98.73 3.85,104.60 4.00,110.47 4.14,116.34 4.38,126.12" width="3.50" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship"/>
+    <edge id="-39" from="524" to="831" priority="1" type="driving" numLanes="2" speed="13.89" shape="2.78,14.31 -2.25,14.57" width="3.50" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship"/>
+    <edge id="-41" from="831" to="678" priority="1" type="driving" numLanes="2" speed="13.89" shape="-14.91,3.91 -15.49,-1.84" width="3.50" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship"/>
+    <edge id="-8" from="257" to="524" priority="1" type="driving" numLanes="2" speed="13.89" shape="71.28,2.17 45.83,2.55 40.99,1.48 33.62,1.61 25.17,1.98" width="3.50" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship"/>
+    <edge id="16" from="524" to="731" priority="1" type="driving" numLanes="2" speed="13.89" shape="4.04,24.58 2.19,33.31 1.68,41.84" width="3.50" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship"/>
+    <edge id="17" from="685" to="106" priority="1" type="driving" numLanes="2" speed="13.89" shape="-5.48,-25.39 -4.35,-32.05 -3.78,-38.33 -4.82,-43.20 -4.32,-122.34" width="3.50" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship"/>
+    <edge id="31" from="604" to="731" priority="1" type="driving|driving|bidirectional" numLanes="3" shape="4.38,126.12 4.14,116.34 4.00,110.47 3.85,104.60 3.71,98.73 3.56,92.87 3.42,87.00 3.27,81.13 3.13,75.26 2.98,69.39 2.84,63.52 2.69,57.65 2.55,51.78 2.36,43.96" width="3.50" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship">
+        <lane index="0" speed="13.89" type="driving"/>
+        <lane index="1" speed="13.89" type="driving"/>
+        <lane index="2" speed="1.39" type="bidirectional"/>
+    </edge>
+    <edge id="33" from="106" to="584" priority="1" type="driving" numLanes="2" speed="13.89" shape="-4.32,-122.34 -4.82,-42.60 -1.35,-38.10 -0.46,-32.12 1.27,-25.86" width="3.50" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship"/>
+    <edge id="55" from="594" to="257" priority="1" type="driving" numLanes="2" speed="13.89" shape="25.19,-1.18 30.16,-0.81 35.41,-0.70 41.48,-0.75 45.04,2.56 71.28,2.17" width="3.50" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship"/>
+    <edge id="67" from="422" to="678" priority="1" type="driving" numLanes="1" speed="13.89" shape="-67.32,1.21 -43.26,1.09 -38.30,1.59 -32.29,0.63 -25.80,-1.87" width="3.50" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship"/>
+
+    <roundabout nodes="524 584 594 678 685 831" edges="-10 -11 -14 -15 -39 -41"/>
+
+</edges>

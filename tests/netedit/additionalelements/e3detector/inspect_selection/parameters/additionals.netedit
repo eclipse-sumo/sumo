@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-06-03 16:29:53 by Eclipse SUMO netedit Version v1_13_0+0610-e5b7f68bfcb
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- Detectors -->
+    <entryExitDetector id="entryExitDetector_A" name="A" pos="7.50,-2.00" period="100.00" file="entryExitDetector_00.txt">
+        <detEntry lane="gneE1_0" pos="5.00"/>
+        <detExit lane="gneE1_0" pos="25.00"/>
+        <param key="keyFinal1" value="value1"/>
+        <param key="keyFinal2" value="value2"/>
+        <param key="keyFinal3" value="value3"/>
+    </entryExitDetector>
+    <entryExitDetector id="entryExitDetector_B" name="B" pos="17.50,-2.00" period="120.00" file="entryExitDetector_00.txt" timeThreshold="2000" speedThreshold="3.39">
+        <detEntry lane="gneE1_0" pos="10.00"/>
+        <detExit lane="gneE1_0" pos="30.00"/>
+        <param key="keyFinal1" value="value1"/>
+        <param key="keyFinal2" value="value2"/>
+        <param key="keyFinal3" value="value3"/>
+    </entryExitDetector>
+</additional>

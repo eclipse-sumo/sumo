@@ -40,9 +40,9 @@ Once the vClass "bicycle" is chosen, the following parameters, which can still b
  - max. deceleration = 3 m/s^2
  - emergency deceleration = 7 m/s^2
  - Length = 1.6 m
- - max speed = 20 kmh where you can modify it by defining vClass specific speed limit (see the point in the Problems and worksarounds below)
+ - max speed = 20 kmh where you can modify it by defining vClass specific speed limit (see the point in the Problems and workarounds below)
 
-The vaules of some other parameters for bicycles are different from those for vehicles apparently. If no real data for the respective calibrations is available, some intuitive suggestions are listed below for reference.
+The values of some other parameters for bicycles are different from those for vehicles apparently. If no real data for the respective calibrations is available, some intuitive suggestions are listed below for reference.
 
 - latAlignment = "right" (cyclists ride on the right side of their lane)
 - carFollowModel = IDM (if smoothed acceleration is desired)
@@ -99,11 +99,11 @@ A bike lane is a lane which only permits the vClass *bicycle*. There are various
 ### Explicit specification of additional lanes
 
 Bike lanes may be defined explicitly in plain XML input when describing edges [edges
-(plain.edg.xml)](../Networks/PlainXML.md#lane-specific_definitions). This is done by defining an additional lane which only permits the vClass “bicycle” and setting the appropriate width. In this case it may be useful to disallow bicycles on other lanes. Also, any pre-exisiting connection definitions must be modified to account for the new bike lane. 
+(plain.edg.xml)](../Networks/PlainXML.md#lane-specific_definitions). This is done by defining an additional lane which only permits the vClass “bicycle” and setting the appropriate width. In this case it may be useful to disallow bicycles on other lanes. Also, any pre-existing connection definitions must be modified to account for the new bike lane. 
 
 ### Explicit specification of bike lanes
 
-Alternatively to the above method, the `<edge>`-attribute [`bikeLanWidth` may be used](../Networks/PlainXML.md#edge_descriptions). It will cause a bike lane of the specified width to be added to that edge, connections to be remapped and bicycle permissions to be removed from all other lanes.
+Alternatively to the above method, the `<edge>`-attribute [`bikeLaneWidth` may be used](../Networks/PlainXML.md#edge_descriptions). It will cause a bike lane of the specified width to be added to that edge, connections to be remapped and bicycle permissions to be removed from all other lanes.
 
 !!! note
     The heuristic methods described below, also perform automatic connection shifting and removal of bicycle permissions from non-bike lanes
@@ -160,8 +160,8 @@ In reality, left-turning bicycles may move in two stages:
 
 By default, [netconvert](../netconvert.md) generates a wide curve rather than going straight twice as above. Currently, this can only be remedied by setting [custom shapes for these internal lanes](../Netedit/index.md#connection). To adjust the waiting position of the bicycle (the point where the first stage ends), [connection attribute 'contPos' must be set](../Netedit/index.md#setting_connection_attributes).
 
-To define a controlled indirect turn where both stages respect the traffic light corresponding to the current movement direction another custom setting is needed. The first part of the left-turn connection will be controlled automatically by the traffic ligh according to the 'linkIndex' attribute of the connection.
-The second part can be controlled by [setting the optional attribute 'linkIndex2'](../Netedit/index.md#setting_connection_attributes). The easiest setup is to copy the linkIndex that controls the movement of vehicles (or pedestrians) going straight from right to left. In addition, parallel waiting of bicycles/motorpads in front of an intersection can be achived by activating the [Sublane-Model](../Simulation/SublaneModel.md). 
+To define a controlled indirect turn where both stages respect the traffic light corresponding to the current movement direction another custom setting is needed. The first part of the left-turn connection will be controlled automatically by the traffic light according to the 'linkIndex' attribute of the connection.
+The second part can be controlled by [setting the optional attribute 'linkIndex2'](../Netedit/index.md#setting_connection_attributes). The easiest setup is to copy the linkIndex that controls the movement of vehicles (or pedestrians) going straight from right to left. In addition, parallel waiting of bicycles/motorpads in front of an intersection can be achieved by activating the [Sublane-Model](../Simulation/SublaneModel.md). 
  
 Sometimes, bicycles/motorpads do not wait side by side properly. The following parameters can help to solve/improve this issue.
     

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -200,6 +200,8 @@ private:
         SVCPermissions changeRight;
         /// @brief custom speed for connection
         double speed;
+        /// @brief custom friction for connection
+        double friction;
         /// @brief custom length for connection
         double customLength;
         /// @brief custom shape connection
@@ -208,6 +210,8 @@ private:
         bool uncontrolled;
         /// @brief Whether this connection is an indirect left turn
         bool indirectLeft;
+        /// @brief optional edge type
+        std::string edgeType;
     };
 
 
@@ -218,6 +222,8 @@ private:
     public:
         /// @brief The maximum velocity allowed on this lane
         double maxSpeed;
+        /// @brief The friction on this lane
+        double friction;
         /// @brief This lane's shape (may be custom)
         PositionVector shape;
         /// @brief This lane's connections
@@ -235,7 +241,7 @@ private:
         /// @brief This lane's offset from the intersection
         double endOffset;
         /// @brief This lane's vehicle specific stop offsets
-        std::map<SVCPermissions, double> stopOffsets;
+        StopOffset laneStopOffset;
         /// @brief Whether this lane is an acceleration lane
         bool accelRamp;
         /// @brief This lane's opposite lane
@@ -272,6 +278,8 @@ private:
         int priority;
         /// @brief The maximum velocity allowed on this edge (!!!)
         double maxSpeed;
+        /// @brief The friction on this edge
+        //double friction;
         /// @brief This edge's lanes
         std::vector<LaneAttrs*> lanes;
         /// @brief The built edge
@@ -279,9 +287,11 @@ private:
         /// @brief The lane spread function
         LaneSpreadFunction lsf;
         /// @brief This edge's vehicle specific stop offsets (used for lanes, that do not have a specified stopOffset)
-        std::map<SVCPermissions, double> stopOffsets;
+        StopOffset edgeStopOffset;
         /// @brief The position at the start of this edge (kilometrage/mileage)
         double distance;
+        /// @brief the bidi edge
+        std::string bidi;
     };
 
 
@@ -414,6 +424,8 @@ private:
     bool myGeomAvoidOverlap;
     /// @brief higherSpeed  option for loaded network
     bool myJunctionsHigherSpeed;
+    /// @brief custom settings for internal junction computation
+    double myInternalJunctionsVehicleWidth;
 
     /// @brief loaded roundabout edges
     std::vector<std::vector<std::string> > myRoundabouts;

@@ -1,0 +1,3 @@
+-tp appdata=netedit.gui
+bugs/crossings/ticket3288
+bugs/ticket5552

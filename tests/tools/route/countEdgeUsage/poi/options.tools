@@ -1,0 +1,1 @@
+routes.rou.xml --output-file out.rou.xml tools/countEdgeUsage.py -n input_net.net.xml -p pois.add.xml

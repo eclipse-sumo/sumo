@@ -1,3 +1,8 @@
+<!--
+MkDocs version : {{ mkdocs_version }}
+Build Date UTC : {{ build_date_utc.strftime('%d %B %Y %H:%M:%S') }}
+{% if page and page.meta.revision_date %}Last edit: {{ page.meta.revision_date.strftime('%d %B %Y') }}{% endif %}
+-->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -179,6 +184,7 @@
                           <div class="dropdown-menu dropdown-menu-right">
                             <a class="dropdown-item no-arrow-link" href="https://github.com/eclipse/sumo/issues">Report a Bug / Issue / Typo</a>
                             <a class="dropdown-item" href="{{ 'Editing_Articles.html'|url }}">Help on editing articles</a>
+                            <a class="dropdown-item" href="https://github.com/eclipse/sumo/commits/main/docs/web">Recent documentation changes</a>
                             <a class="dropdown-item" href="#" data-toggle="modal" data-target="#mkdocs_keyboard_modal">Keyboard Shortcuts</a>
                             <a class="dropdown-item no-arrow-link" href="https://sumo.dlr.de/sumo_documentation.zip">Download the Documentation</a>
                             <span class="dropdown-item" id="dark-mode-div">Dark mode <label id="theme-switch" class="theme-switch" for="checkbox_theme">
@@ -197,7 +203,6 @@
                 <div class="col-md-3">
                   <div class="text-center"><a href="{{ 'index.html'|url }}" style="display: inline-block; margin-top: 5px;"><img src="{{'images/sumo-logo.png'|url}}" class="sumoLogo" alt="SUMO Logo" width="120px"></a></div>
                   {% include "toc.html" %}
-                  <!-- {% if page.is_homepage %}{% include "note.html" %}{% endif %} -->
                 </div>
                 <div class="col-md-9 main-area" role="main">
                   {% if page and not (page.is_top_level and page.is_index and page.file.url == "index.html") %} <!-- page.is_homepage seems to be broken in Mkdocs > 1.1.0 -->
@@ -279,9 +284,3 @@
       {%- include "keyboard-modal.html" %}
     </body>
 </html>
-{% if page and page.is_homepage %}
-<!--
-MkDocs version : {{ mkdocs_version }}
-Build Date UTC : {{ build_date_utc }}
--->
-{% endif %}

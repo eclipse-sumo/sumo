@@ -5,12 +5,18 @@ set(netedit_elements_network_SRCS
    GNEEdge.cpp
    GNELane.h
    GNELane.cpp
+   GNEEdgeTemplate.h
+   GNEEdgeTemplate.cpp
+   GNELaneTemplate.h
+   GNELaneTemplate.cpp
    GNEInternalLane.h
    GNEInternalLane.cpp
    GNEConnection.h
    GNEConnection.cpp
    GNECrossing.h
    GNECrossing.cpp
+   GNEWalkingArea.h
+   GNEWalkingArea.cpp
    GNEJunction.h
    GNEJunction.cpp
    GNEProhibition.h

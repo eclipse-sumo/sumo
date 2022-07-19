@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2008-2021 German Aerospace Center (DLR) and others.
+# Copyright (C) 2008-2022 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -23,7 +23,7 @@ This script is to
     traffic zones have the same connection links, and then
 (2) generate hourly matrices in VISUM format with an time series pattern (unified or user-defined).
 
-Traffic zones, whose demands are aggreagted into other traffic zones, will be set to have zero demand.
+Traffic zones, whose demands are aggregated into other traffic zones, will be set to have zero demand.
 A file containing combined zones will be generated as well.
 
 The demand aggregation helps to avoid small demands(e.g. < 0.5) being ignored when using od2trips to

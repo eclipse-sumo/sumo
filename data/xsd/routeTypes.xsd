@@ -49,6 +49,7 @@
         <xsd:attribute name="containerCapacity" type="xsd:nonNegativeInteger"/>
         <xsd:attribute name="boardingDuration" type="nonNegativeFloatType"/>
         <xsd:attribute name="loadingDuration" type="nonNegativeFloatType"/>
+        <xsd:attribute name="scale" type="nonNegativeFloatType"/>
         <xsd:attribute name="lcStrategic" type="xsd:float"/>
         <xsd:attribute name="lcCooperative" type="xsd:float"/>
         <xsd:attribute name="lcSpeedGain" type="xsd:float"/>
@@ -74,19 +75,9 @@
         <xsd:attribute name="lcLaneDiscipline" type="nonNegativeFloatType"/>
         <xsd:attribute name="lcSigma" type="nonNegativeFloatType"/>
         <xsd:attribute name="lcKeepRightAcceptanceTime" type="xsd:float"/>
+        <xsd:attribute name="lcOvertakeDeltaSpeedFactor" type="xsd:float"/>
         <xsd:attribute name="maxSpeedLat" type="positiveFloatType"/>
-        <xsd:attribute name="latAlignment">
-            <xsd:simpleType>
-                <xsd:restriction base="xsd:string">
-                    <xsd:enumeration value="right"/>
-                    <xsd:enumeration value="center"/>
-                    <xsd:enumeration value="arbitrary"/>
-                    <xsd:enumeration value="nice"/>
-                    <xsd:enumeration value="compact"/>
-                    <xsd:enumeration value="left"/>
-                </xsd:restriction>
-            </xsd:simpleType> 
-        </xsd:attribute>
+        <xsd:attribute name="latAlignment" type="latAlignmentType"/>
         <xsd:attribute name="actionStepLength" type="positiveFloatType"/>
         <xsd:attribute name="hasDriverState" type="boolType"/>
         <xsd:attribute name="minGapLat" type="nonNegativeFloatType"/>
@@ -97,6 +88,7 @@
         <xsd:attribute name="jmIgnoreKeepClearTime" type="nonNegativeFloatTypeWithErrorValue"/>
         <xsd:attribute name="jmIgnoreFoeSpeed" type="nonNegativeFloatType"/>
         <xsd:attribute name="jmIgnoreFoeProb" type="nonNegativeFloatType"/>
+        <xsd:attribute name="jmIgnoreJunctionFoeProb" type="nonNegativeFloatType"/>
         <xsd:attribute name="jmSigmaMinor">
             <xsd:simpleType>
                 <xsd:restriction base="xsd:float">
@@ -115,6 +107,7 @@
                 </xsd:restriction>
             </xsd:simpleType>
         </xsd:attribute>
+        <xsd:attribute name="sigmaStep" type="positiveFloatType"/>
         <xsd:attribute name="impatience">
             <xsd:simpleType>
                 <xsd:union memberTypes="xsd:float">
@@ -236,19 +229,12 @@
         <xsd:attribute name="Mbegin" type="positiveFloatType"/>
         <xsd:attribute name="vehdynamics" type="boolType"/>
         <xsd:attribute name="maxvehpreview" type="positiveIntType"/>
+        <xsd:attribute name="startupDelay" type="nonNegativeFloatType"/>
     </xsd:complexType>
 
     <xsd:complexType name="cfIDMType">
         <xsd:attribute name="accel" type="positiveFloatType"/>
         <xsd:attribute name="decel" type="positiveFloatType"/>
-        <xsd:attribute name="sigma">
-            <xsd:simpleType>
-                <xsd:restriction base="xsd:float">
-                    <xsd:maxInclusive value="1"/>
-                    <xsd:minInclusive value="0"/>
-                </xsd:restriction>
-            </xsd:simpleType>
-        </xsd:attribute>
         <xsd:attribute name="tau" type="nonNegativeFloatType"/>
         <xsd:attribute name="delta" type="xsd:float"/>
         <xsd:attribute name="stepping" type="positiveFloatType"/>
@@ -257,14 +243,6 @@
     <xsd:complexType name="cfIDMMType">
         <xsd:attribute name="accel" type="positiveFloatType"/>
         <xsd:attribute name="decel" type="positiveFloatType"/>
-        <xsd:attribute name="sigma">
-            <xsd:simpleType>
-                <xsd:restriction base="xsd:float">
-                    <xsd:maxInclusive value="1"/>
-                    <xsd:minInclusive value="0"/>
-                </xsd:restriction>
-            </xsd:simpleType>
-        </xsd:attribute>
         <xsd:attribute name="tau" type="nonNegativeFloatType"/>
         <xsd:attribute name="adaptTime" type="xsd:float"/>
         <xsd:attribute name="adaptFactor" type="xsd:float"/>
@@ -312,6 +290,7 @@
                 </xsd:restriction>
             </xsd:simpleType>
         </xsd:attribute>
+        <xsd:attribute name="sigmaStep" type="positiveFloatType"/>
         <xsd:attribute name="tau" type="nonNegativeFloatType"/>
     </xsd:complexType>
 
@@ -326,6 +305,7 @@
                 </xsd:restriction>
             </xsd:simpleType>
         </xsd:attribute>
+        <xsd:attribute name="sigmaStep" type="positiveFloatType"/>
         <xsd:attribute name="tau" type="nonNegativeFloatType"/>
         <xsd:attribute name="tmp1" type="xsd:float"/>
         <xsd:attribute name="tmp2" type="xsd:float"/>
@@ -369,14 +349,6 @@
     <xsd:complexType name="cfWiedemannType">
         <xsd:attribute name="accel" type="positiveFloatType"/>
         <xsd:attribute name="decel" type="positiveFloatType"/>
-        <xsd:attribute name="sigma">
-            <xsd:simpleType>
-                <xsd:restriction base="xsd:float">
-                    <xsd:maxInclusive value="1"/>
-                    <xsd:minInclusive value="0"/>
-                </xsd:restriction>
-            </xsd:simpleType>
-        </xsd:attribute>
         <xsd:attribute name="tau" type="nonNegativeFloatType"/>
         <xsd:attribute name="security" type="xsd:float"/>
         <xsd:attribute name="estimation" type="xsd:float"/>
@@ -397,14 +369,6 @@
     <xsd:complexType name="cfACCType">
         <xsd:attribute name="accel" type="positiveFloatType"/>
         <xsd:attribute name="decel" type="positiveFloatType"/>
-        <xsd:attribute name="sigma">
-            <xsd:simpleType>
-                <xsd:restriction base="xsd:float">
-                    <xsd:maxInclusive value="1"/>
-                    <xsd:minInclusive value="0"/>
-                </xsd:restriction>
-            </xsd:simpleType>
-        </xsd:attribute>
         <xsd:attribute name="speedControlGain" type="xsd:float"/>
         <xsd:attribute name="gapClosingControlGainSpeed" type="xsd:float"/>
         <xsd:attribute name="gapClosingControlGainSpace" type="xsd:float"/>
@@ -499,6 +463,7 @@
         <xsd:attribute name="personNumber" type="xsd:nonNegativeInteger"/>
         <xsd:attribute name="containerNumber" type="xsd:nonNegativeInteger"/>
         <xsd:attribute name="speedFactor" type="positiveFloatType"/>
+        <xsd:attribute name="insertionChecks" type="xsd:string"/>
     </xsd:complexType>
 
     <xsd:complexType name="flowWithoutIDType">
@@ -520,7 +485,7 @@
         <xsd:attribute name="type" type="xsd:string"/>
         <xsd:attribute name="begin" type="timeType"/>
         <xsd:attribute name="end" type="timeType"/>
-        <xsd:attribute name="period" type="timeType"/>
+        <xsd:attribute name="period" type="periodType"/>
         <xsd:attribute name="vehsPerHour" type="nonNegativeFloatType"/>
         <xsd:attribute name="perHour" type="nonNegativeFloatType"/>
         <xsd:attribute name="probability" type="nonNegativeFloatType"/>
@@ -538,6 +503,7 @@
         <xsd:attribute name="personNumber" type="xsd:nonNegativeInteger"/>
         <xsd:attribute name="containerNumber" type="xsd:nonNegativeInteger"/>
         <xsd:attribute name="speedFactor" type="positiveFloatType"/>
+        <xsd:attribute name="insertionChecks" type="xsd:string"/>
     </xsd:complexType>
 
     <xsd:complexType name="flowIntervalType">
@@ -551,7 +517,7 @@
     <xsd:complexType name="flowCalibratorType">
         <xsd:complexContent>
             <xsd:extension base="flowWithoutIDType">
-                <xsd:attribute name="speed" type="nonNegativeFloatType"/>
+                <xsd:attribute name="speed" type="nonNegativeFloatTypeWithErrorValue"/>
             </xsd:extension>
         </xsd:complexContent>
     </xsd:complexType>
@@ -606,6 +572,7 @@
         <xsd:attribute name="personNumber" type="xsd:nonNegativeInteger"/>
         <xsd:attribute name="containerNumber" type="xsd:nonNegativeInteger"/>
         <xsd:attribute name="speedFactor" type="positiveFloatType"/>
+        <xsd:attribute name="insertionChecks" type="xsd:string"/>
     </xsd:complexType>
 
     <xsd:complexType name="routeType">
@@ -675,6 +642,23 @@
                     <xsd:enumeration value="max"/>
                     <xsd:enumeration value="desired"/>
                     <xsd:enumeration value="speedLimit"/>
+                    <xsd:enumeration value="last"/>
+                    <xsd:enumeration value="avg"/>
+                </xsd:restriction>
+            </xsd:simpleType> 
+        </xsd:union>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="latAlignmentType">
+        <xsd:union memberTypes="xsd:float">
+            <xsd:simpleType>
+                <xsd:restriction base="xsd:string">
+                    <xsd:enumeration value="right"/>
+                    <xsd:enumeration value="center"/>
+                    <xsd:enumeration value="arbitrary"/>
+                    <xsd:enumeration value="nice"/>
+                    <xsd:enumeration value="compact"/>
+                    <xsd:enumeration value="left"/>
                 </xsd:restriction>
             </xsd:simpleType> 
         </xsd:union>
@@ -766,6 +750,7 @@
         <xsd:attribute name="repeat" type="xsd:nonNegativeInteger"/>
         <xsd:attribute name="cycleTime" type="timeType"/>
         <xsd:attribute name="probability" type="xsd:float" use="optional"/>
+        <xsd:attribute name="routeLength" type="nonNegativeFloatType" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="routeDistRouteType">
@@ -782,7 +767,9 @@
         <xsd:attribute name="refId" type="xsd:string"/>
         <xsd:attribute name="reason" type="xsd:string"/>
         <xsd:attribute name="replacedOnEdge" type="xsd:string"/>
+        <xsd:attribute name="replacedOnIndex" type="nonNegativeFloatTypeWithErrorValue"/>
         <xsd:attribute name="replacedAtTime" type="nonNegativeFloatType"/>
+        <xsd:attribute name="routeLength" type="nonNegativeFloatType" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="stopType">
@@ -818,6 +805,7 @@
         <xsd:attribute name="priorEdgesLength" type="xsd:float"/>
         <xsd:attribute name="started" type="timeTypeWithErrorValue"/>
         <xsd:attribute name="ended" type="timeTypeWithErrorValue"/>
+        <xsd:attribute name="onDemand" type="boolType"/>
         <!-- save-state backward compatibility -->
         <xsd:attribute name="actualArrival" type="timeType"/>
         <xsd:attribute name="depart" type="timeType"/>
@@ -862,7 +850,7 @@
             <xsd:extension base="personBaseType">
                 <xsd:attribute name="begin" type="personDepartType"/>
                 <xsd:attribute name="end" type="timeType"/>
-                <xsd:attribute name="period" type="timeType"/>
+                <xsd:attribute name="period" type="periodType"/>
                 <xsd:attribute name="personsPerHour" type="nonNegativeFloatType"/>
                 <xsd:attribute name="perHour" type="nonNegativeFloatType"/>
                 <xsd:attribute name="probability" type="nonNegativeFloatType"/>
@@ -960,6 +948,7 @@
         <xsd:attribute name="color" type="colorType"/>
         <xsd:attribute name="modes" type="xsd:string"/>
         <xsd:attribute name="vTypes" type="xsd:string"/>
+        <xsd:attribute name="speedFactor" type="positiveFloatType"/>
     </xsd:complexType>
 
     <xsd:complexType name="containerType">
@@ -975,7 +964,7 @@
             <xsd:extension base="containerBaseType">
                 <xsd:attribute name="begin" type="personDepartType"/>
                 <xsd:attribute name="end" type="timeType"/>
-                <xsd:attribute name="period" type="timeType"/>
+                <xsd:attribute name="period" type="periodType"/>
                 <xsd:attribute name="containersPerHour" type="nonNegativeFloatType"/>
                 <xsd:attribute name="perHour" type="nonNegativeFloatType"/>
                 <xsd:attribute name="probability" type="nonNegativeFloatType"/>

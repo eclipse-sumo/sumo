@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -43,14 +43,14 @@ FXDEFMAP(GNEMatchGenericDataAttribute) GNEMatchGenericDataAttributeMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNEMatchGenericDataAttribute, FXGroupBox, GNEMatchGenericDataAttributeMap, ARRAYNUMBER(GNEMatchGenericDataAttributeMap))
+FXIMPLEMENT(GNEMatchGenericDataAttribute, FXGroupBoxModule, GNEMatchGenericDataAttributeMap, ARRAYNUMBER(GNEMatchGenericDataAttributeMap))
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
 
 GNEMatchGenericDataAttribute::GNEMatchGenericDataAttribute(GNEElementSet* elementSet, SumoXMLTag defaultTag, SumoXMLAttr defaultAttr, const std::string& defaultValue) :
-    FXGroupBox(elementSet->getSelectorFrameParent()->getContentFrame(), "Match GenericData Attribute", GUIDesignGroupBoxFrame),
+    FXGroupBoxModule(elementSet->getSelectorFrameParent(), "Match GenericData Attribute"),
     myElementSet(elementSet),
     myIntervalSelector(nullptr),
     myBegin(nullptr),
@@ -60,21 +60,21 @@ GNEMatchGenericDataAttribute::GNEMatchGenericDataAttribute(GNEElementSet* elemen
     myCurrentTag(defaultTag),
     myCurrentAttribute(toString(defaultAttr)),
     myMatchGenericDataString(nullptr) {
-    // Create MatchGenericDataTagBox for tags
-    new FXLabel(this, "Interval [begin, end]", nullptr, GUIDesignLabelThick);
-    myIntervalSelector = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_SELECTORFRAME_SETINTERVAL, GUIDesignComboBoxStaticExtended);
+    // Create MFXIconComboBox for interval
+    new FXLabel(getCollapsableFrame(), "Interval [begin, end]", nullptr, GUIDesignLabelThick);
+    myIntervalSelector = new MFXIconComboBox(getCollapsableFrame(), GUIDesignComboBoxNCol, true, this, MID_GNE_SELECTORFRAME_SETINTERVAL, GUIDesignComboBoxStaticExtended);
     // Create textfield for begin and end
-    FXHorizontalFrame* myHorizontalFrameBeginEnd = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    FXHorizontalFrame* myHorizontalFrameBeginEnd = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     myBegin = new FXTextField(myHorizontalFrameBeginEnd, GUIDesignTextFieldNCol, this, MID_GNE_SELECTORFRAME_SETBEGIN, GUIDesignTextField);
     myEnd = new FXTextField(myHorizontalFrameBeginEnd, GUIDesignTextFieldNCol, this, MID_GNE_SELECTORFRAME_SETEND, GUIDesignTextField);
-    // Create MatchGenericDataTagBox myHorizontalFrameEnd tags
-    myMatchGenericDataTagComboBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_SELECTORFRAME_SELECTTAG, GUIDesignComboBox);
+    // Create MFXIconComboBox for generic datas
+    myMatchGenericDataTagComboBox = new MFXIconComboBox(getCollapsableFrame(), GUIDesignComboBoxNCol, true, this, MID_GNE_SELECTORFRAME_SELECTTAG, GUIDesignComboBox);
     // Create listBox for Attributes
-    myMatchGenericDataAttrComboBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_SELECTORFRAME_SELECTATTRIBUTE, GUIDesignComboBox);
+    myMatchGenericDataAttrComboBox = new FXComboBox(getCollapsableFrame(), GUIDesignComboBoxNCol, this, MID_GNE_SELECTORFRAME_SELECTATTRIBUTE, GUIDesignComboBox);
     // Create TextField for MatchGenericData string
-    myMatchGenericDataString = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SELECTORFRAME_PROCESSSTRING, GUIDesignTextField);
+    myMatchGenericDataString = new FXTextField(getCollapsableFrame(), GUIDesignTextFieldNCol, this, MID_GNE_SELECTORFRAME_PROCESSSTRING, GUIDesignTextField);
     // Create help button
-    new FXButton(this, "Help", nullptr, this, MID_HELP, GUIDesignButtonRectangular);
+    new FXButton(getCollapsableFrame(), "Help", nullptr, this, MID_HELP, GUIDesignButtonRectangular);
     // Fill list of sub-items (first element will be "edge")
     enableMatchGenericDataAttribute();
     // Set speed of edge as default attribute
@@ -93,7 +93,7 @@ GNEMatchGenericDataAttribute::enableMatchGenericDataAttribute() {
     // first drop intervals
     myIntervals.clear();
     // iterate over all data sets
-    for (const auto& dataSet : myElementSet->getSelectorFrameParent()->getViewNet()->getNet()->retrieveDataSets()) {
+    for (const auto& dataSet : myElementSet->getSelectorFrameParent()->getViewNet()->getNet()->getAttributeCarriers()->getDataSets()) {
         for (const auto& dataInterval : dataSet->getDataIntervalChildren()) {
             myIntervals[std::make_pair(dataInterval.second->getAttributeDouble(SUMO_ATTR_BEGIN), dataInterval.second->getAttributeDouble(SUMO_ATTR_END))] = -1;
         }
@@ -113,7 +113,7 @@ GNEMatchGenericDataAttribute::enableMatchGenericDataAttribute() {
         myIntervalSelector->clearItems();
         // fill combo Box
         for (auto& interval : myIntervals) {
-            interval.second = myIntervalSelector->appendItem((" [" + toString(interval.first.first) + "," + toString(interval.first.second) + "]").c_str());
+            interval.second = myIntervalSelector->appendIconItem((" [" + toString(interval.first.first) + "," + toString(interval.first.second) + "]").c_str(), GUIIconSubSys::getIcon(GUIIcon::DATAINTERVAL));
         }
         // set number of visible items
         if (myIntervalSelector->getNumItems() < 10) {
@@ -129,10 +129,12 @@ GNEMatchGenericDataAttribute::enableMatchGenericDataAttribute() {
         myEnd->setText(toString(myIntervals.begin()->first.second).c_str());
         myEnd->setTextColor(FXRGB(0, 0, 0));
         // get generic datas
-        const auto genericDataTags = GNEAttributeCarrier::getAllowedTagPropertiesByCategory(GNETagProperties::TagType::GENERICDATA, true);
-        // fill combo box
+        const auto genericDataTags = GNEAttributeCarrier::getTagPropertiesByType(GNETagProperties::TagType::GENERICDATA);
+        // fill combo box (only with drawable elements)
         for (const auto& genericDataTag : genericDataTags) {
-            myMatchGenericDataTagComboBox->appendItem(genericDataTag.second.c_str());
+            if (genericDataTag.isDrawable()) {
+                myMatchGenericDataTagComboBox->appendIconItem(genericDataTag.getFieldString().c_str(), GUIIconSubSys::getIcon(genericDataTag.getGUIIcon()));
+            }
         }
         // set first item as current item
         myMatchGenericDataTagComboBox->setCurrentItem(0);
@@ -161,7 +163,7 @@ GNEMatchGenericDataAttribute::disableMatchGenericDataAttribute() {
 
 void
 GNEMatchGenericDataAttribute::showMatchGenericDataAttribute() {
-    // just show Modul
+    // just show Module
     show();
 }
 
@@ -197,6 +199,8 @@ GNEMatchGenericDataAttribute::onCmdSetBegin(FXObject*, FXSelector, void*) {
     // check if can be parsed to double
     if (GNEAttributeCarrier::canParse<double>(myBegin->getText().text()) &&
             GNEAttributeCarrier::canParse<double>(myEnd->getText().text())) {
+        // set value in double format
+        myBegin->setText(toString(GNEAttributeCarrier::parse<double>(myBegin->getText().text())).c_str());
         // set valid color text and kill focus
         myBegin->setTextColor(FXRGB(0, 0, 0));
         myBegin->killFocus();
@@ -223,6 +227,8 @@ GNEMatchGenericDataAttribute::onCmdSetEnd(FXObject*, FXSelector, void*) {
     // check if can be parsed to double
     if (GNEAttributeCarrier::canParse<double>(myBegin->getText().text()) &&
             GNEAttributeCarrier::canParse<double>(myEnd->getText().text())) {
+        // set value in double format
+        myEnd->setText(toString(GNEAttributeCarrier::parse<double>(myEnd->getText().text())).c_str());
         // set valid color text and kill focus
         myEnd->setTextColor(FXRGB(0, 0, 0));
         myEnd->killFocus();
@@ -249,11 +255,11 @@ GNEMatchGenericDataAttribute::onCmdSelectTag(FXObject*, FXSelector, void*) {
     // First check what type of elementes is being selected
     myCurrentTag = SUMO_TAG_NOTHING;
     // get generic data tags
-    const auto listOfTags = GNEAttributeCarrier::getAllowedTagPropertiesByCategory(GNETagProperties::TagType::GENERICDATA, true);
+    const auto listOfTags = GNEAttributeCarrier::getTagPropertiesByType(GNETagProperties::TagType::GENERICDATA);
     // fill myMatchGenericDataTagComboBox
     for (const auto& genericDataTag : listOfTags) {
-        if (genericDataTag.second == myMatchGenericDataTagComboBox->getText().text()) {
-            myCurrentTag = genericDataTag.first.getTag();
+        if (genericDataTag.isDrawable() && (genericDataTag.getFieldString() == myMatchGenericDataTagComboBox->getText().text())) {
+            myCurrentTag = genericDataTag.getTag();
         }
     }
     // check that typed-by-user value is correct
@@ -262,7 +268,7 @@ GNEMatchGenericDataAttribute::onCmdSelectTag(FXObject*, FXSelector, void*) {
         const double begin = GNEAttributeCarrier::parse<double>(myBegin->getText().text());
         const double end = GNEAttributeCarrier::parse<double>(myEnd->getText().text());
         // obtain all Generic Data attributes for current generic tag
-        auto attributes = myElementSet->getSelectorFrameParent()->getViewNet()->getNet()->retrieveGenericDataParameters(toString(myCurrentTag), begin, end);
+        const auto attributes = myElementSet->getSelectorFrameParent()->getViewNet()->getNet()->getAttributeCarriers()->retrieveGenericDataParameters(toString(myCurrentTag), begin, end);
         // set color and enable items
         myMatchGenericDataTagComboBox->setTextColor(FXRGB(0, 0, 0));
         myMatchGenericDataAttrComboBox->enable();
@@ -290,10 +296,9 @@ GNEMatchGenericDataAttribute::onCmdSelectTag(FXObject*, FXSelector, void*) {
 long
 GNEMatchGenericDataAttribute::onCmdSelectAttribute(FXObject*, FXSelector, void*) {
     // obtain all Generic Data attributes for current generic tag
-    std::set<std::string> attributes = myElementSet->getSelectorFrameParent()->getViewNet()->getNet()->retrieveGenericDataParameters(
-                                           toString(myCurrentTag),
-                                           GNEAttributeCarrier::parse<double>(myBegin->getText().text()),
-                                           GNEAttributeCarrier::parse<double>(myEnd->getText().text()));
+    auto attributes = myElementSet->getSelectorFrameParent()->getViewNet()->getNet()->getAttributeCarriers()->retrieveGenericDataParameters(
+                          toString(myCurrentTag), GNEAttributeCarrier::parse<double>(myBegin->getText().text()),
+                          GNEAttributeCarrier::parse<double>(myEnd->getText().text()));
     // add extra data set parent attribute
     attributes.insert(toString(GNE_ATTR_DATASET));
     // clear current attribute
@@ -375,7 +380,7 @@ GNEMatchGenericDataAttribute::onCmdProcessString(FXObject*, FXSelector, void*) {
 long
 GNEMatchGenericDataAttribute::onCmdHelp(FXObject*, FXSelector, void*) {
     // Create dialog box
-    FXDialogBox* additionalNeteditAttributesHelpDialog = new FXDialogBox(this, "Netedit Parameters Help", GUIDesignDialogBox);
+    FXDialogBox* additionalNeteditAttributesHelpDialog = new FXDialogBox(getCollapsableFrame(), "Netedit Parameters Help", GUIDesignDialogBox);
     additionalNeteditAttributesHelpDialog->setIcon(GUIIconSubSys::getIcon(GUIIcon::MODEADDITIONAL));
     // set help text
     std::ostringstream help;

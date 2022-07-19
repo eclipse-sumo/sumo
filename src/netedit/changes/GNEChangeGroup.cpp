@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2006-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2006-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -37,17 +37,18 @@ FXIMPLEMENT(GNEChangeGroup, GNEChange, nullptr, 0)
 // GNEChangeGroup - methods
 // ---------------------------------------------------------------------------
 
-GNEChangeGroup::GNEChangeGroup(Supermode groupSupermode, const std::string &description) :
+GNEChangeGroup::GNEChangeGroup(Supermode groupSupermode, GUIIcon icon, const std::string& description) :
     myDescription(description),
     myGroupSupermode(groupSupermode),
-    undoList(nullptr), 
-    redoList(nullptr), 
-    group(nullptr)
-{ }
+    myIcon(icon),
+    undoList(nullptr),
+    redoList(nullptr),
+    group(nullptr) {
+}
 
 
 GNEChangeGroup::~GNEChangeGroup() {
-    register GNEChange *change;
+    GNEChange* change = nullptr;
     while (redoList) {
         change = redoList;
         redoList = redoList->next;
@@ -68,9 +69,15 @@ GNEChangeGroup::getDescription() {
 }
 
 
-Supermode 
+Supermode
 GNEChangeGroup::getGroupSupermode() const {
     return myGroupSupermode;
+}
+
+
+GUIIcon
+GNEChangeGroup::getGroupIcon() const {
+    return myIcon;
 }
 
 
@@ -87,14 +94,14 @@ GNEChangeGroup::redoName() const {
 
 
 bool
-GNEChangeGroup::empty() const { 
-    return (undoList == nullptr); 
+GNEChangeGroup::empty() const {
+    return (undoList == nullptr);
 }
 
 
 void
 GNEChangeGroup::undo() {
-    register GNEChange *change;
+    GNEChange* change = nullptr;
     while (undoList) {
         change = undoList;
         undoList = undoList->next;
@@ -105,8 +112,9 @@ GNEChangeGroup::undo() {
 }
 
 
-void GNEChangeGroup::redo() {
-    register GNEChange *change;
+void
+GNEChangeGroup::redo() {
+    GNEChange* change = nullptr;
     while (redoList) {
         change = redoList;
         redoList = redoList->next;
@@ -119,8 +127,8 @@ void GNEChangeGroup::redo() {
 
 int
 GNEChangeGroup::size() const {
-    register FXuint result = sizeof(GNEChangeGroup);
-    register GNEChange *change;
+    FXuint result = sizeof(GNEChangeGroup);
+    GNEChange* change;
     for (change = undoList; change; change = change->next) {
         result += change->size();
     }
@@ -133,7 +141,7 @@ GNEChangeGroup::size() const {
 
 GNEChangeGroup::GNEChangeGroup() :
     myGroupSupermode(Supermode::NETWORK),
-    undoList(nullptr), 
-    redoList(nullptr), 
+    undoList(nullptr),
+    redoList(nullptr),
     group(nullptr)
 { }

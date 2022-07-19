@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2012-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2012-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -134,12 +134,8 @@ public:
 
     private:
         EdgeVector myOrdering;
-
-    private:
-        /// @brief invalidated assignment operator
-        crossing_by_junction_angle_sorter& operator=(const crossing_by_junction_angle_sorter& s);
-
     };
+
     /** @brief Assures correct order for same-angle opposite-direction edges
      * @param[in] n The currently processed node
      * @param[in] i1 Pointer to first edge

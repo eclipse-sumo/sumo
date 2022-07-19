@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -33,7 +33,7 @@
 
 /**
  * @class GNETAZRelData
- * @brief An Element which don't belongs to GNENet but has influency in the simulation
+ * @brief An Element which don't belong to GNENet but has influence in the simulation
  */
 class GNETAZRelData : public GNEGenericData {
 
@@ -44,22 +44,22 @@ public:
      * @param[in] toTAZ pointer to to TAZ
      * @param[in] parameters parameters map
      */
-    GNETAZRelData(GNEDataInterval* dataIntervalParent, GNETAZElement* fromTAZ, GNETAZElement* toTAZ,
-                  const std::map<std::string, std::string>& parameters);
+    GNETAZRelData(GNEDataInterval* dataIntervalParent, GNEAdditional* fromTAZ, GNEAdditional* toTAZ,
+                  const Parameterised::Map& parameters);
 
     /**@brief Constructor for one TAZ
      * @param[in] dataIntervalParent pointer to data interval parent
      * @param[in] TAZ pointer to TAZ
      * @param[in] parameters parameters map
      */
-    GNETAZRelData(GNEDataInterval* dataIntervalParent, GNETAZElement* TAZ,
-                  const std::map<std::string, std::string>& parameters);
+    GNETAZRelData(GNEDataInterval* dataIntervalParent, GNEAdditional* TAZ,
+                  const Parameterised::Map& parameters);
 
     /// @brief Destructor
     ~GNETAZRelData();
 
     /// @brief get TAZ rel data color
-    const RGBColor& getColor() const;
+    void setColor(const GUIVisualizationSettings& s) const;
     double getColorValue(const GUIVisualizationSettings& s, int activeScheme) const;
 
     /// @brief check if current TAZ rel data is visible
@@ -73,7 +73,7 @@ public:
 
     /// @name members and functions relative to write data sets into XML
     /// @{
-    /**@brief writte data set element into a xml file
+    /**@brief write data set element into a xml file
      * @param[in] device device in which write parameters of data set element
      */
     void writeGenericData(OutputDevice& device) const;
@@ -96,6 +96,9 @@ public:
      * @see GUIGlObject::drawGL
      */
     void drawGL(const GUIVisualizationSettings& s) const;
+
+    /// @brief return exaggeration associated with this GLObject
+    double getExaggeration(const GUIVisualizationSettings& s) const;
 
     //// @brief Returns the boundary to which the view shall be centered in order to show the object
     Boundary getCenteringBoundary() const;
@@ -155,24 +158,10 @@ public:
 
     /**@brief method for checking if the key and their conrrespond attribute are valids
      * @param[in] key The attribute key
-     * @param[in] value The value asociated to key key
+     * @param[in] value The value associated to key key
      * @return true if the value is valid, false in other case
      */
     bool isValid(SumoXMLAttr key, const std::string& value);
-
-    /* @brief method for enable attribute
-     * @param[in] key The attribute key
-     * @param[in] undoList The undoList on which to register changes
-     * @note certain attributes can be only enabled, and can produce the disabling of other attributes
-     */
-    void enableAttribute(SumoXMLAttr key, GNEUndoList* undoList);
-
-    /* @brief method for disable attribute
-     * @param[in] key The attribute key
-     * @param[in] undoList The undoList on which to register changes
-     * @note certain attributes can be only enabled, and can produce the disabling of other attributes
-     */
-    void disableAttribute(SumoXMLAttr key, GNEUndoList* undoList);
 
     /* @brief method for check if the value for certain attribute is set
      * @param[in] key The attribute key
@@ -188,10 +177,13 @@ public:
 
 protected:
     /// @brief Geometry for TAZRel data
-    GNEGeometry::Geometry myTAZRelGeometry;
+    GUIGeometry myTAZRelGeometry;
 
-    /// @brief Geometry for TAZRel (center)
-    GNEGeometry::Geometry myTAZRelGeometryCenter;
+    /// @brief Geometry for TAZRel data (center)
+    GUIGeometry myTAZRelGeometryCenter;
+
+    /// @brief TAZRel data width
+    mutable double myLastWidth;
 
 private:
     /// @brief check draw conditions
@@ -200,18 +192,14 @@ private:
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)
     void setAttribute(SumoXMLAttr key, const std::string& value);
 
-    /// @brief method for enabling the attribute and nothing else (used in GNEChange_EnableAttribute)
-    void setEnabledAttribute(const int enabledAttributes);
+    /// @brief sets the color according to the current scheme index and some tazRel function
+    bool setFunctionalColor(int activeScheme, RGBColor& col) const;
 
     /// @brief Invalidated copy constructor.
     GNETAZRelData(const GNETAZRelData&) = delete;
 
     /// @brief Invalidated assignment operator.
     GNETAZRelData& operator=(const GNETAZRelData&) = delete;
-
-    mutable RGBColor myColor;
-
-    mutable double myLastWidth;
 };
 
 /****************************************************************************/

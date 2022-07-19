@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -94,7 +94,7 @@
 // member method definitions
 // ===========================================================================
 MSLCM_LC2013::MSLCM_LC2013(MSVehicle& v) :
-    MSAbstractLaneChangeModel(v, LCM_LC2013),
+    MSAbstractLaneChangeModel(v, LaneChangeModel::LC2013),
     mySpeedGainProbability(0),
     myKeepRightProbability(0),
     myLeadingBlockerLength(0),
@@ -111,8 +111,8 @@ MSLCM_LC2013::MSLCM_LC2013(MSVehicle& v) :
     mySpeedGainLookahead(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_SPEEDGAIN_LOOKAHEAD, 0)),
     myRoundaboutBonus(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_COOPERATIVE_ROUNDABOUT, myCooperativeParam)),
     myCooperativeSpeed(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_COOPERATIVE_SPEED, myCooperativeParam)),
-    myOvertakeRightParam(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_OVERTAKE_RIGHT, 0)),
     myKeepRightAcceptanceTime(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_KEEPRIGHT_ACCEPTANCE_TIME, -1)),
+    myOvertakeDeltaSpeedFactor(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_OVERTAKE_DELTASPEED_FACTOR, 0)),
     myExperimentalParam1(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_EXPERIMENTAL1, 0)) {
     initDerivedParameters();
 #ifdef DEBUG_CONSTRUCTOR
@@ -135,8 +135,13 @@ MSLCM_LC2013::~MSLCM_LC2013() {
 
 void
 MSLCM_LC2013::initDerivedParameters() {
-    myChangeProbThresholdRight = (0.2 / mySpeedGainRight) / MAX2(NUMERICAL_EPS, mySpeedGainParam);
-    myChangeProbThresholdLeft = 0.2 / MAX2(NUMERICAL_EPS, mySpeedGainParam);
+    if (mySpeedGainParam <= 0) {
+        myChangeProbThresholdRight = std::numeric_limits<double>::max();
+        myChangeProbThresholdLeft = std::numeric_limits<double>::max();
+    } else {
+        myChangeProbThresholdRight = (0.2 / mySpeedGainRight) / mySpeedGainParam;
+        myChangeProbThresholdLeft = 0.2 / mySpeedGainParam;
+    }
 }
 
 
@@ -220,16 +225,16 @@ MSLCM_LC2013::patchSpeed(const double min, const double wanted, const double max
 
 
 double
-MSLCM_LC2013::_patchSpeed(const double min, const double wanted, const double max, const MSCFModel& cfModel) {
+MSLCM_LC2013::_patchSpeed(double min, const double wanted, double max, const MSCFModel& cfModel) {
     int state = myOwnState;
 #ifdef DEBUG_PATCH_SPEED
     if (DEBUG_COND) {
         std::cout
                 << "\n" << SIMTIME << std::setprecision(gPrecision)
                 << " patchSpeed state=" << toString((LaneChangeAction)state) << " myLCAccelerationAdvices=" << toString(myLCAccelerationAdvices)
-                << " \nspeed=" << myVehicle.getSpeed()
-                << " min=" << min
-                << " wanted=" << wanted << std::endl;
+                << "\n  speed=" << myVehicle.getSpeed() << " min=" << min << " wanted=" << wanted
+                << "\n  myLeadingBlockerLength=" << myLeadingBlockerLength
+                << "\n";
     }
 #endif
 
@@ -242,15 +247,23 @@ MSLCM_LC2013::_patchSpeed(const double min, const double wanted, const double ma
         double space = myLeftSpace - myLeadingBlockerLength - MAGIC_offset - myVehicle.getVehicleType().getMinGap();
 #ifdef DEBUG_PATCH_SPEED
         if (DEBUG_COND) {
-            std::cout << SIMTIME << " veh=" << myVehicle.getID() << " myLeadingBlockerLength=" << myLeadingBlockerLength << " space=" << space << "\n";
+            std::cout << SIMTIME << " veh=" << myVehicle.getID() << " myLeftSpace=" << myLeftSpace << " myLeadingBlockerLength=" << myLeadingBlockerLength << " space=" << space << "\n";
         }
 #endif
         if (space > 0) { // XXX space > -MAGIC_offset
             // compute speed for decelerating towards a place which allows the blocking leader to merge in in front
             double safe = cfModel.stopSpeed(&myVehicle, myVehicle.getSpeed(), space);
+            max = MIN2(max, safe);
             // if we are approaching this place
             if (safe < wanted) {
                 // return this speed as the speed to use
+                if (safe < min) {
+                    const double vMinEmergency = myVehicle.getCarFollowModel().minNextSpeedEmergency(myVehicle.getSpeed(), &myVehicle);
+                    if (safe >= vMinEmergency) {
+                        // permit harder braking if needed and helpful
+                        min = MAX2(vMinEmergency, safe);
+                    }
+                }
 #ifdef DEBUG_PATCH_SPEED
                 if (DEBUG_COND) {
                     std::cout << SIMTIME << " veh=" << myVehicle.getID() << " slowing down for leading blocker, safe=" << safe << (safe + NUMERICAL_EPS < min ? " (not enough)" : "") << "\n";
@@ -297,8 +310,8 @@ MSLCM_LC2013::_patchSpeed(const double min, const double wanted, const double ma
             }
         }
     }
-
-    if (gotOne && !myDontBrake) { // XXX: myDontBrake is initialized as false and seems not to be changed anywhere... What's its purpose???
+    // myDontBrake is used in counter-lane-change situations with relief connection
+    if (gotOne && !myDontBrake) {
 #ifdef DEBUG_PATCH_SPEED
         if (DEBUG_COND) {
             std::cout << SIMTIME << " veh=" << myVehicle.getID() << " got vSafe\n";
@@ -449,8 +462,11 @@ MSLCM_LC2013::informLeader(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
                            int dir,
                            const std::pair<MSVehicle*, double>& neighLead,
                            double remainingSeconds) {
-    double plannedSpeed = MIN2(myVehicle.getSpeed(),
-                               myVehicle.getCarFollowModel().stopSpeed(&myVehicle, myVehicle.getSpeed(), myLeftSpace - myLeadingBlockerLength));
+    double plannedSpeed = myVehicle.getSpeed();
+    if (!isOpposite()) {
+        plannedSpeed = MIN2(plannedSpeed,
+                            myVehicle.getCarFollowModel().stopSpeed(&myVehicle, myVehicle.getSpeed(), myLeftSpace - myLeadingBlockerLength));
+    }
     for (std::vector<double>::const_iterator i = myLCAccelerationAdvices.begin(); i != myLCAccelerationAdvices.end(); ++i) {
         const double a = *i;
         if (a >= -myVehicle.getCarFollowModel().getMaxDecel()) {
@@ -488,7 +504,7 @@ MSLCM_LC2013::informLeader(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
         const double overtakeDist = overtakeDistance(&myVehicle, nv, neighLead.second);
         const double dv = plannedSpeed - nv->getSpeed();
 
-        if (dv > 0) {
+        if (dv > myOvertakeDeltaSpeedFactor * myVehicle.getLane()->getSpeedLimit()) {
             overtakeTime = overtakeDist / dv;
         } else {
             // -> set overtakeTime to something indicating impossibility of overtaking
@@ -509,7 +525,7 @@ MSLCM_LC2013::informLeader(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
         }
 #endif
 
-        if ((dv < 0
+        if ((dv < myOvertakeDeltaSpeedFactor * myVehicle.getLane()->getSpeedLimit()
                 // overtaking on the right on an uncongested highway is forbidden (noOvertakeLCLeft)
                 || (dir == LCA_MLEFT && !myVehicle.congested() && !myAllowOvertakingRight)
                 // not enough space to overtake?
@@ -519,7 +535,7 @@ MSLCM_LC2013::informLeader(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
                 // not enough time to overtake?        (skipped for a stopped leader [currently only for ballistic update XXX: check if appropriate for euler, too, refs. #2575] to ensure that it can be overtaken if only enough space is exists) (Leo)
                 || (remainingSeconds < overtakeTime && (MSGlobals::gSemiImplicitEulerUpdate || !nv->isStopped())))
                 // opposite driving and must overtake
-                && !(isOpposite() && neighLead.second < 0 && neighLead.first->isStopped())) {
+                && (!neighLead.first->isStopped() || (isOpposite() && neighLead.second >= 0))) {
             // cannot overtake
             msgPass.informNeighLeader(new Info(std::numeric_limits<double>::max(), dir | LCA_AMBLOCKINGLEADER), &myVehicle);
             // slow down smoothly to follow leader
@@ -568,6 +584,8 @@ MSLCM_LC2013::informLeader(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
                               << " overtakeTime=" << overtakeTime
                               << " remainingSeconds=" << remainingSeconds
                               << " currentGap=" << neighLead.second
+                              << " neighNextSpeed=" << neighNextSpeed
+                              << " neighNextGap=" << neighNextGap
                               << " targetSpeed=" << targetSpeed
                               << "\n";
                 }
@@ -1031,15 +1049,38 @@ MSLCM_LC2013::prepareStep() {
     myKeepRightProbability = ceil(myKeepRightProbability * 100000.0) * 0.00001;
     if (mySigma > 0 && !isChangingLanes()) {
         // disturb lateral position directly
+        const double maxDist = SPEED2DIST(myVehicle.getVehicleType().getMaxSpeedLat());
         const double oldPosLat = myVehicle.getLateralPositionOnLane();
-        const double deltaPosLat = OUProcess::step(oldPosLat,
-                                   myVehicle.getActionStepLengthSecs(),
-                                   MAX2(NUMERICAL_EPS, (1 - mySigma) * 100), mySigma) - oldPosLat;
-        const double scaledDelta = deltaPosLat * myVehicle.getSpeed() / myVehicle.getLane()->getSpeedLimit();
+        const double overlap = myVehicle.getLateralOverlap();
+        double scaledDelta;
+        if (overlap > 0) {
+            // return to within lane boundary
+            scaledDelta = MIN2(overlap, maxDist);
+            if (myVehicle.getLateralPositionOnLane() > 0) {
+                scaledDelta *= -1;
+            }
+        } else {
+            // random drift
+            double deltaPosLat = OUProcess::step(oldPosLat,
+                                                 myVehicle.getActionStepLengthSecs(),
+                                                 MAX2(NUMERICAL_EPS, (1 - mySigma) * 100), mySigma) - oldPosLat;
+            deltaPosLat = MAX2(MIN2(deltaPosLat, maxDist), -maxDist);
+            scaledDelta = deltaPosLat * myVehicle.getSpeed() / myVehicle.getLane()->getSpeedLimit();
+        }
         myVehicle.setLateralPositionOnLane(oldPosLat + scaledDelta);
     }
 }
 
+
+double
+MSLCM_LC2013::getExtraReservation(int bestLaneOffset) const {
+    if (bestLaneOffset < -1) {
+        return 20;
+    } else if (bestLaneOffset > 1) {
+        return 40;
+    }
+    return 0;
+}
 
 void
 MSLCM_LC2013::changed() {
@@ -1052,6 +1093,19 @@ MSLCM_LC2013::changed() {
         myLeadingBlockerLength = 0;
         myLeftSpace = 0;
     }
+    myLookAheadSpeed = LOOK_AHEAD_MIN_SPEED;
+    myLCAccelerationAdvices.clear();
+    myDontBrake = false;
+}
+
+
+void
+MSLCM_LC2013::resetState() {
+    myOwnState = 0;
+    mySpeedGainProbability = 0;
+    myKeepRightProbability = 0;
+    myLeadingBlockerLength = 0;
+    myLeftSpace = 0;
     myLookAheadSpeed = LOOK_AHEAD_MIN_SPEED;
     myLCAccelerationAdvices.clear();
     myDontBrake = false;
@@ -1083,15 +1137,22 @@ MSLCM_LC2013::_wantsChange(
     double currentDist = 0;
     double neighDist = 0;
     int currIdx = 0;
+    const bool checkOpposite = &neighLane.getEdge() != &myVehicle.getLane()->getEdge();
     const MSLane* prebLane = myVehicle.getLane();
     if (prebLane->getEdge().isInternal()) {
         // internal edges are not kept inside the bestLanes structure
-        prebLane = prebLane->getLinkCont()[0]->getLane();
+        if (isOpposite()) {
+            prebLane = prebLane->getNormalPredecessorLane();
+        } else {
+            prebLane = prebLane->getLinkCont()[0]->getLane();
+        }
     }
     // special case: vehicle considers changing to the opposite direction edge
-    const bool checkOpposite = &neighLane.getEdge() != &myVehicle.getLane()->getEdge();
-    const int prebOffset = (checkOpposite ? 0 : laneOffset);
+    const int prebOffset = laneOffset;
     for (int p = 0; p < (int) preb.size(); ++p) {
+        //if (DEBUG_COND) {
+        //    std::cout << "  p=" << p << " prebLane=" << prebLane->getID() << " preb.p=" << preb[p].lane->getID() << "\n";
+        //}
         if (preb[p].lane == prebLane && p + laneOffset >= 0) {
             assert(p + prebOffset < (int)preb.size());
             curr = preb[p];
@@ -1099,7 +1160,7 @@ MSLCM_LC2013::_wantsChange(
             currentDist = curr.length;
             neighDist = neigh.length;
             bestLaneOffset = curr.bestLaneOffset;
-            if (bestLaneOffset == 0 && preb[p + prebOffset].bestLaneOffset == 0) {
+            if (bestLaneOffset == 0 && preb[p + prebOffset].bestLaneOffset == 0 && !checkOpposite) {
 #ifdef DEBUG_WANTS_CHANGE
                 if (DEBUG_COND) {
                     std::cout << STEPS2TIME(currentTime)
@@ -1116,22 +1177,12 @@ MSLCM_LC2013::_wantsChange(
             break;
         }
     }
+    assert(curr.lane != nullptr);
+    assert(neigh.lane != nullptr);
+    assert(best.lane != nullptr);
     // direction specific constants
     const bool right = (laneOffset == -1);
-    if (isOpposite() && right) {
-        neigh = preb[preb.size() - 1];
-        curr = neigh;
-        best = neigh;
-        if (myVehicle.hasStops() && myVehicle.getNextStop().isOpposite) {
-            bestLaneOffset = 0;
-            curr.bestLaneOffset = 0;
-        } else {
-            bestLaneOffset = -1;
-            curr.bestLaneOffset = -1;
-        }
-        neighDist = neigh.length;
-        currentDist = curr.length;
-    }
+    const double posOnLane = getForwardPos();
     double driveToNextStop = -std::numeric_limits<double>::max();
     if (myVehicle.nextStopDist() < std::numeric_limits<double>::max()
             && &myVehicle.getNextStop().lane->getEdge() == &myVehicle.getLane()->getEdge()) {
@@ -1139,7 +1190,7 @@ MSLCM_LC2013::_wantsChange(
         // @note this information is dynamic and thus not available in updateBestLanes()
         // @note: nextStopDist was compute before the vehicle moved
         driveToNextStop = myVehicle.nextStopDist();
-        const double stopPos = myVehicle.getPositionOnLane() + myVehicle.nextStopDist() - myVehicle.getLastStepDist();
+        const double stopPos = posOnLane + myVehicle.nextStopDist() - myVehicle.getLastStepDist();
 #ifdef DEBUG_WANTS_CHANGE
         if (DEBUG_COND) {
             std::cout << SIMTIME << std::setprecision(gPrecision) << " veh=" << myVehicle.getID()
@@ -1154,7 +1205,6 @@ MSLCM_LC2013::_wantsChange(
         currentDist = MAX2(currentDist, stopPos);
         neighDist = MAX2(neighDist, stopPos);
     }
-    const double posOnLane = getForwardPos();
     const int lca = (right ? LCA_RIGHT : LCA_LEFT);
     const int myLca = (right ? LCA_MRIGHT : LCA_MLEFT);
     const int lcaCounter = (right ? LCA_LEFT : LCA_RIGHT);
@@ -1253,10 +1303,7 @@ MSLCM_LC2013::_wantsChange(
     const double vMax = myVehicle.getLane()->getVehicleMaxSpeed(&myVehicle);
     // upper bound which will be restricted successively
     double thisLaneVSafe = vMax;
-    const bool checkOverTakeRight = (!myAllowOvertakingRight
-                                     && !myVehicle.congested()
-                                     && myVehicle.getVehicleType().getVehicleClass() != SVC_EMERGENCY
-                                     && (myOvertakeRightParam == 0 || myOvertakeRightParam < RandHelper::rand(myVehicle.getRNG())));
+    const bool checkOverTakeRight = avoidOvertakeRight();
 
 #ifdef DEBUG_WANTS_CHANGE
     if (DEBUG_COND) {
@@ -1394,7 +1441,7 @@ MSLCM_LC2013::_wantsChange(
     // check for overriding TraCI requests
 #ifdef DEBUG_WANTS_CHANGE
     if (DEBUG_COND) {
-        std::cout << STEPS2TIME(currentTime) << " veh=" << myVehicle.getID() << " ret=" << ret;
+        std::cout << STEPS2TIME(currentTime) << " veh=" << myVehicle.getID() << " ret=" << toString((LaneChangeAction)ret);
     }
 #endif
     // store state before canceling
@@ -1406,11 +1453,13 @@ MSLCM_LC2013::_wantsChange(
     }
 #ifdef DEBUG_WANTS_CHANGE
     if (DEBUG_COND) {
-        std::cout << " retAfterInfluence=" << ret << "\n";
+        std::cout << " retAfterInfluence=" << toString((LaneChangeAction)ret) << "\n";
     }
 #endif
 
     if ((ret & LCA_STAY) != 0) {
+        // remove TraCI flags because it should not be included in "state-without-traci"
+        ret = getCanceledState(laneOffset);
         return ret;
     }
     if ((ret & LCA_URGENT) != 0) {
@@ -1429,9 +1478,15 @@ MSLCM_LC2013::_wantsChange(
 
         // letting vehicles merge in at the end of the lane in case of counter-lane change, step#1
         //   if there is a leader and he wants to change to the opposite direction
-        saveBlockerLength(neighLead.first, lcaCounter);
+        const bool canContinue = curr.bestContinuations.size() > 1;
+        bool canReserve = MSLCHelper::saveBlockerLength(myVehicle, neighLead.first, lcaCounter, myLeftSpace, canContinue, myLeadingBlockerLength);
         if (*firstBlocked != neighLead.first) {
-            saveBlockerLength(*firstBlocked, lcaCounter);
+            canReserve &= MSLCHelper::saveBlockerLength(myVehicle, *firstBlocked, lcaCounter, myLeftSpace,  canContinue, myLeadingBlockerLength);
+        }
+        if (!canReserve && !isOpposite()) {
+            // we have a low-priority relief connection
+            // std::cout << SIMTIME << " veh=" << myVehicle.getID() << " cannotReserve for blockers\n";
+            myDontBrake = canContinue;
         }
 
         const int remainingLanes = MAX2(1, abs(bestLaneOffset));
@@ -1459,14 +1514,47 @@ MSLCM_LC2013::_wantsChange(
         }
 #endif
 
+        // remove TraCI flags because it should not be included in "state-without-traci"
+        ret = getCanceledState(laneOffset);
         return ret;
     }
-    // a high inconvenience prevents cooperative changes.
-    const double inconvenience = MIN2(1.0, (laneOffset < 0
-                                            ? mySpeedGainProbability / myChangeProbThresholdRight
-                                            : -mySpeedGainProbability / myChangeProbThresholdLeft));
+
+    // we wish to anticipate future speeds. This is difficult when the leading
+    // vehicles are still accelerating so we resort to comparing speeds for the near future (1s) in this case
+    const bool acceleratingLeader = (neighLead.first != 0 && neighLead.first->getAcceleration() > 0)
+                                    || (leader.first != 0 && leader.first->getAcceleration() > 0);
+    const double neighVMax = neighLane.getVehicleMaxSpeed(&myVehicle);
+    double neighLaneVSafe = MIN2(neighVMax, anticipateFollowSpeed(neighLead, neighDist, neighVMax, acceleratingLeader));
+    thisLaneVSafe = MIN2(thisLaneVSafe, anticipateFollowSpeed(leader, currentDist, vMax, acceleratingLeader));
+    //std::cout << SIMTIME << " veh=" << myVehicle.getID() << " thisLaneVSafe=" << thisLaneVSafe << " neighLaneVSafe=" << neighLaneVSafe << "\n";
+
+
+    // a high inconvenience prevents cooperative changes and the following things are inconvenient:
+    // - a desire to change in the opposite direction for speedGain
+    // - low anticipated speed on the neighboring lane
+    // - high occupancy on the neighboring lane while in a roundabout
+
+    double inconvenience = laneOffset < 0
+                           ? mySpeedGainProbability / myChangeProbThresholdRight
+                           : -mySpeedGainProbability / myChangeProbThresholdLeft;
+
+    inconvenience = MAX2(thisLaneVSafe / neighLaneVSafe - 1, inconvenience);
+    inconvenience = MIN2(1.0, inconvenience);
+
     const bool speedGainInconvenient = inconvenience > myCooperativeParam;
     const bool neighOccupancyInconvenient = neigh.lane->getBruttoOccupancy() > curr.lane->getBruttoOccupancy();
+#ifdef DEBUG_WANTS_CHANGE
+    if (DEBUG_COND) {
+        std::cout << STEPS2TIME(currentTime)
+                  << " veh=" << myVehicle.getID()
+                  << " speedGainProb=" << mySpeedGainProbability
+                  << " neighSpeedFactor=" << (thisLaneVSafe / neighLaneVSafe - 1)
+                  << " inconvenience=" << inconvenience
+                  << " speedInconv=" << speedGainInconvenient
+                  << " occInconv=" << neighOccupancyInconvenient
+                  << "\n";
+    }
+#endif
 
     // VARIANT_15
     if (roundaboutBonus > 0) {
@@ -1562,15 +1650,6 @@ MSLCM_LC2013::_wantsChange(
     //if ((congested(neighLead.first) && neighLead.second < 20) || predInteraction(leader.first)) { //!!!
     //    return ret;
     //}
-
-    // we wish to anticipate future speeds. This is difficult when the leading
-    // vehicles are still accelerating so we resort to comparing speeds for the near future (1s) in this case
-    const bool acceleratingLeader = (neighLead.first != 0 && neighLead.first->getAcceleration() > 0)
-                                    || (leader.first != 0 && leader.first->getAcceleration() > 0);
-    double neighLaneVSafe = anticipateFollowSpeed(neighLead, neighDist, vMax, acceleratingLeader);
-    thisLaneVSafe = MIN2(thisLaneVSafe, anticipateFollowSpeed(leader, currentDist, vMax, acceleratingLeader));
-
-    //std::cout << SIMTIME << " veh=" << myVehicle.getID() << " thisLaneVSafe=" << thisLaneVSafe << " neighLaneVSafe=" << neighLaneVSafe << "\n";
 
     if (neighLane.getEdge().getPersons().size() > 0) {
         // react to pedestrians
@@ -1764,6 +1843,7 @@ MSLCM_LC2013::_wantsChange(
     }
     // --------
     if (changeToBest && bestLaneOffset == curr.bestLaneOffset
+            && myStrategicParam >= 0
             && relativeGain >= 0
             && (right ? mySpeedGainProbability < 0 : mySpeedGainProbability > 0)) {
         // change towards the correct lane, speedwise it does not hurt
@@ -1798,14 +1878,24 @@ MSLCM_LC2013::anticipateFollowSpeed(const std::pair<MSVehicle*, double>& leaderD
         const double maxSpeed1s = (myVehicle.getSpeed() + myVehicle.getCarFollowModel().getMaxAccel()
                                    - ACCEL2SPEED(myVehicle.getCarFollowModel().getMaxAccel()));
         if (leader == nullptr) {
-            futureSpeed = getCarFollowModel().followSpeed(&myVehicle, maxSpeed1s, dist, 0, 0);
+            if (hasBlueLight()) {
+                // can continue from any lane if necessary
+                futureSpeed = vMax;
+            } else {
+                futureSpeed = getCarFollowModel().followSpeed(&myVehicle, maxSpeed1s, dist, 0, 0);
+            }
         } else {
             futureSpeed = getCarFollowModel().followSpeed(&myVehicle, maxSpeed1s, gap, leader->getSpeed(), leader->getCarFollowModel().getMaxDecel());
         }
     } else {
         // onInsertion = true because the vehicle has already moved
         if (leader == nullptr) {
-            futureSpeed = getCarFollowModel().maximumSafeStopSpeed(dist, getCarFollowModel().getMaxDecel(), myVehicle.getSpeed(), true);
+            if (hasBlueLight()) {
+                // can continue from any lane if necessary
+                futureSpeed = vMax;
+            } else {
+                futureSpeed = getCarFollowModel().maximumSafeStopSpeed(dist, getCarFollowModel().getMaxDecel(), myVehicle.getSpeed(), true);
+            }
         } else {
             futureSpeed = getCarFollowModel().maximumSafeFollowSpeed(gap, myVehicle.getSpeed(), leader->getSpeed(), leader->getCarFollowModel().getMaxDecel(), true);
         }
@@ -1889,52 +1979,6 @@ MSLCM_LC2013::slowDownForBlocked(MSVehicle** blocked, int state) {
 
 
 void
-MSLCM_LC2013::saveBlockerLength(MSVehicle* blocker, int lcaCounter) {
-#ifdef DEBUG_SAVE_BLOCKER_LENGTH
-    if (DEBUG_COND) {
-        std::cout << SIMTIME
-                  << " veh=" << myVehicle.getID()
-                  << " saveBlockerLength blocker=" << Named::getIDSecure(blocker)
-                  << " bState=" << (blocker == 0 ? "None" : toString(blocker->getLaneChangeModel().getOwnState()))
-                  << "\n";
-    }
-#endif
-    if (blocker != nullptr && (blocker->getLaneChangeModel().getOwnState() & lcaCounter) != 0) {
-        // is there enough space in front of us for the blocker?
-        const double potential = myLeftSpace - myVehicle.getCarFollowModel().brakeGap(
-                                     myVehicle.getSpeed(), myVehicle.getCarFollowModel().getMaxDecel(), 0);
-        if (blocker->getVehicleType().getLengthWithGap() <= potential) {
-            // save at least his length in myLeadingBlockerLength
-            myLeadingBlockerLength = MAX2(blocker->getVehicleType().getLengthWithGap(), myLeadingBlockerLength);
-#ifdef DEBUG_SAVE_BLOCKER_LENGTH
-            if (DEBUG_COND) {
-                std::cout << SIMTIME
-                          << " veh=" << myVehicle.getID()
-                          << " blocker=" << Named::getIDSecure(blocker)
-                          << " saving myLeadingBlockerLength=" << myLeadingBlockerLength
-                          << "\n";
-            }
-#endif
-        } else {
-            // we cannot save enough space for the blocker. It needs to save
-            // space for ego instead
-#ifdef DEBUG_SAVE_BLOCKER_LENGTH
-            if (DEBUG_COND) {
-                std::cout << SIMTIME
-                          << " veh=" << myVehicle.getID()
-                          << " blocker=" << Named::getIDSecure(blocker)
-                          << " cannot save space=" << blocker->getVehicleType().getLengthWithGap()
-                          << " potential=" << potential
-                          << "\n";
-            }
-#endif
-            blocker->getLaneChangeModel().saveBlockerLength(myVehicle.getVehicleType().getLengthWithGap());
-        }
-    }
-}
-
-
-void
 MSLCM_LC2013::adaptSpeedToPedestrians(const MSLane* lane, double& v) {
     if (lane->hasPedestrians()) {
 #ifdef DEBUG_WANTS_CHANGE
@@ -1997,6 +2041,21 @@ MSLCM_LC2013::getOppositeSafetyFactor() const {
     return myOppositeParam <= 0 ? std::numeric_limits<double>::max() : 1 / myOppositeParam;
 }
 
+bool
+MSLCM_LC2013::saveBlockerLength(double length, double foeLeftSpace) {
+    const bool canReserve = MSLCHelper::canSaveBlockerLength(myVehicle, length, myLeftSpace);
+    if (!isOpposite() && (canReserve || myLeftSpace > foeLeftSpace)) {
+        myLeadingBlockerLength = MAX2(length, myLeadingBlockerLength);
+        if (myLeftSpace == 0 && foeLeftSpace < 0) {
+            // called from opposite overtaking, myLeftSpace must be initialized
+            myLeftSpace = myVehicle.getBestLanes()[myVehicle.getLane()->getIndex()].length - myVehicle.getPositionOnLane();
+        }
+        return true;
+    } else {
+        return false;
+    }
+}
+
 std::string
 MSLCM_LC2013::getParameter(const std::string& key) const {
     if (key == toString(SUMO_ATTR_LCA_STRATEGIC_PARAM)) {
@@ -2021,12 +2080,36 @@ MSLCM_LC2013::getParameter(const std::string& key) const {
         return toString(mySigma);
     } else if (key == toString(SUMO_ATTR_LCA_KEEPRIGHT_ACCEPTANCE_TIME)) {
         return toString(myKeepRightAcceptanceTime);
+    } else if (key == toString(SUMO_ATTR_LCA_OVERTAKE_DELTASPEED_FACTOR)) {
+        return toString(myOvertakeDeltaSpeedFactor);
     } else if (key == toString(SUMO_ATTR_LCA_SPEEDGAIN_LOOKAHEAD)) {
         return toString(mySpeedGainLookahead);
     } else if (key == toString(SUMO_ATTR_LCA_COOPERATIVE_ROUNDABOUT)) {
         return toString(myRoundaboutBonus);
     } else if (key == toString(SUMO_ATTR_LCA_COOPERATIVE_SPEED)) {
         return toString(myCooperativeSpeed);
+    } else if (key == toString(SUMO_ATTR_LCA_MAXSPEEDLATSTANDING)) {
+        return toString(myMaxSpeedLatStanding);
+    } else if (key == toString(SUMO_ATTR_LCA_MAXSPEEDLATFACTOR)) {
+        return toString(myMaxSpeedLatFactor);
+    } else if (key == toString(SUMO_ATTR_LCA_MAXDISTLATSTANDING)) {
+        return toString(myMaxDistLatStanding);
+        // access to internal state for debugging in sumo-gui (not documented since it may change at any time)
+    } else if (key == "speedGainProbabilityRight") {
+        return toString(-mySpeedGainProbability);
+    } else if (key == "speedGainProbabilityLeft") {
+        return toString(mySpeedGainProbability);
+    } else if (key == "keepRightProbability") {
+        return toString(-myKeepRightProbability);
+    } else if (key == "lookAheadSpeed") {
+        return toString(myLookAheadSpeed);
+        // motivation relative to threshold
+    } else if (key == "speedGainRP") {
+        return toString(-mySpeedGainProbability / myChangeProbThresholdRight);
+    } else if (key == "speedGainLP") {
+        return toString(mySpeedGainProbability / myChangeProbThresholdLeft);
+    } else if (key == "keepRightP") {
+        return toString(myKeepRightProbability * myKeepRightParam / -myChangeProbThresholdRight);
     }
     throw InvalidArgument("Parameter '" + key + "' is not supported for laneChangeModel of type '" + toString(myModel) + "'");
 }
@@ -2062,12 +2145,20 @@ MSLCM_LC2013::setParameter(const std::string& key, const std::string& value) {
         mySigma = doubleValue;
     } else if (key == toString(SUMO_ATTR_LCA_KEEPRIGHT_ACCEPTANCE_TIME)) {
         myKeepRightAcceptanceTime = doubleValue;
+    } else if (key == toString(SUMO_ATTR_LCA_OVERTAKE_DELTASPEED_FACTOR)) {
+        myOvertakeDeltaSpeedFactor = doubleValue;
     } else if (key == toString(SUMO_ATTR_LCA_SPEEDGAIN_LOOKAHEAD)) {
         mySpeedGainLookahead = doubleValue;
     } else if (key == toString(SUMO_ATTR_LCA_COOPERATIVE_ROUNDABOUT)) {
         myRoundaboutBonus = doubleValue;
     } else if (key == toString(SUMO_ATTR_LCA_COOPERATIVE_SPEED)) {
         myCooperativeSpeed = doubleValue;
+    } else if (key == toString(SUMO_ATTR_LCA_MAXSPEEDLATSTANDING)) {
+        myMaxSpeedLatStanding = doubleValue;
+    } else if (key == toString(SUMO_ATTR_LCA_MAXSPEEDLATFACTOR)) {
+        myMaxSpeedLatFactor = doubleValue;
+    } else if (key == toString(SUMO_ATTR_LCA_MAXDISTLATSTANDING)) {
+        myMaxDistLatStanding = doubleValue;
     } else {
         throw InvalidArgument("Setting parameter '" + key + "' is not supported for laneChangeModel of type '" + toString(myModel) + "'");
     }

@@ -98,3 +98,6 @@ stopped_link_conflict
 
 # a stopped train on parallel track should not block a train without stop from entering the subsequent section
 stopped_link_conflict2
+
+# approach to conflict link must be guaranteed within some limits (regardless of brakeGap or number of intermediate junctions)
+conflict_lookahead

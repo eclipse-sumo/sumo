@@ -9,6 +9,12 @@ optimum
 # straight call of the script
 simple
 
+# straight call of the script
+save_config
+
+# save configuration with application option prefix
+save_config_appargs
+
 # call with 2 trip files
 multipe_inputs
 
@@ -45,6 +51,22 @@ addWeights
 # add additional weights only for first iteration
 addWeights_once
 mapmatchJunctions
+1alternative
 
 # using marginal costs
 marginal_cost
+
+# pass negative argument
+disable_teleport
+
+# pass negative argument
+disable_teleport_cfg
+
+# pass negative sumo--argument
+apparg_negative
+
+# pass negative sumo--argument via config
+apparg_negative_config
+
+# save statistic output for each iteration
+custom_output

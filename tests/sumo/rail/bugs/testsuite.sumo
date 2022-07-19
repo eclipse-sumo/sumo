@@ -43,3 +43,7 @@ merge_check_flank_switch2
 # deadlock due to insufficient flank check for bidi flank
 # 
 ticket7563
+
+# ticket #10093
+# 
+reverse_after_waypoint

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2017-2021 German Aerospace Center (DLR) and others.
+# Copyright (C) 2017-2022 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -27,6 +27,8 @@ import version
 
 SUMO_VERSION = version.get_pep440_version()
 package_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+data_dir = os.path.join(package_dir, 'libsumo', 'data')
+data_files = ['data' + root[len(data_dir):] + "/*" for root, _, __ in os.walk(data_dir)]
 
 
 class InstallPlatlib(install):
@@ -52,6 +54,7 @@ setup(
     license='EPL-2.0',
     description="The python version of the libsumo API to communicate with the traffic simulation Eclipse SUMO",
     long_description=open(os.path.join(os.path.dirname(package_dir), 'README.md')).read(),
+    long_description_content_type='text/markdown',
 
     classifiers=[
         'Development Status :: 4 - Beta',
@@ -64,7 +67,7 @@ setup(
 
     packages=['libsumo'],
     package_dir={'': package_dir},
-    package_data={'libsumo': ['*.pyd', '*.so', '*.dylib']},
+    package_data={'libsumo': ['*.pyd', '*.so', '*.dylib'] + data_files},
     data_files=[("", glob.glob(os.path.join(os.path.dirname(package_dir), 'bin', '*.dll')))],
     install_requires=['traci>='+SUMO_VERSION],
     cmdclass={'install': InstallPlatlib},

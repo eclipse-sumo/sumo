@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -186,7 +186,8 @@ public:
     bool resumeFromStopping();
 
     /// @brief get distance for coming to a stop (used for rerouting checks)
-    double getBrakeGap() const {
+    double getBrakeGap(bool delayed = false) const {
+        UNUSED_PARAMETER(delayed);
         return 0;
     }
 
@@ -247,6 +248,12 @@ public:
         return myQueIndex;
     }
 
+    /** @brief Get the vehicle's lateral position on the edge of the given lane
+     * (or its current edge if lane == 0)
+     * @return The lateral position of the vehicle (in m distance between right
+     * side of vehicle and ride side of edge
+     */
+    double getRightSideOnEdge(const MSLane* /*lane*/) const;
 
     /** @brief Sets the entry time for the current segment
      * @param[in] t The entry time
@@ -297,17 +304,6 @@ public:
     }
 
 
-    /** @brief Returns the number of seconds waited (speed was lesser than 0.1m/s)
-     *
-     * The value is reset if the vehicle moves faster than 0.1m/s
-     * Intentional stopping does not count towards this time.
-     * @return The time the vehicle is standing
-     */
-    double getWaitingSeconds() const {
-        return STEPS2TIME(getWaitingTime());
-    }
-
-
     /// @brief Returns the earliest leave time for the current segment
     double getEventTimeSeconds() const {
         return STEPS2TIME(getEventTime());
@@ -330,7 +326,7 @@ public:
     double getCurrentStoppingTimeSeconds() const;
 
     /// Replaces the current route by the given one
-    bool replaceRoute(const MSRoute* route,  const std::string& info, bool onInit = false, int offset = 0, bool addRouteStops = true, bool removeStops = true);
+    bool replaceRoute(const MSRoute* route,  const std::string& info, bool onInit = false, int offset = 0, bool addRouteStops = true, bool removeStops = true, std::string* msgReturn = nullptr);
 
     /** @brief Returns whether the vehicle is allowed to pass the next junction, checks also for triggered stops
      * @return true iff the vehicle may drive over the next junction

@@ -3,3 +3,6 @@ no_self_loop
 
 # exclude some edges from being joined
 exclude
+
+# removing geometry should work after merging
+after_merge

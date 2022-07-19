@@ -6,7 +6,7 @@ title: Sumolib
 simulation output and other simulation artifacts. For a detailed list of
 available functions see the [pydoc generated
 documentation](http://sumo.dlr.de/pydoc/sumolib.html). You can
-[browse the code here](https://github.com/eclipse/sumo/tree/master/tools/sumolib).
+[browse the code here](https://github.com/eclipse/sumo/tree/main/tools/sumolib).
 
 # importing **sumolib** in a script
 
@@ -68,6 +68,9 @@ for edge in sumolib.xml.parse('myNet.edg.xml', ['edge']):
 avgSpeed = speedSum / edgeCount
 ```
 
+!!! note
+    This is just a processing example. To compute average travel speeds in a network, process [edgeData](../Simulation/Output/Lane-_or_Edge-based_Traffic_Measures.md), [tripinfos](../Simulation/Output/TripInfo.md) or [summary-output](../Simulation/Output/Summary.md) instead.
+
 ## compute the median speed using the [Statistics](http://sumo.dlr.de/pydoc/sumolib.miscutils.html#Statistics) module
 
 ```
@@ -81,7 +84,7 @@ avgSpeed = edgeStats.median()
     Attribute *speed* is optional in user-generated *.edg.xml* files but will always be included if that file was written by [netconvert](../netconvert.md) or [netedit](../Netedit/index.md).
 
 ## locate nearby edges based on the geo-coordinate
-This requires the module [pyproj](https://code.google.com/p/pyproj/) to be installed.
+This requires the module [pyproj](https://github.com/pyproj4/pyproj) to be installed.
 For larger networks [rtree](https://pypi.org/project/Rtree/) is also strongly recommended.
 
 ```

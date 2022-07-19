@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -217,12 +217,6 @@ protected:
     /// Closes the process of building an edge
     virtual void closeEdge();
 
-
-protected:
-    /// The net to fill (preinitialised)
-    MSNet& myNet;
-
-
 private:
     /// begins the processing of an edge
     void beginEdgeParsing(const SUMOSAXAttributes& attrs);
@@ -242,6 +236,17 @@ private:
     /// adds a phase to the traffic lights logic currently build
     void addPhase(const SUMOSAXAttributes& attrs);
 
+    /// adds a switching condition to the traffic lights logic currently build
+    void addCondition(const SUMOSAXAttributes& attrs);
+
+    /// adds a switching condition assignment to the traffic lights logic currently build
+    void addAssignment(const SUMOSAXAttributes& attrs);
+
+    /// adds a switching condition function to the traffic lights logic currently build
+    void addFunction(const SUMOSAXAttributes& attrs);
+
+    /// adds a switching condition function to the traffic lights logic currently build
+    void closeFunction();
 
     /// opens a junction for processing
     virtual void openJunction(const SUMOSAXAttributes& attrs);
@@ -297,6 +302,9 @@ private:
     LinkState parseLinkState(const std::string& state);
 
 protected:
+    /// @brief The net to fill (preinitialised)
+    MSNet& myNet;
+
     /// @brief A builder for object actions
     NLDiscreteEventBuilder myActionBuilder;
 
@@ -371,6 +379,8 @@ protected:
     /// @brief temporary data for building the junction graph after network parsing is finished
     typedef std::map<std::string, std::pair<std::string, std::string> > JunctionGraph;
     JunctionGraph myJunctionGraph;
+
+    int myPreviousEdgeIdx = 0;
 
 private:
     /** invalid copy constructor */

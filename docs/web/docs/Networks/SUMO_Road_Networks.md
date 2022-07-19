@@ -251,34 +251,8 @@ The attributes are given in the following table.
 #### Stop Offsets
 
 Each edge or lane may carry a `stopOffset` child element to specify an additional
-stopping offset for vehicles of certain classes:
-
-```
-<edge id="<ID>">
-    <stopOffset value="<distance in m.>" vClasses="<space-separated list of vClasses>" />
-    <lane id="<ID>" index="<INDEX>" ... >
-        <stopOffset value="<distance in m.>" exceptions="<space-separated list of vClasses>" />
-    </lane>
-    ...
-</edge>
-```
-
-Defining this element for an edge will affect all lanes of the edge that
-do not hold an own `stopOffset` element. Note that there is the possibility to
-define either all vehicle classes, that are affected by the stop offset
-(attribute `vClasses`), or those, which are not affected (attribute `exceptions`). You may not
-use both attributes in conjunction. The distance at which the specified
-vehicle classes are required to stop from the lane end is specified by
-the `value`-attribute.
-
-| Name           | Type             | Description                                                         |
-| -------------- | ---------------- | ------------------------------------------------------------------- |
-| **value**      | value (double)   | The stop offset as positive value in meters.                        |
-| **vClasses**   | list of vClasses | Specifies, for which vehicle classes the stopOffset applies.        |
-| **exceptions** | list of vClasses | Specifies, for which vehicle classes the stopOffset does not apply. |
-
-For specification of vehicle classes see
-[here](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#abstract_vehicle_class).
+stopping offset for vehicles of certain classes. This can be used to define a [bike box](https://en.wikipedia.org/wiki/Advanced_stop_line).
+The exact syntax is explained at [stopOffset](../Networks/PlainXML.md#stop_offsets).
 
 ### Traffic Light Programs
 

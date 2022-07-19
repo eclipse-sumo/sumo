@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2012-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2012-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -25,6 +25,7 @@
 #include <map>
 #include <utils/common/Named.h>
 #include <utils/common/RGBColor.h>
+#include <utils/common/Parameterised.h>
 
 
 // ===========================================================================
@@ -48,7 +49,7 @@ public:
     static const double DEFAULT_IMG_WIDTH;
     static const double DEFAULT_IMG_HEIGHT;
     static const std::string DEFAULT_NAME;
-    static const std::map<std::string, std::string> DEFAULT_PARAMETERS;
+    static const Parameterised::Map DEFAULT_PARAMETERS;
     /// @}
 
     /** @brief Constructor

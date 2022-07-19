@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2012-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2012-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -23,6 +23,14 @@
 
 
 // ===========================================================================
+// class declarations
+// ===========================================================================
+#ifndef LIBTRACI
+class PositionVector;
+#endif
+
+
+// ===========================================================================
 // class definitions
 // ===========================================================================
 namespace LIBSUMO_NAMESPACE {
@@ -37,8 +45,6 @@ public:
                                             const std::string& host = "localhost", const std::string& label = "default", FILE* const pipe = nullptr);
 
     static bool isLibsumo();
-
-    static bool hasGUI();
 
     // we cannot call this switch because it is a reserved word in C++
     static void switchConnection(const std::string& label);
@@ -55,6 +61,9 @@ public:
 
     /// @brief load a simulation with the given arguments
     static void load(const std::vector<std::string>& args);
+
+    /// @brief whether we run with graphical user interface (sumo-gui)
+    static bool hasGUI();
 
     /// @brief return whether a simulation (network) is present
     static bool isLoaded();
@@ -112,6 +121,7 @@ public:
 
     static std::vector<libsumo::TraCICollision> getCollisions();
 
+    static double getScale();
     static double getDeltaT();
 
     static libsumo::TraCIPositionVector getNetBoundary();
@@ -143,6 +153,7 @@ public:
     static const std::pair<std::string, std::string> getParameterWithKey(const std::string& objectID, const std::string& key);
     static void setParameter(const std::string& objectID, const std::string& param, const std::string& value);
 
+    static void setScale(double value);
     static void clearPending(const std::string& routeID = "");
     static void saveState(const std::string& fileName);
     /// @brief quick-load simulation state from file and return the state time
@@ -156,6 +167,8 @@ public:
 
 #ifndef LIBTRACI
 #ifndef SWIG
+    static void storeShape(PositionVector& shape);
+
     static std::shared_ptr<VariableWrapper> makeWrapper();
 
     static bool handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper, tcpip::Storage* paramData);

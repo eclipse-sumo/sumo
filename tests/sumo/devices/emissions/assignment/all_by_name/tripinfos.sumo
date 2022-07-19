@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Oct 16 10:35:08 2020 by Eclipse SUMO sumo Version v1_7_0+0625-fbb42d88cd
+<!-- generated on 2022-07-02 09:30:00 by Eclipse SUMO sumo Version v1_13_0+1364-9230dc458dd
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -28,7 +33,6 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
-        <xml-validation.routes value="never"/>
         <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -42,15 +46,15 @@ SPDX-License-Identifier: EPL-2.0
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
     <tripinfo id="0" depart="0.00" departLane="beg_0" departPos="5.10" departSpeed="13.89" departDelay="0.00" arrival="203.00" arrivalLane="rend_0" arrivalPos="500.00" arrivalSpeed="27.80" duration="203.00" routeLength="3494.90" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="4.50" rerouteNo="0" devices="tripinfo_0 emissions_0" vType="t1" speedFactor="1.00" vaporized="">
-        <emissions CO_abs="6919.137559" CO2_abs="709488.443156" HC_abs="172.342658" PMx_abs="67.879994" NOx_abs="1412.262873" fuel_abs="282.862994" electricity_abs="0"/>
+        <emissions CO_abs="6972.869362" CO2_abs="713391.010785" HC_abs="173.232595" PMx_abs="68.320036" NOx_abs="1420.622818" fuel_abs="224690.932582" electricity_abs="0"/>
     </tripinfo>
     <tripinfo id="1" depart="20.00" departLane="beg_0" departPos="5.10" departSpeed="13.89" departDelay="0.00" arrival="223.00" arrivalLane="rend_0" arrivalPos="500.00" arrivalSpeed="27.80" duration="203.00" routeLength="3494.90" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="4.50" rerouteNo="0" devices="tripinfo_1 emissions_1" vType="t2" speedFactor="1.00" vaporized="">
-        <emissions CO_abs="5736.291924" CO2_abs="769324.707082" HC_abs="40.446174" PMx_abs="11.067358" NOx_abs="268.521687" fuel_abs="330.700781" electricity_abs="0"/>
+        <emissions CO_abs="5736.291924" CO2_abs="771430.838638" HC_abs="40.446174" PMx_abs="11.087626" NOx_abs="268.798596" fuel_abs="246051.763672" electricity_abs="0"/>
     </tripinfo>
     <tripinfo id="2" depart="40.00" departLane="beg_0" departPos="5.10" departSpeed="13.89" departDelay="0.00" arrival="243.00" arrivalLane="rend_0" arrivalPos="500.00" arrivalSpeed="27.80" duration="203.00" routeLength="3494.90" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="4.50" rerouteNo="0" devices="tripinfo_2 emissions_2" vType="t3" speedFactor="1.00" vaporized="">
-        <emissions CO_abs="11143.905784" CO2_abs="623734.407146" HC_abs="62.751811" PMx_abs="16.240483" NOx_abs="198.412767" fuel_abs="272.836377" electricity_abs="0"/>
+        <emissions CO_abs="11143.905784" CO2_abs="623734.407146" HC_abs="62.751811" PMx_abs="16.240483" NOx_abs="198.412767" fuel_abs="202444.591677" electricity_abs="0"/>
     </tripinfo>
     <tripinfo id="3" depart="60.00" departLane="beg_0" departPos="5.10" departSpeed="13.89" departDelay="0.00" arrival="263.00" arrivalLane="rend_0" arrivalPos="500.00" arrivalSpeed="27.80" duration="203.00" routeLength="3494.90" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="4.50" rerouteNo="0" devices="tripinfo_3 emissions_3" vType="t4" speedFactor="1.00" vaporized="">
-        <emissions CO_abs="0" CO2_abs="0" HC_abs="0" PMx_abs="0" NOx_abs="0" fuel_abs="0" electricity_abs="1040.654815"/>
+        <emissions CO_abs="0" CO2_abs="0" HC_abs="0" PMx_abs="0" NOx_abs="0" fuel_abs="0" electricity_abs="571.426393"/>
     </tripinfo>
 </tripinfos>

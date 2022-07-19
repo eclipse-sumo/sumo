@@ -1,0 +1,19 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+
+    <tlLogic id="C" type="actuated" programID="P1" offset="0">
+        <phase duration="33" state="GgrrGgrr" minDur="5" maxDur="60" />
+        <phase duration="3"  state="ygrrygrr" earlyTarget="NS"/>
+        <phase duration="6"  state="rGrrrGrr" minDur="5" maxDur="60" />
+        <phase duration="3"  state="ryrrryrr" earlyTarget="NSL"/>
+        <phase duration="33" state="rrGgrrGg" minDur="5" maxDur="60" />
+        <phase duration="3"  state="rrygrryg" earlyTarget="EW"/>
+        <phase duration="6"  state="rrrGrrrG" minDur="5" maxDur="60" />
+        <phase duration="3"  state="rrryrrry" earlyTarget="EWL"/>
+
+        <condition id="NS"  value="z:D0.0 > 3 and z:D2.0 > 3"/>
+        <condition id="NSL" value="z:D0.1 > 3 and z:D2.1 > 3"/>
+        <condition id="EW"  value="z:D1.0 > 3 and z:D3.0 > 3"/>
+        <condition id="EWL" value="z:D1.1 > 3 and z:D3.1 > 3"/>
+
+    </tlLogic>
+</additional>

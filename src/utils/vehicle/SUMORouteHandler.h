@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -191,7 +191,7 @@ protected:
     //@}
 
     /// @brief Checks whether the route file is sorted by departure time if needed
-    bool checkLastDepart();
+    virtual bool checkLastDepart();
 
     /// @brief save last depart (only to be used if vehicle is not discarded)
     void registerLastDepart();
@@ -250,6 +250,9 @@ protected:
 
     /// @brief where stop edges can be inserted into the current route (-1 means no insertion)
     int myInsertStopEdgesAt;
+
+    /// @brief hierachy of elements being parsed
+    std::vector<int> myElementStack;
 
 private:
     /// @brief Invalidated copy constructor

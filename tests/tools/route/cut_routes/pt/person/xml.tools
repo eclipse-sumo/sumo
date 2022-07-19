@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2020-06-08 11:49:48.340628 by cutRoutes.py v1_6_0+0590-ade58a062a
-  options: input_net.net.xml <doubleminus>pt-input input_routes.rou.xml <doubleminus>pt-output out.rou.xml -a input_additional.add.xml <doubleminus>stops-output out.xml
+
+<!-- generated on 2022-07-07 11:16:52.161988 by cutRoutes.py v1_13_0+1343-240e5d48340
+  options: input_net.net.xml input_routes2.rou.xml -o trips.trips.xml <doubleminus>orig-net net.net.xml <doubleminus>pt-input input_routes.rou.xml <doubleminus>pt-output out.rou.xml -a input_additional.add.xml <doubleminus>stops-output out.xml
 -->
+
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <busStop endPos="137.22" friendlyPos="true" id="-14032629811" lane="-53356539#0_1" name="Katzbachstraße/Kreuzbergstraße" startPos="36.13"/>
     <busStop endPos="239.48" friendlyPos="true" id="-14032629819" lane="-53356539#1_1" name="Monumentenstraße" startPos="99.73"/>

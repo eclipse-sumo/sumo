@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2011-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2011-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -109,16 +109,17 @@ NIImporter_ITSUMO::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
      * Each file is parsed twice: first for nodes, second for edges. */
     std::vector<std::string> files = oc.getStringVector("itsumo-files");
     // load nodes, first
-    Handler Handler(nb);
+    Handler handler(nb);
+    handler.needsCharacterData();
     for (std::vector<std::string>::const_iterator file = files.begin(); file != files.end(); ++file) {
         // nodes
         if (!FileHelpers::isReadable(*file)) {
             WRITE_ERROR("Could not open itsumo-file '" + *file + "'.");
             return;
         }
-        Handler.setFileName(*file);
+        handler.setFileName(*file);
         PROGRESS_BEGIN_MESSAGE("Parsing nodes from itsumo-file '" + *file + "'");
-        if (!XMLSubSys::runParser(Handler, *file)) {
+        if (!XMLSubSys::runParser(handler, *file)) {
             return;
         }
         PROGRESS_DONE_MESSAGE();
@@ -209,7 +210,7 @@ NIImporter_ITSUMO::Handler::myEndElement(int element) {
             for (std::vector<Section*>::iterator i = mySections.begin(); i != mySections.end(); ++i) {
                 for (std::vector<LaneSet*>::iterator j = (*i)->laneSets.begin(); j != (*i)->laneSets.end(); ++j) {
                     LaneSet* ls = (*j);
-                    NBEdge* edge = new NBEdge(ls->id, ls->from, ls->to, "", ls->v, (int)ls->lanes.size(), -1,
+                    NBEdge* edge = new NBEdge(ls->id, ls->from, ls->to, "", ls->v, NBEdge::UNSPECIFIED_FRICTION, (int)ls->lanes.size(), -1,
                                               NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET, LaneSpreadFunction::RIGHT);
                     if (!myNetBuilder.getEdgeCont().insert(edge)) {
                         delete edge;

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2012-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2012-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -58,6 +58,8 @@
 template<class E, class V>
 class AbstractLookupTable {
 public:
+    virtual ~AbstractLookupTable() {}
+
     /// @brief provide a lower bound on the distance between from and to (excluding traveltime of both edges)
     virtual double lowerBound(const E* from, const E* to, double speed, double speedFactor, double fromEffort, double toEffort) const = 0;
 
@@ -220,6 +222,8 @@ public:
                         }
                     }
                 }
+#else
+                UNUSED_PARAMETER(reverseRouter);
 #endif
             }
         }

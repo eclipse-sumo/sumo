@@ -1,3 +1,52 @@
+sumo (1.14.1-2) focal; urgency=medium
+
+  * new upstream version
+  * added eigen3
+
+ -- Michael Behrisch <oss@behrisch.de>  Tue, 19 Jul 2022 09:22:45 +0200
+
+sumo (1.14.0-1) focal; urgency=medium
+
+  * new upstream version
+
+ -- Michael Behrisch <oss@behrisch.de>  Tue, 12 Jul 2022 09:27:34 +0200
+
+sumo (1.13.0-1) focal; urgency=medium
+
+  * new upstream version
+
+ -- Michael Behrisch <oss@behrisch.de>  Tue, 03 May 2022 09:01:33 +0200
+
+sumo (1.12.0-6) focal; urgency=medium
+
+  * added missing executables, headers and libs
+
+ -- Michael Behrisch <oss@behrisch.de>  Thu, 10 Feb 2022 11:14:50 +0100
+
+sumo (1.12.0-1) focal; urgency=medium
+
+  * new upstream version
+
+ -- Michael Behrisch <oss@behrisch.de>  Wed, 26 Jan 2022 09:21:33 +0100
+
+sumo (1.11.0-4) focal; urgency=medium
+
+  * fixing example runner
+
+ -- Michael Behrisch <oss@behrisch.de>  Sun, 26 Dec 2021 10:43:24 +0100
+
+sumo (1.11.0-1) focal; urgency=medium
+
+  * new upstream version
+
+ -- Michael Behrisch <oss@behrisch.de>  Tue, 23 Nov 2021 08:20:04 +0100
+
+sumo (1.10.0+dfsg1-1~xenial) xenial; urgency=medium
+
+  * new upstream version
+
+ -- Michael Behrisch <oss@behrisch.de>  Tue, 17 Aug 2021 09:27:20 +0200
+
 sumo (1.9.1+dfsg1-1) focal; urgency=medium
 
   * new upstream version

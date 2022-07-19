@@ -1,0 +1,10 @@
+Error: Attribute 'file' is missing in definition of entryExitDetector 'entryExitDetector_0'.
+Error: 'detEntry' must be defined within the definition of a 'entryExitDetector' (found '').
+Error: 'detExit' must be defined within the definition of a 'entryExitDetector' (found '').
+Error: Could not build entryExitDetector with ID 'entryExitDetector_1' in netedit; filename is invalid.
+Error: Could not build entry in netedit; entryExitDetector doesn't exist.
+Error: Could not build detExit in netedit; entryExitDetector doesn't exist.
+Error: Attribute 'file' in definition of entryExitDetector 'entryExitDetector_2' is empty.
+Error: 'detEntry' must be defined within the definition of a 'entryExitDetector' (found '').
+Error: 'detExit' must be defined within the definition of a 'entryExitDetector' (found '').
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Apr081849.968\netedit.gui\additionalelements\e3detector\load\file\input_additionals.add.xml failed.

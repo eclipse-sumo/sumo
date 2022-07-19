@@ -381,6 +381,21 @@ vehicle types).
     <td class="tg-0lax">zero</td>
     <td class="tg-0lax">0.1</td>
   </tr>
+  </tr>
+    <tr>
+    <td class="tg-0lax">e-scooter</td>
+    <td class="tg-0lax"><img src="images/escooter.jpg" title="escooter" width="200" alt="" /></td>
+    <td class="tg-0lax">e-scooter</td>
+    <td class="tg-0lax">1.1m<sup>(*)</sup><br>0.4m<sup>(*)</sup><br>1.2m<sup>(*)</sup></td>
+    <td class="tg-0lax">1.5m<sup>(39)</sup></td>
+    <td class="tg-0lax">2m/s<sup>2(39)</sup></td>
+    <td class="tg-0lax">4m/s<sup>2(39)</sup></td>
+    <td class="tg-0lax">7m/s<sup>(*)</sup></td>
+    <td class="tg-0lax">20 km/h<sup>(39)</sup></td>
+    <td class="tg-0lax">1<sup>(*)</sup></td>
+    <td class="tg-0lax">zero</td>
+    <td class="tg-0lax">0.1</td>
+  </tr>
   <tr>
     <td class="tg-c882" colspan="12">ship</td>
   </tr>
@@ -413,7 +428,7 @@ vehicle types).
 - (10): <http://www.neoplan-bus.com/cms/media/de/content/downloads/skyliner/NEOPLAN_SKYLINER.pdf>
 - (11): <https://de.wikipedia.org/wiki/DBAG-Baureihe_425>
 - (12): <https://de.wikipedia.org/wiki/ICE_3>
-- (14): <http://www.mantruckandbus.com/man/media/migrated/doc/master_1/Transportloesungen__de_.pdf>
+- (14): <https://www.truck.man.eu/man/media/de/content_medien/doc/business_website_truck_master_1/einsatzgebiete/de_2/man-lkw-tg-fernverkehr-volumen.pdf>
 - (15): <https://de.wikipedia.org/wiki/Opel_Vivaro>
 - (16): <https://de.wikipedia.org/wiki/Renault_Espace>
 - (17): Fußgeher- und Fahrradverkehr: Planungsprinzipien; Hermann Knoflacher; Böhlau Verlag Wien, 1995
@@ -437,5 +452,8 @@ vehicle types).
 - (35): https://www.researchgate.net/publication/311633504_Improving_Road_Safety_of_Tank_Truck_in_Indonesia_by_Speed_Limiter_Installation
 - (36): <http://ka.stadtwiki.net/H%C3%B6chstgeschwindigkeit_(Bahn)>
 - (37): https://www.rettungsdienst.brk.de/leichte-sprache/abteilung/beschaffung/rettungswagen-rtw/rtw-by-2010.html
+- (38): <https://www.berlin.de/binaries/asset/image_assets/5859948/source/1565347986/624x468/>
+- (39): <https://electric-scooter.guide/comparisons/electric-scooter-performance-tests/>
+- (40): <https://www.chip.de/artikel/E-Scooter-Test-Die-besten-Elektro-Scooter-mit-Strassenzulassung_165587317.html>
 - (\*): estimated
 - (\*\*): need to be revisited to fit to model behavior

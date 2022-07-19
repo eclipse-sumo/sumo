@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -43,24 +43,7 @@ Option::Option(bool set)
     : myAmSet(set), myHaveTheDefaultValue(true), myAmWritable(true) {}
 
 
-Option::Option(const Option& s)
-    : myAmSet(s.myAmSet), myHaveTheDefaultValue(s.myHaveTheDefaultValue),
-      myAmWritable(s.myAmWritable) {}
-
-
 Option::~Option() {}
-
-
-Option&
-Option::operator=(const Option& s) {
-    if (this == &s) {
-        return *this;
-    }
-    myAmSet = s.myAmSet;
-    myHaveTheDefaultValue = s.myHaveTheDefaultValue;
-    myAmWritable = s.myAmWritable;
-    return *this;
-}
 
 
 bool
@@ -110,13 +93,6 @@ Option::markSet() {
     myAmSet = true;
     myAmWritable = false;
     return ret;
-}
-
-
-void
-Option::unSet() {
-    myAmSet = false;
-    myAmWritable = true;
 }
 
 
@@ -185,26 +161,6 @@ Option_Integer::Option_Integer(int value)
 }
 
 
-Option_Integer::~Option_Integer() {}
-
-
-Option_Integer::Option_Integer(const Option_Integer& s)
-    : Option(s) {
-    myValue = s.myValue;
-}
-
-
-Option_Integer&
-Option_Integer::operator=(const Option_Integer& s) {
-    if (this == &s) {
-        return *this;
-    }
-    Option::operator=(s);
-    myValue = s.myValue;
-    return *this;
-}
-
-
 int
 Option_Integer::getInt() const {
     return myValue;
@@ -212,7 +168,7 @@ Option_Integer::getInt() const {
 
 
 bool
-Option_Integer::set(const std::string& v) {
+Option_Integer::set(const std::string& v, const bool /* append */) {
     try {
         myValue = StringUtils::toInt(v);
         return markSet();
@@ -247,26 +203,6 @@ Option_String::Option_String(const std::string& value, std::string typeName)
 }
 
 
-Option_String::~Option_String() {}
-
-
-Option_String::Option_String(const Option_String& s)
-    : Option(s) {
-    myValue = s.myValue;
-}
-
-
-Option_String&
-Option_String::operator=(const Option_String& s) {
-    if (this == &s) {
-        return *this;
-    }
-    Option::operator=(s);
-    myValue = s.myValue;
-    return *this;
-}
-
-
 std::string
 Option_String::getString() const {
     return myValue;
@@ -274,7 +210,7 @@ Option_String::getString() const {
 
 
 bool
-Option_String::set(const std::string& v) {
+Option_String::set(const std::string& v, const bool /* append */) {
     myValue = v;
     return markSet();
 }
@@ -296,26 +232,6 @@ Option_Float::Option_Float(double value)
 }
 
 
-Option_Float::~Option_Float() {}
-
-
-Option_Float::Option_Float(const Option_Float& s)
-    : Option(s) {
-    myValue = s.myValue;
-}
-
-
-Option_Float&
-Option_Float::operator=(const Option_Float& s) {
-    if (this == &s) {
-        return *this;
-    }
-    Option::operator=(s);
-    myValue = s.myValue;
-    return *this;
-}
-
-
 double
 Option_Float::getFloat() const {
     return myValue;
@@ -323,7 +239,7 @@ Option_Float::getFloat() const {
 
 
 bool
-Option_Float::set(const std::string& v) {
+Option_Float::set(const std::string& v, const bool /* append */) {
     try {
         myValue = StringUtils::toDouble(v);
         return markSet();
@@ -351,26 +267,6 @@ Option_Bool::Option_Bool(bool value)
 }
 
 
-Option_Bool::~Option_Bool() {}
-
-
-Option_Bool::Option_Bool(const Option_Bool& s)
-    : Option(s) {
-    myValue = s.myValue;
-}
-
-
-Option_Bool&
-Option_Bool::operator=(const Option_Bool& s) {
-    if (this == &s) {
-        return *this;
-    }
-    Option::operator=(s);
-    myValue = s.myValue;
-    return *this;
-}
-
-
 bool
 Option_Bool::getBool() const {
     return myValue;
@@ -378,7 +274,7 @@ Option_Bool::getBool() const {
 
 
 bool
-Option_Bool::set(const std::string& v) {
+Option_Bool::set(const std::string& v, const bool /* append */) {
     try {
         myValue = StringUtils::toBool(v);
         return markSet();
@@ -412,29 +308,8 @@ Option_BoolExtended::Option_BoolExtended(bool value)
 }
 
 
-Option_BoolExtended::~Option_BoolExtended() {}
-
-
-Option_BoolExtended::Option_BoolExtended(const Option_BoolExtended& s)
-    : Option_Bool(s.myValue) {
-    myValueString = s.myValueString;
-}
-
-
-Option_BoolExtended&
-Option_BoolExtended::operator=(const Option_BoolExtended& s) {
-    if (this == &s) {
-        return *this;
-    }
-    Option::operator=(s);
-    myValue = s.myValue;
-    myValueString = s.myValueString;
-    return *this;
-}
-
-
 bool
-Option_BoolExtended::set(const std::string& v) {
+Option_BoolExtended::set(const std::string& v, const bool /* append */) {
     try {
         myValue = StringUtils::toBool(v);
         myValueString = "";
@@ -467,21 +342,6 @@ Option_IntVector::Option_IntVector(const IntVector& value)
 }
 
 
-Option_IntVector::Option_IntVector(const Option_IntVector& s)
-    : Option(s), myValue(s.myValue) {}
-
-
-Option_IntVector::~Option_IntVector() {}
-
-
-Option_IntVector&
-Option_IntVector::operator=(const Option_IntVector& s) {
-    Option::operator=(s);
-    myValue = s.myValue;
-    return (*this);
-}
-
-
 const IntVector&
 Option_IntVector::getIntVector() const {
     return myValue;
@@ -489,8 +349,10 @@ Option_IntVector::getIntVector() const {
 
 
 bool
-Option_IntVector::set(const std::string& v) {
-    myValue.clear();
+Option_IntVector::set(const std::string& v, const bool append) {
+    if (!append) {
+        myValue.clear();
+    }
     try {
         if (v.find(';') != std::string::npos) {
             WRITE_WARNING("Please note that using ';' as list separator is deprecated and not accepted anymore.");
@@ -521,31 +383,24 @@ Option_StringVector::Option_StringVector() : Option() {
     myTypeName = "STR[]";
 }
 
+
 Option_StringVector::Option_StringVector(const StringVector& value)
     : Option(true), myValue(value) {
     myTypeName = "STR[]";
 }
 
-Option_StringVector::Option_StringVector(const Option_StringVector& s)
-    : Option(s), myValue(s.myValue) {}
-
-Option_StringVector::~Option_StringVector() {}
-
-Option_StringVector&
-Option_StringVector::operator=(const Option_StringVector& s) {
-    Option::operator=(s);
-    myValue = s.myValue;
-    return (*this);
-}
 
 const StringVector&
 Option_StringVector::getStringVector() const {
     return myValue;
 }
 
+
 bool
-Option_StringVector::set(const std::string& v) {
-    myValue.clear();
+Option_StringVector::set(const std::string& v, const bool append) {
+    if (!append) {
+        myValue.clear();
+    }
     try {
         if (v.find(';') != std::string::npos) {
             WRITE_WARNING("Please note that using ';' as list separator is deprecated and not accepted anymore.");
@@ -562,6 +417,7 @@ Option_StringVector::set(const std::string& v) {
     }
 }
 
+
 std::string
 Option_StringVector::getValueString() const {
     return joinToString(myValue, ',');
@@ -575,29 +431,23 @@ Option_FileName::Option_FileName() : Option_StringVector() {
     myTypeName = "FILE";
 }
 
+
 Option_FileName::Option_FileName(const StringVector& value)
     : Option_StringVector(value) {
     myTypeName = "FILE";
 }
 
-Option_FileName::Option_FileName(const Option_FileName& s)
-    : Option_StringVector(s) {}
-
-Option_FileName::~Option_FileName() {}
-
-Option_FileName& Option_FileName::operator=(const Option_FileName& s) {
-    Option_StringVector::operator=(s);
-    return (*this);
-}
 
 bool Option_FileName::isFileName() const {
     return true;
 }
 
+
 std::string
 Option_FileName::getString() const {
     return Option_StringVector::getValueString();
 }
+
 
 std::string Option_FileName::getValueString() const {
     return StringUtils::urlEncode(Option_StringVector::getValueString(), " ;%");

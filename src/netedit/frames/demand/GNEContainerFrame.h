@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -22,6 +22,11 @@
 
 #include <netedit/frames/GNEFrame.h>
 #include <netedit/elements/demand/GNERouteHandler.h>
+#include <netedit/frames/GNEAttributesCreator.h>
+#include <netedit/frames/GNETagSelector.h>
+#include <netedit/frames/GNEDemandSelector.h>
+#include <netedit/frames/GNEPathCreator.h>
+#include <netedit/frames/GNENeteditAttributes.h>
 
 
 // ===========================================================================
@@ -50,22 +55,22 @@ public:
 
     /**@brief add vehicle element
      * @param objectsUnderCursor collection of objects under cursor after click over view
-     * @return true if vehicle was sucesfully added
+     * @return true if vehicle was successfully added
      */
     bool addContainer(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, const GNEViewNetHelper::MouseButtonKeyPressed& mouseButtonKeyPressed);
 
-    /// @brief get PathCreator modul
-    GNEFrameModuls::PathCreator* getPathCreator() const;
+    /// @brief get GNEPathCreator modul
+    GNEPathCreator* getPathCreator() const;
 
 protected:
-    /// @brief Tag selected in TagSelector
+    /// @brief Tag selected in GNETagSelector
     void tagSelected();
 
     /// @brief selected demand element in DemandElementSelector
     void demandElementSelected();
 
     /// @brief create path
-    void createPath();
+    void createPath(const bool useLastRoute);
 
 private:
     /// @brief route handler
@@ -75,25 +80,25 @@ private:
     CommonXMLStructure::SumoBaseObject* myContainerBaseObject;
 
     /// @brief container tag selector (used to select diffent kind of containers)
-    GNEFrameModuls::TagSelector* myContainerTagSelector;
+    GNETagSelector* myContainerTagSelector;
 
     /// @brief Container Type selectors
-    GNEFrameModuls::DemandElementSelector* myPTypeSelector;
+    DemandElementSelector* myTypeSelector;
 
     /// @brief container plan selector (used to select diffent kind of container plan)
-    GNEFrameModuls::TagSelector* myContainerPlanTagSelector;
+    GNETagSelector* myContainerPlanTagSelector;
 
     /// @brief internal vehicle attributes
-    GNEFrameAttributesModuls::AttributesCreator* myContainerAttributes;
+    GNEAttributesCreator* myContainerAttributes;
 
     /// @brief internal container plan attributes
-    GNEFrameAttributesModuls::AttributesCreator* myContainerPlanAttributes;
+    GNEAttributesCreator* myContainerPlanAttributes;
 
     /// @brief Netedit parameter
-    GNEFrameAttributesModuls::NeteditAttributes* myNeteditAttributes;
+    GNENeteditAttributes* myNeteditAttributes;
 
     /// @brief edge path creator (used for Walks, rides and trips)
-    GNEFrameModuls::PathCreator* myPathCreator;
+    GNEPathCreator* myPathCreator;
 
     /// @brief build container and return it (note: function includes a call to begin(...), but NOT a call to end(...))
     GNEDemandElement* buildContainer();

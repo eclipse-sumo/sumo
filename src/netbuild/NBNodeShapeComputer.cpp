@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -43,7 +43,7 @@
 #define EXT 100.0
 #define EXT2 10.0
 
-// foot- and bicycle paths as well as pure service roads should not get larget junctions
+// foot and bicycle paths as well as pure service roads should not get large junctions
 // railways also do have have junctions with sharp turns so can be excluded
 const SVCPermissions NBNodeShapeComputer::SVC_LARGE_TURN(
     SVCAll & ~(SVC_BICYCLE | SVC_PEDESTRIAN | SVC_DELIVERY | SVC_RAIL_CLASSES));
@@ -60,20 +60,8 @@ NBNodeShapeComputer::NBNodeShapeComputer(const NBNode& node) :
 NBNodeShapeComputer::~NBNodeShapeComputer() {}
 
 
-PositionVector
+const PositionVector
 NBNodeShapeComputer::compute() {
-    PositionVector ret;
-    // check whether the node is a dead end node or a node where only turning is possible
-    //  in this case, we will use "computeNodeShapeSmall"
-    bool singleDirection = false;
-    if (myNode.getEdges().size() == 1) {
-        singleDirection = true;
-    }
-    if (myNode.getEdges().size() == 2 && myNode.getIncomingEdges().size() == 1) {
-        if (myNode.getIncomingEdges()[0]->isTurningDirectionAt(myNode.getOutgoingEdges()[0])) {
-            singleDirection = true;
-        }
-    }
 #ifdef DEBUG_NODE_SHAPE
     if (DEBUGCOND) {
         // annotate edges edges to make their ordering visible
@@ -84,39 +72,21 @@ NBNodeShapeComputer::compute() {
         }
     }
 #endif
-    if (singleDirection) {
+    // check whether the node is a dead end node or a node where only turning is possible
+    //  in this case, we will use "computeNodeShapeSmall"
+    if (myNode.getEdges().size() == 1) {
         return computeNodeShapeSmall();
     }
-    // check whether the node is a just something like a geometry
-    //  node (one in and one out or two in and two out, pair-wise continuations)
-    // also in this case "computeNodeShapeSmall" is used
-    bool geometryLike = myNode.isSimpleContinuation(true, true);
-    if (geometryLike && myNode.getCrossings().size() == 0) {
-        // additionally, the angle between the edges must not be larger than 45 degrees
-        //  (otherwise, we will try to compute the shape in a different way)
-        const EdgeVector& incoming = myNode.getIncomingEdges();
-        const EdgeVector& outgoing = myNode.getOutgoingEdges();
-        double maxAngle = 0.;
-        for (EdgeVector::const_iterator i = incoming.begin(); i != incoming.end(); ++i) {
-            double ia = (*i)->getAngleAtNode(&myNode);
-            for (EdgeVector::const_iterator j = outgoing.begin(); j != outgoing.end(); ++j) {
-                double oa = (*j)->getAngleAtNode(&myNode);
-                double ad = GeomHelper::getMinAngleDiff(ia, oa);
-                if (22.5 >= ad) {
-                    maxAngle = MAX2(ad, maxAngle);
-                }
-            }
-        }
-        if (maxAngle > 22.5) {
+    if (myNode.getEdges().size() == 2 && myNode.getIncomingEdges().size() == 1) {
+        if (myNode.getIncomingEdges()[0]->isTurningDirectionAt(myNode.getOutgoingEdges()[0])) {
             return computeNodeShapeSmall();
         }
     }
-
-    //
-    ret = computeNodeShapeDefault(geometryLike);
+    const bool geometryLike = myNode.isSimpleContinuation(true, true);
+    const PositionVector& ret = computeNodeShapeDefault(geometryLike);
     // fail fall-back: use "computeNodeShapeSmall"
     if (ret.size() < 3) {
-        ret = computeNodeShapeSmall();
+        return computeNodeShapeSmall();
     }
     return ret;
 }
@@ -145,7 +115,7 @@ computeSameEnd(PositionVector& l1, PositionVector& l2) {
 }
 
 
-PositionVector
+const PositionVector
 NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
     // if we have less than two edges, we can not compute the node's shape this way
     if (myNode.getEdges().size() < 2) {
@@ -196,7 +166,7 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
         return PositionVector();
     }
 
-    // All geoms are outoing from myNode.
+    // All geoms are outgoing from myNode.
     // for every direction in newAll we compute the offset at which the
     // intersection ends and the edge starts. This value is saved in 'distances'
     // If the geometries need to be extended to get an intersection, this is
@@ -303,7 +273,7 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
 
         } else {
             // the angles are different enough to compute the intersection of
-            // the outer boundaries directly (or there are more than 2 directions). The "nearer" neighbar causes the furthest distance
+            // the outer boundaries directly (or there are more than 2 directions). The "nearer" neighbor causes the furthest distance
             const bool ccwCloser = ccad < cad;
             const bool cwLargeTurn = needsLargeTurn(*i, *cwi, same);
             const bool ccwLargeTurn = needsLargeTurn(*i, *ccwi, same);
@@ -409,30 +379,32 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
         }
     }
 
-    for (i = newAll.begin(); i != newAll.end(); ++i) {
-        if (distances.find(*i) == distances.end()) {
+    for (NBEdge* const edge : newAll) {
+        if (distances.find(edge) == distances.end()) {
             assert(false);
-            distances[*i] = EXT;
+            distances[edge] = EXT;
         }
     }
+    // because of lane spread right the crossing point may be identical to the junction center and thus the distance is exactly EXT
+    const double off = EXT - NUMERICAL_EPS;
     // prevent inverted node shapes
     // (may happen with near-parallel edges)
     const double minDistSum = 2 * (EXT + myRadius);
-    for (i = newAll.begin(); i != newAll.end(); ++i) {
-        if (distances[*i] < EXT && (*i)->hasDefaultGeometryEndpointAtNode(&myNode)) {
+    for (NBEdge* const edge : newAll) {
+        if (distances[edge] < off && edge->hasDefaultGeometryEndpointAtNode(&myNode)) {
             for (EdgeVector::const_iterator j = newAll.begin(); j != newAll.end(); ++j) {
-                if (distances[*j] > EXT && (*j)->hasDefaultGeometryEndpointAtNode(&myNode) && distances[*i] + distances[*j] < minDistSum) {
-                    const double angleDiff = fabs(NBHelpers::relAngle((*i)->getAngleAtNode(&myNode), (*j)->getAngleAtNode(&myNode)));
+                if (distances[*j] > off && (*j)->hasDefaultGeometryEndpointAtNode(&myNode) && distances[edge] + distances[*j] < minDistSum) {
+                    const double angleDiff = fabs(NBHelpers::relAngle(edge->getAngleAtNode(&myNode), (*j)->getAngleAtNode(&myNode)));
                     if (angleDiff > 160 || angleDiff < 20) {
 #ifdef DEBUG_NODE_SHAPE
                         if (DEBUGCOND) {
-                            std::cout << "   increasing dist for i=" << (*i)->getID() << " because of j=" << (*j)->getID() << " jDist=" << distances[*j]
-                                      << "  oldI=" << distances[*i] << " newI=" << minDistSum - distances[*j]
+                            std::cout << "   increasing dist for i=" << edge->getID() << " because of j=" << (*j)->getID() << " jDist=" << distances[*j]
+                                      << "  oldI=" << distances[edge] << " newI=" << minDistSum - distances[*j]
                                       << " angleDiff=" << angleDiff
-                                      << " geomI=" << (*i)->getGeometry() << " geomJ=" << (*j)->getGeometry() << "\n";
+                                      << " geomI=" << edge->getGeometry() << " geomJ=" << (*j)->getGeometry() << "\n";
                         }
 #endif
-                        distances[*i] = minDistSum - distances[*j];
+                        distances[edge] = minDistSum - distances[*j];
                     }
                 }
             }
@@ -622,7 +594,7 @@ NBNodeShapeComputer::computeEdgeBoundaries(const EdgeVector& edges,
         GeomsMap& geomsCCW,
         GeomsMap& geomsCW) {
     // compute boundary lines and extend it by EXT m
-    for (NBEdge* edge : edges) {
+    for (NBEdge* const edge : edges) {
         // store current edge's boundary as current ccw/cw boundary
         try {
             geomsCCW[edge] = edge->getCCWBoundaryLine(myNode);
@@ -643,7 +615,7 @@ NBNodeShapeComputer::computeEdgeBoundaries(const EdgeVector& edges,
         if (geomsCW[edge].length2D() < NUMERICAL_EPS) {
             geomsCW[edge] = edge->getGeometry();
         }
-        // extend the boundary by extroplating it by EXT m
+        // extend the boundary by extrapolating it by EXT m
         geomsCCW[edge].extrapolate2D(EXT, true);
         geomsCW[edge].extrapolate2D(EXT, true);
         geomsCCW[edge].extrapolate(EXT2, false, true);
@@ -654,9 +626,9 @@ NBNodeShapeComputer::computeEdgeBoundaries(const EdgeVector& edges,
 void
 NBNodeShapeComputer::joinSameDirectionEdges(const EdgeVector& edges, std::map<NBEdge*, std::set<NBEdge*> >& same) {
     // compute same (edges where an intersection doesn't work well
-    // (always check an edge and its cw neightbor)
-    // distance to look ahead for a misleading angle
-    const double angleChangeLookahead = 35;
+    // (always check an edge and its cw neighbor)
+    const double angleChangeLookahead = 35; // distance to look ahead for a misleading angle
+    const bool isXodr = OptionsCont::getOptions().exists("opendrive-files") && OptionsCont::getOptions().isSet("opendrive-files");
     EdgeSet foundOpposite;
     for (EdgeVector::const_iterator i = edges.begin(); i != edges.end(); i++) {
         EdgeVector::const_iterator j;
@@ -667,8 +639,8 @@ NBNodeShapeComputer::joinSameDirectionEdges(const EdgeVector& edges, std::map<NB
         }
         const bool incoming = (*i)->getToNode() == &myNode;
         const bool incoming2 = (*j)->getToNode() == &myNode;
-        const Position positionAtNode = (*i)->getGeometry()[incoming ? -1 : 0];
-        const Position positionAtNode2 = (*j)->getGeometry()[incoming2 ? -1 : 0];
+        const bool differentDirs = (incoming != incoming2);
+        const bool sameGeom = (*i)->getGeometry() == (differentDirs ? (*j)->getGeometry().reverse() : (*j)->getGeometry());
         const PositionVector g1 = incoming ? (*i)->getCCWBoundaryLine(myNode) : (*i)->getCWBoundaryLine(myNode);
         const PositionVector g2 = incoming ? (*j)->getCCWBoundaryLine(myNode) : (*j)->getCWBoundaryLine(myNode);
         const double angle1further = (g1.size() > 2 && g1[0].distanceTo2D(g1[1]) < angleChangeLookahead ?
@@ -678,7 +650,6 @@ NBNodeShapeComputer::joinSameDirectionEdges(const EdgeVector& edges, std::map<NB
         const double angleDiff = GeomHelper::angleDiff(g1.angleAt2D(0), g2.angleAt2D(0));
         const double angleDiffFurther = GeomHelper::angleDiff(angle1further, angle2further);
         const bool ambiguousGeometry = ((angleDiff > 0 && angleDiffFurther < 0) || (angleDiff < 0 && angleDiffFurther > 0));
-        const bool differentDirs = (incoming != incoming2);
         //if (ambiguousGeometry) {
         //    @todo: this warning would be helpful in many cases. However, if angle and angleFurther jump between 179 and -179 it is misleading
         //    WRITE_WARNING("Ambiguous angles at junction '" + myNode.getID() + "' for edges '" + (*i)->getID() + "' and '" + (*j)->getID() + "'.");
@@ -690,18 +661,18 @@ NBNodeShapeComputer::joinSameDirectionEdges(const EdgeVector& edges, std::map<NB
                       << " isOpposite=" << (differentDirs && foundOpposite.count(*i) == 0)
                       << " angleDiff=" << angleDiff
                       << " ambiguousGeometry=" << ambiguousGeometry
-                      << " badIntersect=" << badIntersection(*i, *j, EXT)
+                      << " badInsersection=" << badIntersection(*i, *j, EXT)
                       << "\n";
 
         }
 #endif
-        if (fabs(angleDiff) < DEG2RAD(20)) {
+        if (sameGeom || fabs(angleDiff) < DEG2RAD(20)) {
             const bool isOpposite = differentDirs && foundOpposite.count(*i) == 0;
             if (isOpposite) {
                 foundOpposite.insert(*i);
                 foundOpposite.insert(*j);
             }
-            if (isOpposite || ambiguousGeometry || badIntersection(*i, *j, EXT)) {
+            if (isOpposite || ambiguousGeometry || (!isXodr && badIntersection(*i, *j, EXT))) {
                 // maintain equivalence relation for all members of the equivalence class
                 for (std::set<NBEdge*>::iterator k = same[*i].begin(); k != same[*i].end(); ++k) {
                     if (*j != *k) {
@@ -897,7 +868,7 @@ NBNodeShapeComputer::initNeighbors(const EdgeVector& edges, const EdgeVector::co
 
 
 
-PositionVector
+const PositionVector
 NBNodeShapeComputer::computeNodeShapeSmall() {
 #ifdef DEBUG_NODE_SHAPE
     if (DEBUGCOND) {
@@ -1023,14 +994,19 @@ NBNodeShapeComputer::getDefaultRadius(const OptionsCont& oc) {
         maxTurnAngle = maxLeftAngle;
         extraWidth = extraWidthLeft;
     }
+    const double minRadius = maxTurnAngle >= DEG2RAD(30) ? MIN2(smallRadius, radius) : smallRadius;
     if (laneDelta == 0 || maxTurnAngle >= DEG2RAD(30) || myNode.isConstantWidthTransition()) {
         // subtract radius gained from extra lanes
         // do not increase radius for turns that are sharper than a right angle
-        result = MAX2(smallRadius, radius * tan(0.5 * MIN2(0.5 * M_PI, maxTurnAngle)) - extraWidth);
+        result = radius * tan(0.5 * MIN2(0.5 * M_PI, maxTurnAngle)) - extraWidth;
     }
+    result = MAX2(minRadius, result);
 #ifdef DEBUG_RADIUS
     if (DEBUGCOND) {
-        std::cout << "getDefaultRadius n=" << myNode.getID() << " laneDelta=" << laneDelta
+        std::cout << "getDefaultRadius n=" << myNode.getID()
+                  << " r=" << radius << " sr=" << smallRadius
+                  << " mr=" << minRadius
+                  << " laneDelta=" << laneDelta
                   << " rightA=" << RAD2DEG(maxRightAngle)
                   << " leftA=" << RAD2DEG(maxLeftAngle)
                   << " maxA=" << RAD2DEG(maxTurnAngle)

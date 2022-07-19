@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2017-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2017-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -196,6 +196,11 @@ VehicleType::getPersonCapacity(const std::string& typeID) {
     return getVType(typeID)->getPersonCapacity();
 }
 
+double
+VehicleType::getScale(const std::string& typeID) {
+    return getVType(typeID)->getParameter().scale;
+}
+
 void
 VehicleType::setLength(const std::string& typeID, double length)  {
     getVType(typeID)->setLength(length);
@@ -340,6 +345,10 @@ VehicleType::setLateralAlignment(const std::string& typeID, const std::string& l
     }
 }
 
+void
+VehicleType::setScale(const std::string& typeID, double value)  {
+    getVType(typeID)->setScale(value);
+}
 
 void
 VehicleType::copy(const std::string& origTypeID, const std::string& newTypeID)  {
@@ -429,6 +438,8 @@ VehicleType::handleVariableWithID(const std::string& objID, const std::string& t
             return wrapper->wrapString(objID, variable, getLateralAlignment(typeID));
         case VAR_PERSON_CAPACITY:
             return wrapper->wrapInt(objID, variable, getPersonCapacity(typeID));
+        case VAR_SCALE:
+            return wrapper->wrapDouble(objID, variable, getScale(typeID));
         case libsumo::VAR_PARAMETER:
             paramData->readUnsignedByte();
             return wrapper->wrapString(objID, variable, getParameter(objID, paramData->readString()));

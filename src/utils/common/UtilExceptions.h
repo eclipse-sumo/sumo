@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -94,7 +94,7 @@ class NumberFormatException : public FormatException {
 public:
     /// @brief constructor
     NumberFormatException(const std::string& data)
-        : FormatException("Invalid Number Format '" + data + "'") {}
+        : FormatException("Invalid Number Format " + data) {}
 };
 
 
@@ -107,7 +107,7 @@ class TimeFormatException : public FormatException {
 public:
     /// @brief constructor
     TimeFormatException(const std::string& data)
-        : FormatException("Invalid Time Format '" + data + "'") {}
+        : FormatException("Invalid Time Format " + data) {}
 };
 
 
@@ -120,7 +120,7 @@ class BoolFormatException : public FormatException {
 public:
     /// @brief constructor
     BoolFormatException(const std::string& data)
-        : FormatException("Invalid Bool Format '" + data + "'") {}
+        : FormatException("Invalid Bool Format " + data) {}
 };
 
 

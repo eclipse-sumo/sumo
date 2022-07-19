@@ -7,9 +7,6 @@ variable_speed_signs
 # Tests for dua-inc emissions
 inc-dua
 
-# Tests whether wauts (tls program switches) work
-wauts
-
 # Tests whether stops work
 stops
 
@@ -44,5 +41,5 @@ collisions
 # test for using option --max-num-vehicles
 max_num_vehicles
 
-# prevent id collision by using another suffix
-scale-suffix
+# tests for scaling traffic
+scale

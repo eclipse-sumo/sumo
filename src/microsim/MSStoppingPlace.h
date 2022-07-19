@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2005-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2005-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -133,9 +133,11 @@ public:
 
     /** @brief Returns the last free position on this stop
      *
+     * @param[in] forVehicle The vehicle that wants to stop here
+     * @param[in] brakePos the first position on the stop lane that the vehicle can stop at
      * @return The last free position of this bus stop
      */
-    double getLastFreePos(const SUMOVehicle& forVehicle) const;
+    double getLastFreePos(const SUMOVehicle& forVehicle, double brakePos = 0) const;
 
     /// @brief return whether the given vehicle fits at the given position
     bool fits(double pos, const SUMOVehicle& veh) const;
@@ -264,6 +266,8 @@ protected:
 
     /// @brief The last free position at this stop (variable)
     double myLastFreePos;
+    /// @brief The length of the last parking vehicle (or 0 if there is none)
+    const SUMOVehicle* myLastParking;
 
     /// @brief The name of the stopping place
     const std::string myName;

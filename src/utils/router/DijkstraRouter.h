@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -37,8 +37,11 @@
 #include "SUMOAbstractRouter.h"
 
 //#define DijkstraRouter_DEBUG_QUERY
+//#define DijkstraRouter_DEBUG_QUERY_VISITED
 //#define DijkstraRouter_DEBUG_QUERY_PERF
 //#define DijkstraRouter_DEBUG_BULKMODE
+
+#define DijkstraRouter_DEBUG_QUERY_VISITED_OUT std::cerr
 
 // ===========================================================================
 // class definitions
@@ -122,18 +125,18 @@ public:
 #endif
         const SUMOVehicleClass vClass = vehicle == nullptr ? SVC_IGNORING : vehicle->getVClass();
         std::tuple<const E*, const V*, SUMOTime> query = std::make_tuple(from, vehicle, msTime);
-        if (this->myBulkMode || (this->myAutoBulkMode && query == myLastQuery)) {
+        if ((this->myBulkMode || (this->myAutoBulkMode && query == myLastQuery)) && !this->myAmClean) {
 #ifdef DijkstraRouter_DEBUG_BULKMODE
             if (query != myLastQuery) {
                 std::cout << " invalid bulk mode. myLastQuery="
-                    << std::get<0>(myLastQuery)->getID() << ","
-                    << std::get<1>(myLastQuery)->getID() << ","
-                    << time2string(std::get<2>(myLastQuery))
-                    << " query="
-                    << std::get<0>(query)->getID() << ","
-                    << std::get<1>(query)->getID() << ","
-                    << time2string(std::get<2>(query))
-                    << "\n";
+                          << std::get<0>(myLastQuery)->getID() << ","
+                          << std::get<1>(myLastQuery)->getID() << ","
+                          << time2string(std::get<2>(myLastQuery))
+                          << " query="
+                          << std::get<0>(query)->getID() << ","
+                          << std::get<1>(query)->getID() << ","
+                          << time2string(std::get<2>(query))
+                          << "\n";
             }
 #endif
             const auto& toInfo = this->myEdgeInfos[to->getNumericalID()];
@@ -152,6 +155,9 @@ public:
         myLastQuery = query;
         // loop
         int num_visited = 0;
+#ifdef DijkstraRouter_DEBUG_QUERY_VISITED
+        DijkstraRouter_DEBUG_QUERY_VISITED_OUT << "<edgeData>\n <interval begin=\"" << time2string(msTime) << "\" end=\"" << toString(msTime + 1000) << "\">\n";
+#endif
         while (!this->myFrontierList.empty()) {
             num_visited += 1;
             // use the node with the minimal length
@@ -160,9 +166,12 @@ public:
 #ifdef DijkstraRouter_DEBUG_QUERY
             std::cout << "DEBUG: hit '" << minEdge->getID() << "' Eff: " << minimumInfo->effort << ", Leave: " << minimumInfo->leaveTime << " Q: ";
             for (auto& it : this->myFrontierList) {
-                std::cout << it->effort << "," << it->edge->getID() << " ";
+                std::cout << "\n   " << it->effort << ", " << it->edge->getID();
             }
             std::cout << "\n";
+#endif
+#ifdef DijkstraRouter_DEBUG_QUERY_VISITED
+            DijkstraRouter_DEBUG_QUERY_VISITED_OUT << "  <edge id=\"" << minEdge->getID() << "\" index=\"" << num_visited << "\" cost=\"" << minimumInfo->effort << "\" time=\"" << minimumInfo->leaveTime << "\"/>\n";
 #endif
             // check whether the destination node was already reached
             if (minEdge == to) {
@@ -173,7 +182,11 @@ public:
                 this->buildPathFrom(minimumInfo, into);
                 this->endQuery(num_visited);
 #ifdef DijkstraRouter_DEBUG_QUERY_PERF
-                std::cout << "visited " + toString(num_visited) + " edges (final path length=" + toString(into.size()) + " edges=" + toString(into) + ")\n";
+                const double cost = this->recomputeCosts(into, vehicle, msTime);
+                std::cout << "visited " + toString(num_visited) + " edges (final path length=" + toString(into.size()) + " cost=" << cost << " edges=" + toString(into) + ")\n";
+#endif
+#ifdef DijkstraRouter_DEBUG_QUERY_VISITED
+                DijkstraRouter_DEBUG_QUERY_VISITED_OUT << " </interval>\n</edgeData>\n";
 #endif
                 return true;
             }
@@ -221,6 +234,9 @@ public:
         if (to != nullptr && !mySilent && !silent) {
             this->myErrorMsgHandler->informf("No connection between edge '%' and edge '%' found.", from->getID(), to->getID());
         }
+#ifdef DijkstraRouter_DEBUG_QUERY_VISITED
+        DijkstraRouter_DEBUG_QUERY_VISITED_OUT << " </interval>\n</edgeData>\n";
+#endif
         return false;
     }
 

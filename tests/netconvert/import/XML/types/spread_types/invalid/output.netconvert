@@ -3,7 +3,3 @@ done.
 Parsing nodes from 'input_nodes.nod.xml' ... done.
 Parsing edges from 'input_edges.edg.xml' ... 
 done.
- Import done:
-   10 nodes loaded.
-   2 types loaded.
-   20 edges loaded.

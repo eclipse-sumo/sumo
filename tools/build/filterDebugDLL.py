@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2008-2021 German Aerospace Center (DLR) and others.
+# Copyright (C) 2008-2022 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -13,7 +13,7 @@
 
 # @file    filterDebugDLL.py
 # @author  Michael Behrisch
-# @date    2021-09-16
+# @date    2021-11-02
 
 """
 Filters a list of filenames whether the names are debug DLLs.

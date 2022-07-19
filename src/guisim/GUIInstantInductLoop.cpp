@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2003-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2003-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -41,8 +41,9 @@
  * ----------------------------------------------------------------------- */
 GUIInstantInductLoop::GUIInstantInductLoop(const std::string& id, OutputDevice& od,
         MSLane* const lane, double positionInMeters,
-        const std::string& vTypes)
-    : MSInstantInductLoop(id, od, lane, positionInMeters, vTypes) {}
+        const std::string& vTypes,
+        const std::string& nextEdges) :
+    MSInstantInductLoop(id, od, lane, positionInMeters, vTypes, nextEdges) {}
 
 
 GUIInstantInductLoop::~GUIInstantInductLoop() {}
@@ -70,6 +71,12 @@ GUIInstantInductLoop::MyWrapper::MyWrapper(GUIInstantInductLoop& detector, doubl
 GUIInstantInductLoop::MyWrapper::~MyWrapper() {}
 
 
+double
+GUIInstantInductLoop::MyWrapper::getExaggeration(const GUIVisualizationSettings& s) const {
+    return s.addSize.getExaggeration(s, this);
+}
+
+
 Boundary
 GUIInstantInductLoop::MyWrapper::getCenteringBoundary() const {
     Boundary b(myBoundary);
@@ -89,7 +96,7 @@ GUIInstantInductLoop::MyWrapper::getParameterWindow(GUIMainWindow& app,
     ret->mkItem("lane", false, myDetector.getLane()->getID());
     // values
     // close building
-    ret->closeBuilding();
+    ret->closeBuilding(&myDetector);
     return ret;
 }
 
@@ -99,7 +106,7 @@ GUIInstantInductLoop::MyWrapper::drawGL(const GUIVisualizationSettings& s) const
     GLHelper::pushName(getGlID());
     double width = (double) 2.0 * s.scale;
     glLineWidth(1.0);
-    const double exaggeration = s.addSize.getExaggeration(s, this);
+    const double exaggeration = getExaggeration(s);
     // shape
     glColor3d(1, 0, 1);
     GLHelper::pushMatrix();
@@ -124,10 +131,10 @@ GUIInstantInductLoop::MyWrapper::drawGL(const GUIVisualizationSettings& s) const
         glColor3d(1, 1, 1);
         glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
         glBegin(GL_QUADS);
-        glVertex2f(0 - 1.0, 2);
-        glVertex2f(-1.0, -2);
-        glVertex2f(1.0, -2);
-        glVertex2f(1.0, 2);
+        glVertex2d(0 - 1.0, 2);
+        glVertex2d(-1.0, -2);
+        glVertex2d(1.0, -2);
+        glVertex2d(1.0, 2);
         glEnd();
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     }

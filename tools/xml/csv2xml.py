@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2013-2021 German Aerospace Center (DLR) and others.
+# Copyright (C) 2013-2022 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -88,6 +88,7 @@ def write_xml(toptag, tag, options, printer=row2xml):
             orderedRow = OrderedDict([(key, row[key]) for key in reader.fieldnames])
             outputf.write(printer(orderedRow, tag))
         outputf.write(u'</%s>\n' % toptag)
+        inputf.close()
 
 
 def checkAttributes(out, old, new, ele, tagStack, depth):
@@ -175,6 +176,7 @@ def writeHierarchicalXml(struct, options):
         outputf.write(u"/>\n")
         for idx in range(len(tagStack) - 2, -1, -1):
             outputf.write(u"%s</%s>\n" % (idx * '    ', tagStack[idx]))
+        inputf.close()
 
 
 def main():

@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec 14 11:32:43 2020 by Eclipse SUMO netconvert Version v1_8_0+0240-6f1f621077
+<!-- generated on 2022-06-22 08:14:30 by Eclipse SUMO netconvert Version v1_13_0+1094-d2dab2e946c
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -35,7 +40,6 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
-        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
@@ -47,13 +51,13 @@ SPDX-License-Identifier: EPL-2.0
 
     <type id="highway.bridleway" priority="1" numLanes="1" speed="2.78" allow="pedestrian" oneway="1" width="2.00"/>
     <type id="highway.bus_guideway" priority="1" numLanes="1" speed="27.78" allow="bus" oneway="1"/>
-    <type id="highway.cycleway" priority="1" numLanes="1" speed="8.33" allow="bicycle" oneway="0" width="1.00"/>
+    <type id="highway.cycleway" priority="1" numLanes="1" speed="5.56" allow="bicycle" oneway="0" width="1.00"/>
     <type id="highway.footway" priority="1" numLanes="1" speed="2.78" allow="pedestrian" oneway="1" width="2.00"/>
     <type id="highway.ford" priority="1" numLanes="1" speed="2.78" allow="army" oneway="0"/>
     <type id="highway.living_street" priority="2" numLanes="1" speed="2.78" disallow="tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
     <type id="highway.motorway" priority="14" numLanes="2" speed="39.44" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" oneway="1"/>
     <type id="highway.motorway_link" priority="9" numLanes="1" speed="22.22" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" oneway="1"/>
-    <type id="highway.path" priority="1" numLanes="1" speed="2.78" allow="pedestrian bicycle" oneway="0" width="2.00"/>
+    <type id="highway.path" priority="1" numLanes="1" speed="5.56" allow="pedestrian bicycle" oneway="0" width="2.00"/>
     <type id="highway.pedestrian" priority="1" numLanes="1" speed="2.78" allow="pedestrian" oneway="1" width="2.00"/>
     <type id="highway.primary" priority="12" numLanes="2" speed="27.78" disallow="tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
     <type id="highway.primary_link" priority="7" numLanes="1" speed="22.22" disallow="tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
@@ -118,12 +122,12 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":885182878_0_1" index="1" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="13.89" length="0.88" shape="275.88,340.92 276.11,341.23 276.28,341.44 276.48,341.62 276.78,341.87"/>
     </edge>
     <edge id=":cluster_12688349_885182683_0" function="internal">
-        <lane id=":cluster_12688349_885182683_0_0" index="0" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="13.89" length="18.50" shape="265.19,316.00 266.52,321.11 267.99,324.45 270.07,327.51 273.25,331.80"/>
-        <lane id=":cluster_12688349_885182683_0_1" index="1" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="13.89" length="18.50" shape="262.06,316.70 263.47,322.12 264.99,325.67 267.16,328.93 270.52,333.48"/>
+        <lane id=":cluster_12688349_885182683_0_0" index="0" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="13.89" length="17.96" shape="265.19,316.00 266.52,321.11 267.99,324.45 270.07,327.51 273.25,331.80"/>
+        <lane id=":cluster_12688349_885182683_0_1" index="1" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="13.89" length="19.03" shape="262.06,316.70 263.47,322.12 264.99,325.67 267.16,328.93 270.52,333.48"/>
     </edge>
     <edge id=":cluster_12688349_885182683_2" function="internal">
-        <lane id=":cluster_12688349_885182683_2_0" index="0" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="13.89" length="25.14" shape="262.06,316.70 263.67,324.32 264.46,329.99 264.42,335.22 263.54,341.55"/>
-        <lane id=":cluster_12688349_885182683_2_1" index="1" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="13.89" length="23.89" shape="258.94,317.39 260.49,324.56 261.28,329.83 261.26,334.77 260.39,340.99"/>
+        <lane id=":cluster_12688349_885182683_2_0" index="0" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="13.89" length="24.51" shape="262.06,316.70 263.67,324.32 264.46,329.99 264.42,335.22 263.54,341.55"/>
+        <lane id=":cluster_12688349_885182683_2_1" index="1" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="13.89" length="24.51" shape="258.94,317.39 260.49,324.56 261.28,329.83 261.26,334.77 260.39,340.99"/>
     </edge>
     <edge id=":cluster_1453571442_443097_0" function="internal">
         <lane id=":cluster_1453571442_443097_0_0" index="0" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="11.92" length="12.93" shape="286.19,345.25 288.77,347.69 290.55,349.60 292.57,350.80 295.82,351.07"/>
@@ -365,16 +369,16 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="205620804" to="499257023#1" fromLane="1" toLane="1" via=":cluster_1453571442_443097_2_1" tl="cluster_1453571442_443097" linkIndex="3" dir="s" state="O"/>
     <connection from="298473146" to="205620804" fromLane="0" toLane="0" via=":cluster_1453571443_1453571529_1673186148_1673186150_1673186155_26110606_3548410413_3548410415_3664309015_443103_959615956_959615960_4_0" tl="cluster_1453571443_1453571529_1673186148_1673186150_1673186155_26110606_3548410413_3548410415_3664309015_443103_959615956_959615960" linkIndex="4" dir="s" state="O"/>
     <connection from="298473146" to="205620804" fromLane="1" toLane="1" via=":cluster_1453571443_1453571529_1673186148_1673186150_1673186155_26110606_3548410413_3548410415_3664309015_443103_959615956_959615960_4_1" tl="cluster_1453571443_1453571529_1673186148_1673186150_1673186155_26110606_3548410413_3548410415_3664309015_443103_959615956_959615960" linkIndex="5" dir="s" state="O"/>
-    <connection from="328974184" to="8091274#0" fromLane="0" toLane="0" via=":cluster_12688349_885182683_0_0" tl="cluster_12688349_885182683" linkIndex="0" dir="s" state="O"/>
-    <connection from="328974184" to="8091274#0" fromLane="1" toLane="1" via=":cluster_12688349_885182683_0_1" tl="cluster_12688349_885182683" linkIndex="1" dir="s" state="O"/>
-    <connection from="328974184" to="154847797#0" fromLane="1" toLane="0" via=":cluster_12688349_885182683_2_0" tl="cluster_12688349_885182683" linkIndex="2" dir="L" state="O"/>
-    <connection from="328974184" to="154847797#0" fromLane="2" toLane="1" via=":cluster_12688349_885182683_2_1" tl="cluster_12688349_885182683" linkIndex="3" dir="L" state="O"/>
+    <connection from="328974184" to="8091274#0" fromLane="0" toLane="0" via=":cluster_12688349_885182683_0_0" tl="cluster_12688349_885182683" linkIndex="0" dir="R" state="O"/>
+    <connection from="328974184" to="8091274#0" fromLane="1" toLane="1" via=":cluster_12688349_885182683_0_1" tl="cluster_12688349_885182683" linkIndex="1" dir="R" state="O"/>
+    <connection from="328974184" to="154847797#0" fromLane="1" toLane="0" via=":cluster_12688349_885182683_2_0" tl="cluster_12688349_885182683" linkIndex="2" dir="s" state="O"/>
+    <connection from="328974184" to="154847797#0" fromLane="2" toLane="1" via=":cluster_12688349_885182683_2_1" tl="cluster_12688349_885182683" linkIndex="3" dir="s" state="O"/>
     <connection from="404246166" to="8091275#0" fromLane="0" toLane="0" via=":443096_0_0" dir="R" state="M"/>
     <connection from="404246166" to="404246167#0" fromLane="1" toLane="0" via=":443096_1_0" dir="s" state="M"/>
     <connection from="404246166" to="404246167#0" fromLane="2" toLane="1" via=":443096_1_1" dir="s" state="M"/>
     <connection from="404246167#0" to="362046452#1" fromLane="0" toLane="0" via=":cluster_1453571443_1453571529_1673186148_1673186150_1673186155_26110606_3548410413_3548410415_3664309015_443103_959615956_959615960_0_0" tl="cluster_1453571443_1453571529_1673186148_1673186150_1673186155_26110606_3548410413_3548410415_3664309015_443103_959615956_959615960" linkIndex="0" dir="s" state="O"/>
     <connection from="404246167#0" to="362046452#1" fromLane="1" toLane="1" via=":cluster_1453571443_1453571529_1673186148_1673186150_1673186155_26110606_3548410413_3548410415_3664309015_443103_959615956_959615960_0_1" tl="cluster_1453571443_1453571529_1673186148_1673186150_1673186155_26110606_3548410413_3548410415_3664309015_443103_959615956_959615960" linkIndex="1" dir="s" state="O"/>
-    <connection from="452715582" to="7796749" fromLane="0" toLane="0" via=":2078932912_0_0" dir="R" state="M"/>
+    <connection from="452715582" to="7796749" fromLane="0" toLane="0" via=":2078932912_0_0" dir="s" state="M"/>
     <connection from="452715582" to="133829890" fromLane="1" toLane="0" via=":2078932912_1_0" dir="s" state="M"/>
     <connection from="452715582" to="133829890" fromLane="2" toLane="1" via=":2078932912_1_1" dir="s" state="M"/>
     <connection from="452715582" to="133829890" fromLane="3" toLane="2" via=":2078932912_1_2" dir="s" state="M"/>
@@ -390,7 +394,7 @@ SPDX-License-Identifier: EPL-2.0
     <connection from=":1673186147_0" to="298473146" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from=":1673186147_2" to="154847795#0" fromLane="0" toLane="0" dir="L" state="M"/>
     <connection from=":1673186147_2" to="154847795#0" fromLane="1" toLane="1" dir="L" state="M"/>
-    <connection from=":2078932912_0" to="7796749" fromLane="0" toLane="0" dir="R" state="M"/>
+    <connection from=":2078932912_0" to="7796749" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":2078932912_1" to="133829890" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":2078932912_1" to="133829890" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from=":2078932912_1" to="133829890" fromLane="2" toLane="2" dir="s" state="M"/>
@@ -404,10 +408,10 @@ SPDX-License-Identifier: EPL-2.0
     <connection from=":443098_1" to="7796753" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from=":885182878_0" to="8091274#1" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":885182878_0" to="8091274#1" fromLane="1" toLane="1" dir="s" state="M"/>
-    <connection from=":cluster_12688349_885182683_0" to="8091274#0" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":cluster_12688349_885182683_0" to="8091274#0" fromLane="1" toLane="1" dir="s" state="M"/>
-    <connection from=":cluster_12688349_885182683_2" to="154847797#0" fromLane="0" toLane="0" dir="L" state="M"/>
-    <connection from=":cluster_12688349_885182683_2" to="154847797#0" fromLane="1" toLane="1" dir="L" state="M"/>
+    <connection from=":cluster_12688349_885182683_0" to="8091274#0" fromLane="0" toLane="0" dir="R" state="M"/>
+    <connection from=":cluster_12688349_885182683_0" to="8091274#0" fromLane="1" toLane="1" dir="R" state="M"/>
+    <connection from=":cluster_12688349_885182683_2" to="154847797#0" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":cluster_12688349_885182683_2" to="154847797#0" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from=":cluster_1453571442_443097_0" to="499257023#1" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":cluster_1453571442_443097_0" to="499257023#1" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from=":cluster_1453571442_443097_2" to="499257023#1" fromLane="0" toLane="0" dir="s" state="M"/>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-03-07 09:54:35 by Eclipse SUMO netedit Version v1_12_0+1177-f6b46b7e4a3
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <!-- Vehicles, persons and containers (sorted by depart) -->
+    <vehicle id="vehicle_0" depart="0.00">
+        <route edges="gneE0 gneE1" color="yellow"/>
+    </vehicle>
+    <vehicle id="vehicle_1" depart="0.00">
+        <route edges="gneE0 gneE1" color="yellow"/>
+    </vehicle>
+    <vehicle id="vehicle_2" depart="0.00">
+        <route edges="gneE0 gneE1" color="yellow"/>
+    </vehicle>
+    <vehicle id="vehicle_3" depart="0.00">
+        <route edges="gneE0 gneE1" color="yellow"/>
+        <stop parkingArea="parkingArea" triggered="person" parking="1"/>
+    </vehicle>
+    <vehicle id="vehicle_4" depart="0.00">
+        <route edges="gneE0 gneE1" color="yellow"/>
+    </vehicle>
+    <vehicle id="vehicle_5" depart="0.00">
+        <route edges="gneE0 gneE1" color="yellow"/>
+        <stop parkingArea="parkingArea" triggered="container" parking="1"/>
+    </vehicle>
+</routes>

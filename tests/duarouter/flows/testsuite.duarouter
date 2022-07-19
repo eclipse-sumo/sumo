@@ -1,8 +1,20 @@
+# Additional tests for distributing vehicles over time
+distribution_tests
+
 # Test with 10 vehicles having one departure time
 1s_interval
 
 # Test with 10 vehicles being divided on 100s
 100s_interval
+
+# define flow without end time
+period_number
+
+# define flow without end time
+probability_number
+
+# define flow without end time
+period_default_end
 
 # Same as 100s_interval, but the interval is defined as being enclosing
 100s_interval_ext
@@ -41,9 +53,6 @@ routeDistribution_skipNew
 # let flows sample from a route distribution with default probabilties
 routeDistribution_defProb_skipNew
 
-# Additional tests for distributing vehicles over time
-distribution_tests
-
 # Tests whether vehicle type attributes are parsed
 vtypecheck
 
@@ -76,6 +85,12 @@ with_vehtype_keepdist
 
 # Test whether public transport flows are handled correctly even if there are no persons
 ptflow_nopersons
+
+# define poisson-distributed flow
+poisson_0.1
+
+# define poisson-distributed flow with number instead of end
+poisson_0.1_number
 
 # Tests with false user input
 errors

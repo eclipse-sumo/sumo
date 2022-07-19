@@ -34,6 +34,8 @@ The following output attributes are generated:
 | parking            | bool          | Whether the vehicle left the road (*true*) or stayed on it (*false*) |
 | started            | time (s)      | The time at which the vehicle stopped                                |
 | ended              | time (s)      | The time at which the vehicle resumed driving                        |
+| delay              | time (s)      | The difference between 'ended' and 'until' (or -1 if until was not set) |
+| arrivalDelay       | time (s)      | The difference betweend 'started' and 'arrival' (only if stop had attribute 'arrival' set) |
 | initialPersons     | int           | The number of persons in the vehicle when arriving at the stop       |
 | loadedPersons      | int           | The number of persons that entered the vehicle at this stop          |
 | unloadedPersons    | int           | The number of persons that left the vehicle at this stop             |

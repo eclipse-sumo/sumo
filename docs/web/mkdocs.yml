@@ -7,7 +7,7 @@ use_directory_urls: false
 dev_addr: 127.0.0.1:8000
 #docs_dir: docs
 #site_dir: site
-copyright: "Copyright &copy; 2001-2021 German Aerospace Center (DLR) and others."
+copyright: "Copyright &copy; 2001-2022 German Aerospace Center (DLR) and others."
 
 nav:
   - Documentation: index.md
@@ -17,7 +17,6 @@ nav:
   - Publications: Publications.md
   - Developer: Developer/index.md
   - ChangeLog: ChangeLog.md
-  - Recent Changes: https://github.com/eclipse/sumo/commits/main/docs/web
   - Contact: https://eclipse.org/sumo/contact/
 
 theme:
@@ -34,6 +33,7 @@ plugins:
   - macros
 
 markdown_extensions:
+  - attr_list
   - admonition
   - pymdownx.tilde
   - meta
@@ -57,8 +57,8 @@ markdown_extensions:
   - codehilite
 
 extra:
-    Version: 1.10.0
-    ReleaseDate: 17.08.2021
+    Version: 1.14.1
+    ReleaseDate: 19.07.2022
 
     AdditionalFile: '[*additional-file*](/docs/sumo.html#format_of_additional_files)'
     AdditionalFiles: '[*additional-files*](/docs/sumo.html#format_of_additional_files)'

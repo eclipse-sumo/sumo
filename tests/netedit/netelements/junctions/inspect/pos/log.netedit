@@ -1,0 +1,4 @@
+Warning: Edge's '7' from- and to-node are at the same position.
+Warning: Edge's '3' from- and to-node are at the same position.
+Warning: Discarding invalid crossing ':Center_c1' at junction 'Center' with edges [7 3] (no walkingarea found).
+Warning: Discarding invalid crossing ':Center_c1' at junction 'Center' with edges [7 3] (no walkingarea found).

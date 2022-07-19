@@ -154,9 +154,9 @@ coherently, we need a precise age distribution of this population.
     <parameters ... />
 
     <population>
-        <bracket beginAge="0" endAge"4" peopleNbr="1745" />
+        <bracket beginAge="0" endAge="4" peopleNbr="1745" />
             ...
-        <bracket beginAge="66" endAge"90" peopleNbr="978" />
+        <bracket beginAge="66" endAge="90" peopleNbr="978" />
     </population>
 
 </city>
@@ -612,7 +612,8 @@ these facilities. In [activitygen](../activitygen.md)
 buses do not show up in the simulation.
 - According to some distance criteria between locations and bus
 stations, fewer care trips are generated since people are assumed to
-take the bus. Public transport travel times are not considered.-
+take the bus. Public transport travel times are not considered.
+- Activitigen assumes a fully connected network and may created invalid trips if the input network isn't fully connected. A possible solution is to filter out invalid trips with the command `duarouter -n your.net.xml -r old.rou.xml --ignore-errors --write-trips -o filtered.rou.xml` but this may also reduce a lot of traffic and require compensation elsewhere
 
 ## Model Documentation
 

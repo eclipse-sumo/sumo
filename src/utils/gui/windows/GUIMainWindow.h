@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -28,6 +28,7 @@
 #include <map>
 #include <utils/common/StdDefs.h>
 #include <utils/common/SUMOTime.h>
+#include "GUIAppEnum.h"
 
 
 // ===========================================================================
@@ -75,7 +76,7 @@ public:
     const std::vector<GUIGlChildWindow*>& getViews() const;
 
     /// @brief update childrens
-    void updateChildren();
+    void updateChildren(int msg = MID_SIMSTEP);
 
     /// @brief get bold front
     FXFont* getBoldFont();
@@ -99,10 +100,13 @@ public:
     virtual void setStatusBarText(const std::string&) { }
 
     /// @brief get cartesian label
-    FXLabel& getCartesianLabel();
+    FXLabel* getCartesianLabel();
 
     /// @brief get geo label
-    FXLabel& getGeoLabel();
+    FXLabel* getGeoLabel();
+
+    /// @brief get test label
+    FXLabel* getTestLabel();
 
     /// @brief return whether the gui is in gaming mode
     bool isGaming() const;
@@ -151,60 +155,82 @@ public:
         return myAmFullScreen;
     }
 
+    const std::map<std::string, std::string>& getOnlineMaps() const {
+        return myOnlineMaps;
+    }
+
+    void addOnlineMap(const std::string& name, const std::string& url) {
+        myOnlineMaps[name] = url;
+    }
+
     /// @brief retrieve breakpoints if provided by the application
     virtual const std::vector<SUMOTime> retrieveBreakpoints() const {
         return std::vector<SUMOTime>();
     }
 
 protected:
-    /// @brief fox need this
+    /// @brief FOX need this
     FOX_CONSTRUCTOR(GUIMainWindow)
 
     /// @brief whether to show the window in full screen mode
     bool myAmFullScreen;
 
+    /// @brief list of GLWindows
     std::vector<GUIGlChildWindow*> myGLWindows;
 
+    /// @brief list of tracker windows
     std::vector<FXMainWindow*> myTrackerWindows;
 
-    /// A lock to make the removal and addition of trackers secure
+    /// @brief A lock to make the removal and addition of trackers secure
     FXMutex myTrackerLock;
 
-    /// Font used for popup-menu titles
-    FXFont* myBoldFont;
+    /// @brief Font used for popup-menu titles
+    FXFont* myBoldFont = nullptr;
 
-    /// Fallback font for extended characters support
-    FXFont* myFallbackFont;
+    /// @brief Fallback font for extended characters support
+    FXFont* myFallbackFont = nullptr;
 
-    /// The multi view panel
-    FXMDIClient* myMDIClient;
+    /// @brief The multi view panel
+    FXMDIClient* myMDIClient = nullptr;
 
-    /// The status bar
-    FXStatusBar* myStatusbar;
+    /// @brief The status bar
+    FXStatusBar* myStatusbar = nullptr;
 
-    /// Labels for the current cartesian and geo-coordinate
-    FXLabel* myCartesianCoordinate, *myGeoCoordinate;
+    /// @brief Labels for the current cartesian, geo-coordinate and test coordinates
+    FXLabel* myCartesianCoordinate = nullptr;
+    FXLabel* myGeoCoordinate = nullptr;
+    FXLabel* myTestCoordinate = nullptr;
 
-    FXHorizontalFrame* myCartesianFrame, *myGeoFrame;
+    /// @brief frames for coordinates
+    FXHorizontalFrame* myCartesianFrame = nullptr;
+    FXHorizontalFrame* myGeoFrame = nullptr;
+    FXHorizontalFrame* myTestFrame = nullptr;
 
-    /// The gl-visual used
-    FXGLVisual* myGLVisual;
+    /// @brief The gl-visual used
+    FXGLVisual* myGLVisual = nullptr;
 
-    FXDockSite* myTopDock, *myBottomDock, *myLeftDock, *myRightDock;
+    /// @brief dock sites
+    FXDockSite* myTopDock = nullptr;
+    FXDockSite* myBottomDock = nullptr;
+    FXDockSite* myLeftDock = nullptr;
+    FXDockSite* myRightDock = nullptr;
 
-    /// information whether the gui is currently in gaming mode
+    /// @brief information whether the gui is currently in gaming mode
     bool myAmGaming;
 
-    /// information whether the locator should list internal structures
+    /// @brief information whether the locator should list internal structures
     bool myListInternal;
 
-    /// information whether the locator should list parking vehicles
+    /// @brief information whether the locator should list parking vehicles
     bool myListParking;
 
-    /// information whether the locator should list teleporting vehicles
+    /// @brief information whether the locator should list teleporting vehicles
     bool myListTeleporting;
 
-    /// the singleton window instance
+    /// @brief online mapping services for the context menu
+    std::map<std::string, std::string> myOnlineMaps;
+
+    /// @brief the singleton window instance
     static GUIMainWindow* myInstance;
 
     /// @brief perform initial window positioning and sizing according to user options / previous call

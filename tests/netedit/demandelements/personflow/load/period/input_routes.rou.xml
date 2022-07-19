@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-04-19 15:47:13 by Eclipse SUMO netedit Version v1_12_0+2147-0a4b045b589
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <!-- Vehicles, persons and containers (sorted by depart) -->
+    <personFlow id="p_0" begin="0.00" end="23.00" period="10">
+        <personTrip from="gneE2" to="gneE5"/>
+    </personFlow>
+
+    <personFlow id="p_1" begin="0.00" end="23.00" period="dummyPeriod">
+        <personTrip from="gneE2" to="gneE5"/>
+    </personFlow>
+
+    <personFlow id="p_2" begin="0.00" end="23.00" period="">
+        <personTrip from="gneE2" to="gneE5"/>
+    </personFlow>
+
+    <personFlow id="p_3" begin="0.00" end="23.00" period="-10">
+        <personTrip from="gneE2" to="gneE5"/>
+    </personFlow>
+
+    <personFlow id="p_4" begin="0.00" end="23.00" period="0">
+        <personTrip from="gneE2" to="gneE5"/>
+    </personFlow>
+
+    <personFlow id="p_5" begin="0.00" end="23.00" period="20.30">
+        <personTrip from="gneE2" to="gneE5"/>
+    </personFlow>
+
+    <personFlow id="p_6" begin="0.00" end="23.00" period="2.30">
+        <personTrip from="gneE2" to="gneE5"/>
+    </personFlow>
+
+    <personFlow id="p_7" begin="0.00" end="23.00" period="1.7">
+        <personTrip from="gneE2" to="gneE5"/>
+    </personFlow>
+</routes>

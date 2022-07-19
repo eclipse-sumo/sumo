@@ -1,12 +1,12 @@
-Warning: Value of tau=0.5 in car following model 'carFollowing-Krauss' lower than simulation step size may cause collisions
-Warning: Value of tau=0.5 in car following model 'carFollowing-Krauss' lower than simulation step size may cause collisions
+Warning: Value of tau=0.50 in vehicle type 'leader' lower than simulation step size may cause collisions.
+Warning: Value of tau=0.50 in vehicle type 'follower' lower than simulation step size may cause collisions.
 Warning: Vehicle 'follower.0'; collision with vehicle 'leader', lane='middle_0', gap=-0.03, time=39.00 stage=move.
-Warning: Vehicle 'follower.0' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=40.00.
-Warning: Vehicle 'follower.1' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=40.00.
+Warning: Vehicle 'follower.0' performs emergency braking on lane 'middle_0' with decel=9.00, wished=4.50, severity=1.00, time=40.00.
+Warning: Vehicle 'follower.1' performs emergency braking on lane 'middle_0' with decel=9.00, wished=4.50, severity=1.00, time=40.00.
 Warning: Vehicle 'follower.1'; collision with vehicle 'follower.0', lane='middle_0', gap=-5.50, time=40.00 stage=move.
 Warning: Vehicle 'follower.2'; collision with vehicle 'follower.1', lane='middle_0', gap=-6.16, time=40.00 stage=move.
-Warning: Vehicle 'follower.3' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=41.00.
+Warning: Vehicle 'follower.3' performs emergency braking on lane 'middle_0' with decel=9.00, wished=4.50, severity=1.00, time=41.00.
 Warning: Vehicle 'follower.3'; collision with vehicle 'follower.2', lane='middle_0', gap=-9.58, time=41.00 stage=move.
 Warning: Vehicle 'follower.4'; collision with vehicle 'follower.3', lane='middle_0', gap=-4.90, time=41.00 stage=move.
-Warning: Vehicle 'follower.5' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=42.00.
+Warning: Vehicle 'follower.5' performs emergency braking on lane 'middle_0' with decel=9.00, wished=4.50, severity=1.00, time=42.00.
 Warning: Vehicle 'follower.5'; collision with vehicle 'follower.4', lane='middle_0', gap=-0.79, time=42.00 stage=move.
