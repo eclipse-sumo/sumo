@@ -134,9 +134,12 @@ GNEPersonTrip::writeDemandElement(OutputDevice& device) const {
     device.openTag(SUMO_TAG_PERSONTRIP);
     // check if from attribute is enabled
     if (isAttributeEnabled(SUMO_ATTR_FROM)) {
-        device.writeAttr(SUMO_ATTR_FROM, getParentEdges().front()->getID());
-    } else if (isAttributeEnabled(SUMO_ATTR_FROMJUNCTION)) {
-        device.writeAttr(SUMO_ATTR_FROMJUNCTION, getParentJunctions().front()->getID());
+        // check if write edge or junction
+        if (getParentEdges().size() > 0) {
+            device.writeAttr(SUMO_ATTR_FROM, getParentEdges().front()->getID());
+        } else if (getParentJunctions().size() > 0) {
+            device.writeAttr(SUMO_ATTR_FROMJUNCTION, getParentJunctions().front()->getID());
+        }
     }
     // write to depending if personplan ends in a busStop, edge or junction
     if (getParentAdditionals().size() > 0) {
