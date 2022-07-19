@@ -5,12 +5,12 @@
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- Detectors -->
-    <e3Detector id="e3Detector_0" pos="18.00,10.00" period="100.00" file="fileA.txt">
+    <entryExitDetector id="entryExitDetector_0" pos="18.00,10.00" period="100.00" file="fileA.txt">
         <detEntry lane="gneE1_0" pos="24.00"/>
         <detExit lane="gneE0_0" pos="24.00"/>
-    </e3Detector>
-    <e3Detector id="e3Detector_3" pos="24.00,10.00" period="100.00" file="fileA.txt" timeThreshold="2120">
+    </entryExitDetector>
+    <entryExitDetector id="entryExitDetector_3" pos="24.00,10.00" period="100.00" file="fileA.txt" timeThreshold="2120">
         <detEntry lane="gneE1_0" pos="30.00"/>
         <detExit lane="gneE0_0" pos="30.00"/>
-    </e3Detector>
+    </entryExitDetector>
 </additional>

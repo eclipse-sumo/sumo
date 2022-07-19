@@ -4,12 +4,12 @@
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <e3Detector id="e3Detector_00" pos="0.00,10.00" period="100.00" file="e3Detector_00.txt">
+    <entryExitDetector id="entryExitDetector_00" pos="0.00,10.00" period="100.00" file="entryExitDetector_00.txt">
         <detEntry lane="gneE1_0" pos="2.00"/>
         <detExit lane="gneE0_0" pos="2.00">
             <param key="key1" value="value4"/>
             <param key="key2" value=""/>
             <param key="key4" value="value5"/>
         </detExit>
-    </e3Detector>
+    </entryExitDetector>
 </additional>

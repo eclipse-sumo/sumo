@@ -1,5 +1,5 @@
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <e3Detector id="e3Detector_00" period="100.00" file="fileA.txt" timeThreshold="1.00" speedThreshold="1.39" pos="0,10">
+    <entryExitDetector id="entryExitDetector_00" period="100.00" file="fileA.txt" timeThreshold="1.00" speedThreshold="1.39" pos="0,10">
 
     <!-- valid generic parameter (valid) -->
     <param key="key1" value="value1"/>
@@ -34,5 +34,5 @@
         <detEntry lane="gneE1_0" pos="2" friendlyPos="0"/>
         <detExit lane="gneE0_0" pos="2" friendlyPos="0"/>
 
-    </e3Detector>
+    </entryExitDetector>
 </additional>

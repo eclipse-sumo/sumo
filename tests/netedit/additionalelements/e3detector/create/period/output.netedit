@@ -4,7 +4,7 @@ TestFunctions: 'reference.png' found. Position: 304 - 168
 25
 0
 25
-e3Detector
+entryExitDetector
 dummyFreq
 TestFunctions: Clicked over position 404 - 253
 -30

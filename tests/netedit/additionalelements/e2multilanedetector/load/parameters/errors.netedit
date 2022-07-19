@@ -6,15 +6,15 @@ GLDebug: 	Inserted edge:gneE2 into SUMORTree with boundary -10.00,-11.60,35.00,1
 GLDebug: 	Inserted edge:gneE3 into SUMORTree with boundary 15.00,-11.60,60.00,10.00
 GLDebug: 	Inserted edge:gneE4 into SUMORTree with boundary 15.00,-10.00,60.00,11.60
 GLDebug: 	Inserted edge:gneE5 into SUMORTree with boundary -10.00,-10.00,35.00,11.60
-Debug: Inserting generic parameter 'key1|value1' into e2Detector
+Debug: Inserting generic parameter 'key1|value1' into laneAreaDetector
 Error: Attribute 'key' is missing in definition of a param.
 Error: Attribute 'key' in definition of a param is empty.
-Debug: Inserting generic parameter '$$key with spaces%%|value4' into e2Detector
-Debug: Inserting generic parameter 'key1|value5' into e2Detector
-Debug: Inserting generic parameter 'key2|' into e2Detector
-Debug: Inserting generic parameter 'key2|' into e2Detector
-Debug: Inserting generic parameter 'key3|$$value with spaces%%' into e2Detector
-Debug: Adding e2MultilaneDetector 'e2MultilaneDetector_0' in GNEChange_Additional
+Debug: Inserting generic parameter '$$key with spaces%%|value4' into laneAreaDetector
+Debug: Inserting generic parameter 'key1|value5' into laneAreaDetector
+Debug: Inserting generic parameter 'key2|' into laneAreaDetector
+Debug: Inserting generic parameter 'key2|' into laneAreaDetector
+Debug: Inserting generic parameter 'key3|$$value with spaces%%' into laneAreaDetector
+Debug: Adding multiLaneAreaDetector 'multiLaneAreaDetector_0' in GNEChange_Additional
 Error: Parameters cannot be defined in the additional file's root.
 Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.e2multilanedetector.24Jun133818.22395/netedit.daily.additional.e2multilanedetector/additionalelements/e2multilanedetector/load/parameters/input_additionals.add.xml failed.
 Debug: Key F5 (Compute) pressed
@@ -41,10 +41,10 @@ Debug: Created connection 'fromgneE3_0togneE4_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE4_0togneE5_0' in retrieveGNEConnection()
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing e2MultilaneDetector 'e2MultilaneDetector_0' in GNEChange_Additional
+Debug: Removing multiLaneAreaDetector 'multiLaneAreaDetector_0' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Adding e2MultilaneDetector 'e2MultilaneDetector_0' in GNEChange_Additional
+Debug: Adding multiLaneAreaDetector 'multiLaneAreaDetector_0' in GNEChange_Additional
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -10.00,-13.20,10.00,13.20
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 40.00,-13.20,60.00,13.20
@@ -65,7 +65,7 @@ GLDebug: 	Inserted edge:gneE4 into SUMORTree with boundary 15.00,-10.00,60.00,11
 GLDebug: 	Inserted edge:gneE5 into SUMORTree with boundary -10.00,-10.00,35.00,11.60
 Debug: network elements saved
 Debug: Additionals saved
-Debug: Deleting unreferenced e2MultilaneDetector
+Debug: Deleting unreferenced multiLaneAreaDetector
 Debug: Deleting unreferenced edge 'gneE2' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE2_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE2_0togneE3_0' in GNEEdge destructor

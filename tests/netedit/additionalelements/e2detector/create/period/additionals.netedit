@@ -5,5 +5,5 @@
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- Detectors -->
-    <e2Detector id="e2_0" lane="gneE0_0" pos="28.00" length="10.00" period="120.50" file="e2_0.xml"/>
+    <laneAreaDetector id="e2_0" lane="gneE0_0" pos="28.00" length="10.00" period="120.50" file="e2_0.xml"/>
 </additional>

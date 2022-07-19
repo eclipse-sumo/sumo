@@ -8,7 +8,7 @@ Debug: Adding busStop 'bs6' in GNEChange_Additional
 Debug: Adding busStop 'bs7' in GNEChange_Additional
 Debug: Adding busStop 'bs8' in GNEChange_Additional
 Debug: Adding busStop 'bs9' in GNEChange_Additional
-Debug: Adding e3Detector 'e3' in GNEChange_Additional
+Debug: Adding entryExitDetector 'e3' in GNEChange_Additional
 Debug: Adding detEntry 'e3' in GNEChange_Additional
 Debug: Adding detExit 'e3' in GNEChange_Additional
 Debug: Key F5 (Compute) pressed
@@ -1218,7 +1218,7 @@ Debug: Deleting unreferenced junction in GNEChange_Attribute
 Debug: Deleting NBNode of 'gneJ19' in GNEJunction destructor
 Debug: Deleting unreferenced detExit
 Debug: Deleting unreferenced detEntry
-Debug: Deleting unreferenced e3Detector
+Debug: Deleting unreferenced entryExitDetector
 Debug: Deleting unreferenced busStop
 Debug: Deleting unreferenced busStop
 Debug: Deleting unreferenced busStop

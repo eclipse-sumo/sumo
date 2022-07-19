@@ -1,11 +1,11 @@
-Debug: Adding e1Detector 'detector1' in GNEChange_Additional
-Debug: Adding e1Detector 'detector2' in GNEChange_Additional
-Debug: Adding e1Detector 'detector3' in GNEChange_Additional
-Debug: Adding e1Detector 'detector4' in GNEChange_Additional
-Debug: Adding e1Detector 'detector5' in GNEChange_Additional
-Debug: Adding e1Detector 'detector6' in GNEChange_Additional
-Debug: Adding e1Detector 'detector7' in GNEChange_Additional
-Debug: Adding e1Detector 'detector8' in GNEChange_Additional
+Debug: Adding inductionLoop 'detector1' in GNEChange_Additional
+Debug: Adding inductionLoop 'detector2' in GNEChange_Additional
+Debug: Adding inductionLoop 'detector3' in GNEChange_Additional
+Debug: Adding inductionLoop 'detector4' in GNEChange_Additional
+Debug: Adding inductionLoop 'detector5' in GNEChange_Additional
+Debug: Adding inductionLoop 'detector6' in GNEChange_Additional
+Debug: Adding inductionLoop 'detector7' in GNEChange_Additional
+Debug: Adding inductionLoop 'detector8' in GNEChange_Additional
 Debug: Adding poly 'poly_0' in GNEChange_Additional
 Debug: Adding taz 'TAZ' in GNEChange_Additional
 Debug: Adding poi 'POI_0' in GNEChange_Additional
@@ -498,24 +498,24 @@ Debug: Removing poi 'POI_1' in GNEChange_Additional
 Debug: Removing poi 'POI_0' in GNEChange_Additional
 Debug: Removing taz 'TAZ' in GNEChange_Additional
 Debug: Removing poly 'poly_0' in GNEChange_Additional
-Debug: Removing e1Detector 'detector8' in GNEChange_Additional
-Debug: Removing e1Detector 'detector7' in GNEChange_Additional
-Debug: Removing e1Detector 'detector6' in GNEChange_Additional
-Debug: Removing e1Detector 'detector5' in GNEChange_Additional
-Debug: Removing e1Detector 'detector4' in GNEChange_Additional
-Debug: Removing e1Detector 'detector3' in GNEChange_Additional
-Debug: Removing e1Detector 'detector2' in GNEChange_Additional
-Debug: Removing e1Detector 'detector1' in GNEChange_Additional
+Debug: Removing inductionLoop 'detector8' in GNEChange_Additional
+Debug: Removing inductionLoop 'detector7' in GNEChange_Additional
+Debug: Removing inductionLoop 'detector6' in GNEChange_Additional
+Debug: Removing inductionLoop 'detector5' in GNEChange_Additional
+Debug: Removing inductionLoop 'detector4' in GNEChange_Additional
+Debug: Removing inductionLoop 'detector3' in GNEChange_Additional
+Debug: Removing inductionLoop 'detector2' in GNEChange_Additional
+Debug: Removing inductionLoop 'detector1' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Adding e1Detector 'detector1' in GNEChange_Additional
-Debug: Adding e1Detector 'detector2' in GNEChange_Additional
-Debug: Adding e1Detector 'detector3' in GNEChange_Additional
-Debug: Adding e1Detector 'detector4' in GNEChange_Additional
-Debug: Adding e1Detector 'detector5' in GNEChange_Additional
-Debug: Adding e1Detector 'detector6' in GNEChange_Additional
-Debug: Adding e1Detector 'detector7' in GNEChange_Additional
-Debug: Adding e1Detector 'detector8' in GNEChange_Additional
+Debug: Adding inductionLoop 'detector1' in GNEChange_Additional
+Debug: Adding inductionLoop 'detector2' in GNEChange_Additional
+Debug: Adding inductionLoop 'detector3' in GNEChange_Additional
+Debug: Adding inductionLoop 'detector4' in GNEChange_Additional
+Debug: Adding inductionLoop 'detector5' in GNEChange_Additional
+Debug: Adding inductionLoop 'detector6' in GNEChange_Additional
+Debug: Adding inductionLoop 'detector7' in GNEChange_Additional
+Debug: Adding inductionLoop 'detector8' in GNEChange_Additional
 Debug: Adding poly 'poly_0' in GNEChange_Additional
 Debug: Adding taz 'TAZ' in GNEChange_Additional
 Debug: Adding poi 'POI_0' in GNEChange_Additional
@@ -765,14 +765,14 @@ Debug: Deleting unreferenced poi
 Debug: Deleting unreferenced poi
 Debug: Deleting unreferenced taz
 Debug: Deleting unreferenced poly
-Debug: Deleting unreferenced e1Detector
-Debug: Deleting unreferenced e1Detector
-Debug: Deleting unreferenced e1Detector
-Debug: Deleting unreferenced e1Detector
-Debug: Deleting unreferenced e1Detector
-Debug: Deleting unreferenced e1Detector
-Debug: Deleting unreferenced e1Detector
-Debug: Deleting unreferenced e1Detector
+Debug: Deleting unreferenced inductionLoop
+Debug: Deleting unreferenced inductionLoop
+Debug: Deleting unreferenced inductionLoop
+Debug: Deleting unreferenced inductionLoop
+Debug: Deleting unreferenced inductionLoop
+Debug: Deleting unreferenced inductionLoop
+Debug: Deleting unreferenced inductionLoop
+Debug: Deleting unreferenced inductionLoop
 Debug: Deleting unreferenced edge '1' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane '1_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane '1_1' in GNEEdge destructor

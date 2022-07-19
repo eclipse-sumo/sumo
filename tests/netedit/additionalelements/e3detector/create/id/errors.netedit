@@ -1,7 +1,7 @@
 Debug: Current Viewport values: 25.00, 0.00, 25.00. Zoom = '296.00'
-Debug: Selected item 'e3Detector' in GNETagSelector
-Debug: Invalid input parameter of e3Detector
-Debug: Adding e3Detector 'customID' in GNEChange_Additional
+Debug: Selected item 'entryExitDetector' in GNETagSelector
+Debug: Invalid input parameter of entryExitDetector
+Debug: Adding entryExitDetector 'customID' in GNEChange_Additional
 Debug: Selected item 'detEntry' in GNETagSelector
 Debug: Adding detEntry 'customID' in GNEChange_Additional
 Debug: Selected item 'detExit' in GNETagSelector
@@ -14,10 +14,10 @@ Debug: Calling GNEUndoList::undo()
 Debug: Removing detEntry 'customID' in GNEChange_Additional
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing e3Detector 'customID' in GNEChange_Additional
+Debug: Removing entryExitDetector 'customID' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Adding e3Detector 'customID' in GNEChange_Additional
+Debug: Adding entryExitDetector 'customID' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding detEntry 'customID' in GNEChange_Additional
@@ -30,7 +30,7 @@ Debug: Additionals saved
 Debug: network elements saved
 Debug: Deleting unreferenced detExit
 Debug: Deleting unreferenced detEntry
-Debug: Deleting unreferenced e3Detector
+Debug: Deleting unreferenced entryExitDetector
 Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane 'gneE0_1' in GNEEdge destructor

@@ -1,9 +1,9 @@
 Debug: Adding busStop 'bs' in GNEChange_Additional
 Debug: Adding chargingStation 'cs' in GNEChange_Additional
 Debug: Adding containerStop 'ct' in GNEChange_Additional
-Debug: Adding e1Detector 'e1' in GNEChange_Additional
-Debug: Adding e2Detector 'e2' in GNEChange_Additional
-Debug: Adding e3Detector 'e3' in GNEChange_Additional
+Debug: Adding inductionLoop 'e1' in GNEChange_Additional
+Debug: Adding laneAreaDetector 'e2' in GNEChange_Additional
+Debug: Adding entryExitDetector 'e3' in GNEChange_Additional
 Debug: Adding detEntry 'e3' in GNEChange_Additional
 Debug: Adding detExit 'e3' in GNEChange_Additional
 Debug: Adding instantInductionLoop 'e1i' in GNEChange_Additional
@@ -30,9 +30,9 @@ Debug: Deleting unreferenced parkingArea
 Debug: Deleting unreferenced instantInductionLoop
 Debug: Deleting unreferenced detExit
 Debug: Deleting unreferenced detEntry
-Debug: Deleting unreferenced e3Detector
-Debug: Deleting unreferenced e2Detector
-Debug: Deleting unreferenced e1Detector
+Debug: Deleting unreferenced entryExitDetector
+Debug: Deleting unreferenced laneAreaDetector
+Debug: Deleting unreferenced inductionLoop
 Debug: Deleting unreferenced containerStop
 Debug: Deleting unreferenced chargingStation
 Debug: Deleting unreferenced busStop
@@ -57,9 +57,9 @@ Debug: Deleting unreferenced parkingArea in AttributeCarriers destructor
 Debug: Deleting unreferenced space in AttributeCarriers destructor
 Debug: Deleting unreferenced space in AttributeCarriers destructor
 Debug: Deleting unreferenced space in AttributeCarriers destructor
-Debug: Deleting unreferenced e1Detector in AttributeCarriers destructor
-Debug: Deleting unreferenced e2Detector in AttributeCarriers destructor
-Debug: Deleting unreferenced e3Detector in AttributeCarriers destructor
+Debug: Deleting unreferenced inductionLoop in AttributeCarriers destructor
+Debug: Deleting unreferenced laneAreaDetector in AttributeCarriers destructor
+Debug: Deleting unreferenced entryExitDetector in AttributeCarriers destructor
 Debug: Deleting unreferenced detEntry in AttributeCarriers destructor
 Debug: Deleting unreferenced detExit in AttributeCarriers destructor
 Debug: Deleting unreferenced instantInductionLoop in AttributeCarriers destructor

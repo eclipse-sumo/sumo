@@ -1,7 +1,7 @@
-Error: Attribute 'timeThreshold' in definition of e3Detector 'e3Detector_1' is not a valid time value.
-Error: 'detEntry' must be defined within the definition of a 'e3Detector' (found '').
-Error: 'detExit' must be defined within the definition of a 'e3Detector' (found '').
-Error: Could not build e3Detector with ID 'e3Detector_2' in netedit; attribute timeThreshold cannot be negative.
-Error: Could not build entry in netedit; e3Detector doesn't exist.
-Error: Could not build detExit in netedit; e3Detector doesn't exist.
+Error: Attribute 'timeThreshold' in definition of entryExitDetector 'entryExitDetector_1' is not a valid time value.
+Error: 'detEntry' must be defined within the definition of a 'entryExitDetector' (found '').
+Error: 'detExit' must be defined within the definition of a 'entryExitDetector' (found '').
+Error: Could not build entryExitDetector with ID 'entryExitDetector_2' in netedit; attribute timeThreshold cannot be negative.
+Error: Could not build entry in netedit; entryExitDetector doesn't exist.
+Error: Could not build detExit in netedit; entryExitDetector doesn't exist.
 Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Apr081849.968\netedit.gui\additionalelements\e3detector\load\timethreshold\input_additionals.add.xml failed.

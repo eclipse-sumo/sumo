@@ -8,9 +8,9 @@ Debug: Adding busStop 'busStop_gneE4_0_7' in GNEChange_Additional
 Debug: Adding busStop 'busStop_gneE5_0_8' in GNEChange_Additional
 Debug: Adding busStop 'busStop_gneE6_0_9' in GNEChange_Additional
 Debug: Adding busStop 'busStop_gneE7_0_6' in GNEChange_Additional
-Debug: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
-Debug: Adding detEntry 'e3Detector_0' in GNEChange_Additional
-Debug: Adding detExit 'e3Detector_0' in GNEChange_Additional
+Debug: Adding entryExitDetector 'entryExitDetector_0' in GNEChange_Additional
+Debug: Adding detEntry 'entryExitDetector_0' in GNEChange_Additional
+Debug: Adding detExit 'entryExitDetector_0' in GNEChange_Additional
 Debug: Key F5 (Compute) pressed
 Debug: Created connection 'from-gneE10_0to-gneE9_0' in retrieveGNEConnection()
 Debug: Created connection 'from-gneE10_0to-gneE17_0' in retrieveGNEConnection()
@@ -269,7 +269,7 @@ Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge 'gneE15' due it were guessed
 Debug: Setting new attribute
 Debug: Removing edge 'gneE16' from net
-Debug: Removing detExit 'e3Detector_0' in GNEChange_Additional
+Debug: Removing detExit 'entryExitDetector_0' in GNEChange_Additional
 Debug: Removing connection 'gneE9_0->gneE10_0' from edge 'gneE9'
 Debug: Deleting unreferenced connection 'fromgneE9_0togneE10_0' in removeConnection()
 Debug: Removing connection 'gneE9_0->-gneE17_0' from edge 'gneE9'
@@ -369,7 +369,7 @@ Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge '-gneE19' due it were guessed
 Debug: Setting new attribute
 Debug: Removing edge '-gneE19' from net
-Debug: Removing detEntry 'e3Detector_0' in GNEChange_Additional
+Debug: Removing detEntry 'entryExitDetector_0' in GNEChange_Additional
 Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge '-gneE14' due it were guessed
@@ -403,7 +403,7 @@ Debug: Restoring previous attribute
 Debug: invalidating (removing) connections of edge '-gneE14' due it were guessed
 Debug: Deleting unreferenced connection 'from-gneE14_0to-gneE13_0' in clearGNEConnections()
 Debug: Restoring previous attribute
-Debug: Adding detEntry 'e3Detector_0' in GNEChange_Additional
+Debug: Adding detEntry 'entryExitDetector_0' in GNEChange_Additional
 Debug: Adding edge '-gneE19' from net
 Debug: Restoring previous attribute
 Debug: Restoring previous attribute
@@ -507,7 +507,7 @@ Debug: Adding connection 'gneE9_0->-gneE17_0' into edge 'gneE9'
 Debug: Created connection 'fromgneE9_0to-gneE17_0' in retrieveGNEConnection()
 Debug: Adding connection 'gneE9_0->gneE10_0' into edge 'gneE9'
 Debug: Created connection 'fromgneE9_0togneE10_0' in retrieveGNEConnection()
-Debug: Adding detExit 'e3Detector_0' in GNEChange_Additional
+Debug: Adding detExit 'entryExitDetector_0' in GNEChange_Additional
 Debug: Adding edge 'gneE16' from net
 Debug: Restoring previous attribute
 Debug: Restoring previous attribute
@@ -935,7 +935,7 @@ Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge 'gneE15' due it were guessed
 Debug: Setting new attribute
 Debug: Removing edge 'gneE16' from net
-Debug: Removing detExit 'e3Detector_0' in GNEChange_Additional
+Debug: Removing detExit 'entryExitDetector_0' in GNEChange_Additional
 Debug: Removing connection 'gneE9_0->gneE10_0' from edge 'gneE9'
 Debug: Deleting unreferenced connection 'fromgneE9_0togneE10_0' in removeConnection()
 Debug: Removing connection 'gneE9_0->-gneE17_0' from edge 'gneE9'
@@ -1035,7 +1035,7 @@ Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge '-gneE19' due it were guessed
 Debug: Setting new attribute
 Debug: Removing edge '-gneE19' from net
-Debug: Removing detEntry 'e3Detector_0' in GNEChange_Additional
+Debug: Removing detEntry 'entryExitDetector_0' in GNEChange_Additional
 Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge '-gneE14' due it were guessed
@@ -1112,7 +1112,7 @@ Debug: Deleting unreferenced junction in GNEChange_Attribute
 Debug: Deleting NBNode of 'gneJ0' in GNEJunction destructor
 Debug: Deleting unreferenced detExit
 Debug: Deleting unreferenced detEntry
-Debug: Deleting unreferenced e3Detector
+Debug: Deleting unreferenced entryExitDetector
 Debug: Deleting unreferenced busStop
 Debug: Deleting unreferenced busStop
 Debug: Deleting unreferenced busStop

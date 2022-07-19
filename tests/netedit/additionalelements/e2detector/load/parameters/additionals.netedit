@@ -5,11 +5,11 @@
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- Detectors -->
-    <e2Detector id="E2_01" lane="gneE0_0" pos="1.00" length="10.00" period="100.00" file="fileA.txt">
+    <laneAreaDetector id="E2_01" lane="gneE0_0" pos="1.00" length="10.00" period="100.00" file="fileA.txt">
         <param key="$$key with spaces%%" value="value4"/>
         <param key="key1" value="value5"/>
         <param key="key2" value=""/>
         <param key="key3" value="$$value with spaces%%"/>
         <param key="keyFinal" value="valueFinal"/>
-    </e2Detector>
+    </laneAreaDetector>
 </additional>

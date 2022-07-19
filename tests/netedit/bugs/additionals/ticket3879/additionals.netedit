@@ -14,13 +14,13 @@
         <space x="36.82" y="10.96" width="3.20" length="5.00" angle="0.00"/>
     </parkingArea>
     <!-- Detectors -->
-    <e1Detector id="e1" lane="gneE1_0" pos="19.68" period="100.00" file="e1.txt"/>
+    <inductionLoop id="e1" lane="gneE1_0" pos="19.68" period="100.00" file="e1.txt"/>
     <instantInductionLoop id="e1i" lane="gneE1_0" pos="22.00" file="e1i.txt"/>
-    <e2Detector id="e2" lane="gneE1_0" pos="7.17" length="10.00" period="100.00" file="e2.txt"/>
-    <e3Detector id="e3" pos="9.06,-7.45" period="100.00" file="e3.txt">
+    <laneAreaDetector id="e2" lane="gneE1_0" pos="7.17" length="10.00" period="100.00" file="e2.txt"/>
+    <entryExitDetector id="e3" pos="9.06,-7.45" period="100.00" file="e3.txt">
         <detEntry lane="gneE0_0" pos="5.45"/>
         <detExit lane="gneE0_0" pos="12.65"/>
-    </e3Detector>
+    </entryExitDetector>
     <!-- Other additionals -->
     <rerouter id="r" edges="gneE0" pos="15.59,-7.40"/>
     <variableSpeedSign id="v" lanes="gneE0_0" pos="20.22,-7.28"/>

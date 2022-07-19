@@ -5,8 +5,8 @@
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- Detectors -->
-    <e3Detector id="e3_0" pos="22.00,29.00" period="120.00" file="e3_0.xml">
+    <entryExitDetector id="e3_0" pos="22.00,29.00" period="120.00" file="e3_0.xml">
         <detEntry lane="gneE3_0" pos="28.00"/>
         <detExit lane="gneE2_1" pos="22.00"/>
-    </e3Detector>
+    </entryExitDetector>
 </additional>

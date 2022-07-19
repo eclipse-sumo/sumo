@@ -3,11 +3,11 @@ Debug: Adding calibratorLane 'calibrator_gneE1_0_0' in GNEChange_Additional
 Debug: Adding calibrator 'calibrator_gneE1_1' in GNEChange_Additional
 Debug: Adding chargingStation 'chargingStation_gneE1_2_0' in GNEChange_Additional
 Debug: Adding containerStop 'containerStop_gneE1_1_0' in GNEChange_Additional
-Debug: Adding e1Detector 'e1Detector_gneE0_2_0' in GNEChange_Additional
-Debug: Adding e2Detector 'e2Detector_gneE0_1_0' in GNEChange_Additional
-Debug: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
-Debug: Adding detEntry 'e3Detector_0' in GNEChange_Additional
-Debug: Adding detExit 'e3Detector_0' in GNEChange_Additional
+Debug: Adding inductionLoop 'inductionLoop_gneE0_2_0' in GNEChange_Additional
+Debug: Adding laneAreaDetector 'laneAreaDetector_gneE0_1_0' in GNEChange_Additional
+Debug: Adding entryExitDetector 'entryExitDetector_0' in GNEChange_Additional
+Debug: Adding detEntry 'entryExitDetector_0' in GNEChange_Additional
+Debug: Adding detExit 'entryExitDetector_0' in GNEChange_Additional
 Debug: Adding instantInductionLoop 'instantInductionLoop_1' in GNEChange_Additional
 Debug: Adding rerouter 'rerouter_0' in GNEChange_Additional
 Debug: Adding rerouterSymbol 'gneE1' in GNEChange_Additional
@@ -37,9 +37,9 @@ Debug: Deleting unreferenced rerouter
 Debug: Deleting unreferenced instantInductionLoop
 Debug: Deleting unreferenced detExit
 Debug: Deleting unreferenced detEntry
-Debug: Deleting unreferenced e3Detector
-Debug: Deleting unreferenced e2Detector
-Debug: Deleting unreferenced e1Detector
+Debug: Deleting unreferenced entryExitDetector
+Debug: Deleting unreferenced laneAreaDetector
+Debug: Deleting unreferenced inductionLoop
 Debug: Deleting unreferenced containerStop
 Debug: Deleting unreferenced chargingStation
 Debug: Deleting unreferenced calibrator
