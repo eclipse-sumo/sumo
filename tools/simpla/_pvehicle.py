@@ -259,8 +259,9 @@ class PVehicle(object):
         TODO: This mechanism does not work on highways, where the vehicles maxspeed is determining
               the travel speed and not the road's speed limit.
         '''
-        self._activeSpeedFactor = cfg.SPEEDFACTOR[self._currentPlatoonMode] \
-            / (1. + self._switchImpatienceFactor * switchWaitingTime)
+        speedFactorBase = self._speedFactors[self._currentPlatoonMode] \
+            if self._currentPlatoonMode is PlatoonMode.NONE else cfg.SPEEDFACTOR[self._currentPlatoonMode]
+        self._activeSpeedFactor = speedFactorBase / (1. + self._switchImpatienceFactor * switchWaitingTime)
         traci.vehicle.setSpeedFactor(self._ID, self._activeSpeedFactor)
 
     def _resetActiveSpeedFactor(self):
