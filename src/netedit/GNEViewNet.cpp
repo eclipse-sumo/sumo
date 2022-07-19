@@ -4873,7 +4873,7 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
             if (myNetworkViewOptions.selectEdges() && (myMouseButtonKeyPressed.shiftKeyPressed() == false)) {
                 myObjectsUnderCursor.swapLane2Edge();
                 // update AC under cursor
-                AC = myObjectsUnderCursor.getAttributeCarrierFront();
+                AC = myObjectsUnderCursor.getAttributeCarrierFront(myLockManager);
             }
             // avoid to select if control key is pressed
             if (!myMouseButtonKeyPressed.controlKeyPressed()) {
@@ -4883,7 +4883,7 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
                     mySelectingArea.beginRectangleSelection();
                 } else {
                     // first check that under cursor there is an attribute carrier, isn't a demand element and is selectable
-                    if (AC && !myLockManager.isObjectLocked(AC->getGUIGlObject()->getType(), AC->isAttributeCarrierSelected()) && !AC->getTagProperty().isDemandElement()) {
+                    if (AC && !AC->getTagProperty().isDemandElement()) {
                         // toggle networkElement selection
                         if (AC->isAttributeCarrierSelected()) {
                             AC->unselectAttributeCarrier();
