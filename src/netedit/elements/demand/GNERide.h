@@ -46,7 +46,7 @@ public:
      * @param[in] toEdge to edge
      * @param[in] arrivalPosition arrival position on the destination edge
      * @param[in] types list of possible vehicle types to take
-     * @param[in] modes list of possible traffic modes
+     * @param[in] lines list of lines
      */
     GNERide(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge,
             double arrivalPosition, const std::vector<std::string>& lines);
@@ -58,7 +58,7 @@ public:
      * @param[in] toBusStop to busStop
      * @param[in] arrivalPosition arrival position on the destination edge
      * @param[in] types list of possible vehicle types to take
-     * @param[in] modes list of possible traffic modes
+     * @param[in] lines list of lines
      */
     GNERide(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEAdditional* toBusStop,
             double arrivalPosition, const std::vector<std::string>& lines);

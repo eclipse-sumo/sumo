@@ -47,9 +47,11 @@ public:
      * @param[in] arrivalPosition arrival position on the destination edge
      * @param[in] types list of possible vehicle types to take
      * @param[in] modes list of possible traffic modes
+     * @param[in] lines list of lines
      */
     GNEPersonTrip(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge,
-                  double arrivalPosition, const std::vector<std::string>& types, const std::vector<std::string>& modes);
+                  double arrivalPosition, const std::vector<std::string>& types, const std::vector<std::string>& modes,
+                  const std::vector<std::string>& lines);
 
     /**@brief parameter constructor for person edge->busStop
      * @param[in] viewNet view in which this PersonTrip is placed
@@ -59,9 +61,11 @@ public:
      * @param[in] arrivalPosition arrival position on the destination edge
      * @param[in] types list of possible vehicle types to take
      * @param[in] modes list of possible traffic modes
+     * @param[in] lines list of lines
      */
     GNEPersonTrip(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEAdditional* toBusStop,
-                  double arrivalPosition, const std::vector<std::string>& types, const std::vector<std::string>& modes);
+                  double arrivalPosition, const std::vector<std::string>& types, const std::vector<std::string>& modes,
+                  const std::vector<std::string>& lines);
 
     /**@brief parameter constructor for person junction->junction
      * @param[in] viewNet view in which this PersonTrip is placed
@@ -71,9 +75,11 @@ public:
      * @param[in] arrivalPosition arrival position on the destination junction
      * @param[in] types list of possible vehicle types to take
      * @param[in] modes list of possible traffic modes
+     * @param[in] lines list of lines
      */
     GNEPersonTrip(GNENet* net, GNEDemandElement* personParent, GNEJunction* fromJunction, GNEJunction* toJunction,
-                  double arrivalPosition, const std::vector<std::string>& types, const std::vector<std::string>& modes);
+                  double arrivalPosition, const std::vector<std::string>& types, const std::vector<std::string>& modes,
+                  const std::vector<std::string>& lines);
 
     /// @brief destructor
     ~GNEPersonTrip();
@@ -241,6 +247,9 @@ protected:
 
     /// @brief valid line or modes
     std::vector<std::string> myModes;
+
+    /// @brief valid line or vehicle ids or ANY
+    std::vector<std::string> myLines;
 
 private:
     /// @brief method for setting the attribute and nothing else

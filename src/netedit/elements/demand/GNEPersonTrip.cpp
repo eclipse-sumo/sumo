@@ -37,41 +37,47 @@
 
 GNEPersonTrip::GNEPersonTrip(SumoXMLTag tag, GNENet* net) :
     GNEDemandElement("", net, GLO_PERSONTRIP, tag, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
-{}, {}, {}, {}, {}, {}),
-myArrivalPosition(0) {
+        {}, {}, {}, {}, {}, {}),
+    myArrivalPosition(0) {
     // reset default values
     resetDefaultValues();
 }
 
 
 GNEPersonTrip::GNEPersonTrip(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge,
-                             double arrivalPosition, const std::vector<std::string>& types, const std::vector<std::string>& modes) :
+                             double arrivalPosition, const std::vector<std::string>& types, const std::vector<std::string>& modes,
+                             const std::vector<std::string>& lines) :
     GNEDemandElement(personParent, net, GLO_PERSONTRIP, GNE_TAG_PERSONTRIP_EDGE, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
-{}, {fromEdge, toEdge}, {}, {}, {personParent}, {}),
-myArrivalPosition(arrivalPosition),
-myVTypes(types),
-myModes(modes) {
+        {}, {fromEdge, toEdge}, {}, {}, {personParent}, {}),
+    myArrivalPosition(arrivalPosition),
+    myVTypes(types),
+    myModes(modes),
+    myLines(lines) {
 }
 
 
 GNEPersonTrip::GNEPersonTrip(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEAdditional* toBusStop,
-                             double arrivalPosition, const std::vector<std::string>& types, const std::vector<std::string>& modes) :
+                             double arrivalPosition, const std::vector<std::string>& types, const std::vector<std::string>& modes,
+                             const std::vector<std::string>& lines) :
     GNEDemandElement(personParent, net, GLO_PERSONTRIP, GNE_TAG_PERSONTRIP_BUSSTOP, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
-{}, {fromEdge}, {}, {toBusStop}, {personParent}, {}),
-myArrivalPosition(arrivalPosition),
-myVTypes(types),
-myModes(modes) {
+        {}, {fromEdge}, {}, {toBusStop}, {personParent}, {}),
+    myArrivalPosition(arrivalPosition),
+    myVTypes(types),
+    myModes(modes),
+    myLines(lines) {
 }
 
 
 GNEPersonTrip::GNEPersonTrip(GNENet* net, GNEDemandElement* personParent, GNEJunction* fromJunction, GNEJunction* toJunction,
-                             double arrivalPosition, const std::vector<std::string>& types, const std::vector<std::string>& modes) :
+                             double arrivalPosition, const std::vector<std::string>& types, const std::vector<std::string>& modes,
+                             const std::vector<std::string>& lines) :
     GNEDemandElement(personParent, net, GLO_PERSONTRIP, GNE_TAG_PERSONTRIP_JUNCTIONS, GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {
     fromJunction, toJunction
-}, {}, {}, {}, {personParent}, {}),
-myArrivalPosition(arrivalPosition),
-myVTypes(types),
-myModes(modes) {
+    }, {}, {}, {}, {personParent}, {}),
+    myArrivalPosition(arrivalPosition),
+    myVTypes(types),
+    myModes(modes),
+    myLines(lines) {
 }
 
 
@@ -150,6 +156,10 @@ GNEPersonTrip::writeDemandElement(OutputDevice& device) const {
     // write modes
     if (myModes.size() > 0) {
         device.writeAttr(SUMO_ATTR_MODES, myModes);
+    }
+    // write lines
+    if (myLines.size() > 0) {
+        device.writeAttr(SUMO_ATTR_LINES, myLines);
     }
     // write vTypes
     if (myVTypes.size() > 0) {
@@ -335,6 +345,8 @@ GNEPersonTrip::getAttribute(SumoXMLAttr key) const {
             } else {
                 return toString(myArrivalPosition);
             }
+        case SUMO_ATTR_LINES:
+            return joinToString(myLines, " ");
         case GNE_ATTR_SELECTED:
             return toString(isAttributeCarrierSelected());
         case GNE_ATTR_PARAMETERS:
@@ -396,6 +408,7 @@ GNEPersonTrip::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
         case SUMO_ATTR_ARRIVALPOS:
         case SUMO_ATTR_MODES:
         case SUMO_ATTR_VTYPES:
+        case SUMO_ATTR_LINES:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARENT:
         case GNE_ATTR_PARAMETERS:
@@ -476,6 +489,8 @@ GNEPersonTrip::isValid(SumoXMLAttr key, const std::string& value) {
             } else {
                 return false;
             }
+        case SUMO_ATTR_LINES:
+            return canParse<std::vector<std::string> >(value);
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
         case GNE_ATTR_PARAMETERS:
@@ -582,6 +597,9 @@ GNEPersonTrip::setAttribute(SumoXMLAttr key, const std::string& value) {
                 myArrivalPosition = parse<double>(value);
             }
             updateGeometry();
+            break;
+        case SUMO_ATTR_LINES:
+            myLines = GNEAttributeCarrier::parse<std::vector<std::string> >(value);
             break;
         case GNE_ATTR_SELECTED:
             if (parse<bool>(value)) {
