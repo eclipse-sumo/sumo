@@ -1,6 +1,7 @@
-sumo (1.14.1-1) focal; urgency=medium
+sumo (1.14.1-2) focal; urgency=medium
 
   * new upstream version
+  * added eigen3
 
  -- Michael Behrisch <oss@behrisch.de>  Tue, 19 Jul 2022 09:22:45 +0200
 
