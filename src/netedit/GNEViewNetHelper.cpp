@@ -519,6 +519,38 @@ GNEViewNetHelper::ObjectsUnderCursor::getLaneFront() const {
 }
 
 
+GNELane*
+GNEViewNetHelper::ObjectsUnderCursor::getLaneFrontNonLocked() const {
+    if (mySwapLane2edge) {
+        if (myEdgeObjects.lanes.size() > 0) {
+            for (auto &lane : myEdgeObjects.lanes) {
+                if (!(lane->isAttributeCarrierSelected() || lane->getParentEdge()->isAttributeCarrierSelected()) || 
+                    !myViewNet->getViewParent()->getGNEAppWindows()->getLockMenuCommands().menuCheckLockSelectedElements->getCheck()) {
+                    return lane;
+                }
+            }
+            // all locked, then return nullptr
+            return nullptr;
+        } else {
+            return nullptr;
+        }
+    } else {
+        if (myLaneObjects.lanes.size() > 0) {
+            for (auto &lane : myLaneObjects.lanes) {
+                if (!(lane->isAttributeCarrierSelected() || lane->getParentEdge()->isAttributeCarrierSelected()) || 
+                    !myViewNet->getViewParent()->getGNEAppWindows()->getLockMenuCommands().menuCheckLockSelectedElements->getCheck()) {
+                    return lane;
+                }
+            }
+            // all locked, then return nullptr
+            return nullptr;
+        } else {
+            return nullptr;
+        }
+    }
+}
+
+
 const std::vector<GNELane*>&
 GNEViewNetHelper::ObjectsUnderCursor::getLanes() const {
     if (mySwapLane2edge) {

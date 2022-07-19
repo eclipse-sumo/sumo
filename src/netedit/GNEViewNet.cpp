@@ -4980,8 +4980,8 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
             break;
         }
         case NetworkEditMode::NETWORK_CONNECT: {
-            // check if we're clicked over a lane
-            if (myObjectsUnderCursor.getLaneFront()) {
+            // check if we're clicked over a non locked lane
+            if (myObjectsUnderCursor.getLaneFrontNonLocked()) {
                 // Handle laneclick (shift key may pass connections, Control key allow conflicts)
                 myViewParent->getConnectorFrame()->handleLaneClick(myObjectsUnderCursor);
                 updateViewNet();

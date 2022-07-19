@@ -255,6 +255,9 @@ struct GNEViewNetHelper {
         /// @brief get front lane or a pointer to nullptr
         GNELane* getLaneFront() const;
 
+        /// @brief get front lane or a pointer to nullptr checking if is locked
+        GNELane* getLaneFrontNonLocked() const;
+
         /// @brief get lanes
         const std::vector<GNELane*>& getLanes() const;
 
