@@ -6,6 +6,10 @@ title: ChangeLog
 
 ### Bugfixes
 
+### Enhancements
+
+### Miscellaneous
+
 ## Version 1.14.1 (19.07.2022)
 
 ### Bugfixes
