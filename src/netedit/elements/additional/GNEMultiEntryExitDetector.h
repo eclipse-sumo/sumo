@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEDetectorE3.h
+/// @file    GNEMultiEntryExitDetector.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Nov 2015
 ///
@@ -26,16 +26,16 @@
 // class definitions
 // ===========================================================================
 /**
- * @class GNEDetectorE3
+ * @class GNEMultiEntryExitDetector
  * Class for multy Entry/multy Exits detectors
  */
-class GNEDetectorE3 : public GNEAdditional, public Parameterised {
+class GNEMultiEntryExitDetector : public GNEAdditional, public Parameterised {
 
 public:
     /// @brief default constructor
-    GNEDetectorE3(GNENet* net);
+    GNEMultiEntryExitDetector(GNENet* net);
 
-    /**@brief GNEDetectorE3 Constructor
+    /**@brief GNEMultiEntryExitDetector Constructor
      * @param[in] id The storage of gl-ids to get the one for this lane representation from
      * @param[in] net pointer to GNENet of this additional element belongs
      * @param[in] pos position (center) of the detector in the map
@@ -47,11 +47,11 @@ public:
      * @param[in] speedThreshold The speed-based threshold that describes how slow a vehicle has to be to be recognized as halting
      * @param[in] parameters generic parameters
      */
-    GNEDetectorE3(const std::string& id, GNENet* net, const Position pos, const SUMOTime freq, const std::string& filename, const std::vector<std::string>& vehicleTypes,
+    GNEMultiEntryExitDetector(const std::string& id, GNENet* net, const Position pos, const SUMOTime freq, const std::string& filename, const std::vector<std::string>& vehicleTypes,
                   const std::string& name, SUMOTime timeThreshold, double speedThreshold, const Parameterised::Map& parameters);
 
-    /// @brief GNEDetectorE3 Destructor
-    ~GNEDetectorE3();
+    /// @brief GNEMultiEntryExitDetector Destructor
+    ~GNEMultiEntryExitDetector();
 
     /**@brief get move operation
      * @note returned GNEMoveOperation can be nullptr
@@ -162,8 +162,8 @@ private:
     void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList);
 
     /// @brief Invalidated copy constructor.
-    GNEDetectorE3(const GNEDetectorE3&) = delete;
+    GNEMultiEntryExitDetector(const GNEMultiEntryExitDetector&) = delete;
 
     /// @brief Invalidated assignment operator.
-    GNEDetectorE3& operator=(const GNEDetectorE3&) = delete;
+    GNEMultiEntryExitDetector& operator=(const GNEMultiEntryExitDetector&) = delete;
 };

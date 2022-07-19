@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEDetectorE2.h
+/// @file    GNELaneAreaDetector.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Nov 2015
 ///
@@ -26,14 +26,14 @@
 // class definitions
 // ===========================================================================
 /**
- * @class GNEDetectorE2
+ * @class GNELaneAreaDetector
  * class for detector of type E2
  */
-class GNEDetectorE2 : public GNEDetector {
+class GNELaneAreaDetector : public GNEDetector {
 
 public:
     /// @brief default Constructor
-    GNEDetectorE2(SumoXMLTag tag, GNENet* net);
+    GNELaneAreaDetector(SumoXMLTag tag, GNENet* net);
 
     /**@brief Constructor for Single-Lane E2 detectors
      * @param[in] id The storage of gl-ids to get the one for this lane representation from
@@ -52,7 +52,7 @@ public:
      * @param[in] friendlyPos enable or disable friendly positions
      * @param[in] parameters generic parameters
      */
-    GNEDetectorE2(const std::string& id, GNELane* lane, GNENet* net, double pos, double length, const SUMOTime freq, const std::string& trafficLight,
+    GNELaneAreaDetector(const std::string& id, GNELane* lane, GNENet* net, double pos, double length, const SUMOTime freq, const std::string& trafficLight,
                   const std::string& filename, const std::vector<std::string>& vehicleTypes, const std::string& name, SUMOTime timeThreshold, double speedThreshold,
                   double jamThreshold, bool friendlyPos, const Parameterised::Map& parameters);
 
@@ -73,12 +73,12 @@ public:
      * @param[in] friendlyPos enable or disable friendly positions
      * @param[in] parameters generic parameters
      */
-    GNEDetectorE2(const std::string& id, std::vector<GNELane*> lanes, GNENet* net, double pos, double endPos, const SUMOTime freq, const std::string& trafficLight,
+    GNELaneAreaDetector(const std::string& id, std::vector<GNELane*> lanes, GNENet* net, double pos, double endPos, const SUMOTime freq, const std::string& trafficLight,
                   const std::string& filename, const std::vector<std::string>& vehicleTypes, const std::string& name, SUMOTime timeThreshold, double speedThreshold, double jamThreshold,
                   bool friendlyPos, const Parameterised::Map& parameters);
 
     /// @brief Destructor
-    ~GNEDetectorE2();
+    ~GNELaneAreaDetector();
 
     /// @name members and functions relative to write additionals into XML
     /// @{
@@ -194,8 +194,8 @@ private:
     double getEndGeometryPositionOverLane() const;
 
     /// @brief Invalidated copy constructor.
-    GNEDetectorE2(const GNEDetectorE2&) = delete;
+    GNELaneAreaDetector(const GNELaneAreaDetector&) = delete;
 
     /// @brief Invalidated assignment operator.
-    GNEDetectorE2& operator=(const GNEDetectorE2&) = delete;
+    GNELaneAreaDetector& operator=(const GNELaneAreaDetector&) = delete;
 };

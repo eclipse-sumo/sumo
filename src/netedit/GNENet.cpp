@@ -2182,10 +2182,10 @@ GNENet::saveAdditionalsConfirmed(const std::string& filename) {
     writeAdditionalByType(device, {SUMO_TAG_PARKING_AREA});
     // detectors
     writeDetectorComment(device);
-    writeAdditionalByType(device, {SUMO_TAG_E1DETECTOR});
+    writeAdditionalByType(device, {SUMO_TAG_INDUCTION_LOOP});
     writeAdditionalByType(device, {SUMO_TAG_INSTANT_INDUCTION_LOOP});
-    writeAdditionalByType(device, {SUMO_TAG_E2DETECTOR, GNE_TAG_E2DETECTOR_MULTILANE});
-    writeAdditionalByType(device, {SUMO_TAG_E3DETECTOR});
+    writeAdditionalByType(device, {SUMO_TAG_LANE_AREA_DETECTOR, GNE_TAG_E2DETECTOR_MULTILANE});
+    writeAdditionalByType(device, {SUMO_TAG_ENTRY_EXIT_DETECTOR});
     // Other additionals
     writeOtherAdditionalsComment(device);
     writeAdditionalByType(device, {SUMO_TAG_REROUTER});

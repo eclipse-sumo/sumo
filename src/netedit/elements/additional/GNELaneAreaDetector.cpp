@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEDetectorE2.cpp
+/// @file    GNELaneAreaDetector.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Nov 2015
 ///
@@ -34,7 +34,7 @@
 // member method definitions
 // ===========================================================================
 
-GNEDetectorE2::GNEDetectorE2(SumoXMLTag tag, GNENet* net) :
+GNELaneAreaDetector::GNELaneAreaDetector(SumoXMLTag tag, GNENet* net) :
     GNEDetector("", net, GLO_E2DETECTOR, tag, 0, 0, {}, "", {}, "", false, Parameterised::Map()),
             myEndPositionOverLane(0),
             myTimeThreshold(0),
@@ -45,11 +45,11 @@ myJamThreshold(0) {
 }
 
 
-GNEDetectorE2::GNEDetectorE2(const std::string& id, GNELane* lane, GNENet* net, double pos, double length, const SUMOTime freq,
+GNELaneAreaDetector::GNELaneAreaDetector(const std::string& id, GNELane* lane, GNENet* net, double pos, double length, const SUMOTime freq,
                              const std::string& trafficLight, const std::string& filename, const std::vector<std::string>& vehicleTypes, const std::string& name,
                              SUMOTime timeThreshold, double speedThreshold, double jamThreshold, bool friendlyPos,
                              const Parameterised::Map& parameters) :
-    GNEDetector(id, net, GLO_E2DETECTOR, SUMO_TAG_E2DETECTOR, pos, freq, {
+    GNEDetector(id, net, GLO_E2DETECTOR, SUMO_TAG_LANE_AREA_DETECTOR, pos, freq, {
     lane
 }, filename, vehicleTypes, name, friendlyPos, parameters),
 myEndPositionOverLane(pos + length),
@@ -62,7 +62,7 @@ myTrafficLight(trafficLight) {
 }
 
 
-GNEDetectorE2::GNEDetectorE2(const std::string& id, std::vector<GNELane*> lanes, GNENet* net, double pos, double endPos, const SUMOTime freq,
+GNELaneAreaDetector::GNELaneAreaDetector(const std::string& id, std::vector<GNELane*> lanes, GNENet* net, double pos, double endPos, const SUMOTime freq,
                              const std::string& trafficLight, const std::string& filename, const std::vector<std::string>& vehicleTypes, const std::string& name, SUMOTime timeThreshold,
                              double speedThreshold, double jamThreshold, bool friendlyPos, const Parameterised::Map& parameters) :
     GNEDetector(id, net, GLO_E2DETECTOR, GNE_TAG_E2DETECTOR_MULTILANE, pos, freq, lanes, filename, vehicleTypes, name, friendlyPos, parameters),
@@ -76,19 +76,19 @@ GNEDetectorE2::GNEDetectorE2(const std::string& id, std::vector<GNELane*> lanes,
 }
 
 
-GNEDetectorE2::~GNEDetectorE2() {
+GNELaneAreaDetector::~GNELaneAreaDetector() {
 }
 
 
 void
-GNEDetectorE2::writeAdditional(OutputDevice& device) const {
-    device.openTag(SUMO_TAG_E2DETECTOR);
+GNELaneAreaDetector::writeAdditional(OutputDevice& device) const {
+    device.openTag(SUMO_TAG_LANE_AREA_DETECTOR);
     device.writeAttr(SUMO_ATTR_ID, getID());
     if (!myAdditionalName.empty()) {
         device.writeAttr(SUMO_ATTR_NAME, StringUtils::escapeXML(myAdditionalName));
     }
     // continue depending of E2 type
-    if (myTagProperty.getTag() == SUMO_TAG_E2DETECTOR) {
+    if (myTagProperty.getTag() == SUMO_TAG_LANE_AREA_DETECTOR) {
         device.writeAttr(SUMO_ATTR_LANE, getParentLanes().front()->getID());
         device.writeAttr(SUMO_ATTR_POSITION, myPositionOverLane);
         device.writeAttr(SUMO_ATTR_LENGTH, toString(myEndPositionOverLane - myPositionOverLane));
@@ -128,7 +128,7 @@ GNEDetectorE2::writeAdditional(OutputDevice& device) const {
 
 
 bool
-GNEDetectorE2::isAdditionalValid() const {
+GNELaneAreaDetector::isAdditionalValid() const {
     if (getParentLanes().size() == 1) {
         // with friendly position enabled position are "always fixed"
         if (myFriendlyPosition) {
@@ -156,7 +156,7 @@ GNEDetectorE2::isAdditionalValid() const {
 
 
 std::string
-GNEDetectorE2::getAdditionalProblem() const {
+GNELaneAreaDetector::getAdditionalProblem() const {
     // declare variable for error position
     std::string errorFirstLanePosition, separator, errorLastLanePosition;
     if (getParentLanes().size() == 1) {
@@ -201,7 +201,7 @@ GNEDetectorE2::getAdditionalProblem() const {
 
 
 void
-GNEDetectorE2::fixAdditionalProblem() {
+GNELaneAreaDetector::fixAdditionalProblem() {
     if (getParentLanes().size() == 1) {
         // obtain position and length
         double newPositionOverLane = myPositionOverLane;
@@ -253,7 +253,7 @@ GNEDetectorE2::fixAdditionalProblem() {
 
 
 void
-GNEDetectorE2::updateGeometry() {
+GNELaneAreaDetector::updateGeometry() {
     // check E2 detector
     if (myTagProperty.getTag() == GNE_TAG_E2DETECTOR_MULTILANE) {
         // compute path
@@ -268,11 +268,11 @@ GNEDetectorE2::updateGeometry() {
 
 
 void
-GNEDetectorE2::drawGL(const GUIVisualizationSettings& s) const {
+GNELaneAreaDetector::drawGL(const GUIVisualizationSettings& s) const {
     // Obtain exaggeration of the draw
     const double E2Exaggeration = getExaggeration(s);
     // first check if additional has to be drawn
-    if ((myTagProperty.getTag() == SUMO_TAG_E2DETECTOR) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
+    if ((myTagProperty.getTag() == SUMO_TAG_LANE_AREA_DETECTOR) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
         // check exaggeration
         if (s.drawAdditionals(E2Exaggeration)) {
             // declare color
@@ -330,14 +330,14 @@ GNEDetectorE2::drawGL(const GUIVisualizationSettings& s) const {
 
 
 void
-GNEDetectorE2::computePathElement() {
+GNELaneAreaDetector::computePathElement() {
     // calculate path
     myNet->getPathManager()->calculateConsecutivePathLanes(this, getParentLanes());
 }
 
 
 void
-GNEDetectorE2::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* segment, const double offsetFront) const {
+GNELaneAreaDetector::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* segment, const double offsetFront) const {
     // calculate E2Detector width
     const double E2DetectorWidth = s.addSize.getExaggeration(s, lane);
     // check if E2 can be drawn
@@ -434,7 +434,7 @@ GNEDetectorE2::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* l
 
 
 void
-GNEDetectorE2::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const GNEPathManager::Segment* /*segment*/, const double offsetFront) const {
+GNELaneAreaDetector::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const GNEPathManager::Segment* /*segment*/, const double offsetFront) const {
     // calculate E2Detector width
     const double E2DetectorWidth = s.addSize.getExaggeration(s, fromLane);
     // check if E2 can be drawn
@@ -498,7 +498,7 @@ GNEDetectorE2::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* f
 
 
 std::string
-GNEDetectorE2::getAttribute(SumoXMLAttr key) const {
+GNELaneAreaDetector::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
             return getMicrosimID();
@@ -547,7 +547,7 @@ GNEDetectorE2::getAttribute(SumoXMLAttr key) const {
 
 
 double
-GNEDetectorE2::getAttributeDouble(SumoXMLAttr key) const {
+GNELaneAreaDetector::getAttributeDouble(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_POSITION:
             return myPositionOverLane;
@@ -562,7 +562,7 @@ GNEDetectorE2::getAttributeDouble(SumoXMLAttr key) const {
 
 
 void
-GNEDetectorE2::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
+GNELaneAreaDetector::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     switch (key) {
         case SUMO_ATTR_ID:
         case SUMO_ATTR_LANE:
@@ -591,14 +591,14 @@ GNEDetectorE2::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
 
 
 bool
-GNEDetectorE2::isValid(SumoXMLAttr key, const std::string& value) {
+GNELaneAreaDetector::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
             if (value == getID()) {
                 return true;
             } else if (isValidDetectorID(value)) {
                 return (myNet->getAttributeCarriers()->retrieveAdditional(GNE_TAG_E2DETECTOR_MULTILANE, value, false) == nullptr) &&
-                       (myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_E2DETECTOR, value, false) == nullptr);
+                       (myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_LANE_AREA_DETECTOR, value, false) == nullptr);
             } else {
                 return false;
             }
@@ -664,7 +664,7 @@ GNEDetectorE2::isValid(SumoXMLAttr key, const std::string& value) {
 // ===========================================================================
 
 void
-GNEDetectorE2::setAttribute(SumoXMLAttr key, const std::string& value) {
+GNELaneAreaDetector::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
             // update microsimID
@@ -746,7 +746,7 @@ GNEDetectorE2::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 
 void
-GNEDetectorE2::setMoveShape(const GNEMoveResult& moveResult) {
+GNELaneAreaDetector::setMoveShape(const GNEMoveResult& moveResult) {
     if ((moveResult.operationType == GNEMoveOperation::OperationType::ONE_LANE_MOVEFIRST) ||
             (moveResult.operationType == GNEMoveOperation::OperationType::TWO_LANES_MOVEFIRST)) {
         // change only start position
@@ -766,7 +766,7 @@ GNEDetectorE2::setMoveShape(const GNEMoveResult& moveResult) {
 
 
 void
-GNEDetectorE2::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
+GNELaneAreaDetector::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
     // begin change attribute
     undoList->begin(myTagProperty.getGUIIcon(), "position of " + getTagStr());
     // set attributes depending of operation type
@@ -789,7 +789,7 @@ GNEDetectorE2::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* und
 
 
 double
-GNEDetectorE2::getStartGeometryPositionOverLane() const {
+GNELaneAreaDetector::getStartGeometryPositionOverLane() const {
     // get lane final and shape length
     const double laneLength = getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
     // get startPosition
@@ -811,7 +811,7 @@ GNEDetectorE2::getStartGeometryPositionOverLane() const {
 
 
 double
-GNEDetectorE2::getEndGeometryPositionOverLane() const {
+GNELaneAreaDetector::getEndGeometryPositionOverLane() const {
     // get lane final and shape length
     const double laneLength = getParentLanes().back()->getParentEdge()->getNBEdge()->getFinalLength();
     // get endPosition

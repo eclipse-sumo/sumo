@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEDetectorE1Instant.cpp
+/// @file    GNEInstantInductionLoopDetector.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Jun 2018
 ///
@@ -31,14 +31,14 @@
 // member method definitions
 // ===========================================================================
 
-GNEDetectorE1Instant::GNEDetectorE1Instant(GNENet* net) :
+GNEInstantInductionLoopDetector::GNEInstantInductionLoopDetector(GNENet* net) :
     GNEDetector("", net, GLO_E1DETECTOR_INSTANT, SUMO_TAG_INSTANT_INDUCTION_LOOP, 0, 0, {}, "", {}, "", false, Parameterised::Map()) {
     // reset default values
     resetDefaultValues();
 }
 
 
-GNEDetectorE1Instant::GNEDetectorE1Instant(const std::string& id, GNELane* lane, GNENet* net, const double pos, const std::string& filename, const std::vector<std::string>& vehicleTypes,
+GNEInstantInductionLoopDetector::GNEInstantInductionLoopDetector(const std::string& id, GNELane* lane, GNENet* net, const double pos, const std::string& filename, const std::vector<std::string>& vehicleTypes,
         const std::string& name, const bool friendlyPos, const Parameterised::Map& parameters) :
     GNEDetector(id, net, GLO_E1DETECTOR_INSTANT, SUMO_TAG_INSTANT_INDUCTION_LOOP, pos, 0, {
     lane
@@ -48,12 +48,12 @@ GNEDetectorE1Instant::GNEDetectorE1Instant(const std::string& id, GNELane* lane,
 }
 
 
-GNEDetectorE1Instant::~GNEDetectorE1Instant() {
+GNEInstantInductionLoopDetector::~GNEInstantInductionLoopDetector() {
 }
 
 
 void
-GNEDetectorE1Instant::writeAdditional(OutputDevice& device) const {
+GNEInstantInductionLoopDetector::writeAdditional(OutputDevice& device) const {
     device.openTag(getTagProperty().getTag());
     device.writeAttr(SUMO_ATTR_ID, getID());
     if (!myAdditionalName.empty()) {
@@ -77,7 +77,7 @@ GNEDetectorE1Instant::writeAdditional(OutputDevice& device) const {
 
 
 bool
-GNEDetectorE1Instant::isAdditionalValid() const {
+GNEInstantInductionLoopDetector::isAdditionalValid() const {
     // with friendly position enabled position are "always fixed"
     if (myFriendlyPosition) {
         return true;
@@ -88,7 +88,7 @@ GNEDetectorE1Instant::isAdditionalValid() const {
 
 
 std::string
-GNEDetectorE1Instant::getAdditionalProblem() const {
+GNEInstantInductionLoopDetector::getAdditionalProblem() const {
     // obtain final length
     const double len = getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
     // check if detector has a problem
@@ -110,7 +110,7 @@ GNEDetectorE1Instant::getAdditionalProblem() const {
 
 
 void
-GNEDetectorE1Instant::fixAdditionalProblem() {
+GNEInstantInductionLoopDetector::fixAdditionalProblem() {
     // declare new position
     double newPositionOverLane = myPositionOverLane;
     // fix pos and length checkAndFixDetectorPosition
@@ -122,7 +122,7 @@ GNEDetectorE1Instant::fixAdditionalProblem() {
 
 
 void
-GNEDetectorE1Instant::updateGeometry() {
+GNEInstantInductionLoopDetector::updateGeometry() {
     // update geometry
     myAdditionalGeometry.updateGeometry(getParentLanes().front()->getLaneShape(), getGeometryPositionOverLane(), myMoveElementLateralOffset);
     // update centering boundary without updating grid
@@ -131,7 +131,7 @@ GNEDetectorE1Instant::updateGeometry() {
 
 
 void
-GNEDetectorE1Instant::drawGL(const GUIVisualizationSettings& s) const {
+GNEInstantInductionLoopDetector::drawGL(const GUIVisualizationSettings& s) const {
     // Obtain exaggeration of the draw
     const double E1InstantExaggeration = getExaggeration(s);
     // first check if additional has to be drawn
@@ -190,7 +190,7 @@ GNEDetectorE1Instant::drawGL(const GUIVisualizationSettings& s) const {
 
 
 std::string
-GNEDetectorE1Instant::getAttribute(SumoXMLAttr key) const {
+GNEInstantInductionLoopDetector::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
             return getMicrosimID();
@@ -219,7 +219,7 @@ GNEDetectorE1Instant::getAttribute(SumoXMLAttr key) const {
 
 
 double
-GNEDetectorE1Instant::getAttributeDouble(SumoXMLAttr key) const {
+GNEInstantInductionLoopDetector::getAttributeDouble(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_POSITION:
             return myPositionOverLane;
@@ -230,7 +230,7 @@ GNEDetectorE1Instant::getAttributeDouble(SumoXMLAttr key) const {
 
 
 void
-GNEDetectorE1Instant::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
+GNEInstantInductionLoopDetector::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     switch (key) {
         case SUMO_ATTR_ID:
         case SUMO_ATTR_LANE:
@@ -252,7 +252,7 @@ GNEDetectorE1Instant::setAttribute(SumoXMLAttr key, const std::string& value, GN
 
 
 bool
-GNEDetectorE1Instant::isValid(SumoXMLAttr key, const std::string& value) {
+GNEInstantInductionLoopDetector::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
             return isValidDetectorID(value);
@@ -290,7 +290,7 @@ GNEDetectorE1Instant::isValid(SumoXMLAttr key, const std::string& value) {
 // ===========================================================================
 
 void
-GNEDetectorE1Instant::setAttribute(SumoXMLAttr key, const std::string& value) {
+GNEInstantInductionLoopDetector::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
             // update microsimID
@@ -334,7 +334,7 @@ GNEDetectorE1Instant::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 
 void
-GNEDetectorE1Instant::setMoveShape(const GNEMoveResult& moveResult) {
+GNEInstantInductionLoopDetector::setMoveShape(const GNEMoveResult& moveResult) {
     // change position
     myPositionOverLane = moveResult.newFirstPos;
     // set lateral offset
@@ -345,7 +345,7 @@ GNEDetectorE1Instant::setMoveShape(const GNEMoveResult& moveResult) {
 
 
 void
-GNEDetectorE1Instant::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
+GNEInstantInductionLoopDetector::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
     // reset lateral offset
     myMoveElementLateralOffset = 0;
     // begin change attribute

@@ -67,7 +67,7 @@ GNEDetector::getMoveOperation() {
     // check modes and detector type
     if (!myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() || (myNet->getViewNet()->getEditModes().networkEditMode != NetworkEditMode::NETWORK_MOVE)) {
         return nullptr;
-    } else if (myTagProperty.getTag() == SUMO_TAG_E2DETECTOR) {
+    } else if (myTagProperty.getTag() == SUMO_TAG_LANE_AREA_DETECTOR) {
         return getMoveOperationSingleLane(myPositionOverLane, getAttributeDouble(SUMO_ATTR_ENDPOS));
     } else if (myTagProperty.getTag() == GNE_TAG_E2DETECTOR_MULTILANE) {
         return getMoveOperationMultiLane(myPositionOverLane, getAttributeDouble(SUMO_ATTR_ENDPOS));

@@ -1070,11 +1070,11 @@ GNENetHelper::AttributeCarriers::generateAdditionalID(SumoXMLTag tag) const {
         prefix = oc.getString("chargingStation-prefix");
     } else if (tag == SUMO_TAG_PARKING_AREA) {
         prefix = oc.getString("parkingArea-prefix");
-    } else if (tag == SUMO_TAG_E1DETECTOR) {
+    } else if (tag == SUMO_TAG_INDUCTION_LOOP) {
         prefix = oc.getString("e1Detector-prefix");
-    } else if ((tag == SUMO_TAG_E2DETECTOR) || (tag == GNE_TAG_E2DETECTOR_MULTILANE)) {
+    } else if ((tag == SUMO_TAG_LANE_AREA_DETECTOR) || (tag == GNE_TAG_E2DETECTOR_MULTILANE)) {
         prefix = oc.getString("e2Detector-prefix");
-    } else if (tag == SUMO_TAG_E3DETECTOR) {
+    } else if (tag == SUMO_TAG_ENTRY_EXIT_DETECTOR) {
         prefix = oc.getString("e3Detector-prefix");
     } else if (tag == SUMO_TAG_INSTANT_INDUCTION_LOOP) {
         prefix = oc.getString("e1InstantDetector-prefix");

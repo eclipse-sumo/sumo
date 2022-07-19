@@ -314,22 +314,22 @@ GNETagSelector::ACTemplate::ACTemplate(GNENet* net, const GNETagProperties tagPr
         case SUMO_TAG_PARKING_SPACE:
             myAC = new GNEParkingSpace(net);
             break;
-        case SUMO_TAG_E1DETECTOR:
-            myAC = new GNEDetectorE1(net);
+        case SUMO_TAG_INDUCTION_LOOP:
+            myAC = new GNEInductionLoopDetector(net);
             break;
-        case SUMO_TAG_E2DETECTOR:
+        case SUMO_TAG_LANE_AREA_DETECTOR:
         case GNE_TAG_E2DETECTOR_MULTILANE:
-            myAC = new GNEDetectorE2(tagProperty.getTag(), net);
+            myAC = new GNELaneAreaDetector(tagProperty.getTag(), net);
             break;
-        case SUMO_TAG_E3DETECTOR:
-            myAC = new GNEDetectorE3(net);
+        case SUMO_TAG_ENTRY_EXIT_DETECTOR:
+            myAC = new GNEMultiEntryExitDetector(net);
             break;
         case SUMO_TAG_DET_ENTRY:
         case SUMO_TAG_DET_EXIT:
-            myAC = new GNEDetectorEntryExit(tagProperty.getTag(), net);
+            myAC = new GNEEntryExitDetector(tagProperty.getTag(), net);
             break;
         case SUMO_TAG_INSTANT_INDUCTION_LOOP:
-            myAC = new GNEDetectorE1Instant(net);
+            myAC = new GNEInstantInductionLoopDetector(net);
             break;
         case SUMO_TAG_VSS:
             myAC = new GNEVariableSpeedSign(net);

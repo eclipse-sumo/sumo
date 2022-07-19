@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEDetectorE1.h
+/// @file    GNEInductionLoopDetector.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Nov 2015
 ///
@@ -26,14 +26,14 @@
 // class definitions
 // ===========================================================================
 /**
- * @class GNEDetectorE1
+ * @class GNEInductionLoopDetector
  * Class for detector of type E1
  */
-class GNEDetectorE1 : public GNEDetector {
+class GNEInductionLoopDetector : public GNEDetector {
 
 public:
     /// @brief default constructor
-    GNEDetectorE1(GNENet* net);
+    GNEInductionLoopDetector(GNENet* net);
 
     /**@brief Constructor
      * @param[in] id The storage of gl-ids to get the one for this lane representation from
@@ -47,12 +47,12 @@ public:
      * @param[in] friendlyPos enable or disable friendly positions
      * @param[in] parameters generic parameters
      */
-    GNEDetectorE1(const std::string& id, GNELane* lane, GNENet* net, const double pos, const SUMOTime SUMOTime, const std::string& filename,
+    GNEInductionLoopDetector(const std::string& id, GNELane* lane, GNENet* net, const double pos, const SUMOTime SUMOTime, const std::string& filename,
                   const std::vector<std::string>& vehicleTypes, const std::string& name, bool friendlyPos,
                   const Parameterised::Map& parameters);
 
     /// @brief Destructor
-    ~GNEDetectorE1();
+    ~GNEInductionLoopDetector();
 
     /// @name members and functions relative to write additionals into XML
     /// @{
@@ -123,8 +123,8 @@ private:
     void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList);
 
     /// @brief Invalidated copy constructor.
-    GNEDetectorE1(const GNEDetectorE1&) = delete;
+    GNEInductionLoopDetector(const GNEInductionLoopDetector&) = delete;
 
     /// @brief Invalidated assignment operator.
-    GNEDetectorE1& operator=(const GNEDetectorE1&) = delete;
+    GNEInductionLoopDetector& operator=(const GNEInductionLoopDetector&) = delete;
 };

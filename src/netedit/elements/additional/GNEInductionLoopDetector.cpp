@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEDetectorE1.cpp
+/// @file    GNEInductionLoopDetector.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Nov 2015
 ///
@@ -31,16 +31,16 @@
 // member method definitions
 // ===========================================================================
 
-GNEDetectorE1::GNEDetectorE1(GNENet* net) :
-    GNEDetector("", net, GLO_E1DETECTOR, SUMO_TAG_E1DETECTOR, 0, 0, {}, "", {}, "", false, Parameterised::Map()) {
+GNEInductionLoopDetector::GNEInductionLoopDetector(GNENet* net) :
+    GNEDetector("", net, GLO_E1DETECTOR, SUMO_TAG_INDUCTION_LOOP, 0, 0, {}, "", {}, "", false, Parameterised::Map()) {
     // reset default values
     resetDefaultValues();
 }
 
 
-GNEDetectorE1::GNEDetectorE1(const std::string& id, GNELane* lane, GNENet* net, const double pos, const SUMOTime freq, const std::string& filename, const std::vector<std::string>& vehicleTypes,
+GNEInductionLoopDetector::GNEInductionLoopDetector(const std::string& id, GNELane* lane, GNENet* net, const double pos, const SUMOTime freq, const std::string& filename, const std::vector<std::string>& vehicleTypes,
                              const std::string& name, bool friendlyPos, const Parameterised::Map& parameters) :
-    GNEDetector(id, net, GLO_E1DETECTOR, SUMO_TAG_E1DETECTOR, pos, freq, {
+    GNEDetector(id, net, GLO_E1DETECTOR, SUMO_TAG_INDUCTION_LOOP, pos, freq, {
     lane
 }, filename, vehicleTypes, name, friendlyPos, parameters) {
     // update centering boundary without updating grid
@@ -48,12 +48,12 @@ GNEDetectorE1::GNEDetectorE1(const std::string& id, GNELane* lane, GNENet* net, 
 }
 
 
-GNEDetectorE1::~GNEDetectorE1() {
+GNEInductionLoopDetector::~GNEInductionLoopDetector() {
 }
 
 
 void
-GNEDetectorE1::writeAdditional(OutputDevice& device) const {
+GNEInductionLoopDetector::writeAdditional(OutputDevice& device) const {
     device.openTag(getTagProperty().getTag());
     device.writeAttr(SUMO_ATTR_ID, getID());
     if (!myAdditionalName.empty()) {
@@ -80,7 +80,7 @@ GNEDetectorE1::writeAdditional(OutputDevice& device) const {
 
 
 bool
-GNEDetectorE1::isAdditionalValid() const {
+GNEInductionLoopDetector::isAdditionalValid() const {
     // with friendly position enabled position are "always fixed"
     if (myFriendlyPosition) {
         return true;
@@ -91,7 +91,7 @@ GNEDetectorE1::isAdditionalValid() const {
 
 
 std::string
-GNEDetectorE1::getAdditionalProblem() const {
+GNEInductionLoopDetector::getAdditionalProblem() const {
     // obtain final length
     const double len = getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
     // check if detector has a problem
@@ -113,7 +113,7 @@ GNEDetectorE1::getAdditionalProblem() const {
 
 
 void
-GNEDetectorE1::fixAdditionalProblem() {
+GNEInductionLoopDetector::fixAdditionalProblem() {
     // declare new position
     double newPositionOverLane = myPositionOverLane;
     // fix pos and length checkAndFixDetectorPosition
@@ -125,7 +125,7 @@ GNEDetectorE1::fixAdditionalProblem() {
 
 
 void
-GNEDetectorE1::updateGeometry() {
+GNEInductionLoopDetector::updateGeometry() {
     // update geometry
     myAdditionalGeometry.updateGeometry(getParentLanes().front()->getLaneShape(), getGeometryPositionOverLane(), myMoveElementLateralOffset);
     // update centering boundary without updating grid
@@ -134,7 +134,7 @@ GNEDetectorE1::updateGeometry() {
 
 
 void
-GNEDetectorE1::drawGL(const GUIVisualizationSettings& s) const {
+GNEInductionLoopDetector::drawGL(const GUIVisualizationSettings& s) const {
     // Obtain exaggeration of the draw
     const double E1Exaggeration = getExaggeration(s);
     // first check if additional has to be drawn
@@ -193,7 +193,7 @@ GNEDetectorE1::drawGL(const GUIVisualizationSettings& s) const {
 
 
 std::string
-GNEDetectorE1::getAttribute(SumoXMLAttr key) const {
+GNEInductionLoopDetector::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
             return getMicrosimID();
@@ -228,7 +228,7 @@ GNEDetectorE1::getAttribute(SumoXMLAttr key) const {
 
 
 double
-GNEDetectorE1::getAttributeDouble(SumoXMLAttr key) const {
+GNEInductionLoopDetector::getAttributeDouble(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_POSITION:
             return myPositionOverLane;
@@ -239,7 +239,7 @@ GNEDetectorE1::getAttributeDouble(SumoXMLAttr key) const {
 
 
 void
-GNEDetectorE1::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
+GNEInductionLoopDetector::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     switch (key) {
         case SUMO_ATTR_ID:
         case SUMO_ATTR_LANE:
@@ -261,7 +261,7 @@ GNEDetectorE1::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
 
 
 bool
-GNEDetectorE1::isValid(SumoXMLAttr key, const std::string& value) {
+GNEInductionLoopDetector::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
             return isValidDetectorID(value);
@@ -305,7 +305,7 @@ GNEDetectorE1::isValid(SumoXMLAttr key, const std::string& value) {
 // ===========================================================================
 
 void
-GNEDetectorE1::setAttribute(SumoXMLAttr key, const std::string& value) {
+GNEInductionLoopDetector::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
             // update microsimID
@@ -356,7 +356,7 @@ GNEDetectorE1::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 
 void
-GNEDetectorE1::setMoveShape(const GNEMoveResult& moveResult) {
+GNEInductionLoopDetector::setMoveShape(const GNEMoveResult& moveResult) {
     // change position
     myPositionOverLane = moveResult.newFirstPos;
     // set lateral offset
@@ -367,7 +367,7 @@ GNEDetectorE1::setMoveShape(const GNEMoveResult& moveResult) {
 
 
 void
-GNEDetectorE1::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
+GNEInductionLoopDetector::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
     // reset lateral offset
     myMoveElementLateralOffset = 0;
     // begin change attribute

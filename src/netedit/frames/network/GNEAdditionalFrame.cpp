@@ -247,7 +247,7 @@ GNEAdditionalFrame::createBaseAdditionalObject(const GNETagProperties& tagProper
     SumoXMLTag baseAdditionalTag = tagProperty.getTag();
     // check if baseAdditionalTag has to be updated
     if (baseAdditionalTag == GNE_TAG_E2DETECTOR_MULTILANE) {
-        baseAdditionalTag = SUMO_TAG_E2DETECTOR;
+        baseAdditionalTag = SUMO_TAG_LANE_AREA_DETECTOR;
     } else if (baseAdditionalTag == GNE_TAG_CALIBRATOR_FLOW) {
         baseAdditionalTag = SUMO_TAG_FLOW;
     }

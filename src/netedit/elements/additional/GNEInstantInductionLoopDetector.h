@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEDetectorE1Instant.h
+/// @file    GNEInstantInductionLoopDetector.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Jun 2018
 ///
@@ -26,14 +26,14 @@
 // class definitions
 // ===========================================================================
 /**
- * @class GNEDetectorE1Instant
+ * @class GNEInstantInductionLoopDetector
  * Class for detector of type E1
  */
-class GNEDetectorE1Instant : public GNEDetector {
+class GNEInstantInductionLoopDetector : public GNEDetector {
 
 public:
     /// @brief default Constructor
-    GNEDetectorE1Instant(GNENet* net);
+    GNEInstantInductionLoopDetector(GNENet* net);
 
     /**@brief Constructor
      * @param[in] id The storage of gl-ids to get the one for this lane representation from
@@ -46,12 +46,12 @@ public:
      * @param[in] friendlyPos enable or disable friendly positions
      * @param[in] parameters generic parameters
      */
-    GNEDetectorE1Instant(const std::string& id, GNELane* lane, GNENet* net, const double pos, const std::string& filename,
+    GNEInstantInductionLoopDetector(const std::string& id, GNELane* lane, GNENet* net, const double pos, const std::string& filename,
                          const std::vector<std::string>& vehicleTypes, const std::string& name, const bool friendlyPos,
                          const Parameterised::Map& parameters);
 
     /// @brief Destructor
-    ~GNEDetectorE1Instant();
+    ~GNEInstantInductionLoopDetector();
 
     /// @name members and functions relative to write additionals into XML
     /// @{
@@ -135,8 +135,8 @@ private:
     void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList);
 
     /// @brief Invalidated copy constructor.
-    GNEDetectorE1Instant(const GNEDetectorE1Instant&) = delete;
+    GNEInstantInductionLoopDetector(const GNEInstantInductionLoopDetector&) = delete;
 
     /// @brief Invalidated assignment operator.
-    GNEDetectorE1Instant& operator=(const GNEDetectorE1Instant&) = delete;
+    GNEInstantInductionLoopDetector& operator=(const GNEInstantInductionLoopDetector&) = delete;
 };

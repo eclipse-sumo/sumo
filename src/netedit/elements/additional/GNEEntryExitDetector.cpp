@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEDetectorEntryExit.cpp
+/// @file    GNEEntryExitDetector.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Nov 2015
 ///
@@ -32,14 +32,14 @@
 // member method definitions
 // ===========================================================================
 
-GNEDetectorEntryExit::GNEDetectorEntryExit(SumoXMLTag entryExitTag, GNENet* net) :
+GNEEntryExitDetector::GNEEntryExitDetector(SumoXMLTag entryExitTag, GNENet* net) :
     GNEDetector("", net, GLO_DET_ENTRY, entryExitTag, 0, 0, {}, "", {}, "", false, Parameterised::Map()) {
     // reset default values
     resetDefaultValues();
 }
 
 
-GNEDetectorEntryExit::GNEDetectorEntryExit(SumoXMLTag entryExitTag, GNENet* net, GNEAdditional* parent, GNELane* lane, const double pos,
+GNEEntryExitDetector::GNEEntryExitDetector(SumoXMLTag entryExitTag, GNENet* net, GNEAdditional* parent, GNELane* lane, const double pos,
         const bool friendlyPos, const Parameterised::Map& parameters) :
     GNEDetector(parent, net, GLO_DET_ENTRY, entryExitTag, pos, 0, {
     lane
@@ -49,11 +49,11 @@ GNEDetectorEntryExit::GNEDetectorEntryExit(SumoXMLTag entryExitTag, GNENet* net,
 }
 
 
-GNEDetectorEntryExit::~GNEDetectorEntryExit() {}
+GNEEntryExitDetector::~GNEEntryExitDetector() {}
 
 
 void
-GNEDetectorEntryExit::writeAdditional(OutputDevice& device) const {
+GNEEntryExitDetector::writeAdditional(OutputDevice& device) const {
     device.openTag(getTagProperty().getTag());
     device.writeAttr(SUMO_ATTR_LANE, getParentLanes().front()->getID());
     device.writeAttr(SUMO_ATTR_POSITION, myPositionOverLane);
@@ -65,7 +65,7 @@ GNEDetectorEntryExit::writeAdditional(OutputDevice& device) const {
 
 
 bool
-GNEDetectorEntryExit::isAdditionalValid() const {
+GNEEntryExitDetector::isAdditionalValid() const {
     // with friendly position enabled position are "always fixed"
     if (myFriendlyPosition) {
         return true;
@@ -76,7 +76,7 @@ GNEDetectorEntryExit::isAdditionalValid() const {
 
 
 std::string
-GNEDetectorEntryExit::getAdditionalProblem() const {
+GNEEntryExitDetector::getAdditionalProblem() const {
     // obtain final length
     const double len = getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
     // check if detector has a problem
@@ -98,7 +98,7 @@ GNEDetectorEntryExit::getAdditionalProblem() const {
 
 
 void
-GNEDetectorEntryExit::fixAdditionalProblem() {
+GNEEntryExitDetector::fixAdditionalProblem() {
     // declare new position
     double newPositionOverLane = myPositionOverLane;
     // fix pos and length checkAndFixDetectorPosition
@@ -110,7 +110,7 @@ GNEDetectorEntryExit::fixAdditionalProblem() {
 
 
 void
-GNEDetectorEntryExit::updateGeometry() {
+GNEEntryExitDetector::updateGeometry() {
     // update geometry
     myAdditionalGeometry.updateGeometry(getParentLanes().front()->getLaneShape(), getGeometryPositionOverLane(), myMoveElementLateralOffset);
     // update centering boundary without updating grid
@@ -119,7 +119,7 @@ GNEDetectorEntryExit::updateGeometry() {
 
 
 void
-GNEDetectorEntryExit::drawGL(const GUIVisualizationSettings& s) const {
+GNEEntryExitDetector::drawGL(const GUIVisualizationSettings& s) const {
     // Set initial values
     const double entryExitExaggeration = getExaggeration(s);
     // first check if additional has to be drawn
@@ -251,7 +251,7 @@ GNEDetectorEntryExit::drawGL(const GUIVisualizationSettings& s) const {
 
 
 std::string
-GNEDetectorEntryExit::getAttribute(SumoXMLAttr key) const {
+GNEEntryExitDetector::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
             return getParentAdditionals().front()->getID();
@@ -276,7 +276,7 @@ GNEDetectorEntryExit::getAttribute(SumoXMLAttr key) const {
 
 
 double
-GNEDetectorEntryExit::getAttributeDouble(SumoXMLAttr key) const {
+GNEEntryExitDetector::getAttributeDouble(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_POSITION:
             return myPositionOverLane;
@@ -287,7 +287,7 @@ GNEDetectorEntryExit::getAttributeDouble(SumoXMLAttr key) const {
 
 
 void
-GNEDetectorEntryExit::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
+GNEEntryExitDetector::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     switch (key) {
         case SUMO_ATTR_LANE:
         case SUMO_ATTR_POSITION:
@@ -305,7 +305,7 @@ GNEDetectorEntryExit::setAttribute(SumoXMLAttr key, const std::string& value, GN
 
 
 bool
-GNEDetectorEntryExit::isValid(SumoXMLAttr key, const std::string& value) {
+GNEEntryExitDetector::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_LANE:
             return (myNet->getAttributeCarriers()->retrieveLane(value, false) != nullptr);
@@ -314,7 +314,7 @@ GNEDetectorEntryExit::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_FRIENDLY_POS:
             return canParse<bool>(value);
         case GNE_ATTR_PARENT:
-            return (myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_E3DETECTOR, value, false) != nullptr);
+            return (myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_ENTRY_EXIT_DETECTOR, value, false) != nullptr);
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
         case GNE_ATTR_PARAMETERS:
@@ -326,7 +326,7 @@ GNEDetectorEntryExit::isValid(SumoXMLAttr key, const std::string& value) {
 
 
 void
-GNEDetectorEntryExit::setAttribute(SumoXMLAttr key, const std::string& value) {
+GNEEntryExitDetector::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_LANE:
             replaceAdditionalParentLanes(value);
@@ -338,7 +338,7 @@ GNEDetectorEntryExit::setAttribute(SumoXMLAttr key, const std::string& value) {
             myFriendlyPosition = parse<bool>(value);
             break;
         case GNE_ATTR_PARENT:
-            replaceAdditionalParent(SUMO_TAG_E3DETECTOR, value, 0);
+            replaceAdditionalParent(SUMO_TAG_ENTRY_EXIT_DETECTOR, value, 0);
             break;
         case GNE_ATTR_SELECTED:
             if (parse<bool>(value)) {
@@ -360,7 +360,7 @@ GNEDetectorEntryExit::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 
 void
-GNEDetectorEntryExit::setMoveShape(const GNEMoveResult& moveResult) {
+GNEEntryExitDetector::setMoveShape(const GNEMoveResult& moveResult) {
     // change position
     myPositionOverLane = moveResult.newFirstPos;
     // set lateral offset
@@ -371,7 +371,7 @@ GNEDetectorEntryExit::setMoveShape(const GNEMoveResult& moveResult) {
 
 
 void
-GNEDetectorEntryExit::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
+GNEEntryExitDetector::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
     // reset lateral offset
     myMoveElementLateralOffset = 0;
     // begin change attribute

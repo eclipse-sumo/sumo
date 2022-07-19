@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEDetectorEntryExit.h
+/// @file    GNEEntryExitDetector.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Nov 2015
 ///
@@ -24,35 +24,35 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
-class GNEDetectorE3;
+class GNEMultiEntryExitDetector;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 /**
- * @class GNEDetectorEntryExit
+ * @class GNEEntryExitDetector
  * Class for detector of type Entry
  */
-class GNEDetectorEntryExit : public GNEDetector {
+class GNEEntryExitDetector : public GNEDetector {
 
 public:
     /// @brief default Constructor
-    GNEDetectorEntryExit(SumoXMLTag entryExitTag, GNENet* net);
+    GNEEntryExitDetector(SumoXMLTag entryExitTag, GNENet* net);
 
     /**@brief Constructor
      * @param[in] entryExitTag Child Tag (Either SUMO_TAG_DET_ENTRY or SUMO_TAG_DET_EXIT)
      * @param[in] net pointer to GNENet of this additional element belongs
-     * @param[in] parent pointer to GNEDetectorE3 of this GNEDetectorEntryExit belongs
+     * @param[in] parent pointer to GNEMultiEntryExitDetector of this GNEEntryExitDetector belongs
      * @param[in] lane Lane of this detector is placed
      * @param[in] pos position of the detector on the lane
      * @param[in] friendlyPos enable or disable friendly positions
      * @param[in] parameters generic parameters
      */
-    GNEDetectorEntryExit(SumoXMLTag entryExitTag, GNENet* net, GNEAdditional* parent, GNELane* lane, const double pos, const bool friendlyPos,
+    GNEEntryExitDetector(SumoXMLTag entryExitTag, GNENet* net, GNEAdditional* parent, GNELane* lane, const double pos, const bool friendlyPos,
                          const Parameterised::Map& parameters);
 
     /// @brief destructor
-    ~GNEDetectorEntryExit();
+    ~GNEEntryExitDetector();
 
     /// @name members and functions relative to write additionals into XML
     /// @{
@@ -123,8 +123,8 @@ private:
     void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList);
 
     /// @brief Invalidated copy constructor.
-    GNEDetectorEntryExit(const GNEDetectorEntryExit&) = delete;
+    GNEEntryExitDetector(const GNEEntryExitDetector&) = delete;
 
     /// @brief Invalidated assignment operator.
-    GNEDetectorEntryExit& operator=(const GNEDetectorEntryExit&) = delete;
+    GNEEntryExitDetector& operator=(const GNEEntryExitDetector&) = delete;
 };

@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEDetectorE3.cpp
+/// @file    GNEMultiEntryExitDetector.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Nov 2015
 ///
@@ -28,8 +28,8 @@
 // member method definitions
 // ===========================================================================
 
-GNEDetectorE3::GNEDetectorE3(GNENet* net) :
-    GNEAdditional("", net, GLO_E3DETECTOR, SUMO_TAG_E3DETECTOR, "",
+GNEMultiEntryExitDetector::GNEMultiEntryExitDetector(GNENet* net) :
+    GNEAdditional("", net, GLO_E3DETECTOR, SUMO_TAG_ENTRY_EXIT_DETECTOR, "",
         {}, {}, {}, {}, {}, {}),
     myPeriod(0),
     myFilename(""),
@@ -40,10 +40,10 @@ GNEDetectorE3::GNEDetectorE3(GNENet* net) :
 }
 
 
-GNEDetectorE3::GNEDetectorE3(const std::string& id, GNENet* net, const Position pos, const SUMOTime freq, const std::string& filename,
+GNEMultiEntryExitDetector::GNEMultiEntryExitDetector(const std::string& id, GNENet* net, const Position pos, const SUMOTime freq, const std::string& filename,
                              const std::vector<std::string>& vehicleTypes, const std::string& name, SUMOTime timeThreshold, double speedThreshold,
                              const Parameterised::Map& parameters) :
-    GNEAdditional(id, net, GLO_E3DETECTOR, SUMO_TAG_E3DETECTOR, name,
+    GNEAdditional(id, net, GLO_E3DETECTOR, SUMO_TAG_ENTRY_EXIT_DETECTOR, name,
 {}, {}, {}, {}, {}, {}),
 Parameterised(parameters),
 myPosition(pos),
@@ -57,18 +57,18 @@ mySpeedThreshold(speedThreshold) {
 }
 
 
-GNEDetectorE3::~GNEDetectorE3() {}
+GNEMultiEntryExitDetector::~GNEMultiEntryExitDetector() {}
 
 
 GNEMoveOperation*
-GNEDetectorE3::getMoveOperation() {
+GNEMultiEntryExitDetector::getMoveOperation() {
     // return move operation for additional placed in view
     return new GNEMoveOperation(this, myPosition);
 }
 
 
 void
-GNEDetectorE3::writeAdditional(OutputDevice& device) const {
+GNEMultiEntryExitDetector::writeAdditional(OutputDevice& device) const {
     bool entry = false;
     bool exit = false;
     // first check if E3 has at least one entry and one exit
@@ -116,20 +116,20 @@ GNEDetectorE3::writeAdditional(OutputDevice& device) const {
 
 
 void
-GNEDetectorE3::updateGeometry() {
+GNEMultiEntryExitDetector::updateGeometry() {
     // update additional geometry
     myAdditionalGeometry.updateSinglePosGeometry(myPosition, 0);
 }
 
 
 Position
-GNEDetectorE3::getPositionInView() const {
+GNEMultiEntryExitDetector::getPositionInView() const {
     return myPosition;
 }
 
 
 void
-GNEDetectorE3::updateCenteringBoundary(const bool updateGrid) {
+GNEMultiEntryExitDetector::updateCenteringBoundary(const bool updateGrid) {
     // remove additional from grid
     if (updateGrid) {
         myNet->removeGLObjectFromGrid(this);
@@ -152,19 +152,19 @@ GNEDetectorE3::updateCenteringBoundary(const bool updateGrid) {
 
 
 void
-GNEDetectorE3::splitEdgeGeometry(const double /*splitPosition*/, const GNENetworkElement* /*originalElement*/, const GNENetworkElement* /*newElement*/, GNEUndoList* /*undoList*/) {
+GNEMultiEntryExitDetector::splitEdgeGeometry(const double /*splitPosition*/, const GNENetworkElement* /*originalElement*/, const GNENetworkElement* /*newElement*/, GNEUndoList* /*undoList*/) {
     // geometry of this element cannot be splitted
 }
 
 
 std::string
-GNEDetectorE3::getParentName() const {
+GNEMultiEntryExitDetector::getParentName() const {
     return myNet->getMicrosimID();
 }
 
 
 void
-GNEDetectorE3::drawGL(const GUIVisualizationSettings& s) const {
+GNEMultiEntryExitDetector::drawGL(const GUIVisualizationSettings& s) const {
     // draw parent and child lines
     drawParentChildLines(s, s.additionalSettings.connectionColor);
     // draw E3
@@ -173,7 +173,7 @@ GNEDetectorE3::drawGL(const GUIVisualizationSettings& s) const {
 
 
 std::string
-GNEDetectorE3::getAttribute(SumoXMLAttr key) const {
+GNEMultiEntryExitDetector::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
             return getMicrosimID();
@@ -206,19 +206,19 @@ GNEDetectorE3::getAttribute(SumoXMLAttr key) const {
 
 
 double
-GNEDetectorE3::getAttributeDouble(SumoXMLAttr key) const {
+GNEMultiEntryExitDetector::getAttributeDouble(SumoXMLAttr key) const {
     throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
 }
 
 
 const Parameterised::Map&
-GNEDetectorE3::getACParametersMap() const {
+GNEMultiEntryExitDetector::getACParametersMap() const {
     return getParametersMap();
 }
 
 
 void
-GNEDetectorE3::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
+GNEMultiEntryExitDetector::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     if (value == getAttribute(key)) {
         return; //avoid needless changes, later logic relies on the fact that attributes have changed
     }
@@ -242,7 +242,7 @@ GNEDetectorE3::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
 
 
 bool
-GNEDetectorE3::isValid(SumoXMLAttr key, const std::string& value) {
+GNEMultiEntryExitDetector::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
             return isValidDetectorID(value);
@@ -279,7 +279,7 @@ GNEDetectorE3::isValid(SumoXMLAttr key, const std::string& value) {
 
 
 bool
-GNEDetectorE3::checkChildAdditionalRestriction() const {
+GNEMultiEntryExitDetector::checkChildAdditionalRestriction() const {
     int numEntrys = 0;
     int numExits = 0;
     // iterate over additional chidls and obtain number of entrys and exits
@@ -292,10 +292,10 @@ GNEDetectorE3::checkChildAdditionalRestriction() const {
     }
     // write warnings
     if (numEntrys == 0) {
-        WRITE_WARNING("An " + toString(SUMO_TAG_E3DETECTOR) + " need at least one " + toString(SUMO_TAG_DET_ENTRY) + " detector");
+        WRITE_WARNING("An " + toString(SUMO_TAG_ENTRY_EXIT_DETECTOR) + " need at least one " + toString(SUMO_TAG_DET_ENTRY) + " detector");
     }
     if (numExits == 0) {
-        WRITE_WARNING("An " + toString(SUMO_TAG_E3DETECTOR) + " need at least one " + toString(SUMO_TAG_DET_EXIT) + " detector");
+        WRITE_WARNING("An " + toString(SUMO_TAG_ENTRY_EXIT_DETECTOR) + " need at least one " + toString(SUMO_TAG_DET_EXIT) + " detector");
     }
     // return false depending of number of Entrys and Exits
     return ((numEntrys != 0) && (numExits != 0));
@@ -303,13 +303,13 @@ GNEDetectorE3::checkChildAdditionalRestriction() const {
 
 
 std::string
-GNEDetectorE3::getPopUpID() const {
+GNEMultiEntryExitDetector::getPopUpID() const {
     return getTagStr() + ":" + getID();
 }
 
 
 std::string
-GNEDetectorE3::getHierarchyName() const {
+GNEMultiEntryExitDetector::getHierarchyName() const {
     return getTagStr();
 }
 
@@ -318,7 +318,7 @@ GNEDetectorE3::getHierarchyName() const {
 // ===========================================================================
 
 void
-GNEDetectorE3::setAttribute(SumoXMLAttr key, const std::string& value) {
+GNEMultiEntryExitDetector::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
             // update microsimID
@@ -374,7 +374,7 @@ GNEDetectorE3::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 
 void
-GNEDetectorE3::setMoveShape(const GNEMoveResult& moveResult) {
+GNEMultiEntryExitDetector::setMoveShape(const GNEMoveResult& moveResult) {
     // update position
     myPosition = moveResult.shapeToUpdate.front();
     // update geometry
@@ -383,7 +383,7 @@ GNEDetectorE3::setMoveShape(const GNEMoveResult& moveResult) {
 
 
 void
-GNEDetectorE3::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
+GNEMultiEntryExitDetector::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
     undoList->begin(GUIIcon::E3, "position of " + getTagStr());
     undoList->changeAttribute(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(moveResult.shapeToUpdate.front())));
     undoList->end();
