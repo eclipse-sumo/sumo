@@ -62,7 +62,21 @@ class PlatoonManager(traci.StepListener):
         self._maxPlatoonGap = cfg.MAX_PLATOON_GAP
         # max distance for trying to catch up
         self._catchupDist = cfg.CATCHUP_DIST
+        
+        # js: TODO: these parameters should be loaded from config too:
 
+        # ego vehicle needs at least this number of future edges in common with leader
+        # before agreeing to follow...
+        self._edgenumberLookahead = 3
+
+        # Or the ego vehicle needs at least this distance of commom route length with leader
+        # before agreeing to follow.
+        self._distLookahead = 500.0
+
+        # no lane change advice if vehicle has less than this distance 
+        # to the next  juction
+        self._lanechangeMinDist = 100.0
+        
         # platoons currently in the simulation
         # map: platoon ID -> platoon objects
         self._platoons = dict()
@@ -214,9 +228,70 @@ class PlatoonManager(traci.StepListener):
             veh.state.laneID = self._subscriptionResults[veh.getID()][tc.VAR_LANE_ID]
             veh.state.laneIX = self._subscriptionResults[veh.getID()][tc.VAR_LANE_INDEX]
             veh.state.leaderInfo = traci.vehicle.getLeader(veh.getID(), self._catchupDist)
+            
+            # check if there is a new, connected leader and if so, verify if this leader
+            # has sufficiend edges in common with the ego vehicle
+            if veh.state.leaderInfo is not None:
+                    noLeader = True
+                    leaderID = veh.state.leaderInfo[0]
+
+                    # check if old leader, if any... 
+                    if veh.state.leader is not None:
+                        if leaderID == veh.state.leader.getID():
+                               # this is the current leader, just keep it
+                               noLeader = False
+                    
+                    # check if leaderID could be  a new leader
+                    if self._isConnected(leaderID) & noLeader:
+
+                        # new potential, connected  leader
+                        # check if this leader has enough route in common with ego
+
+                        egoRoute = traci.vehicle.getRoute(veh.getID())
+                        leaderRoute = traci.vehicle.getRoute(leaderID)
+                        idxLeader = traci.vehicle.getRouteIndex(leaderID)
+                        leaderEdgeID = leaderRoute[idxLeader]
+                        
+                        
+                        if  leaderEdgeID in egoRoute:
+                            
+                            idxEgo = egoRoute.index(leaderEdgeID)
+ 
+                            idxDelta = min(idxEgo+self._edgenumberLookahead,len(egoRoute))-idxEgo
+                            idxDelta = min(idxDelta,len(leaderRoute)-idxLeader)
+ 
+                            if idxDelta >= 0:
+                                
+                                # check if common distance of routes is sufficient
+                                d = 0.0
+                                routeInCommon = True
+                                for ind, edgeIDEgo, edgeIDLeader  in zip(xrange(idxDelta), egoRoute[idxEgo:idxEgo+idxDelta],leaderRoute[idxLeader:idxLeader+idxDelta]):
+                                    if edgeIDEgo == edgeIDLeader:
+                                        d += traci.lane.getLength(edgeIDEgo+'_0')
+                                        # check if lookahead distance is satisfied
+                                        if d > self._distLookahead:
+                                            #print '  >>>',veh.getID(),'enough dist in common with leader',leaderID
+                                            noLeader = False
+                                            break
+                                    else:
+                                        routeInCommon = False
+                                        break
+
+                                # sufficient edges in common
+                                if routeInCommon:
+                                    noLeader = False
+   
+                                           
+                
+                    if  noLeader:
+                        #print '  set no leader'
+                        veh.state.leader = None
+                        veh.state.connectedVehicleAhead = False
+                        veh.state.leaderInfo = None
+                        continue
+
             if veh.state.leaderInfo is None:
                 veh.state.leader = None
-                veh.state.connectedVehicleAhead = False
                 continue
 
             if veh.state.leader is None or veh.state.leader.getID() != veh.state.leaderInfo[0]:
@@ -241,6 +316,7 @@ class PlatoonManager(traci.StepListener):
                                        (vehAheadID, veh.getID(), dist + nextLeaderInfo[1]))
                             break
                         dist += nextLeaderInfo[1] + traci.vehicle.getLength(vehAheadID)
+
 
     def _removeArrived(self):
         ''' _removeArrived()
@@ -589,24 +665,32 @@ class PlatoonManager(traci.StepListener):
                     continue
                 # Find the leader in the platoon and request a lanechange if appropriate
                 leader = pltn.getVehicles()[ix]
-                leaderLane = leader.state.laneIX
-                if leaderLane != tc.INVALID_INT_VALUE:
-                    if leader.state.edgeID == veh.state.edgeID:
+
+                if leader.state.edgeID == veh.state.edgeID:
+                    # distance between vehicle and end of edge
+                    d = traci.lane.getLength(laneID)-traci.vehicle.getLanePosition(veh.getID())
+                    # change lanes  only if greater than minimum distance from end of edge
+                    if d > self._lanechangeMinDist:#veh.state.edgeID not in rounaboutEdges:#traci.lane.getLength(laneID)>50.0:
                         # leader is on the same edge, advise follower to use the same lane
                         try:
-                            traci.vehicle.changeLane(veh.getID(), leaderLane, self._controlInterval)
+                            ix = leader.state.laneIX
+                            if ix >= 0:
+                              traci.vehicle.changeLane(veh.getID(), ix, self._controlInterval)
                         except traci.exceptions.TraCIException as e:
                             if rp.VERBOSITY >= 1:
-                                warn("Lanechange advice for vehicle'%s' failed. Message:\n%s" %
-                                     (veh.getID(), str(e)))
-                    else:
-                        # leader is on another edge, just stay on the current and hope it is the right one
-                        try:
-                            traci.vehicle.changeLane(veh.getID(), leaderLane, self._controlInterval)
-                        except traci.exceptions.TraCIException as e:
-                            if rp.VERBOSITY >= 1:
-                                warn("Lanechange advice for vehicle'%s' failed. Message:\n%s" %
-                                     (veh.getID(), str(e)))
+                                warn("Lanechange advice for vehicle'%s' failed. Message:\n%s" % (veh.getID(), str(e)))
+                else:
+                    # leader is on another edge, just stay on the current and hope it is the right one
+                    try:
+                        # distance between vehicle and end of edge
+                        d = traci.lane.getLength(laneID)-traci.vehicle.getLanePosition(veh.getID())
+                        # change lanes  only if greater than minimum distance from end of edge
+                        if d > self._lanechangeMinDist:
+                            traci.vehicle.changeLane(veh.getID(), veh.state.laneIX, self._controlInterval)
+                            
+                    except traci.exceptions.TraCIException as e:
+                        if rp.VERBOSITY >= 1:
+                            warn("Lanechange advice for vehicle'%s' failed. Message:\n%s" % (veh.getID(), str(e)))
 
     def _isConnected(self, vehID):
         '''_isConnected(string) -> bool
