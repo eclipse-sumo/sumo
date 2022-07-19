@@ -1049,12 +1049,15 @@ GNEInspectorFrame::processNetworkSupermodeClick(const Position& clickedPosition,
         // if Control key is Pressed, select instead inspect element
         if (myViewNet->getMouseButtonKeyPressed().controlKeyPressed()) {
             // Check if this GLobject type is locked
-            if (!myViewNet->getLockManager().isObjectLocked(objectsUnderCursor.getGlTypeFront(), objectsUnderCursor.getAttributeCarrierFront()->isAttributeCarrierSelected())) {
-                // toggle networkElement selection
-                if (objectsUnderCursor.getAttributeCarrierFront()->isAttributeCarrierSelected()) {
-                    objectsUnderCursor.getAttributeCarrierFront()->unselectAttributeCarrier();
-                } else {
-                    objectsUnderCursor.getAttributeCarrierFront()->selectAttributeCarrier();
+            for (auto &AC : objectsUnderCursor.getClickedAttributeCarriers()) {
+                if (AC && !myViewNet->getLockManager().isObjectLocked(AC->getGUIGlObject()->getType(), AC->isAttributeCarrierSelected())) {
+                    // toggle networkElement selection
+                    if (AC->isAttributeCarrierSelected()) {
+                        AC->unselectAttributeCarrier();
+                    } else {
+                        AC->selectAttributeCarrier();
+                    }
+                    return true;
                 }
             }
         } else {
@@ -1064,7 +1067,7 @@ GNEInspectorFrame::processNetworkSupermodeClick(const Position& clickedPosition,
                     // inspect attribute carrier, (or multiselection if AC is selected)
                     inspectClickedElement(objectsUnderCursor, clickedPosition);
                 }
-            } else  if (!myOverlappedInspection->nextElement(clickedPosition)) {
+            } else if (!myOverlappedInspection->nextElement(clickedPosition)) {
                 // inspect attribute carrier, (or multiselection if AC is selected)
                 inspectClickedElement(objectsUnderCursor, clickedPosition);
             }
@@ -1366,16 +1369,20 @@ GNEInspectorFrame::selectedOverlappedElement(GNEAttributeCarrier* AC) {
 }
 
 
-void
+bool
 GNEInspectorFrame::inspectClickedElement(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, const Position& clickedPosition) {
-    const auto AC = objectsUnderCursor.getAttributeCarrierFront();
-    // check if selection is blocked
-    if (AC && !myViewNet->getLockManager().isObjectLocked(AC->getGUIGlObject()->getType(), AC->isAttributeCarrierSelected())) {
-        // inspect front element
-        inspectSingleElement(objectsUnderCursor.getAttributeCarrierFront());
-        // show Overlapped Inspection modul
-        myOverlappedInspection->showOverlappedInspection(objectsUnderCursor, clickedPosition);
+    for (const auto &AC : objectsUnderCursor.getClickedAttributeCarriers()) {
+        // check if AC is locked
+        if (AC && !myViewNet->getLockManager().isObjectLocked(AC->getGUIGlObject()->getType(), AC->isAttributeCarrierSelected())) {
+            // inspect front element
+            inspectSingleElement(AC);
+            // show Overlapped Inspection modul
+            myOverlappedInspection->showOverlappedInspection(objectsUnderCursor, clickedPosition);
+            // inspect ok, then stop
+            return true;
+        }
     }
+    return false;
 }
 
 
