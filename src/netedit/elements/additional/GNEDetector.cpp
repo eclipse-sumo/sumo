@@ -69,7 +69,7 @@ GNEDetector::getMoveOperation() {
         return nullptr;
     } else if (myTagProperty.getTag() == SUMO_TAG_LANE_AREA_DETECTOR) {
         return getMoveOperationSingleLane(myPositionOverLane, getAttributeDouble(SUMO_ATTR_ENDPOS));
-    } else if (myTagProperty.getTag() == GNE_TAG_E2DETECTOR_MULTILANE) {
+    } else if (myTagProperty.getTag() == GNE_TAG_MULTI_LANE_AREA_DETECTOR) {
         return getMoveOperationMultiLane(myPositionOverLane, getAttributeDouble(SUMO_ATTR_ENDPOS));
     } else {
         // return move operation for detectors with single position placed over shape (E1, EntryExits..)
@@ -110,7 +110,7 @@ void
 GNEDetector::splitEdgeGeometry(const double splitPosition, const GNENetworkElement* originalElement,
                                const GNENetworkElement* newElement, GNEUndoList* undoList) {
     // only split geometry of E2 multilane detectors
-    if (myTagProperty.getTag() == GNE_TAG_E2DETECTOR_MULTILANE) {
+    if (myTagProperty.getTag() == GNE_TAG_MULTI_LANE_AREA_DETECTOR) {
         // obtain new list of E2 lanes
         std::string newE2Lanes = getNewListOfParents(originalElement, newElement);
         // update E2 Lanes

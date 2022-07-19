@@ -65,7 +65,7 @@ myTrafficLight(trafficLight) {
 GNELaneAreaDetector::GNELaneAreaDetector(const std::string& id, std::vector<GNELane*> lanes, GNENet* net, double pos, double endPos, const SUMOTime freq,
                              const std::string& trafficLight, const std::string& filename, const std::vector<std::string>& vehicleTypes, const std::string& name, SUMOTime timeThreshold,
                              double speedThreshold, double jamThreshold, bool friendlyPos, const Parameterised::Map& parameters) :
-    GNEDetector(id, net, GLO_E2DETECTOR, GNE_TAG_E2DETECTOR_MULTILANE, pos, freq, lanes, filename, vehicleTypes, name, friendlyPos, parameters),
+    GNEDetector(id, net, GLO_E2DETECTOR, GNE_TAG_MULTI_LANE_AREA_DETECTOR, pos, freq, lanes, filename, vehicleTypes, name, friendlyPos, parameters),
     myEndPositionOverLane(endPos),
     myTimeThreshold(timeThreshold),
     mySpeedThreshold(speedThreshold),
@@ -255,7 +255,7 @@ GNELaneAreaDetector::fixAdditionalProblem() {
 void
 GNELaneAreaDetector::updateGeometry() {
     // check E2 detector
-    if (myTagProperty.getTag() == GNE_TAG_E2DETECTOR_MULTILANE) {
+    if (myTagProperty.getTag() == GNE_TAG_MULTI_LANE_AREA_DETECTOR) {
         // compute path
         computePathElement();
     } else {
@@ -597,7 +597,7 @@ GNELaneAreaDetector::isValid(SumoXMLAttr key, const std::string& value) {
             if (value == getID()) {
                 return true;
             } else if (isValidDetectorID(value)) {
-                return (myNet->getAttributeCarriers()->retrieveAdditional(GNE_TAG_E2DETECTOR_MULTILANE, value, false) == nullptr) &&
+                return (myNet->getAttributeCarriers()->retrieveAdditional(GNE_TAG_MULTI_LANE_AREA_DETECTOR, value, false) == nullptr) &&
                        (myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_LANE_AREA_DETECTOR, value, false) == nullptr);
             } else {
                 return false;

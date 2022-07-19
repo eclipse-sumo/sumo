@@ -113,7 +113,7 @@ GNEAdditionalFrame::addAdditional(const GNEViewNetHelper::ObjectsUnderCursor& ob
         return buildAdditionalOverEdge(objectsUnderCursor.getLaneFront(), tagProperties);
     } else if (tagProperties.hasAttribute(SUMO_ATTR_LANE)) {
         return buildAdditionalOverLane(objectsUnderCursor.getLaneFront(), tagProperties);
-    } else if (tagProperties.getTag() == GNE_TAG_E2DETECTOR_MULTILANE) {
+    } else if (tagProperties.getTag() == GNE_TAG_MULTI_LANE_AREA_DETECTOR) {
         return myConsecutiveLaneSelector->addLane(objectsUnderCursor.getLaneFront());
     } else {
         return buildAdditionalOverView(tagProperties);
@@ -144,7 +144,7 @@ GNEAdditionalFrame::createPath(const bool /* useLastRoute */) {
     // obtain tagproperty (only for improve code legibility)
     const auto& tagProperty = myAdditionalTagSelector->getCurrentTemplateAC()->getTagProperty();
     // first check that current tag is valid (currently only for E2 multilane detectors)
-    if (tagProperty.getTag() == GNE_TAG_E2DETECTOR_MULTILANE) {
+    if (tagProperty.getTag() == GNE_TAG_MULTI_LANE_AREA_DETECTOR) {
         // now check number of lanes
         if (myConsecutiveLaneSelector->getLanePath().size() < 2) {
             WRITE_WARNING("E2 multilane detectors need at least two consecutive lanes");
@@ -208,7 +208,7 @@ GNEAdditionalFrame::tagSelected() {
             myEdgesSelector->hideNetworkElementsSelector();
         }
         // check if we must show consecutive lane selector
-        if (templateAC->getTagProperty().getTag() == GNE_TAG_E2DETECTOR_MULTILANE) {
+        if (templateAC->getTagProperty().getTag() == GNE_TAG_MULTI_LANE_AREA_DETECTOR) {
             myConsecutiveLaneSelector->showConsecutiveLaneSelectorModule();
             myLanesSelector->hideNetworkElementsSelector();
         } else if (templateAC->getTagProperty().hasAttribute(SUMO_ATTR_LANES)) {
@@ -246,7 +246,7 @@ GNEAdditionalFrame::createBaseAdditionalObject(const GNETagProperties& tagProper
     // declare tag for base additional
     SumoXMLTag baseAdditionalTag = tagProperty.getTag();
     // check if baseAdditionalTag has to be updated
-    if (baseAdditionalTag == GNE_TAG_E2DETECTOR_MULTILANE) {
+    if (baseAdditionalTag == GNE_TAG_MULTI_LANE_AREA_DETECTOR) {
         baseAdditionalTag = SUMO_TAG_LANE_AREA_DETECTOR;
     } else if (baseAdditionalTag == GNE_TAG_CALIBRATOR_FLOW) {
         baseAdditionalTag = SUMO_TAG_FLOW;

@@ -318,7 +318,7 @@ GNETagSelector::ACTemplate::ACTemplate(GNENet* net, const GNETagProperties tagPr
             myAC = new GNEInductionLoopDetector(net);
             break;
         case SUMO_TAG_LANE_AREA_DETECTOR:
-        case GNE_TAG_E2DETECTOR_MULTILANE:
+        case GNE_TAG_MULTI_LANE_AREA_DETECTOR:
             myAC = new GNELaneAreaDetector(tagProperty.getTag(), net);
             break;
         case SUMO_TAG_ENTRY_EXIT_DETECTOR:

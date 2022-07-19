@@ -2024,7 +2024,7 @@ GNEAttributeCarrier::fillAdditionalElements() {
                                               "0");
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
-    currentTag = GNE_TAG_E2DETECTOR_MULTILANE;
+    currentTag = GNE_TAG_MULTI_LANE_AREA_DETECTOR;
     {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,

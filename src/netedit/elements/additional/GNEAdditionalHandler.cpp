@@ -442,7 +442,7 @@ GNEAdditionalHandler::buildSingleLaneDetectorE2(const CommonXMLStructure::SumoBa
     // check conditions
     if (!SUMOXMLDefinitions::isValidDetectorID(id)) {
         writeInvalidID(SUMO_TAG_LANE_AREA_DETECTOR, id);
-    } else if (checkDuplicatedAdditional(SUMO_TAG_LANE_AREA_DETECTOR, id) && checkDuplicatedAdditional(GNE_TAG_E2DETECTOR_MULTILANE, id)) {
+    } else if (checkDuplicatedAdditional(SUMO_TAG_LANE_AREA_DETECTOR, id) && checkDuplicatedAdditional(GNE_TAG_MULTI_LANE_AREA_DETECTOR, id)) {
         // get NETEDIT parameters
         NeteditParameters neteditParameters(sumoBaseObject);
         // get lane
@@ -507,7 +507,7 @@ GNEAdditionalHandler::buildMultiLaneDetectorE2(const CommonXMLStructure::SumoBas
     // check conditions
     if (!SUMOXMLDefinitions::isValidDetectorID(id)) {
         writeInvalidID(SUMO_TAG_LANE_AREA_DETECTOR, id);
-    } else if (checkDuplicatedAdditional(SUMO_TAG_LANE_AREA_DETECTOR, id) && checkDuplicatedAdditional(GNE_TAG_E2DETECTOR_MULTILANE, id)) {
+    } else if (checkDuplicatedAdditional(SUMO_TAG_LANE_AREA_DETECTOR, id) && checkDuplicatedAdditional(GNE_TAG_MULTI_LANE_AREA_DETECTOR, id)) {
         // get NETEDIT parameters
         NeteditParameters neteditParameters(sumoBaseObject);
         // get lanes
@@ -544,7 +544,7 @@ GNEAdditionalHandler::buildMultiLaneDetectorE2(const CommonXMLStructure::SumoBas
                     friendlyPos, parameters);
                 // insert depending of allowUndoRedo
                 if (myAllowUndoRedo) {
-                    myNet->getViewNet()->getUndoList()->begin(GUIIcon::E2, "add " + toString(GNE_TAG_E2DETECTOR_MULTILANE) + " '" + id + "'");
+                    myNet->getViewNet()->getUndoList()->begin(GUIIcon::E2, "add " + toString(GNE_TAG_MULTI_LANE_AREA_DETECTOR) + " '" + id + "'");
                     overwriteAdditional();
                     myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(detectorE2, true), true);
                     myNet->getViewNet()->getUndoList()->end();

@@ -1072,7 +1072,7 @@ GNENetHelper::AttributeCarriers::generateAdditionalID(SumoXMLTag tag) const {
         prefix = oc.getString("parkingArea-prefix");
     } else if (tag == SUMO_TAG_INDUCTION_LOOP) {
         prefix = oc.getString("e1Detector-prefix");
-    } else if ((tag == SUMO_TAG_LANE_AREA_DETECTOR) || (tag == GNE_TAG_E2DETECTOR_MULTILANE)) {
+    } else if ((tag == SUMO_TAG_LANE_AREA_DETECTOR) || (tag == GNE_TAG_MULTI_LANE_AREA_DETECTOR)) {
         prefix = oc.getString("e2Detector-prefix");
     } else if (tag == SUMO_TAG_ENTRY_EXIT_DETECTOR) {
         prefix = oc.getString("e3Detector-prefix");
@@ -1114,6 +1114,11 @@ GNENetHelper::AttributeCarriers::generateAdditionalID(SumoXMLTag tag) const {
         while ((retrieveAdditional(SUMO_TAG_POI, prefix + "_" + toString(counter), false) != nullptr) ||
                 (retrieveAdditional(GNE_TAG_POILANE, prefix + "_" + toString(counter), false) != nullptr) ||
                 (retrieveAdditional(GNE_TAG_POIGEO, prefix + "_" + toString(counter), false) != nullptr)) {
+            counter++;
+        }
+    } else if ((tag == SUMO_TAG_LANE_AREA_DETECTOR) || (tag == GNE_TAG_MULTI_LANE_AREA_DETECTOR)) {
+        while ((retrieveAdditional(SUMO_TAG_LANE_AREA_DETECTOR, prefix + "_" + toString(counter), false) != nullptr) ||
+                (retrieveAdditional(GNE_TAG_MULTI_LANE_AREA_DETECTOR, prefix + "_" + toString(counter), false) != nullptr)) {
             counter++;
         }
     } else {

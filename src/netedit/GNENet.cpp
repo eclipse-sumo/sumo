@@ -2184,7 +2184,7 @@ GNENet::saveAdditionalsConfirmed(const std::string& filename) {
     writeDetectorComment(device);
     writeAdditionalByType(device, {SUMO_TAG_INDUCTION_LOOP});
     writeAdditionalByType(device, {SUMO_TAG_INSTANT_INDUCTION_LOOP});
-    writeAdditionalByType(device, {SUMO_TAG_LANE_AREA_DETECTOR, GNE_TAG_E2DETECTOR_MULTILANE});
+    writeAdditionalByType(device, {SUMO_TAG_LANE_AREA_DETECTOR, GNE_TAG_MULTI_LANE_AREA_DETECTOR});
     writeAdditionalByType(device, {SUMO_TAG_ENTRY_EXIT_DETECTOR});
     // Other additionals
     writeOtherAdditionalsComment(device);
