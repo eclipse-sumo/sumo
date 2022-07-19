@@ -2,7 +2,7 @@
 # spec file for package sumo
 #
 # Copyright (c) 2018 SUSE LINUX GmbH, Nuernberg, Germany.
-# Copyright (c) 2001-2020 DLR (http://www.dlr.de/) and contributors
+# Copyright (c) 2001-2022 DLR (http://www.dlr.de/) and contributors
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
