@@ -29,11 +29,11 @@
 #include <netedit/elements/additional/GNEClosingReroute.h>
 #include <netedit/elements/additional/GNEContainerStop.h>
 #include <netedit/elements/additional/GNEDestProbReroute.h>
-#include <netedit/elements/additional/GNEDetectorE1.h>
-#include <netedit/elements/additional/GNEDetectorE1Instant.h>
-#include <netedit/elements/additional/GNEDetectorE2.h>
-#include <netedit/elements/additional/GNEDetectorE3.h>
-#include <netedit/elements/additional/GNEDetectorEntryExit.h>
+#include <netedit/elements/additional/GNEInductionLoopDetector.h>
+#include <netedit/elements/additional/GNEInstantInductionLoopDetector.h>
+#include <netedit/elements/additional/GNELaneAreaDetector.h>
+#include <netedit/elements/additional/GNEMultiEntryExitDetector.h>
+#include <netedit/elements/additional/GNEEntryExitDetector.h>
 #include <netedit/elements/additional/GNEPOI.h>
 #include <netedit/elements/additional/GNEParkingArea.h>
 #include <netedit/elements/additional/GNEParkingAreaReroute.h>

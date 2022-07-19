@@ -21,7 +21,7 @@
 #include <netedit/GNEUndoList.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 
-#include "GNEDetectorE3.h"
+#include "GNEMultiEntryExitDetector.h"
 
 
 // ===========================================================================
@@ -30,11 +30,11 @@
 
 GNEDetectorE3::GNEDetectorE3(GNENet* net) :
     GNEAdditional("", net, GLO_E3DETECTOR, SUMO_TAG_E3DETECTOR, "",
-{}, {}, {}, {}, {}, {}),
-myPeriod(0),
-myFilename(""),
-myTimeThreshold(0),
-mySpeedThreshold(0) {
+        {}, {}, {}, {}, {}, {}),
+    myPeriod(0),
+    myFilename(""),
+    myTimeThreshold(0),
+    mySpeedThreshold(0) {
     // reset default values
     resetDefaultValues();
 }

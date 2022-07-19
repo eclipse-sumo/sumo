@@ -27,16 +27,16 @@ set(netedit_elements_additional_SRCS
    GNETAZSourceSink.cpp
    GNEDetector.h
    GNEDetector.cpp
-   GNEDetectorE1.h
-   GNEDetectorE1.cpp
-   GNEDetectorE1Instant.h
-   GNEDetectorE1Instant.cpp
-   GNEDetectorE2.h
-   GNEDetectorE2.cpp
-   GNEDetectorE3.h
-   GNEDetectorE3.cpp
-   GNEDetectorEntryExit.h
-   GNEDetectorEntryExit.cpp
+   GNEEntryExitDetector.h
+   GNEEntryExitDetector.cpp
+   GNEInductionLoopDetector.h
+   GNEInductionLoopDetector.cpp
+   GNEInstantInductionLoopDetector.h
+   GNEInstantInductionLoopDetector.cpp
+   GNELaneAreaDetector.h
+   GNELaneAreaDetector.cpp
+   GNEMultiEntryExitDetector.h
+   GNEMultiEntryExitDetector.cpp
    GNERerouter.h
    GNERerouter.cpp
    GNERerouterSymbol.h

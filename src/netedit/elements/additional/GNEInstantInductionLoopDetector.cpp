@@ -11,9 +11,9 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEDetectorE1.cpp
+/// @file    GNEDetectorE1Instant.cpp
 /// @author  Pablo Alvarez Lopez
-/// @date    Nov 2015
+/// @date    Jun 2018
 ///
 //
 /****************************************************************************/
@@ -23,7 +23,7 @@
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <utils/gui/div/GLHelper.h>
 
-#include "GNEDetectorE1.h"
+#include "GNEInstantInductionLoopDetector.h"
 #include "GNEAdditionalHandler.h"
 
 
@@ -31,16 +31,16 @@
 // member method definitions
 // ===========================================================================
 
-GNEDetectorE1::GNEDetectorE1(GNENet* net) :
-    GNEDetector("", net, GLO_E1DETECTOR, SUMO_TAG_E1DETECTOR, 0, 0, {}, "", {}, "", false, Parameterised::Map()) {
+GNEDetectorE1Instant::GNEDetectorE1Instant(GNENet* net) :
+    GNEDetector("", net, GLO_E1DETECTOR_INSTANT, SUMO_TAG_INSTANT_INDUCTION_LOOP, 0, 0, {}, "", {}, "", false, Parameterised::Map()) {
     // reset default values
     resetDefaultValues();
 }
 
 
-GNEDetectorE1::GNEDetectorE1(const std::string& id, GNELane* lane, GNENet* net, const double pos, const SUMOTime freq, const std::string& filename, const std::vector<std::string>& vehicleTypes,
-                             const std::string& name, bool friendlyPos, const Parameterised::Map& parameters) :
-    GNEDetector(id, net, GLO_E1DETECTOR, SUMO_TAG_E1DETECTOR, pos, freq, {
+GNEDetectorE1Instant::GNEDetectorE1Instant(const std::string& id, GNELane* lane, GNENet* net, const double pos, const std::string& filename, const std::vector<std::string>& vehicleTypes,
+        const std::string& name, const bool friendlyPos, const Parameterised::Map& parameters) :
+    GNEDetector(id, net, GLO_E1DETECTOR_INSTANT, SUMO_TAG_INSTANT_INDUCTION_LOOP, pos, 0, {
     lane
 }, filename, vehicleTypes, name, friendlyPos, parameters) {
     // update centering boundary without updating grid
@@ -48,12 +48,12 @@ GNEDetectorE1::GNEDetectorE1(const std::string& id, GNELane* lane, GNENet* net, 
 }
 
 
-GNEDetectorE1::~GNEDetectorE1() {
+GNEDetectorE1Instant::~GNEDetectorE1Instant() {
 }
 
 
 void
-GNEDetectorE1::writeAdditional(OutputDevice& device) const {
+GNEDetectorE1Instant::writeAdditional(OutputDevice& device) const {
     device.openTag(getTagProperty().getTag());
     device.writeAttr(SUMO_ATTR_ID, getID());
     if (!myAdditionalName.empty()) {
@@ -61,9 +61,6 @@ GNEDetectorE1::writeAdditional(OutputDevice& device) const {
     }
     device.writeAttr(SUMO_ATTR_LANE, getParentLanes().front()->getID());
     device.writeAttr(SUMO_ATTR_POSITION, myPositionOverLane);
-    if (getAttribute(SUMO_ATTR_PERIOD).size() > 0) {
-        device.writeAttr(SUMO_ATTR_PERIOD, time2string(myPeriod));
-    }
     if (myFilename.size() > 0) {
         device.writeAttr(SUMO_ATTR_FILE, myFilename);
     }
@@ -80,7 +77,7 @@ GNEDetectorE1::writeAdditional(OutputDevice& device) const {
 
 
 bool
-GNEDetectorE1::isAdditionalValid() const {
+GNEDetectorE1Instant::isAdditionalValid() const {
     // with friendly position enabled position are "always fixed"
     if (myFriendlyPosition) {
         return true;
@@ -91,7 +88,7 @@ GNEDetectorE1::isAdditionalValid() const {
 
 
 std::string
-GNEDetectorE1::getAdditionalProblem() const {
+GNEDetectorE1Instant::getAdditionalProblem() const {
     // obtain final length
     const double len = getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
     // check if detector has a problem
@@ -113,7 +110,7 @@ GNEDetectorE1::getAdditionalProblem() const {
 
 
 void
-GNEDetectorE1::fixAdditionalProblem() {
+GNEDetectorE1Instant::fixAdditionalProblem() {
     // declare new position
     double newPositionOverLane = myPositionOverLane;
     // fix pos and length checkAndFixDetectorPosition
@@ -125,7 +122,7 @@ GNEDetectorE1::fixAdditionalProblem() {
 
 
 void
-GNEDetectorE1::updateGeometry() {
+GNEDetectorE1Instant::updateGeometry() {
     // update geometry
     myAdditionalGeometry.updateGeometry(getParentLanes().front()->getLaneShape(), getGeometryPositionOverLane(), myMoveElementLateralOffset);
     // update centering boundary without updating grid
@@ -134,15 +131,15 @@ GNEDetectorE1::updateGeometry() {
 
 
 void
-GNEDetectorE1::drawGL(const GUIVisualizationSettings& s) const {
+GNEDetectorE1Instant::drawGL(const GUIVisualizationSettings& s) const {
     // Obtain exaggeration of the draw
-    const double E1Exaggeration = getExaggeration(s);
+    const double E1InstantExaggeration = getExaggeration(s);
     // first check if additional has to be drawn
     if (myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
         // check exaggeration
-        if (s.drawAdditionals(E1Exaggeration)) {
+        if (s.drawAdditionals(E1InstantExaggeration)) {
             // obtain scaledSize
-            const double scaledWidth = s.detectorSettings.E1Width * 0.5 * s.scale;
+            const double scaledWidth = s.detectorSettings.E1InstantWidth * 0.5 * s.scale;
             // declare colors
             RGBColor mainColor, secondColor, textColor;
             // set color
@@ -151,7 +148,7 @@ GNEDetectorE1::drawGL(const GUIVisualizationSettings& s) const {
                 secondColor = mainColor.changedBrightness(-32);
                 textColor = mainColor.changedBrightness(32);
             } else {
-                mainColor = s.detectorSettings.E1Color;
+                mainColor = s.detectorSettings.E1InstantColor;
                 secondColor = RGBColor::WHITE;
                 textColor = RGBColor::BLACK;
             }
@@ -162,26 +159,26 @@ GNEDetectorE1::drawGL(const GUIVisualizationSettings& s) const {
             // push layer matrix
             GLHelper::pushMatrix();
             // translate to front
-            myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_E1DETECTOR);
-            // draw E1 shape
-            drawE1Shape(s, E1Exaggeration, scaledWidth, mainColor, secondColor);
+            myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_E1DETECTOR_INSTANT);
+            // draw E1Instant shape
+            drawE1Shape(s, E1InstantExaggeration, scaledWidth, mainColor, secondColor);
             // Check if the distance is enought to draw details
-            if (s.drawDetail(s.detailSettings.detectorDetails, E1Exaggeration)) {
+            if (s.drawDetail(s.detailSettings.detectorDetails, E1InstantExaggeration)) {
                 // draw E1 Logo
-                drawDetectorLogo(s, E1Exaggeration, "E1", textColor);
+                drawDetectorLogo(s, E1InstantExaggeration, "E1", textColor);
             }
             // pop layer matrix
             GLHelper::popMatrix();
             // Pop name
             GLHelper::popName();
             // draw lock icon
-            GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), myAdditionalGeometry.getShape().getCentroid(), E1Exaggeration);
+            GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), myAdditionalGeometry.getShape().getCentroid(), E1InstantExaggeration);
             // check if dotted contours has to be drawn
             if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-                GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::INSPECT, s, myAdditionalGeometry.getShape().front(), 2, 1, 0, 0, myAdditionalGeometry.getShapeRotations().front(), E1Exaggeration);
+                GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::INSPECT, s, myAdditionalGeometry.getShape().front(), 2, 1, 0, 0, myAdditionalGeometry.getShapeRotations().front(), E1InstantExaggeration);
             }
             if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-                GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::FRONT, s, myAdditionalGeometry.getShape().front(), 2, 1, 0, 0, myAdditionalGeometry.getShapeRotations().front(), E1Exaggeration);
+                GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::FRONT, s, myAdditionalGeometry.getShape().front(), 2, 1, 0, 0, myAdditionalGeometry.getShapeRotations().front(), E1InstantExaggeration);
             }
         }
         // Draw additional ID
@@ -193,7 +190,7 @@ GNEDetectorE1::drawGL(const GUIVisualizationSettings& s) const {
 
 
 std::string
-GNEDetectorE1::getAttribute(SumoXMLAttr key) const {
+GNEDetectorE1Instant::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
             return getMicrosimID();
@@ -201,12 +198,6 @@ GNEDetectorE1::getAttribute(SumoXMLAttr key) const {
             return getParentLanes().front()->getID();
         case SUMO_ATTR_POSITION:
             return toString(myPositionOverLane);
-        case SUMO_ATTR_PERIOD:
-            if (myPeriod == SUMOTime_MAX_PERIOD) {
-                return "";
-            } else {
-                return time2string(myPeriod);
-            }
         case SUMO_ATTR_NAME:
             return myAdditionalName;
         case SUMO_ATTR_FILE:
@@ -228,7 +219,7 @@ GNEDetectorE1::getAttribute(SumoXMLAttr key) const {
 
 
 double
-GNEDetectorE1::getAttributeDouble(SumoXMLAttr key) const {
+GNEDetectorE1Instant::getAttributeDouble(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_POSITION:
             return myPositionOverLane;
@@ -239,12 +230,11 @@ GNEDetectorE1::getAttributeDouble(SumoXMLAttr key) const {
 
 
 void
-GNEDetectorE1::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
+GNEDetectorE1Instant::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     switch (key) {
         case SUMO_ATTR_ID:
         case SUMO_ATTR_LANE:
         case SUMO_ATTR_POSITION:
-        case SUMO_ATTR_PERIOD:
         case SUMO_ATTR_NAME:
         case SUMO_ATTR_FILE:
         case SUMO_ATTR_VTYPES:
@@ -257,11 +247,12 @@ GNEDetectorE1::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
+
 }
 
 
 bool
-GNEDetectorE1::isValid(SumoXMLAttr key, const std::string& value) {
+GNEDetectorE1Instant::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
             return isValidDetectorID(value);
@@ -273,12 +264,6 @@ GNEDetectorE1::isValid(SumoXMLAttr key, const std::string& value) {
             }
         case SUMO_ATTR_POSITION:
             return canParse<double>(value) && fabs(parse<double>(value)) < getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
-        case SUMO_ATTR_PERIOD:
-            if (value.empty()) {
-                return true;
-            } else {
-                return (canParse<double>(value) && (parse<double>(value) >= 0));
-            }
         case SUMO_ATTR_NAME:
             return SUMOXMLDefinitions::isValidAttribute(value);
         case SUMO_ATTR_FILE:
@@ -305,7 +290,7 @@ GNEDetectorE1::isValid(SumoXMLAttr key, const std::string& value) {
 // ===========================================================================
 
 void
-GNEDetectorE1::setAttribute(SumoXMLAttr key, const std::string& value) {
+GNEDetectorE1Instant::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
             // update microsimID
@@ -317,18 +302,11 @@ GNEDetectorE1::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_POSITION:
             myPositionOverLane = parse<double>(value);
             break;
-        case SUMO_ATTR_PERIOD:
-            if (value.empty()) {
-                myPeriod = SUMOTime_MAX_PERIOD;
-            } else {
-                myPeriod = string2time(value);
-            }
+        case SUMO_ATTR_NAME:
+            myAdditionalName = value;
             break;
         case SUMO_ATTR_FILE:
             myFilename = value;
-            break;
-        case SUMO_ATTR_NAME:
-            myAdditionalName = value;
             break;
         case SUMO_ATTR_VTYPES:
             myVehicleTypes = parse<std::vector<std::string> >(value);
@@ -356,7 +334,7 @@ GNEDetectorE1::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 
 void
-GNEDetectorE1::setMoveShape(const GNEMoveResult& moveResult) {
+GNEDetectorE1Instant::setMoveShape(const GNEMoveResult& moveResult) {
     // change position
     myPositionOverLane = moveResult.newFirstPos;
     // set lateral offset
@@ -367,7 +345,7 @@ GNEDetectorE1::setMoveShape(const GNEMoveResult& moveResult) {
 
 
 void
-GNEDetectorE1::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
+GNEDetectorE1Instant::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
     // reset lateral offset
     myMoveElementLateralOffset = 0;
     // begin change attribute

@@ -24,7 +24,7 @@
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/globjects/GLIncludes.h>
 
-#include "GNEDetectorEntryExit.h"
+#include "GNEEntryExitDetector.h"
 #include "GNEAdditionalHandler.h"
 
 
