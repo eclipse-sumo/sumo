@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.additionalMode()
 
 # select E2
-netedit.changeElement("e2Detector")
+netedit.changeElement("laneAreaDetector")
 
 # create E2 1
 netedit.leftClick(referencePosition, 250, 130)

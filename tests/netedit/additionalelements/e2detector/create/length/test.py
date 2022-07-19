@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--g
 netedit.additionalMode()
 
 # select E2
-netedit.changeElement("e2Detector")
+netedit.changeElement("laneAreaDetector")
 
 # set invalid  length (dummy)
 netedit.changeDefaultValue(netedit.attrs.E2.create.length, "dummyLenght")

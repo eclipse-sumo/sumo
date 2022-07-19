@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.additionalMode()
 
 # select E2
-netedit.changeElement("e2Detector")
+netedit.changeElement("laneAreaDetector")
 
 # set invalid vehicle types (invalid IDs)
 netedit.changeDefaultValue(netedit.attrs.E2.create.vTypes, "%%;$$$ %%$$ type.3")

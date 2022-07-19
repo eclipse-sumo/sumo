@@ -35,7 +35,7 @@ netedit.setZoom("25", "0", "25")
 netedit.additionalMode()
 
 # select E3
-netedit.changeElement("e3Detector")
+netedit.changeElement("entryExitDetector")
 
 # set invalid id
 netedit.changeDefaultValue(netedit.attrs.E3.create.id, ";;;;;;")
