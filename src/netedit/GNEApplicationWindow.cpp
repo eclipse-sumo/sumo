@@ -1837,6 +1837,7 @@ GNEApplicationWindow::onUpdLockMenuTitle(FXObject*, FXSelector, void*) {
             if ((myViewNet->getEditModes().networkEditMode == NetworkEditMode::NETWORK_INSPECT) ||
                     (myViewNet->getEditModes().networkEditMode == NetworkEditMode::NETWORK_SELECT) ||
                     (myViewNet->getEditModes().networkEditMode == NetworkEditMode::NETWORK_DELETE) ||
+                    (myViewNet->getEditModes().networkEditMode == NetworkEditMode::NETWORK_CONNECT) ||
                     (myViewNet->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE)) {
                 myLockMenuTitle->enable();
             } else {
