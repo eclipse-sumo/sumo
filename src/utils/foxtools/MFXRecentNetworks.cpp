@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    FXRecentNetworks.cpp
+/// @file    MFXRecentNetworks.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Feb 2021
 ///
@@ -25,30 +25,30 @@
 // FOX callback mapping
 // ===========================================================================
 
-FXDEFMAP(FXRecentNetworks) FXRecentNetworksMap[] = {
-    FXMAPFUNC(SEL_UPDATE,   FXRecentNetworks::ID_NOFILES,   FXRecentNetworks::onUpdNoFiles),
-    FXMAPFUNCS(SEL_UPDATE,  FXRecentFiles::ID_FILE_1,       FXRecentFiles::ID_FILE_10,  FXRecentNetworks::onUpdFile),
+FXDEFMAP(MFXRecentNetworks) MFXRecentNetworksMap[] = {
+    FXMAPFUNC(SEL_UPDATE,   MFXRecentNetworks::ID_NOFILES,   MFXRecentNetworks::onUpdNoFiles),
+    FXMAPFUNCS(SEL_UPDATE,  FXRecentFiles::ID_FILE_1,       FXRecentFiles::ID_FILE_10,  MFXRecentNetworks::onUpdFile),
 };
 
 // Object implementation
-FXIMPLEMENT(FXRecentNetworks, FXRecentFiles, FXRecentNetworksMap, ARRAYNUMBER(FXRecentNetworksMap))
+FXIMPLEMENT(MFXRecentNetworks, FXRecentFiles, MFXRecentNetworksMap, ARRAYNUMBER(MFXRecentNetworksMap))
 
 // ===========================================================================
 // member method definitions
 // ===========================================================================
 
-FXRecentNetworks::FXRecentNetworks() :
+MFXRecentNetworks::MFXRecentNetworks() :
     FXRecentFiles() {
 }
 
 
-FXRecentNetworks::FXRecentNetworks(FXApp* a, const FXString& gp) :
+MFXRecentNetworks::MFXRecentNetworks(FXApp* a, const FXString& gp) :
     FXRecentFiles(a, gp) {
 }
 
 
 long
-FXRecentNetworks::onUpdFile(FXObject* obj, FXSelector sel, void*) {
+MFXRecentNetworks::onUpdFile(FXObject* obj, FXSelector sel, void*) {
     // get filename index
     const FXint which = FXSELID(sel) - ID_FILE_1 + 1;
     // get filename
@@ -76,7 +76,7 @@ FXRecentNetworks::onUpdFile(FXObject* obj, FXSelector sel, void*) {
 
 
 long
-FXRecentNetworks::onUpdNoFiles(FXObject* obj, FXSelector, void*) {
+MFXRecentNetworks::onUpdNoFiles(FXObject* obj, FXSelector, void*) {
     // first disable object
     obj->handle(obj, FXSEL(SEL_COMMAND, FXWindow::ID_DISABLE), NULL);
     // iterate over myIndexFilenames

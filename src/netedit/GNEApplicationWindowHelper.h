@@ -43,7 +43,7 @@ class GNEUndoListDialog;
 class GNENet;
 class GNEViewNet;
 class GUIEvent;
-class FXMenuCheckIcon;
+class MFXMenuCheckIcon;
 
 
 // ===========================================================================
@@ -124,7 +124,7 @@ struct GNEApplicationWindowHelper {
         void buildRecentFiles(FXMenuPane* fileMenu);
 
         /// @brief List of recent nets and config files
-        FXRecentNetworks myRecentNetsAndConfigs;
+        MFXRecentNetworks myRecentNetsAndConfigs;
 
     private:
         /// @brief pointer to current GNEApplicationWindow
@@ -436,52 +436,52 @@ struct GNEApplicationWindowHelper {
             void updateShortcuts();
 
             /// @brief menu check to show grid button
-            FXMenuCheckIcon* menuCheckToggleGrid;
+            MFXMenuCheckIcon* menuCheckToggleGrid;
 
             /// @brief menu check to toggle draw junction shape
-            FXMenuCheckIcon* menuCheckToggleDrawJunctionShape;
+            MFXMenuCheckIcon* menuCheckToggleDrawJunctionShape;
 
             /// @brief menu check to draw vehicles in begin position or spread in lane
-            FXMenuCheckIcon* menuCheckDrawSpreadVehicles;
+            MFXMenuCheckIcon* menuCheckDrawSpreadVehicles;
 
             /// @brief menu check to show Demand Elements
-            FXMenuCheckIcon* menuCheckShowDemandElements;
+            MFXMenuCheckIcon* menuCheckShowDemandElements;
 
             /// @brief menu check to select only edges
-            FXMenuCheckIcon* menuCheckSelectEdges;
+            MFXMenuCheckIcon* menuCheckSelectEdges;
 
             /// @brief menu check to show connections
-            FXMenuCheckIcon* menuCheckShowConnections;
+            MFXMenuCheckIcon* menuCheckShowConnections;
 
             /// @brief menu check to hide connections in connect mode
-            FXMenuCheckIcon* menuCheckHideConnections;
+            MFXMenuCheckIcon* menuCheckHideConnections;
 
             /// @brief menu check to show additional sub-elements
-            FXMenuCheckIcon* menuCheckShowAdditionalSubElements;
+            MFXMenuCheckIcon* menuCheckShowAdditionalSubElements;
 
             /// @brief menu check to show TAZ elements
-            FXMenuCheckIcon* menuCheckShowTAZElements;
+            MFXMenuCheckIcon* menuCheckShowTAZElements;
 
             /// @brief menu check to extend to edge nodes
-            FXMenuCheckIcon* menuCheckExtendSelection;
+            MFXMenuCheckIcon* menuCheckExtendSelection;
 
             /// @brief menu check to set change all phases
-            FXMenuCheckIcon* menuCheckChangeAllPhases;
+            MFXMenuCheckIcon* menuCheckChangeAllPhases;
 
             /// @brief menu check to we should warn about merging junctions
-            FXMenuCheckIcon* menuCheckWarnAboutMerge;
+            MFXMenuCheckIcon* menuCheckWarnAboutMerge;
 
             /// @brief menu check to show connection as bubble in "Move" mode.
-            FXMenuCheckIcon* menuCheckShowJunctionBubble;
+            MFXMenuCheckIcon* menuCheckShowJunctionBubble;
 
             /// @brief menu check to apply movement to elevation
-            FXMenuCheckIcon* menuCheckMoveElevation;
+            MFXMenuCheckIcon* menuCheckMoveElevation;
 
             /// @brief menu check to the endpoint for a created edge should be set as the new source
-            FXMenuCheckIcon* menuCheckChainEdges;
+            MFXMenuCheckIcon* menuCheckChainEdges;
 
             /// @brief check checkable to create auto create opposite edge
-            FXMenuCheckIcon* menuCheckAutoOppositeEdge;
+            MFXMenuCheckIcon* menuCheckAutoOppositeEdge;
 
             /// @brief separator
             FXMenuSeparator* separator;
@@ -513,37 +513,37 @@ struct GNEApplicationWindowHelper {
             void updateShortcuts();
 
             /// @brief menu check to show grid button
-            FXMenuCheckIcon* menuCheckToggleGrid;
+            MFXMenuCheckIcon* menuCheckToggleGrid;
 
             /// @brief menu check to toggle draw junction shape
-            FXMenuCheckIcon* menuCheckToggleDrawJunctionShape;
+            MFXMenuCheckIcon* menuCheckToggleDrawJunctionShape;
 
             /// @brief menu check to draw vehicles in begin position or spread in lane
-            FXMenuCheckIcon* menuCheckDrawSpreadVehicles;
+            MFXMenuCheckIcon* menuCheckDrawSpreadVehicles;
 
             /// @brief menu check for hide shapes (Polygons and POIs)
-            FXMenuCheckIcon* menuCheckHideShapes;
+            MFXMenuCheckIcon* menuCheckHideShapes;
 
             /// @brief menu check for show all trips plans
-            FXMenuCheckIcon* menuCheckShowAllTrips;
+            MFXMenuCheckIcon* menuCheckShowAllTrips;
 
             /// @brief menu check for hide non inspected demand elements
-            FXMenuCheckIcon* menuCheckHideNonInspectedDemandElements;
+            MFXMenuCheckIcon* menuCheckHideNonInspectedDemandElements;
 
             /// @brief menu check for show overlapped routes
-            FXMenuCheckIcon* menuCheckShowOverlappedRoutes;
+            MFXMenuCheckIcon* menuCheckShowOverlappedRoutes;
 
             /// @brief menu check for show all person plans
-            FXMenuCheckIcon* menuCheckShowAllPersonPlans;
+            MFXMenuCheckIcon* menuCheckShowAllPersonPlans;
 
             /// @brief menu check for lock Person
-            FXMenuCheckIcon* menuCheckLockPerson;
+            MFXMenuCheckIcon* menuCheckLockPerson;
 
             /// @brief menu check for show all container plans
-            FXMenuCheckIcon* menuCheckShowAllContainerPlans;
+            MFXMenuCheckIcon* menuCheckShowAllContainerPlans;
 
             /// @brief menu check for lock Container
-            FXMenuCheckIcon* menuCheckLockContainer;
+            MFXMenuCheckIcon* menuCheckLockContainer;
 
             /// @brief separator
             FXMenuSeparator* separator;
@@ -575,28 +575,28 @@ struct GNEApplicationWindowHelper {
             void updateShortcuts();
 
             /// @brief menu check to toggle draw junction shape
-            FXMenuCheckIcon* menuCheckToggleDrawJunctionShape;
+            MFXMenuCheckIcon* menuCheckToggleDrawJunctionShape;
 
             /// @brief menu check to show Additionals
-            FXMenuCheckIcon* menuCheckShowAdditionals;
+            MFXMenuCheckIcon* menuCheckShowAdditionals;
 
             /// @brief menu check to show Shapes
-            FXMenuCheckIcon* menuCheckShowShapes;
+            MFXMenuCheckIcon* menuCheckShowShapes;
 
             /// @brief menu check to show Demand Elements
-            FXMenuCheckIcon* menuCheckShowDemandElements;
+            MFXMenuCheckIcon* menuCheckShowDemandElements;
 
             /// @brief menu check to toggle TAZRel drawing mode
-            FXMenuCheckIcon* menuCheckToggleTAZRelDrawing;
+            MFXMenuCheckIcon* menuCheckToggleTAZRelDrawing;
 
             /// @brief menu check to toggle TAZ draw fill
-            FXMenuCheckIcon* menuCheckToggleTAZDrawFill;
+            MFXMenuCheckIcon* menuCheckToggleTAZDrawFill;
 
             /// @brief menu check to toggle TAZRel only from
-            FXMenuCheckIcon* menuCheckToggleTAZRelOnlyFrom;
+            MFXMenuCheckIcon* menuCheckToggleTAZRelOnlyFrom;
 
             /// @brief menu check to toggle TAZRel only to
-            FXMenuCheckIcon* menuCheckToggleTAZRelOnlyTo;
+            MFXMenuCheckIcon* menuCheckToggleTAZRelOnlyTo;
 
             /// @brief separator
             FXMenuSeparator* separator;
@@ -716,89 +716,89 @@ struct GNEApplicationWindowHelper {
         /// @name Processing FXMenuCommands for Network mode
         /// @{
         /// @brief menu check to lock junction
-        FXMenuCheckIcon* menuCheckLockJunction = nullptr;
+        MFXMenuCheckIcon* menuCheckLockJunction = nullptr;
 
         /// @brief menu check to lock edges
-        FXMenuCheckIcon* menuCheckLockEdges = nullptr;
+        MFXMenuCheckIcon* menuCheckLockEdges = nullptr;
 
         /// @brief menu check to lock lanes
-        FXMenuCheckIcon* menuCheckLockLanes = nullptr;
+        MFXMenuCheckIcon* menuCheckLockLanes = nullptr;
 
         /// @brief menu check to lock connections
-        FXMenuCheckIcon* menuCheckLockConnections = nullptr;
+        MFXMenuCheckIcon* menuCheckLockConnections = nullptr;
 
         /// @brief menu check to lock crossings
-        FXMenuCheckIcon* menuCheckLockCrossings = nullptr;
+        MFXMenuCheckIcon* menuCheckLockCrossings = nullptr;
 
         /// @brief menu check to lock walkingAreas
-        FXMenuCheckIcon* menuCheckLockWalkingAreas = nullptr;
+        MFXMenuCheckIcon* menuCheckLockWalkingAreas = nullptr;
 
         /// @brief menu check to lock additionals
-        FXMenuCheckIcon* menuCheckLockAdditionals = nullptr;
+        MFXMenuCheckIcon* menuCheckLockAdditionals = nullptr;
 
         /// @brief menu check to lock TAZs
-        FXMenuCheckIcon* menuCheckLockTAZs = nullptr;
+        MFXMenuCheckIcon* menuCheckLockTAZs = nullptr;
 
         /// @brief menu check to lock Wires
-        FXMenuCheckIcon* menuCheckLockWires = nullptr;
+        MFXMenuCheckIcon* menuCheckLockWires = nullptr;
 
         /// @brief menu check to lock polygons
-        FXMenuCheckIcon* menuCheckLockPolygons = nullptr;
+        MFXMenuCheckIcon* menuCheckLockPolygons = nullptr;
 
         /// @brief menu check to lock POIs
-        FXMenuCheckIcon* menuCheckLockPOIs = nullptr;
+        MFXMenuCheckIcon* menuCheckLockPOIs = nullptr;
 
         /// @}
 
         /// @name Processing FXMenuCommands for Demand mode
         /// @{
         /// @brief menu check to lock routes
-        FXMenuCheckIcon* menuCheckLockRoutes;
+        MFXMenuCheckIcon* menuCheckLockRoutes;
 
         /// @brief menu check to lock vehicles
-        FXMenuCheckIcon* menuCheckLockVehicles;
+        MFXMenuCheckIcon* menuCheckLockVehicles;
 
         /// @brief menu check to lock persons
-        FXMenuCheckIcon* menuCheckLockPersons;
+        MFXMenuCheckIcon* menuCheckLockPersons;
 
         /// @brief menu check to lock personTrips
-        FXMenuCheckIcon* menuCheckLockPersonTrip;
+        MFXMenuCheckIcon* menuCheckLockPersonTrip;
 
         /// @brief menu check to lock walks
-        FXMenuCheckIcon* menuCheckLockWalk;
+        MFXMenuCheckIcon* menuCheckLockWalk;
 
         /// @brief menu check to lock rides
-        FXMenuCheckIcon* menuCheckLockRides;
+        MFXMenuCheckIcon* menuCheckLockRides;
 
         /// @brief menu check to lock containers
-        FXMenuCheckIcon* menuCheckLockContainers;
+        MFXMenuCheckIcon* menuCheckLockContainers;
 
         /// @brief menu check to lock transports
-        FXMenuCheckIcon* menuCheckLockTransports;
+        MFXMenuCheckIcon* menuCheckLockTransports;
 
         /// @brief menu check to lock tranships
-        FXMenuCheckIcon* menuCheckLockTranships;
+        MFXMenuCheckIcon* menuCheckLockTranships;
 
         /// @brief menu check to lock stops
-        FXMenuCheckIcon* menuCheckLockStops;
+        MFXMenuCheckIcon* menuCheckLockStops;
 
         /// @}
 
         /// @name Processing FXMenuCommands for Data mode
         /// @{
         /// @brief menu check to lock edge datas
-        FXMenuCheckIcon* menuCheckLockEdgeDatas;
+        MFXMenuCheckIcon* menuCheckLockEdgeDatas;
 
         /// @brief menu check to lock edgeRelDatas
-        FXMenuCheckIcon* menuCheckLockEdgeRelDatas;
+        MFXMenuCheckIcon* menuCheckLockEdgeRelDatas;
 
         /// @brief menu check to lock edgeTAZRels
-        FXMenuCheckIcon* menuCheckLockEdgeTAZRels;
+        MFXMenuCheckIcon* menuCheckLockEdgeTAZRels;
 
         /// @}
 
         /// @brief menu check for lock selected elemetns
-        FXMenuCheckIcon* menuCheckLockSelectedElements;
+        MFXMenuCheckIcon* menuCheckLockSelectedElements;
 
     protected:
         /// @brief Parse hot key from string

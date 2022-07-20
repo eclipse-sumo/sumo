@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    FXLinkLabel.cpp
+/// @file    MFXLinkLabel.cpp
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @author  Jakob Erdmann
@@ -35,7 +35,7 @@
 
 
 FXint
-FXLinkLabel::fxexecute(FXString link) {
+MFXLinkLabel::fxexecute(FXString link) {
 #ifdef WIN32
     return (int)(intptr_t)ShellExecute(nullptr, "open", link.text(), nullptr, nullptr, SW_SHOWNORMAL) > 32 ? 1 : 0;
 #else
@@ -74,23 +74,23 @@ FXLinkLabel::fxexecute(FXString link) {
 
 
 
-FXDEFMAP(FXLinkLabel) FXLinkLabelMap[] = {
-    FXMAPFUNC(SEL_LEFTBUTTONPRESS, 0, FXLinkLabel::onLeftBtnPress),
-    FXMAPFUNC(SEL_TIMEOUT, FXLinkLabel::ID_TIMER, FXLinkLabel::onTimer),
+FXDEFMAP(MFXLinkLabel) MFXLinkLabelMap[] = {
+    FXMAPFUNC(SEL_LEFTBUTTONPRESS, 0, MFXLinkLabel::onLeftBtnPress),
+    FXMAPFUNC(SEL_TIMEOUT, MFXLinkLabel::ID_TIMER, MFXLinkLabel::onTimer),
 };
-FXIMPLEMENT(FXLinkLabel, FXLabel, FXLinkLabelMap, ARRAYNUMBER(FXLinkLabelMap))
+FXIMPLEMENT(MFXLinkLabel, FXLabel, MFXLinkLabelMap, ARRAYNUMBER(MFXLinkLabelMap))
 
 
-FXLinkLabel::FXLinkLabel(FXComposite* p, const FXString& text, FXIcon* ic, FXuint opts, FXint x, FXint y, FXint w, FXint h, FXint pl, FXint pr, FXint pt, FXint pb) : FXLabel(p, text, ic, opts, x, y, w, h, pl, pr, pt, pb) {
+MFXLinkLabel::MFXLinkLabel(FXComposite* p, const FXString& text, FXIcon* ic, FXuint opts, FXint x, FXint y, FXint w, FXint h, FXint pl, FXint pr, FXint pt, FXint pb) : FXLabel(p, text, ic, opts, x, y, w, h, pl, pr, pt, pb) {
     setDefaultCursor(getApp()->getDefaultCursor(DEF_HAND_CURSOR));
     setTextColor(FXRGB(0, 0, 255));
 }
 
-FXLinkLabel::~FXLinkLabel() {
+MFXLinkLabel::~MFXLinkLabel() {
     getApp()->removeTimeout(this, ID_TIMER);
 }
 
-long FXLinkLabel::onLeftBtnPress(FXObject*, FXSelector, void*) {
+long MFXLinkLabel::onLeftBtnPress(FXObject*, FXSelector, void*) {
     FXString link = getTipText();
     if (link.length()) {
         getApp()->beginWaitCursor();
@@ -104,7 +104,7 @@ long FXLinkLabel::onLeftBtnPress(FXObject*, FXSelector, void*) {
     return 1;
 }
 
-long FXLinkLabel::onTimer(FXObject*, FXSelector, void*) {
+long MFXLinkLabel::onTimer(FXObject*, FXSelector, void*) {
     getApp()->endWaitCursor();
     return 1;
 }

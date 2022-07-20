@@ -152,7 +152,7 @@ GUIGLObjectPopupMenu::onCmdShowCursorGeoPositionOnline(FXObject* item, FXSelecto
     GeoConvHelper::getFinal().cartesian2geo(pos);
     std::string url = myApplication->getOnlineMaps().find(mc->getText().rafter(' ').text())->second;
     url = StringUtils::replace(StringUtils::replace(url, "%lat", toString(pos.y(), gPrecisionGeo)), "%lon", toString(pos.x(), gPrecisionGeo));
-    FXLinkLabel::fxexecute(url.c_str());
+    MFXLinkLabel::fxexecute(url.c_str());
     return 1;
 }
 

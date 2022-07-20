@@ -48,7 +48,7 @@ long
 MFXButtonTooltip::onEnter(FXObject* sender, FXSelector sel, void* ptr) {
     // create on first enter
     if (myStaticToolTip == nullptr) {
-        myStaticToolTip = new FXStaticToolTip(getApp());
+        myStaticToolTip = new MFXStaticToolTip(getApp());
         myStaticToolTip->create();
     }
     // show tip show

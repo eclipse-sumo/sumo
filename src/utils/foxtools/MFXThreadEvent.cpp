@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    FXThreadEvent.cpp
+/// @file    MFXThreadEvent.cpp
 /// @author  Mathew Robertson
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
@@ -55,17 +55,17 @@ namespace FXEX {
 #endif
 
 // Message map
-FXDEFMAP(FXThreadEvent) FXThreadEventMap[] = {
-    FXMAPTYPE(0, FXThreadEvent::onThreadEvent),
-    FXMAPFUNC(SEL_THREAD, 0, FXThreadEvent::onThreadEvent),
-    FXMAPFUNC(SEL_IO_READ, FXThreadEvent::ID_THREAD_EVENT, FXThreadEvent::onThreadSignal),
+FXDEFMAP(MFXThreadEvent) MFXThreadEventMap[] = {
+    FXMAPTYPE(0, MFXThreadEvent::onThreadEvent),
+    FXMAPFUNC(SEL_THREAD, 0, MFXThreadEvent::onThreadEvent),
+    FXMAPFUNC(SEL_IO_READ, MFXThreadEvent::ID_THREAD_EVENT, MFXThreadEvent::onThreadSignal),
 };
-FXIMPLEMENT(FXThreadEvent, FXBaseObject, FXThreadEventMap, ARRAYNUMBER(FXThreadEventMap))
+FXIMPLEMENT(MFXThreadEvent, MFXBaseObject, MFXThreadEventMap, ARRAYNUMBER(MFXThreadEventMap))
 
-// FXThreadEvent : Constructor
-FXThreadEvent::FXThreadEvent(FXObject* tgt, FXSelector sel) : FXBaseObject(tgt, sel) {
+// MFXThreadEvent : Constructor
+MFXThreadEvent::MFXThreadEvent(FXObject* tgt, FXSelector sel) : MFXBaseObject(tgt, sel) {
 #ifndef WIN32
-    FXMALLOC(&event, FXThreadEventHandle, 2);
+    FXMALLOC(&event, MFXThreadEventHandle, 2);
     FXint res = pipe(event);
     FXASSERT(res == 0);
     UNUSED_PARAMETER(res); // only used for assertion
@@ -77,8 +77,8 @@ FXThreadEvent::FXThreadEvent(FXObject* tgt, FXSelector sel) : FXBaseObject(tgt, 
 #endif
 }
 
-// ~FXThreadEvent : Destructor
-FXThreadEvent::~FXThreadEvent() {
+// ~MFXThreadEvent : Destructor
+MFXThreadEvent::~MFXThreadEvent() {
 #ifndef WIN32
     getApp()->removeInput(event[PIPE_READ], INPUT_READ);
     ::close(event[PIPE_READ]);
@@ -92,7 +92,7 @@ FXThreadEvent::~FXThreadEvent() {
 
 // signal the target using the SEL_THREAD seltype
 // this method is meant to be called from the worker thread
-void FXThreadEvent::signal() {
+void MFXThreadEvent::signal() {
 #ifndef WIN32
     FXuint seltype = SEL_THREAD;
     FXint res = ::write(event[PIPE_WRITE], &seltype, sizeof(seltype));
@@ -104,7 +104,7 @@ void FXThreadEvent::signal() {
 
 // signal the target using some seltype
 // this method is meant to be called from the worker thread
-void FXThreadEvent::signal(FXuint seltype) {
+void MFXThreadEvent::signal(FXuint seltype) {
 #ifndef WIN32
     FXint res = ::write(event[PIPE_WRITE], &seltype, sizeof(seltype));
     UNUSED_PARAMETER(res); // to make the compiler happy
@@ -117,7 +117,7 @@ void FXThreadEvent::signal(FXuint seltype) {
 // this thread is signalled via the IO/event, from other thread.
 // We also figure out what SEL_type to generate.
 // We forward it to ourselves first, to allow child classes to handle the event.
-long FXThreadEvent::onThreadSignal(FXObject*, FXSelector, void*) {
+long MFXThreadEvent::onThreadSignal(FXObject*, FXSelector, void*) {
     FXuint seltype = SEL_THREAD;
 #ifndef WIN32
     FXint res = ::read(event[PIPE_READ], &seltype, sizeof(seltype));
@@ -131,7 +131,7 @@ long FXThreadEvent::onThreadSignal(FXObject*, FXSelector, void*) {
 
 // forward thread event to application - we generate the appropriate FOX event
 // which is now in the main thread (ie no longer in the worker thread)
-long FXThreadEvent::onThreadEvent(FXObject*, FXSelector sel, void*) {
+long MFXThreadEvent::onThreadEvent(FXObject*, FXSelector sel, void*) {
     FXuint seltype = FXSELTYPE(sel);
     return target && target->handle(this, FXSEL(seltype, message), nullptr);
 }

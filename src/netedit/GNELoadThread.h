@@ -40,11 +40,11 @@ class GUIEvent;
 /**
  * @class GNELoadThread
  */
-class GNELoadThread : public FXSingleEventThread {
+class GNELoadThread : public MFXSingleEventThread {
 public:
     /// @brief constructor
-    GNELoadThread(FXApp* app, MFXInterThreadEventClient* mw, FXSynchQue<GUIEvent*>& eq,
-                  FXEX::FXThreadEvent& ev);
+    GNELoadThread(FXApp* app, MFXInterThreadEventClient* mw, MFXSynchQue<GUIEvent*>& eq,
+                  FXEX::MFXThreadEvent& ev);
 
     /// @brief destructor
     virtual ~GNELoadThread();
@@ -90,10 +90,10 @@ protected:
     OutputDevice* myErrorRetriever, *myMessageRetriever, *myWarningRetriever, *myDebugRetriever, *myGLDebugRetriever;
 
     /// @brief event Queue
-    FXSynchQue<GUIEvent*>& myEventQue;
+    MFXSynchQue<GUIEvent*>& myEventQue;
 
     /// @brief event throw
-    FXEX::FXThreadEvent& myEventThrow;
+    FXEX::MFXThreadEvent& myEventThrow;
 
     /// @brief Information whether only the network shall be loaded
     bool myLoadNet;

@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    FXLinkLabel.h
+/// @file    MFXLinkLabel.h
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @date    2006-03-08
@@ -19,8 +19,8 @@
 //
 /****************************************************************************/
 
-#ifndef FXLinkLabel_h
-#define FXLinkLabel_h
+#ifndef MFXLinkLabel_h
+#define MFXLinkLabel_h
 #include <config.h>
 
 #include "fxheader.h"
@@ -29,17 +29,17 @@
 * This class behaves very much like the FXLabel class but it
 * points to some link which is started when clicked.
 */
-class FXLinkLabel : public FXLabel {
+class MFXLinkLabel : public FXLabel {
 protected:
     // FOX stuff
-    FXDECLARE(FXLinkLabel)
-    FXLinkLabel() {}
+    FXDECLARE(MFXLinkLabel)
+    MFXLinkLabel() {}
 public:
     /// Constructor.
-    FXLinkLabel(FXComposite* p, const FXString& text, FXIcon* ic = 0, FXuint opts = LABEL_NORMAL, FXint x = 0, FXint y = 0, FXint w = 0, FXint h = 0, FXint pl = DEFAULT_PAD, FXint pr = DEFAULT_PAD, FXint pt = DEFAULT_PAD, FXint pb = DEFAULT_PAD);
+    MFXLinkLabel(FXComposite* p, const FXString& text, FXIcon* ic = 0, FXuint opts = LABEL_NORMAL, FXint x = 0, FXint y = 0, FXint w = 0, FXint h = 0, FXint pl = DEFAULT_PAD, FXint pr = DEFAULT_PAD, FXint pt = DEFAULT_PAD, FXint pb = DEFAULT_PAD);
 
     /// Destructor.
-    virtual ~FXLinkLabel();
+    virtual ~MFXLinkLabel();
 
     // FOX enum
     enum {

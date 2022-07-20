@@ -32,7 +32,7 @@ class GNEFrame;
 // class definitions
 // ===========================================================================
 
-class GNEFlowEditor : public FXGroupBoxModule {
+class GNEFlowEditor : public MFXGroupBoxModule {
     /// @brief FOX-declaration
     FXDECLARE(GNEFlowEditor)
 

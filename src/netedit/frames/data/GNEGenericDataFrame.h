@@ -45,7 +45,7 @@ public:
     // class DataSetSelector
     // ===========================================================================
 
-    class DataSetSelector : public FXGroupBoxModule {
+    class DataSetSelector : public MFXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNEGenericDataFrame::DataSetSelector)
 
@@ -105,7 +105,7 @@ public:
     // class IntervalSelector
     // ===========================================================================
 
-    class IntervalSelector : public FXGroupBoxModule {
+    class IntervalSelector : public MFXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNEGenericDataFrame::IntervalSelector)
 
@@ -177,7 +177,7 @@ public:
     // class AttributeSelector
     // ===========================================================================
 
-    class AttributeSelector : public FXGroupBoxModule {
+    class AttributeSelector : public MFXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNEGenericDataFrame::AttributeSelector)
 

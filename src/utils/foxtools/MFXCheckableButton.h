@@ -80,7 +80,7 @@ protected:
     bool myAmInitialised;
 
     /// @brief static tool tip
-    FXStaticToolTip* myStaticToolTip = nullptr;
+    MFXStaticToolTip* myStaticToolTip = nullptr;
 
     /// @brief build color of this MFXCheckableButton
     void buildColors();

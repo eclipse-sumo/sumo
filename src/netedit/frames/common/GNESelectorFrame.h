@@ -47,7 +47,7 @@ public:
     // class SelectionInformation
     // ===========================================================================
 
-    class SelectionInformation : public FXGroupBoxModule {
+    class SelectionInformation : public MFXGroupBoxModule {
 
     public:
         /// @brief constructor
@@ -84,7 +84,7 @@ public:
     // class ModificationMode
     // ===========================================================================
 
-    class ModificationMode : public FXGroupBoxModule {
+    class ModificationMode : public MFXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNESelectorFrame::ModificationMode)
 
@@ -145,7 +145,7 @@ public:
     // class VisualScaling
     // ===========================================================================
 
-    class VisualScaling : public FXGroupBoxModule {
+    class VisualScaling : public MFXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNESelectorFrame::VisualScaling)
 
@@ -186,7 +186,7 @@ public:
     // class SelectionOperation
     // ===========================================================================
 
-    class SelectionOperation : public FXGroupBoxModule {
+    class SelectionOperation : public MFXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNESelectorFrame::SelectionOperation)
 
@@ -267,7 +267,7 @@ public:
     // class SelectionHierarchy
     // ===========================================================================
 
-    class SelectionHierarchy : public FXGroupBoxModule {
+    class SelectionHierarchy : public MFXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNESelectorFrame::SelectionHierarchy)
 
@@ -362,7 +362,7 @@ public:
     // class Legend
     // ===========================================================================
 
-    class Information : public FXGroupBoxModule {
+    class Information : public MFXGroupBoxModule {
 
     public:
         /// @brief constructor

@@ -146,12 +146,12 @@ private:
      * @class RoutingTask
      * @brief the routing task which mainly calls reroute of the vehicle
      */
-    class RoutingTask : public FXWorkerThread::Task {
+    class RoutingTask : public MFXWorkerThread::Task {
     public:
         RoutingTask(SUMOVehicle& v, const SUMOTime time, const std::string& info,
                     const bool onInit, const bool silent, const MSEdgeVector& prohibited)
             : myVehicle(v), myTime(time), myInfo(info), myOnInit(onInit), mySilent(silent), myProhibited(prohibited) {}
-        void run(FXWorkerThread* context);
+        void run(MFXWorkerThread* context);
     private:
         SUMOVehicle& myVehicle;
         const SUMOTime myTime;

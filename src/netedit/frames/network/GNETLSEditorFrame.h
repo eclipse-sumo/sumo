@@ -50,7 +50,7 @@ public:
     // class TLSJunction
     // ===========================================================================
 
-    class TLSJunction : public FXGroupBoxModule {
+    class TLSJunction : public MFXGroupBoxModule {
 
     public:
         /// @brief constructor
@@ -83,7 +83,7 @@ public:
     // class TLSDefinition
     // ===========================================================================
 
-    class TLSDefinition : public FXGroupBoxModule {
+    class TLSDefinition : public MFXGroupBoxModule {
 
     public:
         /// @brief constructor
@@ -107,7 +107,7 @@ public:
     // class TLSAttributes
     // ===========================================================================
 
-    class TLSAttributes : public FXGroupBoxModule {
+    class TLSAttributes : public MFXGroupBoxModule {
 
     public:
         /// @brief constructor
@@ -182,7 +182,7 @@ public:
     // class TLSPhases
     // ===========================================================================
 
-    class TLSPhases : public FXGroupBoxModule {
+    class TLSPhases : public MFXGroupBoxModule {
 
     public:
         /// @brief constructor
@@ -248,7 +248,7 @@ public:
     // class TLSModifications
     // ===========================================================================
 
-    class TLSModifications : public FXGroupBoxModule {
+    class TLSModifications : public MFXGroupBoxModule {
 
     public:
         /// @brief constructor
@@ -281,7 +281,7 @@ public:
     // class TLSFile
     // ===========================================================================
 
-    class TLSFile : public FXGroupBoxModule {
+    class TLSFile : public MFXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNETLSEditorFrame::TLSFile)
 

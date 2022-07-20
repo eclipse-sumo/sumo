@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    FXSingleEventThread.cpp
+/// @file    MFXSingleEventThread.cpp
 /// @author  unknown_author
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
@@ -47,19 +47,19 @@
 using namespace FXEX;
 
 // Message map
-FXDEFMAP(FXSingleEventThread) FXSingleEventThreadMap[] = {
-    FXMAPFUNC(SEL_IO_READ, FXSingleEventThread::ID_THREAD_EVENT, FXSingleEventThread::onThreadSignal),
-    FXMAPFUNC(SEL_THREAD, 0, FXSingleEventThread::onThreadEvent),
+FXDEFMAP(MFXSingleEventThread) MFXSingleEventThreadMap[] = {
+    FXMAPFUNC(SEL_IO_READ, MFXSingleEventThread::ID_THREAD_EVENT, MFXSingleEventThread::onThreadSignal),
+    FXMAPFUNC(SEL_THREAD, 0, MFXSingleEventThread::onThreadEvent),
 };
-FXIMPLEMENT(FXSingleEventThread, FXObject, FXSingleEventThreadMap, ARRAYNUMBER(FXSingleEventThreadMap))
+FXIMPLEMENT(MFXSingleEventThread, FXObject, MFXSingleEventThreadMap, ARRAYNUMBER(MFXSingleEventThreadMap))
 
 
 
-FXSingleEventThread::FXSingleEventThread(FXApp* a, MFXInterThreadEventClient* client)
+MFXSingleEventThread::MFXSingleEventThread(FXApp* a, MFXInterThreadEventClient* client)
     : FXObject(), myClient(client) {
     myApp = (a);
 #ifndef WIN32
-    FXMALLOC(&event, FXThreadEventHandle, 2);
+    FXMALLOC(&event, MFXThreadEventHandle, 2);
     FXint res = pipe(event);
     FXASSERT(res == 0);
     UNUSED_PARAMETER(res); // only used for assertion
@@ -72,7 +72,7 @@ FXSingleEventThread::FXSingleEventThread(FXApp* a, MFXInterThreadEventClient* cl
 }
 
 
-FXSingleEventThread::~FXSingleEventThread() {
+MFXSingleEventThread::~MFXSingleEventThread() {
 #ifndef WIN32
     myApp->removeInput(event[PIPE_READ], INPUT_READ);
     ::close(event[PIPE_READ]);
@@ -86,7 +86,7 @@ FXSingleEventThread::~FXSingleEventThread() {
 
 
 void
-FXSingleEventThread::signal() {
+MFXSingleEventThread::signal() {
 #ifndef WIN32
     FXuint seltype = SEL_THREAD;
     FXint res = ::write(event[PIPE_WRITE], &seltype, sizeof(seltype));
@@ -98,7 +98,7 @@ FXSingleEventThread::signal() {
 
 
 void
-FXSingleEventThread::signal(FXuint seltype) {
+MFXSingleEventThread::signal(FXuint seltype) {
     UNUSED_PARAMETER(seltype);
 #ifndef WIN32
     FXint res = ::write(event[PIPE_WRITE], &seltype, sizeof(seltype));
@@ -110,7 +110,7 @@ FXSingleEventThread::signal(FXuint seltype) {
 
 
 long
-FXSingleEventThread::onThreadSignal(FXObject*, FXSelector, void*) {
+MFXSingleEventThread::onThreadSignal(FXObject*, FXSelector, void*) {
 #ifndef WIN32
     FXuint seltype = SEL_THREAD;
     FXint res = ::read(event[PIPE_READ], &seltype, sizeof(seltype));
@@ -125,7 +125,7 @@ FXSingleEventThread::onThreadSignal(FXObject*, FXSelector, void*) {
 
 
 long
-FXSingleEventThread::onThreadEvent(FXObject*, FXSelector, void*) {
+MFXSingleEventThread::onThreadEvent(FXObject*, FXSelector, void*) {
     myClient->eventOccurred();
     /*
     FXuint seltype1 = FXSELTYPE(SEL_THREAD);
@@ -139,7 +139,7 @@ FXSingleEventThread::onThreadEvent(FXObject*, FXSelector, void*) {
 
 
 void
-FXSingleEventThread::sleep(long ms) {
+MFXSingleEventThread::sleep(long ms) {
     std::this_thread::sleep_for(std::chrono::milliseconds(ms));
 }
 

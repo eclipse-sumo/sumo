@@ -33,7 +33,7 @@ class GNENetworkElement;
 // class definitions
 // ===========================================================================
 
-class GNENetworkSelector : public FXGroupBoxModule {
+class GNENetworkSelector : public MFXGroupBoxModule {
     /// @brief FOX-declaration
     FXDECLARE(GNENetworkSelector)
 

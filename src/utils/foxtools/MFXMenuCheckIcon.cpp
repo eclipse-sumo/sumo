@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    FXMenuCheckIcon.cpp
+/// @file    MFXMenuCheckIcon.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Jan 2021
 ///
@@ -30,35 +30,35 @@
 // FOX callback mapping
 // ===========================================================================
 
-FXDEFMAP(FXMenuCheckIcon) FXMenuCheckIconMap[] = {
-    FXMAPFUNC(SEL_PAINT,                0,                          FXMenuCheckIcon::onPaint),
-    FXMAPFUNC(SEL_LEFTBUTTONPRESS,      0,                          FXMenuCheckIcon::onButtonPress),
-    FXMAPFUNC(SEL_LEFTBUTTONRELEASE,    0,                          FXMenuCheckIcon::onButtonRelease),
-    FXMAPFUNC(SEL_MIDDLEBUTTONPRESS,    0,                          FXMenuCheckIcon::onButtonPress),
-    FXMAPFUNC(SEL_MIDDLEBUTTONRELEASE,  0,                          FXMenuCheckIcon::onButtonRelease),
-    FXMAPFUNC(SEL_RIGHTBUTTONPRESS,     0,                          FXMenuCheckIcon::onButtonPress),
-    FXMAPFUNC(SEL_RIGHTBUTTONRELEASE,   0,                          FXMenuCheckIcon::onButtonRelease),
-    FXMAPFUNC(SEL_KEYPRESS,             0,                          FXMenuCheckIcon::onKeyPress),
-    FXMAPFUNC(SEL_KEYRELEASE,           0,                          FXMenuCheckIcon::onKeyRelease),
-    FXMAPFUNC(SEL_KEYPRESS,             FXWindow::ID_HOTKEY,        FXMenuCheckIcon::onHotKeyPress),
-    FXMAPFUNC(SEL_KEYRELEASE,           FXWindow::ID_HOTKEY,        FXMenuCheckIcon::onHotKeyRelease),
-    FXMAPFUNC(SEL_COMMAND,              FXWindow::ID_CHECK,         FXMenuCheckIcon::onCheck),
-    FXMAPFUNC(SEL_COMMAND,              FXWindow::ID_UNCHECK,       FXMenuCheckIcon::onUncheck),
-    FXMAPFUNC(SEL_COMMAND,              FXWindow::ID_UNKNOWN,       FXMenuCheckIcon::onUnknown),
-    FXMAPFUNC(SEL_COMMAND,              FXWindow::ID_SETVALUE,      FXMenuCheckIcon::onCmdSetValue),
-    FXMAPFUNC(SEL_COMMAND,              FXWindow::ID_SETINTVALUE,   FXMenuCheckIcon::onCmdSetIntValue),
-    FXMAPFUNC(SEL_COMMAND,              FXWindow::ID_GETINTVALUE,   FXMenuCheckIcon::onCmdGetIntValue),
-    FXMAPFUNC(SEL_COMMAND,              FXWindow::ID_ACCEL,         FXMenuCheckIcon::onCmdAccel),
+FXDEFMAP(MFXMenuCheckIcon) MFXMenuCheckIconMap[] = {
+    FXMAPFUNC(SEL_PAINT,                0,                          MFXMenuCheckIcon::onPaint),
+    FXMAPFUNC(SEL_LEFTBUTTONPRESS,      0,                          MFXMenuCheckIcon::onButtonPress),
+    FXMAPFUNC(SEL_LEFTBUTTONRELEASE,    0,                          MFXMenuCheckIcon::onButtonRelease),
+    FXMAPFUNC(SEL_MIDDLEBUTTONPRESS,    0,                          MFXMenuCheckIcon::onButtonPress),
+    FXMAPFUNC(SEL_MIDDLEBUTTONRELEASE,  0,                          MFXMenuCheckIcon::onButtonRelease),
+    FXMAPFUNC(SEL_RIGHTBUTTONPRESS,     0,                          MFXMenuCheckIcon::onButtonPress),
+    FXMAPFUNC(SEL_RIGHTBUTTONRELEASE,   0,                          MFXMenuCheckIcon::onButtonRelease),
+    FXMAPFUNC(SEL_KEYPRESS,             0,                          MFXMenuCheckIcon::onKeyPress),
+    FXMAPFUNC(SEL_KEYRELEASE,           0,                          MFXMenuCheckIcon::onKeyRelease),
+    FXMAPFUNC(SEL_KEYPRESS,             FXWindow::ID_HOTKEY,        MFXMenuCheckIcon::onHotKeyPress),
+    FXMAPFUNC(SEL_KEYRELEASE,           FXWindow::ID_HOTKEY,        MFXMenuCheckIcon::onHotKeyRelease),
+    FXMAPFUNC(SEL_COMMAND,              FXWindow::ID_CHECK,         MFXMenuCheckIcon::onCheck),
+    FXMAPFUNC(SEL_COMMAND,              FXWindow::ID_UNCHECK,       MFXMenuCheckIcon::onUncheck),
+    FXMAPFUNC(SEL_COMMAND,              FXWindow::ID_UNKNOWN,       MFXMenuCheckIcon::onUnknown),
+    FXMAPFUNC(SEL_COMMAND,              FXWindow::ID_SETVALUE,      MFXMenuCheckIcon::onCmdSetValue),
+    FXMAPFUNC(SEL_COMMAND,              FXWindow::ID_SETINTVALUE,   MFXMenuCheckIcon::onCmdSetIntValue),
+    FXMAPFUNC(SEL_COMMAND,              FXWindow::ID_GETINTVALUE,   MFXMenuCheckIcon::onCmdGetIntValue),
+    FXMAPFUNC(SEL_COMMAND,              FXWindow::ID_ACCEL,         MFXMenuCheckIcon::onCmdAccel),
 };
 
 // Object implementation
-FXIMPLEMENT(FXMenuCheckIcon, FXMenuCommand, FXMenuCheckIconMap, ARRAYNUMBER(FXMenuCheckIconMap))
+FXIMPLEMENT(MFXMenuCheckIcon, FXMenuCommand, MFXMenuCheckIconMap, ARRAYNUMBER(MFXMenuCheckIconMap))
 
 // ===========================================================================
 // member method definitions
 // ===========================================================================
 
-FXMenuCheckIcon::FXMenuCheckIcon(FXComposite* p, const std::string& text, const std::string& shortcut, const std::string& info, const FXIcon* icon, FXObject* tgt, FXSelector sel, FXuint opts) :
+MFXMenuCheckIcon::MFXMenuCheckIcon(FXComposite* p, const std::string& text, const std::string& shortcut, const std::string& info, const FXIcon* icon, FXObject* tgt, FXSelector sel, FXuint opts) :
     FXMenuCommand(p, (text + "\t" + shortcut + "\t" + info).c_str(), NULL, tgt, sel, opts),
     myIcon(icon),
     myCheck(FALSE),
@@ -67,7 +67,7 @@ FXMenuCheckIcon::FXMenuCheckIcon(FXComposite* p, const std::string& text, const 
 
 
 FXint
-FXMenuCheckIcon::getDefaultWidth() {
+MFXMenuCheckIcon::getDefaultWidth() {
     FXint tw, aw;
     tw = aw = 0;
     if (!label.empty()) {
@@ -89,7 +89,7 @@ FXMenuCheckIcon::getDefaultWidth() {
 
 
 FXint
-FXMenuCheckIcon::getDefaultHeight() {
+MFXMenuCheckIcon::getDefaultHeight() {
     FXint th = 0;
     if (!label.empty() || !accel.empty()) {
         th = font->getFontHeight() + 5;
@@ -99,7 +99,7 @@ FXMenuCheckIcon::getDefaultHeight() {
 
 
 void
-FXMenuCheckIcon::setCheck(FXbool s) {
+MFXMenuCheckIcon::setCheck(FXbool s) {
     if (myCheck != s) {
         myCheck = s;
         update();
@@ -108,61 +108,61 @@ FXMenuCheckIcon::setCheck(FXbool s) {
 
 
 FXbool
-FXMenuCheckIcon::getCheck() const {
+MFXMenuCheckIcon::getCheck() const {
     return myCheck;
 }
 
 
 FXColor
-FXMenuCheckIcon::getBoxColor() const {
+MFXMenuCheckIcon::getBoxColor() const {
     return myBoxColor;
 }
 
 
 long
-FXMenuCheckIcon::onCheck(FXObject*, FXSelector, void*) {
+MFXMenuCheckIcon::onCheck(FXObject*, FXSelector, void*) {
     setCheck(TRUE);
     return 1;
 }
 
 
 long
-FXMenuCheckIcon::onUncheck(FXObject*, FXSelector, void*) {
+MFXMenuCheckIcon::onUncheck(FXObject*, FXSelector, void*) {
     setCheck(FALSE);
     return 1;
 }
 
 
 long
-FXMenuCheckIcon::onUnknown(FXObject*, FXSelector, void*) {
+MFXMenuCheckIcon::onUnknown(FXObject*, FXSelector, void*) {
     setCheck(MAYBE);
     return 1;
 }
 
 
 long
-FXMenuCheckIcon::onCmdSetValue(FXObject*, FXSelector, void* ptr) {
+MFXMenuCheckIcon::onCmdSetValue(FXObject*, FXSelector, void* ptr) {
     setCheck((FXbool)(FXuval)ptr);
     return 1;
 }
 
 
 long
-FXMenuCheckIcon::onCmdSetIntValue(FXObject*, FXSelector, void* ptr) {
+MFXMenuCheckIcon::onCmdSetIntValue(FXObject*, FXSelector, void* ptr) {
     setCheck((FXbool) * ((FXint*)ptr));
     return 1;
 }
 
 
 long
-FXMenuCheckIcon::onCmdGetIntValue(FXObject*, FXSelector, void* ptr) {
+MFXMenuCheckIcon::onCmdGetIntValue(FXObject*, FXSelector, void* ptr) {
     *((FXint*)ptr) = getCheck();
     return 1;
 }
 
 
 long
-FXMenuCheckIcon::onButtonPress(FXObject*, FXSelector, void*) {
+MFXMenuCheckIcon::onButtonPress(FXObject*, FXSelector, void*) {
     if (!isEnabled()) {
         return 0;
     }
@@ -171,7 +171,7 @@ FXMenuCheckIcon::onButtonPress(FXObject*, FXSelector, void*) {
 
 
 long
-FXMenuCheckIcon::onButtonRelease(FXObject*, FXSelector, void*) {
+MFXMenuCheckIcon::onButtonRelease(FXObject*, FXSelector, void*) {
     FXbool active = isActive();
     if (!isEnabled()) {
         return 0;
@@ -188,7 +188,7 @@ FXMenuCheckIcon::onButtonRelease(FXObject*, FXSelector, void*) {
 
 
 long
-FXMenuCheckIcon::onKeyPress(FXObject*, FXSelector, void* ptr) {
+MFXMenuCheckIcon::onKeyPress(FXObject*, FXSelector, void* ptr) {
     FXEvent* event = (FXEvent*)ptr;
     if (isEnabled() && !(flags & FLAG_PRESSED)) {
         FXTRACE((200, "%s::onKeyPress %p keysym = 0x%04x state = %04x\n", getClassName(), (void*)this, event->code, event->state));
@@ -202,7 +202,7 @@ FXMenuCheckIcon::onKeyPress(FXObject*, FXSelector, void* ptr) {
 
 
 long
-FXMenuCheckIcon::onKeyRelease(FXObject*, FXSelector, void* ptr) {
+MFXMenuCheckIcon::onKeyRelease(FXObject*, FXSelector, void* ptr) {
     FXEvent* event = (FXEvent*)ptr;
     if (isEnabled() && (flags & FLAG_PRESSED)) {
         FXTRACE((200, "%s::onKeyRelease %p keysym = 0x%04x state = %04x\n", getClassName(), (void*)this, event->code, event->state));
@@ -221,7 +221,7 @@ FXMenuCheckIcon::onKeyRelease(FXObject*, FXSelector, void* ptr) {
 
 
 long
-FXMenuCheckIcon::onHotKeyPress(FXObject*, FXSelector, void* ptr) {
+MFXMenuCheckIcon::onHotKeyPress(FXObject*, FXSelector, void* ptr) {
     FXTRACE((200, "%s::onHotKeyPress %p\n", getClassName(), (void*)this));
     handle(this, FXSEL(SEL_FOCUS_SELF, 0), ptr);
     if (isEnabled() && !(flags & FLAG_PRESSED)) {
@@ -232,7 +232,7 @@ FXMenuCheckIcon::onHotKeyPress(FXObject*, FXSelector, void* ptr) {
 
 
 long
-FXMenuCheckIcon::onHotKeyRelease(FXObject*, FXSelector, void*) {
+MFXMenuCheckIcon::onHotKeyRelease(FXObject*, FXSelector, void*) {
     FXTRACE((200, "%s::onHotKeyRelease %p\n", getClassName(), (void*)this));
     if (isEnabled() && (flags & FLAG_PRESSED)) {
         flags &= ~FLAG_PRESSED;
@@ -247,7 +247,7 @@ FXMenuCheckIcon::onHotKeyRelease(FXObject*, FXSelector, void*) {
 
 
 long
-FXMenuCheckIcon::onCmdAccel(FXObject*, FXSelector, void*) {
+MFXMenuCheckIcon::onCmdAccel(FXObject*, FXSelector, void*) {
     if (isEnabled()) {
         setCheck(!myCheck);
         if (target) {
@@ -260,7 +260,7 @@ FXMenuCheckIcon::onCmdAccel(FXObject*, FXSelector, void*) {
 
 
 long
-FXMenuCheckIcon::onPaint(FXObject*, FXSelector, void* ptr) {
+MFXMenuCheckIcon::onPaint(FXObject*, FXSelector, void* ptr) {
     FXEvent* ev = (FXEvent*)ptr;
     FXDCWindow dc(this, ev);
     FXint xx, yy;
@@ -392,7 +392,7 @@ FXMenuCheckIcon::onPaint(FXObject*, FXSelector, void* ptr) {
 
 
 void
-FXMenuCheckIcon::setBoxColor(FXColor clr) {
+MFXMenuCheckIcon::setBoxColor(FXColor clr) {
     if (clr != myBoxColor) {
         myBoxColor = clr;
         update();
@@ -401,21 +401,21 @@ FXMenuCheckIcon::setBoxColor(FXColor clr) {
 
 
 void
-FXMenuCheckIcon::save(FXStream& store) const {
+MFXMenuCheckIcon::save(FXStream& store) const {
     FXMenuCommand::save(store);
     store << myCheck;
     store << myBoxColor;
 }
 
 
-void FXMenuCheckIcon::load(FXStream& store) {
+void MFXMenuCheckIcon::load(FXStream& store) {
     FXMenuCommand::load(store);
     store >> myCheck;
     store >> myBoxColor;
 }
 
 
-FXMenuCheckIcon::FXMenuCheckIcon() :
+MFXMenuCheckIcon::MFXMenuCheckIcon() :
     myIcon(nullptr),
     myCheck(FALSE),
     myBoxColor(0) {

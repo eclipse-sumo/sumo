@@ -35,7 +35,7 @@ class GNEDataInterval;
 // class definitions
 // ===========================================================================
 
-class GNEElementTree : public FXGroupBoxModule {
+class GNEElementTree : public MFXGroupBoxModule {
     /// @brief FOX-declaration
     FXDECLARE(GNEElementTree)
 
@@ -138,7 +138,7 @@ private:
     GNEGenericData* myClickedGenericData;
 
     /// @brief tree list dinamic to show the children of the element to erase
-    FXTreeListDynamic* myTreeListDinamic = nullptr;
+    MFXTreeListDynamic* myTreeListDinamic = nullptr;
 
     /// @brief map used to save the FXTreeItems items with their vinculated AC
     std::map<FXTreeItem*, GNEAttributeCarrier*> myTreeItemToACMap;

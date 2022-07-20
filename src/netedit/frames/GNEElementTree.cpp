@@ -51,7 +51,7 @@ FXDEFMAP(GNEElementTree) HierarchicalElementTreeMap[] = {
 
 
 // Object implementation
-FXIMPLEMENT(GNEElementTree,    FXGroupBoxModule,     HierarchicalElementTreeMap,     ARRAYNUMBER(HierarchicalElementTreeMap))
+FXIMPLEMENT(GNEElementTree,    MFXGroupBoxModule,     HierarchicalElementTreeMap,     ARRAYNUMBER(HierarchicalElementTreeMap))
 
 
 // ===========================================================================
@@ -59,7 +59,7 @@ FXIMPLEMENT(GNEElementTree,    FXGroupBoxModule,     HierarchicalElementTreeMap,
 // ===========================================================================
 
 GNEElementTree::GNEElementTree(GNEFrame* frameParent) :
-    FXGroupBoxModule(frameParent, "Hierarchy"),
+    MFXGroupBoxModule(frameParent, "Hierarchy"),
     myFrameParent(frameParent),
     myHE(nullptr),
     myClickedAC(nullptr),
@@ -74,7 +74,7 @@ GNEElementTree::GNEElementTree(GNEFrame* frameParent) :
     myClickedDataInterval(nullptr),
     myClickedGenericData(nullptr) {
     // Create three list
-    myTreeListDinamic = new FXTreeListDynamic(getCollapsableFrame(), this, MID_GNE_ACHIERARCHY_SHOWCHILDMENU, GUIDesignTreeListDinamic);
+    myTreeListDinamic = new MFXTreeListDynamic(getCollapsableFrame(), this, MID_GNE_ACHIERARCHY_SHOWCHILDMENU, GUIDesignTreeListDinamic);
     hide();
 }
 

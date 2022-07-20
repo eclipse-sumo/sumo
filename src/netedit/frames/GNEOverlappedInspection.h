@@ -32,7 +32,7 @@ class GNEFrame;
 // class definitions
 // ===========================================================================
 
-class GNEOverlappedInspection : public FXGroupBoxModule {
+class GNEOverlappedInspection : public MFXGroupBoxModule {
     /// @brief FOX-declaration
     FXDECLARE(GNEOverlappedInspection)
 

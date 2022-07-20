@@ -63,8 +63,8 @@
 // member method definitions
 // ===========================================================================
 GUILoadThread::GUILoadThread(FXApp* app, GUIApplicationWindow* mw,
-                             FXSynchQue<GUIEvent*>& eq, FXEX::FXThreadEvent& ev, const bool isLibsumo)
-    : FXSingleEventThread(app, mw), myParent(mw), myEventQue(eq),
+                             MFXSynchQue<GUIEvent*>& eq, FXEX::MFXThreadEvent& ev, const bool isLibsumo)
+    : MFXSingleEventThread(app, mw), myParent(mw), myEventQue(eq),
       myEventThrow(ev), myAmLibsumo(isLibsumo) {
     myErrorRetriever = new MsgRetrievingFunction<GUILoadThread>(this, &GUILoadThread::retrieveMessage, MsgHandler::MsgType::MT_ERROR);
     myMessageRetriever = new MsgRetrievingFunction<GUILoadThread>(this, &GUILoadThread::retrieveMessage, MsgHandler::MsgType::MT_MESSAGE);

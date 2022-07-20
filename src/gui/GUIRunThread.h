@@ -51,12 +51,12 @@ class OutputDevice;
  * The avoidance of collisions between the simulation execution and its
  * visualisation is done individually for every lane using mutexes
  */
-class GUIRunThread : public FXSingleEventThread {
+class GUIRunThread : public MFXSingleEventThread {
 public:
     /// constructor
     GUIRunThread(FXApp* app, MFXInterThreadEventClient* mw,
-                 double& simDelay, FXSynchQue<GUIEvent*>& eq,
-                 FXEX::FXThreadEvent& ev);
+                 double& simDelay, MFXSynchQue<GUIEvent*>& eq,
+                 FXEX::MFXThreadEvent& ev);
 
     /// destructor
     virtual ~GUIRunThread();
@@ -156,9 +156,9 @@ protected:
 
     double& mySimDelay;
 
-    FXSynchQue<GUIEvent*>& myEventQue;
+    MFXSynchQue<GUIEvent*>& myEventQue;
 
-    FXEX::FXThreadEvent& myEventThrow;
+    FXEX::MFXThreadEvent& myEventThrow;
 
     FXMutex mySimulationLock;
 

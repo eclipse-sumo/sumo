@@ -64,7 +64,7 @@ protected:
     FOX_CONSTRUCTOR(GNEFixNetworkElements)
 
     /// @brief general GroupBox for fix options
-    class FixOptions : public FXGroupBoxModule {
+    class FixOptions : public MFXGroupBoxModule {
 
     public:
         /// @brief constructor

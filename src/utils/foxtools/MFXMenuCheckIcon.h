@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    FXMenuCheckIcon.h
+/// @file    MFXMenuCheckIcon.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Jan 2021
 ///
@@ -33,13 +33,13 @@
 * When activated, a menu check sends a SEL_COMMAND to its target;
 * the void* argument of the message contains the new state.
 */
-class FXMenuCheckIcon : public FXMenuCommand {
+class MFXMenuCheckIcon : public FXMenuCommand {
     /// @brief FOX-declaration
-    FXDECLARE(FXMenuCheckIcon)
+    FXDECLARE(MFXMenuCheckIcon)
 
 public:
     /// @brief Construct a menu check
-    FXMenuCheckIcon(FXComposite* p, const std::string& text, const std::string& shortcut, const std::string& info, const FXIcon* icon, FXObject* tgt = NULL, FXSelector sel = 0, FXuint opts = 0);
+    MFXMenuCheckIcon(FXComposite* p, const std::string& text, const std::string& shortcut, const std::string& info, const FXIcon* icon, FXObject* tgt = NULL, FXSelector sel = 0, FXuint opts = 0);
 
     /// @brief Return default width
     virtual FXint getDefaultWidth();
@@ -85,7 +85,7 @@ public:
 
 protected:
     /// @brief default constructor
-    FXMenuCheckIcon();
+    MFXMenuCheckIcon();
 
     /// @brief Icon
     const FXIcon* myIcon;
@@ -98,8 +98,8 @@ protected:
 
 private:
     /// @brief Invalidated copy constructor.
-    FXMenuCheckIcon(const FXMenuCheckIcon&) = delete;
+    MFXMenuCheckIcon(const MFXMenuCheckIcon&) = delete;
 
     /// @brief Invalidated assignment operator.
-    FXMenuCheckIcon& operator=(const FXMenuCheckIcon&) = delete;
+    MFXMenuCheckIcon& operator=(const MFXMenuCheckIcon&) = delete;
 };

@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    FXRecentNetworks.h
+/// @file    MFXRecentNetworks.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Feb 2021
 ///
@@ -24,10 +24,10 @@
 #include <map>
 #include "fxheader.h"
 
-/// @brief FXRecentNetworks
-class FXRecentNetworks : public FXRecentFiles {
+/// @brief MFXRecentNetworks
+class MFXRecentNetworks : public FXRecentFiles {
     /// @brief FOX-declaration
-    FXDECLARE(FXRecentNetworks)
+    FXDECLARE(MFXRecentNetworks)
 
 public:
     /// @brief enum for nofiles
@@ -36,10 +36,10 @@ public:
     };
 
     /// @brief default constructor
-    FXRecentNetworks();
+    MFXRecentNetworks();
 
     /// @brief parameter constructor
-    FXRecentNetworks(FXApp* a, const FXString& gp);
+    MFXRecentNetworks(FXApp* a, const FXString& gp);
 
     /// @name FOX calls
     /// @{

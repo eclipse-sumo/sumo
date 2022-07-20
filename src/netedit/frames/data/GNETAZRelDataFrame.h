@@ -37,7 +37,7 @@ public:
     // Confirm TAZ relation
     // ===========================================================================
 
-    class ConfirmTAZRelation : public FXGroupBoxModule {
+    class ConfirmTAZRelation : public MFXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNETAZRelDataFrame::ConfirmTAZRelation)
 
@@ -76,7 +76,7 @@ public:
     // class Legend
     // ===========================================================================
 
-    class Legend : public FXGroupBoxModule {
+    class Legend : public MFXGroupBoxModule {
 
     public:
         /// @brief constructor

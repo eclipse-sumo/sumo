@@ -2299,7 +2299,7 @@ GNEApplicationWindow::onCmdToggleEditOptions(FXObject* obj, FXSelector sel, void
 
 long
 GNEApplicationWindow::onCmdHelp(FXObject*, FXSelector, void*) {
-    FXLinkLabel::fxexecute("https://sumo.dlr.de/docs/netedit.html");
+    MFXLinkLabel::fxexecute("https://sumo.dlr.de/docs/netedit.html");
     return 1;
 }
 
@@ -2863,7 +2863,7 @@ GNEApplicationWindow::onCmdToggleViewOption(FXObject* obj, FXSelector sel, void*
 long
 GNEApplicationWindow::onUpdToggleViewOption(FXObject* obj, FXSelector sel, void* /*ptr*/) {
     // get menuCheck
-    FXMenuCheckIcon* menuCheck = dynamic_cast<FXMenuCheckIcon*>(obj);
+    MFXMenuCheckIcon* menuCheck = dynamic_cast<MFXMenuCheckIcon*>(obj);
     // check viewNet
     if (myViewNet && menuCheck) {
         // continue depending of selector

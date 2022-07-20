@@ -139,7 +139,7 @@ GNEFixDemandElements::onCmdCancel(FXObject*, FXSelector, void*) {
 // ---------------------------------------------------------------------------
 
 GNEFixDemandElements::FixOptions::FixOptions(FXVerticalFrame* frameParent, const std::string& title, GNEViewNet* viewNet) :
-    FXGroupBoxModule(frameParent, title, FXGroupBoxModule::Options::SAVE),
+    MFXGroupBoxModule(frameParent, title, MFXGroupBoxModule::Options::SAVE),
     myViewNet(viewNet) {
     // Create table
     myTable = new FXTable(this, this, MID_TABLE, GUIDesignTableFixElements);

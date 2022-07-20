@@ -34,7 +34,7 @@ class GNEFlowEditor;
 // class definitions
 // ===========================================================================
 
-class GNEAttributesCreator : public FXGroupBoxModule {
+class GNEAttributesCreator : public MFXGroupBoxModule {
     /// @brief FOX-declaration
     FXDECLARE(GNEAttributesCreator)
 

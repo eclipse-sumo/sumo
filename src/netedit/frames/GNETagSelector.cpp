@@ -78,7 +78,7 @@ FXDEFMAP(GNETagSelector) TagSelectorMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNETagSelector,                FXGroupBoxModule,     TagSelectorMap,                 ARRAYNUMBER(TagSelectorMap))
+FXIMPLEMENT(GNETagSelector,                MFXGroupBoxModule,     TagSelectorMap,                 ARRAYNUMBER(TagSelectorMap))
 
 
 // ===========================================================================
@@ -86,7 +86,7 @@ FXIMPLEMENT(GNETagSelector,                FXGroupBoxModule,     TagSelectorMap,
 // ===========================================================================
 
 GNETagSelector::GNETagSelector(GNEFrame* frameParent, GNETagProperties::TagType type, SumoXMLTag tag, bool onlyDrawables) :
-    FXGroupBoxModule(frameParent, "Element"),
+    MFXGroupBoxModule(frameParent, "Element"),
     myFrameParent(frameParent),
     myTagType(type),
     myCurrentTemplateAC(nullptr) {

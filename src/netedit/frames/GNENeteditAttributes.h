@@ -35,7 +35,7 @@ class GNELane;
 // class definitions
 // ===========================================================================
 
-class GNENeteditAttributes : public FXGroupBoxModule {
+class GNENeteditAttributes : public MFXGroupBoxModule {
     /// @brief FOX-declaration
     FXDECLARE(GNENeteditAttributes)
 

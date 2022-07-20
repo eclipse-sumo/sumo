@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    FXTreeListDynamic.h
+/// @file    MFXTreeListDynamic.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Feb 2021
 ///
@@ -44,19 +44,19 @@ private:
     FXColor myTextColor = FXRGB(0, 0, 0);
 };
 
-/// @brief FXTreeListDynamic
-class FXTreeListDynamic : protected FXTreeList {
+/// @brief MFXTreeListDynamic
+class MFXTreeListDynamic : protected FXTreeList {
     /// @brief FOX-declaration
-    FXDECLARE(FXTreeListDynamic)
+    FXDECLARE(MFXTreeListDynamic)
 
 public:
     /// @brief Constructor
-    FXTreeListDynamic(FXComposite* p, FXObject* tgt, FXSelector sel, FXuint opts);
+    MFXTreeListDynamic(FXComposite* p, FXObject* tgt, FXSelector sel, FXuint opts);
 
-    /// @brief Show FXTreeListDynamic
+    /// @brief Show MFXTreeListDynamic
     void show();
 
-    /// @brief Hide FXTreeListDynamic
+    /// @brief Hide MFXTreeListDynamic
     void hide();
 
     /// @brief update
@@ -77,7 +77,7 @@ public:
     /// @brief append item with given text and icon
     FXTreeItem* appendItem(FXTreeItem* father, const FXString& text, FXIcon* oi, FXColor tColor = FXRGB(0, 0, 0));
 
-    /// @brief get FXWindows associated with this FXTreeListDynamic
+    /// @brief get FXWindows associated with this MFXTreeListDynamic
     FXWindow* getFXWindow();
 
     /// @brief Get item at x,y, if any
@@ -96,7 +96,7 @@ public:
 
 protected:
     /// @brief default constructor
-    FXTreeListDynamic();
+    MFXTreeListDynamic();
 
     /// @brief list with current FXTreeItemDynamic elements
     std::vector<FXTreeItemDynamic*> myFXTreeItemDynamicItems;
@@ -106,8 +106,8 @@ protected:
 
 private:
     /// @brief Invalidated copy constructor.
-    FXTreeListDynamic(const FXTreeListDynamic&) = delete;
+    MFXTreeListDynamic(const MFXTreeListDynamic&) = delete;
 
     /// @brief Invalidated assignment operator.
-    FXTreeListDynamic& operator=(const FXTreeListDynamic&) = delete;
+    MFXTreeListDynamic& operator=(const MFXTreeListDynamic&) = delete;
 };

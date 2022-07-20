@@ -207,7 +207,7 @@ public:
 
 #ifndef THREAD_POOL
 #ifdef HAVE_FOX
-    FXWorkerThread::Pool& getThreadPool() {
+    MFXWorkerThread::Pool& getThreadPool() {
         return myThreadPool;
     }
 #endif
@@ -239,10 +239,10 @@ public:
      * @class WorkerThread
      * @brief the thread which provides the router instance as context
      */
-    class WorkerThread : public FXWorkerThread {
+    class WorkerThread : public MFXWorkerThread {
     public:
-        WorkerThread(FXWorkerThread::Pool& pool)
-            : FXWorkerThread(pool), myRouterProvider(nullptr) {}
+        WorkerThread(MFXWorkerThread::Pool& pool)
+            : MFXWorkerThread(pool), myRouterProvider(nullptr) {}
 
         bool setRouterProvider(MSRouterProvider* routerProvider) {
             if (myRouterProvider == nullptr) {
@@ -277,7 +277,7 @@ private:
     std::list<MSLane*> myActiveLanes;
 
     /// @brief A storage for lanes which shall be integrated because vehicles have moved onto them
-    FXSynchQue<MSLane*, std::vector<MSLane*> > myWithVehicles2Integrate;
+    MFXSynchQue<MSLane*, std::vector<MSLane*> > myWithVehicles2Integrate;
 
     /// @brief Lanes which changed the state without informing the control
     std::set<MSLane*, ComparatorNumericalIdLess> myChangedStateLanes;
@@ -286,7 +286,7 @@ private:
     std::vector<SUMOTime> myLastLaneChange;
 
     /// @brief Additional lanes for which collision checking must be performed
-    FXSynchSet<MSLane*, std::set<MSLane*, ComparatorNumericalIdLess> > myInactiveCheckCollisions;
+    MFXSynchSet<MSLane*, std::set<MSLane*, ComparatorNumericalIdLess> > myInactiveCheckCollisions;
 
     double myMinLengthGeometryFactor;
 
@@ -294,7 +294,7 @@ private:
     WorkStealingThreadPool<> myThreadPool;
 #else
 #ifdef HAVE_FOX
-    FXWorkerThread::Pool myThreadPool;
+    MFXWorkerThread::Pool myThreadPool;
 #endif
 #endif
 

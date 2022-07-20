@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    FXStaticToolTip.cpp
+/// @file    MFXStaticToolTip.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    May 2022
 ///
@@ -37,29 +37,29 @@
 // FOX callback mapping
 // ===========================================================================
 
-FXDEFMAP(FXStaticToolTip) FXStaticToolTipMap[] = {
-    FXMAPFUNC(SEL_PAINT,    0,                      FXStaticToolTip::onPaint),
-    FXMAPFUNC(SEL_TIMEOUT,  FXToolTip::ID_TIP_SHOW, FXStaticToolTip::onTipShow),
-    FXMAPFUNC(SEL_TIMEOUT,  FXToolTip::ID_TIP_HIDE, FXStaticToolTip::onTipHide),
+FXDEFMAP(MFXStaticToolTip) MFXStaticToolTipMap[] = {
+    FXMAPFUNC(SEL_PAINT,    0,                      MFXStaticToolTip::onPaint),
+    FXMAPFUNC(SEL_TIMEOUT,  FXToolTip::ID_TIP_SHOW, MFXStaticToolTip::onTipShow),
+    FXMAPFUNC(SEL_TIMEOUT,  FXToolTip::ID_TIP_HIDE, MFXStaticToolTip::onTipHide),
 };
 
 // Object implementation
-FXIMPLEMENT(FXStaticToolTip, FXToolTip, FXStaticToolTipMap, ARRAYNUMBER(FXStaticToolTipMap))
+FXIMPLEMENT(MFXStaticToolTip, FXToolTip, MFXStaticToolTipMap, ARRAYNUMBER(MFXStaticToolTipMap))
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
 
-FXStaticToolTip::FXStaticToolTip(FXApp* app) :
+MFXStaticToolTip::MFXStaticToolTip(FXApp* app) :
     FXToolTip(app) {
 }
 
 
-FXStaticToolTip::~FXStaticToolTip() {}
+MFXStaticToolTip::~MFXStaticToolTip() {}
 
 
 long
-FXStaticToolTip::onPaint(FXObject* obj, FXSelector sel, void*) {
+MFXStaticToolTip::onPaint(FXObject* obj, FXSelector sel, void*) {
     // draw tooltip using myToolTippedObject
     if (myToolTippedObject) {
         return FXToolTip::onPaint(obj, sel, myToolTippedObject);
@@ -70,7 +70,7 @@ FXStaticToolTip::onPaint(FXObject* obj, FXSelector sel, void*) {
 
 
 long
-FXStaticToolTip::onTipShow(FXObject*, FXSelector, void* ptr) {
+MFXStaticToolTip::onTipShow(FXObject*, FXSelector, void* ptr) {
     if (!label.empty()) {
         // update myTooltippedObject
         myToolTippedObject = (FXEvent*)ptr;
@@ -82,7 +82,7 @@ FXStaticToolTip::onTipShow(FXObject*, FXSelector, void* ptr) {
 
 
 long
-FXStaticToolTip::onTipHide(FXObject* obj, FXSelector sel, void* ptr) {
+MFXStaticToolTip::onTipHide(FXObject* obj, FXSelector sel, void* ptr) {
     // reset myToolTippedObject...
     myToolTippedObject = nullptr;
     // ... and continue using parent function
@@ -90,6 +90,6 @@ FXStaticToolTip::onTipHide(FXObject* obj, FXSelector sel, void* ptr) {
 }
 
 
-FXStaticToolTip::FXStaticToolTip() :
+MFXStaticToolTip::MFXStaticToolTip() :
     FXToolTip() {
 }

@@ -644,7 +644,7 @@ private:
 
     /// @brief List of vehicles which are going to be removed
 #ifdef HAVE_FOX
-    FXSynchQue<SUMOVehicle*, std::vector<SUMOVehicle*> > myPendingRemovals;
+    MFXSynchQue<SUMOVehicle*, std::vector<SUMOVehicle*> > myPendingRemovals;
 #else
     std::vector<SUMOVehicle*> myPendingRemovals;
 #endif

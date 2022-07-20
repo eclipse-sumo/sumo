@@ -33,7 +33,7 @@
 // ===========================================================================
 
 GNESelectorParent::GNESelectorParent(GNEFrame* frameParent) :
-    FXGroupBoxModule(frameParent, "Parent selector"),
+    MFXGroupBoxModule(frameParent, "Parent selector"),
     myFrameParent(frameParent) {
     // Create label with the type of GNESelectorParent
     myParentsLabel = new FXLabel(getCollapsableFrame(), "No element selected", nullptr, GUIDesignLabelLeftThick);

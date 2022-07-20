@@ -11,15 +11,15 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    FXSynchQue.h
+/// @file    MFXSynchQue.h
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @date    2004-03-19
 ///
 // missing_desc
 /****************************************************************************/
-#ifndef FXSynchQue_h
-#define FXSynchQue_h
+#ifndef MFXSynchQue_h
+#define MFXSynchQue_h
 #include <config.h>
 
 #ifdef HAVE_FOX
@@ -37,9 +37,9 @@
 #endif
 
 template<class T, class Container = std::list<T> >
-class FXSynchQue {
+class MFXSynchQue {
 public:
-    FXSynchQue(const bool condition = true):
+    MFXSynchQue(const bool condition = true):
 #ifdef HAVE_FOX
         myMutex(true),
 #endif
@@ -90,9 +90,9 @@ public:
 #endif
 #ifdef DEBUG_LOCKING
         if (debugflag) {
-            std::cout << " FXSynchQue::getContainer thread=" << FXWorkerThread::current() << "\n";
+            std::cout << " MFXSynchQue::getContainer thread=" << MFXWorkerThread::current() << "\n";
         }
-        myOwningThread = FXWorkerThread::current();
+        myOwningThread = MFXWorkerThread::current();
 #endif
         return myItems;
     }
@@ -105,7 +105,7 @@ public:
 #endif
 #ifdef DEBUG_LOCKING
         if (debugflag) {
-            std::cout << " FXSynchQue::unlock       thread=" << FXWorkerThread::current() << "\n";
+            std::cout << " MFXSynchQue::unlock       thread=" << MFXWorkerThread::current() << "\n";
         }
         myOwningThread = 0;
 #endif

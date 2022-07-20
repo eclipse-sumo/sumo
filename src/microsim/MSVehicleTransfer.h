@@ -147,7 +147,7 @@ protected:
 
 
     /// @brief The information about stored vehicles to move virtually
-    FXSynchQue<VehicleInformation, std::vector<VehicleInformation> > myVehicles;
+    MFXSynchQue<VehicleInformation, std::vector<VehicleInformation> > myVehicles;
 
     /// @brief The static singleton-instance
     static MSVehicleTransfer* myInstance;

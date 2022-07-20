@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    FXStaticToolTip.h
+/// @file    MFXStaticToolTip.h
 /// @author  Pablo Alvarez Lopez
 /// @date    May 2022
 ///
@@ -23,19 +23,19 @@
 
 #include "fxheader.h"
 
-/// @brief FXStaticToolTip (based on FXToolTip)
-class FXStaticToolTip : public FXToolTip {
+/// @brief MFXStaticToolTip (based on FXToolTip)
+class MFXStaticToolTip : public FXToolTip {
     /// @brief FOX declaration
-    FXDECLARE(FXStaticToolTip)
+    FXDECLARE(MFXStaticToolTip)
 
 public:
     /// @brief constructor
-    FXStaticToolTip(FXApp* app);
+    MFXStaticToolTip(FXApp* app);
 
     /// @brief destructor
-    ~FXStaticToolTip();
+    ~MFXStaticToolTip();
 
-    /// @brief draw FXStaticToolTip
+    /// @brief draw MFXStaticToolTip
     long onPaint(FXObject* obj, FXSelector sel, void* ptr);
 
     /// @brief show tip
@@ -46,7 +46,7 @@ public:
 
 protected:
     /// @brief FOX need this
-    FXStaticToolTip();
+    MFXStaticToolTip();
 
 private:
     /// @brief object called in show()

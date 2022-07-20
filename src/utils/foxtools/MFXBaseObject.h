@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    FXBaseObject.h
+/// @file    MFXBaseObject.h
 /// @author  Mathew Robertson
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
@@ -51,8 +51,8 @@ namespace FXEX {
  * This is a base class for ojects which can send messages to the application
  */
 class /* FXAPI // patch by Daniel Krajzewicz 24.02.2004 */
-    FXBaseObject : public FXObject {
-    FXDECLARE(FXBaseObject)
+    MFXBaseObject : public FXObject {
+    FXDECLARE(MFXBaseObject)
 
 protected:
     /// flags defined are the same as those defined in FXWindow, etc.
@@ -111,10 +111,10 @@ public:
 
 public:
     /// Just supply the target and selector (de-serialisation too)
-    FXBaseObject(FXObject* tgt = NULL, FXSelector sel = 0);
+    MFXBaseObject(FXObject* tgt = NULL, FXSelector sel = 0);
 
     /// Alternnatively, supply the app object as well
-    FXBaseObject(FXApp* a, FXObject* tgt = NULL, FXSelector sel = 0);
+    MFXBaseObject(FXApp* a, FXObject* tgt = NULL, FXSelector sel = 0);
 
     /// application pointer
     FXApp* getApp();
@@ -198,7 +198,7 @@ public:
     virtual void load(FXStream& store);
 
     /// dtor
-    virtual ~FXBaseObject();
+    virtual ~MFXBaseObject();
 };
 
 } // namespace FXEX

@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    FXLCDLabel.h
+/// @file    MFXLCDLabel.h
 /// @author  Mathew Robertson
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
@@ -45,11 +45,11 @@ enum {
  * number.  Also supports the 'JUSTIFY_RIGHT' option, for right alignment.
  */
 class /* FXAPI // patch by Daniel Krajzewicz 24.02.2004 */
-    FXLCDLabel : public FXHorizontalFrame {
-    FXDECLARE(FXLCDLabel)
+    MFXLCDLabel : public FXHorizontalFrame {
+    FXDECLARE(MFXLCDLabel)
 
 protected:
-    FXLCDLabel() {}
+    MFXLCDLabel() {}
 
     FXString label;      /// The currently shown label
     FXint   nfigures;    /// The number of shown figuresi, greater than zero
@@ -78,7 +78,7 @@ public:
 
 public:
     /// make me a label
-    FXLCDLabel(FXComposite* p, FXuint nfig = 1, FXObject* tgt = NULL, FXSelector sel = 0, FXuint opts = LCDLABEL_NORMAL, FXint pl = DEFAULT_PAD, FXint pr = DEFAULT_PAD, FXint pt = DEFAULT_PAD, FXint pb = DEFAULT_PAD, FXint hs = DEFAULT_PAD);
+    MFXLCDLabel(FXComposite* p, FXuint nfig = 1, FXObject* tgt = NULL, FXSelector sel = 0, FXuint opts = LCDLABEL_NORMAL, FXint pl = DEFAULT_PAD, FXint pr = DEFAULT_PAD, FXint pt = DEFAULT_PAD, FXint pb = DEFAULT_PAD, FXint hs = DEFAULT_PAD);
 
     /// create resrouces
     virtual void create();
@@ -132,8 +132,8 @@ public:
     virtual void load(FXStream& store);
 
     /// dtor
-    virtual ~FXLCDLabel();
+    virtual ~MFXLCDLabel();
 };
 
 } // namespace FXEX
-#endif // FXLCDLabel
+#endif // MFXLCDLabel

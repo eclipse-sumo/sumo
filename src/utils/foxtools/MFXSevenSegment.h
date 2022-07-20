@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    FXSevenSegment.h
+/// @file    MFXSevenSegment.h
 /// @author  Mathew Robertson
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
@@ -36,8 +36,8 @@ namespace FXEX {
  * Seven-segment (eg LCD/watch style) widget
  */
 class /* FXAPI // patch by Daniel Krajzewicz 24.02.2004 */
-    FXSevenSegment : public FXFrame {
-    FXDECLARE(FXSevenSegment)
+    MFXSevenSegment : public FXFrame {
+    FXDECLARE(MFXSevenSegment)
 
 private:
     FXchar  value;      // The currently shown character
@@ -52,7 +52,7 @@ private:
     void checkSize();
 
 protected:
-    FXSevenSegment() {}
+    MFXSevenSegment() {}
 
     // Draws the individual segment types
     void drawTopSegment(FXDCWindow& dc, FXshort x, FXshort y);
@@ -81,7 +81,7 @@ public:
 
 public:
     /// create a seven segment display
-    FXSevenSegment(FXComposite* p, FXObject* tgt = NULL, FXSelector sel = 0, FXuint opts = FRAME_NONE, FXint pl = DEFAULT_PAD, FXint pr = DEFAULT_PAD, FXint pt = DEFAULT_PAD, FXint pb = DEFAULT_PAD);
+    MFXSevenSegment(FXComposite* p, FXObject* tgt = NULL, FXSelector sel = 0, FXuint opts = FRAME_NONE, FXint pl = DEFAULT_PAD, FXint pr = DEFAULT_PAD, FXint pt = DEFAULT_PAD, FXint pb = DEFAULT_PAD);
 
     /// set the text on the display
     void setText(const FXchar val);
@@ -140,7 +140,7 @@ public:
     virtual void load(FXStream& store);
 
     /// dtor
-    virtual ~FXSevenSegment() {}
+    virtual ~MFXSevenSegment() {}
 };
 
 } // namespace FXEX

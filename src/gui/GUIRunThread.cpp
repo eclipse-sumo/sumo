@@ -49,9 +49,9 @@
 // member method definitions
 // ===========================================================================
 GUIRunThread::GUIRunThread(FXApp* app, MFXInterThreadEventClient* parent,
-                           double& simDelay, FXSynchQue<GUIEvent*>& eq,
-                           FXEX::FXThreadEvent& ev) :
-    FXSingleEventThread(app, parent),
+                           double& simDelay, MFXSynchQue<GUIEvent*>& eq,
+                           FXEX::MFXThreadEvent& ev) :
+    MFXSingleEventThread(app, parent),
     myNet(nullptr), myHalting(true), myQuit(false), mySimulationInProgress(false), myOk(true), myHaveSignaledEnd(false),
     mySimDelay(simDelay), myEventQue(eq), myEventThrow(ev),
     myLastEndMillis(-1), myLastBreakMillis(0), myAmLibsumo(false) {

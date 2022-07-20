@@ -32,7 +32,7 @@ class GNEFrame;
 // class definitions
 // ===========================================================================
 
-class GNESelectorParent : public FXGroupBoxModule {
+class GNESelectorParent : public MFXGroupBoxModule {
 
 public:
     /// @brief constructor

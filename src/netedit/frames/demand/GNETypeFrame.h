@@ -41,7 +41,7 @@ public:
     // class TypeSelector
     // ===========================================================================
 
-    class TypeSelector : public FXGroupBoxModule {
+    class TypeSelector : public MFXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNETypeFrame::TypeSelector)
 
@@ -88,7 +88,7 @@ public:
     // class TypeEditor
     // ===========================================================================
 
-    class TypeEditor : public FXGroupBoxModule {
+    class TypeEditor : public MFXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNETypeFrame::TypeEditor)
 

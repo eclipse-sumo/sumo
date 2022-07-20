@@ -32,7 +32,7 @@ class GNEFrame;
 // class definitions
 // ===========================================================================
 
-class DemandElementSelector : public FXGroupBoxModule {
+class DemandElementSelector : public MFXGroupBoxModule {
     /// @brief FOX-declaration
     FXDECLARE(DemandElementSelector)
 

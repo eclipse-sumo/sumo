@@ -861,7 +861,7 @@ RONet::getStoppingPlaceElement(const std::string& id) const {
 // RONet::RoutingTask-methods
 // ---------------------------------------------------------------------------
 void
-RONet::RoutingTask::run(FXWorkerThread* context) {
+RONet::RoutingTask::run(MFXWorkerThread* context) {
     myRoutable->computeRoute(*static_cast<WorkerThread*>(context), myRemoveLoops, myErrorHandler);
 }
 #endif

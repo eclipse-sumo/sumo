@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    FXSingleEventThread.h
+/// @file    MFXSingleEventThread.h
 /// @author  unknown_author
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
@@ -20,8 +20,8 @@
 //
 /****************************************************************************/
 
-#ifndef FXSingleEventThread_h
-#define FXSingleEventThread_h
+#ifndef MFXSingleEventThread_h
+#define MFXSingleEventThread_h
 #include <config.h>
 
 #include "fxheader.h"
@@ -30,9 +30,9 @@
 
 class MFXInterThreadEventClient;
 
-class FXSingleEventThread : public FXObject, public FXThread {
+class MFXSingleEventThread : public FXObject, public FXThread {
     /// @brief FOX declaration
-    FXDECLARE(FXSingleEventThread)
+    FXDECLARE(MFXSingleEventThread)
 
 public:
     enum {
@@ -40,9 +40,9 @@ public:
     };
 
     /// @brief constructor
-    FXSingleEventThread(FXApp* a, MFXInterThreadEventClient* client);
+    MFXSingleEventThread(FXApp* a, MFXInterThreadEventClient* client);
 
-    virtual ~FXSingleEventThread();
+    virtual ~MFXSingleEventThread();
 
     void signal();
 
@@ -60,7 +60,7 @@ public:
 
 protected:
     /// @brief FOX need this
-    FXSingleEventThread() { }
+    MFXSingleEventThread() { }
 
     /// @brief pointer to APP
     FXApp* myApp = nullptr;
@@ -70,13 +70,13 @@ protected:
 
 private:
     /// @brief event
-    FXEX::FXThreadEventHandle event;
+    FXEX::MFXThreadEventHandle event;
 
     /// @brief invalidate copy constructor
-    FXSingleEventThread(const FXSingleEventThread&) = delete;
+    MFXSingleEventThread(const MFXSingleEventThread&) = delete;
 
     /// @brief invalidate assignment constructor
-    FXSingleEventThread& operator=(const FXSingleEventThread&) = delete;
+    MFXSingleEventThread& operator=(const MFXSingleEventThread&) = delete;
 };
 
 

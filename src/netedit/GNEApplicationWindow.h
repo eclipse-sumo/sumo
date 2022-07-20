@@ -525,10 +525,10 @@ protected:
     FXSplitter* myMainSplitter = nullptr;
 
     /// @brief List of got requests
-    FXSynchQue<GUIEvent*> myEvents;
+    MFXSynchQue<GUIEvent*> myEvents;
 
     /// @brief io-event with the load-thread
-    FXEX::FXThreadEvent myLoadThreadEvent;
+    FXEX::MFXThreadEvent myLoadThreadEvent;
 
     /// @brief check if had dependent build
     bool myHadDependentBuild = false;

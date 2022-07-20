@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    FXBaseObject.cpp
+/// @file    MFXBaseObject.cpp
 /// @author  Mathew Robertson
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
@@ -47,15 +47,15 @@ using namespace FX;
 using namespace FXEX;
 namespace FXEX {
 
-FXDEFMAP(FXBaseObject) FXBaseObjectMap[] = {
-    FXMAPFUNC(SEL_COMMAND, FXWindow::ID_ENABLE, FXBaseObject::onCmdEnable),
-    FXMAPFUNC(SEL_COMMAND, FXWindow::ID_DISABLE, FXBaseObject::onCmdDisable),
-    FXMAPFUNC(SEL_UPDATE, FXWindow::ID_DISABLE, FXBaseObject::onUpdate),
+FXDEFMAP(MFXBaseObject) MFXBaseObjectMap[] = {
+    FXMAPFUNC(SEL_COMMAND, FXWindow::ID_ENABLE, MFXBaseObject::onCmdEnable),
+    FXMAPFUNC(SEL_COMMAND, FXWindow::ID_DISABLE, MFXBaseObject::onCmdDisable),
+    FXMAPFUNC(SEL_UPDATE, FXWindow::ID_DISABLE, MFXBaseObject::onUpdate),
 };
-FXIMPLEMENT(FXBaseObject, FXObject, FXBaseObjectMap, ARRAYNUMBER(FXBaseObjectMap))
+FXIMPLEMENT(MFXBaseObject, FXObject, MFXBaseObjectMap, ARRAYNUMBER(MFXBaseObjectMap))
 
 // ctor
-FXBaseObject::FXBaseObject(FXObject* tgt, FXSelector sel) : FXObject() {
+MFXBaseObject::MFXBaseObject(FXObject* tgt, FXSelector sel) : FXObject() {
     data = nullptr;
     target = tgt;
     message = sel;
@@ -67,7 +67,7 @@ FXBaseObject::FXBaseObject(FXObject* tgt, FXSelector sel) : FXObject() {
 }
 
 // ctor
-FXBaseObject::FXBaseObject(FXApp* a, FXObject* tgt, FXSelector sel) : FXObject() {
+MFXBaseObject::MFXBaseObject(FXApp* a, FXObject* tgt, FXSelector sel) : FXObject() {
     data = nullptr;
     target = tgt;
     message = sel;
@@ -82,7 +82,7 @@ FXBaseObject::FXBaseObject(FXApp* a, FXObject* tgt, FXSelector sel) : FXObject()
 }
 
 // free up all resources
-FXBaseObject::~FXBaseObject() {
+MFXBaseObject::~MFXBaseObject() {
     if (data != nullptr && data != (void*) - 1) {
         fxerror("%s::~%s - user data is not NULL prior to destruction\n", getClassName(), getClassName());
     }
@@ -91,7 +91,7 @@ FXBaseObject::~FXBaseObject() {
 }
 
 // save object to stream
-void FXBaseObject::save(FXStream& store) const {
+void MFXBaseObject::save(FXStream& store) const {
     FXObject::save(store);
     store << app;
     store << target;
@@ -103,7 +103,7 @@ void FXBaseObject::save(FXStream& store) const {
 }
 
 // load object from stream
-void FXBaseObject::load(FXStream& store) {
+void MFXBaseObject::load(FXStream& store) {
     FXObject::load(store);
     store >> app;
     store >> target;
@@ -114,8 +114,8 @@ void FXBaseObject::load(FXStream& store) {
     store.load((FXuchar*)data, (unsigned long)datalen);
 }
 
-// this allows FXBaseObject derived classes to be singletons
-FXApp* FXBaseObject::getApp() {
+// this allows MFXBaseObject derived classes to be singletons
+FXApp* MFXBaseObject::getApp() {
     if (app) {
         return app;
     }
@@ -123,7 +123,7 @@ FXApp* FXBaseObject::getApp() {
 }
 
 // set the readonly flag
-void FXBaseObject::setReadonly(FXbool mode) {
+void MFXBaseObject::setReadonly(FXbool mode) {
     if (mode) {
         flags |= FLAG_READONLY;
     } else {
@@ -132,19 +132,19 @@ void FXBaseObject::setReadonly(FXbool mode) {
 }
 
 // handle enable event
-long FXBaseObject::onCmdEnable(FXObject*, FXSelector, void*) {
+long MFXBaseObject::onCmdEnable(FXObject*, FXSelector, void*) {
     enable();
     return 1;
 }
 
 // handle disable event
-long FXBaseObject::onCmdDisable(FXObject*, FXSelector, void*) {
+long MFXBaseObject::onCmdDisable(FXObject*, FXSelector, void*) {
     disable();
     return 1;
 }
 
 // handle update event
-long FXBaseObject::onUpdate(FXObject* sender, FXSelector, void*) {
+long MFXBaseObject::onUpdate(FXObject* sender, FXSelector, void*) {
     if (flags & FLAG_ENABLED) {
         sender->handle(this, FXSEL(SEL_UPDATE, FXWindow::ID_ENABLE), nullptr);
     } else {

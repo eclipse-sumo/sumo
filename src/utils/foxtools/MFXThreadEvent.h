@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    FXThreadEvent.h
+/// @file    MFXThreadEvent.h
 /// @author  Mathew Robertson
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
@@ -19,8 +19,8 @@
 ///
 //
 /****************************************************************************/
-#ifndef FXThreadEvent_h
-#define FXThreadEvent_h
+#ifndef MFXThreadEvent_h
+#define MFXThreadEvent_h
 #include <config.h>
 
 #include "fxexdefs.h"
@@ -56,7 +56,7 @@ namespace FXEX {
  *    long onThreadEvent(FXObject*, FXSelector, void*);
  *
  *    // thread event object
- *   FXThreadEvent m_threadEvent;
+ *   MFXThreadEvent m_threadEvent;
  *  };
  *
  *  GUI_thread.cpp:
@@ -85,7 +85,7 @@ namespace FXEX {
  *
  *  int threadFunction(...)
  *  {
- *    FXThreadEvent* pThreadEvent = (FXThreadEvent*)(ptr);
+ *    MFXThreadEvent* pThreadEvent = (MFXThreadEvent*)(ptr);
  *
  *    while (not_finished) {
  *      // work hard
@@ -101,19 +101,19 @@ namespace FXEX {
  *  }
  *
  */
-class /*FXAPI */FXThreadEvent : public FXBaseObject {
-    FXDECLARE(FXThreadEvent)
+class /*FXAPI */MFXThreadEvent : public MFXBaseObject {
+    FXDECLARE(MFXThreadEvent)
 
 private:
-    FXThreadEventHandle event;
+    MFXThreadEventHandle event;
 
 protected:
-    FXThreadEvent(const FXThreadEvent&);
-    FXThreadEvent& operator=(const FXThreadEvent&);
+    MFXThreadEvent(const MFXThreadEvent&);
+    MFXThreadEvent& operator=(const MFXThreadEvent&);
 
 public:
     enum {
-        ID_THREAD_EVENT = FXBaseObject::ID_LAST,
+        ID_THREAD_EVENT = MFXBaseObject::ID_LAST,
         ID_LAST
     };
 
@@ -123,7 +123,7 @@ public:
 
 public:
     /// Construct an object capable of signaling the main FOX event loop
-    FXThreadEvent(FXObject* tgt = NULL, FXSelector sel = 0);
+    MFXThreadEvent(FXObject* tgt = NULL, FXSelector sel = 0);
 
     /**
      * Signal the event - using the SEL_THREAD FXSelector type
@@ -142,7 +142,7 @@ public:
     void signal(FXuint seltype);
 
     /// destructor
-    virtual ~FXThreadEvent();
+    virtual ~MFXThreadEvent();
 };
 
 } // namespace FXEX

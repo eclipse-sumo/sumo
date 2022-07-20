@@ -46,8 +46,8 @@ FXDEFMAP(GNETypeFrame::TypeEditor) typeEditorMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNETypeFrame::TypeSelector,   FXGroupBoxModule,     typeSelectorMap,     ARRAYNUMBER(typeSelectorMap))
-FXIMPLEMENT(GNETypeFrame::TypeEditor,     FXGroupBoxModule,     typeEditorMap,       ARRAYNUMBER(typeEditorMap))
+FXIMPLEMENT(GNETypeFrame::TypeSelector,   MFXGroupBoxModule,     typeSelectorMap,     ARRAYNUMBER(typeSelectorMap))
+FXIMPLEMENT(GNETypeFrame::TypeEditor,     MFXGroupBoxModule,     typeEditorMap,       ARRAYNUMBER(typeEditorMap))
 
 // ===========================================================================
 // method definitions
@@ -58,7 +58,7 @@ FXIMPLEMENT(GNETypeFrame::TypeEditor,     FXGroupBoxModule,     typeEditorMap,  
 // ---------------------------------------------------------------------------
 
 GNETypeFrame::TypeSelector::TypeSelector(GNETypeFrame* typeFrameParent) :
-    FXGroupBoxModule(typeFrameParent, "Current Type"),
+    MFXGroupBoxModule(typeFrameParent, "Current Type"),
     myTypeFrameParent(typeFrameParent),
     myCurrentType(nullptr) {
     // Create FXComboBox
@@ -205,7 +205,7 @@ GNETypeFrame::TypeSelector::onCmdSelectItem(FXObject*, FXSelector, void*) {
 // ---------------------------------------------------------------------------
 
 GNETypeFrame::TypeEditor::TypeEditor(GNETypeFrame* typeFrameParent) :
-    FXGroupBoxModule(typeFrameParent, "Type Editor"),
+    MFXGroupBoxModule(typeFrameParent, "Type Editor"),
     myTypeFrameParent(typeFrameParent) {
     // Create new vehicle type
     myCreateTypeButton = new FXButton(getCollapsableFrame(), "Create Type", GUIIconSubSys::getIcon(GUIIcon::VTYPE), this, MID_GNE_CREATE, GUIDesignButton);

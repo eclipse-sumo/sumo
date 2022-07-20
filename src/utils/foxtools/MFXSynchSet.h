@@ -11,14 +11,14 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    FXSynchSet.h
+/// @file    MFXSynchSet.h
 /// @author  Jakob Erdmann
 /// @date    2020-03-29
 ///
 // missing_desc
 /****************************************************************************/
-#ifndef FXSynchSet_h
-#define FXSynchSet_h
+#ifndef MFXSynchSet_h
+#define MFXSynchSet_h
 #include <config.h>
 
 #ifdef HAVE_FOX
@@ -36,9 +36,9 @@
 #endif
 
 template<class T, class Container = std::set<T> >
-class FXSynchSet {
+class MFXSynchSet {
 public:
-    FXSynchSet(const bool condition = true):
+    MFXSynchSet(const bool condition = true):
 #ifdef HAVE_FOX
         myMutex(true),
 #endif
@@ -59,9 +59,9 @@ public:
 #endif
 #ifdef DEBUG_LOCKING
         if (debugflag) {
-            std::cout << " FXSynchSet::getContainer thread=" << FXWorkerThread::current() << "\n";
+            std::cout << " MFXSynchSet::getContainer thread=" << MFXWorkerThread::current() << "\n";
         }
-        myOwningThread = FXWorkerThread::current();
+        myOwningThread = MFXWorkerThread::current();
 #endif
         return myItems;
     }
@@ -74,7 +74,7 @@ public:
 #endif
 #ifdef DEBUG_LOCKING
         if (debugflag) {
-            std::cout << " FXSynchSet::unlock       thread=" << FXWorkerThread::current() << "\n";
+            std::cout << " MFXSynchSet::unlock       thread=" << MFXWorkerThread::current() << "\n";
         }
         myOwningThread = 0;
 #endif

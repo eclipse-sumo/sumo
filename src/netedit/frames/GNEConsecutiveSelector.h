@@ -33,7 +33,7 @@ class GNELane;
 // class definitions
 // ===========================================================================
 
-class GNEConsecutiveSelector : public FXGroupBoxModule {
+class GNEConsecutiveSelector : public MFXGroupBoxModule {
     /// @brief FOX-declaration
     FXDECLARE(GNEConsecutiveSelector)
 

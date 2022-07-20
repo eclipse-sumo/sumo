@@ -281,13 +281,13 @@ typedef void* FXThreadHandle;       // handle to a thread
 typedef void* FXThreadMutex;        // handle to a mutex
 typedef void* FXThreadCondition;    // handle to a condition variable
 typedef void* FXThreadSemaphore;    // handle to a semaphore
-typedef FXInputHandle* FXThreadEventHandle;  // handle to a thread event object
+typedef FXInputHandle* MFXThreadEventHandle;  // handle to a thread event object
 #else
 typedef HANDLE FXThreadHandle;       // handle to a thread
 typedef HANDLE FXThreadMutex;        // handle to a mutex
 typedef HANDLE FXThreadCondition;    // handle to a condition variable
 typedef HANDLE FXThreadSemaphore;    // handle to a semaphore
-typedef FXInputHandle FXThreadEventHandle;  // handle to a thread event object
+typedef FXInputHandle MFXThreadEventHandle;  // handle to a thread event object
 #endif
 
 // dynamic library loading

@@ -39,7 +39,7 @@ FXDEFMAP(GNEAttributesCreator) AttributesCreatorMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNEAttributesCreator, FXGroupBoxModule, AttributesCreatorMap, ARRAYNUMBER(AttributesCreatorMap))
+FXIMPLEMENT(GNEAttributesCreator, MFXGroupBoxModule, AttributesCreatorMap, ARRAYNUMBER(AttributesCreatorMap))
 
 
 // ===========================================================================
@@ -47,7 +47,7 @@ FXIMPLEMENT(GNEAttributesCreator, FXGroupBoxModule, AttributesCreatorMap, ARRAYN
 // ===========================================================================
 
 GNEAttributesCreator::GNEAttributesCreator(GNEFrame* frameParent) :
-    FXGroupBoxModule(frameParent, "Internal attributes"),
+    MFXGroupBoxModule(frameParent, "Internal attributes"),
     myFrameParent(frameParent),
     myTemplateAC(nullptr) {
     // resize myAttributesCreatorRows

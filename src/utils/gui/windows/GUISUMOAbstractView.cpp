@@ -1213,7 +1213,7 @@ GUISUMOAbstractView::makeSnapshot(const std::string& destFile, const int w, cons
     const bool useVideo = destFile == "" || ext == "h264" || ext == "hevc" || ext == "mp4";
 #endif
     for (int i = 0; i < 10 && !makeCurrent(); ++i) {
-        FXSingleEventThread::sleep(100);
+        MFXSingleEventThread::sleep(100);
     }
     // draw
     glClearColor(

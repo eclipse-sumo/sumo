@@ -71,7 +71,7 @@ public:
     // class DeleteOptions
     // ===========================================================================
 
-    class DeleteOptions : public FXGroupBoxModule {
+    class DeleteOptions : public MFXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNEDeleteFrame::DeleteOptions)
 
@@ -108,7 +108,7 @@ public:
     // class ProtectElements
     // ===========================================================================
 
-    class ProtectElements : public FXGroupBoxModule {
+    class ProtectElements : public MFXGroupBoxModule {
 
     public:
         /// @brief constructor

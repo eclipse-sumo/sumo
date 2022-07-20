@@ -56,7 +56,7 @@ protected:
     FOX_CONSTRUCTOR(MFXButtonTooltip)
 
     /// @brief static tooltip
-    FXStaticToolTip* myStaticToolTip = nullptr;
+    MFXStaticToolTip* myStaticToolTip = nullptr;
 
 private:
     /// @brief Invalidated copy constructor.

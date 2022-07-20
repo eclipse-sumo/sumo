@@ -38,7 +38,7 @@ FXDEFMAP(GNENeteditAttributes) NeteditAttributesMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNENeteditAttributes,  FXGroupBoxModule,   NeteditAttributesMap,   ARRAYNUMBER(NeteditAttributesMap))
+FXIMPLEMENT(GNENeteditAttributes,  MFXGroupBoxModule,   NeteditAttributesMap,   ARRAYNUMBER(NeteditAttributesMap))
 
 
 // ===========================================================================
@@ -46,7 +46,7 @@ FXIMPLEMENT(GNENeteditAttributes,  FXGroupBoxModule,   NeteditAttributesMap,   A
 // ===========================================================================
 
 GNENeteditAttributes::GNENeteditAttributes(GNEFrame* frameParent) :
-    FXGroupBoxModule(frameParent, "Netedit attributes"),
+    MFXGroupBoxModule(frameParent, "Netedit attributes"),
     myFrameParent(frameParent),
     myCurrentLengthValid(true),
     myActualAdditionalReferencePoint(AdditionalReferencePoint::LEFT) {

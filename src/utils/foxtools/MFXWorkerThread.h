@@ -11,15 +11,15 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    FXWorkerThread.h
+/// @file    MFXWorkerThread.h
 /// @author  Michael Behrisch
 /// @date    2014-07-13
 ///
 // A thread class together with a pool and a task for parallelized computation
 /****************************************************************************/
 
-#ifndef FXWorkerThread_h
-#define FXWorkerThread_h
+#ifndef MFXWorkerThread_h
+#define MFXWorkerThread_h
 
 // #define WORKLOAD_PROFILING
 // at which interval report maximum workload of the threads, needs WORKLOAD_PROFILING
@@ -42,14 +42,14 @@
 // class definitions
 // ===========================================================================
 /**
- * @class FXWorkerThread
+ * @class MFXWorkerThread
  * @brief A thread repeatingly calculating incoming tasks
  */
-class FXWorkerThread : public FXThread {
+class MFXWorkerThread : public FXThread {
 
 public:
     /**
-     * @class FXWorkerThread::Task
+     * @class MFXWorkerThread::Task
      * @brief Abstract superclass of a task to be run with an index to keep track of pending tasks
      */
     class Task {
@@ -60,12 +60,12 @@ public:
         /** @brief Abstract method which in subclasses should contain the computations to be performed.
          *
          * If there is data to be shared among several tasks (but not among several threads) it can be put in the
-         *  a thread class subclassing the FXWorkerThread. the instance of the thread is then made available
+         *  a thread class subclassing the MFXWorkerThread. the instance of the thread is then made available
          *  via the context parameter.
          *
          * @param[in] context The thread which runs the task
          */
-        virtual void run(FXWorkerThread* context) = 0;
+        virtual void run(MFXWorkerThread* context) = 0;
 
         /** @brief Sets the running index of this task.
          *
@@ -82,7 +82,7 @@ public:
     };
 
     /**
-     * @class FXWorkerThread::Pool
+     * @class MFXWorkerThread::Pool
      * @brief A pool of worker threads which distributes the tasks and collects the results
      */
     class Pool {
@@ -108,7 +108,7 @@ public:
             //std::cout << ("Average cost of a timing call (in ns): " + toString(timeDiff / 100.)) << std::endl;
 #endif
             while (numThreads > 0) {
-                new FXWorkerThread(*this);
+                new MFXWorkerThread(*this);
                 numThreads--;
             }
         }
@@ -124,7 +124,7 @@ public:
         /** @brief Stops and deletes all worker threads.
          */
         void clear() {
-            for (FXWorkerThread* const worker : myWorkers) {
+            for (MFXWorkerThread* const worker : myWorkers) {
                 delete worker;
             }
             myWorkers.clear();
@@ -134,7 +134,7 @@ public:
          *
          * @param[in] w the thread to add
          */
-        void addWorker(FXWorkerThread* const w) {
+        void addWorker(MFXWorkerThread* const w) {
             myWorkers.push_back(w);
         }
 
@@ -150,7 +150,7 @@ public:
             }
 #ifdef WORKLOAD_PROFILING
             if (myRunningIndex == 0) {
-                for (FXWorkerThread* const worker : myWorkers) {
+                for (MFXWorkerThread* const worker : myWorkers) {
                     worker->startProfile();
                 }
                 myProfileStart = std::chrono::high_resolution_clock::now();
@@ -193,7 +193,7 @@ public:
                 const long long int elapsed = std::chrono::duration_cast<std::chrono::microseconds>(end - myProfileStart).count();
                 double minLoad = std::numeric_limits<double>::max();
                 double maxLoad = 0.;
-                for (FXWorkerThread* const worker : myWorkers) {
+                for (MFXWorkerThread* const worker : myWorkers) {
                     const double load = worker->endProfile(elapsed);
                     minLoad = MIN2(minLoad, load);
                     maxLoad = MAX2(maxLoad, load);
@@ -254,12 +254,12 @@ public:
             myPoolMutex.unlock();
         }
 
-        const std::vector<FXWorkerThread*>& getWorkers() {
+        const std::vector<MFXWorkerThread*>& getWorkers() {
             return myWorkers;
         }
     private:
         /// @brief the current worker threads
-        std::vector<FXWorkerThread*> myWorkers;
+        std::vector<MFXWorkerThread*> myWorkers;
         /// @brief the internal mutex for the task list
         FXMutex myMutex;
         /// @brief the pool mutex for external sync
@@ -291,7 +291,7 @@ public:
      *
      * @param[in] pool the pool for this thread
      */
-    FXWorkerThread(Pool& pool): FXThread(), myPool(pool), myStopped(false)
+    MFXWorkerThread(Pool& pool): FXThread(), myPool(pool), myStopped(false)
 #ifdef WORKLOAD_PROFILING
         , myCounter(0), myBusyTime(0), myTotalBusyTime(0), myTotalTime(0)
 #endif
@@ -304,7 +304,7 @@ public:
      *
      * Stops the thread by calling stop.
      */
-    virtual ~FXWorkerThread() {
+    virtual ~MFXWorkerThread() {
         stop();
 #ifdef WORKLOAD_PROFILING
         const double load = 100. * myTotalBusyTime / myTotalTime;

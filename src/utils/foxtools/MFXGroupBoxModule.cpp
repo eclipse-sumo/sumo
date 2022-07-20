@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    FXGroupBoxModule.cpp
+/// @file    MFXGroupBoxModule.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Dec 2021
 ///
@@ -37,24 +37,24 @@
 // FOX callback mapping
 // ===========================================================================
 
-FXDEFMAP(FXGroupBoxModule) FXGroupBoxModuleMap[] = {
-    FXMAPFUNC(SEL_PAINT,    0,                              FXGroupBoxModule::onPaint),
-    FXMAPFUNC(SEL_COMMAND,  MID_GROUPBOXMODULE_COLLAPSE,    FXGroupBoxModule::onCmdCollapseButton),
-    FXMAPFUNC(SEL_COMMAND,  MID_GROUPBOXMODULE_EXTEND,      FXGroupBoxModule::onCmdExtendButton),
-    FXMAPFUNC(SEL_COMMAND,  MID_GROUPBOXMODULE_RESETWIDTH,  FXGroupBoxModule::onCmdResetButton),
-    FXMAPFUNC(SEL_COMMAND,  MID_GROUPBOXMODULE_SAVE,        FXGroupBoxModule::onCmdSaveButton),
-    FXMAPFUNC(SEL_COMMAND,  MID_GROUPBOXMODULE_LOAD,        FXGroupBoxModule::onCmdLoadButton),
-    FXMAPFUNC(SEL_UPDATE,   MID_GROUPBOXMODULE_RESETWIDTH,  FXGroupBoxModule::onUpdResetButton),
+FXDEFMAP(MFXGroupBoxModule) MFXGroupBoxModuleMap[] = {
+    FXMAPFUNC(SEL_PAINT,    0,                              MFXGroupBoxModule::onPaint),
+    FXMAPFUNC(SEL_COMMAND,  MID_GROUPBOXMODULE_COLLAPSE,    MFXGroupBoxModule::onCmdCollapseButton),
+    FXMAPFUNC(SEL_COMMAND,  MID_GROUPBOXMODULE_EXTEND,      MFXGroupBoxModule::onCmdExtendButton),
+    FXMAPFUNC(SEL_COMMAND,  MID_GROUPBOXMODULE_RESETWIDTH,  MFXGroupBoxModule::onCmdResetButton),
+    FXMAPFUNC(SEL_COMMAND,  MID_GROUPBOXMODULE_SAVE,        MFXGroupBoxModule::onCmdSaveButton),
+    FXMAPFUNC(SEL_COMMAND,  MID_GROUPBOXMODULE_LOAD,        MFXGroupBoxModule::onCmdLoadButton),
+    FXMAPFUNC(SEL_UPDATE,   MID_GROUPBOXMODULE_RESETWIDTH,  MFXGroupBoxModule::onUpdResetButton),
 };
 
 // Object implementation
-FXIMPLEMENT(FXGroupBoxModule, FXVerticalFrame, FXGroupBoxModuleMap, ARRAYNUMBER(FXGroupBoxModuleMap))
+FXIMPLEMENT(MFXGroupBoxModule, FXVerticalFrame, MFXGroupBoxModuleMap, ARRAYNUMBER(MFXGroupBoxModuleMap))
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
 
-FXGroupBoxModule::FXGroupBoxModule(GNEFrame* frame, const std::string& text, const int options) :
+MFXGroupBoxModule::MFXGroupBoxModule(GNEFrame* frame, const std::string& text, const int options) :
     FXVerticalFrame(frame->getContentFrame(), GUIDesignGroupBoxModule),
     myOptions(options),
     myFrameParent(frame),
@@ -62,65 +62,65 @@ FXGroupBoxModule::FXGroupBoxModule(GNEFrame* frame, const std::string& text, con
     // build button and labels
     FXHorizontalFrame* headerFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     if (myOptions & Options::COLLAPSIBLE) {
-        myCollapseButton = new FXButton(headerFrame, "", GUIIconSubSys::getIcon(GUIIcon::COLLAPSE), this, MID_GROUPBOXMODULE_COLLAPSE, GUIDesignButtonFXGroupBoxModule);
+        myCollapseButton = new FXButton(headerFrame, "", GUIIconSubSys::getIcon(GUIIcon::COLLAPSE), this, MID_GROUPBOXMODULE_COLLAPSE, GUIDesignButtonMFXGroupBoxModule);
     }
     if (myOptions & Options::EXTENSIBLE) {
-        myExtendButton = new FXButton(headerFrame, "", GUIIconSubSys::getIcon(GUIIcon::EXTEND), this, MID_GROUPBOXMODULE_EXTEND, GUIDesignButtonFXGroupBoxModule);
-        myResetWidthButton = new FXButton(headerFrame, "", GUIIconSubSys::getIcon(GUIIcon::RESET), this, MID_GROUPBOXMODULE_RESETWIDTH, GUIDesignButtonFXGroupBoxModule);
+        myExtendButton = new FXButton(headerFrame, "", GUIIconSubSys::getIcon(GUIIcon::EXTEND), this, MID_GROUPBOXMODULE_EXTEND, GUIDesignButtonMFXGroupBoxModule);
+        myResetWidthButton = new FXButton(headerFrame, "", GUIIconSubSys::getIcon(GUIIcon::RESET), this, MID_GROUPBOXMODULE_RESETWIDTH, GUIDesignButtonMFXGroupBoxModule);
     }
     if (myOptions & Options::SAVE) {
-        mySaveButton = new FXButton(headerFrame, "", GUIIconSubSys::getIcon(GUIIcon::SAVE), this, MID_GROUPBOXMODULE_SAVE, GUIDesignButtonFXGroupBoxModule);
+        mySaveButton = new FXButton(headerFrame, "", GUIIconSubSys::getIcon(GUIIcon::SAVE), this, MID_GROUPBOXMODULE_SAVE, GUIDesignButtonMFXGroupBoxModule);
     }
     if (myOptions & Options::LOAD) {
-        myLoadButton = new FXButton(headerFrame, "", GUIIconSubSys::getIcon(GUIIcon::OPEN_NET), this, MID_GROUPBOXMODULE_LOAD, GUIDesignButtonFXGroupBoxModule);
+        myLoadButton = new FXButton(headerFrame, "", GUIIconSubSys::getIcon(GUIIcon::OPEN_NET), this, MID_GROUPBOXMODULE_LOAD, GUIDesignButtonMFXGroupBoxModule);
     }
-    myLabel = new FXLabel(headerFrame, text.c_str(), nullptr, GUIDesignLabelFXGroupBoxModule);
+    myLabel = new FXLabel(headerFrame, text.c_str(), nullptr, GUIDesignLabelMFXGroupBoxModule);
     // build collapsable frame
     myCollapsableFrame = new FXVerticalFrame(this, GUIDesignCollapsableFrame);
 }
 
 
-FXGroupBoxModule::FXGroupBoxModule(FXVerticalFrame* contentFrame, const std::string& text, const int options) :
+MFXGroupBoxModule::MFXGroupBoxModule(FXVerticalFrame* contentFrame, const std::string& text, const int options) :
     FXVerticalFrame(contentFrame, GUIDesignGroupBoxModuleExtendY),
     myOptions(options),
     myCollapsed(false) {
     // build button and labels
     FXHorizontalFrame* headerFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     if (myOptions & Options::COLLAPSIBLE) {
-        myCollapseButton = new FXButton(headerFrame, "", GUIIconSubSys::getIcon(GUIIcon::COLLAPSE), this, MID_GROUPBOXMODULE_COLLAPSE, GUIDesignButtonFXGroupBoxModule);
+        myCollapseButton = new FXButton(headerFrame, "", GUIIconSubSys::getIcon(GUIIcon::COLLAPSE), this, MID_GROUPBOXMODULE_COLLAPSE, GUIDesignButtonMFXGroupBoxModule);
     }
     if (myOptions & Options::EXTENSIBLE) {
-        throw ProcessError("This FXGroupBoxModule doesn't support Extensible flag");
+        throw ProcessError("This MFXGroupBoxModule doesn't support Extensible flag");
     }
     if (myOptions & Options::SAVE) {
-        mySaveButton = new FXButton(headerFrame, "", GUIIconSubSys::getIcon(GUIIcon::SAVE), this, MID_GROUPBOXMODULE_SAVE, GUIDesignButtonFXGroupBoxModule);
+        mySaveButton = new FXButton(headerFrame, "", GUIIconSubSys::getIcon(GUIIcon::SAVE), this, MID_GROUPBOXMODULE_SAVE, GUIDesignButtonMFXGroupBoxModule);
     }
     if (myOptions & Options::LOAD) {
-        myLoadButton = new FXButton(headerFrame, "", GUIIconSubSys::getIcon(GUIIcon::OPEN_NET), this, MID_GROUPBOXMODULE_LOAD, GUIDesignButtonFXGroupBoxModule);
+        myLoadButton = new FXButton(headerFrame, "", GUIIconSubSys::getIcon(GUIIcon::OPEN_NET), this, MID_GROUPBOXMODULE_LOAD, GUIDesignButtonMFXGroupBoxModule);
     }
-    myLabel = new FXLabel(headerFrame, text.c_str(), nullptr, GUIDesignLabelFXGroupBoxModule);
+    myLabel = new FXLabel(headerFrame, text.c_str(), nullptr, GUIDesignLabelMFXGroupBoxModule);
     // build collapsable frame
     myCollapsableFrame = new FXVerticalFrame(this, GUIDesignCollapsableFrame);
 }
 
 
-FXGroupBoxModule::~FXGroupBoxModule() {}
+MFXGroupBoxModule::~MFXGroupBoxModule() {}
 
 
 void
-FXGroupBoxModule::setText(const std::string& text) {
+MFXGroupBoxModule::setText(const std::string& text) {
     myLabel->setText(text.c_str());
 }
 
 
 FXVerticalFrame*
-FXGroupBoxModule::getCollapsableFrame() {
+MFXGroupBoxModule::getCollapsableFrame() {
     return myCollapsableFrame;
 }
 
 
 long
-FXGroupBoxModule::onPaint(FXObject*, FXSelector, void* ptr) {
+MFXGroupBoxModule::onPaint(FXObject*, FXSelector, void* ptr) {
     FXEvent* event = (FXEvent*)ptr;
     FXDCWindow dc(this, event);
     // Paint background
@@ -133,7 +133,7 @@ FXGroupBoxModule::onPaint(FXObject*, FXSelector, void* ptr) {
 
 
 long
-FXGroupBoxModule::onCmdCollapseButton(FXObject*, FXSelector, void*) {
+MFXGroupBoxModule::onCmdCollapseButton(FXObject*, FXSelector, void*) {
     if (myCollapsed) {
         myCollapsed = false;
         myCollapseButton->setIcon(GUIIconSubSys::getIcon(GUIIcon::COLLAPSE));
@@ -149,7 +149,7 @@ FXGroupBoxModule::onCmdCollapseButton(FXObject*, FXSelector, void*) {
 
 
 long
-FXGroupBoxModule::onCmdExtendButton(FXObject*, FXSelector, void*) {
+MFXGroupBoxModule::onCmdExtendButton(FXObject*, FXSelector, void*) {
     if (myFrameParent) {
         int maximumWidth = -1;
         // search in every child
@@ -170,7 +170,7 @@ FXGroupBoxModule::onCmdExtendButton(FXObject*, FXSelector, void*) {
 
 
 long
-FXGroupBoxModule::onCmdResetButton(FXObject*, FXSelector, void*) {
+MFXGroupBoxModule::onCmdResetButton(FXObject*, FXSelector, void*) {
     if (myFrameParent) {
         myFrameParent->getViewNet()->getViewParent()->setFrameAreaWith(220);
     }
@@ -179,7 +179,7 @@ FXGroupBoxModule::onCmdResetButton(FXObject*, FXSelector, void*) {
 
 
 long
-FXGroupBoxModule::onUpdResetButton(FXObject* sender, FXSelector, void*) {
+MFXGroupBoxModule::onUpdResetButton(FXObject* sender, FXSelector, void*) {
     if (myFrameParent) {
         if (myFrameParent->getViewNet()->getViewParent()->getFrameAreaWith() == 220) {
             sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
@@ -192,39 +192,39 @@ FXGroupBoxModule::onUpdResetButton(FXObject* sender, FXSelector, void*) {
 
 
 long
-FXGroupBoxModule::onCmdSaveButton(FXObject*, FXSelector, void*) {
+MFXGroupBoxModule::onCmdSaveButton(FXObject*, FXSelector, void*) {
     return saveContents();
 }
 
 
 long
-FXGroupBoxModule::onCmdLoadButton(FXObject*, FXSelector, void*) {
+MFXGroupBoxModule::onCmdLoadButton(FXObject*, FXSelector, void*) {
     return loadContents();
 }
 
 
-FXGroupBoxModule::FXGroupBoxModule() :
+MFXGroupBoxModule::MFXGroupBoxModule() :
     myOptions(Options::NOTHING),
     myCollapsed(false) {
 }
 
 
 bool
-FXGroupBoxModule::saveContents() const {
+MFXGroupBoxModule::saveContents() const {
     // nothing to do
     return false;
 }
 
 
 bool
-FXGroupBoxModule::loadContents() const {
+MFXGroupBoxModule::loadContents() const {
     // nothing to do
     return false;
 }
 
 
 void
-FXGroupBoxModule::toggleSaveButton(const bool value) {
+MFXGroupBoxModule::toggleSaveButton(const bool value) {
     if (mySaveButton) {
         if (value) {
             mySaveButton->enable();

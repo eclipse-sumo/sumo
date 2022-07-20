@@ -125,7 +125,7 @@ public:
     // class AttributesEditor
     // ===========================================================================
 
-    class AttributesEditor : public FXGroupBoxModule {
+    class AttributesEditor : public MFXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNEFrameAttributeModules::AttributesEditor)
 
@@ -176,7 +176,7 @@ public:
     // class AttributesEditorExtended
     // ===========================================================================
 
-    class AttributesEditorExtended : public FXGroupBoxModule {
+    class AttributesEditorExtended : public MFXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNEFrameAttributeModules::AttributesEditorExtended)
 
@@ -211,7 +211,7 @@ public:
     // class GenericDataAttributes
     // ===========================================================================
 
-    class GenericDataAttributes : public FXGroupBoxModule {
+    class GenericDataAttributes : public MFXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNEFrameAttributeModules::GenericDataAttributes)
 
