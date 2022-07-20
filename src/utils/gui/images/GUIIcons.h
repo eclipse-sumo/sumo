@@ -42,6 +42,7 @@ enum class GUIIcon {
     OPEN_SHAPES,
     OPEN_ADDITIONALS,
     OPEN_TLSPROGRAMS,
+    OPEN_SUMOCONFIG,
     NEW_NET,
     RELOAD,
     SAVE,

@@ -447,6 +447,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::OPEN_SHAPES] = new FXXPMIcon(a, shapeopen_xpm);
     myIcons[GUIIcon::OPEN_ADDITIONALS] = new FXXPMIcon(a, shapeopen_xpm);
     myIcons[GUIIcon::OPEN_TLSPROGRAMS] = new FXXPMIcon(a, shapeopen_xpm);
+    myIcons[GUIIcon::OPEN_SUMOCONFIG] = new FXXPMIcon(a, fileopen_xpm);
     myIcons[GUIIcon::NEW_NET] = new FXXPMIcon(a, newnet_xpm);
     myIcons[GUIIcon::RELOAD] = new FXXPMIcon(a, reload_xpm);
     myIcons[GUIIcon::SAVE] = new FXXPMIcon(a, filesave_xpm);
