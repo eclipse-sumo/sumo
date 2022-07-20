@@ -933,6 +933,10 @@ enum {
     MID_GNE_SELECTORFRAME_SETBEGIN,
     /// @brief end text field
     MID_GNE_SELECTORFRAME_SETEND,
+    /// @brief from TAZ text field
+    MID_GNE_SELECTORFRAME_FROMTAZ,
+    /// @brief to TAZ field
+    MID_GNE_SELECTORFRAME_TOTAZ,
     /// @brief select/unselect parents
     MID_GNE_SELECTORFRAME_PARENTS,
     /// @brief select/unselect children

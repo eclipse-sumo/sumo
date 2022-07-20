@@ -62,6 +62,12 @@ public:
     /// @brief Called when the user change end text field
     long onCmdSetEnd(FXObject*, FXSelector, void*);
 
+    /// @brief Called when the user change fromTAZ text field
+    long onCmdSetFromTAZ(FXObject*, FXSelector, void*);
+
+    /// @brief Called when the user change toTAZ text field
+    long onCmdSetToTAZ(FXObject*, FXSelector, void*);
+
     /// @brief Called when the user selects a tag in the match box
     long onCmdSelectTag(FXObject*, FXSelector, void*);
 
@@ -95,6 +101,15 @@ private:
 
     /// @brief tag of the match box
     MFXIconComboBox* myMatchGenericDataTagComboBox;
+
+    /// @brief horizontal frame for TAZs,
+    FXHorizontalFrame* myTAZHorizontalFrame;
+
+    /// @brief TextField for fromTAZ
+    FXComboBox* myFromTAZComboBox;
+
+    /// @brief TextField for toTAZ
+    FXComboBox* myToTAZComboBox;
 
     /// @brief attributes of the match box
     FXComboBox* myMatchGenericDataAttrComboBox;
