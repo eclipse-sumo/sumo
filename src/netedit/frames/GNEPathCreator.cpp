@@ -160,7 +160,7 @@ GNEPathCreator::GNEPathCreator(GNEFrame* frameParent) :
     myAbortCreationButton = new FXButton(getCollapsableFrame(), "Abort route creation", nullptr, this, MID_GNE_PATHCREATOR_ABORT, GUIDesignButton);
     myAbortCreationButton->disable();
     // create button for remove last inserted edge
-    myRemoveLastInsertedElement = new FXButton(getCollapsableFrame(), "Remove last inserted edge", nullptr, this, MID_GNE_PATHCREATOR_REMOVELAST, GUIDesignButton);
+    myRemoveLastInsertedElement = new FXButton(getCollapsableFrame(), "Remove last edge", nullptr, this, MID_GNE_PATHCREATOR_REMOVELAST, GUIDesignButton);
     myRemoveLastInsertedElement->disable();
     // create check button
     myShowCandidateEdges = new FXCheckButton(getCollapsableFrame(), "Show candidate edges", this, MID_GNE_PATHCREATOR_SHOWCANDIDATES, GUIDesignCheckButton);
@@ -171,7 +171,7 @@ GNEPathCreator::GNEPathCreator(GNEFrame* frameParent) :
                                0, GUIDesignLabelFrameInformation);
     // create control label
     myControlLabel = new FXLabel(this,
-                                 "CTRL-click: add disconnected",
+                                 "CTRL-click: force add",
                                  0, GUIDesignLabelFrameInformation);
     // create backspace label (always shown)
     myBackSpaceLabel = new FXLabel(this,
