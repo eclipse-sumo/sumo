@@ -97,6 +97,8 @@ enum {
     MID_HOTKEY_CTRL_K_OPENTLSPROGRAMS,
     /// @brief save network as plain XML
     MID_HOTKEY_CTRL_L_SAVEASPLAINXML,
+    /// @brief open sumo config
+    MID_HOTKEY_CTRL_M_OPENSUMOCONFIG,
     /// @brief create new empty network
     MID_HOTKEY_CTRL_N_NEWNETWORK,
     /// @brief Main window closes
@@ -165,6 +167,8 @@ enum {
     MID_HOTKEY_CTRL_SHIFT_K_SAVETLS,
     /// @brief Open a New Window
     MID_HOTKEY_CTRL_SHIFT_N_NEWWINDOW,
+    /// @brief save SUMOConfig
+    MID_HOTKEY_CTRL_SHIFT_M_SAVESUMOCONFIG,
     /// @brief save network as
     MID_HOTKEY_CTRL_SHIFT_S_SAVENETWORK_AS,
     /// @brief Force save network (flag)
@@ -654,12 +658,16 @@ enum {
     MID_GNE_TOOLBARFILE_SAVEADDITIONALS_AS,
     /// @brief reload TLS Programs
     MID_GNE_TOOLBARFILE_RELOAD_TLSPROGRAMS,
+    /// @brief reload SUMOConfig
+    MID_GNE_TOOLBARFILE_RELOAD_SUMOCONFIG,
     /// @brief reload edge types
     MID_GNE_TOOLBARFILE_RELOAD_EDGETYPES,
     /// @brief reload additionals
     MID_GNE_TOOLBARFILE_RELOAD_ADDITIONALS,
     /// @brief save TLS Programs as
     MID_GNE_TOOLBARFILE_SAVETLSPROGRAMS_AS,
+    /// @brief save SUMOConfig as
+    MID_GNE_TOOLBARFILE_SAVESUMOCONFIG_AS,
     /// @brief save edgeTypes as
     MID_GNE_TOOLBARFILE_SAVEEDGETYPES_AS,
     /// @brief save demand elements as

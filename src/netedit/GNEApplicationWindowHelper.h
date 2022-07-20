@@ -144,9 +144,13 @@ struct GNEApplicationWindowHelper {
         FileMenuCommands(GNEApplicationWindow* GNEApp);
 
         /// @brief build menu commands
-        void buildFileMenuCommands(FXMenuPane* fileMenu, FXMenuPane* fileMenuTLS, FXMenuPane* fileMenuEdgeTypes, FXMenuPane* fileMenuAdditionals,
+        void buildFileMenuCommands(FXMenuPane* fileMenu, FXMenuPane* fileMenuSUMOConfig, FXMenuPane* fileMenuTLS, 
+                                   FXMenuPane* fileMenuEdgeTypes, FXMenuPane* fileMenuAdditionals,
                                    FXMenuPane* fileMenuDemandElements, FXMenuPane* fileMenuDataElements);
 
+        /// @brief FXMenuCascade for SUMOConfig
+        FXMenuCascade* SUMOConfigMenuCascade = nullptr;
+        
         /// @brief FXMenuCascade for TLS
         FXMenuCascade* TLSMenuCascade = nullptr;
 
@@ -162,10 +166,16 @@ struct GNEApplicationWindowHelper {
         /// @brief FXMenuCascade for data
         FXMenuCascade* dataMenuCascade = nullptr;
 
+        /// @brief FXMenuCommand for reload SUMOConfig
+        FXMenuCommand* reloadSUMOConfig = nullptr;
+
+        /// @brief FXMenuCommand for enable or disable save SUMOConfig
+        FXMenuCommand* saveSUMOConfig = nullptr;
+
         /// @brief FXMenuCommand for reload TLS Programs
         FXMenuCommand* reloadTLSPrograms = nullptr;
 
-        /// @brief FXMenuCommand for enable or disable save additionals
+        /// @brief FXMenuCommand for enable or disable save TLS Programs
         FXMenuCommand* saveTLSPrograms = nullptr;
 
         /// @brief FXMenuCommand for reload Edge Types
