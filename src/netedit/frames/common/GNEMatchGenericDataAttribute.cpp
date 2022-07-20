@@ -376,9 +376,31 @@ GNEMatchGenericDataAttribute::onCmdProcessString(FXObject*, FXSelector, void*) {
     std::string expression = myMatchGenericDataString->getText().text();
     bool valid = true;
     // get all Generic datas
-    const auto genericDatas = myElementSet->getSelectorFrameParent()->getViewNet()->getNet()->getAttributeCarriers()->retrieveGenericDatas(myCurrentTag,
+    auto genericDatas = myElementSet->getSelectorFrameParent()->getViewNet()->getNet()->getAttributeCarriers()->retrieveGenericDatas(myCurrentTag,
                               GNEAttributeCarrier::parse<double>(myBegin->getText().text()),
                               GNEAttributeCarrier::parse<double>(myEnd->getText().text()));
+    // extra filter for TAZ rel datas
+    if (myCurrentTag == SUMO_TAG_TAZREL) {
+        std::vector<GNEGenericData*> TAZReldatasFrom, TAZReldatasTo;
+        // filter from TAZs
+        for (const auto &TAZRelData : genericDatas) {
+            if (myFromTAZComboBox->getTextColor() == FXRGB(128, 128, 128)) {
+                TAZReldatasFrom.push_back(TAZRelData);
+            } else if ((myFromTAZComboBox->getTextColor() == FXRGB(0, 0, 0)) && (TAZRelData->getAttribute(SUMO_ATTR_FROM) == myFromTAZComboBox->getText().text())) {
+                TAZReldatasFrom.push_back(TAZRelData);
+            }
+        }
+        // filter to TAZs
+        for (const auto &TAZRelData : TAZReldatasFrom) {
+            if (myToTAZComboBox->getTextColor() == FXRGB(128, 128, 128)) {
+                TAZReldatasTo.push_back(TAZRelData);
+            } else if ((myToTAZComboBox->getTextColor() == FXRGB(0, 0, 0)) && (TAZRelData->getAttribute(SUMO_ATTR_TO) == myToTAZComboBox->getText().text())) {
+                TAZReldatasTo.push_back(TAZRelData);
+            }
+        }
+        // update generic datas
+        genericDatas = TAZReldatasTo;
+    }
     if (expression == "") {
         // the empty expression matches all objects
         myElementSet->getSelectorFrameParent()->handleIDs(myElementSet->getSelectorFrameParent()->getGenericMatches(genericDatas, myCurrentAttribute, '@', 0, expression));
