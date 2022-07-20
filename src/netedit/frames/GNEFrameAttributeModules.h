@@ -24,6 +24,7 @@
 #include <netedit/GNEViewNetHelper.h>
 #include <utils/common/Parameterised.h>
 #include <utils/foxtools/MFXGroupBoxModule.h>
+#include <utils/foxtools/MFXTextFieldTooltip.h>
 #include <utils/xml/CommonXMLStructure.h>
 
 // ===========================================================================
@@ -112,7 +113,7 @@ public:
         FXButton* myAttributeColorButton = nullptr;
 
         /// @brief textField to modify the value of string attributes
-        FXTextField* myValueTextField = nullptr;
+        MFXTextFieldTooltip* myValueTextField = nullptr;
 
         /// @brief pointer to combo box choices
         MFXIconComboBox* myValueComboBoxChoices = nullptr;
