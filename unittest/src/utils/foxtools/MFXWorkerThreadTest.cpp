@@ -11,11 +11,11 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    FXWorkerThreadTest.cpp
+/// @file    MFXWorkerThreadTest.cpp
 /// @author  Michael Behrisch
 /// @date    Oct 2010
 ///
-// Tests the class FXWorkerThread
+// Tests the class MFXWorkerThread
 /****************************************************************************/
 
 
@@ -28,9 +28,9 @@
 #include <utils/common/StdDefs.h>
 #include <utils/foxtools/MFXWorkerThread.h>
 
-class TestTask : public FXWorkerThread::Task {
+class TestTask : public MFXWorkerThread::Task {
 public:
-    void run(FXWorkerThread* /* context */) {
+    void run(MFXWorkerThread* /* context */) {
     }
 };
 
@@ -38,17 +38,17 @@ public:
 // test definitions
 // ===========================================================================
 /* Test the initialization.*/
-TEST(FXWorkerThread, test_init) {
-    FXWorkerThread::Pool g(4);
+TEST(MFXWorkerThread, test_init) {
+    MFXWorkerThread::Pool g(4);
 }
 
 /* Test retrieving all tasks.*/
-TEST(FXWorkerThread, test_get_all) {
-    FXWorkerThread::Pool g(4);
-    FXWorkerThread::Task* task1 = new TestTask();
-    FXWorkerThread::Task* task2 = new TestTask();
-    FXWorkerThread::Task* task3 = new TestTask();
-    FXWorkerThread::Task* task4 = new TestTask();
+TEST(MFXWorkerThread, test_get_all) {
+    MFXWorkerThread::Pool g(4);
+    MFXWorkerThread::Task* task1 = new TestTask();
+    MFXWorkerThread::Task* task2 = new TestTask();
+    MFXWorkerThread::Task* task3 = new TestTask();
+    MFXWorkerThread::Task* task4 = new TestTask();
     g.add(task1);
     g.add(task2);
     g.add(task3);

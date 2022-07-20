@@ -1,2 +1,2 @@
-add_executable(testfoxtools FXWorkerThreadTest.cpp)
+add_executable(testfoxtools MFXWorkerThreadTest.cpp)
 setTestProperties(testfoxtools ${FOX_LIBRARY})
