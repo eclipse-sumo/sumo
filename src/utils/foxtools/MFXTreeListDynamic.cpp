@@ -18,7 +18,7 @@
 //
 /****************************************************************************/
 
-#include "FXTreeListDynamic.h"
+#include "MFXTreeListDynamic.h"
 
 #include <utils/common/UtilExceptions.h>
 

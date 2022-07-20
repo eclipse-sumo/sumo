@@ -26,7 +26,7 @@
 #include <foreign/zstr/zstr.hpp>
 #endif
 #ifdef HAVE_FOX
-#include <utils/foxtools/FXWorkerThread.h>
+#include <utils/foxtools/MFXWorkerThread.h>
 #endif
 #include <utils/router/ReversedEdge.h>
 

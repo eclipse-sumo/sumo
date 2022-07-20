@@ -27,7 +27,7 @@
 #include <vector>
 #include <map>
 #include <set>
-#include <utils/foxtools/FXSynchQue.h>
+#include <utils/foxtools/MFXSynchQue.h>
 
 
 // ===========================================================================

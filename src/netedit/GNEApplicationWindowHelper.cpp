@@ -22,7 +22,7 @@
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/options/OptionsCont.h>
-#include <utils/foxtools/FXMenuCheckIcon.h>
+#include <utils/foxtools/MFXMenuCheckIcon.h>
 
 #include "GNEApplicationWindow.h"
 #include "GNEViewNet.h"

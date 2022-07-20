@@ -30,7 +30,7 @@
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
 
-#include "FXGroupBoxModule.h"
+#include "MFXGroupBoxModule.h"
 
 
 // ===========================================================================

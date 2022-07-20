@@ -41,7 +41,7 @@
 #include <FXDCWindow.h>
 */
 using namespace FX;
-#include "FXSevenSegment.h"
+#include "MFXSevenSegment.h"
 
 using namespace FXEX;
 namespace FXEX {

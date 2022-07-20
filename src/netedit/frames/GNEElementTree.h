@@ -20,8 +20,8 @@
 #pragma once
 #include <config.h>
 
-#include <utils/foxtools/FXGroupBoxModule.h>
-#include <utils/foxtools/FXTreeListDynamic.h>
+#include <utils/foxtools/MFXGroupBoxModule.h>
+#include <utils/foxtools/MFXTreeListDynamic.h>
 
 // ===========================================================================
 // class declaration

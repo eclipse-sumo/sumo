@@ -39,14 +39,14 @@
 #include <utils/router/RouterProvider.h>
 #include <utils/vehicle/SUMOVehicle.h>
 
-#include <utils/foxtools/FXSynchQue.h>
-#include <utils/foxtools/FXSynchSet.h>
+#include <utils/foxtools/MFXSynchQue.h>
+#include <utils/foxtools/MFXSynchSet.h>
 //#define THREAD_POOL
 #ifdef THREAD_POOL
 #include <utils/threadpool/WorkStealingThreadPool.h>
 #else
 #ifdef HAVE_FOX
-#include <utils/foxtools/FXWorkerThread.h>
+#include <utils/foxtools/MFXWorkerThread.h>
 #endif
 #endif
 

@@ -20,7 +20,7 @@
 #pragma once
 #include <config.h>
 
-#include <utils/foxtools/FXTreeListDynamic.h>
+#include <utils/foxtools/MFXTreeListDynamic.h>
 
 
 // ===========================================================================

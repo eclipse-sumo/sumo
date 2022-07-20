@@ -32,7 +32,7 @@
 #ifdef HAVE_GL2PS
 #include <gl2ps.h>
 #endif
-#include <utils/foxtools/FXSingleEventThread.h>
+#include <utils/foxtools/MFXSingleEventThread.h>
 #include <utils/foxtools/MFXCheckableButton.h>
 #include <utils/foxtools/MFXImageHelper.h>
 #include <utils/common/RGBColor.h>

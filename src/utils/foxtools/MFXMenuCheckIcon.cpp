@@ -20,7 +20,7 @@
 
 #include <fxkeys.h>
 
-#include "FXMenuCheckIcon.h"
+#include "MFXMenuCheckIcon.h"
 
 
 #define LEADSPACE   22

@@ -22,8 +22,8 @@
 #include <config.h>
 
 #include <utils/common/MsgHandler.h>
-#include <utils/foxtools/FXSingleEventThread.h>
-#include <utils/foxtools/FXSynchQue.h>
+#include <utils/foxtools/MFXSingleEventThread.h>
+#include <utils/foxtools/MFXSynchQue.h>
 #include <utils/foxtools/MFXInterThreadEventClient.h>
 
 

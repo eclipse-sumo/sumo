@@ -20,8 +20,8 @@
 #pragma once
 #include <config.h>
 
-#include <utils/foxtools/FXThreadEvent.h>
-#include <utils/foxtools/FXBaseObject.h>
+#include <utils/foxtools/MFXThreadEvent.h>
+#include <utils/foxtools/MFXBaseObject.h>
 #include <utils/foxtools/fxheader.h>
 
 

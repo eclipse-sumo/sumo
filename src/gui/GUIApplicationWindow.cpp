@@ -57,9 +57,9 @@
 #include <utils/common/Command.h>
 #include <utils/foxtools/MFXButtonTooltip.h>
 #include <utils/foxtools/MFXUtils.h>
-#include <utils/foxtools/FXLCDLabel.h>
-#include <utils/foxtools/FXThreadEvent.h>
-#include <utils/foxtools/FXLinkLabel.h>
+#include <utils/foxtools/MFXLCDLabel.h>
+#include <utils/foxtools/MFXThreadEvent.h>
+#include <utils/foxtools/MFXLinkLabel.h>
 #include <utils/foxtools/MFXRealSpinner.h>
 
 #include <utils/xml/XMLSubSys.h>

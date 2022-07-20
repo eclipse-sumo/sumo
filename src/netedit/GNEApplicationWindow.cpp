@@ -40,7 +40,7 @@
 #include <netimport/NITypeLoader.h>
 #include <netwrite/NWFrame.h>
 #include <utils/common/SystemFrame.h>
-#include <utils/foxtools/FXLinkLabel.h>
+#include <utils/foxtools/MFXLinkLabel.h>
 #include <utils/gui/cursors/GUICursorSubSys.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIDesigns.h>
@@ -56,7 +56,7 @@
 #include <utils/gui/windows/GUIDialog_Options.h>
 #include <utils/gui/windows/GUIPerspectiveChanger.h>
 #include <utils/options/OptionsCont.h>
-#include <utils/foxtools/FXMenuCheckIcon.h>
+#include <utils/foxtools/MFXMenuCheckIcon.h>
 #include <utils/xml/XMLSubSys.h>
 
 #include "GNEApplicationWindow.h"

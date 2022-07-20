@@ -22,7 +22,7 @@
 #include <config.h>
 
 #include "fxheader.h"
-#include "FXStaticToolTip.h"
+#include "MFXStaticToolTip.h"
 
 /**
  * @class MFXCheckableButton

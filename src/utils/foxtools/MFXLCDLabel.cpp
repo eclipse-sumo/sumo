@@ -43,9 +43,9 @@
 #include <FXFrame.h>
 */
 using namespace FX;
-#include "FXSevenSegment.h"
-#include "FXLCDLabel.h"
-#include "FXBaseObject.h"
+#include "MFXSevenSegment.h"
+#include "MFXLCDLabel.h"
+#include "MFXBaseObject.h"
 
 using namespace FXEX;
 namespace FXEX {

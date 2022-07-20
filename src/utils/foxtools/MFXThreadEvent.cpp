@@ -41,7 +41,7 @@
 #endif
 
 using namespace FX;
-#include "FXThreadEvent.h"
+#include "MFXThreadEvent.h"
 
 // ===========================================================================
 // used namespaces

@@ -28,7 +28,7 @@
 #include <set>
 #ifdef HAVE_FOX
 #include <utils/foxtools/fxheader.h>
-#include <utils/foxtools/FXSynchQue.h>
+#include <utils/foxtools/MFXSynchQue.h>
 #endif
 #include <utils/distribution/RandomDistributor.h>
 #include <utils/common/SUMOTime.h>

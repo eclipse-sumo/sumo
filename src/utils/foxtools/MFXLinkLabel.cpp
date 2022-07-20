@@ -31,7 +31,7 @@
 #undef NOMINMAX
 #endif
 
-#include "FXLinkLabel.h"
+#include "MFXLinkLabel.h"
 
 
 FXint

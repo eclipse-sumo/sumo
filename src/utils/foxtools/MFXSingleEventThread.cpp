@@ -29,7 +29,7 @@
 
 #include <utils/common/StdDefs.h>
 #include "MFXInterThreadEventClient.h"
-#include "FXSingleEventThread.h"
+#include "MFXSingleEventThread.h"
 #ifndef WIN32
 #include <pthread.h>
 #include <stdlib.h>

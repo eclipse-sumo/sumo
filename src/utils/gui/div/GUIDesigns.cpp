@@ -20,7 +20,7 @@
 
 #include "GUIDesigns.h"
 
-#include "utils/foxtools/FXMenuCheckIcon.h"
+#include "utils/foxtools/MFXMenuCheckIcon.h"
 
 
 // ===========================================================================

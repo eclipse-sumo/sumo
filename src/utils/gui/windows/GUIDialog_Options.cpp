@@ -23,7 +23,7 @@
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/StringUtils.h>
 #include <utils/common/ToString.h>
-#include <utils/foxtools/FXLinkLabel.h>
+#include <utils/foxtools/MFXLinkLabel.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/div/GUIIOGlobals.h>
 #include <utils/gui/images/GUIIconSubSys.h>

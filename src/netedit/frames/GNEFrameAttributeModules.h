@@ -23,7 +23,7 @@
 #include <netedit/elements/GNEAttributeCarrier.h>
 #include <netedit/GNEViewNetHelper.h>
 #include <utils/common/Parameterised.h>
-#include <utils/foxtools/FXGroupBoxModule.h>
+#include <utils/foxtools/MFXGroupBoxModule.h>
 #include <utils/xml/CommonXMLStructure.h>
 
 // ===========================================================================

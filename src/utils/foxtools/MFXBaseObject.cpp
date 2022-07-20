@@ -42,7 +42,7 @@
 #include <FXWindow.h>
 */
 using namespace FX;
-#include "FXBaseObject.h"
+#include "MFXBaseObject.h"
 
 using namespace FXEX;
 namespace FXEX {

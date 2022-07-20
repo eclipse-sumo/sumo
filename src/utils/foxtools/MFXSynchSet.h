@@ -11,15 +11,14 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    FXSynchQue.h
-/// @author  Daniel Krajzewicz
-/// @author  Michael Behrisch
-/// @date    2004-03-19
+/// @file    FXSynchSet.h
+/// @author  Jakob Erdmann
+/// @date    2020-03-29
 ///
 // missing_desc
 /****************************************************************************/
-#ifndef FXSynchQue_h
-#define FXSynchQue_h
+#ifndef FXSynchSet_h
+#define FXSynchSet_h
 #include <config.h>
 
 #ifdef HAVE_FOX
@@ -33,48 +32,18 @@
 
 #ifdef DEBUG_LOCKING
 #include <iostream>
-#include "FXWorkerThread.h"
+#include "MFXWorkerThread.h"
 #endif
 
-template<class T, class Container = std::list<T> >
-class FXSynchQue {
+template<class T, class Container = std::set<T> >
+class FXSynchSet {
 public:
-    FXSynchQue(const bool condition = true):
+    FXSynchSet(const bool condition = true):
 #ifdef HAVE_FOX
         myMutex(true),
 #endif
         myCondition(condition)
     {}
-
-    T top() {
-        assert(myItems.size() != 0);
-#ifdef HAVE_FOX
-        if (myCondition) {
-            myMutex.lock();
-        }
-#endif
-        T ret = myItems.front();
-#ifdef HAVE_FOX
-        if (myCondition) {
-            myMutex.unlock();
-        }
-#endif
-        return ret;
-    }
-
-    void pop() {
-#ifdef HAVE_FOX
-        if (myCondition) {
-            myMutex.lock();
-        }
-#endif
-        myItems.erase(myItems.begin());
-#ifdef HAVE_FOX
-        if (myCondition) {
-            myMutex.unlock();
-        }
-#endif
-    }
 
     // Attention! Removes locking behavior
     void unsetCondition() {
@@ -90,7 +59,7 @@ public:
 #endif
 #ifdef DEBUG_LOCKING
         if (debugflag) {
-            std::cout << " FXSynchQue::getContainer thread=" << FXWorkerThread::current() << "\n";
+            std::cout << " FXSynchSet::getContainer thread=" << FXWorkerThread::current() << "\n";
         }
         myOwningThread = FXWorkerThread::current();
 #endif
@@ -105,19 +74,19 @@ public:
 #endif
 #ifdef DEBUG_LOCKING
         if (debugflag) {
-            std::cout << " FXSynchQue::unlock       thread=" << FXWorkerThread::current() << "\n";
+            std::cout << " FXSynchSet::unlock       thread=" << FXWorkerThread::current() << "\n";
         }
         myOwningThread = 0;
 #endif
     }
 
-    void push_back(T what) {
+    void insert(T what) {
 #ifdef HAVE_FOX
         if (myCondition) {
             myMutex.lock();
         }
 #endif
-        myItems.push_back(what);
+        myItems.insert(what);
 #ifdef HAVE_FOX
         if (myCondition) {
             myMutex.unlock();

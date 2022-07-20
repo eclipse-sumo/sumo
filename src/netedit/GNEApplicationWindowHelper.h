@@ -21,9 +21,9 @@
 #include <config.h>
 
 #include <utils/common/SUMOTime.h>
-#include <utils/foxtools/FXSynchQue.h>
-#include <utils/foxtools/FXRecentNetworks.h>
-#include <utils/foxtools/FXThreadEvent.h>
+#include <utils/foxtools/MFXSynchQue.h>
+#include <utils/foxtools/MFXRecentNetworks.h>
+#include <utils/foxtools/MFXThreadEvent.h>
 #include <utils/foxtools/MFXInterThreadEventClient.h>
 #include <utils/geom/Position.h>
 #include <utils/gui/div/GUIMessageWindow.h>

@@ -26,7 +26,7 @@
 #include <vector>
 #include <bitset>
 #ifdef HAVE_FOX
-#include <utils/foxtools/FXWorkerThread.h>
+#include <utils/foxtools/MFXWorkerThread.h>
 #endif
 #include <utils/iodevices/OutputDevice_COUT.h>
 #include <microsim/MSEventControl.h>

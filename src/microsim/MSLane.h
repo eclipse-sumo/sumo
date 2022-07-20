@@ -44,9 +44,9 @@
 #include "MSMoveReminder.h"
 #include "MSVehicle.h"
 
-#include <utils/foxtools/FXSynchQue.h>
+#include <utils/foxtools/MFXSynchQue.h>
 #ifdef HAVE_FOX
-#include <utils/foxtools/FXWorkerThread.h>
+#include <utils/foxtools/MFXWorkerThread.h>
 #endif
 #include <utils/common/StopWatch.h>
 

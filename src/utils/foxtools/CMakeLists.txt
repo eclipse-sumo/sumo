@@ -1,31 +1,31 @@
 set(utils_foxtools_STAT_SRCS
    fxheader.h
    fxexdefs.h
-   FXBaseObject.cpp
-   FXBaseObject.h
-   FXLCDLabel.cpp
-   FXLCDLabel.h
-   FXLinkLabel.cpp
-   FXLinkLabel.h
-   FXGroupBoxModule.h
-   FXGroupBoxModule.cpp
-   FXMenuCheckIcon.cpp
-   FXMenuCheckIcon.h
-   FXRecentNetworks.cpp
-   FXRecentNetworks.h
-   FXSevenSegment.cpp
-   FXSevenSegment.h
-   FXSingleEventThread.cpp
-   FXSingleEventThread.h
-   FXStaticToolTip.cpp
-   FXStaticToolTip.h
-   FXSynchQue.h
-   FXSynchSet.h
-   FXThreadEvent.cpp
-   FXThreadEvent.h
-   FXTreeListDynamic.cpp
-   FXTreeListDynamic.h
-   FXWorkerThread.h
+   MFXBaseObject.cpp
+   MFXBaseObject.h
+   MFXLCDLabel.cpp
+   MFXLCDLabel.h
+   MFXLinkLabel.cpp
+   MFXLinkLabel.h
+   MFXGroupBoxModule.h
+   MFXGroupBoxModule.cpp
+   MFXMenuCheckIcon.cpp
+   MFXMenuCheckIcon.h
+   MFXRecentNetworks.cpp
+   MFXRecentNetworks.h
+   MFXSevenSegment.cpp
+   MFXSevenSegment.h
+   MFXSingleEventThread.cpp
+   MFXSingleEventThread.h
+   MFXStaticToolTip.cpp
+   MFXStaticToolTip.h
+   MFXSynchQue.h
+   MFXSynchSet.h
+   MFXThreadEvent.cpp
+   MFXThreadEvent.h
+   MFXTreeListDynamic.cpp
+   MFXTreeListDynamic.h
+   MFXWorkerThread.h
    MFXAddEditTypedTable.cpp
    MFXAddEditTypedTable.h
    MFXButtonTooltip.cpp

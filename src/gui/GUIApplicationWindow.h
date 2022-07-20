@@ -27,11 +27,11 @@
 #include <vector>
 #include <iostream>
 #include <utils/foxtools/fxheader.h>
-#include <utils/foxtools/FXSynchQue.h>
-#include <utils/foxtools/FXThreadEvent.h>
+#include <utils/foxtools/MFXSynchQue.h>
+#include <utils/foxtools/MFXThreadEvent.h>
 #include <utils/foxtools/MFXInterThreadEventClient.h>
-#include <utils/foxtools/FXLCDLabel.h>
-#include <utils/foxtools/FXRecentNetworks.h>
+#include <utils/foxtools/MFXLCDLabel.h>
+#include <utils/foxtools/MFXRecentNetworks.h>
 #include <utils/gui/windows/GUIMainWindow.h>
 #include <utils/common/ValueRetriever.h>
 #include <utils/common/ValueSource.h>

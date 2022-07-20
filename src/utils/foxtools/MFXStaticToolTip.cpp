@@ -27,7 +27,7 @@
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 
-#include "FXStaticToolTip.h"
+#include "MFXStaticToolTip.h"
 
 
 #define HSPACE  4

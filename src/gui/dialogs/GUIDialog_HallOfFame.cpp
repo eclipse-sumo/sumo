@@ -22,7 +22,7 @@
 #include <config.h>
 
 #include "GUIDialog_HallOfFame.h"
-#include <utils/foxtools/FXLinkLabel.h>
+#include <utils/foxtools/MFXLinkLabel.h>
 #include <utils/common/StdDefs.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/div/GUIDesigns.h>

@@ -26,7 +26,7 @@
 
 #include <gtest/gtest.h>
 #include <utils/common/StdDefs.h>
-#include <utils/foxtools/FXWorkerThread.h>
+#include <utils/foxtools/MFXWorkerThread.h>
 
 class TestTask : public FXWorkerThread::Task {
 public:

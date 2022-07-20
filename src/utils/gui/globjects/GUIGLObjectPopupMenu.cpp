@@ -35,7 +35,7 @@
 #include <utils/gui/div/GUIUserIO.h>
 #include <utils/common/ToString.h>
 #include "GUIGLObjectPopupMenu.h"
-#include <utils/foxtools/FXLinkLabel.h>
+#include <utils/foxtools/MFXLinkLabel.h>
 
 // ===========================================================================
 // FOX callback mapping

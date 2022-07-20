@@ -26,7 +26,7 @@
 #include "fxexdefs.h"
 
 #ifndef FXBASEOBJECT_H
-#include "FXBaseObject.h"
+#include "MFXBaseObject.h"
 #endif
 namespace FXEX {
 
