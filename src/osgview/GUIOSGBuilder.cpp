@@ -102,10 +102,6 @@ GUIOSGBuilder::buildOSGScene(osg::Node* const tlg, osg::Node* const tly, osg::No
             lastLane = lane;
         }
     }
-    /* // BaM: GL_RESCALE_NORMAL possibly related to #7914 on test machine because of old OpenGL version?
-    osg::ref_ptr<osg::StateSet> ss = root->getOrCreateStateSet();
-    ss->setMode(GL_RESCALE_NORMAL, osg::StateAttribute::ON); 
-    */
     return root;
 }
 
