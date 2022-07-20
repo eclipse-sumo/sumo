@@ -258,12 +258,36 @@ GNEMatchGenericDataAttribute::onCmdSetEnd(FXObject*, FXSelector, void*) {
 
 long 
 GNEMatchGenericDataAttribute::onCmdSetFromTAZ(FXObject*, FXSelector, void*) {
+    if (myFromTAZComboBox->getText() == "<from TAZ>") {
+        myFromTAZComboBox->setTextColor(FXRGB(128, 128, 128));
+        return 1;
+    } else {
+        for (const auto &TAZ : myElementSet->getSelectorFrameParent()->getViewNet()->getNet()->getAttributeCarriers()->getAdditionals().at(SUMO_TAG_TAZ)) {
+            if (TAZ->getID().c_str() == myFromTAZComboBox->getText()) {
+                myFromTAZComboBox->setTextColor(FXRGB(0, 0, 0));
+                return 1;
+            }
+        }
+    }
+    myFromTAZComboBox->setTextColor(FXRGB(255, 0, 0));
     return 1;
 }
 
 
 long
 GNEMatchGenericDataAttribute::onCmdSetToTAZ(FXObject*, FXSelector, void*) {
+    if (myToTAZComboBox->getText() == "<to TAZ>") {
+        myFromTAZComboBox->setTextColor(FXRGB(128, 128, 128));
+        return 1;
+    } else {
+        for (const auto &TAZ : myElementSet->getSelectorFrameParent()->getViewNet()->getNet()->getAttributeCarriers()->getAdditionals().at(SUMO_TAG_TAZ)) {
+            if (TAZ->getID().c_str() == myToTAZComboBox->getText()) {
+                myToTAZComboBox->setTextColor(FXRGB(0, 0, 0));
+                return 1;
+            }
+        }
+    }
+    myToTAZComboBox->setTextColor(FXRGB(255, 0, 0));
     return 1;
 }
 
@@ -302,6 +326,7 @@ GNEMatchGenericDataAttribute::onCmdSelectTag(FXObject*, FXSelector, void*) {
         // check if shown TAZ text fields
         if (myCurrentTag == SUMO_TAG_TAZREL) {
             myTAZHorizontalFrame->show();
+            updateTAZComboBox();
         } else {
             myTAZHorizontalFrame->hide();
         }
@@ -452,6 +477,31 @@ GNEMatchGenericDataAttribute::onCmdHelp(FXObject*, FXSelector, void*) {
     // Write Warning in console if we're in testing mode
     WRITE_DEBUG("Close help dialog of selector frame");
     return 1;
+}
+
+
+void 
+GNEMatchGenericDataAttribute::updateTAZComboBox() {
+    // clear fromTAZComboBox
+    myFromTAZComboBox->clearItems();
+    myToTAZComboBox->clearItems();
+    // add first element
+    myFromTAZComboBox->appendItem("<from TAZ>");
+    myToTAZComboBox->appendItem("<to TAZ>");
+    // add all TAZs
+    for (const auto &TAZ : myElementSet->getSelectorFrameParent()->getViewNet()->getNet()->getAttributeCarriers()->getAdditionals().at(SUMO_TAG_TAZ)) {
+        myFromTAZComboBox->appendItem(TAZ->getID().c_str());
+        myToTAZComboBox->appendItem(TAZ->getID().c_str());
+    }
+    // set num of visible items
+    myFromTAZComboBox->setNumVisible(myFromTAZComboBox->getNumItems());
+    myToTAZComboBox->setNumVisible(myFromTAZComboBox->getNumItems());
+    // set first items
+    myFromTAZComboBox->setCurrentItem(0, TRUE);
+    myToTAZComboBox->setCurrentItem(0, TRUE);
+    // set color
+    myFromTAZComboBox->setTextColor(FXRGB(128, 128, 128));
+    myToTAZComboBox->setTextColor(FXRGB(128, 128, 128));
 }
 
 /****************************************************************************/

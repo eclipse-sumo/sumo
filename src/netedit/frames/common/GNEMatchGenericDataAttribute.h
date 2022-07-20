@@ -86,6 +86,9 @@ protected:
     /// @brief FOX need this
     FOX_CONSTRUCTOR(GNEMatchGenericDataAttribute)
 
+    /// @brief update TAZ ComboBox
+    void updateTAZComboBox();
+
 private:
     /// @brief pointer to element set Parent
     GNEElementSet* myElementSet;
