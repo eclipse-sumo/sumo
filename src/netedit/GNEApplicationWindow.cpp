@@ -494,18 +494,22 @@ GNEApplicationWindow::dependentBuild() {
 
 void
 GNEApplicationWindow::create() {
+    // set windows size and position
     setWindowSizeAndPos();
+    // set current folder
     gCurrentFolder = getApp()->reg().readStringEntry("SETTINGS", "basedir", "");
+    // Create main window
     FXMainWindow::create();
+    // create menu panes
     myFileMenu->create();
     myModesMenu->create();
     myEditMenu->create();
+    myFileMenuSUMOConfig->create();
     myFileMenuTLS->create();
     myFileMenuEdgeTypes->create();
     myFileMenuAdditionals->create();
     myFileMenuDemandElements->create();
     myFileMenuDataElements->create();
-    //mySettingsMenu->create();
     myWindowMenu->create();
     myHelpMenu->create();
 
@@ -533,6 +537,7 @@ GNEApplicationWindow::~GNEApplicationWindow() {
     delete myGLVisual;
     // must delete menus to avoid segfault on removing accelerators
     // (http://www.fox-toolkit.net/faq#TOC-What-happens-when-the-application-s)
+    delete myFileMenuSUMOConfig;
     delete myFileMenuTLS;
     delete myFileMenuEdgeTypes;
     delete myFileMenuAdditionals;
