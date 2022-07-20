@@ -53,6 +53,9 @@ public:
 
         /// @brief called when TAZ Relation button is updated
         long onUpdConfirmTAZRelation(FXObject*, FXSelector, void*);
+        
+        /// @brief called when user press clear TAZ Relation button
+        long onCmdClearSelection(FXObject*, FXSelector, void*);
 
     protected:
         /// @brief FOX needs this
@@ -64,6 +67,9 @@ public:
 
         /// @brief confirm TAZ Button
         FXButton* myConfirmTAZButton = nullptr;
+
+        /// @brief clear TAZ Button
+        FXButton* myClearTAZButton = nullptr;
     };
 
     // ===========================================================================
