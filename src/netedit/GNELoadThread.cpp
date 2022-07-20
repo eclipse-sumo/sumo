@@ -244,6 +244,9 @@ GNELoadThread::fillOptions(OptionsCont& oc) {
     oc.doRegister("dataelements-output", new Option_String());
     oc.addDescription("dataelements-output", "Netedit", "file in which data elements must be saved");
 
+    oc.doRegister("SUMOConfig-output", new Option_String());
+    oc.addDescription("SUMOConfig-output", "Netedit", "file in which SUMOCOnfig must be saved");
+
     oc.doRegister("TLSPrograms-output", new Option_String());
     oc.addDescription("TLSPrograms-output", "Netedit", "file in which TLS Programs must be saved");
 
