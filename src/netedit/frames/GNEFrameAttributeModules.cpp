@@ -91,7 +91,7 @@ GNEFrameAttributeModules::AttributesEditorRow::AttributesEditorRow(GNEFrameAttri
     myValueTextField = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     myValueTextField->hide();
     // Create and hide ComboBox
-    myValueComboBoxChoices = new MFXIconComboBox(this, GUIDesignComboBoxNCol, false, this, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBoxAttribute);
+    myValueComboBoxChoices = new MFXIconComboBox(this, GUIDesignComboBoxNCol, (ACAttr.getAttr() == SUMO_ATTR_VCLASS), this, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBoxAttribute);
     myValueComboBoxChoices->hide();
     // Create and hide checkButton
     myValueCheckButton = new FXCheckButton(this, "", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
@@ -222,7 +222,15 @@ GNEFrameAttributeModules::AttributesEditorRow::AttributesEditorRow(GNEFrameAttri
                 // fill comboBox
                 myValueComboBoxChoices->clearItems();
                 for (const auto& discreteValue : myACAttr.getDiscreteValues()) {
-                    myValueComboBoxChoices->appendIconItem(discreteValue.c_str());
+                    if (ACAttr.getAttr() == SUMO_ATTR_VCLASS) {
+                        if (canParseVehicleClasses(value)) {
+                            myValueComboBoxChoices->appendIconItem(discreteValue.c_str(), GNEAttributeCarrier::getVClassIcon(getVehicleClassID(value)));
+                        } else {
+                            myValueComboBoxChoices->appendIconItem(discreteValue.c_str());
+                        }
+                    } else {
+                        myValueComboBoxChoices->appendIconItem(discreteValue.c_str());
+                    }
                 }
                 // show combo box with values
                 myValueComboBoxChoices->setNumVisible((int)myACAttr.getDiscreteValues().size());
@@ -316,7 +324,15 @@ GNEFrameAttributeModules::AttributesEditorRow::refreshAttributesEditorRow(const 
         // fill terminategain
         myValueComboBoxChoices->clearItems();
         for (const auto& discreteValue : myACAttr.getDiscreteValues()) {
-            myValueComboBoxChoices->appendIconItem(discreteValue.c_str());
+            if (myACAttr.getAttr() == SUMO_ATTR_VCLASS) {
+                if (canParseVehicleClasses(value)) {
+                    myValueComboBoxChoices->appendIconItem(discreteValue.c_str(), GNEAttributeCarrier::getVClassIcon(getVehicleClassID(value)));
+                } else {
+                    myValueComboBoxChoices->appendIconItem(discreteValue.c_str());
+                }
+            } else {
+                myValueComboBoxChoices->appendIconItem(discreteValue.c_str());
+            }
         }
         // show combo box with values
         myValueComboBoxChoices->setNumVisible((int)myACAttr.getDiscreteValues().size());
