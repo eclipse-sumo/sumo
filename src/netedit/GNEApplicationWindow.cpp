@@ -107,6 +107,12 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_L_SAVEASPLAINXML,                   GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SAVEJOINEDJUNCTIONS,                        GNEApplicationWindow::onCmdSaveJoined),
     FXMAPFUNC(SEL_UPDATE,   MID_GNE_SAVEJOINEDJUNCTIONS,                        GNEApplicationWindow::onUpdNeedsNetwork),
+    // SUMOConfig
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_M_OPENSUMOCONFIG,                   GNEApplicationWindow::onCmdOpenSUMOConfig),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_RELOAD_SUMOCONFIG,              GNEApplicationWindow::onCmdReloadSUMOConfig),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_RELOAD_SUMOCONFIG,              GNEApplicationWindow::onUpdReloadSUMOConfig),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_SHIFT_M_SAVESUMOCONFIG,             GNEApplicationWindow::onCmdSaveSUMOConfig),
+    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_SHIFT_M_SAVESUMOCONFIG,             GNEApplicationWindow::onUpdSaveSUMOConfig),
     // TLS
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_K_OPENTLSPROGRAMS,                  GNEApplicationWindow::onCmdOpenTLSPrograms),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_K_OPENTLSPROGRAMS,                  GNEApplicationWindow::onUpdNeedsNetwork),
@@ -711,11 +717,62 @@ GNEApplicationWindow::onCmdOpenForeign(FXObject*, FXSelector, void*) {
 }
 
 
+long 
+GNEApplicationWindow::onCmdOpenSUMOConfig(FXObject*, FXSelector, void*) {
+    // write debug information
+    WRITE_DEBUG("Open SUMOConfig dialog");
+    // get the SUMOConfig file name
+    FXFileDialog opendialog(this, "Open SUMOConfig file");
+    opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::SUMO_MINI));
+    opendialog.setSelectMode(SELECTFILE_EXISTING);
+    opendialog.setPatternList("SUMOConfig files (*.sumocfg)\nAll files (*)");
+    if (gCurrentFolder.length() != 0) {
+        opendialog.setDirectory(gCurrentFolder);
+    }
+    if (opendialog.execute()) {
+        // close additional dialog
+        WRITE_DEBUG("Close SUMOConfig dialog");
+        gCurrentFolder = opendialog.getDirectory();
+        std::string file = opendialog.getFilename().text();
+
+        /* OPEN SUMO CONFIG */
+
+    } else {
+        // write debug information
+        WRITE_DEBUG("Cancel SUMOConfig dialog");
+    }
+    return 1;
+}
+
+
+long 
+GNEApplicationWindow::onCmdReloadSUMOConfig(FXObject*, FXSelector, void*) {
+    // Run parser
+    myUndoList->begin(Supermode::NETWORK, GUIIcon::MODETLS, "loading SUMOConfig from '" + OptionsCont::getOptions().getString("SUMOConfig-output") + "'");
+    myNet->computeNetwork(this);
+
+    /* RELOAD SUMO CONFIG */
+
+    return 1;
+}
+
+
+long 
+GNEApplicationWindow::onUpdReloadSUMOConfig(FXObject*, FXSelector, void*) {
+    // check if file exist
+    if (myViewNet && OptionsCont::getOptions().getString("SUMOConfig-output").empty()) {
+        return myFileMenuCommands.reloadSUMOConfig->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
+    } else {
+        return myFileMenuCommands.reloadSUMOConfig->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
+    }
+}
+
+
 long
 GNEApplicationWindow::onCmdOpenTLSPrograms(FXObject*, FXSelector, void*) {
     // write debug information
     WRITE_DEBUG("Open TLSProgram dialog");
-    // get the shape file name
+    // get the TLSPrograms file name
     FXFileDialog opendialog(this, "Open TLS Programs file");
     opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::MODETLS));
     opendialog.setSelectMode(SELECTFILE_EXISTING);
@@ -3221,6 +3278,65 @@ GNEApplicationWindow::onCmdSaveNetwork(FXObject*, FXSelector, void*) {
         myViewNet->setFocus();
         return 1;
     }
+}
+
+
+long 
+GNEApplicationWindow::onCmdSaveSUMOConfig(FXObject*, FXSelector, void*) {
+    // obtain option container
+    OptionsCont& oc = OptionsCont::getOptions();
+    // check if save additional menu is enabled
+    if (myFileMenuCommands.saveSUMOConfig->isEnabled()) {
+        // Check if SUMOConfig file was already set at start of netedit or with a previous save
+        if (oc.getString("SUMOConfig-output").empty()) {
+            // declare current folder
+            FXString currentFolder = gCurrentFolder;
+            // check if there is a saved network
+            if (oc.getString("output-file").size() > 0) {
+                // extract folder
+                currentFolder = getFolder(oc.getString("output-file"));
+            }
+            // open dialog
+            FXString file = MFXUtils::getFilename2Write(this,
+                            "Save SUMOConfig", ".xml",
+                            GUIIconSubSys::getIcon(GUIIcon::SUMO_MINI),
+                            currentFolder);
+            // add xml extension
+            std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".sumocfg");
+            // check tat file is valid
+            if (file == "") {
+                // None SUMOConfig file was selected, then stop function
+                return 0;
+            } else {
+                // change value of "SUMOConfig-output"
+                oc.resetWritable();
+                oc.set("SUMOConfig-output", fileWithExtension);
+            }
+        }
+        // Start saving SUMOConfig
+        getApp()->beginWaitCursor();
+
+        /* SAVE SUMOCONFIG*/
+
+        getApp()->endWaitCursor();
+        // restore focus
+        setFocus();
+        return 1;
+    } else {
+        return 0;
+    }
+}
+
+
+long 
+GNEApplicationWindow::onUpdSaveSUMOConfig(FXObject* sender, FXSelector, void*) {
+    // check if net exist and there is junctions
+    if (myNet) {
+        sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
+    } else {
+        sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
+    }
+    return 1;
 }
 
 

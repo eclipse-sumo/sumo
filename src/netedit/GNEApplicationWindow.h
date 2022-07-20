@@ -116,6 +116,15 @@ public:
     /// @brief called when the command/FXCall open foreign is executed
     long onCmdOpenForeign(FXObject*, FXSelector, void*);
 
+    /// @brief called when the command/FXCall open SUMOConfig is executed
+    long onCmdOpenSUMOConfig(FXObject*, FXSelector, void*);
+
+    /// @brief called when the command/FXCall reload SUMOConfig is executed
+    long onCmdReloadSUMOConfig(FXObject*, FXSelector, void*);
+
+    /// @brief called when the command/FXCall reload SUMOConfig is updated
+    long onUpdReloadSUMOConfig(FXObject*, FXSelector, void*);
+
     /// @brief called when the command/FXCall open TLS programs is executed
     long onCmdOpenTLSPrograms(FXObject*, FXSelector, void*);
 
@@ -160,6 +169,12 @@ public:
 
     /// @brief called when the command/FXCall save network is executed
     long onCmdSaveNetwork(FXObject*, FXSelector, void*);
+
+    /// @brief called when the command/FXCall save SUMOConfig is executed
+    long onCmdSaveSUMOConfig(FXObject*, FXSelector, void*);
+
+    /// @brief called when the command/FXCall save SUMOConfig is updated
+    long onUpdSaveSUMOConfig(FXObject*, FXSelector, void*);
 
     /// @brief called when the command/FXCall save TLSPrograms is executed
     long onCmdSaveTLSPrograms(FXObject*, FXSelector, void*);
