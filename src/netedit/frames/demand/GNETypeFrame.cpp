@@ -62,24 +62,26 @@ GNETypeFrame::TypeSelector::TypeSelector(GNETypeFrame* typeFrameParent) :
     myTypeFrameParent(typeFrameParent),
     myCurrentType(nullptr) {
     // Create FXComboBox
-    myTypeMatchBox = new FXComboBox(getCollapsableFrame(), GUIDesignComboBoxNCol, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
-    // add default Vehicle an Bike types in the first and second positions
-    for (const auto& defaultvType : DEFAULT_VTYPES) {
-        myTypeMatchBox->appendItem(defaultvType.c_str());
+    myTypeComboBox = new MFXIconComboBox(getCollapsableFrame(), GUIDesignComboBoxNCol, true, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
+    // add default Types (always first)
+    for (const auto& vType : myTypeFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VTYPE)) {
+        if (DEFAULT_VTYPES.count(vType->getID()) != 0) {
+            myTypeComboBox->appendIconItem(vType->getID().c_str(), vType->getIcon(), FXRGB(255, 255, 200));
+        }
     }
     // fill myTypeMatchBox with list of VTypes IDs
     for (const auto& vType : myTypeFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VTYPE)) {
         if (DEFAULT_VTYPES.count(vType->getID()) == 0) {
-            myTypeMatchBox->appendItem(vType->getID().c_str());
+            myTypeComboBox->appendIconItem(vType->getID().c_str(), vType->getIcon());
         }
     }
     // set DEFAULT_VEHTYPE as default VType
     myCurrentType = myTypeFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, DEFAULT_VTYPE_ID);
     // Set visible items
-    if (myTypeMatchBox->getNumItems() <= 20) {
-        myTypeMatchBox->setNumVisible((int)myTypeMatchBox->getNumItems());
+    if (myTypeComboBox->getNumItems() <= 20) {
+        myTypeComboBox->setNumVisible((int)myTypeComboBox->getNumItems());
     } else {
-        myTypeMatchBox->setNumVisible(20);
+        myTypeComboBox->setNumVisible(20);
     }
     // TypeSelector is always shown
     show();
@@ -106,28 +108,30 @@ void
 GNETypeFrame::TypeSelector::refreshTypeSelector() {
     bool valid = false;
     // clear items
-    myTypeMatchBox->clearItems();
+    myTypeComboBox->clearItems();
     // add default Vehicle an Bike types in the first and second positions
-    for (const auto& defaultvType : DEFAULT_VTYPES) {
-        myTypeMatchBox->appendItem(defaultvType.c_str());
+    for (const auto& vType : myTypeFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VTYPE)) {
+        if (DEFAULT_VTYPES.count(vType->getID()) != 0) {
+            myTypeComboBox->appendIconItem(vType->getID().c_str(), vType->getIcon(), FXRGB(255, 255, 200));
+        }
     }
     // fill myTypeMatchBox with list of VTypes IDs
     for (const auto& vType : myTypeFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VTYPE)) {
         if (DEFAULT_VTYPES.count(vType->getID()) == 0) {
-            myTypeMatchBox->appendItem(vType->getID().c_str());
+            myTypeComboBox->appendIconItem(vType->getID().c_str(), vType->getIcon());
         }
     }
     // Set visible items
-    if (myTypeMatchBox->getNumItems() <= 20) {
-        myTypeMatchBox->setNumVisible((int)myTypeMatchBox->getNumItems());
+    if (myTypeComboBox->getNumItems() <= 20) {
+        myTypeComboBox->setNumVisible((int)myTypeComboBox->getNumItems());
     } else {
-        myTypeMatchBox->setNumVisible(20);
+        myTypeComboBox->setNumVisible(20);
     }
     // make sure that tag is in myTypeMatchBox
     if (myCurrentType) {
-        for (int i = 0; i < (int)myTypeMatchBox->getNumItems(); i++) {
-            if (myTypeMatchBox->getItem(i).text() == myCurrentType->getID()) {
-                myTypeMatchBox->setCurrentItem(i);
+        for (int i = 0; i < (int)myTypeComboBox->getNumItems(); i++) {
+            if (myTypeComboBox->getItem(i).text() == myCurrentType->getID()) {
+                myTypeComboBox->setCurrentItem(i);
                 valid = true;
             }
         }
@@ -137,9 +141,9 @@ GNETypeFrame::TypeSelector::refreshTypeSelector() {
         // set DEFAULT_VEHTYPE as default VType
         myCurrentType = myTypeFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, DEFAULT_VTYPE_ID);
         // refresh myTypeMatchBox again
-        for (int i = 0; i < (int)myTypeMatchBox->getNumItems(); i++) {
-            if (myTypeMatchBox->getItem(i).text() == myCurrentType->getID()) {
-                myTypeMatchBox->setCurrentItem(i);
+        for (int i = 0; i < (int)myTypeComboBox->getNumItems(); i++) {
+            if (myTypeComboBox->getItem(i).text() == myCurrentType->getID()) {
+                myTypeComboBox->setCurrentItem(i);
             }
         }
     }
@@ -155,7 +159,7 @@ GNETypeFrame::TypeSelector::refreshTypeSelector() {
 void
 GNETypeFrame::TypeSelector::refreshTypeSelectorIDs() {
     if (myCurrentType) {
-        myTypeMatchBox->setItem(myTypeMatchBox->getCurrentItem(), myCurrentType->getID().c_str());
+        myTypeComboBox->setIconItem(myTypeComboBox->getCurrentItem(), myCurrentType->getID().c_str(), myCurrentType->getIcon());
     }
 }
 
@@ -164,11 +168,11 @@ long
 GNETypeFrame::TypeSelector::onCmdSelectItem(FXObject*, FXSelector, void*) {
     // Check if value of myTypeMatchBox correspond of an allowed additional tags
     for (const auto& vType : myTypeFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VTYPE)) {
-        if (vType->getID() == myTypeMatchBox->getText().text()) {
+        if (vType->getID() == myTypeComboBox->getText().text()) {
             // set pointer
             myCurrentType = vType;
             // set color of myTypeMatchBox to black (valid)
-            myTypeMatchBox->setTextColor(FXRGB(0, 0, 0));
+            myTypeComboBox->setTextColor(FXRGB(0, 0, 0));
             // refresh vehicle type editor modul
             myTypeFrameParent->myTypeEditor->refreshTypeEditorModule();
             // set myCurrentType as inspected element
@@ -176,7 +180,7 @@ GNETypeFrame::TypeSelector::onCmdSelectItem(FXObject*, FXSelector, void*) {
             // show moduls if selected item is valid
             myTypeFrameParent->myTypeAttributesEditor->showAttributeEditorModule(false, true);
             // Write Warning in console if we're in testing mode
-            WRITE_DEBUG(("Selected item '" + myTypeMatchBox->getText() + "' in TypeSelector").text());
+            WRITE_DEBUG(("Selected item '" + myTypeComboBox->getText() + "' in TypeSelector").text());
             // update viewNet
             myTypeFrameParent->getViewNet()->updateViewNet();
             return 1;
@@ -188,7 +192,7 @@ GNETypeFrame::TypeSelector::onCmdSelectItem(FXObject*, FXSelector, void*) {
     // hide all moduls if selected item isn't valid
     myTypeFrameParent->myTypeAttributesEditor->hideAttributesEditorModule();
     // set color of myTypeMatchBox to red (invalid)
-    myTypeMatchBox->setTextColor(FXRGB(255, 0, 0));
+    myTypeComboBox->setTextColor(FXRGB(255, 0, 0));
     // Write Warning in console if we're in testing mode
     WRITE_DEBUG("Selected invalid item in TypeSelector");
     // update viewNet
