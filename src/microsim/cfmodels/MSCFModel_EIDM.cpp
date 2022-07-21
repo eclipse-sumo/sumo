@@ -924,7 +924,8 @@ MSCFModel_EIDM::_v(const MSVehicle* const veh, const double gap2pred, const doub
         // Because of the reaction time and estimated variables, s* can become lower than gap when the vehicle needs to brake/is braking, that results in the vehicle accelerating again...
         // Here: When the gap is very small, s* is influenced to then always be bigger than the gap. With this there are no oscillations in accel at small gaps!
         if (lastrespectMinGap) {
-            if (estGap < myType->getMinGap() + 2 * EIDM_POS_ACC_EPS && estSpeed < EST_REAC_THRESHOLD && s < estGap * sqrt(1 + 2 * EIDM_POS_ACC_EPS / myAccel)) {
+			// The allowed position error when coming to a stop behind a leader is higher with higher timesteps (approx. 0.5m at 1.0s timstep, 0.1m at 0.1s)
+            if (estGap < myType->getMinGap() + (TS * 10 + 1) * EIDM_POS_ACC_EPS && estSpeed < EST_REAC_THRESHOLD && s < estGap * sqrt(1 + 2 * EIDM_POS_ACC_EPS / myAccel)) {
                 s = estGap * sqrt(1 + 2 * EIDM_POS_ACC_EPS / myAccel);
             }
         } else {
@@ -974,7 +975,7 @@ MSCFModel_EIDM::_v(const MSVehicle* const veh, const double gap2pred, const doub
             if (respectMinGap) {
                 woulds += myType->getMinGap() + EIDM_POS_ACC_EPS; // when behind a vehicle use MinGap and when at a junction then not????
             } else {
-                woulds += EIDM_POS_ACC_EPS;
+                woulds += minGapStop_EPS + EIDM_POS_ACC_EPS;
             }
 
             if (current_estSpeed <= v0) {
@@ -1084,9 +1085,9 @@ MSCFModel_EIDM::_v(const MSVehicle* const veh, const double gap2pred, const doub
         // The "full"-gap is only calculated with the last measured newSpeed, while the "sub"-gap uses all "sub"-newSpeeds
         // Example: In the last iteration-step newSpeed becomes 0. Therefore in the Euler Update, the vehicle does not move for the whole timestep!
         // Example: But in the "sub"-gaps the vehicle may have moved. Therefore, stops can sometimes not be reached
-        newGap = MAX2(NUMERICAL_EPS, newGap - SPEED2DIST(newSpeed - predSpeed) / myIterations);
+        newGap = MAX2(NUMERICAL_EPS, newGap - MAX2(0., SPEED2DIST(newSpeed - predSpeed) / myIterations));
         // Ballistic:
-        //newGap = MAX2(NUMERICAL_EPS, newGap - SPEED2DIST(MAX2(0.0, current_estSpeed + 0.5 * ACCEL2SPEED(acc) / myIterations) - predSpeed) / myIterations);
+        //newGap = MAX2(NUMERICAL_EPS, newGap - MAX2(0., SPEED2DIST(MAX2(0.0, current_estSpeed + 0.5 * ACCEL2SPEED(acc) / myIterations) - predSpeed) / myIterations));
 
         // To always reach stops in high-timestep simulations, we adapt the speed to the actual distance that is covered:
         // This may only be needed for Euler Update...
