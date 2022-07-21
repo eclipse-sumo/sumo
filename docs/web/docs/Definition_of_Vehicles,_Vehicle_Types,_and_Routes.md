@@ -1040,11 +1040,12 @@ A distribution can be used just as using individual types and routes:
 !!! caution
     When using [duarouter](duarouter.md) with input files containing distributions, the output files will contain a fixed route and type for each vehicle and the distributions will be gone. This is to ensure that the each vehicles route will fit its sampled `vClass` when using the input files with [sumo](sumo.md)
 
-# Stops
+# Stops and waypoints
 
 Vehicles may be forced to stop for a defined time span or wait for
 persons by using the stop element either as part of a route or a vehicle
-definition as following:
+definition. The stop element can also be used to guide vehicles along a route to 
+a waypoint. The examples below show all three cases:
 
 ```xml
 <routes>
@@ -1054,15 +1055,20 @@ definition as following:
     <vehicle id="v0" route="route0" depart="0">
         <stop lane="end_0" endPos="10" until="50"/>
     </vehicle>
+    <vehicle id="v1" route="route0" depart="90">
+        <stop lane="end_1" endPos="10" speed="13.89"/>
+    </vehicle>
 </routes>
 ```
 
-The resulting vehicle will stop twice, once at lane middle_0 because of
+The resulting vehicle `v0` will stop twice, once at lane middle_0 because of
 the stop defined in its route and the second time because of the stop
 defined in the vehicle itself. The first stop will last 20 seconds the
 second one until simulation second 50. For a detailed list of attributes
 to stops see below. For a description on how to use them to simulate
 public transport see [Simulation/Public Transport](Simulation/Public_Transport.md).
+The second vehicle `v1` will stop once at lane middle_0 as defined in the route, then 
+head to lane end_1 and pass that point at 13.89 m/s before terminating at route at rend edge.
 
 Stops can be childs of vehicles, routes, persons or containers.
 
