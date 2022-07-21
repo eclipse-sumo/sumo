@@ -26,6 +26,8 @@
 #include "fxheader.h"
 
 #include <utils/gui/div/GUIDesigns.h>
+#include <utils/common/UtilExceptions.h>
+
 #include "MFXStaticToolTip.h"
 
 /**
@@ -58,12 +60,20 @@ public:
 
     /// Modify cell text
     void setItemText(FXint row, FXint column, const FXString& text, FXbool notify = FALSE) {
-
+        if ((row < myRows.size()) && (column < myColumns.size())) {
+            myRows.at(row)->textFields.at(column)->setText(text, notify);
+        } else {
+            throw ProcessError("Invalid row or column");
+        }
     }
 
     /// Return cell text
     FXString getItemText(FXint row, FXint column) const {
-        return "";
+        if ((row < myRows.size()) && (column < myColumns.size())) {
+            myRows.at(row)->textFields.at(column)->getText();
+        } else {
+            throw ProcessError("Invalid row or column");
+        }
     }
 
     /// Get number of rows
@@ -78,7 +88,11 @@ public:
 
     /// Select a row
     FXbool selectRow(FXint row, FXbool notify = FALSE) {
-        //
+        if (row < myRows.size()) {
+            myRows.at(row)->select();
+        } else {
+            throw ProcessError("Invalid row");
+        }
     }
 
     /// Get selection start row; returns -1 if no selection
@@ -94,14 +108,18 @@ public:
     }
 
     /// Change column header text
-    void setColumnText(FXint index,const FXString& text) {
-        
+    void setColumnText(FXint column,const FXString& text) {
+        if (column < myColumns.size()) {
+            myColumns.at(column)->label->setText(text);
+        } else {
+            throw ProcessError("Invalid column");
+        }
     }
 
     /// Set the table size to nr rows and nc columns; all existing items will be removed
     void setTableSize(FXint numberRow, FXint numberColumn, FXbool notify = FALSE) {
         // first clear table
-        clear();
+        clearTable();
         // create columns
         for (int i = 0; i < numberColumn; i++) {
             myColumns.push_back(new Column(this));
@@ -115,37 +133,41 @@ public:
 
     /// Change visible rows
     void setVisibleRows(FXint numVisibleRows) {
-
+        // CHECK
     }
 
     /// Change visible columns
     void setVisibleColumns(FXint numVisibleColumns) {
-
+        // CHECK
     }
 
     /// Change column width
     void setColumnWidth(FXint column, FXint columnWidth) {
-
+        // CHECK
     }
 
     /// Return the item at the given index
-    FXTableItem *getItem(FXint row,FXint col) const {
-
+    FXTextField *getItem(FXint row, FXint col) const {
+        if ((row < myRows.size()) && (col < myColumns.size())) {
+            return myRows.at(row)->textFields.at(col);
+        } else {
+            throw ProcessError("Invalid row or column");
+        }
     }
 
     /// Get column width
     FXint getColumnWidth(FXint col) const {
-
+        // CHECK
     }
 
     /// Change default column width
     void setDefColumnWidth(FXint columnWidth) {
-
+        // CHECK
     }
 
     /// Fit column widths to contents
     void fitColumnsToContents(FXint column, FXint nc = 1) {
-
+        // CHECK
     }
 
     /**
@@ -184,7 +206,10 @@ protected:
     /// @brief FOX needs this
     FOX_CONSTRUCTOR(MFXTable)
 
-    struct Column {
+    /// @brief column 
+    class Column {
+
+    public:
         /// @brief constructor
         Column(MFXTable *table) {
             // create vertical frame
@@ -193,8 +218,10 @@ protected:
             label = new FXLabel(verticalFrame, "", nullptr, GUIDesignLabelLeft);
         }
 
+        /// @brief vertical frame
         FXVerticalFrame* verticalFrame = nullptr;
 
+        /// @brief column label 
         FXLabel* label = nullptr;
 
     private:
@@ -204,7 +231,9 @@ protected:
 
 
     /// @brief Row
-    struct Row {
+    class Row {
+
+    public:
         /// @brief constructor
         Row(MFXTable *table) {
             // build textFields
@@ -223,6 +252,10 @@ protected:
             }
         }
 
+        /// @brief select column
+        void select() { }
+
+        /// @brief list of text fields
         std::vector<FXTextField*> textFields;
 
     private:
@@ -239,7 +272,7 @@ protected:
     int currentRow = 0;
 
     /// @brief clear table
-    void clear() {
+    void clearTable() {
         // clear rows
         for (const auto &row : myRows) {
             delete row;
