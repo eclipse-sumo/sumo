@@ -265,7 +265,7 @@ class PlatoonManager(traci.StepListener):
                                 # check if common distance of routes is sufficient
                                 d = 0.0
                                 routeInCommon = True
-                                for ind, edgeIDEgo, edgeIDLeader  in zip(xrange(idxDelta), egoRoute[idxEgo:idxEgo+idxDelta],leaderRoute[idxLeader:idxLeader+idxDelta]):
+                                for ind, edgeIDEgo, edgeIDLeader  in zip(range(idxDelta), egoRoute[idxEgo:idxEgo+idxDelta],leaderRoute[idxLeader:idxLeader+idxDelta]):
                                     if edgeIDEgo == edgeIDLeader:
                                         d += traci.lane.getLength(edgeIDEgo+'_0')
                                         # check if lookahead distance is satisfied
