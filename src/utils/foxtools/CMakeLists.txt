@@ -40,6 +40,8 @@ set(utils_foxtools_STAT_SRCS
    MFXStaticToolTip.h
    MFXSynchQue.h
    MFXSynchSet.h
+   MFXTable.cpp
+   MFXTable.h
    MFXTextFieldIcon.cpp
    MFXTextFieldIcon.h
    MFXTextFieldTooltip.cpp
