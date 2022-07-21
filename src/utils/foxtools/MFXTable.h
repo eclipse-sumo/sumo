@@ -24,12 +24,14 @@
 #include <vector>
 
 #include "fxheader.h"
+
+#include <utils/gui/div/GUIDesigns.h>
 #include "MFXStaticToolTip.h"
 
 /**
  * @class MFXTable
  */
-class MFXTable : public FXButton {
+class MFXTable : public FXHorizontalFrame {
     /// @brief fox declaration
     FXDECLARE(MFXTable)
 
@@ -66,7 +68,7 @@ public:
 
     /// Get number of rows
     FXint getNumRows() const { 
-        return numberRows; 
+        return myRows.size(); 
     }
 
     /// Get row number of current item
@@ -98,6 +100,16 @@ public:
 
     /// Set the table size to nr rows and nc columns; all existing items will be removed
     void setTableSize(FXint numberRow, FXint numberColumn, FXbool notify = FALSE) {
+        // first clear table
+        clear();
+        // create columns
+        for (int i = 0; i < numberColumn; i++) {
+            myColumns.push_back(new Column(this));
+        }
+        // create rows
+        for (int i = 0; i < numberRow; i++) {
+            myRows.push_back(new Row(this));
+        }
 
     }
 
@@ -173,28 +185,73 @@ protected:
     FOX_CONSTRUCTOR(MFXTable)
 
     struct Column {
-        FXVerticalFrame* verticalFrame;
-        FXLabel* label;
+        /// @brief constructor
+        Column(MFXTable *table) {
+            // create vertical frame
+            verticalFrame = new FXVerticalFrame(table, GUIDesignAuxiliarHorizontalFrame);
+            // create label for column
+            label = new FXLabel(verticalFrame, "", nullptr, GUIDesignLabelLeft);
+        }
+
+        FXVerticalFrame* verticalFrame = nullptr;
+
+        FXLabel* label = nullptr;
+
+    private:
+        /// @brief default constructor
+        Column() {}
     };
 
 
     /// @brief Row
     struct Row {
+        /// @brief constructor
+        Row(MFXTable *table) {
+            // build textFields
+            for (int i = 0; i < table->myColumns.size(); i++) {
+                auto textField = new FXTextField(table->myColumns.at(0)->verticalFrame, GUIDesignTextFieldNCol, table, 0, GUIDesignTextField);
+                textField->create();
+                textFields.push_back(textField);
+                
+            }
+        }
+
+        /// @brief destructor
+        ~Row() {
+            for (const auto &textField : textFields) {
+                textField->destroy();
+            }
+        }
+
         std::vector<FXTextField*> textFields;
 
+    private:
+        /// @brief default constructor
+        Row() {}
     };
 
-    std::vector<Column> myHeaders;
+    /// @brief columns
+    std::vector<Column*> myColumns;
 
-    std::vector<Row> myRows;
+    /// @brief rows
+    std::vector<Row*> myRows;
 
     int currentRow = 0;
 
-    /// @brief number of rows
-    FXint numberRows = 0;
-
-    /// @brief number of columns
-    FXint numberColumns = 0;
+    /// @brief clear table
+    void clear() {
+        // clear rows
+        for (const auto &row : myRows) {
+            delete row;
+        }
+        // clear columns
+        for (const auto &column : myColumns) {
+            delete column;
+        }
+        // drop rows and columns
+        myRows.clear();
+        myColumns.clear();
+    }
 
 private:
     /// @brief Invalidated copy constructor.

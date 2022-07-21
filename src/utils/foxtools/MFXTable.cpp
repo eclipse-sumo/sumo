@@ -29,11 +29,11 @@ FXDEFMAP(MFXTable) MFXTableMap[] = {
 
 
 // Object implementation
-FXIMPLEMENT(MFXTable, FXButton, MFXTableMap, ARRAYNUMBER(MFXTableMap))
+FXIMPLEMENT(MFXTable, FXHorizontalFrame, MFXTableMap, ARRAYNUMBER(MFXTableMap))
 
 MFXTable::MFXTable(FXComposite *p , FXObject* tgt, FXSelector sel, FXuint opts, 
                    FXint x, FXint y, FXint w, FXint h, FXint pl, FXint pr, FXint pt, FXint pb) :
-    FXButton(p, "", nullptr, tgt, sel, opts, x, y, w, h, pl, pr, pt, pb) {
+    FXHorizontalFrame(p, sel, opts, x, y, w, h, pl, pr, pt, pb) {
 }
 
 
@@ -42,13 +42,13 @@ MFXTable::~MFXTable() {}
 
 long
 MFXTable::onEnter(FXObject* sender, FXSelector sel, void* ptr) {
-    return FXButton::onEnter(sender, sel, ptr);
+    return FXHorizontalFrame::onEnter(sender, sel, ptr);
 }
 
 
 long
 MFXTable::onLeave(FXObject* sender, FXSelector sel, void* ptr) {
-    return FXButton::onLeave(sender, sel, ptr);
+    return FXHorizontalFrame::onLeave(sender, sel, ptr);
 }
 
 
