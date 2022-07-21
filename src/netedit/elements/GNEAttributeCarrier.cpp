@@ -2453,7 +2453,7 @@ GNEAttributeCarrier::fillAdditionalElements() {
 
         // optional attributes (at least one must be defined)
         attrProperty = GNEAttributeProperties(SUMO_ATTR_TYPE,
-                                              GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::ACTIVATABLE,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::ACTIVATABLE | GNEAttributeProperties::VTYPE,
                                               "The id of the vehicle type to use for this " + toString(currentTag),
                                               DEFAULT_VTYPE_ID);
         myTagProperties[currentTag].addAttribute(attrProperty);
@@ -3362,7 +3362,7 @@ GNEAttributeCarrier::fillDemandElements() {
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(GNE_ATTR_VTYPE_DISTRIBUTION,
-                                              GNEAttributeProperties::STRING,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::VTYPE,
                                               "Vehicle Type Distribution");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
@@ -3550,7 +3550,7 @@ GNEAttributeCarrier::fillVehicleElements() {
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_TYPE,
-                                              GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY | GNEAttributeProperties::VTYPE,
                                               "The id of the " + toString(currentTag) + " type to use for this " + toString(currentTag),
                                               DEFAULT_VTYPE_ID);
         myTagProperties[currentTag].addAttribute(attrProperty);
@@ -3595,7 +3595,7 @@ GNEAttributeCarrier::fillVehicleElements() {
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_TYPE,
-                                              GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY | GNEAttributeProperties::VTYPE,
                                               "The id of the " + toString(currentTag) + " type to use for this " + toString(currentTag),
                                               DEFAULT_VTYPE_ID);
         myTagProperties[currentTag].addAttribute(attrProperty);
@@ -3635,7 +3635,7 @@ GNEAttributeCarrier::fillVehicleElements() {
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_TYPE,
-                                              GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY | GNEAttributeProperties::VTYPE,
                                               "The id of the vehicle type to use for this " + toString(currentTag),
                                               DEFAULT_VTYPE_ID);
         myTagProperties[currentTag].addAttribute(attrProperty);
@@ -3680,7 +3680,7 @@ GNEAttributeCarrier::fillVehicleElements() {
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_TYPE,
-                                              GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY | GNEAttributeProperties::VTYPE,
                                               "The id of the vehicle type to use for this " + toString(SUMO_TAG_VEHICLE),
                                               DEFAULT_VTYPE_ID);
         myTagProperties[currentTag].addAttribute(attrProperty);
@@ -3720,7 +3720,7 @@ GNEAttributeCarrier::fillVehicleElements() {
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_TYPE,
-                                              GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY | GNEAttributeProperties::VTYPE,
                                               "The id of the " + toString(currentTag) + " type to use for this " + toString(currentTag),
                                               DEFAULT_VTYPE_ID);
         myTagProperties[currentTag].addAttribute(attrProperty);
@@ -3762,7 +3762,7 @@ GNEAttributeCarrier::fillVehicleElements() {
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_TYPE,
-                                              GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY | GNEAttributeProperties::VTYPE,
                                               "The id of the " + toString(currentTag) + " type to use for this " + toString(currentTag),
                                               DEFAULT_VTYPE_ID);
         myTagProperties[currentTag].addAttribute(attrProperty);
@@ -3799,7 +3799,7 @@ GNEAttributeCarrier::fillVehicleElements() {
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_TYPE,
-                                              GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY | GNEAttributeProperties::VTYPE,
                                               "The id of the " + toString(currentTag) + " type to use for this " + toString(currentTag),
                                               DEFAULT_VTYPE_ID);
         myTagProperties[currentTag].addAttribute(attrProperty);
@@ -3841,7 +3841,7 @@ GNEAttributeCarrier::fillVehicleElements() {
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_TYPE,
-                                              GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY | GNEAttributeProperties::VTYPE,
                                               "The id of the " + toString(currentTag) + " type to use for this " + toString(SUMO_TAG_FLOW),
                                               DEFAULT_VTYPE_ID);
         myTagProperties[currentTag].addAttribute(attrProperty);
@@ -5376,7 +5376,7 @@ GNEAttributeCarrier::fillCommonPersonAttributes(SumoXMLTag currentTag) {
     myTagProperties[currentTag].addAttribute(attrProperty);
 
     attrProperty = GNEAttributeProperties(SUMO_ATTR_TYPE,
-                                          GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY,
+                                          GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY | GNEAttributeProperties::VTYPE,
                                           "The id of the " + toString(currentTag) + " type to use for this " + toString(currentTag),
                                           DEFAULT_VTYPE_ID);
     myTagProperties[currentTag].addAttribute(attrProperty);
@@ -5406,7 +5406,7 @@ GNEAttributeCarrier::fillCommonContainerAttributes(SumoXMLTag currentTag) {
     myTagProperties[currentTag].addAttribute(attrProperty);
 
     attrProperty = GNEAttributeProperties(SUMO_ATTR_TYPE,
-                                          GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY,
+                                          GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY | GNEAttributeProperties::VTYPE,
                                           "The id of the " + toString(currentTag) + " type to use for this " + toString(currentTag),
                                           DEFAULT_CONTAINERTYPE_ID);
     myTagProperties[currentTag].addAttribute(attrProperty);
