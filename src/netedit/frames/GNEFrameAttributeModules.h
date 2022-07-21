@@ -59,7 +59,7 @@ public:
     public:
         /// @brief constructor
         AttributesEditorRow(AttributesEditor* attributeEditorParent, const GNEAttributeProperties& ACAttr, const std::string& value,
-                            const bool attributeEnabled, const bool computed, FXIcon* icon);
+                            const bool attributeEnabled, const bool computed, GNEAttributeCarrier* ACParent);
 
         /// @brief destroy GNEAttributesCreatorRow (but don't delete)
         void destroy();
@@ -81,6 +81,9 @@ public:
 
         /// @brief open model dialog for more comfortable attribute editing
         long onCmdOpenAttributeDialog(FXObject*, FXSelector, void*);
+        
+        /// @brief inspect vType/VTypeDistribution parent
+        long onCmdInspectVTypeParent(FXObject*, FXSelector, void*);
         /// @}
 
     protected:
@@ -123,6 +126,9 @@ public:
 
         /// @brief pointer to menu check
         FXCheckButton* myValueCheckButton = nullptr;
+
+        /// @brief pointer to AC Parent
+        GNEAttributeCarrier* myACParent = nullptr;
     };
 
     // ===========================================================================

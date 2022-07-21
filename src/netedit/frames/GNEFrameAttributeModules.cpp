@@ -22,8 +22,10 @@
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewParent.h>
 #include <netedit/dialogs/GNEAllowVClassesDialog.h>
 #include <netedit/dialogs/GNESingleParametersDialog.h>
+#include <netedit/frames/common/GNEInspectorFrame.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/windows/GUIAppEnum.h>
@@ -40,6 +42,7 @@ FXDEFMAP(GNEFrameAttributeModules::AttributesEditorRow) AttributesEditorRowMap[]
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,          GNEFrameAttributeModules::AttributesEditorRow::onCmdSetAttribute),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_BOOL,     GNEFrameAttributeModules::AttributesEditorRow::onCmdSelectCheckButton),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_DIALOG,   GNEFrameAttributeModules::AttributesEditorRow::onCmdOpenAttributeDialog),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_VTYPE,    GNEFrameAttributeModules::AttributesEditorRow::onCmdInspectVTypeParent),
 };
 
 FXDEFMAP(GNEFrameAttributeModules::AttributesEditor) AttributesEditorMap[] = {
@@ -71,10 +74,11 @@ FXIMPLEMENT(GNEFrameAttributeModules::GenericDataAttributes,        MFXGroupBoxM
 // ---------------------------------------------------------------------------
 
 GNEFrameAttributeModules::AttributesEditorRow::AttributesEditorRow(GNEFrameAttributeModules::AttributesEditor* attributeEditorParent, const GNEAttributeProperties& ACAttr,
-        const std::string& value, const bool attributeEnabled, const bool computed, FXIcon* icon) :
+        const std::string& value, const bool attributeEnabled, const bool computed, GNEAttributeCarrier* ACParent) :
     FXHorizontalFrame(attributeEditorParent->getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame),
     myAttributesEditorParent(attributeEditorParent),
-    myACAttr(ACAttr) {
+    myACAttr(ACAttr),
+    myACParent(ACParent) {
     // Create and hide label
     myAttributeLabel = new FXLabel(this, "attributeLabel", nullptr, GUIDesignLabelAttribute);
     myAttributeLabel->hide();
@@ -88,7 +92,7 @@ GNEFrameAttributeModules::AttributesEditorRow::AttributesEditorRow(GNEFrameAttri
     myAttributeColorButton = new MFXButtonTooltip(this, "attributeColorButton", nullptr, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButtonAttribute);
     myAttributeColorButton->hide();
     // create and hide color editor
-    myAttributeVTypeButton = new MFXButtonTooltip(this, "attributeVTypeButton", icon, this, MID_GNE_SET_ATTRIBUTE_VTYPE, GUIDesignButtonAttribute);
+    myAttributeVTypeButton = new MFXButtonTooltip(this, "attributeVTypeButton", myACParent? myACParent->getIcon() : nullptr, this, MID_GNE_SET_ATTRIBUTE_VTYPE, GUIDesignButtonAttribute);
     myAttributeVTypeButton->hide();
     // Create and hide MFXTextFieldTooltip for string attributes
     myValueTextField = new MFXTextFieldTooltip(this, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
@@ -131,7 +135,7 @@ GNEFrameAttributeModules::AttributesEditorRow::AttributesEditorRow(GNEFrameAttri
             }
         }
         // set left column
-        if (myACAttr.isVType()) {
+        if (myACParent) {
             // show color button and set color text depending of computed
             if (computed) {
                 myAttributeVTypeButton->setTextColor(FXRGB(0, 0, 255));
@@ -140,8 +144,8 @@ GNEFrameAttributeModules::AttributesEditorRow::AttributesEditorRow(GNEFrameAttri
                 myAttributeVTypeButton->killFocus();
             }
             myAttributeVTypeButton->setText(myACAttr.getAttrStr().c_str());
-            myAttributeVTypeButton->setTipText(("Inspect " + myACAttr.getAttrStr() + " parent").c_str());
-            myAttributeVTypeButton->setHelpText(("Inspect " + myACAttr.getAttrStr() + " parent").c_str());
+            myAttributeVTypeButton->setTipText(("Inspect vehicle " + myACAttr.getAttrStr() + " parent").c_str());
+            myAttributeVTypeButton->setHelpText(("Inspect vehicle " + myACAttr.getAttrStr() + " parent").c_str());
             myAttributeVTypeButton->show();
         } else if (myACAttr.isColor()) {
             // show color button and set color text depending of computed
@@ -455,6 +459,14 @@ GNEFrameAttributeModules::AttributesEditorRow::onCmdOpenAttributeDialog(FXObject
 }
 
 
+long 
+GNEFrameAttributeModules::AttributesEditorRow::onCmdInspectVTypeParent(FXObject*, FXSelector, void*) {
+    auto viewnet = myAttributesEditorParent->getFrameParent()->getViewNet();
+    viewnet->getViewParent()->getInspectorFrame()->inspectChild(myACParent, viewnet->getInspectedAttributeCarriers().front());
+    return 1;
+}
+
+
 long
 GNEFrameAttributeModules::AttributesEditorRow::onCmdSetAttribute(FXObject*, FXSelector, void*) {
     // Declare changed value
@@ -746,16 +758,16 @@ GNEFrameAttributeModules::AttributesEditor::showAttributeEditorModule(bool inclu
                 // check if this attribute is computed
                 const bool computed = (ACs.size() > 1) ? false : ACs.front()->isAttributeComputed(attrProperty.getAttr());
                 // if is a Vtype, obtain icon
-                FXIcon* icon = nullptr;
-                if (attrProperty.isVType()) {
+                GNEAttributeCarrier* ACParent = nullptr;
+                if ((ACs.size() == 1) && attrProperty.isVType()) {
                     if (attrProperty.getAttr() == SUMO_ATTR_TYPE) {
-                        icon = myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, ACs.front()->getAttribute(SUMO_ATTR_TYPE))->getIcon();
-                    } else {
-                        icon = GUIIconSubSys::getIcon(GUIIcon::VTYPEDISTRIBUTION);
+                        ACParent = myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, ACs.front()->getAttribute(SUMO_ATTR_TYPE));
+                    } else if (ACs.front()->getAttribute(GNE_ATTR_VTYPE_DISTRIBUTION).size() > 0) {
+                        ACParent = myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE_DISTRIBUTION, ACs.front()->getAttribute(GNE_ATTR_VTYPE_DISTRIBUTION));
                     }
                 }
                 // create attribute editor row
-                myAttributesEditorRows[attrProperty.getPositionListed()] = new AttributesEditorRow(this, attrProperty, value, attributeEnabled, computed, icon);
+                myAttributesEditorRows[attrProperty.getPositionListed()] = new AttributesEditorRow(this, attrProperty, value, attributeEnabled, computed, ACParent);
             }
         }
         // check if Flow editor has to be shown
