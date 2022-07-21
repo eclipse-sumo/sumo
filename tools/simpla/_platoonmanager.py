@@ -62,21 +62,16 @@ class PlatoonManager(traci.StepListener):
         self._maxPlatoonGap = cfg.MAX_PLATOON_GAP
         # max distance for trying to catch up
         self._catchupDist = cfg.CATCHUP_DIST
-        
-        # js: TODO: these parameters should be loaded from config too:
-
         # ego vehicle needs at least this number of future edges in common with leader
         # before agreeing to follow...
-        self._edgenumberLookahead = 3
-
+        self._edgenumberLookahead = cfg.EDGE_LOOKAHEAD
         # Or the ego vehicle needs at least this distance of commom route length with leader
         # before agreeing to follow.
-        self._distLookahead = 500.0
-
+        self._distLookahead = cfg.DIST_LOOKAHEAD
         # no lane change advice if vehicle has less than this distance 
         # to the next  juction
-        self._lanechangeMinDist = 100.0
-        
+        self._lanechangeMinDist = cfg.LC_MINDIST
+      
         # platoons currently in the simulation
         # map: platoon ID -> platoon objects
         self._platoons = dict()
