@@ -4,9 +4,8 @@
     <vehicleSelectors></vehicleSelectors> 
     <verbosity value="4" ></verbosity>
     <controlRate value="1" />
-    <maxPlatoonGap value="15" />
-    <catchupDist value="100" />
-    <useHeadway value="false" />
+    <maxPlatoonHeadway value="1.5"/>
+    <catchupHeadway value="6"/>
     <!-- deactivated -->
     <switchImpatienceFactor value="-1" />
     <platoonSplitTime value="3" ></platoonSplitTime>

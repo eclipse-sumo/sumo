@@ -60,8 +60,12 @@ class PlatoonManager(traci.StepListener):
             report("Managing all vTypes selected by %s" % str(self._typeSubstrings), True)
         # max intra platoon gap
         self._maxPlatoonGap = cfg.MAX_PLATOON_GAP
+        # max intra platoon headway
+        self._maxPlatoonHeadway = cfg.MAX_PLATOON_HEADWAY
         # max distance for trying to catch up
         self._catchupDist = cfg.CATCHUP_DIST
+        # max headway for trying to catch up
+        self._catchupHeadway = cfg.CATCHUP_HEADWAY
         # ego vehicle needs at least this number of future edges in common with leader
         # before agreeing to follow...
         self._edgenumberLookahead = cfg.EDGE_LOOKAHEAD
@@ -71,7 +75,9 @@ class PlatoonManager(traci.StepListener):
         # no lane change advice if vehicle has less than this distance 
         # to the next  juction
         self._lanechangeMinDist = cfg.LC_MINDIST
-      
+        # set the platooning join / split criterion: gap distance or headway
+        self._useHeadway = cfg.USE_HEADWAY
+        
         # platoons currently in the simulation
         # map: platoon ID -> platoon objects
         self._platoons = dict()
@@ -222,41 +228,31 @@ class PlatoonManager(traci.StepListener):
             veh.state.edgeID = self._subscriptionResults[veh.getID()][tc.VAR_ROAD_ID]
             veh.state.laneID = self._subscriptionResults[veh.getID()][tc.VAR_LANE_ID]
             veh.state.laneIX = self._subscriptionResults[veh.getID()][tc.VAR_LANE_INDEX]
-            veh.state.leaderInfo = traci.vehicle.getLeader(veh.getID(), self._catchupDist)
+            veh.state.leaderInfo = traci.vehicle.getLeader(veh.getID(), self._catchupHeadway*veh.state.speed if self._useHeadway else self._catchupDist)
             
             # check if there is a new, connected leader and if so, verify if this leader
             # has sufficiend edges in common with the ego vehicle
             if veh.state.leaderInfo is not None:
                     noLeader = True
                     leaderID = veh.state.leaderInfo[0]
-
                     # check if old leader, if any... 
                     if veh.state.leader is not None:
                         if leaderID == veh.state.leader.getID():
                                # this is the current leader, just keep it
                                noLeader = False
-                    
                     # check if leaderID could be  a new leader
                     if self._isConnected(leaderID) & noLeader:
-
                         # new potential, connected  leader
                         # check if this leader has enough route in common with ego
-
                         egoRoute = traci.vehicle.getRoute(veh.getID())
                         leaderRoute = traci.vehicle.getRoute(leaderID)
                         idxLeader = traci.vehicle.getRouteIndex(leaderID)
                         leaderEdgeID = leaderRoute[idxLeader]
-                        
-                        
                         if  leaderEdgeID in egoRoute:
-                            
                             idxEgo = egoRoute.index(leaderEdgeID)
- 
                             idxDelta = min(idxEgo+self._edgenumberLookahead,len(egoRoute))-idxEgo
                             idxDelta = min(idxDelta,len(leaderRoute)-idxLeader)
- 
                             if idxDelta >= 0:
-                                
                                 # check if common distance of routes is sufficient
                                 d = 0.0
                                 routeInCommon = True
@@ -271,13 +267,9 @@ class PlatoonManager(traci.StepListener):
                                     else:
                                         routeInCommon = False
                                         break
-
                                 # sufficient edges in common
                                 if routeInCommon:
                                     noLeader = False
-   
-                                           
-                
                     if  noLeader:
                         #print '  set no leader'
                         veh.state.leader = None
@@ -392,7 +384,8 @@ class PlatoonManager(traci.StepListener):
             for ix, veh in enumerate(pltn.getVehicles()[1:]):
                 # check whether to split the platoon at index ix
                 leaderInfo = veh.state.leaderInfo
-                if leaderInfo is None or not self._isConnected(leaderInfo[0]) or leaderInfo[1] > self._maxPlatoonGap:
+                if leaderInfo is None or not self._isConnected(leaderInfo[0]) or \
+                        leaderInfo[1] > (self._maxPlatoonHeadway*veh.state.speed if self._useHeadway else self._maxPlatoonGap):
                     # no leader or no leader that allows platooning
                     veh.setSplitConditions(True)
                 else:
@@ -452,8 +445,8 @@ class PlatoonManager(traci.StepListener):
                 pltn.setModeWithImpatience(PlatoonMode.CATCHUP, self._controlInterval)
             # get leader of the leader
             leaderInfo = pltnLeader.state.leaderInfo
-
-            if leaderInfo is None or leaderInfo[1] > self._catchupDist:
+            distThreshold = self._catchupHeadway*pltnLeader.state.speed if self._useHeadway else self._catchupDist
+            if leaderInfo is None or leaderInfo[1] > distThreshold:
                 # No other vehicles ahead
                 # reset vehicle types (could all have been in catchup mode)
                 if pltn.size() == 1:
@@ -495,8 +488,8 @@ class PlatoonManager(traci.StepListener):
             if leader.getPlatoon() == pltn:
                 # Platoon order is corrupted, don't join own platoon.
                 continue
-
-            if leaderDist <= self._maxPlatoonGap:
+            
+            if leaderDist <= (self._maxPlatoonHeadway*leader.state.speed if self._useHeadway else self._maxPlatoonGap):
                 # Try to join the platoon in front
                 if leader.getPlatoon().join(pltn):
                     toRemove.append(pltnID)

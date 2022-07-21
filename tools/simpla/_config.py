@@ -40,9 +40,9 @@ def initDefaults():
     Init default values for the configuration parameters.
     They are overriden by specification in a configuration file (see load() method).
     '''
-    global CONTROL_RATE, VEH_SELECTORS, MAX_PLATOON_GAP, CATCHUP_DIST, PLATOON_SPLIT_TIME
-    global VTYPE_FILE, PLATOON_VTYPES, LC_MODE, SPEEDFACTOR, SWITCH_IMPATIENCE_FACTOR
-    global EDGE_LOOKAHEAD, DIST_LOOKAHEAD, LC_MINDIST
+    global CONTROL_RATE, VEH_SELECTORS, MAX_PLATOON_GAP, MAX_PLATOON_HEADWAY, CATCHUP_DIST 
+    global CATCHUP_HEADWAY, PLATOON_SPLIT_TIME, VTYPE_FILE, PLATOON_VTYPES, LC_MODE, USE_HEADWAY 
+    global SPEEDFACTOR, SWITCH_IMPATIENCE_FACTOR, EDGE_LOOKAHEAD, DIST_LOOKAHEAD, LC_MINDIST
 
     # Rate for updating the platoon manager checks and advices
     CONTROL_RATE = 1.0
@@ -52,10 +52,19 @@ def initDefaults():
 
     # Distance in meters below which a vehicle joins a leading platoon
     MAX_PLATOON_GAP = 15.0
+    
+    # Headway in seconds below which a vehicle joins a leading platoon
+    MAX_PLATOON_HEADWAY = 1.5
 
     # Distance in meters below which a vehicle tries to catch up with a platoon in front
     CATCHUP_DIST = 50.0
-
+    
+    # Headway in seconds below which a vehicle tries to catch up with a platoon in front
+    CATCHUP_HEADWAY = 4.5
+    
+    # whether the (time based) headway thresholds should be used instead of the gap (distance based) ones
+    USE_HEADWAY = True
+    
     # Latency time in secs. until a platoon is split if vehicles exceed PLATOON_SPLIT_DISTANCE to their
     # leaders within a platoon (or if they are not the direct follower),
     # or drive on different lanes than their leader within the platoon
@@ -182,9 +191,9 @@ def load(filename):
 
     This loads configuration parameters from a file and overwrites default values.
     '''
-    global CONTROL_RATE, VEH_SELECTORS, MAX_PLATOON_GAP, CATCHUP_DIST, PLATOON_SPLIT_TIME
-    global VTYPE_FILE, PLATOON_VTYPES, LC_MODE, SPEEDFACTOR, SWITCH_IMPATIENCE_FACTOR
-    global EDGE_LOOKAHEAD, DIST_LOOKAHEAD, LC_MINDIST
+    global CONTROL_RATE, VEH_SELECTORS, MAX_PLATOON_GAP, MAX_PLATOON_HEADWAY, CATCHUP_DIST, CATCHUP_HEADWAY 
+    global PLATOON_SPLIT_TIME, VTYPE_FILE, PLATOON_VTYPES, LC_MODE, SPEEDFACTOR, SWITCH_IMPATIENCE_FACTOR
+    global EDGE_LOOKAHEAD, DIST_LOOKAHEAD, LC_MINDIST, USE_HEADWAY
 
     configDir = os.path.dirname(filename)
     configElements = ET.parse(filename).getroot()
@@ -227,6 +236,22 @@ def load(filename):
                         warn("Parameter catchupDist must be positive. Ignoring given value: %s" % (dist), True)
                 else:
                     CATCHUP_DIST = dist
+        elif e.tag == "maxPlatoonHeadway":
+            if hasAttributes(e):
+                maxHeadway = float(list(e.attrib.values())[0])
+                if maxHeadway <= 0:
+                    if rp.VERBOSITY >= 1:
+                        warn("Parameter maxPlatoonGap must be positive. Ignoring given value: %s" % (maxHeadway), True)
+                else:
+                    MAX_PLATOON_HEADWAY = maxHeadway
+        elif e.tag == "catchupHeadway":
+            if hasAttributes(e):
+                headway = float(list(e.attrib.values())[0])
+                if headway <= 0:
+                    if rp.VERBOSITY >= 1:
+                        warn("Parameter catchupDist must be positive. Ignoring given value: %s" % (headway), True)
+                else:
+                    CATCHUP_HEADWAY = headway
         elif e.tag == "switchImpatienceFactor":
             if hasAttributes(e):
                 impfact = float(list(e.attrib.values())[0])
@@ -263,6 +288,9 @@ def load(filename):
                              (distLookAhead), True)
                 else:
                     DIST_LOOKAHEAD = distLookAhead
+        elif e.tag == "useHeadway":
+            if hasAttributes(e):
+                USE_HEADWAY = list(e.attrib.values())[0].lower() in ('true', 'yes', '1')
         elif e.tag == "lcMinDist":
             if hasAttributes(e):
                 lcMinDist = float(list(e.attrib.values())[0])

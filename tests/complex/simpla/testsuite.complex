@@ -1,3 +1,6 @@
+# minimal platooning with a few vehicles using headway thresholds
+headway
+
 # Tests configuration parsing
 config
 
