@@ -82,10 +82,10 @@ GNEFrameAttributeModules::AttributesEditorRow::AttributesEditorRow(GNEFrameAttri
     myAttributeCheckButton = new FXCheckButton(this, "attributeCheckButton", this, MID_GNE_SET_ATTRIBUTE_BOOL, GUIDesignCheckButtonAttribute);
     myAttributeCheckButton->hide();
     // Create and hide ButtonCombinableChoices
-    myAttributeButtonCombinableChoices = new FXButton(this, "attributeButtonCombinableChoices", nullptr, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButtonAttribute);
+    myAttributeButtonCombinableChoices = new MFXButtonTooltip(this, "attributeButtonCombinableChoices", nullptr, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButtonAttribute);
     myAttributeButtonCombinableChoices->hide();
     // create and hide color editor
-    myAttributeColorButton = new FXButton(this, "attributeColorButton", nullptr, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButtonAttribute);
+    myAttributeColorButton = new MFXButtonTooltip(this, "attributeColorButton", nullptr, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButtonAttribute);
     myAttributeColorButton->hide();
     // Create and hide MFXTextFieldTooltip for string attributes
     myValueTextField = new MFXTextFieldTooltip(this, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
@@ -135,9 +135,13 @@ GNEFrameAttributeModules::AttributesEditorRow::AttributesEditorRow(GNEFrameAttri
                 myAttributeColorButton->killFocus();
             }
             myAttributeColorButton->setText(myACAttr.getAttrStr().c_str());
+            myAttributeColorButton->setTipText("Open dialog for editing color");
+            myAttributeColorButton->setHelpText("Open dialog for editing color");
             myAttributeColorButton->show();
         } else if ((myACAttr.getAttr() == SUMO_ATTR_ALLOW) || (myACAttr.getAttr() == SUMO_ATTR_DISALLOW)) {
             myAttributeButtonCombinableChoices->setText(myACAttr.getAttrStr().c_str());
+            myAttributeButtonCombinableChoices->setTipText("Open dialog for editing vClasses");
+            myAttributeButtonCombinableChoices->setHelpText("Open dialog for editing vClasses");
             myAttributeButtonCombinableChoices->show();
         } else if (myACAttr.isActivatable()) {
             // show checkbox button and set color text depending of computed
@@ -207,6 +211,8 @@ GNEFrameAttributeModules::AttributesEditorRow::AttributesEditorRow(GNEFrameAttri
                 myAttributeLabel->hide();
                 // Show button combinable choices
                 myAttributeButtonCombinableChoices->setText(myACAttr.getAttrStr().c_str());
+                myAttributeButtonCombinableChoices->setTipText("Open dialog for editing vClasses");
+                myAttributeButtonCombinableChoices->setHelpText("Open dialog for editing vClasses");
                 myAttributeButtonCombinableChoices->show();
                 // Show string with the values
                 myValueTextField->setText(value.c_str());

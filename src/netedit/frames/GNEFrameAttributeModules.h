@@ -107,10 +107,10 @@ public:
         FXCheckButton* myAttributeCheckButton = nullptr;
 
         /// @brief pointer to buttonCombinableChoices
-        FXButton* myAttributeButtonCombinableChoices = nullptr;
+        MFXButtonTooltip* myAttributeButtonCombinableChoices = nullptr;
 
         /// @brief Button for open color editor
-        FXButton* myAttributeColorButton = nullptr;
+        MFXButtonTooltip* myAttributeColorButton = nullptr;
 
         /// @brief textField to modify the value of string attributes
         MFXTextFieldTooltip* myValueTextField = nullptr;
