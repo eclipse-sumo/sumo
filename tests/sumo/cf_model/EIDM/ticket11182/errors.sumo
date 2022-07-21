@@ -1,2 +1,1 @@
 Warning: Missing yellow phase in tlLogic 'J0', program '0' for tl-index 0 when switching to phase 1.
-Warning: Vehicle '0' performs emergency stop at the end of lane 'a_0' because there is no connection to the next edge (decel=-5.72, offset=0.07), time=10.30.
