@@ -383,6 +383,12 @@ GNEAttributeProperties::isColor() const {
 
 
 bool
+GNEAttributeProperties::isVType() const {
+    return (myAttributeProperty & VTYPE) != 0;
+}
+
+
+bool
 GNEAttributeProperties::isFilename() const {
     return (myAttributeProperty & FILENAME) != 0;
 }
