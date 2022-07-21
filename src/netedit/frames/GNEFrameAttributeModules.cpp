@@ -71,7 +71,7 @@ FXIMPLEMENT(GNEFrameAttributeModules::GenericDataAttributes,        MFXGroupBoxM
 // ---------------------------------------------------------------------------
 
 GNEFrameAttributeModules::AttributesEditorRow::AttributesEditorRow(GNEFrameAttributeModules::AttributesEditor* attributeEditorParent, const GNEAttributeProperties& ACAttr,
-        const std::string& value, const bool attributeEnabled, const bool computed) :
+        const std::string& value, const bool attributeEnabled, const bool computed, FXIcon* icon) :
     FXHorizontalFrame(attributeEditorParent->getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame),
     myAttributesEditorParent(attributeEditorParent),
     myACAttr(ACAttr) {
@@ -87,6 +87,9 @@ GNEFrameAttributeModules::AttributesEditorRow::AttributesEditorRow(GNEFrameAttri
     // create and hide color editor
     myAttributeColorButton = new MFXButtonTooltip(this, "attributeColorButton", nullptr, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButtonAttribute);
     myAttributeColorButton->hide();
+    // create and hide color editor
+    myAttributeVTypeButton = new MFXButtonTooltip(this, "attributeVTypeButton", icon, this, MID_GNE_SET_ATTRIBUTE_VTYPE, GUIDesignButtonAttribute);
+    myAttributeVTypeButton->hide();
     // Create and hide MFXTextFieldTooltip for string attributes
     myValueTextField = new MFXTextFieldTooltip(this, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     myValueTextField->hide();
@@ -115,9 +118,11 @@ GNEFrameAttributeModules::AttributesEditorRow::AttributesEditorRow(GNEFrameAttri
             if (isSupermodeValid(myAttributesEditorParent->getFrameParent()->getViewNet(), myACAttr)) {
                 myAttributeButtonCombinableChoices->enable();
                 myAttributeColorButton->enable();
+                myAttributeVTypeButton->enable();
                 myAttributeCheckButton->enable();
             } else {
                 myAttributeColorButton->disable();
+                myAttributeVTypeButton->disable();
                 myAttributeCheckButton->disable();
                 myValueTextField->disable();
                 myValueComboBoxChoices->disable();
@@ -126,7 +131,19 @@ GNEFrameAttributeModules::AttributesEditorRow::AttributesEditorRow(GNEFrameAttri
             }
         }
         // set left column
-        if (myACAttr.isColor()) {
+        if (myACAttr.isVType()) {
+            // show color button and set color text depending of computed
+            if (computed) {
+                myAttributeVTypeButton->setTextColor(FXRGB(0, 0, 255));
+            } else {
+                myAttributeVTypeButton->setTextColor(FXRGB(0, 0, 0));
+                myAttributeVTypeButton->killFocus();
+            }
+            myAttributeVTypeButton->setText(myACAttr.getAttrStr().c_str());
+            myAttributeVTypeButton->setTipText(("Inspect " + myACAttr.getAttrStr() + " parent").c_str());
+            myAttributeVTypeButton->setHelpText(("Inspect " + myACAttr.getAttrStr() + " parent").c_str());
+            myAttributeVTypeButton->show();
+        } else if (myACAttr.isColor()) {
             // show color button and set color text depending of computed
             if (computed) {
                 myAttributeColorButton->setTextColor(FXRGB(0, 0, 255));
@@ -728,8 +745,17 @@ GNEFrameAttributeModules::AttributesEditor::showAttributeEditorModule(bool inclu
                 }
                 // check if this attribute is computed
                 const bool computed = (ACs.size() > 1) ? false : ACs.front()->isAttributeComputed(attrProperty.getAttr());
+                // if is a Vtype, obtain icon
+                FXIcon* icon = nullptr;
+                if (attrProperty.isVType()) {
+                    if (attrProperty.getAttr() == SUMO_ATTR_TYPE) {
+                        icon = myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, ACs.front()->getAttribute(SUMO_ATTR_TYPE))->getIcon();
+                    } else {
+                        icon = GUIIconSubSys::getIcon(GUIIcon::VTYPEDISTRIBUTION);
+                    }
+                }
                 // create attribute editor row
-                myAttributesEditorRows[attrProperty.getPositionListed()] = new AttributesEditorRow(this, attrProperty, value, attributeEnabled, computed);
+                myAttributesEditorRows[attrProperty.getPositionListed()] = new AttributesEditorRow(this, attrProperty, value, attributeEnabled, computed, icon);
             }
         }
         // check if Flow editor has to be shown

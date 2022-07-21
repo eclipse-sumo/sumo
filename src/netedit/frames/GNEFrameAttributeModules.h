@@ -59,7 +59,7 @@ public:
     public:
         /// @brief constructor
         AttributesEditorRow(AttributesEditor* attributeEditorParent, const GNEAttributeProperties& ACAttr, const std::string& value,
-                            const bool attributeEnabled, const bool computed);
+                            const bool attributeEnabled, const bool computed, FXIcon* icon);
 
         /// @brief destroy GNEAttributesCreatorRow (but don't delete)
         void destroy();
@@ -111,6 +111,9 @@ public:
 
         /// @brief Button for open color editor
         MFXButtonTooltip* myAttributeColorButton = nullptr;
+
+        /// @brief Button for inspect Vtype/VtypeDistribution parent
+        MFXButtonTooltip* myAttributeVTypeButton = nullptr;
 
         /// @brief textField to modify the value of string attributes
         MFXTextFieldTooltip* myValueTextField = nullptr;
