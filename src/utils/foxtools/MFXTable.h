@@ -21,6 +21,8 @@
 #define MFXTable_h
 #include <config.h>
 
+#include <vector>
+
 #include "fxheader.h"
 #include "MFXStaticToolTip.h"
 
@@ -33,11 +35,9 @@ class MFXTable : public FXButton {
 
 public:
     /// @brief constructor (Exactly like the FXButton constructor)
-    MFXTable(FXComposite* p, const FXString& text,
-                     FXIcon* ic = NULL, FXObject* tgt = NULL, FXSelector sel = 0,
-                     FXuint opts = BUTTON_NORMAL,
-                     FXint x = 0, FXint y = 0, FXint w = 0, FXint h = 0,
-                     FXint pl = DEFAULT_PAD, FXint pr = DEFAULT_PAD, FXint pt = DEFAULT_PAD, FXint pb = DEFAULT_PAD);
+    MFXTable(FXComposite *p, FXObject* tgt = NULL, FXSelector sel = 0, FXuint opts = 0, 
+             FXint x = 0, FXint y = 0, FXint w = 0, FXint h = 0, FXint pl = DEFAULT_MARGIN, 
+             FXint pr = DEFAULT_MARGIN, FXint pt = DEFAULT_MARGIN, FXint pb = DEFAULT_MARGIN);
 
     /// @brief destructor (Called automatically)
     ~MFXTable();
@@ -51,12 +51,150 @@ public:
     long onLeave(FXObject*, FXSelector, void*);
     /// @}
 
+
+    /* FUNCTIONS USED IN TLSEditorFrame */
+
+    /// Modify cell text
+    void setItemText(FXint row, FXint column, const FXString& text, FXbool notify = FALSE) {
+
+    }
+
+    /// Return cell text
+    FXString getItemText(FXint row, FXint column) const {
+        return "";
+    }
+
+    /// Get number of rows
+    FXint getNumRows() const { 
+        return numberRows; 
+    }
+
+    /// Get row number of current item
+    FXint getCurrentRow() const { 
+        return currentRow; 
+    }
+
+    /// Select a row
+    FXbool selectRow(FXint row, FXbool notify = FALSE) {
+        //
+    }
+
+    /// Get selection start row; returns -1 if no selection
+/*
+    FXint getSelStartRow() const { 
+        return selection.fm.row; 
+    }
+*/
+
+    /// Change current item
+    void setCurrentItem(FXint row, FXint column, FXbool notify = FALSE) {
+        
+    }
+
+    /// Change column header text
+    void setColumnText(FXint index,const FXString& text) {
+        
+    }
+
+    /// Set the table size to nr rows and nc columns; all existing items will be removed
+    void setTableSize(FXint numberRow, FXint numberColumn, FXbool notify = FALSE) {
+
+    }
+
+    /// Change visible rows
+    void setVisibleRows(FXint numVisibleRows) {
+
+    }
+
+    /// Change visible columns
+    void setVisibleColumns(FXint numVisibleColumns) {
+
+    }
+
+    /// Change column width
+    void setColumnWidth(FXint column, FXint columnWidth) {
+
+    }
+
+    /// Return the item at the given index
+    FXTableItem *getItem(FXint row,FXint col) const {
+
+    }
+
+    /// Get column width
+    FXint getColumnWidth(FXint col) const {
+
+    }
+
+    /// Change default column width
+    void setDefColumnWidth(FXint columnWidth) {
+
+    }
+
+    /// Fit column widths to contents
+    void fitColumnsToContents(FXint column, FXint nc = 1) {
+
+    }
+
+    /**
+     * Change column header height mode to fixed or variable.
+     * In variable height mode, the column header will size to
+     * fit the contents in it.  In fixed mode, the size is
+     * explicitly set using setColumnHeaderHeight().
+     */
+    void setColumnHeaderMode(FXuint hint = LAYOUT_FIX_HEIGHT) {
+
+    }
+
+    /// Change column header height
+    void setColumnHeaderHeight(FXint h) {
+
+    }
+
+    /**
+     * Change row header width mode to fixed or variable.
+     * In variable width mode, the row header will size to
+     * fit the contents in it.  In fixed mode, the size is
+     * explicitly set using setRowHeaderWidth().
+     */
+    void setRowHeaderMode(FXuint hint = LAYOUT_FIX_WIDTH) {
+
+    }
+
+    /// Change row header width
+    void setRowHeaderWidth(FXint w) {
+
+    }
+
+    /* */
+
 protected:
     /// @brief FOX needs this
     FOX_CONSTRUCTOR(MFXTable)
 
-    /// @brief static tooltip
-    MFXStaticToolTip* myStaticToolTip = nullptr;
+    struct Column {
+        FXVerticalFrame* verticalFrame;
+        FXLabel* label;
+    };
+
+
+    /// @brief Row
+    struct Row {
+        std::vector<FXTextField*> textFields;
+
+    };
+
+    std::vector<Column> myHeaders;
+
+    std::vector<Row> myRows;
+
+    int currentRow = 0;
+
+    /// @brief number of rows
+    FXint numberRows = 0;
+
+    /// @brief number of columns
+    FXint numberColumns = 0;
 
 private:
     /// @brief Invalidated copy constructor.

@@ -31,13 +31,9 @@ FXDEFMAP(MFXTable) MFXTableMap[] = {
 // Object implementation
 FXIMPLEMENT(MFXTable, FXButton, MFXTableMap, ARRAYNUMBER(MFXTableMap))
 
-MFXTable::MFXTable(FXComposite* p,
-                                   const FXString& text, FXIcon* ic,
-                                   FXObject* tgt, FXSelector sel,
-                                   FXuint opts,
-                                   FXint x, FXint y, FXint w, FXint h,
-                                   FXint pl, FXint pr, FXint pt, FXint pb) :
-    FXButton(p, text, ic, tgt, sel, opts, x, y, w, h, pl, pr, pt, pb) {
+MFXTable::MFXTable(FXComposite *p , FXObject* tgt, FXSelector sel, FXuint opts, 
+                   FXint x, FXint y, FXint w, FXint h, FXint pl, FXint pr, FXint pt, FXint pb) :
+    FXButton(p, "", nullptr, tgt, sel, opts, x, y, w, h, pl, pr, pt, pb) {
 }
 
 
@@ -46,21 +42,12 @@ MFXTable::~MFXTable() {}
 
 long
 MFXTable::onEnter(FXObject* sender, FXSelector sel, void* ptr) {
-    // create on first enter
-    if (myStaticToolTip == nullptr) {
-        myStaticToolTip = new MFXStaticToolTip(getApp());
-        myStaticToolTip->create();
-    }
-    // show tip show
-    myStaticToolTip->onTipShow(sender, sel, ptr);
     return FXButton::onEnter(sender, sel, ptr);
 }
 
 
 long
 MFXTable::onLeave(FXObject* sender, FXSelector sel, void* ptr) {
-    // hide tip show
-    myStaticToolTip->onTipHide(sender, sel, this);
     return FXButton::onLeave(sender, sel, ptr);
 }
 
