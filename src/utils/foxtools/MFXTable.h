@@ -104,7 +104,7 @@ public:
 
     /// Change current item
     void setCurrentItem(FXint row, FXint column, FXbool notify = FALSE) {
-        
+        // CHECK
     }
 
     /// Change column header text
@@ -131,19 +131,13 @@ public:
 
     }
 
-    /// Change visible rows
-    void setVisibleRows(FXint numVisibleRows) {
-        // CHECK
-    }
-
-    /// Change visible columns
-    void setVisibleColumns(FXint numVisibleColumns) {
-        // CHECK
-    }
-
     /// Change column width
     void setColumnWidth(FXint column, FXint columnWidth) {
-        // CHECK
+        if (column < myColumns.size()) {
+            myColumns.at(column)->verticalFrame->setWidth(columnWidth);
+        } else {
+            throw ProcessError("Invalid column");
+        }
     }
 
     /// Return the item at the given index
@@ -156,8 +150,15 @@ public:
     }
 
     /// Get column width
-    FXint getColumnWidth(FXint col) const {
+    FXint getColumnWidth(FXint column) const {
+        if (column < myColumns.size()) {
+            return myColumns.at(column)->verticalFrame->getWidth();
+        } else {
+            throw ProcessError("Invalid column");
+        }
+
         // CHECK
+
     }
 
     /// Change default column width
@@ -177,11 +178,6 @@ public:
      * explicitly set using setColumnHeaderHeight().
      */
     void setColumnHeaderMode(FXuint hint = LAYOUT_FIX_HEIGHT) {
-
-    }
-
-    /// Change column header height
-    void setColumnHeaderHeight(FXint h) {
 
     }
 
@@ -214,8 +210,20 @@ protected:
         Column(MFXTable *table) {
             // create vertical frame
             verticalFrame = new FXVerticalFrame(table, GUIDesignAuxiliarHorizontalFrame);
+            verticalFrame->create();
             // create label for column
             label = new FXLabel(verticalFrame, "", nullptr, GUIDesignLabelLeft);
+            label->create();
+        }
+
+        /// @brief destructor
+        ~Column() {
+            // destroy frame and label
+            verticalFrame->destroy();
+            label->destroy();
+            // and delete
+            delete verticalFrame;
+            delete label;
         }
 
         /// @brief vertical frame
@@ -241,19 +249,22 @@ protected:
                 auto textField = new FXTextField(table->myColumns.at(0)->verticalFrame, GUIDesignTextFieldNCol, table, 0, GUIDesignTextField);
                 textField->create();
                 textFields.push_back(textField);
-                
             }
         }
 
         /// @brief destructor
         ~Row() {
+            // destroy all textFields
             for (const auto &textField : textFields) {
                 textField->destroy();
+                delete textField;
             }
         }
 
         /// @brief select column
-        void select() { }
+        void select() { 
+            // finish
+        }
 
         /// @brief list of text fields
         std::vector<FXTextField*> textFields;
@@ -273,7 +284,7 @@ protected:
 
     /// @brief clear table
     void clearTable() {
-        // clear rows
+        // clear rows (always before columns)
         for (const auto &row : myRows) {
             delete row;
         }
