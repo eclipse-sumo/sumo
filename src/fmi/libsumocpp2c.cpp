@@ -65,7 +65,7 @@ libsumo_load(char* callOptions) {
 }
 
 void
-libsumo_close() {
+libsumo_close(void) {
     libsumo::Simulation::close();
 }
 
@@ -75,7 +75,7 @@ libsumo_step(double time) {
 }
 
 int
-libsumo_vehicle_getIDCount() {
+libsumo_vehicle_getIDCount(void) {
     return libsumo::Vehicle::getIDCount();
 }
 

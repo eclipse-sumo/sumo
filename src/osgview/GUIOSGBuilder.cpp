@@ -302,7 +302,7 @@ GUIOSGBuilder::buildTrafficLightDetails(MSTLLogicControl::TLSLogicVariants& vars
         osg::PositionAttitudeTransform* rightPoleBase = new osg::PositionAttitudeTransform();
         rightPoleBase->addChild(poleBase);
         appBase->addChild(rightPoleBase);
-        unsigned int laneCount = appLanes.size();
+        const int laneCount = (int)appLanes.size();
         if (laneCount < 3) { // cantilever
             const double cantiWidth = edgeWidth - .1 * appLanes.back()->getWidth() + poleOffset;
             const double holderWidth = cantiWidth - .4 * appLanes.back()->getWidth();

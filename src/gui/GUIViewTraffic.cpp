@@ -430,8 +430,8 @@ GUIViewTraffic::onGamingClick(Position pos) {
             }
         }
         if (minTll != nullptr) {
-            int next = (minTll->getCurrentPhaseIndex() + 1) % minTll->getPhaseNumber();
-            minTll->changeStepAndDuration(tlsControl, MSNet::getInstance()->getCurrentTimeStep(), next, -1);
+            const int nextPhase = (minTll->getCurrentPhaseIndex() + 1) % minTll->getPhaseNumber();
+            minTll->changeStepAndDuration(tlsControl, MSNet::getInstance()->getCurrentTimeStep(), nextPhase, -1);
             update();
         }
     } else {

@@ -985,7 +985,7 @@ GUIOSGView::getLaneUnderCursor() {
 
 void
 GUIOSGView::zoom2Pos(Position& camera, Position& lookAt, double zoom) {
-    osg::Vec3f lookFromOSG, lookAtOSG, viewAxis, up;
+    osg::Vec3d lookFromOSG, lookAtOSG, viewAxis, up;
     myCameraManipulator->getInverseMatrix().getLookAt(lookFromOSG, lookAtOSG, up);
     lookFromOSG[0] = camera.x();
     lookFromOSG[1] = camera.y();
@@ -997,8 +997,8 @@ GUIOSGView::zoom2Pos(Position& camera, Position& lookAt, double zoom) {
     viewAxis.normalize();
 
     // compute new camera and lookAt pos
-    osg::Vec3f cameraUpdate = lookFromOSG + viewAxis * (zoom - 100);
-    osg::Vec3f lookAtUpdate = cameraUpdate + viewAxis;
+    osg::Vec3d cameraUpdate = lookFromOSG + viewAxis * (zoom - 100.);
+    osg::Vec3d lookAtUpdate = cameraUpdate + viewAxis;
 
     myViewer->getCameraManipulator()->setHomePosition(cameraUpdate, lookAtUpdate, up);
     myViewer->home();

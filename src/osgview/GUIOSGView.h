@@ -240,7 +240,7 @@ private:
 
     class SUMOTerrainManipulator : public osgGA::TerrainManipulator {
     public:
-        SUMOTerrainManipulator(): myLastY(0) {
+        SUMOTerrainManipulator() {
             setAllowThrow(false);
             setVerticalAxisFixed(false);
         }
@@ -253,8 +253,6 @@ private:
         bool performMovementRightMouseButton(const double eventTimeDelta, const double dx, const double dy) {
             return osgGA::TerrainManipulator::performMovementRightMouseButton(eventTimeDelta, dx, -dy);
         }
-    private:
-        float myLastY;
     };
 
     class FXOSGAdapter : public osgViewer::GraphicsWindow {

@@ -27,9 +27,9 @@ extern "C" {
 #endif
 
 void libsumo_load(char*);
-void libsumo_close();
+void libsumo_close(void);
 void libsumo_step(double);
-int  libsumo_vehicle_getIDCount();
+int  libsumo_vehicle_getIDCount(void);
 void libsumo_vehicle_moveToXY(const char*);
 void libsumo_vehicle_getParameterWithKey(ModelInstance*, const char**);
 void libsumo_vehicle_getLaneID(ModelInstance*, const char**);
