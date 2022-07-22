@@ -114,12 +114,12 @@ MFXTable::setColumnText(FXint column, const FXString& text) {
 
 
 void
-MFXTable::setTableSize(FXint numberRow, FXint numberColumn, FXbool notify) {
+MFXTable::setTableSize(const std::string columns, FXint numberRow, FXbool notify) {
     // first clear table
     clearTable();
     // create columns
-    for (int i = 0; i < numberColumn; i++) {
-        myColumns.push_back(new Column(this, i));
+    for (int i = 0; i < columns.size(); i++) {
+        myColumns.push_back(new Column(this, i, columns.at(i)));
     }
     // create rows
     for (int i = 0; i < numberRow; i++) {
@@ -161,9 +161,10 @@ MFXTable::clearTable() {
 }
 
 
-MFXTable::Column::Column(MFXTable* table, const int index) :
+MFXTable::Column::Column(MFXTable* table, const int index, const char type) :
     myTable(table),
-    myIndex(index) {
+    myIndex(index),
+    myType(type) {
     // create vertical frame
     myVerticalFrame = new FXVerticalFrame(table, GUIDesignAuxiliarMFXTable);
     myVerticalFrame->create();
@@ -185,6 +186,12 @@ MFXTable::Column::~Column() {
 FXVerticalFrame*
 MFXTable::Column::getVerticalFrame() const {
     return myVerticalFrame;
+}
+
+
+char 
+MFXTable::Column::getType() const {
+    return myType;
 }
 
 
@@ -220,7 +227,8 @@ MFXTable::Column::adjustColumnWidth() {
 
 
 MFXTable::Column::Column() :
-    myIndex(0) {}
+    myIndex(0),
+    myType('-') {}
 
 
 MFXTable::Row::Row(MFXTable* table) :

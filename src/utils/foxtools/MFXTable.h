@@ -71,13 +71,6 @@ public:
     /// Select a row
     FXbool selectRow(FXint row, FXbool notify = FALSE);
 
-    /// Get selection start row; returns -1 if no selection
-/*
-    FXint getSelStartRow() const { 
-        return selection.fm.row; 
-    }
-*/
-
     /// Change current item
     void setCurrentItem(FXint row, FXint column, FXbool notify = FALSE);
 
@@ -85,7 +78,7 @@ public:
     void setColumnText(FXint column, const FXString& text);
 
     /// Set the table size to nr rows and nc columns; all existing items will be removed
-    void setTableSize(FXint numberRow, FXint numberColumn, FXbool notify = FALSE);
+    void setTableSize(const std::string columns, FXint numberRow, FXbool notify = FALSE);
 
     /// Return the item at the given index
     FXTextField* getItem(FXint row, FXint col) const;
@@ -106,13 +99,16 @@ protected:
 
     public:
         /// @brief constructor
-        Column(MFXTable* table, const int index);
+        Column(MFXTable* table, const int index, const char type);
 
         /// @brief destructor
         ~Column();
 
         /// @brief get vertical frame
         FXVerticalFrame* getVerticalFrame() const;
+
+        /// @brief get column type
+        char getType() const;
 
         /// @brief set column label
         void setColumnLabel(const FXString& text);
@@ -133,11 +129,13 @@ protected:
         /// @brief column index
         const int myIndex;
 
+        /// @brief column type
+        const char myType;
+
     private:
         /// @brief default constructor
         Column();
     };
-
 
     /// @brief Row
     class Row {
