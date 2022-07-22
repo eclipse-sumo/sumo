@@ -56,6 +56,9 @@ class MFXMenuCheckIcon;
 /// @brief text field with thick frame, width of 180 (Used in type frame)
 #define GUIDesignTextFielWidth180       (FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 180, GUIDesignHeight, 2, 2, 2, 2
 
+/// @brief text field used in MFXTable
+#define GUIDesignTextFieldMFXTable      (FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
+
 /// @brief Num of column of text field
 #define GUIDesignTextFieldNCol          1
 
@@ -267,8 +270,11 @@ class MFXMenuCheckIcon;
 /// @brief label with thick, text justify to left and width of 50
 #define GUIDesignLabelThick50           (FRAME_THICK | ICON_BEFORE_TEXT | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 50, GUIDesignHeight, 2, 2, 2, 2
 
-/// @brief label used in GroupBoxModule
-#define GUIDesignLabelMFXGroupBoxModule  (FRAME_GROOVE | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
+/// @brief label used in MFXGroupBoxModule
+#define GUIDesignLabelMFXGroupBoxModule (FRAME_GROOVE | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
+
+/// @brief label used in MFXTable
+#define GUIDesignLabelMFXTable          (FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | ICON_BEFORE_TEXT), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
 
 /// @}
 

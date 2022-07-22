@@ -21,6 +21,7 @@
 
 #include "MFXTable.h"
 
+#define EXTRAMARGING 1
 
 FXDEFMAP(MFXTable) MFXTableMap[] = {
     FXMAPFUNC(SEL_ENTER,    0,  MFXTable::onEnter),
@@ -118,7 +119,7 @@ MFXTable::setTableSize(FXint numberRow, FXint numberColumn, FXbool notify) {
     clearTable();
     // create columns
     for (int i = 0; i < numberColumn; i++) {
-        myColumns.push_back(new Column(this));
+        myColumns.push_back(new Column(this, i));
     }
     // create rows
     for (int i = 0; i < numberRow; i++) {
@@ -214,12 +215,14 @@ MFXTable::clearTable() {
 }
 
 
-MFXTable::Column::Column(MFXTable* table) {
+MFXTable::Column::Column(MFXTable* table, const int index) :
+    myTable(table),
+    myIndex(index) {
     // create vertical frame
     myVerticalFrame = new FXVerticalFrame(table, GUIDesignAuxiliarFrame);
     myVerticalFrame->create();
     // create label for column
-    myLabel = new FXLabel(myVerticalFrame, "", nullptr, GUIDesignLabelAttribute);
+    myLabel = new FXLabel(myVerticalFrame, "", nullptr, GUIDesignLabelMFXTable);
     myLabel->create();
 }
 
@@ -242,16 +245,43 @@ MFXTable::Column::getVerticalFrame() const {
 void
 MFXTable::Column::setColumnLabel(const FXString& text) {
     myLabel->setText(text);
+    // adjust column width
+    adjustColumnWidth();
 }
 
 
-MFXTable::Column::Column() {}
+void 
+MFXTable::Column::adjustColumnWidth() {
+    // declare width using label
+    int width = myLabel->getFont()->getTextWidth(myLabel->getText().text(), myLabel->getText().length() + EXTRAMARGING);
+    // iterate over all textFields and check widths
+    for (const auto & row : myTable->myRows) {
+        // get text field
+        const auto textField = row->getTextField(myIndex);
+        // get textField width
+        const auto textFieldWidth = textField->getFont()->getTextWidth(textField->getText().text(), textField->getText().length() + EXTRAMARGING);
+        // compare widths
+        if (textFieldWidth > width) {
+            width = textFieldWidth;
+        }
+    }
+    // set width in all elements
+    myLabel->setWidth(width);
+    for (const auto & row : myTable->myRows) {
+        row->getTextField(myIndex)->setWidth(width);
+    }
+}
 
 
-MFXTable::Row::Row(MFXTable* table) {
+MFXTable::Column::Column() :
+    myIndex(0) {}
+
+
+MFXTable::Row::Row(MFXTable* table) :
+    myTable(table) {
     // build textFields
     for (int i = 0; i < table->myColumns.size(); i++) {
-        auto textField = new FXTextField(table->myColumns.at(i)->getVerticalFrame(), GUIDesignTextFieldNCol, table->myTarget, table->mySelector, GUIDesignTextFielWidth50);
+        auto textField = new FXTextField(table->myColumns.at(i)->getVerticalFrame(), GUIDesignTextFieldNCol, table->myTarget, table->mySelector, GUIDesignTextFieldMFXTable);
         textField->create();
         myTextFields.push_back(textField);
     }
@@ -275,6 +305,14 @@ MFXTable::Row::getText(int index) const {
 void 
 MFXTable::Row::setText(int index, const FXString& text, FXbool notify) const {
     myTextFields.at(index)->setText(text, notify);
+    // adjust column width
+    myTable->myColumns.at(index)->adjustColumnWidth();
+}
+
+
+FXTextField* 
+MFXTable::Row::getTextField(int index) const {
+    return myTextFields.at(index);
 }
 
 

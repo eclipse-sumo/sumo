@@ -137,7 +137,7 @@ protected:
 
     public:
         /// @brief constructor
-        Column(MFXTable* table);
+        Column(MFXTable* table, const int index);
 
         /// @brief destructor
         ~Column();
@@ -148,12 +148,21 @@ protected:
         /// @brief set column label
         void setColumnLabel(const FXString& text);
 
+        /// @brief adjust column width
+        void adjustColumnWidth();
+
     protected:
+        /// @brief pointer to table
+        MFXTable* myTable = nullptr;
+
         /// @brief vertical frame
         FXVerticalFrame* myVerticalFrame = nullptr;
 
         /// @brief column label 
         FXLabel* myLabel = nullptr;
+
+        /// @brief column index
+        const int myIndex;
 
     private:
         /// @brief default constructor
@@ -177,15 +186,16 @@ protected:
         /// @brief set text
         void setText(int index, const FXString& text, FXbool notify) const;
 
+        /// @brief get text field
+        FXTextField* getTextField(int index) const;
+
         /// @brief select column
         void select();
 
-        /// temporal:
-        FXTextField* getTextField(int index) const {
-            return myTextFields.at(index);
-        }
-
     protected:
+        /// @brief poiner to table parent
+        MFXTable* myTable = nullptr;
+
         /// @brief list of text fields
         std::vector<FXTextField*> myTextFields;
 
