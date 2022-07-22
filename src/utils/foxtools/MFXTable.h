@@ -87,39 +87,8 @@ public:
     /// Set the table size to nr rows and nc columns; all existing items will be removed
     void setTableSize(FXint numberRow, FXint numberColumn, FXbool notify = FALSE);
 
-    /// Change column width
-    void setColumnWidth(FXint column, FXint columnWidth);
-
     /// Return the item at the given index
     FXTextField* getItem(FXint row, FXint col) const;
-
-    /// Get column width
-    FXint getColumnWidth(FXint column) const;
-
-    /// Change default column width
-    void setDefColumnWidth(FXint columnWidth);
-
-    /// Fit column widths to contents
-    void fitColumnsToContents(FXint column, FXint nc = 1);
-
-    /**
-     * Change column header height mode to fixed or variable.
-     * In variable height mode, the column header will size to
-     * fit the contents in it.  In fixed mode, the size is
-     * explicitly set using setColumnHeaderHeight().
-     */
-    void setColumnHeaderMode(FXuint hint = LAYOUT_FIX_HEIGHT);
-
-    /**
-     * Change row header width mode to fixed or variable.
-     * In variable width mode, the row header will size to
-     * fit the contents in it.  In fixed mode, the size is
-     * explicitly set using setRowHeaderWidth().
-     */
-    void setRowHeaderMode(FXuint hint = LAYOUT_FIX_WIDTH);
-
-    /// Change row header width
-    void setRowHeaderWidth(FXint w);
 
     int getSelStartRow();
 

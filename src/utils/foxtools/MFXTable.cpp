@@ -34,7 +34,7 @@ FXIMPLEMENT(MFXTable, FXHorizontalFrame, MFXTableMap, ARRAYNUMBER(MFXTableMap))
 
 
 MFXTable::MFXTable(FXComposite *p , FXObject* tgt, FXSelector sel) :
-    FXHorizontalFrame(p, GUIDesignAuxiliarFrame),
+    FXHorizontalFrame(p, GUIDesignAuxiliarMFXTable),
     myTarget(tgt),
     mySelector(sel) {
 }
@@ -128,16 +128,6 @@ MFXTable::setTableSize(FXint numberRow, FXint numberColumn, FXbool notify) {
 }
 
 
-void 
-MFXTable::setColumnWidth(FXint column, FXint columnWidth) {
-    if (column < myColumns.size()) {
-        myColumns.at(column)->getVerticalFrame()->setWidth(columnWidth);
-    } else {
-        throw ProcessError("Invalid column");
-    }
-}
-
-
 FXTextField* 
 MFXTable::getItem(FXint row, FXint col) const {
     if ((row < myRows.size()) && (col < myColumns.size())) {
@@ -146,50 +136,6 @@ MFXTable::getItem(FXint row, FXint col) const {
     else {
         throw ProcessError("Invalid row or column");
     }
-}
-
-
-FXint 
-MFXTable::getColumnWidth(FXint column) const {
-    if (column < myColumns.size()) {
-        return myColumns.at(column)->getVerticalFrame()->getWidth();
-    }
-    else {
-        throw ProcessError("Invalid column");
-    }
-
-    // CHECK
-
-}
-
-
-void 
-MFXTable::setDefColumnWidth(FXint columnWidth) {
-    // CHECK
-}
-
-
-void
-MFXTable::fitColumnsToContents(FXint column, FXint nc) {
-    // CHECK
-}
-
-
-void 
-MFXTable::setColumnHeaderMode(FXuint hint) {
-    // CHECK
-}
-
-
-void
-MFXTable::setRowHeaderMode(FXuint hint) {
-    // CHECK
-}
-
-
-void
-MFXTable::setRowHeaderWidth(FXint w) {
-    // CHECK
 }
 
 
@@ -219,7 +165,7 @@ MFXTable::Column::Column(MFXTable* table, const int index) :
     myTable(table),
     myIndex(index) {
     // create vertical frame
-    myVerticalFrame = new FXVerticalFrame(table, GUIDesignAuxiliarFrame);
+    myVerticalFrame = new FXVerticalFrame(table, GUIDesignAuxiliarMFXTable);
     myVerticalFrame->create();
     // create label for column
     myLabel = new FXLabel(myVerticalFrame, "", nullptr, GUIDesignLabelMFXTable);
