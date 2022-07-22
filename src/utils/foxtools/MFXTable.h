@@ -39,9 +39,7 @@ class MFXTable : public FXHorizontalFrame {
 
 public:
     /// @brief constructor (Exactly like the FXButton constructor)
-    MFXTable(FXComposite *p, FXObject* tgt = NULL, FXSelector sel = 0, FXuint opts = 0, 
-             FXint x = 0, FXint y = 0, FXint w = 0, FXint h = 0, FXint pl = DEFAULT_MARGIN, 
-             FXint pr = DEFAULT_MARGIN, FXint pt = DEFAULT_MARGIN, FXint pb = DEFAULT_MARGIN);
+    MFXTable(FXComposite *p, FXObject* tgt, FXSelector sel);
 
     /// @brief destructor (Called automatically)
     ~MFXTable();
@@ -59,41 +57,19 @@ public:
     /* FUNCTIONS USED IN TLSEditorFrame */
 
     /// Modify cell text
-    void setItemText(FXint row, FXint column, const FXString& text, FXbool notify = FALSE) {
-        if ((row < myRows.size()) && (column < myColumns.size())) {
-            myRows.at(row)->textFields.at(column)->setText(text, notify);
-        } else {
-            throw ProcessError("Invalid row or column");
-        }
-    }
+    void setItemText(FXint row, FXint column, const FXString& text, FXbool notify = FALSE);
 
     /// Return cell text
-    FXString getItemText(FXint row, FXint column) const {
-        if ((row < myRows.size()) && (column < myColumns.size())) {
-            myRows.at(row)->textFields.at(column)->getText();
-        } else {
-            throw ProcessError("Invalid row or column");
-        }
-    }
+    FXString getItemText(FXint row, FXint column) const;
 
     /// Get number of rows
-    FXint getNumRows() const { 
-        return myRows.size(); 
-    }
+    FXint getNumRows() const;
 
     /// Get row number of current item
-    FXint getCurrentRow() const { 
-        return currentRow; 
-    }
+    FXint getCurrentRow() const;
 
     /// Select a row
-    FXbool selectRow(FXint row, FXbool notify = FALSE) {
-        if (row < myRows.size()) {
-            myRows.at(row)->select();
-        } else {
-            throw ProcessError("Invalid row");
-        }
-    }
+    FXbool selectRow(FXint row, FXbool notify = FALSE);
 
     /// Get selection start row; returns -1 if no selection
 /*
@@ -103,73 +79,28 @@ public:
 */
 
     /// Change current item
-    void setCurrentItem(FXint row, FXint column, FXbool notify = FALSE) {
-        // CHECK
-    }
+    void setCurrentItem(FXint row, FXint column, FXbool notify = FALSE);
 
     /// Change column header text
-    void setColumnText(FXint column,const FXString& text) {
-        if (column < myColumns.size()) {
-            myColumns.at(column)->label->setText(text);
-        } else {
-            throw ProcessError("Invalid column");
-        }
-    }
+    void setColumnText(FXint column, const FXString& text);
 
     /// Set the table size to nr rows and nc columns; all existing items will be removed
-    void setTableSize(FXint numberRow, FXint numberColumn, FXbool notify = FALSE) {
-        // first clear table
-        clearTable();
-        // create columns
-        for (int i = 0; i < numberColumn; i++) {
-            myColumns.push_back(new Column(this));
-        }
-        // create rows
-        for (int i = 0; i < numberRow; i++) {
-            myRows.push_back(new Row(this));
-        }
-
-    }
+    void setTableSize(FXint numberRow, FXint numberColumn, FXbool notify = FALSE);
 
     /// Change column width
-    void setColumnWidth(FXint column, FXint columnWidth) {
-        if (column < myColumns.size()) {
-            myColumns.at(column)->verticalFrame->setWidth(columnWidth);
-        } else {
-            throw ProcessError("Invalid column");
-        }
-    }
+    void setColumnWidth(FXint column, FXint columnWidth);
 
     /// Return the item at the given index
-    FXTextField *getItem(FXint row, FXint col) const {
-        if ((row < myRows.size()) && (col < myColumns.size())) {
-            return myRows.at(row)->textFields.at(col);
-        } else {
-            throw ProcessError("Invalid row or column");
-        }
-    }
+    FXTextField* getItem(FXint row, FXint col) const;
 
     /// Get column width
-    FXint getColumnWidth(FXint column) const {
-        if (column < myColumns.size()) {
-            return myColumns.at(column)->verticalFrame->getWidth();
-        } else {
-            throw ProcessError("Invalid column");
-        }
-
-        // CHECK
-
-    }
+    FXint getColumnWidth(FXint column) const;
 
     /// Change default column width
-    void setDefColumnWidth(FXint columnWidth) {
-        // CHECK
-    }
+    void setDefColumnWidth(FXint columnWidth);
 
     /// Fit column widths to contents
-    void fitColumnsToContents(FXint column, FXint nc = 1) {
-        // CHECK
-    }
+    void fitColumnsToContents(FXint column, FXint nc = 1);
 
     /**
      * Change column header height mode to fixed or variable.
@@ -177,9 +108,7 @@ public:
      * fit the contents in it.  In fixed mode, the size is
      * explicitly set using setColumnHeaderHeight().
      */
-    void setColumnHeaderMode(FXuint hint = LAYOUT_FIX_HEIGHT) {
-
-    }
+    void setColumnHeaderMode(FXuint hint = LAYOUT_FIX_HEIGHT);
 
     /**
      * Change row header width mode to fixed or variable.
@@ -187,14 +116,12 @@ public:
      * fit the contents in it.  In fixed mode, the size is
      * explicitly set using setRowHeaderWidth().
      */
-    void setRowHeaderMode(FXuint hint = LAYOUT_FIX_WIDTH) {
-
-    }
+    void setRowHeaderMode(FXuint hint = LAYOUT_FIX_WIDTH);
 
     /// Change row header width
-    void setRowHeaderWidth(FXint w) {
+    void setRowHeaderWidth(FXint w);
 
-    }
+    int getSelStartRow();
 
     /* */
 
@@ -209,10 +136,10 @@ protected:
         /// @brief constructor
         Column(MFXTable *table) {
             // create vertical frame
-            verticalFrame = new FXVerticalFrame(table, GUIDesignAuxiliarHorizontalFrame);
+            verticalFrame = new FXVerticalFrame(table, GUIDesignAuxiliarFrame);
             verticalFrame->create();
             // create label for column
-            label = new FXLabel(verticalFrame, "", nullptr, GUIDesignLabelLeft);
+            label = new FXLabel(verticalFrame, "", nullptr, GUIDesignLabelAttribute);
             label->create();
         }
 
@@ -221,9 +148,8 @@ protected:
             // destroy frame and label
             verticalFrame->destroy();
             label->destroy();
-            // and delete
+            // delete vertical frame (this also delete Label and Row textFields)
             delete verticalFrame;
-            delete label;
         }
 
         /// @brief vertical frame
@@ -246,7 +172,7 @@ protected:
         Row(MFXTable *table) {
             // build textFields
             for (int i = 0; i < table->myColumns.size(); i++) {
-                auto textField = new FXTextField(table->myColumns.at(0)->verticalFrame, GUIDesignTextFieldNCol, table, 0, GUIDesignTextField);
+                auto textField = new FXTextField(table->myColumns.at(i)->verticalFrame, GUIDesignTextFieldNCol, table->myTarget, table->mySelector, GUIDesignTextFielWidth50);
                 textField->create();
                 textFields.push_back(textField);
             }
@@ -257,7 +183,6 @@ protected:
             // destroy all textFields
             for (const auto &textField : textFields) {
                 textField->destroy();
-                delete textField;
             }
         }
 
@@ -274,6 +199,12 @@ protected:
         Row() {}
     };
 
+    /// @brief target used in Rows
+    FXObject* myTarget = nullptr;
+
+    /// @brief selector used in rows
+    FXSelector mySelector = 0;
+
     /// @brief columns
     std::vector<Column*> myColumns;
 
@@ -282,6 +213,7 @@ protected:
 
     int currentRow = 0;
 
+private:
     /// @brief clear table
     void clearTable() {
         // clear rows (always before columns)
@@ -297,7 +229,6 @@ protected:
         myColumns.clear();
     }
 
-private:
     /// @brief Invalidated copy constructor.
     MFXTable(const MFXTable&) = delete;
 
