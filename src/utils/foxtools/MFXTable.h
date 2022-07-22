@@ -160,11 +160,23 @@ protected:
         void select();
 
     protected:
+        /// @brief struct for every cell
+        struct Cell {
+            Cell(FXTextField* textField_) :
+                textField(textField_) {}
+
+            Cell(FXRadioButton* radioButton_) :
+                radioButton(radioButton_) {}
+
+            FXTextField* textField = nullptr;
+            FXRadioButton* radioButton = nullptr;
+        };
+
         /// @brief poiner to table parent
         MFXTable* myTable = nullptr;
 
-        /// @brief list of text fields
-        std::vector<FXTextField*> myTextFields;
+        /// @brief list wtih cells
+        std::vector<Cell> myCells;
 
     private:
         /// @brief default constructor
