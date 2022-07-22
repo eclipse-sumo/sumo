@@ -57,7 +57,7 @@ MFXTable::onLeave(FXObject* sender, FXSelector sel, void* ptr) {
 void
 MFXTable::setItemText(FXint row, FXint column, const FXString& text, FXbool notify) {
     if ((row < myRows.size()) && (column < myColumns.size())) {
-        myRows.at(row)->textFields.at(column)->setText(text, notify);
+        myRows.at(row)->setText(column, text, notify);
     } else {
         throw ProcessError("Invalid row or column");
     }
@@ -67,7 +67,7 @@ MFXTable::setItemText(FXint row, FXint column, const FXString& text, FXbool noti
 FXString
 MFXTable::getItemText(FXint row, FXint column) const {
     if ((row < myRows.size()) && (column < myColumns.size())) {
-        myRows.at(row)->textFields.at(column)->getText();
+        return myRows.at(row)->getText(column);
     } else {
         throw ProcessError("Invalid row or column");
     }
@@ -105,7 +105,7 @@ MFXTable::setCurrentItem(FXint row, FXint column, FXbool notify) {
 void 
 MFXTable::setColumnText(FXint column, const FXString& text) {
     if (column < myColumns.size()) {
-        myColumns.at(column)->label->setText(text);
+        myColumns.at(column)->setColumnLabel(text);
     } else {
         throw ProcessError("Invalid column");
     }
@@ -130,7 +130,7 @@ MFXTable::setTableSize(FXint numberRow, FXint numberColumn, FXbool notify) {
 void 
 MFXTable::setColumnWidth(FXint column, FXint columnWidth) {
     if (column < myColumns.size()) {
-        myColumns.at(column)->verticalFrame->setWidth(columnWidth);
+        myColumns.at(column)->getVerticalFrame()->setWidth(columnWidth);
     } else {
         throw ProcessError("Invalid column");
     }
@@ -140,7 +140,7 @@ MFXTable::setColumnWidth(FXint column, FXint columnWidth) {
 FXTextField* 
 MFXTable::getItem(FXint row, FXint col) const {
     if ((row < myRows.size()) && (col < myColumns.size())) {
-        return myRows.at(row)->textFields.at(col);
+        return myRows.at(row)->getTextField(col);
     }
     else {
         throw ProcessError("Invalid row or column");
@@ -151,7 +151,7 @@ MFXTable::getItem(FXint row, FXint col) const {
 FXint 
 MFXTable::getColumnWidth(FXint column) const {
     if (column < myColumns.size()) {
-        return myColumns.at(column)->verticalFrame->getWidth();
+        return myColumns.at(column)->getVerticalFrame()->getWidth();
     }
     else {
         throw ProcessError("Invalid column");
@@ -198,5 +198,91 @@ MFXTable::getSelStartRow() {
     // CHECK
 }
 
+void 
+MFXTable::clearTable() {
+    // clear rows (always before columns)
+    for (const auto& row : myRows) {
+        delete row;
+    }
+    // clear columns
+    for (const auto& column : myColumns) {
+        delete column;
+    }
+    // drop rows and columns
+    myRows.clear();
+    myColumns.clear();
+}
+
+
+MFXTable::Column::Column(MFXTable* table) {
+    // create vertical frame
+    myVerticalFrame = new FXVerticalFrame(table, GUIDesignAuxiliarFrame);
+    myVerticalFrame->create();
+    // create label for column
+    myLabel = new FXLabel(myVerticalFrame, "", nullptr, GUIDesignLabelAttribute);
+    myLabel->create();
+}
+
+
+MFXTable::Column::~Column() {
+    // destroy frame and label
+    myVerticalFrame->destroy();
+    myLabel->destroy();
+    // delete vertical frame (this also delete Label and Row textFields)
+    delete myVerticalFrame;
+}
+
+
+FXVerticalFrame*
+MFXTable::Column::getVerticalFrame() const {
+    return myVerticalFrame;
+}
+
+
+void
+MFXTable::Column::setColumnLabel(const FXString& text) {
+    myLabel->setText(text);
+}
+
+
+MFXTable::Column::Column() {}
+
+
+MFXTable::Row::Row(MFXTable* table) {
+    // build textFields
+    for (int i = 0; i < table->myColumns.size(); i++) {
+        auto textField = new FXTextField(table->myColumns.at(i)->getVerticalFrame(), GUIDesignTextFieldNCol, table->myTarget, table->mySelector, GUIDesignTextFielWidth50);
+        textField->create();
+        myTextFields.push_back(textField);
+    }
+}
+
+
+MFXTable::Row::~Row() {
+    // destroy all textFields
+    for (const auto& textField : myTextFields) {
+        textField->destroy();
+    }
+}
+
+
+FXString 
+MFXTable::Row::getText(int index) const {
+    return myTextFields.at(index)->getText();
+}
+
+
+void 
+MFXTable::Row::setText(int index, const FXString& text, FXbool notify) const {
+    myTextFields.at(index)->setText(text, notify);
+}
+
+
+void MFXTable::Row::select() {
+    // finish
+}
+
+
+MFXTable::Row::Row() {}
 
 /****************************************************************************/

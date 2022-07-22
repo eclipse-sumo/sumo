@@ -129,38 +129,35 @@ protected:
     /// @brief FOX needs this
     FOX_CONSTRUCTOR(MFXTable)
 
+    /// @brief clear table
+    void clearTable();
+
     /// @brief column 
     class Column {
 
     public:
         /// @brief constructor
-        Column(MFXTable *table) {
-            // create vertical frame
-            verticalFrame = new FXVerticalFrame(table, GUIDesignAuxiliarFrame);
-            verticalFrame->create();
-            // create label for column
-            label = new FXLabel(verticalFrame, "", nullptr, GUIDesignLabelAttribute);
-            label->create();
-        }
+        Column(MFXTable* table);
 
         /// @brief destructor
-        ~Column() {
-            // destroy frame and label
-            verticalFrame->destroy();
-            label->destroy();
-            // delete vertical frame (this also delete Label and Row textFields)
-            delete verticalFrame;
-        }
+        ~Column();
 
+        /// @brief get vertical frame
+        FXVerticalFrame* getVerticalFrame() const;
+
+        /// @brief set column label
+        void setColumnLabel(const FXString& text);
+
+    protected:
         /// @brief vertical frame
-        FXVerticalFrame* verticalFrame = nullptr;
+        FXVerticalFrame* myVerticalFrame = nullptr;
 
         /// @brief column label 
-        FXLabel* label = nullptr;
+        FXLabel* myLabel = nullptr;
 
     private:
         /// @brief default constructor
-        Column() {}
+        Column();
     };
 
 
@@ -169,34 +166,32 @@ protected:
 
     public:
         /// @brief constructor
-        Row(MFXTable *table) {
-            // build textFields
-            for (int i = 0; i < table->myColumns.size(); i++) {
-                auto textField = new FXTextField(table->myColumns.at(i)->verticalFrame, GUIDesignTextFieldNCol, table->myTarget, table->mySelector, GUIDesignTextFielWidth50);
-                textField->create();
-                textFields.push_back(textField);
-            }
-        }
+        Row(MFXTable* table);
 
         /// @brief destructor
-        ~Row() {
-            // destroy all textFields
-            for (const auto &textField : textFields) {
-                textField->destroy();
-            }
-        }
+        ~Row();
+
+        /// @brief get text
+        FXString getText(int index) const;
+
+        /// @brief set text
+        void setText(int index, const FXString& text, FXbool notify) const;
 
         /// @brief select column
-        void select() { 
-            // finish
+        void select();
+
+        /// temporal:
+        FXTextField* getTextField(int index) const {
+            return myTextFields.at(index);
         }
 
+    protected:
         /// @brief list of text fields
-        std::vector<FXTextField*> textFields;
+        std::vector<FXTextField*> myTextFields;
 
     private:
         /// @brief default constructor
-        Row() {}
+        Row();
     };
 
     /// @brief target used in Rows
@@ -214,21 +209,6 @@ protected:
     int currentRow = 0;
 
 private:
-    /// @brief clear table
-    void clearTable() {
-        // clear rows (always before columns)
-        for (const auto &row : myRows) {
-            delete row;
-        }
-        // clear columns
-        for (const auto &column : myColumns) {
-            delete column;
-        }
-        // drop rows and columns
-        myRows.clear();
-        myColumns.clear();
-    }
-
     /// @brief Invalidated copy constructor.
     MFXTable(const MFXTable&) = delete;
 
