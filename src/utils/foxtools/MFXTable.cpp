@@ -59,7 +59,7 @@ MFXTable::onLeave(FXObject* sender, FXSelector sel, void* ptr) {
 
 void
 MFXTable::setItemText(FXint row, FXint column, const FXString& text, FXbool notify) {
-    if ((row < myRows.size()) && (column < myColumns.size())) {
+    if (row < (FXint)myRows.size() && column < (FXint)myColumns.size()) {
         myRows.at(row)->setText(column, text, notify);
     } else {
         throw ProcessError("Invalid row or column");
@@ -69,11 +69,10 @@ MFXTable::setItemText(FXint row, FXint column, const FXString& text, FXbool noti
 
 FXString
 MFXTable::getItemText(FXint row, FXint column) const {
-    if ((row < myRows.size()) && (column < myColumns.size())) {
+    if (row < (FXint)myRows.size() && column < (FXint)myColumns.size()) {
         return myRows.at(row)->getText(column);
-    } else {
-        throw ProcessError("Invalid row or column");
     }
+    throw ProcessError("Invalid row or column");
 }
 
 
@@ -90,24 +89,24 @@ MFXTable::getCurrentRow() const {
 
 
 FXbool
-MFXTable::selectRow(FXint row, FXbool notify) {
-    if (row < myRows.size()) {
+MFXTable::selectRow(FXint row, FXbool /* notify */) {
+    if (row < (FXint)myRows.size()) {
         myRows.at(row)->select();
-    } else {
-        throw ProcessError("Invalid row");
+        return TRUE;
     }
+    throw ProcessError("Invalid row");
 }
 
 
 void
-MFXTable::setCurrentItem(FXint row, FXint column, FXbool notify) {
+MFXTable::setCurrentItem(FXint /* row */, FXint /* column */, FXbool /* notify */) {
     // CHECK
 }
 
 
 void 
 MFXTable::setColumnText(FXint column, const FXString& text) {
-    if (column < myColumns.size()) {
+    if (column < (FXint)myColumns.size()) {
         myColumns.at(column)->setColumnLabel(text);
     } else {
         throw ProcessError("Invalid column");
@@ -116,11 +115,11 @@ MFXTable::setColumnText(FXint column, const FXString& text) {
 
 
 void
-MFXTable::setTableSize(const std::string columns, FXint numberRow, FXbool notify) {
+MFXTable::setTableSize(const std::string columns, FXint numberRow, FXbool /* notify */) {
     // first clear table
     clearTable();
     // create columns
-    for (int i = 0; i < columns.size(); i++) {
+    for (int i = 0; i < (FXint)columns.size(); i++) {
         myColumns.push_back(new Column(this, i, columns.at(i)));
     }
     // create rows
@@ -136,12 +135,10 @@ MFXTable::setTableSize(const std::string columns, FXint numberRow, FXbool notify
 
 FXTextField* 
 MFXTable::getItem(FXint row, FXint col) const {
-    if ((row < myRows.size()) && (col < myColumns.size())) {
+    if (row < (FXint)myRows.size() && col < (FXint)myColumns.size()) {
         return myRows.at(row)->getTextField(col);
     }
-    else {
-        throw ProcessError("Invalid row or column");
-    }
+    throw ProcessError("Invalid row or column");
 }
 
 
@@ -252,8 +249,8 @@ MFXTable::Column::Column() :
 MFXTable::Row::Row(MFXTable* table) :
     myTable(table) {
     // build textFields
-    for (int i = 0; i < table->myColumns.size(); i++) {
-        if (table->myColumns.at(i)->getType() == '·') {
+    for (int i = 0; i < (FXint)table->myColumns.size(); i++) {
+        if (table->myColumns.at(i)->getType() == '?') {
             auto radioButton = new FXRadioButton(table->myColumns.at(i)->getVerticalFrame(), "", table, MID_CHOOSEN_SELECT, GUIDesignRadioButtonMFXTable);
             radioButton->create();
             myCells.push_back(Cell(radioButton));
