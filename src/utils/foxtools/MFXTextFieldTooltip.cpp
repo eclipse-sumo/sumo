@@ -31,7 +31,7 @@ FXDEFMAP(MFXTextFieldTooltip) MFXTextFieldTooltipMap[] = {
 FXIMPLEMENT(MFXTextFieldTooltip, FXTextField, MFXTextFieldTooltipMap, ARRAYNUMBER(MFXTextFieldTooltipMap))
 
 
-MFXTextFieldTooltip::MFXTextFieldTooltip(FXComposite* p, FXint ncols, FXObject* tgt, FXSelector sel, 
+MFXTextFieldTooltip::MFXTextFieldTooltip(FXComposite* p, FXint ncols, FXObject* tgt, FXSelector sel,
         FXuint opts, FXint x, FXint y, FXint w, FXint h, FXint pl, FXint pr, FXint pt, FXint pb) :
     FXTextField(p, ncols, tgt, sel, opts, x, y, w, h, pl, pr, pt, pb) {
 }
@@ -48,7 +48,7 @@ MFXTextFieldTooltip::onEnter(FXObject* sender, FXSelector sel, void* ptr) {
         myStaticToolTip->create();
     }
     // only show tip Text if contents is bigger than textField width
-    if (font->getTextWidth(contents.text(),contents.length()) > getWidth()) {
+    if (font->getTextWidth(contents.text(), contents.length()) > getWidth()) {
         setTipText(contents);
     }
     // always show help text

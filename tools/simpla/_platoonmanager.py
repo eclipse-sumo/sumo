@@ -72,12 +72,12 @@ class PlatoonManager(traci.StepListener):
         # Or the ego vehicle needs at least this distance of commom route length with leader
         # before agreeing to follow.
         self._distLookahead = cfg.DIST_LOOKAHEAD
-        # no lane change advice if vehicle has less than this distance 
+        # no lane change advice if vehicle has less than this distance
         # to the next  juction
         self._lanechangeMinDist = cfg.LC_MINDIST
         # set the platooning join / split criterion: gap distance or headway
         self._useHeadway = cfg.USE_HEADWAY
-        
+
         # platoons currently in the simulation
         # map: platoon ID -> platoon objects
         self._platoons = dict()
@@ -130,11 +130,12 @@ class PlatoonManager(traci.StepListener):
 #                 traci.vehicletype.setColor(catchupFollowerType, (0, 255, 200, 0))
 
         # fill global lookup table for vType parameters (used below in safetycheck)
-        knownVTypes = {typeID : traci.vehicletype.getVehicleClass(typeID) for typeID in traci.vehicletype.getIDList()}
+        knownVTypes = {typeID: traci.vehicletype.getVehicleClass(typeID) for typeID in traci.vehicletype.getIDList()}
         vTypesToCheck = set()
         if cfg.VEH_SELECTORS[0] == '':
-            vTypesToCheck.update([typeID for typeID, vClass in knownVTypes.items() if vClass not in ('bicycle', 'pedestrian')])
-          
+            vTypesToCheck.update([typeID for typeID, vClass in knownVTypes.items()
+                                  if vClass not in ('bicycle', 'pedestrian')])
+
         for origType, mappings in cfg.PLATOON_VTYPES.items():
             if origType not in knownVTypes:
                 raise SimplaException(
@@ -228,54 +229,56 @@ class PlatoonManager(traci.StepListener):
             veh.state.edgeID = self._subscriptionResults[veh.getID()][tc.VAR_ROAD_ID]
             veh.state.laneID = self._subscriptionResults[veh.getID()][tc.VAR_LANE_ID]
             veh.state.laneIX = self._subscriptionResults[veh.getID()][tc.VAR_LANE_INDEX]
-            veh.state.leaderInfo = traci.vehicle.getLeader(veh.getID(), self._catchupHeadway*veh.state.speed if self._useHeadway else self._catchupDist)
-            
+            veh.state.leaderInfo = traci.vehicle.getLeader(
+                veh.getID(), self._catchupHeadway*veh.state.speed if self._useHeadway else self._catchupDist)
+
             # check if there is a new, connected leader and if so, verify if this leader
             # has sufficiend edges in common with the ego vehicle
             if veh.state.leaderInfo is not None:
-                    noLeader = True
-                    leaderID = veh.state.leaderInfo[0]
-                    # check if old leader, if any... 
-                    if veh.state.leader is not None:
-                        if leaderID == veh.state.leader.getID():
-                               # this is the current leader, just keep it
-                               noLeader = False
-                    # check if leaderID could be  a new leader
-                    if self._isConnected(leaderID) & noLeader:
-                        # new potential, connected  leader
-                        # check if this leader has enough route in common with ego
-                        egoRoute = traci.vehicle.getRoute(veh.getID())
-                        leaderRoute = traci.vehicle.getRoute(leaderID)
-                        idxLeader = traci.vehicle.getRouteIndex(leaderID)
-                        leaderEdgeID = leaderRoute[idxLeader]
-                        if  leaderEdgeID in egoRoute:
-                            idxEgo = egoRoute.index(leaderEdgeID)
-                            idxDelta = min(idxEgo+self._edgenumberLookahead,len(egoRoute))-idxEgo
-                            idxDelta = min(idxDelta,len(leaderRoute)-idxLeader)
-                            if idxDelta >= 0:
-                                # check if common distance of routes is sufficient
-                                d = 0.0
-                                routeInCommon = True
-                                for ind, edgeIDEgo, edgeIDLeader  in zip(range(idxDelta), egoRoute[idxEgo:idxEgo+idxDelta],leaderRoute[idxLeader:idxLeader+idxDelta]):
-                                    if edgeIDEgo == edgeIDLeader:
-                                        d += traci.lane.getLength(edgeIDEgo+'_0')
-                                        # check if lookahead distance is satisfied
-                                        if d > self._distLookahead:
-                                            #print '  >>>',veh.getID(),'enough dist in common with leader',leaderID
-                                            noLeader = False
-                                            break
-                                    else:
-                                        routeInCommon = False
+                noLeader = True
+                leaderID = veh.state.leaderInfo[0]
+                # check if old leader, if any...
+                if veh.state.leader is not None:
+                    if leaderID == veh.state.leader.getID():
+                        # this is the current leader, just keep it
+                        noLeader = False
+                # check if leaderID could be  a new leader
+                if self._isConnected(leaderID) & noLeader:
+                    # new potential, connected  leader
+                    # check if this leader has enough route in common with ego
+                    egoRoute = traci.vehicle.getRoute(veh.getID())
+                    leaderRoute = traci.vehicle.getRoute(leaderID)
+                    idxLeader = traci.vehicle.getRouteIndex(leaderID)
+                    leaderEdgeID = leaderRoute[idxLeader]
+                    if leaderEdgeID in egoRoute:
+                        idxEgo = egoRoute.index(leaderEdgeID)
+                        idxDelta = min(idxEgo+self._edgenumberLookahead, len(egoRoute))-idxEgo
+                        idxDelta = min(idxDelta, len(leaderRoute)-idxLeader)
+                        if idxDelta >= 0:
+                            # check if common distance of routes is sufficient
+                            d = 0.0
+                            routeInCommon = True
+                            for edgeIDEgo, edgeIDLeader in zip(egoRoute[idxEgo:idxEgo+idxDelta],
+                                                               leaderRoute[idxLeader:idxLeader+idxDelta]):
+                                if edgeIDEgo == edgeIDLeader:
+                                    d += traci.lane.getLength(edgeIDEgo+'_0')
+                                    # check if lookahead distance is satisfied
+                                    if d > self._distLookahead:
+                                        # print '  >>>',veh.getID(),'enough dist in common with leader',leaderID
+                                        noLeader = False
                                         break
-                                # sufficient edges in common
-                                if routeInCommon:
-                                    noLeader = False
-                    if  noLeader:
-                        #print '  set no leader'
-                        veh.state.leader = None
-                        veh.state.connectedVehicleAhead = False
-                        veh.state.leaderInfo = None
-                        continue
+                                else:
+                                    routeInCommon = False
+                                    break
+                            # sufficient edges in common
+                            if routeInCommon:
+                                noLeader = False
+                if noLeader:
+                    # print '  set no leader'
+                    veh.state.leader = None
+                    veh.state.connectedVehicleAhead = False
+                    veh.state.leaderInfo = None
+                    continue
 
             if veh.state.leaderInfo is None:
                 veh.state.leader = None
@@ -303,7 +306,6 @@ class PlatoonManager(traci.StepListener):
                                        (vehAheadID, veh.getID(), dist + nextLeaderInfo[1]))
                             break
                         dist += nextLeaderInfo[1] + traci.vehicle.getLength(vehAheadID)
-
 
     def _removeArrived(self):
         ''' _removeArrived()
@@ -384,8 +386,8 @@ class PlatoonManager(traci.StepListener):
             for ix, veh in enumerate(pltn.getVehicles()[1:]):
                 # check whether to split the platoon at index ix
                 leaderInfo = veh.state.leaderInfo
-                if leaderInfo is None or not self._isConnected(leaderInfo[0]) or \
-                        leaderInfo[1] > (self._maxPlatoonHeadway*veh.state.speed if self._useHeadway else self._maxPlatoonGap):
+                maxGap = self._maxPlatoonHeadway * veh.state.speed if self._useHeadway else self._maxPlatoonGap
+                if leaderInfo is None or not self._isConnected(leaderInfo[0]) or leaderInfo[1] > maxGap:
                     # no leader or no leader that allows platooning
                     veh.setSplitConditions(True)
                 else:
@@ -488,7 +490,7 @@ class PlatoonManager(traci.StepListener):
             if leader.getPlatoon() == pltn:
                 # Platoon order is corrupted, don't join own platoon.
                 continue
-            
+
             if leaderDist <= (self._maxPlatoonHeadway*leader.state.speed if self._useHeadway else self._maxPlatoonGap):
                 # Try to join the platoon in front
                 if leader.getPlatoon().join(pltn):
@@ -658,12 +660,13 @@ class PlatoonManager(traci.StepListener):
                     # distance between vehicle and end of edge
                     d = traci.lane.getLength(laneID)-traci.vehicle.getLanePosition(veh.getID())
                     # change lanes  only if greater than minimum distance from end of edge
-                    if d > self._lanechangeMinDist:#veh.state.edgeID not in rounaboutEdges:#traci.lane.getLength(laneID)>50.0:
+                    # veh.state.edgeID not in rounaboutEdges:#traci.lane.getLength(laneID)>50.0:
+                    if d > self._lanechangeMinDist:
                         # leader is on the same edge, advise follower to use the same lane
                         try:
                             ix = leader.state.laneIX
                             if ix >= 0:
-                              traci.vehicle.changeLane(veh.getID(), ix, self._controlInterval)
+                                traci.vehicle.changeLane(veh.getID(), ix, self._controlInterval)
                         except traci.exceptions.TraCIException as e:
                             if rp.VERBOSITY >= 1:
                                 warn("Lanechange advice for vehicle'%s' failed. Message:\n%s" % (veh.getID(), str(e)))
@@ -675,7 +678,7 @@ class PlatoonManager(traci.StepListener):
                         # change lanes  only if greater than minimum distance from end of edge
                         if d > self._lanechangeMinDist:
                             traci.vehicle.changeLane(veh.getID(), veh.state.laneIX, self._controlInterval)
-                            
+
                     except traci.exceptions.TraCIException as e:
                         if rp.VERBOSITY >= 1:
                             warn("Lanechange advice for vehicle'%s' failed. Message:\n%s" % (veh.getID(), str(e)))
