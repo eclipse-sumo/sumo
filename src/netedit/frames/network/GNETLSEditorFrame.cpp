@@ -87,7 +87,7 @@ FXDEFMAP(GNETLSEditorFrame::TLSFile) TLSFileMap[] = {
 
 // Object implementation
 FXIMPLEMENT(GNETLSEditorFrame,          FXVerticalFrame,    GNETLSEditorFrameMap,   ARRAYNUMBER(GNETLSEditorFrameMap))
-FXIMPLEMENT(GNETLSEditorFrame::TLSFile, MFXGroupBoxModule,         TLSFileMap,             ARRAYNUMBER(TLSFileMap))
+FXIMPLEMENT(GNETLSEditorFrame::TLSFile, MFXGroupBoxModule,  TLSFileMap,             ARRAYNUMBER(TLSFileMap))
 
 
 // ===========================================================================
@@ -481,20 +481,23 @@ GNETLSEditorFrame::onCmdGuess(FXObject*, FXSelector, void*) {
 
 long
 GNETLSEditorFrame::onCmdPhaseSwitch(FXObject*, FXSelector, void*) {
-    const int index = myTLSPhases->getPhaseTable()->getCurrentRow();
-    const NBTrafficLightLogic::PhaseDefinition& phase = getPhases()[index];
-    myTLSPhases->getPhaseTable()->selectRow(index);
+    // get phase table
+    const auto phaseTable = myTLSPhases->getPhaseTable();
+    // get current row
+    const auto row = phaseTable->getCurrentSelectedRow();
+    const NBTrafficLightLogic::PhaseDefinition& phase = getPhases()[row];
+    myTLSPhases->getPhaseTable()->selectRow(row);
     // need not hold since links could have been deleted somewhere else and indices may be reused
     // assert(phase.state.size() == myInternalLanes.size());
-    for (auto it : myInternalLanes) {
-        int tlIndex = it.first;
-        std::vector<GNEInternalLane*> lanes = it.second;
+    for (const auto &internalLane : myInternalLanes) {
+        int tlIndex = internalLane.first;
+        std::vector<GNEInternalLane*> lanes = internalLane.second;
         LinkState state = LINKSTATE_DEADEND;
         if (tlIndex >= 0 && tlIndex < (int)phase.state.size()) {
             state = (LinkState)phase.state[tlIndex];
         }
-        for (auto it_lane : lanes) {
-            it_lane->setLinkState(state);
+        for (const auto &lane : lanes) {
+            lane->setLinkState(state);
         }
     }
     myViewNet->updateViewNet();
@@ -512,14 +515,16 @@ long
 GNETLSEditorFrame::onCmdPhaseCreate(FXObject*, FXSelector, void*) {
     // mark TLS as modified
     myTLSModifications->setHaveModifications(true);
+    // get phase table
+    const auto phaseTable = myTLSPhases->getPhaseTable();
     // check if TLS is static
     const bool TLSStatic = (myEditedDef->getType() == TrafficLightType::STATIC);
     // allows insertion at first position by deselecting via arrow keys
-    int newIndex = myTLSPhases->getPhaseTable()->getSelStartRow() + 1;
-    int oldIndex = MAX2(0, myTLSPhases->getPhaseTable()->getSelStartRow());
+    const auto selectedRow = myTLSPhases->getPhaseTable()->getCurrentSelectedRow();
+    int newIndex = selectedRow + 1;
     // copy current row
-    SUMOTime duration = getSUMOTime(myTLSPhases->getPhaseTable()->getItemText(oldIndex, 0).text());
-    const std::string oldState = myTLSPhases->getPhaseTable()->getItemText(oldIndex, TLSStatic ? 1 : 3).text();
+    SUMOTime duration = getSUMOTime(phaseTable->getItemText(selectedRow, 1).text());
+    const std::string oldState = phaseTable->getItemText(selectedRow, TLSStatic ? 2 : 4).text();
     std::string state = oldState;
 
     std::set<int> crossingIndices;
@@ -575,7 +580,7 @@ GNETLSEditorFrame::onCmdPhaseCreate(FXObject*, FXSelector, void*) {
     }
     // fix continuous green states
     const int nextIndex = myTLSPhases->getPhaseTable()->getNumRows() > newIndex ? newIndex : 0;
-    const std::string state2 = myTLSPhases->getPhaseTable()->getItemText(nextIndex, TLSStatic ? 1 : 3).text();
+    const std::string state2 = myTLSPhases->getPhaseTable()->getItemText(nextIndex, TLSStatic ? 2 : 4).text();
     for (int i = 0; i < (int)state.size(); i++) {
         if ((oldState[i] == LINKSTATE_TL_GREEN_MAJOR || oldState[i] == LINKSTATE_TL_GREEN_MINOR)
                 && (state2[i] == LINKSTATE_TL_GREEN_MAJOR || state2[i] == LINKSTATE_TL_GREEN_MINOR)) {
@@ -594,9 +599,11 @@ GNETLSEditorFrame::onCmdPhaseCreate(FXObject*, FXSelector, void*) {
 
 long
 GNETLSEditorFrame::onCmdPhaseDelete(FXObject*, FXSelector, void*) {
+    
+
     myTLSModifications->setHaveModifications(true);
-    const int newRow = MAX2((int)0, (int)myTLSPhases->getPhaseTable()->getCurrentRow() - 1);
-    myEditedDef->getLogic()->deletePhase(myTLSPhases->getPhaseTable()->getCurrentRow());
+    const auto newRow = MAX2((int)0, (int)myTLSPhases->getPhaseTable()->getCurrentSelectedRow() - 1);
+    myEditedDef->getLogic()->deletePhase(myTLSPhases->getPhaseTable()->getCurrentSelectedRow());
     myTLSPhases->initPhaseTable(newRow);
     myTLSPhases->updateCycleDuration();
     myTLSPhases->getPhaseTable()->setFocus();
@@ -670,10 +677,10 @@ GNETLSEditorFrame::onCmdPhaseEdit(FXObject*, FXSelector, void* ptr) {
     /* @note: there is a bug when copying/pasting rows: when this handler is
      * called the value of the cell is not yet updated. This means you have to
      * click inside the cell and hit enter to actually update the value */
-    FXTablePos* tp = (FXTablePos*)ptr;
+    MFXTable::MFXTablePos* tp = (MFXTable::MFXTablePos*)ptr;
     const std::string value = myTLSPhases->getPhaseTable()->getItemText(tp->row, tp->col).text();
     // Declare columns
-    int colDuration = 0;
+    int colDuration = 1;
     int colState = -1;
     int colNext = -1;
     int colName = -1;
@@ -686,31 +693,31 @@ GNETLSEditorFrame::onCmdPhaseEdit(FXObject*, FXSelector, void* ptr) {
     int colRed = -1;
     // set columns
     if (myEditedDef->getType() == TrafficLightType::STATIC) {
-        colState = 1;
-        colNext = 2;
-        colName = 3;
+        colState = 2;
+        colNext = 3;
+        colName = 4;
     } else if (myEditedDef->getType() == TrafficLightType::ACTUATED) {
-        colMinDur = 1;
-        colMaxDur = 2;
-        colState = 3;
-        colEarliestEnd = 4;
-        colLatestEnd = 5;
-        colNext = 6;
-        colName = 7;
-    } else if (myEditedDef->getType() == TrafficLightType::DELAYBASED) {
-        colMinDur = 1;
-        colMaxDur = 2;
-        colState = 3;
-        colNext = 4;
-    } else if (myEditedDef->getType() == TrafficLightType::NEMA) {
-        colMinDur = 1;
-        colMaxDur = 2;
-        colState = 3;
-        colVehExt = 4;
-        colYellow = 5;
-        colRed = 6;
+        colMinDur = 2;
+        colMaxDur = 3;
+        colState = 4;
+        colEarliestEnd = 5;
+        colLatestEnd = 6;
         colNext = 7;
         colName = 8;
+    } else if (myEditedDef->getType() == TrafficLightType::DELAYBASED) {
+        colMinDur = 2;
+        colMaxDur = 3;
+        colState = 4;
+        colNext = 5;
+    } else if (myEditedDef->getType() == TrafficLightType::NEMA) {
+        colMinDur = 2;
+        colMaxDur = 3;
+        colState = 4;
+        colVehExt = 5;
+        colYellow = 6;
+        colRed = 7;
+        colNext = 8;
+        colName = 9;
     }
     // check column
     if (tp->col == colDuration) {
@@ -1031,9 +1038,9 @@ GNETLSEditorFrame::handleChange(GNEInternalLane* lane) {
             myEditedDef->getLogic()->setPhaseState(row, lane->getTLIndex(), lane->getLinkState());
         }
     } else {
-        myEditedDef->getLogic()->setPhaseState(myTLSPhases->getPhaseTable()->getCurrentRow(), lane->getTLIndex(), lane->getLinkState());
+        myEditedDef->getLogic()->setPhaseState(myTLSPhases->getPhaseTable()->getCurrentSelectedRow(), lane->getTLIndex(), lane->getLinkState());
     }
-    myTLSPhases->initPhaseTable(myTLSPhases->getPhaseTable()->getCurrentRow());
+    myTLSPhases->initPhaseTable(myTLSPhases->getPhaseTable()->getCurrentSelectedRow());
     myTLSPhases->getPhaseTable()->setFocus();
 }
 
@@ -1385,15 +1392,21 @@ GNETLSEditorFrame::TLSPhases::TLSPhases(GNETLSEditorFrame* TLSEditorParent) :
     myTableFont(new FXFont(getApp(), "Courier New", 9)) {
 
     // create and configure phase table
+/*
     myTableScroll = new FXScrollWindow(getCollapsableFrame(), LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT);
-    myPhaseTable = new FXTable(myTableScroll, myTLSEditorParent, MID_GNE_TLSFRAME_PHASE_TABLE, GUIDesignTableLimitedHeight);
+*/
+    myPhaseTable = new MFXTable(/*myTableScroll*/ getCollapsableFrame(), myTLSEditorParent, MID_GNE_TLSFRAME_PHASE_TABLE);
+/*
     myPhaseTable->setColumnHeaderMode(LAYOUT_FIX_HEIGHT);
     myPhaseTable->setColumnHeaderHeight(getApp()->getNormalFont()->getFontHeight() + getApp()->getNormalFont()->getFontAscent() / 2);
     myPhaseTable->setRowHeaderMode(LAYOUT_FIX_WIDTH);
     myPhaseTable->setRowHeaderWidth(0);
+*/
     myPhaseTable->hide();
+/*
     myPhaseTable->setFont(myTableFont);
     myPhaseTable->setHelpText("phase duration in seconds | phase state");
+*/
 
     // create total duration info label
     myCycleDuration = new FXLabel(getCollapsableFrame(), "", nullptr, GUIDesignLabelLeft);
@@ -1432,7 +1445,7 @@ GNETLSEditorFrame::TLSPhases::~TLSPhases() {
 }
 
 
-FXTable*
+MFXTable*
 GNETLSEditorFrame::TLSPhases::getPhaseTable() const {
     return myPhaseTable;
 }
@@ -1440,8 +1453,10 @@ GNETLSEditorFrame::TLSPhases::getPhaseTable() const {
 
 void
 GNETLSEditorFrame::TLSPhases::initPhaseTable(int index) {
+/*
     myPhaseTable->setVisibleRows(1);
     myPhaseTable->setVisibleColumns(2);
+*/
     myPhaseTable->hide();
     if (myTLSEditorParent->myTLSAttributes->getNumberOfTLSDefinitions() > 0) {
         if (myTLSEditorParent->myEditedDef->getType() == TrafficLightType::STATIC) {
@@ -1483,17 +1498,19 @@ GNETLSEditorFrame::TLSPhases::updateCycleDuration() {
 void
 GNETLSEditorFrame::TLSPhases::initStaticPhaseTable(const int index) {
     // declare constants for columns
-    const int cols = 4;
-    const int colDuration = 0;
-    const int colState = 1;
-    const int colNext = 2;
-    const int colName = 3;
+    const int cols = 5;
+    const int colDuration = 1;
+    const int colState = 2;
+    const int colNext = 3;
+    const int colName = 4;
     // get phases
     const std::vector<NBTrafficLightLogic::PhaseDefinition>& phases = myTLSEditorParent->getPhases();
     // adjust table
-    myPhaseTable->setTableSize((int)phases.size(), cols);
+    myPhaseTable->setTableSize("s----", (int)phases.size());
+/*
     myPhaseTable->setVisibleRows((int)phases.size());
     myPhaseTable->setVisibleColumns(cols);
+*/
     // fill rows
     for (int row = 0; row < (int)phases.size(); row++) {
         myPhaseTable->setItemText(row, colDuration, getSteps2Time(phases[row].duration).c_str());
@@ -1503,19 +1520,24 @@ GNETLSEditorFrame::TLSPhases::initStaticPhaseTable(const int index) {
         myPhaseTable->getItem(row, 1)->setJustify(FXTableItem::LEFT);
     }
     // set columns
+/*
     myPhaseTable->fitColumnsToContents(0, cols);
+*/
     myPhaseTable->setColumnText(colDuration, "dur");
     myPhaseTable->setColumnText(colState, "state");
     myPhaseTable->setColumnText(colNext, "nxt");
     myPhaseTable->setColumnText(colName, "name");
+/*
     myPhaseTable->setColumnWidth(colNext, MAX2(myPhaseTable->getColumnWidth(colNext), 30));
     myPhaseTable->setColumnWidth(colName, MAX2(myPhaseTable->getColumnWidth(colName), 45));
+*/
     // set rows
     myPhaseTable->setHeight((int)phases.size() * 21 + 21); // experimental
     myPhaseTable->setCurrentItem(index, 0);
     myPhaseTable->selectRow(index, true);
     myPhaseTable->show();
     myPhaseTable->setFocus();
+/*
     myTableScroll->setHeight(myPhaseTable->getHeight() + 15);
     // neither my myPhaseTable->getWidth nor getDefaultWidth return the sum of column widths
     // however, the scroll pane uses getDefaultWidth to determine the
@@ -1526,27 +1548,30 @@ GNETLSEditorFrame::TLSPhases::initStaticPhaseTable(const int index) {
         neededWidth += myPhaseTable->getColumnWidth(i);
     }
     myPhaseTable->setDefColumnWidth(neededWidth / cols);
+*/
 }
 
 
 void
 GNETLSEditorFrame::TLSPhases::initActuatedPhaseTable(const int index) {
     // declare constants for columns
-    const int cols = 8;
-    const int colDuration = 0;
-    const int colMinDur = 1;
-    const int colMaxDur = 2;
-    const int colState = 3;
-    const int colEarliestEnd = 4;
-    const int colLatestEnd = 5;
-    const int colNext = 6;
-    const int colName = 7;
+    const int cols = 9;
+    const int colDuration = 1;
+    const int colMinDur = 2;
+    const int colMaxDur = 3;
+    const int colState = 4;
+    const int colEarliestEnd = 5;
+    const int colLatestEnd = 6;
+    const int colNext = 7;
+    const int colName = 8;
     // get phases
     const std::vector<NBTrafficLightLogic::PhaseDefinition>& phases = myTLSEditorParent->getPhases();
     // adjust table
-    myPhaseTable->setTableSize((int)phases.size(), cols);
+    myPhaseTable->setTableSize("s--------", (int)phases.size());
+/*
     myPhaseTable->setVisibleRows((int)phases.size());
     myPhaseTable->setVisibleColumns(cols);
+*/
     // fill rows
     for (int row = 0; row < (int)phases.size(); row++) {
         myPhaseTable->setItemText(row, colDuration, getSteps2Time(phases[row].duration).c_str());
@@ -1560,29 +1585,30 @@ GNETLSEditorFrame::TLSPhases::initActuatedPhaseTable(const int index) {
         myPhaseTable->getItem(row, 1)->setJustify(FXTableItem::LEFT);
     }
     // set columns
-    myPhaseTable->fitColumnsToContents(0, cols);
+//myPhaseTable->fitColumnsToContents(0, cols);
     myPhaseTable->setColumnText(colDuration, "dur");
-    myPhaseTable->setColumnWidth(colDuration, MAX2(myPhaseTable->getColumnWidth(colDuration), 35));
+//myPhaseTable->setColumnWidth(colDuration, MAX2(myPhaseTable->getColumnWidth(colDuration), 35));
     myPhaseTable->setColumnText(colMinDur, "min");
-    myPhaseTable->setColumnWidth(colMinDur, MAX2(myPhaseTable->getColumnWidth(colMinDur), 35));
+//myPhaseTable->setColumnWidth(colMinDur, MAX2(myPhaseTable->getColumnWidth(colMinDur), 35));
     myPhaseTable->setColumnText(colMaxDur, "max");
-    myPhaseTable->setColumnWidth(colMaxDur, MAX2(myPhaseTable->getColumnWidth(colMaxDur), 35));
+//myPhaseTable->setColumnWidth(colMaxDur, MAX2(myPhaseTable->getColumnWidth(colMaxDur), 35));
     myPhaseTable->setColumnText(colEarliestEnd, "ear.end");
-    myPhaseTable->setColumnWidth(colEarliestEnd, MAX2(myPhaseTable->getColumnWidth(colEarliestEnd), 35));
+//myPhaseTable->setColumnWidth(colEarliestEnd, MAX2(myPhaseTable->getColumnWidth(colEarliestEnd), 35));
     myPhaseTable->setColumnText(colLatestEnd, "lat.end");
-    myPhaseTable->setColumnWidth(colLatestEnd, MAX2(myPhaseTable->getColumnWidth(colLatestEnd), 35));
+//myPhaseTable->setColumnWidth(colLatestEnd, MAX2(myPhaseTable->getColumnWidth(colLatestEnd), 35));
     myPhaseTable->setColumnText(colState, "state");
-    myPhaseTable->setColumnWidth(colState, MAX2(myPhaseTable->getColumnWidth(colState), 30));
+//myPhaseTable->setColumnWidth(colState, MAX2(myPhaseTable->getColumnWidth(colState), 30));
     myPhaseTable->setColumnText(colNext, "nxt");
-    myPhaseTable->setColumnWidth(colNext, MAX2(myPhaseTable->getColumnWidth(colNext), 30));
+//myPhaseTable->setColumnWidth(colNext, MAX2(myPhaseTable->getColumnWidth(colNext), 30));
     myPhaseTable->setColumnText(colName, "name");
-    myPhaseTable->setColumnWidth(colName, MAX2(myPhaseTable->getColumnWidth(colName), 45));
+//myPhaseTable->setColumnWidth(colName, MAX2(myPhaseTable->getColumnWidth(colName), 45));
     // set rows
     myPhaseTable->setHeight((int)phases.size() * 21 + 21); // experimental
     myPhaseTable->setCurrentItem(index, 0);
     myPhaseTable->selectRow(index, true);
     myPhaseTable->show();
     myPhaseTable->setFocus();
+/*
     myTableScroll->setHeight(myPhaseTable->getHeight() + 15);
     // neither my myPhaseTable->getWidth nor getDefaultWidth return the sum of column widths
     // however, the scroll pane uses getDefaultWidth to determine the
@@ -1593,25 +1619,28 @@ GNETLSEditorFrame::TLSPhases::initActuatedPhaseTable(const int index) {
         neededWidth += myPhaseTable->getColumnWidth(i);
     }
     myPhaseTable->setDefColumnWidth(neededWidth / cols);
+*/
 }
 
 
 void
 GNETLSEditorFrame::TLSPhases::initDelayBasePhaseTable(const int index) {
     // declare constants for columns
-    const int cols = 8;
-    const int colDuration = 0;
-    const int colMinDur = 1;
-    const int colMaxDur = 2;
-    const int colState = 3;
-    const int colNext = 4;
-    const int colName = 5;
+    const int cols = 9;
+    const int colDuration = 1;
+    const int colMinDur = 2;
+    const int colMaxDur = 3;
+    const int colState = 4;
+    const int colNext = 5;
+    const int colName = 6;
     // get phases
     const std::vector<NBTrafficLightLogic::PhaseDefinition>& phases = myTLSEditorParent->getPhases();
     // adjust table
-    myPhaseTable->setTableSize((int)phases.size(), cols);
+    myPhaseTable->setTableSize("s--------", (int)phases.size(), cols);
+/*
     myPhaseTable->setVisibleRows((int)phases.size());
     myPhaseTable->setVisibleColumns(cols);
+*/
     // fill rows
     for (int row = 0; row < (int)phases.size(); row++) {
         myPhaseTable->setItemText(row, colDuration, getSteps2Time(phases[row].duration).c_str());
@@ -1623,25 +1652,26 @@ GNETLSEditorFrame::TLSPhases::initDelayBasePhaseTable(const int index) {
         myPhaseTable->getItem(row, 1)->setJustify(FXTableItem::LEFT);
     }
     // set columns
-    myPhaseTable->fitColumnsToContents(0, cols);
+//myPhaseTable->fitColumnsToContents(0, cols);
     myPhaseTable->setColumnText(colDuration, "dur");
-    myPhaseTable->setColumnWidth(colDuration, MAX2(myPhaseTable->getColumnWidth(colDuration), 35));
+//myPhaseTable->setColumnWidth(colDuration, MAX2(myPhaseTable->getColumnWidth(colDuration), 35));
     myPhaseTable->setColumnText(colMinDur, "min");
-    myPhaseTable->setColumnWidth(colMinDur, MAX2(myPhaseTable->getColumnWidth(colMinDur), 35));
+//myPhaseTable->setColumnWidth(colMinDur, MAX2(myPhaseTable->getColumnWidth(colMinDur), 35));
     myPhaseTable->setColumnText(colMaxDur, "max");
-    myPhaseTable->setColumnWidth(colMaxDur, MAX2(myPhaseTable->getColumnWidth(colMaxDur), 35));
+//myPhaseTable->setColumnWidth(colMaxDur, MAX2(myPhaseTable->getColumnWidth(colMaxDur), 35));
     myPhaseTable->setColumnText(colState, "state");
-    myPhaseTable->setColumnWidth(colState, MAX2(myPhaseTable->getColumnWidth(colState), 30));
+//myPhaseTable->setColumnWidth(colState, MAX2(myPhaseTable->getColumnWidth(colState), 30));
     myPhaseTable->setColumnText(colNext, "nxt");
-    myPhaseTable->setColumnWidth(colNext, MAX2(myPhaseTable->getColumnWidth(colNext), 30));
+//myPhaseTable->setColumnWidth(colNext, MAX2(myPhaseTable->getColumnWidth(colNext), 30));
     myPhaseTable->setColumnText(colName, "name");
-    myPhaseTable->setColumnWidth(colName, MAX2(myPhaseTable->getColumnWidth(colName), 45));
+//myPhaseTable->setColumnWidth(colName, MAX2(myPhaseTable->getColumnWidth(colName), 45));
     // set rows
     myPhaseTable->setHeight((int)phases.size() * 21 + 21); // experimental
     myPhaseTable->setCurrentItem(index, 0);
     myPhaseTable->selectRow(index, true);
     myPhaseTable->show();
     myPhaseTable->setFocus();
+/*
     myTableScroll->setHeight(myPhaseTable->getHeight() + 15);
     // neither my myPhaseTable->getWidth nor getDefaultWidth return the sum of column widths
     // however, the scroll pane uses getDefaultWidth to determine the
@@ -1652,6 +1682,7 @@ GNETLSEditorFrame::TLSPhases::initDelayBasePhaseTable(const int index) {
         neededWidth += myPhaseTable->getColumnWidth(i);
     }
     myPhaseTable->setDefColumnWidth(neededWidth / cols);
+*/
 }
 
 
@@ -1659,21 +1690,23 @@ void
 GNETLSEditorFrame::TLSPhases::initNEMAPhaseTable(const int index) {
     // declare constants for columns
     const int cols = 9;
-    const int colDuration = 0;
-    const int colMinDur = 1;
-    const int colMaxDur = 2;
-    const int colState = 3;
-    const int colVehExt = 4;
-    const int colYellow = 5;
-    const int colRed = 6;
-    const int colNext = 7;
-    const int colName = 8;
+    const int colDuration = 1;
+    const int colMinDur = 2;
+    const int colMaxDur = 3;
+    const int colState = 4;
+    const int colVehExt = 5;
+    const int colYellow = 6;
+    const int colRed = 7;
+    const int colNext = 8;
+    const int colName = 9;
     // get phases
     const std::vector<NBTrafficLightLogic::PhaseDefinition>& phases = myTLSEditorParent->getPhases();
     // adjust table
-    myPhaseTable->setTableSize((int)phases.size(), cols);
+    myPhaseTable->setTableSize("s---------", (int)phases.size());
+/*
     myPhaseTable->setVisibleRows((int)phases.size());
     myPhaseTable->setVisibleColumns(cols);
+*/
     // fill rows
     for (int row = 0; row < (int)phases.size(); row++) {
         myPhaseTable->setItemText(row, colDuration, getSteps2Time(phases[row].duration).c_str());
@@ -1688,31 +1721,32 @@ GNETLSEditorFrame::TLSPhases::initNEMAPhaseTable(const int index) {
         myPhaseTable->getItem(row, 1)->setJustify(FXTableItem::LEFT);
     }
     // set columns
-    myPhaseTable->fitColumnsToContents(0, cols);
+//myPhaseTable->fitColumnsToContents(0, cols);
     myPhaseTable->setColumnText(colDuration, "dur");
-    myPhaseTable->setColumnWidth(colDuration, MAX2(myPhaseTable->getColumnWidth(colDuration), 35));
+//myPhaseTable->setColumnWidth(colDuration, MAX2(myPhaseTable->getColumnWidth(colDuration), 35));
     myPhaseTable->setColumnText(colMinDur, "min");
-    myPhaseTable->setColumnWidth(colMinDur, MAX2(myPhaseTable->getColumnWidth(colMinDur), 35));
+//myPhaseTable->setColumnWidth(colMinDur, MAX2(myPhaseTable->getColumnWidth(colMinDur), 35));
     myPhaseTable->setColumnText(colMaxDur, "max");
-    myPhaseTable->setColumnWidth(colMaxDur, MAX2(myPhaseTable->getColumnWidth(colMaxDur), 35));
+//myPhaseTable->setColumnWidth(colMaxDur, MAX2(myPhaseTable->getColumnWidth(colMaxDur), 35));
     myPhaseTable->setColumnText(colState, "state");
-    myPhaseTable->setColumnWidth(colState, MAX2(myPhaseTable->getColumnWidth(colState), 30));
+//myPhaseTable->setColumnWidth(colState, MAX2(myPhaseTable->getColumnWidth(colState), 30));
     myPhaseTable->setColumnText(colVehExt, "v.ext");
-    myPhaseTable->setColumnWidth(colVehExt, MAX2(myPhaseTable->getColumnWidth(colVehExt), 45));
+//myPhaseTable->setColumnWidth(colVehExt, MAX2(myPhaseTable->getColumnWidth(colVehExt), 45));
     myPhaseTable->setColumnText(colYellow, "yel");
-    myPhaseTable->setColumnWidth(colYellow, MAX2(myPhaseTable->getColumnWidth(colYellow), 35));
+//myPhaseTable->setColumnWidth(colYellow, MAX2(myPhaseTable->getColumnWidth(colYellow), 35));
     myPhaseTable->setColumnText(colRed, "red");
-    myPhaseTable->setColumnWidth(colRed, MAX2(myPhaseTable->getColumnWidth(colRed), 35));
+//myPhaseTable->setColumnWidth(colRed, MAX2(myPhaseTable->getColumnWidth(colRed), 35));
     myPhaseTable->setColumnText(colNext, "nxt");
-    myPhaseTable->setColumnWidth(colNext, MAX2(myPhaseTable->getColumnWidth(colNext), 30));
+//myPhaseTable->setColumnWidth(colNext, MAX2(myPhaseTable->getColumnWidth(colNext), 30));
     myPhaseTable->setColumnText(colName, "name");
-    myPhaseTable->setColumnWidth(colName, MAX2(myPhaseTable->getColumnWidth(colName), 45));
+//myPhaseTable->setColumnWidth(colName, MAX2(myPhaseTable->getColumnWidth(colName), 45));
     // set rows
     myPhaseTable->setHeight((int)phases.size() * 21 + 21); // experimental
     myPhaseTable->setCurrentItem(index, 0);
     myPhaseTable->selectRow(index, true);
     myPhaseTable->show();
     myPhaseTable->setFocus();
+/*
     myTableScroll->setHeight(myPhaseTable->getHeight() + 15);
     // neither my myPhaseTable->getWidth nor getDefaultWidth return the sum of column widths
     // however, the scroll pane uses getDefaultWidth to determine the
@@ -1723,6 +1757,7 @@ GNETLSEditorFrame::TLSPhases::initNEMAPhaseTable(const int index) {
         neededWidth += myPhaseTable->getColumnWidth(i);
     }
     myPhaseTable->setDefColumnWidth(neededWidth / cols);
+*/
 }
 
 // ---------------------------------------------------------------------------

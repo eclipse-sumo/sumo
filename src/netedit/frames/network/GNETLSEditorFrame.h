@@ -23,6 +23,7 @@
 #include <netedit/frames/GNEFrame.h>
 #include <netbuild/NBTrafficLightLogic.h>
 #include <netedit/frames/GNEOverlappedInspection.h>
+#include <utils/foxtools/MFXTable.h>
 
 
 // ===========================================================================
@@ -192,7 +193,7 @@ public:
         ~TLSPhases();
 
         /// @brief get phase table
-        FXTable* getPhaseTable() const;
+        MFXTable* getPhaseTable() const;
 
         /**@brief initialies the phase table
          * @param[in] index The index to select
@@ -229,10 +230,10 @@ public:
         FXFont* myTableFont;
 
         /// @brief window for oversized phase tables
-        FXScrollWindow* myTableScroll;
+        //FXScrollWindow* myTableScroll;
 
         /// @brief table for selecting and rearranging phases and for changing duration
-        FXTable* myPhaseTable;
+        MFXTable* myPhaseTable;
 
         /// @brief label with the cycle duration
         FXLabel* myCycleDuration;
