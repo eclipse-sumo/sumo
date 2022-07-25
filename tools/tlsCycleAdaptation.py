@@ -33,42 +33,35 @@
 from __future__ import absolute_import
 from __future__ import print_function
 
-import os
 import sys
-import optparse
 import collections
 
-if 'SUMO_HOME' in os.environ:
-    tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
-    sys.path.append(tools)
-    import sumolib  # noqa
-else:
-    sys.exit("please declare environment variable 'SUMO_HOME'")
+import sumolib
 
 
 def get_options(args=None):
-    optParser = optparse.OptionParser()
-    optParser.add_option("-n", "--net-file", dest="netfile",
+    optParser = sumolib.options.ArgumentParser()
+    optParser.add_option("-n", "--net-file", dest="netfile", required=True,
                          help="define the net file (mandatory)")
     optParser.add_option("-o", "--output-file", dest="outfile",
                          default="tlsAdaptation.add.xml", help="define the output filename")
-    optParser.add_option("-r", "--route-files", dest="routefiles",
-                         help="define the route file seperated by comma(mandatory)")
-    optParser.add_option("-b", "--begin", dest="begin", type="int",
+    optParser.add_option("-r", "--route-files", dest="routefiles", required=True,
+                         help="define the route file separated by comma (mandatory)")
+    optParser.add_option("-b", "--begin", dest="begin", type=int,
                          default=0, help="begin time of the optimization period with unit second")
-    optParser.add_option("-y", "--yellow-time", dest="yellowtime", type="int",
+    optParser.add_option("-y", "--yellow-time", dest="yellowtime", type=int,
                          default=4, help="yellow time")
-    optParser.add_option("-a", "--all-red", dest="allred", type="int",
+    optParser.add_option("-a", "--all-red", dest="allred", type=int,
                          default=0, help="all-red time")
-    optParser.add_option("-l", "--lost-time", dest="losttime", type="int",
+    optParser.add_option("-l", "--lost-time", dest="losttime", type=int,
                          default=4, help="lost time for start-up and clearance in each phase")
-    optParser.add_option("-g", "--min-green", dest="mingreen", type="int",
+    optParser.add_option("-g", "--min-green", dest="mingreen", type=int,
                          default=4, help=" minimal green time when there is no traffic volume")
-    optParser.add_option("--green-filter-time", dest="greenFilter", type="int", default=0,
+    optParser.add_option("--green-filter-time", dest="greenFilter", type=int, default=0,
                          help="when computing critical flows, do not count phases with a green time below INT")
-    optParser.add_option("-c", "--min-cycle", dest="mincycle", type="int",
+    optParser.add_option("--min-cycle", dest="mincycle", type=int,
                          default=20, help="minimal cycle length")
-    optParser.add_option("-C", "--max-cycle", dest="maxcycle", type="int",
+    optParser.add_option("--max-cycle", dest="maxcycle", type=int,
                          default=120, help="maximal cycle length")
     optParser.add_option("-e", "--existing-cycle", dest="existcycle", action="store_true",
                          default=False, help="use the existing cycle length")
@@ -76,44 +69,46 @@ def get_options(args=None):
                          default=False, help="print critical flows for each tls and phase")
     optParser.add_option("-p", "--program", dest="program", default="a",
                          help="save new definitions with this program id")
-    optParser.add_option("-H", "--saturation-headway", dest="satheadway", type="float", default=2,
+    optParser.add_option("-H", "--saturation-headway", dest="satheadway", type=float, default=2,
                          help="saturation headway in seconds for calculating hourly saturation flows")
     optParser.add_option("-R", "--restrict-cyclelength", dest="restrict", action="store_true",
                          default=False, help="restrict the max. cycle length as the given one")
     optParser.add_option("-u", "--unified-cycle", dest="unicycle", action="store_true", default=False,
-                         help=" use the calculated max cycle length as the cycle length for all intersections")
+                         help="use the calculated max cycle length as the cycle length for all intersections")
+    optParser.add_option("--sorted", action="store_true", default=False,
+                         help="assume the route file is sorted (aborts reading earlier)")
     optParser.add_option("-v", "--verbose", dest="verbose", action="store_true",
                          default=False, help="tell me what you are doing")
-    (options, args) = optParser.parse_args(args=args)
-
-    if not options.netfile or not options.routefiles:
-        optParser.print_help()
-        sys.exit()
-
-    return options
+    return optParser.parse_args(args=args)
 
 
-def getFlows(net, routeFiles, tlsList, begin, verbose):
+def getFlows(net, routeFiles, tlsList, begin, verbose, isSorted=False):
     tlsFlowsMap = {}
     end = begin + 3600
     for tls in tlsList:
         tlsFlowsMap[tls._id] = collections.defaultdict(lambda: collections.defaultdict(int))
     for file in routeFiles.split(','):
         if verbose:
-            print("route file:%s" % file)
+            print("parsing route file:", file)
+        triggered = parsed = 0
         for veh in sumolib.output.parse(file, 'vehicle'):
-            if float(veh.depart) >= end:
-                break
-            if float(veh.depart) >= begin:
-                edgeList = veh.route[0].edges.split()
-                for tls in tlsList:
-                    # c: [[inLane, outLane, linkNo],[],..]
-                    for c in tls.getConnections():
-                        inEdge = c[0].getEdge().getID()
-                        outEdge = c[1].getEdge().getID()
-                        if inEdge in edgeList:
-                            beginIndex = edgeList.index(inEdge)
-                            if beginIndex < len(edgeList) - 1 and edgeList[beginIndex + 1] == outEdge:
+            if veh.depart == "triggered":
+                triggered += 1
+                continue
+            if sumolib.miscutils.parseTime(veh.depart) >= end:
+                if isSorted:
+                    break
+                continue
+            if sumolib.miscutils.parseTime(veh.depart) >= begin:
+                edgeList = [net.getEdge(e) for e in veh.route[0].edges.split()]
+                for idx, edge in enumerate(edgeList):
+                    tls = None if edge.getToNode().getType() in ("rail_crossing", "rail_signal") else edge.getTLS()
+                    if tls and idx < len(edgeList) - 1:
+                        # c: [[inLane, outLane, linkNo],[],..]
+                        for c in tls.getConnections():
+                            inEdge = c[0].getEdge()
+                            outEdge = c[1].getEdge()
+                            if inEdge == edge and outEdge == edgeList[idx + 1]:
                                 pce = 1.
                                 if veh.type == "bicycle":
                                     pce = 0.2
@@ -121,8 +116,14 @@ def getFlows(net, routeFiles, tlsList, begin, verbose):
                                     pce = 0.5
                                 elif veh.type in ["truck", "trailer", "bus", "coach"]:
                                     pce = 3.5
-                                tlsFlowsMap[tls._id][inEdge + " " + outEdge][c[2]] += pce
-
+                                tlsFlowsMap[tls.getID()][inEdge.getID() + " " + outEdge.getID()][c[2]] += pce
+                                parsed += 1
+        if triggered > 0:
+            print("Warning: Ignored %s triggered vehicles in %s." % (triggered, file))
+        if parsed == 0:
+            print("Warning: No vehicles parsed from %s." % file)
+        elif verbose:
+            print("Parsed %s vehicles from %s." % (parsed, file))
     # remove the doubled counts
     connFlowsMap = {}
     for t in tlsList:
@@ -376,15 +377,13 @@ def main(options):
         print("the total number of tls: %s" % len(tlsList))
     print("Begin time:%s" % options.begin)
     # get traffic flows for each connection at each TL
-    connFlowsMap = getFlows(net, options.routefiles, tlsList, options.begin, options.verbose)
+    connFlowsMap = getFlows(net, options.routefiles, tlsList, options.begin, options.verbose, options.sorted)
 
     # remove the tls where no traffic volumes exist
     effectiveTlsList = getEffectiveTlsList(tlsList, connFlowsMap, options.verbose)
 
     with open(options.outfile, 'w') as outf:
-        outf.write('<?xml version="1.0" encoding="UTF-8"?>\n')
-        outf.write('<additional>\n')
-
+        sumolib.xml.writeHeader(outf, root="additional", options=options)
         if len(effectiveTlsList) > 0:
             if options.unicycle:
                 cycleList = []
