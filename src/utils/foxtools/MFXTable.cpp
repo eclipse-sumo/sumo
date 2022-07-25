@@ -26,7 +26,7 @@
 #define EXTRAMARGING 1
 
 FXDEFMAP(MFXTable) MFXTableMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_SELECT, MFXTable::onSelectRow),
+    FXMAPFUNC(SEL_FOCUSIN,  MID_CHOOSEN_SELECT, MFXTable::onFocusRow),
     FXMAPFUNC(SEL_ENTER,    0,                  MFXTable::onEnter),
     FXMAPFUNC(SEL_LEAVE,    0,                  MFXTable::onLeave),
 };
@@ -47,23 +47,25 @@ MFXTable::~MFXTable() {}
 
 
 long
-MFXTable::onSelectRow(FXObject* sender, FXSelector, void*) {
-    myCurrentSelectedRow = 0;
-    int column = -1;
-    // iterate over rows and find radioButton
-    for (int i = 0; i < (int)myColumns.size(); i++) {
-        for (int rowIndex = 0; rowIndex < (int)myRows.size(); rowIndex++) {
-            // get check button
-            auto radioButton = myRows.at(rowIndex)->getCell(i).radioButton;
-            // check if check button exist
-            if (radioButton) {
-                // check if this is the clicked check button
-                if (radioButton == sender) {
-                    myCurrentSelectedRow = rowIndex;
-                    column = i;
+MFXTable::onFocusRow(FXObject* sender, FXSelector, void*) {
+    // search selected text field
+    for (int rowIndex = 0; rowIndex < (int)myRows.size(); rowIndex++) {
+        // iterate over every cell
+        for (const auto &cellRadioButton : myRows.at(rowIndex)->getCells()) {
+            if (cellRadioButton.textField == sender) {
+                myCurrentSelectedRow = rowIndex;
+            }
+        }
+    }
+    // set radio buttons checks
+    for (int rowIndex = 0; rowIndex < (int)myRows.size(); rowIndex++) {
+        // iterate over every cell
+        for (const auto &cellRadioButton : myRows.at(rowIndex)->getCells()) {
+            if (cellRadioButton.radioButton) {
+                if (myCurrentSelectedRow == rowIndex) {
+                    cellRadioButton.radioButton->setCheck(TRUE, FALSE);
                 } else {
-                    // all radio buttons
-                    radioButton->setCheck(FALSE, FALSE);
+                    cellRadioButton.radioButton->setCheck(FALSE, FALSE);
                 }
             }
         }
@@ -163,7 +165,7 @@ MFXTable::setTableSize(const std::string columns, FXint numberRow, FXbool /* not
 FXTextField*
 MFXTable::getItem(FXint row, FXint col) const {
     if (row < (FXint)myRows.size() && col < (FXint)myColumns.size()) {
-        return myRows.at(row)->getCell(col).textField;
+        return myRows.at(row)->getCells().at(col).textField;
     }
     throw ProcessError("Invalid row or column");
 }
@@ -245,7 +247,7 @@ MFXTable::Column::adjustColumnWidth() {
         // iterate over all textFields and check widths
         for (const auto& row : myTable->myRows) {
             // get text field
-            const auto textField = row->getCell(myIndex).textField;
+            const auto textField = row->getCells().at(myIndex).textField;
             // get textField width
             const auto textFieldWidth = textField->getFont()->getTextWidth(textField->getText().text(), textField->getText().length() + EXTRAMARGING);
             // compare widths
@@ -256,7 +258,7 @@ MFXTable::Column::adjustColumnWidth() {
         // set width in all elements
         myLabel->setWidth(width);
         for (const auto& row : myTable->myRows) {
-            row->getCell(myIndex).textField->setWidth(width);
+            row->getCells().at(myIndex).textField->setWidth(width);
         }
     }
 }
@@ -276,7 +278,7 @@ MFXTable::Row::Row(MFXTable* table) :
             radioButton->create();
             myCells.push_back(Cell(radioButton));
         } else if (table->myColumns.at(i)->getType() == '-') {
-            auto textField = new FXTextField(table->myColumns.at(i)->getVerticalFrame(), GUIDesignTextFieldNCol, table->myTarget, table->mySelector, GUIDesignTextFieldMFXTable);
+            auto textField = new FXTextField(table->myColumns.at(i)->getVerticalFrame(), GUIDesignTextFieldNCol, table, MID_CHOOSEN_SELECT, GUIDesignTextFieldMFXTable);
             textField->create();
             myCells.push_back(Cell(textField));
         } else {
@@ -316,9 +318,9 @@ MFXTable::Row::setText(int index, const FXString& text, FXbool notify) const {
 }
 
 
-const MFXTable::Row::Cell&
-MFXTable::Row::getCell(int index) const {
-    return myCells.at(index);
+const std::vector<MFXTable::Row::Cell> &
+MFXTable::Row::getCells() const {
+    return myCells;
 }
 
 

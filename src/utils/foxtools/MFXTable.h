@@ -46,8 +46,8 @@ public:
 
     /// @name FOX callbacks
     /// @{
-    /// @brief called when a row is selected
-    long onSelectRow(FXObject*, FXSelector, void*);
+    /// @brief called when a row is focused
+    long onFocusRow(FXObject*, FXSelector, void*);
 
     /// @brief called when mouse enter in MFXTable
     long onEnter(FXObject*, FXSelector, void*);
@@ -170,8 +170,8 @@ protected:
         /// @brief set text
         void setText(int index, const FXString& text, FXbool notify) const;
 
-        /// @brief get cell
-        const Cell &getCell(int index) const;
+        /// @brief get cells
+        const std::vector<Cell> &getCells() const;
 
         /// @brief select column
         void select();
