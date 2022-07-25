@@ -27,6 +27,7 @@
 
 FXDEFMAP(MFXTable) MFXTableMap[] = {
     FXMAPFUNC(SEL_FOCUSIN,  MID_CHOOSEN_SELECT, MFXTable::onFocusRow),
+    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_SELECT, MFXTable::onEditRow),
     FXMAPFUNC(SEL_ENTER,    0,                  MFXTable::onEnter),
     FXMAPFUNC(SEL_LEAVE,    0,                  MFXTable::onLeave),
 };
@@ -39,11 +40,14 @@ FXIMPLEMENT(MFXTable, FXHorizontalFrame, MFXTableMap, ARRAYNUMBER(MFXTableMap))
 MFXTable::MFXTable(FXComposite* p, FXObject* tgt, FXSelector sel) :
     FXHorizontalFrame(p, GUIDesignAuxiliarMFXTable),
     myTarget(tgt),
+    myTablePos(new MFXTablePos()),
     mySelector(sel) {
 }
 
 
-MFXTable::~MFXTable() {}
+MFXTable::~MFXTable() {
+    delete myTablePos;
+}
 
 
 long
@@ -51,26 +55,49 @@ MFXTable::onFocusRow(FXObject* sender, FXSelector, void*) {
     // search selected text field
     for (int rowIndex = 0; rowIndex < (int)myRows.size(); rowIndex++) {
         // iterate over every cell
-        for (const auto &cellRadioButton : myRows.at(rowIndex)->getCells()) {
-            if (cellRadioButton.textField == sender) {
+        for (const auto &cellTextField : myRows.at(rowIndex)->getCells()) {
+            if ((cellTextField.textField == sender) && (myCurrentSelectedRow != rowIndex)) {
                 myCurrentSelectedRow = rowIndex;
-            }
-        }
-    }
-    // set radio buttons checks
-    for (int rowIndex = 0; rowIndex < (int)myRows.size(); rowIndex++) {
-        // iterate over every cell
-        for (const auto &cellRadioButton : myRows.at(rowIndex)->getCells()) {
-            if (cellRadioButton.radioButton) {
-                if (myCurrentSelectedRow == rowIndex) {
-                    cellRadioButton.radioButton->setCheck(TRUE, FALSE);
-                } else {
-                    cellRadioButton.radioButton->setCheck(FALSE, FALSE);
+                myTarget->handle(this, FXSEL(SEL_SELECTED, mySelector), nullptr);
+                // set radio buttons checks
+                for (int rowIndex2 = 0; rowIndex2 < (int)myRows.size(); rowIndex2++) {
+                    // iterate over every cell
+                    for (const auto &cellRadioButton : myRows.at(rowIndex2)->getCells()) {
+                        if (cellRadioButton.radioButton) {
+                            if (myCurrentSelectedRow == rowIndex2) {
+                                cellRadioButton.radioButton->setCheck(TRUE, FALSE);
+                            } else {
+                                cellRadioButton.radioButton->setCheck(FALSE, FALSE);
+                            }
+                        }
+                    }
                 }
+                // row focused, then stop
+                return 1;
             }
         }
     }
-    return 1;
+    return 0;
+}
+
+
+long 
+MFXTable::onEditRow(FXObject* sender, FXSelector, void*) {
+    // search selected text field
+    for (int columnIndex = 0; columnIndex < (int)myColumns.size(); columnIndex++) {
+        for (int rowIndex = 0; rowIndex < (int)myRows.size(); rowIndex++) {
+            if (myRows.at(rowIndex)->getCells().at(columnIndex).textField == sender) {
+                // update myTablePos
+                myTablePos->col = columnIndex;
+                myTablePos->row = rowIndex;
+                // inform target
+                return myTarget->handle(this, FXSEL(SEL_REPLACED, mySelector), myTablePos);
+                // stop
+                return 1;
+            }
+        }
+    }
+    return 0;
 }
 
 

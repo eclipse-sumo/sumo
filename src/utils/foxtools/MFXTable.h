@@ -38,6 +38,26 @@ class MFXTable : public FXHorizontalFrame {
     FXDECLARE(MFXTable)
 
 public:
+    /// @brief table position
+    struct MFXTablePos {
+        
+        /// @brief constructor
+        MFXTablePos() {}
+
+        /// @brief column index
+        int col = 0;
+
+        /// @brief row index
+        int row = 0;
+
+    private:
+        /// @brief Invalidated copy constructor.
+        MFXTablePos(const MFXTablePos&) = delete;
+
+        /// @brief Invalidated assignment operator.
+        MFXTablePos& operator=(const MFXTablePos&) = delete;
+    };
+
     /// @brief constructor (Exactly like the FXButton constructor)
     MFXTable(FXComposite* p, FXObject* tgt, FXSelector sel);
 
@@ -48,6 +68,9 @@ public:
     /// @{
     /// @brief called when a row is focused
     long onFocusRow(FXObject*, FXSelector, void*);
+
+    /// @brief called when a row is modified
+    long onEditRow(FXObject*, FXSelector, void*);
 
     /// @brief called when mouse enter in MFXTable
     long onEnter(FXObject*, FXSelector, void*);
@@ -201,7 +224,10 @@ protected:
     std::vector<Row*> myRows;
 
     /// @brief current selected row
-    int myCurrentSelectedRow = 0;
+    int myCurrentSelectedRow = -1;
+
+    /// @brief table pos
+    MFXTablePos *myTablePos = nullptr;
 
 private:
     /// @brief Invalidated copy constructor.
