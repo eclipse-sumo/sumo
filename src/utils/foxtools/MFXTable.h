@@ -46,6 +46,9 @@ public:
 
     /// @name FOX callbacks
     /// @{
+    /// @brief called when a row is selected
+    long onSelectRow(FXObject*, FXSelector, void*);
+
     /// @brief called when mouse enter in MFXTable
     long onEnter(FXObject*, FXSelector, void*);
 
@@ -65,8 +68,8 @@ public:
     /// Get number of rows
     FXint getNumRows() const;
 
-    /// Get row number of current item
-    FXint getCurrentRow() const;
+    /// Get current selected row
+    FXint getCurrentSelectedRow() const;
 
     /// Select a row
     FXbool selectRow(FXint row, FXbool notify = FALSE);
@@ -82,10 +85,6 @@ public:
 
     /// Return the item at the given index
     FXTextField* getItem(FXint row, FXint col) const;
-
-    int getSelStartRow();
-
-    /* */
 
 protected:
     /// @brief FOX needs this
@@ -141,6 +140,24 @@ protected:
     class Row {
 
     public:
+        /// @brief struct for every cell
+        struct Cell {
+
+            /// @brief constructor for textField
+            Cell(FXTextField* textField_) :
+                textField(textField_) {}
+
+            /// @brief constructor for radio button
+            Cell(FXRadioButton* radioButton_) :
+                radioButton(radioButton_) {}
+
+            /// @brief textField
+            FXTextField* textField = nullptr;
+
+            /// @brief radio button
+            FXRadioButton* radioButton = nullptr;
+        };
+
         /// @brief constructor
         Row(MFXTable* table);
 
@@ -153,25 +170,13 @@ protected:
         /// @brief set text
         void setText(int index, const FXString& text, FXbool notify) const;
 
-        /// @brief get text field
-        FXTextField* getTextField(int index) const;
+        /// @brief get cell
+        const Cell &getCell(int index) const;
 
         /// @brief select column
         void select();
 
     protected:
-        /// @brief struct for every cell
-        struct Cell {
-            Cell(FXTextField* textField_) :
-                textField(textField_) {}
-
-            Cell(FXRadioButton* radioButton_) :
-                radioButton(radioButton_) {}
-
-            FXTextField* textField = nullptr;
-            FXRadioButton* radioButton = nullptr;
-        };
-
         /// @brief poiner to table parent
         MFXTable* myTable = nullptr;
 
@@ -195,7 +200,8 @@ protected:
     /// @brief rows
     std::vector<Row*> myRows;
 
-    int currentRow = 0;
+    /// @brief current selected row
+    int myCurrentSelectedRow = 0;
 
 private:
     /// @brief Invalidated copy constructor.
