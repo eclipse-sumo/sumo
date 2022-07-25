@@ -4,5 +4,6 @@ mdx_gh_links
 pymdown-extensions
 mkdocs-git-revision-date-plugin>=0.2
 mdx_truly_sane_lists
+plantuml==0.3.0
 plantuml-markdown
 markdown==3.3.7
