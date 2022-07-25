@@ -233,7 +233,7 @@ def getTLSInRoute(net, edge_ids):
         nextEdge = net.getEdge(nextEdgeID)
         connection = edge.getOutgoing()[nextEdge][0]
 
-        TLS = edge.getTLS()
+        TLS = None if edge.getToNode().getType() in ("rail_crossing", "rail_signal") else edge.getTLS()
         dist += edge.getLength()
         time += edge.getLength() / edge.getSpeed()
         alreadyFound = [item for item in rTLSList if item[0] == edgeID]
@@ -245,7 +245,7 @@ def getTLSInRoute(net, edge_ids):
 
 
 def getFirstGreenOffset(tl, connection):
-    index = connection._tlLink
+    index = connection.getTLLinkIndex()
     tlp = tl.getPrograms()
     if len(tlp) != 1:
         raise RuntimeError("Found %s programs for tl %s" %
