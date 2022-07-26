@@ -14,6 +14,7 @@
 # @file    _gui.py
 # @author  Michael Behrisch
 # @author  Daniel Krajzewicz
+# @author  Mirko Barthauer
 # @date    2011-03-09
 
 from __future__ import absolute_import
@@ -54,6 +55,13 @@ class GuiDomain(Domain):
         """
         return self._getUniversal(tc.VAR_VIEW_SCHEMA, viewID)
 
+    def getAngle(self, viewID=DEFAULT_VIEW):
+        """getAngle(string): -> double
+        
+        Returns the angle of the current view.
+        """
+        return self._getUniversal(tc.VAR_ANGLE, viewID)
+
     def getBoundary(self, viewID=DEFAULT_VIEW):
         """getBoundary(string): -> ((double, double), (double, double))
 
@@ -81,6 +89,13 @@ class GuiDomain(Domain):
         Set the current coloring scheme for the given view.
         """
         self._setCmd(tc.VAR_VIEW_SCHEMA, viewID, "s", schemeName)
+
+    def setAngle(self, viewID, angle):
+        """setAngle(string, double) -> None
+
+        Set the current angle for the given view.
+        """
+        self._setCmd(tc.VAR_ANGLE, viewID, "d", angle)
 
     def setBoundary(self, viewID, xmin, ymin, xmax, ymax):
         """setBoundary(string, double, double, double, double) -> None

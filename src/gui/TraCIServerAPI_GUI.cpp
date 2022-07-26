@@ -89,7 +89,7 @@ TraCIServerAPI_GUI::processGet(TraCIServer& server, tcpip::Storage& inputStorage
                 break;
             case libsumo::VAR_ANGLE:
                 tempMsg.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-                tempMsg.writeDouble(v->getChanger().getRotation()); // TODO: what happens in OSG view?
+                tempMsg.writeDouble(v->getChanger().getRotation());
                 break;
             case libsumo::VAR_VIEW_BOUNDARY: {
                 tempMsg.writeUnsignedByte(libsumo::TYPE_POLYGON);
@@ -224,10 +224,13 @@ TraCIServerAPI_GUI::processSet(TraCIServer& server, tcpip::Storage& inputStorage
         break;
         case libsumo::VAR_ANGLE: {
             double rot;
+            Position off, p;
             if (!server.readTypeCheckingDouble(inputStorage, rot)) {
                 return server.writeErrorStatusCmd(libsumo::CMD_SET_GUI_VARIABLE, "The rotation must be given as a double.", outputStorage);
             }
-            v->getChanger().setRotation(rot);
+            off.set(v->getChanger().getXPos(), v->getChanger().getYPos(), v->getChanger().getZPos());
+            p.set(off.x(), off.y(), 0);
+            v->setViewportFromToRot(off, p, rot);
         }
         break;
         case libsumo::VAR_SCREENSHOT: {

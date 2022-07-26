@@ -80,6 +80,12 @@ GUI::getZoom(const std::string& viewID) {
 }
 
 
+double
+GUI::getAngle(const std::string& viewID) {
+    return getView(viewID)->getChanger().getRotation();
+}
+
+
 libsumo::TraCIPosition
 GUI::getOffset(const std::string& viewID) {
     GUISUMOAbstractView* v = getView(viewID);
@@ -120,6 +126,15 @@ GUI::setZoom(const std::string& viewID, double zoom) {
     const Position off(v->getChanger().getXPos(), v->getChanger().getYPos(), v->getChanger().zoom2ZPos(zoom));
     const Position p(off.x(), off.y(), 0);
     v->setViewportFromToRot(off, p, v->getChanger().getRotation());
+}
+
+
+void
+GUI::setAngle(const std::string& viewID, double angle) {
+    GUISUMOAbstractView* const v = getView(viewID);
+    const Position off(v->getChanger().getXPos(), v->getChanger().getYPos(), v->getChanger().getZPos());
+    const Position p(off.x(), off.y(), 0);
+    v->setViewportFromToRot(off, p, angle);
 }
 
 
