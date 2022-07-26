@@ -15,6 +15,7 @@
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
+/// @author  Mirko Barthauer
 /// @date    07.05.2009
 ///
 // APIs for getting/setting GUI values via TraCI
@@ -52,7 +53,7 @@ TraCIServerAPI_GUI::processGet(TraCIServer& server, tcpip::Storage& inputStorage
     // check variable
     if (variable != libsumo::TRACI_ID_LIST && variable != libsumo::VAR_VIEW_ZOOM && variable != libsumo::VAR_VIEW_OFFSET
             && variable != libsumo::VAR_VIEW_SCHEMA && variable != libsumo::VAR_VIEW_BOUNDARY && variable != libsumo::VAR_HAS_VIEW
-            && variable != libsumo::VAR_SELECT
+            && variable != libsumo::VAR_SELECT && variable != libsumo::VAR_ANGLE
             && variable != libsumo::VAR_TRACK_VEHICLE) {
         return server.writeErrorStatusCmd(libsumo::CMD_GET_GUI_VARIABLE, "Get GUI Variable: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
     }
@@ -85,6 +86,10 @@ TraCIServerAPI_GUI::processGet(TraCIServer& server, tcpip::Storage& inputStorage
             case libsumo::VAR_VIEW_SCHEMA:
                 tempMsg.writeUnsignedByte(libsumo::TYPE_STRING);
                 tempMsg.writeString(v->getVisualisationSettings().name);
+                break;
+            case libsumo::VAR_ANGLE:
+                tempMsg.writeUnsignedByte(libsumo::TYPE_DOUBLE);
+                tempMsg.writeDouble(v->getChanger().getRotation()); // TODO: what happens in OSG view?
                 break;
             case libsumo::VAR_VIEW_BOUNDARY: {
                 tempMsg.writeUnsignedByte(libsumo::TYPE_POLYGON);
@@ -149,7 +154,7 @@ TraCIServerAPI_GUI::processSet(TraCIServer& server, tcpip::Storage& inputStorage
     if (variable != libsumo::VAR_VIEW_ZOOM && variable != libsumo::VAR_VIEW_OFFSET
             && variable != libsumo::VAR_VIEW_SCHEMA && variable != libsumo::VAR_VIEW_BOUNDARY
             && variable != libsumo::VAR_SCREENSHOT && variable != libsumo::VAR_TRACK_VEHICLE
-            && variable != libsumo::VAR_SELECT
+            && variable != libsumo::VAR_SELECT && variable != libsumo::VAR_ANGLE
        ) {
         return server.writeErrorStatusCmd(libsumo::CMD_SET_GUI_VARIABLE, "Change GUI State: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
     }
@@ -215,6 +220,14 @@ TraCIServerAPI_GUI::processSet(TraCIServer& server, tcpip::Storage& inputStorage
                 return server.writeErrorStatusCmd(libsumo::CMD_SET_GUI_VARIABLE, "The boundary must be specified by a bounding box.", outputStorage);
             }
             v->centerTo(Boundary(p[0].x(), p[0].y(), p[1].x(), p[1].y()));
+        }
+        break;
+        case libsumo::VAR_ANGLE: {
+            double rot;
+            if (!server.readTypeCheckingDouble(inputStorage, rot)) {
+                return server.writeErrorStatusCmd(libsumo::CMD_SET_GUI_VARIABLE, "The rotation must be given as a double.", outputStorage);
+            }
+            v->getChanger().setRotation(rot);
         }
         break;
         case libsumo::VAR_SCREENSHOT: {
