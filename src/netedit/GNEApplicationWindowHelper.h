@@ -1046,7 +1046,10 @@ struct GNEApplicationWindowHelper {
 
     private:
         /// @brief application window
-        GNEApplicationWindow* myApplicationWindow;
+        GNEApplicationWindow* myApplicationWindow = nullptr;
+
+        /// @brief file path
+        const std::string myFilepath;
     };
 
     /// @brief toggle edit options Network menu commands (called in GNEApplicationWindow::onCmdToggleEditOptions)

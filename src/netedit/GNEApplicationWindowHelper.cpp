@@ -24,6 +24,7 @@
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/foxtools/MFXMenuCheckIcon.h>
+#include <utils/common/FileHelpers.h>
 
 #include "GNEApplicationWindow.h"
 #include "GNEViewNet.h"
@@ -1864,7 +1865,8 @@ GNEApplicationWindowHelper::SupermodeCommands::buildSupermodeCommands(FXMenuPane
 
 GNEApplicationWindowHelper::GNEConfigHandler::GNEConfigHandler(GNEApplicationWindow* applicationWindow, const std::string& file) :
     ConfigHandler(file),
-    myApplicationWindow(applicationWindow) {
+    myApplicationWindow(applicationWindow),
+    myFilepath(FileHelpers::getFilePath(file)) {
 }
 
 
@@ -1873,8 +1875,13 @@ GNEApplicationWindowHelper::GNEConfigHandler::~GNEConfigHandler() {}
 
 void 
 GNEApplicationWindowHelper::GNEConfigHandler::loadNetFile(const std::string& file) {
-    // load network
-    myApplicationWindow->loadNet(file);
+    if (FileHelpers::isAbsolute(file)) {
+        // load network
+        myApplicationWindow->loadNet(file);
+    } else {
+        // load network adding filepath
+        myApplicationWindow->loadNet(myFilepath + file);
+    }
 }
 
 
@@ -1882,17 +1889,18 @@ void
 GNEApplicationWindowHelper::GNEConfigHandler::loadAdditionalFiles(const std::vector<std::string>& files) {
     // first check that net exist
     if (myApplicationWindow->getViewNet() && myApplicationWindow->getViewNet()->getNet()) {
-        WRITE_ERROR("A loaded network is needed for loading additional files");
-    } else {
         // load all files
         for (const auto &file : files) {
             // Create additional handler
-            GNEGeneralHandler generalHandler(myApplicationWindow->getViewNet()->getNet(), file, false, true);
+            GNEGeneralHandler generalHandler(myApplicationWindow->getViewNet()->getNet(), 
+                                             FileHelpers::isAbsolute(file)? file : myFilepath + file, false, true);
             // Run parser
             if (!generalHandler.parse()) {
                 WRITE_ERROR("Loading of " + file + " failed.");
             }
         }
+    } else {
+        WRITE_ERROR("A loaded network is needed for loading additional files");
     }
 }
 
@@ -1900,17 +1908,18 @@ void
 GNEApplicationWindowHelper::GNEConfigHandler::loadRouteFiles(const std::vector<std::string>& files) {
     // first check that net exist
     if (myApplicationWindow->getViewNet() && myApplicationWindow->getViewNet()->getNet()) {
-        WRITE_ERROR("A loaded network is needed for loading route files");
-    } else {
         // load all files
         for (const auto &file : files) {
             // Create additional handler
-            GNEGeneralHandler generalHandler(myApplicationWindow->getViewNet()->getNet(), file, false, true);
+            GNEGeneralHandler generalHandler(myApplicationWindow->getViewNet()->getNet(), 
+                                             FileHelpers::isAbsolute(file)? file : myFilepath + file, false, true);
             // Run parser
             if (!generalHandler.parse()) {
                 WRITE_ERROR("Loading of " + file + " failed.");
             }
         }
+    } else {
+        WRITE_ERROR("A loaded network is needed for loading route files");
     }
 }
 
