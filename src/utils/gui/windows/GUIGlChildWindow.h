@@ -22,7 +22,7 @@
 #pragma once
 #include <config.h>
 
-#include <utils/foxtools/fxheader.h>
+#include <utils/foxtools/MFXMenuButtonTooltip.h>
 
 #include "GUISUMOAbstractView.h"
 
@@ -110,7 +110,7 @@ protected:
     FXPopup* myLocatorPopup;
 
     /// @brief The locator button
-    FXMenuButton* myLocatorButton;
+    MFXMenuButtonTooltip* myLocatorButton;
 
     /// @brief The contents frame
     FXVerticalFrame* myContentFrame;
