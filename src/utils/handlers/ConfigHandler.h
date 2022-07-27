@@ -21,26 +21,24 @@
 #include <config.h>
 
 #include <utils/xml/CommonXMLStructure.h>
-
+#include <utils/xml/SUMOSAXHandler.h>
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
-class ConfigHandler {
+/// @brief handler for SUMOConfigs
+class ConfigHandler : private SUMOSAXHandler {
 
 public:
     /// @brief Constructor
-    ConfigHandler();
+    ConfigHandler(const std::string& file);
 
     /// @brief Destructor
     virtual ~ConfigHandler();
 
-    /// @brief begin parse attributes
-    bool beginParseAttributes(SumoXMLTag tag, const SUMOSAXAttributes& attrs);
-
-    /// @brief end parse attributes
-    void endParseAttributes();
+    /// @brief parse
+    bool parse();
 
     /// @brief parse SumoBaseObject (it's called recursivelly)
     void parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj);
@@ -66,9 +64,32 @@ public:
     virtual void loadRouteFiles(const std::string& files) = 0;
 
     /// @}
+
 private:
     /// @brief common XML Structure
     CommonXMLStructure myCommonXMLStructure;
+
+    /// @name inherited from GenericSAXHandler
+    /// @{
+    /** @brief Called on the opening of a tag;
+     *
+     * @param[in] element ID of the currently opened element
+     * @param[in] attrs Attributes within the currently opened element
+     * @exception ProcessError If something fails
+     * @see GenericSAXHandler::myStartElement
+     * @todo Refactor/describe
+     */
+    virtual void myStartElement(int element, const SUMOSAXAttributes& attrs);
+
+    /** @brief Called when a closing tag occurs
+     *
+     * @param[in] element ID of the currently opened element
+     * @exception ProcessError If something fails
+     * @see GenericSAXHandler::myEndElement
+     * @todo Refactor/describe
+     */
+    virtual void myEndElement(int element);
+    /// @}
 
     /// @name parse SUMOConfig attributes
     /// @{

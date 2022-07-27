@@ -21,8 +21,7 @@
 
 #include <utils/common/MsgHandler.h>
 #include <utils/xml/SUMOSAXHandler.h>
-#include <utils/shapes/Shape.h>
-#include <utils/options/OptionsCont.h>
+#include <utils/xml/XMLSubSys.h>
 
 #include "ConfigHandler.h"
 
@@ -31,57 +30,18 @@
 // method definitions
 // ===========================================================================
 
-ConfigHandler::ConfigHandler() {}
+ConfigHandler::ConfigHandler(const std::string& file) :
+    SUMOSAXHandler(file) {
+}
 
 
 ConfigHandler::~ConfigHandler() {}
 
 
 bool
-ConfigHandler::beginParseAttributes(SumoXMLTag tag, const SUMOSAXAttributes& attrs) {
-    // open SUMOBaseOBject
-    myCommonXMLStructure.openSUMOBaseOBject();
-    // check tag
-    try {
-        switch (tag) {
-            // Stopping Places
-            case SUMO_TAG_CONFIGURATION:
-                // currently configuration doesn't have attributes
-                myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_CONFIGURATION);
-                break;
-            case SUMO_TAG_NETFILE:
-                parseNetFile(attrs);
-                break;
-            case SUMO_TAG_ADDITIONALFILES:
-                parseAdditionalFiles(attrs);
-                break;
-            case SUMO_TAG_ROUTEFILES:
-                parseRouteFiles(attrs);
-                break;
-            default:
-                // tag cannot be parsed in ConfigHandler
-                return false;
-                break;
-        }
-    } catch (InvalidArgument& e) {
-        WRITE_ERROR(e.what());
-    }
-    return true;
-}
-
-
-void
-ConfigHandler::endParseAttributes() {
-    // get last inserted object
-    CommonXMLStructure::SumoBaseObject* obj = myCommonXMLStructure.getCurrentSumoBaseObject();
-    // close SUMOBaseOBject
-    myCommonXMLStructure.closeSUMOBaseOBject();
-    // check tag (only parse SUMOBaseObject after ending configuration)
-    if (obj->getTag() == SUMO_TAG_CONFIGURATION) {
-        parseSumoBaseObject(obj);
-        // delete object (and all of their childrens)
-        delete obj;
-    }
+ConfigHandler::parse() {
+    // run parser and return result
+    return XMLSubSys::runParser(*this, getFileName());
 }
 
 
@@ -163,6 +123,56 @@ ConfigHandler::parseRouteFiles(const SUMOSAXAttributes& attrs) {
             // add all attributes
             myCommonXMLStructure.getCurrentSumoBaseObject()->addStringListAttribute(SUMO_ATTR_VALUE, value);
         }
+    }
+}
+
+
+void
+ConfigHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
+    // obtain tag
+    const SumoXMLTag tag = static_cast<SumoXMLTag>(element);
+    // open SUMOBaseOBject
+    myCommonXMLStructure.openSUMOBaseOBject();
+    // check tag
+    try {
+        switch (tag) {
+            // Stopping Places
+            case SUMO_TAG_CONFIGURATION:
+                // currently configuration doesn't have attributes
+                myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_CONFIGURATION);
+                break;
+            case SUMO_TAG_NETFILE:
+                parseNetFile(attrs);
+                break;
+            case SUMO_TAG_ADDITIONALFILES:
+                parseAdditionalFiles(attrs);
+                break;
+            case SUMO_TAG_ROUTEFILES:
+                parseRouteFiles(attrs);
+                break;
+            default:
+                // tag cannot be parsed in ConfigHandler
+                break;
+        }
+    } catch (InvalidArgument& e) {
+        WRITE_ERROR(e.what());
+    }
+}
+
+
+void
+ConfigHandler::myEndElement(int element) {
+    // obtain tag
+    const SumoXMLTag tag = static_cast<SumoXMLTag>(element);
+    // get last inserted object
+    CommonXMLStructure::SumoBaseObject* obj = myCommonXMLStructure.getCurrentSumoBaseObject();
+    // close SUMOBaseOBject
+    myCommonXMLStructure.closeSUMOBaseOBject();
+    // check tag (only parse SUMOBaseObject after ending configuration)
+    if (tag == SUMO_TAG_CONFIGURATION) {
+        parseSumoBaseObject(obj);
+        // delete object (and all of their childrens)
+        delete obj;
     }
 }
 
