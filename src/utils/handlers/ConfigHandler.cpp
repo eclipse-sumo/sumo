@@ -46,7 +46,8 @@ ConfigHandler::beginParseAttributes(SumoXMLTag tag, const SUMOSAXAttributes& att
         switch (tag) {
             // Stopping Places
             case SUMO_TAG_CONFIGURATION:
-                parseConfiguration(attrs);
+                // currently configuration doesn't have attributes
+                myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_CONFIGURATION);
                 break;
             case SUMO_TAG_NETFILE:
                 parseNetFile(attrs);
@@ -75,53 +76,94 @@ ConfigHandler::endParseAttributes() {
     CommonXMLStructure::SumoBaseObject* obj = myCommonXMLStructure.getCurrentSumoBaseObject();
     // close SUMOBaseOBject
     myCommonXMLStructure.closeSUMOBaseOBject();
-    // check tag
+    // check tag (only parse SUMOBaseObject after ending configuration)
     if (obj->getTag() == SUMO_TAG_CONFIGURATION) {
-        parseConfigObject(obj);
+        parseSumoBaseObject(obj);
         // delete object (and all of their childrens)
         delete obj;
     }
 }
 
 
-void 
-ConfigHandler::parseConfigObject(CommonXMLStructure::SumoBaseObject* obj) {
-    //
+void
+ConfigHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) {
+    // switch tag
+    switch (obj->getTag()) {
+        case SUMO_TAG_NETFILE:
+            loadNetFile(obj->getStringAttribute(SUMO_ATTR_VALUE));
+            break;
+        case SUMO_TAG_ADDITIONALFILES:
+            loadAdditionalFiles(obj->getStringAttribute(SUMO_ATTR_VALUE));
+            break;
+        case SUMO_TAG_ROUTEFILES:
+            loadRouteFiles(obj->getStringAttribute(SUMO_ATTR_VALUE));
+            break;
+        default:
+            break;
+    }
+    // now iterate over childrens
+    for (const auto& child : obj->getSumoBaseObjectChildren()) {
+        // call this function recursively
+        parseSumoBaseObject(child);
+    }
 }
 
-/*
-void
-ConfigHandler::parseBusStopAttributes(const SUMOSAXAttributes& attrs) {
+
+void 
+ConfigHandler::parseNetFile(const SUMOSAXAttributes& attrs) {
     // declare Ok Flag
     bool parsedOk = true;
     // needed attributes
-    const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk);
-    const std::string laneId = attrs.get<std::string>(SUMO_ATTR_LANE, id.c_str(), parsedOk);
-    // optional attributes
-    const double startPos = attrs.getOpt<double>(SUMO_ATTR_STARTPOS, id.c_str(), parsedOk, INVALID_DOUBLE);
-    const double endPos = attrs.getOpt<double>(SUMO_ATTR_ENDPOS, id.c_str(), parsedOk, INVALID_DOUBLE);
-    const std::string name = attrs.getOpt<std::string>(SUMO_ATTR_NAME, id.c_str(), parsedOk, "");
-    const std::vector<std::string> lines = attrs.getOpt<std::vector<std::string> >(SUMO_ATTR_LINES, id.c_str(), parsedOk, std::vector<std::string>());
-    const int personCapacity = attrs.getOpt<int>(SUMO_ATTR_PERSON_CAPACITY, id.c_str(), parsedOk, 6);
-    const double parkingLength = attrs.getOpt<double>(SUMO_ATTR_PARKING_LENGTH, id.c_str(), parsedOk, 0);
-    const RGBColor color = attrs.getOpt<RGBColor>(SUMO_ATTR_COLOR, id.c_str(), parsedOk, RGBColor::INVISIBLE);
-    const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, id.c_str(), parsedOk, false);
+    const std::string value = attrs.get<std::string>(SUMO_ATTR_VALUE, "", parsedOk);
     // continue if flag is ok
     if (parsedOk) {
         // set tag
-        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_BUS_STOP);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_NETFILE);
         // add all attributes
-        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_ID, id);
-        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_LANE, laneId);
-        myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_STARTPOS, startPos);
-        myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_ENDPOS, endPos);
-        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_NAME, name);
-        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringListAttribute(SUMO_ATTR_LINES, lines);
-        myCommonXMLStructure.getCurrentSumoBaseObject()->addIntAttribute(SUMO_ATTR_PERSON_CAPACITY, personCapacity);
-        myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_PARKING_LENGTH, parkingLength);
-        myCommonXMLStructure.getCurrentSumoBaseObject()->addColorAttribute(SUMO_ATTR_COLOR, color);
-        myCommonXMLStructure.getCurrentSumoBaseObject()->addBoolAttribute(SUMO_ATTR_FRIENDLY_POS, friendlyPos);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_VALUE, value);
     }
 }
-*/
+
+
+void 
+ConfigHandler::parseAdditionalFiles(const SUMOSAXAttributes& attrs) {
+    // declare Ok Flag
+    bool parsedOk = true;
+    // needed attributes
+    const std::vector<std::string> value = attrs.getOpt<std::vector<std::string> >(SUMO_ATTR_VALUE, "", parsedOk, std::vector<std::string>());
+    // continue if flag is ok
+    if (parsedOk) {
+        // avoid empty files
+        if (value.empty()) {
+            WRITE_ERROR("Additional files cannot be empty");
+        } else {
+            // set tag
+            myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_NETFILE);
+            // add all attributes
+            myCommonXMLStructure.getCurrentSumoBaseObject()->addStringListAttribute(SUMO_ATTR_VALUE, value);
+        }
+    }
+}
+
+
+void
+ConfigHandler::parseRouteFiles(const SUMOSAXAttributes& attrs) {
+    // declare Ok Flag
+    bool parsedOk = true;
+    // needed attributes
+    const std::vector<std::string> value = attrs.getOpt<std::vector<std::string> >(SUMO_ATTR_VALUE, "", parsedOk, std::vector<std::string>());
+    // continue if flag is ok
+    if (parsedOk) {
+        // avoid empty files
+        if (value.empty()) {
+            WRITE_ERROR("Route files cannot be empty");
+        } else {
+            // set tag
+            myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_NETFILE);
+            // add all attributes
+            myCommonXMLStructure.getCurrentSumoBaseObject()->addStringListAttribute(SUMO_ATTR_VALUE, value);
+        }
+    }
+}
+
 /****************************************************************************/
