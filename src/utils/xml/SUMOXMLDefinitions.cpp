@@ -918,6 +918,12 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "uniformRandomTraffic",   AGEN_ATTR_UNI_RAND_TRAFFIC },
     { "departureVariation",     AGEN_ATTR_DEP_VARIATION },
 
+    // SUMOConfig files
+    { "configuration",      SUMO_TAG_CONFIGURATION },
+    { "net-file",           SUMO_TAG_NETFILE },
+    { "additional-files",   SUMO_TAG_ADDITIONALFILES },
+    { "route-files",        SUMO_TAG_ROUTEFILES },
+
     // NETEDIT Attributes
     { "selected",                           GNE_ATTR_SELECTED },
     { "modificationStatusNotForPrinting",   GNE_ATTR_MODIFICATION_STATUS },
