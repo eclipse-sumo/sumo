@@ -89,7 +89,7 @@ ConfigHandler::parseConfigObject(CommonXMLStructure::SumoBaseObject* obj) {
     //
 }
 
-
+/*
 void
 ConfigHandler::parseBusStopAttributes(const SUMOSAXAttributes& attrs) {
     // declare Ok Flag
@@ -123,5 +123,5 @@ ConfigHandler::parseBusStopAttributes(const SUMOSAXAttributes& attrs) {
         myCommonXMLStructure.getCurrentSumoBaseObject()->addBoolAttribute(SUMO_ATTR_FRIENDLY_POS, friendlyPos);
     }
 }
-
+*/
 /****************************************************************************/
