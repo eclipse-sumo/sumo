@@ -55,14 +55,6 @@ public:
                            tcpip::Storage& outputStorage);
 
 
-protected:
-    /** @brief Returns the named view
-     * @param[in] viewName The name of the view
-     * @return The named view if existing, 0 otherwise
-     */
-    static GUISUMOAbstractView* getNamedView(const std::string& id);
-
-
 private:
     /// @brief invalidated copy constructor
     TraCIServerAPI_GUI(const TraCIServerAPI_GUI& s);

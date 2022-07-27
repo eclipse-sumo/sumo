@@ -58,19 +58,19 @@ FXApp* GUI::myApp = nullptr;
 // ===========================================================================
 std::vector<std::string>
 GUI::getIDList() {
-    if (myWindow == nullptr) {
+    if (GUIMainWindow::getInstance() == nullptr) {
         throw TraCIException("GUI is not running, command not implemented in command line sumo");
     }
-    return myWindow->getViewIDs();
+    return GUIMainWindow::getInstance()->getViewIDs();
 }
 
 
 int
 GUI::getIDCount() {
-    if (myWindow == nullptr) {
+    if (GUIMainWindow::getInstance() == nullptr) {
         throw TraCIException("GUI is not running, command not implemented in command line sumo");
     }
-    return (int)myWindow->getViewIDs().size();
+    return (int)GUIMainWindow::getInstance()->getViewIDs().size();
 }
 
 
@@ -197,7 +197,11 @@ GUI::trackVehicle(const std::string& viewID, const std::string& vehID) {
 
 bool
 GUI::hasView(const std::string& viewID) {
-    return getView(viewID) != nullptr;
+    GUIMainWindow* const mw = GUIMainWindow::getInstance();
+    if (mw == nullptr) {
+        throw TraCIException("GUI is not running, command not implemented in command line sumo");
+    }
+    return mw->getViewByID(viewID) != nullptr;
 }
 
 
@@ -382,10 +386,12 @@ GUI::close(const std::string& /*reason*/) {
 
 GUISUMOAbstractView*
 GUI::getView(const std::string& id) {
-    if (myWindow == nullptr) {
+    // we cannot use myWindow here, this is not set for the traci server
+    GUIMainWindow* const mw = GUIMainWindow::getInstance();
+    if (mw == nullptr) {
         throw TraCIException("GUI is not running, command not implemented in command line sumo");
     }
-    GUIGlChildWindow* const c = myWindow->getViewByID(id);
+    GUIGlChildWindow* const c = mw->getViewByID(id);
     if (c == nullptr) {
         throw TraCIException("View '" + id + "' is not known");
     }
@@ -406,6 +412,20 @@ GUI::handleVariable(const std::string& objID, const int variable, VariableWrappe
             return wrapper->wrapStringList(objID, variable, getIDList());
         case ID_COUNT:
             return wrapper->wrapInt(objID, variable, getIDCount());
+        case VAR_VIEW_ZOOM:
+            return wrapper->wrapDouble(objID, variable, getZoom(objID));
+        case VAR_VIEW_OFFSET:
+            return wrapper->wrapPosition(objID, variable, getOffset(objID));
+        case VAR_VIEW_SCHEMA:
+            return wrapper->wrapString(objID, variable, getSchema(objID));
+        case VAR_ANGLE:
+            return wrapper->wrapDouble(objID, variable, getAngle(objID));
+        case VAR_VIEW_BOUNDARY:
+            return wrapper->wrapPositionVector(objID, variable, getBoundary(objID));
+        case VAR_HAS_VIEW:
+            return wrapper->wrapInt(objID, variable, hasView(objID) ? 1 : 0);
+        case VAR_TRACK_VEHICLE:
+            return wrapper->wrapString(objID, variable, getTrackedVehicle(objID));
         default:
             return false;
     }
