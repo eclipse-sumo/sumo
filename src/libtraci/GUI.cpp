@@ -83,6 +83,12 @@ GUI::setZoom(const std::string& viewID, double zoom) {
 
 
 void
+GUI::setAngle(const std::string& viewID, double angle) {
+    Dom::setDouble(libsumo::VAR_ANGLE, viewID, angle);
+}
+
+
+void
 GUI::setOffset(const std::string& viewID, double x, double y) {
     tcpip::Storage content;
     content.writeUnsignedByte(libsumo::POSITION_2D);
