@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+
+    <xsd:include schemaLocation="baseTypes.xsd"/>
+
+    <xsd:element name="battery-export">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element minOccurs="0" maxOccurs="unbounded" ref="timestep"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="timestep">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element minOccurs="0" maxOccurs="unbounded" ref="vehicle"/>
+            </xsd:sequence>
+            <xsd:attribute name="time" use="required" type="nonNegativeFloatType"/>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="vehicle">
+        <xsd:complexType>
+            <xsd:attribute name="id" use="required" type="xsd:string"/>
+            <xsd:attribute name="energyConsumed" use="required" type="xsd:float"/>
+            <xsd:attribute name="totalEnergyConsumed" use="required" type="xsd:float"/>
+            <xsd:attribute name="totalEnergyRegenerated" use="required" type="xsd:float"/>
+            <xsd:attribute name="actualBatteryCapacity" use="required" type="xsd:float"/>
+            <xsd:attribute name="maximumBatteryCapacity" use="required" type="xsd:float"/>
+
+            <xsd:attribute name="chargingStationId" use="required" type="xsd:string"/>
+            <xsd:attribute name="energyCharged" use="required" type="nonNegativeFloatType"/>
+            <xsd:attribute name="energyChargedInTransit" use="required" type="nonNegativeFloatType"/>
+            <xsd:attribute name="energyChargedStopped" use="required" type="nonNegativeFloatType"/>
+
+            <xsd:attribute name="speed" use="required" type="nonNegativeFloatType"/>
+            <xsd:attribute name="acceleration" use="required" type="xsd:float"/>
+            <xsd:attribute name="x" use="required" type="xsd:float"/>
+            <xsd:attribute name="y" use="required" type="xsd:float"/>
+            <xsd:attribute name="edge" use="optional" type="xsd:string"/>
+            <xsd:attribute name="lane" use="optional" type="xsd:string"/>
+            <xsd:attribute name="posOnLane" use="required" type="nonNegativeFloatType"/>
+            <xsd:attribute name="timeStopped" use="required" type="xsd:float"/>
+        </xsd:complexType>
+    </xsd:element>
+</xsd:schema>

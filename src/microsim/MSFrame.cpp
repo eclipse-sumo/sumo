@@ -733,7 +733,7 @@ MSFrame::buildStreams() {
     //extended
     OutputDevice::createDeviceByOption("fcd-output", "fcd-export", "fcd_file.xsd");
     OutputDevice::createDeviceByOption("emission-output", "emission-export", "emission_file.xsd");
-    OutputDevice::createDeviceByOption("battery-output", "battery-export");
+    OutputDevice::createDeviceByOption("battery-output", "battery-export", "battery_file.xsd");
     if (OptionsCont::getOptions().getBool("elechybrid-output.aggregated")) {
         // RICE_TODO: Add path to elechybrid-output.aggregated xsd file
         OutputDevice::createDeviceByOption("elechybrid-output", "elecHybrid-export-aggregated", "\" recuperationEnabled=\"" + toString(MSGlobals::gOverheadWireRecuperation));
