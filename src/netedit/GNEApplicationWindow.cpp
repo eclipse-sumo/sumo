@@ -739,9 +739,17 @@ GNEApplicationWindow::onCmdOpenSUMOConfig(FXObject*, FXSelector, void*) {
         WRITE_DEBUG("Close SUMOConfig dialog");
         gCurrentFolder = opendialog.getDirectory();
         std::string file = opendialog.getFilename().text();
-
-        /* OPEN SUMO CONFIG */
-
+        // disable validation for additionals
+        XMLSubSys::setValidation("never", "auto", "auto");
+        // Create additional handler
+        GNEApplicationWindowHelper::GNEConfigHandler confighandler(this, file);
+        // Run parser
+        if (!confighandler.parse()) {
+            WRITE_ERROR("Loading of " + file + " failed.");
+        }
+        update();
+        // restore validation for additionals
+        XMLSubSys::setValidation("auto", "auto", "auto");
     } else {
         // write debug information
         WRITE_DEBUG("Cancel SUMOConfig dialog");

@@ -1858,6 +1858,35 @@ GNEApplicationWindowHelper::SupermodeCommands::buildSupermodeCommands(FXMenuPane
 }
 
 // ---------------------------------------------------------------------------
+// GNEConfigHandler - methods
+// ---------------------------------------------------------------------------
+
+GNEApplicationWindowHelper::GNEConfigHandler::GNEConfigHandler(GNEApplicationWindow* applicationWindow, const std::string& file) :
+    ConfigHandler(file),
+    myApplicationWindow(applicationWindow) {
+}
+
+
+GNEApplicationWindowHelper::GNEConfigHandler::~GNEConfigHandler() {}
+
+
+void 
+GNEApplicationWindowHelper::GNEConfigHandler::loadNetFile(const std::string& file) {
+
+}
+
+
+void 
+GNEApplicationWindowHelper::GNEConfigHandler::loadAdditionalFiles(const std::string& files) {
+
+}
+
+void
+GNEApplicationWindowHelper::GNEConfigHandler::loadRouteFiles(const std::string& files) {
+
+}
+
+// ---------------------------------------------------------------------------
 // GNEApplicationWindowHelper - methods
 // ---------------------------------------------------------------------------
 
@@ -2285,3 +2314,4 @@ GNEApplicationWindowHelper::stringEndsWith(const std::string& str, const std::st
 }
 
 /****************************************************************************/
+
