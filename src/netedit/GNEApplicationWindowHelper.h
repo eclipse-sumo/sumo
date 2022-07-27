@@ -1034,13 +1034,13 @@ struct GNEApplicationWindowHelper {
          * @param[in] sumoBaseObject sumo base object used for build
          * @param[in] files additional files
          */
-        void loadAdditionalFiles(const std::string& files);
+        void loadAdditionalFiles(const std::vector<std::string>& files);
 
         /**@brief Load route files
          * @param[in] sumoBaseObject sumo base object used for build
          * @param[in] files route files
          */
-        void loadRouteFiles(const std::string& files);
+        void loadRouteFiles(const std::vector<std::string>& files);
 
         /// @}
 

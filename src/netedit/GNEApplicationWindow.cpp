@@ -3311,7 +3311,7 @@ GNEApplicationWindow::onCmdSaveSUMOConfig(FXObject*, FXSelector, void*) {
             }
             // open dialog
             FXString file = MFXUtils::getFilename2Write(this,
-                            "Save SUMOConfig", ".xml",
+                            "Save SUMOConfig", ".sumocfg",
                             GUIIconSubSys::getIcon(GUIIcon::SUMO_MINI),
                             currentFolder);
             // add xml extension

@@ -55,13 +55,13 @@ public:
      * @param[in] sumoBaseObject sumo base object used for build
      * @param[in] files additional files
      */
-    virtual void loadAdditionalFiles(const std::string& files) = 0;
+    virtual void loadAdditionalFiles(const std::vector<std::string>& files) = 0;
 
     /**@brief Load route files
      * @param[in] sumoBaseObject sumo base object used for build
      * @param[in] files route files
      */
-    virtual void loadRouteFiles(const std::string& files) = 0;
+    virtual void loadRouteFiles(const std::vector<std::string>& files) = 0;
 
     /// @}
 

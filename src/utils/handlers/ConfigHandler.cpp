@@ -53,10 +53,10 @@ ConfigHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) {
             loadNetFile(obj->getStringAttribute(SUMO_ATTR_VALUE));
             break;
         case SUMO_TAG_ADDITIONALFILES:
-            loadAdditionalFiles(obj->getStringAttribute(SUMO_ATTR_VALUE));
+            loadAdditionalFiles(obj->getStringListAttribute(SUMO_ATTR_VALUE));
             break;
         case SUMO_TAG_ROUTEFILES:
-            loadRouteFiles(obj->getStringAttribute(SUMO_ATTR_VALUE));
+            loadRouteFiles(obj->getStringListAttribute(SUMO_ATTR_VALUE));
             break;
         default:
             break;
@@ -98,7 +98,7 @@ ConfigHandler::parseAdditionalFiles(const SUMOSAXAttributes& attrs) {
             WRITE_ERROR("Additional files cannot be empty");
         } else {
             // set tag
-            myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_NETFILE);
+            myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_ADDITIONALFILES);
             // add all attributes
             myCommonXMLStructure.getCurrentSumoBaseObject()->addStringListAttribute(SUMO_ATTR_VALUE, value);
         }
@@ -119,7 +119,7 @@ ConfigHandler::parseRouteFiles(const SUMOSAXAttributes& attrs) {
             WRITE_ERROR("Route files cannot be empty");
         } else {
             // set tag
-            myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_NETFILE);
+            myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_ROUTEFILES);
             // add all attributes
             myCommonXMLStructure.getCurrentSumoBaseObject()->addStringListAttribute(SUMO_ATTR_VALUE, value);
         }

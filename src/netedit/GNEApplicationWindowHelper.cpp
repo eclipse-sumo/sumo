@@ -1877,12 +1877,12 @@ GNEApplicationWindowHelper::GNEConfigHandler::loadNetFile(const std::string& fil
 
 
 void 
-GNEApplicationWindowHelper::GNEConfigHandler::loadAdditionalFiles(const std::string& files) {
+GNEApplicationWindowHelper::GNEConfigHandler::loadAdditionalFiles(const std::vector<std::string>& files) {
 
 }
 
 void
-GNEApplicationWindowHelper::GNEConfigHandler::loadRouteFiles(const std::string& files) {
+GNEApplicationWindowHelper::GNEConfigHandler::loadRouteFiles(const std::vector<std::string>& files) {
 
 }
 
