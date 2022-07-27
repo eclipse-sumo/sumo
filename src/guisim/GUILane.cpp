@@ -947,11 +947,10 @@ GUILane::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& view) {
     GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this);
     // add items
     ret->mkItem("allowed speed [m/s]", false, getSpeedLimit());
-    if(MSNet::getInstance()->getRestrictions(myEdge->getEdgeType()) != nullptr) { 
-        for (const auto& elem : *MSNet::getInstance()->getRestrictions(myEdge->getEdgeType())) {
-            SUMOVehicleClass svc = elem.first;
-            double speed = elem.second;
-            ret->mkItem(("  allowed speed [m/s]: " + toString(svc)).c_str(), false, speed);
+    const std::map<SUMOVehicleClass, double>* restrictions = MSNet::getInstance()->getRestrictions(myEdge->getEdgeType());
+    if (restrictions != nullptr) { 
+        for (const auto& elem : *restrictions) {
+            ret->mkItem(("  allowed speed [m/s]: " + toString(elem.first)).c_str(), false, elem.second);
         }
     } 
     ret->mkItem("length [m]", false, myLength);
