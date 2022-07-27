@@ -890,7 +890,7 @@ TRACI_CONST int VAR_EXIT_POSITIONS = 0x43;
 // position (3D) (get: vehicle, poi, set: poi)
 TRACI_CONST int VAR_POSITION3D = 0x39;
 
-// angle (get: vehicle, poi; set: poi)
+// angle (get: vehicle, poi, gui; set: poi, gui)
 TRACI_CONST int VAR_ANGLE = 0x43;
 
 // length (get: vehicle types, lanes, lane area detector, set: lanes)

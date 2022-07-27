@@ -49,6 +49,12 @@ GUI::getZoom(const std::string& viewID) {
 }
 
 
+double
+GUI::getAngle(const std::string& viewID) {
+    return Dom::getDouble(libsumo::VAR_ANGLE, viewID);
+}
+
+
 libsumo::TraCIPosition
 GUI::getOffset(const std::string& viewID) {
     return Dom::getPos(libsumo::VAR_VIEW_OFFSET, viewID);
