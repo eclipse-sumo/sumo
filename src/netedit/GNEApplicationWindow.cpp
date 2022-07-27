@@ -27,7 +27,6 @@
 #include <netedit/elements/network/GNELaneType.h>
 #include <netedit/elements/GNEGeneralHandler.h>
 #include <netedit/elements/data/GNEDataHandler.h>
-#include <netedit/elements/GNEGeneralHandler.h>
 #include <netedit/frames/common/GNEInspectorFrame.h>
 #include <netedit/frames/common/GNESelectorFrame.h>
 #include <netedit/frames/network/GNECreateEdgeFrame.h>
@@ -1566,6 +1565,12 @@ GNEApplicationWindow::loadOptionOnStartup() {
     // Disable normalization preserve the given network as far as possible
     oc.set("offset.disable-normalization", "true");
     loadConfigOrNet("", true, false, true, oc.getBool("new"));
+}
+
+
+void 
+GNEApplicationWindow::loadNet(const std::string& file) {
+    loadConfigOrNet(file, true);
 }
 
 

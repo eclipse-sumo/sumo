@@ -19,6 +19,7 @@
 /****************************************************************************/
 #include <netbuild/NBFrame.h>
 #include <netedit/elements/GNEAttributeCarrier.h>
+#include <netedit/elements/GNEGeneralHandler.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/options/OptionsCont.h>
@@ -1872,18 +1873,45 @@ GNEApplicationWindowHelper::GNEConfigHandler::~GNEConfigHandler() {}
 
 void 
 GNEApplicationWindowHelper::GNEConfigHandler::loadNetFile(const std::string& file) {
-
+    // load network
+    myApplicationWindow->loadNet(file);
 }
 
 
 void 
 GNEApplicationWindowHelper::GNEConfigHandler::loadAdditionalFiles(const std::vector<std::string>& files) {
-
+    // first check that net exist
+    if (myApplicationWindow->getViewNet() && myApplicationWindow->getViewNet()->getNet()) {
+        WRITE_ERROR("A loaded network is needed for loading additional files");
+    } else {
+        // load all files
+        for (const auto &file : files) {
+            // Create additional handler
+            GNEGeneralHandler generalHandler(myApplicationWindow->getViewNet()->getNet(), file, false, true);
+            // Run parser
+            if (!generalHandler.parse()) {
+                WRITE_ERROR("Loading of " + file + " failed.");
+            }
+        }
+    }
 }
 
 void
 GNEApplicationWindowHelper::GNEConfigHandler::loadRouteFiles(const std::vector<std::string>& files) {
-
+    // first check that net exist
+    if (myApplicationWindow->getViewNet() && myApplicationWindow->getViewNet()->getNet()) {
+        WRITE_ERROR("A loaded network is needed for loading route files");
+    } else {
+        // load all files
+        for (const auto &file : files) {
+            // Create additional handler
+            GNEGeneralHandler generalHandler(myApplicationWindow->getViewNet()->getNet(), file, false, true);
+            // Run parser
+            if (!generalHandler.parse()) {
+                WRITE_ERROR("Loading of " + file + " failed.");
+            }
+        }
+    }
 }
 
 // ---------------------------------------------------------------------------
