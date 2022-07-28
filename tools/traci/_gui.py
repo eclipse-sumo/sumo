@@ -57,7 +57,7 @@ class GuiDomain(Domain):
 
     def getAngle(self, viewID=DEFAULT_VIEW):
         """getAngle(string): -> double
-        
+
         Returns the angle of the current view.
         """
         return self._getUniversal(tc.VAR_ANGLE, viewID)
