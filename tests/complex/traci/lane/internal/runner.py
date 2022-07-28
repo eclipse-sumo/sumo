@@ -41,7 +41,7 @@ print("allowed", traci.lane.getAllowed(laneID))
 print("disallowed", traci.lane.getDisallowed(laneID))
 print("linkNum", traci.lane.getLinkNumber(laneID))
 if traci.isLibsumo() or traci.isLibtraci():
-    print("links", [l[:4] for l in traci.lane.getLinks(laneID)])
+    print("links", [link[:4] for link in traci.lane.getLinks(laneID)])
     print("linksExtended", traci.lane.getLinks(laneID))
 else:
     print("links", traci.lane.getLinks(laneID, extended=False))

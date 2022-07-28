@@ -23,8 +23,7 @@ from __future__ import print_function
 import sys
 import os
 import subprocess
-sys.path.append(
-    os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', "tools"))  # noqa
+sys.path.append(os.path.join(os.environ["SUMO_HOME"], "tools"))
 from sumolib import checkBinary  # noqa
 
 EDC = checkBinary("emissionsDrivingCycle", os.path.join(
@@ -68,11 +67,8 @@ for i, ec in enumerate(emissionClasses):
     if retCode != 0:
         print("Error on building PHEMlight measurements")
         sys.exit(1)
-    fd = open("tmp.csv")
-    out = fd.readlines()
-    fd.close()
     fdo.write("%s\n" % ec)
-    for l in out:
-        fdo.write(l)
+    with open("tmp.csv") as fd:
+        fdo.write(fd.read())
     fdo.write("-----\n\n")
 fdo.close()

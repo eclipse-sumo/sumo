@@ -32,7 +32,7 @@ class OutputHandler(handler.ContentHandler):
 
     def __init__(self, lanes):
         self.lanes = lanes
-        self.speed = dict([(l, defaultdict(dict)) for l in lanes])
+        self.speed = dict([(la, defaultdict(dict)) for la in lanes])
         self.intervals = set()
 
     def startElement(self, name, attrs):
