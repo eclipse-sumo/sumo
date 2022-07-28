@@ -30,8 +30,6 @@ import io
 from argparse import RawDescriptionHelpFormatter  # noqa
 from copy import deepcopy
 
-_OPTIONS = [None]
-
 
 class ConfigurationReader(handler.ContentHandler):
 
@@ -92,7 +90,12 @@ def get_long_option_names(application):
 
 def assign_prefixed_options(args):
     prefixed_options = {}
+    remaining = []
+    consumed = False
     for arg_index, arg in enumerate(args):
+        if consumed:
+            consumed = False
+            continue
         if arg[:2] == '--':
             separator_index = arg.find('-', 2)
             if separator_index != -1:
@@ -103,11 +106,11 @@ def assign_prefixed_options(args):
                     option = [arg[separator_index+1:], args[arg_index+1]]
                 except(IndexError, NotImplementedError):
                     raise NotImplementedError("Please amend prefixed argument %s with a value." % arg)
-                if program in prefixed_options:
-                    prefixed_options[program].append(option)
-                else:
-                    prefixed_options[program] = [option]
-    return prefixed_options
+                prefixed_options.setdefault(program, []).append(option)
+                consumed = True
+        if not consumed:
+            remaining.append(arg)
+    return prefixed_options, remaining
 
 
 def get_prefixed_options(options):
@@ -133,11 +136,6 @@ def readOptions(filename):
     optionReader = OptionReader()
     parse(filename, optionReader)
     return optionReader.opts
-
-
-def getOptions():
-    # return global option value (after parse_args was called)
-    return _OPTIONS[0]
 
 
 def xmlescape(value):
@@ -224,11 +222,10 @@ class ArgumentParser(argparse.ArgumentParser):
         if args is not None:
             # gracefully handle non-string args passed from another script
             args = map(str, args)
-        args, argv = self.parse_known_args(args, namespace)
-        if _OPTIONS[0] is None:
-            # only save the "outermost" option instance
-            _OPTIONS[0] = args
-        return args
+        args_namespace, unknown_args = self.parse_known_args(args, namespace)
+        if unknown_args:
+            self.error('unrecognized arguments: %s' % ' '.join(unknown_args))
+        return args_namespace
 
     def parse_known_args(self, args=None, namespace=None):
         if args is None:
@@ -272,7 +269,7 @@ class ArgumentParser(argparse.ArgumentParser):
                         value = os.path.join(os.path.dirname(cfg_file), value)
                     if option.name in pos_map and option.name != 'remaining_args':
                         pos_args[pos_map[option.name]] = value
-                    if not is_set:
+                    elif not is_set:
                         if value == "True":
                             config_args += ["--" + option.name]
                         elif value != "False":
@@ -291,7 +288,7 @@ class ArgumentParser(argparse.ArgumentParser):
             self, args=args+config_args+[p for p in pos_args if p is not None], namespace=namespace)
 
         namespace_as_dict = deepcopy(vars(namespace))
-        namespace._prefixed_options = assign_prefixed_options(unknown_args)
+        namespace._prefixed_options, remaining_args = assign_prefixed_options(unknown_args)
 
         for program in namespace._prefixed_options:
             prefixed_options = deepcopy(namespace._prefixed_options[program])
@@ -303,7 +300,7 @@ class ArgumentParser(argparse.ArgumentParser):
 
         self.write_config_file(extended_namespace)
         namespace.config_as_string = self.write_config_file(extended_namespace, toString=True)
-        return namespace, unknown_args
+        return namespace, remaining_args
 
 
 class SplitAction(argparse.Action):
