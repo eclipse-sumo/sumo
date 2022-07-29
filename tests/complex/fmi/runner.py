@@ -24,7 +24,6 @@ import os
 import shutil
 import sys
 
-from distutils.util import strtobool
 from fmpy import read_model_description, extract
 from fmpy.fmi2 import FMU2Slave
 from fmpy.validation import validate_fmu
@@ -33,6 +32,7 @@ VERBOSE = True
 
 sumoHome = os.path.abspath(os.environ['SUMO_HOME'])
 sys.path.append(os.path.join(sumoHome, "tools"))
+import sumolib
 
 egoID = "ego"
 
@@ -147,7 +147,7 @@ sys.stdout.flush()
 
 startTime = int(sys.argv[1])
 endTime = int(sys.argv[2])
-validate = bool(strtobool(sys.argv[3]))
+validate = sumolib.miscutils.parseBool(sys.argv[3])
 scalarVariable = sys.argv[4]
 
 runSingle(startTime, endTime, validate, scalarVariable)
