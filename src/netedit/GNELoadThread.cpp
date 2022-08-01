@@ -337,8 +337,14 @@ GNELoadThread::fillOptions(OptionsCont& oc) {
     oc.doRegister("person-prefix", new Option_String("p"));
     oc.addDescription("person-prefix", "Netedit", "prefix for person naming");
 
+    oc.doRegister("personflow-prefix", new Option_String("pf"));
+    oc.addDescription("personflow-prefix", "Netedit", "prefix for personFlow naming");
+
     oc.doRegister("container-prefix", new Option_String("c"));
     oc.addDescription("container-prefix", "Netedit", "prefix for container naming");
+
+    oc.doRegister("containerflow-prefix", new Option_String("cf"));
+    oc.addDescription("containerflow-prefix", "Netedit", "prefix for containerFlow naming");
 
     // drawing
 

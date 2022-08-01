@@ -1321,12 +1321,20 @@ GNENetHelper::AttributeCarriers::generateDemandElementID(SumoXMLTag tag) const {
         prefix = oc.getString("trip-prefix");
     } else if (tagProperty.isVehicle() && !tagProperty.isFlow()) {
         prefix = oc.getString("vehicle-prefix");
+    } else if (tagProperty.isPerson()) {
+        if (tagProperty.isFlow()) {
+            prefix = oc.getString("personflow-prefix"); 
+        } else {
+            prefix = oc.getString("person-prefix");
+        }
+    } else if (tagProperty.isContainer()) {
+        if (tagProperty.isFlow()) {
+            prefix = oc.getString("containerflow-prefix"); 
+        } else {
+            prefix = oc.getString("container-prefix");
+        }
     } else if (tagProperty.isFlow()) {
         prefix = oc.getString("flow-prefix");
-    } else if (tagProperty.isPerson()) {
-        prefix = oc.getString("person-prefix");
-    } else if (tagProperty.isContainer()) {
-        prefix = oc.getString("container-prefix");
     }
     // declare counter
     int counter = 0;
