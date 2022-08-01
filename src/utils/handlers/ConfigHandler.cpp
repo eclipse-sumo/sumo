@@ -49,7 +49,7 @@ void
 ConfigHandler::parseNetFile(const SUMOSAXAttributes& attrs) {
     // declare Ok Flag
     bool parsedOk = true;
-    // needed attributes
+    // network file
     const std::string value = attrs.get<std::string>(SUMO_ATTR_VALUE, "", parsedOk);
     // continue if flag is ok
     if (parsedOk) {
@@ -69,8 +69,8 @@ void
 ConfigHandler::parseAdditionalFiles(const SUMOSAXAttributes& attrs) {
     // declare Ok Flag
     bool parsedOk = true;
-    // needed attributes
-    const std::vector<std::string> value = attrs.getOpt<std::vector<std::string> >(SUMO_ATTR_VALUE, "", parsedOk, std::vector<std::string>());
+    // additional file
+    const std::string value = attrs.get<std::string>(SUMO_ATTR_VALUE, "", parsedOk);
     // continue if flag is ok
     if (parsedOk) {
         // avoid empty files
@@ -80,7 +80,7 @@ ConfigHandler::parseAdditionalFiles(const SUMOSAXAttributes& attrs) {
             WRITE_ERROR("Additional files must be loaded within a configuration");
         } else {
             // add it in SUMOConfig parent
-            myCommonXMLStructure.getCurrentSumoBaseObject()->addStringListAttribute(SUMO_ATTR_ADDITIONALFILES, value);
+            myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_ADDITIONALFILES, value);
         }
     }
 }
@@ -90,8 +90,8 @@ void
 ConfigHandler::parseRouteFiles(const SUMOSAXAttributes& attrs) {
     // declare Ok Flag
     bool parsedOk = true;
-    // needed attributes
-    const std::vector<std::string> value = attrs.getOpt<std::vector<std::string> >(SUMO_ATTR_VALUE, "", parsedOk, std::vector<std::string>());
+    // route file
+    const std::string value = attrs.get<std::string>(SUMO_ATTR_VALUE, "", parsedOk);
     // continue if flag is ok
     if (parsedOk) {
         // avoid empty files
@@ -101,7 +101,7 @@ ConfigHandler::parseRouteFiles(const SUMOSAXAttributes& attrs) {
             WRITE_ERROR("Route files must be loaded within a configuration");
         } else {
             // add it in SUMOConfig parent
-            myCommonXMLStructure.getCurrentSumoBaseObject()->addStringListAttribute(SUMO_ATTR_ROUTEFILES, value);
+            myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_ROUTEFILES, value);
         }
     }
 }
