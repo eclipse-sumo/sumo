@@ -3,18 +3,18 @@ GLDebug: 	Inserted junction:gneJ0 into SUMORTree with boundary -12.00,-12.00,12.
 GLDebug: 	Inserted junction:gneJ1 into SUMORTree with boundary 38.00,-12.00,62.00,12.00
 GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,60.00,10.00
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,11.60
-Debug: Inserting generic parameter 'key1|value1' into laneAreaDetector
+Debug: Inserting generic parameter 'key1|value1' into e2Detector
 Error: Attribute 'key' is missing in definition of a param.
 Error: Attribute 'key' is missing in definition of a param.
 Error: Attribute 'key' in definition of a param is empty.
-Debug: Inserting generic parameter '$$key with spaces%%|value4' into laneAreaDetector
-Debug: Inserting generic parameter 'key1|value5' into laneAreaDetector
-Debug: Inserting generic parameter 'key2|' into laneAreaDetector
-Debug: Inserting generic parameter 'key2|' into laneAreaDetector
-Debug: Inserting generic parameter 'key3|$$value with spaces%%' into laneAreaDetector
-Debug: Inserting generic parameter 'keyFinal|valueFinal' into laneAreaDetector
+Debug: Inserting generic parameter '$$key with spaces%%|value4' into e2Detector
+Debug: Inserting generic parameter 'key1|value5' into e2Detector
+Debug: Inserting generic parameter 'key2|' into e2Detector
+Debug: Inserting generic parameter 'key2|' into e2Detector
+Debug: Inserting generic parameter 'key3|$$value with spaces%%' into e2Detector
+Debug: Inserting generic parameter 'keyFinal|valueFinal' into e2Detector
 Debug: Adding laneAreaDetector 'E2_01' in GNEChange_Additional
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.e2detector.24Jun133818.22393/netedit.daily.additional.e2detector/additionalelements/e2detector/load/parameters/input_additionals.add.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.e2detector.01Aug073708.40063/netedit.daily.additional.e2detector/additionalelements/e2detector/load/parameters/input_additionals.add.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 38.00,-12.00,62.00,12.00

@@ -12,10 +12,10 @@ Debug: Inserting generic parameter 'key3|$$value with spaces%%' into detEntry
 Debug: Inserting generic parameter 'key4|value5' into detEntry
 Error: Attribute 'key' is missing in definition of a param.
 Debug: Adding entryExitDetector 'entryExitDetector_0' in GNEChange_Additional
-GLDebug: 	Inserted entryExitDetector:entryExitDetector_0 into SUMORTree with boundary 12.97,-3.64,32.97,16.36
+GLDebug: 	Inserted e3Detector:entryExitDetector_0 into SUMORTree with boundary 12.97,-3.64,32.97,16.36
 Debug: Adding detEntry 'entryExitDetector_0' in GNEChange_Additional
 Debug: Adding detExit 'entryExitDetector_0' in GNEChange_Additional
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.detentry.24Jun133818.22385/netedit.daily.additional.detentry/additionalelements/detentry/load/parameters/input_additionals.add.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.detentry.01Aug073708.40055/netedit.daily.additional.detentry/additionalelements/detentry/load/parameters/input_additionals.add.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 38.00,-12.00,62.00,12.00
@@ -47,7 +47,7 @@ Debug: network elements saved
 Debug: Deleting unreferenced detExit
 Debug: Deleting unreferenced detEntry
 Debug: Deleting unreferenced entryExitDetector
-GLDebug: 	Removed object entryExitDetector:entryExitDetector_0 from SUMORTree with boundary 12.97,-3.64,32.97,16.36
+GLDebug: 	Removed object e3Detector:entryExitDetector_0 from SUMORTree with boundary 12.97,-3.64,32.97,16.36
 Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor
