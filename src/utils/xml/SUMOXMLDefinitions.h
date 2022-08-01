@@ -1320,6 +1320,15 @@ enum SumoXMLAttr {
     /// @}
     /// @}
 
+    /// @name SUMOConfig elements
+    /// @brief net file
+    SUMO_ATTR_NETFILE,
+    /// @brief additional files
+    SUMO_ATTR_ADDITIONALFILES,
+    /// @brief route files
+    SUMO_ATTR_ROUTEFILES,
+    ///@}
+
     //@name Netedit Attributes (used as virtual property holders, must be in SumoXMLAttr)
     //@{
     /// @brief element is selected
