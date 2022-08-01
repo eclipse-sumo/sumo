@@ -1891,7 +1891,8 @@ GNEApplicationWindowHelper::GNEConfigHandler::loadConfig(CommonXMLStructure::Sum
         }
         // set route files
         if (configObj->hasStringAttribute(SUMO_ATTR_ROUTEFILES)) {
-
+            oc.resetWritable();
+            oc.set("route-files", configObj->getStringAttribute(SUMO_ATTR_ROUTEFILES));
         }
         // load net depending if file is absoulte or relative
         oc.resetWritable();
@@ -1910,6 +1911,41 @@ GNEApplicationWindowHelper::GNEConfigHandler::loadConfig(CommonXMLStructure::Sum
 // ---------------------------------------------------------------------------
 // GNEApplicationWindowHelper - methods
 // ---------------------------------------------------------------------------
+
+
+void 
+GNEApplicationWindowHelper::saveSUMOConfig() {
+    // obtain option container
+    OptionsCont& oc = OptionsCont::getOptions();
+    // check SUMOConfig-outpout
+    if (oc.getString("SUMOConfig-output").size() > 0) {
+        // open output device
+        OutputDevice& device = OutputDevice::getDevice(oc.getString("SUMOConfig-output"));
+        // open configuration tag
+        device.openTag(SUMO_TAG_CONFIGURATION);
+        // save network
+        device.openTag(SUMO_TAG_NETFILE);
+        device.writeAttr(SUMO_ATTR_VALUE, oc.getString("sumo-net-file"));
+        device.closeTag();
+        // check if write additionals
+        if (oc.getString("additional-files").size() > 0) {
+            device.openTag(SUMO_TAG_ADDITIONALFILES);
+            device.writeAttr(SUMO_ATTR_VALUE, oc.getString("additional-files"));
+            device.closeTag();
+        }
+        // check if write route elements    
+        if (oc.getString("route-files").size() > 0) {
+            device.openTag(SUMO_TAG_ROUTEFILES);
+            device.writeAttr(SUMO_ATTR_ROUTEFILES, oc.getString("route-files"));
+            device.closeTag();
+        }
+        // close device
+        device.close();
+        // show debug information
+        WRITE_DEBUG("SUMOConfig saved");
+    }
+}
+
 
 bool
 GNEApplicationWindowHelper::toggleEditOptionsNetwork(GNEViewNet* viewNet, const MFXCheckableButton* menuCheck, const int numericalKeyPressed, FXObject* obj, FXSelector sel) {

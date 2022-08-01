@@ -3342,9 +3342,8 @@ GNEApplicationWindow::onCmdSaveSUMOConfig(FXObject*, FXSelector, void*) {
         }
         // Start saving SUMOConfig
         getApp()->beginWaitCursor();
-
-        /* SAVE SUMOCONFIG*/
-
+        // save config
+        GNEApplicationWindowHelper::saveSUMOConfig();
         getApp()->endWaitCursor();
         // restore focus
         setFocus();

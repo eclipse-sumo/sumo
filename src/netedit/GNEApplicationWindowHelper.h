@@ -1036,6 +1036,9 @@ struct GNEApplicationWindowHelper {
         const std::string myFilepath;
     };
 
+    /// @brief save SUMOConffig
+    static void saveSUMOConfig();
+
     /// @brief toggle edit options Network menu commands (called in GNEApplicationWindow::onCmdToggleEditOptions)
     static bool toggleEditOptionsNetwork(GNEViewNet* viewNet, const MFXCheckableButton* menuCheck,
                                          const int numericalKeyPressed, FXObject* obj, FXSelector sel);
