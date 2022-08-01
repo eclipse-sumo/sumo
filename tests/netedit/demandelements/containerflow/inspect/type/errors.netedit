@@ -69,8 +69,8 @@ Debug: Selected item 'DEFAULT_CONTAINERTYPE' in DemandElementSelector
 Debug: Selected item 'DEFAULT_CONTAINERTYPE' in DemandElementSelector
 Debug: Selected item 'containerFlow' in GNETagSelector
 Debug: Key ENTER pressed
-Debug: Adding containerFlow 'f_0' in GNEChange_DemandElement
-Debug: Adding transport: edge->edge 'f_0' in GNEChange_DemandElement
+Debug: Adding containerFlow 'cf_0' in GNEChange_DemandElement
+Debug: Adding transport: edge->edge 'cf_0' in GNEChange_DemandElement
 Debug: Current Viewport values: 0.00, -6.00, 5.00. Zoom = '1736.00'
 Debug: Value ';;;;;' for attribute type of containerFlow isn't valid
 Debug: Value 'dummyType' for attribute type of containerFlow isn't valid
@@ -80,12 +80,12 @@ Debug: Calling GNEUndoList::undo()
 Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing transport: edge->edge 'f_0' in GNEChange_DemandElement
-Debug: Removing containerFlow 'f_0' in GNEChange_DemandElement
+Debug: Removing transport: edge->edge 'cf_0' in GNEChange_DemandElement
+Debug: Removing containerFlow 'cf_0' in GNEChange_DemandElement
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Adding containerFlow 'f_0' in GNEChange_DemandElement
-Debug: Adding transport: edge->edge 'f_0' in GNEChange_DemandElement
+Debug: Adding containerFlow 'cf_0' in GNEChange_DemandElement
+Debug: Adding transport: edge->edge 'cf_0' in GNEChange_DemandElement
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute

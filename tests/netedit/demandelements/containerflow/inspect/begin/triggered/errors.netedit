@@ -70,8 +70,8 @@ Debug: Selected item 'transport: edge->edge' in GNETagSelector
 Debug: Selected item 'DEFAULT_CONTAINERTYPE' in DemandElementSelector
 Debug: Selected item 'containerFlow' in GNETagSelector
 Debug: Key ENTER pressed
-Debug: Adding containerFlow 'f_0' in GNEChange_DemandElement
-Debug: Adding transport: edge->edge 'f_0' in GNEChange_DemandElement
+Debug: Adding containerFlow 'cf_0' in GNEChange_DemandElement
+Debug: Adding transport: edge->edge 'cf_0' in GNEChange_DemandElement
 Debug: Current Viewport values: 0.00, -6.00, 5.00. Zoom = '1736.00'
 Debug: Setting new attribute
 Debug: Value 'dummyDepart' for attribute begin of containerFlow isn't valid

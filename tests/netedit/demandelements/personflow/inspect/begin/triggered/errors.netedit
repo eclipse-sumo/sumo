@@ -70,8 +70,8 @@ Debug: Selected item 'ride: edge->edge' in GNETagSelector
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Selected item 'personFlow' in GNETagSelector
 Debug: Key ENTER pressed
-Debug: Adding personFlow 'f_0' in GNEChange_DemandElement
-Debug: Adding ride: edge->edge 'f_0' in GNEChange_DemandElement
+Debug: Adding personFlow 'pf_0' in GNEChange_DemandElement
+Debug: Adding ride: edge->edge 'pf_0' in GNEChange_DemandElement
 Debug: Current Viewport values: 0.00, -6.00, 5.00. Zoom = '1736.00'
 Debug: Setting new attribute
 Debug: Value 'dummyDepart' for attribute begin of personFlow isn't valid

@@ -61,7 +61,7 @@ netedit.leftClick(referencePosition, 270, 43)
 netedit.typeEnter()
 
 # set invalid containerFlow number
-netedit.changeDefaultValue(netedit.attrs.containerFlow.create.id, "f_0")
+netedit.changeDefaultValue(netedit.attrs.containerFlow.create.id, "cf_0")
 
 # press enter to create route
 netedit.typeEnter()

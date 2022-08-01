@@ -19,13 +19,13 @@ Debug: Adding containerStop 'containerStop' in GNEChange_Additional
 Debug: Inserting generic parameter 'KeyA1|valueA1' into containerFlow
 Debug: Inserting generic parameter 'KeyA3|valueA2' into containerFlow
 Debug: Inserting generic parameter 'KeyA2|valueA3' into containerFlow
-Debug: Adding containerFlow 'f_0' in GNEChange_DemandElement
-Debug: Adding tranship: edge->edge 'f_0' in GNEChange_DemandElement
+Debug: Adding containerFlow 'cf_0' in GNEChange_DemandElement
+Debug: Adding tranship: edge->edge 'cf_0' in GNEChange_DemandElement
 Debug: Inserting generic parameter 'KeyB1|valueB1' into containerFlow
 Debug: Inserting generic parameter 'KeyB3|valueB2' into containerFlow
 Debug: Inserting generic parameter 'KeyB2|valueB3' into containerFlow
-Debug: Adding containerFlow 'f_1' in GNEChange_DemandElement
-Debug: Adding tranship: edge->edge 'f_1' in GNEChange_DemandElement
+Debug: Adding containerFlow 'cf_1' in GNEChange_DemandElement
+Debug: Adding tranship: edge->edge 'cf_1' in GNEChange_DemandElement
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ5 from SUMORTree with boundary 48.00,-12.00,72.00,12.00
@@ -78,14 +78,14 @@ Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Current Viewport values: 0.00, -6.00, 5.00. Zoom = '1736.00'
-Debug: Setting new attribute into containerFlow 'f_0'
-Debug: Setting new attribute into containerFlow 'f_1'
-Debug: Setting new attribute into containerFlow 'f_0'
-Debug: Setting new attribute into containerFlow 'f_1'
-Debug: Setting new attribute into containerFlow 'f_0'
-Debug: Setting new attribute into containerFlow 'f_1'
-Debug: Setting new attribute into containerFlow 'f_0'
-Debug: Setting new attribute into containerFlow 'f_1'
+Debug: Setting new attribute into containerFlow 'cf_0'
+Debug: Setting new attribute into containerFlow 'cf_1'
+Debug: Setting new attribute into containerFlow 'cf_0'
+Debug: Setting new attribute into containerFlow 'cf_1'
+Debug: Setting new attribute into containerFlow 'cf_0'
+Debug: Setting new attribute into containerFlow 'cf_1'
+Debug: Setting new attribute into containerFlow 'cf_0'
+Debug: Setting new attribute into containerFlow 'cf_1'
 Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Setting new attribute
@@ -100,12 +100,12 @@ Debug: Restoring previous attribute
 Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute into containerFlow 'f_1'
-Debug: Setting previous attribute into containerFlow 'f_0'
+Debug: Setting previous attribute into containerFlow 'cf_1'
+Debug: Setting previous attribute into containerFlow 'cf_0'
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute into containerFlow 'f_0'
-Debug: Setting new attribute into containerFlow 'f_1'
+Debug: Setting new attribute into containerFlow 'cf_0'
+Debug: Setting new attribute into containerFlow 'cf_1'
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute

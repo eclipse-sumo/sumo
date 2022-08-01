@@ -8,7 +8,7 @@
     <personFlow id="customID" begin="0.00" end="3600.00" personsPerHour="1800.00">
         <walk from="gneE2" busStop="busStop"/>
     </personFlow>
-    <personFlow id="f_0" begin="0.00" end="3600.00" personsPerHour="1800.00">
+    <personFlow id="pf_0" begin="0.00" end="3600.00" personsPerHour="1800.00">
         <walk from="gneE2" busStop="busStop"/>
     </personFlow>
 </routes>

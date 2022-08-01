@@ -7,7 +7,7 @@
     <!-- VTypes -->
     <vType id="custom_vType" length="20.00" vClass="bus" width="5.00" height="12.00" color="cyan"/>
     <!-- Vehicles, persons and containers (sorted by depart) -->
-    <personFlow id="f_0" type="custom_vType" begin="0.00" end="3600.00" personsPerHour="1800.00">
+    <personFlow id="pf_0" type="custom_vType" begin="0.00" end="3600.00" personsPerHour="1800.00">
         <personTrip from="gneE2" to="gneE5"/>
     </personFlow>
 </routes>

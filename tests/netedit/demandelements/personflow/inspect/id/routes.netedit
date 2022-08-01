@@ -8,7 +8,7 @@
     <personFlow id="customID" begin="0.00" end="3600.00" personsPerHour="1800.00">
         <personTrip from="gneE2" to="gneE5"/>
     </personFlow>
-    <personFlow id="f_1" begin="0.00" end="3600.00" personsPerHour="1800.00">
+    <personFlow id="pf_1" begin="0.00" end="3600.00" personsPerHour="1800.00">
         <personTrip from="gneE4" to="gneE5"/>
     </personFlow>
 </routes>

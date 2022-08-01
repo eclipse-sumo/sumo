@@ -61,7 +61,7 @@ netedit.leftClick(referencePosition, 270, 43)
 netedit.typeEnter()
 
 # set invalid personFlow number
-netedit.changeDefaultValue(netedit.attrs.personFlow.create.id, "f_0")
+netedit.changeDefaultValue(netedit.attrs.personFlow.create.id, "pf_0")
 
 # press enter to create route
 netedit.typeEnter()

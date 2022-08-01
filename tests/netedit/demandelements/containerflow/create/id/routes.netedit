@@ -8,7 +8,7 @@
     <containerFlow id="customID" begin="0.00" end="3600.00" containersPerHour="1800.00">
         <tranship from="gneE2" containerStop="containerStop"/>
     </containerFlow>
-    <containerFlow id="f_0" begin="0.00" end="3600.00" containersPerHour="1800.00">
+    <containerFlow id="cf_0" begin="0.00" end="3600.00" containersPerHour="1800.00">
         <tranship from="gneE2" containerStop="containerStop"/>
     </containerFlow>
 </routes>
