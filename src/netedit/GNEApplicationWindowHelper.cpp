@@ -28,6 +28,7 @@
 
 #include "GNEApplicationWindow.h"
 #include "GNEViewNet.h"
+#include "GNELoadThread.h"
 
 #ifdef HAVE_VERSION_H
 #include <version.h>
@@ -1873,53 +1874,36 @@ GNEApplicationWindowHelper::GNEConfigHandler::GNEConfigHandler(GNEApplicationWin
 GNEApplicationWindowHelper::GNEConfigHandler::~GNEConfigHandler() {}
 
 
-void 
-GNEApplicationWindowHelper::GNEConfigHandler::loadNetFile(const std::string& file) {
-    if (FileHelpers::isAbsolute(file)) {
-        // load network
-        myApplicationWindow->loadNet(file);
-    } else {
-        // load network adding filepath
-        myApplicationWindow->loadNet(myFilepath + file);
-    }
-}
-
-
-void 
-GNEApplicationWindowHelper::GNEConfigHandler::loadAdditionalFiles(const std::vector<std::string>& files) {
-    // first check that net exist
-    if (myApplicationWindow->getViewNet() && myApplicationWindow->getViewNet()->getNet()) {
-        // load all files
-        for (const auto &file : files) {
-            // Create additional handler
-            GNEGeneralHandler generalHandler(myApplicationWindow->getViewNet()->getNet(), 
-                                             FileHelpers::isAbsolute(file)? file : myFilepath + file, false, true);
-            // Run parser
-            if (!generalHandler.parse()) {
-                WRITE_ERROR("Loading of " + file + " failed.");
-            }
-        }
-    } else {
-        WRITE_ERROR("A loaded network is needed for loading additional files");
-    }
-}
-
 void
-GNEApplicationWindowHelper::GNEConfigHandler::loadRouteFiles(const std::vector<std::string>& files) {
-    // first check that net exist
-    if (myApplicationWindow->getViewNet() && myApplicationWindow->getViewNet()->getNet()) {
-        // load all files
-        for (const auto &file : files) {
-            // Create additional handler
-            GNEGeneralHandler generalHandler(myApplicationWindow->getViewNet()->getNet(), 
-                                             FileHelpers::isAbsolute(file)? file : myFilepath + file, false, true);
-            // Run parser
-            if (!generalHandler.parse()) {
-                WRITE_ERROR("Loading of " + file + " failed.");
-            }
+GNEApplicationWindowHelper::GNEConfigHandler::loadConfig(CommonXMLStructure::SumoBaseObject* configObj) {
+    // get net file
+    const auto netFile = configObj->hasStringAttribute(SUMO_ATTR_NETFILE)? configObj->getStringAttribute(SUMO_ATTR_NETFILE) : "";
+    // first check if there is a network to load
+    if (netFile.size() > 0) {
+        // reset options
+        OptionsCont& oc = OptionsCont::getOptions();
+        GNELoadThread::fillOptions(oc);
+        GNELoadThread::setDefaultOptions(oc);
+        // set additional files
+        if (configObj->hasStringAttribute(SUMO_ATTR_ADDITIONALFILES)) {
+            oc.resetWritable();
+            oc.set("additional-files", configObj->getStringAttribute(SUMO_ATTR_ADDITIONALFILES));
         }
-    } else {
-        WRITE_ERROR("A loaded network is needed for loading route files");
+        // set route files
+        if (configObj->hasStringAttribute(SUMO_ATTR_ROUTEFILES)) {
+
+        }
+        // load net depending if file is absoulte or relative
+        oc.resetWritable();
+        if (FileHelpers::isAbsolute(netFile)) {
+            oc.set("sumo-net-file", netFile);
+        } else {
+            // load network adding filepath
+            oc.set("sumo-net-file", myFilepath + netFile);
+        }
+        // load network
+        myApplicationWindow->loadNet("");
+
     }
 }
 
