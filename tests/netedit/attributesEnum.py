@@ -2201,12 +2201,13 @@ class person:
 
     class inspect:
         id = 1
-        type = 2
-        colorButton = 3
-        color = 4
-        departPos = 5
-        depart = 6
-        parameters = 9
+        typeButton = 2
+        type = 3
+        colorButton = 4
+        color = 5
+        departPos = 6
+        depart = 7
+        parameters = 10
 
     class inspectSelection:
         type = 1
@@ -2233,17 +2234,18 @@ class personFlow:
 
     class inspect:
         id = 1
-        type = 2
-        colorButton = 3
-        color = 4
-        departPos = 5
-        begin = 6
-        terminate = 9
-        spacing = 11
-        end = 12
-        terminateOption = 13
-        spacingOption = 14
-        parameters = 16
+        typeButton = 2
+        type = 3
+        colorButton = 4
+        color = 5
+        departPos = 6
+        begin = 7
+        terminate = 10
+        spacing = 12
+        end = 13
+        terminateOption = 14
+        spacingOption = 15
+        parameters = 17
 
     class inspectSelection:
         type = 1
@@ -2270,10 +2272,11 @@ class container:
     class inspect:
         id = 1
         type = 2
-        colorButton = 3
-        color = 4
-        depart = 5
-        parameters = 8
+        type = 3
+        colorButton = 4
+        color = 5
+        depart = 6
+        parameters = 9
 
     class inspectSelection:
         type = 1
@@ -2298,16 +2301,17 @@ class containerFlow:
 
     class inspect:
         id = 1
-        type = 2
-        colorButton = 3
-        color = 4
-        begin = 5
-        terminate = 8
-        spacing = 10
-        end = 11
-        terminateOption = 12
-        spacingOption = 13
-        parameters = 15
+        typeButton = 2
+        type = 3
+        colorButton = 4
+        color = 5
+        begin = 6
+        terminate = 9
+        spacing = 11
+        end = 12
+        terminateOption = 13
+        spacingOption = 14
+        parameters = 16
 
     class inspectSelection:
         type = 1
