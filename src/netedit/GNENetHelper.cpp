@@ -109,8 +109,13 @@ GNENetHelper::AttributeCarriers::~AttributeCarriers() {
         for (const auto& demandElement : demandElementTag.second) {
             // decrease reference manually (because it was increased manually in GNERouteHandler)
             demandElement->decRef();
-            // show extra information for tests (except for default IDs)
-            if (demandElement->getTagProperty().isVehicleType() && DEFAULT_VTYPES.count(demandElement->getID()) == 0) {
+            // show extra information for tests
+            if (demandElement->getTagProperty().isVehicleType()) {
+                // special case for default VTypes
+                if (DEFAULT_VTYPES.count(demandElement->getID()) == 0) {
+                    WRITE_DEBUG("Deleting unreferenced " + demandElement->getTagStr() + " in AttributeCarriers destructor");
+                }
+            } else {
                 WRITE_DEBUG("Deleting unreferenced " + demandElement->getTagStr() + " in AttributeCarriers destructor");
             }
             delete demandElement;
