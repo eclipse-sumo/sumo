@@ -886,6 +886,7 @@
                     <xsd:attribute name="walkFactor" type="positiveFloatType"/>
                     <xsd:attribute name="costs" type="xsd:string"/>
                     <xsd:attribute name="group" type="xsd:string" use="optional"/>
+                    <xsd:attribute name="lines" type="xsd:string" use="optional"/>
                 </xsd:complexType>
             </xsd:element>
             <xsd:element name="ride">
