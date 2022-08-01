@@ -1255,6 +1255,9 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
         myUndoList->end();
         // disable save additionals (because additionals were loaded through console)
         myNet->requireSaveAdditionals(false);
+        // set first additionalFile as default file
+        oc.resetWritable();
+        oc.set("additional-files", additionalFiles.front());
     }
     // check if demand elements has to be loaded at start
     if (oc.isSet("route-files") && !oc.getString("route-files").empty() && myNet) {
@@ -1278,6 +1281,9 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
         myUndoList->end();
         // disable save demand elements (because demand elements were loaded through console)
         myNet->requireSaveDemandElements(false);
+        // set first demandElementsFiles as default file
+        oc.resetWritable();
+        oc.set("route-files", demandElementsFiles.front());
     }
     // check if data elements has to be loaded at start
     if (oc.isSet("data-files") && !oc.getString("data-files").empty() && myNet) {
@@ -1305,6 +1311,9 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
         myNet->requireSaveDataElements(false);
         // enable update data
         myViewNet->getNet()->enableUpdateData();
+        // set first dataElementsFiles as default file
+        oc.resetWritable();
+        oc.set("data-files", dataElementsFiles.front());
     }
     // check if additionals output must be changed
     if (oc.isSet("additionals-output")) {
