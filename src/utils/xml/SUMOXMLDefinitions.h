@@ -1323,6 +1323,8 @@ enum SumoXMLAttr {
     /// @}
 
     /// @name SUMOConfig elements
+    /// @brief config file
+    SUMO_ATTR_CONFIGFILE,
     /// @brief net file
     SUMO_ATTR_NETFILE,
     /// @brief additional files

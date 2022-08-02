@@ -925,6 +925,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "departureVariation",     AGEN_ATTR_DEP_VARIATION },
 
     // SUMOConfig files
+    { "config-file",        SUMO_ATTR_CONFIGFILE },
     { "net-file",           SUMO_ATTR_NETFILE },
     { "additional-files",   SUMO_ATTR_ADDITIONALFILES },
     { "route-files",        SUMO_ATTR_ROUTEFILES },

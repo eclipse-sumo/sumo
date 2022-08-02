@@ -1880,10 +1880,10 @@ GNEApplicationWindowHelper::GNEConfigHandler::loadConfig(CommonXMLStructure::Sum
     const auto netFile = configObj->hasStringAttribute(SUMO_ATTR_NETFILE)? configObj->getStringAttribute(SUMO_ATTR_NETFILE) : "";
     // first check if there is a network to load
     if (netFile.size() > 0) {
-        // reset options
         OptionsCont& oc = OptionsCont::getOptions();
-        GNELoadThread::fillOptions(oc);
-        GNELoadThread::setDefaultOptions(oc);
+        // set SUMOConfig-files
+        oc.resetWritable();
+        oc.set("SUMOConfig-output", configObj->getStringAttribute(SUMO_ATTR_CONFIGFILE));
         // set additional files
         if (configObj->hasStringAttribute(SUMO_ATTR_ADDITIONALFILES)) {
             oc.resetWritable();
@@ -1904,7 +1904,6 @@ GNEApplicationWindowHelper::GNEConfigHandler::loadConfig(CommonXMLStructure::Sum
         oc.set("sumo-net-file", netFile);
         // load network
         myApplicationWindow->loadNet("");
-
     }
 }
 
@@ -1937,6 +1936,12 @@ GNEApplicationWindowHelper::saveSUMOConfig() {
         if (oc.getString("route-files").size() > 0) {
             device.openTag(SUMO_TAG_ROUTEFILES);
             device.writeAttr(SUMO_ATTR_ROUTEFILES, oc.getString("route-files"));
+            device.closeTag();
+        }
+        // check if write data elements    
+        if (oc.getString("data-files").size() > 0) {
+            device.openTag(SUMO_TAG_DATAFILES);
+            device.writeAttr(SUMO_ATTR_DATAFILES, oc.getString("data-files"));
             device.closeTag();
         }
         // close device

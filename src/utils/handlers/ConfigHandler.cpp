@@ -46,6 +46,15 @@ ConfigHandler::parse() {
 
 
 void 
+ConfigHandler::parseConfigFile() {
+    // open SUMOBaseOBject and set tag
+    myCommonXMLStructure.openSUMOBaseOBject();
+    myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_CONFIGURATION);
+    myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_CONFIGFILE, getFileName());
+}
+
+
+void
 ConfigHandler::parseNetFile(const SUMOSAXAttributes& attrs) {
     // declare Ok Flag
     bool parsedOk = true;
@@ -137,9 +146,7 @@ ConfigHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
         switch (tag) {
             // Stopping Places
             case SUMO_TAG_CONFIGURATION:
-                // open SUMOBaseOBject and set tag
-                myCommonXMLStructure.openSUMOBaseOBject();
-                myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_CONFIGURATION);
+                parseConfigFile();
                 break;
             case SUMO_TAG_NETFILE:
                 parseNetFile(attrs);

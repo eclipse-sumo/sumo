@@ -75,7 +75,10 @@ private:
     /// @name parse SUMOConfig attributes
     /// @{
 
-    /// @brief parse parse netFile attribute
+    /// @brief parse config file attribute
+    void parseConfigFile();
+
+    /// @brief parse net file attribute
     void parseNetFile(const SUMOSAXAttributes& attrs);
 
     /// @brief parse additional files attribute
