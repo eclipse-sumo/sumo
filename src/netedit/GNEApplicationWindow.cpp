@@ -3374,7 +3374,39 @@ GNEApplicationWindow::onCmdSaveSUMOConfig(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdSaveSUMOConfigAs(FXObject*, FXSelector, void*) {
-    return 0;
+    // obtain option container
+    OptionsCont& oc = OptionsCont::getOptions();
+    // declare current folder
+    FXString currentFolder = gCurrentFolder;
+    // check if there is a saved network
+    if (oc.getString("output-file").size() > 0) {
+        // extract folder
+        currentFolder = getFolder(oc.getString("output-file"));
+    }
+    // open dialog
+    FXString file = MFXUtils::getFilename2Write(this,
+                    "Save SUMOConfig", ".sumocfg",
+                    GUIIconSubSys::getIcon(GUIIcon::SUMO_MINI),
+                    currentFolder);
+    // add xml extension
+    std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".sumocfg");
+    // check tat file is valid
+    if (file == "") {
+        // None SUMOConfig file was selected, then stop function
+        return 0;
+    } else {
+        // change value of "SUMOConfig-output"
+        oc.resetWritable();
+        oc.set("SUMOConfig-output", fileWithExtension);
+    }
+    // Start saving SUMOConfig
+    getApp()->beginWaitCursor();
+    // save config
+    GNEApplicationWindowHelper::saveSUMOConfig();
+    getApp()->endWaitCursor();
+    // restore focus
+    setFocus();
+    return 1;
 }
 
 
