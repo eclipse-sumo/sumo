@@ -121,6 +121,7 @@ class GuiDomain(Domain):
         """trackVehicle(string, string) -> None
 
         Start visually tracking the given vehicle on the given view.
+        Stop tracking when an empty string is used as vehID.
         """
         self._setCmd(tc.VAR_TRACK_VEHICLE, viewID, "s", vehID)
 
@@ -141,6 +142,7 @@ class GuiDomain(Domain):
     def track(self, objID, viewID=DEFAULT_VIEW):
         """track(string, string) -> None
         Start visually tracking the given vehicle or person on the given view.
+        Stop tracking when an empty string is used as objID.
         """
         self._setCmd(tc.VAR_TRACK_VEHICLE, viewID, "s", objID)
 
