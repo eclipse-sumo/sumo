@@ -745,7 +745,13 @@ GNEApplicationWindow::onCmdOpenSUMOConfig(FXObject*, FXSelector, void*) {
         // Run parser
         if (!confighandler.parse()) {
             WRITE_ERROR("Loading of " + file + " failed.");
+        } else {
+            // set SUMOConfig-output
+            OptionsCont& oc = OptionsCont::getOptions();
+            oc.resetWritable();
+            oc.set("SUMOConfig-output", file);
         }
+        // update view
         update();
         // restore validation for additionals
         XMLSubSys::setValidation("auto", "auto", "auto");
@@ -759,12 +765,20 @@ GNEApplicationWindow::onCmdOpenSUMOConfig(FXObject*, FXSelector, void*) {
 
 long 
 GNEApplicationWindow::onCmdReloadSUMOConfig(FXObject*, FXSelector, void*) {
-    // Run parser
-    myUndoList->begin(Supermode::NETWORK, GUIIcon::MODETLS, "loading SUMOConfig from '" + OptionsCont::getOptions().getString("SUMOConfig-output") + "'");
-    myNet->computeNetwork(this);
-
-    /* RELOAD SUMO CONFIG */
-
+    const auto file = OptionsCont::getOptions().getString("SUMOConfig-output");
+    if (file.size() > 0) {
+        // disable validation for additionals
+        XMLSubSys::setValidation("never", "auto", "auto");
+        // Create additional handler
+        GNEApplicationWindowHelper::GNEConfigHandler confighandler(this, file);
+        // Run parser
+        if (!confighandler.parse()) {
+            WRITE_ERROR("Loading of " + file + " failed.");
+        }
+        update();
+        // restore validation for additionals
+        XMLSubSys::setValidation("auto", "auto", "auto");
+    }
     return 1;
 }
 
@@ -772,10 +786,10 @@ GNEApplicationWindow::onCmdReloadSUMOConfig(FXObject*, FXSelector, void*) {
 long 
 GNEApplicationWindow::onUpdReloadSUMOConfig(FXObject*, FXSelector, void*) {
     // check if file exist
-    if (myViewNet && OptionsCont::getOptions().getString("SUMOConfig-output").empty()) {
-        return myFileMenuCommands.reloadSUMOConfig->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
-    } else {
+    if (myViewNet && !OptionsCont::getOptions().getString("SUMOConfig-output").empty()) {
         return myFileMenuCommands.reloadSUMOConfig->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
+    } else {
+        return myFileMenuCommands.reloadSUMOConfig->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     }
 }
 
@@ -1247,6 +1261,10 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
             // Run parser
             if (!generalHandler.parse()) {
                 WRITE_ERROR("Loading of " + additionalFile + " failed.");
+            } else {
+                // set additional-files
+                oc.resetWritable();
+                oc.set("additional-files", additionalFile);
             }
             // disable validation for additionals
             XMLSubSys::setValidation("auto", "auto", "auto");
@@ -1255,9 +1273,6 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
         myUndoList->end();
         // disable save additionals (because additionals were loaded through console)
         myNet->requireSaveAdditionals(false);
-        // set first additionalFile as default file
-        oc.resetWritable();
-        oc.set("additional-files", additionalFiles.front());
     }
     // check if demand elements has to be loaded at start
     if (oc.isSet("route-files") && !oc.getString("route-files").empty() && myNet) {
@@ -1273,6 +1288,10 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
             XMLSubSys::setValidation("never", "auto", "auto");
             if (!handler.parse()) {
                 WRITE_ERROR("Loading of " + demandElementsFile + " failed.");
+            } else {
+                // set first demandElementsFiles as default file
+                oc.resetWritable();
+                oc.set("route-files", demandElementsFile);
             }
             // disable validation for demand elements
             XMLSubSys::setValidation("auto", "auto", "auto");
@@ -1281,9 +1300,6 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
         myUndoList->end();
         // disable save demand elements (because demand elements were loaded through console)
         myNet->requireSaveDemandElements(false);
-        // set first demandElementsFiles as default file
-        oc.resetWritable();
-        oc.set("route-files", demandElementsFiles.front());
     }
     // check if data elements has to be loaded at start
     if (oc.isSet("data-files") && !oc.getString("data-files").empty() && myNet) {
@@ -1301,6 +1317,10 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
             XMLSubSys::setValidation("never", "auto", "auto");
             if (!dataHandler.parse()) {
                 WRITE_ERROR("Loading of " + dataElementsFile + " failed.");
+            } else {
+                // set first dataElementsFiles as default file
+                oc.resetWritable();
+                oc.set("data-files", dataElementsFile);
             }
             // disable validation for data elements
             XMLSubSys::setValidation("auto", "auto", "auto");
@@ -1311,9 +1331,6 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
         myNet->requireSaveDataElements(false);
         // enable update data
         myViewNet->getNet()->enableUpdateData();
-        // set first dataElementsFiles as default file
-        oc.resetWritable();
-        oc.set("data-files", dataElementsFiles.front());
     }
     // check if additionals output must be changed
     if (oc.isSet("additionals-output")) {
