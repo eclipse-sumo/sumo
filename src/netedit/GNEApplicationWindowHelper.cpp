@@ -1881,27 +1881,46 @@ GNEApplicationWindowHelper::GNEConfigHandler::loadConfig(CommonXMLStructure::Sum
     // first check if there is a network to load
     if (netFile.size() > 0) {
         OptionsCont& oc = OptionsCont::getOptions();
-        // set SUMOConfig-files
+        // load net depending if file is absoulte or relative
         oc.resetWritable();
-        oc.set("SUMOConfig-output", configObj->getStringAttribute(SUMO_ATTR_CONFIGFILE));
+        if (FileHelpers::isAbsolute(netFile)) {
+            oc.set("sumo-net-file", netFile);
+        } else {
+            oc.set("sumo-net-file", myFilepath + netFile);
+        }
         // set additional files
         if (configObj->hasStringAttribute(SUMO_ATTR_ADDITIONALFILES)) {
+            const auto file = configObj->getStringAttribute(SUMO_ATTR_ADDITIONALFILES);
             oc.resetWritable();
-            oc.set("additional-files", configObj->getStringAttribute(SUMO_ATTR_ADDITIONALFILES));
+            if (FileHelpers::isAbsolute(file)) {
+                oc.set("additional-files", file);
+            } else {
+                oc.set("additional-files", myFilepath + file);
+            }
         }
         // set route files
         if (configObj->hasStringAttribute(SUMO_ATTR_ROUTEFILES)) {
+            const auto file = configObj->getStringAttribute(SUMO_ATTR_ROUTEFILES);
             oc.resetWritable();
-            oc.set("route-files", configObj->getStringAttribute(SUMO_ATTR_ROUTEFILES));
+            if (FileHelpers::isAbsolute(file)) {
+                oc.set("route-files", file);
+            } else {
+                oc.set("route-files", myFilepath + file);
+            }
         }
         // set data files
         if (configObj->hasStringAttribute(SUMO_ATTR_DATAFILES)) {
+            const auto file = configObj->getStringAttribute(SUMO_ATTR_DATAFILES);
             oc.resetWritable();
-            oc.set("data-files", configObj->getStringAttribute(SUMO_ATTR_DATAFILES));
+            if (FileHelpers::isAbsolute(file)) {
+                oc.set("data-files", file);
+            } else {
+                oc.set("data-files", myFilepath + file);
+            }
         }
-        // load net depending if file is absoulte or relative
+        // set SUMOConfig-files
         oc.resetWritable();
-        oc.set("sumo-net-file", netFile);
+        oc.set("SUMOConfig-output", configObj->getStringAttribute(SUMO_ATTR_CONFIGFILE));
         // load network
         myApplicationWindow->loadNet("");
     }
