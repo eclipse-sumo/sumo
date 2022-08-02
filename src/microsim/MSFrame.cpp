@@ -86,6 +86,10 @@ MSFrame::fillOptions() {
     oc.addSynonyme("additional-files", "additional");
     oc.addDescription("additional-files", "Input", "Load further descriptions from FILE(s)");
 
+    oc.doRegister("data-files", new Option_FileName());
+    oc.addSynonyme("data-files", "data");
+    oc.addDescription("data-files", "Input", "Load data descriptions from FILE(s)");
+
     oc.doRegister("weight-files", 'w', new Option_FileName());
     oc.addSynonyme("weight-files", "weights");
     oc.addDescription("weight-files", "Input", "Load edge/lane weights for online rerouting from FILE");
