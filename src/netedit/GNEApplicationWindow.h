@@ -176,6 +176,9 @@ public:
     /// @brief called when the command/FXCall save SUMOConfig is executed
     long onCmdSaveSUMOConfig(FXObject*, FXSelector, void*);
 
+    /// @brief called when the command/FXCall save SUMOConfig as is executed
+    long onCmdSaveSUMOConfigAs(FXObject*, FXSelector, void*);
+
     /// @brief called when the command/FXCall save SUMOConfig is updated
     long onUpdSaveSUMOConfig(FXObject*, FXSelector, void*);
 
