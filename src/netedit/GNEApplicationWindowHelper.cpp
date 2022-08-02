@@ -1894,14 +1894,14 @@ GNEApplicationWindowHelper::GNEConfigHandler::loadConfig(CommonXMLStructure::Sum
             oc.resetWritable();
             oc.set("route-files", configObj->getStringAttribute(SUMO_ATTR_ROUTEFILES));
         }
+        // set data files
+        if (configObj->hasStringAttribute(SUMO_ATTR_DATAFILES)) {
+            oc.resetWritable();
+            oc.set("data-files", configObj->getStringAttribute(SUMO_ATTR_DATAFILES));
+        }
         // load net depending if file is absoulte or relative
         oc.resetWritable();
-        if (FileHelpers::isAbsolute(netFile)) {
-            oc.set("sumo-net-file", netFile);
-        } else {
-            // load network adding filepath
-            oc.set("sumo-net-file", myFilepath + netFile);
-        }
+        oc.set("sumo-net-file", netFile);
         // load network
         myApplicationWindow->loadNet("");
 

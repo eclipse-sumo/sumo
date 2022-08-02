@@ -108,6 +108,27 @@ ConfigHandler::parseRouteFiles(const SUMOSAXAttributes& attrs) {
 
 
 void
+ConfigHandler::parseDataFiles(const SUMOSAXAttributes& attrs) {
+    // declare Ok Flag
+    bool parsedOk = true;
+    // data file
+    const std::string value = attrs.get<std::string>(SUMO_ATTR_VALUE, "", parsedOk);
+    // continue if flag is ok
+    if (parsedOk) {
+        // avoid empty files
+        if (value.empty()) {
+            WRITE_ERROR("Data files cannot be empty");
+        } else if (myCommonXMLStructure.getCurrentSumoBaseObject() == nullptr) {
+            WRITE_ERROR("Data files must be loaded within a configuration");
+        } else {
+            // add it in SUMOConfig parent
+            myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_ROUTEFILES, value);
+        }
+    }
+}
+
+
+void
 ConfigHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
     // obtain tag
     const SumoXMLTag tag = static_cast<SumoXMLTag>(element);
@@ -128,6 +149,9 @@ ConfigHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
                 break;
             case SUMO_TAG_ROUTEFILES:
                 parseRouteFiles(attrs);
+                break;
+            case SUMO_TAG_DATAFILES:
+                parseDataFiles(attrs);
                 break;
             default:
                 // tag cannot be parsed in ConfigHandler

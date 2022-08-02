@@ -84,6 +84,9 @@ private:
     /// @brief parse route files attribute
     void parseRouteFiles(const SUMOSAXAttributes& attrs);
 
+    /// @brief parse data files attribute
+    void parseDataFiles(const SUMOSAXAttributes& attrs);
+
     /// @}
 
     /// @brief invalidate copy constructor
