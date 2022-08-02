@@ -594,7 +594,7 @@ where the rightmost may only be used by "taxis" or "buses". The default
 vehicle class is **passenger** (denoting normal passenger cars).
 
 !!! caution
-    Routing or insertion may fail due to a mismatch between a vehicles `vClass` and the [road permissions](Simulation/VehiclePermissions.md#network_definition). This can be diagnosed in [sumo-gui buy highlighting edges according to their permissions](sumo-gui.md#road_access_permissions).
+    Routing or insertion may fail due to a mismatch between a vehicles `vClass` and the [road permissions](Simulation/VehiclePermissions.md#network_definition). This can be diagnosed in [sumo-gui by highlighting edges according to their permissions](sumo-gui.md#road_access_permissions).
 
 The following vehicle classes exist:
 
