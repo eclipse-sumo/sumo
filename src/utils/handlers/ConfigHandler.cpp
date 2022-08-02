@@ -131,7 +131,7 @@ ConfigHandler::parseDataFiles(const SUMOSAXAttributes& attrs) {
             WRITE_ERROR("Data files must be loaded within a configuration");
         } else {
             // add it in SUMOConfig parent
-            myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_ROUTEFILES, value);
+            myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_DATAFILES, value);
         }
     }
 }
