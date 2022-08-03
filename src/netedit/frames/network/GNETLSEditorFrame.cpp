@@ -1549,6 +1549,9 @@ GNETLSEditorFrame::TLSPhases::initStaticPhaseTable(const int index) {
     }
     myPhaseTable->setDefColumnWidth(neededWidth / cols);
 */
+    // recalc table width
+    myPhaseTable->recalcWidth();
+
 }
 
 

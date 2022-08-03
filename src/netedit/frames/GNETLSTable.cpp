@@ -47,6 +47,17 @@ GNETLSTable::GNETLSTable(FXComposite* p, FXObject* tgt, FXSelector sel) :
 GNETLSTable::~GNETLSTable() { }
 
 
+void
+GNETLSTable::recalcWidth() {
+    // adjust table width
+    int tableWidth = 0;
+    for (const auto& column : myColumns) {
+        tableWidth += column->adjustColumnWidth();
+    }
+    setWidth(tableWidth);
+}
+
+
 long
 GNETLSTable::onFocusRow(FXObject* sender, FXSelector, void*) {
     // search selected text field
@@ -241,8 +252,6 @@ GNETLSTable::Column::getType() const {
 void
 GNETLSTable::Column::setColumnLabel(const FXString& text) {
     myLabel->setText(text);
-    // adjust column width
-    adjustColumnWidth();
 }
 
 
@@ -332,12 +341,6 @@ void
 GNETLSTable::Row::setText(int index, const FXString& text, FXbool notify) const {
     // set text
     myCells.at(index)->textField->setText(text, notify);
-    // adjust table width
-    int tableWidth = 8;
-    for (const auto& column : myTable->myColumns) {
-        tableWidth += column->adjustColumnWidth();
-    }
-    myTable->setWidth(tableWidth);
 }
 
 

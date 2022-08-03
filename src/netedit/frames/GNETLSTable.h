@@ -69,6 +69,9 @@ public:
     /// @brief destructor (Called automatically)
     ~GNETLSTable();
 
+    /// @brief recalc width
+    void recalcWidth();
+
     /// @name FOX callbacks
     /// @{
     /// @brief called when a row is focused
