@@ -141,7 +141,7 @@ protected:
         void setColumnLabel(const FXString& text);
 
         /// @brief adjust column width
-        void adjustColumnWidth();
+        int adjustColumnWidth();
 
     protected:
         /// @brief pointer to table

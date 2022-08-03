@@ -86,11 +86,10 @@ GNETLSTable::onEditRow(FXObject* sender, FXSelector, void*) {
             if (myRows.at(rowIndex)->getCells().at(columnIndex)->textField == sender) {
                 // inform target
                 return myTarget->handle(this, FXSEL(SEL_REPLACED, mySelector), myRows.at(rowIndex)->getCells().at(columnIndex));
-                // stop
-                return 1;
             }
         }
     }
+    // nothing to inform
     return 0;
 }
 
@@ -128,7 +127,7 @@ GNETLSTable::getItemText(FXint row, FXint column) const {
 
 FXint
 GNETLSTable::getNumRows() const {
-    return myRows.size();
+    return (int)myRows.size();
 }
 
 
@@ -176,10 +175,6 @@ GNETLSTable::setTableSize(const std::string columns, FXint numberRow, FXbool /* 
     for (int i = 0; i < numberRow; i++) {
         myRows.push_back(new Row(this));
     }
-    // adjust table size
-    for (const auto& column : myColumns) {
-        column->adjustColumnWidth();
-    }
 }
 
 
@@ -212,19 +207,11 @@ GNETLSTable::Column::Column(GNETLSTable* table, const int index, const char type
     myTable(table),
     myIndex(index),
     myType(type) {
-    // continue depending of type
-    if (myType == '-') {
-        // create vertical frame extended over frame
-        myVerticalFrame = new FXVerticalFrame(table, GUIDesignAuxiliarTLSTable);
-        // create label extended over frame
-        myLabel = new FXLabel(myVerticalFrame, "", nullptr, GUIDesignLabelTLSTable);
-    } else {
-        // create vertical frame with fixed height
-        myVerticalFrame = new FXVerticalFrame(table, GUIDesignAuxiliarTLSTableSquare);
-        // create label extended with fixed height
-        myLabel = new FXLabel(myVerticalFrame, "", nullptr, GUIDesignLabelTLSTableSquare);
-    }
-    // create botwh
+    // create vertical frame
+    myVerticalFrame = new FXVerticalFrame(table, GUIDesignAuxiliarTLSTable);
+    // create label
+    myLabel = new FXLabel(myVerticalFrame, "", nullptr, GUIDesignLabelTLSTable);
+    // create both
     myVerticalFrame->create();
     myLabel->create();
 }
@@ -259,12 +246,14 @@ GNETLSTable::Column::setColumnLabel(const FXString& text) {
 }
 
 
-void
+int
 GNETLSTable::Column::adjustColumnWidth() {
+    // declare columnWidth (by default is a square) 
+    int columnWidth = GUIDesignHeight;
     // only adjust for textfields
     if (myType == '-') {
-        // declare width using label
-        int width = myLabel->getFont()->getTextWidth(myLabel->getText().text(), myLabel->getText().length() + EXTRAMARGING);
+        // calculate columnWidth using label
+        columnWidth = myLabel->getFont()->getTextWidth(myLabel->getText().text(), myLabel->getText().length() + EXTRAMARGING);
         // iterate over all textFields and check widths
         for (const auto& row : myTable->myRows) {
             // get text field
@@ -272,16 +261,20 @@ GNETLSTable::Column::adjustColumnWidth() {
             // get textField width
             const auto textFieldWidth = textField->getFont()->getTextWidth(textField->getText().text(), textField->getText().length() + EXTRAMARGING);
             // compare widths
-            if (textFieldWidth > width) {
-                width = textFieldWidth;
+            if (textFieldWidth > columnWidth) {
+                columnWidth = textFieldWidth;
             }
         }
-        // set width in all elements
-        myLabel->setWidth(width);
+        // adjust textFields width
         for (const auto& row : myTable->myRows) {
-            row->getCells().at(myIndex)->textField->setWidth(width);
+            row->getCells().at(myIndex)->textField->setWidth(columnWidth);
         }
     }
+    // adjust label and vertical frame
+    myLabel->setWidth(columnWidth);
+    myVerticalFrame->setWidth(columnWidth);
+    // use columnWidth to set table size
+    return columnWidth;
 }
 
 
@@ -295,13 +288,16 @@ GNETLSTable::Row::Row(GNETLSTable* table) :
     // build textFields
     for (int i = 0; i < (FXint)table->myColumns.size(); i++) {
         if (table->myColumns.at(i)->getType() == 's') {
+            // create radio button
             auto radioButton = new FXRadioButton(table->myColumns.at(i)->getVerticalFrame(), "", table, MID_CHOOSEN_SELECT, GUIDesignRadioButtonTLSTable);
             radioButton->create();
             myCells.push_back(new TableCell(radioButton, i, (int)myCells.size()));
         } else if (table->myColumns.at(i)->getType() == '-') {
+            // create text field
             auto textField = new FXTextField(table->myColumns.at(i)->getVerticalFrame(), GUIDesignTextFieldNCol, table, MID_CHOOSEN_SELECT, GUIDesignTextFieldTLSTable);
             textField->create();
             myCells.push_back(new TableCell(textField, i, (int)myCells.size()));
+        /* here more cell types */
         } else {
             throw ProcessError("Invalid Cell type");
         }
@@ -334,9 +330,14 @@ GNETLSTable::Row::getText(int index) const {
 
 void
 GNETLSTable::Row::setText(int index, const FXString& text, FXbool notify) const {
+    // set text
     myCells.at(index)->textField->setText(text, notify);
-    // adjust column width
-    myTable->myColumns.at(index)->adjustColumnWidth();
+    // adjust table width
+    int tableWidth = 8;
+    for (const auto& column : myTable->myColumns) {
+        tableWidth += column->adjustColumnWidth();
+    }
+    myTable->setWidth(tableWidth);
 }
 
 

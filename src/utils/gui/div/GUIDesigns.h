@@ -280,10 +280,7 @@ class MFXMenuCheckIcon;
 #define GUIDesignLabelMFXGroupBoxModule (FRAME_GROOVE | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
 
 /// @brief label used in TLSTable
-#define GUIDesignLabelTLSTable          (FRAME_THICK | LAYOUT_FILL_X | LAYOUT_MIN_WIDTH | LAYOUT_FIX_HEIGHT | ICON_BEFORE_TEXT | JUSTIFY_CENTER_X | JUSTIFY_CENTER_Y), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
-
-/// @brief label used in TLSTable (square)
-#define GUIDesignLabelTLSTableSquare    (FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, GUIDesignHeight, GUIDesignHeight, 2, 2, 2, 2
+#define GUIDesignLabelTLSTable          (FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | ICON_BEFORE_TEXT | JUSTIFY_CENTER_X | JUSTIFY_CENTER_Y), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
 
 /// @}
 
@@ -388,10 +385,7 @@ class MFXMenuCheckIcon;
 #define GUIDesignCollapsableFrame               (LAYOUT_FILL_X | LAYOUT_FILL_Y), 0, 0, 0, 0, 2, 2, 2, 2, 2, 2
 
 /// @brief design for auxiliar (Without borders) frames used in TLSTable
-#define GUIDesignAuxiliarTLSTable               (LAYOUT_FILL_X | LAYOUT_FILL_Y), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-
-/// @brief design for auxiliar (Without borders) frames used in TLSTable Squared
-#define GUIDesignAuxiliarTLSTableSquare         (LAYOUT_FIX_WIDTH | LAYOUT_FILL_Y), 0, 0, GUIDesignHeight, 0, 0, 0, 0, 0, 0, 0
+#define GUIDesignAuxiliarTLSTable               (LAYOUT_FIX_WIDTH | LAYOUT_FILL_Y), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 
 /// @}
 
