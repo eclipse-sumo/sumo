@@ -15,7 +15,7 @@
 /// @author  Pablo Alvarez Lopez
 /// @date    Aug 2019
 ///
-// Auxiliar class for GNEFrame Modules (only for attributes edition)
+// Auxiliary class for GNEFrame Modules (only for attributes edition)
 /****************************************************************************/
 #include <config.h>
 
@@ -195,7 +195,7 @@ GNEFrameAttributeModules::AttributesEditorRow::AttributesEditorRow(GNEFrameAttri
             if (GNEAttributeCarrier::canParse<std::vector<bool> >(value)) {
                 booleanVector = GNEAttributeCarrier::parse<std::vector<bool> >(value);
             }
-            // iterate over pased booleans comparing all element with the first
+            // iterate over passed booleans comparing all element with the first
             for (const auto& booleanValue : booleanVector) {
                 if (booleanValue != booleanVector.front()) {
                     allBooleanValuesEqual = false;
@@ -721,16 +721,16 @@ GNEFrameAttributeModules::AttributesEditor::showAttributeEditorModule(bool inclu
             }
             // continue if attribute is editable
             if (editAttribute) {
-                // Declare a set of occuring values and insert attribute's values of item (note: We use a set to avoid repeated values)
-                std::set<std::string> occuringValues;
+                // Declare a set of occurring values and insert attribute's values of item (note: We use a set to avoid repeated values)
+                std::set<std::string> occurringValues;
                 // iterate over edited attributes
                 for (const auto& inspectedAC : ACs) {
-                    occuringValues.insert(inspectedAC->getAttribute(attrProperty.getAttr()));
+                    occurringValues.insert(inspectedAC->getAttribute(attrProperty.getAttr()));
                 }
                 // get current value
                 std::ostringstream oss;
-                for (auto values = occuringValues.begin(); values != occuringValues.end(); values++) {
-                    if (values != occuringValues.begin()) {
+                for (auto values = occurringValues.begin(); values != occurringValues.end(); values++) {
+                    if (values != occurringValues.begin()) {
                         oss << " ";
                     }
                     oss << *values;
@@ -751,7 +751,7 @@ GNEFrameAttributeModules::AttributesEditor::showAttributeEditorModule(bool inclu
                         attributeEnabled = false;
                     }
                 }
-                // if forceEnablellAttribute is enable, force attributeEnabled (except for ID)
+                // if forceAttributeEnabled is enabled, force attributeEnabled (except for ID)
                 if (forceAttributeEnabled && (attrProperty.getAttr() != SUMO_ATTR_ID)) {
                     attributeEnabled = true;
                 }
@@ -819,16 +819,16 @@ GNEFrameAttributeModules::AttributesEditor::refreshAttributeEditor(bool forceRef
             }
             // continue if attribute is editable
             if (editAttribute) {
-                // Declare a set of occuring values and insert attribute's values of item (note: We use a set to avoid repeated values)
-                std::set<std::string> occuringValues;
+                // Declare a set of occurring values and insert attribute's values of item (note: We use a set to avoid repeated values)
+                std::set<std::string> occurringValues;
                 // iterate over edited attributes
                 for (const auto& inspectedAC : ACs) {
-                    occuringValues.insert(inspectedAC->getAttribute(attrProperty.getAttr()));
+                    occurringValues.insert(inspectedAC->getAttribute(attrProperty.getAttr()));
                 }
                 // get current value
                 std::ostringstream oss;
-                for (auto values = occuringValues.begin(); values != occuringValues.end(); values++) {
-                    if (values != occuringValues.begin()) {
+                for (auto values = occurringValues.begin(); values != occurringValues.end(); values++) {
+                    if (values != occurringValues.begin()) {
                         oss << " ";
                     }
                     oss << *values;
