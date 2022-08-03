@@ -40,14 +40,11 @@ FXIMPLEMENT(GNETLSTable, FXHorizontalFrame, GNETLSTableMap, ARRAYNUMBER(GNETLSTa
 GNETLSTable::GNETLSTable(FXComposite* p, FXObject* tgt, FXSelector sel) :
     FXHorizontalFrame(p, GUIDesignAuxiliarTLSTable),
     myTarget(tgt),
-    myTablePos(new GNETLSTablePos()),
     mySelector(sel) {
 }
 
 
-GNETLSTable::~GNETLSTable() {
-    delete myTablePos;
-}
+GNETLSTable::~GNETLSTable() { }
 
 
 long
@@ -56,18 +53,18 @@ GNETLSTable::onFocusRow(FXObject* sender, FXSelector, void*) {
     for (int rowIndex = 0; rowIndex < (int)myRows.size(); rowIndex++) {
         // iterate over every cell
         for (const auto &cellTextField : myRows.at(rowIndex)->getCells()) {
-            if ((cellTextField.textField == sender) && (myCurrentSelectedRow != rowIndex)) {
+            if ((cellTextField->textField == sender) && (myCurrentSelectedRow != rowIndex)) {
                 myCurrentSelectedRow = rowIndex;
                 myTarget->handle(this, FXSEL(SEL_SELECTED, mySelector), nullptr);
                 // set radio buttons checks
                 for (int rowIndex2 = 0; rowIndex2 < (int)myRows.size(); rowIndex2++) {
                     // iterate over every cell
                     for (const auto &cellRadioButton : myRows.at(rowIndex2)->getCells()) {
-                        if (cellRadioButton.radioButton) {
+                        if (cellRadioButton->radioButton) {
                             if (myCurrentSelectedRow == rowIndex2) {
-                                cellRadioButton.radioButton->setCheck(TRUE, FALSE);
+                                cellRadioButton->radioButton->setCheck(TRUE, FALSE);
                             } else {
-                                cellRadioButton.radioButton->setCheck(FALSE, FALSE);
+                                cellRadioButton->radioButton->setCheck(FALSE, FALSE);
                             }
                         }
                     }
@@ -86,12 +83,9 @@ GNETLSTable::onEditRow(FXObject* sender, FXSelector, void*) {
     // search selected text field
     for (int columnIndex = 0; columnIndex < (int)myColumns.size(); columnIndex++) {
         for (int rowIndex = 0; rowIndex < (int)myRows.size(); rowIndex++) {
-            if (myRows.at(rowIndex)->getCells().at(columnIndex).textField == sender) {
-                // update myTablePos
-                myTablePos->col = columnIndex;
-                myTablePos->row = rowIndex;
+            if (myRows.at(rowIndex)->getCells().at(columnIndex)->textField == sender) {
                 // inform target
-                return myTarget->handle(this, FXSEL(SEL_REPLACED, mySelector), myTablePos);
+                return myTarget->handle(this, FXSEL(SEL_REPLACED, mySelector), myRows.at(rowIndex)->getCells().at(columnIndex));
                 // stop
                 return 1;
             }
@@ -192,7 +186,7 @@ GNETLSTable::setTableSize(const std::string columns, FXint numberRow, FXbool /* 
 FXTextField*
 GNETLSTable::getItem(FXint row, FXint col) const {
     if (row < (FXint)myRows.size() && col < (FXint)myColumns.size()) {
-        return myRows.at(row)->getCells().at(col).textField;
+        return myRows.at(row)->getCells().at(col)->textField;
     }
     throw ProcessError("Invalid row or column");
 }
@@ -274,7 +268,7 @@ GNETLSTable::Column::adjustColumnWidth() {
         // iterate over all textFields and check widths
         for (const auto& row : myTable->myRows) {
             // get text field
-            const auto textField = row->getCells().at(myIndex).textField;
+            const auto textField = row->getCells().at(myIndex)->textField;
             // get textField width
             const auto textFieldWidth = textField->getFont()->getTextWidth(textField->getText().text(), textField->getText().length() + EXTRAMARGING);
             // compare widths
@@ -285,7 +279,7 @@ GNETLSTable::Column::adjustColumnWidth() {
         // set width in all elements
         myLabel->setWidth(width);
         for (const auto& row : myTable->myRows) {
-            row->getCells().at(myIndex).textField->setWidth(width);
+            row->getCells().at(myIndex)->textField->setWidth(width);
         }
     }
 }
@@ -303,11 +297,11 @@ GNETLSTable::Row::Row(GNETLSTable* table) :
         if (table->myColumns.at(i)->getType() == 's') {
             auto radioButton = new FXRadioButton(table->myColumns.at(i)->getVerticalFrame(), "", table, MID_CHOOSEN_SELECT, GUIDesignRadioButtonTLSTable);
             radioButton->create();
-            myCells.push_back(Cell(radioButton));
+            myCells.push_back(new TableCell(radioButton, i, (int)myCells.size()));
         } else if (table->myColumns.at(i)->getType() == '-') {
             auto textField = new FXTextField(table->myColumns.at(i)->getVerticalFrame(), GUIDesignTextFieldNCol, table, MID_CHOOSEN_SELECT, GUIDesignTextFieldTLSTable);
             textField->create();
-            myCells.push_back(Cell(textField));
+            myCells.push_back(new TableCell(textField, i, (int)myCells.size()));
         } else {
             throw ProcessError("Invalid Cell type");
         }
@@ -318,19 +312,20 @@ GNETLSTable::Row::Row(GNETLSTable* table) :
 GNETLSTable::Row::~Row() {
     // destroy all textFields
     for (const auto& cell : myCells) {
-        if (cell.textField) {
-            cell.textField->destroy();
-        } else if (cell.radioButton) {
-            cell.radioButton->destroy();
+        if (cell->textField) {
+            cell->textField->destroy();
+        } else if (cell->radioButton) {
+            cell->radioButton->destroy();
         }
+        delete cell;
     }
 }
 
 
 FXString
 GNETLSTable::Row::getText(int index) const {
-    if (myCells.at(index).textField) {
-        return myCells.at(index).textField->getText();
+    if (myCells.at(index)->textField) {
+        return myCells.at(index)->textField->getText();
     } else {
         throw ProcessError("Cell doesn't have a textField");
     }
@@ -339,13 +334,13 @@ GNETLSTable::Row::getText(int index) const {
 
 void
 GNETLSTable::Row::setText(int index, const FXString& text, FXbool notify) const {
-    myCells.at(index).textField->setText(text, notify);
+    myCells.at(index)->textField->setText(text, notify);
     // adjust column width
     myTable->myColumns.at(index)->adjustColumnWidth();
 }
 
 
-const std::vector<GNETLSTable::Row::Cell> &
+const std::vector<GNETLSTable::TableCell*> &
 GNETLSTable::Row::getCells() const {
     return myCells;
 }

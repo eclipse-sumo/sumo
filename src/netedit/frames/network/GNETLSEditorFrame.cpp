@@ -677,7 +677,7 @@ GNETLSEditorFrame::onCmdPhaseEdit(FXObject*, FXSelector, void* ptr) {
     /* @note: there is a bug when copying/pasting rows: when this handler is
      * called the value of the cell is not yet updated. This means you have to
      * click inside the cell and hit enter to actually update the value */
-    GNETLSTable::GNETLSTablePos* tp = (GNETLSTable::GNETLSTablePos*)ptr;
+    GNETLSTable::TableCell* tp = (GNETLSTable::TableCell*)ptr;
     const std::string value = myTLSPhases->getPhaseTable()->getItemText(tp->row, tp->col).text();
     // Declare columns
     int colDuration = 1;

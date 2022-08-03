@@ -35,24 +35,32 @@ class GNETLSTable : public FXHorizontalFrame {
     FXDECLARE(GNETLSTable)
 
 public:
-    /// @brief table position
-    struct GNETLSTablePos {
-        
-        /// @brief constructor
-        GNETLSTablePos() {}
+    /// @brief struct for every cell
+    struct TableCell {
+
+        /// @brief constructor for textField
+        TableCell(FXTextField* textField_, int col_, int row_) :
+            textField(textField_),
+            col(col_),
+            row(row_) {}
+
+        /// @brief constructor for radio button
+        TableCell(FXRadioButton* radioButton_, int col_, int row_) :
+            radioButton(radioButton_),
+            col(col_),
+            row(row_) {}
+
+        /// @brief textField
+        FXTextField* textField = nullptr;
+
+        /// @brief radio button
+        FXRadioButton* radioButton = nullptr;
 
         /// @brief column index
-        int col = 0;
+        const int col;
 
         /// @brief row index
-        int row = 0;
-
-    private:
-        /// @brief Invalidated copy constructor.
-        GNETLSTablePos(const GNETLSTablePos&) = delete;
-
-        /// @brief Invalidated assignment operator.
-        GNETLSTablePos& operator=(const GNETLSTablePos&) = delete;
+        const int row;
     };
 
     /// @brief constructor (Exactly like the FXButton constructor)
@@ -160,24 +168,6 @@ protected:
     class Row {
 
     public:
-        /// @brief struct for every cell
-        struct Cell {
-
-            /// @brief constructor for textField
-            Cell(FXTextField* textField_) :
-                textField(textField_) {}
-
-            /// @brief constructor for radio button
-            Cell(FXRadioButton* radioButton_) :
-                radioButton(radioButton_) {}
-
-            /// @brief textField
-            FXTextField* textField = nullptr;
-
-            /// @brief radio button
-            FXRadioButton* radioButton = nullptr;
-        };
-
         /// @brief constructor
         Row(GNETLSTable* table);
 
@@ -191,7 +181,7 @@ protected:
         void setText(int index, const FXString& text, FXbool notify) const;
 
         /// @brief get cells
-        const std::vector<Cell> &getCells() const;
+        const std::vector<TableCell*> &getCells() const;
 
         /// @brief select column
         void select();
@@ -201,7 +191,7 @@ protected:
         GNETLSTable* myTable = nullptr;
 
         /// @brief list wtih cells
-        std::vector<Cell> myCells;
+        std::vector<TableCell*> myCells;
 
     private:
         /// @brief default constructor
@@ -222,9 +212,6 @@ protected:
 
     /// @brief current selected row
     int myCurrentSelectedRow = -1;
-
-    /// @brief table pos
-    GNETLSTablePos *myTablePos = nullptr;
 
 private:
     /// @brief Invalidated copy constructor.
