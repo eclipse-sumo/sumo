@@ -1401,9 +1401,7 @@ GNETLSEditorFrame::TLSPhases::TLSPhases(GNETLSEditorFrame* TLSEditorParent) :
     myPhaseTable->setColumnHeaderHeight(getApp()->getNormalFont()->getFontHeight() + getApp()->getNormalFont()->getFontAscent() / 2);
     myPhaseTable->setRowHeaderMode(LAYOUT_FIX_WIDTH);
     myPhaseTable->setRowHeaderWidth(0);
-*/
     myPhaseTable->hide();
-/*
     myPhaseTable->setFont(myTableFont);
     myPhaseTable->setHelpText("phase duration in seconds | phase state");
 */
@@ -1456,8 +1454,8 @@ GNETLSEditorFrame::TLSPhases::initPhaseTable(int index) {
 /*
     myPhaseTable->setVisibleRows(1);
     myPhaseTable->setVisibleColumns(2);
-*/
     myPhaseTable->hide();
+*/
     if (myTLSEditorParent->myTLSAttributes->getNumberOfTLSDefinitions() > 0) {
         if (myTLSEditorParent->myEditedDef->getType() == TrafficLightType::STATIC) {
             initStaticPhaseTable(index);
@@ -1532,10 +1530,10 @@ GNETLSEditorFrame::TLSPhases::initStaticPhaseTable(const int index) {
     myPhaseTable->setColumnWidth(colName, MAX2(myPhaseTable->getColumnWidth(colName), 45));
 */
     // set rows
-    myPhaseTable->setHeight((int)phases.size() * 21 + 21); // experimental
+//myPhaseTable->setHeight((int)phases.size() * 21 + 21); // experimental
     myPhaseTable->setCurrentItem(index, 0);
     myPhaseTable->selectRow(index, true);
-    myPhaseTable->show();
+//myPhaseTable->show();
     myPhaseTable->setFocus();
 /*
     myTableScroll->setHeight(myPhaseTable->getHeight() + 15);
@@ -1606,10 +1604,10 @@ GNETLSEditorFrame::TLSPhases::initActuatedPhaseTable(const int index) {
     myPhaseTable->setColumnText(colName, "name");
 //myPhaseTable->setColumnWidth(colName, MAX2(myPhaseTable->getColumnWidth(colName), 45));
     // set rows
-    myPhaseTable->setHeight((int)phases.size() * 21 + 21); // experimental
+//myPhaseTable->setHeight((int)phases.size() * 21 + 21); // experimental
     myPhaseTable->setCurrentItem(index, 0);
     myPhaseTable->selectRow(index, true);
-    myPhaseTable->show();
+//myPhaseTable->show();
     myPhaseTable->setFocus();
 /*
     myTableScroll->setHeight(myPhaseTable->getHeight() + 15);
@@ -1669,10 +1667,10 @@ GNETLSEditorFrame::TLSPhases::initDelayBasePhaseTable(const int index) {
     myPhaseTable->setColumnText(colName, "name");
 //myPhaseTable->setColumnWidth(colName, MAX2(myPhaseTable->getColumnWidth(colName), 45));
     // set rows
-    myPhaseTable->setHeight((int)phases.size() * 21 + 21); // experimental
+//myPhaseTable->setHeight((int)phases.size() * 21 + 21); // experimental
     myPhaseTable->setCurrentItem(index, 0);
     myPhaseTable->selectRow(index, true);
-    myPhaseTable->show();
+//myPhaseTable->show();
     myPhaseTable->setFocus();
 /*
     myTableScroll->setHeight(myPhaseTable->getHeight() + 15);
@@ -1744,10 +1742,10 @@ GNETLSEditorFrame::TLSPhases::initNEMAPhaseTable(const int index) {
     myPhaseTable->setColumnText(colName, "name");
 //myPhaseTable->setColumnWidth(colName, MAX2(myPhaseTable->getColumnWidth(colName), 45));
     // set rows
-    myPhaseTable->setHeight((int)phases.size() * 21 + 21); // experimental
+//myPhaseTable->setHeight((int)phases.size() * 21 + 21); // experimental
     myPhaseTable->setCurrentItem(index, 0);
     myPhaseTable->selectRow(index, true);
-    myPhaseTable->show();
+//myPhaseTable->show();
     myPhaseTable->setFocus();
 /*
     myTableScroll->setHeight(myPhaseTable->getHeight() + 15);
