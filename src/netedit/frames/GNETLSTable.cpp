@@ -24,6 +24,7 @@
 #include <utils/gui/windows/GUIAppEnum.h>
 
 #define EXTRAMARGING 1
+#define DEFAULTWIDTH 190
 
 
 // ===========================================================================
@@ -81,6 +82,8 @@ GNETLSTable::GNETLSTable(FXComposite* p, FXObject* tgt, FXSelector sel) :
     myProgramFont(new FXFont(getApp(), "Courier New", 10)),
     myTarget(tgt),
     mySelector(sel) {
+    // set default width
+    recalcTableWidth();
 }
 
 
@@ -91,14 +94,29 @@ GNETLSTable::~GNETLSTable() {
 
 
 void
-GNETLSTable::recalcWidth() {
+GNETLSTable::recalcTableWidth() {
     // get width of all elements
     int tableWidth = 0;
     for (const auto& column : myColumns) {
         tableWidth += column->adjustColumnWidth();
     }
     // set new width
-    setWidth(tableWidth);
+    setWidth((tableWidth == 0)? DEFAULTWIDTH : tableWidth);
+}
+
+
+void
+GNETLSTable::setTableSize(const std::string columns, FXint numberRow, FXbool /* notify */) {
+    // first clear table
+    clearTable();
+    // create columns
+    for (int i = 0; i < (FXint)columns.size(); i++) {
+        myColumns.push_back(new Column(this, i, columns.at(i)));
+    }
+    // create rows
+    for (int i = 0; i < numberRow; i++) {
+        myRows.push_back(new Row(this));
+    }
 }
 
 
@@ -214,21 +232,6 @@ GNETLSTable::setColumnText(FXint column, const FXString& text) {
         myColumns.at(column)->setColumnLabel(text);
     } else {
         throw ProcessError("Invalid column");
-    }
-}
-
-
-void
-GNETLSTable::setTableSize(const std::string columns, FXint numberRow, FXbool /* notify */) {
-    // first clear table
-    clearTable();
-    // create columns
-    for (int i = 0; i < (FXint)columns.size(); i++) {
-        myColumns.push_back(new Column(this, i, columns.at(i)));
-    }
-    // create rows
-    for (int i = 0; i < numberRow; i++) {
-        myRows.push_back(new Row(this));
     }
 }
 

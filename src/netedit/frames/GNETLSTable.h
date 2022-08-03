@@ -68,8 +68,11 @@ public:
     /// @brief destructor (Called automatically)
     ~GNETLSTable();
 
-    /// @brief recalc width
-    void recalcWidth();
+    /// @brief recalc width (call when all labels and contents are fill)
+    void recalcTableWidth();
+
+    /// @brief clear table
+    void clearTable();
 
     /// @name FOX callbacks
     /// @{
@@ -121,9 +124,6 @@ public:
 protected:
     /// @brief FOX needs this
     FOX_CONSTRUCTOR(GNETLSTable)
-
-    /// @brief clear table
-    void clearTable();
 
     /// @brief column
     class Column {
