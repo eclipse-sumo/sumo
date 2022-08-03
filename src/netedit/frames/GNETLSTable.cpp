@@ -11,47 +11,47 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    MFXTable.cpp
+/// @file    GNETLSTable.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    2022-07-21
 ///
-// Button similar to FXButton but with the possibility of showing tooltips
+// Table used in GNETLSFrame for editing TLS programs
 /****************************************************************************/
 #include <config.h>
 
-#include "MFXTable.h"
+#include "GNETLSTable.h"
 
 #include <utils/gui/windows/GUIAppEnum.h>
 
 #define EXTRAMARGING 1
 
-FXDEFMAP(MFXTable) MFXTableMap[] = {
-    FXMAPFUNC(SEL_FOCUSIN,  MID_CHOOSEN_SELECT, MFXTable::onFocusRow),
-    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_SELECT, MFXTable::onEditRow),
-    FXMAPFUNC(SEL_ENTER,    0,                  MFXTable::onEnter),
-    FXMAPFUNC(SEL_LEAVE,    0,                  MFXTable::onLeave),
+FXDEFMAP(GNETLSTable) GNETLSTableMap[] = {
+    FXMAPFUNC(SEL_FOCUSIN,  MID_CHOOSEN_SELECT, GNETLSTable::onFocusRow),
+    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_SELECT, GNETLSTable::onEditRow),
+    FXMAPFUNC(SEL_ENTER,    0,                  GNETLSTable::onEnter),
+    FXMAPFUNC(SEL_LEAVE,    0,                  GNETLSTable::onLeave),
 };
 
 
 // Object implementation
-FXIMPLEMENT(MFXTable, FXHorizontalFrame, MFXTableMap, ARRAYNUMBER(MFXTableMap))
+FXIMPLEMENT(GNETLSTable, FXHorizontalFrame, GNETLSTableMap, ARRAYNUMBER(GNETLSTableMap))
 
 
-MFXTable::MFXTable(FXComposite* p, FXObject* tgt, FXSelector sel) :
-    FXHorizontalFrame(p, GUIDesignAuxiliarMFXTable),
+GNETLSTable::GNETLSTable(FXComposite* p, FXObject* tgt, FXSelector sel) :
+    FXHorizontalFrame(p, GUIDesignAuxiliarTLSTable),
     myTarget(tgt),
-    myTablePos(new MFXTablePos()),
+    myTablePos(new GNETLSTablePos()),
     mySelector(sel) {
 }
 
 
-MFXTable::~MFXTable() {
+GNETLSTable::~GNETLSTable() {
     delete myTablePos;
 }
 
 
 long
-MFXTable::onFocusRow(FXObject* sender, FXSelector, void*) {
+GNETLSTable::onFocusRow(FXObject* sender, FXSelector, void*) {
     // search selected text field
     for (int rowIndex = 0; rowIndex < (int)myRows.size(); rowIndex++) {
         // iterate over every cell
@@ -82,7 +82,7 @@ MFXTable::onFocusRow(FXObject* sender, FXSelector, void*) {
 
 
 long 
-MFXTable::onEditRow(FXObject* sender, FXSelector, void*) {
+GNETLSTable::onEditRow(FXObject* sender, FXSelector, void*) {
     // search selected text field
     for (int columnIndex = 0; columnIndex < (int)myColumns.size(); columnIndex++) {
         for (int rowIndex = 0; rowIndex < (int)myRows.size(); rowIndex++) {
@@ -102,19 +102,19 @@ MFXTable::onEditRow(FXObject* sender, FXSelector, void*) {
 
 
 long
-MFXTable::onEnter(FXObject* sender, FXSelector sel, void* ptr) {
+GNETLSTable::onEnter(FXObject* sender, FXSelector sel, void* ptr) {
     return FXHorizontalFrame::onEnter(sender, sel, ptr);
 }
 
 
 long
-MFXTable::onLeave(FXObject* sender, FXSelector sel, void* ptr) {
+GNETLSTable::onLeave(FXObject* sender, FXSelector sel, void* ptr) {
     return FXHorizontalFrame::onLeave(sender, sel, ptr);
 }
 
 
 void
-MFXTable::setItemText(FXint row, FXint column, const FXString& text, FXbool notify) {
+GNETLSTable::setItemText(FXint row, FXint column, const FXString& text, FXbool notify) {
     if (row < (FXint)myRows.size() && column < (FXint)myColumns.size()) {
         myRows.at(row)->setText(column, text, notify);
     } else {
@@ -124,7 +124,7 @@ MFXTable::setItemText(FXint row, FXint column, const FXString& text, FXbool noti
 
 
 FXString
-MFXTable::getItemText(FXint row, FXint column) const {
+GNETLSTable::getItemText(FXint row, FXint column) const {
     if (row < (FXint)myRows.size() && column < (FXint)myColumns.size()) {
         return myRows.at(row)->getText(column);
     }
@@ -133,19 +133,19 @@ MFXTable::getItemText(FXint row, FXint column) const {
 
 
 FXint
-MFXTable::getNumRows() const {
+GNETLSTable::getNumRows() const {
     return myRows.size();
 }
 
 
 FXint
-MFXTable::getCurrentSelectedRow() const {
+GNETLSTable::getCurrentSelectedRow() const {
     return myCurrentSelectedRow;
 }
 
 
 FXbool
-MFXTable::selectRow(FXint row, FXbool /* notify */) {
+GNETLSTable::selectRow(FXint row, FXbool /* notify */) {
     if (row < (FXint)myRows.size()) {
         myRows.at(row)->select();
         return TRUE;
@@ -155,13 +155,13 @@ MFXTable::selectRow(FXint row, FXbool /* notify */) {
 
 
 void
-MFXTable::setCurrentItem(FXint /* row */, FXint /* column */, FXbool /* notify */) {
+GNETLSTable::setCurrentItem(FXint /* row */, FXint /* column */, FXbool /* notify */) {
     // CHECK
 }
 
 
 void
-MFXTable::setColumnText(FXint column, const FXString& text) {
+GNETLSTable::setColumnText(FXint column, const FXString& text) {
     if (column < (FXint)myColumns.size()) {
         myColumns.at(column)->setColumnLabel(text);
     } else {
@@ -171,7 +171,7 @@ MFXTable::setColumnText(FXint column, const FXString& text) {
 
 
 void
-MFXTable::setTableSize(const std::string columns, FXint numberRow, FXbool /* notify */) {
+GNETLSTable::setTableSize(const std::string columns, FXint numberRow, FXbool /* notify */) {
     // first clear table
     clearTable();
     // create columns
@@ -190,7 +190,7 @@ MFXTable::setTableSize(const std::string columns, FXint numberRow, FXbool /* not
 
 
 FXTextField*
-MFXTable::getItem(FXint row, FXint col) const {
+GNETLSTable::getItem(FXint row, FXint col) const {
     if (row < (FXint)myRows.size() && col < (FXint)myColumns.size()) {
         return myRows.at(row)->getCells().at(col).textField;
     }
@@ -199,7 +199,7 @@ MFXTable::getItem(FXint row, FXint col) const {
 
 
 void
-MFXTable::clearTable() {
+GNETLSTable::clearTable() {
     // clear rows (always before columns)
     for (const auto& row : myRows) {
         delete row;
@@ -214,21 +214,21 @@ MFXTable::clearTable() {
 }
 
 
-MFXTable::Column::Column(MFXTable* table, const int index, const char type) :
+GNETLSTable::Column::Column(GNETLSTable* table, const int index, const char type) :
     myTable(table),
     myIndex(index),
     myType(type) {
     // continue depending of type
     if (myType == '-') {
         // create vertical frame extended over frame
-        myVerticalFrame = new FXVerticalFrame(table, GUIDesignAuxiliarMFXTable);
+        myVerticalFrame = new FXVerticalFrame(table, GUIDesignAuxiliarTLSTable);
         // create label extended over frame
-        myLabel = new FXLabel(myVerticalFrame, "", nullptr, GUIDesignLabelMFXTable);
+        myLabel = new FXLabel(myVerticalFrame, "", nullptr, GUIDesignLabelTLSTable);
     } else {
         // create vertical frame with fixed height
-        myVerticalFrame = new FXVerticalFrame(table, GUIDesignAuxiliarMFXTableSquare);
+        myVerticalFrame = new FXVerticalFrame(table, GUIDesignAuxiliarTLSTableSquare);
         // create label extended with fixed height
-        myLabel = new FXLabel(myVerticalFrame, "", nullptr, GUIDesignLabelMFXTableSquare);
+        myLabel = new FXLabel(myVerticalFrame, "", nullptr, GUIDesignLabelTLSTableSquare);
     }
     // create botwh
     myVerticalFrame->create();
@@ -236,7 +236,7 @@ MFXTable::Column::Column(MFXTable* table, const int index, const char type) :
 }
 
 
-MFXTable::Column::~Column() {
+GNETLSTable::Column::~Column() {
     // destroy frame and label
     myVerticalFrame->destroy();
     myLabel->destroy();
@@ -246,19 +246,19 @@ MFXTable::Column::~Column() {
 
 
 FXVerticalFrame*
-MFXTable::Column::getVerticalFrame() const {
+GNETLSTable::Column::getVerticalFrame() const {
     return myVerticalFrame;
 }
 
 
 char
-MFXTable::Column::getType() const {
+GNETLSTable::Column::getType() const {
     return myType;
 }
 
 
 void
-MFXTable::Column::setColumnLabel(const FXString& text) {
+GNETLSTable::Column::setColumnLabel(const FXString& text) {
     myLabel->setText(text);
     // adjust column width
     adjustColumnWidth();
@@ -266,7 +266,7 @@ MFXTable::Column::setColumnLabel(const FXString& text) {
 
 
 void
-MFXTable::Column::adjustColumnWidth() {
+GNETLSTable::Column::adjustColumnWidth() {
     // only adjust for textfields
     if (myType == '-') {
         // declare width using label
@@ -291,21 +291,21 @@ MFXTable::Column::adjustColumnWidth() {
 }
 
 
-MFXTable::Column::Column() :
+GNETLSTable::Column::Column() :
     myIndex(0),
     myType('-') {}
 
 
-MFXTable::Row::Row(MFXTable* table) :
+GNETLSTable::Row::Row(GNETLSTable* table) :
     myTable(table) {
     // build textFields
     for (int i = 0; i < (FXint)table->myColumns.size(); i++) {
         if (table->myColumns.at(i)->getType() == 's') {
-            auto radioButton = new FXRadioButton(table->myColumns.at(i)->getVerticalFrame(), "", table, MID_CHOOSEN_SELECT, GUIDesignRadioButtonMFXTable);
+            auto radioButton = new FXRadioButton(table->myColumns.at(i)->getVerticalFrame(), "", table, MID_CHOOSEN_SELECT, GUIDesignRadioButtonTLSTable);
             radioButton->create();
             myCells.push_back(Cell(radioButton));
         } else if (table->myColumns.at(i)->getType() == '-') {
-            auto textField = new FXTextField(table->myColumns.at(i)->getVerticalFrame(), GUIDesignTextFieldNCol, table, MID_CHOOSEN_SELECT, GUIDesignTextFieldMFXTable);
+            auto textField = new FXTextField(table->myColumns.at(i)->getVerticalFrame(), GUIDesignTextFieldNCol, table, MID_CHOOSEN_SELECT, GUIDesignTextFieldTLSTable);
             textField->create();
             myCells.push_back(Cell(textField));
         } else {
@@ -315,7 +315,7 @@ MFXTable::Row::Row(MFXTable* table) :
 }
 
 
-MFXTable::Row::~Row() {
+GNETLSTable::Row::~Row() {
     // destroy all textFields
     for (const auto& cell : myCells) {
         if (cell.textField) {
@@ -328,7 +328,7 @@ MFXTable::Row::~Row() {
 
 
 FXString
-MFXTable::Row::getText(int index) const {
+GNETLSTable::Row::getText(int index) const {
     if (myCells.at(index).textField) {
         return myCells.at(index).textField->getText();
     } else {
@@ -338,24 +338,24 @@ MFXTable::Row::getText(int index) const {
 
 
 void
-MFXTable::Row::setText(int index, const FXString& text, FXbool notify) const {
+GNETLSTable::Row::setText(int index, const FXString& text, FXbool notify) const {
     myCells.at(index).textField->setText(text, notify);
     // adjust column width
     myTable->myColumns.at(index)->adjustColumnWidth();
 }
 
 
-const std::vector<MFXTable::Row::Cell> &
-MFXTable::Row::getCells() const {
+const std::vector<GNETLSTable::Row::Cell> &
+GNETLSTable::Row::getCells() const {
     return myCells;
 }
 
 
-void MFXTable::Row::select() {
+void GNETLSTable::Row::select() {
     // finish
 }
 
 
-MFXTable::Row::Row() {}
+GNETLSTable::Row::Row() {}
 
 /****************************************************************************/

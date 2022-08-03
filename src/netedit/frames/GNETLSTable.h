@@ -11,38 +11,35 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    MFXTable.h
+/// @file    GNETLSTable.h
 /// @author  Pablo Alvarez Lopez
 /// @date    2022-07-21
 ///
-// Button similar to FXButton but with the possibility of showing tooltips
+// Table used in GNETLSFrame for editing TLS programs
 /****************************************************************************/
-#ifndef MFXTable_h
-#define MFXTable_h
+#ifndef GNETLSTable_h
+#define GNETLSTable_h
 #include <config.h>
 
 #include <vector>
 
-#include "fxheader.h"
-
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/common/UtilExceptions.h>
-
-#include "GNETLSTable.h"
+#include <utils/foxtools/fxheader.h>
 
 /**
- * @class MFXTable
+ * @class GNETLSTable
  */
-class MFXTable : public FXHorizontalFrame {
+class GNETLSTable : public FXHorizontalFrame {
     /// @brief fox declaration
-    FXDECLARE(MFXTable)
+    FXDECLARE(GNETLSTable)
 
 public:
     /// @brief table position
-    struct MFXTablePos {
+    struct GNETLSTablePos {
         
         /// @brief constructor
-        MFXTablePos() {}
+        GNETLSTablePos() {}
 
         /// @brief column index
         int col = 0;
@@ -52,17 +49,17 @@ public:
 
     private:
         /// @brief Invalidated copy constructor.
-        MFXTablePos(const MFXTablePos&) = delete;
+        GNETLSTablePos(const GNETLSTablePos&) = delete;
 
         /// @brief Invalidated assignment operator.
-        MFXTablePos& operator=(const MFXTablePos&) = delete;
+        GNETLSTablePos& operator=(const GNETLSTablePos&) = delete;
     };
 
     /// @brief constructor (Exactly like the FXButton constructor)
-    MFXTable(FXComposite* p, FXObject* tgt, FXSelector sel);
+    GNETLSTable(FXComposite* p, FXObject* tgt, FXSelector sel);
 
     /// @brief destructor (Called automatically)
-    ~MFXTable();
+    ~GNETLSTable();
 
     /// @name FOX callbacks
     /// @{
@@ -72,10 +69,10 @@ public:
     /// @brief called when a row is modified
     long onEditRow(FXObject*, FXSelector, void*);
 
-    /// @brief called when mouse enter in MFXTable
+    /// @brief called when mouse enter in GNETLSTable
     long onEnter(FXObject*, FXSelector, void*);
 
-    /// @brief called when mouse leaves in MFXTable
+    /// @brief called when mouse leaves in GNETLSTable
     long onLeave(FXObject*, FXSelector, void*);
     /// @}
 
@@ -111,7 +108,7 @@ public:
 
 protected:
     /// @brief FOX needs this
-    FOX_CONSTRUCTOR(MFXTable)
+    FOX_CONSTRUCTOR(GNETLSTable)
 
     /// @brief clear table
     void clearTable();
@@ -121,7 +118,7 @@ protected:
 
     public:
         /// @brief constructor
-        Column(MFXTable* table, const int index, const char type);
+        Column(GNETLSTable* table, const int index, const char type);
 
         /// @brief destructor
         ~Column();
@@ -140,7 +137,7 @@ protected:
 
     protected:
         /// @brief pointer to table
-        MFXTable* myTable = nullptr;
+        GNETLSTable* myTable = nullptr;
 
         /// @brief vertical frame
         FXVerticalFrame* myVerticalFrame = nullptr;
@@ -182,7 +179,7 @@ protected:
         };
 
         /// @brief constructor
-        Row(MFXTable* table);
+        Row(GNETLSTable* table);
 
         /// @brief destructor
         ~Row();
@@ -201,7 +198,7 @@ protected:
 
     protected:
         /// @brief poiner to table parent
-        MFXTable* myTable = nullptr;
+        GNETLSTable* myTable = nullptr;
 
         /// @brief list wtih cells
         std::vector<Cell> myCells;
@@ -227,14 +224,14 @@ protected:
     int myCurrentSelectedRow = -1;
 
     /// @brief table pos
-    MFXTablePos *myTablePos = nullptr;
+    GNETLSTablePos *myTablePos = nullptr;
 
 private:
     /// @brief Invalidated copy constructor.
-    MFXTable(const MFXTable&) = delete;
+    GNETLSTable(const GNETLSTable&) = delete;
 
     /// @brief Invalidated assignment operator.
-    MFXTable& operator=(const MFXTable&) = delete;
+    GNETLSTable& operator=(const GNETLSTable&) = delete;
 };
 
 

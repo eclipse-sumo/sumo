@@ -193,7 +193,7 @@ public:
         ~TLSPhases();
 
         /// @brief get phase table
-        MFXTable* getPhaseTable() const;
+        GNETLSTable* getPhaseTable() const;
 
         /**@brief initialies the phase table
          * @param[in] index The index to select
@@ -233,7 +233,7 @@ public:
         //FXScrollWindow* myTableScroll;
 
         /// @brief table for selecting and rearranging phases and for changing duration
-        MFXTable* myPhaseTable;
+        GNETLSTable* myPhaseTable;
 
         /// @brief label with the cycle duration
         FXLabel* myCycleDuration;

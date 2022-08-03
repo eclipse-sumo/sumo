@@ -56,8 +56,8 @@ class MFXMenuCheckIcon;
 /// @brief text field with thick frame, width of 180 (Used in type frame)
 #define GUIDesignTextFielWidth180       (FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 180, GUIDesignHeight, 2, 2, 2, 2
 
-/// @brief text field used in MFXTable
-#define GUIDesignTextFieldMFXTable      (FRAME_THICK | LAYOUT_FILL_X | LAYOUT_MIN_WIDTH | LAYOUT_FIX_HEIGHT | JUSTIFY_CENTER_Y | JUSTIFY_LEFT), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
+/// @brief text field used in TLSTable
+#define GUIDesignTextFieldTLSTable      (FRAME_THICK | LAYOUT_FILL_X | LAYOUT_MIN_WIDTH | LAYOUT_FIX_HEIGHT | JUSTIFY_CENTER_Y | JUSTIFY_LEFT), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
 
 /// @brief Num of column of text field
 #define GUIDesignTextFieldNCol          1
@@ -196,8 +196,8 @@ class MFXMenuCheckIcon;
 /// @brief design for radio button with fixed height (used in fix elements dialogs)
 #define GUIDesignRadioButtonFix         (RADIOBUTTON_NORMAL | JUSTIFY_CENTER_Y |  LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | JUSTIFY_LEFT | ICON_BEFORE_TEXT), 0, 0, 200, GUIDesignHeight - 2, 2, 2, 2, 2
 
-/// @brief design for radio button used in MFXTable
-#define GUIDesignRadioButtonMFXTable    (RADIOBUTTON_NORMAL | FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | LAYOUT_CENTER_X | LAYOUT_CENTER_Y), 0, 0, GUIDesignHeight, GUIDesignHeight, 2, 2, 2, 2
+/// @brief design for radio button used in TLSTable
+#define GUIDesignRadioButtonTLSTable    (RADIOBUTTON_NORMAL | FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | LAYOUT_CENTER_X | LAYOUT_CENTER_Y), 0, 0, GUIDesignHeight, GUIDesignHeight, 2, 2, 2, 2
 
 /// @}
 
@@ -279,11 +279,11 @@ class MFXMenuCheckIcon;
 /// @brief label used in MFXGroupBoxModule
 #define GUIDesignLabelMFXGroupBoxModule (FRAME_GROOVE | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
 
-/// @brief label used in MFXTable
-#define GUIDesignLabelMFXTable          (FRAME_THICK | LAYOUT_FILL_X | LAYOUT_MIN_WIDTH | LAYOUT_FIX_HEIGHT | ICON_BEFORE_TEXT | JUSTIFY_CENTER_X | JUSTIFY_CENTER_Y), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
+/// @brief label used in TLSTable
+#define GUIDesignLabelTLSTable          (FRAME_THICK | LAYOUT_FILL_X | LAYOUT_MIN_WIDTH | LAYOUT_FIX_HEIGHT | ICON_BEFORE_TEXT | JUSTIFY_CENTER_X | JUSTIFY_CENTER_Y), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
 
-/// @brief label used in MFXTable (square)
-#define GUIDesignLabelMFXTableSquare    (FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, GUIDesignHeight, GUIDesignHeight, 2, 2, 2, 2
+/// @brief label used in TLSTable (square)
+#define GUIDesignLabelTLSTableSquare    (FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, GUIDesignHeight, GUIDesignHeight, 2, 2, 2, 2
 
 /// @}
 
@@ -387,11 +387,11 @@ class MFXMenuCheckIcon;
 /// @brief design for CollapsableFrame (Used in MFXGroupBoxModule)
 #define GUIDesignCollapsableFrame               (LAYOUT_FILL_X | LAYOUT_FILL_Y), 0, 0, 0, 0, 2, 2, 2, 2, 2, 2
 
-/// @brief design for auxiliar (Without borders) frames used in MFXTable
-#define GUIDesignAuxiliarMFXTable               (LAYOUT_FILL_X | LAYOUT_FILL_Y), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+/// @brief design for auxiliar (Without borders) frames used in TLSTable
+#define GUIDesignAuxiliarTLSTable               (LAYOUT_FILL_X | LAYOUT_FILL_Y), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 
-/// @brief design for auxiliar (Without borders) frames used in MFXTable Squared
-#define GUIDesignAuxiliarMFXTableSquare         (LAYOUT_FIX_WIDTH | LAYOUT_FILL_Y), 0, 0, GUIDesignHeight, 0, 0, 0, 0, 0, 0, 0
+/// @brief design for auxiliar (Without borders) frames used in TLSTable Squared
+#define GUIDesignAuxiliarTLSTableSquare         (LAYOUT_FIX_WIDTH | LAYOUT_FILL_Y), 0, 0, GUIDesignHeight, 0, 0, 0, 0, 0, 0, 0
 
 /// @}
 

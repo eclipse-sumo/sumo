@@ -677,7 +677,7 @@ GNETLSEditorFrame::onCmdPhaseEdit(FXObject*, FXSelector, void* ptr) {
     /* @note: there is a bug when copying/pasting rows: when this handler is
      * called the value of the cell is not yet updated. This means you have to
      * click inside the cell and hit enter to actually update the value */
-    MFXTable::MFXTablePos* tp = (MFXTable::MFXTablePos*)ptr;
+    GNETLSTable::GNETLSTablePos* tp = (GNETLSTable::GNETLSTablePos*)ptr;
     const std::string value = myTLSPhases->getPhaseTable()->getItemText(tp->row, tp->col).text();
     // Declare columns
     int colDuration = 1;
@@ -1395,7 +1395,7 @@ GNETLSEditorFrame::TLSPhases::TLSPhases(GNETLSEditorFrame* TLSEditorParent) :
 /*
     myTableScroll = new FXScrollWindow(getCollapsableFrame(), LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT);
 */
-    myPhaseTable = new MFXTable(/*myTableScroll*/ getCollapsableFrame(), myTLSEditorParent, MID_GNE_TLSFRAME_PHASE_TABLE);
+    myPhaseTable = new GNETLSTable(/*myTableScroll*/ getCollapsableFrame(), myTLSEditorParent, MID_GNE_TLSFRAME_PHASE_TABLE);
 /*
     myPhaseTable->setColumnHeaderMode(LAYOUT_FIX_HEIGHT);
     myPhaseTable->setColumnHeaderHeight(getApp()->getNormalFont()->getFontHeight() + getApp()->getNormalFont()->getFontAscent() / 2);
@@ -1445,7 +1445,7 @@ GNETLSEditorFrame::TLSPhases::~TLSPhases() {
 }
 
 
-MFXTable*
+GNETLSTable*
 GNETLSEditorFrame::TLSPhases::getPhaseTable() const {
     return myPhaseTable;
 }
