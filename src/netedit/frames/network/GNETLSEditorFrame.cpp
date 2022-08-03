@@ -136,6 +136,7 @@ void
 GNETLSEditorFrame::show() {
     // hide myOverlappedInspection
     myOverlappedInspection->hideOverlappedInspection();
+    // show
     GNEFrame::show();
 }
 
@@ -1401,7 +1402,10 @@ GNETLSEditorFrame::TLSPhases::TLSPhases(GNETLSEditorFrame* TLSEditorParent) :
     myPhaseTable->setColumnHeaderHeight(getApp()->getNormalFont()->getFontHeight() + getApp()->getNormalFont()->getFontAscent() / 2);
     myPhaseTable->setRowHeaderMode(LAYOUT_FIX_WIDTH);
     myPhaseTable->setRowHeaderWidth(0);
+*/
+    // hide phase table
     myPhaseTable->hide();
+/*
     myPhaseTable->setFont(myTableFont);
     myPhaseTable->setHelpText("phase duration in seconds | phase state");
 */
@@ -1433,6 +1437,7 @@ GNETLSEditorFrame::TLSPhases::TLSPhases(GNETLSEditorFrame* TLSEditorParent) :
 
     // ungroup states button
     new FXButton(col2, "Ungroup Signals\t\tLet every connection use a distinct index (reverse state grouping). (Not allowed for multiple programs)", nullptr, myTLSEditorParent, MID_GNE_TLSFRAME_UNGROUP_STATES, GUIDesignButton);
+    
     // show TLSFile
     show();
 }
@@ -1456,6 +1461,8 @@ GNETLSEditorFrame::TLSPhases::initPhaseTable(int index) {
     myPhaseTable->setVisibleColumns(2);
     myPhaseTable->hide();
 */
+    // first clear table
+    myPhaseTable->clearTable();
     if (myTLSEditorParent->myTLSAttributes->getNumberOfTLSDefinitions() > 0) {
         if (myTLSEditorParent->myEditedDef->getType() == TrafficLightType::STATIC) {
             initStaticPhaseTable(index);
@@ -1466,6 +1473,11 @@ GNETLSEditorFrame::TLSPhases::initPhaseTable(int index) {
         } else if (myTLSEditorParent->myEditedDef->getType() == TrafficLightType::NEMA) {
             initNEMAPhaseTable(index);
         }
+        // recalc width and show
+        myPhaseTable->recalcTableWidth();
+        myPhaseTable->show();
+    } else {
+        myPhaseTable->hide();
     }
     update();
 }
@@ -1481,6 +1493,7 @@ void
 GNETLSEditorFrame::TLSPhases::hideCycleDuration() {
     myCycleDuration->hide();
 }
+
 
 void
 GNETLSEditorFrame::TLSPhases::updateCycleDuration() {
@@ -1547,8 +1560,6 @@ GNETLSEditorFrame::TLSPhases::initStaticPhaseTable(const int index) {
     }
     myPhaseTable->setDefColumnWidth(neededWidth / cols);
 */
-    // recalc table width
-    myPhaseTable->recalcWidth();
 
 }
 
@@ -1703,7 +1714,7 @@ GNETLSEditorFrame::TLSPhases::initNEMAPhaseTable(const int index) {
     // get phases
     const std::vector<NBTrafficLightLogic::PhaseDefinition>& phases = myTLSEditorParent->getPhases();
     // adjust table
-    myPhaseTable->setTableSize("s-p-------", (int)phases.size());
+    myPhaseTable->setTableSize("s--p------", (int)phases.size());
 /*
     myPhaseTable->setVisibleRows((int)phases.size());
     myPhaseTable->setVisibleColumns(cols);
