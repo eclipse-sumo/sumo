@@ -209,10 +209,10 @@ public:
     void updateUndoRedoButtons();
 
     /// @brief get frame area width
-    int getFrameAreaWith() const;
+    int getFrameAreaWidth() const;
 
     /// @brief set frame area width
-    void setFrameAreaWith(const int frameAreaWith);
+    void setFrameAreaWidth(const int frameAreaWith);
 
     /// @name FOX-callbacks
     /// @{

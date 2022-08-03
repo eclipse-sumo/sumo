@@ -412,13 +412,13 @@ GNEViewParent::updateUndoRedoButtons() {
 
 
 int
-GNEViewParent::getFrameAreaWith() const {
+GNEViewParent::getFrameAreaWidth() const {
     return myFramesArea->getWidth();
 }
 
 
 void
-GNEViewParent::setFrameAreaWith(const int frameAreaWith) {
+GNEViewParent::setFrameAreaWidth(const int frameAreaWith) {
     myFramesArea->setWidth(frameAreaWith);
 }
 
