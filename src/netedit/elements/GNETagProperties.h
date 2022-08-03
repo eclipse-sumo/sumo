@@ -287,7 +287,7 @@ public:
     bool canCenterCameraAfterCreation() const;
 
     /// @brief return true if tag correspond to an element that owns a embebbed route
-    bool hasEmbebbedRoute() const;
+    bool hasEmbeddedRoute() const;
 
     /// @brief return true if tag correspond to an element that requires a geo projection
     bool requireProj() const;
