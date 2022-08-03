@@ -25,6 +25,11 @@
 
 #define EXTRAMARGING 1
 
+
+// ===========================================================================
+// FOX callback mapping
+// ===========================================================================
+
 FXDEFMAP(GNETLSTable) GNETLSTableMap[] = {
     FXMAPFUNC(SEL_FOCUSIN,  MID_CHOOSEN_SELECT, GNETLSTable::onFocusRow),
     FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_SELECT, GNETLSTable::onEditRow),
@@ -36,6 +41,40 @@ FXDEFMAP(GNETLSTable) GNETLSTableMap[] = {
 // Object implementation
 FXIMPLEMENT(GNETLSTable, FXHorizontalFrame, GNETLSTableMap, ARRAYNUMBER(GNETLSTableMap))
 
+// ===========================================================================
+// method definitions
+// ===========================================================================
+
+// ---------------------------------------------------------------------------
+// GNETLSTable::TableCell - methods
+// ---------------------------------------------------------------------------
+
+GNETLSTable::TableCell::TableCell(FXTextField* textField_, int col_, int row_) :
+    textField(textField_),
+    col(col_),
+    row(row_) {
+    // create
+    textField->create();
+}
+
+
+GNETLSTable::TableCell::TableCell(FXRadioButton* radioButton_, int col_, int row_) :
+    radioButton(radioButton_),
+    col(col_),
+    row(row_) {
+    // create
+    radioButton->create();
+}
+
+
+GNETLSTable::TableCell::TableCell() :
+    col(-1),
+    row(-1) {
+}
+
+// ---------------------------------------------------------------------------
+// GNETLSTable - methods
+// ---------------------------------------------------------------------------
 
 GNETLSTable::GNETLSTable(FXComposite* p, FXObject* tgt, FXSelector sel) :
     FXHorizontalFrame(p, GUIDesignAuxiliarTLSTable),
@@ -298,14 +337,10 @@ GNETLSTable::Row::Row(GNETLSTable* table) :
     for (int i = 0; i < (FXint)table->myColumns.size(); i++) {
         if (table->myColumns.at(i)->getType() == 's') {
             // create radio button
-            auto radioButton = new FXRadioButton(table->myColumns.at(i)->getVerticalFrame(), "", table, MID_CHOOSEN_SELECT, GUIDesignRadioButtonTLSTable);
-            radioButton->create();
-            myCells.push_back(new TableCell(radioButton, i, (int)myCells.size()));
+            myCells.push_back(new TableCell(new FXRadioButton(table->myColumns.at(i)->getVerticalFrame(), "", table, MID_CHOOSEN_SELECT, GUIDesignRadioButtonTLSTable), i, (int)myCells.size()));
         } else if (table->myColumns.at(i)->getType() == '-') {
             // create text field
-            auto textField = new FXTextField(table->myColumns.at(i)->getVerticalFrame(), GUIDesignTextFieldNCol, table, MID_CHOOSEN_SELECT, GUIDesignTextFieldTLSTable);
-            textField->create();
-            myCells.push_back(new TableCell(textField, i, (int)myCells.size()));
+            myCells.push_back(new TableCell(new FXTextField(table->myColumns.at(i)->getVerticalFrame(), GUIDesignTextFieldNCol, table, MID_CHOOSEN_SELECT, GUIDesignTextFieldTLSTable), i, (int)myCells.size()));
         /* here more cell types */
         } else {
             throw ProcessError("Invalid Cell type");

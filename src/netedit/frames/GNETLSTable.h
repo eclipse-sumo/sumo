@@ -36,19 +36,14 @@ class GNETLSTable : public FXHorizontalFrame {
 
 public:
     /// @brief struct for every cell
-    struct TableCell {
+    class TableCell {
 
+    public:
         /// @brief constructor for textField
-        TableCell(FXTextField* textField_, int col_, int row_) :
-            textField(textField_),
-            col(col_),
-            row(row_) {}
+        TableCell(FXTextField* textField, int col, int row);
 
         /// @brief constructor for radio button
-        TableCell(FXRadioButton* radioButton_, int col_, int row_) :
-            radioButton(radioButton_),
-            col(col_),
-            row(row_) {}
+        TableCell(FXRadioButton* radioButton, int col, int row);
 
         /// @brief textField
         FXTextField* textField = nullptr;
@@ -61,6 +56,10 @@ public:
 
         /// @brief row index
         const int row;
+
+    private:
+        /// @brief default constructor
+        TableCell();
     };
 
     /// @brief constructor (Exactly like the FXButton constructor)
