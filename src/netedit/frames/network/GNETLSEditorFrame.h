@@ -23,7 +23,7 @@
 #include <netedit/frames/GNEFrame.h>
 #include <netbuild/NBTrafficLightLogic.h>
 #include <netedit/frames/GNEOverlappedInspection.h>
-#include <utils/foxtools/MFXTable.h>
+#include <netedit/frames/GNETLSTable.h>
 
 
 // ===========================================================================

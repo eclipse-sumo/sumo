@@ -28,7 +28,7 @@
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/common/UtilExceptions.h>
 
-#include "MFXStaticToolTip.h"
+#include "GNETLSTable.h"
 
 /**
  * @class MFXTable
