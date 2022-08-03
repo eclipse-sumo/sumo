@@ -1506,7 +1506,7 @@ GNETLSEditorFrame::TLSPhases::initStaticPhaseTable(const int index) {
     // get phases
     const std::vector<NBTrafficLightLogic::PhaseDefinition>& phases = myTLSEditorParent->getPhases();
     // adjust table
-    myPhaseTable->setTableSize("s----", (int)phases.size());
+    myPhaseTable->setTableSize("s-p--", (int)phases.size());
 /*
     myPhaseTable->setVisibleRows((int)phases.size());
     myPhaseTable->setVisibleColumns(cols);
@@ -1570,7 +1570,7 @@ GNETLSEditorFrame::TLSPhases::initActuatedPhaseTable(const int index) {
     // get phases
     const std::vector<NBTrafficLightLogic::PhaseDefinition>& phases = myTLSEditorParent->getPhases();
     // adjust table
-    myPhaseTable->setTableSize("s--------", (int)phases.size());
+    myPhaseTable->setTableSize("s-p------", (int)phases.size());
 /*
     myPhaseTable->setVisibleRows((int)phases.size());
     myPhaseTable->setVisibleColumns(cols);
@@ -1639,7 +1639,7 @@ GNETLSEditorFrame::TLSPhases::initDelayBasePhaseTable(const int index) {
     // get phases
     const std::vector<NBTrafficLightLogic::PhaseDefinition>& phases = myTLSEditorParent->getPhases();
     // adjust table
-    myPhaseTable->setTableSize("s--------", (int)phases.size(), cols);
+    myPhaseTable->setTableSize("s-p------", (int)phases.size(), cols);
 /*
     myPhaseTable->setVisibleRows((int)phases.size());
     myPhaseTable->setVisibleColumns(cols);
@@ -1705,7 +1705,7 @@ GNETLSEditorFrame::TLSPhases::initNEMAPhaseTable(const int index) {
     // get phases
     const std::vector<NBTrafficLightLogic::PhaseDefinition>& phases = myTLSEditorParent->getPhases();
     // adjust table
-    myPhaseTable->setTableSize("s---------", (int)phases.size());
+    myPhaseTable->setTableSize("s-p-------", (int)phases.size());
 /*
     myPhaseTable->setVisibleRows((int)phases.size());
     myPhaseTable->setVisibleColumns(cols);

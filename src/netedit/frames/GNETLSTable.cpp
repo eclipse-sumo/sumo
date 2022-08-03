@@ -78,21 +78,26 @@ GNETLSTable::TableCell::TableCell() :
 
 GNETLSTable::GNETLSTable(FXComposite* p, FXObject* tgt, FXSelector sel) :
     FXHorizontalFrame(p, GUIDesignAuxiliarTLSTable),
+    myProgramFont(new FXFont(getApp(), "Courier New", 10)),
     myTarget(tgt),
     mySelector(sel) {
 }
 
 
-GNETLSTable::~GNETLSTable() { }
+GNETLSTable::~GNETLSTable() {
+    // delete font
+    delete myProgramFont;
+}
 
 
 void
 GNETLSTable::recalcWidth() {
-    // adjust table width
+    // get width of all elements
     int tableWidth = 0;
     for (const auto& column : myColumns) {
         tableWidth += column->adjustColumnWidth();
     }
+    // set new width
     setWidth(tableWidth);
 }
 
@@ -298,8 +303,8 @@ int
 GNETLSTable::Column::adjustColumnWidth() {
     // declare columnWidth (by default is a square) 
     int columnWidth = GUIDesignHeight;
-    // only adjust for textfields
-    if (myType == '-') {
+    // only adjust for textFields
+    if (myType != 's') {
         // calculate columnWidth using label
         columnWidth = myLabel->getFont()->getTextWidth(myLabel->getText().text(), myLabel->getText().length() + EXTRAMARGING);
         // iterate over all textFields and check widths
@@ -334,16 +339,33 @@ GNETLSTable::Column::Column() :
 GNETLSTable::Row::Row(GNETLSTable* table) :
     myTable(table) {
     // build textFields
-    for (int i = 0; i < (FXint)table->myColumns.size(); i++) {
-        if (table->myColumns.at(i)->getType() == 's') {
-            // create radio button
-            myCells.push_back(new TableCell(new FXRadioButton(table->myColumns.at(i)->getVerticalFrame(), "", table, MID_CHOOSEN_SELECT, GUIDesignRadioButtonTLSTable), i, (int)myCells.size()));
-        } else if (table->myColumns.at(i)->getType() == '-') {
-            // create text field
-            myCells.push_back(new TableCell(new FXTextField(table->myColumns.at(i)->getVerticalFrame(), GUIDesignTextFieldNCol, table, MID_CHOOSEN_SELECT, GUIDesignTextFieldTLSTable), i, (int)myCells.size()));
-        /* here more cell types */
-        } else {
-            throw ProcessError("Invalid Cell type");
+    for (int columnIndex = 0; columnIndex < (FXint)table->myColumns.size(); columnIndex++) {
+        // get number of cells
+        const int numCells = (int)myCells.size();
+        // continue depending of type
+        switch (table->myColumns.at(columnIndex)->getType()) {
+            case ('s'): {
+                // create radio button
+                auto radioButton = new FXRadioButton(table->myColumns.at(columnIndex)->getVerticalFrame(), "", table, MID_CHOOSEN_SELECT, GUIDesignRadioButtonTLSTable);
+                myCells.push_back(new TableCell(radioButton, columnIndex, numCells));
+                break;
+            }
+            case ('p'): {
+                // create text field
+                auto textField = new FXTextField(table->myColumns.at(columnIndex)->getVerticalFrame(), GUIDesignTextFieldNCol, table, MID_CHOOSEN_SELECT, GUIDesignTextFieldTLSTable);
+                // set special font
+                textField->setFont(myTable->myProgramFont);
+                myCells.push_back(new TableCell(textField, columnIndex, numCells));
+                break;
+            }
+            case ('-'): {
+                // create text field
+                auto textField = new FXTextField(table->myColumns.at(columnIndex)->getVerticalFrame(), GUIDesignTextFieldNCol, table, MID_CHOOSEN_SELECT, GUIDesignTextFieldTLSTable);
+                myCells.push_back(new TableCell(textField, columnIndex, numCells));
+                break;
+            }
+            default:
+                throw ProcessError("Invalid Cell type");
         }
     }
 }

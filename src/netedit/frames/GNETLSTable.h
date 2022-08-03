@@ -111,6 +111,8 @@ public:
     void setColumnText(FXint column, const FXString& text);
 
     /// Set the table size to nr rows and nc columns; all existing items will be removed
+    /// Format: s -> radio button, p -> program (rrGggy...), - -> textField
+    
     void setTableSize(const std::string columns, FXint numberRow, FXbool notify = FALSE);
 
     /// Return the item at the given index
@@ -199,6 +201,9 @@ protected:
         /// @brief default constructor
         Row();
     };
+
+    /// @brief font for the phase table
+    FXFont* myProgramFont = nullptr;
 
     /// @brief target used in Rows
     FXObject* myTarget = nullptr;
