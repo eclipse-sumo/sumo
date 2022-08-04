@@ -294,9 +294,20 @@ void
 GUIGlObject::buildPositionCopyEntry(GUIGLObjectPopupMenu* ret, const GUIMainWindow& app) const {
     GUIDesigns::buildFXMenuCommand(ret, "Copy cursor position to clipboard", nullptr, ret, MID_COPY_CURSOR_POSITION);
     if (GeoConvHelper::getFinal().usingGeoProjection()) {
-        GUIDesigns::buildFXMenuCommand(ret, "Copy cursor geo-position to clipboard", nullptr, ret, MID_COPY_CURSOR_GEOPOSITION);
+        // create menu pane for edge operations
+        FXMenuPane* showCursorGeoPositionPane = new FXMenuPane(ret);
+        ret->insertMenuPaneChild(showCursorGeoPositionPane);
+        new FXMenuCascade(ret, "Show cursor geo-position in ", nullptr, showCursorGeoPositionPane);
         for (const auto& mapper : app.getOnlineMaps()) {
-            GUIDesigns::buildFXMenuCommand(ret, "Show cursor geo-position in " + mapper.first, nullptr, ret, MID_SHOW_GEOPOSITION_ONLINE);
+            if (mapper.first == "GeoHack") {
+                GUIDesigns::buildFXMenuCommand(showCursorGeoPositionPane, mapper.first, GUIIconSubSys::getIcon(GUIIcon::GEOHACK), ret, MID_SHOW_GEOPOSITION_ONLINE);
+            } else if (mapper.first == "GoogleSat") {
+                GUIDesigns::buildFXMenuCommand(showCursorGeoPositionPane, mapper.first, GUIIconSubSys::getIcon(GUIIcon::GOOGLESAT), ret, MID_SHOW_GEOPOSITION_ONLINE);
+            } else if (mapper.first == "OSM") {
+                GUIDesigns::buildFXMenuCommand(showCursorGeoPositionPane, mapper.first, GUIIconSubSys::getIcon(GUIIcon::OSM), ret, MID_SHOW_GEOPOSITION_ONLINE);
+            } else {
+                GUIDesigns::buildFXMenuCommand(showCursorGeoPositionPane, mapper.first, nullptr, ret, MID_SHOW_GEOPOSITION_ONLINE);
+            }
         }
     }
 }

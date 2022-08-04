@@ -518,6 +518,13 @@ GNEApplicationWindow::create() {
     myCartesianFrame->setWidth(textWidth);
     myGeoFrame->setWidth(textWidth);
 
+    // fill online maps
+    if (myOnlineMaps.empty()) {
+        myOnlineMaps["GeoHack"] = "https://geohack.toolforge.org/geohack.php?params=%lat;%lon_scale:1000";
+        myOnlineMaps["GoogleSat"] = "https://www.google.com/maps?ll=%lat,%lon&t=h&z=18";
+        myOnlineMaps["OSM"] = "https://www.openstreetmap.org/?mlat=%lat&mlon=%lon&zoom=18&layers=M";
+    }
+
     show(PLACEMENT_DEFAULT);
     if (!OptionsCont::getOptions().isSet("window-size")) {
         if (getApp()->reg().readIntEntry("SETTINGS", "maximized", 0) == 1) {
