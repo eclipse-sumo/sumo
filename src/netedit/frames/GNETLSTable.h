@@ -45,19 +45,31 @@ public:
         /// @brief constructor for radio button
         TableCell(FXRadioButton* radioButton, int col, int row);
 
-        /// @brief textField
-        FXTextField* textField = nullptr;
+        /// @brief get textField
+        FXTextField* getTextField();
 
-        /// @brief radio button
-        FXRadioButton* radioButton = nullptr;
+        /// @brief get radio button
+        FXRadioButton* getRadioButton();
 
         /// @brief column index
-        const int col;
+        const int getCol();
 
         /// @brief row index
-        const int row;
+        const int getRow();
 
     private:
+        /// @brief textField
+        FXTextField* myTextField = nullptr;
+
+        /// @brief radio button
+        FXRadioButton* myRadioButton = nullptr;
+
+        /// @brief column index
+        const int myCol;
+
+        /// @brief row index
+        const int myRow;
+
         /// @brief default constructor
         TableCell();
     };
@@ -81,6 +93,9 @@ public:
 
     /// @brief called when a row is modified
     long onEditRow(FXObject*, FXSelector, void*);
+
+    /// @brief called when a row is selected
+    long onRowSelected(FXObject*, FXSelector, void*);
 
     /// @brief called when mouse enter in GNETLSTable
     long onEnter(FXObject*, FXSelector, void*);
