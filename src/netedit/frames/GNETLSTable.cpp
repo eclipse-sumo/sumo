@@ -22,6 +22,7 @@
 #include "GNETLSTable.h"
 
 #include <utils/gui/windows/GUIAppEnum.h>
+#include <utils/gui/images/GUIIconSubSys.h>
 
 #define EXTRAMARGING 1
 #define DEFAULTWIDTH 190
@@ -69,6 +70,15 @@ GNETLSTable::TableCell::TableCell(FXRadioButton* radioButton, int col, int row) 
 }
 
 
+GNETLSTable::TableCell::TableCell(FXButton* button, int col, int row) :
+    myButton(button),
+    myCol(col),
+    myRow(row) {
+    // create
+    button->create();
+}
+
+
 FXTextField* 
 GNETLSTable::TableCell::getTextField() {
     return myTextField;
@@ -78,6 +88,12 @@ GNETLSTable::TableCell::getTextField() {
 FXRadioButton* 
 GNETLSTable::TableCell::getRadioButton() {
     return myRadioButton;
+}
+
+
+FXButton* 
+GNETLSTable::TableCell::getButton() {
+    return myButton;
 }
 
 
@@ -131,12 +147,12 @@ GNETLSTable::recalcTableWidth() {
 
 
 void
-GNETLSTable::setTableSize(const std::string columns, FXint numberRow, FXbool /* notify */) {
+GNETLSTable::setTableSize(const std::string columnsType, const int numberRow) {
     // first clear table
     clearTable();
     // create columns
-    for (int i = 0; i < (FXint)columns.size(); i++) {
-        myColumns.push_back(new Column(this, i, columns.at(i)));
+    for (int i = 0; i < (FXint)columnsType.size(); i++) {
+        myColumns.push_back(new Column(this, i, columnsType.at(i)));
     }
     // create rows
     for (int i = 0; i < numberRow; i++) {
@@ -404,17 +420,29 @@ GNETLSTable::Row::Row(GNETLSTable* table) :
         // continue depending of type
         switch (table->myColumns.at(columnIndex)->getType()) {
             case ('s'): {
-                // create radio button
+                // create radio button for selecting row
                 auto radioButton = new FXRadioButton(table->myColumns.at(columnIndex)->getVerticalFrame(), "", table, MID_CHOOSEN_ELEMENTS, GUIDesignRadioButtonTLSTable);
                 myCells.push_back(new TableCell(radioButton, columnIndex, numCells));
                 break;
             }
             case ('p'): {
-                // create text field
+                // create text field for program (state)
                 auto textField = new FXTextField(table->myColumns.at(columnIndex)->getVerticalFrame(), GUIDesignTextFieldNCol, table, MID_CHOOSEN_SELECT, GUIDesignTextFieldTLSTable);
                 // set special font
                 textField->setFont(myTable->myProgramFont);
                 myCells.push_back(new TableCell(textField, columnIndex, numCells));
+                break;
+            }
+            case ('i'): {
+                // create button for insert phase
+                auto button = new FXButton(table->myColumns.at(columnIndex)->getVerticalFrame(), "", GUIIconSubSys::getIcon(GUIIcon::ADD), table, MID_CHOOSEN_SELECT, GUIDesignButtonIcon);
+                myCells.push_back(new TableCell(button, columnIndex, numCells));
+                break;
+            }
+            case ('d'): {
+                // create button for delete phase
+                auto button = new FXButton(table->myColumns.at(columnIndex)->getVerticalFrame(), "", GUIIconSubSys::getIcon(GUIIcon::REMOVE), table, MID_CHOOSEN_SELECT, GUIDesignButtonIcon);
+                myCells.push_back(new TableCell(button, columnIndex, numCells));
                 break;
             }
             case ('-'): {

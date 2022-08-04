@@ -1648,7 +1648,7 @@ GNETLSEditorFrame::TLSPhases::initDelayBasePhaseTable(const int index) {
     // get phases
     const std::vector<NBTrafficLightLogic::PhaseDefinition>& phases = myTLSEditorParent->getPhases();
     // adjust table
-    myPhaseTable->setTableSize("s-p------", (int)phases.size(), cols);
+    myPhaseTable->setTableSize("s-p------", (int)phases.size());
 /*
     myPhaseTable->setVisibleRows((int)phases.size());
     myPhaseTable->setVisibleColumns(cols);

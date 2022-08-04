@@ -45,11 +45,17 @@ public:
         /// @brief constructor for radio button
         TableCell(FXRadioButton* radioButton, int col, int row);
 
+        /// @brief constructor for buttons
+        TableCell(FXButton* button, int col, int row);
+
         /// @brief get textField
         FXTextField* getTextField();
 
         /// @brief get radio button
         FXRadioButton* getRadioButton();
+
+        /// @brief get button
+        FXButton* getButton();
 
         /// @brief column index
         const int getCol();
@@ -57,12 +63,15 @@ public:
         /// @brief row index
         const int getRow();
 
-    private:
+    protected:
         /// @brief textField
         FXTextField* myTextField = nullptr;
 
         /// @brief radio button
         FXRadioButton* myRadioButton = nullptr;
+
+        /// @brief button
+        FXButton* myButton = nullptr;
 
         /// @brief column index
         const int myCol;
@@ -70,6 +79,7 @@ public:
         /// @brief row index
         const int myRow;
 
+    private:
         /// @brief default constructor
         TableCell();
     };
@@ -129,9 +139,8 @@ public:
     void setColumnText(FXint column, const FXString& text);
 
     /// Set the table size to nr rows and nc columns; all existing items will be removed
-    /// Format: s -> radio button, p -> program (rrGggy...), - -> textField
-    
-    void setTableSize(const std::string columns, FXint numberRow, FXbool notify = FALSE);
+    /// Format: s -> radio button, p -> program (rrGggy...), i -> insert, d -> delete- -> textField 
+    void setTableSize(const std::string columnsType, const int numberRow);
 
     /// Return the item at the given index
     FXTextField* getItem(FXint row, FXint col) const;
