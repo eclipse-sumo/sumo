@@ -664,7 +664,7 @@ GUIApplicationWindow::buildToolBars() {
         myToolBarDrag3 = new FXToolBarShell(this, GUIDesignToolBar);
         myToolBar3 = new FXToolBar(myTopDock, myToolBarDrag3, GUIDesignToolBarRaisedSameTop);
         new FXToolBarGrip(myToolBar3, myToolBar3, FXToolBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
-        new FXButton(myToolBar3, "Time:\t\tToggle between seconds and hour:minute:seconds display", nullptr, this, MID_TIME_TOGGLE, GUIDesignButtonToolbarText);
+        new FXButton(myToolBar3, "Time:\t\tToggle between seconds and hour:minute:seconds display.", nullptr, this, MID_TIME_TOGGLE, GUIDesignButtonToolbarText);
 
         myLCDLabel = new FXEX::MFXLCDLabel(myToolBar3, 16, nullptr, 0, JUSTIFY_RIGHT);
         myLCDLabel->setHorizontal(2);
@@ -678,7 +678,7 @@ GUIApplicationWindow::buildToolBars() {
         myToolBarDrag4 = new FXToolBarShell(this, GUIDesignToolBar);
         myToolBar4 = new FXToolBar(myTopDock, myToolBarDrag4, GUIDesignToolBarRaisedSameTop);
         new FXToolBarGrip(myToolBar4, myToolBar4, FXToolBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
-        new FXButton(myToolBar4, "Delay (ms):\t\tDelay per simulated second. Click to toggle between the last two delay values", nullptr, this, MID_DELAY_TOGGLE, GUIDesignButtonToolbarText);
+        new FXButton(myToolBar4, "Delay (ms):\t\tDelay per simulated second. Click to toggle between the last two delay values.", nullptr, this, MID_DELAY_TOGGLE, GUIDesignButtonToolbarText);
         // create spinner for delay
         mySimDelay = 0;
         mySimDelayTarget = new FXDataTarget(mySimDelay);
