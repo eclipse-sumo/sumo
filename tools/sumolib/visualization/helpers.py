@@ -263,7 +263,10 @@ def closeFigure(fig, ax, options, haveLabels=True, optOut=None):
             savefig(o, dpi=myDpi)
     if not options.blind:
         show()
-    fig.clf()
+    try:
+        fig.clf()
+    except _tkinter.TclError:
+        pass
     close()
     gc.collect()
 
