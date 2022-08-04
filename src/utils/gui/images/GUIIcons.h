@@ -571,4 +571,9 @@ enum class GUIIcon {
     GRID2,
     GRID3,
     /// @}
+
+    /// @brief icons for geo tools
+    GEOHACK,
+    GOOGLESAT,
+    OSM
 };

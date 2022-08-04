@@ -425,6 +425,10 @@
 #include "grid2.xpm"
 #include "grid3.xpm"
 
+#include "geohack.xpm"
+#include "googlesat.xpm"
+#include "osm.xpm"
+
 
 // ===========================================================================
 // static member variable definitions
@@ -844,6 +848,10 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::GRID1] = new FXXPMIcon(a, grid1_xpm);
     myIcons[GUIIcon::GRID2] = new FXXPMIcon(a, grid2_xpm);
     myIcons[GUIIcon::GRID3] = new FXXPMIcon(a, grid3_xpm);
+
+    myIcons[GUIIcon::GEOHACK] = new FXXPMIcon(a, geohack_xpm);
+    myIcons[GUIIcon::GOOGLESAT] = new FXXPMIcon(a, googlesat_xpm);
+    myIcons[GUIIcon::OSM] = new FXXPMIcon(a, osm_xpm);
 
     // ... and create them
     for (const auto& icon : myIcons) {
