@@ -379,7 +379,7 @@ GNETLSTable::Column::adjustColumnWidth() {
     // declare columnWidth (by default is a square) 
     int columnWidth = GUIDesignHeight;
     // only adjust for textFields
-    if (myType != 's') {
+    if ((myType == 'p') || (myType == '-')) {
         // calculate columnWidth using label
         columnWidth = myLabel->getFont()->getTextWidth(myLabel->getText().text(), myLabel->getText().length() + EXTRAMARGING);
         // iterate over all textFields and check widths
