@@ -400,6 +400,9 @@ public:
     /// @brief enable or disable sender object depending if viewNet exist
     long onUpdRequireViewNet(FXObject* sender, FXSelector sel, void* ptr);
 
+    /// @brief update label for requiere recomputing
+    long onUpdRequireRecomputing(FXObject* sender, FXSelector sel, void* ptr);
+    
     /// @brief called if the user press key combination Ctrl + G to toggle grid
     long onCmdToggleGrid(FXObject*, FXSelector, void*);
 
@@ -480,6 +483,9 @@ public:
     /// @brief get ToolbarsGrip
     GNEApplicationWindowHelper::ToolbarsGrip& getToolbarsGrip();
 
+    /// @brief update recomputing label
+    void updateRecomputingLabel();
+
     /// @brief update control contents after undo/redo or recompute
     void updateControls();
 
@@ -545,6 +551,9 @@ protected:
 
     /// @brief The splitter that divides the main window into view and the log window
     FXSplitter* myMainSplitter = nullptr;
+
+    /// @brief Button used for show if recomputing is needed
+    MFXButtonTooltip* myRequireRecomputingButton = nullptr;
 
     /// @brief List of got requests
     MFXSynchQue<GUIEvent*> myEvents;

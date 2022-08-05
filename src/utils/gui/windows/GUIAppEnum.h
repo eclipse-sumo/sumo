@@ -1356,6 +1356,8 @@ enum {
     MID_GNE_UNDOLISTDIALOG,
     /// @brief update undolist
     MID_GNE_UNDOLIST_UPDATE,
+    /// @brief check if recomputing is needed
+    MID_GNE_RECOMPUTINGNEEDED,
 
     /// @}
 

@@ -395,6 +395,7 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,              MID_HOTKEY_CTRL_SHIFT_W_FORCESAVEDATAELEMENTS,      GNEApplicationWindow::onCmdForceSaveDataElements),
     FXMAPFUNC(SEL_COMMAND,              MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT,             GNEApplicationWindow::onCmdFocusFrame),
     FXMAPFUNC(SEL_UPDATE,               MID_GNE_MODESMENUTITLE,                             GNEApplicationWindow::onUpdRequireViewNet),
+    FXMAPFUNC(SEL_UPDATE,               MID_GNE_RECOMPUTINGNEEDED,                          GNEApplicationWindow::onUpdRequireRecomputing),
 };
 
 // Object implementation
@@ -460,15 +461,18 @@ GNEApplicationWindow::dependentBuild() {
     // build the status bar
     myStatusbar = new FXStatusBar(this, GUIDesignStatusBar);
     // build geo coordinates label
+    auto requiereRecomputingFrame = new FXHorizontalFrame(myStatusbar, GUIDesignHorizontalFrameStatusBar);
+    myRequireRecomputingButton = new MFXButtonTooltip(requiereRecomputingFrame, "Recomputing\t\tRecomputing is needed", nullptr, this, MID_GNE_RECOMPUTINGNEEDED, GUIDesignButtonStatusBarFixed);
+    // build geo coordinates label
     myGeoFrame = new FXHorizontalFrame(myStatusbar, GUIDesignHorizontalFrameStatusBar);
-    myGeoCoordinate = new FXLabel(myGeoFrame, "N/A\t\tOriginal coordinate (before coordinate transformation in netconvert)", nullptr, LAYOUT_CENTER_Y);
+    myGeoCoordinate = new FXLabel(myGeoFrame, "N/A\t\tOriginal coordinate (before coordinate transformation in netconvert)", nullptr, GUIDesignLabelStatusBar);
     // build cartesian coordinates label
     myCartesianFrame = new FXHorizontalFrame(myStatusbar, GUIDesignHorizontalFrameStatusBar);
-    myCartesianCoordinate = new FXLabel(myCartesianFrame, "N/A\t\tNetwork coordinate", nullptr, LAYOUT_CENTER_Y);
+    myCartesianCoordinate = new FXLabel(myCartesianFrame, "N/A\t\tNetwork coordinate", nullptr, GUIDesignLabelStatusBar);
     // build test coordinates label (only if gui-testing is enabled)
     if (OptionsCont::getOptions().getBool("gui-testing")) {
         myTestFrame = new FXHorizontalFrame(myStatusbar, GUIDesignHorizontalFrameStatusBar);
-        myTestCoordinate = new FXLabel(myTestFrame, "N/A\t\tTest coordinate", nullptr, LAYOUT_CENTER_Y);
+        myTestCoordinate = new FXLabel(myTestFrame, "N/A\t\tTest coordinate", nullptr, GUIDesignLabelStatusBar);
     }
     // make the window a mdi-window
     myMainSplitter = new FXSplitter(this, GUIDesignSplitter | SPLITTER_VERTICAL | SPLITTER_REVERSED);
@@ -1544,6 +1548,30 @@ GNEApplicationWindow::getToolbarsGrip() {
 
 
 void
+GNEApplicationWindow::updateRecomputingLabel() {
+    if (myViewNet && myViewNet->getNet()) {
+        // show
+        myRequireRecomputingButton->show();
+        // set label depending of recomputing
+        if (myNet->getAttributeCarriers()->getJunctions().empty() || myNet->isNetRecomputed()) {
+            myRequireRecomputingButton->setText("");
+            myRequireRecomputingButton->setTipText("Network computed");
+            myRequireRecomputingButton->setIcon(GUIIconSubSys::getIcon(GUIIcon::OK));
+            myRequireRecomputingButton->setBackColor(FXRGBA(240, 255, 205, 255));
+        } else {
+            myRequireRecomputingButton->setText("Press F5");
+            myRequireRecomputingButton->setTipText("Network requires recomputing");
+            myRequireRecomputingButton->setIcon(GUIIconSubSys::getIcon(GUIIcon::WARNING));
+            myRequireRecomputingButton->setBackColor(FXRGBA(253, 255, 206, 255));
+        }
+    } else {
+        // hide
+        myRequireRecomputingButton->hide();
+    }
+}
+
+
+void
 GNEApplicationWindow::closeAllWindows() {
     // check if view has to be saved
     if (myViewNet) {
@@ -2289,6 +2317,13 @@ long
 GNEApplicationWindow::onUpdRequireViewNet(FXObject* sender, FXSelector, void*) {
     // enable or disable sender element depending of viewNet
     sender->handle(this, myViewNet ? FXSEL(SEL_COMMAND, ID_ENABLE) : FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
+    return 1;
+}
+
+
+long 
+GNEApplicationWindow::onUpdRequireRecomputing(FXObject*, FXSelector, void*) {
+    updateRecomputingLabel();
     return 1;
 }
 
