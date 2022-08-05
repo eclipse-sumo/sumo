@@ -419,6 +419,7 @@
 #include "incorrect.xpm"
 #include "reset.xpm"
 #include "warning.xpm"
+#include "danger.xpm"
 
 #include "grid.xpm"
 #include "grid1.xpm"
@@ -843,6 +844,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::INCORRECT] = new FXXPMIcon(a, incorrect_xpm);
     myIcons[GUIIcon::RESET] = new FXXPMIcon(a, reset_xpm);
     myIcons[GUIIcon::WARNING] = new FXXPMIcon(a, warning_xpm);
+    myIcons[GUIIcon::DANGER] = new FXXPMIcon(a, danger_xpm);
 
     myIcons[GUIIcon::GRID] = new FXXPMIcon(a, grid_xpm);
     myIcons[GUIIcon::GRID1] = new FXXPMIcon(a, grid1_xpm);

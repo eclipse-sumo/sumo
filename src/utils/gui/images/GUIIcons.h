@@ -562,6 +562,7 @@ enum class GUIIcon {
     INCORRECT,
     RESET,
     WARNING,
+    DANGER,
     /// @}
 
     /// @name icons for grid
