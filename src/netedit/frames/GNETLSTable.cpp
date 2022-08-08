@@ -108,10 +108,10 @@ GNETLSTable::setTableSize(const std::string &columnsType, const int numberRow) {
 
 
 void
-GNETLSTable::setItemText(FXint row, FXint column, const std::string& text, FXbool notify) {
+GNETLSTable::setItemText(FXint row, FXint column, const std::string& text) {
     if ((row >= 0) && (row < (FXint)myRows.size()) && 
         (column >= 0) && (column < (FXint)myColumns.size())) {
-        myRows.at(row)->setText(column, text, notify);
+        myRows.at(row)->setText(column, text);
     } else {
         throw ProcessError("Invalid row or column");
     }
@@ -120,10 +120,39 @@ GNETLSTable::setItemText(FXint row, FXint column, const std::string& text, FXboo
 
 std::string
 GNETLSTable::getItemText(const int row, const int column) const {
-    if (row < (int)myRows.size() && column < (int)myColumns.size()) {
+    if ((row >= 0) && (row < (FXint)myRows.size()) && 
+        (column >= 0) && (column < (FXint)myColumns.size())) {
         return myRows.at(row)->getText(column);
     }
     throw ProcessError("Invalid row or column");
+}
+
+
+int 
+GNETLSTable::getItemTextCol(FXObject* textField) const {
+    // search given text field
+    for (int columnIndex = 0; columnIndex < (int)myColumns.size(); columnIndex++) {
+        for (int rowIndex = 0; rowIndex < (int)myRows.size(); rowIndex++) {
+            if (myRows.at(rowIndex)->getCells().at(columnIndex)->getTextField() == textField) {
+                return columnIndex;
+            }
+        }
+    }
+    throw ProcessError("Invalid textField");
+}
+
+
+int 
+GNETLSTable::getItemTextRow(FXObject* textField) const {
+    // search given text field
+    for (int columnIndex = 0; columnIndex < (int)myColumns.size(); columnIndex++) {
+        for (int rowIndex = 0; rowIndex < (int)myRows.size(); rowIndex++) {
+            if (myRows.at(rowIndex)->getCells().at(columnIndex)->getTextField() == textField) {
+                return rowIndex;
+            }
+        }
+    }
+    throw ProcessError("Invalid textField");
 }
 
 
@@ -203,7 +232,9 @@ GNETLSTable::onEditRow(FXObject* sender, FXSelector, void*) {
             }
         }
     }
-    XX;
+/*
+    XXXXXXXX
+*/
     // nothing to do
     return 0;
 }
@@ -463,9 +494,9 @@ GNETLSTable::Row::getText(int index) const {
 
 
 void
-GNETLSTable::Row::setText(int index, const std::string& text, FXbool notify) const {
+GNETLSTable::Row::setText(int index, const std::string& text) const {
     // set text
-    myCells.at(index)->getTextField()->setText(text.c_str(), notify);
+    myCells.at(index)->getTextField()->setText(text.c_str());
 }
 
 

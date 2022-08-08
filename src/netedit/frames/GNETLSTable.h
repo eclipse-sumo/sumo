@@ -52,10 +52,16 @@ public:
     void clearTable();
 
     /// @brief Modify cell text
-    void setItemText(FXint row, FXint column, const std::string& text, FXbool notify = FALSE);
+    void setItemText(FXint row, FXint column, const std::string& text);
 
     /// @brief Return cell text
     std::string getItemText(const int row, const int column) const;
+
+    /// @brief Return col in which the given textField is placed
+    int getItemTextCol(FXObject* textField) const;
+
+    /// @brief Return row in which the given textField is placed
+    int getItemTextRow(FXObject* textField) const;
 
     /// @brief Get number of rows
     int getNumRows() const;
@@ -196,7 +202,7 @@ protected:
         std::string getText(int index) const;
 
         /// @brief set text
-        void setText(int index, const std::string& text, FXbool notify) const;
+        void setText(int index, const std::string& text) const;
 
         /// @brief get cells
         const std::vector<Cell*> &getCells() const;
