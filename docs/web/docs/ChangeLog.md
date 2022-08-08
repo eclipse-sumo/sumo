@@ -32,6 +32,7 @@ title: ChangeLog
   
 - TraCI
   - Fixed railSignalConstraints-deadlock after calling `traci.trafficlight.swapConstraints`. Issue #11007
+  - Simpla now handles missing vType settings. Issue #11219
   
 - tools
   - Restored support for Python version 2 (regression in 1.14.0). Issue #11159
@@ -41,7 +42,7 @@ title: ChangeLog
   - traceMapper.py: fixed mapping loops when the first point was off the map
 
 - TraCI / libsumo
-  - Function 'traci.vehicle.rerouteTraveltime' now again respects custom travel times if currentTravelTimes is set to True. Issue #5943
+  - Function 'traci.vehicle.rerouteTraveltime' now again respects custom travel times if currentTravelTimes is set to True. Issue #5943  
 
 - Linux packaging
   - enabled Eigen3 support (needed for the overheadwires) for the RPM packages
