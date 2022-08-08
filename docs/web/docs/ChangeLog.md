@@ -21,6 +21,7 @@ title: ChangeLog
   - Fixed bug where carFollowModel EIDM gets "stuck" at low speed. Issue #11165
   - Fixed emergency braking after lane change on junction. Issue #10988
   - Fixed IDM collision warnings due to imprecise braking when configured with low 'accel'. Issue #11199
+  - Fixed bug where person fails to enter vehicle. Issue #11210
 
 - netedit
   - Fixed freezing when deleting an edge that is part of a multi-step person plan. Issue #11176 (regression in 1.14.0)
