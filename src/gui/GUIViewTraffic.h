@@ -126,9 +126,6 @@ public:
 protected:
     int doPaintGL(int mode, const Boundary& bound);
 
-    /// @brief update position information
-    void updatePositionInformation() const;
-
     GUILane* getLaneUnderCursor();
 
 private:
