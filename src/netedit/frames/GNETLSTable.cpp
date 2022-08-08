@@ -36,10 +36,7 @@ FXDEFMAP(GNETLSTable) GNETLSTableMap[] = {
     FXMAPFUNC(SEL_FOCUSIN,  MID_GNE_TLSTABLE_TEXTFIELD,     GNETLSTable::onFocusRow),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TLSTABLE_TEXTFIELD,     GNETLSTable::onEditRow),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TLSTABLE_RADIOBUTTON,   GNETLSTable::onRowSelected),
-    FXMAPFUNC(SEL_ENTER,    0,                              GNETLSTable::onEnter),
-    FXMAPFUNC(SEL_LEAVE,    0,                              GNETLSTable::onLeave),
 };
-
 
 // Object implementation
 FXIMPLEMENT(GNETLSTable, FXHorizontalFrame, GNETLSTableMap, ARRAYNUMBER(GNETLSTableMap))
@@ -49,73 +46,7 @@ FXIMPLEMENT(GNETLSTable, FXHorizontalFrame, GNETLSTableMap, ARRAYNUMBER(GNETLSTa
 // ===========================================================================
 
 // ---------------------------------------------------------------------------
-// GNETLSTable::TableCell - methods
-// ---------------------------------------------------------------------------
-
-GNETLSTable::TableCell::TableCell(FXTextField* textField, int col, int row) :
-    myTextField(textField),
-    myCol(col),
-    myRow(row) {
-    // create
-    textField->create();
-}
-
-
-GNETLSTable::TableCell::TableCell(FXRadioButton* radioButton, int col, int row) :
-    myRadioButton(radioButton),
-    myCol(col),
-    myRow(row) {
-    // create
-    radioButton->create();
-}
-
-
-GNETLSTable::TableCell::TableCell(FXButton* button, int col, int row) :
-    myButton(button),
-    myCol(col),
-    myRow(row) {
-    // create
-    button->create();
-}
-
-
-FXTextField* 
-GNETLSTable::TableCell::getTextField() {
-    return myTextField;
-}
-
-
-FXRadioButton* 
-GNETLSTable::TableCell::getRadioButton() {
-    return myRadioButton;
-}
-
-
-FXButton* 
-GNETLSTable::TableCell::getButton() {
-    return myButton;
-}
-
-
-const int 
-GNETLSTable::TableCell::getCol() {
-    return myCol;
-}
-
-
-const int
-GNETLSTable::TableCell::getRow() {
-    return myRow;
-}
-
-
-GNETLSTable::TableCell::TableCell() :
-    myCol(-1),
-    myRow(-1) {
-}
-
-// ---------------------------------------------------------------------------
-// GNETLSTable - methods
+// GNETLSTable - public methods
 // ---------------------------------------------------------------------------
 
 GNETLSTable::GNETLSTable(GNETLSEditorFrame::TLSPhases* TLSPhasesParent) :
@@ -146,6 +77,22 @@ GNETLSTable::recalcTableWidth() {
 
 
 void
+GNETLSTable::clearTable() {
+    // clear rows (always before columns)
+    for (const auto& row : myRows) {
+        delete row;
+    }
+    // clear columns
+    for (const auto& column : myColumns) {
+        delete column;
+    }
+    // drop rows and columns
+    myRows.clear();
+    myColumns.clear();
+}
+
+
+void
 GNETLSTable::setTableSize(const std::string columnsType, const int numberRow) {
     // first clear table
     clearTable();
@@ -156,6 +103,58 @@ GNETLSTable::setTableSize(const std::string columnsType, const int numberRow) {
     // create rows
     for (int i = 0; i < numberRow; i++) {
         myRows.push_back(new Row(this));
+    }
+}
+
+
+void
+GNETLSTable::setItemText(FXint row, FXint column, const FXString& text, FXbool notify) {
+    if (row < (FXint)myRows.size() && column < (FXint)myColumns.size()) {
+        myRows.at(row)->setText(column, text, notify);
+    } else {
+        throw ProcessError("Invalid row or column");
+    }
+}
+
+
+FXString
+GNETLSTable::getItemText(FXint row, FXint column) const {
+    if (row < (FXint)myRows.size() && column < (FXint)myColumns.size()) {
+        return myRows.at(row)->getText(column);
+    }
+    throw ProcessError("Invalid row or column");
+}
+
+
+FXint
+GNETLSTable::getNumRows() const {
+    return (int)myRows.size();
+}
+
+
+FXint
+GNETLSTable::getCurrentSelectedRow() const {
+    return myCurrentSelectedRow;
+}
+
+
+void
+GNETLSTable::selectRow(const int row) {
+    if ((row >= 0) && (row < (FXint)myRows.size())) {
+        // select row
+        myRows.at(row)->select();
+    } else {
+        throw ProcessError("Invalid row");
+    }
+}
+
+
+void
+GNETLSTable::setColumnText(FXint column, const FXString& text) {
+    if ((column >= 0) && (column < (FXint)myColumns.size())) {
+        myColumns.at(column)->setColumnLabel(text);
+    } else {
+        throw ProcessError("Invalid column");
     }
 }
 
@@ -240,101 +239,75 @@ GNETLSTable::onRowSelected(FXObject* sender, FXSelector, void*) {
     return 0;
 }
 
+// ---------------------------------------------------------------------------
+// GNETLSTable::Cell - methods
+// ---------------------------------------------------------------------------
 
-long
-GNETLSTable::onEnter(FXObject* sender, FXSelector sel, void* ptr) {
-    return FXHorizontalFrame::onEnter(sender, sel, ptr);
+GNETLSTable::Cell::Cell(FXTextField* textField, int col, int row) :
+    myTextField(textField),
+    myCol(col),
+    myRow(row) {
+    // create
+    textField->create();
 }
 
 
-long
-GNETLSTable::onLeave(FXObject* sender, FXSelector sel, void* ptr) {
-    return FXHorizontalFrame::onLeave(sender, sel, ptr);
+GNETLSTable::Cell::Cell(FXRadioButton* radioButton, int col, int row) :
+    myRadioButton(radioButton),
+    myCol(col),
+    myRow(row) {
+    // create
+    radioButton->create();
 }
 
 
-void
-GNETLSTable::setItemText(FXint row, FXint column, const FXString& text, FXbool notify) {
-    if (row < (FXint)myRows.size() && column < (FXint)myColumns.size()) {
-        myRows.at(row)->setText(column, text, notify);
-    } else {
-        throw ProcessError("Invalid row or column");
-    }
+GNETLSTable::Cell::Cell(FXButton* button, int col, int row) :
+    myButton(button),
+    myCol(col),
+    myRow(row) {
+    // create
+    button->create();
 }
 
 
-FXString
-GNETLSTable::getItemText(FXint row, FXint column) const {
-    if (row < (FXint)myRows.size() && column < (FXint)myColumns.size()) {
-        return myRows.at(row)->getText(column);
-    }
-    throw ProcessError("Invalid row or column");
+FXTextField* 
+GNETLSTable::Cell::getTextField() {
+    return myTextField;
 }
 
 
-FXint
-GNETLSTable::getNumRows() const {
-    return (int)myRows.size();
+FXRadioButton* 
+GNETLSTable::Cell::getRadioButton() {
+    return myRadioButton;
 }
 
 
-FXint
-GNETLSTable::getCurrentSelectedRow() const {
-    return myCurrentSelectedRow;
+FXButton* 
+GNETLSTable::Cell::getButton() {
+    return myButton;
 }
 
 
-void
-GNETLSTable::selectRow(const int row) {
-    if ((row >= 0) && (row < (FXint)myRows.size())) {
-        // select row
-        myRows.at(row)->select();
-    } else {
-        throw ProcessError("Invalid row");
-    }
+const int 
+GNETLSTable::Cell::getCol() {
+    return myCol;
 }
 
 
-void
-GNETLSTable::setCurrentItem(FXint /* row */, FXint /* column */, FXbool /* notify */) {
-    // CHECK
+const int
+GNETLSTable::Cell::getRow() {
+    return myRow;
 }
 
 
-void
-GNETLSTable::setColumnText(FXint column, const FXString& text) {
-    if (column < (FXint)myColumns.size()) {
-        myColumns.at(column)->setColumnLabel(text);
-    } else {
-        throw ProcessError("Invalid column");
-    }
+GNETLSTable::Cell::Cell() :
+    myCol(-1),
+    myRow(-1) {
 }
 
-
-FXTextField*
-GNETLSTable::getItem(FXint row, FXint col) const {
-    if (row < (FXint)myRows.size() && col < (FXint)myColumns.size()) {
-        return myRows.at(row)->getCells().at(col)->getTextField();
-    }
-    throw ProcessError("Invalid row or column");
-}
-
-
-void
-GNETLSTable::clearTable() {
-    // clear rows (always before columns)
-    for (const auto& row : myRows) {
-        delete row;
-    }
-    // clear columns
-    for (const auto& column : myColumns) {
-        delete column;
-    }
-    // drop rows and columns
-    myRows.clear();
-    myColumns.clear();
-}
-
+// ---------------------------------------------------------------------------
+// GNETLSTable::Column - methods
+// ---------------------------------------------------------------------------
 
 GNETLSTable::Column::Column(GNETLSTable* table, const int index, const char type) :
     myTable(table),
@@ -413,6 +386,9 @@ GNETLSTable::Column::Column() :
     myIndex(0),
     myType('-') {}
 
+// ---------------------------------------------------------------------------
+// GNETLSTable::Row - methods
+// ---------------------------------------------------------------------------
 
 GNETLSTable::Row::Row(GNETLSTable* table) :
     myTable(table) {
@@ -425,7 +401,7 @@ GNETLSTable::Row::Row(GNETLSTable* table) :
             case ('s'): {
                 // create radio button for selecting row
                 auto radioButton = new FXRadioButton(table->myColumns.at(columnIndex)->getVerticalFrame(), "", table, MID_GNE_TLSTABLE_RADIOBUTTON, GUIDesignRadioButtonTLSTable);
-                myCells.push_back(new TableCell(radioButton, columnIndex, numCells));
+                myCells.push_back(new Cell(radioButton, columnIndex, numCells));
                 break;
             }
             case ('p'): {
@@ -433,25 +409,25 @@ GNETLSTable::Row::Row(GNETLSTable* table) :
                 auto textField = new FXTextField(table->myColumns.at(columnIndex)->getVerticalFrame(), GUIDesignTextFieldNCol, table, MID_GNE_TLSTABLE_TEXTFIELD, GUIDesignTextFieldTLSTable);
                 // set special font
                 textField->setFont(myTable->myProgramFont);
-                myCells.push_back(new TableCell(textField, columnIndex, numCells));
+                myCells.push_back(new Cell(textField, columnIndex, numCells));
                 break;
             }
             case ('i'): {
                 // create button for insert phase
                 auto button = new FXButton(table->myColumns.at(columnIndex)->getVerticalFrame(), "", GUIIconSubSys::getIcon(GUIIcon::ADD), table, MID_GNE_TLSTABLE_ADDPHASE, GUIDesignButtonIcon);
-                myCells.push_back(new TableCell(button, columnIndex, numCells));
+                myCells.push_back(new Cell(button, columnIndex, numCells));
                 break;
             }
             case ('d'): {
                 // create button for delete phase
                 auto button = new FXButton(table->myColumns.at(columnIndex)->getVerticalFrame(), "", GUIIconSubSys::getIcon(GUIIcon::REMOVE), table, MID_GNE_TLSTABLE_REMOVEPHASE, GUIDesignButtonIcon);
-                myCells.push_back(new TableCell(button, columnIndex, numCells));
+                myCells.push_back(new Cell(button, columnIndex, numCells));
                 break;
             }
             case ('-'): {
                 // create text field
                 auto textField = new FXTextField(table->myColumns.at(columnIndex)->getVerticalFrame(), GUIDesignTextFieldNCol, table, MID_GNE_TLSTABLE_TEXTFIELD, GUIDesignTextFieldTLSTable);
-                myCells.push_back(new TableCell(textField, columnIndex, numCells));
+                myCells.push_back(new Cell(textField, columnIndex, numCells));
                 break;
             }
             default:
@@ -491,7 +467,7 @@ GNETLSTable::Row::setText(int index, const FXString& text, FXbool notify) const 
 }
 
 
-const std::vector<GNETLSTable::TableCell*> &
+const std::vector<GNETLSTable::Cell*> &
 GNETLSTable::Row::getCells() const {
     return myCells;
 }

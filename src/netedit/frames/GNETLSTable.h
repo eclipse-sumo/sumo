@@ -39,18 +39,69 @@ class GNETLSTable : public FXHorizontalFrame {
     FXDECLARE(GNETLSTable)
 
 public:
-    /// @brief struct for every cell
-    class TableCell {
+    /// @brief constructor (Exactly like the FXButton constructor)
+    GNETLSTable(GNETLSEditorFrame::TLSPhases* TLSPhasesParent);
+
+    /// @brief destructor (Called automatically)
+    ~GNETLSTable();
+
+    /// @brief recalc width (call when all labels and contents are fill)
+    void recalcTableWidth();
+
+    /// @brief clear table
+    void clearTable();
+
+    /// @brief Modify cell text
+    void setItemText(FXint row, FXint column, const FXString& text, FXbool notify = FALSE);
+
+    /// @brief Return cell text
+    FXString getItemText(FXint row, FXint column) const;
+
+    /// @brief Get number of rows
+    FXint getNumRows() const;
+
+    /// @brief Get current selected row
+    FXint getCurrentSelectedRow() const;
+
+    /// @brief Select a row
+    void selectRow(const int rowIndex);
+
+    /// @brief Change column header text
+    void setColumnText(FXint column, const FXString& text);
+
+    /// @brief Set the table size to nr rows and nc columns; all existing items will be removed
+    /// Format: s -> radio button, p -> program (rrGggy...), i -> insert, d -> delete- -> textField 
+    void setTableSize(const std::string columnsType, const int numberRow);
+
+    /// @name FOX callbacks
+    /// @{
+    /// @brief called when a row is focused
+    long onFocusRow(FXObject*, FXSelector, void*);
+
+    /// @brief called when a row is modified
+    long onEditRow(FXObject*, FXSelector, void*);
+
+    /// @brief called when a row is selected
+    long onRowSelected(FXObject*, FXSelector, void*);
+
+    /// @}
+
+protected:
+    /// @brief FOX needs this
+    FOX_CONSTRUCTOR(GNETLSTable)
+
+    /// @brief table cell
+    class Cell {
 
     public:
         /// @brief constructor for textField
-        TableCell(FXTextField* textField, int col, int row);
+        Cell(FXTextField* textField, int col, int row);
 
         /// @brief constructor for radio button
-        TableCell(FXRadioButton* radioButton, int col, int row);
+        Cell(FXRadioButton* radioButton, int col, int row);
 
         /// @brief constructor for buttons
-        TableCell(FXButton* button, int col, int row);
+        Cell(FXButton* button, int col, int row);
 
         /// @brief get textField
         FXTextField* getTextField();
@@ -85,75 +136,10 @@ public:
 
     private:
         /// @brief default constructor
-        TableCell();
+        Cell();
     };
 
-    /// @brief constructor (Exactly like the FXButton constructor)
-    GNETLSTable(GNETLSEditorFrame::TLSPhases* TLSPhasesParent);
-
-    /// @brief destructor (Called automatically)
-    ~GNETLSTable();
-
-    /// @brief recalc width (call when all labels and contents are fill)
-    void recalcTableWidth();
-
-    /// @brief clear table
-    void clearTable();
-
-    /// @name FOX callbacks
-    /// @{
-    /// @brief called when a row is focused
-    long onFocusRow(FXObject*, FXSelector, void*);
-
-    /// @brief called when a row is modified
-    long onEditRow(FXObject*, FXSelector, void*);
-
-    /// @brief called when a row is selected
-    long onRowSelected(FXObject*, FXSelector, void*);
-
-    /// @brief called when mouse enter in GNETLSTable
-    long onEnter(FXObject*, FXSelector, void*);
-
-    /// @brief called when mouse leaves in GNETLSTable
-    long onLeave(FXObject*, FXSelector, void*);
-    /// @}
-
-
-    /* FUNCTIONS USED IN TLSEditorFrame */
-
-    /// Modify cell text
-    void setItemText(FXint row, FXint column, const FXString& text, FXbool notify = FALSE);
-
-    /// Return cell text
-    FXString getItemText(FXint row, FXint column) const;
-
-    /// Get number of rows
-    FXint getNumRows() const;
-
-    /// Get current selected row
-    FXint getCurrentSelectedRow() const;
-
-    /// Select a row
-    void selectRow(const int rowIndex);
-
-    /// Change current item
-    void setCurrentItem(FXint row, FXint column, FXbool notify = FALSE);
-
-    /// Change column header text
-    void setColumnText(FXint column, const FXString& text);
-
-    /// Set the table size to nr rows and nc columns; all existing items will be removed
-    /// Format: s -> radio button, p -> program (rrGggy...), i -> insert, d -> delete- -> textField 
-    void setTableSize(const std::string columnsType, const int numberRow);
-
-    /// Return the item at the given index
-    FXTextField* getItem(FXint row, FXint col) const;
-
-protected:
-    /// @brief FOX needs this
-    FOX_CONSTRUCTOR(GNETLSTable)
-
-    /// @brief column
+    /// @brief table column
     class Column {
 
     public:
@@ -196,7 +182,7 @@ protected:
         Column();
     };
 
-    /// @brief Row
+    /// @brief table row
     class Row {
 
     public:
@@ -213,7 +199,7 @@ protected:
         void setText(int index, const FXString& text, FXbool notify) const;
 
         /// @brief get cells
-        const std::vector<TableCell*> &getCells() const;
+        const std::vector<Cell*> &getCells() const;
 
         /// @brief select column
         void select();
@@ -223,7 +209,7 @@ protected:
         GNETLSTable* myTable = nullptr;
 
         /// @brief list wtih cells
-        std::vector<TableCell*> myCells;
+        std::vector<Cell*> myCells;
 
     private:
         /// @brief default constructor
@@ -252,6 +238,5 @@ private:
     /// @brief Invalidated assignment operator.
     GNETLSTable& operator=(const GNETLSTable&) = delete;
 };
-
 
 #endif
