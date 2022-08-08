@@ -1391,53 +1391,27 @@ GNETLSEditorFrame::TLSPhases::TLSPhases(GNETLSEditorFrame* TLSEditorParent) :
     MFXGroupBoxModule(TLSEditorParent, "Phases", MFXGroupBoxModule::Options::COLLAPSIBLE | MFXGroupBoxModule::Options::EXTENSIBLE),
     myTLSEditorParent(TLSEditorParent),
     myTableFont(new FXFont(getApp(), "Courier New", 9)) {
-
-    // create and configure phase table
-/*
-    myTableScroll = new FXScrollWindow(getCollapsableFrame(), LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT);
-*/
-    myPhaseTable = new GNETLSTable(/*myTableScroll*/ getCollapsableFrame(), myTLSEditorParent, MID_GNE_TLSFRAME_PHASE_TABLE);
-/*
-    myPhaseTable->setColumnHeaderMode(LAYOUT_FIX_HEIGHT);
-    myPhaseTable->setColumnHeaderHeight(getApp()->getNormalFont()->getFontHeight() + getApp()->getNormalFont()->getFontAscent() / 2);
-    myPhaseTable->setRowHeaderMode(LAYOUT_FIX_WIDTH);
-    myPhaseTable->setRowHeaderWidth(0);
-*/
+    // create GNETLSTable
+    myPhaseTable = new GNETLSTable(getCollapsableFrame(), myTLSEditorParent, MID_GNE_TLSFRAME_PHASE_TABLE);
     // hide phase table
     myPhaseTable->hide();
-/*
-    myPhaseTable->setFont(myTableFont);
-    myPhaseTable->setHelpText("phase duration in seconds | phase state");
-*/
-
     // create total duration info label
     myCycleDuration = new FXLabel(getCollapsableFrame(), "", nullptr, GUIDesignLabelLeft);
-
-    // using FXMatrix for tabular button layout would have been cleaner but the
-    // below attempt did not make the buttons fill available horizontal space
-    // FXMatrix* phaseButtons = new FXMatrix(getCollapsableFrame(), 2, LAYOUT_FILL_X | MATRIX_BY_COLUMNS);
-
     FXHorizontalFrame* phaseButtons = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrameUniform);
     FXVerticalFrame* col1 = new FXVerticalFrame(phaseButtons, GUIDesignAuxiliarHorizontalFrame); // left button columm
     FXVerticalFrame* col2 = new FXVerticalFrame(phaseButtons, GUIDesignAuxiliarHorizontalFrame); // right button column
-
     // create new phase button
     myInsertDuplicateButton = new FXButton(col1, "Insert Phase\t\tInsert new phase after the selected phase. The new state is deduced from the selected phase.", nullptr, myTLSEditorParent, MID_GNE_TLSFRAME_PHASE_CREATE, GUIDesignButton);
     // create delete phase button
     myDeleteSelectedPhaseButton = new FXButton(col2, "Delete Phase\t\tDelete selected phase", nullptr, myTLSEditorParent, MID_GNE_TLSFRAME_PHASE_DELETE, GUIDesignButton);
-
     // create cleanup states button
     new FXButton(col1, "Clean States\t\tClean unused states from all phase. (Not allowed for multiple programs)", nullptr, myTLSEditorParent, MID_GNE_TLSFRAME_CLEANUP, GUIDesignButton);
-
     // add unused states button
     new FXButton(col2, "Add States\t\tExtend the state vector for all phases by one entry (unused until a connection or crossing is assigned to the new index).", nullptr, myTLSEditorParent, MID_GNE_TLSFRAME_ADDUNUSED, GUIDesignButton);
-
     // group states button
     new FXButton(col1, "Group Signals\t\tShorten state definition by letting connections with the same signal states use the same index. (Not allowed for multiple programs)", nullptr, myTLSEditorParent, MID_GNE_TLSFRAME_GROUP_STATES, GUIDesignButton);
-
     // ungroup states button
     new FXButton(col2, "Ungroup Signals\t\tLet every connection use a distinct index (reverse state grouping). (Not allowed for multiple programs)", nullptr, myTLSEditorParent, MID_GNE_TLSFRAME_UNGROUP_STATES, GUIDesignButton);
-    
     // show TLSFile
     show();
 }
@@ -1456,11 +1430,6 @@ GNETLSEditorFrame::TLSPhases::getPhaseTable() const {
 
 void
 GNETLSEditorFrame::TLSPhases::initPhaseTable(int index) {
-/*
-    myPhaseTable->setVisibleRows(1);
-    myPhaseTable->setVisibleColumns(2);
-    myPhaseTable->hide();
-*/
     // first clear table
     myPhaseTable->clearTable();
     if (myTLSEditorParent->myTLSAttributes->getNumberOfTLSDefinitions() > 0) {
@@ -1518,10 +1487,6 @@ GNETLSEditorFrame::TLSPhases::initStaticPhaseTable(const int index) {
     const std::vector<NBTrafficLightLogic::PhaseDefinition>& phases = myTLSEditorParent->getPhases();
     // adjust table
     myPhaseTable->setTableSize("s-p--id", (int)phases.size());
-/*
-    myPhaseTable->setVisibleRows((int)phases.size());
-    myPhaseTable->setVisibleColumns(cols);
-*/
     // fill rows
     for (int row = 0; row < (int)phases.size(); row++) {
         myPhaseTable->setItemText(row, colDuration, getSteps2Time(phases[row].duration).c_str());
@@ -1531,36 +1496,14 @@ GNETLSEditorFrame::TLSPhases::initStaticPhaseTable(const int index) {
         myPhaseTable->getItem(row, 1)->setJustify(FXTableItem::LEFT);
     }
     // set columns
-/*
-    myPhaseTable->fitColumnsToContents(0, cols);
-*/
     myPhaseTable->setColumnText(colDuration, "dur");
     myPhaseTable->setColumnText(colState, "state");
     myPhaseTable->setColumnText(colNext, "next");
     myPhaseTable->setColumnText(colName, "name");
-/*
-    myPhaseTable->setColumnWidth(colNext, MAX2(myPhaseTable->getColumnWidth(colNext), 30));
-    myPhaseTable->setColumnWidth(colName, MAX2(myPhaseTable->getColumnWidth(colName), 45));
-*/
     // set rows
-//myPhaseTable->setHeight((int)phases.size() * 21 + 21); // experimental
     myPhaseTable->setCurrentItem(index, 0);
     myPhaseTable->selectRow(index, true);
-//myPhaseTable->show();
     myPhaseTable->setFocus();
-/*
-    myTableScroll->setHeight(myPhaseTable->getHeight() + 15);
-    // neither my myPhaseTable->getWidth nor getDefaultWidth return the sum of column widths
-    // however, the scroll pane uses getDefaultWidth to determine the
-    // horizontal scrolling area which can only be changed via
-    // getDefColumnWidth, hence the baroque work-around
-    int neededWidth = 0;
-    for (int i = 0; i < cols; i++) {
-        neededWidth += myPhaseTable->getColumnWidth(i);
-    }
-    myPhaseTable->setDefColumnWidth(neededWidth / cols);
-*/
-
 }
 
 
@@ -1580,10 +1523,6 @@ GNETLSEditorFrame::TLSPhases::initActuatedPhaseTable(const int index) {
     const std::vector<NBTrafficLightLogic::PhaseDefinition>& phases = myTLSEditorParent->getPhases();
     // adjust table
     myPhaseTable->setTableSize("s-p------id", (int)phases.size());
-/*
-    myPhaseTable->setVisibleRows((int)phases.size());
-    myPhaseTable->setVisibleColumns(cols);
-*/
     // fill rows
     for (int row = 0; row < (int)phases.size(); row++) {
         myPhaseTable->setItemText(row, colDuration, getSteps2Time(phases[row].duration).c_str());
@@ -1597,41 +1536,18 @@ GNETLSEditorFrame::TLSPhases::initActuatedPhaseTable(const int index) {
         myPhaseTable->getItem(row, 1)->setJustify(FXTableItem::LEFT);
     }
     // set columns
-//myPhaseTable->fitColumnsToContents(0, cols);
     myPhaseTable->setColumnText(colDuration, "dur");
-//myPhaseTable->setColumnWidth(colDuration, MAX2(myPhaseTable->getColumnWidth(colDuration), 35));
     myPhaseTable->setColumnText(colMinDur, "min");
-//myPhaseTable->setColumnWidth(colMinDur, MAX2(myPhaseTable->getColumnWidth(colMinDur), 35));
     myPhaseTable->setColumnText(colMaxDur, "max");
-//myPhaseTable->setColumnWidth(colMaxDur, MAX2(myPhaseTable->getColumnWidth(colMaxDur), 35));
     myPhaseTable->setColumnText(colEarliestEnd, "ear.end");
-//myPhaseTable->setColumnWidth(colEarliestEnd, MAX2(myPhaseTable->getColumnWidth(colEarliestEnd), 35));
     myPhaseTable->setColumnText(colLatestEnd, "lat.end");
-//myPhaseTable->setColumnWidth(colLatestEnd, MAX2(myPhaseTable->getColumnWidth(colLatestEnd), 35));
     myPhaseTable->setColumnText(colState, "state");
-//myPhaseTable->setColumnWidth(colState, MAX2(myPhaseTable->getColumnWidth(colState), 30));
     myPhaseTable->setColumnText(colNext, "nxt");
-//myPhaseTable->setColumnWidth(colNext, MAX2(myPhaseTable->getColumnWidth(colNext), 30));
     myPhaseTable->setColumnText(colName, "name");
-//myPhaseTable->setColumnWidth(colName, MAX2(myPhaseTable->getColumnWidth(colName), 45));
     // set rows
-//myPhaseTable->setHeight((int)phases.size() * 21 + 21); // experimental
     myPhaseTable->setCurrentItem(index, 0);
     myPhaseTable->selectRow(index, true);
-//myPhaseTable->show();
     myPhaseTable->setFocus();
-/*
-    myTableScroll->setHeight(myPhaseTable->getHeight() + 15);
-    // neither my myPhaseTable->getWidth nor getDefaultWidth return the sum of column widths
-    // however, the scroll pane uses getDefaultWidth to determine the
-    // horizontal scrolling area which can only be changed via
-    // getDefColumnWidth, hence the baroque work-around
-    int neededWidth = 0;
-    for (int i = 0; i < cols; i++) {
-        neededWidth += myPhaseTable->getColumnWidth(i);
-    }
-    myPhaseTable->setDefColumnWidth(neededWidth / cols);
-*/
 }
 
 
@@ -1649,10 +1565,6 @@ GNETLSEditorFrame::TLSPhases::initDelayBasePhaseTable(const int index) {
     const std::vector<NBTrafficLightLogic::PhaseDefinition>& phases = myTLSEditorParent->getPhases();
     // adjust table
     myPhaseTable->setTableSize("s-p------id", (int)phases.size());
-/*
-    myPhaseTable->setVisibleRows((int)phases.size());
-    myPhaseTable->setVisibleColumns(cols);
-*/
     // fill rows
     for (int row = 0; row < (int)phases.size(); row++) {
         myPhaseTable->setItemText(row, colDuration, getSteps2Time(phases[row].duration).c_str());
@@ -1664,37 +1576,16 @@ GNETLSEditorFrame::TLSPhases::initDelayBasePhaseTable(const int index) {
         myPhaseTable->getItem(row, 1)->setJustify(FXTableItem::LEFT);
     }
     // set columns
-//myPhaseTable->fitColumnsToContents(0, cols);
     myPhaseTable->setColumnText(colDuration, "dur");
-//myPhaseTable->setColumnWidth(colDuration, MAX2(myPhaseTable->getColumnWidth(colDuration), 35));
     myPhaseTable->setColumnText(colMinDur, "min");
-//myPhaseTable->setColumnWidth(colMinDur, MAX2(myPhaseTable->getColumnWidth(colMinDur), 35));
     myPhaseTable->setColumnText(colMaxDur, "max");
-//myPhaseTable->setColumnWidth(colMaxDur, MAX2(myPhaseTable->getColumnWidth(colMaxDur), 35));
     myPhaseTable->setColumnText(colState, "state");
-//myPhaseTable->setColumnWidth(colState, MAX2(myPhaseTable->getColumnWidth(colState), 30));
     myPhaseTable->setColumnText(colNext, "nxt");
-//myPhaseTable->setColumnWidth(colNext, MAX2(myPhaseTable->getColumnWidth(colNext), 30));
     myPhaseTable->setColumnText(colName, "name");
-//myPhaseTable->setColumnWidth(colName, MAX2(myPhaseTable->getColumnWidth(colName), 45));
     // set rows
-//myPhaseTable->setHeight((int)phases.size() * 21 + 21); // experimental
     myPhaseTable->setCurrentItem(index, 0);
     myPhaseTable->selectRow(index, true);
-//myPhaseTable->show();
     myPhaseTable->setFocus();
-/*
-    myTableScroll->setHeight(myPhaseTable->getHeight() + 15);
-    // neither my myPhaseTable->getWidth nor getDefaultWidth return the sum of column widths
-    // however, the scroll pane uses getDefaultWidth to determine the
-    // horizontal scrolling area which can only be changed via
-    // getDefColumnWidth, hence the baroque work-around
-    int neededWidth = 0;
-    for (int i = 0; i < cols; i++) {
-        neededWidth += myPhaseTable->getColumnWidth(i);
-    }
-    myPhaseTable->setDefColumnWidth(neededWidth / cols);
-*/
 }
 
 
@@ -1715,10 +1606,6 @@ GNETLSEditorFrame::TLSPhases::initNEMAPhaseTable(const int index) {
     const std::vector<NBTrafficLightLogic::PhaseDefinition>& phases = myTLSEditorParent->getPhases();
     // adjust table
     myPhaseTable->setTableSize("s--p------id", (int)phases.size());
-/*
-    myPhaseTable->setVisibleRows((int)phases.size());
-    myPhaseTable->setVisibleColumns(cols);
-*/
     // fill rows
     for (int row = 0; row < (int)phases.size(); row++) {
         myPhaseTable->setItemText(row, colDuration, getSteps2Time(phases[row].duration).c_str());
@@ -1733,43 +1620,19 @@ GNETLSEditorFrame::TLSPhases::initNEMAPhaseTable(const int index) {
         myPhaseTable->getItem(row, 1)->setJustify(FXTableItem::LEFT);
     }
     // set columns
-//myPhaseTable->fitColumnsToContents(0, cols);
     myPhaseTable->setColumnText(colDuration, "dur");
-//myPhaseTable->setColumnWidth(colDuration, MAX2(myPhaseTable->getColumnWidth(colDuration), 35));
     myPhaseTable->setColumnText(colMinDur, "min");
-//myPhaseTable->setColumnWidth(colMinDur, MAX2(myPhaseTable->getColumnWidth(colMinDur), 35));
     myPhaseTable->setColumnText(colMaxDur, "max");
-//myPhaseTable->setColumnWidth(colMaxDur, MAX2(myPhaseTable->getColumnWidth(colMaxDur), 35));
     myPhaseTable->setColumnText(colState, "state");
-//myPhaseTable->setColumnWidth(colState, MAX2(myPhaseTable->getColumnWidth(colState), 30));
     myPhaseTable->setColumnText(colVehExt, "v.ext");
-//myPhaseTable->setColumnWidth(colVehExt, MAX2(myPhaseTable->getColumnWidth(colVehExt), 45));
     myPhaseTable->setColumnText(colYellow, "yel");
-//myPhaseTable->setColumnWidth(colYellow, MAX2(myPhaseTable->getColumnWidth(colYellow), 35));
     myPhaseTable->setColumnText(colRed, "red");
-//myPhaseTable->setColumnWidth(colRed, MAX2(myPhaseTable->getColumnWidth(colRed), 35));
     myPhaseTable->setColumnText(colNext, "nxt");
-//myPhaseTable->setColumnWidth(colNext, MAX2(myPhaseTable->getColumnWidth(colNext), 30));
     myPhaseTable->setColumnText(colName, "name");
-//myPhaseTable->setColumnWidth(colName, MAX2(myPhaseTable->getColumnWidth(colName), 45));
     // set rows
-//myPhaseTable->setHeight((int)phases.size() * 21 + 21); // experimental
     myPhaseTable->setCurrentItem(index, 0);
     myPhaseTable->selectRow(index, true);
-//myPhaseTable->show();
     myPhaseTable->setFocus();
-/*
-    myTableScroll->setHeight(myPhaseTable->getHeight() + 15);
-    // neither my myPhaseTable->getWidth nor getDefaultWidth return the sum of column widths
-    // however, the scroll pane uses getDefaultWidth to determine the
-    // horizontal scrolling area which can only be changed via
-    // getDefColumnWidth, hence the baroque work-around
-    int neededWidth = 0;
-    for (int i = 0; i < cols; i++) {
-        neededWidth += myPhaseTable->getColumnWidth(i);
-    }
-    myPhaseTable->setDefColumnWidth(neededWidth / cols);
-*/
 }
 
 // ---------------------------------------------------------------------------
@@ -1978,6 +1841,5 @@ GNETLSEditorFrame::TLSFile::onUpdNeedsDef(FXObject* o, FXSelector, void*) {
     o->handle(getCollapsableFrame(), FXSEL(SEL_COMMAND, enable ? FXWindow::ID_ENABLE : FXWindow::ID_DISABLE), nullptr);
     return 1;
 }
-
 
 /****************************************************************************/
