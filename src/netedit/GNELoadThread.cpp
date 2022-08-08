@@ -165,9 +165,11 @@ GNELoadThread::run() {
             net = nullptr;
         } catch (std::exception& e) {
             WRITE_ERROR(e.what());
-            delete net;
+            if (net != nullptr) {
+                delete net;
+                net = nullptr;
+            }
             delete netBuilder;
-            net = nullptr;
         }
     }
     // only a single setting file is supported
@@ -444,7 +446,7 @@ GNELoadThread::initOptions() {
 
 
 void
-GNELoadThread::loadConfigOrNet(const std::string& file, bool isNet, bool useStartupOptions, bool newNet) {
+GNELoadThread::loadConfigOrNet(const std::string& file, const bool isNet, const bool useStartupOptions, const bool newNet) {
     myFile = file;
     myLoadNet = isNet;
     if (myFile != "" && !useStartupOptions) {
