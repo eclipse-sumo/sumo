@@ -118,11 +118,10 @@ GNETLSTable::TableCell::TableCell() :
 // GNETLSTable - methods
 // ---------------------------------------------------------------------------
 
-GNETLSTable::GNETLSTable(GNETLSEditorFrame::TLSPhases* TLSPhasesParent, FXSelector sel) :
+GNETLSTable::GNETLSTable(GNETLSEditorFrame::TLSPhases* TLSPhasesParent) :
     FXHorizontalFrame(TLSPhasesParent->getCollapsableFrame(), GUIDesignAuxiliarTLSTable),
     myProgramFont(new FXFont(getApp(), "Courier New", 10)),
-    myTLSPhasesParent(TLSPhasesParent),
-    mySelector(sel) {
+    myTLSPhasesParent(TLSPhasesParent) {
     // set default width
     recalcTableWidth();
 }

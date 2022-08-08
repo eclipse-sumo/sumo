@@ -87,7 +87,7 @@ public:
     };
 
     /// @brief constructor (Exactly like the FXButton constructor)
-    GNETLSTable(GNETLSEditorFrame::TLSPhases* TLSPhasesParent, FXSelector sel);
+    GNETLSTable(GNETLSEditorFrame::TLSPhases* TLSPhasesParent);
 
     /// @brief destructor (Called automatically)
     ~GNETLSTable();
@@ -233,9 +233,6 @@ protected:
 
     /// @brief font for the phase table
     FXFont* myProgramFont = nullptr;
-
-    /// @brief selector used in rows
-    FXSelector mySelector = 0;
 
     /// @brief columns
     std::vector<Column*> myColumns;
