@@ -1492,11 +1492,10 @@ GNETLSEditorFrame::TLSPhases::initStaticPhaseTable(const int index) {
     myPhaseTable->setTableSize("s-p--id", (int)phases.size());
     // fill rows
     for (int row = 0; row < (int)phases.size(); row++) {
-        myPhaseTable->setItemText(row, colDuration, getSteps2Time(phases[row].duration).c_str());
-        myPhaseTable->setItemText(row, colState, phases[row].state.c_str());
-        myPhaseTable->setItemText(row, colNext, phases[row].next.size() > 0 ? toString(phases[row].next).c_str() : " ");
-        myPhaseTable->setItemText(row, colName, phases[row].name.c_str());
-        myPhaseTable->getItem(row, 1)->setJustify(FXTableItem::LEFT);
+        myPhaseTable->setItemText(row, colDuration, getSteps2Time(phases.at(row).duration).c_str());
+        myPhaseTable->setItemText(row, colState, phases.at(row).state.c_str());
+        myPhaseTable->setItemText(row, colNext, phases.at(row).next.size() > 0 ? toString(phases.at(row).next).c_str() : " ");
+        myPhaseTable->setItemText(row, colName, phases.at(row).name.c_str());
     }
     // set columns
     myPhaseTable->setColumnText(colDuration, "dur");
@@ -1505,7 +1504,7 @@ GNETLSEditorFrame::TLSPhases::initStaticPhaseTable(const int index) {
     myPhaseTable->setColumnText(colName, "name");
     // set rows
     myPhaseTable->setCurrentItem(index, 0);
-    myPhaseTable->selectRow(index, true);
+    myPhaseTable->selectRow(index);
     myPhaseTable->setFocus();
 }
 
@@ -1527,15 +1526,14 @@ GNETLSEditorFrame::TLSPhases::initActuatedPhaseTable(const int index) {
     myPhaseTable->setTableSize("s-p------id", (int)phases.size());
     // fill rows
     for (int row = 0; row < (int)phases.size(); row++) {
-        myPhaseTable->setItemText(row, colDuration, getSteps2Time(phases[row].duration).c_str());
-        myPhaseTable->setItemText(row, colMinDur, varDurString(phases[row].minDur).c_str());
-        myPhaseTable->setItemText(row, colMaxDur, varDurString(phases[row].maxDur).c_str());
-        myPhaseTable->setItemText(row, colState, phases[row].state.c_str());
-        myPhaseTable->setItemText(row, colEarliestEnd, varDurString(phases[row].earliestEnd).c_str());
-        myPhaseTable->setItemText(row, colLatestEnd, varDurString(phases[row].latestEnd).c_str());
-        myPhaseTable->setItemText(row, colNext, phases[row].next.size() > 0 ? toString(phases[row].next).c_str() : " ");
-        myPhaseTable->setItemText(row, colName, phases[row].name.c_str());
-        myPhaseTable->getItem(row, 1)->setJustify(FXTableItem::LEFT);
+        myPhaseTable->setItemText(row, colDuration, getSteps2Time(phases.at(row).duration).c_str());
+        myPhaseTable->setItemText(row, colMinDur, varDurString(phases.at(row).minDur).c_str());
+        myPhaseTable->setItemText(row, colMaxDur, varDurString(phases.at(row).maxDur).c_str());
+        myPhaseTable->setItemText(row, colState, phases.at(row).state.c_str());
+        myPhaseTable->setItemText(row, colEarliestEnd, varDurString(phases.at(row).earliestEnd).c_str());
+        myPhaseTable->setItemText(row, colLatestEnd, varDurString(phases.at(row).latestEnd).c_str());
+        myPhaseTable->setItemText(row, colNext, phases.at(row).next.size() > 0 ? toString(phases.at(row).next).c_str() : " ");
+        myPhaseTable->setItemText(row, colName, phases.at(row).name.c_str());
     }
     // set columns
     myPhaseTable->setColumnText(colDuration, "dur");
@@ -1548,7 +1546,7 @@ GNETLSEditorFrame::TLSPhases::initActuatedPhaseTable(const int index) {
     myPhaseTable->setColumnText(colName, "name");
     // set rows
     myPhaseTable->setCurrentItem(index, 0);
-    myPhaseTable->selectRow(index, true);
+    myPhaseTable->selectRow(index);
     myPhaseTable->setFocus();
 }
 
@@ -1568,13 +1566,12 @@ GNETLSEditorFrame::TLSPhases::initDelayBasePhaseTable(const int index) {
     myPhaseTable->setTableSize("s-p------id", (int)phases.size());
     // fill rows
     for (int row = 0; row < (int)phases.size(); row++) {
-        myPhaseTable->setItemText(row, colDuration, getSteps2Time(phases[row].duration).c_str());
-        myPhaseTable->setItemText(row, colMinDur, varDurString(phases[row].minDur).c_str());
-        myPhaseTable->setItemText(row, colMaxDur, varDurString(phases[row].maxDur).c_str());
-        myPhaseTable->setItemText(row, colState, phases[row].state.c_str());
-        myPhaseTable->setItemText(row, colNext, phases[row].next.size() > 0 ? toString(phases[row].next).c_str() : " ");
-        myPhaseTable->setItemText(row, colName, phases[row].name.c_str());
-        myPhaseTable->getItem(row, 1)->setJustify(FXTableItem::LEFT);
+        myPhaseTable->setItemText(row, colDuration, getSteps2Time(phases.at(row).duration).c_str());
+        myPhaseTable->setItemText(row, colMinDur, varDurString(phases.at(row).minDur).c_str());
+        myPhaseTable->setItemText(row, colMaxDur, varDurString(phases.at(row).maxDur).c_str());
+        myPhaseTable->setItemText(row, colState, phases.at(row).state.c_str());
+        myPhaseTable->setItemText(row, colNext, phases.at(row).next.size() > 0 ? toString(phases.at(row).next).c_str() : " ");
+        myPhaseTable->setItemText(row, colName, phases.at(row).name.c_str());
     }
     // set columns
     myPhaseTable->setColumnText(colDuration, "dur");
@@ -1585,7 +1582,7 @@ GNETLSEditorFrame::TLSPhases::initDelayBasePhaseTable(const int index) {
     myPhaseTable->setColumnText(colName, "name");
     // set rows
     myPhaseTable->setCurrentItem(index, 0);
-    myPhaseTable->selectRow(index, true);
+    myPhaseTable->selectRow(index);
     myPhaseTable->setFocus();
 }
 
@@ -1608,16 +1605,15 @@ GNETLSEditorFrame::TLSPhases::initNEMAPhaseTable(const int index) {
     myPhaseTable->setTableSize("s--p------id", (int)phases.size());
     // fill rows
     for (int row = 0; row < (int)phases.size(); row++) {
-        myPhaseTable->setItemText(row, colDuration, getSteps2Time(phases[row].duration).c_str());
-        myPhaseTable->setItemText(row, colMinDur, varDurString(phases[row].minDur).c_str());
-        myPhaseTable->setItemText(row, colMaxDur, varDurString(phases[row].maxDur).c_str());
-        myPhaseTable->setItemText(row, colState, phases[row].state.c_str());
-        myPhaseTable->setItemText(row, colVehExt, varDurString(phases[row].vehExt).c_str());
-        myPhaseTable->setItemText(row, colYellow, varDurString(phases[row].yellow).c_str());
-        myPhaseTable->setItemText(row, colRed, varDurString(phases[row].red).c_str());
-        myPhaseTable->setItemText(row, colNext, phases[row].next.size() > 0 ? toString(phases[row].next).c_str() : " ");
-        myPhaseTable->setItemText(row, colName, phases[row].name.c_str());
-        myPhaseTable->getItem(row, 1)->setJustify(FXTableItem::LEFT);
+        myPhaseTable->setItemText(row, colDuration, getSteps2Time(phases.at(row).duration).c_str());
+        myPhaseTable->setItemText(row, colMinDur, varDurString(phases.at(row).minDur).c_str());
+        myPhaseTable->setItemText(row, colMaxDur, varDurString(phases.at(row).maxDur).c_str());
+        myPhaseTable->setItemText(row, colState, phases.at(row).state.c_str());
+        myPhaseTable->setItemText(row, colVehExt, varDurString(phases.at(row).vehExt).c_str());
+        myPhaseTable->setItemText(row, colYellow, varDurString(phases.at(row).yellow).c_str());
+        myPhaseTable->setItemText(row, colRed, varDurString(phases.at(row).red).c_str());
+        myPhaseTable->setItemText(row, colNext, phases.at(row).next.size() > 0 ? toString(phases.at(row).next).c_str() : " ");
+        myPhaseTable->setItemText(row, colName, phases.at(row).name.c_str());
     }
     // set columns
     myPhaseTable->setColumnText(colDuration, "dur");
@@ -1631,7 +1627,7 @@ GNETLSEditorFrame::TLSPhases::initNEMAPhaseTable(const int index) {
     myPhaseTable->setColumnText(colName, "name");
     // set rows
     myPhaseTable->setCurrentItem(index, 0);
-    myPhaseTable->selectRow(index, true);
+    myPhaseTable->selectRow(index);
     myPhaseTable->setFocus();
 }
 

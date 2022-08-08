@@ -134,7 +134,7 @@ public:
     FXint getCurrentSelectedRow() const;
 
     /// Select a row
-    FXbool selectRow(FXint row, FXbool notify = FALSE);
+    void selectRow(const int rowIndex);
 
     /// Change current item
     void setCurrentItem(FXint row, FXint column, FXbool notify = FALSE);

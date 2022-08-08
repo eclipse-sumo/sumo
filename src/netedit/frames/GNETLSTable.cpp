@@ -284,13 +284,14 @@ GNETLSTable::getCurrentSelectedRow() const {
 }
 
 
-FXbool
-GNETLSTable::selectRow(FXint row, FXbool /* notify */) {
-    if (row < (FXint)myRows.size()) {
+void
+GNETLSTable::selectRow(const int row) {
+    if ((row >= 0) && (row < (FXint)myRows.size())) {
+        // select row
         myRows.at(row)->select();
-        return TRUE;
+    } else {
+        throw ProcessError("Invalid row");
     }
-    throw ProcessError("Invalid row");
 }
 
 
@@ -496,8 +497,14 @@ GNETLSTable::Row::getCells() const {
 }
 
 
-void GNETLSTable::Row::select() {
-    // finish
+void
+GNETLSTable::Row::select() {
+    // iterate over row and enable radio buttons
+    for (const auto &cell : myCells) {
+        if (cell->getRadioButton()) {
+            cell->getRadioButton()->setCheck(TRUE, TRUE);
+        }
+    }
 }
 
 
