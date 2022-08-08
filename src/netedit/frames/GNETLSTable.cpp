@@ -21,12 +21,12 @@
 
 #include "GNETLSTable.h"
 
-#include <utils/gui/windows/GUIAppEnum.h>
+#include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/images/GUIIconSubSys.h>
+#include <utils/gui/windows/GUIAppEnum.h>
 
 #define EXTRAMARGING 1
 #define DEFAULTWIDTH 190
-
 
 // ===========================================================================
 // FOX callback mapping
@@ -211,18 +211,18 @@ GNETLSTable::onEditRow(FXObject* sender, FXSelector, void*) {
 long
 GNETLSTable::onRowSelected(FXObject* sender, FXSelector, void*) {
     // search selected text field
-    for (int rowIndex = 0; rowIndex < (int)myRows.size(); rowIndex++) {
+    for (int indexRow = 0; indexRow < (int)myRows.size(); indexRow++) {
         // iterate over every cell
-        for (const auto &cellTextField : myRows.at(rowIndex)->getCells()) {
-            if ((cellTextField->getRadioButton() == sender) && (myCurrentSelectedRow != rowIndex)) {
-                myCurrentSelectedRow = rowIndex;
-                myTLSPhasesParent->getTLSEditorParent()->switchPhase();
+        for (const auto &cellTextField : myRows.at(indexRow)->getCells()) {
+            if ((cellTextField->getRadioButton() == sender) && (myCurrentSelectedRow != indexRow)) {
+                // update current selected row
+                myCurrentSelectedRow = indexRow;
                 // set radio buttons checks
-                for (int rowIndex2 = 0; rowIndex2 < (int)myRows.size(); rowIndex2++) {
+                for (int indexRow2 = 0; indexRow2 < (int)myRows.size(); indexRow2++) {
                     // iterate over every cell
-                    for (const auto &cellRadioButton : myRows.at(rowIndex2)->getCells()) {
+                    for (const auto &cellRadioButton : myRows.at(indexRow2)->getCells()) {
                         if (cellRadioButton->getRadioButton()) {
-                            if (myCurrentSelectedRow == rowIndex2) {
+                            if (myCurrentSelectedRow == indexRow2) {
                                 cellRadioButton->getRadioButton()->setCheck(TRUE, FALSE);
                             } else {
                                 cellRadioButton->getRadioButton()->setCheck(FALSE, FALSE);
@@ -230,6 +230,8 @@ GNETLSTable::onRowSelected(FXObject* sender, FXSelector, void*) {
                         }
                     }
                 }
+                // switch phase
+                myTLSPhasesParent->getTLSEditorParent()->switchPhase();
                 // row focused, then stop
                 return 1;
             }

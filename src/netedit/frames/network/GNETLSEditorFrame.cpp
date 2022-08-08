@@ -26,12 +26,12 @@
 #include <netedit/changes/GNEChange_TLS.h>
 #include <netedit/dialogs/GNESingleParametersDialog.h>
 #include <netedit/elements/network/GNEInternalLane.h>
+#include <netedit/frames/GNETLSTable.h>
 #include <netimport/NIXMLTrafficLightsHandler.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/xml/XMLSubSys.h>
-#include <netedit/frames/GNETLSTable.h>
 
 #include "GNETLSEditorFrame.h"
 
@@ -1021,7 +1021,7 @@ GNETLSEditorFrame::varDurString(SUMOTime dur) {
 
 const NBTrafficLightLogic::PhaseDefinition&
 GNETLSEditorFrame::getPhases(const int index) {
-    if ((index >= 0) || (index < myEditedDef->getLogic()->getPhases().size())) {
+    if ((index >= 0) || (index < (int)myEditedDef->getLogic()->getPhases().size())) {
         return myEditedDef->getLogic()->getPhases().at(index);
     } else {
         throw ProcessError("Invalid phase index");
@@ -1390,7 +1390,7 @@ GNETLSEditorFrame::TLSPhases::TLSPhases(GNETLSEditorFrame* TLSEditorParent) :
     myTLSEditorParent(TLSEditorParent),
     myTableFont(new FXFont(getApp(), "Courier New", 9)) {
     // create GNETLSTable
-    myPhaseTable = new GNETLSTable(this, MID_GNE_TLSFRAME_PHASE_TABLE);
+    myPhaseTable = new GNETLSTable(this);
     // hide phase table
     myPhaseTable->hide();
     // create total duration info label
@@ -1482,7 +1482,6 @@ GNETLSEditorFrame::TLSPhases::updateCycleDuration() {
 void
 GNETLSEditorFrame::TLSPhases::initStaticPhaseTable(const int index) {
     // declare constants for columns
-    const int cols = 5;
     const int colDuration = 1;
     const int colState = 2;
     const int colNext = 3;
@@ -1514,7 +1513,6 @@ GNETLSEditorFrame::TLSPhases::initStaticPhaseTable(const int index) {
 void
 GNETLSEditorFrame::TLSPhases::initActuatedPhaseTable(const int index) {
     // declare constants for columns
-    const int cols = 9;
     const int colDuration = 1;
     const int colMinDur = 2;
     const int colMaxDur = 3;
@@ -1558,7 +1556,6 @@ GNETLSEditorFrame::TLSPhases::initActuatedPhaseTable(const int index) {
 void
 GNETLSEditorFrame::TLSPhases::initDelayBasePhaseTable(const int index) {
     // declare constants for columns
-    const int cols = 9;
     const int colDuration = 1;
     const int colMinDur = 2;
     const int colMaxDur = 3;
@@ -1596,7 +1593,6 @@ GNETLSEditorFrame::TLSPhases::initDelayBasePhaseTable(const int index) {
 void
 GNETLSEditorFrame::TLSPhases::initNEMAPhaseTable(const int index) {
     // declare constants for columns
-    const int cols = 9;
     const int colDuration = 1;
     const int colMinDur = 2;
     const int colMaxDur = 3;

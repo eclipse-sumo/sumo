@@ -23,12 +23,14 @@
 
 #include <vector>
 
-#include <utils/gui/div/GUIDesigns.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/foxtools/fxheader.h>
 #include <netedit/frames/network/GNETLSEditorFrame.h>
 
 
+// ===========================================================================
+// class definitions
+// ===========================================================================
 /**
  * @class GNETLSTable
  */
@@ -228,11 +230,11 @@ protected:
         Row();
     };
 
-    /// @frame pointer to TLSEditorFrame phases parent
-    GNETLSEditorFrame::TLSPhases* myTLSPhasesParent = nullptr;
-
     /// @brief font for the phase table
     FXFont* myProgramFont = nullptr;
+
+    /// @frame pointer to TLSEditorFrame phases parent
+    GNETLSEditorFrame::TLSPhases* myTLSPhasesParent = nullptr;
 
     /// @brief columns
     std::vector<Column*> myColumns;

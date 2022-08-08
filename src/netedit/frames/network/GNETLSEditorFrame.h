@@ -363,9 +363,6 @@ public:
     /// @note discards any modifications
     long onCmdCancel(FXObject*, FXSelector, void*);
 
-    /// @brief Called when the user presses the button Toggle
-    long onCmdToggle(FXObject*, FXSelector, void*);
-
     /// @brief Called when the user presses the button Guess
     long onCmdGuess(FXObject*, FXSelector, void*);
 
@@ -422,9 +419,6 @@ public:
 
     /// @brief Called when user press edit parameters button
     long onCmdEditParameters(FXObject*, FXSelector, void* ptr);
-
-    /// @brief Called when the user makes RILSA
-    long onCmdMakeRILSAConforming(FXObject*, FXSelector, void*);
 
     /// @brief Called when occurs an update of switch definition
     long onUpdDefSwitch(FXObject*, FXSelector, void*);
