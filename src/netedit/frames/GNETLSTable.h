@@ -52,26 +52,26 @@ public:
     void clearTable();
 
     /// @brief Modify cell text
-    void setItemText(FXint row, FXint column, const FXString& text, FXbool notify = FALSE);
+    void setItemText(FXint row, FXint column, const std::string& text, FXbool notify = FALSE);
 
     /// @brief Return cell text
-    FXString getItemText(FXint row, FXint column) const;
+    std::string getItemText(const int row, const int column) const;
 
     /// @brief Get number of rows
-    FXint getNumRows() const;
+    int getNumRows() const;
 
     /// @brief Get current selected row
-    FXint getCurrentSelectedRow() const;
+    int getCurrentSelectedRow() const;
 
     /// @brief Select a row
     void selectRow(const int rowIndex);
 
     /// @brief Change column header text
-    void setColumnText(FXint column, const FXString& text);
+    void setColumnText(const int column, const std::string& text);
 
     /// @brief Set the table size to nr rows and nc columns; all existing items will be removed
     /// Format: s -> radio button, p -> program (rrGggy...), i -> insert, d -> delete- -> textField 
-    void setTableSize(const std::string columnsType, const int numberRow);
+    void setTableSize(const std::string &columnsType, const int numberRow);
 
     /// @name FOX callbacks
     /// @{
@@ -156,7 +156,7 @@ protected:
         char getType() const;
 
         /// @brief set column label
-        void setColumnLabel(const FXString& text);
+        void setColumnLabel(const std::string& text);
 
         /// @brief adjust column width
         int adjustColumnWidth();
@@ -193,10 +193,10 @@ protected:
         ~Row();
 
         /// @brief get text
-        FXString getText(int index) const;
+        std::string getText(int index) const;
 
         /// @brief set text
-        void setText(int index, const FXString& text, FXbool notify) const;
+        void setText(int index, const std::string& text, FXbool notify) const;
 
         /// @brief get cells
         const std::vector<Cell*> &getCells() const;

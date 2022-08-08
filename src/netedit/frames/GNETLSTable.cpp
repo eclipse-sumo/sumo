@@ -93,7 +93,7 @@ GNETLSTable::clearTable() {
 
 
 void
-GNETLSTable::setTableSize(const std::string columnsType, const int numberRow) {
+GNETLSTable::setTableSize(const std::string &columnsType, const int numberRow) {
     // first clear table
     clearTable();
     // create columns
@@ -108,8 +108,9 @@ GNETLSTable::setTableSize(const std::string columnsType, const int numberRow) {
 
 
 void
-GNETLSTable::setItemText(FXint row, FXint column, const FXString& text, FXbool notify) {
-    if (row < (FXint)myRows.size() && column < (FXint)myColumns.size()) {
+GNETLSTable::setItemText(FXint row, FXint column, const std::string& text, FXbool notify) {
+    if ((row >= 0) && (row < (FXint)myRows.size()) && 
+        (column >= 0) && (column < (FXint)myColumns.size())) {
         myRows.at(row)->setText(column, text, notify);
     } else {
         throw ProcessError("Invalid row or column");
@@ -117,22 +118,22 @@ GNETLSTable::setItemText(FXint row, FXint column, const FXString& text, FXbool n
 }
 
 
-FXString
-GNETLSTable::getItemText(FXint row, FXint column) const {
-    if (row < (FXint)myRows.size() && column < (FXint)myColumns.size()) {
+std::string
+GNETLSTable::getItemText(const int row, const int column) const {
+    if (row < (int)myRows.size() && column < (int)myColumns.size()) {
         return myRows.at(row)->getText(column);
     }
     throw ProcessError("Invalid row or column");
 }
 
 
-FXint
+int
 GNETLSTable::getNumRows() const {
     return (int)myRows.size();
 }
 
 
-FXint
+int
 GNETLSTable::getCurrentSelectedRow() const {
     return myCurrentSelectedRow;
 }
@@ -150,8 +151,8 @@ GNETLSTable::selectRow(const int row) {
 
 
 void
-GNETLSTable::setColumnText(FXint column, const FXString& text) {
-    if ((column >= 0) && (column < (FXint)myColumns.size())) {
+GNETLSTable::setColumnText(const int column, const std::string& text) {
+    if ((column >= 0) && (column < (int)myColumns.size())) {
         myColumns.at(column)->setColumnLabel(text);
     } else {
         throw ProcessError("Invalid column");
@@ -202,6 +203,7 @@ GNETLSTable::onEditRow(FXObject* sender, FXSelector, void*) {
             }
         }
     }
+    XX;
     // nothing to do
     return 0;
 }
@@ -345,8 +347,8 @@ GNETLSTable::Column::getType() const {
 
 
 void
-GNETLSTable::Column::setColumnLabel(const FXString& text) {
-    myLabel->setText(text);
+GNETLSTable::Column::setColumnLabel(const std::string& text) {
+    myLabel->setText(text.c_str());
 }
 
 
@@ -450,10 +452,10 @@ GNETLSTable::Row::~Row() {
 }
 
 
-FXString
+std::string
 GNETLSTable::Row::getText(int index) const {
     if (myCells.at(index)->getTextField()) {
-        return myCells.at(index)->getTextField()->getText();
+        return myCells.at(index)->getTextField()->getText().text();
     } else {
         throw ProcessError("Cell doesn't have a textField");
     }
@@ -461,9 +463,9 @@ GNETLSTable::Row::getText(int index) const {
 
 
 void
-GNETLSTable::Row::setText(int index, const FXString& text, FXbool notify) const {
+GNETLSTable::Row::setText(int index, const std::string& text, FXbool notify) const {
     // set text
-    myCells.at(index)->getTextField()->setText(text, notify);
+    myCells.at(index)->getTextField()->setText(text.c_str(), notify);
 }
 
 
