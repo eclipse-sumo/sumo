@@ -72,9 +72,6 @@ FXDEFMAP(GNETLSEditorFrame) GNETLSEditorFrameMap[] = {
     FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_GROUP_STATES,    GNETLSEditorFrame::onUpdNeedsSingleDef),
     FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_UNGROUP_STATES,  GNETLSEditorFrame::onCmdUngroupStates),
     FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_UNGROUP_STATES,  GNETLSEditorFrame::onUpdUngroupStates),
-    FXMAPFUNC(SEL_SELECTED,   MID_GNE_TLSFRAME_PHASE_TABLE,     GNETLSEditorFrame::onCmdPhaseSwitch),
-    FXMAPFUNC(SEL_DESELECTED, MID_GNE_TLSFRAME_PHASE_TABLE,     GNETLSEditorFrame::onCmdPhaseSwitch),
-    FXMAPFUNC(SEL_CHANGED,    MID_GNE_TLSFRAME_PHASE_TABLE,     GNETLSEditorFrame::onCmdPhaseSwitch),
     FXMAPFUNC(SEL_REPLACED,   MID_GNE_TLSFRAME_PHASE_TABLE,     GNETLSEditorFrame::onCmdPhaseEdit),
     FXMAPFUNC(SEL_COMMAND,    MID_GNE_OPEN_PARAMETERS_DIALOG,   GNETLSEditorFrame::onCmdEditParameters),
 };
@@ -246,6 +243,29 @@ GNETLSEditorFrame::parseTLSPrograms(const std::string& file) {
         tmpTLLCont.removeProgram(def->getID(), def->getProgramID(), false);
     }
     return true;
+}
+
+
+void
+GNETLSEditorFrame::switchPhase() {
+    // get current selected phase in phaseTable
+    const auto row = myTLSPhases->getPhaseTable()->getCurrentSelectedRow();
+    const NBTrafficLightLogic::PhaseDefinition& phase = getPhases(row);
+    myTLSPhases->getPhaseTable()->selectRow(row);
+    // need not hold since links could have been deleted somewhere else and indices may be reused
+    // assert(phase.state.size() == myInternalLanes.size());
+    for (const auto &internalLane : myInternalLanes) {
+        int tlIndex = internalLane.first;
+        std::vector<GNEInternalLane*> lanes = internalLane.second;
+        LinkState state = LINKSTATE_DEADEND;
+        if (tlIndex >= 0 && tlIndex < (int)phase.state.size()) {
+            state = (LinkState)phase.state[tlIndex];
+        }
+        for (const auto &lane : lanes) {
+            lane->setLinkState(state);
+        }
+    }
+    myViewNet->updateViewNet();
 }
 
 
@@ -481,32 +501,6 @@ GNETLSEditorFrame::onCmdGuess(FXObject*, FXSelector, void*) {
 }
 
 
-long
-GNETLSEditorFrame::onCmdPhaseSwitch(FXObject*, FXSelector, void*) {
-    // get phase table
-    const auto phaseTable = myTLSPhases->getPhaseTable();
-    // get current row
-    const auto row = phaseTable->getCurrentSelectedRow();
-    const NBTrafficLightLogic::PhaseDefinition& phase = getPhases()[row];
-    myTLSPhases->getPhaseTable()->selectRow(row);
-    // need not hold since links could have been deleted somewhere else and indices may be reused
-    // assert(phase.state.size() == myInternalLanes.size());
-    for (const auto &internalLane : myInternalLanes) {
-        int tlIndex = internalLane.first;
-        std::vector<GNEInternalLane*> lanes = internalLane.second;
-        LinkState state = LINKSTATE_DEADEND;
-        if (tlIndex >= 0 && tlIndex < (int)phase.state.size()) {
-            state = (LinkState)phase.state[tlIndex];
-        }
-        for (const auto &lane : lanes) {
-            lane->setLinkState(state);
-        }
-    }
-    myViewNet->updateViewNet();
-    return 1;
-}
-
-
 void
 GNETLSEditorFrame::selectedOverlappedElement(GNEAttributeCarrier* AC) {
     editJunction(dynamic_cast<GNEJunction*>(AC));
@@ -734,19 +728,19 @@ GNETLSEditorFrame::onCmdPhaseEdit(FXObject*, FXSelector, void* ptr) {
             }
         }
         // input error, reset value
-        myTLSPhases->getPhaseTable()->setItemText(tp->getRow(), colDuration, getSteps2Time(getPhases()[tp->getRow()].duration).c_str());
+        myTLSPhases->getPhaseTable()->setItemText(tp->getRow(), colDuration, getSteps2Time(getPhases(tp->getRow()).duration).c_str());
     } else if (tp->getCol() == colState) {
         // state edited
         try {
             // insert phase with new step and delete the old phase
-            const NBTrafficLightLogic::PhaseDefinition& phase = getPhases()[tp->getRow()];
+            const NBTrafficLightLogic::PhaseDefinition& phase = getPhases(tp->getRow());
             myEditedDef->getLogic()->addStep(phase.duration, value, phase.next, phase.name, tp->getRow());
             myEditedDef->getLogic()->deletePhase(tp->getRow() + 1);
             myTLSModifications->setHaveModifications(true);
-            onCmdPhaseSwitch(nullptr, 0, nullptr);
+            switchPhase();
         } catch (ProcessError&) {
             // input error, reset value
-            myTLSPhases->getPhaseTable()->setItemText(tp->getRow(), colState, getPhases()[tp->getRow()].state.c_str());
+            myTLSPhases->getPhaseTable()->setItemText(tp->getRow(), colState, getPhases(tp->getRow()).state.c_str());
         }
     } else if (tp->getCol() == colNext) {
         // next edited
@@ -786,7 +780,7 @@ GNETLSEditorFrame::onCmdPhaseEdit(FXObject*, FXSelector, void* ptr) {
             return 1;
         }
         // input error, reset value
-        myTLSPhases->getPhaseTable()->setItemText(tp->getRow(), colMinDur, varDurString(getPhases()[tp->getRow()].minDur).c_str());
+        myTLSPhases->getPhaseTable()->setItemText(tp->getRow(), colMinDur, varDurString(getPhases(tp->getRow()).minDur).c_str());
     } else if (tp->getCol() == colMaxDur) {
         // maxDur edited
         if (GNEAttributeCarrier::canParse<double>(value)) {
@@ -802,7 +796,7 @@ GNETLSEditorFrame::onCmdPhaseEdit(FXObject*, FXSelector, void* ptr) {
             return 1;
         }
         // input error, reset value
-        myTLSPhases->getPhaseTable()->setItemText(tp->getRow(), colMaxDur, varDurString(getPhases()[tp->getRow()].maxDur).c_str());
+        myTLSPhases->getPhaseTable()->setItemText(tp->getRow(), colMaxDur, varDurString(getPhases(tp->getRow()).maxDur).c_str());
     } else if (tp->getCol() == colEarliestEnd) {
         // earliestEnd edited
         if (GNEAttributeCarrier::canParse<double>(value)) {
@@ -818,7 +812,7 @@ GNETLSEditorFrame::onCmdPhaseEdit(FXObject*, FXSelector, void* ptr) {
             return 1;
         }
         // input error, reset value
-        myTLSPhases->getPhaseTable()->setItemText(tp->getRow(), colEarliestEnd, varDurString(getPhases()[tp->getRow()].earliestEnd).c_str());
+        myTLSPhases->getPhaseTable()->setItemText(tp->getRow(), colEarliestEnd, varDurString(getPhases(tp->getRow()).earliestEnd).c_str());
     } else if (tp->getCol() == colLatestEnd) {
         // latestEnd edited
         if (GNEAttributeCarrier::canParse<double>(value)) {
@@ -834,7 +828,7 @@ GNETLSEditorFrame::onCmdPhaseEdit(FXObject*, FXSelector, void* ptr) {
             return 1;
         }
         // input error, reset value
-        myTLSPhases->getPhaseTable()->setItemText(tp->getRow(), colLatestEnd, varDurString(getPhases()[tp->getRow()].latestEnd).c_str());
+        myTLSPhases->getPhaseTable()->setItemText(tp->getRow(), colLatestEnd, varDurString(getPhases(tp->getRow()).latestEnd).c_str());
     } else if (tp->getCol() == colName) {
         // name edited
         myEditedDef->getLogic()->setPhaseName(tp->getRow(), value);
@@ -854,7 +848,7 @@ GNETLSEditorFrame::onCmdPhaseEdit(FXObject*, FXSelector, void* ptr) {
             return 1;
         }
         // input error, reset value
-        myTLSPhases->getPhaseTable()->setItemText(tp->getRow(), colVehExt, varDurString(getPhases()[tp->getRow()].vehExt).c_str());
+        myTLSPhases->getPhaseTable()->setItemText(tp->getRow(), colVehExt, varDurString(getPhases(tp->getRow()).vehExt).c_str());
     } else if (tp->getCol() == colYellow) {
         // yellow edited
         if (GNEAttributeCarrier::canParse<double>(value)) {
@@ -870,7 +864,7 @@ GNETLSEditorFrame::onCmdPhaseEdit(FXObject*, FXSelector, void* ptr) {
             return 1;
         }
         // input error, reset value
-        myTLSPhases->getPhaseTable()->setItemText(tp->getRow(), colYellow, varDurString(getPhases()[tp->getRow()].yellow).c_str());
+        myTLSPhases->getPhaseTable()->setItemText(tp->getRow(), colYellow, varDurString(getPhases(tp->getRow()).yellow).c_str());
     } else if (tp->getCol() == colRed) {
         // red edited
         if (GNEAttributeCarrier::canParse<double>(value)) {
@@ -886,7 +880,7 @@ GNETLSEditorFrame::onCmdPhaseEdit(FXObject*, FXSelector, void* ptr) {
             return 1;
         }
         // input error, reset value
-        myTLSPhases->getPhaseTable()->setItemText(tp->getRow(), colRed, varDurString(getPhases()[tp->getRow()].red).c_str());
+        myTLSPhases->getPhaseTable()->setItemText(tp->getRow(), colRed, varDurString(getPhases(tp->getRow()).red).c_str());
     }
     return 1;
 }
@@ -1025,9 +1019,13 @@ GNETLSEditorFrame::varDurString(SUMOTime dur) {
 }
 
 
-const std::vector<NBTrafficLightLogic::PhaseDefinition>&
-GNETLSEditorFrame::getPhases() {
-    return myEditedDef->getLogic()->getPhases();
+const NBTrafficLightLogic::PhaseDefinition&
+GNETLSEditorFrame::getPhases(const int index) {
+    if ((index >= 0) || (index < myEditedDef->getLogic()->getPhases().size())) {
+        return myEditedDef->getLogic()->getPhases().at(index);
+    } else {
+        throw ProcessError("Invalid phase index");
+    }
 }
 
 
@@ -1035,8 +1033,7 @@ void
 GNETLSEditorFrame::handleChange(GNEInternalLane* lane) {
     myTLSModifications->setHaveModifications(true);
     if (myViewNet->changeAllPhases()) {
-        const std::vector<NBTrafficLightLogic::PhaseDefinition>& phases = getPhases();
-        for (int row = 0; row < (int)phases.size(); row++) {
+        for (int row = 0; row < (int)myEditedDef->getLogic()->getPhases().size(); row++) {
             myEditedDef->getLogic()->setPhaseState(row, lane->getTLIndex(), lane->getLinkState());
         }
     } else {
@@ -1474,8 +1471,8 @@ GNETLSEditorFrame::TLSPhases::hideCycleDuration() {
 void
 GNETLSEditorFrame::TLSPhases::updateCycleDuration() {
     SUMOTime cycleDuration = 0;
-    for (auto it : myTLSEditorParent->getPhases()) {
-        cycleDuration += it.duration;
+    for (const auto &phase : myTLSEditorParent->myEditedDef->getLogic()->getPhases()) {
+        cycleDuration += phase.duration;
     }
     std::string text = "Cycle time: " + getSteps2Time(cycleDuration);
     myCycleDuration->setText(text.c_str());
@@ -1491,7 +1488,7 @@ GNETLSEditorFrame::TLSPhases::initStaticPhaseTable(const int index) {
     const int colNext = 3;
     const int colName = 4;
     // get phases
-    const std::vector<NBTrafficLightLogic::PhaseDefinition>& phases = myTLSEditorParent->getPhases();
+    const auto& phases = myTLSEditorParent->myEditedDef->getLogic()->getPhases();
     // adjust table
     myPhaseTable->setTableSize("s-p--id", (int)phases.size());
     // fill rows
@@ -1527,7 +1524,7 @@ GNETLSEditorFrame::TLSPhases::initActuatedPhaseTable(const int index) {
     const int colNext = 7;
     const int colName = 8;
     // get phases
-    const std::vector<NBTrafficLightLogic::PhaseDefinition>& phases = myTLSEditorParent->getPhases();
+    const auto &phases = myTLSEditorParent->myEditedDef->getLogic()->getPhases();
     // adjust table
     myPhaseTable->setTableSize("s-p------id", (int)phases.size());
     // fill rows
@@ -1569,7 +1566,7 @@ GNETLSEditorFrame::TLSPhases::initDelayBasePhaseTable(const int index) {
     const int colNext = 5;
     const int colName = 6;
     // get phases
-    const std::vector<NBTrafficLightLogic::PhaseDefinition>& phases = myTLSEditorParent->getPhases();
+    const auto& phases = myTLSEditorParent->myEditedDef->getLogic()->getPhases();
     // adjust table
     myPhaseTable->setTableSize("s-p------id", (int)phases.size());
     // fill rows
@@ -1610,7 +1607,7 @@ GNETLSEditorFrame::TLSPhases::initNEMAPhaseTable(const int index) {
     const int colNext = 8;
     const int colName = 9;
     // get phases
-    const std::vector<NBTrafficLightLogic::PhaseDefinition>& phases = myTLSEditorParent->getPhases();
+    const auto& phases = myTLSEditorParent->myEditedDef->getLogic()->getPhases();
     // adjust table
     myPhaseTable->setTableSize("s--p------id", (int)phases.size());
     // fill rows

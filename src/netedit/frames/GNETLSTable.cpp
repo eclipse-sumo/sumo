@@ -169,7 +169,7 @@ GNETLSTable::onFocusRow(FXObject* sender, FXSelector, void*) {
         for (const auto &cellTextField : myRows.at(rowIndex)->getCells()) {
             if ((cellTextField->getTextField() == sender) && (myCurrentSelectedRow != rowIndex)) {
                 myCurrentSelectedRow = rowIndex;
-                myTLSPhasesParent->getTLSEditorParent()->handle(this, FXSEL(SEL_SELECTED, mySelector), nullptr);
+                myTLSPhasesParent->getTLSEditorParent()->switchPhase();
                 // set radio buttons checks
                 for (int rowIndex2 = 0; rowIndex2 < (int)myRows.size(); rowIndex2++) {
                     // iterate over every cell
@@ -198,12 +198,13 @@ GNETLSTable::onEditRow(FXObject* sender, FXSelector, void*) {
     for (int columnIndex = 0; columnIndex < (int)myColumns.size(); columnIndex++) {
         for (int rowIndex = 0; rowIndex < (int)myRows.size(); rowIndex++) {
             if (myRows.at(rowIndex)->getCells().at(columnIndex)->getTextField() == sender) {
-                // inform target
-                return myTLSPhasesParent->getTLSEditorParent()->handle(this, FXSEL(SEL_REPLACED, mySelector), myRows.at(rowIndex)->getCells().at(columnIndex));
+                // switch phase
+                myTLSPhasesParent->getTLSEditorParent()->switchPhase();
+                return 1;
             }
         }
     }
-    // nothing to inform
+    // nothing to do
     return 0;
 }
 
@@ -216,7 +217,7 @@ GNETLSTable::onRowSelected(FXObject* sender, FXSelector, void*) {
         for (const auto &cellTextField : myRows.at(rowIndex)->getCells()) {
             if ((cellTextField->getRadioButton() == sender) && (myCurrentSelectedRow != rowIndex)) {
                 myCurrentSelectedRow = rowIndex;
-                myTLSPhasesParent->getTLSEditorParent()->handle(this, FXSEL(SEL_SELECTED, mySelector), nullptr);
+                myTLSPhasesParent->getTLSEditorParent()->switchPhase();
                 // set radio buttons checks
                 for (int rowIndex2 = 0; rowIndex2 < (int)myRows.size(); rowIndex2++) {
                     // iterate over every cell

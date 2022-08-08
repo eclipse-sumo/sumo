@@ -350,6 +350,9 @@ public:
     /// @brief parse TLS Programs from a file
     bool parseTLSPrograms(const std::string& file);
 
+    /// @brief Called when the user switchs a Phase
+    void switchPhase();
+
     /// @name FOX-callbacks
     /// @{
     /// @brief Called when the user presses the OK-Button
@@ -392,9 +395,6 @@ public:
 
     /// @brief Called when the user adds a OFF
     long onCmdDefAddOff(FXObject*, FXSelector, void*);
-
-    /// @brief Called when the user switchs a Phase
-    long onCmdPhaseSwitch(FXObject*, FXSelector, void*);
 
     /// @brief Called when the user creates a Phase
     long onCmdPhaseCreate(FXObject*, FXSelector, void*);
@@ -509,8 +509,8 @@ private:
     /// @brief builds internal lanes for the given tlDef
     void buildInternalLanes(NBTrafficLightDefinition* tlDef);
 
-    /// @brief the phase of the current traffic light
-    const std::vector<NBTrafficLightLogic::PhaseDefinition>& getPhases();
+    /// @brief get certain phase of the current traffic light
+    const NBTrafficLightLogic::PhaseDefinition& getPhases(const int index);
 
     /// @brief convert duration (potentially undefined) to string
     static std::string varDurString(SUMOTime dur);
