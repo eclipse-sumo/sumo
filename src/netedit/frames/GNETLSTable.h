@@ -26,6 +26,8 @@
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/foxtools/fxheader.h>
+#include <netedit/frames/network/GNETLSEditorFrame.h>
+
 
 /**
  * @class GNETLSTable
@@ -85,7 +87,7 @@ public:
     };
 
     /// @brief constructor (Exactly like the FXButton constructor)
-    GNETLSTable(FXComposite* p, FXObject* tgt, FXSelector sel);
+    GNETLSTable(GNETLSEditorFrame::TLSPhases* TLSPhasesParent, FXSelector sel);
 
     /// @brief destructor (Called automatically)
     ~GNETLSTable();
@@ -226,11 +228,11 @@ protected:
         Row();
     };
 
+    /// @frame pointer to TLSEditorFrame phases parent
+    GNETLSEditorFrame::TLSPhases* myTLSPhasesParent = nullptr;
+
     /// @brief font for the phase table
     FXFont* myProgramFont = nullptr;
-
-    /// @brief target used in Rows
-    FXObject* myTarget = nullptr;
 
     /// @brief selector used in rows
     FXSelector mySelector = 0;

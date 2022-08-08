@@ -23,7 +23,6 @@
 #include <netedit/frames/GNEFrame.h>
 #include <netbuild/NBTrafficLightLogic.h>
 #include <netedit/frames/GNEOverlappedInspection.h>
-#include <netedit/frames/GNETLSTable.h>
 
 
 // ===========================================================================
@@ -33,6 +32,7 @@ class NBTrafficLightDefinition;
 class NBLoadedSUMOTLDef;
 class NBOwnTLDef;
 class GNEInternalLane;
+class GNETLSTable;
 
 // ===========================================================================
 // class definitions
@@ -191,6 +191,9 @@ public:
 
         /// @brief destructor
         ~TLSPhases();
+
+        /// @brief get TLSEditor Parent
+        GNETLSEditorFrame* getTLSEditorParent() const;
 
         /// @brief get phase table
         GNETLSTable* getPhaseTable() const;

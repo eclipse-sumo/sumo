@@ -31,6 +31,7 @@
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/xml/XMLSubSys.h>
+#include <netedit/frames/GNETLSTable.h>
 
 #include "GNETLSEditorFrame.h"
 
@@ -1392,7 +1393,7 @@ GNETLSEditorFrame::TLSPhases::TLSPhases(GNETLSEditorFrame* TLSEditorParent) :
     myTLSEditorParent(TLSEditorParent),
     myTableFont(new FXFont(getApp(), "Courier New", 9)) {
     // create GNETLSTable
-    myPhaseTable = new GNETLSTable(getCollapsableFrame(), myTLSEditorParent, MID_GNE_TLSFRAME_PHASE_TABLE);
+    myPhaseTable = new GNETLSTable(this, MID_GNE_TLSFRAME_PHASE_TABLE);
     // hide phase table
     myPhaseTable->hide();
     // create total duration info label
@@ -1419,6 +1420,12 @@ GNETLSEditorFrame::TLSPhases::TLSPhases(GNETLSEditorFrame* TLSEditorParent) :
 
 GNETLSEditorFrame::TLSPhases::~TLSPhases() {
     delete myTableFont;
+}
+
+
+GNETLSEditorFrame*
+GNETLSEditorFrame::TLSPhases::getTLSEditorParent() const {
+    return myTLSEditorParent;
 }
 
 

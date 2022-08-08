@@ -33,11 +33,11 @@
 // ===========================================================================
 
 FXDEFMAP(GNETLSTable) GNETLSTableMap[] = {
-    FXMAPFUNC(SEL_FOCUSIN,  MID_CHOOSEN_SELECT,     GNETLSTable::onFocusRow),
-    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_SELECT,     GNETLSTable::onEditRow),
-    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_ELEMENTS,   GNETLSTable::onRowSelected),
-    FXMAPFUNC(SEL_ENTER,    0,                      GNETLSTable::onEnter),
-    FXMAPFUNC(SEL_LEAVE,    0,                      GNETLSTable::onLeave),
+    FXMAPFUNC(SEL_FOCUSIN,  MID_GNE_TLSTABLE_TEXTFIELD,     GNETLSTable::onFocusRow),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TLSTABLE_TEXTFIELD,     GNETLSTable::onEditRow),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TLSTABLE_RADIOBUTTON,   GNETLSTable::onRowSelected),
+    FXMAPFUNC(SEL_ENTER,    0,                              GNETLSTable::onEnter),
+    FXMAPFUNC(SEL_LEAVE,    0,                              GNETLSTable::onLeave),
 };
 
 
@@ -118,10 +118,10 @@ GNETLSTable::TableCell::TableCell() :
 // GNETLSTable - methods
 // ---------------------------------------------------------------------------
 
-GNETLSTable::GNETLSTable(FXComposite* p, FXObject* tgt, FXSelector sel) :
-    FXHorizontalFrame(p, GUIDesignAuxiliarTLSTable),
+GNETLSTable::GNETLSTable(GNETLSEditorFrame::TLSPhases* TLSPhasesParent, FXSelector sel) :
+    FXHorizontalFrame(TLSPhasesParent->getCollapsableFrame(), GUIDesignAuxiliarTLSTable),
     myProgramFont(new FXFont(getApp(), "Courier New", 10)),
-    myTarget(tgt),
+    myTLSPhasesParent(TLSPhasesParent),
     mySelector(sel) {
     // set default width
     recalcTableWidth();
@@ -169,7 +169,7 @@ GNETLSTable::onFocusRow(FXObject* sender, FXSelector, void*) {
         for (const auto &cellTextField : myRows.at(rowIndex)->getCells()) {
             if ((cellTextField->getTextField() == sender) && (myCurrentSelectedRow != rowIndex)) {
                 myCurrentSelectedRow = rowIndex;
-                myTarget->handle(this, FXSEL(SEL_SELECTED, mySelector), nullptr);
+                myTLSPhasesParent->getTLSEditorParent()->handle(this, FXSEL(SEL_SELECTED, mySelector), nullptr);
                 // set radio buttons checks
                 for (int rowIndex2 = 0; rowIndex2 < (int)myRows.size(); rowIndex2++) {
                     // iterate over every cell
@@ -199,7 +199,7 @@ GNETLSTable::onEditRow(FXObject* sender, FXSelector, void*) {
         for (int rowIndex = 0; rowIndex < (int)myRows.size(); rowIndex++) {
             if (myRows.at(rowIndex)->getCells().at(columnIndex)->getTextField() == sender) {
                 // inform target
-                return myTarget->handle(this, FXSEL(SEL_REPLACED, mySelector), myRows.at(rowIndex)->getCells().at(columnIndex));
+                return myTLSPhasesParent->getTLSEditorParent()->handle(this, FXSEL(SEL_REPLACED, mySelector), myRows.at(rowIndex)->getCells().at(columnIndex));
             }
         }
     }
@@ -216,7 +216,7 @@ GNETLSTable::onRowSelected(FXObject* sender, FXSelector, void*) {
         for (const auto &cellTextField : myRows.at(rowIndex)->getCells()) {
             if ((cellTextField->getRadioButton() == sender) && (myCurrentSelectedRow != rowIndex)) {
                 myCurrentSelectedRow = rowIndex;
-                myTarget->handle(this, FXSEL(SEL_SELECTED, mySelector), nullptr);
+                myTLSPhasesParent->getTLSEditorParent()->handle(this, FXSEL(SEL_SELECTED, mySelector), nullptr);
                 // set radio buttons checks
                 for (int rowIndex2 = 0; rowIndex2 < (int)myRows.size(); rowIndex2++) {
                     // iterate over every cell
@@ -421,13 +421,13 @@ GNETLSTable::Row::Row(GNETLSTable* table) :
         switch (table->myColumns.at(columnIndex)->getType()) {
             case ('s'): {
                 // create radio button for selecting row
-                auto radioButton = new FXRadioButton(table->myColumns.at(columnIndex)->getVerticalFrame(), "", table, MID_CHOOSEN_ELEMENTS, GUIDesignRadioButtonTLSTable);
+                auto radioButton = new FXRadioButton(table->myColumns.at(columnIndex)->getVerticalFrame(), "", table, MID_GNE_TLSTABLE_RADIOBUTTON, GUIDesignRadioButtonTLSTable);
                 myCells.push_back(new TableCell(radioButton, columnIndex, numCells));
                 break;
             }
             case ('p'): {
                 // create text field for program (state)
-                auto textField = new FXTextField(table->myColumns.at(columnIndex)->getVerticalFrame(), GUIDesignTextFieldNCol, table, MID_CHOOSEN_SELECT, GUIDesignTextFieldTLSTable);
+                auto textField = new FXTextField(table->myColumns.at(columnIndex)->getVerticalFrame(), GUIDesignTextFieldNCol, table, MID_GNE_TLSTABLE_TEXTFIELD, GUIDesignTextFieldTLSTable);
                 // set special font
                 textField->setFont(myTable->myProgramFont);
                 myCells.push_back(new TableCell(textField, columnIndex, numCells));
@@ -435,19 +435,19 @@ GNETLSTable::Row::Row(GNETLSTable* table) :
             }
             case ('i'): {
                 // create button for insert phase
-                auto button = new FXButton(table->myColumns.at(columnIndex)->getVerticalFrame(), "", GUIIconSubSys::getIcon(GUIIcon::ADD), table, MID_CHOOSEN_SELECT, GUIDesignButtonIcon);
+                auto button = new FXButton(table->myColumns.at(columnIndex)->getVerticalFrame(), "", GUIIconSubSys::getIcon(GUIIcon::ADD), table, MID_GNE_TLSTABLE_ADDPHASE, GUIDesignButtonIcon);
                 myCells.push_back(new TableCell(button, columnIndex, numCells));
                 break;
             }
             case ('d'): {
                 // create button for delete phase
-                auto button = new FXButton(table->myColumns.at(columnIndex)->getVerticalFrame(), "", GUIIconSubSys::getIcon(GUIIcon::REMOVE), table, MID_CHOOSEN_SELECT, GUIDesignButtonIcon);
+                auto button = new FXButton(table->myColumns.at(columnIndex)->getVerticalFrame(), "", GUIIconSubSys::getIcon(GUIIcon::REMOVE), table, MID_GNE_TLSTABLE_REMOVEPHASE, GUIDesignButtonIcon);
                 myCells.push_back(new TableCell(button, columnIndex, numCells));
                 break;
             }
             case ('-'): {
                 // create text field
-                auto textField = new FXTextField(table->myColumns.at(columnIndex)->getVerticalFrame(), GUIDesignTextFieldNCol, table, MID_CHOOSEN_SELECT, GUIDesignTextFieldTLSTable);
+                auto textField = new FXTextField(table->myColumns.at(columnIndex)->getVerticalFrame(), GUIDesignTextFieldNCol, table, MID_GNE_TLSTABLE_TEXTFIELD, GUIDesignTextFieldTLSTable);
                 myCells.push_back(new TableCell(textField, columnIndex, numCells));
                 break;
             }
