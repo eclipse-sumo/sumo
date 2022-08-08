@@ -160,11 +160,15 @@ GNELoadThread::run() {
                 WRITE_ERROR(e.what());
             }
             WRITE_ERROR("Failed to build network.");
-            delete net;
+            // check if delete network
+            if (net != nullptr) {
+                delete net;
+                net = nullptr;
+            }
             delete netBuilder;
-            net = nullptr;
         } catch (std::exception& e) {
             WRITE_ERROR(e.what());
+            // check if delete network
             if (net != nullptr) {
                 delete net;
                 net = nullptr;
