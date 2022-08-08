@@ -6,9 +6,38 @@ title: ChangeLog
 
 ### Bugfixes
 
+- netedit
+  - Fixed missing coordinate indicator in status bar. Issue #11230 (regression in 1.14.0)
+  - Loading an additional file and saving modifications no longer prompts for a file name. Issue #11030
+
+- TraCI
+  - Simpla: fixed rash due to unclear speed factor semantics. Issue #11223
+
+- Tools
+  - tlsCoordinator.py: Now handles rail crossings. Issue #11250
+  - tlsCycleAdaptation.py: Now handles unsorted route files. Issue #11251
+  - plot_net_dump.py: Fixed invalid error message when closing figure window. Issue #11280
+
 ### Enhancements
 
+- netedit
+  - Saved detector names use descriptive tags instead of the 'E1,E2, ...' tags. Issue #11028
+  - Hovering over an attribute now displays it's full value in a tooltip if field is too narrow. Issue #11194
+  - Added button to inspect vTypes/vTypeDistributions during vehicle inspection. Issue #10041
+  - Added edge color legend in vehicle mode. Issue #10866
+  - Now using distinct default id-prefix for `flow`, `personFlow` and `containerFlow. Issue #11077
+  - Adding network-recomputation status in the lower right corner. Issue #4725
+
+- sumo-gui
+  - 3D view now permits clicking on more objects (lanse, junctions, traffic lights). Issue #10882
+
+- TraCI
+  - Simpla: Added now platooning criteria via new attributes 'edgeLookAhead', 'distLookAhead' and 'lcMinDist'. Issue #9252, #11236 (Thanks to Jörg Schweizer)
+  - Simpla: platooning distances are now time-headways instead of gap-in-meters by default. Configurable with new attributes 'maxPlatoonHeadway', 'catchupHeadway', 'useHeadway'.  Issue #11124
+
 ### Miscellaneous
+
+- Added xsd-schema for battery-export. Issue #11173
 
 ## Version 1.14.1 (19.07.2022)
 
