@@ -331,10 +331,20 @@ GNETLSTable::Column::Column(GNETLSTable* table, const int index, const char type
     // create vertical frame for cells
     myVerticalCellFrame = new FXVerticalFrame(myVerticalFrame, GUIDesignAuxiliarTLSTable);
     // create bot label
-    if ((myType == 's') || (myType == 'u') || (myType == 'p')) {
-        myBotLabel = new FXLabel(myVerticalFrame, "", nullptr, GUIDesignLabelTLSTable);
-    } else {
-        myBotLabel = new FXLabel(myVerticalFrame, "", nullptr, GUIDesignLabelTLSTableEmpty);
+    switch (myType) {
+        case 's':
+            // label with icon
+            myBotLabel = new FXLabel(myVerticalFrame, "", GUIIconSubSys::getIcon(GUIIcon::SUM), GUIDesignLabelTLSTable);
+            break;
+        case 'u':
+        case 'p':
+            // ticked label
+            myBotLabel = new FXLabel(myVerticalFrame, "", nullptr, GUIDesignLabelTLSTable);
+            break;
+        default:
+            // empty label
+            myBotLabel = new FXLabel(myVerticalFrame, "", nullptr, GUIDesignLabelTLSTableEmpty);
+            break;
     }
     // create elements
     myVerticalFrame->create();
@@ -436,8 +446,8 @@ GNETLSTable::Row::Row(GNETLSTable* table) :
                 break;
             }
             case ('u'): {
-                // create text field
-                auto textField = new FXTextField(table->myColumns.at(columnIndex)->getVerticalCellFrame(), GUIDesignTextFieldNCol, table, MID_GNE_TLSTABLE_TEXTFIELD, GUIDesignTextFieldTLSTable);
+                // create text field for duration
+                auto textField = new FXTextField(table->myColumns.at(columnIndex)->getVerticalCellFrame(), GUIDesignTextFieldNCol, table, MID_GNE_TLSTABLE_TEXTFIELD, GUIDesignTextFieldTLSTableReal);
                 myCells.push_back(new Cell(textField, columnIndex, numCells));
                 break;
             }
