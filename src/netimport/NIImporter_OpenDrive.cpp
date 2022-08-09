@@ -1644,7 +1644,7 @@ NIImporter_OpenDrive::revisitLaneSections(const NBTypeCont& tc, std::map<std::st
             // keep all lane sections for connecting roads because they are
             // needed to establish connectivity (laneSectionsConnected)
             if (simlarToLast && !e.isInner) {
-                WRITE_WARNING("Almost duplicate s-value '" + toString(lastS) + "' for lane sections occurred at edge '" + e.id + "'; second entry was removed.");
+                WRITE_WARNINGF("Almost duplicate s-value '%' for lane sections occurred at edge '%'; second entry was removed.",  toString(lastS), e.id);
                 j = laneSections.erase(j);
             } else {
                 ++j;
