@@ -1364,7 +1364,7 @@ GNETLSEditorFrame::TLSPhases::initActuatedPhaseTable(const int index) {
     myPhaseTable->setColumnLabelTop(colEarliestEnd, "ear.end");
     myPhaseTable->setColumnLabelTop(colLatestEnd, "lat.end");
     myPhaseTable->setColumnLabelTop(colState, "state");
-    myPhaseTable->setColumnLabelTop(colNext, "nxt");
+    myPhaseTable->setColumnLabelTop(colNext, "next");
     myPhaseTable->setColumnLabelTop(colName, "name");
     // set bot labels
     updateCycleDuration(colDuration);
@@ -1402,7 +1402,7 @@ GNETLSEditorFrame::TLSPhases::initDelayBasePhaseTable(const int index) {
     myPhaseTable->setColumnLabelTop(colMinDur, "min");
     myPhaseTable->setColumnLabelTop(colMaxDur, "max");
     myPhaseTable->setColumnLabelTop(colState, "state");
-    myPhaseTable->setColumnLabelTop(colNext, "nxt");
+    myPhaseTable->setColumnLabelTop(colNext, "next");
     myPhaseTable->setColumnLabelTop(colName, "name");
     // set bot labels
     updateCycleDuration(colDuration);
@@ -1446,10 +1446,10 @@ GNETLSEditorFrame::TLSPhases::initNEMAPhaseTable(const int index) {
     myPhaseTable->setColumnLabelTop(colMinDur, "min");
     myPhaseTable->setColumnLabelTop(colMaxDur, "max");
     myPhaseTable->setColumnLabelTop(colState, "state");
-    myPhaseTable->setColumnLabelTop(colVehExt, "v.ext");
-    myPhaseTable->setColumnLabelTop(colYellow, "yel");
+    myPhaseTable->setColumnLabelTop(colVehExt, "vehExt");
+    myPhaseTable->setColumnLabelTop(colYellow, "yellow");
     myPhaseTable->setColumnLabelTop(colRed, "red");
-    myPhaseTable->setColumnLabelTop(colNext, "nxt");
+    myPhaseTable->setColumnLabelTop(colNext, "next");
     myPhaseTable->setColumnLabelTop(colName, "name");
     // set bot labels
     updateCycleDuration(colDuration);
