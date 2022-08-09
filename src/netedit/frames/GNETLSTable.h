@@ -149,14 +149,17 @@ protected:
         /// @brief destructor
         ~Column();
 
-        /// @brief get vertical frame
-        FXVerticalFrame* getVerticalFrame() const;
+        /// @brief get vertical cell frame
+        FXVerticalFrame* getVerticalCellFrame() const;
 
         /// @brief get column type
         char getType() const;
 
-        /// @brief set column label
-        void setColumnLabel(const std::string& text);
+        /// @brief set column label top
+        void setColumnLabelTop(const std::string& text);
+
+        /// @brief set column label boit
+        void setColumnLabelBot(const std::string& text);
 
         /// @brief adjust column width
         int adjustColumnWidth();
@@ -168,8 +171,14 @@ protected:
         /// @brief vertical frame
         FXVerticalFrame* myVerticalFrame = nullptr;
 
-        /// @brief column label
-        FXLabel* myLabel = nullptr;
+        /// @brief column top label
+        FXLabel* myTopLabel = nullptr;
+
+        /// @brief vertical frame
+        FXVerticalFrame* myVerticalCellFrame = nullptr;
+
+        /// @brief column bot label
+        FXLabel* myBotLabel = nullptr;
 
         /// @brief column index
         const int myIndex;

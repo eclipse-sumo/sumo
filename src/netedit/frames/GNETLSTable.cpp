@@ -154,7 +154,7 @@ GNETLSTable::selectRow(const int row) {
 void
 GNETLSTable::setColumnText(const int column, const std::string& text) {
     if ((column >= 0) && (column < (int)myColumns.size())) {
-        myColumns.at(column)->setColumnLabel(text);
+        myColumns.at(column)->setColumnLabelTop(text);
     } else {
         throw ProcessError("Invalid column");
     }
@@ -326,26 +326,29 @@ GNETLSTable::Column::Column(GNETLSTable* table, const int index, const char type
     myType(type) {
     // create vertical frame
     myVerticalFrame = new FXVerticalFrame(table, GUIDesignAuxiliarTLSTable);
-    // create label
-    myLabel = new FXLabel(myVerticalFrame, "", nullptr, GUIDesignLabelTLSTable);
-    // create both
+    // create top label
+    myTopLabel = new FXLabel(myVerticalFrame, "", nullptr, GUIDesignLabelTLSTable);
+    // create vertical frame for cells
+    myVerticalCellFrame = new FXVerticalFrame(myVerticalFrame, GUIDesignAuxiliarTLSTable);
+    // create bot label
+    myBotLabel = new FXLabel(myVerticalFrame, "", nullptr, GUIDesignLabelTLSTable);
+    // create elements
     myVerticalFrame->create();
-    myLabel->create();
+    myTopLabel->create();
+    myVerticalCellFrame->create();
+    myBotLabel->create();
 }
 
 
 GNETLSTable::Column::~Column() {
-    // destroy frame and label
-    myVerticalFrame->destroy();
-    myLabel->destroy();
-    // delete vertical frame (this also delete Label and Row textFields)
+    // delete vertical frame (this also delete all childrens)
     delete myVerticalFrame;
 }
 
 
 FXVerticalFrame*
-GNETLSTable::Column::getVerticalFrame() const {
-    return myVerticalFrame;
+GNETLSTable::Column::getVerticalCellFrame() const {
+    return myVerticalCellFrame;
 }
 
 
@@ -356,8 +359,14 @@ GNETLSTable::Column::getType() const {
 
 
 void
-GNETLSTable::Column::setColumnLabel(const std::string& text) {
-    myLabel->setText(text.c_str());
+GNETLSTable::Column::setColumnLabelTop(const std::string& text) {
+    myTopLabel->setText(text.c_str());
+}
+
+
+void
+GNETLSTable::Column::setColumnLabelBot(const std::string& text) {
+    myBotLabel->setText(text.c_str());
 }
 
 
@@ -367,8 +376,8 @@ GNETLSTable::Column::adjustColumnWidth() {
     int columnWidth = GUIDesignHeight;
     // only adjust for textFields
     if ((myType == 'p') || (myType == '-')) {
-        // calculate columnWidth using label
-        columnWidth = myLabel->getFont()->getTextWidth(myLabel->getText().text(), myLabel->getText().length() + EXTRAMARGING);
+        // calculate columnWidth using top label
+        columnWidth = myTopLabel->getFont()->getTextWidth(myTopLabel->getText().text(), myTopLabel->getText().length() + EXTRAMARGING);
         // iterate over all textFields and check widths
         for (const auto& row : myTable->myRows) {
             // get text field
@@ -380,14 +389,21 @@ GNETLSTable::Column::adjustColumnWidth() {
                 columnWidth = textFieldWidth;
             }
         }
+        // calculate also bot label
+        const auto botLabelWidth = myBotLabel->getFont()->getTextWidth(myBotLabel->getText().text(), myBotLabel->getText().length() + EXTRAMARGING);
+        if (botLabelWidth > columnWidth) {
+            columnWidth = botLabelWidth;
+        }
         // adjust textFields width
         for (const auto& row : myTable->myRows) {
             row->getCells().at(myIndex)->getTextField()->setWidth(columnWidth);
         }
     }
     // adjust label and vertical frame
-    myLabel->setWidth(columnWidth);
     myVerticalFrame->setWidth(columnWidth);
+    myTopLabel->setWidth(columnWidth);
+    myVerticalCellFrame->setWidth(columnWidth);
+    myBotLabel->setWidth(columnWidth);
     // use columnWidth to set table size
     return columnWidth;
 }
@@ -411,13 +427,13 @@ GNETLSTable::Row::Row(GNETLSTable* table) :
         switch (table->myColumns.at(columnIndex)->getType()) {
             case ('s'): {
                 // create radio button for selecting row
-                auto radioButton = new FXRadioButton(table->myColumns.at(columnIndex)->getVerticalFrame(), "", table, MID_GNE_TLSTABLE_RADIOBUTTON, GUIDesignRadioButtonTLSTable);
+                auto radioButton = new FXRadioButton(table->myColumns.at(columnIndex)->getVerticalCellFrame(), "", table, MID_GNE_TLSTABLE_RADIOBUTTON, GUIDesignRadioButtonTLSTable);
                 myCells.push_back(new Cell(radioButton, columnIndex, numCells));
                 break;
             }
             case ('p'): {
                 // create text field for program (state)
-                auto textField = new FXTextField(table->myColumns.at(columnIndex)->getVerticalFrame(), GUIDesignTextFieldNCol, table, MID_GNE_TLSTABLE_TEXTFIELD, GUIDesignTextFieldTLSTable);
+                auto textField = new FXTextField(table->myColumns.at(columnIndex)->getVerticalCellFrame(), GUIDesignTextFieldNCol, table, MID_GNE_TLSTABLE_TEXTFIELD, GUIDesignTextFieldTLSTable);
                 // set special font
                 textField->setFont(myTable->myProgramFont);
                 myCells.push_back(new Cell(textField, columnIndex, numCells));
@@ -425,19 +441,19 @@ GNETLSTable::Row::Row(GNETLSTable* table) :
             }
             case ('i'): {
                 // create button for insert phase
-                auto button = new FXButton(table->myColumns.at(columnIndex)->getVerticalFrame(), "", GUIIconSubSys::getIcon(GUIIcon::ADD), table, MID_GNE_TLSTABLE_ADDPHASE, GUIDesignButtonIcon);
+                auto button = new FXButton(table->myColumns.at(columnIndex)->getVerticalCellFrame(), "", GUIIconSubSys::getIcon(GUIIcon::ADD), table, MID_GNE_TLSTABLE_ADDPHASE, GUIDesignButtonIcon);
                 myCells.push_back(new Cell(button, columnIndex, numCells));
                 break;
             }
             case ('d'): {
                 // create button for delete phase
-                auto button = new FXButton(table->myColumns.at(columnIndex)->getVerticalFrame(), "", GUIIconSubSys::getIcon(GUIIcon::REMOVE), table, MID_GNE_TLSTABLE_REMOVEPHASE, GUIDesignButtonIcon);
+                auto button = new FXButton(table->myColumns.at(columnIndex)->getVerticalCellFrame(), "", GUIIconSubSys::getIcon(GUIIcon::REMOVE), table, MID_GNE_TLSTABLE_REMOVEPHASE, GUIDesignButtonIcon);
                 myCells.push_back(new Cell(button, columnIndex, numCells));
                 break;
             }
             case ('-'): {
                 // create text field
-                auto textField = new FXTextField(table->myColumns.at(columnIndex)->getVerticalFrame(), GUIDesignTextFieldNCol, table, MID_GNE_TLSTABLE_TEXTFIELD, GUIDesignTextFieldTLSTable);
+                auto textField = new FXTextField(table->myColumns.at(columnIndex)->getVerticalCellFrame(), GUIDesignTextFieldNCol, table, MID_GNE_TLSTABLE_TEXTFIELD, GUIDesignTextFieldTLSTable);
                 myCells.push_back(new Cell(textField, columnIndex, numCells));
                 break;
             }
