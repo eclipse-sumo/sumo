@@ -563,6 +563,7 @@ enum class GUIIcon {
     RESET,
     WARNING,
     DANGER,
+    SUM,
     /// @}
 
     /// @name icons for grid
