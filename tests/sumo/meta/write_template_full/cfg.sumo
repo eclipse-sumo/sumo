@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-07-11 15:35:27 by Eclipse SUMO sumo Version v1_13_0+1506-f0fbece2894
+<!-- generated on 2022-08-09 18:45:55 by Eclipse SUMO sumo Version v1_14_1+0170-157f455
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -94,6 +94,8 @@
         <stop-output.write-unfinished value="false" type="BOOL" help="Write stop output for stops which have not ended at simulation end"/>
         <collision-output value="" type="FILE" help="Write collision information into FILE"/>
         <statistic-output value="" synonymes="statistics-output" type="FILE" help="Write overall statistics into FILE"/>
+        <movereminder-output value="" type="FILE" help="Save movereminder states of selected vehicles into FILE"/>
+        <movereminder-output.vehicles value="" type="STR[]" help="List of vehicle ids which shall save their movereminder states"/>
         <save-state.times value="" type="STR[]" help="Use TIME[] as times at which a network state written"/>
         <save-state.period value="-1" type="TIME" help="save state repeatedly after TIME period"/>
         <save-state.period.keep value="0" type="INT" help="Keep only the last INT periodic state files"/>
@@ -433,14 +435,13 @@
         <start value="false" synonymes="S" type="BOOL" help="Start the simulation after loading"/>
         <delay value="0" synonymes="d" type="FLOAT" help="Use FLOAT in ms as delay between simulation steps"/>
         <breakpoints value="" synonymes="B" type="STR[]" help="Use TIME[] as times when the simulation should halt"/>
-        <edgedata-files value="" type="FILE" help="Load edge/lane weights for visualization from FILE"/>
+        <edgedata-files value="" synonymes="data-files" type="FILE" help="Load edge/lane weights for visualization from FILE"/>
         <demo value="false" synonymes="D" type="BOOL" help="Restart the simulation after ending (demo mode)"/>
         <disable-textures value="false" synonymes="T" type="BOOL" help="Do not load background pictures"/>
         <registry-viewport value="false" type="BOOL" help="Load current viewport from registry"/>
         <window-size value="" type="STR[]" help="Create initial window with the given x,y size"/>
         <window-pos value="" type="STR[]" help="Create initial window at the given x,y position"/>
         <tracker-interval value="1" type="TIME" help="The aggregation period for value tracker windows"/>
-        <osg-view value="false" type="BOOL" help="Start with an OpenSceneGraph view instead of the regular 2D view"/>
         <gui-testing value="false" type="BOOL" help="Enable overlay for screen recognition"/>
         <gui-testing-debug value="false" type="BOOL" help="Enable output messages during GUI-Testing"/>
         <gui-testing.setting-output value="" type="FILE" help="Save gui settings in the given settings output file"/>

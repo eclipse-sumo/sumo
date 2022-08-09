@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-07-11 15:35:27 by Eclipse SUMO sumo Version v1_13_0+1506-f0fbece2894
+<!-- generated on 2022-08-09 18:45:55 by Eclipse SUMO sumo Version v1_14_1+0170-157f455
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -257,6 +257,12 @@
 
         <!-- Write overall statistics into FILE -->
         <statistic-output value="" synonymes="statistics-output" type="FILE"/>
+
+        <!-- Save movereminder states of selected vehicles into FILE -->
+        <movereminder-output value="" type="FILE"/>
+
+        <!-- List of vehicle ids which shall save their movereminder states -->
+        <movereminder-output.vehicles value="" type="STR[]"/>
 
         <!-- Use TIME[] as times at which a network state written -->
         <save-state.times value="" type="STR[]"/>
@@ -1138,7 +1144,7 @@
         <breakpoints value="" synonymes="B" type="STR[]"/>
 
         <!-- Load edge/lane weights for visualization from FILE -->
-        <edgedata-files value="" type="FILE"/>
+        <edgedata-files value="" synonymes="data-files" type="FILE"/>
 
         <!-- Restart the simulation after ending (demo mode) -->
         <demo value="false" synonymes="D" type="BOOL"/>
@@ -1157,9 +1163,6 @@
 
         <!-- The aggregation period for value tracker windows -->
         <tracker-interval value="1" type="TIME"/>
-
-        <!-- Start with an OpenSceneGraph view instead of the regular 2D view -->
-        <osg-view value="false" type="BOOL"/>
 
         <!-- Enable overlay for screen recognition -->
         <gui-testing value="false" type="BOOL"/>
