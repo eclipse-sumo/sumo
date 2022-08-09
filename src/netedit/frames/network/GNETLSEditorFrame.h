@@ -231,6 +231,39 @@ public:
         /// @brief init NEMA phase table
         void initNEMAPhaseTable(const int index);
 
+        /// @brief set duration
+        bool setDuration(const int col, const int row, const std::string &value);
+
+        /// @brief set state
+        bool setState(const int col, const int row, const std::string &value);
+
+        /// @brief set next
+        bool setNext(const int col, const int row, const std::string &value);
+
+        /// @brief set name
+        bool setName(const int col, const int row, const std::string &value);
+
+        /// @brief set minDur
+        bool setMinDur(const int col, const int row, const std::string &value);
+
+        /// @brief set maxDur
+        bool setMaxDur(const int col, const int row, const std::string &value);
+
+        /// @brief set earliestEnd
+        bool setEarliestEnd(const int col, const int row, const std::string &value);
+
+        /// @brief set latestEnd
+        bool setLatestEnd(const int col, const int row, const std::string &value);
+
+        /// @brief set vehExt
+        bool setVehExt(const int col, const int row, const std::string &value);
+
+        /// @brief set yellow
+        bool setYellow(const int col, const int row, const std::string &value);
+
+        /// @brief set red
+        bool setRed(const int col, const int row, const std::string &value);
+
     private:
         /// @brief pointer to TLSEditor Parent
         GNETLSEditorFrame* myTLSEditorParent;
