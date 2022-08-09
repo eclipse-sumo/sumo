@@ -86,10 +86,6 @@ MSFrame::fillOptions() {
     oc.addSynonyme("additional-files", "additional");
     oc.addDescription("additional-files", "Input", "Load further descriptions from FILE(s)");
 
-    oc.doRegister("data-files", new Option_FileName());
-    oc.addSynonyme("data-files", "data");
-    oc.addDescription("data-files", "Input", "Load data descriptions from FILE(s)");
-
     oc.doRegister("weight-files", 'w', new Option_FileName());
     oc.addSynonyme("weight-files", "weights");
     oc.addDescription("weight-files", "Input", "Load edge/lane weights for online rerouting from FILE");
@@ -687,6 +683,7 @@ MSFrame::fillOptions() {
     oc.addDescription("breakpoints", "GUI Only", "Use TIME[] as times when the simulation should halt");
 
     oc.doRegister("edgedata-files", new Option_FileName());
+    oc.addSynonyme("edgedata-files", "data-files");
     oc.addDescription("edgedata-files", "GUI Only", "Load edge/lane weights for visualization from FILE");
 
     oc.doRegister("demo", 'D', new Option_Bool(false));
