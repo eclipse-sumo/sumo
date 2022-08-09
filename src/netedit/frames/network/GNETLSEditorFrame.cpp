@@ -766,7 +766,7 @@ GNETLSEditorFrame::buildInternalLanes(NBTrafficLightDefinition* tlDef) {
 
 std::string
 GNETLSEditorFrame::varDurString(SUMOTime dur) {
-    return dur == NBTrafficLightDefinition::UNSPECIFIED_DURATION ? "   " : getSteps2Time(dur);
+    return (dur == NBTrafficLightDefinition::UNSPECIFIED_DURATION)? "" : getSteps2Time(dur);
 }
 
 
@@ -1206,17 +1206,6 @@ GNETLSEditorFrame::TLSPhases::initPhaseTable(int index) {
 
 
 void
-GNETLSEditorFrame::TLSPhases::updateCycleDuration(const int col) {
-    SUMOTime cycleDuration = 0;
-    for (const auto &phase : myTLSEditorParent->myEditedDef->getLogic()->getPhases()) {
-        cycleDuration += phase.duration;
-    }
-    // update bot label
-    myPhaseTable->setColumnLabelBot(col, getSteps2Time(cycleDuration));
-}
-
-
-void
 GNETLSEditorFrame::TLSPhases::switchPhase() {
     // get current selected phase in phaseTable
     const auto row = myPhaseTable->getCurrentSelectedRow();
@@ -1333,11 +1322,12 @@ GNETLSEditorFrame::TLSPhases::initStaticPhaseTable(const int index) {
     myPhaseTable->setColumnLabelTop(colState, "state");
     myPhaseTable->setColumnLabelTop(colNext, "next");
     myPhaseTable->setColumnLabelTop(colName, "name");
+    // set bot labels
+    updateCycleDuration(colDuration);
+    updateStateSize(colState);
     // set rows
     myPhaseTable->selectRow(index);
     myPhaseTable->setFocus();
-    // update cycle duration
-    updateCycleDuration(colDuration);
 }
 
 
@@ -1355,7 +1345,7 @@ GNETLSEditorFrame::TLSPhases::initActuatedPhaseTable(const int index) {
     // get phases
     const auto &phases = myTLSEditorParent->myEditedDef->getLogic()->getPhases();
     // adjust table
-    myPhaseTable->setTableSize("sup------id", (int)phases.size());
+    myPhaseTable->setTableSize("suffpff--id", (int)phases.size());
     // fill rows
     for (int row = 0; row < (int)phases.size(); row++) {
         myPhaseTable->setItemText(row, colDuration, getSteps2Time(phases.at(row).duration).c_str());
@@ -1376,11 +1366,12 @@ GNETLSEditorFrame::TLSPhases::initActuatedPhaseTable(const int index) {
     myPhaseTable->setColumnLabelTop(colState, "state");
     myPhaseTable->setColumnLabelTop(colNext, "nxt");
     myPhaseTable->setColumnLabelTop(colName, "name");
+    // set bot labels
+    updateCycleDuration(colDuration);
+    updateStateSize(colState);
     // set rows
     myPhaseTable->selectRow(index);
     myPhaseTable->setFocus();
-    // update cycle duration
-    updateCycleDuration(colDuration);
 }
 
 
@@ -1396,7 +1387,7 @@ GNETLSEditorFrame::TLSPhases::initDelayBasePhaseTable(const int index) {
     // get phases
     const auto &phases = myTLSEditorParent->myEditedDef->getLogic()->getPhases();
     // adjust table
-    myPhaseTable->setTableSize("sup------id", (int)phases.size());
+    myPhaseTable->setTableSize("suffp--id", (int)phases.size());
     // fill rows
     for (int row = 0; row < (int)phases.size(); row++) {
         myPhaseTable->setItemText(row, colDuration, getSteps2Time(phases.at(row).duration).c_str());
@@ -1413,11 +1404,12 @@ GNETLSEditorFrame::TLSPhases::initDelayBasePhaseTable(const int index) {
     myPhaseTable->setColumnLabelTop(colState, "state");
     myPhaseTable->setColumnLabelTop(colNext, "nxt");
     myPhaseTable->setColumnLabelTop(colName, "name");
+    // set bot labels
+    updateCycleDuration(colDuration);
+    updateStateSize(colState);
     // set rows
     myPhaseTable->selectRow(index);
     myPhaseTable->setFocus();
-    // update cycle duration
-    updateCycleDuration(colDuration);
 }
 
 
@@ -1436,7 +1428,7 @@ GNETLSEditorFrame::TLSPhases::initNEMAPhaseTable(const int index) {
     // get phases
     const auto &phases = myTLSEditorParent->myEditedDef->getLogic()->getPhases();
     // adjust table
-    myPhaseTable->setTableSize("su-p------id", (int)phases.size());
+    myPhaseTable->setTableSize("suffpff---id", (int)phases.size());
     // fill rows
     for (int row = 0; row < (int)phases.size(); row++) {
         myPhaseTable->setItemText(row, colDuration, getSteps2Time(phases.at(row).duration).c_str());
@@ -1459,11 +1451,12 @@ GNETLSEditorFrame::TLSPhases::initNEMAPhaseTable(const int index) {
     myPhaseTable->setColumnLabelTop(colRed, "red");
     myPhaseTable->setColumnLabelTop(colNext, "nxt");
     myPhaseTable->setColumnLabelTop(colName, "name");
+    // set bot labels
+    updateCycleDuration(colDuration);
+    updateStateSize(colState);
     // set rows
     myPhaseTable->selectRow(index);
     myPhaseTable->setFocus();
-    // update cycle duration
-    updateCycleDuration(colDuration);
 }
 
 
@@ -1476,12 +1469,15 @@ GNETLSEditorFrame::TLSPhases::setDuration(const int col, const int row, const st
         return true;
     } else if (GNEAttributeCarrier::canParse<double>(value)) {
         const auto duration = getSUMOTime(value);
+        // check that duration > 0
         if (duration > 0) {
             myTLSEditorParent->myEditedDef->getLogic()->setPhaseDuration(row, duration);
             myTLSEditorParent->myTLSModifications->setHaveModifications(true);
             // update Cycle duration
             updateCycleDuration(col);
             return true;
+        } else {
+            return false;
         }
     } else {
         return false;
@@ -1518,6 +1514,8 @@ GNETLSEditorFrame::TLSPhases::setState(const int col, const int row, const std::
         // input empty, reset
         getPhaseTable()->setItemText(row, col, newState);
     }
+    // update state size
+    updateStateSize(col);
     return true;
 }
 
@@ -1533,8 +1531,8 @@ GNETLSEditorFrame::TLSPhases::setNext(const int col, const int row, const std::s
         // check next
         if (GNEAttributeCarrier::canParse<std::vector<int> >(value)) {
             const auto nextEdited = GNEAttributeCarrier::parse<std::vector<int> >(value);
-            for (const auto next : nextEdited) {
-                if ((next < 0) || (next >= myPhaseTable->getNumRows())) {
+            for (const auto nextPhase : nextEdited) {
+                if ((nextPhase < 0) || (nextPhase >= myPhaseTable->getNumRows())) {
                     return false;
                 }
             }
@@ -1550,8 +1548,8 @@ GNETLSEditorFrame::TLSPhases::setNext(const int col, const int row, const std::s
 
 
 bool
-GNETLSEditorFrame::TLSPhases::setName(const int col, const int row, const std::string &value) {
-    // update name
+GNETLSEditorFrame::TLSPhases::setName(const int /*col*/, const int row, const std::string &value) {
+    // update name (currently no check needed)
     myTLSEditorParent->myEditedDef->getLogic()->setPhaseName(row, value);
     myTLSEditorParent->myTLSModifications->setHaveModifications(true);
     return true;
@@ -1744,6 +1742,24 @@ GNETLSEditorFrame::TLSPhases::setRed(const int col, const int row, const std::st
     } else {
         return false;
     }
+}
+
+
+void
+GNETLSEditorFrame::TLSPhases::updateCycleDuration(const int col) {
+    SUMOTime cycleDuration = 0;
+    for (const auto &phase : myTLSEditorParent->myEditedDef->getLogic()->getPhases()) {
+        cycleDuration += phase.duration;
+    }
+    // update bot label
+    myPhaseTable->setColumnLabelBot(col, getSteps2Time(cycleDuration));
+}
+
+
+void 
+GNETLSEditorFrame::TLSPhases::updateStateSize(const int col) {
+    // update bot label
+    myPhaseTable->setColumnLabelBot(col, "Links: " + toString(myTLSEditorParent->myEditedDef->getLogic()->getNumLinks()));
 }
 
 // ---------------------------------------------------------------------------

@@ -160,6 +160,7 @@ GNETLSTable::setColumnLabelTop(const int column, const std::string& text) {
     }
 }
 
+
 void
 GNETLSTable::setColumnLabelBot(const int column, const std::string& text) {
     if ((column >= 0) && (column < (int)myColumns.size())) {
@@ -398,7 +399,7 @@ GNETLSTable::Column::adjustColumnWidth() {
     // declare columnWidth (by default is a square) 
     int columnWidth = GUIDesignHeight;
     // only adjust for textFields
-    if ((myType == 'u') || (myType == 'p') || (myType == '-')) {
+    if ((myType == 'u') || (myType == 'f') || (myType == 'p') || (myType == '-')) {
         // calculate columnWidth using top label
         columnWidth = myTopLabel->getFont()->getTextWidth(myTopLabel->getText().text(), myTopLabel->getText().length() + EXTRAMARGING);
         // iterate over all textFields and check widths
@@ -454,8 +455,9 @@ GNETLSTable::Row::Row(GNETLSTable* table) :
                 myCells.push_back(new Cell(radioButton, columnIndex, numCells));
                 break;
             }
-            case ('u'): {
-                // create text field for duration
+            case ('u'): 
+            case ('f'): {
+                // create text field for duration or float values
                 auto textField = new FXTextField(table->myColumns.at(columnIndex)->getVerticalCellFrame(), GUIDesignTextFieldNCol, table, MID_GNE_TLSTABLE_TEXTFIELD, GUIDesignTextFieldTLSTableReal);
                 myCells.push_back(new Cell(textField, columnIndex, numCells));
                 break;

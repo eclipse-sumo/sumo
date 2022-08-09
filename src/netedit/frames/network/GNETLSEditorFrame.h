@@ -203,9 +203,6 @@ public:
          */
         void initPhaseTable(int index = 0);
 
-        /// @brief recomputes cycle duration and updates label
-        void updateCycleDuration(const int col);
-
         /// @brief switch phase in table
         void switchPhase();
 
@@ -257,6 +254,12 @@ public:
 
         /// @brief set red
         bool setRed(const int col, const int row, const std::string &value);
+
+        /// @brief recomputes cycle duration and updates label
+        void updateCycleDuration(const int col);
+
+        /// @brief update state size
+        void updateStateSize(const int col);
 
     private:
         /// @brief pointer to TLSEditor Parent

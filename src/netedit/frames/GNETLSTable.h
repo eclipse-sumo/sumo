@@ -74,7 +74,8 @@ public:
 
     /**@brief Set the table size to nr rows and nc columns; all existing items will be removed. Format:
      * s -> select row (radio button)
-     * u -> duration (textField)
+     * u -> duration (float, textField)
+     * f -> float (float, textField)
      * p -> program (rrGggy...)
      * i -> insert phase (button)
      * d -> delete phase (button)
