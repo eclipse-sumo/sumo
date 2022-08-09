@@ -13,8 +13,9 @@ WARNING: vTypeMap must specify original type. Ignoring malformed vTypeMap elemen
 WARNING: Verbosity must be one of [0, 1, 2, 3, 4]! Ignoring given value: 200 (Config)
 WARNING: Encountered unknown configuration parameter 'UnknownConfigParam'! (Config)
 .....WARNING: No typeSubstring given. Managing all vehicles. (PlatoonManager)
+.WARNING: No typeSubstring given. Managing all vehicles. (PlatoonManager)
 ..
 ----------------------------------------------------------------------
-Ran 7 tests in 7.181s
+Ran 8 tests in 4.921s
 
 OK
