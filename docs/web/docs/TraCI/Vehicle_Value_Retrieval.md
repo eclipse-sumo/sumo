@@ -744,3 +744,20 @@ call](../TraCI/GenericParameters.md#get_parameter).
   [parameters supported by the
   laneChangeModel](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#lane-changing_models)
   of the vehicle. i.e. *lcStrategic*)
+
+### Supported carFollowModel Parameters
+
+Some carFollowModels permit access to further vehicle-specific parameters.
+
+- carFollowModel.caccCommunicationsOverride (only CACC)
+
+### Supported further Parameters
+
+- parking.rerouteCount: number of times vehicle rerouted to another parkingArea during the current search
+- parking.memory.IDList:  all parkingAreas considered so far
+- parking.memory.score:  latest scores for the list of considered parkingAreas (smaller is better)
+- parking.memory.blockedAtTime: times for the list of considered parkingAreas indicating the last time the area was found to be blocked (possibly via remote information)
+- parking.memory.blockedAtTimeLocal: times for the list of considered parkingAreas indicating the last time the area was found to be blocked (upon physically visiting that area)
+
+
+
