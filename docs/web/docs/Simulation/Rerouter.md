@@ -362,6 +362,10 @@ where
 then the new route will also end at the new parkingArea and the endPos
 of the new parkingArea will be set as new arrivalPos.
 
+### TraCI access to parkingSearch
+
+The current state of the parkingSearch can be accessed via calls to `traci.vehicle.getParameter` with the list permitted parameters given at [TraCI/Vehicle_Value_Retrieval](TraCI/Vehicle_Value_Retrieval.md#supported_further_parameters)
+
 # Vehicle Behavior when closing a street
 The interaction of vehicles with reroutes is complex and depends on many
 different factors. Below we give a description of each of the factors and then
