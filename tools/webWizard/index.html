@@ -34,11 +34,11 @@
 
                     <div class="options open">
                       <p>
-                        <input id="address" value="Berlin" size="20"/>
+                        <input id="address" value="Berlin" size="18"/>
                         <input id="buttonSearch" type="button" value="Search"/> </br>
                       </p>
                       <p>
-                        <input id="lat_lon" value="52.52 13.4" size="20"/>
+                        <input id="lat_lon" value="52.52 13.4" size="18"/>
                         <input id="buttonLatLon" type="button" value="Go to"/> </br>
                       </p>
                       <p>
@@ -56,9 +56,9 @@
                 <div class="container" style="margin-top: 20px;">
                     <h4>Options</h4>
 
-                    <div class="options open">
+                    <div class="options open" id="general-options">
+                        <label>Duration <input id="duration" type="number" value="3600" min="0" step="1" style="float: none;" /></label>
                         <label>Add Polygons <input id="polygons" type="checkbox" checked /></label>
-                        <label>Duration <input id="duration" type="number" value="3600" min="0" step="1" /></label>
                         <label>Import Public Transport <input id="publicTransport" type="checkbox" /></label>
                         <label>Car-only Network <input id="carOnlyNetwork" type="checkbox" /></label>
                         <label>Satellite background <input id="decal" type="checkbox" /></label>
