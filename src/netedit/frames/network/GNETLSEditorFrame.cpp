@@ -1341,7 +1341,7 @@ GNETLSEditorFrame::TLSPhases::initStaticPhaseTable(const int index) {
     // get phases
     const auto &phases = myTLSEditorParent->myEditedDef->getLogic()->getPhases();
     // adjust table
-    myPhaseTable->setTableSize("s-p--id", (int)phases.size());
+    myPhaseTable->setTableSize("sup--id", (int)phases.size());
     // fill rows
     for (int row = 0; row < (int)phases.size(); row++) {
         myPhaseTable->setItemText(row, colDuration, getSteps2Time(phases.at(row).duration).c_str());
@@ -1374,7 +1374,7 @@ GNETLSEditorFrame::TLSPhases::initActuatedPhaseTable(const int index) {
     // get phases
     const auto &phases = myTLSEditorParent->myEditedDef->getLogic()->getPhases();
     // adjust table
-    myPhaseTable->setTableSize("s-p------id", (int)phases.size());
+    myPhaseTable->setTableSize("sup------id", (int)phases.size());
     // fill rows
     for (int row = 0; row < (int)phases.size(); row++) {
         myPhaseTable->setItemText(row, colDuration, getSteps2Time(phases.at(row).duration).c_str());
@@ -1413,7 +1413,7 @@ GNETLSEditorFrame::TLSPhases::initDelayBasePhaseTable(const int index) {
     // get phases
     const auto &phases = myTLSEditorParent->myEditedDef->getLogic()->getPhases();
     // adjust table
-    myPhaseTable->setTableSize("s-p------id", (int)phases.size());
+    myPhaseTable->setTableSize("sup------id", (int)phases.size());
     // fill rows
     for (int row = 0; row < (int)phases.size(); row++) {
         myPhaseTable->setItemText(row, colDuration, getSteps2Time(phases.at(row).duration).c_str());
@@ -1451,7 +1451,7 @@ GNETLSEditorFrame::TLSPhases::initNEMAPhaseTable(const int index) {
     // get phases
     const auto &phases = myTLSEditorParent->myEditedDef->getLogic()->getPhases();
     // adjust table
-    myPhaseTable->setTableSize("s--p------id", (int)phases.size());
+    myPhaseTable->setTableSize("su-p------id", (int)phases.size());
     // fill rows
     for (int row = 0; row < (int)phases.size(); row++) {
         myPhaseTable->setItemText(row, colDuration, getSteps2Time(phases.at(row).duration).c_str());

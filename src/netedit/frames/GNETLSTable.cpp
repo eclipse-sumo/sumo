@@ -331,7 +331,11 @@ GNETLSTable::Column::Column(GNETLSTable* table, const int index, const char type
     // create vertical frame for cells
     myVerticalCellFrame = new FXVerticalFrame(myVerticalFrame, GUIDesignAuxiliarTLSTable);
     // create bot label
-    myBotLabel = new FXLabel(myVerticalFrame, "", nullptr, GUIDesignLabelTLSTable);
+    if ((myType == 's') || (myType == 'u') || (myType == 'p')) {
+        myBotLabel = new FXLabel(myVerticalFrame, "", nullptr, GUIDesignLabelTLSTable);
+    } else {
+        myBotLabel = new FXLabel(myVerticalFrame, "", nullptr, GUIDesignLabelTLSTableEmpty);
+    }
     // create elements
     myVerticalFrame->create();
     myTopLabel->create();
@@ -375,7 +379,7 @@ GNETLSTable::Column::adjustColumnWidth() {
     // declare columnWidth (by default is a square) 
     int columnWidth = GUIDesignHeight;
     // only adjust for textFields
-    if ((myType == 'p') || (myType == '-')) {
+    if ((myType == 'u') || (myType == 'p') || (myType == '-')) {
         // calculate columnWidth using top label
         columnWidth = myTopLabel->getFont()->getTextWidth(myTopLabel->getText().text(), myTopLabel->getText().length() + EXTRAMARGING);
         // iterate over all textFields and check widths
@@ -429,6 +433,12 @@ GNETLSTable::Row::Row(GNETLSTable* table) :
                 // create radio button for selecting row
                 auto radioButton = new FXRadioButton(table->myColumns.at(columnIndex)->getVerticalCellFrame(), "", table, MID_GNE_TLSTABLE_RADIOBUTTON, GUIDesignRadioButtonTLSTable);
                 myCells.push_back(new Cell(radioButton, columnIndex, numCells));
+                break;
+            }
+            case ('u'): {
+                // create text field
+                auto textField = new FXTextField(table->myColumns.at(columnIndex)->getVerticalCellFrame(), GUIDesignTextFieldNCol, table, MID_GNE_TLSTABLE_TEXTFIELD, GUIDesignTextFieldTLSTable);
+                myCells.push_back(new Cell(textField, columnIndex, numCells));
                 break;
             }
             case ('p'): {

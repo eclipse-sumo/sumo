@@ -69,8 +69,14 @@ public:
     /// @brief Change column header text
     void setColumnText(const int column, const std::string& text);
 
-    /// @brief Set the table size to nr rows and nc columns; all existing items will be removed
-    /// Format: s -> radio button, p -> program (rrGggy...), i -> insert, d -> delete- -> textField 
+    /**@brief Set the table size to nr rows and nc columns; all existing items will be removed. Format:
+     * s -> select row (radio button)
+     * u -> duration (textField)
+     * p -> program (rrGggy...)
+     * i -> insert phase (button)
+     * d -> delete phase (button)
+     * - -> textField
+     */
     void setTableSize(const std::string &columnsType, const int numberRow);
 
     /// @name FOX callbacks
