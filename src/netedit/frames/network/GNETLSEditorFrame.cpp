@@ -778,7 +778,7 @@ GNETLSEditorFrame::varDurString(SUMOTime dur) {
 
 
 const NBTrafficLightLogic::PhaseDefinition&
-GNETLSEditorFrame::getPhases(const int index) {
+GNETLSEditorFrame::getPhase(const int index) {
     if ((index >= 0) || (index < (int)myEditedDef->getLogic()->getPhases().size())) {
         return myEditedDef->getLogic()->getPhases().at(index);
     } else {
@@ -1241,7 +1241,7 @@ void
 GNETLSEditorFrame::TLSPhases::switchPhase() {
     // get current selected phase in phaseTable
     const auto row = myPhaseTable->getCurrentSelectedRow();
-    const NBTrafficLightLogic::PhaseDefinition& phase = myTLSEditorParent->getPhases(row);
+    const NBTrafficLightLogic::PhaseDefinition& phase = myTLSEditorParent->getPhase(row);
     myPhaseTable->selectRow(row);
     // need not hold since links could have been deleted somewhere else and indices may be reused
     // assert(phase.state.size() == myInternalLanes.size());
@@ -1482,8 +1482,12 @@ GNETLSEditorFrame::TLSPhases::initNEMAPhaseTable(const int index) {
 
 bool
 GNETLSEditorFrame::TLSPhases::setDuration(const int col, const int row, const std::string &value) {
-    // duration edited
-    if (GNEAttributeCarrier::canParse<double>(value)) {
+    // check value
+    if (value.empty()) {
+        // input empty, reset
+        getPhaseTable()->setItemText(row, col, getSteps2Time(myTLSEditorParent->getPhase(row).duration).c_str());
+        return true;
+    } else if (GNEAttributeCarrier::canParse<double>(value)) {
         const auto duration = getSUMOTime(value);
         if (duration > 0) {
             myTLSEditorParent->myEditedDef->getLogic()->setPhaseDuration(row, duration);
@@ -1491,53 +1495,69 @@ GNETLSEditorFrame::TLSPhases::setDuration(const int col, const int row, const st
             updateCycleDuration();
             return true;
         }
+    } else {
+        return false;
     }
-    // input error, reset value
-    getPhaseTable()->setItemText(row, col, getSteps2Time(myTLSEditorParent->getPhases(row).duration).c_str());
-    return false;
 }
 
 
 bool
 GNETLSEditorFrame::TLSPhases::setState(const int col, const int row, const std::string &value) {
+    // get state
+    const auto &phase = myTLSEditorParent->getPhase(row);
+    // declare new state. If value is empty, use previous value (reset)
+    const auto newState = value.empty()? phase.state : value;
+    // insert phase
     try {
-        // insert phase with new step and delete the old phase
-        const auto &phase = myTLSEditorParent->getPhases(row);
-        myTLSEditorParent->myEditedDef->getLogic()->addStep(phase.duration, value, phase.next, phase.name, row);
+        myTLSEditorParent->myEditedDef->getLogic()->addStep(phase.duration, newState, phase.next, phase.name, row);
+    } catch (ProcessError&) {
+        // invalid character in newState
+        return false;
+    }
+    // delete next phase
+    try {
         myTLSEditorParent->myEditedDef->getLogic()->deletePhase(row + 1);
+    } catch (InvalidArgument&) {
+        WRITE_ERROR("Error deleting phase '" + toString(row + 1) + "'");
+        return false;
+    }
+    // mark TLS as modified depending of value
+    if (value.size() > 0) {
         myTLSEditorParent->myTLSModifications->setHaveModifications(true);
         // switch to new phase
         switchPhase();
-        return true;
-    } catch (ProcessError&) {
-        // input error, reset value
-        myPhaseTable->setItemText(row, row, myTLSEditorParent->getPhases(row).state.c_str());
+    } else {
+        // input empty, reset
+        getPhaseTable()->setItemText(row, col, newState);
     }
-    return false;
+    return true;
 }
 
 
 bool
 GNETLSEditorFrame::TLSPhases::setNext(const int col, const int row, const std::string &value) {
     // check value
-    bool ok = true;
-    if (GNEAttributeCarrier::canParse<std::vector<int> >(value)) {
-        const auto nextEdited = GNEAttributeCarrier::parse<std::vector<int> >(value);
-        for (const auto next : nextEdited) {
-            if ((next < 0) || (next >= myPhaseTable->getNumRows())) {
-                ok = false;
-                break;
+    if (value.empty()) {
+        // input empty, reset value
+        myPhaseTable->setItemText(row, col, toString(myTLSEditorParent->getPhase(row).next));
+        return true;
+    } else {
+        // check next
+        if (GNEAttributeCarrier::canParse<std::vector<int> >(value)) {
+            const auto nextEdited = GNEAttributeCarrier::parse<std::vector<int> >(value);
+            for (const auto next : nextEdited) {
+                if ((next < 0) || (next >= myPhaseTable->getNumRows())) {
+                    return false;
+                }
             }
-        }
-        if (ok) {
+            // set new next
             myTLSEditorParent->myEditedDef->getLogic()->setPhaseNext(row, nextEdited);
             myTLSEditorParent->myTLSModifications->setHaveModifications(true);
             return true;
+        } else {
+            return false;
         }
     }
-    // input error, reset value
-    myPhaseTable->setItemText(row, col, "");
-    return false;
 }
 
 
@@ -1553,146 +1573,189 @@ GNETLSEditorFrame::TLSPhases::setName(const int col, const int row, const std::s
 bool
 GNETLSEditorFrame::TLSPhases::setMinDur(const int col, const int row, const std::string &value) {
     // check value
-    if (GNEAttributeCarrier::canParse<double>(value)) {
+    if (value.empty()) {
+        // input empty, reset value
+        myPhaseTable->setItemText(row, col, toString(myTLSEditorParent->getPhase(row).minDur));
+        return true;
+    } else if (GNEAttributeCarrier::canParse<double>(value)) {
         const auto minDur = getSUMOTime(value);
+        // check that minDur > 0
         if (minDur > 0) {
             myTLSEditorParent->myEditedDef->getLogic()->setPhaseMinDuration(row, minDur);
             myTLSEditorParent->myTLSModifications->setHaveModifications(true);
             return true;
+        } else {
+            return false;
         }
     } else if (StringUtils::prune(value).empty()) {
         myTLSEditorParent->myEditedDef->getLogic()->setPhaseMinDuration(row, NBTrafficLightDefinition::UNSPECIFIED_DURATION);
         myTLSEditorParent->myTLSModifications->setHaveModifications(true);
         return true;
+    } else {
+        return false;
     }
-    // input error, reset value
-    myPhaseTable->setItemText(row, col, varDurString(myTLSEditorParent->getPhases(row).minDur).c_str());
 }
 
 
 bool
 GNETLSEditorFrame::TLSPhases::setMaxDur(const int col, const int row, const std::string &value) {
     // check value
-    if (GNEAttributeCarrier::canParse<double>(value)) {
+    if (value.empty()) {
+        // input empty, reset value
+        myPhaseTable->setItemText(row, col, toString(myTLSEditorParent->getPhase(row).maxDur));
+        return true;
+    } else if (GNEAttributeCarrier::canParse<double>(value)) {
         const auto maxDur = getSUMOTime(value);
+        // check that minDur > 0
         if (maxDur > 0) {
             myTLSEditorParent->myEditedDef->getLogic()->setPhaseMaxDuration(row, maxDur);
             myTLSEditorParent->myTLSModifications->setHaveModifications(true);
             return true;
+        } else {
+            return false;
         }
     } else if (StringUtils::prune(value).empty()) {
         myTLSEditorParent->myEditedDef->getLogic()->setPhaseMaxDuration(row, NBTrafficLightDefinition::UNSPECIFIED_DURATION);
         myTLSEditorParent->myTLSModifications->setHaveModifications(true);
         return true;
+    } else {
+        return false;
     }
-    // input error, reset value
-    myPhaseTable->setItemText(row, col, varDurString(myTLSEditorParent->getPhases(row).maxDur).c_str());
-    return true;
 }
 
 
 bool
 GNETLSEditorFrame::TLSPhases::setEarliestEnd(const int col, const int row, const std::string &value) {
     // check value
-    if (GNEAttributeCarrier::canParse<double>(value)) {
+    if (value.empty()) {
+        // input empty, reset value
+        myPhaseTable->setItemText(row, col, toString(myTLSEditorParent->getPhase(row).earliestEnd));
+        return true;
+    } else if (GNEAttributeCarrier::canParse<double>(value)) {
         const auto earliestEnd = getSUMOTime(value);
+        // check that earliestEnd > 0
         if (earliestEnd > 0) {
             myTLSEditorParent->myEditedDef->getLogic()->setPhaseEarliestEnd(row, earliestEnd);
             myTLSEditorParent->myTLSModifications->setHaveModifications(true);
             return true;
+        } else {
+            return false;
         }
     } else if (StringUtils::prune(value).empty()) {
         myTLSEditorParent->myEditedDef->getLogic()->setPhaseEarliestEnd(row, NBTrafficLightDefinition::UNSPECIFIED_DURATION);
         myTLSEditorParent->myTLSModifications->setHaveModifications(true);
         return true;
+    } else {
+        return false;
     }
-    // input error, reset value
-    myPhaseTable->setItemText(row, col, varDurString(myTLSEditorParent->getPhases(row).earliestEnd).c_str());
-    return true;
 }
 
 
 bool
 GNETLSEditorFrame::TLSPhases::setLatestEnd(const int col, const int row, const std::string &value) {
     // check value
-    if (GNEAttributeCarrier::canParse<double>(value)) {
+    if (value.empty()) {
+        // input empty, reset value
+        myPhaseTable->setItemText(row, col, toString(myTLSEditorParent->getPhase(row).latestEnd));
+        return true;
+    } else if (GNEAttributeCarrier::canParse<double>(value)) {
         const auto latestEnd = getSUMOTime(value);
+        // check that latestEnd > 0
         if (latestEnd > 0) {
             myTLSEditorParent->myEditedDef->getLogic()->setPhaseLatestEnd(row, latestEnd);
             myTLSEditorParent->myTLSModifications->setHaveModifications(true);
             return true;
+        } else {
+            return false;
         }
     } else if (StringUtils::prune(value).empty()) {
         myTLSEditorParent->myEditedDef->getLogic()->setPhaseLatestEnd(row, NBTrafficLightDefinition::UNSPECIFIED_DURATION);
         myTLSEditorParent->myTLSModifications->setHaveModifications(true);
         return true;
+    } else {
+        return false;
     }
-    // input error, reset value
-    myPhaseTable->setItemText(row, col, varDurString(myTLSEditorParent->getPhases(row).latestEnd).c_str());
-    return false;
 }
 
 
 bool
 GNETLSEditorFrame::TLSPhases::setVehExt(const int col, const int row, const std::string &value) {
     // check value
-    if (GNEAttributeCarrier::canParse<double>(value)) {
+    if (value.empty()) {
+        // input empty, reset value
+        myPhaseTable->setItemText(row, col, toString(myTLSEditorParent->getPhase(row).vehExt));
+        return true;
+    } else if (GNEAttributeCarrier::canParse<double>(value)) {
         const auto vehExt = getSUMOTime(value);
+        // check that vehExt > 0
         if (vehExt > 0) {
             myTLSEditorParent->myEditedDef->getLogic()->setPhaseVehExt(row, vehExt);
             myTLSEditorParent->myTLSModifications->setHaveModifications(true);
             return true;
+        } else {
+            return false;
         }
     } else if (StringUtils::prune(value).empty()) {
         myTLSEditorParent->myEditedDef->getLogic()->setPhaseVehExt(row, NBTrafficLightDefinition::UNSPECIFIED_DURATION);
         myTLSEditorParent->myTLSModifications->setHaveModifications(true);
         return true;
+    } else {
+        return false;
     }
-    // input error, reset value
-    myPhaseTable->setItemText(row, col, varDurString(myTLSEditorParent->getPhases(row).vehExt).c_str());
-    return false;
 }
 
 
 bool
 GNETLSEditorFrame::TLSPhases::setYellow(const int col, const int row, const std::string &value) {
     // check value
-    if (GNEAttributeCarrier::canParse<double>(value)) {
+    if (value.empty()) {
+        // input empty, reset value
+        myPhaseTable->setItemText(row, col, toString(myTLSEditorParent->getPhase(row).yellow));
+        return true;
+    } else if (GNEAttributeCarrier::canParse<double>(value)) {
         const auto yellow = getSUMOTime(value);
+        // check that yellow > 0
         if (yellow > 0) {
             myTLSEditorParent->myEditedDef->getLogic()->setPhaseYellow(row, yellow);
             myTLSEditorParent->myTLSModifications->setHaveModifications(true);
             return true;
+        } else {
+            return false;
         }
     } else if (StringUtils::prune(value).empty()) {
         myTLSEditorParent->myEditedDef->getLogic()->setPhaseYellow(row, NBTrafficLightDefinition::UNSPECIFIED_DURATION);
         myTLSEditorParent->myTLSModifications->setHaveModifications(true);
         return true;
+    } else {
+        return false;
     }
-    // input error, reset value
-    myPhaseTable->setItemText(row, col, varDurString(myTLSEditorParent->getPhases(row).yellow).c_str());
-    return false;
 }
 
 
 bool
 GNETLSEditorFrame::TLSPhases::setRed(const int col, const int row, const std::string &value) {
     // check value
-    if (GNEAttributeCarrier::canParse<double>(value)) {
+    if (value.empty()) {
+        // input empty, reset value
+        myPhaseTable->setItemText(row, col, toString(myTLSEditorParent->getPhase(row).red));
+        return true;
+    } else if (GNEAttributeCarrier::canParse<double>(value)) {
         const auto red = getSUMOTime(value);
+        // check that red > 0
         if (red > 0) {
             myTLSEditorParent->myEditedDef->getLogic()->setPhaseRed(row, red);
             myTLSEditorParent->myTLSModifications->setHaveModifications(true);
             return true;
+        } else {
+            return false;
         }
     } else if (StringUtils::prune(value).empty()) {
         myTLSEditorParent->myEditedDef->getLogic()->setPhaseRed(row, NBTrafficLightDefinition::UNSPECIFIED_DURATION);
         myTLSEditorParent->myTLSModifications->setHaveModifications(true);
         return true;
+    } else {
+        return false;
     }
-    // input error, reset value
-    myPhaseTable->setItemText(row, col, varDurString(myTLSEditorParent->getPhases(row).red).c_str());
-    return false;
 }
 
 // ---------------------------------------------------------------------------
@@ -1836,7 +1899,7 @@ GNETLSEditorFrame::TLSFile::onCmdSaveTLSProgram(FXObject*, FXSelector, void*) {
         const bool TLSDelayBased = (myTLSEditorParent->myEditedDef->getLogic()->getType() == TrafficLightType::DELAYBASED);
         const bool TLSNEMA = (myTLSEditorParent->myEditedDef->getLogic()->getType() == TrafficLightType::NEMA);
         // write the phases
-        const std::vector<NBTrafficLightLogic::PhaseDefinition>& phases = myTLSEditorParent->myEditedDef->getLogic()->getPhases();
+        const auto &phases = myTLSEditorParent->myEditedDef->getLogic()->getPhases();
         for (const auto& phase : phases) {
             device.openTag(SUMO_TAG_PHASE);
             device.writeAttr(SUMO_ATTR_DURATION, writeSUMOTime(phase.duration));

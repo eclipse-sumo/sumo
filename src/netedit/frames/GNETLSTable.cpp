@@ -203,8 +203,12 @@ GNETLSTable::onEditRow(FXObject* sender, FXSelector, void*) {
             // get text field
             const auto textField = myRows.at(rowIndex)->getCells().at(columnIndex)->getTextField();
             if (textField == sender) {
-                // edit value
-                myTLSPhasesParent->changePhaseValue(columnIndex, rowIndex, textField->getText().text());
+                // edit value and change value depending of result
+                if (myTLSPhasesParent->changePhaseValue(columnIndex, rowIndex, textField->getText().text())) {
+                    textField->setTextColor(FXRGB(0, 0, 0));
+                } else {
+                    textField->setTextColor(FXRGB(255, 0, 0));
+                }
                 return 1;
             }
         }

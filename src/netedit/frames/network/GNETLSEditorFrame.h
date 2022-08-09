@@ -536,7 +536,7 @@ private:
     void buildInternalLanes(NBTrafficLightDefinition* tlDef);
 
     /// @brief get certain phase of the current traffic light
-    const NBTrafficLightLogic::PhaseDefinition& getPhases(const int index);
+    const NBTrafficLightLogic::PhaseDefinition& getPhase(const int index);
 
     /// @brief convert duration (potentially undefined) to string
     static std::string varDurString(SUMOTime dur);
