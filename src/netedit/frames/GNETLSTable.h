@@ -89,10 +89,16 @@ public:
     long onFocusRow(FXObject*, FXSelector, void*);
 
     /// @brief called when a row is modified
-    long onEditRow(FXObject*, FXSelector, void*);
+    long onCmdEditRow(FXObject*, FXSelector, void*);
 
     /// @brief called when a row is selected
-    long onRowSelected(FXObject*, FXSelector, void*);
+    long onCmdRowSelected(FXObject*, FXSelector, void*);
+
+    /// @brief called when an add phase button is selected
+    long onCmdAddPhase(FXObject*, FXSelector, void*);
+
+    /// @brief called when a remove phase button is selected
+    long onCmdRemovePhase(FXObject*, FXSelector, void*);
 
     /// @}
 

@@ -60,10 +60,6 @@ FXDEFMAP(GNETLSEditorFrame) GNETLSEditorFrameMap[] = {
     FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_SUBRENAME,       GNETLSEditorFrame::onCmdDefSubRename),
     FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_ADDOFF,          GNETLSEditorFrame::onCmdDefAddOff),
     FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_GUESSPROGRAM,    GNETLSEditorFrame::onCmdGuess),
-    FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_PHASE_CREATE,    GNETLSEditorFrame::onCmdPhaseCreate),
-    FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_PHASE_CREATE,    GNETLSEditorFrame::onUpdNeedsDef),
-    FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_PHASE_DELETE,    GNETLSEditorFrame::onCmdPhaseDelete),
-    FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_PHASE_DELETE,    GNETLSEditorFrame::onUpdNeedsDefAndPhase),
     FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_CLEANUP,         GNETLSEditorFrame::onCmdCleanup),
     FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_CLEANUP,         GNETLSEditorFrame::onUpdNeedsSingleDef),
     FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_ADDUNUSED,       GNETLSEditorFrame::onCmdAddUnused),
@@ -482,106 +478,10 @@ GNETLSEditorFrame::selectedOverlappedElement(GNEAttributeCarrier* AC) {
 
 
 long
-GNETLSEditorFrame::onCmdPhaseCreate(FXObject*, FXSelector, void*) {
-    // mark TLS as modified
-    myTLSModifications->setHaveModifications(true);
-    // get phase table
-    const auto phaseTable = myTLSPhases->getPhaseTable();
-    // check if TLS is static
-    const bool TLSStatic = (myEditedDef->getType() == TrafficLightType::STATIC);
-    // allows insertion at first position by deselecting via arrow keys
-    const auto selectedRow = myTLSPhases->getPhaseTable()->getCurrentSelectedRow();
-    int newIndex = selectedRow + 1;
-    // copy current row
-    SUMOTime duration = getSUMOTime(phaseTable->getItemText(selectedRow, 1));
-    const std::string oldState = phaseTable->getItemText(selectedRow, TLSStatic ? 2 : 4);
-    std::string state = oldState;
-
-    std::set<int> crossingIndices;
-    for (NBNode* n : myEditedDef->getNodes()) {
-        for (NBNode::Crossing* c : n->getCrossings()) {
-            crossingIndices.insert(c->tlLinkIndex);
-            crossingIndices.insert(c->tlLinkIndex2);
-        }
-    }
-
-    // smart adapations for new state
-    bool haveGreen = false;
-    bool haveYellow = false;
-    for (char c : state) {
-        if (c == LINKSTATE_TL_GREEN_MAJOR || c == LINKSTATE_TL_GREEN_MINOR) {
-            haveGreen = true;
-        } else if (c == LINKSTATE_TL_YELLOW_MAJOR || c == LINKSTATE_TL_YELLOW_MINOR) {
-            haveYellow = true;
-        }
-    }
-    const OptionsCont& oc = OptionsCont::getOptions();
-    if (haveGreen && haveYellow) {
-        // guess left-mover state
-        duration = TIME2STEPS(oc.getInt("tls.left-green.time"));
-        for (int i = 0; i < (int)state.size(); i++) {
-            if (state[i] == LINKSTATE_TL_YELLOW_MAJOR || state[i] == LINKSTATE_TL_YELLOW_MINOR) {
-                state[i] = LINKSTATE_TL_RED;
-            } else if (state[i] == LINKSTATE_TL_GREEN_MINOR) {
-                state[i] = LINKSTATE_TL_GREEN_MAJOR;
-            }
-        }
-    } else if (haveGreen) {
-        // guess yellow state
-        myEditedDef->setParticipantsInformation();
-        duration = TIME2STEPS(myEditedDef->computeBrakingTime(oc.getFloat("tls.yellow.min-decel")));
-        for (int i = 0; i < (int)state.size(); i++) {
-            if (state[i] == LINKSTATE_TL_GREEN_MAJOR || state[i] == LINKSTATE_TL_GREEN_MINOR) {
-                if (crossingIndices.count(i) == 0) {
-                    state[i] = LINKSTATE_TL_YELLOW_MINOR;
-                } else {
-                    state[i] = LINKSTATE_TL_RED;
-                }
-            }
-        }
-    } else if (haveYellow) {
-        duration = TIME2STEPS(oc.isDefault("tls.allred.time") ? 2 :  oc.getInt("tls.allred.time"));
-        // guess all-red state
-        for (int i = 0; i < (int)state.size(); i++) {
-            if (state[i] == LINKSTATE_TL_YELLOW_MAJOR || state[i] == LINKSTATE_TL_YELLOW_MINOR) {
-                state[i] = LINKSTATE_TL_RED;
-            }
-        }
-    }
-    // fix continuous green states
-    const int nextIndex = myTLSPhases->getPhaseTable()->getNumRows() > newIndex ? newIndex : 0;
-    const std::string state2 = myTLSPhases->getPhaseTable()->getItemText(nextIndex, TLSStatic ? 2 : 4);
-    for (int i = 0; i < (int)state.size(); i++) {
-        if ((oldState[i] == LINKSTATE_TL_GREEN_MAJOR || oldState[i] == LINKSTATE_TL_GREEN_MINOR)
-                && (state2[i] == LINKSTATE_TL_GREEN_MAJOR || state2[i] == LINKSTATE_TL_GREEN_MINOR)) {
-            state[i] = oldState[i];
-        }
-    }
-
-    myEditedDef->getLogic()->addStep(duration, state, std::vector<int>(), "", newIndex);
-    myTLSPhases->getPhaseTable()->selectRow(newIndex);
-    myTLSPhases->initPhaseTable(newIndex);
-    myTLSPhases->getPhaseTable()->setFocus();
-    return 1;
-}
-
-
-long
-GNETLSEditorFrame::onCmdPhaseDelete(FXObject*, FXSelector, void*) {
-    myTLSModifications->setHaveModifications(true);
-    const auto newRow = MAX2((int)0, (int)myTLSPhases->getPhaseTable()->getCurrentSelectedRow() - 1);
-    myEditedDef->getLogic()->deletePhase(myTLSPhases->getPhaseTable()->getCurrentSelectedRow());
-    myTLSPhases->initPhaseTable(newRow);
-    myTLSPhases->getPhaseTable()->setFocus();
-    return 1;
-}
-
-
-long
 GNETLSEditorFrame::onCmdCleanup(FXObject*, FXSelector, void*) {
     myTLSModifications->setHaveModifications(myEditedDef->cleanupStates());
     buildInternalLanes(myEditedDef);
-    myTLSPhases->initPhaseTable(0);
+    myTLSPhases->initPhaseTable();
     myTLSPhases->getPhaseTable()->setFocus();
     myTLSModifications->setHaveModifications(true);
     return 1;
@@ -593,7 +493,7 @@ GNETLSEditorFrame::onCmdAddUnused(FXObject*, FXSelector, void*) {
     myEditedDef->getLogic()->setStateLength(
         myEditedDef->getLogic()->getNumLinks() + 1);
     myTLSModifications->setHaveModifications(true);
-    myTLSPhases->initPhaseTable(0);
+    myTLSPhases->initPhaseTable();
     myTLSPhases->getPhaseTable()->setFocus();
     return 1;
 }
@@ -604,7 +504,7 @@ GNETLSEditorFrame::onCmdGroupStates(FXObject*, FXSelector, void*) {
     myEditedDef->groupSignals();
     myTLSModifications->setHaveModifications(true);
     buildInternalLanes(myEditedDef);
-    myTLSPhases->initPhaseTable(0);
+    myTLSPhases->initPhaseTable();
     myTLSPhases->getPhaseTable()->setFocus();
     return 1;
 }
@@ -616,7 +516,7 @@ GNETLSEditorFrame::onCmdUngroupStates(FXObject*, FXSelector, void*) {
     myEditedDef->ungroupSignals();
     myTLSModifications->setHaveModifications(true);
     buildInternalLanes(myEditedDef);
-    myTLSPhases->initPhaseTable(0);
+    myTLSPhases->initPhaseTable();
     myTLSPhases->getPhaseTable()->setFocus();
     return 1;
 }
@@ -783,6 +683,8 @@ GNETLSEditorFrame::getPhase(const int index) {
 void
 GNETLSEditorFrame::handleChange(GNEInternalLane* lane) {
     myTLSModifications->setHaveModifications(true);
+    // get current selected row
+    const auto selectedRow = myTLSPhases->getPhaseTable()->getCurrentSelectedRow();
     if (myViewNet->changeAllPhases()) {
         for (int row = 0; row < (int)myEditedDef->getLogic()->getPhases().size(); row++) {
             myEditedDef->getLogic()->setPhaseState(row, lane->getTLIndex(), lane->getLinkState());
@@ -790,7 +692,11 @@ GNETLSEditorFrame::handleChange(GNEInternalLane* lane) {
     } else {
         myEditedDef->getLogic()->setPhaseState(myTLSPhases->getPhaseTable()->getCurrentSelectedRow(), lane->getTLIndex(), lane->getLinkState());
     }
-    myTLSPhases->initPhaseTable(myTLSPhases->getPhaseTable()->getCurrentSelectedRow());
+    // init phaseTable
+    myTLSPhases->initPhaseTable();
+    // select row
+    myTLSPhases->getPhaseTable()->selectRow(selectedRow);
+    // focus table
     myTLSPhases->getPhaseTable()->setFocus();
 }
 
@@ -1138,8 +1044,7 @@ GNETLSEditorFrame::TLSDefinition::~TLSDefinition() {}
 
 GNETLSEditorFrame::TLSPhases::TLSPhases(GNETLSEditorFrame* TLSEditorParent) :
     MFXGroupBoxModule(TLSEditorParent, "Phases", MFXGroupBoxModule::Options::COLLAPSIBLE | MFXGroupBoxModule::Options::EXTENSIBLE),
-    myTLSEditorParent(TLSEditorParent),
-    myTableFont(new FXFont(getApp(), "Courier New", 9)) {
+    myTLSEditorParent(TLSEditorParent) {
     // create GNETLSTable
     myPhaseTable = new GNETLSTable(this);
     // hide phase table
@@ -1147,10 +1052,6 @@ GNETLSEditorFrame::TLSPhases::TLSPhases(GNETLSEditorFrame* TLSEditorParent) :
     FXHorizontalFrame* phaseButtons = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrameUniform);
     FXVerticalFrame* col1 = new FXVerticalFrame(phaseButtons, GUIDesignAuxiliarHorizontalFrame); // left button columm
     FXVerticalFrame* col2 = new FXVerticalFrame(phaseButtons, GUIDesignAuxiliarHorizontalFrame); // right button column
-    // create new phase button
-    myInsertDuplicateButton = new FXButton(col1, "Insert Phase\t\tInsert new phase after the selected phase. The new state is deduced from the selected phase.", nullptr, myTLSEditorParent, MID_GNE_TLSFRAME_PHASE_CREATE, GUIDesignButton);
-    // create delete phase button
-    myDeleteSelectedPhaseButton = new FXButton(col2, "Delete Phase\t\tDelete selected phase", nullptr, myTLSEditorParent, MID_GNE_TLSFRAME_PHASE_DELETE, GUIDesignButton);
     // create cleanup states button
     new FXButton(col1, "Clean States\t\tClean unused states from all phase. (Not allowed for multiple programs)", nullptr, myTLSEditorParent, MID_GNE_TLSFRAME_CLEANUP, GUIDesignButton);
     // add unused states button
@@ -1165,7 +1066,6 @@ GNETLSEditorFrame::TLSPhases::TLSPhases(GNETLSEditorFrame* TLSEditorParent) :
 
 
 GNETLSEditorFrame::TLSPhases::~TLSPhases() {
-    delete myTableFont;
 }
 
 
@@ -1182,19 +1082,21 @@ GNETLSEditorFrame::TLSPhases::getPhaseTable() const {
 
 
 void
-GNETLSEditorFrame::TLSPhases::initPhaseTable(int index) {
+GNETLSEditorFrame::TLSPhases::initPhaseTable() {
     // first clear table
     myPhaseTable->clearTable();
     if (myTLSEditorParent->myTLSAttributes->getNumberOfTLSDefinitions() > 0) {
         if (myTLSEditorParent->myEditedDef->getType() == TrafficLightType::STATIC) {
-            initStaticPhaseTable(index);
+            initStaticPhaseTable();
         } else if (myTLSEditorParent->myEditedDef->getType() == TrafficLightType::ACTUATED) {
-            initActuatedPhaseTable(index);
+            initActuatedPhaseTable();
         } else if (myTLSEditorParent->myEditedDef->getType() == TrafficLightType::DELAYBASED) {
-            initDelayBasePhaseTable(index);
+            initDelayBasePhaseTable();
         } else if (myTLSEditorParent->myEditedDef->getType() == TrafficLightType::NEMA) {
-            initNEMAPhaseTable(index);
+            initNEMAPhaseTable();
         }
+        // select first element (by default)
+        myPhaseTable->selectRow(0);
         // recalc width and show
         myPhaseTable->recalcTableWidth();
         myPhaseTable->show();
@@ -1300,7 +1202,108 @@ GNETLSEditorFrame::TLSPhases::changePhaseValue(const int col, const int row, con
 
 
 void
-GNETLSEditorFrame::TLSPhases::initStaticPhaseTable(const int index) {
+GNETLSEditorFrame::TLSPhases::addPhase(const int row) {
+    // get option container
+    const OptionsCont& oc = OptionsCont::getOptions();
+    // mark TLS as modified
+    myTLSEditorParent->myTLSModifications->setHaveModifications(true);
+    // check if TLS is static
+    const bool TLSStatic = (myTLSEditorParent->myEditedDef->getType() == TrafficLightType::STATIC);
+    // calculate new index
+    const int newIndex = row + 1;
+    // copy current row
+    auto duration = getSUMOTime(myPhaseTable->getItemText(row, 1));
+    const auto oldState = myPhaseTable->getItemText(row, TLSStatic ? 2 : 4);
+    auto state = oldState;
+    // update crossingINdices
+    std::set<int> crossingIndices;
+    for (const auto &node : myTLSEditorParent->myEditedDef->getNodes()) {
+        for (const auto &crossing : node->getCrossings()) {
+            crossingIndices.insert(crossing->tlLinkIndex);
+            crossingIndices.insert(crossing->tlLinkIndex2);
+        }
+    }
+    // smart adapations for new state
+    bool haveGreen = false;
+    bool haveYellow = false;
+    for (const auto &linkStateChar : state) {
+        if ((linkStateChar == LINKSTATE_TL_GREEN_MAJOR) || (linkStateChar == LINKSTATE_TL_GREEN_MINOR)) {
+            haveGreen = true;
+        } else if ((linkStateChar == LINKSTATE_TL_YELLOW_MAJOR) || (linkStateChar == LINKSTATE_TL_YELLOW_MINOR)) {
+            haveYellow = true;
+        }
+    }
+    if (haveGreen && haveYellow) {
+        // guess left-mover state
+        duration = TIME2STEPS(oc.getInt("tls.left-green.time"));
+        for (int i = 0; i < (int)state.size(); i++) {
+            if ((state[i] == LINKSTATE_TL_YELLOW_MAJOR) || (state[i] == LINKSTATE_TL_YELLOW_MINOR)) {
+                state[i] = LINKSTATE_TL_RED;
+            } else if (state[i] == LINKSTATE_TL_GREEN_MINOR) {
+                state[i] = LINKSTATE_TL_GREEN_MAJOR;
+            }
+        }
+    } else if (haveGreen) {
+        // guess yellow state
+        myTLSEditorParent->myEditedDef->setParticipantsInformation();
+        duration = TIME2STEPS(myTLSEditorParent->myEditedDef->computeBrakingTime(oc.getFloat("tls.yellow.min-decel")));
+        for (int i = 0; i < (int)state.size(); i++) {
+            if ((state[i] == LINKSTATE_TL_GREEN_MAJOR) || (state[i] == LINKSTATE_TL_GREEN_MINOR)) {
+                if (crossingIndices.count(i) == 0) {
+                    state[i] = LINKSTATE_TL_YELLOW_MINOR;
+                } else {
+                    state[i] = LINKSTATE_TL_RED;
+                }
+            }
+        }
+    } else if (haveYellow) {
+        duration = TIME2STEPS(oc.isDefault("tls.allred.time") ? 2 :  oc.getInt("tls.allred.time"));
+        // guess all-red state
+        for (int i = 0; i < (int)state.size(); i++) {
+            if ((state[i] == LINKSTATE_TL_YELLOW_MAJOR) || (state[i] == LINKSTATE_TL_YELLOW_MINOR)) {
+                state[i] = LINKSTATE_TL_RED;
+            }
+        }
+    }
+    // fix continuous green states
+    const int nextIndex = (myPhaseTable->getNumRows() > newIndex)? newIndex : 0;
+    const std::string state2 = myPhaseTable->getItemText(nextIndex, (TLSStatic ? 2 : 4));
+    for (int i = 0; i < (int)state.size(); i++) {
+        if (((oldState[i] == LINKSTATE_TL_GREEN_MAJOR) || (oldState[i] == LINKSTATE_TL_GREEN_MINOR)) &&
+            ((state2[i] == LINKSTATE_TL_GREEN_MAJOR) || (state2[i] == LINKSTATE_TL_GREEN_MINOR))) {
+            state[i] = oldState[i];
+        }
+    }
+    // add new step
+    myTLSEditorParent->myEditedDef->getLogic()->addStep(duration, state, std::vector<int>(), "", newIndex);
+    // int phase table again
+    initPhaseTable();
+    // mark new row as selected
+    myPhaseTable->selectRow(newIndex);
+    // set focus in table
+    getPhaseTable()->setFocus();
+}
+
+
+void
+GNETLSEditorFrame::TLSPhases::removePhase(const int row) {
+    // mark TLS ad modified
+    myTLSEditorParent->myTLSModifications->setHaveModifications(true);
+    // calculate new row
+    const auto newRow = MAX2(0, (row - 1));
+    // delete selected row
+    myTLSEditorParent->myEditedDef->getLogic()->deletePhase(row);
+    // int phase table again
+    initPhaseTable();
+    // mark new row as selected
+    myPhaseTable->selectRow(newRow);
+    // set focus in table
+    getPhaseTable()->setFocus();
+}
+
+
+void
+GNETLSEditorFrame::TLSPhases::initStaticPhaseTable() {
     // declare constants for columns
     const int colDuration = 1;
     const int colState = 2;
@@ -1325,14 +1328,13 @@ GNETLSEditorFrame::TLSPhases::initStaticPhaseTable(const int index) {
     // set bot labels
     updateCycleDuration(colDuration);
     updateStateSize(colState);
-    // set rows
-    myPhaseTable->selectRow(index);
+    // set focus
     myPhaseTable->setFocus();
 }
 
 
 void
-GNETLSEditorFrame::TLSPhases::initActuatedPhaseTable(const int index) {
+GNETLSEditorFrame::TLSPhases::initActuatedPhaseTable() {
     // declare constants for columns
     const int colDuration = 1;
     const int colMinDur = 2;
@@ -1369,14 +1371,13 @@ GNETLSEditorFrame::TLSPhases::initActuatedPhaseTable(const int index) {
     // set bot labels
     updateCycleDuration(colDuration);
     updateStateSize(colState);
-    // set rows
-    myPhaseTable->selectRow(index);
+    // set focus
     myPhaseTable->setFocus();
 }
 
 
 void
-GNETLSEditorFrame::TLSPhases::initDelayBasePhaseTable(const int index) {
+GNETLSEditorFrame::TLSPhases::initDelayBasePhaseTable() {
     // declare constants for columns
     const int colDuration = 1;
     const int colMinDur = 2;
@@ -1407,14 +1408,13 @@ GNETLSEditorFrame::TLSPhases::initDelayBasePhaseTable(const int index) {
     // set bot labels
     updateCycleDuration(colDuration);
     updateStateSize(colState);
-    // set rows
-    myPhaseTable->selectRow(index);
+    // set focus
     myPhaseTable->setFocus();
 }
 
 
 void
-GNETLSEditorFrame::TLSPhases::initNEMAPhaseTable(const int index) {
+GNETLSEditorFrame::TLSPhases::initNEMAPhaseTable() {
     // declare constants for columns
     const int colDuration = 1;
     const int colMinDur = 2;
@@ -1454,8 +1454,7 @@ GNETLSEditorFrame::TLSPhases::initNEMAPhaseTable(const int index) {
     // set bot labels
     updateCycleDuration(colDuration);
     updateStateSize(colState);
-    // set rows
-    myPhaseTable->selectRow(index);
+    // set focus
     myPhaseTable->setFocus();
 }
 

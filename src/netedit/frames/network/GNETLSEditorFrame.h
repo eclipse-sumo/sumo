@@ -201,7 +201,7 @@ public:
         /**@brief initialies the phase table
          * @param[in] index The index to select
          */
-        void initPhaseTable(int index = 0);
+        void initPhaseTable();
 
         /// @brief switch phase in table
         void switchPhase();
@@ -209,18 +209,24 @@ public:
         /// @brief change phase value (state, name, next, etc.)
         bool changePhaseValue(const int col, const int row, const std::string &value);
 
+        /// @brief add phase
+        void addPhase(const int row);
+
+        /// @brief delete phase
+        void removePhase(const int row);
+
     protected:
         /// @brief init static phase table
-        void initStaticPhaseTable(const int index);
+        void initStaticPhaseTable();
 
         /// @brief init actuated phase table
-        void initActuatedPhaseTable(const int index);
+        void initActuatedPhaseTable();
 
         /// @brief init delayBase phase table
-        void initDelayBasePhaseTable(const int index);
+        void initDelayBasePhaseTable();
 
         /// @brief init NEMA phase table
-        void initNEMAPhaseTable(const int index);
+        void initNEMAPhaseTable();
 
         /// @brief set duration
         bool setDuration(const int col, const int row, const std::string &value);
@@ -265,20 +271,8 @@ public:
         /// @brief pointer to TLSEditor Parent
         GNETLSEditorFrame* myTLSEditorParent;
 
-        /// @brief font for the phase table
-        FXFont* myTableFont;
-
-        /// @brief window for oversized phase tables
-        //FXScrollWindow* myTableScroll;
-
         /// @brief table for selecting and rearranging phases and for changing duration
         GNETLSTable* myPhaseTable;
-
-        /// @brief insert new phase button
-        FXButton* myInsertDuplicateButton;
-
-        /// @brief delete phase button
-        FXButton* myDeleteSelectedPhaseButton;
     };
 
     // ===========================================================================
@@ -422,12 +416,6 @@ public:
 
     /// @brief Called when the user adds a OFF
     long onCmdDefAddOff(FXObject*, FXSelector, void*);
-
-    /// @brief Called when the user creates a Phase
-    long onCmdPhaseCreate(FXObject*, FXSelector, void*);
-
-    /// @brief Called when the user deletes a Phase
-    long onCmdPhaseDelete(FXObject*, FXSelector, void*);
 
     /// @brief Called when the user cleans up states
     long onCmdCleanup(FXObject*, FXSelector, void*);

@@ -34,8 +34,10 @@
 
 FXDEFMAP(GNETLSTable) GNETLSTableMap[] = {
     FXMAPFUNC(SEL_FOCUSIN,  MID_GNE_TLSTABLE_TEXTFIELD,     GNETLSTable::onFocusRow),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TLSTABLE_TEXTFIELD,     GNETLSTable::onEditRow),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TLSTABLE_RADIOBUTTON,   GNETLSTable::onRowSelected),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TLSTABLE_TEXTFIELD,     GNETLSTable::onCmdEditRow),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TLSTABLE_RADIOBUTTON,   GNETLSTable::onCmdRowSelected),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TLSTABLE_ADDPHASE,      GNETLSTable::onCmdAddPhase),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TLSTABLE_REMOVEPHASE,   GNETLSTable::onCmdRemovePhase),
 };
 
 // Object implementation
@@ -206,7 +208,7 @@ GNETLSTable::onFocusRow(FXObject* sender, FXSelector, void*) {
 
 
 long 
-GNETLSTable::onEditRow(FXObject* sender, FXSelector, void*) {
+GNETLSTable::onCmdEditRow(FXObject* sender, FXSelector, void*) {
     // search selected text field
     for (int columnIndex = 0; columnIndex < (int)myColumns.size(); columnIndex++) {
         for (int rowIndex = 0; rowIndex < (int)myRows.size(); rowIndex++) {
@@ -229,7 +231,7 @@ GNETLSTable::onEditRow(FXObject* sender, FXSelector, void*) {
 
 
 long
-GNETLSTable::onRowSelected(FXObject* sender, FXSelector, void*) {
+GNETLSTable::onCmdRowSelected(FXObject* sender, FXSelector, void*) {
     // search selected text field
     for (int indexRow = 0; indexRow < (int)myRows.size(); indexRow++) {
         // iterate over every cell
@@ -254,6 +256,42 @@ GNETLSTable::onRowSelected(FXObject* sender, FXSelector, void*) {
                 myTLSPhasesParent->switchPhase();
                 // row focused, then stop
                 return 1;
+            }
+        }
+    }
+    return 0;
+}
+
+
+long 
+GNETLSTable::onCmdAddPhase(FXObject* sender, FXSelector, void*) {
+    // search selected text field
+    for (int indexRow = 0; indexRow < (int)myRows.size(); indexRow++) {
+        // iterate over every cell
+        for (const auto &cellTextField : myRows.at(indexRow)->getCells()) {
+            if (cellTextField->getButton() == sender) {
+                // add row
+                myTLSPhasesParent->addPhase(indexRow);
+                // stop
+                return 0;
+            }
+        }
+    }
+    return 0;
+}
+
+
+long
+GNETLSTable::onCmdRemovePhase(FXObject* sender, FXSelector, void*) {
+    // search selected text field
+    for (int indexRow = 0; indexRow < (int)myRows.size(); indexRow++) {
+        // iterate over every cell
+        for (const auto &cellTextField : myRows.at(indexRow)->getCells()) {
+            if (cellTextField->getButton() == sender) {
+                // remove row
+                myTLSPhasesParent->removePhase(indexRow);
+                // stop
+                return 0;
             }
         }
     }
