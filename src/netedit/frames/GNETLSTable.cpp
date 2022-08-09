@@ -152,9 +152,18 @@ GNETLSTable::selectRow(const int row) {
 
 
 void
-GNETLSTable::setColumnText(const int column, const std::string& text) {
+GNETLSTable::setColumnLabelTop(const int column, const std::string& text) {
     if ((column >= 0) && (column < (int)myColumns.size())) {
         myColumns.at(column)->setColumnLabelTop(text);
+    } else {
+        throw ProcessError("Invalid column");
+    }
+}
+
+void
+GNETLSTable::setColumnLabelBot(const int column, const std::string& text) {
+    if ((column >= 0) && (column < (int)myColumns.size())) {
+        myColumns.at(column)->setColumnLabelBot(text);
     } else {
         throw ProcessError("Invalid column");
     }

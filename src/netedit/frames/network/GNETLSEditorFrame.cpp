@@ -377,8 +377,6 @@ GNETLSEditorFrame::onCmdDefSwitch(FXObject*, FXSelector, void*) {
         myTLSAttributes->setOffset(myEditedDef->getLogic()->getOffset());
         myTLSAttributes->setParameters(myEditedDef->getLogic()->getParametersStr());
         myTLSPhases->initPhaseTable();
-        myTLSPhases->updateCycleDuration();
-        myTLSPhases->showCycleDuration();
     } else {
         // tlDef has no valid logic (probably because id does not control any links
         onCmdCancel(nullptr, 0, nullptr);
@@ -563,7 +561,6 @@ GNETLSEditorFrame::onCmdPhaseCreate(FXObject*, FXSelector, void*) {
     myEditedDef->getLogic()->addStep(duration, state, std::vector<int>(), "", newIndex);
     myTLSPhases->getPhaseTable()->selectRow(newIndex);
     myTLSPhases->initPhaseTable(newIndex);
-    myTLSPhases->updateCycleDuration();
     myTLSPhases->getPhaseTable()->setFocus();
     return 1;
 }
@@ -571,13 +568,10 @@ GNETLSEditorFrame::onCmdPhaseCreate(FXObject*, FXSelector, void*) {
 
 long
 GNETLSEditorFrame::onCmdPhaseDelete(FXObject*, FXSelector, void*) {
-    
-
     myTLSModifications->setHaveModifications(true);
     const auto newRow = MAX2((int)0, (int)myTLSPhases->getPhaseTable()->getCurrentSelectedRow() - 1);
     myEditedDef->getLogic()->deletePhase(myTLSPhases->getPhaseTable()->getCurrentSelectedRow());
     myTLSPhases->initPhaseTable(newRow);
-    myTLSPhases->updateCycleDuration();
     myTLSPhases->getPhaseTable()->setFocus();
     return 1;
 }
@@ -691,7 +685,6 @@ GNETLSEditorFrame::cleanup() {
     myTLSAttributes->clearTLSAttributes();
     // only clears when there are no definitions
     myTLSPhases->initPhaseTable();
-    myTLSPhases->hideCycleDuration();
     myTLSJunction->updateJunctionDescription();
 }
 
@@ -1151,8 +1144,6 @@ GNETLSEditorFrame::TLSPhases::TLSPhases(GNETLSEditorFrame* TLSEditorParent) :
     myPhaseTable = new GNETLSTable(this);
     // hide phase table
     myPhaseTable->hide();
-    // create total duration info label
-    myCycleDuration = new FXLabel(getCollapsableFrame(), "", nullptr, GUIDesignLabelLeft);
     FXHorizontalFrame* phaseButtons = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrameUniform);
     FXVerticalFrame* col1 = new FXVerticalFrame(phaseButtons, GUIDesignAuxiliarHorizontalFrame); // left button columm
     FXVerticalFrame* col2 = new FXVerticalFrame(phaseButtons, GUIDesignAuxiliarHorizontalFrame); // right button column
@@ -1215,25 +1206,13 @@ GNETLSEditorFrame::TLSPhases::initPhaseTable(int index) {
 
 
 void
-GNETLSEditorFrame::TLSPhases::showCycleDuration() {
-    myCycleDuration->show();
-}
-
-
-void
-GNETLSEditorFrame::TLSPhases::hideCycleDuration() {
-    myCycleDuration->hide();
-}
-
-
-void
-GNETLSEditorFrame::TLSPhases::updateCycleDuration() {
+GNETLSEditorFrame::TLSPhases::updateCycleDuration(const int col) {
     SUMOTime cycleDuration = 0;
     for (const auto &phase : myTLSEditorParent->myEditedDef->getLogic()->getPhases()) {
         cycleDuration += phase.duration;
     }
-    std::string text = "Cycle time: " + getSteps2Time(cycleDuration);
-    myCycleDuration->setText(text.c_str());
+    // update bot label
+    myPhaseTable->setColumnLabelBot(col, getSteps2Time(cycleDuration));
 }
 
 
@@ -1350,13 +1329,15 @@ GNETLSEditorFrame::TLSPhases::initStaticPhaseTable(const int index) {
         myPhaseTable->setItemText(row, colName, phases.at(row).name.c_str());
     }
     // set columns
-    myPhaseTable->setColumnText(colDuration, "dur");
-    myPhaseTable->setColumnText(colState, "state");
-    myPhaseTable->setColumnText(colNext, "next");
-    myPhaseTable->setColumnText(colName, "name");
+    myPhaseTable->setColumnLabelTop(colDuration, "dur");
+    myPhaseTable->setColumnLabelTop(colState, "state");
+    myPhaseTable->setColumnLabelTop(colNext, "next");
+    myPhaseTable->setColumnLabelTop(colName, "name");
     // set rows
     myPhaseTable->selectRow(index);
     myPhaseTable->setFocus();
+    // update cycle duration
+    updateCycleDuration(colDuration);
 }
 
 
@@ -1387,17 +1368,19 @@ GNETLSEditorFrame::TLSPhases::initActuatedPhaseTable(const int index) {
         myPhaseTable->setItemText(row, colName, phases.at(row).name.c_str());
     }
     // set columns
-    myPhaseTable->setColumnText(colDuration, "dur");
-    myPhaseTable->setColumnText(colMinDur, "min");
-    myPhaseTable->setColumnText(colMaxDur, "max");
-    myPhaseTable->setColumnText(colEarliestEnd, "ear.end");
-    myPhaseTable->setColumnText(colLatestEnd, "lat.end");
-    myPhaseTable->setColumnText(colState, "state");
-    myPhaseTable->setColumnText(colNext, "nxt");
-    myPhaseTable->setColumnText(colName, "name");
+    myPhaseTable->setColumnLabelTop(colDuration, "dur");
+    myPhaseTable->setColumnLabelTop(colMinDur, "min");
+    myPhaseTable->setColumnLabelTop(colMaxDur, "max");
+    myPhaseTable->setColumnLabelTop(colEarliestEnd, "ear.end");
+    myPhaseTable->setColumnLabelTop(colLatestEnd, "lat.end");
+    myPhaseTable->setColumnLabelTop(colState, "state");
+    myPhaseTable->setColumnLabelTop(colNext, "nxt");
+    myPhaseTable->setColumnLabelTop(colName, "name");
     // set rows
     myPhaseTable->selectRow(index);
     myPhaseTable->setFocus();
+    // update cycle duration
+    updateCycleDuration(colDuration);
 }
 
 
@@ -1424,15 +1407,17 @@ GNETLSEditorFrame::TLSPhases::initDelayBasePhaseTable(const int index) {
         myPhaseTable->setItemText(row, colName, phases.at(row).name.c_str());
     }
     // set columns
-    myPhaseTable->setColumnText(colDuration, "dur");
-    myPhaseTable->setColumnText(colMinDur, "min");
-    myPhaseTable->setColumnText(colMaxDur, "max");
-    myPhaseTable->setColumnText(colState, "state");
-    myPhaseTable->setColumnText(colNext, "nxt");
-    myPhaseTable->setColumnText(colName, "name");
+    myPhaseTable->setColumnLabelTop(colDuration, "dur");
+    myPhaseTable->setColumnLabelTop(colMinDur, "min");
+    myPhaseTable->setColumnLabelTop(colMaxDur, "max");
+    myPhaseTable->setColumnLabelTop(colState, "state");
+    myPhaseTable->setColumnLabelTop(colNext, "nxt");
+    myPhaseTable->setColumnLabelTop(colName, "name");
     // set rows
     myPhaseTable->selectRow(index);
     myPhaseTable->setFocus();
+    // update cycle duration
+    updateCycleDuration(colDuration);
 }
 
 
@@ -1465,18 +1450,20 @@ GNETLSEditorFrame::TLSPhases::initNEMAPhaseTable(const int index) {
         myPhaseTable->setItemText(row, colName, phases.at(row).name.c_str());
     }
     // set columns
-    myPhaseTable->setColumnText(colDuration, "dur");
-    myPhaseTable->setColumnText(colMinDur, "min");
-    myPhaseTable->setColumnText(colMaxDur, "max");
-    myPhaseTable->setColumnText(colState, "state");
-    myPhaseTable->setColumnText(colVehExt, "v.ext");
-    myPhaseTable->setColumnText(colYellow, "yel");
-    myPhaseTable->setColumnText(colRed, "red");
-    myPhaseTable->setColumnText(colNext, "nxt");
-    myPhaseTable->setColumnText(colName, "name");
+    myPhaseTable->setColumnLabelTop(colDuration, "dur");
+    myPhaseTable->setColumnLabelTop(colMinDur, "min");
+    myPhaseTable->setColumnLabelTop(colMaxDur, "max");
+    myPhaseTable->setColumnLabelTop(colState, "state");
+    myPhaseTable->setColumnLabelTop(colVehExt, "v.ext");
+    myPhaseTable->setColumnLabelTop(colYellow, "yel");
+    myPhaseTable->setColumnLabelTop(colRed, "red");
+    myPhaseTable->setColumnLabelTop(colNext, "nxt");
+    myPhaseTable->setColumnLabelTop(colName, "name");
     // set rows
     myPhaseTable->selectRow(index);
     myPhaseTable->setFocus();
+    // update cycle duration
+    updateCycleDuration(colDuration);
 }
 
 
@@ -1492,7 +1479,8 @@ GNETLSEditorFrame::TLSPhases::setDuration(const int col, const int row, const st
         if (duration > 0) {
             myTLSEditorParent->myEditedDef->getLogic()->setPhaseDuration(row, duration);
             myTLSEditorParent->myTLSModifications->setHaveModifications(true);
-            updateCycleDuration();
+            // update Cycle duration
+            updateCycleDuration(col);
             return true;
         }
     } else {

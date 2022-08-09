@@ -203,14 +203,8 @@ public:
          */
         void initPhaseTable(int index = 0);
 
-        /// @brief show cycle duration
-        void showCycleDuration();
-
-        /// @brief hide cycle duration
-        void hideCycleDuration();
-
         /// @brief recomputes cycle duration and updates label
-        void updateCycleDuration();
+        void updateCycleDuration(const int col);
 
         /// @brief switch phase in table
         void switchPhase();
@@ -276,9 +270,6 @@ public:
 
         /// @brief table for selecting and rearranging phases and for changing duration
         GNETLSTable* myPhaseTable;
-
-        /// @brief label with the cycle duration
-        FXLabel* myCycleDuration;
 
         /// @brief insert new phase button
         FXButton* myInsertDuplicateButton;

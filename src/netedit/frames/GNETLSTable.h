@@ -67,7 +67,10 @@ public:
     void selectRow(const int rowIndex);
 
     /// @brief Change column header text
-    void setColumnText(const int column, const std::string& text);
+    void setColumnLabelTop(const int column, const std::string& text);
+
+    /// @brief Change column bottom text
+    void setColumnLabelBot(const int column, const std::string& text);
 
     /**@brief Set the table size to nr rows and nc columns; all existing items will be removed. Format:
      * s -> select row (radio button)
