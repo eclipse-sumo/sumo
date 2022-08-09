@@ -189,7 +189,7 @@ GNETLSTable::onFocusRow(FXObject* sender, FXSelector, void*) {
     // switch phase
     if (myCurrentSelectedRow != selectedRow) {
         myCurrentSelectedRow = selectedRow;
-        myTLSPhasesParent->getTLSEditorParent()->switchPhase();
+        myTLSPhasesParent->switchPhase();
     }
     return 0;
 }
@@ -204,7 +204,7 @@ GNETLSTable::onEditRow(FXObject* sender, FXSelector, void*) {
             const auto textField = myRows.at(rowIndex)->getCells().at(columnIndex)->getTextField();
             if (textField == sender) {
                 // edit value
-                myTLSPhasesParent->getTLSEditorParent()->changePhaseValue(columnIndex, rowIndex, textField->getText().text());
+                myTLSPhasesParent->changePhaseValue(columnIndex, rowIndex, textField->getText().text());
                 return 1;
             }
         }
@@ -237,7 +237,7 @@ GNETLSTable::onRowSelected(FXObject* sender, FXSelector, void*) {
                     }
                 }
                 // switch phase
-                myTLSPhasesParent->getTLSEditorParent()->switchPhase();
+                myTLSPhasesParent->switchPhase();
                 // row focused, then stop
                 return 1;
             }

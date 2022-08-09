@@ -212,6 +212,12 @@ public:
         /// @brief recomputes cycle duration and updates label
         void updateCycleDuration();
 
+        /// @brief switch phase in table
+        void switchPhase();
+
+        /// @brief change phase value (state, name, next, etc.)
+        bool changePhaseValue(const int col, const int row, const std::string &value);
+
     protected:
         /// @brief init static phase table
         void initStaticPhaseTable(const int index);
@@ -350,12 +356,6 @@ public:
     /// @brief parse TLS Programs from a file
     bool parseTLSPrograms(const std::string& file);
 
-    /// @brief switch phase in table
-    void switchPhase();
-
-    /// @brief change phase value (state, name, next, etc.)
-    bool changePhaseValue(const int col, const int row, const std::string &value);
-
     /// @name FOX-callbacks
     /// @{
     /// @brief Called when the user presses the OK-Button
@@ -488,8 +488,7 @@ private:
     GNETLSEditorFrame::TLSFile* myTLSFile;
 
     /// @brief the internal lanes belonging the the current junction indexed by their tl-index
-    typedef std::map<int, std::vector<GNEInternalLane*> > TLIndexMap;
-    TLIndexMap myInternalLanes;
+    std::map<int, std::vector<GNEInternalLane*> > myInternalLanes;
 
     /// @brief the traffic light definition being edited
     NBLoadedSUMOTLDef* myEditedDef;
