@@ -605,7 +605,7 @@ NBLoadedSUMOTLDef::hasValidIndices() const {
 std::string
 NBLoadedSUMOTLDef::getStates(int index) {
     assert(index >= 0);
-    assert(index <= getMaxIndex());
+    assert(index <= getMaxValidIndex());
     std::string result;
     for (auto& pd : myTLLogic->getPhases()) {
         result += pd.state[index];
