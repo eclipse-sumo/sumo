@@ -139,6 +139,9 @@ public:
         return myLayout;
     }
 
+    /// @brief minimum speed for computing time to cross intersection
+    static const double MIN_SPEED_CROSSING_TIME;
+
 protected:
     /// @name Protected methods from NBTrafficLightDefinition-interface
     /// @{

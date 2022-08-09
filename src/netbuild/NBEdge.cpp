@@ -42,6 +42,7 @@
 #include "NBContHelper.h"
 #include "NBHelpers.h"
 #include "NBTrafficLightDefinition.h"
+#include "NBOwnTLDef.h"
 #include "NBTypeCont.h"
 #include "NBEdge.h"
 
@@ -1926,10 +1927,10 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
         ++numLanes;
         if (con.customLength != UNSPECIFIED_LOADED_LENGTH) {
             lengthSum += con.customLength;
-            maxCross = MAX2(maxCross, con.customLength / con.vmax);
+            maxCross = MAX2(maxCross, con.customLength / MAX2(con.vmax, NBOwnTLDef::MIN_SPEED_CROSSING_TIME));
         } else {
             lengthSum += con.shape.length();
-            maxCross = MAX2(maxCross, con.shape.length() / con.vmax);
+            maxCross = MAX2(maxCross, con.shape.length() / MAX2(con.vmax, NBOwnTLDef::MIN_SPEED_CROSSING_TIME));
         }
     }
     assignInternalLaneLength(myConnections.end(), numLanes, lengthSum, averageLength);
