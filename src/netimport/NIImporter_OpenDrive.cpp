@@ -2463,7 +2463,7 @@ NIImporter_OpenDrive::myCharacters(int element, const std::string& cdata) {
                     result = new GeoConvHelper(proj, myOffset, origBoundary, convBoundary);
                     GeoConvHelper::setLoaded(*result);
                 } catch (ProcessError& e) {
-                    WRITE_ERROR("Could not set projection. (" + std::string(e.what()) + ")");
+                    WRITE_ERROR("Could not set projection (" + std::string(e.what()) + "). This can be ignored with --ignore-errors.");
                 }
             }
         } else {
