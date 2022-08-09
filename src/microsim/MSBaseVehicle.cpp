@@ -1991,7 +1991,35 @@ MSBaseVehicle::getPrefixedParameter(const std::string& key, std::string& error) 
             return "";
         }
         return hasDevice(tok.get(1)) ? "true" : "false";
+    // parking related parameters start here
+    } else if (key == "parking.rerouteCount") {
+        return toString(getNumberParkingReroutes());
+    } else if (StringUtils::startsWith(key, "parking.memory.")) {
+        std::vector<std::string> values;
+        if (getParkingMemory()) {
+            if (key == "parking.memory.IDList") {
+                for (const auto item : *getParkingMemory()) {
+                    values.push_back(item.first->getID());
+                }
+            } else if (key == "parking.memory.score") {
+                for (const auto item : *getParkingMemory()) {
+                    values.push_back(item.second.score);
+                }
+            } else if (key == "parking.memory.blockedAtTime") {
+                for (const auto item : *getParkingMemory()) {
+                    values.push_back(toString(STEPS2TIME(item.second.blockedAtTime)));
+                }
+            } else if (key == "parking.memory.blockedAtTimeLocal") {
+                for (const auto item : *getParkingMemory()) {
+                    values.push_back(toString(STEPS2TIME(item.second.blockedAtTimeLocal)));
+                }
+            } else {
+                error = "Unsupported parking parameter '" + key + "'.";
+            }
+        }
+        return toString(values);
     } else {
+        // default: custom user parameter
         return getParameter().getParameter(key, "");
     }
 }
