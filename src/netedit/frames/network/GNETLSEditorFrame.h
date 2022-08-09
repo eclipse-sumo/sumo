@@ -350,8 +350,11 @@ public:
     /// @brief parse TLS Programs from a file
     bool parseTLSPrograms(const std::string& file);
 
-    /// @brief Called when the user switchs a Phase
+    /// @brief switch phase in table
     void switchPhase();
+
+    /// @brief change phase value (state, name, next, etc.)
+    bool changePhaseValue(const int col, const int row, const std::string &value);
 
     /// @name FOX-callbacks
     /// @{
@@ -413,9 +416,6 @@ public:
 
     /// @brief Called to update the ungroups states button
     long onUpdUngroupStates(FXObject*, FXSelector, void*);
-
-    /// @brief Called when the user edits a Phase
-    long onCmdPhaseEdit(FXObject*, FXSelector, void*);
 
     /// @brief Called when user press edit parameters button
     long onCmdEditParameters(FXObject*, FXSelector, void* ptr);

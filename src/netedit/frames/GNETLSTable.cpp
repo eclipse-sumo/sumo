@@ -128,34 +128,6 @@ GNETLSTable::getItemText(const int row, const int column) const {
 }
 
 
-int 
-GNETLSTable::getItemTextCol(FXObject* textField) const {
-    // search given text field
-    for (int columnIndex = 0; columnIndex < (int)myColumns.size(); columnIndex++) {
-        for (int rowIndex = 0; rowIndex < (int)myRows.size(); rowIndex++) {
-            if (myRows.at(rowIndex)->getCells().at(columnIndex)->getTextField() == textField) {
-                return columnIndex;
-            }
-        }
-    }
-    throw ProcessError("Invalid textField");
-}
-
-
-int 
-GNETLSTable::getItemTextRow(FXObject* textField) const {
-    // search given text field
-    for (int columnIndex = 0; columnIndex < (int)myColumns.size(); columnIndex++) {
-        for (int rowIndex = 0; rowIndex < (int)myRows.size(); rowIndex++) {
-            if (myRows.at(rowIndex)->getCells().at(columnIndex)->getTextField() == textField) {
-                return rowIndex;
-            }
-        }
-    }
-    throw ProcessError("Invalid textField");
-}
-
-
 int
 GNETLSTable::getNumRows() const {
     return (int)myRows.size();
@@ -191,30 +163,33 @@ GNETLSTable::setColumnText(const int column, const std::string& text) {
 
 long
 GNETLSTable::onFocusRow(FXObject* sender, FXSelector, void*) {
+    int selectedRow = -1;
     // search selected text field
     for (int rowIndex = 0; rowIndex < (int)myRows.size(); rowIndex++) {
         // iterate over every cell
         for (const auto &cellTextField : myRows.at(rowIndex)->getCells()) {
-            if ((cellTextField->getTextField() == sender) && (myCurrentSelectedRow != rowIndex)) {
-                myCurrentSelectedRow = rowIndex;
-                myTLSPhasesParent->getTLSEditorParent()->switchPhase();
-                // set radio buttons checks
-                for (int rowIndex2 = 0; rowIndex2 < (int)myRows.size(); rowIndex2++) {
-                    // iterate over every cell
-                    for (const auto &cellRadioButton : myRows.at(rowIndex2)->getCells()) {
-                        if (cellRadioButton->getRadioButton()) {
-                            if (myCurrentSelectedRow == rowIndex2) {
-                                cellRadioButton->getRadioButton()->setCheck(TRUE, FALSE);
-                            } else {
-                                cellRadioButton->getRadioButton()->setCheck(FALSE, FALSE);
-                            }
-                        }
-                    }
-                }
-                // row focused, then stop
-                return 1;
+            if (cellTextField->getTextField() == sender) {
+                selectedRow = rowIndex;
             }
         }
+    }
+    // update radio buttons checks
+    for (int rowIndex = 0; rowIndex < (int)myRows.size(); rowIndex++) {
+        // iterate over every cell
+        for (const auto &cellRadioButton : myRows.at(rowIndex)->getCells()) {
+            if (cellRadioButton->getRadioButton()) {
+                if (selectedRow == rowIndex) {
+                    cellRadioButton->getRadioButton()->setCheck(TRUE, FALSE);
+                } else {
+                    cellRadioButton->getRadioButton()->setCheck(FALSE, FALSE);
+                }
+            }
+        }
+    }
+    // switch phase
+    if (myCurrentSelectedRow != selectedRow) {
+        myCurrentSelectedRow = selectedRow;
+        myTLSPhasesParent->getTLSEditorParent()->switchPhase();
     }
     return 0;
 }
@@ -225,17 +200,16 @@ GNETLSTable::onEditRow(FXObject* sender, FXSelector, void*) {
     // search selected text field
     for (int columnIndex = 0; columnIndex < (int)myColumns.size(); columnIndex++) {
         for (int rowIndex = 0; rowIndex < (int)myRows.size(); rowIndex++) {
-            if (myRows.at(rowIndex)->getCells().at(columnIndex)->getTextField() == sender) {
-                // switch phase
-                myTLSPhasesParent->getTLSEditorParent()->switchPhase();
+            // get text field
+            const auto textField = myRows.at(rowIndex)->getCells().at(columnIndex)->getTextField();
+            if (textField == sender) {
+                // edit value
+                myTLSPhasesParent->getTLSEditorParent()->changePhaseValue(columnIndex, rowIndex, textField->getText().text());
                 return 1;
             }
         }
     }
-/*
-    XXXXXXXX
-*/
-    // nothing to do
+    // nothing to edit
     return 0;
 }
 

@@ -1018,8 +1018,6 @@ enum {
     MID_GNE_TLSFRAME_SUBRENAME,
     /// @brief add off to TLS
     MID_GNE_TLSFRAME_ADDOFF,
-    /// @brief select phase thable
-    MID_GNE_TLSFRAME_PHASE_TABLE,
     /// @brief create phase thable
     MID_GNE_TLSFRAME_PHASE_CREATE,
     /// @brief delete  phase thable

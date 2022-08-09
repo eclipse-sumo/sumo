@@ -57,12 +57,6 @@ public:
     /// @brief Return cell text
     std::string getItemText(const int row, const int column) const;
 
-    /// @brief Return col in which the given textField is placed
-    int getItemTextCol(FXObject* textField) const;
-
-    /// @brief Return row in which the given textField is placed
-    int getItemTextRow(FXObject* textField) const;
-
     /// @brief Get number of rows
     int getNumRows() const;
 
