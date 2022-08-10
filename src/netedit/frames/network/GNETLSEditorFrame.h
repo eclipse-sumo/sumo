@@ -85,7 +85,8 @@ public:
     // ===========================================================================
 
     class TLSDefinition : public MFXGroupBoxModule {
-
+        /// @brief FOX-declaration
+        FXDECLARE(GNETLSEditorFrame::TLSDefinition)
     public:
         /// @brief constructor
         TLSDefinition(GNETLSEditorFrame* TLSEditorParent);
@@ -93,15 +94,41 @@ public:
         /// @brief destructor
         ~TLSDefinition();
 
+        /// @name FOX-callbacks
+        /// @{
+        /// @brief Called when the user creates a TLS
+        long onCmdDefCreate(FXObject*, FXSelector, void*);
+
+        /// @brief Called when the user deletes a TLS
+        long onCmdDefDelete(FXObject*, FXSelector, void*);
+
+        /// @brief Called when the user regenerates a TLS
+        long onCmdDefRegenerate(FXObject*, FXSelector, void*);
+
+        /// @brief Called when occurs an update of create definition
+        long onUpdDefCreate(FXObject*, FXSelector, void*);
+
+        /// @brief Called when occurs an update of switch definition
+        long onUpdDefSwitch(FXObject*, FXSelector, void*);
+
+        /// @}
+
+    protected:
+        /// @brief FOX needs this
+        FOX_CONSTRUCTOR(TLSDefinition)
+
     private:
+        /// @brief pointer to GNETLSEditorFrame parent
+        GNETLSEditorFrame* myTLSEditorParent = nullptr;
+
         /// @brief button for create new Traffic light program
-        FXButton* myNewTLProgram;
+        FXButton* myNewTLProgram = nullptr;
 
         /// @brief button for delete traffic light program
-        FXButton* myDeleteTLProgram;
+        FXButton* myDeleteTLProgram = nullptr;
 
         /// @brief button for regenerate traffic light program
-        FXButton* myRegenerateTLProgram;
+        FXButton* myRegenerateTLProgram = nullptr;
     };
 
     // ===========================================================================
@@ -404,23 +431,14 @@ public:
     /// @brief Called when the user presses the button Guess
     long onCmdGuess(FXObject*, FXSelector, void*);
 
-    /// @brief Called when the user creates a TLS
-    long onCmdDefCreate(FXObject*, FXSelector, void*);
-
-    /// @brief Called when the user deletes a TLS
-    long onCmdDefDelete(FXObject*, FXSelector, void*);
-
-    /// @brief Called when the user regenerates a TLS
-    long onCmdDefRegenerate(FXObject*, FXSelector, void*);
+    /// @brief Called when the user switchs a TLS
+    long onCmdDefSwitch(FXObject*, FXSelector, void*);
 
     /// @brief Called when the user changes the offset of a TLS
     long onCmdSetOffset(FXObject*, FXSelector, void*);
 
     /// @brief Called when the user changes parameters of a TLS
     long onCmdSetParameters(FXObject*, FXSelector, void*);
-
-    /// @brief Called when the user switchs a TLS
-    long onCmdDefSwitch(FXObject*, FXSelector, void*);
 
     /// @brief Called when the user renames a TLS
     long onCmdDefRename(FXObject*, FXSelector, void*);
@@ -460,9 +478,6 @@ public:
 
     /// @brief Called when occurs an update of needs definition an dphase
     long onUpdNeedsDefAndPhase(FXObject*, FXSelector, void*);
-
-    /// @brief Called when occurs an update of create definition
-    long onUpdDefCreate(FXObject*, FXSelector, void*);
 
     /// @}
 
