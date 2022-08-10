@@ -1035,9 +1035,9 @@ enum {
     /// @brief ungroup states
     MID_GNE_TLSFRAME_PHASES_UNGROUPSTATES,
     /// @brief Load Program
-    MID_GNE_TLSFRAME_LOAD_PROGRAM,
+    MID_GNE_TLSFRAME_FILE_LOADPROGRAM,
     /// @brief cleanup unused states
-    MID_GNE_TLSFRAME_SAVE_PROGRAM,
+    MID_GNE_TLSFRAME_FILE_SAVEPROGRAM,
     /// @brief accept TLS modification
     MID_GNE_TLSFRAME_MODIFICATIONS_SAVE,
     /// @brief cancel TLS modification
