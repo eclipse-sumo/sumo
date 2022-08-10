@@ -1609,8 +1609,9 @@ bool
 GNETLSEditorFrame::TLSPhases::setMinDur(const int col, const int row, const std::string &value) {
     // check value
     if (value.empty()) {
-        // input empty, reset value
-        myPhaseTable->setItemText(row, col, toString(myTLSEditorParent->getPhase(row).minDur));
+        // set empty value
+        myTLSEditorParent->myEditedDef->getLogic()->setPhaseMinDuration(row, NBTrafficLightDefinition::UNSPECIFIED_DURATION);
+        myTLSEditorParent->myTLSModifications->setHaveModifications(true);
         return true;
     } else if (GNEAttributeCarrier::canParse<double>(value)) {
         const auto minDur = getSUMOTime(value);
@@ -1636,8 +1637,9 @@ bool
 GNETLSEditorFrame::TLSPhases::setMaxDur(const int col, const int row, const std::string &value) {
     // check value
     if (value.empty()) {
-        // input empty, reset value
-        myPhaseTable->setItemText(row, col, toString(myTLSEditorParent->getPhase(row).maxDur));
+        // set empty value
+        myTLSEditorParent->myEditedDef->getLogic()->setPhaseMaxDuration(row, NBTrafficLightDefinition::UNSPECIFIED_DURATION);
+        myTLSEditorParent->myTLSModifications->setHaveModifications(true);
         return true;
     } else if (GNEAttributeCarrier::canParse<double>(value)) {
         const auto maxDur = getSUMOTime(value);
@@ -1663,8 +1665,9 @@ bool
 GNETLSEditorFrame::TLSPhases::setEarliestEnd(const int col, const int row, const std::string &value) {
     // check value
     if (value.empty()) {
-        // input empty, reset value
-        myPhaseTable->setItemText(row, col, toString(myTLSEditorParent->getPhase(row).earliestEnd));
+        // set empty value
+        myTLSEditorParent->myEditedDef->getLogic()->setPhaseEarliestEnd(row, NBTrafficLightDefinition::UNSPECIFIED_DURATION);
+        myTLSEditorParent->myTLSModifications->setHaveModifications(true);
         return true;
     } else if (GNEAttributeCarrier::canParse<double>(value)) {
         const auto earliestEnd = getSUMOTime(value);
@@ -1690,8 +1693,9 @@ bool
 GNETLSEditorFrame::TLSPhases::setLatestEnd(const int col, const int row, const std::string &value) {
     // check value
     if (value.empty()) {
-        // input empty, reset value
-        myPhaseTable->setItemText(row, col, toString(myTLSEditorParent->getPhase(row).latestEnd));
+        // set empty value
+        myTLSEditorParent->myEditedDef->getLogic()->setPhaseLatestEnd(row, NBTrafficLightDefinition::UNSPECIFIED_DURATION);
+        myTLSEditorParent->myTLSModifications->setHaveModifications(true);
         return true;
     } else if (GNEAttributeCarrier::canParse<double>(value)) {
         const auto latestEnd = getSUMOTime(value);
@@ -1717,8 +1721,9 @@ bool
 GNETLSEditorFrame::TLSPhases::setVehExt(const int col, const int row, const std::string &value) {
     // check value
     if (value.empty()) {
-        // input empty, reset value
-        myPhaseTable->setItemText(row, col, toString(myTLSEditorParent->getPhase(row).vehExt));
+        // set empty value
+        myTLSEditorParent->myEditedDef->getLogic()->setPhaseVehExt(row, NBTrafficLightDefinition::UNSPECIFIED_DURATION);
+        myTLSEditorParent->myTLSModifications->setHaveModifications(true);
         return true;
     } else if (GNEAttributeCarrier::canParse<double>(value)) {
         const auto vehExt = getSUMOTime(value);
@@ -1744,8 +1749,9 @@ bool
 GNETLSEditorFrame::TLSPhases::setYellow(const int col, const int row, const std::string &value) {
     // check value
     if (value.empty()) {
-        // input empty, reset value
-        myPhaseTable->setItemText(row, col, toString(myTLSEditorParent->getPhase(row).yellow));
+        // set empty value
+        myTLSEditorParent->myEditedDef->getLogic()->setPhaseYellow(row, NBTrafficLightDefinition::UNSPECIFIED_DURATION);
+        myTLSEditorParent->myTLSModifications->setHaveModifications(true);
         return true;
     } else if (GNEAttributeCarrier::canParse<double>(value)) {
         const auto yellow = getSUMOTime(value);
@@ -1771,8 +1777,9 @@ bool
 GNETLSEditorFrame::TLSPhases::setRed(const int col, const int row, const std::string &value) {
     // check value
     if (value.empty()) {
-        // input empty, reset value
-        myPhaseTable->setItemText(row, col, toString(myTLSEditorParent->getPhase(row).red));
+        // set empty value
+        myTLSEditorParent->myEditedDef->getLogic()->setPhaseRed(row, NBTrafficLightDefinition::UNSPECIFIED_DURATION);
+        myTLSEditorParent->myTLSModifications->setHaveModifications(true);
         return true;
     } else if (GNEAttributeCarrier::canParse<double>(value)) {
         const auto red = getSUMOTime(value);
