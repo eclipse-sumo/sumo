@@ -433,7 +433,7 @@ vehicle types).
 - (16): <https://de.wikipedia.org/wiki/Renault_Espace>
 - (17): Fußgeher- und Fahrradverkehr: Planungsprinzipien; Hermann Knoflacher; Böhlau Verlag Wien, 1995
 - (18): RiLSA 2010
-- (19): <http://www.gutax.de/Diplomarbeit_Manfred_Bulla.pdf>
+- (19): <https://www.colliseum.eu/wiki/images/b/bf/Geschwindigkeiten%2C_Verz%C3%B6gerungen_und_Beschleunigungen_nicht_motorisierter%2C_ungesch%C3%BCtzter_Verkehrsteilnehmer_am_Beispiel_Fahrrad_und_Inlineskates.pdf>
 - (20): <http://tuprints.ulb.tu-darmstadt.de/905/1/Schroeder_Frank_FZD_Diss.pdf>
 - (21): <http://www.unfallrekonstruktion.de/pdf/nickel.pdf>
 - (22): <http://www.trb.org/publications/nchrp/nchrp_rpt_505.pdf> (p48)
