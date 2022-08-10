@@ -1038,6 +1038,10 @@ enum {
     MID_GNE_TLSFRAME_LOAD_PROGRAM,
     /// @brief cleanup unused states
     MID_GNE_TLSFRAME_SAVE_PROGRAM,
+    /// @brief accept TLS modification
+    MID_GNE_TLSFRAME_MODIFICATIONS_SAVE,
+    /// @brief cancel TLS modification
+    MID_GNE_TLSFRAME_MODIFICATIONS_DISCARD,
 
     /// @}
 

@@ -397,11 +397,11 @@ public:
         /// @{
         /// @brief Called when the user presses the OK-Button
         /// @note saves any modifications
-        long onCmdOK(FXObject*, FXSelector, void*);
+        long onCmdSaveChanges(FXObject*, FXSelector, void*);
 
         /// @brief Called when the user presses the Cancel-button
         /// @note discards any modifications
-        long onCmdCancel(FXObject*, FXSelector, void*);
+        long onCmdDiscardChanges(FXObject*, FXSelector, void*);
 
         /// @brief Called when occurs an update of modified
         long onUpdModified(FXObject*, FXSelector, void*);
