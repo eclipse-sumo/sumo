@@ -90,6 +90,8 @@ def addGenericOptions(argParser):
                            help="Restrict edgeData measurements to the given vehicle types")
     argParser.add_argument("-7", "--zip", action="store_true",
                            default=False, help="zip old iterations using 7zip")
+    argParser.add_argument("-MSA", "--method-of-successive-average", action="store_true", dest="MSA",
+                           default=False, help="apply the method of successive average as the swapping algorithm")                                                                                                                                                                                                
 
 
 def initOptions():
@@ -154,7 +156,7 @@ def initOptions():
     argParser.add_argument("-i", "--logitgamma", type=float, default=1., help="use the c-logit model for route choice")
     argParser.add_argument("-G", "--logittheta", type=float, help="parameter to adapt the cost unit")
     argParser.add_argument("-J", "--addweights", help="Additional weights for duarouter")
-    argParser.add_argument("--convergence-steps", dest="convergenceSteps", type=int,
+    argParser.add_argument("--PSwap", dest="convergenceSteps", type=int,
                            help="Given x, if x > 0 Reduce probability to change route by 1/x per step. " +
                                 "If x < 0 set probability of rerouting to 1/step after step |x|")
     argParser.add_argument("--addweights.once", dest="addweightsOnce", action="store_true",
@@ -223,6 +225,9 @@ def writeRouteConf(duarouterBinary, step, options, dua_args, file,
         args += ['--additional-files', options.districts]
     if options.logit:
         args += ['--route-choice-method', 'logit']
+        if options.MSA:
+            probKeepRoute = step/(step+1)
+            args += ['--keep-route-probability', str(probKeepRoute)]
         if options.convergenceSteps:
             if options.convergenceSteps > 0:
                 probKeepRoute = max(0, min(step / float(options.convergenceSteps), 1))
@@ -458,12 +463,12 @@ def calcMarginalCost(step, options):
                                 tt_prv = float(edge_prv.get("overlapTraveltime"))
                                 mc_prv = float(edge_prv.get("traveltime"))
                                 dif_tt = abs(tt_cur - tt_prv)
-                                dif_veh = veh_cur - veh_prv
-                                if dif_veh > 0:
+                                dif_veh = abs(veh_cur - veh_prv)
+                                if dif_veh != 0:
                                     mc_cur = (dif_tt / dif_veh) * (veh_cur ** options.mcExp) + tt_cur
                                 else:
                                     # previous marginal cost
-                                    mc_cur = mc_prv
+                                    mc_cur = tt_cur
 
                                 edge_cur.set("traveltime", str(mc_cur))
                                 edge_cur.set("overlapTraveltime", str(tt_cur))
