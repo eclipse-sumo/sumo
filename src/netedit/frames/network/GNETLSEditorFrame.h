@@ -42,11 +42,8 @@ class GNETLSTable;
  * The Widget for modifying Traffic Lights (TLS)
  */
 class GNETLSEditorFrame : public GNEFrame {
-    /// @brief FOX-declaration
-    FXDECLARE(GNETLSEditorFrame)
 
 public:
-
     // ===========================================================================
     // class TLSJunction
     // ===========================================================================
@@ -136,6 +133,8 @@ public:
     // ===========================================================================
 
     class TLSAttributes : public MFXGroupBoxModule {
+        /// @brief FOX-declaration
+        FXDECLARE(GNETLSEditorFrame::TLSAttributes)
 
     public:
         /// @brief constructor
@@ -179,6 +178,44 @@ public:
 
         /// @brief get number of programs
         int getNumberOfPrograms() const;
+
+        /// @name FOX-callbacks
+        /// @{
+        /// @brief Called when the user presses the button Guess
+        long onCmdGuess(FXObject*, FXSelector, void*);
+
+        /// @brief Called when the user switchs a TLS
+        long onCmdDefSwitch(FXObject*, FXSelector, void*);
+
+        /// @brief Called when the user changes the offset of a TLS
+        long onCmdSetOffset(FXObject*, FXSelector, void*);
+
+        /// @brief Called when the user changes parameters of a TLS
+        long onCmdSetParameters(FXObject*, FXSelector, void*);
+
+        /// @brief Called when the user renames a TLS
+        long onCmdDefRename(FXObject*, FXSelector, void*);
+
+        /// @brief Called when the user sub-renames a TLS
+        long onCmdDefSubRename(FXObject*, FXSelector, void*);
+
+        /// @brief Called when the user adds a OFF
+        long onCmdDefAddOff(FXObject*, FXSelector, void*);
+
+        /// @brief Called when occurs an update of needs definition
+        long onUpdNeedsDef(FXObject*, FXSelector, void*);
+
+        /// @brief Called when occurs an update of switch definition
+        long onUpdDefSwitch(FXObject*, FXSelector, void*);
+
+        /// @brief Called when user press edit parameters button
+        long onCmdEditParameters(FXObject*, FXSelector, void* ptr);
+
+        /// @}
+    
+    protected:
+        /// @brief FOX needs this
+        FOX_CONSTRUCTOR(TLSAttributes)
 
     private:
         /// @brief pointer to TLSEditorParent
@@ -459,40 +496,6 @@ public:
     /// @brief parse TLS Programs from a file
     bool parseTLSPrograms(const std::string& file);
 
-    /// @name FOX-callbacks
-    /// @{
-    /// @brief Called when the user presses the button Guess
-    long onCmdGuess(FXObject*, FXSelector, void*);
-
-    /// @brief Called when the user switchs a TLS
-    long onCmdDefSwitch(FXObject*, FXSelector, void*);
-
-    /// @brief Called when the user changes the offset of a TLS
-    long onCmdSetOffset(FXObject*, FXSelector, void*);
-
-    /// @brief Called when the user changes parameters of a TLS
-    long onCmdSetParameters(FXObject*, FXSelector, void*);
-
-    /// @brief Called when the user renames a TLS
-    long onCmdDefRename(FXObject*, FXSelector, void*);
-
-    /// @brief Called when the user sub-renames a TLS
-    long onCmdDefSubRename(FXObject*, FXSelector, void*);
-
-    /// @brief Called when the user adds a OFF
-    long onCmdDefAddOff(FXObject*, FXSelector, void*);
-
-    /// @brief Called when occurs an update of needs definition
-    long onUpdNeedsDef(FXObject*, FXSelector, void*);
-
-    /// @brief Called when occurs an update of switch definition
-    long onUpdDefSwitch(FXObject*, FXSelector, void*);
-
-    /// @brief Called when user press edit parameters button
-    long onCmdEditParameters(FXObject*, FXSelector, void* ptr);
-
-    /// @}
-
     /// @brief update phase definition for the current traffic light and phase
     void handleChange(GNEInternalLane* lane);
 
@@ -509,9 +512,6 @@ public:
     TLSModifications* getTLSModifications();
 
 protected:
-    /// @brief FOX needs this
-    FOX_CONSTRUCTOR(GNETLSEditorFrame)
-
     /**@brief edits the traffic light for the given junction
      * @param[in] junction The junction of which the traffic light shall be edited
      */
@@ -525,31 +525,31 @@ protected:
 
 private:
     /// @brief Overlapped Inspection
-    GNEOverlappedInspection* myOverlappedInspection;
+    GNEOverlappedInspection* myOverlappedInspection = nullptr;
 
     /// @brief modul for TLS Junction
-    GNETLSEditorFrame::TLSJunction* myTLSJunction;
+    GNETLSEditorFrame::TLSJunction* myTLSJunction = nullptr;
 
     /// @brief modul for TLS Definition
-    GNETLSEditorFrame::TLSDefinition* myTLSDefinition;
+    GNETLSEditorFrame::TLSDefinition* myTLSDefinition = nullptr;
 
     /// @brief modul for TLS attributes
-    GNETLSEditorFrame::TLSAttributes* myTLSAttributes;
+    GNETLSEditorFrame::TLSAttributes* myTLSAttributes = nullptr;
 
     /// @brief modul for load/Save TLS Modifications
-    GNETLSEditorFrame::TLSModifications* myTLSModifications;
+    GNETLSEditorFrame::TLSModifications* myTLSModifications = nullptr;
 
     /// @brief modul for TLS Phases
-    GNETLSEditorFrame::TLSPhases* myTLSPhases;
+    GNETLSEditorFrame::TLSPhases* myTLSPhases = nullptr;
 
     /// @brief modul for load/Save TLS Programs
-    GNETLSEditorFrame::TLSFile* myTLSFile;
+    GNETLSEditorFrame::TLSFile* myTLSFile = nullptr;
 
     /// @brief the internal lanes belonging the the current junction indexed by their tl-index
     std::map<int, std::vector<GNEInternalLane*> > myInternalLanes;
 
     /// @brief the traffic light definition being edited
-    NBLoadedSUMOTLDef* myEditedDef;
+    NBLoadedSUMOTLDef* myEditedDef = nullptr;
 
     /// @brief index of the phase being shown
     int myPhaseIndex = 0;

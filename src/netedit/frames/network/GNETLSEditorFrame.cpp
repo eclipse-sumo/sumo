@@ -39,20 +39,6 @@
 // FOX callback mapping
 // ===========================================================================
 
-FXDEFMAP(GNETLSEditorFrame) GNETLSEditorFrameMap[] = {
-    FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_SWITCH,          GNETLSEditorFrame::onCmdDefSwitch),
-    FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_SWITCH,          GNETLSEditorFrame::onUpdDefSwitch),
-    FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_OFFSET,          GNETLSEditorFrame::onCmdSetOffset),
-    FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_OFFSET,          GNETLSEditorFrame::onUpdNeedsDef),
-    FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_PARAMETERS,      GNETLSEditorFrame::onCmdSetParameters),
-    FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_PARAMETERS,      GNETLSEditorFrame::onUpdNeedsDef),
-    FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_RENAME,          GNETLSEditorFrame::onCmdDefRename),
-    FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_SUBRENAME,       GNETLSEditorFrame::onCmdDefSubRename),
-    FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_ADDOFF,          GNETLSEditorFrame::onCmdDefAddOff),
-    FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_GUESSPROGRAM,    GNETLSEditorFrame::onCmdGuess),
-    FXMAPFUNC(SEL_COMMAND,    MID_GNE_OPEN_PARAMETERS_DIALOG,   GNETLSEditorFrame::onCmdEditParameters),
-};
-
 FXDEFMAP(GNETLSEditorFrame::TLSDefinition) TLSDefinitionMap[] = {
     FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_CREATE,          GNETLSEditorFrame::TLSDefinition::onCmdDefCreate),
     FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_CREATE,          GNETLSEditorFrame::TLSDefinition::onUpdDefCreate),
@@ -60,6 +46,20 @@ FXDEFMAP(GNETLSEditorFrame::TLSDefinition) TLSDefinitionMap[] = {
     FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_DELETE,          GNETLSEditorFrame::TLSDefinition::onUpdDefSwitch),
     FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_REGENERATE,      GNETLSEditorFrame::TLSDefinition::onCmdDefRegenerate),
     FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_REGENERATE,      GNETLSEditorFrame::TLSDefinition::onUpdDefSwitch),
+};
+
+FXDEFMAP(GNETLSEditorFrame::TLSAttributes) TLSAttributesMap[] = {
+    FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_SWITCH,          GNETLSEditorFrame::TLSAttributes::onCmdDefSwitch),
+    FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_SWITCH,          GNETLSEditorFrame::TLSAttributes::onUpdDefSwitch),
+    FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_OFFSET,          GNETLSEditorFrame::TLSAttributes::onCmdSetOffset),
+    FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_OFFSET,          GNETLSEditorFrame::TLSAttributes::onUpdNeedsDef),
+    FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_PARAMETERS,      GNETLSEditorFrame::TLSAttributes::onCmdSetParameters),
+    FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_PARAMETERS,      GNETLSEditorFrame::TLSAttributes::onUpdNeedsDef),
+    FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_RENAME,          GNETLSEditorFrame::TLSAttributes::onCmdDefRename),
+    FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_SUBRENAME,       GNETLSEditorFrame::TLSAttributes::onCmdDefSubRename),
+    FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_ADDOFF,          GNETLSEditorFrame::TLSAttributes::onCmdDefAddOff),
+    FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_GUESSPROGRAM,    GNETLSEditorFrame::TLSAttributes::onCmdGuess),
+    FXMAPFUNC(SEL_COMMAND,    MID_GNE_OPEN_PARAMETERS_DIALOG,   GNETLSEditorFrame::TLSAttributes::onCmdEditParameters),
 };
 
 FXDEFMAP(GNETLSEditorFrame::TLSModifications) TLSModificationsMap[] = {
@@ -88,8 +88,8 @@ FXDEFMAP(GNETLSEditorFrame::TLSFile) TLSFileMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNETLSEditorFrame,                      FXVerticalFrame,    GNETLSEditorFrameMap,   ARRAYNUMBER(GNETLSEditorFrameMap))
 FXIMPLEMENT(GNETLSEditorFrame::TLSDefinition,       MFXGroupBoxModule,  TLSDefinitionMap,       ARRAYNUMBER(TLSDefinitionMap))
+FXIMPLEMENT(GNETLSEditorFrame::TLSAttributes,       MFXGroupBoxModule,  TLSAttributesMap,       ARRAYNUMBER(TLSAttributesMap))
 FXIMPLEMENT(GNETLSEditorFrame::TLSModifications,    MFXGroupBoxModule,  TLSModificationsMap,    ARRAYNUMBER(TLSModificationsMap))
 FXIMPLEMENT(GNETLSEditorFrame::TLSPhases,           MFXGroupBoxModule,  TLSPhasesMap,           ARRAYNUMBER(TLSPhasesMap))
 FXIMPLEMENT(GNETLSEditorFrame::TLSFile,             MFXGroupBoxModule,  TLSFileMap,             ARRAYNUMBER(TLSFileMap))
@@ -253,93 +253,6 @@ GNETLSEditorFrame::parseTLSPrograms(const std::string& file) {
 }
 
 
-long
-GNETLSEditorFrame::onUpdDefSwitch(FXObject* o, FXSelector, void*) {
-    const bool enable = myTLSAttributes->getNumberOfTLSDefinitions() > 0 && !myTLSModifications->checkHaveModifications();
-    o->handle(this, FXSEL(SEL_COMMAND, enable ? FXWindow::ID_ENABLE : FXWindow::ID_DISABLE), nullptr);
-    return 1;
-}
-
-
-long
-GNETLSEditorFrame::onUpdNeedsDef(FXObject* o, FXSelector, void*) {
-    const bool enable = myTLSAttributes->getNumberOfTLSDefinitions() > 0;
-    o->handle(this, FXSEL(SEL_COMMAND, enable ? FXWindow::ID_ENABLE : FXWindow::ID_DISABLE), nullptr);
-    return 1;
-}
-
-
-long
-GNETLSEditorFrame::onCmdDefSwitch(FXObject*, FXSelector, void*) {
-    assert(myTLSJunction->getCurrentJunction() != 0);
-    assert(myTLSAttributes->getNumberOfTLSDefinitions() == myTLSAttributes->getNumberOfPrograms());
-    NBTrafficLightDefinition* tlDef = myTLSAttributes->getCurrentTLSDefinition();
-    // logic may not have been recomputed yet. recompute to be sure
-    NBTrafficLightLogicCont& tllCont = myViewNet->getNet()->getTLLogicCont();
-    myViewNet->getNet()->computeJunction(myTLSJunction->getCurrentJunction());
-    NBTrafficLightLogic* tllogic = tllCont.getLogic(tlDef->getID(), tlDef->getProgramID());
-    if (tllogic != nullptr) {
-        // now we can be sure that the tlDef is up to date (i.e. re-guessed)
-        buildInternalLanes(tlDef);
-        // create working copy from original def
-        delete myEditedDef;
-        myEditedDef = new NBLoadedSUMOTLDef(*tlDef, *tllogic);
-        myTLSAttributes->setOffset(myEditedDef->getLogic()->getOffset());
-        myTLSAttributes->setParameters(myEditedDef->getLogic()->getParametersStr());
-        myTLSPhases->initPhaseTable();
-    } else {
-        // tlDef has no valid logic (probably because id does not control any links
-        myTLSModifications->onCmdCancel(nullptr, 0, nullptr);
-        myViewNet->setStatusBarText("Traffic light does not control any links");
-    }
-    return 1;
-}
-
-
-long
-GNETLSEditorFrame::onCmdSetOffset(FXObject*, FXSelector, void*) {
-    if (myTLSAttributes->isValidOffset()) {
-        myTLSModifications->setHaveModifications(true);
-        myEditedDef->setOffset(myTLSAttributes->getOffset());
-    }
-    return 1;
-}
-
-
-long
-GNETLSEditorFrame::onCmdSetParameters(FXObject*, FXSelector, void*) {
-    if (myTLSAttributes->isValidParameters()) {
-        myTLSModifications->setHaveModifications(true);
-        myEditedDef->setParametersStr(myTLSAttributes->getParameters());
-    }
-    return 1;
-}
-
-
-long
-GNETLSEditorFrame::onCmdDefRename(FXObject*, FXSelector, void*) {
-    return 1;
-}
-
-
-long
-GNETLSEditorFrame::onCmdDefSubRename(FXObject*, FXSelector, void*) {
-    return 1;
-}
-
-
-long
-GNETLSEditorFrame::onCmdDefAddOff(FXObject*, FXSelector, void*) {
-    return 1;
-}
-
-
-long
-GNETLSEditorFrame::onCmdGuess(FXObject*, FXSelector, void*) {
-    return 1;
-}
-
-
 void
 GNETLSEditorFrame::selectedOverlappedElement(GNEAttributeCarrier* AC) {
     editJunction(dynamic_cast<GNEJunction*>(AC));
@@ -349,32 +262,6 @@ GNETLSEditorFrame::selectedOverlappedElement(GNEAttributeCarrier* AC) {
 GNETLSEditorFrame::TLSModifications* 
 GNETLSEditorFrame::getTLSModifications() {
     return myTLSModifications;
-}
-
-
-long
-GNETLSEditorFrame::onCmdEditParameters(FXObject*, FXSelector, void*) {
-    // continue depending of myEditedDef
-    if (myEditedDef) {
-        // get previous parameters
-        const auto previousParameters = myTLSAttributes->getParameters();
-        // write debug information
-        WRITE_DEBUG("Open single parameters dialog");
-        if (GNESingleParametersDialog(myViewNet->getApp(), myEditedDef).execute()) {
-            // write debug information
-            WRITE_DEBUG("Close single parameters dialog");
-            // set parameters in textfield
-            myTLSAttributes->setParameters(myEditedDef->getParametersStr());
-            // only mark as modified if parameters are different
-            if (myTLSAttributes->getParameters() != previousParameters) {
-                myTLSModifications->setHaveModifications(true);
-            }
-        } else {
-            // write debug information
-            WRITE_DEBUG("Cancel single parameters dialog");
-        }
-    }
-    return 1;
 }
 
 
@@ -617,31 +504,31 @@ GNETLSEditorFrame::TLSAttributes::TLSAttributes(GNETLSEditorFrame* TLSEditorPare
     // create frame, label and textfield for name (By default disabled)
     FXHorizontalFrame* typeFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(typeFrame, toString(SUMO_ATTR_TYPE).c_str(), nullptr, GUIDesignLabelAttribute);
-    myTLSType = new FXTextField(typeFrame, GUIDesignTextFieldNCol, myTLSEditorParent, 0, GUIDesignTextField);
+    myTLSType = new FXTextField(typeFrame, GUIDesignTextFieldNCol, this, 0, GUIDesignTextField);
     myTLSType->disable();
 
     // create frame, label and textfield for name (By default disabled)
     FXHorizontalFrame* idFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(idFrame, toString(SUMO_ATTR_ID).c_str(), nullptr, GUIDesignLabelAttribute);
-    myIDTextField = new FXTextField(idFrame, GUIDesignTextFieldNCol, myTLSEditorParent, MID_GNE_TLSFRAME_SWITCH, GUIDesignTextField);
+    myIDTextField = new FXTextField(idFrame, GUIDesignTextFieldNCol, this, MID_GNE_TLSFRAME_SWITCH, GUIDesignTextField);
     myIDTextField->disable();
 
     // create frame, label and comboBox for Program (By default hidden)
     FXHorizontalFrame* programFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(programFrame, "program", nullptr, GUIDesignLabelAttribute);
-    myProgramComboBox = new FXComboBox(programFrame, GUIDesignComboBoxNCol, myTLSEditorParent, MID_GNE_TLSFRAME_SWITCH, GUIDesignComboBoxAttribute);
+    myProgramComboBox = new FXComboBox(programFrame, GUIDesignComboBoxNCol, this, MID_GNE_TLSFRAME_SWITCH, GUIDesignComboBoxAttribute);
     myProgramComboBox->disable();
 
     // create frame, label and TextField for Offset (By default disabled)
     FXHorizontalFrame* offsetFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(offsetFrame, toString(SUMO_ATTR_OFFSET).c_str(), nullptr, GUIDesignLabelAttribute);
-    myOffsetTextField = new FXTextField(offsetFrame, GUIDesignTextFieldNCol, myTLSEditorParent, MID_GNE_TLSFRAME_OFFSET, GUIDesignTextField);
+    myOffsetTextField = new FXTextField(offsetFrame, GUIDesignTextFieldNCol, this, MID_GNE_TLSFRAME_OFFSET, GUIDesignTextField);
     myOffsetTextField->disable();
 
     // create frame, label and TextField for Offset (By default disabled)
     FXHorizontalFrame* parametersFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
-    myButtonEditParameters = new FXButton(parametersFrame, "parameters", nullptr, myTLSEditorParent, MID_GNE_OPEN_PARAMETERS_DIALOG, GUIDesignButtonAttribute);
-    myParametersTextField = new FXTextField(parametersFrame, GUIDesignTextFieldNCol, myTLSEditorParent, MID_GNE_TLSFRAME_PARAMETERS, GUIDesignTextField);
+    myButtonEditParameters = new FXButton(parametersFrame, "parameters", nullptr, this, MID_GNE_OPEN_PARAMETERS_DIALOG, GUIDesignButtonAttribute);
+    myParametersTextField = new FXTextField(parametersFrame, GUIDesignTextFieldNCol, this, MID_GNE_TLSFRAME_PARAMETERS, GUIDesignTextField);
     myButtonEditParameters->disable();
     myParametersTextField->disable();
 }
@@ -676,7 +563,7 @@ GNETLSEditorFrame::TLSAttributes::initTLSAttributes(GNEJunction* junction) {
         myProgramComboBox->enable();
         myProgramComboBox->setCurrentItem(0);
         myProgramComboBox->setNumVisible(myProgramComboBox->getNumItems());
-        myTLSEditorParent->onCmdDefSwitch(nullptr, 0, nullptr);
+        myTLSEditorParent->myTLSAttributes->onCmdDefSwitch(nullptr, 0, nullptr);
     }
 }
 
@@ -780,6 +667,119 @@ GNETLSEditorFrame::TLSAttributes::isValidParameters() {
         myParametersTextField->setTextColor(MFXUtils::getFXColor(RGBColor::RED));
         return false;
     }
+}
+
+
+long
+GNETLSEditorFrame::TLSAttributes::onUpdDefSwitch(FXObject* o, FXSelector, void*) {
+    const bool enable = myTLSDefinitions.size() > 0 && !myTLSEditorParent->myTLSModifications->checkHaveModifications();
+    o->handle(this, FXSEL(SEL_COMMAND, enable ? FXWindow::ID_ENABLE : FXWindow::ID_DISABLE), nullptr);
+    return 1;
+}
+
+
+long
+GNETLSEditorFrame::TLSAttributes::onUpdNeedsDef(FXObject* o, FXSelector, void*) {
+    const bool enable = myTLSDefinitions.size() > 0;
+    o->handle(this, FXSEL(SEL_COMMAND, enable ? FXWindow::ID_ENABLE : FXWindow::ID_DISABLE), nullptr);
+    return 1;
+}
+
+
+long
+GNETLSEditorFrame::TLSAttributes::onCmdDefSwitch(FXObject*, FXSelector, void*) {
+    assert(myTLSEditorParent->myTLSJunction->getCurrentJunction() != 0);
+    assert((int)myTLSDefinitions.size() == (int)myProgramComboBox->getNumItems());
+    NBTrafficLightDefinition* tlDef = getCurrentTLSDefinition();
+    // logic may not have been recomputed yet. recompute to be sure
+    NBTrafficLightLogicCont& tllCont = myTLSEditorParent->getViewNet()->getNet()->getTLLogicCont();
+    myTLSEditorParent->getViewNet()->getNet()->computeJunction(myTLSEditorParent->myTLSJunction->getCurrentJunction());
+    NBTrafficLightLogic* tllogic = tllCont.getLogic(tlDef->getID(), tlDef->getProgramID());
+    if (tllogic != nullptr) {
+        // now we can be sure that the tlDef is up to date (i.e. re-guessed)
+        myTLSEditorParent->buildInternalLanes(tlDef);
+        // create working copy from original def
+        delete myTLSEditorParent->myEditedDef;
+        myTLSEditorParent->myEditedDef = new NBLoadedSUMOTLDef(*tlDef, *tllogic);
+        setOffset(myTLSEditorParent->myEditedDef->getLogic()->getOffset());
+        setParameters(myTLSEditorParent->myEditedDef->getLogic()->getParametersStr());
+        myTLSEditorParent->myTLSPhases->initPhaseTable();
+    } else {
+        // tlDef has no valid logic (probably because id does not control any links
+        myTLSEditorParent->myTLSModifications->onCmdCancel(nullptr, 0, nullptr);
+        myTLSEditorParent->getViewNet()->setStatusBarText("Traffic light does not control any links");
+    }
+    return 1;
+}
+
+
+long
+GNETLSEditorFrame::TLSAttributes::onCmdSetOffset(FXObject*, FXSelector, void*) {
+    if (isValidOffset()) {
+        myTLSEditorParent->myTLSModifications->setHaveModifications(true);
+        myTLSEditorParent->myEditedDef->setOffset(getOffset());
+    }
+    return 1;
+}
+
+
+long
+GNETLSEditorFrame::TLSAttributes::onCmdSetParameters(FXObject*, FXSelector, void*) {
+    if (isValidParameters()) {
+        myTLSEditorParent->myTLSModifications->setHaveModifications(true);
+        myTLSEditorParent->myEditedDef->setParametersStr(getParameters());
+    }
+    return 1;
+}
+
+
+long
+GNETLSEditorFrame::TLSAttributes::onCmdDefRename(FXObject*, FXSelector, void*) {
+    return 1;
+}
+
+
+long
+GNETLSEditorFrame::TLSAttributes::onCmdDefSubRename(FXObject*, FXSelector, void*) {
+    return 1;
+}
+
+
+long
+GNETLSEditorFrame::TLSAttributes::onCmdDefAddOff(FXObject*, FXSelector, void*) {
+    return 1;
+}
+
+
+long
+GNETLSEditorFrame::TLSAttributes::onCmdGuess(FXObject*, FXSelector, void*) {
+    return 1;
+}
+
+
+long
+GNETLSEditorFrame::TLSAttributes::onCmdEditParameters(FXObject*, FXSelector, void*) {
+    // continue depending of myEditedDef
+    if (myTLSEditorParent->myEditedDef) {
+        // get previous parameters
+        const auto previousParameters = getParameters();
+        // write debug information
+        WRITE_DEBUG("Open single parameters dialog");
+        if (GNESingleParametersDialog(myTLSEditorParent->getViewNet()->getApp(), myTLSEditorParent->myEditedDef).execute()) {
+            // write debug information
+            WRITE_DEBUG("Close single parameters dialog");
+            // set parameters in textfield
+            setParameters(myTLSEditorParent->myEditedDef->getParametersStr());
+            // only mark as modified if parameters are different
+            if (getParameters() != previousParameters) {
+                myTLSEditorParent->myTLSModifications->setHaveModifications(true);
+            }
+        } else {
+            // write debug information
+            WRITE_DEBUG("Cancel single parameters dialog");
+        }
+    }
+    return 1;
 }
 
 // ---------------------------------------------------------------------------
