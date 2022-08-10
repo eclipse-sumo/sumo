@@ -27,16 +27,14 @@ FXDEFMAP(MFXLabelTooltip) MFXLabelTooltipMap[] = {
     FXMAPFUNC(SEL_LEAVE,    0,  MFXLabelTooltip::onLeave),
 };
 
-
 // Object implementation
-FXIMPLEMENT(MFXLabelTooltip, FXLabel, MFXLabelTooltipMap, ARRAYNUMBER(MFXLabelTooltipMap))
+FXIMPLEMENT(MFXLabelTooltip, FXButton, MFXLabelTooltipMap, ARRAYNUMBER(MFXLabelTooltipMap))
 
-MFXLabelTooltip::MFXLabelTooltip(FXComposite* p,
-                                   const FXString& text, FXIcon* ic,
-                                   FXuint opts,
-                                   FXint x, FXint y, FXint w, FXint h,
-                                   FXint pl, FXint pr, FXint pt, FXint pb) :
-    FXLabel(p, text, ic, opts, x, y, w, h, pl, pr, pt, pb) {
+
+MFXLabelTooltip::MFXLabelTooltip(FXComposite* p, const FXString& text, FXIcon* ic, FXuint opts,
+                                 FXint x, FXint y, FXint w, FXint h,
+                                 FXint pl, FXint pr, FXint pt, FXint pb) :
+    FXButton(p, text, ic, nullptr, 0, opts, x, y, w, h, pl, pr, pt, pb) {
 }
 
 
@@ -52,7 +50,7 @@ MFXLabelTooltip::onEnter(FXObject* sender, FXSelector sel, void* ptr) {
     }
     // show tip show
     myStaticToolTip->onTipShow(sender, sel, ptr);
-    return FXLabel::onEnter(sender, sel, ptr);
+    return FXButton::onEnter(sender, sel, ptr);
 }
 
 
@@ -60,7 +58,7 @@ long
 MFXLabelTooltip::onLeave(FXObject* sender, FXSelector sel, void* ptr) {
     // hide tip show
     myStaticToolTip->onTipHide(sender, sel, this);
-    return FXLabel::onLeave(sender, sel, ptr);
+    return FXButton::onLeave(sender, sel, ptr);
 }
 
 
