@@ -280,6 +280,8 @@ public:
     // ===========================================================================
 
     class TLSModifications : public MFXGroupBoxModule {
+        /// @brief FOX-declaration
+        FXDECLARE(GNETLSEditorFrame::TLSModifications)
 
     public:
         /// @brief constructor
@@ -293,6 +295,25 @@ public:
 
         /// @brief set if current TLS was modified
         void setHaveModifications(bool value);
+
+        /// @name FOX-callbacks
+        /// @{
+        /// @brief Called when the user presses the OK-Button
+        /// @note saves any modifications
+        long onCmdOK(FXObject*, FXSelector, void*);
+
+        /// @brief Called when the user presses the Cancel-button
+        /// @note discards any modifications
+        long onCmdCancel(FXObject*, FXSelector, void*);
+
+        /// @brief Called when occurs an update of modified
+        long onUpdModified(FXObject*, FXSelector, void*);
+        
+        /// @}
+
+    protected:
+        /// @brief FOX needs this
+        FOX_CONSTRUCTOR(TLSModifications)
 
     private:
         /// @brief pointer to TLSEditor Parent
@@ -336,6 +357,7 @@ public:
         /// @}
 
     protected:
+        /// @brief FOX needs this
         FOX_CONSTRUCTOR(TLSFile)
 
     private:
@@ -379,14 +401,6 @@ public:
 
     /// @name FOX-callbacks
     /// @{
-    /// @brief Called when the user presses the OK-Button
-    /// @note saves any modifications
-    long onCmdOK(FXObject*, FXSelector, void*);
-
-    /// @brief Called when the user presses the Cancel-button
-    /// @note discards any modifications
-    long onCmdCancel(FXObject*, FXSelector, void*);
-
     /// @brief Called when the user presses the button Guess
     long onCmdGuess(FXObject*, FXSelector, void*);
 
@@ -450,8 +464,6 @@ public:
     /// @brief Called when occurs an update of create definition
     long onUpdDefCreate(FXObject*, FXSelector, void*);
 
-    /// @brief Called when occurs an update of modified
-    long onUpdModified(FXObject*, FXSelector, void*);
     /// @}
 
     /// @brief update phase definition for the current traffic light and phase
@@ -466,7 +478,11 @@ public:
     /// @brief open GNEAttributesCreator extended dialog (can be reimplemented in frame children)
     void selectedOverlappedElement(GNEAttributeCarrier* AC);
 
+    /// @brief get TLSModifications modul
+    TLSModifications* getTLSModifications();
+
 protected:
+    /// @brief FOX needs this
     FOX_CONSTRUCTOR(GNETLSEditorFrame)
 
     /**@brief edits the traffic light for the given junction

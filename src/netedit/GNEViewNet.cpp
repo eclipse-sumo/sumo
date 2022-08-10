@@ -1172,7 +1172,7 @@ GNEViewNet::abortOperation(bool clearSelection) {
             // abort changes in Connector Frame
             myViewParent->getConnectorFrame()->getConnectionModifications()->onCmdCancelModifications(0, 0, 0);
         } else if (myEditModes.networkEditMode == NetworkEditMode::NETWORK_TLS) {
-            myViewParent->getTLSEditorFrame()->onCmdCancel(nullptr, 0, nullptr);
+            myViewParent->getTLSEditorFrame()->getTLSModifications()->onCmdCancel(nullptr, 0, nullptr);
         } else if (myEditModes.networkEditMode == NetworkEditMode::NETWORK_MOVE) {
             myEditNetworkElementShapes.stopEditCustomShape();
         } else if (myEditModes.networkEditMode == NetworkEditMode::NETWORK_SHAPE) {
@@ -1308,7 +1308,7 @@ GNEViewNet::hotkeyEnter() {
             // Accept changes in Connector Frame
             myViewParent->getConnectorFrame()->getConnectionModifications()->onCmdSaveModifications(0, 0, 0);
         } else if (myEditModes.networkEditMode == NetworkEditMode::NETWORK_TLS) {
-            myViewParent->getTLSEditorFrame()->onCmdOK(nullptr, 0, nullptr);
+            myViewParent->getTLSEditorFrame()->getTLSModifications()->onCmdOK(nullptr, 0, nullptr);
         } else if ((myEditModes.networkEditMode == NetworkEditMode::NETWORK_MOVE) && (myEditNetworkElementShapes.getEditedNetworkElement() != nullptr)) {
             myEditNetworkElementShapes.commitEditedShape();
         } else if (myEditModes.networkEditMode == NetworkEditMode::NETWORK_SHAPE) {
