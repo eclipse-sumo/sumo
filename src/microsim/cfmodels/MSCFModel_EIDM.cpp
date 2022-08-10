@@ -464,7 +464,7 @@ MSCFModel_EIDM::followSpeed(const MSVehicle* const veh, double speed, double gap
     }
 #endif
 
-    double result = _v(veh, gap2pred, speed, predSpeed, vars->v0_int, true, update);
+    double result = _v(veh, MAX2(NUMERICAL_EPS, gap2pred), speed, predSpeed, vars->v0_int, true, update);
     return result;
 }
 
@@ -489,7 +489,7 @@ MSCFModel_EIDM::stopSpeed(const MSVehicle* const veh, const double speed, double
     }
 #endif
 
-    double result = _v(veh, gap, speed, 0, vars->v0_int, false, 0);
+    double result = _v(veh, MAX2(NUMERICAL_EPS, gap), speed, 0, vars->v0_int, false, 0);
 // From Sumo_IDM-implementation:
 //    if (gap > 0 && speed < NUMERICAL_EPS && result < NUMERICAL_EPS) {
 //        // ensure that stops can be reached:
