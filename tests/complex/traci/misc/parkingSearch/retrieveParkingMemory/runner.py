@@ -36,6 +36,7 @@ traci.start([sumolib.checkBinary('sumo'),
 
 egoID = "ego.0"
 
+
 def check(vehID):
     print("time:", traci.simulation.getTime())
     for param in [
@@ -46,7 +47,6 @@ def check(vehID):
             "parking.memory.blockedAtTimeLocal",
             ]:
         print("  ", param, ":", traci.vehicle.getParameter(vehID, param))
-
 
 
 traci.simulationStep()

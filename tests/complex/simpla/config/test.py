@@ -235,7 +235,7 @@ catchup="catchupVTypeID" catchupFollower="catchupFollowerVTypeID" />
             # print ("Time: %s"%traci.simulation.getCurrentTime())
             # print ("Vehicles: %s"%traci.vehicle.getIDList())
             traci.simulationStep()
-    
+
     def test_lookAhead(self):
         print("Testing lookAhead settings only...")
         self.patchConfigFile(self.cfg_body7)

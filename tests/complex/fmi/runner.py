@@ -32,7 +32,7 @@ VERBOSE = True
 
 sumoHome = os.path.abspath(os.environ['SUMO_HOME'])
 sys.path.append(os.path.join(sumoHome, "tools"))
-import sumolib
+import sumolib  # noqa
 
 egoID = "ego"
 
