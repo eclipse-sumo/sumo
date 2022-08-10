@@ -20,6 +20,8 @@ set(utils_foxtools_STAT_SRCS
    MFXImageHelper.cpp
    MFXImageHelper.h
    MFXInterThreadEventClient.h
+   MFXLabelTooltip.cpp
+   MFXLabelTooltip.h
    MFXLCDLabel.cpp
    MFXLCDLabel.h
    MFXLinkLabel.cpp
