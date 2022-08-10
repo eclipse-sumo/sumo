@@ -24,7 +24,7 @@
 #include <vector>
 
 #include <utils/common/UtilExceptions.h>
-#include <utils/foxtools/fxheader.h>
+#include <utils/foxtools/MFXLabelTooltip.h>
 #include <netedit/frames/network/GNETLSEditorFrame.h>
 
 
@@ -67,7 +67,7 @@ public:
     void selectRow(const int rowIndex);
 
     /// @brief Change column header text
-    void setColumnLabelTop(const int column, const std::string& text);
+    void setColumnLabelTop(const int column, const std::string& text, const std::string& tooltip = "");
 
     /// @brief Change column bottom text
     void setColumnLabelBot(const int column, const std::string& text);
@@ -172,7 +172,7 @@ protected:
         char getType() const;
 
         /// @brief set column label top
-        void setColumnLabelTop(const std::string& text);
+        void setColumnLabelTop(const std::string& text, const std::string& tooltip);
 
         /// @brief set column label boit
         void setColumnLabelBot(const std::string& text);
@@ -187,8 +187,8 @@ protected:
         /// @brief vertical frame
         FXVerticalFrame* myVerticalFrame = nullptr;
 
-        /// @brief column top label
-        FXLabel* myTopLabel = nullptr;
+        /// @brief column top tooltip label
+        MFXLabelTooltip* myTopLabel = nullptr;
 
         /// @brief vertical frame
         FXVerticalFrame* myVerticalCellFrame = nullptr;

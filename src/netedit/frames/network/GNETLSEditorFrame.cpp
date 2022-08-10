@@ -1363,8 +1363,8 @@ GNETLSEditorFrame::TLSPhases::initActuatedPhaseTable() {
     myPhaseTable->setColumnLabelTop(colDuration, "dur");
     myPhaseTable->setColumnLabelTop(colMinDur, "min");
     myPhaseTable->setColumnLabelTop(colMaxDur, "max");
-    myPhaseTable->setColumnLabelTop(colEarliestEnd, "ear.end");
-    myPhaseTable->setColumnLabelTop(colLatestEnd, "lat.end");
+    myPhaseTable->setColumnLabelTop(colEarliestEnd, "ear.end", "earlyEnd");
+    myPhaseTable->setColumnLabelTop(colLatestEnd, "lat.end", "latestEnd");
     myPhaseTable->setColumnLabelTop(colState, "state");
     myPhaseTable->setColumnLabelTop(colNext, "next");
     myPhaseTable->setColumnLabelTop(colName, "name");
@@ -1446,7 +1446,7 @@ GNETLSEditorFrame::TLSPhases::initNEMAPhaseTable() {
     myPhaseTable->setColumnLabelTop(colMinDur, "min");
     myPhaseTable->setColumnLabelTop(colMaxDur, "max");
     myPhaseTable->setColumnLabelTop(colState, "state");
-    myPhaseTable->setColumnLabelTop(colVehExt, "vehExt");
+    myPhaseTable->setColumnLabelTop(colVehExt, "vehExt", "vehicle extension");
     myPhaseTable->setColumnLabelTop(colYellow, "yellow");
     myPhaseTable->setColumnLabelTop(colRed, "red");
     myPhaseTable->setColumnLabelTop(colNext, "next");

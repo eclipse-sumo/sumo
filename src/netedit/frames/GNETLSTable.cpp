@@ -154,9 +154,9 @@ GNETLSTable::selectRow(const int row) {
 
 
 void
-GNETLSTable::setColumnLabelTop(const int column, const std::string& text) {
+GNETLSTable::setColumnLabelTop(const int column, const std::string& text, const std::string& tooltip) {
     if ((column >= 0) && (column < (int)myColumns.size())) {
-        myColumns.at(column)->setColumnLabelTop(text);
+        myColumns.at(column)->setColumnLabelTop(text, tooltip);
     } else {
         throw ProcessError("Invalid column");
     }
@@ -375,7 +375,18 @@ GNETLSTable::Column::Column(GNETLSTable* table, const int index, const char type
     // create vertical frame
     myVerticalFrame = new FXVerticalFrame(table, GUIDesignAuxiliarTLSTable);
     // create top label
-    myTopLabel = new FXLabel(myVerticalFrame, "", nullptr, GUIDesignLabelTLSTable);
+    switch (myType) {
+        case 's':
+        case 'i':
+        case 'd':
+            // empty label
+            myTopLabel = new MFXLabelTooltip(myVerticalFrame, "", nullptr, GUIDesignLabelTLSTableEmpty);
+            break;
+        default:
+            // ticked label
+            myTopLabel = new MFXLabelTooltip(myVerticalFrame, "", nullptr, GUIDesignLabelTLSTable);
+            break;
+    }
     // create vertical frame for cells
     myVerticalCellFrame = new FXVerticalFrame(myVerticalFrame, GUIDesignAuxiliarTLSTable);
     // create bot label
@@ -421,8 +432,9 @@ GNETLSTable::Column::getType() const {
 
 
 void
-GNETLSTable::Column::setColumnLabelTop(const std::string& text) {
+GNETLSTable::Column::setColumnLabelTop(const std::string& text, const std::string& tooltip) {
     myTopLabel->setText(text.c_str());
+    myTopLabel->setTipText(tooltip.c_str());
 }
 
 
