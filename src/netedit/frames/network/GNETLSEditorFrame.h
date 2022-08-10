@@ -284,10 +284,10 @@ public:
         /// @name FOX-callbacks
         /// @{
         /// @brief Called when the user cleans up states
-        long onCmdCleanup(FXObject*, FXSelector, void*);
+        long onCmdCleanStates(FXObject*, FXSelector, void*);
 
         /// @brief Called when the user cleans up states
-        long onCmdAddUnused(FXObject*, FXSelector, void*);
+        long onCmdAddUnusedStates(FXObject*, FXSelector, void*);
 
         /// @brief Called when the user groups states
         long onCmdGroupStates(FXObject*, FXSelector, void*);
@@ -304,7 +304,7 @@ public:
         /// @brief enable buttons, only when a tlLogic is being edited
         long onUpdNeedsDef(FXObject*, FXSelector, void*);
 
-        /// @brief Called when occurs an update of needs definition an dphase
+        /// @brief Called when occurs an update of needs definition and phase
         long onUpdNeedsDefAndPhase(FXObject*, FXSelector, void*);
 
         /// @}

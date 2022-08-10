@@ -1025,15 +1025,15 @@ enum {
     /// @brief delete  phase thable
     MID_GNE_TLSFRAME_PHASE_DELETE,
     /// @brief cleanup unused states
-    MID_GNE_TLSFRAME_CLEANUP,
+    MID_GNE_TLSFRAME_PHASES_CLEANUP,
     /// @brief mark unused states
     MID_GNE_TLSFRAME_MARKUNUSED,
     /// @brief add unused states
-    MID_GNE_TLSFRAME_ADDUNUSED,
+    MID_GNE_TLSFRAME_PHASES_ADDUNUSED,
     /// @brief group states
-    MID_GNE_TLSFRAME_GROUP_STATES,
+    MID_GNE_TLSFRAME_PHASES_GROUPSTATES,
     /// @brief ungroup states
-    MID_GNE_TLSFRAME_UNGROUP_STATES,
+    MID_GNE_TLSFRAME_PHASES_UNGROUPSTATES,
     /// @brief Load Program
     MID_GNE_TLSFRAME_LOAD_PROGRAM,
     /// @brief cleanup unused states
