@@ -1007,11 +1007,11 @@ enum {
     /// @brief switch between programs
     MID_GNE_TLSFRAME_SWITCH,
     /// @brief Create TLS
-    MID_GNE_TLSFRAME_CREATE,
+    MID_GNE_TLSFRAME_DEFINITION_CREATE,
     /// @brief delete TLS
-    MID_GNE_TLSFRAME_DELETE,
-    /// @brief regenerate TLS
-    MID_GNE_TLSFRAME_REGENERATE,
+    MID_GNE_TLSFRAME_DEFINITION_DELETE,
+    /// @brief reset TLS
+    MID_GNE_TLSFRAME_DEFINITION_RESET,
     /// @brief rename TLS
     MID_GNE_TLSFRAME_RENAME,
     /// @brief sub-rename TLS

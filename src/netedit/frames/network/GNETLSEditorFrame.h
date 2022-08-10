@@ -94,19 +94,19 @@ public:
         /// @name FOX-callbacks
         /// @{
         /// @brief Called when the user creates a TLS
-        long onCmdDefCreate(FXObject*, FXSelector, void*);
+        long onCmdCreate(FXObject*, FXSelector, void*);
 
         /// @brief Called when the user deletes a TLS
-        long onCmdDefDelete(FXObject*, FXSelector, void*);
+        long onCmdDelete(FXObject*, FXSelector, void*);
 
         /// @brief Called when the user regenerates a TLS
-        long onCmdDefRegenerate(FXObject*, FXSelector, void*);
+        long onCmdReset(FXObject*, FXSelector, void*);
 
         /// @brief Called when occurs an update of create definition
-        long onUpdDefCreate(FXObject*, FXSelector, void*);
+        long onUpdCreateButton(FXObject*, FXSelector, void*);
 
         /// @brief Called when occurs an update of switch definition
-        long onUpdDefSwitch(FXObject*, FXSelector, void*);
+        long onUpdTLSModified(FXObject*, FXSelector, void*);
 
         /// @}
 
