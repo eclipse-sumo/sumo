@@ -50,17 +50,8 @@ FXDEFMAP(GNETLSEditorFrame) GNETLSEditorFrameMap[] = {
     FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_SUBRENAME,       GNETLSEditorFrame::onCmdDefSubRename),
     FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_ADDOFF,          GNETLSEditorFrame::onCmdDefAddOff),
     FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_GUESSPROGRAM,    GNETLSEditorFrame::onCmdGuess),
-    FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_CLEANUP,         GNETLSEditorFrame::onCmdCleanup),
-    FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_CLEANUP,         GNETLSEditorFrame::onUpdNeedsSingleDef),
-    FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_ADDUNUSED,       GNETLSEditorFrame::onCmdAddUnused),
-    FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_ADDUNUSED,       GNETLSEditorFrame::onUpdNeedsDef),
-    FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_GROUP_STATES,    GNETLSEditorFrame::onCmdGroupStates),
-    FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_GROUP_STATES,    GNETLSEditorFrame::onUpdNeedsSingleDef),
-    FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_UNGROUP_STATES,  GNETLSEditorFrame::onCmdUngroupStates),
-    FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_UNGROUP_STATES,  GNETLSEditorFrame::onUpdUngroupStates),
     FXMAPFUNC(SEL_COMMAND,    MID_GNE_OPEN_PARAMETERS_DIALOG,   GNETLSEditorFrame::onCmdEditParameters),
 };
-
 
 FXDEFMAP(GNETLSEditorFrame::TLSDefinition) TLSDefinitionMap[] = {
     FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_CREATE,          GNETLSEditorFrame::TLSDefinition::onCmdDefCreate),
@@ -71,12 +62,22 @@ FXDEFMAP(GNETLSEditorFrame::TLSDefinition) TLSDefinitionMap[] = {
     FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_REGENERATE,      GNETLSEditorFrame::TLSDefinition::onUpdDefSwitch),
 };
 
-
 FXDEFMAP(GNETLSEditorFrame::TLSModifications) TLSModificationsMap[] = {
     FXMAPFUNC(SEL_COMMAND,    MID_CANCEL,   GNETLSEditorFrame::TLSModifications::onCmdCancel),
     FXMAPFUNC(SEL_UPDATE,     MID_CANCEL,   GNETLSEditorFrame::TLSModifications::onUpdModified),
     FXMAPFUNC(SEL_COMMAND,    MID_OK,       GNETLSEditorFrame::TLSModifications::onCmdOK),
     FXMAPFUNC(SEL_UPDATE,     MID_OK,       GNETLSEditorFrame::TLSModifications::onUpdModified),
+};
+
+FXDEFMAP(GNETLSEditorFrame::TLSPhases) TLSPhasesMap[] = {
+    FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_CLEANUP,         GNETLSEditorFrame::TLSPhases::onCmdCleanup),
+    FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_CLEANUP,         GNETLSEditorFrame::TLSPhases::onUpdNeedsSingleDef),
+    FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_ADDUNUSED,       GNETLSEditorFrame::TLSPhases::onCmdAddUnused),
+    FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_ADDUNUSED,       GNETLSEditorFrame::TLSPhases::onUpdNeedsDef),
+    FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_GROUP_STATES,    GNETLSEditorFrame::TLSPhases::onCmdGroupStates),
+    FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_GROUP_STATES,    GNETLSEditorFrame::TLSPhases::onUpdNeedsSingleDef),
+    FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_UNGROUP_STATES,  GNETLSEditorFrame::TLSPhases::onCmdUngroupStates),
+    FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_UNGROUP_STATES,  GNETLSEditorFrame::TLSPhases::onUpdUngroupStates),
 };
 
 FXDEFMAP(GNETLSEditorFrame::TLSFile) TLSFileMap[] = {
@@ -90,6 +91,7 @@ FXDEFMAP(GNETLSEditorFrame::TLSFile) TLSFileMap[] = {
 FXIMPLEMENT(GNETLSEditorFrame,                      FXVerticalFrame,    GNETLSEditorFrameMap,   ARRAYNUMBER(GNETLSEditorFrameMap))
 FXIMPLEMENT(GNETLSEditorFrame::TLSDefinition,       MFXGroupBoxModule,  TLSDefinitionMap,       ARRAYNUMBER(TLSDefinitionMap))
 FXIMPLEMENT(GNETLSEditorFrame::TLSModifications,    MFXGroupBoxModule,  TLSModificationsMap,    ARRAYNUMBER(TLSModificationsMap))
+FXIMPLEMENT(GNETLSEditorFrame::TLSPhases,           MFXGroupBoxModule,  TLSPhasesMap,           ARRAYNUMBER(TLSPhasesMap))
 FXIMPLEMENT(GNETLSEditorFrame::TLSFile,             MFXGroupBoxModule,  TLSFileMap,             ARRAYNUMBER(TLSFileMap))
 
 
@@ -268,15 +270,6 @@ GNETLSEditorFrame::onUpdNeedsDef(FXObject* o, FXSelector, void*) {
 
 
 long
-GNETLSEditorFrame::onUpdNeedsDefAndPhase(FXObject* o, FXSelector, void*) {
-    // do not delete the last phase
-    const bool enable = myTLSAttributes->getNumberOfTLSDefinitions() > 0 && myTLSPhases->getPhaseTable()->getNumRows() > 1;
-    o->handle(this, FXSEL(SEL_COMMAND, enable ? FXWindow::ID_ENABLE : FXWindow::ID_DISABLE), nullptr);
-    return 1;
-}
-
-
-long
 GNETLSEditorFrame::onCmdDefSwitch(FXObject*, FXSelector, void*) {
     assert(myTLSJunction->getCurrentJunction() != 0);
     assert(myTLSAttributes->getNumberOfTLSDefinitions() == myTLSAttributes->getNumberOfPrograms());
@@ -356,67 +349,6 @@ GNETLSEditorFrame::selectedOverlappedElement(GNEAttributeCarrier* AC) {
 GNETLSEditorFrame::TLSModifications* 
 GNETLSEditorFrame::getTLSModifications() {
     return myTLSModifications;
-}
-
-
-long
-GNETLSEditorFrame::onCmdCleanup(FXObject*, FXSelector, void*) {
-    myTLSModifications->setHaveModifications(myEditedDef->cleanupStates());
-    buildInternalLanes(myEditedDef);
-    myTLSPhases->initPhaseTable();
-    myTLSPhases->getPhaseTable()->setFocus();
-    myTLSModifications->setHaveModifications(true);
-    return 1;
-}
-
-
-long
-GNETLSEditorFrame::onCmdAddUnused(FXObject*, FXSelector, void*) {
-    myEditedDef->getLogic()->setStateLength(
-        myEditedDef->getLogic()->getNumLinks() + 1);
-    myTLSModifications->setHaveModifications(true);
-    myTLSPhases->initPhaseTable();
-    myTLSPhases->getPhaseTable()->setFocus();
-    return 1;
-}
-
-
-long
-GNETLSEditorFrame::onCmdGroupStates(FXObject*, FXSelector, void*) {
-    myEditedDef->groupSignals();
-    myTLSModifications->setHaveModifications(true);
-    buildInternalLanes(myEditedDef);
-    myTLSPhases->initPhaseTable();
-    myTLSPhases->getPhaseTable()->setFocus();
-    return 1;
-}
-
-
-long
-GNETLSEditorFrame::onCmdUngroupStates(FXObject*, FXSelector, void*) {
-    myEditedDef->setParticipantsInformation();
-    myEditedDef->ungroupSignals();
-    myTLSModifications->setHaveModifications(true);
-    buildInternalLanes(myEditedDef);
-    myTLSPhases->initPhaseTable();
-    myTLSPhases->getPhaseTable()->setFocus();
-    return 1;
-}
-
-
-long
-GNETLSEditorFrame::onUpdNeedsSingleDef(FXObject* o, FXSelector, void*) {
-    const bool enable = myTLSAttributes->getNumberOfTLSDefinitions() == 1;
-    o->handle(this, FXSEL(SEL_COMMAND, enable ? FXWindow::ID_ENABLE : FXWindow::ID_DISABLE), nullptr);
-    return 1;
-}
-
-
-long
-GNETLSEditorFrame::onUpdUngroupStates(FXObject* o, FXSelector, void*) {
-    const bool enable = myTLSAttributes->getNumberOfTLSDefinitions() == 1 && myEditedDef != nullptr && myEditedDef->usingSignalGroups();
-    o->handle(this, FXSEL(SEL_COMMAND, enable ? FXWindow::ID_ENABLE : FXWindow::ID_DISABLE), nullptr);
-    return 1;
 }
 
 
@@ -1035,13 +967,13 @@ GNETLSEditorFrame::TLSPhases::TLSPhases(GNETLSEditorFrame* TLSEditorParent) :
     FXVerticalFrame* col1 = new FXVerticalFrame(phaseButtons, GUIDesignAuxiliarHorizontalFrame); // left button columm
     FXVerticalFrame* col2 = new FXVerticalFrame(phaseButtons, GUIDesignAuxiliarHorizontalFrame); // right button column
     // create cleanup states button
-    new FXButton(col1, "Clean States\t\tClean unused states from all phase. (Not allowed for multiple programs)", nullptr, myTLSEditorParent, MID_GNE_TLSFRAME_CLEANUP, GUIDesignButton);
+    new MFXButtonTooltip(col1, "Clean States\tClean unused states from all phase\tClean unused states from all phase. (Not allowed for multiple programs)", nullptr, this, MID_GNE_TLSFRAME_CLEANUP, GUIDesignButton);
     // add unused states button
-    new FXButton(col2, "Add States\t\tExtend the state vector for all phases by one entry (unused until a connection or crossing is assigned to the new index).", nullptr, myTLSEditorParent, MID_GNE_TLSFRAME_ADDUNUSED, GUIDesignButton);
+    new MFXButtonTooltip(col2, "Add States\tExtend the state vector for all phases by one entry\tExtend the state vector for all phases by one entry (unused until a connection or crossing is assigned to the new index).", nullptr, this, MID_GNE_TLSFRAME_ADDUNUSED, GUIDesignButton);
     // group states button
-    new FXButton(col1, "Group Signals\t\tShorten state definition by letting connections with the same signal states use the same index. (Not allowed for multiple programs)", nullptr, myTLSEditorParent, MID_GNE_TLSFRAME_GROUP_STATES, GUIDesignButton);
+    new MFXButtonTooltip(col1, "Group Signals\tShorten state definition by letting connections with the same signal states use the same index\tShorten state definition by letting connections with the same signal states use the same index. (Not allowed for multiple programs)", nullptr, this, MID_GNE_TLSFRAME_GROUP_STATES, GUIDesignButton);
     // ungroup states button
-    new FXButton(col2, "Ungroup Signals\t\tLet every connection use a distinct index (reverse state grouping). (Not allowed for multiple programs)", nullptr, myTLSEditorParent, MID_GNE_TLSFRAME_UNGROUP_STATES, GUIDesignButton);
+    new MFXButtonTooltip(col2, "Ungroup Signals\tLet every connection use a distinct index (reverse state grouping)\tLet every connection use a distinct index (reverse state grouping). (Not allowed for multiple programs)", nullptr, this, MID_GNE_TLSFRAME_UNGROUP_STATES, GUIDesignButton);
     // show TLSFile
     show();
 }
@@ -1281,6 +1213,83 @@ GNETLSEditorFrame::TLSPhases::removePhase(const int row) {
     myPhaseTable->selectRow(newRow);
     // set focus in table
     getPhaseTable()->setFocus();
+}
+
+
+long
+GNETLSEditorFrame::TLSPhases::onUpdNeedsDef(FXObject* o, FXSelector, void*) {
+    const bool enable = myTLSEditorParent->myTLSAttributes->getNumberOfTLSDefinitions() > 0;
+    o->handle(this, FXSEL(SEL_COMMAND, enable ? FXWindow::ID_ENABLE : FXWindow::ID_DISABLE), nullptr);
+    return 1;
+}
+
+
+long
+GNETLSEditorFrame::TLSPhases::onUpdNeedsDefAndPhase(FXObject* o, FXSelector, void*) {
+    // do not delete the last phase
+    const bool enable = myTLSEditorParent->myTLSAttributes->getNumberOfTLSDefinitions() > 0 && myPhaseTable->getNumRows() > 1;
+    o->handle(this, FXSEL(SEL_COMMAND, enable ? FXWindow::ID_ENABLE : FXWindow::ID_DISABLE), nullptr);
+    return 1;
+}
+
+
+long
+GNETLSEditorFrame::TLSPhases::onCmdCleanup(FXObject*, FXSelector, void*) {
+    myTLSEditorParent->myTLSModifications->setHaveModifications(myTLSEditorParent->myEditedDef->cleanupStates());
+    myTLSEditorParent->buildInternalLanes(myTLSEditorParent->myEditedDef);
+    initPhaseTable();
+    myPhaseTable->setFocus();
+    myTLSEditorParent->myTLSModifications->setHaveModifications(true);
+    return 1;
+}
+
+
+long
+GNETLSEditorFrame::TLSPhases::onCmdAddUnused(FXObject*, FXSelector, void*) {
+    myTLSEditorParent->myEditedDef->getLogic()->setStateLength(myTLSEditorParent->myEditedDef->getLogic()->getNumLinks() + 1);
+    myTLSEditorParent->myTLSModifications->setHaveModifications(true);
+    initPhaseTable();
+    myPhaseTable->setFocus();
+    return 1;
+}
+
+
+long
+GNETLSEditorFrame::TLSPhases::onCmdGroupStates(FXObject*, FXSelector, void*) {
+    myTLSEditorParent->myEditedDef->groupSignals();
+    myTLSEditorParent->myTLSModifications->setHaveModifications(true);
+    myTLSEditorParent->buildInternalLanes(myTLSEditorParent->myEditedDef);
+    initPhaseTable();
+    myPhaseTable->setFocus();
+    return 1;
+}
+
+
+long
+GNETLSEditorFrame::TLSPhases::onCmdUngroupStates(FXObject*, FXSelector, void*) {
+    myTLSEditorParent->myEditedDef->setParticipantsInformation();
+    myTLSEditorParent->myEditedDef->ungroupSignals();
+    myTLSEditorParent->myTLSModifications->setHaveModifications(true);
+    myTLSEditorParent->buildInternalLanes(myTLSEditorParent->myEditedDef);
+    initPhaseTable();
+    myPhaseTable->setFocus();
+    return 1;
+}
+
+
+long
+GNETLSEditorFrame::TLSPhases::onUpdNeedsSingleDef(FXObject* o, FXSelector, void*) {
+    const bool enable = myTLSEditorParent->myTLSAttributes->getNumberOfTLSDefinitions() == 1;
+    o->handle(this, FXSEL(SEL_COMMAND, enable ? FXWindow::ID_ENABLE : FXWindow::ID_DISABLE), nullptr);
+    return 1;
+}
+
+
+long
+GNETLSEditorFrame::TLSPhases::onUpdUngroupStates(FXObject* o, FXSelector, void*) {
+    const bool enable = myTLSEditorParent->myTLSAttributes->getNumberOfTLSDefinitions() == 1 && myTLSEditorParent->myEditedDef != nullptr && myTLSEditorParent->myEditedDef->usingSignalGroups();
+    o->handle(this, FXSEL(SEL_COMMAND, enable ? FXWindow::ID_ENABLE : FXWindow::ID_DISABLE), nullptr);
+    return 1;
 }
 
 

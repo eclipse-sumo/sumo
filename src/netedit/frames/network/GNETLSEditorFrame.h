@@ -211,6 +211,8 @@ public:
     // ===========================================================================
 
     class TLSPhases : public MFXGroupBoxModule {
+        /// @brief FOX-declaration
+        FXDECLARE(GNETLSEditorFrame::TLSPhases)
 
     public:
         /// @brief constructor
@@ -242,7 +244,39 @@ public:
         /// @brief delete phase
         void removePhase(const int row);
 
+        /// @name FOX-callbacks
+        /// @{
+        /// @brief Called when the user cleans up states
+        long onCmdCleanup(FXObject*, FXSelector, void*);
+
+        /// @brief Called when the user cleans up states
+        long onCmdAddUnused(FXObject*, FXSelector, void*);
+
+        /// @brief Called when the user groups states
+        long onCmdGroupStates(FXObject*, FXSelector, void*);
+
+        /// @brief Called when the user ungroups states
+        long onCmdUngroupStates(FXObject*, FXSelector, void*);
+
+        /// @brief Called to update the ungroups states button
+        long onUpdUngroupStates(FXObject*, FXSelector, void*);
+
+        /// @brief Called to buttons that modify link indices
+        long onUpdNeedsSingleDef(FXObject*, FXSelector, void*);
+
+        /// @brief enable buttons, only when a tlLogic is being edited
+        long onUpdNeedsDef(FXObject*, FXSelector, void*);
+
+        /// @brief Called when occurs an update of needs definition an dphase
+        long onUpdNeedsDefAndPhase(FXObject*, FXSelector, void*);
+
+        /// @}
+
     protected:
+        /// @brief FOX needs this
+        FOX_CONSTRUCTOR(TLSPhases)
+
+    private:
         /// @brief init static phase table
         void initStaticPhaseTable();
 
@@ -294,7 +328,6 @@ public:
         /// @brief update state size
         void updateStateSize(const int col);
 
-    private:
         /// @brief pointer to TLSEditor Parent
         GNETLSEditorFrame* myTLSEditorParent;
 
@@ -449,35 +482,14 @@ public:
     /// @brief Called when the user adds a OFF
     long onCmdDefAddOff(FXObject*, FXSelector, void*);
 
-    /// @brief Called when the user cleans up states
-    long onCmdCleanup(FXObject*, FXSelector, void*);
-
-    /// @brief Called when the user cleans up states
-    long onCmdAddUnused(FXObject*, FXSelector, void*);
-
-    /// @brief Called when the user groups states
-    long onCmdGroupStates(FXObject*, FXSelector, void*);
-
-    /// @brief Called when the user ungroups states
-    long onCmdUngroupStates(FXObject*, FXSelector, void*);
-
-    /// @brief Called to update the ungroups states button
-    long onUpdUngroupStates(FXObject*, FXSelector, void*);
-
-    /// @brief Called when user press edit parameters button
-    long onCmdEditParameters(FXObject*, FXSelector, void* ptr);
+    /// @brief Called when occurs an update of needs definition
+    long onUpdNeedsDef(FXObject*, FXSelector, void*);
 
     /// @brief Called when occurs an update of switch definition
     long onUpdDefSwitch(FXObject*, FXSelector, void*);
 
-    /// @brief Called when occurs an update of needs definition
-    long onUpdNeedsDef(FXObject*, FXSelector, void*);
-
-    /// @brief Called to buttons that modify link indices
-    long onUpdNeedsSingleDef(FXObject*, FXSelector, void*);
-
-    /// @brief Called when occurs an update of needs definition an dphase
-    long onUpdNeedsDefAndPhase(FXObject*, FXSelector, void*);
+    /// @brief Called when user press edit parameters button
+    long onCmdEditParameters(FXObject*, FXSelector, void* ptr);
 
     /// @}
 
