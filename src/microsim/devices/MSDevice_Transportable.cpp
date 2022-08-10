@@ -125,6 +125,11 @@ MSDevice_Transportable::notifyMove(SUMOTrafficObject& /*tObject*/, double /*oldP
                 MSTransportable* transportable = *i;
                 MSStageDriving* const stage = dynamic_cast<MSStageDriving*>(transportable->getCurrentStage());
                 if (stage->canLeaveVehicle(transportable, myHolder, stop)) {
+                    MSDevice_Taxi* taxiDevice = static_cast<MSDevice_Taxi*>(myHolder.getDevice(typeid(MSDevice_Taxi)));
+                    if (taxiDevice != nullptr && stop.timeToBoardNextPerson == 0) {
+                        // taxi passengers must leave at the end of the stop duration
+                        stop.timeToBoardNextPerson = stop.pars.started + stop.pars.duration;
+                    }
                     if (stop.timeToBoardNextPerson - DELTA_T > currentTime) {
                         // try deboarding again in the next step
                         myStopped = false;
@@ -149,7 +154,6 @@ MSDevice_Transportable::notifyMove(SUMOTrafficObject& /*tObject*/, double /*oldP
                     stop.duration = MAX2(stop.duration, stop.timeToBoardNextPerson - currentTime);
 
                     i = myTransportables.erase(i); // erase first in case proceed throws an exception
-                    MSDevice_Taxi* taxiDevice = static_cast<MSDevice_Taxi*>(myHolder.getDevice(typeid(MSDevice_Taxi)));
                     if (taxiDevice != nullptr) {
                         taxiDevice->customerArrived(transportable);
                     }
