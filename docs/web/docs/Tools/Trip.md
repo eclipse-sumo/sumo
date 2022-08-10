@@ -126,8 +126,8 @@ python tools/randomTrips.py -n <net-file> 
 This would make the random vehicles be distributed randomly on their
 starting edges and inserted with high speed on a reasonable lane.
 
-!!! caution
-    Quoting of trip attributes on Linux must use the style **--trip-attributes 'departLane="best" departSpeed="max" departPos="random"'**
+!!! note
+    Quoting of trip attributes on Linux may also use the style **--trip-attributes 'departLane="best" departSpeed="max" departPos="random"'**
 
 ### Setting a vehicle type from an external file
 
