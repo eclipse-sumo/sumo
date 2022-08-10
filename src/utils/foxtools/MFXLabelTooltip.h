@@ -42,6 +42,9 @@ public:
 
     /// @name FOX callbacks
     /// @{
+    /// @brief called when paint
+    long onPaint(FXObject*, FXSelector, void*);
+
     /// @brief called when mouse enter in MFXLabelTooltip
     long onEnter(FXObject*, FXSelector, void*);
 

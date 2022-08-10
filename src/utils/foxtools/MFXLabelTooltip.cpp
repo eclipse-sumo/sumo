@@ -23,6 +23,7 @@
 
 
 FXDEFMAP(MFXLabelTooltip) MFXLabelTooltipMap[] = {
+    FXMAPFUNC(SEL_PAINT,    0,  MFXLabelTooltip::onPaint),
     FXMAPFUNC(SEL_ENTER,    0,  MFXLabelTooltip::onEnter),
     FXMAPFUNC(SEL_LEAVE,    0,  MFXLabelTooltip::onLeave),
 };
@@ -35,10 +36,42 @@ MFXLabelTooltip::MFXLabelTooltip(FXComposite* p, const FXString& text, FXIcon* i
                                  FXint x, FXint y, FXint w, FXint h,
                                  FXint pl, FXint pr, FXint pt, FXint pb) :
     FXButton(p, text, ic, nullptr, 0, opts, x, y, w, h, pl, pr, pt, pb) {
+    // to avoid select button, just disable it (we can improve this in the future)
+    disable();
 }
 
 
 MFXLabelTooltip::~MFXLabelTooltip() {}
+
+
+long 
+MFXLabelTooltip::onPaint(FXObject*,FXSelector,void* ptr){
+    FXEvent* ev = (FXEvent*)ptr;
+    FXDCWindow dc(this, ev);
+    FXint tw = 0, th = 0, iw = 0, ih = 0, tx, ty, ix, iy;
+    dc.setForeground(backColor);
+    dc.fillRectangle(0, 0, width, height);
+    if (!label.empty()) {
+        tw = labelWidth(label);
+        th = labelHeight(label);
+    }
+    if (icon) {
+        iw = icon->getWidth();
+        ih = icon->getHeight();
+    }
+    just_x(tx, ix, tw, iw);
+    just_y(ty, iy, th, ih);
+    if (icon){
+        dc.drawIcon(icon, ix, iy);
+    }
+    if (!label.empty()) {
+        dc.setFont(font);
+        dc.setForeground(textColor);
+        drawLabel(dc, label, hotoff, tx, ty, tw, th);
+    }
+    drawFrame(dc, 0, 0, width, height);
+    return 1;
+}
 
 
 long
