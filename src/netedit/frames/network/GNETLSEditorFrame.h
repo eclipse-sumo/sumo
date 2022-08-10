@@ -185,7 +185,7 @@ public:
         long onCmdGuess(FXObject*, FXSelector, void*);
 
         /// @brief Called when the user switchs a TLS
-        long onCmdDefSwitch(FXObject*, FXSelector, void*);
+        long onCmdDefSwitchTLSProgram(FXObject*, FXSelector, void*);
 
         /// @brief Called when the user changes the offset of a TLS
         long onCmdSetOffset(FXObject*, FXSelector, void*);
@@ -202,11 +202,11 @@ public:
         /// @brief Called when the user adds a OFF
         long onCmdDefAddOff(FXObject*, FXSelector, void*);
 
-        /// @brief Called when occurs an update of needs definition
-        long onUpdNeedsDef(FXObject*, FXSelector, void*);
+        /// @brief Called when occurs an update of needs TLS definition
+        long onUpdNeedsTLSDef(FXObject*, FXSelector, void*);
 
         /// @brief Called when occurs an update of switch definition
-        long onUpdDefSwitch(FXObject*, FXSelector, void*);
+        long onUpdTLSModified(FXObject*, FXSelector, void*);
 
         /// @brief Called when user press edit parameters button
         long onCmdEditParameters(FXObject*, FXSelector, void* ptr);

@@ -999,13 +999,15 @@ enum {
     /// @brief update TLS status
     MID_GNE_TLSFRAME_UPDATE_STATUS,
     /// @brief replace program with a newly guessed program
-    MID_GNE_TLSFRAME_GUESSPROGRAM,
+    MID_GNE_TLSFRAME_ATTRIBUTES_GUESSPROGRAM,
     /// @brief TLS offset
-    MID_GNE_TLSFRAME_OFFSET,
+    MID_GNE_TLSFRAME_ATTRIBUTES_OFFSET,
     /// @brief TLS parameters
-    MID_GNE_TLSFRAME_PARAMETERS,
+    MID_GNE_TLSFRAME_ATTRIBUTES_PARAMETERS,
+    /// @brief TLS parameters
+    MID_GNE_TLSFRAME_ATTRIBUTES_PARAMETERSDIALOG,
     /// @brief switch between programs
-    MID_GNE_TLSFRAME_SWITCH,
+    MID_GNE_TLSFRAME_ATTRIBUTES_SWITCH,
     /// @brief Create TLS
     MID_GNE_TLSFRAME_DEFINITION_CREATE,
     /// @brief delete TLS
@@ -1013,11 +1015,11 @@ enum {
     /// @brief reset TLS
     MID_GNE_TLSFRAME_DEFINITION_RESET,
     /// @brief rename TLS
-    MID_GNE_TLSFRAME_RENAME,
+    MID_GNE_TLSFRAME_ATTRIBUTES_RENAME,
     /// @brief sub-rename TLS
-    MID_GNE_TLSFRAME_SUBRENAME,
+    MID_GNE_TLSFRAME_ATTRIBUTES_SUBRENAME,
     /// @brief add off to TLS
-    MID_GNE_TLSFRAME_ADDOFF,
+    MID_GNE_TLSFRAME_ATTRIBUTES_ADDOFF,
     /// @brief create phase thable
     MID_GNE_TLSFRAME_PHASE_CREATE,
     /// @brief delete  phase thable
