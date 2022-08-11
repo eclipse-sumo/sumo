@@ -530,9 +530,11 @@ def main(options):
         sumolib.writeXMLHeader(mismatchf, "$Id$", options=options)  # noqa
         mismatchf.write('<data>\n')
 
-    underflowSummary = sumolib.miscutils.Statistics("all interval underflow")
-    overflowSummary = sumolib.miscutils.Statistics("all interval overflow")
-    gehSummary = sumolib.miscutils.Statistics("all interval GEH%")
+    underflowSummary = sumolib.miscutils.Statistics("avg interval underflow")
+    overflowSummary = sumolib.miscutils.Statistics("avg interval overflow")
+    gehSummary = sumolib.miscutils.Statistics("avg interval GEH%")
+    inputCountSummary = sumolib.miscutils.Statistics("avg interval input count")
+    usedRoutesSummary = sumolib.miscutils.Statistics("avg interval written vehs")
 
     with open(options.out, 'w') as outf:
         sumolib.writeXMLHeader(outf, "$Id$", "routes", options=options)  # noqa
@@ -546,14 +548,18 @@ def main(options):
                     underflowSummary.add(result[1][i], begin)
                     overflowSummary.add(result[2][i], begin)
                     gehSummary.add(result[3][i], begin)
+                    inputCountSummary.add(result[4][i], begin)
+                    usedRoutesSummary.add(result[5][i], begin)
         else:
             for begin, end in intervals:
                 intervalPrefix = "" if len(intervals) == 1 else "%s_" % int(begin)
-                uFlow, oFlow, gehOK, _ = solveInterval(options, routes, begin, end,
+                uFlow, oFlow, gehOK, inputCount, usedRoutes, _ = solveInterval(options, routes, begin, end,
                                                        intervalPrefix, outf, mismatchf, rng)
                 underflowSummary.add(uFlow, begin)
                 overflowSummary.add(oFlow, begin)
                 gehSummary.add(gehOK, begin)
+                inputCountSummary.add(inputCount, begin)
+                usedRoutesSummary.add(usedRoutes, begin)
         outf.write('</routes>\n')
 
     if options.mismatchOut:
@@ -561,6 +567,8 @@ def main(options):
         mismatchf.close()
 
     if len(intervals) > 1:
+        print(inputCountSummary)
+        print(usedRoutesSummary)
         print(underflowSummary)
         print(overflowSummary)
         print(gehSummary)
@@ -586,9 +594,10 @@ def _solveIntervalMP(options, routes, interval, cpuIndex):
         local_outf = StringIO()
         local_mismatch_outf = StringIO() if options.mismatchOut else None
         intervalPrefix = "%s_" % int(begin)
-        uFlow, oFlow, gehOKNum, local_outf = solveInterval(
+        uFlow, oFlow, gehOKNum, inputCount, usedRoutes, local_outf = solveInterval(
             options, routes, begin, end, intervalPrefix, local_outf, local_mismatch_outf, rng=rng)
-        output_list.append([begin, uFlow, oFlow, gehOKNum, local_outf.getvalue(),
+
+        output_list.append([begin, uFlow, oFlow, gehOKNum, inputCount, usedRoutes, local_outf.getvalue(),
                             local_mismatch_outf.getvalue() if options.mismatchOut else None])
     output_lst = list(zip(*output_list))
     return output_lst
@@ -831,7 +840,7 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
                       file=sys.stderr)
         mismatchf.write('    </interval>\n')
 
-    return sum(underflow.values), sum(overflow.values), gehOKNum, outf
+    return sum(underflow.values), sum(overflow.values), gehOKNum, totalOrigCount, len(usedRoutes), outf
 
 
 if __name__ == "__main__":
