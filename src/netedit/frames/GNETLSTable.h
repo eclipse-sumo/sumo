@@ -129,10 +129,10 @@ protected:
         FXButton* getButton();
 
         /// @brief column index
-        const int getCol();
+        int getCol() const;
 
         /// @brief row index
-        const int getRow();
+        int getRow() const;
 
     protected:
         /// @brief textField

@@ -347,14 +347,14 @@ GNETLSTable::Cell::getButton() {
 }
 
 
-const int 
-GNETLSTable::Cell::getCol() {
+int 
+GNETLSTable::Cell::getCol() const {
     return myCol;
 }
 
 
-const int
-GNETLSTable::Cell::getRow() {
+int
+GNETLSTable::Cell::getRow() const {
     return myRow;
 }
 
