@@ -2737,8 +2737,6 @@ GNENet::computeAndUpdate(OptionsCont& oc, bool volatileOptions) {
     }
     // net recomputed, then return false;
     myNeedRecompute = false;
-    // update recomputing label
-    myViewNet->getViewParent()->getGNEAppWindows()->updateRecomputingLabel();
 }
 
 
