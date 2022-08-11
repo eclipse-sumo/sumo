@@ -76,7 +76,8 @@ public:
      * s -> select row (radio button)
      * u -> duration (float, textField)
      * f -> float (float, textField)
-     * p -> program (rrGggy...)
+     * p -> program (rrGggy..., textField)
+     * m -> name (automatic size, textField)
      * i -> insert phase (button)
      * d -> delete phase (button)
      * - -> textField
@@ -177,10 +178,13 @@ protected:
         /// @brief set column label boit
         void setColumnLabelBot(const std::string& text);
 
-        /// @brief adjust column width
-        int adjustColumnWidth();
+        /// @brief get column minimum width
+        int getColumnMinimumWidth();
 
-    protected:
+        /// @brief set colum width
+        void setColumnWidth(const int colWidth);
+
+    private:
         /// @brief pointer to table
         GNETLSTable* myTable = nullptr;
 
@@ -201,8 +205,10 @@ protected:
 
         /// @brief column type
         const char myType;
+    
+        /// @brief check if current type correspond to a textField
+        bool isTextFieldColumn() const;
 
-    private:
         /// @brief default constructor
         Column();
     };

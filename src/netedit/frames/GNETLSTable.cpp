@@ -68,13 +68,44 @@ GNETLSTable::~GNETLSTable() {
 
 void
 GNETLSTable::recalcTableWidth() {
-    // get width of all elements
-    int tableWidth = 0;
+    // get minimum width of all elements
+    int minimumTableWidth = 0;
+    // get pointer to name column
+    Column* nameColumn = nullptr;
+    // iterate over all columns
     for (const auto& column : myColumns) {
-        tableWidth += column->adjustColumnWidth();
+        // get minimum column width
+        const auto  minimunColWidth = column->getColumnMinimumWidth();
+        // set columnwidth
+        column->setColumnWidth(minimunColWidth);
+        // check if this is the name column
+        if (column->getType() == 'm') {
+            // save column
+            nameColumn = column;
+        } else {
+            // update minimum table width
+            minimumTableWidth += minimunColWidth;
+        }
     }
-    // set new width
-    setWidth((tableWidth == 0)? DEFAULTWIDTH : tableWidth);
+    // adjust name column
+    if (nameColumn) {
+        // get column name width
+        const int minimumColNameWidth = nameColumn->getColumnMinimumWidth();
+        // get collapsable frame width - extra marging
+        const auto collapsableFrame = myTLSPhasesParent->getCollapsableFrame();
+        const int collapsableFrameWidth = (collapsableFrame->getWidth() - collapsableFrame->getPadLeft() - collapsableFrame->getPadRight());
+        // continue depending of minimum table width
+        if ((collapsableFrameWidth - (minimumTableWidth + minimumColNameWidth)) > 0) {
+            nameColumn->setColumnWidth(collapsableFrameWidth - minimumTableWidth);
+            setWidth(collapsableFrameWidth);
+        } else {
+            setWidth(minimumTableWidth + minimumColNameWidth);
+        }
+    } else if (minimumTableWidth > 0) {
+        setWidth(minimumTableWidth);
+    } else {
+        setWidth(DEFAULTWIDTH);
+    }
 }
 
 
@@ -445,12 +476,12 @@ GNETLSTable::Column::setColumnLabelBot(const std::string& text) {
 
 
 int
-GNETLSTable::Column::adjustColumnWidth() {
+GNETLSTable::Column::getColumnMinimumWidth() {
     // declare columnWidth (by default is a square) 
     int columnWidth = GUIDesignHeight;
-    // only adjust for textFields
-    if ((myType == 'u') || (myType == 'f') || (myType == 'p') || (myType == '-')) {
-        // calculate columnWidth using top label
+    // only check for textField columns
+    if (isTextFieldColumn()) {
+        // calculate top label width
         columnWidth = myTopLabel->getFont()->getTextWidth(myTopLabel->getText().text(), myTopLabel->getText().length() + EXTRAMARGING);
         // iterate over all textFields and check widths
         for (const auto& row : myTable->myRows) {
@@ -463,23 +494,35 @@ GNETLSTable::Column::adjustColumnWidth() {
                 columnWidth = textFieldWidth;
             }
         }
-        // calculate also bot label
+        // calculate bot label width
         const auto botLabelWidth = myBotLabel->getFont()->getTextWidth(myBotLabel->getText().text(), myBotLabel->getText().length() + EXTRAMARGING);
         if (botLabelWidth > columnWidth) {
             columnWidth = botLabelWidth;
         }
-        // adjust textFields width
+    }
+    return columnWidth;
+}
+
+
+void
+GNETLSTable::Column::setColumnWidth(const int colWidth) {
+    // only adjust for textField columns
+    if (isTextFieldColumn()) {
         for (const auto& row : myTable->myRows) {
-            row->getCells().at(myIndex)->getTextField()->setWidth(columnWidth);
+            row->getCells().at(myIndex)->getTextField()->setWidth(colWidth);
         }
     }
-    // adjust label and vertical frame
-    myVerticalFrame->setWidth(columnWidth);
-    myTopLabel->setWidth(columnWidth);
-    myVerticalCellFrame->setWidth(columnWidth);
-    myBotLabel->setWidth(columnWidth);
-    // use columnWidth to set table size
-    return columnWidth;
+    // adjust labels and vertical frames
+    myVerticalFrame->setWidth(colWidth);
+    myTopLabel->setWidth(colWidth);
+    myVerticalCellFrame->setWidth(colWidth);
+    myBotLabel->setWidth(colWidth);
+}
+
+
+bool
+GNETLSTable::Column::isTextFieldColumn() const {
+    return ((myType == 'u') || (myType == 'f') || (myType == 'p') || (myType == 'm') || (myType == '-'));
 }
 
 
@@ -520,6 +563,13 @@ GNETLSTable::Row::Row(GNETLSTable* table) :
                 myCells.push_back(new Cell(textField, columnIndex, numCells));
                 break;
             }
+            case ('m'):
+            case ('-'): {
+                // create normal text field
+                auto textField = new FXTextField(table->myColumns.at(columnIndex)->getVerticalCellFrame(), GUIDesignTextFieldNCol, table, MID_GNE_TLSTABLE_TEXTFIELD, GUIDesignTextFieldTLSTable);
+                myCells.push_back(new Cell(textField, columnIndex, numCells));
+                break;
+            }
             case ('i'): {
                 // create button for insert phase
                 auto button = new FXButton(table->myColumns.at(columnIndex)->getVerticalCellFrame(), "", GUIIconSubSys::getIcon(GUIIcon::ADD), table, MID_GNE_TLSTABLE_ADDPHASE, GUIDesignButtonIcon);
@@ -530,12 +580,6 @@ GNETLSTable::Row::Row(GNETLSTable* table) :
                 // create button for delete phase
                 auto button = new FXButton(table->myColumns.at(columnIndex)->getVerticalCellFrame(), "", GUIIconSubSys::getIcon(GUIIcon::REMOVE), table, MID_GNE_TLSTABLE_REMOVEPHASE, GUIDesignButtonIcon);
                 myCells.push_back(new Cell(button, columnIndex, numCells));
-                break;
-            }
-            case ('-'): {
-                // create text field
-                auto textField = new FXTextField(table->myColumns.at(columnIndex)->getVerticalCellFrame(), GUIDesignTextFieldNCol, table, MID_GNE_TLSTABLE_TEXTFIELD, GUIDesignTextFieldTLSTable);
-                myCells.push_back(new Cell(textField, columnIndex, numCells));
                 break;
             }
             default:

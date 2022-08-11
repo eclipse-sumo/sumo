@@ -1362,7 +1362,7 @@ GNETLSEditorFrame::TLSPhases::initStaticPhaseTable() {
     // get phases
     const auto &phases = myTLSEditorParent->myEditedDef->getLogic()->getPhases();
     // adjust table
-    myPhaseTable->setTableSize("sup--id", (int)phases.size());
+    myPhaseTable->setTableSize("sup-mid", (int)phases.size());
     // fill rows
     for (int row = 0; row < (int)phases.size(); row++) {
         myPhaseTable->setItemText(row, colDuration, getSteps2Time(phases.at(row).duration).c_str());
@@ -1397,7 +1397,7 @@ GNETLSEditorFrame::TLSPhases::initActuatedPhaseTable() {
     // get phases
     const auto &phases = myTLSEditorParent->myEditedDef->getLogic()->getPhases();
     // adjust table
-    myPhaseTable->setTableSize("suffpff--id", (int)phases.size());
+    myPhaseTable->setTableSize("suffpff-mid", (int)phases.size());
     // fill rows
     for (int row = 0; row < (int)phases.size(); row++) {
         myPhaseTable->setItemText(row, colDuration, getSteps2Time(phases.at(row).duration).c_str());
@@ -1438,7 +1438,7 @@ GNETLSEditorFrame::TLSPhases::initDelayBasePhaseTable() {
     // get phases
     const auto &phases = myTLSEditorParent->myEditedDef->getLogic()->getPhases();
     // adjust table
-    myPhaseTable->setTableSize("suffp--id", (int)phases.size());
+    myPhaseTable->setTableSize("suffp-mid", (int)phases.size());
     // fill rows
     for (int row = 0; row < (int)phases.size(); row++) {
         myPhaseTable->setItemText(row, colDuration, getSteps2Time(phases.at(row).duration).c_str());
@@ -1478,7 +1478,7 @@ GNETLSEditorFrame::TLSPhases::initNEMAPhaseTable() {
     // get phases
     const auto &phases = myTLSEditorParent->myEditedDef->getLogic()->getPhases();
     // adjust table
-    myPhaseTable->setTableSize("suffpff---id", (int)phases.size());
+    myPhaseTable->setTableSize("suffpfff-mid", (int)phases.size());
     // fill rows
     for (int row = 0; row < (int)phases.size(); row++) {
         myPhaseTable->setItemText(row, colDuration, getSteps2Time(phases.at(row).duration).c_str());
