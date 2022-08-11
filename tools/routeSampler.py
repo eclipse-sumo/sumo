@@ -269,7 +269,7 @@ def parseDataIntervals(parseFun, fnames, begin, end, allRoutes, attr, options,
         isOrigin=False, isDest=False, warn=False):
     locations = {}  # edges -> CountData
     result = []
-    if attr is None:
+    if attr is None or attr == "None":
         return result
     for fname in fnames:
         for interval in sumolib.xml.parse(fname, 'interval', heterogeneous=True):
@@ -523,8 +523,18 @@ def main(options):
 
     for cd in countData:
         if cd.count > 0 and not cd.routeSet:
-            print("Warning: no routes pass edge '%s' (count %s)" % (
-                ' '.join(cd.edgeTuple), cd.count), file=sys.stderr)
+            msg = ""
+            if cd.isOrigin and cd.isDest:
+                msg = "start at edge '%s' and end at edge '%s'" % (cd.edgeTuple[0], cd.edgeTuple[-1])
+            elif cd.isOrigin:
+                msg = "start at edge '%s'" % cd.edgeTuple[0]
+            elif cd.isDest:
+                msg = "end at edge '%s'" % cd.edgeTuple[-1]
+            elif len(cd.edgeTuple) > 1:
+                msg = "pass edges '%s'" % ' '.join(cd.edgeTuple)
+            else:
+                msg = "pass edge '%s'" % ' '.join(cd.edgeTuple)
+            print("Warning: no routes %s (count %s)" % ( msg, cd.count), file=sys.stderr)
 
     if options.verbose:
         print("Loaded %s routes (%s distinct)" % (len(routes.all), routes.number))
