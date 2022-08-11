@@ -304,7 +304,7 @@ GUIVehicle::drawAction_drawCarriageClass(const GUIVisualizationSettings& s, bool
     const double totalLength = getVType().getLength();
     double upscaleLength = exaggeration;
     if (exaggeration > 1 && totalLength > 5) {
-        // reduce the length/width ratio because this is not usefull at high zoom
+        // reduce the length/width ratio because this is not useful at high zoom
         const double widthLengthFactor = totalLength / 5;
         const double shrinkFactor = MIN2(widthLengthFactor, sqrt(upscaleLength));
         upscaleLength /= shrinkFactor;
