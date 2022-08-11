@@ -22,6 +22,12 @@ save_template
 # using edgedata as input
 edgedata
 
+# using edgedata as input to specify departure counts
+edgedata_departures
+
+# using edgedata as input to specify arrival counts
+edgedata_arrivals
+
 # load candidate routes from walk elements (needed for reverse walking)
 walk_input
 
