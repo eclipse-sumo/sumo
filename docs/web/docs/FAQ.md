@@ -948,6 +948,9 @@ density:
 ```
 <flow id="lane0" from="startEdge" to="destEdge" begin="0" end="3600" period="1.951" departPos="base" departSpeed="7.885" departLane="0"/>
 ```
+!!! caution
+    For the continuous case, the specified density is reached **only** close to the inflow as vehicles start accelerating to their preferred speeds. In order to maintain the density along the edge, use a ring road scenario or limit the allowed speed to te *departSpeed* value. Remember [time-resolution dependency](#how-do-i-get-high-flowsvehicle-densities) for further adjustment.
+
 
 ### How do I force a lane change?
 
