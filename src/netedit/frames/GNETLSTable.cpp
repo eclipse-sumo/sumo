@@ -66,6 +66,12 @@ GNETLSTable::~GNETLSTable() {
 }
 
 
+GNETLSEditorFrame::TLSPhases* 
+GNETLSTable::getTLSPhasesParent() const {
+    return myTLSPhasesParent;
+}
+
+
 void
 GNETLSTable::recalcTableWidth() {
     // get minimum width of all elements
@@ -91,7 +97,7 @@ GNETLSTable::recalcTableWidth() {
     if (nameColumn) {
         // get column name width
         const int minimumColNameWidth = nameColumn->getColumnMinimumWidth();
-        // get collapsable frame width - extra marging
+        // calculate collapsable frame width - extra marging
         const auto collapsableFrame = myTLSPhasesParent->getCollapsableFrame();
         const int collapsableFrameWidth = (collapsableFrame->getWidth() - collapsableFrame->getPadLeft() - collapsableFrame->getPadRight());
         // continue depending of minimum table width

@@ -153,6 +153,16 @@ GNEFrame::getFrameHeaderFont() const {
 }
 
 
+int 
+GNEFrame::getScrollBarWidth() const {
+    if (myScrollWindowsContents->verticalScrollBar()->shown()) {
+        return myScrollWindowsContents->verticalScrollBar()->getWidth();
+    } else {
+        return 0;
+    }
+}
+
+
 void
 GNEFrame::openHelpAttributesDialog(const GNEAttributeCarrier* AC) const {
     FXDialogBox* attributesHelpDialog = new FXDialogBox(myScrollWindowsContents, ("Parameters of " + AC->getTagStr()).c_str(), GUIDesignDialogBoxResizable, 0, 0, 0, 0, 10, 10, 10, 38, 4, 4);

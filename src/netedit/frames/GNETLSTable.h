@@ -45,6 +45,9 @@ public:
     /// @brief destructor (Called automatically)
     ~GNETLSTable();
 
+    /// @frame get pointer to TLSEditorFrame phases parent
+    GNETLSEditorFrame::TLSPhases* getTLSPhasesParent() const;
+
     /// @brief recalc width (call when all labels and contents are fill)
     void recalcTableWidth();
 

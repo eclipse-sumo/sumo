@@ -157,8 +157,12 @@ MFXGroupBoxModule::onCmdExtendButton(FXObject*, FXSelector, void*) {
         for (auto child = myCollapsableFrame->getFirst(); child != nullptr; child = child->getNext()) {
             // currently only for GNETLSTables
             const auto TLSTable = dynamic_cast<GNETLSTable*>(child);
-            if (TLSTable && (TLSTable->getWidth() > maximumWidth)) {
-                maximumWidth = TLSTable->getWidth();
+            if (TLSTable) {
+                // get scrollbar width
+                const int scrollBarWidth = TLSTable->getTLSPhasesParent()->getTLSEditorParent()->getScrollBarWidth();
+                if ((TLSTable->getWidth() + scrollBarWidth) > maximumWidth) {
+                    maximumWidth = (TLSTable->getWidth() + scrollBarWidth);
+                }
             }
         }
         // set frame ara width

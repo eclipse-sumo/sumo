@@ -71,6 +71,9 @@ public:
     /// @brief get font of the header's frame
     FXFont* getFrameHeaderFont() const;
 
+    /// @brief get scrollBar width (zero if is hidden)
+    int getScrollBarWidth() const;
+
     /// @brief Open help attributes dialog
     void openHelpAttributesDialog(const GNEAttributeCarrier* AC) const;
 
