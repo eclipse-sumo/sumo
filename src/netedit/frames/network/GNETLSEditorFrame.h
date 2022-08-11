@@ -484,6 +484,9 @@ public:
     /// @brief show inspector frame
     void show();
 
+    /// @brief function called after setting new width in current frame
+    void frameWidthUpdated();
+
     /**@brief edits the traffic light for the given clicked junction
      * @param[in] clickedPosition clicked position
      * @param[in] objectsUnderCursor The clicked objects under cursor

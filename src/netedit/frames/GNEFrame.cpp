@@ -126,6 +126,8 @@ void
 GNEFrame::setFrameWidth(int newWidth) {
     setWidth(newWidth);
     myScrollWindowsContents->setWidth(newWidth);
+    // call frame width updated
+    frameWidthUpdated();
 }
 
 
@@ -233,6 +235,12 @@ GNEFrame::openHelpAttributesDialog(const GNEAttributeCarrier* AC) const {
 void
 GNEFrame::updateFrameAfterUndoRedo() {
     // this function has to be reimplemente in all child frames that needs to draw a polygon (for example, GNEFrame or GNETAZFrame)
+}
+
+
+void
+GNEFrame::frameWidthUpdated() {
+    // this function can be reimplemente in all child frames
 }
 
 // ---------------------------------------------------------------------------

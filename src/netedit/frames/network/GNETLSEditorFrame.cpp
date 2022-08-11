@@ -147,6 +147,12 @@ GNETLSEditorFrame::show() {
 
 
 void
+GNETLSEditorFrame::frameWidthUpdated() {
+    myTLSPhases->getPhaseTable()->recalcTableWidth();
+}
+
+
+void
 GNETLSEditorFrame::editTLS(const Position& clickedPosition, const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor) {
     // first check if in objectsUnderCursor there is a junction
     if (objectsUnderCursor.getJunctionFront()) {

@@ -80,6 +80,9 @@ public:
     /// @brief function called after undo/redo in the current frame (can be reimplemented in frame children)
     virtual void updateFrameAfterUndoRedo();
 
+    /// @brief function called after setting new width in current frame (can be reimplemented in frame children)
+    virtual void frameWidthUpdated();
+
     /// @name functions called by moduls that can be reimplemented in frame children (note: reimplement as protected, just for safety)
     /// @{
 

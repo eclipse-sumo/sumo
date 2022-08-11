@@ -24,6 +24,8 @@
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/windows/GUIAppEnum.h>
+#include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewParent.h>
 
 #define EXTRAMARGING 1
 #define DEFAULTWIDTH 190
@@ -80,31 +82,34 @@ GNETLSTable::recalcTableWidth() {
     Column* nameColumn = nullptr;
     // iterate over all columns
     for (const auto& column : myColumns) {
-        // get minimum column width
-        const auto  minimunColWidth = column->getColumnMinimumWidth();
-        // set columnwidth
-        column->setColumnWidth(minimunColWidth);
         // check if this is the name column
         if (column->getType() == 'm') {
             // save column
             nameColumn = column;
         } else {
+            // get minimum column width
+            const auto  minimunColWidth = column->getColumnMinimumWidth();
+            // set columnwidth
+            column->setColumnWidth(minimunColWidth);
             // update minimum table width
             minimumTableWidth += minimunColWidth;
         }
     }
+
     // adjust name column
     if (nameColumn) {
         // get column name width
         const int minimumColNameWidth = nameColumn->getColumnMinimumWidth();
-        // calculate collapsable frame width - extra marging
-        const auto collapsableFrame = myTLSPhasesParent->getCollapsableFrame();
-        const int collapsableFrameWidth = (collapsableFrame->getWidth() - collapsableFrame->getPadLeft() - collapsableFrame->getPadRight());
+        // get scrollBar width 
+        const int scrollBarWidth = myTLSPhasesParent->getTLSEditorParent()->getScrollBarWidth();
+        // get frame area width - padding (30, constant, 15 left, 15 right)
+        const auto frameAreaWidth = myTLSPhasesParent->getTLSEditorParent()->getViewNet()->getViewParent()->getFrameAreaWidth() - 30;
         // continue depending of minimum table width
-        if ((collapsableFrameWidth - (minimumTableWidth + minimumColNameWidth)) > 0) {
-            nameColumn->setColumnWidth(collapsableFrameWidth - minimumTableWidth);
-            setWidth(collapsableFrameWidth);
+        if ((frameAreaWidth - (minimumTableWidth + minimumColNameWidth + scrollBarWidth)) > 0) {
+            nameColumn->setColumnWidth(frameAreaWidth - minimumTableWidth - scrollBarWidth);
+            setWidth(frameAreaWidth);
         } else {
+            nameColumn->setColumnWidth(minimumColNameWidth);
             setWidth(minimumTableWidth + minimumColNameWidth);
         }
     } else if (minimumTableWidth > 0) {
