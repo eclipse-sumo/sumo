@@ -1,5 +1,7 @@
 <configuration>
+    <arrival-attribute value="None" help="Read arrival counts from the given edgeData file attribute"/>
     <begin value="None" help="custom begin time (seconds or H:M:S)"/>
+    <depart-attribute value="None" help="Read departure counts from the given edgeData file attribute"/>
     <edgedata-attribute value="entered" help="Read edgeData counts from the given attribute"/>
     <edgedata-files value="None" help="Input edgeData file (for counts)"/>
     <end value="None" help="custom end time (seconds or H:M:S)"/>
