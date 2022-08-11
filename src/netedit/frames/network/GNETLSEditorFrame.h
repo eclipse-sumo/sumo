@@ -336,28 +336,28 @@ public:
         bool setNext(const int col, const int row, const std::string &value);
 
         /// @brief set name
-        bool setName(const int col, const int row, const std::string &value);
+        bool setName(const int row, const std::string &value);
 
         /// @brief set minDur
-        bool setMinDur(const int col, const int row, const std::string &value);
+        bool setMinDur(const int row, const std::string &value);
 
         /// @brief set maxDur
-        bool setMaxDur(const int col, const int row, const std::string &value);
+        bool setMaxDur(const int row, const std::string &value);
 
         /// @brief set earliestEnd
-        bool setEarliestEnd(const int col, const int row, const std::string &value);
+        bool setEarliestEnd(const int row, const std::string &value);
 
         /// @brief set latestEnd
-        bool setLatestEnd(const int col, const int row, const std::string &value);
+        bool setLatestEnd(const int row, const std::string &value);
 
         /// @brief set vehExt
-        bool setVehExt(const int col, const int row, const std::string &value);
+        bool setVehExt(const int row, const std::string &value);
 
         /// @brief set yellow
-        bool setYellow(const int col, const int row, const std::string &value);
+        bool setYellow(const int row, const std::string &value);
 
         /// @brief set red
-        bool setRed(const int col, const int row, const std::string &value);
+        bool setRed(const int row, const std::string &value);
 
         /// @brief recomputes cycle duration and updates label
         void updateCycleDuration(const int col);

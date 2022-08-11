@@ -1136,21 +1136,21 @@ GNETLSEditorFrame::TLSPhases::changePhaseValue(const int col, const int row, con
     } else if (col == colNext) {
         return setNext(col, row, value);
     } else if (col == colName) {
-        return setName(col, row, value);
+        return setName(row, value);
     } else if (col == colMinDur) {
-        return setMinDur(col, row, value);
+        return setMinDur(row, value);
     } else if (col == colMaxDur) {
-        return setMaxDur(col, row, value);
+        return setMaxDur(row, value);
     } else if (col == colEarliestEnd) {
-        return setEarliestEnd(col, row, value);
+        return setEarliestEnd(row, value);
     } else if (col == colLatestEnd) {
-        return setLatestEnd(col, row, value);
+        return setLatestEnd(row, value);
     } else if (col == colVehExt) {
-        return setVehExt(col, row, value);
+        return setVehExt(row, value);
     } else if (col == colYellow) {
-        return setYellow(col, row, value);
+        return setYellow(row, value);
     } else if (col == colRed) {
-        return setRed(col, row, value);
+        return setRed(row, value);
     } else {
         throw ProcessError("invalid column");
     }
@@ -1597,7 +1597,7 @@ GNETLSEditorFrame::TLSPhases::setNext(const int col, const int row, const std::s
 
 
 bool
-GNETLSEditorFrame::TLSPhases::setName(const int /*col*/, const int row, const std::string &value) {
+GNETLSEditorFrame::TLSPhases::setName(const int row, const std::string &value) {
     // update name (currently no check needed)
     myTLSEditorParent->myEditedDef->getLogic()->setPhaseName(row, value);
     myTLSEditorParent->myTLSModifications->setHaveModifications(true);
@@ -1606,7 +1606,7 @@ GNETLSEditorFrame::TLSPhases::setName(const int /*col*/, const int row, const st
 
 
 bool
-GNETLSEditorFrame::TLSPhases::setMinDur(const int col, const int row, const std::string &value) {
+GNETLSEditorFrame::TLSPhases::setMinDur(const int row, const std::string &value) {
     // check value
     if (value.empty()) {
         // set empty value
@@ -1634,7 +1634,7 @@ GNETLSEditorFrame::TLSPhases::setMinDur(const int col, const int row, const std:
 
 
 bool
-GNETLSEditorFrame::TLSPhases::setMaxDur(const int col, const int row, const std::string &value) {
+GNETLSEditorFrame::TLSPhases::setMaxDur(const int row, const std::string &value) {
     // check value
     if (value.empty()) {
         // set empty value
@@ -1662,7 +1662,7 @@ GNETLSEditorFrame::TLSPhases::setMaxDur(const int col, const int row, const std:
 
 
 bool
-GNETLSEditorFrame::TLSPhases::setEarliestEnd(const int col, const int row, const std::string &value) {
+GNETLSEditorFrame::TLSPhases::setEarliestEnd(const int row, const std::string &value) {
     // check value
     if (value.empty()) {
         // set empty value
@@ -1690,7 +1690,7 @@ GNETLSEditorFrame::TLSPhases::setEarliestEnd(const int col, const int row, const
 
 
 bool
-GNETLSEditorFrame::TLSPhases::setLatestEnd(const int col, const int row, const std::string &value) {
+GNETLSEditorFrame::TLSPhases::setLatestEnd(const int row, const std::string &value) {
     // check value
     if (value.empty()) {
         // set empty value
@@ -1718,7 +1718,7 @@ GNETLSEditorFrame::TLSPhases::setLatestEnd(const int col, const int row, const s
 
 
 bool
-GNETLSEditorFrame::TLSPhases::setVehExt(const int col, const int row, const std::string &value) {
+GNETLSEditorFrame::TLSPhases::setVehExt(const int row, const std::string &value) {
     // check value
     if (value.empty()) {
         // set empty value
@@ -1746,7 +1746,7 @@ GNETLSEditorFrame::TLSPhases::setVehExt(const int col, const int row, const std:
 
 
 bool
-GNETLSEditorFrame::TLSPhases::setYellow(const int col, const int row, const std::string &value) {
+GNETLSEditorFrame::TLSPhases::setYellow(const int row, const std::string &value) {
     // check value
     if (value.empty()) {
         // set empty value
@@ -1774,7 +1774,7 @@ GNETLSEditorFrame::TLSPhases::setYellow(const int col, const int row, const std:
 
 
 bool
-GNETLSEditorFrame::TLSPhases::setRed(const int col, const int row, const std::string &value) {
+GNETLSEditorFrame::TLSPhases::setRed(const int row, const std::string &value) {
     // check value
     if (value.empty()) {
         // set empty value
