@@ -73,6 +73,10 @@ def get_options(args=None):
                         help="Input edgeRelation file for origin-destination counts")
     parser.add_argument("--edgedata-attribute", dest="edgeDataAttr", default="entered",
                         help="Read edgeData counts from the given attribute")
+    parser.add_argument("--arrival-attribute", dest="arrivalAttr",
+                        help="Read arrival counts from the given edgeData file attribute")
+    parser.add_argument("--depart-attribute", dest="departAttr",
+                        help="Read departure counts from the given edgeData file attribute")
     parser.add_argument("--turn-attribute", dest="turnAttr", default="count",
                         help="Read turning counts from the given attribute")
     parser.add_argument("--turn-max-gap", type=int, dest="turnMaxGap", default=0,
@@ -164,11 +168,12 @@ def get_options(args=None):
 
 
 class CountData:
-    def __init__(self, count, edgeTuple, allRoutes, isOD, options):
+    def __init__(self, count, edgeTuple, allRoutes, isOrigin, isDest, options):
         self.origCount = count
         self.count = count
         self.edgeTuple = edgeTuple
-        self.isOD = isOD
+        self.isOrigin = isOrigin
+        self.isDest= isDest
         self.options = options  # multiprocessing had issue with sumolib.options.getOptions().turnMaxGap
         self.routeSet = set()
         for routeIndex, edges in enumerate(allRoutes.unique):
@@ -177,8 +182,9 @@ class CountData:
 
     def routePasses(self, edges):
 
-        if self.isOD:
-            return edges[0] == self.edgeTuple[0] and edges[-1] == self.edgeTuple[-1]
+        if self.isOrigin or self.isDest:
+            return ((not self.isOrigin or edges[0] == self.edgeTuple[0]) and
+                    (not self.isDest or edges[-1] == self.edgeTuple[-1]))
         try:
             i = edges.index(self.edgeTuple[0])
             maxDelta = self.options.turnMaxGap + 1
@@ -259,9 +265,12 @@ def parseEdgeCounts(interval, attr, warn):
         sys.stderr.write("Warning: No edges in interval from=%s to=%s\n" % (interval.begin, interval.end))
 
 
-def parseDataIntervals(parseFun, fnames, begin, end, allRoutes, attr, options, isOD=False, warn=False):
+def parseDataIntervals(parseFun, fnames, begin, end, allRoutes, attr, options,
+        isOrigin=False, isDest=False, warn=False):
     locations = {}  # edges -> CountData
     result = []
+    if attr is None:
+        return result
     for fname in fnames:
         for interval in sumolib.xml.parse(fname, 'interval', heterogeneous=True):
             overlap = getOverlap(begin, end, parseTime(interval.begin), parseTime(interval.end))
@@ -276,9 +285,9 @@ def parseDataIntervals(parseFun, fnames, begin, end, allRoutes, attr, options, i
                                   (attr, fname, ' '.join(edges)), file=sys.stderr)
                         continue
                     if edges not in locations:
-                        result.append(CountData(0, edges, allRoutes, isOD, options))
+                        result.append(CountData(0, edges, allRoutes, isOrigin, isDest, options))
                         locations[edges] = result[-1]
-                    elif isOD != locations[edges].isOD:
+                    elif (isOrigin and isDest) != (locations[edges].isOrigin and locations[edges].isDest):
                         print("Warning: Edge relation '%s' occurs as turn relation and also as OD-relation" %
                               ' '.join(edges), file=sys.stderr)
                     locations[edges].addCount(int(value * overlap))
@@ -499,11 +508,17 @@ def main(options):
     b = intervals[0][0]
     e = intervals[-1][-1]
     countData = (parseDataIntervals(parseTurnCounts, options.turnFiles, b, e,
-                                    routes, options.turnAttr, options=options, warn=True) +
-                 parseDataIntervals(parseEdgeCounts, options.edgeDataFiles, b, e,
-                                    routes, options.edgeDataAttr, options=options, warn=True) +
-                 parseDataIntervals(parseTurnCounts, options.odFiles, b, e,
-                                    routes, options.turnAttr, options=options, isOD=True, warn=True))
+                                    routes, options.turnAttr, options=options, warn=True)
+                 + parseDataIntervals(parseEdgeCounts, options.edgeDataFiles, b, e,
+                                    routes, options.edgeDataAttr, options=options, warn=True)
+                 + parseDataIntervals(parseTurnCounts, options.odFiles, b, e,
+                                    routes, options.turnAttr, options=options,
+                                    isOrigin=True, isDest=True, warn=True)
+                 + parseDataIntervals(parseEdgeCounts, options.edgeDataFiles, b, e,
+                                    routes, options.departAttr, options=options, isOrigin=True, warn=True)
+                 + parseDataIntervals(parseEdgeCounts, options.edgeDataFiles, b, e,
+                                    routes, options.arrivalAttr, options=options, isDest=True, warn=True)
+                 )
     routeUsage = getRouteUsage(routes, countData)
 
     for cd in countData:
@@ -608,11 +623,13 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
     countData = (parseDataIntervals(parseTurnCounts, options.turnFiles, begin, end, routes, options.turnAttr,
                                     options=options)
                  + parseDataIntervals(parseEdgeCounts, options.edgeDataFiles, begin, end, routes,
-                                      options.edgeDataAttr,
-                                      options=options)
+                                      options.edgeDataAttr, options=options)
                  + parseDataIntervals(parseTurnCounts, options.odFiles, begin, end, routes, options.turnAttr,
-                                      isOD=True,
-                                      options=options)
+                                      options=options, isOrigin=True, isDest=True)
+                 + parseDataIntervals(parseEdgeCounts, options.edgeDataFiles, begin, end, routes,
+                                      options.departAttr, options=options, isOrigin=True)
+                 + parseDataIntervals(parseEdgeCounts, options.edgeDataFiles, begin, end, routes,
+                                      options.arrivalAttr, options=options, isDest=True)
                  )
 
     routeUsage = getRouteUsage(routes, countData)
