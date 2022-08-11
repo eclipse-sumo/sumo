@@ -72,6 +72,8 @@ static const double vehiclePoly_ShipDeck[] =  { 0.5, 0,  0.25, 0.4,  0.95, 0.4, 
 static const double vehiclePoly_ShipSuperStructure[] =  { 0.8, 0,  0.5, 0.3,  0.85, 0.3,  0.85, -0.3, 0.5, -0.3,  0.5, 0.3,  -10000 };
 
 static const double vehiclePoly_Cyclist[] =  { 0.5, 0,  0.25, 0.45,  0.25, 0.5, 0.8, 0.15,     0.8, -0.15, 0.25, -0.5, 0.25, -0.45,     -10000 };
+static const double vehiclePoly_BicycleSeat[] = { 0.565, 0,  0.570, 0.03,  0.575, 0.05,  0.585, 0.06,  0.645, 0.06,  0.665, 0.07,  0.685, 0.10,  0.695, 0.13,  0.715, 0.16,  0.735, 0.18,  0.742, 0.17,  0.745, 0.16,  0.755, 0.13,  0.76, 0.11,  0.765, 0,  0.76, -0.11,  0.755, -0.13,  0.745, -0.16,  0.742, -0.17,  0.735, -0.18,  0.715, -0.16,  0.695, -0.13,  0.685, -0.10,  0.665, -0.07,  0.645, -0.06,  0.585, -0.06,  0.575, -0.05,  0.57, -0.03,     -10000 };
+static const double vehiclePoly_MotorcycleSeat[] = { 0.5, 0,  0.503, 0.072,  0.506, 0.097,  0.518, 0.135,  0.539, 0.162,  0.567, 0.183,  0.641, 0.194,  0.698, 0.202,  0.706, 0.194,  0.713, 0.189,  0.721, 0.162,  0.729, 0.132,  0.732, 0.097,  0.734, 0.051,  0.735, 0,  0.734, -0.051,  0.732, -0.097,  0.729, -0.132,  0.721, -0.162,  0.713, -0.189,  0.706, -0.194,  0.698, -0.202,  0.641, -0.194,  0.567, -0.183,  0.539, -0.162,  0.518, -0.135,  0.506, -0.097,  0.503, -0.072,     -10000 };
 
 static const double vehiclePoly_EmergencySign[] =   { .2, .5,  -.2, .5,  -.2, -.5,  .2, -.5, -10000 };
 static const double vehiclePoly_Emergency[] =   { .1, .1,  -.1, .1,  -.1, -.1,  .1, -.1, -10000 };
@@ -150,7 +152,7 @@ GUIBaseVehicleHelper::drawAction_drawVehicleAsCircle(const double width, double 
 
 void
 GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(const GUIVisualizationSettings& s, const SUMOVehicleShape shape, const double width, const double length,
-        int carriageIndex) {
+        int carriageIndex, bool isStopped) {
     UNUSED_PARAMETER(s);
     RGBColor current = GLHelper::getColor();
     RGBColor lighter = current.changedBrightness(51);
@@ -182,15 +184,25 @@ GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(const GUIVisualizationSetting
         case SUMOVehicleShape::MOPED:
         case SUMOVehicleShape::MOTORCYCLE: {
             darker = current.changedBrightness(-50);
-            // body
-            drawPoly(vehiclePoly_Cyclist, 4);
-            // head
-            GLHelper::pushMatrix();
-            glTranslated(0.4, 0, .5);
-            glScaled(0.1, 0.2, 1);
-            GLHelper::setColor(darker);
-            GLHelper::drawFilledCircle(1);
-            GLHelper::popMatrix();
+            if (!isStopped) {
+                // body
+                drawPoly(vehiclePoly_Cyclist, 4);
+                // head
+                GLHelper::pushMatrix();
+                glTranslated(0.4, 0, .5);
+                glScaled(0.1, 0.2, 1);
+                GLHelper::setColor(darker);
+                GLHelper::drawFilledCircle(1);
+                GLHelper::popMatrix();
+            } else if (shape == SUMOVehicleShape::BICYCLE) {
+                // seat
+                GLHelper::setColor(darker);
+                drawPoly(vehiclePoly_BicycleSeat, 4);
+            } else {
+                // seat
+                GLHelper::setColor(darker);
+                drawPoly(vehiclePoly_MotorcycleSeat, 4);
+            }
             // bike frame
             GLHelper::setColor(RGBColor::GREY);
             GLHelper::pushMatrix();

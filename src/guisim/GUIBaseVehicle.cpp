@@ -1096,7 +1096,7 @@ GUIBaseVehicle::drawAction_drawVehicleAsPolyWithCarriagges(const GUIVisualizatio
                     s, getVType().getImgFile(), this, getVType().getWidth(), scaledLength)) {
             return false;
         }
-        GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(s, getVType().getGuiShape(), getVType().getWidth(), scaledLength);
+        GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(s, getVType().getGuiShape(), getVType().getWidth(), scaledLength, -1, myVehicle.isStopped());
         return false;
     }
 }
