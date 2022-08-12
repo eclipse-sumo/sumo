@@ -59,7 +59,7 @@ FXDEFMAP(GNEFrameAttributeModules::GenericDataAttributes) GenericDataAttributesM
 };
 
 // Object implementation
-FXIMPLEMENT(GNEFrameAttributeModules::AttributesEditorRow,          FXHorizontalFrame,      AttributesEditorRowMap,         ARRAYNUMBER(AttributesEditorRowMap))
+FXIMPLEMENT(GNEFrameAttributeModules::AttributesEditorRow,          FXHorizontalFrame,       AttributesEditorRowMap,         ARRAYNUMBER(AttributesEditorRowMap))
 FXIMPLEMENT(GNEFrameAttributeModules::AttributesEditor,             MFXGroupBoxModule,       AttributesEditorMap,            ARRAYNUMBER(AttributesEditorMap))
 FXIMPLEMENT(GNEFrameAttributeModules::AttributesEditorExtended,     MFXGroupBoxModule,       AttributesEditorExtendedMap,    ARRAYNUMBER(AttributesEditorExtendedMap))
 FXIMPLEMENT(GNEFrameAttributeModules::GenericDataAttributes,        MFXGroupBoxModule,       GenericDataAttributesMap,       ARRAYNUMBER(GenericDataAttributesMap))
@@ -260,7 +260,7 @@ GNEFrameAttributeModules::AttributesEditorRow::AttributesEditorRow(GNEFrameAttri
                     }
                 }
                 // show combo box with values
-                myValueComboBoxChoices->setNumVisible((int)myACAttr.getDiscreteValues().size());
+                myValueComboBoxChoices->setNumVisible(10);
                 const int itemIndex = myValueComboBoxChoices->findItem(value.c_str());
                 if (itemIndex == -1) {
                     myValueComboBoxChoices->setText(value.c_str());
@@ -362,7 +362,7 @@ GNEFrameAttributeModules::AttributesEditorRow::refreshAttributesEditorRow(const 
             }
         }
         // show combo box with values
-        myValueComboBoxChoices->setNumVisible((int)myACAttr.getDiscreteValues().size());
+        myValueComboBoxChoices->setNumVisible(10);
         myValueComboBoxChoices->setCurrentItem(myValueComboBoxChoices->findItem(value.c_str()));
         // set blue color if is an computed value
         if (computed) {
