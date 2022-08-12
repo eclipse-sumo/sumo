@@ -77,10 +77,10 @@
 // ===========================================================================
 // debug defines
 // ===========================================================================
+//#define DEBUG_CONSTRUCTOR
 //#define DEBUG_PATCH_SPEED
 //#define DEBUG_INFORMED
 //#define DEBUG_INFORMER
-//#define DEBUG_CONSTRUCTOR
 //#define DEBUG_WANTS_CHANGE
 //#define DEBUG_SLOW_DOWN
 //#define DEBUG_COOPERATE
@@ -1426,6 +1426,7 @@ MSLCM_LC2013::_wantsChange(
                    && neigh.bestContinuations.back()->getLinkCont().size() != 0
                    && roundaboutBonus == 0
                    && !checkOpposite
+                   && myStrategicParam >= 0
                    && neighDist < TURN_LANE_DIST) {
             // VARIANT_21 (stayOnBest)
             // we do not want to leave the best lane for a lane which leads elsewhere
