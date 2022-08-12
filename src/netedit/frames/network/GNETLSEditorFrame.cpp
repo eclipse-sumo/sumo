@@ -103,25 +103,25 @@ GNETLSEditorFrame::GNETLSEditorFrame(FXHorizontalFrame* horizontalFrameParent, G
     GNEFrame(horizontalFrameParent, viewNet, "Edit Traffic Light"),
     myEditedDef(nullptr) {
 
-    // Create Overlapped Inspection modul
+    // Create Overlapped Inspection module
     myOverlappedInspection = new GNEOverlappedInspection(this, SUMO_TAG_JUNCTION);
 
-    // create TLSJunction modul
+    // create TLSJunction module
     myTLSJunction = new GNETLSEditorFrame::TLSJunction(this);
 
-    // create TLSDefinition modul
+    // create TLSDefinition module
     myTLSDefinition = new GNETLSEditorFrame::TLSDefinition(this);
 
-    // create TLSAttributes modul
+    // create TLSAttributes module
     myTLSAttributes = new GNETLSEditorFrame::TLSAttributes(this);
 
-    // create TLSModifications modul
+    // create TLSModifications module
     myTLSModifications = new GNETLSEditorFrame::TLSModifications(this);
 
-    // create TLSPhases modul
+    // create TLSPhases module
     myTLSPhases = new GNETLSEditorFrame::TLSPhases(this);
 
-    // create TLSFile modul
+    // create TLSFile module
     myTLSFile = new GNETLSEditorFrame::TLSFile(this);
 
     // "Add 'off' program"
@@ -711,7 +711,7 @@ GNETLSEditorFrame::TLSAttributes::onCmdDefSwitchTLSProgram(FXObject*, FXSelector
     if (myTLSEditorParent->myTLSJunction->getCurrentJunction() == nullptr) {
         throw ProcessError("Junction cannot be NULL");
     } else if ((int)myTLSDefinitions.size() != myProgramComboBox->getNumItems()) {
-        throw ProcessError("myProgramComboBox must habe the same number of TLSDefinitions");
+        throw ProcessError("myProgramComboBox must have the same number of TLSDefinitions");
     } else {
         // get current definition
         NBTrafficLightDefinition* tlDef = getCurrentTLSDefinition();
@@ -868,7 +868,7 @@ GNETLSEditorFrame::TLSDefinition::TLSDefinition(GNETLSEditorFrame* TLSEditorPare
     FXVerticalFrame* verticalFrameAuxA = new FXVerticalFrame(horizontalFrameAux, GUIDesignAuxiliarHorizontalFrame);
     FXVerticalFrame* verticalFrameAuxB = new FXVerticalFrame(horizontalFrameAux, GUIDesignAuxiliarHorizontalFrame);
     // create create tlDef button
-    myNewTLProgram = new FXButton(verticalFrameAuxA, "Create\t\tCreate a new traffic light program",
+    myNewTLProgram = new FXButton(verticalFrameAuxA, "Create\t\tCreate a new traffic light program.",
                                   GUIIconSubSys::getIcon(GUIIcon::MODETLS), this, MID_GNE_TLSFRAME_DEFINITION_CREATE, GUIDesignButton);
     // create delete tlDef button
     myDeleteTLProgram = new FXButton(verticalFrameAuxB, "Delete\t\tDelete a traffic light program. If all programs are deleted the junction turns into a priority junction.",
