@@ -48,6 +48,12 @@ FXDEFMAP(GNETLSTable) GNETLSTableMap[] = {
     // remove phase button
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TLSTABLE_REMOVEPHASE,   GNETLSTable::onCmdRemovePhase),
     FXMAPFUNC(SEL_KEYPRESS, MID_GNE_TLSTABLE_TEXTFIELD,     GNETLSTable::onCmdKeyPress),
+    // move up phase button
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TLSTABLE_MOVEUPPHASE,   GNETLSTable::onCmdMoveUpPhase),
+    FXMAPFUNC(SEL_KEYPRESS, MID_GNE_TLSTABLE_TEXTFIELD,     GNETLSTable::onCmdKeyPress),
+    // move down phase button
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TLSTABLE_MOVEDOWNPHASE, GNETLSTable::onCmdMoveDownPhase),
+    FXMAPFUNC(SEL_KEYPRESS, MID_GNE_TLSTABLE_TEXTFIELD,     GNETLSTable::onCmdKeyPress),
 };
 
 // Object implementation
@@ -370,6 +376,18 @@ GNETLSTable::onCmdRemovePhase(FXObject* sender, FXSelector, void*) {
         }
     }
     return 0;
+}
+
+
+long 
+GNETLSTable::onCmdMoveUpPhase(FXObject*, FXSelector, void*) {
+    return 1;
+}
+
+
+long
+GNETLSTable::onCmdMoveDownPhase(FXObject*, FXSelector, void*) {
+    return 1;
 }
 
 // ---------------------------------------------------------------------------

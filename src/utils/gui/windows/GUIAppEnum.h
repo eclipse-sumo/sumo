@@ -1359,6 +1359,10 @@ enum {
     MID_GNE_TLSTABLE_ADDPHASE,
     /// @brief TLSTable button for remove phase
     MID_GNE_TLSTABLE_REMOVEPHASE,
+    /// @brief TLSTable button for move up phase
+    MID_GNE_TLSTABLE_MOVEUPPHASE,
+    /// @brief TLSTable button for move down phase
+    MID_GNE_TLSTABLE_MOVEDOWNPHASE,
     /// @}
 
     /// @name other

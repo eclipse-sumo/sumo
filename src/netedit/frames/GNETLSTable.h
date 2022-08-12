@@ -101,11 +101,17 @@ public:
     /// @brief called when a key is pressed
     long onCmdKeyPress(FXObject*, FXSelector, void*);
 
-    /// @brief called when an add phase button is selected
+    /// @brief called when an add phase button is pressed
     long onCmdAddPhase(FXObject*, FXSelector, void*);
 
-    /// @brief called when a remove phase button is selected
+    /// @brief called when a remove phase button is pressed
     long onCmdRemovePhase(FXObject*, FXSelector, void*);
+
+    /// @brief called when a move up phase button is pressed
+    long onCmdMoveUpPhase(FXObject*, FXSelector, void*);
+
+    /// @brief called when a move up phase button is pressed
+    long onCmdMoveDownPhase(FXObject*, FXSelector, void*);
 
     /// @}
 
