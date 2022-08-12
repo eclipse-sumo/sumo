@@ -167,6 +167,10 @@ GNETLSTable::setTableSize(const std::string &columnsType, const int numberRow) {
         myRows.front()->markAsFirstRow();
         myRows.back()->markAsLastRow();
     }
+    // if we have only a row, disable remove button
+    if (myRows.size() == 1) {
+        myRows.front()->disableRemoveRow();
+    }
 }
 
 
@@ -775,6 +779,18 @@ GNETLSTable::Row::markAsLastRow() {
         }
     }
 }
+
+
+void
+GNETLSTable::Row::disableRemoveRow() {
+    // search move up button and disable it
+    for (const auto &cell : myCells) {
+        if (cell->getType() == 'd') {
+            cell->getButton()->disable();
+        }
+    }
+}
+
 
 GNETLSTable::Row::Row() {}
 

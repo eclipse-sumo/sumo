@@ -260,6 +260,9 @@ protected:
         /// @brief mark row as last row
         void markAsLastRow();
 
+        /// @brief disable remove row button
+        void disableRemoveRow();
+
     protected:
         /// @brief poiner to table parent
         GNETLSTable* myTable = nullptr;
