@@ -325,25 +325,31 @@ GNETLSTable::onCmdRowSelected(FXObject* sender, FXSelector, void*) {
 
 
 long 
-GNETLSTable::onCmdKeyPress(FXObject* sender, FXSelector sel, void* data) {
+GNETLSTable::onCmdKeyPress(FXObject* sender, FXSelector sel, void* ptr) {
     // get FXEvent
-    FXEvent* eventInfo = (FXEvent*)data;
+    FXEvent* eventInfo = (FXEvent*)ptr;
     // check code
     if (eventInfo->code == 65362) {
         // move up
         if (myCurrentSelectedRow > 0) {
             myRows.at(myCurrentSelectedRow - 1)->select();
+        } else {
+            // we're in the first, then select last
+            myRows.at((int)myRows.size() - 1)->select();
         }
         return 1;
     } else if (eventInfo->code == 65364) {
         // move down
         if (myCurrentSelectedRow < ((int)myRows.size() - 1)) {
             myRows.at(myCurrentSelectedRow + 1)->select();
+        } else {
+            // we're in the last, then select first
+            myRows.at(0)->select();
         }
         return 1;
     } else {
         // continue handling key pres
-        return sender->handle(sender, sel, data);
+        return sender->handle(sender, sel, ptr);
     }
 }
 
