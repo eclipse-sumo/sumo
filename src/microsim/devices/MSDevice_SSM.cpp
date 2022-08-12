@@ -2993,6 +2993,17 @@ MSDevice_SSM::findSurroundingVehicles(const MSVehicle& veh, double range, FoeInf
 
     // Best continuation lanes for the ego vehicle
     std::vector<MSLane*> egoBestLanes = veh.getBestLanesContinuation();
+
+    // current lane in loop below
+    const MSLane* lane = veh.getLane();
+    const MSEdge* egoEdge = &(lane->getEdge());
+    std::vector<MSLane*>::const_iterator laneIter = egoBestLanes.begin();
+    assert(lane->isInternal() || lane == *laneIter);
+    assert(lane != 0);
+    if (lane->isInternal() && egoBestLanes[0] != nullptr) { // outdated BestLanes, see #11336
+        return;
+    }
+
     const bool isOpposite = veh.getLaneChangeModel().isOpposite();
     if (isOpposite) {
         for (int i = 0; i < (int)egoBestLanes.size(); i++) {
@@ -3001,13 +3012,7 @@ MSDevice_SSM::findSurroundingVehicles(const MSVehicle& veh, double range, FoeInf
             }
         }
     }
-    std::vector<MSLane*>::const_iterator laneIter = egoBestLanes.begin();
 
-    // current lane in loop below
-    const MSLane* lane = veh.getLane();
-    const MSEdge* egoEdge = &(lane->getEdge());
-    assert(lane->isInternal() || lane == *laneIter);
-    assert(lane != 0);
     // next non-internal lane on the route
     const MSLane* nextNonInternalLane = nullptr;
 
