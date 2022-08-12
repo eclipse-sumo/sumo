@@ -162,6 +162,11 @@ GNETLSTable::setTableSize(const std::string &columnsType, const int numberRow) {
     for (int i = 0; i < numberRow; i++) {
         myRows.push_back(new Row(this));
     }
+    // mark first and last rows
+    if (myRows.size() > 0) {
+        myRows.front()->markAsFirstRow();
+        myRows.back()->markAsLastRow();
+    }
 }
 
 
@@ -394,7 +399,8 @@ GNETLSTable::onCmdMoveDownPhase(FXObject*, FXSelector, void*) {
 // GNETLSTable::Cell - methods
 // ---------------------------------------------------------------------------
 
-GNETLSTable::Cell::Cell(FXTextField* textField, int col, int row) :
+GNETLSTable::Cell::Cell(GNETLSTable* TLSTable, FXTextField* textField, int col, int row) :
+    myTLSTable(TLSTable),
     myTextField(textField),
     myCol(col),
     myRow(row) {
@@ -403,7 +409,8 @@ GNETLSTable::Cell::Cell(FXTextField* textField, int col, int row) :
 }
 
 
-GNETLSTable::Cell::Cell(FXRadioButton* radioButton, int col, int row) :
+GNETLSTable::Cell::Cell(GNETLSTable* TLSTable, FXRadioButton* radioButton, int col, int row) :
+    myTLSTable(TLSTable),
     myRadioButton(radioButton),
     myCol(col),
     myRow(row) {
@@ -412,7 +419,8 @@ GNETLSTable::Cell::Cell(FXRadioButton* radioButton, int col, int row) :
 }
 
 
-GNETLSTable::Cell::Cell(FXButton* button, int col, int row) :
+GNETLSTable::Cell::Cell(GNETLSTable* TLSTable, FXButton* button, int col, int row) :
+    myTLSTable(TLSTable),
     myButton(button),
     myCol(col),
     myRow(row) {
@@ -448,6 +456,12 @@ GNETLSTable::Cell::getCol() const {
 int
 GNETLSTable::Cell::getRow() const {
     return myRow;
+}
+
+
+char 
+GNETLSTable::Cell::getType() const {
+    return myTLSTable->myColumns.at(myCol)->getType();
 }
 
 
@@ -608,14 +622,14 @@ GNETLSTable::Row::Row(GNETLSTable* table) :
             case ('s'): {
                 // create radio button for selecting row
                 auto radioButton = new FXRadioButton(table->myColumns.at(columnIndex)->getVerticalCellFrame(), "", table, MID_GNE_TLSTABLE_RADIOBUTTON, GUIDesignRadioButtonTLSTable);
-                myCells.push_back(new Cell(radioButton, columnIndex, numCells));
+                myCells.push_back(new Cell(table, radioButton, columnIndex, numCells));
                 break;
             }
             case ('u'): 
             case ('f'): {
                 // create text field for duration or float values
                 auto textField = new FXTextField(table->myColumns.at(columnIndex)->getVerticalCellFrame(), GUIDesignTextFieldNCol, table, MID_GNE_TLSTABLE_TEXTFIELD, GUIDesignTextFieldTLSTableReal);
-                myCells.push_back(new Cell(textField, columnIndex, numCells));
+                myCells.push_back(new Cell(table, textField, columnIndex, numCells));
                 break;
             }
             case ('p'): {
@@ -623,38 +637,38 @@ GNETLSTable::Row::Row(GNETLSTable* table) :
                 auto textField = new FXTextField(table->myColumns.at(columnIndex)->getVerticalCellFrame(), GUIDesignTextFieldNCol, table, MID_GNE_TLSTABLE_TEXTFIELD, GUIDesignTextFieldTLSTable);
                 // set special font
                 textField->setFont(myTable->myProgramFont);
-                myCells.push_back(new Cell(textField, columnIndex, numCells));
+                myCells.push_back(new Cell(table, textField, columnIndex, numCells));
                 break;
             }
             case ('m'):
             case ('-'): {
                 // create normal text field
                 auto textField = new FXTextField(table->myColumns.at(columnIndex)->getVerticalCellFrame(), GUIDesignTextFieldNCol, table, MID_GNE_TLSTABLE_TEXTFIELD, GUIDesignTextFieldTLSTable);
-                myCells.push_back(new Cell(textField, columnIndex, numCells));
+                myCells.push_back(new Cell(table, textField, columnIndex, numCells));
                 break;
             }
             case ('i'): {
                 // create button for insert phase
                 auto button = new FXButton(table->myColumns.at(columnIndex)->getVerticalCellFrame(), "", GUIIconSubSys::getIcon(GUIIcon::ADD), table, MID_GNE_TLSTABLE_ADDPHASE, GUIDesignButtonIcon);
-                myCells.push_back(new Cell(button, columnIndex, numCells));
+                myCells.push_back(new Cell(table, button, columnIndex, numCells));
                 break;
             }
             case ('d'): {
                 // create button for delete phase
                 auto button = new FXButton(table->myColumns.at(columnIndex)->getVerticalCellFrame(), "", GUIIconSubSys::getIcon(GUIIcon::REMOVE), table, MID_GNE_TLSTABLE_REMOVEPHASE, GUIDesignButtonIcon);
-                myCells.push_back(new Cell(button, columnIndex, numCells));
+                myCells.push_back(new Cell(table, button, columnIndex, numCells));
                 break;
             }
             case ('t'): {
                 // create button for move up phase
                 auto button = new FXButton(table->myColumns.at(columnIndex)->getVerticalCellFrame(), "", GUIIconSubSys::getIcon(GUIIcon::ARROW_UP), table, MID_GNE_TLSTABLE_MOVEUPPHASE, GUIDesignButtonIcon);
-                myCells.push_back(new Cell(button, columnIndex, numCells));
+                myCells.push_back(new Cell(table, button, columnIndex, numCells));
                 break;
             }
             case ('b'): {
                 // create button for move down phase
                 auto button = new FXButton(table->myColumns.at(columnIndex)->getVerticalCellFrame(), "", GUIIconSubSys::getIcon(GUIIcon::ARROW_DOWN), table, MID_GNE_TLSTABLE_MOVEDOWNPHASE, GUIDesignButtonIcon);
-                myCells.push_back(new Cell(button, columnIndex, numCells));
+                myCells.push_back(new Cell(table, button, columnIndex, numCells));
                 break;
             }
             default:
@@ -713,13 +727,23 @@ GNETLSTable::Row::select() {
 
 void 
 GNETLSTable::Row::markAsFirstRow() {
-    //XXX;
+    // search move up button and disable it
+    for (const auto &cell : myCells) {
+        if (cell->getType() == 't') {
+            cell->getButton()->disable();
+        }
+    }
 }
 
 
 void
 GNETLSTable::Row::markAsLastRow() {
-
+    // search move up button and disable it
+    for (const auto &cell : myCells) {
+        if (cell->getType() == 'b') {
+            cell->getButton()->disable();
+        }
+    }
 }
 
 GNETLSTable::Row::Row() {}

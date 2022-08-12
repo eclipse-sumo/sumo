@@ -126,13 +126,13 @@ protected:
 
     public:
         /// @brief constructor for textField
-        Cell(FXTextField* textField, int col, int row);
+        Cell(GNETLSTable* TLSTable, FXTextField* textField, int col, int row);
 
         /// @brief constructor for radio button
-        Cell(FXRadioButton* radioButton, int col, int row);
+        Cell(GNETLSTable* TLSTable, FXRadioButton* radioButton, int col, int row);
 
         /// @brief constructor for buttons
-        Cell(FXButton* button, int col, int row);
+        Cell(GNETLSTable* TLSTable, FXButton* button, int col, int row);
 
         /// @brief get textField
         FXTextField* getTextField();
@@ -149,7 +149,13 @@ protected:
         /// @brief row index
         int getRow() const;
 
-    protected:
+        /// @brief get column type
+        char getType() const;
+
+    private:
+        /// @brief pointer to TLSTable parent
+        GNETLSTable* myTLSTable = nullptr;
+
         /// @brief textField
         FXTextField* myTextField = nullptr;
 
@@ -165,7 +171,6 @@ protected:
         /// @brief row index
         const int myRow;
 
-    private:
         /// @brief default constructor
         Cell();
     };
