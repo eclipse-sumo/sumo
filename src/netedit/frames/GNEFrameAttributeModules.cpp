@@ -248,14 +248,14 @@ GNEFrameAttributeModules::AttributesEditorRow::AttributesEditorRow(GNEFrameAttri
             } else {
                 // fill comboBox
                 myValueComboBoxChoices->clearItems();
-                for (const auto& discreteValue : myACAttr.getDiscreteValues()) {
-                    if (ACAttr.getAttr() == SUMO_ATTR_VCLASS) {
-                        if (canParseVehicleClasses(value)) {
-                            myValueComboBoxChoices->appendIconItem(discreteValue.c_str(), GNEAttributeCarrier::getVClassIcon(getVehicleClassID(value)));
-                        } else {
-                            myValueComboBoxChoices->appendIconItem(discreteValue.c_str());
-                        }
-                    } else {
+                // special case for VClass
+                if (ACAttr.getAttr() == SUMO_ATTR_VCLASS) {
+                    // add all vClasses with their icons
+                    for (const auto& vClassStr : SumoVehicleClassStrings.getStrings()) {
+                        myValueComboBoxChoices->appendIconItem(vClassStr.c_str(), GNEAttributeCarrier::getVClassIcon(getVehicleClassID(vClassStr)));
+                    }
+                } else {
+                    for (const auto& discreteValue : myACAttr.getDiscreteValues()) {
                         myValueComboBoxChoices->appendIconItem(discreteValue.c_str());
                     }
                 }
@@ -348,16 +348,16 @@ GNEFrameAttributeModules::AttributesEditorRow::refreshAttributesEditorRow(const 
             }
         }
     } else if (myValueComboBoxChoices->shown()) {
-        // fill terminategain
+        // fill comboBox
         myValueComboBoxChoices->clearItems();
-        for (const auto& discreteValue : myACAttr.getDiscreteValues()) {
-            if (myACAttr.getAttr() == SUMO_ATTR_VCLASS) {
-                if (canParseVehicleClasses(value)) {
-                    myValueComboBoxChoices->appendIconItem(discreteValue.c_str(), GNEAttributeCarrier::getVClassIcon(getVehicleClassID(value)));
-                } else {
-                    myValueComboBoxChoices->appendIconItem(discreteValue.c_str());
-                }
-            } else {
+        // special case for VClass
+        if (myACAttr.getAttr() == SUMO_ATTR_VCLASS) {
+            // add all vClasses with their icons
+            for (const auto& vClassStr : SumoVehicleClassStrings.getStrings()) {
+                myValueComboBoxChoices->appendIconItem(vClassStr.c_str(), GNEAttributeCarrier::getVClassIcon(getVehicleClassID(vClassStr)));
+            }
+        } else {
+            for (const auto& discreteValue : myACAttr.getDiscreteValues()) {
                 myValueComboBoxChoices->appendIconItem(discreteValue.c_str());
             }
         }
