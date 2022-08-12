@@ -257,9 +257,14 @@ public:
     void setPhaseName(int phaseIndex, const std::string& name);
 
     /* @brief deletes the phase at the given index
-     * @note thhrows InvalidArgument on out-of range index
+     * @note throws InvalidArgument on out-of range index
      */
     void deletePhase(int index);
+
+    /* @brief swap phases
+     * @note throws InvalidArgument on out-of range index
+     */
+    void swapPhase(int indexPhaseA, int indexPhaseB);
 
     /* @brief changes state size either by cutting of at the end or by adding
      * new states at the end

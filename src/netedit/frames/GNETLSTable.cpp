@@ -385,14 +385,38 @@ GNETLSTable::onCmdRemovePhase(FXObject* sender, FXSelector, void*) {
 
 
 long 
-GNETLSTable::onCmdMoveUpPhase(FXObject*, FXSelector, void*) {
-    return 1;
+GNETLSTable::onCmdMoveUpPhase(FXObject* sender, FXSelector, void*) {
+    // search selected text field
+    for (int indexRow = 0; indexRow < (int)myRows.size(); indexRow++) {
+        // iterate over every cell
+        for (const auto &cellTextField : myRows.at(indexRow)->getCells()) {
+            if (cellTextField->getButton() == sender) {
+                // move phase up
+                myTLSPhasesParent->movePhaseUp(indexRow);
+                // stop
+                return 0;
+            }
+        }
+    }
+    return 0;
 }
 
 
 long
-GNETLSTable::onCmdMoveDownPhase(FXObject*, FXSelector, void*) {
-    return 1;
+GNETLSTable::onCmdMoveDownPhase(FXObject* sender, FXSelector, void*) {
+    // search selected text field
+    for (int indexRow = 0; indexRow < (int)myRows.size(); indexRow++) {
+        // iterate over every cell
+        for (const auto &cellTextField : myRows.at(indexRow)->getCells()) {
+            if (cellTextField->getButton() == sender) {
+                // move phase down
+                myTLSPhasesParent->movePhaseDown(indexRow);
+                // stop
+                return 0;
+            }
+        }
+    }
+    return 0;
 }
 
 // ---------------------------------------------------------------------------

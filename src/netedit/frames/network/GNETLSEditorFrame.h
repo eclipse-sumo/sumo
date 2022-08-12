@@ -281,6 +281,12 @@ public:
         /// @brief delete phase
         void removePhase(const int row);
 
+        /// @brief move phase up
+        void movePhaseUp(const int row);
+
+        /// @brief move phase down
+        void movePhaseDown(const int row);
+
         /// @name FOX-callbacks
         /// @{
         /// @brief Called when the user cleans up states

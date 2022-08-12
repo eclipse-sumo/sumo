@@ -1264,6 +1264,36 @@ GNETLSEditorFrame::TLSPhases::removePhase(const int row) {
 }
 
 
+void 
+GNETLSEditorFrame::TLSPhases::movePhaseUp(const int row) {
+    // mark TLS ad modified
+    myTLSEditorParent->myTLSModifications->setHaveModifications(true);
+    // delete selected row
+    myTLSEditorParent->myEditedDef->getLogic()->swapPhase(row, row - 1);
+    // int phase table again
+    initPhaseTable();
+    // mark new row as selected
+    myPhaseTable->selectRow(row - 1);
+    // set focus in table
+    getPhaseTable()->setFocus();
+}
+
+
+void 
+GNETLSEditorFrame::TLSPhases::movePhaseDown(const int row) {
+    // mark TLS ad modified
+    myTLSEditorParent->myTLSModifications->setHaveModifications(true);
+    // delete selected row
+    myTLSEditorParent->myEditedDef->getLogic()->swapPhase(row, row + 1);
+    // int phase table again
+    initPhaseTable();
+    // mark new row as selected
+    myPhaseTable->selectRow(row + 1);
+    // set focus in table
+    getPhaseTable()->setFocus();
+}
+
+
 long
 GNETLSEditorFrame::TLSPhases::onUpdNeedsDef(FXObject* o, FXSelector, void*) {
     if (myTLSEditorParent->myTLSAttributes->getNumberOfTLSDefinitions() > 0) {

@@ -119,6 +119,23 @@ NBTrafficLightLogic::deletePhase(int index) {
 
 
 void
+NBTrafficLightLogic::swapPhase(int indexPhaseA, int indexPhaseB) {
+    if (indexPhaseA >= (int)myPhases.size()) {
+        throw InvalidArgument("Index " + toString(indexPhaseA) + " out of range for logic with "
+                              + toString(myPhases.size()) + " phases.");
+    }
+    if (indexPhaseB >= (int)myPhases.size()) {
+        throw InvalidArgument("Index " + toString(indexPhaseB) + " out of range for logic with "
+                              + toString(myPhases.size()) + " phases.");
+    }
+    // declare auxiliar PhaseDefinition and swap
+    const auto auxPhase = myPhases.at(indexPhaseA);
+    myPhases.at(indexPhaseA) = myPhases.at(indexPhaseB);
+    myPhases.at(indexPhaseB) = auxPhase;
+}
+
+
+void
 NBTrafficLightLogic::setStateLength(int numLinks, LinkState fill) {
     if (myNumLinks > numLinks) {
         for (PhaseDefinition& p : myPhases) {
