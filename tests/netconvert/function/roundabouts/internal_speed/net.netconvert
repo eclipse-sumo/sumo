@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-08-12 12:34:55 by Eclipse SUMO netconvert Version v1_14_1+0279-392c686
+<!-- generated on 2022-08-12 13:30:27 by Eclipse SUMO netconvert Version v1_14_1+0280-484d33c
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -81,17 +81,15 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </edge>
     <edge id=":J6_0" function="internal">
         <lane id=":J6_0_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="7.18" length="6.17" shape="131.87,81.22 130.64,81.43 129.43,82.08 128.23,83.17 127.05,84.69"/>
+        <lane id=":J6_0_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="8.03" length="7.85" shape="131.87,81.22 129.03,81.31 126.84,81.62 125.30,82.15 124.40,82.90"/>
     </edge>
-    <edge id=":J6_1" function="internal">
-        <lane id=":J6_1_0" index="0" speed="13.89" length="14.22" shape="131.87,81.22 127.70,80.88 124.95,79.91 122.37,78.29 118.71,76.01"/>
-        <lane id=":J6_1_1" index="1" speed="13.89" length="14.22" shape="133.11,78.03 129.06,77.73 126.37,76.88 123.84,75.39 120.29,73.23"/>
+    <edge id=":J6_2" function="internal">
+        <lane id=":J6_2_0" index="0" speed="13.89" length="14.22" shape="131.87,81.22 127.70,80.88 124.95,79.91 122.37,78.29 118.71,76.01"/>
+        <lane id=":J6_2_1" index="1" speed="13.89" length="14.22" shape="133.11,78.03 129.06,77.73 126.37,76.88 123.84,75.39 120.29,73.23"/>
     </edge>
-    <edge id=":J6_3" function="internal">
-        <lane id=":J6_3_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="4.74" length="4.30" shape="119.63,79.67 120.08,78.55 120.07,77.56 119.62,76.72 118.71,76.01"/>
-        <lane id=":J6_3_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="6.71" length="9.67" shape="122.29,81.47 123.30,78.93 123.31,76.71 122.30,74.81 120.29,73.23"/>
-    </edge>
-    <edge id=":J6_5" function="internal">
-        <lane id=":J6_5_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="3.07" length="2.54" shape="122.29,81.47 124.40,82.90"/>
+    <edge id=":J6_4" function="internal">
+        <lane id=":J6_4_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="4.74" length="4.30" shape="119.63,79.67 120.08,78.55 120.07,77.56 119.62,76.72 118.71,76.01"/>
+        <lane id=":J6_4_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="6.71" length="9.67" shape="122.29,81.47 123.30,78.93 123.31,76.71 122.30,74.81 120.29,73.23"/>
     </edge>
     <edge id=":cluster_317837289_3566825590_0" function="internal">
         <lane id=":cluster_317837289_3566825590_0_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="3.65" length="4.67" shape="195.60,-1.07 197.00,-1.42 197.86,-1.18 198.19,-0.35 197.97,1.08"/>
@@ -215,22 +213,21 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <request index="3" response="00000" foes="00011" cont="0"/>
         <request index="4" response="00000" foes="00010" cont="0"/>
     </junction>
-    <junction id="J6" type="priority" x="127.50" y="75.46" incLanes="E7_0 E7_1 -301483807#1_0 -301483807#1_1" intLanes=":J6_0_0 :J6_1_0 :J6_1_1 :J6_3_0 :J6_3_1 :J6_5_0" shape="131.25,82.82 133.73,76.43 130.67,76.29 127.99,75.90 125.70,75.26 123.79,74.38 122.26,73.24 121.09,71.81 117.92,77.40 118.35,77.77 118.45,77.99 118.48,78.23 118.43,78.49 118.30,78.77 128.37,85.59 129.53,84.05 130.03,83.51 130.49,83.12 130.89,82.89" radius="1.00">
+    <junction id="J6" type="priority" x="127.50" y="75.46" incLanes="E7_0 E7_1 -301483807#1_0 -301483807#1_1" intLanes=":J6_0_0 :J6_0_1 :J6_2_0 :J6_2_1 :J6_4_0 :J6_4_1" shape="131.25,82.82 133.73,76.43 130.67,76.29 127.99,75.90 125.70,75.26 123.79,74.38 122.26,73.24 121.09,71.81 117.92,77.40 118.35,77.77 118.45,77.99 118.48,78.23 118.43,78.49 118.30,78.77 128.37,85.59 129.53,84.05 130.03,83.51 130.49,83.12 130.89,82.89" radius="1.00">
         <request index="0" response="000000" foes="000000" cont="0"/>
-        <request index="1" response="000000" foes="011000" cont="0"/>
-        <request index="2" response="000000" foes="010000" cont="0"/>
-        <request index="3" response="000010" foes="000010" cont="0"/>
-        <request index="4" response="000110" foes="000110" cont="0"/>
-        <request index="5" response="000000" foes="000000" cont="0"/>
+        <request index="1" response="000000" foes="000000" cont="0"/>
+        <request index="2" response="000000" foes="110000" cont="0"/>
+        <request index="3" response="000000" foes="100000" cont="0"/>
+        <request index="4" response="000100" foes="000100" cont="0"/>
+        <request index="5" response="001100" foes="001100" cont="0"/>
     </junction>
     <junction id="cluster_317837289_3566825590" type="priority" x="196.79" y="0.00" incLanes="-5917631940_0 -5917631940_1" intLanes=":cluster_317837289_3566825590_0_0" shape="196.79,0.00 201.52,4.31 192.04,-4.29">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
 
     <connection from="-28915150#10" to="28915150#1" fromLane="0" toLane="1" via=":4152042800_0_0" dir="t" state="M"/>
-    <connection from="-301483807#1" to="E6" fromLane="0" toLane="0" via=":J6_3_0" dir="r" state="m" visibility="9.00"/>
-    <connection from="-301483807#1" to="E6" fromLane="1" toLane="1" via=":J6_3_1" dir="r" state="m" visibility="9.00"/>
-    <connection from="-301483807#1" to="301483807#10" fromLane="1" toLane="1" via=":J6_5_0" dir="r" state="M"/>
+    <connection from="-301483807#1" to="E6" fromLane="0" toLane="0" via=":J6_4_0" dir="r" state="m" visibility="9.00"/>
+    <connection from="-301483807#1" to="E6" fromLane="1" toLane="1" via=":J6_4_1" dir="r" state="m" visibility="9.00"/>
     <connection from="-5917631940" to="591763194" fromLane="1" toLane="1" via=":cluster_317837289_3566825590_0_0" dir="t" state="M"/>
     <connection from="28915150#1" to="E5" fromLane="0" toLane="0" via=":J5_0_0" dir="r" state="m" visibility="9.00"/>
     <connection from="28915150#1" to="E5" fromLane="1" toLane="1" via=":J5_0_1" dir="r" state="m" visibility="9.00"/>
@@ -252,8 +249,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <connection from="E6.16" to="E5" fromLane="0" toLane="0" via=":J5_3_0" dir="s" state="M"/>
     <connection from="E6.16" to="E5" fromLane="1" toLane="1" via=":J5_3_1" dir="s" state="M"/>
     <connection from="E7" to="301483807#10" fromLane="0" toLane="0" via=":J6_0_0" dir="r" state="M"/>
-    <connection from="E7" to="E6" fromLane="0" toLane="0" via=":J6_1_0" dir="s" state="M"/>
-    <connection from="E7" to="E6" fromLane="1" toLane="1" via=":J6_1_1" dir="s" state="M"/>
+    <connection from="E7" to="301483807#10" fromLane="0" toLane="1" via=":J6_0_1" dir="r" state="M"/>
+    <connection from="E7" to="E6" fromLane="0" toLane="0" via=":J6_2_0" dir="s" state="M"/>
+    <connection from="E7" to="E6" fromLane="1" toLane="1" via=":J6_2_1" dir="s" state="M"/>
 
     <connection from=":4152042800_0" to="28915150#1" fromLane="0" toLane="1" dir="t" state="M"/>
     <connection from=":6817745691_0" to="-301483807#1" fromLane="0" toLane="0" dir="r" state="M"/>
@@ -276,11 +274,11 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <connection from=":J5_3" to="E5" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":J5_3" to="E5" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from=":J6_0" to="301483807#10" fromLane="0" toLane="0" dir="r" state="M"/>
-    <connection from=":J6_1" to="E6" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":J6_1" to="E6" fromLane="1" toLane="1" dir="s" state="M"/>
-    <connection from=":J6_3" to="E6" fromLane="0" toLane="0" dir="r" state="M"/>
-    <connection from=":J6_3" to="E6" fromLane="1" toLane="1" dir="r" state="M"/>
-    <connection from=":J6_5" to="301483807#10" fromLane="0" toLane="1" dir="r" state="M"/>
+    <connection from=":J6_0" to="301483807#10" fromLane="1" toLane="1" dir="r" state="M"/>
+    <connection from=":J6_2" to="E6" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":J6_2" to="E6" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from=":J6_4" to="E6" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from=":J6_4" to="E6" fromLane="1" toLane="1" dir="r" state="M"/>
     <connection from=":cluster_317837289_3566825590_0" to="591763194" fromLane="0" toLane="1" dir="t" state="M"/>
 
     <roundabout nodes="J1 J3 J4 J5 J6" edges="E4 E5 E6 E6.16 E7"/>
