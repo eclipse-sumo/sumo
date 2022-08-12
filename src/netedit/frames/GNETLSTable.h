@@ -98,6 +98,9 @@ public:
     /// @brief called when a row is selected
     long onCmdRowSelected(FXObject*, FXSelector, void*);
 
+    /// @brief called when a key is pressed
+    long onCmdKeyPress(FXObject*, FXSelector, void*);
+
     /// @brief called when an add phase button is selected
     long onCmdAddPhase(FXObject*, FXSelector, void*);
 
@@ -235,7 +238,7 @@ protected:
         /// @brief get cells
         const std::vector<Cell*> &getCells() const;
 
-        /// @brief select column
+        /// @brief select row
         void select();
 
     protected:

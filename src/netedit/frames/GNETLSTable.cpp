@@ -35,11 +35,19 @@
 // ===========================================================================
 
 FXDEFMAP(GNETLSTable) GNETLSTableMap[] = {
+    // text fields
     FXMAPFUNC(SEL_FOCUSIN,  MID_GNE_TLSTABLE_TEXTFIELD,     GNETLSTable::onFocusRow),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TLSTABLE_TEXTFIELD,     GNETLSTable::onCmdEditRow),
+    FXMAPFUNC(SEL_KEYPRESS, MID_GNE_TLSTABLE_TEXTFIELD,     GNETLSTable::onCmdKeyPress),
+    // radio button
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TLSTABLE_RADIOBUTTON,   GNETLSTable::onCmdRowSelected),
+    FXMAPFUNC(SEL_KEYPRESS, MID_GNE_TLSTABLE_RADIOBUTTON,   GNETLSTable::onCmdKeyPress),
+    // add phase button
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TLSTABLE_ADDPHASE,      GNETLSTable::onCmdAddPhase),
+    FXMAPFUNC(SEL_KEYPRESS, MID_GNE_TLSTABLE_TEXTFIELD,     GNETLSTable::onCmdKeyPress),
+    // remove phase button
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TLSTABLE_REMOVEPHASE,   GNETLSTable::onCmdRemovePhase),
+    FXMAPFUNC(SEL_KEYPRESS, MID_GNE_TLSTABLE_TEXTFIELD,     GNETLSTable::onCmdKeyPress),
 };
 
 // Object implementation
@@ -302,6 +310,30 @@ GNETLSTable::onCmdRowSelected(FXObject* sender, FXSelector, void*) {
         }
     }
     return 0;
+}
+
+
+long 
+GNETLSTable::onCmdKeyPress(FXObject* sender, FXSelector sel, void* data) {
+    // get FXEvent
+    FXEvent* eventInfo = (FXEvent*)data;
+    // check code
+    if (eventInfo->code == 65362) {
+        // move up
+        if (myCurrentSelectedRow > 0) {
+            myRows.at(myCurrentSelectedRow - 1)->select();
+        }
+        return 1;
+    } else if (eventInfo->code == 65364) {
+        // move down
+        if (myCurrentSelectedRow < ((int)myRows.size() - 1)) {
+            myRows.at(myCurrentSelectedRow + 1)->select();
+        }
+        return 1;
+    } else {
+        // continue handling key pres
+        return sender->handle(sender, sel, data);
+    }
 }
 
 
