@@ -105,6 +105,7 @@ GUIOSGView::Command_TLSChange::execute() {
             mySwitch->setSingleChildOn(1);
             break;
         case LINKSTATE_TL_RED:
+        case LINKSTATE_STOP:
             mySwitch->setSingleChildOn(2);
             break;
         case LINKSTATE_TL_REDYELLOW:
