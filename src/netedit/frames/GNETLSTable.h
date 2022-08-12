@@ -83,7 +83,9 @@ public:
      * m -> name (automatic size, textField)
      * i -> insert phase (button)
      * d -> delete phase (button)
-     * - -> textField
+     * t -> move phase up (button)
+     * b -> move phase down (button)
+     * - -> general text (textField)
      */
     void setTableSize(const std::string &columnsType, const int numberRow);
 
@@ -246,6 +248,12 @@ protected:
 
         /// @brief select row
         void select();
+
+        /// @brief mark row as first row
+        void markAsFirstRow();
+
+        /// @brief mark row as last row
+        void markAsLastRow();
 
     protected:
         /// @brief poiner to table parent

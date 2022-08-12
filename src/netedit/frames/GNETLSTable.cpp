@@ -471,6 +471,8 @@ GNETLSTable::Column::Column(GNETLSTable* table, const int index, const char type
         case 's':
         case 'i':
         case 'd':
+        case 't':
+        case 'b':
             // empty label
             myTopLabel = new MFXLabelTooltip(myVerticalFrame, "", nullptr, GUIDesignLabelTLSTableEmpty);
             break;
@@ -643,6 +645,18 @@ GNETLSTable::Row::Row(GNETLSTable* table) :
                 myCells.push_back(new Cell(button, columnIndex, numCells));
                 break;
             }
+            case ('t'): {
+                // create button for move up phase
+                auto button = new FXButton(table->myColumns.at(columnIndex)->getVerticalCellFrame(), "", GUIIconSubSys::getIcon(GUIIcon::ARROW_UP), table, MID_GNE_TLSTABLE_MOVEUPPHASE, GUIDesignButtonIcon);
+                myCells.push_back(new Cell(button, columnIndex, numCells));
+                break;
+            }
+            case ('b'): {
+                // create button for move down phase
+                auto button = new FXButton(table->myColumns.at(columnIndex)->getVerticalCellFrame(), "", GUIIconSubSys::getIcon(GUIIcon::ARROW_DOWN), table, MID_GNE_TLSTABLE_MOVEDOWNPHASE, GUIDesignButtonIcon);
+                myCells.push_back(new Cell(button, columnIndex, numCells));
+                break;
+            }
             default:
                 throw ProcessError("Invalid Cell type");
         }
@@ -696,6 +710,17 @@ GNETLSTable::Row::select() {
     }
 }
 
+
+void 
+GNETLSTable::Row::markAsFirstRow() {
+    //XXX;
+}
+
+
+void
+GNETLSTable::Row::markAsLastRow() {
+
+}
 
 GNETLSTable::Row::Row() {}
 
