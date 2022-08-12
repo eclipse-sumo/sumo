@@ -147,11 +147,11 @@ GNETypeFrame::TypeSelector::refreshTypeSelector() {
             }
         }
     }
-    // refresh vehicle type editor modul
+    // refresh vehicle type editor module
     myTypeFrameParent->myTypeEditor->refreshTypeEditorModule();
     // set myCurrentType as inspected element
     myTypeFrameParent->getViewNet()->setInspectedAttributeCarriers({myCurrentType});
-    // show Attribute Editor modul
+    // show Attribute Editor module
     myTypeFrameParent->myTypeAttributesEditor->showAttributeEditorModule(false, true);
 }
 
@@ -173,11 +173,11 @@ GNETypeFrame::TypeSelector::onCmdSelectItem(FXObject*, FXSelector, void*) {
             myCurrentType = vType;
             // set color of myTypeMatchBox to black (valid)
             myTypeComboBox->setTextColor(FXRGB(0, 0, 0));
-            // refresh vehicle type editor modul
+            // refresh vehicle type editor module
             myTypeFrameParent->myTypeEditor->refreshTypeEditorModule();
             // set myCurrentType as inspected element
             myTypeFrameParent->getViewNet()->setInspectedAttributeCarriers({myCurrentType});
-            // show moduls if selected item is valid
+            // show modules if selected item is valid
             myTypeFrameParent->myTypeAttributesEditor->showAttributeEditorModule(false, true);
             // Write Warning in console if we're in testing mode
             WRITE_DEBUG(("Selected item '" + myTypeComboBox->getText() + "' in TypeSelector").text());
@@ -187,9 +187,9 @@ GNETypeFrame::TypeSelector::onCmdSelectItem(FXObject*, FXSelector, void*) {
         }
     }
     myCurrentType = nullptr;
-    // refresh vehicle type editor modul
+    // refresh vehicle type editor module
     myTypeFrameParent->myTypeEditor->refreshTypeEditorModule();
-    // hide all moduls if selected item isn't valid
+    // hide all modules if selected item isn't valid
     myTypeFrameParent->myTypeAttributesEditor->hideAttributesEditorModule();
     // set color of myTypeMatchBox to red (invalid)
     myTypeComboBox->setTextColor(FXRGB(255, 0, 0));
@@ -243,7 +243,7 @@ GNETypeFrame::TypeEditor::refreshTypeEditorModule() {
         // enable copy button
         myCopyTypeButton->enable();
         // enable and set myDeleteTypeButton as "reset")
-        myDeleteResetTypeButton->setText("Reset type");
+        myDeleteResetTypeButton->setText("Reset Type");
         myDeleteResetTypeButton->setIcon(GUIIconSubSys::getIcon(GUIIcon::RESET));
         // check if reset default vehicle type button has to be enabled or disabled
         if (GNEAttributeCarrier::parse<bool>(myTypeFrameParent->myTypeSelector->getCurrentType()->getAttribute(GNE_ATTR_DEFAULT_VTYPE_MODIFIED))) {
@@ -255,11 +255,11 @@ GNETypeFrame::TypeEditor::refreshTypeEditorModule() {
         // enable copy button
         myCopyTypeButton->enable();
         // enable and set myDeleteTypeButton as "delete")
-        myDeleteResetTypeButton->setText("Delete type");
+        myDeleteResetTypeButton->setText("Delete Type");
         myDeleteResetTypeButton->setIcon(GUIIconSubSys::getIcon(GUIIcon::MODEDELETE));
         myDeleteResetTypeButton->enable();
     }
-    // update modul
+    // update module
     recalc();
 }
 
@@ -400,7 +400,7 @@ GNETypeFrame::TypeEditor::deleteType() {
 GNETypeFrame::GNETypeFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet) :
     GNEFrame(horizontalFrameParent, viewNet, "Types") {
 
-    // create modul for edit vehicle types (Create, copy, etc.)
+    // create module for edit vehicle types (Create, copy, etc.)
     myTypeEditor = new TypeEditor(this);
 
     // create vehicle type selector
@@ -409,7 +409,7 @@ GNETypeFrame::GNETypeFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet*
     // Create vehicle type attributes editor
     myTypeAttributesEditor = new GNEFrameAttributeModules::AttributesEditor(this);
 
-    // create modul for open extended attributes dialog
+    // create module for open extended attributes dialog
     myAttributesEditorExtended = new GNEFrameAttributeModules::AttributesEditorExtended(this);
 
     // set "VTYPE_DEFAULT" as default vehicle Type
