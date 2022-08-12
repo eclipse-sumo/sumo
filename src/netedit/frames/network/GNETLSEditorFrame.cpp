@@ -1018,7 +1018,7 @@ GNETLSEditorFrame::TLSPhases::TLSPhases(GNETLSEditorFrame* TLSEditorParent) :
     // create cleanup states button
     new MFXButtonTooltip(col1, "Clean States\tClean unused states from all phase\tClean unused states from all phase. (Not allowed for multiple programs)", nullptr, this, MID_GNE_TLSFRAME_PHASES_CLEANUP, GUIDesignButton);
     // add unused states button
-    new MFXButtonTooltip(col2, "Add States\tExtend the state vector for all phases by one entry\tExtend the state vector for all phases by one entry (unused until a connection or crossing is assigned to the new index).", nullptr, this, MID_GNE_TLSFRAME_PHASES_ADDUNUSED, GUIDesignButton);
+    new MFXButtonTooltip(col2, "Add States\tExtend the state vector for all phases by one entry\tExtend the state vector for all phases by one entry. (Unused until a connection or crossing is assigned to the new index)", nullptr, this, MID_GNE_TLSFRAME_PHASES_ADDUNUSED, GUIDesignButton);
     // group states button
     new MFXButtonTooltip(col1, "Group Signals\tShorten state definition by letting connections with the same signal states use the same index\tShorten state definition by letting connections with the same signal states use the same index. (Not allowed for multiple programs)", nullptr, this, MID_GNE_TLSFRAME_PHASES_GROUPSTATES, GUIDesignButton);
     // ungroup states button
@@ -1864,10 +1864,10 @@ GNETLSEditorFrame::TLSModifications::TLSModifications(GNETLSEditorFrame* TLSEdit
     myHaveModifications(false) {
     FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     // create save modifications button
-    mySaveModificationsButtons = new FXButton(buttonsFrame, "Save\t\tSave program modifications (Enter)",
+    mySaveModificationsButtons = new FXButton(buttonsFrame, "Save\t\tSave program modifications. (Enter)",
             GUIIconSubSys::getIcon(GUIIcon::OK), this, MID_GNE_TLSFRAME_MODIFICATIONS_SAVE, GUIDesignButton);
     // create discard modifications buttons
-    myDiscardModificationsButtons = new FXButton(buttonsFrame, "Cancel\t\tDiscard program modifications (Esc)",
+    myDiscardModificationsButtons = new FXButton(buttonsFrame, "Cancel\t\tDiscard program modifications. (Esc)",
             GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, MID_GNE_TLSFRAME_MODIFICATIONS_DISCARD, GUIDesignButton);
     // show TLSModifications
     show();

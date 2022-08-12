@@ -679,25 +679,25 @@ GNETLSTable::Row::Row(GNETLSTable* table) :
             }
             case ('i'): {
                 // create button for insert phase
-                auto button = new FXButton(table->myColumns.at(columnIndex)->getVerticalCellFrame(), "", GUIIconSubSys::getIcon(GUIIcon::ADD), table, MID_GNE_TLSTABLE_ADDPHASE, GUIDesignButtonIcon);
+                auto button = new FXButton(table->myColumns.at(columnIndex)->getVerticalCellFrame(), "\t\tInsert a new phase below.", GUIIconSubSys::getIcon(GUIIcon::ADD), table, MID_GNE_TLSTABLE_ADDPHASE, GUIDesignButtonIcon);
                 myCells.push_back(new Cell(table, button, columnIndex, numCells));
                 break;
             }
             case ('d'): {
                 // create button for delete phase
-                auto button = new FXButton(table->myColumns.at(columnIndex)->getVerticalCellFrame(), "", GUIIconSubSys::getIcon(GUIIcon::REMOVE), table, MID_GNE_TLSTABLE_REMOVEPHASE, GUIDesignButtonIcon);
+                auto button = new FXButton(table->myColumns.at(columnIndex)->getVerticalCellFrame(), "\t\tDelete this phase.", GUIIconSubSys::getIcon(GUIIcon::REMOVE), table, MID_GNE_TLSTABLE_REMOVEPHASE, GUIDesignButtonIcon);
                 myCells.push_back(new Cell(table, button, columnIndex, numCells));
                 break;
             }
             case ('t'): {
                 // create button for move up phase
-                auto button = new FXButton(table->myColumns.at(columnIndex)->getVerticalCellFrame(), "", GUIIconSubSys::getIcon(GUIIcon::ARROW_UP), table, MID_GNE_TLSTABLE_MOVEUPPHASE, GUIDesignButtonIcon);
+                auto button = new FXButton(table->myColumns.at(columnIndex)->getVerticalCellFrame(), "\t\tMove this phase up.", GUIIconSubSys::getIcon(GUIIcon::ARROW_UP), table, MID_GNE_TLSTABLE_MOVEUPPHASE, GUIDesignButtonIcon);
                 myCells.push_back(new Cell(table, button, columnIndex, numCells));
                 break;
             }
             case ('b'): {
                 // create button for move down phase
-                auto button = new FXButton(table->myColumns.at(columnIndex)->getVerticalCellFrame(), "", GUIIconSubSys::getIcon(GUIIcon::ARROW_DOWN), table, MID_GNE_TLSTABLE_MOVEDOWNPHASE, GUIDesignButtonIcon);
+                auto button = new FXButton(table->myColumns.at(columnIndex)->getVerticalCellFrame(), "\t\tMove this phase down.", GUIIconSubSys::getIcon(GUIIcon::ARROW_DOWN), table, MID_GNE_TLSTABLE_MOVEDOWNPHASE, GUIDesignButtonIcon);
                 myCells.push_back(new Cell(table, button, columnIndex, numCells));
                 break;
             }
