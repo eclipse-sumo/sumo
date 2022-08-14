@@ -102,7 +102,7 @@ A vehicle may be defined using the following attributes:
 
 ## Repeated vehicles (Flows)
 
-It is possible to define repeated vehicle emissions ("flow"s), which
+It is possible to define repeated vehicle emissions ("flows"), which
 have the same parameters as the vehicle or trip definitions except for the departure time.
 The id of the created vehicles is "flowId.runningNumber" and they are
 distributed either equally or randomly in the given interval. The
