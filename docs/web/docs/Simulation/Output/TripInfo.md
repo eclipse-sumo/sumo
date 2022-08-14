@@ -54,7 +54,8 @@ values would not be known.
 | `arrivalSpeed` | m/s                  | The speed the vehicle had when reaching the destination               |
 | `duration`     | (simulation) seconds | The time the vehicle needed to accomplish the route             |
 | `routeLength`  | m                    | The length of the vehicle's route                        |
-| `waitingTime`  | s                    | The time in which the vehicle speed was below or equal 0.1m/s (scheduled [stops](../../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#stops) do not count)          |
+| `waitingTime`  | s                    | The time in which the vehicle speed was below or equal 0.1 m/s (scheduled [stops](../../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#stops) do not count)          |
+| `waitingCount` | \#                   | The number of times the vehicle speed went below or equal 0.1 m/s |
 | `stopTime`     | s                    | The time in which the vehicle was taking a planned [stop](../../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#stops)      |
 | `timeLoss`     | seconds              | The time lost due to driving below the ideal speed. (ideal speed includes [the individual speedFactor](../../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#speed_distributions); slowdowns due to intersections etc. will incur timeLoss, scheduled [stops](../../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#stops) do not count) |
 | `rerouteNo`    | \#                   | The number the vehicle has been rerouted              |

@@ -26,13 +26,12 @@ import sys
 import os
 import subprocess
 import random
-sys.path.append(
-    os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', '..', "tools"))
+sys.path.append(os.path.join(os.environ["SUMO_HOME"], "tools"))
 from sumolib import checkBinary  # noqa
 
 
 def get_depart_lines(route_file):
-    return [l for l in open(route_file) if 'depart' in l]
+    return [d for d in open(route_file) if 'depart' in d]
 
 
 output_file1 = 'output1.rou.xml'

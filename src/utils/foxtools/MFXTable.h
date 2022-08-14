@@ -39,7 +39,7 @@ class MFXTable : public FXHorizontalFrame {
 
 public:
     /// @brief constructor (Exactly like the FXButton constructor)
-    MFXTable(FXComposite *p, FXObject* tgt, FXSelector sel);
+    MFXTable(FXComposite* p, FXObject* tgt, FXSelector sel);
 
     /// @brief destructor (Called automatically)
     ~MFXTable();
@@ -94,7 +94,7 @@ protected:
     /// @brief clear table
     void clearTable();
 
-    /// @brief column 
+    /// @brief column
     class Column {
 
     public:
@@ -123,7 +123,7 @@ protected:
         /// @brief vertical frame
         FXVerticalFrame* myVerticalFrame = nullptr;
 
-        /// @brief column label 
+        /// @brief column label
         FXLabel* myLabel = nullptr;
 
         /// @brief column index

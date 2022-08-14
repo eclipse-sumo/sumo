@@ -29,6 +29,7 @@
 #include <utils/gui/div/GUIMessageWindow.h>
 #include <utils/gui/windows/GUIMainWindow.h>
 #include <utils/shapes/ShapeHandler.h>
+#include <utils/handlers/ConfigHandler.h>
 
 #include "GNEViewNetHelper.h"
 
@@ -1009,6 +1010,46 @@ struct GNEApplicationWindowHelper {
 
         /// @brief Invalidated assignment operator.
         SupermodeCommands& operator=(const SupermodeCommands&) = delete;
+    };
+
+    /// @brief config handler
+    class GNEConfigHandler : public ConfigHandler {
+
+    public:
+        /// @brief Constructor
+        GNEConfigHandler(GNEApplicationWindow* applicationWindow, const std::string& file);
+
+        /// @brief Destructor
+        ~GNEConfigHandler();
+
+        /// @name load functions
+        /// @{
+        /**@brief Load net file
+         * @param[in] sumoBaseObject sumo base object used for build
+         * @param[in] file net file
+         */
+        void loadNetFile(const std::string& file);
+
+        /**@brief Load additional files
+         * @param[in] sumoBaseObject sumo base object used for build
+         * @param[in] files additional files
+         */
+        void loadAdditionalFiles(const std::vector<std::string>& files);
+
+        /**@brief Load route files
+         * @param[in] sumoBaseObject sumo base object used for build
+         * @param[in] files route files
+         */
+        void loadRouteFiles(const std::vector<std::string>& files);
+
+        /// @}
+
+    private:
+        /// @brief application window
+        GNEApplicationWindow* myApplicationWindow = nullptr;
+
+        /// @brief file path
+        const std::string myFilepath;
     };
 
     /// @brief toggle edit options Network menu commands (called in GNEApplicationWindow::onCmdToggleEditOptions)

@@ -27,7 +27,6 @@
 #include <netedit/elements/network/GNELaneType.h>
 #include <netedit/elements/GNEGeneralHandler.h>
 #include <netedit/elements/data/GNEDataHandler.h>
-#include <netedit/elements/GNEGeneralHandler.h>
 #include <netedit/frames/common/GNEInspectorFrame.h>
 #include <netedit/frames/common/GNESelectorFrame.h>
 #include <netedit/frames/network/GNECreateEdgeFrame.h>
@@ -739,9 +738,17 @@ GNEApplicationWindow::onCmdOpenSUMOConfig(FXObject*, FXSelector, void*) {
         WRITE_DEBUG("Close SUMOConfig dialog");
         gCurrentFolder = opendialog.getDirectory();
         std::string file = opendialog.getFilename().text();
-
-        /* OPEN SUMO CONFIG */
-
+        // disable validation for additionals
+        XMLSubSys::setValidation("never", "auto", "auto");
+        // Create additional handler
+        GNEApplicationWindowHelper::GNEConfigHandler confighandler(this, file);
+        // Run parser
+        if (!confighandler.parse()) {
+            WRITE_ERROR("Loading of " + file + " failed.");
+        }
+        update();
+        // restore validation for additionals
+        XMLSubSys::setValidation("auto", "auto", "auto");
     } else {
         // write debug information
         WRITE_DEBUG("Cancel SUMOConfig dialog");
@@ -1558,6 +1565,12 @@ GNEApplicationWindow::loadOptionOnStartup() {
     // Disable normalization preserve the given network as far as possible
     oc.set("offset.disable-normalization", "true");
     loadConfigOrNet("", true, false, true, oc.getBool("new"));
+}
+
+
+void 
+GNEApplicationWindow::loadNet(const std::string& file) {
+    loadConfigOrNet(file, true);
 }
 
 
@@ -3303,7 +3316,7 @@ GNEApplicationWindow::onCmdSaveSUMOConfig(FXObject*, FXSelector, void*) {
             }
             // open dialog
             FXString file = MFXUtils::getFilename2Write(this,
-                            "Save SUMOConfig", ".xml",
+                            "Save SUMOConfig", ".sumocfg",
                             GUIIconSubSys::getIcon(GUIIcon::SUMO_MINI),
                             currentFolder);
             // add xml extension

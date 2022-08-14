@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    MFXTable.h
+/// @file    MFXTable.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    2022-07-21
 ///
@@ -35,7 +35,7 @@ FXDEFMAP(MFXTable) MFXTableMap[] = {
 FXIMPLEMENT(MFXTable, FXHorizontalFrame, MFXTableMap, ARRAYNUMBER(MFXTableMap))
 
 
-MFXTable::MFXTable(FXComposite *p , FXObject* tgt, FXSelector sel) :
+MFXTable::MFXTable(FXComposite* p, FXObject* tgt, FXSelector sel) :
     FXHorizontalFrame(p, GUIDesignAuxiliarMFXTable),
     myTarget(tgt),
     mySelector(sel) {
@@ -59,7 +59,7 @@ MFXTable::onLeave(FXObject* sender, FXSelector sel, void* ptr) {
 
 void
 MFXTable::setItemText(FXint row, FXint column, const FXString& text, FXbool notify) {
-    if ((row < myRows.size()) && (column < myColumns.size())) {
+    if (row < (FXint)myRows.size() && column < (FXint)myColumns.size()) {
         myRows.at(row)->setText(column, text, notify);
     } else {
         throw ProcessError("Invalid row or column");
@@ -69,11 +69,10 @@ MFXTable::setItemText(FXint row, FXint column, const FXString& text, FXbool noti
 
 FXString
 MFXTable::getItemText(FXint row, FXint column) const {
-    if ((row < myRows.size()) && (column < myColumns.size())) {
+    if (row < (FXint)myRows.size() && column < (FXint)myColumns.size()) {
         return myRows.at(row)->getText(column);
-    } else {
-        throw ProcessError("Invalid row or column");
     }
+    throw ProcessError("Invalid row or column");
 }
 
 
@@ -83,31 +82,31 @@ MFXTable::getNumRows() const {
 }
 
 
-FXint 
+FXint
 MFXTable::getCurrentRow() const {
     return currentRow;
 }
 
 
 FXbool
-MFXTable::selectRow(FXint row, FXbool notify) {
-    if (row < myRows.size()) {
+MFXTable::selectRow(FXint row, FXbool /* notify */) {
+    if (row < (FXint)myRows.size()) {
         myRows.at(row)->select();
-    } else {
-        throw ProcessError("Invalid row");
+        return TRUE;
     }
+    throw ProcessError("Invalid row");
 }
 
 
 void
-MFXTable::setCurrentItem(FXint row, FXint column, FXbool notify) {
+MFXTable::setCurrentItem(FXint /* row */, FXint /* column */, FXbool /* notify */) {
     // CHECK
 }
 
 
-void 
+void
 MFXTable::setColumnText(FXint column, const FXString& text) {
-    if (column < myColumns.size()) {
+    if (column < (FXint)myColumns.size()) {
         myColumns.at(column)->setColumnLabel(text);
     } else {
         throw ProcessError("Invalid column");
@@ -116,11 +115,11 @@ MFXTable::setColumnText(FXint column, const FXString& text) {
 
 
 void
-MFXTable::setTableSize(const std::string columns, FXint numberRow, FXbool notify) {
+MFXTable::setTableSize(const std::string columns, FXint numberRow, FXbool /* notify */) {
     // first clear table
     clearTable();
     // create columns
-    for (int i = 0; i < columns.size(); i++) {
+    for (int i = 0; i < (FXint)columns.size(); i++) {
         myColumns.push_back(new Column(this, i, columns.at(i)));
     }
     // create rows
@@ -128,20 +127,18 @@ MFXTable::setTableSize(const std::string columns, FXint numberRow, FXbool notify
         myRows.push_back(new Row(this));
     }
     // adjust table size
-    for (const auto &column : myColumns) {
+    for (const auto& column : myColumns) {
         column->adjustColumnWidth();
     }
 }
 
 
-FXTextField* 
+FXTextField*
 MFXTable::getItem(FXint row, FXint col) const {
-    if ((row < myRows.size()) && (col < myColumns.size())) {
+    if (row < (FXint)myRows.size() && col < (FXint)myColumns.size()) {
         return myRows.at(row)->getTextField(col);
     }
-    else {
-        throw ProcessError("Invalid row or column");
-    }
+    throw ProcessError("Invalid row or column");
 }
 
 
@@ -151,7 +148,7 @@ MFXTable::getSelStartRow() {
     // CHECK
 }
 
-void 
+void
 MFXTable::clearTable() {
     // clear rows (always before columns)
     for (const auto& row : myRows) {
@@ -178,7 +175,7 @@ MFXTable::Column::Column(MFXTable* table, const int index, const char type) :
         // create label extended over frame
         myLabel = new FXLabel(myVerticalFrame, "", nullptr, GUIDesignLabelMFXTable);
     } else {
-         // create vertical frame with fixed height
+        // create vertical frame with fixed height
         myVerticalFrame = new FXVerticalFrame(table, GUIDesignAuxiliarMFXTableSquare);
         // create label extended with fixed height
         myLabel = new FXLabel(myVerticalFrame, "", nullptr, GUIDesignLabelMFXTableSquare);
@@ -204,7 +201,7 @@ MFXTable::Column::getVerticalFrame() const {
 }
 
 
-char 
+char
 MFXTable::Column::getType() const {
     return myType;
 }
@@ -218,14 +215,14 @@ MFXTable::Column::setColumnLabel(const FXString& text) {
 }
 
 
-void 
+void
 MFXTable::Column::adjustColumnWidth() {
     // only adjust for textfields
     if (myType == '-') {
         // declare width using label
         int width = myLabel->getFont()->getTextWidth(myLabel->getText().text(), myLabel->getText().length() + EXTRAMARGING);
         // iterate over all textFields and check widths
-        for (const auto & row : myTable->myRows) {
+        for (const auto& row : myTable->myRows) {
             // get text field
             const auto textField = row->getTextField(myIndex);
             // get textField width
@@ -237,7 +234,7 @@ MFXTable::Column::adjustColumnWidth() {
         }
         // set width in all elements
         myLabel->setWidth(width);
-        for (const auto & row : myTable->myRows) {
+        for (const auto& row : myTable->myRows) {
             row->getTextField(myIndex)->setWidth(width);
         }
     }
@@ -252,12 +249,12 @@ MFXTable::Column::Column() :
 MFXTable::Row::Row(MFXTable* table) :
     myTable(table) {
     // build textFields
-    for (int i = 0; i < table->myColumns.size(); i++) {
-        if (table->myColumns.at(i)->getType() == '·') {
+    for (int i = 0; i < (FXint)table->myColumns.size(); i++) {
+        if (table->myColumns.at(i)->getType() == '?') {
             auto radioButton = new FXRadioButton(table->myColumns.at(i)->getVerticalFrame(), "", table, MID_CHOOSEN_SELECT, GUIDesignRadioButtonMFXTable);
             radioButton->create();
             myCells.push_back(Cell(radioButton));
-        } else if (table->myColumns.at(i)->getType() == '-') { 
+        } else if (table->myColumns.at(i)->getType() == '-') {
             auto textField = new FXTextField(table->myColumns.at(i)->getVerticalFrame(), GUIDesignTextFieldNCol, table->myTarget, table->mySelector, GUIDesignTextFieldMFXTable);
             textField->create();
             myCells.push_back(Cell(textField));
@@ -278,13 +275,13 @@ MFXTable::Row::~Row() {
 }
 
 
-FXString 
+FXString
 MFXTable::Row::getText(int index) const {
     return myCells.at(index).textField->getText();
 }
 
 
-void 
+void
 MFXTable::Row::setText(int index, const FXString& text, FXbool notify) const {
     myCells.at(index).textField->setText(text, notify);
     // adjust column width
@@ -292,7 +289,7 @@ MFXTable::Row::setText(int index, const FXString& text, FXbool notify) const {
 }
 
 
-FXTextField* 
+FXTextField*
 MFXTable::Row::getTextField(int index) const {
     return myCells.at(index).textField;
 }

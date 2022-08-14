@@ -48,7 +48,7 @@ class pVehicleState(object):
         self.edgeID = traci.vehicle.getRoadID(ID)
         self.laneID = traci.vehicle.getLaneID(ID)
         self.laneIX = traci.vehicle.getLaneIndex(ID)
-        self.leaderInfo = traci.vehicle.getLeader(ID, 50.)
+        self.leaderInfo = traci.vehicle.getLeader(ID, cfg.CATCHUP_DIST)
         # must be set by vehicle creator (PlatoonManager._addVehicle()) to guarantee function in first step
         self.leader = None
         # Whether a possible platooning partner for the vehicle is located further downstream within _catchupDistance

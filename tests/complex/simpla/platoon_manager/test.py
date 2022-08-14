@@ -56,6 +56,7 @@ class TestPlatoonManager(ut.TestCase):
                 <catchupDist value="50.0" />
                 <switchImpatienceFactor value="0.1" />
                 <platoonSplitTime value="3.0" />
+                <useHeadway value="false" />
                 <lcMode original="597" leader="597" follower="514" catchup="514" catchupFollower="514" />
                 <speedFactor original="1.01" leader="1.01" follower="1.11" catchup="1.21" catchupFollower="1.31" >\
 </speedFactor>
@@ -71,6 +72,7 @@ class TestPlatoonManager(ut.TestCase):
                 <catchupDist value="50.0" />
                 <switchImpatienceFactor value="0.1" />
                 <platoonSplitTime value="3.0" />
+                <useHeadway value="false" />
                 <lcMode original="597" leader="597" follower="514" catchup="514" catchupFollower="514" />
                 <speedFactor original="1.01" leader="1.01" follower="1.11" catchup="1.21" catchupFollower="1.31" >\
 </speedFactor>
@@ -81,6 +83,7 @@ class TestPlatoonManager(ut.TestCase):
             """
                 <vTypeMap original="unknownVTypeID" leader="leaderVTypeID" follower="followerVTypeID" \
 catchup="catchupVTypeID" catchupFollower="catchupFollowerVTypeID" />
+                <useHeadway value="false" />
             """
 
         self.cfg_body3 =\
@@ -91,6 +94,7 @@ catchup="catchupVTypeID" catchupFollower="catchupFollowerVTypeID" />
                 <catchupDist value="50.0" />
                 <switchImpatienceFactor value="0.1" />
                 <platoonSplitTime value="3.0" />
+                <useHeadway value="false" />
                 <lcMode original="597" leader="597" follower="514" catchup="514" catchupFollower="514" />
                 <speedFactor original="1.01" leader="1.01" follower="1.11" catchup="1.21" catchupFollower="1.31" >\
 </speedFactor>
@@ -102,6 +106,7 @@ catchup="connected_pCatchup" catchupFollower="connected_pCatchupFollower" />
         self.cfg_body4 =\
             """
                 <vTypeMap original="connected" leader="connected_pLeader" follower="connected_pFollower"/>
+                <useHeadway value="false" />
             """
         # template still needs to insert definite values for placeholders
         self.SUMO_CFG_TEMPLATE = os.path.join(testDir, "sumo.sumocfg")

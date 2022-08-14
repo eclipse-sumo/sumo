@@ -397,6 +397,17 @@ enum SumoXMLTag {
     /// @brief parameters
     AGEN_TAG_PARAM,
 
+    /// @name SUMOConfig elements
+    /// @brief configuration
+    SUMO_TAG_CONFIGURATION,
+    /// @brief net file
+    SUMO_TAG_NETFILE,
+    /// @brief additional files
+    SUMO_TAG_ADDITIONALFILES,
+    /// @brief route files
+    SUMO_TAG_ROUTEFILES,
+    ///@}
+
     /// @name NETEDIT elements
     /// @{
     /// @brief internal lane

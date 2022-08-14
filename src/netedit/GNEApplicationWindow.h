@@ -57,6 +57,9 @@ public:
     /// @brief load net on startup
     void loadOptionOnStartup();
 
+    /// @brief load network
+    void loadNet(const std::string& file);
+
     /// @brief build dependent
     void dependentBuild();
 

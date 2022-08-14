@@ -6,6 +6,7 @@
     <controlRate value="1" />
     <maxPlatoonGap value="15" />
     <catchupDist value="100" />
+    <useHeadway value="false" />
     <!-- deactivated -->
     <switchImpatienceFactor value="-1" />
     <platoonSplitTime value="3" ></platoonSplitTime>

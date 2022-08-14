@@ -291,6 +291,11 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "stopContainer: edge",            GNE_TAG_STOPCONTAINER_EDGE },
     // root file
     { "rootFile",                       SUMO_TAG_ROOTFILE },
+    // SUMOConfig files
+    { "configuration",                  SUMO_TAG_CONFIGURATION },
+    { "net-file",                       SUMO_TAG_NETFILE },
+    { "additional-files",               SUMO_TAG_ADDITIONALFILES },
+    { "route-files",                    SUMO_TAG_ROUTEFILES },
     // Last element
     { "",                               SUMO_TAG_NOTHING }  // -> must be the last one
 };
