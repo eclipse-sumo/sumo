@@ -39,9 +39,6 @@ FXDEFMAP(GNETLSTable) GNETLSTableMap[] = {
     FXMAPFUNC(SEL_FOCUSIN,  MID_GNE_TLSTABLE_TEXTFIELD,     GNETLSTable::onFocusRow),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TLSTABLE_TEXTFIELD,     GNETLSTable::onCmdEditRow),
     FXMAPFUNC(SEL_KEYPRESS, MID_GNE_TLSTABLE_TEXTFIELD,     GNETLSTable::onCmdKeyPress),
-    // radio button
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TLSTABLE_RADIOBUTTON,   GNETLSTable::onCmdRowSelected),
-    FXMAPFUNC(SEL_KEYPRESS, MID_GNE_TLSTABLE_RADIOBUTTON,   GNETLSTable::onCmdKeyPress),
     // add phase button
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TLSTABLE_ADDPHASE,      GNETLSTable::onCmdAddPhase),
     FXMAPFUNC(SEL_KEYPRESS, MID_GNE_TLSTABLE_TEXTFIELD,     GNETLSTable::onCmdKeyPress),
@@ -70,6 +67,8 @@ FXIMPLEMENT(GNETLSTable, FXHorizontalFrame, GNETLSTableMap, ARRAYNUMBER(GNETLSTa
 GNETLSTable::GNETLSTable(GNETLSEditorFrame::TLSPhases* TLSPhasesParent) :
     FXHorizontalFrame(TLSPhasesParent->getCollapsableFrame(), GUIDesignAuxiliarTLSTable),
     myProgramFont(new FXFont(getApp(), "Courier New", 10)),
+    myIndexFont(new FXFont(getApp(), "Segoe UI", 9)),
+    myIndexSelectedFont(new FXFont(getApp(), "Segoe UI", 9, FXFont::Bold)),
     myTLSPhasesParent(TLSPhasesParent) {
     // set default width
     recalcTableWidth();
@@ -77,8 +76,10 @@ GNETLSTable::GNETLSTable(GNETLSEditorFrame::TLSPhases* TLSPhasesParent) :
 
 
 GNETLSTable::~GNETLSTable() {
-    // delete font
+    // delete fonts
     delete myProgramFont;
+    delete myIndexFont;
+    delete myIndexSelectedFont;
 }
 
 
@@ -210,8 +211,10 @@ GNETLSTable::getCurrentSelectedRow() const {
 void
 GNETLSTable::selectRow(const int row) {
     if ((row >= 0) && (row < (FXint)myRows.size())) {
-        // select row
-        myRows.at(row)->select();
+        // update current selected row
+        myCurrentSelectedRow = row;
+        // update index label
+        updateIndexLabel();
     } else {
         throw ProcessError("Invalid row");
     }
@@ -250,19 +253,8 @@ GNETLSTable::onFocusRow(FXObject* sender, FXSelector, void*) {
             }
         }
     }
-    // update radio buttons checks
-    for (int rowIndex = 0; rowIndex < (int)myRows.size(); rowIndex++) {
-        // iterate over every cell
-        for (const auto &cellRadioButton : myRows.at(rowIndex)->getCells()) {
-            if (cellRadioButton->getRadioButton()) {
-                if (selectedRow == rowIndex) {
-                    cellRadioButton->getRadioButton()->setCheck(TRUE, FALSE);
-                } else {
-                    cellRadioButton->getRadioButton()->setCheck(FALSE, FALSE);
-                }
-            }
-        }
-    }
+    // update index label
+    updateIndexLabel();
     // switch phase
     if (myCurrentSelectedRow != selectedRow) {
         myCurrentSelectedRow = selectedRow;
@@ -295,39 +287,6 @@ GNETLSTable::onCmdEditRow(FXObject* sender, FXSelector, void*) {
 }
 
 
-long
-GNETLSTable::onCmdRowSelected(FXObject* sender, FXSelector, void*) {
-    // search selected text field
-    for (int indexRow = 0; indexRow < (int)myRows.size(); indexRow++) {
-        // iterate over every cell
-        for (const auto &cellTextField : myRows.at(indexRow)->getCells()) {
-            if ((cellTextField->getRadioButton() == sender) && (myCurrentSelectedRow != indexRow)) {
-                // update current selected row
-                myCurrentSelectedRow = indexRow;
-                // set radio buttons checks
-                for (int indexRow2 = 0; indexRow2 < (int)myRows.size(); indexRow2++) {
-                    // iterate over every cell
-                    for (const auto &cellRadioButton : myRows.at(indexRow2)->getCells()) {
-                        if (cellRadioButton->getRadioButton()) {
-                            if (myCurrentSelectedRow == indexRow2) {
-                                cellRadioButton->getRadioButton()->setCheck(TRUE, FALSE);
-                            } else {
-                                cellRadioButton->getRadioButton()->setCheck(FALSE, FALSE);
-                            }
-                        }
-                    }
-                }
-                // switch phase
-                myTLSPhasesParent->switchPhase();
-                // row focused, then stop
-                return 1;
-            }
-        }
-    }
-    return 0;
-}
-
-
 long 
 GNETLSTable::onCmdKeyPress(FXObject* sender, FXSelector sel, void* ptr) {
     // get FXEvent
@@ -336,20 +295,24 @@ GNETLSTable::onCmdKeyPress(FXObject* sender, FXSelector sel, void* ptr) {
     if (eventInfo->code == 65362) {
         // move up
         if (myCurrentSelectedRow > 0) {
-            myRows.at(myCurrentSelectedRow - 1)->select();
+            myCurrentSelectedRow -= 1;
         } else {
             // we're in the first, then select last
-            myRows.at((int)myRows.size() - 1)->select();
+            myCurrentSelectedRow = ((int)myRows.size() - 1);
         }
+        // update index label
+        updateIndexLabel();
         return 1;
     } else if (eventInfo->code == 65364) {
         // move down
         if (myCurrentSelectedRow < ((int)myRows.size() - 1)) {
-            myRows.at(myCurrentSelectedRow + 1)->select();
+            myCurrentSelectedRow += 1;
         } else {
             // we're in the last, then select first
-            myRows.at(0)->select();
+            myCurrentSelectedRow = 0;
         }
+        // update index label
+        updateIndexLabel();
         return 1;
     } else {
         // continue handling key pres
@@ -429,6 +392,24 @@ GNETLSTable::onCmdMoveDownPhase(FXObject* sender, FXSelector, void*) {
     return 0;
 }
 
+
+void 
+GNETLSTable::updateIndexLabel() {
+    // update radio buttons checks
+    for (int rowIndex = 0; rowIndex < (int)myRows.size(); rowIndex++) {
+        // iterate over every cell
+        for (const auto &cellIndexLabel : myRows.at(rowIndex)->getCells()) {
+            if (cellIndexLabel->getIndexLabel()) {
+                if (myCurrentSelectedRow == rowIndex) {
+                    cellIndexLabel->showIndexLabelBold();
+                } else {
+                    cellIndexLabel->showIndexLabelNormal();
+                }
+            }
+        }
+    }
+}
+
 // ---------------------------------------------------------------------------
 // GNETLSTable::Cell - methods
 // ---------------------------------------------------------------------------
@@ -443,13 +424,17 @@ GNETLSTable::Cell::Cell(GNETLSTable* TLSTable, FXTextField* textField, int col, 
 }
 
 
-GNETLSTable::Cell::Cell(GNETLSTable* TLSTable, FXRadioButton* radioButton, int col, int row) :
+GNETLSTable::Cell::Cell(GNETLSTable* TLSTable, FXLabel* indexLabel, FXLabel* indexLabelBold, int col, int row) :
     myTLSTable(TLSTable),
-    myRadioButton(radioButton),
+    myIndexLabel(indexLabel),
+    myIndexLabelBold(indexLabelBold),
     myCol(col),
     myRow(row) {
-    // create
-    radioButton->create();
+    // create both
+    indexLabel->create();
+    indexLabelBold->create();
+    // hide bold
+    indexLabelBold->hide();
 }
 
 
@@ -469,15 +454,35 @@ GNETLSTable::Cell::getTextField() {
 }
 
 
-FXRadioButton* 
-GNETLSTable::Cell::getRadioButton() {
-    return myRadioButton;
+FXLabel* 
+GNETLSTable::Cell::getIndexLabel() {
+    return myIndexLabel;
 }
 
 
 FXButton* 
 GNETLSTable::Cell::getButton() {
     return myButton;
+}
+
+
+void
+GNETLSTable::Cell::showIndexLabelNormal() {
+    myIndexLabel->show();
+    myIndexLabelBold->hide();
+    // recalc both
+    myIndexLabel->recalc();
+    myIndexLabelBold->recalc();
+}
+
+
+void 
+GNETLSTable::Cell::showIndexLabelBold() {
+    myIndexLabel->hide();
+    myIndexLabelBold->show();
+    // recalc both
+    myIndexLabel->recalc();
+    myIndexLabelBold->recalc();
 }
 
 
@@ -588,8 +593,8 @@ GNETLSTable::Column::setColumnLabelBot(const std::string& text) {
 
 int
 GNETLSTable::Column::getColumnMinimumWidth() {
-    // declare columnWidth (by default is a square) 
-    int columnWidth = GUIDesignHeight;
+    // declare columnWidth (we assume that is the index column) 
+    int columnWidth = 30;
     // only check for textField columns
     if (isTextFieldColumn()) {
         // calculate top label width
@@ -654,9 +659,13 @@ GNETLSTable::Row::Row(GNETLSTable* table) :
         // continue depending of type
         switch (table->myColumns.at(columnIndex)->getType()) {
             case ('s'): {
-                // create radio button for selecting row
-                auto radioButton = new FXRadioButton(table->myColumns.at(columnIndex)->getVerticalCellFrame(), "", table, MID_GNE_TLSTABLE_RADIOBUTTON, GUIDesignRadioButtonTLSTable);
-                myCells.push_back(new Cell(table, radioButton, columnIndex, numCells));
+                // create labels for index
+                auto indexLabel = new FXLabel(table->myColumns.at(columnIndex)->getVerticalCellFrame(), toString(myTable->myRows.size()).c_str(), nullptr, GUIDesignLabelTLSTableIndex);
+                auto indexLabelBold = new FXLabel(table->myColumns.at(columnIndex)->getVerticalCellFrame(), toString(myTable->myRows.size()).c_str(), nullptr, GUIDesignLabelTLSTableIndex);
+                // set fonts
+                indexLabel->setFont(myTable->myIndexFont);
+                indexLabelBold->setFont(myTable->myIndexSelectedFont);
+                myCells.push_back(new Cell(table, indexLabel, indexLabelBold, columnIndex, numCells));
                 break;
             }
             case ('u'): 
@@ -717,8 +726,8 @@ GNETLSTable::Row::~Row() {
     for (const auto& cell : myCells) {
         if (cell->getTextField()) {
             cell->getTextField()->destroy();
-        } else if (cell->getRadioButton()) {
-            cell->getRadioButton()->destroy();
+        } else if (cell->getIndexLabel()) {
+            cell->getIndexLabel()->destroy();
         }
         delete cell;
     }
@@ -745,17 +754,6 @@ GNETLSTable::Row::setText(int index, const std::string& text) const {
 const std::vector<GNETLSTable::Cell*> &
 GNETLSTable::Row::getCells() const {
     return myCells;
-}
-
-
-void
-GNETLSTable::Row::select() {
-    // iterate over row and enable radio buttons
-    for (const auto &cell : myCells) {
-        if (cell->getRadioButton()) {
-            cell->getRadioButton()->setCheck(TRUE, TRUE);
-        }
-    }
 }
 
 

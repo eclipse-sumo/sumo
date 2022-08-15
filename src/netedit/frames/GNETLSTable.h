@@ -97,9 +97,6 @@ public:
     /// @brief called when a row is modified
     long onCmdEditRow(FXObject*, FXSelector, void*);
 
-    /// @brief called when a row is selected
-    long onCmdRowSelected(FXObject*, FXSelector, void*);
-
     /// @brief called when a key is pressed
     long onCmdKeyPress(FXObject*, FXSelector, void*);
 
@@ -128,8 +125,8 @@ protected:
         /// @brief constructor for textField
         Cell(GNETLSTable* TLSTable, FXTextField* textField, int col, int row);
 
-        /// @brief constructor for radio button
-        Cell(GNETLSTable* TLSTable, FXRadioButton* radioButton, int col, int row);
+        /// @brief constructor for index label 
+        Cell(GNETLSTable* TLSTable, FXLabel* indexLabel, FXLabel* indexLabelBold, int col, int row);
 
         /// @brief constructor for buttons
         Cell(GNETLSTable* TLSTable, FXButton* button, int col, int row);
@@ -137,11 +134,17 @@ protected:
         /// @brief get textField
         FXTextField* getTextField();
 
-        /// @brief get radio button
-        FXRadioButton* getRadioButton();
+        /// @brief get index label
+        FXLabel* getIndexLabel();
 
         /// @brief get button
         FXButton* getButton();
+
+        /// @brief show label index normal
+        void showIndexLabelNormal();
+
+        /// @brief show label index bold
+        void showIndexLabelBold();
 
         /// @brief column index
         int getCol() const;
@@ -159,8 +162,11 @@ protected:
         /// @brief textField
         FXTextField* myTextField = nullptr;
 
-        /// @brief radio button
-        FXRadioButton* myRadioButton = nullptr;
+        /// @brief index label
+        FXLabel* myIndexLabel = nullptr;
+
+        /// @brief index label bold
+        FXLabel* myIndexLabelBold = nullptr;
 
         /// @brief button
         FXButton* myButton = nullptr;
@@ -251,9 +257,6 @@ protected:
         /// @brief get cells
         const std::vector<Cell*> &getCells() const;
 
-        /// @brief select row
-        void select();
-
         /// @brief mark row as first row
         void markAsFirstRow();
 
@@ -275,8 +278,17 @@ protected:
         Row();
     };
 
+    /// @brief update index labels
+    void updateIndexLabel();
+
     /// @brief font for the phase table
     FXFont* myProgramFont = nullptr;
+
+    /// @brief font for index
+    FXFont* myIndexFont = nullptr;
+
+    /// @brief font for index selected
+    FXFont* myIndexSelectedFont = nullptr;
 
     /// @frame pointer to TLSEditorFrame phases parent
     GNETLSEditorFrame::TLSPhases* myTLSPhasesParent = nullptr;

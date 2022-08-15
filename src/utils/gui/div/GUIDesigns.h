@@ -199,9 +199,6 @@ class MFXMenuCheckIcon;
 /// @brief design for radio button with fixed height (used in fix elements dialogs)
 #define GUIDesignRadioButtonFix         (RADIOBUTTON_NORMAL | JUSTIFY_CENTER_Y |  LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | JUSTIFY_LEFT | ICON_BEFORE_TEXT), 0, 0, 200, GUIDesignHeight - 2, 2, 2, 2, 2
 
-/// @brief design for radio button used in TLSTable
-#define GUIDesignRadioButtonTLSTable    (RADIOBUTTON_NORMAL | FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | LAYOUT_CENTER_X | LAYOUT_CENTER_Y), 0, 0, GUIDesignHeight, GUIDesignHeight, 2, 2, 2, 2
-
 /// @}
 
 
@@ -284,6 +281,9 @@ class MFXMenuCheckIcon;
 
 /// @brief label used in TLSTable
 #define GUIDesignLabelTLSTable          (FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | ICON_BEFORE_TEXT | JUSTIFY_CENTER_X | JUSTIFY_CENTER_Y), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
+
+/// @brief label used in TLSTable for index
+#define GUIDesignLabelTLSTableIndex     (FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | ICON_BEFORE_TEXT | JUSTIFY_CENTER_X | JUSTIFY_CENTER_Y), 0, 0, 30, GUIDesignHeight, 2, 2, 2, 2
 
 /// @brief label used in TLSTable (empty)
 #define GUIDesignLabelTLSTableEmpty     (LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | ICON_BEFORE_TEXT | JUSTIFY_CENTER_X | JUSTIFY_CENTER_Y), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2

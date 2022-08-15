@@ -1355,8 +1355,6 @@ enum {
 
     /// @name GNETLSTable
     /// @{
-    /// @brief TLSTable radio button
-    MID_GNE_TLSTABLE_RADIOBUTTON,
     /// @brief TLSTable textField
     MID_GNE_TLSTABLE_TEXTFIELD,
     /// @brief TLSTable button for add phase
