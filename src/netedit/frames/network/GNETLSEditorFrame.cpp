@@ -938,7 +938,18 @@ GNETLSEditorFrame::TLSDefinition::onCmdDelete(FXObject*, FXSelector, void*) {
 
 long
 GNETLSEditorFrame::TLSDefinition::onCmdResetCurrentProgram(FXObject*, FXSelector, void*) {
-    // in construction (#11357)
+    GNEJunction* junction = myTLSEditorParent->myTLSJunction->getCurrentJunction();
+    NBTrafficLightDefinition* oldDef = myTLSEditorParent->myTLSAttributes->getCurrentTLSDefinition();
+    myTLSEditorParent->myTLSModifications->onCmdDiscardChanges(nullptr, 0, nullptr);
+    // begin undo
+    myTLSEditorParent->getViewNet()->getUndoList()->begin(GUIIcon::MODETLS, "reset current program");
+    myTLSEditorParent->getViewNet()->getUndoList()->add(new GNEChange_TLS(junction, oldDef, false), true);
+    NBOwnTLDef* newDef = new NBOwnTLDef(oldDef->getID(), oldDef->getNodes(), oldDef->getOffset(), oldDef->getType());
+    newDef->setProgramID(oldDef->getProgramID());
+    myTLSEditorParent->getViewNet()->getUndoList()->add(new GNEChange_TLS(junction, newDef, true, true), true);
+    // end undo
+    myTLSEditorParent->getViewNet()->getUndoList()->end();
+    myTLSEditorParent->editJunction(junction);
     return 1;
 }
 
