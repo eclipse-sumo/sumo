@@ -93,14 +93,17 @@ public:
 
         /// @name FOX-callbacks
         /// @{
-        /// @brief Called when the user creates a TLS
+        /// @brief Called when the user press button create/copy TLS Program
         long onCmdCreate(FXObject*, FXSelector, void*);
 
-        /// @brief Called when the user deletes a TLS
+        /// @brief Called when the user press button delete TLS Program
         long onCmdDelete(FXObject*, FXSelector, void*);
 
-        /// @brief Called when the user regenerates a TLS
-        long onCmdReset(FXObject*, FXSelector, void*);
+        /// @brief Called when the user press button reset current TLS Program
+        long onCmdResetCurrentProgram(FXObject*, FXSelector, void*);
+
+        /// @brief Called when the user press button reset all TLS Programs
+        long onCmdResetAll(FXObject*, FXSelector, void*);
 
         /// @brief Called when occurs an update of create definition
         long onUpdCreateButton(FXObject*, FXSelector, void*);
@@ -122,13 +125,7 @@ public:
         GNETLSEditorFrame* myTLSEditorParent = nullptr;
 
         /// @brief button for create new Traffic light program
-        FXButton* myNewTLProgram = nullptr;
-
-        /// @brief button for delete traffic light program
-        FXButton* myDeleteTLProgram = nullptr;
-
-        /// @brief button for regenerate traffic light program
-        FXButton* myRegenerateTLProgram = nullptr;
+        FXButton* myCreateButton = nullptr;
     };
 
     // ===========================================================================

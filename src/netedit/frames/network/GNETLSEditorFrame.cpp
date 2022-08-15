@@ -26,12 +26,14 @@
 #include <netedit/changes/GNEChange_TLS.h>
 #include <netedit/dialogs/GNESingleParametersDialog.h>
 #include <netedit/elements/network/GNEInternalLane.h>
+#include <netedit/elements/network/GNEJunction.h>
 #include <netedit/frames/GNETLSTable.h>
 #include <netimport/NIXMLTrafficLightsHandler.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/xml/XMLSubSys.h>
+#include <netbuild/NBOwnTLDef.h>
 
 #include "GNETLSEditorFrame.h"
 
@@ -40,12 +42,14 @@
 // ===========================================================================
 
 FXDEFMAP(GNETLSEditorFrame::TLSDefinition) TLSDefinitionMap[] = {
-    FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_DEFINITION_CREATE,   GNETLSEditorFrame::TLSDefinition::onCmdCreate),
-    FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_DEFINITION_CREATE,   GNETLSEditorFrame::TLSDefinition::onUpdCreateButton),
-    FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_DEFINITION_DELETE,   GNETLSEditorFrame::TLSDefinition::onCmdDelete),
-    FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_DEFINITION_DELETE,   GNETLSEditorFrame::TLSDefinition::onUpdTLSModified),
-    FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_DEFINITION_RESET,    GNETLSEditorFrame::TLSDefinition::onCmdReset),
-    FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_DEFINITION_RESET,    GNETLSEditorFrame::TLSDefinition::onUpdTLSModified),
+    FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_DEFINITION_CREATE,       GNETLSEditorFrame::TLSDefinition::onCmdCreate),
+    FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_DEFINITION_CREATE,       GNETLSEditorFrame::TLSDefinition::onUpdCreateButton),
+    FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_DEFINITION_DELETE,       GNETLSEditorFrame::TLSDefinition::onCmdDelete),
+    FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_DEFINITION_DELETE,       GNETLSEditorFrame::TLSDefinition::onUpdTLSModified),
+    FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_DEFINITION_RESETCURRENT, GNETLSEditorFrame::TLSDefinition::onCmdResetCurrentProgram),
+    FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_DEFINITION_RESETCURRENT, GNETLSEditorFrame::TLSDefinition::onUpdTLSModified),
+    FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_DEFINITION_RESETALL,     GNETLSEditorFrame::TLSDefinition::onCmdResetAll),
+    FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_DEFINITION_RESETALL,     GNETLSEditorFrame::TLSDefinition::onUpdTLSModified),
 };
 
 FXDEFMAP(GNETLSEditorFrame::TLSAttributes) TLSAttributesMap[] = {
@@ -864,18 +868,19 @@ GNETLSEditorFrame::TLSDefinition::TLSDefinition(GNETLSEditorFrame* TLSEditorPare
     MFXGroupBoxModule(TLSEditorParent, "Traffic Light Programs"),
     myTLSEditorParent(TLSEditorParent) {
     // create auxiliar frames
-    FXHorizontalFrame* horizontalFrameAux = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrameUniform);
-    FXVerticalFrame* verticalFrameAuxA = new FXVerticalFrame(horizontalFrameAux, GUIDesignAuxiliarHorizontalFrame);
-    FXVerticalFrame* verticalFrameAuxB = new FXVerticalFrame(horizontalFrameAux, GUIDesignAuxiliarHorizontalFrame);
+    FXVerticalFrame* frameButtons = new FXVerticalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     // create create tlDef button
-    myNewTLProgram = new FXButton(verticalFrameAuxA, "Create\t\tCreate a new traffic light program.",
+    myCreateButton = new FXButton(frameButtons, "Create TLS\t\tCreate a new traffic light program.",
                                   GUIIconSubSys::getIcon(GUIIcon::MODETLS), this, MID_GNE_TLSFRAME_DEFINITION_CREATE, GUIDesignButton);
     // create delete tlDef button
-    myDeleteTLProgram = new FXButton(verticalFrameAuxB, "Delete\t\tDelete a traffic light program. If all programs are deleted the junction turns into a priority junction.",
-                                     GUIIconSubSys::getIcon(GUIIcon::REMOVE), this, MID_GNE_TLSFRAME_DEFINITION_DELETE, GUIDesignButton);
-    // create regenerate tlDef button
-    myRegenerateTLProgram = new FXButton(verticalFrameAuxA, "Reset\t\tRegenerate TLS Program.",
-                                         GUIIconSubSys::getIcon(GUIIcon::RELOAD), this, MID_GNE_TLSFRAME_DEFINITION_RESET, GUIDesignButton);
+    new FXButton(frameButtons, "Delete TLS\t\tDelete a traffic light program. If all programs are deleted the junction turns into a priority junction.",
+                 GUIIconSubSys::getIcon(GUIIcon::REMOVE), this, MID_GNE_TLSFRAME_DEFINITION_DELETE, GUIDesignButton);
+    // create reset current tlDef button
+    new FXButton(frameButtons, "Reset current program\t\\Reset current TLS program.",
+                 GUIIconSubSys::getIcon(GUIIcon::RESET), this, MID_GNE_TLSFRAME_DEFINITION_RESETCURRENT, GUIDesignButton);
+    // create reset all tlDefs button
+    new FXButton(frameButtons, "Reset all programs\t\tReset all TLS programs.",
+                 GUIIconSubSys::getIcon(GUIIcon::RESET), this, MID_GNE_TLSFRAME_DEFINITION_RESETALL, GUIDesignButton);
     // show TLS TLSDefinition
     show();
 }
@@ -930,13 +935,20 @@ GNETLSEditorFrame::TLSDefinition::onCmdDelete(FXObject*, FXSelector, void*) {
 
 
 long
-GNETLSEditorFrame::TLSDefinition::onCmdReset(FXObject*, FXSelector, void*) {
+GNETLSEditorFrame::TLSDefinition::onCmdResetCurrentProgram(FXObject*, FXSelector, void*) {
+    // in construction (#11357)
+    return 1;
+}
+
+
+long
+GNETLSEditorFrame::TLSDefinition::onCmdResetAll(FXObject*, FXSelector, void*) {
     // make a copy of the junction
     GNEJunction* junction = myTLSEditorParent->myTLSJunction->getCurrentJunction();
     // discard all previous changes
     myTLSEditorParent->myTLSModifications->onCmdDiscardChanges(nullptr, 0, nullptr); // abort because onCmdOk assumes we wish to save an edited definition
     // begin undo
-    myTLSEditorParent->getViewNet()->getUndoList()->begin(GUIIcon::MODETLS, "regenerate TLS");
+    myTLSEditorParent->getViewNet()->getUndoList()->begin(GUIIcon::MODETLS, "reset TLS");
     // remove every TLSDef
     while (myTLSEditorParent->myTLSAttributes->getNumberOfTLSDefinitions() > 1) {
         myTLSEditorParent->getViewNet()->getUndoList()->add(new GNEChange_TLS(junction, myTLSEditorParent->myTLSAttributes->getCurrentTLSDefinition(), false), true);
@@ -969,9 +981,9 @@ GNETLSEditorFrame::TLSDefinition::onUpdCreateButton(FXObject* sender, FXSelector
         sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
         // update button text
         if (junction->getNBNode()->isTLControlled()) {
-            static_cast<FXButton*>(sender)->setText("Copy");
+            myCreateButton->setText("Copy TLS Program");
         } else {
-            static_cast<FXButton*>(sender)->setText("Create");
+            myCreateButton->setText("Create TLS");
         }
     }
     return 1;

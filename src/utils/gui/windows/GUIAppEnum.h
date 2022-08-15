@@ -1012,8 +1012,10 @@ enum {
     MID_GNE_TLSFRAME_DEFINITION_CREATE,
     /// @brief delete TLS
     MID_GNE_TLSFRAME_DEFINITION_DELETE,
-    /// @brief reset TLS
-    MID_GNE_TLSFRAME_DEFINITION_RESET,
+    /// @brief reset current (single) TLS program
+    MID_GNE_TLSFRAME_DEFINITION_RESETCURRENT,
+    /// @brief reset all TLS programs
+    MID_GNE_TLSFRAME_DEFINITION_RESETALL,
     /// @brief rename TLS
     MID_GNE_TLSFRAME_ATTRIBUTES_RENAME,
     /// @brief sub-rename TLS
