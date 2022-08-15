@@ -173,7 +173,7 @@ class CountData:
         self.count = count
         self.edgeTuple = edgeTuple
         self.isOrigin = isOrigin
-        self.isDest= isDest
+        self.isDest = isDest
         self.options = options  # multiprocessing had issue with sumolib.options.getOptions().turnMaxGap
         self.routeSet = set()
         for routeIndex, edges in enumerate(allRoutes.unique):
@@ -266,7 +266,7 @@ def parseEdgeCounts(interval, attr, warn):
 
 
 def parseDataIntervals(parseFun, fnames, begin, end, allRoutes, attr, options,
-        isOrigin=False, isDest=False, warn=False):
+                       isOrigin=False, isDest=False, warn=False):
     locations = {}  # edges -> CountData
     result = []
     if attr is None or attr == "None":
@@ -510,14 +510,14 @@ def main(options):
     countData = (parseDataIntervals(parseTurnCounts, options.turnFiles, b, e,
                                     routes, options.turnAttr, options=options, warn=True)
                  + parseDataIntervals(parseEdgeCounts, options.edgeDataFiles, b, e,
-                                    routes, options.edgeDataAttr, options=options, warn=True)
+                                      routes, options.edgeDataAttr, options=options, warn=True)
                  + parseDataIntervals(parseTurnCounts, options.odFiles, b, e,
-                                    routes, options.turnAttr, options=options,
-                                    isOrigin=True, isDest=True, warn=True)
+                                      routes, options.turnAttr, options=options,
+                                      isOrigin=True, isDest=True, warn=True)
                  + parseDataIntervals(parseEdgeCounts, options.edgeDataFiles, b, e,
-                                    routes, options.departAttr, options=options, isOrigin=True, warn=True)
+                                      routes, options.departAttr, options=options, isOrigin=True, warn=True)
                  + parseDataIntervals(parseEdgeCounts, options.edgeDataFiles, b, e,
-                                    routes, options.arrivalAttr, options=options, isDest=True, warn=True)
+                                      routes, options.arrivalAttr, options=options, isDest=True, warn=True)
                  )
     routeUsage = getRouteUsage(routes, countData)
 
@@ -534,7 +534,7 @@ def main(options):
                 msg = "pass edges '%s'" % ' '.join(cd.edgeTuple)
             else:
                 msg = "pass edge '%s'" % ' '.join(cd.edgeTuple)
-            print("Warning: no routes %s (count %s)" % ( msg, cd.count), file=sys.stderr)
+            print("Warning: no routes %s (count %s)" % (msg, cd.count), file=sys.stderr)
 
     if options.verbose:
         print("Loaded %s routes (%s distinct)" % (len(routes.all), routes.number))
@@ -579,7 +579,7 @@ def main(options):
             for begin, end in intervals:
                 intervalPrefix = "" if len(intervals) == 1 else "%s_" % int(begin)
                 uFlow, oFlow, gehOK, inputCount, usedRoutes, _ = solveInterval(options, routes, begin, end,
-                                                       intervalPrefix, outf, mismatchf, rng)
+                                                                               intervalPrefix, outf, mismatchf, rng)
                 underflowSummary.add(uFlow, begin)
                 overflowSummary.add(oFlow, begin)
                 gehSummary.add(gehOK, begin)

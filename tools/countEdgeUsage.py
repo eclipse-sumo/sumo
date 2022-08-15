@@ -17,7 +17,6 @@
 
 from __future__ import print_function
 import sys
-from optparse import OptionParser
 from collections import defaultdict
 import sumolib
 from sumolib.output import parse_fast, parse
@@ -32,20 +31,20 @@ def parse_args():
     DEFAULT_ELEMENTS2 = ['vehicle', 'trip', 'flow']
 
     USAGE = "Usage: " + sys.argv[0] + " <routefile> [options]"
-    ap = sumolib.options.ArgumentParser(description="count edge usage by vehicles")
+    ap = sumolib.options.ArgumentParser(description="count edge usage by vehicles", usage=USAGE)
     ap.add_argument("-o", "--output-file", dest="outfile",
-                         help="name of output file")
+                    help="name of output file")
     ap.add_argument("--subpart",
-                         help="Restrict counts to routes that contain the given consecutive edge sequence")
+                    help="Restrict counts to routes that contain the given consecutive edge sequence")
     ap.add_argument("--subpart-file", dest="subpart_file",
-                         help="Restrict counts to routes that contain one of the consecutive edge sequences " +
-                              "in the given input file (one sequence per line)")
+                    help="Restrict counts to routes that contain one of the consecutive edge sequences " +
+                         "in the given input file (one sequence per line)")
     ap.add_argument("-i", "--intermediate", action="store_true", default=False,
-                         help="count all edges of a route")
+                    help="count all edges of a route")
     ap.add_argument("--taz", action="store_true", default=False,
-                         help="use fromTaz and toTaz instead of from and to")
+                    help="use fromTaz and toTaz instead of from and to")
     ap.add_argument("--elements",  default=','.join(DEFAULT_ELEMENTS),
-                         help="include edges for the given elements in output")
+                    help="include edges for the given elements in output")
     ap.add_argument("-b", "--begin", default=0, help="collect departures after begin time")
     ap.add_argument("-e", "--end", help="collect departures up to end time (default unlimited)")
     ap.add_argument("--period", help="create data intervals of the given period duration")
