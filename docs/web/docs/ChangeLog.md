@@ -6,9 +6,20 @@ title: ChangeLog
 
 ### Bugfixes
 
+- Simulation
+  - Fixed crash when using bluelight vehicle and SSM device. Issue #11336 (regression in 1.12.0)
+  - Taxi drop-off is no longer interupted by new dispatch. Also, persons only continue their plan after the drop-off duration. Issue #11311
+  - Fixed multiple EIDM stop issues. #11242
+  - Fixed bug where emergency vehicle fails to overtake. Issue #11345
+  - Fixed bug where mergency vehicle performs invalid (unstrategic) lanechange. Issue #11337
+
 - netedit
   - Fixed missing coordinate indicator in status bar. Issue #11230 (regression in 1.14.0)
   - Loading an additional file and saving modifications no longer prompts for a file name. Issue #11030
+  - Clicking over column labels no longer clears the traffic phase table. Issue #11240
+
+- netconvert
+  - Fixed invalid turn-around connection at roundabout with unusual geometry. Issue #11344
 
 - TraCI
   - Simpla: fixed rash due to unclear speed factor semantics. Issue #11223
@@ -20,6 +31,9 @@ title: ChangeLog
 
 ### Enhancements
 
+- Simulation
+  - Added option **--tls.actuated.detector-length** to set the default length of actuation detetors. Issue #11335
+
 - netedit
   - Saved detector names use descriptive tags instead of the 'E1,E2, ...' tags. Issue #11028
   - Hovering over an attribute now displays it's full value in a tooltip if field is too narrow. Issue #11194
@@ -27,13 +41,20 @@ title: ChangeLog
   - Added edge color legend in vehicle mode. Issue #10866
   - Now using distinct default id-prefix for `flow`, `personFlow` and `containerFlow. Issue #11077
   - Adding network-recomputation status in the lower right corner. Issue #4725
+  - Trafflic light mode now permits moving phases up and down. Issue #10856
 
 - sumo-gui
-  - 3D view now permits clicking on more objects (lanse, junctions, traffic lights). Issue #10882
+  - 3D view now permits clicking on more objects (lanes, junctions, traffic lights). Issue #10882
+  - Stopped two-wheelers are now drawn without rider. Issue #10917
 
 - TraCI
   - Simpla: Added now platooning criteria via new attributes 'edgeLookAhead', 'distLookAhead' and 'lcMinDist'. Issue #9252, #11236 (Thanks to Jörg Schweizer)
   - Simpla: platooning distances are now time-headways instead of gap-in-meters by default. Configurable with new attributes 'maxPlatoonHeadway', 'catchupHeadway', 'useHeadway'.  Issue #11124
+
+- tools
+  - routeSampler.py: now supports options **--depart-attribute**, **--arrival-attribute** to set extra constraints. Issue #6727
+  - routeSampler.py: added more statistics on processed intervals. Issue #11328
+  - countEdgeUsage.py: Can now load multiple route files. Issue #11338
 
 ### Miscellaneous
 
