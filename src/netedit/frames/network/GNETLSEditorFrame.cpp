@@ -962,11 +962,7 @@ GNETLSEditorFrame::TLSDefinition::onCmdResetAll(FXObject*, FXSelector, void*) {
     myTLSEditorParent->myTLSModifications->onCmdDiscardChanges(nullptr, 0, nullptr); // abort because onCmdOk assumes we wish to save an edited definition
     // begin undo
     myTLSEditorParent->getViewNet()->getUndoList()->begin(GUIIcon::MODETLS, "reset TLS");
-    // remove every TLSDef
-    while (myTLSEditorParent->myTLSAttributes->getNumberOfTLSDefinitions() > 1) {
-        myTLSEditorParent->getViewNet()->getUndoList()->add(new GNEChange_TLS(junction, myTLSEditorParent->myTLSAttributes->getCurrentTLSDefinition(), false), true);
-    }
-    // set junction as priority (this will remove last program)
+    // set junction as priority (this will also remove all program, see GNEJunction::setJunctionType)
     junction->setAttribute(SUMO_ATTR_TYPE, toString(SumoXMLNodeType::PRIORITY), myTLSEditorParent->getViewNet()->getUndoList());
     // create TLS in junction
     createTLS(junction);
