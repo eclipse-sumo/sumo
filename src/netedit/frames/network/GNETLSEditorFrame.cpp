@@ -270,7 +270,7 @@ GNETLSEditorFrame::selectedOverlappedElement(GNEAttributeCarrier* AC) {
 }
 
 
-GNETLSEditorFrame::TLSModifications* 
+GNETLSEditorFrame::TLSModifications*
 GNETLSEditorFrame::getTLSModifications() {
     return myTLSModifications;
 }
@@ -1012,7 +1012,7 @@ GNETLSEditorFrame::TLSDefinition::onUpdTLSModified(FXObject* sender, FXSelector,
 }
 
 
-void 
+void
 GNETLSEditorFrame::TLSDefinition::createTLS(GNEJunction* junction) {
     // get current TLS program id
     const auto currentTLS = myTLSEditorParent->myTLSAttributes->getCurrentTLSProgramID();
@@ -1311,7 +1311,7 @@ GNETLSEditorFrame::TLSPhases::removePhase(const int row) {
 }
 
 
-void 
+void
 GNETLSEditorFrame::TLSPhases::movePhaseUp(const int row) {
     // mark TLS ad modified
     myTLSEditorParent->myTLSModifications->setHaveModifications(true);
@@ -1326,7 +1326,7 @@ GNETLSEditorFrame::TLSPhases::movePhaseUp(const int row) {
 }
 
 
-void 
+void
 GNETLSEditorFrame::TLSPhases::movePhaseDown(const int row) {
     // mark TLS ad modified
     myTLSEditorParent->myTLSModifications->setHaveModifications(true);
@@ -1895,7 +1895,7 @@ GNETLSEditorFrame::TLSPhases::updateCycleDuration(const int col) {
 }
 
 
-void 
+void
 GNETLSEditorFrame::TLSPhases::updateStateSize(const int col) {
     // update bot label with number of links
     myPhaseTable->setColumnLabelBot(col, "Links: " + toString(myTLSEditorParent->myEditedDef->getLogic()->getNumLinks()));
