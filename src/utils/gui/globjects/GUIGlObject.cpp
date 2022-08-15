@@ -294,6 +294,7 @@ void
 GUIGlObject::buildPositionCopyEntry(GUIGLObjectPopupMenu* ret, const GUIMainWindow& app) const {
     GUIDesigns::buildFXMenuCommand(ret, "Copy cursor position to clipboard", nullptr, ret, MID_COPY_CURSOR_POSITION);
     if (GeoConvHelper::getFinal().usingGeoProjection()) {
+        GUIDesigns::buildFXMenuCommand(ret, "Copy cursor geo-position to clipboard", nullptr, ret, MID_COPY_CURSOR_GEOPOSITION);
         // create menu pane for edge operations
         FXMenuPane* showCursorGeoPositionPane = new FXMenuPane(ret);
         ret->insertMenuPaneChild(showCursorGeoPositionPane);
