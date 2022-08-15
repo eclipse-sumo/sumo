@@ -952,10 +952,10 @@ GNENet::reverseEdge(GNEEdge* edge, GNEUndoList* undoList) {
 
 
 GNEEdge*
-GNENet::addReversedEdge(GNEEdge* edge, GNEUndoList* undoList) {
+GNENet::addReversedEdge(GNEEdge* edge, const bool disconnected, GNEUndoList* undoList) {
     undoList->begin(GUIIcon::EDGE, "add reversed " + toString(SUMO_TAG_EDGE));
     GNEEdge* reversed = nullptr;
-    if (edge->getNBEdge()->getLaneSpreadFunction() == LaneSpreadFunction::RIGHT || isRailway(edge->getNBEdge()->getPermissions())) {
+    if (!disconnected) {
         // for rail edges, we assume bi-directional tracks are wanted
         reversed = createEdge(edge->getToJunction(), edge->getFromJunction(), edge, undoList, "-" + edge->getID(), false, true);
         assert(reversed != 0);

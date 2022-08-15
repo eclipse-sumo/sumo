@@ -1110,6 +1110,8 @@ enum {
     MID_GNE_EDGE_REVERSE,
     /// @brief add reverse edge
     MID_GNE_EDGE_ADD_REVERSE,
+    /// @brief add reverse edge disconnected (used for for spreadtype center)
+    MID_GNE_EDGE_ADD_REVERSE_DISCONNECTED,
     /// @brief reset custom lengths
     MID_GNE_EDGE_RESET_LENGTH,
 

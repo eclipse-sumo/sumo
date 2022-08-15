@@ -318,6 +318,9 @@ public:
     /// @brief check if this edge has successors (note: only for vehicles, this function ignore walking areas!)
     bool hasSuccessors() const;
 
+    /// @brief get reverse edge (if exist)
+    GNEEdge *getReverseEdge() const;
+
 protected:
     /// @brief the underlying NBEdge
     NBEdge* myNBEdge;

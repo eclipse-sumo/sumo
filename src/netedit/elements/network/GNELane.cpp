@@ -1779,7 +1779,11 @@ GNELane::buildEdgeOperations(GUISUMOAbstractView& parent, GUIGLObjectPopupMenu* 
         GUIDesigns::buildFXMenuCommand(edgeOperations, "Restore geometry endpoint (shift-click)", nullptr, &parent, MID_GNE_EDGE_RESET_ENDPOINT);
     }
     GUIDesigns::buildFXMenuCommand(edgeOperations, "Reverse " + edgeDescPossibleMulti, nullptr, &parent, MID_GNE_EDGE_REVERSE);
-    GUIDesigns::buildFXMenuCommand(edgeOperations, "Add reverse direction for " + edgeDescPossibleMulti, nullptr, &parent, MID_GNE_EDGE_ADD_REVERSE);
+    auto reverse = GUIDesigns::buildFXMenuCommand(edgeOperations, "Add reverse direction for " + edgeDescPossibleMulti, nullptr, &parent, MID_GNE_EDGE_ADD_REVERSE);
+    if (myParentEdge->getReverseEdge() != nullptr) {
+        reverse->disable();
+    }
+    GUIDesigns::buildFXMenuCommand(edgeOperations, "Add reverse disconnected direction for " + edgeDescPossibleMulti, nullptr, &parent, MID_GNE_EDGE_ADD_REVERSE_DISCONNECTED);
     GUIDesigns::buildFXMenuCommand(edgeOperations, "Reset lengths for " + edgeDescPossibleMulti, nullptr, &parent, MID_GNE_EDGE_RESET_LENGTH);
     GUIDesigns::buildFXMenuCommand(edgeOperations, "Straighten " + edgeDescPossibleMulti, nullptr, &parent, MID_GNE_EDGE_STRAIGHTEN);
     GUIDesigns::buildFXMenuCommand(edgeOperations, "Smooth " + edgeDescPossibleMulti, nullptr, &parent, MID_GNE_EDGE_SMOOTH);

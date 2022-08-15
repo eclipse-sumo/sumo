@@ -1539,6 +1539,17 @@ GNEEdge::hasSuccessors() const {
     return (myGNEConnections.size() > 0);
 }
 
+
+GNEEdge* 
+GNEEdge::getReverseEdge() const {
+    for (const auto &outgoingEdge : getParentJunctions().back()->getGNEOutgoingEdges()) {
+        if (outgoingEdge->getToJunction() == getFromJunction()) {
+            return outgoingEdge;
+        }
+    }
+    return nullptr;
+}
+
 // ===========================================================================
 // private
 // ===========================================================================

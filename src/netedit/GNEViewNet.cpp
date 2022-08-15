@@ -171,6 +171,7 @@ FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGE_SPLIT_BIDI,                         GNEViewNet::onCmdSplitEdgeBidi),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGE_REVERSE,                            GNEViewNet::onCmdReverseEdge),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGE_ADD_REVERSE,                        GNEViewNet::onCmdAddReversedEdge),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGE_ADD_REVERSE_DISCONNECTED,           GNEViewNet::onCmdAddReversedEdgeDisconnected),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGE_EDIT_ENDPOINT,                      GNEViewNet::onCmdEditEdgeEndpoint),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGE_RESET_ENDPOINT,                     GNEViewNet::onCmdResetEdgeEndpoint),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGE_STRAIGHTEN,                         GNEViewNet::onCmdStraightenEdges),
@@ -1855,12 +1856,33 @@ GNEViewNet::onCmdAddReversedEdge(FXObject*, FXSelector, void*) {
             myUndoList->begin(GUIIcon::EDGE, "Add Reverse edge for selected " + toString(SUMO_TAG_EDGE) + "s");
             const auto selectedEdges = myNet->getAttributeCarriers()->getSelectedEdges();
             for (const auto& selectedEdge : selectedEdges) {
-                myNet->addReversedEdge(selectedEdge, myUndoList);
+                myNet->addReversedEdge(selectedEdge, false, myUndoList);
             }
             myUndoList->end();
         } else {
             myUndoList->begin(GUIIcon::EDGE, "Add reverse " + toString(SUMO_TAG_EDGE));
-            myNet->addReversedEdge(edge, myUndoList);
+            myNet->addReversedEdge(edge, false, myUndoList);
+            myUndoList->end();
+        }
+    }
+    return 1;
+}
+
+
+long
+GNEViewNet::onCmdAddReversedEdgeDisconnected(FXObject*, FXSelector, void*) {
+    GNEEdge* edge = getEdgeAtPopupPosition();
+    if (edge != nullptr) {
+        if (edge->isAttributeCarrierSelected()) {
+            myUndoList->begin(GUIIcon::EDGE, "Add Reverse disconnected edge for selected " + toString(SUMO_TAG_EDGE) + "s");
+            const auto selectedEdges = myNet->getAttributeCarriers()->getSelectedEdges();
+            for (const auto& selectedEdge : selectedEdges) {
+                myNet->addReversedEdge(selectedEdge, true, myUndoList);
+            }
+            myUndoList->end();
+        } else {
+            myUndoList->begin(GUIIcon::EDGE, "Add reverse disconnected " + toString(SUMO_TAG_EDGE));
+            myNet->addReversedEdge(edge, true, myUndoList);
             myUndoList->end();
         }
     }

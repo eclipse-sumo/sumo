@@ -182,6 +182,9 @@ public:
     /// @brief add reversed edge
     long onCmdAddReversedEdge(FXObject*, FXSelector, void*);
 
+    /// @brief add reversed edge disconnected
+    long onCmdAddReversedEdgeDisconnected(FXObject*, FXSelector, void*);
+
     /// @brief change geometry endpoint
     long onCmdEditEdgeEndpoint(FXObject*, FXSelector, void*);
 
