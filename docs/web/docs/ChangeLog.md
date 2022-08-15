@@ -71,7 +71,7 @@ title: ChangeLog
   - traceMapper.py: fixed mapping loops when the first point was off the map
 
 - TraCI / libsumo
-  - Function 'traci.vehicle.rerouteTraveltime' now again respects custom travel times if currentTravelTimes is set to True. Issue #5943  
+  - Function 'traci.vehicle.rerouteTraveltime' now again respects custom travel times if currentTravelTimes is set to True. Issue #5943 (regression in 1.14.0)
 
 - Linux packaging
   - enabled Eigen3 support (needed for the overheadwires) for the RPM packages
