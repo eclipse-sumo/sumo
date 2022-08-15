@@ -886,36 +886,15 @@ GNETLSEditorFrame::TLSDefinition::~TLSDefinition() {}
 
 long
 GNETLSEditorFrame::TLSDefinition::onCmdCreate(FXObject*, FXSelector, void*) {
+    // get current edited junction (needed because onCmdDiscardChanges clear junction)
     GNEJunction* junction = myTLSEditorParent->myTLSJunction->getCurrentJunction();
-    // get current TLS program id
-    const auto currentTLS = myTLSEditorParent->myTLSAttributes->getCurrentTLSProgramID();
     // abort because we onCmdOk assumes we wish to save an edited definition
     myTLSEditorParent->myTLSModifications->onCmdDiscardChanges(nullptr, 0, nullptr);
     // check that current junction has two or more edges
     if ((junction->getGNEIncomingEdges().size() > 0) && (junction->getGNEOutgoingEdges().size() > 0)) {
-        if (junction->getAttribute(SUMO_ATTR_TYPE) != toString(SumoXMLNodeType::TRAFFIC_LIGHT)) {
-            junction->setAttribute(SUMO_ATTR_TYPE, toString(SumoXMLNodeType::TRAFFIC_LIGHT), myTLSEditorParent->getViewNet()->getUndoList());
-        } else {
-            if (junction->getNBNode()->isTLControlled()) {
-                // use existing traffic light as template for type, signal groups, controlled nodes etc
-                NBTrafficLightDefinition* tpl = nullptr;
-                for (const auto& TLS : junction->getNBNode()->getControllingTLS()) {
-                    if (TLS->getProgramID() == currentTLS) {
-                        tpl = TLS;
-                    }
-                }
-                if (tpl == nullptr) {
-                    tpl = *junction->getNBNode()->getControllingTLS().begin();
-                }
-                NBTrafficLightLogic* newLogic = tpl->compute(OptionsCont::getOptions());
-                NBLoadedSUMOTLDef* newDef = new NBLoadedSUMOTLDef(*tpl, *newLogic);
-                delete newLogic;
-                myTLSEditorParent->getViewNet()->getUndoList()->add(new GNEChange_TLS(junction, newDef, true, true), true);
-            } else {
-                // for some reason the traffic light was not built, try again
-                myTLSEditorParent->getViewNet()->getUndoList()->add(new GNEChange_TLS(junction, nullptr, true, true), true);
-            }
-        }
+        // create TLS in junction
+        createTLS(junction);
+        // edit junction
         myTLSEditorParent->editJunction(junction);
     } else {
         // write warning if netedit is running in testing mode
@@ -933,11 +912,15 @@ GNETLSEditorFrame::TLSDefinition::onCmdCreate(FXObject*, FXSelector, void*) {
 
 long
 GNETLSEditorFrame::TLSDefinition::onCmdDelete(FXObject*, FXSelector, void*) {
+    // get current junction
     GNEJunction* junction = myTLSEditorParent->myTLSJunction->getCurrentJunction();
-    const bool changeType = myTLSEditorParent->myTLSAttributes->getNumberOfTLSDefinitions() == 1;
+    // get current edited tlDef
     NBTrafficLightDefinition* tlDef = myTLSEditorParent->myTLSAttributes->getCurrentTLSDefinition();
-    myTLSEditorParent->myTLSModifications->onCmdDiscardChanges(nullptr, 0, nullptr); // abort because onCmdOk assumes we wish to save an edited definition
-    if (changeType) {
+    // check if remove entire TLS or only one program
+    const bool changeJunctionType = (myTLSEditorParent->myTLSAttributes->getNumberOfTLSDefinitions() == 1);
+    // abort because onCmdOk assumes we wish to save an edited definition
+    myTLSEditorParent->myTLSModifications->onCmdDiscardChanges(nullptr, 0, nullptr);
+    if (changeJunctionType) {
         junction->setAttribute(SUMO_ATTR_TYPE, toString(SumoXMLNodeType::PRIORITY), myTLSEditorParent->getViewNet()->getUndoList());
     } else {
         myTLSEditorParent->getViewNet()->getUndoList()->add(new GNEChange_TLS(junction, tlDef, false), true);
@@ -950,16 +933,22 @@ long
 GNETLSEditorFrame::TLSDefinition::onCmdReset(FXObject*, FXSelector, void*) {
     // make a copy of the junction
     GNEJunction* junction = myTLSEditorParent->myTLSJunction->getCurrentJunction();
+    // discard all previous changes
+    myTLSEditorParent->myTLSModifications->onCmdDiscardChanges(nullptr, 0, nullptr); // abort because onCmdOk assumes we wish to save an edited definition
     // begin undo
     myTLSEditorParent->getViewNet()->getUndoList()->begin(GUIIcon::MODETLS, "regenerate TLS");
-    // delete junction
-    onCmdDelete(nullptr, 0, nullptr);
-    // set junction again
-    myTLSEditorParent->myTLSJunction->setCurrentJunction(junction);
-    // create junction
-    onCmdCreate(nullptr, 0, nullptr);
+    // remove every TLSDef
+    while (myTLSEditorParent->myTLSAttributes->getNumberOfTLSDefinitions() > 1) {
+        myTLSEditorParent->getViewNet()->getUndoList()->add(new GNEChange_TLS(junction, myTLSEditorParent->myTLSAttributes->getCurrentTLSDefinition(), false), true);
+    }
+    // set junction as priority (this will remove last program)
+    junction->setAttribute(SUMO_ATTR_TYPE, toString(SumoXMLNodeType::PRIORITY), myTLSEditorParent->getViewNet()->getUndoList());
+    // create TLS in junction
+    createTLS(junction);
     // end undo
     myTLSEditorParent->getViewNet()->getUndoList()->end();
+    // edit junction
+    myTLSEditorParent->editJunction(junction);
     return 1;
 }
 
@@ -999,6 +988,43 @@ GNETLSEditorFrame::TLSDefinition::onUpdTLSModified(FXObject* sender, FXSelector,
         sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
     }
     return 1;
+}
+
+
+void 
+GNETLSEditorFrame::TLSDefinition::createTLS(GNEJunction* junction) {
+    // get current TLS program id
+    const auto currentTLS = myTLSEditorParent->myTLSAttributes->getCurrentTLSProgramID();
+    // check conditions
+    if (junction == nullptr) {
+        throw ProcessError("junction cannot be null");
+    } else if (junction->getAttribute(SUMO_ATTR_TYPE) != toString(SumoXMLNodeType::TRAFFIC_LIGHT)) {
+        // set junction as TLS
+        junction->setAttribute(SUMO_ATTR_TYPE, toString(SumoXMLNodeType::TRAFFIC_LIGHT), myTLSEditorParent->getViewNet()->getUndoList());
+    } else if (junction->getNBNode()->isTLControlled()) {
+        // use existing traffic light as template for type, signal groups, controlled nodes etc
+        NBTrafficLightDefinition* tpl = nullptr;
+        for (const auto& TLS : junction->getNBNode()->getControllingTLS()) {
+            if (TLS->getProgramID() == currentTLS) {
+                tpl = TLS;
+            }
+        }
+        // if template is empty, use first TLS
+        if (tpl == nullptr) {
+            tpl = *junction->getNBNode()->getControllingTLS().begin();
+        }
+        // create new logic
+        NBTrafficLightLogic* newLogic = tpl->compute(OptionsCont::getOptions());
+        // create new TLDef
+        NBLoadedSUMOTLDef* newDef = new NBLoadedSUMOTLDef(*tpl, *newLogic);
+        // remove new logic
+        delete newLogic;
+        // add it using GNEChange_TLS
+        myTLSEditorParent->getViewNet()->getUndoList()->add(new GNEChange_TLS(junction, newDef, true, true), true);
+    } else {
+        // for some reason the traffic light was not built, try again
+        myTLSEditorParent->getViewNet()->getUndoList()->add(new GNEChange_TLS(junction, nullptr, true, true), true);
+    }
 }
 
 // ---------------------------------------------------------------------------

@@ -114,6 +114,9 @@ public:
         /// @brief FOX needs this
         FOX_CONSTRUCTOR(TLSDefinition)
 
+        /// @brief create (or copy) TLS in the given junction
+        void createTLS(GNEJunction* junction);
+
     private:
         /// @brief pointer to GNETLSEditorFrame parent
         GNETLSEditorFrame* myTLSEditorParent = nullptr;
