@@ -868,18 +868,20 @@ GNETLSEditorFrame::TLSDefinition::TLSDefinition(GNETLSEditorFrame* TLSEditorPare
     MFXGroupBoxModule(TLSEditorParent, "Traffic Light Programs"),
     myTLSEditorParent(TLSEditorParent) {
     // create auxiliar frames
-    FXVerticalFrame* frameButtons = new FXVerticalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
+    FXHorizontalFrame* horizontalFrameAux = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrameUniform);
+    FXVerticalFrame* verticalFrameAuxA = new FXVerticalFrame(horizontalFrameAux, GUIDesignAuxiliarHorizontalFrame);
+    FXVerticalFrame* verticalFrameAuxB = new FXVerticalFrame(horizontalFrameAux, GUIDesignAuxiliarHorizontalFrame);
     // create create tlDef button
-    myCreateButton = new FXButton(frameButtons, "Create TLS\t\tCreate a new traffic light program.",
+    myCreateButton = new FXButton(verticalFrameAuxA, "Create TLS\t\tCreate a new traffic light program.",
                                   GUIIconSubSys::getIcon(GUIIcon::MODETLS), this, MID_GNE_TLSFRAME_DEFINITION_CREATE, GUIDesignButton);
     // create delete tlDef button
-    new FXButton(frameButtons, "Delete TLS\t\tDelete a traffic light program. If all programs are deleted the junction turns into a priority junction.",
+    new FXButton(verticalFrameAuxA, "Delete\t\tDelete a traffic light program. If all programs are deleted the junction turns into a priority junction.",
                  GUIIconSubSys::getIcon(GUIIcon::REMOVE), this, MID_GNE_TLSFRAME_DEFINITION_DELETE, GUIDesignButton);
     // create reset current tlDef button
-    new FXButton(frameButtons, "Reset current program\t\\Reset current TLS program.",
+    new FXButton(verticalFrameAuxB, "Reset single\t\\Reset current TLS program.",
                  GUIIconSubSys::getIcon(GUIIcon::RESET), this, MID_GNE_TLSFRAME_DEFINITION_RESETCURRENT, GUIDesignButton);
     // create reset all tlDefs button
-    new FXButton(frameButtons, "Reset all programs\t\tReset all TLS programs.",
+    new FXButton(verticalFrameAuxB, "Reset all\t\tReset all TLS programs.",
                  GUIIconSubSys::getIcon(GUIIcon::RESET), this, MID_GNE_TLSFRAME_DEFINITION_RESETALL, GUIDesignButton);
     // show TLS TLSDefinition
     show();
@@ -981,9 +983,9 @@ GNETLSEditorFrame::TLSDefinition::onUpdCreateButton(FXObject* sender, FXSelector
         sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
         // update button text
         if (junction->getNBNode()->isTLControlled()) {
-            myCreateButton->setText("Copy TLS Program");
+            myCreateButton->setText("Copy");
         } else {
-            myCreateButton->setText("Create TLS");
+            myCreateButton->setText("Create");
         }
     }
     return 1;
