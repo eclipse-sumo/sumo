@@ -487,6 +487,8 @@ GNETLSEditorFrame::editJunction(GNEJunction* junction) {
             for (NBNode* node : myTLSAttributes->getCurrentTLSDefinition()->getNodes()) {
                 myViewNet->getNet()->getAttributeCarriers()->retrieveJunction(node->getID())->selectTLS(true);
             }
+            // switch phase (for coloring)
+            myTLSPhases->switchPhase();
         }
     } else {
         myViewNet->setStatusBarText("Unsaved modifications. Abort or Save");
