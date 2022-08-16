@@ -464,7 +464,7 @@ MSCFModel_EIDM::followSpeed(const MSVehicle* const veh, double speed, double gap
     }
 #endif
 
-    double result = _v(veh, MAX2(NUMERICAL_EPS, gap2pred), speed, predSpeed, vars->v0_int, true, update);
+    double result = _v(veh, gap2pred, speed, predSpeed, vars->v0_int, true, update);
     return result;
 }
 
@@ -489,7 +489,7 @@ MSCFModel_EIDM::stopSpeed(const MSVehicle* const veh, const double speed, double
     }
 #endif
 
-    double result = _v(veh, MAX2(NUMERICAL_EPS, gap), speed, 0, vars->v0_int, false, 0);
+    double result = _v(veh, gap, speed, 0, vars->v0_int, false, 0);
 // From Sumo_IDM-implementation:
 //    if (gap > 0 && speed < NUMERICAL_EPS && result < NUMERICAL_EPS) {
 //        // ensure that stops can be reached:
@@ -856,10 +856,10 @@ MSCFModel_EIDM::_v(const MSVehicle* const veh, const double gap2pred, const doub
     // When doing the Follow-Calculation in adapttoLeader (MSVehicle.cpp) the mingap gets subtracted from the current gap (maybe this is needed for the Krauss-Model!).
     // For the IDM this Mingap is needed or else the vehicle will stop at two times mingap behind the leader!
     if (respectMinGap) {
-        current_gap = gap2pred + MAX2(NUMERICAL_EPS, myType->getMinGap() - 0.25); // 0.25m tolerance because of reaction time and estimated variables
+        current_gap = MAX2(NUMERICAL_EPS, gap2pred + MAX2(NUMERICAL_EPS, myType->getMinGap() - 0.25)); // 0.25m tolerance because of reaction time and estimated variables
     } else {
         // gap2pred may go to 0 when offset is reached (e.g. 1m Offset -> gap2pred=0, when vehicle stands at 0.95m, gap2pred is still 0 and does not become -0.05m (negative)!)
-        current_gap = gap2pred + minGapStop_EPS;
+        current_gap = MAX2(NUMERICAL_EPS, gap2pred + minGapStop_EPS);
     }
 
     double newGap = current_gap;
@@ -924,7 +924,7 @@ MSCFModel_EIDM::_v(const MSVehicle* const veh, const double gap2pred, const doub
         // Because of the reaction time and estimated variables, s* can become lower than gap when the vehicle needs to brake/is braking, that results in the vehicle accelerating again...
         // Here: When the gap is very small, s* is influenced to then always be bigger than the gap. With this there are no oscillations in accel at small gaps!
         if (lastrespectMinGap) {
-			// The allowed position error when coming to a stop behind a leader is higher with higher timesteps (approx. 0.5m at 1.0s timstep, 0.1m at 0.1s)
+            // The allowed position error when coming to a stop behind a leader is higher with higher timesteps (approx. 0.5m at 1.0s timstep, 0.1m at 0.1s)
             if (estGap < myType->getMinGap() + (TS * 10 + 1) * EIDM_POS_ACC_EPS && estSpeed < EST_REAC_THRESHOLD && s < estGap * sqrt(1 + 2 * EIDM_POS_ACC_EPS / myAccel)) {
                 s = estGap * sqrt(1 + 2 * EIDM_POS_ACC_EPS / myAccel);
             }
