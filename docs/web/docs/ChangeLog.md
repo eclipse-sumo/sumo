@@ -226,6 +226,7 @@ title: ChangeLog
   - Fixed invalid walkingarea shapes. Issue #11087, #11090
   - Patching the type of a loaded junction now has priority over option **--tls.guess**. Issue #11013
   - Fixed invalid right-of-way rules when using custom `contPos` at connections from a side road. Issue #11146
+  - Generated traffic light plans now include *all-red* phases at very large junctions to ensure safe transitions between phases. Issue #10796
 
 - TraCI / libsumo
   - Function `vehicle.setAcceleration` now supports negative values. Issue #10693
