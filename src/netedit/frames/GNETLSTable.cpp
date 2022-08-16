@@ -433,8 +433,9 @@ GNETLSTable::Cell::Cell(GNETLSTable* TLSTable, FXLabel* indexLabel, FXLabel* ind
     // create both
     indexLabel->create();
     indexLabelBold->create();
-    // hide bold
+    // hide bold and set background
     indexLabelBold->hide();
+    indexLabelBold->setBackColor(FXRGBA(210, 233, 255, 255));
 }
 
 
