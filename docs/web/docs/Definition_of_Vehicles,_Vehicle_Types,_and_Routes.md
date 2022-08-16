@@ -184,6 +184,9 @@ If route is defined as stand-alone route (defined with it's own id outside a veh
 !!! caution
     When defining a route as child element of a vehicle, any defined stops will belong to the vehicle rather than the route and will not be repeated.
 
+!!! caution
+    When a repeated route contains only a single stop, all repeated instances of the stop will be on the first iteration of the route. This can be avoided by adding a second stop slightly after first with `duration="0"`
+
 ## Incomplete Routes (trips and flows)
 
 Demand information for the simulation may also take the form of origin
