@@ -61,7 +61,7 @@ FXIMPLEMENT(GNEVehicleTypeDialog::CarFollowingModelParameters,  FXGroupBox,     
 GNEVehicleTypeDialog::VTypeAtributes::VClassRow::VClassRow(VTypeAtributes* VTypeAtributesParent, FXVerticalFrame* column) :
     FXHorizontalFrame(column, GUIDesignAuxiliarHorizontalFrame),
     myVTypeAtributesParent(VTypeAtributesParent) {
-    // create two auxiliar frames
+    // create two auxiliary frames
     FXVerticalFrame* verticalFrameLabelAndComboBox = new FXVerticalFrame(this, GUIDesignAuxiliarVerticalFrame);
     // create FXComboBox for VClass
     new FXLabel(verticalFrameLabelAndComboBox, toString(SUMO_ATTR_VCLASS).c_str(), nullptr, GUIDesignLabelAttribute150);
@@ -792,7 +792,7 @@ GNEVehicleTypeDialog::VTypeAtributes::VTypeAttributeRow::filterAttributeName(con
 GNEVehicleTypeDialog::VTypeAtributes::VTypeAtributes(GNEVehicleTypeDialog* vehicleTypeDialog, FXHorizontalFrame* column) :
     FXVerticalFrame(column, GUIDesignAuxiliarVerticalFrame),
     myVehicleTypeDialog(vehicleTypeDialog) {
-    // declare two auxiliar horizontal frames
+    // declare two auxiliary horizontal frames
     FXHorizontalFrame* firstAuxiliarHorizontalFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     FXVerticalFrame* firstAuxiliarVerticalFrame = new FXVerticalFrame(firstAuxiliarHorizontalFrame, GUIDesignAuxiliarVerticalFrame);
     // create attributes for common attributes
