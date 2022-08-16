@@ -53,7 +53,7 @@ public:
      * @param[in] imgFile The raster image of the polygon
      * @param[in] relativePath set image file as relative path
      * @param[in] shape The shape of the polygon
-     * @param[in] geo specifiy if shape was loaded as GEO
+     * @param[in] geo specify if shape was loaded as GEO
      * @param[in] fill Whether the polygon shall be filled
      * @param[in] lineWidth Line width when drawing unfilled polygon
      */
@@ -94,7 +94,7 @@ public:
      * @param[in] imgFile The raster image of the polygon
      * @param[in] relativePath set image file as relative path
      * @param[in] shape The shape of the polygon
-     * @param[in] geo specifiy if shape was loaded as GEO
+     * @param[in] geo specify if shape was loaded as GEO
      * @param[in] fill Whether the polygon shall be filled
      * @param[in] lineWidth Line width when drawing unfilled polygon
      */
@@ -148,7 +148,7 @@ public:
     //@}
 
     /// @brief set a new shape and update the tesselation
-    virtual void setShape(const PositionVector& shape);
+    virtual void setShape(const PositionVector& shape) override;
 
     /** @brief Sets a new angle in navigational degrees
      * @param[in] layer The new angle to use
