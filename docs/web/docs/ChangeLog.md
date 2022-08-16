@@ -9,7 +9,7 @@ title: ChangeLog
 - Simulation
   - Fixed crash when using bluelight vehicle and SSM device. Issue #11336 (regression in 1.12.0)
   - Taxi drop-off is no longer interupted by new dispatch. Also, persons only continue their plan after the drop-off duration. Issue #11311
-  - Fixed multiple EIDM stop issues. #11242
+  - Fixed multiple EIDM issues related to imprecise driving at stop lines. #11242, #11182, #11183
   - Fixed bug where emergency vehicle fails to overtake. Issue #11345
   - Fixed bug where mergency vehicle performs invalid (unstrategic) lanechange. Issue #11337
 
@@ -18,10 +18,14 @@ title: ChangeLog
   - Loading an additional file and saving modifications no longer prompts for a file name. Issue #11030
   - Clicking over column labels no longer clears the traffic phase table. Issue #11240
 
+
 - netconvert
+  - Fixed nvalid red phase at traffic lights with very low connection speeds. Issue #11307 (regression in 1.14.0)
   - Fixed invalid turn-around connection at roundabout with unusual geometry. Issue #11344
+  - Fixed projection error when importing OpenDRIVE. Issue #11263  
 
 - TraCI
+  - Function vehicle.highlight is now tracking the vehicle again. Issue #11352 (regression in 1.13.0)
   - Simpla: fixed rash due to unclear speed factor semantics. Issue #11223
 
 - Tools
@@ -41,7 +45,12 @@ title: ChangeLog
   - Added edge color legend in vehicle mode. Issue #10866
   - Now using distinct default id-prefix for `flow`, `personFlow` and `containerFlow. Issue #11077
   - Adding network-recomputation status in the lower right corner. Issue #4725
-  - Trafflic light mode now permits moving phases up and down. Issue #10856
+  - Traffic light mode now permits moving phases up and down. Issue #10856
+  - Traffic light mode now has buttons reset either the current program or all programs of the current traffic light to their default. Issue #9072, #11357
+  - Traffic light phase table now shows index of each phase. Issue #11343
+  - Adding a reverse edge now supports adding an edge with the same or with shifted geometry for all spreadType values. Issue #11046
+  - Add shortcut to open current location in Google Maps and OSM map to context menu. Issue #10506
+  - A sumo configuration file can now be saved directly. Issue #11036
 
 - sumo-gui
   - 3D view now permits clicking on more objects (lanes, junctions, traffic lights). Issue #10882
@@ -55,6 +64,7 @@ title: ChangeLog
   - routeSampler.py: now supports options **--depart-attribute**, **--arrival-attribute** to set extra constraints. Issue #6727
   - routeSampler.py: added more statistics on processed intervals. Issue #11328
   - countEdgeUsage.py: Can now load multiple route files. Issue #11338
+  - Fixed error when trying to plot homogeneous edgeData. Issue #11351
 
 ### Miscellaneous
 
