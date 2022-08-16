@@ -97,6 +97,24 @@ public:
         /// @brief destructor
         ~TLSDefinition();
 
+        /// @brief init TLS Definitions
+        void initTLSDefinitions();
+
+        /// @brief clear TLS Definitions
+        void clearTLSDefinitions();
+
+        /// @brief get number of programs
+        int getNumberOfPrograms() const;
+
+        /// @brief get number of TLS definitions
+        int getNumberOfTLSDefinitions() const;
+
+        /// @brief get current definition
+        NBTrafficLightDefinition* getCurrentTLSDefinition() const;
+
+        /// @brief get current program ID
+        const std::string getCurrentTLSProgramID() const;
+
         /// @name FOX-callbacks
         /// @{
         /// @brief Called when the user press button create/copy TLS Program
@@ -130,6 +148,12 @@ public:
         /// @brief pointer to GNETLSEditorFrame parent
         GNETLSEditorFrame* myTLSEditorParent = nullptr;
 
+        /// @brief the list of Definitions for the current junction
+        std::vector<NBTrafficLightDefinition*> myTLSDefinitions;
+
+        /// @brief the comboBox for selecting the tl-definition to edit
+        FXComboBox* myProgramComboBox;
+
         /// @brief button for create new Traffic light program
         FXButton* myCreateButton = nullptr;
     };
@@ -150,16 +174,10 @@ public:
         ~TLSAttributes();
 
         /// @brief initializes the definitions and corresponding listbox
-        void initTLSAttributes(GNEJunction* junction);
+        void initTLSAttributes();
 
         /// @brief clear TLS attributes
         void clearTLSAttributes();
-
-        /// @brief get current definition
-        NBTrafficLightDefinition* getCurrentTLSDefinition() const;
-
-        /// @brief get current program ID
-        const std::string getCurrentTLSProgramID() const;
 
         /// @brief get current offset in string format
         SUMOTime getOffset() const;
@@ -178,12 +196,6 @@ public:
 
         /// @brief are current parameter valid
         bool isValidParameters();
-
-        /// @brief get number of definitions
-        int getNumberOfTLSDefinitions() const;
-
-        /// @brief get number of programs
-        int getNumberOfPrograms() const;
 
         /// @name FOX-callbacks
         /// @{
@@ -227,14 +239,8 @@ public:
         /// @brief pointer to TLSEditorParent
         GNETLSEditorFrame* myTLSEditorParent;
 
-        /// @brief the list of Definitions for the current junction
-        std::vector<NBTrafficLightDefinition*> myTLSDefinitions;
-
         /// @brief TLS Type text field
         FXTextField* myTLSType;
-
-        /// @brief the comboBox for selecting the tl-definition to edit
-        FXComboBox* myProgramComboBox;
 
         /// @brief the TextField for modifying offset
         FXTextField* myOffsetTextField;

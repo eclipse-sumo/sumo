@@ -280,8 +280,8 @@ void
 GNETLSEditorFrame::cleanup() {
     if (myTLSJunction->getCurrentJunction()) {
         myTLSJunction->getCurrentJunction()->selectTLS(false);
-        if (myTLSAttributes->getNumberOfTLSDefinitions() > 0) {
-            for (NBNode* node : myTLSAttributes->getCurrentTLSDefinition()->getNodes()) {
+        if (myTLSDefinition->getNumberOfTLSDefinitions() > 0) {
+            for (const auto &node : myTLSDefinition->getCurrentTLSDefinition()->getNodes()) {
                 myViewNet->getNet()->getAttributeCarriers()->retrieveJunction(node->getID())->selectTLS(false);
             }
         }
@@ -293,7 +293,9 @@ GNETLSEditorFrame::cleanup() {
     myEditedDef = nullptr;
     // clear internal lanes
     buildInternalLanes(nullptr);
-    // clean up controls
+    // clean up attributes
+    myTLSDefinition->clearTLSDefinitions();
+    // clean up attributes
     myTLSAttributes->clearTLSAttributes();
     // only clears when there are no definitions
     myTLSPhases->initPhaseTable();
@@ -475,15 +477,20 @@ GNETLSEditorFrame::editJunction(GNEJunction* junction) {
     if ((myTLSJunction->getCurrentJunction() == nullptr) || (!myTLSModifications->checkHaveModifications() && (junction != myTLSJunction->getCurrentJunction()))) {
         // discard previous changes
         myTLSModifications->onCmdDiscardChanges(nullptr, 0, nullptr);
-        myViewNet->getUndoList()->begin(GUIIcon::MODETLS, "modifying traffic light definition");
+        // set junction
         myTLSJunction->setCurrentJunction(junction);
-        myTLSAttributes->initTLSAttributes(myTLSJunction->getCurrentJunction());
+        // init TLS definitions
+        myTLSDefinition->initTLSDefinitions();
+        // init TLSAttributes
+        myTLSAttributes->initTLSAttributes();
+        // begin undo-list
+        myViewNet->getUndoList()->begin(GUIIcon::MODETLS, "modifying traffic light definition");
         // only select TLS if getCurrentJunction exist
         if (myTLSJunction->getCurrentJunction()) {
             myTLSJunction->getCurrentJunction()->selectTLS(true);
         }
-        if (myTLSAttributes->getNumberOfTLSDefinitions() > 0) {
-            for (NBNode* node : myTLSAttributes->getCurrentTLSDefinition()->getNodes()) {
+        if (myTLSDefinition->getNumberOfTLSDefinitions() > 0) {
+            for (NBNode* node : myTLSDefinition->getCurrentTLSDefinition()->getNodes()) {
                 myViewNet->getNet()->getAttributeCarriers()->retrieveJunction(node->getID())->selectTLS(true);
             }
             // switch phase (for coloring)
@@ -519,12 +526,6 @@ GNETLSEditorFrame::TLSAttributes::TLSAttributes(GNETLSEditorFrame* TLSEditorPare
     myTLSType = new FXTextField(typeFrame, GUIDesignTextFieldNCol, this, 0, GUIDesignTextField);
     myTLSType->disable();
 
-    // create frame, label and comboBox for Programs
-    FXHorizontalFrame* programFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
-    new FXLabel(programFrame, "program", nullptr, GUIDesignLabelAttribute);
-    myProgramComboBox = new FXComboBox(programFrame, GUIDesignComboBoxNCol, this, MID_GNE_TLSFRAME_ATTRIBUTES_SWITCH, GUIDesignComboBoxAttribute);
-    myProgramComboBox->disable();
-
     // create frame, label and TextField for Offset (By default disabled)
     FXHorizontalFrame* offsetFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(offsetFrame, toString(SUMO_ATTR_OFFSET).c_str(), nullptr, GUIDesignLabelAttribute);
@@ -544,12 +545,12 @@ GNETLSEditorFrame::TLSAttributes::~TLSAttributes() {}
 
 
 void
-GNETLSEditorFrame::TLSAttributes::initTLSAttributes(GNEJunction* junction) {
+GNETLSEditorFrame::TLSAttributes::initTLSAttributes() {
+    // get current edited junction
+    const auto junction = myTLSEditorParent->myTLSJunction->getCurrentJunction();
     if (junction == nullptr) {
         throw ProcessError("Junction cannot be NULL");
     } else {
-        // clear definitions
-        myTLSDefinitions.clear();
         // set TLS type
         myTLSType->setText(junction->getAttribute(SUMO_ATTR_TLTYPE).c_str());
         // enable Offset
@@ -559,17 +560,10 @@ GNETLSEditorFrame::TLSAttributes::initTLSAttributes(GNEJunction* junction) {
         myButtonEditParameters->enable();
         myParametersTextField->enable();
         myParametersTextField->setTextColor(MFXUtils::getFXColor(RGBColor::BLACK));
-        // obtain TLSs
-        for (const auto& TLS : junction->getNBNode()->getControllingTLS()) {
-            myTLSDefinitions.push_back(TLS);
-            myProgramComboBox->appendItem(TLS->getProgramID().c_str());
-        }
-        if (myTLSDefinitions.size() > 0) {
-            myProgramComboBox->enable();
-            myProgramComboBox->setCurrentItem(0);
-            myProgramComboBox->setNumVisible(myProgramComboBox->getNumItems());
+        // check if switch TLS Program
+        if (myTLSEditorParent->myTLSDefinition->getNumberOfTLSDefinitions() > 0) {
             // switch TLS Program
-            myTLSEditorParent->myTLSAttributes->onCmdDefSwitchTLSProgram(nullptr, 0, nullptr);
+            onCmdDefSwitchTLSProgram(nullptr, 0, nullptr);
         }
     }
 }
@@ -577,13 +571,8 @@ GNETLSEditorFrame::TLSAttributes::initTLSAttributes(GNEJunction* junction) {
 
 void
 GNETLSEditorFrame::TLSAttributes::clearTLSAttributes() {
-    // clear definitions
-    myTLSDefinitions.clear();
     // clear TLS type
     myTLSType->setText("");
-    // clear and disable myProgramComboBox
-    myProgramComboBox->clearItems();
-    myProgramComboBox->disable();
     // clear and disable Offset TextField
     myOffsetTextField->setText("");
     myOffsetTextField->disable();
@@ -593,34 +582,6 @@ GNETLSEditorFrame::TLSAttributes::clearTLSAttributes() {
     myParametersTextField->setText("");
     myParametersTextField->disable();
     myParametersTextField->setTextColor(MFXUtils::getFXColor(RGBColor::BLACK));
-}
-
-
-NBTrafficLightDefinition*
-GNETLSEditorFrame::TLSAttributes::getCurrentTLSDefinition() const {
-    return myTLSDefinitions.at(myProgramComboBox->getCurrentItem());
-}
-
-
-const std::string
-GNETLSEditorFrame::TLSAttributes::getCurrentTLSProgramID() const {
-    if (myProgramComboBox->getNumItems() == 0) {
-        return "";
-    } else {
-        return myProgramComboBox->getText().text();
-    }
-}
-
-
-int
-GNETLSEditorFrame::TLSAttributes::getNumberOfTLSDefinitions() const {
-    return (int)myTLSDefinitions.size();
-}
-
-
-int
-GNETLSEditorFrame::TLSAttributes::getNumberOfPrograms() const {
-    return myProgramComboBox->getNumItems();
 }
 
 
@@ -676,7 +637,7 @@ GNETLSEditorFrame::TLSAttributes::isValidParameters() {
 
 long
 GNETLSEditorFrame::TLSAttributes::onUpdTLSModified(FXObject* sender, FXSelector, void*) {
-    if (myTLSEditorParent->myTLSAttributes->getNumberOfTLSDefinitions() == 0) {
+    if (myTLSEditorParent->myTLSDefinition->getNumberOfTLSDefinitions() == 0) {
         sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else if (myTLSEditorParent->myTLSModifications->checkHaveModifications()) {
         sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
@@ -689,7 +650,7 @@ GNETLSEditorFrame::TLSAttributes::onUpdTLSModified(FXObject* sender, FXSelector,
 
 long
 GNETLSEditorFrame::TLSAttributes::onUpdNeedsTLSDef(FXObject* o, FXSelector, void*) {
-    if (myTLSDefinitions.size() > 0) {
+    if (myTLSEditorParent->myTLSDefinition->getNumberOfTLSDefinitions() > 0) {
         o->handle(this, FXSEL(SEL_COMMAND, FXWindow::ID_ENABLE), nullptr);
     } else {
         o->handle(this, FXSEL(SEL_COMMAND, FXWindow::ID_DISABLE), nullptr);
@@ -702,11 +663,11 @@ long
 GNETLSEditorFrame::TLSAttributes::onCmdDefSwitchTLSProgram(FXObject*, FXSelector, void*) {
     if (myTLSEditorParent->myTLSJunction->getCurrentJunction() == nullptr) {
         throw ProcessError("Junction cannot be NULL");
-    } else if ((int)myTLSDefinitions.size() != myProgramComboBox->getNumItems()) {
+    } else if (myTLSEditorParent->myTLSDefinition->getNumberOfTLSDefinitions() != myTLSEditorParent->myTLSDefinition->getNumberOfPrograms()) {
         throw ProcessError("myProgramComboBox must have the same number of TLSDefinitions");
     } else {
         // get current definition
-        NBTrafficLightDefinition* tlDef = getCurrentTLSDefinition();
+        NBTrafficLightDefinition* tlDef = myTLSEditorParent->myTLSDefinition->getCurrentTLSDefinition();
         // logic may not have been recomputed yet. recompute to be sure
         NBTrafficLightLogicCont& tllCont = myTLSEditorParent->getViewNet()->getNet()->getTLLogicCont();
         // compute junction
@@ -874,6 +835,11 @@ GNETLSEditorFrame::TLSJunction::updateJunctionDescription() const {
 GNETLSEditorFrame::TLSDefinition::TLSDefinition(GNETLSEditorFrame* TLSEditorParent) :
     MFXGroupBoxModule(TLSEditorParent, "Traffic Light Programs"),
     myTLSEditorParent(TLSEditorParent) {
+    // create frame, label and comboBox for Programs
+    FXHorizontalFrame* programFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
+    new FXLabel(programFrame, "program", nullptr, GUIDesignLabelAttribute);
+    myProgramComboBox = new FXComboBox(programFrame, GUIDesignComboBoxNCol, this, MID_GNE_TLSFRAME_ATTRIBUTES_SWITCH, GUIDesignComboBoxAttribute);
+    myProgramComboBox->disable();
     // create auxiliar frames
     FXHorizontalFrame* horizontalFrameAux = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrameUniform);
     FXVerticalFrame* verticalFrameAuxA = new FXVerticalFrame(horizontalFrameAux, GUIDesignAuxiliarHorizontalFrame);
@@ -896,6 +862,68 @@ GNETLSEditorFrame::TLSDefinition::TLSDefinition(GNETLSEditorFrame* TLSEditorPare
 
 
 GNETLSEditorFrame::TLSDefinition::~TLSDefinition() {}
+
+
+
+void 
+GNETLSEditorFrame::TLSDefinition::initTLSDefinitions() {
+    // get current edited junction
+    const auto junction = myTLSEditorParent->myTLSJunction->getCurrentJunction();
+    if (junction == nullptr) {
+        throw ProcessError("Junction cannot be NULL");
+    } else {
+        // clear definitions
+        myTLSDefinitions.clear();
+        // obtain TLSs
+        for (const auto& TLS : junction->getNBNode()->getControllingTLS()) {
+            myTLSDefinitions.push_back(TLS);
+            myProgramComboBox->appendItem(TLS->getProgramID().c_str());
+        }
+        if (myTLSDefinitions.size() > 0) {
+            myProgramComboBox->enable();
+            myProgramComboBox->setCurrentItem(0);
+            myProgramComboBox->setNumVisible(myProgramComboBox->getNumItems());
+        }
+    }
+}
+
+
+void 
+GNETLSEditorFrame::TLSDefinition::clearTLSDefinitions() {
+    // clear definitions
+    myTLSDefinitions.clear();
+    // clear and disable myProgramComboBox
+    myProgramComboBox->clearItems();
+    myProgramComboBox->disable();
+}
+
+
+int 
+GNETLSEditorFrame::TLSDefinition::getNumberOfPrograms() const {
+    return myProgramComboBox->getNumItems();
+}
+
+
+int 
+GNETLSEditorFrame::TLSDefinition::getNumberOfTLSDefinitions() const {
+    return (int)myTLSDefinitions.size();
+}
+
+
+NBTrafficLightDefinition*
+GNETLSEditorFrame::TLSDefinition::getCurrentTLSDefinition() const {
+    return myTLSDefinitions.at(myProgramComboBox->getCurrentItem());
+}
+
+
+const std::string
+GNETLSEditorFrame::TLSDefinition::getCurrentTLSProgramID() const {
+    if (myProgramComboBox->getNumItems() == 0) {
+        return "";
+    } else {
+        return myProgramComboBox->getText().text();
+    }
+}
 
 
 long
@@ -929,9 +957,9 @@ GNETLSEditorFrame::TLSDefinition::onCmdDelete(FXObject*, FXSelector, void*) {
     // get current junction
     GNEJunction* junction = myTLSEditorParent->myTLSJunction->getCurrentJunction();
     // get current edited tlDef
-    NBTrafficLightDefinition* tlDef = myTLSEditorParent->myTLSAttributes->getCurrentTLSDefinition();
+    NBTrafficLightDefinition* tlDef = myTLSEditorParent->myTLSDefinition->getCurrentTLSDefinition();
     // check if remove entire TLS or only one program
-    const bool changeJunctionType = (myTLSEditorParent->myTLSAttributes->getNumberOfTLSDefinitions() == 1);
+    const bool changeJunctionType = (myTLSEditorParent->myTLSDefinition->getNumberOfTLSDefinitions() == 1);
     // abort because onCmdOk assumes we wish to save an edited definition
     myTLSEditorParent->myTLSModifications->onCmdDiscardChanges(nullptr, 0, nullptr);
     if (changeJunctionType) {
@@ -946,7 +974,7 @@ GNETLSEditorFrame::TLSDefinition::onCmdDelete(FXObject*, FXSelector, void*) {
 long
 GNETLSEditorFrame::TLSDefinition::onCmdResetCurrentProgram(FXObject*, FXSelector, void*) {
     GNEJunction* junction = myTLSEditorParent->myTLSJunction->getCurrentJunction();
-    NBTrafficLightDefinition* oldDef = myTLSEditorParent->myTLSAttributes->getCurrentTLSDefinition();
+    NBTrafficLightDefinition* oldDef = myTLSEditorParent->myTLSDefinition->getCurrentTLSDefinition();
     myTLSEditorParent->myTLSModifications->onCmdDiscardChanges(nullptr, 0, nullptr);
     // begin undo
     myTLSEditorParent->getViewNet()->getUndoList()->begin(GUIIcon::MODETLS, "reset current program");
@@ -1008,7 +1036,7 @@ GNETLSEditorFrame::TLSDefinition::onUpdCreateButton(FXObject* sender, FXSelector
 
 long
 GNETLSEditorFrame::TLSDefinition::onUpdTLSModified(FXObject* sender, FXSelector, void*) {
-    if (myTLSEditorParent->myTLSAttributes->getNumberOfTLSDefinitions() == 0) {
+    if (myTLSEditorParent->myTLSDefinition->getNumberOfTLSDefinitions() == 0) {
         sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else if (myTLSEditorParent->myTLSModifications->checkHaveModifications()) {
         sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
@@ -1022,7 +1050,7 @@ GNETLSEditorFrame::TLSDefinition::onUpdTLSModified(FXObject* sender, FXSelector,
 void
 GNETLSEditorFrame::TLSDefinition::createTLS(GNEJunction* junction) {
     // get current TLS program id
-    const auto currentTLS = myTLSEditorParent->myTLSAttributes->getCurrentTLSProgramID();
+    const auto currentTLS = getCurrentTLSProgramID();
     // check conditions
     if (junction == nullptr) {
         throw ProcessError("junction cannot be null");
@@ -1102,7 +1130,7 @@ void
 GNETLSEditorFrame::TLSPhases::initPhaseTable() {
     // first clear table
     myPhaseTable->clearTable();
-    if (myTLSEditorParent->myTLSAttributes->getNumberOfTLSDefinitions() > 0) {
+    if (myTLSEditorParent->myTLSDefinition->getNumberOfTLSDefinitions() > 0) {
         if (myTLSEditorParent->myEditedDef->getType() == TrafficLightType::STATIC) {
             initStaticPhaseTable();
         } else if (myTLSEditorParent->myEditedDef->getType() == TrafficLightType::ACTUATED) {
@@ -1350,7 +1378,7 @@ GNETLSEditorFrame::TLSPhases::movePhaseDown(const int row) {
 
 long
 GNETLSEditorFrame::TLSPhases::onUpdNeedsDef(FXObject* o, FXSelector, void*) {
-    if (myTLSEditorParent->myTLSAttributes->getNumberOfTLSDefinitions() > 0) {
+    if (myTLSEditorParent->myTLSDefinition->getNumberOfTLSDefinitions() > 0) {
         o->handle(this, FXSEL(SEL_COMMAND, FXWindow::ID_ENABLE), nullptr);
     } else {
         o->handle(this, FXSEL(SEL_COMMAND, FXWindow::ID_DISABLE), nullptr);
@@ -1361,7 +1389,7 @@ GNETLSEditorFrame::TLSPhases::onUpdNeedsDef(FXObject* o, FXSelector, void*) {
 
 long
 GNETLSEditorFrame::TLSPhases::onUpdNeedsDefAndPhase(FXObject* o, FXSelector, void*) {
-    if (myTLSEditorParent->myTLSAttributes->getNumberOfTLSDefinitions() == 0) {
+    if (myTLSEditorParent->myTLSDefinition->getNumberOfTLSDefinitions() == 0) {
         o->handle(this, FXSEL(SEL_COMMAND, FXWindow::ID_DISABLE), nullptr);
     } else if (myPhaseTable->getNumRows() <= 1) {
         o->handle(this, FXSEL(SEL_COMMAND, FXWindow::ID_DISABLE), nullptr);
@@ -1418,7 +1446,7 @@ GNETLSEditorFrame::TLSPhases::onCmdUngroupStates(FXObject*, FXSelector, void*) {
 
 long
 GNETLSEditorFrame::TLSPhases::onUpdNeedsSingleDef(FXObject* o, FXSelector, void*) {
-    if (myTLSEditorParent->myTLSAttributes->getNumberOfTLSDefinitions() == 1) {
+    if (myTLSEditorParent->myTLSDefinition->getNumberOfTLSDefinitions() == 1) {
         o->handle(this, FXSEL(SEL_COMMAND, FXWindow::ID_ENABLE), nullptr);
     } else {
         o->handle(this, FXSEL(SEL_COMMAND, FXWindow::ID_DISABLE), nullptr);
@@ -1429,7 +1457,7 @@ GNETLSEditorFrame::TLSPhases::onUpdNeedsSingleDef(FXObject* o, FXSelector, void*
 
 long
 GNETLSEditorFrame::TLSPhases::onUpdUngroupStates(FXObject* o, FXSelector, void*) {
-    if (myTLSEditorParent->myTLSAttributes->getNumberOfTLSDefinitions() != 1) {
+    if (myTLSEditorParent->myTLSDefinition->getNumberOfTLSDefinitions() != 1) {
         o->handle(this, FXSEL(SEL_COMMAND, FXWindow::ID_DISABLE), nullptr);
     } else if (myTLSEditorParent->myEditedDef == nullptr) {
         o->handle(this, FXSEL(SEL_COMMAND, FXWindow::ID_DISABLE), nullptr);
@@ -1947,7 +1975,7 @@ long
 GNETLSEditorFrame::TLSModifications::onCmdSaveChanges(FXObject*, FXSelector, void*) {
     if (myTLSEditorParent->myTLSJunction->getCurrentJunction() != nullptr) {
         if (myHaveModifications) {
-            const auto oldDefinition = myTLSEditorParent->myTLSAttributes->getCurrentTLSDefinition();
+            const auto oldDefinition = myTLSEditorParent->myTLSDefinition->getCurrentTLSDefinition();
             std::vector<NBNode*> nodes = oldDefinition->getNodes();
             for (const auto& node : nodes) {
                 GNEJunction* junction = myTLSEditorParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveJunction(node->getID());
@@ -2156,7 +2184,7 @@ GNETLSEditorFrame::TLSFile::writeSUMOTime(SUMOTime steps) {
 
 long
 GNETLSEditorFrame::TLSFile::onUpdNeedsDef(FXObject* o, FXSelector, void*) {
-    if (myTLSEditorParent->myTLSAttributes->getNumberOfTLSDefinitions() > 0) {
+    if (myTLSEditorParent->myTLSDefinition->getNumberOfTLSDefinitions() > 0) {
         o->handle(getCollapsableFrame(), FXSEL(SEL_COMMAND, FXWindow::ID_ENABLE), nullptr);
     } else {
         o->handle(getCollapsableFrame(), FXSEL(SEL_COMMAND, FXWindow::ID_DISABLE), nullptr);
