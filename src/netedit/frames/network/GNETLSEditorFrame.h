@@ -68,10 +68,16 @@ public:
 
     private:
         /// @brief label for junction ID
-        FXLabel* myLabelJunctionID;
+        FXLabel* myJunctionIDLabel;
 
         /// @brief text field for junction ID
-        FXTextField* myTextFieldJunctionID;
+        FXTextField* myJunctionIDTextField;
+
+        /// @brief label for program ID
+        FXLabel* myTLSIDLabel;
+
+        /// @brief text field for junction ID
+        FXTextField* myTLSIDTextField;
 
         /// @brief the junction of the tls is being modified
         GNEJunction* myCurrentJunction;
