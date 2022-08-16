@@ -129,6 +129,9 @@ public:
         /// @brief Called when the user press button reset all TLS Programs
         long onCmdResetAll(FXObject*, FXSelector, void*);
 
+        /// @brief Called when the user switchs a TLS
+        long onCmdDefSwitchTLSProgram(FXObject*, FXSelector, void*);
+
         /// @brief Called when occurs an update of create definition
         long onUpdCreateButton(FXObject*, FXSelector, void*);
 
@@ -201,9 +204,6 @@ public:
         /// @{
         /// @brief Called when the user presses the button Guess
         long onCmdGuess(FXObject*, FXSelector, void*);
-
-        /// @brief Called when the user switchs a TLS
-        long onCmdDefSwitchTLSProgram(FXObject*, FXSelector, void*);
 
         /// @brief Called when the user changes the offset of a TLS
         long onCmdSetOffset(FXObject*, FXSelector, void*);

@@ -1006,8 +1006,6 @@ enum {
     MID_GNE_TLSFRAME_ATTRIBUTES_PARAMETERS,
     /// @brief TLS parameters
     MID_GNE_TLSFRAME_ATTRIBUTES_PARAMETERSDIALOG,
-    /// @brief switch between programs
-    MID_GNE_TLSFRAME_ATTRIBUTES_SWITCH,
     /// @brief Create TLS
     MID_GNE_TLSFRAME_DEFINITION_CREATE,
     /// @brief delete TLS
@@ -1016,6 +1014,8 @@ enum {
     MID_GNE_TLSFRAME_DEFINITION_RESETCURRENT,
     /// @brief reset all TLS programs
     MID_GNE_TLSFRAME_DEFINITION_RESETALL,
+    /// @brief switch between programs
+    MID_GNE_TLSFRAME_DEFINITION_SWITCHPROGRAM,
     /// @brief rename TLS
     MID_GNE_TLSFRAME_ATTRIBUTES_RENAME,
     /// @brief sub-rename TLS
