@@ -293,7 +293,8 @@ class ArgumentParser(argparse.ArgumentParser):
 
         for program in namespace._prefixed_options:
             if program not in self._allowed_programs:
-                raise ValueError("The program '%s' (passed in a argument) isn't recognized." % program)
+                print("The program '%s' (passed in a argument) isn't recognized." % program, file=sys.stderr)
+                sys.exit(1)
             prefixed_options = deepcopy(namespace._prefixed_options[program])
             for option in prefixed_options:
                 option[0] = program + '-' + option[0]
