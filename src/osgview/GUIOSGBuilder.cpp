@@ -273,21 +273,16 @@ GUIOSGBuilder::buildTrafficLightDetails(MSTLLogicControl::TLSLogicVariants& vars
 
     // loop through lanes, collect edges, skip ped and bike infra for the time being
     MSTrafficLightLogic* tlLogic = vars.getActive();
-    const MSTrafficLightLogic::LaneVectorVector& allLanes = tlLogic->getLaneVectors();
     const MSTrafficLightLogic::LinkVectorVector& allLinks = tlLogic->getLinks();
-
     std::set<const MSEdge*> seenEdges;
-    std::map<MSLink*, osg::Node*> linkToPole;
-    std::map<MSEdge*, osg::Node*> approachToPole;
 
-    for (const MSTrafficLightLogic::LinkVector lv : allLinks) {
+    for (const MSTrafficLightLogic::LinkVector& lv : allLinks) {
         for (const MSLink* link : lv) {
             // if not in seenEdges, create pole and reference it in the maps above
             const MSEdge* approach = &link->getLaneBefore()->getEdge();
             if (!approach->isWalkingArea() && seenEdges.find(approach) != seenEdges.end()) {
                 continue;
             }
-            // if walkingarea > create new pole at the respective crossing and reference it in the maps above
             const std::vector<MSLane*> appLanes = approach->getLanes();
             // ref pos
             const double poleMinHeight = 5.;
@@ -297,6 +292,7 @@ GUIOSGBuilder::buildTrafficLightDetails(MSTLLogicControl::TLSLogicVariants& vars
             Position pos = appLanes[0]->getShape().back();
             double skipWidth = 0.;
             int firstSignalLaneIx = 0;
+            std::vector<std::pair<osg::Group*, osg::Vec3d>> repeaters;
             // start with local coordinate system
             osg::PositionAttitudeTransform* appBase = new osg::PositionAttitudeTransform();
             appBase->setPosition(osg::Vec3d(pos.x(), pos.y(), pos.z()));
@@ -307,10 +303,8 @@ GUIOSGBuilder::buildTrafficLightDetails(MSTLLogicControl::TLSLogicVariants& vars
             rightPoleBase->addChild(poleBase);
             appBase->addChild(rightPoleBase);
             if (onlyPedCycle) { // pedestrian / cyclist signal only
-                rightPoleBase->setScale(osg::Vec3d(.12 / poleDiameter, .12 / poleDiameter, 2.8));
-
-                // center VRU signal pole at crossings
-                if (approach->isCrossing()) {
+                rightPoleBase->setScale(osg::Vec3d(.12 / poleDiameter, .12 / poleDiameter, 2.8)); 
+                if (approach->isCrossing()) { // center VRU signal pole at crossings
                     // move pole to the other side of the road
                     osg::Vec3d offset(cos(DEG2RAD(angle)), sin(DEG2RAD(angle)), 0.);
                     appBase->setPosition(appBase->getPosition() + offset*(poleOffset + approach->getLength()));
@@ -318,9 +312,7 @@ GUIOSGBuilder::buildTrafficLightDetails(MSTLLogicControl::TLSLogicVariants& vars
                         0., osg::Vec3d(0, 1, 0),
                         DEG2RAD(angle+180), osg::Vec3d(0, 0, 1)));
                 }
-                else if (approach->isWalkingArea()) {
-                    // pole for other direction > get position from crossing
-                    // how to know the direction of the crossing edge (what is back and what is front?)
+                else if (approach->isWalkingArea()) { // pole for other direction > get position from crossing
                     pos = link->getLane()->getShape().back();
                     angle = 90. - link->getLane()->getShape().rotationDegreeAtOffset(-1.);
                     osg::Vec3d offset(poleOffset * cos(DEG2RAD(angle)), poleOffset * sin(DEG2RAD(angle)), 0.);
@@ -328,7 +320,27 @@ GUIOSGBuilder::buildTrafficLightDetails(MSTLLogicControl::TLSLogicVariants& vars
                     appBase->setAttitude(osg::Quat(0., osg::Vec3d(1, 0, 0),
                         0., osg::Vec3d(0, 1, 0),
                         DEG2RAD(angle), osg::Vec3d(0, 0, 1)));
-                }               
+                    if (link->getLane()->getLinkCont()[0]->getTLIndex() < 0) { // check whether the other side is not specified explicitly
+                        osg::PositionAttitudeTransform* leftPoleBase = new osg::PositionAttitudeTransform();
+                        osg::PositionAttitudeTransform* scaleNode = new osg::PositionAttitudeTransform();
+                        scaleNode->addChild(poleBase);
+                        scaleNode->setScale(osg::Vec3d(.12 / poleDiameter, .12 / poleDiameter, 2.8));
+                        leftPoleBase->addChild(scaleNode);
+                        Position otherPos = link->getLane()->getShape().front();
+                        osg::Vec3d leftPolePos(otherPos.x() - poleOffset, otherPos.y(), otherPos.z());
+                        leftPoleBase->setPosition(appBase->getPosition() - leftPolePos);
+                        leftPoleBase->setAttitude(osg::Quat(0., osg::Vec3d(1, 0, 0),
+                            0., osg::Vec3d(0, 1, 0),
+                            DEG2RAD(angle), osg::Vec3d(0, 0, 1)));
+                        appBase->addChild(leftPoleBase);
+                        repeaters.push_back({ leftPoleBase, osg::Vec3(0., 0., leftPoleBase->getPosition().z())});
+                    }
+                }
+                else {
+                    double laneWidth = appLanes[0]->getWidth();
+                    osg::Vec3d offset(-poleOffset * cos(DEG2RAD(angle)) - (.5 * laneWidth - skipWidth + poleOffset) * sin(DEG2RAD(angle)), poleOffset * sin(DEG2RAD(angle)) + (.5 * laneWidth - skipWidth + poleOffset) * cos(DEG2RAD(angle)), 0.);
+                    appBase->setPosition(appBase->getPosition() + offset);
+                }
             }
             else {
                 // skip sidewalk and bike lane if leftmost lane is for cars
@@ -406,25 +418,35 @@ GUIOSGBuilder::buildTrafficLightDetails(MSTLLogicControl::TLSLogicVariants& vars
                     }
                 }
                 std::set<int> seenTlIndices;
+                bool placeRepeaters = true;
                 for (MSLink* link : links) {
-                    // TODO: allow repeater signals (either directly on the main pole or on the cantilever/bridge but rotated along that axis)
+                    std::vector<std::pair<osg::Group*, osg::Vec3d>> signalTransforms = { {appBase, osg::Vec3d(0.,0.,0.)} };
+                    if (placeRepeaters) {
+                        signalTransforms.insert(signalTransforms.end(), repeaters.begin(), repeaters.end());
+                        repeaters.clear();
+                        placeRepeaters = false;
+                    }
                     int tlIndex = link->getTLIndex();
                     if (tlIndex < 0 || seenTlIndices.find(tlIndex) != seenTlIndices.end()) {
                         continue;
                     }
-                    GUISUMOAbstractView::Decal d;
-                    d.centerX = 0.15;
-                    d.centerY = (onlyPedCycle) ? 0. : -(refPos + .5 * lane->getWidth() - (tlIndices.size() / 2. - 1 + seenTlIndices.size()) * 1.5 * tlWidth);
-                    d.centerZ = (onlyPedCycle) ? 2.2 : 3.8;
-                    d.altitude = (onlyPedCycle) ? 0.6 : -1;
-                    osg::PositionAttitudeTransform* tlNode = getTrafficLight(d, vars, links[0], tlg, tly, tlr, tlu, poleBase, false);
-                    tlNode->setAttitude(osg::Quat(0., osg::Vec3d(1, 0, 0),
-                        0., osg::Vec3d(0, 1, 0),
-                        DEG2RAD(180.), osg::Vec3d(0, 0, 1)));
-                    appBase->addChild(tlNode);
+                    for (std::pair<osg::Group*, osg::Vec3d> transform : signalTransforms) {
+                        GUISUMOAbstractView::Decal d;
+                        d.centerX = transform.second.x() + 0.15;
+                        d.centerY = (onlyPedCycle) ? 0. : -(refPos + .5 * lane->getWidth() - (tlIndices.size() / 2. - 1 + seenTlIndices.size()) * 1.5 * tlWidth);
+                        d.centerY += transform.second.y();
+                        d.centerZ = (onlyPedCycle) ? 2.2 : 3.8;
+                        d.centerZ += transform.second.z();
+                        d.altitude = (onlyPedCycle) ? 0.6 : -1;
+                        osg::PositionAttitudeTransform* tlNode = getTrafficLight(d, vars, links[0], tlg, tly, tlr, tlu, poleBase, false);
+                        tlNode->setAttitude(osg::Quat(0., osg::Vec3d(1, 0, 0),
+                            0., osg::Vec3d(0, 1, 0),
+                            DEG2RAD(180.0), osg::Vec3d(0, 0, 1)));
+                        transform.first->addChild(tlNode);
+                    }
                     seenTlIndices.insert(tlIndex);
                 }
-                // only one signal for bike/pedestrian only edges (TODO: allow two bike signals side by side)
+                // only one signal for bike/pedestrian only edges
                 if (onlyPedCycle) {
                     break;
                 }
