@@ -1016,6 +1016,10 @@ enum {
     MID_GNE_TLSFRAME_DEFINITION_RESETALL,
     /// @brief switch between programs
     MID_GNE_TLSFRAME_DEFINITION_SWITCHPROGRAM,
+    /// @brief accept TLS modification
+    MID_GNE_TLSFRAME_DEFINITION_SAVE,
+    /// @brief cancel TLS modification
+    MID_GNE_TLSFRAME_DEFINITION_DISCARD,
     /// @brief rename TLS
     MID_GNE_TLSFRAME_ATTRIBUTES_RENAME,
     /// @brief sub-rename TLS
@@ -1040,10 +1044,6 @@ enum {
     MID_GNE_TLSFRAME_FILE_LOADPROGRAM,
     /// @brief cleanup unused states
     MID_GNE_TLSFRAME_FILE_SAVEPROGRAM,
-    /// @brief accept TLS modification
-    MID_GNE_TLSFRAME_MODIFICATIONS_SAVE,
-    /// @brief cancel TLS modification
-    MID_GNE_TLSFRAME_MODIFICATIONS_DISCARD,
 
     /// @}
 

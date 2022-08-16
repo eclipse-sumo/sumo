@@ -90,6 +90,7 @@ public:
     class TLSDefinition : public MFXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNETLSEditorFrame::TLSDefinition)
+
     public:
         /// @brief constructor
         TLSDefinition(GNETLSEditorFrame* TLSEditorParent);
@@ -108,6 +109,12 @@ public:
 
         /// @brief get number of TLS definitions
         int getNumberOfTLSDefinitions() const;
+
+        /// @brief check if current TLS was modified
+        bool checkHaveModifications() const;
+
+        /// @brief mark Program as modified
+        void markAsModified();
 
         /// @brief get current definition
         NBTrafficLightDefinition* getCurrentTLSDefinition() const;
@@ -138,6 +145,15 @@ public:
         /// @brief Called when occurs an update of switch definition
         long onUpdTLSModified(FXObject*, FXSelector, void*);
 
+        /// @brief Called when the user presses the save-Button
+        long onCmdSaveChanges(FXObject*, FXSelector, void*);
+
+        /// @brief Called when the user presses the Cancel-button
+        long onCmdDiscardChanges(FXObject*, FXSelector, void*);
+
+        /// @brief Called when occurs an update of modified
+        long onUpdModified(FXObject*, FXSelector, void*);
+
         /// @}
 
     protected:
@@ -156,6 +172,9 @@ public:
 
         /// @brief the comboBox for selecting the tl-definition to edit
         FXComboBox* myProgramComboBox;
+
+        /// @brief whether the current tls was modified
+        bool myHaveModifications;
 
         /// @brief button for create new Traffic light program
         FXButton* myCreateButton = nullptr;
@@ -388,60 +407,6 @@ public:
     };
 
     // ===========================================================================
-    // class TLSModifications
-    // ===========================================================================
-
-    class TLSModifications : public MFXGroupBoxModule {
-        /// @brief FOX-declaration
-        FXDECLARE(GNETLSEditorFrame::TLSModifications)
-
-    public:
-        /// @brief constructor
-        TLSModifications(GNETLSEditorFrame* TLSEditorParent);
-
-        /// @brief destructor
-        ~TLSModifications();
-
-        /// @brief check if current TLS was modified
-        bool checkHaveModifications() const;
-
-        /// @brief set if current TLS was modified
-        void setHaveModifications(bool value);
-
-        /// @name FOX-callbacks
-        /// @{
-        /// @brief Called when the user presses the OK-Button
-        /// @note saves any modifications
-        long onCmdSaveChanges(FXObject*, FXSelector, void*);
-
-        /// @brief Called when the user presses the Cancel-button
-        /// @note discards any modifications
-        long onCmdDiscardChanges(FXObject*, FXSelector, void*);
-
-        /// @brief Called when occurs an update of modified
-        long onUpdModified(FXObject*, FXSelector, void*);
-        
-        /// @}
-
-    protected:
-        /// @brief FOX needs this
-        FOX_CONSTRUCTOR(TLSModifications)
-
-    private:
-        /// @brief pointer to TLSEditor Parent
-        GNETLSEditorFrame* myTLSEditorParent;
-
-        /// @brief button for cancel modifications
-        FXButton* myDiscardModificationsButtons;
-
-        /// @brief button for save modifications
-        FXButton* mySaveModificationsButtons;
-
-        /// @brief whether the current tls was modified
-        bool myHaveModifications;
-    };
-
-    // ===========================================================================
     // class TLSFile
     // ===========================================================================
 
@@ -486,7 +451,6 @@ public:
         std::string writeSUMOTime(SUMOTime steps);
     };
 
-
     /**@brief Constructor
      * @brief parent FXHorizontalFrame in which this GNEFrame is placed
      * @brief viewNet viewNet that uses this GNEFrame
@@ -526,8 +490,8 @@ public:
     /// @brief open GNEAttributesCreator extended dialog (can be reimplemented in frame children)
     void selectedOverlappedElement(GNEAttributeCarrier* AC);
 
-    /// @brief get TLSModifications modul
-    TLSModifications* getTLSModifications();
+    /// @brief get modul for TLS Definition
+    GNETLSEditorFrame::TLSDefinition* getTLSDefinition() const;
 
 protected:
     /**@brief edits the traffic light for the given junction
@@ -553,9 +517,6 @@ private:
 
     /// @brief modul for TLS attributes
     GNETLSEditorFrame::TLSAttributes* myTLSAttributes = nullptr;
-
-    /// @brief modul for load/Save TLS Modifications
-    GNETLSEditorFrame::TLSModifications* myTLSModifications = nullptr;
 
     /// @brief modul for TLS Phases
     GNETLSEditorFrame::TLSPhases* myTLSPhases = nullptr;
