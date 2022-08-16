@@ -1,3 +1,6 @@
+# This test checks that unrecognized options to be forwarded are indeed reported.
+unrecognized_options_to_be_forwarded
+
 # Test for invalid vclass/edge-permission values.
 invalid_vclass_edge-permission
 

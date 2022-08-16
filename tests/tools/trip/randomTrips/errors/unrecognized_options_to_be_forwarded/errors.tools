@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "C:\Users\coue_be\Dev\sumo\tests\..\tools/randomTrips.py", line 815, in <module>
+    if not main(get_options()):
+  File "C:\Users\coue_be\Dev\sumo\tests\..\tools/randomTrips.py", line 177, in get_options
+    options = op.parse_args(args=args)
+  File "C:\Users\coue_be\Dev\sumo\tools\sumolib\options.py", line 226, in parse_args
+    args_namespace, unknown_args = self.parse_known_args(args, namespace)
+  File "C:\Users\coue_be\Dev\sumo\tools\sumolib\options.py", line 296, in parse_known_args
+    raise ValueError("The program '%s' (passed in a argument) isn't recognized." % program)
+ValueError: The program 'foo' (passed in a argument) isn't recognized.
