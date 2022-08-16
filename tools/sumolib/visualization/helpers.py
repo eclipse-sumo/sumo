@@ -285,8 +285,11 @@ def logNormalise(values, maxValue):
             emin = values[e]
         if not emax or emax < values[e]:
             emax = values[e]
+    valRange = emax - emin
+    if valRange == 0:
+        valRange = 1
     for e in values:
-        values[e] = (values[e] - emin) / (emax - emin)
+        values[e] = (values[e] - emin) / valRange
 
 
 def linNormalise(values, minColorValue, maxColorValue):
