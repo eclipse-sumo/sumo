@@ -233,9 +233,6 @@ public:
         /// @brief TLS Type text field
         FXTextField* myTLSType;
 
-        /// @brief id text field
-        FXTextField* myIDTextField;
-
         /// @brief the comboBox for selecting the tl-definition to edit
         FXComboBox* myProgramComboBox;
 
