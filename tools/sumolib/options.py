@@ -148,12 +148,13 @@ class ArgumentParser(argparse.ArgumentParser):
     Inspired by https://github.com/bw2/ConfigArgParse
     """
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, allowed_programs=[], *args, **kwargs):
         argparse.ArgumentParser.__init__(self, *args, **kwargs)
         self.add_argument('-c', '--configuration-file', help='read configuration from FILE', metavar="FILE")
         self.add_argument('-C', '--save-configuration', help='save configuration to FILE and exit', metavar="FILE")
         self.add_argument('--save-template', help='save configuration template to FILE and exit', metavar="FILE")
         self._fix_path_args = set()
+        self._allowed_programs = allowed_programs
 
     def add_argument(self, *args, **kwargs):
         fix_path = kwargs.get("fix_path")
@@ -291,6 +292,8 @@ class ArgumentParser(argparse.ArgumentParser):
         namespace._prefixed_options, remaining_args = assign_prefixed_options(unknown_args)
 
         for program in namespace._prefixed_options:
+            if program not in self._allowed_programs:
+                raise ValueError("The program '%s' (passed in a argument) isn't recognized." % program)
             prefixed_options = deepcopy(namespace._prefixed_options[program])
             for option in prefixed_options:
                 option[0] = program + '-' + option[0]
