@@ -234,9 +234,10 @@ def main(args=None):
         sm = plt.cm.ScalarMappable(cmap=matplotlib.cm.get_cmap(options.colormap),
                                    norm=norm(vmin=minColorValue, vmax=maxColorValue))
 
-        # "fake up the array of the scalar mappable. Urgh..."
-        # (pelson, http://stackoverflow.com/questions/8342549/matplotlib-add-colorbar-to-a-sequence-of-line-plots)
-        sm._A = []
+        if sys.version_info.major < 3:
+            # "fake up the array of the scalar mappable. Urgh..."
+            # (pelson, http://stackoverflow.com/questions/8342549/matplotlib-add-colorbar-to-a-sequence-of-line-plots)
+            sm._A = []
         color_bar = plt.colorbar(sm)
         color_bar.set_label(options.colorBarLabel)
 
