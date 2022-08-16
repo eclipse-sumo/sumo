@@ -290,9 +290,11 @@ def logNormalise(values, maxValue):
 
 
 def linNormalise(values, minColorValue, maxColorValue):
+    valRange = maxColorValue - minColorValue
+    if valRange == 0:
+        valRange = 1
     for e in values:
-        values[e] = (values[e] - minColorValue) / \
-            (maxColorValue - minColorValue)
+        values[e] = (values[e] - minColorValue) / valRange
 
 
 def toHex(val):
