@@ -175,7 +175,7 @@ def get_options(args=None):
 
     try:
         options = op.parse_args(args=args)
-    except NotImplementedError as e:
+    except (NotImplementedError, ValueError) as e:
         print(e, file=sys.stderr)
         sys.exit(1)
 
