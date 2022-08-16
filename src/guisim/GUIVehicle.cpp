@@ -431,6 +431,18 @@ GUIVehicle::drawAction_drawCarriageClass(const GUIVisualizationSettings& s, bool
                     glVertex2d(halfWidth, yCornerCut);
                     glVertex2d(halfWidth - xCornerCut, 0);
                     glEnd();
+                    // indicate front of the head of the train
+                    if (i == 0) {
+                        glTranslated(0, 0, 0.1);
+                        glColor3d(0, 0, 0);
+                        glBegin(GL_TRIANGLE_FAN);
+                        glVertex2d(-halfWidth + 2 * xCornerCut, yCornerCut);
+                        glVertex2d(-halfWidth + xCornerCut, 3 * yCornerCut);
+                        glVertex2d(halfWidth - xCornerCut, 3 * yCornerCut);
+                        glVertex2d(halfWidth - 2 * xCornerCut, yCornerCut);
+                        glEnd();
+                        glTranslated(0, 0, -0.1);
+                    }
                 }
             }
         }
