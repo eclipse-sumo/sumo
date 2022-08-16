@@ -265,7 +265,7 @@ def closeFigure(fig, ax, options, haveLabels=True, optOut=None):
         show()
     try:
         fig.clf()
-    except _tkinter.TclError:  # noqa
+    except:  # noqa
         pass
     close()
     gc.collect()
