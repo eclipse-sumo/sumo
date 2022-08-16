@@ -174,7 +174,7 @@ public:
         FXComboBox* myProgramComboBox;
 
         /// @brief whether the current tls was modified
-        bool myHaveModifications;
+        bool myHaveModifications = false;
 
         /// @brief button for create new Traffic light program
         FXButton* myCreateButton = nullptr;
@@ -440,12 +440,6 @@ public:
     private:
         /// @brief pointer to TLSEditor Parent
         GNETLSEditorFrame* myTLSEditorParent;
-
-        /// @brief button for load TLS Programs
-        FXButton* myLoadTLSProgramButton;
-
-        /// @brief button for save TLS Programs
-        FXButton* mySaveTLSProgramButton;
 
         /// @brief convert SUMOTime into string
         std::string writeSUMOTime(SUMOTime steps);
