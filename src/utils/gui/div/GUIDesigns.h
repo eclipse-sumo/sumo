@@ -367,7 +367,10 @@ class MFXMenuCheckIcon;
 #define GUIDesignViewnArea                      (FRAME_SUNKEN | LAYOUT_SIDE_TOP | LAYOUT_FILL_X | LAYOUT_FILL_Y), 0, 0, 0, 0, 0, 0, 0, 0
 
 /// @brief design for the content frame of every frame
-#define GUIDesignContentsScrollWindow           (LAYOUT_FILL_X | LAYOUT_FILL_Y | HSCROLLER_NEVER), 0, 0, 0, 0
+#define GUIDesignContentsScrollWindow           (LAYOUT_FIX_WIDTH | LAYOUT_FILL_Y | HSCROLLER_NEVER), 0, 0, 0, 0
+
+/// @brief design for the main content frame of every frame/dialog
+#define GUIDesignContentsFrame                  (LAYOUT_FIX_WIDTH | LAYOUT_FILL_Y)
 
 /// @brief design for auxiliar (Without borders) frames used to pack another frames extended in all directions
 #define GUIDesignAuxiliarFrame                  (LAYOUT_FILL_X | LAYOUT_FILL_Y), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
@@ -383,9 +386,6 @@ class MFXMenuCheckIcon;
 
 /// @brief design for horizontal frame used to pack another frames with a uniform width
 #define GUIDesignUniformHorizontalFrame         (LAYOUT_FILL_X | LAYOUT_FILL_Y | PACK_UNIFORM_WIDTH)
-
-/// @brief design for the main content frame of every frame/dialog
-#define GUIDesignContentsFrame                  (LAYOUT_FILL_X | LAYOUT_FILL_Y)
 
 /// @brief design for CollapsableFrame (Used in MFXGroupBoxModule)
 #define GUIDesignCollapsableFrame               (LAYOUT_FILL_X | LAYOUT_FILL_Y), 0, 0, 0, 0, 2, 2, 2, 2, 2, 2

@@ -27,6 +27,8 @@
 #include "GNEFrame.h"
 
 
+#define MARGING 10
+
 // ===========================================================================
 // static members
 // ===========================================================================
@@ -78,7 +80,7 @@ GNEFrame::GNEFrame(GNEViewParent *viewParent, GNEViewNet* viewNet, const std::st
     // Create frame for contents
     myScrollWindowsContents = new FXScrollWindow(this, GUIDesignContentsScrollWindow);
 
-    // Create frame for contents
+    // Create frame for contents (in which GroupBox will be placed)
     myContentFrame = new FXVerticalFrame(myScrollWindowsContents, GUIDesignContentsFrame);
 
     // Set font of header
@@ -123,9 +125,22 @@ GNEFrame::hide() {
 
 
 void
-GNEFrame::setFrameWidth(int newWidth) {
-    setWidth(newWidth);
-    myScrollWindowsContents->setWidth(newWidth);
+GNEFrame::setFrameWidth(const int newWidth) {
+    // set scroll windows size (minus MARGING)
+    myScrollWindowsContents->setWidth(newWidth - MARGING);
+}
+
+
+void 
+GNEFrame::recalcFrameWidth() {
+    // get myScrollWindowsContents width
+    const int scrollWindowsWidth = myScrollWindowsContents->getWidth();
+    // adjust depending of verticalScrollBar
+    if (myScrollWindowsContents->verticalScrollBar()->shown()) {
+        myContentFrame->setWidth(scrollWindowsWidth - myScrollWindowsContents->verticalScrollBar()->getWidth());
+    } else {
+        myContentFrame->setWidth(scrollWindowsWidth);
+    }
     // call frame width updated
     frameWidthUpdated();
 }
