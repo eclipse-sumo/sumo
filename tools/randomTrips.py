@@ -52,7 +52,8 @@ def get_network(options):
 
 
 def get_options(args=None):
-    op = sumolib.options.ArgumentParser(description="Generate trips between random locations", allowed_programs=['duarouter'])
+    op = sumolib.options.ArgumentParser(description="Generate trips between random locations",
+                                        allowed_programs=['duarouter'])
     op.add_argument("-n", "--net-file", dest="netfile", required=True,
                     help="define the net file (mandatory)")
     op.add_argument("-a", "--additional-files", dest="additional",
