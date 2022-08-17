@@ -1018,6 +1018,20 @@ def findSignal(net, nextEdges, reverse=False):
     return None
 
 
+def getDownstreamSignal(net, stopEdges, vehStops, stopIndex):
+    nextEdges = vehStops[stopIndex + 1][0]
+    stop = vehStops[stopIndex][1]
+    return findSignal(net, (stopEdges[stop.busStop],) + nextEdges)
+
+
+def getUpstreamSignal(net, vehStops, stopIndex):
+    prevEdges = vehStops[stopIndex][0]
+    if stopIndex > 0:
+        # prepend on more edge from further back
+        prevEdges = vehStops[stopIndex - 1][0][-1:] + prevEdges
+    return findSignal(net, list(reversed(prevEdges)), True)
+
+
 def findInsertionConflicts(options, net, stopEdges, stopRoutes, vehicleStopRoutes):
     """find routes that start at a stop with a traffic light at end of the edge
     and routes that pass this stop. Ensure insertion happens in the correct order
@@ -1066,12 +1080,8 @@ def findInsertionConflicts(options, net, stopEdges, stopRoutes, vehicleStopRoute
                               "n:", humanReadableTime(nUntil), nStop.tripId, nStop.vehID, nIndex, len(nVehStops))
                     if nIsPassing:
                         # both vehicles move past the stop
-                        pNextEdges = pVehStops[pIndex + 1][0]
-                        nNextEdges = nVehStops[nIndex + 1][0]
-                        limit = 1  # recheck
-                        # find signal in nextEdges
-                        pSignal = findSignal(net, (stopEdges[pStop.busStop],) + pNextEdges)
-                        nSignal = findSignal(net, (stopEdges[nStop.busStop],) + nNextEdges)
+                        pSignal = getDownstreamSignal(net, stopEdges, pVehStops, pIndex)
+                        nSignal = getDownstreamSignal(net, stopEdges, nVehStops, nIndex)
                         if pSignal is None or nSignal is None:
                             print(("Ignoring insertion conflict between %s and %s at stop '%s' " +
                                    "because no rail signal was found after the stop") % (
@@ -1082,6 +1092,7 @@ def findInsertionConflicts(options, net, stopEdges, stopRoutes, vehicleStopRoute
                             numIgnoredConflicts += 1
                             continue
                         # predecessor tripId after stop is needed
+                        limit = 1  # recheck
                         pTripId = pStop.getAttributeSecure("tripId", pStop.vehID)
                         times = "until=%s foeUntil=%s " % (humanReadableTime(nUntil), humanReadableTime(pUntil))
                         info = "" if nStop.busStop == pStop.busStop else "foeStop=%s" % pStop.busStop
@@ -1158,23 +1169,15 @@ def findFoeInsertionConflicts(options, net, stopEdges, stopRoutes, vehicleStopRo
                         print(i,
                               "p:", humanReadableTime(pUntil), pStop.tripId, pStop.vehID, pIndex, len(pVehStops),
                               "n:", humanReadableTime(nUntil), nStop.tripId, nStop.vehID, nIndex, len(nVehStops))
-                    # both vehicles move past the stop
-                    pNextEdges = pVehStops[pIndex + 1][0]
-                    limit = 1  # recheck
                     # insertion vehicle must pass signal after the stop
-                    # find signal in nextEdges
-                    pSignal = findSignal(net, (stopEdges[pStop.busStop],) + pNextEdges)
+                    pSignal = getDownstreamSignal(net, stopEdges, pVehStops, pIndex)
                     if pSignal is None:
                         print(("Ignoring insertion foe conflict between %s and %s at stop '%s' " +
                                "because no rail signal was found after the stop") % (
                             nStop.prevTripId, pStop.prevTripId, busStop), file=sys.stderr)
                         continue
                     # passing vehicle must wait before the stop
-                    nPrevEdges = nVehStops[nIndex][0]
-                    if nIndex > 0:
-                        # prepend on more edge from further back
-                        nPrevEdges = nVehStops[nIndex - 1][0][-1:] + nPrevEdges
-                    nSignal = findSignal(net, list(reversed(nPrevEdges)), True)
+                    nSignal = getUpstreamSignal(net, nVehStops, nIndex)
                     if nSignal is None:
                         print(("Ignoring foe insertion conflict between %s and %s at stop '%s' " +
                                "because no rail signal was found before the stop") % (
@@ -1213,6 +1216,7 @@ def findFoeInsertionConflicts(options, net, stopEdges, stopRoutes, vehicleStopRo
                         continue
 
                     # predecessor tripId after stop is needed
+                    limit = 1  # recheck
                     pTripId = pStop.getAttributeSecure("tripId", pStop.vehID)
                     times = "arrival=%s foeArrival=%s " % (humanReadableTime(nUntil), humanReadableTime(pUntil))
                     info = "foeInsertion"
