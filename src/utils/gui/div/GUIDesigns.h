@@ -36,6 +36,9 @@ class MFXMenuCheckIcon;
 /// @brief define a standard height for all elements (Change it carefully)
 #define GUIDesignHeight 23
 
+/// @brief define the default frames area width
+#define GUIDesignFramesAreaDefaultWidth 220
+
 /// @name FXTextFields
 /// @{
 /// @brief text field extended over Frame with thick frame
@@ -317,7 +320,7 @@ class MFXMenuCheckIcon;
 /// @name FXPackers
 /// @{
 /// @brief Horizontal frame extended over X-frame parent used in MFXGroupBoxModule
-#define GUIDesignGroupBoxModule             (LAYOUT_FILL_X), 0, 0, 0, 0, 4, 4, 4, 4, 4, 4
+#define GUIDesignGroupBoxModule             (LAYOUT_FIX_WIDTH), 0, 0, 0, 0, 4, 4, 4, 4, 4, 4
 
 /// @brief Horizontal frame extended over XY-frame parent used in MFXGroupBoxModule
 #define GUIDesignGroupBoxModuleExtendY      (LAYOUT_FILL_X | LAYOUT_FILL_Y), 0, 0, 0, 0, 4, 4, 4, 4, 4, 4
@@ -370,7 +373,7 @@ class MFXMenuCheckIcon;
 #define GUIDesignContentsScrollWindow           (LAYOUT_FIX_WIDTH | LAYOUT_FILL_Y | HSCROLLER_NEVER), 0, 0, 0, 0
 
 /// @brief design for the main content frame of every frame/dialog
-#define GUIDesignContentsFrame                  (LAYOUT_FIX_WIDTH | LAYOUT_FILL_Y)
+#define GUIDesignContentsFrame                  (LAYOUT_FIX_WIDTH | LAYOUT_FILL_Y), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 
 /// @brief design for auxiliar (Without borders) frames used to pack another frames extended in all directions
 #define GUIDesignAuxiliarFrame                  (LAYOUT_FILL_X | LAYOUT_FILL_Y), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0

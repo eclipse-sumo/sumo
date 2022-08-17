@@ -27,7 +27,8 @@
 #include "GNEFrame.h"
 
 
-#define MARGING 10
+#define PADDINGFRAME 10 // (5+5)
+#define VERTICALSCROLLBARWIDTH 15
 
 // ===========================================================================
 // static members
@@ -86,6 +87,9 @@ GNEFrame::GNEFrame(GNEViewParent *viewParent, GNEViewNet* viewNet, const std::st
     // Set font of header
     myFrameHeaderLabel->setFont(myFrameHeaderFont);
 
+    // set initial width (will be changed in the first update
+    setWidth(10);
+
     // Hide Frame
     FXVerticalFrame::hide();
 }
@@ -108,6 +112,8 @@ GNEFrame::focusUpperElement() {
 
 void
 GNEFrame::show() {
+    // recalc frame width
+    setFrameWidth(myViewNet->getViewParent()->getFrameAreaWidth());
     // show scroll window
     FXVerticalFrame::show();
     // Show and update Frame Area in which this GNEFrame is placed
@@ -127,20 +133,24 @@ GNEFrame::hide() {
 void
 GNEFrame::setFrameWidth(const int newWidth) {
     // set scroll windows size (minus MARGING)
-    myScrollWindowsContents->setWidth(newWidth - MARGING);
-}
-
-
-void 
-GNEFrame::recalcFrameWidth() {
-    // get myScrollWindowsContents width
-    const int scrollWindowsWidth = myScrollWindowsContents->getWidth();
-    // adjust depending of verticalScrollBar
-    if (myScrollWindowsContents->verticalScrollBar()->shown()) {
-        myContentFrame->setWidth(scrollWindowsWidth - myScrollWindowsContents->verticalScrollBar()->getWidth());
+    myScrollWindowsContents->setWidth(newWidth - PADDINGFRAME);
+    // calculate new contentWidth
+    int contentWidth = (newWidth - PADDINGFRAME);
+    if (myScrollWindowsContents->getContentHeight() > myScrollWindowsContents->getHeight()) {
+        myScrollWindowsContents->verticalScrollBar()->setWidth(0);
+        myScrollWindowsContents->verticalScrollBar()->hide();
+        contentWidth -= VERTICALSCROLLBARWIDTH;
     } else {
-        myContentFrame->setWidth(scrollWindowsWidth);
+        myScrollWindowsContents->verticalScrollBar()->hide();
     }
+    myScrollWindowsContents->layout();
+    // adjust contents frame
+    myContentFrame->setWidth(contentWidth);
+    // set size of all contents frame children
+    for (auto child = myContentFrame->getFirst(); child != nullptr; child = child->getNext()) {
+        child->setWidth(contentWidth);
+    }
+    //myScrollWindowsContents->recalc();
     // call frame width updated
     frameWidthUpdated();
 }

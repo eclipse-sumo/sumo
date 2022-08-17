@@ -113,9 +113,6 @@ GNEViewParent::GNEViewParent(FXMDIClient* p, FXMDIMenu* mdimenu, const FXString&
     // Create frames Area (vertical frame)
     myFramesArea = new FXVerticalFrame(myFramesSplitter, GUIDesignFrameArea);
 
-    // Set default width of frames area
-    myFramesArea->setWidth(220);
-
     // Create view area
     myViewArea = new FXHorizontalFrame(myFramesSplitter, GUIDesignViewnArea);
 

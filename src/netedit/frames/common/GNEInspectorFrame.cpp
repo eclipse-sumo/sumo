@@ -1248,7 +1248,6 @@ GNEInspectorFrame::inspectMultisection(const std::vector<GNEAttributeCarrier*>& 
         }
     } else {
         getFrameHeaderLabel()->setText("Inspect");
-        myContentFrame->recalc();
     }
 }
 
