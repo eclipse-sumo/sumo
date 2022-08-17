@@ -354,16 +354,8 @@ class Builder(object):
     def parseTripOpts(self, vehicle, options, publicTransport):
         "Return an option list for randomTrips.py for a given vehicle"
 
-        # calculate the total length of the available lanes
-        length = 0.
-        for edge in self.edges:
-            if edge.allows(vehicle):
-                length += edge.getLaneNumber() * edge.getLength()
-
-        period = 3600 / (length / 1000) / options["count"]
-
         opts = ["-n", self.files["net"], "--fringe-factor", options["fringeFactor"],
-                "-p", period,
+                "--insertion-density", options["count"],
                 "-o", self.files["trips"],
                 "-r", self.files["route"],
                 "-e", self.data["duration"]]
