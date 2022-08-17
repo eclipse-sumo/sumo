@@ -134,10 +134,7 @@ GNEFrame::setFrameWidth(const int newWidth) {
     // set scroll windows size (minus MARGING)
     myScrollWindowsContents->setWidth(newWidth - GUIDesignFrameAreaMarging - DEFAULT_SPACING - 1);
     // calculate new contentWidth
-    int contentWidth = (newWidth - GUIDesignFrameAreaMarging - DEFAULT_SPACING - 1);
-    if (myScrollWindowsContents->verticalScrollBar()->shown()) {
-        contentWidth -= 15;
-    }
+    int contentWidth = (newWidth - GUIDesignFrameAreaMarging - DEFAULT_SPACING - 1 - 15);
     // adjust contents frame
     myContentFrame->setWidth(contentWidth);
     // set size of all contents frame children
