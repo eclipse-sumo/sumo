@@ -1095,9 +1095,12 @@ def findInsertionConflicts(options, net, stopEdges, stopRoutes, vehicleStopRoute
                                 nStop.prevTripId, pStop.prevTripId, busStop), file=sys.stderr)
                             continue
                         # check for inconsistent ordering
+                        active = True
                         if pStop.getAttributeSecure("invalid", False):
+                            active = False
                             numIgnoredConflicts += 1
-                            continue
+                            if not options.writeInactive:
+                                continue
                         # predecessor tripId after stop is needed
                         limit = 1  # recheck
                         pTripId = pStop.getAttributeSecure("tripId", pStop.vehID)
@@ -1112,7 +1115,8 @@ def findInsertionConflicts(options, net, stopEdges, stopRoutes, vehicleStopRoute
                                                            times,
                                                            switch=None,
                                                            busStop=nStop.busStop,
-                                                           info=info))
+                                                           info=info,
+                                                           active=active))
                         numConflicts += 1
                         if busStop == options.debugStop:
                             print("   found insertionConflict pSignal=%s nSignal=%s pTripId=%s" % (
