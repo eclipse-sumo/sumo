@@ -39,6 +39,9 @@ class MFXMenuCheckIcon;
 /// @brief define the default frames area width
 #define GUIDesignFramesAreaDefaultWidth 220
 
+/// @brief rigth marging for frame area
+#define GUIDesignFrameAreaMarging 2
+
 /// @name FXTextFields
 /// @{
 /// @brief text field extended over Frame with thick frame
@@ -364,13 +367,13 @@ class MFXMenuCheckIcon;
 /// @name General design for netedit frames
 /// @{
 /// @brief design for frames area
-#define GUIDesignFrameArea                      (FRAME_SUNKEN | LAYOUT_SIDE_TOP | LAYOUT_FIX_WIDTH | LAYOUT_FILL_Y)
+#define GUIDesignFrameArea                      (FRAME_SUNKEN | LAYOUT_SIDE_TOP | LAYOUT_FIX_WIDTH | LAYOUT_FILL_Y), 0, 0, 0, 0, DEFAULT_SPACING, GUIDesignFrameAreaMarging, DEFAULT_SPACING, DEFAULT_SPACING
 
 /// @brief design for viewn area
 #define GUIDesignViewnArea                      (FRAME_SUNKEN | LAYOUT_SIDE_TOP | LAYOUT_FILL_X | LAYOUT_FILL_Y), 0, 0, 0, 0, 0, 0, 0, 0
 
 /// @brief design for the content frame of every frame
-#define GUIDesignContentsScrollWindow           (LAYOUT_FIX_WIDTH | LAYOUT_FILL_Y | HSCROLLER_NEVER), 0, 0, 0, 0
+#define GUIDesignContentsScrollWindow           (LAYOUT_FIX_WIDTH | LAYOUT_FILL_Y | HSCROLLER_NEVER | VSCROLLER_ALWAYS), 0, 0, 0, 0
 
 /// @brief design for the main content frame of every frame/dialog
 #define GUIDesignContentsFrame                  (LAYOUT_FIX_WIDTH | LAYOUT_FILL_Y), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0

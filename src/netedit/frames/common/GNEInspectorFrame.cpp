@@ -1249,6 +1249,8 @@ GNEInspectorFrame::inspectMultisection(const std::vector<GNEAttributeCarrier*>& 
     } else {
         getFrameHeaderLabel()->setText("Inspect");
     }
+    // update frame width
+    setFrameWidth(myViewNet->getViewParent()->getFrameAreaWidth());
 }
 
 

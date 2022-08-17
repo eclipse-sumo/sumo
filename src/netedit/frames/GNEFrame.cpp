@@ -21,6 +21,7 @@
 
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
+#include <netedit/GNEApplicationWindow.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 
@@ -112,8 +113,6 @@ GNEFrame::focusUpperElement() {
 
 void
 GNEFrame::show() {
-    // recalc frame width
-    setFrameWidth(myViewNet->getViewParent()->getFrameAreaWidth());
     // show scroll window
     FXVerticalFrame::show();
     // Show and update Frame Area in which this GNEFrame is placed
@@ -133,24 +132,18 @@ GNEFrame::hide() {
 void
 GNEFrame::setFrameWidth(const int newWidth) {
     // set scroll windows size (minus MARGING)
-    myScrollWindowsContents->setWidth(newWidth - PADDINGFRAME);
+    myScrollWindowsContents->setWidth(newWidth - GUIDesignFrameAreaMarging - DEFAULT_SPACING - 1);
     // calculate new contentWidth
-    int contentWidth = (newWidth - PADDINGFRAME);
-    if (myScrollWindowsContents->getContentHeight() > myScrollWindowsContents->getHeight()) {
-        myScrollWindowsContents->verticalScrollBar()->setWidth(0);
-        myScrollWindowsContents->verticalScrollBar()->hide();
-        contentWidth -= VERTICALSCROLLBARWIDTH;
-    } else {
-        myScrollWindowsContents->verticalScrollBar()->hide();
+    int contentWidth = (newWidth - GUIDesignFrameAreaMarging - DEFAULT_SPACING - 1);
+    if (myScrollWindowsContents->verticalScrollBar()->shown()) {
+        contentWidth -= 15;
     }
-    myScrollWindowsContents->layout();
     // adjust contents frame
     myContentFrame->setWidth(contentWidth);
     // set size of all contents frame children
     for (auto child = myContentFrame->getFirst(); child != nullptr; child = child->getNext()) {
         child->setWidth(contentWidth);
     }
-    //myScrollWindowsContents->recalc();
     // call frame width updated
     frameWidthUpdated();
 }

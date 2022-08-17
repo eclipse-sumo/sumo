@@ -61,7 +61,7 @@ GUIGlChildWindow::GUIGlChildWindow(FXMDIClient* p, GUIMainWindow* parentWindow, 
     // Make MDI Window Menu
     setTracking();
     // create a vertical frame to add elements
-    myContentFrame = new FXVerticalFrame(this, GUIDesignFrameArea);
+    myContentFrame = new FXVerticalFrame(this, GUIDesignContentsFrame);
     // if menuBarGripElements isn't NULL, use it to create a grip navigation elements. In other cas, create a static FXToolbar
     if (myGripNavigationToolbar == nullptr) {
         myStaticNavigationToolBar = new FXToolBar(myContentFrame, GUIDesignToolbarMenuBar);

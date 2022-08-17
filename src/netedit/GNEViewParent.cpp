@@ -134,6 +134,9 @@ GNEViewParent::GNEViewParent(FXMDIClient* p, FXMDIMenu* mdimenu, const FXString&
     myDemandFrames.buildDemandFrames(this, viewNet);
     myDataFrames.buildDataFrames(this, viewNet);
 
+    // set default frames area width
+    myFramesArea->setWidth(GUIDesignFramesAreaDefaultWidth);
+
     // Update frame areas after creation
     onCmdUpdateFrameAreaWidth(nullptr, 0, nullptr);
 
@@ -423,6 +426,7 @@ GNEViewParent::getFrameAreaWidth() const {
 void
 GNEViewParent::setFrameAreaWidth(const int frameAreaWith) {
     myFramesArea->setWidth(frameAreaWith);
+    onCmdUpdateFrameAreaWidth(0, 0, 0);
 }
 
 
