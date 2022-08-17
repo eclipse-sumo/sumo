@@ -165,8 +165,8 @@ GNEProhibitionFrame::Modifications::~Modifications() {}
 // GNEProhibitionFrame - methods
 // ---------------------------------------------------------------------------
 
-GNEProhibitionFrame::GNEProhibitionFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet) :
-    GNEFrame(horizontalFrameParent, viewNet, "Prohibits"),
+GNEProhibitionFrame::GNEProhibitionFrame(GNEViewParent *viewParent, GNEViewNet* viewNet) :
+    GNEFrame(viewParent, viewNet, "Prohibits"),
     myCurrentConn(nullptr) {
     // set frame header label
     getFrameHeaderLabel()->setText("Prohibitions");

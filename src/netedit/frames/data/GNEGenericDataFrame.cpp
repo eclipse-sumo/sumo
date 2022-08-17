@@ -561,8 +561,8 @@ GNEGenericDataFrame::updateFrameAfterUndoRedo() {
 }
 
 
-GNEGenericDataFrame::GNEGenericDataFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet, SumoXMLTag tag, const bool pathCreator) :
-    GNEFrame(horizontalFrameParent, viewNet, toString(tag)),
+GNEGenericDataFrame::GNEGenericDataFrame(GNEViewParent *viewParent, GNEViewNet* viewNet, SumoXMLTag tag, const bool pathCreator) :
+    GNEFrame(viewParent, viewNet, toString(tag)),
     myDataSetSelector(nullptr),
     myIntervalSelector(nullptr),
     myAttributeSelector(nullptr),

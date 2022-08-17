@@ -99,8 +99,8 @@ FXIMPLEMENT(GNETLSEditorFrame::TLSFile,             MFXGroupBoxModule,  TLSFileM
 // method definitions
 // ===========================================================================
 
-GNETLSEditorFrame::GNETLSEditorFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet):
-    GNEFrame(horizontalFrameParent, viewNet, "Edit Traffic Light"),
+GNETLSEditorFrame::GNETLSEditorFrame(GNEViewParent *viewParent, GNEViewNet* viewNet):
+    GNEFrame(viewParent, viewNet, "Edit Traffic Light"),
     myEditedDef(nullptr) {
 
     // Create Overlapped Inspection module

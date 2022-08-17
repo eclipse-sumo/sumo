@@ -1357,8 +1357,8 @@ GNESelectorFrame::Information::~Information() {}
 // GNESelectorFrame - methods
 // ---------------------------------------------------------------------------
 
-GNESelectorFrame::GNESelectorFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet) :
-    GNEFrame(horizontalFrameParent, viewNet, "Selection") {
+GNESelectorFrame::GNESelectorFrame(GNEViewParent *viewParent, GNEViewNet* viewNet) :
+    GNEFrame(viewParent, viewNet, "Selection") {
     // create selection information
     mySelectionInformation = new SelectionInformation(this);
     // create Modification Mode modul

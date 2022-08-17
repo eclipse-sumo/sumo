@@ -37,8 +37,8 @@ FXFont* GNEFrame::myFrameHeaderFont = nullptr;
 // method definitions
 // ===========================================================================
 
-GNEFrame::GNEFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet, const std::string& frameLabel) :
-    FXVerticalFrame(horizontalFrameParent, GUIDesignAuxiliarFrame),
+GNEFrame::GNEFrame(GNEViewParent *viewParent, GNEViewNet* viewNet, const std::string& frameLabel) :
+    FXVerticalFrame(viewParent->getFramesArea(), GUIDesignAuxiliarFrame),
     myViewNet(viewNet) {
 
     // fill myPredefinedTagsMML (to avoid repeating this fill during every element creation)

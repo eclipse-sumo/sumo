@@ -120,8 +120,8 @@ GNEVehicleFrame::HelpCreation::updateHelpCreation() {
 // GNEVehicleFrame - methods
 // ---------------------------------------------------------------------------
 
-GNEVehicleFrame::GNEVehicleFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet) :
-    GNEFrame(horizontalFrameParent, viewNet, "Vehicles"),
+GNEVehicleFrame::GNEVehicleFrame(GNEViewParent *viewParent, GNEViewNet* viewNet) :
+    GNEFrame(viewParent, viewNet, "Vehicles"),
     myRouteHandler("", viewNet->getNet(), true, false),
     myVehicleBaseObject(new CommonXMLStructure::SumoBaseObject(nullptr)) {
 

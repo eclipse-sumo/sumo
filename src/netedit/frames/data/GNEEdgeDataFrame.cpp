@@ -32,8 +32,8 @@
 // method definitions
 // ===========================================================================
 
-GNEEdgeDataFrame::GNEEdgeDataFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet) :
-    GNEGenericDataFrame(horizontalFrameParent, viewNet, SUMO_TAG_MEANDATA_EDGE, false) {
+GNEEdgeDataFrame::GNEEdgeDataFrame(GNEViewParent *viewParent, GNEViewNet* viewNet) :
+    GNEGenericDataFrame(viewParent, viewNet, SUMO_TAG_MEANDATA_EDGE, false) {
 }
 
 

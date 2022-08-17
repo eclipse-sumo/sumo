@@ -208,6 +208,9 @@ public:
     /// @brief update toolbar undo/redo buttons (called when user press Ctrl+Z/Y)
     void updateUndoRedoButtons();
 
+    /// @brief get frame area
+    FXVerticalFrame* getFramesArea() const;
+
     /// @brief get frame area width
     int getFrameAreaWidth() const;
 
@@ -460,7 +463,7 @@ private:
     FXHorizontalFrame* myViewArea;
 
     /// @brief frame to hold GNEFrames
-    FXHorizontalFrame* myFramesArea;
+    FXVerticalFrame* myFramesArea;
 
     /// @brief toolbar undo button
     MFXButtonTooltip* myUndoButton;

@@ -397,8 +397,8 @@ GNETypeFrame::TypeEditor::deleteType() {
 // GNETypeFrame - methods
 // ---------------------------------------------------------------------------
 
-GNETypeFrame::GNETypeFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet) :
-    GNEFrame(horizontalFrameParent, viewNet, "Types") {
+GNETypeFrame::GNETypeFrame(GNEViewParent *viewParent, GNEViewNet* viewNet) :
+    GNEFrame(viewParent, viewNet, "Types") {
 
     // create module for edit vehicle types (Create, copy, etc.)
     myTypeEditor = new TypeEditor(this);

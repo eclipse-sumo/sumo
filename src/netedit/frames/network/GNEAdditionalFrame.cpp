@@ -30,8 +30,8 @@
 // method definitions
 // ===========================================================================
 
-GNEAdditionalFrame::GNEAdditionalFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet) :
-    GNEFrame(horizontalFrameParent, viewNet, "Additionals"),
+GNEAdditionalFrame::GNEAdditionalFrame(GNEViewParent *viewParent, GNEViewNet* viewNet) :
+    GNEFrame(viewParent, viewNet, "Additionals"),
     myBaseAdditional(nullptr) {
 
     // create item Selector modul for additionals

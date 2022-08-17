@@ -601,8 +601,8 @@ GNEMoveFrame::ShiftShapeGeometry::onCmdShiftShapeGeometry(FXObject*, FXSelector,
 // GNEMoveFrame - methods
 // ---------------------------------------------------------------------------
 
-GNEMoveFrame::GNEMoveFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet) :
-    GNEFrame(horizontalFrameParent, viewNet, "Move") {
+GNEMoveFrame::GNEMoveFrame(GNEViewParent *viewParent, GNEViewNet* viewNet) :
+    GNEFrame(viewParent, viewNet, "Move") {
     // create common mode options
     myCommonModeOptions = new CommonModeOptions(this);
     // create network mode options

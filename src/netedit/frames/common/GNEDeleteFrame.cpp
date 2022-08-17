@@ -201,8 +201,8 @@ GNEDeleteFrame::ProtectElements::protectGenericDatas() const {
 // method definitions
 // ===========================================================================
 
-GNEDeleteFrame::GNEDeleteFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet) :
-    GNEFrame(horizontalFrameParent, viewNet, "Delete") {
+GNEDeleteFrame::GNEDeleteFrame(GNEViewParent *viewParent, GNEViewNet* viewNet) :
+    GNEFrame(viewParent, viewNet, "Delete") {
     // create delete options modul
     myDeleteOptions = new DeleteOptions(this);
     // create protect elements modul

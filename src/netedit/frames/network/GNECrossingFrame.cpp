@@ -525,8 +525,8 @@ GNECrossingFrame::Information::~Information() {}
 // GNECrossingFrame - methods
 // ---------------------------------------------------------------------------
 
-GNECrossingFrame::GNECrossingFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet) :
-    GNEFrame(horizontalFrameParent, viewNet, "Crossings") {
+GNECrossingFrame::GNECrossingFrame(GNEViewParent *viewParent, GNEViewNet* viewNet) :
+    GNEFrame(viewParent, viewNet, "Crossings") {
     // create CurrentJunction modul
     myCurrentJunction = new CurrentJunction(this);
 

@@ -98,10 +98,10 @@ public:
     };
 
     /**@brief Constructor
-    * @brief parent FXHorizontalFrame in which this GNEFrame is placed
+    * @brief viewParent GNEViewParent in which this GNEFrame is placed
     * @brief viewNet viewNet that uses this GNEFrame
     */
-    GNEShapeFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet);
+    GNEShapeFrame(GNEViewParent *viewParent, GNEViewNet* viewNet);
 
     /// @brief Destructor
     ~GNEShapeFrame();
