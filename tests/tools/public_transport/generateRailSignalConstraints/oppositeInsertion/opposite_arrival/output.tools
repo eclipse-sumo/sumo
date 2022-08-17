@@ -10,4 +10,4 @@ findFoeInsertionConflicts at stop stop_b
 findInsertionConflicts at stop stop_b
 0 n: 00:01:20 None t0 0 1 passing: False depart: False
 1 n: 00:02:10 None t1 0 2 passing: True depart: True bidiStop: stop_-b
-Found 0 insertion conflicts
+Found 1 insertion conflicts
