@@ -147,6 +147,8 @@ def get_options(args=None):
                         help="Do not generate constraints for a vehicle that parks at the next stop")
     parser.add_argument("--redundant", default=-1, help="Add redundant constraint within given time range " +
                                                         "(reduces impact of modifying constraints at runtime)")
+    parser.add_argument("--bidi-max-range", dest="bidiMaxRange", type=float, default=1,
+                        help="Find bidiStops on sequential edges within the given range in m")
     parser.add_argument("--comment.line", action="store_true", dest="commentLine", default=False,
                         help="add lines of involved trains in comment")
     parser.add_argument("--comment.id", action="store_true", dest="commentId", default=False,
@@ -169,6 +171,8 @@ def get_options(args=None):
                         help="print debug information for the given busStop id")
     parser.add_argument("--debug-vehicle", dest="debugVehicle",
                         help="print debug information for the given vehicle id")
+    parser.add_argument("--debug-edge", dest="debugEdge",
+                        help="print debug information for the given edge id")
 
     options = parser.parse_args(args=args)
     if (options.routeFile is None and options.tripFile is None) or options.netFile is None:
@@ -248,7 +252,49 @@ def getStopEdges(addFile):
     return stopEdges
 
 
-def getBidiStops(net, stopEdges):
+def getNextStraight(edge, nextDict):
+    """return successor edge if it is unique (excluding bidi)"""
+    succs = list(nextDict.keys())
+    if len(succs) == 1:
+        if succs[0] != edge.getBidi():
+            return succs[0]
+    elif len(succs) == 2:
+        if succs[0] == edge.getBidi():
+            return succs[1]
+        elif succs[1] == edge.getBidi():
+            return succs[0]
+    return None
+
+
+def getBidiSequence(options, net, edge):
+    """find continuous sequene of bidi edges upstream and downstream of the given edge within the given range.
+       The search in eeach direction is aborted when encountering a switch"""
+    result = []
+    if edge.getBidi() is None:
+        return result
+    result.append(edge.getBidi())
+    # downstream
+    remRange = options.bidiMaxRange
+    nextEdge = getNextStraight(edge, edge.getOutgoing())
+    while nextEdge is not None and nextEdge.getBidi() is not None and remRange > 0:
+        remRange -= nextEdge.getLength()
+        result.append(nextEdge.getBidi())
+        if edge.getID() == options.debugEdge:
+            print("forwardNext=%s remRange=%s" % (nextEdge.getID(), remRange))
+        nextEdge = getNextStraight(nextEdge, nextEdge.getOutgoing())
+    # upstream
+    remRange = options.bidiMaxRange
+    nextEdge = getNextStraight(edge, edge.getIncoming())
+    while nextEdge is not None and nextEdge.getBidi() is not None and remRange > 0:
+        remRange -= nextEdge.getLength()
+        result.append(nextEdge.getBidi())
+        if edge.getID() == options.debugEdge:
+            print("backwardNext=%s remRange=%s" % (nextEdge.getID(), remRange))
+        nextEdge = getNextStraight(nextEdge, nextEdge.getIncoming())
+    return result
+
+
+def getBidiStops(options, net, stopEdges):
     """find bidi-stop(s) for each stop"""
     # reverse stopEdges map (there may be more than one stop per edge)
     edgeStops = defaultdict(list)
@@ -264,10 +310,11 @@ def getBidiStops(net, stopEdges):
     bidiStops = defaultdict(list)
     for busStop, edgeID in stopEdges.items():
         edge = net.getEdge(edgeID)
-        if edge.getBidi() is not None:
-            bidiID = edge.getBidi().getID()
+        for bidi in getBidiSequence(options, net, edge):
+            bidiID = bidi.getID()
             if bidiID in edgeStops:
-                bidiStops[busStop] = edgeStops[bidiID]
+                bidiStops[busStop] += edgeStops[bidiID]
+                #print("stop=%s bidiStops=%s" % (busStop, bidiStops[busStop]))
 
     if len(bidiStops) > 0:
         print("found %s bidi-stops (max stops per edge %s on %s)" % (len(bidiStops), maxStopsPerEdge, maxStopsEdge))
@@ -1234,7 +1281,7 @@ def writeConstraint(options, outf, tag, c):
 def main(options):
     net = sumolib.net.readNet(options.netFile)
     stopEdges = getStopEdges(options.addFile)
-    bidiStops = getBidiStops(net, stopEdges)
+    bidiStops = getBidiStops(options, net, stopEdges)
     uniqueRoutes, stopRoutes, stopRoutesBidi, vehicleStopRoutes = getStopRoutes(options, stopEdges, bidiStops)
     if options.abortUnordered:
         markOvertaken(options, vehicleStopRoutes, stopRoutes)
