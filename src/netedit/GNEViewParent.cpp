@@ -108,7 +108,7 @@ GNEViewParent::GNEViewParent(FXMDIClient* p, FXMDIMenu* mdimenu, const FXString&
     myComputePathManagerButton = new MFXButtonTooltip(myGripNavigationToolbar, "\tCompute path manager\tCompute path manager", GUIIconSubSys::getIcon(GUIIcon::COMPUTEPATHMANAGER), parentWindow, MID_GNE_TOOLBAREDIT_COMPUTEPATHMANAGER, GUIDesignButtonToolbar);
 
     // Create Frame Splitter
-    myFramesSplitter = new FXSplitter(myContentFrame, this, MID_GNE_VIEWPARENT_FRAMEAREAWIDTH, GUIDesignSplitter | SPLITTER_HORIZONTAL);
+    myFramesSplitter = new FXSplitter(myChildWindowContentFrame, this, MID_GNE_VIEWPARENT_FRAMEAREAWIDTH, GUIDesignSplitter | SPLITTER_HORIZONTAL);
 
     // Create frames Area (vertical frame)
     myFramesArea = new FXVerticalFrame(myFramesSplitter, GUIDesignFrameArea);

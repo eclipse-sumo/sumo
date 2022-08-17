@@ -376,6 +376,9 @@ class MFXMenuCheckIcon;
 #define GUIDesignContentsScrollWindow           (LAYOUT_FIX_WIDTH | LAYOUT_FILL_Y | HSCROLLER_NEVER | VSCROLLER_ALWAYS), 0, 0, 0, 0
 
 /// @brief design for the main content frame of every frame/dialog
+#define GUIDesignChildWindowContentFrame        (LAYOUT_FILL_X | LAYOUT_FILL_Y)
+
+/// @brief design for the main content frame of every frame/dialog
 #define GUIDesignContentsFrame                  (LAYOUT_FIX_WIDTH | LAYOUT_FILL_Y), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 
 /// @brief design for auxiliar (Without borders) frames used to pack another frames extended in all directions

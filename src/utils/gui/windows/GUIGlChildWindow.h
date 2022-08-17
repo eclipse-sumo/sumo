@@ -113,7 +113,7 @@ protected:
     MFXMenuButtonTooltip* myLocatorButton;
 
     /// @brief The contents frame
-    FXVerticalFrame* myContentFrame;
+    FXVerticalFrame* myChildWindowContentFrame;
 
     /// @brief The coloring schemes
     FXComboBox* myColoringSchemes;
