@@ -10,8 +10,14 @@ reversal
 # find insertion conflicts
 insertion
 
+# test insertion conflicts where trains a driving in opposite direction
+oppositeInsertion
+
 # do not enter station (block with stop) until foe vehicle has been inserted there and left
 insertionFoe
+
+# test foeInsertion constraints where trains are driving in opposite direction
+oppositeInsertionFoe
 
 # maintain vehicle order at a parking-stop (especially when partial started/ended information is available)
 parkingInsertion
