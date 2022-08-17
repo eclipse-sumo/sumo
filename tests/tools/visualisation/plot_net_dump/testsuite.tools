@@ -9,3 +9,6 @@ multiple_intervals
 
 # test colormap option
 colormap
+
+# empty interval
+missingData
