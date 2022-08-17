@@ -17,6 +17,6 @@ findFoeInsertionConflicts at stop stop_3c
 1 n: 00:21:20 None t3_follow 0 1 passing: False depart: False
 findInsertionConflicts at stop stop_3c
 0 n: 00:04:40 None t3_lead_insertion 0 2 passing: True depart: True
-1 n: 00:05:30 None t0 2 4 passing: True depart: False
+1 n: 00:05:30 None t0 2 4 passing: True depart: False invalid
 2 n: 00:21:20 None t3_follow 0 1 passing: False depart: False
 Found 0 insertion conflicts
