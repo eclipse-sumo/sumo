@@ -1071,6 +1071,8 @@ def findInsertionConflicts(options, net, stopEdges, stopRoutes, vehicleStopRoute
                 pUntil, pEdges, pStop = prevPassing
                 pVehStops = vehicleStopRoutes[pStop.vehID]
                 pIndex = pVehStops.index((pEdges, pStop))
+                pIsBidiStop = pStop.busStop != busStop
+                pIsPassing = pIndex < len(pVehStops) - 1
                 # no need to constrain subsequent departures (simulation should maintain ordering)
                 if len(pEdges) > 1 or pIndex > 0:
                     # find edges after stop
@@ -1079,8 +1081,11 @@ def findInsertionConflicts(options, net, stopEdges, stopRoutes, vehicleStopRoute
                               "p:", humanReadableTime(pUntil), pStop.tripId, pStop.vehID, pIndex, len(pVehStops),
                               "n:", humanReadableTime(nUntil), nStop.tripId, nStop.vehID, nIndex, len(nVehStops))
                     if nIsPassing:
-                        # both vehicles move past the stop
-                        pSignal = getDownstreamSignal(net, stopEdges, pVehStops, pIndex)
+                        # usually both vehicles move past the stop
+                        if pIsBidiStop and not pIsPassing:
+                            pSignal = getUpstreamSignal(net, pVehStops, pIndex)
+                        else:
+                            pSignal = getDownstreamSignal(net, stopEdges, pVehStops, pIndex)
                         nSignal = getDownstreamSignal(net, stopEdges, nVehStops, nIndex)
                         if pSignal is None or nSignal is None:
                             print(("Ignoring insertion conflict between %s and %s at stop '%s' " +
@@ -1111,7 +1116,7 @@ def findInsertionConflicts(options, net, stopEdges, stopRoutes, vehicleStopRoute
                             print("   found insertionConflict pSignal=%s nSignal=%s pTripId=%s" % (
                                 pSignal, nSignal, pTripId)),
 
-            if nIsPassing:
+            if nIsPassing or nIsBidiStop:
                 prevPassing = (nUntil, nEdges, nStop)
 
     print("Found %s insertion conflicts" % numConflicts)
