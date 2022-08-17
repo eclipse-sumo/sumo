@@ -343,7 +343,7 @@ class Connection(StepManager):
         if response != command:
             raise FatalTraCIError("Received answer %s for command %s." % (response, command))
         return result.readInt(), result.readString()
-
+    
     def setOrder(self, order):
         self._sendCmd(tc.CMD_SETORDER, None, None, "I", order)
 

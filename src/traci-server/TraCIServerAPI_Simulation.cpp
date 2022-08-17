@@ -165,6 +165,16 @@ TraCIServerAPI_Simulation::processGet(TraCIServer& server, tcpip::Storage& input
                 }
                 break;
             }
+            case libsumo::VAR_OPTION: {
+                OptionsCont& oc = OptionsCont::getOptions();
+                if (!oc.exists(id)) {
+                    return server.writeErrorStatusCmd(libsumo::CMD_GET_SIM_VARIABLE, "The option " + id + " is unknown.", outputStorage);
+                }
+                const std::string value = oc.getValueString(id);
+                server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRING);
+                server.getWrapperStorage().writeString(value);            
+                break;
+            }
             case libsumo::VAR_NET_BOUNDING_BOX: {
                 server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_POLYGON);
                 libsumo::TraCIPositionVector tb = libsumo::Simulation::getNetBoundary();

@@ -14,6 +14,7 @@
 /// @file    Simulation.cpp
 /// @author  Laura Bieker-Walz
 /// @author  Robert Hilbrich
+/// @author  Mirko Barthauer
 /// @date    15.09.2017
 ///
 // C++ TraCI client API implementation
@@ -177,6 +178,16 @@ LIBSUMO_SUBSCRIPTION_IMPLEMENTATION(Simulation, SIM)
 std::pair<int, std::string>
 Simulation::getVersion() {
     return std::make_pair(libsumo::TRACI_VERSION, "SUMO " VERSION_STRING);
+}
+
+
+std::string
+Simulation::getOption(const std::string& option) {
+    OptionsCont& oc = OptionsCont::getOptions();
+    if (!oc.exists(option)) {
+        throw TraCIException("The option " + option + " is unknown.");
+    }
+    return oc.getValueString(option);
 }
 
 

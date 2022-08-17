@@ -878,6 +878,7 @@ TraCITestClient::testAPI() {
 
     // simulation
     answerLog << "  simulation:\n";
+    answerLog << "    getOption: " << simulation.getOption("net-file") << "\n";
     answerLog << "    convert2D: " << simulation.convert2D("e_m5", 0).getString() << "\n";
     answerLog << "    convert2DGeo: " << simulation.convert2D("e_m5", 0, 0, true).getString() << "\n";
     answerLog << "    convert3D: " << simulation.convert3D("e_m5", 0).getString() << "\n";

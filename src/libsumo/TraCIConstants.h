@@ -23,6 +23,7 @@
 /// @author  Mario Krumnow
 /// @author  Jakob Erdmann
 /// @author  Laura Bieker
+/// @author  Mirko Barthauer
 /// @date    2007/10/24
 ///
 // holds codes used for TraCI
@@ -1243,6 +1244,9 @@ TRACI_CONST int CMD_CLEAR_PENDING_VEHICLES = 0x94;
 
 // retrieve number of not inserted  vehicles (get: simulation, edge, lane)
 TRACI_CONST int VAR_PENDING_VEHICLES = 0x94;
+
+// retrieve global option value (get: simulation)
+TRACI_CONST int VAR_OPTION = 0x3f;
 
 // triggers saving simulation state (set: simulation)
 TRACI_CONST int CMD_SAVE_SIMSTATE = 0x95;
