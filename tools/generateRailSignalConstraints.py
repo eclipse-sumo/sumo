@@ -1063,9 +1063,11 @@ def findInsertionConflicts(options, net, stopEdges, stopRoutes, vehicleStopRoute
             nIsPassing = nIndex < len(nVehStops) - 1
             nIsDepart = len(nEdges) == 1 and nIndex == 0
             if options.verbose and busStop == options.debugStop:
-                print("%s n: %s %s %s %s %s passing: %s depart: %s%s" %
+                print("%s n: %s %s %s %s %s passing: %s depart: %s%s%s" %
                       (i, humanReadableTime(nUntil), nStop.tripId, nStop.vehID, nIndex, len(nVehStops),
-                       nIsPassing, nIsDepart, (" bidiStop: %s" % nStop.busStop) if nIsBidiStop else ""))
+                       nIsPassing, nIsDepart,
+                       (" bidiStop: %s" % nStop.busStop) if nIsBidiStop else "",
+                       " invalid" if nStop.getAttributeSecure("invalid", False) else ""))
             # ignore duplicate bidiStop vs bidiStop conflicts
             if prevPassing is not None and nIsDepart and not nIsBidiStop:
                 pUntil, pEdges, pStop = prevPassing
