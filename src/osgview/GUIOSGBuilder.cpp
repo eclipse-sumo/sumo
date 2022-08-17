@@ -341,7 +341,7 @@ GUIOSGBuilder::buildTrafficLightDetails(MSTLLogicControl::TLSLogicVariants& vars
                 else {
                     double laneWidth = appLanes[0]->getWidth();
                     osg::Vec3d offset(-poleOffset * cos(DEG2RAD(angle)) - (.5 * laneWidth - skipWidth + poleOffset) * sin(DEG2RAD(angle)), poleOffset * sin(DEG2RAD(angle)) + (.5 * laneWidth - skipWidth + poleOffset) * cos(DEG2RAD(angle)), 0.);
-                    appBase->setPosition(appBase->getPosition() + offset);
+                    rightPoleBase->setPosition(rightPoleBase->getPosition() + offset);
                 }
             }
             else {
@@ -349,7 +349,7 @@ GUIOSGBuilder::buildTrafficLightDetails(MSTLLogicControl::TLSLogicVariants& vars
                 if (!noVehicles(appLanes.back()->getPermissions())) {
                     for (MSLane* appLane : appLanes) {
                         SVCPermissions permissions = appLane->getPermissions();
-                        if (isSidewalk(permissions) || isBikepath(permissions) || isForbidden(permissions)) {
+                        if (isSidewalk(permissions) || isForbidden(permissions)) {
                             skipWidth += appLane->getWidth();
                         }
                         else {
@@ -358,12 +358,11 @@ GUIOSGBuilder::buildTrafficLightDetails(MSTLLogicControl::TLSLogicVariants& vars
                         firstSignalLaneIx++;
                     }
                 }
-                const double laneWidth = appLanes[firstSignalLaneIx]->getWidth();
+                const double laneWidth = appLanes[0]->getWidth();
                 const double horizontalWidth = approach->getWidth() - skipWidth;
                 const int laneCount = (int)appLanes.size() - firstSignalLaneIx;
-
-                osg::Vec3d offset(-poleOffset * cos(DEG2RAD(angle)) - (.5 * laneWidth - skipWidth + poleOffset) * sin(DEG2RAD(angle)), poleOffset * sin(DEG2RAD(angle)) + (.5 * laneWidth - skipWidth + poleOffset) * cos(DEG2RAD(angle)), 0.);
-                appBase->setPosition(appBase->getPosition() + offset);
+                osg::Vec3d offset(-poleOffset * cos(DEG2RAD(angle)) - (.5 * laneWidth - skipWidth + poleOffset) * sin(DEG2RAD(angle)), -poleOffset * sin(DEG2RAD(angle)) + (.5 * laneWidth - skipWidth + poleOffset) * cos(DEG2RAD(angle)), 0.);
+                rightPoleBase->setPosition(rightPoleBase->getPosition() + offset);
 
                 if (laneCount < 3) { // cantilever
                     const double cantiWidth = horizontalWidth - .1 * appLanes.back()->getWidth() + poleOffset;
@@ -409,10 +408,11 @@ GUIOSGBuilder::buildTrafficLightDetails(MSTLLogicControl::TLSLogicVariants& vars
             seenEdges.insert(approach);
 
             // Add signals and position them along the cantilever/bridge
-            double refPos = poleOffset - skipWidth;
-            for (MSLane* lane : appLanes) {
+            double refPos = poleOffset /*- skipWidth*/;
+            std::vector<MSLane*>::const_iterator it = appLanes.begin();
+            for (std::advance(it, firstSignalLaneIx); it != appLanes.end(); it++) {
                 // get tlLinkIndices
-                const std::vector<MSLink*>& links = lane->getLinkCont();
+                const std::vector<MSLink*>& links = (*it)->getLinkCont();
                 std::set<int> tlIndices;
                 for (MSLink* link : links) {
                     if (link->getTLIndex() > -1) {
@@ -435,7 +435,7 @@ GUIOSGBuilder::buildTrafficLightDetails(MSTLLogicControl::TLSLogicVariants& vars
                     for (std::pair<osg::Group*, osg::Vec3d> transform : signalTransforms) {
                         GUISUMOAbstractView::Decal d;
                         d.centerX = transform.second.x() + 0.15;
-                        d.centerY = (onlyPedCycle) ? 0. : -(refPos + .5 * lane->getWidth() - (tlIndices.size() / 2. - 1 + seenTlIndices.size()) * 1.5 * tlWidth);
+                        d.centerY = (onlyPedCycle) ? 0. : -(refPos + .5 * (*it)->getWidth() - (tlIndices.size() / 2. - 1 + seenTlIndices.size()) * 1.5 * tlWidth);
                         d.centerY += transform.second.y();
                         d.centerZ = (onlyPedCycle) ? 2.2 : 3.8;
                         d.centerZ += transform.second.z();
@@ -452,7 +452,7 @@ GUIOSGBuilder::buildTrafficLightDetails(MSTLLogicControl::TLSLogicVariants& vars
                 if (onlyPedCycle) {
                     break;
                 }
-                refPos += lane->getWidth();
+                refPos += (*it)->getWidth();
             }
             // interaction
             appBase->setNodeMask(1 << GUIOSGView::NODESET_TLSMODELS);
