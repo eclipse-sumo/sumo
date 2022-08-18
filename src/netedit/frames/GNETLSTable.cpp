@@ -35,6 +35,7 @@
 // ===========================================================================
 
 FXDEFMAP(GNETLSTable) GNETLSTableMap[] = {
+    FXMAPFUNC(MID_MBTTIP_SELECTED, 0,                                   GNETLSTable::onFocusRow),
     // text fields
     FXMAPFUNC(SEL_FOCUSIN,  MID_GNE_TLSTABLE_TEXTFIELD,                 GNETLSTable::onFocusRow),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TLSTABLE_TEXTFIELD,                 GNETLSTable::onCmdEditRow),
@@ -251,7 +252,7 @@ GNETLSTable::onFocusRow(FXObject* sender, FXSelector, void*) {
     for (int rowIndex = 0; rowIndex < (int)myRows.size(); rowIndex++) {
         // iterate over every cell
         for (const auto &cell : myRows.at(rowIndex)->getCells()) {
-            if (cell->getTextField() == sender) {
+            if ((cell->getTextField() == sender) || (cell->getMenuButton() == sender)) {
                 selectedRow = rowIndex;
             }
         }
@@ -561,7 +562,7 @@ GNETLSTable::Cell::Cell(GNETLSTable* TLSTable, int col, int row) :
     // build locator popup
     myMenuButtonPopup = new FXPopup(TLSTable->myColumns.at(col)->getVerticalCellFrame(), POPUP_HORIZONTAL);
     // build menu button
-    auto menuButton = new MFXMenuButtonTooltip(TLSTable->myColumns.at(col)->getVerticalCellFrame(), "\tAdd phase\tAdd new phase.",
+    myMenuButton = new MFXMenuButtonTooltip(TLSTable->myColumns.at(col)->getVerticalCellFrame(), "\tAdd phase\tAdd new phase.",
         GUIIconSubSys::getIcon(GUIIcon::ADD), myMenuButtonPopup, TLSTable, GUIDesignTLSTableCheckableButtonIcon);
     // default phase
     myAddPhaseButton = new MFXButtonTooltip(myMenuButtonPopup, "\tDefault phase\tAdd default phase.",
@@ -583,7 +584,7 @@ GNETLSTable::Cell::Cell(GNETLSTable* TLSTable, int col, int row) :
         GUIIconSubSys::getIcon(GUIIcon::TLSPHASEALLGREENPRIORITY), TLSTable, MID_GNE_TLSTABLE_ADDPHASEALLGREENPRIORITY, GUIDesignButtonIcon);
     // create elements
     myMenuButtonPopup->create();
-    menuButton->create();
+    myMenuButton->create();
     myAddPhaseButton->create();
     myCopyPhaseButton->create();
     myAddAllRedButton->create();
@@ -609,6 +610,12 @@ GNETLSTable::Cell::getTextField() {
 FXLabel* 
 GNETLSTable::Cell::getIndexLabel() {
     return myIndexLabel;
+}
+
+
+MFXMenuButtonTooltip*
+GNETLSTable::Cell::getMenuButton() const {
+    return myMenuButton;
 }
 
 

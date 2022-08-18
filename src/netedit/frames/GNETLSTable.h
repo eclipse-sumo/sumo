@@ -156,6 +156,9 @@ protected:
         /// @brief get index label
         FXLabel* getIndexLabel();
 
+        /// @brief get menu button
+        MFXMenuButtonTooltip* getMenuButton() const;
+
         /// @brief get remove, move up or move down button
         MFXButtonTooltip* getButton();
 
@@ -213,6 +216,9 @@ protected:
 
         /// @brief popup for buttons
         FXPopup* myMenuButtonPopup = nullptr; 
+        
+        /// @brief menu button tooltip
+        MFXMenuButtonTooltip* myMenuButton = nullptr; 
 
         /// @brief add phase button
         MFXButtonTooltip* myAddPhaseButton = nullptr;
