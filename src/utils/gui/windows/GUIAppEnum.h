@@ -1361,6 +1361,14 @@ enum {
     MID_GNE_TLSTABLE_ADDPHASE,
     /// @brief TLSTable button for copy phase
     MID_GNE_TLSTABLE_COPYPHASE,
+    /// @brief TLSTable button for add phase red
+    MID_GNE_TLSTABLE_ADDPHASEALLRED,
+    /// @brief TLSTable button for add phase yelllow
+    MID_GNE_TLSTABLE_ADDPHASEALLYELLOW,
+    /// @brief TLSTable button for add phase green
+    MID_GNE_TLSTABLE_ADDPHASEALLGREEN,
+    /// @brief TLSTable button for add phase green priority
+    MID_GNE_TLSTABLE_ADDPHASEALLGREENPRIORITY,
     /// @brief TLSTable button for remove phase
     MID_GNE_TLSTABLE_REMOVEPHASE,
     /// @brief TLSTable button for move up phase

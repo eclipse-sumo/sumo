@@ -462,6 +462,10 @@ enum class GUIIcon {
     /// @{
     TLSPHASEDEFAULT,
     TLSPHASECOPY,
+    TLSPHASEALLRED,
+    TLSPHASEALLYELLOW,
+    TLSPHASEALLGREEN,
+    TLSPHASEALLGREENPRIORITY,
     /// @}
 
     /// @name vehicle Class icons (big, used in vType Dialog)

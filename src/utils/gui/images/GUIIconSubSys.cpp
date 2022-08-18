@@ -232,8 +232,12 @@
 #include "modeedgereldata.xpm"
 #include "modetazreldata.xpm"
 
-#include "tlsphasecopy.xpm"
 #include "tlsphasedefault.xpm"
+#include "tlsphasecopy.xpm"
+#include "tlsphaseallred.xpm"
+#include "tlsphaseallyellow.xpm"
+#include "tlsphaseallgreen.xpm"
+#include "tlsphaseallgreenpriority.xpm"
 
 #include "computejunctions.xpm"
 #include "cleanjunctions.xpm"
@@ -757,6 +761,10 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
 
     myIcons[GUIIcon::TLSPHASEDEFAULT] = new FXXPMIcon(a, tlsphasedefault_xpm);
     myIcons[GUIIcon::TLSPHASECOPY] = new FXXPMIcon(a, tlsphasecopy_xpm);
+    myIcons[GUIIcon::TLSPHASEALLRED] = new FXXPMIcon(a, tlsphaseallred_xpm);
+    myIcons[GUIIcon::TLSPHASEALLYELLOW] = new FXXPMIcon(a, tlsphaseallyellow_xpm);
+    myIcons[GUIIcon::TLSPHASEALLGREEN] = new FXXPMIcon(a, tlsphaseallgreen_xpm);
+    myIcons[GUIIcon::TLSPHASEALLGREENPRIORITY] = new FXXPMIcon(a, tlsphaseallgreenpriority_xpm);
 
     myIcons[GUIIcon::VCLASS_IGNORING] = new FXXPMIcon(a, vclass_ignoring_xpm);
     myIcons[GUIIcon::VCLASS_PRIVATE] = new FXXPMIcon(a, vclass_private_xpm);
