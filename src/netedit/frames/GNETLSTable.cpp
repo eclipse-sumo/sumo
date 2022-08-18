@@ -568,7 +568,7 @@ GNETLSTable::Cell::Cell(GNETLSTable* TLSTable, int col, int row) :
     myAddPhaseButton = new MFXButtonTooltip(myMenuButtonPopup, "\tDefault phase\tAdd default phase.",
         GUIIconSubSys::getIcon(GUIIcon::TLSPHASEDEFAULT), TLSTable, MID_GNE_TLSTABLE_ADDPHASE, GUIDesignButtonIcon);
     // duplicate phase
-    myDuplicatePhaseButton = new MFXButtonTooltip(myMenuButtonPopup, "\tDuplicate phase\tDuplicate phase.",
+    myDuplicatePhaseButton = new MFXButtonTooltip(myMenuButtonPopup, "\tDuplicate phase\tDuplicate this phase.",
         GUIIconSubSys::getIcon(GUIIcon::TLSPHASECOPY), TLSTable, MID_GNE_TLSTABLE_COPYPHASE, GUIDesignButtonIcon);
         // red phase
     myAddAllRedButton = new MFXButtonTooltip(myMenuButtonPopup, "\tRed phase\tAdd red phase.",
