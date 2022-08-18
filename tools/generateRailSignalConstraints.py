@@ -218,7 +218,7 @@ def formatStopTimes(arrival, until, started, ended):
 class Conflict:
     def __init__(self, tripID, otherSignal, otherTripID, limit, line, otherLine,
                  vehID, otherVehID, conflictTime, switch, busStop, info,
-                 active=True):
+                 active=True, tag=None):
         self.tripID = tripID
         self.otherSignal = otherSignal
         self.otherTripID = otherTripID
@@ -232,6 +232,7 @@ class Conflict:
         self.busStop = busStop
         self.info = info
         self.active = active
+        self.tag = tag
 
 
 def getTravelTime(net, edges):
@@ -1075,8 +1076,10 @@ def findInsertionConflicts(options, net, stopEdges, stopRoutes, vehicleStopRoute
                 pIndex = pVehStops.index((pEdges, pStop))
                 pIsBidiStop = pStop.busStop != busStop
                 pIsPassing = pIndex < len(pVehStops) - 1
-                # no need to constrain subsequent departures (simulation should maintain ordering)
-                if len(pEdges) > 1 or pIndex > 0:
+                pIsDepart = len(pEdges) == 1 and pIndex == 0
+                # usually, subsequent departuers do not require constraints
+                # (unless depart, until and ended out of sync)
+                if not pIsDepart:
                     # find edges after stop
                     if busStop == options.debugStop:
                         print(i,
@@ -1260,6 +1263,8 @@ def findFoeInsertionConflicts(options, net, stopEdges, stopRoutes, vehicleStopRo
 
 
 def writeConstraint(options, outf, tag, c):
+    if c.tag is not None:
+        tag = c.tag
     comment = ""
     limit = c.limit + options.limit
     if options.commentLine:
