@@ -327,8 +327,7 @@ TrafficLight::swapConstraints(const std::string& tlsID, const std::string& tripI
     if (c != nullptr) {
         const int limit = c->myLimit;
         // the two constraints are complementary so we actually remove rather than deactivate to avoid redundant conflict information
-        // @todo use correct type when swapping INSERTIION_PREDECESSOR
-        MSRailSignalConstraint::ConstraintType type = MSRailSignalConstraint::ConstraintType::PREDECESSOR;
+        MSRailSignalConstraint::ConstraintType type = c->getSwappedType();
         s->removeConstraint(tripId, c);
         s2->addConstraint(foeId, new MSRailSignalConstraint_Predecessor(type, s, tripId, limit, true));
         return findConstraintsDeadLocks(foeId, tripId, foeSignal, tlsID);

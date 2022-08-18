@@ -281,7 +281,9 @@ NLHandler::myStartElement(int element,
                 break;
             }
             case SUMO_TAG_PREDECESSOR: // intended fall-through
-            case SUMO_TAG_INSERTION_PREDECESSOR:
+            case SUMO_TAG_FOE_INSERTION: // intended fall-through
+            case SUMO_TAG_INSERTION_PREDECESSOR: // intended fall-through
+            case SUMO_TAG_INSERTION_ORDER:
                 addPredecessorConstraint(element, attrs, myConstrainedSignal);
                 break;
             default:

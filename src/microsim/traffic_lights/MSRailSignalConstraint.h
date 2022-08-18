@@ -71,7 +71,33 @@ public:
     }
 
     SumoXMLTag getTag() const {
-        return myType == PREDECESSOR ? SUMO_TAG_PREDECESSOR : SUMO_TAG_INSERTION_PREDECESSOR;
+        switch (myType) {
+            case INSERTION_PREDECESSOR:
+                return SUMO_TAG_INSERTION_PREDECESSOR;
+            case FOE_INSERTION:
+                return SUMO_TAG_FOE_INSERTION;
+            case INSERTION_ORDER:
+                return SUMO_TAG_INSERTION_ORDER;
+            default:
+                return SUMO_TAG_PREDECESSOR;
+        }
+    }
+
+    ConstraintType getSwappedType() const {
+        switch (myType) {
+            case INSERTION_PREDECESSOR:
+                return FOE_INSERTION;
+            case FOE_INSERTION:
+                return INSERTION_PREDECESSOR;
+            case INSERTION_ORDER:
+                return INSERTION_ORDER;
+            default:
+                return PREDECESSOR;
+        }
+    }
+
+    bool isInsertionConstraint() const {
+        return myType == INSERTION_PREDECESSOR || myType == INSERTION_ORDER;
     }
 
     /// @brief clean up state

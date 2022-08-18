@@ -217,7 +217,7 @@ MSRailSignal::constraintsAllow(const SUMOVehicle* veh) const {
         if (it != myConstraints.end()) {
             for (MSRailSignalConstraint* c : it->second) {
                 // ignore insertion constraints here
-                if (c->getType() != MSRailSignalConstraint::ConstraintType::INSERTION_PREDECESSOR && !c->cleared()) {
+                if (!c->isInsertionConstraint() && !c->cleared()) {
 #ifdef DEBUG_SIGNALSTATE
                     if (gDebugFlag4) {
                         std::cout << "  constraint '" << c->getDescription() << "' not cleared\n";
@@ -462,7 +462,7 @@ MSRailSignal::hasInsertionConstraint(MSLink* link, const MSVehicle* veh, std::st
             auto it = rs->myConstraints.find(tripID);
             if (it != rs->myConstraints.end()) {
                 for (MSRailSignalConstraint* c : it->second) {
-                    if (c->getType() == MSRailSignalConstraint::ConstraintType::INSERTION_PREDECESSOR && !c->cleared()) {
+                    if (c->isInsertionConstraint() && !c->cleared()) {
 #ifdef DEBUG_SIGNALSTATE
                         if (DEBUG_HELPER(rs)) {
                             std::cout << SIMTIME << " rsl=" << rs->getID() << " insertion constraint '" << c->getDescription() << "' for vehicle '" << veh->getID() << "' not cleared\n";
