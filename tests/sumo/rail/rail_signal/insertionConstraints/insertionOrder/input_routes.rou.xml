@@ -33,5 +33,5 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <vType id="train" length="50.00" vClass="rail"/>
     <trip id="t0" type="train" depart="0.00" from="a" to="c" departSpeed="max"/>
-    <trip id="t1" type="train" depart="20.00" from="aPre" to="c" departSpeed="max"/>
+    <trip id="t1" type="train" depart="20.00" from="a" to="c" departSpeed="max"/>
 </routes>
