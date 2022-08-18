@@ -1359,6 +1359,8 @@ enum {
     MID_GNE_TLSTABLE_TEXTFIELD,
     /// @brief TLSTable button for add phase
     MID_GNE_TLSTABLE_ADDPHASE,
+    /// @brief TLSTable button for copy phase
+    MID_GNE_TLSTABLE_COPYPHASE,
     /// @brief TLSTable button for remove phase
     MID_GNE_TLSTABLE_REMOVEPHASE,
     /// @brief TLSTable button for move up phase

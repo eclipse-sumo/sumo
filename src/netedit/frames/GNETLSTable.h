@@ -25,6 +25,7 @@
 
 #include <utils/common/UtilExceptions.h>
 #include <utils/foxtools/MFXLabelTooltip.h>
+#include <utils/foxtools/MFXMenuButtonTooltip.h>
 #include <netedit/frames/network/GNETLSEditorFrame.h>
 
 
@@ -131,14 +132,23 @@ protected:
         /// @brief constructor for buttons
         Cell(GNETLSTable* TLSTable, FXButton* button, int col, int row);
 
+        /// @brief constructor for menu buttons
+        Cell(GNETLSTable* TLSTable, int col, int row);
+
         /// @brief get textField
         FXTextField* getTextField();
 
         /// @brief get index label
         FXLabel* getIndexLabel();
 
-        /// @brief get button
+        /// @brief get remove, move up or move down button
         FXButton* getButton();
+
+        /// @brief get add phase button
+        FXButton* getAddPhaseButton();
+
+        /// @brief get copy phase button
+        FXButton* getCopyPhaseButton();
 
         /// @brief show label index normal
         void showIndexLabelNormal();
@@ -170,6 +180,12 @@ protected:
 
         /// @brief button
         FXButton* myButton = nullptr;
+
+        /// @brief add phase button
+        FXButton* myAddPhaseButton = nullptr;
+
+        /// @brief copy phase button
+        FXButton* myCopyPhaseButton = nullptr;
 
         /// @brief column index
         const int myCol;

@@ -110,7 +110,6 @@ GNETLSTable::recalcTableWidth() {
             minimumTableWidth += minimunColWidth;
         }
     }
-
     // adjust name column
     if (nameColumn) {
         // get column name width
@@ -327,7 +326,7 @@ GNETLSTable::onCmdAddPhase(FXObject* sender, FXSelector, void*) {
     for (int indexRow = 0; indexRow < (int)myRows.size(); indexRow++) {
         // iterate over every cell
         for (const auto &cellTextField : myRows.at(indexRow)->getCells()) {
-            if (cellTextField->getButton() == sender) {
+            if (cellTextField->getAddPhaseButton() == sender) {
                 // add row
                 myTLSPhasesParent->addPhase(indexRow);
                 // stop
@@ -449,6 +448,31 @@ GNETLSTable::Cell::Cell(GNETLSTable* TLSTable, FXButton* button, int col, int ro
 }
 
 
+GNETLSTable::Cell::Cell(GNETLSTable* TLSTable, int col, int row) :
+    myTLSTable(TLSTable),
+    myCol(col),
+    myRow(row) {
+    // build locator popup
+    auto menuButtonPopup = new FXPopup(TLSTable->myColumns.at(col)->getVerticalCellFrame(), POPUP_VERTICAL);
+    // build menu button
+    auto menuButton = new MFXMenuButtonTooltip(TLSTable->myColumns.at(col)->getVerticalCellFrame(), "\tAdd phase\tAdd phase.",
+        GUIIconSubSys::getIcon(GUIIcon::ADD), menuButtonPopup, GUIDesignTLSTableCheckableButtonIcon);
+    // default phase
+    myAddPhaseButton = new MFXButtonTooltip(menuButtonPopup,
+        "\tDefault phase\tAdd default phase.",
+        GUIIconSubSys::getIcon(GUIIcon::LOCATEJUNCTION), TLSTable, MID_GNE_TLSTABLE_ADDPHASE, GUIDesignButtonIcon);
+    // copy phase
+    myCopyPhaseButton = new MFXButtonTooltip(menuButtonPopup,
+        "\tCopy phase\tCopy phase.",
+        GUIIconSubSys::getIcon(GUIIcon::LOCATEEDGE), TLSTable, MID_GNE_TLSTABLE_COPYPHASE, GUIDesignButtonIcon);
+    // create elements
+    menuButtonPopup->create();
+    menuButton->create();
+    myAddPhaseButton->create();
+    myCopyPhaseButton->create();
+}
+
+
 FXTextField* 
 GNETLSTable::Cell::getTextField() {
     return myTextField;
@@ -464,6 +488,19 @@ GNETLSTable::Cell::getIndexLabel() {
 FXButton* 
 GNETLSTable::Cell::getButton() {
     return myButton;
+}
+
+
+
+FXButton*
+GNETLSTable::Cell::getAddPhaseButton() {
+    return myAddPhaseButton;
+}
+
+
+FXButton* 
+GNETLSTable::Cell::getCopyPhaseButton() {
+    return myCopyPhaseButton;
 }
 
 
@@ -594,10 +631,13 @@ GNETLSTable::Column::setColumnLabelBot(const std::string& text) {
 
 int
 GNETLSTable::Column::getColumnMinimumWidth() {
-    // declare columnWidth (we assume that is the index column) 
-    int columnWidth = 30;
-    // only check for textField columns
-    if (isTextFieldColumn()) {
+    // declare columnWidth
+    int columnWidth = 0;
+    // check column type
+    if (myType == 's') {
+        // set index column width
+        columnWidth = 30;
+    } else if (isTextFieldColumn()) {
         // calculate top label width
         columnWidth = myTopLabel->getFont()->getTextWidth(myTopLabel->getText().text(), myTopLabel->getText().length() + EXTRAMARGING);
         // iterate over all textFields and check widths
@@ -616,6 +656,9 @@ GNETLSTable::Column::getColumnMinimumWidth() {
         if (botLabelWidth > columnWidth) {
             columnWidth = botLabelWidth;
         }
+    } else {
+        // is an index column, then return icon size
+        columnWidth = GUIDesignHeight;
     }
     return columnWidth;
 }
@@ -692,9 +735,8 @@ GNETLSTable::Row::Row(GNETLSTable* table) :
                 break;
             }
             case ('i'): {
-                // create button for insert phase
-                auto button = new FXButton(table->myColumns.at(columnIndex)->getVerticalCellFrame(), "\t\tInsert a new phase below.", GUIIconSubSys::getIcon(GUIIcon::ADD), table, MID_GNE_TLSTABLE_ADDPHASE, GUIDesignButtonIcon);
-                myCells.push_back(new Cell(table, button, columnIndex, numCells));
+                // create popup for adding new phases
+                myCells.push_back(new Cell(table, columnIndex, numCells));
                 break;
             }
             case ('d'): {
