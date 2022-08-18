@@ -1300,79 +1300,27 @@ GNETLSEditorFrame::TLSPhases::changePhaseValue(const int col, const int row, con
 
 void
 GNETLSEditorFrame::TLSPhases::addPhase(const int row) {
-    // get option container
-    const OptionsCont& oc = OptionsCont::getOptions();
     // mark TLS as modified
     myTLSEditorParent->myTLSDefinition->markAsModified();
-    // check if TLS is static
-    const bool TLSStatic = (myTLSEditorParent->myEditedDef->getType() == TrafficLightType::STATIC);
-    // calculate new index
-    const int newIndex = row + 1;
-    // copy current row
-    auto duration = getSUMOTime(myPhaseTable->getItemText(row, 1));
-    const auto oldState = myPhaseTable->getItemText(row, TLSStatic ? 2 : 4);
-    auto state = oldState;
-    // update crossingINdices
-    std::set<int> crossingIndices;
-    for (const auto &node : myTLSEditorParent->myEditedDef->getNodes()) {
-        for (const auto &crossing : node->getCrossings()) {
-            crossingIndices.insert(crossing->tlLinkIndex);
-            crossingIndices.insert(crossing->tlLinkIndex2);
-        }
-    }
-    // smart adapations for new state
-    bool haveGreen = false;
-    bool haveYellow = false;
-    for (const auto &linkStateChar : state) {
-        if ((linkStateChar == LINKSTATE_TL_GREEN_MAJOR) || (linkStateChar == LINKSTATE_TL_GREEN_MINOR)) {
-            haveGreen = true;
-        } else if ((linkStateChar == LINKSTATE_TL_YELLOW_MAJOR) || (linkStateChar == LINKSTATE_TL_YELLOW_MINOR)) {
-            haveYellow = true;
-        }
-    }
-    if (haveGreen && haveYellow) {
-        // guess left-mover state
-        duration = TIME2STEPS(oc.getInt("tls.left-green.time"));
-        for (int i = 0; i < (int)state.size(); i++) {
-            if ((state[i] == LINKSTATE_TL_YELLOW_MAJOR) || (state[i] == LINKSTATE_TL_YELLOW_MINOR)) {
-                state[i] = LINKSTATE_TL_RED;
-            } else if (state[i] == LINKSTATE_TL_GREEN_MINOR) {
-                state[i] = LINKSTATE_TL_GREEN_MAJOR;
-            }
-        }
-    } else if (haveGreen) {
-        // guess yellow state
-        myTLSEditorParent->myEditedDef->setParticipantsInformation();
-        duration = TIME2STEPS(myTLSEditorParent->myEditedDef->computeBrakingTime(oc.getFloat("tls.yellow.min-decel")));
-        for (int i = 0; i < (int)state.size(); i++) {
-            if ((state[i] == LINKSTATE_TL_GREEN_MAJOR) || (state[i] == LINKSTATE_TL_GREEN_MINOR)) {
-                if (crossingIndices.count(i) == 0) {
-                    state[i] = LINKSTATE_TL_YELLOW_MINOR;
-                } else {
-                    state[i] = LINKSTATE_TL_RED;
-                }
-            }
-        }
-    } else if (haveYellow) {
-        duration = TIME2STEPS(oc.isDefault("tls.allred.time") ? 2 :  oc.getInt("tls.allred.time"));
-        // guess all-red state
-        for (int i = 0; i < (int)state.size(); i++) {
-            if ((state[i] == LINKSTATE_TL_YELLOW_MAJOR) || (state[i] == LINKSTATE_TL_YELLOW_MINOR)) {
-                state[i] = LINKSTATE_TL_RED;
-            }
-        }
-    }
-    // fix continuous green states
-    const int nextIndex = (myPhaseTable->getNumRows() > newIndex)? newIndex : 0;
-    const std::string state2 = myPhaseTable->getItemText(nextIndex, (TLSStatic ? 2 : 4));
-    for (int i = 0; i < (int)state.size(); i++) {
-        if (((oldState[i] == LINKSTATE_TL_GREEN_MAJOR) || (oldState[i] == LINKSTATE_TL_GREEN_MINOR)) &&
-            ((state2[i] == LINKSTATE_TL_GREEN_MAJOR) || (state2[i] == LINKSTATE_TL_GREEN_MINOR))) {
-            state[i] = oldState[i];
-        }
-    }
-    // add new step
-    myTLSEditorParent->myEditedDef->getLogic()->addStep(duration, state, std::vector<int>(), "", newIndex);
+    // build default phase
+    const int newIndex = buildDefaultPhase(row);
+    // int phase table again
+    initPhaseTable();
+    // mark new row as selected
+    myPhaseTable->selectRow(newIndex);
+    // set focus in table
+    getPhaseTable()->setFocus();
+}
+
+
+void
+GNETLSEditorFrame::TLSPhases::copyPhase(const int row) {
+    // mark TLS as modified
+    myTLSEditorParent->myTLSDefinition->markAsModified();
+    // build default phase
+    const int newIndex = buildDefaultPhase(row);
+    // copy old phase in the new phase
+    myTLSEditorParent->myEditedDef->getLogic()->copyPhase(row, row + 1);
     // int phase table again
     initPhaseTable();
     // mark new row as selected
@@ -1679,6 +1627,84 @@ GNETLSEditorFrame::TLSPhases::initNEMAPhaseTable() {
     updateStateSize(colState);
     // set focus
     myPhaseTable->setFocus();
+}
+
+
+int 
+GNETLSEditorFrame::TLSPhases::buildDefaultPhase(const int row) {
+    // get option container
+    const OptionsCont& oc = OptionsCont::getOptions();
+    // check if TLS is static
+    const bool TLSStatic = (myTLSEditorParent->myEditedDef->getType() == TrafficLightType::STATIC);
+    // calculate new index
+    const int newIndex = row + 1;
+    // copy current row
+    auto duration = getSUMOTime(myPhaseTable->getItemText(row, 1));
+    const auto oldState = myPhaseTable->getItemText(row, TLSStatic ? 2 : 4);
+    auto state = oldState;
+    // update crossingINdices
+    std::set<int> crossingIndices;
+    for (const auto &node : myTLSEditorParent->myEditedDef->getNodes()) {
+        for (const auto &crossing : node->getCrossings()) {
+            crossingIndices.insert(crossing->tlLinkIndex);
+            crossingIndices.insert(crossing->tlLinkIndex2);
+        }
+    }
+    // smart adapations for new state
+    bool haveGreen = false;
+    bool haveYellow = false;
+    for (const auto &linkStateChar : state) {
+        if ((linkStateChar == LINKSTATE_TL_GREEN_MAJOR) || (linkStateChar == LINKSTATE_TL_GREEN_MINOR)) {
+            haveGreen = true;
+        } else if ((linkStateChar == LINKSTATE_TL_YELLOW_MAJOR) || (linkStateChar == LINKSTATE_TL_YELLOW_MINOR)) {
+            haveYellow = true;
+        }
+    }
+    if (haveGreen && haveYellow) {
+        // guess left-mover state
+        duration = TIME2STEPS(oc.getInt("tls.left-green.time"));
+        for (int i = 0; i < (int)state.size(); i++) {
+            if ((state[i] == LINKSTATE_TL_YELLOW_MAJOR) || (state[i] == LINKSTATE_TL_YELLOW_MINOR)) {
+                state[i] = LINKSTATE_TL_RED;
+            } else if (state[i] == LINKSTATE_TL_GREEN_MINOR) {
+                state[i] = LINKSTATE_TL_GREEN_MAJOR;
+            }
+        }
+    } else if (haveGreen) {
+        // guess yellow state
+        myTLSEditorParent->myEditedDef->setParticipantsInformation();
+        duration = TIME2STEPS(myTLSEditorParent->myEditedDef->computeBrakingTime(oc.getFloat("tls.yellow.min-decel")));
+        for (int i = 0; i < (int)state.size(); i++) {
+            if ((state[i] == LINKSTATE_TL_GREEN_MAJOR) || (state[i] == LINKSTATE_TL_GREEN_MINOR)) {
+                if (crossingIndices.count(i) == 0) {
+                    state[i] = LINKSTATE_TL_YELLOW_MINOR;
+                } else {
+                    state[i] = LINKSTATE_TL_RED;
+                }
+            }
+        }
+    } else if (haveYellow) {
+        duration = TIME2STEPS(oc.isDefault("tls.allred.time") ? 2 :  oc.getInt("tls.allred.time"));
+        // guess all-red state
+        for (int i = 0; i < (int)state.size(); i++) {
+            if ((state[i] == LINKSTATE_TL_YELLOW_MAJOR) || (state[i] == LINKSTATE_TL_YELLOW_MINOR)) {
+                state[i] = LINKSTATE_TL_RED;
+            }
+        }
+    }
+    // fix continuous green states
+    const int nextIndex = (myPhaseTable->getNumRows() > newIndex)? newIndex : 0;
+    const std::string state2 = myPhaseTable->getItemText(nextIndex, (TLSStatic ? 2 : 4));
+    for (int i = 0; i < (int)state.size(); i++) {
+        if (((oldState[i] == LINKSTATE_TL_GREEN_MAJOR) || (oldState[i] == LINKSTATE_TL_GREEN_MINOR)) &&
+            ((state2[i] == LINKSTATE_TL_GREEN_MAJOR) || (state2[i] == LINKSTATE_TL_GREEN_MINOR))) {
+            state[i] = oldState[i];
+        }
+    }
+    // add new step
+    myTLSEditorParent->myEditedDef->getLogic()->addStep(duration, state, std::vector<int>(), "", newIndex);
+    // return new index
+    return newIndex;
 }
 
 

@@ -303,6 +303,11 @@ public:
         return myPhases;
     }
 
+    /// @brief copy phase 
+    void copyPhase(const int origin, const int destiny) {
+        myPhases.at(destiny) = myPhases.at(origin);
+    }
+
     /// @brief Returns the offset of first switch
     SUMOTime getOffset() const {
         return myOffset;
@@ -349,7 +354,6 @@ private:
     /// @brief The algorithm type for the traffic light
     TrafficLightType myType;
 
-private:
     /// @brief Invalidated assignment operator
     NBTrafficLightLogic& operator=(const NBTrafficLightLogic& s) = delete;
 };

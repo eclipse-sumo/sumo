@@ -306,6 +306,9 @@ public:
         /// @brief add phase
         void addPhase(const int row);
 
+        /// @brief copy phase
+        void copyPhase(const int row);
+
         /// @brief delete phase
         void removePhase(const int row);
 
@@ -359,6 +362,9 @@ public:
 
         /// @brief init NEMA phase table
         void initNEMAPhaseTable();
+
+        /// @brief build default phase
+        int buildDefaultPhase(const int row);
 
         /// @brief set duration
         bool setDuration(const int col, const int row, const std::string &value);
