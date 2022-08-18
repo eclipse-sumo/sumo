@@ -1,7 +1,7 @@
 # one train passes the stop and the other train is inserted on the opposite direction stop 
 opposite
 
-# one train passes the stop (after being ovetaken) and the other train is inserted on the opposite direction stop.
+# one train passes the stop (after being overtaken) and the other train is inserted on the opposite direction stop.
 # write constraint despite option --abort-unordered since unordered oppositeInsertion carries a greater risk of deadlock.
 opposite_invalid
 
