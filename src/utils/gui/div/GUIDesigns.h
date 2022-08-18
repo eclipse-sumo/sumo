@@ -379,7 +379,10 @@ class MFXMenuCheckIcon;
 #define GUIDesignChildWindowContentFrame        (LAYOUT_FILL_X | LAYOUT_FILL_Y)
 
 /// @brief design for the main content frame of every frame/dialog
-#define GUIDesignContentsFrame                  (LAYOUT_FIX_WIDTH | LAYOUT_FILL_Y), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+#define GUIDesignContentsFrame                  (LAYOUT_FILL_X | LAYOUT_FILL_Y)
+
+/// @brief design for the GNEFrame
+#define GUIDesignContentsGNEFrame               (LAYOUT_FIX_WIDTH | LAYOUT_FILL_Y), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 
 /// @brief design for auxiliar (Without borders) frames used to pack another frames extended in all directions
 #define GUIDesignAuxiliarFrame                  (LAYOUT_FILL_X | LAYOUT_FILL_Y), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
