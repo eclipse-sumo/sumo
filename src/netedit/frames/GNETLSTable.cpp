@@ -485,14 +485,34 @@ GNETLSTable::Cell::Cell(GNETLSTable* TLSTable, int col, int row) :
     // copy phase
     myCopyPhaseButton = new MFXButtonTooltip(myMenuButtonPopup, "\tCopy phase\tCopy phase.",
         GUIIconSubSys::getIcon(GUIIcon::TLSPHASECOPY), TLSTable, MID_GNE_TLSTABLE_COPYPHASE, GUIDesignButtonIcon);
+        // red phase
+    myAddAllRedButton = new MFXButtonTooltip(myMenuButtonPopup, "\tRed phase\tAdd red phase.",
+        GUIIconSubSys::getIcon(GUIIcon::TLSPHASEALLRED), TLSTable, MID_GNE_TLSTABLE_COPYPHASE, GUIDesignButtonIcon);
+        // yellow phase
+    myAddAllYellowButton = new MFXButtonTooltip(myMenuButtonPopup, "\tYellow phase\tAdd yellow phase.",
+        GUIIconSubSys::getIcon(GUIIcon::TLSPHASEALLYELLOW), TLSTable, MID_GNE_TLSTABLE_COPYPHASE, GUIDesignButtonIcon);
+        // green phase
+    myAddAllGreenButton = new MFXButtonTooltip(myMenuButtonPopup, "\tGreen phase\tAdd green phase.",
+        GUIIconSubSys::getIcon(GUIIcon::TLSPHASEALLGREEN), TLSTable, MID_GNE_TLSTABLE_COPYPHASE, GUIDesignButtonIcon);
+        // green priority phase
+    myAddAllGreenPriorityButton = new MFXButtonTooltip(myMenuButtonPopup, "\tGreen priority phase\tAdd green priority phase.",
+        GUIIconSubSys::getIcon(GUIIcon::TLSPHASEALLGREENPRIORITY), TLSTable, MID_GNE_TLSTABLE_COPYPHASE, GUIDesignButtonIcon);
     // create elements
     myMenuButtonPopup->create();
     menuButton->create();
     myAddPhaseButton->create();
     myCopyPhaseButton->create();
+    myAddAllRedButton->create();
+    myAddAllYellowButton->create();
+    myAddAllGreenButton->create();
+    myAddAllGreenPriorityButton->create();
     // set backgrounds
     myAddPhaseButton->setBackColor(FXRGBA(210, 233, 255, 255));
     myCopyPhaseButton->setBackColor(FXRGBA(210, 233, 255, 255));
+    myAddAllRedButton->setBackColor(FXRGBA(255, 213, 213, 255));
+    myAddAllYellowButton->setBackColor(FXRGBA(253, 255, 206, 255));
+    myAddAllGreenButton->setBackColor(FXRGBA(240, 255, 205, 255));
+    myAddAllGreenPriorityButton->setBackColor(FXRGBA(240, 255, 205, 255));
 }
 
 

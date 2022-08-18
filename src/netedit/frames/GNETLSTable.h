@@ -196,6 +196,18 @@ protected:
         /// @brief copy phase button
         MFXButtonTooltip* myCopyPhaseButton = nullptr;
 
+        /// @brief add all red phase button
+        MFXButtonTooltip* myAddAllRedButton = nullptr;
+
+        /// @brief add all yellow phase button
+        MFXButtonTooltip* myAddAllYellowButton = nullptr;
+
+        /// @brief add all green phase button
+        MFXButtonTooltip* myAddAllGreenButton = nullptr;
+
+        /// @brief add all green priority phase button
+        MFXButtonTooltip* myAddAllGreenPriorityButton = nullptr;
+
         /// @brief column index
         const int myCol;
 
