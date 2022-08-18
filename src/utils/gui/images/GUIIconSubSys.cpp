@@ -232,6 +232,9 @@
 #include "modeedgereldata.xpm"
 #include "modetazreldata.xpm"
 
+#include "tlsphasecopy.xpm"
+#include "tlsphasedefault.xpm"
+
 #include "computejunctions.xpm"
 #include "cleanjunctions.xpm"
 #include "joinjunctions.xpm"
@@ -751,6 +754,9 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::EDGEDATA] = new FXXPMIcon(a, edgedata_xpm);
     myIcons[GUIIcon::EDGERELDATA] = new FXXPMIcon(a, edgereldata_xpm);
     myIcons[GUIIcon::TAZRELDATA] = new FXXPMIcon(a, tazreldata_xpm);
+
+    myIcons[GUIIcon::TLSPHASEDEFAULT] = new FXXPMIcon(a, tlsphasedefault_xpm);
+    myIcons[GUIIcon::TLSPHASECOPY] = new FXXPMIcon(a, tlsphasecopy_xpm);
 
     myIcons[GUIIcon::VCLASS_IGNORING] = new FXXPMIcon(a, vclass_ignoring_xpm);
     myIcons[GUIIcon::VCLASS_PRIVATE] = new FXXPMIcon(a, vclass_private_xpm);

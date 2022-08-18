@@ -482,16 +482,19 @@ GNETLSTable::Cell::Cell(GNETLSTable* TLSTable, int col, int row) :
     // default phase
     myAddPhaseButton = new MFXButtonTooltip(myMenuButtonPopup,
         "\tDefault phase\tAdd default phase.",
-        GUIIconSubSys::getIcon(GUIIcon::LOCATEJUNCTION), TLSTable, MID_GNE_TLSTABLE_ADDPHASE, GUIDesignButtonIcon);
+        GUIIconSubSys::getIcon(GUIIcon::TLSPHASEDEFAULT), TLSTable, MID_GNE_TLSTABLE_ADDPHASE, GUIDesignButtonIcon);
     // copy phase
     myCopyPhaseButton = new MFXButtonTooltip(myMenuButtonPopup,
         "\tCopy phase\tCopy phase.",
-        GUIIconSubSys::getIcon(GUIIcon::LOCATEEDGE), TLSTable, MID_GNE_TLSTABLE_COPYPHASE, GUIDesignButtonIcon);
+        GUIIconSubSys::getIcon(GUIIcon::TLSPHASECOPY), TLSTable, MID_GNE_TLSTABLE_COPYPHASE, GUIDesignButtonIcon);
     // create elements
     myMenuButtonPopup->create();
     menuButton->create();
     myAddPhaseButton->create();
     myCopyPhaseButton->create();
+    // set backgrounds
+    myAddPhaseButton->setBackColor(FXRGBA(210, 233, 255, 255));
+    myCopyPhaseButton->setBackColor(FXRGBA(210, 233, 255, 255));
 }
 
 

@@ -458,6 +458,12 @@ enum class GUIIcon {
     TAZRELDATA,
     /// @}
 
+    /// @name NETEDIT icons used in GNETLSTable
+    /// @{
+    TLSPHASEDEFAULT,
+    TLSPHASECOPY,
+    /// @}
+
     /// @name vehicle Class icons (big, used in vType Dialog)
     /// @{
     VCLASS_IGNORING,
