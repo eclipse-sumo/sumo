@@ -165,6 +165,9 @@ protected:
         /// @brief get column type
         char getType() const;
 
+        /// @brief hide menuButton popup
+        void hideMenuButtonPopup();
+
     private:
         /// @brief pointer to TLSTable parent
         GNETLSTable* myTLSTable = nullptr;
@@ -180,6 +183,9 @@ protected:
 
         /// @brief button
         FXButton* myButton = nullptr;
+
+        /// @brief popup for buttons
+        FXPopup* myMenuButtonPopup = nullptr; 
 
         /// @brief add phase button
         FXButton* myAddPhaseButton = nullptr;

@@ -246,8 +246,8 @@ GNETLSTable::onFocusRow(FXObject* sender, FXSelector, void*) {
     // search selected text field
     for (int rowIndex = 0; rowIndex < (int)myRows.size(); rowIndex++) {
         // iterate over every cell
-        for (const auto &cellTextField : myRows.at(rowIndex)->getCells()) {
-            if (cellTextField->getTextField() == sender) {
+        for (const auto &cell : myRows.at(rowIndex)->getCells()) {
+            if (cell->getTextField() == sender) {
                 selectedRow = rowIndex;
             }
         }
@@ -325,8 +325,10 @@ GNETLSTable::onCmdAddPhase(FXObject* sender, FXSelector, void*) {
     // search selected text field
     for (int indexRow = 0; indexRow < (int)myRows.size(); indexRow++) {
         // iterate over every cell
-        for (const auto &cellTextField : myRows.at(indexRow)->getCells()) {
-            if (cellTextField->getAddPhaseButton() == sender) {
+        for (const auto &cell : myRows.at(indexRow)->getCells()) {
+            if (cell->getAddPhaseButton() == sender) {
+                // hide popup
+                cell->hideMenuButtonPopup();
                 // add row
                 myTLSPhasesParent->addPhase(indexRow);
                 // stop
@@ -343,8 +345,8 @@ GNETLSTable::onCmdRemovePhase(FXObject* sender, FXSelector, void*) {
     // search selected text field
     for (int indexRow = 0; indexRow < (int)myRows.size(); indexRow++) {
         // iterate over every cell
-        for (const auto &cellTextField : myRows.at(indexRow)->getCells()) {
-            if (cellTextField->getButton() == sender) {
+        for (const auto &cell : myRows.at(indexRow)->getCells()) {
+            if (cell->getButton() == sender) {
                 // remove row
                 myTLSPhasesParent->removePhase(indexRow);
                 // stop
@@ -361,8 +363,8 @@ GNETLSTable::onCmdMoveUpPhase(FXObject* sender, FXSelector, void*) {
     // search selected text field
     for (int indexRow = 0; indexRow < (int)myRows.size(); indexRow++) {
         // iterate over every cell
-        for (const auto &cellTextField : myRows.at(indexRow)->getCells()) {
-            if (cellTextField->getButton() == sender) {
+        for (const auto &cell : myRows.at(indexRow)->getCells()) {
+            if (cell->getButton() == sender) {
                 // move phase up
                 myTLSPhasesParent->movePhaseUp(indexRow);
                 // stop
@@ -379,8 +381,8 @@ GNETLSTable::onCmdMoveDownPhase(FXObject* sender, FXSelector, void*) {
     // search selected text field
     for (int indexRow = 0; indexRow < (int)myRows.size(); indexRow++) {
         // iterate over every cell
-        for (const auto &cellTextField : myRows.at(indexRow)->getCells()) {
-            if (cellTextField->getButton() == sender) {
+        for (const auto &cell : myRows.at(indexRow)->getCells()) {
+            if (cell->getButton() == sender) {
                 // move phase down
                 myTLSPhasesParent->movePhaseDown(indexRow);
                 // stop
@@ -397,12 +399,12 @@ GNETLSTable::updateIndexLabel() {
     // update radio buttons checks
     for (int rowIndex = 0; rowIndex < (int)myRows.size(); rowIndex++) {
         // iterate over every cell
-        for (const auto &cellIndexLabel : myRows.at(rowIndex)->getCells()) {
-            if (cellIndexLabel->getIndexLabel()) {
+        for (const auto &cell : myRows.at(rowIndex)->getCells()) {
+            if (cell->getIndexLabel()) {
                 if (myCurrentSelectedRow == rowIndex) {
-                    cellIndexLabel->showIndexLabelBold();
+                    cell->showIndexLabelBold();
                 } else {
-                    cellIndexLabel->showIndexLabelNormal();
+                    cell->showIndexLabelNormal();
                 }
             }
         }
@@ -453,20 +455,20 @@ GNETLSTable::Cell::Cell(GNETLSTable* TLSTable, int col, int row) :
     myCol(col),
     myRow(row) {
     // build locator popup
-    auto menuButtonPopup = new FXPopup(TLSTable->myColumns.at(col)->getVerticalCellFrame(), POPUP_VERTICAL);
+    myMenuButtonPopup = new FXPopup(TLSTable->myColumns.at(col)->getVerticalCellFrame(), POPUP_VERTICAL);
     // build menu button
     auto menuButton = new MFXMenuButtonTooltip(TLSTable->myColumns.at(col)->getVerticalCellFrame(), "\tAdd phase\tAdd phase.",
-        GUIIconSubSys::getIcon(GUIIcon::ADD), menuButtonPopup, GUIDesignTLSTableCheckableButtonIcon);
+        GUIIconSubSys::getIcon(GUIIcon::ADD), myMenuButtonPopup, GUIDesignTLSTableCheckableButtonIcon);
     // default phase
-    myAddPhaseButton = new MFXButtonTooltip(menuButtonPopup,
+    myAddPhaseButton = new MFXButtonTooltip(myMenuButtonPopup,
         "\tDefault phase\tAdd default phase.",
         GUIIconSubSys::getIcon(GUIIcon::LOCATEJUNCTION), TLSTable, MID_GNE_TLSTABLE_ADDPHASE, GUIDesignButtonIcon);
     // copy phase
-    myCopyPhaseButton = new MFXButtonTooltip(menuButtonPopup,
+    myCopyPhaseButton = new MFXButtonTooltip(myMenuButtonPopup,
         "\tCopy phase\tCopy phase.",
         GUIIconSubSys::getIcon(GUIIcon::LOCATEEDGE), TLSTable, MID_GNE_TLSTABLE_COPYPHASE, GUIDesignButtonIcon);
     // create elements
-    menuButtonPopup->create();
+    myMenuButtonPopup->create();
     menuButton->create();
     myAddPhaseButton->create();
     myCopyPhaseButton->create();
@@ -539,6 +541,12 @@ GNETLSTable::Cell::getRow() const {
 char 
 GNETLSTable::Cell::getType() const {
     return myTLSTable->myColumns.at(myCol)->getType();
+}
+
+
+void
+GNETLSTable::Cell::hideMenuButtonPopup() {
+    myMenuButtonPopup->popdown();
 }
 
 
