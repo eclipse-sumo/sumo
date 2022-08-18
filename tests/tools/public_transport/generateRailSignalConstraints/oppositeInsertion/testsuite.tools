@@ -26,3 +26,7 @@ opposite_sequential2_maxRange
 # (but both stops are not on the same bidiEdge pair but rather in different directions of a topological string of bidiEdge pairs)
 # swapped positioning of stops on sequence
 opposite_sequential_reverse
+
+# one train passes the stop and the other train is inserted on the opposite direction stop 
+# test interaction with time-shifting
+opposite_ended
