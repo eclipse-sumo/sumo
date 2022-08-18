@@ -5,7 +5,7 @@ static const char *tlsphaseallred_xpm[] = {
 ". c #D6D6D6",
 "o c red",
 "@ c #FF7A7A",
-"# c #A1A1A1",
+"# c #7A8B9C",
 "$ c None",
 /* pixels */
 "$$$$########$$$$",

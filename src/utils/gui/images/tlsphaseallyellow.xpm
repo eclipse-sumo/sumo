@@ -5,7 +5,7 @@ static const char *tlsphaseallyellow_xpm[] = {
 ". c #D6D6D6",
 "o c #FFD800",
 "@ c #FEF168",
-"# c #A1A1A1",
+"# c #7A8B9C",
 "$ c None",
 /* pixels */
 "$$$$########$$$$",

@@ -5,7 +5,7 @@ static const char *tlsphaseallgreenpriority_xpm[] = {
 ". c #D6D6D6",
 "o c #00E800",
 "@ c #FAFF7C",
-"# c #A1A1A1",
+"# c #7A8B9C",
 "$ c None",
 /* pixels */
 "$$$$########$$$$",
