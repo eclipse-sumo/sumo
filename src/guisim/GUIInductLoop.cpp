@@ -171,7 +171,7 @@ GUIInductLoop::MyWrapper::drawGL(const GUIVisualizationSettings& s) const {
     glColor3d(1, 1, 0);
     if (myHaveLength) {
         GLHelper::pushMatrix();
-        glTranslated(0, 0, getType());
+        glTranslated(0, 0, GLO_JUNCTION + 0.4); // do not draw on top of linkRules
         GLHelper::drawBoxLines(myFGShape, myFGShapeRotations, myFGShapeLengths, MIN2(1.0, exaggeration), 0, 0);
         if (width * exaggeration > 1) {
 
@@ -212,7 +212,7 @@ GUIInductLoop::MyWrapper::drawGL(const GUIVisualizationSettings& s) const {
     } else {
         // classic shape
         GLHelper::pushMatrix();
-        glTranslated(0, 0, getType());
+        glTranslated(0, 0, GLO_JUNCTION + 0.4); // do not draw on top of linkRules
         glTranslated(myFGPosition.x(), myFGPosition.y(), 0);
         glRotated(myFGRotation, 0, 0, 1);
         glScaled(exaggeration, exaggeration, 1);
