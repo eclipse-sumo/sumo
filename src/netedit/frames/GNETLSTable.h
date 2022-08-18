@@ -104,6 +104,9 @@ public:
     /// @brief called when an add phase button is pressed
     long onCmdAddPhase(FXObject*, FXSelector, void*);
 
+    /// @brief called when a copy phase button is pressed
+    long onCmdCopyPhase(FXObject*, FXSelector, void*);
+
     /// @brief called when a remove phase button is pressed
     long onCmdRemovePhase(FXObject*, FXSelector, void*);
 

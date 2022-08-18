@@ -39,9 +39,9 @@ FXDEFMAP(GNETLSTable) GNETLSTableMap[] = {
     FXMAPFUNC(SEL_FOCUSIN,  MID_GNE_TLSTABLE_TEXTFIELD,     GNETLSTable::onFocusRow),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TLSTABLE_TEXTFIELD,     GNETLSTable::onCmdEditRow),
     FXMAPFUNC(SEL_KEYPRESS, MID_GNE_TLSTABLE_TEXTFIELD,     GNETLSTable::onCmdKeyPress),
-    // add phase button
+    // add phase buttons
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TLSTABLE_ADDPHASE,      GNETLSTable::onCmdAddPhase),
-    FXMAPFUNC(SEL_KEYPRESS, MID_GNE_TLSTABLE_TEXTFIELD,     GNETLSTable::onCmdKeyPress),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TLSTABLE_COPYPHASE,     GNETLSTable::onCmdCopyPhase),
     // remove phase button
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TLSTABLE_REMOVEPHASE,   GNETLSTable::onCmdRemovePhase),
     FXMAPFUNC(SEL_KEYPRESS, MID_GNE_TLSTABLE_TEXTFIELD,     GNETLSTable::onCmdKeyPress),
@@ -331,6 +331,26 @@ GNETLSTable::onCmdAddPhase(FXObject* sender, FXSelector, void*) {
                 cell->hideMenuButtonPopup();
                 // add row
                 myTLSPhasesParent->addPhase(indexRow);
+                // stop
+                return 0;
+            }
+        }
+    }
+    return 0;
+}
+
+
+long 
+GNETLSTable::onCmdCopyPhase(FXObject* sender, FXSelector, void*) {
+    // search selected text field
+    for (int indexRow = 0; indexRow < (int)myRows.size(); indexRow++) {
+        // iterate over every cell
+        for (const auto &cell : myRows.at(indexRow)->getCells()) {
+            if (cell->getCopyPhaseButton() == sender) {
+                // hide popup
+                cell->hideMenuButtonPopup();
+                // copy row
+                myTLSPhasesParent->copyPhase(indexRow);
                 // stop
                 return 0;
             }
