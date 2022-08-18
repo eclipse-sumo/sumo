@@ -1876,7 +1876,7 @@ GUIApplicationWindow::checkGamingEvents() {
             const double vmax = MIN2(veh->getVehicleType().getMaxSpeed(), veh->getEdge()->getSpeedLimit());
             if (veh->getSpeed() < SUMO_const_haltingSpeed) {
                 myWaitingTime += DELTA_T;
-                if (veh->getID().rfind("emergency", 0) == 0) {
+                if (veh->getVClass() == SVC_EMERGENCY) {
                     myEmergencyVehicleCount += DELTA_T;
                 }
             }
