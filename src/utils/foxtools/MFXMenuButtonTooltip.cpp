@@ -19,6 +19,7 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <utils/gui/windows/GUIAppEnum.h>
 #include "MFXMenuButtonTooltip.h"
 
 
@@ -66,14 +67,21 @@ MFXMenuButtonTooltip::onLeave(FXObject* sender, FXSelector sel, void* ptr) {
 
 long
 MFXMenuButtonTooltip::onLeftBtnPress(FXObject* sender, FXSelector sel, void* ptr) {
-    
-    //target->tryHandle(this, FXSEL(SEL_REPLACED, message), (void*)&tablerange);
-
+    // inform optional target
+    if (myOptionalTarget) {
+        myOptionalTarget->tryHandle(this, FXSEL(MID_MBTTIP_SELECTED, message), nullptr);
+    }
+    // continue handling onLeftBtnPress
     return FXMenuButton::onLeftBtnPress(sender, sel, ptr);
 }
 
 long
 MFXMenuButtonTooltip::onKeyPress(FXObject* sender, FXSelector sel, void* ptr) {
+    // inform optional target
+    if (myOptionalTarget) {
+        myOptionalTarget->tryHandle(this, FXSEL(MID_MBTTIP_SELECTED, message), nullptr);
+    }
+    // continue handling onKeyPress
     return FXMenuButton::onKeyPress(sender, sel, ptr);
 }
 
