@@ -144,6 +144,12 @@ Simulation::getVersion() {
 }
 
 
+std::string
+Simulation::getOption(const std::string& option) {
+    return Dom::getString(libsumo::VAR_OPTION, option);
+}
+
+
 int
 Simulation::getCurrentTime() {
     return Dom::getInt(libsumo::VAR_TIME_STEP, "");
