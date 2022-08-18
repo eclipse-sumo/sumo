@@ -1230,9 +1230,9 @@ def findFoeInsertionConflicts(options, net, stopEdges, stopRoutes, vehicleStopRo
                     limit = 1  # recheck
                     pTripId = pStop.getAttributeSecure("tripId", pStop.vehID)
                     times = "arrival=%s foeArrival=%s " % (humanReadableTime(nUntil), humanReadableTime(pUntil))
-                    info = "foeInsertion"
+                    info = ""
                     if nStop.busStop != pStop.busStop:
-                        info += " foeStop=%s" % pStop.busStop
+                        info += "foeStop=%s" % pStop.busStop
                     active = not nStop.getAttributeSecure(
                         "invalid", False) and not pStop.getAttributeSecure("invalid", False)
                     conflicts[nSignal].append(Conflict(nStop.prevTripId, pSignal, pTripId, limit,
@@ -1319,8 +1319,10 @@ def main(options):
         sumolib.writeXMLHeader(outf, "$Id$", "additional", options=options)  # noqa
         for signal in signals:
             outf.write('    <railSignalConstraints id="%s">\n' % signal)
-            for conflict in conflicts[signal] + foeInsertionConflicts[signal]:
+            for conflict in conflicts[signal]:
                 writeConstraint(options, outf, "predecessor", conflict)
+            for conflict in foeInsertionConflicts[signal]:
+                writeConstraint(options, outf, "foeInsertion", conflict)
             for conflict in (insertionConflicts[signal] + parkingConflicts[signal] +
                              intermediateParkingConflicts[signal]):
                 writeConstraint(options, outf, "insertionPredecessor", conflict)
