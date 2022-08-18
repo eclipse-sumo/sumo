@@ -224,6 +224,9 @@ def main(args=None):
         if options.verbose:
             print("Width values are between %s and %s" %
                   (minWidthValue, maxWidthValue))
+        if minWidthValue is None or maxWidthValue is None:
+            print("Skipping interval %s without data" % t)
+            continue
 
         fig, ax = helpers.openFigure(options)
         ax.set_aspect("equal", None, 'C')
