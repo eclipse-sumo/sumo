@@ -148,6 +148,8 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "railSignalConstraints",          SUMO_TAG_RAILSIGNAL_CONSTRAINTS },
     { "predecessor",                    SUMO_TAG_PREDECESSOR },
     { "insertionPredecessor",           SUMO_TAG_INSERTION_PREDECESSOR },
+    { "foeInsertion",                   SUMO_TAG_FOE_INSERTION },
+    { "insertionOrder",                 SUMO_TAG_INSERTION_ORDER },
     { "railSignalConstraintTracker",    SUMO_TAG_RAILSIGNAL_CONSTRAINT_TRACKER },
     { "link",                           SUMO_TAG_LINK },
     { "approaching",                    SUMO_TAG_APPROACHING },
