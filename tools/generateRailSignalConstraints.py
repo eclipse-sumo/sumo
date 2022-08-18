@@ -1309,7 +1309,7 @@ def main(options):
     uniqueRoutes, stopRoutes, stopRoutesBidi, vehicleStopRoutes, departTimes = getStopRoutes(options, stopEdges, bidiStops)
     if options.abortUnordered:
         markOvertaken(options, vehicleStopRoutes, stopRoutes)
-    parkingConflicts = updateStartedEnded(options, net, stopEdges, stopRoutes, vehicleStopRoutes)
+    parkingConflicts = updateStartedEnded(options, net, stopEdges, stopRoutesBidi, vehicleStopRoutes)
     mergeSwitches = findMergingSwitches(options, uniqueRoutes, net)
     signalTimes = computeSignalTimes(options, net, stopRoutes)
     switchRoutes, mergeSignals = findStopsAfterMerge(net, stopRoutes, mergeSwitches)
