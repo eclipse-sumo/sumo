@@ -1397,8 +1397,8 @@ GNEJunction::drawTLSIcon(const GUIVisualizationSettings& s) const {
     if ((myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_TLS) &&
             (myNBNode->isTLControlled()) && !myAmTLSSelected && !s.drawForRectangleSelection) {
         GLHelper::pushMatrix();
-        Position pos = myNBNode->getPosition();
-        glTranslated(pos.x(), pos.y(), 0.2);
+        const Position pos = myNBNode->getPosition();
+        glTranslated(pos.x(), pos.y(), 2.2);
         glColor3d(1, 1, 1);
         const double halfWidth = 32 / s.scale;
         const double halfHeight = 64 / s.scale;
