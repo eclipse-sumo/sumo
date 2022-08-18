@@ -304,7 +304,7 @@ public:
         bool changePhaseValue(const int col, const int row, const std::string &value);
 
         /// @brief add phase
-        void addPhase(const int row);
+        void addPhase(const int row, const char c = ' ');
 
         /// @brief copy phase
         void copyPhase(const int row);

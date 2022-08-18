@@ -107,6 +107,18 @@ public:
     /// @brief called when a copy phase button is pressed
     long onCmdCopyPhase(FXObject*, FXSelector, void*);
 
+    /// @brief called when an add all green red phase button is pressed
+    long onCmdAddPhaseAllRed(FXObject*, FXSelector, void*);
+
+    /// @brief called when an add all green red phase button is pressed
+    long onCmdAddPhaseAllYellow(FXObject*, FXSelector, void*);
+
+    /// @brief called when an add all green red phase button is pressed
+    long onCmdAddPhaseAllGreen(FXObject*, FXSelector, void*);
+
+    /// @brief called when an add all green red phase button is pressed
+    long onCmdAddPhaseAllGreenPriority(FXObject*, FXSelector, void*);
+
     /// @brief called when a remove phase button is pressed
     long onCmdRemovePhase(FXObject*, FXSelector, void*);
 
@@ -152,6 +164,18 @@ protected:
 
         /// @brief get copy phase button
         MFXButtonTooltip* getCopyPhaseButton();
+
+        /// @brief get add all red phase button
+        MFXButtonTooltip* getAddAllRedPhaseButton();
+
+        /// @brief get add all yellow phase button
+        MFXButtonTooltip* getAddAllYellowPhaseButton();
+
+        /// @brief get add all green phase button
+        MFXButtonTooltip* getAddAllGreenPhaseButton();
+
+        /// @brief get add all green priority phase button
+        MFXButtonTooltip* getAddAllGreenPriorityPhaseButton();
 
         /// @brief show label index normal
         void showIndexLabelNormal();

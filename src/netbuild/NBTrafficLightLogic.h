@@ -256,6 +256,12 @@ public:
      */
     void setPhaseName(int phaseIndex, const std::string& name);
 
+    /** @brief override state with the given character(used by NETEDIT)
+     * @param[in] phaseIndex The index of the phase to modify
+     * @param[in] c the character to override (r, y, g, G...)
+     */
+    void overrideState(int phaseIndex, const char c);
+
     /* @brief deletes the phase at the given index
      * @note throws InvalidArgument on out-of range index
      */

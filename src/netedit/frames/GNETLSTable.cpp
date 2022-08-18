@@ -36,21 +36,25 @@
 
 FXDEFMAP(GNETLSTable) GNETLSTableMap[] = {
     // text fields
-    FXMAPFUNC(SEL_FOCUSIN,  MID_GNE_TLSTABLE_TEXTFIELD,     GNETLSTable::onFocusRow),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TLSTABLE_TEXTFIELD,     GNETLSTable::onCmdEditRow),
-    FXMAPFUNC(SEL_KEYPRESS, MID_GNE_TLSTABLE_TEXTFIELD,     GNETLSTable::onCmdKeyPress),
+    FXMAPFUNC(SEL_FOCUSIN,  MID_GNE_TLSTABLE_TEXTFIELD,                 GNETLSTable::onFocusRow),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TLSTABLE_TEXTFIELD,                 GNETLSTable::onCmdEditRow),
+    FXMAPFUNC(SEL_KEYPRESS, MID_GNE_TLSTABLE_TEXTFIELD,                 GNETLSTable::onCmdKeyPress),
     // add phase buttons
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TLSTABLE_ADDPHASE,      GNETLSTable::onCmdAddPhase),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TLSTABLE_COPYPHASE,     GNETLSTable::onCmdCopyPhase),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TLSTABLE_ADDPHASE,                  GNETLSTable::onCmdAddPhase),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TLSTABLE_COPYPHASE,                 GNETLSTable::onCmdCopyPhase),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TLSTABLE_ADDPHASEALLRED,            GNETLSTable::onCmdAddPhaseAllRed),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TLSTABLE_ADDPHASEALLYELLOW,         GNETLSTable::onCmdAddPhaseAllYellow),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TLSTABLE_ADDPHASEALLGREEN,          GNETLSTable::onCmdAddPhaseAllGreen),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TLSTABLE_ADDPHASEALLGREENPRIORITY,  GNETLSTable::onCmdAddPhaseAllGreenPriority),
     // remove phase button
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TLSTABLE_REMOVEPHASE,   GNETLSTable::onCmdRemovePhase),
-    FXMAPFUNC(SEL_KEYPRESS, MID_GNE_TLSTABLE_TEXTFIELD,     GNETLSTable::onCmdKeyPress),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TLSTABLE_REMOVEPHASE,               GNETLSTable::onCmdRemovePhase),
+    FXMAPFUNC(SEL_KEYPRESS, MID_GNE_TLSTABLE_TEXTFIELD,                 GNETLSTable::onCmdKeyPress),
     // move up phase button
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TLSTABLE_MOVEUPPHASE,   GNETLSTable::onCmdMoveUpPhase),
-    FXMAPFUNC(SEL_KEYPRESS, MID_GNE_TLSTABLE_TEXTFIELD,     GNETLSTable::onCmdKeyPress),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TLSTABLE_MOVEUPPHASE,               GNETLSTable::onCmdMoveUpPhase),
+    FXMAPFUNC(SEL_KEYPRESS, MID_GNE_TLSTABLE_TEXTFIELD,                 GNETLSTable::onCmdKeyPress),
     // move down phase button
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TLSTABLE_MOVEDOWNPHASE, GNETLSTable::onCmdMoveDownPhase),
-    FXMAPFUNC(SEL_KEYPRESS, MID_GNE_TLSTABLE_TEXTFIELD,     GNETLSTable::onCmdKeyPress),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TLSTABLE_MOVEDOWNPHASE,             GNETLSTable::onCmdMoveDownPhase),
+    FXMAPFUNC(SEL_KEYPRESS, MID_GNE_TLSTABLE_TEXTFIELD,                 GNETLSTable::onCmdKeyPress),
 };
 
 // Object implementation
@@ -360,6 +364,86 @@ GNETLSTable::onCmdCopyPhase(FXObject* sender, FXSelector, void*) {
 }
 
 
+long 
+GNETLSTable::onCmdAddPhaseAllRed(FXObject* sender, FXSelector, void*) {
+    // search selected text field
+    for (int indexRow = 0; indexRow < (int)myRows.size(); indexRow++) {
+        // iterate over every cell
+        for (const auto &cell : myRows.at(indexRow)->getCells()) {
+            if (cell->getAddAllRedPhaseButton() == sender) {
+                // hide popup
+                cell->hideMenuButtonPopup();
+                // add row
+                myTLSPhasesParent->addPhase(indexRow, 'r');
+                // stop
+                return 0;
+            }
+        }
+    }
+    return 0;
+}
+
+
+long 
+GNETLSTable::onCmdAddPhaseAllYellow(FXObject* sender, FXSelector, void*) {
+    // search selected text field
+    for (int indexRow = 0; indexRow < (int)myRows.size(); indexRow++) {
+        // iterate over every cell
+        for (const auto &cell : myRows.at(indexRow)->getCells()) {
+            if (cell->getAddAllYellowPhaseButton() == sender) {
+                // hide popup
+                cell->hideMenuButtonPopup();
+                // add row
+                myTLSPhasesParent->addPhase(indexRow, 'y');
+                // stop
+                return 0;
+            }
+        }
+    }
+    return 0;
+}
+
+
+long 
+GNETLSTable::onCmdAddPhaseAllGreen(FXObject* sender, FXSelector, void*) {
+    // search selected text field
+    for (int indexRow = 0; indexRow < (int)myRows.size(); indexRow++) {
+        // iterate over every cell
+        for (const auto &cell : myRows.at(indexRow)->getCells()) {
+            if (cell->getAddAllGreenPhaseButton() == sender) {
+                // hide popup
+                cell->hideMenuButtonPopup();
+                // add row
+                myTLSPhasesParent->addPhase(indexRow, 'g');
+                // stop
+                return 0;
+            }
+        }
+    }
+    return 0;
+}
+
+
+long 
+GNETLSTable::onCmdAddPhaseAllGreenPriority(FXObject* sender, FXSelector, void*) {
+    // search selected text field
+    for (int indexRow = 0; indexRow < (int)myRows.size(); indexRow++) {
+        // iterate over every cell
+        for (const auto &cell : myRows.at(indexRow)->getCells()) {
+            if (cell->getAddAllGreenPriorityPhaseButton() == sender) {
+                // hide popup
+                cell->hideMenuButtonPopup();
+                // add row
+                myTLSPhasesParent->addPhase(indexRow, 'G');
+                // stop
+                return 0;
+            }
+        }
+    }
+    return 0;
+}
+
+
 long
 GNETLSTable::onCmdRemovePhase(FXObject* sender, FXSelector, void*) {
     // search selected text field
@@ -487,16 +571,16 @@ GNETLSTable::Cell::Cell(GNETLSTable* TLSTable, int col, int row) :
         GUIIconSubSys::getIcon(GUIIcon::TLSPHASECOPY), TLSTable, MID_GNE_TLSTABLE_COPYPHASE, GUIDesignButtonIcon);
         // red phase
     myAddAllRedButton = new MFXButtonTooltip(myMenuButtonPopup, "\tRed phase\tAdd red phase.",
-        GUIIconSubSys::getIcon(GUIIcon::TLSPHASEALLRED), TLSTable, MID_GNE_TLSTABLE_COPYPHASE, GUIDesignButtonIcon);
+        GUIIconSubSys::getIcon(GUIIcon::TLSPHASEALLRED), TLSTable, MID_GNE_TLSTABLE_ADDPHASEALLRED, GUIDesignButtonIcon);
         // yellow phase
     myAddAllYellowButton = new MFXButtonTooltip(myMenuButtonPopup, "\tYellow phase\tAdd yellow phase.",
-        GUIIconSubSys::getIcon(GUIIcon::TLSPHASEALLYELLOW), TLSTable, MID_GNE_TLSTABLE_COPYPHASE, GUIDesignButtonIcon);
+        GUIIconSubSys::getIcon(GUIIcon::TLSPHASEALLYELLOW), TLSTable, MID_GNE_TLSTABLE_ADDPHASEALLYELLOW, GUIDesignButtonIcon);
         // green phase
     myAddAllGreenButton = new MFXButtonTooltip(myMenuButtonPopup, "\tGreen phase\tAdd green phase.",
-        GUIIconSubSys::getIcon(GUIIcon::TLSPHASEALLGREEN), TLSTable, MID_GNE_TLSTABLE_COPYPHASE, GUIDesignButtonIcon);
+        GUIIconSubSys::getIcon(GUIIcon::TLSPHASEALLGREEN), TLSTable, MID_GNE_TLSTABLE_ADDPHASEALLGREEN, GUIDesignButtonIcon);
         // green priority phase
     myAddAllGreenPriorityButton = new MFXButtonTooltip(myMenuButtonPopup, "\tGreen priority phase\tAdd green priority phase.",
-        GUIIconSubSys::getIcon(GUIIcon::TLSPHASEALLGREENPRIORITY), TLSTable, MID_GNE_TLSTABLE_COPYPHASE, GUIDesignButtonIcon);
+        GUIIconSubSys::getIcon(GUIIcon::TLSPHASEALLGREENPRIORITY), TLSTable, MID_GNE_TLSTABLE_ADDPHASEALLGREENPRIORITY, GUIDesignButtonIcon);
     // create elements
     myMenuButtonPopup->create();
     menuButton->create();
@@ -544,6 +628,30 @@ GNETLSTable::Cell::getAddPhaseButton() {
 MFXButtonTooltip* 
 GNETLSTable::Cell::getCopyPhaseButton() {
     return myCopyPhaseButton;
+}
+
+
+MFXButtonTooltip*
+GNETLSTable::Cell::getAddAllRedPhaseButton() {
+    return myAddAllRedButton;
+}
+
+
+MFXButtonTooltip*
+GNETLSTable::Cell::getAddAllYellowPhaseButton() {
+    return myAddAllYellowButton;
+}
+
+
+MFXButtonTooltip*
+GNETLSTable::Cell::getAddAllGreenPhaseButton() {
+    return myAddAllGreenButton;
+}
+
+
+MFXButtonTooltip*
+GNETLSTable::Cell::getAddAllGreenPriorityPhaseButton() {
+    return myAddAllGreenPriorityButton;
 }
 
 

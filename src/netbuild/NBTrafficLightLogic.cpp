@@ -300,4 +300,13 @@ NBTrafficLightLogic::setPhaseName(int phaseIndex, const std::string& name) {
     myPhases[phaseIndex].name = name;
 }
 
+
+void 
+NBTrafficLightLogic::overrideState(int phaseIndex, const char c) {
+    assert(phaseIndex < (int)myPhases.size());
+    for (int i = 0; i < (int)myPhases[phaseIndex].state.size(); i++) {
+        myPhases[phaseIndex].state[i] = c;
+    }
+}
+
 /****************************************************************************/

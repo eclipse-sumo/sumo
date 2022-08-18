@@ -1299,11 +1299,22 @@ GNETLSEditorFrame::TLSPhases::changePhaseValue(const int col, const int row, con
 
 
 void
-GNETLSEditorFrame::TLSPhases::addPhase(const int row) {
+GNETLSEditorFrame::TLSPhases::addPhase(const int row, const char c) {
     // mark TLS as modified
     myTLSEditorParent->myTLSDefinition->markAsModified();
     // build default phase
     const int newIndex = buildDefaultPhase(row);
+    // check if override state
+    switch (c) {
+        case 'r':
+        case 'y':
+        case 'g':
+        case 'G':
+            myTLSEditorParent->myEditedDef->getLogic()->overrideState(newIndex, c);
+            break;
+        default:
+            break;
+    }
     // int phase table again
     initPhaseTable();
     // mark new row as selected
