@@ -421,7 +421,7 @@ GNEVehicleTypeDialog::VTypeAtributes::VTypeAttributeRow::VTypeAttributeRow(VType
         myComboBox = new MFXIconComboBox(this, GUIDesignComboBoxNCol, false, VTypeAtributesParent, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBoxWidth180);
         // fill combo Box with values
         for (const auto& value : values) {
-            myComboBox->appendIconItem(value.c_str(), false);
+            myComboBox->appendIconItem(value.c_str(), nullptr);
         }
         // set 10 visible elements as maximum
         if (myComboBox->getNumItems() < 10) {
@@ -1225,7 +1225,7 @@ GNEVehicleTypeDialog::CarFollowingModelParameters::CarFollowingModelParameters(G
     // fill combo Box with all Car following models
     std::vector<std::string> CFModels = SUMOXMLDefinitions::CarFollowModels.getStrings();
     for (const auto &CFModel : CFModels) {
-        myComboBoxCarFollowModel->appendIconItem(CFModel.c_str(), false);
+        myComboBoxCarFollowModel->appendIconItem(CFModel.c_str(), nullptr);
     }
     myComboBoxCarFollowModel->setNumVisible(10);
 
