@@ -42,7 +42,7 @@ FXDEFMAP(GNETLSTable) GNETLSTableMap[] = {
     FXMAPFUNC(SEL_KEYPRESS, MID_GNE_TLSTABLE_TEXTFIELD,                 GNETLSTable::onCmdKeyPress),
     // add phase buttons
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TLSTABLE_ADDPHASE,                  GNETLSTable::onCmdAddPhase),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TLSTABLE_COPYPHASE,                 GNETLSTable::onCmdCopyPhase),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TLSTABLE_COPYPHASE,                 GNETLSTable::onCmdDuplicatePhase),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TLSTABLE_ADDPHASEALLRED,            GNETLSTable::onCmdAddPhaseAllRed),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TLSTABLE_ADDPHASEALLYELLOW,         GNETLSTable::onCmdAddPhaseAllYellow),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TLSTABLE_ADDPHASEALLGREEN,          GNETLSTable::onCmdAddPhaseAllGreen),
@@ -346,16 +346,16 @@ GNETLSTable::onCmdAddPhase(FXObject* sender, FXSelector, void*) {
 
 
 long 
-GNETLSTable::onCmdCopyPhase(FXObject* sender, FXSelector, void*) {
+GNETLSTable::onCmdDuplicatePhase(FXObject* sender, FXSelector, void*) {
     // search selected text field
     for (int indexRow = 0; indexRow < (int)myRows.size(); indexRow++) {
         // iterate over every cell
         for (const auto &cell : myRows.at(indexRow)->getCells()) {
-            if (cell->getCopyPhaseButton() == sender) {
+            if (cell->getDuplicatePhaseButton() == sender) {
                 // hide popup
                 cell->hideMenuButtonPopup();
-                // copy row
-                myTLSPhasesParent->copyPhase(indexRow);
+                // duplicate row
+                myTLSPhasesParent->duplicatePhase(indexRow);
                 // stop
                 return 0;
             }
@@ -567,8 +567,8 @@ GNETLSTable::Cell::Cell(GNETLSTable* TLSTable, int col, int row) :
     // default phase
     myAddPhaseButton = new MFXButtonTooltip(myMenuButtonPopup, "\tDefault phase\tAdd default phase.",
         GUIIconSubSys::getIcon(GUIIcon::TLSPHASEDEFAULT), TLSTable, MID_GNE_TLSTABLE_ADDPHASE, GUIDesignButtonIcon);
-    // copy phase
-    myCopyPhaseButton = new MFXButtonTooltip(myMenuButtonPopup, "\tCopy phase\tCopy phase.",
+    // duplicate phase
+    myDuplicatePhaseButton = new MFXButtonTooltip(myMenuButtonPopup, "\tDuplicate phase\tDuplicate phase.",
         GUIIconSubSys::getIcon(GUIIcon::TLSPHASECOPY), TLSTable, MID_GNE_TLSTABLE_COPYPHASE, GUIDesignButtonIcon);
         // red phase
     myAddAllRedButton = new MFXButtonTooltip(myMenuButtonPopup, "\tRed phase\tAdd red phase.",
@@ -586,14 +586,14 @@ GNETLSTable::Cell::Cell(GNETLSTable* TLSTable, int col, int row) :
     myMenuButtonPopup->create();
     myMenuButton->create();
     myAddPhaseButton->create();
-    myCopyPhaseButton->create();
+    myDuplicatePhaseButton->create();
     myAddAllRedButton->create();
     myAddAllYellowButton->create();
     myAddAllGreenButton->create();
     myAddAllGreenPriorityButton->create();
     // set backgrounds
     myAddPhaseButton->setBackColor(FXRGBA(210, 233, 255, 255));
-    myCopyPhaseButton->setBackColor(FXRGBA(210, 233, 255, 255));
+    myDuplicatePhaseButton->setBackColor(FXRGBA(210, 233, 255, 255));
     myAddAllRedButton->setBackColor(FXRGBA(255, 213, 213, 255));
     myAddAllYellowButton->setBackColor(FXRGBA(253, 255, 206, 255));
     myAddAllGreenButton->setBackColor(FXRGBA(240, 255, 205, 255));
@@ -633,8 +633,8 @@ GNETLSTable::Cell::getAddPhaseButton() {
 
 
 MFXButtonTooltip* 
-GNETLSTable::Cell::getCopyPhaseButton() {
-    return myCopyPhaseButton;
+GNETLSTable::Cell::getDuplicatePhaseButton() {
+    return myDuplicatePhaseButton;
 }
 
 

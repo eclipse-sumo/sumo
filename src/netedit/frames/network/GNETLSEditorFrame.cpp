@@ -202,18 +202,18 @@ GNETLSEditorFrame::parseTLSPrograms(const std::string& file) {
     // existing definitions must be available to update their programs
     std::set<NBTrafficLightDefinition*> origDefs;
     for (NBTrafficLightDefinition* def : tllCont.getDefinitions()) {
-        // make a copy of every program
+        // make a duplicate of every program
         NBTrafficLightLogic* logic = tllCont.getLogic(def->getID(), def->getProgramID());
         if (logic != nullptr) {
-            NBTrafficLightDefinition* copy = new NBLoadedSUMOTLDef(*def, *logic);
+            NBTrafficLightDefinition* duplicate = new NBLoadedSUMOTLDef(*def, *logic);
             std::vector<NBNode*> nodes = def->getNodes();
             for (auto it_node : nodes) {
                 GNEJunction* junction = myViewNet->getNet()->getAttributeCarriers()->retrieveJunction(it_node->getID());
                 myViewNet->getUndoList()->add(new GNEChange_TLS(junction, def, false, false), true);
-                myViewNet->getUndoList()->add(new GNEChange_TLS(junction, copy, true), true);
+                myViewNet->getUndoList()->add(new GNEChange_TLS(junction, duplicate, true), true);
             }
-            tmpTLLCont.insert(copy);
-            origDefs.insert(copy);
+            tmpTLLCont.insert(duplicate);
+            origDefs.insert(duplicate);
         } else {
             WRITE_WARNING("tlLogic '" + def->getID() + "', program '" + def->getProgramID() + "' could not be built");
         }
@@ -958,7 +958,7 @@ GNETLSEditorFrame::TLSDefinition::onCmdResetCurrentProgram(FXObject*, FXSelector
 
 long
 GNETLSEditorFrame::TLSDefinition::onCmdResetAll(FXObject*, FXSelector, void*) {
-    // make a copy of the junction
+    // make a duplicate of the junction
     GNEJunction* junction = myTLSEditorParent->myTLSJunction->getCurrentJunction();
     // discard all previous changes
     onCmdDiscardChanges(nullptr, 0, nullptr); // abort because onCmdOk assumes we wish to save an edited definition
@@ -995,7 +995,7 @@ GNETLSEditorFrame::TLSDefinition::onCmdDefSwitchTLSProgram(FXObject*, FXSelector
         if (tllogic != nullptr) {
             // now we can be sure that the tlDef is up to date (i.e. re-guessed)
             myTLSEditorParent->buildInternalLanes(tlDef);
-            // create working copy from original def
+            // create working duplicate from original def
             delete myTLSEditorParent->myEditedDef;
             myTLSEditorParent->myEditedDef = new NBLoadedSUMOTLDef(*tlDef, *tllogic);
             // set values
@@ -1031,7 +1031,7 @@ GNETLSEditorFrame::TLSDefinition::onUpdCreateButton(FXObject* sender, FXSelector
         sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
         // update button text
         if (junction->getNBNode()->isTLControlled()) {
-            myCreateButton->setText("Copy");
+            myCreateButton->setText("Duplicate");
         } else {
             myCreateButton->setText("Create");
         }
@@ -1325,12 +1325,12 @@ GNETLSEditorFrame::TLSPhases::addPhase(const int row, const char c) {
 
 
 void
-GNETLSEditorFrame::TLSPhases::copyPhase(const int row) {
+GNETLSEditorFrame::TLSPhases::duplicatePhase(const int row) {
     // mark TLS as modified
     myTLSEditorParent->myTLSDefinition->markAsModified();
     // build default phase
     const int newIndex = buildDefaultPhase(row);
-    // copy old phase in the new phase
+    // coply old phase in the new phase
     myTLSEditorParent->myEditedDef->getLogic()->copyPhase(row, row + 1);
     // int phase table again
     initPhaseTable();
@@ -1649,7 +1649,7 @@ GNETLSEditorFrame::TLSPhases::buildDefaultPhase(const int row) {
     const bool TLSStatic = (myTLSEditorParent->myEditedDef->getType() == TrafficLightType::STATIC);
     // calculate new index
     const int newIndex = row + 1;
-    // copy current row
+    // duplicate current row
     auto duration = getSUMOTime(myPhaseTable->getItemText(row, 1));
     const auto oldState = myPhaseTable->getItemText(row, TLSStatic ? 2 : 4);
     auto state = oldState;

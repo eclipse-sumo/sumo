@@ -124,7 +124,7 @@ public:
 
         /// @name FOX-callbacks
         /// @{
-        /// @brief Called when the user press button create/copy TLS Program
+        /// @brief Called when the user press button create/duplicate TLS Program
         long onCmdCreate(FXObject*, FXSelector, void*);
 
         /// @brief Called when the user press button delete TLS Program
@@ -160,7 +160,7 @@ public:
         /// @brief FOX needs this
         FOX_CONSTRUCTOR(TLSDefinition)
 
-        /// @brief create (or copy) TLS in the given junction
+        /// @brief create (or duplicate) TLS in the given junction
         void createTLS(GNEJunction* junction);
 
     private:
@@ -306,8 +306,8 @@ public:
         /// @brief add phase
         void addPhase(const int row, const char c = ' ');
 
-        /// @brief copy phase
-        void copyPhase(const int row);
+        /// @brief duplicate phase
+        void duplicatePhase(const int row);
 
         /// @brief delete phase
         void removePhase(const int row);

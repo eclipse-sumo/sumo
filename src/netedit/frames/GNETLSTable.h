@@ -104,8 +104,8 @@ public:
     /// @brief called when an add phase button is pressed
     long onCmdAddPhase(FXObject*, FXSelector, void*);
 
-    /// @brief called when a copy phase button is pressed
-    long onCmdCopyPhase(FXObject*, FXSelector, void*);
+    /// @brief called when a duplicate phase button is pressed
+    long onCmdDuplicatePhase(FXObject*, FXSelector, void*);
 
     /// @brief called when an add all green red phase button is pressed
     long onCmdAddPhaseAllRed(FXObject*, FXSelector, void*);
@@ -165,8 +165,8 @@ protected:
         /// @brief get add phase button
         MFXButtonTooltip* getAddPhaseButton();
 
-        /// @brief get copy phase button
-        MFXButtonTooltip* getCopyPhaseButton();
+        /// @brief get duplicate phase button
+        MFXButtonTooltip* getDuplicatePhaseButton();
 
         /// @brief get add all red phase button
         MFXButtonTooltip* getAddAllRedPhaseButton();
@@ -223,8 +223,8 @@ protected:
         /// @brief add phase button
         MFXButtonTooltip* myAddPhaseButton = nullptr;
 
-        /// @brief copy phase button
-        MFXButtonTooltip* myCopyPhaseButton = nullptr;
+        /// @brief duplicate phase button
+        MFXButtonTooltip* myDuplicatePhaseButton = nullptr;
 
         /// @brief add all red phase button
         MFXButtonTooltip* myAddAllRedButton = nullptr;
@@ -370,7 +370,7 @@ protected:
     int myCurrentSelectedRow = -1;
 
 private:
-    /// @brief Invalidated copy constructor.
+    /// @brief Invalidated duplicate constructor.
     GNETLSTable(const GNETLSTable&) = delete;
 
     /// @brief Invalidated assignment operator.
