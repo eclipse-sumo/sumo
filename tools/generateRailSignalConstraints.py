@@ -330,6 +330,7 @@ def getStopRoutes(options, stopEdges, bidiStops):
     stopRoutes = defaultdict(list)  # busStop -> [(edges, stopObj), ....]
     stopRoutesBidi = defaultdict(list)  # busStop -> [(edges, stopObj), ....]
     vehicleStopRoutes = defaultdict(list)  # vehID -> [(edges, stopObj), ....]
+    departTimes = {}
     numRoutes = 0
     numStops = 0
     begin = parseTime(options.begin)
@@ -337,6 +338,7 @@ def getStopRoutes(options, stopEdges, bidiStops):
         depart = parseTime(vehicle.depart)
         if depart < begin:
             continue
+        departTimes[vehicle.id] = depart
         numRoutes += 1
         edges = tuple(vehicle.route[0].edges.split())
         uniqueRoutes.add(edges)
@@ -377,7 +379,7 @@ def getStopRoutes(options, stopEdges, bidiStops):
     print("read %s routes (%s unique) and %s stops at %s busStops" % (
         numRoutes, len(uniqueRoutes), numStops, len(stopRoutes)))
 
-    return uniqueRoutes, stopRoutes, stopRoutesBidi, vehicleStopRoutes
+    return uniqueRoutes, stopRoutes, stopRoutesBidi, vehicleStopRoutes, departTimes
 
 
 def findMergingSwitches(options, uniqueRoutes, net):
@@ -1033,7 +1035,7 @@ def getUpstreamSignal(net, vehStops, stopIndex):
     return findSignal(net, list(reversed(prevEdges)), True)
 
 
-def findInsertionConflicts(options, net, stopEdges, stopRoutes, vehicleStopRoutes):
+def findInsertionConflicts(options, net, stopEdges, stopRoutes, vehicleStopRoutes, departTimes):
     """find routes that start at a stop with a traffic light at end of the edge
     and routes that pass this stop. Ensure insertion happens in the correct order
     (finds constraints on insertion)
@@ -1079,7 +1081,7 @@ def findInsertionConflicts(options, net, stopEdges, stopRoutes, vehicleStopRoute
                 pIsDepart = len(pEdges) == 1 and pIndex == 0
                 # usually, subsequent departuers do not require constraints
                 # (unless depart, until and ended out of sync)
-                if not pIsDepart:
+                if not pIsDepart or departTimes[nStop.vehID] < departTimes[pStop.vehID]:
                     # find edges after stop
                     if busStop == options.debugStop:
                         print(i,
@@ -1109,6 +1111,7 @@ def findInsertionConflicts(options, net, stopEdges, stopRoutes, vehicleStopRoute
                         pTripId = pStop.getAttributeSecure("tripId", pStop.vehID)
                         times = "until=%s foeUntil=%s " % (humanReadableTime(nUntil), humanReadableTime(pUntil))
                         info = "" if nStop.busStop == pStop.busStop else "foeStop=%s" % pStop.busStop
+                        tag = "insertionOrder" if pIsDepart else None
                         conflicts[nSignal].append(Conflict(nStop.prevTripId, pSignal, pTripId, limit,
                                                            # attributes for adding comments
                                                            nStop.prevLine,
@@ -1119,7 +1122,8 @@ def findInsertionConflicts(options, net, stopEdges, stopRoutes, vehicleStopRoute
                                                            switch=None,
                                                            busStop=nStop.busStop,
                                                            info=info,
-                                                           active=active))
+                                                           active=active,
+                                                           tag=tag))
                         numConflicts += 1
                         if busStop == options.debugStop:
                             print("   found insertionConflict pSignal=%s nSignal=%s pTripId=%s" % (
@@ -1302,7 +1306,7 @@ def main(options):
     net = sumolib.net.readNet(options.netFile)
     stopEdges = getStopEdges(options.addFile)
     bidiStops = getBidiStops(options, net, stopEdges)
-    uniqueRoutes, stopRoutes, stopRoutesBidi, vehicleStopRoutes = getStopRoutes(options, stopEdges, bidiStops)
+    uniqueRoutes, stopRoutes, stopRoutesBidi, vehicleStopRoutes, departTimes = getStopRoutes(options, stopEdges, bidiStops)
     if options.abortUnordered:
         markOvertaken(options, vehicleStopRoutes, stopRoutes)
     parkingConflicts = updateStartedEnded(options, net, stopEdges, stopRoutes, vehicleStopRoutes)
@@ -1312,7 +1316,7 @@ def main(options):
     conflicts, intermediateParkingConflicts = findConflicts(
         options, net, switchRoutes, mergeSignals, signalTimes, stopEdges, vehicleStopRoutes)
     foeInsertionConflicts = findFoeInsertionConflicts(options, net, stopEdges, stopRoutesBidi, vehicleStopRoutes)
-    insertionConflicts = findInsertionConflicts(options, net, stopEdges, stopRoutesBidi, vehicleStopRoutes)
+    insertionConflicts = findInsertionConflicts(options, net, stopEdges, stopRoutesBidi, vehicleStopRoutes, departTimes)
 
     signals = sorted(set(list(conflicts.keys())
                          + list(foeInsertionConflicts.keys())
