@@ -853,8 +853,10 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
         }
         if (isRail && !hadRailSignal) {
             std::string constraintInfo;
-            if (MSRailSignal::hasInsertionConstraint(*link, aVehicle, constraintInfo)) {
-                setParameter("insertionConstraint:" + aVehicle->getID(), constraintInfo);
+            bool isInsertionOrder;
+            if (MSRailSignal::hasInsertionConstraint(*link, aVehicle, constraintInfo, isInsertionOrder)) {
+                setParameter((isInsertionOrder ? "insertionOrder" : "insertionConstraint:")
+                        + aVehicle->getID(), constraintInfo);
 #ifdef DEBUG_INSERTION
                 if (DEBUG_COND2(aVehicle) || DEBUG_COND) {
                     std::cout << " insertion constraint at link " << (*link)->getDescription() << " not cleared \n";
@@ -1223,6 +1225,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
 #endif
     if (isRail) {
         unsetParameter("insertionConstraint:" + aVehicle->getID());
+        unsetParameter("insertionOrder:" + aVehicle->getID());
     }
     return true;
 }
