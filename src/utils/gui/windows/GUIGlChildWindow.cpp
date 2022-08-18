@@ -129,7 +129,7 @@ GUIGlChildWindow::buildNavigationToolBar() {
     // build locator button
     myLocatorButton = new MFXMenuButtonTooltip(myGripNavigationToolbar ? myGripNavigationToolbar : myStaticNavigationToolBar,
                                                "\tLocate Structures\tLocate structures within the network.",
-                                               GUIIconSubSys::getIcon(GUIIcon::LOCATE), myLocatorPopup, GUIDesignButtonToolbarLocator);
+                                               GUIIconSubSys::getIcon(GUIIcon::LOCATE), myLocatorPopup, nullptr, GUIDesignButtonToolbarLocator);
     // add toggle button for tool-tips on/off
     new MFXCheckableButton(false, myGripNavigationToolbar ? myGripNavigationToolbar : myStaticNavigationToolBar,
                            "\tToggles Tool Tips\tToggles whether tool tips shall be shown.",

@@ -559,10 +559,10 @@ GNETLSTable::Cell::Cell(GNETLSTable* TLSTable, int col, int row) :
     myCol(col),
     myRow(row) {
     // build locator popup
-    myMenuButtonPopup = new FXPopup(TLSTable->myColumns.at(col)->getVerticalCellFrame(), POPUP_VERTICAL);
+    myMenuButtonPopup = new FXPopup(TLSTable->myColumns.at(col)->getVerticalCellFrame(), POPUP_HORIZONTAL);
     // build menu button
-    auto menuButton = new MFXMenuButtonTooltip(TLSTable->myColumns.at(col)->getVerticalCellFrame(), "\tAdd phase\tAdd phase.",
-        GUIIconSubSys::getIcon(GUIIcon::ADD), myMenuButtonPopup, GUIDesignTLSTableCheckableButtonIcon);
+    auto menuButton = new MFXMenuButtonTooltip(TLSTable->myColumns.at(col)->getVerticalCellFrame(), "\tAdd phase\tAdd new phase.",
+        GUIIconSubSys::getIcon(GUIIcon::ADD), myMenuButtonPopup, TLSTable, GUIDesignTLSTableCheckableButtonIcon);
     // default phase
     myAddPhaseButton = new MFXButtonTooltip(myMenuButtonPopup, "\tDefault phase\tAdd default phase.",
         GUIIconSubSys::getIcon(GUIIcon::TLSPHASEDEFAULT), TLSTable, MID_GNE_TLSTABLE_ADDPHASE, GUIDesignButtonIcon);

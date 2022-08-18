@@ -23,17 +23,20 @@
 
 
 FXDEFMAP(MFXMenuButtonTooltip) MFXMenuButtonTooltipMap[] = {
-    FXMAPFUNC(SEL_ENTER,    0,  MFXMenuButtonTooltip::onEnter),
-    FXMAPFUNC(SEL_LEAVE,    0,  MFXMenuButtonTooltip::onLeave),
+    FXMAPFUNC(SEL_ENTER,            0,  MFXMenuButtonTooltip::onEnter),
+    FXMAPFUNC(SEL_LEAVE,            0,  MFXMenuButtonTooltip::onLeave),
+    FXMAPFUNC(SEL_LEFTBUTTONPRESS,  0,  MFXMenuButtonTooltip::onLeftBtnPress),
+    FXMAPFUNC(SEL_KEYPRESS,         0,  MFXMenuButtonTooltip::onKeyPress),
 };
 
 // Object implementation
 FXIMPLEMENT(MFXMenuButtonTooltip, FXMenuButton, MFXMenuButtonTooltipMap, ARRAYNUMBER(MFXMenuButtonTooltipMap))
 
 
-MFXMenuButtonTooltip::MFXMenuButtonTooltip(FXComposite* p, const FXString& text, FXIcon* ic, FXPopup* pup, 
+MFXMenuButtonTooltip::MFXMenuButtonTooltip(FXComposite* p, const FXString& text, FXIcon* ic, FXPopup* pup, FXObject* optionalTarget,
                          FXuint opts, FXint x, FXint y, FXint w, FXint h, FXint pl, FXint pr, FXint pt, FXint pb) :
-    FXMenuButton(p, text, ic, pup, opts, x, y, w, h, pl, pr, pt, pb) {
+    FXMenuButton(p, text, ic, pup, opts, x, y, w, h, pl, pr, pt, pb),
+    myOptionalTarget(optionalTarget) {
 }
 
 
@@ -60,5 +63,18 @@ MFXMenuButtonTooltip::onLeave(FXObject* sender, FXSelector sel, void* ptr) {
     return FXMenuButton::onLeave(sender, sel, ptr);
 }
 
+
+long
+MFXMenuButtonTooltip::onLeftBtnPress(FXObject* sender, FXSelector sel, void* ptr) {
+    
+    //target->tryHandle(this, FXSEL(SEL_REPLACED, message), (void*)&tablerange);
+
+    return FXMenuButton::onLeftBtnPress(sender, sel, ptr);
+}
+
+long
+MFXMenuButtonTooltip::onKeyPress(FXObject* sender, FXSelector sel, void* ptr) {
+    return FXMenuButton::onKeyPress(sender, sel, ptr);
+}
 
 /****************************************************************************/
