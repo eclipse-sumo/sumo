@@ -12,3 +12,6 @@ wait_for_one_same_departEdge
 
 # constrain insertion after parking-stop
 parking
+
+# delay insertion of one vehicle until another has been inserted
+insertionOrder
