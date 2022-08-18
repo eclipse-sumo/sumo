@@ -12,3 +12,6 @@ colormap
 
 # empty interval
 missingData
+
+# empty interval
+missingData_logScale
