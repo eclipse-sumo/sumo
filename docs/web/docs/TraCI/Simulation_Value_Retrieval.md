@@ -198,7 +198,7 @@ value is also shown in the table.
 <tr class="even">
 <td><p>parameter (0x7e)</p></td>
 <td><p>string</p></td>
-<td><p><a href="#Generic_Parameter_Retrieval_0x7e" title="wikilink">Returns the value for the given string parameter</a></p></td>
+<td><p>Returns the value for the given string parameter.</p></td>
 <td><p><a href="http://sumo.dlr.de/daily/pydoc/traci._simulation.html#SimulationDomain-getParameter">getParameter</a></p></td>
 </tr>
 <tr class="odd">
@@ -206,6 +206,12 @@ value is also shown in the table.
 <td><p>double</p></td>
 <td><p>Returns the traffic scaling factor.</p></td>
 <td><p><a href="http://sumo.dlr.de/daily/pydoc/traci._simulation.html#SimulationDomain-getScale">getScale</a></p></td>
+</tr>
+<tr class="even">
+<td><p>option (0x3f)</p></td>
+<td><p>string</p></td>
+<td><p>Returns the value of one of the global SUMO options.</p></td>
+<td><p><a href="http://sumo.dlr.de/daily/pydoc/traci._simulation.html#SimulationDomain-getOption">getOption</a></p></td>
 </tr>
 </tbody>
 </table>
