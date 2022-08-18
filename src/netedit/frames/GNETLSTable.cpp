@@ -460,7 +460,7 @@ GNETLSTable::Cell::Cell(GNETLSTable* TLSTable, FXLabel* indexLabel, FXLabel* ind
 }
 
 
-GNETLSTable::Cell::Cell(GNETLSTable* TLSTable, FXButton* button, int col, int row) :
+GNETLSTable::Cell::Cell(GNETLSTable* TLSTable, MFXButtonTooltip* button, int col, int row) :
     myTLSTable(TLSTable),
     myButton(button),
     myCol(col),
@@ -480,12 +480,10 @@ GNETLSTable::Cell::Cell(GNETLSTable* TLSTable, int col, int row) :
     auto menuButton = new MFXMenuButtonTooltip(TLSTable->myColumns.at(col)->getVerticalCellFrame(), "\tAdd phase\tAdd phase.",
         GUIIconSubSys::getIcon(GUIIcon::ADD), myMenuButtonPopup, GUIDesignTLSTableCheckableButtonIcon);
     // default phase
-    myAddPhaseButton = new MFXButtonTooltip(myMenuButtonPopup,
-        "\tDefault phase\tAdd default phase.",
+    myAddPhaseButton = new MFXButtonTooltip(myMenuButtonPopup, "\tDefault phase\tAdd default phase.",
         GUIIconSubSys::getIcon(GUIIcon::TLSPHASEDEFAULT), TLSTable, MID_GNE_TLSTABLE_ADDPHASE, GUIDesignButtonIcon);
     // copy phase
-    myCopyPhaseButton = new MFXButtonTooltip(myMenuButtonPopup,
-        "\tCopy phase\tCopy phase.",
+    myCopyPhaseButton = new MFXButtonTooltip(myMenuButtonPopup, "\tCopy phase\tCopy phase.",
         GUIIconSubSys::getIcon(GUIIcon::TLSPHASECOPY), TLSTable, MID_GNE_TLSTABLE_COPYPHASE, GUIDesignButtonIcon);
     // create elements
     myMenuButtonPopup->create();
@@ -510,20 +508,20 @@ GNETLSTable::Cell::getIndexLabel() {
 }
 
 
-FXButton* 
+MFXButtonTooltip* 
 GNETLSTable::Cell::getButton() {
     return myButton;
 }
 
 
 
-FXButton*
+MFXButtonTooltip*
 GNETLSTable::Cell::getAddPhaseButton() {
     return myAddPhaseButton;
 }
 
 
-FXButton* 
+MFXButtonTooltip* 
 GNETLSTable::Cell::getCopyPhaseButton() {
     return myCopyPhaseButton;
 }
@@ -735,8 +733,10 @@ GNETLSTable::Row::Row(GNETLSTable* table) :
         switch (table->myColumns.at(columnIndex)->getType()) {
             case ('s'): {
                 // create labels for index
-                auto indexLabel = new FXLabel(table->myColumns.at(columnIndex)->getVerticalCellFrame(), toString(myTable->myRows.size()).c_str(), nullptr, GUIDesignLabelTLSTableIndex);
-                auto indexLabelBold = new FXLabel(table->myColumns.at(columnIndex)->getVerticalCellFrame(), toString(myTable->myRows.size()).c_str(), nullptr, GUIDesignLabelTLSTableIndex);
+                auto indexLabel = new FXLabel(table->myColumns.at(columnIndex)->getVerticalCellFrame(), 
+                    toString(myTable->myRows.size()).c_str(), nullptr, GUIDesignLabelTLSTableIndex);
+                auto indexLabelBold = new FXLabel(table->myColumns.at(columnIndex)->getVerticalCellFrame(), 
+                    toString(myTable->myRows.size()).c_str(), nullptr, GUIDesignLabelTLSTableIndex);
                 // set fonts
                 indexLabel->setFont(myTable->myIndexFont);
                 indexLabelBold->setFont(myTable->myIndexSelectedFont);
@@ -746,13 +746,15 @@ GNETLSTable::Row::Row(GNETLSTable* table) :
             case ('u'): 
             case ('f'): {
                 // create text field for duration or float values
-                auto textField = new FXTextField(table->myColumns.at(columnIndex)->getVerticalCellFrame(), GUIDesignTextFieldNCol, table, MID_GNE_TLSTABLE_TEXTFIELD, GUIDesignTextFieldTLSTableReal);
+                auto textField = new FXTextField(table->myColumns.at(columnIndex)->getVerticalCellFrame(), GUIDesignTextFieldNCol, 
+                    table, MID_GNE_TLSTABLE_TEXTFIELD, GUIDesignTextFieldTLSTableReal);
                 myCells.push_back(new Cell(table, textField, columnIndex, numCells));
                 break;
             }
             case ('p'): {
                 // create text field for program (state)
-                auto textField = new FXTextField(table->myColumns.at(columnIndex)->getVerticalCellFrame(), GUIDesignTextFieldNCol, table, MID_GNE_TLSTABLE_TEXTFIELD, GUIDesignTextFieldTLSTable);
+                auto textField = new FXTextField(table->myColumns.at(columnIndex)->getVerticalCellFrame(), GUIDesignTextFieldNCol,
+                    table, MID_GNE_TLSTABLE_TEXTFIELD, GUIDesignTextFieldTLSTable);
                 // set special font
                 textField->setFont(myTable->myProgramFont);
                 myCells.push_back(new Cell(table, textField, columnIndex, numCells));
@@ -761,7 +763,8 @@ GNETLSTable::Row::Row(GNETLSTable* table) :
             case ('m'):
             case ('-'): {
                 // create normal text field
-                auto textField = new FXTextField(table->myColumns.at(columnIndex)->getVerticalCellFrame(), GUIDesignTextFieldNCol, table, MID_GNE_TLSTABLE_TEXTFIELD, GUIDesignTextFieldTLSTable);
+                auto textField = new FXTextField(table->myColumns.at(columnIndex)->getVerticalCellFrame(), GUIDesignTextFieldNCol, 
+                    table, MID_GNE_TLSTABLE_TEXTFIELD, GUIDesignTextFieldTLSTable);
                 myCells.push_back(new Cell(table, textField, columnIndex, numCells));
                 break;
             }
@@ -772,19 +775,22 @@ GNETLSTable::Row::Row(GNETLSTable* table) :
             }
             case ('d'): {
                 // create button for delete phase
-                auto button = new FXButton(table->myColumns.at(columnIndex)->getVerticalCellFrame(), "\t\tDelete this phase.", GUIIconSubSys::getIcon(GUIIcon::REMOVE), table, MID_GNE_TLSTABLE_REMOVEPHASE, GUIDesignButtonIcon);
+                auto button = new MFXButtonTooltip(table->myColumns.at(columnIndex)->getVerticalCellFrame(), "\tDelete phase\tDelete this phase.", 
+                    GUIIconSubSys::getIcon(GUIIcon::REMOVE), table, MID_GNE_TLSTABLE_REMOVEPHASE, GUIDesignButtonIcon);
                 myCells.push_back(new Cell(table, button, columnIndex, numCells));
                 break;
             }
             case ('t'): {
                 // create button for move up phase
-                auto button = new FXButton(table->myColumns.at(columnIndex)->getVerticalCellFrame(), "\t\tMove this phase up.", GUIIconSubSys::getIcon(GUIIcon::ARROW_UP), table, MID_GNE_TLSTABLE_MOVEUPPHASE, GUIDesignButtonIcon);
+                auto button = new MFXButtonTooltip(table->myColumns.at(columnIndex)->getVerticalCellFrame(), "\tMove phase up\tMove this phase up.", 
+                    GUIIconSubSys::getIcon(GUIIcon::ARROW_UP), table, MID_GNE_TLSTABLE_MOVEUPPHASE, GUIDesignButtonIcon);
                 myCells.push_back(new Cell(table, button, columnIndex, numCells));
                 break;
             }
             case ('b'): {
                 // create button for move down phase
-                auto button = new FXButton(table->myColumns.at(columnIndex)->getVerticalCellFrame(), "\t\tMove this phase down.", GUIIconSubSys::getIcon(GUIIcon::ARROW_DOWN), table, MID_GNE_TLSTABLE_MOVEDOWNPHASE, GUIDesignButtonIcon);
+                auto button = new MFXButtonTooltip(table->myColumns.at(columnIndex)->getVerticalCellFrame(), "\tMove phase down\tMove this phase down.",
+                    GUIIconSubSys::getIcon(GUIIcon::ARROW_DOWN), table, MID_GNE_TLSTABLE_MOVEDOWNPHASE, GUIDesignButtonIcon);
                 myCells.push_back(new Cell(table, button, columnIndex, numCells));
                 break;
             }

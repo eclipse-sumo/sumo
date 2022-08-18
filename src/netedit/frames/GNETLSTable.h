@@ -133,7 +133,7 @@ protected:
         Cell(GNETLSTable* TLSTable, FXLabel* indexLabel, FXLabel* indexLabelBold, int col, int row);
 
         /// @brief constructor for buttons
-        Cell(GNETLSTable* TLSTable, FXButton* button, int col, int row);
+        Cell(GNETLSTable* TLSTable, MFXButtonTooltip* button, int col, int row);
 
         /// @brief constructor for menu buttons
         Cell(GNETLSTable* TLSTable, int col, int row);
@@ -145,13 +145,13 @@ protected:
         FXLabel* getIndexLabel();
 
         /// @brief get remove, move up or move down button
-        FXButton* getButton();
+        MFXButtonTooltip* getButton();
 
         /// @brief get add phase button
-        FXButton* getAddPhaseButton();
+        MFXButtonTooltip* getAddPhaseButton();
 
         /// @brief get copy phase button
-        FXButton* getCopyPhaseButton();
+        MFXButtonTooltip* getCopyPhaseButton();
 
         /// @brief show label index normal
         void showIndexLabelNormal();
@@ -185,16 +185,16 @@ protected:
         FXLabel* myIndexLabelBold = nullptr;
 
         /// @brief button
-        FXButton* myButton = nullptr;
+        MFXButtonTooltip* myButton = nullptr;
 
         /// @brief popup for buttons
         FXPopup* myMenuButtonPopup = nullptr; 
 
         /// @brief add phase button
-        FXButton* myAddPhaseButton = nullptr;
+        MFXButtonTooltip* myAddPhaseButton = nullptr;
 
         /// @brief copy phase button
-        FXButton* myCopyPhaseButton = nullptr;
+        MFXButtonTooltip* myCopyPhaseButton = nullptr;
 
         /// @brief column index
         const int myCol;
