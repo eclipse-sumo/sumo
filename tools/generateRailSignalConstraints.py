@@ -314,7 +314,7 @@ def getBidiStops(options, net, stopEdges):
             bidiID = bidi.getID()
             if bidiID in edgeStops:
                 bidiStops[busStop] += edgeStops[bidiID]
-                #print("stop=%s bidiStops=%s" % (busStop, bidiStops[busStop]))
+                # print("stop=%s bidiStops=%s" % (busStop, bidiStops[busStop]))
 
     if len(bidiStops) > 0:
         print("found %s bidi-stops (max stops per edge %s on %s)" % (len(bidiStops), maxStopsPerEdge, maxStopsEdge))
