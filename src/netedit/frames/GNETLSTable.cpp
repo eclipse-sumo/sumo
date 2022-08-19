@@ -252,7 +252,7 @@ GNETLSTable::onFocusRow(FXObject* sender, FXSelector, void*) {
     for (int rowIndex = 0; rowIndex < (int)myRows.size(); rowIndex++) {
         // iterate over every cell
         for (const auto &cell : myRows.at(rowIndex)->getCells()) {
-            if ((cell->getTextField() == sender) || (cell->getMenuButton() == sender)) {
+            if ((cell->getTextField() == sender) || (cell->getAddButton() == sender)) {
                 selectedRow = rowIndex;
             }
         }
@@ -306,6 +306,8 @@ GNETLSTable::onCmdKeyPress(FXObject* sender, FXSelector sel, void* ptr) {
         }
         // update index label
         updateIndexLabel();
+        // move focus
+        moveFocus();
         return 1;
     } else if (eventInfo->code == 65364) {
         // move down
@@ -317,6 +319,8 @@ GNETLSTable::onCmdKeyPress(FXObject* sender, FXSelector sel, void* ptr) {
         }
         // update index label
         updateIndexLabel();
+        // move focus
+        moveFocus();
         return 1;
     } else {
         // continue handling key pres
@@ -518,6 +522,23 @@ GNETLSTable::updateIndexLabel() {
     myTLSPhasesParent->updateTLSColoring();
 }
 
+
+bool 
+GNETLSTable::moveFocus() {
+    // first find focus
+    // update radio buttons checks
+    for (int rowIndex = 0; rowIndex < (int)myRows.size(); rowIndex++) {
+        for (int cellIndex = 0; cellIndex < (int)myRows.at(rowIndex)->getCells().size(); cellIndex++) {
+            if (myRows.at(rowIndex)->getCells().at(cellIndex)->hasFocus()) {
+                // set focus in current row
+                myRows.at(myCurrentSelectedRow)->getCells().at(cellIndex)->setFocus();
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
 // ---------------------------------------------------------------------------
 // GNETLSTable::Cell - methods
 // ---------------------------------------------------------------------------
@@ -564,7 +585,7 @@ GNETLSTable::Cell::Cell(GNETLSTable* TLSTable, int col, int row) :
     // build locator popup
     myMenuButtonPopup = new FXPopup(TLSTable->myColumns.at(col)->getVerticalCellFrame(), POPUP_HORIZONTAL);
     // build menu button
-    myMenuButton = new MFXMenuButtonTooltip(TLSTable->myColumns.at(col)->getVerticalCellFrame(), "\tAdd phase\tAdd new phase.",
+    myAddButton = new MFXMenuButtonTooltip(TLSTable->myColumns.at(col)->getVerticalCellFrame(), "\tAdd phase\tAdd new phase.",
         GUIIconSubSys::getIcon(GUIIcon::ADD), myMenuButtonPopup, TLSTable, GUIDesignTLSTableCheckableButtonIcon);
     // default phase
     myAddPhaseButton = new MFXButtonTooltip(myMenuButtonPopup, "\tDefault phase\tAdd default phase.",
@@ -586,7 +607,7 @@ GNETLSTable::Cell::Cell(GNETLSTable* TLSTable, int col, int row) :
         GUIIconSubSys::getIcon(GUIIcon::TLSPHASEALLGREENPRIORITY), TLSTable, MID_GNE_TLSTABLE_ADDPHASEALLGREENPRIORITY, GUIDesignButtonIcon);
     // create elements
     myMenuButtonPopup->create();
-    myMenuButton->create();
+    myAddButton->create();
     myAddPhaseButton->create();
     myDuplicatePhaseButton->create();
     myAddAllRedButton->create();
@@ -603,6 +624,54 @@ GNETLSTable::Cell::Cell(GNETLSTable* TLSTable, int col, int row) :
 }
 
 
+bool
+GNETLSTable::Cell::hasFocus() const {
+    // check if one of the cell elements has the focus
+    if (myButton && myButton->hasFocus()) {
+        return true;
+    } else if (myAddButton && myAddButton->hasFocus()) {
+        return true;
+    } else if (myAddPhaseButton && myAddPhaseButton->hasFocus()) {
+        return true;
+    } else if (myDuplicatePhaseButton && myDuplicatePhaseButton->hasFocus()) {
+        return true;
+    } else if (myAddAllRedButton && myAddAllRedButton->hasFocus()) {
+        return true;
+    } else if (myAddAllYellowButton && myAddAllYellowButton->hasFocus()) {
+        return true;
+    } else if (myAddAllGreenButton && myAddAllGreenButton->hasFocus()) {
+        return true;
+    } else if (myAddAllGreenPriorityButton && myAddAllGreenPriorityButton->hasFocus()) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
+void 
+GNETLSTable::Cell::setFocus() {
+    // set focus
+    if (myButton) {
+        myButton->setFocus();
+    } else if (myAddButton) {
+        myAddButton->setFocus();
+    } else if (myAddPhaseButton) {
+        myAddPhaseButton->setFocus();
+    } else if (myDuplicatePhaseButton) {
+        myDuplicatePhaseButton->setFocus();
+    } else if (myAddAllRedButton) {
+        myAddAllRedButton->setFocus();
+    } else if (myAddAllYellowButton) {
+        myAddAllYellowButton->setFocus();
+    } else if (myAddAllGreenButton) {
+        myAddAllGreenButton->setFocus();
+    } else if (myAddAllGreenPriorityButton) {
+        myAddAllGreenPriorityButton->setFocus();
+    }
+}
+
+
 FXTextField* 
 GNETLSTable::Cell::getTextField() {
     return myTextField;
@@ -616,8 +685,8 @@ GNETLSTable::Cell::getIndexLabel() {
 
 
 MFXMenuButtonTooltip*
-GNETLSTable::Cell::getMenuButton() const {
-    return myMenuButton;
+GNETLSTable::Cell::getAddButton() const {
+    return myAddButton;
 }
 
 
@@ -625,7 +694,6 @@ MFXButtonTooltip*
 GNETLSTable::Cell::getButton() {
     return myButton;
 }
-
 
 
 MFXButtonTooltip*

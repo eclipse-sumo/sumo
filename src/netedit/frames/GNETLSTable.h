@@ -150,14 +150,20 @@ protected:
         /// @brief constructor for menu buttons
         Cell(GNETLSTable* TLSTable, int col, int row);
 
+        /// @brief check if current cell has focus
+        bool hasFocus() const;
+
+        /// @brief set focus in the current cell
+        void setFocus();
+
         /// @brief get textField
         FXTextField* getTextField();
 
         /// @brief get index label
         FXLabel* getIndexLabel();
 
-        /// @brief get menu button
-        MFXMenuButtonTooltip* getMenuButton() const;
+        /// @brief get add button
+        MFXMenuButtonTooltip* getAddButton() const;
 
         /// @brief get remove, move up or move down button
         MFXButtonTooltip* getButton();
@@ -218,7 +224,7 @@ protected:
         FXPopup* myMenuButtonPopup = nullptr; 
         
         /// @brief menu button tooltip
-        MFXMenuButtonTooltip* myMenuButton = nullptr; 
+        MFXMenuButtonTooltip* myAddButton = nullptr; 
 
         /// @brief add phase button
         MFXButtonTooltip* myAddPhaseButton = nullptr;
@@ -347,6 +353,9 @@ protected:
 
     /// @brief update index labels
     void updateIndexLabel();
+
+    /// @brief move focus to current row
+    bool moveFocus();
 
     /// @brief font for the phase table
     FXFont* myProgramFont = nullptr;
