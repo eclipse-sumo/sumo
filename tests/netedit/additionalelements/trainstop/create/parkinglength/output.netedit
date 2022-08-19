@@ -3,11 +3,11 @@ Finding reference
 TestFunctions: 'reference.png' found. Position: 303 - 167
 trainStop
 dummyLenght
-TestFunctions: Clicked over position 554 - 418
+TestFunctions: Clicked over position 553 - 417
 -7.5
-TestFunctions: Clicked over position 554 - 418
+TestFunctions: Clicked over position 553 - 417
 3
-TestFunctions: Clicked over position 554 - 418
-TestFunctions: Clicked over position 304 - 168
-TestFunctions: Clicked over position 304 - 168
+TestFunctions: Clicked over position 553 - 417
+TestFunctions: Clicked over position 303 - 167
+TestFunctions: Clicked over position 303 - 167
 TestFunctions: Netedit closed successfully

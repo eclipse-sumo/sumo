@@ -3,9 +3,9 @@ Finding reference
 TestFunctions: 'reference.png' found. Position: 303 - 167
 laneAreaDetector
 ;;;;$$$
-TestFunctions: Clicked over position 604 - 418
+TestFunctions: Clicked over position 603 - 417
 customName
-TestFunctions: Clicked over position 604 - 418
-TestFunctions: Clicked over position 304 - 168
-TestFunctions: Clicked over position 304 - 168
+TestFunctions: Clicked over position 603 - 417
+TestFunctions: Clicked over position 303 - 167
+TestFunctions: Clicked over position 303 - 167
 TestFunctions: Netedit closed successfully

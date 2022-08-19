@@ -3,34 +3,34 @@ Finding reference
 TestFunctions: 'reference.png' found. Position: 303 - 167
 flow (from-to junctions)
 dummyTerminate
-TestFunctions: Clicked over position 384 - 528
-TestFunctions: Clicked over position 389 - 245
+TestFunctions: Clicked over position 383 - 527
+TestFunctions: Clicked over position 388 - 244
 end-number
-TestFunctions: Clicked over position 384 - 528
-TestFunctions: Clicked over position 389 - 245
+TestFunctions: Clicked over position 383 - 527
+TestFunctions: Clicked over position 388 - 244
 dummy
-TestFunctions: Clicked over position 384 - 528
-TestFunctions: Clicked over position 389 - 245
+TestFunctions: Clicked over position 383 - 527
+TestFunctions: Clicked over position 388 - 244
 -30
-TestFunctions: Clicked over position 384 - 528
-TestFunctions: Clicked over position 389 - 245
+TestFunctions: Clicked over position 383 - 527
+TestFunctions: Clicked over position 388 - 244
 20.5
-TestFunctions: Clicked over position 384 - 528
-TestFunctions: Clicked over position 389 - 245
+TestFunctions: Clicked over position 383 - 527
+TestFunctions: Clicked over position 388 - 244
 22
 dummy
-TestFunctions: Clicked over position 384 - 528
-TestFunctions: Clicked over position 389 - 245
+TestFunctions: Clicked over position 383 - 527
+TestFunctions: Clicked over position 388 - 244
 -30
-TestFunctions: Clicked over position 384 - 528
-TestFunctions: Clicked over position 389 - 245
+TestFunctions: Clicked over position 383 - 527
+TestFunctions: Clicked over position 388 - 244
 20.5
-TestFunctions: Clicked over position 384 - 528
-TestFunctions: Clicked over position 389 - 245
+TestFunctions: Clicked over position 383 - 527
+TestFunctions: Clicked over position 388 - 244
 51
-TestFunctions: Clicked over position 384 - 528
-TestFunctions: Clicked over position 389 - 245
-TestFunctions: Clicked over position 304 - 168
-TestFunctions: Clicked over position 304 - 168
-TestFunctions: Clicked over position 304 - 168
+TestFunctions: Clicked over position 383 - 527
+TestFunctions: Clicked over position 388 - 244
+TestFunctions: Clicked over position 303 - 167
+TestFunctions: Clicked over position 303 - 167
+TestFunctions: Clicked over position 303 - 167
 TestFunctions: Netedit closed successfully

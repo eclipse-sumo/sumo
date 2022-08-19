@@ -6,15 +6,15 @@ TestFunctions: 'reference.png' found. Position: 303 - 167
 25
 entryExitDetector
 @%%;$$$ %%$$ type.3@
-TestFunctions: Clicked over position 404 - 253
+TestFunctions: Clicked over position 403 - 252
 type1 type2 type3
-TestFunctions: Clicked over position 404 - 253
+TestFunctions: Clicked over position 403 - 252
 detEntry
-TestFunctions: Clicked over position 404 - 253
-TestFunctions: Clicked over position 604 - 418
+TestFunctions: Clicked over position 403 - 252
+TestFunctions: Clicked over position 603 - 417
 detExit
-TestFunctions: Clicked over position 404 - 253
-TestFunctions: Clicked over position 604 - 538
-TestFunctions: Clicked over position 304 - 168
-TestFunctions: Clicked over position 304 - 168
+TestFunctions: Clicked over position 403 - 252
+TestFunctions: Clicked over position 603 - 537
+TestFunctions: Clicked over position 303 - 167
+TestFunctions: Clicked over position 303 - 167
 TestFunctions: Netedit closed successfully

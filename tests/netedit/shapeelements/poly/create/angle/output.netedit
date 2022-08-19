@@ -3,29 +3,29 @@ Finding reference
 TestFunctions: 'reference.png' found. Position: 303 - 167
 poly
 dummyAngle
-TestFunctions: Clicked over position 486 - 298
-TestFunctions: Clicked over position 486 - 198.0
-TestFunctions: Clicked over position 386.0 - 198.0
-TestFunctions: Clicked over position 386.0 - 298
-TestFunctions: Clicked over position 486 - 298
+TestFunctions: Clicked over position 485 - 297
+TestFunctions: Clicked over position 485 - 197.0
+TestFunctions: Clicked over position 385.0 - 197.0
+TestFunctions: Clicked over position 385.0 - 297
+TestFunctions: Clicked over position 485 - 297
 365
-TestFunctions: Clicked over position 586 - 298
-TestFunctions: Clicked over position 586 - 198.0
-TestFunctions: Clicked over position 486.0 - 198.0
-TestFunctions: Clicked over position 486.0 - 298
-TestFunctions: Clicked over position 586 - 298
+TestFunctions: Clicked over position 585 - 297
+TestFunctions: Clicked over position 585 - 197.0
+TestFunctions: Clicked over position 485.0 - 197.0
+TestFunctions: Clicked over position 485.0 - 297
+TestFunctions: Clicked over position 585 - 297
 -5
-TestFunctions: Clicked over position 686 - 298
-TestFunctions: Clicked over position 686 - 198.0
-TestFunctions: Clicked over position 586.0 - 198.0
-TestFunctions: Clicked over position 586.0 - 298
-TestFunctions: Clicked over position 686 - 298
+TestFunctions: Clicked over position 685 - 297
+TestFunctions: Clicked over position 685 - 197.0
+TestFunctions: Clicked over position 585.0 - 197.0
+TestFunctions: Clicked over position 585.0 - 297
+TestFunctions: Clicked over position 685 - 297
 5
-TestFunctions: Clicked over position 786 - 298
-TestFunctions: Clicked over position 786 - 198.0
-TestFunctions: Clicked over position 686.0 - 198.0
-TestFunctions: Clicked over position 686.0 - 298
-TestFunctions: Clicked over position 786 - 298
-TestFunctions: Clicked over position 304 - 168
-TestFunctions: Clicked over position 304 - 168
+TestFunctions: Clicked over position 785 - 297
+TestFunctions: Clicked over position 785 - 197.0
+TestFunctions: Clicked over position 685.0 - 197.0
+TestFunctions: Clicked over position 685.0 - 297
+TestFunctions: Clicked over position 785 - 297
+TestFunctions: Clicked over position 303 - 167
+TestFunctions: Clicked over position 303 - 167
 TestFunctions: Netedit closed successfully

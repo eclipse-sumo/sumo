@@ -4,13 +4,13 @@ TestFunctions: 'reference.png' found. Position: 303 - 167
 50
 50
 50
-TestFunctions: Clicked over position 554 - 393
+TestFunctions: Clicked over position 553 - 392
 dummy Edges
 3 7 1
-TestFunctions: Clicked over position 624 - 393
+TestFunctions: Clicked over position 623 - 392
 4 8
-TestFunctions: Clicked over position 624 - 393
+TestFunctions: Clicked over position 623 - 392
 3
-TestFunctions: Clicked over position 304 - 168
-TestFunctions: Clicked over position 304 - 168
+TestFunctions: Clicked over position 303 - 167
+TestFunctions: Clicked over position 303 - 167
 TestFunctions: Netedit closed successfully

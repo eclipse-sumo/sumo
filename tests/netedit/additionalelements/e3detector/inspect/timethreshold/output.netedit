@@ -5,17 +5,17 @@ TestFunctions: 'reference.png' found. Position: 303 - 167
 25
 25
 entryExitDetector
-TestFunctions: Clicked over position 554 - 278
+TestFunctions: Clicked over position 553 - 277
 detEntry
-TestFunctions: Clicked over position 554 - 278
-TestFunctions: Clicked over position 554 - 408
+TestFunctions: Clicked over position 553 - 277
+TestFunctions: Clicked over position 553 - 407
 detExit
-TestFunctions: Clicked over position 554 - 278
-TestFunctions: Clicked over position 554 - 588
-TestFunctions: Clicked over position 554 - 278
+TestFunctions: Clicked over position 553 - 277
+TestFunctions: Clicked over position 553 - 587
+TestFunctions: Clicked over position 553 - 277
 dummyTimeTreshold
 -5
 4.2
-TestFunctions: Clicked over position 304 - 168
-TestFunctions: Clicked over position 304 - 168
+TestFunctions: Clicked over position 303 - 167
+TestFunctions: Clicked over position 303 - 167
 TestFunctions: Netedit closed successfully

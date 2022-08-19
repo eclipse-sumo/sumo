@@ -5,13 +5,13 @@ TestFunctions: 'reference.png' found. Position: 303 - 167
 0
 25
 busStop
-TestFunctions: Clicked over position 579 - 418
+TestFunctions: Clicked over position 578 - 417
 access
 dummyLenght
 -4
-TestFunctions: Clicked over position 354 - 368
+TestFunctions: Clicked over position 353 - 367
 3.5
-TestFunctions: Clicked over position 354 - 368
-TestFunctions: Clicked over position 304 - 168
-TestFunctions: Clicked over position 304 - 168
+TestFunctions: Clicked over position 353 - 367
+TestFunctions: Clicked over position 303 - 167
+TestFunctions: Clicked over position 303 - 167
 TestFunctions: Netedit closed successfully

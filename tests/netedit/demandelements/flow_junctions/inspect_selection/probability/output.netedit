@@ -1,7 +1,7 @@
 TestFunctions: Netedit opened successfully
 Finding reference
 TestFunctions: 'reference.png' found. Position: 303 - 167
-TestFunctions: Clicked over position 714 - 338
+TestFunctions: Clicked over position 713 - 337
 end
 dummyTerminate
 probability
@@ -9,7 +9,7 @@ dummy
 12.5
 26
 0.3
-TestFunctions: Clicked over position 304 - 168
-TestFunctions: Clicked over position 304 - 168
-TestFunctions: Clicked over position 304 - 168
+TestFunctions: Clicked over position 303 - 167
+TestFunctions: Clicked over position 303 - 167
+TestFunctions: Clicked over position 303 - 167
 TestFunctions: Netedit closed successfully

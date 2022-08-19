@@ -3,14 +3,14 @@ Finding reference
 TestFunctions: 'reference.png' found. Position: 303 - 167
 waypointBusStop
 container
-TestFunctions: Clicked over position 594 - 343
+TestFunctions: Clicked over position 593 - 342
 ;;;;;;;;;;
-TestFunctions: Clicked over position 594 - 343
+TestFunctions: Clicked over position 593 - 342
 
-TestFunctions: Clicked over position 594 - 343
+TestFunctions: Clicked over position 593 - 342
 containerID1 containerID2 containerID3
-TestFunctions: Clicked over position 594 - 343
-TestFunctions: Clicked over position 304 - 168
-TestFunctions: Clicked over position 304 - 168
-TestFunctions: Clicked over position 304 - 168
+TestFunctions: Clicked over position 593 - 342
+TestFunctions: Clicked over position 303 - 167
+TestFunctions: Clicked over position 303 - 167
+TestFunctions: Clicked over position 303 - 167
 TestFunctions: Netedit closed successfully

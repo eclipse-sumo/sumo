@@ -4,15 +4,15 @@ TestFunctions: 'reference.png' found. Position: 303 - 167
 newDataSet
 0
 3600
-TestFunctions: Clicked over position 484 - 348
-TestFunctions: Clicked over position 764 - 348
-TestFunctions: Clicked over position 604 - 418
+TestFunctions: Clicked over position 483 - 347
+TestFunctions: Clicked over position 763 - 347
+TestFunctions: Clicked over position 603 - 417
 
 dummyTAZ
 taz_1
 taz_2
-TestFunctions: Clicked over position 304 - 168
-TestFunctions: Clicked over position 304 - 168
-TestFunctions: Clicked over position 304 - 198
-TestFunctions: Clicked over position 304 - 198
+TestFunctions: Clicked over position 303 - 167
+TestFunctions: Clicked over position 303 - 167
+TestFunctions: Clicked over position 303 - 197
+TestFunctions: Clicked over position 303 - 197
 TestFunctions: Netedit closed successfully

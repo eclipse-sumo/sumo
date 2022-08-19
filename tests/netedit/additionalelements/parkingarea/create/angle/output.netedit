@@ -3,15 +3,15 @@ Finding reference
 TestFunctions: 'reference.png' found. Position: 303 - 167
 parkingArea
 dummyHeight
-TestFunctions: Clicked over position 524 - 418
+TestFunctions: Clicked over position 523 - 417
 
-TestFunctions: Clicked over position 524 - 418
+TestFunctions: Clicked over position 523 - 417
 -4
-TestFunctions: Clicked over position 524 - 418
+TestFunctions: Clicked over position 523 - 417
 500
-TestFunctions: Clicked over position 524 - 418
+TestFunctions: Clicked over position 523 - 417
 120
-TestFunctions: Clicked over position 524 - 418
-TestFunctions: Clicked over position 304 - 168
-TestFunctions: Clicked over position 304 - 168
+TestFunctions: Clicked over position 523 - 417
+TestFunctions: Clicked over position 303 - 167
+TestFunctions: Clicked over position 303 - 167
 TestFunctions: Netedit closed successfully

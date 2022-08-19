@@ -2,13 +2,13 @@ TestFunctions: Netedit opened successfully
 Finding reference
 TestFunctions: 'reference.png' found. Position: 303 - 167
 poiGeo
-TestFunctions: Clicked over position 412 - 218
-TestFunctions: Clicked over position 454 - 218
-TestFunctions: Clicked over position 412 - 218
+TestFunctions: Clicked over position 411 - 217
+TestFunctions: Clicked over position 453 - 217
+TestFunctions: Clicked over position 411 - 217
 poi_1
 
 ID with spaces
 newID
-TestFunctions: Clicked over position 304 - 168
-TestFunctions: Clicked over position 304 - 168
+TestFunctions: Clicked over position 303 - 167
+TestFunctions: Clicked over position 303 - 167
 TestFunctions: Netedit closed successfully

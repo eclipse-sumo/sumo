@@ -4,12 +4,12 @@ TestFunctions: 'reference.png' found. Position: 303 - 167
 3
 15
 pedestrian bus
-TestFunctions: Clicked over position 391 - 276
-TestFunctions: Clicked over position 814 - 276
-TestFunctions: Clicked over position 554 - 288
-TestFunctions: Clicked over position 391 - 518
-TestFunctions: Clicked over position 814 - 518
-TestFunctions: Clicked over position 554 - 288
-TestFunctions: Clicked over position 304 - 168
-TestFunctions: Clicked over position 304 - 168
+TestFunctions: Clicked over position 390 - 275
+TestFunctions: Clicked over position 813 - 275
+TestFunctions: Clicked over position 553 - 287
+TestFunctions: Clicked over position 390 - 517
+TestFunctions: Clicked over position 813 - 517
+TestFunctions: Clicked over position 553 - 287
+TestFunctions: Clicked over position 303 - 167
+TestFunctions: Clicked over position 303 - 167
 TestFunctions: Netedit closed successfully

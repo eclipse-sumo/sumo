@@ -4,6 +4,6 @@ TestFunctions: 'reference.png' found. Position: 303 - 167
 50
 50
 100
-TestFunctions: Clicked over position 304 - 168
-TestFunctions: Clicked over position 304 - 168
+TestFunctions: Clicked over position 303 - 167
+TestFunctions: Clicked over position 303 - 167
 TestFunctions: Netedit closed successfully

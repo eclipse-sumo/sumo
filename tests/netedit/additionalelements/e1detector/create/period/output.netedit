@@ -3,11 +3,11 @@ Finding reference
 TestFunctions: 'reference.png' found. Position: 303 - 167
 inductionLoop
 dummyFrequency
-TestFunctions: Clicked over position 554 - 413
+TestFunctions: Clicked over position 553 - 412
 -30
-TestFunctions: Clicked over position 554 - 413
+TestFunctions: Clicked over position 553 - 412
 150
-TestFunctions: Clicked over position 554 - 413
-TestFunctions: Clicked over position 304 - 168
-TestFunctions: Clicked over position 304 - 168
+TestFunctions: Clicked over position 553 - 412
+TestFunctions: Clicked over position 303 - 167
+TestFunctions: Clicked over position 303 - 167
 TestFunctions: Netedit closed successfully

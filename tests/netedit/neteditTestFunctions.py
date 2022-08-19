@@ -397,7 +397,7 @@ def getReferenceMatch(neProcess, makeScrenshot):
         print("TestFunctions: 'reference.png' found. Position: " +
               str(referencePosition[0]) + " - " + str(referencePosition[1]))
         # check that position is consistent (due scaling)
-        if referencePosition != (304, 168):
+        if referencePosition != (303, 167):
             print("TestFunctions: Position of 'reference.png' isn't consistent")
         # click over position
         pyautogui.moveTo(referencePosition)
