@@ -3130,12 +3130,32 @@ long
 GNEViewNet::onCmdAddTLS(FXObject*, FXSelector, void*) {
     GNEJunction* junction = getJunctionAtPopupPosition();
     if (junction != nullptr) {
-        // change to TLS Mode
-        myEditModes.setNetworkEditMode(NetworkEditMode::NETWORK_TLS, true);
+        // check if we're adding TLS in multiple junctions
+        if (junction->isAttributeCarrierSelected()) {
+            myNet->getViewNet()->getUndoList()->begin(GUIIcon::MODETLS, "add TLS in multiple junctions");
+        }
+        // change junction type
+        junction->setAttribute(SUMO_ATTR_TYPE, "traffic_light", myUndoList);
+        // if TLS was sucesfully created, apply the same TLID to other selected junctions
+        if (junction->getAttribute(SUMO_ATTR_TLID).size() > 0) {
+            const auto selectedJunctions = myNet->getAttributeCarriers()->getSelectedJunctions();
+            // iterate over all selected junctions
+            for (const auto &selectedJunction : selectedJunctions) {
+                // check that doesn't have a TL
+                if (selectedJunction->getNBNode()->getControllingTLS().empty()) {
+                    selectedJunction->setAttribute(SUMO_ATTR_TYPE, "traffic_light", myUndoList);
+                    selectedJunction->setAttribute(SUMO_ATTR_TLID, junction->getAttribute(SUMO_ATTR_TLID), myUndoList);
+                }
+            }
+        }
+        // end undolist
+        if (junction->isAttributeCarrierSelected()) {
+            myNet->getViewNet()->getUndoList()->end();
+        }
         // set junction in TLS mode
         myViewParent->getTLSEditorFrame()->editJunction(junction);
-        // create TLS
-        myViewParent->getTLSEditorFrame()->getTLSDefinition()->onCmdCreate(nullptr, 0, nullptr);
+        // change to TLS Mode
+        myEditModes.setNetworkEditMode(NetworkEditMode::NETWORK_TLS, true);
     }
     // destroy pop-up and set focus in view net
     destroyPopup();

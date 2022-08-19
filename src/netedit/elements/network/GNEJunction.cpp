@@ -273,7 +273,7 @@ GNEJunction::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
         FXMenuCommand* mcCustomShape = GUIDesigns::buildFXMenuCommand(ret, "Set custom junction shape", nullptr, &parent, MID_GNE_JUNCTION_EDIT_SHAPE);
         FXMenuCommand* mcResetCustomShape = GUIDesigns::buildFXMenuCommand(ret, "Reset junction shape", nullptr, &parent, MID_GNE_JUNCTION_RESET_SHAPE);
         FXMenuCommand* mcReplaceByGeometryPoint = GUIDesigns::buildFXMenuCommand(ret, "Replace junction by geometry point", nullptr, &parent, MID_GNE_JUNCTION_REPLACE);
-        FXMenuCommand* mcAddTLS = GUIDesigns::buildFXMenuCommand(ret, "Add TLS", nullptr, &parent, MID_GNE_JUNCTION_ADDTLS);
+        FXMenuCommand* mcAddTLS = GUIDesigns::buildFXMenuCommand(ret, "Add TLS", GUIIconSubSys::getIcon(GUIIcon::MODETLS), &parent, MID_GNE_JUNCTION_ADDTLS);
         FXMenuCommand* mcSplitJunction = GUIDesigns::buildFXMenuCommand(ret, "Split junction (" + toString(numEndpoints) + " end points)", nullptr, &parent, MID_GNE_JUNCTION_SPLIT);
         FXMenuCommand* mcSplitJunctionAndReconnect = GUIDesigns::buildFXMenuCommand(ret, "Split junction and reconnect", nullptr, &parent, MID_GNE_JUNCTION_SPLIT_RECONNECT);
         // check if is a roundabout
@@ -329,6 +329,8 @@ GNEJunction::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
         // check if disable create TLS
         if (invalidMode || (myNBNode->getControllingTLS().size() > 0)){
             mcAddTLS->disable();
+        } else if (isAttributeCarrierSelected() && (numSelectedJunctions > 1)) {
+            mcAddTLS->setText("Add joined TLS");
         }
     }
     return ret;
