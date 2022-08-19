@@ -627,7 +627,9 @@ GNETLSTable::Cell::Cell(GNETLSTable* TLSTable, int col, int row) :
 bool
 GNETLSTable::Cell::hasFocus() const {
     // check if one of the cell elements has the focus
-    if (myButton && myButton->hasFocus()) {
+    if (myTextField && myTextField->hasFocus()) {
+        return true;
+    } else if (myButton && myButton->hasFocus()) {
         return true;
     } else if (myAddButton && myAddButton->hasFocus()) {
         return true;
@@ -652,7 +654,9 @@ GNETLSTable::Cell::hasFocus() const {
 void 
 GNETLSTable::Cell::setFocus() {
     // set focus
-    if (myButton) {
+    if (myTextField) {
+        myTextField->setFocus();
+    } else if (myButton) {
         myButton->setFocus();
     } else if (myAddButton) {
         myAddButton->setFocus();
