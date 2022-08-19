@@ -469,21 +469,22 @@ GNETLSEditorFrame::editJunction(GNEJunction* junction) {
         // set junction
         myTLSJunction->setCurrentJunction(junction);
         // init TLS definitions
-        myTLSDefinition->initTLSDefinitions();
-        // init TLSAttributes
-        myTLSAttributes->initTLSAttributes();
-        // begin undo-list
-        myViewNet->getUndoList()->begin(GUIIcon::MODETLS, "modifying traffic light definition");
-        // only select TLS if getCurrentJunction exist
-        if (myTLSJunction->getCurrentJunction()) {
-            myTLSJunction->getCurrentJunction()->selectTLS(true);
-        }
-        if (myTLSDefinition->getNumberOfTLSDefinitions() > 0) {
-            for (NBNode* node : myTLSDefinition->getCurrentTLSDefinition()->getNodes()) {
-                myViewNet->getNet()->getAttributeCarriers()->retrieveJunction(node->getID())->selectTLS(true);
+        if (myTLSDefinition->initTLSDefinitions()) {
+            // init TLSAttributes
+            myTLSAttributes->initTLSAttributes();
+            // begin undo-list
+            myViewNet->getUndoList()->begin(GUIIcon::MODETLS, "modifying traffic light definition");
+            // only select TLS if getCurrentJunction exist
+            if (myTLSJunction->getCurrentJunction()) {
+                myTLSJunction->getCurrentJunction()->selectTLS(true);
             }
-            // switch phase (for coloring)
-            myTLSPhases->switchPhase();
+            if (myTLSDefinition->getNumberOfTLSDefinitions() > 0) {
+                for (NBNode* node : myTLSDefinition->getCurrentTLSDefinition()->getNodes()) {
+                    myViewNet->getNet()->getAttributeCarriers()->retrieveJunction(node->getID())->selectTLS(true);
+                }
+                // switch phase (for coloring)
+                myTLSPhases->switchPhase();
+            }
         }
     } else {
         myViewNet->setStatusBarText("Unsaved modifications. Abort or Save");
@@ -817,7 +818,7 @@ GNETLSEditorFrame::TLSDefinition::TLSDefinition(GNETLSEditorFrame* TLSEditorPare
 GNETLSEditorFrame::TLSDefinition::~TLSDefinition() {}
 
 
-void 
+bool 
 GNETLSEditorFrame::TLSDefinition::initTLSDefinitions() {
     // get current edited junction
     const auto junction = myTLSEditorParent->myTLSJunction->getCurrentJunction();
@@ -837,7 +838,11 @@ GNETLSEditorFrame::TLSDefinition::initTLSDefinitions() {
             myProgramComboBox->setCurrentItem(0);
             myProgramComboBox->setNumVisible(myProgramComboBox->getNumItems());
             // switch TLS Program
-            onCmdDefSwitchTLSProgram(nullptr, 0, nullptr);
+            if (onCmdDefSwitchTLSProgram(nullptr, 0, nullptr) == 1) {
+                return true;
+            } else {
+                return false;
+            }
         }
     }
 }
@@ -983,6 +988,8 @@ GNETLSEditorFrame::TLSDefinition::onCmdDefSwitchTLSProgram(FXObject*, FXSelector
     } else if (getNumberOfTLSDefinitions() != getNumberOfPrograms()) {
         throw ProcessError("myProgramComboBox must have the same number of TLSDefinitions");
     } else {
+        // reset save flag
+        myHaveModifications = false;
         // get current definition
         NBTrafficLightDefinition* tlDef = getCurrentTLSDefinition();
         // logic may not have been recomputed yet. recompute to be sure
@@ -1007,9 +1014,8 @@ GNETLSEditorFrame::TLSDefinition::onCmdDefSwitchTLSProgram(FXObject*, FXSelector
             // tlDef has no valid logic (probably because id does not control any links
             onCmdDiscardChanges(nullptr, 0, nullptr);
             myTLSEditorParent->getViewNet()->setStatusBarText("Traffic light does not control any links");
+            return 0;
         }
-        // reset save flag
-        myHaveModifications = false;
     }
     return 1;
 }

@@ -99,7 +99,7 @@ public:
         ~TLSDefinition();
 
         /// @brief init TLS Definitions
-        void initTLSDefinitions();
+        bool initTLSDefinitions();
 
         /// @brief clear TLS Definitions
         void clearTLSDefinitions();
@@ -493,12 +493,12 @@ public:
     /// @brief get modul for TLS Definition
     GNETLSEditorFrame::TLSDefinition* getTLSDefinition() const;
 
-protected:
     /**@brief edits the traffic light for the given junction
      * @param[in] junction The junction of which the traffic light shall be edited
      */
     void editJunction(GNEJunction* junction);
 
+protected:
     /// @brief converts to SUMOTime
     static SUMOTime getSUMOTime(const std::string& value);
 
