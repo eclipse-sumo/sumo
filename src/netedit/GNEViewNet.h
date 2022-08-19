@@ -290,6 +290,9 @@ public:
     /// @brief reset junction connections
     long onCmdResetConnections(FXObject*, FXSelector, void*);
 
+    /// @brief add TLS
+    long onCmdAddTLS(FXObject*, FXSelector, void*);
+
     /// @brief edit connection shape
     long onCmdEditConnectionShape(FXObject*, FXSelector, void*);
 

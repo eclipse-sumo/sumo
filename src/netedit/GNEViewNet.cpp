@@ -161,6 +161,7 @@ FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     FXMAPFUNC(SEL_LEAVE,   MID_GNE_JUNCTION_CONVERT_ROUNDABOUT,             GNEViewNet::onLeaveConvertRoundabout),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_JUNCTION_CLEAR_CONNECTIONS,              GNEViewNet::onCmdClearConnections),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_JUNCTION_RESET_CONNECTIONS,              GNEViewNet::onCmdResetConnections),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_JUNCTION_ADDTLS,                         GNEViewNet::onCmdAddTLS),
     // Connections
     FXMAPFUNC(SEL_COMMAND, MID_GNE_CONNECTION_EDIT_SHAPE,                   GNEViewNet::onCmdEditConnectionShape),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_CONNECTION_SMOOTH_SHAPE,                 GNEViewNet::onCmdSmoothConnectionShape),
@@ -3117,6 +3118,24 @@ GNEViewNet::onCmdResetConnections(FXObject*, FXSelector, void*) {
             myNet->resetJunctionConnections(junction, myUndoList);
         }
         updateViewNet();
+    }
+    // destroy pop-up and set focus in view net
+    destroyPopup();
+    setFocus();
+    return 1;
+}
+
+
+long 
+GNEViewNet::onCmdAddTLS(FXObject*, FXSelector, void*) {
+    GNEJunction* junction = getJunctionAtPopupPosition();
+    if (junction != nullptr) {
+        // change to TLS Mode
+        myEditModes.setNetworkEditMode(NetworkEditMode::NETWORK_TLS, true);
+        // set junction in TLS mode
+        myViewParent->getTLSEditorFrame()->editJunction(junction);
+        // create TLS
+        myViewParent->getTLSEditorFrame()->getTLSDefinition()->onCmdCreate(nullptr, 0, nullptr);
     }
     // destroy pop-up and set focus in view net
     destroyPopup();

@@ -1140,6 +1140,8 @@ enum {
     MID_GNE_JUNCTION_SELECT_ROUNDABOUT,
     /// @brief convert junction to roundabout
     MID_GNE_JUNCTION_CONVERT_ROUNDABOUT,
+    /// @brief Add tls into junction
+    MID_GNE_JUNCTION_ADDTLS,
 
     /// @}
 
