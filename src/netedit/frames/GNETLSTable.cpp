@@ -259,10 +259,10 @@ GNETLSTable::onFocusRow(FXObject* sender, FXSelector, void*) {
     }
     // update index label
     updateIndexLabel();
-    // switch phase
+    // set new row
     if (myCurrentSelectedRow != selectedRow) {
         myCurrentSelectedRow = selectedRow;
-        myTLSPhasesParent->switchPhase();
+        updateIndexLabel();
     }
     return 0;
 }
@@ -514,6 +514,8 @@ GNETLSTable::updateIndexLabel() {
             }
         }
     }
+    // update coloring
+    myTLSPhasesParent->updateTLSColoring();
 }
 
 // ---------------------------------------------------------------------------

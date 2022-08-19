@@ -482,8 +482,8 @@ GNETLSEditorFrame::editJunction(GNEJunction* junction) {
                 for (NBNode* node : myTLSDefinition->getCurrentTLSDefinition()->getNodes()) {
                     myViewNet->getNet()->getAttributeCarriers()->retrieveJunction(node->getID())->selectTLS(true);
                 }
-                // switch phase (for coloring)
-                myTLSPhases->switchPhase();
+                // update color
+                myTLSPhases->updateTLSColoring();
             }
         }
     } else {
@@ -1211,28 +1211,6 @@ GNETLSEditorFrame::TLSPhases::initPhaseTable() {
 }
 
 
-void
-GNETLSEditorFrame::TLSPhases::switchPhase() {
-    // get current selected phase in phaseTable
-    const auto row = myPhaseTable->getCurrentSelectedRow();
-    const NBTrafficLightLogic::PhaseDefinition& phase = myTLSEditorParent->getPhase(row);
-    myPhaseTable->selectRow(row);
-    // need not hold since links could have been deleted somewhere else and indices may be reused
-    for (const auto &internalLane : myTLSEditorParent->myInternalLanes) {
-        int tlIndex = internalLane.first;
-        std::vector<GNEInternalLane*> lanes = internalLane.second;
-        LinkState state = LINKSTATE_DEADEND;
-        if (tlIndex >= 0 && tlIndex < (int)phase.state.size()) {
-            state = (LinkState)phase.state[tlIndex];
-        }
-        for (const auto &lane : lanes) {
-            lane->setLinkState(state);
-        }
-    }
-    myTLSEditorParent->getViewNet()->updateViewNet();
-}
-
-
 bool
 GNETLSEditorFrame::TLSPhases::changePhaseValue(const int col, const int row, const std::string &value) {
     // Declare columns
@@ -1391,6 +1369,27 @@ GNETLSEditorFrame::TLSPhases::movePhaseDown(const int row) {
     myPhaseTable->selectRow(row + 1);
     // set focus in table
     getPhaseTable()->setFocus();
+}
+
+
+void
+GNETLSEditorFrame::TLSPhases::updateTLSColoring() {
+    // get phase
+    const auto &phase = myTLSEditorParent->getPhase(myPhaseTable->getCurrentSelectedRow());
+    // need not hold since links could have been deleted somewhere else and indices may be reused
+    for (const auto &internalLane : myTLSEditorParent->myInternalLanes) {
+        int tlIndex = internalLane.first;
+        std::vector<GNEInternalLane*> lanes = internalLane.second;
+        LinkState state = LINKSTATE_DEADEND;
+        if (tlIndex >= 0 && tlIndex < (int)phase.state.size()) {
+            state = (LinkState)phase.state[tlIndex];
+        }
+        for (const auto &lane : lanes) {
+            lane->setLinkState(state);
+        }
+    }
+    // update view net (for coloring)
+    myTLSEditorParent->getViewNet()->updateViewNet();
 }
 
 
@@ -1773,8 +1772,8 @@ GNETLSEditorFrame::TLSPhases::setState(const int col, const int row, const std::
     // mark TLS as modified depending of value
     if (value.size() > 0) {
         myTLSEditorParent->myTLSDefinition->markAsModified();
-        // switch to new phase
-        switchPhase();
+        // select row
+        myPhaseTable->selectRow(row);
     } else {
         // input empty, reset
         getPhaseTable()->setItemText(row, col, newState);

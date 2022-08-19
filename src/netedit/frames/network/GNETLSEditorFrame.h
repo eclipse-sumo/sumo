@@ -297,9 +297,6 @@ public:
          */
         void initPhaseTable();
 
-        /// @brief switch phase in table
-        void switchPhase();
-
         /// @brief change phase value (state, name, next, etc.)
         bool changePhaseValue(const int col, const int row, const std::string &value);
 
@@ -317,6 +314,9 @@ public:
 
         /// @brief move phase down
         void movePhaseDown(const int row);
+
+        /// @brief update TLS coloring
+        void updateTLSColoring();
 
         /// @name FOX-callbacks
         /// @{
