@@ -845,10 +845,14 @@ GNETLSEditorFrame::TLSDefinition::initTLSDefinitions() {
     } else {
         // clear definitions
         myTLSDefinitions.clear();
-        // obtain TLSs
+        // obtain TLSs sorted by ID
+        std::set<std::string> programIDs;
         for (const auto& TLS : junction->getNBNode()->getControllingTLS()) {
             myTLSDefinitions.push_back(TLS);
-            myProgramComboBox->appendItem(TLS->getProgramID().c_str());
+            programIDs.insert(TLS->getProgramID());
+        }
+        for (const auto &programID : programIDs) {
+            myProgramComboBox->appendItem(programID.c_str());
         }
         // check if enable TLS definitions
         if (myTLSDefinitions.size() > 0) {
