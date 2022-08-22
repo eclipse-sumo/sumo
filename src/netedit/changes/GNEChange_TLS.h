@@ -35,7 +35,7 @@ class GNEChange_TLS : public GNEChange {
     FXDECLARE_ABSTRACT(GNEChange_TLS)
 
 public:
-    /**@brief Constructor for creating/deleting an edge
+    /**@brief Constructor for creating/deleting a TLS
      * @param[in] junction The junction to which the traffic light belong
      * @param[in] tlDef The traffic light definition (may be 0 on creation)
      * @param[in] forward Whether to create/delete (true/false)
@@ -43,15 +43,22 @@ public:
      */
     GNEChange_TLS(GNEJunction* junction, NBTrafficLightDefinition* tlDef, bool forward, bool forceInsert = false, const std::string tlID = "");
 
-    /**@brief Constructor for creating/deleting an edge
-    * @param[in] junction The junction to which the traffic light belong
-    * @param[in] tlDef The traffic light definition (may be 0 on creation)
-    * @param[in] forward Whether to create/delete (true/false)
-    * @param[in] tlID The id for the newly created tlDef (set to junction id if * "" is given)
-    * @param[in] type TrafficLightType
-    */
+    /**@brief Constructor for creating/deleting a TLS
+     * @param[in] junction The junction to which the traffic light belong
+     * @param[in] tlDef The traffic light definition (may be 0 on creation)
+     * @param[in] forward Whether to create/delete (true/false)
+     * @param[in] tlID The id for the newly created tlDef (set to junction id if * "" is given)
+     * @param[in] type TrafficLightType
+     */
     GNEChange_TLS(GNEJunction* junction, NBTrafficLightDefinition* tlDef, bool forward, TrafficLightType type,
                   bool forceInsert = false, const std::string tlID = "");
+
+    /**@brief Constructor for renaming a TLS
+     * @param[in] junction The junction to which the traffic light belong
+     * @param[in] tlDef The traffic light definition (may be 0 on creation)
+     * @param[in] newID new TL ID
+     */
+    GNEChange_TLS(GNEJunction* junction, NBTrafficLightDefinition* tlDef, const std::string &newID);
 
     /// @brief Destructor
     ~GNEChange_TLS();
@@ -69,8 +76,8 @@ public:
 
     /// @brief redo action
     void redo();
-    /// @}
 
+    /// @}
 
 private:
     /**@brief we need the junction because it is the target of our change commands
@@ -84,5 +91,9 @@ private:
     NBTrafficLightDefinition* myTlDef;
 
     /// @brief check if forceInsert is enabled
-    bool myForceInsert;
+    const bool myForceInsert;
+
+    /// @brief variables used for renaming TLS
+    const std::string myOldID;
+    const std::string myNewID;
 };

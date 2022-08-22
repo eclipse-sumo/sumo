@@ -81,6 +81,17 @@ GNEChange_TLS::GNEChange_TLS(GNEJunction* junction, NBTrafficLightDefinition* tl
 }
 
 
+GNEChange_TLS::GNEChange_TLS(GNEJunction* junction, NBTrafficLightDefinition* tlDef, const std::string &newID) :
+    GNEChange(Supermode::NETWORK, true, false),
+    myJunction(junction),
+    myTlDef(tlDef),
+    myForceInsert(false),
+    myOldID(tlDef->getID()),
+    myNewID(newID) {
+    myJunction->incRef("GNEChange_TLS");
+}
+
+
 GNEChange_TLS::~GNEChange_TLS() {
     myJunction->decRef("GNEChange_TLS");
     if (myJunction->unreferenced()) {
@@ -94,15 +105,29 @@ GNEChange_TLS::~GNEChange_TLS() {
 void
 GNEChange_TLS::undo() {
     if (myForward) {
-        // show extra information for tests
-        WRITE_DEBUG("Removing TLS from " + myJunction->getTagStr() + " '" + myJunction->getID() + "'");
-        // remove traffic light from junction
-        myJunction->removeTrafficLight(myTlDef);
+        if (myNewID.empty()) {
+            // show extra information for tests
+            WRITE_DEBUG("Removing TLS from " + myJunction->getTagStr() + " '" + myJunction->getID() + "'");
+            // remove traffic light from junction
+            myJunction->removeTrafficLight(myTlDef);
+        } else {
+            // show extra information for tests
+            WRITE_DEBUG("Renaming Traffic Light: " + myOldID);
+            // set old ID
+            myJunction->getNet()->getTLLogicCont().rename(myTlDef, myOldID);
+        }
     } else {
-        // show extra information for tests
-        WRITE_DEBUG("Adding TLS into " + myJunction->getTagStr() + " '" + myJunction->getID() + "'");
-        // add traffic light to junction
-        myJunction->addTrafficLight(myTlDef, myForceInsert);
+        if (myNewID.empty()) {
+            // show extra information for tests
+            WRITE_DEBUG("Adding TLS into " + myJunction->getTagStr() + " '" + myJunction->getID() + "'");
+            // add traffic light to junction
+            myJunction->addTrafficLight(myTlDef, myForceInsert);
+        } else {
+            // show extra information for tests
+            WRITE_DEBUG("Renaming Traffic Light: " + myNewID);
+            // set new ID
+            myJunction->getNet()->getTLLogicCont().rename(myTlDef, myNewID);
+        }
     }
     // enable save networkElements
     myJunction->getNet()->requireSaveNet(true);
@@ -112,15 +137,29 @@ GNEChange_TLS::undo() {
 void
 GNEChange_TLS::redo() {
     if (myForward) {
-        // show extra information for tests
-        WRITE_DEBUG("Adding TLS into " + myJunction->getTagStr() + " '" + myJunction->getID() + "'");
-        // add traffic light to junction
-        myJunction->addTrafficLight(myTlDef, myForceInsert);
+        if (myNewID.empty()) {
+            // show extra information for tests
+            WRITE_DEBUG("Adding TLS into " + myJunction->getTagStr() + " '" + myJunction->getID() + "'");
+            // add traffic light to junction
+            myJunction->addTrafficLight(myTlDef, myForceInsert);
+        } else {
+            // show extra information for tests
+            WRITE_DEBUG("Renaming Traffic Light: " + myNewID);
+            // set new ID
+            myJunction->getNet()->getTLLogicCont().rename(myTlDef, myNewID);
+        }
     } else {
-        // show extra information for tests
-        WRITE_DEBUG("Deleting TLS from " + myJunction->getTagStr() + " '" + myJunction->getID() + "'");
-        // remove traffic light from junction
-        myJunction->removeTrafficLight(myTlDef);
+        if (myNewID.empty()) {
+            // show extra information for tests
+            WRITE_DEBUG("Deleting TLS from " + myJunction->getTagStr() + " '" + myJunction->getID() + "'");
+            // remove traffic light from junction
+            myJunction->removeTrafficLight(myTlDef);
+        } else {
+            // show extra information for tests
+            WRITE_DEBUG("Renaming Traffic Light: " + myOldID);
+            // set old ID
+            myJunction->getNet()->getTLLogicCont().rename(myTlDef, myOldID);
+        }
     }
     // enable save networkElements
     myJunction->getNet()->requireSaveNet(true);
