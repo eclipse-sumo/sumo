@@ -70,7 +70,7 @@ GNECrossingFrame::CurrentJunction::CurrentJunction(GNECrossingFrame* crossingFra
     // create label
     new FXLabel(junctionIDFrame, "", nullptr, GUIDesignLabelAttribute);
     // create text field and disable it
-    myTextFieldJunctionID = new FXTextField(junctionIDFrame, GUIDesignTextFieldNCol, this, MID_GNE_TLSFRAME_SELECT_JUNCTION, GUIDesignTextField);
+    myTextFieldJunctionID = new FXTextField(junctionIDFrame, GUIDesignTextFieldNCol, this, MID_GNE_SELECT, GUIDesignTextField);
     myTextFieldJunctionID->disable();
 }
 

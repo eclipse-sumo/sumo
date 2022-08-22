@@ -720,15 +720,15 @@ GNETLSEditorFrame::TLSAttributes::onCmdEditParameters(FXObject*, FXSelector, voi
 GNETLSEditorFrame::TLSJunction::TLSJunction(GNETLSEditorFrame* tlsEditorParent) :
     MFXGroupBoxModule(tlsEditorParent, "Junction"),
     myCurrentJunction(nullptr) {
-    // Create frame for junction ID
+    // Create frame for junction IDs
     FXHorizontalFrame* junctionIDFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     myJunctionIDLabel = new FXLabel(junctionIDFrame, "Junction ID", nullptr, GUIDesignLabelAttribute);
-    myJunctionIDTextField = new FXTextField(junctionIDFrame, GUIDesignTextFieldNCol, this, MID_GNE_TLSFRAME_SELECT_JUNCTION, GUIDesignTextField);
-    myJunctionIDTextField->setEditable(false);
+    myJunctionIDTextField = new MFXTextFieldTooltip(junctionIDFrame, GUIDesignTextFieldNCol, this, MID_GNE_TLSFRAME_JUNCTION, GUIDesignTextField);
+    myJunctionIDTextField->disable();
     // Create frame for TLS Program ID
     FXHorizontalFrame* TLSIDFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
-    myTLSIDLabel = new FXLabel(TLSIDFrame, "TLS ID", nullptr, GUIDesignLabelAttribute);
-    myTLSIDTextField = new FXTextField(TLSIDFrame, GUIDesignTextFieldNCol, this, MID_GNE_TLSFRAME_SELECT_JUNCTION, GUIDesignTextField);
+    new FXLabel(TLSIDFrame, "TLS ID", nullptr, GUIDesignLabelAttribute);
+    myTLSIDTextField = new MFXTextFieldTooltip(TLSIDFrame, GUIDesignTextFieldNCol, this, MID_GNE_TLSFRAME_TLS, GUIDesignTextField);
     myTLSIDTextField->setEditable(false);
     // update junction description after creation
     updateJunctionDescription();
@@ -756,21 +756,39 @@ GNETLSEditorFrame::TLSJunction::setCurrentJunction(GNEJunction* junction) {
 
 void
 GNETLSEditorFrame::TLSJunction::updateJunctionDescription() const {
+    // first reset junction label
+    myJunctionIDLabel->setText("Junction ID");
+    // continue depending of current junction
     if (myCurrentJunction == nullptr) {
-        myJunctionIDTextField->setText("Select junction");
+        myJunctionIDTextField->setText("no junction selected");
         myTLSIDTextField->setText("");
         // disable both
-        myJunctionIDTextField->disable();
         myTLSIDTextField->disable();
     } else {
         const auto nbn = myCurrentJunction->getNBNode();
-        myJunctionIDTextField->setText(nbn->getID().c_str());
-        myJunctionIDTextField->enable();
         // check if junction is controlled
         if (nbn->getControllingTLS().size() > 0) {
+            // get all nodes controlled by this TLS
+            const auto nodes = (*nbn->getControllingTLS().begin())->getNodes();
+            // declare string
+            std::string nodesStr;
+            for (auto it = nodes.begin(); it != nodes.end(); it++) {
+                if (it == (nodes.end() - 1)) {
+                    nodesStr += (*it)->getID();
+                } else {
+                    nodesStr += (*it)->getID() + ", ";
+                }
+            }
+            // updated text fields
+            myJunctionIDTextField->setText(nodesStr.c_str());
             myTLSIDTextField->setText((*nbn->getControllingTLS().begin())->getID().c_str());
+            // update junction label
+            if (nodes.size() > 1) {
+                myJunctionIDLabel->setText("Junction IDs");
+            }
         } else {
-            myTLSIDTextField->setText("No TLS");
+            myJunctionIDTextField->setText(nbn->getID().c_str());
+            myTLSIDTextField->setText("");
         }
         myTLSIDTextField->enable();
     }
@@ -844,6 +862,7 @@ GNETLSEditorFrame::TLSDefinition::initTLSDefinitions() {
                 return false;
             }
         }
+        return false;
     }
 }
 
