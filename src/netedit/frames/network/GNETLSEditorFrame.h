@@ -49,10 +49,12 @@ public:
     // ===========================================================================
 
     class TLSJunction : public MFXGroupBoxModule {
+        /// @brief FOX-declaration
+        FXDECLARE(GNETLSEditorFrame::TLSJunction)
 
     public:
         /// @brief constructor
-        TLSJunction(GNETLSEditorFrame* tlsEditorParent);
+        TLSJunction(GNETLSEditorFrame* TLSEditorParent);
 
         /// @brief destructor
         ~TLSJunction();
@@ -66,18 +68,32 @@ public:
         /// @brief update descrition
         void updateJunctionDescription() const;
 
+        /// @name FOX-callbacks
+        /// @{
+        /// @brief Called when the user rename TLS
+        long onCmdRenameTLS(FXObject*, FXSelector, void*);
+
+        /// @}
+
+    protected:
+        /// @brief FOX needs this
+        FOX_CONSTRUCTOR(TLSJunction)
+
     private:
+        /// @brief TLS editor frame parent
+        GNETLSEditorFrame* myTLSEditorParent;
+
         /// @brief label for junction ID
-        FXLabel* myJunctionIDLabel;
+        FXLabel* myJunctionIDLabel = nullptr;
 
         /// @brief text field for junction ID
-        MFXTextFieldTooltip* myJunctionIDTextField;
+        MFXTextFieldTooltip* myJunctionIDTextField = nullptr;
 
         /// @brief text field for junction ID
-        MFXTextFieldTooltip* myTLSIDTextField;
+        MFXTextFieldTooltip* myTLSIDTextField = nullptr;
 
         /// @brief the junction of the tls is being modified
-        GNEJunction* myCurrentJunction;
+        GNEJunction* myCurrentJunction = nullptr;
     };
 
     // ===========================================================================
@@ -94,6 +110,12 @@ public:
 
         /// @brief destructor
         ~TLSDefinition();
+
+        /// @brief show TLSDefinition
+        void showTLSDefinition();
+
+        /// @brief hide TLSDefinition
+        void hideTLSDefinition();
 
         /// @brief init TLS Definitions
         bool initTLSDefinitions();
@@ -192,6 +214,12 @@ public:
         /// @brief destructor
         ~TLSAttributes();
 
+        /// @brief show TLSAttributes
+        void showTLSAttributes();
+
+        /// @brief hide TLSAttributes
+        void hideTLSAttributes();
+
         /// @brief initializes the definitions and corresponding listbox
         void initTLSAttributes();
 
@@ -282,6 +310,12 @@ public:
 
         /// @brief destructor
         ~TLSPhases();
+
+        /// @brief show TLSPhases
+        void showTLSPhases();
+
+        /// @brief hide TLSPhases
+        void hideTLSPhases();
 
         /// @brief get TLSEditor Parent
         GNETLSEditorFrame* getTLSEditorParent() const;
@@ -423,6 +457,12 @@ public:
 
         /// @brief destructor
         ~TLSFile();
+
+        /// @brief show TLSPhases
+        void showTLSFile();
+
+        /// @brief hide TLSPhases
+        void hideTLSFile();
 
         /// @name FOX-callbacks
         /// @{

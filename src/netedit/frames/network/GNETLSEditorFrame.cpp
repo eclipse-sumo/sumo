@@ -41,6 +41,10 @@
 // FOX callback mapping
 // ===========================================================================
 
+FXDEFMAP(GNETLSEditorFrame::TLSJunction) TLSJunctionMap[] = {
+    FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_TLSID,                       GNETLSEditorFrame::TLSJunction::onCmdRenameTLS)
+};
+
 FXDEFMAP(GNETLSEditorFrame::TLSDefinition) TLSDefinitionMap[] = {
     FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_DEFINITION_CREATE,           GNETLSEditorFrame::TLSDefinition::onCmdCreate),
     FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_DEFINITION_CREATE,           GNETLSEditorFrame::TLSDefinition::onUpdCreateButton),
@@ -89,10 +93,11 @@ FXDEFMAP(GNETLSEditorFrame::TLSFile) TLSFileMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNETLSEditorFrame::TLSDefinition,       MFXGroupBoxModule,  TLSDefinitionMap,       ARRAYNUMBER(TLSDefinitionMap))
-FXIMPLEMENT(GNETLSEditorFrame::TLSAttributes,       MFXGroupBoxModule,  TLSAttributesMap,       ARRAYNUMBER(TLSAttributesMap))
-FXIMPLEMENT(GNETLSEditorFrame::TLSPhases,           MFXGroupBoxModule,  TLSPhasesMap,           ARRAYNUMBER(TLSPhasesMap))
-FXIMPLEMENT(GNETLSEditorFrame::TLSFile,             MFXGroupBoxModule,  TLSFileMap,             ARRAYNUMBER(TLSFileMap))
+FXIMPLEMENT(GNETLSEditorFrame::TLSJunction,     MFXGroupBoxModule,  TLSJunctionMap,     ARRAYNUMBER(TLSJunctionMap))
+FXIMPLEMENT(GNETLSEditorFrame::TLSDefinition,   MFXGroupBoxModule,  TLSDefinitionMap,   ARRAYNUMBER(TLSDefinitionMap))
+FXIMPLEMENT(GNETLSEditorFrame::TLSAttributes,   MFXGroupBoxModule,  TLSAttributesMap,   ARRAYNUMBER(TLSAttributesMap))
+FXIMPLEMENT(GNETLSEditorFrame::TLSPhases,       MFXGroupBoxModule,  TLSPhasesMap,       ARRAYNUMBER(TLSPhasesMap))
+FXIMPLEMENT(GNETLSEditorFrame::TLSFile,         MFXGroupBoxModule,  TLSFileMap,         ARRAYNUMBER(TLSFileMap))
 
 
 // ===========================================================================
@@ -535,6 +540,18 @@ GNETLSEditorFrame::TLSAttributes::~TLSAttributes() {}
 
 
 void
+GNETLSEditorFrame::TLSAttributes::showTLSAttributes() {
+    show();
+}
+
+
+void
+GNETLSEditorFrame::TLSAttributes::hideTLSAttributes() {
+    hide();
+}
+
+
+void
 GNETLSEditorFrame::TLSAttributes::initTLSAttributes() {
     // get current edited junction
     const auto junction = myTLSEditorParent->myTLSJunction->getCurrentJunction();
@@ -717,8 +734,9 @@ GNETLSEditorFrame::TLSAttributes::onCmdEditParameters(FXObject*, FXSelector, voi
 // GNETLSEditorFrame::TLSJunction - methods
 // ---------------------------------------------------------------------------
 
-GNETLSEditorFrame::TLSJunction::TLSJunction(GNETLSEditorFrame* tlsEditorParent) :
-    MFXGroupBoxModule(tlsEditorParent, "Junction"),
+GNETLSEditorFrame::TLSJunction::TLSJunction(GNETLSEditorFrame* TLSEditorParent) :
+    MFXGroupBoxModule(TLSEditorParent, "Junction"),
+    myTLSEditorParent(TLSEditorParent),
     myCurrentJunction(nullptr) {
     // Create frame for junction IDs
     FXHorizontalFrame* junctionIDFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
@@ -728,8 +746,7 @@ GNETLSEditorFrame::TLSJunction::TLSJunction(GNETLSEditorFrame* tlsEditorParent) 
     // Create frame for TLS Program ID
     FXHorizontalFrame* TLSIDFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(TLSIDFrame, "TLS ID", nullptr, GUIDesignLabelAttribute);
-    myTLSIDTextField = new MFXTextFieldTooltip(TLSIDFrame, GUIDesignTextFieldNCol, this, MID_GNE_TLSFRAME_TLS, GUIDesignTextField);
-    myTLSIDTextField->setEditable(false);
+    myTLSIDTextField = new MFXTextFieldTooltip(TLSIDFrame, GUIDesignTextFieldNCol, this, MID_GNE_TLSFRAME_TLSID, GUIDesignTextField);
     // update junction description after creation
     updateJunctionDescription();
     // show TLS Junction
@@ -794,6 +811,49 @@ GNETLSEditorFrame::TLSJunction::updateJunctionDescription() const {
     }
 }
 
+
+long 
+GNETLSEditorFrame::TLSJunction::onCmdRenameTLS(FXObject*, FXSelector, void*) {
+    // get IDs
+    const std::string currentTLID = (*myCurrentJunction->getNBNode()->getControllingTLS().begin())->getID();
+    const std::string newTLID = myTLSIDTextField->getText().text();
+    // check if ID is valid
+    if (newTLID.empty() || (newTLID == currentTLID)) {
+        // same ID or empty
+        myTLSIDTextField->setTextColor(FXRGB(0, 0, 0));
+        myTLSIDTextField->setText(currentTLID.c_str());
+        // show all moduls
+        myTLSEditorParent->myTLSDefinition->showTLSDefinition();
+        myTLSEditorParent->myTLSAttributes->showTLSAttributes();
+        myTLSEditorParent->myTLSPhases->showTLSPhases();
+        myTLSEditorParent->myTLSFile->showTLSFile();
+    } else if (!SUMOXMLDefinitions::isValidNetID(newTLID) || myCurrentJunction->getNet()->getTLLogicCont().exist(newTLID)) {
+        // set invalid color
+        myTLSIDTextField->setTextColor(FXRGB(255, 0, 0));
+        // hide moduls
+        myTLSEditorParent->myTLSDefinition->hideTLSDefinition();
+        myTLSEditorParent->myTLSAttributes->hideTLSAttributes();
+        myTLSEditorParent->myTLSPhases->hideTLSPhases();
+        myTLSEditorParent->myTLSFile->hideTLSFile();
+    } else {
+        // make a copy of junction and tlDef (because will be updated after calling onCmdDiscardChanges)
+        auto junction = myCurrentJunction;
+        const auto tlDef = myTLSEditorParent->myTLSDefinition->getCurrentTLSDefinition();
+        // discard previous changes
+        myTLSEditorParent->myTLSDefinition->onCmdDiscardChanges(nullptr, 0, nullptr);
+        // change name using undo-List
+        myTLSEditorParent->getViewNet()->getUndoList()->begin(GUIIcon::MODETLS, "rename TLS");
+        myTLSEditorParent->getViewNet()->getUndoList()->add(new GNEChange_TLS(junction, tlDef, newTLID), true);
+        myTLSEditorParent->getViewNet()->getUndoList()->end();
+        // show all moduls
+        myTLSEditorParent->myTLSDefinition->showTLSDefinition();
+        myTLSEditorParent->myTLSAttributes->showTLSAttributes();
+        myTLSEditorParent->myTLSPhases->showTLSPhases();
+        myTLSEditorParent->myTLSFile->showTLSFile();
+    }
+    return 1;
+}
+
 // ---------------------------------------------------------------------------
 // GNETLSEditorFrame::TLSDefinition - methods
 // ---------------------------------------------------------------------------
@@ -834,6 +894,18 @@ GNETLSEditorFrame::TLSDefinition::TLSDefinition(GNETLSEditorFrame* TLSEditorPare
 
 
 GNETLSEditorFrame::TLSDefinition::~TLSDefinition() {}
+
+
+void
+GNETLSEditorFrame::TLSDefinition::showTLSDefinition() {
+    show();
+}
+
+
+void
+GNETLSEditorFrame::TLSDefinition::hideTLSDefinition() {
+    hide();
+}
 
 
 bool 
@@ -1193,6 +1265,18 @@ GNETLSEditorFrame::TLSPhases::TLSPhases(GNETLSEditorFrame* TLSEditorParent) :
 
 
 GNETLSEditorFrame::TLSPhases::~TLSPhases() {
+}
+
+
+void
+GNETLSEditorFrame::TLSPhases::showTLSPhases() {
+    show();
+}
+
+
+void
+GNETLSEditorFrame::TLSPhases::hideTLSPhases() {
+    hide();
 }
 
 
@@ -2074,6 +2158,18 @@ GNETLSEditorFrame::TLSFile::TLSFile(GNETLSEditorFrame* TLSEditorParent) :
 
 
 GNETLSEditorFrame::TLSFile::~TLSFile() {}
+
+
+void 
+GNETLSEditorFrame::TLSFile::showTLSFile() {
+    show();
+}
+
+
+void 
+GNETLSEditorFrame::TLSFile::hideTLSFile() {
+    hide();
+}
 
 
 long

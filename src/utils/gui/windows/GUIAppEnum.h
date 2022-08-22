@@ -996,8 +996,8 @@ enum {
 
     /// @brief selected junction von TLS
     MID_GNE_TLSFRAME_JUNCTION,
-    /// @brief selected junction von TLS
-    MID_GNE_TLSFRAME_TLS,
+    /// @brief current TLS ID
+    MID_GNE_TLSFRAME_TLSID,
     /// @brief update TLS status
     MID_GNE_TLSFRAME_UPDATE_STATUS,
     /// @brief replace program with a newly guessed program
