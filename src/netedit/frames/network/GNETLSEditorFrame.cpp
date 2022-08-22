@@ -42,7 +42,8 @@
 // ===========================================================================
 
 FXDEFMAP(GNETLSEditorFrame::TLSJunction) TLSJunctionMap[] = {
-    FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_TLSID,                       GNETLSEditorFrame::TLSJunction::onCmdRenameTLS)
+    FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_TLSID,   GNETLSEditorFrame::TLSJunction::onCmdRenameTLS),
+    FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_TLSID,   GNETLSEditorFrame::TLSJunction::onUpdModified)
 };
 
 FXDEFMAP(GNETLSEditorFrame::TLSDefinition) TLSDefinitionMap[] = {
@@ -470,7 +471,7 @@ void
 GNETLSEditorFrame::editJunction(GNEJunction* junction) {
     if ((myTLSJunction->getCurrentJunction() == nullptr) || (!myTLSDefinition->checkHaveModifications() && (junction != myTLSJunction->getCurrentJunction()))) {
         // discard previous changes
-        myTLSDefinition->onCmdDiscardChanges(nullptr, 0, nullptr);
+        myTLSDefinition->discardChanges(false);
         // set junction
         myTLSJunction->setCurrentJunction(junction);
         // init TLS definitions
@@ -478,7 +479,7 @@ GNETLSEditorFrame::editJunction(GNEJunction* junction) {
             // init TLSAttributes
             myTLSAttributes->initTLSAttributes();
             // begin undo-list
-            myViewNet->getUndoList()->begin(GUIIcon::MODETLS, "modifying traffic light definition");
+            myViewNet->getUndoList()->begin(GUIIcon::MODETLS, "modifying TLS definition");
             // only select TLS if getCurrentJunction exist
             if (myTLSJunction->getCurrentJunction()) {
                 myTLSJunction->getCurrentJunction()->selectTLS(true);
@@ -779,10 +780,12 @@ GNETLSEditorFrame::TLSJunction::updateJunctionDescription() const {
     if (myCurrentJunction == nullptr) {
         myJunctionIDTextField->setText("no junction selected");
         myTLSIDTextField->setText("");
-        // disable both
+        // disable TLS ID text field
         myTLSIDTextField->disable();
     } else {
         const auto nbn = myCurrentJunction->getNBNode();
+        // update junction ID text field
+        myJunctionIDTextField->setText(nbn->getID().c_str());
         // check if junction is controlled
         if (nbn->getControllingTLS().size() > 0) {
             // get all nodes controlled by this TLS
@@ -796,18 +799,20 @@ GNETLSEditorFrame::TLSJunction::updateJunctionDescription() const {
                     nodesStr += (*it)->getID() + ", ";
                 }
             }
-            // updated text fields
+            // updated junction fields
             myJunctionIDTextField->setText(nodesStr.c_str());
-            myTLSIDTextField->setText((*nbn->getControllingTLS().begin())->getID().c_str());
             // update junction label
             if (nodes.size() > 1) {
                 myJunctionIDLabel->setText("Junction IDs");
             }
+            // update text field
+            myTLSIDTextField->setText((*nbn->getControllingTLS().begin())->getID().c_str());
+            myTLSIDTextField->enable();
         } else {
-            myJunctionIDTextField->setText(nbn->getID().c_str());
+            // disable TLS ID text field
             myTLSIDTextField->setText("");
+            myTLSIDTextField->disable();
         }
-        myTLSIDTextField->enable();
     }
 }
 
@@ -836,11 +841,11 @@ GNETLSEditorFrame::TLSJunction::onCmdRenameTLS(FXObject*, FXSelector, void*) {
         myTLSEditorParent->myTLSPhases->hideTLSPhases();
         myTLSEditorParent->myTLSFile->hideTLSFile();
     } else {
-        // make a copy of junction and tlDef (because will be updated after calling onCmdDiscardChanges)
+        // make a copy of junction and tlDef (because will be updated after calling discardChanges)
         auto junction = myCurrentJunction;
         const auto tlDef = myTLSEditorParent->myTLSDefinition->getCurrentTLSDefinition();
         // discard previous changes
-        myTLSEditorParent->myTLSDefinition->onCmdDiscardChanges(nullptr, 0, nullptr);
+        myTLSEditorParent->myTLSDefinition->discardChanges(false);
         // change name using undo-List
         myTLSEditorParent->getViewNet()->getUndoList()->begin(GUIIcon::MODETLS, "rename TLS");
         myTLSEditorParent->getViewNet()->getUndoList()->add(new GNEChange_TLS(junction, tlDef, newTLID), true);
@@ -850,6 +855,19 @@ GNETLSEditorFrame::TLSJunction::onCmdRenameTLS(FXObject*, FXSelector, void*) {
         myTLSEditorParent->myTLSAttributes->showTLSAttributes();
         myTLSEditorParent->myTLSPhases->showTLSPhases();
         myTLSEditorParent->myTLSFile->showTLSFile();
+        // edit junction again
+        myTLSEditorParent->editJunction(junction);
+    }
+    return 1;
+}
+
+
+long
+GNETLSEditorFrame::TLSJunction::onUpdModified(FXObject* o, FXSelector, void*) {
+    if (myTLSEditorParent->myTLSDefinition->checkHaveModifications()) {
+        o->handle(this, FXSEL(SEL_COMMAND, FXWindow::ID_DISABLE), nullptr);
+    } else {
+        o->handle(this, FXSEL(SEL_COMMAND, FXWindow::ID_ENABLE), nullptr);
     }
     return 1;
 }
@@ -993,18 +1011,34 @@ GNETLSEditorFrame::TLSDefinition::getCurrentTLSProgramID() const {
 }
 
 
+void 
+GNETLSEditorFrame::TLSDefinition::discardChanges(const bool editJunctionAgain) {
+    // get junction copy
+    auto currentJunction = myTLSEditorParent->myTLSJunction->getCurrentJunction();
+    if (currentJunction != nullptr) {
+        myTLSEditorParent->getViewNet()->getUndoList()->abortAllChangeGroups();
+        myTLSEditorParent->cleanup();
+        myTLSEditorParent->getViewNet()->updateViewNet();
+        // edit junction again
+        if (editJunctionAgain) {
+            myTLSEditorParent->editJunction(currentJunction);
+        }
+    }
+}
+
+
 long
 GNETLSEditorFrame::TLSDefinition::onCmdCreate(FXObject*, FXSelector, void*) {
     // get current edited junction (needed because onCmdDiscardChanges clear junction)
-    GNEJunction* junction = myTLSEditorParent->myTLSJunction->getCurrentJunction();
+    GNEJunction* currentJunction = myTLSEditorParent->myTLSJunction->getCurrentJunction();
     // abort because we onCmdOk assumes we wish to save an edited definition
-    onCmdDiscardChanges(nullptr, 0, nullptr);
+    discardChanges(false);
     // check that current junction has two or more edges
-    if ((junction->getGNEIncomingEdges().size() > 0) && (junction->getGNEOutgoingEdges().size() > 0)) {
+    if ((currentJunction->getGNEIncomingEdges().size() > 0) && (currentJunction->getGNEOutgoingEdges().size() > 0)) {
         // create TLS in junction
-        createTLS(junction);
+        createTLS(currentJunction);
         // edit junction
-        myTLSEditorParent->editJunction(junction);
+        myTLSEditorParent->editJunction(currentJunction);
     } else {
         // write warning if netedit is running in testing mode
         WRITE_DEBUG("Opening warning FXMessageBox 'invalid TLS'");
@@ -1028,7 +1062,7 @@ GNETLSEditorFrame::TLSDefinition::onCmdDelete(FXObject*, FXSelector, void*) {
     // check if remove entire TLS or only one program
     const bool changeJunctionType = (myTLSEditorParent->myTLSDefinition->getNumberOfTLSDefinitions() == 1);
     // abort because onCmdOk assumes we wish to save an edited definition
-    onCmdDiscardChanges(nullptr, 0, nullptr);
+    discardChanges(false);
     if (changeJunctionType) {
         junction->setAttribute(SUMO_ATTR_TYPE, toString(SumoXMLNodeType::PRIORITY), myTLSEditorParent->getViewNet()->getUndoList());
     } else {
@@ -1042,7 +1076,7 @@ long
 GNETLSEditorFrame::TLSDefinition::onCmdResetCurrentProgram(FXObject*, FXSelector, void*) {
     GNEJunction* junction = myTLSEditorParent->myTLSJunction->getCurrentJunction();
     NBTrafficLightDefinition* oldDef = myTLSEditorParent->myTLSDefinition->getCurrentTLSDefinition();
-    onCmdDiscardChanges(nullptr, 0, nullptr);
+    discardChanges(false);
     // begin undo
     myTLSEditorParent->getViewNet()->getUndoList()->begin(GUIIcon::MODETLS, "reset current program");
     myTLSEditorParent->getViewNet()->getUndoList()->add(new GNEChange_TLS(junction, oldDef, false), true);
@@ -1059,19 +1093,19 @@ GNETLSEditorFrame::TLSDefinition::onCmdResetCurrentProgram(FXObject*, FXSelector
 long
 GNETLSEditorFrame::TLSDefinition::onCmdResetAll(FXObject*, FXSelector, void*) {
     // make a duplicate of the junction
-    GNEJunction* junction = myTLSEditorParent->myTLSJunction->getCurrentJunction();
+    GNEJunction* currentJunction = myTLSEditorParent->myTLSJunction->getCurrentJunction();
     // discard all previous changes
-    onCmdDiscardChanges(nullptr, 0, nullptr); // abort because onCmdOk assumes we wish to save an edited definition
+    discardChanges(false);
     // begin undo
     myTLSEditorParent->getViewNet()->getUndoList()->begin(GUIIcon::MODETLS, "reset TLS");
     // set junction as priority (this will also remove all program, see GNEJunction::setJunctionType)
-    junction->setAttribute(SUMO_ATTR_TYPE, toString(SumoXMLNodeType::PRIORITY), myTLSEditorParent->getViewNet()->getUndoList());
+    currentJunction->setAttribute(SUMO_ATTR_TYPE, toString(SumoXMLNodeType::PRIORITY), myTLSEditorParent->getViewNet()->getUndoList());
     // create TLS in junction
-    createTLS(junction);
+    createTLS(currentJunction);
     // end undo
     myTLSEditorParent->getViewNet()->getUndoList()->end();
     // edit junction
-    myTLSEditorParent->editJunction(junction);
+    myTLSEditorParent->editJunction(currentJunction);
     return 1;
 }
 
@@ -1107,7 +1141,7 @@ GNETLSEditorFrame::TLSDefinition::onCmdDefSwitchTLSProgram(FXObject*, FXSelector
             myTLSEditorParent->myTLSPhases->initPhaseTable();
         } else {
             // tlDef has no valid logic (probably because id does not control any links
-            onCmdDiscardChanges(nullptr, 0, nullptr);
+            discardChanges(false);
             myTLSEditorParent->getViewNet()->setStatusBarText("Traffic light does not control any links");
             return 0;
         }
@@ -1119,9 +1153,9 @@ GNETLSEditorFrame::TLSDefinition::onCmdDefSwitchTLSProgram(FXObject*, FXSelector
 long
 GNETLSEditorFrame::TLSDefinition::onUpdCreateButton(FXObject* sender, FXSelector, void*) {
     // get current junction
-    const auto junction = myTLSEditorParent->myTLSJunction->getCurrentJunction();
+    const auto currentJunction = myTLSEditorParent->myTLSJunction->getCurrentJunction();
     // check conditions
-    if (junction == nullptr) {
+    if (currentJunction == nullptr) {
         // no junction, disable button
         sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else if (myHaveModifications) {
@@ -1131,7 +1165,7 @@ GNETLSEditorFrame::TLSDefinition::onUpdCreateButton(FXObject* sender, FXSelector
         // enable button
         sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
         // update button text
-        if (junction->getNBNode()->isTLControlled()) {
+        if (currentJunction->getNBNode()->isTLControlled()) {
             myCreateButton->setText("Duplicate");
         } else {
             myCreateButton->setText("Create");
@@ -1156,7 +1190,10 @@ GNETLSEditorFrame::TLSDefinition::onUpdTLSModified(FXObject* sender, FXSelector,
 
 long
 GNETLSEditorFrame::TLSDefinition::onCmdSaveChanges(FXObject*, FXSelector, void*) {
-    if (myTLSEditorParent->myTLSJunction->getCurrentJunction() != nullptr) {
+    // get junction copy
+    auto currentJunction = myTLSEditorParent->myTLSJunction->getCurrentJunction();
+    // check that junction is valid
+    if (currentJunction != nullptr) {
         const auto oldDefinition = getCurrentTLSDefinition();
         std::vector<NBNode*> nodes = oldDefinition->getNodes();
         for (const auto& node : nodes) {
@@ -1172,8 +1209,11 @@ GNETLSEditorFrame::TLSDefinition::onCmdSaveChanges(FXObject*, FXSelector, void*)
         myTLSEditorParent->myEditedDef = nullptr;
         myTLSEditorParent->cleanup();
         myTLSEditorParent->getViewNet()->updateViewNet();
+        // edit junction again
+        myTLSEditorParent->editJunction(currentJunction);
     } else {
-        onCmdDiscardChanges(nullptr, 0, nullptr);
+        // discard changes inspecting junction again
+        discardChanges(true);
     }
     return 1;
 }
@@ -1181,11 +1221,8 @@ GNETLSEditorFrame::TLSDefinition::onCmdSaveChanges(FXObject*, FXSelector, void*)
 
 long
 GNETLSEditorFrame::TLSDefinition::onCmdDiscardChanges(FXObject*, FXSelector, void*) {
-    if (myTLSEditorParent->myTLSJunction->getCurrentJunction() != nullptr) {
-        myTLSEditorParent->getViewNet()->getUndoList()->abortAllChangeGroups();
-        myTLSEditorParent->cleanup();
-        myTLSEditorParent->getViewNet()->updateViewNet();
-    }
+    // discard changes inspecting junction again
+    discardChanges(true);
     return 1;
 }
 

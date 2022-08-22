@@ -73,6 +73,9 @@ public:
         /// @brief Called when the user rename TLS
         long onCmdRenameTLS(FXObject*, FXSelector, void*);
 
+        /// @brief Called when occurs an update of modified
+        long onUpdModified(FXObject*, FXSelector, void*);
+
         /// @}
 
     protected:
@@ -140,6 +143,9 @@ public:
 
         /// @brief get current program ID
         const std::string getCurrentTLSProgramID() const;
+
+        /// @brief discard changes
+        void discardChanges(const bool editJunctionAgain);
 
         /// @name FOX-callbacks
         /// @{

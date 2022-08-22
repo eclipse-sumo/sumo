@@ -1174,7 +1174,7 @@ GNEViewNet::abortOperation(bool clearSelection) {
             // abort changes in Connector Frame
             myViewParent->getConnectorFrame()->getConnectionModifications()->onCmdCancelModifications(0, 0, 0);
         } else if (myEditModes.networkEditMode == NetworkEditMode::NETWORK_TLS) {
-            myViewParent->getTLSEditorFrame()->getTLSDefinition()->onCmdDiscardChanges(nullptr, 0, nullptr);
+            myViewParent->getTLSEditorFrame()->getTLSDefinition()->discardChanges(false);
         } else if (myEditModes.networkEditMode == NetworkEditMode::NETWORK_MOVE) {
             myEditNetworkElementShapes.stopEditCustomShape();
         } else if (myEditModes.networkEditMode == NetworkEditMode::NETWORK_SHAPE) {
