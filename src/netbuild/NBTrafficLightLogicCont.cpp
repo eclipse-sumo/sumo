@@ -136,6 +136,18 @@ NBTrafficLightLogicCont::extract(NBTrafficLightDefinition* definition) {
 }
 
 
+bool
+NBTrafficLightLogicCont::exist(const std::string& newID) const {
+    const auto itD = myDefinitions.find(newID);
+    const auto itC = myComputed.find(newID);
+    if ((itD != myDefinitions.end()) && (itC != myComputed.end())) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
 std::pair<int, int>
 NBTrafficLightLogicCont::computeLogics(OptionsCont& oc) {
     // clean previous logics
@@ -390,6 +402,12 @@ NBTrafficLightLogicCont::rename(NBTrafficLightDefinition* tlDef, const std::stri
         myComputed[newID] = it2->second;
         myComputed.erase(it2);
     }
+}
+
+
+ int 
+ NBTrafficLightLogicCont::getNumExtracted() const {
+    return (int)myExtracted.size();
 }
 
 /****************************************************************************/

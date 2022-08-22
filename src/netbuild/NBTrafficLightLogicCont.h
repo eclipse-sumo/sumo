@@ -70,7 +70,6 @@ public:
      */
     void applyOptions(OptionsCont& oc);
 
-
     /** @brief Adds a logic definition to the dictionary
      *
      * "true" is returned if the logic is accepted - no logic with the same
@@ -82,7 +81,6 @@ public:
      */
     bool insert(NBTrafficLightDefinition* logic, bool forceInsert = false);
 
-
     /** @brief Removes a logic definition (and all programs) from the dictionary
      *
      * "true" is returned if the logic existed in the dictionary,
@@ -92,7 +90,6 @@ public:
      * @return Whether the named logic was within the dictionary
      */
     bool removeFully(const std::string id);
-
 
     /** @brief Removes a program of a logic definition from the dictionary
      *
@@ -106,25 +103,22 @@ public:
      */
     bool removeProgram(const std::string id, const std::string programID, bool del = true);
 
-
     /** @brief Extracts a traffic light definition from myDefinitions
      * but keeps it in myExtracted for eventual * deletion (used by NETEDIT)
      */
     void extract(NBTrafficLightDefinition* definition);
 
+    /// @brief check if exists a definition with the given ID
+    bool exist(const std::string& newID) const;
 
     /// @brief rename traffic light
     void rename(NBTrafficLightDefinition* tlDef, const std::string& newID);
 
     /// @brief return the number of extracted traffic light definitions
-    int getNumExtracted() const {
-        return (int)myExtracted.size();
-    }
-
+    int getNumExtracted() const;
 
     /// @brief Returns a list of all computed logics
     std::vector<NBTrafficLightLogic*> getComputed() const;
-
 
     /** @brief Computes the traffic light logics using the stored definitions and stores the results
      *
@@ -137,7 +131,6 @@ public:
      */
     std::pair<int, int> computeLogics(OptionsCont& oc);
 
-
     /** @brief Computes a specific traffic light logic (using by NETEDIT)
      *
      * @param[in] oc Options used during the computation
@@ -145,7 +138,6 @@ public:
      * @see NBTrafficLightDefinition::compute
      */
     bool computeSingleLogic(OptionsCont& oc, NBTrafficLightDefinition* def);
-
 
     /** @brief Replaces occurences of the removed edge in incoming/outgoing edges of all definitions
      *
@@ -156,7 +148,6 @@ public:
      */
     void remapRemoved(NBEdge* removed,
                       const EdgeVector& incoming, const EdgeVector& outgoing);
-
 
     /** @brief Replaces occurences of the removed edge/lane in all definitions by the given edge
      *
@@ -169,7 +160,6 @@ public:
     void replaceRemoved(NBEdge* removed, int removedLane,
                         NBEdge* by, int byLane, bool incoming);
 
-
     /** @brief Returns the named definition
      *
      * @param[in] id The id of the definition to return
@@ -178,14 +168,12 @@ public:
      */
     NBTrafficLightDefinition* getDefinition(const std::string& id, const std::string& programID) const;
 
-
     /** @brief Returns all programs for the given tl-id
      *
      * @param[in] id The tl-id for which to return all programs
      * @return The map of programIDs to definitions
      */
     const std::map<std::string, NBTrafficLightDefinition*>& getPrograms(const std::string& id) const;
-
 
     /** @brief Returns the computed logic for the given name
      *
@@ -194,7 +182,6 @@ public:
      * @return The named definition, 0 if it is not known
      */
     NBTrafficLightLogic* getLogic(const std::string& id, const std::string& programID) const;
-
 
     /** @brief Informs the edges about being controlled by a tls
      *
@@ -237,13 +224,9 @@ private:
     /// @brief List of tls which shall have an offset of T/2
     std::set<std::string> myQuarterOffsetTLS;
 
+    /// @brief empty definition
     static const Program2Def EmptyDefinitions;
 
-private:
-
-    /** @brief Destroys all stored definitions and logics
-     */
+    /// @brief Destroys all stored definitions and logics
     void clear();
-
-
 };
