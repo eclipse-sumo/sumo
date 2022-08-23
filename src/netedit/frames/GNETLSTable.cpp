@@ -176,8 +176,6 @@ GNETLSTable::setTableSize(const std::string &columnsType, const int numberRow) {
     if (myRows.size() == 1) {
         myRows.front()->disableRemoveRow();
     }
-    // Adjust duration rows (for tooltip with acumulated duration
-    setAccumulatedDuration();
 }
 
 
@@ -186,6 +184,10 @@ GNETLSTable::setItemText(FXint row, FXint column, const std::string& text) {
     if ((row >= 0) && (row < (FXint)myRows.size()) && 
         (column >= 0) && (column < (FXint)myColumns.size())) {
         myRows.at(row)->setText(column, text);
+        // check if update accumulated duration
+        if (myColumns.at(column)->getType() == 'u') {
+            updateAccumulatedDuration();
+        }
     } else {
         throw ProcessError("Invalid row or column");
     }
@@ -526,7 +528,7 @@ GNETLSTable::updateIndexLabel() {
 
 
 void
-GNETLSTable::setAccumulatedDuration() {
+GNETLSTable::updateAccumulatedDuration() {
     // first find the duration col
     int durationCol = -1;
     for (int i = 0; i < (int)myColumns.size(); i++) {
@@ -762,7 +764,7 @@ GNETLSTable::Cell::getDoubleValue() const {
 void 
 GNETLSTable::Cell::setTooltip(const std::string &toolTip) {
     if (myTextField) {
-        myTextField;
+        myTextField->setToolTipText(toolTip.c_str());
     } else {
         throw ProcessError("Tooltips pnly for TextFields");
     }

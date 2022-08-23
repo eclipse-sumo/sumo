@@ -363,8 +363,8 @@ protected:
     /// @brief update index labels
     void updateIndexLabel();
 
-    /// @brief set accumulated duration();
-    void setAccumulatedDuration();
+    /// @brief update accumulated duration();
+    void updateAccumulatedDuration();
 
     /// @brief move focus to current row
     bool moveFocus();
