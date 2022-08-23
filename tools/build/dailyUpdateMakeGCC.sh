@@ -111,3 +111,13 @@ echo "--" >> $STATUSLOG
 basename $TESTLOG >> $STATUSLOG
 date >> $STATUSLOG
 echo "--" >> $STATUSLOG
+
+if test ${FILEPREFIX: -2} == "M1"; then
+  rm -rf dist _skbuild
+  python3 tools/build/setup-sumo.py bdist_wheel
+  python3 tools/build/setup-libsumo.py bdist_wheel
+  python3 tools/build/setup-libtraci.py bdist_wheel
+  mv dist/eclipse_sumo-* `echo dist/eclipse_sumo-* | sed 's/cp39-cp39/py2.py3-none/'`
+  # the credentials are in ~/.pypirc
+  twine upload -r testpypi dist/*
+fi
