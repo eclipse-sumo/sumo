@@ -141,7 +141,7 @@ GNETLSTable::recalcTableWidth() {
 
 void
 GNETLSTable::clearTable() {
-    // clear rows (always before columns)
+    // clear rows (always before columns, because delete row delete also all cells)
     for (const auto& row : myRows) {
         delete row;
     }
@@ -623,6 +623,46 @@ GNETLSTable::Cell::Cell(GNETLSTable* TLSTable, int col, int row) :
     myAddAllGreenPriorityButton->setBackColor(FXRGBA(240, 255, 205, 255));
 }
 
+GNETLSTable::Cell::~Cell() {
+    // normally elements are delete scalarly, but will be here deleted manually for security (and avoid problems with FXPopups)
+    if (myTextField) {
+        delete myTextField;
+    }
+    if (myIndexLabel) {
+        delete myIndexLabel;
+    }
+    if (myIndexLabelBold) {
+        delete myIndexLabelBold;
+    }
+    if (myButton) {
+        delete myButton;
+    }
+    if (myAddButton) {
+        delete myAddButton;
+    }
+    if (myAddPhaseButton) {
+        delete myAddPhaseButton;
+    }
+    if (myDuplicatePhaseButton) {
+        delete myDuplicatePhaseButton;
+    }
+    if (myAddAllRedButton) {
+        delete myAddAllRedButton;
+    }
+    if (myAddAllYellowButton) {
+        delete myAddAllYellowButton;
+    }
+    if (myAddAllGreenButton) {
+        delete myAddAllGreenButton;
+    }
+    if (myAddAllGreenPriorityButton) {
+        delete myAddAllGreenPriorityButton;
+    }
+    if (myMenuButtonPopup) {
+        delete myMenuButtonPopup;
+    }
+}
+
 
 bool
 GNETLSTable::Cell::hasFocus() const {
@@ -1011,13 +1051,8 @@ GNETLSTable::Row::Row(GNETLSTable* table) :
 
 
 GNETLSTable::Row::~Row() {
-    // destroy all textFields
+    // delete all cells
     for (const auto& cell : myCells) {
-        if (cell->getTextField()) {
-            cell->getTextField()->destroy();
-        } else if (cell->getIndexLabel()) {
-            cell->getIndexLabel()->destroy();
-        }
         delete cell;
     }
 }

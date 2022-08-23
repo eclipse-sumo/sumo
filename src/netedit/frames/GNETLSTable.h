@@ -150,6 +150,8 @@ protected:
         /// @brief constructor for menu buttons
         Cell(GNETLSTable* TLSTable, int col, int row);
 
+        ~Cell();
+
         /// @brief check if current cell has focus
         bool hasFocus() const;
 
