@@ -176,6 +176,8 @@ GNETLSTable::setTableSize(const std::string &columnsType, const int numberRow) {
     if (myRows.size() == 1) {
         myRows.front()->disableRemoveRow();
     }
+    // Adjust duration rows (for tooltip with acumulated duration
+    setAccumulatedDuration();
 }
 
 
@@ -523,6 +525,35 @@ GNETLSTable::updateIndexLabel() {
 }
 
 
+void
+GNETLSTable::setAccumulatedDuration() {
+    // first find the duration col
+    int durationCol = -1;
+    for (int i = 0; i < (int)myColumns.size(); i++) {
+        if (myColumns.at(i)->getType() == 'u') {
+            durationCol = i;
+        }
+    }
+    // continue depending of durationCol
+    if (durationCol != -1) {
+        // declare a int vector for saving durations
+        std::vector<double> durations;
+        // fill durations
+        for (const auto &row : myRows) {
+            durations.push_back(row->getCells().at(durationCol)->getDoubleValue());
+        }
+        // update durations
+        for (int i = 1; i < (int)durations.size(); i++) {
+            durations.at(i) += durations.at(i-1);
+        }
+        // set tooltips in row cells
+        for (int i = 0; i < (int)myRows.size(); i++) {
+            myRows.at(i)->getCells().at(durationCol)->setTooltip("Accumulated: " + toString(durations.at(i)));
+        }
+    }
+}
+
+
 bool 
 GNETLSTable::moveFocus() {
     // first find focus
@@ -543,7 +574,7 @@ GNETLSTable::moveFocus() {
 // GNETLSTable::Cell - methods
 // ---------------------------------------------------------------------------
 
-GNETLSTable::Cell::Cell(GNETLSTable* TLSTable, FXTextField* textField, int col, int row) :
+GNETLSTable::Cell::Cell(GNETLSTable* TLSTable, MFXTextFieldTooltip* textField, int col, int row) :
     myTLSTable(TLSTable),
     myTextField(textField),
     myCol(col),
@@ -624,7 +655,7 @@ GNETLSTable::Cell::Cell(GNETLSTable* TLSTable, int col, int row) :
 }
 
 GNETLSTable::Cell::~Cell() {
-    // normally elements are delete scalarly, but will be here deleted manually for security (and avoid problems with FXPopups)
+    // delete all elements
     if (myTextField) {
         delete myTextField;
     }
@@ -716,14 +747,36 @@ GNETLSTable::Cell::setFocus() {
 }
 
 
-FXTextField* 
-GNETLSTable::Cell::getTextField() {
+double 
+GNETLSTable::Cell::getDoubleValue() const {
+    if (myTextField->getText().empty()) {
+        return 0;
+    } else if (!GNEAttributeCarrier::canParse<double>(myTextField->getText().text())) {
+        throw ProcessError("Cannot be parsed to double");
+    } else {
+        return GNEAttributeCarrier::parse<double>(myTextField->getText().text());
+    }
+}
+
+
+void 
+GNETLSTable::Cell::setTooltip(const std::string &toolTip) {
+    if (myTextField) {
+        myTextField;
+    } else {
+        throw ProcessError("Tooltips pnly for TextFields");
+    }
+}
+
+
+MFXTextFieldTooltip* 
+GNETLSTable::Cell::getTextField() const {
     return myTextField;
 }
 
 
 FXLabel* 
-GNETLSTable::Cell::getIndexLabel() {
+GNETLSTable::Cell::getIndexLabel() const {
     return myIndexLabel;
 }
 
@@ -992,17 +1045,17 @@ GNETLSTable::Row::Row(GNETLSTable* table) :
                 myCells.push_back(new Cell(table, indexLabel, indexLabelBold, columnIndex, numCells));
                 break;
             }
-            case ('u'): 
+            case ('u'):
             case ('f'): {
-                // create text field for duration or float values
-                auto textField = new FXTextField(table->myColumns.at(columnIndex)->getVerticalCellFrame(), GUIDesignTextFieldNCol, 
+                // create textField tooltip for duration or float values
+                auto textField = new MFXTextFieldTooltip(table->myColumns.at(columnIndex)->getVerticalCellFrame(), GUIDesignTextFieldNCol, 
                     table, MID_GNE_TLSTABLE_TEXTFIELD, GUIDesignTextFieldTLSTableReal);
                 myCells.push_back(new Cell(table, textField, columnIndex, numCells));
                 break;
             }
             case ('p'): {
                 // create text field for program (state)
-                auto textField = new FXTextField(table->myColumns.at(columnIndex)->getVerticalCellFrame(), GUIDesignTextFieldNCol,
+                auto textField = new MFXTextFieldTooltip(table->myColumns.at(columnIndex)->getVerticalCellFrame(), GUIDesignTextFieldNCol,
                     table, MID_GNE_TLSTABLE_TEXTFIELD, GUIDesignTextFieldTLSTable);
                 // set special font
                 textField->setFont(myTable->myProgramFont);
@@ -1012,7 +1065,7 @@ GNETLSTable::Row::Row(GNETLSTable* table) :
             case ('m'):
             case ('-'): {
                 // create normal text field
-                auto textField = new FXTextField(table->myColumns.at(columnIndex)->getVerticalCellFrame(), GUIDesignTextFieldNCol, 
+                auto textField = new MFXTextFieldTooltip(table->myColumns.at(columnIndex)->getVerticalCellFrame(), GUIDesignTextFieldNCol, 
                     table, MID_GNE_TLSTABLE_TEXTFIELD, GUIDesignTextFieldTLSTable);
                 myCells.push_back(new Cell(table, textField, columnIndex, numCells));
                 break;

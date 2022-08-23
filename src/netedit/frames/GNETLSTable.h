@@ -24,6 +24,7 @@
 #include <vector>
 
 #include <utils/common/UtilExceptions.h>
+#include <utils/foxtools/MFXTextFieldTooltip.h>
 #include <utils/foxtools/MFXLabelTooltip.h>
 #include <utils/foxtools/MFXMenuButtonTooltip.h>
 #include <netedit/frames/network/GNETLSEditorFrame.h>
@@ -139,7 +140,7 @@ protected:
 
     public:
         /// @brief constructor for textField
-        Cell(GNETLSTable* TLSTable, FXTextField* textField, int col, int row);
+        Cell(GNETLSTable* TLSTable, MFXTextFieldTooltip* textField, int col, int row);
 
         /// @brief constructor for index label 
         Cell(GNETLSTable* TLSTable, FXLabel* indexLabel, FXLabel* indexLabelBold, int col, int row);
@@ -158,11 +159,17 @@ protected:
         /// @brief set focus in the current cell
         void setFocus();
 
+        /// @brief get double value (only for types 'u' and 'd')
+        double getDoubleValue() const;
+
+        /// @brief set tooltip
+        void setTooltip(const std::string &toolTip);
+
         /// @brief get textField
-        FXTextField* getTextField();
+        MFXTextFieldTooltip* getTextField() const;
 
         /// @brief get index label
-        FXLabel* getIndexLabel();
+        FXLabel* getIndexLabel() const;
 
         /// @brief get add button
         MFXMenuButtonTooltip* getAddButton() const;
@@ -210,8 +217,8 @@ protected:
         /// @brief pointer to TLSTable parent
         GNETLSTable* myTLSTable = nullptr;
 
-        /// @brief textField
-        FXTextField* myTextField = nullptr;
+        /// @brief MFXTextFieldTooltip
+        MFXTextFieldTooltip* myTextField = nullptr;
 
         /// @brief index label
         FXLabel* myIndexLabel = nullptr;
@@ -355,6 +362,9 @@ protected:
 
     /// @brief update index labels
     void updateIndexLabel();
+
+    /// @brief set accumulated duration();
+    void setAccumulatedDuration();
 
     /// @brief move focus to current row
     bool moveFocus();
