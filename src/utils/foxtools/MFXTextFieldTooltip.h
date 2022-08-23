@@ -40,6 +40,9 @@ public:
     /// @brief destructor (Called automatically)
     ~MFXTextFieldTooltip();
 
+    /// @brief set toolTip
+    void setToolTipText(const FXString &toolTip);
+
     /// @name FOX callbacks
     /// @{
     /// @brief called when mouse enter in MFXTextFieldTooltip
@@ -55,6 +58,9 @@ protected:
 
     /// @brief static tooltip
     MFXStaticToolTip* myStaticToolTip = nullptr;
+
+    /// @brief toolTip text (if set, tooltip will be always show)
+    FXString myToolTipText;
 
 private:
     /// @brief Invalidated copy constructor.
