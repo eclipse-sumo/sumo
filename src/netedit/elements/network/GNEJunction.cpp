@@ -245,6 +245,31 @@ GNEJunction::mirrorXLeftHand() {
 }
 
 
+void
+GNEJunction::buildTLSOperations(GUISUMOAbstractView& parent, GUIGLObjectPopupMenu* ret, const bool invalidMode, const int numSelectedJunctions) {
+    // create menu pane for edge operations
+    FXMenuPane* TLSOperations = new FXMenuPane(ret);
+    ret->insertMenuPaneChild(TLSOperations);
+    new FXMenuCascade(ret, "TLS operations", GUIIconSubSys::getIcon(GUIIcon::MODETLS), TLSOperations);
+    // create menu commands for all TLS operations
+    FXMenuCommand* mcAddTLS = GUIDesigns::buildFXMenuCommand(TLSOperations, "Add TLS", nullptr, &parent, MID_GNE_JUNCTION_ADDTLS);
+    FXMenuCommand* mcAddJoinedTLS = GUIDesigns::buildFXMenuCommand(TLSOperations, "Add joined TLS", nullptr, &parent, MID_GNE_JUNCTION_ADDJOINTLS);
+    // check if disable create TLS
+    if (invalidMode || (myNBNode->getControllingTLS().size() > 0)){
+        mcAddTLS->disable();
+        mcAddJoinedTLS->disable();
+    } else {
+        mcAddTLS->enable();
+        // check if add joined TLS
+        if (isAttributeCarrierSelected() && (numSelectedJunctions > 1)) {
+            mcAddJoinedTLS->enable();
+        } else {
+            mcAddJoinedTLS->disable();
+        }
+    }
+}
+
+
 GUIGLObjectPopupMenu*
 GNEJunction::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
@@ -268,13 +293,13 @@ GNEJunction::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
         const bool invalidMode = (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_CONNECT) ||
                                  (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_TLS) ||
                                  (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_CREATE_EDGE);
+        // build TLS operation
+        buildTLSOperations(parent, ret, invalidMode, numSelectedJunctions);
         // create menu commands
         GUIDesigns::buildFXMenuCommand(ret, "Reset edge endpoints", nullptr, &parent, MID_GNE_JUNCTION_RESET_EDGE_ENDPOINTS);
         FXMenuCommand* mcCustomShape = GUIDesigns::buildFXMenuCommand(ret, "Set custom junction shape", nullptr, &parent, MID_GNE_JUNCTION_EDIT_SHAPE);
         FXMenuCommand* mcResetCustomShape = GUIDesigns::buildFXMenuCommand(ret, "Reset junction shape", nullptr, &parent, MID_GNE_JUNCTION_RESET_SHAPE);
         FXMenuCommand* mcReplaceByGeometryPoint = GUIDesigns::buildFXMenuCommand(ret, "Replace junction by geometry point", nullptr, &parent, MID_GNE_JUNCTION_REPLACE);
-        FXMenuCommand* mcAddTLS = GUIDesigns::buildFXMenuCommand(ret, "Add TLS", GUIIconSubSys::getIcon(GUIIcon::MODETLS), &parent, MID_GNE_JUNCTION_ADDTLS);
-        FXMenuCommand* mcAddJoinedTLS = GUIDesigns::buildFXMenuCommand(ret, "Add joined TLS", GUIIconSubSys::getIcon(GUIIcon::MODETLS), &parent, MID_GNE_JUNCTION_ADDJOINTLS);
         FXMenuCommand* mcSplitJunction = GUIDesigns::buildFXMenuCommand(ret, "Split junction (" + toString(numEndpoints) + " end points)", nullptr, &parent, MID_GNE_JUNCTION_SPLIT);
         FXMenuCommand* mcSplitJunctionAndReconnect = GUIDesigns::buildFXMenuCommand(ret, "Split junction and reconnect", nullptr, &parent, MID_GNE_JUNCTION_SPLIT_RECONNECT);
         // check if is a roundabout
@@ -326,19 +351,6 @@ GNEJunction::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
         if (numEndpoints == 1) {
             mcSplitJunction->disable();
             mcSplitJunctionAndReconnect->disable();
-        }
-        // check if disable create TLS
-        if (invalidMode || (myNBNode->getControllingTLS().size() > 0)){
-            mcAddTLS->disable();
-            mcAddJoinedTLS->disable();
-        } else {
-            mcAddTLS->enable();
-            // check if add joined TLS
-            if (isAttributeCarrierSelected() && (numSelectedJunctions > 1)) {
-                mcAddJoinedTLS->enable();
-            } else {
-                mcAddJoinedTLS->disable();
-            }
         }
     }
     return ret;

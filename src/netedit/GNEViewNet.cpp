@@ -3139,7 +3139,7 @@ GNEViewNet::onCmdAddTLS(FXObject*, FXSelector, void*) {
             for (const auto &selectedJunction : selectedJunctions) {
                 selectedJunction->setAttribute(SUMO_ATTR_TYPE, "traffic_light", myUndoList);
             }
-            myEditModes.setNetworkEditMode(NetworkEditMode::NETWORK_TLS, true);
+            myNet->getViewNet()->getUndoList()->end();
         } else {
             // change junction type
             junction->setAttribute(SUMO_ATTR_TYPE, "traffic_light", myUndoList);

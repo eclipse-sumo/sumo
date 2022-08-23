@@ -350,6 +350,9 @@ private:
     /// @brief temporarily mirror coordinates in lefthand network to compute correct crossing geometries
     void mirrorXLeftHand();
 
+    /// @brief build TLS operations contextual menu
+    void buildTLSOperations(GUISUMOAbstractView& parent, GUIGLObjectPopupMenu* ret, const bool invalidMode, const int numSelectedJunctions);
+
     /// @brief Invalidated copy constructor.
     GNEJunction(const GNEJunction&) = delete;
 
