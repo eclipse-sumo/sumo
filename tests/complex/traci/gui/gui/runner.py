@@ -25,7 +25,9 @@ import sys
 import time
 from matplotlib.pyplot import imread
 sys.path.append(os.path.join(
-    os.path.dirname(sys.argv[0]), "..", "..", "..", "..", "..", "tools"))
+    os.environ.get('SUMO_HOME',
+        os.path.join(os.path.dirname(sys.argv[0]), "..", "..", "..", "..",
+            "..")), "tools"))
 import traci  # noqa
 import sumolib  # noqa
 
