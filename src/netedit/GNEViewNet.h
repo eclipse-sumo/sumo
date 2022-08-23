@@ -293,6 +293,9 @@ public:
     /// @brief add TLS
     long onCmdAddTLS(FXObject*, FXSelector, void*);
 
+    /// @brief add Join TLS
+    long onCmdAddJoinTLS(FXObject*, FXSelector, void*);
+
     /// @brief edit connection shape
     long onCmdEditConnectionShape(FXObject*, FXSelector, void*);
 

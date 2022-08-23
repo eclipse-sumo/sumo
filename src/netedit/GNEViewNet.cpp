@@ -20,6 +20,7 @@
 /****************************************************************************/
 #include <netbuild/NBEdgeCont.h>
 #include <netedit/changes/GNEChange_Attribute.h>
+#include <netedit/changes/GNEChange_TLS.h>
 #include <netedit/dialogs/GNEGeometryPointDialog.h>
 #include <netedit/elements/additional/GNEAdditionalHandler.h>
 #include <netedit/elements/additional/GNEPOI.h>
@@ -162,6 +163,7 @@ FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_GNE_JUNCTION_CLEAR_CONNECTIONS,              GNEViewNet::onCmdClearConnections),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_JUNCTION_RESET_CONNECTIONS,              GNEViewNet::onCmdResetConnections),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_JUNCTION_ADDTLS,                         GNEViewNet::onCmdAddTLS),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_JUNCTION_ADDJOINTLS,                     GNEViewNet::onCmdAddJoinTLS),
     // Connections
     FXMAPFUNC(SEL_COMMAND, MID_GNE_CONNECTION_EDIT_SHAPE,                   GNEViewNet::onCmdEditConnectionShape),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_CONNECTION_SMOOTH_SHAPE,                 GNEViewNet::onCmdSmoothConnectionShape),
@@ -3132,6 +3134,34 @@ GNEViewNet::onCmdAddTLS(FXObject*, FXSelector, void*) {
     if (junction != nullptr) {
         // check if we're adding TLS in multiple junctions
         if (junction->isAttributeCarrierSelected()) {
+            const auto selectedJunctions = myNet->getAttributeCarriers()->getSelectedJunctions();
+            myNet->getViewNet()->getUndoList()->begin(GUIIcon::MODETLS, "add TLS in multiple junctions");
+            for (const auto &selectedJunction : selectedJunctions) {
+                selectedJunction->setAttribute(SUMO_ATTR_TYPE, "traffic_light", myUndoList);
+            }
+            myEditModes.setNetworkEditMode(NetworkEditMode::NETWORK_TLS, true);
+        } else {
+            // change junction type
+            junction->setAttribute(SUMO_ATTR_TYPE, "traffic_light", myUndoList);
+            // set junction in TLS mode
+            myViewParent->getTLSEditorFrame()->editJunction(junction);
+            // change to TLS Mode
+            myEditModes.setNetworkEditMode(NetworkEditMode::NETWORK_TLS, true);
+        }
+    }
+    // destroy pop-up and set focus in view net
+    destroyPopup();
+    setFocus();
+    return 1;
+}
+
+
+long 
+GNEViewNet::onCmdAddJoinTLS(FXObject*, FXSelector, void*) {
+    GNEJunction* junction = getJunctionAtPopupPosition();
+    if (junction != nullptr) {
+        // check if we're adding TLS in multiple junctions
+        if (junction->isAttributeCarrierSelected()) {
             myNet->getViewNet()->getUndoList()->begin(GUIIcon::MODETLS, "add TLS in multiple junctions");
         }
         // change junction type
@@ -3148,7 +3178,14 @@ GNEViewNet::onCmdAddTLS(FXObject*, FXSelector, void*) {
                 }
             }
         }
-        // end undolist
+        // rename traffic light
+        if (junction->getNBNode()->getControllingTLS().size() > 0) {
+            const auto TLSDef = (*junction->getNBNode()->getControllingTLS().begin());
+            if (!myNet->getTLLogicCont().exist(TLSDef->getID() + "_joined")) {
+                myUndoList->add(new GNEChange_TLS(junction, TLSDef, TLSDef->getID() + "_joined"), true);
+            }
+        }
+        // end undoList
         if (junction->isAttributeCarrierSelected()) {
             myNet->getViewNet()->getUndoList()->end();
         }
@@ -3162,7 +3199,6 @@ GNEViewNet::onCmdAddTLS(FXObject*, FXSelector, void*) {
     setFocus();
     return 1;
 }
-
 
 long
 GNEViewNet::onCmdEditConnectionShape(FXObject*, FXSelector, void*) {
