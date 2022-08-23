@@ -65,6 +65,7 @@
 #include <utils/geom/GeoConvHelper.h>
 
 #include "GUIOSGBuilder.h"
+#include "GUIOSGPerspectiveChanger.h"
 #include "GUIOSGView.h"
 
 
@@ -139,6 +140,11 @@ GUIOSGView::GUIOSGView(
 
     //m_gwFox = new GraphicsWindowFOX(this, glVisual, NULL, NULL, LAYOUT_FILL_X|LAYOUT_FILL_Y, x, y, w, h );
 
+    if (myChanger != nullptr) {
+        delete(myChanger);
+    }
+    myChanger = new GUIOSGPerspectiveChanger(*this, *myGrid);
+
     int w = getWidth();
     int h = getHeight();
     myAdapter = new FXOSGAdapter(this, new FXCursor(parent->getApp(), CURSOR_CROSS));
@@ -190,6 +196,12 @@ GUIOSGView::~GUIOSGView() {
     myViewer = 0;
     myRoot = 0;
     myAdapter = 0;
+}
+
+
+void
+GUIOSGView::initChanger(const Boundary& viewPort) {
+    myChanger = new GUIOSGPerspectiveChanger(*this, viewPort);
 }
 
 
@@ -278,6 +290,9 @@ void
 GUIOSGView::recenterView() {
     stopTrack();
     Position center = myGrid->getCenter();
+    double radius = std::max(myGrid->xmax() - myGrid->xmin(), myGrid->ymax() - myGrid->ymin());
+    myChanger->centerTo(center, radius);
+    /*
     osg::Vec3d lookFromOSG, lookAtOSG, up;
     myCameraManipulator->getHomePosition(lookFromOSG, lookAtOSG, up);
     lookFromOSG[0] = center.x();
@@ -288,26 +303,27 @@ GUIOSGView::recenterView() {
     lookAtOSG[2] = 0;
     myCameraManipulator->setHomePosition(lookFromOSG, lookAtOSG, up);
     myViewer->home();
+    */
 }
 
 
-void
-GUIOSGView::centerTo(GUIGlID id, bool /* applyZoom */, double /* zoomDist */) {
-    GUIGlObject* o = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
-    if (o != nullptr && dynamic_cast<GUIGlObject*>(o) != nullptr) {
-        // get OSG object from GLObject
-        osg::Node* objectNode = o->getNode();
-        if (objectNode != nullptr) {
-            // center to current position
-            osg::Vec3d lookFromOSG, lookAtOSG, up;
-            myCameraManipulator->getHomePosition(lookFromOSG, lookAtOSG, up);
-            myCameraManipulator->setHomePosition(lookFromOSG, objectNode->getBound().center(), up);
-            myViewer->home();
-            updatePositionInformation();
-        }
-    }
-    GUIGlObjectStorage::gIDStorage.unblockObject(id);
-}
+//void
+//GUIOSGView::centerTo(GUIGlID id, bool /* applyZoom */, double /* zoomDist */) {
+//    GUIGlObject* o = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
+//    if (o != nullptr && dynamic_cast<GUIGlObject*>(o) != nullptr) {
+//        // get OSG object from GLObject
+//        osg::Node* objectNode = o->getNode();
+//        if (objectNode != nullptr) {
+//            // center to current position
+//            osg::Vec3d lookFromOSG, lookAtOSG, up;
+//            myCameraManipulator->getHomePosition(lookFromOSG, lookAtOSG, up);
+//            myCameraManipulator->setHomePosition(lookFromOSG, objectNode->getBound().center(), up);
+//            myViewer->home();
+//            updatePositionInformation();
+//        }
+//    }
+//    GUIGlObjectStorage::gIDStorage.unblockObject(id);
+//}
 
 
 bool
@@ -605,16 +621,17 @@ GUIOSGView::startTrack(int id) {
             }
         }
         if (myTracked != 0) {
-            osg::Vec3d lookFrom, lookAt, up;
-            lookAt[0] = myTracked->getPosition().x();
-            lookAt[1] = myTracked->getPosition().y();
-            lookAt[2] = myTracked->getPosition().z();
-            lookFrom[0] = lookAt[0] + 50.;
-            lookFrom[1] = lookAt[1] + 50.;
-            lookFrom[2] = lookAt[2] + 10.;
-            osg::Matrix m;
-            m.makeLookAt(lookFrom, lookAt, osg::Z_AXIS);
-            myCameraManipulator->setByInverseMatrix(m);
+            myChanger->centerTo(myTracked->getPosition(), 100.);
+            //osg::Vec3d lookFrom, lookAt, up;
+            //lookAt[0] = myTracked->getPosition().x();
+            //lookAt[1] = myTracked->getPosition().y();
+            //lookAt[2] = myTracked->getPosition().z();
+            //lookFrom[0] = lookAt[0] + 50.;
+            //lookFrom[1] = lookAt[1] + 50.;
+            //lookFrom[2] = lookAt[2] + 10.;
+            //osg::Matrix m;
+            //m.makeLookAt(lookFrom, lookAt, osg::Z_AXIS);
+            //myCameraManipulator->setByInverseMatrix(m);
         }
     }
 }

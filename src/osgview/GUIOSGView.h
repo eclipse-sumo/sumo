@@ -61,7 +61,10 @@ class NodeTrackerManipulator;
  */
 class GUIOSGView : public GUISUMOAbstractView {
     FXDECLARE(GUIOSGView)
+
 public:
+    friend class GUIOSGPerspectiveChanger;
+
     /// @brief Used osg::NodeSet groups
     enum NodeSetGroup {
         /// @brief semi-transparent domes around user-placed TLS models
@@ -155,7 +158,7 @@ public:
      * @param[in] zoomDist The distance in m to use for the zoom, values < 0 means: use the centeringBoundary
      * @note caller is responsible for calling update
      */
-    void centerTo(GUIGlID id, bool applyZoom, double zoomDist = 20);
+    //void centerTo(GUIGlID id, bool applyZoom, double zoomDist = 20);
 
     /// @brief update the viewport chooser with the current view values
     void updateViewportValues();
@@ -235,6 +238,10 @@ protected:
      * @return The first found GUILane found or nullptr
      */
     GUILane* getLaneUnderCursor();
+
+    /// @brief create the GUIOSGPerspectiveChanegr instance
+    void initChanger(const Boundary& viewPort);
+
 private:
     double calculateRotation(const osg::Vec3d& lookFrom, const osg::Vec3d& lookAt, const osg::Vec3d& up);
 
