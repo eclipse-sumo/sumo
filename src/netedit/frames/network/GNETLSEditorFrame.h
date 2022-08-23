@@ -188,6 +188,9 @@ public:
         /// @brief create (or duplicate) TLS in the given junction
         void createTLS(GNEJunction* junction);
 
+        /// @brief switch program
+        bool switchProgram();
+
     private:
         /// @brief pointer to GNETLSEditorFrame parent
         GNETLSEditorFrame* myTLSEditorParent = nullptr;
@@ -577,7 +580,7 @@ private:
     void cleanup();
 
     /// @brief builds internal lanes for the given tlDef
-    void buildInternalLanes(NBTrafficLightDefinition* tlDef);
+    void buildInternalLanes(const NBTrafficLightDefinition* tlDef);
 
     /// @brief get certain phase of the current traffic light
     const NBTrafficLightLogic::PhaseDefinition& getPhase(const int index);

@@ -298,7 +298,7 @@ GNETLSEditorFrame::cleanup() {
 
 
 void
-GNETLSEditorFrame::buildInternalLanes(NBTrafficLightDefinition* tlDef) {
+GNETLSEditorFrame::buildInternalLanes(const NBTrafficLightDefinition* tlDef) {
     // clean up previous internal lanes
     for (const auto& internalLanes : myInternalLanes) {
         for (const auto& internalLane : internalLanes.second) {
@@ -950,11 +950,7 @@ GNETLSEditorFrame::TLSDefinition::initTLSDefinitions() {
             myProgramComboBox->setCurrentItem(0);
             myProgramComboBox->setNumVisible(myProgramComboBox->getNumItems());
             // switch TLS Program
-            if (onCmdDefSwitchTLSProgram(nullptr, 0, nullptr) == 1) {
-                return true;
-            } else {
-                return false;
-            }
+            return switchProgram();
         }
         return false;
     }
@@ -1039,6 +1035,8 @@ GNETLSEditorFrame::TLSDefinition::onCmdCreate(FXObject*, FXSelector, void*) {
         createTLS(currentJunction);
         // edit junction
         myTLSEditorParent->editJunction(currentJunction);
+        // switch to the last program
+        myProgramComboBox->setCurrentItem(myProgramComboBox->getNumItems() - 1, TRUE);
     } else {
         // write warning if netedit is running in testing mode
         WRITE_DEBUG("Opening warning FXMessageBox 'invalid TLS'");
@@ -1056,17 +1054,21 @@ GNETLSEditorFrame::TLSDefinition::onCmdCreate(FXObject*, FXSelector, void*) {
 long
 GNETLSEditorFrame::TLSDefinition::onCmdDelete(FXObject*, FXSelector, void*) {
     // get current junction
-    GNEJunction* junction = myTLSEditorParent->myTLSJunction->getCurrentJunction();
+    GNEJunction* currentJunction = myTLSEditorParent->myTLSJunction->getCurrentJunction();
     // get current edited tlDef
     NBTrafficLightDefinition* tlDef = myTLSEditorParent->myTLSDefinition->getCurrentTLSDefinition();
     // check if remove entire TLS or only one program
     const bool changeJunctionType = (myTLSEditorParent->myTLSDefinition->getNumberOfTLSDefinitions() == 1);
     // abort because onCmdOk assumes we wish to save an edited definition
     discardChanges(false);
+    // check if change junction type
     if (changeJunctionType) {
-        junction->setAttribute(SUMO_ATTR_TYPE, toString(SumoXMLNodeType::PRIORITY), myTLSEditorParent->getViewNet()->getUndoList());
+        currentJunction->setAttribute(SUMO_ATTR_TYPE, toString(SumoXMLNodeType::PRIORITY), myTLSEditorParent->getViewNet()->getUndoList());
     } else {
-        myTLSEditorParent->getViewNet()->getUndoList()->add(new GNEChange_TLS(junction, tlDef, false), true);
+        // just remove TLDef
+        myTLSEditorParent->getViewNet()->getUndoList()->add(new GNEChange_TLS(currentJunction, tlDef, false), true);
+        // edit junction again
+        myTLSEditorParent->editJunction(currentJunction);
     }
     return 1;
 }
@@ -1112,40 +1114,8 @@ GNETLSEditorFrame::TLSDefinition::onCmdResetAll(FXObject*, FXSelector, void*) {
 
 long
 GNETLSEditorFrame::TLSDefinition::onCmdDefSwitchTLSProgram(FXObject*, FXSelector, void*) {
-    if (myTLSEditorParent->myTLSJunction->getCurrentJunction() == nullptr) {
-        throw ProcessError("Junction cannot be NULL");
-    } else if (getNumberOfTLSDefinitions() != getNumberOfPrograms()) {
-        throw ProcessError("myProgramComboBox must have the same number of TLSDefinitions");
-    } else {
-        // reset save flag
-        myHaveModifications = false;
-        // get current definition
-        NBTrafficLightDefinition* tlDef = getCurrentTLSDefinition();
-        // logic may not have been recomputed yet. recompute to be sure
-        NBTrafficLightLogicCont& tllCont = myTLSEditorParent->getViewNet()->getNet()->getTLLogicCont();
-        // compute junction
-        myTLSEditorParent->getViewNet()->getNet()->computeJunction(myTLSEditorParent->myTLSJunction->getCurrentJunction());
-        // obtain TrafficLight logic vinculated with tlDef
-        NBTrafficLightLogic* tllogic = tllCont.getLogic(tlDef->getID(), tlDef->getProgramID());
-        // check that tllLogic exist
-        if (tllogic != nullptr) {
-            // now we can be sure that the tlDef is up to date (i.e. re-guessed)
-            myTLSEditorParent->buildInternalLanes(tlDef);
-            // create working duplicate from original def
-            delete myTLSEditorParent->myEditedDef;
-            myTLSEditorParent->myEditedDef = new NBLoadedSUMOTLDef(*tlDef, *tllogic);
-            // set values
-            myTLSEditorParent->myTLSAttributes->setOffset(myTLSEditorParent->myEditedDef->getLogic()->getOffset());
-            myTLSEditorParent->myTLSAttributes->setParameters(myTLSEditorParent->myEditedDef->getLogic()->getParametersStr());
-            // init phaseTable with the new TLS
-            myTLSEditorParent->myTLSPhases->initPhaseTable();
-        } else {
-            // tlDef has no valid logic (probably because id does not control any links
-            discardChanges(false);
-            myTLSEditorParent->getViewNet()->setStatusBarText("Traffic light does not control any links");
-            return 0;
-        }
-    }
+    // just switch program
+    switchProgram();
     return 1;
 }
 
@@ -1272,6 +1242,46 @@ GNETLSEditorFrame::TLSDefinition::createTLS(GNEJunction* junction) {
         // for some reason the traffic light was not built, try again
         myTLSEditorParent->getViewNet()->getUndoList()->add(new GNEChange_TLS(junction, nullptr, true, true), true);
     }
+}
+
+
+bool 
+GNETLSEditorFrame::TLSDefinition::switchProgram() {
+    if (myTLSEditorParent->myTLSJunction->getCurrentJunction() == nullptr) {
+        throw ProcessError("Junction cannot be NULL");
+    } else if (getNumberOfTLSDefinitions() != getNumberOfPrograms()) {
+        throw ProcessError("myProgramComboBox must have the same number of TLSDefinitions");
+    } else {
+        // reset save flag
+        myHaveModifications = false;
+        // get current definition
+        NBTrafficLightDefinition* tlDef = getCurrentTLSDefinition();
+        // logic may not have been recomputed yet. recompute to be sure
+        NBTrafficLightLogicCont& tllCont = myTLSEditorParent->getViewNet()->getNet()->getTLLogicCont();
+        // compute junction
+        myTLSEditorParent->getViewNet()->getNet()->computeJunction(myTLSEditorParent->myTLSJunction->getCurrentJunction());
+        // obtain TrafficLight logic vinculated with tlDef
+        NBTrafficLightLogic* tllogic = tllCont.getLogic(tlDef->getID(), tlDef->getProgramID());
+        // check that tllLogic exist
+        if (tllogic != nullptr) {
+            // now we can be sure that the tlDef is up to date (i.e. re-guessed)
+            myTLSEditorParent->buildInternalLanes(tlDef);
+            // create working duplicate from original def
+            delete myTLSEditorParent->myEditedDef;
+            myTLSEditorParent->myEditedDef = new NBLoadedSUMOTLDef(*tlDef, *tllogic);
+            // set values
+            myTLSEditorParent->myTLSAttributes->setOffset(myTLSEditorParent->myEditedDef->getLogic()->getOffset());
+            myTLSEditorParent->myTLSAttributes->setParameters(myTLSEditorParent->myEditedDef->getLogic()->getParametersStr());
+            // init phaseTable with the new TLS
+            myTLSEditorParent->myTLSPhases->initPhaseTable();
+        } else {
+            // tlDef has no valid logic (probably because id does not control any links
+            discardChanges(false);
+            myTLSEditorParent->getViewNet()->setStatusBarText("Traffic light does not control any links");
+            return false;
+        }
+    }
+    return true;
 }
 
 // ---------------------------------------------------------------------------
