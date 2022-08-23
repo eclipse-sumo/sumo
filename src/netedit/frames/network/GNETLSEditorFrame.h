@@ -65,7 +65,7 @@ public:
         /// @brief set current junction
         void setCurrentJunction(GNEJunction* junction);
 
-        /// @brief update descrition
+        /// @brief update description
         void updateJunctionDescription() const;
 
         /// @name FOX-callbacks
@@ -161,7 +161,7 @@ public:
         /// @brief Called when the user press button reset all TLS Programs
         long onCmdResetAll(FXObject*, FXSelector, void*);
 
-        /// @brief Called when the user switchs a TLS
+        /// @brief Called when the user switches a TLS
         long onCmdDefSwitchTLSProgram(FXObject*, FXSelector, void*);
 
         /// @brief Called when occurs an update of create definition
@@ -329,7 +329,7 @@ public:
         /// @brief get phase table
         GNETLSTable* getPhaseTable() const;
 
-        /**@brief initialies the phase table
+        /**@brief initializes the phase table
          * @param[in] index The index to select
          */
         void initPhaseTable();
@@ -475,7 +475,7 @@ public:
         /// @brief load TLS Program from an additional file
         long onCmdLoadTLSProgram(FXObject*, FXSelector, void*);
 
-        /// @brief save TLS Programm to an additional file
+        /// @brief save TLS Program to an additional file
         long onCmdSaveTLSProgram(FXObject*, FXSelector, void*);
 
         /// @brief enable buttons, only when a tlLogic is being edited
@@ -533,7 +533,7 @@ public:
     /// @brief open GNEAttributesCreator extended dialog (can be reimplemented in frame children)
     void selectedOverlappedElement(GNEAttributeCarrier* AC);
 
-    /// @brief get modul for TLS Definition
+    /// @brief get module for TLS Definition
     GNETLSEditorFrame::TLSDefinition* getTLSDefinition() const;
 
     /**@brief edits the traffic light for the given junction
@@ -552,19 +552,19 @@ private:
     /// @brief Overlapped Inspection
     GNEOverlappedInspection* myOverlappedInspection = nullptr;
 
-    /// @brief modul for TLS Junction
+    /// @brief module for TLS Junction
     GNETLSEditorFrame::TLSJunction* myTLSJunction = nullptr;
 
-    /// @brief modul for TLS Definition
+    /// @brief module for TLS Definition
     GNETLSEditorFrame::TLSDefinition* myTLSDefinition = nullptr;
 
-    /// @brief modul for TLS attributes
+    /// @brief module for TLS attributes
     GNETLSEditorFrame::TLSAttributes* myTLSAttributes = nullptr;
 
-    /// @brief modul for TLS Phases
+    /// @brief module for TLS Phases
     GNETLSEditorFrame::TLSPhases* myTLSPhases = nullptr;
 
-    /// @brief modul for load/Save TLS Programs
+    /// @brief module for load/Save TLS Programs
     GNETLSEditorFrame::TLSFile* myTLSFile = nullptr;
 
     /// @brief the internal lanes belonging the the current junction indexed by their tl-index
@@ -572,9 +572,6 @@ private:
 
     /// @brief the traffic light definition being edited
     NBLoadedSUMOTLDef* myEditedDef = nullptr;
-
-    /// @brief index of the phase being shown
-    int myPhaseIndex = 0;
 
     /// @brief cleans up previous lanes
     void cleanup();
