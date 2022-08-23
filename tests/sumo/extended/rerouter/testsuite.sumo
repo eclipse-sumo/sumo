@@ -24,6 +24,7 @@ closing_and_dest_prob_and_specialDestinations
 # combine closing rerouter with dest_prob rerouter.
 # Vehicles that do not drive through the closed area should not be affected
 closing_and_dest_prob_unaffected
+closing_timeThreshold
 
 # routeProbRreroute that filters by vehicle type
 # 

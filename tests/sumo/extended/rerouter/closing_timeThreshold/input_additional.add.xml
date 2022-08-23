@@ -1,0 +1,7 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+	<rerouter id="rerouter" edges="beg" timeThreshold="30">
+	<interval begin="0" end="86400">
+		  <closingReroute id="middle"/>
+	   </interval>
+   </rerouter>
+</additional>
