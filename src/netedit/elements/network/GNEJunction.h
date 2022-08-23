@@ -351,7 +351,7 @@ private:
     void mirrorXLeftHand();
 
     /// @brief build TLS operations contextual menu
-    void buildTLSOperations(GUISUMOAbstractView& parent, GUIGLObjectPopupMenu* ret, const bool invalidMode, const int numSelectedJunctions);
+    void buildTLSOperations(GUISUMOAbstractView& parent, GUIGLObjectPopupMenu* ret, const int numSelectedJunctions);
 
     /// @brief Invalidated copy constructor.
     GNEJunction(const GNEJunction&) = delete;

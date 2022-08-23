@@ -246,7 +246,7 @@ GNEJunction::mirrorXLeftHand() {
 
 
 void
-GNEJunction::buildTLSOperations(GUISUMOAbstractView& parent, GUIGLObjectPopupMenu* ret, const bool invalidMode, const int numSelectedJunctions) {
+GNEJunction::buildTLSOperations(GUISUMOAbstractView& parent, GUIGLObjectPopupMenu* ret, const int numSelectedJunctions) {
     // create menu pane for edge operations
     FXMenuPane* TLSOperations = new FXMenuPane(ret);
     ret->insertMenuPaneChild(TLSOperations);
@@ -255,7 +255,7 @@ GNEJunction::buildTLSOperations(GUISUMOAbstractView& parent, GUIGLObjectPopupMen
     FXMenuCommand* mcAddTLS = GUIDesigns::buildFXMenuCommand(TLSOperations, "Add TLS", nullptr, &parent, MID_GNE_JUNCTION_ADDTLS);
     FXMenuCommand* mcAddJoinedTLS = GUIDesigns::buildFXMenuCommand(TLSOperations, "Add joined TLS", nullptr, &parent, MID_GNE_JUNCTION_ADDJOINTLS);
     // check if disable create TLS
-    if (invalidMode || (myNBNode->getControllingTLS().size() > 0)){
+    if (myNBNode->getControllingTLS().size() > 0) {
         mcAddTLS->disable();
         mcAddJoinedTLS->disable();
     } else {
@@ -294,7 +294,9 @@ GNEJunction::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
                                  (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_TLS) ||
                                  (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_CREATE_EDGE);
         // build TLS operation
-        buildTLSOperations(parent, ret, invalidMode, numSelectedJunctions);
+        if (!invalidMode) {
+            buildTLSOperations(parent, ret, numSelectedJunctions);
+        }
         // create menu commands
         GUIDesigns::buildFXMenuCommand(ret, "Reset edge endpoints", nullptr, &parent, MID_GNE_JUNCTION_RESET_EDGE_ENDPOINTS);
         FXMenuCommand* mcCustomShape = GUIDesigns::buildFXMenuCommand(ret, "Set custom junction shape", nullptr, &parent, MID_GNE_JUNCTION_EDIT_SHAPE);
