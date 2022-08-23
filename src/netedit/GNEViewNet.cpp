@@ -3143,10 +3143,10 @@ GNEViewNet::onCmdAddTLS(FXObject*, FXSelector, void*) {
         } else {
             // change junction type
             junction->setAttribute(SUMO_ATTR_TYPE, "traffic_light", myUndoList);
-            // set junction in TLS mode
-            myViewParent->getTLSEditorFrame()->editJunction(junction);
             // change to TLS Mode
             myEditModes.setNetworkEditMode(NetworkEditMode::NETWORK_TLS, true);
+            // set junction in TLS mode
+            myViewParent->getTLSEditorFrame()->editJunction(junction);
         }
     }
     // destroy pop-up and set focus in view net
@@ -3189,10 +3189,10 @@ GNEViewNet::onCmdAddJoinTLS(FXObject*, FXSelector, void*) {
         if (junction->isAttributeCarrierSelected()) {
             myNet->getViewNet()->getUndoList()->end();
         }
-        // set junction in TLS mode
-        myViewParent->getTLSEditorFrame()->editJunction(junction);
         // change to TLS Mode
         myEditModes.setNetworkEditMode(NetworkEditMode::NETWORK_TLS, true);
+        // set junction in TLS mode
+        myViewParent->getTLSEditorFrame()->editJunction(junction);
     }
     // destroy pop-up and set focus in view net
     destroyPopup();
