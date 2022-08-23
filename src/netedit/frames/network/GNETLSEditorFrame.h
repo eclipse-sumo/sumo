@@ -95,6 +95,9 @@ public:
         /// @brief text field for junction ID
         MFXTextFieldTooltip* myTLSIDTextField = nullptr;
 
+        /// @brief TLS Type text field
+        FXTextField* myTLSType;
+
         /// @brief the junction of the tls is being modified
         GNEJunction* myCurrentJunction = nullptr;
     };
@@ -291,9 +294,6 @@ public:
     private:
         /// @brief pointer to TLSEditorParent
         GNETLSEditorFrame* myTLSEditorParent;
-
-        /// @brief TLS Type text field
-        FXTextField* myTLSType;
 
         /// @brief the TextField for modifying offset
         FXTextField* myOffsetTextField;

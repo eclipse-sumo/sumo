@@ -516,12 +516,6 @@ GNETLSEditorFrame::TLSAttributes::TLSAttributes(GNETLSEditorFrame* TLSEditorPare
     MFXGroupBoxModule(TLSEditorParent, "Traffic light Attributes"),
     myTLSEditorParent(TLSEditorParent) {
 
-    // create frame, label and textfield for type (By default disabled)
-    FXHorizontalFrame* typeFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
-    new FXLabel(typeFrame, toString(SUMO_ATTR_TYPE).c_str(), nullptr, GUIDesignLabelAttribute);
-    myTLSType = new FXTextField(typeFrame, GUIDesignTextFieldNCol, this, 0, GUIDesignTextField);
-    myTLSType->disable();
-
     // create frame, label and TextField for Offset (By default disabled)
     FXHorizontalFrame* offsetFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(offsetFrame, toString(SUMO_ATTR_OFFSET).c_str(), nullptr, GUIDesignLabelAttribute);
@@ -559,8 +553,6 @@ GNETLSEditorFrame::TLSAttributes::initTLSAttributes() {
     if (junction == nullptr) {
         throw ProcessError("Junction cannot be NULL");
     } else {
-        // set TLS type
-        myTLSType->setText(junction->getAttribute(SUMO_ATTR_TLTYPE).c_str());
         // enable Offset
         myOffsetTextField->enable();
         myOffsetTextField->setTextColor(MFXUtils::getFXColor(RGBColor::BLACK));
@@ -574,8 +566,6 @@ GNETLSEditorFrame::TLSAttributes::initTLSAttributes() {
 
 void
 GNETLSEditorFrame::TLSAttributes::clearTLSAttributes() {
-    // clear TLS type
-    myTLSType->setText("");
     // clear and disable Offset TextField
     myOffsetTextField->setText("");
     myOffsetTextField->disable();
@@ -748,6 +738,11 @@ GNETLSEditorFrame::TLSJunction::TLSJunction(GNETLSEditorFrame* TLSEditorParent) 
     FXHorizontalFrame* TLSIDFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(TLSIDFrame, "TLS ID", nullptr, GUIDesignLabelAttribute);
     myTLSIDTextField = new MFXTextFieldTooltip(TLSIDFrame, GUIDesignTextFieldNCol, this, MID_GNE_TLSFRAME_TLSID, GUIDesignTextField);
+    // create frame, label and textfield for type (By default disabled)
+    FXHorizontalFrame* typeFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
+    new FXLabel(typeFrame, toString(SUMO_ATTR_TYPE).c_str(), nullptr, GUIDesignLabelAttribute);
+    myTLSType = new FXTextField(typeFrame, GUIDesignTextFieldNCol, this, 0, GUIDesignTextField);
+    myTLSType->disable();
     // update junction description after creation
     updateJunctionDescription();
     // show TLS Junction
@@ -782,6 +777,8 @@ GNETLSEditorFrame::TLSJunction::updateJunctionDescription() const {
         myTLSIDTextField->setText("");
         // disable TLS ID text field
         myTLSIDTextField->disable();
+        // clear TLS type
+        myTLSType->setText("");
     } else {
         const auto nbn = myCurrentJunction->getNBNode();
         // update junction ID text field
@@ -805,9 +802,11 @@ GNETLSEditorFrame::TLSJunction::updateJunctionDescription() const {
             if (nodes.size() > 1) {
                 myJunctionIDLabel->setText("Junction IDs");
             }
-            // update text field
+            // update TLS ID text field
             myTLSIDTextField->setText((*nbn->getControllingTLS().begin())->getID().c_str());
             myTLSIDTextField->enable();
+            // set TLS type
+            myTLSType->setText(myCurrentJunction->getAttribute(SUMO_ATTR_TLTYPE).c_str());
         } else {
             // disable TLS ID text field
             myTLSIDTextField->setText("");
