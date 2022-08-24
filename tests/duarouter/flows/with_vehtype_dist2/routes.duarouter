@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-08-24 10:37:55 by Eclipse SUMO duarouter Version v1_14_1+0473-60ca4fe
+<!-- generated on 2022-08-24 10:41:01 by Eclipse SUMO duarouter Version v1_14_1+0474-dee46bd
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -41,7 +41,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <vehicle id="0.1" type="a" depart="0.00">
         <route edges="beg middle end rend"/>
     </vehicle>
-    <vehicle id="0.2" type="a" depart="0.00">
+    <vehicle id="0.2" type="b" depart="0.00">
         <route edges="beg middle end rend"/>
     </vehicle>
     <vehicle id="0.3" type="b" depart="0.00">
@@ -53,7 +53,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <vehicle id="0.5" type="b" depart="0.00">
         <route edges="beg middle end rend"/>
     </vehicle>
-    <vehicle id="0.6" type="a" depart="0.00">
+    <vehicle id="0.6" type="b" depart="0.00">
         <route edges="beg middle end rend"/>
     </vehicle>
     <vehicle id="0.7" type="b" depart="0.00">
@@ -68,16 +68,16 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <vehicle id="0.10" type="b" depart="0.00">
         <route edges="beg middle end rend"/>
     </vehicle>
-    <vehicle id="0.11" type="a" depart="0.00">
+    <vehicle id="0.11" type="b" depart="0.00">
         <route edges="beg middle end rend"/>
     </vehicle>
-    <vehicle id="0.12" type="a" depart="0.00">
+    <vehicle id="0.12" type="b" depart="0.00">
         <route edges="beg middle end rend"/>
     </vehicle>
     <vehicle id="0.13" type="b" depart="0.00">
         <route edges="beg middle end rend"/>
     </vehicle>
-    <vehicle id="0.14" type="a" depart="0.00">
+    <vehicle id="0.14" type="b" depart="0.00">
         <route edges="beg middle end rend"/>
     </vehicle>
     <vehicle id="0.15" type="a" depart="0.00">
@@ -86,7 +86,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <vehicle id="0.16" type="b" depart="0.00">
         <route edges="beg middle end rend"/>
     </vehicle>
-    <vehicle id="0.17" type="a" depart="0.00">
+    <vehicle id="0.17" type="b" depart="0.00">
         <route edges="beg middle end rend"/>
     </vehicle>
     <vehicle id="0.18" type="b" depart="0.00">
@@ -98,7 +98,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <vehicle id="0.20" type="b" depart="0.00">
         <route edges="beg middle end rend"/>
     </vehicle>
-    <vehicle id="0.21" type="a" depart="0.00">
+    <vehicle id="0.21" type="b" depart="0.00">
         <route edges="beg middle end rend"/>
     </vehicle>
     <vehicle id="0.22" type="b" depart="0.00">
@@ -113,25 +113,25 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <vehicle id="0.25" type="b" depart="0.00">
         <route edges="beg middle end rend"/>
     </vehicle>
-    <vehicle id="0.26" type="a" depart="0.00">
+    <vehicle id="0.26" type="b" depart="0.00">
         <route edges="beg middle end rend"/>
     </vehicle>
     <vehicle id="0.27" type="b" depart="0.00">
         <route edges="beg middle end rend"/>
     </vehicle>
-    <vehicle id="0.28" type="a" depart="0.00">
+    <vehicle id="0.28" type="b" depart="0.00">
         <route edges="beg middle end rend"/>
     </vehicle>
     <vehicle id="0.29" type="a" depart="0.00">
         <route edges="beg middle end rend"/>
     </vehicle>
-    <vehicle id="0.30" type="a" depart="0.00">
+    <vehicle id="0.30" type="b" depart="0.00">
         <route edges="beg middle end rend"/>
     </vehicle>
     <vehicle id="0.31" type="b" depart="0.00">
         <route edges="beg middle end rend"/>
     </vehicle>
-    <vehicle id="0.32" type="a" depart="0.00">
+    <vehicle id="0.32" type="b" depart="0.00">
         <route edges="beg middle end rend"/>
     </vehicle>
     <vehicle id="0.33" type="b" depart="0.00">
@@ -143,34 +143,34 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <vehicle id="0.35" type="b" depart="0.00">
         <route edges="beg middle end rend"/>
     </vehicle>
-    <vehicle id="0.36" type="a" depart="0.00">
+    <vehicle id="0.36" type="b" depart="0.00">
         <route edges="beg middle end rend"/>
     </vehicle>
-    <vehicle id="0.37" type="a" depart="0.00">
+    <vehicle id="0.37" type="b" depart="0.00">
         <route edges="beg middle end rend"/>
     </vehicle>
-    <vehicle id="0.38" type="a" depart="0.00">
+    <vehicle id="0.38" type="b" depart="0.00">
         <route edges="beg middle end rend"/>
     </vehicle>
-    <vehicle id="0.39" type="a" depart="0.00">
+    <vehicle id="0.39" type="b" depart="0.00">
         <route edges="beg middle end rend"/>
     </vehicle>
     <vehicle id="0.40" type="b" depart="0.00">
         <route edges="beg middle end rend"/>
     </vehicle>
-    <vehicle id="0.41" type="a" depart="0.00">
+    <vehicle id="0.41" type="b" depart="0.00">
         <route edges="beg middle end rend"/>
     </vehicle>
-    <vehicle id="0.42" type="a" depart="0.00">
+    <vehicle id="0.42" type="b" depart="0.00">
         <route edges="beg middle end rend"/>
     </vehicle>
-    <vehicle id="0.43" type="a" depart="0.00">
+    <vehicle id="0.43" type="b" depart="0.00">
         <route edges="beg middle end rend"/>
     </vehicle>
     <vehicle id="0.44" type="b" depart="0.00">
         <route edges="beg middle end rend"/>
     </vehicle>
-    <vehicle id="0.45" type="a" depart="0.00">
+    <vehicle id="0.45" type="b" depart="0.00">
         <route edges="beg middle end rend"/>
     </vehicle>
     <vehicle id="0.46" type="b" depart="0.00">
@@ -197,34 +197,34 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <vehicle id="0.53" type="b" depart="0.00">
         <route edges="beg middle end rend"/>
     </vehicle>
-    <vehicle id="0.54" type="a" depart="0.00">
+    <vehicle id="0.54" type="b" depart="0.00">
         <route edges="beg middle end rend"/>
     </vehicle>
-    <vehicle id="0.55" type="a" depart="0.00">
+    <vehicle id="0.55" type="b" depart="0.00">
         <route edges="beg middle end rend"/>
     </vehicle>
     <vehicle id="0.56" type="b" depart="0.00">
         <route edges="beg middle end rend"/>
     </vehicle>
-    <vehicle id="0.57" type="a" depart="0.00">
+    <vehicle id="0.57" type="b" depart="0.00">
         <route edges="beg middle end rend"/>
     </vehicle>
     <vehicle id="0.58" type="b" depart="0.00">
         <route edges="beg middle end rend"/>
     </vehicle>
-    <vehicle id="0.59" type="a" depart="0.00">
+    <vehicle id="0.59" type="b" depart="0.00">
         <route edges="beg middle end rend"/>
     </vehicle>
     <vehicle id="0.60" type="b" depart="0.00">
         <route edges="beg middle end rend"/>
     </vehicle>
-    <vehicle id="0.61" type="a" depart="0.00">
+    <vehicle id="0.61" type="b" depart="0.00">
         <route edges="beg middle end rend"/>
     </vehicle>
     <vehicle id="0.62" type="a" depart="0.00">
         <route edges="beg middle end rend"/>
     </vehicle>
-    <vehicle id="0.63" type="a" depart="0.00">
+    <vehicle id="0.63" type="b" depart="0.00">
         <route edges="beg middle end rend"/>
     </vehicle>
     <vehicle id="0.64" type="b" depart="0.00">
@@ -236,16 +236,16 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <vehicle id="0.66" type="a" depart="0.00">
         <route edges="beg middle end rend"/>
     </vehicle>
-    <vehicle id="0.67" type="a" depart="0.00">
+    <vehicle id="0.67" type="b" depart="0.00">
         <route edges="beg middle end rend"/>
     </vehicle>
     <vehicle id="0.68" type="b" depart="0.00">
         <route edges="beg middle end rend"/>
     </vehicle>
-    <vehicle id="0.69" type="a" depart="0.00">
+    <vehicle id="0.69" type="b" depart="0.00">
         <route edges="beg middle end rend"/>
     </vehicle>
-    <vehicle id="0.70" type="a" depart="0.00">
+    <vehicle id="0.70" type="b" depart="0.00">
         <route edges="beg middle end rend"/>
     </vehicle>
     <vehicle id="0.71" type="a" depart="0.00">
@@ -254,10 +254,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <vehicle id="0.72" type="b" depart="0.00">
         <route edges="beg middle end rend"/>
     </vehicle>
-    <vehicle id="0.73" type="a" depart="0.00">
+    <vehicle id="0.73" type="b" depart="0.00">
         <route edges="beg middle end rend"/>
     </vehicle>
-    <vehicle id="0.74" type="a" depart="0.00">
+    <vehicle id="0.74" type="b" depart="0.00">
         <route edges="beg middle end rend"/>
     </vehicle>
     <vehicle id="0.75" type="a" depart="0.00">
@@ -269,25 +269,25 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <vehicle id="0.77" type="b" depart="0.00">
         <route edges="beg middle end rend"/>
     </vehicle>
-    <vehicle id="0.78" type="a" depart="0.00">
+    <vehicle id="0.78" type="b" depart="0.00">
         <route edges="beg middle end rend"/>
     </vehicle>
-    <vehicle id="0.79" type="a" depart="0.00">
+    <vehicle id="0.79" type="b" depart="0.00">
         <route edges="beg middle end rend"/>
     </vehicle>
-    <vehicle id="0.80" type="a" depart="0.00">
+    <vehicle id="0.80" type="b" depart="0.00">
         <route edges="beg middle end rend"/>
     </vehicle>
     <vehicle id="0.81" type="b" depart="0.00">
         <route edges="beg middle end rend"/>
     </vehicle>
-    <vehicle id="0.82" type="a" depart="0.00">
+    <vehicle id="0.82" type="b" depart="0.00">
         <route edges="beg middle end rend"/>
     </vehicle>
     <vehicle id="0.83" type="b" depart="0.00">
         <route edges="beg middle end rend"/>
     </vehicle>
-    <vehicle id="0.84" type="a" depart="0.00">
+    <vehicle id="0.84" type="b" depart="0.00">
         <route edges="beg middle end rend"/>
     </vehicle>
     <vehicle id="0.85" type="b" depart="0.00">
@@ -299,10 +299,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <vehicle id="0.87" type="b" depart="0.00">
         <route edges="beg middle end rend"/>
     </vehicle>
-    <vehicle id="0.88" type="a" depart="0.00">
+    <vehicle id="0.88" type="b" depart="0.00">
         <route edges="beg middle end rend"/>
     </vehicle>
-    <vehicle id="0.89" type="a" depart="0.00">
+    <vehicle id="0.89" type="b" depart="0.00">
         <route edges="beg middle end rend"/>
     </vehicle>
     <vehicle id="0.90" type="b" depart="0.00">
@@ -311,10 +311,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <vehicle id="0.91" type="a" depart="0.00">
         <route edges="beg middle end rend"/>
     </vehicle>
-    <vehicle id="0.92" type="a" depart="0.00">
+    <vehicle id="0.92" type="b" depart="0.00">
         <route edges="beg middle end rend"/>
     </vehicle>
-    <vehicle id="0.93" type="a" depart="0.00">
+    <vehicle id="0.93" type="b" depart="0.00">
         <route edges="beg middle end rend"/>
     </vehicle>
     <vehicle id="0.94" type="b" depart="0.00">
@@ -326,10 +326,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <vehicle id="0.96" type="b" depart="0.00">
         <route edges="beg middle end rend"/>
     </vehicle>
-    <vehicle id="0.97" type="a" depart="0.00">
+    <vehicle id="0.97" type="b" depart="0.00">
         <route edges="beg middle end rend"/>
     </vehicle>
-    <vehicle id="0.98" type="a" depart="0.00">
+    <vehicle id="0.98" type="b" depart="0.00">
         <route edges="beg middle end rend"/>
     </vehicle>
     <vehicle id="0.99" type="b" depart="0.00">
