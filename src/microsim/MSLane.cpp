@@ -798,6 +798,11 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
     // do not insert if the bidirectional edge is occupied
     if (myEdge->getBidiEdge() != nullptr && getBidiLane()->getVehicleNumberWithPartials() > 0) {
         if (aVehicle->getParameter().insertionChecks != (int)InsertionCheck::NONE) {
+#ifdef DEBUG_INSERTION
+            if (DEBUG_COND2(aVehicle) || DEBUG_COND) {
+                std::cout << "   bidi-lane occupied\n";
+            }
+#endif
             return false;
         }
     }
