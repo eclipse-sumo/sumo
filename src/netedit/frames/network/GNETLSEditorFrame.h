@@ -76,6 +76,9 @@ public:
         /// @brief Called when occurs an update of modified
         long onUpdTLSID(FXObject*, FXSelector, void*);
 
+        /// @brief Called when the user change TLS Type
+        long onCmdChangeType(FXObject*, FXSelector, void*);
+
         /// @brief Called when occurs an update of modified
         long onUpdTLSType(FXObject*, FXSelector, void*);
 
@@ -98,8 +101,8 @@ public:
         /// @brief text field for junction ID
         MFXTextFieldTooltip* myTLSIDTextField = nullptr;
 
-        /// @brief TLS Type text field
-        FXComboBox* myTLSTypeComboBox;
+        /// @brief ComboBox for TLS Types
+        MFXIconComboBox* myTLSTypeComboBox;
 
         /// @brief the junction of the tls is being modified
         GNEJunction* myCurrentJunction = nullptr;

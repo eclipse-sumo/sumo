@@ -44,6 +44,7 @@
 FXDEFMAP(GNETLSEditorFrame::TLSJunction) TLSJunctionMap[] = {
     FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_TLSID,       GNETLSEditorFrame::TLSJunction::onCmdRenameTLS),
     FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_TLSID,       GNETLSEditorFrame::TLSJunction::onUpdTLSID),
+    FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_TLSTYPE,     GNETLSEditorFrame::TLSJunction::onCmdChangeType),
     FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_TLSTYPE,     GNETLSEditorFrame::TLSJunction::onUpdTLSType)
 };
 
@@ -742,7 +743,13 @@ GNETLSEditorFrame::TLSJunction::TLSJunction(GNETLSEditorFrame* TLSEditorParent) 
     // create frame, label and textfield for type
     FXHorizontalFrame* typeFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(typeFrame, toString(SUMO_ATTR_TYPE).c_str(), nullptr, GUIDesignLabelAttribute);
-    myTLSTypeComboBox = new FXComboBox(typeFrame, GUIDesignComboBoxNCol, this, MID_GNE_TLSFRAME_TLSTYPE, GUIDesignComboBoxAttribute);
+    myTLSTypeComboBox = new MFXIconComboBox(typeFrame, GUIDesignComboBoxNCol, false, this, MID_GNE_TLSFRAME_TLSTYPE, GUIDesignComboBoxAttribute);
+    // fill comboBox (only certain TL types)
+    myTLSTypeComboBox->appendIconItem(toString(TrafficLightType::STATIC).c_str());
+    myTLSTypeComboBox->appendIconItem(toString(TrafficLightType::ACTUATED).c_str());
+    myTLSTypeComboBox->appendIconItem(toString(TrafficLightType::DELAYBASED).c_str());
+    myTLSTypeComboBox->appendIconItem(toString(TrafficLightType::NEMA).c_str());
+    myTLSTypeComboBox->setNumVisible(myTLSTypeComboBox->getNumItems());
     // update junction description after creation
     updateJunctionDescription();
     // show TLS Junction
@@ -830,7 +837,7 @@ GNETLSEditorFrame::TLSJunction::onCmdRenameTLS(FXObject*, FXSelector, void*) {
         myTLSEditorParent->myTLSPhases->hideTLSPhases();
         myTLSEditorParent->myTLSFile->hideTLSFile();
     } else {
-        // make a copy of junction and tlDef (because will be updated after calling discardChanges)
+        // make a copy of myCurrentJunction and current tlDef (because will be reset after calling discardChanges)
         auto junction = myCurrentJunction;
         const auto tlDef = myTLSEditorParent->myTLSDefinition->getCurrentTLSDefinition();
         // discard previous changes
@@ -865,6 +872,51 @@ GNETLSEditorFrame::TLSJunction::onUpdTLSID(FXObject*, FXSelector, void*) {
         myTLSIDTextField->enable();
     }
     return 1;
+}
+
+
+long
+GNETLSEditorFrame::TLSJunction::onCmdChangeType(FXObject*, FXSelector, void*) {
+    // get IDs
+    const std::string currentTLType = toString((*myCurrentJunction->getNBNode()->getControllingTLS().begin())->getType());
+    const std::string newTLType = myTLSTypeComboBox->getText().text();
+    // check if ID is valid
+    if (newTLType.empty() || (newTLType == currentTLType)) {
+        // same ID or empty, don't change
+        myTLSTypeComboBox->setTextColor(FXRGB(0, 0, 0));
+        myTLSTypeComboBox->setText(currentTLType.c_str());
+        // show all moduls
+        myTLSEditorParent->myTLSDefinition->showTLSDefinition();
+        myTLSEditorParent->myTLSAttributes->showTLSAttributes();
+        myTLSEditorParent->myTLSPhases->showTLSPhases();
+        myTLSEditorParent->myTLSFile->showTLSFile();
+    } else if (!SUMOXMLDefinitions::TrafficLightTypes.hasString(newTLType)) {
+        // set invalid color
+        myTLSTypeComboBox->setTextColor(FXRGB(255, 0, 0));
+        // hide moduls
+        myTLSEditorParent->myTLSDefinition->hideTLSDefinition();
+        myTLSEditorParent->myTLSAttributes->hideTLSAttributes();
+        myTLSEditorParent->myTLSPhases->hideTLSPhases();
+        myTLSEditorParent->myTLSFile->hideTLSFile();
+    } else {
+        // make a copy of myCurrentJunction (because will be reset after calling discardChanges)
+        auto junction = myCurrentJunction;
+        // discard previous changes
+        myTLSEditorParent->myTLSDefinition->discardChanges(false);
+        // change name using undo-List
+        myTLSEditorParent->getViewNet()->getUndoList()->begin(GUIIcon::MODETLS, "change TLS type");
+        junction->setAttribute(SUMO_ATTR_TLTYPE, newTLType, myTLSEditorParent->getViewNet()->getUndoList());
+        myTLSEditorParent->getViewNet()->getUndoList()->end();
+        // show all moduls
+        myTLSEditorParent->myTLSDefinition->showTLSDefinition();
+        myTLSEditorParent->myTLSAttributes->showTLSAttributes();
+        myTLSEditorParent->myTLSPhases->showTLSPhases();
+        myTLSEditorParent->myTLSFile->showTLSFile();
+        // edit junction again
+        myTLSEditorParent->editJunction(junction);
+    }
+    return 1;
+
 }
 
 
