@@ -921,7 +921,7 @@ GNETLSEditorFrame::TLSJunction::onCmdChangeType(FXObject*, FXSelector, void*) {
 
 
 long
-GNETLSEditorFrame::TLSJunction::onUpdTLSType(FXObject* sender, FXSelector, void*) {
+GNETLSEditorFrame::TLSJunction::onUpdTLSType(FXObject*, FXSelector, void*) {
     if (myCurrentJunction == nullptr) {
         // no junction, disable and clear
         myTLSTypeComboBox->setText("");
@@ -950,6 +950,7 @@ GNETLSEditorFrame::TLSDefinition::TLSDefinition(GNETLSEditorFrame* TLSEditorPare
     FXHorizontalFrame* programFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(programFrame, toString(SUMO_ATTR_PROGRAMID).c_str(), nullptr, GUIDesignLabelAttribute);
     myProgramComboBox = new FXComboBox(programFrame, GUIDesignComboBoxNCol, this, MID_GNE_TLSFRAME_DEFINITION_SWITCHPROGRAM, GUIDesignComboBoxAttribute);
+    myProgramComboBox->setEditable(false);
     myProgramComboBox->disable();
     // create auxiliar frames
     FXHorizontalFrame* horizontalFrameAux = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrameUniform);
@@ -1060,7 +1061,13 @@ GNETLSEditorFrame::TLSDefinition::markAsModified() {
 
 NBTrafficLightDefinition*
 GNETLSEditorFrame::TLSDefinition::getCurrentTLSDefinition() const {
-    return myTLSDefinitions.at(myProgramComboBox->getCurrentItem());
+    // find TLS definition
+    for (const auto &TLSDefinition : myTLSDefinitions) {
+        if (TLSDefinition->getProgramID() == myProgramComboBox->getText().text()) {
+            return TLSDefinition;
+        }
+    }
+    throw ProcessError("TLSDefinition cannot be found");
 }
 
 
@@ -1228,7 +1235,9 @@ GNETLSEditorFrame::TLSDefinition::onUpdTLSModified(FXObject* sender, FXSelector,
 long
 GNETLSEditorFrame::TLSDefinition::onCmdSaveChanges(FXObject*, FXSelector, void*) {
     // get junction copy
-    auto currentJunction = myTLSEditorParent->myTLSJunction->getCurrentJunction();
+    const auto currentJunction = myTLSEditorParent->myTLSJunction->getCurrentJunction();
+    // get current program
+    const auto currentProgram = myProgramComboBox->getCurrentItem();
     // check that junction is valid
     if (currentJunction != nullptr) {
         const auto oldDefinition = getCurrentTLSDefinition();
@@ -1248,6 +1257,8 @@ GNETLSEditorFrame::TLSDefinition::onCmdSaveChanges(FXObject*, FXSelector, void*)
         myTLSEditorParent->getViewNet()->updateViewNet();
         // edit junction again
         myTLSEditorParent->editJunction(currentJunction);
+        // change program
+        myProgramComboBox->setCurrentItem(currentProgram, TRUE);
     } else {
         // discard changes inspecting junction again
         discardChanges(true);
