@@ -1267,7 +1267,7 @@ GNEVehicle::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_POISSON:
             return time2string(repetitionOffset);
         case SUMO_ATTR_PROB:
-            return toString(repetitionProbability);
+            return toString(repetitionProbability, 10);
         case SUMO_ATTR_NUMBER:
             return toString(repetitionNumber);
         // other
