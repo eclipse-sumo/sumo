@@ -24,11 +24,15 @@
 #include <vector>
 
 #include <utils/common/UtilExceptions.h>
-#include <utils/foxtools/MFXTextFieldTooltip.h>
-#include <utils/foxtools/MFXLabelTooltip.h>
-#include <utils/foxtools/MFXMenuButtonTooltip.h>
 #include <netedit/frames/network/GNETLSEditorFrame.h>
 
+// ===========================================================================
+// class declaration
+// ===========================================================================
+
+class MFXTextFieldTooltip;
+class MFXLabelTooltip;
+class MFXMenuButtonTooltip;
 
 // ===========================================================================
 // class definitions
