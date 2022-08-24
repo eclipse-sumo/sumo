@@ -32,3 +32,6 @@ bikePreferOvertakeRight
 # two consecutive pairs of bidi-edges (between normal edges) and 2 vehicles,
 # broken departure symmetry
 2edges_between2
+
+# a single pair of bidi-edges and 2 vehicles in the same direction
+1edge_insertion
