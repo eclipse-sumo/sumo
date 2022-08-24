@@ -260,7 +260,7 @@ GNEFrameAttributeModules::AttributesEditorRow::AttributesEditorRow(GNEFrameAttri
                     }
                 }
                 // show combo box with values
-                myValueComboBoxChoices->setNumVisible(10);
+                myValueComboBoxChoices->setNumVisible(myValueComboBoxChoices->getNumItems() < 10? myValueComboBoxChoices->getNumItems() : 10);
                 const int itemIndex = myValueComboBoxChoices->findItem(value.c_str());
                 if (itemIndex == -1) {
                     myValueComboBoxChoices->setText(value.c_str());
@@ -362,7 +362,7 @@ GNEFrameAttributeModules::AttributesEditorRow::refreshAttributesEditorRow(const 
             }
         }
         // show combo box with values
-        myValueComboBoxChoices->setNumVisible(10);
+        myValueComboBoxChoices->setNumVisible(myValueComboBoxChoices->getNumItems() < 10? myValueComboBoxChoices->getNumItems() : 10);
         myValueComboBoxChoices->setCurrentItem(myValueComboBoxChoices->findItem(value.c_str()));
         // set blue color if is an computed value
         if (computed) {
