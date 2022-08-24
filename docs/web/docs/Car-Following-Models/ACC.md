@@ -47,6 +47,8 @@ critical conditions prevail. This mode is activated when the spacing to
 the preceding vehicle is smaller than 100 m and the gap deviation is
 negative.
 
+If the `followSpeed` computed by the ACC model grows higher than the save `followSpeed` as computed by the default *Krauss* model by a given margin (configured by `collisionAvoidanceOverride`), the speed is limited to the value of *Krauss*-speed + margin.
+
 # String Instabilities in ACC Platoons
 Milanés & Shladover [\[1\]](#references) showed in their experiments that the proposed ACC controller is string instable. Although ACC controllers can be calibrated to be string stable, e.g. Gunter et al. [\[3\]](#references) raise concern that commercial vehicles mostly deploy ACC controllers that are string instable due to driving comfort reasons.
 
@@ -59,7 +61,7 @@ To investigate stablity effects of vehicle platoons deploying the original ACC m
 | iv | collisionAvoidanceGainSpeed | 0.07 |
 | iv | collisionAvoidanceGainSpace | 0.23 |
 
-Note, that the parameter DEFAULT_EMERGENCY_OVERRIDE_THRESHOLD (default: 2) affects the mode (iv) by overriding the followSpeed when deemed unsafe by the given margin. To eliminate this case, which slightly affects the platooning behaviour, but not the string instability itself, you could set this parameter to a much larger value (currently only possible by doing so manually in the model and recompiling SUMO).
+Note, that the parameter `collisionAvoidanceOverride` (default: 2) affects the mode (iv) by overriding the followSpeed when deemed unsafe by the given margin. To eliminate this case, which slightly affects the platooning behaviour, but not the string instability itself, you this parameter may be set to to a much larger value (i.e. 100) to avoid the effect.
 
 The default parameters of the ACC model can be found here: [Car-Following Model Parameters](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#car-following_model_parameters)
 
