@@ -258,7 +258,7 @@ private:
         double myv_est_l; // @brief saves the speed of the leading vehicle / 0 for a stop at the last driver update (reaction time)
         double myv_est; // @brief saves the speed of the vehicle at the last driver update (reaction time)
         double mys_est; // @brief saves the gap to leading vehicle / next stop at the last driver update (reaction time)
-        double myrespectMinGap; // @brief saves the information, if minGap was added to the desired gap s* at the last driver update (reaction time)
+        bool myrespectMinGap; // @brief saves the information, if minGap was added to the desired gap s* at the last driver update (reaction time)
         int myap_update; // @brief is a number counting the simulation steps since the last driver/vehicle update (reaction time)
         std::vector<std::pair<double, double>> stop; // @brief saves the intended accelerations and distances from all stopSpeed-calculations of the current time step
     };

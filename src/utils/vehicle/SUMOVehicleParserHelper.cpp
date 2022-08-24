@@ -315,8 +315,8 @@ SUMOVehicleParserHelper::parseFlowAttributes(SumoXMLTag tag, const SUMOSAXAttrib
                     if (flowParameter->repetitionEnd == SUMOTime_MAX) {
                         flowParameter->repetitionNumber = std::numeric_limits<int>::max();
                     } else {
-                        const double repLength = (double)(flowParameter->repetitionEnd - flowParameter->depart);
-                        flowParameter->repetitionNumber = (int)ceil(repLength / flowParameter->repetitionOffset);
+                        const SUMOTime repLength = flowParameter->repetitionEnd - flowParameter->depart;
+                        flowParameter->repetitionNumber = (int)ceil((double)repLength / (double)flowParameter->repetitionOffset);
                     }
                 }
             }
@@ -1084,18 +1084,16 @@ SUMOVehicleParserHelper::parseAngleTimesMap(SUMOVTypeParameter* vtype, const std
     while (st.hasNext()) {
         StringTokenizer pos(st.next());
         if (pos.size() != 3) {
-            WRITE_ERROR("manoeuverAngleTimes format for vType '" + vtype->id + "' " + atm + " contains an invalid triplet.");
+            WRITE_ERROR("maneuverAngleTimes format for vType '" + vtype->id + "' " + atm + " contains an invalid triplet.");
             return false;
         } else {
             try {
                 const int angle = StringUtils::toInt(pos.next());
-                const SUMOTime t1 = static_cast<SUMOTime>(StringUtils::toDouble(pos.next()));
-                const SUMOTime steps1 = TIME2STEPS(t1);
-                const SUMOTime t2 = static_cast<SUMOTime>(StringUtils::toDouble(pos.next()));
-                const SUMOTime steps2 = TIME2STEPS(t2);
-                angleTimesMap.insert((std::pair<int, std::pair<SUMOTime, SUMOTime>>(angle, std::pair< SUMOTime, SUMOTime>(steps1, steps2))));
+                const SUMOTime t1 = string2time(pos.next());
+                const SUMOTime t2 = string2time(pos.next());
+                angleTimesMap[angle] = std::make_pair(t1, t2);
             } catch (...) {
-                WRITE_ERROR("Triplet '" + st.get(tripletCount) + "' for vType '" + vtype->id + "' manoeuverAngleTimes cannot be parsed as 'int double double'");
+                WRITE_ERROR("Triplet '" + st.get(tripletCount) + "' for vType '" + vtype->id + "' maneuverAngleTimes cannot be parsed as 'int double double'");
                 return false;
             }
             tripletCount++;

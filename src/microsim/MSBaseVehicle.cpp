@@ -1998,19 +1998,19 @@ MSBaseVehicle::getPrefixedParameter(const std::string& key, std::string& error) 
         std::vector<std::string> values;
         if (getParkingMemory()) {
             if (key == "parking.memory.IDList") {
-                for (const auto item : *getParkingMemory()) {
+                for (const auto& item : *getParkingMemory()) {
                     values.push_back(item.first->getID());
                 }
             } else if (key == "parking.memory.score") {
-                for (const auto item : *getParkingMemory()) {
+                for (const auto& item : *getParkingMemory()) {
                     values.push_back(item.second.score);
                 }
             } else if (key == "parking.memory.blockedAtTime") {
-                for (const auto item : *getParkingMemory()) {
+                for (const auto& item : *getParkingMemory()) {
                     values.push_back(toString(STEPS2TIME(item.second.blockedAtTime)));
                 }
             } else if (key == "parking.memory.blockedAtTimeLocal") {
-                for (const auto item : *getParkingMemory()) {
+                for (const auto& item : *getParkingMemory()) {
                     values.push_back(toString(STEPS2TIME(item.second.blockedAtTimeLocal)));
                 }
             } else {
