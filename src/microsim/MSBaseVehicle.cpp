@@ -493,7 +493,7 @@ MSBaseVehicle::replaceRoute(const MSRoute* newRoute, const std::string& info, bo
             }
 #endif
             if (*searchStart != &iter->lane->getEdge()
-                    || endPos < lastPos) {
+                    || endPos + NUMERICAL_EPS < lastPos) {
                 if (searchStart != edges.end() && !iter->reached) {
                     searchStart++;
                 }
