@@ -1338,6 +1338,7 @@ SUMOVehicleParserHelper::getAllowedCFModelAttrs() {
         ACCParams.insert(SUMO_ATTR_GC_GAIN_SPACE);
         ACCParams.insert(SUMO_ATTR_CA_GAIN_SPEED);
         ACCParams.insert(SUMO_ATTR_CA_GAIN_SPACE);
+        ACCParams.insert(SUMO_ATTR_CA_OVERRIDE);
         ACCParams.insert(SUMO_ATTR_APPLYDRIVERSTATE);
         allowedCFModelAttrs[SUMO_TAG_CF_ACC] = ACCParams;
         allParams.insert(ACCParams.begin(), ACCParams.end());
@@ -1356,6 +1357,7 @@ SUMOVehicleParserHelper::getAllowedCFModelAttrs() {
         CACCParams.insert(SUMO_ATTR_GC_GAIN_SPACE);
         CACCParams.insert(SUMO_ATTR_CA_GAIN_SPEED);
         CACCParams.insert(SUMO_ATTR_CA_GAIN_SPACE);
+        CACCParams.insert(SUMO_ATTR_CA_OVERRIDE);
         CACCParams.insert(SUMO_ATTR_HEADWAY_TIME_CACC_TO_ACC);
         CACCParams.insert(SUMO_ATTR_APPLYDRIVERSTATE);
         allowedCFModelAttrs[SUMO_TAG_CF_CACC] = CACCParams;
