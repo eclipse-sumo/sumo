@@ -1306,7 +1306,7 @@ def main(options):
     net = sumolib.net.readNet(options.netFile)
     stopEdges = getStopEdges(options.addFile)
     bidiStops = getBidiStops(options, net, stopEdges)
-    uniqueRoutes, stopRoutes, stopRoutesBidi, vehicleStopRoutes, departTimes = getStopRoutes(options, stopEdges, bidiStops)
+    uniqueRoutes, stopRoutes, stopRoutesBidi, vehicleStopRoutes, departTimes = getStopRoutes(options, stopEdges, bidiStops)  # noqa
     if options.abortUnordered:
         markOvertaken(options, vehicleStopRoutes, stopRoutes)
     parkingConflicts = updateStartedEnded(options, net, stopEdges, stopRoutesBidi, vehicleStopRoutes)
