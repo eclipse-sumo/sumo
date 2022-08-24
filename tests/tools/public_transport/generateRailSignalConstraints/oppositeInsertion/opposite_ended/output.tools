@@ -1,7 +1,6 @@
 read 4 busStops on 4 edges
 found 3 bidi-stops (max stops per edge 1 on -a)
 read 3 routes (2 unique) and 6 stops at 4 busStops
-Shifted stop times at stop_b by 10.0
 Shifted stop times by up to 10.0
 processed 2 routes across 5 edges with 0 merging switches
 Found 0 stops after merging switches and 0 signals that guard switches
