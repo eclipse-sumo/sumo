@@ -42,8 +42,9 @@
 // ===========================================================================
 
 FXDEFMAP(GNETLSEditorFrame::TLSJunction) TLSJunctionMap[] = {
-    FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_TLSID,   GNETLSEditorFrame::TLSJunction::onCmdRenameTLS),
-    FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_TLSID,   GNETLSEditorFrame::TLSJunction::onUpdModified)
+    FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_TLSID,       GNETLSEditorFrame::TLSJunction::onCmdRenameTLS),
+    FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_TLSID,       GNETLSEditorFrame::TLSJunction::onUpdTLSID),
+    FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_TLSTYPE,     GNETLSEditorFrame::TLSJunction::onUpdTLSType)
 };
 
 FXDEFMAP(GNETLSEditorFrame::TLSDefinition) TLSDefinitionMap[] = {
@@ -738,11 +739,10 @@ GNETLSEditorFrame::TLSJunction::TLSJunction(GNETLSEditorFrame* TLSEditorParent) 
     FXHorizontalFrame* TLSIDFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(TLSIDFrame, "TLS ID", nullptr, GUIDesignLabelAttribute);
     myTLSIDTextField = new MFXTextFieldTooltip(TLSIDFrame, GUIDesignTextFieldNCol, this, MID_GNE_TLSFRAME_TLSID, GUIDesignTextField);
-    // create frame, label and textfield for type (By default disabled)
+    // create frame, label and textfield for type
     FXHorizontalFrame* typeFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(typeFrame, toString(SUMO_ATTR_TYPE).c_str(), nullptr, GUIDesignLabelAttribute);
-    myTLSType = new FXTextField(typeFrame, GUIDesignTextFieldNCol, this, 0, GUIDesignTextField);
-    myTLSType->disable();
+    myTLSTypeComboBox = new FXComboBox(typeFrame, GUIDesignComboBoxNCol, this, MID_GNE_TLSFRAME_TLSTYPE, GUIDesignComboBoxAttribute);
     // update junction description after creation
     updateJunctionDescription();
     // show TLS Junction
@@ -774,11 +774,6 @@ GNETLSEditorFrame::TLSJunction::updateJunctionDescription() const {
     // continue depending of current junction
     if (myCurrentJunction == nullptr) {
         myJunctionIDTextField->setText("no junction selected");
-        myTLSIDTextField->setText("");
-        // disable TLS ID text field
-        myTLSIDTextField->disable();
-        // clear TLS type
-        myTLSType->setText("");
     } else {
         const auto nbn = myCurrentJunction->getNBNode();
         // update junction ID text field
@@ -804,13 +799,8 @@ GNETLSEditorFrame::TLSJunction::updateJunctionDescription() const {
             }
             // update TLS ID text field
             myTLSIDTextField->setText((*nbn->getControllingTLS().begin())->getID().c_str());
-            myTLSIDTextField->enable();
             // set TLS type
-            myTLSType->setText(myCurrentJunction->getAttribute(SUMO_ATTR_TLTYPE).c_str());
-        } else {
-            // disable TLS ID text field
-            myTLSIDTextField->setText("");
-            myTLSIDTextField->disable();
+            myTLSTypeComboBox->setText(myCurrentJunction->getAttribute(SUMO_ATTR_TLTYPE).c_str());
         }
     }
 }
@@ -862,11 +852,37 @@ GNETLSEditorFrame::TLSJunction::onCmdRenameTLS(FXObject*, FXSelector, void*) {
 
 
 long
-GNETLSEditorFrame::TLSJunction::onUpdModified(FXObject* o, FXSelector, void*) {
-    if (myTLSEditorParent->myTLSDefinition->checkHaveModifications()) {
-        o->handle(this, FXSEL(SEL_COMMAND, FXWindow::ID_DISABLE), nullptr);
+GNETLSEditorFrame::TLSJunction::onUpdTLSID(FXObject*, FXSelector, void*) {
+    if (myCurrentJunction == nullptr) {
+        // no junction, disable and clear
+        myTLSIDTextField->setText("");
+        myTLSIDTextField->disable();
+    } else if (myTLSEditorParent->myTLSDefinition->checkHaveModifications()) {
+        // current TLS modified, disable
+        myTLSIDTextField->disable();
     } else {
-        o->handle(this, FXSEL(SEL_COMMAND, FXWindow::ID_ENABLE), nullptr);
+        // enable
+        myTLSIDTextField->enable();
+    }
+    return 1;
+}
+
+
+long
+GNETLSEditorFrame::TLSJunction::onUpdTLSType(FXObject* sender, FXSelector, void*) {
+    if (myCurrentJunction == nullptr) {
+        // no junction, disable and clear
+        myTLSTypeComboBox->setText("");
+        myTLSTypeComboBox->disable();
+    } else if (myCurrentJunction->getNBNode()->getControllingTLS().size() == 0) {
+        // no TLSs in Junctions, disable
+        myTLSTypeComboBox->disable();
+    } else if (myTLSEditorParent->myTLSDefinition->checkHaveModifications()) {
+        // current TLS modified, disable
+        myTLSTypeComboBox->disable();
+    } else {
+        // enable
+        myTLSTypeComboBox->enable();
     }
     return 1;
 }

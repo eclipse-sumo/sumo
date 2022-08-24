@@ -74,7 +74,10 @@ public:
         long onCmdRenameTLS(FXObject*, FXSelector, void*);
 
         /// @brief Called when occurs an update of modified
-        long onUpdModified(FXObject*, FXSelector, void*);
+        long onUpdTLSID(FXObject*, FXSelector, void*);
+
+        /// @brief Called when occurs an update of modified
+        long onUpdTLSType(FXObject*, FXSelector, void*);
 
         /// @}
 
@@ -96,7 +99,7 @@ public:
         MFXTextFieldTooltip* myTLSIDTextField = nullptr;
 
         /// @brief TLS Type text field
-        FXTextField* myTLSType;
+        FXComboBox* myTLSTypeComboBox;
 
         /// @brief the junction of the tls is being modified
         GNEJunction* myCurrentJunction = nullptr;

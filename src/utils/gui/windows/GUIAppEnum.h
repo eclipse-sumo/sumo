@@ -998,6 +998,8 @@ enum {
     MID_GNE_TLSFRAME_JUNCTION,
     /// @brief current TLS ID
     MID_GNE_TLSFRAME_TLSID,
+    /// @brief current TLS ID
+    MID_GNE_TLSFRAME_TLSTYPE,
     /// @brief update TLS status
     MID_GNE_TLSFRAME_UPDATE_STATUS,
     /// @brief replace program with a newly guessed program
