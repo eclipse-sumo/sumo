@@ -701,7 +701,7 @@ GUIApplicationWindow::buildToolBars() {
         myToolBarDrag8 = new FXToolBarShell(this, GUIDesignToolBar);
         myToolBar8 = new FXToolBar(myTopDock, myToolBarDrag8, GUIDesignToolBarRaisedSameTop);
         new FXToolBarGrip(myToolBar8, myToolBar8, FXToolBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
-        new FXLabel(myToolBar8, "Scale Traffic:\t\tScale traffic from flows and vehicles that are loaded incrementally from route files", nullptr, LAYOUT_TOP | LAYOUT_LEFT);
+        new FXLabel(myToolBar8, "Scale Traffic:\t\tScale traffic from flows and vehicles that are loaded incrementally from route files.", nullptr, LAYOUT_TOP | LAYOUT_LEFT);
         myDemandScaleSpinner = new MFXRealSpinner(myToolBar8, 7, this, MID_DEMAND_SCALE, GUIDesignSpinDial);
         myDemandScaleSpinner->setIncrement(0.5);
         myDemandScaleSpinner->setRange(0, 1000);
