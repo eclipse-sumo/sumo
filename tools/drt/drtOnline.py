@@ -84,7 +84,12 @@ def initOptions():
                     help="Algorithm for shortest path routing. Support: dijkstra (default), astar, CH and CHWrapper")  # noqa
     ap.add_argument("--routing-mode", type=int, default=0,
                     help="Mode for shortest path routing. Support: 0 (default) for routing with loaded or default speeds and 1 for routing with averaged historical speeds")  # noqa
-    ap.add_argument("--dua-times", action='store_true')
+    ap.add_argument("--dua-times", action='store_true',
+                    help="Calculate travel time between edges with duarouter")
+    ap.add_argument("--tracefile",
+                    help="log traci commands to the given FILE")
+    ap.add_argument("--tracegetters", action='store_true',
+                    help="include get-methods in tracefile")
     ap.add_argument("--verbose", action='store_true')
 
     return ap
@@ -238,7 +243,7 @@ def main():
     else:
         pairs_dua_times = {}
 
-    traci.start(run_traci)
+    traci.start(run_traci, traceFile=options.tracefile, traceGetters=options.tracegetters)
 
     # execute the TraCI control loop
     step = traci.simulation.getTime() + 10
