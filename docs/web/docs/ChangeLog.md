@@ -45,8 +45,9 @@ title: ChangeLog
   - tlsCoordinator.py: Now handles rail crossings. Issue #11250
   - tlsCycleAdaptation.py: Now handles unsorted route files. Issue #11251
   - plot_net_dump.py: Fixed invalid error message when closing figure window. Issue #11280
+  - plot_net_dump.py: fixed error when trying to plot homogeneous edgeData. Issue #11351
   - generateRailSignalConstraints.py: Fixed missing inactive insertion constraints when **--write-inactive** is set. Issue #11375
-  - generateRailSignalConstraints.py: Added missing constraints from bidirectional stop usage. Issue #11371
+  - generateRailSignalConstraints.py: Added missing constraints from bidirectional stop usage. Issue #11371  
   - Fixed use of `gapPenalty` parameter in function `sumolib.route.mapTrace`. Issue #11292
   
 
@@ -94,8 +95,7 @@ title: ChangeLog
 - tools
   - routeSampler.py: now supports options **--depart-attribute**, **--arrival-attribute** to set extra constraints. Issue #6727
   - routeSampler.py: added more statistics on processed intervals. Issue #11328
-  - countEdgeUsage.py: Can now load multiple route files. Issue #11338
-  - Fixed error when trying to plot homogeneous edgeData. Issue #11351
+  - countEdgeUsage.py: Can now load multiple route files. Issue #11338  
   - generateRailSignalConstraints.py: added constraints for vehicles inserted at the same stop. Issue #11378
   - drtonline.py: now supports option **--tracefile** to allow for quick replication of a simulation. Issue #11414
   - Added new tool [drtOrtools.py](Tools/Drt.md#drtortoolspy) to solve DRT problems with the [ortools package](https://developers.google.com/optimization). Issue #11413
