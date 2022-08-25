@@ -107,17 +107,18 @@ GUIOSGPerspectiveChanger::centerTo(const Position& pos, double radius, bool appl
     // create helper vectors // check if parallel to z
     if (dir * osg::Z_AXIS != 0) {
         orthoDir = -osg::X_AXIS;
+        up = osg::Y_AXIS;
     }
     else {
         orthoDir[0] = -dir[1];
         orthoDir[1] = dir[0];
+        up = osg::Z_AXIS;
     }
-    
     orthoDir.normalize();
     osg::Vec3d center(pos.x(), pos.y(), pos.z());
     osg::Vec3d leftBorder = center + orthoDir * radius;
     osg::Vec3d rightBorder = center - orthoDir * radius;   
-    // construct new camera location which respects the fovy
+    // construct new camera location which respects the fovy, resets the up vector
     double fovy, aspectRatio, zNear, zFar;
     dynamic_cast<GUIOSGView&>(myCallback).myViewer->getCamera()->getProjectionMatrixAsPerspective(fovy, aspectRatio, zNear, zFar);
     double halfFovy = DEG2RAD(.5*fovy);
@@ -125,9 +126,8 @@ GUIOSGPerspectiveChanger::centerTo(const Position& pos, double radius, bool appl
     osg::Vec3d radiusVec = leftBorder - center;
     int sign = ((outerFov ^ radiusVec) * (outerFov ^ dir) > 0) ? 1 : -1;
     osg::Vec3d camUpdate = center + dir * sign * (outerFov ^ radiusVec).length() / (outerFov ^ dir).length();
-
-    // TODO: still rotates the viewport somehow
     myCameraManipulator->setHomePosition(camUpdate, center, up);
+    myRotation = 0.;
     dynamic_cast<GUIOSGView&>(myCallback).myViewer->home(); 
 }
 
@@ -169,14 +169,10 @@ GUIOSGPerspectiveChanger::setViewportFrom(double xPos, double yPos, double zPos)
 
 void
 GUIOSGPerspectiveChanger::changeCanvasSizeLeft(int change) {
-    // currently not called from anywhere..?!
 }
 
 
 void
 GUIOSGPerspectiveChanger::setViewport(const Boundary& viewPort) {
-    // Keep camera orientation if possible and move it to point to (x,y,0). Otherwise create 
-    // a bird perspective.
-    // Call setViewPort(zoom,x,y) with the center of the given viewport.
     setViewport(100., viewPort.getCenter().x(), viewPort.getCenter().y());
 }
