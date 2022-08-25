@@ -76,7 +76,7 @@ NBParking::write(OutputDevice& device, NBEdgeCont& ec) const {
 
 void
 NBParkingCont::addEdges2Keep(const OptionsCont& oc, std::set<std::string>& into) {
-    if (oc.isSet("parking-output")) {
+    if (oc.exists("parking-output") && oc.isSet("parking-output")) {
         for (NBParking& p : *this) {
             into.insert(p.getEdgeID());
         }
