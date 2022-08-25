@@ -1,7 +1,7 @@
 Debug: Selected item 'laneAreaDetector' in GNETagSelector
 Debug: Adding laneAreaDetector 'e2_0' in GNEChange_Additional
 Debug: Adding laneAreaDetector 'e2_1' in GNEChange_Additional
-Debug: Setting new attribute
+Debug: Value 'e2_1' for attribute id of laneAreaDetector isn't valid
 Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
@@ -12,10 +12,10 @@ Debug: Calling GNEUndoList::undo()
 Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Restoring previous attribute
+Debug: Removing laneAreaDetector 'e2_1' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute
+Debug: Adding laneAreaDetector 'e2_1' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute
