@@ -14,6 +14,7 @@
 # @file    ortools_pdp.py
 # @author  Philip Ritzer
 # @date    2021-12-16
+
 """
 Capacitated vehicle routing problem with pickup and delivery.
 
@@ -67,7 +68,7 @@ def main(data, time_limit_seconds=10, verbose=False):
     # Create Routing Model.
     routing = pywrapcp.RoutingModel(manager)
 
-   # Create and register a transit callback.
+    # Create and register a transit callback.
     def distance_callback(from_index, to_index):
         """Returns the distance between the two nodes."""
         # Convert from routing variable Index to distance matrix NodeIndex.
