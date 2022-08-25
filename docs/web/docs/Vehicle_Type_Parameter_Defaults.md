@@ -165,7 +165,7 @@ vehicle types).
   <tr>
     <td class="tg-0lax">taxi</td>
     <td class="tg-0lax"></td>
-    <td class="tg-0lax">passenger</td>
+    <td class="tg-0lax">taxi</td>
     <td class="tg-0lax">see passenger</td>
     <td class="tg-0lax">see passenger</td>
     <td class="tg-0lax">see passenger</td>

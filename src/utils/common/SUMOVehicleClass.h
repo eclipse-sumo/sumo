@@ -68,6 +68,8 @@ enum class SUMOVehicleShape {
     PASSENGER_VAN,
     /// @brief automated car (with cruise controllers)
     //PASSENGER_AUTOMATED,
+    /// @brief render as a taxi
+    TAXI,
     /// @brief render as a delivery vehicle
     DELIVERY,
     /// @brief render as a transport vehicle

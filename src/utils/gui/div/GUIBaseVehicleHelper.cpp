@@ -20,6 +20,7 @@
 #include <config.h>
 #include <utils/foxtools/fxheader.h>
 
+#include <utils/geom/PositionVector.h>
 #include <utils/gui/globjects/GLIncludes.h>
 #include <utils/gui/images/GUITexturesHelper.h>
 #include <utils/common/SUMOVehicleClass.h>
@@ -53,6 +54,8 @@ static const double vehiclePoly_PassengerVanFrontGlass[] = { 0.21, 0,  0.16, 0, 
 static const double vehiclePoly_PassengerVanRightGlass[] = { 0.36, -.43,  0.20, -.47,  0.98, -.47,  0.91, -.37,  0.31, -.37,  0.20, -.47,  -10000 };
 static const double vehiclePoly_PassengerVanLeftGlass[] = { 0.36, .43,  0.20, .47,  0.98, .47,  0.91, .37,  0.31, .37,  0.20, .47,  -10000 };
 static const double vehiclePoly_PassengerVanBackGlass[] = { 0.95, 0,  0.94, 0,  0.94, 0.3,  0.98, 0.4,  0.98, -.4,  0.94, -.3,  0.94, 0,  -10000 };
+
+static const double vehiclePoly_TaxiSign[] = { .56, .241,  .56, -.241,  .49, -.241,  .49, .241,    -10000 }; 
 
 static const double vehiclePoly_DeliveryMediumRightGlass[] = { 0.21, -.43,  0.20, -.47,  0.38, -.47,  0.38, -.37,  0.31, -.37,  0.20, -.47,  -10000 };
 static const double vehiclePoly_DeliveryMediumLeftGlass[] = { 0.21, .43,  0.20, .47,  0.38, .47,  0.38, .37,  0.31, .37,  0.20, .47,  -10000 };
@@ -222,6 +225,7 @@ GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(const GUIVisualizationSetting
         case SUMOVehicleShape::PASSENGER_SEDAN:
         case SUMOVehicleShape::PASSENGER_HATCHBACK:
         case SUMOVehicleShape::PASSENGER_WAGON:
+        case SUMOVehicleShape::TAXI:
             drawPoly(vehiclePoly_PassengerCarBody, 4);
             GLHelper::setColor(lighter);
             drawPoly(vehiclePoly_PassengerCarBodyFront, 4.5);
@@ -549,6 +553,37 @@ GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(const GUIVisualizationSetting
             break;
         case SUMOVehicleShape::PASSENGER_VAN:
         case SUMOVehicleShape::DELIVERY:
+            break;
+        case SUMOVehicleShape::TAXI:
+            drawPoly(vehiclePoly_PassengerSedanRightGlass, 4.5);
+            drawPoly(vehiclePoly_PassengerSedanLeftGlass, 4.5);
+            drawPoly(vehiclePoly_PassengerSedanBackGlass, 4.5);
+            
+            glTranslated(0, 0, 6);
+            glColor3d(0, 0, 0);
+            // square-pattern in front
+            glRectf(0.146, 0.24675, 0.171, 0.176);
+            glRectf(0.121, 0.176, 0.146, 0.1055);
+            glRectf(0.146, 0.1055, 0.171, 0.035);
+            glRectf(0.121, 0.035, 0.146, -0.035);
+            glRectf(0.146, -0.1055, 0.171, -0.035);
+            glRectf(0.121, -0.176, 0.146, -0.1055);
+            glRectf(0.146, -0.24675, 0.171, -0.176);
+            // square-pattern at the back
+            glRectf(0.913, 0.24675, 0.938, 0.176);
+            glRectf(0.888, 0.176, 0.913, 0.1055);
+            glRectf(0.888, 0.176, 0.913, 0.1055);
+            glRectf(0.913, 0.1055, 0.938, 0.035);
+            glRectf(0.888, 0.035, 0.913, -0.035);
+            glRectf(0.913, -0.1055, 0.938, -0.035);
+            glRectf(0.888, -0.176, 0.913, -0.1055);
+            glRectf(0.888, -0.176, 0.913, -0.1055);
+            glRectf(0.913, -0.24675, 0.938, -0.176);
+
+            GLHelper::setColor(darker);
+            drawPoly(vehiclePoly_TaxiSign, 5);
+            glScaled(0.2, 0.5, 1);
+            GLHelper::drawText("TAXI", Position(2.58, 0), 5, 0.3, RGBColor::BLACK, 90);
             break;
         case SUMOVehicleShape::TRUCK:
             GLHelper::setColor(current);

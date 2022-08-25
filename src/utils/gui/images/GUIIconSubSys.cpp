@@ -399,6 +399,7 @@
 #include "vshape_passenger_hatchback.xpm"
 #include "vshape_passenger_wagon.xpm"
 #include "vshape_passenger_van.xpm"
+#include "vshape_taxi.xpm"
 #include "vshape_delivery.xpm"
 #include "vshape_truck.xpm"
 #include "vshape_truck_semitrailer.xpm"
@@ -831,6 +832,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::VSHAPE_PASSENGER_HATCHBACK] = new FXXPMIcon(a, vshape_passenger_hatchback_xpm);
     myIcons[GUIIcon::VSHAPE_PASSENGER_WAGON] = new FXXPMIcon(a, vshape_passenger_wagon_xpm);
     myIcons[GUIIcon::VSHAPE_PASSENGER_VAN] = new FXXPMIcon(a, vshape_passenger_van_xpm);
+    myIcons[GUIIcon::VSHAPE_TAXI] = new FXXPMIcon(a, vshape_taxi_xpm);
     myIcons[GUIIcon::VSHAPE_DELIVERY] = new FXXPMIcon(a, vshape_delivery_xpm);
     myIcons[GUIIcon::VSHAPE_TRUCK] = new FXXPMIcon(a, vshape_truck_xpm);
     myIcons[GUIIcon::VSHAPE_TRUCK_SEMITRAILER] = new FXXPMIcon(a, vshape_truck_semitrailer_xpm);

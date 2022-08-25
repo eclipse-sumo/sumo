@@ -230,7 +230,7 @@ SUMOVTypeParameter::VClassDefaultValues::VClassDefaultValues(SUMOVehicleClass vc
             speedFactor.getParameter()[1] = 0.1;
             break;
         case SVC_TAXI:
-            shape = SUMOVehicleShape::PASSENGER;
+            shape = SUMOVehicleShape::TAXI;
             speedFactor.getParameter()[1] = 0.05;
             break;
         case SVC_E_VEHICLE:
