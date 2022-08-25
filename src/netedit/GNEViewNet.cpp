@@ -977,6 +977,8 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
     drawTemporalSplitJunction();
     // draw temporal roundabout
     drawTemporalRoundabout();
+    // draw temporal lines between E1 detectors and junctions in TLS Mode
+    drawTemporalE1TLSLines();
     // pop draw matrix
     GLHelper::popMatrix();
     // update interval bar
@@ -4908,6 +4910,39 @@ GNEViewNet::drawTemporalRoundabout() const {
         GLHelper::drawOutlineCircle(circleWidth * 1.30, circleWidth, myVisualizationSettings->getCircleResolution());
         // pop junction matrix
         GLHelper::popMatrix();
+        // pop layer matrix
+        GLHelper::popMatrix();
+    }
+}
+
+
+void 
+GNEViewNet::drawTemporalE1TLSLines() const {
+    // check conditions
+    if (myEditModes.isCurrentSupermodeNetwork() && (myEditModes.networkEditMode == NetworkEditMode::NETWORK_TLS) &&
+        (myViewParent->getTLSEditorFrame()->getTLSJunction()->getCurrentJunction() != nullptr) &&
+        myViewParent->getTLSEditorFrame()->getTLSAttributes()->isSetDetectorsToogleButtonEnabled()) {
+        // get junction
+        const auto junctionPos = myViewParent->getTLSEditorFrame()->getTLSJunction()->getCurrentJunction()->getNBNode()->getPosition();
+        // push layer matrix
+        GLHelper::pushMatrix();
+        // translate to TLLogic
+        glTranslated(0, 0, GLO_TLLOGIC);
+        // iterate over all E1 detectors
+        for (const auto &E1ID : myViewParent->getTLSEditorFrame()->getTLSAttributes()->getE1Detectors()) {
+            // first check if E1 exists
+            const auto E1 = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_INDUCTION_LOOP, E1ID, false);
+            if (E1) {
+                // push line matrix
+                GLHelper::pushMatrix();
+                // draw line between junction and E1
+                GUIGeometry::drawChildLine(*myVisualizationSettings, junctionPos, E1->getPositionInView(),
+                                           myVisualizationSettings->additionalSettings.connectionColor, true);
+                // pop line matrix
+                GLHelper::popMatrix();
+            }
+
+        }
         // pop layer matrix
         GLHelper::popMatrix();
     }

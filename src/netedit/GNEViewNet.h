@@ -714,6 +714,10 @@ private:
 
     /// @brief draw temporal roundabout
     void drawTemporalRoundabout() const;
+
+    /// @brief draw temporal E1 TLS Lines
+    void drawTemporalE1TLSLines() const;
+
     /// @}
 
     /// @brief mouse process functions
