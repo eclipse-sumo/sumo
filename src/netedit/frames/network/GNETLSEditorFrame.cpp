@@ -20,6 +20,7 @@
 #include <config.h>
 
 #include <netbuild/NBLoadedSUMOTLDef.h>
+#include <netbuild/NBOwnTLDef.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
@@ -27,15 +28,17 @@
 #include <netedit/dialogs/GNESingleParametersDialog.h>
 #include <netedit/elements/network/GNEInternalLane.h>
 #include <netedit/elements/network/GNEJunction.h>
+#include <netedit/frames/GNEOverlappedInspection.h>
 #include <netedit/frames/GNETLSTable.h>
 #include <netimport/NIXMLTrafficLightsHandler.h>
+#include <utils/foxtools/MFXMenuButtonTooltip.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/xml/XMLSubSys.h>
-#include <netbuild/NBOwnTLDef.h>
 
 #include "GNETLSEditorFrame.h"
+
 
 // ===========================================================================
 // FOX callback mapping
@@ -75,6 +78,7 @@ FXDEFMAP(GNETLSEditorFrame::TLSAttributes) TLSAttributesMap[] = {
     FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_ATTRIBUTES_ADDOFF,           GNETLSEditorFrame::TLSAttributes::onCmdDefAddOff),
     FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_ATTRIBUTES_GUESSPROGRAM,     GNETLSEditorFrame::TLSAttributes::onCmdGuess),
     FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_ATTRIBUTES_PARAMETERSDIALOG, GNETLSEditorFrame::TLSAttributes::onCmdEditParameters),
+    FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_ATTRIBUTES_SETDETECTOR,      GNETLSEditorFrame::TLSAttributes::onCmdSetDetectorMode),
 };
 
 FXDEFMAP(GNETLSEditorFrame::TLSPhases) TLSPhasesMap[] = {
@@ -517,19 +521,20 @@ GNETLSEditorFrame::getSteps2Time(const SUMOTime value) {
 GNETLSEditorFrame::TLSAttributes::TLSAttributes(GNETLSEditorFrame* TLSEditorParent) :
     MFXGroupBoxModule(TLSEditorParent, "Traffic light Attributes"),
     myTLSEditorParent(TLSEditorParent) {
-
     // create frame, label and TextField for Offset (By default disabled)
-    FXHorizontalFrame* offsetFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
-    new FXLabel(offsetFrame, toString(SUMO_ATTR_OFFSET).c_str(), nullptr, GUIDesignLabelAttribute);
-    myOffsetTextField = new FXTextField(offsetFrame, GUIDesignTextFieldNCol, this, MID_GNE_TLSFRAME_ATTRIBUTES_OFFSET, GUIDesignTextField);
+    FXHorizontalFrame* horizontalFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
+    new FXLabel(horizontalFrame, toString(SUMO_ATTR_OFFSET).c_str(), nullptr, GUIDesignLabelAttribute);
+    myOffsetTextField = new FXTextField(horizontalFrame, GUIDesignTextFieldNCol, this, MID_GNE_TLSFRAME_ATTRIBUTES_OFFSET, GUIDesignTextField);
     myOffsetTextField->disable();
-
-    // create frame, label and TextField for Offset (By default disabled)
-    FXHorizontalFrame* parametersFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
-    myButtonEditParameters = new FXButton(parametersFrame, "parameters", nullptr, this, MID_GNE_TLSFRAME_ATTRIBUTES_PARAMETERSDIALOG, GUIDesignButtonAttribute);
-    myParametersTextField = new FXTextField(parametersFrame, GUIDesignTextFieldNCol, this, MID_GNE_TLSFRAME_ATTRIBUTES_PARAMETERS, GUIDesignTextField);
+    // create frame, label and TextField for parameters (By default disabled)
+    horizontalFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
+    myButtonEditParameters = new FXButton(horizontalFrame, "parameters", nullptr, this, MID_GNE_TLSFRAME_ATTRIBUTES_PARAMETERSDIALOG, GUIDesignButtonAttribute);
+    myParametersTextField = new FXTextField(horizontalFrame, GUIDesignTextFieldNCol, this, MID_GNE_TLSFRAME_ATTRIBUTES_PARAMETERS, GUIDesignTextField);
     myButtonEditParameters->disable();
     myParametersTextField->disable();
+    // create Checkable button
+    mySetDetectorsToogleButton = new FXToggleButton(getCollapsableFrame(), "Set detectors mode", "Set detectors mode", 
+        GUIIconSubSys::getIcon(GUIIcon::E1), GUIIconSubSys::getIcon(GUIIcon::E1), this, MID_GNE_TLSFRAME_ATTRIBUTES_SETDETECTOR, GUIDesignButton);
 }
 
 
@@ -720,6 +725,20 @@ GNETLSEditorFrame::TLSAttributes::onCmdEditParameters(FXObject*, FXSelector, voi
             WRITE_DEBUG("Cancel single parameters dialog");
         }
     }
+    return 1;
+}
+
+
+long
+GNETLSEditorFrame::TLSAttributes::onCmdSetDetectorMode(FXObject*, FXSelector, void*) {
+    if (mySetDetectorsToogleButton->getState()) {
+        // set special color
+        mySetDetectorsToogleButton->setBackColor(FXRGBA(253, 255, 206, 255));
+    } else {
+        // restore default color
+        mySetDetectorsToogleButton->setBackColor(4293980400);
+    }
+    //
     return 1;
 }
 

@@ -22,7 +22,6 @@
 
 #include <netedit/frames/GNEFrame.h>
 #include <netbuild/NBTrafficLightLogic.h>
-#include <netedit/frames/GNEOverlappedInspection.h>
 
 
 // ===========================================================================
@@ -33,6 +32,7 @@ class NBLoadedSUMOTLDef;
 class NBOwnTLDef;
 class GNEInternalLane;
 class GNETLSTable;
+class GNEOverlappedInspection;
 
 // ===========================================================================
 // class definitions
@@ -290,7 +290,10 @@ public:
 
         /// @brief Called when user press edit parameters button
         long onCmdEditParameters(FXObject*, FXSelector, void* ptr);
-
+        
+        /// @brief Called when user toggle set detector mode
+        long onCmdSetDetectorMode(FXObject*, FXSelector, void* ptr);
+        
         /// @}
     
     protected:
@@ -302,13 +305,16 @@ public:
         GNETLSEditorFrame* myTLSEditorParent;
 
         /// @brief the TextField for modifying offset
-        FXTextField* myOffsetTextField;
+        FXTextField* myOffsetTextField = nullptr;
 
         /// @brief button for edit parameters
-        FXButton* myButtonEditParameters;
+        FXButton* myButtonEditParameters = nullptr;
 
         /// @brief the TextField for modifying parameters
-        FXTextField* myParametersTextField;
+        FXTextField* myParametersTextField = nullptr;
+
+        /// @brief toogle button for set detectors mode
+        FXToggleButton* mySetDetectorsToogleButton = nullptr;
     };
 
     // ===========================================================================
