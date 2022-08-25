@@ -262,6 +262,9 @@ public:
         /// @brief are current parameter valid
         bool isValidParameters();
 
+        /// @brief toogle button for set detectors mode
+        bool isSetDetectorsToogleButtonEnabled() const;
+
         /// @name FOX-callbacks
         /// @{
         /// @brief Called when the user presses the button Guess
@@ -294,6 +297,9 @@ public:
         /// @brief Called when user toggle set detector mode
         long onCmdSetDetectorMode(FXObject*, FXSelector, void* ptr);
         
+        /// @brief Called when occurs an update of set detector mode
+        long onUpdSetDetectorMode(FXObject*, FXSelector, void*);
+
         /// @}
     
     protected:
@@ -548,13 +554,16 @@ public:
     /// @brief open GNEAttributesCreator extended dialog (can be reimplemented in frame children)
     void selectedOverlappedElement(GNEAttributeCarrier* AC);
 
-    /// @brief get module for TLS Definition
-    GNETLSEditorFrame::TLSDefinition* getTLSDefinition() const;
-
     /**@brief edits the traffic light for the given junction
      * @param[in] junction The junction of which the traffic light shall be edited
      */
     void editJunction(GNEJunction* junction);
+
+    /// @brief get module for TLS Definition
+    GNETLSEditorFrame::TLSDefinition* getTLSDefinition() const;
+    
+    /// @brief get module for TLS attributes
+    GNETLSEditorFrame::TLSAttributes* getTLSAttributes() const;
 
 protected:
     /// @brief converts to SUMOTime

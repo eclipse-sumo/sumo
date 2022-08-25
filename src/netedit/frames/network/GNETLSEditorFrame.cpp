@@ -79,6 +79,7 @@ FXDEFMAP(GNETLSEditorFrame::TLSAttributes) TLSAttributesMap[] = {
     FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_ATTRIBUTES_GUESSPROGRAM,     GNETLSEditorFrame::TLSAttributes::onCmdGuess),
     FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_ATTRIBUTES_PARAMETERSDIALOG, GNETLSEditorFrame::TLSAttributes::onCmdEditParameters),
     FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_ATTRIBUTES_SETDETECTOR,      GNETLSEditorFrame::TLSAttributes::onCmdSetDetectorMode),
+    FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_ATTRIBUTES_SETDETECTOR,      GNETLSEditorFrame::TLSAttributes::onUpdSetDetectorMode),
 };
 
 FXDEFMAP(GNETLSEditorFrame::TLSPhases) TLSPhasesMap[] = {
@@ -151,6 +152,7 @@ GNETLSEditorFrame::show() {
 
 void
 GNETLSEditorFrame::frameWidthUpdated() {
+    // recalc table width
     myTLSPhases->getPhaseTable()->recalcTableWidth();
 }
 
@@ -269,12 +271,6 @@ GNETLSEditorFrame::selectedOverlappedElement(GNEAttributeCarrier* AC) {
 }
 
 
-GNETLSEditorFrame::TLSDefinition* 
-GNETLSEditorFrame::getTLSDefinition() const {
-    return myTLSDefinition;
-}
-
-
 void
 GNETLSEditorFrame::cleanup() {
     if (myTLSJunction->getCurrentJunction()) {
@@ -300,6 +296,18 @@ GNETLSEditorFrame::cleanup() {
     myTLSAttributes->clearTLSAttributes();
     // only clears when there are no definitions
     myTLSPhases->initPhaseTable();
+}
+
+
+GNETLSEditorFrame::TLSDefinition* 
+GNETLSEditorFrame::getTLSDefinition() const {
+    return myTLSDefinition;
+}
+
+
+GNETLSEditorFrame::TLSAttributes* 
+GNETLSEditorFrame::getTLSAttributes() const {
+    return myTLSAttributes;
 }
 
 
@@ -567,6 +575,8 @@ GNETLSEditorFrame::TLSAttributes::initTLSAttributes() {
         myButtonEditParameters->enable();
         myParametersTextField->enable();
         myParametersTextField->setTextColor(MFXUtils::getFXColor(RGBColor::BLACK));
+        // reset mySetDetectorsToogleButton
+        mySetDetectorsToogleButton->setState(FALSE);
     }
 }
 
@@ -632,6 +642,12 @@ GNETLSEditorFrame::TLSAttributes::isValidParameters() {
         myParametersTextField->setTextColor(MFXUtils::getFXColor(RGBColor::RED));
         return false;
     }
+}
+
+
+bool
+GNETLSEditorFrame::TLSAttributes::isSetDetectorsToogleButtonEnabled() const {
+    return (mySetDetectorsToogleButton->getState() == TRUE);
 }
 
 
@@ -738,7 +754,21 @@ GNETLSEditorFrame::TLSAttributes::onCmdSetDetectorMode(FXObject*, FXSelector, vo
         // restore default color
         mySetDetectorsToogleButton->setBackColor(4293980400);
     }
-    //
+    // update view
+    myTLSEditorParent->getViewNet()->update();
+    return 1;
+}
+
+
+long
+GNETLSEditorFrame::TLSAttributes::onUpdSetDetectorMode(FXObject*, FXSelector, void*) {
+    if (myTLSEditorParent->myTLSDefinition->getNumberOfTLSDefinitions() == 0) {
+        mySetDetectorsToogleButton->disable();
+    } else if (myTLSEditorParent->myTLSDefinition->getCurrentTLSDefinition()->getType() == TrafficLightType::STATIC) {
+        mySetDetectorsToogleButton->disable();
+    } else {
+        mySetDetectorsToogleButton->enable();
+    }
     return 1;
 }
 
