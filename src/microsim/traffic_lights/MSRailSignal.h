@@ -435,6 +435,9 @@ protected:
     /// @brief print link descriptions
     static std::string formatVisitedMap(const LaneVisitedMap& visited);
 
+    /// @brief append to map by map index and avoid undefined behavior
+    static void appendMapIndex(LaneVisitedMap& map, const MSLane* lane);
+
 protected:
 
     /** @brief The list of phases this logic uses

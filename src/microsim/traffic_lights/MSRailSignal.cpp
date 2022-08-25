@@ -351,6 +351,15 @@ MSRailSignal::formatVisitedMap(const LaneVisitedMap& visited) {
     return toString(lanes);
 }
 
+
+void
+MSRailSignal::appendMapIndex(LaneVisitedMap& map, const MSLane* lane) {
+    // avoid undefined behavior from evaluation order
+    const int tmp = map.size();
+    map[lane] = tmp;
+}
+
+
 MSRailSignal::Approaching
 MSRailSignal::getClosest(MSLink* link) {
     assert(link->getApproaching().size() > 0);
@@ -591,11 +600,11 @@ MSRailSignal::LinkInfo::buildDriveWay(MSRouteIterator first, MSRouteIterator end
     DriveWay dw;
     LaneVisitedMap visited;
     std::vector<MSLane*> before;
-    visited[myLink->getLaneBefore()] = (int)visited.size();
+    appendMapIndex(visited, myLink->getLaneBefore());
     MSLane* fromBidi = myLink->getLaneBefore()->getBidiLane();
     if (fromBidi != nullptr) {
         // do not extend to forward block beyond the entering track (in case of a loop)
-        visited[fromBidi] = (int)visited.size();
+        appendMapIndex(visited, fromBidi);
         before.push_back(fromBidi);
     }
     dw.buildRoute(myLink, 0., first, end, visited);
@@ -1083,7 +1092,7 @@ MSRailSignal::DriveWay::buildRoute(MSLink* origin, double length,
                 next++;
             }
         }
-        visited[toLane] = (int)visited.size();
+        appendMapIndex(visited, toLane);
         length += toLane->getLength();
         MSLane* bidi = toLane->getBidiLane();
         if (seekForwardSignal) {
@@ -1104,7 +1113,7 @@ MSRailSignal::DriveWay::buildRoute(MSLink* origin, double length,
             } else {
                 myBidi.push_back(bidi);
             }
-            visited[bidi] = (int)visited.size();
+            appendMapIndex(visited, bidi);
             if (!seekForwardSignal) {
                 // look for switch that could protect from oncoming vehicles
                 for (const auto& ili : bidi->getIncomingLanes()) {
@@ -1286,7 +1295,7 @@ MSRailSignal::DriveWay::findFlankProtection(MSLink* link, double length, LaneVis
         const bool isNew = visited.count(lane) == 0;
         if (isNew || (visited[lane] > visited[origLink->getLane()] && std::find(myForward.begin(), myForward.end(), lane) == myForward.end())) {
             if (isNew) {
-                visited[lane] = (int)visited.size();
+                appendMapIndex(visited, lane);
             }
             length += lane->getLength();
             if (lane->isInternal()) {
