@@ -17,10 +17,13 @@
 ///
 //
 /****************************************************************************/
+
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewParent.h>
 #include <netedit/changes/GNEChange_Attribute.h>
+#include <netedit/frames/network/GNETLSEditorFrame.h>
 #include <utils/gui/div/GLHelper.h>
 
 #include "GNEInductionLoopDetector.h"
@@ -135,10 +138,10 @@ GNEInductionLoopDetector::updateGeometry() {
 
 void
 GNEInductionLoopDetector::drawGL(const GUIVisualizationSettings& s) const {
-    // Obtain exaggeration of the draw
-    const double E1Exaggeration = getExaggeration(s);
     // first check if additional has to be drawn
     if (myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
+        // Obtain exaggeration of the draw
+        const double E1Exaggeration = getExaggeration(s);
         // check exaggeration
         if (s.drawAdditionals(E1Exaggeration)) {
             // obtain scaledSize
@@ -182,6 +185,14 @@ GNEInductionLoopDetector::drawGL(const GUIVisualizationSettings& s) const {
             }
             if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
                 GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::FRONT, s, myAdditionalGeometry.getShape().front(), 2, 1, 0, 0, myAdditionalGeometry.getShapeRotations().front(), E1Exaggeration);
+            }
+            // check if we're selecting TLS in TLSMode
+            const bool TLSMode = (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() && 
+                (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_TLS));
+            const auto &TLSAttributes = myNet->getViewNet()->getViewParent()->getTLSEditorFrame()->getTLSAttributes();
+            // check if orange dotted contour must be drawn
+            if (TLSMode && TLSAttributes->isSetDetectorsToogleButtonEnabled() && (TLSAttributes->getE1Detectors().count(getID()) > 0)) {
+                GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::ORANGE, s, myAdditionalGeometry.getShape().front(), 2, 1, 0, 0, myAdditionalGeometry.getShapeRotations().front(), E1Exaggeration);
             }
         }
         // Draw additional ID
