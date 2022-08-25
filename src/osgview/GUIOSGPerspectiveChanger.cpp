@@ -86,8 +86,7 @@ GUIOSGPerspectiveChanger::zPos2Zoom(double zPos) const {
 
 double
 GUIOSGPerspectiveChanger::zoom2ZPos(double zoom) const {
-    // TODO: real implementation
-    return 100.;
+    return getZPos();
 }
 
 
