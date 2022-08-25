@@ -66,8 +66,7 @@ def main(args=None):
     options, remaining_args = optParser.parse_args(args=args)
 
     if options.input is None:
-        print("Error: at least one csv file must be given")
-        sys.exit(1)
+        raise ValueError("Error: at least one csv file must be given")
 
     fd = open(options.input)
     labels = []
@@ -128,4 +127,7 @@ def main(args=None):
 
 
 if __name__ == "__main__":
-    sys.exit(main(sys.argv))
+    try:
+        main(sys.argv)
+    except ValueError as e:
+        sys.exit(e)
