@@ -66,4 +66,3 @@ png2.sumo binary
 /.gitignore export-ignore
 /.gitmodules export-ignore
 /.travis.yml export-ignore
-/tests export-ignore
