@@ -284,9 +284,21 @@ class ArgumentParser(argparse.ArgumentParser):
                                 config_args += ["--" + option.name + "=" + value]
                             else:
                                 config_args += ["--" + option.name]
-        # print("parse_known_args:\n  args: %s\n  config_args: %s" % (args, config_args))
-        namespace, unknown_args = argparse.ArgumentParser.parse_known_args(
-            self, args=args+config_args+[p for p in pos_args if p is not None], namespace=namespace)
+        combined_args = args + config_args + [p for p in pos_args if p is not None]
+        namespace, unknown_args = argparse.ArgumentParser.parse_known_args(self, args=combined_args, namespace=namespace)
+
+        if self._allowed_programs and unknown_args and hasattr(namespace, "remaining_args"):
+            # namespace.remaining_args are the legacy method to parse arguments
+            # for subprograms (i.e. 'duarouter--weights.random-factor 2')
+            # unknown_args are the new style # # ('--duarouter-weights.random-factor 2')
+            # the default ArgumentParser interprets the first parameter for an
+            # unknown argument as remaining_args and this also creates an
+            # invalid error message when unknown options are parsed
+            unknown_args.insert(1, namespace.remaining_args[0])
+            namespace.remaining_args = []
+
+        #print("parse_known_args:\n  args: %s\n  config_args: %s\n  pos_args: %s\n  combined_args: %s\n  remaining_args: %s\n  unknown_args: %s" % (
+        #    args, config_args, pos_args, combined_args, namespace.remaining_args, unknown_args))
 
         namespace_as_dict = deepcopy(vars(namespace))
         namespace._prefixed_options, remaining_args = assign_prefixed_options(unknown_args)
