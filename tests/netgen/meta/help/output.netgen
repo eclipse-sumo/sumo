@@ -1,4 +1,4 @@
-Eclipse SUMO netgenerate Version v1_13_0+0773-f0267577d88
+Eclipse SUMO netgenerate Version v1_14_1+0513-a1c8b69
  Copyright (C) 2001-2022 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Synthetic network generator for the microscopic, multi-modal traffic simulation
  SUMO.
@@ -155,6 +155,21 @@ Processing Options:
                                         included any of the typed IDs from FILE
                                         (sumo-gui selection file format)
   --geometry.split                     Splits edges across geometry nodes
+  -R, --geometry.remove                Replace nodes which only define edge
+                                        geometry by geometry points (joins
+                                        edges)
+  --geometry.remove.keep-edges.explicit STR[]  Ensure that the given list of
+                                        edges is not modified
+  --geometry.remove.keep-edges.input-file FILE  Ensure that the edges in FILE
+                                        are not modified (Each id on a single
+                                        line. Selection files from sumo-gui are
+                                        also supported)
+  --geometry.remove.min-length FLOAT   Allow merging edges with differing
+                                        attributes when their length is below
+                                        min-length
+  --geometry.remove.width-tolerance FLOAT  Allow merging edges with differing
+                                        lane widths if the difference is below
+                                        FLOAT
   --geometry.max-segment-length FLOAT  splits geometry to restrict segment
                                         length
   --geometry.max-grade FLOAT           Warn about edge geometries with a grade
@@ -280,6 +295,8 @@ TLS Building Options:
                                         connections that share the same states
   --tls.ungroup-signals                Assign a distinct tls link index to
                                         every connection
+  --tls.discard-simple                 Does not instatiate traffic lights at
+                                        geometry-like nodes
 
 Edge Removal Options:
   --keep-edges.min-speed FLOAT         Only keep edges with speed in
