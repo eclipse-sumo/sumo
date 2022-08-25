@@ -64,6 +64,9 @@ junctionTaz_validate
 # prevent some edge types from being used as source or destination
 viaEdgeType
 
+# Test for having the options "additional-files" and "vtype-output" and vClass
+additional_and_vClass
+
 # This test suite checks that argument forwarding to duarouter works correctly.
 duarouter_options
 

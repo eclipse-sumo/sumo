@@ -1,0 +1,1 @@
+-n net.net.xml --additional-files input_additional.add.xml --vtype-output vtype.add.xml --validate --vehicle-class bicycle
