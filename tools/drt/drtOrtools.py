@@ -41,8 +41,8 @@ import traci  # noqa
 def dispatch(reservations, fleet_empty, time_limit, cost_type='distance'):
     """Dispatch using ortools."""
     data = create_data_model(reservations, fleet_empty, cost_type)
-    solution_dict = ortools_pdp.main(data, time_limit)
-    solution_requests = get_solution_requests(solution_dict, data)
+    solution_ortools = ortools_pdp.main(data, time_limit)
+    solution_requests = solution_by_requests(solution_ortools, data)
     return solution_requests
 
 
@@ -122,22 +122,23 @@ def get_cost_matrix(edges, type_vehicle, cost_type='distance'):
     return cost_matrix.tolist()
 
 
-def get_solution_requests(solution_dict, data):
-    """Get solution by requests."""
-    if solution_dict is None:
+def solution_by_requests(solution_ortools, data):
+    """Translate solution from ortools to SUMO requests."""
+    if solution_ortools is None:
         return None
     route2request = {}
     for i_request, [i_pickup, i_delivery] in enumerate(data["pickups_deliveries"]):
         route2request[i_pickup] = i_request
         route2request[i_delivery] = i_request
     solution_requests = {}
-    for key in solution_dict:
-        solution = []
-        for i_route in solution_dict[key][0][1:-1]:
+    for key in solution_ortools:
+        solution = [[],[]] # request order and costs
+        for i_route in solution_ortools[key][0][1:-1]:
             if i_route in route2request:
-                solution.append(route2request[i_route])
+                solution[0].append(route2request[i_route])
             else:
                 continue
+            solution[1] = solution_ortools[key][1] # costs
             solution_requests[key] = solution
     return solution_requests
 
@@ -174,6 +175,8 @@ def run(end=90000, interval=30, time_limit=10, cost_type='distance', verbose=Fal
             timestep += interval
             continue
 
+        # TODO why is this needed prior to getTaxiReservations(2/4/8)?
+        traci.person.getTaxiReservations(0)
         if verbose:
             print("timestep: ", timestep)
             res_waiting = [res.id for res in traci.person.getTaxiReservations(2)]
@@ -199,7 +202,6 @@ def run(end=90000, interval=30, time_limit=10, cost_type='distance', verbose=Fal
                 print("Taxis occupied and picking up:", fleet_occupied_pickup)
 
         fleet_empty = traci.vehicle.getTaxiFleet(0)
-        traci.person.getTaxiReservations(0)  # TODO why is this needed?
         reservations = traci.person.getTaxiReservations(2)
 
         if reservations and fleet_empty:
@@ -209,10 +211,11 @@ def run(end=90000, interval=30, time_limit=10, cost_type='distance', verbose=Fal
             if solution_requests is not None:
                 for index_vehicle in solution_requests:
                     id_vehicle = fleet_empty[index_vehicle]
-                    reservations_order = [reservations[index].id for index in solution_requests[index_vehicle]]
+                    reservations_order = [reservations[index].id for index in solution_requests[index_vehicle][0]]
                     traci.vehicle.dispatchTaxi(id_vehicle, reservations_order)
                     if verbose:
                         print("Dispatching %s with %s" % (id_vehicle, reservations_order))
+                        print("Costs for %s: %s" % (id_vehicle, solution_requests[index_vehicle][1]))
             else:
                 if verbose:
                     print("Found no solution, continue...")
