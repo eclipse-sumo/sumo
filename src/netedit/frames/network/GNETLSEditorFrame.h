@@ -265,6 +265,9 @@ public:
         /// @brief toogle button for set detectors mode
         bool isSetDetectorsToogleButtonEnabled() const;
 
+        /// @brief get E1 detectors vinculated with this TLS
+        const std::set<std::string> &getE1Detectors() const;
+
         /// @name FOX-callbacks
         /// @{
         /// @brief Called when the user presses the button Guess
@@ -306,6 +309,9 @@ public:
         /// @brief FOX needs this
         FOX_CONSTRUCTOR(TLSAttributes)
 
+        /// @brief update E1 detectors
+        void updateE1Detectors();
+
     private:
         /// @brief pointer to TLSEditorParent
         GNETLSEditorFrame* myTLSEditorParent;
@@ -321,6 +327,9 @@ public:
 
         /// @brief toogle button for set detectors mode
         FXToggleButton* mySetDetectorsToogleButton = nullptr;
+
+        /// @brief set with E1 detector IDs vinculated with the TLS
+        std::set<std::string> myE1Detectors;
     };
 
     // ===========================================================================
@@ -558,6 +567,9 @@ public:
      * @param[in] junction The junction of which the traffic light shall be edited
      */
     void editJunction(GNEJunction* junction);
+
+    /// @brief get module for TLS Junction
+    GNETLSEditorFrame::TLSJunction* getTLSJunction() const;
 
     /// @brief get module for TLS Definition
     GNETLSEditorFrame::TLSDefinition* getTLSDefinition() const;

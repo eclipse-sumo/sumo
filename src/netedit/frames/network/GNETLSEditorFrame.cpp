@@ -299,6 +299,12 @@ GNETLSEditorFrame::cleanup() {
 }
 
 
+GNETLSEditorFrame::TLSJunction* 
+GNETLSEditorFrame::getTLSJunction() const {
+    return myTLSJunction;
+}
+
+
 GNETLSEditorFrame::TLSDefinition* 
 GNETLSEditorFrame::getTLSDefinition() const {
     return myTLSDefinition;
@@ -630,6 +636,10 @@ void
 GNETLSEditorFrame::TLSAttributes::setParameters(const std::string& parameters) {
     myParametersTextField->setText(parameters.c_str());
     myParametersTextField->setTextColor(MFXUtils::getFXColor(RGBColor::BLACK));
+    // update E1 detectors
+    if (myTLSEditorParent->myEditedDef->getType() != TrafficLightType::STATIC) {
+        updateE1Detectors();
+    }
 }
 
 
@@ -648,6 +658,12 @@ GNETLSEditorFrame::TLSAttributes::isValidParameters() {
 bool
 GNETLSEditorFrame::TLSAttributes::isSetDetectorsToogleButtonEnabled() const {
     return (mySetDetectorsToogleButton->getState() == TRUE);
+}
+
+
+const std::set<std::string>&
+GNETLSEditorFrame::TLSAttributes::getE1Detectors() const {
+    return myE1Detectors;
 }
 
 
@@ -770,6 +786,24 @@ GNETLSEditorFrame::TLSAttributes::onUpdSetDetectorMode(FXObject*, FXSelector, vo
         mySetDetectorsToogleButton->enable();
     }
     return 1;
+}
+
+
+void
+GNETLSEditorFrame::TLSAttributes::updateE1Detectors() {
+    // first clear E1 detectors
+    myE1Detectors.clear();
+    // iterate over parameters
+    for (const auto &parameter : myTLSEditorParent->myEditedDef->getParametersMap()) {
+        // check if both lane and E1 exists
+        if (myTLSEditorParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveLane(parameter.first, false) &&
+            myTLSEditorParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_INDUCTION_LOOP, parameter.second, false)) {
+            // add it into list
+            myE1Detectors.insert(parameter.second);
+        }
+    }
+    // update view net
+    myTLSEditorParent->getViewNet()->update();
 }
 
 // ---------------------------------------------------------------------------
