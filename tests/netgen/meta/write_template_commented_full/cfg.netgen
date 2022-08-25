@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-06-11 22:44:09 by Eclipse SUMO netgenerate Version v1_13_0+0773-f0267577d88
+<!-- generated on 2022-08-25 09:08:49 by Eclipse SUMO netgenerate Version v1_14_1+0513-a1c8b69
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
@@ -231,6 +231,21 @@
         <!-- Splits edges across geometry nodes -->
         <geometry.split value="false" synonymes="split-geometry" type="BOOL"/>
 
+        <!-- Replace nodes which only define edge geometry by geometry points (joins edges) -->
+        <geometry.remove value="false" synonymes="R remove-geometry" type="BOOL"/>
+
+        <!-- Ensure that the given list of edges is not modified -->
+        <geometry.remove.keep-edges.explicit value="" type="STR[]"/>
+
+        <!-- Ensure that the edges in FILE are not modified (Each id on a single line. Selection files from sumo-gui are also supported) -->
+        <geometry.remove.keep-edges.input-file value="" type="FILE"/>
+
+        <!-- Allow merging edges with differing attributes when their length is below min-length -->
+        <geometry.remove.min-length value="0" type="FLOAT"/>
+
+        <!-- Allow merging edges with differing lane widths if the difference is below FLOAT -->
+        <geometry.remove.width-tolerance value="0" type="FLOAT"/>
+
         <!-- splits geometry to restrict segment length -->
         <geometry.max-segment-length value="0" type="FLOAT"/>
 
@@ -431,6 +446,9 @@
 
         <!-- Assign a distinct tls link index to every connection -->
         <tls.ungroup-signals value="false" type="BOOL"/>
+
+        <!-- Does not instatiate traffic lights at geometry-like nodes -->
+        <tls.discard-simple value="false" type="BOOL"/>
 
     </tls_building>
 

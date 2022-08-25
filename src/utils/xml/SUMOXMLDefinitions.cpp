@@ -561,6 +561,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "gapControlGainSpace",            SUMO_ATTR_GC_GAIN_SPACE },
     { "collisionAvoidanceGainSpeed",    SUMO_ATTR_CA_GAIN_SPEED },
     { "collisionAvoidanceGainSpace",    SUMO_ATTR_CA_GAIN_SPACE },
+    { "collisionAvoidanceOverride",     SUMO_ATTR_CA_OVERRIDE },
 
     { "speedControlGainCACC",           SUMO_ATTR_SC_GAIN_CACC },
     { "gapClosingControlGainGap",       SUMO_ATTR_GCC_GAIN_GAP_CACC },

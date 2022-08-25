@@ -17,9 +17,13 @@
 ///
 //
 /****************************************************************************/
+
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
+#include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewParent.h>
 #include <netedit/changes/GNEChange_Attribute.h>
+#include <netedit/frames/network/GNETLSEditorFrame.h>
 
 #include "GNEMultiEntryExitDetector.h"
 
@@ -165,10 +169,16 @@ GNEMultiEntryExitDetector::getParentName() const {
 
 void
 GNEMultiEntryExitDetector::drawGL(const GUIVisualizationSettings& s) const {
-    // draw parent and child lines
-    drawParentChildLines(s, s.additionalSettings.connectionColor);
-    // draw E3
-    drawSquaredAdditional(s, myPosition, s.detectorSettings.E3Size, GUITexture::E3, GUITexture::E3_SELECTED);
+    // check if we're selecting TLS
+    const bool TLSMode = (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() && 
+        (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_TLS));
+    const bool selectingDetectors = myNet->getViewNet()->getViewParent()->getTLSEditorFrame()->getTLSAttributes()->isSetDetectorsToogleButtonEnabled();
+    if (!(TLSMode && selectingDetectors)) {
+        // draw parent and child lines
+        drawParentChildLines(s, s.additionalSettings.connectionColor);
+        // draw E3
+        drawSquaredAdditional(s, myPosition, s.detectorSettings.E3Size, GUITexture::E3, GUITexture::E3_SELECTED);
+    }
 }
 
 

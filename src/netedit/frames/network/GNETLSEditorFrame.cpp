@@ -20,6 +20,7 @@
 #include <config.h>
 
 #include <netbuild/NBLoadedSUMOTLDef.h>
+#include <netbuild/NBOwnTLDef.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
@@ -27,15 +28,17 @@
 #include <netedit/dialogs/GNESingleParametersDialog.h>
 #include <netedit/elements/network/GNEInternalLane.h>
 #include <netedit/elements/network/GNEJunction.h>
+#include <netedit/frames/GNEOverlappedInspection.h>
 #include <netedit/frames/GNETLSTable.h>
 #include <netimport/NIXMLTrafficLightsHandler.h>
+#include <utils/foxtools/MFXMenuButtonTooltip.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/xml/XMLSubSys.h>
-#include <netbuild/NBOwnTLDef.h>
 
 #include "GNETLSEditorFrame.h"
+
 
 // ===========================================================================
 // FOX callback mapping
@@ -75,6 +78,8 @@ FXDEFMAP(GNETLSEditorFrame::TLSAttributes) TLSAttributesMap[] = {
     FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_ATTRIBUTES_ADDOFF,           GNETLSEditorFrame::TLSAttributes::onCmdDefAddOff),
     FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_ATTRIBUTES_GUESSPROGRAM,     GNETLSEditorFrame::TLSAttributes::onCmdGuess),
     FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_ATTRIBUTES_PARAMETERSDIALOG, GNETLSEditorFrame::TLSAttributes::onCmdEditParameters),
+    FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_ATTRIBUTES_SETDETECTOR,      GNETLSEditorFrame::TLSAttributes::onCmdSetDetectorMode),
+    FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_ATTRIBUTES_SETDETECTOR,      GNETLSEditorFrame::TLSAttributes::onUpdSetDetectorMode),
 };
 
 FXDEFMAP(GNETLSEditorFrame::TLSPhases) TLSPhasesMap[] = {
@@ -147,6 +152,7 @@ GNETLSEditorFrame::show() {
 
 void
 GNETLSEditorFrame::frameWidthUpdated() {
+    // recalc table width
     myTLSPhases->getPhaseTable()->recalcTableWidth();
 }
 
@@ -265,12 +271,6 @@ GNETLSEditorFrame::selectedOverlappedElement(GNEAttributeCarrier* AC) {
 }
 
 
-GNETLSEditorFrame::TLSDefinition* 
-GNETLSEditorFrame::getTLSDefinition() const {
-    return myTLSDefinition;
-}
-
-
 void
 GNETLSEditorFrame::cleanup() {
     if (myTLSJunction->getCurrentJunction()) {
@@ -296,6 +296,18 @@ GNETLSEditorFrame::cleanup() {
     myTLSAttributes->clearTLSAttributes();
     // only clears when there are no definitions
     myTLSPhases->initPhaseTable();
+}
+
+
+GNETLSEditorFrame::TLSDefinition* 
+GNETLSEditorFrame::getTLSDefinition() const {
+    return myTLSDefinition;
+}
+
+
+GNETLSEditorFrame::TLSAttributes* 
+GNETLSEditorFrame::getTLSAttributes() const {
+    return myTLSAttributes;
 }
 
 
@@ -517,19 +529,20 @@ GNETLSEditorFrame::getSteps2Time(const SUMOTime value) {
 GNETLSEditorFrame::TLSAttributes::TLSAttributes(GNETLSEditorFrame* TLSEditorParent) :
     MFXGroupBoxModule(TLSEditorParent, "Traffic light Attributes"),
     myTLSEditorParent(TLSEditorParent) {
-
     // create frame, label and TextField for Offset (By default disabled)
-    FXHorizontalFrame* offsetFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
-    new FXLabel(offsetFrame, toString(SUMO_ATTR_OFFSET).c_str(), nullptr, GUIDesignLabelAttribute);
-    myOffsetTextField = new FXTextField(offsetFrame, GUIDesignTextFieldNCol, this, MID_GNE_TLSFRAME_ATTRIBUTES_OFFSET, GUIDesignTextField);
+    FXHorizontalFrame* horizontalFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
+    new FXLabel(horizontalFrame, toString(SUMO_ATTR_OFFSET).c_str(), nullptr, GUIDesignLabelAttribute);
+    myOffsetTextField = new FXTextField(horizontalFrame, GUIDesignTextFieldNCol, this, MID_GNE_TLSFRAME_ATTRIBUTES_OFFSET, GUIDesignTextField);
     myOffsetTextField->disable();
-
-    // create frame, label and TextField for Offset (By default disabled)
-    FXHorizontalFrame* parametersFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
-    myButtonEditParameters = new FXButton(parametersFrame, "parameters", nullptr, this, MID_GNE_TLSFRAME_ATTRIBUTES_PARAMETERSDIALOG, GUIDesignButtonAttribute);
-    myParametersTextField = new FXTextField(parametersFrame, GUIDesignTextFieldNCol, this, MID_GNE_TLSFRAME_ATTRIBUTES_PARAMETERS, GUIDesignTextField);
+    // create frame, label and TextField for parameters (By default disabled)
+    horizontalFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
+    myButtonEditParameters = new FXButton(horizontalFrame, "parameters", nullptr, this, MID_GNE_TLSFRAME_ATTRIBUTES_PARAMETERSDIALOG, GUIDesignButtonAttribute);
+    myParametersTextField = new FXTextField(horizontalFrame, GUIDesignTextFieldNCol, this, MID_GNE_TLSFRAME_ATTRIBUTES_PARAMETERS, GUIDesignTextField);
     myButtonEditParameters->disable();
     myParametersTextField->disable();
+    // create Checkable button
+    mySetDetectorsToogleButton = new FXToggleButton(getCollapsableFrame(), "Set detectors mode", "Set detectors mode", 
+        GUIIconSubSys::getIcon(GUIIcon::E1), GUIIconSubSys::getIcon(GUIIcon::E1), this, MID_GNE_TLSFRAME_ATTRIBUTES_SETDETECTOR, GUIDesignButton);
 }
 
 
@@ -562,6 +575,8 @@ GNETLSEditorFrame::TLSAttributes::initTLSAttributes() {
         myButtonEditParameters->enable();
         myParametersTextField->enable();
         myParametersTextField->setTextColor(MFXUtils::getFXColor(RGBColor::BLACK));
+        // reset mySetDetectorsToogleButton
+        mySetDetectorsToogleButton->setState(FALSE);
     }
 }
 
@@ -627,6 +642,12 @@ GNETLSEditorFrame::TLSAttributes::isValidParameters() {
         myParametersTextField->setTextColor(MFXUtils::getFXColor(RGBColor::RED));
         return false;
     }
+}
+
+
+bool
+GNETLSEditorFrame::TLSAttributes::isSetDetectorsToogleButtonEnabled() const {
+    return (mySetDetectorsToogleButton->getState() == TRUE);
 }
 
 
@@ -719,6 +740,34 @@ GNETLSEditorFrame::TLSAttributes::onCmdEditParameters(FXObject*, FXSelector, voi
             // write debug information
             WRITE_DEBUG("Cancel single parameters dialog");
         }
+    }
+    return 1;
+}
+
+
+long
+GNETLSEditorFrame::TLSAttributes::onCmdSetDetectorMode(FXObject*, FXSelector, void*) {
+    if (mySetDetectorsToogleButton->getState()) {
+        // set special color
+        mySetDetectorsToogleButton->setBackColor(FXRGBA(253, 255, 206, 255));
+    } else {
+        // restore default color
+        mySetDetectorsToogleButton->setBackColor(4293980400);
+    }
+    // update view
+    myTLSEditorParent->getViewNet()->update();
+    return 1;
+}
+
+
+long
+GNETLSEditorFrame::TLSAttributes::onUpdSetDetectorMode(FXObject*, FXSelector, void*) {
+    if (myTLSEditorParent->myTLSDefinition->getNumberOfTLSDefinitions() == 0) {
+        mySetDetectorsToogleButton->disable();
+    } else if (myTLSEditorParent->myTLSDefinition->getCurrentTLSDefinition()->getType() == TrafficLightType::STATIC) {
+        mySetDetectorsToogleButton->disable();
+    } else {
+        mySetDetectorsToogleButton->enable();
     }
     return 1;
 }

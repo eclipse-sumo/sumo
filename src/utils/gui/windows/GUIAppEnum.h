@@ -1010,6 +1010,8 @@ enum {
     MID_GNE_TLSFRAME_ATTRIBUTES_PARAMETERS,
     /// @brief TLS parameters
     MID_GNE_TLSFRAME_ATTRIBUTES_PARAMETERSDIALOG,
+    /// @brief set detectors in TLS
+    MID_GNE_TLSFRAME_ATTRIBUTES_SETDETECTOR,
     /// @brief Create TLS
     MID_GNE_TLSFRAME_DEFINITION_CREATE,
     /// @brief delete TLS

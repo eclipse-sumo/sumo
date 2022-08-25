@@ -662,7 +662,7 @@ def main(options):
                 if options.additional is None:
                     options.additional = options.vtypeout
                 else:
-                    options.additional += ",options.vtypeout"
+                    options.additional = options.additional + "," + options.vtypeout
                 with open(options.vtypeout, 'w') as fouttype:
                     sumolib.writeXMLHeader(fouttype, "$Id$", "additional", options=options)
                     fouttype.write(vTypeDef)

@@ -192,14 +192,12 @@ def main(sumocfg="hiking/hiking.sumocfg", egoID="ego"):
     HikingClient(root, sumocfg, egoID)
     root.mainloop()
 
-# Argument parser
-
-parser = argparse.ArgumentParser()
-parser.add_argument('--sumocfg', default="hiking/hiking.sumocfg", help=".sumocfg file path", required=False)
-parser.add_argument('--ego', default="ego", help="vehicle ego id", required=False)
-args = parser.parse_args()
 
 if len(sys.argv) < 3:
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--sumocfg', default="hiking/hiking.sumocfg", help=".sumocfg file path", required=False)
+    parser.add_argument('--ego', default="ego", help="vehicle ego id", required=False)
+    args = parser.parse_args()
     main(args.sumocfg, args.ego)
 else:
     print("hiking.py --sumocfg=<sumocfg> [--ego=<egoID>]")

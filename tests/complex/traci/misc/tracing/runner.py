@@ -61,5 +61,6 @@ print("step", step())
 vehID = "veh0"
 traci.vehicle.subscribe(vehID)
 traci.vehicle.unsubscribe(vehID)
+traci.person.removeStages('ped0')
 
 traci.close()

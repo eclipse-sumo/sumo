@@ -855,6 +855,7 @@ enum SumoXMLAttr {
     SUMO_ATTR_GC_GAIN_SPACE,
     SUMO_ATTR_CA_GAIN_SPEED,
     SUMO_ATTR_CA_GAIN_SPACE,
+    SUMO_ATTR_CA_OVERRIDE,
     /// @}
 
     // @name Train CACC model attributes

@@ -90,6 +90,7 @@ class StepManager:
                                     "wrapper",
                                     "getAllSubscriptionResults",
                                     "getAllContextSubscriptionResults",
+                                    "removeStages",
                         ]
                                 and not attrName.endswith('makeWrapper')
                                 and (traceGetters or not attrName.startswith("get"))):

@@ -17,10 +17,13 @@
 ///
 //
 /****************************************************************************/
+
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewParent.h>
 #include <netedit/changes/GNEChange_Attribute.h>
+#include <netedit/frames/network/GNETLSEditorFrame.h>
 #include <utils/gui/div/GLHelper.h>
 
 #include "GNEInstantInductionLoopDetector.h"
@@ -132,10 +135,14 @@ GNEInstantInductionLoopDetector::updateGeometry() {
 
 void
 GNEInstantInductionLoopDetector::drawGL(const GUIVisualizationSettings& s) const {
-    // Obtain exaggeration of the draw
-    const double E1InstantExaggeration = getExaggeration(s);
+    // check if we're selecting TLS
+    const bool TLSMode = (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() && 
+        (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_TLS));
+    const bool selectingDetectors = myNet->getViewNet()->getViewParent()->getTLSEditorFrame()->getTLSAttributes()->isSetDetectorsToogleButtonEnabled();
     // first check if additional has to be drawn
-    if (myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
+    if (myNet->getViewNet()->getDataViewOptions().showAdditionals() && !(TLSMode && selectingDetectors)) {
+        // Obtain exaggeration of the draw
+        const double E1InstantExaggeration = getExaggeration(s);
         // check exaggeration
         if (s.drawAdditionals(E1InstantExaggeration)) {
             // obtain scaledSize

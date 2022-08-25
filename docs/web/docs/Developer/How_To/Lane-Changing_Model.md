@@ -7,7 +7,7 @@ to SUMO.
 
 !!! caution
     A Lane-Changing Model is at least an order of magnitude more complicated
-    than a car-following model (judging by the amount of code alone)
+    than a car-following model (judging by the amount of code alone).
 
 It is recommended to learn about the architecture of the model from the
 Publication [SUMO's Lane-Changing
@@ -17,9 +17,9 @@ Model](https://elib.dlr.de/102254/1/Springer-SUMOs_Lane_changing_model.pdf).
 
 The best thing is to start with an already existing model. Models are
 located in {{SUMO}}/src/microsim/lcmodels and new added models should reside
-here, too. Copy both MSLCM_LC2013.h.h and
+here, too. Copy both MSLCM_LC2013.h and
 MSLCM_LC2013.cpp and rename them. The name should be
-"MSCFModel_<YOUR_MODELS_NAME\>".
+"MSLCModel_<YOUR_MODELS_NAME\>".
 
 !!! convention
     lane-changing model implementations are located in {{SUMO}}/src/microsim/lcmodels.
