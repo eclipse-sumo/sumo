@@ -192,6 +192,15 @@ The automated start/stop also for unplanned stops is not enabled by default but 
 the vehicle type parameter `shutOffAutoDuration`. This expects a value in seconds and will switch
 off the engine automatically if the vehicle does not move for longer than the given time.
 
+# Coasting vehicles
+
+A rolling (combustion driven) vehicle which does not accelerate actively (coasting) will not consume
+fuel because the engine gets switch off automatically in this case. All PHEMlight and HBEFA models use
+a threshold depending on the current speed, acceleration and slope to determine whether the vehicle is
+in this regime and set all emission values to zero. The value depends of course also on the
+characteristics of the vehicle such as mass and front area. For details see the code of
+PollutantsInterface::Helper::getCoastingDecel.
+
 # Further Interfaces
 
 The tool [traceExporter.py](../Tools/TraceExporter.md) converts
