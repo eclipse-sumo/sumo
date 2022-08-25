@@ -17,10 +17,13 @@
 ///
 //
 /****************************************************************************/
+
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewParent.h>
 #include <netedit/changes/GNEChange_Attribute.h>
+#include <netedit/frames/network/GNETLSEditorFrame.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/globjects/GLIncludes.h>
 
@@ -120,10 +123,14 @@ GNEEntryExitDetector::updateGeometry() {
 
 void
 GNEEntryExitDetector::drawGL(const GUIVisualizationSettings& s) const {
+    // check if we're selecting TLS
+    const bool TLSMode = (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() && 
+        (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_TLS));
+    const bool selectingDetectors = myNet->getViewNet()->getViewParent()->getTLSEditorFrame()->getTLSAttributes()->isSetDetectorsToogleButtonEnabled();
     // Set initial values
     const double entryExitExaggeration = getExaggeration(s);
     // first check if additional has to be drawn
-    if (s.drawAdditionals(entryExitExaggeration) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
+    if (s.drawAdditionals(entryExitExaggeration) && myNet->getViewNet()->getDataViewOptions().showAdditionals()&& !(TLSMode && selectingDetectors)) {
         // draw parent and child lines
         drawParentChildLines(s, s.additionalSettings.connectionColor);
         // Start drawing adding gl identificator
