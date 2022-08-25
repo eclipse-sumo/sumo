@@ -292,38 +292,7 @@ GUIOSGView::recenterView() {
     Position center = myGrid->getCenter();
     double radius = std::max(myGrid->xmax() - myGrid->xmin(), myGrid->ymax() - myGrid->ymin());
     myChanger->centerTo(center, radius);
-    /*
-    osg::Vec3d lookFromOSG, lookAtOSG, up;
-    myCameraManipulator->getHomePosition(lookFromOSG, lookAtOSG, up);
-    lookFromOSG[0] = center.x();
-    lookFromOSG[1] = center.y();
-    lookFromOSG[2] = myChanger->zoom2ZPos(100);
-    lookAtOSG[0] = center.x();
-    lookAtOSG[1] = center.y();
-    lookAtOSG[2] = 0;
-    myCameraManipulator->setHomePosition(lookFromOSG, lookAtOSG, up);
-    myViewer->home();
-    */
 }
-
-
-//void
-//GUIOSGView::centerTo(GUIGlID id, bool /* applyZoom */, double /* zoomDist */) {
-//    GUIGlObject* o = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
-//    if (o != nullptr && dynamic_cast<GUIGlObject*>(o) != nullptr) {
-//        // get OSG object from GLObject
-//        osg::Node* objectNode = o->getNode();
-//        if (objectNode != nullptr) {
-//            // center to current position
-//            osg::Vec3d lookFromOSG, lookAtOSG, up;
-//            myCameraManipulator->getHomePosition(lookFromOSG, lookAtOSG, up);
-//            myCameraManipulator->setHomePosition(lookFromOSG, objectNode->getBound().center(), up);
-//            myViewer->home();
-//            updatePositionInformation();
-//        }
-//    }
-//    GUIGlObjectStorage::gIDStorage.unblockObject(id);
-//}
 
 
 bool
@@ -621,17 +590,16 @@ GUIOSGView::startTrack(int id) {
             }
         }
         if (myTracked != 0) {
-            myChanger->centerTo(myTracked->getPosition(), 100.);
-            //osg::Vec3d lookFrom, lookAt, up;
-            //lookAt[0] = myTracked->getPosition().x();
-            //lookAt[1] = myTracked->getPosition().y();
-            //lookAt[2] = myTracked->getPosition().z();
-            //lookFrom[0] = lookAt[0] + 50.;
-            //lookFrom[1] = lookAt[1] + 50.;
-            //lookFrom[2] = lookAt[2] + 10.;
-            //osg::Matrix m;
-            //m.makeLookAt(lookFrom, lookAt, osg::Z_AXIS);
-            //myCameraManipulator->setByInverseMatrix(m);
+            osg::Vec3d lookFrom, lookAt, up;
+            lookAt[0] = myTracked->getPosition().x();
+            lookAt[1] = myTracked->getPosition().y();
+            lookAt[2] = myTracked->getPosition().z();
+            lookFrom[0] = lookAt[0] + 50.;
+            lookFrom[1] = lookAt[1] + 50.;
+            lookFrom[2] = lookAt[2] + 10.;
+            osg::Matrix m;
+            m.makeLookAt(lookFrom, lookAt, osg::Z_AXIS);
+            myCameraManipulator->setByInverseMatrix(m);
         }
     }
 }
