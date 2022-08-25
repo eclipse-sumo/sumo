@@ -169,6 +169,9 @@ GNETLSEditorFrame::editTLS(const Position& clickedPosition, const GNEViewNetHelp
         }
         // set junction
         editJunction(objectsUnderCursor.getJunctionFront());
+    } else if (objectsUnderCursor.getAdditionalFront() && (objectsUnderCursor.getAdditionalFront()->getTagProperty().getTag() == SUMO_TAG_INDUCTION_LOOP) &&
+               myTLSAttributes->isSetDetectorsToogleButtonEnabled()) {
+        myTLSAttributes->toggleE1Detector(objectsUnderCursor.getAdditionalFront());
     } else {
         myViewNet->setStatusBarText("Click over a junction to edit a TLS");
     }
@@ -582,7 +585,7 @@ GNETLSEditorFrame::TLSAttributes::initTLSAttributes() {
         myParametersTextField->enable();
         myParametersTextField->setTextColor(MFXUtils::getFXColor(RGBColor::BLACK));
         // reset mySetDetectorsToogleButton
-        mySetDetectorsToogleButton->setState(FALSE);
+        mySetDetectorsToogleButton->setState(FALSE, TRUE);
     }
 }
 
@@ -661,7 +664,44 @@ GNETLSEditorFrame::TLSAttributes::isSetDetectorsToogleButtonEnabled() const {
 }
 
 
-const std::set<std::string>&
+bool
+GNETLSEditorFrame::TLSAttributes::toggleE1Detector(const GNEAdditional* E1) {
+    // get E1 lane ID
+    const auto laneID = E1->getParentLanes().front()->getID();
+    // iterate over all E1 detectors
+    for (auto it = myE1Detectors.begin(); it != myE1Detectors.end(); it++) {
+        if (E1->getID() == it->second) {
+            // already selected, then remove it from detectors
+             myE1Detectors.erase(it);
+            // and remove it from parameters
+            myTLSEditorParent->myEditedDef->unsetParameter(laneID);
+            myParametersTextField->setText(myTLSEditorParent->myEditedDef->getParametersStr().c_str());
+            // mark TL as modified
+            myTLSEditorParent->myTLSDefinition->markAsModified();
+            return true;
+        } else if (laneID == it->first) {
+            // there is another E1 in the same lane, then swap
+             myE1Detectors.erase(it);
+            myE1Detectors[laneID] = E1->getID();
+            // also in parameters
+            myTLSEditorParent->myEditedDef->setParameter(laneID, E1->getID());
+            myParametersTextField->setText(myTLSEditorParent->myEditedDef->getParametersStr().c_str());
+            // mark TL as modified
+            myTLSEditorParent->myTLSDefinition->markAsModified();
+            return true;
+        } 
+    }
+    // add it in parameters
+    myE1Detectors[laneID] = E1->getID();
+    myTLSEditorParent->myEditedDef->setParameter(laneID, E1->getID());
+    myParametersTextField->setText(myTLSEditorParent->myEditedDef->getParametersStr().c_str());
+    // mark TL as modified
+    myTLSEditorParent->myTLSDefinition->markAsModified();
+    return true;
+}
+
+
+const std::map<std::string, std::string>&
 GNETLSEditorFrame::TLSAttributes::getE1Detectors() const {
     return myE1Detectors;
 }
@@ -686,6 +726,11 @@ GNETLSEditorFrame::TLSAttributes::onUpdNeedsTLSDef(FXObject* o, FXSelector, void
         o->handle(this, FXSEL(SEL_COMMAND, FXWindow::ID_ENABLE), nullptr);
     } else {
         o->handle(this, FXSEL(SEL_COMMAND, FXWindow::ID_DISABLE), nullptr);
+        // clear E1 detectors
+        if (myE1Detectors.size() > 0) {
+            myE1Detectors.clear();
+            myTLSEditorParent->getViewNet()->update();
+        }
     }
     return 1;
 }
@@ -799,7 +844,7 @@ GNETLSEditorFrame::TLSAttributes::updateE1Detectors() {
         if (myTLSEditorParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveLane(parameter.first, false) &&
             myTLSEditorParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_INDUCTION_LOOP, parameter.second, false)) {
             // add it into list
-            myE1Detectors.insert(parameter.second);
+            myE1Detectors[parameter.first] = parameter.second;
         }
     }
     // update view net

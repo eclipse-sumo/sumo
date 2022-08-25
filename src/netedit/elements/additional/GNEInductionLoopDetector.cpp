@@ -191,7 +191,9 @@ GNEInductionLoopDetector::drawGL(const GUIVisualizationSettings& s) const {
                 (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_TLS));
             const auto &TLSAttributes = myNet->getViewNet()->getViewParent()->getTLSEditorFrame()->getTLSAttributes();
             // check if orange dotted contour must be drawn
-            if (TLSMode && TLSAttributes->isSetDetectorsToogleButtonEnabled() && (TLSAttributes->getE1Detectors().count(getID()) > 0)) {
+            if (TLSMode && TLSAttributes->isSetDetectorsToogleButtonEnabled() && 
+                (TLSAttributes->getE1Detectors().count(getParentLanes().front()->getID()) > 0) &&
+                (TLSAttributes->getE1Detectors().at(getParentLanes().front()->getID()) == getID())) {
                 GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::ORANGE, s, myAdditionalGeometry.getShape().front(), 2, 1, 0, 0, myAdditionalGeometry.getShapeRotations().front(), E1Exaggeration);
             }
         }

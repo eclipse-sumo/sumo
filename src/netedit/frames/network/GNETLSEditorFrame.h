@@ -265,8 +265,11 @@ public:
         /// @brief toogle button for set detectors mode
         bool isSetDetectorsToogleButtonEnabled() const;
 
+        /// @brief add E1 detector in the current TLS
+        bool toggleE1Detector(const GNEAdditional* E1);
+
         /// @brief get E1 detectors vinculated with this TLS
-        const std::set<std::string> &getE1Detectors() const;
+        const std::map<std::string, std::string> &getE1Detectors() const;
 
         /// @name FOX-callbacks
         /// @{
@@ -328,8 +331,8 @@ public:
         /// @brief toogle button for set detectors mode
         FXToggleButton* mySetDetectorsToogleButton = nullptr;
 
-        /// @brief set with E1 detector IDs vinculated with the TLS
-        std::set<std::string> myE1Detectors;
+        /// @brief set with E1 detector IDs and their lanes vinculated with the TLS <laneID, E1ID>
+        std::map<std::string, std::string> myE1Detectors;
     };
 
     // ===========================================================================
