@@ -184,7 +184,7 @@ MSRailSignal::updateCurrentPhase() {
             if (driveway.conflictLaneOccupied() || driveway.conflictLinkApproached()) {
 #ifdef DEBUG_SIGNALSTATE
                 if (gDebugFlag4) {
-                    std::cout << SIMTIME << " rsl=" << li.getID() << " red for default driveway (" << toString(driveway.myRoute) << " conflictLinkApproached=" << driveway.conflictLinkApproached() << "\n";
+                    std::cout << SIMTIME << " rsl=" << li.getID() << " red for default driveway (" << toString(driveway.myRoute) << "\n";
                 }
 #endif
                 state[li.myLink->getTLIndex()] = 'r';
@@ -728,6 +728,11 @@ bool
 MSRailSignal::DriveWay::conflictLinkApproached() const {
     for (MSLink* foeLink : myConflictLinks) {
         if (foeLink->getApproaching().size() > 0) {
+#ifdef DEBUG_SIGNALSTATE
+            if (gDebugFlag4) {
+                std::cout << SIMTIME << " foeLink=" << foeLink->getDescription() << " approachedBy=" << foeLink->getApproaching().begin()->first->getID() << "\n";
+            }
+#endif
             return true;
         }
     }
