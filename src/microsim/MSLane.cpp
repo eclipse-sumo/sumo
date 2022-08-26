@@ -807,7 +807,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
             return false;
         }
     }
-    bool hadRailSignal = false;
+    MSLink* firstRailSignal = nullptr;
 
     // before looping through the continuation lanes, check if a stop is scheduled on this lane
     // (the code is duplicated in the loop)
@@ -831,7 +831,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
     MSLane* currentLane = this;
     MSLane* nextLane = this;
     SUMOTime arrivalTime = MSNet::getInstance()->getCurrentTimeStep() + TIME2STEPS(seen / MAX2(speed, SUMO_const_haltingSpeed));
-    while ((seen < dist || (isRail && !hadRailSignal)) && ri != bestLaneConts.end()) {
+    while ((seen < dist || (isRail && firstRailSignal == nullptr)) && ri != bestLaneConts.end()) {
         // get the next link used...
         std::vector<MSLink*>::const_iterator link = succLinkSec(*aVehicle, nRouteSuccs, *currentLane, bestLaneConts);
         if (currentLane->isLinkEnd(link)) {
@@ -856,7 +856,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
             }
             break;
         }
-        if (isRail && !hadRailSignal) {
+        if (isRail && firstRailSignal == nullptr) {
             std::string constraintInfo;
             bool isInsertionOrder;
             if (MSRailSignal::hasInsertionConstraint(*link, aVehicle, constraintInfo, isInsertionOrder)) {
@@ -871,7 +871,10 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
             }
         }
 
-        hadRailSignal |= (*link)->getTLLogic() != nullptr;
+        // might also by a regular traffic_light instead of a rail_signal
+        if (firstRailSignal == nullptr && (*link)->getTLLogic() != nullptr) {
+            firstRailSignal = *link;
+        }
         if (currentLane == this && notification == MSMoveReminder::NOTIFICATION_DEPARTED
                 && (*link)->getJunction()->getType() == SumoXMLNodeType::RAIL_SIGNAL
                 && MSRailSignal::hasOncomingRailTraffic(*link, aVehicle)) {
@@ -922,7 +925,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
         if (nextLane != nullptr) {
 
             // do not insert if the bidirectional edge is occupied before a railSignal has been encountered
-            if (!hadRailSignal && nextLane->getEdge().getBidiEdge() != nullptr && nextLane->getBidiLane()->getVehicleNumberWithPartials() > 0) {
+            if (firstRailSignal == nullptr && nextLane->getEdge().getBidiEdge() != nullptr && nextLane->getBidiLane()->getVehicleNumberWithPartials() > 0) {
                 if ((aVehicle->getParameter().insertionChecks & (int)InsertionCheck::ONCOMING_TRAIN) != 0) {
                     return false;
                 }
