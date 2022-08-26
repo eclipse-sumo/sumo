@@ -51,6 +51,12 @@ public:
     /// @brief destructor (Called automatically)
     ~GNETLSTable();
 
+    /// @brief Enable table
+    void enable();
+
+    /// @brief Disable table
+    void disable();
+
     /// @frame get pointer to TLSEditorFrame phases parent
     GNETLSEditorFrame::TLSPhases* getTLSPhasesParent() const;
 
@@ -155,7 +161,14 @@ protected:
         /// @brief constructor for menu buttons
         Cell(GNETLSTable* TLSTable, int col, int row);
 
+        /// @brief destructor
         ~Cell();
+
+        /// @brief Enable cell
+        void enable();
+
+        /// @brief Disable cell
+        void disable();
 
         /// @brief check if current cell has focus
         bool hasFocus() const;

@@ -1741,10 +1741,16 @@ GNETLSEditorFrame::TLSPhases::onUpdNeedsDef(FXObject* sender, FXSelector, void*)
     if (myTLSEditorParent->myTLSAttributes->isSetDetectorsToogleButtonEnabled()) {
         // selecting E1, disable buttons
         sender->handle(getCollapsableFrame(), FXSEL(SEL_COMMAND, FXWindow::ID_DISABLE), nullptr);
+        // also disable table
+        myPhaseTable->disable();
     } else if (myTLSEditorParent->myTLSDefinition->getNumberOfTLSDefinitions() > 0) {
         sender->handle(this, FXSEL(SEL_COMMAND, FXWindow::ID_ENABLE), nullptr);
+        // also enable table
+        myPhaseTable->enable();
     } else {
         sender->handle(this, FXSEL(SEL_COMMAND, FXWindow::ID_DISABLE), nullptr);
+        // also disable table
+        myPhaseTable->disable();
     }
     return 1;
 }

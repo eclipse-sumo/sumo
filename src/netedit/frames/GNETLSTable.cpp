@@ -92,6 +92,32 @@ GNETLSTable::~GNETLSTable() {
 }
 
 
+void
+GNETLSTable::enable() {
+    // enable all cells
+    for (const auto &row : myRows) {
+        for (const auto &cell : row->getCells()) {
+            cell->enable();
+        }
+    }
+    // enable horizontal frame
+    FXHorizontalFrame::enable();
+}
+
+
+void 
+GNETLSTable::disable() {
+    // disable all cells
+    for (const auto &row : myRows) {
+        for (const auto &cell : row->getCells()) {
+            cell->disable();
+        }
+    }
+    // disable horizontal frame
+    FXHorizontalFrame::disable();
+}
+
+
 GNETLSEditorFrame::TLSPhases* 
 GNETLSTable::getTLSPhasesParent() const {
     return myTLSPhasesParent;
@@ -697,6 +723,89 @@ GNETLSTable::Cell::~Cell() {
     }
     if (myMenuButtonPopup) {
         delete myMenuButtonPopup;
+    }
+}
+
+void 
+GNETLSTable::Cell::enable() {
+    // enable all elements
+    if (myTextField) {
+        myTextField->enable();
+    }
+    if (myIndexLabel) {
+        myIndexLabel->enable();
+    }
+    if (myIndexLabelBold) {
+        myIndexLabelBold->enable();
+    }
+    if (myButton) {
+        myButton->enable();
+    }
+    if (myAddButton) {
+        myAddButton->enable();
+    }
+    if (myAddPhaseButton) {
+        myAddPhaseButton->enable();
+    }
+    if (myDuplicatePhaseButton) {
+        myDuplicatePhaseButton->enable();
+    }
+    if (myAddAllRedButton) {
+        myAddAllRedButton->enable();
+    }
+    if (myAddAllYellowButton) {
+        myAddAllYellowButton->enable();
+    }
+    if (myAddAllGreenButton) {
+        myAddAllGreenButton->enable();
+    }
+    if (myAddAllGreenPriorityButton) {
+        myAddAllGreenPriorityButton->enable();
+    }
+    if (myMenuButtonPopup) {
+        myMenuButtonPopup->enable();
+    }
+}
+
+
+void 
+GNETLSTable::Cell::disable() {
+    // disable all elements
+    if (myTextField) {
+        myTextField->disable();
+    }
+    if (myIndexLabel) {
+        myIndexLabel->disable();
+    }
+    if (myIndexLabelBold) {
+        myIndexLabelBold->disable();
+    }
+    if (myButton) {
+        myButton->disable();
+    }
+    if (myAddButton) {
+        myAddButton->disable();
+    }
+    if (myAddPhaseButton) {
+        myAddPhaseButton->disable();
+    }
+    if (myDuplicatePhaseButton) {
+        myDuplicatePhaseButton->disable();
+    }
+    if (myAddAllRedButton) {
+        myAddAllRedButton->disable();
+    }
+    if (myAddAllYellowButton) {
+        myAddAllYellowButton->disable();
+    }
+    if (myAddAllGreenButton) {
+        myAddAllGreenButton->disable();
+    }
+    if (myAddAllGreenPriorityButton) {
+        myAddAllGreenPriorityButton->disable();
+    }
+    if (myMenuButtonPopup) {
+        myMenuButtonPopup->disable();
     }
 }
 
