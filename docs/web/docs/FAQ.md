@@ -1017,6 +1017,11 @@ will generate timeLoss statistics for all runs
 
 ## Visualization
 
+### How can I get satellite / aerial background images for my simulation
+
+The [osmWebWizard](Tutorials/OSMWebWizard.md) tool provides the simples solution to obtain a scenario with background images.
+Selecting the checkbox 'Satellite background' before generating the scenario is sufficient. To select another image provider, the tool [tileGet.py](Tools/Misc.md#tilegetpy) can also be used.
+
 ### sumo-gui breaks
 
   Sometimes [sumo-gui](sumo-gui.md) terminates with no reason.
