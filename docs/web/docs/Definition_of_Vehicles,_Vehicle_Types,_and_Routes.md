@@ -93,7 +93,7 @@ A vehicle may be defined using the following attributes:
 | reroute         | bool                                                                          | Whether the vehicle should be equipped with a [rerouting device](Demand/Automatic_Routing.md) (setting this to *false* does not take precedence over other assignment options)                                                                           |
 | via             | id list                                                                       | List of intermediate edges that shall be passed on [rerouting](Simulation/Routing.md#features_that_cause_rerouting) <br><br>**Note:** when via is not set, any `<stop>`-elements that belong to this route will automatically be used as intermediate edges. Otherwise via takes precedence.                                                                                                                                     |
 | departPosLat    | float(m)/string ("random", "free", "random_free", "left", "right", "center") | The lateral position on the departure lane at which the vehicle shall enter the net; see [Simulation/SublaneModel](Simulation/SublaneModel.md). *default: "center"*                                                                                      |
-| arrivalPosLat   | float(m)/string ("left", "right", "center")                                   | The lateral position on the arrival lane at which the vehicle shall arrive; see [Simulation/SublaneModel](Simulation/SublaneModel.md). by default the vehicle does not care about lateral arrival position                                               |
+| arrivalPosLat   | float(m)/string ("default", "left", "right", "center")                                   | The lateral position on the arrival lane at which the vehicle shall arrive; see [Simulation/SublaneModel](Simulation/SublaneModel.md). by default the vehicle does not care about lateral arrival position                                               |
 | speedFactor   | float > 0                                   | Sets custom speedFactor (factor on road speed limit) and overrides the [speedFactor distribution](#speed_distributions) of the vehicle type                                               |
 | insertionChecks  | string list  |  Sets the list of safety checks to perform during vehicle insertion. Possible values are: `all`, `none`, `collision`, `leaderGap`, `followerGap`, `junction`, `stop`, `arrivalSpeed`, `oncomingTrain`, `speedLimit`, `pedestrians`. default *all* |
 
@@ -340,7 +340,19 @@ Determines the edge along the vehicles route where the vehicle enters the networ
 !!! note
     The attribute `departEdge` is ignored for `<trip>`s and for `<flow>` that do not use attribute `route` and do not define the child element `<route>`.
     
-    
+### departPosLat
+
+The lateral position on the departure lane at which the vehicle enters the network. Defaults to 0
+
+- FLOAT: the offset from the center of the line, a positive value indicates an offset to the right (in right-hand networks).
+- `"random"`: a random position within the lane is chosen; it is not retried to insert the
+vehicle if the first try fails
+- `"free"`: a free position (if existing) is used
+- `"random_free"`: at first, ten random positions are tried, if all fail, "free" is applied
+- `"center"`: center of the lane (offset 0). *This is the default*
+- `"left"`: touching the left border of the lane
+- `"right"`: tourching the right border of the lane
+                  |
 ### arrivalLane
 
 Determines the lane on which the vehicle should end it's route
@@ -384,6 +396,16 @@ Determines the edge along the vehicles route where the vehicle leaves the networ
 
 !!! note
     The attribute `arrivalEdge` is ignored for `<trip>`s and for `<flow>` that do not use attribute `route` and do not define the child element `<route>`.
+
+### arrivalPosLat
+
+The lateral position on the departure lane at which the vehicle tries to finish its route
+
+- FLOAT: the offset from the center of the line, a positive value indicates an offset to the right (in right-hand networks).
+- `"default"`: the vehicle may arrive at an arbitrary offset
+- `"center"`: center of the lane (offset 0). *This is the default*
+- `"left"`: touching the left border of the lane
+- `"right"`: tourching the right border of the lane
 
 # Vehicle Types
 
