@@ -806,8 +806,10 @@ GNETLSEditorFrame::TLSAttributes::onCmdSetDetectorMode(FXObject*, FXSelector, vo
 long
 GNETLSEditorFrame::TLSAttributes::onUpdSetDetectorMode(FXObject*, FXSelector, void*) {
     if (myTLSEditorParent->myTLSDefinition->getNumberOfTLSDefinitions() == 0) {
+        mySetDetectorsToogleButton->setState(FALSE, TRUE);
         mySetDetectorsToogleButton->disable();
     } else if (myTLSEditorParent->myTLSDefinition->getCurrentTLSDefinition()->getType() == TrafficLightType::STATIC) {
+        mySetDetectorsToogleButton->setState(FALSE, TRUE);
         mySetDetectorsToogleButton->disable();
     } else {
         mySetDetectorsToogleButton->enable();
