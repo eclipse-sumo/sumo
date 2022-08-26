@@ -34,6 +34,9 @@ FXIMPLEMENT(MFXTextFieldTooltip, FXTextField, MFXTextFieldTooltipMap, ARRAYNUMBE
 MFXTextFieldTooltip::MFXTextFieldTooltip(FXComposite* p, FXint ncols, FXObject* tgt, FXSelector sel,
         FXuint opts, FXint x, FXint y, FXint w, FXint h, FXint pl, FXint pr, FXint pt, FXint pb) :
     FXTextField(p, ncols, tgt, sel, opts, x, y, w, h, pl, pr, pt, pb) {
+    myStaticToolTip = new MFXStaticToolTip(getApp());
+    myStaticToolTip->create();
+    myStaticToolTip->hide();
 }
 
 
@@ -48,11 +51,6 @@ MFXTextFieldTooltip::setToolTipText(const FXString &toolTip) {
 
 long
 MFXTextFieldTooltip::onEnter(FXObject* sender, FXSelector sel, void* ptr) {
-    // create on first enter
-    if (myStaticToolTip == nullptr) {
-        myStaticToolTip = new MFXStaticToolTip(getApp());
-        myStaticToolTip->create();
-    }
     // check if show toolTip text
     if (!myToolTipText.empty()) {
         // show toolTip text
