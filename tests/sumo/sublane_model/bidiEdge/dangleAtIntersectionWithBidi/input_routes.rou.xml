@@ -1,0 +1,11 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="Easymiles.0" type="AV_Easymile" depart="501.700" line="Easymile" departPos="95.47" departSpeed="2.95">
+        <route edges="a -b"/>
+	</vehicle>
+    <vehicle id="bike9" type="bike_bicycle" depart="501.700" departLane="0" departPos="138.25" departSpeed="5.31">
+        <route edges="b -c"/>
+    </vehicle>		
+    <vehicle id="ped29" type="bike_bicycle" depart="501.700" departLane="0" departPos="1.96" departSpeed="1.07">
+        <route edges="c -d -e"/>
+    </vehicle>
+</routes>

@@ -1,3 +1,7 @@
+# intersection connected with bidi-edges and walking path, 1 shuttle (customized vehicle). 1 bike and 1 pedestrian
+# Check if the bike and the shuttle dangle until being teleported when they meet each other at the intersection.
+dangleAtIntersectionWithBidi
+
 # two consecutive pairs of bidi-edges (between normal edges), 1 vehicle and 2 bikes
 # Check if a vehicle wiggles when bikes are passing by.
 bikePassingWithoutWiggledVeh
