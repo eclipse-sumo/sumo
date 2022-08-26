@@ -137,6 +137,11 @@ public:
     * @see MSTrafficLightLogic::getPhase
     */
     const MSPhaseDefinition& getPhase(int givenstep) const;
+
+    /// @brief whether the given link index ever turns 'G'
+    bool getsMajorGreen(int /*linkIndex*/) const override {
+        return true;
+    }
     /// @}
 
 
