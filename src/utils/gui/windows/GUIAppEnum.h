@@ -984,8 +984,12 @@ enum {
     MID_GNE_CREATEEDGEFRAME_ADD,
     /// @brief delete edge type
     MID_GNE_CREATEEDGEFRAME_DELETE,
-    /// @brief delete edge type
-    MID_GNE_CREATEEDGEFRAME_SELECT,
+    /// @brief select default edge type
+    MID_GNE_CREATEEDGEFRAME_SELECTDEFAULT,
+    /// @brief select edge template
+    MID_GNE_CREATEEDGEFRAME_SELECTTEMPLATE,
+    /// @brief select lane (used for default and template edges)
+    MID_GNE_CREATEEDGEFRAME_SELECTLANE,
     /// @brief create edge type from template
     MID_GNE_CREATEEDGEFRAME_CREATEFROMTEMPLATE,
 

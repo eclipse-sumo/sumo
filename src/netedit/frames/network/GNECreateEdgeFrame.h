@@ -94,8 +94,8 @@ public:
         /// @brief Called when the user press button for delete edge type
         long onCmdDeleteEdgeType(FXObject*, FXSelector, void*);
 
-        /// @brief Called when the user press select an edgeType in comboBox
-        long onCmdSelectEdgeType(FXObject*, FXSelector, void*);
+        /// @brief Called when the user press select an edgeType or template in comboBox
+        long onCmdSelectEdgeTypeOrTemplate(FXObject*, FXSelector, void*);
 
         /// @brief Called when the user press create edgeType from Template
         long onCmdCreateFromTemplate(FXObject*, FXSelector, void*);
@@ -124,6 +124,9 @@ public:
 
         /// @brief create default edge
         FXRadioButton* myUseDefaultEdgeType = nullptr;
+
+        /// @brief ComboBox for default edge types
+        FXComboBox* myDefaultEdgeComboBox = nullptr;
 
         /// @brief create custom edge
         FXRadioButton* myUseCustomEdgeType = nullptr;
