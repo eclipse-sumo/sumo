@@ -519,6 +519,9 @@ public:
     /// @brief ask about change supermode
     bool aksChangeSupermode(const std::string& operation, Supermode expectedSupermode);
 
+    /// @brief check if we're seleting detectors in TLS mode
+    bool selectingDetectorsTLSMode() const;
+
 protected:
     /// @brief FOX needs this
     GNEViewNet();

@@ -135,12 +135,8 @@ GNEInstantInductionLoopDetector::updateGeometry() {
 
 void
 GNEInstantInductionLoopDetector::drawGL(const GUIVisualizationSettings& s) const {
-    // check if we're selecting TLS
-    const bool TLSMode = (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() && 
-        (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_TLS));
-    const bool selectingDetectors = myNet->getViewNet()->getViewParent()->getTLSEditorFrame()->getTLSAttributes()->isSetDetectorsToogleButtonEnabled();
-    // first check if additional has to be drawn
-    if (myNet->getViewNet()->getDataViewOptions().showAdditionals() && !(TLSMode && selectingDetectors)) {
+    // check if additional has to be drawn
+    if (myNet->getViewNet()->getDataViewOptions().showAdditionals() && !myNet->getViewNet()->selectingDetectorsTLSMode()) {
         // Obtain exaggeration of the draw
         const double E1InstantExaggeration = getExaggeration(s);
         // check exaggeration

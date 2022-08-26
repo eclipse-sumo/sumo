@@ -764,6 +764,14 @@ GNEViewNet::aksChangeSupermode(const std::string& operation, Supermode expectedS
 }
 
 
+bool 
+GNEViewNet::selectingDetectorsTLSMode() const {
+    const bool TLSMode = (myEditModes.isCurrentSupermodeNetwork() && (myEditModes.networkEditMode == NetworkEditMode::NETWORK_TLS));
+    const bool selectingDetectors = myViewParent->getTLSEditorFrame()->getTLSAttributes()->isSetDetectorsToogleButtonEnabled();
+    return (TLSMode && selectingDetectors);
+}
+
+
 GNEViewNet::GNEViewNet() :
     myEditModes(this, false),
     myTestingMode(this),

@@ -272,13 +272,9 @@ GNELaneAreaDetector::updateGeometry() {
 
 void
 GNELaneAreaDetector::drawGL(const GUIVisualizationSettings& s) const {
-    // check if we're selecting TLS
-    const bool TLSMode = (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() && 
-        (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_TLS));
-    const bool selectingDetectors = myNet->getViewNet()->getViewParent()->getTLSEditorFrame()->getTLSAttributes()->isSetDetectorsToogleButtonEnabled();
-    // first check if additional has to be drawn
+    // check if additional has to be drawn
     if ((myTagProperty.getTag() == SUMO_TAG_LANE_AREA_DETECTOR) && myNet->getViewNet()->getDataViewOptions().showAdditionals() && 
-        !(TLSMode && selectingDetectors)) {
+        !myNet->getViewNet()->selectingDetectorsTLSMode()) {
         // Obtain exaggeration of the draw
         const double E2Exaggeration = getExaggeration(s);
         // check exaggeration
@@ -346,14 +342,11 @@ GNELaneAreaDetector::computePathElement() {
 
 void
 GNELaneAreaDetector::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* segment, const double offsetFront) const {
-    // check if we're selecting TLS
-    const bool TLSMode = (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() && 
-        (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_TLS));
-    const bool selectingDetectors = myNet->getViewNet()->getViewParent()->getTLSEditorFrame()->getTLSAttributes()->isSetDetectorsToogleButtonEnabled();
     // calculate E2Detector width
     const double E2DetectorWidth = s.addSize.getExaggeration(s, lane);
     // check if E2 can be drawn
-    if (s.drawAdditionals(E2DetectorWidth) && myNet->getViewNet()->getDataViewOptions().showAdditionals() && !(TLSMode && selectingDetectors)) {
+    if (s.drawAdditionals(E2DetectorWidth) && myNet->getViewNet()->getDataViewOptions().showAdditionals() && 
+        !myNet->getViewNet()->selectingDetectorsTLSMode()) {
         // calculate startPos
         const double geometryDepartPos = getAttributeDouble(SUMO_ATTR_POSITION);
         // get endPos
@@ -447,14 +440,10 @@ GNELaneAreaDetector::drawPartialGL(const GUIVisualizationSettings& s, const GNEL
 
 void
 GNELaneAreaDetector::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const GNEPathManager::Segment* /*segment*/, const double offsetFront) const {
-    // check if we're selecting TLS
-    const bool TLSMode = (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() && 
-        (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_TLS));
-    const bool selectingDetectors = myNet->getViewNet()->getViewParent()->getTLSEditorFrame()->getTLSAttributes()->isSetDetectorsToogleButtonEnabled();
     // calculate E2Detector width
     const double E2DetectorWidth = s.addSize.getExaggeration(s, fromLane);
     // check if E2 can be drawn
-    if (s.drawAdditionals(E2DetectorWidth) && myNet->getViewNet()->getDataViewOptions().showAdditionals() && !(TLSMode && selectingDetectors)) {
+    if (s.drawAdditionals(E2DetectorWidth) && myNet->getViewNet()->getDataViewOptions().showAdditionals() && !myNet->getViewNet()->selectingDetectorsTLSMode()) {
         // get flag for show only contour
         const bool onlyContour = myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() ? myNet->getViewNet()->getNetworkViewOptions().showConnections() : false;
         // Start drawing adding an gl identificator

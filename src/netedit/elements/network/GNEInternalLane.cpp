@@ -136,26 +136,29 @@ GNEInternalLane::onDefault(FXObject* obj, FXSelector sel, void* data) {
 
 void
 GNEInternalLane::drawGL(const GUIVisualizationSettings& s) const {
-    // push name
-    GLHelper::pushName(getGlID());
-    // push layer matrix
-    GLHelper::pushMatrix();
-    // translate to front
-    myEditor->getViewNet()->drawTranslateFrontAttributeCarrier(myJunctionParent, GLO_TLLOGIC);
-    // move front again
-    glTranslated(0, 0, 0.5);
-    // set color
-    GLHelper::setColor(colorForLinksState(myState));
-    // draw lane checking whether it is not too small
-    if (s.scale < 1.) {
-        GLHelper::drawLine(myInternalLaneGeometry.getShape());
-    } else {
-        GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myInternalLaneGeometry, 0.2);
+    // only draw if we're not selecting E1 detectors in TLS Mode
+    if (!myNet->getViewNet()->selectingDetectorsTLSMode()) {
+        // push name
+        GLHelper::pushName(getGlID());
+        // push layer matrix
+        GLHelper::pushMatrix();
+        // translate to front
+        myEditor->getViewNet()->drawTranslateFrontAttributeCarrier(myJunctionParent, GLO_TLLOGIC);
+        // move front again
+        glTranslated(0, 0, 0.5);
+        // set color
+        GLHelper::setColor(colorForLinksState(myState));
+        // draw lane checking whether it is not too small
+        if (s.scale < 1.) {
+            GLHelper::drawLine(myInternalLaneGeometry.getShape());
+        } else {
+            GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myInternalLaneGeometry, 0.2);
+        }
+        // pop layer matrix
+        GLHelper::popMatrix();
+        // pop name
+        GLHelper::popName();
     }
-    // pop layer matrix
-    GLHelper::popMatrix();
-    // pop name
-    GLHelper::popName();
 }
 
 

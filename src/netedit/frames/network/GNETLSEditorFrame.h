@@ -265,8 +265,8 @@ public:
         /// @brief toogle button for set detectors mode
         bool isSetDetectorsToogleButtonEnabled() const;
 
-        /// @brief add E1 detector in the current TLS
-        bool toggleE1Detector(const GNEAdditional* E1);
+        /// @brief select or unselect E1 detector in the current TLS
+        bool toggleE1DetectorSelection(const GNEAdditional* E1);
 
         /// @brief get E1 detectors vinculated with this TLS
         const std::map<std::string, std::string> &getE1Detectors() const;

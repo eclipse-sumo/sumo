@@ -169,11 +169,8 @@ GNEMultiEntryExitDetector::getParentName() const {
 
 void
 GNEMultiEntryExitDetector::drawGL(const GUIVisualizationSettings& s) const {
-    // check if we're selecting TLS
-    const bool TLSMode = (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() && 
-        (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_TLS));
-    const bool selectingDetectors = myNet->getViewNet()->getViewParent()->getTLSEditorFrame()->getTLSAttributes()->isSetDetectorsToogleButtonEnabled();
-    if (!(TLSMode && selectingDetectors)) {
+    // check if drawn
+    if (!myNet->getViewNet()->selectingDetectorsTLSMode()) {
         // draw parent and child lines
         drawParentChildLines(s, s.additionalSettings.connectionColor);
         // draw E3

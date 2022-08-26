@@ -169,9 +169,9 @@ GNETLSEditorFrame::editTLS(const Position& clickedPosition, const GNEViewNetHelp
         }
         // set junction
         editJunction(objectsUnderCursor.getJunctionFront());
-    } else if (objectsUnderCursor.getAdditionalFront() && (objectsUnderCursor.getAdditionalFront()->getTagProperty().getTag() == SUMO_TAG_INDUCTION_LOOP) &&
-               myTLSAttributes->isSetDetectorsToogleButtonEnabled()) {
-        myTLSAttributes->toggleE1Detector(objectsUnderCursor.getAdditionalFront());
+    } else if (objectsUnderCursor.getAdditionalFront() && myTLSAttributes->isSetDetectorsToogleButtonEnabled() &&
+               (objectsUnderCursor.getAdditionalFront()->getTagProperty().getTag() == SUMO_TAG_INDUCTION_LOOP)) {
+        myTLSAttributes->toggleE1DetectorSelection(objectsUnderCursor.getAdditionalFront());
     } else {
         myViewNet->setStatusBarText("Click over a junction to edit a TLS");
     }
@@ -550,7 +550,7 @@ GNETLSEditorFrame::TLSAttributes::TLSAttributes(GNETLSEditorFrame* TLSEditorPare
     myButtonEditParameters->disable();
     myParametersTextField->disable();
     // create Checkable button
-    mySetDetectorsToogleButton = new FXToggleButton(getCollapsableFrame(), "Set detectors mode", "Set detectors mode", 
+    mySetDetectorsToogleButton = new FXToggleButton(getCollapsableFrame(), "Assign E1 detectors", "Assign E1 detectors", 
         GUIIconSubSys::getIcon(GUIIcon::E1), GUIIconSubSys::getIcon(GUIIcon::E1), this, MID_GNE_TLSFRAME_ATTRIBUTES_SETDETECTOR, GUIDesignButton);
 }
 
@@ -665,7 +665,7 @@ GNETLSEditorFrame::TLSAttributes::isSetDetectorsToogleButtonEnabled() const {
 
 
 bool
-GNETLSEditorFrame::TLSAttributes::toggleE1Detector(const GNEAdditional* E1) {
+GNETLSEditorFrame::TLSAttributes::toggleE1DetectorSelection(const GNEAdditional* E1) {
     // get E1 lane ID
     const auto laneID = E1->getParentLanes().front()->getID();
     // iterate over all E1 detectors
