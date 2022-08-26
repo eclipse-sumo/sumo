@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-08-26 08:48:52 by Eclipse SUMO polyconvert Version v1_14_1+0556-8542f08
+<!-- generated on 2022-08-26 09:13:59 by Eclipse SUMO polyconvert Version v1_14_1+0557-a30552f
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -25,6 +25,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <pruning>
         <prune.in-net value="true"/>
+        <prune.in-net.offsets value="0,-300,0,-300"/>
     </pruning>
 
     <report>
@@ -38,11 +39,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <location netOffset="-299345.66,-5809365.64" convBoundary="0.00,-63.24,103574.88,3921.44" origBoundary="13.364829,52.424979,13.572192,52.459586" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
-    <poi id="115543889" type="amenity" color="237,199,199" layer="4.00" x="100765.49" y="490.94"/>
-    <poi id="115544715" type="amenity" color="237,199,199" layer="4.00" x="100741.39" y="467.93"/>
     <poi id="115546494" type="amenity" color="237,199,199" layer="4.00" x="100712.70" y="443.59"/>
     <poi id="289593483" type="amenity" color="237,199,199" layer="4.00" x="100890.21" y="375.84"/>
     <poi id="289631159" type="amenity" color="237,199,199" layer="4.00" x="100770.88" y="370.52"/>
-    <poi id="294830283" type="parking" color="184,184,179" layer="4.00" x="100945.51" y="478.40"/>
-    <poi id="294831640" type="parking" color="184,184,179" layer="4.00" x="100522.64" y="266.87"/>
 </additional>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-01-28 11:30:23 by Eclipse SUMO polyconvert Version v1_12_0+0087-1185162ac9e
+<!-- generated on 2022-08-26 09:15:51 by Eclipse SUMO polyconvert Version v1_14_1+0557-a30552f
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/polyconvertConfiguration.xsd">
@@ -60,7 +60,7 @@
 
     <pruning>
         <prune.in-net value="false" synonymes="prune.on-net" type="BOOL" help="Enables pruning on net boundaries"/>
-        <prune.in-net.offsets value="0,0,0,0" synonymes="prune.on-net.offsets" type="STR" help="Uses STR as offset definition added to the net boundaries"/>
+        <prune.in-net.offsets value="0,0,0,0" synonymes="prune.on-net.offsets" type="STR" help="Uses FLOAT,FLOAT,FLOAT,FLOAT as offset definition added to the net boundary. Positive values grow the boundary on all sides while negative values shrink it."/>
         <prune.boundary value="" type="STR" help="Uses STR as pruning boundary"/>
         <prune.keep-list value="" synonymes="prune.ignore prune.keep" type="STR" help="Items in STR will be kept though out of boundary"/>
         <prune.explicit value="" synonymes="remove" type="STR[]" help="Items with names in STR[] will be removed"/>

@@ -1,4 +1,4 @@
-Eclipse SUMO polyconvert Version v1_12_0+0087-1185162ac9e
+Eclipse SUMO polyconvert Version v1_14_1+0557-a30552f
  Copyright (C) 2001-2022 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Importer of polygons and POIs for the microscopic, multi-modal traffic
  simulation SUMO.
@@ -83,8 +83,10 @@ Projection Options:
 
 Pruning Options:
   --prune.in-net                    Enables pruning on net boundaries
-  --prune.in-net.offsets STR        Uses STR as offset definition added to the
-                                     net boundaries
+  --prune.in-net.offsets STR        Uses FLOAT,FLOAT,FLOAT,FLOAT as offset
+                                     definition added to the net boundary.
+                                     Positive values grow the boundary on all
+                                     sides while negative values shrink it.
   --prune.boundary STR              Uses STR as pruning boundary
   --prune.keep-list STR             Items in STR will be kept though out of
                                      boundary
