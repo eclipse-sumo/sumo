@@ -238,7 +238,7 @@ public:
     /// update driveway for extended deadlock protection
     void updateDriveway(int numericalID);
 
-    static bool hasOncomingRailTraffic(MSLink* link);
+    static bool hasOncomingRailTraffic(MSLink* link, const MSVehicle* veh);
     static bool hasInsertionConstraint(MSLink* link, const MSVehicle* veh, std::string& info, bool& isInsertionOrder);
 
     /// @brief final check for driveway compatibility of signals that switched green in this step
@@ -319,6 +319,8 @@ protected:
          * until protection or conflict is found
          */
         std::vector<MSLink*> myProtectingSwitches;
+        /// @brief subset of myProtectingSwitches that protects from oncoming trains
+        std::vector<MSLink*> myProtectingSwitchesBidi;
 
         /* The conflict links for this block
          * Conflict resolution must be performed if vehicles are approaching the

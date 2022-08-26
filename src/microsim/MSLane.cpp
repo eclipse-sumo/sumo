@@ -870,8 +870,21 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
                 return false;
             }
         }
-        hadRailSignal |= (*link)->getTLLogic() != nullptr;
 
+        hadRailSignal |= (*link)->getTLLogic() != nullptr;
+        if (currentLane == this && notification == MSMoveReminder::NOTIFICATION_DEPARTED
+                && (*link)->getJunction()->getType() == SumoXMLNodeType::RAIL_SIGNAL
+                && MSRailSignal::hasOncomingRailTraffic(*link, aVehicle)) {
+            // allow guarding bidirectional tracks at the network border with railSignal
+#ifdef DEBUG_INSERTION
+            if (DEBUG_COND2(aVehicle) || DEBUG_COND) {
+                std::cout << " oncoming rail traffic at link " << (*link)->getDescription() << "\n";
+            }
+#endif
+            if ((aVehicle->getParameter().insertionChecks & (int)InsertionCheck::ONCOMING_TRAIN) != 0) {
+                return false;
+            }
+        }
         if (!(*link)->opened(arrivalTime, speed, speed, aVehicle->getVehicleType().getLength(), aVehicle->getImpatience(),
                              cfModel.getMaxDecel(), 0, posLat, nullptr, false, aVehicle)
                 || !(*link)->havePriority()) {
@@ -901,17 +914,6 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
                           << "\n";
             }
 #endif
-            if (currentLane == this && notification == MSMoveReminder::NOTIFICATION_DEPARTED && MSRailSignal::hasOncomingRailTraffic(*link)) {
-                // allow guarding bidirectional tracks at the network border with railSignal
-#ifdef DEBUG_INSERTION
-                if (DEBUG_COND2(aVehicle) || DEBUG_COND) {
-                    std::cout << " oncoming rail traffic at link " << (*link)->getDescription() << "\n";
-                }
-#endif
-                if ((aVehicle->getParameter().insertionChecks & (int)InsertionCheck::ONCOMING_TRAIN) != 0) {
-                    return false;
-                }
-            }
             break;
         }
         // get the next used lane (including internal)
