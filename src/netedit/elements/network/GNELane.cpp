@@ -555,8 +555,6 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
             if ((s.scale >= 10) && !s.drawForRectangleSelection && !s.drawForPositionSelection) {
                 // draw markings
                 drawMarkings(s, laneDrawingConstants.exaggeration, drawRailway);
-                // draw arrows
-                drawArrows(s, spreadSuperposed);
                 // Draw direction indicators
                 drawDirectionIndicators(s, laneDrawingConstants.exaggeration, drawRailway, spreadSuperposed);
             }
@@ -574,6 +572,22 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
         }
         // Pop layer matrix
         GLHelper::popMatrix();
+        // only draw details depending of the scale and if isn't being drawn for selecting
+        if (((s.scale * laneDrawingConstants.exaggeration) >= 1.) && (s.scale >= 10) && !s.drawForRectangleSelection && !s.drawForPositionSelection) {
+            // Push layer matrix
+            GLHelper::pushMatrix();
+            // translate to front (note: Special case)
+            if (myNet->getViewNet()->getFrontAttributeCarrier() == myParentEdge) {
+                glTranslated(0, 0, GLO_DOTTEDCONTOUR_FRONT);
+            } else {
+                myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_LANEARROWS);
+            }
+            // draw arrows
+            drawArrows(s, spreadSuperposed);
+            // Pop layer matrix
+            GLHelper::popMatrix();
+        }
+
         // if shape is being edited, draw point and green line
         if (myShapeEdited) {
             // push shape edited matrix

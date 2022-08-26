@@ -92,6 +92,8 @@ StringBijection<GUIGlObjectType>::Entry GUIGlObject::GUIGlObjectTypeNamesInitial
     {"wire",                    GLO_WIRE},
     {"tractionsubstation",      GLO_TRACTIONSUBSTATION},
     //
+    {"laneArrows",              GLO_LANEARROWS},
+    //
     {"shape",                   GLO_SHAPE},
     {"polygon",                 GLO_POLYGON},
     {"poi",                     GLO_POI},

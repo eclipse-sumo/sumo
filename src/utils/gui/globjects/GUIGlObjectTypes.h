@@ -131,6 +131,9 @@ enum GUIGlObjectType {
 
     /// @}
 
+    /// @brief lane details
+    GLO_LANEARROWS = 190,
+
     /// @name shape elements
     /// @{
 
