@@ -88,7 +88,7 @@ def get_long_option_names(application):
     return result
 
 
-def assign_prefixed_options(args):
+def assign_prefixed_options(args, allowed_programs):
     prefixed_options = {}
     remaining = []
     consumed = False
@@ -100,14 +100,17 @@ def assign_prefixed_options(args):
             separator_index = arg.find('-', 2)
             if separator_index != -1:
                 program = arg[2:separator_index]
-                try:
-                    if '--' in args[arg_index+1]:
-                        raise NotImplementedError()
-                    option = [arg[separator_index+1:], args[arg_index+1]]
-                except(IndexError, NotImplementedError):
-                    raise NotImplementedError("Please amend prefixed argument %s with a value." % arg)
-                prefixed_options.setdefault(program, []).append(option)
-                consumed = True
+                if program not in allowed_programs:
+                    consumed = False
+                else:
+                    try:
+                        if '--' in args[arg_index+1]:
+                            raise NotImplementedError()
+                        option = [arg[separator_index+1:], args[arg_index+1]]
+                    except(IndexError, NotImplementedError):
+                        raise NotImplementedError("Please amend prefixed argument %s with a value." % arg)
+                    prefixed_options.setdefault(program, []).append(option)
+                    consumed = True
         if not consumed:
             remaining.append(arg)
     return prefixed_options, remaining
@@ -301,11 +304,9 @@ class ArgumentParser(argparse.ArgumentParser):
         #    args, config_args, pos_args, combined_args, namespace.remaining_args, unknown_args))
 
         namespace_as_dict = deepcopy(vars(namespace))
-        namespace._prefixed_options, remaining_args = assign_prefixed_options(unknown_args)
+        namespace._prefixed_options, remaining_args = assign_prefixed_options(unknown_args, self._allowed_programs)
 
         for program in namespace._prefixed_options:
-            if program not in self._allowed_programs:
-                raise ValueError("The program '%s' (passed in a argument) isn't recognized." % program)
             prefixed_options = deepcopy(namespace._prefixed_options[program])
             for option in prefixed_options:
                 option[0] = program + '-' + option[0]
