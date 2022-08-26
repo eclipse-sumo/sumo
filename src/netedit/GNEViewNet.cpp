@@ -4927,15 +4927,13 @@ GNEViewNet::drawTemporalRoundabout() const {
 void 
 GNEViewNet::drawTemporalE1TLSLines() const {
     // check conditions
-    if (myEditModes.isCurrentSupermodeNetwork() && (myEditModes.networkEditMode == NetworkEditMode::NETWORK_TLS) &&
-        (myViewParent->getTLSEditorFrame()->getTLSJunction()->getCurrentJunction() != nullptr) &&
-        myViewParent->getTLSEditorFrame()->getTLSAttributes()->isSetDetectorsToogleButtonEnabled()) {
+    if (selectingDetectorsTLSMode() && (myViewParent->getTLSEditorFrame()->getTLSJunction()->getCurrentJunction() != nullptr)) {
         // get junction
         const auto junctionPos = myViewParent->getTLSEditorFrame()->getTLSJunction()->getCurrentJunction()->getNBNode()->getPosition();
         // push layer matrix
         GLHelper::pushMatrix();
         // translate to TLLogic
-        glTranslated(0, 0, GLO_TLLOGIC);
+        glTranslated(0, 0, GLO_TEMPORALSHAPE);
         // iterate over all E1 detectors
         for (const auto &E1ID : myViewParent->getTLSEditorFrame()->getTLSAttributes()->getE1Detectors()) {
             // first check if E1 exists
@@ -4945,7 +4943,7 @@ GNEViewNet::drawTemporalE1TLSLines() const {
                 GLHelper::pushMatrix();
                 // draw line between junction and E1
                 GUIGeometry::drawChildLine(*myVisualizationSettings, junctionPos, E1->getPositionInView(),
-                                           myVisualizationSettings->additionalSettings.connectionColor, true);
+                                           myVisualizationSettings->additionalSettings.E1TLSConnectionColor, true, 0.25);
                 // pop line matrix
                 GLHelper::popMatrix();
             }

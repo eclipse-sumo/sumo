@@ -639,7 +639,7 @@ GNEAdditional::drawParentChildLines(const GUIVisualizationSettings& s, const RGB
         // draw parent lines
         GUIGeometry::drawParentLine(s, getPositionInView(), parent->getPositionInView(),
                                     (isAttributeCarrierSelected() || parent->isAttributeCarrierSelected()) ? s.additionalSettings.connectionColorSelected : color,
-                                    currentDrawEntire || inspected || parent->isAttributeCarrierSelected());
+                                    currentDrawEntire || inspected || parent->isAttributeCarrierSelected(), .05);
     }
     // special case for Parking area reroutes
     if (getTagProperty().getTag() == SUMO_TAG_REROUTER) {
@@ -654,7 +654,7 @@ GNEAdditional::drawParentChildLines(const GUIVisualizationSettings& s, const RGB
                     // draw parent lines
                     GUIGeometry::drawParentLine(s, getPositionInView(), parkingArea->getPositionInView(),
                                                 (isAttributeCarrierSelected() || parkingArea->isAttributeCarrierSelected()) ? s.additionalSettings.connectionColorSelected : color,
-                                                currentDrawEntire || inspected || parkingArea->isAttributeCarrierSelected());
+                                                currentDrawEntire || inspected || parkingArea->isAttributeCarrierSelected(), .05);
                 }
             }
         }
@@ -668,12 +668,12 @@ GNEAdditional::drawParentChildLines(const GUIVisualizationSettings& s, const RGB
             // draw child line between parking area and rerouter
             GUIGeometry::drawChildLine(s, getPositionInView(), child->getParentAdditionals().front()->getParentAdditionals().front()->getPositionInView(),
                                        (isAttributeCarrierSelected() || child->isAttributeCarrierSelected()) ? s.additionalSettings.connectionColorSelected : color,
-                                       currentDrawEntire || inspected || child->isAttributeCarrierSelected());
+                                       currentDrawEntire || inspected || child->isAttributeCarrierSelected(), .05);
         } else if (!onlySymbols || child->getTagProperty().isSymbol()) {
             // draw child line
             GUIGeometry::drawChildLine(s, getPositionInView(), child->getPositionInView(),
                                        (isAttributeCarrierSelected() || child->isAttributeCarrierSelected()) ? s.additionalSettings.connectionColorSelected : color,
-                                       currentDrawEntire || inspected || child->isAttributeCarrierSelected());
+                                       currentDrawEntire || inspected || child->isAttributeCarrierSelected(), .05);
         }
     }
     // pop layer matrix
