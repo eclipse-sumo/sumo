@@ -133,25 +133,25 @@ class junction:
 
 class edge:
     class create:
-        numLanes = 5
-        speed = 6
-        allowButton = 7
-        allow = 8
-        disallowButton = 9
-        disallow = 10
-        spreadType = 11
-        priority = 13
-        width = 14
+        numLanes = 7
+        speed = 8
+        allowButton = 9
+        allow = 10
+        disallowButton = 11
+        disallow = 12
+        spreadType = 13
+        priority = 15
+        width = 16
 
     class createLane:
-        add = 20
-        remove = 21
-        speed = 22
-        allowButton = 23
-        allow = 24
-        disallowButton = 25
-        disallow = 26
-        width = 27
+        add = 22
+        remove = 23
+        speed = 24
+        allowButton = 25
+        allow = 26
+        disallowButton = 27
+        disallow = 28
+        width = 29
 
     class inspect:
         id = 1
@@ -201,9 +201,9 @@ class edge:
         parameters = 22
 
     class template:
-        create = 33
-        copy = 34
-        clear = 35
+        create = 35
+        copy = 36
+        clear = 37
 
 # lane
 
