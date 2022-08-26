@@ -138,6 +138,9 @@ public:
     /// @brief Sets the boundary to the given values
     void set(double xmin, double ymin, double xmax, double ymax);
 
+    /// @brief Sets the boundary to the given values, ignoring min < max constraints
+    void setOffsets(double xmin, double ymin, double xmax, double ymax);
+
     /// @brief Moves the boundary by the given amount
     void moveby(double x, double y, double z = 0);
 
