@@ -243,7 +243,14 @@ public:
     /// update driveway for extended deadlock protection
     void updateDriveway(int numericalID);
 
-    static bool hasOncomingRailTraffic(MSLink* link, const MSVehicle* veh);
+    /* @brief return whether vehicle insertion must be delayed for an oncoming train
+     * @param[in] link The rail signal link before which the vehicle is being inserted
+     * @param[in] veh The vehicle being inserted
+     * @param[in] brakeBeforeSignal Whether the vehicle may brake before the signal,
+     *                              Returns true if the vehicle has to brake before the signal
+     */
+    static bool hasOncomingRailTraffic(MSLink* link, const MSVehicle* ego, bool& brakeBeforeSignal);
+
     static bool hasInsertionConstraint(MSLink* link, const MSVehicle* veh, std::string& info, bool& isInsertionOrder);
 
     /// @brief final check for driveway compatibility of signals that switched green in this step

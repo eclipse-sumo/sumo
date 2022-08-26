@@ -4926,6 +4926,18 @@ MSVehicle::setApproachingForAllLinks(const SUMOTime t) {
 #endif
 }
 
+
+void
+MSVehicle::registerInsertionApproach(MSLink* link, double dist) {
+    DriveProcessItem dpi(0, dist);
+    dpi.myLink = link;
+    const double arrivalSpeedBraking = getCarFollowModel().getMinimalArrivalSpeedEuler(dist, getSpeed());
+    link->setApproaching(this, SUMOTime_MAX, 0, 0, false, arrivalSpeedBraking, 0, dpi.myDistance, 0);
+    // ensure cleanup in the next step
+    myLFLinkLanes.push_back(dpi);
+}
+
+
 void
 MSVehicle::activateReminders(const MSMoveReminder::Notification reason, const MSLane* enteredLane) {
     for (MoveReminderCont::iterator rem = myMoveReminders.begin(); rem != myMoveReminders.end();) {

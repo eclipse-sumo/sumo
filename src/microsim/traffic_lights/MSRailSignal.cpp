@@ -407,12 +407,14 @@ MSRailSignal::writeBlocks(OutputDevice& od) const {
 
 
 bool
-MSRailSignal::hasOncomingRailTraffic(MSLink* link, const MSVehicle* veh) {
+MSRailSignal::hasOncomingRailTraffic(MSLink* link, const MSVehicle* ego, bool& brakeBeforeSignal) {
     // @note: this check is intended to prevent deadlock / collision by an inserted vehicle that
     // waits at a red signal and thus checks different things than ::reverse()
+    bool hadOncoming = false;
     if (link->getJunction()->getType() == SumoXMLNodeType::RAIL_SIGNAL) {
         const MSEdge* bidi = link->getLaneBefore()->getEdge().getBidiEdge();
         if (bidi == nullptr) {
+            brakeBeforeSignal = false;
             return false;
         }
         const MSRailSignal* rs = dynamic_cast<const MSRailSignal*>(link->getTLLogic());
@@ -448,7 +450,7 @@ MSRailSignal::hasOncomingRailTraffic(MSLink* link, const MSVehicle* veh) {
                     gDebugFlag4 = DEBUG_HELPER(rs);
 #endif
                     // yield to all foeLinks beyond switch
-                    Approaching approaching(veh,
+                    Approaching approaching(ego,
                             MSLink::ApproachingVehicleInformation(SUMOTime_MAX, 0, 0, 0, false, -1, 0, std::numeric_limits<double>::max(), 0 ,0));
                     for (MSLink* link : dw.myProtectingSwitchesBidi) {
                         myBlockingVehicles.clear();
@@ -460,7 +462,8 @@ MSRailSignal::hasOncomingRailTraffic(MSLink* link, const MSVehicle* veh) {
                         myStoreVehicles = false;
                         if (!hasProtection) {
                             for (const SUMOVehicle* veh : myBlockingVehicles) {
-                                if (std::find(veh->getCurrentRouteEdge(), veh->getRoute().end(), bidi) != veh->getRoute().end()) {
+                                hadOncoming = true;
+                                if (!brakeBeforeSignal || std::find(veh->getCurrentRouteEdge(), veh->getRoute().end(), bidi) != veh->getRoute().end()) {
 #ifdef DEBUG_SIGNALSTATE
                                     if (DEBUG_HELPER(rs)) {
                                         std::cout << "  no protection at bidi-switch " << link->getDescription() << " from veh=" << veh->getID() << "\n";
@@ -471,7 +474,8 @@ MSRailSignal::hasOncomingRailTraffic(MSLink* link, const MSVehicle* veh) {
                                 }
                             }
                             for (const SUMOVehicle* veh : myRivalVehicles) {
-                                if (std::find(veh->getCurrentRouteEdge(), veh->getRoute().end(), bidi) != veh->getRoute().end()) {
+                                hadOncoming = true;
+                                if (!brakeBeforeSignal || std::find(veh->getCurrentRouteEdge(), veh->getRoute().end(), bidi) != veh->getRoute().end()) {
 #ifdef DEBUG_SIGNALSTATE
                                     if (DEBUG_HELPER(rs)) {
                                         std::cout << "  no protection at bidi-switch " << link->getDescription() << " from linkRival veh=" << veh->getID() << "\n";
@@ -505,6 +509,7 @@ MSRailSignal::hasOncomingRailTraffic(MSLink* link, const MSVehicle* veh) {
             }
         }
     }
+    brakeBeforeSignal = hadOncoming;
     return false;
 }
 

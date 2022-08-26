@@ -808,6 +808,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
         }
     }
     MSLink* firstRailSignal = nullptr;
+    double firstRailSignalDist = -1;
 
     // before looping through the continuation lanes, check if a stop is scheduled on this lane
     // (the code is duplicated in the loop)
@@ -874,18 +875,26 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
         // might also by a regular traffic_light instead of a rail_signal
         if (firstRailSignal == nullptr && (*link)->getTLLogic() != nullptr) {
             firstRailSignal = *link;
+            firstRailSignalDist = seen;
         }
+        // allow guarding bidirectional tracks at the network border with railSignal
         if (currentLane == this && notification == MSMoveReminder::NOTIFICATION_DEPARTED
-                && (*link)->getJunction()->getType() == SumoXMLNodeType::RAIL_SIGNAL
-                && MSRailSignal::hasOncomingRailTraffic(*link, aVehicle)) {
-            // allow guarding bidirectional tracks at the network border with railSignal
+                && (*link)->getJunction()->getType() == SumoXMLNodeType::RAIL_SIGNAL) {
+            /// the oncoming check differs depending on whether the train may brake
+            const double vSafe = cfModel.insertionStopSpeed(aVehicle, speed, seen);
+            bool brakeBeforeSignal = patchSpeed || speed <= vSafe;
+            if (MSRailSignal::hasOncomingRailTraffic(*link, aVehicle, brakeBeforeSignal)) {
 #ifdef DEBUG_INSERTION
-            if (DEBUG_COND2(aVehicle) || DEBUG_COND) {
-                std::cout << " oncoming rail traffic at link " << (*link)->getDescription() << "\n";
-            }
+                if (DEBUG_COND2(aVehicle) || DEBUG_COND) {
+                    std::cout << " oncoming rail traffic at link " << (*link)->getDescription() << "\n";
+                }
 #endif
-            if ((aVehicle->getParameter().insertionChecks & (int)InsertionCheck::ONCOMING_TRAIN) != 0) {
-                return false;
+                if ((aVehicle->getParameter().insertionChecks & (int)InsertionCheck::ONCOMING_TRAIN) != 0) {
+                    return false;
+                }
+            }
+            if (brakeBeforeSignal) {
+                speed = MIN2(speed, vSafe);
             }
         }
         if (!(*link)->opened(arrivalTime, speed, speed, aVehicle->getVehicleType().getLength(), aVehicle->getImpatience(),
@@ -1236,6 +1245,11 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
     if (isRail) {
         unsetParameter("insertionConstraint:" + aVehicle->getID());
         unsetParameter("insertionOrder:" + aVehicle->getID());
+        // rail_signal (not traffic_light) requires approach information for
+        // switching correctly at the start of the next simulation step
+        if (firstRailSignal != nullptr && firstRailSignal->getJunction()->getType() == SumoXMLNodeType::RAIL_SIGNAL) {
+            aVehicle->registerInsertionApproach(firstRailSignal, firstRailSignalDist);
+        }
     }
     return true;
 }

@@ -338,6 +338,9 @@ public:
      * plan */
     void setApproachingForAllLinks(const SUMOTime t);
 
+    /// @brief register approach on insertion
+    void registerInsertionApproach(MSLink* link, double dist);
+
 
     /** @brief Executes planned vehicle movements with regards to right-of-way
      *
