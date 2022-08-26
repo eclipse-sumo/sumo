@@ -51,3 +51,7 @@ reverse_after_waypoint
 # rail insertion with oncoming vehicle beyond protecting switch
 # 
 ticket11384
+
+# invalid insertion error
+# 
+ticket11440
