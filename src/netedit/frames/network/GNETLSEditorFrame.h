@@ -161,6 +161,9 @@ public:
         /// @brief Called when the user press button create/duplicate TLS Program
         long onCmdCreate(FXObject*, FXSelector, void*);
 
+        /// @brief Called when occurs an update of create definition
+        long onUpdCreate(FXObject*, FXSelector, void*);
+
         /// @brief Called when the user press button delete TLS Program
         long onCmdDelete(FXObject*, FXSelector, void*);
 
@@ -173,9 +176,6 @@ public:
         /// @brief Called when the user switches a TLS
         long onCmdDefSwitchTLSProgram(FXObject*, FXSelector, void*);
 
-        /// @brief Called when occurs an update of create definition
-        long onUpdCreateButton(FXObject*, FXSelector, void*);
-
         /// @brief Called when occurs an update of switch definition
         long onUpdTLSModified(FXObject*, FXSelector, void*);
 
@@ -184,9 +184,6 @@ public:
 
         /// @brief Called when the user presses the Cancel-button
         long onCmdDiscardChanges(FXObject*, FXSelector, void*);
-
-        /// @brief Called when occurs an update of modified
-        long onUpdModified(FXObject*, FXSelector, void*);
 
         /// @}
 
@@ -273,33 +270,21 @@ public:
 
         /// @name FOX-callbacks
         /// @{
-        /// @brief Called when the user presses the button Guess
-        long onCmdGuess(FXObject*, FXSelector, void*);
-
         /// @brief Called when the user changes the offset of a TLS
         long onCmdSetOffset(FXObject*, FXSelector, void*);
+
+        /// @brief Called when the offset is updated
+        long onUpdOffset(FXObject*, FXSelector, void*);
 
         /// @brief Called when the user changes parameters of a TLS
         long onCmdSetParameters(FXObject*, FXSelector, void*);
 
-        /// @brief Called when the user renames a TLS
-        long onCmdDefRename(FXObject*, FXSelector, void*);
-
-        /// @brief Called when the user sub-renames a TLS
-        long onCmdDefSubRename(FXObject*, FXSelector, void*);
-
-        /// @brief Called when the user adds a OFF
-        long onCmdDefAddOff(FXObject*, FXSelector, void*);
-
-        /// @brief Called when occurs an update of needs TLS definition
-        long onUpdNeedsTLSDef(FXObject*, FXSelector, void*);
-
-        /// @brief Called when occurs an update of switch definition
-        long onUpdTLSModified(FXObject*, FXSelector, void*);
-
         /// @brief Called when user press edit parameters button
-        long onCmdEditParameters(FXObject*, FXSelector, void* ptr);
+        long onCmdParametersDialog(FXObject*, FXSelector, void* ptr);
         
+        /// @brief Called when the offset is updated
+        long onUpdParameters(FXObject*, FXSelector, void*);
+
         /// @brief Called when user toggle set detector mode
         long onCmdSetDetectorMode(FXObject*, FXSelector, void* ptr);
         
@@ -512,7 +497,7 @@ public:
         long onCmdSaveTLSProgram(FXObject*, FXSelector, void*);
 
         /// @brief enable buttons, only when a tlLogic is being edited
-        long onUpdNeedsDef(FXObject*, FXSelector, void*);
+        long onUpdButtons(FXObject*, FXSelector, void*);
         /// @}
 
     protected:

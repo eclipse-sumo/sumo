@@ -53,7 +53,7 @@ FXDEFMAP(GNETLSEditorFrame::TLSJunction) TLSJunctionMap[] = {
 
 FXDEFMAP(GNETLSEditorFrame::TLSDefinition) TLSDefinitionMap[] = {
     FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_DEFINITION_CREATE,           GNETLSEditorFrame::TLSDefinition::onCmdCreate),
-    FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_DEFINITION_CREATE,           GNETLSEditorFrame::TLSDefinition::onUpdCreateButton),
+    FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_DEFINITION_CREATE,           GNETLSEditorFrame::TLSDefinition::onUpdCreate),
     FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_DEFINITION_DELETE,           GNETLSEditorFrame::TLSDefinition::onCmdDelete),
     FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_DEFINITION_DELETE,           GNETLSEditorFrame::TLSDefinition::onUpdTLSModified),
     FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_DEFINITION_RESETCURRENT,     GNETLSEditorFrame::TLSDefinition::onCmdResetCurrentProgram),
@@ -63,21 +63,17 @@ FXDEFMAP(GNETLSEditorFrame::TLSDefinition) TLSDefinitionMap[] = {
     FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_DEFINITION_SWITCHPROGRAM,    GNETLSEditorFrame::TLSDefinition::onCmdDefSwitchTLSProgram),
     FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_DEFINITION_SWITCHPROGRAM,    GNETLSEditorFrame::TLSDefinition::onUpdTLSModified),
     FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_DEFINITION_SAVE,             GNETLSEditorFrame::TLSDefinition::onCmdSaveChanges),
-    FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_DEFINITION_SAVE,             GNETLSEditorFrame::TLSDefinition::onUpdModified),
+    FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_DEFINITION_SAVE,             GNETLSEditorFrame::TLSDefinition::onUpdTLSModified),
     FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_DEFINITION_DISCARD,          GNETLSEditorFrame::TLSDefinition::onCmdDiscardChanges),
-    FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_DEFINITION_DISCARD,          GNETLSEditorFrame::TLSDefinition::onUpdModified),
+    FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_DEFINITION_DISCARD,          GNETLSEditorFrame::TLSDefinition::onUpdTLSModified),
 };
 
 FXDEFMAP(GNETLSEditorFrame::TLSAttributes) TLSAttributesMap[] = {
     FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_ATTRIBUTES_OFFSET,           GNETLSEditorFrame::TLSAttributes::onCmdSetOffset),
-    FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_ATTRIBUTES_OFFSET,           GNETLSEditorFrame::TLSAttributes::onUpdNeedsTLSDef),
+    FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_ATTRIBUTES_OFFSET,           GNETLSEditorFrame::TLSAttributes::onUpdOffset),
     FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_ATTRIBUTES_PARAMETERS,       GNETLSEditorFrame::TLSAttributes::onCmdSetParameters),
-    FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_ATTRIBUTES_PARAMETERS,       GNETLSEditorFrame::TLSAttributes::onUpdNeedsTLSDef),
-    FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_ATTRIBUTES_RENAME,           GNETLSEditorFrame::TLSAttributes::onCmdDefRename),
-    FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_ATTRIBUTES_SUBRENAME,        GNETLSEditorFrame::TLSAttributes::onCmdDefSubRename),
-    FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_ATTRIBUTES_ADDOFF,           GNETLSEditorFrame::TLSAttributes::onCmdDefAddOff),
-    FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_ATTRIBUTES_GUESSPROGRAM,     GNETLSEditorFrame::TLSAttributes::onCmdGuess),
-    FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_ATTRIBUTES_PARAMETERSDIALOG, GNETLSEditorFrame::TLSAttributes::onCmdEditParameters),
+    FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_ATTRIBUTES_PARAMETERSDIALOG, GNETLSEditorFrame::TLSAttributes::onCmdParametersDialog),
+    FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_ATTRIBUTES_PARAMETERS,       GNETLSEditorFrame::TLSAttributes::onUpdParameters),
     FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_ATTRIBUTES_SETDETECTOR,      GNETLSEditorFrame::TLSAttributes::onCmdSetDetectorMode),
     FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_ATTRIBUTES_SETDETECTOR,      GNETLSEditorFrame::TLSAttributes::onUpdSetDetectorMode),
 };
@@ -95,9 +91,9 @@ FXDEFMAP(GNETLSEditorFrame::TLSPhases) TLSPhasesMap[] = {
 
 FXDEFMAP(GNETLSEditorFrame::TLSFile) TLSFileMap[] = {
     FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_FILE_LOADPROGRAM,    GNETLSEditorFrame::TLSFile::onCmdLoadTLSProgram),
-    FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_FILE_LOADPROGRAM,    GNETLSEditorFrame::TLSFile::onUpdNeedsDef),
+    FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_FILE_LOADPROGRAM,    GNETLSEditorFrame::TLSFile::onUpdButtons),
     FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_FILE_SAVEPROGRAM,    GNETLSEditorFrame::TLSFile::onCmdSaveTLSProgram),
-    FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_FILE_SAVEPROGRAM,    GNETLSEditorFrame::TLSFile::onUpdNeedsDef),
+    FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_FILE_SAVEPROGRAM,    GNETLSEditorFrame::TLSFile::onUpdButtons),
 };
 
 // Object implementation
@@ -708,39 +704,28 @@ GNETLSEditorFrame::TLSAttributes::getE1Detectors() const {
 
 
 long
-GNETLSEditorFrame::TLSAttributes::onUpdTLSModified(FXObject* sender, FXSelector, void*) {
-    if (myTLSEditorParent->myTLSDefinition->getNumberOfTLSDefinitions() == 0) {
-        sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
-    } else if (myTLSEditorParent->myTLSDefinition->checkHaveModifications()) {
-        sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
-    } else {
-        sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
+GNETLSEditorFrame::TLSAttributes::onCmdSetOffset(FXObject*, FXSelector, void*) {
+    if (isValidOffset()) {
+        myTLSEditorParent->myTLSDefinition->markAsModified();
+        myTLSEditorParent->myEditedDef->setOffset(getOffset());
     }
     return 1;
 }
 
 
 long
-GNETLSEditorFrame::TLSAttributes::onUpdNeedsTLSDef(FXObject* o, FXSelector, void*) {
-    if (myTLSEditorParent->myTLSDefinition->getNumberOfTLSDefinitions() > 0) {
-        o->handle(this, FXSEL(SEL_COMMAND, FXWindow::ID_ENABLE), nullptr);
-    } else {
-        o->handle(this, FXSEL(SEL_COMMAND, FXWindow::ID_DISABLE), nullptr);
+GNETLSEditorFrame::TLSAttributes::onUpdOffset(FXObject*, FXSelector, void*) {
+    if (myTLSEditorParent->myTLSDefinition->getNumberOfTLSDefinitions() == 0) {
+        myOffsetTextField->disable();
         // clear E1 detectors
         if (myE1Detectors.size() > 0) {
             myE1Detectors.clear();
             myTLSEditorParent->getViewNet()->update();
         }
-    }
-    return 1;
-}
-
-
-long
-GNETLSEditorFrame::TLSAttributes::onCmdSetOffset(FXObject*, FXSelector, void*) {
-    if (isValidOffset()) {
-        myTLSEditorParent->myTLSDefinition->markAsModified();
-        myTLSEditorParent->myEditedDef->setOffset(getOffset());
+    } else if (isSetDetectorsToogleButtonEnabled()) {
+        myOffsetTextField->disable();
+    } else {
+        myOffsetTextField->enable();
     }
     return 1;
 }
@@ -757,31 +742,7 @@ GNETLSEditorFrame::TLSAttributes::onCmdSetParameters(FXObject*, FXSelector, void
 
 
 long
-GNETLSEditorFrame::TLSAttributes::onCmdDefRename(FXObject*, FXSelector, void*) {
-    throw ProcessError("Currently unused");
-}
-
-
-long
-GNETLSEditorFrame::TLSAttributes::onCmdDefSubRename(FXObject*, FXSelector, void*) {
-    throw ProcessError("Currently unused");
-}
-
-
-long
-GNETLSEditorFrame::TLSAttributes::onCmdDefAddOff(FXObject*, FXSelector, void*) {
-    throw ProcessError("Currently unused");
-}
-
-
-long
-GNETLSEditorFrame::TLSAttributes::onCmdGuess(FXObject*, FXSelector, void*) {
-    throw ProcessError("Currently unused");
-}
-
-
-long
-GNETLSEditorFrame::TLSAttributes::onCmdEditParameters(FXObject*, FXSelector, void*) {
+GNETLSEditorFrame::TLSAttributes::onCmdParametersDialog(FXObject*, FXSelector, void*) {
     // continue depending of myEditedDef
     if (myTLSEditorParent->myEditedDef) {
         // get previous parameters
@@ -801,6 +762,27 @@ GNETLSEditorFrame::TLSAttributes::onCmdEditParameters(FXObject*, FXSelector, voi
             // write debug information
             WRITE_DEBUG("Cancel single parameters dialog");
         }
+    }
+    return 1;
+}
+
+
+long
+GNETLSEditorFrame::TLSAttributes::onUpdParameters(FXObject*, FXSelector, void*) {
+    if (myTLSEditorParent->myTLSDefinition->getNumberOfTLSDefinitions() == 0) {
+        myButtonEditParameters->disable();
+        myParametersTextField->disable();
+        // clear E1 detectors
+        if (myE1Detectors.size() > 0) {
+            myE1Detectors.clear();
+            myTLSEditorParent->getViewNet()->update();
+        }
+    } else if (isSetDetectorsToogleButtonEnabled()) {
+        myButtonEditParameters->disable();
+        myParametersTextField->disable();
+    } else {
+        myButtonEditParameters->enable();
+        myParametersTextField->enable();
     }
     return 1;
 }
@@ -992,6 +974,9 @@ GNETLSEditorFrame::TLSJunction::onUpdTLSID(FXObject*, FXSelector, void*) {
         // no junction, disable and clear
         myTLSIDTextField->setText("");
         myTLSIDTextField->disable();
+    } else if (myTLSEditorParent->myTLSAttributes->isSetDetectorsToogleButtonEnabled()) {
+        // selecting E1, disable button
+        myTLSIDTextField->disable();
     } else if (myTLSEditorParent->myTLSDefinition->checkHaveModifications()) {
         // current TLS modified, disable
         myTLSIDTextField->disable();
@@ -1053,6 +1038,9 @@ GNETLSEditorFrame::TLSJunction::onUpdTLSType(FXObject*, FXSelector, void*) {
     if (myCurrentJunction == nullptr) {
         // no junction, disable and clear
         myTLSTypeComboBox->setText("");
+        myTLSTypeComboBox->disable();
+    } else if (myTLSEditorParent->myTLSAttributes->isSetDetectorsToogleButtonEnabled()) {
+        // selecting E1, disable button
         myTLSTypeComboBox->disable();
     } else if (myCurrentJunction->getNBNode()->getControllingTLS().size() == 0) {
         // no TLSs in Junctions, disable
@@ -1254,6 +1242,34 @@ GNETLSEditorFrame::TLSDefinition::onCmdCreate(FXObject*, FXSelector, void*) {
 
 
 long
+GNETLSEditorFrame::TLSDefinition::onUpdCreate(FXObject* sender, FXSelector, void*) {
+    // get current junction
+    const auto currentJunction = myTLSEditorParent->myTLSJunction->getCurrentJunction();
+    // check conditions
+    if (currentJunction == nullptr) {
+        // no junction, disable button
+        sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
+    } else if (myHaveModifications) {
+        // wait for modifications, disable button
+        sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
+    } else if (myTLSEditorParent->myTLSAttributes->isSetDetectorsToogleButtonEnabled()) {
+        // selecting E1, disable button
+        sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
+    } else {
+        // enable button
+        sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
+        // update button text
+        if (currentJunction->getNBNode()->isTLControlled()) {
+            myCreateButton->setText("Duplicate");
+        } else {
+            myCreateButton->setText("Create");
+        }
+    }
+    return 1;
+}
+
+
+long
 GNETLSEditorFrame::TLSDefinition::onCmdDelete(FXObject*, FXSelector, void*) {
     // get current junction
     GNEJunction* currentJunction = myTLSEditorParent->myTLSJunction->getCurrentJunction();
@@ -1323,40 +1339,18 @@ GNETLSEditorFrame::TLSDefinition::onCmdDefSwitchTLSProgram(FXObject*, FXSelector
 
 
 long
-GNETLSEditorFrame::TLSDefinition::onUpdCreateButton(FXObject* sender, FXSelector, void*) {
-    // get current junction
-    const auto currentJunction = myTLSEditorParent->myTLSJunction->getCurrentJunction();
-    // check conditions
-    if (currentJunction == nullptr) {
-        // no junction, disable button
-        sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
-    } else if (myHaveModifications) {
-        // wait for modifications, disable button
-        sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
-    } else {
-        // enable button
-        sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
-        // update button text
-        if (currentJunction->getNBNode()->isTLControlled()) {
-            myCreateButton->setText("Duplicate");
-        } else {
-            myCreateButton->setText("Create");
-        }
-    }
-    return 1;
-}
-
-
-long
 GNETLSEditorFrame::TLSDefinition::onUpdTLSModified(FXObject* sender, FXSelector, void*) {
     if (getNumberOfTLSDefinitions() == 0) {
-        sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
+    } else if (myTLSEditorParent->myTLSAttributes->isSetDetectorsToogleButtonEnabled()) {
+        // selecting E1, disable button
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else if (myHaveModifications) {
-        sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
+        // pending modifications, disable button
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else {
-        sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
     }
-    return 1;
 }
 
 
@@ -1399,17 +1393,6 @@ long
 GNETLSEditorFrame::TLSDefinition::onCmdDiscardChanges(FXObject*, FXSelector, void*) {
     // discard changes inspecting junction again
     discardChanges(true);
-    return 1;
-}
-
-
-long
-GNETLSEditorFrame::TLSDefinition::onUpdModified(FXObject* o, FXSelector, void*) {
-    if (myHaveModifications) {
-        o->handle(this, FXSEL(SEL_COMMAND, FXWindow::ID_ENABLE), nullptr);
-    } else {
-        o->handle(this, FXSEL(SEL_COMMAND, FXWindow::ID_DISABLE), nullptr);
-    }
     return 1;
 }
 
@@ -1754,24 +1737,30 @@ GNETLSEditorFrame::TLSPhases::updateTLSColoring() {
 
 
 long
-GNETLSEditorFrame::TLSPhases::onUpdNeedsDef(FXObject* o, FXSelector, void*) {
-    if (myTLSEditorParent->myTLSDefinition->getNumberOfTLSDefinitions() > 0) {
-        o->handle(this, FXSEL(SEL_COMMAND, FXWindow::ID_ENABLE), nullptr);
+GNETLSEditorFrame::TLSPhases::onUpdNeedsDef(FXObject* sender, FXSelector, void*) {
+    if (myTLSEditorParent->myTLSAttributes->isSetDetectorsToogleButtonEnabled()) {
+        // selecting E1, disable buttons
+        sender->handle(getCollapsableFrame(), FXSEL(SEL_COMMAND, FXWindow::ID_DISABLE), nullptr);
+    } else if (myTLSEditorParent->myTLSDefinition->getNumberOfTLSDefinitions() > 0) {
+        sender->handle(this, FXSEL(SEL_COMMAND, FXWindow::ID_ENABLE), nullptr);
     } else {
-        o->handle(this, FXSEL(SEL_COMMAND, FXWindow::ID_DISABLE), nullptr);
+        sender->handle(this, FXSEL(SEL_COMMAND, FXWindow::ID_DISABLE), nullptr);
     }
     return 1;
 }
 
 
 long
-GNETLSEditorFrame::TLSPhases::onUpdNeedsDefAndPhase(FXObject* o, FXSelector, void*) {
-    if (myTLSEditorParent->myTLSDefinition->getNumberOfTLSDefinitions() == 0) {
-        o->handle(this, FXSEL(SEL_COMMAND, FXWindow::ID_DISABLE), nullptr);
+GNETLSEditorFrame::TLSPhases::onUpdNeedsDefAndPhase(FXObject* sender, FXSelector, void*) {
+    if (myTLSEditorParent->myTLSAttributes->isSetDetectorsToogleButtonEnabled()) {
+        // selecting E1, disable buttons
+        sender->handle(getCollapsableFrame(), FXSEL(SEL_COMMAND, FXWindow::ID_DISABLE), nullptr);
+    } else if (myTLSEditorParent->myTLSDefinition->getNumberOfTLSDefinitions() == 0) {
+        sender->handle(this, FXSEL(SEL_COMMAND, FXWindow::ID_DISABLE), nullptr);
     } else if (myPhaseTable->getNumRows() <= 1) {
-        o->handle(this, FXSEL(SEL_COMMAND, FXWindow::ID_DISABLE), nullptr);
+        sender->handle(this, FXSEL(SEL_COMMAND, FXWindow::ID_DISABLE), nullptr);
     } else {
-        o->handle(this, FXSEL(SEL_COMMAND, FXWindow::ID_ENABLE), nullptr);
+        sender->handle(this, FXSEL(SEL_COMMAND, FXWindow::ID_ENABLE), nullptr);
     }
     return 1;
 }
@@ -1824,26 +1813,32 @@ GNETLSEditorFrame::TLSPhases::onCmdUngroupStates(FXObject*, FXSelector, void*) {
 
 
 long
-GNETLSEditorFrame::TLSPhases::onUpdNeedsSingleDef(FXObject* o, FXSelector, void*) {
-    if (myTLSEditorParent->myTLSDefinition->getNumberOfTLSDefinitions() == 1) {
-        o->handle(this, FXSEL(SEL_COMMAND, FXWindow::ID_ENABLE), nullptr);
+GNETLSEditorFrame::TLSPhases::onUpdNeedsSingleDef(FXObject* sender, FXSelector, void*) {
+    if (myTLSEditorParent->myTLSAttributes->isSetDetectorsToogleButtonEnabled()) {
+        // selecting E1, disable buttons
+        sender->handle(getCollapsableFrame(), FXSEL(SEL_COMMAND, FXWindow::ID_DISABLE), nullptr);
+    } else if (myTLSEditorParent->myTLSDefinition->getNumberOfTLSDefinitions() == 1) {
+        sender->handle(this, FXSEL(SEL_COMMAND, FXWindow::ID_ENABLE), nullptr);
     } else {
-        o->handle(this, FXSEL(SEL_COMMAND, FXWindow::ID_DISABLE), nullptr);
+        sender->handle(this, FXSEL(SEL_COMMAND, FXWindow::ID_DISABLE), nullptr);
     }
     return 1;
 }
 
 
 long
-GNETLSEditorFrame::TLSPhases::onUpdUngroupStates(FXObject* o, FXSelector, void*) {
-    if (myTLSEditorParent->myTLSDefinition->getNumberOfTLSDefinitions() != 1) {
-        o->handle(this, FXSEL(SEL_COMMAND, FXWindow::ID_DISABLE), nullptr);
+GNETLSEditorFrame::TLSPhases::onUpdUngroupStates(FXObject* sender, FXSelector, void*) {
+    if (myTLSEditorParent->myTLSAttributes->isSetDetectorsToogleButtonEnabled()) {
+        // selecting E1, disable buttons
+        sender->handle(getCollapsableFrame(), FXSEL(SEL_COMMAND, FXWindow::ID_DISABLE), nullptr);
+    } else if (myTLSEditorParent->myTLSDefinition->getNumberOfTLSDefinitions() != 1) {
+        sender->handle(this, FXSEL(SEL_COMMAND, FXWindow::ID_DISABLE), nullptr);
     } else if (myTLSEditorParent->myEditedDef == nullptr) {
-        o->handle(this, FXSEL(SEL_COMMAND, FXWindow::ID_DISABLE), nullptr);
+        sender->handle(this, FXSEL(SEL_COMMAND, FXWindow::ID_DISABLE), nullptr);
     } else if (myTLSEditorParent->myEditedDef->usingSignalGroups()) {
-        o->handle(this, FXSEL(SEL_COMMAND, FXWindow::ID_DISABLE), nullptr);
+        sender->handle(this, FXSEL(SEL_COMMAND, FXWindow::ID_DISABLE), nullptr);
     } else {
-        o->handle(this, FXSEL(SEL_COMMAND, FXWindow::ID_ENABLE), nullptr);
+        sender->handle(this, FXSEL(SEL_COMMAND, FXWindow::ID_ENABLE), nullptr);
     }
     return 1;
 }
@@ -2573,11 +2568,14 @@ GNETLSEditorFrame::TLSFile::writeSUMOTime(SUMOTime steps) {
 
 
 long
-GNETLSEditorFrame::TLSFile::onUpdNeedsDef(FXObject* o, FXSelector, void*) {
-    if (myTLSEditorParent->myTLSDefinition->getNumberOfTLSDefinitions() > 0) {
-        o->handle(getCollapsableFrame(), FXSEL(SEL_COMMAND, FXWindow::ID_ENABLE), nullptr);
+GNETLSEditorFrame::TLSFile::onUpdButtons(FXObject* sender, FXSelector, void*) {
+    if (myTLSEditorParent->myTLSDefinition->getNumberOfTLSDefinitions() == 0) {
+        sender->handle(getCollapsableFrame(), FXSEL(SEL_COMMAND, FXWindow::ID_DISABLE), nullptr);
+    } else if (myTLSEditorParent->myTLSAttributes->isSetDetectorsToogleButtonEnabled()) {
+        // selecting E1, disable buttons
+        sender->handle(getCollapsableFrame(), FXSEL(SEL_COMMAND, FXWindow::ID_DISABLE), nullptr);
     } else {
-        o->handle(getCollapsableFrame(), FXSEL(SEL_COMMAND, FXWindow::ID_DISABLE), nullptr);
+        sender->handle(getCollapsableFrame(), FXSEL(SEL_COMMAND, FXWindow::ID_ENABLE), nullptr);
     }
     return 1;
 }
