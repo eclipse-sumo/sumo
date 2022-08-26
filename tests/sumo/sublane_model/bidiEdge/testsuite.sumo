@@ -1,5 +1,9 @@
+# intersection connected with bidi-edges and paths for bike and pedestrian, 1 shuttle (customized vehicle) and 2 bike,
+# Check if the bikes coming from the left side and the shuttle from the upper side dangle until being teleported when they meet each other at the intersection (breakpoint: 1025).
+hangAtIntersectionWithBidi
+
 # intersection connected with bidi-edges and walking path, 1 shuttle (customized vehicle). 1 bike and 1 pedestrian
-# Check if the bike and the shuttle dangle until being teleported when they meet each other at the intersection.
+# Check if the bike coming from the opposite side and the shuttle dangle until being teleported when they meet each other at the intersection (breakpoint: 508).
 dangleAtIntersectionWithBidi
 
 # two consecutive pairs of bidi-edges (between normal edges), 1 vehicle and 2 bikes
