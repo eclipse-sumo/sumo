@@ -369,7 +369,8 @@ GUISUMOAbstractView::onCmdShowReachability(FXObject*, FXSelector, void*) {
 }
 
 
-GUILane* GUISUMOAbstractView::getLaneUnderCursor() {
+GUILane*
+GUISUMOAbstractView::getLaneUnderCursor() {
     return nullptr;
 }
 
