@@ -1246,7 +1246,7 @@ TRACI_CONST int CMD_CLEAR_PENDING_VEHICLES = 0x94;
 TRACI_CONST int VAR_PENDING_VEHICLES = 0x94;
 
 // retrieve global option value (get: simulation)
-TRACI_CONST int VAR_OPTION = 0x3f;
+TRACI_CONST int VAR_OPTION = 0x32;
 
 // triggers saving simulation state (set: simulation)
 TRACI_CONST int CMD_SAVE_SIMSTATE = 0x95;
