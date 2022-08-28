@@ -315,7 +315,7 @@ inserted at the end of the lane instead. When departSpeed="max" is set, vehicle 
 
 ### departSpeed
 
-Determines the speed of the vehicle at insertion, where maxSpeed = MIN(speedLimit * speedFactor, vTypeMaxSpeed);
+Determines the speed of the vehicle at insertion, where maxSpeed = MIN(speedLimit * speedFactor, vType_desiredMaxSpeed * speedFactor, vType_maxSpeed);
 
 - `≥0`: The vehicle is tried to be inserted
 using the given speed. If that speed is unsafe, departure is
@@ -468,8 +468,9 @@ startupDelay        | float >= 0        | 0                | The extra delay tim
 | tau               | float                             | 1.0                                                                 | [Car-following model](#car-following_models) parameter, see below                                                                                          |
 | length            | float                             | 5.0                                                                 | The vehicle's **netto**-length (length) (in m)                                                                                                                                                                         |
 | minGap            | float                             | 2.5                                                                 | Empty space after leader \[m\]                                                                                                                                                                                         |
-| maxSpeed          | float                             | 55.55 (200 km/h) for vehicles, 1.39 (5 km/h) for pedestrians        | The vehicle's maximum velocity (in m/s)                                                                                                                                                                                |
-| speedFactor       | float or [distribution spec](#defining_a_normal_distribution_for_vehicle_speeds)  | 1.0 | The vehicles expected multiplier for lane speed limits                                                                                                                                                              |
+| maxSpeed          | float                             | 55.55 (200 km/h) for most vehicles, see [vClass-specific defaults](Vehicle_Type_Parameter_Defaults.md)        | The vehicle's (technical) maximum velocity (in m/s)                                                                                                                                                                                |
+| desiredMaxSpeed          | float                       | 2778 (1e4 km/h), 5.56 (20km/h) for bikes, 1.39 (5 km/h) for pedestrians, see [](Simulation/VehicleSpeed.md#desiredmaxspeed)        | The vehicle desired maximum velocity (in m/s) is computed as `desiredMaxSpeed * individual_speedFactor`.                                                                                                                                                                            |
+| speedFactor       | float or [distribution spec](#defining_a_normal_distribution_for_vehicle_speeds)  | 1.0 | The vehicles expected multiplier for lane speed limits and desiredMaxSpeed                                                                                                                                                             |
 | speedDev          | float                             | 0.1                                                                 | The deviation of the speedFactor; see below for details (some vClasses use a different default)     |
 | color             | [RGB-color](#colors)   | "1,1,0" (yellow)                                                    | This vehicle type's color                                                                                                                                                                                              |
 | vClass            | class (enum)                      | "passenger"                                                         | An abstract [vehicle class (see below)](#abstract_vehicle_class). By default vehicles represent regular passenger cars.                                                                                     |
@@ -509,7 +510,9 @@ capped at the vehicle type's **maxSpeed**.
 
 While it is possible to assign the individual speedFactor value directly in a `<vehicle>`, `<trip>` or even `<flow>` definition using attribute `speedFactor`, a more common use case is to define the distribution of these factors for a `<vType>`.
 
-Having a distribution of speed factors (and hence of desired speeds) is beneficial to the realism of a simulation. If the desired speed is constant among a fleet of vehicles, this implies that gaps between vehicles will keep their size constant over a long time. For this reason, the individual speed factor for each simulated vehicle (whether defined as `<vehicle>`, `<trip>` or part of a `<flow>`) is drawn from a distribution by default. 
+Having a distribution of speed factors (and hence of desired speeds) is beneficial to the realism of a simulation. If the desired speed is constant among a fleet of vehicles, this implies that gaps between vehicles will keep their size constant over a long time. For this reason, the individual speed factor for each simulated vehicle (whether defined as `<vehicle>`, `<trip>` or part of a `<flow>`) is drawn from a distribution by default.
+
+The `speedFactor` of a vehicle is also multiplied with the value of `maxDesiredSpeed` of it's `vType`. The resulting value gives another [upper bound on speed](Simulation/VehicleSpeed.md#edgelane_speed_and_speedfactor). This achieves speed distribution for road users where the speed limit is not meaningful (i.e. bicyles and pedestrians).
 
 The speedFactor of a vehicle is written to various outputs ([tripinfo-output](Simulation/Output/TripInfo.md), [vehroute-output](https://sumo.dlr.de/docs/Simulation/Output/VehRoutes.md)) and can also be checked via the [vehicle parameter dialog](sumo-gui.md#object_properties_right-click-functions).
 
