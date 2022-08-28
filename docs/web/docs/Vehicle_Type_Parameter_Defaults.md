@@ -42,10 +42,10 @@ vehicle types).
     <td class="tg-0lax">0.215m<sup>(1)</sup><br>0.478m<sup>(1)</sup><br>1.719m<sup>(1)</sup></td>
     <td class="tg-0lax">0.25m</td>
     <td class="tg-0lax">1.5m/s<sup>2(23)</sup></td>
-    <td class="tg-0lax">2m/s<sup>2(23)</sup></td>
-    <td class="tg-0lax">10.44m/s<sup>2</sup></td>
+    <td class="tg-0lax">2m/s<sup>2(23)</sup></td>    
     <td class="tg-0lax">5m/s<sup>2</sup></td>
-    <td class="tg-0lax">5.4km/h<sup>(23)</sup></td>
+    <td class="tg-0lax">10.44m/s<sup>2</sup></td>
+    <td class="tg-0lax">5km/h<sup>(23)</sup></td>
     <td class="tg-0lax">-</td>
     <td class="tg-0lax">zero</td>
     <td class="tg-0lax">0.1</td>
