@@ -203,6 +203,9 @@ MSTransportable::tripInfoOutput(OutputDevice& os) const {
     os.writeAttr("id", getID());
     os.writeAttr("depart", time2string(getDesiredDepart()));
     os.writeAttr("type", getVehicleType().getID());
+    if (isPerson()) {
+        os.writeAttr("speedFactor", getSpeedFactor());
+    }
     for (MSStage* const i : *myPlan) {
         i->tripInfoOutput(os, this);
     }
