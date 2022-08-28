@@ -767,6 +767,24 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const
                 vType->parametersSet |= VTYPEPARS_MAXSPEED_SET;
             }
         }
+        if (attrs.hasAttribute(SUMO_ATTR_DESIRED_MAXSPEED)) {
+            bool ok = true;
+            const double desiredMaxSpeed = attrs.get<double>(SUMO_ATTR_DESIRED_MAXSPEED, vType->id.c_str(), ok);
+            if (!ok) {
+                return handleVehicleTypeError(hardFail, vType);
+            } else if (desiredMaxSpeed <= 0) {
+                return handleVehicleTypeError(hardFail, vType, toString(SUMO_ATTR_DESIRED_MAXSPEED) + " must be greater than 0");
+            } else {
+                vType->desiredMaxSpeed = desiredMaxSpeed;
+                vType->parametersSet |= VTYPEPARS_DESIRED_MAXSPEED_SET;
+            }
+        } else if (vClass == SVC_PEDESTRIAN && attrs.hasAttribute(SUMO_ATTR_MAXSPEED)) {
+            // backward compatibility because pedestrian maxSpeed was subject to
+            // speedFactor up to 1.14.1
+            vType->desiredMaxSpeed = vType->maxSpeed;;
+            vType->maxSpeed = MAX2(vType->maxSpeed, SUMOVTypeParameter::VClassDefaultValues(vClass).maxSpeed);
+        }
+                
         if (attrs.hasAttribute(SUMO_ATTR_SPEEDFACTOR)) {
             bool ok = true;
             vType->speedFactor.parse(attrs.get<std::string>(SUMO_ATTR_SPEEDFACTOR, vType->id.c_str(), ok), hardFail);

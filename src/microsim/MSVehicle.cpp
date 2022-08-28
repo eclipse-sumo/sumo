@@ -881,7 +881,7 @@ MSVehicle::Influencer::postProcessRemoteControl(MSVehicle* v) {
         v->drawOutsideNetwork(true);
         // see updateState
         double vNext = v->processTraCISpeedControl(
-                           v->getVehicleType().getMaxSpeed(), v->getSpeed());
+                           v->getMaxSpeed(), v->getSpeed());
         v->setBrakingSignals(vNext);
         v->myState.myPreviousSpeed = v->getSpeed();
         v->myAcceleration = SPEED2ACCEL(vNext - v->getSpeed());
@@ -918,7 +918,7 @@ MSVehicle::Influencer::implicitSpeedRemote(const MSVehicle* veh, double oldSpeed
                              ? myRemoteLane->getVehicleMaxSpeed(veh)
                              : (veh->getLane() != nullptr
                                 ? veh->getLane()->getVehicleMaxSpeed(veh)
-                                : veh->getVehicleType().getMaxSpeed()));
+                                : veh->getMaxSpeed()));
     return MIN2(maxSpeed, MAX2(minSpeed, DIST2SPEED(dist)));
 }
 
@@ -3812,7 +3812,7 @@ MSVehicle::checkReversal(bool& canReverse, double speedThreshold, double seen) c
                 std::cout << "    fail: remainingEdges=" << ((int)(myRoute->end() - myCurrEdge)) << " further=" << myFurtherLanes.size() << "\n";
             }
 #endif
-            return getVehicleType().getMaxSpeed();
+            return getMaxSpeed();
         }
         //if (isSelected()) std::cout << "   check2 passed\n";
 
@@ -3824,7 +3824,7 @@ MSVehicle::checkReversal(bool& canReverse, double speedThreshold, double seen) c
                 std::cout << "    noTurn (bidi=" << myLane->getEdge().getBidiEdge()->getID() << " succ=" << toString(succ) << "\n";
             }
 #endif
-            return getVehicleType().getMaxSpeed();
+            return getMaxSpeed();
         }
         //if (isSelected()) std::cout << "   check3 passed\n";
 
@@ -3840,7 +3840,7 @@ MSVehicle::checkReversal(bool& canReverse, double speedThreshold, double seen) c
                 }
 #endif
                 if (seen > MAX2(brakeDist, 1.0)) {
-                    return getVehicleType().getMaxSpeed();
+                    return getMaxSpeed();
                 } else {
 #ifdef DEBUG_REVERSE_BIDI
                     if (DEBUG_COND) {
@@ -3862,7 +3862,7 @@ MSVehicle::checkReversal(bool& canReverse, double speedThreshold, double seen) c
                         std::cout << "    noBidi view=" << view << " further=" << further->getID() << " furtherBidi=" << Named::getIDSecure(further->getEdge().getBidiEdge()) << " future=" << (*(myCurrEdge + view))->getID() << "\n";
                     }
 #endif
-                    return getVehicleType().getMaxSpeed();
+                    return getMaxSpeed();
                 }
                 if (!myStops.empty() && myStops.front().edge == (myCurrEdge + view)) {
                     const double brakeDist = getCarFollowModel().brakeGap(getSpeed(), getCarFollowModel().getMaxDecel(), 0);
@@ -3876,7 +3876,7 @@ MSVehicle::checkReversal(bool& canReverse, double speedThreshold, double seen) c
 #endif
                         if (seen > MAX2(brakeDist, 1.0)) {
                             canReverse = false;
-                            return getVehicleType().getMaxSpeed();
+                            return getMaxSpeed();
                         } else {
 #ifdef DEBUG_REVERSE_BIDI
                             if (DEBUG_COND) {
@@ -3899,7 +3899,7 @@ MSVehicle::checkReversal(bool& canReverse, double speedThreshold, double seen) c
         canReverse = true;
         return vMinComfortable;
     }
-    return getVehicleType().getMaxSpeed();
+    return getMaxSpeed();
 }
 
 

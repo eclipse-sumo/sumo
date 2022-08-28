@@ -426,6 +426,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "arrivalEdge",            SUMO_ATTR_ARRIVALEDGE },
     { "route",                  SUMO_ATTR_ROUTE },
     { "maxSpeed",               SUMO_ATTR_MAXSPEED },
+    { "desiredMaxSpeed",        SUMO_ATTR_DESIRED_MAXSPEED },
     { "maxSpeedLat",            SUMO_ATTR_MAXSPEED_LAT },
     { "latAlignment",           SUMO_ATTR_LATALIGNMENT },
     { "minGapLat",              SUMO_ATTR_MINGAP_LAT },

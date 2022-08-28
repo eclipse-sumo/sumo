@@ -257,8 +257,8 @@ MSLCM_DK2008::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager& msgPas
         thisLaneVSafe = MIN2(thisLaneVSafe, getCarFollowModel().followSpeed(&myVehicle, myVehicle.getSpeed(), leader.second, leader.first->getSpeed(), leader.first->getCarFollowModel().getMaxDecel()));
     }
 
-    thisLaneVSafe = MIN2(thisLaneVSafe, myVehicle.getVehicleType().getMaxSpeed());
-    neighLaneVSafe = MIN2(neighLaneVSafe, myVehicle.getVehicleType().getMaxSpeed());
+    thisLaneVSafe = MIN2(thisLaneVSafe, myVehicle.getMaxSpeed());
+    neighLaneVSafe = MIN2(neighLaneVSafe, myVehicle.getMaxSpeed());
     if (thisLaneVSafe - neighLaneVSafe > 5. / 3.6) {
         // ok, the current lane is faster than the right one...
         if (myChangeProbability < 0) {
@@ -270,7 +270,7 @@ MSLCM_DK2008::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager& msgPas
     }
 
     // let's recheck the "Rechtsfahrgebot"
-    double vmax = MIN2(myVehicle.getLane()->getVehicleMaxSpeed(&myVehicle), myVehicle.getVehicleType().getMaxSpeed());
+    double vmax = myVehicle.getLane()->getVehicleMaxSpeed(&myVehicle);
     vmax -= (double)(5. / 2.6);
     if (neighLaneVSafe >= vmax) {
         myChangeProbability -= TS * ((neighLaneVSafe - vmax) / (vmax));
@@ -470,8 +470,8 @@ MSLCM_DK2008::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager& msgPass
         // @todo: what if leader is below safe gap?!!!
         thisLaneVSafe = MIN2(thisLaneVSafe, getCarFollowModel().followSpeed(&myVehicle, myVehicle.getSpeed(), leader.second, leader.first->getSpeed(), leader.first->getCarFollowModel().getMaxDecel()));
     }
-    thisLaneVSafe = MIN2(thisLaneVSafe, myVehicle.getVehicleType().getMaxSpeed());
-    neighLaneVSafe = MIN2(neighLaneVSafe, myVehicle.getVehicleType().getMaxSpeed());
+    thisLaneVSafe = MIN2(thisLaneVSafe, myVehicle.getMaxSpeed());
+    neighLaneVSafe = MIN2(neighLaneVSafe, myVehicle.getMaxSpeed());
     if (thisLaneVSafe > neighLaneVSafe) {
         // this lane is better
         if (myChangeProbability > 0) {

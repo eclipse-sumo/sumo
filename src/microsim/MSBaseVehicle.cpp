@@ -186,7 +186,7 @@ MSBaseVehicle::replaceParameter(const SUMOVehicleParameter* newParameter) {
 
 double
 MSBaseVehicle::getMaxSpeed() const {
-    return myType->getMaxSpeed();
+    return MIN2(myType->getMaxSpeed(), myType->getDesiredMaxSpeed() * myChosenSpeedFactor);
 }
 
 

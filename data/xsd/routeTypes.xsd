@@ -31,6 +31,7 @@
         <xsd:attribute name="length" type="positiveFloatType"/>
         <xsd:attribute name="minGap" type="nonNegativeFloatType"/>
         <xsd:attribute name="maxSpeed" type="positiveFloatType"/>
+        <xsd:attribute name="desiredMaxSpeed" type="positiveFloatType"/>
         <xsd:attribute name="probability" type="nonNegativeFloatType"/>
         <xsd:attribute name="speedFactor" type="nonNegativeDistributionType"/>
         <xsd:attribute name="speedDev" type="nonNegativeFloatType"/>

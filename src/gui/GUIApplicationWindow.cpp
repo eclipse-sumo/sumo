@@ -1873,7 +1873,7 @@ GUIApplicationWindow::checkGamingEvents() {
         const MSVehicle* veh = dynamic_cast<MSVehicle*>(it->second);
         assert(veh != 0);
         if (veh->isOnRoad() && !veh->isStopped()) {
-            const double vmax = MIN2(veh->getVehicleType().getMaxSpeed(), veh->getEdge()->getSpeedLimit());
+            const double vmax = veh->getLane()->getVehicleMaxSpeed(veh);
             if (veh->getSpeed() < SUMO_const_haltingSpeed) {
                 myWaitingTime += DELTA_T;
                 if (veh->getVClass() == SVC_EMERGENCY) {
