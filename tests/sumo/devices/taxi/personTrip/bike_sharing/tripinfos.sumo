@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-08-09 18:51:18 by Eclipse SUMO sumo Version v1_14_1+0166-5f48fcf
+<!-- generated on 2022-08-28 19:21:47 by Eclipse SUMO sumo Version v1_14_1+0598-02ca306
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -44,10 +44,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <personinfo id="1" depart="0.00" type="DEFAULT_PEDTYPE">
+    <personinfo id="1" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00">
         <walk depart="0.00" departPos="0.00" arrival="593.00" arrivalPos="142.80" duration="593.00" routeLength="742.80" timeLoss="58.18" maxSpeed="1.39"/>
     </personinfo>
-    <personinfo id="0" depart="0.00" type="DEFAULT_PEDTYPE">
+    <personinfo id="0" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00">
         <walk depart="0.00" departPos="0.00" arrival="318.00" arrivalPos="92.23" duration="318.00" routeLength="392.23" timeLoss="35.59" maxSpeed="1.39"/>
         <ride waitingTime="147.00" vehicle="bikeA" depart="465.00" arrival="668.00" arrivalPos="220.98" duration="203.00" routeLength="724.15" timeLoss="13.65"/>
         <walk depart="668.00" departPos="220.98" arrival="846.00" arrivalPos="142.80" duration="178.00" routeLength="221.82" timeLoss="18.29" maxSpeed="1.39"/>
