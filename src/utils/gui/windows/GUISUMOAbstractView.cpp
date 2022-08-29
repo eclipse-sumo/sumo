@@ -1141,29 +1141,9 @@ GUISUMOAbstractView::openObjectDialog(GUIGlObject* o) {
     if (o != nullptr) {
         myPopup = o->getPopUpMenu(*myApp, *this);
         myCurrentObjectDialog = o;
-        int x, y;
-        FXuint b;
-        myApp->getCursorPosition(x, y, b);
-        int popX = x + myApp->getX();
-        int popY = y + myApp->getY();
-        myPopup->setX(popX);
-        myPopup->setY(popY);
-        myPopup->create();
-        myPopup->show();
-        // try to stay on screen unless click appears to come from a multi-screen setup
-        const int rootWidth = getApp()->getRootWindow()->getWidth();
-        const int rootHeight = getApp()->getRootWindow()->getHeight();
-        if (popX <= rootWidth) {
-            popX = MAX2(0, MIN2(popX, rootWidth - myPopup->getWidth() - 10));
-        }
-        if (popY <= rootHeight) {
-            popY = MAX2(0, MIN2(popY, rootHeight - myPopup->getHeight() - 50));
-        }
-        myPopup->move(popX, popY);
-        myPopupPosition = getPositionInformation();
-        myChanger->onRightBtnRelease(nullptr);
+        // open popup dialog
+        openPopupDialog();
         GUIGlObjectStorage::gIDStorage.unblockObject(o->getGlID());
-        setFocus();
     }
 }
 
@@ -1689,7 +1669,34 @@ GUISUMOAbstractView::drawDecals() {
 }
 
 
+void 
+GUISUMOAbstractView::openPopupDialog() {
+    int x, y;
+    FXuint b;
+    myApp->getCursorPosition(x, y, b);
+    int popX = x + myApp->getX();
+    int popY = y + myApp->getY();
+    myPopup->setX(popX);
+    myPopup->setY(popY);
+    myPopup->create();
+    myPopup->show();
+    // try to stay on screen unless click appears to come from a multi-screen setup
+    const int rootWidth = getApp()->getRootWindow()->getWidth();
+    const int rootHeight = getApp()->getRootWindow()->getHeight();
+    if (popX <= rootWidth) {
+        popX = MAX2(0, MIN2(popX, rootWidth - myPopup->getWidth() - 10));
+    }
+    if (popY <= rootHeight) {
+        popY = MAX2(0, MIN2(popY, rootHeight - myPopup->getHeight() - 50));
+    }
+    myPopup->move(popX, popY);
+    myPopupPosition = getPositionInformation();
+    myChanger->onRightBtnRelease(nullptr);
+    setFocus();
+}
+
 // ------------ Additional visualisations
+
 bool
 GUISUMOAbstractView::addAdditionalGLVisualisation(GUIGlObject* const which) {
     if (myAdditionallyDrawn.find(which) == myAdditionallyDrawn.end()) {
