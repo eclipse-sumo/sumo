@@ -778,6 +778,7 @@ GUIOSGView::onCmdCloseLane(FXObject*, FXSelector, void*) {
     if (lane != nullptr) {
         lane->closeTraffic();
         GUIGlObjectStorage::gIDStorage.unblockObject(lane->getGlID());
+        GUINet::getGUIInstance()->updateColor(*myVisualizationSettings);
         update();
     }
     return 1;
@@ -790,6 +791,7 @@ GUIOSGView::onCmdCloseEdge(FXObject*, FXSelector, void*) {
     if (lane != nullptr) {
         dynamic_cast<GUIEdge*>(&lane->getEdge())->closeTraffic(lane);
         GUIGlObjectStorage::gIDStorage.unblockObject(lane->getGlID());
+        GUINet::getGUIInstance()->updateColor(*myVisualizationSettings);
         update();
     }
     return 1;
@@ -817,6 +819,7 @@ GUIOSGView::onCmdShowReachability(FXObject* menu, FXSelector selector, void*) {
         // switch to 'color by selection' unless coloring 'by reachability'
         if (myVisualizationSettings->laneColorer.getActive() != 36) {
             myVisualizationSettings->laneColorer.setActive(1);
+            GUINet::getGUIInstance()->updateColor(*myVisualizationSettings);
         }
         update();
     }
