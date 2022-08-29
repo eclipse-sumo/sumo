@@ -878,7 +878,11 @@ MSCFModel_EIDM::_v(const MSVehicle* const veh, const double gap2pred, const doub
         if (update == 2) { // For freeSpeed
             current_estGap = newGap; // not-estimated variable
         } else {
-            current_estGap = newGap * exp(mySigmagap * vars->myw_gap); // estimated variable with Wiener Prozess
+            if (respectMinGap) {
+                current_estGap = newGap * exp(mySigmagap * vars->myw_gap); // estimated variable with Wiener Prozess
+            } else {
+                current_estGap = newGap * exp(mySigmagap * vars->myw_gap * MIN2(current_estSpeed / EST_REAC_THRESHOLD, 1.0)); // estimated variable with Wiener Prozess
+            }
         }
 
         if (vars->myap_update == 0 && update != 0) { // update variables with current observation
@@ -897,12 +901,13 @@ MSCFModel_EIDM::_v(const MSVehicle* const veh, const double gap2pred, const doub
                 if (lastrespectMinGap) {
                     estleaderSpeed = MAX2(vars->myv_est_l + vars->lastleaderacc * (vars->myap_update * TS - TS * (myIterations - i - 1.) / myIterations) - vars->mys_est * mySigmaleader * vars->myw_speed, 0.0);
                     //        estleaderSpeed = MAX2(vars->myv_est_l - vars->mys_est * mySigmaleader*vars->myw_speed, 0.0);
+                    estGap = vars->mys_est * exp(mySigmagap * vars->myw_gap) - ((vars->myv_est + estSpeed) / 2. - (vars->myv_est_l + estleaderSpeed) / 2.) * (vars->myap_update * TS - TS * (myIterations - i - 1.) / myIterations); // estimated variable with Wiener Prozess
                 } else {
                     // @ToDo: Use this??? driver would always know, that junctions, traffic lights, etc. have v=0!
                     // @ToDo: With estimated variables predSpeed > 0 is possible! > 0 may result in oscillating
                     estleaderSpeed = vars->myv_est_l;
+                    estGap = vars->mys_est * exp(mySigmagap * vars->myw_gap * MIN2(current_estSpeed / EST_REAC_THRESHOLD, 1.0)) - ((vars->myv_est + estSpeed) / 2. - (vars->myv_est_l + estleaderSpeed) / 2.) * (vars->myap_update * TS - TS * (myIterations - i - 1.) / myIterations); // estimated variable with Wiener Prozess
                 }
-                estGap = vars->mys_est * exp(mySigmagap * vars->myw_gap) - ((vars->myv_est + estSpeed) / 2. - (vars->myv_est_l + estleaderSpeed) / 2.) * (vars->myap_update * TS - TS * (myIterations - i - 1.) / myIterations); // estimated variable with Wiener Prozess
             }
         } else { // use actual variables without reaction time
             estSpeed = current_estSpeed;
