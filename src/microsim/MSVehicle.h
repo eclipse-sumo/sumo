@@ -673,6 +673,10 @@ public:
         return myTimeSinceStartup;
     }
 
+    inline double getTimeSinceStartupSeconds() const {
+        return STEPS2TIME(myTimeSinceStartup);
+    }
+
     /** @brief Returns the SUMOTime lost (speed was lesser maximum speed)
      *
      * @note Intentional stopping does not count towards this time.
