@@ -152,7 +152,7 @@ double
 ROEdge::getEffort(const ROVehicle* const veh, double time) const {
     double ret = 0;
     if (!getStoredEffort(time, ret)) {
-        return myLength / MIN2(veh->getType()->maxSpeed, mySpeed) + myTimePenalty;
+        return myLength / MIN2(veh->getMaxSpeed(), mySpeed) + myTimePenalty;
     }
     return ret;
 }
@@ -204,7 +204,7 @@ ROEdge::getTravelTime(const ROVehicle* const veh, double time) const {
             }
         }
     }
-    const double speed = veh != nullptr ? MIN2(veh->getType()->maxSpeed, veh->getType()->speedFactor.getParameter()[0] * mySpeed) : mySpeed;
+    const double speed = veh != nullptr ? MIN2(veh->getMaxSpeed(), veh->getType()->speedFactor.getParameter()[0] * mySpeed) : mySpeed;
     return myLength / speed + myTimePenalty;
 }
 
@@ -213,7 +213,7 @@ double
 ROEdge::getNoiseEffort(const ROEdge* const edge, const ROVehicle* const veh, double time) {
     double ret = 0;
     if (!edge->getStoredEffort(time, ret)) {
-        const double v = MIN2(veh->getType()->maxSpeed, edge->mySpeed);
+        const double v = MIN2(veh->getMaxSpeed(), edge->mySpeed);
         ret = HelpersHarmonoise::computeNoise(veh->getType()->emissionClass, v, 0);
     }
     return ret;
