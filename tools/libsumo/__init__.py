@@ -33,17 +33,17 @@ from .libsumo import TraCICollision, TraCISignalConstraint  # noqa
 from .libsumo import *  # noqa
 
 DOMAINS = [
-    inductionloop,  # noqa
-    lanearea,  # noqa
-    multientryexit,  # noqa
     busstop,  # noqa
     calibrator,  # noqa
     chargingstation,  # noqa
     edge,  # noqa
     gui,  # noqa
+    inductionloop,  # noqa
     junction,  # noqa
     lane,  # noqa
+    lanearea,  # noqa
     meandata,  # noqa
+    multientryexit,  # noqa
     overheadwire,  # noqa
     parkingarea,  # noqa
     person,

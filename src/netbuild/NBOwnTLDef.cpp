@@ -49,6 +49,12 @@
 //#define DEBUGEDGE(edge) (true)
 
 // ===========================================================================
+// static members
+// ===========================================================================
+const double NBOwnTLDef::MIN_SPEED_CROSSING_TIME(25 / 3.6);
+
+
+// ===========================================================================
 // member method definitions
 // ===========================================================================
 NBOwnTLDef::NBOwnTLDef(const std::string& id,
@@ -297,7 +303,7 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
                         || (approached.toEdge->getPermissions() & SVC_PASSENGER) == 0) {
                     crossingTime.push_back(0);
                 } else {
-                    crossingTime.push_back(TIME2STEPS((approached.length + approached.viaLength) / approached.vmax));
+                    crossingTime.push_back(TIME2STEPS((approached.length + approached.viaLength) / MAX2(approached.vmax, MIN_SPEED_CROSSING_TIME)));
                 }
                 // std::cout << fromEdge->getID() << " " << approached.toEdge->getID() << " " << (fromEdge->getPermissions() & SVC_PASSENGER) << " " << approached.length << " " << approached.viaLength << " " << approached.vmax << " " << crossingTime.back() << std::endl;
                 if (approached.toEdge != nullptr) {

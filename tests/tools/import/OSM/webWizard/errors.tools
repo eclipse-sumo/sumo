@@ -73,6 +73,10 @@ Warning: First stop edge '148458500#1' is not part of the route of line '28270'.
 Warning: First stop edge '25946670' is not part of the route of line '300432'.
 Warning: Last stop edge '25946670' is not part of the route of line '300432'.
 Warning: First stop edge '25946670' is not part of the route of line '6593455'.
+Warning: Converting invalid rail_crossing to traffic_light at junction '3918673904'.
+Warning: Converting invalid rail_crossing to traffic_light at junction '3918673907'.
+Warning: Converting invalid rail_crossing to traffic_light at junction '3918673910'.
+Warning: Converting invalid rail_crossing to traffic_light at junction '3918673916'.
 Warning: Not joining junctions 160503259,171440823,4237827432 (only 1 exit node).
 Warning: Not joining junctions 28373970,540698421 (only 1 edge within and no cross-traffic).
 Warning: Not joining junctions 28373972,3513423889,3513425993 (not compact (maxEdge=4612964#0 length=8.21)).
@@ -98,8 +102,8 @@ Warning: The rail crossing '4567083494' does not have any roads.
 Warning: The rail crossing '4603453625' does not have any roads.
 Warning: The traffic light '4363312288' does not control any links; it will not be build.
 Warning: Could not build program '0' for traffic light '4363312288'
-Warning: The traffic light 'joinedS_5' cannot be adapted to a cycle time of 90.00.
-Warning: The traffic light 'joinedS_5' has a high cycle time of 172.00.
+Warning: The traffic light 'joinedS_6' cannot be adapted to a cycle time of 90.00.
+Warning: The traffic light 'joinedS_6' has a high cycle time of 172.00.
 Warning: 17 total messages of type: Ambiguous railway kilometrage direction for way '%' (assuming forward)
 Warning: 10 total messages of type: Could not re-assign PT stop '%', probably broken osm file.
 Warning: 9 total messages of type: Discarding unknown compound '%' in type '%' (first occurence for edge '%').
@@ -135,27 +139,27 @@ Warning: At actuated tlLogic 'cluster_160503146_27411250_5372980361_5727160044_5
 Warning: At actuated tlLogic 'cluster_21432801_2938442114_295705005_3139140896_3178759584_735967920_735967921_735967926_961816249_961816257', actuated phase 6 has no controlling detector.
 Warning: At actuated tlLogic 'joinedS_0', linkIndex 16 has no controlling detector.
 Warning: At actuated tlLogic 'joinedS_0', linkIndex 24 has no controlling detector.
-Warning: At actuated tlLogic 'joinedS_1', linkIndex 2 has no controlling detector.
-Warning: At actuated tlLogic 'joinedS_1', linkIndex 8 has no controlling detector.
-Warning: At actuated tlLogic 'joinedS_1', linkIndex 9 has no controlling detector.
-Warning: At actuated tlLogic 'joinedS_1', linkIndex 10 has no controlling detector.
-Warning: At actuated tlLogic 'joinedS_1', linkIndex 31 has no controlling detector.
-Warning: At actuated tlLogic 'joinedS_1', linkIndex 32 has no controlling detector.
-Warning: At actuated tlLogic 'joinedS_1', linkIndex 33 has no controlling detector.
+Warning: At actuated tlLogic 'joinedS_2', linkIndex 2 has no controlling detector.
+Warning: At actuated tlLogic 'joinedS_2', linkIndex 8 has no controlling detector.
+Warning: At actuated tlLogic 'joinedS_2', linkIndex 9 has no controlling detector.
+Warning: At actuated tlLogic 'joinedS_2', linkIndex 10 has no controlling detector.
+Warning: At actuated tlLogic 'joinedS_2', linkIndex 31 has no controlling detector.
+Warning: At actuated tlLogic 'joinedS_2', linkIndex 32 has no controlling detector.
+Warning: At actuated tlLogic 'joinedS_2', linkIndex 33 has no controlling detector.
 Warning: busStop '1827996417' on lane '24914992#1_1' is too short for vehicle 'pt_bus_TXL:1.0'.
 Warning: busStop '1673526976' on lane '167272512#2_0' is too short for vehicle 'pt_tram_12:1.0'.
 Warning: busStop '30731700' on lane '167272531#9_0' is too short for vehicle 'pt_tram_12:1.0'.
 Warning: busStop '1668497956' on lane '153537614#2_0' is too short for vehicle 'pt_tram_M1:2.0'.
 Warning: busStop '3918673888' on lane '388702039#10_0' is too short for vehicle 'pt_bus_N6:0.0'.
 Warning: busStop '3869306762' on lane '111251382#2_1' is too short for vehicle 'pt_bus_147:0.0'.
+Warning: Teleporting vehicle 'pt_tram_M2:0.1'; collision with vehicle 'pt_tram_M2:3.0', lane='148458500#0_0', gap=-1.00, time=480.00 stage=move.
+Warning: Vehicle 'pt_tram_M2:0.1' ends teleporting on edge '148458500#1', time=480.00.
 Warning: busStop '3928759794' on lane '388702041#11_0' is too short for vehicle 'pt_bus_N6:1.0'.
-Warning: Teleporting vehicle 'pt_tram_M2:0.1'; collision with vehicle 'pt_tram_M2:3.0', lane='148458500#0_0', gap=-1.00, time=484.00 stage=move.
-Warning: Vehicle 'pt_tram_M2:0.1' ends teleporting on edge '148458500#1', time=484.00.
-Warning: Person 'ped149' is jammed on edge ':1828018040_c0', time=1677.00.
+Warning: Person 'ped149' is jammed on edge ':1828018040_c0', time=1638.00.
 Warning: Person 'ped81' aborted waiting for 100:0 at busStop '272408975'.
+Warning: Person 'ped176' aborted waiting for N2:0 at busStop '3867910420'.
 Warning: Person 'ped9' aborted waiting for 100:0 at busStop '271296293'.
 Warning: Person 'ped45' aborted waiting for TXL:1 at busStop '272408975'.
 Warning: Person 'ped99' aborted waiting for 100:1 at busStop '270718978'.
 Warning: Person 'ped37' aborted waiting for S5:1 at busStop '27411231'.
-Warning: Person 'ped172' aborted waiting for N2:1 at busStop '-3867910429'.
 Warning: Person 'ped71' aborted waiting for 200:1 at busStop '1827996414'.

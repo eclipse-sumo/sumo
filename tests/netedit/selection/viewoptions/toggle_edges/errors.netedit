@@ -2,14 +2,14 @@ Debug: Adding busStop 'busStopA' in GNEChange_Additional
 Debug: Adding busStop 'busStopB' in GNEChange_Additional
 Debug: Adding busStop 'busStopC' in GNEChange_Additional
 Debug: Adding busStop 'busStopD' in GNEChange_Additional
-Debug: Adding e1Detector 'detector1' in GNEChange_Additional
-Debug: Adding e1Detector 'detector2' in GNEChange_Additional
-Debug: Adding e1Detector 'detector3' in GNEChange_Additional
-Debug: Adding e1Detector 'detector4' in GNEChange_Additional
-Debug: Adding e1Detector 'detector5' in GNEChange_Additional
-Debug: Adding e1Detector 'detector6' in GNEChange_Additional
-Debug: Adding e1Detector 'detector7' in GNEChange_Additional
-Debug: Adding e1Detector 'detector8' in GNEChange_Additional
+Debug: Adding inductionLoop 'detector1' in GNEChange_Additional
+Debug: Adding inductionLoop 'detector2' in GNEChange_Additional
+Debug: Adding inductionLoop 'detector3' in GNEChange_Additional
+Debug: Adding inductionLoop 'detector4' in GNEChange_Additional
+Debug: Adding inductionLoop 'detector5' in GNEChange_Additional
+Debug: Adding inductionLoop 'detector6' in GNEChange_Additional
+Debug: Adding inductionLoop 'detector7' in GNEChange_Additional
+Debug: Adding inductionLoop 'detector8' in GNEChange_Additional
 Debug: Adding taz 'TAZ' in GNEChange_Additional
 Debug: Adding poly 'poly' in GNEChange_Additional
 Debug: Adding poi 'POI_0' in GNEChange_Additional
@@ -843,14 +843,14 @@ Debug: Deleting unreferenced poi
 Debug: Deleting unreferenced poi
 Debug: Deleting unreferenced poly
 Debug: Deleting unreferenced taz
-Debug: Deleting unreferenced e1Detector
-Debug: Deleting unreferenced e1Detector
-Debug: Deleting unreferenced e1Detector
-Debug: Deleting unreferenced e1Detector
-Debug: Deleting unreferenced e1Detector
-Debug: Deleting unreferenced e1Detector
-Debug: Deleting unreferenced e1Detector
-Debug: Deleting unreferenced e1Detector
+Debug: Deleting unreferenced inductionLoop
+Debug: Deleting unreferenced inductionLoop
+Debug: Deleting unreferenced inductionLoop
+Debug: Deleting unreferenced inductionLoop
+Debug: Deleting unreferenced inductionLoop
+Debug: Deleting unreferenced inductionLoop
+Debug: Deleting unreferenced inductionLoop
+Debug: Deleting unreferenced inductionLoop
 Debug: Deleting unreferenced busStop
 Debug: Deleting unreferenced busStop
 Debug: Deleting unreferenced busStop

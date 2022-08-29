@@ -33,3 +33,12 @@ insertion_speed_step0.2
 
 # make sure that there is no crash when defining a large minGap (#10471)
 minGap8
+
+# collision when configured with low accel
+ticket11199
+
+# exhibit extreme minGap violation inherent in the model (with some parameter combinations) - see #11199
+violateMingap
+
+# exhibit extreme minGap violation inherent in the model (with some parameter combinations) - see #11199
+violateMingap_warn

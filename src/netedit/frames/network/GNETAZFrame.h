@@ -45,7 +45,7 @@ public:
     // class CurrentTAZ
     // ===========================================================================
 
-    class CurrentTAZ : public FXGroupBoxModule {
+    class CurrentTAZ : public MFXGroupBoxModule {
 
     public:
         /// @brief struct for edges and the source/sink colors
@@ -151,7 +151,7 @@ public:
     // class TAZCommonStatistics
     // ===========================================================================
 
-    class TAZCommonStatistics : public FXGroupBoxModule {
+    class TAZCommonStatistics : public MFXGroupBoxModule {
 
     public:
         /// @brief constructor
@@ -181,7 +181,7 @@ public:
     // class TAZSaveChanges
     // ===========================================================================
 
-    class TAZSaveChanges : public FXGroupBoxModule {
+    class TAZSaveChanges : public MFXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNETAZFrame::TAZSaveChanges)
 
@@ -231,7 +231,7 @@ public:
     // class TAZChildDefaultParameters
     // ===========================================================================
 
-    class TAZChildDefaultParameters : public FXGroupBoxModule {
+    class TAZChildDefaultParameters : public MFXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNETAZFrame::TAZChildDefaultParameters)
 
@@ -318,7 +318,7 @@ public:
     // class TAZSelectionStatistics
     // ===========================================================================
 
-    class TAZSelectionStatistics : public FXGroupBoxModule {
+    class TAZSelectionStatistics : public MFXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNETAZFrame::TAZSelectionStatistics)
 
@@ -392,7 +392,7 @@ public:
     // class TAZParameters
     // ===========================================================================
 
-    class TAZParameters : public FXGroupBoxModule {
+    class TAZParameters : public MFXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNETAZFrame::TAZParameters)
 
@@ -466,7 +466,7 @@ public:
     // class TAZEdgesGraphic
     // ===========================================================================
 
-    class TAZEdgesGraphic : public FXGroupBoxModule {
+    class TAZEdgesGraphic : public MFXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNETAZFrame::TAZEdgesGraphic)
 
@@ -519,10 +519,10 @@ public:
     };
 
     /**@brief Constructor
-     * @brief parent FXHorizontalFrame in which this GNEFrame is placed
+     * @brief viewParent GNEViewParent in which this GNEFrame is placed
      * @brief viewNet viewNet that uses this GNEFrame
      */
-    GNETAZFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet);
+    GNETAZFrame(GNEViewParent *viewParent, GNEViewNet* viewNet);
 
     /// @brief Destructor
     ~GNETAZFrame();

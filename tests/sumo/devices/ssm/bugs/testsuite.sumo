@@ -13,3 +13,6 @@ ticket6416
 
 # crash on disconnected route
 ticket7836
+
+# emergency vehicle with bluelight device performs lane change that disrupts a follower relationship.
+ticket11336

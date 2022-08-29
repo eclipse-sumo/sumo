@@ -38,7 +38,7 @@ FXDEFMAP(GNENetworkSelector) SelectorParentNetworkElementsMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNENetworkSelector, FXGroupBoxModule, SelectorParentNetworkElementsMap, ARRAYNUMBER(SelectorParentNetworkElementsMap))
+FXIMPLEMENT(GNENetworkSelector, MFXGroupBoxModule, SelectorParentNetworkElementsMap, ARRAYNUMBER(SelectorParentNetworkElementsMap))
 
 
 // ---------------------------------------------------------------------------
@@ -46,7 +46,7 @@ FXIMPLEMENT(GNENetworkSelector, FXGroupBoxModule, SelectorParentNetworkElementsM
 // ---------------------------------------------------------------------------
 
 GNENetworkSelector::GNENetworkSelector(GNEFrame* frameParent, const Type networkElementType) :
-    FXGroupBoxModule(frameParent, "NetworkElements"),
+    MFXGroupBoxModule(frameParent, "NetworkElements"),
     myFrameParent(frameParent),
     myNetworkElementType(networkElementType) {
     // Create horizontal frame

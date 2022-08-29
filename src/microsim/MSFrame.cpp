@@ -442,6 +442,9 @@ MSFrame::fillOptions() {
     oc.doRegister("tls.actuated.jam-threshold", new Option_Float(-1));
     oc.addDescription("tls.actuated.jam-threshold", "Processing", "Sets default jam-treshold parameter for all actuation detectors");
 
+    oc.doRegister("tls.actuated.detector-length", new Option_Float(0));
+    oc.addDescription("tls.actuated.detector-length", "Processing", "Sets default detector length parameter for all actuation detectors");
+
     oc.doRegister("tls.delay_based.detector-range", new Option_Float(100));
     oc.addDescription("tls.delay_based.detector-range", "Processing", "Sets default range for detecting delayed vehicles");
 
@@ -683,6 +686,7 @@ MSFrame::fillOptions() {
     oc.addDescription("breakpoints", "GUI Only", "Use TIME[] as times when the simulation should halt");
 
     oc.doRegister("edgedata-files", new Option_FileName());
+    oc.addSynonyme("edgedata-files", "data-files");
     oc.addDescription("edgedata-files", "GUI Only", "Load edge/lane weights for visualization from FILE");
 
     oc.doRegister("demo", 'D', new Option_Bool(false));
@@ -733,7 +737,7 @@ MSFrame::buildStreams() {
     //extended
     OutputDevice::createDeviceByOption("fcd-output", "fcd-export", "fcd_file.xsd");
     OutputDevice::createDeviceByOption("emission-output", "emission-export", "emission_file.xsd");
-    OutputDevice::createDeviceByOption("battery-output", "battery-export");
+    OutputDevice::createDeviceByOption("battery-output", "battery-export", "battery_file.xsd");
     if (OptionsCont::getOptions().getBool("elechybrid-output.aggregated")) {
         // RICE_TODO: Add path to elechybrid-output.aggregated xsd file
         OutputDevice::createDeviceByOption("elechybrid-output", "elecHybrid-export-aggregated", "\" recuperationEnabled=\"" + toString(MSGlobals::gOverheadWireRecuperation));

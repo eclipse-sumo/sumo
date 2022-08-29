@@ -1481,7 +1481,20 @@ NBEdgeCont::markRoundabouts() {
                 }
                 if (inEdge->getTurnDestination() != nullptr) {
                     inEdge->removeFromConnections(inEdge->getTurnDestination(), -1);
+                } else {
+                    // also remove connections that are effecively a turnaround but
+                    // where not correctly detector due to geometrical quirks
+                    const std::vector<NBEdge::Connection> cons = inEdge->getConnections();
+                    for (const NBEdge::Connection& con : cons) {
+                        if (roundaboutSet.count(con.toEdge) == 0) {
+                            const double angle = fabs(NBHelpers::normRelAngle(inEdge->getAngleAtNode(node), con.toEdge->getAngleAtNode(node)));
+                            if (angle > 160) {
+                                inEdge->removeFromConnections(con.toEdge, -1);
+                            }
+                        }
+                    }
                 }
+
             }
             // let the connections to succeeding roundabout edge have a higher priority
             edge->setJunctionPriority(node, NBEdge::JunctionPriority::ROUNDABOUT);

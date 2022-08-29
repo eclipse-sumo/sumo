@@ -30,7 +30,7 @@
 #include <utils/options/OptionsCont.h>
 #include <utils/options/Option.h>
 #include <utils/options/OptionsIO.h>
-#include <utils/foxtools/FXSynchQue.h>
+#include <utils/foxtools/MFXSynchQue.h>
 #include <utils/gui/events/GUIEvent_Message.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
@@ -63,8 +63,8 @@
 // member method definitions
 // ===========================================================================
 GUILoadThread::GUILoadThread(FXApp* app, GUIApplicationWindow* mw,
-                             FXSynchQue<GUIEvent*>& eq, FXEX::FXThreadEvent& ev, const bool isLibsumo)
-    : FXSingleEventThread(app, mw), myParent(mw), myEventQue(eq),
+                             MFXSynchQue<GUIEvent*>& eq, FXEX::MFXThreadEvent& ev, const bool isLibsumo)
+    : MFXSingleEventThread(app, mw), myParent(mw), myEventQue(eq),
       myEventThrow(ev), myAmLibsumo(isLibsumo) {
     myErrorRetriever = new MsgRetrievingFunction<GUILoadThread>(this, &GUILoadThread::retrieveMessage, MsgHandler::MsgType::MT_ERROR);
     myMessageRetriever = new MsgRetrievingFunction<GUILoadThread>(this, &GUILoadThread::retrieveMessage, MsgHandler::MsgType::MT_MESSAGE);

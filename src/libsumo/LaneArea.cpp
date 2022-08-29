@@ -162,6 +162,7 @@ LaneArea::getTree() {
     return myTree;
 }
 
+
 void
 LaneArea::cleanup() {
     delete myTree;
@@ -181,6 +182,7 @@ std::shared_ptr<VariableWrapper>
 LaneArea::makeWrapper() {
     return std::make_shared<Helper::SubscriptionWrapper>(handleVariable, mySubscriptionResults, myContextSubscriptionResults);
 }
+
 
 void
 LaneArea::overrideVehicleNumber(const std::string& detID, int num) {

@@ -42,6 +42,7 @@ enum class GUIIcon {
     OPEN_SHAPES,
     OPEN_ADDITIONALS,
     OPEN_TLSPROGRAMS,
+    OPEN_SUMOCONFIG,
     NEW_NET,
     RELOAD,
     SAVE,
@@ -457,6 +458,16 @@ enum class GUIIcon {
     TAZRELDATA,
     /// @}
 
+    /// @name NETEDIT icons used in GNETLSTable
+    /// @{
+    TLSPHASEDEFAULT,
+    TLSPHASECOPY,
+    TLSPHASEALLRED,
+    TLSPHASEALLYELLOW,
+    TLSPHASEALLGREEN,
+    TLSPHASEALLGREENPRIORITY,
+    /// @}
+
     /// @name vehicle Class icons (big, used in vType Dialog)
     /// @{
     VCLASS_IGNORING,
@@ -530,6 +541,7 @@ enum class GUIIcon {
     VSHAPE_PASSENGER_HATCHBACK,
     VSHAPE_PASSENGER_WAGON,
     VSHAPE_PASSENGER_VAN,
+    VSHAPE_TAXI,
     VSHAPE_DELIVERY,
     VSHAPE_TRUCK,
     VSHAPE_TRUCK_SEMITRAILER,
@@ -561,6 +573,8 @@ enum class GUIIcon {
     INCORRECT,
     RESET,
     WARNING,
+    DANGER,
+    SUM,
     /// @}
 
     /// @name icons for grid
@@ -570,4 +584,9 @@ enum class GUIIcon {
     GRID2,
     GRID3,
     /// @}
+
+    /// @brief icons for geo tools
+    GEOHACK,
+    GOOGLESAT,
+    OSM
 };

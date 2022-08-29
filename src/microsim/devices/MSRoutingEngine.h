@@ -36,7 +36,7 @@
 #include "MSDevice.h"
 
 #ifdef HAVE_FOX
-#include <utils/foxtools/FXWorkerThread.h>
+#include <utils/foxtools/MFXWorkerThread.h>
 #endif
 
 // ===========================================================================
@@ -70,7 +70,7 @@ public:
     /// @brief initialize the edge weights if not done before
     static void initEdgeWeights(SUMOVehicleClass svc);
 
-    /// @brief returns whether any routing actions take place
+    /// @brief returns whether any edge weight updates will take place
     static bool hasEdgeUpdates() {
         return myEdgeWeightSettingCommand != nullptr;
     }
@@ -146,12 +146,12 @@ private:
      * @class RoutingTask
      * @brief the routing task which mainly calls reroute of the vehicle
      */
-    class RoutingTask : public FXWorkerThread::Task {
+    class RoutingTask : public MFXWorkerThread::Task {
     public:
         RoutingTask(SUMOVehicle& v, const SUMOTime time, const std::string& info,
                     const bool onInit, const bool silent, const MSEdgeVector& prohibited)
             : myVehicle(v), myTime(time), myInfo(info), myOnInit(onInit), mySilent(silent), myProhibited(prohibited) {}
-        void run(FXWorkerThread* context);
+        void run(MFXWorkerThread* context);
     private:
         SUMOVehicle& myVehicle;
         const SUMOTime myTime;

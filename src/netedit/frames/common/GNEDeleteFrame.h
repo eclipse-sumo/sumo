@@ -71,7 +71,7 @@ public:
     // class DeleteOptions
     // ===========================================================================
 
-    class DeleteOptions : public FXGroupBoxModule {
+    class DeleteOptions : public MFXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNEDeleteFrame::DeleteOptions)
 
@@ -108,7 +108,7 @@ public:
     // class ProtectElements
     // ===========================================================================
 
-    class ProtectElements : public FXGroupBoxModule {
+    class ProtectElements : public MFXGroupBoxModule {
 
     public:
         /// @brief constructor
@@ -144,10 +144,10 @@ public:
     };
 
     /**@brief Constructor
-     * @brief parent FXHorizontalFrame in which this GNEFrame is placed
+     * @brief viewParent GNEViewParent in which this GNEFrame is placed
      * @brief viewNet viewNet that uses this GNEFrame
      */
-    GNEDeleteFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet);
+    GNEDeleteFrame(GNEViewParent *viewParent, GNEViewNet* viewNet);
 
     /// @brief Destructor
     ~GNEDeleteFrame();

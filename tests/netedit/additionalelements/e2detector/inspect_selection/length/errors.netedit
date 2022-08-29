@@ -6,19 +6,19 @@ GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,1
 Debug: Inserting generic parameter 'KeyA1|valueA1' into e2Detector
 Debug: Inserting generic parameter 'KeyA3|valueA2' into e2Detector
 Debug: Inserting generic parameter 'KeyA2|valueA3' into e2Detector
-Debug: Adding e2Detector 'E2_A' in GNEChange_Additional
+Debug: Adding laneAreaDetector 'E2_A' in GNEChange_Additional
 Debug: Inserting generic parameter 'KeyB1|valueB1' into e2Detector
 Debug: Inserting generic parameter 'KeyB3|valueB2' into e2Detector
 Debug: Inserting generic parameter 'KeyB2|valueB3' into e2Detector
-Debug: Adding e2Detector 'E2_B' in GNEChange_Additional
+Debug: Adding laneAreaDetector 'E2_B' in GNEChange_Additional
 Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Setting new attribute
-Debug: Value 'dummyLength' for attribute length of e2Detector isn't valid
-Debug: Value '-5' for attribute length of e2Detector isn't valid
+Debug: Value 'dummyLength' for attribute length of laneAreaDetector isn't valid
+Debug: Value '-5' for attribute length of laneAreaDetector isn't valid
 Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Setting new attribute
@@ -93,8 +93,8 @@ GLDebug: Add edges during recomputing after calling myNetBuilder->compute(...)
 GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,60.00,10.00
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,11.60
 Debug: network elements saved
-Debug: Deleting unreferenced e2Detector
-Debug: Deleting unreferenced e2Detector
+Debug: Deleting unreferenced laneAreaDetector
+Debug: Deleting unreferenced laneAreaDetector
 Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor

@@ -287,7 +287,8 @@ RouteHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) {
                             obj->getStringAttribute(SUMO_ATTR_BUS_STOP),
                             obj->getDoubleAttribute(SUMO_ATTR_ARRIVALPOS),
                             obj->getStringListAttribute(SUMO_ATTR_VTYPES),
-                            obj->getStringListAttribute(SUMO_ATTR_MODES));
+                            obj->getStringListAttribute(SUMO_ATTR_MODES),
+                            obj->getStringListAttribute(SUMO_ATTR_LINES));
             break;
         case SUMO_TAG_RIDE:
             buildRide(obj,
@@ -637,7 +638,8 @@ RouteHandler::parsePersonTrip(const SUMOSAXAttributes& attrs) {
     const std::vector<std::string> via = attrs.getOpt<std::vector<std::string> >(SUMO_ATTR_VIA, "", parsedOk);
     const std::string busStop = attrs.getOpt<std::string>(SUMO_ATTR_BUS_STOP, "", parsedOk, "");
     const std::vector<std::string> vTypes = attrs.getOpt<std::vector<std::string> >(SUMO_ATTR_VTYPES, "", parsedOk);
-    const std::vector<std::string> modes = attrs.getOpt<std::vector<std::string> >(SUMO_ATTR_MODES, "", parsedOk);
+    const std::vector<std::string> lines = attrs.getOpt<std::vector<std::string> >(SUMO_ATTR_MODES, "", parsedOk);
+    const std::vector<std::string> modes = attrs.getOpt<std::vector<std::string> >(SUMO_ATTR_LINES, "", parsedOk);
     const double departPos = attrs.getOpt<double>(SUMO_ATTR_DEPARTPOS, "", parsedOk, -1);
     const double arrivalPos = attrs.getOpt<double>(SUMO_ATTR_ARRIVALPOS, "", parsedOk, -1);
     if (parsedOk) {
@@ -652,6 +654,7 @@ RouteHandler::parsePersonTrip(const SUMOSAXAttributes& attrs) {
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_BUS_STOP, busStop);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringListAttribute(SUMO_ATTR_VTYPES, vTypes);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringListAttribute(SUMO_ATTR_MODES, modes);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringListAttribute(SUMO_ATTR_LINES, lines);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_DEPARTPOS, departPos);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_ARRIVALPOS, arrivalPos);
     }

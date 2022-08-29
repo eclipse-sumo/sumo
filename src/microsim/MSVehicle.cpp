@@ -881,12 +881,12 @@ MSVehicle::Influencer::postProcessRemoteControl(MSVehicle* v) {
         v->drawOutsideNetwork(true);
         // see updateState
         double vNext = v->processTraCISpeedControl(
-                           v->getVehicleType().getMaxSpeed(), v->getSpeed());
+                           v->getMaxSpeed(), v->getSpeed());
         v->setBrakingSignals(vNext);
-        v->updateWaitingTime(vNext);
         v->myState.myPreviousSpeed = v->getSpeed();
         v->myAcceleration = SPEED2ACCEL(vNext - v->getSpeed());
         v->myState.mySpeed = vNext;
+        v->updateWaitingTime(vNext);
         //std::cout << "outside network p=" << myRemoteXYPos << " a=" << myRemoteAngle << " l=" << Named::getIDSecure(myRemoteLane) << "\n";
     }
     // ensure that the position is correct (i.e. when the lanePosition is ambiguous at corners)
@@ -918,7 +918,7 @@ MSVehicle::Influencer::implicitSpeedRemote(const MSVehicle* veh, double oldSpeed
                              ? myRemoteLane->getVehicleMaxSpeed(veh)
                              : (veh->getLane() != nullptr
                                 ? veh->getLane()->getVehicleMaxSpeed(veh)
-                                : veh->getVehicleType().getMaxSpeed()));
+                                : veh->getMaxSpeed()));
     return MIN2(maxSpeed, MAX2(minSpeed, DIST2SPEED(dist)));
 }
 
@@ -2927,7 +2927,12 @@ MSVehicle::adaptToLeader(const std::pair<const MSVehicle*, double> leaderInfo,
             }
 #endif
             if (!backOnRoute) {
-                vsafeLeader = cfModel.stopSpeed(this, getSpeed(), seen - current->getLength() - POSITION_EPS);
+                double stopDist = seen - current->getLength() - POSITION_EPS;
+                if (lastLink->myLink->getInternalLaneBefore() != nullptr) {
+                    // do not drive onto the junction conflict area
+                    stopDist -= lastLink->myLink->getInternalLaneBefore()->getLength();
+                }
+                vsafeLeader = cfModel.stopSpeed(this, getSpeed(), stopDist);
             }
         }
         if (backOnRoute) {
@@ -3744,7 +3749,7 @@ MSVehicle::setBrakingSignals(double vNext) {
 
 void
 MSVehicle::updateWaitingTime(double vNext) {
-    if (vNext <= SUMO_const_haltingSpeed && (!isStopped() || isIdling())) { // cf issue 2233
+    if (vNext <= SUMO_const_haltingSpeed && (!isStopped() || isIdling()) && myAcceleration <= accelThresholdForWaiting())  {
         myWaitingTime += DELTA_T;
         myWaitingTimeCollector.passTime(DELTA_T, true);
     } else {
@@ -3807,7 +3812,7 @@ MSVehicle::checkReversal(bool& canReverse, double speedThreshold, double seen) c
                 std::cout << "    fail: remainingEdges=" << ((int)(myRoute->end() - myCurrEdge)) << " further=" << myFurtherLanes.size() << "\n";
             }
 #endif
-            return getVehicleType().getMaxSpeed();
+            return getMaxSpeed();
         }
         //if (isSelected()) std::cout << "   check2 passed\n";
 
@@ -3819,7 +3824,7 @@ MSVehicle::checkReversal(bool& canReverse, double speedThreshold, double seen) c
                 std::cout << "    noTurn (bidi=" << myLane->getEdge().getBidiEdge()->getID() << " succ=" << toString(succ) << "\n";
             }
 #endif
-            return getVehicleType().getMaxSpeed();
+            return getMaxSpeed();
         }
         //if (isSelected()) std::cout << "   check3 passed\n";
 
@@ -3835,7 +3840,7 @@ MSVehicle::checkReversal(bool& canReverse, double speedThreshold, double seen) c
                 }
 #endif
                 if (seen > MAX2(brakeDist, 1.0)) {
-                    return getVehicleType().getMaxSpeed();
+                    return getMaxSpeed();
                 } else {
 #ifdef DEBUG_REVERSE_BIDI
                     if (DEBUG_COND) {
@@ -3857,7 +3862,7 @@ MSVehicle::checkReversal(bool& canReverse, double speedThreshold, double seen) c
                         std::cout << "    noBidi view=" << view << " further=" << further->getID() << " furtherBidi=" << Named::getIDSecure(further->getEdge().getBidiEdge()) << " future=" << (*(myCurrEdge + view))->getID() << "\n";
                     }
 #endif
-                    return getVehicleType().getMaxSpeed();
+                    return getMaxSpeed();
                 }
                 if (!myStops.empty() && myStops.front().edge == (myCurrEdge + view)) {
                     const double brakeDist = getCarFollowModel().brakeGap(getSpeed(), getCarFollowModel().getMaxDecel(), 0);
@@ -3871,7 +3876,7 @@ MSVehicle::checkReversal(bool& canReverse, double speedThreshold, double seen) c
 #endif
                         if (seen > MAX2(brakeDist, 1.0)) {
                             canReverse = false;
-                            return getVehicleType().getMaxSpeed();
+                            return getMaxSpeed();
                         } else {
 #ifdef DEBUG_REVERSE_BIDI
                             if (DEBUG_COND) {
@@ -3894,7 +3899,7 @@ MSVehicle::checkReversal(bool& canReverse, double speedThreshold, double seen) c
         canReverse = true;
         return vMinComfortable;
     }
-    return getVehicleType().getMaxSpeed();
+    return getMaxSpeed();
 }
 
 
@@ -4110,8 +4115,12 @@ MSVehicle::executeMove() {
     // Determine vNext = speed after current sim step (ballistic), resp. in current simstep (euler)
     // Call to finalizeSpeed applies speed reduction due to dawdling / lane changing but ensures minimum safe speed
     double vNext = vSafe;
-    if (vNext <= SUMO_const_haltingSpeed && myWaitingTime > MSGlobals::gStartupWaitThreshold) {
+    const double rawAccel = SPEED2ACCEL(MAX2(vNext, 0.) - myState.mySpeed);
+    if (vNext <= SUMO_const_haltingSpeed && myWaitingTime > MSGlobals::gStartupWaitThreshold && rawAccel <= accelThresholdForWaiting()) {
         myTimeSinceStartup = 0;
+    } else if (isStopped()) {
+        // do not apply startupDelay but signal that a stop has taken place
+        myTimeSinceStartup = getCarFollowModel().getStartupDelay() + DELTA_T;
     } else {
         // identify potential startup (before other effects reduce the speed again)
         myTimeSinceStartup += DELTA_T;
@@ -4175,7 +4184,6 @@ MSVehicle::executeMove() {
     }
 
     setBrakingSignals(vNext);
-    updateWaitingTime(vNext);
 
     // update position and speed
     int oldLaneOffset = myLane->getEdge().getNumLanes() - myLane->getIndex();
@@ -4186,6 +4194,7 @@ MSVehicle::executeMove() {
         myLane = myLane->getParallelOpposite();
     }
     updateState(vNext);
+    updateWaitingTime(vNext);
 
     // Lanes, which the vehicle touched at some moment of the executed simstep
     std::vector<MSLane*> passedLanes;
@@ -4919,6 +4928,18 @@ MSVehicle::setApproachingForAllLinks(const SUMOTime t) {
     }
 #endif
 }
+
+
+void
+MSVehicle::registerInsertionApproach(MSLink* link, double dist) {
+    DriveProcessItem dpi(0, dist);
+    dpi.myLink = link;
+    const double arrivalSpeedBraking = getCarFollowModel().getMinimalArrivalSpeedEuler(dist, getSpeed());
+    link->setApproaching(this, SUMOTime_MAX, 0, 0, false, arrivalSpeedBraking, 0, dpi.myDistance, 0);
+    // ensure cleanup in the next step
+    myLFLinkLanes.push_back(dpi);
+}
+
 
 void
 MSVehicle::activateReminders(const MSMoveReminder::Notification reason, const MSLane* enteredLane) {

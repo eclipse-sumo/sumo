@@ -183,11 +183,7 @@ GUIDialog_EditViewport::onCmdCancel(FXObject*, FXSelector, void*) {
 long
 GUIDialog_EditViewport::onCmdChanged(FXObject* o, FXSelector, void*) {
     if (o == myZOff) {
-        if (myParent->is3DView()) {
-            myZoom->setValue(100.0);
-        } else {
-            myZoom->setValue(myParent->getChanger().zPos2Zoom(myZOff->getValue()));
-        }
+        myZoom->setValue(myParent->getChanger().zPos2Zoom(myZOff->getValue()));
     } else if (o == myZoom) {
         if (myParent->is3DView()) {
             Position camera(myXOff->getValue(), myYOff->getValue(), myZOff->getValue()), lookAt(myLookAtX->getValue(), myLookAtY->getValue(),

@@ -20,7 +20,7 @@
 
 #include "GUIDesigns.h"
 
-#include "utils/foxtools/FXMenuCheckIcon.h"
+#include "utils/foxtools/MFXMenuCheckIcon.h"
 
 
 // ===========================================================================
@@ -71,10 +71,10 @@ GUIDesigns::buildFXMenuCheckbox(FXComposite* p, const std::string& text, const s
 }
 
 
-FXMenuCheckIcon*
+MFXMenuCheckIcon*
 GUIDesigns::buildFXMenuCheckboxIcon(FXComposite* p, const std::string& text, const std::string& shortcut, const std::string& info, FXIcon* icon, FXObject* tgt, FXSelector sel) {
     // build menu checkbox
-    FXMenuCheckIcon* menuCheck = new FXMenuCheckIcon(p, text, shortcut, info, icon, tgt, sel, LAYOUT_FIX_HEIGHT);
+    MFXMenuCheckIcon* menuCheck = new MFXMenuCheckIcon(p, text, shortcut, info, icon, tgt, sel, LAYOUT_FIX_HEIGHT);
     // set height (to avoid problems between Windows und Linux)
     menuCheck->setHeight(GUIDesignHeight);
     // return menuCommand

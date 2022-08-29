@@ -514,6 +514,13 @@ class SimulationDomain(Domain):
         """
         return self._getUniversal(tc.VAR_SCALE)
 
+    def getOption(self, option):
+        """getOption(string) -> string
+
+        Returns the value of the given SUMO option
+        """
+        return self._getUniversal(tc.VAR_OPTION, option)
+
     def getDeltaT(self):
         """getDeltaT() -> double
         Returns the length of one simulation step in seconds

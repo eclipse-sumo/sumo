@@ -1,7 +1,7 @@
 TestFunctions: Netedit opened successfully
 Finding reference
 TestFunctions: 'reference.png' found. Position: 304 - 168
-e2Detector
+laneAreaDetector
 dummyJamTreshold
 TestFunctions: Clicked over position 754 - 388
 -30

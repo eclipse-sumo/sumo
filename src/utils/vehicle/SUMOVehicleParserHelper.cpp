@@ -315,8 +315,8 @@ SUMOVehicleParserHelper::parseFlowAttributes(SumoXMLTag tag, const SUMOSAXAttrib
                     if (flowParameter->repetitionEnd == SUMOTime_MAX) {
                         flowParameter->repetitionNumber = std::numeric_limits<int>::max();
                     } else {
-                        const double repLength = (double)(flowParameter->repetitionEnd - flowParameter->depart);
-                        flowParameter->repetitionNumber = (int)ceil(repLength / flowParameter->repetitionOffset);
+                        const SUMOTime repLength = flowParameter->repetitionEnd - flowParameter->depart;
+                        flowParameter->repetitionNumber = (int)ceil((double)repLength / (double)flowParameter->repetitionOffset);
                     }
                 }
             }
@@ -767,6 +767,28 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const
                 vType->parametersSet |= VTYPEPARS_MAXSPEED_SET;
             }
         }
+        if (attrs.hasAttribute(SUMO_ATTR_DESIRED_MAXSPEED)) {
+            bool ok = true;
+            const double desiredMaxSpeed = attrs.get<double>(SUMO_ATTR_DESIRED_MAXSPEED, vType->id.c_str(), ok);
+            if (!ok) {
+                return handleVehicleTypeError(hardFail, vType);
+            } else if (desiredMaxSpeed <= 0) {
+                return handleVehicleTypeError(hardFail, vType, toString(SUMO_ATTR_DESIRED_MAXSPEED) + " must be greater than 0");
+            } else {
+                vType->desiredMaxSpeed = desiredMaxSpeed;
+                vType->parametersSet |= VTYPEPARS_DESIRED_MAXSPEED_SET;
+            }
+        } else if (attrs.hasAttribute(SUMO_ATTR_MAXSPEED)) {
+            if (vClass == SVC_PEDESTRIAN) {
+                // backward compatibility because pedestrian maxSpeed was subject to speedFactor up to 1.14.1
+                vType->desiredMaxSpeed = vType->maxSpeed;;
+                vType->maxSpeed = MAX2(vType->maxSpeed, SUMOVTypeParameter::VClassDefaultValues(vClass).maxSpeed);
+            } else if (vClass == SVC_BICYCLE){
+                // backward compatibility because default desired speed did not exist up to 1.14.1
+                vType->desiredMaxSpeed = MAX2(vType->maxSpeed, vType->desiredMaxSpeed);
+            }
+        }
+                
         if (attrs.hasAttribute(SUMO_ATTR_SPEEDFACTOR)) {
             bool ok = true;
             vType->speedFactor.parse(attrs.get<std::string>(SUMO_ATTR_SPEEDFACTOR, vType->id.c_str(), ok), hardFail);
@@ -1084,18 +1106,16 @@ SUMOVehicleParserHelper::parseAngleTimesMap(SUMOVTypeParameter* vtype, const std
     while (st.hasNext()) {
         StringTokenizer pos(st.next());
         if (pos.size() != 3) {
-            WRITE_ERROR("manoeuverAngleTimes format for vType '" + vtype->id + "' " + atm + " contains an invalid triplet.");
+            WRITE_ERROR("maneuverAngleTimes format for vType '" + vtype->id + "' " + atm + " contains an invalid triplet.");
             return false;
         } else {
             try {
                 const int angle = StringUtils::toInt(pos.next());
-                const SUMOTime t1 = static_cast<SUMOTime>(StringUtils::toDouble(pos.next()));
-                const SUMOTime steps1 = TIME2STEPS(t1);
-                const SUMOTime t2 = static_cast<SUMOTime>(StringUtils::toDouble(pos.next()));
-                const SUMOTime steps2 = TIME2STEPS(t2);
-                angleTimesMap.insert((std::pair<int, std::pair<SUMOTime, SUMOTime>>(angle, std::pair< SUMOTime, SUMOTime>(steps1, steps2))));
+                const SUMOTime t1 = string2time(pos.next());
+                const SUMOTime t2 = string2time(pos.next());
+                angleTimesMap[angle] = std::make_pair(t1, t2);
             } catch (...) {
-                WRITE_ERROR("Triplet '" + st.get(tripletCount) + "' for vType '" + vtype->id + "' manoeuverAngleTimes cannot be parsed as 'int double double'");
+                WRITE_ERROR("Triplet '" + st.get(tripletCount) + "' for vType '" + vtype->id + "' maneuverAngleTimes cannot be parsed as 'int double double'");
                 return false;
             }
             tripletCount++;
@@ -1340,6 +1360,7 @@ SUMOVehicleParserHelper::getAllowedCFModelAttrs() {
         ACCParams.insert(SUMO_ATTR_GC_GAIN_SPACE);
         ACCParams.insert(SUMO_ATTR_CA_GAIN_SPEED);
         ACCParams.insert(SUMO_ATTR_CA_GAIN_SPACE);
+        ACCParams.insert(SUMO_ATTR_CA_OVERRIDE);
         ACCParams.insert(SUMO_ATTR_APPLYDRIVERSTATE);
         allowedCFModelAttrs[SUMO_TAG_CF_ACC] = ACCParams;
         allParams.insert(ACCParams.begin(), ACCParams.end());
@@ -1358,6 +1379,7 @@ SUMOVehicleParserHelper::getAllowedCFModelAttrs() {
         CACCParams.insert(SUMO_ATTR_GC_GAIN_SPACE);
         CACCParams.insert(SUMO_ATTR_CA_GAIN_SPEED);
         CACCParams.insert(SUMO_ATTR_CA_GAIN_SPACE);
+        CACCParams.insert(SUMO_ATTR_CA_OVERRIDE);
         CACCParams.insert(SUMO_ATTR_HEADWAY_TIME_CACC_TO_ACC);
         CACCParams.insert(SUMO_ATTR_APPLYDRIVERSTATE);
         allowedCFModelAttrs[SUMO_TAG_CF_CACC] = CACCParams;

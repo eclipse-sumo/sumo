@@ -262,9 +262,10 @@ public:
 
     /**@brief add reversed edge
      * @param[in] edge The edge of which to add the reverse
+     * @param[in] disconnected add edge reversed or disconnected pararell
      * @return Return the new edge or 0
      */
-    GNEEdge* addReversedEdge(GNEEdge* edge, GNEUndoList* undoList);
+    GNEEdge* addReversedEdge(GNEEdge* edge, const bool disconnected, GNEUndoList* undoList);
 
     /**@brief merge the given junctions
      * edges between the given junctions will be deleted

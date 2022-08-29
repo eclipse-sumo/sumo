@@ -5,18 +5,18 @@
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- Detectors -->
-    <e3Detector id="e3Detector_A" name="A" pos="7.50,-2.00" period="100.00" file="e3Detector_00.txt">
+    <entryExitDetector id="entryExitDetector_A" name="A" pos="7.50,-2.00" period="100.00" file="entryExitDetector_00.txt">
         <detEntry lane="gneE1_0" pos="5.00"/>
         <detExit lane="gneE1_0" pos="25.00"/>
         <param key="keyFinal1" value="value1"/>
         <param key="keyFinal2" value="value2"/>
         <param key="keyFinal3" value="value3"/>
-    </e3Detector>
-    <e3Detector id="e3Detector_B" name="B" pos="17.50,-2.00" period="120.00" file="e3Detector_00.txt" timeThreshold="2000" speedThreshold="3.39">
+    </entryExitDetector>
+    <entryExitDetector id="entryExitDetector_B" name="B" pos="17.50,-2.00" period="120.00" file="entryExitDetector_00.txt" timeThreshold="2000" speedThreshold="3.39">
         <detEntry lane="gneE1_0" pos="10.00"/>
         <detExit lane="gneE1_0" pos="30.00"/>
         <param key="keyFinal1" value="value1"/>
         <param key="keyFinal2" value="value2"/>
         <param key="keyFinal3" value="value3"/>
-    </e3Detector>
+    </entryExitDetector>
 </additional>

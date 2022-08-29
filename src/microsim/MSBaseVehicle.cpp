@@ -29,6 +29,7 @@
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/emissions/PollutantsInterface.h>
 #include <utils/emissions/HelpersHarmonoise.h>
+#include <libsumo/TraCIConstants.h>
 #include <mesosim/MELoop.h>
 #include <mesosim/MEVehicle.h>
 #include <microsim/devices/MSRoutingEngine.h>
@@ -75,12 +76,12 @@ SUMOTrafficObject::NumericalID MSBaseVehicle::myCurrentNumericalIndex = 0;
 // ===========================================================================
 
 MSBaseVehicle::BaseInfluencer::BaseInfluencer() :
-    myRoutingMode(0)
+    myRoutingMode(libsumo::ROUTING_MODE_DEFAULT)
 {}
 
 SUMOAbstractRouter<MSEdge, SUMOVehicle>&
 MSBaseVehicle::BaseInfluencer::getRouterTT(const int rngIndex, SUMOVehicleClass svc) const {
-    if (myRoutingMode == 1) {
+    if (myRoutingMode == libsumo::ROUTING_MODE_AGGREGATED) {
         return MSRoutingEngine::getRouterTT(rngIndex, svc);
     } else {
         return MSNet::getInstance()->getRouterTT(rngIndex);
@@ -185,7 +186,7 @@ MSBaseVehicle::replaceParameter(const SUMOVehicleParameter* newParameter) {
 
 double
 MSBaseVehicle::getMaxSpeed() const {
-    return myType->getMaxSpeed();
+    return MIN2(myType->getMaxSpeed(), myType->getDesiredMaxSpeed() * myChosenSpeedFactor);
 }
 
 
@@ -492,7 +493,7 @@ MSBaseVehicle::replaceRoute(const MSRoute* newRoute, const std::string& info, bo
             }
 #endif
             if (*searchStart != &iter->lane->getEdge()
-                    || endPos < lastPos) {
+                    || endPos + NUMERICAL_EPS < lastPos) {
                 if (searchStart != edges.end() && !iter->reached) {
                     searchStart++;
                 }
@@ -1990,7 +1991,35 @@ MSBaseVehicle::getPrefixedParameter(const std::string& key, std::string& error) 
             return "";
         }
         return hasDevice(tok.get(1)) ? "true" : "false";
+    // parking related parameters start here
+    } else if (key == "parking.rerouteCount") {
+        return toString(getNumberParkingReroutes());
+    } else if (StringUtils::startsWith(key, "parking.memory.")) {
+        std::vector<std::string> values;
+        if (getParkingMemory()) {
+            if (key == "parking.memory.IDList") {
+                for (const auto& item : *getParkingMemory()) {
+                    values.push_back(item.first->getID());
+                }
+            } else if (key == "parking.memory.score") {
+                for (const auto& item : *getParkingMemory()) {
+                    values.push_back(item.second.score);
+                }
+            } else if (key == "parking.memory.blockedAtTime") {
+                for (const auto& item : *getParkingMemory()) {
+                    values.push_back(toString(STEPS2TIME(item.second.blockedAtTime)));
+                }
+            } else if (key == "parking.memory.blockedAtTimeLocal") {
+                for (const auto& item : *getParkingMemory()) {
+                    values.push_back(toString(STEPS2TIME(item.second.blockedAtTimeLocal)));
+                }
+            } else {
+                error = "Unsupported parking parameter '" + key + "'.";
+            }
+        }
+        return toString(values);
     } else {
+        // default: custom user parameter
         return getParameter().getParameter(key, "");
     }
 }

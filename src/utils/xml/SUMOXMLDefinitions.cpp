@@ -57,8 +57,8 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "e1Detector",                     SUMO_TAG_E1DETECTOR },
     { "inductionLoop",                  SUMO_TAG_INDUCTION_LOOP },
     { "e2Detector",                     SUMO_TAG_E2DETECTOR },
-    { "e2MultilaneDetector",            GNE_TAG_E2DETECTOR_MULTILANE },
     { "laneAreaDetector",               SUMO_TAG_LANE_AREA_DETECTOR },
+    { "multiLaneAreaDetector",          GNE_TAG_MULTI_LANE_AREA_DETECTOR },
     { "e3Detector",                     SUMO_TAG_E3DETECTOR },
     { "entryExitDetector",              SUMO_TAG_ENTRY_EXIT_DETECTOR },
     { "edgeData",                       SUMO_TAG_MEANDATA_EDGE },
@@ -148,6 +148,8 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "railSignalConstraints",          SUMO_TAG_RAILSIGNAL_CONSTRAINTS },
     { "predecessor",                    SUMO_TAG_PREDECESSOR },
     { "insertionPredecessor",           SUMO_TAG_INSERTION_PREDECESSOR },
+    { "foeInsertion",                   SUMO_TAG_FOE_INSERTION },
+    { "insertionOrder",                 SUMO_TAG_INSERTION_ORDER },
     { "railSignalConstraintTracker",    SUMO_TAG_RAILSIGNAL_CONSTRAINT_TRACKER },
     { "link",                           SUMO_TAG_LINK },
     { "approaching",                    SUMO_TAG_APPROACHING },
@@ -291,6 +293,12 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "stopContainer: edge",            GNE_TAG_STOPCONTAINER_EDGE },
     // root file
     { "rootFile",                       SUMO_TAG_ROOTFILE },
+    // SUMOConfig files
+    { "configuration",                  SUMO_TAG_CONFIGURATION },
+    { "net-file",                       SUMO_TAG_NETFILE },
+    { "additional-files",               SUMO_TAG_ADDITIONALFILES },
+    { "route-files",                    SUMO_TAG_ROUTEFILES },
+    { "data-files",                     SUMO_TAG_DATAFILES },
     // Last element
     { "",                               SUMO_TAG_NOTHING }  // -> must be the last one
 };
@@ -418,6 +426,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "arrivalEdge",            SUMO_ATTR_ARRIVALEDGE },
     { "route",                  SUMO_ATTR_ROUTE },
     { "maxSpeed",               SUMO_ATTR_MAXSPEED },
+    { "desiredMaxSpeed",        SUMO_ATTR_DESIRED_MAXSPEED },
     { "maxSpeedLat",            SUMO_ATTR_MAXSPEED_LAT },
     { "latAlignment",           SUMO_ATTR_LATALIGNMENT },
     { "minGapLat",              SUMO_ATTR_MINGAP_LAT },
@@ -553,6 +562,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "gapControlGainSpace",            SUMO_ATTR_GC_GAIN_SPACE },
     { "collisionAvoidanceGainSpeed",    SUMO_ATTR_CA_GAIN_SPEED },
     { "collisionAvoidanceGainSpace",    SUMO_ATTR_CA_GAIN_SPACE },
+    { "collisionAvoidanceOverride",     SUMO_ATTR_CA_OVERRIDE },
 
     { "speedControlGainCACC",           SUMO_ATTR_SC_GAIN_CACC },
     { "gapClosingControlGainGap",       SUMO_ATTR_GCC_GAIN_GAP_CACC },
@@ -917,6 +927,13 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "freeTimeActivityRate",   AGEN_ATTR_FREETIMERATE },
     { "uniformRandomTraffic",   AGEN_ATTR_UNI_RAND_TRAFFIC },
     { "departureVariation",     AGEN_ATTR_DEP_VARIATION },
+
+    // SUMOConfig files
+    { "config-file",        SUMO_ATTR_CONFIGFILE },
+    { "net-file",           SUMO_ATTR_NETFILE },
+    { "additional-files",   SUMO_ATTR_ADDITIONALFILES },
+    { "route-files",        SUMO_ATTR_ROUTEFILES },
+    { "data-files",         SUMO_ATTR_DATAFILES },
 
     // NETEDIT Attributes
     { "selected",                           GNE_ATTR_SELECTED },

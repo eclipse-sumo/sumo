@@ -44,7 +44,7 @@ def add_options():
     argParser.add_argument("--gpsdat", help="directory to write / read the generated gpsdat files to / from")
     argParser.add_argument("--modes", default="bus,tram,train,subway,ferry",
                            help="comma separated list of modes to import (bus, tram, train, subway and/or ferry)")
-    argParser.add_argument("--vtype-output", default="vType.xml",
+    argParser.add_argument("--vtype-output", default="vtypes.xml",
                            help="file to write the generated vehicle types to")
     argParser.add_argument("-v", "--verbose", action="store_true", default=False, help="tell me what you are doing")
     argParser.add_argument("-b", "--begin", default=0,
@@ -69,8 +69,7 @@ def time2sec(s):
     return int(t[0]) * 3600 + int(t[1]) * 60 + int(t[2])
 
 
-def main(options):
-
+def get_merged_data(options):
     gtfsZip = zipfile.ZipFile(sumolib.open(options.gtfs, False))
     routes, trips_on_day, shapes, stops, stop_times = gtfs2osm.import_gtfs(options, gtfsZip)
 
@@ -87,13 +86,15 @@ def main(options):
         stops_merged['start_char'] = ''
 
     trips_routes_merged = pd.merge(trips_on_day, routes, on='route_id')
-    full_data_merged = pd.merge(stops_merged,
-                                trips_routes_merged,
-                                on='trip_id')[['trip_id', 'route_id', 'route_short_name', 'route_type',
-                                               'stop_id', 'stop_name', 'stop_lat', 'stop_lon', 'stop_sequence',
-                                               'fare_zone', 'fare_token', 'start_char',
-                                               'arrival_time', 'departure_time']].drop_duplicates()
+    return pd.merge(stops_merged, trips_routes_merged,
+                    on='trip_id')[['trip_id', 'route_id', 'route_short_name', 'route_type',
+                                   'stop_id', 'stop_name', 'stop_lat', 'stop_lon', 'stop_sequence',
+                                   'fare_zone', 'fare_token', 'start_char',
+                                   'arrival_time', 'departure_time']].drop_duplicates()
 
+
+def main(options):
+    full_data_merged = get_merged_data(options)
     fcdFile = {}
     tripFile = {}
     if not os.path.exists(options.fcd):
@@ -103,7 +104,7 @@ def main(options):
     for mode in modes:
         filePrefix = os.path.join(options.fcd, mode)
         fcdFile[mode] = io.open(filePrefix + '.fcd.xml', 'w', encoding="utf8")
-        sumolib.writeXMLHeader(fcdFile[mode], "gtfs2fcd.py")
+        sumolib.writeXMLHeader(fcdFile[mode], "gtfs2fcd.py", options=options)
         fcdFile[mode].write(u'<fcd-export>\n')
         if options.verbose:
             print('Writing fcd file "%s"' % fcdFile[mode].name)
@@ -122,10 +123,10 @@ def main(options):
                 stopSeq.append(d.stop_id)
                 departureSec = d.departure_time + timeIndex
                 until = 0 if firstDep is None else departureSec - timeIndex - firstDep
-                buf += ((u'    <timestep time="%s"><vehicle id="%s" x="%s" y="%s" until="%s" ' +
+                buf += ((u'    <timestep time="%s"><vehicle id="%s_%s" x="%s" y="%s" until="%s" ' +
                          u'name=%s fareZone="%s" fareSymbol="%s" startFare="%s" speed="20"/></timestep>\n') %
-                        (arrivalSec - offset, trip_id, d.stop_lon, d.stop_lat, until,
-                         sumolib.xml.quoteattr(d.stop_name), d.fare_zone, d.fare_token, d.start_char))
+                        (arrivalSec - offset, d.route_short_name, trip_id, d.stop_lon, d.stop_lat, until,
+                         sumolib.xml.quoteattr(d.stop_name, True), d.fare_zone, d.fare_token, d.start_char))
                 if firstDep is None:
                     firstDep = departureSec - timeIndex
                 offset += departureSec - arrivalSec
@@ -136,8 +137,9 @@ def main(options):
                     seqs[s] = trip_id
                     fcdFile[mode].write(buf)
                     timeIndex = arrivalSec
-                tripFile[mode].write(u'    <vehicle id="%s" route="%s" type="%s" depart="%s" line="%s_%s"/>\n' %
-                                     (trip_id, seqs[s], mode, firstDep, d.route_short_name, seqs[s]))
+                tripFile[mode].write(u'    <vehicle id="%s_%s" route="%s" type="%s" depart="%s" line="%s_%s"/>\n' %
+                                     (d.route_short_name, trip_id, seqs[s], mode, firstDep,
+                                      d.route_short_name, seqs[s]))
                 seenModes.add(mode)
     if options.gpsdat:
         if not os.path.exists(options.gpsdat):
@@ -153,13 +155,7 @@ def main(options):
             else:
                 os.remove(fcdFile[mode].name)
                 os.remove(tripFile[mode].name)
-    if options.vtype_output:
-        with io.open(options.vtype_output, 'w', encoding="utf8") as vout:
-            sumolib.xml.writeHeader(vout, root="additional")
-            for mode in sorted(seenModes):
-                vout.write(u'    <vType id="%s" vClass="%s"/>\n' %
-                           (mode, gtfs2osm.OSM2SUMO_MODES[mode]))
-            vout.write(u'</additional>\n')
+    gtfs2osm.write_vtypes(options, seenModes)
 
 
 if __name__ == "__main__":

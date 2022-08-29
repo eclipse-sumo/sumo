@@ -46,7 +46,7 @@ public:
     // class NeteditAttributesEditor
     // ===========================================================================
 
-    class NeteditAttributesEditor : public FXGroupBoxModule {
+    class NeteditAttributesEditor : public MFXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNEInspectorFrame::NeteditAttributesEditor)
 
@@ -124,7 +124,7 @@ public:
     // class GEOAttributesEditor
     // ===========================================================================
 
-    class GEOAttributesEditor : public FXGroupBoxModule {
+    class GEOAttributesEditor : public MFXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNEInspectorFrame::GEOAttributesEditor)
 
@@ -188,7 +188,7 @@ public:
     // class TemplateEditor
     // ===========================================================================
 
-    class TemplateEditor : public FXGroupBoxModule {
+    class TemplateEditor : public MFXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNEInspectorFrame::TemplateEditor)
 
@@ -263,7 +263,7 @@ public:
     // class ParametersEditor
     // ===========================================================================
 
-    class ParametersEditor : public FXGroupBoxModule {
+    class ParametersEditor : public MFXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNEInspectorFrame::ParametersEditor)
 
@@ -314,7 +314,7 @@ public:
     // class AdditionalDialog
     // ===========================================================================
 
-    class AdditionalDialog : public FXGroupBoxModule {
+    class AdditionalDialog : public MFXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNEInspectorFrame::AdditionalDialog)
 
@@ -350,10 +350,10 @@ public:
     };
 
     /**@brief Constructor
-     * @brief parent FXHorizontalFrame in which this GNEFrame is placed
+     * @brief viewParent GNEViewParent in which this GNEFrame is placed
      * @brief net net that uses this GNEFrame
      */
-    GNEInspectorFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet);
+    GNEInspectorFrame(GNEViewParent *viewParent, GNEViewNet* viewNet);
 
     /// @brief Destructor
     ~GNEInspectorFrame();

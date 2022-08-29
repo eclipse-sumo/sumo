@@ -1,3 +1,4 @@
+ Retrying in 1 seconds
 
 Run dispatcher
 New reservations: ['0']
@@ -38,28 +39,27 @@ Solve DARP with exhaustive_search
 Run dispatcher
 Pending reservations: ['5', '6', '7', '8', '9']
 Solve DARP with exhaustive_search
-Dispatch: taxiA_1y_0z_9y_1z_2z_4z_9z
 
 Run dispatcher
-Pending reservations: ['5', '6', '7', '8']
+Pending reservations: ['5', '6', '7', '8', '9']
 Solve DARP with exhaustive_search
 
 Run dispatcher
-Pending reservations: ['5', '6', '7', '8']
+Pending reservations: ['5', '6', '7', '8', '9']
 Solve DARP with exhaustive_search
 Reservation 6 (person ('6',)) cannot be served
 
 Run dispatcher
-Pending reservations: ['5', '7', '8']
+Pending reservations: ['5', '7', '8', '9']
 Solve DARP with exhaustive_search
 Reservation 5 (person ('5',)) cannot be served
+Reservation 7 (person ('7',)) cannot be served
 
 Run dispatcher
-Pending reservations: ['7', '8']
+Pending reservations: ['8', '9']
 Solve DARP with exhaustive_search
-Reservation 7 (person ('7',)) cannot be served
 Reservation 8 (person ('8',)) cannot be served
-Time window surpassed by 6.833317134629226
+Reservation 9 (person ('9',)) cannot be served
 
 Exact solution found.
 DRT simulation ended

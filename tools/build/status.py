@@ -98,11 +98,11 @@ def printStatus(makeLog, makeAllLog, smtpServer="localhost", out=sys.stdout, toA
     warnings = 0
     errors = 0
     svnLocked = False
-    for l in io.open(makeLog, errors="replace"):
-        if ("svn: Working copy" in l and "locked" in l) or "svn: Failed" in l:
+    for ml in io.open(makeLog, errors="replace"):
+        if ("svn: Working copy" in ml and "locked" in ml) or "svn: Failed" in ml:
             svnLocked = True
-            failed += l
-        warnings, errors, failed = findErrors(l, warnings, errors, failed)
+            failed += ml
+        warnings, errors, failed = findErrors(ml, warnings, errors, failed)
     if svnLocked:
         failed += "svn up failed\n\n"
     print(warnings, "warnings", file=out)
@@ -113,8 +113,8 @@ def printStatus(makeLog, makeAllLog, smtpServer="localhost", out=sys.stdout, toA
     print(basename(makeAllLog), file=out)
     warnings = 0
     errors = 0
-    for l in io.open(makeAllLog, errors="replace"):
-        warnings, errors, failed = findErrors(l, warnings, errors, failed)
+    for ml in io.open(makeAllLog, errors="replace"):
+        warnings, errors, failed = findErrors(ml, warnings, errors, failed)
     print(warnings, "warnings", file=out)
     if errors:
         print(errors, "errors", file=out)

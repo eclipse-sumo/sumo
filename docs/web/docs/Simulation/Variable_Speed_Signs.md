@@ -23,7 +23,7 @@ The following attributes are used within the `VariableSpeedSign` element:
 | Attribute Name | Value Type  | Description                                                  |
 | -------------- | ----------- | ------------------------------------------------------------ |
 | **id**         | id (string) | The id of the Variable Speed Signal element (user choice)    |
-| **lanes**      | id (string) | The id of the lanes of the simulation network                |
+| **lanes**      | ids (string list) | The ids of the lanes of the simulation network that shall be affected                |
 | file           | string      | optional file in which the time and speed values are defined |
 
 Each `step`-element is a combination of the time the next new speed shall be set

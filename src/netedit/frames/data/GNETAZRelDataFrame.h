@@ -37,7 +37,7 @@ public:
     // Confirm TAZ relation
     // ===========================================================================
 
-    class ConfirmTAZRelation : public FXGroupBoxModule {
+    class ConfirmTAZRelation : public MFXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNETAZRelDataFrame::ConfirmTAZRelation)
 
@@ -53,6 +53,9 @@ public:
 
         /// @brief called when TAZ Relation button is updated
         long onUpdConfirmTAZRelation(FXObject*, FXSelector, void*);
+        
+        /// @brief called when user press clear TAZ Relation button
+        long onCmdClearSelection(FXObject*, FXSelector, void*);
 
     protected:
         /// @brief FOX needs this
@@ -64,13 +67,16 @@ public:
 
         /// @brief confirm TAZ Button
         FXButton* myConfirmTAZButton = nullptr;
+
+        /// @brief clear TAZ Button
+        FXButton* myClearTAZButton = nullptr;
     };
 
     // ===========================================================================
     // class Legend
     // ===========================================================================
 
-    class Legend : public FXGroupBoxModule {
+    class Legend : public MFXGroupBoxModule {
 
     public:
         /// @brief constructor
@@ -91,10 +97,10 @@ public:
     };
 
     /**@brief Constructor
-     * @brief parent FXHorizontalFrame in which this GNEFrame is placed
+     * @brief viewParent GNEViewParent in which this GNEFrame is placed
      * @brief viewNet viewNet that uses this GNETAZRelDataFrame
      */
-    GNETAZRelDataFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet);
+    GNETAZRelDataFrame(GNEViewParent *viewParent, GNEViewNet* viewNet);
 
     /// @brief Destructor
     ~GNETAZRelDataFrame();

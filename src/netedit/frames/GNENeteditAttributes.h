@@ -20,7 +20,7 @@
 #pragma once
 #include <config.h>
 
-#include <utils/foxtools/FXGroupBoxModule.h>
+#include <utils/foxtools/MFXGroupBoxModule.h>
 #include <utils/xml/CommonXMLStructure.h>
 
 // ===========================================================================
@@ -35,7 +35,7 @@ class GNELane;
 // class definitions
 // ===========================================================================
 
-class GNENeteditAttributes : public FXGroupBoxModule {
+class GNENeteditAttributes : public MFXGroupBoxModule {
     /// @brief FOX-declaration
     FXDECLARE(GNENeteditAttributes)
 

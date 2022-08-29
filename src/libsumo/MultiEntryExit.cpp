@@ -58,7 +58,7 @@ MultiEntryExit::getIDCount() {
 std::vector<std::string>
 MultiEntryExit::getEntryLanes(const std::string& detID) {
     std::vector<std::string> ids;
-    for (auto cs : getDetector(detID)->getEntries()) {
+    for (const MSCrossSection& cs : getDetector(detID)->getEntries()) {
         ids.push_back(cs.myLane->getID());
     }
     return ids;
@@ -68,7 +68,7 @@ MultiEntryExit::getEntryLanes(const std::string& detID) {
 std::vector<std::string>
 MultiEntryExit::getExitLanes(const std::string& detID) {
     std::vector<std::string> ids;
-    for (auto cs : getDetector(detID)->getExits()) {
+    for (const MSCrossSection& cs : getDetector(detID)->getExits()) {
         ids.push_back(cs.myLane->getID());
     }
     return ids;
@@ -78,7 +78,7 @@ MultiEntryExit::getExitLanes(const std::string& detID) {
 std::vector<double>
 MultiEntryExit::getEntryPositions(const std::string& detID) {
     std::vector<double> pos;
-    for (auto cs : getDetector(detID)->getEntries()) {
+    for (const MSCrossSection& cs : getDetector(detID)->getEntries()) {
         pos.push_back(cs.myPosition);
     }
     return pos;
@@ -88,7 +88,7 @@ MultiEntryExit::getEntryPositions(const std::string& detID) {
 std::vector<double>
 MultiEntryExit::getExitPositions(const std::string& detID) {
     std::vector<double> pos;
-    for (auto cs : getDetector(detID)->getExits()) {
+    for (const MSCrossSection& cs : getDetector(detID)->getExits()) {
         pos.push_back(cs.myPosition);
     }
     return pos;

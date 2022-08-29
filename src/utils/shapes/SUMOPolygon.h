@@ -55,7 +55,7 @@ public:
      * @param[in] angle The rotation of the polygon
      * @param[in] imgFile The raster image of the polygon
      * @param[in] shape The shape of the polygon
-     * @param[in] geo specifiy if shape was loaded as GEO
+     * @param[in] geo specify if shape was loaded as GEO
      * @param[in] fill Whether the polygon shall be filled
      * @param[in] lineWidth The line with for drawing an unfilled polygon
      * @param[in] relativePath set image file as relative path
@@ -107,7 +107,7 @@ public:
     /** @brief Sets the shape of the polygon
      * @param[in] shape  The new shape of the polygon
      */
-    void setShape(const PositionVector& shape);
+    virtual void setShape(const PositionVector& shape);
 
     /// @}
 

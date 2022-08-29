@@ -210,7 +210,7 @@ class PropertyReader(xml.sax.handler.ContentHandler):
                                                                     "# @date    %s\n" % self._license.get("date", ""),
                                                                     "\n"]
                     if "module" in self._license:
-                        lines[idx+2:idx+2] = ["# %s\n" % l for l in self._license["module"].split('\\n')]
+                        lines[idx+2:idx+2] = ["# %s\n" % ml for ml in self._license["module"].split('\\n')]
                     self._haveFixed = True
                 else:
                     print(self._file, "different license:")

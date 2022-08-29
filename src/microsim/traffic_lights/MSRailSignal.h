@@ -137,6 +137,11 @@ public:
     * @see MSTrafficLightLogic::getPhase
     */
     const MSPhaseDefinition& getPhase(int givenstep) const;
+
+    /// @brief whether the given link index ever turns 'G'
+    bool getsMajorGreen(int /*linkIndex*/) const override {
+        return true;
+    }
     /// @}
 
 
@@ -224,17 +229,10 @@ public:
     /// @brief register contraint for signal switching
     void addConstraint(const std::string& tripId, MSRailSignalConstraint* constraint);
 
-    /// @brief register contraint for vehicle insertion
-    void addInsertionConstraint(const std::string& tripId, MSRailSignalConstraint* constraint);
-
     /// @name TraCI access to constraints
     /// @{
     const std::map<std::string, std::vector<MSRailSignalConstraint*> >&  getConstraints() const {
         return myConstraints;
-    }
-
-    const std::map<std::string, std::vector<MSRailSignalConstraint*> >&  getInsertionConstraints() const {
-        return myInsertionConstraints;
     }
 
     /// @brief remove contraint for signal switching
@@ -245,8 +243,15 @@ public:
     /// update driveway for extended deadlock protection
     void updateDriveway(int numericalID);
 
-    static bool hasOncomingRailTraffic(MSLink* link);
-    static bool hasInsertionConstraint(MSLink* link, const MSVehicle* veh, std::string& info);
+    /* @brief return whether vehicle insertion must be delayed for an oncoming train
+     * @param[in] link The rail signal link before which the vehicle is being inserted
+     * @param[in] veh The vehicle being inserted
+     * @param[in] brakeBeforeSignal Whether the vehicle may brake before the signal,
+     *                              Returns true if the vehicle has to brake before the signal
+     */
+    static bool hasOncomingRailTraffic(MSLink* link, const MSVehicle* ego, bool& brakeBeforeSignal);
+
+    static bool hasInsertionConstraint(MSLink* link, const MSVehicle* veh, std::string& info, bool& isInsertionOrder);
 
     /// @brief final check for driveway compatibility of signals that switched green in this step
     static void recheckGreen();
@@ -326,6 +331,8 @@ protected:
          * until protection or conflict is found
          */
         std::vector<MSLink*> myProtectingSwitches;
+        /// @brief subset of myProtectingSwitches that protects from oncoming trains
+        std::vector<MSLink*> myProtectingSwitchesBidi;
 
         /* The conflict links for this block
          * Conflict resolution must be performed if vehicles are approaching the
@@ -442,6 +449,9 @@ protected:
     /// @brief print link descriptions
     static std::string formatVisitedMap(const LaneVisitedMap& visited);
 
+    /// @brief append to map by map index and avoid undefined behavior
+    static void appendMapIndex(LaneVisitedMap& map, const MSLane* lane);
+
 protected:
 
     /** @brief The list of phases this logic uses
@@ -461,7 +471,6 @@ protected:
 
     /// @brief map from tripId to constraint list
     std::map<std::string, std::vector<MSRailSignalConstraint*> > myConstraints;
-    std::map<std::string, std::vector<MSRailSignalConstraint*> > myInsertionConstraints;
 
     static int myNumWarnings;
 

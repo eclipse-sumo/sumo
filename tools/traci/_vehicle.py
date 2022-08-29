@@ -1169,27 +1169,27 @@ class VehicleDomain(VTypeDomain):
         Sets the current routing mode:
         tc.ROUTING_MODE_DEFAULT    : use weight storages and fall-back to edge speeds (default)
         tc.ROUTING_MODE_AGGREGATED : use global smoothed travel times from device.rerouting
+        tc.ROUTING_MODE_AGGREGATED_CUSTOM : use weight storages and fall-back to smoothed travel times
         """
         self._setCmd(tc.VAR_ROUTING_MODE, vehID, "i", routingMode)
 
     def rerouteTraveltime(self, vehID, currentTravelTimes=True):
         """rerouteTraveltime(string, bool) -> None
-        Reroutes a vehicle. If
-        currentTravelTimes is True (default) then the ROUTING_MODE_AGGREGATED
-        gets activated temporarily (if it is not activated already)
+        Reroutes a vehicle.
+        If currentTravelTimes is True (default) and the routing mode is still ROUTING_MODE_DEFAULT
+        then the ROUTING_MODE_AGGREGATED_CUSTOM gets activated temporarily
         and used for rerouting. The various functions and options for
         customizing travel times are described at https://sumo.dlr.de/wiki/Simulation/Routing
 
-        When rerouteTraveltime has been called once with option
-        currentTravelTimes=True, edge weight storage and update gets activated
-        which might slow down the simulation.
+        When rerouteTraveltime has been called once with an aggregated routing mode,
+        edge weight storage and update gets activated which might slow down the simulation.
         """
         if currentTravelTimes:
             routingMode = self.getRoutingMode(vehID)
-            if routingMode != tc.ROUTING_MODE_AGGREGATED:
-                self.setRoutingMode(vehID, tc.ROUTING_MODE_AGGREGATED)
+            if routingMode == tc.ROUTING_MODE_DEFAULT:
+                self.setRoutingMode(vehID, tc.ROUTING_MODE_AGGREGATED_CUSTOM)
         self._setCmd(tc.CMD_REROUTE_TRAVELTIME, vehID, "t", 0)
-        if currentTravelTimes and routingMode != tc.ROUTING_MODE_AGGREGATED:
+        if currentTravelTimes and routingMode == tc.ROUTING_MODE_DEFAULT:
             self.setRoutingMode(vehID, routingMode)
 
     def rerouteEffort(self, vehID):

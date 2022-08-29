@@ -145,11 +145,11 @@ private:
 
 #ifdef HAVE_FOX
 private:
-    class RoutingTask : public FXWorkerThread::Task {
+    class RoutingTask : public MFXWorkerThread::Task {
     public:
         RoutingTask(ROMAAssignments& assign, ODCell* c, const SUMOTime begin, const double linkFlow, const bool setBulkMode = false)
             : myAssign(assign), myCell(c), myBegin(begin), myLinkFlow(linkFlow), mySetBulkMode(setBulkMode) {}
-        void run(FXWorkerThread* context);
+        void run(MFXWorkerThread* context);
     private:
         ROMAAssignments& myAssign;
         ODCell* const myCell;

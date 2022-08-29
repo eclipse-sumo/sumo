@@ -248,7 +248,10 @@ if (SUMO_LIBRARIES AND WIN32)
                                  "${SUMO_LIBRARIES}${LIB_VERSION}/3rdPartyLibs/libssh2-*/bin/*.dll"
                                  "${SUMO_LIBRARIES}${LIB_VERSION}/3rdPartyLibs/openssl-*/*.dll"
                                  "${SUMO_LIBRARIES}${LIB_VERSION}/3rdPartyLibs/sqlite-*/*.dll"
-                                 "${SUMO_LIBRARIES}${LIB_VERSION}/3rdPartyLibs/tiff-*/bin/*.dll")
+                                 "${SUMO_LIBRARIES}${LIB_VERSION}/3rdPartyLibs/tiff-*/bin/*.dll"
+                                 "${SUMO_LIBRARIES}${LIB_VERSION}/3rdPartyLibs/libxml2-*/bin/*.dll"
+                                 "${SUMO_LIBRARIES}${LIB_VERSION}/3rdPartyLibs/libiconv-*/bin/*.dll"
+                                 )
     # check if MSVC dll runtimes have to be copied
     if (INSTALL_DLL_RUNTIMES)
         file(GLOB MSVC_DLLS "${SUMO_LIBRARIES}${LIB_VERSION}/runtimes/*.dll")
@@ -668,6 +671,7 @@ if (GIT_FOUND)
         COMMAND rm -rf sumo-${PACKAGE_VERSION} sumo-${PACKAGE_VERSION}.zip sumo-src-${PACKAGE_VERSION}.tar.gz sumo-src-${PACKAGE_VERSION}.zip sumo-gui-macos-${PACKAGE_VERSION}.zip
         COMMAND ${GIT_EXECUTABLE} archive --prefix sumo-${PACKAGE_VERSION}/ -o sumo-${PACKAGE_VERSION}.zip HEAD
         COMMAND unzip -q sumo-${PACKAGE_VERSION}.zip
+        COMMAND rm -r sumo-${PACKAGE_VERSION}/tests
         COMMAND cp -a docs/tutorial docs/examples sumo-${PACKAGE_VERSION}/docs
         COMMAND find tools/contributed/saga/ tools/contributed/traci4matlab -type f | grep -v .git | xargs cp --parents --target-dir sumo-${PACKAGE_VERSION}
         COMMAND mkdir sumo-${PACKAGE_VERSION}/include

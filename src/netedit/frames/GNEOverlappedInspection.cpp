@@ -41,7 +41,7 @@ FXDEFMAP(GNEOverlappedInspection) OverlappedInspectionMap[] = {
 
 
 // Object implementation
-FXIMPLEMENT(GNEOverlappedInspection,       FXGroupBoxModule,     OverlappedInspectionMap,        ARRAYNUMBER(OverlappedInspectionMap))
+FXIMPLEMENT(GNEOverlappedInspection,       MFXGroupBoxModule,     OverlappedInspectionMap,        ARRAYNUMBER(OverlappedInspectionMap))
 
 
 // ===========================================================================
@@ -49,7 +49,7 @@ FXIMPLEMENT(GNEOverlappedInspection,       FXGroupBoxModule,     OverlappedInspe
 // ===========================================================================
 
 GNEOverlappedInspection::GNEOverlappedInspection(GNEFrame* frameParent) :
-    FXGroupBoxModule(frameParent, "Overlapped elements"),
+    MFXGroupBoxModule(frameParent, "Overlapped elements"),
     myFrameParent(frameParent),
     myFilteredTag(SUMO_TAG_NOTHING),
     myItemIndex(0) {
@@ -59,7 +59,7 @@ GNEOverlappedInspection::GNEOverlappedInspection(GNEFrame* frameParent) :
 
 
 GNEOverlappedInspection::GNEOverlappedInspection(GNEFrame* frameParent, const SumoXMLTag filteredTag) :
-    FXGroupBoxModule(frameParent, ("Overlapped " + toString(filteredTag) + "s").c_str()),
+    MFXGroupBoxModule(frameParent, ("Overlapped " + toString(filteredTag) + "s").c_str()),
     myFrameParent(frameParent),
     myFilteredTag(filteredTag),
     myItemIndex(0) {

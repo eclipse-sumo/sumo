@@ -85,6 +85,10 @@ canvas {
     overflow: hidden;
 }
 
+.images:first-of-type {
+    margin-top: 20px;
+}
+
 .container, button, #status {
     background: #2C2CA0;
     border-radius: 4px;
@@ -168,14 +172,14 @@ button:hover {
     display: block;
     overflow: hidden;
     height: 20px;
-    line-height: 20px;
+    margin: 5px;
 }
 
 .options input {
     float: left;
     border-radius: 2px;
     border: none;
-	margin: 5px;
+    margin-right: 5px;
 }
 
 input[type=number] {
@@ -199,4 +203,8 @@ input[type=number] {
     background: #5F5FD3;
     border-radius: 2px;
     transition: 0.5s width;
+}
+
+#general-options label {
+    margin: 5px 0;
 }

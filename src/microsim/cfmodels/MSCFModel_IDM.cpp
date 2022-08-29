@@ -43,7 +43,7 @@ MSCFModel_IDM::MSCFModel_IDM(const MSVehicleType* vtype, bool idmm) :
     myIterations(MAX2(1, int(TS / vtype->getParameter().getCFParam(SUMO_ATTR_CF_IDM_STEPPING, .25) + .5))),
     myTwoSqrtAccelDecel(double(2 * sqrt(myAccel * myDecel))) {
     // IDM does not drive very precise and may violate minGap on occasion
-    myCollisionMinGapFactor = vtype->getParameter().getCFParam(SUMO_ATTR_COLLISION_MINGAP_FACTOR, 0.5);
+    myCollisionMinGapFactor = vtype->getParameter().getCFParam(SUMO_ATTR_COLLISION_MINGAP_FACTOR, 0.1);
 }
 
 MSCFModel_IDM::~MSCFModel_IDM() {}
@@ -80,9 +80,6 @@ MSCFModel_IDM::freeSpeed(const MSVehicle* const veh, double speed, double seen, 
         // can occur for ballistic update (in context of driving at red light)
         return maxSpeed;
     }
-#ifdef DEBUG_V
-    gDebugFlag1 = DEBUG_COND;
-#endif
     const double secGap = getSecureGap(veh, nullptr, maxSpeed, 0, myDecel);
     double vSafe;
     if (speed <= maxSpeed) {
@@ -106,9 +103,6 @@ MSCFModel_IDM::freeSpeed(const MSVehicle* const veh, double speed, double seen, 
 double
 MSCFModel_IDM::followSpeed(const MSVehicle* const veh, double speed, double gap2pred, double predSpeed, double predMaxDecel, const MSVehicle* const pred) const {
     applyHeadwayAndSpeedDifferencePerceptionErrors(veh, speed, gap2pred, predSpeed, predMaxDecel, pred);
-#ifdef DEBUG_V
-    gDebugFlag1 = DEBUG_COND;
-#endif
     return _v(veh, gap2pred, speed, predSpeed, veh->getLane()->getVehicleMaxSpeed(veh));
 }
 
@@ -143,9 +137,6 @@ MSCFModel_IDM::insertionFollowSpeed(const MSVehicle* const v, double speed, doub
 
 double
 MSCFModel_IDM::stopSpeed(const MSVehicle* const veh, const double speed, double gap, double decel) const {
-#ifdef DEBUG_V
-    gDebugFlag1 = DEBUG_COND;
-#endif
     applyHeadwayPerceptionError(veh, speed, gap);
     if (gap < 0.01) {
         return 0;
@@ -202,7 +193,7 @@ MSCFModel_IDM::_v(const MSVehicle* const veh, const double gap2pred, const doubl
         gap += myType->getMinGap();
     }
 #ifdef DEBUG_V
-    if (gDebugFlag1) {
+    if (DEBUG_COND) {
         std::cout << SIMTIME << " veh=" << veh->getID() << " gap2pred=" << gap2pred << " egoSpeed=" << egoSpeed << " predSpeed=" << predSpeed << " desSpeed=" << desSpeed << " rMG=" << respectMinGap << " hw=" << headwayTime << "\n";
     }
 #endif
@@ -215,13 +206,13 @@ MSCFModel_IDM::_v(const MSVehicle* const veh, const double gap2pred, const doubl
         gap = MAX2(NUMERICAL_EPS, gap); // avoid singularity
         const double acc = myAccel * (1. - pow(newSpeed / MAX2(NUMERICAL_EPS, desSpeed), myDelta) - (s * s) / (gap * gap));
 #ifdef DEBUG_V
-        if (gDebugFlag1) {
+        if (DEBUG_COND) {
             std::cout << "   i=" << i << " gap=" << gap << " t=" << myHeadwayTime << " t2=" << headwayTime << " s=" << s << " pow=" << pow(newSpeed / desSpeed, myDelta) << " gapDecel=" << (s * s) / (gap * gap) << " a=" << acc;
         }
 #endif
         newSpeed = MAX2(0.0, newSpeed + ACCEL2SPEED(acc) / myIterations);
 #ifdef DEBUG_V
-        if (gDebugFlag1) {
+        if (DEBUG_COND) {
             std::cout << " v2=" << newSpeed << " gLC=" << MSGlobals::gComputeLC << "\n";
         }
 #endif

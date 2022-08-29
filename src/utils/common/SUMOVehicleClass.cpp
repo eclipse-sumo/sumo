@@ -94,6 +94,7 @@ static StringBijection<SUMOVehicleShape>::Entry sumoVehicleShapeStringInitialize
     {"passenger/hatchback",   SUMOVehicleShape::PASSENGER_HATCHBACK},
     {"passenger/wagon",       SUMOVehicleShape::PASSENGER_WAGON},
     {"passenger/van",         SUMOVehicleShape::PASSENGER_VAN},
+    {"taxi",                  SUMOVehicleShape::TAXI},
     {"delivery",              SUMOVehicleShape::DELIVERY},
     {"transport",             SUMOVehicleShape::TRUCK}, // !!! deprecated
     {"truck",                 SUMOVehicleShape::TRUCK},

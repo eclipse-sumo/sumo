@@ -26,6 +26,10 @@ Warning: No way found for reference '29177662' in relation '3832461'
 Warning: No way found for reference '134833998' in relation '3832461'
 Warning: Ignoring restriction relation '4806373' with unknown to-way.
 Warning: Ignoring restriction relation '7778535' with unknown to-way.
+Warning: Converting invalid rail_crossing to traffic_light at junction '3918673904'.
+Warning: Converting invalid rail_crossing to traffic_light at junction '3918673907'.
+Warning: Converting invalid rail_crossing to traffic_light at junction '3918673910'.
+Warning: Converting invalid rail_crossing to traffic_light at junction '3918673916'.
 Warning: Not joining junctions 160503259,171440823,4237827432 (only 1 exit node).
 Warning: Reducing junction cluster 1673585734,26701256,29192960,3590535061,3590535063,4590472038,5632884667 (5 incoming edges).
 Warning: Not joining junctions 27005148,3378459428 (only 1 edge within and no cross-traffic).

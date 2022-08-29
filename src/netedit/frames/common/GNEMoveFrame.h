@@ -37,7 +37,7 @@ public:
     // class CommonModeOptions
     // ===========================================================================
 
-    class CommonModeOptions : public FXGroupBoxModule {
+    class CommonModeOptions : public MFXGroupBoxModule {
 
     public:
         /// @brief constructor
@@ -58,7 +58,7 @@ public:
     // class NetworkModeOptions
     // ===========================================================================
 
-    class NetworkModeOptions : public FXGroupBoxModule {
+    class NetworkModeOptions : public MFXGroupBoxModule {
 
     public:
         /// @brief constructor
@@ -88,7 +88,7 @@ public:
     // class DemandMoveOptions
     // ===========================================================================
 
-    class DemandModeOptions : public FXGroupBoxModule {
+    class DemandModeOptions : public MFXGroupBoxModule {
 
     public:
         /// @brief constructor
@@ -118,7 +118,7 @@ public:
     // class ShiftEdgeSelectedGeometry
     // ===========================================================================
 
-    class ShiftEdgeSelectedGeometry : public FXGroupBoxModule {
+    class ShiftEdgeSelectedGeometry : public MFXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNEMoveFrame::ShiftEdgeSelectedGeometry)
 
@@ -164,7 +164,7 @@ public:
     // class ChangeZInSelection
     // ===========================================================================
 
-    class ChangeZInSelection : public FXGroupBoxModule {
+    class ChangeZInSelection : public MFXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNEMoveFrame::ChangeZInSelection)
 
@@ -225,7 +225,7 @@ public:
     // class ShiftShapeGeometry
     // ===========================================================================
 
-    class ShiftShapeGeometry : public FXGroupBoxModule {
+    class ShiftShapeGeometry : public MFXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNEMoveFrame::ShiftShapeGeometry)
 
@@ -268,10 +268,10 @@ public:
     };
 
     /**@brief Constructor
-     * @brief parent FXHorizontalFrame in which this GNEFrame is placed
+     * @brief viewParent GNEViewParent in which this GNEFrame is placed
      * @brief viewNet viewNet that uses this GNEFrame
      */
-    GNEMoveFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet);
+    GNEMoveFrame(GNEViewParent *viewParent, GNEViewNet* viewNet);
 
     /// @brief Destructor
     ~GNEMoveFrame();

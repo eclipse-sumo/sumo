@@ -20,8 +20,8 @@
 #pragma once
 #include <config.h>
 
-#include <utils/foxtools/FXGroupBoxModule.h>
-#include <utils/foxtools/FXTreeListDynamic.h>
+#include <utils/foxtools/MFXGroupBoxModule.h>
+#include <utils/foxtools/MFXTreeListDynamic.h>
 
 // ===========================================================================
 // class declaration
@@ -35,7 +35,7 @@ class GNEDataInterval;
 // class definitions
 // ===========================================================================
 
-class GNEElementTree : public FXGroupBoxModule {
+class GNEElementTree : public MFXGroupBoxModule {
     /// @brief FOX-declaration
     FXDECLARE(GNEElementTree)
 
@@ -137,8 +137,8 @@ private:
     /// @brief generic data element (casted from myClickedAC)
     GNEGenericData* myClickedGenericData;
 
-    /// @brief tree list dinamic to show the children of the element to erase
-    FXTreeListDynamic* myTreeListDinamic = nullptr;
+    /// @brief tree list dynamic to show the children of the element to erase
+    MFXTreeListDynamic* myTreeListDynamic = nullptr;
 
     /// @brief map used to save the FXTreeItems items with their vinculated AC
     std::map<FXTreeItem*, GNEAttributeCarrier*> myTreeItemToACMap;

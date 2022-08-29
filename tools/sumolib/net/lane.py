@@ -61,6 +61,10 @@ SUMO_VEHICLE_CLASSES = set([
     "custom2"])
 
 
+def is_vehicle_class(s):
+    return s in SUMO_VEHICLE_CLASSES
+
+
 def get_allowed(allow, disallow):
     """Normalize the given string attributes as a set of all allowed vClasses."""
     if allow is None and disallow is None:
@@ -204,7 +208,16 @@ class Lane:
         self._outgoing.append(conn)
 
     def getOutgoing(self):
+        """
+        Returns all outgoing connections from this lane.
+        """
         return self._outgoing
+
+    def getOutgoingLanes(self):
+        """
+        Returns all outgoing lanes from this lane.
+        """
+        return [conn.getToLane() for conn in self.getOutgoing()]
 
     def getIncoming(self, onlyDirect=False):
         """

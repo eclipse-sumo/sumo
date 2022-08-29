@@ -291,7 +291,7 @@ MSPModel_Striping::nextBlocking(const MSLane* lane, double minPos, double minRig
     for (Pedestrians::const_iterator it_ped = pedestrians.begin(); it_ped != pedestrians.end(); ++it_ped) {
         const PState& ped = **it_ped;
         // account for distance covered by oncoming pedestrians
-        double relX2 = ped.myRelX - (ped.myDir == FORWARD ? 0 : stopTime * ped.myPerson->getVehicleType().getMaxSpeed());
+        double relX2 = ped.myRelX - (ped.myDir == FORWARD ? 0 : stopTime * ped.myPerson->getMaxSpeed());
         if (ped.myRelX > minPos && (result.first == 0 || closest > relX2)) {
             const double center = lane->getWidth() - (ped.myRelY + stripeWidth * 0.5);
             const double halfWidth = 0.5 * ped.myPerson->getVehicleType().getWidth();

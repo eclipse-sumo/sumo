@@ -22,6 +22,7 @@
 /build/cmake-codeblocks*
 /build/cmake-clang*
 /build/cmake-mingw*
+/build/vscode*
 /out
 # bin dir
 /bin/TraCITestClient*
@@ -120,6 +121,7 @@
 # extracted tests
 /tests/_*
 # netedit test
+/tests/netedit/.vs/netedit
 /tests/netedit/filter_files
 # global patterns
 Makefile
@@ -156,4 +158,3 @@ __pycache__
 *.aps
 .gdb_history
 .env
-/tests/netedit/.vs/netedit

@@ -64,7 +64,6 @@ public:
 
     static bool handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper, tcpip::Storage* paramData);
 
-private:
     static MSE3Collector* getDetector(const std::string& detID);
 
 private:

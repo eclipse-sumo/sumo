@@ -63,7 +63,7 @@ python tools/randomTrips.py --help
 The arrival rate (also known as the departure rate or the insertion rate) is controlled by option **--period** {{DT_FLOAT}} (*default 1*). By default this
 generates vehicles with a constant period and arrival rate of (1/period)
 per second. By using values below 1, multiple arrivals per second can be
-achieved. If several {{DT_FLOAT}} numbers are passed, like in **--period 1.0 0.5** for example, the time interval will be divided equally into subintervals, and the arrival rate for each subinterval is controlled by the corresponding period (in the preceding example, a period of 1.0 will be used for the first subinterval and a period of 0.5 will be used for the second). There are two other ways to specify the insertion rate:
+achieved. If several {{DT_FLOAT}} numbers are passed, like in **--period 1.0 0.5** (or **--period="1.0,0.5"**) for example, the time interval will be divided equally into subintervals, and the arrival rate for each subinterval is controlled by the corresponding period (in the preceding example, a period of 1.0 will be used for the first subinterval and a period of 0.5 will be used for the second). There are two other ways to specify the insertion rate:
 
 - Either by using the **--insertion-rate** argument (with one or several values as explained before): this is the number of vehicles per hour that the user expects.
 - Or by using the **--insertion-density** argument (with one or several values): this is the number of vehicles per hour per kilometer of road that the user expects (the total length of the road is computed with respect to a certain vehicle class that can be changed with the option **--edge-permission**). 
@@ -126,8 +126,8 @@ python tools/randomTrips.py -n <net-file> 
 This would make the random vehicles be distributed randomly on their
 starting edges and inserted with high speed on a reasonable lane.
 
-!!! caution
-    Quoting of trip attributes on Linux must use the style **--trip-attributes 'departLane="best" departSpeed="max" departPos="random"'**
+!!! note
+    Quoting of trip attributes on Linux may also use the style **--trip-attributes 'departLane="best" departSpeed="max" departPos="random"'**
 
 ### Setting a vehicle type from an external file
 

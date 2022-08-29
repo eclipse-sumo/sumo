@@ -4,9 +4,5 @@ activitygen-example
 # Same, but verbose
 activitygen-example_v
 
-
 # Checks how mode choice works
 mode_choice
-
-# Check wrong input
-input_error

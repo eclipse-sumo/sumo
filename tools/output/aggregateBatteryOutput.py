@@ -23,6 +23,7 @@ from collections import OrderedDict
 sys.path += [os.path.join(os.environ["SUMO_HOME"], "tools")]
 import sumolib  # noqa
 
+
 def parseTimeSteps(inputFile):
     # create matrix for result
     result = {}
@@ -31,7 +32,7 @@ def parseTimeSteps(inputFile):
         timestepFloat = float(timeStep.time)
         # create substructure
         result[timestepFloat] = {}
-        for vehicle in timeStep.vehicle:
+        for vehicle in timeStep.vehicle or []:
             # add vehicle
             result[timestepFloat][vehicle.id] = {}
             # add vehicle values

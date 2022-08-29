@@ -553,26 +553,20 @@
 
     <xsd:complexType name="railSignalConstraintsType">
         <xsd:choice maxOccurs="unbounded">
-            <xsd:element name="predecessor">
-                <xsd:complexType>
-                    <xsd:attribute name="tripId" use="required" type="xsd:string"/>
-                    <xsd:attribute name="tl"     use="required" type="idType"/>
-                    <xsd:attribute name="foes"   use="required" type="xsd:string"/>
-                    <xsd:attribute name="limit"  use="optional" type="positiveIntType"/>
-                    <xsd:attribute name="active" use="optional" type="boolType"/>
-                </xsd:complexType>
-            </xsd:element>
-            <xsd:element name="insertionPredecessor">
-                <xsd:complexType>
-                    <xsd:attribute name="tripId" use="required" type="xsd:string"/>
-                    <xsd:attribute name="tl"     use="required" type="idType"/>
-                    <xsd:attribute name="foes"   use="required" type="xsd:string"/>
-                    <xsd:attribute name="limit"  use="optional" type="positiveIntType"/>
-                    <xsd:attribute name="active" use="optional" type="boolType"/>
-                </xsd:complexType>
-            </xsd:element>
+            <xsd:element name="predecessor" type="constraintType"/>
+            <xsd:element name="insertionPredecessor" type="constraintType"/>
+            <xsd:element name="foeInsertion" type="constraintType"/>
+            <xsd:element name="insertionOrder" type="constraintType"/>
         </xsd:choice>
         <xsd:attribute name="id" type="idType" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="constraintType">
+        <xsd:attribute name="tripId" use="required" type="xsd:string"/>
+        <xsd:attribute name="tl"     use="required" type="idType"/>
+        <xsd:attribute name="foes"   use="required" type="xsd:string"/>
+        <xsd:attribute name="limit"  use="optional" type="positiveIntType"/>
+        <xsd:attribute name="active" use="optional" type="boolType"/>
     </xsd:complexType>
 
     <xsd:complexType name="polygonType">

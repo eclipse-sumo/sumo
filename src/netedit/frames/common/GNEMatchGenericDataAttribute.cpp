@@ -36,6 +36,8 @@ FXDEFMAP(GNEMatchGenericDataAttribute) GNEMatchGenericDataAttributeMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECTORFRAME_SETINTERVAL,      GNEMatchGenericDataAttribute::onCmdSetInterval),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECTORFRAME_SETBEGIN,         GNEMatchGenericDataAttribute::onCmdSetBegin),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECTORFRAME_SETEND,           GNEMatchGenericDataAttribute::onCmdSetEnd),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECTORFRAME_FROMTAZ,          GNEMatchGenericDataAttribute::onCmdSetFromTAZ),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECTORFRAME_TOTAZ,            GNEMatchGenericDataAttribute::onCmdSetToTAZ),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECTORFRAME_SELECTTAG,        GNEMatchGenericDataAttribute::onCmdSelectTag),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECTORFRAME_SELECTATTRIBUTE,  GNEMatchGenericDataAttribute::onCmdSelectAttribute),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECTORFRAME_PROCESSSTRING,    GNEMatchGenericDataAttribute::onCmdProcessString),
@@ -43,14 +45,14 @@ FXDEFMAP(GNEMatchGenericDataAttribute) GNEMatchGenericDataAttributeMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNEMatchGenericDataAttribute, FXGroupBoxModule, GNEMatchGenericDataAttributeMap, ARRAYNUMBER(GNEMatchGenericDataAttributeMap))
+FXIMPLEMENT(GNEMatchGenericDataAttribute, MFXGroupBoxModule, GNEMatchGenericDataAttributeMap, ARRAYNUMBER(GNEMatchGenericDataAttributeMap))
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
 
 GNEMatchGenericDataAttribute::GNEMatchGenericDataAttribute(GNEElementSet* elementSet, SumoXMLTag defaultTag, SumoXMLAttr defaultAttr, const std::string& defaultValue) :
-    FXGroupBoxModule(elementSet->getSelectorFrameParent(), "Match GenericData Attribute"),
+    MFXGroupBoxModule(elementSet->getSelectorFrameParent(), "Match Data Attribute"),
     myElementSet(elementSet),
     myIntervalSelector(nullptr),
     myBegin(nullptr),
@@ -64,11 +66,15 @@ GNEMatchGenericDataAttribute::GNEMatchGenericDataAttribute(GNEElementSet* elemen
     new FXLabel(getCollapsableFrame(), "Interval [begin, end]", nullptr, GUIDesignLabelThick);
     myIntervalSelector = new MFXIconComboBox(getCollapsableFrame(), GUIDesignComboBoxNCol, true, this, MID_GNE_SELECTORFRAME_SETINTERVAL, GUIDesignComboBoxStaticExtended);
     // Create textfield for begin and end
-    FXHorizontalFrame* myHorizontalFrameBeginEnd = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
-    myBegin = new FXTextField(myHorizontalFrameBeginEnd, GUIDesignTextFieldNCol, this, MID_GNE_SELECTORFRAME_SETBEGIN, GUIDesignTextField);
-    myEnd = new FXTextField(myHorizontalFrameBeginEnd, GUIDesignTextFieldNCol, this, MID_GNE_SELECTORFRAME_SETEND, GUIDesignTextField);
+    FXHorizontalFrame* horizontalFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
+    myBegin = new FXTextField(horizontalFrame, GUIDesignTextFieldNCol, this, MID_GNE_SELECTORFRAME_SETBEGIN, GUIDesignTextField);
+    myEnd = new FXTextField(horizontalFrame, GUIDesignTextFieldNCol, this, MID_GNE_SELECTORFRAME_SETEND, GUIDesignTextField);
     // Create MFXIconComboBox for generic datas
     myMatchGenericDataTagComboBox = new MFXIconComboBox(getCollapsableFrame(), GUIDesignComboBoxNCol, true, this, MID_GNE_SELECTORFRAME_SELECTTAG, GUIDesignComboBox);
+    // Create textfield for begin and end
+    myTAZHorizontalFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
+    myFromTAZComboBox = new FXComboBox(myTAZHorizontalFrame, GUIDesignComboBoxNCol, this, MID_GNE_SELECTORFRAME_FROMTAZ, GUIDesignComboBox);
+    myToTAZComboBox = new FXComboBox(myTAZHorizontalFrame, GUIDesignComboBoxNCol, this, MID_GNE_SELECTORFRAME_TOTAZ, GUIDesignComboBox);
     // Create listBox for Attributes
     myMatchGenericDataAttrComboBox = new FXComboBox(getCollapsableFrame(), GUIDesignComboBoxNCol, this, MID_GNE_SELECTORFRAME_SELECTATTRIBUTE, GUIDesignComboBox);
     // Create TextField for MatchGenericData string
@@ -250,6 +256,42 @@ GNEMatchGenericDataAttribute::onCmdSetEnd(FXObject*, FXSelector, void*) {
 }
 
 
+long 
+GNEMatchGenericDataAttribute::onCmdSetFromTAZ(FXObject*, FXSelector, void*) {
+    if (myFromTAZComboBox->getText() == "<from TAZ>") {
+        myFromTAZComboBox->setTextColor(FXRGB(128, 128, 128));
+        return 1;
+    } else {
+        for (const auto &TAZ : myElementSet->getSelectorFrameParent()->getViewNet()->getNet()->getAttributeCarriers()->getAdditionals().at(SUMO_TAG_TAZ)) {
+            if (TAZ->getID().c_str() == myFromTAZComboBox->getText()) {
+                myFromTAZComboBox->setTextColor(FXRGB(0, 0, 0));
+                return 1;
+            }
+        }
+    }
+    myFromTAZComboBox->setTextColor(FXRGB(255, 0, 0));
+    return 1;
+}
+
+
+long
+GNEMatchGenericDataAttribute::onCmdSetToTAZ(FXObject*, FXSelector, void*) {
+    if (myToTAZComboBox->getText() == "<to TAZ>") {
+        myFromTAZComboBox->setTextColor(FXRGB(128, 128, 128));
+        return 1;
+    } else {
+        for (const auto &TAZ : myElementSet->getSelectorFrameParent()->getViewNet()->getNet()->getAttributeCarriers()->getAdditionals().at(SUMO_TAG_TAZ)) {
+            if (TAZ->getID().c_str() == myToTAZComboBox->getText()) {
+                myToTAZComboBox->setTextColor(FXRGB(0, 0, 0));
+                return 1;
+            }
+        }
+    }
+    myToTAZComboBox->setTextColor(FXRGB(255, 0, 0));
+    return 1;
+}
+
+
 long
 GNEMatchGenericDataAttribute::onCmdSelectTag(FXObject*, FXSelector, void*) {
     // First check what type of elementes is being selected
@@ -281,6 +323,13 @@ GNEMatchGenericDataAttribute::onCmdSelectTag(FXObject*, FXSelector, void*) {
             myMatchGenericDataAttrComboBox->appendItem(attribute.c_str());
         }
         myMatchGenericDataAttrComboBox->setNumVisible(myMatchGenericDataAttrComboBox->getNumItems());
+        // check if shown TAZ text fields
+        if (myCurrentTag == SUMO_TAG_TAZREL) {
+            myTAZHorizontalFrame->show();
+            updateTAZComboBox();
+        } else {
+            myTAZHorizontalFrame->hide();
+        }
         onCmdSelectAttribute(nullptr, 0, nullptr);
     } else {
         // change color to red and disable items
@@ -327,9 +376,31 @@ GNEMatchGenericDataAttribute::onCmdProcessString(FXObject*, FXSelector, void*) {
     std::string expression = myMatchGenericDataString->getText().text();
     bool valid = true;
     // get all Generic datas
-    const auto genericDatas = myElementSet->getSelectorFrameParent()->getViewNet()->getNet()->getAttributeCarriers()->retrieveGenericDatas(myCurrentTag,
+    auto genericDatas = myElementSet->getSelectorFrameParent()->getViewNet()->getNet()->getAttributeCarriers()->retrieveGenericDatas(myCurrentTag,
                               GNEAttributeCarrier::parse<double>(myBegin->getText().text()),
                               GNEAttributeCarrier::parse<double>(myEnd->getText().text()));
+    // extra filter for TAZ rel datas
+    if (myCurrentTag == SUMO_TAG_TAZREL) {
+        std::vector<GNEGenericData*> TAZReldatasFrom, TAZReldatasTo;
+        // filter from TAZs
+        for (const auto &TAZRelData : genericDatas) {
+            if (myFromTAZComboBox->getTextColor() == FXRGB(128, 128, 128)) {
+                TAZReldatasFrom.push_back(TAZRelData);
+            } else if ((myFromTAZComboBox->getTextColor() == FXRGB(0, 0, 0)) && (TAZRelData->getAttribute(SUMO_ATTR_FROM) == myFromTAZComboBox->getText().text())) {
+                TAZReldatasFrom.push_back(TAZRelData);
+            }
+        }
+        // filter to TAZs
+        for (const auto &TAZRelData : TAZReldatasFrom) {
+            if (myToTAZComboBox->getTextColor() == FXRGB(128, 128, 128)) {
+                TAZReldatasTo.push_back(TAZRelData);
+            } else if ((myToTAZComboBox->getTextColor() == FXRGB(0, 0, 0)) && (TAZRelData->getAttribute(SUMO_ATTR_TO) == myToTAZComboBox->getText().text())) {
+                TAZReldatasTo.push_back(TAZRelData);
+            }
+        }
+        // update generic datas
+        genericDatas = TAZReldatasTo;
+    }
     if (expression == "") {
         // the empty expression matches all objects
         myElementSet->getSelectorFrameParent()->handleIDs(myElementSet->getSelectorFrameParent()->getGenericMatches(genericDatas, myCurrentAttribute, '@', 0, expression));
@@ -428,6 +499,31 @@ GNEMatchGenericDataAttribute::onCmdHelp(FXObject*, FXSelector, void*) {
     // Write Warning in console if we're in testing mode
     WRITE_DEBUG("Close help dialog of selector frame");
     return 1;
+}
+
+
+void 
+GNEMatchGenericDataAttribute::updateTAZComboBox() {
+    // clear fromTAZComboBox
+    myFromTAZComboBox->clearItems();
+    myToTAZComboBox->clearItems();
+    // add first element
+    myFromTAZComboBox->appendItem("<from TAZ>");
+    myToTAZComboBox->appendItem("<to TAZ>");
+    // add all TAZs
+    for (const auto &TAZ : myElementSet->getSelectorFrameParent()->getViewNet()->getNet()->getAttributeCarriers()->getAdditionals().at(SUMO_TAG_TAZ)) {
+        myFromTAZComboBox->appendItem(TAZ->getID().c_str());
+        myToTAZComboBox->appendItem(TAZ->getID().c_str());
+    }
+    // set num of visible items
+    myFromTAZComboBox->setNumVisible(myFromTAZComboBox->getNumItems());
+    myToTAZComboBox->setNumVisible(myFromTAZComboBox->getNumItems());
+    // set first items
+    myFromTAZComboBox->setCurrentItem(0, TRUE);
+    myToTAZComboBox->setCurrentItem(0, TRUE);
+    // set color
+    myFromTAZComboBox->setTextColor(FXRGB(128, 128, 128));
+    myToTAZComboBox->setTextColor(FXRGB(128, 128, 128));
 }
 
 /****************************************************************************/

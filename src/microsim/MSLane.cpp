@@ -260,7 +260,15 @@ MSLane::MSLane(const std::string& id, double maxSpeed, double friction, double l
     myRightmostSublane(0),
     myNeedsCollisionCheck(false),
 #ifdef HAVE_FOX
+#ifdef _MSC_VER
+#pragma warning(push)
+    /* Disable warning about using "this" in the constructor */
+#pragma warning(disable: 4355)
+#endif
     mySimulationTask(*this, 0),
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 #endif
     myStopWatch(3) {
     // initialized in MSEdge::initialize
@@ -787,14 +795,20 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
     std::vector<MSLane*>::const_iterator ri = bestLaneConts.begin();
     double seen = getLength() - pos; // == distance from insertion position until the end of the currentLane
     double dist = cfModel.brakeGap(speed) + aVehicle->getVehicleType().getMinGap();
+    const bool isRail = isRailway(aVehicle->getVClass());
     // do not insert if the bidirectional edge is occupied
-    if (myEdge->getBidiEdge() != nullptr && getBidiLane()->getVehicleNumberWithPartials() > 0) {
-        if (aVehicle->getParameter().insertionChecks != (int)InsertionCheck::NONE) {
+    if (myEdge->getBidiEdge() != nullptr && isRail && getBidiLane()->getVehicleNumberWithPartials() > 0) {
+        if ((aVehicle->getParameter().insertionChecks & (int)InsertionCheck::BIDI) != 0) {
+#ifdef DEBUG_INSERTION
+            if (DEBUG_COND2(aVehicle) || DEBUG_COND) {
+                std::cout << "   bidi-lane occupied\n";
+            }
+#endif
             return false;
         }
     }
-    bool hadRailSignal = false;
-    const bool isRail = isRailway(aVehicle->getVClass());
+    MSLink* firstRailSignal = nullptr;
+    double firstRailSignalDist = -1;
 
     // before looping through the continuation lanes, check if a stop is scheduled on this lane
     // (the code is duplicated in the loop)
@@ -818,7 +832,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
     MSLane* currentLane = this;
     MSLane* nextLane = this;
     SUMOTime arrivalTime = MSNet::getInstance()->getCurrentTimeStep() + TIME2STEPS(seen / MAX2(speed, SUMO_const_haltingSpeed));
-    while ((seen < dist || (isRail && !hadRailSignal)) && ri != bestLaneConts.end()) {
+    while ((seen < dist || (isRail && firstRailSignal == nullptr)) && ri != bestLaneConts.end()) {
         // get the next link used...
         std::vector<MSLink*>::const_iterator link = succLinkSec(*aVehicle, nRouteSuccs, *currentLane, bestLaneConts);
         if (currentLane->isLinkEnd(link)) {
@@ -843,10 +857,12 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
             }
             break;
         }
-        if (isRail && !hadRailSignal) {
+        if (isRail && firstRailSignal == nullptr) {
             std::string constraintInfo;
-            if (MSRailSignal::hasInsertionConstraint(*link, aVehicle, constraintInfo)) {
-                setParameter("insertionConstraint:" + aVehicle->getID(), constraintInfo);
+            bool isInsertionOrder;
+            if (MSRailSignal::hasInsertionConstraint(*link, aVehicle, constraintInfo, isInsertionOrder)) {
+                setParameter((isInsertionOrder ? "insertionOrder" : "insertionConstraint:")
+                        + aVehicle->getID(), constraintInfo);
 #ifdef DEBUG_INSERTION
                 if (DEBUG_COND2(aVehicle) || DEBUG_COND) {
                     std::cout << " insertion constraint at link " << (*link)->getDescription() << " not cleared \n";
@@ -855,8 +871,32 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
                 return false;
             }
         }
-        hadRailSignal |= (*link)->getTLLogic() != nullptr;
 
+        // might also by a regular traffic_light instead of a rail_signal
+        if (firstRailSignal == nullptr && (*link)->getTLLogic() != nullptr) {
+            firstRailSignal = *link;
+            firstRailSignalDist = seen;
+        }
+        // allow guarding bidirectional tracks at the network border with railSignal
+        if (currentLane == this && notification == MSMoveReminder::NOTIFICATION_DEPARTED
+                && (*link)->getJunction()->getType() == SumoXMLNodeType::RAIL_SIGNAL) {
+            /// the oncoming check differs depending on whether the train may brake
+            const double vSafe = cfModel.insertionStopSpeed(aVehicle, speed, seen);
+            bool brakeBeforeSignal = patchSpeed || speed <= vSafe;
+            if (MSRailSignal::hasOncomingRailTraffic(*link, aVehicle, brakeBeforeSignal)) {
+#ifdef DEBUG_INSERTION
+                if (DEBUG_COND2(aVehicle) || DEBUG_COND) {
+                    std::cout << " oncoming rail traffic at link " << (*link)->getDescription() << "\n";
+                }
+#endif
+                if ((aVehicle->getParameter().insertionChecks & (int)InsertionCheck::ONCOMING_TRAIN) != 0) {
+                    return false;
+                }
+            }
+            if (brakeBeforeSignal) {
+                speed = MIN2(speed, vSafe);
+            }
+        }
         if (!(*link)->opened(arrivalTime, speed, speed, aVehicle->getVehicleType().getLength(), aVehicle->getImpatience(),
                              cfModel.getMaxDecel(), 0, posLat, nullptr, false, aVehicle)
                 || !(*link)->havePriority()) {
@@ -886,17 +926,6 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
                           << "\n";
             }
 #endif
-            if (currentLane == this && notification == MSMoveReminder::NOTIFICATION_DEPARTED && MSRailSignal::hasOncomingRailTraffic(*link)) {
-                // allow guarding bidirectional tracks at the network border with railSignal
-#ifdef DEBUG_INSERTION
-                if (DEBUG_COND2(aVehicle) || DEBUG_COND) {
-                    std::cout << " oncoming rail traffic at link " << (*link)->getDescription() << "\n";
-                }
-#endif
-                if ((aVehicle->getParameter().insertionChecks & (int)InsertionCheck::ONCOMING_TRAIN) != 0) {
-                    return false;
-                }
-            }
             break;
         }
         // get the next used lane (including internal)
@@ -905,7 +934,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
         if (nextLane != nullptr) {
 
             // do not insert if the bidirectional edge is occupied before a railSignal has been encountered
-            if (!hadRailSignal && nextLane->getEdge().getBidiEdge() != nullptr && nextLane->getBidiLane()->getVehicleNumberWithPartials() > 0) {
+            if (firstRailSignal == nullptr && nextLane->getEdge().getBidiEdge() != nullptr && nextLane->getBidiLane()->getVehicleNumberWithPartials() > 0) {
                 if ((aVehicle->getParameter().insertionChecks & (int)InsertionCheck::ONCOMING_TRAIN) != 0) {
                     return false;
                 }
@@ -1215,6 +1244,12 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
 #endif
     if (isRail) {
         unsetParameter("insertionConstraint:" + aVehicle->getID());
+        unsetParameter("insertionOrder:" + aVehicle->getID());
+        // rail_signal (not traffic_light) requires approach information for
+        // switching correctly at the start of the next simulation step
+        if (firstRailSignal != nullptr && firstRailSignal->getJunction()->getType() == SumoXMLNodeType::RAIL_SIGNAL) {
+            aVehicle->registerInsertionApproach(firstRailSignal, firstRailSignalDist);
+        }
     }
     return true;
 }

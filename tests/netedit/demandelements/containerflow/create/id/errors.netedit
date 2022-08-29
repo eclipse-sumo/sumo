@@ -70,8 +70,8 @@ Debug: Selected item 'containerFlow' in GNETagSelector
 Debug: Selected item 'DEFAULT_CONTAINERTYPE' in DemandElementSelector
 Debug: Selected item 'tranship: edge->containerStop' in GNETagSelector
 Debug: Key ENTER pressed
-Debug: Adding containerFlow 'f_0' in GNEChange_DemandElement
-Debug: Adding tranship: edge->containerStop 'f_0' in GNEChange_DemandElement
+Debug: Adding containerFlow 'cf_0' in GNEChange_DemandElement
+Debug: Adding tranship: edge->containerStop 'cf_0' in GNEChange_DemandElement
 Debug: Key ENTER pressed
 Debug: Key ENTER pressed
 Debug: Adding containerFlow 'customID' in GNEChange_DemandElement

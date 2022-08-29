@@ -1,6 +1,6 @@
 Format: 1.0
 Source: sumo
-Version: 1.10.0-1
+Version: 1.99.git
 Binary: sumo
 Maintainer: Michael Behrisch <oss@behrisch.de>
 Architecture: any
@@ -11,9 +11,11 @@ Build-Depends: cmake,
                debhelper (>= 9),
                dpkg-dev (>= 1.16.1~),
                freeglut3-dev,
+               libgl1-mesa-dev,
                help2man,
                libbz2-dev,
                libcups2-dev,
+               libeigen3-dev,
                libfox-1.6-dev,
                libgdal-dev,
                libgl2ps-dev,

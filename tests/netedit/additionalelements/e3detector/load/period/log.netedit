@@ -1,7 +1,7 @@
-Error: Attribute 'period' in definition of e3Detector 'e3Detector_0' is not a valid time value.
+Error: Attribute 'period' in definition of entryExitDetector 'entryExitDetector_0' is not a valid time value.
 Error: 'detEntry' must be defined within the definition of a 'e3Detector' (found '').
 Error: 'detExit' must be defined within the definition of a 'e3Detector' (found '').
-Error: Could not build e3Detector with ID 'e3Detector_1' in netedit; attribute period cannot be negative.
-Error: Could not build entry in netedit; e3Detector doesn't exist.
-Error: Could not build detExit in netedit; e3Detector doesn't exist.
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Apr081849.968\netedit.gui\additionalelements\e3detector\load\period\input_additionals.add.xml failed.
+Error: Could not build entryExitDetector with ID 'entryExitDetector_1' in netedit; attribute period cannot be negative.
+Error: Could not build entry in netedit; entryExitDetector doesn't exist.
+Error: Could not build detExit in netedit; entryExitDetector doesn't exist.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.e3detector.01Aug073708.40067/netedit.daily.additional.e3detector/additionalelements/e3detector/load/period/input_additionals.add.xml failed.

@@ -35,8 +35,8 @@
 // GNEPersonFrame - methods
 // ---------------------------------------------------------------------------
 
-GNEPersonFrame::GNEPersonFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet) :
-    GNEFrame(horizontalFrameParent, viewNet, "Persons"),
+GNEPersonFrame::GNEPersonFrame(GNEViewParent *viewParent, GNEViewNet* viewNet) :
+    GNEFrame(viewParent, viewNet, "Persons"),
     myRouteHandler("", viewNet->getNet(), true, false),
     myPersonBaseObject(new CommonXMLStructure::SumoBaseObject(nullptr)) {
 
@@ -253,9 +253,9 @@ GNEPersonFrame::demandElementSelected() {
             myPathCreator->showPathCreatorModule(myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTag(), false, false);
             // show warning if we have selected a vType oriented to containers or vehicles
             if (myTypeSelector->getCurrentDemandElement()->getVClass() == SVC_IGNORING) {
-                WRITE_WARNING("Current selected vType is oriented to containers");
+                WRITE_WARNING("VType with vClass == 'ignoring' is oriented to containers");
             } else if (myTypeSelector->getCurrentDemandElement()->getVClass() != SVC_PEDESTRIAN) {
-                WRITE_WARNING("Current selected vType is oriented to vehicles");
+                WRITE_WARNING("VType with vClass != 'pedestrian' is not oriented to persons");
             }
         } else {
             // hide modules

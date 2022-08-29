@@ -27,11 +27,11 @@
 #include <vector>
 #include <iostream>
 #include <utils/foxtools/fxheader.h>
-#include <utils/foxtools/FXSynchQue.h>
-#include <utils/foxtools/FXThreadEvent.h>
+#include <utils/foxtools/MFXSynchQue.h>
+#include <utils/foxtools/MFXThreadEvent.h>
 #include <utils/foxtools/MFXInterThreadEventClient.h>
-#include <utils/foxtools/FXLCDLabel.h>
-#include <utils/foxtools/FXRecentNetworks.h>
+#include <utils/foxtools/MFXLCDLabel.h>
+#include <utils/foxtools/MFXRecentNetworks.h>
 #include <utils/gui/windows/GUIMainWindow.h>
 #include <utils/common/ValueRetriever.h>
 #include <utils/common/ValueSource.h>
@@ -412,7 +412,7 @@ protected:
     double myAlternateSimDelay;
 
     /// @brief List of got requests
-    FXSynchQue<GUIEvent*> myEvents;
+    MFXSynchQue<GUIEvent*> myEvents;
 
     /// @brief The menu used for the MDI-windows
     FXMDIMenu* myMDIMenu = nullptr;
@@ -424,16 +424,16 @@ protected:
     FXToolBar* myToolBar1 = nullptr, *myToolBar2 = nullptr, *myToolBar3 = nullptr, *myToolBar4 = nullptr, *myToolBar5 = nullptr, *myToolBar8 = nullptr;
 
     /// @brief the simulation step display
-    FXEX::FXLCDLabel* myLCDLabel = nullptr;
+    FXEX::MFXLCDLabel* myLCDLabel = nullptr;
 
     /// @brief io-event with the load-thread
-    FXEX::FXThreadEvent myLoadThreadEvent;
+    FXEX::MFXThreadEvent myLoadThreadEvent;
 
     /// @brief io-event with the run-thread
-    FXEX::FXThreadEvent myRunThreadEvent;
+    FXEX::MFXThreadEvent myRunThreadEvent;
 
     /// @brief List of recent networks and configs
-    FXRecentNetworks myRecentNetworksAndConfigs;
+    MFXRecentNetworks myRecentNetworksAndConfigs;
 
     /// @brief Input file pattern
     std::string myConfigPattern;
@@ -468,10 +468,10 @@ protected:
     bool myTLSGame;
 
     /// @brief performance indicators
-    FXEX::FXLCDLabel* myWaitingTimeLabel = nullptr;
-    FXEX::FXLCDLabel* myTimeLossLabel = nullptr;
-    FXEX::FXLCDLabel* myTotalDistanceLabel = nullptr;
-    FXEX::FXLCDLabel* myEmergencyVehicleLabel = nullptr;
+    FXEX::MFXLCDLabel* myWaitingTimeLabel = nullptr;
+    FXEX::MFXLCDLabel* myTimeLossLabel = nullptr;
+    FXEX::MFXLCDLabel* myTotalDistanceLabel = nullptr;
+    FXEX::MFXLCDLabel* myEmergencyVehicleLabel = nullptr;
     SUMOTime myWaitingTime;
     SUMOTime myTimeLoss;
     SUMOTime myEmergencyVehicleCount;

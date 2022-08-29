@@ -70,9 +70,6 @@ public:
     private:
         /// @brief default constructor
         LaneDrawingConstants();
-
-        /// @brief Invalidated assignment operator.
-        LaneDrawingConstants& operator=(const LaneDrawingConstants&) = delete;
     };
 
     /**@brief Constructor

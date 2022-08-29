@@ -65,7 +65,40 @@ the drt service that a person can accept. The maximum travel time with the drt s
 cannot be greater than the direct travel time multiplied by this factor, which by 
 default has a value equal to 2.
 
-# darpSolvers.py
+## darpSolvers.py
 
 This is an auxiliary tool used by the drtOnline.py that contains the algorithms
 available for the routing of the drt vehicles.
+
+# drtOrtools.py
+
+The tool drtOrtools.py models demand responsive transport (DRT) in SUMO via 
+[TraCI](../TraCI.md) and uses 
+[ortools](https://github.com/google/or-tools) to solve the vehicle routing problems.
+
+As with drtOnline.py, requests arrive dynamically and multiple requests are 
+combined in order to maximize the number of requests served while minimizing 
+the mileage (or duration) of the entire vehicle fleet.
+
+The tool requires Python and the packages numpy and ortools. The minimum call is:
+
+```
+python drtOrtools.py -s example.sumocfg
+```
+
+with `example.sumocfg` being a valid SUMO configuration file which refers to 
+a network file, routes etc.
+
+For further help on the command line arguments run:
+
+```
+python drtOrtools.py --help
+```
+
+The solver requires a matrix with costs to travel
+between drop-off locations, pick-up locations and current vehicle positions.
+Costs can be distances or travel times depending on the option `--cost-type`.
+The costs are obtained during simulation by calls to `traci.simulation.findRoute()`.
+In a regular interval (option `--interval`), open requests are assigned to 
+vehicles of the DRT fleet and the cost matrixed is passed to the auxiliary file 
+ortools_pdp.py, where the vehicle routing problem is solved using ortools.

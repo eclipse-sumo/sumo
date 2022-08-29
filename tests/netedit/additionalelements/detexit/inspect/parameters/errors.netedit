@@ -1,6 +1,6 @@
 Debug: Current Viewport values: 25.00, 0.00, 25.00. Zoom = '296.00'
-Debug: Selected item 'e3Detector' in GNETagSelector
-Debug: Adding e3Detector 'e3_0' in GNEChange_Additional
+Debug: Selected item 'entryExitDetector' in GNETagSelector
+Debug: Adding entryExitDetector 'e3_0' in GNEChange_Additional
 Debug: Selected item 'detExit' in GNETagSelector
 Debug: Adding detExit 'e3_0' in GNEChange_Additional
 Debug: Selected item 'detEntry' in GNETagSelector
@@ -66,7 +66,7 @@ Debug: Additionals saved
 Debug: network elements saved
 Debug: Deleting unreferenced detEntry
 Debug: Deleting unreferenced detExit
-Debug: Deleting unreferenced e3Detector
+Debug: Deleting unreferenced entryExitDetector
 Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor

@@ -279,8 +279,18 @@ MSLink::setRequestInformation(int index, bool hasFoes, bool isCont,
                     continue;
                 }
                 const double distToDivergence = computeDistToDivergence(lane, sibling, minDist, true);
-                const double lbcLane = MAX2(0.0, lane->getLength() - lane->interpolateGeometryPosToLanePos(distToDivergence));
-                const double lbcSibling = MAX2(0.0, sibling->getLength() - sibling->interpolateGeometryPosToLanePos(distToDivergence));
+                double lbcLane;
+                double lbcSibling;
+                if (lane->getLength() == sibling->getLength() && &lane->getEdge() == &sibling->getEdge()) {
+                    // for parallel lanes, avoid inconsistency in distance estimation (#10988)
+                    // between forward distance (getLeaderInfo)
+                    // and backward distance used in lane-changing (getFollowersOnConsecutive)
+                    lbcLane = lane->getLength() - distToDivergence;
+                    lbcSibling = lbcLane;
+                } else {
+                    lbcLane = MAX2(0.0, lane->getLength() - lane->interpolateGeometryPosToLanePos(distToDivergence));
+                    lbcSibling = MAX2(0.0, sibling->getLength() - sibling->interpolateGeometryPosToLanePos(distToDivergence));
+                }
                 myLengthsBehindCrossing.push_back(std::make_pair(lbcLane, lbcSibling));
                 myFoeLanes.push_back(sibling);
 #ifdef MSLink_DEBUG_CROSSING_POINTS
@@ -1397,7 +1407,7 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
                 // (for sameSource, the crossing point indicates the point of divergence)
                 const bool stopAsap = leader->isFrontOnLane(foeLane) ? cannotIgnore : (sameTarget || sameSource);
                 if (gDebugFlag1) {
-                    std::cout << " leader=" << leader->getID() << " contLane=" << contLane << " cannotIgnore=" << cannotIgnore << " stopAsap=" << stopAsap << "\n";
+                    std::cout << " leader=" << leader->getID() << " contLane=" << contLane << " cannotIgnore=" << cannotIgnore << " stopAsap=" << stopAsap << " gap=" << gap << "\n";
                 }
                 if (ignoreFoe(ego, leader)) {
                     continue;

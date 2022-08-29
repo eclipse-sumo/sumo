@@ -31,3 +31,4 @@ libsumo_option_list_append
 
 # test various functions and options for influencing the behavior of rerouting functions
 rerouting
+parkingSearch

@@ -107,11 +107,11 @@ GUISUMOViewParent::init(FXGLCanvas* share, GUINet& net, GUISUMOViewParent::ViewT
     switch (type) {
         default:
         case VIEW_2D_OPENGL:
-            myView = new GUIViewTraffic(myContentFrame, *myParent, this, net, myParent->getGLVisual(), share);
+            myView = new GUIViewTraffic(myChildWindowContentFrame, *myParent, this, net, myParent->getGLVisual(), share);
             break;
 #ifdef HAVE_OSG
         case VIEW_3D_OSG:
-            myView = new GUIOSGView(myContentFrame, *myParent, this, net, myParent->getGLVisual(), share);
+            myView = new GUIOSGView(myChildWindowContentFrame, *myParent, this, net, myParent->getGLVisual(), share);
             break;
 #endif
     }

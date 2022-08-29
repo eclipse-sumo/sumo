@@ -46,12 +46,12 @@ def buildFragment(wixBin, sourceDir, targetLabel, tmpDir):
     fragIn = open(os.path.join(tmpDir, base + "RawFragment.wxs"))
     fragOut = open(os.path.join(tmpDir, base + "Fragment.wxs"), "w")
     skip = 0
-    for l in fragIn:
+    for fl in fragIn:
         for s in SKIP_FILES:
-            if s in l:
+            if s in fl:
                 skip = 3
         if skip == 0:
-            fragOut.write(l.replace("SourceDir", sourceDir))
+            fragOut.write(fl.replace("SourceDir", sourceDir))
         else:
             skip -= 1
     fragOut.close()

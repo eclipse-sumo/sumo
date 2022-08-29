@@ -50,7 +50,7 @@ FXIMPLEMENT(GNEProhibitionFrame, FXVerticalFrame, GNEProhibitionFrameMap, ARRAYN
 // ---------------------------------------------------------------------------
 
 GNEProhibitionFrame::RelativeToConnection::RelativeToConnection(GNEProhibitionFrame* prohibitionFrameParent) :
-    FXGroupBoxModule(prohibitionFrameParent, "Relative to connection"),
+    MFXGroupBoxModule(prohibitionFrameParent, "Relative to connection"),
     myProhibitionFrameParent(prohibitionFrameParent) {
     // Create label for current connection description and update it
     myConnDescriptionLabel = new FXLabel(getCollapsableFrame(), "", nullptr, GUIDesignLabelFrameInformation);
@@ -78,7 +78,7 @@ GNEProhibitionFrame::RelativeToConnection::updateDescription() const {
 // ---------------------------------------------------------------------------
 
 GNEProhibitionFrame::Legend::Legend(GNEProhibitionFrame* prohibitionFrameParent) :
-    FXGroupBoxModule(prohibitionFrameParent, "Information"),
+    MFXGroupBoxModule(prohibitionFrameParent, "Information"),
     myUndefinedColor(RGBColor::GREY),
     myProhibitedColor(RGBColor(0, 179, 0)),
     myProhibitingColor(RGBColor::RED),
@@ -143,7 +143,7 @@ GNEProhibitionFrame::Legend::getMutualConflictColor() const {
 // ---------------------------------------------------------------------------
 
 GNEProhibitionFrame::Modifications::Modifications(GNEProhibitionFrame* prohibitionFrameParent) :
-    FXGroupBoxModule(prohibitionFrameParent, "Modifications") {
+    MFXGroupBoxModule(prohibitionFrameParent, "Modifications") {
 
     // Create "OK" button
     mySaveButton = new FXButton(getCollapsableFrame(), "OK\t\tSave prohibition modifications (Enter)",
@@ -165,8 +165,8 @@ GNEProhibitionFrame::Modifications::~Modifications() {}
 // GNEProhibitionFrame - methods
 // ---------------------------------------------------------------------------
 
-GNEProhibitionFrame::GNEProhibitionFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet) :
-    GNEFrame(horizontalFrameParent, viewNet, "Prohibits"),
+GNEProhibitionFrame::GNEProhibitionFrame(GNEViewParent *viewParent, GNEViewNet* viewNet) :
+    GNEFrame(viewParent, viewNet, "Prohibits"),
     myCurrentConn(nullptr) {
     // set frame header label
     getFrameHeaderLabel()->setText("Prohibitions");

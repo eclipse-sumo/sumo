@@ -925,7 +925,7 @@ GUIBaseVehicle::drawRoute(const GUIVisualizationSettings& s, int routeNo, double
 void
 GUIBaseVehicle::drawStopLabels(const GUIVisualizationSettings& s, bool noLoop, const RGBColor& col) const {
     // (vertical shift for repeated stops at the same position
-    std::map<std::pair<const MSLane*, double>, int> repeat; // count repeated occurrences of the same position
+    std::map<const MSLane*, int> repeat; // count repeated occurrences of the same position
     int stopIndex = 0;
     for (const MSStop& stop : myVehicle.getStops()) {
         double stopLanePos;
@@ -994,14 +994,13 @@ GUIBaseVehicle::drawStopLabels(const GUIVisualizationSettings& s, bool noLoop, c
         if (stop.pars.actType != "") {
             label += " actType:" + stop.pars.actType;
         }
-        std::pair<const MSLane*, double> stopPos = std::make_pair(stop.lane, stopLanePos);
         const double nameSize = s.vehicleName.size / s.scale;
-        Position pos2 = pos - Position(0, nameSize * repeat[stopPos]);
-        if (noLoop && repeat[stopPos] > 0) {
+        Position pos2 = pos - Position(0, nameSize * repeat[stop.lane]);
+        if (noLoop && repeat[stop.lane] > 0) {
             break;
         }
         GLHelper::drawTextSettings(s.vehicleText, label, pos2, s.scale, s.angle, 1.0);
-        repeat[stopPos]++;
+        repeat[stop.lane]++;
         stopIndex++;
     }
 }
@@ -1096,7 +1095,7 @@ GUIBaseVehicle::drawAction_drawVehicleAsPolyWithCarriagges(const GUIVisualizatio
                     s, getVType().getImgFile(), this, getVType().getWidth(), scaledLength)) {
             return false;
         }
-        GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(s, getVType().getGuiShape(), getVType().getWidth(), scaledLength);
+        GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(s, getVType().getGuiShape(), getVType().getWidth(), scaledLength, -1, myVehicle.isStopped());
         return false;
     }
 }

@@ -1,54 +1,60 @@
 set(utils_foxtools_STAT_SRCS
    fxheader.h
    fxexdefs.h
-   FXBaseObject.cpp
-   FXBaseObject.h
-   FXLCDLabel.cpp
-   FXLCDLabel.h
-   FXLinkLabel.cpp
-   FXLinkLabel.h
-   FXGroupBoxModule.h
-   FXGroupBoxModule.cpp
-   FXMenuCheckIcon.cpp
-   FXMenuCheckIcon.h
-   FXRecentNetworks.cpp
-   FXRecentNetworks.h
-   FXSevenSegment.cpp
-   FXSevenSegment.h
-   FXSingleEventThread.cpp
-   FXSingleEventThread.h
-   FXStaticToolTip.cpp
-   FXStaticToolTip.h
-   FXSynchQue.h
-   FXSynchSet.h
-   FXThreadEvent.cpp
-   FXThreadEvent.h
-   FXTreeListDynamic.cpp
-   FXTreeListDynamic.h
-   FXWorkerThread.h
    MFXAddEditTypedTable.cpp
    MFXAddEditTypedTable.h
+   MFXBaseObject.cpp
+   MFXBaseObject.h
    MFXButtonTooltip.cpp
    MFXButtonTooltip.h
    MFXCheckableButton.cpp
    MFXCheckableButton.h
-   MFXRealSpinner.cpp
-   MFXRealSpinner.h
    MFXComboBox.cpp
    MFXComboBox.h
    MFXEditableTable.cpp
    MFXEditableTable.h
+   MFXGroupBoxModule.cpp
+   MFXGroupBoxModule.h
    MFXIconComboBox.cpp
    MFXIconComboBox.h
    MFXImageHelper.cpp
    MFXImageHelper.h
    MFXInterThreadEventClient.h
+   MFXLabelTooltip.cpp
+   MFXLabelTooltip.h
+   MFXLCDLabel.cpp
+   MFXLCDLabel.h
+   MFXLinkLabel.cpp
+   MFXLinkLabel.h
+   MFXMenuButtonTooltip.cpp
+   MFXMenuButtonTooltip.h
+   MFXMenuCheckIcon.cpp
+   MFXMenuCheckIcon.h
    MFXMenuHeader.cpp
    MFXMenuHeader.h
+   MFXRealSpinner.cpp
+   MFXRealSpinner.h
+   MFXRecentNetworks.cpp
+   MFXRecentNetworks.h
+   MFXSevenSegment.cpp
+   MFXSevenSegment.h
+   MFXSingleEventThread.cpp
+   MFXSingleEventThread.h
+   MFXStaticToolTip.cpp
+   MFXStaticToolTip.h
+   MFXSynchQue.h
+   MFXSynchSet.h
    MFXTextFieldIcon.cpp
    MFXTextFieldIcon.h
+   MFXTextFieldTooltip.cpp
+   MFXTextFieldTooltip.h
+   MFXThreadEvent.cpp
+   MFXThreadEvent.h
+   MFXTreeListDynamic.cpp
+   MFXTreeListDynamic.h
    MFXUtils.cpp
    MFXUtils.h
+   MFXWorkerThread.h
    MsgHandlerSynchronized.h
 )
 

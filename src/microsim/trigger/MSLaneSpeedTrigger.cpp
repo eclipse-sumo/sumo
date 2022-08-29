@@ -52,7 +52,7 @@ std::map<std::string, MSLaneSpeedTrigger*> MSLaneSpeedTrigger::myInstances;
 MSLaneSpeedTrigger::MSLaneSpeedTrigger(const std::string& id,
                                        const std::vector<MSLane*>& destLanes,
                                        const std::string& file) :
-    MSTrigger(id),
+    Named(id),
     SUMOSAXHandler(file),
     myDestLanes(destLanes),
     myDefaultSpeed(destLanes[0]->getSpeedLimit()),
@@ -101,7 +101,9 @@ MSLaneSpeedTrigger::init() {
 }
 
 
-MSLaneSpeedTrigger::~MSLaneSpeedTrigger() {}
+MSLaneSpeedTrigger::~MSLaneSpeedTrigger() {
+    myInstances.erase(getID());
+}
 
 
 SUMOTime

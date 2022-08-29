@@ -2,9 +2,9 @@ Debug: Key F5 (Compute) pressed
 Debug: Created connection 'fromgneE2_0togneE3_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE3_0togneE4_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE4_0togneE5_0' in retrieveGNEConnection()
-Debug: Selected item 'e2MultilaneDetector' in GNETagSelector
+Debug: Selected item 'multiLaneAreaDetector' in GNETagSelector
 Debug: Key ENTER pressed
-Debug: Adding e2MultilaneDetector 'e2_0' in GNEChange_Additional
+Debug: Adding multiLaneAreaDetector 'e2_0' in GNEChange_Additional
 Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Setting new attribute
@@ -35,10 +35,10 @@ Debug: Calling GNEUndoList::undo()
 Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing e2MultilaneDetector 'e2_0' in GNEChange_Additional
+Debug: Removing multiLaneAreaDetector 'e2_0' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Adding e2MultilaneDetector 'e2_0' in GNEChange_Additional
+Debug: Adding multiLaneAreaDetector 'e2_0' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute
@@ -62,7 +62,7 @@ Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute
 Debug: Additionals saved
 Debug: network elements saved
-Debug: Deleting unreferenced e2MultilaneDetector
+Debug: Deleting unreferenced multiLaneAreaDetector
 Debug: Deleting unreferenced edge 'gneE2' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE2_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE2_0togneE3_0' in GNEEdge destructor

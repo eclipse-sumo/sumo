@@ -16,8 +16,8 @@
     <busStop id="bs8" lane="gneE5_0" startPos="2.50" endPos="7.50"/>
     <busStop id="bs9" lane="gneE6_0" startPos="2.50" endPos="7.50"/>
     <!-- Detectors -->
-    <e3Detector id="E3" pos="60.00,50.00" period="100.00" file="E3.txt">
+    <entryExitDetector id="E3" pos="60.00,50.00" period="100.00" file="E3.txt">
         <detEntry lane="gneE14_0" pos="5.00"/>
         <detExit lane="gneE9_0" pos="5.00"/>
-    </e3Detector>
+    </entryExitDetector>
 </additional>

@@ -34,7 +34,7 @@
 #include "RORouteDef.h"
 
 #ifdef HAVE_FOX
-#include <utils/foxtools/FXWorkerThread.h>
+#include <utils/foxtools/MFXWorkerThread.h>
 #endif
 
 
@@ -432,24 +432,24 @@ public:
     }
 
 #ifdef HAVE_FOX
-    FXWorkerThread::Pool& getThreadPool() {
+    MFXWorkerThread::Pool& getThreadPool() {
         return myThreadPool;
     }
 
-    class WorkerThread : public FXWorkerThread, public RORouterProvider {
+    class WorkerThread : public MFXWorkerThread, public RORouterProvider {
     public:
-        WorkerThread(FXWorkerThread::Pool& pool,
+        WorkerThread(MFXWorkerThread::Pool& pool,
                      const RORouterProvider& original)
-            : FXWorkerThread(pool), RORouterProvider(original) {}
+            : MFXWorkerThread(pool), RORouterProvider(original) {}
         virtual ~WorkerThread() {
             stop();
         }
     };
 
-    class BulkmodeTask : public FXWorkerThread::Task {
+    class BulkmodeTask : public MFXWorkerThread::Task {
     public:
         BulkmodeTask(const bool value) : myValue(value) {}
-        void run(FXWorkerThread* context) {
+        void run(MFXWorkerThread* context) {
             static_cast<WorkerThread*>(context)->setBulkMode(myValue);
         }
     private:
@@ -565,11 +565,11 @@ private:
 
 #ifdef HAVE_FOX
 private:
-    class RoutingTask : public FXWorkerThread::Task {
+    class RoutingTask : public MFXWorkerThread::Task {
     public:
         RoutingTask(RORoutable* v, const bool removeLoops, MsgHandler* errorHandler)
             : myRoutable(v), myRemoveLoops(removeLoops), myErrorHandler(errorHandler) {}
-        void run(FXWorkerThread* context);
+        void run(MFXWorkerThread* context);
     private:
         RORoutable* const myRoutable;
         const bool myRemoveLoops;
@@ -582,7 +582,7 @@ private:
 
 private:
     /// @brief for multi threaded routing
-    FXWorkerThread::Pool myThreadPool;
+    MFXWorkerThread::Pool myThreadPool;
 #endif
 
 private:

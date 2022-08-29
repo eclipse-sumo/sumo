@@ -39,8 +39,8 @@
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-GNELoadThread::GNELoadThread(FXApp* app, MFXInterThreadEventClient* mw, FXSynchQue<GUIEvent*>& eq, FXEX::FXThreadEvent& ev) :
-    FXSingleEventThread(app, mw), myParent(mw), myEventQue(eq),
+GNELoadThread::GNELoadThread(FXApp* app, MFXInterThreadEventClient* mw, MFXSynchQue<GUIEvent*>& eq, FXEX::MFXThreadEvent& ev) :
+    MFXSingleEventThread(app, mw), myParent(mw), myEventQue(eq),
     myEventThrow(ev) {
     myDebugRetriever = new MsgRetrievingFunction<GNELoadThread>(this, &GNELoadThread::retrieveMessage, MsgHandler::MsgType::MT_DEBUG);
     myGLDebugRetriever = new MsgRetrievingFunction<GNELoadThread>(this, &GNELoadThread::retrieveMessage, MsgHandler::MsgType::MT_GLDEBUG);
@@ -73,7 +73,7 @@ GNELoadThread::run() {
 
     // try to load the given configuration
     OptionsCont& oc = OptionsCont::getOptions();
-    if (myFile != "" || oc.getString("sumo-net-file") != "") {
+    if (oc.getString("SUMOConfig-output").empty() && (myFile != "" || oc.getString("sumo-net-file") != "")) {
         oc.clear();
         if (!initOptions()) {
             submitEndAndCleanup(net);
@@ -160,14 +160,20 @@ GNELoadThread::run() {
                 WRITE_ERROR(e.what());
             }
             WRITE_ERROR("Failed to build network.");
-            delete net;
+            // check if delete network
+            if (net != nullptr) {
+                delete net;
+                net = nullptr;
+            }
             delete netBuilder;
-            net = nullptr;
         } catch (std::exception& e) {
             WRITE_ERROR(e.what());
-            delete net;
+            // check if delete network
+            if (net != nullptr) {
+                delete net;
+                net = nullptr;
+            }
             delete netBuilder;
-            net = nullptr;
         }
     }
     // only a single setting file is supported
@@ -222,6 +228,9 @@ GNELoadThread::fillOptions(OptionsCont& oc) {
     oc.addDescription("new", "Input", "Start with a new network");
 
     // files
+
+    oc.doRegister("SUMOConfig-output", new Option_String());
+    oc.addDescription("SUMOConfig-output", "Netedit", "file in which SUMOCOnfig must be saved");
 
     oc.doRegister("additional-files", 'a', new Option_FileName());
     oc.addSynonyme("additional-files", "additional");
@@ -334,8 +343,14 @@ GNELoadThread::fillOptions(OptionsCont& oc) {
     oc.doRegister("person-prefix", new Option_String("p"));
     oc.addDescription("person-prefix", "Netedit", "prefix for person naming");
 
+    oc.doRegister("personflow-prefix", new Option_String("pf"));
+    oc.addDescription("personflow-prefix", "Netedit", "prefix for personFlow naming");
+
     oc.doRegister("container-prefix", new Option_String("c"));
     oc.addDescription("container-prefix", "Netedit", "prefix for container naming");
+
+    oc.doRegister("containerflow-prefix", new Option_String("cf"));
+    oc.addDescription("containerflow-prefix", "Netedit", "prefix for containerFlow naming");
 
     // drawing
 
@@ -435,7 +450,7 @@ GNELoadThread::initOptions() {
 
 
 void
-GNELoadThread::loadConfigOrNet(const std::string& file, bool isNet, bool useStartupOptions, bool newNet) {
+GNELoadThread::loadConfigOrNet(const std::string& file, const bool isNet, const bool useStartupOptions, const bool newNet) {
     myFile = file;
     myLoadNet = isNet;
     if (myFile != "" && !useStartupOptions) {

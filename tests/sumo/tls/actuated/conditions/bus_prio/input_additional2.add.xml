@@ -1,0 +1,24 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+
+    <!-- detect only buses -->
+    <inductionLoop id="dBus" lane="SC_0" pos="-90" vTypes="busType" file="NUL"/>
+
+    <tlLogic id="C" type="actuated" programID="P1" offset="0">
+        <phase duration="33" state="GgrrGgrr" minDur="5" maxDur="60" />
+        <phase duration="3"  state="ygrrygrr"/>
+        <phase duration="6"  state="rGrrrGrr" minDur="5" maxDur="60" />
+        <phase duration="3"  state="ryrrryrr"/>
+        <phase duration="33" state="rrGgrrGg" minDur="5" maxDur="60" />
+        <phase duration="3"  state="rrygrryg" earlyTarget="EW or NSbus"/>
+        <phase duration="6"  state="rrrGrrrG" minDur="5" maxDur="60" />
+        <phase duration="3"  state="rrryrrry"/>
+
+        <!-- the default switching rules (prolong phase depending on observed gaps) -->
+        <condition id="EW" value="z:D1.0 > 3 and z:D3.0 > 3"/>
+        <!-- prioritization for buses coming from the south -->
+        <condition id="NSbus" value="3 > z:dBus"/>
+
+        <param key="show-detectors" value="true"/>
+
+    </tlLogic>
+</additional>

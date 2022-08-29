@@ -50,8 +50,8 @@ FXDEFMAP(GNEConnectorFrame::ConnectionOperations) ConnectionOperationsMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNEConnectorFrame::ConnectionModifications, FXGroupBoxModule, ConnectionModificationsMap, ARRAYNUMBER(ConnectionModificationsMap))
-FXIMPLEMENT(GNEConnectorFrame::ConnectionOperations,    FXGroupBoxModule, ConnectionOperationsMap,    ARRAYNUMBER(ConnectionOperationsMap))
+FXIMPLEMENT(GNEConnectorFrame::ConnectionModifications, MFXGroupBoxModule, ConnectionModificationsMap, ARRAYNUMBER(ConnectionModificationsMap))
+FXIMPLEMENT(GNEConnectorFrame::ConnectionOperations,    MFXGroupBoxModule, ConnectionOperationsMap,    ARRAYNUMBER(ConnectionOperationsMap))
 
 
 // ===========================================================================
@@ -63,7 +63,7 @@ FXIMPLEMENT(GNEConnectorFrame::ConnectionOperations,    FXGroupBoxModule, Connec
 // ---------------------------------------------------------------------------
 
 GNEConnectorFrame::CurrentLane::CurrentLane(GNEConnectorFrame* connectorFrameParent) :
-    FXGroupBoxModule(connectorFrameParent, "Lane") {
+    MFXGroupBoxModule(connectorFrameParent, "Lane") {
     // create lane label
     myCurrentLaneLabel = new FXLabel(getCollapsableFrame(), "No lane selected", 0, GUIDesignLabelLeft);
 }
@@ -86,7 +86,7 @@ GNEConnectorFrame::CurrentLane::updateCurrentLaneLabel(const std::string& laneID
 // ---------------------------------------------------------------------------
 
 GNEConnectorFrame::ConnectionModifications::ConnectionModifications(GNEConnectorFrame* connectorFrameParent) :
-    FXGroupBoxModule(connectorFrameParent, "Modifications"),
+    MFXGroupBoxModule(connectorFrameParent, "Modifications"),
     myConnectorFrameParent(connectorFrameParent) {
 
     // Create "Cancel" button
@@ -148,7 +148,7 @@ GNEConnectorFrame::ConnectionModifications::onCmdSaveModifications(FXObject*, FX
 // ---------------------------------------------------------------------------
 
 GNEConnectorFrame::ConnectionOperations::ConnectionOperations(GNEConnectorFrame* connectorFrameParent) :
-    FXGroupBoxModule(connectorFrameParent, "Operations"),
+    MFXGroupBoxModule(connectorFrameParent, "Operations"),
     myConnectorFrameParent(connectorFrameParent) {
 
     // Create "Select Dead Ends" button
@@ -305,7 +305,7 @@ GNEConnectorFrame::ConnectionOperations::onCmdResetSelectedConnections(FXObject*
 // ---------------------------------------------------------------------------
 
 GNEConnectorFrame::ConnectionSelection::ConnectionSelection(GNEConnectorFrame* connectorFrameParent) :
-    FXGroupBoxModule(connectorFrameParent, "Selection") {
+    MFXGroupBoxModule(connectorFrameParent, "Selection") {
     // create Selection Hint
     myHoldShiftLabel = new FXLabel(getCollapsableFrame(), "Hold <SHIFT> while clicking\nto create unyielding\nconnections (pass=true).", 0, GUIDesignLabelFrameInformation);
     myHoldControlLabel = new FXLabel(getCollapsableFrame(), "Hold <CTRL> while clicking\nto create conflicting\nconnections (i.e. at zipper\nnodes or with incompatible\npermissions)", 0, GUIDesignLabelFrameInformation);
@@ -319,7 +319,7 @@ GNEConnectorFrame::ConnectionSelection::~ConnectionSelection() {}
 // ---------------------------------------------------------------------------
 
 GNEConnectorFrame::Legend::Legend(GNEConnectorFrame* connectorFrameParent) :
-    FXGroupBoxModule(connectorFrameParent, "Information") {
+    MFXGroupBoxModule(connectorFrameParent, "Information") {
 
     // create possible target label
     FXLabel* possibleTargetLabel = new FXLabel(getCollapsableFrame(), "Possible Target", 0, GUIDesignLabelLeft);
@@ -350,8 +350,8 @@ GNEConnectorFrame::Legend::~Legend() {}
 // GNEConnectorFrame - methods
 // ---------------------------------------------------------------------------
 
-GNEConnectorFrame::GNEConnectorFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet):
-    GNEFrame(horizontalFrameParent, viewNet, "Edit Connections"),
+GNEConnectorFrame::GNEConnectorFrame(GNEViewParent *viewParent, GNEViewNet* viewNet):
+    GNEFrame(viewParent, viewNet, "Edit Connections"),
     myCurrentEditedLane(0),
     myNumChanges(0) {
     // create current lane modul
@@ -377,7 +377,7 @@ GNEConnectorFrame::~GNEConnectorFrame() {}
 void
 GNEConnectorFrame::handleLaneClick(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor) {
     // get lane front
-    GNELane* clickedLane = objectsUnderCursor.getLaneFront();
+    GNELane* clickedLane = objectsUnderCursor.getLaneFrontNonLocked();
     // iterate over lanes
     for (const auto& lane : objectsUnderCursor.getLanes()) {
         // if parent edge of lane is front element, update clickedLane

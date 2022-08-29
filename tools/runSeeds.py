@@ -24,6 +24,11 @@ import os
 import sys
 import subprocess
 import shutil
+from threading import Thread
+if sys.version_info.major < 3:
+    from Queue import Queue
+else:
+    from queue import Queue
 
 if 'SUMO_HOME' in os.environ:
     sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
@@ -44,6 +49,8 @@ def get_options(args=None):
                   help="output prefix",)
     ap.add_option("--seeds", default="0:10",
                   help="which seeds to run")
+    ap.add_option("--threads", type=int, default=1,
+                  help="number of parallel processes")
     # parse options
     options = ap.parse_args(args=args)
 
@@ -70,15 +77,30 @@ def get_options(args=None):
 
 
 def main(options):
+
+    q = Queue()
+
+    def runSim():
+        while True:
+            seed = q.get()
+            prefix = options.prefix.replace("SEED", str(seed))
+            if options.verbose:
+                print("running seed %s" % seed)
+            args = [options.application,
+                    '-c', options.configuration,
+                    '--seed', str(seed),
+                    '--output-prefix', prefix]
+            subprocess.call(args)
+            q.task_done()
+
+    for i in range(options.threads):
+        t = Thread(target=runSim)
+        t.daemon = True
+        t.start()
+
     for seed in options.seeds:
-        prefix = options.prefix.replace("SEED", str(seed))
-        if options.verbose:
-            print("running seed %s" % seed)
-        args = [options.application,
-                '-c', options.configuration,
-                '--seed', str(seed),
-                '--output-prefix', prefix]
-        subprocess.call(args)
+        q.put(seed)
+    q.join()
 
 
 if __name__ == "__main__":

@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.additionalMode()
 
 # select E1
-netedit.changeElement("e1Detector")
+netedit.changeElement("inductionLoop")
 
 # Create E1
 netedit.leftClick(referencePosition, 140, 245)

@@ -240,7 +240,7 @@ RORouteHandler::openVehicleTypeDistribution(const SUMOSAXAttributes& attrs) {
                 if (type == nullptr) {
                     myErrorOutput->inform("Unknown vehicle type '" + typeID + "' in distribution '" + myCurrentVTypeDistributionID + "'.");
                 } else {
-                    myCurrentVTypeDistribution->add(type, 1.);
+                    myCurrentVTypeDistribution->add(type, type->defaultProbability);
                 }
             }
         }

@@ -98,23 +98,23 @@ GNEViewParent::GNEViewParent(FXMDIClient* p, FXMDIMenu* mdimenu, const FXString&
     new FXVerticalSeparator(myGripNavigationToolbar, GUIDesignVerticalSeparator);
 
     // Create undo/redo buttons
-    myUndoButton = new MFXButtonTooltip(myGripNavigationToolbar, "\tUndo\tUndo the last change. (Ctrl+Z)", GUIIconSubSys::getIcon(GUIIcon::UNDO), parentWindow, MID_HOTKEY_CTRL_Z_UNDO, GUIDesignButtonToolbar);
-    myRedoButton = new MFXButtonTooltip(myGripNavigationToolbar, "\tRedo\tRedo the last change. (Ctrl+Y)", GUIIconSubSys::getIcon(GUIIcon::REDO), parentWindow, MID_HOTKEY_CTRL_Y_REDO, GUIDesignButtonToolbar);
+    myUndoButton = new MFXButtonTooltip(myGripNavigationToolbar, myGNEAppWindows->getStaticTooltip(), 
+        "\tUndo\tUndo the last change. (Ctrl+Z)", GUIIconSubSys::getIcon(GUIIcon::UNDO), parentWindow, MID_HOTKEY_CTRL_Z_UNDO, GUIDesignButtonToolbar);
+    myRedoButton = new MFXButtonTooltip(myGripNavigationToolbar, myGNEAppWindows->getStaticTooltip(), 
+        "\tRedo\tRedo the last change. (Ctrl+Y)", GUIIconSubSys::getIcon(GUIIcon::REDO), parentWindow, MID_HOTKEY_CTRL_Y_REDO, GUIDesignButtonToolbar);
 
     // Create Vertical separator
     new FXVerticalSeparator(myGripNavigationToolbar, GUIDesignVerticalSeparator);
 
     // create compute path manager button
-    myComputePathManagerButton = new MFXButtonTooltip(myGripNavigationToolbar, "\tCompute path manager\tCompute path manager", GUIIconSubSys::getIcon(GUIIcon::COMPUTEPATHMANAGER), parentWindow, MID_GNE_TOOLBAREDIT_COMPUTEPATHMANAGER, GUIDesignButtonToolbar);
+    myComputePathManagerButton = new MFXButtonTooltip(myGripNavigationToolbar, myGNEAppWindows->getStaticTooltip(), 
+        "\tCompute path manager\tCompute path manager", GUIIconSubSys::getIcon(GUIIcon::COMPUTEPATHMANAGER), parentWindow, MID_GNE_TOOLBAREDIT_COMPUTEPATHMANAGER, GUIDesignButtonToolbar);
 
     // Create Frame Splitter
-    myFramesSplitter = new FXSplitter(myContentFrame, this, MID_GNE_VIEWPARENT_FRAMEAREAWIDTH, GUIDesignSplitter | SPLITTER_HORIZONTAL);
+    myFramesSplitter = new FXSplitter(myChildWindowContentFrame, this, MID_GNE_VIEWPARENT_FRAMEAREAWIDTH, GUIDesignSplitter | SPLITTER_HORIZONTAL);
 
-    // Create frames Area
-    myFramesArea = new FXHorizontalFrame(myFramesSplitter, GUIDesignFrameArea);
-
-    // Set default width of frames area
-    myFramesArea->setWidth(220);
+    // Create frames Area (vertical frame)
+    myFramesArea = new FXVerticalFrame(myFramesSplitter, GUIDesignFrameArea);
 
     // Create view area
     myViewArea = new FXHorizontalFrame(myFramesSplitter, GUIDesignViewnArea);
@@ -136,6 +136,9 @@ GNEViewParent::GNEViewParent(FXMDIClient* p, FXMDIMenu* mdimenu, const FXString&
     myNetworkFrames.buildNetworkFrames(this, viewNet);
     myDemandFrames.buildDemandFrames(this, viewNet);
     myDataFrames.buildDataFrames(this, viewNet);
+
+    // set default frames area width
+    myFramesArea->setWidth(GUIDesignFramesAreaDefaultWidth);
 
     // Update frame areas after creation
     onCmdUpdateFrameAreaWidth(nullptr, 0, nullptr);
@@ -411,15 +414,22 @@ GNEViewParent::updateUndoRedoButtons() {
 }
 
 
+FXVerticalFrame*
+GNEViewParent::getFramesArea() const {
+    return myFramesArea;
+}
+
+
 int
-GNEViewParent::getFrameAreaWith() const {
+GNEViewParent::getFrameAreaWidth() const {
     return myFramesArea->getWidth();
 }
 
 
 void
-GNEViewParent::setFrameAreaWith(const int frameAreaWith) {
+GNEViewParent::setFrameAreaWidth(const int frameAreaWith) {
     myFramesArea->setWidth(frameAreaWith);
+    onCmdUpdateFrameAreaWidth(0, 0, 0);
 }
 
 
@@ -769,10 +779,10 @@ GNEViewParent::CommonFrames::CommonFrames() :
 
 void
 GNEViewParent::CommonFrames::buildCommonFrames(GNEViewParent* viewParent, GNEViewNet* viewNet) {
-    inspectorFrame = new GNEInspectorFrame(viewParent->myFramesArea, viewNet);
-    selectorFrame = new GNESelectorFrame(viewParent->myFramesArea, viewNet);
-    moveFrame = new GNEMoveFrame(viewParent->myFramesArea, viewNet);
-    deleteFrame = new GNEDeleteFrame(viewParent->myFramesArea, viewNet);
+    inspectorFrame = new GNEInspectorFrame(viewParent, viewNet);
+    selectorFrame = new GNESelectorFrame(viewParent, viewNet);
+    moveFrame = new GNEMoveFrame(viewParent, viewNet);
+    deleteFrame = new GNEDeleteFrame(viewParent, viewNet);
 }
 
 
@@ -847,15 +857,15 @@ GNEViewParent::NetworkFrames::NetworkFrames() :
 
 void
 GNEViewParent::NetworkFrames::buildNetworkFrames(GNEViewParent* viewParent, GNEViewNet* viewNet) {
-    connectorFrame = new GNEConnectorFrame(viewParent->myFramesArea, viewNet);
-    prohibitionFrame = new GNEProhibitionFrame(viewParent->myFramesArea, viewNet);
-    wireFrame = new GNEWireFrame(viewParent->myFramesArea, viewNet);
-    TLSEditorFrame = new GNETLSEditorFrame(viewParent->myFramesArea, viewNet);
-    additionalFrame = new GNEAdditionalFrame(viewParent->myFramesArea, viewNet);
-    crossingFrame = new GNECrossingFrame(viewParent->myFramesArea, viewNet);
-    TAZFrame = new GNETAZFrame(viewParent->myFramesArea, viewNet);
-    polygonFrame = new GNEShapeFrame(viewParent->myFramesArea, viewNet);
-    createEdgeFrame = new GNECreateEdgeFrame(viewParent->myFramesArea, viewNet);
+    connectorFrame = new GNEConnectorFrame(viewParent, viewNet);
+    prohibitionFrame = new GNEProhibitionFrame(viewParent, viewNet);
+    wireFrame = new GNEWireFrame(viewParent, viewNet);
+    TLSEditorFrame = new GNETLSEditorFrame(viewParent, viewNet);
+    additionalFrame = new GNEAdditionalFrame(viewParent, viewNet);
+    crossingFrame = new GNECrossingFrame(viewParent, viewNet);
+    TAZFrame = new GNETAZFrame(viewParent, viewNet);
+    polygonFrame = new GNEShapeFrame(viewParent, viewNet);
+    createEdgeFrame = new GNECreateEdgeFrame(viewParent, viewNet);
 }
 
 
@@ -959,14 +969,14 @@ GNEViewParent::DemandFrames::DemandFrames() :
 
 void
 GNEViewParent::DemandFrames::buildDemandFrames(GNEViewParent* viewParent, GNEViewNet* viewNet) {
-    routeFrame = new GNERouteFrame(viewParent->myFramesArea, viewNet);
-    vehicleFrame = new GNEVehicleFrame(viewParent->myFramesArea, viewNet);
-    vehicleTypeFrame = new GNETypeFrame(viewParent->myFramesArea, viewNet);
-    stopFrame = new GNEStopFrame(viewParent->myFramesArea, viewNet);
-    personFrame = new GNEPersonFrame(viewParent->myFramesArea, viewNet);
-    personPlanFrame = new GNEPersonPlanFrame(viewParent->myFramesArea, viewNet);
-    containerFrame = new GNEContainerFrame(viewParent->myFramesArea, viewNet);
-    containerPlanFrame = new GNEContainerPlanFrame(viewParent->myFramesArea, viewNet);
+    routeFrame = new GNERouteFrame(viewParent, viewNet);
+    vehicleFrame = new GNEVehicleFrame(viewParent, viewNet);
+    vehicleTypeFrame = new GNETypeFrame(viewParent, viewNet);
+    stopFrame = new GNEStopFrame(viewParent, viewNet);
+    personFrame = new GNEPersonFrame(viewParent, viewNet);
+    personPlanFrame = new GNEPersonPlanFrame(viewParent, viewNet);
+    containerFrame = new GNEContainerFrame(viewParent, viewNet);
+    containerPlanFrame = new GNEContainerPlanFrame(viewParent, viewNet);
 }
 
 
@@ -1059,9 +1069,9 @@ GNEViewParent::DataFrames::DataFrames() :
 
 void
 GNEViewParent::DataFrames::buildDataFrames(GNEViewParent* viewParent, GNEViewNet* viewNet) {
-    edgeDataFrame = new GNEEdgeDataFrame(viewParent->myFramesArea, viewNet);
-    edgeRelDataFrame = new GNEEdgeRelDataFrame(viewParent->myFramesArea, viewNet);
-    TAZRelDataFrame = new GNETAZRelDataFrame(viewParent->myFramesArea, viewNet);
+    edgeDataFrame = new GNEEdgeDataFrame(viewParent, viewNet);
+    edgeRelDataFrame = new GNEEdgeRelDataFrame(viewParent, viewNet);
+    TAZRelDataFrame = new GNETAZRelDataFrame(viewParent, viewNet);
 }
 
 

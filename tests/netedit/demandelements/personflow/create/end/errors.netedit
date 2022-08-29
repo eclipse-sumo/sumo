@@ -71,38 +71,38 @@ Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Selected item 'walk: edge->busStop' in GNETagSelector
 Debug: Key ENTER pressed
 Debug: Key ENTER pressed
-Debug: Adding personFlow 'f_0' in GNEChange_DemandElement
-Debug: Adding walk: edge->busStop 'f_0' in GNEChange_DemandElement
+Debug: Adding personFlow 'pf_0' in GNEChange_DemandElement
+Debug: Adding walk: edge->busStop 'pf_0' in GNEChange_DemandElement
 Debug: Key ENTER pressed
-Debug: Adding personFlow 'f_1' in GNEChange_DemandElement
-Debug: Adding walk: edge->busStop 'f_1' in GNEChange_DemandElement
+Debug: Adding personFlow 'pf_1' in GNEChange_DemandElement
+Debug: Adding walk: edge->busStop 'pf_1' in GNEChange_DemandElement
 Debug: Key ENTER pressed
-Debug: Adding personFlow 'f_2' in GNEChange_DemandElement
-Debug: Adding walk: edge->busStop 'f_2' in GNEChange_DemandElement
+Debug: Adding personFlow 'pf_2' in GNEChange_DemandElement
+Debug: Adding walk: edge->busStop 'pf_2' in GNEChange_DemandElement
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing walk: edge->busStop 'f_2' in GNEChange_DemandElement
-Debug: Removing personFlow 'f_2' in GNEChange_DemandElement
+Debug: Removing walk: edge->busStop 'pf_2' in GNEChange_DemandElement
+Debug: Removing personFlow 'pf_2' in GNEChange_DemandElement
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing walk: edge->busStop 'f_1' in GNEChange_DemandElement
-Debug: Removing personFlow 'f_1' in GNEChange_DemandElement
+Debug: Removing walk: edge->busStop 'pf_1' in GNEChange_DemandElement
+Debug: Removing personFlow 'pf_1' in GNEChange_DemandElement
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing walk: edge->busStop 'f_0' in GNEChange_DemandElement
-Debug: Removing personFlow 'f_0' in GNEChange_DemandElement
+Debug: Removing walk: edge->busStop 'pf_0' in GNEChange_DemandElement
+Debug: Removing personFlow 'pf_0' in GNEChange_DemandElement
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Adding personFlow 'f_0' in GNEChange_DemandElement
-Debug: Adding walk: edge->busStop 'f_0' in GNEChange_DemandElement
+Debug: Adding personFlow 'pf_0' in GNEChange_DemandElement
+Debug: Adding walk: edge->busStop 'pf_0' in GNEChange_DemandElement
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Adding personFlow 'f_1' in GNEChange_DemandElement
-Debug: Adding walk: edge->busStop 'f_1' in GNEChange_DemandElement
+Debug: Adding personFlow 'pf_1' in GNEChange_DemandElement
+Debug: Adding walk: edge->busStop 'pf_1' in GNEChange_DemandElement
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Adding personFlow 'f_2' in GNEChange_DemandElement
-Debug: Adding walk: edge->busStop 'f_2' in GNEChange_DemandElement
+Debug: Adding personFlow 'pf_2' in GNEChange_DemandElement
+Debug: Adding walk: edge->busStop 'pf_2' in GNEChange_DemandElement
 Debug: demand elements saved
 Debug: Additionals saved
 GLDebug: Removing junctions during recomputing

@@ -35,7 +35,7 @@ public:
      * @param[in] id Gl-id of the detector (Must be unique)
      * @param[in] net pointer to GNENet of this additional element belongs
      * @param[in] type GUIGlObjectType of detector
-     * @param[in] tag Type of xml tag that define the detector (SUMO_TAG_E1DETECTOR, SUMO_TAG_LANE_AREA_DETECTOR, etc...)
+     * @param[in] tag Type of xml tag that define the detector (SUMO_TAG_INDUCTION_LOOP, SUMO_TAG_LANE_AREA_DETECTOR, etc...)
      * @param[in] pos position of the detector on the lane
      * @param[in] period the aggregation period the values the detector collects shall be summed up.
      * @param[in] parentLanes vector of parent lanes
@@ -53,7 +53,7 @@ public:
      * @param[in] additionalParent parent additional of this detector (ID will be generated automatically)
      * @param[in] net pointer to GNENet of this additional element belongs
      * @param[in] type GUIGlObjectType of detector
-     * @param[in] tag Type of xml tag that define the detector (SUMO_TAG_E1DETECTOR, SUMO_TAG_LANE_AREA_DETECTOR, etc...)
+     * @param[in] tag Type of xml tag that define the detector (SUMO_TAG_INDUCTION_LOOP, SUMO_TAG_LANE_AREA_DETECTOR, etc...)
      * @param[in] pos position of the detector on the lane
      * @param[in] period the aggregation period the values the detector collects shall be summed up.
      * @param[in] parentLanes vector of parent lanes

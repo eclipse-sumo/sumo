@@ -75,7 +75,7 @@ GNEVehicle::GNESingleVehiclePopupMenu::GNESingleVehiclePopupMenu(GNEVehicle* veh
     // build menu command for center button and copy cursor position to clipboard
     myVehicle->buildCenterPopupEntry(this);
     myVehicle->buildPositionCopyEntry(this, app);
-    // buld menu commands for names
+    // build menu commands for names
     GUIDesigns::buildFXMenuCommand(this, ("Copy " + myVehicle->getTagStr() + " name to clipboard").c_str(), nullptr, this, MID_COPY_NAME);
     GUIDesigns::buildFXMenuCommand(this, ("Copy " + myVehicle->getTagStr() + " typed name to clipboard").c_str(), nullptr, this, MID_COPY_TYPED_NAME);
     new FXMenuSeparator(this);
@@ -95,7 +95,7 @@ GNEVehicle::GNESingleVehiclePopupMenu::GNESingleVehiclePopupMenu(GNEVehicle* veh
         FXMenuPane* transformOperation = new FXMenuPane(this);
         this->insertMenuPaneChild(transformOperation);
         new FXMenuCascade(this, "transform to", nullptr, transformOperation);
-        // Create menu comands for all transform
+        // Create menu commands for all transform
         myTransformToVehicle = GUIDesigns::buildFXMenuCommand(transformOperation, "Vehicle", vehicleIcon, this, MID_GNE_VEHICLE_TRANSFORM);
         myTransformToVehicleWithEmbeddedRoute = GUIDesigns::buildFXMenuCommand(transformOperation, "Vehicle (embedded route)", vehicleIcon, this, MID_GNE_VEHICLE_TRANSFORM);
         myTransformToRouteFlow = GUIDesigns::buildFXMenuCommand(transformOperation, "RouteFlow", routeFlowIcon, this, MID_GNE_VEHICLE_TRANSFORM);
@@ -166,7 +166,7 @@ GNEVehicle::GNESelectedVehiclesPopupMenu::GNESelectedVehiclesPopupMenu(GNEVehicl
     // build menu command for center button and copy cursor position to clipboard
     vehicle->buildCenterPopupEntry(this);
     vehicle->buildPositionCopyEntry(this, app);
-    // buld menu commands for names
+    // build menu commands for names
     GUIDesigns::buildFXMenuCommand(this, ("Copy " + vehicle->getTagStr() + " name to clipboard").c_str(), nullptr, this, MID_COPY_NAME);
     GUIDesigns::buildFXMenuCommand(this, ("Copy " + vehicle->getTagStr() + " typed name to clipboard").c_str(), nullptr, this, MID_COPY_TYPED_NAME);
     new FXMenuSeparator(this);
@@ -186,7 +186,7 @@ GNEVehicle::GNESelectedVehiclesPopupMenu::GNESelectedVehiclesPopupMenu(GNEVehicl
         FXMenuPane* transformOperation = new FXMenuPane(this);
         this->insertMenuPaneChild(transformOperation);
         new FXMenuCascade(this, "transform to", nullptr, transformOperation);
-        // Create menu comands for all transform
+        // Create menu commands for all transform
         myTransformToVehicle = GUIDesigns::buildFXMenuCommand(transformOperation,
                                "Vehicles (Only " + vehicle->getTagStr() + ")", vehicleIcon, this, MID_GNE_VEHICLE_TRANSFORM);
         myTransformToVehicleWithEmbeddedRoute = GUIDesigns::buildFXMenuCommand(transformOperation,
@@ -201,7 +201,7 @@ GNEVehicle::GNESelectedVehiclesPopupMenu::GNESelectedVehiclesPopupMenu(GNEVehicl
                             "Flows (Only " + vehicle->getTagStr() + ")", flowIcon, this, MID_GNE_VEHICLE_TRANSFORM);
         // create separator
         new FXMenuSeparator(transformOperation);
-        // Create menu comands for all transform all vehicles
+        // Create menu commands for all transform all vehicles
         myTransformAllVehiclesToVehicle = GUIDesigns::buildFXMenuCommand(transformOperation, "Vehicles", vehicleIcon, this, MID_GNE_VEHICLE_TRANSFORM);
         myTransformAllVehiclesToVehicleWithEmbeddedRoute = GUIDesigns::buildFXMenuCommand(transformOperation, "Vehicles (embedded route)", vehicleIcon, this, MID_GNE_VEHICLE_TRANSFORM);
         myTransformAllVehiclesToRouteFlow = GUIDesigns::buildFXMenuCommand(transformOperation, "RouteFlows", routeFlowIcon, this, MID_GNE_VEHICLE_TRANSFORM);
@@ -399,7 +399,7 @@ GNEVehicle::getBegin() const {
 
 void
 GNEVehicle::writeDemandElement(OutputDevice& device) const {
-    // attribute VType musn't be written if is DEFAULT_VTYPE_ID
+    // attribute VType must not be written if is DEFAULT_VTYPE_ID
     if (getParentDemandElements().at(0)->getID() == DEFAULT_VTYPE_ID) {
         // unset VType parameter
         parametersSet &= ~VEHPARS_VTYPE_SET;
@@ -411,14 +411,14 @@ GNEVehicle::writeDemandElement(OutputDevice& device) const {
         // write vehicle attributes, including VType
         write(device, OptionsCont::getOptions(), myTagProperty.getXMLTag(), getParentDemandElements().at(0)->getID());
     }
-    // write specific attribute depeding of tag property
+    // write specific attribute depending of tag property
     if (myTagProperty.getTag() == SUMO_TAG_VEHICLE || myTagProperty.getTag() == GNE_TAG_FLOW_ROUTE) {
         // write route
         device.writeAttr(SUMO_ATTR_ROUTE, getParentDemandElements().at(1)->getID());
     }
     // write from, to and edge vias
     if ((myTagProperty.getTag() == SUMO_TAG_TRIP) || (myTagProperty.getTag() == SUMO_TAG_FLOW)) {
-        // write manually from/to edges (it correspond to fron and back parent edges)
+        // write manually from/to edges (it correspond to front and back parent edges)
         device.writeAttr(SUMO_ATTR_FROM, getParentEdges().front()->getID());
         device.writeAttr(SUMO_ATTR_TO, getParentEdges().back()->getID());
         // only write via if there isn't empty
@@ -426,9 +426,9 @@ GNEVehicle::writeDemandElement(OutputDevice& device) const {
             device.writeAttr(SUMO_ATTR_VIA, via);
         }
     }
-    // write fronJunction and toJunction
+    // write fromJunction and toJunction
     if ((myTagProperty.getTag() == GNE_TAG_TRIP_JUNCTIONS) || (myTagProperty.getTag() == GNE_TAG_FLOW_JUNCTIONS)) {
-        // write manually from/to junctions (it correspond to fron and back parent junctions)
+        // write manually from/to junctions (it correspond to front and back parent junctions)
         device.writeAttr(SUMO_ATTR_FROMJUNCTION, getParentJunctions().front()->getID());
         device.writeAttr(SUMO_ATTR_TOJUNCTION, getParentJunctions().back()->getID());
     }
@@ -507,7 +507,7 @@ GNEVehicle::isDemandElementValid() const {
         if (sortedStops.size() != embeddedRouteStopWaypoints.size()) {
             return Problem::STOP_DOWNSTREAM;
         }
-        // check if exist a valid path using embebbed route edges
+        // check if exist a valid path using embedded route edges
         if (myNet->getPathManager()->getPathCalculator()->calculateDijkstraPath(getParentDemandElements().at(0)->getVClass(), getChildDemandElements().front()->getParentEdges()).size() > 0) {
             return Problem::OK;
         } else {
@@ -529,7 +529,7 @@ GNEVehicle::getDemandElementProblem() const {
                 return ("There is no valid path between edges '" + getParentEdges().at((int)i - 1)->getID() + "' and '" + getParentEdges().at(i)->getID() + "'");
             }
         }
-        // there is connections bewteen all edges, then all ok
+        // if there are connections between all edges, then all is ok
         return "";
     } else if ((myTagProperty.getTag() == GNE_TAG_TRIP_JUNCTIONS) || (myTagProperty.getTag() == GNE_TAG_FLOW_JUNCTIONS)) {
         return ("No path between junction '" + getParentJunctions().front()->getID() + "' and '" + getParentJunctions().back()->getID() + "'");
@@ -542,7 +542,7 @@ GNEVehicle::getDemandElementProblem() const {
                 return ("There is no valid path between route edges '" + routeEdges.at((int)i - 1)->getID() + "' and '" + routeEdges.at(i)->getID() + "'");
             }
         }
-        // there is connections bewteen all edges, then all ok
+        // if there are connections between all edges, then all is ok
         return "";
     } else if (getChildDemandElements().size() > 0 && (getChildDemandElements().front()->getTagProperty().getTag() == GNE_TAG_ROUTE_EMBEDDED)) {
         // get sorted stops and check number
@@ -556,15 +556,15 @@ GNEVehicle::getDemandElementProblem() const {
         if (sortedStops.size() != embeddedRouteStopWaypoints.size()) {
             return toString(embeddedRouteStopWaypoints.size() - embeddedRouteStopWaypoints.size()) + " stops are outside of embedded route (downstream)";
         }
-        // get embebbed route edges
+        // get embedded route edges
         const std::vector<GNEEdge*>& routeEdges = getChildDemandElements().front()->getParentEdges();
         // check if exist at least a connection between every edge
         for (int i = 1; i < (int)routeEdges.size(); i++) {
             if (myNet->getPathManager()->getPathCalculator()->consecutiveEdgesConnected(getParentDemandElements().at(0)->getVClass(), routeEdges.at((int)i - 1), routeEdges.at(i)) == false) {
-                return ("There is no valid path between embebbed route edges '" + routeEdges.at((int)i - 1)->getID() + "' and '" + routeEdges.at(i)->getID() + "'");
+                return ("There is no valid path between embedded route edges '" + routeEdges.at((int)i - 1)->getID() + "' and '" + routeEdges.at(i)->getID() + "'");
             }
         }
-        // there is connections bewteen all edges, then all ok
+        // if there are connections between all edges, then all is ok
         return "";
     } else {
         return "";
@@ -611,7 +611,7 @@ GNEVehicle::updateGeometry() {
             }
             // update Geometry
             myDemandElementGeometry.updateGeometry(firstPathLane->getLaneShape(), posOverLane, myMoveElementLateralOffset);
-            // compute route embedded vinculated with this vehicle
+            // compute route embedded associated with this vehicle
             for (const auto& demandElement : getChildDemandElements()) {
                 if (demandElement->getTagProperty().getTag() == GNE_TAG_ROUTE_EMBEDDED) {
                     demandElement->computePathElement();
@@ -705,11 +705,11 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
         if (vehiclePosition != Position::INVALID) {
             // first push name
             GLHelper::pushName(getGlID());
-            // first check if if mouse is enought near to this vehicle to draw it
+            // first check if if mouse is enough near to this vehicle to draw it
             if (s.drawForRectangleSelection && (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(vehiclePosition) >= (vehicleSizeSquared + 2))) {
                 // push draw matrix
                 GLHelper::pushMatrix();
-                // Start with the drawing of the area traslating matrix to origin
+                // Start with the drawing of the area translating matrix to origin
                 myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, getType());
                 // translate to drawing position
                 glTranslated(vehiclePosition.x(), vehiclePosition.y(), 0);
@@ -723,7 +723,7 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
                 SUMOVehicleShape shape = getVehicleShapeID(getParentDemandElements().at(0)->getAttribute(SUMO_ATTR_GUISHAPE));
                 // push draw matrix
                 GLHelper::pushMatrix();
-                // Start with the drawing of the area traslating matrix to origin
+                // Start with the drawing of the area translating matrix to origin
                 myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, getType());
                 // translate to drawing position
                 glTranslated(vehiclePosition.x(), vehiclePosition.y(), 0);
@@ -734,7 +734,7 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
                 setColor(s);
                 double upscaleLength = exaggeration;
                 if ((exaggeration > 1) && (length > 5)) {
-                    // reduce the length/width ratio because this is not usefull at high zoom
+                    // reduce the length/width ratio because this is not useful at high zoom
                     upscaleLength = MAX2(1.0, upscaleLength * (5 + sqrt(length - 5)) / length);
                 }
                 glScaled(exaggeration, upscaleLength, 1);
@@ -841,7 +841,7 @@ GNEVehicle::computePathElement() {
         if (firstLane && lastLane) {
             // add first lane
             lanes.push_back(getFirstPathLane());
-            // noch check if there are lane Stops
+            // now check if there are lane Stops
             if (laneStopWaypoints.size() > 0) {
                 // add stop lanes
                 for (const auto& laneStop : laneStopWaypoints) {
@@ -888,26 +888,26 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane
         // update pathGeometry depending of first and last segment
         if (segment->isFirstSegment() && segment->isLastSegment()) {
             vehicleGeometry.updateGeometry(lane->getLaneGeometry().getShape(),
-                                           geometryDepartPos, geometryEndPos,      // extrem positions
+                                           geometryDepartPos, geometryEndPos,      // extreme positions
                                            Position::INVALID, Position::INVALID);  // extra positions
         } else if (segment->isFirstSegment()) {
             vehicleGeometry.updateGeometry(lane->getLaneGeometry().getShape(),
-                                           geometryDepartPos, -1,                  // extrem positions
+                                           geometryDepartPos, -1,                  // extreme positions
                                            Position::INVALID, Position::INVALID);  // extra positions
         } else if (segment->isLastSegment()) {
             vehicleGeometry.updateGeometry(lane->getLaneGeometry().getShape(),
-                                           -1, geometryEndPos,                     // extrem positions
+                                           -1, geometryEndPos,                     // extreme positions
                                            Position::INVALID, Position::INVALID);  // extra positions
         } else {
             vehicleGeometry = lane->getLaneGeometry();
         }
         // obtain color
         const RGBColor pathColor = drawUsingSelectColor() ? s.colorSettings.selectedVehicleColor : s.colorSettings.vehicleTripColor;
-        // Start drawing adding an gl identificator
+        // Start drawing adding an gl identifier
         GLHelper::pushName(getGlID());
         // Add a draw matrix
         GLHelper::pushMatrix();
-        // Start with the drawing of the area traslating matrix to origin
+        // Start with the drawing of the area translating matrix to origin
         glTranslated(0, 0, getType() + offsetFront);
         // Set color
         GLHelper::setColor(pathColor);
@@ -923,7 +923,7 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane
         if (segment->getNextSegment()) {
             // push draw matrix
             GLHelper::pushMatrix();
-            // Start with the drawing of the area traslating matrix to origin
+            // Start with the drawing of the area translating matrix to origin
             myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, getType());
             // Set red color
             GLHelper::setColor(RGBColor::RED);
@@ -946,13 +946,13 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane
             if (!s.drawForRectangleSelection || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(geometryEndPosition) <= ((myArrivalPositionDiameter * myArrivalPositionDiameter) + 2))) {
                 // push draw matrix
                 GLHelper::pushMatrix();
-                // Start with the drawing of the area traslating matrix to origin
+                // Start with the drawing of the area translating matrix to origin
                 myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, getType());
                 // translate to geometryEndPos
                 glTranslated(geometryEndPosition.x(), geometryEndPosition.y(), 0);
                 // Set person plan color
                 GLHelper::setColor(pathColor);
-                // resolution of drawn circle depending of the zoom (To improve smothness)
+                // resolution of drawn circle depending of the zoom (To improve smoothness)
                 GLHelper::drawFilledCircle(myArrivalPositionDiameter, s.getCircleResolution());
                 // pop draw matrix
                 GLHelper::popMatrix();
@@ -991,7 +991,7 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* from
             fromLane->getLane2laneConnections().exist(toLane) &&
             (drawNetworkMode || drawDemandMode || dottedElement || isAttributeCarrierSelected()) &&
             myNet->getPathManager()->getPathDraw()->drawPathGeometry(dottedElement, fromLane, toLane, myTagProperty.getTag())) {
-        // Start drawing adding an gl identificator
+        // Start drawing adding an gl identifier
         GLHelper::pushName(getGlID());
         // obtain lane2lane geometry
         const GUIGeometry& lane2laneGeometry = fromLane->getLane2laneConnections().getLane2laneGeometry(toLane);
@@ -999,7 +999,7 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* from
         const double width = s.vehicleSize.getExaggeration(s, fromLane) * s.widthSettings.tripWidth;
         // Add a draw matrix
         GLHelper::pushMatrix();
-        // Start with the drawing of the area traslating matrix to origin
+        // Start with the drawing of the area translating matrix to origin
         glTranslated(0, 0, getType() + offsetFront);
         // Set color of the base
         if (drawUsingSelectColor()) {
@@ -1047,8 +1047,8 @@ GNEVehicle::getFirstPathLane() const {
             // use first route edge
             firstEdge = getParentDemandElements().at(1)->getParentEdges().front();
         }
-    } else if (myTagProperty.hasEmbebbedRoute()) {
-        // check if embebbed route exist (due during loading embedded route doesn't exist
+    } else if (myTagProperty.hasEmbeddedRoute()) {
+        // check if embedded route exist (due during loading embedded route doesn't exist
         if (getChildDemandElements().empty()) {
             return nullptr;
         }
@@ -1093,8 +1093,8 @@ GNEVehicle::getLastPathLane() const {
             // use last route edge
             lastEdge = getParentDemandElements().at(1)->getParentEdges().back();
         }
-    } else if (myTagProperty.hasEmbebbedRoute()) {
-        // check if embebbed route exist (due during loading embedded route doesn't exist)
+    } else if (myTagProperty.hasEmbeddedRoute()) {
+        // check if embedded route exist (due during loading embedded route doesn't exist)
         if (getChildDemandElements().empty()) {
             return nullptr;
         }
@@ -1267,7 +1267,7 @@ GNEVehicle::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_POISSON:
             return time2string(repetitionOffset);
         case SUMO_ATTR_PROB:
-            return toString(repetitionProbability);
+            return toString(repetitionProbability, 10);
         case SUMO_ATTR_NUMBER:
             return toString(repetitionNumber);
         // other

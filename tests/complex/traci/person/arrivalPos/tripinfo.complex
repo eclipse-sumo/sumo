@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Oct 15 11:05:43 2020 by Eclipse SUMO sumo Version v1_7_0+0609-5b4b722211
+<!-- generated on 2022-08-28 19:20:33 by Eclipse SUMO sumo Version v1_14_1+0598-02ca306
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -17,7 +17,7 @@
     </report>
 
     <traci_server>
-        <remote-port value="52575"/>
+        <remote-port value="50848"/>
     </traci_server>
 
 </configuration>
@@ -25,11 +25,11 @@
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
     <tripinfo id="bus_1" depart="0.00" departLane="L12_1" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="149.00" arrivalLane="L5_1" arrivalPos="115.32" arrivalSpeed="8.21" duration="149.00" routeLength="276.90" waitingTime="0.00" waitingCount="0" stopTime="100.00" timeLoss="27.41" rerouteNo="1" devices="tripinfo_bus_1 person_bus_1" vType="BUS" speedFactor="1.00" vaporized=""/>
-    <personinfo id="P4" depart="0.00" type="DEFAULT_PEDTYPE">
+    <personinfo id="P4" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.06">
         <ride waitingTime="59.00" vehicle="bus_1" depart="59.00" arrival="91.00" arrivalPos="79.32" duration="32.00" routeLength="220.93" timeLoss="14.92"/>
         <stop duration="1000.00" arrival="1091.00" arrivalPos="79.34" actType="thinking"/>
     </personinfo>
-    <personinfo id="P5" depart="20.00" type="DEFAULT_PEDTYPE">
+    <personinfo id="P5" depart="20.00" type="DEFAULT_PEDTYPE" speedFactor="0.94">
         <ride waitingTime="39.00" vehicle="bus_1" depart="59.00" arrival="91.00" arrivalPos="79.32" duration="32.00" routeLength="220.91" timeLoss="14.92"/>
         <stop duration="1000.00" arrival="1091.00" arrivalPos="79.34" actType="thinking"/>
     </personinfo>

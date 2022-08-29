@@ -27,7 +27,7 @@
 // class definitions
 // ===========================================================================
 
-class GNEMatchAttribute : public FXGroupBoxModule {
+class GNEMatchAttribute : public MFXGroupBoxModule {
     /// @brief FOX-declaration
     FXDECLARE(GNEMatchAttribute)
 

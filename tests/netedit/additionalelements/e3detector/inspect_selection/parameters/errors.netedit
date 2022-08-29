@@ -1,15 +1,15 @@
 Debug: Inserting generic parameter 'keyA1|valueA1' into e3Detector
 Debug: Inserting generic parameter 'keyA2|valueA2' into e3Detector
 Debug: Inserting generic parameter 'keyA3|valueA3' into e3Detector
-Debug: Adding e3Detector 'e3Detector_A' in GNEChange_Additional
-Debug: Adding detEntry 'e3Detector_A' in GNEChange_Additional
-Debug: Adding detExit 'e3Detector_A' in GNEChange_Additional
+Debug: Adding entryExitDetector 'entryExitDetector_A' in GNEChange_Additional
+Debug: Adding detEntry 'entryExitDetector_A' in GNEChange_Additional
+Debug: Adding detExit 'entryExitDetector_A' in GNEChange_Additional
 Debug: Inserting generic parameter 'keyB1|valueB1' into e3Detector
 Debug: Inserting generic parameter 'keyB2|valueB2' into e3Detector
 Debug: Inserting generic parameter 'keyB3|valueB3' into e3Detector
-Debug: Adding e3Detector 'e3Detector_B' in GNEChange_Additional
-Debug: Adding detEntry 'e3Detector_B' in GNEChange_Additional
-Debug: Adding detExit 'e3Detector_B' in GNEChange_Additional
+Debug: Adding entryExitDetector 'entryExitDetector_B' in GNEChange_Additional
+Debug: Adding detEntry 'entryExitDetector_B' in GNEChange_Additional
+Debug: Adding detExit 'entryExitDetector_B' in GNEChange_Additional
 Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Setting new attribute
@@ -120,10 +120,10 @@ Debug: Additionals saved
 Debug: network elements saved
 Debug: Deleting unreferenced detExit
 Debug: Deleting unreferenced detEntry
-Debug: Deleting unreferenced e3Detector
+Debug: Deleting unreferenced entryExitDetector
 Debug: Deleting unreferenced detExit
 Debug: Deleting unreferenced detEntry
-Debug: Deleting unreferenced e3Detector
+Debug: Deleting unreferenced entryExitDetector
 Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor

@@ -70,3 +70,6 @@ apparg_negative_config
 
 # save statistic output for each iteration
 custom_output
+
+# test user error
+invalid_option

@@ -133,25 +133,25 @@ class junction:
 
 class edge:
     class create:
-        numLanes = 5
-        speed = 6
-        allowButton = 7
-        allow = 8
-        disallowButton = 9
-        disallow = 10
-        spreadType = 11
-        priority = 13
-        width = 14
+        numLanes = 7
+        speed = 8
+        allowButton = 9
+        allow = 10
+        disallowButton = 11
+        disallow = 12
+        spreadType = 13
+        priority = 15
+        width = 16
 
     class createLane:
-        add = 20
-        remove = 21
-        speed = 22
-        allowButton = 23
-        allow = 24
-        disallowButton = 25
-        disallow = 26
-        width = 27
+        add = 22
+        remove = 23
+        speed = 24
+        allowButton = 25
+        allow = 26
+        disallowButton = 27
+        disallow = 28
+        width = 29
 
     class inspect:
         id = 1
@@ -201,9 +201,9 @@ class edge:
         parameters = 22
 
     class template:
-        create = 33
-        copy = 34
-        clear = 35
+        create = 35
+        copy = 36
+        clear = 37
 
 # lane
 
@@ -1304,26 +1304,27 @@ class tripFromToEdge:
 
     class inspect:
         id = 1
-        type = 2
-        fromEdge = 3
-        toEdge = 4
-        via = 5
-        colorButton = 6
-        color = 7
-        departLane = 8
-        departPos = 9
-        departSpeed = 10
-        arrivalLane = 11
-        arrivalPos = 12
-        arrivalSpeed = 13
-        line = 14
-        personNumber = 15
-        containerNumber = 16
-        departPosLat = 17
-        arrivalPosLat = 18
-        insertionChecks = 19
-        depart = 20
-        parameters = 23
+        typeButton = 2
+        type = 3
+        fromEdge = 4
+        toEdge = 5
+        via = 6
+        colorButton = 7
+        color = 8
+        departLane = 9
+        departPos = 10
+        departSpeed = 11
+        arrivalLane = 12
+        arrivalPos = 13
+        arrivalSpeed = 14
+        line = 15
+        personNumber = 16
+        containerNumber = 17
+        departPosLat = 18
+        arrivalPosLat = 19
+        insertionChecks = 20
+        depart = 21
+        parameters = 24
 
     class inspectSelection:
         type = 1
@@ -1369,25 +1370,26 @@ class tripFromToJunction:
 
     class inspect:
         id = 1
-        type = 2
-        fromJunction = 3
-        toJunction = 4
-        colorButton = 5
-        color = 6
-        departLane = 7
-        departPos = 8
-        departSpeed = 9
-        arrivalLane = 10
-        arrivalPos = 11
-        arrivalSpeed = 12
-        line = 13
-        personNumber = 14
-        containerNumber = 15
-        departPosLat = 16
-        arrivalPosLat = 17
-        insertionChecks = 18
-        depart = 19
-        parameters = 22
+        typeButton = 2
+        type = 3
+        fromJunction = 4
+        toJunction = 5
+        colorButton = 6
+        color = 7
+        departLane = 8
+        departPos = 9
+        departSpeed = 10
+        arrivalLane = 11
+        arrivalPos = 12
+        arrivalSpeed = 13
+        line = 14
+        personNumber = 15
+        containerNumber = 16
+        departPosLat = 17
+        arrivalPosLat = 18
+        insertionChecks = 19
+        depart = 20
+        parameters = 23
 
     class inspectSelection:
         type = 1
@@ -1433,26 +1435,27 @@ class vehicle:
 
     class inspect:
         id = 1
-        type = 2
-        route = 3
-        departEdge = 4
-        arrivalEdge = 5
-        colorButton = 6
-        color = 7
-        departLane = 8
-        departPos = 9
-        departSpeed = 10
-        arrivalLane = 11
-        arrivalPos = 12
-        arrivalSpeed = 13
-        line = 14
-        personNumber = 15
-        containerNumber = 16
-        departPosLat = 17
-        arrivalPosLat = 18
-        insertionChecks = 19
-        depart = 20
-        parameters = 23
+        typeButton = 2
+        type = 3
+        route = 4
+        departEdge = 5
+        arrivalEdge = 6
+        colorButton = 7
+        color = 8
+        departLane = 9
+        departPos = 10
+        departSpeed = 11
+        arrivalLane = 12
+        arrivalPos = 13
+        arrivalSpeed = 14
+        line = 15
+        personNumber = 16
+        containerNumber = 17
+        departPosLat = 18
+        arrivalPosLat = 19
+        insertionChecks = 20
+        depart = 21
+        parameters = 24
 
     class inspectSelection:
         type = 1
@@ -1498,25 +1501,26 @@ class vehicleEmbedded:
 
     class inspect:
         id = 1
-        type = 2
-        departEdge = 3
-        arrivalEdge = 4
-        colorButton = 5
-        color = 6
-        departLane = 7
-        departPos = 8
-        departSpeed = 9
-        arrivalLane = 10
-        arrivalPos = 11
-        arrivalSpeed = 12
-        line = 13
-        personNumber = 14
-        containerNumber = 15
-        departPosLat = 16
-        arrivalPosLat = 17
-        insertionChecks = 18
-        depart = 19
-        parameters = 22
+        typeButton = 2
+        type = 3
+        departEdge = 4
+        arrivalEdge = 5
+        colorButton = 6
+        color = 7
+        departLane = 8
+        departPos = 9
+        departSpeed = 10
+        arrivalLane = 11
+        arrivalPos = 12
+        arrivalSpeed = 13
+        line = 14
+        personNumber = 15
+        containerNumber = 16
+        departPosLat = 17
+        arrivalPosLat = 18
+        insertionChecks = 19
+        depart = 20
+        parameters = 23
 
     class inspectSelection:
         type = 1
@@ -1568,31 +1572,32 @@ class flowFromToEdge:
 
     class inspect:
         id = 1
-        type = 2
-        fromEdge = 3
-        toEdge = 4
-        via = 5
-        colorButton = 6
-        color = 7
-        departLane = 8
-        departPos = 9
-        departSpeed = 10
-        arrivalLane = 11
-        arrivalPos = 12
-        arrivalSpeed = 13
-        line = 14
-        personNumber = 15
-        containerNumber = 16
-        departPosLat = 17
-        arrivalPosLat = 18
-        insertionChecks = 19
-        begin = 20
-        terminate = 23
-        spacing = 25
-        end = 26
-        terminateOption = 27
-        spacingOption = 28
-        parameters = 30
+        typeButton = 2
+        type = 3
+        fromEdge = 4
+        toEdge = 5
+        via = 6
+        colorButton = 7
+        color = 8
+        departLane = 9
+        departPos = 10
+        departSpeed = 11
+        arrivalLane = 12
+        arrivalPos = 13
+        arrivalSpeed = 14
+        line = 15
+        personNumber = 16
+        containerNumber = 17
+        departPosLat = 18
+        arrivalPosLat = 19
+        insertionChecks = 20
+        begin = 21
+        terminate = 24
+        spacing = 26
+        end = 27
+        terminateOption = 28
+        spacingOption = 29
+        parameters = 31
 
     class inspectSelection:
         type = 1
@@ -1649,30 +1654,31 @@ class flowJunction:
 
     class inspect:
         id = 1
-        type = 2
-        fromJunction = 3
-        toJunction = 4
-        colorButton = 5
-        color = 6
-        departLane = 7
-        departPos = 8
-        departSpeed = 9
-        arrivalLane = 10
-        arrivalPos = 11
-        arrivalSpeed = 12
-        line = 13
-        personNumber = 14
-        containerNumber = 15
-        departPosLat = 16
-        arrivalPosLat = 17
-        insertionChecks = 18
-        begin = 19
-        terminate = 22
-        spacing = 24
-        end = 25
-        terminateOption = 26
-        spacingOption = 27
-        parameters = 29
+        typeButton = 2
+        type = 3
+        fromJunction = 4
+        toJunction = 5
+        colorButton = 6
+        color = 7
+        departLane = 8
+        departPos = 9
+        departSpeed = 10
+        arrivalLane = 11
+        arrivalPos = 12
+        arrivalSpeed = 13
+        line = 14
+        personNumber = 15
+        containerNumber = 16
+        departPosLat = 17
+        arrivalPosLat = 18
+        insertionChecks = 19
+        begin = 20
+        terminate = 23
+        spacing = 25
+        end = 26
+        terminateOption = 27
+        spacingOption = 28
+        parameters = 30
 
     class inspectSelection:
         type = 1
@@ -1728,31 +1734,32 @@ class routeflow:
 
     class inspect:
         id = 1
-        type = 2
-        route = 3
-        departEdge = 4
-        arrivalEdge = 5
-        colorButton = 6
-        color = 7
-        departLane = 8
-        departPos = 9
-        departSpeed = 10
-        arrivalLane = 11
-        arrivalPos = 12
-        arrivalSpeed = 13
-        line = 14
-        personNumber = 15
-        containerNumber = 16
-        departPosLat = 17
-        arrivalPosLat = 18
-        insertionChecks = 19
-        begin = 20
-        terminate = 23
-        spacing = 25
-        end = 26
-        terminateOption = 27
-        spacingOption = 28
-        parameters = 30
+        typeButton = 2
+        type = 3
+        route = 4
+        departEdge = 5
+        arrivalEdge = 6
+        colorButton = 7
+        color = 8
+        departLane = 9
+        departPos = 10
+        departSpeed = 11
+        arrivalLane = 12
+        arrivalPos = 13
+        arrivalSpeed = 14
+        line = 15
+        personNumber = 16
+        containerNumber = 17
+        departPosLat = 18
+        arrivalPosLat = 19
+        insertionChecks = 20
+        begin = 21
+        terminate = 24
+        spacing = 26
+        end = 27
+        terminateOption = 28
+        spacingOption = 29
+        parameters = 31
 
     class inspectSelection:
         type = 1
@@ -1808,30 +1815,31 @@ class flowEmbedded:
 
     class inspect:
         id = 1
-        type = 2
-        departEdge = 3
-        arrivalEdge = 4
-        colorButton = 5
-        color = 6
-        departLane = 7
-        departPos = 8
-        departSpeed = 9
-        arrivalLane = 10
-        arrivalPos = 11
-        arrivalSpeed = 12
-        line = 13
-        personNumber = 14
-        containerNumber = 15
-        departPosLat = 16
-        arrivalPosLat = 17
-        insertionChecks = 18
-        begin = 19
-        terminate = 22
-        spacing = 24
-        end = 25
-        terminateOption = 26
-        spacingOption = 27
-        parameters = 29
+        typeButton = 2
+        type = 3
+        departEdge = 4
+        arrivalEdge = 5
+        colorButton = 6
+        color = 7
+        departLane = 8
+        departPos = 9
+        departSpeed = 10
+        arrivalLane = 11
+        arrivalPos = 12
+        arrivalSpeed = 13
+        line = 14
+        personNumber = 15
+        containerNumber = 16
+        departPosLat = 17
+        arrivalPosLat = 18
+        insertionChecks = 19
+        begin = 20
+        terminate = 23
+        spacing = 25
+        end = 26
+        terminateOption = 27
+        spacingOption = 28
+        parameters = 30
 
     class inspectSelection:
         type = 1
@@ -2193,12 +2201,13 @@ class person:
 
     class inspect:
         id = 1
-        type = 2
-        colorButton = 3
-        color = 4
-        departPos = 5
-        depart = 6
-        parameters = 9
+        typeButton = 2
+        type = 3
+        colorButton = 4
+        color = 5
+        departPos = 6
+        depart = 7
+        parameters = 10
 
     class inspectSelection:
         type = 1
@@ -2225,17 +2234,18 @@ class personFlow:
 
     class inspect:
         id = 1
-        type = 2
-        colorButton = 3
-        color = 4
-        departPos = 5
-        begin = 6
-        terminate = 9
-        spacing = 11
-        end = 12
-        terminateOption = 13
-        spacingOption = 14
-        parameters = 16
+        typeButton = 2
+        type = 3
+        colorButton = 4
+        color = 5
+        departPos = 6
+        begin = 7
+        terminate = 10
+        spacing = 12
+        end = 13
+        terminateOption = 14
+        spacingOption = 15
+        parameters = 17
 
     class inspectSelection:
         type = 1
@@ -2262,10 +2272,11 @@ class container:
     class inspect:
         id = 1
         type = 2
-        colorButton = 3
-        color = 4
-        depart = 5
-        parameters = 8
+        type = 3
+        colorButton = 4
+        color = 5
+        depart = 6
+        parameters = 9
 
     class inspectSelection:
         type = 1
@@ -2290,16 +2301,17 @@ class containerFlow:
 
     class inspect:
         id = 1
-        type = 2
-        colorButton = 3
-        color = 4
-        begin = 5
-        terminate = 8
-        spacing = 10
-        end = 11
-        terminateOption = 12
-        spacingOption = 13
-        parameters = 15
+        typeButton = 2
+        type = 3
+        colorButton = 4
+        color = 5
+        begin = 6
+        terminate = 9
+        spacing = 11
+        end = 12
+        terminateOption = 13
+        spacingOption = 14
+        parameters = 16
 
     class inspectSelection:
         type = 1

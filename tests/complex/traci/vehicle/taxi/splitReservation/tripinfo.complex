@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Feb 17 11:38:43 2021 by Eclipse SUMO sumo Version v1_8_0+1251-feeedcd
+<!-- generated on 2022-08-28 19:20:27 by Eclipse SUMO sumo Version v1_14_1+0598-02ca306
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -22,23 +22,23 @@
     </taxi_device>
 
     <traci_server>
-        <remote-port value="55021"/>
+        <remote-port value="52524"/>
     </traci_server>
 
 </configuration>
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <personinfo id="p.2" depart="0.00" type="DEFAULT_PEDTYPE">
-        <ride waitingTime="31.00" vehicle="taxi_0" depart="31.00" arrival="66.00" arrivalPos="90.60" duration="35.00" routeLength="285.61" timeLoss="15.04"/>
+    <personinfo id="p.2" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.03">
+        <ride waitingTime="31.00" vehicle="taxi_0" depart="31.00" arrival="125.00" arrivalPos="90.60" duration="94.00" routeLength="285.61" timeLoss="15.04"/>
     </personinfo>
-    <personinfo id="p.3" depart="0.00" type="DEFAULT_PEDTYPE">
-        <ride waitingTime="31.00" vehicle="taxi_0" depart="31.00" arrival="66.00" arrivalPos="90.60" duration="35.00" routeLength="285.61" timeLoss="15.04"/>
+    <personinfo id="p.3" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="0.83">
+        <ride waitingTime="31.00" vehicle="taxi_0" depart="31.00" arrival="126.00" arrivalPos="90.60" duration="95.00" routeLength="285.61" timeLoss="15.04"/>
     </personinfo>
-    <personinfo id="p.0" depart="0.00" type="DEFAULT_PEDTYPE">
-        <ride waitingTime="42.00" vehicle="taxi_1" depart="42.00" arrival="74.00" arrivalPos="90.60" duration="32.00" routeLength="285.61" timeLoss="10.78"/>
+    <personinfo id="p.0" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.01">
+        <ride waitingTime="42.00" vehicle="taxi_1" depart="42.00" arrival="133.00" arrivalPos="90.60" duration="91.00" routeLength="285.61" timeLoss="10.79"/>
     </personinfo>
-    <personinfo id="p.1" depart="0.00" type="DEFAULT_PEDTYPE">
-        <ride waitingTime="42.00" vehicle="taxi_1" depart="42.00" arrival="74.00" arrivalPos="90.60" duration="32.00" routeLength="285.61" timeLoss="10.78"/>
+    <personinfo id="p.1" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.08">
+        <ride waitingTime="42.00" vehicle="taxi_1" depart="42.00" arrival="134.00" arrivalPos="90.60" duration="92.00" routeLength="285.61" timeLoss="10.79"/>
     </personinfo>
 </tripinfos>

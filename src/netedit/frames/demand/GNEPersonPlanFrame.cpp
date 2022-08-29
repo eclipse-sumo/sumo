@@ -33,8 +33,8 @@
 // GNEPersonPlanFrame - methods
 // ---------------------------------------------------------------------------
 
-GNEPersonPlanFrame::GNEPersonPlanFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet) :
-    GNEFrame(horizontalFrameParent, viewNet, "PersonPlans"),
+GNEPersonPlanFrame::GNEPersonPlanFrame(GNEViewParent *viewParent, GNEViewNet* viewNet) :
+    GNEFrame(viewParent, viewNet, "PersonPlans"),
     myRouteHandler("", viewNet->getNet(), true, false) {
 
     // create person types selector modul

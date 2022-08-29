@@ -5,9 +5,9 @@
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- Detectors -->
-    <e2Detector id="e2_0" lane="gneE2_1" pos="17.00" length="10.00" period="300.00" file="e2_0.xml">
+    <laneAreaDetector id="e2_0" lane="gneE2_1" pos="17.00" length="10.00" period="300.00" file="e2_0.xml">
         <param key="keyFinal1" value="value1"/>
         <param key="keyFinal2" value="value2"/>
         <param key="keyFinal3" value="value3"/>
-    </e2Detector>
+    </laneAreaDetector>
 </additional>

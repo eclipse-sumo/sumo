@@ -1,15 +1,15 @@
 Debug: Inserting generic parameter 'KeyA1|valueA1' into e3Detector
 Debug: Inserting generic parameter 'KeyA3|valueA2' into e3Detector
 Debug: Inserting generic parameter 'KeyA2|valueA3' into e3Detector
-Debug: Adding e3Detector 'e3Detector_A' in GNEChange_Additional
-Debug: Adding detEntry 'e3Detector_A' in GNEChange_Additional
-Debug: Adding detExit 'e3Detector_A' in GNEChange_Additional
+Debug: Adding entryExitDetector 'entryExitDetector_A' in GNEChange_Additional
+Debug: Adding detEntry 'entryExitDetector_A' in GNEChange_Additional
+Debug: Adding detExit 'entryExitDetector_A' in GNEChange_Additional
 Debug: Inserting generic parameter 'KeyB1|valueB1' into e3Detector
 Debug: Inserting generic parameter 'KeyB3|valueB2' into e3Detector
 Debug: Inserting generic parameter 'KeyB2|valueB3' into e3Detector
-Debug: Adding e3Detector 'e3Detector_B' in GNEChange_Additional
-Debug: Adding detEntry 'e3Detector_B' in GNEChange_Additional
-Debug: Adding detExit 'e3Detector_B' in GNEChange_Additional
+Debug: Adding entryExitDetector 'entryExitDetector_B' in GNEChange_Additional
+Debug: Adding detEntry 'entryExitDetector_B' in GNEChange_Additional
+Debug: Adding detExit 'entryExitDetector_B' in GNEChange_Additional
 Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Setting new attribute
@@ -20,7 +20,7 @@ Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Setting new attribute
-Debug: Value 'Typ**e%%%%%1 T;;yp$2 Type3' for attribute vTypes of e3Detector isn't valid
+Debug: Value 'Typ**e%%%%%1 T;;yp$2 Type3' for attribute vTypes of entryExitDetector isn't valid
 Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
@@ -41,21 +41,21 @@ Debug: Restoring previous attribute
 Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing detExit 'e3Detector_B' in GNEChange_Additional
-Debug: Removing detEntry 'e3Detector_B' in GNEChange_Additional
-Debug: Removing e3Detector 'e3Detector_B' in GNEChange_Additional
-Debug: Removing detExit 'e3Detector_A' in GNEChange_Additional
-Debug: Removing detEntry 'e3Detector_A' in GNEChange_Additional
-Debug: Removing e3Detector 'e3Detector_A' in GNEChange_Additional
+Debug: Removing detExit 'entryExitDetector_B' in GNEChange_Additional
+Debug: Removing detEntry 'entryExitDetector_B' in GNEChange_Additional
+Debug: Removing entryExitDetector 'entryExitDetector_B' in GNEChange_Additional
+Debug: Removing detExit 'entryExitDetector_A' in GNEChange_Additional
+Debug: Removing detEntry 'entryExitDetector_A' in GNEChange_Additional
+Debug: Removing entryExitDetector 'entryExitDetector_A' in GNEChange_Additional
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Adding e3Detector 'e3Detector_A' in GNEChange_Additional
-Debug: Adding detEntry 'e3Detector_A' in GNEChange_Additional
-Debug: Adding detExit 'e3Detector_A' in GNEChange_Additional
-Debug: Adding e3Detector 'e3Detector_B' in GNEChange_Additional
-Debug: Adding detEntry 'e3Detector_B' in GNEChange_Additional
-Debug: Adding detExit 'e3Detector_B' in GNEChange_Additional
+Debug: Adding entryExitDetector 'entryExitDetector_A' in GNEChange_Additional
+Debug: Adding detEntry 'entryExitDetector_A' in GNEChange_Additional
+Debug: Adding detExit 'entryExitDetector_A' in GNEChange_Additional
+Debug: Adding entryExitDetector 'entryExitDetector_B' in GNEChange_Additional
+Debug: Adding detEntry 'entryExitDetector_B' in GNEChange_Additional
+Debug: Adding detExit 'entryExitDetector_B' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute
@@ -79,10 +79,10 @@ Debug: Additionals saved
 Debug: network elements saved
 Debug: Deleting unreferenced detExit
 Debug: Deleting unreferenced detEntry
-Debug: Deleting unreferenced e3Detector
+Debug: Deleting unreferenced entryExitDetector
 Debug: Deleting unreferenced detExit
 Debug: Deleting unreferenced detEntry
-Debug: Deleting unreferenced e3Detector
+Debug: Deleting unreferenced entryExitDetector
 Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor

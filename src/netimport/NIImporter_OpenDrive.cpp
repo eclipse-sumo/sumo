@@ -1644,7 +1644,7 @@ NIImporter_OpenDrive::revisitLaneSections(const NBTypeCont& tc, std::map<std::st
             // keep all lane sections for connecting roads because they are
             // needed to establish connectivity (laneSectionsConnected)
             if (simlarToLast && !e.isInner) {
-                WRITE_WARNING("Almost duplicate s-value '" + toString(lastS) + "' for lane sections occurred at edge '" + e.id + "'; second entry was removed.");
+                WRITE_WARNINGF("Almost duplicate s-value '%' for lane sections occurred at edge '%'; second entry was removed.",  toString(lastS), e.id);
                 j = laneSections.erase(j);
             } else {
                 ++j;
@@ -2463,7 +2463,7 @@ NIImporter_OpenDrive::myCharacters(int element, const std::string& cdata) {
                     result = new GeoConvHelper(proj, myOffset, origBoundary, convBoundary);
                     GeoConvHelper::setLoaded(*result);
                 } catch (ProcessError& e) {
-                    WRITE_ERROR("Could not set projection. (" + std::string(e.what()) + ")");
+                    WRITE_ERROR("Could not set projection (" + std::string(e.what()) + "). This can be ignored with --ignore-errors.");
                 }
             }
         } else {

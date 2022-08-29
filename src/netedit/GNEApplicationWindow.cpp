@@ -27,7 +27,6 @@
 #include <netedit/elements/network/GNELaneType.h>
 #include <netedit/elements/GNEGeneralHandler.h>
 #include <netedit/elements/data/GNEDataHandler.h>
-#include <netedit/elements/GNEGeneralHandler.h>
 #include <netedit/frames/common/GNEInspectorFrame.h>
 #include <netedit/frames/common/GNESelectorFrame.h>
 #include <netedit/frames/network/GNECreateEdgeFrame.h>
@@ -40,7 +39,7 @@
 #include <netimport/NITypeLoader.h>
 #include <netwrite/NWFrame.h>
 #include <utils/common/SystemFrame.h>
-#include <utils/foxtools/FXLinkLabel.h>
+#include <utils/foxtools/MFXLinkLabel.h>
 #include <utils/gui/cursors/GUICursorSubSys.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIDesigns.h>
@@ -56,7 +55,7 @@
 #include <utils/gui/windows/GUIDialog_Options.h>
 #include <utils/gui/windows/GUIPerspectiveChanger.h>
 #include <utils/options/OptionsCont.h>
-#include <utils/foxtools/FXMenuCheckIcon.h>
+#include <utils/foxtools/MFXMenuCheckIcon.h>
 #include <utils/xml/XMLSubSys.h>
 
 #include "GNEApplicationWindow.h"
@@ -107,6 +106,14 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_L_SAVEASPLAINXML,                   GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SAVEJOINEDJUNCTIONS,                        GNEApplicationWindow::onCmdSaveJoined),
     FXMAPFUNC(SEL_UPDATE,   MID_GNE_SAVEJOINEDJUNCTIONS,                        GNEApplicationWindow::onUpdNeedsNetwork),
+    // SUMOConfig
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_M_OPENSUMOCONFIG,                   GNEApplicationWindow::onCmdOpenSUMOConfig),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_RELOAD_SUMOCONFIG,              GNEApplicationWindow::onCmdReloadSUMOConfig),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_RELOAD_SUMOCONFIG,              GNEApplicationWindow::onUpdReloadSUMOConfig),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_SHIFT_M_SAVESUMOCONFIG,             GNEApplicationWindow::onCmdSaveSUMOConfig),
+    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_SHIFT_M_SAVESUMOCONFIG,             GNEApplicationWindow::onUpdSaveSUMOConfig),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_SAVESUMOCONFIG_AS,              GNEApplicationWindow::onCmdSaveSUMOConfigAs),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_SAVESUMOCONFIG_AS,              GNEApplicationWindow::onUpdSaveSUMOConfig),
     // TLS
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_K_OPENTLSPROGRAMS,                  GNEApplicationWindow::onCmdOpenTLSPrograms),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_K_OPENTLSPROGRAMS,                  GNEApplicationWindow::onUpdNeedsNetwork),
@@ -388,6 +395,7 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,              MID_HOTKEY_CTRL_SHIFT_W_FORCESAVEDATAELEMENTS,      GNEApplicationWindow::onCmdForceSaveDataElements),
     FXMAPFUNC(SEL_COMMAND,              MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT,             GNEApplicationWindow::onCmdFocusFrame),
     FXMAPFUNC(SEL_UPDATE,               MID_GNE_MODESMENUTITLE,                             GNEApplicationWindow::onUpdRequireViewNet),
+    FXMAPFUNC(SEL_UPDATE,               MID_GNE_RECOMPUTINGNEEDED,                          GNEApplicationWindow::onUpdRequireRecomputing),
 };
 
 // Object implementation
@@ -453,15 +461,19 @@ GNEApplicationWindow::dependentBuild() {
     // build the status bar
     myStatusbar = new FXStatusBar(this, GUIDesignStatusBar);
     // build geo coordinates label
+    auto requiereRecomputingFrame = new FXHorizontalFrame(myStatusbar, GUIDesignHorizontalFrameStatusBar);
+    myRequireRecomputingButton = new MFXButtonTooltip(requiereRecomputingFrame, myStaticTooltip,
+        "Recomputing\t\tRecomputing is needed", nullptr, this, MID_GNE_RECOMPUTINGNEEDED, GUIDesignButtonStatusBarFixed);
+    // build geo coordinates label
     myGeoFrame = new FXHorizontalFrame(myStatusbar, GUIDesignHorizontalFrameStatusBar);
-    myGeoCoordinate = new FXLabel(myGeoFrame, "N/A\t\tOriginal coordinate (before coordinate transformation in netconvert)", nullptr, LAYOUT_CENTER_Y);
+    myGeoCoordinate = new FXLabel(myGeoFrame, "N/A\t\tOriginal coordinate (before coordinate transformation in netconvert)", nullptr, GUIDesignLabelStatusBar);
     // build cartesian coordinates label
     myCartesianFrame = new FXHorizontalFrame(myStatusbar, GUIDesignHorizontalFrameStatusBar);
-    myCartesianCoordinate = new FXLabel(myCartesianFrame, "N/A\t\tNetwork coordinate", nullptr, LAYOUT_CENTER_Y);
+    myCartesianCoordinate = new FXLabel(myCartesianFrame, "N/A\t\tNetwork coordinate", nullptr, GUIDesignLabelStatusBar);
     // build test coordinates label (only if gui-testing is enabled)
     if (OptionsCont::getOptions().getBool("gui-testing")) {
         myTestFrame = new FXHorizontalFrame(myStatusbar, GUIDesignHorizontalFrameStatusBar);
-        myTestCoordinate = new FXLabel(myTestFrame, "N/A\t\tTest coordinate", nullptr, LAYOUT_CENTER_Y);
+        myTestCoordinate = new FXLabel(myTestFrame, "N/A\t\tTest coordinate", nullptr, GUIDesignLabelStatusBar);
     }
     // make the window a mdi-window
     myMainSplitter = new FXSplitter(this, GUIDesignSplitter | SPLITTER_VERTICAL | SPLITTER_REVERSED);
@@ -488,24 +500,35 @@ GNEApplicationWindow::dependentBuild() {
 
 void
 GNEApplicationWindow::create() {
+    // set windows size and position
     setWindowSizeAndPos();
+    // set current folder
     gCurrentFolder = getApp()->reg().readStringEntry("SETTINGS", "basedir", "");
+    // Create main window
     FXMainWindow::create();
+    // create menu panes
     myFileMenu->create();
     myModesMenu->create();
     myEditMenu->create();
+    myFileMenuSUMOConfig->create();
     myFileMenuTLS->create();
     myFileMenuEdgeTypes->create();
     myFileMenuAdditionals->create();
     myFileMenuDemandElements->create();
     myFileMenuDataElements->create();
-    //mySettingsMenu->create();
     myWindowMenu->create();
     myHelpMenu->create();
 
     FXint textWidth = getApp()->getNormalFont()->getTextWidth("8", 1) * 22;
     myCartesianFrame->setWidth(textWidth);
     myGeoFrame->setWidth(textWidth);
+
+    // fill online maps
+    if (myOnlineMaps.empty()) {
+        myOnlineMaps["GeoHack"] = "https://geohack.toolforge.org/geohack.php?params=%lat;%lon_scale:1000";
+        myOnlineMaps["GoogleSat"] = "https://www.google.com/maps?ll=%lat,%lon&t=h&z=18";
+        myOnlineMaps["OSM"] = "https://www.openstreetmap.org/?mlat=%lat&mlon=%lon&zoom=18&layers=M";
+    }
 
     show(PLACEMENT_DEFAULT);
     if (!OptionsCont::getOptions().isSet("window-size")) {
@@ -527,6 +550,7 @@ GNEApplicationWindow::~GNEApplicationWindow() {
     delete myGLVisual;
     // must delete menus to avoid segfault on removing accelerators
     // (http://www.fox-toolkit.net/faq#TOC-What-happens-when-the-application-s)
+    delete myFileMenuSUMOConfig;
     delete myFileMenuTLS;
     delete myFileMenuEdgeTypes;
     delete myFileMenuAdditionals;
@@ -711,11 +735,83 @@ GNEApplicationWindow::onCmdOpenForeign(FXObject*, FXSelector, void*) {
 }
 
 
+long 
+GNEApplicationWindow::onCmdOpenSUMOConfig(FXObject*, FXSelector, void*) {
+    // write debug information
+    WRITE_DEBUG("Open SUMOConfig dialog");
+    // get the SUMOConfig file name
+    FXFileDialog opendialog(this, "Open SUMOConfig file");
+    opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::SUMO_MINI));
+    opendialog.setSelectMode(SELECTFILE_EXISTING);
+    opendialog.setPatternList("SUMOConfig files (*.sumocfg)\nAll files (*)");
+    if (gCurrentFolder.length() != 0) {
+        opendialog.setDirectory(gCurrentFolder);
+    }
+    if (opendialog.execute()) {
+        // close additional dialog
+        WRITE_DEBUG("Close SUMOConfig dialog");
+        gCurrentFolder = opendialog.getDirectory();
+        std::string file = opendialog.getFilename().text();
+        // write info
+        WRITE_MESSAGE("Loading SUMOConfig from '" + file + "'");
+        // close all windows
+        closeAllWindows();
+        // disable validation for additionals
+        XMLSubSys::setValidation("never", "auto", "auto");
+        // Create additional handler
+        GNEApplicationWindowHelper::GNEConfigHandler confighandler(this, file);
+        // Run parser
+        if (!confighandler.parse()) {
+            WRITE_ERROR("Loading of " + file + " failed.");
+        }
+        // update view
+        update();
+        // restore validation for additionals
+        XMLSubSys::setValidation("auto", "auto", "auto");
+    } else {
+        // write debug information
+        WRITE_DEBUG("Cancel SUMOConfig dialog");
+    }
+    return 1;
+}
+
+
+long 
+GNEApplicationWindow::onCmdReloadSUMOConfig(FXObject*, FXSelector, void*) {
+    const auto file = OptionsCont::getOptions().getString("SUMOConfig-output");
+    if (file.size() > 0) {
+        // disable validation for additionals
+        XMLSubSys::setValidation("never", "auto", "auto");
+        // Create additional handler
+        GNEApplicationWindowHelper::GNEConfigHandler confighandler(this, file);
+        // Run parser
+        if (!confighandler.parse()) {
+            WRITE_ERROR("Loading of " + file + " failed.");
+        }
+        update();
+        // restore validation for additionals
+        XMLSubSys::setValidation("auto", "auto", "auto");
+    }
+    return 1;
+}
+
+
+long 
+GNEApplicationWindow::onUpdReloadSUMOConfig(FXObject*, FXSelector, void*) {
+    // check if file exist
+    if (myViewNet && !OptionsCont::getOptions().getString("SUMOConfig-output").empty()) {
+        return myFileMenuCommands.reloadSUMOConfig->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
+    } else {
+        return myFileMenuCommands.reloadSUMOConfig->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
+    }
+}
+
+
 long
 GNEApplicationWindow::onCmdOpenTLSPrograms(FXObject*, FXSelector, void*) {
     // write debug information
     WRITE_DEBUG("Open TLSProgram dialog");
-    // get the shape file name
+    // get the TLSPrograms file name
     FXFileDialog opendialog(this, "Open TLS Programs file");
     opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::MODETLS));
     opendialog.setSelectMode(SELECTFILE_EXISTING);
@@ -1178,6 +1274,10 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
             // Run parser
             if (!generalHandler.parse()) {
                 WRITE_ERROR("Loading of " + additionalFile + " failed.");
+            } else {
+                // set additional-files
+                oc.resetWritable();
+                oc.set("additional-files", additionalFile);
             }
             // disable validation for additionals
             XMLSubSys::setValidation("auto", "auto", "auto");
@@ -1201,6 +1301,10 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
             XMLSubSys::setValidation("never", "auto", "auto");
             if (!handler.parse()) {
                 WRITE_ERROR("Loading of " + demandElementsFile + " failed.");
+            } else {
+                // set first demandElementsFiles as default file
+                oc.resetWritable();
+                oc.set("route-files", demandElementsFile);
             }
             // disable validation for demand elements
             XMLSubSys::setValidation("auto", "auto", "auto");
@@ -1226,6 +1330,10 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
             XMLSubSys::setValidation("never", "auto", "auto");
             if (!dataHandler.parse()) {
                 WRITE_ERROR("Loading of " + dataElementsFile + " failed.");
+            } else {
+                // set first dataElementsFiles as default file
+                oc.resetWritable();
+                oc.set("data-files", dataElementsFile);
             }
             // disable validation for data elements
             XMLSubSys::setValidation("auto", "auto", "auto");
@@ -1286,12 +1394,14 @@ GNEApplicationWindow::fillMenuBar() {
     // build file menu
     myFileMenu = new FXMenuPane(this, LAYOUT_FIX_HEIGHT);
     GUIDesigns::buildFXMenuTitle(myToolbarsGrip.menu, "&File", nullptr, myFileMenu);
+    myFileMenuSUMOConfig = new FXMenuPane(this);
     myFileMenuTLS = new FXMenuPane(this);
     myFileMenuEdgeTypes = new FXMenuPane(this);
     myFileMenuAdditionals = new FXMenuPane(this);
     myFileMenuDemandElements = new FXMenuPane(this);
     myFileMenuDataElements = new FXMenuPane(this);
-    myFileMenuCommands.buildFileMenuCommands(myFileMenu, myFileMenuTLS, myFileMenuEdgeTypes, myFileMenuAdditionals, myFileMenuDemandElements, myFileMenuDataElements);
+    myFileMenuCommands.buildFileMenuCommands(myFileMenu, myFileMenuSUMOConfig, myFileMenuTLS, myFileMenuEdgeTypes, 
+                                             myFileMenuAdditionals, myFileMenuDemandElements, myFileMenuDataElements);
     // build recent files
     myMenuBarFile.buildRecentFiles(myFileMenu);
     new FXMenuSeparator(myFileMenu);
@@ -1439,6 +1549,30 @@ GNEApplicationWindow::getToolbarsGrip() {
 
 
 void
+GNEApplicationWindow::updateRecomputingLabel() {
+    if (myViewNet && myViewNet->getNet()) {
+        // show
+        myRequireRecomputingButton->show();
+        // set label depending of recomputing
+        if (myNet->getAttributeCarriers()->getJunctions().empty() || myNet->isNetRecomputed()) {
+            myRequireRecomputingButton->setText("");
+            myRequireRecomputingButton->setTipText("Network computed");
+            myRequireRecomputingButton->setIcon(GUIIconSubSys::getIcon(GUIIcon::OK));
+            myRequireRecomputingButton->setBackColor(FXRGBA(240, 255, 205, 255));
+        } else {
+            myRequireRecomputingButton->setText("Press F5");
+            myRequireRecomputingButton->setTipText("Network requires recomputing");
+            myRequireRecomputingButton->setIcon(GUIIconSubSys::getIcon(GUIIcon::WARNING));
+            myRequireRecomputingButton->setBackColor(FXRGBA(253, 255, 206, 255));
+        }
+    } else {
+        // hide
+        myRequireRecomputingButton->hide();
+    }
+}
+
+
+void
 GNEApplicationWindow::closeAllWindows() {
     // check if view has to be saved
     if (myViewNet) {
@@ -1494,6 +1628,12 @@ GNEApplicationWindow::loadOptionOnStartup() {
     // Disable normalization preserve the given network as far as possible
     oc.set("offset.disable-normalization", "true");
     loadConfigOrNet("", true, false, true, oc.getBool("new"));
+}
+
+
+void 
+GNEApplicationWindow::loadNet(const std::string& file) {
+    loadConfigOrNet(file, true);
 }
 
 
@@ -1837,6 +1977,7 @@ GNEApplicationWindow::onUpdLockMenuTitle(FXObject*, FXSelector, void*) {
             if ((myViewNet->getEditModes().networkEditMode == NetworkEditMode::NETWORK_INSPECT) ||
                     (myViewNet->getEditModes().networkEditMode == NetworkEditMode::NETWORK_SELECT) ||
                     (myViewNet->getEditModes().networkEditMode == NetworkEditMode::NETWORK_DELETE) ||
+                    (myViewNet->getEditModes().networkEditMode == NetworkEditMode::NETWORK_CONNECT) ||
                     (myViewNet->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE)) {
                 myLockMenuTitle->enable();
             } else {
@@ -2181,6 +2322,13 @@ GNEApplicationWindow::onUpdRequireViewNet(FXObject* sender, FXSelector, void*) {
 }
 
 
+long 
+GNEApplicationWindow::onUpdRequireRecomputing(FXObject*, FXSelector, void*) {
+    updateRecomputingLabel();
+    return 1;
+}
+
+
 long
 GNEApplicationWindow::onCmdEditViewport(FXObject*, FXSelector, void*) {
     // check that view exists
@@ -2298,7 +2446,7 @@ GNEApplicationWindow::onCmdToggleEditOptions(FXObject* obj, FXSelector sel, void
 
 long
 GNEApplicationWindow::onCmdHelp(FXObject*, FXSelector, void*) {
-    FXLinkLabel::fxexecute("https://sumo.dlr.de/docs/netedit.html");
+    MFXLinkLabel::fxexecute("https://sumo.dlr.de/docs/netedit.html");
     return 1;
 }
 
@@ -2862,7 +3010,7 @@ GNEApplicationWindow::onCmdToggleViewOption(FXObject* obj, FXSelector sel, void*
 long
 GNEApplicationWindow::onUpdToggleViewOption(FXObject* obj, FXSelector sel, void* /*ptr*/) {
     // get menuCheck
-    FXMenuCheckIcon* menuCheck = dynamic_cast<FXMenuCheckIcon*>(obj);
+    MFXMenuCheckIcon* menuCheck = dynamic_cast<MFXMenuCheckIcon*>(obj);
     // check viewNet
     if (myViewNet && menuCheck) {
         // continue depending of selector
@@ -3218,6 +3366,102 @@ GNEApplicationWindow::onCmdSaveNetwork(FXObject*, FXSelector, void*) {
         myViewNet->setFocus();
         return 1;
     }
+}
+
+
+long
+GNEApplicationWindow::onCmdSaveSUMOConfig(FXObject*, FXSelector, void*) {
+    // obtain option container
+    OptionsCont& oc = OptionsCont::getOptions();
+    // check if save additional menu is enabled
+    if (myFileMenuCommands.saveSUMOConfig->isEnabled()) {
+        // Check if SUMOConfig file was already set at start of netedit or with a previous save
+        if (oc.getString("SUMOConfig-output").empty()) {
+            // declare current folder
+            FXString currentFolder = gCurrentFolder;
+            // check if there is a saved network
+            if (oc.getString("output-file").size() > 0) {
+                // extract folder
+                currentFolder = getFolder(oc.getString("output-file"));
+            }
+            // open dialog
+            FXString file = MFXUtils::getFilename2Write(this,
+                            "Save SUMOConfig", ".sumocfg",
+                            GUIIconSubSys::getIcon(GUIIcon::SUMO_MINI),
+                            currentFolder);
+            // add xml extension
+            std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".sumocfg");
+            // check tat file is valid
+            if (file == "") {
+                // None SUMOConfig file was selected, then stop function
+                return 0;
+            } else {
+                // change value of "SUMOConfig-output"
+                oc.resetWritable();
+                oc.set("SUMOConfig-output", fileWithExtension);
+            }
+        }
+        // Start saving SUMOConfig
+        getApp()->beginWaitCursor();
+        // save config
+        GNEApplicationWindowHelper::saveSUMOConfig();
+        getApp()->endWaitCursor();
+        // restore focus
+        setFocus();
+        return 1;
+    } else {
+        return 0;
+    }
+}
+
+
+long
+GNEApplicationWindow::onCmdSaveSUMOConfigAs(FXObject*, FXSelector, void*) {
+    // obtain option container
+    OptionsCont& oc = OptionsCont::getOptions();
+    // declare current folder
+    FXString currentFolder = gCurrentFolder;
+    // check if there is a saved network
+    if (oc.getString("output-file").size() > 0) {
+        // extract folder
+        currentFolder = getFolder(oc.getString("output-file"));
+    }
+    // open dialog
+    FXString file = MFXUtils::getFilename2Write(this,
+                    "Save SUMOConfig", ".sumocfg",
+                    GUIIconSubSys::getIcon(GUIIcon::SUMO_MINI),
+                    currentFolder);
+    // add xml extension
+    std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".sumocfg");
+    // check tat file is valid
+    if (file == "") {
+        // None SUMOConfig file was selected, then stop function
+        return 0;
+    } else {
+        // change value of "SUMOConfig-output"
+        oc.resetWritable();
+        oc.set("SUMOConfig-output", fileWithExtension);
+    }
+    // Start saving SUMOConfig
+    getApp()->beginWaitCursor();
+    // save config
+    GNEApplicationWindowHelper::saveSUMOConfig();
+    getApp()->endWaitCursor();
+    // restore focus
+    setFocus();
+    return 1;
+}
+
+
+long 
+GNEApplicationWindow::onUpdSaveSUMOConfig(FXObject* sender, FXSelector, void*) {
+    // check if net exist and there is junctions
+    if (myNet) {
+        sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
+    } else {
+        sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
+    }
+    return 1;
 }
 
 

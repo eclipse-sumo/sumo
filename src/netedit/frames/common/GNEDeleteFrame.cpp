@@ -47,7 +47,7 @@ FXDEFMAP(GNEDeleteFrame::DeleteOptions) DeleteOptionsMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNEDeleteFrame::DeleteOptions,      FXGroupBoxModule, DeleteOptionsMap,      ARRAYNUMBER(DeleteOptionsMap))
+FXIMPLEMENT(GNEDeleteFrame::DeleteOptions,      MFXGroupBoxModule, DeleteOptionsMap,      ARRAYNUMBER(DeleteOptionsMap))
 FXIMPLEMENT(GNEDeleteFrame::MultipleDeletePane, FXMenuPane,       MultipleDeletePaneMap, ARRAYNUMBER(MultipleDeletePaneMap))
 
 
@@ -127,7 +127,7 @@ GNEDeleteFrame::MultipleDeletePane::onCmdSelect(FXObject* obj, FXSelector, void*
 // ---------------------------------------------------------------------------
 
 GNEDeleteFrame::DeleteOptions::DeleteOptions(GNEDeleteFrame* deleteFrameParent) :
-    FXGroupBoxModule(deleteFrameParent, "Options"),
+    MFXGroupBoxModule(deleteFrameParent, "Options"),
     myDeleteFrameParent(deleteFrameParent) {
     // Create checkbox for enable/disable delete only geomtery point(by default, disabled)
     myDeleteOnlyGeometryPoints = new FXCheckButton(getCollapsableFrame(), "Delete geometry points", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
@@ -155,7 +155,7 @@ GNEDeleteFrame::DeleteOptions::onCmdSetOption(FXObject*, FXSelector, void*) {
 // ---------------------------------------------------------------------------
 
 GNEDeleteFrame::ProtectElements::ProtectElements(GNEDeleteFrame* deleteFrameParent) :
-    FXGroupBoxModule(deleteFrameParent, "Protect Elements") {
+    MFXGroupBoxModule(deleteFrameParent, "Protect Elements") {
     // Create checkbox for enable/disable delete only geomtery point(by default, disabled)
     myProtectAdditionals = new FXCheckButton(getCollapsableFrame(), "Protect additional elements", deleteFrameParent, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
     myProtectAdditionals->setCheck(TRUE);
@@ -201,8 +201,8 @@ GNEDeleteFrame::ProtectElements::protectGenericDatas() const {
 // method definitions
 // ===========================================================================
 
-GNEDeleteFrame::GNEDeleteFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet) :
-    GNEFrame(horizontalFrameParent, viewNet, "Delete") {
+GNEDeleteFrame::GNEDeleteFrame(GNEViewParent *viewParent, GNEViewNet* viewNet) :
+    GNEFrame(viewParent, viewNet, "Delete") {
     // create delete options modul
     myDeleteOptions = new DeleteOptions(this);
     // create protect elements modul

@@ -393,6 +393,69 @@ GNEAttributeCarrier::lanesConsecutives(const std::vector<GNELane*>& lanes) {
 }
 
 
+FXIcon*
+GNEAttributeCarrier::getVClassIcon(const SUMOVehicleClass vc) {
+    switch (vc) {
+        case SVC_IGNORING:
+            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_IGNORING);
+        case SVC_PRIVATE:
+            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_PRIVATE);
+        case SVC_EMERGENCY:
+            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_EMERGENCY);
+        case SVC_AUTHORITY:
+            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_AUTHORITY);
+        case SVC_ARMY:
+            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_ARMY);
+        case SVC_VIP:
+            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_VIP);
+        case SVC_PEDESTRIAN:
+            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_PEDESTRIAN);
+        case SVC_PASSENGER:
+            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_PASSENGER);
+        case SVC_HOV:
+            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_HOV);
+        case SVC_TAXI:
+            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_TAXI);
+        case SVC_BUS:
+            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_BUS);
+        case SVC_COACH:
+            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_COACH);
+        case SVC_DELIVERY:
+            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_DELIVERY);
+        case SVC_TRUCK:
+            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_TRUCK);
+        case SVC_TRAILER:
+            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_TRAILER);
+        case SVC_MOTORCYCLE:
+            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_MOTORCYCLE);
+        case SVC_MOPED:
+            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_MOPED);
+        case SVC_BICYCLE:
+            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_BICYCLE);
+        case SVC_E_VEHICLE:
+            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_EVEHICLE);
+        case SVC_TRAM:
+            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_TRAM);
+        case SVC_RAIL_URBAN:
+            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_RAIL_URBAN);
+        case SVC_RAIL:
+            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_RAIL);
+        case SVC_RAIL_ELECTRIC:
+            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_RAIL_ELECTRIC);
+        case SVC_RAIL_FAST:
+            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_RAIL_FAST);
+        case SVC_SHIP:
+            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_SHIP);
+        case SVC_CUSTOM1:
+            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_CUSTOM1);
+        case SVC_CUSTOM2:
+            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_CUSTOM2);
+        default:
+            throw ProcessError("Invalid vClass");
+    }
+}
+
+
 template<> std::string
 GNEAttributeCarrier::getACParameters() const {
     std::string result;
@@ -1895,7 +1958,7 @@ GNEAttributeCarrier::fillAdditionalElements() {
         myTagProperties[currentTag].addAttribute(attrProperty);
 
     }
-    currentTag = SUMO_TAG_E1DETECTOR;
+    currentTag = SUMO_TAG_INDUCTION_LOOP;
     {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
@@ -1945,7 +2008,7 @@ GNEAttributeCarrier::fillAdditionalElements() {
                                               "0");
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
-    currentTag = SUMO_TAG_E2DETECTOR;
+    currentTag = SUMO_TAG_LANE_AREA_DETECTOR;
     {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
@@ -2024,13 +2087,13 @@ GNEAttributeCarrier::fillAdditionalElements() {
                                               "0");
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
-    currentTag = GNE_TAG_E2DETECTOR_MULTILANE;
+    currentTag = GNE_TAG_MULTI_LANE_AREA_DETECTOR;
     {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::ADDITIONALELEMENT | GNETagProperties::DETECTOR,
                                       0,
-                                      GUIIcon::E2, SUMO_TAG_E2DETECTOR, {}, FXRGBA(210, 233, 255, 255));
+                                      GUIIcon::E2, SUMO_TAG_LANE_AREA_DETECTOR, {}, FXRGBA(210, 233, 255, 255));
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::AUTOMATICID,
@@ -2103,7 +2166,7 @@ GNEAttributeCarrier::fillAdditionalElements() {
         myTagProperties[currentTag].addAttribute(attrProperty);
 
     }
-    currentTag = SUMO_TAG_E3DETECTOR;
+    currentTag = SUMO_TAG_ENTRY_EXIT_DETECTOR;
     {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
@@ -2161,7 +2224,7 @@ GNEAttributeCarrier::fillAdditionalElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::ADDITIONALELEMENT | GNETagProperties::DETECTOR,
                                       GNETagProperties::CHILD | GNETagProperties::REPARENT,
-                                      GUIIcon::E3ENTRY, currentTag, {SUMO_TAG_E3DETECTOR}, FXRGBA(210, 233, 255, 255));
+                                      GUIIcon::E3ENTRY, currentTag, {SUMO_TAG_ENTRY_EXIT_DETECTOR}, FXRGBA(210, 233, 255, 255));
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_LANE,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE,
@@ -2186,7 +2249,7 @@ GNEAttributeCarrier::fillAdditionalElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::ADDITIONALELEMENT | GNETagProperties::DETECTOR,
                                       GNETagProperties::CHILD | GNETagProperties::REPARENT,
-                                      GUIIcon::E3EXIT, currentTag, {SUMO_TAG_E3DETECTOR}, FXRGBA(210, 233, 255, 255));
+                                      GUIIcon::E3EXIT, currentTag, {SUMO_TAG_ENTRY_EXIT_DETECTOR}, FXRGBA(210, 233, 255, 255));
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_LANE,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
@@ -2453,7 +2516,7 @@ GNEAttributeCarrier::fillAdditionalElements() {
 
         // optional attributes (at least one must be defined)
         attrProperty = GNEAttributeProperties(SUMO_ATTR_TYPE,
-                                              GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::ACTIVATABLE,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::ACTIVATABLE | GNEAttributeProperties::VTYPE,
                                               "The id of the vehicle type to use for this " + toString(currentTag),
                                               DEFAULT_VTYPE_ID);
         myTagProperties[currentTag].addAttribute(attrProperty);
@@ -3362,7 +3425,7 @@ GNEAttributeCarrier::fillDemandElements() {
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(GNE_ATTR_VTYPE_DISTRIBUTION,
-                                              GNEAttributeProperties::STRING,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::VTYPE,
                                               "Vehicle Type Distribution");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
@@ -3550,7 +3613,7 @@ GNEAttributeCarrier::fillVehicleElements() {
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_TYPE,
-                                              GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY | GNEAttributeProperties::VTYPE,
                                               "The id of the " + toString(currentTag) + " type to use for this " + toString(currentTag),
                                               DEFAULT_VTYPE_ID);
         myTagProperties[currentTag].addAttribute(attrProperty);
@@ -3595,7 +3658,7 @@ GNEAttributeCarrier::fillVehicleElements() {
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_TYPE,
-                                              GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY | GNEAttributeProperties::VTYPE,
                                               "The id of the " + toString(currentTag) + " type to use for this " + toString(currentTag),
                                               DEFAULT_VTYPE_ID);
         myTagProperties[currentTag].addAttribute(attrProperty);
@@ -3635,7 +3698,7 @@ GNEAttributeCarrier::fillVehicleElements() {
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_TYPE,
-                                              GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY | GNEAttributeProperties::VTYPE,
                                               "The id of the vehicle type to use for this " + toString(currentTag),
                                               DEFAULT_VTYPE_ID);
         myTagProperties[currentTag].addAttribute(attrProperty);
@@ -3680,7 +3743,7 @@ GNEAttributeCarrier::fillVehicleElements() {
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_TYPE,
-                                              GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY | GNEAttributeProperties::VTYPE,
                                               "The id of the vehicle type to use for this " + toString(SUMO_TAG_VEHICLE),
                                               DEFAULT_VTYPE_ID);
         myTagProperties[currentTag].addAttribute(attrProperty);
@@ -3720,7 +3783,7 @@ GNEAttributeCarrier::fillVehicleElements() {
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_TYPE,
-                                              GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY | GNEAttributeProperties::VTYPE,
                                               "The id of the " + toString(currentTag) + " type to use for this " + toString(currentTag),
                                               DEFAULT_VTYPE_ID);
         myTagProperties[currentTag].addAttribute(attrProperty);
@@ -3762,7 +3825,7 @@ GNEAttributeCarrier::fillVehicleElements() {
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_TYPE,
-                                              GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY | GNEAttributeProperties::VTYPE,
                                               "The id of the " + toString(currentTag) + " type to use for this " + toString(currentTag),
                                               DEFAULT_VTYPE_ID);
         myTagProperties[currentTag].addAttribute(attrProperty);
@@ -3799,7 +3862,7 @@ GNEAttributeCarrier::fillVehicleElements() {
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_TYPE,
-                                              GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY | GNEAttributeProperties::VTYPE,
                                               "The id of the " + toString(currentTag) + " type to use for this " + toString(currentTag),
                                               DEFAULT_VTYPE_ID);
         myTagProperties[currentTag].addAttribute(attrProperty);
@@ -3841,7 +3904,7 @@ GNEAttributeCarrier::fillVehicleElements() {
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_TYPE,
-                                              GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY | GNEAttributeProperties::VTYPE,
                                               "The id of the " + toString(currentTag) + " type to use for this " + toString(SUMO_TAG_FLOW),
                                               DEFAULT_VTYPE_ID);
         myTagProperties[currentTag].addAttribute(attrProperty);
@@ -4462,6 +4525,12 @@ GNEAttributeCarrier::fillPersonPlanTrips() {
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE,
                                               "List of possible traffic modes. Walking is always possible regardless of this value");
         myTagProperties[currentTag].addAttribute(attrProperty);
+        // lines
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_LINES,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::DEFAULTVALUE,
+                                              "list of vehicle alternatives to take for the " + toString(currentTag),
+                                              "ANY");
+        myTagProperties[currentTag].addAttribute(attrProperty);
     }
     currentTag = GNE_TAG_PERSONTRIP_BUSSTOP;
     {
@@ -4490,6 +4559,12 @@ GNEAttributeCarrier::fillPersonPlanTrips() {
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE,
                                               "List of possible traffic modes. Walking is always possible regardless of this value");
         myTagProperties[currentTag].addAttribute(attrProperty);
+        // lines
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_LINES,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::DEFAULTVALUE,
+                                              "list of vehicle alternatives to take for the " + toString(currentTag),
+                                              "ANY");
+        myTagProperties[currentTag].addAttribute(attrProperty);
     }
     currentTag = GNE_TAG_PERSONTRIP_JUNCTIONS;
     {
@@ -4517,6 +4592,12 @@ GNEAttributeCarrier::fillPersonPlanTrips() {
         attrProperty = GNEAttributeProperties(SUMO_ATTR_MODES,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE,
                                               "List of possible traffic modes. Walking is always possible regardless of this value");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+        // lines
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_LINES,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::DEFAULTVALUE,
+                                              "list of vehicle alternatives to take for the " + toString(currentTag),
+                                              "ANY");
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
 }
@@ -5024,7 +5105,7 @@ GNEAttributeCarrier::fillCarFollowingModelAttributes(SumoXMLTag currentTag) {
     attrProperty = GNEAttributeProperties(SUMO_ATTR_CF_EIDM_SIG_ERROR,
                                           GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::EXTENDED,
                                           "EIDM driving error parameter [-]",
-                                          "0.10");
+                                          "0.04");
     myTagProperties[currentTag].addAttribute(attrProperty);
 
     attrProperty = GNEAttributeProperties(SUMO_ATTR_CF_EIDM_JERK_MAX,
@@ -5358,7 +5439,7 @@ GNEAttributeCarrier::fillCommonPersonAttributes(SumoXMLTag currentTag) {
     myTagProperties[currentTag].addAttribute(attrProperty);
 
     attrProperty = GNEAttributeProperties(SUMO_ATTR_TYPE,
-                                          GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY,
+                                          GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY | GNEAttributeProperties::VTYPE,
                                           "The id of the " + toString(currentTag) + " type to use for this " + toString(currentTag),
                                           DEFAULT_VTYPE_ID);
     myTagProperties[currentTag].addAttribute(attrProperty);
@@ -5388,7 +5469,7 @@ GNEAttributeCarrier::fillCommonContainerAttributes(SumoXMLTag currentTag) {
     myTagProperties[currentTag].addAttribute(attrProperty);
 
     attrProperty = GNEAttributeProperties(SUMO_ATTR_TYPE,
-                                          GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY,
+                                          GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY | GNEAttributeProperties::VTYPE,
                                           "The id of the " + toString(currentTag) + " type to use for this " + toString(currentTag),
                                           DEFAULT_CONTAINERTYPE_ID);
     myTagProperties[currentTag].addAttribute(attrProperty);
@@ -5579,69 +5660,6 @@ GNEAttributeCarrier::fillDataElements() {
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
                                               "The name of the TAZ the " + toString(currentTag) + " ends at");
         myTagProperties[currentTag].addAttribute(attrProperty);
-    }
-}
-
-
-FXIcon*
-GNEAttributeCarrier::getVClassIcon(const SUMOVehicleClass vc) {
-    switch (vc) {
-        case SVC_IGNORING:
-            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_IGNORING);
-        case SVC_PRIVATE:
-            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_PRIVATE);
-        case SVC_EMERGENCY:
-            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_EMERGENCY);
-        case SVC_AUTHORITY:
-            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_AUTHORITY);
-        case SVC_ARMY:
-            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_ARMY);
-        case SVC_VIP:
-            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_VIP);
-        case SVC_PEDESTRIAN:
-            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_PEDESTRIAN);
-        case SVC_PASSENGER:
-            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_PASSENGER);
-        case SVC_HOV:
-            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_HOV);
-        case SVC_TAXI:
-            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_TAXI);
-        case SVC_BUS:
-            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_BUS);
-        case SVC_COACH:
-            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_COACH);
-        case SVC_DELIVERY:
-            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_DELIVERY);
-        case SVC_TRUCK:
-            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_TRUCK);
-        case SVC_TRAILER:
-            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_TRAILER);
-        case SVC_MOTORCYCLE:
-            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_MOTORCYCLE);
-        case SVC_MOPED:
-            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_MOPED);
-        case SVC_BICYCLE:
-            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_BICYCLE);
-        case SVC_E_VEHICLE:
-            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_EVEHICLE);
-        case SVC_TRAM:
-            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_TRAM);
-        case SVC_RAIL_URBAN:
-            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_RAIL_URBAN);
-        case SVC_RAIL:
-            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_RAIL);
-        case SVC_RAIL_ELECTRIC:
-            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_RAIL_ELECTRIC);
-        case SVC_RAIL_FAST:
-            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_RAIL_FAST);
-        case SVC_SHIP:
-            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_SHIP);
-        case SVC_CUSTOM1:
-            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_CUSTOM1);
-        case SVC_CUSTOM2:
-            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_CUSTOM2);
-        default:
-            throw ProcessError("Invalid vClass");
     }
 }
 

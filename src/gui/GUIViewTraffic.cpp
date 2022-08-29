@@ -107,47 +107,47 @@ GUIViewTraffic::buildViewToolBars(GUIGlChildWindow* v) {
         v->getColoringSchemesCombo()->setNumVisible(MAX2(5, (int)names.size() + 1));
     }
     // for junctions
-    new MFXButtonTooltip(v->getLocatorPopup(),
+    new MFXButtonTooltip(v->getLocatorPopup(), myApp->getStaticTooltip(),
                          "\tLocate Junctions\tLocate a junction within the network.",
                          GUIIconSubSys::getIcon(GUIIcon::LOCATEJUNCTION), v, MID_LOCATEJUNCTION,
                          ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
     // for edges
-    new MFXButtonTooltip(v->getLocatorPopup(),
+    new MFXButtonTooltip(v->getLocatorPopup(), myApp->getStaticTooltip(),
                          "\tLocate Edges\tLocate an edge within the network.",
                          GUIIconSubSys::getIcon(GUIIcon::LOCATEEDGE), v, MID_LOCATEEDGE,
                          ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
     // for vehicles
-    new MFXButtonTooltip(v->getLocatorPopup(),
+    new MFXButtonTooltip(v->getLocatorPopup(), myApp->getStaticTooltip(),
                          "\tLocate Vehicles\tLocate a vehicle within the network.",
                          GUIIconSubSys::getIcon(GUIIcon::LOCATEVEHICLE), v, MID_LOCATEVEHICLE,
                          ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
     // for persons
-    new MFXButtonTooltip(v->getLocatorPopup(),
+    new MFXButtonTooltip(v->getLocatorPopup(), myApp->getStaticTooltip(),
                          "\tLocate Persons\tLocate a person within the network.",
                          GUIIconSubSys::getIcon(GUIIcon::LOCATEPERSON), v, MID_LOCATEPERSON,
                          ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
     // for containers
-    new MFXButtonTooltip(v->getLocatorPopup(),
+    new MFXButtonTooltip(v->getLocatorPopup(), myApp->getStaticTooltip(),
                          "\tLocate Container\tLocate a container within the network.",
                          GUIIconSubSys::getIcon(GUIIcon::LOCATECONTAINER), v, MID_LOCATECONTAINER,
                          ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
     // for tls
-    new MFXButtonTooltip(v->getLocatorPopup(),
+    new MFXButtonTooltip(v->getLocatorPopup(), myApp->getStaticTooltip(),
                          "\tLocate TLS\tLocate a tls within the network.",
                          GUIIconSubSys::getIcon(GUIIcon::LOCATETLS), v, MID_LOCATETLS,
                          ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
     // for additional stuff
-    new MFXButtonTooltip(v->getLocatorPopup(),
+    new MFXButtonTooltip(v->getLocatorPopup(), myApp->getStaticTooltip(),
                          "\tLocate Additional\tLocate an additional structure within the network.",
                          GUIIconSubSys::getIcon(GUIIcon::LOCATEADD), v, MID_LOCATEADD,
                          ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
     // for pois
-    new MFXButtonTooltip(v->getLocatorPopup(),
+    new MFXButtonTooltip(v->getLocatorPopup(), myApp->getStaticTooltip(),
                          "\tLocate PoI\tLocate a PoI within the network.",
                          GUIIconSubSys::getIcon(GUIIcon::LOCATEPOI), v, MID_LOCATEPOI,
                          ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
     // for polygons
-    new MFXButtonTooltip(v->getLocatorPopup(),
+    new MFXButtonTooltip(v->getLocatorPopup(), myApp->getStaticTooltip(),
                          "\tLocate Polygon\tLocate a Polygon within the network.",
                          GUIIconSubSys::getIcon(GUIIcon::LOCATEPOLY), v, MID_LOCATEPOLY,
                          ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
@@ -373,26 +373,6 @@ GUIViewTraffic::doPaintGL(int mode, const Boundary& bound) {
 
 
 void
-GUIViewTraffic::updatePositionInformation() const {
-    Position pos = getPositionInformation();
-    // set cartesian position
-    myApp->getCartesianLabel()->setText(("x:" + toString(pos.x()) + ", y:" + toString(pos.y())).c_str());
-    // set geo position
-    GeoConvHelper::getFinal().cartesian2geo(pos);
-    if (GeoConvHelper::getFinal().usingGeoProjection()) {
-        myApp->getGeoLabel()->setText(("lat:" + toString(pos.y(), gPrecisionGeo) + ", lon:" + toString(pos.x(), gPrecisionGeo)).c_str());
-    } else {
-        myApp->getGeoLabel()->setText(("x:" + toString(pos.x()) + ", y:" + toString(pos.y()) + " (No projection defined)").c_str());
-    }
-    // if enabled, set test position
-    if (myApp->getTestLabel()) {
-        // adjust cursor position (24,25) to show exactly the same position as in function netedit.leftClick(match, X, Y)
-        myApp->getTestLabel()->setText(("Test: x:" + toString(getWindowCursorPosition().x() - 24.0) + " y:" + toString(getWindowCursorPosition().y() - 25.0)).c_str());
-    }
-}
-
-
-void
 GUIViewTraffic::startTrack(int id) {
     myTrackedID = id;
 }
@@ -430,8 +410,8 @@ GUIViewTraffic::onGamingClick(Position pos) {
             }
         }
         if (minTll != nullptr) {
-            int next = (minTll->getCurrentPhaseIndex() + 1) % minTll->getPhaseNumber();
-            minTll->changeStepAndDuration(tlsControl, MSNet::getInstance()->getCurrentTimeStep(), next, -1);
+            const int nextPhase = (minTll->getCurrentPhaseIndex() + 1) % minTll->getPhaseNumber();
+            minTll->changeStepAndDuration(tlsControl, MSNet::getInstance()->getCurrentTimeStep(), nextPhase, -1);
             update();
         }
     } else {
@@ -508,6 +488,105 @@ GUIViewTraffic::onGamingRightClick(Position /*pos*/) {
 SUMOTime
 GUIViewTraffic::getCurrentTimeStep() const {
     return MSNet::getInstance()->getCurrentTimeStep();
+}
+
+
+long
+GUIViewTraffic::onCmdCloseLane(FXObject*, FXSelector, void*) {
+    GUILane* lane = getLaneUnderCursor();
+    if (lane != nullptr) {
+        lane->closeTraffic();
+        GUIGlObjectStorage::gIDStorage.unblockObject(lane->getGlID());
+        update();
+    }
+    return 1;
+}
+
+
+long
+GUIViewTraffic::onCmdCloseEdge(FXObject*, FXSelector, void*) {
+    GUILane* lane = getLaneUnderCursor();
+    if (lane != nullptr) {
+        dynamic_cast<GUIEdge*>(&lane->getEdge())->closeTraffic(lane);
+        GUIGlObjectStorage::gIDStorage.unblockObject(lane->getGlID());
+        update();
+    }
+    return 1;
+}
+
+
+long
+GUIViewTraffic::onCmdAddRerouter(FXObject*, FXSelector, void*) {
+    GUILane* lane = getLaneUnderCursor();
+    if (lane != nullptr) {
+        dynamic_cast<GUIEdge*>(&lane->getEdge())->addRerouter();
+        GUIGlObjectStorage::gIDStorage.unblockObject(lane->getGlID());
+        update();
+    }
+    return 1;
+}
+
+
+long
+GUIViewTraffic::showLaneReachability(GUILane* lane, FXObject* menu, FXSelector) {
+    if (lane != nullptr) {
+        // reset
+        const double UNREACHED = -1;
+        gSelected.clear();
+        for (const MSEdge* const e : MSEdge::getAllEdges()) {
+            for (MSLane* const l : e->getLanes()) {
+                GUILane* gLane = dynamic_cast<GUILane*>(l);
+                gLane->setReachability(UNREACHED);
+            }
+        }
+        // prepare
+        FXMenuCommand* mc = dynamic_cast<FXMenuCommand*>(menu);
+        const SUMOVehicleClass svc = SumoVehicleClassStrings.get(mc->getText().text());
+        const double defaultMaxSpeed = SUMOVTypeParameter::VClassDefaultValues(svc).maxSpeed;
+        // find reachable
+        std::map<MSEdge*, double> reachableEdges;
+        reachableEdges[&lane->getEdge()] = 0;
+        MSEdgeVector check;
+        check.push_back(&lane->getEdge());
+        while (check.size() > 0) {
+            MSEdge* e = check.front();
+            check.erase(check.begin());
+            double traveltime = reachableEdges[e];
+            for (MSLane* const l : e->getLanes()) {
+                if (l->allowsVehicleClass(svc)) {
+                    GUILane* gLane = dynamic_cast<GUILane*>(l);
+                    gSelected.select(gLane->getGlID());
+                    gLane->setReachability(traveltime);
+                }
+            }
+            traveltime += e->getLength() / MIN2(e->getSpeedLimit(), defaultMaxSpeed);
+            for (MSEdge* const nextEdge : e->getSuccessors(svc)) {
+                if (reachableEdges.count(nextEdge) == 0 ||
+                    // revisit edge via faster path
+                    reachableEdges[nextEdge] > traveltime) {
+                    reachableEdges[nextEdge] = traveltime;
+                    check.push_back(nextEdge);
+                }
+            }
+        }
+    }
+    return 1;
+}
+
+
+long
+GUIViewTraffic::onCmdShowReachability(FXObject* menu, FXSelector selector, void*) {
+    GUILane* lane = getLaneUnderCursor();
+    if (lane != nullptr) {
+        // reset
+        showLaneReachability(lane, menu, selector);
+        // switch to 'color by selection' unless coloring 'by reachability'
+        if (myVisualizationSettings->laneColorer.getActive() != 36) {
+            myVisualizationSettings->laneColorer.setActive(1);
+        }
+        update();
+    }
+    return 1;
 }
 
 

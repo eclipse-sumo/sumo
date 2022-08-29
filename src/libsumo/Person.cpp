@@ -434,7 +434,7 @@ Person::getMinGapLat(const std::string& personID) {
 
 double
 Person::getMaxSpeed(const std::string& personID) {
-    return getPerson(personID)->getVehicleType().getMaxSpeed();
+    return getPerson(personID)->getMaxSpeed();
 }
 
 
@@ -611,7 +611,7 @@ Person::convertTraCIStage(const TraCIStage& stage, const std::string personID) {
             if (arrivalPos < 0) {
                 arrivalPos += edges.back()->getLength();
             }
-            double speed = p->getVehicleType().getMaxSpeed();
+            double speed = p->getMaxSpeed();
             return new MSPerson::MSPersonStage_Walking(p->getID(), edges, bs, -1, speed, p->getArrivalPos(), arrivalPos, 0);
         }
 
@@ -707,7 +707,7 @@ Person::appendWalkingStage(const std::string& personID, const std::vector<std::s
         arrivalPos += edges.back()->getLength();
     }
     if (speed < 0) {
-        speed = p->getVehicleType().getMaxSpeed();
+        speed = p->getMaxSpeed();
     }
     MSStoppingPlace* bs = nullptr;
     if (stopID != "") {
@@ -762,7 +762,7 @@ Person::rerouteTraveltime(const std::string& personID) {
     MSStage* destStage = p->getNextStage(nextIndex - 1);
     const MSEdge* to = destStage->getEdges().back();
     double arrivalPos = destStage->getArrivalPos();
-    double speed = p->getVehicleType().getMaxSpeed();
+    double speed = p->getMaxSpeed();
     ConstMSEdgeVector newEdges;
     MSNet::getInstance()->getPedestrianRouter(0).compute(from, to, departPos, arrivalPos, speed, 0, nullptr, newEdges);
     if (newEdges.empty()) {

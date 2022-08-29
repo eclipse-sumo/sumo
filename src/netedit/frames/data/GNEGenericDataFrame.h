@@ -45,7 +45,7 @@ public:
     // class DataSetSelector
     // ===========================================================================
 
-    class DataSetSelector : public FXGroupBoxModule {
+    class DataSetSelector : public MFXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNEGenericDataFrame::DataSetSelector)
 
@@ -105,7 +105,7 @@ public:
     // class IntervalSelector
     // ===========================================================================
 
-    class IntervalSelector : public FXGroupBoxModule {
+    class IntervalSelector : public MFXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNEGenericDataFrame::IntervalSelector)
 
@@ -177,7 +177,7 @@ public:
     // class AttributeSelector
     // ===========================================================================
 
-    class AttributeSelector : public FXGroupBoxModule {
+    class AttributeSelector : public MFXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNEGenericDataFrame::AttributeSelector)
 
@@ -248,12 +248,12 @@ public:
 
 protected:
     /**@brief Constructor (protected due GNEGenericDataFrame is abtract)
-     * @brief parent FXHorizontalFrame in which this GNEFrame is placed
+     * @brief viewParent GNEViewParent in which this GNEFrame is placed
      * @brief viewNet GNEViewNet that uses this GNEFrame
      * @brief tag generic data tag
      * @brief pathCreator flag to create pathCreator
      */
-    GNEGenericDataFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet, SumoXMLTag tag, const bool pathCreator);
+    GNEGenericDataFrame(GNEViewParent *viewParent, GNEViewNet* viewNet, SumoXMLTag tag, const bool pathCreator);
 
     /// @brief Destructor
     ~GNEGenericDataFrame();

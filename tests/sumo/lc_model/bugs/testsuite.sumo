@@ -28,3 +28,6 @@ ticket10512
 
 # counter lanechange with bus
 ticket10763
+
+# unsafe lane changing on junction causes emergency braking 
+ticket10988

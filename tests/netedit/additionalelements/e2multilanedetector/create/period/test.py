@@ -35,7 +35,7 @@ netedit.rebuildNetwork()
 netedit.additionalMode()
 
 # select E2
-netedit.changeElement("e2MultilaneDetector")
+netedit.changeElement("multiLaneAreaDetector")
 
 # select lanes
 netedit.leftClick(referencePosition, 190, 240)

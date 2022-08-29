@@ -5,13 +5,13 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <!-- Vehicles, persons and containers (sorted by depart) -->
-    <personFlow id="f_0" begin="0.00" end="3600.00" personsPerHour="1800.00">
+    <personFlow id="pf_0" begin="0.00" end="3600.00" personsPerHour="1800.00">
         <walk from="gneE2" busStop="busStop"/>
     </personFlow>
-    <personFlow id="f_1" begin="0.00" end="20.50" personsPerHour="1800.00">
+    <personFlow id="pf_1" begin="0.00" end="20.50" personsPerHour="1800.00">
         <walk from="gneE2" busStop="busStop"/>
     </personFlow>
-    <personFlow id="f_2" begin="0.00" end="22.00" personsPerHour="1800.00">
+    <personFlow id="pf_2" begin="0.00" end="22.00" personsPerHour="1800.00">
         <walk from="gneE2" busStop="busStop"/>
     </personFlow>
 </routes>

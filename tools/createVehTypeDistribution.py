@@ -169,5 +169,7 @@ def main(options):
 
 
 if __name__ == "__main__":
-    options = get_options(sys.argv)
-    main(options)
+    try:
+        main(get_options(sys.argv))
+    except ValueError as e:
+        sys.exit(e)

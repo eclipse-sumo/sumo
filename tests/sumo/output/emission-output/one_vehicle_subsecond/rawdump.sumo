@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-06-15 13:02:12 by Eclipse SUMO sumo Version v1_13_0+0844-22f88dc7bc3
+<!-- generated on 2022-07-13 23:52:08 by Eclipse SUMO sumo Version v1_14_0+0078-e338623
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -48,7 +48,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="0" eclass="HBEFA3/PC_G_EU4" CO2="2624.72222" CO="164.77778" HC="0.81194" NOx="1.20444" PMx="0.06597" fuel="837.22222" electricity="0.00000" noise="55.94028" route="r1" type="DEFAULT_VEHTYPE" waiting="0.00000" lane="4/1to3/1_0" pos="100.00000" speed="0.00000" angle="270.00000" x="1497.62500" y="401.65000"/>
     </timestep>
     <timestep time="0.10">
-        <vehicle id="0" eclass="HBEFA3/PC_G_EU4" CO2="2631.07513" CO="163.49718" HC="0.80622" NOx="1.20522" PMx="0.06569" fuel="839.24802" electricity="0.00000" noise="59.49000" route="r1" type="DEFAULT_VEHTYPE" waiting="0.10000" lane="4/1to3/1_0" pos="100.00800" speed="0.08000" angle="270.00000" x="1497.61719" y="401.65000"/>
+        <vehicle id="0" eclass="HBEFA3/PC_G_EU4" CO2="2631.07513" CO="163.49718" HC="0.80622" NOx="1.20522" PMx="0.06569" fuel="839.24802" electricity="0.00000" noise="59.49000" route="r1" type="DEFAULT_VEHTYPE" waiting="0.00000" lane="4/1to3/1_0" pos="100.00800" speed="0.08000" angle="270.00000" x="1497.61719" y="401.65000"/>
     </timestep>
     <timestep time="0.20">
         <vehicle id="0" eclass="HBEFA3/PC_G_EU4" CO2="2637.52852" CO="162.22399" HC="0.80053" NOx="1.20605" PMx="0.06541" fuel="841.30588" electricity="0.00000" noise="59.51982" route="r1" type="DEFAULT_VEHTYPE" waiting="0.00000" lane="4/1to3/1_0" pos="100.02400" speed="0.16000" angle="270.00000" x="1497.60157" y="401.65000"/>

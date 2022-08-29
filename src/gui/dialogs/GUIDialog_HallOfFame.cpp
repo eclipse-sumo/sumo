@@ -22,7 +22,7 @@
 #include <config.h>
 
 #include "GUIDialog_HallOfFame.h"
-#include <utils/foxtools/FXLinkLabel.h>
+#include <utils/foxtools/MFXLinkLabel.h>
 #include <utils/common/StdDefs.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/div/GUIDesigns.h>
@@ -47,7 +47,7 @@ GUIDialog_HallOfFame::GUIDialog_HallOfFame(FXWindow* parent) :
     new FXLabel(descriptionFrame, "Voted best presentation: Vijay Jaisankar (Simulation of traffic scenarios using SUMO)", nullptr, GUIDesignLabelAboutInfo);
 
     // link to conference website
-    (new FXLinkLabel(this, "Visit conference website", nullptr, GUIDesignLabelCenter))->setTipText("https://www.eclipse.org/sumo/conference");
+    (new MFXLinkLabel(this, "Visit conference website", nullptr, GUIDesignLabelCenter))->setTipText("https://www.eclipse.org/sumo/conference");
 
     // centered ok-button
     FXHorizontalFrame* buttonFrame = new FXHorizontalFrame(this, GUIDesignHorizontalFrame);

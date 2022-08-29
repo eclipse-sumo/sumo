@@ -103,7 +103,17 @@ When loading an edgeRelation file with the option **--od-files**, origin-destina
 This can be used to combine (edge-based) OD-relations with other counting data.  
   
 The tool [route2OD.py](Routes.md#route2odpy) supports option **--edge-relations** to transform any kind of route file into a suitable file of edge-based origin-destination edgeRelations.
-        
+
+## Depart / Arrival restrictions
+
+Additional attributes can be read from edgeData files to set the total number of departures or arrivals for each edge. This can be used to create traffic where there would be no traffic otherwise but also to restrict the sampled routes by action as additional constraints together with other counting data (i.e. turn-counts). The following options are available:
+    
+- **--arrival-attribute**: set the attribute to read the number of arrivals on an edge
+- **--depart-attribute**: set the attribute to read the number of departures on an edge
+    
+!!! note
+    When loading an edgedata-file that only contains the arrival or depart-attributes, the value of **--edgedata-attribute** may be set to 'None' to supress the warning about missing attributes that would otherwise be issued.
+    
 ## Output Styles
 By default, routeSampler will generate individual vehicles with embedded routes. This can be changed with the following options (which can also be combined):
 

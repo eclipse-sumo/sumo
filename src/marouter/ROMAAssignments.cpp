@@ -508,7 +508,7 @@ ROMAAssignments::getTravelTime(const ROEdge* const e, const ROVehicle* const v, 
 // ROMAAssignments::RoutingTask-methods
 // ---------------------------------------------------------------------------
 void
-ROMAAssignments::RoutingTask::run(FXWorkerThread* context) {
+ROMAAssignments::RoutingTask::run(MFXWorkerThread* context) {
     myAssign.computePath(myCell, myBegin, myLinkFlow, &static_cast<RONet::WorkerThread*>(context)->getVehicleRouter(SVC_IGNORING), mySetBulkMode);
 }
 #endif

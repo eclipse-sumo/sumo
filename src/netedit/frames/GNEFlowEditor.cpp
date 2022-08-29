@@ -37,7 +37,7 @@ FXDEFMAP(GNEFlowEditor) FlowEditorMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNEFlowEditor,                   FXGroupBoxModule,       FlowEditorMap,                  ARRAYNUMBER(FlowEditorMap))
+FXIMPLEMENT(GNEFlowEditor,                   MFXGroupBoxModule,       FlowEditorMap,                  ARRAYNUMBER(FlowEditorMap))
 
 
 // ===========================================================================
@@ -45,7 +45,7 @@ FXIMPLEMENT(GNEFlowEditor,                   FXGroupBoxModule,       FlowEditorM
 // ===========================================================================
 
 GNEFlowEditor::GNEFlowEditor(GNEViewNet* viewNet, GNEFrame* frameParent) :
-    FXGroupBoxModule(frameParent, "Flow attributes"),
+    MFXGroupBoxModule(frameParent, "Flow attributes"),
     myViewNet(viewNet) {
     // create comboBox for option A
     FXHorizontalFrame* auxiliarHorizontalFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);

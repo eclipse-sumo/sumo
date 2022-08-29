@@ -44,9 +44,9 @@
 #include "MSMoveReminder.h"
 #include "MSVehicle.h"
 
-#include <utils/foxtools/FXSynchQue.h>
+#include <utils/foxtools/MFXSynchQue.h>
 #ifdef HAVE_FOX
-#include <utils/foxtools/FXWorkerThread.h>
+#include <utils/foxtools/MFXWorkerThread.h>
 #endif
 #include <utils/common/StopWatch.h>
 
@@ -1190,17 +1190,17 @@ public:
     bool mustCheckJunctionCollisions() const;
 
 #ifdef HAVE_FOX
-    FXWorkerThread::Task* getPlanMoveTask(const SUMOTime time) {
+    MFXWorkerThread::Task* getPlanMoveTask(const SUMOTime time) {
         mySimulationTask.init(&MSLane::planMovements, time);
         return &mySimulationTask;
     }
 
-    FXWorkerThread::Task* getExecuteMoveTask(const SUMOTime time) {
+    MFXWorkerThread::Task* getExecuteMoveTask(const SUMOTime time) {
         mySimulationTask.init(&MSLane::executeMovements, time);
         return &mySimulationTask;
     }
 
-    FXWorkerThread::Task* getLaneChangeTask(const SUMOTime time) {
+    MFXWorkerThread::Task* getLaneChangeTask(const SUMOTime time) {
         mySimulationTask.init(&MSLane::changeLanes, time);
         return &mySimulationTask;
     }
@@ -1377,7 +1377,7 @@ protected:
 
     /** @brief Buffer for vehicles that moved from their previous lane onto this one.
      * Integrated after all vehicles executed their moves*/
-    FXSynchQue<MSVehicle*, std::vector<MSVehicle*> > myVehBuffer;
+    MFXSynchQue<MSVehicle*, std::vector<MSVehicle*> > myVehBuffer;
 
     /** @brief The vehicles which registered maneuvering into the lane within their current action step.
      *         This is currently only relevant for sublane simulation, since continuous lanechanging
@@ -1631,7 +1631,7 @@ private:
      * @class SimulationTask
      * @brief the routing task which mainly calls reroute of the vehicle
      */
-    class SimulationTask : public FXWorkerThread::Task {
+    class SimulationTask : public MFXWorkerThread::Task {
     public:
         SimulationTask(MSLane& l, const SUMOTime time)
             : myLane(l), myTime(time) {}
@@ -1639,7 +1639,7 @@ private:
             myOperation = operation;
             myTime = time;
         }
-        void run(FXWorkerThread* /*context*/) {
+        void run(MFXWorkerThread* /*context*/) {
             try {
                 (myLane.*(myOperation))(myTime);
             } catch (ProcessError& e) {

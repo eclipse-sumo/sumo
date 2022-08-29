@@ -32,7 +32,7 @@
 #ifdef HAVE_GL2PS
 #include <gl2ps.h>
 #endif
-#include <utils/foxtools/FXSingleEventThread.h>
+#include <utils/foxtools/MFXSingleEventThread.h>
 #include <utils/foxtools/MFXCheckableButton.h>
 #include <utils/foxtools/MFXImageHelper.h>
 #include <utils/common/RGBColor.h>
@@ -150,7 +150,6 @@ GUISUMOAbstractView::GUISUMOAbstractView(FXComposite* p, GUIMainWindow& app, GUI
     enable();
     flags |= FLAG_ENABLED;
     myInEditMode = false;
-    // show the middle at the beginning
     myChanger = new GUIDanielPerspectiveChanger(*this, *myGrid);
     myVisualizationSettings = &gSchemeStorage.getDefault();
     myVisualizationSettings->gaming = myApp->isGaming();
@@ -246,6 +245,21 @@ GUISUMOAbstractView::addDecals(const std::vector<Decal>& decals) {
 
 void
 GUISUMOAbstractView::updatePositionInformation() const {
+    Position pos = getPositionInformation();
+    // set cartesian position
+    myApp->getCartesianLabel()->setText(("x:" + toString(pos.x()) + ", y:" + toString(pos.y())).c_str());
+    // set geo position
+    GeoConvHelper::getFinal().cartesian2geo(pos);
+    if (GeoConvHelper::getFinal().usingGeoProjection()) {
+        myApp->getGeoLabel()->setText(("lat:" + toString(pos.y(), gPrecisionGeo) + ", lon:" + toString(pos.x(), gPrecisionGeo)).c_str());
+    } else {
+        myApp->getGeoLabel()->setText(("x:" + toString(pos.x()) + ", y:" + toString(pos.y()) + " (No projection defined)").c_str());
+    }
+    // if enabled, set test position
+    if (myApp->getTestLabel()) {
+        // adjust cursor position (24,25) to show exactly the same position as in function netedit.leftClick(match, X, Y)
+        myApp->getTestLabel()->setText(("Test: x:" + toString(getWindowCursorPosition().x() - 24.0) + " y:" + toString(getWindowCursorPosition().y() - 25.0)).c_str());
+    }
 }
 
 
@@ -355,7 +369,8 @@ GUISUMOAbstractView::onCmdShowReachability(FXObject*, FXSelector, void*) {
 }
 
 
-GUILane* GUISUMOAbstractView::getLaneUnderCursor() {
+GUILane*
+GUISUMOAbstractView::getLaneUnderCursor() {
     return nullptr;
 }
 
@@ -943,12 +958,14 @@ GUISUMOAbstractView::getPopupPosition() const {
     return myPopupPosition;
 }
 
+
 void
 GUISUMOAbstractView::destroyPopup() {
     if (myPopup != nullptr) {
         delete myPopup;
         myPopupPosition.set(0, 0);
         myPopup = nullptr;
+        myCurrentObjectDialog = nullptr;
     }
 }
 
@@ -1123,29 +1140,10 @@ void
 GUISUMOAbstractView::openObjectDialog(GUIGlObject* o) {
     if (o != nullptr) {
         myPopup = o->getPopUpMenu(*myApp, *this);
-        int x, y;
-        FXuint b;
-        myApp->getCursorPosition(x, y, b);
-        int popX = x + myApp->getX();
-        int popY = y + myApp->getY();
-        myPopup->setX(popX);
-        myPopup->setY(popY);
-        myPopup->create();
-        myPopup->show();
-        // try to stay on screen unless click appears to come from a multi-screen setup
-        const int rootWidth = getApp()->getRootWindow()->getWidth();
-        const int rootHeight = getApp()->getRootWindow()->getHeight();
-        if (popX <= rootWidth) {
-            popX = MAX2(0, MIN2(popX, rootWidth - myPopup->getWidth() - 10));
-        }
-        if (popY <= rootHeight) {
-            popY = MAX2(0, MIN2(popY, rootHeight - myPopup->getHeight() - 50));
-        }
-        myPopup->move(popX, popY);
-        myPopupPosition = getPositionInformation();
-        myChanger->onRightBtnRelease(nullptr);
+        myCurrentObjectDialog = o;
+        // open popup dialog
+        openPopupDialog();
         GUIGlObjectStorage::gIDStorage.unblockObject(o->getGlID());
-        setFocus();
     }
 }
 
@@ -1210,7 +1208,7 @@ GUISUMOAbstractView::makeSnapshot(const std::string& destFile, const int w, cons
     const bool useVideo = destFile == "" || ext == "h264" || ext == "hevc" || ext == "mp4";
 #endif
     for (int i = 0; i < 10 && !makeCurrent(); ++i) {
-        FXSingleEventThread::sleep(100);
+        MFXSingleEventThread::sleep(100);
     }
     // draw
     glClearColor(
@@ -1671,7 +1669,34 @@ GUISUMOAbstractView::drawDecals() {
 }
 
 
+void 
+GUISUMOAbstractView::openPopupDialog() {
+    int x, y;
+    FXuint b;
+    myApp->getCursorPosition(x, y, b);
+    int popX = x + myApp->getX();
+    int popY = y + myApp->getY();
+    myPopup->setX(popX);
+    myPopup->setY(popY);
+    myPopup->create();
+    myPopup->show();
+    // try to stay on screen unless click appears to come from a multi-screen setup
+    const int rootWidth = getApp()->getRootWindow()->getWidth();
+    const int rootHeight = getApp()->getRootWindow()->getHeight();
+    if (popX <= rootWidth) {
+        popX = MAX2(0, MIN2(popX, rootWidth - myPopup->getWidth() - 10));
+    }
+    if (popY <= rootHeight) {
+        popY = MAX2(0, MIN2(popY, rootHeight - myPopup->getHeight() - 50));
+    }
+    myPopup->move(popX, popY);
+    myPopupPosition = getPositionInformation();
+    myChanger->onRightBtnRelease(nullptr);
+    setFocus();
+}
+
 // ------------ Additional visualisations
+
 bool
 GUISUMOAbstractView::addAdditionalGLVisualisation(GUIGlObject* const which) {
     if (myAdditionallyDrawn.find(which) == myAdditionallyDrawn.end()) {

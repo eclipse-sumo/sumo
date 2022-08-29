@@ -256,8 +256,9 @@ The csv output files (one per found TL logic) are written to the current working
 When adding the parameter **--group**, signal groups with identical signal states across all examined TL logics are joined.
 
 !!! caution
-    The conversion from an additional file *tls.add.xml* to csv may be lossy in some cases, e.g. when using variable green durations.
-    Phase data other than the signal states and the standard duration are currently disregarded.
+    The conversion from an additional file *tls.add.xml* to csv may be lossy in some cases, as only a limited subset of actuated 
+    traffic lights is supported. If `minDur` attribute is set, then the time between the respective cycle second and the phase end after 
+    `duration` seconds is recorded in the csv output.
 
 The input csv file contains input blocks divided by titles in brackets.
 The block \[general\] sets general information relating to the signal

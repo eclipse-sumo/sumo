@@ -76,7 +76,7 @@ std::map<std::string, MSTriggeredRerouter*> MSTriggeredRerouter::myInstances;
 MSTriggeredRerouter::MSTriggeredRerouter(const std::string& id,
         const MSEdgeVector& edges, double prob, bool off,
         SUMOTime timeThreshold, const std::string& vTypes) :
-    MSTrigger(id),
+    Named(id),
     MSMoveReminder(id),
     myEdges(edges),
     myProbability(prob),
@@ -108,6 +108,7 @@ MSTriggeredRerouter::MSTriggeredRerouter(const std::string& id,
 MSTriggeredRerouter::~MSTriggeredRerouter() {
     myInstances.erase(getID());
 }
+
 
 // ------------ loading begin
 void
@@ -385,9 +386,6 @@ MSTriggeredRerouter::notifyLeave(SUMOTrafficObject& /*veh*/, double /*lastPos*/,
 
 bool
 MSTriggeredRerouter::notifyEnter(SUMOTrafficObject& tObject, MSMoveReminder::Notification reason, const MSLane* /* enteredLane */) {
-    if (reason == NOTIFICATION_LANE_CHANGE) {
-        return false;
-    }
     if (!tObject.isVehicle()) {
         return false;
     }
@@ -407,6 +405,9 @@ MSTriggeredRerouter::notifyEnter(SUMOTrafficObject& tObject, MSMoveReminder::Not
     }
     if (myTimeThreshold > 0 && MAX2(veh.getWaitingTime(), veh.getAccumulatedWaitingTime()) < myTimeThreshold) {
         return true; // waiting time may be reached later
+    }
+    if (reason == NOTIFICATION_LANE_CHANGE) {
+        return false;
     }
     // if we have a closingLaneReroute, only vehicles with a rerouting device can profit from rerouting (otherwise, edge weights will not reflect local jamming)
     const bool hasReroutingDevice = veh.getDevice(typeid(MSDevice_Routing)) != nullptr;

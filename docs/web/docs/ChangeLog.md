@@ -6,6 +6,163 @@ title: ChangeLog
 
 ### Bugfixes
 
+- Simulation
+  - Fixed crash when using bluelight vehicle and SSM device. Issue #11336 (regression in 1.12.0)
+  - Rerouter attribute `timeTreshold` is working again after a vehicle has changed lanes. Issue #11405 (regression in 1.14.0)
+  - Taxi drop-off is no longer interupted by new dispatch. Also, persons only continue their plan after the drop-off duration. Issue #11311
+  - Fixed multiple EIDM issues related to imprecise driving at stop lines. #11242, #11182, #11183
+  - Fixed bug where emergency vehicle fails to overtake. Issue #11345
+  - Fixed bug where mergency vehicle performs invalid (unstrategic) lanechange. Issue #11337
+  - Fixed invalid parking maneuver times. Issue #11420
+  - Fixed incorrect/delayed vehicle inserting on Bidi-edge. Issue #11419
+
+- netedit
+  - Fixed missing coordinate indicator in status bar. Issue #11230 (regression in 1.14.0)
+  - Loading an additional file and saving modifications no longer prompts for a file name. Issue #11030
+  - Clicking over column labels no longer clears the traffic phase table. Issue #11240
+  - Flow probability is no longer limited to full percent #11259
+
+- sumo-gui
+  - Directional arrows are now drawn on top of detectors. Issue #11380
+
+- netconvert
+  - Fixed nvalid red phase at traffic lights with very low connection speeds. Issue #11307 (regression in 1.14.0)
+  - Fixed invalid turn-around connection at roundabout with unusual geometry. Issue #11344
+  - Fixed projection error when importing OpenDRIVE. Issue #11263 
+
+- duarouter
+  - vTypeDistributions with attribute `vTypes` now consider vType-probabilities. Issue #11376
+
+- TraCI
+  - Function vehicle.highlight is now tracking the vehicle again. Issue #11352 (regression in 1.13.0)
+  - Simpla: fixed rash due to unclear speed factor semantics. Issue #11223
+  - Simpla: fixed invalid behavior when subsequent edges vary in lane number. Issue #11276
+  - traceFile no longer contains redundant calls to helper method `person.removeStages`. Issue #11418
+
+- Tools
+  - randomTrips.py and duaIterate.py now properly report unknown options again. Issue #11258 (regression in 1.14.1)
+  - randomTrips.py: fixed error when combining options **--additional-files, --vtype-output, --vehicle-class**. Issue #11431
+  - tlsCoordinator.py: Now handles rail crossings. Issue #11250
+  - tlsCycleAdaptation.py: Now handles unsorted route files. Issue #11251
+  - plot_net_dump.py: Fixed invalid error message when closing figure window. Issue #11280
+  - plot_net_dump.py: fixed error when trying to plot homogeneous edgeData. Issue #11351
+  - generateRailSignalConstraints.py: Fixed missing inactive insertion constraints when **--write-inactive** is set. Issue #11375
+  - generateRailSignalConstraints.py: Added missing constraints from bidirectional stop usage. Issue #11371  
+  - Fixed use of `gapPenalty` parameter in function `sumolib.route.mapTrace`. Issue #11292
+  
+
+### Enhancements
+
+- Simulation
+  - Added option **--tls.actuated.detector-length** to set the default length of actuation detetors. Issue #11335
+  - Verbose output and **--statistic-output** now always include the count of vehicles for the trip statistics. Issue #11366
+  - carFollowModel *ACC* can now be configured with vType attribute 'collisionAvoidanceOverride' (previously hard-coded to *2*). Issue #11383
+
+- netedit
+  - Saved detector names use descriptive tags instead of the 'E1,E2, ...' tags. Issue #11028
+  - Hovering over an attribute now displays it's full value in a tooltip if field is too narrow. Issue #11194
+  - Added button to inspect vTypes/vTypeDistributions during vehicle inspection. Issue #10041
+  - Added edge color legend in vehicle mode. Issue #10866
+  - Now using distinct default id-prefix for `flow`, `personFlow` and `containerFlow. Issue #11077
+  - Adding network-recomputation status in the lower right corner. Issue #4725
+  - Adding a reverse edge now supports adding an edge with the same or with shifted geometry for all spreadType values. Issue #11046
+  - Add shortcut to open current location in Google Maps and OSM map to context menu. Issue #10506
+  - A sumo configuration file can now be saved directly. Issue #11036
+  - Joined traffic lights can now be defined for selected junctions via the context menu. Issue #11396
+  - Traffic light mode:
+    - phase table now permits moving phases up and down. Issue #10856
+    - Added buttons reset either the current program or all programs of the current traffic light to their default. Issue #9072, #11357
+    - phase table now shows index of each phase. Issue #11343
+    - phase table has additional options when inserting a phase (i.e. *duplicate*, *all green*). Issue #10672, #3419  
+    - traffic lights can be renamed. Issue #11386
+    - the list of programs by is sorted by ID. Issue #11358
+    - phase table shows cumulative time when hovering over the duration column. Issue #7962
+    - tlType can now be changed directly. Issue #10757
+
+- sumo-gui
+  - 3D view now permits clicking on more objects (lanes, junctions, traffic lights). Issue #10882
+  - 3D view now supports realistic drawing of traffic signals for cars and pedestrians. Issue #10913, #11162
+  - Stopped two-wheelers are now drawn without rider. Issue #10917
+  - The front of the first rail carriage is now indicated by a black window in 'simple shape' mode. Issue #11369
+
+- netgenerate
+  - Now supports options **--geometry.remove** and **--tls.discard-simple**. Issue #11422
+
+- TraCI
+  - Simpla: Added additional platooning criteria via new attributes 'edgeLookAhead', 'distLookAhead' and 'lcMinDist'. Issue #9252, #11236 (Thanks to Jörg Schweizer)
+  - Simpla: platooning distances are now time-headways instead of gap-in-meters by default. Configurable with new attributes 'maxPlatoonHeadway', 'catchupHeadway', 'useHeadway'.  Issue #11124
+
+- tools
+  - routeSampler.py: now supports options **--depart-attribute**, **--arrival-attribute** to set extra constraints. Issue #6727
+  - routeSampler.py: added more statistics on processed intervals. Issue #11328
+  - countEdgeUsage.py: Can now load multiple route files. Issue #11338  
+  - generateRailSignalConstraints.py: added constraints for vehicles inserted at the same stop. Issue #11378
+  - drtonline.py: now supports option **--tracefile** to allow for quick replication of a simulation. Issue #11414
+  - Added new tool [drtOrtools.py](Tools/Drt.md#drtortoolspy) to solve DRT problems with the [ortools package](https://developers.google.com/optimization). Issue #11413
+  
+### Miscellaneous
+
+- Added xsd-schema for battery-export. Issue #11173
+- [ACC model description](Car-Following-Models/ACC.md) now has additional information in platoon stability. Issue #11382
+- Github source download now inclues all tests. Issue #11403
+
+## Version 1.14.1 (19.07.2022)
+
+### Bugfixes
+
+- Simulation
+  - Fixed avoidable simulation slow-down (~20% in some scenarios). #11203 (regression in 1.9.0)
+  - RailSignalConstraint-attribute 'active' is now saved in simulation state. Issue #11150
+  - Fixed collisions with carFollowModel EIDM when running with option **--ignore-junction-blocker**. Issue #11184
+  - Fixed bug where carFollowModel EIDM gets "stuck" at low speed. Issue #11165
+  - Fixed emergency braking after lane change on junction. Issue #10988
+  - Fixed IDM collision warnings due to imprecise braking when configured with low 'accel'. Issue #11199
+  - Fixed bug where person fails to enter vehicle. Issue #11210
+
+- netedit
+  - Fixed freezing when deleting an edge that is part of a multi-step person plan. Issue #11176 (regression in 1.14.0)
+
+- netconvert
+  - Fixed invalid right of way rules when using custom contPos from side road at straight connection. Issue #11160
+  - Fixed generation of rail crossing at junctions that require a traffic light. Issue #10777
+  
+- TraCI
+  - Fixed railSignalConstraints-deadlock after calling `traci.trafficlight.swapConstraints`. Issue #11007
+  - Simpla now handles missing vType settings. Issue #11219
+  
+- tools
+  - Restored support for Python version 2 (regression in 1.14.0). Issue #11159
+  - generateParkingAreaRerouters.py: fixed distance computation. Issue #11170
+  - drtonline.py: now works with Ubuntu 22 stock pulp package. Issue #11179
+  - gtfs2pt.py: Fixed import of railway types and usability with python2. Issue #9550
+  - traceMapper.py: fixed mapping loops when the first point was off the map
+
+- TraCI / libsumo
+  - Function 'traci.vehicle.rerouteTraveltime' now again respects custom travel times if currentTravelTimes is set to True. Issue #5943 (regression in 1.14.0)
+
+- Linux packaging
+  - enabled Eigen3 support (needed for the overheadwires) for the RPM packages
+
+
+### Enhancements
+
+- Simulation
+  - Added new laneChangeModel parameter `lcOvertakeDeltaSpeedFactor` to configure the threshold for *not* overtaking a slightly faster leader vehicle. Issue #11010
+
+- netedit
+  - Warning dialog for loading the same file twice now permits overwriting duplicate elements. Issue #11058
+  - View focus is now kept when transforming vehicles and persons between their trip/flow variants. Issue #11072
+  - Improved generation of roundabouts involving edges with custom geometry endpoints. Issue #11045
+  - Added junction context menu function for resetting edge endpoints. Issue #11044
+  - Now showing a radius preview before converting junction to roundabout. Issue #11178
+
+- tools
+  - Objects parsed from XML (sumolib.xml.CompoundObject) can now maintain their attribute order. Issue #11174
+  - randomTrips.py: options (**--period**, **--insertion-rate**, **--insertion-density**) now permit a comma-separated list of time values (not only space-separated). Issue #11151
+  - runSeeds.py: Now supports option **--threads** to enable parallelization. Issue #11187
+  - randomTrips.py: Added validation of vehicle class options. Issue #11195
+
+
 ## Version 1.14.0 (12.07.2022)
 
 ### Bugfixes
@@ -105,6 +262,7 @@ title: ChangeLog
   - Fixed invalid walkingarea shapes. Issue #11087, #11090
   - Patching the type of a loaded junction now has priority over option **--tls.guess**. Issue #11013
   - Fixed invalid right-of-way rules when using custom `contPos` at connections from a side road. Issue #11146
+  - Generated traffic light plans now include *all-red* phases at very large junctions to ensure safe transitions between phases. Issue #10796
 
 - TraCI / libsumo
   - Function `vehicle.setAcceleration` now supports negative values. Issue #10693
@@ -217,9 +375,9 @@ title: ChangeLog
   - randomTrips.py: Can now pass any kind of duarouter option using **--duarouter-option-name VALUE**. Issue #7347
   - randomTrips.py: Can now define a timeline of different demand levels. Issue #5739
   - randomTrips.py: Now supports option **--insertion-rate** to define demand as vehicles-per-hour and option **--insertion-density** to define demand as vehicles-per-hour-per-km. Issue#11053
-  - randomTrips.py: All generated trips and route files now record the used ranomTrips options. Issue #10973
+  - randomTrips.py: All generated trips and route files now record the used randomTrips options. Issue #10973
   - cutRoutes.py: now adapts the departSpeed to 'max' and departLane to 'best' if vehicles start on a cut route. Issue #10611
-  - The traffic light games with multipe junctions can now be controlled with the keyboard. Issue #11056
+  - The traffic light games with multiple junctions can now be controlled with the keyboard. Issue #11056
   - The traffic light games now use phase switching instead of program switching. Issue #11063
   - sumolib.shapes.polygon now handles missing attributes. Issue #11092
   - netdiff.py: now support saving and loading configuration files. Issue #10942

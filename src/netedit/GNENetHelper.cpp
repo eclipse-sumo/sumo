@@ -109,8 +109,13 @@ GNENetHelper::AttributeCarriers::~AttributeCarriers() {
         for (const auto& demandElement : demandElementTag.second) {
             // decrease reference manually (because it was increased manually in GNERouteHandler)
             demandElement->decRef();
-            // show extra information for tests (except for default IDs)
-            if (DEFAULT_VTYPES.count(demandElement->getID()) == 0) {
+            // show extra information for tests
+            if (demandElement->getTagProperty().isVehicleType()) {
+                // special case for default VTypes
+                if (DEFAULT_VTYPES.count(demandElement->getID()) == 0) {
+                    WRITE_DEBUG("Deleting unreferenced " + demandElement->getTagStr() + " in AttributeCarriers destructor");
+                }
+            } else {
                 WRITE_DEBUG("Deleting unreferenced " + demandElement->getTagStr() + " in AttributeCarriers destructor");
             }
             delete demandElement;
@@ -1070,11 +1075,11 @@ GNENetHelper::AttributeCarriers::generateAdditionalID(SumoXMLTag tag) const {
         prefix = oc.getString("chargingStation-prefix");
     } else if (tag == SUMO_TAG_PARKING_AREA) {
         prefix = oc.getString("parkingArea-prefix");
-    } else if (tag == SUMO_TAG_E1DETECTOR) {
+    } else if (tag == SUMO_TAG_INDUCTION_LOOP) {
         prefix = oc.getString("e1Detector-prefix");
-    } else if ((tag == SUMO_TAG_E2DETECTOR) || (tag == GNE_TAG_E2DETECTOR_MULTILANE)) {
+    } else if ((tag == SUMO_TAG_LANE_AREA_DETECTOR) || (tag == GNE_TAG_MULTI_LANE_AREA_DETECTOR)) {
         prefix = oc.getString("e2Detector-prefix");
-    } else if (tag == SUMO_TAG_E3DETECTOR) {
+    } else if (tag == SUMO_TAG_ENTRY_EXIT_DETECTOR) {
         prefix = oc.getString("e3Detector-prefix");
     } else if (tag == SUMO_TAG_INSTANT_INDUCTION_LOOP) {
         prefix = oc.getString("e1InstantDetector-prefix");
@@ -1114,6 +1119,11 @@ GNENetHelper::AttributeCarriers::generateAdditionalID(SumoXMLTag tag) const {
         while ((retrieveAdditional(SUMO_TAG_POI, prefix + "_" + toString(counter), false) != nullptr) ||
                 (retrieveAdditional(GNE_TAG_POILANE, prefix + "_" + toString(counter), false) != nullptr) ||
                 (retrieveAdditional(GNE_TAG_POIGEO, prefix + "_" + toString(counter), false) != nullptr)) {
+            counter++;
+        }
+    } else if ((tag == SUMO_TAG_LANE_AREA_DETECTOR) || (tag == GNE_TAG_MULTI_LANE_AREA_DETECTOR)) {
+        while ((retrieveAdditional(SUMO_TAG_LANE_AREA_DETECTOR, prefix + "_" + toString(counter), false) != nullptr) ||
+                (retrieveAdditional(GNE_TAG_MULTI_LANE_AREA_DETECTOR, prefix + "_" + toString(counter), false) != nullptr)) {
             counter++;
         }
     } else {
@@ -1316,12 +1326,20 @@ GNENetHelper::AttributeCarriers::generateDemandElementID(SumoXMLTag tag) const {
         prefix = oc.getString("trip-prefix");
     } else if (tagProperty.isVehicle() && !tagProperty.isFlow()) {
         prefix = oc.getString("vehicle-prefix");
+    } else if (tagProperty.isPerson()) {
+        if (tagProperty.isFlow()) {
+            prefix = oc.getString("personflow-prefix"); 
+        } else {
+            prefix = oc.getString("person-prefix");
+        }
+    } else if (tagProperty.isContainer()) {
+        if (tagProperty.isFlow()) {
+            prefix = oc.getString("containerflow-prefix"); 
+        } else {
+            prefix = oc.getString("container-prefix");
+        }
     } else if (tagProperty.isFlow()) {
         prefix = oc.getString("flow-prefix");
-    } else if (tagProperty.isPerson()) {
-        prefix = oc.getString("person-prefix");
-    } else if (tagProperty.isContainer()) {
-        prefix = oc.getString("container-prefix");
     }
     // declare counter
     int counter = 0;

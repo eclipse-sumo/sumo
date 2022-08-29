@@ -49,6 +49,12 @@ GUI::getZoom(const std::string& viewID) {
 }
 
 
+double
+GUI::getAngle(const std::string& viewID) {
+    return Dom::getDouble(libsumo::VAR_ANGLE, viewID);
+}
+
+
 libsumo::TraCIPosition
 GUI::getOffset(const std::string& viewID) {
     return Dom::getPos(libsumo::VAR_VIEW_OFFSET, viewID);
@@ -73,6 +79,12 @@ LIBTRACI_PARAMETER_IMPLEMENTATION(GUI, GUI)
 void
 GUI::setZoom(const std::string& viewID, double zoom) {
     Dom::setDouble(libsumo::VAR_VIEW_ZOOM, viewID, zoom);
+}
+
+
+void
+GUI::setAngle(const std::string& viewID, double angle) {
+    Dom::setDouble(libsumo::VAR_ANGLE, viewID, angle);
 }
 
 

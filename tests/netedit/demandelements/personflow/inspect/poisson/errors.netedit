@@ -68,17 +68,17 @@ Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Selected item 'personFlow' in GNETagSelector
 Debug: Key ENTER pressed
-Debug: Adding personFlow 'f_0' in GNEChange_DemandElement
-Debug: Adding personTrip: edge->edge 'f_0' in GNEChange_DemandElement
+Debug: Adding personFlow 'pf_0' in GNEChange_DemandElement
+Debug: Adding personTrip: edge->edge 'pf_0' in GNEChange_DemandElement
 Debug: Current Viewport values: 0.00, -6.00, 5.00. Zoom = '1736.00'
-Debug: Setting new attribute into personFlow 'f_0'
-Debug: Setting new attribute into personFlow 'f_0'
-Debug: Setting new attribute into personFlow 'f_0'
-Debug: Setting new attribute into personFlow 'f_0'
-Debug: Setting new attribute into personFlow 'f_0'
-Debug: Setting new attribute into personFlow 'f_0'
-Debug: Setting new attribute into personFlow 'f_0'
-Debug: Setting new attribute into personFlow 'f_0'
+Debug: Setting new attribute into personFlow 'pf_0'
+Debug: Setting new attribute into personFlow 'pf_0'
+Debug: Setting new attribute into personFlow 'pf_0'
+Debug: Setting new attribute into personFlow 'pf_0'
+Debug: Setting new attribute into personFlow 'pf_0'
+Debug: Setting new attribute into personFlow 'pf_0'
+Debug: Setting new attribute into personFlow 'pf_0'
+Debug: Setting new attribute into personFlow 'pf_0'
 Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed

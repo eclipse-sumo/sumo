@@ -77,4 +77,7 @@ def main(args=None):
 
 
 if __name__ == "__main__":
-    sys.exit(main(sys.argv))
+    try:
+        main(sys.argv)
+    except ValueError as e:
+        sys.exit(e)

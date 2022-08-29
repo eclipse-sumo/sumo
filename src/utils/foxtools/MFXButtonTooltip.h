@@ -22,7 +22,7 @@
 #include <config.h>
 
 #include "fxheader.h"
-#include "FXStaticToolTip.h"
+#include "MFXStaticToolTip.h"
 
 /**
  * @class MFXButtonTooltip
@@ -33,9 +33,8 @@ class MFXButtonTooltip : public FXButton {
 
 public:
     /// @brief constructor (Exactly like the FXButton constructor)
-    MFXButtonTooltip(FXComposite* p, const FXString& text,
-                     FXIcon* ic = NULL, FXObject* tgt = NULL, FXSelector sel = 0,
-                     FXuint opts = BUTTON_NORMAL,
+    MFXButtonTooltip(FXComposite* p, MFXStaticToolTip* staticToolTip, const FXString& text, FXIcon* ic = NULL, 
+                     FXObject* tgt = NULL, FXSelector sel = 0, FXuint opts = BUTTON_NORMAL,
                      FXint x = 0, FXint y = 0, FXint w = 0, FXint h = 0,
                      FXint pl = DEFAULT_PAD, FXint pr = DEFAULT_PAD, FXint pt = DEFAULT_PAD, FXint pb = DEFAULT_PAD);
 
@@ -56,7 +55,7 @@ protected:
     FOX_CONSTRUCTOR(MFXButtonTooltip)
 
     /// @brief static tooltip
-    FXStaticToolTip* myStaticToolTip = nullptr;
+    MFXStaticToolTip* myStaticToolTip = nullptr;
 
 private:
     /// @brief Invalidated copy constructor.

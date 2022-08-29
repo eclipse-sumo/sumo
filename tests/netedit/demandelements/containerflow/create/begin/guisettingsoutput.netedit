@@ -165,8 +165,8 @@
                 <entry color="0,80,180" name="selected"/>
             </colorScheme>
             <colorScheme name="by type">
-                <entry color="green" name="traffic_light"/>
-                <entry color="0,128,0" name="traffic_light_unregulated"/>
+                <entry color="green" name="trafficcf_light"/>
+                <entry color="0,128,0" name="trafficcf_light_unregulated"/>
                 <entry color="yellow" name="priority"/>
                 <entry color="red" name="priority_stop"/>
                 <entry color="blue" name="right_before_left"/>
@@ -176,7 +176,7 @@
                 <entry color="black" name="dead_end"/>
                 <entry color="orange" name="rail_signal"/>
                 <entry color="172,108,44" name="zipper"/>
-                <entry color="192,255,192" name="traffic_light_right_on_red"/>
+                <entry color="192,255,192" name="trafficcf_light_right_on_red"/>
                 <entry color="128,0,128" name="rail_crossing"/>
             </colorScheme>
             <colorScheme name="by height" interpolated="1">

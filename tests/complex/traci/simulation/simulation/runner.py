@@ -70,6 +70,7 @@ print("version at start", version)
 print("version", traci.getVersion())
 print("loaded?", traci.isLoaded())
 print("endTime", traci.simulation.getEndTime())
+print("net file", traci.simulation.getOption("net-file"))
 
 traci.simulation.subscribe(
     [traci.constants.VAR_LOADED_VEHICLES_IDS, traci.constants.VAR_DEPARTED_VEHICLES_IDS])

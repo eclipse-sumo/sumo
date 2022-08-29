@@ -5,13 +5,13 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <!-- Vehicles, persons and containers (sorted by depart) -->
-    <containerFlow id="f_0" begin="0.00" end="3600.00" period="2.00">
+    <containerFlow id="cf_0" begin="0.00" end="3600.00" period="2.00">
         <tranship from="gneE2" containerStop="containerStop"/>
     </containerFlow>
-    <containerFlow id="f_1" begin="0.00" end="3600.00" period="20.50">
+    <containerFlow id="cf_1" begin="0.00" end="3600.00" period="20.50">
         <tranship from="gneE2" containerStop="containerStop"/>
     </containerFlow>
-    <containerFlow id="f_2" begin="0.00" end="3600.00" period="22.00">
+    <containerFlow id="cf_2" begin="0.00" end="3600.00" period="22.00">
         <tranship from="gneE2" containerStop="containerStop"/>
     </containerFlow>
 </routes>

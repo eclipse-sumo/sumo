@@ -25,6 +25,7 @@
 #include <netedit/frames/GNEAttributesCreator.h>
 #include <netedit/frames/GNETagSelector.h>
 #include <netedit/frames/GNEDemandSelector.h>
+#include <netedit/frames/GNEPathLegend.h>
 
 
 // ===========================================================================
@@ -41,7 +42,7 @@ public:
     // class HelpCreation
     // ===========================================================================
 
-    class HelpCreation : public FXGroupBoxModule {
+    class HelpCreation : public MFXGroupBoxModule {
 
     public:
         /// @brief constructor
@@ -68,10 +69,10 @@ public:
     };
 
     /**@brief Constructor
-     * @brief parent FXHorizontalFrame in which this GNEFrame is placed
+     * @brief viewParent GNEViewParent in which this GNEFrame is placed
      * @brief viewNet viewNet that uses this GNEFrame
      */
-    GNEVehicleFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet);
+    GNEVehicleFrame(GNEViewParent *viewParent, GNEViewNet* viewNet);
 
     /// @brief Destructor
     ~GNEVehicleFrame();
@@ -129,4 +130,7 @@ private:
 
     /// @brief Help creation
     HelpCreation* myHelpCreation;
+
+    /// @brief path legend modul
+    GNEM_PathLegend* myPathLegend;
 };

@@ -20,7 +20,7 @@
 #pragma once
 #include <config.h>
 
-#include <utils/foxtools/FXGroupBoxModule.h>
+#include <utils/foxtools/MFXGroupBoxModule.h>
 
 // ===========================================================================
 // class declarations
@@ -64,7 +64,7 @@ protected:
     FOX_CONSTRUCTOR(GNEFixDemandElements)
 
     /// @brief general GroupBox for fix options
-    class FixOptions : public FXGroupBoxModule {
+    class FixOptions : public MFXGroupBoxModule {
 
     public:
         /// @brief constructor

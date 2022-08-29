@@ -93,12 +93,14 @@ NBLoadedSUMOTLDef::myCompute(int brakingTimeSeconds) {
 void
 NBLoadedSUMOTLDef::addConnection(NBEdge* from, NBEdge* to, int fromLane, int toLane, int linkIndex, int linkIndex2, bool reconstruct) {
     assert(myTLLogic->getNumLinks() > 0); // logic should be loaded by now
-    if (linkIndex >= (int)myTLLogic->getNumLinks()) {
-        throw ProcessError("Invalid linkIndex " + toString(linkIndex) + " for traffic light '" + getID() +
+    if (linkIndex >= myTLLogic->getNumLinks()) {
+        throw ProcessError("Invalid linkIndex " + toString(linkIndex) + " in connection from edge '" + from->getID() +
+                           "' to edge '" + to->getID() + "' for traffic light '" + getID() +
                            "' with " + toString(myTLLogic->getNumLinks()) + " links.");
     }
-    if (linkIndex2 >= (int)myTLLogic->getNumLinks()) {
-        throw ProcessError("Invalid linkIndex2 " + toString(linkIndex2) + " for traffic light '" + getID() +
+    if (linkIndex2 >= myTLLogic->getNumLinks()) {
+        throw ProcessError("Invalid linkIndex2 " + toString(linkIndex2) + " in connection from edge '" + from->getID() +
+                           "' to edge '" + to->getID() + "' for traffic light '" + getID() +
                            "' with " + toString(myTLLogic->getNumLinks()) + " links.");
     }
     NBConnection conn(from, fromLane, to, toLane, linkIndex, linkIndex2);
@@ -150,7 +152,7 @@ NBLoadedSUMOTLDef::setTLControllingInformation() const {
     //  edges the links are starting at, respectively
     for (NBConnectionVector::const_iterator it = myControlledLinks.begin(); it != myControlledLinks.end(); it++) {
         const NBConnection& c = *it;
-        if (c.getTLIndex() >= (int)myTLLogic->getNumLinks()) {
+        if (c.getTLIndex() >= myTLLogic->getNumLinks()) {
             throw ProcessError("Invalid linkIndex " + toString(c.getTLIndex()) + " for traffic light '" + getID() +
                                "' with " + toString(myTLLogic->getNumLinks()) + " links.");
         }
@@ -605,7 +607,7 @@ NBLoadedSUMOTLDef::hasValidIndices() const {
 std::string
 NBLoadedSUMOTLDef::getStates(int index) {
     assert(index >= 0);
-    assert(index <= getMaxIndex());
+    assert(index <= getMaxValidIndex());
     std::string result;
     for (auto& pd : myTLLogic->getPhases()) {
         result += pd.state[index];

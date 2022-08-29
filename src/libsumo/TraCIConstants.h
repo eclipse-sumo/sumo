@@ -23,6 +23,7 @@
 /// @author  Mario Krumnow
 /// @author  Jakob Erdmann
 /// @author  Laura Bieker
+/// @author  Mirko Barthauer
 /// @date    2007/10/24
 ///
 // holds codes used for TraCI
@@ -627,6 +628,8 @@ TRACI_CONST int ROUTING_MODE_AGGREGATED = 0x01;
 TRACI_CONST int ROUTING_MODE_EFFORT = 0x02;
 // use combined costs
 TRACI_CONST int ROUTING_MODE_COMBINED = 0x03;
+// use aggregated travel times from device.rerouting enriched with custom weights
+TRACI_CONST int ROUTING_MODE_AGGREGATED_CUSTOM = 0x04;
 
 // ****************************************
 // Traffic light types
@@ -888,7 +891,7 @@ TRACI_CONST int VAR_EXIT_POSITIONS = 0x43;
 // position (3D) (get: vehicle, poi, set: poi)
 TRACI_CONST int VAR_POSITION3D = 0x39;
 
-// angle (get: vehicle, poi; set: poi)
+// angle (get: vehicle, poi, gui; set: poi, gui)
 TRACI_CONST int VAR_ANGLE = 0x43;
 
 // length (get: vehicle types, lanes, lane area detector, set: lanes)
@@ -1241,6 +1244,9 @@ TRACI_CONST int CMD_CLEAR_PENDING_VEHICLES = 0x94;
 
 // retrieve number of not inserted  vehicles (get: simulation, edge, lane)
 TRACI_CONST int VAR_PENDING_VEHICLES = 0x94;
+
+// retrieve global option value (get: simulation)
+TRACI_CONST int VAR_OPTION = 0x32;
 
 // triggers saving simulation state (set: simulation)
 TRACI_CONST int CMD_SAVE_SIMSTATE = 0x95;

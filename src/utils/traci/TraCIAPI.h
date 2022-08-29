@@ -431,6 +431,7 @@ public:
         double getDeltaT() const;
         libsumo::TraCIPositionVector getNetBoundary() const;
         int getMinExpectedNumber() const;
+        std::string getOption(const std::string& option) const;
 
         int getDepartedPersonNumber() const;
         std::vector<std::string> getDepartedPersonIDList() const;

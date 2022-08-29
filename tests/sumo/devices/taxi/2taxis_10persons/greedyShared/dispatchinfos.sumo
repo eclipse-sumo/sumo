@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-03-17 09:30:19 by Eclipse SUMO sumo Version v1_12_0+1410-8b2a08b68af
+<!-- generated on 2022-08-09 18:51:18 by Eclipse SUMO sumo Version v1_14_1+0166-5f48fcf
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -29,9 +29,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </processing>
 
     <report>
-        <verbose value="true"/>
         <xml-validation value="never"/>
-        <xml-validation.routes value="never"/>
         <duration-log.statistics value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -47,5 +45,5 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 <DispatchInfo>
     <dispatchShared time="60.00" id="trip_0" persons="p1" sharingPersons="p2" type="2" absLoss="19.89" relLoss="0.32" absLoss2="15.62" relLoss2="0.24"/>
-    <dispatchShared time="180.00" id="trip_1" persons="p3" sharingPersons="p4" type="2" absLoss="20.68" relLoss="0.35" absLoss2="20.08" relLoss2="0.17"/>
+    <dispatchShared time="240.00" id="trip_1" persons="p3" sharingPersons="p4" type="2" absLoss="20.53" relLoss="0.35" absLoss2="20.36" relLoss2="0.17"/>
 </DispatchInfo>

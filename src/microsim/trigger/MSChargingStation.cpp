@@ -29,7 +29,6 @@
 #include <microsim/devices/MSDevice_Battery.h>
 #include <microsim/MSNet.h>
 #include "MSChargingStation.h"
-#include "MSTrigger.h"
 
 
 // ===========================================================================

@@ -64,7 +64,7 @@ const int VTYPEPARS_MAXSPEED_LAT_SET = 1 << 20;
 const int VTYPEPARS_LATALIGNMENT_SET = 1 << 21;
 const int VTYPEPARS_MINGAP_LAT_SET = 1 << 22;
 const int VTYPEPARS_ACTIONSTEPLENGTH_SET = 1 << 23;
-
+const int VTYPEPARS_DESIRED_MAXSPEED_SET = 1 << 24;
 const int VTYPEPARS_CARRIAGE_LENGTH_SET = 1 << 25;
 const int VTYPEPARS_LOCOMOTIVE_LENGTH_SET = 1 << 26;
 const int VTYPEPARS_CARRIAGE_GAP_SET = 1 << 27;
@@ -126,8 +126,11 @@ public:
         /// @brief This class' free space in front of the vehicle itself
         double minGap;
 
-        /// @brief The vehicle type's maximum speed [m/s]
+        /// @brief The vehicle type's maximum speed [m/s] (technical limit, not subject to speed deviation)
         double maxSpeed;
+
+        /// @brief The vehicle type's desired maximum speed [m/s]
+        double desiredMaxSpeed;
 
         /// @brief This class' width
         double width;
@@ -256,8 +259,11 @@ public:
     /// @brief This class' free space in front of the vehicle itself
     double minGap;
 
-    /// @brief The vehicle type's maximum speed [m/s]
+    /// @brief The vehicle type's (technical) maximum speed [m/s]
     double maxSpeed;
+
+    /// @brief The vehicle type's desired maximum speed [m/s]
+    double desiredMaxSpeed;
 
     /// @brief The vehicle type's default actionStepLength [ms], i.e. the interval between two control actions.
     ///        The default value of 0ms. induces the value to be traced from MSGlobals::gActionStepLength

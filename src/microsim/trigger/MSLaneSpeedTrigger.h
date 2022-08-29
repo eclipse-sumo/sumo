@@ -26,9 +26,9 @@
 #include <string>
 #include <vector>
 #include <utils/common/Command.h>
+#include <utils/common/Named.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/xml/SUMOSAXHandler.h>
-#include "MSTrigger.h"
 
 
 // ===========================================================================
@@ -48,7 +48,7 @@ class MSLane;
  * responsible for from a file and sets it.
  * Lanes with variable speeds are so possible.
  */
-class MSLaneSpeedTrigger : public MSTrigger, public SUMOSAXHandler {
+class MSLaneSpeedTrigger : public Named, public SUMOSAXHandler {
 public:
     /** @brief Constructor
      *

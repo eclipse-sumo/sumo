@@ -52,17 +52,12 @@ void
 MSRailSignalConstraint::saveState(OutputDevice& out) {
     if (OptionsCont::getOptions().getBool("save-state.constraints")) {
         for (MSRailSignal* s : MSRailSignalControl::getInstance().getSignals()) {
-            if (s->getConstraints().size() > 0 || s->getInsertionConstraints().size() > 0) {
+            if (s->getConstraints().size() > 0) {
                 out.openTag(SUMO_TAG_RAILSIGNAL_CONSTRAINTS);
                 out.writeAttr(SUMO_ATTR_ID, s->getID());
                 for (auto item : s->getConstraints()) {
                     for (MSRailSignalConstraint* c : item.second) {
-                        c->write(out, SUMO_TAG_PREDECESSOR, item.first);
-                    }
-                }
-                for (auto item : s->getInsertionConstraints()) {
-                    for (MSRailSignalConstraint* c : item.second) {
-                        c->write(out, SUMO_TAG_INSERTION_PREDECESSOR, item.first);
+                        c->write(out, item.first);
                     }
                 }
                 out.closeTag();
@@ -100,7 +95,8 @@ MSRailSignalConstraint::getVehID(const std::string& tripID) {
 // ===========================================================================
 // MSRailSignalConstraint_Predecessor method definitions
 // ===========================================================================
-MSRailSignalConstraint_Predecessor::MSRailSignalConstraint_Predecessor(const MSRailSignal* signal, const std::string& tripId, int limit, bool active) :
+MSRailSignalConstraint_Predecessor::MSRailSignalConstraint_Predecessor(ConstraintType type, const MSRailSignal* signal, const std::string& tripId, int limit, bool active) :
+    MSRailSignalConstraint(type),
     myTripId(tripId),
     myLimit(limit),
     myAmActive(active),
@@ -298,8 +294,8 @@ MSRailSignalConstraint_Predecessor::PassedTracker::loadState(int index, const st
 
 
 void
-MSRailSignalConstraint_Predecessor::write(OutputDevice& out, SumoXMLTag tag, const std::string& tripId) const {
-    out.openTag(tag);
+MSRailSignalConstraint_Predecessor::write(OutputDevice& out, const std::string& tripId) const {
+    out.openTag(getTag());
     out.writeAttr(SUMO_ATTR_TRIP_ID, tripId);
     out.writeAttr(SUMO_ATTR_TLID, myFoeSignal->getID());
     out.writeAttr(SUMO_ATTR_FOES, myTripId);

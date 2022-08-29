@@ -253,7 +253,7 @@ public:
     /// @brief return true if tag correspond to a symbol element
     bool isSymbol() const;
 
-    /// @brief return true if tag correspond to a internal lane
+    /// @brief return true if tag correspond to an internal lane
     bool isInternalLane() const;
 
     /// @brief return true if tag correspond to a drawable element
@@ -274,7 +274,7 @@ public:
     /// @brief return true if Tag correspond to an element that supports parameters "key1=value1|key2=value2|...|keyN=valueN"
     bool hasParameters() const;
 
-    /// @brief return true if Tag correspond to an element that has has to be placed in RTREE
+    /// @brief return true if Tag correspond to an element that has to be placed in RTREE
     bool isPlacedInRTree() const;
 
     /// @brief return true if tag correspond to an element that can be reparent
@@ -286,8 +286,8 @@ public:
     /// @brief return true if tag correspond to an element that center camera after creation
     bool canCenterCameraAfterCreation() const;
 
-    /// @brief return true if tag correspond to an element that owns a embebbed route
-    bool hasEmbebbedRoute() const;
+    /// @brief return true if tag correspond to an element that owns an embedded route
+    bool hasEmbeddedRoute() const;
 
     /// @brief return true if tag correspond to an element that requires a geo projection
     bool requireProj() const;

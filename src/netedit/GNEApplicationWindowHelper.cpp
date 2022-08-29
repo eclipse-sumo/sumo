@@ -19,13 +19,16 @@
 /****************************************************************************/
 #include <netbuild/NBFrame.h>
 #include <netedit/elements/GNEAttributeCarrier.h>
+#include <netedit/elements/GNEGeneralHandler.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/options/OptionsCont.h>
-#include <utils/foxtools/FXMenuCheckIcon.h>
+#include <utils/foxtools/MFXMenuCheckIcon.h>
+#include <utils/common/FileHelpers.h>
 
 #include "GNEApplicationWindow.h"
 #include "GNEViewNet.h"
+#include "GNELoadThread.h"
 
 #ifdef HAVE_VERSION_H
 #include <version.h>
@@ -154,7 +157,7 @@ GNEApplicationWindowHelper::MenuBarFile::buildRecentFiles(FXMenuPane* fileMenu) 
     GUIDesigns::buildFXMenuCommandRecentFile(fileMenu, "", &myRecentNetsAndConfigs, FXRecentFiles::ID_FILE_9);
     GUIDesigns::buildFXMenuCommandRecentFile(fileMenu, "", &myRecentNetsAndConfigs, FXRecentFiles::ID_FILE_10);
     GUIDesigns::buildFXMenuCommand(fileMenu, "Cl&ear Recent Files", nullptr, &myRecentNetsAndConfigs, FXRecentFiles::ID_CLEAR);
-    GUIDesigns::buildFXMenuCommand(fileMenu, "No Recent Files", nullptr, &myRecentNetsAndConfigs, FXRecentNetworks::ID_NOFILES);
+    GUIDesigns::buildFXMenuCommand(fileMenu, "No Recent Files", nullptr, &myRecentNetsAndConfigs, MFXRecentNetworks::ID_NOFILES);
     myRecentNetsAndConfigs.setTarget(myGNEApp);
     myRecentNetsAndConfigs.setSelector(MID_RECENTFILE);
 }
@@ -169,8 +172,8 @@ GNEApplicationWindowHelper::FileMenuCommands::FileMenuCommands(GNEApplicationWin
 
 
 void
-GNEApplicationWindowHelper::FileMenuCommands::buildFileMenuCommands(FXMenuPane* fileMenu, FXMenuPane* fileMenuTLS, FXMenuPane* fileMenuEdgeTypes,
-        FXMenuPane* fileMenuAdditionals, FXMenuPane* fileMenuDemandElements, FXMenuPane* fileMenuDataElements) {
+GNEApplicationWindowHelper::FileMenuCommands::buildFileMenuCommands(FXMenuPane* fileMenu, FXMenuPane* fileMenuSUMOConfig, FXMenuPane* fileMenuTLS, 
+        FXMenuPane* fileMenuEdgeTypes, FXMenuPane* fileMenuAdditionals, FXMenuPane* fileMenuDemandElements, FXMenuPane* fileMenuDataElements) {
     GUIDesigns::buildFXMenuCommandShortcut(fileMenu,
                                            "&New Network", "Ctrl+N", "Create a new network.",
                                            GUIIconSubSys::getIcon(GUIIcon::NEW_NET), myGNEApp, MID_HOTKEY_CTRL_N_NEWNETWORK);
@@ -205,6 +208,21 @@ GNEApplicationWindowHelper::FileMenuCommands::buildFileMenuCommands(FXMenuPane* 
     GUIDesigns::buildFXMenuCommandShortcut(fileMenu,
                                            "Save All Elements", "", "Save all elements (network, additional, demand and data)",
                                            GUIIconSubSys::getIcon(GUIIcon::SAVEALLELEMENTS), myGNEApp, MID_GNE_SAVEALLELEMENTS);
+    // create SUMOConfig menu options
+    GUIDesigns::buildFXMenuCommandShortcut(fileMenuSUMOConfig,
+                                           "Load SUMOConfig...", "Ctrl+M", "Load programs for traffic lights in the current net.",
+                                           GUIIconSubSys::getIcon(GUIIcon::OPEN_SUMOCONFIG), myGNEApp, MID_HOTKEY_CTRL_M_OPENSUMOCONFIG);
+    reloadSUMOConfig = GUIDesigns::buildFXMenuCommandShortcut(fileMenuSUMOConfig,
+                                                              "Reload SUMOConfig", "", "Reload SUMOConfig.",
+                                                              GUIIconSubSys::getIcon(GUIIcon::RELOAD), myGNEApp, MID_GNE_TOOLBARFILE_RELOAD_SUMOCONFIG);
+    saveSUMOConfig = GUIDesigns::buildFXMenuCommandShortcut(fileMenuSUMOConfig,
+                                                            "Save SUMOConfig", "Ctrl+Shift+M", "Save sumo config.",
+                                                            GUIIconSubSys::getIcon(GUIIcon::SAVE), myGNEApp, MID_HOTKEY_CTRL_SHIFT_M_SAVESUMOCONFIG);
+    saveSUMOConfig->disable();
+    GUIDesigns::buildFXMenuCommandShortcut(fileMenuSUMOConfig,
+                                           "Save SUMOConfig As...", "", "Save sumo config in a new file.",
+                                           GUIIconSubSys::getIcon(GUIIcon::SAVE), myGNEApp, MID_GNE_TOOLBARFILE_SAVESUMOCONFIG_AS);
+    SUMOConfigMenuCascade = new FXMenuCascade(fileMenu, "SUMOConfig", GUIIconSubSys::getIcon(GUIIcon::SUMO_MINI), fileMenuSUMOConfig);
     // create TLS menu options
     GUIDesigns::buildFXMenuCommandShortcut(fileMenuTLS,
                                            "Load TLS Programs...", "Ctrl+K", "Load programs for traffic lights in the current net.",
@@ -1843,8 +1861,115 @@ GNEApplicationWindowHelper::SupermodeCommands::buildSupermodeCommands(FXMenuPane
 }
 
 // ---------------------------------------------------------------------------
+// GNEConfigHandler - methods
+// ---------------------------------------------------------------------------
+
+GNEApplicationWindowHelper::GNEConfigHandler::GNEConfigHandler(GNEApplicationWindow* applicationWindow, const std::string& file) :
+    ConfigHandler(file),
+    myApplicationWindow(applicationWindow),
+    myFilepath(FileHelpers::getFilePath(file)) {
+}
+
+
+GNEApplicationWindowHelper::GNEConfigHandler::~GNEConfigHandler() {}
+
+
+void
+GNEApplicationWindowHelper::GNEConfigHandler::loadConfig(CommonXMLStructure::SumoBaseObject* configObj) {
+    // get net file
+    const auto netFile = configObj->hasStringAttribute(SUMO_ATTR_NETFILE)? configObj->getStringAttribute(SUMO_ATTR_NETFILE) : "";
+    // first check if there is a network to load
+    if (netFile.size() > 0) {
+        OptionsCont& oc = OptionsCont::getOptions();
+        // load net depending if file is absoulte or relative
+        oc.resetWritable();
+        if (FileHelpers::isAbsolute(netFile)) {
+            oc.set("sumo-net-file", netFile);
+        } else {
+            oc.set("sumo-net-file", myFilepath + netFile);
+        }
+        // set additional files
+        if (configObj->hasStringAttribute(SUMO_ATTR_ADDITIONALFILES)) {
+            const auto file = configObj->getStringAttribute(SUMO_ATTR_ADDITIONALFILES);
+            oc.resetWritable();
+            if (FileHelpers::isAbsolute(file)) {
+                oc.set("additional-files", file);
+            } else {
+                oc.set("additional-files", myFilepath + file);
+            }
+        }
+        // set route files
+        if (configObj->hasStringAttribute(SUMO_ATTR_ROUTEFILES)) {
+            const auto file = configObj->getStringAttribute(SUMO_ATTR_ROUTEFILES);
+            oc.resetWritable();
+            if (FileHelpers::isAbsolute(file)) {
+                oc.set("route-files", file);
+            } else {
+                oc.set("route-files", myFilepath + file);
+            }
+        }
+        // set data files
+        if (configObj->hasStringAttribute(SUMO_ATTR_DATAFILES)) {
+            const auto file = configObj->getStringAttribute(SUMO_ATTR_DATAFILES);
+            oc.resetWritable();
+            if (FileHelpers::isAbsolute(file)) {
+                oc.set("data-files", file);
+            } else {
+                oc.set("data-files", myFilepath + file);
+            }
+        }
+        // set SUMOConfig-files
+        oc.resetWritable();
+        oc.set("SUMOConfig-output", configObj->getStringAttribute(SUMO_ATTR_CONFIGFILE));
+        // load network
+        myApplicationWindow->loadNet("");
+    }
+}
+
+// ---------------------------------------------------------------------------
 // GNEApplicationWindowHelper - methods
 // ---------------------------------------------------------------------------
+
+
+void 
+GNEApplicationWindowHelper::saveSUMOConfig() {
+    // obtain option container
+    OptionsCont& oc = OptionsCont::getOptions();
+    // check SUMOConfig-outpout
+    if (oc.getString("SUMOConfig-output").size() > 0) {
+        // open output device
+        OutputDevice& device = OutputDevice::getDevice(oc.getString("SUMOConfig-output"));
+        // open configuration tag
+        device.openTag(SUMO_TAG_CONFIGURATION);
+        // save network
+        device.openTag(SUMO_TAG_NETFILE);
+        device.writeAttr(SUMO_ATTR_VALUE, oc.getString("sumo-net-file"));
+        device.closeTag();
+        // check if write additionals
+        if (oc.getString("additional-files").size() > 0) {
+            device.openTag(SUMO_TAG_ADDITIONALFILES);
+            device.writeAttr(SUMO_ATTR_VALUE, oc.getString("additional-files"));
+            device.closeTag();
+        }
+        // check if write route elements    
+        if (oc.getString("route-files").size() > 0) {
+            device.openTag(SUMO_TAG_ROUTEFILES);
+            device.writeAttr(SUMO_ATTR_ROUTEFILES, oc.getString("route-files"));
+            device.closeTag();
+        }
+        // check if write data elements    
+        if (oc.getString("data-files").size() > 0) {
+            device.openTag(SUMO_TAG_DATAFILES);
+            device.writeAttr(SUMO_ATTR_DATAFILES, oc.getString("data-files"));
+            device.closeTag();
+        }
+        // close device
+        device.close();
+        // show debug information
+        WRITE_DEBUG("SUMOConfig saved");
+    }
+}
+
 
 bool
 GNEApplicationWindowHelper::toggleEditOptionsNetwork(GNEViewNet* viewNet, const MFXCheckableButton* menuCheck, const int numericalKeyPressed, FXObject* obj, FXSelector sel) {
@@ -2270,3 +2395,4 @@ GNEApplicationWindowHelper::stringEndsWith(const std::string& str, const std::st
 }
 
 /****************************************************************************/
+

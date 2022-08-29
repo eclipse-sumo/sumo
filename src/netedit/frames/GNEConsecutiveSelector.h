@@ -20,7 +20,7 @@
 #pragma once
 #include <config.h>
 
-#include <utils/foxtools/FXGroupBoxModule.h>
+#include <utils/foxtools/MFXGroupBoxModule.h>
 
 // ===========================================================================
 // class declaration
@@ -33,7 +33,7 @@ class GNELane;
 // class definitions
 // ===========================================================================
 
-class GNEConsecutiveSelector : public FXGroupBoxModule {
+class GNEConsecutiveSelector : public MFXGroupBoxModule {
     /// @brief FOX-declaration
     FXDECLARE(GNEConsecutiveSelector)
 

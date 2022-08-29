@@ -71,16 +71,16 @@ Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Selected item 'personFlow' in GNETagSelector
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Selected item 'walk: route' in GNETagSelector
-Debug: Adding personFlow 'f_0' in GNEChange_DemandElement
-Debug: Adding walk: route 'f_0' in GNEChange_DemandElement
+Debug: Adding personFlow 'pf_0' in GNEChange_DemandElement
+Debug: Adding walk: route 'pf_0' in GNEChange_DemandElement
 Debug: Key ENTER pressed
-Debug: Adding personFlow 'f_1' in GNEChange_DemandElement
-Debug: Removing personFlow 'f_1' in GNEChange_DemandElement
+Debug: Adding personFlow 'pf_1' in GNEChange_DemandElement
+Debug: Removing personFlow 'pf_1' in GNEChange_DemandElement
 Debug: Deleting unreferenced personFlow
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing walk: route 'f_0' in GNEChange_DemandElement
-Debug: Removing personFlow 'f_0' in GNEChange_DemandElement
+Debug: Removing walk: route 'pf_0' in GNEChange_DemandElement
+Debug: Removing personFlow 'pf_0' in GNEChange_DemandElement
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing route 'r_0' in GNEChange_DemandElement
@@ -89,8 +89,8 @@ Debug: Calling GNEUndoList::redo()
 Debug: Adding route 'r_0' in GNEChange_DemandElement
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Adding personFlow 'f_0' in GNEChange_DemandElement
-Debug: Adding walk: route 'f_0' in GNEChange_DemandElement
+Debug: Adding personFlow 'pf_0' in GNEChange_DemandElement
+Debug: Adding walk: route 'pf_0' in GNEChange_DemandElement
 Debug: demand elements saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary -10.00,-16.40,10.00,13.20

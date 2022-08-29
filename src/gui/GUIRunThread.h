@@ -27,9 +27,9 @@
 #include <set>
 #include <iostream>
 #include <utils/foxtools/fxheader.h>
-#include <utils/foxtools/FXSingleEventThread.h>
-#include <utils/foxtools/FXThreadEvent.h>
-#include <utils/foxtools/FXSynchQue.h>
+#include <utils/foxtools/MFXSingleEventThread.h>
+#include <utils/foxtools/MFXThreadEvent.h>
+#include <utils/foxtools/MFXSynchQue.h>
 #include <utils/common/SUMOTime.h>
 
 
@@ -51,12 +51,12 @@ class OutputDevice;
  * The avoidance of collisions between the simulation execution and its
  * visualisation is done individually for every lane using mutexes
  */
-class GUIRunThread : public FXSingleEventThread {
+class GUIRunThread : public MFXSingleEventThread {
 public:
     /// constructor
     GUIRunThread(FXApp* app, MFXInterThreadEventClient* mw,
-                 double& simDelay, FXSynchQue<GUIEvent*>& eq,
-                 FXEX::FXThreadEvent& ev);
+                 double& simDelay, MFXSynchQue<GUIEvent*>& eq,
+                 FXEX::MFXThreadEvent& ev);
 
     /// destructor
     virtual ~GUIRunThread();
@@ -156,9 +156,9 @@ protected:
 
     double& mySimDelay;
 
-    FXSynchQue<GUIEvent*>& myEventQue;
+    MFXSynchQue<GUIEvent*>& myEventQue;
 
-    FXEX::FXThreadEvent& myEventThrow;
+    FXEX::MFXThreadEvent& myEventThrow;
 
     FXMutex mySimulationLock;
 

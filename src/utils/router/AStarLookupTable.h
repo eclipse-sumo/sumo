@@ -26,7 +26,7 @@
 #include <foreign/zstr/zstr.hpp>
 #endif
 #ifdef HAVE_FOX
-#include <utils/foxtools/FXWorkerThread.h>
+#include <utils/foxtools/MFXWorkerThread.h>
 #endif
 #include <utils/router/ReversedEdge.h>
 
@@ -166,7 +166,7 @@ public:
             return;
         }
 #ifdef HAVE_FOX
-        FXWorkerThread::Pool threadPool;
+        MFXWorkerThread::Pool threadPool;
         std::vector<RoutingTask*> currentTasks;
 #endif
         std::vector<const E*> landmarks;
@@ -366,12 +366,12 @@ private:
 
 #ifdef HAVE_FOX
 private:
-    class WorkerThread : public FXWorkerThread {
+    class WorkerThread : public MFXWorkerThread {
     public:
-        WorkerThread(FXWorkerThread::Pool& pool,
+        WorkerThread(MFXWorkerThread::Pool& pool,
                      SUMOAbstractRouter<E, V>* router,
                      SUMOAbstractRouter<ReversedEdge<E, V>, V>* reverseRouter, const V* vehicle)
-            : FXWorkerThread(pool), myRouter(router), myReversedRouter(reverseRouter), myVehicle(vehicle) {}
+            : MFXWorkerThread(pool), myRouter(router), myReversedRouter(reverseRouter), myVehicle(vehicle) {}
 
         virtual ~WorkerThread() {
             delete myRouter;
@@ -406,11 +406,11 @@ private:
         std::vector<const ReversedEdge<E, V>*> myReversedRoute;
     };
 
-    class RoutingTask : public FXWorkerThread::Task {
+    class RoutingTask : public MFXWorkerThread::Task {
     public:
         RoutingTask(const E* src, const E* dest, const double costOff)
             : mySrc(src), myDest(dest), myCostOff(-costOff) {}
-        void run(FXWorkerThread* context) {
+        void run(MFXWorkerThread* context) {
             myCost = ((WorkerThread*)context)->compute(mySrc, myDest, myCostOff);
         }
         double getFromCost() {

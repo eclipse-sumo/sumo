@@ -97,6 +97,7 @@ def initOptions():
         description=""" Any options of the form sumo--long-option-name will be passed to sumo.
         These must be given after all the other options
         example: sumo--step-length 0.5 will add the option --step-length 0.5 to sumo.""",
+        allowed_programs=['duarouter', 'sumo'],
         formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     addGenericOptions(argParser)
 
@@ -482,7 +483,11 @@ def calcMarginalCost(step, options):
 def main(args=None):
     argParser = initOptions()
 
-    options = argParser.parse_args(args=args)
+    try:
+        options = argParser.parse_args(args=args)
+    except (NotImplementedError, ValueError) as e:
+        print(e, file=sys.stderr)
+        sys.exit(1)
 
     if not options.net:
         argParser.error("Option --net-file is mandatory")

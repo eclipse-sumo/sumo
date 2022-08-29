@@ -232,6 +232,13 @@
 #include "modeedgereldata.xpm"
 #include "modetazreldata.xpm"
 
+#include "tlsphasedefault.xpm"
+#include "tlsphasecopy.xpm"
+#include "tlsphaseallred.xpm"
+#include "tlsphaseallyellow.xpm"
+#include "tlsphaseallgreen.xpm"
+#include "tlsphaseallgreenpriority.xpm"
+
 #include "computejunctions.xpm"
 #include "cleanjunctions.xpm"
 #include "joinjunctions.xpm"
@@ -392,6 +399,7 @@
 #include "vshape_passenger_hatchback.xpm"
 #include "vshape_passenger_wagon.xpm"
 #include "vshape_passenger_van.xpm"
+#include "vshape_taxi.xpm"
 #include "vshape_delivery.xpm"
 #include "vshape_truck.xpm"
 #include "vshape_truck_semitrailer.xpm"
@@ -419,11 +427,17 @@
 #include "incorrect.xpm"
 #include "reset.xpm"
 #include "warning.xpm"
+#include "danger.xpm"
+#include "sum.xpm"
 
 #include "grid.xpm"
 #include "grid1.xpm"
 #include "grid2.xpm"
 #include "grid3.xpm"
+
+#include "geohack.xpm"
+#include "googlesat.xpm"
+#include "osm.xpm"
 
 
 // ===========================================================================
@@ -447,6 +461,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::OPEN_SHAPES] = new FXXPMIcon(a, shapeopen_xpm);
     myIcons[GUIIcon::OPEN_ADDITIONALS] = new FXXPMIcon(a, shapeopen_xpm);
     myIcons[GUIIcon::OPEN_TLSPROGRAMS] = new FXXPMIcon(a, shapeopen_xpm);
+    myIcons[GUIIcon::OPEN_SUMOCONFIG] = new FXXPMIcon(a, fileopen_xpm);
     myIcons[GUIIcon::NEW_NET] = new FXXPMIcon(a, newnet_xpm);
     myIcons[GUIIcon::RELOAD] = new FXXPMIcon(a, reload_xpm);
     myIcons[GUIIcon::SAVE] = new FXXPMIcon(a, filesave_xpm);
@@ -745,6 +760,13 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::EDGERELDATA] = new FXXPMIcon(a, edgereldata_xpm);
     myIcons[GUIIcon::TAZRELDATA] = new FXXPMIcon(a, tazreldata_xpm);
 
+    myIcons[GUIIcon::TLSPHASEDEFAULT] = new FXXPMIcon(a, tlsphasedefault_xpm);
+    myIcons[GUIIcon::TLSPHASECOPY] = new FXXPMIcon(a, tlsphasecopy_xpm);
+    myIcons[GUIIcon::TLSPHASEALLRED] = new FXXPMIcon(a, tlsphaseallred_xpm);
+    myIcons[GUIIcon::TLSPHASEALLYELLOW] = new FXXPMIcon(a, tlsphaseallyellow_xpm);
+    myIcons[GUIIcon::TLSPHASEALLGREEN] = new FXXPMIcon(a, tlsphaseallgreen_xpm);
+    myIcons[GUIIcon::TLSPHASEALLGREENPRIORITY] = new FXXPMIcon(a, tlsphaseallgreenpriority_xpm);
+
     myIcons[GUIIcon::VCLASS_IGNORING] = new FXXPMIcon(a, vclass_ignoring_xpm);
     myIcons[GUIIcon::VCLASS_PRIVATE] = new FXXPMIcon(a, vclass_private_xpm);
     myIcons[GUIIcon::VCLASS_EMERGENCY] = new FXXPMIcon(a, vclass_emergency_xpm);
@@ -810,6 +832,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::VSHAPE_PASSENGER_HATCHBACK] = new FXXPMIcon(a, vshape_passenger_hatchback_xpm);
     myIcons[GUIIcon::VSHAPE_PASSENGER_WAGON] = new FXXPMIcon(a, vshape_passenger_wagon_xpm);
     myIcons[GUIIcon::VSHAPE_PASSENGER_VAN] = new FXXPMIcon(a, vshape_passenger_van_xpm);
+    myIcons[GUIIcon::VSHAPE_TAXI] = new FXXPMIcon(a, vshape_taxi_xpm);
     myIcons[GUIIcon::VSHAPE_DELIVERY] = new FXXPMIcon(a, vshape_delivery_xpm);
     myIcons[GUIIcon::VSHAPE_TRUCK] = new FXXPMIcon(a, vshape_truck_xpm);
     myIcons[GUIIcon::VSHAPE_TRUCK_SEMITRAILER] = new FXXPMIcon(a, vshape_truck_semitrailer_xpm);
@@ -838,11 +861,17 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::INCORRECT] = new FXXPMIcon(a, incorrect_xpm);
     myIcons[GUIIcon::RESET] = new FXXPMIcon(a, reset_xpm);
     myIcons[GUIIcon::WARNING] = new FXXPMIcon(a, warning_xpm);
+    myIcons[GUIIcon::DANGER] = new FXXPMIcon(a, danger_xpm);
+    myIcons[GUIIcon::SUM] = new FXXPMIcon(a, sum_xpm);
 
     myIcons[GUIIcon::GRID] = new FXXPMIcon(a, grid_xpm);
     myIcons[GUIIcon::GRID1] = new FXXPMIcon(a, grid1_xpm);
     myIcons[GUIIcon::GRID2] = new FXXPMIcon(a, grid2_xpm);
     myIcons[GUIIcon::GRID3] = new FXXPMIcon(a, grid3_xpm);
+
+    myIcons[GUIIcon::GEOHACK] = new FXXPMIcon(a, geohack_xpm);
+    myIcons[GUIIcon::GOOGLESAT] = new FXXPMIcon(a, googlesat_xpm);
+    myIcons[GUIIcon::OSM] = new FXXPMIcon(a, osm_xpm);
 
     // ... and create them
     for (const auto& icon : myIcons) {

@@ -13,8 +13,8 @@ Debug: Inserting generic parameter 'key2|' into e2Detector
 Debug: Inserting generic parameter 'key2|' into e2Detector
 Debug: Inserting generic parameter 'key3|$$value with spaces%%' into e2Detector
 Debug: Inserting generic parameter 'keyFinal|valueFinal' into e2Detector
-Debug: Adding e2Detector 'E2_01' in GNEChange_Additional
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.e2detector.24Jun133818.22393/netedit.daily.additional.e2detector/additionalelements/e2detector/load/parameters/input_additionals.add.xml failed.
+Debug: Adding laneAreaDetector 'E2_01' in GNEChange_Additional
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.e2detector.01Aug073708.40063/netedit.daily.additional.e2detector/additionalelements/e2detector/load/parameters/input_additionals.add.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 38.00,-12.00,62.00,12.00
@@ -43,7 +43,7 @@ GLDebug: Add edges during recomputing after calling myNetBuilder->compute(...)
 GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,60.00,10.00
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,11.60
 Debug: network elements saved
-Debug: Deleting unreferenced e2Detector
+Debug: Deleting unreferenced laneAreaDetector
 Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor

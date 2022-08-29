@@ -331,7 +331,6 @@ public:
     /// @brief destroys the popup
     void destroyPopup();
 
-public:
     ///@struct Decal
     /// @brief A decal (an image) that can be shown
     struct Decal {
@@ -372,7 +371,6 @@ public:
         FXImage* image;
     };
 
-public:
     /// @brief get coloring schemes combo
     FXComboBox* getColoringSchemesCombo();
 
@@ -408,6 +406,9 @@ public:
     double getFPS() const;
 
 protected:
+    /// @brief FOX needs this
+    FOX_CONSTRUCTOR(GUISUMOAbstractView)
+
     /// @brief performs the painting of the simulation
     void paintGL();
 
@@ -465,19 +466,19 @@ protected:
     /// @brief invokes the tooltip for the given object
     void showToolTipFor(const GUIGlID id);
 
-protected:
-    FOX_CONSTRUCTOR(GUISUMOAbstractView)
-
-    /// @brief check whether we can read image data or position with gdal
-    FXImage* checkGDALImage(Decal& d);
-
     /// @brief Draws the stored decals
     void drawDecals();
+
+    /// @brief open popup dialog
+    void openPopupDialog();
 
     /// @brief applies gl-transformations to fit the Boundary given by myChanger onto the canvas.
     /// If fixRatio is true, this boundary will be enlarged to prevent anisotropic stretching.
     /// (this should be set to false when doing selections)
     Boundary applyGLTransform(bool fixRatio = true);
+
+    /// @brief check whether we can read image data or position with gdal
+    FXImage* checkGDALImage(Decal& d);
 
 protected:
     /// @brief The application
@@ -500,6 +501,9 @@ protected:
 
     /// @brief The current popup-menu
     GUIGLObjectPopupMenu* myPopup;
+
+    /// @brief current object dialog 
+    GUIGlObject* myCurrentObjectDialog = nullptr;
 
     /// @brief The current popup-menu position
     Position myPopupPosition;

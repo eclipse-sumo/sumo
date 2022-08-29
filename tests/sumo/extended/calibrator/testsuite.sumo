@@ -41,6 +41,9 @@ swallow_downstream_jam_disabled
 # test calibrator without flow value (speed has to be given)
 speed_only
 
+# test calibrator without flow value (speed has to be given) and no route attribute
+speed_only2
+
 # check that speed-only calibrators also swallow invalid downstream jams
 speed_only_swallow_downstream_jam
 

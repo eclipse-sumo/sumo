@@ -20,7 +20,7 @@
 #pragma once
 #include <config.h>
 
-#include <utils/foxtools/FXGroupBoxModule.h>
+#include <utils/foxtools/MFXGroupBoxModule.h>
 
 // ===========================================================================
 // class declarations
@@ -79,7 +79,7 @@ protected:
     };
 
     /// @brief groupbox for group all radio buttons related to additionals with single lanes
-    class PositionOptions : public FXGroupBoxModule {
+    class PositionOptions : public MFXGroupBoxModule {
 
     public:
         /// @brief build Position Options
@@ -108,7 +108,7 @@ protected:
     };
 
     /// @brief groupbox for group all radio buttons related to additionals with consecutive lanes
-    class ConsecutiveLaneOptions : public FXGroupBoxModule {
+    class ConsecutiveLaneOptions : public MFXGroupBoxModule {
 
     public:
         /// @brief build consecutive lane Options

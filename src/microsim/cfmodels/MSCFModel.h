@@ -259,6 +259,13 @@ public:
         return myApparentDecel;
     }
 
+    /** @brief Get the vehicle type's startupDelay
+     * @return The startupDelay
+     */
+    inline SUMOTime getStartupDelay() const {
+        return myStartupDelay;
+    }
+
     /** @brief Get the factor of minGap that must be maintained to avoid a collision event
      */
     inline double getCollisionMinGapFactor() const {

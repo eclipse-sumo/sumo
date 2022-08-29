@@ -29,11 +29,11 @@
 #include <netedit/elements/additional/GNEClosingReroute.h>
 #include <netedit/elements/additional/GNEContainerStop.h>
 #include <netedit/elements/additional/GNEDestProbReroute.h>
-#include <netedit/elements/additional/GNEDetectorE1.h>
-#include <netedit/elements/additional/GNEDetectorE1Instant.h>
-#include <netedit/elements/additional/GNEDetectorE2.h>
-#include <netedit/elements/additional/GNEDetectorE3.h>
-#include <netedit/elements/additional/GNEDetectorEntryExit.h>
+#include <netedit/elements/additional/GNEInductionLoopDetector.h>
+#include <netedit/elements/additional/GNEInstantInductionLoopDetector.h>
+#include <netedit/elements/additional/GNELaneAreaDetector.h>
+#include <netedit/elements/additional/GNEMultiEntryExitDetector.h>
+#include <netedit/elements/additional/GNEEntryExitDetector.h>
 #include <netedit/elements/additional/GNEPOI.h>
 #include <netedit/elements/additional/GNEParkingArea.h>
 #include <netedit/elements/additional/GNEParkingAreaReroute.h>
@@ -78,7 +78,7 @@ FXDEFMAP(GNETagSelector) TagSelectorMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNETagSelector,                FXGroupBoxModule,     TagSelectorMap,                 ARRAYNUMBER(TagSelectorMap))
+FXIMPLEMENT(GNETagSelector,                MFXGroupBoxModule,     TagSelectorMap,                 ARRAYNUMBER(TagSelectorMap))
 
 
 // ===========================================================================
@@ -86,7 +86,7 @@ FXIMPLEMENT(GNETagSelector,                FXGroupBoxModule,     TagSelectorMap,
 // ===========================================================================
 
 GNETagSelector::GNETagSelector(GNEFrame* frameParent, GNETagProperties::TagType type, SumoXMLTag tag, bool onlyDrawables) :
-    FXGroupBoxModule(frameParent, "Element"),
+    MFXGroupBoxModule(frameParent, "Element"),
     myFrameParent(frameParent),
     myTagType(type),
     myCurrentTemplateAC(nullptr) {
@@ -314,22 +314,22 @@ GNETagSelector::ACTemplate::ACTemplate(GNENet* net, const GNETagProperties tagPr
         case SUMO_TAG_PARKING_SPACE:
             myAC = new GNEParkingSpace(net);
             break;
-        case SUMO_TAG_E1DETECTOR:
-            myAC = new GNEDetectorE1(net);
+        case SUMO_TAG_INDUCTION_LOOP:
+            myAC = new GNEInductionLoopDetector(net);
             break;
-        case SUMO_TAG_E2DETECTOR:
-        case GNE_TAG_E2DETECTOR_MULTILANE:
-            myAC = new GNEDetectorE2(tagProperty.getTag(), net);
+        case SUMO_TAG_LANE_AREA_DETECTOR:
+        case GNE_TAG_MULTI_LANE_AREA_DETECTOR:
+            myAC = new GNELaneAreaDetector(tagProperty.getTag(), net);
             break;
-        case SUMO_TAG_E3DETECTOR:
-            myAC = new GNEDetectorE3(net);
+        case SUMO_TAG_ENTRY_EXIT_DETECTOR:
+            myAC = new GNEMultiEntryExitDetector(net);
             break;
         case SUMO_TAG_DET_ENTRY:
         case SUMO_TAG_DET_EXIT:
-            myAC = new GNEDetectorEntryExit(tagProperty.getTag(), net);
+            myAC = new GNEEntryExitDetector(tagProperty.getTag(), net);
             break;
         case SUMO_TAG_INSTANT_INDUCTION_LOOP:
-            myAC = new GNEDetectorE1Instant(net);
+            myAC = new GNEInstantInductionLoopDetector(net);
             break;
         case SUMO_TAG_VSS:
             myAC = new GNEVariableSpeedSign(net);

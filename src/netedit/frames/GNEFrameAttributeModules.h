@@ -23,7 +23,8 @@
 #include <netedit/elements/GNEAttributeCarrier.h>
 #include <netedit/GNEViewNetHelper.h>
 #include <utils/common/Parameterised.h>
-#include <utils/foxtools/FXGroupBoxModule.h>
+#include <utils/foxtools/MFXGroupBoxModule.h>
+#include <utils/foxtools/MFXTextFieldTooltip.h>
 #include <utils/xml/CommonXMLStructure.h>
 
 // ===========================================================================
@@ -31,6 +32,7 @@
 // ===========================================================================
 
 class GNEFrame;
+class GNEViewParent;
 class GNEFlowEditor;
 
 // ===========================================================================
@@ -58,7 +60,7 @@ public:
     public:
         /// @brief constructor
         AttributesEditorRow(AttributesEditor* attributeEditorParent, const GNEAttributeProperties& ACAttr, const std::string& value,
-                            const bool attributeEnabled, const bool computed);
+                            const bool attributeEnabled, const bool computed, GNEAttributeCarrier* ACParent);
 
         /// @brief destroy GNEAttributesCreatorRow (but don't delete)
         void destroy();
@@ -80,6 +82,9 @@ public:
 
         /// @brief open model dialog for more comfortable attribute editing
         long onCmdOpenAttributeDialog(FXObject*, FXSelector, void*);
+        
+        /// @brief inspect vType/VTypeDistribution parent
+        long onCmdInspectVTypeParent(FXObject*, FXSelector, void*);
         /// @}
 
     protected:
@@ -106,26 +111,32 @@ public:
         FXCheckButton* myAttributeCheckButton = nullptr;
 
         /// @brief pointer to buttonCombinableChoices
-        FXButton* myAttributeButtonCombinableChoices = nullptr;
+        MFXButtonTooltip* myAttributeButtonCombinableChoices = nullptr;
 
         /// @brief Button for open color editor
-        FXButton* myAttributeColorButton = nullptr;
+        MFXButtonTooltip* myAttributeColorButton = nullptr;
+
+        /// @brief Button for inspect Vtype/VtypeDistribution parent
+        MFXButtonTooltip* myAttributeVTypeButton = nullptr;
 
         /// @brief textField to modify the value of string attributes
-        FXTextField* myValueTextField = nullptr;
+        MFXTextFieldTooltip* myValueTextField = nullptr;
 
         /// @brief pointer to combo box choices
         MFXIconComboBox* myValueComboBoxChoices = nullptr;
 
         /// @brief pointer to menu check
         FXCheckButton* myValueCheckButton = nullptr;
+
+        /// @brief pointer to AC Parent
+        GNEAttributeCarrier* myACParent = nullptr;
     };
 
     // ===========================================================================
     // class AttributesEditor
     // ===========================================================================
 
-    class AttributesEditor : public FXGroupBoxModule {
+    class AttributesEditor : public MFXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNEFrameAttributeModules::AttributesEditor)
 
@@ -176,7 +187,7 @@ public:
     // class AttributesEditorExtended
     // ===========================================================================
 
-    class AttributesEditorExtended : public FXGroupBoxModule {
+    class AttributesEditorExtended : public MFXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNEFrameAttributeModules::AttributesEditorExtended)
 
@@ -211,7 +222,7 @@ public:
     // class GenericDataAttributes
     // ===========================================================================
 
-    class GenericDataAttributes : public FXGroupBoxModule {
+    class GenericDataAttributes : public MFXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNEFrameAttributeModules::GenericDataAttributes)
 

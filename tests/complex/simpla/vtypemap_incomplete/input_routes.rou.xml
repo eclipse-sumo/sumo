@@ -1,0 +1,11 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="car" color="cyan"/>
+    <vType id="t_leader" color="yellow"/>
+    <vType id="t_follower" color="green" minGap="0.5" tau="0.5"/>
+    <vType id="t_catchup" color="red" minGap="0.5" tau="0.5"/>
+    <vType id="t_catchupFollower" color="blue" minGap="0.5" tau="0.5"/>
+    <vType id="otherType" color="white"/>
+    
+    <flow id="v" type="car" begin="0" number="4" period="5" departSpeed="max" from="left0A0" to="A0right0" />
+    <flow id="other" type="otherType" begin="22" number="2" period="5" departSpeed="max" from="left0A0" to="A0right0" />
+</routes>

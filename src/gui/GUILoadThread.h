@@ -25,9 +25,9 @@
 
 #include <utils/common/SUMOTime.h>
 #include <utils/common/MsgHandler.h>
-#include <utils/foxtools/FXSingleEventThread.h>
-#include <utils/foxtools/FXThreadEvent.h>
-#include <utils/foxtools/FXSynchQue.h>
+#include <utils/foxtools/MFXSingleEventThread.h>
+#include <utils/foxtools/MFXThreadEvent.h>
+#include <utils/foxtools/MFXSynchQue.h>
 
 
 // ===========================================================================
@@ -44,11 +44,11 @@ class GUIEvent;
 /**
  * @class GUILoadThread
  */
-class GUILoadThread : public FXSingleEventThread {
+class GUILoadThread : public MFXSingleEventThread {
 public:
     /// constructor
-    GUILoadThread(FXApp* app, GUIApplicationWindow* mw, FXSynchQue<GUIEvent*>& eq,
-                  FXEX::FXThreadEvent& ev, const bool isLibsumo);
+    GUILoadThread(FXApp* app, GUIApplicationWindow* mw, MFXSynchQue<GUIEvent*>& eq,
+                  FXEX::MFXThreadEvent& ev, const bool isLibsumo);
 
     /// destructor
     virtual ~GUILoadThread();
@@ -90,9 +90,9 @@ protected:
         Needed to be deleted from the handler later on */
     OutputDevice* myErrorRetriever, *myMessageRetriever, *myWarningRetriever;
 
-    FXSynchQue<GUIEvent*>& myEventQue;
+    MFXSynchQue<GUIEvent*>& myEventQue;
 
-    FXEX::FXThreadEvent& myEventThrow;
+    FXEX::MFXThreadEvent& myEventThrow;
 
     /// whether we are running in libsumo
     const bool myAmLibsumo;

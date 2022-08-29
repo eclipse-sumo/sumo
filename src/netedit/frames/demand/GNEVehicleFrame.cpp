@@ -36,7 +36,7 @@
 // ---------------------------------------------------------------------------
 
 GNEVehicleFrame::HelpCreation::HelpCreation(GNEVehicleFrame* vehicleFrameParent) :
-    FXGroupBoxModule(vehicleFrameParent, "Help"),
+    MFXGroupBoxModule(vehicleFrameParent, "Help"),
     myVehicleFrameParent(vehicleFrameParent) {
     myInformationLabel = new FXLabel(getCollapsableFrame(), "", 0, GUIDesignLabelFrameInformation);
 }
@@ -65,6 +65,7 @@ GNEVehicleFrame::HelpCreation::updateHelpCreation() {
     std::ostringstream information;
     // set text depending of selected vehicle type
     switch (myVehicleFrameParent->myVehicleTagSelector->getCurrentTemplateAC()->getTagProperty().getTag()) {
+        // vehicles
         case SUMO_TAG_VEHICLE:
             information
                     << "- Click over a route to\n"
@@ -75,6 +76,18 @@ GNEVehicleFrame::HelpCreation::updateHelpCreation() {
                     << "- Select two edges to\n"
                     << "  create a Trip.";
             break;
+        case GNE_TAG_VEHICLE_WITHROUTE:
+            information
+                    << "- Select two edges to\n"
+                    << "  create a vehicle with\n"
+                    << "  embedded route.";
+            break;
+        case GNE_TAG_TRIP_JUNCTIONS:
+            information
+                    << "- Select two junctions\n"
+                    << "  to create a Trip.";
+            break;
+        // flows
         case GNE_TAG_FLOW_ROUTE:
             information
                     << "- Click over a route to\n"
@@ -84,6 +97,17 @@ GNEVehicleFrame::HelpCreation::updateHelpCreation() {
             information
                     << "- Select two edges to\n"
                     << "  create a flow.";
+            break;
+        case GNE_TAG_FLOW_WITHROUTE:
+            information
+                    << "- Select two edges to\n"
+                    << "  create a flow with\n"
+                    << "  embedded route.";
+            break;
+        case GNE_TAG_FLOW_JUNCTIONS:
+            information
+                    << "- Select two junctions\n"
+                    << "  to create a flow.";
             break;
         default:
             break;
@@ -96,8 +120,8 @@ GNEVehicleFrame::HelpCreation::updateHelpCreation() {
 // GNEVehicleFrame - methods
 // ---------------------------------------------------------------------------
 
-GNEVehicleFrame::GNEVehicleFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet) :
-    GNEFrame(horizontalFrameParent, viewNet, "Vehicles"),
+GNEVehicleFrame::GNEVehicleFrame(GNEViewParent *viewParent, GNEViewNet* viewNet) :
+    GNEFrame(viewParent, viewNet, "Vehicles"),
     myRouteHandler("", viewNet->getNet(), true, false),
     myVehicleBaseObject(new CommonXMLStructure::SumoBaseObject(nullptr)) {
 
@@ -115,6 +139,9 @@ GNEVehicleFrame::GNEVehicleFrame(FXHorizontalFrame* horizontalFrameParent, GNEVi
 
     // Create Help Creation Module
     myHelpCreation = new HelpCreation(this);
+
+    // create legend label
+    myPathLegend = new GNEM_PathLegend(this);
 }
 
 
@@ -218,15 +245,23 @@ GNEVehicleFrame::tagSelected() {
         // show vehicle type selector modul
         myTypeSelector->showDemandElementSelector();
         // show path creator modul
+        myPathCreator->showPathCreatorModule(myVehicleTagSelector->getCurrentTemplateAC()->getTagProperty().getTag(), false, false);
+        // check if show path legend
         if ((myVehicleTagSelector->getCurrentTemplateAC()->getTagProperty().getTag() != SUMO_TAG_VEHICLE) &&
-                (myVehicleTagSelector->getCurrentTemplateAC()->getTagProperty().getTag() != GNE_TAG_FLOW_ROUTE)) {
-            myPathCreator->showPathCreatorModule(myVehicleTagSelector->getCurrentTemplateAC()->getTagProperty().getTag(), false, false);
+            (myVehicleTagSelector->getCurrentTemplateAC()->getTagProperty().getTag() != GNE_TAG_FLOW_ROUTE) &&
+            (myVehicleTagSelector->getCurrentTemplateAC()->getTagProperty().getTag() != GNE_TAG_TRIP_JUNCTIONS) &&
+            (myVehicleTagSelector->getCurrentTemplateAC()->getTagProperty().getTag() != GNE_TAG_FLOW_JUNCTIONS)) {
+            myPathLegend->showPathLegendModule();
+        } else {
+            myPathLegend->hidePathLegendModule();
         }
     } else {
-        // hide all moduls if vehicle isn't valid
+        // hide all moduls if tag isn't valid
         myTypeSelector->hideDemandElementSelector();
         myVehicleAttributes->hideAttributesCreatorModule();
+        myPathCreator->hidePathCreatorModule();
         myHelpCreation->hideHelpCreation();
+        myPathLegend->hidePathLegendModule();
     }
 }
 
@@ -247,18 +282,16 @@ GNEVehicleFrame::demandElementSelected() {
         myHelpCreation->showHelpCreation();
         // show warning if we have selected a vType oriented to pedestrians or containers
         if (myTypeSelector->getCurrentDemandElement()->getVClass() == SVC_PEDESTRIAN) {
-            WRITE_WARNING("Current selected vType is oriented to pedestrians");
+            WRITE_WARNING("VType with vClass == 'pedestrian' is oriented to pedestrians");
         } else if (myTypeSelector->getCurrentDemandElement()->getVClass() == SVC_IGNORING) {
-            WRITE_WARNING("Current selected vType is oriented to containers");
+            WRITE_WARNING("VType with vClass == 'ignoring' is oriented to containers");
         }
     } else {
         // hide all moduls if selected item isn't valid
         myVehicleAttributes->hideAttributesCreatorModule();
         myPathCreator->hidePathCreatorModule();
+        myPathLegend->hidePathLegendModule();
         myHelpCreation->hideHelpCreation();
-        // hide help creation
-        myHelpCreation->hideHelpCreation();
-
     }
 }
 

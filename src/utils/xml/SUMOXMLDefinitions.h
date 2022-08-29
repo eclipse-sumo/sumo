@@ -81,10 +81,10 @@ enum SumoXMLTag {
     SUMO_TAG_INDUCTION_LOOP,
     /// @brief an e2 detector
     SUMO_TAG_E2DETECTOR,
-    /// @brief an e2 detector over multiple lanes (placed here due create Additional Frame)
-    GNE_TAG_E2DETECTOR_MULTILANE,
     /// @brief alternative tag for e2 detector
     SUMO_TAG_LANE_AREA_DETECTOR,
+    /// @brief an e2 detector over multiple lanes (placed here due create Additional Frame)
+    GNE_TAG_MULTI_LANE_AREA_DETECTOR,
     /// @brief an e3 detector
     SUMO_TAG_E3DETECTOR,
     /// @brief alternative tag for e3 detector
@@ -258,6 +258,10 @@ enum SumoXMLTag {
     SUMO_TAG_PREDECESSOR,
     /// @brief Predecessor constraint on insertion before rail signal
     SUMO_TAG_INSERTION_PREDECESSOR,
+    /// @brief Predecessor constraint on switching a rail signal
+    SUMO_TAG_FOE_INSERTION,
+    /// @brief Predecessor constraint on insertion before rail signal
+    SUMO_TAG_INSERTION_ORDER,
     /// @brief Saved state for constraint tracker
     SUMO_TAG_RAILSIGNAL_CONSTRAINT_TRACKER,
     /// @brief Link information for state-saving
@@ -396,6 +400,19 @@ enum SumoXMLTag {
     AGEN_TAG_ENTRANCE,
     /// @brief parameters
     AGEN_TAG_PARAM,
+
+    /// @name SUMOConfig elements
+    /// @brief configuration
+    SUMO_TAG_CONFIGURATION,
+    /// @brief net file
+    SUMO_TAG_NETFILE,
+    /// @brief additional files
+    SUMO_TAG_ADDITIONALFILES,
+    /// @brief route files
+    SUMO_TAG_ROUTEFILES,
+    /// @brief data files
+    SUMO_TAG_DATAFILES,
+    ///@}
 
     /// @name NETEDIT elements
     /// @{
@@ -604,6 +621,7 @@ enum SumoXMLAttr {
     SUMO_ATTR_ARRIVALEDGE,
     SUMO_ATTR_ROUTE,
     SUMO_ATTR_MAXSPEED,
+    SUMO_ATTR_DESIRED_MAXSPEED,
     SUMO_ATTR_MAXSPEED_LAT,
     SUMO_ATTR_LATALIGNMENT,
     SUMO_ATTR_MINGAP_LAT,
@@ -838,6 +856,7 @@ enum SumoXMLAttr {
     SUMO_ATTR_GC_GAIN_SPACE,
     SUMO_ATTR_CA_GAIN_SPEED,
     SUMO_ATTR_CA_GAIN_SPACE,
+    SUMO_ATTR_CA_OVERRIDE,
     /// @}
 
     // @name Train CACC model attributes
@@ -1308,6 +1327,19 @@ enum SumoXMLAttr {
     AGEN_ATTR_OUTGOING,
     /// @}
     /// @}
+
+    /// @name SUMOConfig elements
+    /// @brief config file
+    SUMO_ATTR_CONFIGFILE,
+    /// @brief net file
+    SUMO_ATTR_NETFILE,
+    /// @brief additional files
+    SUMO_ATTR_ADDITIONALFILES,
+    /// @brief route files
+    SUMO_ATTR_ROUTEFILES,
+    /// @brief route files
+    SUMO_ATTR_DATAFILES,
+    ///@}
 
     //@name Netedit Attributes (used as virtual property holders, must be in SumoXMLAttr)
     //@{

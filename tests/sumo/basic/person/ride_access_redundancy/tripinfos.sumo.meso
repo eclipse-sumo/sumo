@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-07-17 11:28:08 by Eclipse SUMO sumo Version v1_14_0+0148-77a3ad1
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <tripinfo-output value="tripinfos.xml"/>
+        <vehroute-output value="vehroutes.xml"/>
+    </output>
+
+    <processing>
+        <default.speeddev value="0"/>
+        <pedestrian.model value="nonInteracting"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+    </mesoscopic>
+
+</configuration>
+-->
+
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <personinfo id="person0" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00">
+        <walk depart="0.00" departPos="90.00" arrival="44.00" arrivalPos="50.00" duration="44.00" routeLength="60.00" timeLoss="0.80" maxSpeed="1.39"/>
+        <access stop="stopE" depart="44.00" arrival="124.00" duration="80.00" routeLength="111.80"/>
+        <ride waitingTime="33.48" vehicle="train" depart="157.48" arrival="168.00" arrivalPos="100.00" duration="10.52" routeLength="295.45" timeLoss="0.00"/>
+    </personinfo>
+    <tripinfo id="train" depart="0.00" departLane="" departPos="293.18" departSpeed="27.78" departDelay="0.00" arrival="196.00" arrivalLane="" arrivalPos="300.00" arrivalSpeed="27.78" duration="196.00" routeLength="4306.82" waitingTime="0.00" waitingCount="0" stopTime="40.00" timeLoss="40.00" rerouteNo="0" devices="vehroute_train tripinfo_train routing_train person_train" vType="tt" speedFactor="1.00" vaporized=""/>
+</tripinfos>

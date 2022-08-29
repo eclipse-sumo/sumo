@@ -1,5 +1,1 @@
 Warning: Vehicle 'rail3' performs emergency stop at the end of lane 'T12_1_0' because of a red traffic light (decel=-20.22, offset=16.69), time=39.00.
-Warning: Invalid approach information to rail signal 'junction 'P3', link 0' after rerouting for vehicle 'rail3' first driveway edge 'T2_1' time=81.00.
-Warning: Vehicle 'rail5' performs emergency stop at the end of lane 'T1_0_0' because of a red traffic light (decel=-33.33, offset=11.71), time=512.00.
-Warning: Invalid approach information to rail signal 'junction 'N1', link 0' after rerouting for vehicle 'rail5' first driveway edge 'T21_0' time=530.00.
-Warning: Railway routing failure due to turn-around on short edge 'T19_0' for vehicle 'rail5' time=600.00.

@@ -202,6 +202,9 @@ public:
             return myDist;
         }
 
+        /// @brief the speed of the person in this stage
+        double getSpeed() const;
+
         /** @brief Called on writing tripinfo output
         *
         * @param[in] os The stream to write the information into
@@ -243,7 +246,7 @@ public:
 
     /* @brief check whether an access stage must be added and return whether a
      * stage was added */
-    bool checkAccess(const MSStage* const prior, const bool isDisembark = true);
+    bool checkAccess(const MSStage* const prior, const bool waitAtStop = true);
 
     /// @brief return the list of internal edges if this person is walking and the pedestrian model allows it
     const std::string& getNextEdge() const;

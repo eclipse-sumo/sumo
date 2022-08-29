@@ -88,6 +88,9 @@ public:
 
     SUMOVehicleClass getVClass() const;
 
+    /** @brief Returns the maximum speed (the minimum of desired and physical maximum speed)
+     * @return The objects's maximum speed
+     */
     double getMaxSpeed() const;
 
     SUMOTime getWaitingTime() const;

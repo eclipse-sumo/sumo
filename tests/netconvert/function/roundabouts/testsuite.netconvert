@@ -29,5 +29,8 @@ remove
 # reset roundabout visibility to default (unspecified)
 legacy_visibility
 
+# test internal speed within roundabout (#11342)
+internal_speed
+
 # network topologies that should not be classified as a roundabout
 no_roundabout

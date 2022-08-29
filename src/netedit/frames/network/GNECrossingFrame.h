@@ -44,7 +44,7 @@ public:
     // class CurrentJunction
     // ===========================================================================
 
-    class CurrentJunction : public FXGroupBoxModule {
+    class CurrentJunction : public MFXGroupBoxModule {
 
     public:
         /// @brief constructor
@@ -65,7 +65,7 @@ public:
     // class EdgesSelector
     // ===========================================================================
 
-    class EdgesSelector : public FXGroupBoxModule {
+    class EdgesSelector : public MFXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNECrossingFrame::EdgesSelector)
 
@@ -124,7 +124,7 @@ public:
     // class CrossingParameters
     // ===========================================================================
 
-    class CrossingParameters : public FXGroupBoxModule {
+    class CrossingParameters : public MFXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNECrossingFrame::CrossingParameters)
 
@@ -219,7 +219,7 @@ public:
     // class CreateCrossing
     // ===========================================================================
 
-    class CreateCrossing : public FXGroupBoxModule {
+    class CreateCrossing : public MFXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNECrossingFrame::CreateCrossing)
 
@@ -254,7 +254,7 @@ public:
     // class Information
     // ===========================================================================
 
-    class Information : public FXGroupBoxModule {
+    class Information : public MFXGroupBoxModule {
 
     public:
         /// @brief constructor
@@ -265,10 +265,10 @@ public:
     };
 
     /**@brief Constructor
-     * @brief parent FXHorizontalFrame in which this GNEFrame is placed
+     * @brief viewParent GNEViewParent in which this GNEFrame is placed
      * @brief viewNet viewNet that uses this GNEFrame
      */
-    GNECrossingFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet);
+    GNECrossingFrame(GNEViewParent *viewParent, GNEViewNet* viewNet);
 
     /// @brief Destructor
     ~GNECrossingFrame();

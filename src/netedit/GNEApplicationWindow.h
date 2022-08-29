@@ -57,6 +57,9 @@ public:
     /// @brief load net on startup
     void loadOptionOnStartup();
 
+    /// @brief load network
+    void loadNet(const std::string& file);
+
     /// @brief build dependent
     void dependentBuild();
 
@@ -116,6 +119,15 @@ public:
     /// @brief called when the command/FXCall open foreign is executed
     long onCmdOpenForeign(FXObject*, FXSelector, void*);
 
+    /// @brief called when the command/FXCall open SUMOConfig is executed
+    long onCmdOpenSUMOConfig(FXObject*, FXSelector, void*);
+
+    /// @brief called when the command/FXCall reload SUMOConfig is executed
+    long onCmdReloadSUMOConfig(FXObject*, FXSelector, void*);
+
+    /// @brief called when the command/FXCall reload SUMOConfig is updated
+    long onUpdReloadSUMOConfig(FXObject*, FXSelector, void*);
+
     /// @brief called when the command/FXCall open TLS programs is executed
     long onCmdOpenTLSPrograms(FXObject*, FXSelector, void*);
 
@@ -160,6 +172,15 @@ public:
 
     /// @brief called when the command/FXCall save network is executed
     long onCmdSaveNetwork(FXObject*, FXSelector, void*);
+
+    /// @brief called when the command/FXCall save SUMOConfig is executed
+    long onCmdSaveSUMOConfig(FXObject*, FXSelector, void*);
+
+    /// @brief called when the command/FXCall save SUMOConfig as is executed
+    long onCmdSaveSUMOConfigAs(FXObject*, FXSelector, void*);
+
+    /// @brief called when the command/FXCall save SUMOConfig is updated
+    long onUpdSaveSUMOConfig(FXObject*, FXSelector, void*);
 
     /// @brief called when the command/FXCall save TLSPrograms is executed
     long onCmdSaveTLSPrograms(FXObject*, FXSelector, void*);
@@ -379,6 +400,9 @@ public:
     /// @brief enable or disable sender object depending if viewNet exist
     long onUpdRequireViewNet(FXObject* sender, FXSelector sel, void* ptr);
 
+    /// @brief update label for requiere recomputing
+    long onUpdRequireRecomputing(FXObject* sender, FXSelector sel, void* ptr);
+    
     /// @brief called if the user press key combination Ctrl + G to toggle grid
     long onCmdToggleGrid(FXObject*, FXSelector, void*);
 
@@ -459,6 +483,9 @@ public:
     /// @brief get ToolbarsGrip
     GNEApplicationWindowHelper::ToolbarsGrip& getToolbarsGrip();
 
+    /// @brief update recomputing label
+    void updateRecomputingLabel();
+
     /// @brief update control contents after undo/redo or recompute
     void updateControls();
 
@@ -497,20 +524,21 @@ protected:
     bool myReloading = false;
 
     /// @brief the submenus
-    FXMenuPane* myFileMenu = nullptr,
-                *myFileMenuTLS = nullptr,
-                 *myFileMenuEdgeTypes = nullptr,
-                  *myFileMenuAdditionals = nullptr,
-                   *myFileMenuDemandElements = nullptr,
-                    *myFileMenuDataElements = nullptr,
-                     *myModesMenu = nullptr,
-                      *myEditMenu = nullptr,
-                       *myLockMenu = nullptr,
-                        *myProcessingMenu = nullptr,
-                         *myLocatorMenu = nullptr,
-                          *myToolsMenu = nullptr,
-                           *myWindowMenu = nullptr,
-                            *myHelpMenu = nullptr;
+    FXMenuPane *myFileMenu = nullptr,
+               *myFileMenuSUMOConfig = nullptr,
+               *myFileMenuTLS = nullptr,
+               *myFileMenuEdgeTypes = nullptr,
+               *myFileMenuAdditionals = nullptr,
+               *myFileMenuDemandElements = nullptr,
+               *myFileMenuDataElements = nullptr,
+               *myModesMenu = nullptr,
+               *myEditMenu = nullptr,
+               *myLockMenu = nullptr,
+               *myProcessingMenu = nullptr,
+               *myLocatorMenu = nullptr,
+               *myToolsMenu = nullptr,
+               *myWindowMenu = nullptr,
+               *myHelpMenu = nullptr;
 
     /// @brief menu title for modes
     FXMenuTitle* myModesMenuTitle = nullptr;
@@ -524,11 +552,14 @@ protected:
     /// @brief The splitter that divides the main window into view and the log window
     FXSplitter* myMainSplitter = nullptr;
 
+    /// @brief Button used for show if recomputing is needed
+    MFXButtonTooltip* myRequireRecomputingButton = nullptr;
+
     /// @brief List of got requests
-    FXSynchQue<GUIEvent*> myEvents;
+    MFXSynchQue<GUIEvent*> myEvents;
 
     /// @brief io-event with the load-thread
-    FXEX::FXThreadEvent myLoadThreadEvent;
+    FXEX::MFXThreadEvent myLoadThreadEvent;
 
     /// @brief check if had dependent build
     bool myHadDependentBuild = false;

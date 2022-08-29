@@ -5,11 +5,11 @@
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- Detectors -->
-    <e3Detector id="e3_0" pos="22.00,29.00" period="300.00" file="e3_0.xml">
+    <entryExitDetector id="e3_0" pos="22.00,29.00" period="300.00" file="e3_0.xml">
         <detEntry lane="gneE3_0" pos="28.00"/>
         <detExit lane="gneE2_1" pos="22.00"/>
         <param key="keyFinal1" value="value1"/>
         <param key="keyFinal2" value="value2"/>
         <param key="keyFinal3" value="value3"/>
-    </e3Detector>
+    </entryExitDetector>
 </additional>

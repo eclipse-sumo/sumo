@@ -108,7 +108,7 @@ certain meaning and value range:
 | shape           | List of positions; each position is encoded in x,y or x,y,z in meters (do not separate the numbers with a space\!).                                                                                                       | A custom shape for that node. If less than two positions are given, netconvert will reset that node to use a computed shape.                       |
 | keepClear       | bool                                                                                                                                                                                                                      | Whether the [junction-blocking-heuristic](../Simulation/Intersections.md#junction_blocking) should be activated at this node *(default true)* |
 | rightOfWay      | string                                                                                                                                                                                                                    | Set algorithm for computing [\#Right-of-way](#right-of-way). Allowed values are *default* and *edgePriority*                            |
-| fringe      | string                                                                                                                                                                                                                    | Clarify whether this junction is on the [nework fringe](#fringe). Allowed values are *default*, *outer* and *inner*      |
+| fringe      | string                                                                                                                                                                                                                    | Clarify whether this junction is on the [network fringe](#fringe). Allowed values are *default*, *outer* and *inner*      |
 | controlledInner | list of edge ids                                                                                                                                                                                                          | Edges which shall be controlled by a joined TLS despite being incoming as well as outgoing to the jointly controlled nodes                         |
 
 !!! note
@@ -282,13 +282,13 @@ edge priorities can be switched between two modes using `<node>`-attribute
 
 ## Fringe
 
-For route generation it may be relevant to know whether a particular junction or edge is at boundary of a network where other roads (that exist in the real world) were cut off. This can specified using the 'fringe' attrribute:
+For route generation it may be relevant to know whether a particular junction or edge is at boundary of a network where other roads (that exist in the real world) were cut off. This can specified using the 'fringe' attribute:
 
 - default: this junction is not part of the fringe
 - outer: this junction is connected to additional edges in the real world. It is part of the outer boundary of the network
 - inner: this junction is connected to additional edges in the real world. It lies within the network but other roads (i.e. with a lower road class) were removed from the simulation
 
-The fringe attribut can be determined automatically for the outer fringe based on the pareto frontier by setting netconvert option **--fringe.guess**. It is also set automatically by [netgenerate](../netgenerate.md) when option **--attach-length** is used. Editing the attribute in [netedit](../Netedit/index.md) is also supported.
+The fringe attribute can be determined automatically for the outer fringe based on the pareto frontier by setting netconvert option **--fringe.guess**. It is also set automatically by [netgenerate](../netgenerate.md) when option **--attach-length** is used. Editing the attribute in [netedit](../Netedit/index.md) is also supported.
 
 The 'fringe' attribute is used by [randomTrips.py](../Tools/Trip.md#randomtripspy) when setting option **--fringe-junctions**.
 
@@ -337,7 +337,7 @@ following syntax within a nodes-file
 
 This will cause the nodes *id0*,*id23* and *id24* to be joined into a
 single junction. It will also prevent the nodes *id13* and *id17* from
-being joined. The **joinExclude**-tag is only usefull together with the
+being joined. The **joinExclude**-tag is only useful together with the
 option **--junctions.join** but the **join**-tag can also be used all by itself. Nodes to be
 excluded from joining can also be specified via the option **--junctions.join-exclude id,[id\]+**.
 
@@ -570,7 +570,7 @@ See "Vehicle Classes" for further information about [allowed vehicle classes](..
 and their usage.
 
 ### lane change restrictions
-When definining lane change restrictions with `changeLeft` and `changeRight`, the vehicle class "emergency" should typically be allowed since emergency vehicles can ignore non-phyiscal restrictions in most cases. 
+When defining lane change restrictions with `changeLeft` and `changeRight`, the vehicle class "emergency" should typically be allowed since emergency vehicles can ignore non-physical restrictions in most cases. 
 
 To strongest restriction is the value "ignoring". Note, that vehicles of class "ignoring" cannot be restricted from lane changing with `changeLeft` and `changeRight`. (only creating separate parallel edges will work).
 
@@ -919,7 +919,7 @@ simple connection element:
 | toLane         | referenced lane no | The destination lane index of the connection to be removed |
 
 !!! note
-    Note that in basic format (that is, without **fromLane** and **toLane** attributes) the defenition deletes **all** connections from given incoming edge to the given outgoing edge. When **fromLane** and **toLane** attributes are provided, only the connection from given lane to given lane is removed.
+    Note that in basic format (that is, without **fromLane** and **toLane** attributes) the definition deletes **all** connections from given incoming edge to the given outgoing edge. When **fromLane** and **toLane** attributes are provided, only the connection from given lane to given lane is removed.
 
 There are two examples within the distribution. Both use the nodes and
 edges descriptions from the example located in
@@ -981,7 +981,7 @@ The built network looks like this:
 Network with explicit lane-2-lane connections
 
 !!! caution
-    Please do not use both types of connection declarations (those with an lane attribute and those without) for the same from-edge! The behaviour is not verified and tested for these settings.
+    Please do not use both types of connection declarations (those with an lane attribute and those without) for the same from-edge! The behavior is not verified and tested for these settings.
 
 ## Setting Connection Priorities
 
@@ -1028,7 +1028,7 @@ want to wait due to right-before-left - rule. The network looks like
 this:
 
 ![cross3l_prohibitions.gif](../images/Cross3l_prohibitions.gif "Network with explicite prohibitions")
-Network with explicite prohibitions
+Network with explicit prohibitions
 
 The syntax of a prohibition-tag is: `<prohibition prohibitor="<PROHIBITING_FROM_EDGE_ID>-><PROHIBITING_TO_EDGE_ID>" prohibited="<PROHIBITED_FROM_EDGE_ID>-><PROHIBITED_TO_EDGE_ID>"/>`.
 This means we define two connections (edge-to-edge), the prohibiting one

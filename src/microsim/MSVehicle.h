@@ -338,6 +338,9 @@ public:
      * plan */
     void setApproachingForAllLinks(const SUMOTime t);
 
+    /// @brief register approach on insertion
+    void registerInsertionApproach(MSLink* link, double dist);
+
 
     /** @brief Executes planned vehicle movements with regards to right-of-way
      *
@@ -668,6 +671,10 @@ public:
      */
     SUMOTime getTimeSinceStartup() const {
         return myTimeSinceStartup;
+    }
+
+    inline double getTimeSinceStartupSeconds() const {
+        return STEPS2TIME(myTimeSinceStartup);
     }
 
     /** @brief Returns the SUMOTime lost (speed was lesser maximum speed)
@@ -2101,6 +2108,11 @@ protected:
 
     /// @brief whether the give lane is reverse direction of the current route or not
     bool isOppositeLane(const MSLane* lane) const;
+
+    /// @brief maximum acceleration to consider a vehicle as 'waiting' at low speed
+    inline double accelThresholdForWaiting() const {
+        return 0.5 * getCarFollowModel().getMaxAccel();
+    }
 
 private:
     /// @brief The per vehicle variables of the car following model

@@ -69,7 +69,6 @@ public:
 
     static bool handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper, tcpip::Storage* paramData);
 
-private:
     static MSCalibrator* getCalibrator(const std::string& id);
 
 private:

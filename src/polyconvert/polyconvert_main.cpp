@@ -166,7 +166,7 @@ fillOptions() {
 
     oc.doRegister("prune.in-net.offsets", new Option_String("0,0,0,0"));
     oc.addSynonyme("prune.in-net.offsets", "prune.on-net.offsets", true);
-    oc.addDescription("prune.in-net.offsets", "Pruning", "Uses STR as offset definition added to the net boundaries");
+    oc.addDescription("prune.in-net.offsets", "Pruning", "Uses FLOAT,FLOAT,FLOAT,FLOAT as offset definition added to the net boundary. Positive values grow the boundary on all sides while negative values shrink it.");
 
     oc.doRegister("prune.boundary", new Option_String());
     oc.addDescription("prune.boundary", "Pruning", "Uses STR as pruning boundary");
@@ -283,10 +283,11 @@ main(int argc, char** argv) {
             }
             bool ok = true;
             // !!! no proper error handling
-            Boundary offsets = GeomConvHelper::parseBoundaryReporting(oc.getString("prune.in-net.offsets"), "--prune.on-net.offsets", nullptr, ok);
-            pruningBoundary = Boundary(
-                                  pruningBoundary.xmin() + offsets.xmin(),
-                                  pruningBoundary.ymin() + offsets.ymin(),
+            Boundary offsets = GeomConvHelper::parseBoundaryReporting(
+                    oc.getString("prune.in-net.offsets"), "--prune.on-net.offsets", nullptr, ok, true, true);
+            pruningBoundary.setOffsets(
+                                  pruningBoundary.xmin() - offsets.xmin(),
+                                  pruningBoundary.ymin() - offsets.ymin(),
                                   pruningBoundary.xmax() + offsets.xmax(),
                                   pruningBoundary.ymax() + offsets.ymax());
             prune = true;

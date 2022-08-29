@@ -41,7 +41,7 @@ public:
     // class TypeSelector
     // ===========================================================================
 
-    class TypeSelector : public FXGroupBoxModule {
+    class TypeSelector : public MFXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNETypeFrame::TypeSelector)
 
@@ -81,14 +81,14 @@ public:
         GNEDemandElement* myCurrentType;
 
         /// @brief comboBox with the list of vTypes
-        FXComboBox* myTypeMatchBox;
+        MFXIconComboBox* myTypeComboBox;
     };
 
     // ===========================================================================
     // class TypeEditor
     // ===========================================================================
 
-    class TypeEditor : public FXGroupBoxModule {
+    class TypeEditor : public MFXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNETypeFrame::TypeEditor)
 
@@ -144,10 +144,10 @@ public:
     };
 
     /**@brief Constructor
-     * @brief parent FXHorizontalFrame in which this GNEFrame is placed
+     * @brief viewParent GNEViewParent in which this GNEFrame is placed
      * @brief viewNet viewNet that uses this GNEFrame
      */
-    GNETypeFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet);
+    GNETypeFrame(GNEViewParent *viewParent, GNEViewNet* viewNet);
 
     /// @brief Destructor
     ~GNETypeFrame();

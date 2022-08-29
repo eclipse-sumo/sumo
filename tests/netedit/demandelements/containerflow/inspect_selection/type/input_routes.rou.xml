@@ -9,10 +9,10 @@
     <vType id="typeC" length="20.00" width="5.00" height="12.00" color="cyan"/>
 
     <!-- Vehicles, containers and containers (sorted by depart) -->
-    <containerFlow id="f_0" type="typeA" color="red" departPos="0.00" begin="10.00" end="3600.00" containersPerHour="1200.00">
+    <containerFlow id="cf_0" type="typeA" color="red" departPos="0.00" begin="10.00" end="3600.00" containersPerHour="1200.00">
         <tranship from="gneE2" to="gneE5"/>
     </containerFlow>
-    <containerFlow id="f_1" type="typeB" color="blue" departPos="11.00" begin="12.00" end="3800.00" containersPerHour="11500.00">
+    <containerFlow id="cf_1" type="typeB" color="blue" departPos="11.00" begin="12.00" end="3800.00" containersPerHour="11500.00">
         <tranship from="gneE4" to="gneE5"/>
     </containerFlow>
 </routes>

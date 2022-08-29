@@ -30,13 +30,16 @@
 #include <foreign/rtree/SUMORTree.h>
 #include <gui/GUIApplicationWindow.h>
 #include <gui/GUISUMOViewParent.h>
+#include <gui/GUIViewTraffic.h>
 #include <guisim/GUIEdge.h>
 #include <guisim/GUIJunctionWrapper.h>
 #include <guisim/GUILane.h>
 #include <guisim/GUINet.h>
 #include <guisim/GUIVehicle.h>
 #include <microsim/MSEdge.h>
+#include <microsim/MSEdgeControl.h>
 #include <microsim/MSLane.h>
+#include <microsim/MSNet.h>
 #include <microsim/MSVehicleControl.h>
 #include <microsim/traffic_lights/MSSimpleTrafficLightLogic.h>
 #include <microsim/traffic_lights/MSTLLogicControl.h>
@@ -63,6 +66,7 @@
 #include <utils/geom/GeoConvHelper.h>
 
 #include "GUIOSGBuilder.h"
+#include "GUIOSGPerspectiveChanger.h"
 #include "GUIOSGView.h"
 
 
@@ -103,6 +107,7 @@ GUIOSGView::Command_TLSChange::execute() {
             mySwitch->setSingleChildOn(1);
             break;
         case LINKSTATE_TL_RED:
+        case LINKSTATE_STOP:
             mySwitch->setSingleChildOn(2);
             break;
         case LINKSTATE_TL_REDYELLOW:
@@ -135,6 +140,11 @@ GUIOSGView::GUIOSGView(
     //FXGLVisual* glVisual=new FXGLVisual(getApp(),VISUAL_DOUBLEBUFFER|VISUAL_STEREO);
 
     //m_gwFox = new GraphicsWindowFOX(this, glVisual, NULL, NULL, LAYOUT_FILL_X|LAYOUT_FILL_Y, x, y, w, h );
+
+    if (myChanger != nullptr) {
+        delete(myChanger);
+    }
+    myChanger = new GUIOSGPerspectiveChanger(*this, *myGrid);
 
     int w = getWidth();
     int h = getHeight();
@@ -187,6 +197,12 @@ GUIOSGView::~GUIOSGView() {
     myViewer = 0;
     myRoot = 0;
     myAdapter = 0;
+}
+
+
+void
+GUIOSGView::initChanger(const Boundary& viewPort) {
+    myChanger = new GUIOSGPerspectiveChanger(*this, viewPort);
 }
 
 
@@ -275,35 +291,8 @@ void
 GUIOSGView::recenterView() {
     stopTrack();
     Position center = myGrid->getCenter();
-    osg::Vec3d lookFromOSG, lookAtOSG, up;
-    myCameraManipulator->getHomePosition(lookFromOSG, lookAtOSG, up);
-    lookFromOSG[0] = center.x();
-    lookFromOSG[1] = center.y();
-    lookFromOSG[2] = myChanger->zoom2ZPos(100);
-    lookAtOSG[0] = center.x();
-    lookAtOSG[1] = center.y();
-    lookAtOSG[2] = 0;
-    myCameraManipulator->setHomePosition(lookFromOSG, lookAtOSG, up);
-    myViewer->home();
-}
-
-
-void
-GUIOSGView::centerTo(GUIGlID id, bool /* applyZoom */, double /* zoomDist */) {
-    GUIGlObject* o = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
-    if (o != nullptr && dynamic_cast<GUIGlObject*>(o) != nullptr) {
-        // get OSG object from GLObject
-        osg::Node* objectNode = o->getNode();
-        if (objectNode != nullptr) {
-            // center to current position
-            osg::Vec3d lookFromOSG, lookAtOSG, up;
-            myCameraManipulator->getHomePosition(lookFromOSG, lookAtOSG, up);
-            myCameraManipulator->setHomePosition(lookFromOSG, objectNode->getBound().center(), up);
-            myViewer->home();
-            updatePositionInformation();
-        }
-    }
-    GUIGlObjectStorage::gIDStorage.unblockObject(id);
+    double radius = std::max(myGrid->xmax() - myGrid->xmin(), myGrid->ymax() - myGrid->ymin());
+    myChanger->centerTo(center, radius);
 }
 
 
@@ -360,51 +349,61 @@ GUIOSGView::onPaint(FXObject*, FXSelector, void*) {
         }
     }
     myDecalsLock.unlock();
-    MSVehicleControl::constVehIt it = MSNet::getInstance()->getVehicleControl().loadedVehBegin();
+
     // reset active flag
     for (auto& item : myVehicles) {
         item.second.active = false;
     }
-    for (; it != MSNet::getInstance()->getVehicleControl().loadedVehEnd(); it++) {
-        GUIVehicle* veh = static_cast<GUIVehicle*>(it->second);
-        if (!(veh->isOnRoad() || veh->isParking() || veh->wasRemoteControlled())) {
-            continue;
+
+    GUINet* net = static_cast<GUINet*>(MSNet::getInstance());
+    // build edges
+    for (const MSEdge* e : net->getEdgeControl().getEdges()) {
+        for (const MSLane* l : e->getLanes()) {
+            const MSLane::VehCont& vehicles = l->getVehiclesSecure();
+            for (MSVehicle* msVeh : vehicles) {
+                GUIVehicle* veh = static_cast<GUIVehicle*>(msVeh);
+                if (!(veh->isOnRoad() || veh->isParking() || veh->wasRemoteControlled())) {
+                    continue;
+                }
+                auto itVeh = myVehicles.find(veh);
+                if (itVeh == myVehicles.end()) {
+                    myVehicles[veh] = GUIOSGBuilder::buildMovable(veh->getVehicleType());
+                    myRoot->addChild(myVehicles[veh].pos);
+                    myVehicles[veh].pos->setName("vehicle:" + veh->getID());
+                    veh->setNode(myVehicles[veh].pos);
+                }
+                else {
+                    itVeh->second.active = true;
+                }
+                osg::PositionAttitudeTransform* n = myVehicles[veh].pos;
+                n->setPosition(osg::Vec3d(veh->getPosition().x(), veh->getPosition().y(), veh->getPosition().z()));
+                const double dir = veh->getAngle() + M_PI / 2.;
+                const double slope = -veh->getSlope();
+                n->setAttitude(osg::Quat(osg::DegreesToRadians(slope), osg::Vec3(1, 0, 0),
+                    0, osg::Vec3(0, 1, 0),
+                    dir, osg::Vec3(0, 0, 1)));
+                /*
+                osg::ref_ptr<osg::AnimationPath> path = new osg::AnimationPath;
+                // path->setLoopMode( osg::AnimationPath::NO_LOOPING );
+                osg::AnimationPath::ControlPoint pointA(n->getPosition(), n->getAttitude());
+                osg::AnimationPath::ControlPoint pointB(osg::Vec3(veh->getPosition().x(), veh->getPosition().y(), veh->getPosition().z()),
+                                                        osg::Quat(dir, osg::Vec3(0, 0, 1)) *
+                                                        osg::Quat(osg::DegreesToRadians(slope), osg::Vec3(0, 1, 0)));
+                path->insert(0.0f, pointA);
+                path->insert(0.5f, pointB);
+                n->setUpdateCallback(new osg::AnimationPathCallback(path));
+                */
+                RGBColor col;
+                if (!GUIBaseVehicle::setFunctionalColor(myVisualizationSettings->vehicleColorer.getActive(), veh, col)) {
+                    col = myVisualizationSettings->vehicleColorer.getScheme().getColor(veh->getColorValue(*myVisualizationSettings, myVisualizationSettings->vehicleColorer.getActive()));
+                }
+                myVehicles[veh].mat->setDiffuse(osg::Material::FRONT_AND_BACK, osg::Vec4d(col.red() / 255., col.green() / 255., col.blue() / 255., col.alpha() / 255.));
+                myVehicles[veh].lights->setValue(0, veh->signalSet(MSVehicle::VEH_SIGNAL_BLINKER_RIGHT | MSVehicle::VEH_SIGNAL_BLINKER_EMERGENCY));
+                myVehicles[veh].lights->setValue(1, veh->signalSet(MSVehicle::VEH_SIGNAL_BLINKER_LEFT | MSVehicle::VEH_SIGNAL_BLINKER_EMERGENCY));
+                myVehicles[veh].lights->setValue(2, veh->signalSet(MSVehicle::VEH_SIGNAL_BRAKELIGHT));
+            }
+            l->releaseVehicles();
         }
-        auto itVeh = myVehicles.find(veh);
-        if (itVeh == myVehicles.end()) {
-            myVehicles[veh] = GUIOSGBuilder::buildMovable(veh->getVehicleType());
-            myRoot->addChild(myVehicles[veh].pos);
-            myVehicles[veh].pos->setName("vehicle:" + veh->getID());
-            veh->setNode(myVehicles[veh].pos);
-        } else {
-            itVeh->second.active = true;
-        }
-        osg::PositionAttitudeTransform* n = myVehicles[veh].pos;
-        n->setPosition(osg::Vec3d(veh->getPosition().x(), veh->getPosition().y(), veh->getPosition().z()));
-        const double dir = veh->getAngle() + M_PI / 2.;
-        const double slope = -veh->getSlope();
-        n->setAttitude(osg::Quat(osg::DegreesToRadians(slope), osg::Vec3(1, 0, 0),
-                                 0, osg::Vec3(0, 1, 0),
-                                 dir, osg::Vec3(0, 0, 1)));
-        /*
-        osg::ref_ptr<osg::AnimationPath> path = new osg::AnimationPath;
-        // path->setLoopMode( osg::AnimationPath::NO_LOOPING );
-        osg::AnimationPath::ControlPoint pointA(n->getPosition(), n->getAttitude());
-        osg::AnimationPath::ControlPoint pointB(osg::Vec3(veh->getPosition().x(), veh->getPosition().y(), veh->getPosition().z()),
-                                                osg::Quat(dir, osg::Vec3(0, 0, 1)) *
-                                                osg::Quat(osg::DegreesToRadians(slope), osg::Vec3(0, 1, 0)));
-        path->insert(0.0f, pointA);
-        path->insert(0.5f, pointB);
-        n->setUpdateCallback(new osg::AnimationPathCallback(path));
-        */
-        RGBColor col;
-        if (!GUIBaseVehicle::setFunctionalColor(myVisualizationSettings->vehicleColorer.getActive(), veh, col)) {
-            col = myVisualizationSettings->vehicleColorer.getScheme().getColor(veh->getColorValue(*myVisualizationSettings, myVisualizationSettings->vehicleColorer.getActive()));
-        }
-        myVehicles[veh].mat->setDiffuse(osg::Material::FRONT_AND_BACK, osg::Vec4d(col.red() / 255., col.green() / 255., col.blue() / 255., col.alpha() / 255.));
-        myVehicles[veh].lights->setValue(0, veh->signalSet(MSVehicle::VEH_SIGNAL_BLINKER_RIGHT | MSVehicle::VEH_SIGNAL_BLINKER_EMERGENCY));
-        myVehicles[veh].lights->setValue(1, veh->signalSet(MSVehicle::VEH_SIGNAL_BLINKER_LEFT | MSVehicle::VEH_SIGNAL_BLINKER_EMERGENCY));
-        myVehicles[veh].lights->setValue(2, veh->signalSet(MSVehicle::VEH_SIGNAL_BRAKELIGHT));
     }
     // remove inactive
     for (auto veh = myVehicles.begin(); veh != myVehicles.end();) {
@@ -437,26 +436,32 @@ GUIOSGView::onPaint(FXObject*, FXSelector, void*) {
     for (auto& item : myPersons) {
         item.second.active = false;
     }
-    for (auto transIt = MSNet::getInstance()->getPersonControl().loadedBegin(); transIt != MSNet::getInstance()->getPersonControl().loadedEnd(); ++transIt) {
-        MSTransportable* const person = transIt->second;
-        // XXX if not departed: continue
-        if (person->hasArrived() || !person->hasDeparted()) {
-            //std::cout << SIMTIME << " person " << person->getID() << " is loaded but arrived\n";
-            continue;
+
+    for (const MSEdge* e : net->getEdgeControl().getEdges()) {
+        const GUIEdge* ge = static_cast<const GUIEdge*>(e);
+        const std::set<MSTransportable*, ComparatorNumericalIdLess>& persons = ge->getPersonsSecure();
+        for (auto person : persons) {
+            if (person->hasArrived() || !person->hasDeparted()) {
+                //std::cout << SIMTIME << " person " << person->getID() << " is loaded but arrived\n";
+                continue;
+            }
+            auto itPers = myPersons.find(person);
+            if (itPers == myPersons.end()) {
+                myPersons[person] = GUIOSGBuilder::buildMovable(person->getVehicleType());
+                myRoot->addChild(myPersons[person].pos);
+            }
+            else {
+                itPers->second.active = true;
+            }
+            osg::PositionAttitudeTransform* n = myPersons[person].pos;
+            const Position pos = person->getPosition();
+            n->setPosition(osg::Vec3d(pos.x(), pos.y(), pos.z()));
+            const double dir = person->getAngle() + M_PI / 2.;
+            n->setAttitude(osg::Quat(dir, osg::Vec3d(0, 0, 1)));
         }
-        auto itPers = myPersons.find(person);
-        if (itPers == myPersons.end()) {
-            myPersons[person] = GUIOSGBuilder::buildMovable(person->getVehicleType());
-            myRoot->addChild(myPersons[person].pos);
-        } else {
-            itPers->second.active = true;
-        }
-        osg::PositionAttitudeTransform* n = myPersons[person].pos;
-        const Position pos = person->getPosition();
-        n->setPosition(osg::Vec3d(pos.x(), pos.y(), pos.z()));
-        const double dir = person->getAngle() + M_PI / 2.;
-        n->setAttitude(osg::Quat(dir, osg::Vec3d(0, 0, 1)));
+        ge->releasePersons();
     }
+
     // remove inactive
     for (auto person = myPersons.begin(); person != myPersons.end();) {
         if (!person->second.active) {
@@ -717,7 +722,6 @@ long GUIOSGView::onMiddleBtnPress(FXObject* sender, FXSelector sel, void* ptr) {
 long GUIOSGView::onMiddleBtnRelease(FXObject* sender, FXSelector sel, void* ptr) {
     FXEvent* event = (FXEvent*)ptr;
     myAdapter->getEventQueue()->mouseButtonRelease((float)event->click_x, (float)event->click_y, 2);
-
     return FXGLCanvas::onMiddleBtnRelease(sender, sel, ptr);
 }
 
@@ -774,6 +778,7 @@ GUIOSGView::onCmdCloseLane(FXObject*, FXSelector, void*) {
     if (lane != nullptr) {
         lane->closeTraffic();
         GUIGlObjectStorage::gIDStorage.unblockObject(lane->getGlID());
+        GUINet::getGUIInstance()->updateColor(*myVisualizationSettings);
         update();
     }
     return 1;
@@ -786,6 +791,7 @@ GUIOSGView::onCmdCloseEdge(FXObject*, FXSelector, void*) {
     if (lane != nullptr) {
         dynamic_cast<GUIEdge*>(&lane->getEdge())->closeTraffic(lane);
         GUIGlObjectStorage::gIDStorage.unblockObject(lane->getGlID());
+        GUINet::getGUIInstance()->updateColor(*myVisualizationSettings);
         update();
     }
     return 1;
@@ -805,51 +811,15 @@ GUIOSGView::onCmdAddRerouter(FXObject*, FXSelector, void*) {
 
 
 long
-GUIOSGView::onCmdShowReachability(FXObject* menu, FXSelector, void*) {
+GUIOSGView::onCmdShowReachability(FXObject* menu, FXSelector selector, void*) {
     GUILane* lane = getLaneUnderCursor();
     if (lane != nullptr) {
         // reset
-        const double UNREACHABLE = -1;
-        gSelected.clear();
-        for (const MSEdge* const e : MSEdge::getAllEdges()) {
-            for (MSLane* const l : e->getLanes()) {
-                GUILane* gLane = dynamic_cast<GUILane*>(l);
-                gLane->setReachability(UNREACHABLE);
-            }
-        }
-        // prepare
-        FXMenuCommand* mc = dynamic_cast<FXMenuCommand*>(menu);
-        const SUMOVehicleClass svc = SumoVehicleClassStrings.get(mc->getText().text());
-        const double defaultMaxSpeed = SUMOVTypeParameter::VClassDefaultValues(svc).maxSpeed;
-        // find reachable
-        std::map<MSEdge*, double> reachableEdges;
-        reachableEdges[&lane->getEdge()] = 0;
-        MSEdgeVector check;
-        check.push_back(&lane->getEdge());
-        while (check.size() > 0) {
-            MSEdge* e = check.front();
-            check.erase(check.begin());
-            double traveltime = reachableEdges[e];
-            for (MSLane* const l : e->getLanes()) {
-                if (l->allowsVehicleClass(svc)) {
-                    GUILane* gLane = dynamic_cast<GUILane*>(l);
-                    gSelected.select(gLane->getGlID());
-                    gLane->setReachability(traveltime);
-                }
-            }
-            traveltime += e->getLength() / MIN2(e->getSpeedLimit(), defaultMaxSpeed);
-            for (MSEdge* const nextEdge : e->getSuccessors(svc)) {
-                if (reachableEdges.count(nextEdge) == 0 ||
-                        // revisit edge via faster path
-                        reachableEdges[nextEdge] > traveltime) {
-                    reachableEdges[nextEdge] = traveltime;
-                    check.push_back(nextEdge);
-                }
-            }
-        }
+        GUIViewTraffic::showLaneReachability(lane, menu, selector);
         // switch to 'color by selection' unless coloring 'by reachability'
         if (myVisualizationSettings->laneColorer.getActive() != 36) {
             myVisualizationSettings->laneColorer.setActive(1);
+            GUINet::getGUIInstance()->updateColor(*myVisualizationSettings);
         }
         update();
     }
@@ -967,7 +937,7 @@ GUIOSGView::getLaneUnderCursor() {
 
 void
 GUIOSGView::zoom2Pos(Position& camera, Position& lookAt, double zoom) {
-    osg::Vec3f lookFromOSG, lookAtOSG, viewAxis, up;
+    osg::Vec3d lookFromOSG, lookAtOSG, viewAxis, up;
     myCameraManipulator->getInverseMatrix().getLookAt(lookFromOSG, lookAtOSG, up);
     lookFromOSG[0] = camera.x();
     lookFromOSG[1] = camera.y();
@@ -979,8 +949,8 @@ GUIOSGView::zoom2Pos(Position& camera, Position& lookAt, double zoom) {
     viewAxis.normalize();
 
     // compute new camera and lookAt pos
-    osg::Vec3f cameraUpdate = lookFromOSG + viewAxis * (zoom - 100);
-    osg::Vec3f lookAtUpdate = cameraUpdate + viewAxis;
+    osg::Vec3d cameraUpdate = lookFromOSG + viewAxis * (zoom - 100.);
+    osg::Vec3d lookAtUpdate = cameraUpdate + viewAxis;
 
     myViewer->getCameraManipulator()->setHomePosition(cameraUpdate, lookAtUpdate, up);
     myViewer->home();

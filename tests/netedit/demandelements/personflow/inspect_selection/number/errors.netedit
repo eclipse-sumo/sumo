@@ -19,13 +19,13 @@ Debug: Adding busStop 'busStop' in GNEChange_Additional
 Debug: Inserting generic parameter 'KeyA1|valueA1' into personFlow
 Debug: Inserting generic parameter 'KeyA3|valueA2' into personFlow
 Debug: Inserting generic parameter 'KeyA2|valueA3' into personFlow
-Debug: Adding personFlow 'f_0' in GNEChange_DemandElement
-Debug: Adding personTrip: edge->edge 'f_0' in GNEChange_DemandElement
+Debug: Adding personFlow 'pf_0' in GNEChange_DemandElement
+Debug: Adding personTrip: edge->edge 'pf_0' in GNEChange_DemandElement
 Debug: Inserting generic parameter 'KeyB1|valueB1' into personFlow
 Debug: Inserting generic parameter 'KeyB3|valueB2' into personFlow
 Debug: Inserting generic parameter 'KeyB2|valueB3' into personFlow
-Debug: Adding personFlow 'f_1' in GNEChange_DemandElement
-Debug: Adding personTrip: edge->edge 'f_1' in GNEChange_DemandElement
+Debug: Adding personFlow 'pf_1' in GNEChange_DemandElement
+Debug: Adding personTrip: edge->edge 'pf_1' in GNEChange_DemandElement
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ5 from SUMORTree with boundary 48.00,-12.00,72.00,12.00
@@ -78,14 +78,14 @@ Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Current Viewport values: 0.00, -6.00, 5.00. Zoom = '1736.00'
-Debug: Setting new attribute into personFlow 'f_0'
-Debug: Setting new attribute into personFlow 'f_1'
-Debug: Setting new attribute into personFlow 'f_0'
-Debug: Setting new attribute into personFlow 'f_1'
-Debug: Setting new attribute into personFlow 'f_0'
-Debug: Setting new attribute into personFlow 'f_1'
-Debug: Setting new attribute into personFlow 'f_0'
-Debug: Setting new attribute into personFlow 'f_1'
+Debug: Setting new attribute into personFlow 'pf_0'
+Debug: Setting new attribute into personFlow 'pf_1'
+Debug: Setting new attribute into personFlow 'pf_0'
+Debug: Setting new attribute into personFlow 'pf_1'
+Debug: Setting new attribute into personFlow 'pf_0'
+Debug: Setting new attribute into personFlow 'pf_1'
+Debug: Setting new attribute into personFlow 'pf_0'
+Debug: Setting new attribute into personFlow 'pf_1'
 Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
@@ -94,20 +94,20 @@ Debug: Restoring previous attribute
 Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute into personFlow 'f_1'
-Debug: Setting previous attribute into personFlow 'f_0'
+Debug: Setting previous attribute into personFlow 'pf_1'
+Debug: Setting previous attribute into personFlow 'pf_0'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute into personFlow 'f_1'
-Debug: Setting previous attribute into personFlow 'f_0'
+Debug: Setting previous attribute into personFlow 'pf_1'
+Debug: Setting previous attribute into personFlow 'pf_0'
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute into personFlow 'f_0'
-Debug: Setting new attribute into personFlow 'f_1'
+Debug: Setting new attribute into personFlow 'pf_0'
+Debug: Setting new attribute into personFlow 'pf_1'
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute into personFlow 'f_0'
-Debug: Setting new attribute into personFlow 'f_1'
+Debug: Setting new attribute into personFlow 'pf_0'
+Debug: Setting new attribute into personFlow 'pf_1'
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute

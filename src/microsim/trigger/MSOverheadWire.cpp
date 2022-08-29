@@ -45,7 +45,6 @@
 
 #include <utils/traction_wire/Node.h>
 #include "MSOverheadWire.h"
-#include "MSTrigger.h"
 
 
 Command* MSTractionSubstation::myCommandForSolvingCircuit = nullptr;

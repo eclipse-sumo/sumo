@@ -96,8 +96,9 @@
 #include <microsim/traffic_lights/MSTLLogicControl.h>
 #include <microsim/trigger/MSCalibrator.h>
 #include <microsim/trigger/MSChargingStation.h>
+#include <microsim/trigger/MSLaneSpeedTrigger.h>
 #include <microsim/trigger/MSOverheadWire.h>
-#include <microsim/trigger/MSTrigger.h>
+#include <microsim/trigger/MSTriggeredRerouter.h>
 #include <utils/router/FareModul.h>
 #include <netload/NLBuilder.h>
 
@@ -167,6 +168,9 @@ MSNet::getTravelTime(const MSEdge* const e, const SUMOVehicle* const v, double t
     }
     if (getInstance()->getWeightsStorage().retrieveExistingTravelTime(e, t, value)) {
         return value;
+    }
+    if (veh != nullptr && veh->getBaseInfluencer() != nullptr && veh->getBaseInfluencer()->getRoutingMode() == libsumo::ROUTING_MODE_AGGREGATED_CUSTOM) {
+        return MSRoutingEngine::getEffortExtra(e, v, t);
     }
     return e->getMinimumTravelTime(v);
 }
@@ -811,8 +815,13 @@ MSNet::clearAll() {
     MSRoute::clear();
     delete MSVehicleTransfer::getInstance();
     MSDevice::cleanupAll();
-    MSTrigger::cleanup();
     MSCalibrator::cleanup();
+    while (!MSLaneSpeedTrigger::getInstances().empty()) {
+        delete MSLaneSpeedTrigger::getInstances().begin()->second;
+    }
+    while (!MSTriggeredRerouter::getInstances().empty()) {
+        delete MSTriggeredRerouter::getInstances().begin()->second;
+    }
     MSDevice_BTsender::cleanup();
     MSDevice_SSM::cleanup();
     MSDevice_ToC::cleanup();

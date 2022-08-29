@@ -93,7 +93,7 @@ A vehicle may be defined using the following attributes:
 | reroute         | bool                                                                          | Whether the vehicle should be equipped with a [rerouting device](Demand/Automatic_Routing.md) (setting this to *false* does not take precedence over other assignment options)                                                                           |
 | via             | id list                                                                       | List of intermediate edges that shall be passed on [rerouting](Simulation/Routing.md#features_that_cause_rerouting) <br><br>**Note:** when via is not set, any `<stop>`-elements that belong to this route will automatically be used as intermediate edges. Otherwise via takes precedence.                                                                                                                                     |
 | departPosLat    | float(m)/string ("random", "free", "random_free", "left", "right", "center") | The lateral position on the departure lane at which the vehicle shall enter the net; see [Simulation/SublaneModel](Simulation/SublaneModel.md). *default: "center"*                                                                                      |
-| arrivalPosLat   | float(m)/string ("left", "right", "center")                                   | The lateral position on the arrival lane at which the vehicle shall arrive; see [Simulation/SublaneModel](Simulation/SublaneModel.md). by default the vehicle does not care about lateral arrival position                                               |
+| arrivalPosLat   | float(m)/string ("default", "left", "right", "center")                                   | The lateral position on the arrival lane at which the vehicle shall arrive; see [Simulation/SublaneModel](Simulation/SublaneModel.md). by default the vehicle does not care about lateral arrival position                                               |
 | speedFactor   | float > 0                                   | Sets custom speedFactor (factor on road speed limit) and overrides the [speedFactor distribution](#speed_distributions) of the vehicle type                                               |
 | insertionChecks  | string list  |  Sets the list of safety checks to perform during vehicle insertion. Possible values are: `all`, `none`, `collision`, `leaderGap`, `followerGap`, `junction`, `stop`, `arrivalSpeed`, `oncomingTrain`, `speedLimit`, `pedestrians`. default *all* |
 
@@ -102,7 +102,7 @@ A vehicle may be defined using the following attributes:
 
 ## Repeated vehicles (Flows)
 
-It is possible to define repeated vehicle emissions ("flow"s), which
+It is possible to define repeated vehicle emissions ("flows"), which
 have the same parameters as the vehicle or trip definitions except for the departure time.
 The id of the created vehicles is "flowId.runningNumber" and they are
 distributed either equally or randomly in the given interval. The
@@ -183,6 +183,9 @@ If route is defined as stand-alone route (defined with it's own id outside a veh
 
 !!! caution
     When defining a route as child element of a vehicle, any defined stops will belong to the vehicle rather than the route and will not be repeated.
+
+!!! caution
+    When a repeated route contains only a single stop, all repeated instances of the stop will be on the first iteration of the route. This can be avoided by adding a second stop slightly after first with `duration="0"`
 
 ## Incomplete Routes (trips and flows)
 
@@ -312,7 +315,7 @@ inserted at the end of the lane instead. When departSpeed="max" is set, vehicle 
 
 ### departSpeed
 
-Determines the speed of the vehicle at insertion, where maxSpeed = MIN(speedLimit * speedFactor, vTypeMaxSpeed);
+Determines the speed of the vehicle at insertion, where maxSpeed = MIN(speedLimit * speedFactor, vType_desiredMaxSpeed * speedFactor, vType_maxSpeed);
 
 - `≥0`: The vehicle is tried to be inserted
 using the given speed. If that speed is unsafe, departure is
@@ -337,7 +340,19 @@ Determines the edge along the vehicles route where the vehicle enters the networ
 !!! note
     The attribute `departEdge` is ignored for `<trip>`s and for `<flow>` that do not use attribute `route` and do not define the child element `<route>`.
     
-    
+### departPosLat
+
+The lateral position on the departure lane at which the vehicle enters the network. Defaults to 0
+
+- FLOAT: the offset from the center of the line, a positive value indicates an offset to the right (in right-hand networks).
+- `"random"`: a random position within the lane is chosen; it is not retried to insert the
+vehicle if the first try fails
+- `"free"`: a free position (if existing) is used
+- `"random_free"`: at first, ten random positions are tried, if all fail, "free" is applied
+- `"center"`: center of the lane (offset 0). *This is the default*
+- `"left"`: touching the left border of the lane
+- `"right"`: tourching the right border of the lane
+                  |
 ### arrivalLane
 
 Determines the lane on which the vehicle should end it's route
@@ -381,6 +396,16 @@ Determines the edge along the vehicles route where the vehicle leaves the networ
 
 !!! note
     The attribute `arrivalEdge` is ignored for `<trip>`s and for `<flow>` that do not use attribute `route` and do not define the child element `<route>`.
+
+### arrivalPosLat
+
+The lateral position on the departure lane at which the vehicle tries to finish its route
+
+- FLOAT: the offset from the center of the line, a positive value indicates an offset to the right (in right-hand networks).
+- `"default"`: the vehicle may arrive at an arbitrary offset
+- `"center"`: center of the lane (offset 0). *This is the default*
+- `"left"`: touching the left border of the lane
+- `"right"`: tourching the right border of the lane
 
 # Vehicle Types
 
@@ -443,8 +468,9 @@ startupDelay        | float >= 0        | 0                | The extra delay tim
 | tau               | float                             | 1.0                                                                 | [Car-following model](#car-following_models) parameter, see below                                                                                          |
 | length            | float                             | 5.0                                                                 | The vehicle's **netto**-length (length) (in m)                                                                                                                                                                         |
 | minGap            | float                             | 2.5                                                                 | Empty space after leader \[m\]                                                                                                                                                                                         |
-| maxSpeed          | float                             | 55.55 (200 km/h) for vehicles, 1.39 (5 km/h) for pedestrians        | The vehicle's maximum velocity (in m/s)                                                                                                                                                                                |
-| speedFactor       | float or [distribution spec](#defining_a_normal_distribution_for_vehicle_speeds)  | 1.0 | The vehicles expected multiplier for lane speed limits                                                                                                                                                              |
+| maxSpeed          | float                             | 55.55 (200 km/h) for most vehicles, see [vClass-specific defaults](Vehicle_Type_Parameter_Defaults.md)        | The vehicle's (technical) maximum velocity (in m/s)                                                                                                                                                                                |
+| desiredMaxSpeed          | float                       | 2778 (1e4 km/h), 5.56 (20km/h) for bikes, 1.39 (5 km/h) for pedestrians, see [model details](Simulation/VehicleSpeed.md#desiredmaxspeed)        | The vehicle desired maximum velocity (in m/s) is computed as `desiredMaxSpeed * individual_speedFactor`.                                                                                                                                                                            |
+| speedFactor       | float or [distribution spec](#defining_a_normal_distribution_for_vehicle_speeds)  | 1.0 | The vehicles expected multiplier for lane speed limits and desiredMaxSpeed                                                                                                                                                             |
 | speedDev          | float                             | 0.1                                                                 | The deviation of the speedFactor; see below for details (some vClasses use a different default)     |
 | color             | [RGB-color](#colors)   | "1,1,0" (yellow)                                                    | This vehicle type's color                                                                                                                                                                                              |
 | vClass            | class (enum)                      | "passenger"                                                         | An abstract [vehicle class (see below)](#abstract_vehicle_class). By default vehicles represent regular passenger cars.                                                                                     |
@@ -484,7 +510,9 @@ capped at the vehicle type's **maxSpeed**.
 
 While it is possible to assign the individual speedFactor value directly in a `<vehicle>`, `<trip>` or even `<flow>` definition using attribute `speedFactor`, a more common use case is to define the distribution of these factors for a `<vType>`.
 
-Having a distribution of speed factors (and hence of desired speeds) is beneficial to the realism of a simulation. If the desired speed is constant among a fleet of vehicles, this implies that gaps between vehicles will keep their size constant over a long time. For this reason, the individual speed factor for each simulated vehicle (whether defined as `<vehicle>`, `<trip>` or part of a `<flow>`) is drawn from a distribution by default. 
+Having a distribution of speed factors (and hence of desired speeds) is beneficial to the realism of a simulation. If the desired speed is constant among a fleet of vehicles, this implies that gaps between vehicles will keep their size constant over a long time. For this reason, the individual speed factor for each simulated vehicle (whether defined as `<vehicle>`, `<trip>` or part of a `<flow>`) is drawn from a distribution by default.
+
+The `speedFactor` of a vehicle is also multiplied with the value of `maxDesiredSpeed` of it's `vType`. The resulting value gives another [upper bound on speed](Simulation/VehicleSpeed.md#edgelane_speed_and_speedfactor). This achieves speed distribution for road users where the speed limit is not meaningful (i.e. bicyles and pedestrians).
 
 The speedFactor of a vehicle is written to various outputs ([tripinfo-output](Simulation/Output/TripInfo.md), [vehroute-output](https://sumo.dlr.de/docs/Simulation/Output/VehRoutes.md)) and can also be checked via the [vehicle parameter dialog](sumo-gui.md#object_properties_right-click-functions).
 
@@ -594,7 +622,7 @@ where the rightmost may only be used by "taxis" or "buses". The default
 vehicle class is **passenger** (denoting normal passenger cars).
 
 !!! caution
-    Routing or insertion may fail due to a mismatch between a vehicles `vClass` and the [road permissions](Simulation/VehiclePermissions.md#network_definition). This can be diagnosed in [sumo-gui buy highlighting edges according to their permissions](sumo-gui.md#road_access_permissions).
+    Routing or insertion may fail due to a mismatch between a vehicles `vClass` and the [road permissions](Simulation/VehiclePermissions.md#network_definition). This can be diagnosed in [sumo-gui by highlighting edges according to their permissions](sumo-gui.md#road_access_permissions).
 
 The following vehicle classes exist:
 
@@ -777,6 +805,7 @@ lists which parameter are used by which model(s). [Details on car-following mode
 | gapControlGainSpace          | 0.23                                                  |          | The control gain determining the rate of positioning deviation (Gap control mode)                         | ACC       |
 | collisionAvoidanceGainSpace  | 0.8                                                   |          | The control gain determining the rate of positioning deviation (Collision avoidance mode)                 | ACC       |
 | collisionAvoidanceGainSpeed  | 0.23                                                  |          | The control gain determining the rate of speed deviation (Collision avoidance mode)                       | ACC       |
+| collisionAvoidanceOverride  | 2     |          | If the ACC followSpeed is higher than the Krauss-followSpeed by the given value X, limit the speed to Krauss-speed + X to avoid collision   | ACC, CACC  |
 | speedControlGainCACC         | -0.4                                                  |          | The control gain determining the rate of speed deviation (Speed control mode)                             | CACC      |
 | gapClosingControlGainGap     | 0.005                                                 |          | The control gain determining the rate of positioning deviation (Gap closing control mode)                 | CACC      |
 | gapClosingControlGainGapDot  | 0.05                                                  |          | The control gain determining the rate of the positioning deviation derivative (Gap closing control mode)  | CACC      |
@@ -900,7 +929,7 @@ listed below.
 
 | Attribute              | Value Type                           | Default    | Description                               |
 | ---------------------- | ------------------------------------ | ---------- | ----------------------------------------- |
-| jmCrossingGap          | float \>= 0 (m)                      | 10         | Minimum distance to pedestrians that are walking towards the conflict point with the ego vehicle. If the pedestrians are further away the vehicle may drive across the pedestrian crossing.                                                                                                                                                                                                                                                 |
+| jmCrossingGap          | float \>= 0 (m)                      | 10         | Minimum distance to pedestrians that are walking towards the conflict point with the ego vehicle. If the pedestrians are further away the vehicle may drive across the pedestrian crossing (excluding walking area). So, the lower the value, the braver (more aggressive) the driver.                                                                                                                                                                                                                                               |
 | jmIgnoreKeepClearTime  | float (s)                            | \-1        | The accumulated waiting time (see Option [**--waiting-time-memory**](sumo.md#processing)) after which a vehicle will [drive onto an intersection even though this might cause jamming](Simulation/Intersections.md#junction_blocking). For negative values, the vehicle will always try to keep the junction clear.                                                                                                                          |
 | jmDriveAfterRedTime    | float (s)                            | \-1        | This value causes vehicles to violate a red light if the light has changed to red more recently than the given threshold. When set to 0, vehicles will always drive at yellow but will try to brake at red. If this behavior causes a vehicle to drive so fast that stopping is not possible any more it will not attempt to stop. This value also applies to [the default pedestrian model](Simulation/Pedestrians.md#model_striping). |
 | jmDriveAfterYellowTime | float (s)                            | \-1        | This value causes vehicles to violate a yellow light if the light has changed more recently than the given threshold. Vehicles that are too fast to brake always drive at yellow..                                                                                                                                                                                                                                                    |
@@ -1040,11 +1069,12 @@ A distribution can be used just as using individual types and routes:
 !!! caution
     When using [duarouter](duarouter.md) with input files containing distributions, the output files will contain a fixed route and type for each vehicle and the distributions will be gone. This is to ensure that the each vehicles route will fit its sampled `vClass` when using the input files with [sumo](sumo.md)
 
-# Stops
+# Stops and waypoints
 
 Vehicles may be forced to stop for a defined time span or wait for
 persons by using the stop element either as part of a route or a vehicle
-definition as following:
+definition. The stop element can also be used to guide vehicles along a route to 
+a waypoint. The examples below show all three cases:
 
 ```xml
 <routes>
@@ -1054,15 +1084,20 @@ definition as following:
     <vehicle id="v0" route="route0" depart="0">
         <stop lane="end_0" endPos="10" until="50"/>
     </vehicle>
+    <vehicle id="v1" route="route0" depart="90">
+        <stop lane="end_1" endPos="10" speed="13.89"/>
+    </vehicle>
 </routes>
 ```
 
-The resulting vehicle will stop twice, once at lane middle_0 because of
+The resulting vehicle `v0` will stop twice, once at lane middle_0 because of
 the stop defined in its route and the second time because of the stop
 defined in the vehicle itself. The first stop will last 20 seconds the
 second one until simulation second 50. For a detailed list of attributes
 to stops see below. For a description on how to use them to simulate
 public transport see [Simulation/Public Transport](Simulation/Public_Transport.md).
+The second vehicle `v1` will stop once at lane middle_0 as defined in the route, then 
+head to lane end_1 and pass that point at 13.89 m/s before terminating at route at rend edge.
 
 Stops can be childs of vehicles, routes, persons or containers.
 

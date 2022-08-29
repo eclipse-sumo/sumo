@@ -1,0 +1,42 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+   <vType id="DEFAULT_VEHTYPE" sigma="0" personCapacity="5" />
+   <vehicle id="v0" depart="0">
+       <route edges="beg beg2left"/>
+       <stop busStop="bs" duration="5"/>
+   </vehicle>
+    <person id="p0" depart="triggered" departPos="40">
+        <ride from="beg" busStop="bs" lines="v0"/>
+    </person>
+
+   <vehicle id="v1" depart="10">
+       <route edges="beg beg2left"/>
+       <stop parkingArea="pa" duration="5"/>
+   </vehicle>
+    <person id="p1" depart="triggered" departPos="40">
+        <ride from="beg" parkingArea="pa" lines="v1"/>
+    </person>
+
+   <vehicle id="v2" depart="20">
+       <route edges="beg beg2left"/>
+       <stop chargingStation="cs" duration="5"/>
+   </vehicle>
+    <person id="p2" depart="triggered" departPos="40">
+        <ride from="beg" chargingStation="cs" lines="v2"/>
+    </person>
+
+   <vehicle id="v3" depart="30">
+       <route edges="beg beg2left"/>
+       <stop containerStop="cts" duration="5"/>
+   </vehicle>
+    <person id="p3" depart="triggered" departPos="40">
+        <ride from="beg" containerStop="cts" lines="v3"/>
+    </person>
+
+   <vehicle id="v4" depart="40">
+       <route edges="beg beg2left"/>
+       <stop trainStop="ts" duration="5"/>
+   </vehicle>
+    <person id="p4" depart="triggered" departPos="40">
+        <ride from="beg" trainStop="ts" lines="v4"/>
+    </person>
+</routes>

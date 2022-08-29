@@ -24,7 +24,7 @@
 #include <FXJPGImage.h>
 #ifdef _MSC_VER
 #pragma warning(push)
-#pragma warning(disable: 4244) // do not warn about integer conversions
+#pragma warning(disable: 4244 4242) // do not warn about integer conversions
 #endif
 #include <FXTIFImage.h>
 #ifdef _MSC_VER

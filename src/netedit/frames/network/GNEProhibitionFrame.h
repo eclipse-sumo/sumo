@@ -51,7 +51,7 @@ public:
     // class RelativeToConnection
     // ===========================================================================
 
-    class RelativeToConnection : public FXGroupBoxModule {
+    class RelativeToConnection : public MFXGroupBoxModule {
 
     public:
         /// @brief constructor
@@ -75,7 +75,7 @@ public:
     // class Legend
     // ===========================================================================
 
-    class Legend : public FXGroupBoxModule {
+    class Legend : public MFXGroupBoxModule {
 
     public:
         /// @brief constructor
@@ -120,7 +120,7 @@ public:
     // class Modifications
     // ===========================================================================
 
-    class Modifications : public FXGroupBoxModule {
+    class Modifications : public MFXGroupBoxModule {
 
     public:
         /// @brief constructor
@@ -138,10 +138,10 @@ public:
     };
 
     /**@brief Constructor
-     * @brief parent FXHorizontalFrame in which this GNEFrame is placed
+     * @brief viewParent GNEViewParent in which this GNEFrame is placed
      * @brief viewNet viewNet that uses this GNEFrame
      */
-    GNEProhibitionFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet);
+    GNEProhibitionFrame(GNEViewParent *viewParent, GNEViewNet* viewNet);
 
     /// @brief Destructor
     ~GNEProhibitionFrame();

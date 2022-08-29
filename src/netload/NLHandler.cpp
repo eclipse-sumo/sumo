@@ -281,7 +281,9 @@ NLHandler::myStartElement(int element,
                 break;
             }
             case SUMO_TAG_PREDECESSOR: // intended fall-through
-            case SUMO_TAG_INSERTION_PREDECESSOR:
+            case SUMO_TAG_FOE_INSERTION: // intended fall-through
+            case SUMO_TAG_INSERTION_PREDECESSOR: // intended fall-through
+            case SUMO_TAG_INSERTION_ORDER:
                 addPredecessorConstraint(element, attrs, myConstrainedSignal);
                 break;
             default:
@@ -1721,16 +1723,27 @@ NLHandler::addPredecessorConstraint(int element, const SUMOSAXAttributes& attrs,
     if (signal == nullptr) {
         throw InvalidArgument("Traffic light '" + signalID + "' is not a rail signal");
     }
+    MSRailSignalConstraint::ConstraintType type;
+    switch (element) {
+        case SUMO_TAG_PREDECESSOR:
+            type = MSRailSignalConstraint::ConstraintType::PREDECESSOR;
+            break;
+        case SUMO_TAG_INSERTION_PREDECESSOR:
+            type = MSRailSignalConstraint::ConstraintType::INSERTION_PREDECESSOR;
+            break;
+        case SUMO_TAG_FOE_INSERTION:
+            type = MSRailSignalConstraint::ConstraintType::FOE_INSERTION;
+            break;
+        case SUMO_TAG_INSERTION_ORDER:
+            type = MSRailSignalConstraint::ConstraintType::INSERTION_ORDER;
+            break;
+        default:
+            throw InvalidArgument("Unsupported rail signal constraint '" + toString((SumoXMLTag)element) + "'");
+    }
     if (ok) {
         for (const std::string& foe : foes) {
-            MSRailSignalConstraint* c = new MSRailSignalConstraint_Predecessor(signal, foe, limit, active);
-            if (element == SUMO_TAG_PREDECESSOR) {
-                rs->addConstraint(tripId, c);
-            } else if (element == SUMO_TAG_INSERTION_PREDECESSOR) {
-                rs->addInsertionConstraint(tripId, c);
-            } else {
-                throw InvalidArgument("Unsupported rail signal constraint '" + toString((SumoXMLTag)element) + "'");
-            }
+            MSRailSignalConstraint* c = new MSRailSignalConstraint_Predecessor(type, signal, foe, limit, active);
+            rs->addConstraint(tripId, c);
         }
     }
 }

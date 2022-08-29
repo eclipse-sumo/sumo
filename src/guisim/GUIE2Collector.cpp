@@ -162,7 +162,7 @@ GUIE2Collector::MyWrapper::drawGL(const GUIVisualizationSettings& s) const {
     }
     GLHelper::pushName(getGlID());
     GLHelper::pushMatrix();
-    glTranslated(0, 0, getType());
+    glTranslated(0, 0, GLO_JUNCTION + 0.4); // do not draw on top of linkRules
     double dwidth = 1;
     const double exaggeration = getExaggeration(s);
     if (exaggeration > 0) {

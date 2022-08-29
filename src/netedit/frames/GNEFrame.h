@@ -34,11 +34,11 @@ class GNEFrame : public FXVerticalFrame {
 
 public:
     /**@brief Constructor
-     * @brief parent FXHorizontalFrame in which this GNEFrame is placed
+     * @brief viewParent GNEViewParent in which this GNEFrame is placed
      * @brief viewNet viewNet that uses this GNEFrame
      * @brief frameLabel label of the frame
      */
-    GNEFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet, const std::string& frameLabel);
+    GNEFrame(GNEViewParent *viewParent, GNEViewNet* viewNet, const std::string& frameLabel);
 
     /// @brief destructor
     ~GNEFrame();
@@ -57,7 +57,7 @@ public:
     virtual void hide();
 
     /// @brief set width of GNEFrame
-    void setFrameWidth(int newWidth);
+    void setFrameWidth(const int newWidth);
 
     /// @brief get view net
     GNEViewNet* getViewNet() const;
@@ -71,11 +71,17 @@ public:
     /// @brief get font of the header's frame
     FXFont* getFrameHeaderFont() const;
 
+    /// @brief get scrollBar width (zero if is hidden)
+    int getScrollBarWidth() const;
+
     /// @brief Open help attributes dialog
     void openHelpAttributesDialog(const GNEAttributeCarrier* AC) const;
 
     /// @brief function called after undo/redo in the current frame (can be reimplemented in frame children)
     virtual void updateFrameAfterUndoRedo();
+
+    /// @brief function called after setting new width in current frame (can be reimplemented in frame children)
+    virtual void frameWidthUpdated();
 
     /// @name functions called by moduls that can be reimplemented in frame children (note: reimplement as protected, just for safety)
     /// @{

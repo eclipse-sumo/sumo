@@ -155,6 +155,57 @@ class GNEEdgeRelData;
 
 struct GNEViewNetHelper {
 
+    /// @brief lock manager
+    class LockManager {
+
+    public:
+        /// @brief constructor
+        LockManager(GNEViewNet* viewNet);
+
+        /// @brief destructor
+        ~LockManager();
+
+        /// @brief check if given GLObject is locked for inspect, select, delete and move
+        bool isObjectLocked(GUIGlObjectType objectType, const bool selected) const;
+
+        /// @brief update flags
+        void updateFlags();
+
+        /// @brief update lock inspect menuBar
+        void updateLockMenuBar();
+
+    private:
+        /// @brief operation locked
+        class OperationLocked {
+
+        public:
+            /// @brief constructor
+            OperationLocked();
+
+            /// @brief parameter constructor
+            OperationLocked(Supermode supermode);
+
+            /// @brief destructor
+            ~OperationLocked();
+
+            /// @brief get supermode
+            Supermode getSupermode() const;
+
+            /// @brief flag for lock/unlock
+            bool lock = false;
+
+        private:
+            /// @brief supermode associated with this operation locked
+            Supermode mySupermode;
+        };
+
+        /// @brief pointer to viewNet
+        GNEViewNet* myViewNet;
+
+        /// @brief map with locked elements
+        std::map<GUIGlObjectType, OperationLocked> myLockedElements;
+    };
+
     /// @brief class used to group all variables related with objects under cursor after a click over view
     class ObjectsUnderCursor {
 
@@ -180,6 +231,9 @@ struct GNEViewNetHelper {
         /// @brief get front attribute carrier or a pointer to nullptr
         GNEAttributeCarrier* getAttributeCarrierFront() const;
 
+        /// @brief get front attribute carrier or a pointer to nullptr checking if is locked
+        GNEAttributeCarrier* getAttributeCarrierFront(const GNEViewNetHelper::LockManager &lockManager) const;
+
         /// @brief get front network element or a pointer to nullptr
         GNENetworkElement* getNetworkElementFront() const;
 
@@ -200,6 +254,9 @@ struct GNEViewNetHelper {
 
         /// @brief get front lane or a pointer to nullptr
         GNELane* getLaneFront() const;
+
+        /// @brief get front lane or a pointer to nullptr checking if is locked
+        GNELane* getLaneFrontNonLocked() const;
 
         /// @brief get lanes
         const std::vector<GNELane*>& getLanes() const;
@@ -1299,57 +1356,6 @@ struct GNEViewNetHelper {
 
         /// @brief Invalidated assignment operator
         LockIcon& operator=(const LockIcon& other) = delete;
-    };
-
-    /// @brief lock manager
-    class LockManager {
-
-    public:
-        /// @brief constructor
-        LockManager(GNEViewNet* viewNet);
-
-        /// @brief destructor
-        ~LockManager();
-
-        /// @brief check if given GLObject is locked for inspect, select, delete and move
-        bool isObjectLocked(GUIGlObjectType objectType, const bool selected) const;
-
-        /// @brief update flags
-        void updateFlags();
-
-        /// @brief update lock inspect menuBar
-        void updateLockMenuBar();
-
-    private:
-        /// @brief operation locked
-        class OperationLocked {
-
-        public:
-            /// @brief constructor
-            OperationLocked();
-
-            /// @brief parameter constructor
-            OperationLocked(Supermode supermode);
-
-            /// @brief destructor
-            ~OperationLocked();
-
-            /// @brief get supermode
-            Supermode getSupermode() const;
-
-            /// @brief flag for lock/unlock
-            bool lock = false;
-
-        private:
-            /// @brief supermode associated with this operation locked
-            Supermode mySupermode;
-        };
-
-        /// @brief pointer to viewNet
-        GNEViewNet* myViewNet;
-
-        /// @brief map with locked elements
-        std::map<GUIGlObjectType, OperationLocked> myLockedElements;
     };
 
     /// @brief get scaled rainbow colors

@@ -31,6 +31,7 @@
         <xsd:attribute name="length" type="positiveFloatType"/>
         <xsd:attribute name="minGap" type="nonNegativeFloatType"/>
         <xsd:attribute name="maxSpeed" type="positiveFloatType"/>
+        <xsd:attribute name="desiredMaxSpeed" type="positiveFloatType"/>
         <xsd:attribute name="probability" type="nonNegativeFloatType"/>
         <xsd:attribute name="speedFactor" type="nonNegativeDistributionType"/>
         <xsd:attribute name="speedDev" type="nonNegativeFloatType"/>
@@ -142,6 +143,7 @@
         <xsd:attribute name="gapControlGainSpace" type="xsd:float"/>
         <xsd:attribute name="collisionAvoidanceGainSpeed" type="xsd:float"/>
         <xsd:attribute name="collisionAvoidanceGainSpace" type="xsd:float"/>
+        <xsd:attribute name="collisionAvoidanceOverride" type="xsd:float"/>
         <xsd:attribute name="tauCACCToACC" type="xsd:float"/>
         <xsd:attribute name="applyDriverState" type="xsd:float"/>
         <xsd:attribute name="carFollowModel" type="xsd:string"/>
@@ -886,6 +888,7 @@
                     <xsd:attribute name="walkFactor" type="positiveFloatType"/>
                     <xsd:attribute name="costs" type="xsd:string"/>
                     <xsd:attribute name="group" type="xsd:string" use="optional"/>
+                    <xsd:attribute name="lines" type="xsd:string" use="optional"/>
                 </xsd:complexType>
             </xsd:element>
             <xsd:element name="ride">

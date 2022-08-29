@@ -100,7 +100,7 @@ By definining a `<flow>` with attributes `number` and `probability` (instead of 
 a vehicle will be emitted randomly with the given probability each second until the specified number is reached.
 
 ## Poisson Process
-By definining a `<flow>` with attributes `number` and `period="exp(X")` (instead of `vehsPerHour,number`, or `period`),
+By definining a `<flow>` with attributes `number` and `period="exp(X)"` (instead of `vehsPerHour,number`, or `period`),
 vehicles will emitted with random time-gaps that follow an exponential distribution until the specified number is reached.
 
 ## Router options

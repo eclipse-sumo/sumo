@@ -21,11 +21,15 @@
 
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
+#include <netedit/GNEApplicationWindow.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 
 #include "GNEFrame.h"
 
+
+#define PADDINGFRAME 10 // (5+5)
+#define VERTICALSCROLLBARWIDTH 15
 
 // ===========================================================================
 // static members
@@ -37,8 +41,8 @@ FXFont* GNEFrame::myFrameHeaderFont = nullptr;
 // method definitions
 // ===========================================================================
 
-GNEFrame::GNEFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet, const std::string& frameLabel) :
-    FXVerticalFrame(horizontalFrameParent, GUIDesignAuxiliarFrame),
+GNEFrame::GNEFrame(GNEViewParent *viewParent, GNEViewNet* viewNet, const std::string& frameLabel) :
+    FXVerticalFrame(viewParent->getFramesArea(), GUIDesignAuxiliarFrame),
     myViewNet(viewNet) {
 
     // fill myPredefinedTagsMML (to avoid repeating this fill during every element creation)
@@ -78,11 +82,14 @@ GNEFrame::GNEFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet
     // Create frame for contents
     myScrollWindowsContents = new FXScrollWindow(this, GUIDesignContentsScrollWindow);
 
-    // Create frame for contents
-    myContentFrame = new FXVerticalFrame(myScrollWindowsContents, GUIDesignContentsFrame);
+    // Create frame for contents (in which GroupBox will be placed)
+    myContentFrame = new FXVerticalFrame(myScrollWindowsContents, GUIDesignContentsGNEFrame);
 
     // Set font of header
     myFrameHeaderLabel->setFont(myFrameHeaderFont);
+
+    // set initial width (will be changed in the first update
+    setWidth(10);
 
     // Hide Frame
     FXVerticalFrame::hide();
@@ -123,9 +130,19 @@ GNEFrame::hide() {
 
 
 void
-GNEFrame::setFrameWidth(int newWidth) {
-    setWidth(newWidth);
-    myScrollWindowsContents->setWidth(newWidth);
+GNEFrame::setFrameWidth(const int newWidth) {
+    // set scroll windows size (minus MARGING)
+    myScrollWindowsContents->setWidth(newWidth - GUIDesignFrameAreaMarging - DEFAULT_SPACING - 1);
+    // calculate new contentWidth
+    int contentWidth = (newWidth - GUIDesignFrameAreaMarging - DEFAULT_SPACING - 1 - 15);
+    // adjust contents frame
+    myContentFrame->setWidth(contentWidth);
+    // set size of all contents frame children
+    for (auto child = myContentFrame->getFirst(); child != nullptr; child = child->getNext()) {
+        child->setWidth(contentWidth);
+    }
+    // call frame width updated
+    frameWidthUpdated();
 }
 
 
@@ -150,6 +167,16 @@ GNEFrame::getFrameHeaderLabel() const {
 FXFont*
 GNEFrame::getFrameHeaderFont() const {
     return myFrameHeaderFont;
+}
+
+
+int 
+GNEFrame::getScrollBarWidth() const {
+    if (myScrollWindowsContents->verticalScrollBar()->shown()) {
+        return myScrollWindowsContents->verticalScrollBar()->getWidth();
+    } else {
+        return 0;
+    }
 }
 
 
@@ -223,6 +250,12 @@ GNEFrame::openHelpAttributesDialog(const GNEAttributeCarrier* AC) const {
 void
 GNEFrame::updateFrameAfterUndoRedo() {
     // this function has to be reimplemente in all child frames that needs to draw a polygon (for example, GNEFrame or GNETAZFrame)
+}
+
+
+void
+GNEFrame::frameWidthUpdated() {
+    // this function can be reimplemente in all child frames
 }
 
 // ---------------------------------------------------------------------------

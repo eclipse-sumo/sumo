@@ -25,6 +25,9 @@ extrapolate_departpos
 # test insertion on short edge (#10298)
 extrapolate_departpos_short
 
+# checks using departPosLat with the default model
+posLat_beyondLane
+
 # Errors on emission
 errors
 

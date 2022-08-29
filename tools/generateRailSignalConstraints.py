@@ -147,6 +147,8 @@ def get_options(args=None):
                         help="Do not generate constraints for a vehicle that parks at the next stop")
     parser.add_argument("--redundant", default=-1, help="Add redundant constraint within given time range " +
                                                         "(reduces impact of modifying constraints at runtime)")
+    parser.add_argument("--bidi-max-range", dest="bidiMaxRange", type=float, default=1,
+                        help="Find bidiStops on sequential edges within the given range in m")
     parser.add_argument("--comment.line", action="store_true", dest="commentLine", default=False,
                         help="add lines of involved trains in comment")
     parser.add_argument("--comment.id", action="store_true", dest="commentId", default=False,
@@ -169,6 +171,8 @@ def get_options(args=None):
                         help="print debug information for the given busStop id")
     parser.add_argument("--debug-vehicle", dest="debugVehicle",
                         help="print debug information for the given vehicle id")
+    parser.add_argument("--debug-edge", dest="debugEdge",
+                        help="print debug information for the given edge id")
 
     options = parser.parse_args(args=args)
     if (options.routeFile is None and options.tripFile is None) or options.netFile is None:
@@ -214,7 +218,7 @@ def formatStopTimes(arrival, until, started, ended):
 class Conflict:
     def __init__(self, tripID, otherSignal, otherTripID, limit, line, otherLine,
                  vehID, otherVehID, conflictTime, switch, busStop, info,
-                 active=True):
+                 active=True, tag=None):
         self.tripID = tripID
         self.otherSignal = otherSignal
         self.otherTripID = otherTripID
@@ -228,6 +232,7 @@ class Conflict:
         self.busStop = busStop
         self.info = info
         self.active = active
+        self.tag = tag
 
 
 def getTravelTime(net, edges):
@@ -248,7 +253,49 @@ def getStopEdges(addFile):
     return stopEdges
 
 
-def getBidiStops(net, stopEdges):
+def getNextStraight(edge, nextDict):
+    """return successor edge if it is unique (excluding bidi)"""
+    succs = list(nextDict.keys())
+    if len(succs) == 1:
+        if succs[0] != edge.getBidi():
+            return succs[0]
+    elif len(succs) == 2:
+        if succs[0] == edge.getBidi():
+            return succs[1]
+        elif succs[1] == edge.getBidi():
+            return succs[0]
+    return None
+
+
+def getBidiSequence(options, net, edge):
+    """find continuous sequene of bidi edges upstream and downstream of the given edge within the given range.
+       The search in eeach direction is aborted when encountering a switch"""
+    result = []
+    if edge.getBidi() is None:
+        return result
+    result.append(edge.getBidi())
+    # downstream
+    remRange = options.bidiMaxRange
+    nextEdge = getNextStraight(edge, edge.getOutgoing())
+    while nextEdge is not None and nextEdge.getBidi() is not None and remRange > 0:
+        remRange -= nextEdge.getLength()
+        result.append(nextEdge.getBidi())
+        if edge.getID() == options.debugEdge:
+            print("forwardNext=%s remRange=%s" % (nextEdge.getID(), remRange))
+        nextEdge = getNextStraight(nextEdge, nextEdge.getOutgoing())
+    # upstream
+    remRange = options.bidiMaxRange
+    nextEdge = getNextStraight(edge, edge.getIncoming())
+    while nextEdge is not None and nextEdge.getBidi() is not None and remRange > 0:
+        remRange -= nextEdge.getLength()
+        result.append(nextEdge.getBidi())
+        if edge.getID() == options.debugEdge:
+            print("backwardNext=%s remRange=%s" % (nextEdge.getID(), remRange))
+        nextEdge = getNextStraight(nextEdge, nextEdge.getIncoming())
+    return result
+
+
+def getBidiStops(options, net, stopEdges):
     """find bidi-stop(s) for each stop"""
     # reverse stopEdges map (there may be more than one stop per edge)
     edgeStops = defaultdict(list)
@@ -264,10 +311,11 @@ def getBidiStops(net, stopEdges):
     bidiStops = defaultdict(list)
     for busStop, edgeID in stopEdges.items():
         edge = net.getEdge(edgeID)
-        if edge.getBidi() is not None:
-            bidiID = edge.getBidi().getID()
+        for bidi in getBidiSequence(options, net, edge):
+            bidiID = bidi.getID()
             if bidiID in edgeStops:
-                bidiStops[busStop] = edgeStops[bidiID]
+                bidiStops[busStop] += edgeStops[bidiID]
+                # print("stop=%s bidiStops=%s" % (busStop, bidiStops[busStop]))
 
     if len(bidiStops) > 0:
         print("found %s bidi-stops (max stops per edge %s on %s)" % (len(bidiStops), maxStopsPerEdge, maxStopsEdge))
@@ -282,6 +330,7 @@ def getStopRoutes(options, stopEdges, bidiStops):
     stopRoutes = defaultdict(list)  # busStop -> [(edges, stopObj), ....]
     stopRoutesBidi = defaultdict(list)  # busStop -> [(edges, stopObj), ....]
     vehicleStopRoutes = defaultdict(list)  # vehID -> [(edges, stopObj), ....]
+    departTimes = {}
     numRoutes = 0
     numStops = 0
     begin = parseTime(options.begin)
@@ -289,6 +338,7 @@ def getStopRoutes(options, stopEdges, bidiStops):
         depart = parseTime(vehicle.depart)
         if depart < begin:
             continue
+        departTimes[vehicle.id] = depart
         numRoutes += 1
         edges = tuple(vehicle.route[0].edges.split())
         uniqueRoutes.add(edges)
@@ -329,7 +379,7 @@ def getStopRoutes(options, stopEdges, bidiStops):
     print("read %s routes (%s unique) and %s stops at %s busStops" % (
         numRoutes, len(uniqueRoutes), numStops, len(stopRoutes)))
 
-    return uniqueRoutes, stopRoutes, stopRoutesBidi, vehicleStopRoutes
+    return uniqueRoutes, stopRoutes, stopRoutesBidi, vehicleStopRoutes, departTimes
 
 
 def findMergingSwitches(options, uniqueRoutes, net):
@@ -971,7 +1021,21 @@ def findSignal(net, nextEdges, reverse=False):
     return None
 
 
-def findInsertionConflicts(options, net, stopEdges, stopRoutes, vehicleStopRoutes):
+def getDownstreamSignal(net, stopEdges, vehStops, stopIndex):
+    nextEdges = vehStops[stopIndex + 1][0]
+    stop = vehStops[stopIndex][1]
+    return findSignal(net, (stopEdges[stop.busStop],) + nextEdges)
+
+
+def getUpstreamSignal(net, vehStops, stopIndex):
+    prevEdges = vehStops[stopIndex][0]
+    if stopIndex > 0:
+        # prepend on more edge from further back
+        prevEdges = vehStops[stopIndex - 1][0][-1:] + prevEdges
+    return findSignal(net, list(reversed(prevEdges)), True)
+
+
+def findInsertionConflicts(options, net, stopEdges, stopRoutes, vehicleStopRoutes, departTimes):
     """find routes that start at a stop with a traffic light at end of the edge
     and routes that pass this stop. Ensure insertion happens in the correct order
     (finds constraints on insertion)
@@ -983,7 +1047,6 @@ def findInsertionConflicts(options, net, stopEdges, stopRoutes, vehicleStopRoute
     for busStop, stops in stopRoutes.items():
         if busStop == options.debugStop:
             print("findInsertionConflicts at stop %s" % busStop)
-        stopEdge = stopEdges[busStop]
         untils = []
         for edgesBefore, stop in stops:
             if stop.hasAttribute("until") and not options.untilFromDuration:
@@ -1003,42 +1066,52 @@ def findInsertionConflicts(options, net, stopEdges, stopRoutes, vehicleStopRoute
             nIsPassing = nIndex < len(nVehStops) - 1
             nIsDepart = len(nEdges) == 1 and nIndex == 0
             if options.verbose and busStop == options.debugStop:
-                print("%s n: %s %s %s %s %s passing: %s depart: %s%s" %
+                print("%s n: %s %s %s %s %s passing: %s depart: %s%s%s" %
                       (i, humanReadableTime(nUntil), nStop.tripId, nStop.vehID, nIndex, len(nVehStops),
-                       nIsPassing, nIsDepart, (" bidiStop: %s" % nStop.busStop) if nIsBidiStop else ""))
+                       nIsPassing, nIsDepart,
+                       (" bidiStop: %s" % nStop.busStop) if nIsBidiStop else "",
+                       " invalid" if nStop.getAttributeSecure("invalid", False) else ""))
             # ignore duplicate bidiStop vs bidiStop conflicts
             if prevPassing is not None and nIsDepart and not nIsBidiStop:
                 pUntil, pEdges, pStop = prevPassing
                 pVehStops = vehicleStopRoutes[pStop.vehID]
                 pIndex = pVehStops.index((pEdges, pStop))
-                # no need to constrain subsequent departures (simulation should maintain ordering)
-                if len(pEdges) > 1 or pIndex > 0:
+                pIsBidiStop = pStop.busStop != busStop
+                pIsPassing = pIndex < len(pVehStops) - 1
+                pIsDepart = len(pEdges) == 1 and pIndex == 0
+                # usually, subsequent departuers do not require constraints
+                # (unless depart, until and ended out of sync)
+                if not pIsDepart or departTimes[nStop.vehID] < departTimes[pStop.vehID]:
                     # find edges after stop
                     if busStop == options.debugStop:
                         print(i,
                               "p:", humanReadableTime(pUntil), pStop.tripId, pStop.vehID, pIndex, len(pVehStops),
                               "n:", humanReadableTime(nUntil), nStop.tripId, nStop.vehID, nIndex, len(nVehStops))
                     if nIsPassing:
-                        # both vehicles move past the stop
-                        pNextEdges = pVehStops[pIndex + 1][0]
-                        nNextEdges = nVehStops[nIndex + 1][0]
-                        limit = 1  # recheck
-                        # find signal in nextEdges
-                        pSignal = findSignal(net, (stopEdge,) + pNextEdges)
-                        nSignal = findSignal(net, (stopEdge,) + nNextEdges)
+                        # usually both vehicles move past the stop
+                        if pIsBidiStop and not pIsPassing:
+                            pSignal = getUpstreamSignal(net, pVehStops, pIndex)
+                        else:
+                            pSignal = getDownstreamSignal(net, stopEdges, pVehStops, pIndex)
+                        nSignal = getDownstreamSignal(net, stopEdges, nVehStops, nIndex)
                         if pSignal is None or nSignal is None:
                             print(("Ignoring insertion conflict between %s and %s at stop '%s' " +
                                    "because no rail signal was found after the stop") % (
                                 nStop.prevTripId, pStop.prevTripId, busStop), file=sys.stderr)
                             continue
                         # check for inconsistent ordering
+                        active = True
                         if pStop.getAttributeSecure("invalid", False):
+                            active = False
                             numIgnoredConflicts += 1
-                            continue
+                            if not options.writeInactive:
+                                continue
                         # predecessor tripId after stop is needed
+                        limit = 1  # recheck
                         pTripId = pStop.getAttributeSecure("tripId", pStop.vehID)
                         times = "until=%s foeUntil=%s " % (humanReadableTime(nUntil), humanReadableTime(pUntil))
                         info = "" if nStop.busStop == pStop.busStop else "foeStop=%s" % pStop.busStop
+                        tag = "insertionOrder" if pIsDepart else None
                         conflicts[nSignal].append(Conflict(nStop.prevTripId, pSignal, pTripId, limit,
                                                            # attributes for adding comments
                                                            nStop.prevLine,
@@ -1048,13 +1121,15 @@ def findInsertionConflicts(options, net, stopEdges, stopRoutes, vehicleStopRoute
                                                            times,
                                                            switch=None,
                                                            busStop=nStop.busStop,
-                                                           info=info))
+                                                           info=info,
+                                                           active=active,
+                                                           tag=tag))
                         numConflicts += 1
                         if busStop == options.debugStop:
                             print("   found insertionConflict pSignal=%s nSignal=%s pTripId=%s" % (
                                 pSignal, nSignal, pTripId)),
 
-            if nIsPassing:
+            if nIsPassing or nIsBidiStop:
                 prevPassing = (nUntil, nEdges, nStop)
 
     print("Found %s insertion conflicts" % numConflicts)
@@ -1075,7 +1150,6 @@ def findFoeInsertionConflicts(options, net, stopEdges, stopRoutes, vehicleStopRo
     for busStop, stops in stopRoutes.items():
         if busStop == options.debugStop:
             print("findFoeInsertionConflicts at stop %s" % busStop)
-        stopEdge = stopEdges[busStop]
         untils = []
         for edgesBefore, stop in stops:
             if stop.hasAttribute("until") and not options.untilFromDuration:
@@ -1113,23 +1187,15 @@ def findFoeInsertionConflicts(options, net, stopEdges, stopRoutes, vehicleStopRo
                         print(i,
                               "p:", humanReadableTime(pUntil), pStop.tripId, pStop.vehID, pIndex, len(pVehStops),
                               "n:", humanReadableTime(nUntil), nStop.tripId, nStop.vehID, nIndex, len(nVehStops))
-                    # both vehicles move past the stop
-                    pNextEdges = pVehStops[pIndex + 1][0]
-                    limit = 1  # recheck
                     # insertion vehicle must pass signal after the stop
-                    # find signal in nextEdges
-                    pSignal = findSignal(net, (stopEdge,) + pNextEdges)
+                    pSignal = getDownstreamSignal(net, stopEdges, pVehStops, pIndex)
                     if pSignal is None:
                         print(("Ignoring insertion foe conflict between %s and %s at stop '%s' " +
                                "because no rail signal was found after the stop") % (
                             nStop.prevTripId, pStop.prevTripId, busStop), file=sys.stderr)
                         continue
                     # passing vehicle must wait before the stop
-                    nPrevEdges = nVehStops[nIndex][0]
-                    if nIndex > 0:
-                        # prepend on more edge from further back
-                        nPrevEdges = nVehStops[nIndex - 1][0][-1:] + nPrevEdges
-                    nSignal = findSignal(net, list(reversed(nPrevEdges)), True)
+                    nSignal = getUpstreamSignal(net, nVehStops, nIndex)
                     if nSignal is None:
                         print(("Ignoring foe insertion conflict between %s and %s at stop '%s' " +
                                "because no rail signal was found before the stop") % (
@@ -1168,11 +1234,12 @@ def findFoeInsertionConflicts(options, net, stopEdges, stopRoutes, vehicleStopRo
                         continue
 
                     # predecessor tripId after stop is needed
+                    limit = 1  # recheck
                     pTripId = pStop.getAttributeSecure("tripId", pStop.vehID)
                     times = "arrival=%s foeArrival=%s " % (humanReadableTime(nUntil), humanReadableTime(pUntil))
-                    info = "foeInsertion"
+                    info = ""
                     if nStop.busStop != pStop.busStop:
-                        info += " foeStop=%s" % pStop.busStop
+                        info += "foeStop=%s" % pStop.busStop
                     active = not nStop.getAttributeSecure(
                         "invalid", False) and not pStop.getAttributeSecure("invalid", False)
                     conflicts[nSignal].append(Conflict(nStop.prevTripId, pSignal, pTripId, limit,
@@ -1200,6 +1267,8 @@ def findFoeInsertionConflicts(options, net, stopEdges, stopRoutes, vehicleStopRo
 
 
 def writeConstraint(options, outf, tag, c):
+    if c.tag is not None:
+        tag = c.tag
     comment = ""
     limit = c.limit + options.limit
     if options.commentLine:
@@ -1236,18 +1305,18 @@ def writeConstraint(options, outf, tag, c):
 def main(options):
     net = sumolib.net.readNet(options.netFile)
     stopEdges = getStopEdges(options.addFile)
-    bidiStops = getBidiStops(net, stopEdges)
-    uniqueRoutes, stopRoutes, stopRoutesBidi, vehicleStopRoutes = getStopRoutes(options, stopEdges, bidiStops)
+    bidiStops = getBidiStops(options, net, stopEdges)
+    uniqueRoutes, stopRoutes, stopRoutesBidi, vehicleStopRoutes, departTimes = getStopRoutes(options, stopEdges, bidiStops)  # noqa
     if options.abortUnordered:
         markOvertaken(options, vehicleStopRoutes, stopRoutes)
-    parkingConflicts = updateStartedEnded(options, net, stopEdges, stopRoutes, vehicleStopRoutes)
+    parkingConflicts = updateStartedEnded(options, net, stopEdges, stopRoutesBidi, vehicleStopRoutes)
     mergeSwitches = findMergingSwitches(options, uniqueRoutes, net)
     signalTimes = computeSignalTimes(options, net, stopRoutes)
     switchRoutes, mergeSignals = findStopsAfterMerge(net, stopRoutes, mergeSwitches)
     conflicts, intermediateParkingConflicts = findConflicts(
         options, net, switchRoutes, mergeSignals, signalTimes, stopEdges, vehicleStopRoutes)
     foeInsertionConflicts = findFoeInsertionConflicts(options, net, stopEdges, stopRoutesBidi, vehicleStopRoutes)
-    insertionConflicts = findInsertionConflicts(options, net, stopEdges, stopRoutesBidi, vehicleStopRoutes)
+    insertionConflicts = findInsertionConflicts(options, net, stopEdges, stopRoutesBidi, vehicleStopRoutes, departTimes)
 
     signals = sorted(set(list(conflicts.keys())
                          + list(foeInsertionConflicts.keys())
@@ -1259,8 +1328,10 @@ def main(options):
         sumolib.writeXMLHeader(outf, "$Id$", "additional", options=options)  # noqa
         for signal in signals:
             outf.write('    <railSignalConstraints id="%s">\n' % signal)
-            for conflict in conflicts[signal] + foeInsertionConflicts[signal]:
+            for conflict in conflicts[signal]:
                 writeConstraint(options, outf, "predecessor", conflict)
+            for conflict in foeInsertionConflicts[signal]:
+                writeConstraint(options, outf, "foeInsertion", conflict)
             for conflict in (insertionConflicts[signal] + parkingConflicts[signal] +
                              intermediateParkingConflicts[signal]):
                 writeConstraint(options, outf, "insertionPredecessor", conflict)

@@ -23,13 +23,18 @@ vehicle:
 ## Waiting too long, aka Grid-locks
 
 In the case a vehicle is standing at the first position in front of an
-intersection, SUMO counts the number of steps the vehicle's velocity
+intersection (or all the vehicles before it have a scheduled stop), SUMO counts the number of steps the vehicle's velocity
 stays below 0.1m/s. These steps are the "waiting time". In the case the
 vehicle moves with a larger speed, this counter is reset. In the case
 the vehicle waited longer than a certain threshold value (default 300
 seconds), the vehicle is assumed to be in grid-lock and teleported onto
-the next free edge on its route. If there is enough space on the subsequent edge of
-the vehicle's route, the vehicle will be directly assigned to the respective
+the next free edge on its route.
+Note that for
+vehicles which have a stop as part of their route, the time spent
+stopping is not counted towards their waiting time.
+
+If there is enough space on the subsequent edge of
+the vehicle's route, the vehicle will be directly assigned (teleported) to the respective
 available space. Vehicle insertion will use depart method "free" (anywhere on the lane with the least traffic)
 and attempt to insert the vehicle with it's maximum allowed speed.
 The insertion space must allow for all necessary safety gaps of the vehicle itself and it's follower vehicle, though the speed may be reduced if it helps with insertion.
@@ -39,11 +44,11 @@ In the latter case, the vehicle is removed from the simulation.
 While the vehicle is in the teleporting buffer it remains invisible.
 
 The threshold value can be configure
-using the option **--time-to-teleport** {{DT_INT}} which sets the time in seconds. If the value is not
-positive, teleporting due to grid-lock is disabled. Note that for
-vehicles which have a stop as part of their route, the time spent
-stopping is not counted towards their waiting time.
+using the option **--time-to-teleport** {{DT_INT}} which sets the time in seconds.
 
+!!! note
+    Setting **--time-to-teleport** to a negative value, disables teleporting due to gridlock.
+    
 There are different reasons why a vehicle cannot continue with its
 route. Every time a vehicle teleports due to grid-lock one of the
 following reasons is given:
@@ -57,8 +62,9 @@ following reasons is given:
   
 Related options are
 
-- **--time-to-teleport.highways** (teleport earlier when stuck on the wrong lane of a road with speed above 19.167 m/s
-- **--time-to-teleport.disconnected** (teleport earlier when the route is disconnected)
+- **--time-to-teleport.highways**: teleport earlier when stuck on the wrong lane of a road with speed above 19.167 m/s
+- **--time-to-teleport.highways.min-speed**: configure threshold for above option
+- **--time-to-teleport.disconnected**: teleport earlier when the route is disconnected
 
 Unfortunately, grid-locks are rather common in congested simulation
 scenarios. You can solve this only by [improving traffic flow, either by

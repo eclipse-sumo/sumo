@@ -1,19 +1,19 @@
-# Start searching the fox-config.in file (only used in linux distributions)
-if (UNIX)
-    #find fox-config file
-    find_program(FOX_CONFIG fox-config)
-    # if was found, execute it and obtain the variables FOX_CXX_FLAGS and FOX_LIBRARY, needed for compilations
-    IF(FOX_CONFIG)
-        exec_program(
-            ${FOX_CONFIG}
-            ARGS --cflags
-            OUTPUT_VARIABLE FOX_CXX_FLAGS)
-        exec_program(
-            ${FOX_CONFIG}
-            ARGS --libs
-            OUTPUT_VARIABLE FOX_LIBRARY)
-    endif(FOX_CONFIG)
-endif(UNIX)
+# find fox-config program
+find_program(FOX_CONFIG fox-config)
+# if was found, execute it and obtain the variables FOX_CXX_FLAGS and FOX_LIBRARY, needed for compilations
+if(FOX_CONFIG)
+    find_program(BASH bash)
+    execute_process(COMMAND ${BASH} ${FOX_CONFIG} --cflags
+        OUTPUT_VARIABLE FOX_CXX_FLAGS OUTPUT_STRIP_TRAILING_WHITESPACE)
+    execute_process(COMMAND ${BASH} ${FOX_CONFIG} --libs
+        OUTPUT_VARIABLE FOX_LIBRARY OUTPUT_STRIP_TRAILING_WHITESPACE)
+    if(FOX_CXX_FLAGS MATCHES mingw)
+        get_filename_component(root_dir "${FOX_CONFIG}" DIRECTORY)
+        get_filename_component(root_dir "${root_dir}" DIRECTORY)
+        string(REGEX REPLACE "/mingw../" "${root_dir}/" FOX_CXX_FLAGS "${FOX_CXX_FLAGS}")
+        string(REGEX REPLACE "/mingw../" "${root_dir}/" FOX_LIBRARY "${FOX_LIBRARY}")
+    endif()
+endif(FOX_CONFIG)
     
 # Declare ab boolean flag to note if Fox library was found
 set(FOX_FOUND FALSE)
@@ -38,6 +38,6 @@ else()
     ENDIF (FOX_INCLUDE_DIR AND FOX_LIBRARY)
 endif()
 IF (NOT FOX_FIND_QUIETLY)
-    message(STATUS "Found Fox: ${FOX_LIBRARY}")
+    message(STATUS "Found Fox: ${FOX_CXX_FLAGS} ${FOX_LIBRARY}")
 endif()
 

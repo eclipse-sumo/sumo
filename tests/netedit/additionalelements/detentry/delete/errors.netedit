@@ -3,37 +3,37 @@ GLDebug: 	Inserted junction:gneJ0 into SUMORTree with boundary -12.00,-12.00,12.
 GLDebug: 	Inserted junction:gneJ1 into SUMORTree with boundary 38.00,-12.00,62.00,12.00
 GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,60.00,10.00
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,11.60
-Debug: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
-GLDebug: 	Inserted e3Detector:e3Detector_0 into SUMORTree with boundary 17.79,-3.64,37.79,16.36
-Debug: Adding detEntry 'e3Detector_0' in GNEChange_Additional
-Debug: Adding detExit 'e3Detector_0' in GNEChange_Additional
-Debug: Adding e3Detector 'e3Detector_1' in GNEChange_Additional
-GLDebug: 	Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 21.65,-3.64,41.65,16.36
-Debug: Adding detEntry 'e3Detector_1' in GNEChange_Additional
-Debug: Adding detExit 'e3Detector_1' in GNEChange_Additional
-Debug: Adding e3Detector 'e3Detector_4' in GNEChange_Additional
-GLDebug: 	Inserted e3Detector:e3Detector_4 into SUMORTree with boundary 21.65,-15.00,41.65,5.00
-Debug: Adding detEntry 'e3Detector_4' in GNEChange_Additional
-Debug: Adding detExit 'e3Detector_4' in GNEChange_Additional
+Debug: Adding entryExitDetector 'entryExitDetector_0' in GNEChange_Additional
+GLDebug: 	Inserted entryExitDetector:entryExitDetector_0 into SUMORTree with boundary 17.79,-3.64,37.79,16.36
+Debug: Adding detEntry 'entryExitDetector_0' in GNEChange_Additional
+Debug: Adding detExit 'entryExitDetector_0' in GNEChange_Additional
+Debug: Adding entryExitDetector 'entryExitDetector_1' in GNEChange_Additional
+GLDebug: 	Inserted entryExitDetector:entryExitDetector_1 into SUMORTree with boundary 21.65,-3.64,41.65,16.36
+Debug: Adding detEntry 'entryExitDetector_1' in GNEChange_Additional
+Debug: Adding detExit 'entryExitDetector_1' in GNEChange_Additional
+Debug: Adding entryExitDetector 'entryExitDetector_4' in GNEChange_Additional
+GLDebug: 	Inserted entryExitDetector:entryExitDetector_4 into SUMORTree with boundary 21.65,-15.00,41.65,5.00
+Debug: Adding detEntry 'entryExitDetector_4' in GNEChange_Additional
+Debug: Adding detExit 'entryExitDetector_4' in GNEChange_Additional
 Debug: Current Viewport values: 25.00, 0.00, 25.00. Zoom = '296.00'
-Debug: Selected item 'e3Detector' in GNETagSelector
-Debug: Adding e3Detector 'e3_0' in GNEChange_Additional
-GLDebug: 	Inserted e3Detector:e3_0 into SUMORTree with boundary 7.00,-4.00,27.00,16.00
-Debug: Adding e3Detector 'e3_1' in GNEChange_Additional
-GLDebug: 	Inserted e3Detector:e3_1 into SUMORTree with boundary 11.00,-4.00,31.00,16.00
+Debug: Selected item 'entryExitDetector' in GNETagSelector
+Debug: Adding entryExitDetector 'e3_0' in GNEChange_Additional
+GLDebug: 	Inserted entryExitDetector:e3_0 into SUMORTree with boundary 7.00,-4.00,27.00,16.00
+Debug: Adding entryExitDetector 'e3_1' in GNEChange_Additional
+GLDebug: 	Inserted entryExitDetector:e3_1 into SUMORTree with boundary 11.00,-4.00,31.00,16.00
 Debug: Selected item 'detEntry' in GNETagSelector
-Debug: Adding detEntry 'e3Detector_4' in GNEChange_Additional
+Debug: Adding detEntry 'entryExitDetector_4' in GNEChange_Additional
 Debug: Selected item 'detEntry' in GNETagSelector
 Debug: Adding detEntry 'e3_0' in GNEChange_Additional
 Debug: Removing detEntry 'e3_0' in GNEChange_Additional
-Debug: Removing e3Detector 'e3_0' in GNEChange_Additional
-GLDebug: 	Removed object e3Detector:e3_0 from SUMORTree with boundary 7.00,-4.00,27.00,16.00
-Debug: Removing detEntry 'e3Detector_0' in GNEChange_Additional
-Debug: Removing detExit 'e3Detector_0' in GNEChange_Additional
-Debug: Removing detEntry 'e3Detector_1' in GNEChange_Additional
-Debug: Removing detExit 'e3Detector_1' in GNEChange_Additional
-Debug: Removing detExit 'e3Detector_4' in GNEChange_Additional
-Debug: Removing detEntry 'e3Detector_4' in GNEChange_Additional
+Debug: Removing entryExitDetector 'e3_0' in GNEChange_Additional
+GLDebug: 	Removed object entryExitDetector:e3_0 from SUMORTree with boundary 7.00,-4.00,27.00,16.00
+Debug: Removing detEntry 'entryExitDetector_0' in GNEChange_Additional
+Debug: Removing detExit 'entryExitDetector_0' in GNEChange_Additional
+Debug: Removing detEntry 'entryExitDetector_1' in GNEChange_Additional
+Debug: Removing detExit 'entryExitDetector_1' in GNEChange_Additional
+Debug: Removing detExit 'entryExitDetector_4' in GNEChange_Additional
+Debug: Removing detEntry 'entryExitDetector_4' in GNEChange_Additional
 Debug: Removing connection 'gneE0_0->gneE1_0' from edge 'gneE0'
 Debug: Deleting TLS from junction 'gneJ1'
 Debug: Adding TLS into junction 'gneJ1'
@@ -46,20 +46,20 @@ Debug: Deleting TLS from junction 'gneJ0'
 Debug: Setting new attribute
 Debug: Removing edge 'gneE1' from net
 GLDebug: 	Removed object edge:gneE1 from SUMORTree with boundary -10.00,-10.00,60.00,11.60
-Debug: Removing e3Detector 'e3Detector_0' in GNEChange_Additional
-GLDebug: 	Removed object e3Detector:e3Detector_0 from SUMORTree with boundary 17.79,-3.64,37.79,16.36
-Debug: Removing detEntry 'e3Detector_4' in GNEChange_Additional
+Debug: Removing entryExitDetector 'entryExitDetector_0' in GNEChange_Additional
+GLDebug: 	Removed object entryExitDetector:entryExitDetector_0 from SUMORTree with boundary 17.79,-3.64,37.79,16.36
+Debug: Removing detEntry 'entryExitDetector_4' in GNEChange_Additional
 Debug: Removing edge 'gneE0' from net
 GLDebug: 	Removed object edge:gneE0 from SUMORTree with boundary -10.00,-11.60,60.00,10.00
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Adding edge 'gneE0' from net
 GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,60.00,10.00
-Debug: Adding detEntry 'e3Detector_4' in GNEChange_Additional
+Debug: Adding detEntry 'entryExitDetector_4' in GNEChange_Additional
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
-GLDebug: 	Inserted e3Detector:e3Detector_0 into SUMORTree with boundary 17.79,-3.64,37.79,16.36
+Debug: Adding entryExitDetector 'entryExitDetector_0' in GNEChange_Additional
+GLDebug: 	Inserted entryExitDetector:entryExitDetector_0 into SUMORTree with boundary 17.79,-3.64,37.79,16.36
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Adding edge 'gneE1' from net
@@ -76,16 +76,16 @@ Debug: Removing TLS from junction 'gneJ1'
 Debug: Adding TLS into junction 'gneJ1'
 Debug: Adding connection 'gneE0_0->gneE1_0' into edge 'gneE0'
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
-Debug: Adding detEntry 'e3Detector_4' in GNEChange_Additional
-Debug: Adding detExit 'e3Detector_4' in GNEChange_Additional
-Debug: Adding detExit 'e3Detector_1' in GNEChange_Additional
-Debug: Adding detEntry 'e3Detector_1' in GNEChange_Additional
-Debug: Adding detExit 'e3Detector_0' in GNEChange_Additional
-Debug: Adding detEntry 'e3Detector_0' in GNEChange_Additional
+Debug: Adding detEntry 'entryExitDetector_4' in GNEChange_Additional
+Debug: Adding detExit 'entryExitDetector_4' in GNEChange_Additional
+Debug: Adding detExit 'entryExitDetector_1' in GNEChange_Additional
+Debug: Adding detEntry 'entryExitDetector_1' in GNEChange_Additional
+Debug: Adding detExit 'entryExitDetector_0' in GNEChange_Additional
+Debug: Adding detEntry 'entryExitDetector_0' in GNEChange_Additional
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Adding e3Detector 'e3_0' in GNEChange_Additional
-GLDebug: 	Inserted e3Detector:e3_0 into SUMORTree with boundary 7.00,-4.00,27.00,16.00
+Debug: Adding entryExitDetector 'e3_0' in GNEChange_Additional
+GLDebug: 	Inserted entryExitDetector:e3_0 into SUMORTree with boundary 7.00,-4.00,27.00,16.00
 Debug: Adding detEntry 'e3_0' in GNEChange_Additional
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
@@ -98,16 +98,16 @@ Debug: Adding detEntry 'e3_0' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Removing detEntry 'e3_0' in GNEChange_Additional
-Debug: Removing e3Detector 'e3_0' in GNEChange_Additional
-GLDebug: 	Removed object e3Detector:e3_0 from SUMORTree with boundary 7.00,-4.00,27.00,16.00
+Debug: Removing entryExitDetector 'e3_0' in GNEChange_Additional
+GLDebug: 	Removed object entryExitDetector:e3_0 from SUMORTree with boundary 7.00,-4.00,27.00,16.00
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Removing detEntry 'e3Detector_0' in GNEChange_Additional
-Debug: Removing detExit 'e3Detector_0' in GNEChange_Additional
-Debug: Removing detEntry 'e3Detector_1' in GNEChange_Additional
-Debug: Removing detExit 'e3Detector_1' in GNEChange_Additional
-Debug: Removing detExit 'e3Detector_4' in GNEChange_Additional
-Debug: Removing detEntry 'e3Detector_4' in GNEChange_Additional
+Debug: Removing detEntry 'entryExitDetector_0' in GNEChange_Additional
+Debug: Removing detExit 'entryExitDetector_0' in GNEChange_Additional
+Debug: Removing detEntry 'entryExitDetector_1' in GNEChange_Additional
+Debug: Removing detExit 'entryExitDetector_1' in GNEChange_Additional
+Debug: Removing detExit 'entryExitDetector_4' in GNEChange_Additional
+Debug: Removing detEntry 'entryExitDetector_4' in GNEChange_Additional
 Debug: Removing connection 'gneE0_0->gneE1_0' from edge 'gneE0'
 Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in removeConnection()
 Debug: Deleting TLS from junction 'gneJ1'
@@ -124,11 +124,11 @@ Debug: Removing edge 'gneE1' from net
 GLDebug: 	Removed object edge:gneE1 from SUMORTree with boundary -10.00,-10.00,60.00,11.60
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Removing e3Detector 'e3Detector_0' in GNEChange_Additional
-GLDebug: 	Removed object e3Detector:e3Detector_0 from SUMORTree with boundary 17.79,-3.64,37.79,16.36
+Debug: Removing entryExitDetector 'entryExitDetector_0' in GNEChange_Additional
+GLDebug: 	Removed object entryExitDetector:entryExitDetector_0 from SUMORTree with boundary 17.79,-3.64,37.79,16.36
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Removing detEntry 'e3Detector_4' in GNEChange_Additional
+Debug: Removing detEntry 'entryExitDetector_4' in GNEChange_Additional
 Debug: Removing edge 'gneE0' from net
 GLDebug: 	Removed object edge:gneE0 from SUMORTree with boundary -10.00,-11.60,60.00,10.00
 GLDebug: Removing junctions during recomputing
@@ -155,20 +155,20 @@ Debug: Deleting unreferenced edge 'gneE1' GNEChange_Edge
 Debug: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
 Debug: Deleting unreferenced detEntry
 Debug: Deleting unreferenced detEntry
-Debug: Deleting unreferenced e3Detector
-GLDebug: 	Removed object e3Detector:e3_1 from SUMORTree with boundary 11.00,-4.00,31.00,16.00
-Debug: Deleting unreferenced e3Detector
+Debug: Deleting unreferenced entryExitDetector
+GLDebug: 	Removed object entryExitDetector:e3_1 from SUMORTree with boundary 11.00,-4.00,31.00,16.00
+Debug: Deleting unreferenced entryExitDetector
 Debug: Deleting unreferenced detExit
 Debug: Deleting unreferenced detEntry
-Debug: Deleting unreferenced e3Detector
-GLDebug: 	Removed object e3Detector:e3Detector_4 from SUMORTree with boundary 21.65,-15.00,41.65,5.00
+Debug: Deleting unreferenced entryExitDetector
+GLDebug: 	Removed object entryExitDetector:entryExitDetector_4 from SUMORTree with boundary 21.65,-15.00,41.65,5.00
 Debug: Deleting unreferenced detExit
 Debug: Deleting unreferenced detEntry
-Debug: Deleting unreferenced e3Detector
-GLDebug: 	Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 21.65,-3.64,41.65,16.36
+Debug: Deleting unreferenced entryExitDetector
+GLDebug: 	Removed object entryExitDetector:entryExitDetector_1 from SUMORTree with boundary 21.65,-3.64,41.65,16.36
 Debug: Deleting unreferenced detExit
 Debug: Deleting unreferenced detEntry
-Debug: Deleting unreferenced e3Detector
+Debug: Deleting unreferenced entryExitDetector
 Debug: Deleting unreferenced junction 'gneJ0' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'gneJ1' in AttributeCarriers destructor
 Debug: Deleting net builder in GNENet destructor

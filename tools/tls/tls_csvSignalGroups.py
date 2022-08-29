@@ -27,6 +27,7 @@ cycle time;<CYCLE TIME [s]>
 key;<TLS ID>
 subkey;<PROGRAM ID>
 offset;<OFFSET [s]>
+actuated;<CYCLESEC START>;<CYCLESEC END>[;<CYCLESEC START>;<CYCLESEC END>]
 param;<KEY>;<VALUE>
 param;<KEY>;<VALUE>
 
@@ -102,18 +103,22 @@ class TlLogic(sumolib.net.TLSProgram):
         self._actuated = actuated
         self._parameters = parameters
         self.net = net
-        self._signalGroups = {}
+        self._signalGroups = OrderedDict()
         self.__signalGroupOrder = []
         self._allTimes = [0]
         self._debug = debug
         self._tlIndexToSignalGroup = {}
-    
+
     @staticmethod
     def createFromTLSProgram(tl, tlsProgram, net, debug=False):
         # derive cycle time
         cycleTime = sum([int(phase.duration) for phase in tlsProgram.getPhases()])
-        return TlLogic(tl.getID(), tlsProgram._id, cycleTime, tlsProgram._offset, tlsProgram._type != "static", tlsProgram.getParams(), net=net, debug=debug)
-     
+        tlLogic = TlLogic(tl.getID(), tlsProgram._id, cycleTime, tlsProgram._offset,
+                          [], tlsProgram.getParams(), net=net, debug=debug)
+        tlLogic._phases = tlsProgram.getPhases()
+        tlLogic.__patchActuationTimes()
+        return tlLogic
+
     @staticmethod
     def createFromXML(tllFile, net, group, debug=False):
         tree = ET.parse(tllFile)
@@ -124,15 +129,18 @@ class TlLogic(sumolib.net.TLSProgram):
             phaseEls = tlLogicEl.findall("phase")
             if len(phaseEls) > 0:
                 paramEls = tlLogicEl.findall("param")
-                params = {paramEl.attrib["key"]:paramEl.attrib["value"] for paramEl in paramEls}
+                params = {paramEl.attrib["key"]: paramEl.attrib["value"] for paramEl in paramEls}
                 cycleTime = sum(int(phaseEl.attrib["duration"]) for phaseEl in phaseEls)
-                tlLogic = TlLogic(tlLogicEl.attrib["id"], tlLogicEl.attrib["programID"], cycleTime, tlLogicEl.attrib["offset"], 
-                                  tlLogicEl.attrib["type"] != "static", params, net=net, debug=debug)
-                phases = [sumolib.net.Phase(int(phaseEl.attrib["duration"]), phaseEl.attrib["state"]) for phaseEl in phaseEls]
-                tlLogic.createSignalGroupsFromPhases(phases, group=group)
+                tlLogic = TlLogic(tlLogicEl.attrib["id"], tlLogicEl.attrib["programID"], cycleTime,
+                                  tlLogicEl.attrib["offset"], [], params, net=net, debug=debug)
+                tlLogic._phases = [sumolib.net.Phase(int(phaseEl.attrib["duration"]), phaseEl.attrib["state"],
+                                                     int(phaseEl.attrib.get("minDur", -1)),
+                                                     int(phaseEl.attrib.get("maxDur", -1))) for phaseEl in phaseEls]
+                tlLogic.createSignalGroupsFromPhases(group=group)
+                tlLogic.__patchActuationTimes()
                 tlLogics.append(tlLogic)
         return tlLogics
-    
+
     def addSignalGroups(self, signalGroups, signalGroupOrder=None):
         for signalGroup in signalGroups.values():
             self.__registerSignalGroup(signalGroup)
@@ -141,37 +149,47 @@ class TlLogic(sumolib.net.TLSProgram):
         else:
             self.__signalGroupOrder = list(self.signalGroups.keys())
             self.__signalGroupOrder.sort()
-    
+
     def __registerSignalGroup(self, signalGroup, tlIndices=[]):
         self._signalGroups[signalGroup._id] = signalGroup
         self._signalGroups[signalGroup._id].tlLogic = self
         for tlIndex in tlIndices:
             self._tlIndexToSignalGroup[tlIndex] = signalGroup._id
-      
+
+    def __patchActuationTimes(self):
+        tx = 0
+        for phase in self._phases:
+            if phase.minDur > 0:
+                self._actuated.extend([tx + phase.minDur, tx + phase.duration])
+            tx += phase.duration
+        if len(self._actuated) > 0:
+            self._type = "actuated"
+
     def __assignConnections(self):
         if self.net is None:
-            return 
+            return
         connections = self.net.getTLS(self._id).getConnections()
         for conn in connections:
             if conn[2] in self._tlIndexToSignalGroup:
                 self._signalGroups[self._tlIndexToSignalGroup[conn[2]]].addConnection(*conn)
-    
-    def createSignalGroupsFromPhases(self, phases, group=False):
+
+    def createSignalGroupsFromPhases(self, group=False):
         # only for fresh instances
         if len(self._signalGroups) > 0:
             return
         # create signal state patterns by aggregating the phase states vertically
-        states = [l for phase in phases for l in [phase.state]*int(phase.duration)]
+        states = [s for phase in self._phases for s in [phase.state] * int(phase.duration)]
         sgStates = [''.join(state) for state in zip(*states)]
         tlIndexMap = [[i] for i in range(len(sgStates))]
         j = 0
         if group:
             uniqueSgStates = list(dict.fromkeys(sgStates))
+            uniqueSgStates.sort()
             if len(uniqueSgStates) < len(sgStates):
-                tlIndexMap = [[i for i, value in enumerate(sgStates) if value == sgState] for sgState in uniqueSgStates]                             
+                tlIndexMap = [[i for i, value in enumerate(sgStates) if value == sgState] for sgState in uniqueSgStates]
             sgStates = uniqueSgStates
         for sgState in sgStates:
-            sgState = sgState.lower() # ignore minor/major semantics
+            sgState = sgState.lower()  # ignore minor/major semantics
             greenPhases = re.findall("(u*)(g+)(y*)", sgState)[:2]
             switchTimes = []
             if len(greenPhases) > 0:
@@ -191,8 +209,8 @@ class TlLogic(sumolib.net.TLSProgram):
                 sg.addFreeTime(*switchTime)
             self.__registerSignalGroup(sg, tlIndexMap[j])
             j += 1
-        self.__assignConnections() 
-    
+        self.__assignConnections()
+
     def _timeToCycle(self, time):
         return time % self._cycleTime
 
@@ -320,21 +338,26 @@ class TlLogic(sumolib.net.TLSProgram):
         '''
         Print out the TL Logic in the CSV input format
         '''
-        content = "[general]\ncycle time;%d\nkey;%s\nsubkey;%s\noffset;%s\n" % (self._cycleTime, self._id, self._programID, self._offset)
+        print("[general]\ncycle time;%d\nkey;%s\nsubkey;%s\noffset;%s" %
+              (self._cycleTime, self._id, self._programID, int(float(self._offset))), file=f)
+        if self._actuated:
+            print("actuated;%s" % ";".join([str(value) for value in self._actuated]), file=f)
         for key, value in self._parameters.items():
-            content += "param;%s;%s\n" % (key, value)
-        content += "[links]\n"
+            print("param;%s;%s" % (key, value), file=f)
+        print("[links]", file=f)
         for id, sg in self._signalGroups.items():
             edge2edge = [(conn.getFrom().getID(), conn.getTo().getID()) for conn in sg._connections]
-            edge2edge = sorted(edge2edge, key=lambda t: (t[1], t[0]))
+            edge2edge.sort(key=lambda t: t[1])
+            edge2edge.sort(key=lambda t: t[0])
+            # edge2edge = sorted(edge2edge, key=lambda t: (t[1], t[0]))
             for entry in edge2edge:
-                content += "%s;%s;%s\n" % (id, *entry)                       
-        content += "[signal groups]\nid;on1;off1;on2;off2;transOn;transOff\n"
+                print("%s;%s;%s" % (id, entry[0], entry[1]), file=f)
+        print("[signal groups]\nid;on1;off1;on2;off2;transOn;transOff", file=f)
         for id, sg in self._signalGroups.items():
             freeTimes = [str(t) for freeTime in sg._freeTimes for t in freeTime]
             freeTimes.extend(['']*(4-len(freeTimes)))
-            content += "%s;%s;%d;%d\n" % (id, ";".join(freeTimes), *sg._transTimes)
-        f.write(content)
+            print("%s;%s;%d;%d" % (id, ";".join(freeTimes), sg._transTimes[0], sg._transTimes[1]), file=f)
+
 
 class SignalGroup(object):
 
@@ -466,7 +489,10 @@ def writeInputTemplates(net, outputDir, delimiter):
             data.append(["SG_" + str(tlIndex)])
 
         # write the template file
-        with io.open(os.path.join(outputDir, "%s.csv" % tlsID), 'w', newline='') as inputTemplate:
+        fopenArgs = {'mode': 'w', 'newline': ''}
+        if sys.version_info.major < 3:
+            fopenArgs = {'mode': 'wb'}
+        with io.open(os.path.join(outputDir, "%s.csv" % tlsID), **fopenArgs) as inputTemplate:
             csvWriter = csv.writer(inputTemplate, quoting=csv.QUOTE_NONE, delimiter=delimiter)
             csvWriter.writerows(data)
 
@@ -591,35 +617,42 @@ def toTll(options):
 
 def toCsv(options):
     # read the network first
-    net = sumolib.net.readNet(options.net, withInternal=True, withPedestrianConnections=True)
+    net = sumolib.net.readNet(options.net, withInternal=True, withPedestrianConnections=True, withPrograms=True)
     # load tll files
     addLogics = {}
     filterIDs = options.tlsFilter.split(",") if len(options.tlsFilter) > 0 else []
-    for tllFile in options.input.split(","):
-        tlLogics = [item for item in TlLogic.createFromXML(tllFile, net=net, group=options.group, debug=options.debug) if item._id in filterIDs]
+    tllFiles = [f for f in options.input.split(",") if f]
+    for tllFile in tllFiles:
+        if len(filterIDs) == 0:
+            tlLogics = [item for item in TlLogic.createFromXML(
+                tllFile, net=net, group=options.group, debug=options.debug)]
+        else:
+            tlLogics = [item for item in TlLogic.createFromXML(
+                tllFile, net=net, group=options.group, debug=options.debug) if item._id in filterIDs]
         for tlLogic in tlLogics:
             if tlLogic._id not in addLogics:
                 addLogics[tlLogic._id] = []
             addLogics[tlLogic._id].append(tlLogic)
-    
+
     tlLogicsTotal = []
     tlss = net.getTrafficLights()
     for tls in tlss:
-        if tls.getID() not in filterIDs:
+        if len(filterIDs) > 0 and tls.getID() not in filterIDs:
             continue
         tlLogics = addLogics[tls.getID()] if tls.getID() in addLogics else []
         if options.tlsFromNet:
             tlPrograms = tls.getPrograms()
             for tlProgram in tlPrograms.values():
                 tlLogic = TlLogic.createFromTLSProgram(tls, tlProgram, net=net, debug=options.debug)
-                tlLogic.createSignalGroupsFromPhases(tlProgram.getPhases(), group=options.group)
+                tlLogic.createSignalGroupsFromPhases(group=options.group)
                 tlLogics.append(tlLogic)
         # check for same signal groups
         if options.group:
             if not len(set([len(tlLogic._signalGroups) for tlLogic in tlLogics])) == 1:
-                print("Signal states of TL %s cannot be grouped unambiguously. Please remove the group option or the contradictory tll file." % tls.getID())
+                print("Signal states of TL %s cannot be grouped unambiguously. "
+                      "Please remove the group option or the contradictory tll file." % tls.getID())
                 return
-        tlLogicsTotal.extend(tlLogics)         
+        tlLogicsTotal.extend(tlLogics)
     # write the csv format
     for tlLogic in tlLogicsTotal:
         outputPath = "%s_%s.csv" % (tlLogic._id, tlLogic._programID)
@@ -628,23 +661,29 @@ def toCsv(options):
 
 
 def getOptions():
-    argParser = argparse.ArgumentParser()
-    argParser.add_argument("-o", "--output", action="store", default="tls.add.xml",
-                           help="File path to tll output file (SUMO additional file)")
-    argParser.add_argument("-i", "--input", action="store", default="",
-                           help="File path to input csv or tll file(s). Multiple file paths have to be separated by ','.")
-    argParser.add_argument("-r", "--reverse", action="store_true", default=False,
-                           help="Interpret input files in tll format and convert them to csv files.")
-    argParser.add_argument("-g", "--group", action="store_true", default=False, help="Join signals with identical states into one signal group when converting to csv format.")
-    argParser.add_argument("--tls-from-net", action="store_true", default=False, dest="tlsFromNet", help="Convert TL programs stored within the net file to csv format.")
-    argParser.add_argument("--tls-filter", action="store", default="", dest="tlsFilter", help="Comma-separated list of traffic lights the reverse conversion from tll to csv should be limited to.")    
-    argParser.add_argument("--delimiter", action="store", default=";",
-                           help="CSV delimiter used for input and template files.")
-    argParser.add_argument("-n", "--net", action="store", default="", help="File path to SUMO network file. Optional for creating TL xml, obligatory for converting TL xml to csv.")
-    argParser.add_argument("-m", "--make-input-dir", action="store", default="",
-                           help="Create input file template(s) from the SUMO network file in the given directory.")
-    argParser.add_argument("-d", "--debug", action="store_true", default=False, help="Output debugging information")
-    options = argParser.parse_args()
+    ap = argparse.ArgumentParser()
+    ap.add_argument("-o", "--output", action="store", default="tls.add.xml",
+                    help="File path to tll output file (SUMO additional file)")
+    ap.add_argument("-i", "--input", action="store", default="",
+                    help="File path to input csv or tll file(s). Multiple file paths have to be separated by ','.")
+    ap.add_argument("-r", "--reverse", action="store_true", default=False,
+                    help="Interpret input files in tll format and convert them to csv files.")
+    ap.add_argument("-g", "--group", action="store_true", default=False,
+                    help="Join signals with identical states into one signal group when converting to csv format.")
+    ap.add_argument("--tls-from-net", action="store_true", default=False, dest="tlsFromNet",
+                    help="Convert TL programs stored within the net file to csv format.")
+    ap.add_argument("--tls-filter", action="store", default="", dest="tlsFilter",
+                    help="Comma-separated list of traffic lights " +
+                    "which the reverse conversion from tll to csv should be limited to.")
+    ap.add_argument("--delimiter", action="store", default=";",
+                    help="CSV delimiter used for input and template files.")
+    ap.add_argument("-n", "--net", action="store", default="",
+                    help="File path to SUMO network file. Optional for creating TL xml, " +
+                    "obligatory for converting TL xml to csv.")
+    ap.add_argument("-m", "--make-input-dir", action="store", default="",
+                    help="Create input file template(s) from the SUMO network file in the given directory.")
+    ap.add_argument("-d", "--debug", action="store_true", default=False, help="Output debugging information")
+    options = ap.parse_args()
     return options
 
 
@@ -660,4 +699,3 @@ if __name__ == "__main__":
             toCsv(options)
     else:
         toTll(options)
-

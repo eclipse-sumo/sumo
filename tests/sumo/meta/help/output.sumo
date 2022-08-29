@@ -1,4 +1,4 @@
-Eclipse SUMO sumo Version v1_13_0+1506-f0fbece2894
+Eclipse SUMO sumo Version v1_14_1+0260-b509f62
  Copyright (C) 2001-2022 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -265,6 +265,8 @@ Processing Options:
                                         detectors
   --tls.actuated.jam-threshold FLOAT   Sets default jam-treshold parameter for
                                         all actuation detectors
+  --tls.actuated.detector-length FLOAT  Sets default detector length parameter
+                                        for all actuation detectors
   --tls.delay_based.detector-range FLOAT  Sets default range for detecting
                                         delayed vehicles
   --tls.yellow.min-decel FLOAT         Minimum deceleration when braking at
@@ -814,8 +816,6 @@ GUI Only Options:
                                         position
   --tracker-interval TIME              The aggregation period for value tracker
                                         windows
-  --osg-view                           Start with an OpenSceneGraph view
-                                        instead of the regular 2D view
   --gui-testing                        Enable overlay for screen recognition
   --gui-testing-debug                  Enable output messages during
                                         GUI-Testing

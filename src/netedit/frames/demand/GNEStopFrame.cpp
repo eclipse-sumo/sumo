@@ -34,7 +34,7 @@
 // ---------------------------------------------------------------------------
 
 GNEStopFrame::HelpCreation::HelpCreation(GNEStopFrame* StopFrameParent) :
-    FXGroupBoxModule(StopFrameParent, "Help"),
+    MFXGroupBoxModule(StopFrameParent, "Help"),
     myStopFrameParent(StopFrameParent) {
     myInformationLabel = new FXLabel(getCollapsableFrame(), "", 0, GUIDesignLabelFrameInformation);
 }
@@ -115,8 +115,8 @@ GNEStopFrame::HelpCreation::updateHelpCreation() {
 // GNEStopFrame - methods
 // ---------------------------------------------------------------------------
 
-GNEStopFrame::GNEStopFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet) :
-    GNEFrame(horizontalFrameParent, viewNet, "Stops"),
+GNEStopFrame::GNEStopFrame(GNEViewParent *viewParent, GNEViewNet* viewNet) :
+    GNEFrame(viewParent, viewNet, "Stops"),
     myRouteHandler("", viewNet->getNet(), true, false),
     myStopParentBaseObject(new CommonXMLStructure::SumoBaseObject(nullptr)) {
 

@@ -41,6 +41,7 @@ class MSPerson;
 class MSVehicle;
 class MSBaseVehicle;
 class MSVehicleType;
+class MSStoppingPlace;
 
 
 // ===========================================================================
@@ -85,6 +86,7 @@ public:
     static SUMOTrafficObject* getTrafficObject(int domain, const std::string& id);
     static const MSVehicleType& getVehicleType(const std::string& vehicleID);
     static MSTLLogicControl::TLSLogicVariants& getTLS(const std::string& id);
+    static MSStoppingPlace* getStoppingPlace(const std::string& id, const SumoXMLTag type);
 
     static SUMOVehicleParameter::Stop buildStopParameters(const std::string& edgeOrStoppingPlaceID,
             double pos, int laneIndex, double startPos, int flags, double duration, double until);
@@ -271,7 +273,7 @@ private:
     /// @brief Changes in the states of simulated transportables
     static TransportableStateListener myTransportableStateListener;
 
-    /// @brief A storage of lanes
+    /// @brief A lookup tree of lanes
     static LANE_RTREE_QUAL* myLaneTree;
 
     static std::map<std::string, MSVehicle*> myRemoteControlledVehicles;

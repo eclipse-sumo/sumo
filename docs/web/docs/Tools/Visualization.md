@@ -39,12 +39,13 @@ may not work for certain scripts.
 
 ## plotXMLAttributes.py
 
-Create multiple 2D-plots of 2 arbitrary attributes from an xml file aggregated by an third attribute (i.e. detector-id).
+Create multiple 2D-plots of 2 arbitrary attributes from on or more xml files aggregated by an third attribute (i.e. detector-id).
 
-Example use:
+Example uses:
 
 ```
-python  tools/visualization/plotXMLAttributes.py fcd.xml -x x -y y -s
+python  tools/visualization/plotXMLAttributes.py -x x -y y -s fcd.xml
+python  tools/visualization/plotXMLAttributes.py -x x -y y -s fcd.xml fcd2.xml
 ```
 
 The above example draws the paths of all vehicles through the network based on fcd-output. (It is a special case that can also be accomplished with  #plot_trajectoriespy)

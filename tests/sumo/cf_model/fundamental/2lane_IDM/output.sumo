@@ -1,18 +1,18 @@
-Loading net-file from 'net3.net.xml' ... done (9ms).
+Loading net-file from 'net3.net.xml' ... done (10ms).
 Loading additional-files from 'input_additional.add.xml' ... done (1ms).
 Loading done.
-Simulation version v1_12_0+1901-d3f3c96 started with time: 0.00
+Simulation version v1_14_1+0331-153d228 started with time: 0.00
 Simulation ended at time: 1800.00
 Reason: The final simulation step has been reached.
 Performance: 
- Duration: 5.52s
- Real time factor: 326.205
- UPS: 167445.088800
+ Duration: 13.20s
+ Real time factor: 136.343
+ UPS: 69986.517194
 Vehicles: 
  Inserted: 1360 (Loaded: 4188)
  Running: 529
  Waiting: 535
-Statistics (avg):
+Statistics (avg of 831):
  RouteLength: 19993.98
  Speed: 25.70
  Duration: 794.88

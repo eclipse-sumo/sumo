@@ -31,8 +31,8 @@
 // ===========================================================================
 
 
-GNEWireFrame::GNEWireFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet) :
-    GNEFrame(horizontalFrameParent, viewNet, "Wires") {
+GNEWireFrame::GNEWireFrame(GNEViewParent *viewParent, GNEViewNet* viewNet) :
+    GNEFrame(viewParent, viewNet, "Wires") {
 
     // create item Selector modul for wires
     myWireTagSelector = new GNETagSelector(this, GNETagProperties::TagType::WIRE, SUMO_TAG_TRACTION_SUBSTATION);

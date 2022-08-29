@@ -43,7 +43,7 @@ class SUMOSAXAttributes;
 // ===========================================================================
 /**
  * @enum SUMOVehicleShape
- * @brief Definition of vehicle classes to differ between different appearences
+ * @brief Definition of vehicle classes to differ between different appearances
  */
 enum class SUMOVehicleShape {
     /// @brief not defined
@@ -68,6 +68,8 @@ enum class SUMOVehicleShape {
     PASSENGER_VAN,
     /// @brief automated car (with cruise controllers)
     //PASSENGER_AUTOMATED,
+    /// @brief render as a taxi
+    TAXI,
     /// @brief render as a delivery vehicle
     DELIVERY,
     /// @brief render as a transport vehicle
@@ -336,7 +338,7 @@ extern bool canParseVehicleClasses(const std::string& classes);
  */
 extern SVCPermissions parseVehicleClasses(const std::string& allowedS, const std::string& disallowedS, double networkVersion = NETWORK_VERSION);
 
-/** @brief Encodes the given vector of allowed classs into a bitset
+/** @brief Encodes the given vector of allowed class into a bitset
  * Unlike the methods which parse a string it gives immediately a warning output on deprecated vehicle classes.
  * @param[in] classesS The names vector to parse
  */

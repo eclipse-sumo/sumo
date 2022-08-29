@@ -20,7 +20,7 @@
 #pragma once
 #include <config.h>
 
-#include <utils/foxtools/FXGroupBoxModule.h>
+#include <utils/foxtools/MFXGroupBoxModule.h>
 
 // ===========================================================================
 // class declaration
@@ -34,7 +34,7 @@ class GNEFlowEditor;
 // class definitions
 // ===========================================================================
 
-class GNEAttributesCreator : public FXGroupBoxModule {
+class GNEAttributesCreator : public MFXGroupBoxModule {
     /// @brief FOX-declaration
     FXDECLARE(GNEAttributesCreator)
 

@@ -37,7 +37,7 @@ FXDEFMAP(GNEDrawingShape) DrawingShapeMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNEDrawingShape,               FXGroupBoxModule,     DrawingShapeMap,                ARRAYNUMBER(DrawingShapeMap))
+FXIMPLEMENT(GNEDrawingShape,               MFXGroupBoxModule,     DrawingShapeMap,                ARRAYNUMBER(DrawingShapeMap))
 
 
 // ===========================================================================
@@ -45,7 +45,7 @@ FXIMPLEMENT(GNEDrawingShape,               FXGroupBoxModule,     DrawingShapeMap
 // ===========================================================================
 
 GNEDrawingShape::GNEDrawingShape(GNEFrame* frameParent) :
-    FXGroupBoxModule(frameParent, "Drawing"),
+    MFXGroupBoxModule(frameParent, "Drawing"),
     myFrameParent(frameParent),
     myDeleteLastCreatedPoint(false) {
     // create start and stop buttons
@@ -76,16 +76,16 @@ GNEDrawingShape::~GNEDrawingShape() {}
 void GNEDrawingShape::showDrawingShape() {
     // abort current drawing before show
     abortDrawing();
-    // show FXGroupBoxModule
-    FXGroupBoxModule::show();
+    // show MFXGroupBoxModule
+    MFXGroupBoxModule::show();
 }
 
 
 void GNEDrawingShape::hideDrawingShape() {
     // abort current drawing before hide
     abortDrawing();
-    // show FXGroupBoxModule
-    FXGroupBoxModule::hide();
+    // show MFXGroupBoxModule
+    MFXGroupBoxModule::hide();
 }
 
 

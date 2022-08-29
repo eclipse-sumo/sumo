@@ -182,6 +182,9 @@ public:
     /// @brief add reversed edge
     long onCmdAddReversedEdge(FXObject*, FXSelector, void*);
 
+    /// @brief add reversed edge disconnected
+    long onCmdAddReversedEdgeDisconnected(FXObject*, FXSelector, void*);
+
     /// @brief change geometry endpoint
     long onCmdEditEdgeEndpoint(FXObject*, FXSelector, void*);
 
@@ -252,6 +255,9 @@ public:
     long onCmdOpenAdditionalDialog(FXObject*, FXSelector, void*);
 
     /// @brief edit junction shape
+    long onCmdResetEdgeEndPoints(FXObject*, FXSelector, void*);
+
+    /// @brief edit junction shape
     long onCmdEditJunctionShape(FXObject*, FXSelector, void*);
 
     /// @brief reset junction shape
@@ -272,11 +278,23 @@ public:
     /// @brief convert junction to roundabout
     long onCmdConvertRoundabout(FXObject*, FXSelector, void*);
 
+    /// @brief enter to convert junction to roundabout
+    long onEnterConvertRoundabout(FXObject*, FXSelector, void*);
+
+    /// @brief leave to convert junction to roundabout
+    long onLeaveConvertRoundabout(FXObject*, FXSelector, void*);
+
     /// @brief clear junction connections
     long onCmdClearConnections(FXObject*, FXSelector, void*);
 
     /// @brief reset junction connections
     long onCmdResetConnections(FXObject*, FXSelector, void*);
+
+    /// @brief add TLS
+    long onCmdAddTLS(FXObject*, FXSelector, void*);
+
+    /// @brief add Join TLS
+    long onCmdAddJoinTLS(FXObject*, FXSelector, void*);
 
     /// @brief edit connection shape
     long onCmdEditConnectionShape(FXObject*, FXSelector, void*);
@@ -501,6 +519,9 @@ public:
     /// @brief ask about change supermode
     bool aksChangeSupermode(const std::string& operation, Supermode expectedSupermode);
 
+    /// @brief check if we're seleting detectors in TLS mode
+    bool selectingDetectorsTLSMode() const;
+
 protected:
     /// @brief FOX needs this
     GNEViewNet();
@@ -510,6 +531,9 @@ protected:
 
     /// @brief called after some features are already initialized
     void doInit();
+
+    /// @brief open move dialog at cursor
+    void openMoveDialogAtCursor();
 
 private:
     /// @name structs related with modes and testing mode
@@ -616,6 +640,9 @@ private:
     /// @brief last created route
     GNEDemandElement* myLastCreatedRoute = nullptr;
 
+    /// @brief draw preview roundabout
+    bool myDrawPreviewRoundabout = false;
+
     /// @brief create edit mode buttons and elements
     void buildEditModeControls();
 
@@ -690,6 +717,13 @@ private:
 
     /// @brief draw temporal split junction in create edge mode
     void drawTemporalSplitJunction() const;
+
+    /// @brief draw temporal roundabout
+    void drawTemporalRoundabout() const;
+
+    /// @brief draw temporal E1 TLS Lines
+    void drawTemporalE1TLSLines() const;
+
     /// @}
 
     /// @brief mouse process functions

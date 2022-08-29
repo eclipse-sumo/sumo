@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-08-12 12:28:22 by Eclipse SUMO netedit Version v1_14_1+0279-392c686
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net.net.xml"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+</configuration>
+-->
+
+<edges version="1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="-28915150#10" from="J5" to="4152042800" priority="12" type="highway.primary" numLanes="1" speed="13.89" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship">
+        <lane index="0">
+            <param key="origId" value="28915150"/>
+        </lane>
+        <param key="ref" value="N 7"/>
+    </edge>
+    <edge id="-301483807#1" from="6817745691" to="J6" priority="12" type="highway.primary" numLanes="2" speed="13.89" shape="108.82,103.04 118.76,91.03 127.50,75.46" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship">
+        <lane index="0">
+            <param key="origId" value="301483807"/>
+        </lane>
+        <lane index="1">
+            <param key="origId" value="301483807"/>
+        </lane>
+        <param key="origTo" value="9767814315"/>
+        <param key="ref" value="N 7"/>
+    </edge>
+    <edge id="-5917631940" from="J4" to="cluster_317837289_3566825590" priority="11" type="highway.secondary" numLanes="2" speed="13.89" shape="144.81,51.69 158.66,42.21 196.79,0.00" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship">
+        <lane index="0">
+            <param key="origId" value="591763194"/>
+        </lane>
+        <lane index="1">
+            <param key="origId" value="591763194"/>
+        </lane>
+        <param key="origTo" value="3566825590"/>
+    </edge>
+    <edge id="28915150#1" from="4152042800" to="J5" priority="12" type="highway.primary" numLanes="2" speed="13.89" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship">
+        <lane index="0">
+            <param key="origId" value="28915150"/>
+        </lane>
+        <lane index="1">
+            <param key="origId" value="28915150"/>
+        </lane>
+        <param key="ref" value="N 7"/>
+    </edge>
+    <edge id="301483807#10" from="J6" to="6817745691" priority="12" type="highway.primary" numLanes="2" speed="13.89" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship">
+        <lane index="0">
+            <param key="origId" value="301483807"/>
+        </lane>
+        <lane index="1">
+            <param key="origId" value="301483807"/>
+        </lane>
+        <param key="origFrom" value="9767814315"/>
+        <param key="ref" value="N 7"/>
+    </edge>
+    <edge id="45177592" from="317837288" to="J3" priority="-1" type="highway.tertiary" numLanes="1" speed="13.89" shape="227.61,65.75 156.73,79.11 147.20,78.14 138.03,75.30" spreadType="center" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship">
+        <lane index="0">
+            <param key="origId" value="45177592"/>
+        </lane>
+    </edge>
+    <edge id="591763194" from="cluster_317837289_3566825590" to="J4" priority="11" type="highway.secondary" numLanes="2" speed="13.89" shape="196.79,0.00 158.39,42.10 144.81,51.69" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship">
+        <lane index="0">
+            <param key="origId" value="591763194"/>
+        </lane>
+        <lane index="1">
+            <param key="origId" value="591763194"/>
+        </lane>
+        <param key="origFrom" value="3566825590"/>
+    </edge>
+    <edge id="E1" from="J1" to="J2" priority="-1" numLanes="1" speed="13.89" shape="117.46,63.73 96.24,52.07 87.35,49.28 75.00,48.01 55.55,52.57 0.00,79.71"/>
+    <edge id="E4" from="J4" to="J3" priority="-1" numLanes="2" speed="13.89" shape="144.81,51.69 146.03,56.21 147.02,61.80 145.86,67.36 142.71,72.08 138.03,75.30"/>
+    <edge id="E5" from="J5" to="J4" priority="-1" numLanes="2" speed="13.89" shape="119.23,53.25 126.64,47.56 132.47,46.57 138.24,47.91 144.81,51.69"/>
+    <edge id="E6" from="J6" to="J1" priority="-1" numLanes="2" speed="13.89" shape="127.50,75.46 121.12,71.86 118.01,66.93 117.46,63.73"/>
+    <edge id="E6.16" from="J1" to="J5" priority="-1" numLanes="2" speed="13.89" shape="117.46,63.73 117.02,61.19 118.30,55.51 119.23,53.25"/>
+    <edge id="E7" from="J3" to="J6" priority="-1" numLanes="2" speed="13.89" shape="138.03,75.30 134.03,76.43 129.86,76.41 127.50,75.46"/>
+
+    <roundabout nodes="J1 J3 J4 J5 J6" edges="E4 E5 E6 E6.16 E7"/>
+
+</edges>

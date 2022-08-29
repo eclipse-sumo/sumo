@@ -333,7 +333,7 @@ GNENet::deleteJunction(GNEJunction* junction, GNEUndoList* undoList) {
     myPathManager->invalidateJunctionPath(junction);
     // delete junction child demand elements
     while (junction->getChildDemandElements().size() > 0) {
-        deleteDemandElement(junction    ->getChildDemandElements().front(), undoList);
+        deleteDemandElement(junction->getChildDemandElements().front(), undoList);
     }
     // delete all crossings vinculated with junction
     while (junction->getGNECrossings().size() > 0) {
@@ -401,11 +401,15 @@ GNENet::deleteEdge(GNEEdge* edge, GNEUndoList* undoList, bool recomputeConnectio
             const auto person = edge->getChildDemandElements().front()->getParentDemandElements().front();
             if (person->getChildDemandElements().size() == 1) {
                 deleteDemandElement(person, undoList);
+            } else {
+                deleteDemandElement(edge->getChildDemandElements().front(), undoList);
             }
         } else if (edge->getChildDemandElements().front()->getTagProperty().isContainerPlan()) {
             const auto container = edge->getChildDemandElements().front()->getParentDemandElements().front();
             if (container->getChildDemandElements().size() == 1) {
                 deleteDemandElement(container, undoList);
+            } else {
+                deleteDemandElement(edge->getChildDemandElements().front(), undoList);
             }
         } else {
             deleteDemandElement(edge->getChildDemandElements().front(), undoList);
@@ -948,10 +952,10 @@ GNENet::reverseEdge(GNEEdge* edge, GNEUndoList* undoList) {
 
 
 GNEEdge*
-GNENet::addReversedEdge(GNEEdge* edge, GNEUndoList* undoList) {
+GNENet::addReversedEdge(GNEEdge* edge, const bool disconnected, GNEUndoList* undoList) {
     undoList->begin(GUIIcon::EDGE, "add reversed " + toString(SUMO_TAG_EDGE));
     GNEEdge* reversed = nullptr;
-    if (edge->getNBEdge()->getLaneSpreadFunction() == LaneSpreadFunction::RIGHT || isRailway(edge->getNBEdge()->getPermissions())) {
+    if (!disconnected) {
         // for rail edges, we assume bi-directional tracks are wanted
         reversed = createEdge(edge->getToJunction(), edge->getFromJunction(), edge, undoList, "-" + edge->getID(), false, true);
         assert(reversed != 0);
@@ -1037,6 +1041,14 @@ GNENet::selectRoundabout(GNEJunction* junction, GNEUndoList* undoList) {
 void
 GNENet::createRoundabout(GNEJunction* junction, GNEUndoList* undoList) {
     undoList->begin(GUIIcon::JUNCTION, "create roundabout");
+    // reset shape end from incoming edges
+    for (const auto &incomingEdge : junction->getGNEIncomingEdges()) {
+        incomingEdge->setAttribute(GNE_ATTR_SHAPE_END, "", undoList);
+    }
+    // reset shape start from outgoing edges
+    for (const auto &outgoingEdge : junction->getGNEOutgoingEdges()) {
+        outgoingEdge->setAttribute(GNE_ATTR_SHAPE_START, "", undoList);
+    }
     junction->getNBNode()->updateSurroundingGeometry();
     double radius = junction->getNBNode()->getRadius();
     if (radius == NBNode::UNSPECIFIED_RADIUS) {
@@ -2170,10 +2182,10 @@ GNENet::saveAdditionalsConfirmed(const std::string& filename) {
     writeAdditionalByType(device, {SUMO_TAG_PARKING_AREA});
     // detectors
     writeDetectorComment(device);
-    writeAdditionalByType(device, {SUMO_TAG_E1DETECTOR});
+    writeAdditionalByType(device, {SUMO_TAG_INDUCTION_LOOP});
     writeAdditionalByType(device, {SUMO_TAG_INSTANT_INDUCTION_LOOP});
-    writeAdditionalByType(device, {SUMO_TAG_E2DETECTOR, GNE_TAG_E2DETECTOR_MULTILANE});
-    writeAdditionalByType(device, {SUMO_TAG_E3DETECTOR});
+    writeAdditionalByType(device, {SUMO_TAG_LANE_AREA_DETECTOR, GNE_TAG_MULTI_LANE_AREA_DETECTOR});
+    writeAdditionalByType(device, {SUMO_TAG_ENTRY_EXIT_DETECTOR});
     // Other additionals
     writeOtherAdditionalsComment(device);
     writeAdditionalByType(device, {SUMO_TAG_REROUTER});

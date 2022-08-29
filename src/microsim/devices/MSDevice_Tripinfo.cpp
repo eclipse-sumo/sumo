@@ -459,11 +459,7 @@ MSDevice_Tripinfo::printStatistics() {
     msg.setf(msg.fixed);
     msg.precision(gPrecision);
     if (myBikeCount == 0 || myVehicleCount > 0) {
-        if (myBikeCount > 0) {
-            msg << "Statistics (avg of " << myVehicleCount << "):\n";
-        } else {
-            msg << "Statistics (avg):\n";
-        }
+        msg << "Statistics (avg of " << myVehicleCount << "):\n";
         msg << " RouteLength: " << getAvgRouteLength() << "\n"
             << " Speed: " << getAvgTripSpeed() << "\n"
             << " Duration: " << getAvgDuration() << "\n"
@@ -527,6 +523,7 @@ void
 MSDevice_Tripinfo::writeStatistics(OutputDevice& od) {
     od.setPrecision(gPrecision);
     od.openTag("vehicleTripStatistics");
+    od.writeAttr("count", myVehicleCount);
     od.writeAttr("routeLength", getAvgRouteLength());
     od.writeAttr("speed", getAvgTripSpeed());
     od.writeAttr("duration", getAvgDuration());

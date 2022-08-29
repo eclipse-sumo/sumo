@@ -84,7 +84,12 @@ def initOptions():
                     help="Algorithm for shortest path routing. Support: dijkstra (default), astar, CH and CHWrapper")  # noqa
     ap.add_argument("--routing-mode", type=int, default=0,
                     help="Mode for shortest path routing. Support: 0 (default) for routing with loaded or default speeds and 1 for routing with averaged historical speeds")  # noqa
-    ap.add_argument("--dua-times", action='store_true')
+    ap.add_argument("--dua-times", action='store_true',
+                    help="Calculate travel time between edges with duarouter")
+    ap.add_argument("--tracefile",
+                    help="log traci commands to the given FILE")
+    ap.add_argument("--tracegetters", action='store_true',
+                    help="include get-methods in tracefile")
     ap.add_argument("--verbose", action='store_true')
 
     return ap
@@ -183,7 +188,10 @@ def ilp_solve(options, veh_num, res_num, costs, veh_constraints,
                      for i in order_trips]) >= 1, "Assing_at_least_one_vehicle"
 
     # The problem is solved using PuLP's Solver choice
-    prob.solve(pl.PULP_CBC_CMD(msg=0, timeLimit=options.ilp_time))
+    try:
+        prob.solve(pl.PULP_CBC_CMD(msg=0, timeLimit=options.ilp_time))
+    except pl.apis.core.PulpSolverError:
+        prob.solve(pl.COIN_CMD(msg=0, timeLimit=options.ilp_time, path="/usr/bin/cbc"))
 
     if pl.LpStatus[prob.status] != 'Optimal':
         sys.exit("No optimal solution found: %s" % pl.LpStatus[prob.status])
@@ -235,7 +243,7 @@ def main():
     else:
         pairs_dua_times = {}
 
-    traci.start(run_traci)
+    traci.start(run_traci, traceFile=options.tracefile, traceGetters=options.tracegetters)
 
     # execute the TraCI control loop
     step = traci.simulation.getTime() + 10
