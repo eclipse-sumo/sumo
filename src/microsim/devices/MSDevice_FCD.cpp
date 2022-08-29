@@ -96,7 +96,7 @@ MSDevice_FCD::~MSDevice_FCD() {
 }
 
 bool
-MSDevice_FCD::shapeFilter(const SUMOVehicle* veh) {
+MSDevice_FCD::shapeFilter(const SUMOTrafficObject* veh) {
     // lazily build the shape filter in the case where route file is loaded as an additional file
     if (!myShapeFilterInitialized) {
         buildShapeFilter();
