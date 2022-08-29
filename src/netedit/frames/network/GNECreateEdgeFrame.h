@@ -68,6 +68,9 @@ public:
         /// @brief check if we're using default edge type
         bool useDefaultEdgeType() const;
 
+        /// @brief void enable checkbox for disable pedestrians
+        void enableCheckBoxDisablePedestrians();
+
         /// @brief get default edgeType
         GNEEdgeType* getDefaultEdgeType() const;
 
@@ -125,8 +128,11 @@ public:
         /// @brief create default edge
         FXRadioButton* myUseDefaultEdgeType = nullptr;
 
-        /// @brief ComboBox for default edge types
-        FXComboBox* myDefaultEdgeComboBox = nullptr;
+        /// @brief no pedestrian check button
+        FXCheckButton* myNoPedestriansCheckButton = nullptr;
+
+        /// @brief add sidewalk check button
+        FXCheckButton* myAddSidewalkCheckButton = nullptr;
 
         /// @brief create custom edge
         FXRadioButton* myUseCustomEdgeType = nullptr;

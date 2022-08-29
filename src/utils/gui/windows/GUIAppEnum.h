@@ -992,6 +992,8 @@ enum {
     MID_GNE_CREATEEDGEFRAME_SELECTLANE,
     /// @brief create edge type from template
     MID_GNE_CREATEEDGEFRAME_CREATEFROMTEMPLATE,
+    /// @brief check button
+    MID_GNE_CREATEEDGEFRAME_CHECKBUTTON,
 
     /// @}
 

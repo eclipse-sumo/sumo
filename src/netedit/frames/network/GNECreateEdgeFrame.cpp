@@ -72,25 +72,30 @@ GNECreateEdgeFrame::EdgeTypeSelector::EdgeTypeSelector(GNECreateEdgeFrame* creat
     myDefaultEdgeType(new GNEEdgeType(createEdgeFrameParent)),
     myCurrentIndex(0) {
     // default edge radio button
-    myUseDefaultEdgeType = new FXRadioButton(getCollapsableFrame(), "Create default edge", this, MID_GNE_CREATEEDGEFRAME_SELECTRADIOBUTTON, GUIDesignRadioButton);
-    // default types combo box
-    myDefaultEdgeComboBox = new FXComboBox(getCollapsableFrame(), GUIDesignComboBoxNCol, this, MID_GNE_CREATEEDGEFRAME_SELECTDEFAULT, GUIDesignComboBoxAttribute);
+    myUseDefaultEdgeType = new FXRadioButton(getCollapsableFrame(), "Create default edge",
+        this, MID_GNE_CREATEEDGEFRAME_SELECTRADIOBUTTON, GUIDesignRadioButton);
+    // checkboxes
+    myNoPedestriansCheckButton = new FXCheckButton(getCollapsableFrame(), "Disallow for pedestrians",
+        this, MID_GNE_CREATEEDGEFRAME_CHECKBUTTON, GUIDesignCheckButton);
+    myAddSidewalkCheckButton = new FXCheckButton(getCollapsableFrame(), "Add Sidewalk",
+        this, MID_GNE_CREATEEDGEFRAME_CHECKBUTTON, GUIDesignCheckButton);
     // use custom edge radio button
-    myUseCustomEdgeType = new FXRadioButton(getCollapsableFrame(), "Use edgeType/template", this, MID_GNE_CREATEEDGEFRAME_SELECTRADIOBUTTON, GUIDesignRadioButton);
+    myUseCustomEdgeType = new FXRadioButton(getCollapsableFrame(), "Use edgeType/template",
+        this, MID_GNE_CREATEEDGEFRAME_SELECTRADIOBUTTON, GUIDesignRadioButton);
     // edge types combo box
-    myEdgeTypesComboBox = new FXComboBox(getCollapsableFrame(), GUIDesignComboBoxNCol, this, MID_GNE_CREATEEDGEFRAME_SELECTTEMPLATE, GUIDesignComboBoxAttribute);
+    myEdgeTypesComboBox = new FXComboBox(getCollapsableFrame(), GUIDesignComboBoxNCol, 
+        this, MID_GNE_CREATEEDGEFRAME_SELECTTEMPLATE, GUIDesignComboBoxAttribute);
     // create horizontal frame
     FXHorizontalFrame* horizontalFrameButtons = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     // create new edge type button
     myAddEdgeTypeButton = new FXButton(horizontalFrameButtons, "Add\t\tAdd edge type", GUIIconSubSys::getIcon(GUIIcon::ADD),
-                                       this, MID_GNE_CREATEEDGEFRAME_ADD, GUIDesignButton);
+        this, MID_GNE_CREATEEDGEFRAME_ADD, GUIDesignButton);
     // create delete edge type button
     myDeleteEdgeTypeButton = new FXButton(horizontalFrameButtons, "Delete\t\tDelete edge type", GUIIconSubSys::getIcon(GUIIcon::REMOVE),
-                                          this, MID_GNE_CREATEEDGEFRAME_DELETE, GUIDesignButton);
-
+        this, MID_GNE_CREATEEDGEFRAME_DELETE, GUIDesignButton);
     // create delete edge type button
     myCreateFromTemplate = new FXButton(getCollapsableFrame(), "Create from template\t\tCreate edgeType from template", GUIIconSubSys::getIcon(GUIIcon::EDGE),
-                                        this, MID_GNE_CREATEEDGEFRAME_CREATEFROMTEMPLATE, GUIDesignButton);
+        this, MID_GNE_CREATEEDGEFRAME_CREATEFROMTEMPLATE, GUIDesignButton);
     // by default, create custom edge
     myUseDefaultEdgeType->setCheck(TRUE);
 }
@@ -111,8 +116,9 @@ GNECreateEdgeFrame::EdgeTypeSelector::refreshEdgeTypeSelector() {
     fillComboBox();
     // set default edgeType
     if (myUseDefaultEdgeType->getCheck()) {
-        // enable myDefaultEdgeTypeComboBox
-        myDefaultEdgeComboBox->enable();
+        // enable check boxes
+        myAddSidewalkCheckButton->enable();
+        myNoPedestriansCheckButton->enable();
         // disable create from template
         myCreateFromTemplate->disable();
         // disable comboBox
@@ -125,8 +131,9 @@ GNECreateEdgeFrame::EdgeTypeSelector::refreshEdgeTypeSelector() {
         // show lane attributes
         myCreateEdgeFrameParent->myLaneTypeSelector->showLaneTypeSelector();
     } else if (myUseCustomEdgeType->getCheck()) {
-        // disable defaultType comboBox
-        myDefaultEdgeComboBox->disable();
+        // disable check boxes
+        myAddSidewalkCheckButton->disable();
+        myNoPedestriansCheckButton->disable();
         // enable buttons
         myAddEdgeTypeButton->enable();
         myDeleteEdgeTypeButton->enable();
@@ -205,6 +212,12 @@ GNECreateEdgeFrame::EdgeTypeSelector::useEdgeTemplate() const {
 bool
 GNECreateEdgeFrame::EdgeTypeSelector::useDefaultEdgeType() const {
     return (myUseDefaultEdgeType->getCheck() == TRUE);
+}
+
+
+void 
+GNECreateEdgeFrame::EdgeTypeSelector::enableCheckBoxDisablePedestrians() {
+    myNoPedestriansCheckButton->setCheck(TRUE);
 }
 
 
