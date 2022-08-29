@@ -32,10 +32,10 @@ FXDEFMAP(MFXLabelTooltip) MFXLabelTooltipMap[] = {
 FXIMPLEMENT(MFXLabelTooltip, FXButton, MFXLabelTooltipMap, ARRAYNUMBER(MFXLabelTooltipMap))
 
 
-MFXLabelTooltip::MFXLabelTooltip(FXComposite* p, const FXString& text, FXIcon* ic, FXuint opts,
-                                 FXint x, FXint y, FXint w, FXint h,
-                                 FXint pl, FXint pr, FXint pt, FXint pb) :
-    FXButton(p, text, ic, nullptr, 0, opts, x, y, w, h, pl, pr, pt, pb) {
+MFXLabelTooltip::MFXLabelTooltip(FXComposite* p, MFXStaticToolTip* staticToolTip, const FXString& text, FXIcon* ic, FXuint opts,
+                                 FXint x, FXint y, FXint w, FXint h, FXint pl, FXint pr, FXint pt, FXint pb) :
+    FXButton(p, text, ic, nullptr, 0, opts, x, y, w, h, pl, pr, pt, pb),
+    myStaticToolTip(staticToolTip) {
     // to avoid select button, just disable it (we can improve this in the future)
     disable();
 }
@@ -76,11 +76,6 @@ MFXLabelTooltip::onPaint(FXObject*,FXSelector,void* ptr){
 
 long
 MFXLabelTooltip::onEnter(FXObject* sender, FXSelector sel, void* ptr) {
-    // create on first enter
-    if (myStaticToolTip == nullptr) {
-        myStaticToolTip = new MFXStaticToolTip(getApp());
-        myStaticToolTip->create();
-    }
     // show tip show
     myStaticToolTip->onTipShow(sender, sel, ptr);
     return FXButton::onEnter(sender, sel, ptr);

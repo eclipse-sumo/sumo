@@ -31,13 +31,13 @@ FXDEFMAP(MFXButtonTooltip) MFXButtonTooltipMap[] = {
 // Object implementation
 FXIMPLEMENT(MFXButtonTooltip, FXButton, MFXButtonTooltipMap, ARRAYNUMBER(MFXButtonTooltipMap))
 
-MFXButtonTooltip::MFXButtonTooltip(FXComposite* p,
+MFXButtonTooltip::MFXButtonTooltip(FXComposite* p, MFXStaticToolTip* staticToolTip, 
                                    const FXString& text, FXIcon* ic,
-                                   FXObject* tgt, FXSelector sel,
-                                   FXuint opts,
+                                   FXObject* tgt, FXSelector sel, FXuint opts,
                                    FXint x, FXint y, FXint w, FXint h,
                                    FXint pl, FXint pr, FXint pt, FXint pb) :
-    FXButton(p, text, ic, tgt, sel, opts, x, y, w, h, pl, pr, pt, pb) {
+    FXButton(p, text, ic, tgt, sel, opts, x, y, w, h, pl, pr, pt, pb),
+    myStaticToolTip(staticToolTip) {
 }
 
 
@@ -46,11 +46,6 @@ MFXButtonTooltip::~MFXButtonTooltip() {}
 
 long
 MFXButtonTooltip::onEnter(FXObject* sender, FXSelector sel, void* ptr) {
-    // create on first enter
-    if (myStaticToolTip == nullptr) {
-        myStaticToolTip = new MFXStaticToolTip(getApp());
-        myStaticToolTip->create();
-    }
     // show tip show
     myStaticToolTip->onTipShow(sender, sel, ptr);
     return FXButton::onEnter(sender, sel, ptr);
