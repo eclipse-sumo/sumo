@@ -1,3 +1,6 @@
+# person is inserted to the appointed position of a edge, not next to the edge. 
+person_inserted_departPos
+
 # test simple walks
 walking
 
