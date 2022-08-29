@@ -72,11 +72,7 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep, bool elevation) {
         // collect all vehicles in radius around equipped vehicles
         for (MSVehicleControl::constVehIt it = vc.loadedVehBegin(); it != vc.loadedVehEnd(); ++it) {
             const SUMOVehicle* veh = it->second;
-            MSDevice_FCD* fcdDevice = (MSDevice_FCD*)veh->getDevice(typeid(MSDevice_FCD));
-            if (fcdDevice != nullptr
-                    && (veh->isOnRoad() || veh->isParking() || veh->isRemoteControlled())
-                    && (!filter || MSDevice_FCD::getEdgeFilter().count(veh->getEdge()) > 0)
-                    && (!shapeFilter || MSDevice_FCD::shapeFilter(veh))) {
+            if (isVisible(veh) && hasOwnOutput(veh, filter, shapeFilter)) {
                 PositionVector shape;
                 shape.push_back(veh->getPosition());
                 libsumo::Helper::collectObjectsInRange(libsumo::CMD_GET_VEHICLE_VARIABLE, shape, radius, inRadius);
@@ -90,11 +86,11 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep, bool elevation) {
         const SUMOVehicle* veh = it->second;
         const MSVehicle* microVeh = dynamic_cast<const MSVehicle*>(veh);
         const MSBaseVehicle* baseVeh = dynamic_cast<const MSBaseVehicle*>(veh);
-        if ((veh->isOnRoad() || veh->isParking() || veh->isRemoteControlled())
-                // only filter on normal edges
-                && (!filter || MSDevice_FCD::getEdgeFilter().count(veh->getEdge()) > 0)
-                && (!shapeFilter || MSDevice_FCD::shapeFilter(veh))
-                && (veh->getDevice(typeid(MSDevice_FCD)) != nullptr || (radius > 0 && inRadius.count(veh) > 0))) {
+        if (isVisible(veh)) {
+            const bool hasOutput = hasOwnOutput(veh, filter, shapeFilter, (radius > 0 && inRadius.count(veh) > 0));
+            if (!hasOutput) {
+                continue;
+            }
             Position pos = veh->getPosition();
             if (useGeo) {
                 of.setPrecision(gPrecisionGeo);
@@ -210,6 +206,17 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep, bool elevation) {
     of.closeTag();
 }
 
+bool
+MSFCDExport::isVisible(const SUMOVehicle* veh) {
+    return veh->isOnRoad() || veh->isParking() || veh->isRemoteControlled();
+}
+
+bool
+MSFCDExport::hasOwnOutput(const SUMOVehicle* veh, bool filter, bool shapeFilter, bool isInRadius) {
+    return ((!filter || MSDevice_FCD::getEdgeFilter().count(veh->getEdge()) > 0)
+            && (!shapeFilter || MSDevice_FCD::shapeFilter(veh))
+            && (veh->getDevice(typeid(MSDevice_FCD)) != nullptr || isInRadius));
+}
 
 void
 MSFCDExport::writeTransportable(OutputDevice& of, const MSEdge* e, MSTransportable* p, const SUMOVehicle* v, bool inRadius, SumoXMLTag tag, bool useGeo, bool elevation, long long int mask) {
