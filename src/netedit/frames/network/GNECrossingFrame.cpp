@@ -23,8 +23,10 @@
 #include <utils/gui/div/GUIDesigns.h>
 #include <netedit/changes/GNEChange_Crossing.h>
 #include <netedit/elements/network/GNECrossing.h>
+#include <netedit/frames/network/GNECreateEdgeFrame.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewParent.h>
 #include <netedit/GNEUndoList.h>
 
 #include "GNECrossingFrame.h"
@@ -486,6 +488,8 @@ GNECrossingFrame::CreateCrossing::onCmdCreateCrossing(FXObject*, FXSelector, voi
                     false, true), true);
             // clear selected edges
             myCrossingFrameParent->myEdgeSelector->onCmdClearSelection(0, 0, 0);
+            // update default create edge option
+            myCrossingFrameParent->getViewNet()->getViewParent()->getCreateEdgeFrame()->getEdgeTypeSelector()->enableCheckBoxDisablePedestrians();
         } else {
             WRITE_WARNING("There is already another crossing with the same edges in the junction; Duplicated crossing aren't allowed.");
         }
