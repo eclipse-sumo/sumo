@@ -1353,8 +1353,8 @@ GNETLSEditorFrame::TLSDefinition::onUpdTLSModified(FXObject* sender, FXSelector,
     } else if (myTLSEditorParent->myTLSAttributes->isSetDetectorsToogleButtonEnabled()) {
         // selecting E1, disable button
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
-    } else if (myHaveModifications) {
-        // pending modifications, disable button
+    } else if (!myHaveModifications) {
+        // no modifications, disable button
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
