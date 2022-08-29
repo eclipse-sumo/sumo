@@ -190,6 +190,12 @@ GUIMainWindow::getGLVisual() const {
 }
 
 
+MFXStaticToolTip*
+GUIMainWindow::getStaticTooltip() const {
+    return myStaticTooltip;
+}
+
+
 FXLabel*
 GUIMainWindow::getCartesianLabel() {
     return myCartesianCoordinate;

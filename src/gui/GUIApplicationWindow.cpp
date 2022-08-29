@@ -645,9 +645,12 @@ GUIApplicationWindow::buildToolBars() {
         myToolBar1 = new FXToolBar(myTopDock, myToolBarDrag1, GUIDesignToolBarRaisedNextTop);
         new FXToolBarGrip(myToolBar1, myToolBar1, FXToolBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
         // build file tools
-        new MFXButtonTooltip(myToolBar1, "\tOpen simulation\tOpen a simulation (Configuration file).", GUIIconSubSys::getIcon(GUIIcon::OPEN_CONFIG), this, MID_OPEN_CONFIG, GUIDesignButtonToolbar);
-        new MFXButtonTooltip(myToolBar1, "\tOpen network\tOpen a network.", GUIIconSubSys::getIcon(GUIIcon::OPEN_NET), this, MID_OPEN_NETWORK, GUIDesignButtonToolbar);
-        new MFXButtonTooltip(myToolBar1, "\tReload\tReloads the simulation / the network.", GUIIconSubSys::getIcon(GUIIcon::RELOAD), this, MID_HOTKEY_CTRL_R_RELOAD, GUIDesignButtonToolbar);
+        new MFXButtonTooltip(myToolBar1, myStaticTooltip, "\tOpen simulation\tOpen a simulation (Configuration file).",
+            GUIIconSubSys::getIcon(GUIIcon::OPEN_CONFIG), this, MID_OPEN_CONFIG, GUIDesignButtonToolbar);
+        new MFXButtonTooltip(myToolBar1, myStaticTooltip, "\tOpen network\tOpen a network.",
+            GUIIconSubSys::getIcon(GUIIcon::OPEN_NET), this, MID_OPEN_NETWORK, GUIDesignButtonToolbar);
+        new MFXButtonTooltip(myToolBar1, myStaticTooltip, "\tReload\tReloads the simulation / the network.", 
+            GUIIconSubSys::getIcon(GUIIcon::RELOAD), this, MID_HOTKEY_CTRL_R_RELOAD, GUIDesignButtonToolbar);
     }
     {
         // simulation toolbar
@@ -655,9 +658,12 @@ GUIApplicationWindow::buildToolBars() {
         myToolBar2 = new FXToolBar(myTopDock, myToolBarDrag2, GUIDesignToolBarRaisedSameTop);
         new FXToolBarGrip(myToolBar2, myToolBar2, FXToolBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
         // build simulation tools
-        new MFXButtonTooltip(myToolBar2, "\tRun\tStart/Resume the loaded simulation.", GUIIconSubSys::getIcon(GUIIcon::START), this, MID_HOTKEY_CTRL_A_STARTSIMULATION_OPENADDITIONALS, GUIDesignButtonToolbar);
-        new MFXButtonTooltip(myToolBar2, "\tStop\tHalt the running simulation.", GUIIconSubSys::getIcon(GUIIcon::STOP), this, MID_HOTKEY_CTRL_S_STOPSIMULATION_SAVENETWORK, GUIDesignButtonToolbar);
-        new MFXButtonTooltip(myToolBar2, "\tStep\tPerform a single simulation step.", GUIIconSubSys::getIcon(GUIIcon::STEP), this, MID_HOTKEY_CTRL_D_SINGLESIMULATIONSTEP_OPENDEMANDELEMENTS, GUIDesignButtonToolbar);
+        new MFXButtonTooltip(myToolBar2, myStaticTooltip, "\tRun\tStart/Resume the loaded simulation.", 
+            GUIIconSubSys::getIcon(GUIIcon::START), this, MID_HOTKEY_CTRL_A_STARTSIMULATION_OPENADDITIONALS, GUIDesignButtonToolbar);
+        new MFXButtonTooltip(myToolBar2, myStaticTooltip, "\tStop\tHalt the running simulation.", 
+            GUIIconSubSys::getIcon(GUIIcon::STOP), this, MID_HOTKEY_CTRL_S_STOPSIMULATION_SAVENETWORK, GUIDesignButtonToolbar);
+        new MFXButtonTooltip(myToolBar2, myStaticTooltip, "\tStep\tPerform a single simulation step.", 
+            GUIIconSubSys::getIcon(GUIIcon::STEP), this, MID_HOTKEY_CTRL_D_SINGLESIMULATIONSTEP_OPENDEMANDELEMENTS, GUIDesignButtonToolbar);
     }
     {
         // Simulation Step Display
@@ -713,10 +719,10 @@ GUIApplicationWindow::buildToolBars() {
         myToolBar5 = new FXToolBar(myTopDock, myToolBarDrag5, GUIDesignToolBarRaisedSameTop);
         new FXToolBarGrip(myToolBar5, myToolBar5, FXToolBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
         // build view tools
-        new MFXButtonTooltip(myToolBar5, "\tOpen new view\tOpen a new microscopic view.",
+        new MFXButtonTooltip(myToolBar5, myStaticTooltip, "\tOpen new view\tOpen a new microscopic view.",
                              GUIIconSubSys::getIcon(GUIIcon::MICROVIEW), this, MID_NEW_MICROVIEW, GUIDesignButtonToolbar);
 #ifdef HAVE_OSG
-        new MFXButtonTooltip(myToolBar5, "\tOpen new 3D view\tOpen a new 3D view.",
+        new MFXButtonTooltip(myToolBar5, myStaticTooltip, "\tOpen new 3D view\tOpen a new 3D view.",
                              GUIIconSubSys::getIcon(GUIIcon::OSGVIEW), this, MID_NEW_OSGVIEW, GUIDesignButtonToolbar);
 #endif
     }

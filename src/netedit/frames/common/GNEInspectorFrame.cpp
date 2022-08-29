@@ -24,6 +24,7 @@
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
+#include <netedit/GNEApplicationWindow.h>
 #include <netedit/elements/additional/GNERerouter.h>
 #include <netedit/elements/additional/GNECalibrator.h>
 #include <netedit/elements/additional/GNEVariableSpeedSign.h>
@@ -101,8 +102,9 @@ GNEInspectorFrame::NeteditAttributesEditor::NeteditAttributesEditor(GNEInspector
     // Create elements for parent additional
     myLabelParentAdditional = new FXLabel(getCollapsableFrame(), "Parent", nullptr, GUIDesignLabelCenterThick);
     myTextFieldParentAdditional = new FXTextField(getCollapsableFrame(), GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
-    mySetNewParentButton = new MFXCheckableButton(false, getCollapsableFrame(), ("Set new parent"), nullptr,
-            this, MID_GNE_SET_ATTRIBUTE, GUIDesignMFXCheckableButton);
+    mySetNewParentButton = new MFXCheckableButton(false, getCollapsableFrame(), 
+        inspectorFrameParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltip(), 
+        "Set new parent", nullptr, this, MID_GNE_SET_ATTRIBUTE, GUIDesignMFXCheckableButton);
     // Create elements for close shape
     myHorizontalFrameCloseShape = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     myLabelCloseShape = new FXLabel(myHorizontalFrameCloseShape, "Close shape", nullptr, GUIDesignLabelAttribute);

@@ -23,6 +23,7 @@
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
+#include <netedit/GNEApplicationWindow.h>
 #include <netedit/dialogs/GNEAllowVClassesDialog.h>
 #include <netedit/dialogs/GNESingleParametersDialog.h>
 #include <netedit/frames/common/GNEInspectorFrame.h>
@@ -86,16 +87,24 @@ GNEFrameAttributeModules::AttributesEditorRow::AttributesEditorRow(GNEFrameAttri
     myAttributeCheckButton = new FXCheckButton(this, "attributeCheckButton", this, MID_GNE_SET_ATTRIBUTE_BOOL, GUIDesignCheckButtonAttribute);
     myAttributeCheckButton->hide();
     // Create and hide ButtonCombinableChoices
-    myAttributeButtonCombinableChoices = new MFXButtonTooltip(this, "attributeButtonCombinableChoices", nullptr, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButtonAttribute);
+    myAttributeButtonCombinableChoices = new MFXButtonTooltip(this,
+        attributeEditorParent->getFrameParent()->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltip(),
+        "attributeButtonCombinableChoices", nullptr, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButtonAttribute);
     myAttributeButtonCombinableChoices->hide();
     // create and hide color editor
-    myAttributeColorButton = new MFXButtonTooltip(this, "attributeColorButton", nullptr, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButtonAttribute);
+    myAttributeColorButton = new MFXButtonTooltip(this,
+    attributeEditorParent->getFrameParent()->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltip(),
+        "attributeColorButton", nullptr, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButtonAttribute);
     myAttributeColorButton->hide();
     // create and hide color editor
-    myAttributeVTypeButton = new MFXButtonTooltip(this, "attributeVTypeButton", myACParent? myACParent->getIcon() : nullptr, this, MID_GNE_SET_ATTRIBUTE_VTYPE, GUIDesignButtonAttribute);
+    myAttributeVTypeButton = new MFXButtonTooltip(this,
+    attributeEditorParent->getFrameParent()->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltip(),
+        "attributeVTypeButton", myACParent? myACParent->getIcon() : nullptr, this, MID_GNE_SET_ATTRIBUTE_VTYPE, GUIDesignButtonAttribute);
     myAttributeVTypeButton->hide();
     // Create and hide MFXTextFieldTooltip for string attributes
-    myValueTextField = new MFXTextFieldTooltip(this, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
+    myValueTextField = new MFXTextFieldTooltip(this,
+        attributeEditorParent->getFrameParent()->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltip(),
+        GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     myValueTextField->hide();
     // Create and hide ComboBox
     myValueComboBoxChoices = new MFXIconComboBox(this, GUIDesignComboBoxNCol, (ACAttr.getAttr() == SUMO_ATTR_VCLASS), this, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBoxAttribute);

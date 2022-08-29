@@ -24,6 +24,8 @@
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewParent.h>
+#include <netedit/GNEApplicationWindow.h>
 #include <netedit/changes/GNEChange_TLS.h>
 #include <netedit/dialogs/GNESingleParametersDialog.h>
 #include <netedit/elements/network/GNEInternalLane.h>
@@ -846,12 +848,16 @@ GNETLSEditorFrame::TLSJunction::TLSJunction(GNETLSEditorFrame* TLSEditorParent) 
     // Create frame for junction IDs
     FXHorizontalFrame* junctionIDFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     myJunctionIDLabel = new FXLabel(junctionIDFrame, "Junction ID", nullptr, GUIDesignLabelAttribute);
-    myJunctionIDTextField = new MFXTextFieldTooltip(junctionIDFrame, GUIDesignTextFieldNCol, this, MID_GNE_TLSFRAME_JUNCTION, GUIDesignTextField);
+    myJunctionIDTextField = new MFXTextFieldTooltip(junctionIDFrame, 
+        TLSEditorParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltip(),
+        GUIDesignTextFieldNCol, this, MID_GNE_TLSFRAME_JUNCTION, GUIDesignTextField);
     myJunctionIDTextField->disable();
     // Create frame for TLS Program ID
     FXHorizontalFrame* TLSIDFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(TLSIDFrame, "TLS ID", nullptr, GUIDesignLabelAttribute);
-    myTLSIDTextField = new MFXTextFieldTooltip(TLSIDFrame, GUIDesignTextFieldNCol, this, MID_GNE_TLSFRAME_TLSID, GUIDesignTextField);
+    myTLSIDTextField = new MFXTextFieldTooltip(TLSIDFrame, 
+        TLSEditorParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltip(),
+        GUIDesignTextFieldNCol, this, MID_GNE_TLSFRAME_TLSID, GUIDesignTextField);
     // create frame, label and textfield for type
     FXHorizontalFrame* typeFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(typeFrame, toString(SUMO_ATTR_TYPE).c_str(), nullptr, GUIDesignLabelAttribute);
@@ -1490,13 +1496,21 @@ GNETLSEditorFrame::TLSPhases::TLSPhases(GNETLSEditorFrame* TLSEditorParent) :
     FXVerticalFrame* col1 = new FXVerticalFrame(phaseButtons, GUIDesignAuxiliarHorizontalFrame); // left button columm
     FXVerticalFrame* col2 = new FXVerticalFrame(phaseButtons, GUIDesignAuxiliarHorizontalFrame); // right button column
     // create cleanup states button
-    new MFXButtonTooltip(col1, "Clean States\tClean unused states from all phase\tClean unused states from all phase. (Not allowed for multiple programs)", nullptr, this, MID_GNE_TLSFRAME_PHASES_CLEANUP, GUIDesignButton);
+    new MFXButtonTooltip(col1, TLSEditorParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltip(),
+        "Clean States\tClean unused states from all phase\tClean unused states from all phase. (Not allowed for multiple programs)", 
+        nullptr, this, MID_GNE_TLSFRAME_PHASES_CLEANUP, GUIDesignButton);
     // add unused states button
-    new MFXButtonTooltip(col2, "Add States\tExtend the state vector for all phases by one entry\tExtend the state vector for all phases by one entry. (Unused until a connection or crossing is assigned to the new index)", nullptr, this, MID_GNE_TLSFRAME_PHASES_ADDUNUSED, GUIDesignButton);
+    new MFXButtonTooltip(col2, TLSEditorParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltip(),
+        "Add States\tExtend the state vector for all phases by one entry\tExtend the state vector for all phases by one entry. (Unused until a connection or crossing is assigned to the new index)", 
+        nullptr, this, MID_GNE_TLSFRAME_PHASES_ADDUNUSED, GUIDesignButton);
     // group states button
-    new MFXButtonTooltip(col1, "Group Signals\tShorten state definition by letting connections with the same signal states use the same index\tShorten state definition by letting connections with the same signal states use the same index. (Not allowed for multiple programs)", nullptr, this, MID_GNE_TLSFRAME_PHASES_GROUPSTATES, GUIDesignButton);
+    new MFXButtonTooltip(col1, TLSEditorParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltip(),
+        "Group Signals\tShorten state definition by letting connections with the same signal states use the same index\tShorten state definition by letting connections with the same signal states use the same index. (Not allowed for multiple programs)", 
+        nullptr, this, MID_GNE_TLSFRAME_PHASES_GROUPSTATES, GUIDesignButton);
     // ungroup states button
-    new MFXButtonTooltip(col2, "Ungroup Signals\tLet every connection use a distinct index (reverse state grouping)\tLet every connection use a distinct index (reverse state grouping). (Not allowed for multiple programs)", nullptr, this, MID_GNE_TLSFRAME_PHASES_UNGROUPSTATES, GUIDesignButton);
+    new MFXButtonTooltip(col2, TLSEditorParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltip(),
+        "Ungroup Signals\tLet every connection use a distinct index (reverse state grouping)\tLet every connection use a distinct index (reverse state grouping). (Not allowed for multiple programs)", 
+        nullptr, this, MID_GNE_TLSFRAME_PHASES_UNGROUPSTATES, GUIDesignButton);
     // show TLSFile
     show();
 }

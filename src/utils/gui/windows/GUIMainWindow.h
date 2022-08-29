@@ -88,6 +88,9 @@ public:
     /// @brief get GL Visual
     FXGLVisual* getGLVisual() const;
 
+    /// @brief get static toolTip
+    MFXStaticToolTip* getStaticTooltip() const;
+
     /// @brief get build GL Canvas (must be implemented in all children)
     virtual FXGLCanvas* getBuildGLCanvas() const = 0;
 
