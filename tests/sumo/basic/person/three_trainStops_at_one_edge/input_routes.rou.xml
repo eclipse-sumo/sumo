@@ -34,6 +34,7 @@
         <stop busStop="B" until="60.00"/>
         <stop busStop="C" until="70.00"/>
         <stop busStop="D" until="80.00"/>
+        <param key="has.fcd.device" value="false"/>
     </vehicle>
     <person id="p0" depart="0">
         <walk from="b" busStop="B"/>
