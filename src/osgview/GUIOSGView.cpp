@@ -30,6 +30,7 @@
 #include <foreign/rtree/SUMORTree.h>
 #include <gui/GUIApplicationWindow.h>
 #include <gui/GUISUMOViewParent.h>
+#include <gui/GUIViewTraffic.h>
 #include <guisim/GUIEdge.h>
 #include <guisim/GUIJunctionWrapper.h>
 #include <guisim/GUILane.h>
@@ -808,48 +809,11 @@ GUIOSGView::onCmdAddRerouter(FXObject*, FXSelector, void*) {
 
 
 long
-GUIOSGView::onCmdShowReachability(FXObject* menu, FXSelector, void*) {
+GUIOSGView::onCmdShowReachability(FXObject* menu, FXSelector selector, void*) {
     GUILane* lane = getLaneUnderCursor();
     if (lane != nullptr) {
         // reset
-        const double UNREACHED = -1;
-        gSelected.clear();
-        for (const MSEdge* const e : MSEdge::getAllEdges()) {
-            for (MSLane* const l : e->getLanes()) {
-                GUILane* gLane = dynamic_cast<GUILane*>(l);
-                gLane->setReachability(UNREACHED);
-            }
-        }
-        // prepare
-        FXMenuCommand* mc = dynamic_cast<FXMenuCommand*>(menu);
-        const SUMOVehicleClass svc = SumoVehicleClassStrings.get(mc->getText().text());
-        const double defaultMaxSpeed = SUMOVTypeParameter::VClassDefaultValues(svc).maxSpeed;
-        // find reachable
-        std::map<MSEdge*, double> reachableEdges;
-        reachableEdges[&lane->getEdge()] = 0;
-        MSEdgeVector check;
-        check.push_back(&lane->getEdge());
-        while (check.size() > 0) {
-            MSEdge* e = check.front();
-            check.erase(check.begin());
-            double traveltime = reachableEdges[e];
-            for (MSLane* const l : e->getLanes()) {
-                if (l->allowsVehicleClass(svc)) {
-                    GUILane* gLane = dynamic_cast<GUILane*>(l);
-                    gSelected.select(gLane->getGlID());
-                    gLane->setReachability(traveltime);
-                }
-            }
-            traveltime += e->getLength() / MIN2(e->getSpeedLimit(), defaultMaxSpeed);
-            for (MSEdge* const nextEdge : e->getSuccessors(svc)) {
-                if (reachableEdges.count(nextEdge) == 0 ||
-                        // revisit edge via faster path
-                        reachableEdges[nextEdge] > traveltime) {
-                    reachableEdges[nextEdge] = traveltime;
-                    check.push_back(nextEdge);
-                }
-            }
-        }
+        GUIViewTraffic::showLaneReachability(lane, menu, selector);
         // switch to 'color by selection' unless coloring 'by reachability'
         if (myVisualizationSettings->laneColorer.getActive() != 36) {
             myVisualizationSettings->laneColorer.setActive(1);

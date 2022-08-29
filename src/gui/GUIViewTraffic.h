@@ -113,6 +113,7 @@ public:
 
     /// @brief highlight edges according to reachability
     long onCmdShowReachability(FXObject*, FXSelector, void*);
+    static long showLaneReachability(GUILane* lane, FXObject*, FXSelector);
 
     long onDoubleClicked(FXObject*, FXSelector, void*);
 

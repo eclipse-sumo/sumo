@@ -528,8 +528,7 @@ GUIViewTraffic::onCmdAddRerouter(FXObject*, FXSelector, void*) {
 
 
 long
-GUIViewTraffic::onCmdShowReachability(FXObject* menu, FXSelector, void*) {
-    GUILane* lane = getLaneUnderCursor();
+GUIViewTraffic::showLaneReachability(GUILane* lane, FXObject* menu, FXSelector) {
     if (lane != nullptr) {
         // reset
         const double UNREACHED = -1;
@@ -563,13 +562,24 @@ GUIViewTraffic::onCmdShowReachability(FXObject* menu, FXSelector, void*) {
             traveltime += e->getLength() / MIN2(e->getSpeedLimit(), defaultMaxSpeed);
             for (MSEdge* const nextEdge : e->getSuccessors(svc)) {
                 if (reachableEdges.count(nextEdge) == 0 ||
-                        // revisit edge via faster path
-                        reachableEdges[nextEdge] > traveltime) {
+                    // revisit edge via faster path
+                    reachableEdges[nextEdge] > traveltime) {
                     reachableEdges[nextEdge] = traveltime;
                     check.push_back(nextEdge);
                 }
             }
         }
+    }
+    return 1;
+}
+
+
+long
+GUIViewTraffic::onCmdShowReachability(FXObject* menu, FXSelector selector, void*) {
+    GUILane* lane = getLaneUnderCursor();
+    if (lane != nullptr) {
+        // reset
+        showLaneReachability(lane, menu, selector);
         // switch to 'color by selection' unless coloring 'by reachability'
         if (myVisualizationSettings->laneColorer.getActive() != 36) {
             myVisualizationSettings->laneColorer.setActive(1);
@@ -578,7 +588,6 @@ GUIViewTraffic::onCmdShowReachability(FXObject* menu, FXSelector, void*) {
     }
     return 1;
 }
-
 
 
 GUILane*
