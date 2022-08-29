@@ -532,6 +532,9 @@ protected:
     /// @brief called after some features are already initialized
     void doInit();
 
+    /// @brief open move dialog at cursor
+    void openMoveDialogAtCursor() const;
+
 private:
     /// @name structs related with modes and testing mode
     /// @{

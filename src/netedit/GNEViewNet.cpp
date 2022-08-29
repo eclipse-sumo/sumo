@@ -315,6 +315,12 @@ void
 GNEViewNet::doInit() {}
 
 
+void 
+GNEViewNet::openMoveDialogAtCursor() const {
+    
+}
+
+
 void
 GNEViewNet::buildViewToolBars(GUIGlChildWindow* v) {
     // build coloring tools
@@ -503,19 +509,25 @@ GNEViewNet::openObjectDialogAtCursor() {
     if (isEnabled() && myAmInitialised && makeCurrent()) {
         // fill objects under cursor
         myObjectsUnderCursor.updateObjectUnderCursor(getGUIGlObjectsUnderCursor());
-        // get GUIGLObject front
-        GUIGlObject* o = myObjectsUnderCursor.getGUIGlObjectFront();
-        // we need to check if we're inspecting a overlapping element
-        if (myViewParent->getInspectorFrame()->getOverlappedInspection()->overlappedInspectionShown() &&
-                myViewParent->getInspectorFrame()->getOverlappedInspection()->checkSavedPosition(getPositionInformation()) &&
-                myInspectedAttributeCarriers.size() > 0) {
-            o = dynamic_cast<GUIGlObject*>(myInspectedAttributeCarriers.front());
+        // check if we're cliking while alt button is pressed
+        if (myMouseButtonKeyPressed.altKeyPressed()) {
+            // open move dialog at cursor
+            openMoveDialogAtCursor();
+        } else {
+            // get GUIGLObject front
+            GUIGlObject* o = myObjectsUnderCursor.getGUIGlObjectFront();
+            // we need to check if we're inspecting a overlapping element
+            if (myViewParent->getInspectorFrame()->getOverlappedInspection()->overlappedInspectionShown() &&
+                    myViewParent->getInspectorFrame()->getOverlappedInspection()->checkSavedPosition(getPositionInformation()) &&
+                    myInspectedAttributeCarriers.size() > 0) {
+                o = dynamic_cast<GUIGlObject*>(myInspectedAttributeCarriers.front());
+            }
+            // if GlObject is null, use net
+            if (o == nullptr) {
+                o = myNet;
+            }
+            openObjectDialog(o);
         }
-        // if GlObject is null, use net
-        if (o == nullptr) {
-            o = myNet;
-        }
-        openObjectDialog(o);
         makeNonCurrent();
     }
 }
