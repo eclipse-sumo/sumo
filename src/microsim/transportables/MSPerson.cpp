@@ -463,6 +463,11 @@ MSPerson::MSPersonStage_Access::getAngle(SUMOTime /* now */) const {
 }
 
 
+double
+MSPerson::MSPersonStage_Access::getSpeed() const {
+    return myDist / STEPS2TIME(MAX2((SUMOTime)1, myEstimatedArrival - myDeparted));
+}
+
 void
 MSPerson::MSPersonStage_Access::tripInfoOutput(OutputDevice& os, const MSTransportable* const) const {
     os.openTag("access");
