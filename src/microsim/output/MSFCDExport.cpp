@@ -88,80 +88,79 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep, bool elevation) {
         const MSBaseVehicle* baseVeh = dynamic_cast<const MSBaseVehicle*>(veh);
         if (isVisible(veh)) {
             const bool hasOutput = hasOwnOutput(veh, filter, shapeFilter, (radius > 0 && inRadius.count(veh) > 0));
-            if (!hasOutput) {
-                continue;
-            }
-            Position pos = veh->getPosition();
-            if (useGeo) {
-                of.setPrecision(gPrecisionGeo);
-                GeoConvHelper::getFinal().cartesian2geo(pos);
-            }
-            of.openTag(SUMO_TAG_VEHICLE);
-            of.writeAttr(SUMO_ATTR_ID, veh->getID());
-            of.writeOptionalAttr(SUMO_ATTR_X, pos.x(), mask);
-            of.writeOptionalAttr(SUMO_ATTR_Y, pos.y(), mask);
-            of.setPrecision(gPrecision);
-            if (elevation) {
-                of.writeOptionalAttr(SUMO_ATTR_Z, pos.z(), mask);
-            }
-            of.writeOptionalAttr(SUMO_ATTR_ANGLE, GeomHelper::naviDegree(veh->getAngle()), mask);
-            of.writeOptionalAttr(SUMO_ATTR_TYPE, veh->getVehicleType().getID(), mask);
-            of.writeOptionalAttr(SUMO_ATTR_SPEED, veh->getSpeed(), mask);
-            of.writeOptionalAttr(SUMO_ATTR_POSITION, veh->getPositionOnLane(), mask);
-            if (microVeh != nullptr) {
-                of.writeOptionalAttr(SUMO_ATTR_LANE, microVeh->getLane()->getID(), mask);
-            } else {
-                of.writeOptionalAttr(SUMO_ATTR_EDGE, veh->getEdge()->getID(), mask);
-            }
-            of.writeOptionalAttr(SUMO_ATTR_SLOPE, veh->getSlope(), mask);
-            if (microVeh != nullptr) {
-                if (signals) {
-                    of.writeOptionalAttr(SUMO_ATTR_SIGNALS, toString(microVeh->getSignals()), mask);
+            if (hasOutput) {
+                Position pos = veh->getPosition();
+                if (useGeo) {
+                    of.setPrecision(gPrecisionGeo);
+                    GeoConvHelper::getFinal().cartesian2geo(pos);
                 }
-                if (writeAccel) {
-                    of.writeOptionalAttr(SUMO_ATTR_ACCELERATION, toString(microVeh->getAcceleration()), mask);
-                    if (MSGlobals::gSublane) {
-                        of.writeOptionalAttr(SUMO_ATTR_ACCELERATION_LAT, microVeh->getLaneChangeModel().getAccelerationLat(), mask);
-                    }
+                of.openTag(SUMO_TAG_VEHICLE);
+                of.writeAttr(SUMO_ATTR_ID, veh->getID());
+                of.writeOptionalAttr(SUMO_ATTR_X, pos.x(), mask);
+                of.writeOptionalAttr(SUMO_ATTR_Y, pos.y(), mask);
+                of.setPrecision(gPrecision);
+                if (elevation) {
+                    of.writeOptionalAttr(SUMO_ATTR_Z, pos.z(), mask);
                 }
-            }
-            if (writeDistance) {
-                double distance = veh->getEdge()->getDistance();
+                of.writeOptionalAttr(SUMO_ATTR_ANGLE, GeomHelper::naviDegree(veh->getAngle()), mask);
+                of.writeOptionalAttr(SUMO_ATTR_TYPE, veh->getVehicleType().getID(), mask);
+                of.writeOptionalAttr(SUMO_ATTR_SPEED, veh->getSpeed(), mask);
+                of.writeOptionalAttr(SUMO_ATTR_POSITION, veh->getPositionOnLane(), mask);
                 if (microVeh != nullptr) {
-                    if (microVeh->getLane()->isInternal()) {
-                        distance += microVeh->getRoute().getDistanceBetween(0, microVeh->getPositionOnLane(),
-                                    microVeh->getEdge(), &microVeh->getLane()->getEdge(), true, microVeh->getRoutePosition());
-                    } else {
-                        distance += microVeh->getPositionOnLane();
+                    of.writeOptionalAttr(SUMO_ATTR_LANE, microVeh->getLane()->getID(), mask);
+                } else {
+                    of.writeOptionalAttr(SUMO_ATTR_EDGE, veh->getEdge()->getID(), mask);
+                }
+                of.writeOptionalAttr(SUMO_ATTR_SLOPE, veh->getSlope(), mask);
+                if (microVeh != nullptr) {
+                    if (signals) {
+                        of.writeOptionalAttr(SUMO_ATTR_SIGNALS, toString(microVeh->getSignals()), mask);
                     }
-                } else {
-                    distance += veh->getPositionOnLane();
+                    if (writeAccel) {
+                        of.writeOptionalAttr(SUMO_ATTR_ACCELERATION, toString(microVeh->getAcceleration()), mask);
+                        if (MSGlobals::gSublane) {
+                            of.writeOptionalAttr(SUMO_ATTR_ACCELERATION_LAT, microVeh->getLaneChangeModel().getAccelerationLat(), mask);
+                        }
+                    }
                 }
-                // if the kilometrage runs counter to the edge direction edge->getDistance() is negative
-                of.writeOptionalAttr(SUMO_ATTR_DISTANCE, fabs(distance), mask);
-            }
-            of.writeOptionalAttr(SUMO_ATTR_ODOMETER, veh->getOdometer(), mask);
-            of.writeOptionalAttr(SUMO_ATTR_POSITION_LAT, veh->getLateralPositionOnLane(), mask);
-            if (maxLeaderDistance >= 0 && microVeh != nullptr) {
-                std::pair<const MSVehicle* const, double> leader = microVeh->getLeader(maxLeaderDistance);
-                if (leader.first != nullptr) {
-                    of.writeOptionalAttr(SUMO_ATTR_LEADER_ID, toString(leader.first->getID()), mask);
-                    of.writeOptionalAttr(SUMO_ATTR_LEADER_SPEED, toString(leader.first->getSpeed()), mask);
-                    of.writeOptionalAttr(SUMO_ATTR_LEADER_GAP, toString(leader.second + microVeh->getVehicleType().getMinGap()), mask);
-                } else {
-                    of.writeOptionalAttr(SUMO_ATTR_LEADER_ID, "", mask);
-                    of.writeOptionalAttr(SUMO_ATTR_LEADER_SPEED, -1, mask);
-                    of.writeOptionalAttr(SUMO_ATTR_LEADER_GAP, -1, mask);
+                if (writeDistance) {
+                    double distance = veh->getEdge()->getDistance();
+                    if (microVeh != nullptr) {
+                        if (microVeh->getLane()->isInternal()) {
+                            distance += microVeh->getRoute().getDistanceBetween(0, microVeh->getPositionOnLane(),
+                                    microVeh->getEdge(), &microVeh->getLane()->getEdge(), true, microVeh->getRoutePosition());
+                        } else {
+                            distance += microVeh->getPositionOnLane();
+                        }
+                    } else {
+                        distance += veh->getPositionOnLane();
+                    }
+                    // if the kilometrage runs counter to the edge direction edge->getDistance() is negative
+                    of.writeOptionalAttr(SUMO_ATTR_DISTANCE, fabs(distance), mask);
                 }
-            }
-            for (const std::string& key : params) {
-                std::string error;
-                const std::string value = baseVeh->getPrefixedParameter(key, error);
-                if (value != "") {
-                    of.writeAttr(StringUtils::escapeXML(key), StringUtils::escapeXML(value));
+                of.writeOptionalAttr(SUMO_ATTR_ODOMETER, veh->getOdometer(), mask);
+                of.writeOptionalAttr(SUMO_ATTR_POSITION_LAT, veh->getLateralPositionOnLane(), mask);
+                if (maxLeaderDistance >= 0 && microVeh != nullptr) {
+                    std::pair<const MSVehicle* const, double> leader = microVeh->getLeader(maxLeaderDistance);
+                    if (leader.first != nullptr) {
+                        of.writeOptionalAttr(SUMO_ATTR_LEADER_ID, toString(leader.first->getID()), mask);
+                        of.writeOptionalAttr(SUMO_ATTR_LEADER_SPEED, toString(leader.first->getSpeed()), mask);
+                        of.writeOptionalAttr(SUMO_ATTR_LEADER_GAP, toString(leader.second + microVeh->getVehicleType().getMinGap()), mask);
+                    } else {
+                        of.writeOptionalAttr(SUMO_ATTR_LEADER_ID, "", mask);
+                        of.writeOptionalAttr(SUMO_ATTR_LEADER_SPEED, -1, mask);
+                        of.writeOptionalAttr(SUMO_ATTR_LEADER_GAP, -1, mask);
+                    }
                 }
+                for (const std::string& key : params) {
+                    std::string error;
+                    const std::string value = baseVeh->getPrefixedParameter(key, error);
+                    if (value != "") {
+                        of.writeAttr(StringUtils::escapeXML(key), StringUtils::escapeXML(value));
+                    }
+                }
+                of.closeTag();
             }
-            of.closeTag();
             // write persons and containers
             const MSEdge* edge = microVeh == nullptr ? veh->getEdge() : &veh->getLane()->getEdge();
 
