@@ -533,7 +533,7 @@ protected:
     void doInit();
 
     /// @brief open move dialog at cursor
-    void openMoveDialogAtCursor() const;
+    void openMoveDialogAtCursor();
 
 private:
     /// @name structs related with modes and testing mode

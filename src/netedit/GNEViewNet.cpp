@@ -316,8 +316,10 @@ GNEViewNet::doInit() {}
 
 
 void 
-GNEViewNet::openMoveDialogAtCursor() const {
-    
+GNEViewNet::openMoveDialogAtCursor() {
+    myPopup = new GUIGLObjectPopupMenu(myApp, this);
+    // open popup dialog
+    openPopupDialog();
 }
 
 
