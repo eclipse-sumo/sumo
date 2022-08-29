@@ -237,6 +237,18 @@ GNECreateEdgeFrame::EdgeTypeSelector::getEdgeTypeSelected() const {
 }
 
 
+bool 
+GNECreateEdgeFrame::EdgeTypeSelector::isNoPedestriansEnabled() const {
+    return (myNoPedestriansCheckButton->getCheck() == TRUE);
+}
+
+
+bool 
+GNECreateEdgeFrame::EdgeTypeSelector::isAddSidewalkEnabled() const {
+    return (myAddSidewalkCheckButton->getCheck() == TRUE);
+}
+
+
 void
 GNECreateEdgeFrame::EdgeTypeSelector::clearEdgeTypeSelected() {
     myEdgeTypeSelected = nullptr;
@@ -671,6 +683,13 @@ GNECreateEdgeFrame::processClick(const Position& clickedPosition, const GNEViewN
                         newEdge->copyTemplate(myViewNet->getViewParent()->getInspectorFrame()->getTemplateEditor()->getEdgeTemplate(), myViewNet->getUndoList());
                     } else if (myEdgeTypeSelector->useDefaultEdgeType()) {
                         newEdge->copyEdgeType(myEdgeTypeSelector->getDefaultEdgeType(), myViewNet->getUndoList());
+                        // check pedestrians and sidewalks
+                        if (myEdgeTypeSelector->isNoPedestriansEnabled()) {
+                            disablePedestrians(newEdge);
+                        }
+                        if (myEdgeTypeSelector->isAddSidewalkEnabled()) {
+                            addSidewalk(newEdge);
+                        }
                     } else {
                         newEdge->copyEdgeType(myEdgeTypeSelector->getEdgeTypeSelected(), myViewNet->getUndoList());
                     }
@@ -782,6 +801,45 @@ void
 GNECreateEdgeFrame::setUseEdgeTemplate() {
     myEdgeTypeSelector->useTemplate();
     myEdgeTypeSelector->refreshEdgeTypeSelector();
+}
+
+
+void
+GNECreateEdgeFrame::disablePedestrians(GNEEdge* edge) const {
+    // iterate over lanes
+    for (const auto &lane : edge->getLanes()) {
+        // avoid sidelwalks
+        if (lane->getAttribute(SUMO_ATTR_ALLOW) != "pedestrian") {
+            // extract disallow list
+            std::vector<std::string> disallowList = GNEAttributeCarrier::parse<std::vector<std::string> >(lane->getAttribute(SUMO_ATTR_DISALLOW));
+            // check if append pedestrian to disallow
+            if (std::find(disallowList.begin(), disallowList.end(), "pedestrian") == disallowList.end()) {
+                disallowList.push_back("pedestrian");
+            }
+            // update attribute
+            lane->setAttribute(SUMO_ATTR_DISALLOW, toString(disallowList), myViewNet->getUndoList());
+        }
+    }
+}
+
+
+void
+GNECreateEdgeFrame::addSidewalk(GNEEdge* edge) const {
+    bool sidewalkFound = false;
+    // iterate over lanes
+    for (const auto &lane : edge->getLanes()) {
+        // check if there is already a SideWalk
+        if (lane->getAttribute(SUMO_ATTR_ALLOW) == "pedestrian") {
+            sidewalkFound = true;
+        }
+    }
+    // only add if previously there is no Sidewalk
+    if (!sidewalkFound) {
+        // update num lanes
+        edge->setAttribute(SUMO_ATTR_NUMLANES, toString(edge->getLanes().size() + 1), myViewNet->getUndoList());
+        // set last lane allow atribute
+        edge->getLanes().front()->setAttribute(SUMO_ATTR_ALLOW, "pedestrian", myViewNet->getUndoList());
+    }
 }
 
 /****************************************************************************/

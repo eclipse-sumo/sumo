@@ -77,6 +77,12 @@ public:
         /// @brief get edgeType selected
         GNEEdgeType* getEdgeTypeSelected() const;
 
+        /// @brief check if no pedestrian check button is enabled
+        bool isNoPedestriansEnabled() const;
+
+        /// @brief check if add sidewalk check button is enabled
+        bool isAddSidewalkEnabled() const;
+
         /// @brief clear edgeType selected
         void clearEdgeTypeSelected();
 
@@ -286,6 +292,12 @@ protected:
 
     /// @brief Legend
     GNECreateEdgeFrame::Legend* myLegend = nullptr;
+
+    /// @brief disable pedestrians in the given edge (within undoRedo)
+    void disablePedestrians(GNEEdge* edge) const;
+
+    /// @brief disable pedestrians in the given edge (within undoRedo)
+    void addSidewalk(GNEEdge* edge) const;
 
 private:
     /// @brief objects under snapped cursor
