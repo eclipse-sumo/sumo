@@ -45,6 +45,7 @@ FXDEFMAP(GNECreateEdgeFrame::EdgeTypeSelector) EdgeTypeSelectorMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_CREATEEDGEFRAME_DELETE,             GNECreateEdgeFrame::EdgeTypeSelector::onCmdDeleteEdgeType),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_CREATEEDGEFRAME_SELECTTEMPLATE,     GNECreateEdgeFrame::EdgeTypeSelector::onCmdSelectEdgeTypeOrTemplate),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_CREATEEDGEFRAME_CREATEFROMTEMPLATE, GNECreateEdgeFrame::EdgeTypeSelector::onCmdCreateFromTemplate),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_CREATEEDGEFRAME_CHECKBUTTON,        GNECreateEdgeFrame::EdgeTypeSelector::onUpdAddSideWalk),
 };
 
 FXDEFMAP(GNECreateEdgeFrame::LaneTypeSelector) LaneTypeSelectorMap[] = {
@@ -367,6 +368,18 @@ GNECreateEdgeFrame::EdgeTypeSelector::onCmdCreateFromTemplate(FXObject*, FXSelec
         refreshEdgeTypeSelector();
     }
     return 0;
+}
+
+
+long 
+GNECreateEdgeFrame::EdgeTypeSelector::onUpdAddSideWalk(FXObject*, FXSelector, void*) {
+    if (myAddSidewalkCheckButton->getCheck() == TRUE) {
+        myNoPedestriansCheckButton->setCheck(TRUE);
+        myNoPedestriansCheckButton->disable();
+    } else {
+        myNoPedestriansCheckButton->enable();
+    }
+    return 1;
 }
 
 

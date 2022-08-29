@@ -108,7 +108,10 @@ public:
 
         /// @brief Called when the user press create edgeType from Template
         long onCmdCreateFromTemplate(FXObject*, FXSelector, void*);
-
+        
+        /// @brief Called when add sidewalk check buton is updated
+        long onUpdAddSideWalk(FXObject*, FXSelector, void*);
+        
         /// @}
 
     protected:
