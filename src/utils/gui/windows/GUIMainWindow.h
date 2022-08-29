@@ -37,6 +37,7 @@
 class GUIEvent;
 class GUIGlChildWindow;
 class GUISUMOAbstractView;
+class MFXStaticToolTip;
 
 
 // ===========================================================================
@@ -46,7 +47,7 @@ class GUIMainWindow : public FXMainWindow {
 
 public:
     /// @brief constructor
-    GUIMainWindow(FXApp* a);
+    GUIMainWindow(FXApp* app);
 
     /// @brief destructor
     virtual ~GUIMainWindow();
@@ -214,6 +215,9 @@ protected:
     FXDockSite* myBottomDock = nullptr;
     FXDockSite* myLeftDock = nullptr;
     FXDockSite* myRightDock = nullptr;
+
+    /// @brief static toolTip used in FXButtonToolTip / FXLabelToolTip
+    MFXStaticToolTip* myStaticTooltip = nullptr;
 
     /// @brief information whether the gui is currently in gaming mode
     bool myAmGaming;
