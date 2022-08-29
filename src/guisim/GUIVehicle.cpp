@@ -136,6 +136,8 @@ GUIVehicle::getParameterWindow(GUIMainWindow& app,
                 new FunctionBinding<GUIVehicle, double>(this, &MSVehicle::getWaitingSeconds));
     ret->mkItem(("waiting time (accumulated, " + time2string(MSGlobals::gWaitingTimeMemory) + "s) [s]").c_str(), true,
                 new FunctionBinding<GUIVehicle, double>(this, &MSVehicle::getAccumulatedWaitingSeconds));
+    ret->mkItem("time since startup [s]", true,
+                new FunctionBinding<GUIVehicle, double>(this, &MSVehicle::getTimeSinceStartupSeconds));
     ret->mkItem("time loss [s]", true,
                 new FunctionBinding<GUIVehicle, double>(this, &MSVehicle::getTimeLossSeconds));
     ret->mkItem("impatience", true,
