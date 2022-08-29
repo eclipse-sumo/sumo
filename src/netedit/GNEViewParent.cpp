@@ -466,6 +466,8 @@ GNEViewParent::onCmdMakeSnapshot(FXObject*, FXSelector, void*) {
         FXMessageBox::error(this, MBOX_OK, "Saving failed.", "%s", error.c_str());
         // write warning if netedit is running in testing mode
         WRITE_DEBUG("Closed FXMessageBox 'error saving snapshot' with 'OK'");
+    } else {
+        WRITE_MESSAGE("Snapshot successfully saved!");
     }
     return 1;
 }
