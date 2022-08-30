@@ -335,6 +335,8 @@ private:
     /// @brief updates the simulation time display
     void updateTimeLCD(SUMOTime time);
 
+    void updateTimeLCDTooltip();
+
     /** opens a new simulation display */
     GUISUMOAbstractView* openNewView(GUISUMOViewParent::ViewType vt = GUISUMOViewParent::VIEW_2D_OPENGL);
 

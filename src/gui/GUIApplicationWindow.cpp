@@ -366,6 +366,7 @@ GUIApplicationWindow::create() {
         myOnlineMaps["GoogleSat"] = "https://www.google.com/maps?ll=%lat,%lon&t=h&z=18";
         myOnlineMaps["OSM"] = "https://www.openstreetmap.org/?mlat=%lat&mlon=%lon&zoom=18&layers=M";
     }
+    updateTimeLCDTooltip();
 }
 
 
@@ -676,7 +677,6 @@ GUIApplicationWindow::buildToolBars() {
         new MFXButtonTooltip(myToolBar3, myStaticTooltip, "Time:\tToggle between time formats\tToggle between seconds and hour:minute:seconds display.", nullptr, this, MID_TIME_TOGGLE, GUIDesignButtonToolbarText);
 
         myLCDLabel = new MFXLCDLabel(myToolBar3, myStaticTooltip, 16, nullptr, 0, JUSTIFY_RIGHT);
-        myLCDLabel->setToolTipText("SUMO timeSteps");
         myLCDLabel->setHorizontal(2);
         myLCDLabel->setVertical(6);
         myLCDLabel->setThickness(2);
@@ -1223,11 +1223,7 @@ long
 GUIApplicationWindow::onCmdTimeToggle(FXObject*, FXSelector, void*) {
     // toogle show time as HMS
     myShowTimeAsHMS = !myShowTimeAsHMS;
-    if (myShowTimeAsHMS) {
-        myLCDLabel->setToolTipText("HH:MM:SS");
-    } else {
-        myLCDLabel->setToolTipText("SUMO timeSteps");
-    }
+    updateTimeLCDTooltip();
     if (myRunThread->simulationAvailable()) {
         updateTimeLCD(myRunThread->getNet().getCurrentTimeStep());
     }
@@ -2068,6 +2064,14 @@ GUIApplicationWindow::addRecentFile(const FX::FXString& f) {
     myRecentNetworksAndConfigs.appendFile(f);
 }
 
+void
+GUIApplicationWindow::updateTimeLCDTooltip() {
+    if (myShowTimeAsHMS) {
+        myLCDLabel->setToolTipText("HH:MM:SS");
+    } else {
+        myLCDLabel->setToolTipText("seconds");
+    }
+}
 
 void
 GUIApplicationWindow::updateTimeLCD(SUMOTime time) {
