@@ -37,6 +37,8 @@
 
 FXDEFMAP(MFXLCDLabel) MFXLCDLabelMap[] = {
     FXMAPFUNC(SEL_PAINT,        0,                              MFXLCDLabel::onPaint),
+    FXMAPFUNC(SEL_ENTER,        0,                              MFXLCDLabel::onEnter),
+    FXMAPFUNC(SEL_LEAVE,        0,                              MFXLCDLabel::onLeave),
     FXMAPFUNC(SEL_COMMAND,      FXWindow::ID_SETVALUE,          MFXLCDLabel::onCmdSetValue),
     FXMAPFUNC(SEL_COMMAND,      FXWindow::ID_SETINTVALUE,       MFXLCDLabel::onCmdSetIntValue),
     FXMAPFUNC(SEL_COMMAND,      FXWindow::ID_SETREALVALUE,      MFXLCDLabel::onCmdSetRealValue),
@@ -297,6 +299,22 @@ MFXLCDLabel::onPaint(FXObject*, FXSelector, void* ptr) {
     // Draw the current string
     dc.setForeground(child->getFgColor());
     drawString(label);
+    return 1;
+}
+
+
+long 
+MFXLCDLabel::onEnter(FXObject*, FXSelector, void*) {
+    // always hide static toolTip
+    myStaticToolTip->hide();
+    return 1;
+}
+
+
+long 
+MFXLCDLabel::onLeave(FXObject*, FXSelector, void*) {
+    // always hide static toolTip
+    myStaticToolTip->hide();
     return 1;
 }
 

@@ -121,6 +121,12 @@ public:
     /// @brief handle paint event
     long onPaint(FXObject*, FXSelector, void*);
 
+    /// @brief called when mouse enter in MFXMenuButtonTooltip
+    long onEnter(FXObject*, FXSelector, void*);
+
+    /// @brief called when mouse leaves in MFXMenuButtonTooltip
+    long onLeave(FXObject*, FXSelector, void*);
+
     /// @brief Update value from a message
     long onCmdSetValue(FXObject*, FXSelector, void* ptr);
 
