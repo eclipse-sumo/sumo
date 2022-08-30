@@ -1,3 +1,6 @@
+# bike does not overtake the ped in front of him, although there is space; instead of overtaking it makes emergency braking.
+bikeNotOvertake
+
 # intersection connected with bidi-edges and paths for bike and pedestrian, 2 bikes have collision after passing the intersection
 collision_btw_bikes
 
