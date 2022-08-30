@@ -31,20 +31,32 @@
 #include "MFXBaseObject.h"
 
 
+// ===========================================================================
+// FOX callback mapping
+// ===========================================================================
+
 FXDEFMAP(MFXLCDLabel) MFXLCDLabelMap[] = {
-    FXMAPFUNC(SEL_PAINT, 0, MFXLCDLabel::onPaint),
-    FXMAPFUNC(SEL_COMMAND, FXWindow::ID_SETVALUE, MFXLCDLabel::onCmdSetValue),
-    FXMAPFUNC(SEL_COMMAND, FXWindow::ID_SETINTVALUE, MFXLCDLabel::onCmdSetIntValue),
-    FXMAPFUNC(SEL_COMMAND, FXWindow::ID_SETREALVALUE, MFXLCDLabel::onCmdSetRealValue),
-    FXMAPFUNC(SEL_COMMAND, FXWindow::ID_SETSTRINGVALUE, MFXLCDLabel::onCmdSetStringValue),
-    FXMAPFUNC(SEL_COMMAND, FXWindow::ID_GETINTVALUE, MFXLCDLabel::onCmdGetIntValue),
-    FXMAPFUNC(SEL_COMMAND, FXWindow::ID_GETREALVALUE, MFXLCDLabel::onCmdGetRealValue),
-    FXMAPFUNC(SEL_COMMAND, FXWindow::ID_GETSTRINGVALUE, MFXLCDLabel::onCmdGetStringValue),
-    //  FXMAPFUNC(SEL_UPDATE,FXWindow::ID_QUERY_TIP,MFXLCDLabel::onQueryTip),
-    //  FXMAPFUNC(SEL_UPDATE,FXWindow::ID_QUERY_HELP,MFXLCDLabel::onQueryHelp),
-    FXMAPKEY(MFXLCDLabel::ID_SEVENSEGMENT, MFXLCDLabel::onRedirectEvent),
+    FXMAPFUNC(SEL_PAINT,        0,                              MFXLCDLabel::onPaint),
+    FXMAPFUNC(SEL_COMMAND,      FXWindow::ID_SETVALUE,          MFXLCDLabel::onCmdSetValue),
+    FXMAPFUNC(SEL_COMMAND,      FXWindow::ID_SETINTVALUE,       MFXLCDLabel::onCmdSetIntValue),
+    FXMAPFUNC(SEL_COMMAND,      FXWindow::ID_SETREALVALUE,      MFXLCDLabel::onCmdSetRealValue),
+    FXMAPFUNC(SEL_COMMAND,      FXWindow::ID_SETSTRINGVALUE,    MFXLCDLabel::onCmdSetStringValue),
+    FXMAPFUNC(SEL_COMMAND,      FXWindow::ID_GETINTVALUE,       MFXLCDLabel::onCmdGetIntValue),
+    FXMAPFUNC(SEL_COMMAND,      FXWindow::ID_GETREALVALUE,      MFXLCDLabel::onCmdGetRealValue),
+    FXMAPFUNC(SEL_COMMAND,      FXWindow::ID_GETSTRINGVALUE,    MFXLCDLabel::onCmdGetStringValue),
+    //FXMAPFUNC(SEL_UPDATE,     FXWindow::ID_QUERY_TIP,         MFXLCDLabel::onQueryTip),
+    //FXMAPFUNC(SEL_UPDATE,     FXWindow::ID_QUERY_HELP,        MFXLCDLabel::onQueryHelp),
+    // map key
+    FXMAPKEY(MFXLCDLabel::ID_SEVENSEGMENT,  MFXLCDLabel::onRedirectEvent),
 };
+
+// Object implementation
 FXIMPLEMENT(MFXLCDLabel, FXHorizontalFrame, MFXLCDLabelMap, ARRAYNUMBER(MFXLCDLabelMap))
+
+
+// ===========================================================================
+// method definitions
+// ===========================================================================
 
 MFXLCDLabel::MFXLCDLabel(FXComposite* p, FXuint nfig, FXObject* tgt, FXSelector sel, FXuint opts, FXint pl, FXint pr, FXint pt, FXint pb, FXint hs) : FXHorizontalFrame(p, opts, 0, 0, 0, 0, pl, pr, pt, pb, hs, 0) {
     if (nfig == 0) {
@@ -59,6 +71,7 @@ MFXLCDLabel::MFXLCDLabel(FXComposite* p, FXuint nfig, FXObject* tgt, FXSelector 
     }
 }
 
+
 MFXLCDLabel::~MFXLCDLabel() {
     /*
       for (MFXSevenSegment *child=(MFXSevenSegment*)getFirst(); child; child=(MFXSevenSegment*)child->getNext()){
@@ -67,38 +80,43 @@ MFXLCDLabel::~MFXLCDLabel() {
     */
 }
 
-// create resources
-void MFXLCDLabel::create() {
+
+void 
+MFXLCDLabel::create() {
     FXHorizontalFrame::create();
     for (FXWindow* child = getFirst(); child; child = child->getNext()) {
         child->create();
     }
 }
 
-// detach resources
-void MFXLCDLabel::detach() {
+
+void 
+MFXLCDLabel::detach() {
     for (FXWindow* child = getFirst(); child; child = child->getNext()) {
         child->detach();
     }
     FXHorizontalFrame::detach();
 }
 
-// destroy resources
-void MFXLCDLabel::destroy() {
+
+void 
+MFXLCDLabel::destroy() {
     for (FXWindow* child = getFirst(); child; child = child->getNext()) {
         child->destroy();
     }
     FXHorizontalFrame::destroy();
 }
 
-// get the foreground color
-FXColor MFXLCDLabel::getFgColor() const {
+
+FXColor 
+MFXLCDLabel::getFgColor() const {
     MFXSevenSegment* child = (MFXSevenSegment*)getFirst();
     return child->getFgColor();
 }
 
-// set the foreground color
-void MFXLCDLabel::setFgColor(FXColor clr) {
+
+void
+MFXLCDLabel::setFgColor(FXColor clr) {
     MFXSevenSegment* child = (MFXSevenSegment*)getFirst();
     if (clr != child->getFgColor()) {
         for (child = (MFXSevenSegment*)getFirst(); child; child = (MFXSevenSegment*)child->getNext()) {
@@ -107,14 +125,16 @@ void MFXLCDLabel::setFgColor(FXColor clr) {
     }
 }
 
-// get the background color
-FXColor MFXLCDLabel::getBgColor() const {
+
+FXColor
+MFXLCDLabel::getBgColor() const {
     MFXSevenSegment* child = (MFXSevenSegment*)getFirst();
     return child->getBgColor();
 }
 
-// set the background color
-void MFXLCDLabel::setBgColor(FXColor clr) {
+
+void
+MFXLCDLabel::setBgColor(FXColor clr) {
     MFXSevenSegment* child = (MFXSevenSegment*)getFirst();
     if (clr != child->getBgColor()) {
         for (child = (MFXSevenSegment*)getFirst(); child; child = (MFXSevenSegment*)child->getNext()) {
@@ -123,8 +143,9 @@ void MFXLCDLabel::setBgColor(FXColor clr) {
     }
 }
 
-// set the text
-void MFXLCDLabel::setText(FXString lbl) {
+
+void
+MFXLCDLabel::setText(FXString lbl) {
     if (lbl != label) {
         label = lbl;
         recalc();
@@ -132,14 +153,16 @@ void MFXLCDLabel::setText(FXString lbl) {
     }
 }
 
-// get the length of the horizontal segments
-FXint MFXLCDLabel::getHorizontal() const {
+
+FXint
+MFXLCDLabel::getHorizontal() const {
     MFXSevenSegment* child = (MFXSevenSegment*)getFirst();
     return child->getHorizontal();
 }
 
-// set the length of the horizontal segments
-void MFXLCDLabel::setHorizontal(const FXint len) {
+
+void
+MFXLCDLabel::setHorizontal(const FXint len) {
     MFXSevenSegment* child = (MFXSevenSegment*)getFirst();
     if (len != child->getHorizontal()) {
         for (child = (MFXSevenSegment*)getFirst(); child; child = (MFXSevenSegment*)child->getNext()) {
@@ -150,14 +173,16 @@ void MFXLCDLabel::setHorizontal(const FXint len) {
     }
 }
 
-// get the length of the vertical segments
-FXint MFXLCDLabel::getVertical() const {
+
+FXint
+MFXLCDLabel::getVertical() const {
     MFXSevenSegment* child = (MFXSevenSegment*)getFirst();
     return child->getVertical();
 }
 
-// set the length of the vertical segments
-void MFXLCDLabel::setVertical(const FXint len) {
+
+void
+MFXLCDLabel::setVertical(const FXint len) {
     MFXSevenSegment* child = (MFXSevenSegment*)getFirst();
     if (len != child->getVertical()) {
         for (child = (MFXSevenSegment*)getFirst(); child; child = (MFXSevenSegment*)child->getNext()) {
@@ -168,14 +193,16 @@ void MFXLCDLabel::setVertical(const FXint len) {
     }
 }
 
-// get the width of the segments
-FXint MFXLCDLabel::getThickness() const {
+
+FXint
+MFXLCDLabel::getThickness() const {
     MFXSevenSegment* child = (MFXSevenSegment*)getFirst();
     return child->getThickness();
 }
 
-// set the width of the segments
-void MFXLCDLabel::setThickness(const FXint w) {
+
+void
+MFXLCDLabel::setThickness(const FXint w) {
     MFXSevenSegment* child = (MFXSevenSegment*)getFirst();
     if (w != child->getThickness()) {
         for (child = (MFXSevenSegment*)getFirst(); child; child = (MFXSevenSegment*)child->getNext()) {
@@ -186,14 +213,16 @@ void MFXLCDLabel::setThickness(const FXint w) {
     }
 }
 
-// get the width of the segments
-FXint MFXLCDLabel::getGroove() const {
+
+FXint
+MFXLCDLabel::getGroove() const {
     MFXSevenSegment* child = (MFXSevenSegment*)getFirst();
     return child->getGroove();
 }
 
-// set the groove width
-void MFXLCDLabel::setGroove(const FXint w) {
+
+void
+MFXLCDLabel::setGroove(const FXint w) {
     MFXSevenSegment* child = (MFXSevenSegment*)getFirst();
     if (w != child->getGroove()) {
         for (child = (MFXSevenSegment*)getFirst(); child; child = (MFXSevenSegment*)child->getNext()) {
@@ -204,50 +233,58 @@ void MFXLCDLabel::setGroove(const FXint w) {
     }
 }
 
-// Update value from a message
-long MFXLCDLabel::onCmdSetValue(FXObject*, FXSelector, void* ptr) {
+
+long
+MFXLCDLabel::onCmdSetValue(FXObject*, FXSelector, void* ptr) {
     setText((const FXchar*)ptr);
     return 1;
 }
 
-// Update value from a message
-long MFXLCDLabel::onCmdSetIntValue(FXObject*, FXSelector, void* ptr) {
+
+long
+MFXLCDLabel::onCmdSetIntValue(FXObject*, FXSelector, void* ptr) {
     setText(FXStringVal(*((FXint*)ptr)));
     return 1;
 }
 
-// Update value from a message
-long MFXLCDLabel::onCmdSetRealValue(FXObject*, FXSelector, void* ptr) {
+
+long
+MFXLCDLabel::onCmdSetRealValue(FXObject*, FXSelector, void* ptr) {
     setText(FXStringVal(*((FXdouble*)ptr)));
     return 1;
 }
 
-// Update value from a message
-long MFXLCDLabel::onCmdSetStringValue(FXObject*, FXSelector, void* ptr) {
+
+long
+MFXLCDLabel::onCmdSetStringValue(FXObject*, FXSelector, void* ptr) {
     setText(*((FXString*)ptr));
     return 1;
 }
 
-// Obtain value from text field
-long MFXLCDLabel::onCmdGetIntValue(FXObject*, FXSelector, void* ptr) {
+
+long
+MFXLCDLabel::onCmdGetIntValue(FXObject*, FXSelector, void* ptr) {
     *((FXint*)ptr) = FXIntVal(getText());
     return 1;
 }
 
-// Obtain value from text field
-long MFXLCDLabel::onCmdGetRealValue(FXObject*, FXSelector, void* ptr) {
+
+long
+MFXLCDLabel::onCmdGetRealValue(FXObject*, FXSelector, void* ptr) {
     *((FXdouble*)ptr) = FXDoubleVal(getText());
     return 1;
 }
 
-// Obtain value from text field
-long MFXLCDLabel::onCmdGetStringValue(FXObject*, FXSelector, void* ptr) {
+
+long
+MFXLCDLabel::onCmdGetStringValue(FXObject*, FXSelector, void* ptr) {
     *((FXString*)ptr) = getText();
     return 1;
 }
 
-// handle paint event
-long MFXLCDLabel::onPaint(FXObject*, FXSelector, void* ptr) {
+
+long
+MFXLCDLabel::onPaint(FXObject*, FXSelector, void* ptr) {
     FXEvent* event = (FXEvent*) ptr;
     FXDCWindow dc(this, event);
     drawFrame(dc, 0, 0, width, height);
@@ -261,8 +298,9 @@ long MFXLCDLabel::onPaint(FXObject*, FXSelector, void* ptr) {
     return 1;
 }
 
-// redirect events to main window
-long MFXLCDLabel::onRedirectEvent(FXObject*, FXSelector sel, void* ptr) {
+
+long
+MFXLCDLabel::onRedirectEvent(FXObject*, FXSelector sel, void* ptr) {
     FXuint seltype = FXSELTYPE(sel);
     if (isEnabled()) {
         if (target) {
@@ -272,40 +310,37 @@ long MFXLCDLabel::onRedirectEvent(FXObject*, FXSelector sel, void* ptr) {
     return 1;
 }
 
-// return minimum width
-FXint MFXLCDLabel::getDefaultWidth() {
+
+FXint
+MFXLCDLabel::getDefaultWidth() {
     return padleft + getFirst()->getDefaultWidth() * nfigures + hspacing * (nfigures - 1) + padright + (border << 1);
 }
 
-// return minimum height
-FXint MFXLCDLabel::getDefaultHeight() {
+
+FXint
+MFXLCDLabel::getDefaultHeight() {
     return padtop + getFirst()->getDefaultHeight() + padbottom + (border << 1);
 }
 
-// save resources
-void MFXLCDLabel::save(FXStream& store) const {
+
+void
+MFXLCDLabel::save(FXStream& store) const {
     FXHorizontalFrame::save(store);
     store << label;
     store << nfigures;
 }
 
-// load resources
-void MFXLCDLabel::load(FXStream& store) {
+
+void
+MFXLCDLabel::load(FXStream& store) {
     FXHorizontalFrame::load(store);
     store >> label;
     store >> nfigures;
 }
 
-// let parent show tip if appropriate
-long MFXLCDLabel::onQueryTip(FXObject* sender, FXSelector sel, void* ptr) {
-    if (getParent()) {
-        return getParent()->handle(sender, sel, ptr);
-    }
-    return 0;
-}
 
-// let parent show help if appropriate
-long MFXLCDLabel::onQueryHelp(FXObject* sender, FXSelector sel, void* ptr) {
+long
+MFXLCDLabel::onQueryTip(FXObject* sender, FXSelector sel, void* ptr) {
     if (getParent()) {
         return getParent()->handle(sender, sel, ptr);
     }
@@ -313,8 +348,18 @@ long MFXLCDLabel::onQueryHelp(FXObject* sender, FXSelector sel, void* ptr) {
 }
 
 
-// draw a specified string/label
-void MFXLCDLabel::drawString(const FXString& lbl) {
+long 
+MFXLCDLabel::onQueryHelp(FXObject* sender, FXSelector sel, void* ptr) {
+    if (getParent()) {
+        return getParent()->handle(sender, sel, ptr);
+    }
+    return 0;
+}
+
+
+
+void 
+MFXLCDLabel::drawString(const FXString& lbl) {
     FXint i = 0;
     FXString displayString(' ', nfigures);
     if (options & LCDLABEL_LEADING_ZEROS && (FXIntVal(lbl) || lbl == "0")) {
@@ -390,4 +435,3 @@ void MFXLCDLabel::drawString(const FXString& lbl) {
         }
     }
 }
-

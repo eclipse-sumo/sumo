@@ -25,8 +25,8 @@
 
 #include "fxheader.h"
 
-/**
- * A widget which has the seven-segment display used as the drawing object for each letter
+
+/** @brief A widget which has the seven-segment display used as the drawing object for each letter
  * in the label.  Supports display of leading zeros, such as when you need to display a
  * number.  Also supports the 'JUSTIFY_RIGHT' option, for right alignment.
  */
@@ -35,86 +35,120 @@ class MFXLCDLabel : public FXHorizontalFrame {
     FXDECLARE(MFXLCDLabel)
 
 public:
-    /// LCD Label styles
+    /// @brief LCD Label styles
     enum {
         LCDLABEL_NORMAL        = FRAME_SUNKEN | FRAME_THICK,
         LCDLABEL_LEADING_ZEROS = 0x01000000    /// leading zero's on label - useful for integers
     };
 
+    /// @brief call messages
     enum {
         ID_SEVENSEGMENT = FXHorizontalFrame::ID_LAST,
         ID_LAST
     };
 
-    long onPaint(FXObject*, FXSelector, void*);
-    long onCmdSetValue(FXObject*, FXSelector, void* ptr);
-    long onCmdSetIntValue(FXObject*, FXSelector, void* ptr);
-    long onCmdSetRealValue(FXObject*, FXSelector, void* ptr);
-    long onCmdSetStringValue(FXObject*, FXSelector, void* ptr);
-    long onCmdGetIntValue(FXObject*, FXSelector, void* ptr);
-    long onCmdGetRealValue(FXObject*, FXSelector, void* ptr);
-    long onCmdGetStringValue(FXObject*, FXSelector, void* ptr);
-    long onRedirectEvent(FXObject*, FXSelector, void* ptr);
-    long onQueryTip(FXObject*, FXSelector, void* ptr);
-    long onQueryHelp(FXObject*, FXSelector, void* ptr);
-
 public:
-    /// make me a label
+    /// @brief constructor
     MFXLCDLabel(FXComposite* p, FXuint nfig = 1, FXObject* tgt = NULL, FXSelector sel = 0, FXuint opts = LCDLABEL_NORMAL, FXint pl = DEFAULT_PAD, FXint pr = DEFAULT_PAD, FXint pt = DEFAULT_PAD, FXint pb = DEFAULT_PAD, FXint hs = DEFAULT_PAD);
 
-    /// dtor
+    /// @brief destructor
     virtual ~MFXLCDLabel();
 
-    /// create resrouces
+    /// @brief create resrouces
     virtual void create();
 
-    /// detach resources
+    /// @brief detach resources
     virtual void detach();
 
-    /// destroy resources
+    /// @brief destroy resources
     virtual void destroy();
 
-    /// manipulate text in LCD label
+    /// @brief manipulate text in LCD label
     void setText(FXString lbl);
     FXString getText() const {
         return label;
     }
 
-    /// set/get forground color
+    /// @brief set forground color
     void setFgColor(FXColor clr);
+
+    /// @brief get forground color
     FXColor getFgColor() const;
 
-    /// set/get background color
+    /// @brief set background color
     void setBgColor(FXColor clr);
+
+    /// @brief get background color
     FXColor getBgColor() const;
 
-    /// set/get segment horizontal length - must be more than twice the segment width
+    /// @brief set segment horizontal length - must be more than twice the segment width
     void setHorizontal(const FXint len);
+
+    /// @brief get segment horizontal length - must be more than twice the segment width
     FXint getHorizontal() const;
 
-    /// set/get segment vertical length - must be more than twice the segment width
+    /// @brief set segment vertical length - must be more than twice the segment width
     void setVertical(const FXint len);
+
+    /// @brief get segment vertical length - must be more than twice the segment width
     FXint getVertical() const;
 
-    /// set/get segment width - must be less than half the segment length
+    /// @brief set segment width - must be less than half the segment length
     void setThickness(const FXint w);
+
+    /// @brief get segment width - must be less than half the segment length
     FXint getThickness() const;
 
-    /// set/get groove width - must be less than segment width
+    /// @brief set groove width - must be less than segment width
     void setGroove(const FXint w);
+
+    /// @brief get groove width - must be less than segment width
     FXint getGroove() const;
 
-    /// return minimum width
+    /// @brief return minimum width
     virtual FXint getDefaultWidth();
 
-    /// return minimum height
+    /// @brief return minimum height
     virtual FXint getDefaultHeight();
 
-    /// save resources
+    /// @brief save resources
     virtual void save(FXStream& store) const;
 
-    /// load resources
+    /// @brief load resources
     virtual void load(FXStream& store);
+
+    /// @brief handle paint event
+    long onPaint(FXObject*, FXSelector, void*);
+
+    /// @brief Update value from a message
+    long onCmdSetValue(FXObject*, FXSelector, void* ptr);
+
+    /// @brief Update int value from a message
+    long onCmdSetIntValue(FXObject*, FXSelector, void* ptr);
+
+    /// @brief Update real value from a message
+    long onCmdSetRealValue(FXObject*, FXSelector, void* ptr);
+
+    /// @brief Update string value from a message
+    long onCmdSetStringValue(FXObject*, FXSelector, void* ptr);
+
+    /// @brief Obtain int value from text field
+    long onCmdGetIntValue(FXObject*, FXSelector, void* ptr);
+
+    /// @brief Obtain real value from text field
+    long onCmdGetRealValue(FXObject*, FXSelector, void* ptr);
+
+    /// @brief Obtain string value from text field
+    long onCmdGetStringValue(FXObject*, FXSelector, void* ptr);
+
+    /// @brief redirect events to main window
+    long onRedirectEvent(FXObject*, FXSelector, void* ptr);
+
+    /// @brief let parent show tip if appropriate
+    long onQueryTip(FXObject*, FXSelector, void* ptr);
+
+    /// @brief let parent show help if appropriate
+    long onQueryHelp(FXObject*, FXSelector, void* ptr);
 
 protected:
     /// @brief FOX constructor
