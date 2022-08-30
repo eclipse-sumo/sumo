@@ -350,7 +350,7 @@ protected:
         /// @brief Whether veh must yield to the foe train
         static bool mustYield(const Approaching& veh, const Approaching& foe);
 
-        /// @brief Whether any of the conflict linkes have approaching vehicles
+        /// @brief Whether any of the conflict links have approaching vehicles
         bool conflictLinkApproached() const;
 
         /// @brief find protection for the given vehicle  starting at a switch
@@ -377,7 +377,7 @@ protected:
          */
         void buildRoute(MSLink* origin, double length, MSRouteIterator next, MSRouteIterator end, LaneVisitedMap& visited);
 
-        /// @brief find switches that threathen this driveway
+        /// @brief find switches that threaten this driveway
         void checkFlanks(const std::vector<MSLane*>& lanes, const LaneVisitedMap& visited, bool allFoes);
 
         /// @brief find links that cross the driveway without entering it
