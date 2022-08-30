@@ -3999,7 +3999,11 @@ GNEViewNet::onCmdIntervalBarGenericDataType(FXObject*, FXSelector, void*) {
 
 
 long
-GNEViewNet::onCmdSetFrontElement(FXObject*, FXSelector, void*) {
+GNEViewNet::onCmdSetFrontElement(FXObject* obj, FXSelector, void*) {
+    // set front attribute AC
+    setFrontAttributeCarrier(myMoveDialogElementContainer.at(obj));
+    // destroy popup
+    destroyPopup();
     return 1;
 }
 

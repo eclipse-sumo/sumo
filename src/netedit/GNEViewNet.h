@@ -647,7 +647,7 @@ private:
     bool myDrawPreviewRoundabout = false;
 
     /// @brief container used for move dialog
-    std::map<FXMenuCommand*, GNEAttributeCarrier*> myMoveDialogElementContainer;
+    std::map<FXObject*, GNEAttributeCarrier*> myMoveDialogElementContainer;
 
     /// @brief create edit mode buttons and elements
     void buildEditModeControls();
