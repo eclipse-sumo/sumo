@@ -26,25 +26,8 @@
  * ======================================================================= */
 #include <config.h>
 
-#define NOMINMAX
-#undef NOMINMAX
-#include "fxheader.h"
-/*
-#include <FXStream.h>
-#include <FXString.h>
-#include <FXSize.h>
-#include <FXPoint.h>
-#include <FXRectangle.h>
-#include <FXRegistry.h>
-#include <FXHash.h>
-#include <FXApp.h>
-#include <FXDCWindow.h>
-*/
-using namespace FX;
 #include "MFXSevenSegment.h"
 
-using namespace FXEX;
-namespace FXEX {
 
 /* note: this class may change into FXLCDsegment, so as to support 7 or 14 segment display */
 #define ASCII_ZERO 48
@@ -601,6 +584,3 @@ long MFXSevenSegment::onQueryHelp(FXObject* sender, FXSelector sel, void* ptr) {
     }
     return 0;
 }
-
-}
-

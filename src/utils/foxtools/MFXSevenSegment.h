@@ -15,28 +15,18 @@
 /// @author  Mathew Robertson
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
+/// @author  Pablo Alvarez Lopez
 /// @date    2004-03-19
 ///
 //
 /****************************************************************************/
-
-
-#ifndef FXSEVENSEGMENT_H
-#define FXSEVENSEGMENT_H
+#pragma once
 #include <config.h>
 
-#ifndef FXFRAME_H
+#include "fxheader.h"
 
-#include <FXFrame.h>
-using namespace FX;
-#endif
-namespace FXEX {
-
-/**
- * Seven-segment (eg LCD/watch style) widget
- */
-class /* FXAPI // patch by Daniel Krajzewicz 24.02.2004 */
-    MFXSevenSegment : public FXFrame {
+/// Seven-segment (eg LCD/watch style) widget
+class MFXSevenSegment : public FXFrame {
     FXDECLARE(MFXSevenSegment)
 
 private:
@@ -142,6 +132,3 @@ public:
     /// dtor
     virtual ~MFXSevenSegment() {}
 };
-
-} // namespace FXEX
-#endif // FXSEVENSEGMENT_H

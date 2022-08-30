@@ -15,55 +15,37 @@
 /// @author  Mathew Robertson
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
+/// @author  Pablo Alvarez Lopez
 /// @date    2004-03-19
 ///
 //
 /****************************************************************************/
-
-
-#ifndef FXLCDLABEL_H
-#define FXLCDLABEL_H
+#pragma once
 #include <config.h>
 
-
-
-#ifndef FXHORIZONTALFRAME_H
-#include <FXHorizontalFrame.h>
-using namespace FX;
-#endif
-namespace FXEX {
-
-/// LCD Label styles
-enum {
-    LCDLABEL_NORMAL        = FRAME_SUNKEN | FRAME_THICK,
-    LCDLABEL_LEADING_ZEROS = 0x01000000    /// leading zero's on label - useful for integers
-};
+#include "fxheader.h"
 
 /**
  * A widget which has the seven-segment display used as the drawing object for each letter
  * in the label.  Supports display of leading zeros, such as when you need to display a
  * number.  Also supports the 'JUSTIFY_RIGHT' option, for right alignment.
  */
-class /* FXAPI // patch by Daniel Krajzewicz 24.02.2004 */
-    MFXLCDLabel : public FXHorizontalFrame {
+class MFXLCDLabel : public FXHorizontalFrame {
+    /// @brief FOX-declaration
     FXDECLARE(MFXLCDLabel)
 
-protected:
-    MFXLCDLabel() {}
-
-    FXString label;      /// The currently shown label
-    FXint   nfigures;    /// The number of shown figuresi, greater than zero
-
-    // Draw a string
-    virtual void drawString(const FXString& lbl);
-
 public:
+    /// LCD Label styles
+    enum {
+        LCDLABEL_NORMAL        = FRAME_SUNKEN | FRAME_THICK,
+        LCDLABEL_LEADING_ZEROS = 0x01000000    /// leading zero's on label - useful for integers
+    };
+
     enum {
         ID_SEVENSEGMENT = FXHorizontalFrame::ID_LAST,
         ID_LAST
     };
 
-public:
     long onPaint(FXObject*, FXSelector, void*);
     long onCmdSetValue(FXObject*, FXSelector, void* ptr);
     long onCmdSetIntValue(FXObject*, FXSelector, void* ptr);
@@ -79,6 +61,9 @@ public:
 public:
     /// make me a label
     MFXLCDLabel(FXComposite* p, FXuint nfig = 1, FXObject* tgt = NULL, FXSelector sel = 0, FXuint opts = LCDLABEL_NORMAL, FXint pl = DEFAULT_PAD, FXint pr = DEFAULT_PAD, FXint pt = DEFAULT_PAD, FXint pb = DEFAULT_PAD, FXint hs = DEFAULT_PAD);
+
+    /// dtor
+    virtual ~MFXLCDLabel();
 
     /// create resrouces
     virtual void create();
@@ -131,9 +116,16 @@ public:
     /// load resources
     virtual void load(FXStream& store);
 
-    /// dtor
-    virtual ~MFXLCDLabel();
-};
+protected:
+    /// @brief FOX constructor
+    FOX_CONSTRUCTOR(MFXLCDLabel)
 
-} // namespace FXEX
-#endif // MFXLCDLabel
+    /// @brief The currently shown label
+    FXString label;
+    
+    /// @brief The number of shown figuresi, greater than zero
+    FXint nfigures;    
+
+    /// @brief Draw a string
+    void drawString(const FXString& lbl);
+};

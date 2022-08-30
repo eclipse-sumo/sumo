@@ -26,29 +26,10 @@
  * ======================================================================= */
 #include <config.h>
 
-#define NOMINMAX
-#undef NOMINMAX
-#include "fxheader.h"
-/*
-#include <FXStream.h>
-#include <FXString.h>
-#include <FXSize.h>
-#include <FXPoint.h>
-#include <FXRectangle.h>
-#include <FXRegistry.h>
-#include <FXHash.h>
-#include <FXApp.h>
-#include <FXDCWindow.h>
-#include <FXLabel.h>
-#include <FXFrame.h>
-*/
-using namespace FX;
 #include "MFXSevenSegment.h"
 #include "MFXLCDLabel.h"
 #include "MFXBaseObject.h"
 
-using namespace FXEX;
-namespace FXEX {
 
 FXDEFMAP(MFXLCDLabel) MFXLCDLabelMap[] = {
     FXMAPFUNC(SEL_PAINT, 0, MFXLCDLabel::onPaint),
@@ -280,6 +261,58 @@ long MFXLCDLabel::onPaint(FXObject*, FXSelector, void* ptr) {
     return 1;
 }
 
+// redirect events to main window
+long MFXLCDLabel::onRedirectEvent(FXObject*, FXSelector sel, void* ptr) {
+    FXuint seltype = FXSELTYPE(sel);
+    if (isEnabled()) {
+        if (target) {
+            target->handle(this, FXSEL(seltype, message), ptr);
+        }
+    }
+    return 1;
+}
+
+// return minimum width
+FXint MFXLCDLabel::getDefaultWidth() {
+    return padleft + getFirst()->getDefaultWidth() * nfigures + hspacing * (nfigures - 1) + padright + (border << 1);
+}
+
+// return minimum height
+FXint MFXLCDLabel::getDefaultHeight() {
+    return padtop + getFirst()->getDefaultHeight() + padbottom + (border << 1);
+}
+
+// save resources
+void MFXLCDLabel::save(FXStream& store) const {
+    FXHorizontalFrame::save(store);
+    store << label;
+    store << nfigures;
+}
+
+// load resources
+void MFXLCDLabel::load(FXStream& store) {
+    FXHorizontalFrame::load(store);
+    store >> label;
+    store >> nfigures;
+}
+
+// let parent show tip if appropriate
+long MFXLCDLabel::onQueryTip(FXObject* sender, FXSelector sel, void* ptr) {
+    if (getParent()) {
+        return getParent()->handle(sender, sel, ptr);
+    }
+    return 0;
+}
+
+// let parent show help if appropriate
+long MFXLCDLabel::onQueryHelp(FXObject* sender, FXSelector sel, void* ptr) {
+    if (getParent()) {
+        return getParent()->handle(sender, sel, ptr);
+    }
+    return 0;
+}
+
+
 // draw a specified string/label
 void MFXLCDLabel::drawString(const FXString& lbl) {
     FXint i = 0;
@@ -356,58 +389,5 @@ void MFXLCDLabel::drawString(const FXString& lbl) {
             child->setText(displayString[i++]);
         }
     }
-}
-
-// redirect events to main window
-long MFXLCDLabel::onRedirectEvent(FXObject*, FXSelector sel, void* ptr) {
-    FXuint seltype = FXSELTYPE(sel);
-    if (isEnabled()) {
-        if (target) {
-            target->handle(this, FXSEL(seltype, message), ptr);
-        }
-    }
-    return 1;
-}
-
-// return minimum width
-FXint MFXLCDLabel::getDefaultWidth() {
-    return padleft + getFirst()->getDefaultWidth() * nfigures + hspacing * (nfigures - 1) + padright + (border << 1);
-}
-
-// return minimum height
-FXint MFXLCDLabel::getDefaultHeight() {
-    return padtop + getFirst()->getDefaultHeight() + padbottom + (border << 1);
-}
-
-// save resources
-void MFXLCDLabel::save(FXStream& store) const {
-    FXHorizontalFrame::save(store);
-    store << label;
-    store << nfigures;
-}
-
-// load resources
-void MFXLCDLabel::load(FXStream& store) {
-    FXHorizontalFrame::load(store);
-    store >> label;
-    store >> nfigures;
-}
-
-// let parent show tip if appropriate
-long MFXLCDLabel::onQueryTip(FXObject* sender, FXSelector sel, void* ptr) {
-    if (getParent()) {
-        return getParent()->handle(sender, sel, ptr);
-    }
-    return 0;
-}
-
-// let parent show help if appropriate
-long MFXLCDLabel::onQueryHelp(FXObject* sender, FXSelector sel, void* ptr) {
-    if (getParent()) {
-        return getParent()->handle(sender, sel, ptr);
-    }
-    return 0;
-}
-
 }
 
