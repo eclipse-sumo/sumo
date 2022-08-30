@@ -138,7 +138,7 @@ public:
     const MSPhaseDefinition& getPhase(int givenstep) const override;
 
     /// @brief whether the given link index ever turns 'G'
-    bool getsMajorGreen(int /*linkIndex*/) const {
+    bool getsMajorGreen(int /*linkIndex*/) const override {
         return true;
     }
     /// @}
