@@ -5014,8 +5014,12 @@ MSVehicle::enterLaneAtMove(MSLane* enteredLane, bool onTeleporting) {
                 myFurtherLanesPosLat.push_back(myState.myPosLat);
                 myState.myPosLat += link->getLateralShift();
             }
+        } else if (fabs(myState.myPosLat) > NUMERICAL_EPS) {
+            const double overlap = MAX2(0.0, getLateralOverlap(myState.myPosLat, oldLane));
+            const double range = (oldLane->getWidth() - getVehicleType().getWidth()) * 0.5 + overlap;
+            const double range2 = (myLane->getWidth() - getVehicleType().getWidth()) * 0.5 + overlap;
+            myState.myPosLat *= range2 / range;
         }
-
     } else {
         // normal move() isn't called so reset position here. must be done
         // before calling reminders
