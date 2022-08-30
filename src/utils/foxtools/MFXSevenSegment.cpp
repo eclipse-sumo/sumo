@@ -65,7 +65,8 @@ MFXSevenSegment::MFXSevenSegment(FXComposite* p, FXObject* tgt, FXSelector sel, 
 }
 
 
-FXint MFXSevenSegment::getDefaultWidth() {
+FXint
+MFXSevenSegment::getDefaultWidth() {
     return padleft + (myGroove << 1) + myHorizontalSegmentLength + padright + (border << 1);
 }
 
