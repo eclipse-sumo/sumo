@@ -304,18 +304,18 @@ MFXLCDLabel::onPaint(FXObject*, FXSelector, void* ptr) {
 
 
 long 
-MFXLCDLabel::onEnter(FXObject*, FXSelector, void*) {
+MFXLCDLabel::onEnter(FXObject* obj, FXSelector sel, void* ptr) {
     // always hide static toolTip
     myStaticToolTip->hide();
-    return 1;
+    return FXHorizontalFrame::onEnter(obj, sel, ptr);
 }
 
 
 long 
-MFXLCDLabel::onLeave(FXObject*, FXSelector, void*) {
+MFXLCDLabel::onLeave(FXObject* obj, FXSelector sel, void* ptr) {
     // always hide static toolTip
     myStaticToolTip->hide();
-    return 1;
+    return FXHorizontalFrame::onEnter(obj, sel, ptr);
 }
 
 
