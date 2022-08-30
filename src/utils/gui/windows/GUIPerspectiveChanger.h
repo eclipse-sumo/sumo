@@ -150,7 +150,7 @@ public:
     Boundary getViewport(bool fixRatio = true);
 
     /// @brief set viewport
-    void setViewport(const Boundary& viewPort);
+    virtual void setViewport(const Boundary& viewPort);
 
 protected:
     /// @brief The parent window (canvas to scale)

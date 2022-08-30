@@ -216,7 +216,6 @@ GUIOSGView::getPositionInformation() const {
 
 void
 GUIOSGView::recalculateBoundaries() {
-    // nothing to recalculate
 }
 
 
@@ -707,7 +706,7 @@ long GUIOSGView::onLeftBtnPress(FXObject* sender, FXSelector sel, void* ptr) {
 long GUIOSGView::onLeftBtnRelease(FXObject* sender, FXSelector sel, void* ptr) {
     FXEvent* event = (FXEvent*)ptr;
     myAdapter->getEventQueue()->mouseButtonRelease((float)event->click_x, (float)event->click_y, 1);
-
+    myChanger->onLeftBtnRelease(ptr);
     return FXGLCanvas::onLeftBtnRelease(sender, sel, ptr);
 }
 
@@ -742,7 +741,7 @@ long GUIOSGView::onRightBtnPress(FXObject* sender, FXSelector sel, void* ptr) {
 long GUIOSGView::onRightBtnRelease(FXObject* sender, FXSelector sel, void* ptr) {
     FXEvent* event = (FXEvent*)ptr;
     myAdapter->getEventQueue()->mouseButtonRelease((float)event->click_x, (float)event->click_y, 3);
-
+    myChanger->onRightBtnRelease(ptr);
     return FXGLCanvas::onRightBtnRelease(sender, sel, ptr);
 }
 
@@ -757,7 +756,6 @@ GUIOSGView::onMouseMove(FXObject* sender, FXSelector sel, void* ptr) {
     FXEvent* event = (FXEvent*)ptr;
     osgGA::GUIEventAdapter* ea = myAdapter->getEventQueue()->mouseMotion((float)event->win_x, (float)event->win_y);
     setWindowCursorPosition(ea->getXnormalized(), ea->getYnormalized());
-
     if (myViewportChooser != nullptr && myViewportChooser->shown()) {
         updateViewportValues();
     }

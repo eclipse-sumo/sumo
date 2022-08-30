@@ -42,6 +42,23 @@ GUIOSGPerspectiveChanger::GUIOSGPerspectiveChanger(
 GUIOSGPerspectiveChanger::~GUIOSGPerspectiveChanger() {}
 
 
+bool GUIOSGPerspectiveChanger::onLeftBtnRelease(void * data)
+{
+    updateViewport();
+    return false;
+}
+
+bool GUIOSGPerspectiveChanger::onRightBtnRelease(void * data)
+{
+    updateViewport();
+    return false;
+}
+
+void GUIOSGPerspectiveChanger::onMouseMove(void * data)
+{
+    //updateViewport();
+}
+
 double
 GUIOSGPerspectiveChanger::getRotation() const {
     return myRotation;
@@ -105,7 +122,7 @@ GUIOSGPerspectiveChanger::centerTo(const Position& pos, double radius, bool /* a
     dir = lookAt - lookFrom;
     // create helper vectors // check if parallel to z
     if (dir * osg::Z_AXIS != 0) {
-        orthoDir = -osg::X_AXIS;
+        orthoDir = osg::X_AXIS;
         up = osg::Y_AXIS;
     }
     else {
@@ -126,7 +143,8 @@ GUIOSGPerspectiveChanger::centerTo(const Position& pos, double radius, bool /* a
     osg::Vec3d camUpdate = center + dir * sign * (outerFov ^ radiusVec).length() / (outerFov ^ dir).length();
     myCameraManipulator->setHomePosition(camUpdate, center, up);
     myRotation = 0.;
-    dynamic_cast<GUIOSGView&>(myCallback).myViewer->home(); 
+    dynamic_cast<GUIOSGView&>(myCallback).myViewer->home();
+    updateViewport(lookFrom);
 }
 
 
@@ -161,8 +179,45 @@ GUIOSGPerspectiveChanger::setViewportFrom(double xPos, double yPos, double /* zP
     osg::Matrix m;
     m.makeLookAt(lookFrom, lookAt, up);
     myCameraManipulator->setByInverseMatrix(m);
+    updateViewport(lookFrom);
 }
 
+
+void
+GUIOSGPerspectiveChanger::updateViewport() {
+    osg::Vec3d lookFrom, lookAt, up, dir;
+    myCameraManipulator->getInverseMatrix().getLookAt(lookFrom, lookAt, up);
+    updateViewport(lookFrom);
+}
+
+
+void
+GUIOSGPerspectiveChanger::updateViewport(osg::Vec3d& lookFrom) {
+    osg::Vec3d bottomLeft = getPositionOnGround(-1.,-1.);
+    osg::Vec3d topRight = getPositionOnGround(1., 1.);
+    myViewPort.set(bottomLeft.x(), bottomLeft.y(), topRight.x(), topRight.y());
+}
+
+
+osg::Vec3d
+GUIOSGPerspectiveChanger::getPositionOnGround(double x, double y) {
+    osg::Matrix VP = dynamic_cast<GUIOSGView&>(myCallback).myViewer->getCamera()->getViewMatrix() * dynamic_cast<GUIOSGView&>(myCallback).myViewer->getCamera()->getProjectionMatrix();
+    osg::Matrix inverseVP;
+    inverseVP.invert(VP);
+
+    // compute world near far
+    osg::Vec3 nearPoint(x, y, -1.0f);
+    osg::Vec3 farPoint(x, y, 1.0f);
+    osg::Vec3 nearPointWorld = nearPoint * inverseVP;
+    osg::Vec3 farPointWorld = farPoint * inverseVP;
+
+    // compute crossing with ground plane
+    osg::Vec3d ray = farPointWorld - nearPointWorld;
+    if (abs(ray.z()) > 0) {
+        return nearPointWorld + ray*(-nearPointWorld.z() / ray.z());
+    }
+    return osg::Vec3d(0.,0.,0.);
+}
 
 
 void
