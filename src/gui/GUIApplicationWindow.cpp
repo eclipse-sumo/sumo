@@ -245,6 +245,9 @@ GUIApplicationWindow::GUIApplicationWindow(FXApp* a, const std::string& configPa
     GUIIconSubSys::initIcons(a);
     // init cursors
     GUICursorSubSys::initCursors(a);
+    // disable tooltips
+    a->setTooltipTime(1000000000);
+    a->setTooltipPause(1000000000);
 }
 
 
