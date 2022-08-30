@@ -66,9 +66,9 @@ public:
 
     /// @brief manipulate text in LCD label
     void setText(FXString lbl);
-    FXString getText() const {
-        return label;
-    }
+
+    /// @brief get text
+    FXString getText() const;
 
     /// @brief set forground color
     void setFgColor(FXColor clr);
@@ -111,6 +111,9 @@ public:
 
     /// @brief return minimum height
     virtual FXint getDefaultHeight();
+
+    /// @brief set tooltip text
+    void setToolTipText(const FXString &text);
 
     /// @brief save resources
     virtual void save(FXStream& store) const;
@@ -162,13 +165,16 @@ protected:
     FOX_CONSTRUCTOR(MFXLCDLabel)
 
     /// @brief The currently shown label
-    FXString label;
+    FXString myLabel;
     
     /// @brief The number of shown figuresi, greater than zero
-    FXint nfigures;    
+    FXint myNFigures;    
 
     /// @brief pointer to staticToolTip
     MFXStaticToolTip* myStaticToolTip;
+
+    /// @brief toolTip text
+    FXString myToolTipText;
 
     /// @brief Draw a string
     void drawString(const FXString& lbl);

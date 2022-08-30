@@ -62,7 +62,7 @@ FXIMPLEMENT(MFXLCDLabel, FXHorizontalFrame, MFXLCDLabelMap, ARRAYNUMBER(MFXLCDLa
 
 MFXLCDLabel::MFXLCDLabel(FXComposite* p, MFXStaticToolTip* staticToolTip, FXuint nfig, FXObject* tgt, FXSelector sel, FXuint opts, FXint pl, FXint pr, FXint pt, FXint pb, FXint hs) : 
     FXHorizontalFrame(p, opts, 0, 0, 0, 0, pl, pr, pt, pb, hs, 0),
-    nfigures(nfig),
+    myNFigures(nfig),
     myStaticToolTip(staticToolTip) {
     if (nfig == 0) {
         fxerror("%s: must have at least one figure.\n", getClassName());
@@ -70,7 +70,7 @@ MFXLCDLabel::MFXLCDLabel(FXComposite* p, MFXStaticToolTip* staticToolTip, FXuint
     setTarget(tgt);
     setSelector(sel);
     enable();
-    for (FXint i = 0; i < nfigures; i++) {
+    for (FXint i = 0; i < myNFigures; i++) {
         new MFXSevenSegment(this, this, ID_SEVENSEGMENT, 0, 0, 0, 0);
     }
 }
@@ -150,11 +150,17 @@ MFXLCDLabel::setBgColor(FXColor clr) {
 
 void
 MFXLCDLabel::setText(FXString lbl) {
-    if (lbl != label) {
-        label = lbl;
+    if (lbl != myLabel) {
+        myLabel = lbl;
         recalc();
         update();
     }
+}
+
+
+FXString 
+MFXLCDLabel::getText() const {
+    return myLabel;
 }
 
 
@@ -298,22 +304,29 @@ MFXLCDLabel::onPaint(FXObject*, FXSelector, void* ptr) {
     dc.fillRectangle(border, border, width - (border << 1), height - (border << 1));
     // Draw the current string
     dc.setForeground(child->getFgColor());
-    drawString(label);
+    drawString(myLabel);
     return 1;
 }
 
 
 long 
 MFXLCDLabel::onEnter(FXObject* obj, FXSelector sel, void* ptr) {
-    // always hide static toolTip
-    myStaticToolTip->hide();
+    // show static toolTip depending of myToolTipText
+    if (!myToolTipText.empty()) {
+        // show toolTip text
+        myStaticToolTip->setText(myToolTipText);
+        // show tip show
+        myStaticToolTip->onTipShow(obj, sel, ptr);
+    } else {
+        myStaticToolTip->hide();
+    }
     return FXHorizontalFrame::onEnter(obj, sel, ptr);
 }
 
 
 long 
 MFXLCDLabel::onLeave(FXObject* obj, FXSelector sel, void* ptr) {
-    // always hide static toolTip
+    // hide static toolTip
     myStaticToolTip->hide();
     return FXHorizontalFrame::onLeave(obj, sel, ptr);
 }
@@ -333,7 +346,7 @@ MFXLCDLabel::onRedirectEvent(FXObject*, FXSelector sel, void* ptr) {
 
 FXint
 MFXLCDLabel::getDefaultWidth() {
-    return padleft + getFirst()->getDefaultWidth() * nfigures + hspacing * (nfigures - 1) + padright + (border << 1);
+    return padleft + getFirst()->getDefaultWidth() * myNFigures + hspacing * (myNFigures - 1) + padright + (border << 1);
 }
 
 
@@ -344,18 +357,24 @@ MFXLCDLabel::getDefaultHeight() {
 
 
 void
+MFXLCDLabel::setToolTipText(const FXString &text) {
+    myToolTipText = text;
+}
+
+
+void
 MFXLCDLabel::save(FXStream& store) const {
     FXHorizontalFrame::save(store);
-    store << label;
-    store << nfigures;
+    store << myLabel;
+    store << myNFigures;
 }
 
 
 void
 MFXLCDLabel::load(FXStream& store) {
     FXHorizontalFrame::load(store);
-    store >> label;
-    store >> nfigures;
+    store >> myLabel;
+    store >> myNFigures;
 }
 
 
@@ -380,7 +399,7 @@ MFXLCDLabel::onQueryHelp(FXObject* sender, FXSelector sel, void* ptr) {
 void 
 MFXLCDLabel::drawString(const FXString& lbl) {
     FXint i = 0;
-    FXString displayString(' ', nfigures);
+    FXString displayString(' ', myNFigures);
     if (options & LCDLABEL_LEADING_ZEROS && (FXIntVal(lbl) || lbl == "0")) {
         FXString txt = lbl;
         if (txt[0] == '-') {
@@ -388,17 +407,17 @@ MFXLCDLabel::drawString(const FXString& lbl) {
             txt.erase(0);
             i = 1;
         }
-        for (; (i + txt.length()) < nfigures; i++) {
+        for (; (i + txt.length()) < myNFigures; i++) {
             displayString.replace(i, '0');
         }
         displayString.insert(i, txt);
     } else if (options & JUSTIFY_RIGHT) {
-        for (; (i + lbl.length()) < nfigures; i++) {}
+        for (; (i + lbl.length()) < myNFigures; i++) {}
         displayString.insert(i, lbl);
     } else {
         displayString.insert(0, lbl);
     }
-    displayString.trunc(nfigures);
+    displayString.trunc(myNFigures);
     i = 0;
 
     // FIXME: at the moment, if we resize the parent widget, we must use integer multiples
@@ -413,7 +432,7 @@ MFXLCDLabel::drawString(const FXString& lbl) {
         if (hspacing < 1) {
             hspacing = 1;
         }
-        FXint hsl = (w - (nfigures - 1) * hspacing) / nfigures;
+        FXint hsl = (w - (myNFigures - 1) * hspacing) / myNFigures;
         if (hsl < 5) {
             hsl = 5;
         }

@@ -676,6 +676,7 @@ GUIApplicationWindow::buildToolBars() {
         new MFXButtonTooltip(myToolBar3, myStaticTooltip, "Time:\tToggle between time formats\tToggle between seconds and hour:minute:seconds display.", nullptr, this, MID_TIME_TOGGLE, GUIDesignButtonToolbarText);
 
         myLCDLabel = new MFXLCDLabel(myToolBar3, myStaticTooltip, 16, nullptr, 0, JUSTIFY_RIGHT);
+        myLCDLabel->setToolTipText("SUMO timeSteps");
         myLCDLabel->setHorizontal(2);
         myLCDLabel->setVertical(6);
         myLCDLabel->setThickness(2);
@@ -1220,7 +1221,13 @@ GUIApplicationWindow::onCmdLoadState(FXObject*, FXSelector, void*) {
 
 long
 GUIApplicationWindow::onCmdTimeToggle(FXObject*, FXSelector, void*) {
+    // toogle show time as HMS
     myShowTimeAsHMS = !myShowTimeAsHMS;
+    if (myShowTimeAsHMS) {
+        myLCDLabel->setToolTipText("HH:MM:SS");
+    } else {
+        myLCDLabel->setToolTipText("SUMO timeSteps");
+    }
     if (myRunThread->simulationAvailable()) {
         updateTimeLCD(myRunThread->getNet().getCurrentTimeStep());
     }
