@@ -1,6 +1,3 @@
-# intersection connected with edges only for bike, delivery and pedestrian; bike runs parallel to its target edge without the sublane model
-bikeRunsParallelToTargetEdge
-
 # intersection connected with bidi-edges only for bike and pedestrian,  bike has a depart delay while a pedestrian departs at the same time
 bikeDepartDelay
 
