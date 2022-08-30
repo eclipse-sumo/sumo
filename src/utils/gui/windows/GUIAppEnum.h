@@ -1406,6 +1406,8 @@ enum {
     MID_GNE_UNDOLIST_UPDATE,
     /// @brief check if recomputing is needed
     MID_GNE_RECOMPUTINGNEEDED,
+    /// @brief set element as front element
+    MID_GNE_SETFRONTELEMENT,
 
     /// @}
 

@@ -18,6 +18,7 @@
 ///
 // A view on the network being edited (adapted from GUIViewTraffic)
 /****************************************************************************/
+
 #include <netbuild/NBEdgeCont.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/changes/GNEChange_TLS.h>
@@ -26,8 +27,8 @@
 #include <netedit/elements/additional/GNEPOI.h>
 #include <netedit/elements/additional/GNEPoly.h>
 #include <netedit/elements/additional/GNETAZ.h>
-#include <netedit/elements/data/GNETAZRelData.h>
 #include <netedit/elements/data/GNEDataInterval.h>
+#include <netedit/elements/data/GNETAZRelData.h>
 #include <netedit/elements/network/GNEConnection.h>
 #include <netedit/elements/network/GNECrossing.h>
 #include <netedit/frames/common/GNEDeleteFrame.h>
@@ -43,22 +44,24 @@
 #include <netedit/frames/demand/GNEPersonPlanFrame.h>
 #include <netedit/frames/demand/GNERouteFrame.h>
 #include <netedit/frames/demand/GNEStopFrame.h>
-#include <netedit/frames/demand/GNEVehicleFrame.h>
 #include <netedit/frames/demand/GNETypeFrame.h>
+#include <netedit/frames/demand/GNEVehicleFrame.h>
 #include <netedit/frames/network/GNEAdditionalFrame.h>
 #include <netedit/frames/network/GNEConnectorFrame.h>
 #include <netedit/frames/network/GNECreateEdgeFrame.h>
 #include <netedit/frames/network/GNECrossingFrame.h>
-#include <netedit/frames/network/GNEShapeFrame.h>
 #include <netedit/frames/network/GNEProhibitionFrame.h>
-#include <netedit/frames/network/GNEWireFrame.h>
+#include <netedit/frames/network/GNEShapeFrame.h>
 #include <netedit/frames/network/GNETAZFrame.h>
 #include <netedit/frames/network/GNETLSEditorFrame.h>
-#include <utils/foxtools/MFXMenuCheckIcon.h>
+#include <netedit/frames/network/GNEWireFrame.h>
 #include <utils/foxtools/MFXButtonTooltip.h>
+#include <utils/foxtools/MFXMenuCheckIcon.h>
+#include <utils/foxtools/MFXMenuHeader.h>
 #include <utils/gui/cursors/GUICursorSubSys.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIDesigns.h>
+#include <utils/gui/div/GUIGlobalPostDrawing.h>
 #include <utils/gui/globjects/GLIncludes.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
@@ -67,7 +70,6 @@
 #include <utils/gui/windows/GUIDanielPerspectiveChanger.h>
 #include <utils/gui/windows/GUIDialog_ViewSettings.h>
 #include <utils/options/OptionsCont.h>
-#include <utils/gui/div/GUIGlobalPostDrawing.h>
 
 #include "GNENet.h"
 #include "GNEUndoList.h"
@@ -87,9 +89,9 @@
 
 FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     // Super Modes
-    FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_F2_SUPERMODE_NETWORK,                 GNEViewNet::onCmdSetSupermode),
-    FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_F3_SUPERMODE_DEMAND,                  GNEViewNet::onCmdSetSupermode),
-    FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_F4_SUPERMODE_DATA,                    GNEViewNet::onCmdSetSupermode),
+    FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_F2_SUPERMODE_NETWORK, GNEViewNet::onCmdSetSupermode),
+    FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_F3_SUPERMODE_DEMAND,  GNEViewNet::onCmdSetSupermode),
+    FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_F4_SUPERMODE_DATA,    GNEViewNet::onCmdSetSupermode),
     // Modes
     FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_G_MODE_CONTAINER,                     GNEViewNet::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_H_MODE_PROHIBITION_CONTAINERPLAN,     GNEViewNet::onCmdSetMode),
@@ -136,92 +138,95 @@ FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_GNE_DEMANDVIEWOPTIONS_LOCKCONTAINER,             GNEViewNet::onCmdToggleLockContainer),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_DEMANDVIEWOPTIONS_SHOWOVERLAPPEDROUTES,      GNEViewNet::onCmdToggleShowOverlappedRoutes),
     // Data view options
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_DATAVIEWOPTIONS_TOGGLEDRAWJUNCTIONSHAPE,     GNEViewNet::onCmdToggleDrawJunctionShape),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_DATAVIEWOPTIONS_SHOWADDITIONALS,             GNEViewNet::onCmdToggleShowAdditionals),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_DATAVIEWOPTIONS_SHOWSHAPES,                  GNEViewNet::onCmdToggleShowShapes),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_DATAVIEWOPTIONS_SHOWDEMANDELEMENTS,          GNEViewNet::onCmdToggleShowDemandElementsData),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_DATAVIEWOPTIONS_TAZRELDRAWING,               GNEViewNet::onCmdToggleTAZRelDrawing),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_DATAVIEWOPTIONS_TAZDRAWFILL,                 GNEViewNet::onCmdToggleTAZDrawFill),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_DATAVIEWOPTIONS_TAZRELONLYFROM,              GNEViewNet::onCmdToggleTAZRelOnlyFrom),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_DATAVIEWOPTIONS_TAZRELONLYTO,                GNEViewNet::onCmdToggleTAZRelOnlyTo),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_DATAVIEWOPTIONS_TOGGLEDRAWJUNCTIONSHAPE, GNEViewNet::onCmdToggleDrawJunctionShape),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_DATAVIEWOPTIONS_SHOWADDITIONALS,         GNEViewNet::onCmdToggleShowAdditionals),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_DATAVIEWOPTIONS_SHOWSHAPES,              GNEViewNet::onCmdToggleShowShapes),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_DATAVIEWOPTIONS_SHOWDEMANDELEMENTS,      GNEViewNet::onCmdToggleShowDemandElementsData),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_DATAVIEWOPTIONS_TAZRELDRAWING,           GNEViewNet::onCmdToggleTAZRelDrawing),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_DATAVIEWOPTIONS_TAZDRAWFILL,             GNEViewNet::onCmdToggleTAZDrawFill),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_DATAVIEWOPTIONS_TAZRELONLYFROM,          GNEViewNet::onCmdToggleTAZRelOnlyFrom),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_DATAVIEWOPTIONS_TAZRELONLYTO,            GNEViewNet::onCmdToggleTAZRelOnlyTo),
     // Select elements
-    FXMAPFUNC(SEL_COMMAND, MID_ADDSELECT,                                   GNEViewNet::onCmdAddSelected),
-    FXMAPFUNC(SEL_COMMAND, MID_REMOVESELECT,                                GNEViewNet::onCmdRemoveSelected),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_ADDSELECT_EDGE,                          GNEViewNet::onCmdAddEdgeSelected),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_REMOVESELECT_EDGE,                       GNEViewNet::onCmdRemoveEdgeSelected),
+    FXMAPFUNC(SEL_COMMAND, MID_ADDSELECT,               GNEViewNet::onCmdAddSelected),
+    FXMAPFUNC(SEL_COMMAND, MID_REMOVESELECT,            GNEViewNet::onCmdRemoveSelected),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_ADDSELECT_EDGE,      GNEViewNet::onCmdAddEdgeSelected),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_REMOVESELECT_EDGE,   GNEViewNet::onCmdRemoveEdgeSelected),
     // Junctions
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_JUNCTION_RESET_EDGE_ENDPOINTS,           GNEViewNet::onCmdResetEdgeEndPoints),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_JUNCTION_EDIT_SHAPE,                     GNEViewNet::onCmdEditJunctionShape),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_JUNCTION_RESET_SHAPE,                    GNEViewNet::onCmdResetJunctionShape),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_JUNCTION_REPLACE,                        GNEViewNet::onCmdReplaceJunction),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_JUNCTION_SPLIT,                          GNEViewNet::onCmdSplitJunction),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_JUNCTION_SPLIT_RECONNECT,                GNEViewNet::onCmdSplitJunctionReconnect),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_JUNCTION_SELECT_ROUNDABOUT,              GNEViewNet::onCmdSelectRoundabout),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_JUNCTION_CONVERT_ROUNDABOUT,             GNEViewNet::onCmdConvertRoundabout),
-    FXMAPFUNC(SEL_ENTER,   MID_GNE_JUNCTION_CONVERT_ROUNDABOUT,             GNEViewNet::onEnterConvertRoundabout),
-    FXMAPFUNC(SEL_LEAVE,   MID_GNE_JUNCTION_CONVERT_ROUNDABOUT,             GNEViewNet::onLeaveConvertRoundabout),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_JUNCTION_CLEAR_CONNECTIONS,              GNEViewNet::onCmdClearConnections),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_JUNCTION_RESET_CONNECTIONS,              GNEViewNet::onCmdResetConnections),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_JUNCTION_ADDTLS,                         GNEViewNet::onCmdAddTLS),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_JUNCTION_ADDJOINTLS,                     GNEViewNet::onCmdAddJoinTLS),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_JUNCTION_RESET_EDGE_ENDPOINTS,   GNEViewNet::onCmdResetEdgeEndPoints),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_JUNCTION_EDIT_SHAPE,             GNEViewNet::onCmdEditJunctionShape),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_JUNCTION_RESET_SHAPE,            GNEViewNet::onCmdResetJunctionShape),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_JUNCTION_REPLACE,                GNEViewNet::onCmdReplaceJunction),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_JUNCTION_SPLIT,                  GNEViewNet::onCmdSplitJunction),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_JUNCTION_SPLIT_RECONNECT,        GNEViewNet::onCmdSplitJunctionReconnect),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_JUNCTION_SELECT_ROUNDABOUT,      GNEViewNet::onCmdSelectRoundabout),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_JUNCTION_CONVERT_ROUNDABOUT,     GNEViewNet::onCmdConvertRoundabout),
+    FXMAPFUNC(SEL_ENTER,   MID_GNE_JUNCTION_CONVERT_ROUNDABOUT,     GNEViewNet::onEnterConvertRoundabout),
+    FXMAPFUNC(SEL_LEAVE,   MID_GNE_JUNCTION_CONVERT_ROUNDABOUT,     GNEViewNet::onLeaveConvertRoundabout),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_JUNCTION_CLEAR_CONNECTIONS,      GNEViewNet::onCmdClearConnections),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_JUNCTION_RESET_CONNECTIONS,      GNEViewNet::onCmdResetConnections),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_JUNCTION_ADDTLS,                 GNEViewNet::onCmdAddTLS),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_JUNCTION_ADDJOINTLS,             GNEViewNet::onCmdAddJoinTLS),
     // Connections
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_CONNECTION_EDIT_SHAPE,                   GNEViewNet::onCmdEditConnectionShape),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_CONNECTION_SMOOTH_SHAPE,                 GNEViewNet::onCmdSmoothConnectionShape),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_CONNECTION_EDIT_SHAPE,   GNEViewNet::onCmdEditConnectionShape),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_CONNECTION_SMOOTH_SHAPE, GNEViewNet::onCmdSmoothConnectionShape),
     // Crossings
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_CROSSING_EDIT_SHAPE,                     GNEViewNet::onCmdEditCrossingShape),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_CROSSING_EDIT_SHAPE, GNEViewNet::onCmdEditCrossingShape),
     // Edges
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGE_SPLIT,                              GNEViewNet::onCmdSplitEdge),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGE_SPLIT_BIDI,                         GNEViewNet::onCmdSplitEdgeBidi),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGE_REVERSE,                            GNEViewNet::onCmdReverseEdge),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGE_ADD_REVERSE,                        GNEViewNet::onCmdAddReversedEdge),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGE_ADD_REVERSE_DISCONNECTED,           GNEViewNet::onCmdAddReversedEdgeDisconnected),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGE_EDIT_ENDPOINT,                      GNEViewNet::onCmdEditEdgeEndpoint),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGE_RESET_ENDPOINT,                     GNEViewNet::onCmdResetEdgeEndpoint),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGE_STRAIGHTEN,                         GNEViewNet::onCmdStraightenEdges),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGE_SMOOTH,                             GNEViewNet::onCmdSmoothEdges),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGE_STRAIGHTEN_ELEVATION,               GNEViewNet::onCmdStraightenEdgesElevation),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGE_SMOOTH_ELEVATION,                   GNEViewNet::onCmdSmoothEdgesElevation),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGE_RESET_LENGTH,                       GNEViewNet::onCmdResetLength),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGE_SPLIT,                      GNEViewNet::onCmdSplitEdge),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGE_SPLIT_BIDI,                 GNEViewNet::onCmdSplitEdgeBidi),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGE_REVERSE,                    GNEViewNet::onCmdReverseEdge),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGE_ADD_REVERSE,                GNEViewNet::onCmdAddReversedEdge),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGE_ADD_REVERSE_DISCONNECTED,   GNEViewNet::onCmdAddReversedEdgeDisconnected),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGE_EDIT_ENDPOINT,              GNEViewNet::onCmdEditEdgeEndpoint),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGE_RESET_ENDPOINT,             GNEViewNet::onCmdResetEdgeEndpoint),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGE_STRAIGHTEN,                 GNEViewNet::onCmdStraightenEdges),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGE_SMOOTH,                     GNEViewNet::onCmdSmoothEdges),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGE_STRAIGHTEN_ELEVATION,       GNEViewNet::onCmdStraightenEdgesElevation),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGE_SMOOTH_ELEVATION,           GNEViewNet::onCmdSmoothEdgesElevation),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGE_RESET_LENGTH,               GNEViewNet::onCmdResetLength),
     // Lanes
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_DUPLICATE,                          GNEViewNet::onCmdDuplicateLane),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_EDIT_SHAPE,                         GNEViewNet::onCmdEditLaneShape),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_RESET_CUSTOMSHAPE,                  GNEViewNet::onCmdResetLaneCustomShape),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_RESET_OPPOSITELANE,                 GNEViewNet::onCmdResetOppositeLane),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_TRANSFORM_SIDEWALK,                 GNEViewNet::onCmdLaneOperation),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_TRANSFORM_BIKE,                     GNEViewNet::onCmdLaneOperation),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_TRANSFORM_BUS,                      GNEViewNet::onCmdLaneOperation),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_TRANSFORM_GREENVERGE,               GNEViewNet::onCmdLaneOperation),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_ADD_SIDEWALK,                       GNEViewNet::onCmdLaneOperation),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_ADD_BIKE,                           GNEViewNet::onCmdLaneOperation),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_ADD_BUS,                            GNEViewNet::onCmdLaneOperation),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_ADD_GREENVERGE_FRONT,               GNEViewNet::onCmdLaneOperation),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_ADD_GREENVERGE_BACK,                GNEViewNet::onCmdLaneOperation),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_REMOVE_SIDEWALK,                    GNEViewNet::onCmdLaneOperation),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_REMOVE_BIKE,                        GNEViewNet::onCmdLaneOperation),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_REMOVE_BUS,                         GNEViewNet::onCmdLaneOperation),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_REMOVE_GREENVERGE,                  GNEViewNet::onCmdLaneOperation),
-    FXMAPFUNC(SEL_COMMAND, MID_REACHABILITY,                                GNEViewNet::onCmdLaneReachability),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_DUPLICATE,              GNEViewNet::onCmdDuplicateLane),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_EDIT_SHAPE,             GNEViewNet::onCmdEditLaneShape),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_RESET_CUSTOMSHAPE,      GNEViewNet::onCmdResetLaneCustomShape),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_RESET_OPPOSITELANE,     GNEViewNet::onCmdResetOppositeLane),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_TRANSFORM_SIDEWALK,     GNEViewNet::onCmdLaneOperation),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_TRANSFORM_BIKE,         GNEViewNet::onCmdLaneOperation),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_TRANSFORM_BUS,          GNEViewNet::onCmdLaneOperation),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_TRANSFORM_GREENVERGE,   GNEViewNet::onCmdLaneOperation),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_ADD_SIDEWALK,           GNEViewNet::onCmdLaneOperation),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_ADD_BIKE,               GNEViewNet::onCmdLaneOperation),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_ADD_BUS,                GNEViewNet::onCmdLaneOperation),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_ADD_GREENVERGE_FRONT,   GNEViewNet::onCmdLaneOperation),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_ADD_GREENVERGE_BACK,    GNEViewNet::onCmdLaneOperation),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_REMOVE_SIDEWALK,        GNEViewNet::onCmdLaneOperation),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_REMOVE_BIKE,            GNEViewNet::onCmdLaneOperation),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_REMOVE_BUS,             GNEViewNet::onCmdLaneOperation),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_REMOVE_GREENVERGE,      GNEViewNet::onCmdLaneOperation),
+    FXMAPFUNC(SEL_COMMAND, MID_REACHABILITY,                    GNEViewNet::onCmdLaneReachability),
     // Additionals
-    FXMAPFUNC(SEL_COMMAND, MID_OPEN_ADDITIONAL_DIALOG,                      GNEViewNet::onCmdOpenAdditionalDialog),
+    FXMAPFUNC(SEL_COMMAND, MID_OPEN_ADDITIONAL_DIALOG,  GNEViewNet::onCmdOpenAdditionalDialog),
     // Polygons
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_POLYGON_SIMPLIFY_SHAPE,                  GNEViewNet::onCmdSimplifyShape),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_POLYGON_CLOSE,                           GNEViewNet::onCmdClosePolygon),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_POLYGON_OPEN,                            GNEViewNet::onCmdOpenPolygon),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_POLYGON_SELECT,                          GNEViewNet::onCmdSelectPolygonElements),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_POLYGON_SET_FIRST_POINT,                 GNEViewNet::onCmdSetFirstGeometryPoint),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_POLYGON_DELETE_GEOMETRY_POINT,           GNEViewNet::onCmdDeleteGeometryPoint),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_POLYGON_SIMPLIFY_SHAPE,          GNEViewNet::onCmdSimplifyShape),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_POLYGON_CLOSE,                   GNEViewNet::onCmdClosePolygon),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_POLYGON_OPEN,                    GNEViewNet::onCmdOpenPolygon),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_POLYGON_SELECT,                  GNEViewNet::onCmdSelectPolygonElements),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_POLYGON_SET_FIRST_POINT,         GNEViewNet::onCmdSetFirstGeometryPoint),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_POLYGON_DELETE_GEOMETRY_POINT,   GNEViewNet::onCmdDeleteGeometryPoint),
     // POIs
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_POI_TRANSFORM,                           GNEViewNet::onCmdTransformPOI),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_POI_TRANSFORM,   GNEViewNet::onCmdTransformPOI),
     // Geometry Points
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_CUSTOM_GEOMETRYPOINT,                    GNEViewNet::onCmdSetCustomGeometryPoint),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_RESET_GEOMETRYPOINT,                     GNEViewNet::onCmdResetEndPoints),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_CUSTOM_GEOMETRYPOINT,    GNEViewNet::onCmdSetCustomGeometryPoint),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_RESET_GEOMETRYPOINT,     GNEViewNet::onCmdResetEndPoints),
     // IntervalBar
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_INTERVALBAR_GENERICDATATYPE,             GNEViewNet::onCmdIntervalBarGenericDataType),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_INTERVALBAR_DATASET,                     GNEViewNet::onCmdIntervalBarDataSet),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_INTERVALBAR_LIMITED,                     GNEViewNet::onCmdIntervalBarLimit),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_INTERVALBAR_BEGIN,                       GNEViewNet::onCmdIntervalBarSetBegin),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_INTERVALBAR_END,                         GNEViewNet::onCmdIntervalBarSetEnd),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_INTERVALBAR_PARAMETER,                   GNEViewNet::onCmdIntervalBarSetParameter)
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_INTERVALBAR_GENERICDATATYPE,     GNEViewNet::onCmdIntervalBarGenericDataType),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_INTERVALBAR_DATASET,             GNEViewNet::onCmdIntervalBarDataSet),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_INTERVALBAR_LIMITED,             GNEViewNet::onCmdIntervalBarLimit),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_INTERVALBAR_BEGIN,               GNEViewNet::onCmdIntervalBarSetBegin),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_INTERVALBAR_END,                 GNEViewNet::onCmdIntervalBarSetEnd),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_INTERVALBAR_PARAMETER,           GNEViewNet::onCmdIntervalBarSetParameter),
+    // other
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_SETFRONTELEMENT, GNEViewNet::onCmdSetFrontElement)
+
 };
 
 // Object implementation
@@ -317,9 +322,24 @@ GNEViewNet::doInit() {}
 
 void 
 GNEViewNet::openMoveDialogAtCursor() {
-    myPopup = new GUIGLObjectPopupMenu(myApp, this);
-    // open popup dialog
-    openPopupDialog();
+    // get ACs
+    const auto ACs = myObjectsUnderCursor.getClickedAttributeCarriers();
+    // clear move dialog container
+    myMoveDialogElementContainer.clear();
+    // only create if there is ACs
+    if (ACs.size() > 0) {
+        // create popup
+        myPopup = new GUIGLObjectPopupMenu(myApp, this);
+        // create header
+        new MFXMenuHeader(myPopup, myViewParent->getGNEAppWindows()->getBoldFont(), "Mark front element", GUIIconSubSys::getIcon(GUIIcon::FRONTELEMENT), nullptr, 0);
+        new FXMenuSeparator(myPopup);
+        // create a menu command for every AC
+        for (const auto &AC : ACs) {
+            myMoveDialogElementContainer[GUIDesigns::buildFXMenuCommand(myPopup, AC->getID(), AC->getIcon(), myNet->getViewNet(), MID_GNE_SETFRONTELEMENT)] = AC;
+        }
+        // open popup dialog
+        openPopupDialog();
+    }
 }
 
 
@@ -3974,6 +3994,12 @@ GNEViewNet::onCmdToggleTAZRelOnlyTo(FXObject*, FXSelector sel, void*) {
 long
 GNEViewNet::onCmdIntervalBarGenericDataType(FXObject*, FXSelector, void*) {
     myIntervalBar.setGenericDataType();
+    return 1;
+}
+
+
+long
+GNEViewNet::onCmdSetFrontElement(FXObject*, FXSelector, void*) {
     return 1;
 }
 
