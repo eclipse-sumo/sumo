@@ -1,0 +1,28 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+	<vType id="bike_bicycle" vClass="bicycle"
+        carFollowModel="IDM"
+        speedDev="0.1"
+		speedFactor="1.1"
+	    latAlignment="right" 
+	    lcStrategic="0.5" 
+        jmCrossingGap="5"
+        jmSigmaMinor="0.0" 
+	    jmStoplineGap="0.5" 
+        lcOvertakeRight="0.5"
+	    lcOvertakeDeltaSpeedFactor="0.2"/> 
+    <vType id="ped_pedestrian" vClass="pedestrian"
+        speedDev="0.1"
+		speedFactor="1.1"/>
+    <person id="ped29" type="ped_pedestrian" depart="0.0" departPos="62.59">
+        <walk edges="-c -b -e"/>
+    </person>
+    <person id="ped39" type="ped_pedestrian" depart="0.0" departPos="0.88">
+        <walk edges="b c"/>
+    </person>
+    <vehicle id="bike9" type="bike_bicycle" depart="4.0" departLane="0" departPos="2.03" departPosLat="-0.67" departSpeed="2.65">
+        <route edges="b c"/>
+    </vehicle>			
+    <vehicle id="bike15" type="bike_bicycle" depart="6.0" departLane="0" departPos="0.15" departPosLat="-0.67" departSpeed="1.39">
+        <route edges="b c"/>
+    </vehicle>		
+</routes>

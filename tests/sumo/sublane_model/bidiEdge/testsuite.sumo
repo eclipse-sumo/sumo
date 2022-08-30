@@ -1,5 +1,8 @@
+# intersection connected with bidi-edges and paths for bike and pedestrian, 2 bikes have collision after passing the intersection
+collision_btw_bikes
+
 # intersection connected with bidi-edges only for bike and pedestrian,  bike has a depart delay while a pedestrian departs at the same time
-bikeDepartDelayOnBidi
+# bikeDepartDelayOnBidi (automatically commented due to no test directory being found)
 
 # intersection connected with bidi-edges and paths for bike and pedestrian, 1 shuttle (customized vehicle) and 2 bike,
 # Check if the bikes coming from the left side and the shuttle from the upper side dangle until being teleported when they meet each other at the intersection (breakpoint: 1025).
