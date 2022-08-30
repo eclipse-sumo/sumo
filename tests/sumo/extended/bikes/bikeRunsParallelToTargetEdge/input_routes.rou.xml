@@ -13,7 +13,7 @@
     <vType id="ped_pedestrian" vClass="pedestrian"
         speedDev="0.1"
 		speedFactor="1.2"/>
-    <vehicle id="bike24" type="bike_bicycle" depart="0.0" departLane="0" departPos="21.58" departPosLat="-1.27" departSpeed="6.25">
+    <vehicle id="bike24" type="bike_bicycle" depart="0.0" departLane="0" departPos="-10" departPosLat="-1.27" departSpeed="max" arrivalPos="10">
         <route edges="a b"/>
     </vehicle>		
 </routes>
