@@ -9,10 +9,10 @@ title: ChangeLog
 - Simulation
   - Fixed crash when using bluelight vehicle and SSM device. Issue #11336 (regression in 1.12.0)
   - Rerouter attribute `timeTreshold` is working again after a vehicle has changed lanes. Issue #11405 (regression in 1.14.0)
-  - Taxi drop-off is no longer interupted by new dispatch. Also, persons only continue their plan after the drop-off duration. Issue #11311
+  - Taxi drop-off is no longer interrupted by new dispatch. Also, persons only continue their plan after the drop-off duration. Issue #11311
   - Fixed multiple EIDM issues related to imprecise driving at stop lines. #11242, #11182, #11183
   - Fixed bug where emergency vehicle fails to overtake. Issue #11345
-  - Fixed bug where mergency vehicle performs invalid (unstrategic) lanechange. Issue #11337
+  - Fixed bug where emergency vehicle performs invalid (unstrategic) lanechange. Issue #11337
   - A persons individual speedFactor is now applied during access stage. Issue #11452
   - Output of a persons speed in access stage is now correct (was given as 0 before). Issue #11453
   - Fixed invalid parking maneuver times. Issue #11420
@@ -39,10 +39,10 @@ title: ChangeLog
 - sumo-gui
   - Lane menu functions *select reachable*, *close lane*, *add rerouter* are now working again. Issue #11448 (regression in 1.14.0)
   - Directional arrows are now drawn on top of detectors. Issue #11380
-  - 3D view now updates lane colours after updating of selected lanes. Issue #10908
+  - 3D view now updates lane colors after updating of selected lanes. Issue #10908
 
 - netconvert
-  - Fixed nvalid red phase at traffic lights with very low connection speeds. Issue #11307 (regression in 1.14.0)
+  - Fixed invalid red phase at traffic lights with very low connection speeds. Issue #11307 (regression in 1.14.0)
   - Fixed invalid turn-around connection at roundabout with unusual geometry. Issue #11344
   - Fixed projection error when importing OpenDRIVE. Issue #11263 
 
@@ -50,7 +50,7 @@ title: ChangeLog
   - vTypeDistributions with attribute `vTypes` now consider vType-probabilities. Issue #11376
 
 - polyconvert
-  - Option **--prune.in-net.offsets** can now specify all possible offsets. Also the interpretation was changed, so that positve values now cause enlargment on all sides. Issue #11438
+  - Option **--prune.in-net.offsets** can now specify all possible offsets. Also the interpretation was changed, so that positive values now cause enlargement on all sides. Issue #11438
 
 - TraCI
   - Function vehicle.highlight is now tracking the vehicle again. Issue #11352 (regression in 1.13.0)
@@ -74,7 +74,7 @@ title: ChangeLog
 ### Enhancements
 
 - Simulation
-  - Added option **--tls.actuated.detector-length** to set the default length of actuation detetors. Issue #11335
+  - Added option **--tls.actuated.detector-length** to set the default length of actuation detectors. Issue #11335
   - Verbose output and **--statistic-output** now always include the count of vehicles for the trip statistics. Issue #11366
   - carFollowModel *ACC* can now be configured with vType attribute 'collisionAvoidanceOverride' (previously hard-coded to *2*). Issue #11383
   - Tripinfo-output for persons now includes the individual speedFactor (in personInfo). Issue #11450
@@ -114,7 +114,7 @@ title: ChangeLog
   - vClass-specific speed limits are now listed in lane parameter dialog if defined. Issue #11100
   - Fixed overlapping text for stop information (when *show route* is active). Issue #11462
   - The timeSinceStartup (from standing) is now listed in vehicle parameter dialog. Issue #11463
-  - Status bar now indicates successfull screenshot. Issue #11279
+  - Status bar now indicates successful screenshot. Issue #11279
 
 - netgenerate
   - Now supports options **--geometry.remove** and **--tls.discard-simple**. Issue #11422
@@ -125,7 +125,7 @@ title: ChangeLog
 - TraCI
   - Simpla: Added additional platooning criteria via new attributes 'edgeLookAhead', 'distLookAhead' and 'lcMinDist'. Issue #9252, #11236 (Thanks to Jörg Schweizer)
   - Simpla: platooning distances are now time-headways instead of gap-in-meters by default. Configurable with new attributes 'maxPlatoonHeadway', 'catchupHeadway', 'useHeadway'.  Issue #11124
-  - Net method `traci.simulaiton.getOption` can now be used to retrieve any simulation option. Issue #11319
+  - Net method `traci.simulation.getOption` can now be used to retrieve any simulation option. Issue #11319
 
 - tools
   - routeSampler.py: now supports options **--depart-attribute**, **--arrival-attribute** to set extra constraints. Issue #6727
@@ -139,7 +139,7 @@ title: ChangeLog
 
 - Added xsd-schema for battery-export. Issue #11173
 - [ACC model description](Car-Following-Models/ACC.md) now has additional information in platoon stability. Issue #11382
-- Github source download now inclues all tests. Issue #11403
+- Github source download now includes all tests. Issue #11403
 
 ## Version 1.14.1 (19.07.2022)
 
