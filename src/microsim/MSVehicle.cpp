@@ -84,7 +84,7 @@
 #include "MSLeaderInfo.h"
 #include "MSDriverState.h"
 
-//#define DEBUG_PLAN_MOVE
+#define DEBUG_PLAN_MOVE
 //#define DEBUG_PLAN_MOVE_LEADERINFO
 //#define DEBUG_CHECKREWINDLINKLANES
 //#define DEBUG_EXEC_MOVE
@@ -2435,7 +2435,11 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
         // check whether the lane or the shadowLane is a dead end (allow some leeway on intersections)
         if (lane->isLinkEnd(link)
                 || ((*link)->getViaLane() == nullptr
-                    && getLateralOverlap() > POSITION_EPS && MSGlobals::gSublane
+                    && MSGlobals::gSublane
+                    && getLateralOverlap(getLateralPositionOnLane()
+                        // account for future shift
+                        + (lane != myLane && lane->isInternal() ? lane->getIncomingLanes()[0].viaLink->getLateralShift() : 0),
+                        lane) > POSITION_EPS
                     // do not get stuck on narrow edges
                     && getVehicleType().getWidth() <= lane->getEdge().getWidth()
                     // this is the exit link of a junction. The normal edge should support the shadow
@@ -6359,15 +6363,19 @@ MSVehicle::lateralDistanceToLane(const int offset) const {
 
 
 double
-MSVehicle::getLateralOverlap(double posLat) const {
+MSVehicle::getLateralOverlap(double posLat, const MSLane* lane) const {
     return (fabs(posLat) + 0.5 * getVehicleType().getWidth()
-            - 0.5 * myLane->getWidth());
+            - 0.5 * lane->getWidth());
 }
 
+double
+MSVehicle::getLateralOverlap(const MSLane* lane) const {
+    return getLateralOverlap(getLateralPositionOnLane(), lane);
+}
 
 double
 MSVehicle::getLateralOverlap() const {
-    return getLateralOverlap(getLateralPositionOnLane());
+    return getLateralOverlap(getLateralPositionOnLane(), myLane);
 }
 
 
