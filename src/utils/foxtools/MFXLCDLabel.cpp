@@ -315,7 +315,7 @@ long
 MFXLCDLabel::onLeave(FXObject* obj, FXSelector sel, void* ptr) {
     // always hide static toolTip
     myStaticToolTip->hide();
-    return FXHorizontalFrame::onEnter(obj, sel, ptr);
+    return FXHorizontalFrame::onLeave(obj, sel, ptr);
 }
 
 
