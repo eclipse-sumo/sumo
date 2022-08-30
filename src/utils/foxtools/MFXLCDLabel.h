@@ -24,6 +24,7 @@
 #include <config.h>
 
 #include "fxheader.h"
+#include "MFXStaticToolTip.h"
 
 
 /** @brief A widget which has the seven-segment display used as the drawing object for each letter
@@ -49,7 +50,7 @@ public:
 
 public:
     /// @brief constructor
-    MFXLCDLabel(FXComposite* p, FXuint nfig = 1, FXObject* tgt = NULL, FXSelector sel = 0, FXuint opts = LCDLABEL_NORMAL, FXint pl = DEFAULT_PAD, FXint pr = DEFAULT_PAD, FXint pt = DEFAULT_PAD, FXint pb = DEFAULT_PAD, FXint hs = DEFAULT_PAD);
+    MFXLCDLabel(FXComposite* p, MFXStaticToolTip* staticToolTip, FXuint nfig, FXObject* tgt, FXSelector sel, FXuint opts = LCDLABEL_NORMAL, FXint pl = DEFAULT_PAD, FXint pr = DEFAULT_PAD, FXint pt = DEFAULT_PAD, FXint pb = DEFAULT_PAD, FXint hs = DEFAULT_PAD);
 
     /// @brief destructor
     virtual ~MFXLCDLabel();
@@ -159,6 +160,9 @@ protected:
     
     /// @brief The number of shown figuresi, greater than zero
     FXint nfigures;    
+
+    /// @brief pointer to staticToolTip
+    MFXStaticToolTip* myStaticToolTip;
 
     /// @brief Draw a string
     void drawString(const FXString& lbl);

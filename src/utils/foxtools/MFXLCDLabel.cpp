@@ -58,11 +58,13 @@ FXIMPLEMENT(MFXLCDLabel, FXHorizontalFrame, MFXLCDLabelMap, ARRAYNUMBER(MFXLCDLa
 // method definitions
 // ===========================================================================
 
-MFXLCDLabel::MFXLCDLabel(FXComposite* p, FXuint nfig, FXObject* tgt, FXSelector sel, FXuint opts, FXint pl, FXint pr, FXint pt, FXint pb, FXint hs) : FXHorizontalFrame(p, opts, 0, 0, 0, 0, pl, pr, pt, pb, hs, 0) {
+MFXLCDLabel::MFXLCDLabel(FXComposite* p, MFXStaticToolTip* staticToolTip, FXuint nfig, FXObject* tgt, FXSelector sel, FXuint opts, FXint pl, FXint pr, FXint pt, FXint pb, FXint hs) : 
+    FXHorizontalFrame(p, opts, 0, 0, 0, 0, pl, pr, pt, pb, hs, 0),
+    nfigures(nfig),
+    myStaticToolTip(staticToolTip) {
     if (nfig == 0) {
         fxerror("%s: must have at least one figure.\n", getClassName());
     }
-    nfigures = nfig;
     setTarget(tgt);
     setSelector(sel);
     enable();
@@ -355,7 +357,6 @@ MFXLCDLabel::onQueryHelp(FXObject* sender, FXSelector sel, void* ptr) {
     }
     return 0;
 }
-
 
 
 void 
