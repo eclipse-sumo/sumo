@@ -99,6 +99,12 @@ GNECreateEdgeFrame::EdgeTypeSelector::EdgeTypeSelector(GNECreateEdgeFrame* creat
         this, MID_GNE_CREATEEDGEFRAME_CREATEFROMTEMPLATE, GUIDesignButton);
     // by default, create custom edge
     myUseDefaultEdgeType->setCheck(TRUE);
+    // check if enable disable pedestrians
+    for (const auto &junction : createEdgeFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getJunctions()) {
+        if (junction.second->getNBNode()->getCrossings().size() > 0) {
+            enableCheckBoxDisablePedestrians();
+        }
+    }
 }
 
 
