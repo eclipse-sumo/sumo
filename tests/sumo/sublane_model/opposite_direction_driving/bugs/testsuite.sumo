@@ -20,3 +20,6 @@ ticket8890
 
 # invalid movements while on the opposite side
 ticket10927
+
+# strange braking
+ticket11481
