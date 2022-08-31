@@ -1,4 +1,0 @@
-Warning: Teleporting vehicle 'b.97'; junction collision with vehicle 'a.93', lane=':C_3_1', gap=-1.19', latGap=-0.28, time=441.00 stage=move.
-Warning: Vehicle 'b.97' ends teleporting on edge 'CN', time=442.00.
-Warning: Teleporting vehicle 'a.250'; junction collision with vehicle 'b.232', lane=':C_3_0', gap=-0.14', latGap=-0.78, time=1074.00 stage=move.
-Warning: Vehicle 'a.250' teleports beyond arrival edge 'CN', time=1074.00.
