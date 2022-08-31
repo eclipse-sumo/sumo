@@ -74,14 +74,14 @@ public:
         /// @brief is joining junctions
         bool isJoiningJunctions() const;
 
-        /// @brief check if given joined is part of joined TLS
-        bool isJunctionJoined(const GNEJunction* junction) const;
+        /// @brief check if given junction is selected (used fo joining)
+        bool isJunctionSelected(const GNEJunction* junction) const;
 
         /// @brief select or unselect junction in the current TLS
-        void toggleJunctionSelection(const GNEJunction* junction);
+        void toggleJunctionSelected(const GNEJunction* junction);
 
-        /// @brief get joined junctions
-        const std::vector<std::string> &getJoinedJunctions() const;
+        /// @brief get selected junction IDs
+        const std::vector<std::string> &getSelectedJunctionIDs() const;
 
         /// @name FOX-callbacks
         /// @{
@@ -140,8 +140,8 @@ public:
         /// @brief the junction of the tls is being modified
         GNEJunction* myCurrentJunction = nullptr;
 
-        /// @brief joined junctions
-        std::vector<std::string> myJoinedJunctions;
+        /// @brief selected junction (used for join)
+        std::vector<std::string> mySelectedJunctionIDs;
     };
 
     // ===========================================================================

@@ -172,7 +172,7 @@ GNETLSEditorFrame::editTLS(const Position& clickedPosition, const GNEViewNetHelp
         }
         // check if we're adding or removing joined TLSs
         if (myTLSJunction->isJoiningJunctions()) {
-            myTLSJunction->toggleJunctionSelection(objectsUnderCursor.getJunctionFront());
+            myTLSJunction->toggleJunctionSelected(objectsUnderCursor.getJunctionFront());
         } else {
             editJunction(objectsUnderCursor.getJunctionFront());
         }
@@ -930,12 +930,10 @@ void
 GNETLSEditorFrame::TLSJunction::updateJunctionDescription() {
     // first reset junction label
     myJunctionIDLabel->setText("Junction ID");
-    // clear joined junctions
-    myJoinedJunctions.clear();
+    // clear selected junctions
+    mySelectedJunctionIDs.clear();
     // disable joining junction mode
     disableJoiningJunctionMode();
-    // clear joined junctions
-    myJoinedJunctions.clear();
     // continue depending of current junction
     if (myCurrentJunction == nullptr) {
         myJunctionIDTextField->setText("no junction selected");
@@ -984,30 +982,30 @@ GNETLSEditorFrame::TLSJunction::isJoiningJunctions() const {
 
 
 bool
-GNETLSEditorFrame::TLSJunction::isJunctionJoined(const GNEJunction* junction) const {
-    return (std::find(myJoinedJunctions.begin(), myJoinedJunctions.end(), junction->getID()) != myJoinedJunctions.end());
+GNETLSEditorFrame::TLSJunction::isJunctionSelected(const GNEJunction* junction) const {
+    return (std::find(mySelectedJunctionIDs.begin(), mySelectedJunctionIDs.end(), junction->getID()) != mySelectedJunctionIDs.end());
 }
 
 
 void 
-GNETLSEditorFrame::TLSJunction::toggleJunctionSelection(const GNEJunction* junction) {
+GNETLSEditorFrame::TLSJunction::toggleJunctionSelected(const GNEJunction* junction) {
     // avoid current junction
     if (junction != myCurrentJunction) {
-        // find ID in joined junctions
-        auto it = std::find(myJoinedJunctions.begin(), myJoinedJunctions.end(), junction->getID());
+        // find ID in selected junctions
+        auto it = std::find(mySelectedJunctionIDs.begin(), mySelectedJunctionIDs.end(), junction->getID());
         // check if add or remove
-        if (it == myJoinedJunctions.end()) {
-            myJoinedJunctions.push_back(junction->getID());
+        if (it == mySelectedJunctionIDs.end()) {
+            mySelectedJunctionIDs.push_back(junction->getID());
         } else {
-            myJoinedJunctions.erase(it);
+            mySelectedJunctionIDs.erase(it);
         }
     }
 }
 
 
 const std::vector<std::string>&
-GNETLSEditorFrame::TLSJunction::getJoinedJunctions() const {
-    return myJoinedJunctions;
+GNETLSEditorFrame::TLSJunction::getSelectedJunctionIDs() const {
+    return mySelectedJunctionIDs;
 }
 
 
@@ -1158,47 +1156,51 @@ GNETLSEditorFrame::TLSJunction::onCmdJoinTLS(FXObject*, FXSelector, void*) {
     if (myJoinTLSToggleButton->getState()) {
         // set special color
         myJoinTLSToggleButton->setBackColor(FXRGBA(253, 255, 206, 255));
-        // clear and fill myJoinedJunctions
-        myJoinedJunctions.clear();
+        // clear and fill mySelectedJunctionIDs
+        mySelectedJunctionIDs.clear();
         // get all nodes controlled by this TLS
-        const auto NBNodes = (*myCurrentJunction->getNBNode()->getControllingTLS().begin())->getNodes();
-        // fill myJoinedJunctions
-        myJoinedJunctions.clear();
-        for (const auto &NBNode: NBNodes) {
-            myJoinedJunctions.push_back(NBNode->getID());
+        const auto TLNodes = (*myCurrentJunction->getNBNode()->getControllingTLS().begin())->getNodes();
+        // fill mySelectedJunctionIDs with TLNodes
+        mySelectedJunctionIDs.clear();
+        for (const auto &TLNodes: TLNodes) {
+            mySelectedJunctionIDs.push_back(TLNodes->getID());
         }
     } else {
-        // update TL in all selected junctions
-        std::vector<GNEJunction*> joinedJunctions;
-        for (const auto &joinedJunction : myJoinedJunctions) {
-            joinedJunctions.push_back(myTLSEditorParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveJunction(joinedJunction));
-        }
         // make a copy of current junction
-        auto currentJunction = myCurrentJunction;
+        const auto currentJunction = myCurrentJunction;
+        // declare vectors for junctions
+        std::vector<GNEJunction*> selectedJunctions, resetTLJunctions;
+        // get selected junctions (all except current
+        for (const auto &selectedJunctionID : mySelectedJunctionIDs) {
+            if (selectedJunctionID != currentJunction->getID()) {
+                selectedJunctions.push_back(myTLSEditorParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveJunction(selectedJunctionID));
+            }
+        }
+        // get junctions to reset TL (all TL nodes except current)
+        for (const auto &TLNBNode : (*currentJunction->getNBNode()->getControllingTLS().begin())->getNodes()) {
+            if (TLNBNode != currentJunction->getNBNode()) {
+                resetTLJunctions.push_back(myTLSEditorParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveJunction(TLNBNode->getID()));
+            }
+        }
         // discard changes
         myTLSEditorParent->myTLSDefinition->discardChanges(false);
         // begin undo list
         myTLSEditorParent->getViewNet()->getUndoList()->begin(GUIIcon::MODETLS, "join TLS");
-        // remove tl from all junctions of joined TLS (except current)
-        for (const auto &NBNodes : (*currentJunction->getNBNode()->getControllingTLS().begin())->getNodes()) {
-            auto junction = myTLSEditorParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveJunction(NBNodes->getID());
-            if (junction != currentJunction) {
-                junction->setAttribute(SUMO_ATTR_TYPE, "priority", myTLSEditorParent->getViewNet()->getUndoList());
-            }
+        // remove tl from TLNBNode
+        for (const auto &resetTLJunction : resetTLJunctions) {
+            resetTLJunction->setAttribute(SUMO_ATTR_TYPE, "priority", myTLSEditorParent->getViewNet()->getUndoList());
         }
         // now update it in all joined junctions
-        for (const auto &joinedJunction : joinedJunctions) {
-            if (joinedJunction != currentJunction) {
-                joinedJunction->setAttribute(SUMO_ATTR_TYPE, currentJunction->getAttribute(SUMO_ATTR_TYPE), myTLSEditorParent->getViewNet()->getUndoList());
-                joinedJunction->setAttribute(SUMO_ATTR_TLID, currentJunction->getAttribute(SUMO_ATTR_TLID), myTLSEditorParent->getViewNet()->getUndoList());
-            }
+        for (const auto &selectedJunction : selectedJunctions) {
+            selectedJunction->setAttribute(SUMO_ATTR_TYPE, currentJunction->getAttribute(SUMO_ATTR_TYPE), myTLSEditorParent->getViewNet()->getUndoList());
+            selectedJunction->setAttribute(SUMO_ATTR_TLID, currentJunction->getAttribute(SUMO_ATTR_TLID), myTLSEditorParent->getViewNet()->getUndoList());
         }
         // end undo list
         myTLSEditorParent->getViewNet()->getUndoList()->end();
         // restore default color
         myJoinTLSToggleButton->setBackColor(4293980400);
-        // clear myJoinedJunctions
-        myJoinedJunctions.clear();
+        // clear selected junction IDs
+        mySelectedJunctionIDs.clear();
         // edit junction again
         myTLSEditorParent->editJunction(currentJunction);
     }

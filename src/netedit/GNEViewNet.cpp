@@ -5046,13 +5046,13 @@ GNEViewNet::drawTemporalJunctionTLSLines() const {
         // translate to TLLogic
         glTranslated(0, 0, GLO_TEMPORALSHAPE);
         // iterate over all Junction detectors
-        for (const auto &joinedJunctionID : myViewParent->getTLSEditorFrame()->getTLSJunction()->getJoinedJunctions()) {
+        for (const auto &selectedJunctionID : myViewParent->getTLSEditorFrame()->getTLSJunction()->getSelectedJunctionIDs()) {
             // get junction
-            const auto joinedJunction = myNet->getAttributeCarriers()->retrieveJunction(joinedJunctionID);
+            const auto selectedJunction = myNet->getAttributeCarriers()->retrieveJunction(selectedJunctionID);
             // push line matrix
             GLHelper::pushMatrix();
             // draw line between junction and Junction
-            GUIGeometry::drawChildLine(*myVisualizationSettings, junctionPos, joinedJunction->getPositionInView(),
+            GUIGeometry::drawChildLine(*myVisualizationSettings, junctionPos, selectedJunction->getPositionInView(),
                                         myVisualizationSettings->additionalSettings.TLSConnectionColor, true, 0.25);
             // pop line matrix
             GLHelper::popMatrix();
