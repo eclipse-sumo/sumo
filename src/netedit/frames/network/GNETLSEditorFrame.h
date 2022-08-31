@@ -65,8 +65,11 @@ public:
         /// @brief set current junction
         void setCurrentJunction(GNEJunction* junction);
 
-        /// @brief update description
-        void updateJunctionDescription() const;
+        /// @brief update junction description
+        void updateJunctionDescription();
+
+        /// @brief disable joining junction mode
+        void disableJoiningJunctionMode();
 
         /// @brief is joining junctions
         bool isJoiningJunctions() const;
@@ -300,6 +303,9 @@ public:
 
         /// @brief get E1 detectors vinculated with this TLS
         const std::map<std::string, std::string> &getE1Detectors() const;
+
+        /// @brief disable detector mode
+        void disableE1DetectorMode();
 
         /// @name FOX-callbacks
         /// @{
