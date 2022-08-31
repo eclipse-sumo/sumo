@@ -1042,6 +1042,8 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
     drawTemporalRoundabout();
     // draw temporal lines between E1 detectors and junctions in TLS Mode
     drawTemporalE1TLSLines();
+    // draw temporal lines between junctions in TLS Mode
+    drawTemporalJunctionTLSLines();
     // pop draw matrix
     GLHelper::popMatrix();
     // update interval bar
@@ -1241,7 +1243,14 @@ GNEViewNet::abortOperation(bool clearSelection) {
             // abort changes in Connector Frame
             myViewParent->getConnectorFrame()->getConnectionModifications()->onCmdCancelModifications(0, 0, 0);
         } else if (myEditModes.networkEditMode == NetworkEditMode::NETWORK_TLS) {
-            myViewParent->getTLSEditorFrame()->getTLSDefinition()->discardChanges(false);
+            // continue depending of current TLS frame state
+            if (myViewParent->getTLSEditorFrame()->getTLSAttributes()->isSetDetectorsToggleButtonEnabled()) {
+                myViewParent->getTLSEditorFrame()->getTLSAttributes()->disableE1DetectorMode();
+            } else if (myViewParent->getTLSEditorFrame()->getTLSJunction()->isJoiningJunctions()) {
+                myViewParent->getTLSEditorFrame()->getTLSJunction()->disableJoiningJunctionMode();
+            } else {
+                myViewParent->getTLSEditorFrame()->getTLSDefinition()->discardChanges(false);
+            }
         } else if (myEditModes.networkEditMode == NetworkEditMode::NETWORK_MOVE) {
             myEditNetworkElementShapes.stopEditCustomShape();
         } else if (myEditModes.networkEditMode == NetworkEditMode::NETWORK_SHAPE) {
@@ -1377,7 +1386,14 @@ GNEViewNet::hotkeyEnter() {
             // Accept changes in Connector Frame
             myViewParent->getConnectorFrame()->getConnectionModifications()->onCmdSaveModifications(0, 0, 0);
         } else if (myEditModes.networkEditMode == NetworkEditMode::NETWORK_TLS) {
-            myViewParent->getTLSEditorFrame()->getTLSDefinition()->onCmdSaveChanges(nullptr, 0, nullptr);
+            // continue depending of current TLS frame state
+            if (myViewParent->getTLSEditorFrame()->getTLSAttributes()->isSetDetectorsToggleButtonEnabled()) {
+                myViewParent->getTLSEditorFrame()->getTLSAttributes()->disableE1DetectorMode();
+            } else if (myViewParent->getTLSEditorFrame()->getTLSJunction()->isJoiningJunctions()) {
+                myViewParent->getTLSEditorFrame()->getTLSJunction()->disableJoiningJunctionMode();
+            } else {
+                myViewParent->getTLSEditorFrame()->getTLSDefinition()->onCmdSaveChanges(nullptr, 0, nullptr);
+            }
         } else if ((myEditModes.networkEditMode == NetworkEditMode::NETWORK_MOVE) && (myEditNetworkElementShapes.getEditedNetworkElement() != nullptr)) {
             myEditNetworkElementShapes.commitEditedShape();
         } else if (myEditModes.networkEditMode == NetworkEditMode::NETWORK_SHAPE) {
@@ -5031,17 +5047,15 @@ GNEViewNet::drawTemporalJunctionTLSLines() const {
         glTranslated(0, 0, GLO_TEMPORALSHAPE);
         // iterate over all Junction detectors
         for (const auto &joinedJunctionID : myViewParent->getTLSEditorFrame()->getTLSJunction()->getJoinedJunctions()) {
-            // first check if Junction exists
-            const auto joinedJunction = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_INDUCTION_LOOP, joinedJunctionID, false);
-            if (joinedJunction) {
-                // push line matrix
-                GLHelper::pushMatrix();
-                // draw line between junction and Junction
-                GUIGeometry::drawChildLine(*myVisualizationSettings, junctionPos, joinedJunction->getPositionInView(),
-                                           myVisualizationSettings->additionalSettings.TLSConnectionColor, true, 0.25);
-                // pop line matrix
-                GLHelper::popMatrix();
-            }
+            // get junction
+            const auto joinedJunction = myNet->getAttributeCarriers()->retrieveJunction(joinedJunctionID);
+            // push line matrix
+            GLHelper::pushMatrix();
+            // draw line between junction and Junction
+            GUIGeometry::drawChildLine(*myVisualizationSettings, junctionPos, joinedJunction->getPositionInView(),
+                                        myVisualizationSettings->additionalSettings.TLSConnectionColor, true, 0.25);
+            // pop line matrix
+            GLHelper::popMatrix();
         }
         // pop layer matrix
         GLHelper::popMatrix();
