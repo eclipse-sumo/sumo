@@ -68,6 +68,9 @@ public:
         /// @brief update description
         void updateJunctionDescription() const;
 
+        /// @brief is joining junctions
+        bool isJoiningJunctions() const;
+
         /// @name FOX-callbacks
         /// @{
         /// @brief Called when the user rename TLS
@@ -116,8 +119,8 @@ public:
         /// @brief ComboBox for TLS Types
         MFXIconComboBox* myTLSTypeComboBox;
 
-        /// @brief Button for join TLS
-        MFXButtonTooltip* myJoinTLSButton;
+        /// @brief Toggle button for join TLS
+        FXToggleButton* myJoinTLSButton;
 
         /// @brief button for disjoin TLS
         MFXButtonTooltip* myDisjoinTLSButton;
