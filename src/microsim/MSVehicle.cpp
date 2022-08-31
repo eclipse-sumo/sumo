@@ -3353,9 +3353,9 @@ MSVehicle::processLinkApproaches(double& vSafe, double& vSafeMin, double& vSafeM
                     // could appear on a major foe link and cause a collision. Refs. #1845, #2123
                     vSafeMinDist = dpi.myDistance; // distance that must be covered
                     if (MSGlobals::gSemiImplicitEulerUpdate) {
-                        vSafeMin = MIN2((double) DIST2SPEED(vSafeMinDist + POSITION_EPS), dpi.myVLinkPass);
+                        vSafeMin = MIN3((double)DIST2SPEED(vSafeMinDist + POSITION_EPS), dpi.myVLinkPass, getCarFollowModel().maxNextSafeMin(getSpeed(), this));
                     } else {
-                        vSafeMin = MIN2((double) DIST2SPEED(2 * vSafeMinDist + NUMERICAL_EPS) - getSpeed(), dpi.myVLinkPass);
+                        vSafeMin = MIN3((double)DIST2SPEED(2 * vSafeMinDist + NUMERICAL_EPS) - getSpeed(), dpi.myVLinkPass, getCarFollowModel().maxNextSafeMin(getSpeed(), this));
                     }
                     canBrakeVSafeMin = canBrake;
 #ifdef DEBUG_EXEC_MOVE
