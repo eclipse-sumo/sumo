@@ -116,6 +116,12 @@ public:
         /// @brief ComboBox for TLS Types
         MFXIconComboBox* myTLSTypeComboBox;
 
+        /// @brief Button for join TLS
+        MFXButtonTooltip* myJoinTLSButton;
+
+        /// @brief button for disjoin TLS
+        MFXButtonTooltip* myDisjoinTLSButton;
+
         /// @brief the junction of the tls is being modified
         GNEJunction* myCurrentJunction = nullptr;
     };
