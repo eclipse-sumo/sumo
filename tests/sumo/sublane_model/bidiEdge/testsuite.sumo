@@ -1,3 +1,6 @@
+# When a bike approaches a ped, the ped runs to the direction to bike, and his trajectories are weird.
+pedRunToBike
+
 # bike does not overtake the ped in front of him, although there is space; instead of overtaking it makes emergency braking.
 bikeNotOvertake
 
