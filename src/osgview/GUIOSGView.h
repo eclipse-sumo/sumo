@@ -24,6 +24,7 @@
 #ifdef HAVE_OSG
 
 #include "GUIOSGHeader.h"
+#include "GUIOSGManipulator.h"
 
 #include <string>
 #include <microsim/traffic_lights/MSTLLogicControl.h>
@@ -49,7 +50,6 @@ class MSVehicle;
 
 namespace osgGA {
 class CameraManipulator;
-class NodeTrackerManipulator;
 }
 
 // ===========================================================================
@@ -255,23 +255,6 @@ protected:
 private:
     double calculateRotation(const osg::Vec3d& lookFrom, const osg::Vec3d& lookAt, const osg::Vec3d& up);
 
-    class SUMOTerrainManipulator : public osgGA::TerrainManipulator {
-    public:
-        SUMOTerrainManipulator() {
-            setAllowThrow(false);
-            setVerticalAxisFixed(false);
-        }
-        bool performMovementLeftMouseButton(const double eventTimeDelta, const double dx, const double dy) {
-            return osgGA::TerrainManipulator::performMovementMiddleMouseButton(eventTimeDelta, dx, dy);
-        }
-        bool performMovementMiddleMouseButton(const double eventTimeDelta, const double dx, const double dy) {
-            return osgGA::TerrainManipulator::performMovementLeftMouseButton(eventTimeDelta, dx, dy);
-        }
-        bool performMovementRightMouseButton(const double eventTimeDelta, const double dx, const double dy) {
-            return osgGA::TerrainManipulator::performMovementRightMouseButton(eventTimeDelta, dx, -dy);
-        }
-    };
-
     class FXOSGAdapter : public osgViewer::GraphicsWindow {
     public:
         FXOSGAdapter(GUISUMOAbstractView* parent, FXCursor* cursor);
@@ -325,7 +308,7 @@ protected:
 
 private:
     GUIVehicle* myTracked;
-    osg::ref_ptr<SUMOTerrainManipulator> myCameraManipulator;
+    osg::ref_ptr<GUIOSGManipulator> myCameraManipulator;
 
     SUMOTime myLastUpdate;
 
