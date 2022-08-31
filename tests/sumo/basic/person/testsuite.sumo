@@ -1,6 +1,3 @@
-# person is inserted to the appointed position of a edge, not next to the edge. 
-person_inserted_departPos
-
 # test simple walks
 walking
 
@@ -89,3 +86,6 @@ stop_stoppingPlace
 # this triggers #11210
 ride_access_redundancy
 errors
+
+# person is inserted to the appointed position of a edge, not next to the edge. 
+person_inserted_departPos

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-08-31 07:45:35 by Eclipse SUMO sumo Version v1_14_1+0698-6b8d6bc
+<!-- generated on 2022-08-31 07:45:15 by Eclipse SUMO sumo Version v1_14_1+0698-6b8d6bc
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -15,14 +15,18 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <input>
         <net-file value="net.net.xml"/>
-        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_routes.rou.xml,input_additional.add.xml"/>
     </input>
 
     <output>
         <write-license value="true"/>
-        <tripinfo-output value="tripinfos.xml"/>
-        <railsignal-block-output value="railsignal_blocks.xml"/>
+        <fcd-output value="fcd.xml"/>
+        <fcd-output.attributes value="all"/>
     </output>
+
+    <time>
+        <end value="1"/>
+    </time>
 
     <processing>
         <default.speeddev value="0"/>
@@ -41,7 +45,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 </configuration>
 -->
 
-<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <tripinfo id="ego" depart="1.00" departLane="" departPos="0.00" departSpeed="13.89" departDelay="0.00" arrival="44.00" arrivalLane="" arrivalPos="99.62" arrivalSpeed="13.89" duration="43.00" routeLength="590.73" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="1" devices="tripinfo_ego routing_ego" vType="train" speedFactor="1.00" vaporized=""/>
-    <tripinfo id="leader" depart="0.00" departLane="" departPos="0.00" departSpeed="13.89" departDelay="0.00" arrival="75.00" arrivalLane="" arrivalPos="100.00" arrivalSpeed="13.89" duration="75.00" routeLength="1039.04" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="1" devices="tripinfo_leader routing_leader" vType="train" speedFactor="1.00" vaporized=""/>
-</tripinfos>
+<fcd-export xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/fcd_file.xsd">
+    <timestep time="0.00">
+        <vehicle id="1" x="0.00" y="-8.25" angle="90.00" type="DEFAULT_VEHTYPE" speed="55.56" pos="0.00" edge="beg" slope="0.00" distance="0.00" odometer="0.00" posLat="0.00"/>
+    </timestep>
+</fcd-export>
