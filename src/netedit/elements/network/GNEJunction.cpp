@@ -1483,12 +1483,10 @@ GNEJunction::drawDottedContours(const GUIVisualizationSettings& s, const bool dr
                     (junctionExaggeration >= 1) ? junctionExaggeration : 1);
         }
     }
-
-
-
     // check if TLS dotted contour has to be drawn
     if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() && (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_TLS) && 
-        myNet->getViewNet()->getViewParent()->getTLSEditorFrame()->getTLSJunction()->isJoiningJunctions()) {
+        myNet->getViewNet()->getViewParent()->getTLSEditorFrame()->getTLSJunction()->isJoiningJunctions() &&
+        myNet->getViewNet()->getViewParent()->getTLSEditorFrame()->getTLSJunction()->isJunctionJoined(this)) {
         if (drawBubble) {
             GUIDottedGeometry::drawDottedContourCircle(GUIDottedGeometry::DottedContourType::GREEN, s, myNBNode->getCenter(), s.neteditSizeSettings.junctionBubbleRadius,
                     (junctionExaggeration >= 1) ? junctionExaggeration : 1);
@@ -1498,9 +1496,6 @@ GNEJunction::drawDottedContours(const GUIVisualizationSettings& s, const bool dr
                     (junctionExaggeration >= 1) ? junctionExaggeration : 1);
         }
     }
-
-
-
     // draw dotted contours regarding create edge mode
     if (myAmCreateEdgeSource) {
         if (drawBubble) {

@@ -1,3 +1,4 @@
+#include "GNETLSEditorFrame.h"
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
 // Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
@@ -169,9 +170,13 @@ GNETLSEditorFrame::editTLS(const Position& clickedPosition, const GNEViewNetHelp
         if (myOverlappedInspection->getNumberOfOverlappedACs() == 1) {
             myOverlappedInspection->hideOverlappedInspection();
         }
-        // set junction
-        editJunction(objectsUnderCursor.getJunctionFront());
-    } else if (objectsUnderCursor.getAdditionalFront() && myTLSAttributes->isSetDetectorsToogleButtonEnabled() &&
+        // check if we're adding or removing joined TLSs
+        if (myTLSJunction->isJoiningJunctions()) {
+            myTLSJunction->toggleJunctionSelection(objectsUnderCursor.getJunctionFront());
+        } else {
+            editJunction(objectsUnderCursor.getJunctionFront());
+        }
+    } else if (objectsUnderCursor.getAdditionalFront() && myTLSAttributes->isSetDetectorsToggleButtonEnabled() &&
                (objectsUnderCursor.getAdditionalFront()->getTagProperty().getTag() == SUMO_TAG_INDUCTION_LOOP)) {
         myTLSAttributes->toggleE1DetectorSelection(objectsUnderCursor.getAdditionalFront());
     } else {
@@ -552,7 +557,7 @@ GNETLSEditorFrame::TLSAttributes::TLSAttributes(GNETLSEditorFrame* TLSEditorPare
     myButtonEditParameters->disable();
     myParametersTextField->disable();
     // create Checkable button
-    mySetDetectorsToogleButton = new FXToggleButton(getCollapsableFrame(), "Assign E1 detectors", "Assign E1 detectors", 
+    mySetDetectorsToggleButton = new FXToggleButton(getCollapsableFrame(), "Assign E1 detectors", "Assign E1 detectors", 
         GUIIconSubSys::getIcon(GUIIcon::E1), GUIIconSubSys::getIcon(GUIIcon::E1), this, MID_GNE_TLSFRAME_ATTRIBUTES_SETDETECTOR, GUIDesignButton);
 }
 
@@ -586,8 +591,8 @@ GNETLSEditorFrame::TLSAttributes::initTLSAttributes() {
         myButtonEditParameters->enable();
         myParametersTextField->enable();
         myParametersTextField->setTextColor(MFXUtils::getFXColor(RGBColor::BLACK));
-        // reset mySetDetectorsToogleButton
-        mySetDetectorsToogleButton->setState(FALSE, TRUE);
+        // reset mySetDetectorsToggleButton
+        mySetDetectorsToggleButton->setState(FALSE, TRUE);
     }
 }
 
@@ -661,8 +666,8 @@ GNETLSEditorFrame::TLSAttributes::isValidParameters() {
 
 
 bool
-GNETLSEditorFrame::TLSAttributes::isSetDetectorsToogleButtonEnabled() const {
-    return (mySetDetectorsToogleButton->getState() == TRUE);
+GNETLSEditorFrame::TLSAttributes::isSetDetectorsToggleButtonEnabled() const {
+    return (mySetDetectorsToggleButton->getState() == TRUE);
 }
 
 
@@ -728,7 +733,7 @@ GNETLSEditorFrame::TLSAttributes::onUpdOffset(FXObject*, FXSelector, void*) {
             myE1Detectors.clear();
             myTLSEditorParent->getViewNet()->update();
         }
-    } else if (isSetDetectorsToogleButtonEnabled()) {
+    } else if (isSetDetectorsToggleButtonEnabled()) {
         myOffsetTextField->disable();
     } else if (myTLSEditorParent->myTLSJunction->isJoiningJunctions()) {
         // joining TLSs, disable button
@@ -786,7 +791,7 @@ GNETLSEditorFrame::TLSAttributes::onUpdParameters(FXObject*, FXSelector, void*) 
             myE1Detectors.clear();
             myTLSEditorParent->getViewNet()->update();
         }
-    } else if (isSetDetectorsToogleButtonEnabled()) {
+    } else if (isSetDetectorsToggleButtonEnabled()) {
         myButtonEditParameters->disable();
         myParametersTextField->disable();
     } else if (myTLSEditorParent->myTLSJunction->isJoiningJunctions()) {
@@ -803,12 +808,12 @@ GNETLSEditorFrame::TLSAttributes::onUpdParameters(FXObject*, FXSelector, void*) 
 
 long
 GNETLSEditorFrame::TLSAttributes::onCmdSetDetectorMode(FXObject*, FXSelector, void*) {
-    if (mySetDetectorsToogleButton->getState()) {
+    if (mySetDetectorsToggleButton->getState()) {
         // set special color
-        mySetDetectorsToogleButton->setBackColor(FXRGBA(253, 255, 206, 255));
+        mySetDetectorsToggleButton->setBackColor(FXRGBA(253, 255, 206, 255));
     } else {
         // restore default color
-        mySetDetectorsToogleButton->setBackColor(4293980400);
+        mySetDetectorsToggleButton->setBackColor(4293980400);
     }
     // update view
     myTLSEditorParent->getViewNet()->update();
@@ -819,17 +824,17 @@ GNETLSEditorFrame::TLSAttributes::onCmdSetDetectorMode(FXObject*, FXSelector, vo
 long
 GNETLSEditorFrame::TLSAttributes::onUpdSetDetectorMode(FXObject*, FXSelector, void*) {
     if (myTLSEditorParent->myTLSDefinition->getNumberOfTLSDefinitions() == 0) {
-        mySetDetectorsToogleButton->setState(FALSE, TRUE);
-        mySetDetectorsToogleButton->disable();
+        mySetDetectorsToggleButton->setState(FALSE, TRUE);
+        mySetDetectorsToggleButton->disable();
     } else if (myTLSEditorParent->myTLSJunction->isJoiningJunctions()) {
         // joining TLSs, disable button
-        mySetDetectorsToogleButton->setState(FALSE, TRUE);
-        mySetDetectorsToogleButton->disable();
+        mySetDetectorsToggleButton->setState(FALSE, TRUE);
+        mySetDetectorsToggleButton->disable();
     } else if (myTLSEditorParent->myTLSDefinition->getCurrentTLSDefinition()->getType() == TrafficLightType::STATIC) {
-        mySetDetectorsToogleButton->setState(FALSE, TRUE);
-        mySetDetectorsToogleButton->disable();
+        mySetDetectorsToggleButton->setState(FALSE, TRUE);
+        mySetDetectorsToggleButton->disable();
     } else {
-        mySetDetectorsToogleButton->enable();
+        mySetDetectorsToggleButton->enable();
     }
     return 1;
 }
@@ -931,11 +936,11 @@ GNETLSEditorFrame::TLSJunction::updateJunctionDescription() const {
         // check if junction is controlled
         if (nbn->getControllingTLS().size() > 0) {
             // get all nodes controlled by this TLS
-            const auto nodes = (*nbn->getControllingTLS().begin())->getNodes();
+            const auto NBNodes = (*nbn->getControllingTLS().begin())->getNodes();
             // declare string
             std::string nodesStr;
-            for (auto it = nodes.begin(); it != nodes.end(); it++) {
-                if (it == (nodes.end() - 1)) {
+            for (auto it = NBNodes.begin(); it != NBNodes.end(); it++) {
+                if (it == (NBNodes.end() - 1)) {
                     nodesStr += (*it)->getID();
                 } else {
                     nodesStr += (*it)->getID() + ", ";
@@ -944,7 +949,7 @@ GNETLSEditorFrame::TLSJunction::updateJunctionDescription() const {
             // updated junction fields
             myJunctionIDTextField->setText(nodesStr.c_str());
             // update junction label
-            if (nodes.size() > 1) {
+            if (NBNodes.size() > 1) {
                 myJunctionIDLabel->setText("Junction IDs");
             }
             // update TLS ID text field
@@ -964,7 +969,30 @@ GNETLSEditorFrame::TLSJunction::isJoiningJunctions() const {
 
 bool
 GNETLSEditorFrame::TLSJunction::isJunctionJoined(const GNEJunction* junction) const {
-    return true;
+    if ((myCurrentJunction == nullptr) || myCurrentJunction->getNBNode()->getControllingTLS().empty()) {
+        return false;
+    } else {
+        // get all nodes controlled by this TLS
+        const auto NBNodes = (*myCurrentJunction->getNBNode()->getControllingTLS().begin())->getNodes();
+        for (const auto &NBNode : NBNodes) {
+            if (NBNode == junction->getNBNode()) {
+                return true;
+            }
+        }
+        return false;
+    }
+}
+
+
+void 
+GNETLSEditorFrame::TLSJunction::toggleJunctionSelection(const GNEJunction* junction) {
+    
+}
+
+
+const std::vector<std::string>&
+GNETLSEditorFrame::TLSJunction::getJoinedJunctions() const {
+    return myJoinedJunctions;
 }
 
 
@@ -1019,7 +1047,7 @@ GNETLSEditorFrame::TLSJunction::onUpdTLSID(FXObject*, FXSelector, void*) {
         // no junction, disable and clear
         myTLSIDTextField->setText("");
         myTLSIDTextField->disable();
-    } else if (myTLSEditorParent->myTLSAttributes->isSetDetectorsToogleButtonEnabled()) {
+    } else if (myTLSEditorParent->myTLSAttributes->isSetDetectorsToggleButtonEnabled()) {
         // selecting E1, disable button
         myTLSIDTextField->disable();
     } else if (myTLSEditorParent->myTLSJunction->isJoiningJunctions()) {
@@ -1090,7 +1118,7 @@ GNETLSEditorFrame::TLSJunction::onUpdTLSType(FXObject*, FXSelector, void*) {
         // no junction, disable and clear
         myTLSTypeComboBox->setText("");
         myTLSTypeComboBox->disable();
-    } else if (myTLSEditorParent->myTLSAttributes->isSetDetectorsToogleButtonEnabled()) {
+    } else if (myTLSEditorParent->myTLSAttributes->isSetDetectorsToggleButtonEnabled()) {
         // selecting E1, disable button
         myTLSTypeComboBox->disable();
     } else if (myTLSEditorParent->myTLSJunction->isJoiningJunctions()) {
@@ -1130,7 +1158,7 @@ GNETLSEditorFrame::TLSJunction::onUpdJoinTLS(FXObject* sender, FXSelector, void*
     if (myCurrentJunction == nullptr) {
         // no junction, disable
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
-    } else if (myTLSEditorParent->myTLSAttributes->isSetDetectorsToogleButtonEnabled()) {
+    } else if (myTLSEditorParent->myTLSAttributes->isSetDetectorsToggleButtonEnabled()) {
         // selecting E1, disable
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else if (myTLSEditorParent->myTLSDefinition->checkHaveModifications()) {
@@ -1157,7 +1185,7 @@ GNETLSEditorFrame::TLSJunction::onUpdDisjoinTLS(FXObject* sender, FXSelector, vo
     if (myCurrentJunction == nullptr) {
         // no junction, disable
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
-    } else if (myTLSEditorParent->myTLSAttributes->isSetDetectorsToogleButtonEnabled()) {
+    } else if (myTLSEditorParent->myTLSAttributes->isSetDetectorsToggleButtonEnabled()) {
         // selecting E1, disable
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else if (myTLSEditorParent->myTLSJunction->isJoiningJunctions()) {
@@ -1375,7 +1403,7 @@ GNETLSEditorFrame::TLSDefinition::onUpdCreate(FXObject* sender, FXSelector, void
     } else if (myHaveModifications) {
         // wait for modifications, disable button
         sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
-    } else if (myTLSEditorParent->myTLSAttributes->isSetDetectorsToogleButtonEnabled()) {
+    } else if (myTLSEditorParent->myTLSAttributes->isSetDetectorsToggleButtonEnabled()) {
         // selecting E1, disable button
         sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else if (myTLSEditorParent->myTLSJunction->isJoiningJunctions()) {
@@ -1473,7 +1501,7 @@ long
 GNETLSEditorFrame::TLSDefinition::onUpdTLSModified(FXObject* sender, FXSelector, void*) {
     if (getNumberOfTLSDefinitions() == 0) {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
-    } else if (myTLSEditorParent->myTLSAttributes->isSetDetectorsToogleButtonEnabled()) {
+    } else if (myTLSEditorParent->myTLSAttributes->isSetDetectorsToggleButtonEnabled()) {
         // selecting E1, disable button
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else if (myTLSEditorParent->myTLSJunction->isJoiningJunctions()) {
@@ -1880,7 +1908,7 @@ GNETLSEditorFrame::TLSPhases::updateTLSColoring() {
 
 long
 GNETLSEditorFrame::TLSPhases::onUpdNeedsDef(FXObject* sender, FXSelector, void*) {
-    if (myTLSEditorParent->myTLSAttributes->isSetDetectorsToogleButtonEnabled()) {
+    if (myTLSEditorParent->myTLSAttributes->isSetDetectorsToggleButtonEnabled()) {
         // selecting E1, disable buttons
         sender->handle(getCollapsableFrame(), FXSEL(SEL_COMMAND, FXWindow::ID_DISABLE), nullptr);
         // also disable table
@@ -1905,7 +1933,7 @@ GNETLSEditorFrame::TLSPhases::onUpdNeedsDef(FXObject* sender, FXSelector, void*)
 
 long
 GNETLSEditorFrame::TLSPhases::onUpdNeedsDefAndPhase(FXObject* sender, FXSelector, void*) {
-    if (myTLSEditorParent->myTLSAttributes->isSetDetectorsToogleButtonEnabled()) {
+    if (myTLSEditorParent->myTLSAttributes->isSetDetectorsToggleButtonEnabled()) {
         // selecting E1, disable buttons
         return sender->handle(getCollapsableFrame(), FXSEL(SEL_COMMAND, FXWindow::ID_DISABLE), nullptr);
     } else if (myTLSEditorParent->myTLSJunction->isJoiningJunctions()) {
@@ -1969,7 +1997,7 @@ GNETLSEditorFrame::TLSPhases::onCmdUngroupStates(FXObject*, FXSelector, void*) {
 
 long
 GNETLSEditorFrame::TLSPhases::onUpdNeedsSingleDef(FXObject* sender, FXSelector, void*) {
-    if (myTLSEditorParent->myTLSAttributes->isSetDetectorsToogleButtonEnabled()) {
+    if (myTLSEditorParent->myTLSAttributes->isSetDetectorsToggleButtonEnabled()) {
         // selecting E1, disable buttons
         return sender->handle(getCollapsableFrame(), FXSEL(SEL_COMMAND, FXWindow::ID_DISABLE), nullptr);
     } else if (myTLSEditorParent->myTLSJunction->isJoiningJunctions()) {
@@ -1985,7 +2013,7 @@ GNETLSEditorFrame::TLSPhases::onUpdNeedsSingleDef(FXObject* sender, FXSelector, 
 
 long
 GNETLSEditorFrame::TLSPhases::onUpdUngroupStates(FXObject* sender, FXSelector, void*) {
-    if (myTLSEditorParent->myTLSAttributes->isSetDetectorsToogleButtonEnabled()) {
+    if (myTLSEditorParent->myTLSAttributes->isSetDetectorsToggleButtonEnabled()) {
         // selecting E1, disable buttons
         return sender->handle(getCollapsableFrame(), FXSEL(SEL_COMMAND, FXWindow::ID_DISABLE), nullptr);
     } else if (myTLSEditorParent->myTLSJunction->isJoiningJunctions()) {
@@ -2730,7 +2758,7 @@ long
 GNETLSEditorFrame::TLSFile::onUpdButtons(FXObject* sender, FXSelector, void*) {
     if (myTLSEditorParent->myTLSDefinition->getNumberOfTLSDefinitions() == 0) {
         return sender->handle(getCollapsableFrame(), FXSEL(SEL_COMMAND, FXWindow::ID_DISABLE), nullptr);
-    } else if (myTLSEditorParent->myTLSAttributes->isSetDetectorsToogleButtonEnabled()) {
+    } else if (myTLSEditorParent->myTLSAttributes->isSetDetectorsToggleButtonEnabled()) {
         // selecting E1, disable buttons
         return sender->handle(getCollapsableFrame(), FXSEL(SEL_COMMAND, FXWindow::ID_DISABLE), nullptr);
     } else if (myTLSEditorParent->myTLSJunction->isJoiningJunctions()) {

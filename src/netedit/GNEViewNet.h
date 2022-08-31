@@ -525,6 +525,9 @@ public:
     /// @brief check if we're seleting detectors in TLS mode
     bool selectingDetectorsTLSMode() const;
 
+    /// @brief check if we're seleting juncitons in TLS mode
+    bool selectingJunctionsTLSMode() const;
+
 protected:
     /// @brief FOX needs this
     GNEViewNet();
@@ -729,6 +732,9 @@ private:
 
     /// @brief draw temporal E1 TLS Lines
     void drawTemporalE1TLSLines() const;
+
+    /// @brief draw temporal Junction TLS Lines
+    void drawTemporalJunctionTLSLines() const;
 
     /// @}
 

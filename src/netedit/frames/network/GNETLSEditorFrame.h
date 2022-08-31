@@ -74,6 +74,12 @@ public:
         /// @brief check if given joined is part of joined TLS
         bool isJunctionJoined(const GNEJunction* junction) const;
 
+        /// @brief select or unselect junction in the current TLS
+        void toggleJunctionSelection(const GNEJunction* junction);
+
+        /// @brief get joined junctions
+        const std::vector<std::string> &getJoinedJunctions() const;
+
         /// @name FOX-callbacks
         /// @{
         /// @brief Called when the user rename TLS
@@ -130,6 +136,9 @@ public:
 
         /// @brief the junction of the tls is being modified
         GNEJunction* myCurrentJunction = nullptr;
+
+        /// @brief joined junctions
+        std::vector<std::string> myJoinedJunctions;
     };
 
     // ===========================================================================
@@ -283,8 +292,8 @@ public:
         /// @brief are current parameter valid
         bool isValidParameters();
 
-        /// @brief toogle button for set detectors mode
-        bool isSetDetectorsToogleButtonEnabled() const;
+        /// @brief toggle button for set detectors mode
+        bool isSetDetectorsToggleButtonEnabled() const;
 
         /// @brief select or unselect E1 detector in the current TLS
         bool toggleE1DetectorSelection(const GNEAdditional* E1);
@@ -337,8 +346,8 @@ public:
         /// @brief the TextField for modifying parameters
         FXTextField* myParametersTextField = nullptr;
 
-        /// @brief toogle button for set detectors mode
-        FXToggleButton* mySetDetectorsToogleButton = nullptr;
+        /// @brief toggle button for set detectors mode
+        FXToggleButton* mySetDetectorsToggleButton = nullptr;
 
         /// @brief set with E1 detector IDs and their lanes vinculated with the TLS <laneID, E1ID>
         std::map<std::string, std::string> myE1Detectors;
