@@ -82,6 +82,18 @@ public:
         /// @brief Called when occurs an update of modified
         long onUpdTLSType(FXObject*, FXSelector, void*);
 
+        /// @brief Called when the user join TLS
+        long onCmdJoinTLS(FXObject*, FXSelector, void*);
+
+        /// @brief Called when update join TLS
+        long onUpdJoinTLS(FXObject*, FXSelector, void*);
+
+        /// @brief Called when the user join TLS
+        long onCmdDisjoinTLS(FXObject*, FXSelector, void*);
+
+        /// @brief Called when update join TLS
+        long onUpdDisjoinTLS(FXObject*, FXSelector, void*);
+
         /// @}
 
     protected:
