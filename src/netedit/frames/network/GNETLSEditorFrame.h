@@ -120,7 +120,7 @@ public:
         MFXIconComboBox* myTLSTypeComboBox;
 
         /// @brief Toggle button for join TLS
-        FXToggleButton* myJoinTLSButton;
+        FXToggleButton* myJoinTLSToggleButton;
 
         /// @brief button for disjoin TLS
         MFXButtonTooltip* myDisjoinTLSButton;

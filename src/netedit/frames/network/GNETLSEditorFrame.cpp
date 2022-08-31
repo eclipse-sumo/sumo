@@ -886,7 +886,7 @@ GNETLSEditorFrame::TLSJunction::TLSJunction(GNETLSEditorFrame* TLSEditorParent) 
     // create frame for join buttons
     FXHorizontalFrame* joinButtons = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrameUniform);
     // create join states button
-    myJoinTLSButton = new FXToggleButton(joinButtons, "Join", "Join", 
+    myJoinTLSToggleButton = new FXToggleButton(joinButtons, "Join", "Join", 
         nullptr, nullptr, this, MID_GNE_TLSFRAME_TLSJUNCTION_JOIN, GUIDesignButton);
     myDisjoinTLSButton = new MFXButtonTooltip(joinButtons, TLSEditorParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltip(),
         "Disjoin\tDisjoint current TLS\tDisjoint current TLS", 
@@ -920,7 +920,7 @@ GNETLSEditorFrame::TLSJunction::updateJunctionDescription() const {
     // first reset junction label
     myJunctionIDLabel->setText("Junction ID");
     // reset join TLS Button
-    myJoinTLSButton->setState(FALSE, TRUE);
+    myJoinTLSToggleButton->setState(FALSE, TRUE);
     // continue depending of current junction
     if (myCurrentJunction == nullptr) {
         myJunctionIDTextField->setText("no junction selected");
@@ -958,7 +958,7 @@ GNETLSEditorFrame::TLSJunction::updateJunctionDescription() const {
 
 bool 
 GNETLSEditorFrame::TLSJunction::isJoiningJunctions() const {
-    return (myJoinTLSButton->getState() == TRUE);
+    return (myJoinTLSToggleButton->getState() == TRUE);
 }
 
 
@@ -1106,32 +1106,37 @@ GNETLSEditorFrame::TLSJunction::onUpdTLSType(FXObject*, FXSelector, void*) {
 
 long
 GNETLSEditorFrame::TLSJunction::onCmdJoinTLS(FXObject*, FXSelector, void*) {
+    if (myJoinTLSToggleButton->getState()) {
+        // set special color
+        myJoinTLSToggleButton->setBackColor(FXRGBA(253, 255, 206, 255));
+    } else {
+        // restore default color
+        myJoinTLSToggleButton->setBackColor(4293980400);
+    }
+    // update view
+    myTLSEditorParent->getViewNet()->update();
     return 1;
 }
 
 
 long 
-GNETLSEditorFrame::TLSJunction::onUpdJoinTLS(FXObject*, FXSelector, void*) {
+GNETLSEditorFrame::TLSJunction::onUpdJoinTLS(FXObject* sender, FXSelector, void*) {
     if (myCurrentJunction == nullptr) {
         // no junction, disable
-        myJoinTLSButton->disable();
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else if (myTLSEditorParent->myTLSAttributes->isSetDetectorsToogleButtonEnabled()) {
         // selecting E1, disable
-        myJoinTLSButton->disable();
-    } else if (myTLSEditorParent->myTLSJunction->isJoiningJunctions()) {
-        // joining TLSs, disable button
-        myJoinTLSButton->disable();
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else if (myTLSEditorParent->myTLSDefinition->checkHaveModifications()) {
         // current TLS modified, disable
-        myJoinTLSButton->disable();
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else if (myCurrentJunction->getNBNode()->getControllingTLS().size() == 0) {
         // no TLSs in Junctions, disable
-        myJoinTLSButton->disable();
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else {
         // enable
-        myJoinTLSButton->enable();
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
     }
-    return 1;
 }
 
 
@@ -1142,30 +1147,29 @@ GNETLSEditorFrame::TLSJunction::onCmdDisjoinTLS(FXObject*, FXSelector, void*) {
 
 
 long 
-GNETLSEditorFrame::TLSJunction::onUpdDisjoinTLS(FXObject*, FXSelector, void*) {
+GNETLSEditorFrame::TLSJunction::onUpdDisjoinTLS(FXObject* sender, FXSelector, void*) {
     if (myCurrentJunction == nullptr) {
         // no junction, disable
-        myDisjoinTLSButton->disable();
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else if (myTLSEditorParent->myTLSAttributes->isSetDetectorsToogleButtonEnabled()) {
         // selecting E1, disable
-        myDisjoinTLSButton->disable();
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else if (myTLSEditorParent->myTLSJunction->isJoiningJunctions()) {
         // joining TLSs, disable button
-        myDisjoinTLSButton->disable();
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else if (myTLSEditorParent->myTLSDefinition->checkHaveModifications()) {
         // current TLS modified, disable
-        myDisjoinTLSButton->disable();
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else if (myCurrentJunction->getNBNode()->getControllingTLS().size() == 0) {
         // no TLSs in Junctions, disable
-        myDisjoinTLSButton->disable();
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else if ((*myCurrentJunction->getNBNode()->getControllingTLS().begin())->getNodes().size() == 1) {
         // TLS only control one junction, disable
-        myDisjoinTLSButton->disable();
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else {
         // enable
-        myDisjoinTLSButton->enable();
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
     }
-    return 1;
 }
 
 // ---------------------------------------------------------------------------
