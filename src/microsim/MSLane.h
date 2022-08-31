@@ -1337,6 +1337,9 @@ protected:
     /// @brief check whether any of the outgoing links are being approached
     bool hasApproaching(const std::vector<MSLink*>& links) const;
 
+    /// @brief return length of fractional vehicles on this lane
+    double getFractionalVehicleLength(bool brutto) const;
+
     /// Unique numerical ID (set on reading by netload)
     int myNumericalID;
 

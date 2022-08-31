@@ -2984,9 +2984,28 @@ MSLane::getCrossingIndex() const {
 
 // ------------ Current state retrieval
 double
+MSLane::getFractionalVehicleLength(bool brutto) const {
+    double sum = 0;
+    if (myPartialVehicles.size() > 0) {
+        const MSLane* bidi = getBidiLane();
+        for (MSVehicle* cand : myPartialVehicles) {
+            if (MSGlobals::gSublane && cand->getLaneChangeModel().getShadowLane() == this) {
+                continue;
+            }
+            if (cand->getLane() == bidi) {
+                sum += (brutto ? cand->getVehicleType().getLengthWithGap() : cand->getVehicleType().getLength());
+            } else {
+                sum += myLength - cand->getBackPositionOnLane(this);
+            }
+        }
+    }
+    return sum;
+}
+
+double
 MSLane::getBruttoOccupancy() const {
-    double fractions = myPartialVehicles.size() > 0 ? MIN2(myLength, myLength - myPartialVehicles.front()->getBackPositionOnLane(this)) : 0;
     getVehiclesSecure();
+    double fractions = getFractionalVehicleLength(true);
     if (myVehicles.size() != 0) {
         MSVehicle* lastVeh = myVehicles.front();
         if (lastVeh->getPositionOnLane() < lastVeh->getVehicleType().getLength()) {
@@ -3000,8 +3019,8 @@ MSLane::getBruttoOccupancy() const {
 
 double
 MSLane::getNettoOccupancy() const {
-    double fractions = myPartialVehicles.size() > 0 ? MIN2(myLength, myLength - myPartialVehicles.front()->getBackPositionOnLane(this)) : 0;
     getVehiclesSecure();
+    double fractions = getFractionalVehicleLength(false);
     if (myVehicles.size() != 0) {
         MSVehicle* lastVeh = myVehicles.front();
         if (lastVeh->getPositionOnLane() < lastVeh->getVehicleType().getLength()) {
