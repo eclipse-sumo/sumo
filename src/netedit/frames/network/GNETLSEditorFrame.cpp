@@ -962,6 +962,12 @@ GNETLSEditorFrame::TLSJunction::isJoiningJunctions() const {
 }
 
 
+bool
+GNETLSEditorFrame::TLSJunction::isJunctionJoined(const GNEJunction* junction) const {
+    return true;
+}
+
+
 long 
 GNETLSEditorFrame::TLSJunction::onCmdRenameTLS(FXObject*, FXSelector, void*) {
     // get IDs

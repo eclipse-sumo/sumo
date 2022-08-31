@@ -71,6 +71,9 @@ public:
         /// @brief is joining junctions
         bool isJoiningJunctions() const;
 
+        /// @brief check if given joined is part of joined TLS
+        bool isJunctionJoined(const GNEJunction* junction) const;
+
         /// @name FOX-callbacks
         /// @{
         /// @brief Called when the user rename TLS
