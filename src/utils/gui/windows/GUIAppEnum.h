@@ -1000,14 +1000,14 @@ enum {
     /// @name GNETLSEditorFrame messages
     /// @{
 
-    /// @brief selected junction von TLS
-    MID_GNE_TLSFRAME_JUNCTION,
     /// @brief current TLS ID
-    MID_GNE_TLSFRAME_TLSID,
+    MID_GNE_TLSFRAME_TLSJUNCTION_ID,
     /// @brief current TLS ID
-    MID_GNE_TLSFRAME_TLSTYPE,
-    /// @brief update TLS status
-    MID_GNE_TLSFRAME_UPDATE_STATUS,
+    MID_GNE_TLSFRAME_TLSJUNCTION_TYPE,
+    /// @brief join TLS
+    MID_GNE_TLSFRAME_TLSJUNCTION_JOIN,
+    /// @brief Disjoin TLS
+    MID_GNE_TLSFRAME_TLSJUNCTION_DISJOIN,
     /// @brief replace program with a newly guessed program
     MID_GNE_TLSFRAME_ATTRIBUTES_GUESSPROGRAM,
     /// @brief TLS offset

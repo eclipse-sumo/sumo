@@ -47,10 +47,10 @@
 // ===========================================================================
 
 FXDEFMAP(GNETLSEditorFrame::TLSJunction) TLSJunctionMap[] = {
-    FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_TLSID,       GNETLSEditorFrame::TLSJunction::onCmdRenameTLS),
-    FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_TLSID,       GNETLSEditorFrame::TLSJunction::onUpdTLSID),
-    FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_TLSTYPE,     GNETLSEditorFrame::TLSJunction::onCmdChangeType),
-    FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_TLSTYPE,     GNETLSEditorFrame::TLSJunction::onUpdTLSType)
+    FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_TLSJUNCTION_ID,      GNETLSEditorFrame::TLSJunction::onCmdRenameTLS),
+    FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_TLSJUNCTION_ID,      GNETLSEditorFrame::TLSJunction::onUpdTLSID),
+    FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_TLSJUNCTION_TYPE,    GNETLSEditorFrame::TLSJunction::onCmdChangeType),
+    FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_TLSJUNCTION_TYPE,    GNETLSEditorFrame::TLSJunction::onUpdTLSType)
 };
 
 FXDEFMAP(GNETLSEditorFrame::TLSDefinition) TLSDefinitionMap[] = {
@@ -842,7 +842,7 @@ GNETLSEditorFrame::TLSAttributes::updateE1Detectors() {
 // ---------------------------------------------------------------------------
 
 GNETLSEditorFrame::TLSJunction::TLSJunction(GNETLSEditorFrame* TLSEditorParent) :
-    MFXGroupBoxModule(TLSEditorParent, "Junction"),
+    MFXGroupBoxModule(TLSEditorParent, "Traffic Light"),
     myTLSEditorParent(TLSEditorParent),
     myCurrentJunction(nullptr) {
     // Create frame for junction IDs
@@ -850,24 +850,33 @@ GNETLSEditorFrame::TLSJunction::TLSJunction(GNETLSEditorFrame* TLSEditorParent) 
     myJunctionIDLabel = new FXLabel(junctionIDFrame, "Junction ID", nullptr, GUIDesignLabelAttribute);
     myJunctionIDTextField = new MFXTextFieldTooltip(junctionIDFrame, 
         TLSEditorParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltip(),
-        GUIDesignTextFieldNCol, this, MID_GNE_TLSFRAME_JUNCTION, GUIDesignTextField);
+        GUIDesignTextFieldNCol, this, 0, GUIDesignTextField);
     myJunctionIDTextField->disable();
     // Create frame for TLS Program ID
     FXHorizontalFrame* TLSIDFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(TLSIDFrame, "TLS ID", nullptr, GUIDesignLabelAttribute);
     myTLSIDTextField = new MFXTextFieldTooltip(TLSIDFrame, 
         TLSEditorParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltip(),
-        GUIDesignTextFieldNCol, this, MID_GNE_TLSFRAME_TLSID, GUIDesignTextField);
+        GUIDesignTextFieldNCol, this, MID_GNE_TLSFRAME_TLSJUNCTION_ID, GUIDesignTextField);
     // create frame, label and textfield for type
     FXHorizontalFrame* typeFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(typeFrame, toString(SUMO_ATTR_TYPE).c_str(), nullptr, GUIDesignLabelAttribute);
-    myTLSTypeComboBox = new MFXIconComboBox(typeFrame, GUIDesignComboBoxNCol, false, this, MID_GNE_TLSFRAME_TLSTYPE, GUIDesignComboBoxAttribute);
+    myTLSTypeComboBox = new MFXIconComboBox(typeFrame, GUIDesignComboBoxNCol, false, this, MID_GNE_TLSFRAME_TLSJUNCTION_TYPE, GUIDesignComboBoxAttribute);
     // fill comboBox (only certain TL types)
     myTLSTypeComboBox->appendIconItem(toString(TrafficLightType::STATIC).c_str());
     myTLSTypeComboBox->appendIconItem(toString(TrafficLightType::ACTUATED).c_str());
     myTLSTypeComboBox->appendIconItem(toString(TrafficLightType::DELAYBASED).c_str());
     myTLSTypeComboBox->appendIconItem(toString(TrafficLightType::NEMA).c_str());
     myTLSTypeComboBox->setNumVisible(myTLSTypeComboBox->getNumItems());
+    // create frame for join buttons
+    FXHorizontalFrame* joinButtons = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrameUniform);
+    // create join states button
+    new MFXButtonTooltip(joinButtons, TLSEditorParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltip(),
+        "Join\tJoin TLSs\tJoin TLSs selecting in view", 
+        nullptr, this, MID_GNE_TLSFRAME_TLSJUNCTION_JOIN, GUIDesignButton);
+    new MFXButtonTooltip(joinButtons, TLSEditorParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltip(),
+        "Disjoin\tDisjoint current TLS\tDisjoint current TLS", 
+        nullptr, this, MID_GNE_TLSFRAME_TLSJUNCTION_DISJOIN, GUIDesignButton);
     // update junction description after creation
     updateJunctionDescription();
     // show TLS Junction
@@ -1505,11 +1514,11 @@ GNETLSEditorFrame::TLSPhases::TLSPhases(GNETLSEditorFrame* TLSEditorParent) :
         nullptr, this, MID_GNE_TLSFRAME_PHASES_ADDUNUSED, GUIDesignButton);
     // group states button
     new MFXButtonTooltip(col1, TLSEditorParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltip(),
-        "Group Signals\tShorten state definition by letting connections with the same signal states use the same index\tShorten state definition by letting connections with the same signal states use the same index. (Not allowed for multiple programs)", 
+        "Group Sig.\tShorten state definition by letting connections with the same signal states use the same index\tShorten state definition by letting connections with the same signal states use the same index. (Not allowed for multiple programs)", 
         nullptr, this, MID_GNE_TLSFRAME_PHASES_GROUPSTATES, GUIDesignButton);
     // ungroup states button
     new MFXButtonTooltip(col2, TLSEditorParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltip(),
-        "Ungroup Signals\tLet every connection use a distinct index (reverse state grouping)\tLet every connection use a distinct index (reverse state grouping). (Not allowed for multiple programs)", 
+        "Ungroup Sig.\tLet every connection use a distinct index (reverse state grouping)\tLet every connection use a distinct index (reverse state grouping). (Not allowed for multiple programs)", 
         nullptr, this, MID_GNE_TLSFRAME_PHASES_UNGROUPSTATES, GUIDesignButton);
     // show TLSFile
     show();
