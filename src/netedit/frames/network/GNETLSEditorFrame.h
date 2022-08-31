@@ -98,7 +98,7 @@ public:
         long onUpdTLSType(FXObject*, FXSelector, void*);
 
         /// @brief Called when the user join TLS
-        long onCmdJoinTLS(FXObject*, FXSelector, void*);
+        long onCmdToggleJoinTLS(FXObject*, FXSelector, void*);
 
         /// @brief Called when update join TLS
         long onUpdJoinTLS(FXObject*, FXSelector, void*);
@@ -325,7 +325,7 @@ public:
         long onUpdParameters(FXObject*, FXSelector, void*);
 
         /// @brief Called when user toggle set detector mode
-        long onCmdSetDetectorMode(FXObject*, FXSelector, void* ptr);
+        long onCmdToggleDetectorMode(FXObject*, FXSelector, void* ptr);
         
         /// @brief Called when occurs an update of set detector mode
         long onUpdSetDetectorMode(FXObject*, FXSelector, void*);

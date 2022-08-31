@@ -1005,7 +1005,7 @@ enum {
     /// @brief current TLS ID
     MID_GNE_TLSFRAME_TLSJUNCTION_TYPE,
     /// @brief join TLS
-    MID_GNE_TLSFRAME_TLSJUNCTION_JOIN,
+    MID_GNE_TLSFRAME_TLSJUNCTION_TOGGLEJOIN,
     /// @brief Disjoin TLS
     MID_GNE_TLSFRAME_TLSJUNCTION_DISJOIN,
     /// @brief replace program with a newly guessed program
@@ -1017,7 +1017,7 @@ enum {
     /// @brief TLS parameters
     MID_GNE_TLSFRAME_ATTRIBUTES_PARAMETERSDIALOG,
     /// @brief set detectors in TLS
-    MID_GNE_TLSFRAME_ATTRIBUTES_SETDETECTOR,
+    MID_GNE_TLSFRAME_ATTRIBUTES_TOGGLEDETECTOR,
     /// @brief Create TLS
     MID_GNE_TLSFRAME_DEFINITION_CREATE,
     /// @brief delete TLS
