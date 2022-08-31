@@ -198,6 +198,8 @@ public:
      * @return The maximum possible speed for the next step taking driving dynamics into account
      */
     double maxNextSafeMin(double speed, const MSVehicle* const veh = 0) const {
+        UNUSED_PARAMETER(speed);
+        UNUSED_PARAMETER(veh);
         return 0;
     }
 
