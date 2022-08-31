@@ -4251,7 +4251,11 @@ MSLane::getSpaceTillLastStanding(const MSVehicle* ego, bool& foundStopped) const
             const double ret = last->getBackPositionOnLane() + lastBrakeGap - lengths;
             return ret;
         }
-        lengths += last->getVehicleType().getLengthWithGap();
+        if (MSGlobals::gSublane && ego->getVehicleType().getWidth() + last->getVehicleType().getWidth() < getWidth()) {
+            lengths += last->getVehicleType().getLengthWithGap() * (last->getVehicleType().getWidth() + last->getVehicleType().getMinGapLat()) / getWidth();
+        } else {
+            lengths += last->getVehicleType().getLengthWithGap();
+        }
     }
     return getLength() - lengths;
 }
