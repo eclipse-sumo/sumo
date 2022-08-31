@@ -900,7 +900,7 @@ GNETLSEditorFrame::TLSJunction::TLSJunction(GNETLSEditorFrame* TLSEditorParent) 
     myJoinTLSToggleButton = new FXToggleButton(joinButtons, "Join", "Join", 
         nullptr, nullptr, this, MID_GNE_TLSFRAME_TLSJUNCTION_JOIN, GUIDesignButton);
     myDisjoinTLSButton = new MFXButtonTooltip(joinButtons, TLSEditorParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltip(),
-        "Disjoin\tDisjoint current TLS\tDisjoint current TLS", 
+        "Disjoin\tDisjoin current TLS\tDisjoin current TLS", 
         nullptr, this, MID_GNE_TLSFRAME_TLSJUNCTION_DISJOIN, GUIDesignButton);
     // update junction description after creation
     updateJunctionDescription();
@@ -1233,6 +1233,35 @@ GNETLSEditorFrame::TLSJunction::onUpdJoinTLS(FXObject* sender, FXSelector, void*
 
 long
 GNETLSEditorFrame::TLSJunction::onCmdDisjoinTLS(FXObject*, FXSelector, void*) {
+    // make a copy of current junction
+    const auto currentJunction = myCurrentJunction;
+    // declare vectors for junctions
+    std::vector<GNEJunction*> resetTLJunctions;
+    // get junctions to reset TL
+    for (const auto &TLNBNode : (*currentJunction->getNBNode()->getControllingTLS().begin())->getNodes()) {
+        resetTLJunctions.push_back(myTLSEditorParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveJunction(TLNBNode->getID()));
+    }
+    // save TL types
+    const auto type = resetTLJunctions.front()->getAttribute(SUMO_ATTR_TYPE);
+    const auto tlType = resetTLJunctions.front()->getAttribute(SUMO_ATTR_TLTYPE);
+    // discard changes
+    myTLSEditorParent->myTLSDefinition->discardChanges(false);
+    // begin undo list
+    myTLSEditorParent->getViewNet()->getUndoList()->begin(GUIIcon::MODETLS, "disjoin TLS");
+    // remove tl from TLNBNode
+    for (const auto &resetTLJunction : resetTLJunctions) {
+        resetTLJunction->setAttribute(SUMO_ATTR_TYPE, "priority", myTLSEditorParent->getViewNet()->getUndoList());
+        resetTLJunction->setAttribute(SUMO_ATTR_TYPE, type, myTLSEditorParent->getViewNet()->getUndoList());
+        resetTLJunction->setAttribute(SUMO_ATTR_TLTYPE, tlType, myTLSEditorParent->getViewNet()->getUndoList());
+    }
+    // end undo list
+    myTLSEditorParent->getViewNet()->getUndoList()->end();
+    // restore default color
+    myJoinTLSToggleButton->setBackColor(4293980400);
+    // clear selected junction IDs
+    mySelectedJunctionIDs.clear();
+    // edit junction again
+    myTLSEditorParent->editJunction(currentJunction);
     return 1;
 }
 
