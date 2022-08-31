@@ -689,6 +689,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "color",                  SUMO_ATTR_COLOR },
     { "dir",                    SUMO_ATTR_DIR },
     { "state",                  SUMO_ATTR_STATE },
+    { "lcState",                SUMO_ATTR_LCSTATE },
     { "layer",                  SUMO_ATTR_LAYER },
     { "fill",                   SUMO_ATTR_FILL },
     { "lineWidth",              SUMO_ATTR_LINEWIDTH },

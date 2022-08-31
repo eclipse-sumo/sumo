@@ -1026,6 +1026,8 @@ enum SumoXMLAttr {
     SUMO_ATTR_DIR,
     /// @brief The state of a link
     SUMO_ATTR_STATE,
+    /// @brief The state of the lanechange model
+    SUMO_ATTR_LCSTATE,
     /// @brief foe visibility distance of a link
     SUMO_ATTR_VISIBILITY_DISTANCE,
     /// @brief A layer number

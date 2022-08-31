@@ -6997,6 +6997,7 @@ MSVehicle::saveState(OutputDevice& out) {
     out.writeAttr(SUMO_ATTR_ANGLE, GeomHelper::naviDegree(myAngle));
     out.writeAttr(SUMO_ATTR_POSITION_LAT, myState.myPosLat);
     out.writeAttr(SUMO_ATTR_WAITINGTIME, myWaitingTimeCollector.getState());
+    myLaneChangeModel->saveState(out);
     // save past stops
     for (SUMOVehicleParameter::Stop stop : myPastStops) {
         stop.write(out, false);
@@ -7066,6 +7067,7 @@ MSVehicle::loadState(const SUMOSAXAttributes& attrs, const SUMOTime offset) {
     if (stopped) {
         myStopDist = 0;
     }
+    myLaneChangeModel->loadState(attrs);
     // no need to reset myCachedPosition here since state loading happens directly after creation
 }
 
