@@ -2172,7 +2172,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
             for (int i = 0; i < cands.numSublanes(); i++) {
                 CLeaderDist cand = cands[i];
                 if (cand.first != 0) {
-                    if ((cand.first->myLaneChangeModel->isOpposite() && cand.first->getLane() == leaderLane)
+                    if ((cand.first->myLaneChangeModel->isOpposite() && cand.first->getLaneChangeModel().getShadowLane() != leaderLane)
                             || (!cand.first->myLaneChangeModel->isOpposite() && cand.first->getLaneChangeModel().getShadowLane() == leaderLane)) {
                         // respect leaders that also drive in the opposite direction (fully or with some overlap)
                         oppositeLeaders.addLeader(cand.first, cand.second + gapOffset - getVehicleType().getMinGap() + cand.first->getVehicleType().getMinGap() - cand.first->getVehicleType().getLength());
