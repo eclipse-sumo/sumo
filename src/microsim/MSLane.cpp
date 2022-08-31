@@ -1838,6 +1838,25 @@ MSLane::detectCollisionBetween(SUMOTime timestep, const std::string& stage, MSVe
             if (latGap + NUMERICAL_EPS > 0) {
                 return false;
             }
+            // account for ambiguous gap computation related to partial
+            // occupation of lanes with different lengths
+            if (isInternal() && getEdge().getNumLanes() > 1 && victim->getLane() != collider->getLane()) {
+                double gapDelta = 0;
+                const MSVehicle* otherLaneVeh = collider->getLane() == this ? victim : collider;
+                if (otherLaneVeh->getLaneChangeModel().getShadowLane() == this) {
+                    gapDelta = getLength() - otherLaneVeh->getLane()->getLength();
+                } else {
+                    for (const MSLane* cand : otherLaneVeh->getFurtherLanes()) {
+                        if (&cand->getEdge() == &getEdge()) {
+                            gapDelta = getLength() - cand->getLength();
+                            break;
+                        }
+                    }
+                }
+                if (gap + gapDelta >= 0) {
+                    return false;
+                }
+            }
         }
         if (MSGlobals::gLaneChangeDuration > DELTA_T
                 && collider->getLaneChangeModel().isChangingLanes()

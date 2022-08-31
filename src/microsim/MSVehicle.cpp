@@ -4573,7 +4573,8 @@ MSVehicle::getBackPositionOnLane(const MSLane* lane, bool calledByGetPosition) c
         } else if (&lane->getEdge() != &myLane->getEdge()) {
             return lane->getLength() - myState.myPos + (calledByGetPosition ? -1 : 1) * myType->getLength();
         } else {
-            return myState.myPos - myType->getLength();
+            // account for parallel lanes of different lengths in the most conservative manner (i.e. while turning)
+            return myState.myPos - myType->getLength() + MIN2(0.0, lane->getLength() - myLane->getLength());
         }
     } else if (lane == myLane->getBidiLane()) {
         return lane->getLength() - myState.myPos - myType->getLength();
