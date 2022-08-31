@@ -42,10 +42,10 @@
 #include <utils/common/RandHelper.h>
 #include <utils/common/SUMOTime.h>
 
-//#define DEBUG_V
+#define DEBUG_V
 
 #define EST_REAC_THRESHOLD 3. // under this threshold estimation, error and reaction time variables don't get taken into account
-#define ClutchEngageSpeed 2. // When a vehicle is below this speed, we assume a "slow to start", that is because of clutch operation / powertrain inertia
+#define ClutchEngageSpeed 0.5 // When a vehicle is below this speed, we assume a "slow to start", that is because of clutch operation / powertrain inertia
 #define EIDM_POS_ACC_EPS 0.05 // some slack number to ensure smoother position, speed and acceleration update
 
 // ===========================================================================
@@ -243,8 +243,9 @@ MSCFModel_EIDM::slowToStartTerm(MSVehicle* const veh, const double newSpeed, con
         // When we reach this point, "newSpeed > currentSpeed" already holds
         // Activation of the Drive Off term, when
         if (currentSpeed < ClutchEngageSpeed && // The start speed is lower than ClutchEngageSpeed m/s
-                vars->t_off + 4. - NUMERICAL_EPS < (SIMTIME - remainingDelay - TS * (myIterations - i - 1.) / myIterations) && vars->myap_update == 0 && // the last activation is at least 4 seconds ago AND an Action Point was reached
-                veh->getAcceleration() < 0.2) { // && respectMinGap) { // the driver hasn't started accelerating yet (<0.2)
+                vars->t_off + 4. - NUMERICAL_EPS < (SIMTIME - remainingDelay - TS * (myIterations - i - 1.) / myIterations) && // the last activation is at least 4 seconds ago 
+                vars->myap_update == 0 && // the last activation is at least 4 seconds ago AND an Action Point was reached
+                veh->getAcceleration() < MIN2(myAccel / 4, 0.2)) { // && respectMinGap) { // the driver hasn't started accelerating yet (<0.2)
             vars->t_off = (SIMTIME - remainingDelay - TS * (myIterations - i - 1.) / myIterations); // activate the drive off term
         }
         // Calculation of the Drive Off term
@@ -313,7 +314,7 @@ MSCFModel_EIDM::finalizeSpeed(MSVehicle* const veh, double vPos) const {
         vNext = veh->getLaneChangeModel().patchSpeed(vMin, vNext, vMax, *this);
 
         // Bound the positive change of the acceleration with myJerkmax
-        if (vNext > oldV && oldV > EST_REAC_THRESHOLD) {
+        if (vNext > oldV && oldV > ClutchEngageSpeed * 2 && vars->t_off + myTaccmax + NUMERICAL_EPS < SIMTIME) {
             // At junctions with minor priority acceleration will still jump because after finalizeSpeed "MAX2(vNext, vSafeMin)" is called, vSafeMin is higher and vNext from finalizeSpeed is then ignored!!!
             // If we put this jmax-Part into _v-function (via old calc_gap implementation), then vehicle can't drive over junction because it thinks it won't make it in time before a foe may appear!
             if (myJerkmax * TS + veh->getAcceleration() < 0.) { // If driver wants to accelerate, but is still decelerating, then we use a factor of 2!
@@ -321,7 +322,7 @@ MSCFModel_EIDM::finalizeSpeed(MSVehicle* const veh, double vPos) const {
             } else {
                 vNext = MAX2(oldV + MIN2(vNext - oldV, (myJerkmax * TS + veh->getAcceleration()) * TS), 0.); // change in acceleration (jerk) is bounded by myJerkmax
             }
-        } else if (vNext <= oldV && vNext < vMax - NUMERICAL_EPS && oldV > EST_REAC_THRESHOLD) {
+        } else if (vNext <= oldV && vNext < vMax - NUMERICAL_EPS && oldV > ClutchEngageSpeed * 2) {
             // Slowing down the deceleration like this may be critical!!! Vehicle can also not come back from Emergency braking fast enough!
             /*if (vNext - oldV < -myJerkmax * TS + veh->getAcceleration()) { // driver wants to brake harder than before, change in acceleration is then bounded by -myJerkmax
                 vNext = MAX2(oldV + (-myJerkmax * TS + veh->getAcceleration()) * TS, 0.);
