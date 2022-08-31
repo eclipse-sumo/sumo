@@ -721,6 +721,13 @@ GNECreateEdgeFrame::processClick(const Position& clickedPosition, const GNEViewN
                             newOppositeEdge->copyTemplate(myViewNet->getViewParent()->getInspectorFrame()->getTemplateEditor()->getEdgeTemplate(), myViewNet->getUndoList());
                         } else if (myEdgeTypeSelector->useDefaultEdgeType()) {
                             newOppositeEdge->copyEdgeType(myEdgeTypeSelector->getDefaultEdgeType(), myViewNet->getUndoList());
+                            // check pedestrians and sidewalks
+                            if (myEdgeTypeSelector->isNoPedestriansEnabled()) {
+                                disablePedestrians(newOppositeEdge);
+                            }
+                            if (myEdgeTypeSelector->isAddSidewalkEnabled()) {
+                                addSidewalk(newOppositeEdge);
+                            }
                         } else {
                             newOppositeEdge->copyEdgeType(myEdgeTypeSelector->getEdgeTypeSelected(), myViewNet->getUndoList());
                         }
