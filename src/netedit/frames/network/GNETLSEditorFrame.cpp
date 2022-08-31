@@ -1162,8 +1162,8 @@ GNETLSEditorFrame::TLSJunction::onCmdJoinTLS(FXObject*, FXSelector, void*) {
         const auto TLNodes = (*myCurrentJunction->getNBNode()->getControllingTLS().begin())->getNodes();
         // fill mySelectedJunctionIDs with TLNodes
         mySelectedJunctionIDs.clear();
-        for (const auto &TLNodes: TLNodes) {
-            mySelectedJunctionIDs.push_back(TLNodes->getID());
+        for (const auto &TLNode: TLNodes) {
+            mySelectedJunctionIDs.push_back(TLNode->getID());
         }
     } else {
         // make a copy of current junction
