@@ -129,13 +129,13 @@ public:
         MFXTextFieldTooltip* myTLSIDTextField = nullptr;
 
         /// @brief ComboBox for TLS Types
-        MFXIconComboBox* myTLSTypeComboBox;
+        MFXIconComboBox* myTLSTypeComboBox = nullptr;
 
         /// @brief Toggle button for join TLS
-        FXToggleButton* myJoinTLSToggleButton;
+        MFXToggleButtonTooltip* myJoinTLSToggleButton = nullptr;
 
         /// @brief button for disjoin TLS
-        MFXButtonTooltip* myDisjoinTLSButton;
+        MFXButtonTooltip* myDisjoinTLSButton = nullptr;
 
         /// @brief the junction of the tls is being modified
         GNEJunction* myCurrentJunction = nullptr;
@@ -353,7 +353,7 @@ public:
         FXTextField* myParametersTextField = nullptr;
 
         /// @brief toggle button for set detectors mode
-        FXToggleButton* mySetDetectorsToggleButton = nullptr;
+        MFXToggleButtonTooltip* mySetDetectorsToggleButton = nullptr;
 
         /// @brief set with E1 detector IDs and their lanes vinculated with the TLS <laneID, E1ID>
         std::map<std::string, std::string> myE1Detectors;

@@ -557,8 +557,12 @@ GNETLSEditorFrame::TLSAttributes::TLSAttributes(GNETLSEditorFrame* TLSEditorPare
     myButtonEditParameters->disable();
     myParametersTextField->disable();
     // create Checkable button
-    mySetDetectorsToggleButton = new FXToggleButton(getCollapsableFrame(), "Assign E1 detectors", "Assign E1 detectors", 
-        GUIIconSubSys::getIcon(GUIIcon::E1), GUIIconSubSys::getIcon(GUIIcon::E1), this, MID_GNE_TLSFRAME_ATTRIBUTES_SETDETECTOR, GUIDesignButton);
+    mySetDetectorsToggleButton = new MFXToggleButtonTooltip(getCollapsableFrame(), 
+        TLSEditorParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltip(), 
+        "Assign E1 detectors\tEnable assign E1 mode\tAssign E1 detectors to the current TLS", 
+        "Assign E1 detectors\tDisable assign E1 mode\tAssign E1 detectors to the current TLS", 
+        GUIIconSubSys::getIcon(GUIIcon::E1), GUIIconSubSys::getIcon(GUIIcon::E1), 
+        this, MID_GNE_TLSFRAME_ATTRIBUTES_SETDETECTOR, GUIDesignButton);
 }
 
 
@@ -897,11 +901,16 @@ GNETLSEditorFrame::TLSJunction::TLSJunction(GNETLSEditorFrame* TLSEditorParent) 
     // create frame for join buttons
     FXHorizontalFrame* joinButtons = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrameUniform);
     // create join states button
-    myJoinTLSToggleButton = new FXToggleButton(joinButtons, "Join", "Join", 
-        nullptr, nullptr, this, MID_GNE_TLSFRAME_TLSJUNCTION_JOIN, GUIDesignButton);
-    myDisjoinTLSButton = new MFXButtonTooltip(joinButtons, TLSEditorParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltip(),
+    myJoinTLSToggleButton = new MFXToggleButtonTooltip(joinButtons, 
+        TLSEditorParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltip(),
+        "Join\tEnable join mode\tJoin TLS and junctions in the current junction", 
+        "Join\tDisable join mode\tJoin TLS and junctions in the current junction", 
+        GUIIconSubSys::getIcon(GUIIcon::JOIN), GUIIconSubSys::getIcon(GUIIcon::JOIN), 
+        this, MID_GNE_TLSFRAME_TLSJUNCTION_JOIN, GUIDesignButton);
+    myDisjoinTLSButton = new MFXButtonTooltip(joinButtons, 
+        TLSEditorParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltip(),
         "Disjoin\tDisjoin current TLS\tDisjoin current TLS", 
-        nullptr, this, MID_GNE_TLSFRAME_TLSJUNCTION_DISJOIN, GUIDesignButton);
+        GUIIconSubSys::getIcon(GUIIcon::DISJOIN), this, MID_GNE_TLSFRAME_TLSJUNCTION_DISJOIN, GUIDesignButton);
     // update junction description after creation
     updateJunctionDescription();
     // show TLS Junction
