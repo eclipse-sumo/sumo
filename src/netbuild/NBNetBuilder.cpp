@@ -680,18 +680,6 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
 }
 
 
-/*
-void
-NBNetBuilder::computeSingleNode(NBNode* node, OptionsCont& oc, const std::set<std::string>& explicitTurnarounds, bool mayAddOrRemove) {
-    // for a single node do the following:
-    // sortEdges
-    // computeLaneShapes
-    // computeNodeShapes
-    // computeEdgeShapes
-}
-*/
-
-
 void
 NBNetBuilder::moveToOrigin(GeoConvHelper& geoConvHelper, bool lefthand) {
     long before = PROGRESS_BEGIN_TIME_MESSAGE("Moving network to origin");

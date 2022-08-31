@@ -621,15 +621,13 @@ NBEdgeCont::splitAt(NBDistrictCont& dc,
                     const std::string& secondEdgeName,
                     int noLanesFirstEdge, int noLanesSecondEdge,
                     const double speed, const double friction,
-                    const int changedLeft
-                   ) {
+                    const int changedLeft) {
     // there must be at least some overlap between first and second edge
     assert(changedLeft > -((int)noLanesFirstEdge));
     assert(changedLeft < (int)noLanesSecondEdge);
 
     // build the new edges' geometries
-    std::pair<PositionVector, PositionVector> geoms =
-        edge->getGeometry().splitAt(pos);
+    std::pair<PositionVector, PositionVector> geoms = edge->getGeometry().splitAt(pos);
     // build and insert the edges
     NBEdge* one = new NBEdge(firstEdgeName, edge->myFrom, node, edge, geoms.first, noLanesFirstEdge);
     NBEdge* two = new NBEdge(secondEdgeName, node, edge->myTo, edge, geoms.second, noLanesSecondEdge);
@@ -693,7 +691,7 @@ NBEdgeCont::splitAt(NBDistrictCont& dc,
     extract(dc, edge, true);
     if (!insert(one, true)) {
         WRITE_ERROR("Could not insert edge '" + one->getID() + "' before split of edge '" + oldID + "'");
-    };
+    }
     if (!insert(two, true)) {
         WRITE_ERROR("Could not insert edge '" + two->getID() + "' after split of edge '" + oldID + "'");
     }
@@ -1719,6 +1717,7 @@ NBEdgeCont::checkGrade(double threshold) const {
     }
 }
 
+
 int
 NBEdgeCont::joinLanes(SVCPermissions perms) {
     int affectedEdges = 0;
@@ -1729,6 +1728,7 @@ NBEdgeCont::joinLanes(SVCPermissions perms) {
     }
     return affectedEdges;
 }
+
 
 int
 NBEdgeCont::joinTramEdges(NBDistrictCont& dc, NBPTStopCont& sc, NBPTLineCont& lc, double maxDist) {
