@@ -1190,7 +1190,7 @@ class type:
         create = 2
         delete = 3
         copy = 3
-        dialog = 24
+        dialog = 25
 
     class edit:
         id = 8
@@ -1201,10 +1201,11 @@ class type:
         length = 14
         minGap = 15
         maxSpeed = 16
-        accel = 17
-        decel = 18
-        sigma = 19
-        tau = 20
+        desiredMaxSpeed = 17
+        accel = 18
+        decel = 19
+        sigma = 20
+        tau = 21
 
     class editDefault:
         vTypeDist = 7
@@ -1214,10 +1215,11 @@ class type:
         length = 12
         minGap = 13
         maxSpeed = 14
-        accel = 15
-        decel = 16
-        sigma = 17
-        tau = 18
+        desiredMaxSpeed = 15
+        accel = 16
+        decel = 17
+        sigma = 18
+        tau = 19
 
     class editDialog:
         vClass = 1
@@ -1227,30 +1229,31 @@ class type:
         length = 6
         minGap = 7
         maxSpeed = 8
-        speedFactor = 9
-        emissionClass = 10
-        width = 12
-        height = 13
-        imgFileButton = 14
-        imgFile = 15
-        osgFileButton = 16
-        osgFile = 17
-        probability = 18
+        desiredMaxSpeed = 9
+        speedFactor = 10
+        emissionClass = 11
+        width = 13
+        height = 14
+        imgFileButton = 15
+        imgFile = 16
+        osgFileButton = 17
+        osgFile = 18
         laneChangeModel = 19
         guiShape = 21
-        personCapacity = 23
-        containerCapacity = 24
-        boardingDuration = 25
-        loadingDuration = 26
-        latAlignment = 27
-        minGapLat = 29
-        maxSpeedLat = 30
-        actionStepLength = 31
-        carriageLength = 32
-        locomotiveLength = 33
-        carriageGap = 34
-        parametersButton = 35
-        parameters = 36
+        probability = 23
+        personCapacity = 24
+        containerCapacity = 25
+        boardingDuration = 26
+        loadingDuration = 27
+        latAlignment = 28
+        minGapLat = 30
+        maxSpeedLat = 31
+        actionStepLength = 32
+        carriageLength = 33
+        locomotiveLength = 34
+        carriageGap = 35
+        parametersButton = 36
+        parameters = 37
 
 # route
 
