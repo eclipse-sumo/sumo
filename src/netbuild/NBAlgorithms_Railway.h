@@ -39,19 +39,15 @@ class NBVehicle;
 // ---------------------------------------------------------------------------
 // NBAlgorithms_Railway
 // ---------------------------------------------------------------------------
-/* @class NBRampsComputer
- * @brief Computes highway on-/off-ramps (if wished)
+/* @class NBRailwayTopologyAnalyzer
+ * @brief Computes and adapts the topology for the rail network, especially bidi
  */
 class NBRailwayTopologyAnalyzer {
 public:
-    /** @brief Computes highway on-/off-ramps (if wished)
-     * @param[in, changed] nb The network builder which contains the current network representation
-     * @param[in] oc The options container
-     */
-    static void analyzeTopology(NBNetBuilder& nb);
+    static void analyzeTopology(NBEdgeCont& ec);
     static int repairTopology(NBNetBuilder& nb);
-    static int makeAllBidi(NBNetBuilder& nb);
-    static void extendDirectionPriority(NBNetBuilder& nb, bool fromUniDir);
+    static int makeAllBidi(NBEdgeCont& ec);
+    static void extendDirectionPriority(NBEdgeCont& ec, bool fromUniDir);
 
     /// routing edge
     class Track {
@@ -105,8 +101,8 @@ public:
     static double getTravelTimeStatic(const Track* const track, const NBVehicle* const veh, double time);
 
 private:
-    static std::set<NBNode*> getRailNodes(NBNetBuilder& nb, bool verbose = false);
-    static std::set<NBNode*> getBrokenRailNodes(NBNetBuilder& nb, bool verbose = false);
+    static std::set<NBNode*> getRailNodes(NBEdgeCont& ec, bool verbose = false);
+    static std::set<NBNode*> getBrokenRailNodes(NBEdgeCont& ec, bool verbose = false);
 
     /// @brief filter out rail edges among all edges of a the given node
     static void getRailEdges(const NBNode* node, EdgeVector& inEdges, EdgeVector& outEdges);
@@ -119,26 +115,26 @@ private:
     static NBEdge* isBidiSwitch(const NBNode* n);
 
     /// @brief add bidi-edge for the given edge
-    static NBEdge* addBidiEdge(NBNetBuilder& nb, NBEdge* edge, bool update = true);
+    static NBEdge* addBidiEdge(NBEdgeCont& ec, NBEdge* edge, bool update = true);
 
     /// @brief add further bidi-edges near existing bidi-edges
-    static int extendBidiEdges(NBNetBuilder& nb);
-    static int extendBidiEdges(NBNetBuilder& nb, NBNode* node, NBEdge* bidiIn);
+    static int extendBidiEdges(NBEdgeCont& ec);
+    static int extendBidiEdges(NBEdgeCont& ec, NBNode* node, NBEdge* bidiIn);
 
     /// @brief reverse edges sequences that are to broken nodes on both sides
     static int reverseEdges(NBNetBuilder& nb);
 
     /// @brief add bidi-edges to connect buffers stops in both directions
-    static int addBidiEdgesForBufferStops(NBNetBuilder& nb);
+    static int addBidiEdgesForBufferStops(NBEdgeCont& ec);
 
     /// @brief add bidi-edges to connect switches that are approached in both directions
-    static int addBidiEdgesBetweenSwitches(NBNetBuilder& nb);
+    static int addBidiEdgesBetweenSwitches(NBEdgeCont& ec);
 
     /// @brief add bidi-edges to connect successive public transport stops
     static int addBidiEdgesForStops(NBNetBuilder& nb);
 
     /// @brief add bidi-edges to connect straight tracks
-    static int addBidiEdgesForStraightConnectivity(NBNetBuilder& nb, bool geometryLike);
+    static int addBidiEdgesForStraightConnectivity(NBEdgeCont& ec, bool geometryLike);
 
     /// recompute turning directions for both nodes of the given edge
     static void updateTurns(NBEdge* edge);

@@ -151,7 +151,7 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
     int numAddedBidi = 0;
     if (oc.exists("railway.topology.all-bidi") && oc.getBool("railway.topology.all-bidi")) {
         NBTurningDirectionsComputer::computeTurnDirections(myNodeCont, false);
-        numAddedBidi = NBRailwayTopologyAnalyzer::makeAllBidi(*this);
+        numAddedBidi = NBRailwayTopologyAnalyzer::makeAllBidi(myEdgeCont);
     } else if (oc.exists("railway.topology.repair") && oc.getBool("railway.topology.repair")) {
         // correct railway angles for angle-based connectivity heuristic
         myEdgeCont.checkGeometries(0,
@@ -166,14 +166,14 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
     }
     if (oc.exists("railway.topology.direction-priority") && oc.getBool("railway.topology.direction-priority")) {
         NBTurningDirectionsComputer::computeTurnDirections(myNodeCont, false); // recompute after new edges were added
-        NBRailwayTopologyAnalyzer::extendDirectionPriority(*this, true);
+        NBRailwayTopologyAnalyzer::extendDirectionPriority(myEdgeCont, true);
     } else if (oc.exists("railway.topology.extend-priority") && oc.getBool("railway.topology.extend-priority")) {
         NBTurningDirectionsComputer::computeTurnDirections(myNodeCont, false); // recompute after new edges were added
-        NBRailwayTopologyAnalyzer::extendDirectionPriority(*this, false);
+        NBRailwayTopologyAnalyzer::extendDirectionPriority(myEdgeCont, false);
     }
     if (oc.exists("railway.topology.output") && oc.isSet("railway.topology.output")) {
         NBTurningDirectionsComputer::computeTurnDirections(myNodeCont, false); // recompute after new edges were added
-        NBRailwayTopologyAnalyzer::analyzeTopology(*this);
+        NBRailwayTopologyAnalyzer::analyzeTopology(myEdgeCont);
     }
 
 
