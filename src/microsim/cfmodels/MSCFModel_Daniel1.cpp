@@ -66,13 +66,13 @@ MSCFModel_Daniel1::finalizeSpeed(MSVehicle* const veh, double vPos) const {
 
 
 double
-MSCFModel_Daniel1::followSpeed(const MSVehicle* const veh, double speed, double gap, double predSpeed, double /*predMaxDecel*/, const MSVehicle* const /*pred*/) const {
+MSCFModel_Daniel1::followSpeed(const MSVehicle* const veh, double speed, double gap, double predSpeed, double /*predMaxDecel*/, const MSVehicle* const /*pred*/, const CalcReason /*usage*/) const {
     return MIN2(_vsafe(gap, predSpeed), maxNextSpeed(speed, veh));
 }
 
 
 double
-MSCFModel_Daniel1::stopSpeed(const MSVehicle* const veh, const double speed, double gap, double /*decel*/) const {
+MSCFModel_Daniel1::stopSpeed(const MSVehicle* const veh, const double speed, double gap, double /*decel*/, const CalcReason /*usage*/) const {
     return MIN2(_vsafe(gap, 0), maxNextSpeed(speed, veh));
 }
 

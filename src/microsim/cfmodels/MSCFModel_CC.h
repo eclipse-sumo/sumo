@@ -96,7 +96,8 @@ public:
      * @return EGO's safe speed
      * @see MSCFModel::ffeV
      */
-    double followSpeed(const MSVehicle* const veh, double speed, double gap2pred, double predSpeed, double predMaxDecel, const MSVehicle* const pred = 0) const;
+    double followSpeed(const MSVehicle* const veh, double speed, double gap2pred, double predSpeed,
+                       double predMaxDecel, const MSVehicle* const pred = 0, const CalcReason usage = CalcReason::CURRENT) const;
 
     /** @brief Overload base MSCFModel::insertionFollowSpeed method to inject
      * automated vehicles as soon as they are requested, without checking
@@ -113,7 +114,7 @@ public:
      * @see MSCFModel::ffeS
      * @todo generic Interface, models can call for the values they need
      */
-    double stopSpeed(const MSVehicle* const veh, const double speed, double gap2pred, double decel) const;
+    double stopSpeed(const MSVehicle* const veh, const double speed, double gap2pred, double decel, const CalcReason usage = CalcReason::CURRENT) const;
 
     /** @brief Computes the vehicle's safe speed without a leader
      *
@@ -128,7 +129,7 @@ public:
      * @return EGO's safe speed
      */
     virtual double freeSpeed(const MSVehicle* const veh, double speed, double seen,
-                             double maxSpeed, const bool onInsertion = false) const;
+                             double maxSpeed, const bool onInsertion = false, const CalcReason usage = CalcReason::CURRENT) const;
 
     virtual double maxNextSpeed(double speed, const MSVehicle* const veh) const;
 

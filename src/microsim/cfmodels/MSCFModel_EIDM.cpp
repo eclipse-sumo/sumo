@@ -438,7 +438,7 @@ MSCFModel_EIDM::finalizeSpeed(MSVehicle* const veh, double vPos) const {
 
 
 double
-MSCFModel_EIDM::followSpeed(const MSVehicle* const veh, double speed, double gap2pred, double predSpeed, double /*predMaxDecel*/, const MSVehicle* const /*pred*/) const {
+MSCFModel_EIDM::followSpeed(const MSVehicle* const veh, double speed, double gap2pred, double predSpeed, double /*predMaxDecel*/, const MSVehicle* const /*pred*/, const CalcReason usage) const {
 //    applyHeadwayAndSpeedDifferencePerceptionErrors(veh, speed, gap2pred, predSpeed, predMaxDecel, pred);
     VehicleVariables* vars = (VehicleVariables*)veh->getCarFollowVariables();
 
@@ -470,7 +470,7 @@ MSCFModel_EIDM::followSpeed(const MSVehicle* const veh, double speed, double gap
 
 
 double
-MSCFModel_EIDM::stopSpeed(const MSVehicle* const veh, const double speed, double gap, double /*decel*/) const {
+MSCFModel_EIDM::stopSpeed(const MSVehicle* const veh, const double speed, double gap, double /*decel*/, const CalcReason usage) const {
 //    applyHeadwayPerceptionError(veh, speed, gap);
 //    if (gap < 0.01) {
 //        return 0;
@@ -489,7 +489,7 @@ MSCFModel_EIDM::stopSpeed(const MSVehicle* const veh, const double speed, double
     }
 #endif
 
-    double result = _v(veh, gap, speed, 0, vars->v0_int, false, 0);
+    double result = _v(veh, gap, speed, 0, vars->v0_int, false, usage);
 // From Sumo_IDM-implementation:
 //    if (gap > 0 && speed < NUMERICAL_EPS && result < NUMERICAL_EPS) {
 //        // ensure that stops can be reached:
@@ -561,7 +561,7 @@ MSCFModel_EIDM::freeSpeed(const double currentSpeed, const double decel, const d
 }
 
 double
-MSCFModel_EIDM::freeSpeed(const MSVehicle* const veh, double speed, double seen, double maxSpeed, const bool onInsertion) const {
+MSCFModel_EIDM::freeSpeed(const MSVehicle* const veh, double speed, double seen, double maxSpeed, const bool onInsertion, const CalcReason usage) const {
 
     // @ToDo: Set new internal speed limit/desired speed <maxSpeed> here and change it over time in internalspeedlimit()!
 

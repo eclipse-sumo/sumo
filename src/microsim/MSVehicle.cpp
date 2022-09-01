@@ -2360,13 +2360,13 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
                         newStopDist += stop.pars.endPos - stop.pars.startPos;
                     }
                     if (lastLink != nullptr) {
-                        lastLink->adaptLeaveSpeed(cfModel.freeSpeed(this, vLinkPass, endPos, stop.getSpeed()));
+                        lastLink->adaptLeaveSpeed(cfModel.freeSpeed(this, vLinkPass, endPos, stop.getSpeed(), MSCFModel::CalcReason::FUTURE));
                     }
                 }
             } else {
                 stopSpeed = MAX2(cfModel.stopSpeed(this, getSpeed(), newStopDist), vMinComfortable);
                 if (lastLink != nullptr) {
-                    lastLink->adaptLeaveSpeed(cfModel.stopSpeed(this, vLinkPass, endPos));
+                    lastLink->adaptLeaveSpeed(cfModel.stopSpeed(this, vLinkPass, endPos, MSCFModel::CalcReason::FUTURE));
                 }
             }
             v = MIN2(v, stopSpeed);
@@ -2574,7 +2574,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
         // - even if red, if we cannot break we should issue a request
         bool setRequest = (v > NUMERICAL_EPS_SPEED && !abortRequestAfterMinor) || (leavingCurrentIntersection);
 
-        double stopSpeed = cfModel.stopSpeed(this, getSpeed(), stopDist, stopDecel);
+		double stopSpeed = cfModel.stopSpeed(this, getSpeed(), stopDist, stopDecel, MSCFModel::CalcReason::CURRENT_WAIT);
         double vLinkWait = MIN2(v, stopSpeed);
 #ifdef DEBUG_PLAN_MOVE
         if (DEBUG_COND) {
@@ -3442,7 +3442,7 @@ MSVehicle::processLinkApproaches(double& vSafe, double& vSafeMin, double& vSafeM
 //
 //        double gap = getLeader().second;
 //        std::cout << "gap = " << toString(gap, 24) << std::endl;
-//        std::cout << "vSafeStoppedLeader = " << toString(getCarFollowModel().stopSpeed(this, getSpeed(), gap), 24)
+//        std::cout << "vSafeStoppedLeader = " << toString(getCarFollowModel().stopSpeed(this, getSpeed(), gap, MSCFModel::CalcReason::FUTURE), 24)
 //                << "\n" << std::endl;
 //    }
 //#endif

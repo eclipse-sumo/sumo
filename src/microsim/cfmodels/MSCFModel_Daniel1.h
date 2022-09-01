@@ -63,7 +63,8 @@ public:
      * @return EGO's safe speed
      * @see MSCFModel::ffeV
      */
-    virtual double followSpeed(const MSVehicle* const veh, double speed, double gap2pred, double predSpeed, double predMaxDecel, const MSVehicle* const pred = 0) const;
+    virtual double followSpeed(const MSVehicle* const veh, double speed, double gap2pred,
+                               double predSpeed, double predMaxDecel, const MSVehicle* const pred = 0, const CalcReason usage = CalcReason::CURRENT) const;
 
 
     /** @brief Computes the vehicle's safe speed for approaching a non-moving obstacle (no dawdling)
@@ -73,7 +74,7 @@ public:
      * @see MSCFModel::ffeS
      * @todo generic Interface, models can call for the values they need
      */
-    virtual double stopSpeed(const MSVehicle* const veh, const double speed, double gap2pred, double decel) const;
+    virtual double stopSpeed(const MSVehicle* const veh, const double speed, double gap2pred, double decel, const CalcReason usage = CalcReason::CURRENT) const;
 
 
     /** @brief Returns the model's name
