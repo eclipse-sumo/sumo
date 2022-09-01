@@ -193,6 +193,17 @@ public:
         }
     }
 
+    /** @brief Returns the maximum speed given the current speed and regarding driving dynamics
+     * @param[in] speed The vehicle's current speed
+     * @param[in] speed The vehicle itself, for obtaining other values
+     * @return The maximum possible speed for the next step taking driving dynamics into account
+     */
+    double maxNextSafeMin(double speed, const MSVehicle* const veh = 0) const {
+        UNUSED_PARAMETER(speed);
+        UNUSED_PARAMETER(veh);
+        return 0;
+    }
+
     /** @brief Returns the maximum velocity the CF-model wants to achieve in the next step
      * @param[in] maxSpeed The maximum achievable speed in the next step
      * @param[in] maxSpeedLane The maximum speed the vehicle wants to drive on this lane (Speedlimit*SpeedFactor)

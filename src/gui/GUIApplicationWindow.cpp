@@ -245,6 +245,9 @@ GUIApplicationWindow::GUIApplicationWindow(FXApp* a, const std::string& configPa
     GUIIconSubSys::initIcons(a);
     // init cursors
     GUICursorSubSys::initCursors(a);
+    // disable tooltips
+    a->setTooltipTime(1000000000);
+    a->setTooltipPause(1000000000);
 }
 
 
@@ -363,6 +366,7 @@ GUIApplicationWindow::create() {
         myOnlineMaps["GoogleSat"] = "https://www.google.com/maps?ll=%lat,%lon&t=h&z=18";
         myOnlineMaps["OSM"] = "https://www.openstreetmap.org/?mlat=%lat&mlon=%lon&zoom=18&layers=M";
     }
+    updateTimeLCDTooltip();
 }
 
 
@@ -670,9 +674,9 @@ GUIApplicationWindow::buildToolBars() {
         myToolBarDrag3 = new FXToolBarShell(this, GUIDesignToolBar);
         myToolBar3 = new FXToolBar(myTopDock, myToolBarDrag3, GUIDesignToolBarRaisedSameTop);
         new FXToolBarGrip(myToolBar3, myToolBar3, FXToolBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
-        new FXButton(myToolBar3, "Time:\t\tToggle between seconds and hour:minute:seconds display.", nullptr, this, MID_TIME_TOGGLE, GUIDesignButtonToolbarText);
+        new MFXButtonTooltip(myToolBar3, myStaticTooltip, "Time:\tToggle between time formats\tToggle between seconds and hour:minute:seconds display.", nullptr, this, MID_TIME_TOGGLE, GUIDesignButtonToolbarText);
 
-        myLCDLabel = new FXEX::MFXLCDLabel(myToolBar3, 16, nullptr, 0, JUSTIFY_RIGHT);
+        myLCDLabel = new MFXLCDLabel(myToolBar3, myStaticTooltip, 16, nullptr, 0, JUSTIFY_RIGHT);
         myLCDLabel->setHorizontal(2);
         myLCDLabel->setVertical(6);
         myLCDLabel->setThickness(2);
@@ -684,7 +688,7 @@ GUIApplicationWindow::buildToolBars() {
         myToolBarDrag4 = new FXToolBarShell(this, GUIDesignToolBar);
         myToolBar4 = new FXToolBar(myTopDock, myToolBarDrag4, GUIDesignToolBarRaisedSameTop);
         new FXToolBarGrip(myToolBar4, myToolBar4, FXToolBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
-        new FXButton(myToolBar4, "Delay (ms):\t\tDelay per simulated second. Click to toggle between the last two delay values.", nullptr, this, MID_DELAY_TOGGLE, GUIDesignButtonToolbarText);
+        new MFXButtonTooltip(myToolBar4, myStaticTooltip, "Delay (ms):\tDelay per simulated second\tDelay per simulated second. Click to toggle between the last two delay values.", nullptr, this, MID_DELAY_TOGGLE, GUIDesignButtonToolbarText);
         // create spinner for delay
         mySimDelay = 0;
         mySimDelayTarget = new FXDataTarget(mySimDelay);
@@ -733,7 +737,7 @@ GUIApplicationWindow::buildToolBars() {
         myToolBar6 = new FXToolBar(myTopDock, myToolBarDrag6, GUIDesignToolBarRaisedSameTop);
         new FXToolBarGrip(myToolBar6, myToolBar6, FXToolBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
         new FXLabel(myToolBar6, "Waiting Time:\t\tTime spent waiting accumulated for all vehicles", nullptr, LAYOUT_TOP | LAYOUT_LEFT);
-        myWaitingTimeLabel = new FXEX::MFXLCDLabel(myToolBar6, 13, nullptr, 0, JUSTIFY_RIGHT);
+        myWaitingTimeLabel = new MFXLCDLabel(myToolBar6, myStaticTooltip, 13, nullptr, 0, JUSTIFY_RIGHT);
         myWaitingTimeLabel->setHorizontal(2);
         myWaitingTimeLabel->setVertical(6);
         myWaitingTimeLabel->setThickness(2);
@@ -745,7 +749,7 @@ GUIApplicationWindow::buildToolBars() {
         myToolBar7 = new FXToolBar(myTopDock, myToolBarDrag7, GUIDesignToolBarRaisedSameTop);
         new FXToolBarGrip(myToolBar7, myToolBar7, FXToolBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
         new FXLabel(myToolBar7, "Time Loss:\t\tTime lost due to being unable to drive with maximum speed for all vehicles", nullptr, LAYOUT_TOP | LAYOUT_LEFT);
-        myTimeLossLabel = new FXEX::MFXLCDLabel(myToolBar7, 13, nullptr, 0, JUSTIFY_RIGHT);
+        myTimeLossLabel = new MFXLCDLabel(myToolBar7, myStaticTooltip, 13, nullptr, 0, JUSTIFY_RIGHT);
         myTimeLossLabel->setHorizontal(2);
         myTimeLossLabel->setVertical(6);
         myTimeLossLabel->setThickness(2);
@@ -757,7 +761,7 @@ GUIApplicationWindow::buildToolBars() {
         myToolBar9 = new FXToolBar(myTopDock, myToolBarDrag9, GUIDesignToolBarRaisedSameTop);
         new FXToolBarGrip(myToolBar9, myToolBar9, FXToolBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
         new FXLabel(myToolBar9, "Distance (km):\t\tTotal distance driven by DRT vehicles", nullptr, LAYOUT_TOP | LAYOUT_LEFT);
-        myTotalDistanceLabel = new FXEX::MFXLCDLabel(myToolBar9, 13, nullptr, 0, JUSTIFY_RIGHT);
+        myTotalDistanceLabel = new MFXLCDLabel(myToolBar9, myStaticTooltip, 13, nullptr, 0, JUSTIFY_RIGHT);
         myTotalDistanceLabel->setHorizontal(2);
         myTotalDistanceLabel->setVertical(6);
         myTotalDistanceLabel->setThickness(2);
@@ -769,7 +773,7 @@ GUIApplicationWindow::buildToolBars() {
         myToolBar10 = new FXToolBar(myTopDock, myToolBarDrag10, GUIDesignToolBarRaisedSameTop);
         new FXToolBarGrip(myToolBar10, myToolBar10, FXToolBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
         new FXLabel(myToolBar10, "Emergency Vehicle waiting time:\t\tTime spent waiting accumulated for emergency vehicles", nullptr, LAYOUT_TOP | LAYOUT_LEFT);
-        myEmergencyVehicleLabel = new FXEX::MFXLCDLabel(myToolBar10, 13, nullptr, 0, JUSTIFY_RIGHT);
+        myEmergencyVehicleLabel = new MFXLCDLabel(myToolBar10, myStaticTooltip, 13, nullptr, 0, JUSTIFY_RIGHT);
         myEmergencyVehicleLabel->setHorizontal(2);
         myEmergencyVehicleLabel->setVertical(6);
         myEmergencyVehicleLabel->setThickness(2);
@@ -1217,7 +1221,9 @@ GUIApplicationWindow::onCmdLoadState(FXObject*, FXSelector, void*) {
 
 long
 GUIApplicationWindow::onCmdTimeToggle(FXObject*, FXSelector, void*) {
+    // toogle show time as HMS
     myShowTimeAsHMS = !myShowTimeAsHMS;
+    updateTimeLCDTooltip();
     if (myRunThread->simulationAvailable()) {
         updateTimeLCD(myRunThread->getNet().getCurrentTimeStep());
     }
@@ -2058,6 +2064,14 @@ GUIApplicationWindow::addRecentFile(const FX::FXString& f) {
     myRecentNetworksAndConfigs.appendFile(f);
 }
 
+void
+GUIApplicationWindow::updateTimeLCDTooltip() {
+    if (myShowTimeAsHMS) {
+        myLCDLabel->setToolTipText("HH:MM:SS");
+    } else {
+        myLCDLabel->setToolTipText("seconds");
+    }
+}
 
 void
 GUIApplicationWindow::updateTimeLCD(SUMOTime time) {

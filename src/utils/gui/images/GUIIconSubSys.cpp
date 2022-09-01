@@ -190,6 +190,9 @@
 #include "select.xpm"
 #include "unselect.xpm"
 
+#include "join.xpm"
+#include "disjoin.xpm"
+
 #include "ext.xpm"
 #include "tracker.xpm"
 #include "hall_of_fame.xpm"
@@ -486,6 +489,9 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
 
     myIcons[GUIIcon::SELECT] = new FXXPMIcon(a, select_xpm);
     myIcons[GUIIcon::UNSELECT] = new FXXPMIcon(a, unselect_xpm);
+
+    myIcons[GUIIcon::JOIN] = new FXXPMIcon(a, join_xpm);
+    myIcons[GUIIcon::DISJOIN] = new FXXPMIcon(a, disjoin_xpm);
 
     myIcons[GUIIcon::APP_TRACKER] = new FXXPMIcon(a, app_tracker_xpm);
     myIcons[GUIIcon::APP_FINDER] = new FXXPMIcon(a, app_finder_xpm);

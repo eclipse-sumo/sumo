@@ -187,6 +187,8 @@ GUISUMOViewParent::onCmdMakeSnapshot(FXObject* sender, FXSelector, void*) {
             button->setChecked(!button->amChecked());
         } else if (error != "") {
             FXMessageBox::error(this, MBOX_OK, "Saving failed.", "%s", error.c_str());
+        } else {
+            WRITE_MESSAGE("Snapshot successfully saved!");
         }
     }
     return 1;

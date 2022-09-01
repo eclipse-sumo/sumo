@@ -424,6 +424,9 @@ public:
     /// @brief change parameter in interval bar
     long onCmdIntervalBarSetParameter(FXObject*, FXSelector, void*);
 
+    /// @brief set front element using dialog
+    long onCmdSetFrontElement(FXObject*, FXSelector, void*);
+
     /// @}
 
     /// @brief select AC under cursor
@@ -522,6 +525,9 @@ public:
     /// @brief check if we're seleting detectors in TLS mode
     bool selectingDetectorsTLSMode() const;
 
+    /// @brief check if we're seleting juncitons in TLS mode
+    bool selectingJunctionsTLSMode() const;
+
 protected:
     /// @brief FOX needs this
     GNEViewNet();
@@ -533,7 +539,7 @@ protected:
     void doInit();
 
     /// @brief open move dialog at cursor
-    void openMoveDialogAtCursor() const;
+    void openMoveDialogAtCursor();
 
 private:
     /// @name structs related with modes and testing mode
@@ -643,6 +649,9 @@ private:
     /// @brief draw preview roundabout
     bool myDrawPreviewRoundabout = false;
 
+    /// @brief container used for move dialog
+    std::map<FXObject*, GNEAttributeCarrier*> myMoveDialogElementContainer;
+
     /// @brief create edit mode buttons and elements
     void buildEditModeControls();
 
@@ -723,6 +732,9 @@ private:
 
     /// @brief draw temporal E1 TLS Lines
     void drawTemporalE1TLSLines() const;
+
+    /// @brief draw temporal Junction TLS Lines
+    void drawTemporalJunctionTLSLines() const;
 
     /// @}
 

@@ -3462,6 +3462,11 @@ GNEAttributeCarrier::fillDemandElements() {
                                               "The vehicles expected multiplicator for lane speed limits (or a distribution specifier)");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_DESIRED_MAXSPEED,
+                                              GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE,
+                                              "The vehicles desired maximum velocity (interacts with speedFactor). Applicable when no speed Limit applies (bicycles, some motorways) [m/s]");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
         attrProperty = GNEAttributeProperties(SUMO_ATTR_EMISSIONCLASS,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::DISCRETE | GNEAttributeProperties::EXTENDED,
                                               "An abstract emission class");

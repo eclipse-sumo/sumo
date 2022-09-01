@@ -6,7 +6,7 @@ Success.
 Loading net-file from '000/../input_net.net.xml' ... done (2ms).
 Loading additional-files from '000/../edgedata.add.xml' ... done (1ms).
 Loading done.
-Simulation version v1_14_1+0350-48d7f28 started with time: 0.00
+Simulation version v1_14_1+0742-4fcf460 started with time: 0.00
 Simulation ended at time: 5922.00
 Reason: All vehicles have left the simulation.
 Statistics (avg of 1000):
@@ -25,7 +25,7 @@ Success.
 Loading net-file from '001/../input_net.net.xml' ... done (2ms).
 Loading additional-files from '001/../edgedata.add.xml' ... done (1ms).
 Loading done.
-Simulation version v1_14_1+0350-48d7f28 started with time: 0.00
+Simulation version v1_14_1+0742-4fcf460 started with time: 0.00
 Simulation ended at time: 5253.00
 Reason: All vehicles have left the simulation.
 Statistics (avg of 1000):
@@ -41,18 +41,18 @@ Statistics (avg of 1000):
 Success.
 -------------------------------------------------------------------------------
 ['/scr1/sumo/bin/sumo', '-c', '002/iteration_002.sumocfg']
-Loading net-file from '002/../input_net.net.xml' ... done (1ms).
-Loading additional-files from '002/../edgedata.add.xml' ... done (0ms).
+Loading net-file from '002/../input_net.net.xml' ... done (2ms).
+Loading additional-files from '002/../edgedata.add.xml' ... done (1ms).
 Loading done.
-Simulation version v1_14_1+0350-48d7f28 started with time: 0.00
+Simulation version v1_14_1+0742-4fcf460 started with time: 0.00
 Simulation ended at time: 4027.00
 Reason: All vehicles have left the simulation.
 Statistics (avg of 1000):
  RouteLength: 1005.75
- Speed: 6.47
- Duration: 197.36
- WaitingTime: 59.20
- TimeLoss: 129.29
+ Speed: 6.48
+ Duration: 197.10
+ WaitingTime: 59.02
+ TimeLoss: 129.02
  DepartDelay: 6.72
 
 -------------------------------------------------------------------------------
@@ -61,9 +61,9 @@ Success.
 -------------------------------------------------------------------------------
 ['/scr1/sumo/bin/sumo', '-c', '003/iteration_003.sumocfg']
 Loading net-file from '003/../input_net.net.xml' ... done (1ms).
-Loading additional-files from '003/../edgedata.add.xml' ... done (1ms).
+Loading additional-files from '003/../edgedata.add.xml' ... done (0ms).
 Loading done.
-Simulation version v1_14_1+0350-48d7f28 started with time: 0.00
+Simulation version v1_14_1+0742-4fcf460 started with time: 0.00
 Simulation ended at time: 4104.00
 Reason: All vehicles have left the simulation.
 Statistics (avg of 1000):
@@ -80,9 +80,9 @@ Success.
 -------------------------------------------------------------------------------
 ['/scr1/sumo/bin/sumo', '-c', '004/iteration_004.sumocfg']
 Loading net-file from '004/../input_net.net.xml' ... done (1ms).
-Loading additional-files from '004/../edgedata.add.xml' ... done (0ms).
+Loading additional-files from '004/../edgedata.add.xml' ... done (1ms).
 Loading done.
-Simulation version v1_14_1+0350-48d7f28 started with time: 0.00
+Simulation version v1_14_1+0742-4fcf460 started with time: 0.00
 Simulation ended at time: 4229.00
 Reason: All vehicles have left the simulation.
 Statistics (avg of 1000):
@@ -101,7 +101,7 @@ Success.
 Loading net-file from '005/../input_net.net.xml' ... done (1ms).
 Loading additional-files from '005/../edgedata.add.xml' ... done (0ms).
 Loading done.
-Simulation version v1_14_1+0350-48d7f28 started with time: 0.00
+Simulation version v1_14_1+0742-4fcf460 started with time: 0.00
 Simulation ended at time: 4285.00
 Reason: All vehicles have left the simulation.
 Statistics (avg of 1000):
@@ -118,16 +118,16 @@ Success.
 -------------------------------------------------------------------------------
 ['/scr1/sumo/bin/sumo', '-c', '006/iteration_006.sumocfg']
 Loading net-file from '006/../input_net.net.xml' ... done (1ms).
-Loading additional-files from '006/../edgedata.add.xml' ... done (0ms).
+Loading additional-files from '006/../edgedata.add.xml' ... done (1ms).
 Loading done.
-Simulation version v1_14_1+0350-48d7f28 started with time: 0.00
-Simulation ended at time: 4285.00
+Simulation version v1_14_1+0742-4fcf460 started with time: 0.00
+Simulation ended at time: 4304.00
 Reason: All vehicles have left the simulation.
 Statistics (avg of 1000):
- RouteLength: 1003.46
- Speed: 5.18
- Duration: 248.45
- WaitingTime: 81.11
- TimeLoss: 178.26
- DepartDelay: 110.89
+ RouteLength: 1003.49
+ Speed: 5.19
+ Duration: 249.12
+ WaitingTime: 81.57
+ TimeLoss: 178.97
+ DepartDelay: 115.91
 

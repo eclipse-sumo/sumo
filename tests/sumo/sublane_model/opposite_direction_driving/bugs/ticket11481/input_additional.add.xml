@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-07-01 13:56:40 by Eclipse SUMO netedit Version v1_13_0+1353-848c75e
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- StoppingPlaces -->
+    <busStop id="A" lane="26967263#5_1" startPos="32.70" endPos="42.70"/>
+    <busStop id="B" lane="26967263#7_1" startPos="14.94" endPos="24.94"/>
+
+    <type id="highway.cycleway_extra">
+        <restriction vClass="bicycle" speed="5.56"/>
+    </type>
+</additional>

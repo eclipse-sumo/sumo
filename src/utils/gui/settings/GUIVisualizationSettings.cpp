@@ -121,7 +121,7 @@ const RGBColor GUIVisualizationAdditionalSettings::overheadWireColorSelected(0, 
 const double GUIVisualizationAdditionalSettings::arrowWidth(1);
 const double GUIVisualizationAdditionalSettings::arrowLength(0.25);
 const double GUIVisualizationAdditionalSettings::arrowOffset(0.1);
-const RGBColor GUIVisualizationAdditionalSettings::E1TLSConnectionColor(0, 255, 0, 255);
+const RGBColor GUIVisualizationAdditionalSettings::TLSConnectionColor(0, 255, 0, 255);
 
 // -------------------------------------------------------------------------
 // detector values

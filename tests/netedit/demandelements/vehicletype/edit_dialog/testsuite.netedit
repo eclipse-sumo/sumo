@@ -12,6 +12,8 @@ mingap
 
 maxspeed
 
+desiredmaxspeed
+
 speedfactor
 
 emissionclass
@@ -24,11 +26,11 @@ imgfile
 
 osgfile
 
-probability
-
 lanechangemodel
 
 guishape
+
+probability
 
 personcapacity
 

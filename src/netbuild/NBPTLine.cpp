@@ -279,14 +279,21 @@ NBPTLine::deleteDuplicateStops() {
     }
 }
 
+
 void
 NBPTLine::removeInvalidEdges(const NBEdgeCont& ec) {
-    for (auto it = myRoute.begin(); it != myRoute.end();) {
-        NBEdge* e = *it;
-        if (ec.retrieve(e->getID())) {
-            it++;
+    for (int i = 0; i < (int)myRoute.size();) {
+        const std::pair<NBEdge*, NBEdge*>* split = ec.getSplit(myRoute[i]);
+        if (split != nullptr) {
+            myRoute[i] = split->first;
+            myRoute.insert(myRoute.begin() + i + 1, split->second);
+        } else if (ec.retrieve(myRoute[i]->getID()) == nullptr) {
+            myRoute.erase(myRoute.begin() + i);
         } else {
-            it = myRoute.erase(it);
+            i++;
         }
     }
 }
+
+
+/****************************************************************************/

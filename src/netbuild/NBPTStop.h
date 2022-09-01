@@ -157,9 +157,6 @@ public:
     }
 
 private:
-    void computeExtent(double center, double d);
-
-private:
     std::string myPTStopId;
     Position myPosition;
     std::string myEdgeId;

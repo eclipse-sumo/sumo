@@ -1838,6 +1838,25 @@ MSLane::detectCollisionBetween(SUMOTime timestep, const std::string& stage, MSVe
             if (latGap + NUMERICAL_EPS > 0) {
                 return false;
             }
+            // account for ambiguous gap computation related to partial
+            // occupation of lanes with different lengths
+            if (isInternal() && getEdge().getNumLanes() > 1 && victim->getLane() != collider->getLane()) {
+                double gapDelta = 0;
+                const MSVehicle* otherLaneVeh = collider->getLane() == this ? victim : collider;
+                if (otherLaneVeh->getLaneChangeModel().getShadowLane() == this) {
+                    gapDelta = getLength() - otherLaneVeh->getLane()->getLength();
+                } else {
+                    for (const MSLane* cand : otherLaneVeh->getFurtherLanes()) {
+                        if (&cand->getEdge() == &getEdge()) {
+                            gapDelta = getLength() - cand->getLength();
+                            break;
+                        }
+                    }
+                }
+                if (gap + gapDelta >= 0) {
+                    return false;
+                }
+            }
         }
         if (MSGlobals::gLaneChangeDuration > DELTA_T
                 && collider->getLaneChangeModel().isChangingLanes()
@@ -2073,7 +2092,7 @@ MSLane::executeMovements(const SUMOTime t) {
         i = VehCont::reverse_iterator(myVehicles.erase(i.base()));
     }
     if (firstNotStopped != nullptr) {
-        if (MSGlobals::gTimeToGridlock > 0 || MSGlobals::gTimeToGridlockHighways > 0 || MSGlobals::gTimeToTeleportDisconnected >= 0) {
+        if (MSGlobals::gTimeToGridlock > 0 || MSGlobals::gTimeToGridlockHighways > 0 || MSGlobals::gTimeToTeleportDisconnected >= 0 || MSGlobals::gTimeToTeleportBidi > 0) {
             const bool wrongLane = !appropriate(firstNotStopped);
             const bool r1 = MSGlobals::gTimeToGridlock > 0 && firstNotStopped->getWaitingTime() > MSGlobals::gTimeToGridlock;
             const bool r2 = !r1 && MSGlobals::gTimeToGridlockHighways > 0
@@ -2082,22 +2101,25 @@ MSLane::executeMovements(const SUMOTime t) {
             const bool r3 = !r1 && !r2 && MSGlobals::gTimeToTeleportDisconnected >= 0 && firstNotStopped->getWaitingTime() > MSGlobals::gTimeToTeleportDisconnected
                             && firstNotStopped->succEdge(1) != nullptr
                             && firstNotStopped->getEdge()->allowedLanes(*firstNotStopped->succEdge(1), firstNotStopped->getVClass()) == nullptr;
-            if (r1 || r2 || r3) {
+            const bool r4 = !r1 && !r2 && !r3 && MSGlobals::gTimeToTeleportBidi > 0 
+                            && firstNotStopped->getWaitingTime() > MSGlobals::gTimeToTeleportBidi && getBidiLane();
+            if (r1 || r2 || r3 || r4) {
                 const std::vector<MSLink*>::const_iterator link = succLinkSec(*firstNotStopped, 1, *this, firstNotStopped->getBestLanesContinuation());
                 const bool minorLink = !wrongLane && (link != myLinks.end()) && !((*link)->havePriority());
-                std::string reason = (wrongLane ? " (wrong lane)" : (minorLink ? " (yield)" : " (jam)"));
+                std::string reason = (wrongLane ? " (wrong lane" : (minorLink ? " (yield" : " (jam"));
                 myBruttoVehicleLengthSumToRemove += firstNotStopped->getVehicleType().getLengthWithGap();
                 myNettoVehicleLengthSumToRemove += firstNotStopped->getVehicleType().getLength();
                 if (firstNotStopped == myVehicles.back()) {
                     myVehicles.pop_back();
                 } else {
                     myVehicles.erase(std::find(myVehicles.begin(), myVehicles.end(), firstNotStopped));
-                    reason = " (blocked)";
+                    reason = " (blocked";
                 }
                 WRITE_WARNINGF("Teleporting vehicle '%'; waited too long" + reason
-                               + (r2 ? " (highway)" : "")
-                               + (r3 ? " (disconnected)" : "")
-                               + ", lane='%', time=%.", firstNotStopped->getID(), getID(), time2string(t));
+                               + (r2 ? ", highway" : "")
+                               + (r3 ? ", disconnected" : "")
+                               + (r4 ? ", bidi" : "")
+                               + "), lane='%', time=%.", firstNotStopped->getID(), getID(), time2string(t));
                 if (wrongLane) {
                     MSNet::getInstance()->getVehicleControl().registerTeleportWrongLane();
                 } else if (minorLink) {
@@ -2984,9 +3006,28 @@ MSLane::getCrossingIndex() const {
 
 // ------------ Current state retrieval
 double
+MSLane::getFractionalVehicleLength(bool brutto) const {
+    double sum = 0;
+    if (myPartialVehicles.size() > 0) {
+        const MSLane* bidi = getBidiLane();
+        for (MSVehicle* cand : myPartialVehicles) {
+            if (MSGlobals::gSublane && cand->getLaneChangeModel().getShadowLane() == this) {
+                continue;
+            }
+            if (cand->getLane() == bidi) {
+                sum += (brutto ? cand->getVehicleType().getLengthWithGap() : cand->getVehicleType().getLength());
+            } else {
+                sum += myLength - cand->getBackPositionOnLane(this);
+            }
+        }
+    }
+    return sum;
+}
+
+double
 MSLane::getBruttoOccupancy() const {
-    double fractions = myPartialVehicles.size() > 0 ? MIN2(myLength, myLength - myPartialVehicles.front()->getBackPositionOnLane(this)) : 0;
     getVehiclesSecure();
+    double fractions = getFractionalVehicleLength(true);
     if (myVehicles.size() != 0) {
         MSVehicle* lastVeh = myVehicles.front();
         if (lastVeh->getPositionOnLane() < lastVeh->getVehicleType().getLength()) {
@@ -3000,8 +3041,8 @@ MSLane::getBruttoOccupancy() const {
 
 double
 MSLane::getNettoOccupancy() const {
-    double fractions = myPartialVehicles.size() > 0 ? MIN2(myLength, myLength - myPartialVehicles.front()->getBackPositionOnLane(this)) : 0;
     getVehiclesSecure();
+    double fractions = getFractionalVehicleLength(false);
     if (myVehicles.size() != 0) {
         MSVehicle* lastVeh = myVehicles.front();
         if (lastVeh->getPositionOnLane() < lastVeh->getVehicleType().getLength()) {
@@ -4232,7 +4273,11 @@ MSLane::getSpaceTillLastStanding(const MSVehicle* ego, bool& foundStopped) const
             const double ret = last->getBackPositionOnLane() + lastBrakeGap - lengths;
             return ret;
         }
-        lengths += last->getVehicleType().getLengthWithGap();
+        if (MSGlobals::gSublane && ego->getVehicleType().getWidth() + last->getVehicleType().getWidth() < getWidth()) {
+            lengths += last->getVehicleType().getLengthWithGap() * (last->getVehicleType().getWidth() + last->getVehicleType().getMinGapLat()) / getWidth();
+        } else {
+            lengths += last->getVehicleType().getLengthWithGap();
+        }
     }
     return getLength() - lengths;
 }

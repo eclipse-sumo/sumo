@@ -79,13 +79,13 @@ GUIOSGPerspectiveChanger::getZoom() const {
 
 
 double 
-GUIOSGPerspectiveChanger::zPos2Zoom(double zPos) const {
+GUIOSGPerspectiveChanger::zPos2Zoom(double /* zPos */) const {
     return 100.;
 }
 
 
 double
-GUIOSGPerspectiveChanger::zoom2ZPos(double zoom) const {
+GUIOSGPerspectiveChanger::zoom2ZPos(double /* zoom */) const {
     return getZPos();
 }
 
@@ -97,7 +97,7 @@ GUIOSGPerspectiveChanger::setRotation(double rotation) {
 
 
 void 
-GUIOSGPerspectiveChanger::centerTo(const Position& pos, double radius, bool applyZoom) {
+GUIOSGPerspectiveChanger::centerTo(const Position& pos, double radius, bool /* applyZoom */) {
     // maintain view direction if possible and scale so that the position and the 
     // radius region around it are visible
     osg::Vec3d lookFrom, lookAt, up, dir, orthoDir;
@@ -132,13 +132,13 @@ GUIOSGPerspectiveChanger::centerTo(const Position& pos, double radius, bool appl
 
 
 void
-GUIOSGPerspectiveChanger::setViewport(double zoom, double xPos, double yPos) {
+GUIOSGPerspectiveChanger::setViewport(double /* zoom */, double xPos, double yPos) {
     setViewportFrom(xPos, yPos, 0.);
 }
 
 
 void
-GUIOSGPerspectiveChanger::setViewportFrom(double xPos, double yPos, double zPos) {
+GUIOSGPerspectiveChanger::setViewportFrom(double xPos, double yPos, double /* zPos */) {
     // Keep camera orientation if possible and point it to point to (x,y,0) if possible. 
     // get current camera orientation
     osg::Vec3d lookFrom, lookAt, up, dir;
@@ -167,7 +167,7 @@ GUIOSGPerspectiveChanger::setViewportFrom(double xPos, double yPos, double zPos)
 
 
 void
-GUIOSGPerspectiveChanger::changeCanvasSizeLeft(int change) {
+GUIOSGPerspectiveChanger::changeCanvasSizeLeft(int /* change */) {
 }
 
 

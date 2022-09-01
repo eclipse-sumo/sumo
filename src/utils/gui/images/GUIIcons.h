@@ -75,6 +75,12 @@ enum class GUIIcon {
     UNSELECT,
     /// @}
 
+    /// @name join icons
+    /// @{
+    JOIN,
+    DISJOIN,
+    /// @}
+
     /// @name simulation view icons
     /// @{
     MICROVIEW,

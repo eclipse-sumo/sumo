@@ -50,3 +50,6 @@ lefthand
 
 # mopeds make an indirect left turn and wait at the internal junction until the flow across gets the green light.
 indirect_left_moped
+
+# see #11467
+width_change

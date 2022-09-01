@@ -108,7 +108,10 @@ MSDevice_Emissions::notifyMoveInternal(const SUMOTrafficObject& veh,
 void
 MSDevice_Emissions::generateOutput(OutputDevice* tripinfoOut) const {
     if (tripinfoOut != nullptr) {
-        const int precision = MAX2(6, gPrecision);
+        const OptionsCont& oc = OptionsCont::getOptions();
+        const int precision = MAX2(
+                oc.isDefault("emission-output.precision") ? 6 : oc.getInt("emission-output.precision"),
+                gPrecision);
         tripinfoOut->openTag("emissions");
         tripinfoOut->writeAttr("CO_abs", OutputDevice::realString(myEmissions.CO, precision));
         tripinfoOut->writeAttr("CO2_abs", OutputDevice::realString(myEmissions.CO2, precision));

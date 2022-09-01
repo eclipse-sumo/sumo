@@ -62,11 +62,11 @@ protected:
     /// @brief FOX needs this
     FOX_CONSTRUCTOR(MFXMenuButtonTooltip)
 
-    /// @brief optional target
-    FXObject* myOptionalTarget = nullptr;
-
     /// @brief static tooltip
     MFXStaticToolTip* myStaticToolTip = nullptr;
+
+    /// @brief optional target
+    FXObject* myOptionalTarget = nullptr;
 
 private:
     /// @brief Invalidated copy constructor.

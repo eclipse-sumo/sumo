@@ -133,13 +133,13 @@ def solution_by_requests(solution_ortools, data):
         route2request[i_delivery] = i_request
     solution_requests = {}
     for key in solution_ortools:
-        solution = [[],[]] # request order and costs
+        solution = [[], []]  # request order and costs
         for i_route in solution_ortools[key][0][1:-1]:
             if i_route in route2request:
                 solution[0].append(route2request[i_route])
             else:
                 continue
-            solution[1] = solution_ortools[key][1] # costs
+            solution[1] = solution_ortools[key][1]  # costs
             solution_requests[key] = solution
     return solution_requests
 

@@ -385,8 +385,8 @@ struct GUIVisualizationAdditionalSettings {
     /// @brief arrow offset
     static const double arrowOffset;
 
-    /// @brief connection color between E1 and TLS
-    static const RGBColor E1TLSConnectionColor;
+    /// @brief connection color between E1/junctions and TLS
+    static const RGBColor TLSConnectionColor;
 };
 
 

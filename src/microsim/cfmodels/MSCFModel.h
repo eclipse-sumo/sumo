@@ -330,6 +330,16 @@ public:
     virtual double maxNextSpeed(double speed, const MSVehicle* const veh) const;
 
 
+    /** @brief Returns the maximum speed given the current speed and regarding driving dynamics
+     * @param[in] speed The vehicle's current speed
+     * @param[in] speed The vehicle itself, for obtaining other values
+     * @return The maximum possible speed for the next step taking driving dynamics into account
+     */
+    inline virtual double maxNextSafeMin(double speed, const MSVehicle* const veh = 0) const {
+        return maxNextSpeed(speed, veh);
+    }
+
+
     /** @brief Returns the minimum speed given the current speed
      * (depends on the numerical update scheme and its step width)
      * Note that it wouldn't have to depend on the numerical update
