@@ -79,8 +79,10 @@ public:
         CURRENT,
         /// @brief the return value is used for calculating future speeds
         FUTURE,
-		/// @brief the return value is used for calculating junction stop speeds
-		CURRENT_WAIT
+        /// @brief the return value is used for calculating junction stop speeds
+        CURRENT_WAIT,
+        /// @brief the return value is used for lane change calculations
+        LANE_CHANGE
     };
 
 

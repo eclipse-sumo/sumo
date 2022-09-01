@@ -443,11 +443,11 @@ MSCFModel_EIDM::followSpeed(const MSVehicle* const veh, double speed, double gap
 //    applyHeadwayAndSpeedDifferencePerceptionErrors(veh, speed, gap2pred, predSpeed, predMaxDecel, pred);
     VehicleVariables* vars = (VehicleVariables*)veh->getCarFollowVariables();
 
-    // This update-variable is used to check what called followSpeed (LC- or CF-model)
+    // This update-variable is used to check what called followSpeed (LC- or CF-model), see enum CalcReason for more information
     // Here we don't directly use gComputeLC, which is also 0 and 1, because in freeSpeed we have another call (update = 2),
     // which is needed to differentiate between the different cases/calculations/needed output/saved variables
     int update = 1;
-    if (MSGlobals::gComputeLC) {
+    if (MSGlobals::gComputeLC || usage == CalcReason::LANE_CHANGE || usage == CalcReason::FUTURE) {
         update = 0;
     }
 
@@ -478,6 +478,16 @@ MSCFModel_EIDM::stopSpeed(const MSVehicle* const veh, const double speed, double
 //    }
     VehicleVariables* vars = (VehicleVariables*)veh->getCarFollowVariables();
 
+    // This update-variable is used to check what called stopSpeed (LC- or CF-model), see enum CalcReason for more information
+    // Here we don't directly use gComputeLC, which is also 0 and 1, because in freeSpeed we have another call (update = 2),
+    // which is needed to differentiate between the different cases/calculations/needed output/saved variables
+    int update = 1;
+    if (MSGlobals::gComputeLC || usage == CalcReason::LANE_CHANGE || usage == CalcReason::FUTURE) {
+        update = 0;
+    } else if (usage == CalcReason::CURRENT_WAIT) {
+        update = 2;
+    }
+
 #ifdef DEBUG_V
     if (veh->isSelected()) {
         std::cout << SIMTIME
@@ -486,11 +496,12 @@ MSCFModel_EIDM::stopSpeed(const MSVehicle* const veh, const double speed, double
             << " speed=" << speed
             << " gap=" << gap
             << " vars->v0_int=" << vars->v0_int
+            << " update=" << update
             << "\n";
     }
 #endif
 
-    double result = _v(veh, gap, speed, 0, vars->v0_int, false, usage);
+    double result = _v(veh, gap, speed, 0, vars->v0_int, false, update);
 // From Sumo_IDM-implementation:
 //    if (gap > 0 && speed < NUMERICAL_EPS && result < NUMERICAL_EPS) {
 //        // ensure that stops can be reached:
@@ -571,11 +582,11 @@ MSCFModel_EIDM::freeSpeed(const MSVehicle* const veh, double speed, double seen,
         return maxSpeed;
     }
 
-    // This update-variable is used to check what called freeSpeed (LC- or CF-model)
-    // Here we don't directly use gComputeLC, which is also 0 and 1, because in we have another possible call (update = 2),
+    // This update-variable is used to check what called freeSpeed (LC- or CF-model), see enum CalcReason for more information
+    // Here we don't directly use gComputeLC, which is also 0 and 1, because we have another call (update = 2),
     // which is needed to differentiate between the different cases/calculations/needed output/saved variables
     int update = 1;
-    if (MSGlobals::gComputeLC) {
+    if (MSGlobals::gComputeLC || usage == CalcReason::LANE_CHANGE || usage == CalcReason::FUTURE) {
         update = 0;
     }
 
@@ -1169,7 +1180,7 @@ MSCFModel_EIDM::_v(const MSVehicle* const veh, const double gap2pred, const doub
     }
 
     // Save the parameters for a potential update in finalizeSpeed, when _v was called in a stopSpeed-function!!!
-    if (vars->minaccel > wantedacc - NUMERICAL_EPS && update == 0 && !MSGlobals::gComputeLC) {
+    if (vars->minaccel > wantedacc - NUMERICAL_EPS && update == 2 && !respectMinGap) {
         vars->stop.push_back(std::make_pair(acc, gap2pred));
     }
 
