@@ -178,7 +178,7 @@ Person::splitTaxiReservation(std::string reservationID, const std::vector<std::s
 
 bool
 Person::filterReservation(int stateFilter, const Reservation* res, std::vector<libsumo::TraCIReservation>& reservations) {
-    if (stateFilter != 0 && stateFilter != res->state) {
+    if (stateFilter != 0 && (stateFilter & res->state) == 0) {
         return false;
     }
     std::vector<std::string> personIDs;
