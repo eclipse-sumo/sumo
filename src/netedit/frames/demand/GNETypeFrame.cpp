@@ -151,8 +151,10 @@ GNETypeFrame::TypeSelector::refreshTypeSelector() {
     myTypeFrameParent->myTypeEditor->refreshTypeEditorModule();
     // set myCurrentType as inspected element
     myTypeFrameParent->getViewNet()->setInspectedAttributeCarriers({myCurrentType});
-    // show Attribute Editor module
+    // show modules
     myTypeFrameParent->myTypeAttributesEditor->showAttributeEditorModule(false, true);
+    myTypeFrameParent->myAttributesEditorExtended->showAttributesEditorExtendedModule();
+    myTypeFrameParent->myVTypeDistributions->showVTypeDistributionsModule();
 }
 
 
@@ -179,6 +181,8 @@ GNETypeFrame::TypeSelector::onCmdSelectItem(FXObject*, FXSelector, void*) {
             myTypeFrameParent->getViewNet()->setInspectedAttributeCarriers({myCurrentType});
             // show modules if selected item is valid
             myTypeFrameParent->myTypeAttributesEditor->showAttributeEditorModule(false, true);
+            myTypeFrameParent->myAttributesEditorExtended->showAttributesEditorExtendedModule();
+            myTypeFrameParent->myVTypeDistributions->showVTypeDistributionsModule();
             // Write Warning in console if we're in testing mode
             WRITE_DEBUG(("Selected item '" + myTypeComboBox->getText() + "' in TypeSelector").text());
             // update viewNet
@@ -191,6 +195,8 @@ GNETypeFrame::TypeSelector::onCmdSelectItem(FXObject*, FXSelector, void*) {
     myTypeFrameParent->myTypeEditor->refreshTypeEditorModule();
     // hide all modules if selected item isn't valid
     myTypeFrameParent->myTypeAttributesEditor->hideAttributesEditorModule();
+    myTypeFrameParent->myAttributesEditorExtended->hideAttributesEditorExtendedModule();
+    myTypeFrameParent->myVTypeDistributions->hideVTypeDistributionsModule();
     // set color of myTypeMatchBox to red (invalid)
     myTypeComboBox->setTextColor(FXRGB(255, 0, 0));
     // Write Warning in console if we're in testing mode
@@ -412,6 +418,9 @@ GNETypeFrame::GNETypeFrame(GNEViewParent *viewParent, GNEViewNet* viewNet) :
     // create module for open extended attributes dialog
     myAttributesEditorExtended = new GNEFrameAttributeModules::AttributesEditorExtended(this);
 
+    // create module for open vType distribution dialog
+    myVTypeDistributions = new GNEFrameAttributeModules::VTypeDistributions(this);
+
     // set "VTYPE_DEFAULT" as default vehicle Type
     myTypeSelector->setCurrentType(myViewNet->getNet()->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, DEFAULT_VTYPE_ID));
 }
@@ -426,8 +435,10 @@ GNETypeFrame::show() {
     myTypeSelector->refreshTypeSelector();
     // set myCurrentType as inspected element
     myTypeAttributesEditor->getFrameParent()->getViewNet()->setInspectedAttributeCarriers({myTypeSelector->getCurrentType()});
-    // show vehicle type attributes editor (except extended attributes)
+    // show modules
     myTypeAttributesEditor->showAttributeEditorModule(false, true);
+    myAttributesEditorExtended->showAttributesEditorExtendedModule();
+    myVTypeDistributions->showVTypeDistributionsModule();
     // show frame
     GNEFrame::show();
 }
