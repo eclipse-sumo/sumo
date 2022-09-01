@@ -63,6 +63,8 @@ MSTransportable::~MSTransportable() {
         MSStageDriving* const stage = dynamic_cast<MSStageDriving*>(*myStep);
         if (stage->getVehicle() != nullptr) {
             stage->getVehicle()->removeTransportable(this);
+        } else if (stage->getOriginStop() != nullptr)  {
+            stage->getOriginStop()->removeTransportable(this);
         }
     }
     if (myPlan != nullptr) {
