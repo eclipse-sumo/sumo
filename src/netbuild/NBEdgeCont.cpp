@@ -62,7 +62,6 @@
 // ===========================================================================
 NBEdgeCont::NBEdgeCont(NBTypeCont& tc) :
     myTypeCont(tc),
-    myEdgesSplit(0),
     myVehicleClasses2Keep(0),
     myVehicleClasses2Remove(0),
     myNeedGeoTransformedPruningBoundary(false) {
@@ -695,7 +694,7 @@ NBEdgeCont::splitAt(NBDistrictCont& dc,
     if (!insert(two, true)) {
         WRITE_ERROR("Could not insert edge '" + two->getID() + "' after split of edge '" + oldID + "'");
     }
-    myEdgesSplit++;
+    myEdgesSplit[edge] = {one, two};
     return true;
 }
 

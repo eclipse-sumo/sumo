@@ -87,13 +87,6 @@ NBPTStop::mirrorX() {
 
 
 void
-NBPTStop::computeExtent(double center, double edgeLength) {
-    myStartPos = MAX2(0.0, center - myPTStopLength / 2.);
-    myEndPos = MIN2(center + myPTStopLength / 2., edgeLength);
-}
-
-
-void
 NBPTStop::addLine(const std::string& line) {
     const std::string l = StringUtils::escapeXML(line);
     if (std::find(myLines.begin(), myLines.end(), l) == myLines.end()) {
@@ -203,6 +196,7 @@ NBPTStop::findLaneAndComputeBusStopExtent(const NBEdgeCont& ec) {
     return findLaneAndComputeBusStopExtent(edge);
 }
 
+
 bool
 NBPTStop::findLaneAndComputeBusStopExtent(const NBEdge* edge) {
     if (edge != nullptr) {
@@ -219,8 +213,9 @@ NBPTStop::findLaneAndComputeBusStopExtent(const NBEdge* edge) {
             myLaneId = edge->getLaneID(laneNr);
             const PositionVector& shape = edge->getLaneShape(laneNr);
             double offset = shape.nearest_offset_to_point2D(getPosition(), false);
-            offset = offset * edge->getLoadedLength() / edge->getLength();
-            computeExtent(offset, edge->getLoadedLength());
+            offset *= edge->getLoadedLength() / edge->getLength();
+            myStartPos = MAX2(0.0, offset - myPTStopLength / 2.);
+            myEndPos = MIN2(offset + myPTStopLength / 2., edge->getLoadedLength());
             return true;
         }
     }

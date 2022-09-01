@@ -290,23 +290,30 @@ public:
         return (int) myEdges.size();
     }
 
-
     /** @brief Returns all ids of known edges
      * @return All ids of known edges
      * @todo Recheck usage, probably, filling a given vector would be better...
      */
     std::vector<std::string> getAllNames() const;
 
+    /** @brief Returns the edge split if the edge has been split, nullptr otherwise
+     * @return the pair of edges after the split
+     */
+    const std::pair<NBEdge*, NBEdge*>* getSplit(const NBEdge* const origEdge) const {
+        const auto& split = myEdgesSplit.find(origEdge);
+        if (split == myEdgesSplit.end()) {
+            return nullptr;
+        }
+        return &split->second;
+    }
 
     /** @brief Returns the number of edge splits
      * @return How often an edge was split
      */
-    int getNoEdgeSplits() const {
-        return myEdgesSplit;
+    int getNumEdgeSplits() const {
+        return myEdgesSplit.size();
     }
     /// @}
-
-
 
     /// @name Adapting the input
     /// @{
@@ -715,7 +722,7 @@ private:
     std::set<std::string> myIgnoredEdges;
 
     /// @brief the number of splits of edges during the building
-    int myEdgesSplit;
+    std::map<const NBEdge*, std::pair<NBEdge*, NBEdge*> > myEdgesSplit;
 
     /// @name Settings for accepting/dismissing edges
     /// @{
