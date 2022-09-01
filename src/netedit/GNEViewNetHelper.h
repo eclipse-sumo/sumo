@@ -234,9 +234,6 @@ struct GNEViewNetHelper {
         /// @brief get front attribute carrier or a pointer to nullptr
         GNEAttributeCarrier* getAttributeCarrierFront() const;
 
-        /// @brief get front attribute carrier or a pointer to nullptr checking if is locked
-        GNEAttributeCarrier* getAttributeCarrierFront(const GNEViewNetHelper::LockManager &lockManager) const;
-
         /// @brief get front network element or a pointer to nullptr
         GNENetworkElement* getNetworkElementFront() const;
 

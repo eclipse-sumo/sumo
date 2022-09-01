@@ -5123,7 +5123,7 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
             if (myNetworkViewOptions.selectEdges() && (myMouseButtonKeyPressed.shiftKeyPressed() == false)) {
                 myObjectsUnderCursor.swapLane2Edge();
                 // update AC under cursor
-                AC = myObjectsUnderCursor.getAttributeCarrierFront(myLockManager);
+                AC = myObjectsUnderCursor.getAttributeCarrierFront();
             }
             // now filter locked elements
             myObjectsUnderCursor.filterLockedElements(myLockManager);

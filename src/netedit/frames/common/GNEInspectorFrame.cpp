@@ -1047,7 +1047,7 @@ GNEInspectorFrame::hide() {
 bool
 GNEInspectorFrame::processNetworkSupermodeClick(const Position& clickedPosition, GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor) {
     // get unlocked attribute carrier front
-    auto AC = objectsUnderCursor.getAttributeCarrierFront(myViewNet->getLockManager());
+    auto AC = objectsUnderCursor.getAttributeCarrierFront();
     // first check if we have clicked over an Attribute Carrier
     if (AC) {
         // if Control key is Pressed, select instead inspect element
@@ -1082,7 +1082,7 @@ GNEInspectorFrame::processNetworkSupermodeClick(const Position& clickedPosition,
 bool
 GNEInspectorFrame::processDemandSupermodeClick(const Position& clickedPosition, GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor) {
     // get unlocked attribute carrier front
-    auto AC = objectsUnderCursor.getAttributeCarrierFront(myViewNet->getLockManager());
+    auto AC = objectsUnderCursor.getAttributeCarrierFront();
     // first check if we have clicked over a demand element
     if (AC) {
         // if Control key is Pressed, select instead inspect element
@@ -1117,7 +1117,7 @@ GNEInspectorFrame::processDemandSupermodeClick(const Position& clickedPosition, 
 bool
 GNEInspectorFrame::processDataSupermodeClick(const Position& clickedPosition, GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor) {
     // get unlocked attribute carrier front
-    auto AC = objectsUnderCursor.getAttributeCarrierFront(myViewNet->getLockManager());
+    auto AC = objectsUnderCursor.getAttributeCarrierFront();
     // first check if we have clicked over a data element
     if (AC) {
         // if Control key is Pressed, select instead inspect element
@@ -1369,7 +1369,7 @@ GNEInspectorFrame::selectedOverlappedElement(GNEAttributeCarrier* AC) {
 void
 GNEInspectorFrame::inspectClickedElement(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, const Position& clickedPosition) {
     // get front unlocked AC
-    const auto AC = objectsUnderCursor.getAttributeCarrierFront(myViewNet->getLockManager());
+    const auto AC = objectsUnderCursor.getAttributeCarrierFront();
     // check if selection is blocked
     if (AC) {
         // inspect front element

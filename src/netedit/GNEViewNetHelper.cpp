@@ -319,36 +319,6 @@ GNEViewNetHelper::ObjectsUnderCursor::getAttributeCarrierFront() const {
 }
 
 
-GNEAttributeCarrier*
-GNEViewNetHelper::ObjectsUnderCursor::getAttributeCarrierFront(const GNEViewNetHelper::LockManager &lockManager) const {
-    if (mySwapLane2edge) {
-        if (myEdgeObjects.attributeCarriers.size() > 0) {
-            for (auto &AC : myEdgeObjects.attributeCarriers) {
-                if (!lockManager.isObjectLocked(AC->getGUIGlObject()->getType(), AC->isAttributeCarrierSelected())) {
-                    return AC;
-                }
-            }
-            // all locked, then return nullptr
-            return nullptr;
-        } else {
-            return nullptr;
-        }
-    } else {
-        if (myLaneObjects.attributeCarriers.size() > 0) {
-            for (auto &AC : myLaneObjects.attributeCarriers) {
-                if (!lockManager.isObjectLocked(AC->getGUIGlObject()->getType(), AC->isAttributeCarrierSelected())) {
-                    return AC;
-                }
-            }
-            // all locked, then return nullptr
-            return nullptr;
-        } else {
-            return nullptr;
-        }
-    }
-}
-
-
 GNENetworkElement*
 GNEViewNetHelper::ObjectsUnderCursor::getNetworkElementFront() const {
     if (mySwapLane2edge) {
