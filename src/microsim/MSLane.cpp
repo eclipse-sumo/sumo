@@ -2092,7 +2092,7 @@ MSLane::executeMovements(const SUMOTime t) {
         i = VehCont::reverse_iterator(myVehicles.erase(i.base()));
     }
     if (firstNotStopped != nullptr) {
-        if (MSGlobals::gTimeToGridlock > 0 || MSGlobals::gTimeToGridlockHighways > 0 || MSGlobals::gTimeToTeleportDisconnected >= 0) {
+        if (MSGlobals::gTimeToGridlock > 0 || MSGlobals::gTimeToGridlockHighways > 0 || MSGlobals::gTimeToTeleportDisconnected >= 0 || MSGlobals::gTimeToTeleportBidi > 0) {
             const bool wrongLane = !appropriate(firstNotStopped);
             const bool r1 = MSGlobals::gTimeToGridlock > 0 && firstNotStopped->getWaitingTime() > MSGlobals::gTimeToGridlock;
             const bool r2 = !r1 && MSGlobals::gTimeToGridlockHighways > 0
@@ -2101,7 +2101,9 @@ MSLane::executeMovements(const SUMOTime t) {
             const bool r3 = !r1 && !r2 && MSGlobals::gTimeToTeleportDisconnected >= 0 && firstNotStopped->getWaitingTime() > MSGlobals::gTimeToTeleportDisconnected
                             && firstNotStopped->succEdge(1) != nullptr
                             && firstNotStopped->getEdge()->allowedLanes(*firstNotStopped->succEdge(1), firstNotStopped->getVClass()) == nullptr;
-            if (r1 || r2 || r3) {
+            const bool r4 = !r1 && !r2 && !r3 && MSGlobals::gTimeToTeleportBidi > 0 
+                            && firstNotStopped->getWaitingTime() > MSGlobals::gTimeToTeleportBidi && getBidiLane();
+            if (r1 || r2 || r3 || r4) {
                 const std::vector<MSLink*>::const_iterator link = succLinkSec(*firstNotStopped, 1, *this, firstNotStopped->getBestLanesContinuation());
                 const bool minorLink = !wrongLane && (link != myLinks.end()) && !((*link)->havePriority());
                 std::string reason = (wrongLane ? " (wrong lane)" : (minorLink ? " (yield)" : " (jam)"));
@@ -2116,6 +2118,7 @@ MSLane::executeMovements(const SUMOTime t) {
                 WRITE_WARNINGF("Teleporting vehicle '%'; waited too long" + reason
                                + (r2 ? " (highway)" : "")
                                + (r3 ? " (disconnected)" : "")
+                               + (r4 ? " (bidi)" : "")
                                + ", lane='%', time=%.", firstNotStopped->getID(), getID(), time2string(t));
                 if (wrongLane) {
                     MSNet::getInstance()->getVehicleControl().registerTeleportWrongLane();
