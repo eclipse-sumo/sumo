@@ -225,78 +225,10 @@ GNEViewNetHelper::ObjectsUnderCursor::updateObjectUnderCursor(const std::vector<
     // clear elements
     myEdgeObjects.clearElements();
     myLaneObjects.clearElements();
-    // set GUIGlObject in myGUIGlObjectLanes
+    // sort GUIGLObjects
     sortGUIGlObjects(GUIGlObjects);
-    // iterate over myGUIGlObjectLanes
-    for (const auto& glObject : myEdgeObjects.GUIGlObjects) {
-        // cast attribute carrier from glObject
-        GNEAttributeCarrier* AC = dynamic_cast<GNEAttributeCarrier*>(glObject);
-        // only continue if attributeCarrier isn't nullptr;
-        if (AC) {
-            // update attribute carrier
-            updateAttributeCarriers(myEdgeObjects, AC);
-            // cast specific network elemetns
-            if (AC->getTagProperty().isNetworkElement()) {
-                // update network elements
-                updateNetworkElements(myEdgeObjects, AC);
-            } else if (AC->getTagProperty().isAdditionalElement()) {
-                // update additional elements
-                updateAdditionalElements(myEdgeObjects, AC);
-                // update shapes and TAZs
-                if (AC->getTagProperty().isShapeElement()) {
-                    // update shape elements
-                    updateShapeElements(myEdgeObjects, AC);
-                }
-                if (AC->getTagProperty().isTAZElement()) {
-                    // update TAZ elements
-                    updateTAZElements(myEdgeObjects, AC);
-                }
-            } else if (AC->getTagProperty().isDemandElement()) {
-                // update demand elements
-                updateDemandElements(myEdgeObjects, AC);
-            } else if (AC->getTagProperty().isGenericData()) {
-                // update generic datas
-                updateGenericDataElements(myEdgeObjects, AC);
-            }
-        }
-    }
-    // update GUIGlObjects (due front element)
-    updateGUIGlObjects(myEdgeObjects);
-    // iterate over myGUIGlObjectLanes
-    for (const auto& glObject : myLaneObjects.GUIGlObjects) {
-        // cast attribute carrier from glObject
-        GNEAttributeCarrier* AC = dynamic_cast<GNEAttributeCarrier*>(glObject);
-        // only continue if attributeCarrier isn't nullptr;
-        if (AC) {
-            // update attribute carrier
-            updateAttributeCarriers(myLaneObjects, AC);
-            // cast specific network elemetns
-            if (AC->getTagProperty().isNetworkElement()) {
-                // update network elements
-                updateNetworkElements(myLaneObjects, AC);
-            } else if (AC->getTagProperty().isAdditionalElement()) {
-                // update additional elements
-                updateAdditionalElements(myLaneObjects, AC);
-                // update shapes and TAZs
-                if (AC->getTagProperty().isShapeElement()) {
-                    // update shape elements
-                    updateShapeElements(myLaneObjects, AC);
-                }
-                if (AC->getTagProperty().isTAZElement()) {
-                    // update TAZ elements
-                    updateTAZElements(myLaneObjects, AC);
-                }
-            } else if (AC->getTagProperty().isDemandElement()) {
-                // update demand elements
-                updateDemandElements(myLaneObjects, AC);
-            } else if (AC->getTagProperty().isGenericData()) {
-                // update generic datas
-                updateGenericDataElements(myLaneObjects, AC);
-            }
-        }
-    }
-    // update GUIGlObjects (due front element)
-    updateGUIGlObjects(myLaneObjects);
+    // process GUIGLObjects using myEdgeObjects.GUIGlObjects and myLaneObjects.GUIGlObjects
+    processGUIGlObjects();
 }
 
 
@@ -304,6 +236,30 @@ void
 GNEViewNetHelper::ObjectsUnderCursor::swapLane2Edge() {
     // enable flag
     mySwapLane2edge = true;
+}
+
+
+void
+GNEViewNetHelper::ObjectsUnderCursor::filterLockedElements(const GNEViewNetHelper::LockManager &lockManager) {
+    // make a copy of edge and lane Attribute carriers
+    auto edgeACs = myEdgeObjects.attributeCarriers;
+    auto laneACs = myLaneObjects.attributeCarriers;
+    // clear elements
+    myEdgeObjects.clearElements();
+    myLaneObjects.clearElements();
+    // filter GUIGLObjects
+    for (const auto &edgeAC: edgeACs) {
+        if (!lockManager.isObjectLocked(edgeAC->getGUIGlObject()->getType(), edgeAC->isAttributeCarrierSelected())) {
+            myEdgeObjects.GUIGlObjects.push_back(edgeAC->getGUIGlObject());
+        }
+    }
+    for (const auto &laneAC: laneACs) {
+        if (!lockManager.isObjectLocked(laneAC->getGUIGlObject()->getType(), laneAC->isAttributeCarrierSelected())) {
+            myLaneObjects.GUIGlObjects.push_back(laneAC->getGUIGlObject());
+        }
+    }
+    // process GUIGLObjects using myEdgeObjects.GUIGlObjects and myLaneObjects.GUIGlObjects
+    processGUIGlObjects();
 }
 
 
@@ -1060,6 +1016,81 @@ GNEViewNetHelper::ObjectsUnderCursor::updateGUIGlObjects(ObjectsContainer& conta
         // add GUIGlObject in GUIGlObjects container
         container.GUIGlObjects.push_back(attributeCarrrier->getGUIGlObject());
     }
+}
+
+
+void
+GNEViewNetHelper::ObjectsUnderCursor::processGUIGlObjects() {
+    // iterate over myGUIGlObjectLanes
+    for (const auto& glObject : myEdgeObjects.GUIGlObjects) {
+        // cast attribute carrier from glObject
+        GNEAttributeCarrier* AC = dynamic_cast<GNEAttributeCarrier*>(glObject);
+        // only continue if attributeCarrier isn't nullptr;
+        if (AC) {
+            // update attribute carrier
+            updateAttributeCarriers(myEdgeObjects, AC);
+            // cast specific network elemetns
+            if (AC->getTagProperty().isNetworkElement()) {
+                // update network elements
+                updateNetworkElements(myEdgeObjects, AC);
+            } else if (AC->getTagProperty().isAdditionalElement()) {
+                // update additional elements
+                updateAdditionalElements(myEdgeObjects, AC);
+                // update shapes and TAZs
+                if (AC->getTagProperty().isShapeElement()) {
+                    // update shape elements
+                    updateShapeElements(myEdgeObjects, AC);
+                }
+                if (AC->getTagProperty().isTAZElement()) {
+                    // update TAZ elements
+                    updateTAZElements(myEdgeObjects, AC);
+                }
+            } else if (AC->getTagProperty().isDemandElement()) {
+                // update demand elements
+                updateDemandElements(myEdgeObjects, AC);
+            } else if (AC->getTagProperty().isGenericData()) {
+                // update generic datas
+                updateGenericDataElements(myEdgeObjects, AC);
+            }
+        }
+    }
+    // update GUIGlObjects (due front element)
+    updateGUIGlObjects(myEdgeObjects);
+    // iterate over myGUIGlObjectLanes
+    for (const auto& glObject : myLaneObjects.GUIGlObjects) {
+        // cast attribute carrier from glObject
+        GNEAttributeCarrier* AC = dynamic_cast<GNEAttributeCarrier*>(glObject);
+        // only continue if attributeCarrier isn't nullptr;
+        if (AC) {
+            // update attribute carrier
+            updateAttributeCarriers(myLaneObjects, AC);
+            // cast specific network elemetns
+            if (AC->getTagProperty().isNetworkElement()) {
+                // update network elements
+                updateNetworkElements(myLaneObjects, AC);
+            } else if (AC->getTagProperty().isAdditionalElement()) {
+                // update additional elements
+                updateAdditionalElements(myLaneObjects, AC);
+                // update shapes and TAZs
+                if (AC->getTagProperty().isShapeElement()) {
+                    // update shape elements
+                    updateShapeElements(myLaneObjects, AC);
+                }
+                if (AC->getTagProperty().isTAZElement()) {
+                    // update TAZ elements
+                    updateTAZElements(myLaneObjects, AC);
+                }
+            } else if (AC->getTagProperty().isDemandElement()) {
+                // update demand elements
+                updateDemandElements(myLaneObjects, AC);
+            } else if (AC->getTagProperty().isGenericData()) {
+                // update generic datas
+                updateGenericDataElements(myLaneObjects, AC);
+            }
+        }
+    }
+    // update GUIGlObjects (due front element)
+    updateGUIGlObjects(myLaneObjects);
 }
 
 

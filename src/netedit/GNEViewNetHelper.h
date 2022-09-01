@@ -219,6 +219,9 @@ struct GNEViewNetHelper {
         /// @brief swap lane to edge
         void swapLane2Edge();
 
+        /// @brief filter locked elements
+        void filterLockedElements(const GNEViewNetHelper::LockManager &lockManager);
+
         /// @brief get front GUI GL ID or a pointer to nullptr
         GUIGlID getGlIDFront() const;
 
@@ -406,6 +409,9 @@ struct GNEViewNetHelper {
 
         /// @brief updateGUIGlObjects
         void updateGUIGlObjects(ObjectsContainer& container);
+
+        /// @brief process GL objects
+        void processGUIGlObjects();
 
         /// @brief default constructor
         ObjectsUnderCursor();
