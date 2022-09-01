@@ -19,7 +19,7 @@
 /****************************************************************************/
 #include <config.h>
 
-#include <netbuild/NBLoadedSUMOTLDef.h>
+#include <netedit/frames/demand/GNETypeFrame.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
@@ -37,7 +37,6 @@
 FXDEFMAP(GNEVTypeDistributionsDialog) GNEVTypeDistributionsDialogMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_ACCEPT,  GNEVTypeDistributionsDialog::onCmdAccept),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_CANCEL,  GNEVTypeDistributionsDialog::onCmdCancel),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_RESET,   GNEVTypeDistributionsDialog::onCmdReset),
     FXMAPFUNC(SEL_CHORE,    FXDialogBox::ID_CANCEL, GNEVTypeDistributionsDialog::onCmdCancel),
     FXMAPFUNC(SEL_TIMEOUT,  FXDialogBox::ID_CANCEL, GNEVTypeDistributionsDialog::onCmdCancel),
     FXMAPFUNC(SEL_COMMAND,  FXDialogBox::ID_CANCEL, GNEVTypeDistributionsDialog::onCmdCancel),
@@ -477,202 +476,9 @@ GNEVTypeDistributionsDialog::ParametersOperations::GNEParameterHandler::myStartE
 // GNEVTypeDistributionsDialog - methods
 // ---------------------------------------------------------------------------
 
-GNEVTypeDistributionsDialog::GNEVTypeDistributionsDialog(GNEFrameAttributeModules::GenericDataAttributes* genericDataAttributes) :
-    FXDialogBox(genericDataAttributes->getFrameParent()->getViewNet()->getApp(), "Edit attributes", GUIDesignDialogBoxExplicitStretchable(400, 300)),
-    myGenericDataAttributes(genericDataAttributes),
-    myParametersEditor(nullptr),
-    VTypeAttributeRow(nullptr),
-    myAttributeCarrier(nullptr),
-    myTLDef(nullptr) {
-    // call auxiliar constructor for elements
-    constructor("Attributes");
-    // fill myParametersValues
-    myParametersValues->setParameters(genericDataAttributes->getParameters());
-}
-
-
-GNEVTypeDistributionsDialog::GNEVTypeDistributionsDialog(GNEInspectorFrame::ParametersEditor* parametersEditor) :
-    FXDialogBox(parametersEditor->getInspectorFrameParent()->getViewNet()->getApp(), "Edit parameters", GUIDesignDialogBoxExplicitStretchable(400, 300)),
-    myGenericDataAttributes(nullptr),
-    myParametersEditor(parametersEditor),
-    VTypeAttributeRow(nullptr),
-    myAttributeCarrier(nullptr),
-    myTLDef(nullptr) {
-    // call auxiliar constructor
-    constructor("Parameters");
-    // get AC Front
-    const GNEAttributeCarrier* AC = parametersEditor->getInspectorFrameParent()->getViewNet()->getInspectedAttributeCarriers().front();
-    // fill myParametersValues
-    myParametersValues->setParameters(AC->getACParameters<std::vector<std::pair<std::string, std::string> > >());
-}
-
-
-
-GNEVTypeDistributionsDialog::GNEVTypeDistributionsDialog(GNEVehicleTypeDialog::VTypeAtributes::VTypeAttributeRow* VTypeAttributeRow, GNEViewNet* viewNet) :
-    FXDialogBox(viewNet->getApp(), "Edit parameters", GUIDesignDialogBoxExplicitStretchable(400, 300)),
-    myGenericDataAttributes(nullptr),
-    myParametersEditor(nullptr),
-    VTypeAttributeRow(VTypeAttributeRow),
-    myAttributeCarrier(nullptr),
-    myTLDef(nullptr) {
-    // call auxiliar constructor
-    constructor("Parameters");
-    // fill myEditedParameters
-    myParametersValues->setParameters(VTypeAttributeRow->getParametersVectorStr());
-}
-
-
-GNEVTypeDistributionsDialog::GNEVTypeDistributionsDialog(GNEAttributeCarrier* attributeCarrier) :
-    FXDialogBox(attributeCarrier->getNet()->getViewNet()->getApp(), "Edit parameters", GUIDesignDialogBoxExplicitStretchable(400, 300)),
-    myGenericDataAttributes(nullptr),
-    myParametersEditor(nullptr),
-    VTypeAttributeRow(nullptr),
-    myAttributeCarrier(attributeCarrier),
-    myTLDef(nullptr) {
-    // call auxiliar constructor
-    constructor("Parameters");
-    // fill myEditedParameters
-    myParametersValues->setParameters(myAttributeCarrier->getACParameters<std::vector<std::pair<std::string, std::string> > >());
-}
-
-
-GNEVTypeDistributionsDialog::GNEVTypeDistributionsDialog(FXApp* app, NBLoadedSUMOTLDef* TLDef) :
-    FXDialogBox(app, "Edit parameters", GUIDesignDialogBoxExplicitStretchable(400, 300)),
-    myGenericDataAttributes(nullptr),
-    myParametersEditor(nullptr),
-    VTypeAttributeRow(nullptr),
-    myAttributeCarrier(nullptr),
-    myTLDef(TLDef) {
-    // call auxiliar constructor
-    constructor("Parameters");
-    // transform parameters to a=b|c=d... format
-    std::vector<std::pair<std::string, std::string> > parametersStr;
-    // Generate a vector string using the following structure: "<key1,value1>, <key2, value2>,...
-    for (const auto& parameter : TLDef->getParametersMap()) {
-        parametersStr.push_back(std::make_pair(parameter.first, parameter.second));
-    }
-    // set parameters
-    myParametersValues->setParameters(parametersStr);
-}
-
-
-GNEVTypeDistributionsDialog::~GNEVTypeDistributionsDialog() {}
-
-
-long
-GNEVTypeDistributionsDialog::onCmdAccept(FXObject*, FXSelector, void*) {
-    // declare vector for parameters in stringvector format
-    std::vector<std::pair<std::string, std::string> > parameters;
-    // check if all edited parameters are valid
-    for (const auto& parameterRow : myParametersValues->getParameterRows()) {
-        // ignore last row
-        if (parameterRow != myParametersValues->getParameterRows().back()) {
-            if (parameterRow->keyField->getText().empty()) {
-                // write warning if netedit is running in testing mode
-                WRITE_DEBUG("Opening FXMessageBox of type 'warning'");
-                // open warning Box
-                FXMessageBox::warning(getApp(), MBOX_OK, "Empty Parameter key", "%s", "Parameters with empty keys aren't allowed");
-                // write warning if netedit is running in testing mode
-                WRITE_DEBUG("Closed FXMessageBox of type 'warning' with 'OK'");
-                return 1;
-            } else if (!SUMOXMLDefinitions::isValidParameterKey(parameterRow->keyField->getText().text())) {
-                // write warning if netedit is running in testing mode
-                WRITE_DEBUG("Opening FXMessageBox of type 'warning'");
-                // open warning Box
-                FXMessageBox::warning(getApp(), MBOX_OK, "Invalid Parameter key", "%s", "There are keys with invalid characters");
-                // write warning if netedit is running in testing mode
-                WRITE_DEBUG("Closed FXMessageBox of type 'warning' with 'OK'");
-                return 1;
-            }
-            // insert in parameters
-            parameters.push_back(std::make_pair(parameterRow->keyField->getText().text(), parameterRow->valueField->getText().text()));
-        }
-    }
-    // sort sortedParameters
-    std::sort(parameters.begin(), parameters.end());
-    // check if there is duplicated keys
-    for (auto i = parameters.begin(); i != parameters.end(); i++) {
-        if (((i + 1) != parameters.end()) && (i->first) == (i + 1)->first) {
-            // write warning if netedit is running in testing mode
-            WRITE_DEBUG("Opening FXMessageBox of type 'warning'");
-            // open warning Box
-            FXMessageBox::warning(getApp(), MBOX_OK, "Duplicated Parameters", "%s", "Parameters with the same Key aren't allowed");
-            // write warning if netedit is running in testing mode
-            WRITE_DEBUG("Closed FXMessageBox of type 'warning' with 'OK'");
-            return 1;
-        }
-    }
-    // set parameters in Parameters editor parents
-    if (myGenericDataAttributes) {
-        // set parameter in editor creator
-        myGenericDataAttributes->setParameters(parameters);
-    } else if (myParametersEditor) {
-        // get inspected AC
-        GNEAttributeCarrier* AC = myParametersEditor->getInspectorFrameParent()->getViewNet()->getInspectedAttributeCarriers().front();
-        // set parameter in AC using undoList
-        myParametersEditor->getInspectorFrameParent()->getViewNet()->getUndoList()->begin(AC->getTagProperty().getGUIIcon(), "change parameters");
-        AC->setACParameters(parameters, myParametersEditor->getInspectorFrameParent()->getViewNet()->getUndoList());
-        myParametersEditor->getInspectorFrameParent()->getViewNet()->getUndoList()->end();
-    } else if (VTypeAttributeRow) {
-        // set parameter in VTypeAttributeRow
-        VTypeAttributeRow->setParameters(parameters);
-    } else if (myAttributeCarrier) {
-        // set parameter in AC using undoList
-        myAttributeCarrier->getNet()->getViewNet()->getUndoList()->begin(myAttributeCarrier->getTagProperty().getGUIIcon(), "change parameters");
-        myAttributeCarrier->setACParameters(parameters, myAttributeCarrier->getNet()->getViewNet()->getUndoList());
-        myAttributeCarrier->getNet()->getViewNet()->getUndoList()->end();
-    } else if (myTLDef) {
-        // declare parametersMap
-        Parameterised::Map parametersMap;
-        // Generate an string using the following structure: "key1=value1|key2=value2|...
-        for (const auto& parameter : parameters) {
-            parametersMap[parameter.first] = parameter.second;
-        }
-        // set setACParameters map
-        myTLDef->setParametersMap(parametersMap);
-    }
-    // all ok, then close dialog
-    getApp()->stopModal(this, TRUE);
-    return 1;
-}
-
-
-long
-GNEVTypeDistributionsDialog::onCmdCancel(FXObject*, FXSelector, void*) {
-    // Stop Modal
-    getApp()->stopModal(this, FALSE);
-    return 1;
-}
-
-
-long
-GNEVTypeDistributionsDialog::onCmdReset(FXObject*, FXSelector, void*) {
-    // restore original parameters
-    if (myGenericDataAttributes) {
-        myParametersValues->setParameters(myGenericDataAttributes->getParameters());
-    } else if (myParametersEditor) {
-        const GNEAttributeCarrier* AC = myParametersEditor->getInspectorFrameParent()->getViewNet()->getInspectedAttributeCarriers().front();
-        myParametersValues->setParameters(AC->getACParameters<std::vector<std::pair<std::string, std::string> > >());
-    } else if (VTypeAttributeRow) {
-        myParametersValues->setParameters(VTypeAttributeRow->getParametersVectorStr());
-    } else if (myAttributeCarrier) {
-        myParametersValues->setParameters(myAttributeCarrier->getACParameters<std::vector<std::pair<std::string, std::string> > >());
-    } else if (myTLDef) {
-        // transform parameters to a=b|c=d... format
-        std::vector<std::pair<std::string, std::string> > parametersStr;
-        // Generate a vector string using the following structure: "<key1,value1>, <key2, value2>,...
-        for (const auto& parameter : myTLDef->getParametersMap()) {
-            parametersStr.push_back(std::make_pair(parameter.first, parameter.second));
-        }
-        // set parameters
-        myParametersValues->setParameters(parametersStr);
-    }
-    return 1;
-}
-
-
-void
-GNEVTypeDistributionsDialog::constructor(const std::string& name) {
+GNEVTypeDistributionsDialog::GNEVTypeDistributionsDialog(GNETypeFrame* typeFrameParent) :
+    FXDialogBox(typeFrameParent->getViewNet()->getApp(), "Edit attributes", GUIDesignDialogBoxExplicitStretchable(400, 300)),
+    myTypeFrameParent(typeFrameParent) {
     // set vehicle icon for this dialog
     setIcon(GUIIconSubSys::getIcon(GUIIcon::APP_TABLE));
     // create main frame
@@ -680,7 +486,7 @@ GNEVTypeDistributionsDialog::constructor(const std::string& name) {
     // create frame for Parameters and operations
     FXHorizontalFrame* horizontalFrameExtras = new FXHorizontalFrame(mainFrame, GUIDesignAuxiliarFrame);
     // create parameters values
-    myParametersValues = new ParametersValues(horizontalFrameExtras, name);
+    myParametersValues = new ParametersValues(horizontalFrameExtras, "test");
     // create parameters operations
     myParametersOperations = new ParametersOperations(horizontalFrameExtras, this);
     // add separator
@@ -690,8 +496,46 @@ GNEVTypeDistributionsDialog::constructor(const std::string& name) {
     new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
     myAcceptButton = new FXButton(buttonsFrame, "accept\t\tclose", GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, MID_GNE_BUTTON_ACCEPT, GUIDesignButtonAccept);
     myCancelButton = new FXButton(buttonsFrame, "cancel\t\tclose", GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, MID_GNE_BUTTON_CANCEL, GUIDesignButtonCancel);
-    myResetButton = new FXButton(buttonsFrame,  "reset\t\tclose",  GUIIconSubSys::getIcon(GUIIcon::RESET), this, MID_GNE_BUTTON_RESET,  GUIDesignButtonReset);
     new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
+    // create dialog
+    create();
+}
+
+
+GNEVTypeDistributionsDialog::~GNEVTypeDistributionsDialog() {}
+
+
+void
+GNEVTypeDistributionsDialog::openDialog() {
+    // show
+    show(PLACEMENT_SCREEN);
+    // open as modal dialog (will block all windows until stop() or stopModal() is called)
+    //getApp()->runModalFor(this);
+}
+
+
+void 
+GNEVTypeDistributionsDialog::closeDialog() {
+    // hide
+    hide();
+    // close dialog
+    //getApp()->stopModal(this, TRUE);
+}
+
+
+long
+GNEVTypeDistributionsDialog::onCmdAccept(FXObject*, FXSelector, void*) {
+    // close dialog
+    closeDialog();
+    return 1;
+}
+
+
+long
+GNEVTypeDistributionsDialog::onCmdCancel(FXObject*, FXSelector, void*) {
+    // close dialog
+    closeDialog();
+    return 1;
 }
 
 /****************************************************************************/

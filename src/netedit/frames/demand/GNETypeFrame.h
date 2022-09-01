@@ -154,10 +154,13 @@ public:
 
     public:
         /// @brief constructor
-        VTypeDistributions(GNEFrame* frameParent);
+        VTypeDistributions(GNETypeFrame* typeFrameParent);
 
         /// @brief destructor
         ~VTypeDistributions();
+
+        /// @brief get pointer to type frame Parent
+        GNETypeFrame* getTypeFrameParent() const;
 
         /// @brief show VTypeDistributions  modul
         void showVTypeDistributionsModule();
@@ -179,8 +182,8 @@ public:
         FOX_CONSTRUCTOR(VTypeDistributions )
 
     private:
-        /// @brief pointer to Frame Parent
-        GNEFrame* myFrameParent = nullptr;
+        /// @brief pointer to type frame Parent
+        GNETypeFrame* myTypeFrameParent = nullptr;
 
         /// @brief VType distribution dialog
         GNEVTypeDistributionsDialog* myVTypeDistributionsDialog = nullptr;

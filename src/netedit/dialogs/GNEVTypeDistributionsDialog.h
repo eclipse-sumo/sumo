@@ -31,7 +31,7 @@
 // ===========================================================================
 
 class GNEAttributeCarrier;
-class NBLoadedSUMOTLDef;
+class GNETypeFrame;
 class GNEViewNet;
 
 // ===========================================================================
@@ -47,7 +47,6 @@ class GNEVTypeDistributionsDialog : public FXDialogBox {
     FXDECLARE(GNEVTypeDistributionsDialog)
 
 public:
-
     // ===========================================================================
     // class ParametersValues
     // ===========================================================================
@@ -230,23 +229,17 @@ public:
         FXButton* myHelpButton;
     };
 
-    /// @brief Constructor for generic data attributes
-    GNEVTypeDistributionsDialog(GNEFrameAttributeModules::GenericDataAttributes* genericDataAttributes);
-
-    /// @brief Constructor for parameter editor
-    GNEVTypeDistributionsDialog(GNEInspectorFrame::ParametersEditor* parametersEditor);
-
-    /// @brief Constructor for Vehicle Type Row (Vehicle Type Dialog)
-    GNEVTypeDistributionsDialog(GNEVehicleTypeDialog::VTypeAtributes::VTypeAttributeRow* VTypeAttributeRow, GNEViewNet* viewNet);
-
-    /// @brief Constructor for attribute carriers (used in GNECreateEdgeFrame)
-    GNEVTypeDistributionsDialog(GNEAttributeCarrier* attributeCarrier);
-
-    /// @brief Constructor for attribute carriers (used in GNETLSEditorFrame)
-    GNEVTypeDistributionsDialog(FXApp* app, NBLoadedSUMOTLDef* TLDef);
+    /// @brief Constructor
+    GNEVTypeDistributionsDialog(GNETypeFrame* typeFrameParent);
 
     /// @brief destructor
     ~GNEVTypeDistributionsDialog();
+
+    /// @brief open dialog
+    void openDialog();
+
+    /// @brief close dialog
+    void closeDialog();
 
     /// @name FOX-callbacks
     /// @{
@@ -256,28 +249,14 @@ public:
     /// @brief event after press cancel button
     long onCmdCancel(FXObject*, FXSelector, void*);
 
-    /// @brief event after press reset button
-    long onCmdReset(FXObject*, FXSelector, void*);
     /// @}
 
 protected:
     /// @brief FOX need this
     FOX_CONSTRUCTOR(GNEVTypeDistributionsDialog)
 
-    /// @brief pointer to GenericDataAttributes
-    GNEFrameAttributeModules::GenericDataAttributes* myGenericDataAttributes;
-
-    /// @brief pointer to ParametersEditor
-    GNEInspectorFrame::ParametersEditor* myParametersEditor;
-
-    /// @brief pointer to VTypeAttributeRow
-    GNEVehicleTypeDialog::VTypeAtributes::VTypeAttributeRow* VTypeAttributeRow;
-
-    /// @brief pointer to GNEAttributeCarrier
-    GNEAttributeCarrier* myAttributeCarrier;
-
-    /// @brief pointer to TLDef
-    NBLoadedSUMOTLDef* myTLDef;
+    /// @brief pointer to type frame parent
+    GNETypeFrame* myTypeFrameParent;
 
     /// @brief pointer to parameters values
     ParametersValues* myParametersValues;
@@ -291,13 +270,7 @@ protected:
     /// @brief cancel button
     FXButton* myCancelButton;
 
-    /// @brief cancel button
-    FXButton* myResetButton;
-
 private:
-    /// @brief auxiliar constructor
-    void constructor(const std::string& name);
-
     /// @brief Invalidated copy constructor.
     GNEVTypeDistributionsDialog(const GNEVTypeDistributionsDialog&) = delete;
 

@@ -410,17 +410,23 @@ GNETypeFrame::TypeEditor::deleteType() {
 // GNEFrameAttributeModules::VTypeDistributions - methods
 // ---------------------------------------------------------------------------
 
-GNETypeFrame::VTypeDistributions::VTypeDistributions(GNEFrame* frameParent) :
-    MFXGroupBoxModule(frameParent, "VType Distributions"),
-    myFrameParent(frameParent) {
+GNETypeFrame::VTypeDistributions::VTypeDistributions(GNETypeFrame* typeFrameParent) :
+    MFXGroupBoxModule(typeFrameParent, "VType Distributions"),
+    myTypeFrameParent(typeFrameParent) {
     // Create open dialog button
     new FXButton(getCollapsableFrame(), "Show VType Distributions", nullptr, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButton);
     // create vType distribution dialog
-    myVTypeDistributionsDialog = new GNEVTypeDistributionsDialog(this);
+    myVTypeDistributionsDialog = new GNEVTypeDistributionsDialog(typeFrameParent);
 }
 
 
 GNETypeFrame::VTypeDistributions::~VTypeDistributions () {}
+
+
+GNETypeFrame*
+GNETypeFrame::VTypeDistributions::getTypeFrameParent() const {
+    return myTypeFrameParent;
+}
 
 
 void
@@ -431,6 +437,8 @@ GNETypeFrame::VTypeDistributions::showVTypeDistributionsModule() {
 
 void
 GNETypeFrame::VTypeDistributions::hideVTypeDistributionsModule() {
+    // always close dialog
+    myVTypeDistributionsDialog->close();
     hide();
 }
 
@@ -443,8 +451,8 @@ GNETypeFrame::VTypeDistributions::getVTypeDistributionsDialog() const {
 
 long
 GNETypeFrame::VTypeDistributions::onCmdOpenDialog(FXObject*, FXSelector, void*) {
-    // open GNEAttributesCreator extended dialog
-    myFrameParent->attributesEditorExtendedDialogOpened();
+    // open VTypeDistributions Dialog
+    myVTypeDistributionsDialog->openDialog();
     return 1;
 }
 
