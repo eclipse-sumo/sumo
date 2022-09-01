@@ -237,6 +237,9 @@ public:
         /// @brief VTypeAttributeRow for MaxSpeed
         VTypeAttributeRow* myMaxSpeed;
 
+        /// @brief VTypeAttributeRow for desired max speed
+        VTypeAttributeRow* myDesiredMaxSpeed;
+
         /// @brief VTypeAttributeRow for SpeedFactor
         VTypeAttributeRow* mySpeedFactor;
 
