@@ -25,6 +25,7 @@
 #include <netedit/changes/GNEChange_DemandElement.h>
 #include <netedit/elements/demand/GNEVType.h>
 #include <netedit/dialogs/GNEVehicleTypeDialog.h>
+#include <netedit/dialogs/GNEVTypeDistributionsDialog.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 
@@ -45,9 +46,15 @@ FXDEFMAP(GNETypeFrame::TypeEditor) typeEditorMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_COPY,      GNETypeFrame::TypeEditor::onCmdCopyType)
 };
 
+FXDEFMAP(GNETypeFrame::VTypeDistributions) VTypeDistributionsMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_DIALOG,   GNETypeFrame::VTypeDistributions::onCmdOpenDialog)
+};
+
 // Object implementation
-FXIMPLEMENT(GNETypeFrame::TypeSelector,   MFXGroupBoxModule,     typeSelectorMap,     ARRAYNUMBER(typeSelectorMap))
-FXIMPLEMENT(GNETypeFrame::TypeEditor,     MFXGroupBoxModule,     typeEditorMap,       ARRAYNUMBER(typeEditorMap))
+FXIMPLEMENT(GNETypeFrame::TypeSelector,         MFXGroupBoxModule,  typeSelectorMap,        ARRAYNUMBER(typeSelectorMap))
+FXIMPLEMENT(GNETypeFrame::TypeEditor,           MFXGroupBoxModule,  typeEditorMap,          ARRAYNUMBER(typeEditorMap))
+FXIMPLEMENT(GNETypeFrame::VTypeDistributions,   MFXGroupBoxModule,  VTypeDistributionsMap,  ARRAYNUMBER(VTypeDistributionsMap))
+
 
 // ===========================================================================
 // method definitions
@@ -400,6 +407,48 @@ GNETypeFrame::TypeEditor::deleteType() {
 }
 
 // ---------------------------------------------------------------------------
+// GNEFrameAttributeModules::VTypeDistributions - methods
+// ---------------------------------------------------------------------------
+
+GNETypeFrame::VTypeDistributions::VTypeDistributions(GNEFrame* frameParent) :
+    MFXGroupBoxModule(frameParent, "VType Distributions"),
+    myFrameParent(frameParent) {
+    // Create open dialog button
+    new FXButton(getCollapsableFrame(), "Show VType Distributions", nullptr, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButton);
+    // create vType distribution dialog
+    myVTypeDistributionsDialog = new GNEVTypeDistributionsDialog(this);
+}
+
+
+GNETypeFrame::VTypeDistributions::~VTypeDistributions () {}
+
+
+void
+GNETypeFrame::VTypeDistributions::showVTypeDistributionsModule() {
+    show();
+}
+
+
+void
+GNETypeFrame::VTypeDistributions::hideVTypeDistributionsModule() {
+    hide();
+}
+
+
+GNEVTypeDistributionsDialog*
+GNETypeFrame::VTypeDistributions::getVTypeDistributionsDialog() const {
+    return myVTypeDistributionsDialog;
+}
+
+
+long
+GNETypeFrame::VTypeDistributions::onCmdOpenDialog(FXObject*, FXSelector, void*) {
+    // open GNEAttributesCreator extended dialog
+    myFrameParent->attributesEditorExtendedDialogOpened();
+    return 1;
+}
+
+// ---------------------------------------------------------------------------
 // GNETypeFrame - methods
 // ---------------------------------------------------------------------------
 
@@ -419,7 +468,7 @@ GNETypeFrame::GNETypeFrame(GNEViewParent *viewParent, GNEViewNet* viewNet) :
     myAttributesEditorExtended = new GNEFrameAttributeModules::AttributesEditorExtended(this);
 
     // create module for open vType distribution dialog
-    myVTypeDistributions = new GNEFrameAttributeModules::VTypeDistributions(this);
+    myVTypeDistributions = new VTypeDistributions(this);
 
     // set "VTYPE_DEFAULT" as default vehicle Type
     myTypeSelector->setCurrentType(myViewNet->getNet()->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, DEFAULT_VTYPE_ID));

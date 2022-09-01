@@ -220,41 +220,6 @@ public:
     };
 
     // ===========================================================================
-    // class VTypeDistributions 
-    // ===========================================================================
-
-    class VTypeDistributions  : public MFXGroupBoxModule {
-        /// @brief FOX-declaration
-        FXDECLARE(GNEFrameAttributeModules::VTypeDistributions )
-
-    public:
-        /// @brief constructor
-        VTypeDistributions (GNEFrame* frameParent);
-
-        /// @brief destructor
-        ~VTypeDistributions ();
-
-        /// @brief show VTypeDistributions  modul
-        void showVTypeDistributionsModule();
-
-        /// @brief hide group box
-        void hideVTypeDistributionsModule();
-
-        /// @name FOX-callbacks
-        /// @{
-        /// @brief Called when open dialog button is clicked
-        long onCmdOpenDialog(FXObject*, FXSelector, void*);
-        /// @}
-
-    protected:
-        FOX_CONSTRUCTOR(VTypeDistributions )
-
-    private:
-        /// @brief pointer to Frame Parent
-        GNEFrame* myFrameParent = nullptr;
-    };
-
-    // ===========================================================================
     // class GenericDataAttributes
     // ===========================================================================
 

@@ -54,10 +54,6 @@ FXDEFMAP(GNEFrameAttributeModules::AttributesEditorExtended) AttributesEditorExt
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_DIALOG,   GNEFrameAttributeModules::AttributesEditorExtended::onCmdOpenDialog)
 };
 
-FXDEFMAP(GNEFrameAttributeModules::VTypeDistributions) VTypeDistributionsMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_DIALOG,   GNEFrameAttributeModules::VTypeDistributions::onCmdOpenDialog)
-};
-
 FXDEFMAP(GNEFrameAttributeModules::GenericDataAttributes) GenericDataAttributesMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_OPEN_PARAMETERS_DIALOG, GNEFrameAttributeModules::GenericDataAttributes::onCmdEditParameters),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,          GNEFrameAttributeModules::GenericDataAttributes::onCmdSetParameters)
@@ -67,7 +63,6 @@ FXDEFMAP(GNEFrameAttributeModules::GenericDataAttributes) GenericDataAttributesM
 FXIMPLEMENT(GNEFrameAttributeModules::AttributesEditorRow,          FXHorizontalFrame,       AttributesEditorRowMap,        ARRAYNUMBER(AttributesEditorRowMap))
 FXIMPLEMENT(GNEFrameAttributeModules::AttributesEditor,             MFXGroupBoxModule,       AttributesEditorMap,           ARRAYNUMBER(AttributesEditorMap))
 FXIMPLEMENT(GNEFrameAttributeModules::AttributesEditorExtended,     MFXGroupBoxModule,       AttributesEditorExtendedMap,   ARRAYNUMBER(AttributesEditorExtendedMap))
-FXIMPLEMENT(GNEFrameAttributeModules::VTypeDistributions,           MFXGroupBoxModule,       VTypeDistributionsMap,         ARRAYNUMBER(VTypeDistributionsMap))
 FXIMPLEMENT(GNEFrameAttributeModules::GenericDataAttributes,        MFXGroupBoxModule,       GenericDataAttributesMap,      ARRAYNUMBER(GenericDataAttributesMap))
 
 
@@ -930,40 +925,6 @@ GNEFrameAttributeModules::AttributesEditorExtended::hideAttributesEditorExtended
 
 long
 GNEFrameAttributeModules::AttributesEditorExtended::onCmdOpenDialog(FXObject*, FXSelector, void*) {
-    // open GNEAttributesCreator extended dialog
-    myFrameParent->attributesEditorExtendedDialogOpened();
-    return 1;
-}
-
-// ---------------------------------------------------------------------------
-// GNEFrameAttributeModules::VTypeDistributions - methods
-// ---------------------------------------------------------------------------
-
-GNEFrameAttributeModules::VTypeDistributions::VTypeDistributions(GNEFrame* frameParent) :
-    MFXGroupBoxModule(frameParent, "VType Distributions"),
-    myFrameParent(frameParent) {
-    // Create open dialog button
-    new FXButton(getCollapsableFrame(), "Show VType Distributions", nullptr, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButton);
-}
-
-
-GNEFrameAttributeModules::VTypeDistributions::~VTypeDistributions () {}
-
-
-void
-GNEFrameAttributeModules::VTypeDistributions::showVTypeDistributionsModule() {
-    show();
-}
-
-
-void
-GNEFrameAttributeModules::VTypeDistributions::hideVTypeDistributionsModule() {
-    hide();
-}
-
-
-long
-GNEFrameAttributeModules::VTypeDistributions::onCmdOpenDialog(FXObject*, FXSelector, void*) {
     // open GNEAttributesCreator extended dialog
     myFrameParent->attributesEditorExtendedDialogOpened();
     return 1;

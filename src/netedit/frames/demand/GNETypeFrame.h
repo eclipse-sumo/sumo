@@ -27,6 +27,7 @@
 // ===========================================================================
 
 class GNEVehicle;
+class GNEVTypeDistributionsDialog;
 
 // ===========================================================================
 // class definitions
@@ -143,6 +144,48 @@ public:
         FXButton* myCopyTypeButton;
     };
 
+    // ===========================================================================
+    // class VTypeDistributions 
+    // ===========================================================================
+
+    class VTypeDistributions  : public MFXGroupBoxModule {
+        /// @brief FOX-declaration
+        FXDECLARE(GNETypeFrame::VTypeDistributions )
+
+    public:
+        /// @brief constructor
+        VTypeDistributions(GNEFrame* frameParent);
+
+        /// @brief destructor
+        ~VTypeDistributions();
+
+        /// @brief show VTypeDistributions  modul
+        void showVTypeDistributionsModule();
+
+        /// @brief hide group box
+        void hideVTypeDistributionsModule();
+
+        /// @brief get vType distribution dialog
+        GNEVTypeDistributionsDialog* getVTypeDistributionsDialog() const;
+
+        /// @name FOX-callbacks
+        /// @{
+        /// @brief Called when open dialog button is clicked
+        long onCmdOpenDialog(FXObject*, FXSelector, void*);
+        /// @}
+
+    protected:
+        /// @brief FOX need this
+        FOX_CONSTRUCTOR(VTypeDistributions )
+
+    private:
+        /// @brief pointer to Frame Parent
+        GNEFrame* myFrameParent = nullptr;
+
+        /// @brief VType distribution dialog
+        GNEVTypeDistributionsDialog* myVTypeDistributionsDialog = nullptr;
+    };
+
     /**@brief Constructor
      * @brief viewParent GNEViewParent in which this GNEFrame is placed
      * @brief viewNet viewNet that uses this GNEFrame
@@ -169,6 +212,9 @@ private:
     /// @brief vehicle type selector
     TypeSelector* myTypeSelector;
 
+    /// @brief Vehicle Type editor (Create, copy, etc.)
+    TypeEditor* myTypeEditor;
+
     /// @brief editorinternal vehicle type attributes
     GNEFrameAttributeModules::AttributesEditor* myTypeAttributesEditor = nullptr;
 
@@ -176,8 +222,5 @@ private:
     GNEFrameAttributeModules::AttributesEditorExtended* myAttributesEditorExtended = nullptr;
 
     /// @brief modul for open vType distributions dialog
-    GNEFrameAttributeModules::VTypeDistributions* myVTypeDistributions = nullptr;
-
-    /// @brief Vehicle Type editor (Create, copy, etc.)
-    TypeEditor* myTypeEditor;
+    VTypeDistributions* myVTypeDistributions = nullptr;
 };
