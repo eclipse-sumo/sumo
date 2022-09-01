@@ -1011,14 +1011,20 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
         case SUMO_ATTR_SPREADTYPE:
         case SUMO_ATTR_DISTANCE:
         case GNE_ATTR_MODIFICATION_STATUS:
-        case GNE_ATTR_SHAPE_START:
-        case GNE_ATTR_SHAPE_END:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_STOPOFFSET:
         case GNE_ATTR_STOPOEXCEPTION:
         case GNE_ATTR_PARAMETERS:
             undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
             break;
+        case GNE_ATTR_SHAPE_START:
+        case GNE_ATTR_SHAPE_END: {
+            auto change = new GNEChange_Attribute(this, key, value);
+            // due to ENDPOINT_TOLERANCE, change might be ignored unless forced
+            change->forceChange();
+            undoList->changeAttribute(change);
+            break;
+        }
         case SUMO_ATTR_NAME:
             // user cares about street names. Make sure they appear in the output
             OptionsCont::getOptions().resetWritable();
