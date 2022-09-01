@@ -2106,20 +2106,20 @@ MSLane::executeMovements(const SUMOTime t) {
             if (r1 || r2 || r3 || r4) {
                 const std::vector<MSLink*>::const_iterator link = succLinkSec(*firstNotStopped, 1, *this, firstNotStopped->getBestLanesContinuation());
                 const bool minorLink = !wrongLane && (link != myLinks.end()) && !((*link)->havePriority());
-                std::string reason = (wrongLane ? " (wrong lane)" : (minorLink ? " (yield)" : " (jam)"));
+                std::string reason = (wrongLane ? " (wrong lane" : (minorLink ? " (yield" : " (jam"));
                 myBruttoVehicleLengthSumToRemove += firstNotStopped->getVehicleType().getLengthWithGap();
                 myNettoVehicleLengthSumToRemove += firstNotStopped->getVehicleType().getLength();
                 if (firstNotStopped == myVehicles.back()) {
                     myVehicles.pop_back();
                 } else {
                     myVehicles.erase(std::find(myVehicles.begin(), myVehicles.end(), firstNotStopped));
-                    reason = " (blocked)";
+                    reason = " (blocked";
                 }
                 WRITE_WARNINGF("Teleporting vehicle '%'; waited too long" + reason
-                               + (r2 ? " (highway)" : "")
-                               + (r3 ? " (disconnected)" : "")
-                               + (r4 ? " (bidi)" : "")
-                               + ", lane='%', time=%.", firstNotStopped->getID(), getID(), time2string(t));
+                               + (r2 ? ", highway" : "")
+                               + (r3 ? ", disconnected" : "")
+                               + (r4 ? ", bidi" : "")
+                               + "), lane='%', time=%.", firstNotStopped->getID(), getID(), time2string(t));
                 if (wrongLane) {
                     MSNet::getInstance()->getVehicleControl().registerTeleportWrongLane();
                 } else if (minorLink) {
