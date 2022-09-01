@@ -15,7 +15,6 @@ Warning: Incomplete route for pt line '6187328' (Buslinie N42: S+U Alexanderplat
 Warning: Cannot assign stop 3959807201 on edge '391493954' to pt line '6187328'. Ignoring!
 Warning: Incomplete route for pt line '6187329' (Buslinie N42: U Theodor-Heuss-Platz => S+U Alexanderplatz).
 Warning: Cannot assign stop 3959807200 on edge '391493954' to pt line '6187329'. Ignoring!
-Warning: Can not build ramp on edge '-338412122' - the edge is unsuitable.
 Warning: Found sharp turn with radius 6.74 at the start of edge '-41292662#2'.
 Warning: Found sharp turn with radius 6.45 at the end of edge '186519599'.
 Warning: Found sharp turn with radius 4.75 at the start of edge '187160639'.
