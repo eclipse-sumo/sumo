@@ -1,4 +1,4 @@
-Eclipse SUMO sumo Version v1_14_1+0260-b509f62
+Eclipse SUMO sumo Version v1_14_1+0745-c651c77
  Copyright (C) 2001-2022 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -239,6 +239,8 @@ Processing Options:
                                         containers waiting for a pickup are
                                         teleported. Negative values disable
                                         teleporting
+  --time-to-teleport.bidi TIME         The waiting time after which vehicles on
+                                        bidirectional edges are teleported
   --waiting-time-memory TIME           Length of time interval, over which
                                         accumulated waiting time is taken into
                                         account (default is 100s.)
