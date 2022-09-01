@@ -1,5 +1,8 @@
 # test option time to teleport
 time-to-teleport
+
+# test attribute timeToTeleport
+time-to-teleport_custom
 time-to-teleport.highways
 time-to-teleport.highways.min-speed
 
