@@ -466,6 +466,8 @@
         <xsd:attribute name="containerNumber" type="xsd:nonNegativeInteger"/>
         <xsd:attribute name="speedFactor" type="positiveFloatType"/>
         <xsd:attribute name="insertionChecks" type="xsd:string"/>
+        <xsd:attribute name="timeToTeleport" type="xsd:float"/>
+        <xsd:attribute name="timeToTeleportBidi" type="xsd:float"/>
     </xsd:complexType>
 
     <xsd:complexType name="flowWithoutIDType">
