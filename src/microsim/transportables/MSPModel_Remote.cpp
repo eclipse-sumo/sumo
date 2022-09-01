@@ -27,6 +27,10 @@
 #include "utils/geom/Position.h"
 #include "utils/geom/PositionVector.h"
 #include "MSPModel_Remote.h"
+#include "../MSEdgeControl.h"
+
+
+const double MSPModel_Remote::JPS_AREA_RATIO = 0.1;
 
 
 MSPModel_Remote::MSPModel_Remote(const OptionsCont& oc, MSNet* net) : myNet(net) {
@@ -38,7 +42,7 @@ MSPModel_Remote::MSPModel_Remote(const OptionsCont& oc, MSNet* net) : myNet(net)
 
 MSTransportableStateAdapter*
 MSPModel_Remote::add(MSTransportable* person, MSStageMoving* stage, SUMOTime now) {
-    assert(person->getCurrentStageType() == MSTransportable::MOVING_WITHOUT_VEHICLE);
+    assert(person->getCurrentStageType() == MSStageType::WALKING);
 
     PState* state = new PState(static_cast<MSPerson*>(person), stage);
 
@@ -206,7 +210,7 @@ MSPModel_Remote::getFirstPedestrianLane(const MSEdge* const& edge) {
             return lane;
         }
     }
-    throw ProcessError("Edge: " + edge->getID() + " does not allow pedestrians.");
+	return nullptr;
 }
 
 
@@ -219,13 +223,79 @@ MSPModel_Remote::remove(MSTransportableStateAdapter* state) {
 
 void
 MSPModel_Remote::initialize() {
-    auto geoBuilder = JPS_GeometryBuilder_Create();
-    std::vector<double> box1{0, 0, 1, 0, 1, 1, 0, 1};
-    JPS_GeometryBuilder_AddAccessibleArea(geoBuilder, box1.data(), box1.size() / 2);
-    auto jpsGeometry = JPS_GeometryBuilder_Build(geoBuilder, nullptr);
-    // std::cout << "initialized JPS" << std::endl;
-}
+	JPS_GeometryBuilder geometryBuilder = JPS_GeometryBuilder_Create();
+	JPS_AreasBuilder areasBuilder = JPS_AreasBuilder_Create();
 
+	MSEdgeVector edges = (myNet->getEdgeControl()).getEdges();
+	for (const MSEdge* const edge : edges) {
+		MSLane* lane = getFirstPedestrianLane(edge);
+		if (lane) {
+			PositionVector shape = lane->getShape();
+			Position leftPoint = shape[0];
+			Position rightPoint = shape[1];
+			double extent = lane->getWidth() / 2.0;
+			
+			double angle = leftPoint.angleTo2D(rightPoint);
+			Position toRotate = leftPoint + Position(extent * cos(angle), extent * sin(angle));
+			Position topLeftCorner = toRotate.rotateAround2D(M_PI / 2.0, leftPoint);
+			Position bottomLeftCorner = toRotate.rotateAround2D(-M_PI / 2.0, leftPoint);
+			
+			angle = rightPoint.angleTo2D(leftPoint);
+			toRotate = rightPoint + Position(extent * cos(angle), extent * sin(angle));
+			Position topRightCorner = toRotate.rotateAround2D(-M_PI / 2.0, rightPoint);
+			Position bottomRightCorner = toRotate.rotateAround2D(M_PI / 2.0, rightPoint);
+			
+			std::vector<Position> lanePolygon{ topLeftCorner, bottomLeftCorner, bottomRightCorner, topRightCorner };
+			std::vector<double> lanePolygonCoordinates;
+			for (const Position& position : lanePolygon) {
+				lanePolygonCoordinates.push_back(position.x());
+				lanePolygonCoordinates.push_back(position.y());
+			}
+
+			JPS_GeometryBuilder_AddAccessibleArea(geometryBuilder, lanePolygonCoordinates.data(), lanePolygonCoordinates.size() / 2);
+
+			Position directionVector = rightPoint - leftPoint;
+			std::vector<Position> leftAreaPolygon{ topLeftCorner, 
+												   bottomLeftCorner,
+												   bottomLeftCorner + directionVector * JPS_AREA_RATIO,
+												   topLeftCorner + directionVector*JPS_AREA_RATIO,
+												 };
+			std::vector<double> leftAreaPolygonCoordinates;
+			for (const Position& position : leftAreaPolygon) {
+				leftAreaPolygonCoordinates.push_back(position.x());
+				leftAreaPolygonCoordinates.push_back(position.y());
+			}
+			uint16_t leftAreaId = myLastId++;
+			std::vector<const char*> leftAreaLabels{ ((lane->getID()) + std::string("_left")).c_str() };
+
+			JPS_AreasBuilder_AddArea(
+				areasBuilder, leftAreaId, leftAreaPolygonCoordinates.data(), leftAreaPolygonCoordinates.size() / 2, leftAreaLabels.data(), leftAreaLabels.size());
+
+			std::vector<Position> rightAreaPolygon{ topRightCorner,
+													topRightCorner - directionVector * JPS_AREA_RATIO,
+												    bottomRightCorner - directionVector * JPS_AREA_RATIO,
+												    bottomRightCorner };
+			std::vector<double> rightAreaPolygonCoordinates;
+			for (const Position& position : rightAreaPolygon) {
+				rightAreaPolygonCoordinates.push_back(position.x());
+				rightAreaPolygonCoordinates.push_back(position.y());
+			}
+			uint16_t rightAreaId = myLastId++;
+			std::vector<const char*> rightAreaLabels{ ((lane->getID()) + std::string("_right")).c_str() };
+
+			JPS_AreasBuilder_AddArea(
+				areasBuilder, rightAreaId, rightAreaPolygonCoordinates.data(), rightAreaPolygonCoordinates.size() / 2, rightAreaLabels.data(), rightAreaLabels.size());
+		}
+	}
+
+	JPS_Geometry geometry = JPS_GeometryBuilder_Build(geometryBuilder, nullptr);
+	assert(geometry != nullptr);
+	std::cout << "[JuPedSim] Initialized geometry." << std::endl;
+
+	JPS_Areas areas = JPS_AreasBuilder_Build(areasBuilder, nullptr);
+	std::cout << "[JuPedSim] Initialized target areas." << std::endl;
+	assert(areas != nullptr);
+}
 
 
 // ===========================================================================

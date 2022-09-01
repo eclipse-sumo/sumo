@@ -102,4 +102,5 @@ private:
     int myLastTransitionId = 0;
 
     MSLane* getFirstPedestrianLane(const MSEdge* const& edge);
+	static const double JPS_AREA_RATIO;
 };
