@@ -51,10 +51,13 @@ public:
     long onLeave(FXObject*, FXSelector, void*);
 
     /// @brief called when left mouse button is press
-    long onLeftBtnPress(FXObject*,FXSelector,void*);
+    long onLeftBtnPress(FXObject*, FXSelector, void*);
 
     /// @brief called when key is press
-    long onKeyPress(FXObject*,FXSelector,void*);
+    long onKeyPress(FXObject*, FXSelector, void*);
+
+    /// @brief called when button is press
+    long onCmdPost(FXObject*, FXSelector, void*);
 
     /// @}
 

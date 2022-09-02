@@ -1412,6 +1412,7 @@ enum {
     /// @}
 
     /// @brief callback for MFXMenuButtonTooltip
+    MID_MBTTIP_FOCUS,
     MID_MBTTIP_SELECTED,
 
     /// @brief last element of enum (not used)
