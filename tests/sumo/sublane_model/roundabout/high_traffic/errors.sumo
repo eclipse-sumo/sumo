@@ -1,2 +1,1 @@
-Warning: Teleporting vehicle 'NW.51'; collision with vehicle 'ES.84', lane='RNW_0', gap=-1.37', latGap=-0.36, time=932.00 stage=move.
-Warning: Vehicle 'NW.51' ends teleporting on edge 'CW', time=932.00.
+Warning: Vehicle 'WE.76' performs emergency braking on lane ':RS_4_1' with decel=9.00, wished=4.50, severity=1.00, time=1035.00.
