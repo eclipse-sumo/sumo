@@ -1,4 +1,3 @@
-#include "GNETLSEditorFrame.h"
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
 // Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
@@ -903,13 +902,13 @@ GNETLSEditorFrame::TLSJunction::TLSJunction(GNETLSEditorFrame* TLSEditorParent) 
     // create join states button
     myJoinTLSToggleButton = new MFXToggleButtonTooltip(joinButtons, 
         TLSEditorParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltip(),
-        "Join\tEnable join mode\tJoin TLS and junctions in the current junction", 
-        "Join\tDisable join mode\tJoin TLS and junctions in the current junction", 
+        "Join\tEnable join mode\tJoin TLS and junctions in the current junction.", 
+        "Join\tDisable join mode\tJoin TLS and junctions in the current junction.", 
         GUIIconSubSys::getIcon(GUIIcon::JOIN), GUIIconSubSys::getIcon(GUIIcon::JOIN), 
         this, MID_GNE_TLSFRAME_TLSJUNCTION_TOGGLEJOIN, GUIDesignButton);
     myDisjoinTLSButton = new MFXButtonTooltip(joinButtons, 
         TLSEditorParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltip(),
-        "Disjoin\tDisjoin current TLS\tDisjoin current TLS", 
+        "Disjoin\tDisjoin current TLS\tDisjoin current TLS.", 
         GUIIconSubSys::getIcon(GUIIcon::DISJOIN), this, MID_GNE_TLSFRAME_TLSJUNCTION_DISJOIN, GUIDesignButton);
     // update junction description after creation
     updateJunctionDescription();
@@ -1068,6 +1067,9 @@ GNETLSEditorFrame::TLSJunction::onUpdTLSID(FXObject*, FXSelector, void*) {
     if (myCurrentJunction == nullptr) {
         // no junction, disable and clear
         myTLSIDTextField->setText("");
+        myTLSIDTextField->disable();
+    } else if (myCurrentJunction->getNBNode()->getControllingTLS().size() == 0) {
+        // no TLSs in Junctions, disable
         myTLSIDTextField->disable();
     } else if (myTLSEditorParent->myTLSAttributes->isSetDetectorsToggleButtonEnabled()) {
         // selecting E1, disable button

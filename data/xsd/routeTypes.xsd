@@ -232,6 +232,8 @@
         <xsd:attribute name="vehdynamics" type="boolType"/>
         <xsd:attribute name="maxvehpreview" type="positiveIntType"/>
         <xsd:attribute name="startupDelay" type="nonNegativeFloatType"/>
+        <xsd:attribute name="timeToTeleport" type="xsd:float"/>
+        <xsd:attribute name="timeToTeleportBidi" type="xsd:float"/>
     </xsd:complexType>
 
     <xsd:complexType name="cfIDMType">

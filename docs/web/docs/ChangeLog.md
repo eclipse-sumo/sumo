@@ -20,6 +20,14 @@ title: ChangeLog
   - fcd-output now includes riding persons even if their vehicle is not equipped with fcd device. Issue #11454
   - fcd-output of persons now respects edge and shape filters. Issue #11455
   - Option **--scale** and vType attribute `scale` now apply evenly to all defined `<flow`> elements when set to values below 1. Issue #11441
+  - Fixed bug where vehicle drives outside lane bound after lane width change. Issue #11468
+  - Fixed emergency braking during opposite direction driving. Issue #11481
+  - Fixed invalid braking at intersection in sublane simulation. Issue #11484
+  - Fixed emergency braking at lane-width change in sublane simulation. Issue #11467
+  - Fixed junction collision while turning with the sublane model. Issue #11482
+  - Fixed bug where car blocks itself during continuous laneChange after loading state. Issue #11394
+  - Fixed invalid (slightly exaggerated) estimate of junction passing time. Issue #11106
+  - Fixed emergency braking when using carFollowModel IDM. Issue #11498
   - EIDM carFollowModel:
     - Fixed bug where vehicles did not reach a defined stop. Issue #11364
     - Fixed collision. Issue #11361
@@ -35,11 +43,16 @@ title: ChangeLog
   - Clicking over column labels no longer clears the traffic phase table. Issue #11240
   - Flow probability is no longer limited to full percent. Issue #11259
   - Directional arrows are now drawn on top of detectors. Issue #11381
+  - Fixed bug that prevented bidi-edges from being defined. Issue #11397
+  - Fixed bugs related to object locking (via the lock menu). Issue #10863
+  
 
 - sumo-gui
+  - Fixed crash when opening busStop parameters after simulation end. Issue #11499 (regression in 1.13.0)
   - Lane menu functions *select reachable*, *close lane*, *add rerouter* are now working again. Issue #11448 (regression in 1.14.0)
   - Directional arrows are now drawn on top of detectors. Issue #11380
   - 3D view now updates lane colors after updating of selected lanes. Issue #10908
+  - Fixed invalid occupancy values caused by vehicles vehicles that are partially on a lane (i.e. with the sublane model). Issue #11404
 
 - netconvert
   - Fixed invalid red phase at traffic lights with very low connection speeds. Issue #11307 (regression in 1.14.0)
@@ -80,6 +93,9 @@ title: ChangeLog
   - Tripinfo-output for persons now includes the individual speedFactor (in personInfo). Issue #11450
   - The new vType attribute [`desiredMaxSpeed`](Simulation/VehicleSpeed.md#desiredmaxspeed) can be used to configure speed distributions for vehicles that are not constrained by the road speed limit (i.e. bicycles). Issue #11102
   - Bicycles speeds now follow a speed distribution by default (centered on 20km/h, configurable with `desiredMaxSpeed`). Issue #11102
+  - Option **--emission-output.precision** now also applies to emissions in tripinfo-output. Issue #11474
+  - Added option **--time-to-teleport.bidi** to resolve deadlocks on bidirectional edges. Issue #11435
+  - The vType attriutes `timeToTeleport` and `timeToTeleportBidi` can now be used to customize teleporting behavior. Issue #9497
 
 - netedit
   - Saved detector names use descriptive tags instead of the 'E1,E2, ...' tags. Issue #11028
@@ -94,6 +110,8 @@ title: ChangeLog
   - Joined traffic lights can now be defined for selected junctions via the context menu. Issue #11396
   - Create edge frame has two new checkboxes (*disallow pedestrians,add sidewalk*)  to simplify creation of edges for pedestrian simulation. Issue #10969
   - In networks with pedestrian crossings, create edge frame disallows pedestrians on road lanes by default. Issue #10970
+  - In move mode, alt+right-click on overlapped objects now allows marking the front element to be moved. Issie #10900
+  - In vehicle mode: alt+right-click on overlapping routes, now allows marking the front element to be used when creating 'vehicle over route'. Issue #11009
   - Traffic light mode:
     - phase table now permits moving phases up and down. Issue #10856
     - Added buttons reset either the current program or all programs of the current traffic light to their default. Issue #9072, #11357
@@ -104,6 +122,7 @@ title: ChangeLog
     - phase table shows cumulative time when hovering over the duration column. Issue #7962
     - tlType can now be changed directly. Issue #10757
     - Detectors for actuated traffic lights can now be customized visually. Issue #9598
+    - Add new mode for visually creating and changing joined traffic lights. Issue #11367
 
 - sumo-gui
   - 3D view now permits clicking on more objects (lanes, junctions, traffic lights). Issue #10882
@@ -126,6 +145,7 @@ title: ChangeLog
   - Simpla: Added additional platooning criteria via new attributes 'edgeLookAhead', 'distLookAhead' and 'lcMinDist'. Issue #9252, #11236 (Thanks to Jörg Schweizer)
   - Simpla: platooning distances are now time-headways instead of gap-in-meters by default. Configurable with new attributes 'maxPlatoonHeadway', 'catchupHeadway', 'useHeadway'.  Issue #11124
   - Net method `traci.simulation.getOption` can now be used to retrieve any simulation option. Issue #11319
+  - person.getTaxiReservation parameter stateFilter now supports setting multiple bits. Issue #11501
 
 - tools
   - routeSampler.py: now supports options **--depart-attribute**, **--arrival-attribute** to set extra constraints. Issue #6727

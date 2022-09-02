@@ -60,10 +60,10 @@ FXDEFMAP(GNEFrameAttributeModules::GenericDataAttributes) GenericDataAttributesM
 };
 
 // Object implementation
-FXIMPLEMENT(GNEFrameAttributeModules::AttributesEditorRow,          FXHorizontalFrame,       AttributesEditorRowMap,         ARRAYNUMBER(AttributesEditorRowMap))
-FXIMPLEMENT(GNEFrameAttributeModules::AttributesEditor,             MFXGroupBoxModule,       AttributesEditorMap,            ARRAYNUMBER(AttributesEditorMap))
-FXIMPLEMENT(GNEFrameAttributeModules::AttributesEditorExtended,     MFXGroupBoxModule,       AttributesEditorExtendedMap,    ARRAYNUMBER(AttributesEditorExtendedMap))
-FXIMPLEMENT(GNEFrameAttributeModules::GenericDataAttributes,        MFXGroupBoxModule,       GenericDataAttributesMap,       ARRAYNUMBER(GenericDataAttributesMap))
+FXIMPLEMENT(GNEFrameAttributeModules::AttributesEditorRow,          FXHorizontalFrame,       AttributesEditorRowMap,        ARRAYNUMBER(AttributesEditorRowMap))
+FXIMPLEMENT(GNEFrameAttributeModules::AttributesEditor,             MFXGroupBoxModule,       AttributesEditorMap,           ARRAYNUMBER(AttributesEditorMap))
+FXIMPLEMENT(GNEFrameAttributeModules::AttributesEditorExtended,     MFXGroupBoxModule,       AttributesEditorExtendedMap,   ARRAYNUMBER(AttributesEditorExtendedMap))
+FXIMPLEMENT(GNEFrameAttributeModules::GenericDataAttributes,        MFXGroupBoxModule,       GenericDataAttributesMap,      ARRAYNUMBER(GenericDataAttributesMap))
 
 
 // ===========================================================================

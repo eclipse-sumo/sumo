@@ -5076,6 +5076,8 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
             if (myNetworkViewOptions.selectEdges() && (myMouseButtonKeyPressed.shiftKeyPressed() == false)) {
                 myObjectsUnderCursor.swapLane2Edge();
             }
+            // now filter locked elements
+            myObjectsUnderCursor.filterLockedElements(myLockManager);
             // check if we're selecting a new parent for the current inspected element
             if (myViewParent->getInspectorFrame()->getNeteditAttributesEditor()->isSelectingParent()) {
                 myViewParent->getInspectorFrame()->getNeteditAttributesEditor()->setNewParent(myObjectsUnderCursor.getAttributeCarrierFront());
@@ -5094,6 +5096,8 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
                 // update AC under cursor
                 AC = myObjectsUnderCursor.getAttributeCarrierFront();
             }
+            // now filter locked elements
+            myObjectsUnderCursor.filterLockedElements(myLockManager);
             // check that we have clicked over network element element
             if (AC && !myLockManager.isObjectLocked(AC->getGUIGlObject()->getType(), AC->isAttributeCarrierSelected()) &&
                     (AC->getTagProperty().isNetworkElement() || AC->getTagProperty().isAdditionalElement())) {
@@ -5119,8 +5123,10 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
             if (myNetworkViewOptions.selectEdges() && (myMouseButtonKeyPressed.shiftKeyPressed() == false)) {
                 myObjectsUnderCursor.swapLane2Edge();
                 // update AC under cursor
-                AC = myObjectsUnderCursor.getAttributeCarrierFront(myLockManager);
+                AC = myObjectsUnderCursor.getAttributeCarrierFront();
             }
+            // now filter locked elements
+            myObjectsUnderCursor.filterLockedElements(myLockManager);
             // avoid to select if control key is pressed
             if (!myMouseButtonKeyPressed.controlKeyPressed()) {
                 // check if a rect for selecting is being created
@@ -5191,6 +5197,8 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
                 // update AC under cursor
                 AC = myObjectsUnderCursor.getAttributeCarrierFront();
             }
+            // now filter locked elements
+            myObjectsUnderCursor.filterLockedElements(myLockManager);
             // check if we're editing a shape
             if (myEditNetworkElementShapes.getEditedNetworkElement()) {
                 // check if we're removing a geometry point
@@ -5412,6 +5420,8 @@ GNEViewNet::processLeftButtonPressDemand(void* eventData) {
     // decide what to do based on mode
     switch (myEditModes.demandEditMode) {
         case DemandEditMode::DEMAND_INSPECT: {
+            // filter locked elements
+            myObjectsUnderCursor.filterLockedElements(myLockManager);
             // process left click in Inspector Frame
             myViewParent->getInspectorFrame()->processDemandSupermodeClick(getPositionInformation(), myObjectsUnderCursor);
             // process click
@@ -5419,6 +5429,8 @@ GNEViewNet::processLeftButtonPressDemand(void* eventData) {
             break;
         }
         case DemandEditMode::DEMAND_DELETE: {
+            // filter locked elements
+            myObjectsUnderCursor.filterLockedElements(myLockManager);
             // check conditions
             if (AC && !myLockManager.isObjectLocked(AC->getGUIGlObject()->getType(), AC->isAttributeCarrierSelected()) && AC->getTagProperty().isDemandElement()) {
                 // check if we are deleting a selection or an single attribute carrier
@@ -5434,6 +5446,8 @@ GNEViewNet::processLeftButtonPressDemand(void* eventData) {
             break;
         }
         case DemandEditMode::DEMAND_SELECT:
+            // filter locked elements
+            myObjectsUnderCursor.filterLockedElements(myLockManager);
             // avoid to select if control key is pressed
             if (!myMouseButtonKeyPressed.controlKeyPressed()) {
                 // check if a rect for selecting is being created
@@ -5578,6 +5592,8 @@ GNEViewNet::processLeftButtonPressData(void* eventData) {
     // decide what to do based on mode
     switch (myEditModes.dataEditMode) {
         case DataEditMode::DATA_INSPECT: {
+            // filter locked elements
+            myObjectsUnderCursor.filterLockedElements(myLockManager);
             // process left click in Inspector Frame
             if (AC && AC->getTagProperty().getTag() == SUMO_TAG_TAZ) {
                 myViewParent->getInspectorFrame()->inspectSingleElement(AC);
@@ -5589,6 +5605,8 @@ GNEViewNet::processLeftButtonPressData(void* eventData) {
             break;
         }
         case DataEditMode::DATA_DELETE: {
+            // filter locked elements
+            myObjectsUnderCursor.filterLockedElements(myLockManager);
             // check conditions
             if (AC && !myLockManager.isObjectLocked(AC->getGUIGlObject()->getType(), AC->isAttributeCarrierSelected()) && AC->getTagProperty().isDataElement()) {
                 // check if we are deleting a selection or an single attribute carrier
@@ -5604,6 +5622,8 @@ GNEViewNet::processLeftButtonPressData(void* eventData) {
             break;
         }
         case DataEditMode::DATA_SELECT:
+            // filter locked elements
+            myObjectsUnderCursor.filterLockedElements(myLockManager);
             // avoid to select if control key is pressed
             if (!myMouseButtonKeyPressed.controlKeyPressed()) {
                 // check if a rect for selecting is being created

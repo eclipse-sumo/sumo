@@ -1,3 +1,6 @@
+# intersection connected to normal and bidi edges; Bike makes emergency braking while a veh is inserted to the neighboring edge
+bikeUnneededEmergencyBraking
+
 # two consecutive pairs of bidi-edges (between normal edges), 1 vehicle and 2 bikes
 # Check if a vehicle wiggles when bikes are passing by.
 bikePassingWithoutWiggledVeh
@@ -25,6 +28,9 @@ bikePreferOvertakeRight
 
 # a single pair of bidi-edges and 2 vehicles
 1edge_teleport_bidi
+
+# a single pair of bidi-edges and 2 vehicles
+1edge_teleport_bidi_custom
 
 # a single pair of bidi-edges (between normal edges) and 2 vehicles
 1edge_between

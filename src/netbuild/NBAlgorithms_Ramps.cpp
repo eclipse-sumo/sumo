@@ -74,7 +74,6 @@ NBRampsComputer::computeRamps(NBNetBuilder& nb, OptionsCont& oc, bool mayAddOrRe
     }
     // exclude public transport edges
     nb.getPTStopCont().addEdges2Keep(oc, noramps);
-    nb.getPTLineCont().addEdges2Keep(oc, noramps);
     nb.getParkingCont().addEdges2Keep(oc, noramps);
 
     // check whether on-off ramps shall be guessed
@@ -171,6 +170,11 @@ NBRampsComputer::mayNeedOffRamp(NBNode* cur, double minHighwaySpeed, double maxR
     // may be an off-ramp
     NBEdge* potHighway, *potRamp, *prev;
     getOffRampEdges(cur, &potHighway, &potRamp, &prev);
+#ifdef DEBUG_RAMPS
+    if (DEBUGCOND(cur)) {
+        std::cout << "off ramp hw=" << potHighway->getID() << " ramp=" << potRamp->getID() << " prev=" << prev->getID() << std::endl;
+    }
+#endif
     return fulfillsRampConstraints(potHighway, potRamp, prev, minHighwaySpeed, maxRampSpeed, noramps);
 }
 

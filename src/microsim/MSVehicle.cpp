@@ -2578,7 +2578,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
         // - even if red, if we cannot break we should issue a request
         bool setRequest = (v > NUMERICAL_EPS_SPEED && !abortRequestAfterMinor) || (leavingCurrentIntersection);
 
-		double stopSpeed = cfModel.stopSpeed(this, getSpeed(), stopDist, stopDecel, MSCFModel::CalcReason::CURRENT_WAIT);
+        double stopSpeed = cfModel.stopSpeed(this, getSpeed(), stopDist, stopDecel, MSCFModel::CalcReason::CURRENT_WAIT);
         double vLinkWait = MIN2(v, stopSpeed);
 #ifdef DEBUG_PLAN_MOVE
         if (DEBUG_COND) {
@@ -2605,7 +2605,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
             // arrivalSpeed / arrivalTime when braking for red light is only relevent for rail signal switching
             const SUMOTime arrivalTime = getArrivalTime(t, seen, v, vLinkPass);
             // the vehicle is able to brake in front of a yellow/red traffic light
-            lfLinks.push_back(DriveProcessItem(*link, v, vLinkWait, false, arrivalTime, vLinkWait, 0, seen));
+            lfLinks.push_back(DriveProcessItem(*link, v, vLinkWait, false, arrivalTime, vLinkWait, 0, seen, -1));
             //lfLinks.push_back(DriveProcessItem(0, vLinkWait, vLinkWait, false, 0, 0, stopDist));
             break;
         }
@@ -2943,8 +2943,11 @@ MSVehicle::adaptToLeader(const std::pair<const MSVehicle*, double> leaderInfo,
             vsafeLeader = cfModel.followSpeed(this, getSpeed(), leaderInfo.second, leaderInfo.first->getSpeed(), leaderInfo.first->getCurrentApparentDecel(), leaderInfo.first);
         }
         if (lastLink != nullptr) {
-            const double futureVSafe = cfModel.followSpeed(this, lastLink->myVLinkPass, leaderInfo.second, leaderInfo.first->getSpeed(), leaderInfo.first->getCurrentApparentDecel(), leaderInfo.first, MSCFModel::CalcReason::FUTURE);
+            const double futureVSafe = cfModel.followSpeed(this, lastLink->accelV, leaderInfo.second, leaderInfo.first->getSpeed(), leaderInfo.first->getCurrentApparentDecel(), leaderInfo.first, MSCFModel::CalcReason::FUTURE);
             lastLink->adaptLeaveSpeed(futureVSafe);
+#ifdef DEBUG_PLAN_MOVE
+            if (DEBUG_COND) std::cout << "   vlinkpass=" << lastLink->myVLinkPass << " futureVSafe=" << futureVSafe << "\n";
+#endif
         }
         v = MIN2(v, vsafeLeader);
         vLinkPass = MIN2(vLinkPass, vsafeLeader);
@@ -3414,7 +3417,7 @@ MSVehicle::processLinkApproaches(double& vSafe, double& vSafeMin, double& vSafeM
                 myHaveToWaitOnNextLink = true;
 #ifdef DEBUG_CHECKREWINDLINKLANES
                 if (DEBUG_COND) {
-                    std::cout << SIMTIME << " veh=" << getID() << " haveToWait (no request, braking)\n";
+                    std::cout << SIMTIME << " veh=" << getID() << " haveToWait (no request, braking) vSafe=" << vSafe << "\n";
                 }
 #endif
             } else if (vSafe < SUMO_const_haltingSpeed) {
@@ -3463,7 +3466,8 @@ MSVehicle::processLinkApproaches(double& vSafe, double& vSafeMin, double& vSafeM
 #endif
         if (canBrakeVSafeMin && vSafe < getSpeed()) {
             // cannot drive across a link so we need to stop before it
-            vSafe = MIN2(vSafe, getCarFollowModel().stopSpeed(this, getSpeed(), vSafeMinDist));
+            vSafe = MIN2(vSafe, MAX2(getCarFollowModel().minNextSpeed(getSpeed(), this),
+                        getCarFollowModel().stopSpeed(this, getSpeed(), vSafeMinDist)));
             vSafeMin = 0;
             myHaveToWaitOnNextLink = true;
 #ifdef DEBUG_CHECKREWINDLINKLANES

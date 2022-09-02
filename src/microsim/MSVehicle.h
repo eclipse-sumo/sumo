@@ -1961,7 +1961,7 @@ protected:
                          SUMOTime arrivalTime, double arrivalSpeed,
                          double arrivalSpeedBraking,
                          double distance,
-                         double leaveSpeed = -1.) :
+                         double leaveSpeed) :
             myLink(link), myVLinkPass(vPass), myVLinkWait(vWait), mySetRequest(setRequest),
             myArrivalTime(arrivalTime), myArrivalSpeed(arrivalSpeed),
             myArrivalSpeedBraking(arrivalSpeedBraking),

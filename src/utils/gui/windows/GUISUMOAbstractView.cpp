@@ -710,6 +710,7 @@ GUISUMOAbstractView::displayColorLegend(const GUIColorScheme& scheme, bool leftS
     double right = 0.98;
     double left = 0.95;
     double textX = left - 0.01;
+    double textDir = 1;
     FONSalign textAlign = FONS_ALIGN_RIGHT;
     const double top = -0.8;
     const double bot = 0.8;
@@ -721,6 +722,7 @@ GUISUMOAbstractView::displayColorLegend(const GUIColorScheme& scheme, bool leftS
         left = -left;
         std::swap(right, left);
         textX = right + 0.01;
+        textDir *= -1;
         textAlign = FONS_ALIGN_LEFT;
     }
     // draw black boundary around legend colors
@@ -795,18 +797,19 @@ GUISUMOAbstractView::displayColorLegend(const GUIColorScheme& scheme, bool leftS
         std::string text = fixed || threshold == GUIVisualizationSettings::MISSING_DATA ? name : toString(threshold);
 
         const double bgShift = 0.0;
-        const double textShift = 0.02;
+        const double textShift = 0.01;
+        const double textXShift = -0.005;
 
         GLHelper::setColor(RGBColor::WHITE);
         glTranslated(0, 0, 0.1);
         glBegin(GL_QUADS);
-        glVertex2d(left, topi + fontHeight * bgShift);
-        glVertex2d(left - fontWidth * (double)text.size() / 2., topi + fontHeight * bgShift);
-        glVertex2d(left - fontWidth * (double)text.size() / 2., topi + fontHeight * (1. + bgShift));
-        glVertex2d(left, topi + fontHeight * (1. + bgShift));
+        glVertex2d(textX, topi + fontHeight * bgShift);
+        glVertex2d(textX - textDir * fontWidth * (double)text.size() / 2., topi + fontHeight * bgShift);
+        glVertex2d(textX - textDir * fontWidth * (double)text.size() / 2., topi + fontHeight * (1. + bgShift));
+        glVertex2d(textX, topi + fontHeight * (1. + bgShift));
         glEnd();
         glTranslated(0, 0, -0.1);
-        GLHelper::drawText(text, Position(textX, topi + textShift), 0, fontHeight, RGBColor::BLACK, 0, textAlign, fontWidth);
+        GLHelper::drawText(text, Position(textX + textDir * textXShift, topi + textShift), 0, fontHeight, RGBColor::BLACK, 0, textAlign, fontWidth);
     }
     GLHelper::popMatrix();
     // restore matrices
