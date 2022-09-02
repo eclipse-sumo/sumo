@@ -24,6 +24,7 @@ Debug: Created connection 'fromE3_1to-E3_1' in retrieveGNEConnection()
 Debug: Created connection 'fromE3_2to-E3_2' in retrieveGNEConnection()
 Debug: Deleting TLS from junction 'J0'
 Debug: Setting new attribute
+Debug: Key ESC (abort) pressed
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Restoring previous attribute

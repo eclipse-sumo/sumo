@@ -37,6 +37,9 @@ netedit.leftClick(referencePosition, 320, 220)
 # create TLS
 netedit.createTLS()
 
+# type ESC (for undo-redo)
+netedit.typeEscape()
+
 # Check undo
 netedit.undo(referencePosition, 1)
 

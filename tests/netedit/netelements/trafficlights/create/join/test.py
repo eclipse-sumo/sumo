@@ -46,6 +46,9 @@ netedit.leftClick(referencePosition, 320, 400)
 # join tls
 netedit.typeEnter()
 
+# type ESC (for undo-redo)
+netedit.typeEscape()
+
 # Check undo
 netedit.undo(referencePosition, 1)
 

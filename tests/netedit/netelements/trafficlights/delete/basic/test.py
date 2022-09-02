@@ -37,6 +37,9 @@ netedit.leftClick(referencePosition, 320, 220)
 # delete TLS
 netedit.deleteTLS()
 
+# type ESC (for undo-redo)
+netedit.typeEscape()
+
 # Check undo
 netedit.undo(referencePosition, 1)
 

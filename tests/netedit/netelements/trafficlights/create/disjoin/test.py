@@ -37,6 +37,9 @@ netedit.leftClick(referencePosition, 320, 220)
 # disjoin TLS
 netedit.disJoinTLS()
 
+# type ESC (for undo-redo)
+netedit.typeEscape()
+
 # Check undo
 netedit.undo(referencePosition, 1)
 

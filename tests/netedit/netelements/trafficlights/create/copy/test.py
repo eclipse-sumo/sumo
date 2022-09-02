@@ -40,6 +40,9 @@ netedit.createTLS()
 # copy TLS
 netedit.copyTLS()
 
+# type ESC (for undo-redo)
+netedit.typeEscape()
+
 # Check undo
 netedit.undo(referencePosition, 1)
 
