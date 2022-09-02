@@ -20,6 +20,7 @@
 #pragma once
 #include <config.h>
 
+#include <jupedsim/jupedsim.h>
 #include <utils/options/OptionsCont.h>
 #include <microsim/MSNet.h>
 #include <utils/geom/Boundary.h>
@@ -82,10 +83,11 @@ private:
         MSPerson* getPerson();
 
         void setPosition(double x, double y);
-        void setPhi(double phi);
+        void setAngle(double angle);
+		JPS_AgentId myAgentId;
     private:
         Position myPosition;
-        double myPhi;
+        double myAngle;
         MSStageMoving* myStage;
         MSPerson* myPerson;
     };
@@ -95,6 +97,7 @@ private:
     Boundary myBoundary;
     void initialize();
 
+	std::vector<PState*> myPedestrianStates;
     std::map<int, PState*> remoteIdPStateMapping;
     std::map<const MSEdge*, std::tuple<int, int>> edgesTransitionsMapping;
     std::map<int, const MSEdge*> transitionsEdgesMapping;
@@ -102,5 +105,13 @@ private:
     int myLastTransitionId = 0;
 
     MSLane* getFirstPedestrianLane(const MSEdge* const& edge);
+
+	JPS_GeometryBuilder myGeometryBuilder;
+	JPS_Geometry myGeometry;
+	JPS_AreasBuilder myAreasBuilder;
+	JPS_Areas myAreas;
+	JPS_OperationalModel myModel;
+	JPS_Simulation mySimulation;
 	static const double JPS_AREA_RATIO;
+	static const SUMOTime JPS_DELTA_T;
 };
