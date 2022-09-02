@@ -30,7 +30,13 @@
 #include "../MSEdgeControl.h"
 
 
+struct JPS_ErrorMessage_t {
+	std::string message;
+};
+
+
 const double MSPModel_Remote::JPS_AREA_RATIO = 0.1;
+const SUMOTime MSPModel_Remote::JPS_DELTA_T = 10;
 
 
 MSPModel_Remote::MSPModel_Remote(const OptionsCont& oc, MSNet* net) : myNet(net) {
@@ -42,14 +48,47 @@ MSPModel_Remote::MSPModel_Remote(const OptionsCont& oc, MSNet* net) : myNet(net)
 
 MSTransportableStateAdapter*
 MSPModel_Remote::add(MSTransportable* person, MSStageMoving* stage, SUMOTime now) {
-    assert(person->getCurrentStageType() == MSStageType::WALKING);
+	assert(person->getCurrentStageType() == MSStageType::WALKING);
+	PState* state = new PState(static_cast<MSPerson*>(person), stage);
+	
+	MSLane* departureLane = getFirstPedestrianLane(*(stage->getRoute().begin()));
+	if (departureLane)
+	{
+		double departureOffsetAlongLane = stage->getDepartPos();
+		Position departurePosition = departureLane->getShape().positionAtOffset(departureOffsetAlongLane);
+		Position arrivalPosition = departureLane->getShape()[1];
+
+		JPS_Waypoint waypoints[] = { {{arrivalPosition.x(), arrivalPosition.y()}, 1} };
+		auto journey = JPS_Journey_Create_SimpleJourney(waypoints, sizeof(waypoints));
+		auto journeyId = JPS_Simulation_AddJourney(mySimulation, journey, nullptr);
+		//JPS_Journey_Free(journey);
+
+		JPS_AgentParameters agent_parameters{};
+		agent_parameters.v0 = 1.0;
+		agent_parameters.AMin = 0.15;
+		agent_parameters.BMax = 0.15;
+		agent_parameters.BMin = 0.15;
+		agent_parameters.Av = 0.53;
+		agent_parameters.T = 1;
+		agent_parameters.Tau = 0.5;
+		agent_parameters.journeyId = journeyId;
+		agent_parameters.orientationX = 1.0;
+		agent_parameters.orientationY = 0.0;
+		agent_parameters.positionX = departurePosition.x();
+		agent_parameters.positionY = departurePosition.y();
+
+		state->myAgentId = JPS_Simulation_AddAgent(mySimulation, agent_parameters, nullptr);
+		myPedestrianStates.push_back(state);
+	}
+	
+    /*assert(person->getCurrentStageType() == MSStageType::WALKING);
 
     PState* state = new PState(static_cast<MSPerson*>(person), stage);
 
     // JPS_Agent req;
     int id = myLastId++;
     remoteIdPStateMapping[id] = state;
-    /*    req.set_id(id);
+        req.set_id(id);
 
         MSLane* departureLane = getFirstPedestrianLane(*(stage->getRoute().begin()));
         double departureOffsetAlongLane = stage->getDepartPos();
@@ -115,8 +154,16 @@ MSPModel_Remote::add(MSTransportable* person, MSStageMoving* stage, SUMOTime now
     return state;
 }
 
+
 MSPModel_Remote::~MSPModel_Remote() {
-    /*
+	JPS_Simulation_Free(mySimulation);
+	JPS_OperationalModel_Free(myModel);
+	JPS_Areas_Free(myAreas);
+	JPS_AreasBuilder_Free(myAreasBuilder);
+	JPS_Geometry_Free(myGeometry);
+	JPS_GeometryBuilder_Free(myGeometryBuilder);
+	
+	/*
         hybridsim::Empty req;
         hybridsim::Empty rpl;
         ClientContext context1;
@@ -131,7 +178,25 @@ MSPModel_Remote::~MSPModel_Remote() {
 
 SUMOTime
 MSPModel_Remote::execute(SUMOTime time) {
-    /*
+	int nbrIterations = (int)(DELTA_T / JPS_DELTA_T);
+	for (int i = 0; i < nbrIterations; ++i)
+	{
+		bool ok = JPS_Simulation_Iterate(mySimulation, nullptr);
+		assert(ok);
+	}
+
+	for (PState* state : myPedestrianStates)
+	{
+		JPS_Agent agent = JPS_Simulation_ReadAgent(mySimulation, state->myAgentId, nullptr);
+		double newPositionX = JPS_Agent_PositionX(agent);
+		double newPositionY = JPS_Agent_PositionY(agent);
+		state->setPosition(newPositionX, newPositionY);
+		double newOrientationX = JPS_Agent_OrientationX(agent);
+		double newOrientationY = JPS_Agent_OrientationY(agent);
+		state->setAngle(atan2(newOrientationY, newOrientationX));
+	}
+	
+	/*
         hybridsim::LeftClosedRightOpenTimeInterval interval;
         interval.set_fromtimeincluding(time / DELTA_T);
         interval.set_totimeexcluding((time + DELTA_T) / DELTA_T);
@@ -223,8 +288,8 @@ MSPModel_Remote::remove(MSTransportableStateAdapter* state) {
 
 void
 MSPModel_Remote::initialize() {
-	JPS_GeometryBuilder geometryBuilder = JPS_GeometryBuilder_Create();
-	JPS_AreasBuilder areasBuilder = JPS_AreasBuilder_Create();
+	myGeometryBuilder = JPS_GeometryBuilder_Create();
+	myAreasBuilder = JPS_AreasBuilder_Create();
 
 	MSEdgeVector edges = (myNet->getEdgeControl()).getEdges();
 	for (const MSEdge* const edge : edges) {
@@ -252,7 +317,7 @@ MSPModel_Remote::initialize() {
 				lanePolygonCoordinates.push_back(position.y());
 			}
 
-			JPS_GeometryBuilder_AddAccessibleArea(geometryBuilder, lanePolygonCoordinates.data(), lanePolygonCoordinates.size() / 2);
+			JPS_GeometryBuilder_AddAccessibleArea(myGeometryBuilder, lanePolygonCoordinates.data(), lanePolygonCoordinates.size() / 2);
 
 			Position directionVector = rightPoint - leftPoint;
 			std::vector<Position> leftAreaPolygon{ topLeftCorner, 
@@ -265,11 +330,11 @@ MSPModel_Remote::initialize() {
 				leftAreaPolygonCoordinates.push_back(position.x());
 				leftAreaPolygonCoordinates.push_back(position.y());
 			}
-			uint16_t leftAreaId = myLastId++;
+			uint64_t leftAreaId = (uint64_t)(lane->getNumericalID() * 2);
 			std::vector<const char*> leftAreaLabels{ ((lane->getID()) + std::string("_left")).c_str() };
 
 			JPS_AreasBuilder_AddArea(
-				areasBuilder, leftAreaId, leftAreaPolygonCoordinates.data(), leftAreaPolygonCoordinates.size() / 2, leftAreaLabels.data(), leftAreaLabels.size());
+				myAreasBuilder, leftAreaId, leftAreaPolygonCoordinates.data(), leftAreaPolygonCoordinates.size() / 2, leftAreaLabels.data(), leftAreaLabels.size());
 
 			std::vector<Position> rightAreaPolygon{ topRightCorner,
 													topRightCorner - directionVector * JPS_AREA_RATIO,
@@ -280,21 +345,31 @@ MSPModel_Remote::initialize() {
 				rightAreaPolygonCoordinates.push_back(position.x());
 				rightAreaPolygonCoordinates.push_back(position.y());
 			}
-			uint16_t rightAreaId = myLastId++;
+			uint64_t rightAreaId = (uint64_t)(lane->getNumericalID() * 2 + 1);
 			std::vector<const char*> rightAreaLabels{ ((lane->getID()) + std::string("_right")).c_str() };
 
 			JPS_AreasBuilder_AddArea(
-				areasBuilder, rightAreaId, rightAreaPolygonCoordinates.data(), rightAreaPolygonCoordinates.size() / 2, rightAreaLabels.data(), rightAreaLabels.size());
+				myAreasBuilder, rightAreaId, rightAreaPolygonCoordinates.data(), rightAreaPolygonCoordinates.size() / 2, rightAreaLabels.data(), rightAreaLabels.size());
+		
+			break;
 		}
 	}
 
-	JPS_Geometry geometry = JPS_GeometryBuilder_Build(geometryBuilder, nullptr);
-	assert(geometry != nullptr);
-	std::cout << "[JuPedSim] Initialized geometry." << std::endl;
+	JPS_ErrorMessage_t* mess = new JPS_ErrorMessage_t{};
+	myGeometry = JPS_GeometryBuilder_Build(myGeometryBuilder, &mess);
+	//assert(myGeometry != nullptr);
+	std::cout << "[JuPedSim] Created geometry. " << JPS_ErrorMessage_GetMessage(mess) << std::endl;
 
-	JPS_Areas areas = JPS_AreasBuilder_Build(areasBuilder, nullptr);
-	std::cout << "[JuPedSim] Initialized target areas." << std::endl;
-	assert(areas != nullptr);
+	myAreas = JPS_AreasBuilder_Build(myAreasBuilder, nullptr);
+	std::cout << "[JuPedSim] Created target areas." << std::endl;
+	assert(myAreas != nullptr);
+
+	myModel = JPS_OperationalModel_Create_VelocityModel(8, 0.1, 5, 0.02, nullptr);
+	std::cout << "[JuPedSim] Created the pedestriam nodel." << std::endl;
+	assert(myModel != nullptr);
+
+	mySimulation = JPS_Simulation_Create(myModel, myGeometry, myAreas, STEPS2TIME(JPS_DELTA_T), nullptr);
+	assert(mySimulation != nullptr);
 }
 
 
@@ -302,7 +377,7 @@ MSPModel_Remote::initialize() {
 // MSPModel_Remote::PState method definitions
 // ===========================================================================
 MSPModel_Remote::PState::PState(MSPerson* person, MSStageMoving* stage)
-    : myPerson(person), myPhi(0), myPosition(0, 0), myStage(stage) {
+    : myPerson(person), myAngle(0), myPosition(0, 0), myStage(stage) {
 }
 
 
@@ -324,7 +399,7 @@ Position MSPModel_Remote::PState::getPosition(const MSStageMoving& stage, SUMOTi
 
 
 double MSPModel_Remote::PState::getAngle(const MSStageMoving& stage, SUMOTime now) const {
-    return myPhi;
+    return myAngle;
 }
 
 
@@ -348,8 +423,8 @@ void MSPModel_Remote::PState::setPosition(double x, double y) {
 }
 
 
-void MSPModel_Remote::PState::setPhi(double phi) {
-    myPhi = phi;
+void MSPModel_Remote::PState::setAngle(double angle) {
+	myAngle = angle;
 }
 
 
