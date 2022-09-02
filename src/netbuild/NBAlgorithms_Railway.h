@@ -28,7 +28,9 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
-class NBNetBuilder;
+class NBEdgeCont;
+class NBPTStopCont;
+class NBPTLineCont;
 class OptionsCont;
 class NBVehicle;
 
@@ -45,7 +47,7 @@ class NBVehicle;
 class NBRailwayTopologyAnalyzer {
 public:
     static void analyzeTopology(NBEdgeCont& ec);
-    static int repairTopology(NBNetBuilder& nb);
+    static int repairTopology(NBEdgeCont& ec, NBPTStopCont& sc, NBPTLineCont& lc);
     static int makeAllBidi(NBEdgeCont& ec);
     static void extendDirectionPriority(NBEdgeCont& ec, bool fromUniDir);
 
@@ -122,7 +124,7 @@ private:
     static int extendBidiEdges(NBEdgeCont& ec, NBNode* node, NBEdge* bidiIn);
 
     /// @brief reverse edges sequences that are to broken nodes on both sides
-    static int reverseEdges(NBNetBuilder& nb);
+    static int reverseEdges(NBEdgeCont& ec, NBPTStopCont& sc);
 
     /// @brief add bidi-edges to connect buffers stops in both directions
     static int addBidiEdgesForBufferStops(NBEdgeCont& ec);
@@ -131,7 +133,7 @@ private:
     static int addBidiEdgesBetweenSwitches(NBEdgeCont& ec);
 
     /// @brief add bidi-edges to connect successive public transport stops
-    static int addBidiEdgesForStops(NBNetBuilder& nb);
+    static int addBidiEdgesForStops(NBEdgeCont& ec, NBPTLineCont& lc);
 
     /// @brief add bidi-edges to connect straight tracks
     static int addBidiEdgesForStraightConnectivity(NBEdgeCont& ec, bool geometryLike);
