@@ -18,6 +18,7 @@
 // The pedestrian following model for remote controlled pedestrian movement
 /****************************************************************************/
 
+#include <algorithm>
 #include <jupedsim/jupedsim.h>
 #include "microsim/MSEdge.h"
 #include "microsim/MSLane.h"
@@ -37,6 +38,7 @@ struct JPS_ErrorMessage_t {
 
 const double MSPModel_Remote::JPS_AREA_RATIO = 0.1;
 const SUMOTime MSPModel_Remote::JPS_DELTA_T = 10;
+const double MSPModel_Remote::JPS_EXIT_TOLERANCE = 1;
 
 
 MSPModel_Remote::MSPModel_Remote(const OptionsCont& oc, MSNet* net) : myNet(net) {
@@ -51,36 +53,56 @@ MSPModel_Remote::add(MSTransportable* person, MSStageMoving* stage, SUMOTime now
 	assert(person->getCurrentStageType() == MSStageType::WALKING);
 	PState* state = new PState(static_cast<MSPerson*>(person), stage);
 	
-	MSLane* departureLane = getFirstPedestrianLane(*(stage->getRoute().begin()));
-	if (departureLane)
-	{
-		double departureOffsetAlongLane = stage->getDepartPos();
-		Position departurePosition = departureLane->getShape().positionAtOffset(departureOffsetAlongLane);
-		Position arrivalPosition = departureLane->getShape()[1];
+	PositionVector shape = myLane->getShape();
+	Position leftPoint = shape[0];
+	Position rightPoint = shape[1];
+	double extent = myLane->getWidth() / 2.0;
 
-		JPS_Waypoint waypoints[] = { {{arrivalPosition.x(), arrivalPosition.y()}, 1} };
-		auto journey = JPS_Journey_Create_SimpleJourney(waypoints, sizeof(waypoints));
-		auto journeyId = JPS_Simulation_AddJourney(mySimulation, journey, nullptr);
-		//JPS_Journey_Free(journey);
+	double angle = leftPoint.angleTo2D(rightPoint);
+	Position toRotate = leftPoint + Position(extent * cos(angle), extent * sin(angle));
+	Position topLeftCorner = toRotate.rotateAround2D(M_PI / 2.0, leftPoint);
+	Position bottomLeftCorner = toRotate.rotateAround2D(-M_PI / 2.0, leftPoint);
 
-		JPS_AgentParameters agent_parameters{};
-		agent_parameters.v0 = 1.0;
-		agent_parameters.AMin = 0.15;
-		agent_parameters.BMax = 0.15;
-		agent_parameters.BMin = 0.15;
-		agent_parameters.Av = 0.53;
-		agent_parameters.T = 1;
-		agent_parameters.Tau = 0.5;
-		agent_parameters.journeyId = journeyId;
-		agent_parameters.orientationX = 1.0;
-		agent_parameters.orientationY = 0.0;
-		agent_parameters.positionX = departurePosition.x();
-		agent_parameters.positionY = departurePosition.y();
+	angle = rightPoint.angleTo2D(leftPoint);
+	toRotate = rightPoint + Position(extent * cos(angle), extent * sin(angle));
+	Position topRightCorner = toRotate.rotateAround2D(-M_PI / 2.0, rightPoint);
+	Position bottomRightCorner = toRotate.rotateAround2D(M_PI / 2.0, rightPoint);
 
-		state->myAgentId = JPS_Simulation_AddAgent(mySimulation, agent_parameters, nullptr);
-		myPedestrianStates.push_back(state);
-	}
-	
+	std::vector<Position> lanePolygon{ topLeftCorner, bottomLeftCorner, bottomRightCorner, topRightCorner };
+	std::vector<double> lanePolygonCoordinates;
+	PositionVector lanePolygon_(lanePolygon);
+
+	Position departurePosition = myLane->getShape()[0];
+	departurePosition.sub(5.0, 0, 0);
+	Position arrivalPosition = myLane->getShape()[1];
+	arrivalPosition.add(5.0, 0.0);
+
+	assert(lanePolygon_.around(departurePosition));
+	assert(lanePolygon_.around(arrivalPosition));
+
+	JPS_Waypoint waypoints[] = { {{arrivalPosition.x(), arrivalPosition.y()}, JPS_EXIT_TOLERANCE} };
+	auto journey = JPS_Journey_Create_SimpleJourney(waypoints, sizeof(waypoints));
+	auto journeyId = JPS_Simulation_AddJourney(mySimulation, journey, nullptr);
+	//JPS_Journey_Free(journey);
+
+	JPS_AgentParameters agent_parameters{};
+	agent_parameters.v0 = 1.0;
+	agent_parameters.AMin = 0.15;
+	agent_parameters.BMax = 0.15;
+	agent_parameters.BMin = 0.15;
+	agent_parameters.Av = 0.53;
+	agent_parameters.T = 1;
+	agent_parameters.Tau = 0.5;
+	agent_parameters.journeyId = journeyId;
+	agent_parameters.orientationX = 1.0;
+	agent_parameters.orientationY = 0.0;
+	agent_parameters.positionX = departurePosition.x();
+	agent_parameters.positionY = departurePosition.y();
+
+	state->myDestination = arrivalPosition;
+	state->myAgentId = JPS_Simulation_AddAgent(mySimulation, agent_parameters, nullptr);
+	myPedestrianStates.push_back(state);
+		
     /*assert(person->getCurrentStageType() == MSStageType::WALKING);
 
     PState* state = new PState(static_cast<MSPerson*>(person), stage);
@@ -181,7 +203,9 @@ MSPModel_Remote::execute(SUMOTime time) {
 	int nbrIterations = (int)(DELTA_T / JPS_DELTA_T);
 	for (int i = 0; i < nbrIterations; ++i)
 	{
-		bool ok = JPS_Simulation_Iterate(mySimulation, nullptr);
+		JPS_ErrorMessage_t* mess = new JPS_ErrorMessage_t{};
+		bool ok = JPS_Simulation_Iterate(mySimulation, &mess);
+		std::cout << "[JuPedSim] Finished iteration " << i << ". " << JPS_ErrorMessage_GetMessage(mess) << std::endl;
 		assert(ok);
 	}
 
@@ -191,6 +215,13 @@ MSPModel_Remote::execute(SUMOTime time) {
 		double newPositionX = JPS_Agent_PositionX(agent);
 		double newPositionY = JPS_Agent_PositionY(agent);
 		state->setPosition(newPositionX, newPositionY);
+
+		// if near end point, remove agent
+		Position newPosition(newPositionX, newPositionY);
+		if (newPosition.distanceTo2D(state->myDestination) < JPS_EXIT_TOLERANCE) {
+			remove(state);
+		}
+			
 		double newOrientationX = JPS_Agent_OrientationX(agent);
 		double newOrientationY = JPS_Agent_OrientationY(agent);
 		state->setAngle(atan2(newOrientationY, newOrientationX));
@@ -281,8 +312,10 @@ MSPModel_Remote::getFirstPedestrianLane(const MSEdge* const& edge) {
 
 void
 MSPModel_Remote::remove(MSTransportableStateAdapter* state) {
-    // XXX do something here
-
+	PState* state_ = static_cast<PState*>(state);
+	JPS_Simulation_RemoveAgent(mySimulation, state_->myAgentId, nullptr);
+	myPedestrianStates.erase(std::find(myPedestrianStates.begin(), myPedestrianStates.end(), state_));
+	delete state_;
 }
 
 
@@ -351,6 +384,7 @@ MSPModel_Remote::initialize() {
 			JPS_AreasBuilder_AddArea(
 				myAreasBuilder, rightAreaId, rightAreaPolygonCoordinates.data(), rightAreaPolygonCoordinates.size() / 2, rightAreaLabels.data(), rightAreaLabels.size());
 		
+			myLane = lane;
 			break;
 		}
 	}
@@ -365,7 +399,7 @@ MSPModel_Remote::initialize() {
 	assert(myAreas != nullptr);
 
 	myModel = JPS_OperationalModel_Create_VelocityModel(8, 0.1, 5, 0.02, nullptr);
-	std::cout << "[JuPedSim] Created the pedestriam nodel." << std::endl;
+	std::cout << "[JuPedSim] Created the pedestrian nodel." << std::endl;
 	assert(myModel != nullptr);
 
 	mySimulation = JPS_Simulation_Create(myModel, myGeometry, myAreas, STEPS2TIME(JPS_DELTA_T), nullptr);
