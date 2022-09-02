@@ -753,7 +753,7 @@ GNETLSTable::Cell::enable() {
     if (myIndexLabelBold) {
         myIndexLabelBold->enable();
     }
-    if (myButton) {
+    if (myButton && !myDisableButton) {
         myButton->enable();
     }
     if (myAddButton) {
@@ -795,7 +795,7 @@ GNETLSTable::Cell::disable() {
     if (myIndexLabelBold) {
         myIndexLabelBold->disable();
     }
-    if (myButton) {
+    if (myButton && !myDisableButton) {
         myButton->disable();
     }
     if (myAddButton) {
@@ -1000,6 +1000,15 @@ GNETLSTable::Cell::getType() const {
 void
 GNETLSTable::Cell::hideMenuButtonPopup() {
     myMenuButtonPopup->popdown();
+}
+
+
+void
+GNETLSTable::Cell::disableButton() {
+    if (myButton) {
+        myButton->disable();
+        myDisableButton = true;
+    }
 }
 
 
@@ -1282,7 +1291,7 @@ GNETLSTable::Row::markAsFirstRow() {
     // search move up button and disable it
     for (const auto &cell : myCells) {
         if (cell->getType() == 't') {
-            cell->getButton()->disable();
+            cell->disableButton();
         }
     }
 }
@@ -1293,7 +1302,7 @@ GNETLSTable::Row::markAsLastRow() {
     // search move up button and disable it
     for (const auto &cell : myCells) {
         if (cell->getType() == 'b') {
-            cell->getButton()->disable();
+            cell->disableButton();
         }
     }
 }
@@ -1304,7 +1313,7 @@ GNETLSTable::Row::disableRemoveRow() {
     // search move up button and disable it
     for (const auto &cell : myCells) {
         if (cell->getType() == 'd') {
-            cell->getButton()->disable();
+            cell->disableButton();
         }
     }
 }

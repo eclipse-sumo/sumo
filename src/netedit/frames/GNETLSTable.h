@@ -230,6 +230,9 @@ protected:
         /// @brief hide menuButton popup
         void hideMenuButtonPopup();
 
+        /// @brief disable button (used for delete, move up and move down)
+        void disableButton();
+
     private:
         /// @brief pointer to TLSTable parent
         GNETLSTable* myTLSTable = nullptr;
@@ -275,6 +278,9 @@ protected:
 
         /// @brief row index
         const int myRow;
+
+        /// @brief disable button
+        bool myDisableButton = false;
 
         /// @brief default constructor
         Cell();
