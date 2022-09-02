@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Sun Jan 31 11:57:00 2021 by Eclipse SUMO netconvert Version v1_8_0+0889-6060b87cd3
+<!-- generated on 2022-09-02 15:11:21 by Eclipse SUMO netconvert Version v1_14_1+0805-672b82736f7
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -38,7 +43,6 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
-        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
@@ -47,7 +51,7 @@ SPDX-License-Identifier: EPL-2.0
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <busStop id="4539420388" name="Veltenhöfer Straße" lane="4747816#1_0" startPos="30.83" endPos="45.83" friendlyPos="true"/>
     <busStop id="4539421789" name="Brandenburgstraße" lane="4747816#7_0" startPos="111.86" endPos="126.86" friendlyPos="true"/>
-    <busStop id="54142977" name="Heideblick" lane="859066434#3_0" startPos="49.04" endPos="61.54" friendlyPos="true" lines="1">
+    <busStop id="54142977" name="Heideblick" lane="859066434#3_0" startPos="36.54" endPos="61.54" friendlyPos="true" lines="1">
         <access lane="172186756#0_0" pos="0.00" length="17.11" friendlyPos="1"/>
         <access lane="177846735#0_0" pos="1.99" length="12.61" friendlyPos="1"/>
         <access lane="177846735#1_0" pos="0.00" length="13.34" friendlyPos="1"/>

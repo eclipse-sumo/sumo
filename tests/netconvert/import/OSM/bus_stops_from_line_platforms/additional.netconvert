@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-04-07 09:05:22 by Eclipse SUMO netconvert Version v1_12_0+2009-12c4140cb33
+<!-- generated on 2022-09-02 15:11:17 by Eclipse SUMO netconvert Version v1_14_1+0805-672b82736f7
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -30,7 +30,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <report>
         <xml-validation value="never"/>
-        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
@@ -41,7 +40,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <busStop id="-5866058277" name="南林饭店" lane="-621164893#0_0" startPos="188.22" endPos="203.22" friendlyPos="true" lines="9004"/>
     <busStop id="-5866058279" name="南园宾馆" lane="-621164893#1_0" startPos="119.66" endPos="134.66" friendlyPos="true" lines="9011 9004"/>
     <busStop id="-5867325983" name="苏大附一院十梓街院区" lane="-451504028#2_0" startPos="140.75" endPos="155.75" friendlyPos="true"/>
-    <busStop id="-5867325984" name="苏大附一院十梓街院区" lane="-621257554#1_0" startPos="0.00" endPos="12.32" friendlyPos="true"/>
+    <busStop id="-5867325984" name="苏大附一院十梓街院区" lane="-621257554#1_0" startPos="0.00" endPos="15.00" friendlyPos="true"/>
     <busStop id="-5867326286" name="平桥直街" lane="-44669522#2_0" startPos="31.50" endPos="46.50" friendlyPos="true" lines="9004"/>
     <busStop id="-5867326289" name="网师园北" lane="-440356231#3_0" startPos="819.50" endPos="834.50" friendlyPos="true" lines="9004"/>
     <busStop id="-5867361087" name="苏州公园" lane="-454323212#3_0" startPos="39.63" endPos="54.63" friendlyPos="true"/>
@@ -52,7 +51,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <busStop id="5866058281" name="网师园" lane="621655566#1_0" startPos="10.06" endPos="25.06" friendlyPos="true"/>
     <busStop id="5867325981" name="苏州日报社" lane="69707955#2_0" startPos="62.80" endPos="77.80" friendlyPos="true"/>
     <busStop id="5867325982" name="苏州日报社" lane="69707916#0_0" startPos="82.45" endPos="97.45" friendlyPos="true"/>
-    <busStop id="5867326285" name="平桥直街" lane="44669522#1_0" startPos="26.38" endPos="35.08" friendlyPos="true" lines="9003"/>
+    <busStop id="5867326285" name="平桥直街" lane="44669522#1_0" startPos="20.08" endPos="35.08" friendlyPos="true" lines="9003"/>
     <busStop id="5867326287" name="网师园西" lane="621655563#0_0" startPos="79.80" endPos="94.80" friendlyPos="true"/>
     <busStop id="5867326288" name="网师园西" lane="131443652#4_0" startPos="99.13" endPos="114.13" friendlyPos="true"/>
     <busStop id="5867361086" name="大公园" lane="44669527#1_0" startPos="59.77" endPos="74.77" friendlyPos="true" lines="9003"/>
