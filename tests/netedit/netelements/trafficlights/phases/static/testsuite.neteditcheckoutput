@@ -1,15 +1,7 @@
-add
+dur
 
-delete
+state
 
-moveup
+next
 
-movedown
-
-addstates
-
-cleanstates
-
-groupsignals
-
-ungroupsignals
+buttons
