@@ -493,6 +493,10 @@ MSLCM_LC2013::informLeader(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
         neighNextGap = neighLead.second + SPEED2DIST((nv->getSpeed() + neighNextSpeed) / 2) - SPEED2DIST((myVehicle.getSpeed() + plannedSpeed) / 2);
     }
     if ((blocked & LCA_BLOCKED_BY_LEADER) != 0) {
+        if (MSLCHelper::divergentRoute(myVehicle, *nv)) {
+            //std::cout << SIMTIME << " ego=" << myVehicle.getID() << " ignoresDivergentBlockingLeader=" << nv->getID() << "\n";
+            return plannedSpeed;
+        }
 #ifdef DEBUG_INFORMER
         if (DEBUG_COND) {
             std::cout << " blocked by leader nv=" <<  nv->getID() << " nvSpeed=" << nv->getSpeed() << " needGap="
@@ -652,6 +656,10 @@ MSLCM_LC2013::informFollower(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
 
 #endif
     if ((blocked & LCA_BLOCKED_BY_FOLLOWER) != 0 && nv != nullptr) {
+        if (MSLCHelper::divergentRoute(myVehicle, *nv)) {
+            //std::cout << SIMTIME << " ego=" << myVehicle.getID() << " ignoresDivergentBlockingFollower=" << nv->getID() << "\n";
+            return;
+        }
 #ifdef DEBUG_INFORMER
         if (DEBUG_COND) {
             std::cout << " blocked by follower nv=" <<  nv->getID() << " nvSpeed=" << nv->getSpeed() << " needGap="
