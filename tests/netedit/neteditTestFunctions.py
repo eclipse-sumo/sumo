@@ -2194,6 +2194,32 @@ def deleteJoinedTLS():
     # create TLS
     typeSpace()
 
+
+def resetSingleTLSPhases():
+    """
+    @brief copy TLS in the current selected Junction
+    """
+    # focus current frame
+    focusOnFrame()
+    # type tab 2 times to jump to create TLS button
+    for _ in range(11):
+        typeTab()
+    # create TLS
+    typeSpace()
+
+
+def resetAllTLSPhases():
+    """
+    @brief copy TLS in the current selected Junction
+    """
+    # focus current frame
+    focusOnFrame()
+    # type tab 2 times to jump to create TLS button
+    for _ in range(13):
+        typeTab()
+    # create TLS
+    typeSpace()
+
 #################################################
 # shapes
 #################################################
