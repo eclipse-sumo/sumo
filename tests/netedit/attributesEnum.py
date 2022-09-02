@@ -391,9 +391,8 @@ class crossing:
 
 
 class TLS:
-    class create:
+    class edit:
         TLS = 10
-        noTLS = 11
 
 
 # --------------------------------
