@@ -85,6 +85,7 @@ private:
         void setPosition(double x, double y);
         void setAngle(double angle);
 		JPS_AgentId myAgentId;
+		Position myDestination;
     private:
         Position myPosition;
         double myAngle;
@@ -114,4 +115,6 @@ private:
 	JPS_Simulation mySimulation;
 	static const double JPS_AREA_RATIO;
 	static const SUMOTime JPS_DELTA_T;
+	static const double JPS_EXIT_TOLERANCE;
+	MSLane* myLane;
 };
