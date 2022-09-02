@@ -1068,6 +1068,9 @@ GNETLSEditorFrame::TLSJunction::onUpdTLSID(FXObject*, FXSelector, void*) {
         // no junction, disable and clear
         myTLSIDTextField->setText("");
         myTLSIDTextField->disable();
+    } else if (myCurrentJunction->getNBNode()->getControllingTLS().size() == 0) {
+        // no TLSs in Junctions, disable
+        myTLSIDTextField->disable();
     } else if (myTLSEditorParent->myTLSAttributes->isSetDetectorsToggleButtonEnabled()) {
         // selecting E1, disable button
         myTLSIDTextField->disable();
