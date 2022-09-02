@@ -106,6 +106,9 @@ public:
     /// @brief called when a row is focused
     long onFocusRow(FXObject*, FXSelector, void*);
 
+    /// @brief called when add phase button is selected
+    long onCmdAddPhasePressed(FXObject*, FXSelector, void*);
+
     /// @brief called when a row is modified
     long onCmdEditRow(FXObject*, FXSelector, void*);
 

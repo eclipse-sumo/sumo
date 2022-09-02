@@ -40,7 +40,8 @@
 // ===========================================================================
 
 FXDEFMAP(GNETLSTable) GNETLSTableMap[] = {
-    FXMAPFUNC(MID_MBTTIP_SELECTED, 0,                                   GNETLSTable::onFocusRow),
+    FXMAPFUNC(MID_MBTTIP_FOCUS,     0,                                  GNETLSTable::onFocusRow),
+    FXMAPFUNC(MID_MBTTIP_SELECTED,  0,                                  GNETLSTable::onCmdAddPhasePressed),
     // text fields
     FXMAPFUNC(SEL_FOCUSIN,  MID_GNE_TLSTABLE_TEXTFIELD,                 GNETLSTable::onFocusRow),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TLSTABLE_TEXTFIELD,                 GNETLSTable::onCmdEditRow),
@@ -299,6 +300,22 @@ GNETLSTable::onFocusRow(FXObject* sender, FXSelector, void*) {
         myCurrentSelectedRow = selectedRow;
         updateIndexLabel();
     }
+    return 0;
+}
+
+
+long
+GNETLSTable::onCmdAddPhasePressed(FXObject* sender, FXSelector, void*) {
+    // search selected add button
+    for (int columnIndex = 0; columnIndex < (int)myColumns.size(); columnIndex++) {
+        for (int rowIndex = 0; rowIndex < (int)myRows.size(); rowIndex++) {
+            if (myRows.at(rowIndex)->getCells().at(columnIndex)->getAddButton() == sender) {
+                myRows.at(rowIndex)->getCells().at(columnIndex)->getAddPhaseButton()->setFocus();
+                return 1;
+            }
+        }
+    }
+    // nothing to focus
     return 0;
 }
 
