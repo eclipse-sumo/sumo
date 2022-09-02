@@ -551,6 +551,10 @@ MSLCM_SL2015::informLeader(int blocked,
 
     if ((blocked & LCA_BLOCKED_BY_LEADER) != 0 && neighLead.first != 0) {
         const MSVehicle* nv = neighLead.first;
+        if (MSLCHelper::divergentRoute(myVehicle, *nv)) {
+            //std::cout << SIMTIME << " ego=" << myVehicle.getID() << " ignoresDivergentBlockingLeader=" << nv->getID() << "\n";
+            return plannedSpeed;
+        }
 #ifdef DEBUG_INFORM
         if (gDebugFlag2) std::cout << " blocked by leader nv=" <<  nv->getID() << " nvSpeed=" << nv->getSpeed() << " needGap="
                                        << myVehicle.getCarFollowModel().getSecureGap(&myVehicle, nv, myVehicle.getSpeed(), nv->getSpeed(), nv->getCarFollowModel().getMaxDecel()) << "\n";
@@ -677,6 +681,10 @@ MSLCM_SL2015::informFollower(int blocked,
                              double plannedSpeed) {
     if ((blocked & LCA_BLOCKED_BY_FOLLOWER) != 0 && neighFollow.first != 0) {
         const MSVehicle* nv = neighFollow.first;
+        if (MSLCHelper::divergentRoute(myVehicle, *nv)) {
+            //std::cout << SIMTIME << " ego=" << myVehicle.getID() << " ignoresDivergentBlockingFollower=" << nv->getID() << "\n";
+            return;
+        }
 #ifdef DEBUG_INFORM
         if (gDebugFlag2) std::cout << " blocked by follower nv=" <<  nv->getID() << " nvSpeed=" << nv->getSpeed() << " needGap="
                                        << nv->getCarFollowModel().getSecureGap(nv, &myVehicle, nv->getSpeed(), myVehicle.getSpeed(), myVehicle.getCarFollowModel().getMaxDecel()) << "\n";
