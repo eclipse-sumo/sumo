@@ -216,6 +216,14 @@ NBPTStop::findLaneAndComputeBusStopExtent(const NBEdge* edge) {
             offset *= edge->getLoadedLength() / edge->getLength();
             myStartPos = MAX2(0.0, offset - myPTStopLength / 2.);
             myEndPos = MIN2(offset + myPTStopLength / 2., edge->getLoadedLength());
+            double missing = myPTStopLength - (myEndPos - myStartPos);
+            if (missing > 0) {
+                if (myStartPos > 0) {
+                    myStartPos = MAX2(0.0, myStartPos - missing);
+                } else {
+                    myEndPos = MIN2(myEndPos + missing, edge->getLoadedLength());
+                }
+            }
             return true;
         }
     }
