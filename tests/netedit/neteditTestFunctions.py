@@ -2137,7 +2137,7 @@ def copyTLS():
     # focus current frame
     focusOnFrame()
     # type tab 2 times to jump to create TLS button
-    for _ in range(7):
+    for _ in range(9):
         typeTab()
     # create TLS
     typeSpace()
@@ -2164,6 +2164,32 @@ def disJoinTLS():
     focusOnFrame()
     # type tab 2 times to jump to create TLS button
     for _ in range(6):
+        typeTab()
+    # create TLS
+    typeSpace()
+
+
+def deleteTLS():
+    """
+    @brief copy TLS in the current selected Junction
+    """
+    # focus current frame
+    focusOnFrame()
+    # type tab 2 times to jump to create TLS button
+    for _ in range(10):
+        typeTab()
+    # create TLS
+    typeSpace()
+
+
+def deleteJoinedTLS():
+    """
+    @brief copy TLS in the current selected Junction
+    """
+    # focus current frame
+    focusOnFrame()
+    # type tab 2 times to jump to create TLS button
+    for _ in range(11):
         typeTab()
     # create TLS
     typeSpace()
