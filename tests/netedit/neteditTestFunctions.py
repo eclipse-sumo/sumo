@@ -2107,6 +2107,23 @@ def createTLS():
     # focus current frame
     focusOnFrame()
     # type tab 2 times to jump to create TLS button
+    for _ in range(3):
+        typeTab()
+    # create TLS
+    typeSpace()
+
+
+def createTLSOverlapped(junction):
+    """
+    @brief Create TLS in overlapped junction
+    """
+    # focus current frame
+    focusOnFrame()
+    # type tab 2 times to jump to create TLS button
+    for _ in range(4):
+        typeTab()
+    for _ in range(junction):
+        typeSpace()
     for _ in range(4):
         typeTab()
     # create TLS
