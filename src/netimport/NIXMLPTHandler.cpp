@@ -168,7 +168,7 @@ NIXMLPTHandler::addPTStop(const SUMOSAXAttributes& attrs) {
     }
     if (ok) {
         Position pos = edge->geometryPositionAtOffset((startPos + endPos) / 2);
-        myCurrentStop = new NBPTStop(id, pos, edgeID, edgeID, endPos - startPos, name, permissions, parkingLength, color);
+        myCurrentStop = new NBPTStop(id, pos, edgeID, edgeID, endPos - startPos, name, permissions, parkingLength, color, startPos);
         if (!myStopCont.insert(myCurrentStop)) {
             WRITE_ERROR("Could not add public transport stop '" + id + "' (already exists)");
         }
