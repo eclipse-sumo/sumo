@@ -303,7 +303,8 @@ class Builder(object):
 
             self.edges = sumolib.net.readNet(os.path.join(self.tmp, self.files["net"])).getEdges()
 
-            for vehicle, options in self.data["vehicles"].items():
+            for vehicle in sorted(self.data["vehicles"].keys()):
+                options = self.data["vehicles"][vehicle]
                 self.report("Processing %s" % vehicleNames[vehicle])
 
                 self.filename("route", ".%s.rou.xml" % vehicle)
