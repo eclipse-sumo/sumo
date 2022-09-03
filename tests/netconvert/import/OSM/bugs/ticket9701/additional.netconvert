@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-09-02 15:11:22 by Eclipse SUMO netconvert Version v1_14_1+0805-672b82736f7
+<!-- generated on 2022-09-03 22:29:26 by Eclipse SUMO netconvert Version v1_14_1+0819-bf19e4679c8
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -46,6 +46,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <busStop id="224101094" name="Estación de autobuses de Zaragoza" lane="34999066_1" startPos="219.26" endPos="234.26" friendlyPos="true" lines="VAC 099"/>
+    <busStop id="224101094" name="Estación de autobuses de Zaragoza" lane="34999066_1" startPos="221.16" endPos="236.16" friendlyPos="true" lines="VAC 099"/>
     <busStop id="8399487641" lane="296662014#0_1" startPos="0.00" endPos="15.00" friendlyPos="true" lines="VAC 099"/>
 </additional>

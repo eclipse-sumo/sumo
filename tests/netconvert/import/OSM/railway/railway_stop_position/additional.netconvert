@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-09-02 15:11:16 by Eclipse SUMO netconvert Version v1_14_1+0805-672b82736f7
+<!-- generated on 2022-09-03 22:29:19 by Eclipse SUMO netconvert Version v1_14_1+0819-bf19e4679c8
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -39,7 +39,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <busStop id="1422539746" name="Lübbenau, Gleis 1" lane="254150069_0" startPos="318.58" endPos="518.58" friendlyPos="true"/>
-    <busStop id="1422539747" name="Lübbenau, Gleis 2" lane="56392722#0_0" startPos="523.80" endPos="723.80" friendlyPos="true"/>
-    <busStop id="1422539748" name="Lübbenau, Gleis 4" lane="254150073#1_0" startPos="423.85" endPos="623.85" friendlyPos="true"/>
+    <busStop id="1422539746" name="Lübbenau, Gleis 1" lane="254150069_0" startPos="317.14" endPos="517.14" friendlyPos="true"/>
+    <busStop id="1422539747" name="Lübbenau, Gleis 2" lane="56392722#0_0" startPos="476.76" endPos="676.76" friendlyPos="true"/>
+    <busStop id="1422539748" name="Lübbenau, Gleis 4" lane="254150073#1_0" startPos="422.30" endPos="622.30" friendlyPos="true"/>
 </additional>
