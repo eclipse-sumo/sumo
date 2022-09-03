@@ -213,15 +213,16 @@ NBPTStop::findLaneAndComputeBusStopExtent(const NBEdge* edge) {
             myLaneId = edge->getLaneID(laneNr);
             const PositionVector& shape = edge->getLaneShape(laneNr);
             double offset = shape.nearest_offset_to_point2D(getPosition(), false);
-            offset *= edge->getLoadedLength() / edge->getLength();
+            const double edgeLength = edge->getFinalLength();
+            offset *= edgeLength / shape.length2D();
             myStartPos = MAX2(0.0, offset - myPTStopLength / 2.);
-            myEndPos = MIN2(offset + myPTStopLength / 2., edge->getLoadedLength());
+            myEndPos = MIN2(offset + myPTStopLength / 2., edgeLength);
             double missing = myPTStopLength - (myEndPos - myStartPos);
             if (missing > 0) {
                 if (myStartPos > 0) {
                     myStartPos = MAX2(0.0, myStartPos - missing);
                 } else {
-                    myEndPos = MIN2(myEndPos + missing, edge->getLoadedLength());
+                    myEndPos = MIN2(myEndPos + missing, edgeLength);
                 }
             }
             return true;

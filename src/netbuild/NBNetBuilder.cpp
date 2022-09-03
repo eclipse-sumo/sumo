@@ -370,11 +370,6 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
         WRITE_MESSAGE("Guessed " + toString(sidewalks) + " sidewalks.");
         addedLanes += sidewalks;
     }
-    // re-adapt stop lanes after adding special lanes
-    if (oc.exists("ptstop-output") && oc.isSet("ptstop-output") && addedLanes > 0) {
-        myPTStopCont.assignLanes(myEdgeCont);
-    }
-
     // check whether any not previously setable connections may be set now
     myEdgeCont.recheckPostProcessConnections();
 
@@ -645,6 +640,8 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
 
     //find accesses for pt rail stops and add bidi-stops
     if (oc.exists("ptstop-output") && oc.isSet("ptstop-output")) {
+        // re-adapt stop lanes after adding special lanes and cutting edge shapes at junction
+        myPTStopCont.assignLanes(myEdgeCont);
         before = SysUtils::getCurrentMillis();
         int numBidiStops = 0;
         if (!oc.getBool("ptstop-output.no-bidi")) {
