@@ -1861,7 +1861,13 @@ MSPModel_Striping::PState::walk(const Obstacles& obs, SUMOTime currentTime) {
     const int stripes = (int)obs.size();
     const int sMax =  stripes - 1;
     assert(stripes == numStripes(myLane));
-    const double vMax = myStage->getMaxSpeed(myPerson);
+    // account stage-specific max speed but also for normal lane speed limit
+    // (speed limits on crossings and walkingareas ignored due to #11527)
+    const double vMax = (myStage->getConfiguredSpeed() >= 0
+        ? myStage->getConfiguredSpeed()
+        : (myLane->isNormal() || myLane->isInternal()
+                ? myLane->getVehicleMaxSpeed(myPerson)
+                : myStage->getMaxSpeed(myPerson)));
     // ultimate goal is to choose the prefered stripe (chosen)
     const int current = stripe();
     const int other = otherStripe();
@@ -2059,7 +2065,7 @@ MSPModel_Striping::PState::walk(const Obstacles& obs, SUMOTime currentTime) {
                   << " vy=" << ySpeed
                   << " xd=" << xDist
                   << " yd=" << yDist
-                  << " vMax=" << myStage->getMaxSpeed(myPerson)
+                  << " vMax=" << vMax
                   << " wTime=" << myStage->getWaitingTime(currentTime)
                   << " jammed=" << myAmJammed
                   << "\n";
