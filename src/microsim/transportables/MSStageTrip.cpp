@@ -166,6 +166,9 @@ MSStageTrip::setArrived(MSNet* net, MSTransportable* transportable, SUMOTime now
             }
             pars.back()->parametersSet |= VEHPARS_ARRIVALPOS_SET;
             pars.back()->arrivalPosProcedure = ArrivalPosDefinition::GIVEN;
+            pars.back()->parametersSet |= VEHPARS_ARRIVALSPEED_SET;
+            pars.back()->arrivalSpeedProcedure = ArrivalSpeedDefinition::GIVEN;
+            pars.back()->arrivalSpeed = 0;
 
             MSVehicleType* type = vehControl.getVType(vehPar->vtypeid);
             if (type->getVehicleClass() != SVC_IGNORING && (myOrigin->getPermissions() & type->getVehicleClass()) == 0 && !isTaxi) {
