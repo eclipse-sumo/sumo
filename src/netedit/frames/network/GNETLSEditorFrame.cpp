@@ -728,6 +728,7 @@ GNETLSEditorFrame::TLSAttributes::onCmdSetOffset(FXObject*, FXSelector, void*) {
     if (isValidOffset()) {
         myTLSEditorParent->myTLSDefinition->markAsModified();
         myTLSEditorParent->myEditedDef->setOffset(getOffset());
+        myOffsetTextField->killFocus();
     }
     return 1;
 }
@@ -759,6 +760,7 @@ GNETLSEditorFrame::TLSAttributes::onCmdSetParameters(FXObject*, FXSelector, void
     if (isValidParameters()) {
         myTLSEditorParent->myTLSDefinition->markAsModified();
         myTLSEditorParent->myEditedDef->setParametersStr(getParameters());
+        myParametersTextField->killFocus();
     }
     return 1;
 }
