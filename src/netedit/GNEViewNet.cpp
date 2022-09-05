@@ -1391,7 +1391,7 @@ GNEViewNet::hotkeyEnter() {
                 myViewParent->getTLSEditorFrame()->getTLSAttributes()->disableE1DetectorMode();
             } else if (myViewParent->getTLSEditorFrame()->getTLSJunction()->isJoiningJunctions()) {
                 myViewParent->getTLSEditorFrame()->getTLSJunction()->disableJoiningJunctionMode();
-            } else {
+            } else if (myViewParent->getTLSEditorFrame()->getTLSDefinition()->checkHaveModifications()) {
                 myViewParent->getTLSEditorFrame()->getTLSDefinition()->onCmdSaveChanges(nullptr, 0, nullptr);
             }
         } else if ((myEditModes.networkEditMode == NetworkEditMode::NETWORK_MOVE) && (myEditNetworkElementShapes.getEditedNetworkElement() != nullptr)) {
