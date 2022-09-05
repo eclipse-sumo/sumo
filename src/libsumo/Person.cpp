@@ -365,7 +365,7 @@ Person::getLength(const std::string& personID) {
 
 double
 Person::getSpeedFactor(const std::string& personID) {
-    return getPerson(personID)->getSpeedFactor();
+    return getPerson(personID)->getChosenSpeedFactor();
 }
 
 
@@ -1112,7 +1112,7 @@ Person::setLateralAlignment(const std::string& personID, const std::string& latA
 
 void
 Person::setSpeedFactor(const std::string& personID, double factor) {
-    getPerson(personID)->setSpeedFactor(factor);
+    getPerson(personID)->setChosenSpeedFactor(factor);
 }
 
 

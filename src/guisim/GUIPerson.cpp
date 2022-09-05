@@ -234,7 +234,7 @@ GUIPerson::getParameterWindow(GUIMainWindow& app,
     ret->mkItem("edge [id]", true, new FunctionBindingString<GUIPerson>(this, &GUIPerson::getEdgeID));
     ret->mkItem("position [m]", true, new FunctionBinding<GUIPerson, double>(this, &GUIPerson::getEdgePos));
     ret->mkItem("speed [m/s]", true, new FunctionBinding<GUIPerson, double>(this, &GUIPerson::getSpeed));
-    ret->mkItem("speed factor", false, getSpeedFactor());
+    ret->mkItem("speed factor", false, getChosenSpeedFactor());
     ret->mkItem("angle [degree]", true, new FunctionBinding<GUIPerson, double>(this, &GUIPerson::getNaviDegree));
     ret->mkItem("waiting time [s]", true, new FunctionBinding<GUIPerson, double>(this, &GUIPerson::getWaitingSeconds));
     ret->mkItem("vehicle [id]", true, new FunctionBindingString<GUIPerson>(this, &GUIPerson::getVehicleID));

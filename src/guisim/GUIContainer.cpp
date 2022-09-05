@@ -169,7 +169,7 @@ GUIContainer::getParameterWindow(GUIMainWindow& app,
     ret->mkItem("edge [id]", false, getEdge()->getID());
     ret->mkItem("position [m]", true, new FunctionBinding<GUIContainer, double>(this, &GUIContainer::getEdgePos));
     ret->mkItem("speed [m/s]", true, new FunctionBinding<GUIContainer, double>(this, &GUIContainer::getSpeed));
-    ret->mkItem("speed factor", false, getSpeedFactor());
+    ret->mkItem("speed factor", false, getChosenSpeedFactor());
     ret->mkItem("angle [degree]", true, new FunctionBinding<GUIContainer, double>(this, &GUIContainer::getAngle));
     ret->mkItem("waiting time [s]", true, new FunctionBinding<GUIContainer, double>(this, &GUIContainer::getWaitingSeconds));
     ret->mkItem("desired depart [s]", false, time2string(getParameter().depart));
