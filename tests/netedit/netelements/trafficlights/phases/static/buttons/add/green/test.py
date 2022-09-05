@@ -37,14 +37,8 @@ netedit.leftClick(referencePosition, 320, 220)
 # create TLS
 netedit.createTLS()
 
-# set attribute
-netedit.modifyAttribute(netedit.attrs.TLS.staticPhase.nxt, "dummyNext", False)
-
-# set attribute
-netedit.modifyAttribute(netedit.attrs.TLS.staticPhase.nxt, "", False)
-
-# set attribute
-netedit.modifyAttribute(netedit.attrs.TLS.staticPhase.nxt, "1", False)
+# add phase
+netedit.addGreenPhase(netedit.attrs.TLS.staticPhase.buttons)
 
 # type enter to save changes
 netedit.typeEnter()

@@ -403,10 +403,11 @@ class TLS:
         parameters = 15
 
     class staticPhase:
-        dur = 12
-        state = 17
-        nxt = 22
-        name = 27
+        dur = 17
+        state = 22
+        nxt = 27
+        name = 32
+        buttons = 35
 
 
 # --------------------------------

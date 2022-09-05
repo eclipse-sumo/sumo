@@ -107,6 +107,16 @@ def typeTab():
     pyautogui.hotkey('tab')
 
 
+def typeRight():
+    """
+    @brief type right key
+    """
+    # wait before every operation
+    time.sleep(DELAY_KEY_TAB)
+    # type keys
+    pyautogui.hotkey('right')
+
+
 def typeBackspace():
     """
     @brief type backspace key
@@ -2221,6 +2231,134 @@ def resetAllTLSPhases():
         typeTab()
     # create TLS
     typeSpace()
+
+
+def addDefaultPhase(position):
+    """
+    @brief add defaiñt `jase
+    """
+    # focus current frame
+    focusOnFrame()
+    # type tab 2 times to jump to create TLS button
+    for _ in range(position):
+        typeTab()
+    # add phase
+    typeSpace()
+    # wait
+    time.sleep(DELAY_SELECT)
+    # add phase
+    typeSpace()
+    # wait
+    time.sleep(DELAY_SELECT)
+
+
+def addDuplicatePhase(position):
+    """
+    @brief add defaiñt `jase
+    """
+    # focus current frame
+    focusOnFrame()
+    # type tab 2 times to jump to create TLS button
+    for _ in range(position):
+        typeTab()
+    # add phase
+    typeSpace()
+    # wait
+    time.sleep(DELAY_SELECT)
+    # move to button
+    typeRight()
+    # add phase
+    typeSpace()
+    # wait
+    time.sleep(DELAY_SELECT)
+
+
+def addRedPhase(position):
+    """
+    @brief add defaiñt `jase
+    """
+    # focus current frame
+    focusOnFrame()
+    # type tab 2 times to jump to create TLS button
+    for _ in range(position):
+        typeTab()
+    # add phase
+    typeSpace()
+    # wait
+    time.sleep(DELAY_SELECT)
+    # go to button
+    for _ in range(2):
+        typeRight()
+    # add phase
+    typeSpace()
+    # wait
+    time.sleep(DELAY_SELECT)
+
+
+def addYellowPhase(position):
+    """
+    @brief add defaiñt `jase
+    """
+    # focus current frame
+    focusOnFrame()
+    # type tab 2 times to jump to create TLS button
+    for _ in range(position):
+        typeTab()
+    # add phase
+    typeSpace()
+    # wait
+    time.sleep(DELAY_SELECT)
+    # go to button
+    for _ in range(3):
+        typeRight()
+    # add phase
+    typeSpace()
+    # wait
+    time.sleep(DELAY_SELECT)
+
+
+def addGreenPhase(position):
+    """
+    @brief add defaiñt `jase
+    """
+    # focus current frame
+    focusOnFrame()
+    # type tab 2 times to jump to create TLS button
+    for _ in range(position):
+        typeTab()
+    # add phase
+    typeSpace()
+    # wait
+    time.sleep(DELAY_SELECT)
+    # go to button
+    for _ in range(4):
+        typeRight()
+    # add phase
+    typeSpace()
+    # wait
+    time.sleep(DELAY_SELECT)
+
+
+def addGreenPriorityPhase(position):
+    """
+    @brief add defaiñt `jase
+    """
+    # focus current frame
+    focusOnFrame()
+    # type tab 2 times to jump to create TLS button
+    for _ in range(position):
+        typeTab()
+    # add phase
+    typeSpace()
+    # wait
+    time.sleep(DELAY_SELECT)
+    # go to button
+    for _ in range(5):
+        typeRight()
+    # add phase
+    typeSpace()
+    # wait
+    time.sleep(DELAY_SELECT)
 
 #################################################
 # shapes
