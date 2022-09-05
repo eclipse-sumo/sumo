@@ -2111,6 +2111,8 @@ def createTLS():
         typeTab()
     # create TLS
     typeSpace()
+    # wait
+    time.sleep(DELAY_SELECT)
 
 
 def createTLSOverlapped(junction):

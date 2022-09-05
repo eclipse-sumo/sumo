@@ -402,6 +402,12 @@ class TLS:
         offset = 13
         parameters = 15
 
+    class staticPhase:
+        dur = 12
+        state = 17
+        nxt = 22
+        name = 27
+
 
 # --------------------------------
 # ADDITIONALS
