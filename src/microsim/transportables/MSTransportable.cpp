@@ -99,7 +99,7 @@ MSTransportable::proceed(MSNet* net, SUMOTime time, const bool vehicleArrived) {
         throw ProcessError(error);
     }
     bool accessToStop = false;
-    if (prior->getStageType() == MSStageType::WALKING) {
+    if (prior->getStageType() == MSStageType::WALKING || prior->getStageType() == MSStageType::DRIVING) {
         accessToStop = checkAccess(prior);
     }
     if (!accessToStop && (myStep == myPlan->end()
