@@ -729,6 +729,7 @@ GNETLSEditorFrame::TLSAttributes::onCmdSetOffset(FXObject*, FXSelector, void*) {
         myTLSEditorParent->myTLSDefinition->markAsModified();
         myTLSEditorParent->myEditedDef->setOffset(getOffset());
         myOffsetTextField->killFocus();
+        myTLSEditorParent->update();
     }
     return 1;
 }
@@ -761,6 +762,7 @@ GNETLSEditorFrame::TLSAttributes::onCmdSetParameters(FXObject*, FXSelector, void
         myTLSEditorParent->myTLSDefinition->markAsModified();
         myTLSEditorParent->myEditedDef->setParametersStr(getParameters());
         myParametersTextField->killFocus();
+        myTLSEditorParent->update();
     }
     return 1;
 }
@@ -1029,6 +1031,8 @@ GNETLSEditorFrame::TLSJunction::onCmdRenameTLS(FXObject*, FXSelector, void*) {
         // same ID or empty
         myTLSIDTextField->setTextColor(FXRGB(0, 0, 0));
         myTLSIDTextField->setText(currentTLID.c_str());
+        myTLSIDTextField->killFocus();
+        myTLSEditorParent->update();
         // show all moduls
         myTLSEditorParent->myTLSDefinition->showTLSDefinition();
         myTLSEditorParent->myTLSAttributes->showTLSAttributes();
@@ -1103,6 +1107,8 @@ GNETLSEditorFrame::TLSJunction::onCmdChangeType(FXObject*, FXSelector, void*) {
         // same ID or empty, don't change
         myTLSTypeComboBox->setTextColor(FXRGB(0, 0, 0));
         myTLSTypeComboBox->setText(currentTLType.c_str());
+        myTLSTypeComboBox->killFocus();
+        myTLSEditorParent->update();
         // show all moduls
         myTLSEditorParent->myTLSDefinition->showTLSDefinition();
         myTLSEditorParent->myTLSAttributes->showTLSAttributes();
