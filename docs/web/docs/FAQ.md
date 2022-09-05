@@ -174,9 +174,12 @@ always use the latest version of SUMO.
 - a screenshot or error output showing the unexpected behavior (this
   may allow us to diagnose the problem at a single glance). When sending screenshots of sumo-gui, please include the whole screen so the application version and simulation time are visible.
 - the complete input files for reproducing the error (i.e. a .sumocfg
-  and all files referenced therein) in a zip-archive. Please remove
+  and all files referenced therein) in a zip-archive.
+- Please remove
   unnecessary inputs (i.e. only 2 vehicles instead of 2000) and try to
-  find the minimum input example which still shows the problem.
+  find the minimum input example which still shows the problem. This includes
+  cutting the network (or inputs) using [netedit](Netedit/index.md)
+  or [osmconvert](Networks/Import/OpenStreetMap.md#osmfilter--osmconvert)
 - a description at which time step (for simulations) and on which
   edge/junction the problem occurs
 
