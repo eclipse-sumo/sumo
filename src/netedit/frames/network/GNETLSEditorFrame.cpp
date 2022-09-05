@@ -1050,6 +1050,10 @@ GNETLSEditorFrame::TLSJunction::onCmdRenameTLS(FXObject*, FXSelector, void*) {
         // make a copy of myCurrentJunction and current tlDef (because will be reset after calling discardChanges)
         auto junction = myCurrentJunction;
         const auto tlDef = myTLSEditorParent->myTLSDefinition->getCurrentTLSDefinition();
+        // restore color
+        myTLSIDTextField->setTextColor(FXRGB(0, 0, 0));
+        myTLSIDTextField->killFocus();
+        myTLSEditorParent->update();
         // discard previous changes
         myTLSEditorParent->myTLSDefinition->discardChanges(false);
         // change name using undo-List
@@ -1123,6 +1127,10 @@ GNETLSEditorFrame::TLSJunction::onCmdChangeType(FXObject*, FXSelector, void*) {
         myTLSEditorParent->myTLSPhases->hideTLSPhases();
         myTLSEditorParent->myTLSFile->hideTLSFile();
     } else {
+        // reset color
+        myTLSTypeComboBox->setTextColor(FXRGB(0, 0, 0));
+        myTLSTypeComboBox->killFocus();
+        myTLSEditorParent->update();
         // make a copy of myCurrentJunction (because will be reset after calling discardChanges)
         auto junction = myCurrentJunction;
         // discard previous changes
