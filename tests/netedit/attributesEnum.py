@@ -407,7 +407,15 @@ class TLS:
         state = 22
         nxt = 27
         name = 32
-        buttons = 35
+        addButton = 35
+        deleteButton = 39
+        moveUp = 43
+        moveDown = 47
+        cleanStates = 48
+        groupSignal = 49
+        addStates = 50
+        ungroupSignal = 51
+        
 
 
 # --------------------------------

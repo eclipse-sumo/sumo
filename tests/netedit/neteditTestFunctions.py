@@ -2233,6 +2233,25 @@ def resetAllTLSPhases():
     typeSpace()
 
 
+def pressTLSPhaseButton(position):
+    """
+    @brief add defaiñt `jase
+    """
+    # focus current frame
+    focusOnFrame()
+    # type tab 2 times to jump to create TLS button
+    for _ in range(position):
+        typeTab()
+    # add phase
+    typeSpace()
+    # wait
+    time.sleep(DELAY_SELECT)
+    # add phase
+    typeSpace()
+    # wait
+    time.sleep(DELAY_SELECT)
+
+
 def addDefaultPhase(position):
     """
     @brief add defaiñt `jase

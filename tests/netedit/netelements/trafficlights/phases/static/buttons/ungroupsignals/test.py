@@ -37,8 +37,8 @@ netedit.leftClick(referencePosition, 320, 220)
 # create TLS
 netedit.createTLS()
 
-# add phase
-netedit.addGreenPriorityPhase(netedit.attrs.TLS.staticPhase.addButton)
+# ungroup signal
+netedit.pressTLSPhaseButton(netedit.attrs.TLS.staticPhase.ungroupSignal)
 
 # type enter to save changes
 netedit.typeEnter()
