@@ -1550,18 +1550,35 @@ GNETLSEditorFrame::TLSDefinition::onCmdDelete(FXObject*, FXSelector, void*) {
 
 long
 GNETLSEditorFrame::TLSDefinition::onCmdResetCurrentProgram(FXObject*, FXSelector, void*) {
+    // obtain junction and old definitions
     GNEJunction* junction = myTLSEditorParent->myTLSJunction->getCurrentJunction();
     NBTrafficLightDefinition* oldDef = myTLSEditorParent->myTLSDefinition->getCurrentTLSDefinition();
+    const std::string programID = oldDef->getProgramID();
+    // discard changes
     discardChanges(false);
     // begin undo
     myTLSEditorParent->getViewNet()->getUndoList()->begin(GUIIcon::MODETLS, "reset current program");
+    // remove old definition
     myTLSEditorParent->getViewNet()->getUndoList()->add(new GNEChange_TLS(junction, oldDef, false), true);
+    // create new definition, and add it
     NBOwnTLDef* newDef = new NBOwnTLDef(oldDef->getID(), oldDef->getNodes(), oldDef->getOffset(), oldDef->getType());
-    newDef->setProgramID(oldDef->getProgramID());
     myTLSEditorParent->getViewNet()->getUndoList()->add(new GNEChange_TLS(junction, newDef, true, true), true);
+    // set old index
+    newDef->setProgramID(programID);
     // end undo
     myTLSEditorParent->getViewNet()->getUndoList()->end();
+    // inspect junction again
     myTLSEditorParent->editJunction(junction);
+    // switch to programID
+    int index = -1;
+    for (int i = 0; i < myProgramComboBox->getNumItems(); i++) {
+        if (myProgramComboBox->getItem(i).text() == programID) {
+            index = i;
+        }
+    }
+    if (index != -1) {
+        myProgramComboBox->setCurrentItem(index, TRUE);
+    }
     return 1;
 }
 
