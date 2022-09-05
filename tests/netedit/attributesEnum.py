@@ -395,7 +395,9 @@ class TLS:
         TLS = 10
     
     class common:
-        offset = 7
+        TLID = 1
+        TLType = 2
+        offset = 12
         parameters = 9
 
     class commonJoin:
