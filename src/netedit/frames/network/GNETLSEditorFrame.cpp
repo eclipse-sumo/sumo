@@ -65,7 +65,7 @@ FXDEFMAP(GNETLSEditorFrame::TLSDefinition) TLSDefinitionMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TLSFRAME_DEFINITION_RESETCURRENT,   GNETLSEditorFrame::TLSDefinition::onCmdResetCurrentProgram),
     FXMAPFUNC(SEL_UPDATE,   MID_GNE_TLSFRAME_DEFINITION_RESETCURRENT,   GNETLSEditorFrame::TLSDefinition::onUpdTLSDisableModified),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TLSFRAME_DEFINITION_RESETALL,       GNETLSEditorFrame::TLSDefinition::onCmdResetAll),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TLSFRAME_DEFINITION_RESETALL,       GNETLSEditorFrame::TLSDefinition::onUpdTLSDisableModified),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TLSFRAME_DEFINITION_RESETALL,       GNETLSEditorFrame::TLSDefinition::onUpdTLSDisableResetAll),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TLSFRAME_DEFINITION_SWITCHPROGRAM,  GNETLSEditorFrame::TLSDefinition::onCmdDefSwitchTLSProgram),
     FXMAPFUNC(SEL_UPDATE,   MID_GNE_TLSFRAME_DEFINITION_SWITCHPROGRAM,  GNETLSEditorFrame::TLSDefinition::onUpdTLSDisableModified),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TLSFRAME_DEFINITION_SAVE,           GNETLSEditorFrame::TLSDefinition::onCmdSaveChanges),
@@ -1648,6 +1648,25 @@ GNETLSEditorFrame::TLSDefinition::onUpdTLSEnableModified(FXObject* sender, FXSel
 long
 GNETLSEditorFrame::TLSDefinition::onUpdTLSDisableModified(FXObject* sender, FXSelector, void*) {
     if (getNumberOfTLSDefinitions() == 0) {
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
+    } else if (myTLSEditorParent->myTLSAttributes->isSetDetectorsToggleButtonEnabled()) {
+        // selecting E1, disable button
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
+    } else if (myTLSEditorParent->myTLSJunction->isJoiningJunctions()) {
+        // joining TLSs, disable button
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
+    } else if (myHaveModifications) {
+        // modifications, disable button
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
+    } else {
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
+    }
+}
+
+
+long
+GNETLSEditorFrame::TLSDefinition::onUpdTLSDisableResetAll(FXObject* sender, FXSelector, void*) {
+    if (getNumberOfTLSDefinitions() <= 1) {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else if (myTLSEditorParent->myTLSAttributes->isSetDetectorsToggleButtonEnabled()) {
         // selecting E1, disable button

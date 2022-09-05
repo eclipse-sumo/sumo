@@ -218,6 +218,9 @@ public:
         /// @brief Called when occurs an update of switch definition
         long onUpdTLSDisableModified(FXObject*, FXSelector, void*);
 
+        /// @brief Called when occurs an update of switch definition
+        long onUpdTLSDisableResetAll(FXObject*, FXSelector, void*);
+
         /// @brief Called when the user presses the save-Button
         long onCmdSaveChanges(FXObject*, FXSelector, void*);
 
