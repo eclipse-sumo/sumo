@@ -1003,6 +1003,19 @@ GUIBaseVehicle::drawStopLabels(const GUIVisualizationSettings& s, bool noLoop, c
         repeat[stop.lane]++;
         stopIndex++;
     }
+    // indicate arrivalPos if set
+    if (myVehicle.getParameter().wasSet(VEHPARS_ARRIVALPOS_SET) || myVehicle.getArrivalLane() >= 0) {
+        const int arrivalEdge = myVehicle.getParameter().arrivalEdge >= 0
+            ? myVehicle.getParameter().arrivalEdge
+            : myVehicle.getRoute().getEdges().size() - 1;
+        const MSLane* arrivalLane = myVehicle.getRoute().getEdges()[arrivalEdge]->getLanes()[MAX2(0, myVehicle.getArrivalLane())];
+        Position pos = arrivalLane->geometryPositionAtOffset(myVehicle.getArrivalPos());
+        GLHelper::setColor(col);
+        GLHelper::drawBoxLines(arrivalLane->getShape().getOrthogonal(pos, 10, true, arrivalLane->getWidth() * 0.5,  90), 0.1);
+        GLHelper::drawBoxLines(arrivalLane->getShape().getOrthogonal(pos, 10, true, arrivalLane->getWidth() * 0.5, 270), 0.1);
+        GLHelper::drawTextSettings(s.vehicleText, "arrival", pos, s.scale, s.angle, 1.0);
+
+    }
 }
 
 void
