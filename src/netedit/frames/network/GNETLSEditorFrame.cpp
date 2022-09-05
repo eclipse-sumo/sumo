@@ -1585,20 +1585,35 @@ GNETLSEditorFrame::TLSDefinition::onCmdResetCurrentProgram(FXObject*, FXSelector
 
 long
 GNETLSEditorFrame::TLSDefinition::onCmdResetAll(FXObject*, FXSelector, void*) {
-    // make a duplicate of the junction
-    GNEJunction* currentJunction = myTLSEditorParent->myTLSJunction->getCurrentJunction();
+    // obtain junction and old definitions
+    GNEJunction* junction = myTLSEditorParent->myTLSJunction->getCurrentJunction();
+    NBTrafficLightDefinition* oldDef = myTLSEditorParent->myTLSDefinition->getCurrentTLSDefinition();
+    // get a list of all affected nodes
+    std::vector<GNEJunction*> TLSJunctions;
+    for (const auto &TLSNode : oldDef->getNodes()) {
+        TLSJunctions.push_back(myTLSEditorParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveJunction(TLSNode->getID()));
+    }
     // discard all previous changes
     discardChanges(false);
     // begin undo
     myTLSEditorParent->getViewNet()->getUndoList()->begin(GUIIcon::MODETLS, "reset TLS");
     // set junction as priority (this will also remove all program, see GNEJunction::setJunctionType)
-    currentJunction->setAttribute(SUMO_ATTR_TYPE, toString(SumoXMLNodeType::PRIORITY), myTLSEditorParent->getViewNet()->getUndoList());
+    for (const auto &TLSJunction: TLSJunctions) {
+        TLSJunction->setAttribute(SUMO_ATTR_TYPE, toString(SumoXMLNodeType::PRIORITY), myTLSEditorParent->getViewNet()->getUndoList());
+    }
     // create TLS in junction
-    createTLS(currentJunction);
+    createTLS(junction);
+    // set TLS in all other junctions
+    for (const auto &TLSJunction: TLSJunctions) {
+        if (TLSJunction != junction) {
+            TLSJunction->setAttribute(SUMO_ATTR_TYPE, TLSJunction->getAttribute(SUMO_ATTR_TYPE), myTLSEditorParent->getViewNet()->getUndoList());
+            TLSJunction->setAttribute(SUMO_ATTR_TLID, TLSJunction->getAttribute(SUMO_ATTR_TLID), myTLSEditorParent->getViewNet()->getUndoList());
+        }
+    }
     // end undo
     myTLSEditorParent->getViewNet()->getUndoList()->end();
     // edit junction
-    myTLSEditorParent->editJunction(currentJunction);
+    myTLSEditorParent->editJunction(junction);
     return 1;
 }
 
