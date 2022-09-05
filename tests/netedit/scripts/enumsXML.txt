@@ -3,7 +3,7 @@ editElements.overlapped
 selection
 selection.lockSelectionNetwork
 selection.lockSelectionNetwork.junctions 
-selection.lockSelectionNetwork.edges 
+selection.lockSelectionNetworki 
 selection.lockSelectionNetwork.lanes 
 selection.lockSelectionNetwork.connections 
 selection.lockSelectionNetwork.crossings 

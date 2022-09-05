@@ -393,6 +393,14 @@ class crossing:
 class TLS:
     class edit:
         TLS = 10
+    
+    class common:
+        offset = 7
+        parameters = 9
+
+    class commonJoin:
+        offset = 13
+        parameters = 15
 
 
 # --------------------------------
