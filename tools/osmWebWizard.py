@@ -66,18 +66,22 @@ CP = ["--trip-attributes", 'departLane="best"',
       "--fringe-start-attributes", 'departSpeed="max"',
       "--validate", "--remove-loops"]
 
+def getParams(vClass, prefix=None):
+    if prefix is None:
+        prefix = vClass
+    return ["--vehicle-class", vClass,  "--vclass", vClass,  "--prefix", prefix]
+
 vehicleParameters = {
-    "passenger":  ["--vehicle-class", "passenger",  "--vclass", "passenger",  "--prefix", "veh",
-                   "--min-distance", "300", "--allow-fringe.min-length", "1000", "--lanes"] + CP,
-    "truck":      ["--vehicle-class", "truck",      "--vclass", "truck",      "--prefix", "truck", "--min-distance", "600"] + CP,
-    "bus":        ["--vehicle-class", "bus",        "--vclass", "bus",        "--prefix", "bus",   "--min-distance", "600"] + CP,
-    "motorcycle": ["--vehicle-class", "motorcycle", "--vclass", "motorcycle", "--prefix", "moto",  "--max-distance", "1200"] + CP,
-    "bicycle":    ["--vehicle-class", "bicycle",    "--vclass", "bicycle",    "--prefix", "bike",  "--max-distance", "8000"] + CP,
-    "tram":       ["--vehicle-class", "tram",       "--vclass", "tram",       "--prefix", "tram",  "--min-distance", "1200"] + CP,
-    "rail_urban": ["--vehicle-class", "rail_urban", "--vclass", "rail_urban", "--prefix", "urban", "--min-distance", "1800"] + CP,
-    "rail":       ["--vehicle-class", "rail",       "--vclass", "rail",       "--prefix", "rail",  "--min-distance", "2400"] + CP,
-    "ship":       ["--vehicle-class", "ship",       "--vclass", "ship",       "--prefix", "ship",
-                   "--fringe-start-attributes", 'departSpeed="max"', "--validate"],
+    "passenger":  getParams("passenger", "veh")  + CP + ["--min-distance", "300",
+                                                         "--allow-fringe.min-length", "1000", "--lanes"],
+    "truck":      getParams("truck")             + CP + ["--min-distance", "600"],
+    "bus":        getParams("bus")               + CP + ["--min-distance", "600"],
+    "motorcycle": getParams("motorcycle")        + CP + ["--max-distance", "1200"],
+    "bicycle":    getParams("bicycle", "bike")   + CP + ["--max-distance", "8000"],
+    "tram":       getParams("tram")              + CP + ["--min-distance", "1200"],
+    "rail_urban": getParams("rail_urban")        + CP + ["--min-distance", "1800"],
+    "rail":       getParams("rail")              + CP + ["--min-distance", "2400"],
+    "ship":       getParams("ship") + ["--fringe-start-attributes", 'departSpeed="max"', "--validate"],
     "pedestrian": ["--vehicle-class", "pedestrian", "--pedestrians", "--prefix", "ped", "--max-distance", "2000"],
     "persontrips":["--vehicle-class", "pedestrian", "--persontrips", "--prefix", "ped", "--trip-attributes", 'modes="public"'],
 }
