@@ -164,6 +164,9 @@ MSStageTrip::setArrived(MSNet* net, MSTransportable* transportable, SUMOTime now
                 vehPar->departPos = myDepartPos;
                 vehPar->parametersSet |= VEHPARS_DEPARTPOS_SET;
             }
+            pars.back()->parametersSet |= VEHPARS_ARRIVALPOS_SET;
+            pars.back()->arrivalPosProcedure = ArrivalPosDefinition::GIVEN;
+
             MSVehicleType* type = vehControl.getVType(vehPar->vtypeid);
             if (type->getVehicleClass() != SVC_IGNORING && (myOrigin->getPermissions() & type->getVehicleClass()) == 0 && !isTaxi) {
                 WRITE_WARNING("Ignoring vehicle type '" + type->getID() + "' when routing person '" + transportable->getID() + "' because it is not allowed on the start edge.");
@@ -247,6 +250,7 @@ MSStageTrip::setArrived(MSNet* net, MSTransportable* transportable, SUMOTime now
                         transportable->appendStage(previous, stageIndex++);
                         vehicle->replaceRouteEdges(it->edges, -1, 0, "person:" + transportable->getID(), true);
                         vehicle->setArrivalPos(localArrivalPos);
+                        const_cast<SUMOVehicleParameter&>(vehicle->getParameter()).arrivalPos = localArrivalPos;
                         vehControl.addVehicle(vehPar->id, vehicle);
                         carUsed = true;
                     } else {
