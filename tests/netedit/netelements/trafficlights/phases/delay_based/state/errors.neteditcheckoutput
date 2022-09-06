@@ -8,3 +8,5 @@ Warning: Cannot build detector of length 100 because no further continuation lan
 Warning: Cannot build detector of length 100 because no further continuation lane was found for lane '-E3_2'! Truncated detector at length 18.9.
 Warning: Cannot build detector of length 100 because no further continuation lane was found for lane '-E0_1'! Truncated detector at length 18.9.
 Warning: Cannot build detector of length 100 because no further continuation lane was found for lane '-E0_2'! Truncated detector at length 18.9.
+Warning: Teleporting vehicle 'trip_1'; waited too long (yield), lane='-E2_2', time=306.00.
+Warning: Vehicle 'trip_1' ends teleporting on edge 'E3', time=306.00.
