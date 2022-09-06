@@ -305,6 +305,9 @@ protected:
         /// @brief get column type
         char getType() const;
 
+        /// @brief get column label top
+        FXString getColumnLabelTop() const;
+
         /// @brief set column label top
         void setColumnLabelTop(const std::string& text, const std::string& tooltip);
 

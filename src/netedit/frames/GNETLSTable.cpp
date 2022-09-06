@@ -330,10 +330,12 @@ GNETLSTable::onCmdEditRow(FXObject* sender, FXSelector, void*) {
             if (textField == sender) {
                 // edit value and change value depending of result
                 if (myTLSPhasesParent->changePhaseValue(columnIndex, rowIndex, textField->getText().text())) {
+                    WRITE_DEBUG(("Valid " + myColumns.at(columnIndex)->getColumnLabelTop()).text());
                     textField->setTextColor(FXRGB(0, 0, 0));
                     textField->killFocus();
                     myTLSPhasesParent->getTLSEditorParent()->update();
                 } else {
+                    WRITE_DEBUG(("Invalid " + myColumns.at(columnIndex)->getColumnLabelTop()).text());
                     textField->setTextColor(FXRGB(255, 0, 0));
                 }
                 return 1;
@@ -385,6 +387,7 @@ GNETLSTable::onCmdKeyPress(FXObject* sender, FXSelector sel, void* ptr) {
 
 long 
 GNETLSTable::onCmdAddPhase(FXObject* sender, FXSelector, void*) {
+    WRITE_DEBUG("Add default phase");
     // search selected text field
     for (int indexRow = 0; indexRow < (int)myRows.size(); indexRow++) {
         // iterate over every cell
@@ -405,6 +408,7 @@ GNETLSTable::onCmdAddPhase(FXObject* sender, FXSelector, void*) {
 
 long 
 GNETLSTable::onCmdDuplicatePhase(FXObject* sender, FXSelector, void*) {
+    WRITE_DEBUG("Duplicate phase");
     // search selected text field
     for (int indexRow = 0; indexRow < (int)myRows.size(); indexRow++) {
         // iterate over every cell
@@ -425,6 +429,7 @@ GNETLSTable::onCmdDuplicatePhase(FXObject* sender, FXSelector, void*) {
 
 long 
 GNETLSTable::onCmdAddPhaseAllRed(FXObject* sender, FXSelector, void*) {
+    WRITE_DEBUG("Add red phase");
     // search selected text field
     for (int indexRow = 0; indexRow < (int)myRows.size(); indexRow++) {
         // iterate over every cell
@@ -445,6 +450,7 @@ GNETLSTable::onCmdAddPhaseAllRed(FXObject* sender, FXSelector, void*) {
 
 long 
 GNETLSTable::onCmdAddPhaseAllYellow(FXObject* sender, FXSelector, void*) {
+    WRITE_DEBUG("Add yellow phase");
     // search selected text field
     for (int indexRow = 0; indexRow < (int)myRows.size(); indexRow++) {
         // iterate over every cell
@@ -465,6 +471,7 @@ GNETLSTable::onCmdAddPhaseAllYellow(FXObject* sender, FXSelector, void*) {
 
 long 
 GNETLSTable::onCmdAddPhaseAllGreen(FXObject* sender, FXSelector, void*) {
+    WRITE_DEBUG("Add green phase");
     // search selected text field
     for (int indexRow = 0; indexRow < (int)myRows.size(); indexRow++) {
         // iterate over every cell
@@ -485,6 +492,7 @@ GNETLSTable::onCmdAddPhaseAllGreen(FXObject* sender, FXSelector, void*) {
 
 long 
 GNETLSTable::onCmdAddPhaseAllGreenPriority(FXObject* sender, FXSelector, void*) {
+    WRITE_DEBUG("Add green priority phase");
     // search selected text field
     for (int indexRow = 0; indexRow < (int)myRows.size(); indexRow++) {
         // iterate over every cell
@@ -505,6 +513,7 @@ GNETLSTable::onCmdAddPhaseAllGreenPriority(FXObject* sender, FXSelector, void*) 
 
 long
 GNETLSTable::onCmdRemovePhase(FXObject* sender, FXSelector, void*) {
+    WRITE_DEBUG("Add remove phase");
     // search selected text field
     for (int indexRow = 0; indexRow < (int)myRows.size(); indexRow++) {
         // iterate over every cell
@@ -523,6 +532,7 @@ GNETLSTable::onCmdRemovePhase(FXObject* sender, FXSelector, void*) {
 
 long 
 GNETLSTable::onCmdMoveUpPhase(FXObject* sender, FXSelector, void*) {
+    WRITE_DEBUG("Move phase up");
     // search selected text field
     for (int indexRow = 0; indexRow < (int)myRows.size(); indexRow++) {
         // iterate over every cell
@@ -541,6 +551,7 @@ GNETLSTable::onCmdMoveUpPhase(FXObject* sender, FXSelector, void*) {
 
 long
 GNETLSTable::onCmdMoveDownPhase(FXObject* sender, FXSelector, void*) {
+    WRITE_DEBUG("Move phase down");
     // search selected text field
     for (int indexRow = 0; indexRow < (int)myRows.size(); indexRow++) {
         // iterate over every cell
@@ -1106,6 +1117,12 @@ GNETLSTable::Column::getVerticalCellFrame() const {
 char
 GNETLSTable::Column::getType() const {
     return myType;
+}
+
+
+FXString
+GNETLSTable::Column::getColumnLabelTop() const {
+    return myTopLabel->getText();
 }
 
 

@@ -2141,6 +2141,7 @@ GNETLSEditorFrame::TLSPhases::onCmdCleanStates(FXObject*, FXSelector, void*) {
     initPhaseTable();
     myPhaseTable->setFocus();
     myTLSEditorParent->myTLSDefinition->markAsModified();
+    WRITE_DEBUG("Clean states");
     return 1;
 }
 
@@ -2151,6 +2152,7 @@ GNETLSEditorFrame::TLSPhases::onCmdAddUnusedStates(FXObject*, FXSelector, void*)
     myTLSEditorParent->myTLSDefinition->markAsModified();
     initPhaseTable();
     myPhaseTable->setFocus();
+    WRITE_DEBUG("Add unused states");
     return 1;
 }
 
@@ -2162,6 +2164,7 @@ GNETLSEditorFrame::TLSPhases::onCmdGroupStates(FXObject*, FXSelector, void*) {
     myTLSEditorParent->buildInternalLanes(myTLSEditorParent->myEditedDef);
     initPhaseTable();
     myPhaseTable->setFocus();
+    WRITE_DEBUG("Group states");
     return 1;
 }
 
@@ -2174,6 +2177,7 @@ GNETLSEditorFrame::TLSPhases::onCmdUngroupStates(FXObject*, FXSelector, void*) {
     myTLSEditorParent->buildInternalLanes(myTLSEditorParent->myEditedDef);
     initPhaseTable();
     myPhaseTable->setFocus();
+    WRITE_DEBUG("Ungroup states");
     return 1;
 }
 
