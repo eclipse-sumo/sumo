@@ -123,6 +123,7 @@ definitions.
 | trainStop  | string   | valid trainStop ids              | \-      | id of the destination stop                        |
 | chargingStation| string   | valid chargingStation ids              | \-      | id of the destination stop                        |
 | containerStop| string   | valid containerStop ids              | \-      | id of the destination stop                        |
+| group| string           |               | ""      | id of the travel group. Persons with the same group may share a taxi ride     |
 
 The vehicle to use has to exist already (either public transport or some
 existing passenger car) and the route to take is defined by the vehicle.
@@ -307,6 +308,7 @@ If the computed plan starts with a car or bicycle, a vehicle for use by the pers
 | modes      | list     | any combination of "public", "car", "bicycle", ["taxi"](../Simulation/Taxi.md) | \-      | list of possible traffic modes (separated by ' '). Walking is always possible regardless of this value.     |
 | departPos  | float(m) |                                               | 0       | initial position on the starting edge (deprecated, determined by the departPos of the person or the arrival pos of the previous step) |
 | arrivalPos | float(m) |                                               | middle of edge | arrival position on the destination edge                      |
+| group| string           |               | ""      | id of the travel group. Persons with the same group may share a taxi ride     |
 
 !!! note
     It is an error for subsequent trips to be unconnected.
