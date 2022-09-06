@@ -2382,6 +2382,7 @@ GNETLSEditorFrame::TLSPhases::buildDefaultPhase(const int row) {
     const OptionsCont& oc = OptionsCont::getOptions();
     // check if TLS is static
     const bool TLSStatic = (myTLSEditorParent->myEditedDef->getType() == TrafficLightType::STATIC);
+    const bool NEMA = (myTLSEditorParent->myEditedDef->getType() == TrafficLightType::NEMA);
     // calculate new index
     const int newIndex = row + 1;
     // duplicate current row
@@ -2448,7 +2449,13 @@ GNETLSEditorFrame::TLSPhases::buildDefaultPhase(const int row) {
         }
     }
     // add new step
-    myTLSEditorParent->myEditedDef->getLogic()->addStep(duration, state, std::vector<int>(), "", newIndex);
+    if (NEMA) {
+        myTLSEditorParent->myEditedDef->getLogic()->addStep(string2time("90"), state, string2time("5"), string2time("50"), 
+            NBTrafficLightDefinition::UNSPECIFIED_DURATION, NBTrafficLightDefinition::UNSPECIFIED_DURATION, 
+            string2time("2"), string2time("3"), string2time("2"), "1", std::vector<int>(), newIndex);
+    } else {
+        myTLSEditorParent->myEditedDef->getLogic()->addStep(duration, state, std::vector<int>(), "", newIndex);
+    }
     // return new index
     return newIndex;
 }
