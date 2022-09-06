@@ -451,6 +451,25 @@ class TLS:
         groupSignal = 58
         addStates = 59
         ungroupSignal = 60
+
+    class NEMAPhase:
+        dur = 18
+        minD = 22
+        maxD = 26
+        state = 30
+        vehext = 34
+        yellow = 38
+        red = 42
+        nxt = 46
+        name = 50
+        addButton = 55
+        deleteButton = 59
+        moveUp = 64
+        moveDown = 67
+        cleanStates = 69
+        groupSignal = 70
+        addStates = 71
+        ungroupSignal = 72
         
 
 

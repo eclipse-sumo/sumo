@@ -1,5 +1,9 @@
 dur
 
+min
+
+max
+
 state
 
 vehext
@@ -9,5 +13,7 @@ yellow
 red
 
 next
+
+name
 
 buttons
