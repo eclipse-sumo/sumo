@@ -1939,6 +1939,7 @@ GNETLSEditorFrame::TLSPhases::changePhaseValue(const int col, const int row, con
         colMaxDur = 3;
         colState = 4;
         colNext = 5;
+        colName = 6;
     } else if (myTLSEditorParent->myEditedDef->getType() == TrafficLightType::NEMA) {
         colMinDur = 2;
         colMaxDur = 3;
