@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-09-06 14:56:38 by Eclipse SUMO netedit Version v1_14_1+0863-1d05bd11e07
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net.netconvert"/>
+    </input>
+
+    <output>
+        <output-file value="net.netconvert"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <netedit>
+        <additional-files value="C:\erdm_ja\sumo-dev\tests\netconvert\import\XML\public_transport\filter_access\input_ptstops.xml"/>
+    </netedit>
+
+</configuration>
+-->
+
+<edges version="1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="E0" from="gneJ0" to="gneJ1" priority="-1" numLanes="1" speed="13.89"/>
+    <edge id="E1" from="gneJ1" to="J0" priority="-1" numLanes="1" speed="13.89"/>
+    <edge id="E2" from="J3" to="J4" priority="-1" numLanes="1" speed="13.89" allow="rail"/>
+    <edge id="E3" from="J4" to="J2" priority="-1" numLanes="1" speed="13.89" allow="rail"/>
+</edges>

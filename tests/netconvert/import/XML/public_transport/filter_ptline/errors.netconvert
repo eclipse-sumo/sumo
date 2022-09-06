@@ -1,0 +1,6 @@
+Error: Attribute 'id' is missing in definition of route 'route'.
+Error: Attribute 'lane' is missing in definition of busStop 'bs_0'.
+Error: Attribute 'startPos' is missing in definition of busStop 'bs_0'.
+Error: Attribute 'endPos' is missing in definition of busStop 'bs_0'.
+Error: Empty Data
+Quitting (on error).

@@ -9,3 +9,6 @@ access
 
 # load ptstops with access and reduce the network
 filter_access
+
+# load ptstops and ptlines and reduce the network
+filter_ptline
