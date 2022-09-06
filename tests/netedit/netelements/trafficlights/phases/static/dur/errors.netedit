@@ -16,6 +16,9 @@ Debug: Created connection 'from-E3_2toE2_2' in retrieveGNEConnection()
 Debug: Created connection 'from-E3_2toE0_2' in retrieveGNEConnection()
 Debug: Adding TLS into junction 'J0'
 Debug: Setting new attribute
+Debug: Valid dur
+Debug: Invalid dur
+Debug: Valid dur
 Debug: Key ENTER pressed
 Debug: Deleting TLS from junction 'J0'
 Debug: Adding TLS into junction 'J0'
