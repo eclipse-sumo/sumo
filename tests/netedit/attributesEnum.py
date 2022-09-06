@@ -435,6 +435,22 @@ class TLS:
         groupSignal = 66
         addStates = 67
         ungroupSignal = 68
+
+    class delayBasedPhase:
+        dur = 18
+        minD = 22
+        maxD = 26
+        state = 30
+        nxt = 34
+        name = 38
+        addButton = 43
+        deleteButton = 47
+        moveUp = 52
+        moveDown = 55
+        cleanStates = 57
+        groupSignal = 58
+        addStates = 59
+        ungroupSignal = 60
         
 
 
