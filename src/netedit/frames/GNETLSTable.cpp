@@ -513,7 +513,7 @@ GNETLSTable::onCmdAddPhaseAllGreenPriority(FXObject* sender, FXSelector, void*) 
 
 long
 GNETLSTable::onCmdRemovePhase(FXObject* sender, FXSelector, void*) {
-    WRITE_DEBUG("Add remove phase");
+    WRITE_DEBUG("Remove phase");
     // search selected text field
     for (int indexRow = 0; indexRow < (int)myRows.size(); indexRow++) {
         // iterate over every cell
