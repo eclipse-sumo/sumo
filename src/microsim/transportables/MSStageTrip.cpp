@@ -57,7 +57,7 @@ MSStageTrip::MSStageTrip(const MSEdge* origin, MSStoppingPlace* fromStop,
                          const std::string& vTypes, const double speed, const double walkFactor,
                          const std::string& group,
                          const double departPosLat, const bool hasArrivalPos, const double arrivalPos):
-    MSStage(destination, toStop, arrivalPos, MSStageType::TRIP),
+    MSStage(destination, toStop, arrivalPos, MSStageType::TRIP, group),
     myOrigin(origin),
     myOriginStop(fromStop),
     myDuration(duration),
@@ -65,7 +65,6 @@ MSStageTrip::MSStageTrip(const MSEdge* origin, MSStoppingPlace* fromStop,
     myVTypes(vTypes),
     mySpeed(speed),
     myWalkFactor(walkFactor),
-    myGroup(group),
     myDepartPosLat(departPosLat),
     myHaveArrivalPos(hasArrivalPos) {
 }
