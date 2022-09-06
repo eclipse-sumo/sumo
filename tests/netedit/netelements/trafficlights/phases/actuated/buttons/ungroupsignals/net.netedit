@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-09-05 14:56:02 by Eclipse SUMO netedit Version v1_14_1+0833-aad2f6b3938
+<!-- generated on 2022-09-06 09:50:02 by Eclipse SUMO netedit Version v1_14_1+0855-6d836f0121c
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.05Sep145501.13516\netedit.gui\netelements\trafficlights\phases\static\buttons\cleanstates\input_net.net.xml"/>
+        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.06Sep094508.17148\netedit.gui\netelements\trafficlights\phases\actuated\buttons\ungroupsignals\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.05Sep145501.13516\netedit.gui\netelements\trafficlights\phases\static\buttons\cleanstates\net.net.xml"/>
+        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.06Sep094508.17148\netedit.gui\netelements\trafficlights\phases\actuated\buttons\ungroupsignals\net.net.xml"/>
     </output>
 
     <processing>
@@ -30,12 +30,12 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.05Sep145501.13516\netedit.gui\netelements\trafficlights\phases\static\buttons\cleanstates\additionals.xml"/>
-        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.05Sep145501.13516\netedit.gui\netelements\trafficlights\phases\static\buttons\cleanstates\additionals.xml"/>
-        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.05Sep145501.13516\netedit.gui\netelements\trafficlights\phases\static\buttons\cleanstates\routes.xml"/>
-        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.05Sep145501.13516\netedit.gui\netelements\trafficlights\phases\static\buttons\cleanstates\routes.xml"/>
-        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.05Sep145501.13516\netedit.gui\netelements\trafficlights\phases\static\buttons\cleanstates\datas.xml"/>
-        <dataelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.05Sep145501.13516\netedit.gui\netelements\trafficlights\phases\static\buttons\cleanstates\datas.xml"/>
+        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.06Sep094508.17148\netedit.gui\netelements\trafficlights\phases\actuated\buttons\ungroupsignals\additionals.xml"/>
+        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.06Sep094508.17148\netedit.gui\netelements\trafficlights\phases\actuated\buttons\ungroupsignals\additionals.xml"/>
+        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.06Sep094508.17148\netedit.gui\netelements\trafficlights\phases\actuated\buttons\ungroupsignals\routes.xml"/>
+        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.06Sep094508.17148\netedit.gui\netelements\trafficlights\phases\actuated\buttons\ungroupsignals\routes.xml"/>
+        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.06Sep094508.17148\netedit.gui\netelements\trafficlights\phases\actuated\buttons\ungroupsignals\datas.xml"/>
+        <dataelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.06Sep094508.17148\netedit.gui\netelements\trafficlights\phases\actuated\buttons\ungroupsignals\datas.xml"/>
     </netedit>
 
     <visualisation>
@@ -43,12 +43,12 @@
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
-        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.05Sep145501.13516\netedit.gui\netelements\trafficlights\phases\static\buttons\cleanstates\guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.06Sep094508.17148\netedit.gui\netelements\trafficlights\phases\actuated\buttons\ungroupsignals\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.05Sep145501.13516\netedit.gui\netelements\trafficlights\phases\static\buttons\cleanstates\log.txt"/>
+        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.06Sep094508.17148\netedit.gui\netelements\trafficlights\phases\actuated\buttons\ungroupsignals\log.txt"/>
     </report>
 
 </configuration>
@@ -152,10 +152,10 @@
         <lane id="E3_2" index="2" disallow="pedestrian" speed="13.89" length="18.90" shape="-1.60,38.90 -1.60,20.00"/>
     </edge>
 
-    <tlLogic id="J0" type="static" programID="0" offset="0">
-        <phase duration="42" state="GGGgrrrrGGGgrrrr"/>
+    <tlLogic id="J0" type="actuated" programID="0" offset="0">
+        <phase duration="42" state="GGGgrrrrGGGgrrrr" minDur="5" maxDur="50"/>
         <phase duration="3"  state="yyyyrrrryyyyrrrr"/>
-        <phase duration="42" state="rrrrGGGgrrrrGGGg"/>
+        <phase duration="42" state="rrrrGGGgrrrrGGGg" minDur="5" maxDur="50"/>
         <phase duration="3"  state="rrrryyyyrrrryyyy"/>
     </tlLogic>
 

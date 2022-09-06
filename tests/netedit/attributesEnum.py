@@ -431,10 +431,10 @@ class TLS:
         deleteButton = 55
         moveUp = 60
         moveDown = 63
-        cleanStates = 48
-        groupSignal = 49
-        addStates = 50
-        ungroupSignal = 51
+        cleanStates = 65
+        groupSignal = 66
+        addStates = 67
+        ungroupSignal = 68
         
 
 
