@@ -52,6 +52,7 @@ NIXMLPTHandler::NIXMLPTHandler(NBEdgeCont& ec, NBPTStopCont& sc, NBPTLineCont& l
     myEdgeCont(ec),
     myStopCont(sc),
     myLineCont(lc),
+    myCurrentStop(nullptr),
     myCurrentLine(nullptr),
     myCurrentStopWasIgnored(false)
 { }
