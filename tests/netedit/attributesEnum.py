@@ -417,6 +417,24 @@ class TLS:
         groupSignal = 49
         addStates = 50
         ungroupSignal = 51
+
+    class actuatedPhase:
+        dur = 18
+        minD = 22
+        maxD = 26
+        state = 30
+        earlyEnd = 34
+        latestEnd = 38
+        nxt = 42
+        name = 46
+        addButton = 51
+        deleteButton = 55
+        moveUp = 60
+        moveDown = 63
+        cleanStates = 48
+        groupSignal = 49
+        addStates = 50
+        ungroupSignal = 51
         
 
 
