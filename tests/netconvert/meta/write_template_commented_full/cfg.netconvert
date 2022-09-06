@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-06-11 22:44:09 by Eclipse SUMO netconvert Version v1_13_0+0773-f0267577d88
+<!-- generated on 2022-09-06 15:14:47 by Eclipse SUMO netconvert Version v1_14_1+0870-d4568def0e1
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -759,7 +759,7 @@
         <!-- The search radius for finding suitable road accesses for rail stops -->
         <railway.access-distance value="150" synonymes="osm.stop-output.footway-access-distance" type="FLOAT"/>
 
-        <!-- The maximum roud accesses registered per rail stops -->
+        <!-- The maximum road accesses registered per rail stops -->
         <railway.max-accesses value="5" synonymes="osm.stop-output.footway-max-accesses" type="INT"/>
 
         <!-- The walking length of the access is computed as air-line distance multiplied by FLOAT -->
