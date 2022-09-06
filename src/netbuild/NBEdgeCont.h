@@ -311,7 +311,7 @@ public:
      * @return How often an edge was split
      */
     int getNumEdgeSplits() const {
-        return myEdgesSplit.size();
+        return (int)myEdgesSplit.size();
     }
     /// @}
 
