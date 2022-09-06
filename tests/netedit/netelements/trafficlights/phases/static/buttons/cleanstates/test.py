@@ -28,6 +28,12 @@ import neteditTestFunctions as netedit  # noqa
 # Open netedit
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
+# force save additionals
+netedit.forceSaveAdditionals()
+
+# force save demand elements
+netedit.forceSaveDemandElements()
+
 # go to TLS mode
 netedit.selectTLSMode()
 
@@ -54,6 +60,12 @@ netedit.redo(referencePosition, 1)
 
 # save network
 netedit.saveNetwork(referencePosition)
+
+# save additionals
+netedit.saveAdditionals(referencePosition)
+
+# save routes
+netedit.saveRoutes(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)
