@@ -71,3 +71,6 @@ permitted
 
 # person ride triggers a vehicle scaled with 3
 ride_triggered_scale
+
+# scenario derived from output of  sumo/devices/rerouting/personTrip/car_public_walk2, see #7006
+ride_access_ride
