@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-07-07 11:18:10.713943 by attributeStats.py v1_13_0+1343-240e5d48340
+<!-- generated on 2022-09-07 09:58:30.873459 by attributeStats.py v1_14_1+0883-c80305d
   options: -p 3 <doubleminus>xml-output stats.xml input_data.xml
 -->
 
 <attributeStats xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/attributeStats_file.xsd">
-    <statistic description="tripinfo timeLosss" min="2.700" minLabel="17" max="53.270" maxLabel="22" mean="20.415" Q1="13.240" median="18.780" Q3="26.920" meanAbs="20.415" medianAbs="18.780">
+    <statistic description="tripinfo timeLosss" min="2.700" minLabel="17" max="53.270" maxLabel="22" mean="20.415" Q1="13.240" median="18.780" Q3="26.920" meanAbs="20.415" medianAbs="18.780" stdDev="9.371">
         <hist key="0.000" value="74"/>
         <hist key="50.000" value="26"/>
     </statistic>
