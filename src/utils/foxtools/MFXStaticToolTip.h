@@ -30,13 +30,13 @@ class MFXStaticToolTip : protected FXToolTip {
 
 public:
     /// @brief constructor
-    MFXStaticToolTip(FXApp* app);
+    MFXStaticToolTip(FXMainWindow* mainWindow);
 
     /// @brief destructor
     ~MFXStaticToolTip();
 
     /// @brief show static toolTip
-    void showStaticToolTip(FXWindow* toolTipObject, FXEvent* toolTipEvent);
+    void showStaticToolTip(FXWindow* toolTipObject);
 
     /// @brief hide static toolTip
     void hideStaticToolTip();
@@ -44,16 +44,23 @@ public:
     /// @brief update text
     void setText(const FXString &text);
 
+    /// @name FOX callbacks
+    /// @{
     /// @brief draw MFXStaticToolTip
     long onPaint(FXObject* obj, FXSelector sel, void* ptr);
+    
+    /// @brief called when tooltip is updated
+    long onUpdate(FXObject* sender,FXSelector sel,void* ptr);
+
+    /// @}
 
 protected:
     /// @brief FOX need this
     MFXStaticToolTip();
 
 private:
-    /// @brief object called in show()
-    FXEvent* myToolTipEvent = nullptr;
+    /// @brief pointer to main window
+    const FXMainWindow* myMainWindow;
 
     /// @brief object to be tooltiped
     FXWindow* myToolTipObject = nullptr;

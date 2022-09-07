@@ -77,7 +77,7 @@ MFXLabelTooltip::onPaint(FXObject*,FXSelector,void* ptr){
 long
 MFXLabelTooltip::onEnter(FXObject* sender, FXSelector sel, void* ptr) {
     // show tip show
-    myStaticToolTip->showStaticToolTip(this, (FXEvent*)ptr);
+    myStaticToolTip->showStaticToolTip(this);
     return FXButton::onEnter(sender, sel, ptr);
 }
 

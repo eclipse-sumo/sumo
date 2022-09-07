@@ -39,6 +39,7 @@
 
 FXDEFMAP(MFXStaticToolTip) MFXStaticToolTipMap[] = {
     FXMAPFUNC(SEL_PAINT,    0,  MFXStaticToolTip::onPaint),
+    FXMAPFUNC(SEL_UPDATE,   0,  MFXStaticToolTip::onUpdate),
 };
 
 // Object implementation
@@ -48,8 +49,10 @@ FXIMPLEMENT(MFXStaticToolTip, FXToolTip, MFXStaticToolTipMap, ARRAYNUMBER(MFXSta
 // method definitions
 // ===========================================================================
 
-MFXStaticToolTip::MFXStaticToolTip(FXApp* app) :
-    FXToolTip(app) {
+MFXStaticToolTip::MFXStaticToolTip(FXMainWindow* mainWindow) :
+    FXToolTip(mainWindow->getApp()),
+    myMainWindow(mainWindow) {
+    // start hide
     hide();
 }
 
@@ -58,11 +61,10 @@ MFXStaticToolTip::~MFXStaticToolTip() {}
 
 
 void 
-MFXStaticToolTip::showStaticToolTip(FXWindow* toolTipObject, FXEvent* toolTipEvent) {
+MFXStaticToolTip::showStaticToolTip(FXWindow* toolTipObject) {
     if (!label.empty()) {
-        // update toolTip objects
+        // update toolTip object
         myToolTipObject = toolTipObject;
-        myToolTipEvent = toolTipEvent;
         // show StaticToolTip
         show();
     }
@@ -71,9 +73,8 @@ MFXStaticToolTip::showStaticToolTip(FXWindow* toolTipObject, FXEvent* toolTipEve
 
 void 
 MFXStaticToolTip::hideStaticToolTip() {
-    // update toolTip objects
+    // clear toolTip object
     myToolTipObject = nullptr;
-    myToolTipEvent = nullptr;
     // hide staticTooltip
     hide();
 }
@@ -86,41 +87,39 @@ MFXStaticToolTip::setText(const FXString& text) {
 
 
 long
-MFXStaticToolTip::onPaint(FXObject*, FXSelector, void*) {
+MFXStaticToolTip::onPaint(FXObject* sender, FXSelector sel, void* obj) {
     // draw tooltip using myToolTippedObject
-    if (myToolTipEvent) {
-        FXDCWindow dc(this, myToolTipEvent);
-        const FXchar *beg, *end;
-        FXint tx,ty;
-        dc.setForeground(backColor);
-        dc.fillRectangle(myToolTipEvent->rect.x,
-            myToolTipEvent->rect.y,
-            myToolTipEvent->rect.w,
-            myToolTipEvent->rect.h);
-        dc.setForeground(textColor);
-        dc.setFont(font);
-        dc.drawRectangle(0,0,width-1,height-1);
-        beg=label.text();
-        if(beg){
-            tx=1+HSPACE;
-            ty=1+VSPACE+font->getFontAscent();
-            do{
-                end=beg;
-                while(*end!='\0' && *end!='\n') {
-                    end++;
-                }
-                dc.drawText(tx,ty,beg,end-beg);
-                ty+=font->getFontHeight();
-                beg=end+1;
-            } while(*end!='\0');
-        }
-        return 1;
+    if (myToolTipObject) {
+        return FXToolTip::onPaint(sender, sel, obj);
     } else {
         return 0;
     }
 }
 
 
+long 
+MFXStaticToolTip::onUpdate(FXObject* sender, FXSelector sel, void* ptr) {
+    FXWindow *helpsource=getApp()->getCursorWindow();
+    // Regular GUI update
+    FXWindow::onUpdate(sender, sel, ptr);
+    // Ask the help source for a new status text first
+    if (myToolTipObject && helpsource && helpsource->handle(this, FXSEL(SEL_QUERY_TIP, 0), NULL)) {
+        if(!popped){
+            popped = TRUE;
+            FXint x, y; 
+            FXuint state;
+            myMainWindow->getCursorPosition(x,y,state);
+            place(x, y);
+        }
+    } else {
+        popped = FALSE;
+        hide();
+    }
+    return 1;
+}
+
+
 MFXStaticToolTip::MFXStaticToolTip() :
-    FXToolTip() {
+    FXToolTip(),
+    myMainWindow(nullptr) {
 }
