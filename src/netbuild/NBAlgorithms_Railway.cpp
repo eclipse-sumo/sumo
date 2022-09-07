@@ -151,7 +151,7 @@ NBRailwayTopologyAnalyzer::makeAllBidi(NBEdgeCont& ec) {
         }
     }
     for (NBEdge* edge : edges) {
-        if ((edge->getPermissions() & SVC_RAIL_CLASSES) != 0) {
+        if (hasRailway(edge->getPermissions())) {
             numRailEdges++;
             // rebuild connections if given from an earlier network
             edge->invalidateConnections(true);
@@ -192,8 +192,8 @@ NBRailwayTopologyAnalyzer::addBidiEdge(NBEdgeCont& ec, NBEdge* edge, bool update
             updateTurns(edge);
             // reconnected added edges
             for (NBEdge* incoming : e2->getFromNode()->getIncomingEdges()) {
-                if (isRailway(incoming->getPermissions())) {
-                    incoming->invalidateConnections();
+                if (hasRailway(incoming->getPermissions())) {
+                    incoming->invalidateConnections(true);
                 }
             }
         }
@@ -381,21 +381,20 @@ NBRailwayTopologyAnalyzer::getRailNodes(NBEdgeCont& ec, bool verbose) {
     std::set<NBNode*> railNodes;
     int numRailEdges = 0;
     for (auto it = ec.begin(); it != ec.end(); it++) {
-        if (isRailway(it->second->getPermissions())) {
+        if (hasRailway(it->second->getPermissions())) {
             numRailEdges++;
             railNodes.insert(it->second->getFromNode());
             railNodes.insert(it->second->getToNode());
-
         }
     }
-    std::set<NBNode*> railSignals;
-    for (NBNode* node : railNodes) {
+    int numRailSignals = 0;
+    for (const NBNode* const node : railNodes) {
         if (node->getType() == SumoXMLNodeType::RAIL_SIGNAL) {
-            railSignals.insert(node);
+            numRailSignals++;
         }
     }
     if (verbose) {
-        WRITE_MESSAGE("Found " + toString(numRailEdges) + " railway edges and " + toString(railNodes.size()) + " railway nodes (" + toString(railSignals.size()) + " signals).");
+        WRITE_MESSAGE("Found " + toString(numRailEdges) + " railway edges and " + toString(railNodes.size()) + " railway nodes (" + toString(numRailSignals) + " signals).");
     }
     return railNodes;
 }
@@ -842,7 +841,7 @@ NBRailwayTopologyAnalyzer::addBidiEdgesForStops(NBEdgeCont& ec, NBPTLineCont& lc
             tracks.push_back(start);
             Track* end = new Track(edge, (int)tracks.size(), edge->getID() + "_end");
             tracks.push_back(end);
-            stopTracks[edge] = std::make_pair(start, end);
+            stopTracks[edge] = {start, end};
         }
     }
     // set successors based on angle (connections are not yet built)
@@ -861,7 +860,7 @@ NBRailwayTopologyAnalyzer::addBidiEdgesForStops(NBEdgeCont& ec, NBPTLineCont& lc
                             // reverse edge (numerical id incremented by numEdges)
                             tracks[i2 + numEdges]->addSuccessor(tracks[i + numEdges]);
                         } else {
-                            // case 2) both edges pointing towards each ohter
+                            // case 2) both edges pointing towards each other
                             tracks[i]->addSuccessor(tracks[i2 + numEdges]);
                             tracks[i2]->addSuccessor(tracks[i + numEdges]);
                         }
@@ -1003,7 +1002,7 @@ NBRailwayTopologyAnalyzer::addBidiEdgesForStraightConnectivity(NBEdgeCont& ec, b
     int added = 0;
     std::set<NBNode*> brokenNodes = getBrokenRailNodes(ec);
     for (const auto& e : ec) {
-        if (!isRailway(e.second->getPermissions())) {
+        if (!hasRailway(e.second->getPermissions())) {
             continue;
         }
         NBNode* const from = e.second->getFromNode();
@@ -1116,7 +1115,7 @@ NBRailwayTopologyAnalyzer::extendDirectionPriority(NBEdgeCont& ec, bool fromUniD
     std::set<NBEdge*, ComparatorIdLess> bidi;
     EdgeSet uni;
     for (NBEdge* edge : ec.getAllEdges()) {
-        if (isRailway(edge->getPermissions())) {
+        if (hasRailway(edge->getPermissions())) {
             if (fromUniDir) {
                 if (!edge->isBidiRail()) {
                     edge->setPriority(4);

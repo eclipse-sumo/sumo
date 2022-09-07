@@ -109,6 +109,11 @@ private:
     /// @brief filter out rail edges among all edges of a the given node
     static void getRailEdges(const NBNode* node, EdgeVector& inEdges, EdgeVector& outEdges);
 
+    /// @brief filter for rail edges but do not return (legacy) all purpose edges
+    static bool hasRailway(SVCPermissions permissions) {
+        return (permissions & SVC_RAIL_CLASSES) > 0 && permissions != SVCAll;
+    }
+
     static bool isStraight(const NBNode* node, const NBEdge* e1, const NBEdge* e2);
     static bool hasStraightPair(const NBNode* node, const EdgeVector& edges, const EdgeVector& edges2);
     static bool allBroken(const NBNode* node, NBEdge* candOut, const EdgeVector& in, const EdgeVector& out);
