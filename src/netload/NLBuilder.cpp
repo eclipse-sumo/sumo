@@ -61,6 +61,7 @@
 #include <traci-server/TraCIServer.h>
 
 #include "NLHandler.h"
+#include "NLNetShapeHandler.h"
 #include "NLEdgeControlBuilder.h"
 #include "NLJunctionControlBuilder.h"
 #include "NLDetectorBuilder.h"
@@ -132,6 +133,17 @@ NLBuilder::build() {
         WRITE_WARNING("Network contains internal links which are ignored. Vehicles will 'jump' across junctions and thus underestimate route lengths and travel times.");
     }
     buildNet();
+    if (myOptions.isSet("alternative-net-file")) {
+        for (std::string fname : myOptions.getStringVector("alternative-net-file")) {
+            const long before = PROGRESS_BEGIN_TIME_MESSAGE("Loading alternative net from '" + fname + "'");
+            NLNetShapeHandler nsh(fname, myNet);
+            if (!XMLSubSys::runParser(nsh, fname, true)) {
+                WRITE_MESSAGE("Loading of alternative net failed.");
+                return false;
+            }
+            PROGRESS_TIME_MESSAGE(before);
+        }
+    }
     // @note on loading order constraints:
     // - additional-files before route-files and state-files due to referencing
     // - additional-files before weight-files since the latter might contain intermodal edge data and the intermodal net depends on the stops and public transport from the additionals

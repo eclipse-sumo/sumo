@@ -93,6 +93,9 @@ public:
         return getEdge().getID();
     }
 
+    void addSecondaryShape(const PositionVector& shape) {
+        myShape2 = shape;
+    }
 
     /// @name Access to vehicles
     /// @{
@@ -370,6 +373,9 @@ private:
 
     /// @brief state for dynamic lane closings
     bool myAmClosed;
+
+    /// @brief secondary shape for visualization
+    PositionVector myShape2;
 
     /// @brief cached for tracking color value
     static GUIVisualizationSettings* myCachedGUISettings;

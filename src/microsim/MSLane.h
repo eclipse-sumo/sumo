@@ -274,6 +274,9 @@ public:
      * @param[in] id The lane's id
      */
     void addNeigh(const std::string& id);
+
+    /// used by the gui
+    virtual void addSecondaryShape(const PositionVector& /*shape*/) {}
     ///@}
 
 
