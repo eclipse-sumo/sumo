@@ -15,15 +15,13 @@
 /// @author  Gregor Laemmel
 /// @date    Mon, 13 Jan 2014
 ///
-// The pedestrian following model for remote controlled pedestrian movement
+// The pedestrian following model connected to the external JuPedSim simulation
 /****************************************************************************/
 #pragma once
 #include <config.h>
 
 #include <jupedsim/jupedsim.h>
-#include <utils/options/OptionsCont.h>
-#include <microsim/MSNet.h>
-#include <utils/geom/Boundary.h>
+#include "microsim/MSNet.h"
 #include "MSPModel.h"
 
 
@@ -37,13 +35,17 @@
 class MSPModel_Remote : public MSPModel {
 public:
     MSPModel_Remote(const OptionsCont& oc, MSNet* net);
-
     ~MSPModel_Remote();
+
     MSTransportableStateAdapter* add(MSTransportable* person, MSStageMoving* stage, SUMOTime now) override;
     void remove(MSTransportableStateAdapter* state) override;
-    bool usingInternalLanes();
-
     SUMOTime execute(SUMOTime time);
+
+    bool usingInternalLanes();
+    void registerArrived();
+    int getActiveNumber();
+    void clearState();
+
     class Event : public Command {
     public:
         explicit Event(MSPModel_Remote* remoteModel)
@@ -51,70 +53,65 @@ public:
         SUMOTime execute(SUMOTime currentTime) override {
             return myRemoteModel->execute(currentTime);
         }
+
     private:
         MSPModel_Remote* myRemoteModel;
     };
 
-    /// @brief return the number of active objects
-    int getActiveNumber() {
-        return (int)remoteIdPStateMapping.size();
-    }
-
-    /// @brief Resets pedestrians when quick-loading state
-    void clearState();
-
 private:
     /**
     * @class PState
-    * @brief Container for pedestrian state and individual position update function
+    * @brief Holds pedestrian state and performs updates
     */
     class PState : public MSTransportableStateAdapter {
     public:
-        PState(MSPerson* person, MSStageMoving* stage);
+        PState(MSPerson* person, MSStageMoving* stage, JPS_Journey journey, Position destination, JPS_AgentId agentId);
         ~PState() override;
-        double getEdgePos(const MSStageMoving& stage, SUMOTime now) const override;
-        int getDirection(const MSStageMoving& stage, SUMOTime now) const override;
-        Position getPosition(const MSStageMoving& stage, SUMOTime now) const override;
-        double getAngle(const MSStageMoving& stage, SUMOTime now) const override;
-        SUMOTime getWaitingTime(const MSStageMoving& stage, SUMOTime now) const override;
-        double getSpeed(const MSStageMoving& stage) const override;
-        const MSEdge* getNextEdge(const MSStageMoving& stage) const override;
+
+        Position getPosition(const MSStageMoving& stage, SUMOTime now) const;
+        void setPosition(double x, double y);
+
+        double getAngle(const MSStageMoving& stage, SUMOTime now) const;
+        void setAngle(double angle);
+
         MSStageMoving* getStage();
         MSPerson* getPerson();
 
-        void setPosition(double x, double y);
-        void setAngle(double angle);
-		JPS_AgentId myAgentId;
-		Position myDestination;
+        double getEdgePos(const MSStageMoving& stage, SUMOTime now) const;
+        int getDirection(const MSStageMoving& stage, SUMOTime now) const;
+        SUMOTime getWaitingTime(const MSStageMoving& stage, SUMOTime now) const;
+        double getSpeed(const MSStageMoving& stage) const;
+        const MSEdge* getNextEdge(const MSStageMoving& stage) const;
+
+        Position getDestination(void) const;
+        JPS_AgentId getAgentId(void) const;
+
     private:
         Position myPosition;
+        Position myDestination;
         double myAngle;
         MSStageMoving* myStage;
         MSPerson* myPerson;
+        JPS_Journey myJourney;
+        JPS_AgentId myAgentId;
     };
 
 
     MSNet* myNet;
-    Boundary myBoundary;
-    void initialize();
+    MSLane* myLane;
+    int myNumActivePedestrians = 0;
+    std::vector<PState*> myPedestrianStates;
+    JPS_GeometryBuilder myGeometryBuilder;
+    JPS_Geometry myGeometry;
+    JPS_AreasBuilder myAreasBuilder;
+    JPS_Areas myAreas;
+    JPS_OperationalModel myModel;
+    JPS_Simulation mySimulation;
 
-	std::vector<PState*> myPedestrianStates;
-    std::map<int, PState*> remoteIdPStateMapping;
-    std::map<const MSEdge*, std::tuple<int, int>> edgesTransitionsMapping;
-    std::map<int, const MSEdge*> transitionsEdgesMapping;
-    int myLastId = 0;
-    int myLastTransitionId = 0;
+    static const double JPS_AREA_RATIO;
+    static const SUMOTime JPS_DELTA_T;
+    static const double JPS_EXIT_TOLERANCE;
 
     MSLane* getFirstPedestrianLane(const MSEdge* const& edge);
-
-	JPS_GeometryBuilder myGeometryBuilder;
-	JPS_Geometry myGeometry;
-	JPS_AreasBuilder myAreasBuilder;
-	JPS_Areas myAreas;
-	JPS_OperationalModel myModel;
-	JPS_Simulation mySimulation;
-	static const double JPS_AREA_RATIO;
-	static const SUMOTime JPS_DELTA_T;
-	static const double JPS_EXIT_TOLERANCE;
-	MSLane* myLane;
+    void initialize();
 };
