@@ -30,9 +30,6 @@
 #include "MFXStaticToolTip.h"
 
 
-#define HSPACE  4
-#define VSPACE  2
-
 // ===========================================================================
 // FOX callback mapping
 // ===========================================================================
@@ -103,18 +100,15 @@ MFXStaticToolTip::onUpdate(FXObject* sender, FXSelector sel, void* ptr) {
     // Regular GUI update
     FXWindow::onUpdate(sender, sel, ptr);
     // Ask the help source for a new status text first
-    if (myToolTipObject && helpsource && helpsource->handle(this, FXSEL(SEL_QUERY_TIP, 0), NULL)) {
-        if(!popped){
-            popped = TRUE;
-            FXint x, y; 
-            FXuint state;
-            myMainWindow->getCursorPosition(x,y,state);
-            place(x, y);
+    if(helpsource && helpsource->handle(this, FXSEL(SEL_QUERY_TIP, 0), NULL)) {
+        if(!popped) {
+            popped=TRUE;
+            autoplace();
         }
-    } else {
-        popped = FALSE;
-        hide();
+        return 1;
     }
+    popped=FALSE;
+    hide();
     return 1;
 }
 
