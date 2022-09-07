@@ -316,7 +316,7 @@ MFXLCDLabel::onEnter(FXObject* obj, FXSelector sel, void* ptr) {
         // show toolTip text
         myStaticToolTip->setText(myToolTipText);
         // show tip show
-        myStaticToolTip->showStaticToolTip(ptr);
+        myStaticToolTip->showStaticToolTip(this, (FXEvent*)ptr);
     } else {
         myStaticToolTip->hideStaticToolTip();
     }

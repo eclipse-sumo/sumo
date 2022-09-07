@@ -58,10 +58,11 @@ MFXStaticToolTip::~MFXStaticToolTip() {}
 
 
 void 
-MFXStaticToolTip::showStaticToolTip(void* ptr) {
+MFXStaticToolTip::showStaticToolTip(FXWindow* toolTipObject, FXEvent* toolTipEvent) {
     if (!label.empty()) {
-        // update myTooltippedObject
-        myToolTippedObject = (FXEvent*)ptr;
+        // update toolTip objects
+        myToolTipObject = toolTipObject;
+        myToolTipEvent = toolTipEvent;
         // show StaticToolTip
         show();
     }
@@ -70,7 +71,10 @@ MFXStaticToolTip::showStaticToolTip(void* ptr) {
 
 void 
 MFXStaticToolTip::hideStaticToolTip() {
-    myToolTippedObject = nullptr;
+    // update toolTip objects
+    myToolTipObject = nullptr;
+    myToolTipEvent = nullptr;
+    // hide staticTooltip
     hide();
 }
 
@@ -82,10 +86,35 @@ MFXStaticToolTip::setText(const FXString& text) {
 
 
 long
-MFXStaticToolTip::onPaint(FXObject* obj, FXSelector sel, void*) {
+MFXStaticToolTip::onPaint(FXObject*, FXSelector, void*) {
     // draw tooltip using myToolTippedObject
-    if (myToolTippedObject) {
-        return FXToolTip::onPaint(obj, sel, myToolTippedObject);
+    if (myToolTipEvent) {
+        FXDCWindow dc(this, myToolTipEvent);
+        const FXchar *beg, *end;
+        FXint tx,ty;
+        dc.setForeground(backColor);
+        dc.fillRectangle(myToolTipEvent->rect.x,
+            myToolTipEvent->rect.y,
+            myToolTipEvent->rect.w,
+            myToolTipEvent->rect.h);
+        dc.setForeground(textColor);
+        dc.setFont(font);
+        dc.drawRectangle(0,0,width-1,height-1);
+        beg=label.text();
+        if(beg){
+            tx=1+HSPACE;
+            ty=1+VSPACE+font->getFontAscent();
+            do{
+                end=beg;
+                while(*end!='\0' && *end!='\n') {
+                    end++;
+                }
+                dc.drawText(tx,ty,beg,end-beg);
+                ty+=font->getFontHeight();
+                beg=end+1;
+            } while(*end!='\0');
+        }
+        return 1;
     } else {
         return 0;
     }

@@ -36,7 +36,7 @@ public:
     ~MFXStaticToolTip();
 
     /// @brief show static toolTip
-    void showStaticToolTip(void* ptr);
+    void showStaticToolTip(FXWindow* toolTipObject, FXEvent* toolTipEvent);
 
     /// @brief hide static toolTip
     void hideStaticToolTip();
@@ -53,5 +53,8 @@ protected:
 
 private:
     /// @brief object called in show()
-    FXEvent* myToolTippedObject = nullptr;
+    FXEvent* myToolTipEvent = nullptr;
+
+    /// @brief object to be tooltiped
+    FXWindow* myToolTipObject = nullptr;
 };
