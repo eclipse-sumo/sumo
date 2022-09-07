@@ -187,6 +187,9 @@ public:
     /// @brief Toggle draw junction shape
     long onCmdToggleDrawJunctionShape(FXObject*, FXSelector, void*);
 
+    /// @brief Toggle draw junction shape
+    long onCmdToggleSecondaryShape(FXObject*, FXSelector, void*);
+
     /// @brief Toggle full screen mode
     long onCmdFullScreen(FXObject*, FXSelector, void*);
 

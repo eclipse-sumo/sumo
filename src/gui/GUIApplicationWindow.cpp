@@ -124,6 +124,7 @@ FXDEFMAP(GUIApplicationWindow) GUIApplicationWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_APPSETTINGS,                            GUIApplicationWindow::onCmdAppSettings),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_G_GAMINGMODE_TOGGLEGRID,    GUIApplicationWindow::onCmdGaming),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_J_TOGGLEDRAWJUNCTIONSHAPE,  GUIApplicationWindow::onCmdToggleDrawJunctionShape),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_K_OPENTLSPROGRAMS,          GUIApplicationWindow::onCmdToggleSecondaryShape),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_F_FULSCREENMODE,            GUIApplicationWindow::onCmdFullScreen),
     FXMAPFUNC(SEL_COMMAND,  MID_LISTINTERNAL,                           GUIApplicationWindow::onCmdListInternal),
     FXMAPFUNC(SEL_COMMAND,  MID_LISTPARKING,                            GUIApplicationWindow::onCmdListParking),
@@ -1447,6 +1448,18 @@ GUIApplicationWindow::onCmdToggleDrawJunctionShape(FXObject*, FXSelector, void*)
         } else {
             w->getView()->editVisualisationSettings()->drawJunctionShape = true;
         }
+        w->getView()->update();
+    }
+    return 1;
+}
+
+
+long
+GUIApplicationWindow::onCmdToggleSecondaryShape(FXObject*, FXSelector, void*) {
+    GUISUMOViewParent* w = dynamic_cast<GUISUMOViewParent*>(myMDIClient->getActiveChild());
+    if (w != nullptr) {
+        // toggle secondary shape visualization
+        w->getView()->editVisualisationSettings()->secondaryShape = !w->getView()->getVisualisationSettings().secondaryShape;
         w->getView()->update();
     }
     return 1;
