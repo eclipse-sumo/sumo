@@ -28,6 +28,10 @@ title: ChangeLog
   - Fixed bug where car blocks itself during continuous laneChange after loading state. Issue #11394
   - Fixed invalid (slightly exaggerated) estimate of junction passing time. Issue #11106
   - Fixed emergency braking when using carFollowModel IDM. Issue #11498
+  - Fixed prolonged waiting at side roads despite sufficient gaps. Issue #11106
+  - Fixed invalid speed adaptations for lane changing while on an intersection. Issue #11507
+  - Cars generated for a `<personTrip>` now slow down before dropping of the person. Issue #11532
+  - Fixed several bugs that prevented intermodal vehroute output from being re-used as simulation input. Issue #7006
   - EIDM carFollowModel:
     - Fixed bug where vehicles did not reach a defined stop. Issue #11364
     - Fixed collision. Issue #11361
@@ -57,7 +61,10 @@ title: ChangeLog
 - netconvert
   - Fixed invalid red phase at traffic lights with very low connection speeds. Issue #11307 (regression in 1.14.0)
   - Fixed invalid turn-around connection at roundabout with unusual geometry. Issue #11344
-  - Fixed projection error when importing OpenDRIVE. Issue #11263 
+  - Fixed projection error when importing OpenDRIVE. Issue #11263
+  - Fixed too short busStops when import OSM data. Issue #11372
+  - Option **--geometry.remove** now works if edges are running on top of each other (i.e. tram and road). Issue #11516
+  - Fixed crash when loading ptstops and reducing the network extent. Issue #11546
 
 - duarouter
   - vTypeDistributions with attribute `vTypes` now consider vType-probabilities. Issue #11376
@@ -96,6 +103,7 @@ title: ChangeLog
   - Option **--emission-output.precision** now also applies to emissions in tripinfo-output. Issue #11474
   - Added option **--time-to-teleport.bidi** to resolve deadlocks on bidirectional edges. Issue #11435
   - The vType attriutes `timeToTeleport` and `timeToTeleportBidi` can now be used to customize teleporting behavior. Issue #9497
+  - Pedestrians now react to edge speed limit (i.e. for modelling stairs). Issue #11526
 
 - netedit
   - Saved detector names use descriptive tags instead of the 'E1,E2, ...' tags. Issue #11028
@@ -134,6 +142,10 @@ title: ChangeLog
   - Fixed overlapping text for stop information (when *show route* is active). Issue #11462
   - The timeSinceStartup (from standing) is now listed in vehicle parameter dialog. Issue #11463
   - Status bar now indicates successful screenshot. Issue #11279
+  - If a car has a custom arrivalPos or arrivalLane, these are now indicated when 'show route' is active. Issue #11533
+
+- netconvert
+  - Input given via option **--ptline-files** is now filtered when reducing the network extent. Issue #11548
 
 - netgenerate
   - Now supports options **--geometry.remove** and **--tls.discard-simple**. Issue #11422
@@ -145,7 +157,7 @@ title: ChangeLog
   - Simpla: Added additional platooning criteria via new attributes 'edgeLookAhead', 'distLookAhead' and 'lcMinDist'. Issue #9252, #11236 (Thanks to Jörg Schweizer)
   - Simpla: platooning distances are now time-headways instead of gap-in-meters by default. Configurable with new attributes 'maxPlatoonHeadway', 'catchupHeadway', 'useHeadway'.  Issue #11124
   - Net method `traci.simulation.getOption` can now be used to retrieve any simulation option. Issue #11319
-  - person.getTaxiReservation parameter stateFilter now supports setting multiple bits. Issue #11501
+  - person.getTaxiReservation parameter stateFilter now supports setting multiple bits. Issue #11501  
 
 - tools
   - routeSampler.py: now supports options **--depart-attribute**, **--arrival-attribute** to set extra constraints. Issue #6727
@@ -154,6 +166,7 @@ title: ChangeLog
   - generateRailSignalConstraints.py: added constraints for vehicles inserted at the same stop. Issue #11378
   - drtonline.py: now supports option **--tracefile** to allow for quick replication of a simulation. Issue #11414
   - Added new tool [drtOrtools.py](Tools/Drt.md#drtortoolspy) to solve DRT problems with the [ortools package](https://developers.google.com/optimization). Issue #11413
+  - osmWebWizard.py: Now prevents turn-arounds at the start and end of routes to improve traffic flow. Issue #10167
   
 ### Miscellaneous
 
