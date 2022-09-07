@@ -139,6 +139,7 @@ GUISettingsHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) 
             mySettings.realisticLinkRules = StringUtils::toBool(attrs.getStringSecure("realisticLinkRules", toString(mySettings.realisticLinkRules)));
             mySettings.showLinkRules = StringUtils::toBool(attrs.getStringSecure("showLinkRules", toString(mySettings.showLinkRules)));
             mySettings.showRails = StringUtils::toBool(attrs.getStringSecure("showRails", toString(mySettings.showRails)));
+            mySettings.secondaryShape = StringUtils::toBool(attrs.getStringSecure("secondaryShape", toString(mySettings.secondaryShape)));
             mySettings.edgeName = parseTextSettings("edgeName", attrs, mySettings.edgeName);
             mySettings.internalEdgeName = parseTextSettings("internalEdgeName", attrs, mySettings.internalEdgeName);
             mySettings.cwaEdgeName = parseTextSettings("cwaEdgeName", attrs, mySettings.cwaEdgeName);

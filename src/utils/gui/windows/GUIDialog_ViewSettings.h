@@ -317,6 +317,7 @@ protected:
     FXCheckButton* myRealisticLinkRules = nullptr;
     FXCheckButton* myShowLinkRules = nullptr;
     FXCheckButton* myShowRails = nullptr;
+    FXCheckButton* mySecondaryShape = nullptr;
     FXCheckButton* myHideMacroConnectors = nullptr;
     FXCheckButton* myShowLaneDirection = nullptr;
     FXCheckButton* myShowSublanes = nullptr;

@@ -972,6 +972,9 @@ public:
     // Setting bundles for optional drawing geometry point indices
     GUIVisualizationTextSettings geometryIndices;
 
+    /// @brief whether secondary lane shape shall be drawn
+    bool secondaryShape;
+
     /**@brief whether drawing is performed in left-hand networks
      * @note used to avoid calls to OptionsCont::getOptions() in every drawgl(...) function, and
      * updated in every doPaintGL(int mode, const Boundary& bound) call

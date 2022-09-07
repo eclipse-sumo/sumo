@@ -511,7 +511,9 @@ GUIVisualizationSettings::GUIVisualizationSettings(const std::string& _name, boo
     showGrid(false), gridXSize(100), gridYSize(100),
     laneShowBorders(false), showBikeMarkings(true), showLinkDecals(true),
     realisticLinkRules(false),
-    showLinkRules(true), showRails(true),
+    showLinkRules(true),
+    showRails(true),
+    secondaryShape(false),
     edgeName(false, 60, RGBColor(255, 128, 0, 255)),
     internalEdgeName(false, 45, RGBColor(128, 64, 0, 255)),
     cwaEdgeName(false, 60, RGBColor::MAGENTA),
@@ -1692,6 +1694,7 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
     dev.writeAttr("realisticLinkRules", realisticLinkRules);
     dev.writeAttr("showLinkRules", showLinkRules);
     dev.writeAttr("showRails", showRails);
+    dev.writeAttr("secondaryShape", secondaryShape);
     dev.writeAttr("hideConnectors", hideConnectors);
     dev.writeAttr("widthExaggeration", laneWidthExaggeration);
     dev.writeAttr("minSize", laneMinSize);
@@ -1964,6 +1967,9 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
         return false;
     }
     if (showRails != v2.showRails) {
+        return false;
+    }
+    if (secondaryShape != v2.secondaryShape) {
         return false;
     }
     if (edgeName != v2.edgeName) {
