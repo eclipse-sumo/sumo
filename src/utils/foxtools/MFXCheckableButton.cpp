@@ -83,15 +83,15 @@ MFXCheckableButton::onUpdate(FXObject* sender, FXSelector sel, void* ptr) {
 long
 MFXCheckableButton::onEnter(FXObject* sender, FXSelector sel, void* ptr) {
     // show tip show
-    myStaticToolTip->onTipShow(sender, sel, ptr);
+    myStaticToolTip->showStaticToolTip(ptr);
     return FXButton::onEnter(sender, sel, ptr);
 }
 
 
 long
 MFXCheckableButton::onLeave(FXObject* sender, FXSelector sel, void* ptr) {
-    // hide tip show
-    myStaticToolTip->onTipHide(sender, sel, this);
+    // hide static toolTip
+    myStaticToolTip->hideStaticToolTip();
     return FXButton::onLeave(sender, sel, ptr);
 }
 

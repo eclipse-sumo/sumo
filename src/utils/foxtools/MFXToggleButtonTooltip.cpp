@@ -45,15 +45,15 @@ MFXToggleButtonTooltip::~MFXToggleButtonTooltip() {}
 long
 MFXToggleButtonTooltip::onEnter(FXObject* sender, FXSelector sel, void* ptr) {
     // show tip show
-    myStaticToolTip->onTipShow(sender, sel, ptr);
+    myStaticToolTip->showStaticToolTip(ptr);
     return FXToggleButton::onEnter(sender, sel, ptr);
 }
 
 
 long
 MFXToggleButtonTooltip::onLeave(FXObject* sender, FXSelector sel, void* ptr) {
-    // hide tip show
-    myStaticToolTip->onTipHide(sender, sel, this);
+    // hide static toolTip
+    myStaticToolTip->hideStaticToolTip();
     return FXToggleButton::onLeave(sender, sel, ptr);
 }
 

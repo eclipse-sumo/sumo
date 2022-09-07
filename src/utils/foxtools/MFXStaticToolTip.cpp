@@ -38,9 +38,7 @@
 // ===========================================================================
 
 FXDEFMAP(MFXStaticToolTip) MFXStaticToolTipMap[] = {
-    FXMAPFUNC(SEL_PAINT,    0,                      MFXStaticToolTip::onPaint),
-    FXMAPFUNC(SEL_TIMEOUT,  FXToolTip::ID_TIP_SHOW, MFXStaticToolTip::onTipShow),
-    FXMAPFUNC(SEL_TIMEOUT,  FXToolTip::ID_TIP_HIDE, MFXStaticToolTip::onTipHide),
+    FXMAPFUNC(SEL_PAINT,    0,  MFXStaticToolTip::onPaint),
 };
 
 // Object implementation
@@ -52,10 +50,35 @@ FXIMPLEMENT(MFXStaticToolTip, FXToolTip, MFXStaticToolTipMap, ARRAYNUMBER(MFXSta
 
 MFXStaticToolTip::MFXStaticToolTip(FXApp* app) :
     FXToolTip(app) {
+    hide();
 }
 
 
 MFXStaticToolTip::~MFXStaticToolTip() {}
+
+
+void 
+MFXStaticToolTip::showStaticToolTip(void* ptr) {
+    if (!label.empty()) {
+        // update myTooltippedObject
+        myToolTippedObject = (FXEvent*)ptr;
+        // show StaticToolTip
+        show();
+    }
+}
+
+
+void 
+MFXStaticToolTip::hideStaticToolTip() {
+    myToolTippedObject = nullptr;
+    hide();
+}
+
+
+void 
+MFXStaticToolTip::setText(const FXString& text) {
+    FXToolTip::setText(text);
+}
 
 
 long
@@ -66,27 +89,6 @@ MFXStaticToolTip::onPaint(FXObject* obj, FXSelector sel, void*) {
     } else {
         return 0;
     }
-}
-
-
-long
-MFXStaticToolTip::onTipShow(FXObject*, FXSelector, void* ptr) {
-    if (!label.empty()) {
-        // update myTooltippedObject
-        myToolTippedObject = (FXEvent*)ptr;
-        // show StaticToolTip
-        show();
-    }
-    return 1;
-}
-
-
-long
-MFXStaticToolTip::onTipHide(FXObject* obj, FXSelector sel, void* ptr) {
-    // reset myToolTippedObject...
-    myToolTippedObject = nullptr;
-    // ... and continue using parent function
-    return FXToolTip::onTipHide(obj, sel, ptr);
 }
 
 

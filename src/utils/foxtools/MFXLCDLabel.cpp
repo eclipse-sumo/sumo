@@ -316,9 +316,9 @@ MFXLCDLabel::onEnter(FXObject* obj, FXSelector sel, void* ptr) {
         // show toolTip text
         myStaticToolTip->setText(myToolTipText);
         // show tip show
-        myStaticToolTip->onTipShow(obj, sel, ptr);
+        myStaticToolTip->showStaticToolTip(ptr);
     } else {
-        myStaticToolTip->hide();
+        myStaticToolTip->hideStaticToolTip();
     }
     return FXHorizontalFrame::onEnter(obj, sel, ptr);
 }
@@ -327,7 +327,7 @@ MFXLCDLabel::onEnter(FXObject* obj, FXSelector sel, void* ptr) {
 long 
 MFXLCDLabel::onLeave(FXObject* obj, FXSelector sel, void* ptr) {
     // hide static toolTip
-    myStaticToolTip->hide();
+    myStaticToolTip->hideStaticToolTip();
     return FXHorizontalFrame::onLeave(obj, sel, ptr);
 }
 

@@ -50,15 +50,15 @@ MFXMenuButtonTooltip::~MFXMenuButtonTooltip() {}
 long
 MFXMenuButtonTooltip::onEnter(FXObject* sender, FXSelector sel, void* ptr) {
     // show tip show
-    myStaticToolTip->onTipShow(sender, sel, ptr);
+    myStaticToolTip->showStaticToolTip(ptr);
     return FXMenuButton::onEnter(sender, sel, ptr);
 }
 
 
 long
 MFXMenuButtonTooltip::onLeave(FXObject* sender, FXSelector sel, void* ptr) {
-    // hide tip show
-    myStaticToolTip->onTipHide(sender, sel, this);
+    // hide static toolTip
+    myStaticToolTip->hideStaticToolTip();
     return FXMenuButton::onLeave(sender, sel, ptr);
 }
 
