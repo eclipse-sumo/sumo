@@ -89,5 +89,4 @@ MFXLabelTooltip::onLeave(FXObject* sender, FXSelector sel, void* ptr) {
     return FXButton::onLeave(sender, sel, ptr);
 }
 
-
 /****************************************************************************/

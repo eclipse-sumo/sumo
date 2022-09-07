@@ -30,7 +30,7 @@ class MFXStaticToolTip : protected FXToolTip {
 
 public:
     /// @brief constructor
-    MFXStaticToolTip(FXMainWindow* mainWindow);
+    MFXStaticToolTip(FXApp* app);
 
     /// @brief destructor
     ~MFXStaticToolTip();
@@ -59,9 +59,6 @@ protected:
     MFXStaticToolTip();
 
 private:
-    /// @brief pointer to main window
-    const FXMainWindow* myMainWindow;
-
     /// @brief object to be tooltiped
     FXWindow* myToolTipObject = nullptr;
 };

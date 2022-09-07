@@ -60,7 +60,7 @@ GUIMainWindow::GUIMainWindow(FXApp* app) :
     myListParking(true),
     myListTeleporting(false) {
     // build tooltip
-    myStaticTooltip = new MFXStaticToolTip(this);
+    myStaticTooltip = new MFXStaticToolTip(app);
     // build bold font
     FXFontDesc fdesc;
     app->getNormalFont()->getFontDesc(fdesc);

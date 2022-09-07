@@ -46,9 +46,8 @@ FXIMPLEMENT(MFXStaticToolTip, FXToolTip, MFXStaticToolTipMap, ARRAYNUMBER(MFXSta
 // method definitions
 // ===========================================================================
 
-MFXStaticToolTip::MFXStaticToolTip(FXMainWindow* mainWindow) :
-    FXToolTip(mainWindow->getApp()),
-    myMainWindow(mainWindow) {
+MFXStaticToolTip::MFXStaticToolTip(FXApp* app) :
+    FXToolTip(app) {
     // start hide
     hide();
 }
@@ -102,18 +101,20 @@ MFXStaticToolTip::onUpdate(FXObject* sender, FXSelector sel, void* ptr) {
     // Ask the help source for a new status text first
     if(helpsource && helpsource->handle(this, FXSEL(SEL_QUERY_TIP, 0), NULL)) {
         if(!popped) {
-            popped=TRUE;
-            autoplace();
+            popped = TRUE;
+            FXint x,y; 
+            FXuint state;
+            getRoot()->getCursorPosition(x, y, state);
+            place(x, y);
         }
         return 1;
     }
-    popped=FALSE;
+    popped = FALSE;
     hide();
     return 1;
 }
 
 
 MFXStaticToolTip::MFXStaticToolTip() :
-    FXToolTip(),
-    myMainWindow(nullptr) {
+    FXToolTip() {
 }
