@@ -334,6 +334,21 @@ GUINet::initGUIStructures() {
         myBoundary.add(b);
     }
     myGrid.add(myBoundary);
+
+    if (OptionsCont::getOptions().isSet("alternative-net-file")) {
+        // build secondary visualization tree
+        for (GUIEdge* edge : myEdgeWrapper) {
+            Boundary b;
+            for (MSLane* lane : edge->getLanes()) {
+                b.add(static_cast<GUILane*>(lane)->getSecondaryShape().getBoxBoundary());
+            }
+            // make sure persons are always drawn and selectable since they depend on their edge being drawn
+            b.grow(MSPModel::SIDEWALK_OFFSET + 1);
+            const float cmin[2] = { (float)b.xmin(), (float)b.ymin() };
+            const float cmax[2] = { (float)b.xmax(), (float)b.ymax() };
+            myGrid2.Insert(cmin, cmax, edge);
+        }
+    }
 }
 
 

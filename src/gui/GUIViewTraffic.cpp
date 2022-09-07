@@ -347,7 +347,8 @@ GUIViewTraffic::doPaintGL(int mode, const Boundary& bound) {
     const float maxB[2] = { (float)bound.xmax(), (float)bound.ymax() };
     glEnable(GL_POLYGON_OFFSET_FILL);
     glEnable(GL_POLYGON_OFFSET_LINE);
-    int hits2 = myGrid->Search(minB, maxB, *myVisualizationSettings);
+    const SUMORTree& grid = GUINet::getGUIInstance()->getVisualisationSpeedUp(myVisualizationSettings->secondaryShape);
+    int hits2 = grid.Search(minB, maxB, *myVisualizationSettings);
     // Draw additional objects
     if (myAdditionallyDrawn.size() > 0) {
         glTranslated(0, 0, -.01);

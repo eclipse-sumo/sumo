@@ -93,8 +93,10 @@ public:
         return getEdge().getID();
     }
 
-    void addSecondaryShape(const PositionVector& shape) {
-        myShape2 = shape;
+    void addSecondaryShape(const PositionVector& shape);
+
+    const PositionVector& getSecondaryShape() {
+        return myShape2;
     }
 
     /// @name Access to vehicles
@@ -209,9 +211,9 @@ public:
     double getClickPriority() const override;
     //@}
 
-    const PositionVector& getShape() const;
-    const std::vector<double>& getShapeRotations() const;
-    const std::vector<double>& getShapeLengths() const;
+    const PositionVector& getShape(bool secondary) const;
+    const std::vector<double>& getShapeRotations(bool secondary) const;
+    const std::vector<double>& getShapeLengths(bool secondary) const;
 
     double firstWaitingTime() const;
 
@@ -225,7 +227,7 @@ public:
     void drawJunctionChangeProhibitions() const;
 
     /// @brief direction indicators for lanes
-    void drawDirectionIndicators(double exaggeration, bool spreadSuperposed) const;
+    void drawDirectionIndicators(double exaggeration, bool spreadSuperposed, bool s2) const;
 
     /// @brief draw intersection positions of foe internal lanes with this one
     void debugDrawFoeIntersections() const;
@@ -311,8 +313,8 @@ private:
     void drawLinkRules(const GUIVisualizationSettings& s, const GUINet& net) const;
     void drawLinkRule(const GUIVisualizationSettings& s, const GUINet& net, const MSLink* link,
                       const PositionVector& shape, double x1, double x2) const;
-    void drawArrows() const;
-    void drawLane2LaneConnections(double exaggeration) const;
+    void drawArrows(bool secondaryShape) const;
+    void drawLane2LaneConnections(double exaggeration, bool s2) const;
 
 
     /// @brief add intermediate points at segment borders
@@ -322,6 +324,10 @@ private:
     double getPendingEmits() const;
 
 private:
+    void initRotations(const PositionVector& shape,
+            std::vector<double>& rotations,
+            std::vector<double>& lengths,
+            std::vector<RGBColor>& colors);
 
     /// @brief gets the scaling value according to the current scheme index
     double getScaleValue(int activeScheme) const;
@@ -340,12 +346,15 @@ private:
 
     /// The rotations of the shape parts
     std::vector<double> myShapeRotations;
+    std::vector<double> myShapeRotations2;
 
     /// The lengths of the shape parts
     std::vector<double> myShapeLengths;
+    std::vector<double> myShapeLengths2;
 
     /// The color of the shape parts (cached)
     mutable std::vector<RGBColor> myShapeColors;
+    mutable std::vector<RGBColor> myShapeColors2;
 
     /// @brief the meso segment index for each geometry segment
     std::vector<int> myShapeSegments;

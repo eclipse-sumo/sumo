@@ -686,6 +686,7 @@ GUIVehicle::drawRouteHelper(const GUIVisualizationSettings& s, const MSRoute& r,
     } else if (myLane->isInternal()) {
         bestLaneIndex++;
     }
+    const bool s2 = s.secondaryShape;
     for (; i != r.end(); ++i) {
         const GUILane* lane;
         if (bestLaneIndex < (int)bestLaneConts.size() && bestLaneConts[bestLaneIndex] != 0 && (*i) == &(bestLaneConts[bestLaneIndex]->getEdge())) {
@@ -700,7 +701,7 @@ GUIVehicle::drawRouteHelper(const GUIVisualizationSettings& s, const MSRoute& r,
             }
         }
         GLHelper::setColor(col);
-        GLHelper::drawBoxLines(lane->getShape(), lane->getShapeRotations(), lane->getShapeLengths(), exaggeration);
+        GLHelper::drawBoxLines(lane->getShape(s2), lane->getShapeRotations(s2), lane->getShapeLengths(s2), exaggeration);
         if (prevLane != nullptr && lane->getBidiLane() == prevLane) {
             // indicate train reversal
             std::string label = "reverse:" + toString(reversalIndex++);
@@ -712,8 +713,8 @@ GUIVehicle::drawRouteHelper(const GUIVisualizationSettings& s, const MSRoute& r,
         }
         if (s.showRouteIndex) {
             std::string label = toString((int)(i - myCurrEdge));
-            const double laneAngle = lane->getShape().angleAt2D(0);
-            Position pos = lane->getShape().front() - Position(0, textSize * repeatLane[lane]) + Position(
+            const double laneAngle = lane->getShape(s2).angleAt2D(0);
+            Position pos = lane->getShape(s2).front() - Position(0, textSize * repeatLane[lane]) + Position(
                                (laneAngle >= -0.25 * M_PI && laneAngle < 0.75 * M_PI ? 1 : -1) * 0.4 * indexDigits * textSize, 0);
             //GLHelper::drawText(label, pos, 1.0, textSize, s.vehicleName.color);
             GLHelper::drawTextSettings(s.vehicleName, label, pos, s.scale, s.angle, 1.0);

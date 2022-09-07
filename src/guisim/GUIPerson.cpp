@@ -368,9 +368,10 @@ GUIPerson::drawGLAdditional(GUISUMOAbstractView* const parent, const GUIVisualiz
             assert(stage != 0);
             const double exaggeration = getExaggeration(s);
             const ConstMSEdgeVector& edges = stage->getRoute();
+            const bool s2 = s.secondaryShape;
             for (ConstMSEdgeVector::const_iterator it = edges.begin(); it != edges.end(); ++it) {
                 GUILane* lane = static_cast<GUILane*>((*it)->getLanes()[0]);
-                GLHelper::drawBoxLines(lane->getShape(), lane->getShapeRotations(), lane->getShapeLengths(), exaggeration);
+                GLHelper::drawBoxLines(lane->getShape(s2), lane->getShapeRotations(s2), lane->getShapeLengths(s2), exaggeration);
             }
         }
     }
