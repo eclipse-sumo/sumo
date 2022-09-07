@@ -155,6 +155,7 @@ NIXMLPTHandler::addPTStop(const SUMOSAXAttributes& attrs) {
             WRITE_ERROR("Edge '" + edgeID + "' for stop '" + id + "' not found");
         } else {
             myCurrentStopWasIgnored = true;
+            NBPTStopCont::addIgnored(id);
         }
         return;
     }
@@ -287,7 +288,9 @@ NIXMLPTHandler::addPTLineStop(const SUMOSAXAttributes& attrs) {
                            : attrs.get<std::string>(SUMO_ATTR_BUS_STOP, "ptline", ok);
     NBPTStop* stop = myStopCont.get(id);
     if (stop == nullptr) {
-        WRITE_ERROR("Stop '" + id + "' within line '" + toString(myCurrentLine->getLineID()) + "' not found");
+        if (!NBPTStopCont::wasIgnored(id)) {
+            WRITE_ERROR("Stop '" + id + "' within line '" + toString(myCurrentLine->getLineID()) + "' not found");
+        }
         return;
     }
     myCurrentLine->addPTStop(stop);

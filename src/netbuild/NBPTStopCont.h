@@ -118,9 +118,19 @@ private:
 
     static std::string getReverseID(const std::string& id);
 
+    static std::set<std::string> myIgnoredStops;
+
+
 public:
     static NBEdge* getReverseEdge(NBEdge* edge);
 
+    static void addIgnored(const std::string& stopID) {
+        myIgnoredStops.insert(stopID);
+    }
+
+    static bool wasIgnored(const std::string& stopID) {
+        return myIgnoredStops.count(stopID) > 0;
+    }
 
     void alignIdSigns();
 };

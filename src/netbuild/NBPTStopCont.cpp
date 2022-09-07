@@ -29,6 +29,15 @@
 #include "NBNode.h"
 #include <utils/geom/Position.h>
 
+// ===========================================================================
+// static members
+// ===========================================================================
+std::set<std::string> NBPTStopCont::myIgnoredStops;
+
+// ===========================================================================
+// method definitions
+// ===========================================================================
+
 
 NBPTStopCont::~NBPTStopCont() {
     for (auto& myPTStop : myPTStops) {
