@@ -103,7 +103,7 @@ GNEInspectorFrame::NeteditAttributesEditor::NeteditAttributesEditor(GNEInspector
     myLabelParentAdditional = new FXLabel(getCollapsableFrame(), "Parent", nullptr, GUIDesignLabelCenterThick);
     myTextFieldParentAdditional = new FXTextField(getCollapsableFrame(), GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     mySetNewParentButton = new MFXCheckableButton(false, getCollapsableFrame(), 
-        inspectorFrameParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltip(), 
+        inspectorFrameParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(), 
         "Set new parent", nullptr, this, MID_GNE_SET_ATTRIBUTE, GUIDesignMFXCheckableButton);
     // Create elements for close shape
     myHorizontalFrameCloseShape = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);

@@ -35,8 +35,11 @@ public:
     /// @brief destructor
     ~MFXStaticToolTip();
 
-    /// @brief check if enable/disable static tooltip
+    /// @brief enable/disable static tooltip
     void enableStaticToolTip(const bool value);
+
+    /// @brief check staticToolTip is enabled
+    bool isStaticToolTipEnabled() const;
 
     /// @brief show static toolTip
     void showStaticToolTip(const FXString &toolTipText);

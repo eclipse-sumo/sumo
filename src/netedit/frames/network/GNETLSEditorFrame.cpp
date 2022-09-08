@@ -557,7 +557,7 @@ GNETLSEditorFrame::TLSAttributes::TLSAttributes(GNETLSEditorFrame* TLSEditorPare
     myParametersTextField->disable();
     // create Checkable button
     mySetDetectorsToggleButton = new MFXToggleButtonTooltip(getCollapsableFrame(), 
-        TLSEditorParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltip(), 
+        TLSEditorParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(), 
         "Assign E1 detectors\tEnable assign E1 mode\tAssign E1 detectors to the current TLS", 
         "Assign E1 detectors\tDisable assign E1 mode\tAssign E1 detectors to the current TLS", 
         GUIIconSubSys::getIcon(GUIIcon::E1), GUIIconSubSys::getIcon(GUIIcon::E1), 
@@ -882,14 +882,14 @@ GNETLSEditorFrame::TLSJunction::TLSJunction(GNETLSEditorFrame* TLSEditorParent) 
     FXHorizontalFrame* junctionIDFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     myJunctionIDLabel = new FXLabel(junctionIDFrame, "Junction ID", nullptr, GUIDesignLabelAttribute);
     myJunctionIDTextField = new MFXTextFieldTooltip(junctionIDFrame, 
-        TLSEditorParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltip(),
+        TLSEditorParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
         GUIDesignTextFieldNCol, this, 0, GUIDesignTextField);
     myJunctionIDTextField->disable();
     // Create frame for TLS Program ID
     FXHorizontalFrame* TLSIDFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(TLSIDFrame, "TLS ID", nullptr, GUIDesignLabelAttribute);
     myTLSIDTextField = new MFXTextFieldTooltip(TLSIDFrame, 
-        TLSEditorParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltip(),
+        TLSEditorParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
         GUIDesignTextFieldNCol, this, MID_GNE_TLSFRAME_TLSJUNCTION_ID, GUIDesignTextField);
     // create frame, label and textfield for type
     FXHorizontalFrame* typeFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
@@ -905,13 +905,13 @@ GNETLSEditorFrame::TLSJunction::TLSJunction(GNETLSEditorFrame* TLSEditorParent) 
     FXHorizontalFrame* joinButtons = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrameUniform);
     // create join states button
     myJoinTLSToggleButton = new MFXToggleButtonTooltip(joinButtons, 
-        TLSEditorParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltip(),
+        TLSEditorParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
         "Join\tEnable join mode\tJoin TLS and junctions in the current junction.", 
         "Join\tDisable join mode\tJoin TLS and junctions in the current junction.", 
         GUIIconSubSys::getIcon(GUIIcon::JOIN), GUIIconSubSys::getIcon(GUIIcon::JOIN), 
         this, MID_GNE_TLSFRAME_TLSJUNCTION_TOGGLEJOIN, GUIDesignButton);
     myDisjoinTLSButton = new MFXButtonTooltip(joinButtons, 
-        TLSEditorParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltip(),
+        TLSEditorParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
         "Disjoin\tDisjoin current TLS\tDisjoin current TLS.", 
         GUIIconSubSys::getIcon(GUIIcon::DISJOIN), this, MID_GNE_TLSFRAME_TLSJUNCTION_DISJOIN, GUIDesignButton);
     // update junction description after creation
@@ -1833,19 +1833,19 @@ GNETLSEditorFrame::TLSPhases::TLSPhases(GNETLSEditorFrame* TLSEditorParent) :
     FXVerticalFrame* col1 = new FXVerticalFrame(phaseButtons, GUIDesignAuxiliarHorizontalFrame); // left button columm
     FXVerticalFrame* col2 = new FXVerticalFrame(phaseButtons, GUIDesignAuxiliarHorizontalFrame); // right button column
     // create cleanup states button
-    new MFXButtonTooltip(col1, TLSEditorParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltip(),
+    new MFXButtonTooltip(col1, TLSEditorParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
         "Clean States\tClean unused states from all phase\tClean unused states from all phase. (Not allowed for multiple programs)", 
         nullptr, this, MID_GNE_TLSFRAME_PHASES_CLEANUP, GUIDesignButton);
     // add unused states button
-    new MFXButtonTooltip(col2, TLSEditorParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltip(),
+    new MFXButtonTooltip(col2, TLSEditorParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
         "Add States\tExtend the state vector for all phases by one entry\tExtend the state vector for all phases by one entry. (Unused until a connection or crossing is assigned to the new index)", 
         nullptr, this, MID_GNE_TLSFRAME_PHASES_ADDUNUSED, GUIDesignButton);
     // group states button
-    new MFXButtonTooltip(col1, TLSEditorParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltip(),
+    new MFXButtonTooltip(col1, TLSEditorParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
         "Group Sig.\tShorten state definition by letting connections with the same signal states use the same index\tShorten state definition by letting connections with the same signal states use the same index. (Not allowed for multiple programs)", 
         nullptr, this, MID_GNE_TLSFRAME_PHASES_GROUPSTATES, GUIDesignButton);
     // ungroup states button
-    new MFXButtonTooltip(col2, TLSEditorParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltip(),
+    new MFXButtonTooltip(col2, TLSEditorParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
         "Ungroup Sig.\tLet every connection use a distinct index (reverse state grouping)\tLet every connection use a distinct index (reverse state grouping). (Not allowed for multiple programs)", 
         nullptr, this, MID_GNE_TLSFRAME_PHASES_UNGROUPSTATES, GUIDesignButton);
     // show TLSFile
