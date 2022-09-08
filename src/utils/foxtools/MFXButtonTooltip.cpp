@@ -48,7 +48,7 @@ MFXButtonTooltip::~MFXButtonTooltip() {}
 long
 MFXButtonTooltip::onEnter(FXObject* sender, FXSelector sel, void* ptr) {
     // show tip show
-    myStaticToolTip->showStaticToolTip(this, getTipText());
+    myStaticToolTip->showStaticToolTip(getTipText());
     return FXButton::onEnter(sender, sel, ptr);
 }
 

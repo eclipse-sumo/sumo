@@ -39,7 +39,7 @@ public:
     void enableStaticToolTip(const bool value);
 
     /// @brief show static toolTip
-    void showStaticToolTip(FXWindow* toolTipObject, const FXString &toolTipText);
+    void showStaticToolTip(const FXString &toolTipText);
 
     /// @brief hide static toolTip
     void hideStaticToolTip();
@@ -58,10 +58,7 @@ protected:
     /// @brief FOX need this
     MFXStaticToolTip();
 
+private:
     /// @brief flag for enable/disable static tooltip
     bool myEnableStaticTooltip = true;
-
-private:
-    /// @brief object to be tooltiped
-    FXWindow* myToolTipObject = nullptr;
 };

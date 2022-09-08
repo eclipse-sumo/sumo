@@ -46,7 +46,7 @@ MFXToggleButtonTooltip::~MFXToggleButtonTooltip() {}
 long
 MFXToggleButtonTooltip::onEnter(FXObject* sender, FXSelector sel, void* ptr) {
     // show tip show
-    myStaticToolTip->showStaticToolTip(this, getTipText());
+    myStaticToolTip->showStaticToolTip(getTipText());
     return FXToggleButton::onEnter(sender, sel, ptr);
 }
 
