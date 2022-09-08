@@ -1598,6 +1598,8 @@ GNEViewNetHelper::SelectingArea::finishRectangleSelection() {
     // finish rectangle selection
     selectingUsingRectangle = false;
     startDrawing = false;
+    // clear status bar
+    myViewNet->setStatusBarText("");
 }
 
 
