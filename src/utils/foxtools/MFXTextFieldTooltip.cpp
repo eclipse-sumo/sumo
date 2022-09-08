@@ -25,6 +25,7 @@
 FXDEFMAP(MFXTextFieldTooltip) MFXTextFieldTooltipMap[] = {
     FXMAPFUNC(SEL_ENTER,    0,  MFXTextFieldTooltip::onEnter),
     FXMAPFUNC(SEL_LEAVE,    0,  MFXTextFieldTooltip::onLeave),
+    FXMAPFUNC(SEL_MOTION,   0,  MFXTextFieldTooltip::onMotion),
 };
 
 // Object implementation
@@ -76,5 +77,12 @@ MFXTextFieldTooltip::onLeave(FXObject* sender, FXSelector sel, void* ptr) {
     return FXTextField::onLeave(sender, sel, ptr);
 }
 
+
+long 
+MFXTextFieldTooltip::onMotion(FXObject* sender, FXSelector sel, void* ptr) {
+    // update static tooltip
+    myStaticToolTip->onUpdate(sender, sel, ptr);
+    return FXTextField::onMotion(sender, sel, ptr);
+}
 
 /****************************************************************************/

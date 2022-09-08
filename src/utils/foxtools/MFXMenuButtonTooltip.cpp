@@ -26,6 +26,7 @@
 FXDEFMAP(MFXMenuButtonTooltip) MFXMenuButtonTooltipMap[] = {
     FXMAPFUNC(SEL_ENTER,            0,                  MFXMenuButtonTooltip::onEnter),
     FXMAPFUNC(SEL_LEAVE,            0,                  MFXMenuButtonTooltip::onLeave),
+    FXMAPFUNC(SEL_MOTION,           0,                  MFXMenuButtonTooltip::onMotion),
     FXMAPFUNC(SEL_LEFTBUTTONPRESS,  0,                  MFXMenuButtonTooltip::onLeftBtnPress),
     FXMAPFUNC(SEL_KEYPRESS,         0,                  MFXMenuButtonTooltip::onKeyPress),
     FXMAPFUNC(SEL_COMMAND,          FXWindow::ID_POST,  MFXMenuButtonTooltip::onCmdPost),
@@ -60,6 +61,14 @@ MFXMenuButtonTooltip::onLeave(FXObject* sender, FXSelector sel, void* ptr) {
     // hide static toolTip
     myStaticToolTip->hideStaticToolTip();
     return FXMenuButton::onLeave(sender, sel, ptr);
+}
+
+
+long 
+MFXMenuButtonTooltip::onMotion(FXObject* sender, FXSelector sel, void* ptr) {
+    // update static tooltip
+    myStaticToolTip->onUpdate(sender, sel, ptr);
+    return FXMenuButton::onMotion(sender, sel, ptr);
 }
 
 

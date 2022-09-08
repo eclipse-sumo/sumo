@@ -25,6 +25,7 @@
 FXDEFMAP(MFXToggleButtonTooltip) MFXToggleButtonTooltipMap[] = {
     FXMAPFUNC(SEL_ENTER,    0,  MFXToggleButtonTooltip::onEnter),
     FXMAPFUNC(SEL_LEAVE,    0,  MFXToggleButtonTooltip::onLeave),
+    FXMAPFUNC(SEL_MOTION,   0,  MFXToggleButtonTooltip::onMotion),
 };
 
 
@@ -57,5 +58,12 @@ MFXToggleButtonTooltip::onLeave(FXObject* sender, FXSelector sel, void* ptr) {
     return FXToggleButton::onLeave(sender, sel, ptr);
 }
 
+
+long 
+MFXToggleButtonTooltip::onMotion(FXObject* sender, FXSelector sel, void* ptr) {
+    // update static tooltip
+    myStaticToolTip->onUpdate(sender, sel, ptr);
+    return FXToggleButton::onMotion(sender, sel, ptr);
+}
 
 /****************************************************************************/

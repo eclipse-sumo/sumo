@@ -36,7 +36,7 @@ public:
     ~MFXStaticToolTip();
 
     /// @brief show static toolTip
-    void showStaticToolTip(FXWindow* toolTipObject, const FXString &trip);
+    void showStaticToolTip(FXWindow* toolTipObject, const FXString &toolTipText);
 
     /// @brief hide static toolTip
     void hideStaticToolTip();

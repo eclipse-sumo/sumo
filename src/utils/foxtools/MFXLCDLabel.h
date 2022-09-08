@@ -129,7 +129,10 @@ public:
 
     /// @brief called when mouse leaves in MFXMenuButtonTooltip
     long onLeave(FXObject* obj, FXSelector sel, void* ptr);
-
+    
+    /// @brief called when mouse motion in MFXMenuButtonTooltip
+    long onMotion(FXObject* obj, FXSelector sel, void* ptr);
+    
     /// @brief Update value from a message
     long onCmdSetValue(FXObject*, FXSelector, void* ptr);
 

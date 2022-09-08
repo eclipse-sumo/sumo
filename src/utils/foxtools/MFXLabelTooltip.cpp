@@ -26,6 +26,7 @@ FXDEFMAP(MFXLabelTooltip) MFXLabelTooltipMap[] = {
     FXMAPFUNC(SEL_PAINT,    0,  MFXLabelTooltip::onPaint),
     FXMAPFUNC(SEL_ENTER,    0,  MFXLabelTooltip::onEnter),
     FXMAPFUNC(SEL_LEAVE,    0,  MFXLabelTooltip::onLeave),
+    FXMAPFUNC(SEL_MOTION,   0,  MFXLabelTooltip::onMotion),
 };
 
 // Object implementation
@@ -87,6 +88,14 @@ MFXLabelTooltip::onLeave(FXObject* sender, FXSelector sel, void* ptr) {
     // hide static toolTip
     myStaticToolTip->hideStaticToolTip();
     return FXButton::onLeave(sender, sel, ptr);
+}
+
+
+long 
+MFXLabelTooltip::onMotion(FXObject* sender, FXSelector sel, void* ptr) {
+    // update static tooltip
+    myStaticToolTip->onUpdate(sender, sel, ptr);
+    return FXButton::onMotion(sender, sel, ptr);
 }
 
 /****************************************************************************/

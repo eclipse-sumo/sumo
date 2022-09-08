@@ -39,6 +39,7 @@ FXDEFMAP(MFXLCDLabel) MFXLCDLabelMap[] = {
     FXMAPFUNC(SEL_PAINT,        0,                              MFXLCDLabel::onPaint),
     FXMAPFUNC(SEL_ENTER,        0,                              MFXLCDLabel::onEnter),
     FXMAPFUNC(SEL_LEAVE,        0,                              MFXLCDLabel::onLeave),
+    FXMAPFUNC(SEL_MOTION,       0,                              MFXLCDLabel::onMotion),
     FXMAPFUNC(SEL_COMMAND,      FXWindow::ID_SETVALUE,          MFXLCDLabel::onCmdSetValue),
     FXMAPFUNC(SEL_COMMAND,      FXWindow::ID_SETINTVALUE,       MFXLCDLabel::onCmdSetIntValue),
     FXMAPFUNC(SEL_COMMAND,      FXWindow::ID_SETREALVALUE,      MFXLCDLabel::onCmdSetRealValue),
@@ -327,6 +328,14 @@ MFXLCDLabel::onLeave(FXObject* obj, FXSelector sel, void* ptr) {
     // hide static toolTip
     myStaticToolTip->hideStaticToolTip();
     return FXHorizontalFrame::onLeave(obj, sel, ptr);
+}
+
+
+long 
+MFXLCDLabel::onMotion(FXObject* sender, FXSelector sel, void* ptr) {
+    // update static tooltip
+    myStaticToolTip->onUpdate(sender, sel, ptr);
+    return FXHorizontalFrame::onMotion(sender, sel, ptr);
 }
 
 

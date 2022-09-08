@@ -50,6 +50,10 @@ public:
 
     /// @brief called when mouse leaves in MFXTextFieldTooltip
     long onLeave(FXObject*, FXSelector, void*);
+
+    /// @brief called when mouse motion in MFXTextFieldTooltip
+    long onMotion(FXObject*, FXSelector, void*);
+
     /// @}
 
 protected:

@@ -57,12 +57,14 @@ MFXStaticToolTip::~MFXStaticToolTip() {}
 
 
 void 
-MFXStaticToolTip::showStaticToolTip(FXWindow* toolTipObject, const FXString &trip) {
-    if (!label.empty()) {
+MFXStaticToolTip::showStaticToolTip(FXWindow* toolTipObject, const FXString &toolTipText) {
+    if (toolTipText.empty()) {
+        hideStaticToolTip();
+    } else {
         // update toolTip object
         myToolTipObject = toolTipObject;
         // set tip text
-        setText(trip);
+        setText(toolTipText);
         // show StaticToolTip
         show();
     }

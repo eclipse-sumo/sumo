@@ -50,6 +50,9 @@ public:
     /// @brief called when mouse leaves in MFXMenuButtonTooltip
     long onLeave(FXObject*, FXSelector, void*);
 
+    /// @brief called when mouse motion in MFXMenuButtonTooltip
+    long onMotion(FXObject*, FXSelector, void*);
+
     /// @brief called when left mouse button is press
     long onLeftBtnPress(FXObject*, FXSelector, void*);
 
