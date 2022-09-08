@@ -3525,6 +3525,9 @@ MSLane::getFollowersOnConsecutive(const MSVehicle* ego, double backOffset,
 
         // avoid loops
         std::set<const MSLane*> visited(myEdge->getLanes().begin(), myEdge->getLanes().end());
+        if (myEdge->getBidiEdge() != nullptr) {
+            visited.insert(myEdge->getBidiEdge()->getLanes().begin(), myEdge->getBidiEdge()->getLanes().end());
+        }
         std::vector<MSLane::IncomingLaneInfo> newFound;
         std::vector<MSLane::IncomingLaneInfo> toExamine = myIncomingLanes;
         while (toExamine.size() != 0) {
