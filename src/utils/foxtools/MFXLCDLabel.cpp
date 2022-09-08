@@ -313,10 +313,8 @@ long
 MFXLCDLabel::onEnter(FXObject* obj, FXSelector sel, void* ptr) {
     // show static toolTip depending of myToolTipText
     if (!myToolTipText.empty()) {
-        // show toolTip text
-        myStaticToolTip->setText(myToolTipText);
         // show tip show
-        myStaticToolTip->showStaticToolTip(this);
+        myStaticToolTip->showStaticToolTip(this, myToolTipText);
     } else {
         myStaticToolTip->hideStaticToolTip();
     }

@@ -54,12 +54,12 @@ MFXTextFieldTooltip::onEnter(FXObject* sender, FXSelector sel, void* ptr) {
         // show toolTip text
         setTipText(myToolTipText);
         // show tip show
-        myStaticToolTip->showStaticToolTip(this);
+        myStaticToolTip->showStaticToolTip(this, getTipText());
     } else if (font->getTextWidth(contents.text(), contents.length()) > getWidth()) {
         // only show tip Text if contents is bigger than textField width
         setTipText(contents);
         // show tip show
-        myStaticToolTip->showStaticToolTip(this);
+        myStaticToolTip->showStaticToolTip(this, getTipText());
     }
     // always show help text
     setHelpText(contents);

@@ -57,10 +57,12 @@ MFXStaticToolTip::~MFXStaticToolTip() {}
 
 
 void 
-MFXStaticToolTip::showStaticToolTip(FXWindow* toolTipObject) {
+MFXStaticToolTip::showStaticToolTip(FXWindow* toolTipObject, const FXString &trip) {
     if (!label.empty()) {
         // update toolTip object
         myToolTipObject = toolTipObject;
+        // set tip text
+        setText(trip);
         // show StaticToolTip
         show();
     }
@@ -76,12 +78,6 @@ MFXStaticToolTip::hideStaticToolTip() {
 }
 
 
-void 
-MFXStaticToolTip::setText(const FXString& text) {
-    FXToolTip::setText(text);
-}
-
-
 long
 MFXStaticToolTip::onPaint(FXObject* sender, FXSelector sel, void* obj) {
     // draw tooltip using myToolTippedObject
@@ -92,14 +88,13 @@ MFXStaticToolTip::onPaint(FXObject* sender, FXSelector sel, void* obj) {
     }
 }
 
-
+#include <iostream>
 long 
 MFXStaticToolTip::onUpdate(FXObject* sender, FXSelector sel, void* ptr) {
-    FXWindow *helpsource = getApp()->getCursorWindow();
     // Regular GUI update
     FXWindow::onUpdate(sender, sel, ptr);
     // Ask the help source for a new status text first
-    if(helpsource && helpsource->handle(this, FXSEL(SEL_QUERY_TIP, 0), NULL)) {
+    if (myToolTipObject) {
         popped = TRUE;
         FXint x,y; 
         FXuint state;

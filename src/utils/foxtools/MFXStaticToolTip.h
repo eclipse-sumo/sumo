@@ -36,13 +36,10 @@ public:
     ~MFXStaticToolTip();
 
     /// @brief show static toolTip
-    void showStaticToolTip(FXWindow* toolTipObject);
+    void showStaticToolTip(FXWindow* toolTipObject, const FXString &trip);
 
     /// @brief hide static toolTip
     void hideStaticToolTip();
-
-    /// @brief update text
-    void setText(const FXString &text);
 
     /// @name FOX callbacks
     /// @{
