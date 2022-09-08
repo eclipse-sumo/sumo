@@ -534,21 +534,23 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
     }
     // set lane color
     const RGBColor color = setColor(s);
+    const bool s2 = s.secondaryShape;
+    const PositionVector& baseShape = getShape(s2);
+    auto& shapeColors = getShapeColors(s2);
     if (MSGlobals::gUseMesoSim) {
-        myShapeColors.clear();
+        shapeColors.clear();
         const std::vector<RGBColor>& segmentColors = static_cast<const GUIEdge*>(myEdge)->getSegmentColors();
         if (segmentColors.size() > 0) {
             // apply segment specific shape colors
             //std::cout << getID() << " shape=" << myShape << " shapeSegs=" << toString(myShapeSegments) << "\n";
-            for (int ii = 0; ii < (int)myShape.size() - 1; ++ii) {
-                myShapeColors.push_back(segmentColors[myShapeSegments[ii]]);
+            for (int ii = 0; ii < (int)baseShape.size() - 1; ++ii) {
+                shapeColors.push_back(segmentColors[myShapeSegments[ii]]);
             }
         }
     }
     // recognize full transparency and simply don't draw
     bool hiddenBidi = myEdge->getBidiEdge() != nullptr && myEdge->getNumericalID() > myEdge->getBidiEdge()->getNumericalID();
     if (color.alpha() != 0 && s.scale * exaggeration > s.laneMinSize) {
-        const PositionVector& baseShape = getShape(s.secondaryShape);
         // scale tls-controlled lane2lane-arrows along with their junction shapes
         double junctionExaggeration = 1;
         if (!isInternal
@@ -560,8 +562,8 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
         // check whether it is not too small
         if (s.scale * exaggeration < 1. && junctionExaggeration == 1 && s.junctionSize.minSize != 0) {
             if (!isInternal || hasRailSignal) {
-                if (myShapeColors.size() > 0) {
-                    GLHelper::drawLine(baseShape, myShapeColors);
+                if (shapeColors.size() > 0) {
+                    GLHelper::drawLine(baseShape, shapeColors);
                 } else {
                     GLHelper::drawLine(baseShape);
                 }
@@ -588,23 +590,23 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
                 const double halfInnerFeetWidth = halfGauge - 0.039 * exaggeration;
                 const double halfRailWidth = detailZoom ? (halfInnerFeetWidth + 0.15 * exaggeration) : SUMO_const_halfLaneWidth;
                 const double halfCrossTieWidth = halfGauge * 1.81;
-                if (myShapeColors.size() > 0) {
-                    GLHelper::drawBoxLines(shape, myShapeRotations, myShapeLengths, myShapeColors, halfRailWidth);
+                if (shapeColors.size() > 0) {
+                    GLHelper::drawBoxLines(shape, getShapeRotations(s2), getShapeLengths(s2), getShapeColors(s2), halfRailWidth);
                 } else {
-                    GLHelper::drawBoxLines(shape, myShapeRotations, myShapeLengths, halfRailWidth);
+                    GLHelper::drawBoxLines(shape, getShapeRotations(s2), getShapeLengths(s2), halfRailWidth);
                 }
                 // Draw white on top with reduced width (the area between the two tracks)
                 if (detailZoom) {
                     glColor3d(1, 1, 1);
                     glTranslated(0, 0, .1);
-                    GLHelper::drawBoxLines(shape, myShapeRotations, myShapeLengths, halfInnerFeetWidth);
+                    GLHelper::drawBoxLines(shape, getShapeRotations(s2), getShapeLengths(s2), halfInnerFeetWidth);
                     setColor(s);
-                    GLHelper::drawCrossTies(shape, myShapeRotations, myShapeLengths, 0.26 * exaggeration, 0.6 * exaggeration, halfCrossTieWidth, s.drawForPositionSelection);
+                    GLHelper::drawCrossTies(shape, getShapeRotations(s2), getShapeLengths(s2), 0.26 * exaggeration, 0.6 * exaggeration, halfCrossTieWidth, s.drawForPositionSelection);
                 }
             } else if (isCrossing) {
                 if (s.drawCrossingsAndWalkingareas && (s.scale > 3.0 || s.junctionSize.minSize == 0)) {
                     glTranslated(0, 0, .2);
-                    GLHelper::drawCrossTies(baseShape, myShapeRotations, myShapeLengths, 0.5, 1.0, getWidth() * 0.5, s.drawForPositionSelection);
+                    GLHelper::drawCrossTies(baseShape, getShapeRotations(s2), getShapeLengths(s2), 0.5, 1.0, getWidth() * 0.5, s.drawForPositionSelection);
                     glTranslated(0, 0, -.2);
                 }
             } else if (isWalkingArea) {
@@ -635,10 +637,10 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
                     offset += halfWidth * 0.5 * (MSGlobals::gLefthand ? -1 : 1);
                     halfWidth *= 0.4; // create visible gap
                 }
-                if (myShapeColors.size() > 0) {
-                    GLHelper::drawBoxLines(baseShape, myShapeRotations, myShapeLengths, myShapeColors, halfWidth * exaggeration, cornerDetail, offset);
+                if (shapeColors.size() > 0) {
+                    GLHelper::drawBoxLines(baseShape, getShapeRotations(s2), getShapeLengths(s2), shapeColors, halfWidth * exaggeration, cornerDetail, offset);
                 } else {
-                    GLHelper::drawBoxLines(baseShape, myShapeRotations, myShapeLengths, halfWidth * exaggeration, cornerDetail, offset);
+                    GLHelper::drawBoxLines(baseShape, getShapeRotations(s2), getShapeLengths(s2), halfWidth * exaggeration, cornerDetail, offset);
                 }
             }
 #ifdef GUILane_DEBUG_DRAW_FOE_INTERSECTIONS
@@ -675,18 +677,18 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
                             const double offsetSign = MSGlobals::gLefthand ? -1 : 1;
                             GLHelper::setColor(color.changedBrightness(51));
                             for (double offset = -myHalfLaneWidth; offset < myHalfLaneWidth; offset += MSGlobals::gLateralResolution) {
-                                GLHelper::drawBoxLines(baseShape, myShapeRotations, myShapeLengths, 0.01, 0, -offset * offsetSign);
+                                GLHelper::drawBoxLines(baseShape, getShapeRotations(s2), getShapeLengths(s2), 0.01, 0, -offset * offsetSign);
                             }
                         }
                         if (MSGlobals::gUseMesoSim && mySegmentStartIndex.size() > 0 && (myPermissions & ~SVC_PEDESTRIAN) != 0) {
                             // draw segment borders
                             GLHelper::setColor(color.changedBrightness(51));
                             for (int i : mySegmentStartIndex) {
-                                if (myShapeColors.size() > 0) {
-                                    GLHelper::setColor(myShapeColors[i].changedBrightness(51));
+                                if (shapeColors.size() > 0) {
+                                    GLHelper::setColor(shapeColors[i].changedBrightness(51));
                                 }
-                                GLHelper::drawBoxLine(myShape[i], myShapeRotations[i] + 90, myWidth / 3, 0.2, 0);
-                                GLHelper::drawBoxLine(myShape[i], myShapeRotations[i] - 90, myWidth / 3, 0.2, 0);
+                                GLHelper::drawBoxLine(baseShape[i], getShapeRotations(s2)[i] + 90, myWidth / 3, 0.2, 0);
+                                GLHelper::drawBoxLine(baseShape[i], getShapeRotations(s2)[i] - 90, myWidth / 3, 0.2, 0);
                             }
                         }
                         if (s.showLinkDecals && !drawRails && !drawAsWaterway(s) && myPermissions != SVC_PEDESTRIAN) {
@@ -788,8 +790,8 @@ GUILane::drawBikeMarkings() const {
     for (int i = 0; i < e; ++i) {
         GLHelper::pushMatrix();
         glTranslated(getShape(s2)[i].x(), getShape(s2)[i].y(), GLO_JUNCTION + 0.4);
-        glRotated(myShapeRotations[i], 0, 0, 1);
-        for (double t = 0; t < myShapeLengths[i]; t += 0.5) {
+        glRotated(getShapeRotations(s2)[i], 0, 0, 1);
+        for (double t = 0; t < getShapeLengths(s2)[i]; t += 0.5) {
             // left and right marking
             for (int side = -1; side <= 1; side += 2) {
                 glBegin(GL_QUADS);
@@ -846,9 +848,9 @@ GUILane::drawJunctionChangeProhibitions() const {
         for (int i = 0; i < e; ++i) {
             GLHelper::pushMatrix();
             glTranslated(getShape(s2)[i].x(), getShape(s2)[i].y(), GLO_JUNCTION + 0.4);
-            glRotated(myShapeRotations[i], 0, 0, 1);
-            for (double t = 0; t < myShapeLengths[i]; t += 6) {
-                const double lengthSolid = MIN2(6.0, myShapeLengths[i] - t);
+            glRotated(getShapeRotations(s2)[i], 0, 0, 1);
+            for (double t = 0; t < getShapeLengths(s2)[i]; t += 6) {
+                const double lengthSolid = MIN2(6.0, getShapeLengths(s2)[i] - t);
                 glBegin(GL_QUADS);
                 glVertex2d(-mw, -t);
                 glVertex2d(-mw, -t - lengthSolid);
@@ -856,7 +858,7 @@ GUILane::drawJunctionChangeProhibitions() const {
                 glVertex2d(-mw2, -t);
                 glEnd();
                 if (cl || cr) {
-                    const double lengthBroken = MIN2(3.0, myShapeLengths[i] - t);
+                    const double lengthBroken = MIN2(3.0, getShapeLengths(s2)[i] - t);
                     glBegin(GL_QUADS);
                     glVertex2d(-mw3, -t);
                     glVertex2d(-mw3, -t - lengthBroken);
@@ -885,7 +887,7 @@ GUILane::drawDirectionIndicators(double exaggeration, bool spreadSuperposed, boo
         glTranslated(getShape(s2)[i].x(), getShape(s2)[i].y(), 0.1);
         glRotated(getShapeRotations(s2)[i], 0, 0, 1);
         for (double t = 0; t < getShapeLengths(s2)[i]; t += w) {
-            const double length = MIN2(w2, myShapeLengths[i] - t) * exaggeration;
+            const double length = MIN2(w2, getShapeLengths(s2)[i] - t) * exaggeration;
             glBegin(GL_TRIANGLES);
             glVertex2d(sideOffset, -t - length);
             glVertex2d(sideOffset - w4 * exaggeration, -t);
@@ -1045,6 +1047,12 @@ GUILane::getShapeLengths(bool secondary) const {
 }
 
 
+std::vector<RGBColor>&
+GUILane::getShapeColors(bool secondary) const {
+    return secondary ? myShapeColors2 : myShapeColors;
+}
+
+
 double
 GUILane::firstWaitingTime() const {
     return myVehicles.size() == 0 ? 0 : myVehicles.back()->getWaitingSeconds();
@@ -1087,7 +1095,7 @@ double
 GUILane::getColorValueWithFunctional(const GUIVisualizationSettings& s, int activeScheme) const {
     switch (activeScheme) {
         case 18: {
-            return GeomHelper::naviDegree(myShape.beginEndAngle()); // [0-360]
+            return GeomHelper::naviDegree(getShape(s.secondaryShape).beginEndAngle()); // [0-360]
         }
         default:
             return getColorValue(s, activeScheme);
@@ -1168,19 +1176,21 @@ GUILane::setFunctionalColor(const GUIColorer& c, RGBColor& col, int activeScheme
 bool
 GUILane::setMultiColor(const GUIVisualizationSettings& s, const GUIColorer& c, RGBColor& col) const {
     const int activeScheme = c.getActive();
-    myShapeColors.clear();
+    auto& shapeColors = getShapeColors(s.secondaryShape);
+    const PositionVector& shape = getShape(s.secondaryShape);
+    shapeColors.clear();
     switch (activeScheme) {
         case 22: // color by height at segment start
-            for (PositionVector::const_iterator ii = myShape.begin(); ii != myShape.end() - 1; ++ii) {
-                myShapeColors.push_back(c.getScheme().getColor(ii->z()));
+            for (PositionVector::const_iterator ii = shape.begin(); ii != shape.end() - 1; ++ii) {
+                shapeColors.push_back(c.getScheme().getColor(ii->z()));
             }
             // osg fallback (edge height at start)
             col = c.getScheme().getColor(getColorValue(s, 21));
             return true;
         case 24: // color by inclination  at segment start
-            for (int ii = 1; ii < (int)myShape.size(); ++ii) {
-                const double inc = (myShape[ii].z() - myShape[ii - 1].z()) / MAX2(POSITION_EPS, myShape[ii].distanceTo2D(myShape[ii - 1]));
-                myShapeColors.push_back(c.getScheme().getColor(inc));
+            for (int ii = 1; ii < (int)shape.size(); ++ii) {
+                const double inc = (shape[ii].z() - shape[ii - 1].z()) / MAX2(POSITION_EPS, shape[ii].distanceTo2D(shape[ii - 1]));
+                shapeColors.push_back(c.getScheme().getColor(inc));
             }
             col = c.getScheme().getColor(getColorValue(s, 23));
             return true;

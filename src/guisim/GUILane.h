@@ -344,6 +344,8 @@ private:
     /// @brief whether this lane or its parent edge is selected in the GUI
     bool isLaneOrEdgeSelected() const;
 
+    std::vector<RGBColor>& getShapeColors(bool secondary) const;
+
     /// The rotations of the shape parts
     std::vector<double> myShapeRotations;
     std::vector<double> myShapeRotations2;
