@@ -56,6 +56,12 @@ MFXStaticToolTip::MFXStaticToolTip(FXApp* app) :
 MFXStaticToolTip::~MFXStaticToolTip() {}
 
 
+void
+MFXStaticToolTip::enableStaticToolTip(const bool value) {
+    myEnableStaticTooltip = value;
+}
+
+
 void 
 MFXStaticToolTip::showStaticToolTip(FXWindow* toolTipObject, const FXString &toolTipText) {
     if (toolTipText.empty()) {
@@ -83,7 +89,7 @@ MFXStaticToolTip::hideStaticToolTip() {
 long
 MFXStaticToolTip::onPaint(FXObject* sender, FXSelector sel, void* obj) {
     // draw tooltip using myToolTippedObject
-    if (myToolTipObject) {
+    if (myToolTipObject && myEnableStaticTooltip) {
         return FXToolTip::onPaint(sender, sel, obj);
     } else {
         return 0;

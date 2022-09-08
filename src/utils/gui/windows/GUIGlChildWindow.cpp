@@ -24,6 +24,7 @@
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/foxtools/MFXButtonTooltip.h>
+#include <utils/foxtools/MFXMenuButtonTooltip.h>
 #include <utils/foxtools/MFXCheckableButton.h>
 #include <utils/foxtools/MFXComboBox.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
@@ -40,6 +41,7 @@ FXDEFMAP(GUIGlChildWindow) GUIGlChildWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_RECENTERVIEW,                   GUIGlChildWindow::onCmdRecenterView),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_I_EDITVIEWPORT,     GUIGlChildWindow::onCmdEditViewport),
     FXMAPFUNC(SEL_COMMAND,  MID_SHOWTOOLTIPS_VIEW,              GUIGlChildWindow::onCmdShowToolTipsView),
+    FXMAPFUNC(SEL_COMMAND,  MID_SHOWTOOLTIPS_MENU,              GUIGlChildWindow::onCmdShowToolTipsMenu),
     FXMAPFUNC(SEL_COMMAND,  MID_ZOOM_STYLE,                     GUIGlChildWindow::onCmdZoomStyle),
     FXMAPFUNC(SEL_COMMAND,  MID_COLOURSCHEMECHANGE,             GUIGlChildWindow::onCmdChangeColorScheme),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_F9_EDIT_VIEWSCHEME,      GUIGlChildWindow::onCmdEditViewScheme),
@@ -130,10 +132,15 @@ GUIGlChildWindow::buildNavigationToolBar() {
     myLocatorButton = new MFXMenuButtonTooltip(myGripNavigationToolbar ? myGripNavigationToolbar : myStaticNavigationToolBar,
         myParent->getStaticTooltip(), "\tLocate Structures\tLocate structures within the network.",
         GUIIconSubSys::getIcon(GUIIcon::LOCATE), myLocatorPopup, nullptr, GUIDesignButtonToolbarLocator);
-    // add toggle button for tool-tips on/off
-    new MFXCheckableButton(false, myGripNavigationToolbar ? myGripNavigationToolbar : myStaticNavigationToolBar,
-        myParent->getStaticTooltip(), "\tToggles ToolTips\tToggles whether tool tips shall be shown.",
+    // add toggle button for tool-tips in view on/off (by default unchecked)
+    myShowToolTipsView = new MFXCheckableButton(false, myGripNavigationToolbar ? myGripNavigationToolbar : myStaticNavigationToolBar,
+        myParent->getStaticTooltip(), "\tToggles View ToolTips\tToggles whether tool tips in view shall be shown.",
         GUIIconSubSys::getIcon(GUIIcon::SHOWTOOLTIPS_VIEW), this, MID_SHOWTOOLTIPS_VIEW, GUIDesignMFXCheckableButtonSquare);
+    // add toggle button for tool-tips in menu on/off (by default checked)
+    myShowToolTipsMenu = new MFXCheckableButton(false, myGripNavigationToolbar ? myGripNavigationToolbar : myStaticNavigationToolBar,
+        myParent->getStaticTooltip(), "\tToggles Menu ToolTips\tToggles whether tool tips in menushall be shown.",
+        GUIIconSubSys::getIcon(GUIIcon::SHOWTOOLTIPS_MENU), this, MID_SHOWTOOLTIPS_MENU, GUIDesignMFXCheckableButtonSquare);
+    myShowToolTipsMenu->setChecked(true);
 }
 
 
@@ -209,15 +216,23 @@ GUIGlChildWindow::onCmdEditViewScheme(FXObject*, FXSelector, void*) {
 
 
 long
-GUIGlChildWindow::onCmdShowToolTipsView(FXObject* sender, FXSelector, void*) {
-    MFXCheckableButton* button = dynamic_cast<MFXCheckableButton*>(sender);
-    // check if button was successfully casted
-    if (button) {
-        button->setChecked(!button->amChecked());
-        myView->showToolTips(button->amChecked());
-        update();
-        myView->update();
-    }
+GUIGlChildWindow::onCmdShowToolTipsView(FXObject*, FXSelector, void*) {
+    // toogle check
+    myShowToolTipsView->setChecked(!myShowToolTipsView->amChecked());
+    // update view
+    myView->showToolTipsView(myShowToolTipsView->amChecked());
+    update();
+    return 1;
+}
+
+
+long
+GUIGlChildWindow::onCmdShowToolTipsMenu(FXObject*, FXSelector, void*) {
+    // toogle check
+    myShowToolTipsMenu->setChecked(!myShowToolTipsMenu->amChecked());
+    // check if enable/disable static tooltip
+    myParent->getStaticTooltip()->enableStaticToolTip(myShowToolTipsMenu->amChecked());
+    update();
     return 1;
 }
 

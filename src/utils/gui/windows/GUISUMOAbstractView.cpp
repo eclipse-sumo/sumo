@@ -1470,8 +1470,9 @@ GUISUMOAbstractView::copyViewportTo(GUISUMOAbstractView* view) {
 
 
 void
-GUISUMOAbstractView::showToolTips(bool val) {
+GUISUMOAbstractView::showToolTipsView(const bool val) {
     myUseToolTips = val;
+    update();
 }
 
 

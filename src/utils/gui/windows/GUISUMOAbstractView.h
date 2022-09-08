@@ -231,8 +231,8 @@ public:
     /// @brief show viewsscheme editor
     void showViewschemeEditor();
 
-    /// @brief show tool tips
-    void showToolTips(bool val);
+    /// @brief show tool tips in view
+    void showToolTipsView(const bool val);
 
     /// @brief set color scheme
     virtual bool setColorScheme(const std::string&);

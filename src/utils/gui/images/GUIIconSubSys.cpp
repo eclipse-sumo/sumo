@@ -80,6 +80,7 @@
 #include "recenter_view.xpm"
 #include "allow_rotation.xpm"
 #include "show_tooltips_view.xpm"
+#include "show_tooltips_menu.xpm"
 #include "magnify.xpm"
 #include "zoomstyle.xpm"
 #include "yes.xpm"
@@ -529,6 +530,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::SAVEDB] = new FXXPMIcon(a, savedb_xpm);
     myIcons[GUIIcon::REMOVEDB] = new FXXPMIcon(a, removedb_xpm);
     myIcons[GUIIcon::SHOWTOOLTIPS_VIEW] = new FXXPMIcon(a, show_tooltips_view_xpm);
+    myIcons[GUIIcon::SHOWTOOLTIPS_MENU] = new FXXPMIcon(a, show_tooltips_menu_xpm);
     myIcons[GUIIcon::YES] = new FXXPMIcon(a, yes_xpm);
     myIcons[GUIIcon::NO] = new FXXPMIcon(a, no_xpm);
     myIcons[GUIIcon::FLAG] = new FXGIFIcon(a, flag);

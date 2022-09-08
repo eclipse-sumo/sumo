@@ -379,6 +379,8 @@ enum {
     MID_LOCATEPOLY,
     /// @brief Show tool tips in view - button
     MID_SHOWTOOLTIPS_VIEW,
+    /// @brief Show tool tips in menus - button
+    MID_SHOWTOOLTIPS_MENU,
     /// @brief Make snapshot - button
     MID_MAKESNAPSHOT,
     /// @brief toggle zooming style
