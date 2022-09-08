@@ -95,6 +95,12 @@ public:
      */
     virtual double getAngle() const = 0;
 
+    /** @brief Returns the vehicle's direction in radians taking into account
+     * secondary shape
+     * @return The vehicle's current angle
+     */
+    virtual double getVisualAngle(bool s2) const = 0;
+
     /// @brief return the current angle in navigational degrees
     double getNaviDegree() const {
         return GeomHelper::naviDegree(getAngle());

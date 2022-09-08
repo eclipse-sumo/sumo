@@ -82,6 +82,12 @@ public:
         return MSVehicle::getAngle();
     }
 
+    /** @brief Returns the vehicle's direction in radians taking into account
+     * secondary shape
+     * @return The vehicle's current angle
+     */
+    double getVisualAngle(bool s2) const; 
+
     /** @brief Draws the route
      * @param[in] r The route to draw
      */

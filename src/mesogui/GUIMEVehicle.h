@@ -96,6 +96,10 @@ public:
         return MEVehicle::getAngle();
     }
 
+    double getVisualAngle(bool /*s2*/) const {
+        return MEVehicle::getAngle();
+    }
+
     /// @brief gets the color value according to the current scheme index
     double getColorValue(const GUIVisualizationSettings& s, int activeScheme) const;
 

@@ -1093,4 +1093,30 @@ GUIVehicle::getVisualPosition(bool s2, const double offset) const {
 }
 
 
+double
+GUIVehicle::getVisualAngle(bool s2) const {
+    if (s2) {
+        // see MSVehicle::computeAngle
+        const PositionVector& shape = static_cast<GUILane*>(myLane)->getShape(s2);
+        if (isParking()) {
+            if (myStops.begin()->parkingarea != nullptr) {
+                return myStops.begin()->parkingarea->getVehicleAngle(*this);
+            } else {
+                return shape.rotationAtOffset(getPositionOnLane() * myLane->getLengthGeometryFactor(s2));
+            }
+        }
+        // if (myLaneChangeModel->isChangingLanes()) {
+        const double lefthandSign = (MSGlobals::gLefthand ? -1 : 1);
+        Position p1 = getVisualPosition(s2);
+        Position p2 = getVisualPosition(s2, MAX2(0.0, -myType->getLength()));
+        double result = (p1 != p2 ? p2.angleTo2D(p1) :
+                shape.rotationAtOffset(getPositionOnLane() * myLane->getLengthGeometryFactor(s2)));
+        if (myLaneChangeModel->isChangingLanes()) {
+            result += lefthandSign * DEG2RAD(myLaneChangeModel->getAngleOffset());
+        }
+        return result;
+    } else {
+        return getAngle();
+    }
+}
 /****************************************************************************/

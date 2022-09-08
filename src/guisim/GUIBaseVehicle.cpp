@@ -647,7 +647,7 @@ GUIBaseVehicle::drawOnPos(const GUIVisualizationSettings& s, const Position& pos
 
 void
 GUIBaseVehicle::drawGL(const GUIVisualizationSettings& s) const {
-    drawOnPos(s, getVisualPosition(s.secondaryShape), getAngle());
+    drawOnPos(s, getVisualPosition(s.secondaryShape), getVisualAngle(s.secondaryShape));
 }
 
 
