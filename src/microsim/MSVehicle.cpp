@@ -3034,19 +3034,6 @@ MSVehicle::adaptToJunctionLeader(const std::pair<const MSVehicle*, double> leade
 #endif
                 }
                 vStop = cfModel.stopSpeed(this, getSpeed(), distToCrossing - getVehicleType().getMinGap(), MSCFModel::CalcReason::CURRENT_WAIT);
-                if (v2 <= vStop && vStop <= vsafeLeader) {
-                    vStop = vStop;
-                } else if (v2 <= vsafeLeader && vsafeLeader <= vStop) {
-                    vStop = vStop;
-                } else if (vStop <= v2 && v2 <= vsafeLeader) {
-                    vStop = vStop;
-                } else if (vStop <= vsafeLeader && vsafeLeader <= v2) {
-                    vStop = vStop;
-                } else if (vsafeLeader <= vStop && vStop <= v2) {
-                    vStop = vStop;
-                } else if (vsafeLeader <= v2 && v2 <= vStop) {
-                    vStop = vStop;
-                }
                 vsafeLeader = MAX2(vsafeLeader, MIN2(v2, vStop));
 #ifdef DEBUG_PLAN_MOVE_LEADERINFO
                 if (DEBUG_COND) {

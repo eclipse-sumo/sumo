@@ -42,7 +42,7 @@
 #include <utils/common/RandHelper.h>
 #include <utils/common/SUMOTime.h>
 
-#define DEBUG_V
+//#define DEBUG_V
 
 #define EST_REAC_THRESHOLD 3. // under this threshold estimation, error and reaction time variables don't get taken into account
 #define ClutchEngageSpeed 0.5 // When a vehicle is below this speed, we assume a "slow to start", that is because of clutch operation / powertrain inertia
