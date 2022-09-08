@@ -130,6 +130,7 @@ void
 GUILane::addSecondaryShape(const PositionVector& shape) {
     myShape2 = shape;
     initRotations(myShape2, myShapeRotations2, myShapeLengths2, myShapeColors2);
+    myLengthGeometryFactor2 = MAX2(POSITION_EPS, myShape2.length()) / myLength;
 }
 
 

@@ -277,6 +277,10 @@ public:
 
     /// used by the gui
     virtual void addSecondaryShape(const PositionVector& /*shape*/) {}
+
+    virtual double getLengthGeometryFactor(double /*secondaryShape*/) const {
+        return myLengthGeometryFactor;
+    }
     ///@}
 
 

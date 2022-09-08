@@ -437,6 +437,7 @@ GUIBaseVehicle::drawOnPos(const GUIVisualizationSettings& s, const Position& pos
     RGBColor col = setColor(s);
     // scale
     const double upscale = getExaggeration(s);
+    const bool s2 = s.secondaryShape;
 
     if (upscale > 1 && s.laneWidthExaggeration > 1 && myVehicle.isOnRoad()) {
         // optionally shift according to edge exaggeration
@@ -466,8 +467,8 @@ GUIBaseVehicle::drawOnPos(const GUIVisualizationSettings& s, const Position& pos
     bool drawCarriages = false;
     const double geometryFactor = (s.scaleLength ?
                                    ((myVehicle.getLane() != nullptr
-                                     ? myVehicle.getLane()->getLengthGeometryFactor()
-                                     : (myVehicle.getEdge()->getLanes().size() > 0 ? myVehicle.getEdge()->getLanes()[0]->getLengthGeometryFactor() : 1)))
+                                     ? myVehicle.getLane()->getLengthGeometryFactor(s2)
+                                     : (myVehicle.getEdge()->getLanes().size() > 0 ? myVehicle.getEdge()->getLanes()[0]->getLengthGeometryFactor(s2) : 1)))
                                    : 1);
     double scaledLength = length * geometryFactor;
     if (col.alpha() != 0) {
@@ -646,7 +647,7 @@ GUIBaseVehicle::drawOnPos(const GUIVisualizationSettings& s, const Position& pos
 
 void
 GUIBaseVehicle::drawGL(const GUIVisualizationSettings& s) const {
-    drawOnPos(s, getPosition(), getAngle());
+    drawOnPos(s, getVisualPosition(s.secondaryShape), getAngle());
 }
 
 

@@ -72,6 +72,8 @@ public:
         return MSVehicle::getPosition(offset);
     }
 
+    Position getVisualPosition(bool s2, const double offset = 0) const;
+
     /** @brief Return current angle
      *
      * @note implementation of abstract method does not work otherwise

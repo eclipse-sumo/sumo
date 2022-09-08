@@ -45,6 +45,7 @@
 #include <microsim/MSLane.h>
 #include <microsim/MSLink.h>
 #include <microsim/MSStop.h>
+#include <microsim/MSParkingArea.h>
 #include <microsim/logging/CastingFunctionBinding.h>
 #include <microsim/logging/FunctionBinding.h>
 #include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
@@ -1064,6 +1065,31 @@ GUIVehicle::rerouteDRTStop(MSStoppingPlace* busStop) {
     reroute(MSNet::getInstance()->getCurrentTimeStep(), "DRT", router);
     myParameter->line = line;
     assert(haveValidStopEdges());
+}
+
+Position
+GUIVehicle::getVisualPosition(bool s2, const double offset) const {
+    if (s2) {
+        // see MSVehicle::getPosition
+        if (myLane == nullptr) {
+            return Position::INVALID;
+        }
+        if (isParking()) {
+            if (myStops.begin()->parkingarea != nullptr) {
+                return myStops.begin()->parkingarea->getVehiclePosition(*this);
+            } else {
+                // position beside the road
+                PositionVector shp = static_cast<GUILane*>(myLane->getEdge().getLanes()[0])->getShape(s2);
+                shp.move2side(SUMO_const_laneWidth * (MSGlobals::gLefthand ? -1 : 1));
+                return shp.positionAtOffset((getPositionOnLane() + offset) * myLane->getLengthGeometryFactor(s2));
+            }
+        }
+        const PositionVector& shape = static_cast<GUILane*>(myLane)->getShape(s2);
+        const double posLat = (MSGlobals::gLefthand ? 1 : -1) * getLateralPositionOnLane();
+        return shape.positionAtOffset((getPositionOnLane() + offset) * myLane->getLengthGeometryFactor(s2), posLat);
+    } else {
+        return getPosition(offset);
+    }
 }
 
 

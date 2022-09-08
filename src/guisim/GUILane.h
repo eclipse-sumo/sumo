@@ -99,6 +99,10 @@ public:
         return myShape2;
     }
 
+    double getLengthGeometryFactor(double secondaryShape) const {
+        return secondaryShape ? myLengthGeometryFactor2 :  myLengthGeometryFactor;
+    }
+
     /// @name Access to vehicles
     /// @{
 
@@ -387,6 +391,7 @@ private:
 
     /// @brief secondary shape for visualization
     PositionVector myShape2;
+    double myLengthGeometryFactor2;
 
     /// @brief cached for tracking color value
     static GUIVisualizationSettings* myCachedGUISettings;

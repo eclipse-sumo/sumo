@@ -74,6 +74,10 @@ public:
         return MEVehicle::getPosition(offset);
     }
 
+    Position getVisualPosition(bool /*s2*/, const double offset = 0) const {
+        return MEVehicle::getPosition(offset);
+    }
+
     /// @brief return exaggeration associated with this GLObject
     double getExaggeration(const GUIVisualizationSettings& s) const;
 
