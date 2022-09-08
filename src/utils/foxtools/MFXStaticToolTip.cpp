@@ -60,7 +60,12 @@ MFXStaticToolTip::~MFXStaticToolTip() {}
 
 void
 MFXStaticToolTip::enableStaticToolTip(const bool value) {
-    myEnableStaticTooltip = value;
+    if (value) {
+        myEnableStaticTooltip = true;
+    } else {
+        myEnableStaticTooltip = false;
+        hideStaticToolTip();
+    }
 }
 
 
@@ -72,7 +77,7 @@ MFXStaticToolTip::isStaticToolTipEnabled() const {
 
 void 
 MFXStaticToolTip::showStaticToolTip(const FXString &toolTipText) {
-    if (toolTipText.empty()) {
+    if (!myEnableStaticTooltip || toolTipText.empty()) {
         hideStaticToolTip();
     } else {
         // set tip text
@@ -104,7 +109,7 @@ MFXStaticToolTip::onPaint(FXObject* sender, FXSelector sel, void* obj) {
     }
 }
 
-#include <iostream>
+
 long 
 MFXStaticToolTip::onUpdate(FXObject* sender, FXSelector sel, void* ptr) {
     // Regular GUI update
