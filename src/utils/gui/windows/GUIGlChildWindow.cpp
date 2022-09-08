@@ -137,11 +137,13 @@ GUIGlChildWindow::buildNavigationToolBar() {
         myParent->getStaticTooltipMenu(), "\tToggles View ToolTips\tToggles whether tool tips in view shall be shown.",
         GUIIconSubSys::getIcon(GUIIcon::SHOWTOOLTIPS_VIEW), this, MID_SHOWTOOLTIPS_VIEW, GUIDesignMFXCheckableButtonSquare);
     myParent->getStaticTooltipView()->enableStaticToolTip(false);
+    myParent->getStaticTooltipView()->enableStaticToolTip(false);
     // add toggle button for tool-tips in menu on/off (by default checked)
     myShowToolTipsMenu = new MFXCheckableButton(false, myGripNavigationToolbar ? myGripNavigationToolbar : myStaticNavigationToolBar,
         myParent->getStaticTooltipMenu(), "\tToggles Menu ToolTips\tToggles whether tool tips in menushall be shown.",
         GUIIconSubSys::getIcon(GUIIcon::SHOWTOOLTIPS_MENU), this, MID_SHOWTOOLTIPS_MENU, GUIDesignMFXCheckableButtonSquare);
     myShowToolTipsMenu->setChecked(getApp()->reg().readIntEntry("gui", "menuToolTips", 0) != 1);
+    myParent->getStaticTooltipMenu()->enableStaticToolTip(myShowToolTipsMenu->amChecked());
 }
 
 
