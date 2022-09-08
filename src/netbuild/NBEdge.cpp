@@ -1753,7 +1753,7 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
                     // the following special case might get obsolete once we have solved #9745
                     const bool isBicycleLeftTurn = k2.indirectLeft || (dir2 == LinkDirection::LEFT && (i2->getPermissions(k2.fromLane) & k2.toEdge->getPermissions(k2.toLane)) == SVC_BICYCLE);
                     // compute the crossing point
-                    if ((needsCont || (bothPrio && oppositeLeftIntersect)) && (!con.indirectLeft || dir2 == LinkDirection::STRAIGHT) && !isBicycleLeftTurn) {
+                    if ((needsCont || (bothPrio && oppositeLeftIntersect && !isRailway(conPermissions))) && (!con.indirectLeft || dir2 == LinkDirection::STRAIGHT) && !isBicycleLeftTurn) {
                         crossingPositions.second.push_back(index);
                         const PositionVector otherShape = n.computeInternalLaneShape(i2, k2, numPoints, 0, shapeFlag);
                         otherShapes.push_back(otherShape);
