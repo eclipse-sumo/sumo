@@ -113,6 +113,9 @@ protected:
     /// @brief The view
     GUISUMOAbstractView* myView = nullptr;
 
+    /// @brief Zoom but
+    MFXCheckableButton* myZoomStyle = nullptr;
+
     /// The locator menu
     FXPopup* myLocatorPopup = nullptr;
 
