@@ -290,7 +290,7 @@ private:
 
     // @brief contains the main CF-model calculations
     double _v(const MSVehicle* const veh, const double gap2pred, const double mySpeed,
-              const double predSpeed, const double desSpeed, const bool respectMinGap, const int update) const;
+              const double predSpeed, const double desSpeed, const bool respectMinGap, const int update, const CalcReason usage) const;
 
     // @brief calculates the internal desired speed for the vehicle depending on myTpreview and upcoming turns, intersections and speed limit changes
     void internalspeedlimit(MSVehicle* const veh, const double oldV) const;
