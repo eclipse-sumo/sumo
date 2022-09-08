@@ -413,10 +413,10 @@ class TLS:
         deleteButton = 39
         moveUp = 43
         moveDown = 47
-        cleanStates = 48
-        groupSignal = 49
-        addStates = 50
-        ungroupSignal = 51
+        cleanStates = 50
+        groupSignal = 51
+        addStates = 52
+        ungroupSignal = 53
 
     class actuatedPhase:
         dur = 18
@@ -430,11 +430,11 @@ class TLS:
         addButton = 51
         deleteButton = 55
         moveUp = 60
-        moveDown = 63
-        cleanStates = 65
-        groupSignal = 66
-        addStates = 67
-        ungroupSignal = 68
+        moveDown = 64
+        cleanStates = 67
+        groupSignal = 68
+        addStates = 69
+        ungroupSignal = 70
 
     class delayBasedPhase:
         dur = 18
@@ -446,11 +446,11 @@ class TLS:
         addButton = 43
         deleteButton = 47
         moveUp = 52
-        moveDown = 55
-        cleanStates = 57
-        groupSignal = 58
-        addStates = 59
-        ungroupSignal = 60
+        moveDown = 56
+        cleanStates = 59
+        groupSignal = 60
+        addStates = 61
+        ungroupSignal = 62
 
     class NEMAPhase:
         dur = 18
@@ -465,11 +465,11 @@ class TLS:
         addButton = 55
         deleteButton = 59
         moveUp = 64
-        moveDown = 67
-        cleanStates = 69
-        groupSignal = 70
-        addStates = 71
-        ungroupSignal = 72
+        moveDown = 68
+        cleanStates = 71
+        groupSignal = 72
+        addStates = 73
+        ungroupSignal = 74
         
 
 
