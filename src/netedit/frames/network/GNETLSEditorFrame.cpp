@@ -2044,11 +2044,19 @@ GNETLSEditorFrame::TLSPhases::movePhaseUp(const int row) {
     // mark TLS ad modified
     myTLSEditorParent->myTLSDefinition->markAsModified();
     // delete selected row
-    myTLSEditorParent->myEditedDef->getLogic()->swapPhase(row, row - 1);
+    if (row == 0) {
+        myTLSEditorParent->myEditedDef->getLogic()->swapfirstPhase();
+    } else {
+        myTLSEditorParent->myEditedDef->getLogic()->swapPhase(row, row - 1);
+    }
     // int phase table again
     initPhaseTable();
     // mark new row as selected
-    myPhaseTable->selectRow(row - 1);
+    if (row == 0) {
+        myPhaseTable->selectRow((int)myTLSEditorParent->myEditedDef->getLogic()->getPhases().size() - 1);
+    } else {
+        myPhaseTable->selectRow(row - 1);
+    }
     // set focus in table
     getPhaseTable()->setFocus();
 }
@@ -2059,11 +2067,19 @@ GNETLSEditorFrame::TLSPhases::movePhaseDown(const int row) {
     // mark TLS ad modified
     myTLSEditorParent->myTLSDefinition->markAsModified();
     // delete selected row
-    myTLSEditorParent->myEditedDef->getLogic()->swapPhase(row, row + 1);
+    if (row == (int)myTLSEditorParent->myEditedDef->getLogic()->getPhases().size() - 1) {
+         myTLSEditorParent->myEditedDef->getLogic()->swaplastPhase();
+    } else {
+        myTLSEditorParent->myEditedDef->getLogic()->swapPhase(row, row + 1);
+    }
     // int phase table again
     initPhaseTable();
     // mark new row as selected
-    myPhaseTable->selectRow(row + 1);
+    if (row == (int)myTLSEditorParent->myEditedDef->getLogic()->getPhases().size() - 1) {
+        myPhaseTable->selectRow(0);
+    } else {
+        myPhaseTable->selectRow(row + 1);
+    }
     // set focus in table
     getPhaseTable()->setFocus();
 }

@@ -199,14 +199,9 @@ GNETLSTable::setTableSize(const std::string &columnsType, const int numberRow) {
     for (int i = 0; i < numberRow; i++) {
         myRows.push_back(new Row(this));
     }
-    // mark first and last rows
-    if (myRows.size() > 0) {
-        myRows.front()->markAsFirstRow();
-        myRows.back()->markAsLastRow();
-    }
-    // if we have only a row, disable remove button
+    // if we have only a row, disable remove and move buttons
     if (myRows.size() == 1) {
-        myRows.front()->disableRemoveRow();
+        myRows.front()->disableButtons();
     }
 }
 
@@ -1322,33 +1317,11 @@ GNETLSTable::Row::getCells() const {
 }
 
 
-void 
-GNETLSTable::Row::markAsFirstRow() {
-    // search move up button and disable it
-    for (const auto &cell : myCells) {
-        if (cell->getType() == 't') {
-            cell->disableButton();
-        }
-    }
-}
-
-
 void
-GNETLSTable::Row::markAsLastRow() {
+GNETLSTable::Row::disableButtons() {
     // search move up button and disable it
     for (const auto &cell : myCells) {
-        if (cell->getType() == 'b') {
-            cell->disableButton();
-        }
-    }
-}
-
-
-void
-GNETLSTable::Row::disableRemoveRow() {
-    // search move up button and disable it
-    for (const auto &cell : myCells) {
-        if (cell->getType() == 'd') {
+        if ((cell->getType() == 'd') || (cell->getType() == 'b') || (cell->getType() == 't')) {
             cell->disableButton();
         }
     }

@@ -368,14 +368,8 @@ protected:
         /// @brief get cells
         const std::vector<Cell*> &getCells() const;
 
-        /// @brief mark row as first row
-        void markAsFirstRow();
-
-        /// @brief mark row as last row
-        void markAsLastRow();
-
-        /// @brief disable remove row button
-        void disableRemoveRow();
+        /// @brief disable row buttons
+        void disableButtons();
 
     protected:
         /// @brief poiner to table parent

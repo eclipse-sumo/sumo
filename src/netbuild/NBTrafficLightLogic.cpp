@@ -136,6 +136,21 @@ NBTrafficLightLogic::swapPhase(int indexPhaseA, int indexPhaseB) {
 
 
 void
+NBTrafficLightLogic::swapfirstPhase() {
+    const auto firstPhase = myPhases.front();
+    myPhases.erase(myPhases.begin());
+    myPhases.push_back(firstPhase);
+}
+
+
+void
+NBTrafficLightLogic::swaplastPhase() {
+    const auto lastPhase = myPhases.back();
+    myPhases.pop_back();
+    myPhases.insert(myPhases.begin(), lastPhase);
+}
+
+void
 NBTrafficLightLogic::setStateLength(int numLinks, LinkState fill) {
     if (myNumLinks > numLinks) {
         for (PhaseDefinition& p : myPhases) {
