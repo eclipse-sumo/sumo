@@ -25,7 +25,9 @@
 #include <config.h>
 
 #include <string>
+#include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
+#include <microsim/MSLink.h>
 #include <microsim/MSJunction.h>
 #include <microsim/MSJunctionControl.h>
 #include "NLNetShapeHandler.h"
@@ -47,11 +49,17 @@ void
 NLNetShapeHandler::myStartElement(int element,
                           const SUMOSAXAttributes& attrs) {
     switch (element) {
-        case SUMO_TAG_LANE: 
-            addLane(attrs); 
+        case SUMO_TAG_LANE:
+            addLane(attrs);
             break;
         case SUMO_TAG_JUNCTION:
-            addJunction(attrs); 
+            addJunction(attrs);
+            break;
+        case SUMO_TAG_CONNECTION:
+            if (myNet.hasInternalLinks()) {
+                // see sortInternalShapes
+                addConnection(attrs);
+            }
             break;
         default:
             break;
@@ -97,4 +105,56 @@ NLNetShapeHandler::addJunction(const SUMOSAXAttributes& attrs) {
 }
 
 
+void
+NLNetShapeHandler::addConnection(const SUMOSAXAttributes& attrs) {
+    if (!attrs.hasAttribute(SUMO_ATTR_VIA)) {
+        return;
+    }
+    bool ok = true;
+    const std::string fromID = attrs.get<std::string>(SUMO_ATTR_FROM, nullptr, ok);
+    const std::string toID = attrs.get<std::string>(SUMO_ATTR_TO, nullptr, ok);
+    const int fromLaneIdx = attrs.get<int>(SUMO_ATTR_FROM_LANE, nullptr, ok);
+    const int toLaneIdx = attrs.get<int>(SUMO_ATTR_TO_LANE, nullptr, ok);
+    std::string viaID = attrs.get<std::string>(SUMO_ATTR_VIA, nullptr, ok);
+    MSLane* lane = MSLane::dictionary(viaID);
+    if (lane == nullptr) {
+        // warning already given in addLane
+        return;
+    }
+    std::string fromLaneID = fromID + "_" + toString(fromLaneIdx);
+    std::string toLaneID = toID + "_" + toString(toLaneIdx);
+
+    if (lane->getLinkCont()[0]->getLane()->getID() != toLaneID
+            || lane->getIncomingLanes()[0].lane->getID() != fromLaneID) {
+        // mismatch: find the correct lane that connects fromLaneID and toLaneID
+        const MSJunction* junction = lane->getEdge().getToJunction();
+        for (MSLane* lane2 : junction->getInternalLanes()) {
+            if (lane2->getLinkCont()[0]->getLane()->getID() == toLaneID
+                    && lane2->getIncomingLanes()[0].lane->getID() == fromLaneID) {
+                myShuffledJunctions[junction][lane2] = lane;
+                break;
+            }
+        }
+    }
+}
+
+
+void
+NLNetShapeHandler::sortInternalShapes() {
+    // even when the alternative network has the same topology as
+    // the primary network, the ids of internal lanes may differ
+    // since they are based on a clockwise sorting of the edges.
+    // hence we must verify connections and suffle the shapes as needed
+    for (auto item : myShuffledJunctions) {
+        const MSJunction* junction = item.first;
+        std::map<MSLane*, PositionVector> shapes2;
+        for (MSLane* lane : junction->getInternalLanes()) {
+            shapes2[lane] = lane->getShape(true);
+        }
+
+        for (auto laneMap : item.second) {
+            laneMap.first->addSecondaryShape(shapes2[laneMap.second]);
+        }
+    }
+}
 /****************************************************************************/

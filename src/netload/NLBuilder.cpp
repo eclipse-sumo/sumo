@@ -141,6 +141,7 @@ NLBuilder::build() {
                 WRITE_MESSAGE("Loading of alternative net failed.");
                 return false;
             }
+            nsh.sortInternalShapes();
             PROGRESS_TIME_MESSAGE(before);
         }
     }

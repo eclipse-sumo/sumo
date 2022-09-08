@@ -54,6 +54,8 @@ public:
     /// @brief Destructor
     virtual ~NLNetShapeHandler();
 
+    /// @brief resolve mismatch between internal lane ids of both networks
+    void sortInternalShapes();
 
 protected:
     /// @name inherited from GenericSAXHandler
@@ -81,11 +83,15 @@ private:
     /// adds a junction position
     void addJunction(const SUMOSAXAttributes& attrs);
 
+    /// records connection topology for later resorting
+    void addConnection(const SUMOSAXAttributes& attrs);
 
 protected:
     /// @brief The net to fill (preinitialised)
     MSNet& myNet;
 
+    /// @brief mapping between primary internal lane and corresponding secondary internal lane
+    std::map<const MSJunction*, std::map<MSLane*, MSLane*> > myShuffledJunctions;
 
 private:
     /** invalid copy constructor */

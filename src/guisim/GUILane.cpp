@@ -113,6 +113,9 @@ GUILane::initRotations(const PositionVector& shape,
         std::vector<double>& rotations,
         std::vector<double>& lengths,
         std::vector<RGBColor>& colors) {
+    rotations.clear();
+    lengths.clear();
+    colors.clear();
     rotations.reserve(shape.size() - 1);
     lengths.reserve(shape.size() - 1);
     colors.reserve(shape.size() - 1);
