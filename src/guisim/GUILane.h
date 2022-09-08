@@ -334,7 +334,7 @@ private:
             std::vector<RGBColor>& colors);
 
     /// @brief gets the scaling value according to the current scheme index
-    double getScaleValue(int activeScheme) const;
+    double getScaleValue(int activeScheme, bool s2) const;
 
     /// @brief sets multiple colors according to the current scheme index and some lane function
     bool setMultiColor(const GUIVisualizationSettings& s, const GUIColorer& c, RGBColor& col) const;

@@ -509,6 +509,7 @@ void
 GUILane::drawGL(const GUIVisualizationSettings& s) const {
     GLHelper::pushMatrix();
     GLHelper::pushName(getGlID());
+    const bool s2 = s.secondaryShape;
     const bool isCrossing = myEdge->isCrossing();
     const bool isWalkingArea = myEdge->isWalkingArea();
     const bool isInternal = isCrossing || isWalkingArea || myEdge->isInternal();
@@ -518,7 +519,7 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
         GUIEdge* myGUIEdge = dynamic_cast<GUIEdge*>(myEdge);
         exaggeration *= s.edgeScaler.getScheme().getColor(myGUIEdge->getScaleValue(s.edgeScaler.getActive()));
     } else {
-        exaggeration *= s.laneScaler.getScheme().getColor(getScaleValue(s.laneScaler.getActive()));
+        exaggeration *= s.laneScaler.getScheme().getColor(getScaleValue(s.laneScaler.getActive(), s2));
     }
     const bool hasRailSignal = myEdge->getToJunction()->getType() == SumoXMLNodeType::RAIL_SIGNAL;
     const bool detailZoom = s.scale * exaggeration > 5;
@@ -535,7 +536,6 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
     }
     // set lane color
     const RGBColor color = setColor(s);
-    const bool s2 = s.secondaryShape;
     const PositionVector& baseShape = getShape(s2);
     auto& shapeColors = getShapeColors(s2);
     if (MSGlobals::gUseMesoSim) {
@@ -1291,7 +1291,7 @@ GUILane::getColorValue(const GUIVisualizationSettings& s, int activeScheme) cons
         }
         case 17: {
             // geometrical length has no meaning for walkingAreas since it describes the outer boundary
-            return myEdge->isWalkingArea() ? 1 :  1 / myLengthGeometryFactor;
+            return myEdge->isWalkingArea() ? 1 :  1 / getLengthGeometryFactor(s.secondaryShape);
         }
         case 19: {
             return getLoadedEdgeWeight();
@@ -1393,7 +1393,7 @@ GUILane::getColorValue(const GUIVisualizationSettings& s, int activeScheme) cons
 
 
 double
-GUILane::getScaleValue(int activeScheme) const {
+GUILane::getScaleValue(int activeScheme, bool s2) const {
     switch (activeScheme) {
         case 0:
             return 0;
@@ -1437,7 +1437,7 @@ GUILane::getScaleValue(int activeScheme) const {
             }
         }
         case 16: {
-            return 1 / myLengthGeometryFactor;
+            return 1 / getLengthGeometryFactor(s2);
         }
         case 17: {
             return getLoadedEdgeWeight();
