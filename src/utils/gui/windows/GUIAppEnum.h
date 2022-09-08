@@ -377,8 +377,8 @@ enum {
     MID_LOCATEPOI,
     /// @brief Locate polygons - button
     MID_LOCATEPOLY,
-    /// @brief Show tool tips - button
-    MID_SHOWTOOLTIPS,
+    /// @brief Show tool tips in view - button
+    MID_SHOWTOOLTIPS_VIEW,
     /// @brief Make snapshot - button
     MID_MAKESNAPSHOT,
     /// @brief toggle zooming style

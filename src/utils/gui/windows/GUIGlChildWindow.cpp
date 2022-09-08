@@ -39,7 +39,7 @@
 FXDEFMAP(GUIGlChildWindow) GUIGlChildWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_RECENTERVIEW,                   GUIGlChildWindow::onCmdRecenterView),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_I_EDITVIEWPORT,     GUIGlChildWindow::onCmdEditViewport),
-    FXMAPFUNC(SEL_COMMAND,  MID_SHOWTOOLTIPS,                   GUIGlChildWindow::onCmdShowToolTips),
+    FXMAPFUNC(SEL_COMMAND,  MID_SHOWTOOLTIPS_VIEW,              GUIGlChildWindow::onCmdShowToolTipsView),
     FXMAPFUNC(SEL_COMMAND,  MID_ZOOM_STYLE,                     GUIGlChildWindow::onCmdZoomStyle),
     FXMAPFUNC(SEL_COMMAND,  MID_COLOURSCHEMECHANGE,             GUIGlChildWindow::onCmdChangeColorScheme),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_F9_EDIT_VIEWSCHEME,      GUIGlChildWindow::onCmdEditViewScheme),
@@ -132,8 +132,8 @@ GUIGlChildWindow::buildNavigationToolBar() {
         GUIIconSubSys::getIcon(GUIIcon::LOCATE), myLocatorPopup, nullptr, GUIDesignButtonToolbarLocator);
     // add toggle button for tool-tips on/off
     new MFXCheckableButton(false, myGripNavigationToolbar ? myGripNavigationToolbar : myStaticNavigationToolBar,
-        myParent->getStaticTooltip(), "\tToggles Tool Tips\tToggles whether tool tips shall be shown.",
-        GUIIconSubSys::getIcon(GUIIcon::SHOWTOOLTIPS), this, MID_SHOWTOOLTIPS, GUIDesignMFXCheckableButtonSquare);
+        myParent->getStaticTooltip(), "\tToggles ToolTips\tToggles whether tool tips shall be shown.",
+        GUIIconSubSys::getIcon(GUIIcon::SHOWTOOLTIPS_VIEW), this, MID_SHOWTOOLTIPS_VIEW, GUIDesignMFXCheckableButtonSquare);
 }
 
 
@@ -209,7 +209,7 @@ GUIGlChildWindow::onCmdEditViewScheme(FXObject*, FXSelector, void*) {
 
 
 long
-GUIGlChildWindow::onCmdShowToolTips(FXObject* sender, FXSelector, void*) {
+GUIGlChildWindow::onCmdShowToolTipsView(FXObject* sender, FXSelector, void*) {
     MFXCheckableButton* button = dynamic_cast<MFXCheckableButton*>(sender);
     // check if button was successfully casted
     if (button) {

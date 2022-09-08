@@ -63,7 +63,7 @@ public:
     long onCmdRecenterView(FXObject*, FXSelector, void*);
     long onCmdEditViewport(FXObject*, FXSelector, void*);
     long onCmdEditViewScheme(FXObject*, FXSelector, void*);
-    long onCmdShowToolTips(FXObject* sender, FXSelector, void*);
+    long onCmdShowToolTipsView(FXObject* sender, FXSelector, void*);
     long onCmdZoomStyle(FXObject* sender, FXSelector, void*);
     long onCmdChangeColorScheme(FXObject*, FXSelector sel, void*);
     /// @}
