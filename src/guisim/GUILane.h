@@ -99,7 +99,7 @@ public:
         return myShape2;
     }
 
-    double getLengthGeometryFactor(double secondaryShape) const {
+    double getLengthGeometryFactor(bool secondaryShape) const {
         return secondaryShape ? myLengthGeometryFactor2 :  myLengthGeometryFactor;
     }
 

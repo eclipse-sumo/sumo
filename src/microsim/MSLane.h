@@ -275,14 +275,20 @@ public:
      */
     void addNeigh(const std::string& id);
 
-    /// used by the gui
-    virtual void addSecondaryShape(const PositionVector& /*shape*/) {}
-
-    virtual double getLengthGeometryFactor(double /*secondaryShape*/) const {
-        return myLengthGeometryFactor;
-    }
     ///@}
 
+    /// @name Used by the GUI for secondary shape visualization
+    /// @{
+    virtual void addSecondaryShape(const PositionVector& /*shape*/) {}
+
+    virtual double getLengthGeometryFactor(bool /*secondaryShape*/) const {
+        return myLengthGeometryFactor;
+    }
+
+    virtual const PositionVector& getShape(bool /*secondaryShape*/) const {
+        return myShape;
+    }
+    ///@}
 
 
     /// @name interaction with MSMoveReminder

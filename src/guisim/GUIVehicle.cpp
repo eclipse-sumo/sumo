@@ -301,6 +301,7 @@ GUIVehicle::drawAction_drawLinkItems(const GUIVisualizationSettings& s) const {
 
 void
 GUIVehicle::drawAction_drawCarriageClass(const GUIVisualizationSettings& s, bool asImage) const {
+    const bool s2 = s.secondaryShape;
     RGBColor current = GLHelper::getColor();
     RGBColor darker = current.changedBrightness(-51);
     const double exaggeration = (s.vehicleSize.getExaggeration(s, this)
@@ -390,8 +391,8 @@ GUIVehicle::drawAction_drawCarriageClass(const GUIVisualizationSettings& s, bool
             }
             backLane = prev;
         }
-        front = lane->geometryPositionAtOffset(carriageOffset, lateralOffset);
-        back = backLane->geometryPositionAtOffset(carriageBackOffset, lateralOffset);
+        front = lane->getShape(s2).positionAtOffset(carriageOffset * lane->getLengthGeometryFactor(s2), lateralOffset);
+        back = backLane->getShape(s2).positionAtOffset(carriageBackOffset * lane->getLengthGeometryFactor(s2), lateralOffset);
         if (front == back) {
             // no place for drawing available
             continue;
@@ -1079,12 +1080,12 @@ GUIVehicle::getVisualPosition(bool s2, const double offset) const {
                 return myStops.begin()->parkingarea->getVehiclePosition(*this);
             } else {
                 // position beside the road
-                PositionVector shp = static_cast<GUILane*>(myLane->getEdge().getLanes()[0])->getShape(s2);
+                PositionVector shp = myLane->getEdge().getLanes()[0]->getShape(s2);
                 shp.move2side(SUMO_const_laneWidth * (MSGlobals::gLefthand ? -1 : 1));
                 return shp.positionAtOffset((getPositionOnLane() + offset) * myLane->getLengthGeometryFactor(s2));
             }
         }
-        const PositionVector& shape = static_cast<GUILane*>(myLane)->getShape(s2);
+        const PositionVector& shape = myLane->getShape(s2);
         const double posLat = (MSGlobals::gLefthand ? 1 : -1) * getLateralPositionOnLane();
         return shape.positionAtOffset((getPositionOnLane() + offset) * myLane->getLengthGeometryFactor(s2), posLat);
     } else {
@@ -1097,7 +1098,7 @@ double
 GUIVehicle::getVisualAngle(bool s2) const {
     if (s2) {
         // see MSVehicle::computeAngle
-        const PositionVector& shape = static_cast<GUILane*>(myLane)->getShape(s2);
+        const PositionVector& shape = myLane->getShape(s2);
         if (isParking()) {
             if (myStops.begin()->parkingarea != nullptr) {
                 return myStops.begin()->parkingarea->getVehicleAngle(*this);
