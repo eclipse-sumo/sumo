@@ -98,7 +98,7 @@ public:
      * @param[in] onInsertion Indicator whether the call is triggered during vehicle insertion
      * @return the safe velocity
      */
-    double maximumSafeFollowSpeed(double gap, double egoSpeed, double predSpeed, double predMaxDecel, bool onInsertion = false) const;
+    double maximumSafeFollowSpeed(double gap, double egoSpeed, double predSpeed, double predMaxDecel, bool onInsertion = false, const CalcReason usage = CalcReason::CURRENT) const;
 
 
     /** @brief Returns the maximum next velocity for stopping within gap

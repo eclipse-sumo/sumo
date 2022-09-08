@@ -209,7 +209,7 @@ private:
 
 private:
     double _v(const MSVehicle* const veh, const MSVehicle* const pred, const double gap2pred, const double mySpeed,
-              const double predSpeed, const double desSpeed, const bool respectMinGap = true) const;
+              const double predSpeed, const double desSpeed, const bool respectMinGap, const CalcReason usage = CalcReason::CURRENT) const;
 
     double speedSpeedControl(const double speed, double vErr, VehicleMode& vehMode) const;
     double speedGapControl(const MSVehicle* const veh, const double gap2pred,

@@ -2360,7 +2360,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
                         newStopDist += stop.pars.endPos - stop.pars.startPos;
                     }
                     if (lastLink != nullptr) {
-                        lastLink->adaptLeaveSpeed(cfModel.freeSpeed(this, vLinkPass, endPos, stop.getSpeed(), MSCFModel::CalcReason::FUTURE));
+                        lastLink->adaptLeaveSpeed(cfModel.freeSpeed(this, vLinkPass, endPos, stop.getSpeed(), false, MSCFModel::CalcReason::FUTURE));
                     }
                 }
             } else {
