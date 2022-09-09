@@ -96,9 +96,7 @@ private:
         JPS_AgentId myAgentId;
     };
 
-
     MSNet* myNet;
-    MSLane* myLane;
     int myNumActivePedestrians = 0;
     std::vector<PState*> myPedestrianStates;
     JPS_GeometryBuilder myGeometryBuilder;

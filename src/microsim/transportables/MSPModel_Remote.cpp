@@ -27,6 +27,7 @@
 #include "utils/geom/Position.h"
 #include "utils/geom/PositionVector.h"
 #include "MSPModel_Remote.h"
+#include "MSPerson.h"
 
 
 struct JPS_ErrorMessage_t {
@@ -47,6 +48,10 @@ MSPModel_Remote::MSPModel_Remote(const OptionsCont& oc, MSNet* net) : myNet(net)
 
 
 MSPModel_Remote::~MSPModel_Remote() {
+    for (PState* state : myPedestrianStates) {
+        delete state;
+        state = nullptr;
+    }
     JPS_Simulation_Free(mySimulation);
     JPS_OperationalModel_Free(myModel);
     JPS_Areas_Free(myAreas);
@@ -60,9 +65,12 @@ MSTransportableStateAdapter*
 MSPModel_Remote::add(MSTransportable* person, MSStageMoving* stage, SUMOTime now) {
 	assert(person->getCurrentStageType() == MSStageType::WALKING);
 	
-    Position departurePosition = myLane->getShape().positionAtOffset(stage->getDepartPos());
+    const MSLane* departureLane = getSidewalk<MSEdge, MSLane>(stage->getRoute().front());
+    Position departurePosition = departureLane->getShape().positionAtOffset(stage->getDepartPos());
     departurePosition.add(0.1, 0, 0);
-    Position arrivalPosition = myLane->getShape().positionAtOffset(stage->getArrivalPos());
+    
+    const MSLane* arrivalLane = getSidewalk<MSEdge, MSLane>(stage->getRoute().back());
+    Position arrivalPosition = arrivalLane->getShape().positionAtOffset(stage->getArrivalPos());
     arrivalPosition.sub(0.1, 0.0);
 
 	JPS_Waypoint waypoints[] = { {{arrivalPosition.x(), arrivalPosition.y()}, JPS_EXIT_TOLERANCE} };
@@ -88,76 +96,6 @@ MSPModel_Remote::add(MSTransportable* person, MSStageMoving* stage, SUMOTime now
 	myPedestrianStates.push_back(state);
     myNumActivePedestrians++;
 		
-    /*assert(person->getCurrentStageType() == MSStageType::WALKING);
-
-    PState* state = new PState(static_cast<MSPerson*>(person), stage);
-
-    // JPS_Agent req;
-    int id = myLastId++;
-    remoteIdPStateMapping[id] = state;
-        req.set_id(id);
-
-        MSLane* departureLane = getFirstPedestrianLane(*(stage->getRoute().begin()));
-        double departureOffsetAlongLane = stage->getDepartPos();
-
-        //TODO fix this on casim side [GL]
-        double offset = departureOffsetAlongLane == 0 ? 0.4 : -0.4;
-        departureOffsetAlongLane += offset;
-
-        Position departurePos = departureLane->getShape().positionAtOffset(departureOffsetAlongLane);
-        hybridsim::Coordinate* departureCoordinate = req.mutable_enterlocation();
-        departureCoordinate->set_x(departurePos.x());
-        departureCoordinate->set_y(departurePos.y());
-
-        MSLane* arrivalLane = getFirstPedestrianLane(*(stage->getRoute().end() - 1));
-        double arrivalOffsetAlongLange = stage->getArrivalPos();
-        Position arrivalPos = arrivalLane->getShape().positionAtOffset(arrivalOffsetAlongLange);
-        hybridsim::Coordinate* arrivalCoordinate = req.mutable_leavelocation();
-        arrivalCoordinate->set_x(arrivalPos.x());
-        arrivalCoordinate->set_y(arrivalPos.y());
-
-
-        const MSEdge* prv = 0;
-        for (ConstMSEdgeVector::const_iterator it = stage->getRoute().begin(); it != stage->getRoute().end(); it++) {
-            const MSEdge* edge = *it;
-            int dir = FORWARD;//default
-            if (prv == 0) {
-                if (stage->getRoute().size() > 1) {
-                    const MSEdge* nxt = *(it + 1);
-                    dir = (edge->getFromJunction() == nxt->getFromJunction()
-                           || edge->getFromJunction() == nxt->getToJunction()) ? BACKWARD : FORWARD;
-                } else {
-                    dir = stage->getDepartPos() == 0 ? FORWARD : BACKWARD;
-                }
-            } else {
-                dir = (edge->getFromJunction() == prv->getToJunction()
-                       || edge->getFromJunction() == prv->getFromJunction()) ? FORWARD : BACKWARD;
-            }
-            if (edgesTransitionsMapping.find(edge) == edgesTransitionsMapping.end()) {
-                throw ProcessError("Cannot map edge : " + edge->getID() + " to remote simulation");
-            };
-            std::tuple<int, int> transitions = edgesTransitionsMapping[edge];
-
-            int frId = dir == FORWARD ? std::get<0>(transitions) : std::get<1>(transitions);
-            int toId = dir == FORWARD ? std::get<1>(transitions) : std::get<0>(transitions);
-            hybridsim::Destination* destFr = req.add_dests();
-            destFr->set_id(frId);
-            hybridsim::Destination* destTo = req.add_dests();
-            destTo->set_id(toId);
-            prv = edge;
-        }
-
-        hybridsim::Boolean rpl;
-        ClientContext context;
-        Status st = myHybridsimStub->transferAgent(&context, req, &rpl);
-        if (!st.ok()) {
-            throw ProcessError("Person: " + person->getID() + " could not be transferred to remote simulation");
-        }
-        if (!rpl.val()) {
-            //TODO not yet implemented
-            throw ProcessError("Remote simulation declined to accept person: " + person->getID() + ".");
-        }
-    */
     return state;
 }
 
@@ -171,6 +109,7 @@ MSPModel_Remote::remove(MSTransportableStateAdapter* state) {
 
 SUMOTime
 MSPModel_Remote::execute(SUMOTime time) {
+    // Perform the JuPedSim iterations.
     int nbrIterations = (int)(DELTA_T / JPS_DELTA_T);
 	for (int i = 0; i < nbrIterations; ++i)
 	{
@@ -180,99 +119,42 @@ MSPModel_Remote::execute(SUMOTime time) {
             std::cout << "Error during iteration " << i << ": " << JPS_ErrorMessage_GetMessage(mess) << std::endl;
         }
         JPS_ErrorMessage_Free(mess);
-
-        for (PState* state : myPedestrianStates)
-        {
-            // Updates the agent position.
-            JPS_Agent agent = JPS_Simulation_ReadAgent(mySimulation, state->getAgentId(), nullptr);
-            double newPositionX = JPS_Agent_PositionX(agent);
-            double newPositionY = JPS_Agent_PositionY(agent);
-            state->setPosition(newPositionX, newPositionY);
-
-            // If near the last waypoint, remove the agent.
-            Position newPosition(newPositionX, newPositionY);
-            if (newPosition.distanceTo2D(state->getDestination()) < JPS_EXIT_TOLERANCE) {
-                registerArrived();
-                JPS_Simulation_RemoveAgent(mySimulation, state->getAgentId(), nullptr);
-                myPedestrianStates.erase(std::find(myPedestrianStates.begin(), myPedestrianStates.end(), state));
-                dynamic_cast<MSStageMoving*>(state->getPerson()->getCurrentStage())->moveToNextEdge(state->getPerson(), time, 1, nullptr);
-                break;
-            }
-
-            double newOrientationX = JPS_Agent_OrientationX(agent);
-            double newOrientationY = JPS_Agent_OrientationY(agent);
-            state->setAngle(atan2(newOrientationY, newOrientationX));
-        }
 	}
-	
-	/*
-        hybridsim::LeftClosedRightOpenTimeInterval interval;
-        interval.set_fromtimeincluding(time / DELTA_T);
-        interval.set_totimeexcluding((time + DELTA_T) / DELTA_T);
 
+    // Update the state of all pedestrians.
+    for (PState* state : myPedestrianStates)
+    {
+        // Updates the agent position.
+        JPS_Agent agent = JPS_Simulation_ReadAgent(mySimulation, state->getAgentId(), nullptr);
+        double newPositionX = JPS_Agent_PositionX(agent);
+        double newPositionY = JPS_Agent_PositionY(agent);
+        state->setPosition(newPositionX, newPositionY);
 
-        //1. simulate time interval
-        hybridsim::Empty rpl;
-        ClientContext context1;
-        Status st = myHybridsimStub->simulatedTimeInerval(&context1, interval, &rpl);
-        if (!st.ok()) {
-            throw ProcessError("Could not simulated time interval from: " + toString(time) + " to: " + toString(time + DELTA_T));
-        }
+        // Updates the agent direction.
+        double newOrientationX = JPS_Agent_OrientationX(agent);
+        double newOrientationY = JPS_Agent_OrientationY(agent);
+        state->setAngle(atan2(newOrientationY, newOrientationX));
 
-        //2. receive trajectories
-        hybridsim::Empty req2;
-        hybridsim::Trajectories trajectories;
-        ClientContext context2;
-        Status st2 = myHybridsimStub->receiveTrajectories(&context2, req2, &trajectories);
-        if (!st2.ok()) {
-            throw ProcessError("Could not receive trajectories from remote simulation");
-        }
-        for (hybridsim::Trajectory trajectory : trajectories.trajectories()) {
-            if (remoteIdPStateMapping.find(trajectory.id()) != remoteIdPStateMapping.end()) {
-                PState* pState = remoteIdPStateMapping[trajectory.id()];
-                pState->setPosition(trajectory.x(), trajectory.y());
-                pState->setPhi(trajectory.phi());
-                if (transitionsEdgesMapping.find(trajectory.currentdest().id()) != transitionsEdgesMapping.end()) {
-                    const MSEdge* nextTargetEdge = transitionsEdgesMapping[trajectory.currentdest().id()];
-                    const MSEdge* nextStageEdge = pState->getStage()->getNextRouteEdge();
-    //                const MSEdge* currentStageEdge = pState->getStage()->getEdge();
-                    if (nextTargetEdge == nextStageEdge) {
-                        const bool arrived = pState->getStage()->moveToNextEdge(pState->getPerson(), time);
-                        std::cout << "next edge" << std::endl;
-                    }
-                }
-    //            pState.
-            } else {
-                throw ProcessError("Pedestrian with id: " + toString(trajectory.id()) + " is not known.");
-            }
+        Position newPosition(newPositionX, newPositionY);
+        MSPerson* person = state->getPerson();
+        MSPerson::MSPersonStage_Walking* stage = dynamic_cast<MSPerson::MSPersonStage_Walking*>(person->getCurrentStage());
+        
+        // Possibly updates the edge to walk on.
+        const MSLane* currentLane = getSidewalk<MSEdge, MSLane>(stage->getEdge());
+        Position relativePosition = (currentLane->getShape()).transformToVectorCoordinates(newPosition);
+        if (relativePosition == Position::INVALID) {
+            stage->moveToNextEdge(person, time, 1, nullptr);
         }
 
-        //3. retrieve agents that are ready to come back home to SUMO
-        hybridsim::Empty req3;
-        hybridsim::Agents agents;
-        ClientContext context3;
-        Status st3 = myHybridsimStub->queryRetrievableAgents(&context3, req3, &agents);
-        if (!st3.ok()) {
-            throw ProcessError("Could not query retrievable agents");
+        // If near the last waypoint, remove the agent.
+        if (newPosition.distanceTo2D(state->getDestination()) < JPS_EXIT_TOLERANCE) {
+            JPS_Simulation_RemoveAgent(mySimulation, state->getAgentId(), nullptr);
+            myPedestrianStates.erase(std::find(myPedestrianStates.begin(), myPedestrianStates.end(), state));
+            stage->moveToNextEdge(person, time, 1, nullptr);
+            registerArrived();
         }
-        //TODO check whether agents can be retrieved
-        for (hybridsim::Agent agent : agents.agents()) {
-            if (remoteIdPStateMapping.find(agent.id()) != remoteIdPStateMapping.end()) {
-                PState* pState = remoteIdPStateMapping[agent.id()];
-                while (!pState->getStage()->moveToNextEdge(pState->getPerson(), time)) {
-                    remoteIdPStateMapping.erase(agent.id());
-                }
-            }
-        }
+    }
 
-        //4. confirm transferred agents
-        hybridsim::Empty rpl2;
-        ClientContext context4;
-        Status st4 = myHybridsimStub->confirmRetrievedAgents(&context4, agents, &rpl2);
-        if (!st4.ok()) {
-            throw ProcessError("Could not confirm retrieved agents");
-        }
-    */
     return DELTA_T;
 }
 
@@ -297,85 +179,66 @@ void MSPModel_Remote::clearState() {
     // Not sure if useful because it seems the reload button triggers
     // the creation of a new MSPModel_Remote object.
     myNumActivePedestrians = 0;
+    for (PState* state : myPedestrianStates) {
+        delete state;
+        state = nullptr;
+    }
     myPedestrianStates.clear();
 }
-
-
-MSLane*
-MSPModel_Remote::getFirstPedestrianLane(const MSEdge* const& edge) {
-    for (MSLane* lane : edge->getLanes()) {
-        if (lane->getPermissions() == SVC_PEDESTRIAN) {
-            return lane;
-        }
-    }
-	return nullptr;
-}
-
 
 void
 MSPModel_Remote::initialize() {
 	myGeometryBuilder = JPS_GeometryBuilder_Create();
     myAreasBuilder = JPS_AreasBuilder_Create();
 
-	MSEdgeVector edges = (myNet->getEdgeControl()).getEdges();
-	for (const MSEdge* const edge : edges) {
-		MSLane* lane = getFirstPedestrianLane(edge);
-		if (lane) {
-            double amount = lane->getWidth() / 2.0;
-            PositionVector shape = lane->getShape();
-            Position leftPoint = shape[0];
-			Position rightPoint = shape[1];
-			
-			double angle = leftPoint.angleTo2D(rightPoint);
-			Position toRotate = leftPoint + Position(amount * cos(angle), amount * sin(angle));
-			Position topLeftCorner = toRotate.rotateAround2D(M_PI / 2.0, leftPoint);
-			Position bottomLeftCorner = toRotate.rotateAround2D(-M_PI / 2.0, leftPoint);
-			
-			angle = rightPoint.angleTo2D(leftPoint);
-			toRotate = rightPoint + Position(amount * cos(angle), amount * sin(angle));
-			Position topRightCorner = toRotate.rotateAround2D(-M_PI / 2.0, rightPoint);
-			Position bottomRightCorner = toRotate.rotateAround2D(M_PI / 2.0, rightPoint);
-            
-			std::vector<Position> lanePolygon{ topLeftCorner, bottomLeftCorner, bottomRightCorner, topRightCorner };
-			std::vector<double> lanePolygonCoordinates;
-			for (const Position& position : lanePolygon) {
-				lanePolygonCoordinates.push_back(position.x());
-				lanePolygonCoordinates.push_back(position.y());
-			}
-
-			JPS_GeometryBuilder_AddAccessibleArea(myGeometryBuilder, lanePolygonCoordinates.data(), lanePolygonCoordinates.size() / 2);
-
-            // Temporary!
-			myLane = lane;
-			break;
+	for (const MSEdge* const edge : (myNet->getEdgeControl()).getEdges()) {
+        const MSLane* lane = getSidewalk<MSEdge, MSLane>(edge);
+        double amount = lane->getWidth() / 2.0;
+        
+        PositionVector shape = lane->getShape();
+        shape.move2side(amount);
+        Position bottomFirstCorner = shape[0];
+        Position bottomSecondCorner = shape[1];
+        shape = lane->getShape();
+        shape.move2side(-amount);
+        Position topFirstCorner = shape[0];
+        Position topSecondCorner = shape[1];
+		
+        std::vector<Position> lanePolygon{ topFirstCorner, bottomFirstCorner, bottomSecondCorner, topSecondCorner };
+		std::vector<double> lanePolygonCoordinates;
+		for (const Position& position : lanePolygon) {
+			lanePolygonCoordinates.push_back(position.x());
+			lanePolygonCoordinates.push_back(position.y());
 		}
+
+		JPS_GeometryBuilder_AddAccessibleArea(myGeometryBuilder, lanePolygonCoordinates.data(), lanePolygonCoordinates.size() / 2);
 	}
 
     // The line below doesn't work on Windows at least.
-    // JPS_ErrorMessage mess{}; 
-    JPS_ErrorMessage mess = new JPS_ErrorMessage_t{};
-    myGeometry = JPS_GeometryBuilder_Build(myGeometryBuilder, &mess);
+    // JPS_ErrorMessage message{}; 
+    JPS_ErrorMessage message = new JPS_ErrorMessage_t{};
+    myGeometry = JPS_GeometryBuilder_Build(myGeometryBuilder, &message);
     if (myGeometry == nullptr) {
-        std::cout << "Error while creating the geometry: " << JPS_ErrorMessage_GetMessage(mess) << std::endl;
+        std::cout << "Error while creating the geometry: " << JPS_ErrorMessage_GetMessage(message) << std::endl;
     }
-    JPS_ErrorMessage_Free(mess);
+    JPS_ErrorMessage_Free(message);
 
     // Areas are built (although unused) because the JPS_Simulation object needs them.
 	myAreas = JPS_AreasBuilder_Build(myAreasBuilder, nullptr);
 
-    mess = new JPS_ErrorMessage_t{};
+    message = new JPS_ErrorMessage_t{};
 	myModel = JPS_OperationalModel_Create_VelocityModel(8, 0.1, 5, 0.02, nullptr);
     if (myModel == nullptr) {
-        std::cout << "Error while creating the pedestrian model: " << JPS_ErrorMessage_GetMessage(mess) << std::endl;
+        std::cout << "Error while creating the pedestrian model: " << JPS_ErrorMessage_GetMessage(message) << std::endl;
     }
     JPS_ErrorMessage_Free(mess);
 
-    mess = new JPS_ErrorMessage_t{};
+    message = new JPS_ErrorMessage_t{};
 	mySimulation = JPS_Simulation_Create(myModel, myGeometry, myAreas, STEPS2TIME(JPS_DELTA_T), nullptr);
     if (mySimulation == nullptr) {
-        std::cout << "Error while creating the simulation: " << JPS_ErrorMessage_GetMessage(mess) << std::endl;
+        std::cout << "Error while creating the simulation: " << JPS_ErrorMessage_GetMessage(message) << std::endl;
     }
-    JPS_ErrorMessage_Free(mess);
+    JPS_ErrorMessage_Free(message);
 }
 
 
