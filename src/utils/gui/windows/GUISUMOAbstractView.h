@@ -231,9 +231,6 @@ public:
     /// @brief show viewsscheme editor
     void showViewschemeEditor();
 
-    /// @brief show tool tips
-    void showToolTips(bool val);
-
     /// @brief set color scheme
     virtual bool setColorScheme(const std::string&);
 
@@ -464,7 +461,7 @@ protected:
     std::vector<GUIGlID> getObjectsInBoundary(Boundary bound, bool singlePosition);
 
     /// @brief invokes the tooltip for the given object
-    void showToolTipFor(const GUIGlID id);
+    bool showToolTipFor(const GUIGlID idToolTip);
 
     /// @brief Draws the stored decals
     void drawDecals();
@@ -480,7 +477,6 @@ protected:
     /// @brief check whether we can read image data or position with gdal
     FXImage* checkGDALImage(Decal& d);
 
-protected:
     /// @brief The application
     GUIMainWindow* myApp;
 
@@ -510,9 +506,6 @@ protected:
 
     /// @brief visualization settings
     GUIVisualizationSettings* myVisualizationSettings;
-
-    /// @brief use tool tips
-    bool myUseToolTips;
 
     /// @brief Internal information whether doInit() was called
     bool myAmInitialised;

@@ -1,2 +1,1 @@
-Warning: Vehicle 'bike15' performs emergency braking on lane 'c_0' with decel=7.00, wished=3.00, severity=1.00, time=15.70.
-Warning: Vehicle 'bike15'; collision with vehicle 'bike9', lane='c_0', gap=-0.08', latGap=-0.07, time=15.80 stage=move.
+Warning: Vehicle 'bike15' collision with person 'ped29', lane='-b_0', gap=-0.81, time=10.40, stage=move.

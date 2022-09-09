@@ -438,7 +438,7 @@ When a phase uses attribute 'next' with a list of indices. The next phase is cho
 
 Examples for this type of traffic light logic can be found in [{{SUMO}}/tests/sumo/tls/actuated/multiNext/dualring_simple]({{Source}}tests/sumo/tls/actuated/multiNext/dualring_simple).
 
-The helper script [tls_buildTransitions.py] can be used to generate such logics from simplified definitions.
+The helper script [buildTransitions.py](../Tools/tls.md#buildtransitionspy) can be used to generate such logics from simplified definitions.
 
 ## Type 'actuated' with custom switching rules
 

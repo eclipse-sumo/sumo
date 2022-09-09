@@ -846,6 +846,9 @@ TRACI_CONST int TL_CONSTRAINT_BYFOE = 0x34;
 // add/get rail signal constraints by foeSignal (set: traffic lights)
 TRACI_CONST int TL_CONSTRAINT_REMOVE = 0x35;
 
+// update rail signal constraints by vehID (set: traffic lights)
+TRACI_CONST int TL_CONSTRAINT_UPDATE = 0x36;
+
 // outgoing link number (get: lanes)
 TRACI_CONST int LANE_LINK_NUMBER = 0x30;
 

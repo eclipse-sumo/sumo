@@ -1618,6 +1618,21 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value) {
             const std::set<NBTrafficLightDefinition*> copyOfTls = myNBNode->getControllingTLS();
             for (const auto& TLS : copyOfTls) {
                 TLS->setType(SUMOXMLDefinitions::TrafficLightTypes.get(value));
+                // add special parameters values for NEMA
+                if (TLS->getType() == TrafficLightType::NEMA) {
+                    if (!TLS->knowsParameter("barrierPhases")) {
+                        TLS->setParameter("barrierPhases", "4,8");
+                    }
+                    if (!TLS->knowsParameter("barrier2Phases")) {
+                        TLS->setParameter("barrier2Phases", "2,6");
+                    }
+                    if (!TLS->knowsParameter("ring1")) {
+                        TLS->setParameter("ring1", "0,2,0,4");
+                    }
+                    if (!TLS->knowsParameter("ring2")) {
+                        TLS->setParameter("ring2", "0,6,0,8");
+                    }
+                }
             }
             break;
         }

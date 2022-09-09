@@ -124,13 +124,6 @@ Warning: At actuated tlLogic 'cluster_160503146_27411250_5372980361_5727160044_5
 Warning: At actuated tlLogic 'cluster_21432801_2938442114_295705005_3139140896_3178759584_735967920_735967921_735967926_961816249_961816257', actuated phase 6 has no controlling detector.
 Warning: At actuated tlLogic 'joinedS_0', linkIndex 16 has no controlling detector.
 Warning: At actuated tlLogic 'joinedS_0', linkIndex 24 has no controlling detector.
-Warning: busStop '1827996417' on lane '24914992#1_1' is too short for vehicle '4_bus_TXL:1'.
-Warning: busStop '1673526976' on lane '167272512#2_0' is too short for vehicle '21_tram_12:1'.
-Warning: busStop '30731700' on lane '167272531#9_0' is too short for vehicle '21_tram_12:1'.
-Warning: busStop '1668497956' on lane '153537614#2_0' is too short for vehicle '28_tram_M1:2'.
-Warning: busStop '3918673888' on lane '388702039#10_0' is too short for vehicle '36_bus_N6:0'.
-Warning: busStop '3869306762' on lane '111251382#2_1' is too short for vehicle '37_bus_147:0'.
-Warning: busStop '3928759794' on lane '388702041#11_0' is too short for vehicle '70_bus_N6:1'.
 Warning: 12 total messages of type: At actuated tlLogic '%', linkIndex % has no controlling detector.
 Warning: At actuated tlLogic 'GS_25662542', linkIndex 12 has no controlling detector.
 Warning: At actuated tlLogic 'GS_25662542', linkIndex 13 has no controlling detector.
@@ -146,17 +139,22 @@ Warning: At actuated tlLogic 'joinedS_2', linkIndex 10 has no controlling detect
 Warning: At actuated tlLogic 'joinedS_2', linkIndex 31 has no controlling detector.
 Warning: At actuated tlLogic 'joinedS_2', linkIndex 32 has no controlling detector.
 Warning: At actuated tlLogic 'joinedS_2', linkIndex 33 has no controlling detector.
-Warning: busStop '1827996417' on lane '24914992#1_1' is too short for vehicle 'pt_bus_TXL:1.0'.
-Warning: busStop '1673526976' on lane '167272512#2_0' is too short for vehicle 'pt_tram_12:1.0'.
-Warning: busStop '30731700' on lane '167272531#9_0' is too short for vehicle 'pt_tram_12:1.0'.
-Warning: busStop '1668497956' on lane '153537614#2_0' is too short for vehicle 'pt_tram_M1:2.0'.
-Warning: busStop '3918673888' on lane '388702039#10_0' is too short for vehicle 'pt_bus_N6:0.0'.
-Warning: busStop '3869306762' on lane '111251382#2_1' is too short for vehicle 'pt_bus_147:0.0'.
-Warning: Teleporting vehicle 'pt_tram_M2:0.1'; collision with vehicle 'pt_tram_M2:3.0', lane='148458500#0_0', gap=-1.00, time=479.00 stage=move.
-Warning: Vehicle 'pt_tram_M2:0.1' ends teleporting on edge '148458500#1', time=480.00.
-Warning: busStop '3928759794' on lane '388702041#11_0' is too short for vehicle 'pt_bus_N6:1.0'.
-Warning: Person 'ped81' aborted waiting for 100:0 at busStop '272408975'.
-Warning: Person 'ped45' aborted waiting for TXL:1 at busStop '272408975'.
-Warning: Person 'ped99' aborted waiting for 100:1 at busStop '270718978'.
-Warning: Person 'ped37' aborted waiting for S5:1 at busStop '27411231'.
-Warning: Person 'ped172' aborted waiting for N2:1 at busStop '-3867910429'.
+Warning: Teleporting vehicle 'pt_tram_M2:3.0'; frontal collision with vehicle 'pt_tram_M2:0.1', lane='-148458500#0_0', gap=-1.00, time=478.00 stage=move.
+Warning: Vehicle 'pt_tram_M2:3.0' ends teleporting on edge '148457212#0', time=478.00.
+Warning: Person 'ped79' aborted waiting for 100:0 at busStop '271296293'.
+Warning: Person 'ped97' aborted waiting for 100:0 at busStop '1827996417'.
+Warning: Person 'ped76' aborted waiting for M4:3 at busStop '30731508'.
+Warning: Person 'ped108' aborted waiting for 12:0 at busStop '2175753204'.
+Warning: Person 'ped1' aborted waiting for M5:0 at busStop '1633759766'.
+Warning: Person 'ped89' aborted waiting for M5:2 at busStop '1633759766'.
+Warning: Person 'ped92' aborted waiting for 100:0 at busStop '272408975'.
+Warning: Person 'ped172' aborted waiting for 12:0 at busStop '2175753204'.
+Warning: Person 'ped96' aborted waiting for S26:0 at busStop '1769645503'.
+Warning: Person 'ped142' aborted waiting for U6:0 at busStop '3043709616'.
+Warning: Person 'ped28' aborted waiting for RE7:0 at busStop '2603331683'.
+Warning: Person 'ped78' aborted waiting for S5:0 at busStop '1745157971'.
+Warning: Person 'ped154' aborted waiting for 12:0 at busStop '2175753204'.
+Warning: Person 'ped81' aborted waiting for N6:1 at busStop '3928759794'.
+Warning: Person 'ped158' aborted waiting for N6:1 at busStop '3928759794'.
+Warning: Person 'ped139' aborted waiting for N40:0 at busStop '3867910438'.
+Warning: Person 'ped167' aborted waiting for 200:1 at busStop '270718978'.

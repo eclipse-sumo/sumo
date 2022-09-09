@@ -139,7 +139,6 @@ GUISUMOAbstractView::GUISUMOAbstractView(FXComposite* p, GUIMainWindow& app, GUI
     myMouseHotspotY(app.getDefaultCursor()->getHotY()),
     myPopup(nullptr),
     myPopupPosition(Position(0, 0)),
-    myUseToolTips(false),
     myAmInitialised(false),
     myViewportChooser(nullptr),
     myWindowCursorPositionX(getWidth() / 2),
@@ -190,10 +189,9 @@ GUISUMOAbstractView::getChanger() const {
 
 void
 GUISUMOAbstractView::updateToolTip() {
-    if (!myUseToolTips) {
-        return;
+    if (myParent->getParent()->getStaticTooltipView()->isStaticToolTipEnabled()) {
+        update();
     }
-    update();
 }
 
 
@@ -303,12 +301,8 @@ GUISUMOAbstractView::paintGL() {
     if (getTrackedID() != GUIGlObject::INVALID_ID) {
         centerTo(getTrackedID(), false);
     }
-
-    GUIGlID id = GUIGlObject::INVALID_ID;
-    if (myUseToolTips) {
-        id = getObjectUnderCursor();
-    }
-
+    // get id tooltip
+    const GUIGlID idToolTip = getObjectUnderCursor();
     // draw
     glClearColor(
         myVisualizationSettings->backgroundColor.red() / 255.f,
@@ -336,10 +330,11 @@ GUISUMOAbstractView::paintGL() {
     if (myVisualizationSettings->fps) {
         drawFPS();
     }
-    // check whether the select mode /tooltips)
-    //  shall be computed, too
-    if (myUseToolTips && id != GUIGlObject::INVALID_ID) {
-        showToolTipFor(id);
+    // check if show tooltip
+    if (myParent->getParent()->getStaticTooltipView()->isStaticToolTipEnabled()) {
+        showToolTipFor(idToolTip);
+    } else {
+        myParent->getParent()->getStaticTooltipView()->hideStaticToolTip();
     }
     swapBuffers();
 }
@@ -545,23 +540,18 @@ GUISUMOAbstractView::getObjectsInBoundary(Boundary bound, bool singlePosition) {
 }
 
 
-void
-GUISUMOAbstractView::showToolTipFor(const GUIGlID id) {
-    if (id != 0) {
-        GUIGlObject* object = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
+bool
+GUISUMOAbstractView::showToolTipFor(const GUIGlID idToolTip) {
+    if (idToolTip != GUIGlObject::INVALID_ID) {
+        const GUIGlObject* object = GUIGlObjectStorage::gIDStorage.getObjectBlocking(idToolTip);
         if (object != nullptr) {
-            Position pos = getPositionInformation();
-            pos.add(0, p2m(15));
-            std::string label = object->getFullName();
-            if (myVisualizationSettings->edgeValue.show(object) &&
-                    (object->getType() == GLO_EDGE || object->getType() == GLO_LANE)) {
-                const int activeScheme = myVisualizationSettings->getLaneEdgeMode();
-                label += " (" + toString(object->getColorValue(*myVisualizationSettings, activeScheme)) + ")";
-            }
-            GLHelper::drawTextBox(label, pos, GLO_MAX - 1, p2m(20), RGBColor::BLACK, RGBColor(255, 179, 0, 255));
-            GUIGlObjectStorage::gIDStorage.unblockObject(id);
+            myParent->getParent()->getStaticTooltipView()->showStaticToolTip(object->getFullName().c_str());
+            return true;
         }
     }
+    // nothing to show
+    myParent->getParent()->getStaticTooltipView()->hideStaticToolTip();
+    return false;
 }
 
 
@@ -1466,12 +1456,6 @@ GUISUMOAbstractView::copyViewportTo(GUISUMOAbstractView* view) {
     view->setViewportFromToRot(Position(myChanger->getXPos(), myChanger->getYPos(), myChanger->getZPos()),
                                Position(myChanger->getXPos(), myChanger->getYPos(), 0),
                                myChanger->getRotation());
-}
-
-
-void
-GUISUMOAbstractView::showToolTips(bool val) {
-    myUseToolTips = val;
 }
 
 

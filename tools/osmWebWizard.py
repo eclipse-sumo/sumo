@@ -61,39 +61,29 @@ typemaps = {
     "bicycles": os.path.join(typemapdir, "osmNetconvertBicycle.typ.xml"),
 }
 
+# common parameters
+CP = ["--trip-attributes", 'departLane="best"',
+      "--fringe-start-attributes", 'departSpeed="max"',
+      "--validate", "--remove-loops"]
+
+def getParams(vClass, prefix=None):
+    if prefix is None:
+        prefix = vClass
+    return ["--vehicle-class", vClass,  "--vclass", vClass,  "--prefix", prefix]
+
 vehicleParameters = {
-    "passenger":  ["--vehicle-class", "passenger",  "--vclass", "passenger",  "--prefix", "veh",
-                   "--min-distance", "300",  "--trip-attributes", 'departLane="best"',
-                   "--fringe-start-attributes", 'departSpeed="max"',
-                   "--allow-fringe.min-length", "1000",
-                   "--lanes", "--validate"],
-    "truck":      ["--vehicle-class", "truck", "--vclass", "truck", "--prefix", "truck", "--min-distance", "600",
-                   "--fringe-start-attributes", 'departSpeed="max"',
-                   "--trip-attributes", 'departLane="best"', "--validate"],
-    "bus":        ["--vehicle-class", "bus",   "--vclass", "bus",   "--prefix", "bus",   "--min-distance", "600",
-                   "--fringe-start-attributes", 'departSpeed="max"',
-                   "--trip-attributes", 'departLane="best"', "--validate"],
-    "motorcycle": ["--vehicle-class", "motorcycle", "--vclass", "motorcycle", "--prefix", "moto",
-                   "--fringe-start-attributes", 'departSpeed="max"',
-                   "--max-distance", "1200", "--trip-attributes", 'departLane="best"', "--validate"],
-    "bicycle":    ["--vehicle-class", "bicycle",    "--vclass", "bicycle",    "--prefix", "bike",
-                   "--fringe-start-attributes", 'departSpeed="max"',
-                   "--max-distance", "8000", "--trip-attributes", 'departLane="best"', "--validate"],
-    "tram":       ["--vehicle-class", "tram",       "--vclass", "tram",       "--prefix", "tram",
-                   "--fringe-start-attributes", 'departSpeed="max"',
-                   "--min-distance", "1200", "--trip-attributes",                'departLane="best"', "--validate"],
-    "rail_urban": ["--vehicle-class", "rail_urban", "--vclass", "rail_urban", "--prefix", "urban",
-                   "--fringe-start-attributes", 'departSpeed="max"',
-                   "--min-distance", "1800", "--trip-attributes",                'departLane="best"', "--validate"],
-    "rail":       ["--vehicle-class", "rail",       "--vclass", "rail",       "--prefix", "rail",
-                   "--fringe-start-attributes", 'departSpeed="max"',
-                   "--min-distance", "2400", "--trip-attributes",                'departLane="best"', "--validate"],
-    "ship":       ["--vehicle-class", "ship",       "--vclass", "ship",       "--prefix", "ship", "--validate",
-                   "--fringe-start-attributes", 'departSpeed="max"'],
-    "pedestrian": ["--vehicle-class", "pedestrian", "--pedestrians", "--prefix", "ped",
-                   "--max-distance", "2000", ],
-    "persontrips": ["--vehicle-class", "pedestrian", "--persontrips", "--prefix", "ped",
-                    "--trip-attributes", 'modes="public"', ],
+    "passenger":  getParams("passenger", "veh")  + CP + ["--min-distance", "300",
+                                                         "--allow-fringe.min-length", "1000", "--lanes"],
+    "truck":      getParams("truck")             + CP + ["--min-distance", "600"],
+    "bus":        getParams("bus")               + CP + ["--min-distance", "600"],
+    "motorcycle": getParams("motorcycle")        + CP + ["--max-distance", "1200"],
+    "bicycle":    getParams("bicycle", "bike")   + CP + ["--max-distance", "8000"],
+    "tram":       getParams("tram")              + CP + ["--min-distance", "1200"],
+    "rail_urban": getParams("rail_urban")        + CP + ["--min-distance", "1800"],
+    "rail":       getParams("rail")              + CP + ["--min-distance", "2400"],
+    "ship":       getParams("ship") + ["--fringe-start-attributes", 'departSpeed="max"', "--validate"],
+    "pedestrian": ["--vehicle-class", "pedestrian", "--pedestrians", "--prefix", "ped", "--max-distance", "2000"],
+    "persontrips":["--vehicle-class", "pedestrian", "--persontrips", "--prefix", "ped", "--trip-attributes", 'modes="public"'],
 }
 
 vehicleNames = {
@@ -303,7 +293,8 @@ class Builder(object):
 
             self.edges = sumolib.net.readNet(os.path.join(self.tmp, self.files["net"])).getEdges()
 
-            for vehicle, options in self.data["vehicles"].items():
+            for vehicle in sorted(self.data["vehicles"].keys()):
+                options = self.data["vehicles"][vehicle]
                 self.report("Processing %s" % vehicleNames[vehicle])
 
                 self.filename("route", ".%s.rou.xml" % vehicle)

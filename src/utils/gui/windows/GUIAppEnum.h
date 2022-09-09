@@ -377,8 +377,10 @@ enum {
     MID_LOCATEPOI,
     /// @brief Locate polygons - button
     MID_LOCATEPOLY,
-    /// @brief Show tool tips - button
-    MID_SHOWTOOLTIPS,
+    /// @brief Show tool tips in view - button
+    MID_SHOWTOOLTIPS_VIEW,
+    /// @brief Show tool tips in menus - button
+    MID_SHOWTOOLTIPS_MENU,
     /// @brief Make snapshot - button
     MID_MAKESNAPSHOT,
     /// @brief toggle zooming style
@@ -1412,6 +1414,7 @@ enum {
     /// @}
 
     /// @brief callback for MFXMenuButtonTooltip
+    MID_MBTTIP_FOCUS,
     MID_MBTTIP_SELECTED,
 
     /// @brief last element of enum (not used)

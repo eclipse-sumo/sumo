@@ -2367,7 +2367,15 @@ NBNode::checkIsRemovableReporting(std::string& reason) const {
             origSet.insert((*i)->getFromNode());
         }
         if (origSet.size() < 2) {
-            return false;
+            // overlapping case
+            if (myIncomingEdges[0]->getGeometry() == myIncomingEdges[1]->getGeometry() &&
+                    myOutgoingEdges[0]->getGeometry() == myOutgoingEdges[1]->getGeometry()) {
+                std::string reason;
+                return ((myIncomingEdges[0]->expandableBy(myOutgoingEdges[0], reason) &&
+                            myIncomingEdges[1]->expandableBy(myOutgoingEdges[1], reason))
+                        || (myIncomingEdges[0]->expandableBy(myOutgoingEdges[1], reason) &&
+                            myIncomingEdges[1]->expandableBy(myOutgoingEdges[0], reason)));
+            }
         }
         // check whether this node is an intermediate node of
         //  a two-directional street
@@ -2403,12 +2411,25 @@ NBNode::getEdgesToJoin() const {
     std::vector<std::pair<NBEdge*, NBEdge*> > ret;
     // one in, one out-case
     if (myOutgoingEdges.size() == 1 && myIncomingEdges.size() == 1) {
-        ret.push_back(
-            std::pair<NBEdge*, NBEdge*>(
-                myIncomingEdges[0], myOutgoingEdges[0]));
+        ret.push_back(std::make_pair(myIncomingEdges[0], myOutgoingEdges[0]));
         return ret;
     }
-    // two in, two out-case
+    if (myIncomingEdges.size() == 2 && myOutgoingEdges.size() == 2) {
+        // two in, two out-case
+        if (myIncomingEdges[0]->getGeometry() == myIncomingEdges[1]->getGeometry() &&
+                myOutgoingEdges[0]->getGeometry() == myOutgoingEdges[1]->getGeometry()) {
+            // overlapping edges
+            std::string reason;
+            if (myIncomingEdges[0]->expandableBy(myOutgoingEdges[0], reason)) {
+                ret.push_back(std::make_pair(myIncomingEdges[0], myOutgoingEdges[0]));
+                ret.push_back(std::make_pair(myIncomingEdges[1], myOutgoingEdges[1]));
+            } else {
+                ret.push_back(std::make_pair(myIncomingEdges[0], myOutgoingEdges[1]));
+                ret.push_back(std::make_pair(myIncomingEdges[1], myOutgoingEdges[0]));
+            }
+            return ret;
+        }
+    }
     for (EdgeVector::const_iterator i = myIncomingEdges.begin(); i != myIncomingEdges.end(); i++) {
         // join with the edge that is not a turning direction
         NBEdge* opposite = (*i)->getTurnDestination(true);
@@ -3449,6 +3470,10 @@ NBNode::geometryLike(const EdgeVector& incoming, const EdgeVector& outgoing) con
         NBEdge* out1 = outgoing[1];
         if ((in0->isTurningDirectionAt(out0) || in0->isTurningDirectionAt(out1))
                 && (in1->isTurningDirectionAt(out0) || in1->isTurningDirectionAt(out1))) {
+            return true;
+        }
+        if (in0->getGeometry() == in1->getGeometry() && out0->getGeometry() == out1->getGeometry()) {
+            // overlapping edges
             return true;
         }
         for (EdgeVector::const_iterator it = incoming.begin(); it != incoming.end(); ++it) {

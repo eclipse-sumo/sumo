@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-09-05 15:32:03 by Eclipse SUMO sumo Version v1_14_1+0846-272d113
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <tripinfo-output value="tripinfos.xml"/>
+        <vehroute-output value="vehroutes.xml"/>
+        <vehroute-output.skip-ptlines value="false"/>
+    </output>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <routing>
+        <persontrip.transfer.car-walk value="ptStops"/>
+    </routing>
+
+    <report>
+        <xml-validation value="never"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="train" vClass="rail_urban"/>
+    <vehicle id="p0_0" depart="triggered" arrivalPos="450.00" arrivalSpeed="0.00" arrival="46.00">
+        <routeDistribution>
+            <route replacedOnEdge="" reason="person:p0" replacedAtTime="0.00" probability="0" edges="beg"/>
+            <route edges="beg beg2left"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="train.0" type="train" depart="0.00" line="train" arrival="128.00">
+        <route edges="gneE0"/>
+        <stop busStop="beg2left" until="10.00"/>
+        <stop busStop="left2end" until="60.00"/>
+    </vehicle>
+
+    <vehicle id="train.1" type="train" depart="300.00" line="train" arrival="428.00">
+        <route edges="gneE0"/>
+        <stop busStop="beg2left" until="310.00"/>
+        <stop busStop="left2end" until="360.00"/>
+    </vehicle>
+
+    <person id="p0" depart="0.00" arrival="824.00">
+        <ride from="beg" to="beg2left" trainStop="beg2left" lines="p0_0"/>
+        <ride from="gneE0" to="gneE0" trainStop="left2end" lines="train" intended="train.1" depart="310.00"/>
+        <walk edges="left2end end"/>
+    </person>
+
+</routes>

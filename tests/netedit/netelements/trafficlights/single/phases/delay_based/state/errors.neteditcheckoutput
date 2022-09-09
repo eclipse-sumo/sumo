@@ -1,0 +1,12 @@
+Warning: Missing yellow phase in tlLogic 'J0', program '0' for tl-index 4 when switching to phase 1.
+Warning: Missing green phase in tlLogic 'J0', program '0' for tl-index 0.
+Warning: Cannot build detector of length 100 because no further continuation lane was found for lane '-E2_1'! Truncated detector at length 18.9.
+Warning: Cannot build detector of length 100 because no further continuation lane was found for lane '-E2_2'! Truncated detector at length 18.9.
+Warning: Cannot build detector of length 100 because no further continuation lane was found for lane '-E1_1'! Truncated detector at length 18.9.
+Warning: Cannot build detector of length 100 because no further continuation lane was found for lane '-E1_2'! Truncated detector at length 18.9.
+Warning: Cannot build detector of length 100 because no further continuation lane was found for lane '-E3_1'! Truncated detector at length 18.9.
+Warning: Cannot build detector of length 100 because no further continuation lane was found for lane '-E3_2'! Truncated detector at length 18.9.
+Warning: Cannot build detector of length 100 because no further continuation lane was found for lane '-E0_1'! Truncated detector at length 18.9.
+Warning: Cannot build detector of length 100 because no further continuation lane was found for lane '-E0_2'! Truncated detector at length 18.9.
+Warning: Teleporting vehicle 'trip_1'; waited too long (yield), lane='-E2_2', time=306.00.
+Warning: Vehicle 'trip_1' ends teleporting on edge 'E3', time=306.00.

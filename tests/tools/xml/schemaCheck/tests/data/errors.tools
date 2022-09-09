@@ -1,0 +1,4 @@
+od2trips/errors/format/amitran/begin_missing/input_od.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'timeSlice': The attribute 'startTime' is required but missing.
+od2trips/errors/format/amitran/duration_negative/input_od.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'timeSlice', attribute 'duration': '-3600000' is not a valid value of the atomic type 'xs:unsignedInt'.
+od2trips/errors/format/amitran/origin_missing/input_od.xml:5:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'odPair': The attribute 'origin' is required but missing.
+od2trips/errors/format/amitran/type_missing/input_od.xml:3:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'actorConfig': The attribute 'id' is required but missing.

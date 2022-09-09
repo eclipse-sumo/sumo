@@ -151,3 +151,6 @@ ticket10978
 
 # right of way rules at side road with custom internal junction
 ticket11146
+
+# invalid rail internal junction
+ticket11558

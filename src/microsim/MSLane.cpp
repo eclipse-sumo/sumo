@@ -1603,6 +1603,36 @@ MSLane::detectCollisions(SUMOTime timestep, const std::string& stage) {
         }
     }
 
+
+    if (myEdge->getPersons().size() > 0 && hasPedestrians()) {
+#ifdef DEBUG_PEDESTRIAN_COLLISIONS
+        if (DEBUG_COND) {
+            std::cout << SIMTIME << " detect pedestrian collisions stage=" << stage << " lane=" << getID() << "\n";
+        }
+#endif
+        AnyVehicleIterator v_end = anyVehiclesEnd();
+        for (AnyVehicleIterator it_v = anyVehiclesBegin(); it_v != v_end; ++it_v) {
+            const MSVehicle* v = *it_v;
+            const double back = v->getBackPositionOnLane(this);
+            const double length = v->getVehicleType().getLength();
+            const double right = v->getRightSideOnEdge(this) - getRightSideOnEdge();
+            PersonDist leader = nextBlocking(back, right, right + v->getVehicleType().getWidth());
+#ifdef DEBUG_PEDESTRIAN_COLLISIONS
+            if (DEBUG_COND && DEBUG_COND2(v)) {
+                std::cout << SIMTIME << " back=" << back << " right=" << right << " person=" << Named::getIDSecure(leader.first) << " dist=" << leader.second << "\n";
+            }
+#endif
+            if (leader.first != 0 && leader.second < length) {
+                const bool newCollision = MSNet::getInstance()->registerCollision(v, leader.first, "sharedLane", this, leader.first->getEdgePos());
+                if (newCollision) {
+                    WRITE_WARNINGF("Vehicle '%' collision with person '%', lane='%', gap=%, time=%, stage=%.",
+                                   v->getID(), leader.first->getID(), getID(), leader.second - length, time2string(timestep), stage);
+                    MSNet::getInstance()->getVehicleControl().registerCollision(false);
+                }
+            }
+        }
+    }
+
     if (myVehicles.size() == 0) {
         return;
     }
@@ -1684,36 +1714,6 @@ MSLane::detectCollisions(SUMOTime timestep, const std::string& stage) {
                 if (detectCollisionBetween(timestep, stage, follow, lead, toRemove, toTeleport)) {
                     // XXX what about collisions with multiple leaders at once?
                     break;
-                }
-            }
-        }
-    }
-
-
-    if (myEdge->getPersons().size() > 0 && hasPedestrians()) {
-#ifdef DEBUG_PEDESTRIAN_COLLISIONS
-        if (DEBUG_COND) {
-            std::cout << SIMTIME << " detect pedestrian collisions stage=" << stage << " lane=" << getID() << "\n";
-        }
-#endif
-        AnyVehicleIterator v_end = anyVehiclesEnd();
-        for (AnyVehicleIterator it_v = anyVehiclesBegin(); it_v != v_end; ++it_v) {
-            const MSVehicle* v = *it_v;
-            const double back = v->getBackPositionOnLane(this);
-            const double length = v->getVehicleType().getLength();
-            const double right = v->getRightSideOnEdge(this) - getRightSideOnEdge();
-            PersonDist leader = nextBlocking(back, right, right + v->getVehicleType().getWidth());
-#ifdef DEBUG_PEDESTRIAN_COLLISIONS
-            if (DEBUG_COND && DEBUG_COND2(v)) {
-                std::cout << SIMTIME << " back=" << back << " right=" << right << " person=" << Named::getIDSecure(leader.first) << " dist=" << leader.second << "\n";
-            }
-#endif
-            if (leader.first != 0 && leader.second < length) {
-                const bool newCollision = MSNet::getInstance()->registerCollision(v, leader.first, "sharedLane", this, leader.first->getEdgePos());
-                if (newCollision) {
-                    WRITE_WARNINGF("Vehicle '%' collision with person '%', lane='%', gap=%, time=%, stage=%.",
-                                   v->getID(), leader.first->getID(), getID(), leader.second - length, time2string(timestep), stage);
-                    MSNet::getInstance()->getVehicleControl().registerCollision(false);
                 }
             }
         }
@@ -2012,6 +2012,10 @@ void
 MSLane::executeMovements(const SUMOTime t) {
     // multithreading: there are concurrent writes to myNeedsCollisionCheck but all of them should set it to true
     myNeedsCollisionCheck = true;
+    MSLane* bidi = getBidiLane();
+    if (bidi != nullptr && bidi->getVehicleNumber() == 0) {
+        MSNet::getInstance()->getEdgeControl().checkCollisionForInactive(bidi);
+    }
     MSVehicle* firstNotStopped = nullptr;
     // iterate over vehicles in reverse so that move reminders will be called in the correct order
     for (VehCont::reverse_iterator i = myVehicles.rbegin(); i != myVehicles.rend();) {
@@ -3525,6 +3529,9 @@ MSLane::getFollowersOnConsecutive(const MSVehicle* ego, double backOffset,
 
         // avoid loops
         std::set<const MSLane*> visited(myEdge->getLanes().begin(), myEdge->getLanes().end());
+        if (myEdge->getBidiEdge() != nullptr) {
+            visited.insert(myEdge->getBidiEdge()->getLanes().begin(), myEdge->getBidiEdge()->getLanes().end());
+        }
         std::vector<MSLane::IncomingLaneInfo> newFound;
         std::vector<MSLane::IncomingLaneInfo> toExamine = myIncomingLanes;
         while (toExamine.size() != 0) {

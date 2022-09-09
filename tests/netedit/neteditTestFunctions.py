@@ -107,6 +107,16 @@ def typeTab():
     pyautogui.hotkey('tab')
 
 
+def typeRight():
+    """
+    @brief type right key
+    """
+    # wait before every operation
+    time.sleep(DELAY_KEY_TAB)
+    # type keys
+    pyautogui.hotkey('right')
+
+
 def typeBackspace():
     """
     @brief type backspace key
@@ -2111,6 +2121,8 @@ def createTLS():
         typeTab()
     # create TLS
     typeSpace()
+    # wait
+    time.sleep(DELAY_SELECT)
 
 
 def createTLSOverlapped(junction):
@@ -2128,6 +2140,244 @@ def createTLSOverlapped(junction):
         typeTab()
     # create TLS
     typeSpace()
+
+
+def copyTLS():
+    """
+    @brief copy TLS in the current selected Junction
+    """
+    # focus current frame
+    focusOnFrame()
+    # type tab 2 times to jump to create TLS button
+    for _ in range(9):
+        typeTab()
+    # create TLS
+    typeSpace()
+
+
+def joinTSL():
+    """
+    @brief join TLS
+    """
+    # focus current frame
+    focusOnFrame()
+    # type tab 2 times to jump to create TLS button
+    for _ in range(5):
+        typeTab()
+    # create TLS
+    typeSpace()
+
+
+def disJoinTLS():
+    """
+    @brief disjoin the current TLS
+    """
+    # focus current frame
+    focusOnFrame()
+    # type tab 2 times to jump to create TLS button
+    for _ in range(6):
+        typeTab()
+    # create TLS
+    typeSpace()
+
+
+def deleteTLS():
+    """
+    @brief copy TLS in the current selected Junction
+    """
+    # focus current frame
+    focusOnFrame()
+    # type tab 2 times to jump to create TLS button
+    for _ in range(10):
+        typeTab()
+    # create TLS
+    typeSpace()
+
+
+def deleteJoinedTLS():
+    """
+    @brief copy TLS in the current selected Junction
+    """
+    # focus current frame
+    focusOnFrame()
+    # type tab 2 times to jump to create TLS button
+    for _ in range(11):
+        typeTab()
+    # create TLS
+    typeSpace()
+
+
+def resetSingleTLSPhases():
+    """
+    @brief copy TLS in the current selected Junction
+    """
+    # focus current frame
+    focusOnFrame()
+    # type tab 2 times to jump to create TLS button
+    for _ in range(11):
+        typeTab()
+    # create TLS
+    typeSpace()
+
+
+def resetAllTLSPhases():
+    """
+    @brief copy TLS in the current selected Junction
+    """
+    # focus current frame
+    focusOnFrame()
+    # type tab 2 times to jump to create TLS button
+    for _ in range(12):
+        typeTab()
+    # create TLS
+    typeSpace()
+
+
+def pressTLSPhaseButton(position):
+    """
+    @brief add defaiñt `jase
+    """
+    # focus current frame
+    focusOnFrame()
+    # type tab 2 times to jump to create TLS button
+    for _ in range(position):
+        typeTab()
+    # add phase
+    typeSpace()
+    # wait
+    time.sleep(DELAY_SELECT)
+    # add phase
+    typeSpace()
+    # wait
+    time.sleep(DELAY_SELECT)
+
+
+def addDefaultPhase(position):
+    """
+    @brief add defaiñt `jase
+    """
+    # focus current frame
+    focusOnFrame()
+    # type tab 2 times to jump to create TLS button
+    for _ in range(position):
+        typeTab()
+    # add phase
+    typeSpace()
+    # wait
+    time.sleep(DELAY_SELECT)
+    # add phase
+    typeSpace()
+    # wait
+    time.sleep(DELAY_SELECT)
+
+
+def addDuplicatePhase(position):
+    """
+    @brief add defaiñt `jase
+    """
+    # focus current frame
+    focusOnFrame()
+    # type tab 2 times to jump to create TLS button
+    for _ in range(position):
+        typeTab()
+    # add phase
+    typeSpace()
+    # wait
+    time.sleep(DELAY_SELECT)
+    # move to button
+    typeRight()
+    # add phase
+    typeSpace()
+    # wait
+    time.sleep(DELAY_SELECT)
+
+
+def addRedPhase(position):
+    """
+    @brief add defaiñt `jase
+    """
+    # focus current frame
+    focusOnFrame()
+    # type tab 2 times to jump to create TLS button
+    for _ in range(position):
+        typeTab()
+    # add phase
+    typeSpace()
+    # wait
+    time.sleep(DELAY_SELECT)
+    # go to button
+    for _ in range(2):
+        typeRight()
+    # add phase
+    typeSpace()
+    # wait
+    time.sleep(DELAY_SELECT)
+
+
+def addYellowPhase(position):
+    """
+    @brief add defaiñt `jase
+    """
+    # focus current frame
+    focusOnFrame()
+    # type tab 2 times to jump to create TLS button
+    for _ in range(position):
+        typeTab()
+    # add phase
+    typeSpace()
+    # wait
+    time.sleep(DELAY_SELECT)
+    # go to button
+    for _ in range(3):
+        typeRight()
+    # add phase
+    typeSpace()
+    # wait
+    time.sleep(DELAY_SELECT)
+
+
+def addGreenPhase(position):
+    """
+    @brief add defaiñt `jase
+    """
+    # focus current frame
+    focusOnFrame()
+    # type tab 2 times to jump to create TLS button
+    for _ in range(position):
+        typeTab()
+    # add phase
+    typeSpace()
+    # wait
+    time.sleep(DELAY_SELECT)
+    # go to button
+    for _ in range(4):
+        typeRight()
+    # add phase
+    typeSpace()
+    # wait
+    time.sleep(DELAY_SELECT)
+
+
+def addGreenPriorityPhase(position):
+    """
+    @brief add defaiñt `jase
+    """
+    # focus current frame
+    focusOnFrame()
+    # type tab 2 times to jump to create TLS button
+    for _ in range(position):
+        typeTab()
+    # add phase
+    typeSpace()
+    # wait
+    time.sleep(DELAY_SELECT)
+    # go to button
+    for _ in range(5):
+        typeRight()
+    # add phase
+    typeSpace()
+    # wait
+    time.sleep(DELAY_SELECT)
 
 #################################################
 # shapes
