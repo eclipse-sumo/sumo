@@ -487,57 +487,57 @@ class TLS:
             ungroupSignal = 18 + (8 * 24) + 4
 
         class actuatedPhase:
-            dur = 18 + (0 * 24) + 0
-            minD = 18 + (1 * 24) + 1
-            maxD = 18 + (2 * 24) + 2
-            state = 18 + (3 * 24) + 3
-            earlyEnd = 18 + (4 * 24) + 4
-            latestEnd = 18 + (5 * 24) + 5
-            nxt = 18 + (6 * 24) + 6
-            name = 18 + (7 * 24) + 7
-            addButton = 18 + (8 * 24) + 8
-            deleteButton = 18 + (9 * 24) + 9
-            moveUp = 18 + (10 * 24) + 10
-            moveDown = 18 + (11 * 24) + 11
-            cleanStates = 18 + (12 * 24) + 1
-            groupSignal = 18 + (12 * 24) + 2
-            addStates = 18 + (12 * 24) + 3
-            ungroupSignal = 18 + (12 * 24) + 4
+            dur = 19 + (0 * 24) + 0
+            minD = 19 + (1 * 24) + 1
+            maxD = 19 + (2 * 24) + 2
+            state = 19 + (3 * 24) + 3
+            earlyEnd = 19 + (4 * 24) + 4
+            latestEnd = 19 + (5 * 24) + 5
+            nxt = 19 + (6 * 24) + 6
+            name = 19 + (7 * 24) + 7
+            addButton = 19 + (8 * 24) + 8
+            deleteButton = 19 + (9 * 24) + 9
+            moveUp = 19 + (10 * 24) + 10
+            moveDown = 19 + (11 * 24) + 11
+            cleanStates = 19 + (12 * 24) + 1
+            groupSignal = 19 + (12 * 24) + 2
+            addStates = 19 + (12 * 24) + 3
+            ungroupSignal = 19 + (12 * 24) + 4
 
         class delayBasedPhase:
-            dur = 18 + (0 * 24) + 0
-            minD = 18 + (1 * 24) + 1
-            maxD = 18 + (2 * 24) + 2
-            state = 18 + (3 * 24) + 3
-            nxt = 18 + (4 * 24) + 4
-            name = 18 + (5 * 24) + 5
-            addButton = 18 + (6 * 24) + 6
-            deleteButton = 18 + (7 * 24) + 7
-            moveUp = 18 + (8 * 24) + 8
-            moveDown = 18 + (9 * 24) + 9
-            cleanStates = 18 + (10 * 24) + 1
-            groupSignal = 18 + (10 * 24) + 2
-            addStates = 18 + (10 * 24) + 3
-            ungroupSignal = 18 + (10 * 24) + 4
+            dur = 19 + (0 * 24) + 0
+            minD = 19 + (1 * 24) + 1
+            maxD = 19 + (2 * 24) + 2
+            state = 19 + (3 * 24) + 3
+            nxt = 19 + (4 * 24) + 4
+            name = 19 + (5 * 24) + 5
+            addButton = 19 + (6 * 24) + 6
+            deleteButton = 19 + (7 * 24) + 7
+            moveUp = 19 + (8 * 24) + 8
+            moveDown = 19 + (9 * 24) + 9
+            cleanStates = 19 + (10 * 24) + 1
+            groupSignal = 19 + (10 * 24) + 2
+            addStates = 19 + (10 * 24) + 3
+            ungroupSignal = 19 + (10 * 24) + 4
 
         class NEMAPhase:
-            dur = 18 + (0 * 24) + 0
-            minD = 18 + (1 * 24) + 1
-            maxD = 18 + (2 * 24) + 2
-            state = 18 + (3 * 24) + 3
-            vehext = 18 + (4 * 24) + 4
-            yellow = 18 + (5 * 24) + 5
-            red = 18 + (6 * 24) + 6
-            nxt = 18 + (7 * 24) + 7
-            name = 18 + (8 * 24) + 8
-            addButton = 18 + (9 * 24) + 9
-            deleteButton = 18 + (10 * 24) + 10
-            moveUp = 18 + (11 * 24) + 11
-            moveDown = 18 + (12 * 24) + 12
-            cleanStates = 18 + (13 * 24) + 1
-            groupSignal = 18 + (13 * 24) + 2
-            addStates = 18 + (13 * 24) + 3
-            ungroupSignal = 18 + (13 * 24) + 4
+            dur = 19 + (0 * 24) + 0
+            minD = 19 + (1 * 24) + 1
+            maxD = 19 + (2 * 24) + 2
+            state = 19 + (3 * 24) + 3
+            vehext = 19 + (4 * 24) + 4
+            yellow = 19 + (5 * 24) + 5
+            red = 19 + (6 * 24) + 6
+            nxt = 19 + (7 * 24) + 7
+            name = 19 + (8 * 24) + 8
+            addButton = 19 + (9 * 24) + 9
+            deleteButton = 19 + (10 * 24) + 10
+            moveUp = 19 + (11 * 24) + 11
+            moveDown = 19 + (12 * 24) + 12
+            cleanStates = 19 + (13 * 24) + 1
+            groupSignal = 19 + (13 * 24) + 2
+            addStates = 19 + (13 * 24) + 3
+            ungroupSignal = 19 + (13 * 24) + 4
         
 
 
