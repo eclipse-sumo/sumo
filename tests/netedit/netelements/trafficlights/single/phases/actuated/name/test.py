@@ -50,7 +50,7 @@ netedit.modifyAttribute(netedit.attrs.TLS.common.TLType, "actuated", False)
 netedit.typeEnter()
 
 # set attribute
-netedit.modifyAttribute(netedit.attrs.TLS.actuatedPhase.name, "custom name", False)
+netedit.modifyAttribute(netedit.attrs.TLS.single.actuatedPhase.name, "custom name", False)
 
 # type enter to save changes
 netedit.typeEnter()

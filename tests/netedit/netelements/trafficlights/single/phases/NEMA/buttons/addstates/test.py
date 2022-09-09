@@ -50,7 +50,7 @@ netedit.modifyAttribute(netedit.attrs.TLS.common.TLType, "NEMA", False)
 netedit.typeEnter()
 
 # add states
-netedit.pressTLSPhaseButton(netedit.attrs.TLS.NEMAPhase.addStates)
+netedit.pressTLSPhaseButton(netedit.attrs.TLS.single.NEMAPhase.addStates)
 
 # type enter to save changes
 netedit.typeEnter()

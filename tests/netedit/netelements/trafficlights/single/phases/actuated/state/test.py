@@ -50,13 +50,13 @@ netedit.modifyAttribute(netedit.attrs.TLS.common.TLType, "actuated", False)
 netedit.typeEnter()
 
 # set attribute
-netedit.modifyAttribute(netedit.attrs.TLS.actuatedPhase.state, "dummyDur", False)
+netedit.modifyAttribute(netedit.attrs.TLS.single.actuatedPhase.state, "dummyDur", False)
 
 # set attribute
-netedit.modifyAttribute(netedit.attrs.TLS.actuatedPhase.state, "", False)
+netedit.modifyAttribute(netedit.attrs.TLS.single.actuatedPhase.state, "", False)
 
 # set attribute
-netedit.modifyAttribute(netedit.attrs.TLS.actuatedPhase.state, "rGrrGyGgGrGrGyGg", False)
+netedit.modifyAttribute(netedit.attrs.TLS.single.actuatedPhase.state, "rGrrGyGgGrGrGyGg", False)
 
 # type enter to save changes
 netedit.typeEnter()

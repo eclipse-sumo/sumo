@@ -50,7 +50,7 @@ netedit.modifyAttribute(netedit.attrs.TLS.common.TLType, "NEMA", False)
 netedit.typeEnter()
 
 # set attribute
-netedit.modifyAttribute(netedit.attrs.TLS.NEMAPhase.name, "custom name", False)
+netedit.modifyAttribute(netedit.attrs.TLS.single.NEMAPhase.name, "custom name", False)
 
 # type enter to save changes
 netedit.typeEnter()

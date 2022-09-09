@@ -50,13 +50,13 @@ netedit.modifyAttribute(netedit.attrs.TLS.common.TLType, "NEMA", False)
 netedit.typeEnter()
 
 # set attribute
-netedit.modifyAttribute(netedit.attrs.TLS.NEMAPhase.nxt, "dummyNext", False)
+netedit.modifyAttribute(netedit.attrs.TLS.single.NEMAPhase.nxt, "dummyNext", False)
 
 # set attribute
-netedit.modifyAttribute(netedit.attrs.TLS.NEMAPhase.nxt, "", False)
+netedit.modifyAttribute(netedit.attrs.TLS.single.NEMAPhase.nxt, "", False)
 
 # set attribute
-netedit.modifyAttribute(netedit.attrs.TLS.NEMAPhase.nxt, "1", False)
+netedit.modifyAttribute(netedit.attrs.TLS.single.NEMAPhase.nxt, "1", False)
 
 # type enter to save changes
 netedit.typeEnter()

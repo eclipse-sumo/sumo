@@ -50,13 +50,13 @@ netedit.modifyAttribute(netedit.attrs.TLS.common.TLType, "NEMA", False)
 netedit.typeEnter()
 
 # set attribute
-netedit.modifyAttribute(netedit.attrs.TLS.NEMAPhase.minD, "dummyDur", False)
+netedit.modifyAttribute(netedit.attrs.TLS.single.NEMAPhase.minD, "dummyDur", False)
 
 # set attribute
-netedit.modifyAttribute(netedit.attrs.TLS.NEMAPhase.minD, "-20", False)
+netedit.modifyAttribute(netedit.attrs.TLS.single.NEMAPhase.minD, "-20", False)
 
 # set attribute
-netedit.modifyAttribute(netedit.attrs.TLS.NEMAPhase.minD, "13.15", False)
+netedit.modifyAttribute(netedit.attrs.TLS.single.NEMAPhase.minD, "13.15", False)
 
 # type enter to save changes
 netedit.typeEnter()

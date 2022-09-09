@@ -50,7 +50,7 @@ netedit.modifyAttribute(netedit.attrs.TLS.common.TLType, "actuated", False)
 netedit.typeEnter()
 
 # add phase
-netedit.addRedPhase(netedit.attrs.TLS.actuatedPhase.addButton)
+netedit.addRedPhase(netedit.attrs.TLS.single.actuatedPhase.addButton)
 
 # type enter to save changes
 netedit.typeEnter()

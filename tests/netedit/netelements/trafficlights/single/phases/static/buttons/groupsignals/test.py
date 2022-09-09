@@ -44,7 +44,7 @@ netedit.leftClick(referencePosition, 320, 220)
 netedit.createTLS()
 
 # group signal
-netedit.pressTLSPhaseButton(netedit.attrs.TLS.staticPhase.groupSignal)
+netedit.pressTLSPhaseButton(netedit.attrs.TLS.single.staticPhase.groupSignal)
 
 # type enter to save changes
 netedit.typeEnter()

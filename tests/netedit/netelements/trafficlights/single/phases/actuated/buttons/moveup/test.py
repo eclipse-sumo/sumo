@@ -50,7 +50,7 @@ netedit.modifyAttribute(netedit.attrs.TLS.common.TLType, "actuated", False)
 netedit.typeEnter()
 
 # move up
-netedit.pressTLSPhaseButton(netedit.attrs.TLS.actuatedPhase.moveUp)
+netedit.pressTLSPhaseButton(netedit.attrs.TLS.single.actuatedPhase.moveUp)
 
 # type enter to save changes
 netedit.typeEnter()

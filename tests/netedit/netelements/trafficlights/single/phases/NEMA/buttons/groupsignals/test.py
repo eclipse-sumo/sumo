@@ -50,7 +50,7 @@ netedit.modifyAttribute(netedit.attrs.TLS.common.TLType, "NEMA", False)
 netedit.typeEnter()
 
 # group signal
-netedit.pressTLSPhaseButton(netedit.attrs.TLS.NEMAPhase.groupSignal)
+netedit.pressTLSPhaseButton(netedit.attrs.TLS.single.NEMAPhase.groupSignal)
 
 # type enter to save changes
 netedit.typeEnter()

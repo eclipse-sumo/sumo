@@ -50,13 +50,13 @@ netedit.modifyAttribute(netedit.attrs.TLS.common.TLType, "delay_based", False)
 netedit.typeEnter()
 
 # set attribute
-netedit.modifyAttribute(netedit.attrs.TLS.delayBasedPhase.state, "dummyDur", False)
+netedit.modifyAttribute(netedit.attrs.TLS.single.delayBasedPhase.state, "dummyDur", False)
 
 # set attribute
-netedit.modifyAttribute(netedit.attrs.TLS.delayBasedPhase.state, "", False)
+netedit.modifyAttribute(netedit.attrs.TLS.single.delayBasedPhase.state, "", False)
 
 # set attribute
-netedit.modifyAttribute(netedit.attrs.TLS.delayBasedPhase.state, "rGrrGyGgGrGrGyGg", False)
+netedit.modifyAttribute(netedit.attrs.TLS.single.delayBasedPhase.state, "rGrrGyGgGrGrGyGg", False)
 
 # type enter to save changes
 netedit.typeEnter()

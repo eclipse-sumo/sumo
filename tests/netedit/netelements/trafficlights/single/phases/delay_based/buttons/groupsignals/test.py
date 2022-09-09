@@ -50,7 +50,7 @@ netedit.modifyAttribute(netedit.attrs.TLS.common.TLType, "delay_based", False)
 netedit.typeEnter()
 
 # group signal
-netedit.pressTLSPhaseButton(netedit.attrs.TLS.delayBasedPhase.groupSignal)
+netedit.pressTLSPhaseButton(netedit.attrs.TLS.single.delayBasedPhase.groupSignal)
 
 # type enter to save changes
 netedit.typeEnter()

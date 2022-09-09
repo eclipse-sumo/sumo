@@ -44,13 +44,13 @@ netedit.leftClick(referencePosition, 320, 220)
 netedit.createTLS()
 
 # set attribute
-netedit.modifyAttribute(netedit.attrs.TLS.staticPhase.state, "dummyDur", False)
+netedit.modifyAttribute(netedit.attrs.TLS.single.staticPhase.state, "dummyDur", False)
 
 # set attribute
-netedit.modifyAttribute(netedit.attrs.TLS.staticPhase.state, "", False)
+netedit.modifyAttribute(netedit.attrs.TLS.single.staticPhase.state, "", False)
 
 # set attribute
-netedit.modifyAttribute(netedit.attrs.TLS.staticPhase.state, "rGrrGyGgGrGrGyGg", False)
+netedit.modifyAttribute(netedit.attrs.TLS.single.staticPhase.state, "rGrrGyGgGrGrGyGg", False)
 
 # type enter to save changes
 netedit.typeEnter()

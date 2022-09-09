@@ -403,73 +403,74 @@ class TLS:
     class commonJoin:
         offset = 13
         parameters = 15
+    
+    class single:
+        class staticPhase:
+            dur = 17
+            state = 22
+            nxt = 27
+            name = 32
+            addButton = 35
+            deleteButton = 39
+            moveUp = 43
+            moveDown = 47
+            cleanStates = 50
+            groupSignal = 51
+            addStates = 52
+            ungroupSignal = 53
 
-    class staticPhase:
-        dur = 17
-        state = 22
-        nxt = 27
-        name = 32
-        addButton = 35
-        deleteButton = 39
-        moveUp = 43
-        moveDown = 47
-        cleanStates = 50
-        groupSignal = 51
-        addStates = 52
-        ungroupSignal = 53
+        class actuatedPhase:
+            dur = 18
+            minD = 22
+            maxD = 26
+            state = 30
+            earlyEnd = 34
+            latestEnd = 38
+            nxt = 42
+            name = 46
+            addButton = 51
+            deleteButton = 55
+            moveUp = 60
+            moveDown = 64
+            cleanStates = 67
+            groupSignal = 68
+            addStates = 69
+            ungroupSignal = 70
 
-    class actuatedPhase:
-        dur = 18
-        minD = 22
-        maxD = 26
-        state = 30
-        earlyEnd = 34
-        latestEnd = 38
-        nxt = 42
-        name = 46
-        addButton = 51
-        deleteButton = 55
-        moveUp = 60
-        moveDown = 64
-        cleanStates = 67
-        groupSignal = 68
-        addStates = 69
-        ungroupSignal = 70
+        class delayBasedPhase:
+            dur = 18
+            minD = 22
+            maxD = 26
+            state = 30
+            nxt = 34
+            name = 38
+            addButton = 43
+            deleteButton = 47
+            moveUp = 52
+            moveDown = 56
+            cleanStates = 59
+            groupSignal = 60
+            addStates = 61
+            ungroupSignal = 62
 
-    class delayBasedPhase:
-        dur = 18
-        minD = 22
-        maxD = 26
-        state = 30
-        nxt = 34
-        name = 38
-        addButton = 43
-        deleteButton = 47
-        moveUp = 52
-        moveDown = 56
-        cleanStates = 59
-        groupSignal = 60
-        addStates = 61
-        ungroupSignal = 62
-
-    class NEMAPhase:
-        dur = 18
-        minD = 22
-        maxD = 26
-        state = 30
-        vehext = 34
-        yellow = 38
-        red = 42
-        nxt = 46
-        name = 50
-        addButton = 55
-        deleteButton = 59
-        moveUp = 64
-        moveDown = 68
-        cleanStates = 71
-        groupSignal = 72
-        addStates = 73
-        ungroupSignal = 74
+        class NEMAPhase:
+            dur = 18
+            minD = 22
+            maxD = 26
+            state = 30
+            vehext = 34
+            yellow = 38
+            red = 42
+            nxt = 46
+            name = 50
+            addButton = 55
+            deleteButton = 59
+            moveUp = 64
+            moveDown = 68
+            cleanStates = 71
+            groupSignal = 72
+            addStates = 73
+            ungroupSignal = 74
 
     class join:
         class staticPhase:

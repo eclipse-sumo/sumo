@@ -50,7 +50,7 @@ netedit.modifyAttribute(netedit.attrs.TLS.common.TLType, "delay_based", False)
 netedit.typeEnter()
 
 # move down
-netedit.pressTLSPhaseButton(netedit.attrs.TLS.delayBasedPhase.cleanStates)
+netedit.pressTLSPhaseButton(netedit.attrs.TLS.single.delayBasedPhase.cleanStates)
 
 # type enter to save changes
 netedit.typeEnter()

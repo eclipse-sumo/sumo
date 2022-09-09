@@ -44,7 +44,7 @@ netedit.leftClick(referencePosition, 320, 220)
 netedit.createTLS()
 
 # move down
-netedit.pressTLSPhaseButton(netedit.attrs.TLS.staticPhase.moveDown)
+netedit.pressTLSPhaseButton(netedit.attrs.TLS.single.staticPhase.moveDown)
 
 # type enter to save changes
 netedit.typeEnter()

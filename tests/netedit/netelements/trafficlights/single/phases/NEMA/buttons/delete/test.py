@@ -50,7 +50,7 @@ netedit.modifyAttribute(netedit.attrs.TLS.common.TLType, "NEMA", False)
 netedit.typeEnter()
 
 # remove phase
-netedit.pressTLSPhaseButton(netedit.attrs.TLS.NEMAPhase.deleteButton)
+netedit.pressTLSPhaseButton(netedit.attrs.TLS.single.NEMAPhase.deleteButton)
 
 # type enter to save changes
 netedit.typeEnter()

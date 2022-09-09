@@ -50,7 +50,7 @@ netedit.modifyAttribute(netedit.attrs.TLS.common.TLType, "delay_based", False)
 netedit.typeEnter()
 
 # ungroup signal
-netedit.pressTLSPhaseButton(netedit.attrs.TLS.delayBasedPhase.ungroupSignal)
+netedit.pressTLSPhaseButton(netedit.attrs.TLS.single.delayBasedPhase.ungroupSignal)
 
 # type enter to save changes
 netedit.typeEnter()

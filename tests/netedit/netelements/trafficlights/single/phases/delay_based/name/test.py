@@ -50,7 +50,7 @@ netedit.modifyAttribute(netedit.attrs.TLS.common.TLType, "delay_based", False)
 netedit.typeEnter()
 
 # set attribute
-netedit.modifyAttribute(netedit.attrs.TLS.delayBasedPhase.name, "custom name", False)
+netedit.modifyAttribute(netedit.attrs.TLS.single.delayBasedPhase.name, "custom name", False)
 
 # type enter to save changes
 netedit.typeEnter()

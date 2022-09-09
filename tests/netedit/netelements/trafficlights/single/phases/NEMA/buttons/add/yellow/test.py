@@ -50,7 +50,7 @@ netedit.modifyAttribute(netedit.attrs.TLS.common.TLType, "NEMA", False)
 netedit.typeEnter()
 
 # add phase
-netedit.addYellowPhase(netedit.attrs.TLS.NEMAPhase.addButton)
+netedit.addYellowPhase(netedit.attrs.TLS.single.NEMAPhase.addButton)
 
 # type enter to save changes
 netedit.typeEnter()

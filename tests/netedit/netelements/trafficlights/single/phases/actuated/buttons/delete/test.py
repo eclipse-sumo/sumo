@@ -50,7 +50,7 @@ netedit.modifyAttribute(netedit.attrs.TLS.common.TLType, "actuated", False)
 netedit.typeEnter()
 
 # remove phase
-netedit.pressTLSPhaseButton(netedit.attrs.TLS.actuatedPhase.deleteButton)
+netedit.pressTLSPhaseButton(netedit.attrs.TLS.single.actuatedPhase.deleteButton)
 
 # type enter to save changes
 netedit.typeEnter()

@@ -50,7 +50,7 @@ netedit.modifyAttribute(netedit.attrs.TLS.common.TLType, "actuated", False)
 netedit.typeEnter()
 
 # ungroup signal
-netedit.pressTLSPhaseButton(netedit.attrs.TLS.actuatedPhase.ungroupSignal)
+netedit.pressTLSPhaseButton(netedit.attrs.TLS.single.actuatedPhase.ungroupSignal)
 
 # type enter to save changes
 netedit.typeEnter()

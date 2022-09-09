@@ -50,7 +50,7 @@ netedit.modifyAttribute(netedit.attrs.TLS.common.TLType, "delay_based", False)
 netedit.typeEnter()
 
 # add phase
-netedit.addDuplicatePhase(netedit.attrs.TLS.delayBasedPhase.addButton)
+netedit.addDuplicatePhase(netedit.attrs.TLS.single.delayBasedPhase.addButton)
 
 # type enter to save changes
 netedit.typeEnter()
