@@ -1,7 +1,5 @@
 select
 
-duplicate
-
 delete
 
 resetphase
