@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-09-09 10:06:59 by Eclipse SUMO netedit Version v1_14_1+0921-ea355445268
+<!-- generated on 2022-09-09 13:40:58 by Eclipse SUMO netedit Version v1_14_1+0940-cec28acfba7
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.gui.09Sep095615.9297/netedit.gui/netelements/trafficlights/single/phases/delay_based/state/input_net.net.xml"/>
+        <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.gui.09Sep133503.26796/netedit.gui/netelements/trafficlights/single/phases/delay_based/state/input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="/home/palcraft/.texttest/tmp/netedit.gui.09Sep095615.9297/netedit.gui/netelements/trafficlights/single/phases/delay_based/state/net.net.xml"/>
+        <output-file value="/home/palcraft/.texttest/tmp/netedit.gui.09Sep133503.26796/netedit.gui/netelements/trafficlights/single/phases/delay_based/state/net.net.xml"/>
     </output>
 
     <processing>
@@ -30,12 +30,12 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="/home/palcraft/.texttest/tmp/netedit.gui.09Sep095615.9297/netedit.gui/netelements/trafficlights/single/phases/delay_based/state/additionals.xml"/>
-        <additionals-output value="/home/palcraft/.texttest/tmp/netedit.gui.09Sep095615.9297/netedit.gui/netelements/trafficlights/single/phases/delay_based/state/additionals.xml"/>
-        <route-files value="/home/palcraft/.texttest/tmp/netedit.gui.09Sep095615.9297/netedit.gui/netelements/trafficlights/single/phases/delay_based/state/routes.xml"/>
-        <demandelements-output value="/home/palcraft/.texttest/tmp/netedit.gui.09Sep095615.9297/netedit.gui/netelements/trafficlights/single/phases/delay_based/state/routes.xml"/>
-        <data-files value="/home/palcraft/.texttest/tmp/netedit.gui.09Sep095615.9297/netedit.gui/netelements/trafficlights/single/phases/delay_based/state/datas.xml"/>
-        <dataelements-output value="/home/palcraft/.texttest/tmp/netedit.gui.09Sep095615.9297/netedit.gui/netelements/trafficlights/single/phases/delay_based/state/datas.xml"/>
+        <additional-files value="/home/palcraft/.texttest/tmp/netedit.gui.09Sep133503.26796/netedit.gui/netelements/trafficlights/single/phases/delay_based/state/additionals.xml"/>
+        <additionals-output value="/home/palcraft/.texttest/tmp/netedit.gui.09Sep133503.26796/netedit.gui/netelements/trafficlights/single/phases/delay_based/state/additionals.xml"/>
+        <route-files value="/home/palcraft/.texttest/tmp/netedit.gui.09Sep133503.26796/netedit.gui/netelements/trafficlights/single/phases/delay_based/state/routes.xml"/>
+        <demandelements-output value="/home/palcraft/.texttest/tmp/netedit.gui.09Sep133503.26796/netedit.gui/netelements/trafficlights/single/phases/delay_based/state/routes.xml"/>
+        <data-files value="/home/palcraft/.texttest/tmp/netedit.gui.09Sep133503.26796/netedit.gui/netelements/trafficlights/single/phases/delay_based/state/datas.xml"/>
+        <dataelements-output value="/home/palcraft/.texttest/tmp/netedit.gui.09Sep133503.26796/netedit.gui/netelements/trafficlights/single/phases/delay_based/state/datas.xml"/>
     </netedit>
 
     <visualisation>
@@ -43,12 +43,12 @@
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
-        <gui-testing.setting-output value="/home/palcraft/.texttest/tmp/netedit.gui.09Sep095615.9297/netedit.gui/netelements/trafficlights/single/phases/delay_based/state/guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="/home/palcraft/.texttest/tmp/netedit.gui.09Sep133503.26796/netedit.gui/netelements/trafficlights/single/phases/delay_based/state/guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="/home/palcraft/.texttest/tmp/netedit.gui.09Sep095615.9297/netedit.gui/netelements/trafficlights/single/phases/delay_based/state/log.txt"/>
+        <error-log value="/home/palcraft/.texttest/tmp/netedit.gui.09Sep133503.26796/netedit.gui/netelements/trafficlights/single/phases/delay_based/state/log.txt"/>
     </report>
 
 </configuration>
@@ -66,7 +66,10 @@
         <lane id=":J0_2_0" index="0" disallow="pedestrian" speed="13.89" length="22.20" shape="-1.60,61.10 -1.60,38.90"/>
     </edge>
     <edge id=":J0_3" function="internal">
-        <lane id=":J0_3_0" index="0" disallow="pedestrian" speed="9.51" length="20.48" shape="-1.60,61.10 -0.81,55.54 1.57,51.58 5.54,49.19 11.10,48.40"/>
+        <lane id=":J0_3_0" index="0" disallow="pedestrian" speed="9.51" length="5.01" shape="-1.60,61.10 -0.89,56.14"/>
+    </edge>
+    <edge id=":J0_16" function="internal">
+        <lane id=":J0_16_0" index="0" disallow="pedestrian" speed="9.51" length="15.47" shape="-0.89,56.14 -0.81,55.54 1.57,51.58 5.54,49.19 11.10,48.40"/>
     </edge>
     <edge id=":J0_4" function="internal">
         <lane id=":J0_4_0" index="0" disallow="pedestrian" speed="6.86" length="10.16" shape="11.10,54.80 8.34,55.19 6.37,56.37 5.19,58.34 4.80,61.10"/>
@@ -78,8 +81,8 @@
     <edge id=":J0_7" function="internal">
         <lane id=":J0_7_0" index="0" disallow="pedestrian" speed="9.51" length="5.01" shape="11.10,51.60 6.14,50.89"/>
     </edge>
-    <edge id=":J0_16" function="internal">
-        <lane id=":J0_16_0" index="0" disallow="pedestrian" speed="9.51" length="15.47" shape="6.14,50.89 5.54,50.81 1.58,48.43 -0.81,44.46 -1.60,38.90"/>
+    <edge id=":J0_17" function="internal">
+        <lane id=":J0_17_0" index="0" disallow="pedestrian" speed="9.51" length="15.47" shape="6.14,50.89 5.54,50.81 1.58,48.43 -0.81,44.46 -1.60,38.90"/>
     </edge>
     <edge id=":J0_8" function="internal">
         <lane id=":J0_8_0" index="0" disallow="pedestrian" speed="6.86" length="10.16" shape="4.80,38.90 5.19,41.66 6.37,43.62 8.34,44.81 11.10,45.20"/>
@@ -89,7 +92,10 @@
         <lane id=":J0_10_0" index="0" disallow="pedestrian" speed="13.89" length="22.20" shape="1.60,38.90 1.60,61.10"/>
     </edge>
     <edge id=":J0_11" function="internal">
-        <lane id=":J0_11_0" index="0" disallow="pedestrian" speed="9.51" length="20.48" shape="1.60,38.90 0.81,44.46 -1.57,48.42 -5.54,50.81 -11.10,51.60"/>
+        <lane id=":J0_11_0" index="0" disallow="pedestrian" speed="9.51" length="5.01" shape="1.60,38.90 0.89,43.86"/>
+    </edge>
+    <edge id=":J0_18" function="internal">
+        <lane id=":J0_18_0" index="0" disallow="pedestrian" speed="9.51" length="15.47" shape="0.89,43.86 0.81,44.46 -1.57,48.42 -5.54,50.81 -11.10,51.60"/>
     </edge>
     <edge id=":J0_12" function="internal">
         <lane id=":J0_12_0" index="0" disallow="pedestrian" speed="6.86" length="10.16" shape="-11.10,45.20 -8.34,44.81 -6.37,43.63 -5.19,41.66 -4.80,38.90"/>
@@ -101,8 +107,8 @@
     <edge id=":J0_15" function="internal">
         <lane id=":J0_15_0" index="0" disallow="pedestrian" speed="9.51" length="5.01" shape="-11.10,48.40 -6.14,49.11"/>
     </edge>
-    <edge id=":J0_17" function="internal">
-        <lane id=":J0_17_0" index="0" disallow="pedestrian" speed="9.51" length="15.47" shape="-6.14,49.11 -5.54,49.19 -1.58,51.57 0.81,55.54 1.60,61.10"/>
+    <edge id=":J0_19" function="internal">
+        <lane id=":J0_19_0" index="0" disallow="pedestrian" speed="9.51" length="15.47" shape="-6.14,49.11 -5.54,49.19 -1.58,51.57 0.81,55.54 1.60,61.10"/>
     </edge>
     <edge id=":J1_0" function="internal">
         <lane id=":J1_0_0" index="0" disallow="pedestrian" speed="5.58" length="9.35" shape="-30.00,54.80 -33.60,52.40 -34.80,50.00 -33.60,47.60 -30.00,45.20"/>
@@ -163,17 +169,17 @@
     </edge>
 
     <tlLogic id="J0" type="delay_based" programID="0" offset="0">
-        <phase duration="42" state="rGrrGyGgGrGrGyGg"/>
+        <phase duration="42" state="GGGgrrrrGGGgrrrr" minDur="5" maxDur="50"/>
         <phase duration="3"  state="yyyyrrrryyyyrrrr"/>
         <phase duration="42" state="rrrrGGGgrrrrGGGg" minDur="5" maxDur="50"/>
-        <phase duration="3"  state="rrrryyyyrrrryyyy"/>
+        <phase duration="3"  state="rGrrGyGgGrGrGyGg"/>
     </tlLogic>
 
-    <junction id="J0" type="traffic_light" x="0.00" y="50.00" incLanes="-E2_0 -E2_1 -E2_2 -E1_0 -E1_1 -E1_2 -E3_0 -E3_1 -E3_2 -E0_0 -E0_1 -E0_2" intLanes=":J0_0_0 :J0_0_1 :J0_2_0 :J0_3_0 :J0_4_0 :J0_4_1 :J0_6_0 :J0_16_0 :J0_8_0 :J0_8_1 :J0_10_0 :J0_11_0 :J0_12_0 :J0_12_1 :J0_14_0 :J0_17_0" shape="-9.60,61.10 9.60,61.10 9.77,60.27 9.98,59.98 10.27,59.77 10.64,59.64 11.10,59.60 11.10,40.40 10.27,40.23 9.98,40.02 9.77,39.73 9.64,39.36 9.60,38.90 -9.60,38.90 -9.77,39.73 -9.98,40.02 -10.27,40.23 -10.64,40.36 -11.10,40.40 -11.10,59.60 -10.27,59.77 -9.98,59.98 -9.77,60.27 -9.64,60.64">
+    <junction id="J0" type="traffic_light" x="0.00" y="50.00" incLanes="-E2_0 -E2_1 -E2_2 -E1_0 -E1_1 -E1_2 -E3_0 -E3_1 -E3_2 -E0_0 -E0_1 -E0_2" intLanes=":J0_0_0 :J0_0_1 :J0_2_0 :J0_16_0 :J0_4_0 :J0_4_1 :J0_6_0 :J0_17_0 :J0_8_0 :J0_8_1 :J0_10_0 :J0_18_0 :J0_12_0 :J0_12_1 :J0_14_0 :J0_19_0" shape="-9.60,61.10 9.60,61.10 9.77,60.27 9.98,59.98 10.27,59.77 10.64,59.64 11.10,59.60 11.10,40.40 10.27,40.23 9.98,40.02 9.77,39.73 9.64,39.36 9.60,38.90 -9.60,38.90 -9.77,39.73 -9.98,40.02 -10.27,40.23 -10.64,40.36 -11.10,40.40 -11.10,59.60 -10.27,59.77 -9.98,59.98 -9.77,60.27 -9.64,60.64">
         <request index="0"  response="0000000000000000" foes="0000100001000000" cont="0"/>
         <request index="1"  response="0000000000000000" foes="0000100001000000" cont="0"/>
         <request index="2"  response="1000000010000000" foes="1111100011000000" cont="0"/>
-        <request index="3"  response="1000011110000000" foes="1100011111000000" cont="0"/>
+        <request index="3"  response="1000011110000000" foes="1100011111000000" cont="1"/>
         <request index="4"  response="0000010000000000" foes="1000010000000000" cont="0"/>
         <request index="5"  response="0000010000000000" foes="1000010000000000" cont="0"/>
         <request index="6"  response="0000110000001111" foes="1000110000001111" cont="0"/>
@@ -181,7 +187,7 @@
         <request index="8"  response="0000000000000000" foes="0100000000001000" cont="0"/>
         <request index="9"  response="0000000000000000" foes="0100000000001000" cont="0"/>
         <request index="10" response="0000000000000000" foes="1100000011111000" cont="0"/>
-        <request index="11" response="1000000010000111" foes="1100000011000111" cont="0"/>
+        <request index="11" response="1000000010000111" foes="1100000011000111" cont="1"/>
         <request index="12" response="0000000000000100" foes="0000000010000100" cont="0"/>
         <request index="13" response="0000000000000100" foes="0000000010000100" cont="0"/>
         <request index="14" response="0000111100001100" foes="0000111110001100" cont="0"/>
@@ -204,8 +210,10 @@
         <request index="1" response="00" foes="00" cont="0"/>
     </junction>
 
-    <junction id=":J0_16_0" type="internal" x="6.14" y="50.89" incLanes=":J0_7_0 -E0_1 -E0_2 -E3_2" intLanes=":J0_2_0 :J0_3_0 :J0_10_0 :J0_11_0 :J0_12_0 :J0_12_1 :J0_14_0"/>
-    <junction id=":J0_17_0" type="internal" x="-6.14" y="49.11" incLanes=":J0_15_0 -E1_1 -E1_2 -E3_2" intLanes=":J0_2_0 :J0_3_0 :J0_4_0 :J0_4_1 :J0_6_0 :J0_10_0 :J0_11_0"/>
+    <junction id=":J0_16_0" type="internal" x="-0.89" y="56.14" incLanes=":J0_3_0 -E3_1 -E3_2" intLanes=":J0_6_0 :J0_7_0 :J0_8_0 :J0_8_1 :J0_10_0 :J0_14_0 :J0_15_0"/>
+    <junction id=":J0_17_0" type="internal" x="6.14" y="50.89" incLanes=":J0_7_0 -E0_1 -E0_2 -E3_2" intLanes=":J0_2_0 :J0_3_0 :J0_10_0 :J0_11_0 :J0_12_0 :J0_12_1 :J0_14_0"/>
+    <junction id=":J0_18_0" type="internal" x="0.89" y="43.86" incLanes=":J0_11_0 -E2_1 -E2_2" intLanes=":J0_0_0 :J0_0_1 :J0_2_0 :J0_6_0 :J0_7_0 :J0_14_0 :J0_15_0"/>
+    <junction id=":J0_19_0" type="internal" x="-6.14" y="49.11" incLanes=":J0_15_0 -E1_1 -E1_2 -E3_2" intLanes=":J0_2_0 :J0_3_0 :J0_4_0 :J0_4_1 :J0_6_0 :J0_10_0 :J0_11_0"/>
 
     <connection from="-E0" to="E3" fromLane="1" toLane="1" via=":J0_12_0" tl="J0" linkIndex="12" dir="r" state="o"/>
     <connection from="-E0" to="E3" fromLane="2" toLane="2" via=":J0_12_1" tl="J0" linkIndex="13" dir="r" state="o"/>
@@ -235,21 +243,23 @@
     <connection from=":J0_0" to="E0" fromLane="0" toLane="1" dir="r" state="M"/>
     <connection from=":J0_0" to="E0" fromLane="1" toLane="2" dir="r" state="M"/>
     <connection from=":J0_2" to="E3" fromLane="0" toLane="2" dir="s" state="M"/>
-    <connection from=":J0_3" to="E1" fromLane="0" toLane="2" dir="l" state="M"/>
+    <connection from=":J0_3" to="E1" fromLane="0" toLane="2" via=":J0_16_0" dir="l" state="m"/>
+    <connection from=":J0_16" to="E1" fromLane="0" toLane="2" dir="l" state="M"/>
     <connection from=":J0_4" to="E2" fromLane="0" toLane="1" dir="r" state="M"/>
     <connection from=":J0_4" to="E2" fromLane="1" toLane="2" dir="r" state="M"/>
     <connection from=":J0_6" to="E0" fromLane="0" toLane="2" dir="s" state="M"/>
-    <connection from=":J0_7" to="E3" fromLane="0" toLane="2" via=":J0_16_0" dir="l" state="m"/>
-    <connection from=":J0_16" to="E3" fromLane="0" toLane="2" dir="l" state="M"/>
+    <connection from=":J0_7" to="E3" fromLane="0" toLane="2" via=":J0_17_0" dir="l" state="m"/>
+    <connection from=":J0_17" to="E3" fromLane="0" toLane="2" dir="l" state="M"/>
     <connection from=":J0_8" to="E1" fromLane="0" toLane="1" dir="r" state="M"/>
     <connection from=":J0_8" to="E1" fromLane="1" toLane="2" dir="r" state="M"/>
     <connection from=":J0_10" to="E2" fromLane="0" toLane="2" dir="s" state="M"/>
-    <connection from=":J0_11" to="E0" fromLane="0" toLane="2" dir="l" state="M"/>
+    <connection from=":J0_11" to="E0" fromLane="0" toLane="2" via=":J0_18_0" dir="l" state="m"/>
+    <connection from=":J0_18" to="E0" fromLane="0" toLane="2" dir="l" state="M"/>
     <connection from=":J0_12" to="E3" fromLane="0" toLane="1" dir="r" state="M"/>
     <connection from=":J0_12" to="E3" fromLane="1" toLane="2" dir="r" state="M"/>
     <connection from=":J0_14" to="E1" fromLane="0" toLane="2" dir="s" state="M"/>
-    <connection from=":J0_15" to="E2" fromLane="0" toLane="2" via=":J0_17_0" dir="l" state="m"/>
-    <connection from=":J0_17" to="E2" fromLane="0" toLane="2" dir="l" state="M"/>
+    <connection from=":J0_15" to="E2" fromLane="0" toLane="2" via=":J0_19_0" dir="l" state="m"/>
+    <connection from=":J0_19" to="E2" fromLane="0" toLane="2" dir="l" state="M"/>
     <connection from=":J1_0" to="-E0" fromLane="0" toLane="1" dir="t" state="M"/>
     <connection from=":J1_0" to="-E0" fromLane="1" toLane="2" dir="t" state="M"/>
     <connection from=":J2_0" to="-E1" fromLane="0" toLane="1" dir="t" state="M"/>

@@ -46,9 +46,9 @@ Debug: Adding TLS into junction 'J0'
 Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Key ENTER pressed
-Debug: Valid ear.end
 Debug: Invalid ear.end
-Debug: Valid lat.end
+Debug: Invalid ear.end
+Debug: Valid ear.end
 Debug: Key ENTER pressed
 Debug: Deleting TLS from junction 'J0'
 Debug: Adding TLS into junction 'J0'

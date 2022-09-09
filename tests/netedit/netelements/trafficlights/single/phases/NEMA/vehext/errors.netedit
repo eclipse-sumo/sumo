@@ -46,9 +46,9 @@ Debug: Adding TLS into junction 'J0'
 Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Key ENTER pressed
-Debug: Valid vehExt
 Debug: Invalid vehExt
-Debug: Valid yellow
+Debug: Invalid vehExt
+Debug: Valid vehExt
 Debug: Key ENTER pressed
 Debug: Deleting TLS from junction 'J0'
 Debug: Adding TLS into junction 'J0'

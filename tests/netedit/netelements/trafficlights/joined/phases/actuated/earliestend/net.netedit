@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-09-09 12:31:40 by Eclipse SUMO netedit Version v1_14_1+0921-ea355445268
+<!-- generated on 2022-09-09 13:47:07 by Eclipse SUMO netedit Version v1_14_1+0940-cec28acfba7
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.gui.09Sep122003.15895/netedit.gui/netelements/trafficlights/joined/phases/actuated/earliestend/input_net.net.xml"/>
+        <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.gui.09Sep133530.27357/netedit.gui/netelements/trafficlights/joined/phases/actuated/earliestend/input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="/home/palcraft/.texttest/tmp/netedit.gui.09Sep122003.15895/netedit.gui/netelements/trafficlights/joined/phases/actuated/earliestend/net.net.xml"/>
+        <output-file value="/home/palcraft/.texttest/tmp/netedit.gui.09Sep133530.27357/netedit.gui/netelements/trafficlights/joined/phases/actuated/earliestend/net.net.xml"/>
     </output>
 
     <processing>
@@ -30,12 +30,12 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="/home/palcraft/.texttest/tmp/netedit.gui.09Sep122003.15895/netedit.gui/netelements/trafficlights/joined/phases/actuated/earliestend/additionals.xml"/>
-        <additionals-output value="/home/palcraft/.texttest/tmp/netedit.gui.09Sep122003.15895/netedit.gui/netelements/trafficlights/joined/phases/actuated/earliestend/additionals.xml"/>
-        <route-files value="/home/palcraft/.texttest/tmp/netedit.gui.09Sep122003.15895/netedit.gui/netelements/trafficlights/joined/phases/actuated/earliestend/routes.xml"/>
-        <demandelements-output value="/home/palcraft/.texttest/tmp/netedit.gui.09Sep122003.15895/netedit.gui/netelements/trafficlights/joined/phases/actuated/earliestend/routes.xml"/>
-        <data-files value="/home/palcraft/.texttest/tmp/netedit.gui.09Sep122003.15895/netedit.gui/netelements/trafficlights/joined/phases/actuated/earliestend/datas.xml"/>
-        <dataelements-output value="/home/palcraft/.texttest/tmp/netedit.gui.09Sep122003.15895/netedit.gui/netelements/trafficlights/joined/phases/actuated/earliestend/datas.xml"/>
+        <additional-files value="/home/palcraft/.texttest/tmp/netedit.gui.09Sep133530.27357/netedit.gui/netelements/trafficlights/joined/phases/actuated/earliestend/additionals.xml"/>
+        <additionals-output value="/home/palcraft/.texttest/tmp/netedit.gui.09Sep133530.27357/netedit.gui/netelements/trafficlights/joined/phases/actuated/earliestend/additionals.xml"/>
+        <route-files value="/home/palcraft/.texttest/tmp/netedit.gui.09Sep133530.27357/netedit.gui/netelements/trafficlights/joined/phases/actuated/earliestend/routes.xml"/>
+        <demandelements-output value="/home/palcraft/.texttest/tmp/netedit.gui.09Sep133530.27357/netedit.gui/netelements/trafficlights/joined/phases/actuated/earliestend/routes.xml"/>
+        <data-files value="/home/palcraft/.texttest/tmp/netedit.gui.09Sep133530.27357/netedit.gui/netelements/trafficlights/joined/phases/actuated/earliestend/datas.xml"/>
+        <dataelements-output value="/home/palcraft/.texttest/tmp/netedit.gui.09Sep133530.27357/netedit.gui/netelements/trafficlights/joined/phases/actuated/earliestend/datas.xml"/>
     </netedit>
 
     <visualisation>
@@ -43,12 +43,12 @@
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
-        <gui-testing.setting-output value="/home/palcraft/.texttest/tmp/netedit.gui.09Sep122003.15895/netedit.gui/netelements/trafficlights/joined/phases/actuated/earliestend/guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="/home/palcraft/.texttest/tmp/netedit.gui.09Sep133530.27357/netedit.gui/netelements/trafficlights/joined/phases/actuated/earliestend/guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="/home/palcraft/.texttest/tmp/netedit.gui.09Sep122003.15895/netedit.gui/netelements/trafficlights/joined/phases/actuated/earliestend/log.txt"/>
+        <error-log value="/home/palcraft/.texttest/tmp/netedit.gui.09Sep133530.27357/netedit.gui/netelements/trafficlights/joined/phases/actuated/earliestend/log.txt"/>
     </report>
 
 </configuration>
@@ -173,15 +173,15 @@
         <phase duration="3"  state="yyygggggyyygggggyyyyyyyy"/>
         <phase duration="6"  state="GGGgggggGGGgggggGGGGGGGG" minDur="5" maxDur="50"/>
         <phase duration="3"  state="yyyyyyyyyyyyyyyyyyyyyyyy"/>
-        <phase duration="31" state="GGGgggggGGGgggggGGGGGGGG" minDur="5" maxDur="50"/>
-        <phase duration="3"  state="yyygggggyyygggggyyyyyyyy"/>
-        <phase duration="6"  state="GGGgggggGGGgggggGGGGGGGG" minDur="5" maxDur="50"/>
-        <phase duration="3"  state="yyyyyyyyyyyyyyyyyyyyyyyy"/>
-        <phase duration="31" state="GGGgggggGGGgggggGGGGGGGG" minDur="5" maxDur="50"/>
-        <phase duration="3"  state="yyygggggyyygggggyyyyyyyy"/>
-        <phase duration="6"  state="GGGgggggGGGgggggGGGGGGGG" minDur="5" maxDur="50"/>
-        <phase duration="3"  state="yyyyyyyyyyyyyyyyyyyyyyyy"/>
         <phase duration="31" state="GGGgggggGGGgggggGGGGGGGG" minDur="5" maxDur="50" earliestEnd="13.15"/>
+        <phase duration="3"  state="yyygggggyyygggggyyyyyyyy"/>
+        <phase duration="6"  state="GGGgggggGGGgggggGGGGGGGG" minDur="5" maxDur="50"/>
+        <phase duration="3"  state="yyyyyyyyyyyyyyyyyyyyyyyy"/>
+        <phase duration="31" state="GGGgggggGGGgggggGGGGGGGG" minDur="5" maxDur="50"/>
+        <phase duration="3"  state="yyygggggyyygggggyyyyyyyy"/>
+        <phase duration="6"  state="GGGgggggGGGgggggGGGGGGGG" minDur="5" maxDur="50"/>
+        <phase duration="3"  state="yyyyyyyyyyyyyyyyyyyyyyyy"/>
+        <phase duration="31" state="GGGgggggGGGgggggGGGGGGGG" minDur="5" maxDur="50"/>
         <phase duration="3"  state="yyygggggyyygggggyyyyyyyy"/>
         <phase duration="6"  state="GGGgggggGGGgggggGGGGGGGG" minDur="5" maxDur="50"/>
         <phase duration="3"  state="yyyyyyyyyyyyyyyyyyyyyyyy"/>

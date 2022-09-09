@@ -46,9 +46,9 @@ Debug: Adding TLS into junction 'J0'
 Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Key ENTER pressed
-Debug: Valid max
 Debug: Invalid max
-Debug: Valid ear.end
+Debug: Invalid max
+Debug: Valid max
 Debug: Key ENTER pressed
 Debug: Deleting TLS from junction 'J0'
 Debug: Adding TLS into junction 'J0'
