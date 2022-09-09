@@ -1,0 +1,13 @@
+<routes>
+	<vType id="HDV" vClass="passenger" carFollowModel="Krauss" laneChangeModel="LC2013" lcSpeedGain="1.0" accel="2.6" decel="4.5" emergency-Decel="9.0" tau="1.5" sigma="0.5" minGap="2.5" speedFactor="normc(1.0,0.1,0.2,1.1)" color="red" desiredMaxSpeed="33.33" action-step-length="0.1"/>
+
+
+	<vType id="AV_L4" vClass="passenger" carFollowModel="IDM" laneChangeModel="LC2013" lcSpeedGain="1.6"  accel="2.6" decel="4.5" tau="1.0" sigma="0.0" minGap="1.2" speedFactor="norm(1.0,0.0)" color="green" desiredMaxSpeed="33.33" action-step-length="0.1"/>
+
+	
+    <route id="r0" edges="E1"/>
+
+    <flow id="hdv" type="HDV" period="exp(0.1)" begin="0" number="200" departSpeed="random" route="r0"/>
+    <flow id="L4" type="AV_L4" period="exp(0.1)" begin="0" number="200" departSpeed="random" route="r0"/>
+
+</routes>
