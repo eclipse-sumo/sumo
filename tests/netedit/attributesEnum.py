@@ -410,7 +410,7 @@ class TLS:
             state = 17 + (1 * 4) + 1
             nxt = 17 + (2 * 4) + 2
             name = 17 + (3 * 4) + 3
-            addButton = 17 + (4 * 4) + 0
+            addButton = 17 + (4 * 4) + 1
             deleteButton = 17 + (5 * 4) + 1
             moveUp = 17 + (6 * 4) + 2
             moveDown = 17 + (7 * 4) + 3
@@ -428,7 +428,7 @@ class TLS:
             latestEnd = 18 + (5 * 4) + 1
             nxt = 18 + (6 * 4) + 2
             name = 18 + (7 * 4) + 3
-            addButton = 18 + (8 * 4) + 0
+            addButton = 18 + (8 * 4) + 1
             deleteButton = 18 + (9 * 4) + 1
             moveUp = 18 + (10 * 4) + 2
             moveDown = 18 + (11 * 4) + 3
