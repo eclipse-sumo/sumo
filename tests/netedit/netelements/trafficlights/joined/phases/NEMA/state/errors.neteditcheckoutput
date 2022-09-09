@@ -1,11 +1,32 @@
-Warning: At NEMA tlLogic 'J0', the phases before barrier 1 from both rings do not add up. (ring1=90.00, ring2=55.00)
-Warning: Cannot build detector of length 20 because no further continuation lane was found for lane '-E2_1'! Truncated detector at length 18.9.
-Warning: Cannot build detector of length 20 because no further continuation lane was found for lane '-E2_2'! Truncated detector at length 18.9.
-Warning: Cannot build detector of length 20 because no further continuation lane was found for lane '-E1_1'! Truncated detector at length 18.9.
-Warning: Cannot build detector of length 20 because no further continuation lane was found for lane '-E1_2'! Truncated detector at length 18.9.
-Warning: Cannot build detector of length 20 because no further continuation lane was found for lane '-E3_1'! Truncated detector at length 18.9.
-Warning: Cannot build detector of length 20 because no further continuation lane was found for lane '-E3_2'! Truncated detector at length 18.9.
-Warning: Cannot build detector of length 20 because no further continuation lane was found for lane '-E0_1'! Truncated detector at length 18.9.
-Warning: Cannot build detector of length 20 because no further continuation lane was found for lane '-E0_2'! Truncated detector at length 18.9.
-Warning: Teleporting vehicle 'trip_1'; waited too long (yield), lane='-E2_2', time=306.00.
-Warning: Vehicle 'trip_1' ends teleporting on edge 'E3', time=306.00.
+Warning: At NEMA tlLogic 'J0', the phases before barrier 1 from both rings do not add up. (ring1=55.00, ring2=110.00)
+Warning: At NEMA tlLogic 'J0', the phases before barrier 2 from both rings do not add up. (ring1=110.00, ring2=55.00)
+Warning: Cannot build detector of length 20 because no further continuation lane was found for lane '-E4_1'! Truncated detector at length 14.33.
+Warning: Cannot build detector of length 20 because no further continuation lane was found for lane '-E4_2'! Truncated detector at length 14.33.
+Warning: Cannot build detector of length 20 because no further continuation lane was found for lane '-E6_1'! Truncated detector at length 14.33.
+Warning: Cannot build detector of length 20 because no further continuation lane was found for lane '-E6_2'! Truncated detector at length 14.33.
+Warning: Cannot build detector of length 20 because no further continuation lane was found for lane '-E7_1'! Truncated detector at length 14.33.
+Warning: Cannot build detector of length 20 because no further continuation lane was found for lane '-E7_2'! Truncated detector at length 14.33.
+Warning: Cannot build detector of length 20 because no further continuation lane was found for lane 'E9_1'! Truncated detector at length 14.33.
+Warning: Cannot build detector of length 20 because no further continuation lane was found for lane 'E9_2'! Truncated detector at length 14.33.
+Warning: At NEMA tlLogic 'J0', actuated phase 1 has no controlling detector
+Warning: At NEMA tlLogic 'J0', actuated phase 2 has no controlling detector
+Warning: At NEMA tlLogic 'J0', actuated phase 3 has no controlling detector
+Warning: At NEMA tlLogic 'J0', actuated phase 5 has no controlling detector
+Warning: At NEMA tlLogic 'J0, linkIndex 19 has no controlling detector
+Warning: At NEMA tlLogic 'J0, linkIndex 20 has no controlling detector
+Warning: At NEMA tlLogic 'J0, linkIndex 22 has no controlling detector
+Warning: At NEMA tlLogic 'J0, linkIndex 23 has no controlling detector
+Warning: At NEMA tlLogic 'J0, linkIndex 24 has no controlling detector
+Warning: At NEMA tlLogic 'J0, linkIndex 31 has no controlling detector
+Warning: At NEMA tlLogic 'J0, linkIndex 32 has no controlling detector
+Warning: At NEMA tlLogic 'J0, linkIndex 33 has no controlling detector
+Warning: At NEMA tlLogic 'J0, linkIndex 37 has no controlling detector
+Warning: At NEMA tlLogic 'J0, linkIndex 38 has no controlling detector
+Warning: Teleporting vehicle 'trip_1'; waited too long (yield), lane='-E2_2', time=327.00.
+Warning: Vehicle 'trip_1' ends teleporting on edge 'E3', time=327.00.
+Warning: Teleporting vehicle 'trip_4'; waited too long (yield), lane='-E0_2', time=329.00.
+Warning: Teleporting vehicle 'trip_3'; waited too long (yield), lane='-E3_2', time=329.00.
+Warning: Vehicle 'trip_3' ends teleporting on edge 'E2', time=329.00.
+Warning: Vehicle 'trip_4' ends teleporting on edge 'E1', time=329.00.
+Warning: Teleporting vehicle 'trip_2'; waited too long (yield), lane='-E1_2', time=330.00.
+Warning: Vehicle 'trip_2' ends teleporting on edge 'E0', time=330.00.
