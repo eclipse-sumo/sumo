@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-09-09 13:37:42 by Eclipse SUMO netedit Version v1_14_1+0940-cec28acfba7
+<!-- generated on 2022-09-09 14:33:22 by Eclipse SUMO netedit Version v1_14_1+0940-cec28acfba7
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.gui.09Sep133533.27450/netedit.gui/netelements/trafficlights/joined/phases/actuated/buttons/add/default/input_net.net.xml"/>
+        <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.gui.09Sep143113.35080/netedit.gui/netelements/trafficlights/joined/phases/actuated/buttons/add/default/input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="/home/palcraft/.texttest/tmp/netedit.gui.09Sep133533.27450/netedit.gui/netelements/trafficlights/joined/phases/actuated/buttons/add/default/net.net.xml"/>
+        <output-file value="/home/palcraft/.texttest/tmp/netedit.gui.09Sep143113.35080/netedit.gui/netelements/trafficlights/joined/phases/actuated/buttons/add/default/net.net.xml"/>
     </output>
 
     <processing>
@@ -30,12 +30,12 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="/home/palcraft/.texttest/tmp/netedit.gui.09Sep133533.27450/netedit.gui/netelements/trafficlights/joined/phases/actuated/buttons/add/default/additionals.xml"/>
-        <additionals-output value="/home/palcraft/.texttest/tmp/netedit.gui.09Sep133533.27450/netedit.gui/netelements/trafficlights/joined/phases/actuated/buttons/add/default/additionals.xml"/>
-        <route-files value="/home/palcraft/.texttest/tmp/netedit.gui.09Sep133533.27450/netedit.gui/netelements/trafficlights/joined/phases/actuated/buttons/add/default/routes.xml"/>
-        <demandelements-output value="/home/palcraft/.texttest/tmp/netedit.gui.09Sep133533.27450/netedit.gui/netelements/trafficlights/joined/phases/actuated/buttons/add/default/routes.xml"/>
-        <data-files value="/home/palcraft/.texttest/tmp/netedit.gui.09Sep133533.27450/netedit.gui/netelements/trafficlights/joined/phases/actuated/buttons/add/default/datas.xml"/>
-        <dataelements-output value="/home/palcraft/.texttest/tmp/netedit.gui.09Sep133533.27450/netedit.gui/netelements/trafficlights/joined/phases/actuated/buttons/add/default/datas.xml"/>
+        <additional-files value="/home/palcraft/.texttest/tmp/netedit.gui.09Sep143113.35080/netedit.gui/netelements/trafficlights/joined/phases/actuated/buttons/add/default/additionals.xml"/>
+        <additionals-output value="/home/palcraft/.texttest/tmp/netedit.gui.09Sep143113.35080/netedit.gui/netelements/trafficlights/joined/phases/actuated/buttons/add/default/additionals.xml"/>
+        <route-files value="/home/palcraft/.texttest/tmp/netedit.gui.09Sep143113.35080/netedit.gui/netelements/trafficlights/joined/phases/actuated/buttons/add/default/routes.xml"/>
+        <demandelements-output value="/home/palcraft/.texttest/tmp/netedit.gui.09Sep143113.35080/netedit.gui/netelements/trafficlights/joined/phases/actuated/buttons/add/default/routes.xml"/>
+        <data-files value="/home/palcraft/.texttest/tmp/netedit.gui.09Sep143113.35080/netedit.gui/netelements/trafficlights/joined/phases/actuated/buttons/add/default/datas.xml"/>
+        <dataelements-output value="/home/palcraft/.texttest/tmp/netedit.gui.09Sep143113.35080/netedit.gui/netelements/trafficlights/joined/phases/actuated/buttons/add/default/datas.xml"/>
     </netedit>
 
     <visualisation>
@@ -43,12 +43,12 @@
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
-        <gui-testing.setting-output value="/home/palcraft/.texttest/tmp/netedit.gui.09Sep133533.27450/netedit.gui/netelements/trafficlights/joined/phases/actuated/buttons/add/default/guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="/home/palcraft/.texttest/tmp/netedit.gui.09Sep143113.35080/netedit.gui/netelements/trafficlights/joined/phases/actuated/buttons/add/default/guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="/home/palcraft/.texttest/tmp/netedit.gui.09Sep133533.27450/netedit.gui/netelements/trafficlights/joined/phases/actuated/buttons/add/default/log.txt"/>
+        <error-log value="/home/palcraft/.texttest/tmp/netedit.gui.09Sep143113.35080/netedit.gui/netelements/trafficlights/joined/phases/actuated/buttons/add/default/log.txt"/>
     </report>
 
 </configuration>
@@ -168,30 +168,31 @@
         <lane id="E3_2" index="2" disallow="pedestrian" speed="13.89" length="18.90" shape="-1.60,38.90 -1.60,20.00"/>
     </edge>
 
-    <tlLogic id="J0" type="static" programID="0" offset="0">
-        <phase duration="31" state="GGGgggggGGGgggggGGGGGGGG"/>
+    <tlLogic id="J0" type="actuated" programID="0" offset="0">
+        <phase duration="31" state="GGGgggggGGGgggggGGGGGGGG" minDur="5" maxDur="50"/>
         <phase duration="3"  state="yyygggggyyygggggyyyyyyyy"/>
-        <phase duration="6"  state="GGGgggggGGGgggggGGGGGGGG"/>
+        <phase duration="6"  state="GGGgggggGGGgggggGGGGGGGG" minDur="5" maxDur="50"/>
         <phase duration="3"  state="yyyyyyyyyyyyyyyyyyyyyyyy"/>
-        <phase duration="31" state="GGGgggggGGGgggggGGGGGGGG"/>
+        <phase duration="31" state="GGGgggggGGGgggggGGGGGGGG" minDur="5" maxDur="50"/>
         <phase duration="3"  state="yyygggggyyygggggyyyyyyyy"/>
-        <phase duration="6"  state="GGGgggggGGGgggggGGGGGGGG"/>
+        <phase duration="6"  state="GGGgggggGGGgggggGGGGGGGG" minDur="5" maxDur="50"/>
         <phase duration="3"  state="yyyyyyyyyyyyyyyyyyyyyyyy"/>
-        <phase duration="31" state="GGGgggggGGGgggggGGGGGGGG"/>
+        <phase duration="2"  state="rrrrrrrrrrrrrrrrrrrrrrrr"/>
+        <phase duration="31" state="GGGgggggGGGgggggGGGGGGGG" minDur="5" maxDur="50"/>
         <phase duration="3"  state="yyygggggyyygggggyyyyyyyy"/>
-        <phase duration="6"  state="GGGgggggGGGgggggGGGGGGGG"/>
+        <phase duration="6"  state="GGGgggggGGGgggggGGGGGGGG" minDur="5" maxDur="50"/>
         <phase duration="3"  state="yyyyyyyyyyyyyyyyyyyyyyyy"/>
-        <phase duration="31" state="GGGgggggGGGgggggGGGGGGGG"/>
+        <phase duration="31" state="GGGgggggGGGgggggGGGGGGGG" minDur="5" maxDur="50"/>
         <phase duration="3"  state="yyygggggyyygggggyyyyyyyy"/>
-        <phase duration="6"  state="GGGgggggGGGgggggGGGGGGGG"/>
+        <phase duration="6"  state="GGGgggggGGGgggggGGGGGGGG" minDur="5" maxDur="50"/>
         <phase duration="3"  state="yyyyyyyyyyyyyyyyyyyyyyyy"/>
-        <phase duration="31" state="GGGgggggGGGgggggGGGGGGGG"/>
+        <phase duration="31" state="GGGgggggGGGgggggGGGGGGGG" minDur="5" maxDur="50"/>
         <phase duration="3"  state="yyygggggyyygggggyyyyyyyy"/>
-        <phase duration="6"  state="GGGgggggGGGgggggGGGGGGGG"/>
+        <phase duration="6"  state="GGGgggggGGGgggggGGGGGGGG" minDur="5" maxDur="50"/>
         <phase duration="3"  state="yyyyyyyyyyyyyyyyyyyyyyyy"/>
-        <phase duration="31" state="GGGgggggGGGgggggGGGGGGGG"/>
+        <phase duration="31" state="GGGgggggGGGgggggGGGGGGGG" minDur="5" maxDur="50"/>
         <phase duration="3"  state="yyygggggyyygggggyyyyyyyy"/>
-        <phase duration="6"  state="GGGgggggGGGgggggGGGGGGGG"/>
+        <phase duration="6"  state="GGGgggggGGGgggggGGGGGGGG" minDur="5" maxDur="50"/>
         <phase duration="3"  state="yyyyyyyyyyyyyyyyyyyyyyyy"/>
     </tlLogic>
 
