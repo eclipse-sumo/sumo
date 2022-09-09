@@ -473,71 +473,71 @@ class TLS:
 
     class join:
         class staticPhase:
-            dur = 17
-            state = 22
-            nxt = 27
-            name = 32
-            addButton = 35
-            deleteButton = 39
-            moveUp = 43
-            moveDown = 47
-            cleanStates = 50
-            groupSignal = 51
-            addStates = 52
-            ungroupSignal = 53
+            dur = 18 + (0 * 24) + 0
+            state = 18 + (1 * 24) + 1
+            nxt = 18 + (2 * 24) + 2
+            name = 18 + (3 * 24) + 3
+            addButton = 18 + (4 * 24) + 4
+            deleteButton = 18 + (5 * 24) + 5
+            moveUp = 18 + (6 * 24) + 6
+            moveDown = 18 + (7 * 24) + 7
+            cleanStates = 18 + (8 * 24) + 1
+            groupSignal = 18 + (8 * 24) + 2
+            addStates = 18 + (8 * 24) + 3
+            ungroupSignal = 18 + (8 * 24) + 4
 
         class actuatedPhase:
-            dur = 18
-            minD = 22
-            maxD = 26
-            state = 30
-            earlyEnd = 34
-            latestEnd = 38
-            nxt = 42
-            name = 46
-            addButton = 51
-            deleteButton = 55
-            moveUp = 60
-            moveDown = 64
-            cleanStates = 67
-            groupSignal = 68
-            addStates = 69
-            ungroupSignal = 70
+            dur = 18 + (0 * 24) + 0
+            minD = 18 + (1 * 24) + 1
+            maxD = 18 + (2 * 24) + 2
+            state = 18 + (3 * 24) + 3
+            earlyEnd = 18 + (4 * 24) + 4
+            latestEnd = 18 + (5 * 24) + 5
+            nxt = 18 + (6 * 24) + 6
+            name = 18 + (7 * 24) + 7
+            addButton = 18 + (8 * 24) + 8
+            deleteButton = 18 + (9 * 24) + 9
+            moveUp = 18 + (10 * 24) + 10
+            moveDown = 18 + (11 * 24) + 11
+            cleanStates = 18 + (12 * 24) + 1
+            groupSignal = 18 + (12 * 24) + 2
+            addStates = 18 + (12 * 24) + 3
+            ungroupSignal = 18 + (12 * 24) + 4
 
         class delayBasedPhase:
-            dur = 18
-            minD = 22
-            maxD = 26
-            state = 30
-            nxt = 34
-            name = 38
-            addButton = 43
-            deleteButton = 47
-            moveUp = 52
-            moveDown = 56
-            cleanStates = 59
-            groupSignal = 60
-            addStates = 61
-            ungroupSignal = 62
+            dur = 18 + (0 * 24) + 0
+            minD = 18 + (1 * 24) + 1
+            maxD = 18 + (2 * 24) + 2
+            state = 18 + (3 * 24) + 3
+            nxt = 18 + (4 * 24) + 4
+            name = 18 + (5 * 24) + 5
+            addButton = 18 + (6 * 24) + 6
+            deleteButton = 18 + (7 * 24) + 7
+            moveUp = 18 + (8 * 24) + 8
+            moveDown = 18 + (9 * 24) + 9
+            cleanStates = 18 + (10 * 24) + 1
+            groupSignal = 18 + (10 * 24) + 2
+            addStates = 18 + (10 * 24) + 3
+            ungroupSignal = 18 + (10 * 24) + 4
 
         class NEMAPhase:
-            dur = 18
-            minD = 22
-            maxD = 26
-            state = 30
-            vehext = 34
-            yellow = 38
-            red = 42
-            nxt = 46
-            name = 50
-            addButton = 55
-            deleteButton = 59
-            moveUp = 64
-            moveDown = 68
-            cleanStates = 71
-            groupSignal = 72
-            addStates = 73
-            ungroupSignal = 74
+            dur = 18 + (0 * 24) + 0
+            minD = 18 + (1 * 24) + 1
+            maxD = 18 + (2 * 24) + 2
+            state = 18 + (3 * 24) + 3
+            vehext = 18 + (4 * 24) + 4
+            yellow = 18 + (5 * 24) + 5
+            red = 18 + (6 * 24) + 6
+            nxt = 18 + (7 * 24) + 7
+            name = 18 + (8 * 24) + 8
+            addButton = 18 + (9 * 24) + 9
+            deleteButton = 18 + (10 * 24) + 10
+            moveUp = 18 + (11 * 24) + 11
+            moveDown = 18 + (12 * 24) + 12
+            cleanStates = 18 + (13 * 24) + 1
+            groupSignal = 18 + (13 * 24) + 2
+            addStates = 18 + (13 * 24) + 3
+            ungroupSignal = 18 + (13 * 24) + 4
         
 
 
