@@ -406,71 +406,71 @@ class TLS:
     
     class single:
         class staticPhase:
-            dur = 17
-            state = 22
-            nxt = 27
-            name = 32
-            addButton = 35
-            deleteButton = 39
-            moveUp = 43
-            moveDown = 47
-            cleanStates = 50
-            groupSignal = 51
-            addStates = 52
-            ungroupSignal = 53
+            dur = 17 + (0 * 4) + 0
+            state = 17 + (1 * 4) + 1
+            nxt = 17 + (2 * 4) + 2
+            name = 17 + (3 * 4) + 3
+            addButton = 17 + (4 * 4) + 0
+            deleteButton = 17 + (5 * 4) + 1
+            moveUp = 17 + (6 * 4) + 2
+            moveDown = 17 + (7 * 4) + 3
+            cleanStates = 17 + (8 * 4) + 1
+            groupSignal = 17 + (8 * 4) + 2
+            addStates = 17 + (8 * 4) + 3
+            ungroupSignal = 17 + (8 * 4) + 4
 
         class actuatedPhase:
-            dur = 18
-            minD = 22
-            maxD = 26
-            state = 30
-            earlyEnd = 34
-            latestEnd = 38
-            nxt = 42
-            name = 46
-            addButton = 51
-            deleteButton = 55
-            moveUp = 60
-            moveDown = 64
-            cleanStates = 67
-            groupSignal = 68
-            addStates = 69
-            ungroupSignal = 70
+            dur = 18 + (0 * 4) + 0
+            minD = 18 + (1 * 4) + 1
+            maxD = 18 + (2 * 4) + 2
+            state = 18 + (3 * 4) + 3
+            earlyEnd = 18 + (4 * 4) + 0
+            latestEnd = 18 + (5 * 4) + 1
+            nxt = 18 + (6 * 4) + 2
+            name = 18 + (7 * 4) + 3
+            addButton = 18 + (8 * 4) + 0
+            deleteButton = 18 + (9 * 4) + 1
+            moveUp = 18 + (10 * 4) + 2
+            moveDown = 18 + (11 * 4) + 3
+            cleanStates = 18 + (12 * 4) + 1
+            groupSignal = 18 + (12 * 4) + 2
+            addStates = 18 + (12 * 4) + 3
+            ungroupSignal = 18 + (12 * 4) + 4
 
         class delayBasedPhase:
-            dur = 18
-            minD = 22
-            maxD = 26
-            state = 30
-            nxt = 34
-            name = 38
-            addButton = 43
-            deleteButton = 47
-            moveUp = 52
-            moveDown = 56
-            cleanStates = 59
-            groupSignal = 60
-            addStates = 61
-            ungroupSignal = 62
+            dur = 18 + (0 * 4) + 0
+            minD = 18 + (1 * 4) + 1
+            maxD = 18 + (2 * 4) + 2
+            state = 18 + (3 * 4) + 3
+            nxt = 18 + (4 * 4) + 0
+            name = 18 + (5 * 4) + 1
+            addButton = 18 + (6 * 4) + 2
+            deleteButton = 18 + (7 * 4) + 3
+            moveUp = 18 + (8 * 4) + 0
+            moveDown = 18 + (9 * 4) + 1
+            cleanStates = 18 + (10 * 4) + 1
+            groupSignal = 18 + (10 * 4) + 2
+            addStates = 18 + (10 * 4) + 3
+            ungroupSignal = 18 + (10 * 4) + 4
 
         class NEMAPhase:
-            dur = 18
-            minD = 22
-            maxD = 26
-            state = 30
-            vehext = 34
-            yellow = 38
-            red = 42
-            nxt = 46
-            name = 50
-            addButton = 55
-            deleteButton = 59
-            moveUp = 64
-            moveDown = 68
-            cleanStates = 71
-            groupSignal = 72
-            addStates = 73
-            ungroupSignal = 74
+            dur = 18 + (0 * 4) + 0
+            minD = 18 + (1 * 4) + 1
+            maxD = 18 + (2 * 4) + 2
+            state = 18 + (3 * 4) + 3
+            vehext = 18 + (4 * 4) + 0
+            yellow = 18 + (5 * 4) + 1
+            red = 18 + (6 * 4) + 2
+            nxt = 18 + (7 * 4) + 3
+            name = 18 + (8 * 4) + 0
+            addButton = 18 + (9 * 4) + 1
+            deleteButton = 18 + (10 * 4) + 2
+            moveUp = 18 + (11 * 4) + 3
+            moveDown = 18 + (12 * 4) + 0
+            cleanStates = 18 + (13 * 4) + 1
+            groupSignal = 18 + (13 * 4) + 2
+            addStates = 18 + (13 * 4) + 3
+            ungroupSignal = 18 + (13 * 4) + 4
 
     class join:
         class staticPhase:
