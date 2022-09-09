@@ -1,0 +1,9 @@
+Warning: Missing yellow phase in tlLogic 'J0', program '0' for tl-index 4 when switching to phase 2.
+Warning: At actuated tlLogic 'J0', linkIndex 1 has no controlling detector.
+Warning: At actuated tlLogic 'J0', linkIndex 2 has no controlling detector.
+Warning: At actuated tlLogic 'J0', linkIndex 5 has no controlling detector.
+Warning: At actuated tlLogic 'J0', linkIndex 6 has no controlling detector.
+Warning: At actuated tlLogic 'J0', linkIndex 9 has no controlling detector.
+Warning: At actuated tlLogic 'J0', linkIndex 10 has no controlling detector.
+Warning: At actuated tlLogic 'J0', linkIndex 13 has no controlling detector.
+Warning: At actuated tlLogic 'J0', linkIndex 14 has no controlling detector.
