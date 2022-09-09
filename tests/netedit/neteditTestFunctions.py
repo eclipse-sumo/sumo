@@ -2227,7 +2227,7 @@ def resetAllTLSPhases():
     # focus current frame
     focusOnFrame()
     # type tab 2 times to jump to create TLS button
-    for _ in range(13):
+    for _ in range(12):
         typeTab()
     # create TLS
     typeSpace()
