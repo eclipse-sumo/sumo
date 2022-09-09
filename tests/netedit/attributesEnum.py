@@ -522,23 +522,23 @@ class TLS:
             ungroupSignal = 19 + (10 * 24) + 4
 
         class NEMAPhase:
-            dur = 19 + (0 * 24) + 0
-            minD = 19 + (1 * 24) + 1
-            maxD = 19 + (2 * 24) + 2
-            state = 19 + (3 * 24) + 3
-            vehext = 19 + (4 * 24) + 4
-            yellow = 19 + (5 * 24) + 5
-            red = 19 + (6 * 24) + 6
-            nxt = 19 + (7 * 24) + 7
-            name = 19 + (8 * 24) + 8
-            addButton = 19 + (9 * 24) + 9
-            deleteButton = 19 + (10 * 24) + 10
-            moveUp = 19 + (11 * 24) + 11
-            moveDown = 19 + (12 * 24) + 12
-            cleanStates = 19 + (13 * 24) + 1
-            groupSignal = 19 + (13 * 24) + 2
-            addStates = 19 + (13 * 24) + 3
-            ungroupSignal = 19 + (13 * 24) + 4
+            dur = 19 + (0 * 6) + 0
+            minD = 19 + (1 * 6) + 1
+            maxD = 19 + (2 * 6) + 2
+            state = 19 + (3 * 6) + 3
+            vehext = 19 + (4 * 6) + 4
+            yellow = 19 + (5 * 6) + 5
+            red = 19 + (6 * 6) + 0
+            nxt = 19 + (7 * 6) + 1
+            name = 19 + (8 * 6) + 2
+            addButton = 19 + (9 * 6) + 3
+            deleteButton = 19 + (10 * 6) + 4
+            moveUp = 19 + (11 * 6) + 5
+            moveDown = 19 + (12 * 6) + 0
+            cleanStates = 19 + (13 * 6) + 1
+            groupSignal = 19 + (13 * 6) + 2
+            addStates = 19 + (13 * 6) + 3
+            ungroupSignal = 19 + (13 * 6) + 4
         
 
 
