@@ -40,8 +40,17 @@ netedit.selectTLSMode()
 # select junction
 netedit.leftClick(referencePosition, 320, 220)
 
-# create TLS
-netedit.createTLS()
+# join TLS
+netedit.joinTSL()
+
+# select four corners
+netedit.leftClick(referencePosition, 150, 220)
+netedit.leftClick(referencePosition, 500, 220)
+netedit.leftClick(referencePosition, 320, 50)
+netedit.leftClick(referencePosition, 320, 400)
+
+# join tls
+netedit.typeEnter()
 
 # change type
 netedit.modifyAttribute(netedit.attrs.TLS.common.TLType, "actuated", False)
@@ -50,13 +59,13 @@ netedit.modifyAttribute(netedit.attrs.TLS.common.TLType, "actuated", False)
 netedit.typeEnter()
 
 # set attribute
-netedit.modifyAttribute(netedit.attrs.TLS.actuatedPhase.minD, "dummyDur", False)
+netedit.modifyAttribute(netedit.attrs.TLS.join.actuatedPhase.minD, "dummyDur", False)
 
 # set attribute
-netedit.modifyAttribute(netedit.attrs.TLS.actuatedPhase.minD, "-20", False)
+netedit.modifyAttribute(netedit.attrs.TLS.join.actuatedPhase.minD, "-20", False)
 
 # set attribute
-netedit.modifyAttribute(netedit.attrs.TLS.actuatedPhase.minD, "13.15", False)
+netedit.modifyAttribute(netedit.attrs.TLS.join.actuatedPhase.minD, "13.15", False)
 
 # type enter to save changes
 netedit.typeEnter()

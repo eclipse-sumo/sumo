@@ -40,8 +40,17 @@ netedit.selectTLSMode()
 # select junction
 netedit.leftClick(referencePosition, 320, 220)
 
-# create TLS
-netedit.createTLS()
+# join TLS
+netedit.joinTSL()
+
+# select four corners
+netedit.leftClick(referencePosition, 150, 220)
+netedit.leftClick(referencePosition, 500, 220)
+netedit.leftClick(referencePosition, 320, 50)
+netedit.leftClick(referencePosition, 320, 400)
+
+# join tls
+netedit.typeEnter()
 
 # change type
 netedit.modifyAttribute(netedit.attrs.TLS.common.TLType, "delay_based", False)
@@ -50,7 +59,7 @@ netedit.modifyAttribute(netedit.attrs.TLS.common.TLType, "delay_based", False)
 netedit.typeEnter()
 
 # move down
-netedit.pressTLSPhaseButton(netedit.attrs.TLS.delayBasedPhase.moveDown)
+netedit.pressTLSPhaseButton(netedit.attrs.TLS.join.delayBasedPhase.moveDown)
 
 # type enter to save changes
 netedit.typeEnter()
