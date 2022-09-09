@@ -123,7 +123,7 @@ MSCFModel_IDM::insertionFollowSpeed(const MSVehicle* const v, double speed, doub
         // emergency braking in a subsequent step)
         const double speed2 = followSpeed(v, speed, gap2pred, predSpeed, predMaxDecel);
         const double speed3 = followSpeed(v, speed2, gap2pred, predSpeed, predMaxDecel);
-        if (speed2 - speed3 < 1) {
+        if (speed2 - speed3 < ACCEL2SPEED(1)) {
             return speed2;
         } else {
 #ifdef DEBUG_INSERTION_SPEED
