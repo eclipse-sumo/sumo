@@ -72,7 +72,7 @@ def getParams(vClass, prefix=None):
     return ["--vehicle-class", vClass,  "--vclass", vClass,  "--prefix", prefix]
 
 vehicleParameters = {
-    "passenger":  getParams("passenger", "veh")  + CP + ["--min-distance", "300",
+    "passenger":  getParams("passenger", "veh")  + CP + ["--min-distance", "300", "--min-distance.fringe", "0",
                                                          "--allow-fringe.min-length", "1000", "--lanes"],
     "truck":      getParams("truck")             + CP + ["--min-distance", "600"],
     "bus":        getParams("bus")               + CP + ["--min-distance", "600"],

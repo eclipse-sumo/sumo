@@ -123,6 +123,8 @@ def get_options(args=None):
                     default=False, help="Determine fringe edges based on junction attribute 'fringe'")
     op.add_argument("--min-distance", type=float, dest="min_distance", metavar="FLOAT", default=0.0,
                     help="require start and end edges for each trip to be at least <FLOAT> m apart")
+    op.add_argument("--min-distance.fringe", type=float, dest="min_dist_fringe", metavar="FLOAT",
+                    help="require start and end edges for each fringe to fringe trip to be at least <FLOAT> m apart")
     op.add_argument("--max-distance", type=float, dest="max_distance", metavar="FLOAT",
                     help="require start and end edges for each trip to be at most <FLOAT> m " +
                     "apart (default 0 which disables any checks)")
@@ -309,7 +311,7 @@ class RandomTripGenerator:
         self.intermediate = intermediate
         self.pedestrians = pedestrians
 
-    def get_trip(self, min_distance, max_distance, maxtries=100, junctionTaz=False):
+    def get_trip(self, min_distance, max_distance, maxtries=100, junctionTaz=False, min_dist_fringe=None):
         for _ in range(maxtries):
             source_edge = self.source_generator.get()
             intermediate = [self.via_generator.get()
@@ -325,7 +327,10 @@ class RandomTripGenerator:
                       [destCoord])
             distance = sum([euclidean(p, q)
                             for p, q in zip(coords[:-1], coords[1:])])
-            if (distance >= min_distance
+            min_dist = min_distance
+            if min_dist_fringe is not None and source_edge.is_fringe() and sink_edge.is_fringe() and not intermediate:
+                min_dist = min_dist_fringe
+            if (distance >= min_dist
                     and (not junctionTaz or source_edge.getFromNode() != sink_edge.getToNode())
                     and (max_distance is None or distance < max_distance)):
                 return source_edge, sink_edge, intermediate
@@ -564,7 +569,7 @@ def main(options):
     def generate_origin_destination(trip_generator, options):
         source_edge, sink_edge, intermediate = trip_generator.get_trip(
             options.min_distance, options.max_distance, options.maxtries,
-            options.junctionTaz)
+            options.junctionTaz, options.min_dist_fringe)
         return source_edge, sink_edge, intermediate
 
     def generate_attributes(idx, departureTime, arrivalTime, origin, destination, intermediate, options):
