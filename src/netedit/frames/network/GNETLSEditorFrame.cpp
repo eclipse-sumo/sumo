@@ -1996,6 +1996,12 @@ GNETLSEditorFrame::TLSPhases::addPhase(const int row, const char c) {
         default:
             break;
     }
+    // Write debug
+    if (c == ' ') {
+        WRITE_DEBUG("Add default phase in row " + toString(row));
+    } else {
+        WRITE_DEBUG("Add new phase in row " + toString(row) + " of type: " + c);
+    }
     // int phase table again
     initPhaseTable();
     // mark new row as selected
@@ -2013,6 +2019,8 @@ GNETLSEditorFrame::TLSPhases::duplicatePhase(const int row) {
     const int newIndex = buildDefaultPhase(row);
     // coply old phase in the new phase
     myTLSEditorParent->myEditedDef->getLogic()->copyPhase(row, row + 1);
+    // Write debug
+    WRITE_DEBUG("Duplicated phase " + toString(row));
     // int phase table again
     initPhaseTable();
     // mark new row as selected
@@ -2030,6 +2038,8 @@ GNETLSEditorFrame::TLSPhases::removePhase(const int row) {
     const auto newRow = MAX2(0, (row - 1));
     // delete selected row
     myTLSEditorParent->myEditedDef->getLogic()->deletePhase(row);
+    // Write debug
+    WRITE_DEBUG("removed phase " + toString(row));
     // int phase table again
     initPhaseTable();
     // mark new row as selected
@@ -2043,6 +2053,8 @@ void
 GNETLSEditorFrame::TLSPhases::movePhaseUp(const int row) {
     // mark TLS ad modified
     myTLSEditorParent->myTLSDefinition->markAsModified();
+    // Write debug
+    WRITE_DEBUG("Move up phase " + toString(row));
     // delete selected row
     if (row == 0) {
         myTLSEditorParent->myEditedDef->getLogic()->swapfirstPhase();
@@ -2066,6 +2078,8 @@ void
 GNETLSEditorFrame::TLSPhases::movePhaseDown(const int row) {
     // mark TLS ad modified
     myTLSEditorParent->myTLSDefinition->markAsModified();
+    // Write debug
+    WRITE_DEBUG("Move down phase " + toString(row));
     // delete selected row
     if (row == (int)myTLSEditorParent->myEditedDef->getLogic()->getPhases().size() - 1) {
          myTLSEditorParent->myEditedDef->getLogic()->swaplastPhase();
