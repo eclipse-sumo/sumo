@@ -4,34 +4,38 @@
 
 netelements/trafficlights/joined/phases/NEMA/buttons/ungroupsignals
 netelements/trafficlights/joined/phases/NEMA/state
-netelements/trafficlights/joined/phases/actuated/buttons/add/default
-netelements/trafficlights/joined/phases/actuated/buttons/add/duplicate
-netelements/trafficlights/joined/phases/actuated/buttons/add/green
-netelements/trafficlights/joined/phases/actuated/buttons/add/greenpriority
-netelements/trafficlights/joined/phases/actuated/buttons/add/red
-netelements/trafficlights/joined/phases/actuated/buttons/add/yellow
-netelements/trafficlights/joined/phases/actuated/buttons/addstates
-netelements/trafficlights/joined/phases/actuated/buttons/cleanstates
-netelements/trafficlights/joined/phases/actuated/buttons/delete
-netelements/trafficlights/joined/phases/actuated/buttons/groupsignals
-netelements/trafficlights/joined/phases/actuated/buttons/movedown
-netelements/trafficlights/joined/phases/actuated/buttons/moveup
-netelements/trafficlights/joined/phases/actuated/buttons/ungroupsignals
-netelements/trafficlights/joined/phases/actuated/max
-netelements/trafficlights/joined/phases/actuated/name
-netelements/trafficlights/joined/phases/actuated/state
-netelements/trafficlights/joined/phases/delay_based/buttons/add/default
-netelements/trafficlights/joined/phases/delay_based/buttons/add/greenpriority
-netelements/trafficlights/joined/phases/delay_based/buttons/add/red
-netelements/trafficlights/joined/phases/delay_based/buttons/add/yellow
-netelements/trafficlights/joined/phases/delay_based/buttons/movedown
-netelements/trafficlights/joined/phases/delay_based/buttons/ungroupsignals
-netelements/trafficlights/joined/phases/delay_based/dur
-netelements/trafficlights/joined/phases/delay_based/max
-netelements/trafficlights/joined/phases/delay_based/min
-netelements/trafficlights/joined/phases/delay_based/name
-netelements/trafficlights/joined/phases/delay_based/next/TIMEOUT
-netelements/trafficlights/joined/phases/delay_based/state
+
+	netelements/trafficlights/joined/phases/actuated/buttons/add/default
+	netelements/trafficlights/joined/phases/actuated/buttons/add/duplicate
+	netelements/trafficlights/joined/phases/actuated/buttons/add/green
+	netelements/trafficlights/joined/phases/actuated/buttons/add/greenpriority
+	netelements/trafficlights/joined/phases/actuated/buttons/add/red
+	netelements/trafficlights/joined/phases/actuated/buttons/add/yellow
+	netelements/trafficlights/joined/phases/actuated/buttons/addstates
+	netelements/trafficlights/joined/phases/actuated/buttons/cleanstates
+	netelements/trafficlights/joined/phases/actuated/buttons/delete
+	netelements/trafficlights/joined/phases/actuated/buttons/groupsignals
+	netelements/trafficlights/joined/phases/actuated/buttons/movedown
+	netelements/trafficlights/joined/phases/actuated/buttons/moveup
+	netelements/trafficlights/joined/phases/actuated/buttons/ungroupsignals
+	netelements/trafficlights/joined/phases/actuated/max
+	netelements/trafficlights/joined/phases/actuated/name
+	netelements/trafficlights/joined/phases/actuated/state
+	
+	
+	netelements/trafficlights/joined/phases/delay_based/buttons/add/default
+	netelements/trafficlights/joined/phases/delay_based/buttons/add/greenpriority
+	netelements/trafficlights/joined/phases/delay_based/buttons/add/red
+	netelements/trafficlights/joined/phases/delay_based/buttons/add/yellow
+	netelements/trafficlights/joined/phases/delay_based/buttons/movedown
+	netelements/trafficlights/joined/phases/delay_based/buttons/ungroupsignals
+	netelements/trafficlights/joined/phases/delay_based/dur
+	netelements/trafficlights/joined/phases/delay_based/max
+	netelements/trafficlights/joined/phases/delay_based/min
+	netelements/trafficlights/joined/phases/delay_based/name
+	netelements/trafficlights/joined/phases/delay_based/next
+	netelements/trafficlights/joined/phases/delay_based/state
+
 netelements/trafficlights/joined/programs/delete
 netelements/trafficlights/joined/programs/resetall
 netelements/trafficlights/joined/programs/resetphase

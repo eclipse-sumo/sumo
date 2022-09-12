@@ -390,10 +390,7 @@ class crossing:
 # TLS
 
 
-class TLS:
-    class edit:
-        TLS = 10
-    
+class TLS:    
     class common:
         TLID = 1
         TLType = 2
@@ -541,7 +538,19 @@ class TLS:
             groupSignal = 19 + (13 * 6) + 2
             addStates = 19 + (13 * 6) + 3
             ungroupSignal = 19 + (13 * 6) + 4
-        
+    
+    create = 3
+    createOverlapped = 4
+    copySingle = 9
+    copyJoined = 10
+    joinTLS = 5
+    disjoinTLS = 6
+    deleteSingle = 10
+    resetPhaseSingle = 11
+    resetAllSingle = 12
+    deleteJoined = 11
+    resetPhaseJoined = 12
+    resetAllJoined = 13
 
 
 # --------------------------------

@@ -2117,7 +2117,7 @@ def createTLS():
     # focus current frame
     focusOnFrame()
     # type tab 2 times to jump to create TLS button
-    for _ in range(3):
+    for _ in range(attrs.TLS.create):
         typeTab()
     # create TLS
     typeSpace()
@@ -2132,11 +2132,11 @@ def createTLSOverlapped(junction):
     # focus current frame
     focusOnFrame()
     # type tab 2 times to jump to create TLS button
-    for _ in range(4):
+    for _ in range(attrs.TLS.createOverlapped):
         typeTab()
     for _ in range(junction):
         typeSpace()
-    for _ in range(4):
+    for _ in range(attrs.TLS.createOverlapped):
         typeTab()
     # create TLS
     typeSpace()
@@ -2150,10 +2150,10 @@ def copyTLS(joined):
     focusOnFrame()
     # type tab 2 times to jump to create TLS button
     if (joined):
-        for _ in range(10):
+        for _ in range(attrs.TLS.copyJoined):
             typeTab()
     else:
-        for _ in range(9):
+        for _ in range(attrs.TLS.copySingle):
             typeTab()
     # create TLS
     typeSpace()
@@ -2166,7 +2166,7 @@ def joinTSL():
     # focus current frame
     focusOnFrame()
     # type tab 2 times to jump to create TLS button
-    for _ in range(5):
+    for _ in range(attrs.TLS.joinTLS):
         typeTab()
     # create TLS
     typeSpace()
@@ -2179,60 +2179,59 @@ def disJoinTLS():
     # focus current frame
     focusOnFrame()
     # type tab 2 times to jump to create TLS button
-    for _ in range(6):
+    for _ in range(attrs.TLS.disjoinTLS):
         typeTab()
     # create TLS
     typeSpace()
 
 
-def deleteTLS():
+def deleteTLS(joined):
+    """
+    @brief copy TLS in the current selected Junction
+    """
+    # focus current frame
+    focusOnFrame()
+    # type tab 2 times to jump to delete TLS button
+    if (joined):
+        for _ in range(attrs.TLS.deleteJoined):
+            typeTab()
+    else:
+        for _ in range(attrs.TLS.deleteSingle):
+            typeTab()
+    # create TLS
+    typeSpace()
+
+
+def resetSingleTLSPhases(joined):
     """
     @brief copy TLS in the current selected Junction
     """
     # focus current frame
     focusOnFrame()
     # type tab 2 times to jump to create TLS button
-    for _ in range(10):
-        typeTab()
+    if (joined):
+        for _ in range(attrs.TLS.deleteJoined):
+            typeTab()
+    else:
+        for _ in range(attrs.TLS.deleteSingle):
+            typeTab()
     # create TLS
     typeSpace()
 
 
-def deleteJoinedTLS():
+def resetAllTLSPhases(joined):
     """
     @brief copy TLS in the current selected Junction
     """
     # focus current frame
     focusOnFrame()
     # type tab 2 times to jump to create TLS button
-    for _ in range(11):
-        typeTab()
-    # create TLS
-    typeSpace()
-
-
-def resetSingleTLSPhases():
-    """
-    @brief copy TLS in the current selected Junction
-    """
-    # focus current frame
-    focusOnFrame()
-    # type tab 2 times to jump to create TLS button
-    for _ in range(11):
-        typeTab()
-    # create TLS
-    typeSpace()
-
-
-def resetAllTLSPhases():
-    """
-    @brief copy TLS in the current selected Junction
-    """
-    # focus current frame
-    focusOnFrame()
-    # type tab 2 times to jump to create TLS button
-    for _ in range(12):
-        typeTab()
+    if (joined):
+        for _ in range(attrs.TLS.resetAllJoined):
+            typeTab()
+    else:
+        for _ in range(attrs.TLS.resetAllSingle):
+            typeTab()
     # create TLS
     typeSpace()
 
