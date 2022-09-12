@@ -33,4 +33,7 @@ set(microsim_transportables_STAT_SRCS
         )
 
 add_library(microsim_transportables STATIC ${microsim_transportables_STAT_SRCS} ${remote_model})
+target_link_libraries(microsim_transportables 
+    PUBLIC $<$<BOOL:${HAVE_JPS}>:jupedsim::jupedsim>
+)
 set_property(TARGET microsim_transportables PROPERTY PROJECT_LABEL "z_microsim_transportables")
