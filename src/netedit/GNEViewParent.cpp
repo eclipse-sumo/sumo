@@ -631,6 +631,12 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                 chooserLoc = &myACChoosers.ACChooserAdditional;
                 title = "Additional";
                 for (const auto& additionalTag : viewNet->getNet()->getAttributeCarriers()->getAdditionals()) {
+                    if (additionalTag.first == SUMO_TAG_POI
+                            || additionalTag.first == GNE_TAG_POILANE
+                            || additionalTag.first == GNE_TAG_POIGEO
+                            || additionalTag.first == SUMO_TAG_POLY) {
+                        continue;
+                    }
                     for (const auto& additional : additionalTag.second) {
                         ACsToLocate.push_back(additional);
                     }
