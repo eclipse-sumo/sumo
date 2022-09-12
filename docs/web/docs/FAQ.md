@@ -489,8 +489,8 @@ and simply type `git pull`.
   are retrieved from the local sumo installation if [the environment variable **SUMO_HOME** is set](Basics/Basic_Computer_Skills.md#additional_environment_variables).
   Otherwise the files will be retrieved from
   [sumo.dlr.de](https://sumo.dlr.de) which is slower. Validation
-  can be disabled by using the option **--xml-validation never** or by deleting the schema
-  information at the top of the XML input file(s).
+  can be disabled by using the option **--xml-validation never** or by [deleting the schema
+  information](XMLValidation.md#disabling_schema_validation) at the top of the XML input file(s).
 
 ### What causes ''Error: unable to resolve host/address 'sumo.dlr.de' ''?
 
