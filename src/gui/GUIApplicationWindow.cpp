@@ -1715,13 +1715,11 @@ GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent* e) {
                 myRunThread->getBreakpoints().assign(breakpoints.begin(), breakpoints.end());
                 myRunThread->getBreakpointLock().unlock();
             }
-
+            myTLSGame = OptionsCont::getOptions().getString("game.mode") == "tls";
             if (OptionsCont::getOptions().getBool("game")) {
-                if (OptionsCont::getOptions().getString("game.mode") == "tls") {
-                    myTLSGame = true;
+                if (myTLSGame) {
                     setTitle("SUMO Interactive Traffic Light");
                 } else {
-                    myTLSGame = false;
                     setTitle("SUMO Interactive Demand-Responsive-Transport");
                 }
                 onCmdGaming(nullptr, 0, nullptr);
