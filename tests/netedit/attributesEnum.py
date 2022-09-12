@@ -397,14 +397,12 @@ class TLS:
     class common:
         TLID = 1
         TLType = 2
-        offset = 12
-        parameters = 14
-
-    class commonJoin:
-        offset = 13
-        parameters = 15
     
     class single:
+        class attributes:
+            offset = 12
+            parameters = 14
+
         class staticPhase:
             dur = 17 + (0 * 4) + 0
             state = 17 + (1 * 4) + 1
@@ -473,6 +471,10 @@ class TLS:
             ungroupSignal = 18 + (13 * 4) + 4
 
     class join:
+        class attributes:
+            offset = 13
+            parameters = 15
+
         class staticPhase:
             dur = 18 + (0 * 24) + 0
             state = 18 + (1 * 24) + 1
