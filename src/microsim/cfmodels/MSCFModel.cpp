@@ -890,7 +890,7 @@ MSCFModel::maximumSafeStopSpeedBallistic(double gap, double decel, double curren
 
 /** Returns the SK-vsafe. */
 double
-MSCFModel::maximumSafeFollowSpeed(double gap, double egoSpeed, double predSpeed, double predMaxDecel, bool onInsertion, const CalcReason usage) const {
+MSCFModel::maximumSafeFollowSpeed(double gap, double egoSpeed, double predSpeed, double predMaxDecel, bool onInsertion) const {
     // the speed is safe if allows the ego vehicle to come to a stop behind the leader even if
     // the leaders starts braking hard until stopped
     // unfortunately it is not sufficient to compare stopping distances if the follower can brake harder than the leader
@@ -919,7 +919,7 @@ MSCFModel::maximumSafeFollowSpeed(double gap, double egoSpeed, double predSpeed,
 
     const double headway = myHeadwayTime;
     double x;
-    if (gap >= 0 || MSGlobals::gComputeLC || usage != CalcReason::CURRENT) {
+    if (gap >= 0 || MSGlobals::gComputeLC) {
         x = maximumSafeStopSpeed(gap + brakeGap(predSpeed, MAX2(myDecel, predMaxDecel), 0), myDecel, egoSpeed, onInsertion, headway);
     } else {
         x = egoSpeed - ACCEL2SPEED(myEmergencyDecel);
@@ -928,7 +928,7 @@ MSCFModel::maximumSafeFollowSpeed(double gap, double egoSpeed, double predSpeed,
         }
     }
 
-    if (myDecel != myEmergencyDecel && !onInsertion && !MSGlobals::gComputeLC && usage == CalcReason::CURRENT) {
+    if (myDecel != myEmergencyDecel && !onInsertion && !MSGlobals::gComputeLC) {
         double origSafeDecel = SPEED2ACCEL(egoSpeed - x);
         if (origSafeDecel > myDecel + NUMERICAL_EPS) {
             // Braking harder than myDecel was requested -> calculate required emergency deceleration.

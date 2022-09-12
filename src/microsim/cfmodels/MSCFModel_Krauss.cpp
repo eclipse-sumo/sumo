@@ -108,11 +108,11 @@ MSCFModel_Krauss::stopSpeed(const MSVehicle* const veh, const double speed, doub
 
 
 double
-MSCFModel_Krauss::followSpeed(const MSVehicle* const veh, double speed, double gap, double predSpeed, double predMaxDecel, const MSVehicle* const pred, const CalcReason usage) const {
+MSCFModel_Krauss::followSpeed(const MSVehicle* const veh, double speed, double gap, double predSpeed, double predMaxDecel, const MSVehicle* const pred, const CalcReason /*usage*/) const {
     //gDebugFlag1 = DEBUG_COND;
     applyHeadwayAndSpeedDifferencePerceptionErrors(veh, speed, gap, predSpeed, predMaxDecel, pred);
     //gDebugFlag1 = DEBUG_COND; // enable for DEBUG_EMERGENCYDECEL
-    const double vsafe = maximumSafeFollowSpeed(gap, speed, predSpeed, predMaxDecel, false, usage);
+    const double vsafe = maximumSafeFollowSpeed(gap, speed, predSpeed, predMaxDecel);
     //gDebugFlag1 = false;
     const double vmin = minNextSpeedEmergency(speed);
     const double vmax = maxNextSpeed(speed, veh);

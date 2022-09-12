@@ -104,7 +104,7 @@ MSCFModel_EIDM::insertionStopSpeed(const MSVehicle* const /*veh*/, double speed,
 double
 MSCFModel_EIDM::maximumSafeFollowSpeed(double gap, double egoSpeed, double predSpeed, double predMaxDecel, bool onInsertion, const CalcReason usage) const {
     double x;
-    if (gap >= 0 || MSGlobals::gComputeLC || usage != CalcReason::CURRENT) {
+    if (gap >= 0 || MSGlobals::gComputeLC) {
         double a = 1.;
         double b = myHeadwayTime * myTwoSqrtAccelDecel - predSpeed;
         double c = -sqrt(1 + myDecel / (2 * myAccel)) * gap * myTwoSqrtAccelDecel;
@@ -124,7 +124,7 @@ MSCFModel_EIDM::maximumSafeFollowSpeed(double gap, double egoSpeed, double predS
         }
     }
 
-    if (myDecel != myEmergencyDecel && !onInsertion && !MSGlobals::gComputeLC && usage == CalcReason::CURRENT) {
+    if (myDecel != myEmergencyDecel && !onInsertion && !MSGlobals::gComputeLC) {
         double origSafeDecel = SPEED2ACCEL(egoSpeed - x);
         if (origSafeDecel > myDecel + NUMERICAL_EPS) {
             // Braking harder than myDecel was requested -> calculate required emergency deceleration.

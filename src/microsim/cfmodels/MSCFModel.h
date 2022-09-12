@@ -578,7 +578,7 @@ public:
      * @param[in] onInsertion Indicator whether the call is triggered during vehicle insertion
      * @return the safe velocity
      */
-    double maximumSafeFollowSpeed(double gap,  double egoSpeed, double predSpeed, double predMaxDecel, bool onInsertion = false, const CalcReason usage = CalcReason::CURRENT) const;
+    double maximumSafeFollowSpeed(double gap,  double egoSpeed, double predSpeed, double predMaxDecel, bool onInsertion = false) const;
 
 
     /** @brief Returns the minimal deceleration for following the given leader safely

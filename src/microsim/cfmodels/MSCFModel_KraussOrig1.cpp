@@ -56,11 +56,11 @@ MSCFModel_KraussOrig1::patchSpeedBeforeLC(const MSVehicle* veh, double vMin, dou
 
 
 double
-MSCFModel_KraussOrig1::followSpeed(const MSVehicle* const veh, double speed, double gap, double predSpeed, double predMaxDecel, const MSVehicle* const /*pred*/, const CalcReason usage) const {
+MSCFModel_KraussOrig1::followSpeed(const MSVehicle* const veh, double speed, double gap, double predSpeed, double predMaxDecel, const MSVehicle* const /*pred*/, const CalcReason /*usage*/) const {
     if (MSGlobals::gSemiImplicitEulerUpdate) {
         return MIN2(vsafe(gap, predSpeed, predMaxDecel), maxNextSpeed(speed, veh)); // XXX: and why not cap with minNextSpeed!? (Leo)
     } else {
-        return MAX2(MIN2(maximumSafeFollowSpeed(gap, speed, predSpeed, predMaxDecel, false, usage), maxNextSpeed(speed, veh)), minNextSpeed(speed));
+        return MAX2(MIN2(maximumSafeFollowSpeed(gap, speed, predSpeed, predMaxDecel), maxNextSpeed(speed, veh)), minNextSpeed(speed));
     }
 }
 
