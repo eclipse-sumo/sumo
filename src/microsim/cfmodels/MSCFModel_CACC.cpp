@@ -118,7 +118,7 @@ MSCFModel_CACC::followSpeed(const MSVehicle* const veh, double speed, double gap
 
     const double desSpeed = veh->getLane()->getVehicleMaxSpeed(veh);
     const double vCACC = _v(veh, pred, gap2pred, speed, predSpeed, desSpeed, true, usage);
-    const double vSafe = maximumSafeFollowSpeed(gap2pred, speed, predSpeed, predMaxDecel, usage);
+    const double vSafe = maximumSafeFollowSpeed(gap2pred, speed, predSpeed, predMaxDecel, false, usage);
 
 #if DEBUG_CACC == 1
     if (DEBUG_COND) {
