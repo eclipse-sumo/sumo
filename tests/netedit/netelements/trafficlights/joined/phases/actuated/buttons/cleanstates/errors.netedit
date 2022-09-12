@@ -14,10 +14,14 @@ Debug: Adding inductionLoop 'E1_12' in GNEChange_Additional
 Debug: Adding inductionLoop 'E1_13' in GNEChange_Additional
 Debug: Adding inductionLoop 'E1_14' in GNEChange_Additional
 Debug: Adding inductionLoop 'E1_15' in GNEChange_Additional
-Debug: Adding trip 'trip_1' in GNEChange_DemandElement
-Debug: Adding trip 'trip_2' in GNEChange_DemandElement
-Debug: Adding trip 'trip_3' in GNEChange_DemandElement
-Debug: Adding trip 'trip_4' in GNEChange_DemandElement
+Debug: Adding vehicleWithRoute 'trip_1' in GNEChange_DemandElement
+Debug: Adding routeEmbedded 'trip_1' in GNEChange_DemandElement
+Debug: Adding vehicleWithRoute 'trip_2' in GNEChange_DemandElement
+Debug: Adding routeEmbedded 'trip_2' in GNEChange_DemandElement
+Debug: Adding vehicleWithRoute 'trip_3' in GNEChange_DemandElement
+Debug: Adding routeEmbedded 'trip_3' in GNEChange_DemandElement
+Debug: Adding vehicleWithRoute 'trip_4' in GNEChange_DemandElement
+Debug: Adding routeEmbedded 'trip_4' in GNEChange_DemandElement
 Debug: Created connection 'from-E0_1toE3_1' in retrieveGNEConnection()
 Debug: Created connection 'from-E0_2toE3_2' in retrieveGNEConnection()
 Debug: Created connection 'from-E0_2toE1_2' in retrieveGNEConnection()
@@ -103,10 +107,14 @@ Debug: Adding TLS into junction 'J4'
 Debug: network elements saved
 Debug: Additionals saved
 Debug: demand elements saved
-Debug: Deleting unreferenced trip
-Debug: Deleting unreferenced trip
-Debug: Deleting unreferenced trip
-Debug: Deleting unreferenced trip
+Debug: Deleting unreferenced routeEmbedded
+Debug: Deleting unreferenced vehicleWithRoute
+Debug: Deleting unreferenced routeEmbedded
+Debug: Deleting unreferenced vehicleWithRoute
+Debug: Deleting unreferenced routeEmbedded
+Debug: Deleting unreferenced vehicleWithRoute
+Debug: Deleting unreferenced routeEmbedded
+Debug: Deleting unreferenced vehicleWithRoute
 Debug: Deleting unreferenced inductionLoop
 Debug: Deleting unreferenced inductionLoop
 Debug: Deleting unreferenced inductionLoop
