@@ -34,7 +34,7 @@ else:
     sumoCall = [sumolib.checkBinary('sumo-gui'), '-S', '-Q']
 
 
-def runSingle(traciEndTime, viewRange, laneList, upDist, downDist, objID):
+def runSingle(traciEndTime, viewRange, laneList, upDist, downDist, vTypes, vClasses, objID):
     step = 0
     traci.start(sumoCall + ["-c", "sumo.sumocfg"])
 
@@ -65,6 +65,11 @@ def runSingle(traciEndTime, viewRange, laneList, upDist, downDist, objID):
             traci.vehicle.addSubscriptionFilterUpstreamDistance(upDist)
             traci.vehicle.addSubscriptionFilterDownstreamDistance(downDist)
 
+            if vTypes:
+                traci.vehicle.addSubscriptionFilterVType(vTypes)
+            if vClasses:
+                traci.vehicle.addSubscriptionFilterVClass(vClasses)
+
             # advice all vehicle not to change lanes
             for vehID in traci.vehicle.getIDList():
                 traci.vehicle.changeLane(vehID, traci.vehicle.getLaneIndex(vehID), 111)
@@ -82,5 +87,7 @@ viewRange = float(sys.argv[2])
 laneList = laneList = list(map(int, sys.argv[3].strip('[]').split(',')))
 upDist = float(sys.argv[4])
 downDist = float(sys.argv[5])
+vTypes = [x for x in sys.argv[6].split(',') if x] if len(sys.argv) > 6 else []
+vClasses = [x for x in sys.argv[7].split(',') if x] if len(sys.argv) > 7 else []
 
-runSingle(100, viewRange, laneList, upDist, downDist, "ego")
+runSingle(100, viewRange, laneList, upDist, downDist, vTypes, vClasses,  "ego")
