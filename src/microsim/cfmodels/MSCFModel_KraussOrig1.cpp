@@ -60,7 +60,7 @@ MSCFModel_KraussOrig1::followSpeed(const MSVehicle* const veh, double speed, dou
     if (MSGlobals::gSemiImplicitEulerUpdate) {
         return MIN2(vsafe(gap, predSpeed, predMaxDecel), maxNextSpeed(speed, veh)); // XXX: and why not cap with minNextSpeed!? (Leo)
     } else {
-        return MAX2(MIN2(maximumSafeFollowSpeed(gap, speed, predSpeed, predMaxDecel, usage), maxNextSpeed(speed, veh)), minNextSpeed(speed));
+        return MAX2(MIN2(maximumSafeFollowSpeed(gap, speed, predSpeed, predMaxDecel, false, usage), maxNextSpeed(speed, veh)), minNextSpeed(speed));
     }
 }
 
