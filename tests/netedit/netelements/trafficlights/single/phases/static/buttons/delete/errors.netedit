@@ -49,6 +49,7 @@ Debug: Created connection 'fromE3_2to-E3_2' in retrieveGNEConnection()
 Debug: Adding TLS into junction 'J0'
 Debug: Setting new attribute
 Debug: Remove phase
+Debug: removed phase 0
 Debug: Key ENTER pressed
 Debug: Deleting TLS from junction 'J0'
 Debug: Adding TLS into junction 'J0'

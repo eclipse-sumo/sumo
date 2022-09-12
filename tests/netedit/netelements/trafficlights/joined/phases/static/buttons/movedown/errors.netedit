@@ -66,6 +66,7 @@ Debug: Setting new attribute
 Debug: Deleting TLS from junction 'J4'
 Debug: Adding TLS into junction 'J4'
 Debug: Move phase down
+Debug: Move down phase 6
 Debug: Key ENTER pressed
 Debug: Deleting TLS from junction 'J0'
 Debug: Adding TLS into junction 'J0'

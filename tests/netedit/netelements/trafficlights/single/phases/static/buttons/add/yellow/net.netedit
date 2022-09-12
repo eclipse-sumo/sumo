@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-09-09 10:00:29 by Eclipse SUMO netedit Version v1_14_1+0921-ea355445268
+<!-- generated on 2022-09-12 16:26:09 by Eclipse SUMO netedit Version v1_14_1+0968-cb637bcfcb3
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.gui.09Sep095604.9021/netedit.gui/netelements/trafficlights/single/phases/static/buttons/add/yellow/input_net.net.xml"/>
+        <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.gui.2_from_12Sep155103.32662/netedit.gui/netelements/trafficlights/single/phases/static/buttons/add/yellow/input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="/home/palcraft/.texttest/tmp/netedit.gui.09Sep095604.9021/netedit.gui/netelements/trafficlights/single/phases/static/buttons/add/yellow/net.net.xml"/>
+        <output-file value="/home/palcraft/.texttest/tmp/netedit.gui.2_from_12Sep155103.32662/netedit.gui/netelements/trafficlights/single/phases/static/buttons/add/yellow/net.net.xml"/>
     </output>
 
     <processing>
@@ -30,12 +30,12 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="/home/palcraft/.texttest/tmp/netedit.gui.09Sep095604.9021/netedit.gui/netelements/trafficlights/single/phases/static/buttons/add/yellow/additionals.xml"/>
-        <additionals-output value="/home/palcraft/.texttest/tmp/netedit.gui.09Sep095604.9021/netedit.gui/netelements/trafficlights/single/phases/static/buttons/add/yellow/additionals.xml"/>
-        <route-files value="/home/palcraft/.texttest/tmp/netedit.gui.09Sep095604.9021/netedit.gui/netelements/trafficlights/single/phases/static/buttons/add/yellow/routes.xml"/>
-        <demandelements-output value="/home/palcraft/.texttest/tmp/netedit.gui.09Sep095604.9021/netedit.gui/netelements/trafficlights/single/phases/static/buttons/add/yellow/routes.xml"/>
-        <data-files value="/home/palcraft/.texttest/tmp/netedit.gui.09Sep095604.9021/netedit.gui/netelements/trafficlights/single/phases/static/buttons/add/yellow/datas.xml"/>
-        <dataelements-output value="/home/palcraft/.texttest/tmp/netedit.gui.09Sep095604.9021/netedit.gui/netelements/trafficlights/single/phases/static/buttons/add/yellow/datas.xml"/>
+        <additional-files value="/home/palcraft/.texttest/tmp/netedit.gui.2_from_12Sep155103.32662/netedit.gui/netelements/trafficlights/single/phases/static/buttons/add/yellow/additionals.xml"/>
+        <additionals-output value="/home/palcraft/.texttest/tmp/netedit.gui.2_from_12Sep155103.32662/netedit.gui/netelements/trafficlights/single/phases/static/buttons/add/yellow/additionals.xml"/>
+        <route-files value="/home/palcraft/.texttest/tmp/netedit.gui.2_from_12Sep155103.32662/netedit.gui/netelements/trafficlights/single/phases/static/buttons/add/yellow/routes.xml"/>
+        <demandelements-output value="/home/palcraft/.texttest/tmp/netedit.gui.2_from_12Sep155103.32662/netedit.gui/netelements/trafficlights/single/phases/static/buttons/add/yellow/routes.xml"/>
+        <data-files value="/home/palcraft/.texttest/tmp/netedit.gui.2_from_12Sep155103.32662/netedit.gui/netelements/trafficlights/single/phases/static/buttons/add/yellow/datas.xml"/>
+        <dataelements-output value="/home/palcraft/.texttest/tmp/netedit.gui.2_from_12Sep155103.32662/netedit.gui/netelements/trafficlights/single/phases/static/buttons/add/yellow/datas.xml"/>
     </netedit>
 
     <visualisation>
@@ -43,12 +43,12 @@
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
-        <gui-testing.setting-output value="/home/palcraft/.texttest/tmp/netedit.gui.09Sep095604.9021/netedit.gui/netelements/trafficlights/single/phases/static/buttons/add/yellow/guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="/home/palcraft/.texttest/tmp/netedit.gui.2_from_12Sep155103.32662/netedit.gui/netelements/trafficlights/single/phases/static/buttons/add/yellow/guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="/home/palcraft/.texttest/tmp/netedit.gui.09Sep095604.9021/netedit.gui/netelements/trafficlights/single/phases/static/buttons/add/yellow/log.txt"/>
+        <error-log value="/home/palcraft/.texttest/tmp/netedit.gui.2_from_12Sep155103.32662/netedit.gui/netelements/trafficlights/single/phases/static/buttons/add/yellow/log.txt"/>
     </report>
 
 </configuration>
@@ -170,8 +170,8 @@
 
     <tlLogic id="J0" type="static" programID="0" offset="0">
         <phase duration="42" state="GGGgrrrrGGGgrrrr"/>
+        <phase duration="3"  state="yyyyyyyyyyyyyyyy"/>
         <phase duration="3"  state="yyyyrrrryyyyrrrr"/>
-        <phase duration="2"  state="yyyyyyyyyyyyyyyy"/>
         <phase duration="42" state="rrrrGGGgrrrrGGGg"/>
         <phase duration="3"  state="rrrryyyyrrrryyyy"/>
     </tlLogic>
