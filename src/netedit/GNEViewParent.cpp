@@ -495,6 +495,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                     // restore focus in the existent chooser dialog
                     myACChoosers.ACChooserJunction->restore();
                     myACChoosers.ACChooserJunction->setFocus();
+                    myACChoosers.ACChooserJunction->raise();
                 } else {
                     // fill ACsToLocate with junctions
                     ACsToLocate.reserve(viewNet->getNet()->getAttributeCarriers()->getJunctions().size());
@@ -510,6 +511,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                     // restore focus in the existent chooser dialog
                     myACChoosers.ACChooserEdges->restore();
                     myACChoosers.ACChooserEdges->setFocus();
+                    myACChoosers.ACChooserEdges->raise();
                 } else {
                     // fill ACsToLocate with edges
                     ACsToLocate.reserve(viewNet->getNet()->getAttributeCarriers()->getEdges().size());
@@ -525,6 +527,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                     // restore focus in the existent chooser dialog
                     myACChoosers.ACChooserWalkingAreas->restore();
                     myACChoosers.ACChooserWalkingAreas->setFocus();
+                    myACChoosers.ACChooserWalkingAreas->raise();
                 } else {
                     // fill ACsToLocate with walkingAreas
                     ACsToLocate.reserve(viewNet->getNet()->getAttributeCarriers()->getWalkingAreas().size());
@@ -540,6 +543,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                     // restore focus in the existent chooser dialog
                     myACChoosers.ACChooserVehicles->restore();
                     myACChoosers.ACChooserVehicles->setFocus();
+                    myACChoosers.ACChooserVehicles->raise();
                 } else {
                     // get demand elements (only for code legibly)
                     const auto demandElements = viewNet->getNet()->getAttributeCarriers()->getDemandElements();
@@ -593,6 +597,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                     // restore focus in the existent chooser dialog
                     myACChoosers.ACChooserPersons->restore();
                     myACChoosers.ACChooserPersons->setFocus();
+                    myACChoosers.ACChooserPersons->raise();
                 } else {
                     // reserve memory
                     ACsToLocate.reserve(viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_PERSON).size() +
@@ -614,6 +619,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                     // restore focus in the existent chooser dialog
                     myACChoosers.ACChooserRoutes->restore();
                     myACChoosers.ACChooserRoutes->setFocus();
+                    myACChoosers.ACChooserRoutes->raise();
                 } else {
                     // reserve memory
                     ACsToLocate.reserve(viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_ROUTE).size());
@@ -630,6 +636,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                     // restore focus in the existent chooser dialog
                     myACChoosers.ACChooserStops->restore();
                     myACChoosers.ACChooserStops->setFocus();
+                    myACChoosers.ACChooserStops->raise();
                 } else {
                     // reserve memory
                     ACsToLocate.reserve(viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_STOP_LANE).size() +
@@ -666,6 +673,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                     // restore focus in the existent chooser dialog
                     myACChoosers.ACChooserTLS->restore();
                     myACChoosers.ACChooserTLS->setFocus();
+                    myACChoosers.ACChooserTLS->raise();
                 } else {
                     // fill ACsToLocate with junctions that haven TLS
                     ACsToLocate.reserve(viewNet->getNet()->getAttributeCarriers()->getJunctions().size());
@@ -683,6 +691,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                     // restore focus in the existent chooser dialog
                     myACChoosers.ACChooserAdditional->restore();
                     myACChoosers.ACChooserAdditional->setFocus();
+                    myACChoosers.ACChooserAdditional->raise();
                 } else {
                     // fill ACsToLocate with additionals
                     for (const auto& additionalTag : viewNet->getNet()->getAttributeCarriers()->getAdditionals()) {
@@ -699,6 +708,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                     // restore focus in the existent chooser dialog
                     myACChoosers.ACChooserPOI->restore();
                     myACChoosers.ACChooserPOI->setFocus();
+                    myACChoosers.ACChooserPOI->raise();
                 } else {
                     // fill ACsToLocate with POIs
                     for (const auto& POI : viewNet->getNet()->getAttributeCarriers()->getAdditionals().at(SUMO_TAG_POI)) {
@@ -719,6 +729,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                     // restore focus in the existent chooser dialog
                     myACChoosers.ACChooserPolygon->restore();
                     myACChoosers.ACChooserPolygon->setFocus();
+                    myACChoosers.ACChooserPolygon->raise();
                 } else {
                     // fill ACsToLocate with polys and TAZs (because share namespae)
                     for (const auto& polygon : viewNet->getNet()->getAttributeCarriers()->getAdditionals().at(SUMO_TAG_POLY)) {

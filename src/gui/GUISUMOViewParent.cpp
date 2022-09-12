@@ -290,6 +290,7 @@ GUISUMOViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
     } else {
         myGLObjChooser[messageId]->restore();
         myGLObjChooser[messageId]->setFocus();
+        myGLObjChooser[messageId]->raise();
     }
     myLocatorPopup->popdown();
     myLocatorButton->killFocus();
