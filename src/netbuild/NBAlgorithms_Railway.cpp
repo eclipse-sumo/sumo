@@ -187,6 +187,13 @@ NBRailwayTopologyAnalyzer::addBidiEdge(NBEdgeCont& ec, NBEdge* edge, bool update
     if (ec.retrieve(id2) == nullptr) {
         NBEdge* e2 = new NBEdge(id2, edge->getToNode(), edge->getFromNode(),
                                 edge, edge->getGeometry().reverse());
+        if (ec.ignoreFilterMatch(e2)) {
+            e2->getFromNode()->removeEdge(e2);
+            e2->getToNode()->removeEdge(e2);
+            WRITE_WARNINGF("Bidi-edge '%' prevented by filtering rules.", id2);
+            delete e2;
+            return nullptr;
+        }
         ec.insert(e2);
         if (update) {
             updateTurns(edge);
@@ -199,7 +206,7 @@ NBRailwayTopologyAnalyzer::addBidiEdge(NBEdgeCont& ec, NBEdge* edge, bool update
         }
         return e2;
     } else {
-        WRITE_WARNING("Could not add bidi-edge '" + id2 + "'.");
+        WRITE_WARNINGF("Could not add bidi-edge '%'.", id2);
         return nullptr;
     }
 }
