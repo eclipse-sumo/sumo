@@ -102,22 +102,22 @@ MSCFModel_CACC::MSCFModel_CACC(const MSVehicleType* vtype) :
 MSCFModel_CACC::~MSCFModel_CACC() {}
 
 double
-MSCFModel_CACC::freeSpeed(const MSVehicle* const veh, double speed, double seen, double maxSpeed, const bool onInsertion) const {
+MSCFModel_CACC::freeSpeed(const MSVehicle* const veh, double speed, double seen, double maxSpeed, const bool onInsertion, const CalcReason usage) const {
     // set "caccVehicleMode" parameter to default value
-    if (!MSGlobals::gComputeLC) {
+    if (!MSGlobals::gComputeLC && usage == CalcReason::CURRENT) {
         const_cast<SUMOVehicleParameter&>(veh->getParameter()).setParameter("caccVehicleMode", VehicleModeNames[CC_MODE]);
     }
-    return MSCFModel::freeSpeed(veh, speed, seen, maxSpeed, onInsertion);
+    return MSCFModel::freeSpeed(veh, speed, seen, maxSpeed, onInsertion, usage);
 }
 
 double
-MSCFModel_CACC::followSpeed(const MSVehicle* const veh, double speed, double gap2pred, double predSpeed, double predMaxDecel, const MSVehicle* const pred) const {
+MSCFModel_CACC::followSpeed(const MSVehicle* const veh, double speed, double gap2pred, double predSpeed, double predMaxDecel, const MSVehicle* const pred, const CalcReason usage) const {
     if (myApplyDriverstate) {
         applyHeadwayAndSpeedDifferencePerceptionErrors(veh, speed, gap2pred, predSpeed, predMaxDecel, pred);
     }
 
     const double desSpeed = veh->getLane()->getVehicleMaxSpeed(veh);
-    const double vCACC = _v(veh, pred, gap2pred, speed, predSpeed, desSpeed, true);
+    const double vCACC = _v(veh, pred, gap2pred, speed, predSpeed, desSpeed, true, usage);
     const double vSafe = maximumSafeFollowSpeed(gap2pred, speed, predSpeed, predMaxDecel);
 
 #if DEBUG_CACC == 1
@@ -142,7 +142,7 @@ MSCFModel_CACC::followSpeed(const MSVehicle* const veh, double speed, double gap
 }
 
 double
-MSCFModel_CACC::stopSpeed(const MSVehicle* const veh, const double speed, double gap, double decel) const {
+MSCFModel_CACC::stopSpeed(const MSVehicle* const veh, const double speed, double gap, double decel, const CalcReason /*usage*/) const {
     if (myApplyDriverstate) {
         applyHeadwayPerceptionError(veh, speed, gap);
     }
@@ -182,7 +182,7 @@ MSCFModel_CACC::insertionFollowSpeed(const MSVehicle* const veh, double speed, d
     }
 #endif
     // iterate to find a stationary value for
-    //    speed = followSpeed(v, speed, gap2pred, predSpeed, predMaxDecel, nullptr)
+    //    speed = followSpeed(v, speed, gap2pred, predSpeed, predMaxDecel, nullptr, CalcReason::FUTURE)
     const int max_iter = 50;
     int n_iter = 0;
     const double tol = 0.1;
@@ -332,7 +332,7 @@ MSCFModel_CACC::speedGapControl(const MSVehicle* const veh, const double gap2pre
 
 double
 MSCFModel_CACC::_v(const MSVehicle* const veh, const MSVehicle* const pred, const double gap2pred, const double speed,
-                   const double predSpeed, const double desSpeed, const bool /* respectMinGap */) const {
+                   const double predSpeed, const double desSpeed, const bool /* respectMinGap */, const CalcReason usage) const {
     double newSpeed = 0.0;
     VehicleMode vehMode = CC_MODE;
 
@@ -434,7 +434,7 @@ MSCFModel_CACC::_v(const MSVehicle* const veh, const MSVehicle* const pred, cons
         }
     }
 
-    if (setControlMode && !MSGlobals::gComputeLC) {
+    if (setControlMode && !MSGlobals::gComputeLC && usage == CalcReason::CURRENT) {
         const_cast<SUMOVehicleParameter&>(veh->getParameter()).setParameter("caccVehicleMode", VehicleModeNames[vehMode]);
     }
 
