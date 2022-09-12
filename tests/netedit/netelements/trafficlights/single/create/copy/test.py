@@ -44,7 +44,7 @@ netedit.leftClick(referencePosition, 320, 220)
 netedit.createTLS()
 
 # copy TLS
-netedit.copyTLS()
+netedit.copyTLS(False)
 
 # type ESC (for undo-redo)
 netedit.typeEscape()

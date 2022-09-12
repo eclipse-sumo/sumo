@@ -40,6 +40,9 @@ netedit.selectTLSMode()
 # select junction
 netedit.leftClick(referencePosition, 320, 220)
 
+# create TLS
+netedit.createTLS()
+
 # join TLS
 netedit.joinTSL()
 

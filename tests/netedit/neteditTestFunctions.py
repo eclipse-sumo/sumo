@@ -2142,15 +2142,19 @@ def createTLSOverlapped(junction):
     typeSpace()
 
 
-def copyTLS():
+def copyTLS(joined):
     """
     @brief copy TLS in the current selected Junction
     """
     # focus current frame
     focusOnFrame()
     # type tab 2 times to jump to create TLS button
-    for _ in range(9):
-        typeTab()
+    if (joined):
+        for _ in range(10):
+            typeTab()
+    else:
+        for _ in range(9):
+            typeTab()
     # create TLS
     typeSpace()
 

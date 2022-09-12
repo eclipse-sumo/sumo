@@ -43,14 +43,35 @@ netedit.leftClick(referencePosition, 320, 220)
 # create TLS
 netedit.createTLS()
 
-# set invalid edge
+# join TLS
+netedit.joinTSL()
+
+# select four corners
+netedit.leftClick(referencePosition, 150, 220)
+netedit.leftClick(referencePosition, 500, 220)
+netedit.leftClick(referencePosition, 320, 50)
+netedit.leftClick(referencePosition, 320, 400)
+
+# join tls
+netedit.typeEnter()
+
+# set invalid type
 netedit.modifyAttribute(netedit.attrs.TLS.common.TLType, "", False)
 
-# set invalid edge
-netedit.modifyAttribute(netedit.attrs.TLS.common.TLType, "dummyType", False)
+# set invalid type
+netedit.modifyAttribute(netedit.attrs.TLS.common.TLType, ";;;%%;;;", False)
 
-# set invalid edge
+# set set valid
+netedit.modifyAttribute(netedit.attrs.TLS.common.TLType, "actuated", False)
+
+# set set valid
+netedit.modifyAttribute(netedit.attrs.TLS.common.TLType, "delay_based", False)
+
+# set set valid
 netedit.modifyAttribute(netedit.attrs.TLS.common.TLType, "NEMA", False)
+
+# set set valid
+netedit.modifyAttribute(netedit.attrs.TLS.common.TLType, "static", False)
 
 # type enter to save changes
 netedit.typeEnter()
@@ -59,10 +80,10 @@ netedit.typeEnter()
 netedit.typeEscape()
 
 # Check undo
-netedit.undo(referencePosition, 1)
+netedit.undo(referencePosition, 4)
 
 # Check redo
-netedit.redo(referencePosition, 1)
+netedit.redo(referencePosition, 4)
 
 # save network
 netedit.saveNetwork(referencePosition)

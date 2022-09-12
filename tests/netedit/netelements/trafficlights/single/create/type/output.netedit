@@ -3,8 +3,11 @@ Finding reference
 TestFunctions: 'reference.png' found. Position: 304 - 168
 TestFunctions: Clicked over position 624 - 388
 
-dummyType
+;;;%%;;;
+actuated
+delay_based
 NEMA
+static
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Clicked over position 304 - 168
