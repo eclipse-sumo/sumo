@@ -13,6 +13,7 @@
 /.project
 /.pydevproject
 /.vs
+/.vim
 # build dir 
 /clang*
 /cmake-build*
