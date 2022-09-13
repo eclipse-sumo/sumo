@@ -628,7 +628,7 @@ GNEStop::getAttribute(SumoXMLAttr key) const {
             return toString(isAttributeCarrierSelected());
         case GNE_ATTR_PARENT:
             return getParentDemandElements().front()->getID();
-        case SUMO_ATTR_INDEX: {
+        case GNE_ATTR_STOPINDEX: {
             // extract all stops of demandElement parent
             std::vector<GNEDemandElement*> stops;
             for (const auto& parent : getParentDemandElements().front()->getChildDemandElements()) {
@@ -668,6 +668,28 @@ GNEStop::getAttributeDouble(SumoXMLAttr key) const {
             }
         case SUMO_ATTR_INDEX: // for writting sorted
             return (double)myCreationIndex;
+        case GNE_ATTR_STOPINDEX: {
+            // extract all stops of demandElement parent
+            std::vector<GNEDemandElement*> stops, filteredStops;
+            for (const auto& parent : getParentDemandElements().front()->getChildDemandElements()) {
+                if (parent->getTagProperty().isStop()) {
+                    stops.push_back(parent);
+                }
+            }
+            // now filter stops with the same startPos
+            for (const auto &stop : stops) {
+                if (stop->getAttributeDouble(SUMO_ATTR_STARTPOS) == getAttributeDouble(SUMO_ATTR_STARTPOS)) {
+                    filteredStops.push_back(stop);
+                }
+            }
+            // get index
+            for (int i = 0; i < (int)filteredStops.size(); i++) {
+                if (filteredStops.at(i) == this) {
+                    return i;
+                }
+            }
+            return 0;
+        }
         default:
             throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
     }
@@ -1099,7 +1121,6 @@ GNEStop::canDrawVehicleStop() const {
 
 void
 GNEStop::drawVehicleStop(const GUIVisualizationSettings& s, const double exaggeration) const {
-    ;
     // declare value to save stop color
     const RGBColor stopColor = drawUsingSelectColor() ? s.colorSettings.selectedRouteColor : getColor();
     // get lane
@@ -1156,7 +1177,7 @@ GNEStop::drawVehicleStop(const GUIVisualizationSettings& s, const double exagger
                 glTranslated(-2.1, -2.4, 0);
                 glRotated(-90, 0, 0, 1);
                 // draw index
-                GLHelper::drawText(getAttribute(SUMO_ATTR_INDEX), Position(), .1, 1, stopColor, 180);
+                GLHelper::drawText(getAttribute(GNE_ATTR_STOPINDEX), Position(0, getAttributeDouble(GNE_ATTR_STOPINDEX) * -1, 0), .1, 1, stopColor, 180);
             }
         }
         // pop detail matrix
@@ -1180,7 +1201,7 @@ GNEStop::drawVehicleStop(const GUIVisualizationSettings& s, const double exagger
             glTranslated(-1.4, exaggeration * 0.5, 0.1);
             glRotated(-90, 0, 0, 1);
             // draw index
-            GLHelper::drawText(getAttribute(SUMO_ATTR_INDEX), Position(), .1, 1, stopColor, 180);
+            GLHelper::drawText(getAttribute(GNE_ATTR_STOPINDEX), Position(0, getAttributeDouble(GNE_ATTR_STOPINDEX) * -1, 0), .1, 1, stopColor, 180);
         }
         // pop detail matrix
         GLHelper::popMatrix();
