@@ -1139,10 +1139,10 @@ def createCrossing(hasTLS):
     focusOnFrame()
     # jump to create crossing button depending of hasTLS
     if hasTLS:
-        for _ in range(attrs.TLS.create.TLS):
+        for _ in range(attrs.crossing.create.button):
             typeTab()
     else:
-        for _ in range(attrs.TLS.create.noTLS):
+        for _ in range(attrs.crossing.createTLS.button):
             typeTab()
     # type space to create crossing
     typeSpace()
