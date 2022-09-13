@@ -59,8 +59,6 @@ def runSingle(traciEndTime, viewRange, laneList, upDist, downDist, vTypes, vClas
                                            viewRange, [traci.constants.VAR_POSITION])
             sys.stdout.flush()
 
-            
-
             traci.vehicle.addSubscriptionFilterLanes(laneList)
             traci.vehicle.addSubscriptionFilterUpstreamDistance(upDist)
             traci.vehicle.addSubscriptionFilterDownstreamDistance(downDist)
