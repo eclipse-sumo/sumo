@@ -3161,7 +3161,7 @@ NBNode::buildWalkingAreas(int cornerDetail, double joinMinDist) {
                 connected.insert(edge);
             }
             l.shape.move2side(-l.width / 2);
-            wa.shape.push_back(l.shape[0]);
+            wa.shape.push_back_noDoublePos(l.shape[0]);
             l.shape.move2side(l.width);
             wa.shape.push_back(l.shape[0]);
         }
