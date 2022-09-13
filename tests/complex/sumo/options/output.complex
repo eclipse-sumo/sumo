@@ -1,7 +1,7 @@
 plain []
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-09-13 17:29:02 by Eclipse SUMO sumo Version v1_14_1+0996-ea971ab6a4b
+<!-- generated on 2022-09-13 18:20:49 by Eclipse SUMO sumo Version v1_14_1+1002-b3c229d105f
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -16,7 +16,7 @@ plain []
 replace ['-a', 'new.rou.xml']
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-09-13 17:29:02 by Eclipse SUMO sumo Version v1_14_1+0996-ea971ab6a4b
+<!-- generated on 2022-09-13 18:20:49 by Eclipse SUMO sumo Version v1_14_1+1002-b3c229d105f
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -31,7 +31,7 @@ replace ['-a', 'new.rou.xml']
 replace ['--a', 'new.rou.xml']
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-09-13 17:29:02 by Eclipse SUMO sumo Version v1_14_1+0996-ea971ab6a4b
+<!-- generated on 2022-09-13 18:20:49 by Eclipse SUMO sumo Version v1_14_1+1002-b3c229d105f
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -46,7 +46,7 @@ replace ['--a', 'new.rou.xml']
 append+ ['+a', 'new.rou.xml']
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-09-13 17:29:02 by Eclipse SUMO sumo Version v1_14_1+0996-ea971ab6a4b
+<!-- generated on 2022-09-13 18:20:49 by Eclipse SUMO sumo Version v1_14_1+1002-b3c229d105f
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -60,7 +60,7 @@ append+ ['+a', 'new.rou.xml']
 ----------
 append++ ['++a', 'new.rou.xml']
 Error: On processing option '++a':
- No option with the name '+' exists.
+ No option with the name '+a' exists.
 Error: The parameter 'new.rou.xml' is not allowed in this context.
  Switch or parameter name expected.
 Error: Could not parse commandline options.
@@ -89,7 +89,7 @@ Quitting (on error).
 replace ['--additional', 'new.rou.xml']
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-09-13 17:29:02 by Eclipse SUMO sumo Version v1_14_1+0996-ea971ab6a4b
+<!-- generated on 2022-09-13 18:20:49 by Eclipse SUMO sumo Version v1_14_1+1002-b3c229d105f
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -102,14 +102,23 @@ replace ['--additional', 'new.rou.xml']
 </configuration>
 ----------
 append+ ['+additional', 'new.rou.xml']
-Error: The parameter 'new.rou.xml' is not allowed in this context.
- Switch or parameter name expected.
-Error: Could not parse commandline options.
-Quitting (on error).
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-09-13 18:20:49 by Eclipse SUMO sumo Version v1_14_1+1002-b3c229d105f
+-->
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="three_split.net.xml"/>
+        <additional-files value="input_routes.rou.xml,rerouter.xml,new.rou.xml"/>
+    </input>
+
+</configuration>
 ----------
 append++ ['++additional', 'new.rou.xml']
 Error: On processing option '++additional':
- No option with the name '+' exists.
+ No option with the name '+additional' exists.
 Error: The parameter 'new.rou.xml' is not allowed in this context.
  Switch or parameter name expected.
 Error: Could not parse commandline options.
@@ -132,7 +141,7 @@ Quitting (on error).
 replace ['-a=new.rou.xml']
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-09-13 17:29:02 by Eclipse SUMO sumo Version v1_14_1+0996-ea971ab6a4b
+<!-- generated on 2022-09-13 18:20:49 by Eclipse SUMO sumo Version v1_14_1+1002-b3c229d105f
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -147,7 +156,7 @@ replace ['-a=new.rou.xml']
 replace ['--a=new.rou.xml']
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-09-13 17:29:02 by Eclipse SUMO sumo Version v1_14_1+0996-ea971ab6a4b
+<!-- generated on 2022-09-13 18:20:49 by Eclipse SUMO sumo Version v1_14_1+1002-b3c229d105f
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -162,7 +171,7 @@ replace ['--a=new.rou.xml']
 append+ ['+a=new.rou.xml']
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-09-13 17:29:02 by Eclipse SUMO sumo Version v1_14_1+0996-ea971ab6a4b
+<!-- generated on 2022-09-13 18:20:49 by Eclipse SUMO sumo Version v1_14_1+1002-b3c229d105f
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -176,7 +185,7 @@ append+ ['+a=new.rou.xml']
 ----------
 append++ ['++a=new.rou.xml']
 Error: On processing option '++a=new.rou.xml':
- No option with the name '+' exists.
+ No option with the name '+a' exists.
 Error: Could not parse commandline options.
 Quitting (on error).
 ----------
@@ -193,7 +202,7 @@ Quitting (on error).
 replace ['-additional=new.rou.xml']
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-09-13 17:29:02 by Eclipse SUMO sumo Version v1_14_1+0996-ea971ab6a4b
+<!-- generated on 2022-09-13 18:20:49 by Eclipse SUMO sumo Version v1_14_1+1002-b3c229d105f
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -208,7 +217,7 @@ replace ['-additional=new.rou.xml']
 replace ['--additional=new.rou.xml']
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-09-13 17:29:02 by Eclipse SUMO sumo Version v1_14_1+0996-ea971ab6a4b
+<!-- generated on 2022-09-13 18:20:49 by Eclipse SUMO sumo Version v1_14_1+1002-b3c229d105f
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -223,21 +232,21 @@ replace ['--additional=new.rou.xml']
 append+ ['+additional=new.rou.xml']
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-09-13 17:29:02 by Eclipse SUMO sumo Version v1_14_1+0996-ea971ab6a4b
+<!-- generated on 2022-09-13 18:20:49 by Eclipse SUMO sumo Version v1_14_1+1002-b3c229d105f
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="three_split.net.xml"/>
-        <additional-files value="input_routes.rou.xml,rerouter.xml,dditional=new.rou.xml"/>
+        <additional-files value="input_routes.rou.xml,rerouter.xml,new.rou.xml"/>
     </input>
 
 </configuration>
 ----------
 append++ ['++additional=new.rou.xml']
 Error: On processing option '++additional=new.rou.xml':
- No option with the name '+' exists.
+ No option with the name '+additional' exists.
 Error: Could not parse commandline options.
 Quitting (on error).
 ----------
