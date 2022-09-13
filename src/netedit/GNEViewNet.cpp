@@ -548,6 +548,10 @@ GNEViewNet::openObjectDialogAtCursor() {
             if (o == nullptr) {
                 o = myNet;
             }
+            // if GLobject is edge, use lane
+            if (myObjectsUnderCursor.getLaneFront()) {
+                o = myObjectsUnderCursor.getLaneFront()->getGUIGlObject();
+            }
             openObjectDialog(o);
         }
         makeNonCurrent();
