@@ -244,6 +244,9 @@ main(int argc, char** argv) {
         }
         SystemFrame::checkOptions();
         XMLSubSys::setValidation(oc.getString("xml-validation"), oc.getString("xml-validation.net"), "never");
+        if (oc.isDefault("aggregate-warnings")) {
+            oc.setDefault("aggregate-warnings", "5");
+        }
         MsgHandler::initOutputOptions();
         // build the projection
         double scale = 1.0;
