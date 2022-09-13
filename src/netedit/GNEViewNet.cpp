@@ -23,6 +23,7 @@
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/changes/GNEChange_TLS.h>
 #include <netedit/dialogs/GNEGeometryPointDialog.h>
+#include <netedit/dialogs/GNECursorDialog.h>
 #include <netedit/elements/additional/GNEAdditionalHandler.h>
 #include <netedit/elements/additional/GNEPOI.h>
 #include <netedit/elements/additional/GNEPoly.h>
@@ -224,9 +225,6 @@ FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_GNE_INTERVALBAR_BEGIN,               GNEViewNet::onCmdIntervalBarSetBegin),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_INTERVALBAR_END,                 GNEViewNet::onCmdIntervalBarSetEnd),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_INTERVALBAR_PARAMETER,           GNEViewNet::onCmdIntervalBarSetParameter),
-    // other
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_SETFRONTELEMENT, GNEViewNet::onCmdSetFrontElement)
-
 };
 
 // Object implementation
@@ -324,19 +322,10 @@ void
 GNEViewNet::openMoveDialogAtCursor() {
     // get ACs
     const auto ACs = myObjectsUnderCursor.getClickedAttributeCarriers();
-    // clear move dialog container
-    myMoveDialogElementContainer.clear();
     // only create if there is ACs
     if (ACs.size() > 0) {
-        // create popup
-        myPopup = new GUIGLObjectPopupMenu(myApp, this);
-        // create header
-        new MFXMenuHeader(myPopup, myViewParent->getGNEAppWindows()->getBoldFont(), "Mark front element", GUIIconSubSys::getIcon(GUIIcon::FRONTELEMENT), nullptr, 0);
-        new FXMenuSeparator(myPopup);
-        // create a menu command for every AC
-        for (const auto &AC : ACs) {
-            myMoveDialogElementContainer[GUIDesigns::buildFXMenuCommand(myPopup, AC->getID(), AC->getIcon(), myNet->getViewNet(), MID_GNE_SETFRONTELEMENT)] = AC;
-        }
+        // create cursor popup dialog
+        myPopup = new GNECursorDialog(this, ACs);
         // open popup dialog
         openPopupDialog();
     }
@@ -4026,16 +4015,6 @@ GNEViewNet::onCmdToggleTAZRelOnlyTo(FXObject*, FXSelector sel, void*) {
 long
 GNEViewNet::onCmdIntervalBarGenericDataType(FXObject*, FXSelector, void*) {
     myIntervalBar.setGenericDataType();
-    return 1;
-}
-
-
-long
-GNEViewNet::onCmdSetFrontElement(FXObject* obj, FXSelector, void*) {
-    // set front attribute AC
-    setFrontAttributeCarrier(myMoveDialogElementContainer.at(obj));
-    // destroy popup
-    destroyPopup();
     return 1;
 }
 

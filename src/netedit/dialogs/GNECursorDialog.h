@@ -38,7 +38,7 @@ class GNECursorDialog : public GUIGLObjectPopupMenu {
 
 public:
     /// @brief constructor
-    GNECursorDialog(GUIMainWindow* app, GUISUMOAbstractView* parent);
+    GNECursorDialog(GNEViewNet* viewNet, const std::vector<GNEAttributeCarrier*>& ACs);
 
     /// @brief destructor
     ~GNECursorDialog();
@@ -46,14 +46,20 @@ public:
     /// @name FOX-callbacks
     /// @{
 
-    /// @brief select element in list
-    long onCmdSelectElement(FXObject*, FXSelector, void*);
+    /// @brief set front element
+    long onCmdSetFrontElement(FXObject*, FXSelector, void*);
 
     /// @}
 
 protected:
     /// @brief FOX need this
     FOX_CONSTRUCTOR(GNECursorDialog)
+
+    /// @brief viewNet
+    GNEViewNet* myViewNet;
+
+    /// @brief container used for move dialog
+    std::map<FXObject*, GNEAttributeCarrier*> myMoveDialogElementContainer;
 
 private:
     /// @brief Invalidated copy constructor.

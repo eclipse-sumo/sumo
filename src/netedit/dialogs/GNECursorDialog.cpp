@@ -23,7 +23,11 @@
 #include <utils/gui/div/GUIDesigns.h>
 #include <netedit/changes/GNEChange_Additional.h>
 #include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewParent.h>
+#include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNENet.h>
+#include <utils/foxtools/MFXMenuHeader.h>
+#include <utils/gui/windows/GUIMainWindow.h>
 
 #include <netedit/GNEUndoList.h>
 
@@ -35,7 +39,7 @@
 // ===========================================================================
 
 FXDEFMAP(GNECursorDialog) GNECursorDialogMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_ACCEPT,   GNECursorDialog::onCmdSelectElement),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SETFRONTELEMENT,    GNECursorDialog::onCmdSetFrontElement)
 };
 
 // Object implementation
@@ -45,8 +49,16 @@ FXIMPLEMENT(GNECursorDialog, GUIGLObjectPopupMenu, GNECursorDialogMap, ARRAYNUMB
 // member method definitions
 // ===========================================================================
 
-GNECursorDialog::GNECursorDialog(GUIMainWindow* app, GUISUMOAbstractView* parent) :
-    GUIGLObjectPopupMenu(app, parent) {
+GNECursorDialog::GNECursorDialog(GNEViewNet* viewNet, const std::vector<GNEAttributeCarrier*>& ACs) :
+    GUIGLObjectPopupMenu(viewNet->getViewParent()->getGNEAppWindows(), viewNet),
+    myViewNet(viewNet) {
+    // create header
+    new MFXMenuHeader(this, viewNet->getViewParent()->getGNEAppWindows()->getBoldFont(), "Mark front element", GUIIconSubSys::getIcon(GUIIcon::FRONTELEMENT), nullptr, 0);
+    new FXMenuSeparator(this);
+    // create a menu command for every AC
+    for (const auto &AC : ACs) {
+        myMoveDialogElementContainer[GUIDesigns::buildFXMenuCommand(this, AC->getID(), AC->getIcon(), this, MID_GNE_SETFRONTELEMENT)] = AC;
+    }
 
 }
 
@@ -54,8 +66,12 @@ GNECursorDialog::GNECursorDialog(GUIMainWindow* app, GUISUMOAbstractView* parent
 GNECursorDialog::~GNECursorDialog() {}
 
 
-long 
-GNECursorDialog::onCmdSelectElement(FXObject*, FXSelector, void*) {
+long
+GNECursorDialog::onCmdSetFrontElement(FXObject* obj, FXSelector, void*) {
+    // set front attribute AC
+    myViewNet->setFrontAttributeCarrier(myMoveDialogElementContainer.at(obj));
+    // destroy popup
+    myViewNet->destroyPopup();
     return 1;
 }
 

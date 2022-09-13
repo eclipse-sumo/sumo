@@ -424,9 +424,6 @@ public:
     /// @brief change parameter in interval bar
     long onCmdIntervalBarSetParameter(FXObject*, FXSelector, void*);
 
-    /// @brief set front element using dialog
-    long onCmdSetFrontElement(FXObject*, FXSelector, void*);
-
     /// @}
 
     /// @brief select AC under cursor
@@ -648,9 +645,6 @@ private:
 
     /// @brief draw preview roundabout
     bool myDrawPreviewRoundabout = false;
-
-    /// @brief container used for move dialog
-    std::map<FXObject*, GNEAttributeCarrier*> myMoveDialogElementContainer;
 
     /// @brief last clicked position
     Position myLastClickedPosition;
