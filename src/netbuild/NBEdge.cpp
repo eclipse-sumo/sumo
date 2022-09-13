@@ -379,6 +379,7 @@ NBEdge::NBEdge(const std::string& id, NBNode* from, NBNode* to, const NBEdge* tp
         setFriction(i, tpl->getLaneFriction(tplIndex));
         setPermissions(tpl->getPermissions(tplIndex), i);
         setLaneWidth(i, tpl->myLanes[tplIndex].width);
+        setLaneType(i, tpl->myLanes[tplIndex].type);
         myLanes[i].updateParameters(tpl->myLanes[tplIndex].getParametersMap());
         if (to == tpl->myTo) {
             setEndOffset(i, tpl->myLanes[tplIndex].endOffset);
