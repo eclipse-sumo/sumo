@@ -169,7 +169,7 @@ class Builder(object):
         self.filename("osm", "_bbox.osm.xml.gz")
         # output name for the net file, will be used by osmBuild, randomTrips and
         # sumo-gui
-        self.filename("net", ".net.xml")
+        self.filename("net", ".net.xml.gz")
 
         if 'osm' in self.data:
             # testing mode
@@ -185,13 +185,13 @@ class Builder(object):
                 osmArgs += ["-r", json.dumps(self.data["roadTypes"])]
             osmGet.get(osmArgs)
 
-        options = ["-f", self.files["osm"], "-p", self.prefix, "-d", self.tmp]
+        options = ["-f", self.files["osm"], "-p", self.prefix, "-d", self.tmp, "-z"]
         self.additionalFiles = []
         self.routenames = []
 
         if self.data["poly"]:
             # output name for the poly file, will be used by osmBuild and sumo-gui
-            self.filename("poly", ".poly.xml")
+            self.filename("poly", ".poly.xml.gz")
             options += ["-m", typemaps["poly"]]
             self.additionalFiles.append(self.files["poly"])
 
