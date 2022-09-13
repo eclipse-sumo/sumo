@@ -67,7 +67,7 @@ OptionsParser::check(const char* arg1, const char* arg2, bool& ok) {
 
     OptionsCont& oc = OptionsCont::getOptions();
     // process not abbreviated switches
-    if (!isAbbreviation(arg1)) {
+    if (arg1[1] == '-') {
         std::string tmp(arg1 + 2);
         const std::string::size_type idx1 = tmp.find('=');
         // check whether a parameter was submitted
@@ -139,13 +139,11 @@ OptionsParser::checkParameter(const char* arg1) {
         WRITE_ERROR("The parameter '" + std::string(arg1) + "' is not allowed in this context.\n Switch or parameter name expected.");
         return false;
     }
+    if ((arg1[0] == '-' && arg1[1] == '+') || (arg1[0] == '+' && arg1[1] == '-')) {
+        WRITE_ERROR("Mixed parameter syntax in '" + std::string(arg1) + "'.");
+        return false;
+    }
     return true;
-}
-
-
-bool
-OptionsParser::isAbbreviation(const char* arg1) {
-    return arg1[1] != '-' && arg1[1] != '+';
 }
 
 
