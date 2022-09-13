@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-07-01 08:13:39 by Eclipse SUMO netconvert Version v1_13_0+1331-a3a1a97
+<!-- generated on 2022-09-13 16:54:49 by Eclipse SUMO netconvert Version v1_14_1+0990-ad3506bf07c
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -43,7 +43,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id=":2439184769_w0_0" index="0" allow="pedestrian" speed="1.00" length="3.06" width="2.00" shape="88.94,115.47 88.02,113.69 87.06,112.18 85.49,113.42 84.68,115.65 85.70,117.36 86.96,115.97 88.96,115.89"/>
     </edge>
     <edge id=":4024888872_w0" function="walkingarea">
-        <lane id=":4024888872_w0_0" index="0" allow="pedestrian" speed="1.00" length="4.62" width="2.00" shape="89.58,135.08 87.58,135.12 84.72,137.40 85.62,139.19 85.62,139.19 86.51,140.98 87.98,141.81 89.97,141.64 91.28,138.61 90.38,136.82"/>
+        <lane id=":4024888872_w0_0" index="0" allow="pedestrian" speed="1.00" length="4.62" width="2.00" shape="89.58,135.08 87.58,135.12 84.72,137.40 85.62,139.19 86.51,140.98 87.98,141.81 89.97,141.64 91.28,138.61 90.38,136.82"/>
     </edge>
     <edge id=":4024888887_w0" function="walkingarea">
         <lane id=":4024888887_w0_0" index="0" allow="pedestrian" speed="1.00" length="3.53" width="2.00" shape="72.03,96.50 73.59,95.25 72.83,94.43 72.05,93.91 71.26,93.68 70.44,93.74 69.58,94.10 68.66,94.75 69.94,96.29 70.33,96.01 70.70,95.86 71.04,95.83 71.38,95.93 71.70,96.15"/>
