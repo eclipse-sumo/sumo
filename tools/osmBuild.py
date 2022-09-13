@@ -134,11 +134,12 @@ def build(args=None, bindir=None):
         subprocess.call(polyconvertOpts + ["--save-configuration", cfg], cwd=options.output_directory)
         subprocess.call([polyconvert, "-c", cfg], cwd=options.output_directory)
 
-    # compress the .net.xml file to .net.xml.gz file in output_directory folder
+    # compress the .net.xml file to .net.xml.gz file in output_directory folder and delete .net.xml file
     if options.gzip:
         with open(os.path.join(options.output_directory, netfile), 'rb') as f_in:
-            with gzip.open(os.path.join(options.output_directory, netfile)+'.gz', 'wb') as f_out:
+            with gzip.open(os.path.join(options.output_directory, netfile) + '.gz', 'wb') as f_out:
                 f_out.writelines(f_in)
-
+        os.remove(os.path.join(options.output_directory, netfile))
+        
 if __name__ == "__main__":
     build()
