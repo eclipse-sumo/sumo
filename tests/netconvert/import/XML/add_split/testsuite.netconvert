@@ -68,3 +68,6 @@ too_close
 
 # adding splits with duplicate id
 duplicate_id
+
+# preserve type information
+lane_type
