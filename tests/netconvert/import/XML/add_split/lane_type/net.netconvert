@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-09-13 16:46:16 by Eclipse SUMO netconvert Version v1_14_1+0995-3c94df1
+<!-- generated on 2022-09-13 16:52:50 by Eclipse SUMO netconvert Version v1_14_1+0996-fa906f4
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -41,13 +41,13 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </edge>
 
     <edge id="1" from="0" to="1.50" priority="-1" shape="0.00,0.00 50.00,0.00">
-        <lane id="1_0" index="0" speed="28.00" length="46.00" shape="0.00,-4.80 46.00,-4.80"/>
-        <lane id="1_1" index="1" speed="28.00" length="46.00" shape="0.00,-1.60 46.00,-1.60"/>
+        <lane id="1_0" index="0" speed="28.00" length="46.00" shape="0.00,-4.80 46.00,-4.80" type="foo"/>
+        <lane id="1_1" index="1" speed="28.00" length="46.00" shape="0.00,-1.60 46.00,-1.60" type="bar"/>
     </edge>
     <edge id="1.50" from="1.50" to="1" priority="-1">
-        <lane id="1.50_0" index="0" speed="28.00" length="46.00" shape="54.00,-4.80 100.00,-4.80"/>
-        <lane id="1.50_1" index="1" speed="28.00" length="46.00" shape="54.00,-1.60 100.00,-1.60"/>
-        <lane id="1.50_2" index="2" speed="28.00" length="46.00" shape="54.00,1.60 100.00,1.60"/>
+        <lane id="1.50_0" index="0" speed="28.00" length="46.00" shape="54.00,-4.80 100.00,-4.80" type="foo"/>
+        <lane id="1.50_1" index="1" speed="28.00" length="46.00" shape="54.00,-1.60 100.00,-1.60" type="bar"/>
+        <lane id="1.50_2" index="2" speed="28.00" length="46.00" shape="54.00,1.60 100.00,1.60" type="bar"/>
     </edge>
 
     <junction id="0" type="dead_end" x="0.00" y="3.20" incLanes="" intLanes="" shape="0.00,0.00 0.00,-6.40"/>
