@@ -154,3 +154,6 @@ ticket11146
 
 # invalid rail internal junction
 ticket11558
+
+# glitched walkingarea shape
+ticket11590
