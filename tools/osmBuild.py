@@ -21,7 +21,7 @@ from __future__ import absolute_import
 
 import os
 import subprocess
-
+import gzip
 import sumolib
 
 
@@ -59,6 +59,8 @@ optParser.add_argument("--pedestrians", action="store_true",
                        default=False, help="add pedestrian infrastructure to the network")
 optParser.add_argument("-y", "--polyconvert-options",
                        default="-v,--osm.keep-full-type", help="comma-separated options for polyconvert")
+optParser.add_argument("-z", "--gzip", action="store_true",
+                       default=False, help="save gzipped network")
 
 
 def getRelative(dirname, option):
@@ -132,6 +134,11 @@ def build(args=None, bindir=None):
         subprocess.call(polyconvertOpts + ["--save-configuration", cfg], cwd=options.output_directory)
         subprocess.call([polyconvert, "-c", cfg], cwd=options.output_directory)
 
+    # compress the .net.xml file to .net.xml.gz file in output_directory folder
+    if options.gzip:
+        with open(os.path.join(options.output_directory, netfile), 'rb') as f_in:
+            with gzip.open(os.path.join(options.output_directory, netfile)+'.gz', 'wb') as f_out:
+                f_out.writelines(f_in)
 
 if __name__ == "__main__":
     build()
