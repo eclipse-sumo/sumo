@@ -52,3 +52,6 @@ insertionCapacity
 # run a simulation with rerouting and write vehroute-output.
 # Then re-run the simulation with the saved vehroutes as input
 vehroute-roundtrip
+
+# testing option parsing
+options
