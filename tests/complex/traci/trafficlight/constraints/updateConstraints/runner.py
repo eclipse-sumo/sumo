@@ -46,6 +46,7 @@ for tlsID in traci.trafficlight.getIDList():
     for c in traci.trafficlight.getConstraints(tlsID):
         print(" tls=%s %s" % (tlsID, c))
 
+traci.trafficlight.updateConstraints(vehID)
 
 print("constraints after update")
 for tlsID in traci.trafficlight.getIDList():
