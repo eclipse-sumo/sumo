@@ -1084,6 +1084,8 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
     updateCursor();
     // update view
     updateViewNet();
+    // save last mouse position
+    myLastClickedPosition = getPositionInformation();
     return 1;
 }
 
@@ -5257,7 +5259,9 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
         case NetworkEditMode::NETWORK_ADDITIONAL: {
             // avoid create additionals if control key is pressed
             if (!myMouseButtonKeyPressed.controlKeyPressed()) {
-                if (myViewParent->getAdditionalFrame()->addAdditional(myObjectsUnderCursor)) {
+                if ((getPositionInformation() == myLastClickedPosition) && !myMouseButtonKeyPressed.shiftKeyPressed()) {
+                    WRITE_WARNING("Shift + click to create two additionals in the same position");
+                } else if (myViewParent->getAdditionalFrame()->addAdditional(myObjectsUnderCursor)) {
                     // update view to show the new additional
                     updateViewNet();
                 }
@@ -5513,7 +5517,11 @@ GNEViewNet::processLeftButtonPressDemand(void* eventData) {
         }
         case DemandEditMode::DEMAND_STOP: {
             // Handle click
-            myViewParent->getStopFrame()->addStop(myObjectsUnderCursor, myMouseButtonKeyPressed);
+            if ((getPositionInformation() == myLastClickedPosition) && !myMouseButtonKeyPressed.controlKeyPressed()) {
+                WRITE_WARNING("Control + click to create two stop in the same position");
+            } else {
+                myViewParent->getStopFrame()->addStop(myObjectsUnderCursor, myMouseButtonKeyPressed);
+            }
             // process click
             processClick(eventData);
             break;

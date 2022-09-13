@@ -652,6 +652,9 @@ private:
     /// @brief container used for move dialog
     std::map<FXObject*, GNEAttributeCarrier*> myMoveDialogElementContainer;
 
+    /// @brief last clicked position
+    Position myLastClickedPosition;
+
     /// @brief create edit mode buttons and elements
     void buildEditModeControls();
 
