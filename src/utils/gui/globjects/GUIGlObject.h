@@ -25,12 +25,15 @@
 
 #include <string>
 #include <set>
-#include "GUIGlObjectTypes.h"
+
 #include <utils/geom/Boundary.h>
 #include <utils/common/StdDefs.h>
 #include <utils/common/StringUtils.h>
 #include <utils/common/StringBijection.h>
 #include <utils/common/RGBColor.h>
+#include <utils/foxtools/fxheader.h>
+
+#include "GUIGlObjectTypes.h"
 
 
 // ===========================================================================
@@ -50,9 +53,10 @@ class GUIGLObjectPopupMenu;
 class GUISUMOAbstractView;
 class GUIVisualizationSettings;
 struct GUIVisualizationTextSettings;
+
 #ifdef HAVE_OSG
 namespace osg {
-class Node;
+    class Node;
 }
 #endif
 
@@ -73,14 +77,15 @@ public:
      *
      * @param[in] type The GUIGlObjectType type
      * @param[in] microsimID unique ID
+     * @param[in] icon optional icon associated with this GUIGLObject 
      * @see GUIGlObjectStorage
      */
-    GUIGlObject(GUIGlObjectType type, const std::string& microsimID);
+    GUIGlObject(GUIGlObjectType type, const std::string& microsimID, FXIcon *icon);
 
     /// @brief Destructor
     virtual ~GUIGlObject();
 
-    /// @name Atomar getter methods
+    /// @name getter methods
     /// @{
     /// @brief Returns the full name appearing in the tool tip
     /// @return This object's typed id
@@ -97,6 +102,9 @@ public:
     inline GUIGlID getGlID() const {
         return myGlID;
     }
+
+    /// @brief get icon associatd with this GL Object
+    FXIcon *getIcon() const;
 
     /// @}
 
@@ -270,7 +278,6 @@ protected:
     void buildShowManipulatorPopupEntry(GUIGLObjectPopupMenu* ret, bool addSeparator = true);
     /// @}
 
-protected:
     /// @brief build basic shape popup options. Used to unify pop-ups menu in netedit and SUMO-GUI
     void buildShapePopupOptions(GUIMainWindow& app, GUIGLObjectPopupMenu* ret, const std::string& type);
 
@@ -290,24 +297,26 @@ private:
     /// @brief full name of GL Object
     std::string myFullName;
 
+    /// @brief icon associatd with this GL Object
+    FXIcon *myIcon;
+
     /// @brief whether the object can be deleted
     bool myAmBlocked;
 
     /// @brief Parameter table windows which refer to this object
     std::set<GUIParameterTableWindow*> myParamWindows;
 
-    /// @brief create full name
-    std::string createFullName() const;
-
 #ifdef HAVE_OSG
     /// @brief OSG Node of this GL object
     osg::Node* myOSGNode;
 #endif
 
+    /// @brief create full name
+    std::string createFullName() const;
+
     /// @brief vector for TypeNames Initializer
     static StringBijection<GUIGlObjectType>::Entry GUIGlObjectTypeNamesInitializer[];
 
-private:
     /// @brief Invalidated copy constructor.
     GUIGlObject(const GUIGlObject&) = delete;
 

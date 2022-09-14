@@ -147,7 +147,7 @@ const GUIGlID GUIGlObject::INVALID_ID = 0;
 // method definitionsas
 // ===========================================================================
 
-GUIGlObject::GUIGlObject(GUIGlObjectType type, const std::string& microsimID) :
+GUIGlObject::GUIGlObject(GUIGlObjectType type, const std::string& microsimID, FXIcon *icon) :
 #ifdef _MSC_VER
 #pragma warning(push)
     /* Disable warning about using "this" in the constructor */
@@ -159,6 +159,7 @@ GUIGlObject::GUIGlObject(GUIGlObjectType type, const std::string& microsimID) :
 #endif
     myGLObjectType(type),
     myMicrosimID(microsimID),
+    myIcon(icon),
     myAmBlocked(false) {
     // make sure that reserved GLO_ADDITIONALELEMENT isn't used
     assert(myGLObjectType != GLO_ADDITIONALELEMENT);
@@ -181,6 +182,12 @@ GUIGlObject::~GUIGlObject() {
 std::string
 GUIGlObject::getParentName() const {
     return StringUtils::emptyString;
+}
+
+
+FXIcon*
+GUIGlObject::getIcon() const {
+    return myIcon;
 }
 
 
