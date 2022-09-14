@@ -490,11 +490,11 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
         std::vector<GNEAttributeCarrier*> ACsToLocate;
         int messageId = FXSELID(sel);
         GNEDialogACChooser** chooserLoc = nullptr;
-        std::string title;
+        std::string locateTitle;
         switch (messageId) {
             case MID_LOCATEJUNCTION:
                 chooserLoc = &myACChoosers.ACChooserJunction;
-                title = "Junction";
+                locateTitle = "Junction";
                 ACsToLocate.reserve(viewNet->getNet()->getAttributeCarriers()->getJunctions().size());
                 for (const auto& junction : viewNet->getNet()->getAttributeCarriers()->getJunctions()) {
                     ACsToLocate.push_back(junction.second);
@@ -502,7 +502,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                 break;
             case MID_LOCATEEDGE:
                 chooserLoc = &myACChoosers.ACChooserEdges;
-                title = "Edge";
+                locateTitle = "Edge";
                 ACsToLocate.reserve(viewNet->getNet()->getAttributeCarriers()->getEdges().size());
                 for (const auto& edge : viewNet->getNet()->getAttributeCarriers()->getEdges()) {
                     ACsToLocate.push_back(edge.second);
@@ -510,7 +510,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                 break;
             case MID_LOCATEWALKINGAREA:
                 chooserLoc = &myACChoosers.ACChooserWalkingAreas;
-                title = "WalkingArea";
+                locateTitle = "WalkingArea";
                 ACsToLocate.reserve(viewNet->getNet()->getAttributeCarriers()->getWalkingAreas().size());
                 for (const auto& walkingArea : viewNet->getNet()->getAttributeCarriers()->getWalkingAreas()) {
                     ACsToLocate.push_back(walkingArea);
@@ -518,7 +518,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                 break;
             case MID_LOCATEVEHICLE: {
                 chooserLoc = &myACChoosers.ACChooserVehicles;
-                title = "Vehicle";
+                locateTitle = "Vehicle";
                 const auto demandElements = viewNet->getNet()->getAttributeCarriers()->getDemandElements();
                 // reserve memory
                 ACsToLocate.reserve(demandElements.at(SUMO_TAG_VEHICLE).size() +
@@ -565,7 +565,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
             }
             case MID_LOCATEPERSON:
                 chooserLoc = &myACChoosers.ACChooserPersons;
-                title = "Person";
+                locateTitle = "Person";
                 ACsToLocate.reserve(viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_PERSON).size() +
                         viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_PERSONFLOW).size());
                 // fill ACsToLocate with persons
@@ -579,7 +579,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                 break;
             case MID_LOCATEROUTE:
                 chooserLoc = &myACChoosers.ACChooserRoutes;
-                title = "Route";
+                locateTitle = "Route";
                 ACsToLocate.reserve(viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_ROUTE).size());
                 for (const auto& route : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_ROUTE)) {
                     ACsToLocate.push_back(route);
@@ -587,7 +587,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                 break;
             case MID_LOCATESTOP: {
                 chooserLoc = &myACChoosers.ACChooserStops;
-                title = "Stop";
+                locateTitle = "Stop";
                 // reserve memory
                 ACsToLocate.reserve(viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_STOP_LANE).size() +
                         viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_STOP_BUSSTOP).size() +
@@ -618,7 +618,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
             }
             case MID_LOCATETLS:
                 chooserLoc = &myACChoosers.ACChooserTLS;
-                title = "TLS";
+                locateTitle = "TLS";
                 // fill ACsToLocate with junctions that haven TLS
                 ACsToLocate.reserve(viewNet->getNet()->getAttributeCarriers()->getJunctions().size());
                 for (const auto& junction : viewNet->getNet()->getAttributeCarriers()->getJunctions()) {
@@ -629,7 +629,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                 break;
             case MID_LOCATEADD:
                 chooserLoc = &myACChoosers.ACChooserAdditional;
-                title = "Additional";
+                locateTitle = "Additional";
                 for (const auto& additionalTag : viewNet->getNet()->getAttributeCarriers()->getAdditionals()) {
                     if (additionalTag.first == SUMO_TAG_POI
                             || additionalTag.first == GNE_TAG_POILANE
@@ -644,7 +644,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                 break;
             case MID_LOCATEPOI:
                 chooserLoc = &myACChoosers.ACChooserPOI;
-                title = "POI";
+                locateTitle = "POI";
                 // fill ACsToLocate with POIs
                 for (const auto& POI : viewNet->getNet()->getAttributeCarriers()->getAdditionals().at(SUMO_TAG_POI)) {
                     ACsToLocate.push_back(POI);
@@ -658,7 +658,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                 break;
             case MID_LOCATEPOLY:
                 chooserLoc = &myACChoosers.ACChooserPolygon;
-                title = "Poly";
+                locateTitle = "Poly";
                 // fill ACsToLocate with polys and TAZs (because share namespae)
                 for (const auto& polygon : viewNet->getNet()->getAttributeCarriers()->getAdditionals().at(SUMO_TAG_POLY)) {
                     ACsToLocate.push_back(polygon);
@@ -677,7 +677,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
             chooser->setFocus();
             chooser->raise();
         } else {
-            GNEDialogACChooser* chooser = new GNEDialogACChooser(this, messageId, GUIIconSubSys::getIcon(GUIIcon::LOCATEJUNCTION), title + " Chooser", ACsToLocate);
+            GNEDialogACChooser* chooser = new GNEDialogACChooser(this, messageId, GUIIconSubSys::getIcon(GUIIcon::LOCATEJUNCTION), locateTitle + " Chooser", ACsToLocate);
             *chooserLoc = chooser;
         }
         // update locator popup
