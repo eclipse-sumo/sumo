@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNECursorDialog.cpp
+/// @file    GUICursorDialog.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Sep 2022
 ///
@@ -38,21 +38,21 @@
 // FOX callback mapping
 // ===========================================================================
 
-FXDEFMAP(GNECursorDialog) GNECursorDialogMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SETFRONTELEMENT,    GNECursorDialog::onCmdSetFrontElement)
+FXDEFMAP(GUICursorDialog) GUICursorDialogMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SETFRONTELEMENT,    GUICursorDialog::onCmdSetFrontElement)
 };
 
 // Object implementation
-FXIMPLEMENT(GNECursorDialog, GUIGLObjectPopupMenu, GNECursorDialogMap, ARRAYNUMBER(GNECursorDialogMap))
+FXIMPLEMENT(GUICursorDialog, GUIGLObjectPopupMenu, GUICursorDialogMap, ARRAYNUMBER(GUICursorDialogMap))
 
 // ===========================================================================
 // member method definitions
 // ===========================================================================
 
-GNECursorDialog::GNECursorDialog(CursorDialogType cursorDialogType, GNEViewNet* viewNet, const std::vector<GNEAttributeCarrier*>& ACs) :
+GUICursorDialog::GUICursorDialog(CursorDialogType cursorDialogType, GNEViewNet* viewNet, const std::vector<GNEAttributeCarrier*>& ACs) :
     GUIGLObjectPopupMenu(viewNet->getViewParent()->getGNEAppWindows(), viewNet),
-    myCursorDialogType(cursorDialogType),
-    myViewNet(viewNet) {
+    myViewNet(viewNet),
+    myCursorDialogType(cursorDialogType) {
     if (cursorDialogType == CursorDialogType::PROPERTIES) {
         //
     } else if (cursorDialogType == CursorDialogType::FRONT_ELEMENT) {
@@ -67,11 +67,11 @@ GNECursorDialog::GNECursorDialog(CursorDialogType cursorDialogType, GNEViewNet* 
 }
 
 
-GNECursorDialog::~GNECursorDialog() {}
+GUICursorDialog::~GUICursorDialog() {}
 
 
 long
-GNECursorDialog::onCmdSetFrontElement(FXObject* obj, FXSelector, void*) {
+GUICursorDialog::onCmdSetFrontElement(FXObject* obj, FXSelector, void*) {
     // set front attribute AC
     myViewNet->setFrontAttributeCarrier(myAttributeCarriers.at(obj));
     // destroy popup

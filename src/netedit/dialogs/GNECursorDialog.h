@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNECursorDialog.h
+/// @file    GUICursorDialog.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Sep 2022
 ///
@@ -35,13 +35,13 @@ class GNEAttributeCarrier;
 // ===========================================================================
 
 /**
- * @class GNECursorDialog
+ * @class GUICursorDialog
  * @brief Dialog for edit rerouter intervals
  */
 
-class GNECursorDialog : public GUIGLObjectPopupMenu {
+class GUICursorDialog : public GUIGLObjectPopupMenu {
     /// @brief FOX-declaration
-    FXDECLARE(GNECursorDialog)
+    FXDECLARE(GUICursorDialog)
 
 public:
     /// @name cursor dialog type
@@ -51,13 +51,13 @@ public:
     };
 
     /// @brief constructor used in SUMO
-    GNECursorDialog(CursorDialogType cursorDialogType, GUISUMOAbstractView* view, const std::vector<GUIGlObject*> &objects);
+    GUICursorDialog(CursorDialogType cursorDialogType, GUISUMOAbstractView* view, const std::vector<GUIGlObject*> &objects);
 
     /// @brief constructor used in NETEDIT
-    GNECursorDialog(CursorDialogType cursorDialogType, GNEViewNet* viewNet, const std::vector<GNEAttributeCarrier*>& ACs);
+    GUICursorDialog(CursorDialogType cursorDialogType, GNEViewNet* viewNet, const std::vector<GNEAttributeCarrier*>& ACs);
 
     /// @brief destructor
-    ~GNECursorDialog();
+    ~GUICursorDialog();
 
     /// @name FOX-callbacks
     /// @{
@@ -69,7 +69,7 @@ public:
 
 protected:
     /// @brief FOX need this
-    FOX_CONSTRUCTOR(GNECursorDialog)
+    FOX_CONSTRUCTOR(GUICursorDialog)
 
     /// @brief view
 
@@ -84,9 +84,9 @@ protected:
 
 private:
     /// @brief Invalidated copy constructor.
-    GNECursorDialog(const GNECursorDialog&) = delete;
+    GUICursorDialog(const GUICursorDialog&) = delete;
 
     /// @brief Invalidated assignment operator.
-    GNECursorDialog& operator=(const GNECursorDialog&) = delete;
+    GUICursorDialog& operator=(const GUICursorDialog&) = delete;
 };
 

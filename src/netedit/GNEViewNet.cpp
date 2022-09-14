@@ -325,7 +325,7 @@ GNEViewNet::openFrontElementCursorDialog() {
     // only create if there is ACs
     if (ACs.size() > 0) {
         // create cursor popup dialog
-        myPopup = new GNECursorDialog(GNECursorDialog::CursorDialogType::FRONT_ELEMENT, this, ACs);
+        myPopup = new GUICursorDialog(GUICursorDialog::CursorDialogType::FRONT_ELEMENT, this, ACs);
         // open popup dialog
         openPopupDialog();
     }

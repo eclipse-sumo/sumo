@@ -1133,7 +1133,7 @@ void
 GUISUMOAbstractView::openObjectDialog(const std::vector<GUIGlObject*> &objects) {
     if (objects.size() > 0) {
         // create cursor popup dialog
-        myPopup = new GNECursorDialog(GNECursorDialog::CursorDialogType::PROPERTIES, this, objects);
+        myPopup = new GUICursorDialog(GUICursorDialog::CursorDialogType::PROPERTIES, this, objects);
         myCurrentObjectsDialog = objects;
         // open popup dialog
         openPopupDialog();
