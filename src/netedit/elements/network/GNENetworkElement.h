@@ -128,6 +128,10 @@ public:
      * @see GUIGlObject::drawGL
      */
     virtual void drawGL(const GUIVisualizationSettings& s) const = 0;
+
+    /// @brief mark element as front element
+    void markAsFrontElement();
+
     /// @}
 
     /// @name inherited from GNEAttributeCarrier

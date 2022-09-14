@@ -202,6 +202,12 @@ GNEAdditional::getOptionalAdditionalName() const {
 }
 
 
+void 
+GNEAdditional::markAsFrontElement() {
+    myNet->getViewNet()->setFrontAttributeCarrier(this);
+}
+
+
 void GNEAdditional::updateGLObject() {
     updateGeometry();
 }

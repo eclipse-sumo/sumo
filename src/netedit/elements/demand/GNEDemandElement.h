@@ -229,6 +229,9 @@ public:
      */
     virtual void drawGL(const GUIVisualizationSettings& s) const = 0;
 
+    /// @brief mark element as front element
+    void markAsFrontElement();
+
     /// @brief update GLObject (geometry, ID, etc.)
     void updateGLObject();
 

@@ -172,6 +172,9 @@ public:
     /// @param[in] s The settings for the current view (may influence drawing)
     virtual void drawGL(const GUIVisualizationSettings& s) const = 0;
 
+    /// @brief mark element as front element (Currently used only in NETEDIT)
+    virtual void markAsFrontElement();
+
     /// @brief update GLObject (geometry, ID, etc.) (optional)
     virtual void updateGLObject();
 

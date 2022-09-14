@@ -20,6 +20,8 @@
 #include <config.h>
 
 #include <utils/gui/div/GUIParameterTableWindow.h>
+#include <netedit/GNENet.h>
+#include <netedit/GNEViewNet.h>
 
 #include "GNENetworkElement.h"
 
@@ -98,6 +100,12 @@ GNENetworkElement::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) 
 Boundary
 GNENetworkElement::getCenteringBoundary() const {
     return myBoundary;
+}
+
+
+void 
+GNENetworkElement::markAsFrontElement() {
+    myNet->getViewNet()->setFrontAttributeCarrier(this);
 }
 
 

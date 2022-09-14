@@ -220,6 +220,12 @@ GNEDemandElement::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
 }
 
 
+void 
+GNEDemandElement::markAsFrontElement() {
+    myNet->getViewNet()->setFrontAttributeCarrier(this);
+}
+
+
 void
 GNEDemandElement::updateGLObject() {
     updateGeometry();
