@@ -104,6 +104,7 @@ private:
     JPS_AreasBuilder myAreasBuilder;
     JPS_Areas myAreas;
     JPS_OperationalModel myModel;
+    JPS_ModelParameterProfileId myParameterProfileId;
     JPS_Simulation mySimulation;
 
 #ifdef DEBUG

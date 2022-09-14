@@ -86,13 +86,12 @@ MSPModel_Remote::add(MSTransportable* person, MSStageMoving* stage, SUMOTime now
 	agent_parameters.BMax = 0.15;
 	agent_parameters.BMin = 0.15;
 	agent_parameters.Av = 0.53;
-	agent_parameters.T = 1;
-	agent_parameters.Tau = 0.5;
 	agent_parameters.journeyId = journeyId;
 	agent_parameters.orientationX = 1.0;
 	agent_parameters.orientationY = 0.0;
 	agent_parameters.positionX = departurePosition.x();
 	agent_parameters.positionY = departurePosition.y();
+    agent_parameters.profileId = myParameterProfileId;
 
     JPS_AgentId agentId = JPS_Simulation_AddAgent(mySimulation, agent_parameters, nullptr);
     PState* state = new PState(static_cast<MSPerson*>(person), stage, journey, arrivalPosition, agentId);
@@ -301,7 +300,10 @@ MSPModel_Remote::initialize() {
 	myAreas = JPS_AreasBuilder_Build(myAreasBuilder, nullptr);
 
     message = new JPS_ErrorMessage_t{};
-	myModel = JPS_OperationalModel_Create_VelocityModel(8, 0.1, 5, 0.02, nullptr);
+    JPS_VelocityModelBuilder modelBuilder = JPS_VelocityModelBuilder_Create(8.0, 0.1, 5.0, 0.02);
+    myParameterProfileId = 1;
+    JPS_VelocityModelBuilder_AddParameterProfile(modelBuilder, myParameterProfileId, 1, 0.5);
+    myModel = JPS_VelocityModelBuilder_Build(modelBuilder, &message);
     if (myModel == nullptr) {
         std::cout << "Error while creating the pedestrian model: " << JPS_ErrorMessage_GetMessage(message) << std::endl;
     }
