@@ -35,7 +35,7 @@
 // ===========================================================================
 
 FXDEFMAP(GUICursorDialog) GUICursorDialogMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SETFRONTELEMENT,    GUICursorDialog::onCmdSetFrontElement)
+    FXMAPFUNC(SEL_COMMAND,  MID_SETFRONTELEMENT,    GUICursorDialog::onCmdSetFrontElement)
 };
 
 // Object implementation
@@ -48,13 +48,18 @@ FXIMPLEMENT(GUICursorDialog, GUIGLObjectPopupMenu, GUICursorDialogMap, ARRAYNUMB
 GUICursorDialog::GUICursorDialog(CursorDialogType cursorDialogType, GUISUMOAbstractView* view, const std::vector<GUIGlObject*> &objects) :
     GUIGLObjectPopupMenu(view->getMainWindow(), view),
     myView(view) {
-    if (cursorDialogType == CursorDialogType::FRONT_ELEMENT) {
+    if (objects.empty()) {
+        // create header
+        new MFXMenuHeader(this, view->getMainWindow()->getBoldFont(), "No objects under cursor", nullptr, nullptr, 0);
+    } else if (cursorDialogType == CursorDialogType::FRONT_ELEMENT) {
+        ;
+    } else if (cursorDialogType == CursorDialogType::FRONT_ELEMENT) {
         // create header
         new MFXMenuHeader(this, view->getMainWindow()->getBoldFont(), "Mark front element", GUIIconSubSys::getIcon(GUIIcon::FRONTELEMENT), nullptr, 0);
         new FXMenuSeparator(this);
         // create a menu command for every AC
         for (const auto &GLObject : objects) {
-            myGLObjects[GUIDesigns::buildFXMenuCommand(this, GLObject->getMicrosimID(), /*AC->getIcon()*/ nullptr, this, MID_GNE_SETFRONTELEMENT)] = GLObject;
+            myGLObjects[GUIDesigns::buildFXMenuCommand(this, GLObject->getMicrosimID(), /*AC->getIcon()*/ nullptr, this, MID_SETFRONTELEMENT)] = GLObject;
         }
     }
 }

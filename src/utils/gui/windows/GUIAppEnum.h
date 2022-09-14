@@ -418,6 +418,15 @@ enum {
 
     /// @}
 
+
+    /// @name GUICursorDialog PopUp Entries - IDs
+    /// @{
+    /// @brief set element as front element
+    MID_SETFRONTELEMENT,
+
+    /// @}
+
+
     /// @name Object PopUp Entries - IDs
     /// @{
 
@@ -1408,8 +1417,6 @@ enum {
     MID_GNE_UNDOLIST_UPDATE,
     /// @brief check if recomputing is needed
     MID_GNE_RECOMPUTINGNEEDED,
-    /// @brief set element as front element
-    MID_GNE_SETFRONTELEMENT,
 
     /// @}
 
