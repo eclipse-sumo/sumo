@@ -35,7 +35,7 @@
 // ===========================================================================
 
 GNEBusStop::GNEBusStop(SumoXMLTag tag, GNENet* net) :
-    GNEStoppingPlace("", net, GLO_BUS_STOP, tag, nullptr, 0, 0, "", false, Parameterised::Map()),
+    GNEStoppingPlace("", net, GLO_BUS_STOP, tag, GUIIconSubSys::getIcon(GUIIcon::BUSSTOP), nullptr, 0, 0, "", false, Parameterised::Map()),
     myPersonCapacity(0),
     myParkingLength(0),
     myColor(RGBColor::BLACK) {
@@ -47,7 +47,7 @@ GNEBusStop::GNEBusStop(SumoXMLTag tag, GNENet* net) :
 GNEBusStop::GNEBusStop(SumoXMLTag tag, const std::string& id, GNELane* lane, GNENet* net, const double startPos, const double endPos,
                        const std::string& name, const std::vector<std::string>& lines, int personCapacity, double parkingLength, const RGBColor& color,
                        bool friendlyPosition, const Parameterised::Map& parameters) :
-    GNEStoppingPlace(id, net, GLO_BUS_STOP, tag, lane, startPos, endPos, name, friendlyPosition, parameters),
+    GNEStoppingPlace(id, net, GLO_BUS_STOP, tag, GUIIconSubSys::getIcon(GUIIcon::BUSSTOP), lane, startPos, endPos, name, friendlyPosition, parameters),
     myLines(lines),
     myPersonCapacity(personCapacity),
     myParkingLength(parkingLength),

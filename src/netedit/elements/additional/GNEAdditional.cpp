@@ -36,14 +36,14 @@
 // member method definitions
 // ===========================================================================
 
-GNEAdditional::GNEAdditional(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, std::string additionalName,
+GNEAdditional::GNEAdditional(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, FXIcon *icon, std::string additionalName,
                              const std::vector<GNEJunction*>& junctionParents,
                              const std::vector<GNEEdge*>& edgeParents,
                              const std::vector<GNELane*>& laneParents,
                              const std::vector<GNEAdditional*>& additionalParents,
                              const std::vector<GNEDemandElement*>& demandElementParents,
                              const std::vector<GNEGenericData*>& genericDataParents) :
-    GUIGlObject(type, id),
+    GUIGlObject(type, id, icon),
     GNEHierarchicalElement(net, tag, junctionParents, edgeParents, laneParents, additionalParents, demandElementParents, genericDataParents),
     GNEPathManager::PathElement(GNEPathManager::PathElement::Options::ADDITIONAL_ELEMENT),
     myAdditionalName(additionalName) {
@@ -52,14 +52,14 @@ GNEAdditional::GNEAdditional(const std::string& id, GNENet* net, GUIGlObjectType
 }
 
 
-GNEAdditional::GNEAdditional(GNENet* net, GUIGlObjectType type, SumoXMLTag tag, std::string additionalName,
+GNEAdditional::GNEAdditional(GNENet* net, GUIGlObjectType type, SumoXMLTag tag, FXIcon *icon, std::string additionalName,
                              const std::vector<GNEJunction*>& junctionParents,
                              const std::vector<GNEEdge*>& edgeParents,
                              const std::vector<GNELane*>& laneParents,
                              const std::vector<GNEAdditional*>& additionalParents,
                              const std::vector<GNEDemandElement*>& demandElementParents,
                              const std::vector<GNEGenericData*>& genericDataParents) :
-    GUIGlObject(type, additionalParents.front()->getID()),
+    GUIGlObject(type, additionalParents.front()->getID(), icon),
     GNEHierarchicalElement(net, tag, junctionParents, edgeParents, laneParents, additionalParents, demandElementParents, genericDataParents),
     GNEPathManager::PathElement(GNEPathManager::PathElement::Options::ADDITIONAL_ELEMENT),
     myAdditionalName(additionalName) {

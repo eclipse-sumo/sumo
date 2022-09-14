@@ -36,7 +36,7 @@
 // ===========================================================================
 
 GNEEntryExitDetector::GNEEntryExitDetector(SumoXMLTag entryExitTag, GNENet* net) :
-    GNEDetector("", net, GLO_DET_ENTRY, entryExitTag, 0, 0, {}, "", {}, "", false, Parameterised::Map()) {
+    GNEDetector("", net, GLO_DET_ENTRY, entryExitTag, GUIIconSubSys::getIcon(GUIIcon::E3ENTRY), 0, 0, {}, "", {}, "", false, Parameterised::Map()) {
     // reset default values
     resetDefaultValues();
 }
@@ -44,9 +44,7 @@ GNEEntryExitDetector::GNEEntryExitDetector(SumoXMLTag entryExitTag, GNENet* net)
 
 GNEEntryExitDetector::GNEEntryExitDetector(SumoXMLTag entryExitTag, GNENet* net, GNEAdditional* parent, GNELane* lane, const double pos,
         const bool friendlyPos, const Parameterised::Map& parameters) :
-    GNEDetector(parent, net, GLO_DET_ENTRY, entryExitTag, pos, 0, {
-    lane
-}, "", "", friendlyPos, parameters) {
+    GNEDetector(parent, net, GLO_DET_ENTRY, entryExitTag, GUIIconSubSys::getIcon(GUIIcon::E3ENTRY), pos, 0, {lane}, "", "", friendlyPos, parameters) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }

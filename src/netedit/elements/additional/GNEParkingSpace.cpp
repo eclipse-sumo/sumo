@@ -32,9 +32,9 @@
 // ===========================================================================
 
 GNEParkingSpace::GNEParkingSpace(GNENet* net) :
-    GNEAdditional("", net, GLO_PARKING_SPACE, SUMO_TAG_PARKING_SPACE, "",
-{}, {}, {}, {}, {}, {}),
-mySlope(0) {
+    GNEAdditional("", net, GLO_PARKING_SPACE, SUMO_TAG_PARKING_SPACE, GUIIconSubSys::getIcon(GUIIcon::PARKINGSPACE), "", 
+    {}, {}, {}, {}, {}, {}),
+    mySlope(0) {
     // reset default values
     resetDefaultValues();
 }
@@ -43,14 +43,14 @@ mySlope(0) {
 GNEParkingSpace::GNEParkingSpace(GNENet* net, GNEAdditional* parkingAreaParent, const Position& pos,
                                  const std::string& width, const std::string& length, const std::string& angle, double slope,
                                  const std::string& name, const Parameterised::Map& parameters) :
-    GNEAdditional(net, GLO_PARKING_SPACE, SUMO_TAG_PARKING_SPACE, name,
-{}, {}, {}, {parkingAreaParent}, {}, {}),
-Parameterised(parameters),
-myPosition(pos),
-myWidth(width),
-myLength(length),
-myAngle(angle),
-mySlope(slope) {
+    GNEAdditional(net, GLO_PARKING_SPACE, SUMO_TAG_PARKING_SPACE, GUIIconSubSys::getIcon(GUIIcon::PARKINGSPACE), name,
+    {}, {}, {}, {parkingAreaParent}, {}, {}),
+    Parameterised(parameters),
+    myPosition(pos),
+    myWidth(width),
+    myLength(length),
+    myAngle(angle),
+    mySlope(slope) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
