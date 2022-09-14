@@ -123,7 +123,7 @@ GUIGlChildWindow::buildNavigationToolBar() {
         GUIIconSubSys::getIcon(GUIIcon::EDITVIEWPORT), this, MID_HOTKEY_CTRL_I_EDITVIEWPORT, GUIDesignButtonToolbar);
     // toggle button for zooming style
     myZoomStyle = new MFXCheckableButton(false, myGripNavigationToolbar ? myGripNavigationToolbar : myStaticNavigationToolBar,
-        myParent->getStaticTooltipMenu(), "\tToggles Zooming Style\tToggles whether zooming is based at cursor position or at the center of the view.",
+        myParent->getStaticTooltipMenu(), "\tToggle Zooming Style\tToggles whether zooming is based at cursor position or at the center of the view.",
         GUIIconSubSys::getIcon(GUIIcon::ZOOMSTYLE), this, MID_ZOOM_STYLE, GUIDesignMFXCheckableButtonSquare);
     myZoomStyle->setChecked(getApp()->reg().readIntEntry("gui", "zoomAtCenter", 0) != 1);
     // build the locator popup
@@ -132,15 +132,15 @@ GUIGlChildWindow::buildNavigationToolBar() {
     myLocatorButton = new MFXMenuButtonTooltip(myGripNavigationToolbar ? myGripNavigationToolbar : myStaticNavigationToolBar,
         myParent->getStaticTooltipMenu(), "\tLocate Structures\tLocate structures within the network.",
         GUIIconSubSys::getIcon(GUIIcon::LOCATE), myLocatorPopup, nullptr, GUIDesignButtonToolbarLocator);
-    // add toggle button for tool-tips in view on/off (by default unchecked)
+    // add toggle button for tooltips in view on/off (by default unchecked)
     myShowToolTipsView = new MFXCheckableButton(false, myGripNavigationToolbar ? myGripNavigationToolbar : myStaticNavigationToolBar,
-        myParent->getStaticTooltipMenu(), "\tToggles View ToolTips\tToggles whether tool tips in view shall be shown.",
+        myParent->getStaticTooltipMenu(), "\tToggle View Tooltips\tToggles whether tooltips in the view shall be shown.",
         GUIIconSubSys::getIcon(GUIIcon::SHOWTOOLTIPS_VIEW), this, MID_SHOWTOOLTIPS_VIEW, GUIDesignMFXCheckableButtonSquare);
     myParent->getStaticTooltipView()->enableStaticToolTip(false);
     myParent->getStaticTooltipView()->enableStaticToolTip(false);
-    // add toggle button for tool-tips in menu on/off (by default checked)
+    // add toggle button for tooltips in menu on/off (by default checked)
     myShowToolTipsMenu = new MFXCheckableButton(false, myGripNavigationToolbar ? myGripNavigationToolbar : myStaticNavigationToolBar,
-        myParent->getStaticTooltipMenu(), "\tToggles Menu ToolTips\tToggles whether tool tips in menushall be shown.",
+        myParent->getStaticTooltipMenu(), "\tToggle Menu Tooltips\tToggles whether tooltips in the menu shall be shown.",
         GUIIconSubSys::getIcon(GUIIcon::SHOWTOOLTIPS_MENU), this, MID_SHOWTOOLTIPS_MENU, GUIDesignMFXCheckableButtonSquare);
     myShowToolTipsMenu->setChecked(getApp()->reg().readIntEntry("gui", "menuToolTips", 0) != 1);
     myParent->getStaticTooltipMenu()->enableStaticToolTip(myShowToolTipsMenu->amChecked());
