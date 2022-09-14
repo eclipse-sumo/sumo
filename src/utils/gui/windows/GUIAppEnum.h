@@ -422,7 +422,9 @@ enum {
     /// @name GUICursorDialog PopUp Entries - IDs
     /// @{
     /// @brief set element as front element
-    MID_SETFRONTELEMENT,
+    MID_CURSORDIALOG_SETFRONTELEMENT,
+    /// @brief open properties popup
+    MID_CURSORDIALOG_PROPERTIES,
 
     /// @}
 

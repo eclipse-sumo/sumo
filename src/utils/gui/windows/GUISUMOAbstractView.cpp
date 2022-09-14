@@ -963,6 +963,15 @@ GUISUMOAbstractView::destroyPopup() {
 }
 
 
+void 
+GUISUMOAbstractView::replacePopup(GUIGLObjectPopupMenu* popUp) {
+    // delete and replace popup
+    delete myPopup;
+    myPopup = popUp;
+    openPopupDialog();
+}
+
+
 long
 GUISUMOAbstractView::onLeftBtnPress(FXObject*, FXSelector, void* ptr) {
     destroyPopup();

@@ -327,6 +327,9 @@ public:
     /// @brief destroys the popup
     void destroyPopup();
 
+    /// @brief replace PopUp
+    void replacePopup(GUIGLObjectPopupMenu* popUp);
+
     ///@struct Decal
     /// @brief A decal (an image) that can be shown
     struct Decal {
