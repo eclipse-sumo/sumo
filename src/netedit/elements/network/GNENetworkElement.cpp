@@ -30,14 +30,14 @@
 // method definitions
 // ===========================================================================
 
-GNENetworkElement::GNENetworkElement(GNENet* net, const std::string& id, GUIGlObjectType type, SumoXMLTag tag,
+GNENetworkElement::GNENetworkElement(GNENet* net, const std::string& id, GUIGlObjectType type, SumoXMLTag tag, FXIcon *icon,
                                      const std::vector<GNEJunction*>& junctionParents,
                                      const std::vector<GNEEdge*>& edgeParents,
                                      const std::vector<GNELane*>& laneParents,
                                      const std::vector<GNEAdditional*>& additionalParents,
                                      const std::vector<GNEDemandElement*>& demandElementParents,
                                      const std::vector<GNEGenericData*>& genericDataParents) :
-    GUIGlObject(type, id),
+    GUIGlObject(type, id, icon),
     GNEHierarchicalElement(net, tag, junctionParents, edgeParents, laneParents, additionalParents, demandElementParents, genericDataParents),
     myShapeEdited(false) {
 }

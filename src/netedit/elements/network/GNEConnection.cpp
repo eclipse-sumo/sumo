@@ -47,13 +47,12 @@ static const int NUM_POINTS = 5;
 
 GNEConnection::GNEConnection(GNELane* from, GNELane* to) :
     GNENetworkElement(from->getNet(), "from" + from->getID() + "to" + to->getID(),
-                      GLO_CONNECTION, SUMO_TAG_CONNECTION,
-{}, {}, {}, {}, {}, {}),
-myFromLane(from),
-myToLane(to),
-myLinkState(LINKSTATE_TL_OFF_NOSIGNAL),
-mySpecialColor(nullptr),
-myShapeDeprecated(true) {
+    GLO_CONNECTION, SUMO_TAG_CONNECTION, GUIIconSubSys::getIcon(GUIIcon::CONNECTION), {}, {}, {}, {}, {}, {}),
+    myFromLane(from),
+    myToLane(to),
+    myLinkState(LINKSTATE_TL_OFF_NOSIGNAL),
+    mySpecialColor(nullptr),
+    myShapeDeprecated(true) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }

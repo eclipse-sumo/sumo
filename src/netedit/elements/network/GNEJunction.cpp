@@ -55,17 +55,17 @@
 
 GNEJunction::GNEJunction(GNENet* net, NBNode* nbn, bool loaded) :
     GNENetworkElement(net, nbn->getID(), GLO_JUNCTION, SUMO_TAG_JUNCTION,
-{}, {}, {}, {}, {}, {}),
-myNBNode(nbn),
-myMaxDrawingSize(1),
-myAmCreateEdgeSource(false),
-myLogicStatus(loaded ? FEATURE_LOADED : FEATURE_GUESSED),
-myAmResponsible(false),
-myHasValidLogic(loaded),
-myAmTLSSelected(false),
-myColorForMissingConnections(false),
-myTesselation(nbn->getID(), "", RGBColor::MAGENTA, nbn->getShape(), false, true, 0),
-myExaggeration(1) {
+    GUIIconSubSys::getIcon(GUIIcon::JUNCTION), {}, {}, {}, {}, {}, {}),
+    myNBNode(nbn),
+    myMaxDrawingSize(1),
+    myAmCreateEdgeSource(false),
+    myLogicStatus(loaded ? FEATURE_LOADED : FEATURE_GUESSED),
+    myAmResponsible(false),
+    myHasValidLogic(loaded),
+    myAmTLSSelected(false),
+    myColorForMissingConnections(false),
+    myTesselation(nbn->getID(), "", RGBColor::MAGENTA, nbn->getShape(), false, true, 0),
+    myExaggeration(1) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
