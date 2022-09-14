@@ -312,28 +312,29 @@ class RandomTripGenerator:
         self.pedestrians = pedestrians
 
     def get_trip(self, min_distance, max_distance, maxtries=100, junctionTaz=False, min_dist_fringe=None):
-        for _ in range(maxtries):
-            source_edge = self.source_generator.get()
-            intermediate = [self.via_generator.get()
-                            for i in range(self.intermediate)]
-            sink_edge = self.sink_generator.get()
-            if self.pedestrians:
-                destCoord = sink_edge.getFromNode().getCoord()
-            else:
-                destCoord = sink_edge.getToNode().getCoord()
-
-            coords = ([source_edge.getFromNode().getCoord()] +
-                      [e.getFromNode().getCoord() for e in intermediate] +
-                      [destCoord])
-            distance = sum([euclidean(p, q)
-                            for p, q in zip(coords[:-1], coords[1:])])
-            min_dist = min_distance
-            if min_dist_fringe is not None and source_edge.is_fringe() and sink_edge.is_fringe() and not intermediate:
-                min_dist = min_dist_fringe
-            if (distance >= min_dist
-                    and (not junctionTaz or source_edge.getFromNode() != sink_edge.getToNode())
-                    and (max_distance is None or distance < max_distance)):
-                return source_edge, sink_edge, intermediate
+        for min_dist in [min_distance, min_dist_fringe]:
+            if min_dist is None:
+                break
+            for _ in range(maxtries):   
+                source_edge = self.source_generator.get()
+                intermediate = [self.via_generator.get()
+                                for i in range(self.intermediate)]
+                sink_edge = self.sink_generator.get()
+                if min_dist == min_dist_fringe and (not source_edge.is_fringe() or not sink_edge.is_fringe() or intermediate):
+                    continue
+                if self.pedestrians:
+                    destCoord = sink_edge.getFromNode().getCoord()
+                else:
+                    destCoord = sink_edge.getToNode().getCoord()
+                coords = ([source_edge.getFromNode().getCoord()] +
+                        [e.getFromNode().getCoord() for e in intermediate] +
+                        [destCoord])
+                distance = sum([euclidean(p, q)
+                                for p, q in zip(coords[:-1], coords[1:])])
+                if (distance >= min_dist
+                        and (not junctionTaz or source_edge.getFromNode() != sink_edge.getToNode())
+                        and (max_distance is None or distance < max_distance)):
+                    return source_edge, sink_edge, intermediate
         raise Exception("no trip found after %s tries" % maxtries)
 
 
