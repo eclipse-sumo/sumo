@@ -220,7 +220,7 @@ GUIGlChildWindow::onCmdEditViewScheme(FXObject*, FXSelector, void*) {
 
 long
 GUIGlChildWindow::onCmdShowToolTipsView(FXObject*, FXSelector, void*) {
-    // toogle check
+    // toggle check
     myShowToolTipsView->setChecked(!myShowToolTipsView->amChecked());
     // enable/disable static tooltip
     myParent->getStaticTooltipView()->enableStaticToolTip(myShowToolTipsView->amChecked());
@@ -231,11 +231,11 @@ GUIGlChildWindow::onCmdShowToolTipsView(FXObject*, FXSelector, void*) {
 
 long
 GUIGlChildWindow::onCmdShowToolTipsMenu(FXObject*, FXSelector, void*) {
-    // toogle check
+    // toggle check
     myShowToolTipsMenu->setChecked(!myShowToolTipsMenu->amChecked());
     // enable/disable static tooltip
     myParent->getStaticTooltipMenu()->enableStaticToolTip(myShowToolTipsMenu->amChecked());
-    // save in resgistry
+    // save in registry
     getApp()->reg().writeIntEntry("gui", "menuToolTips", myShowToolTipsMenu->amChecked() ? 0 : 1);
     update();
     return 1;
