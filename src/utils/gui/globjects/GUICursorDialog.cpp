@@ -59,7 +59,7 @@ GUICursorDialog::GUICursorDialog(CursorDialogType cursorDialogType, GUISUMOAbstr
         new FXMenuSeparator(this);
         // create a menu command for every AC
         for (const auto &GLObject : objects) {
-            auto menuCommand = GUIDesigns::buildFXMenuCommand(this, GLObject->getMicrosimID(), /*AC->getIcon()*/ nullptr, this, MID_CURSORDIALOG_PROPERTIES);
+            auto menuCommand = GUIDesigns::buildFXMenuCommand(this, GLObject->getMicrosimID(), GLObject->getIcon(), this, MID_CURSORDIALOG_PROPERTIES);
             myGLObjects[menuCommand] = GLObject;
             // disable edge
             if (GLObject->getType() == GLO_EDGE) {
@@ -72,7 +72,7 @@ GUICursorDialog::GUICursorDialog(CursorDialogType cursorDialogType, GUISUMOAbstr
         new FXMenuSeparator(this);
         // create a menu command for every AC
         for (const auto &GLObject : objects) {
-            myGLObjects[GUIDesigns::buildFXMenuCommand(this, GLObject->getMicrosimID(), /*AC->getIcon()*/ nullptr, this, MID_CURSORDIALOG_SETFRONTELEMENT)] = GLObject;
+            myGLObjects[GUIDesigns::buildFXMenuCommand(this, GLObject->getMicrosimID(), GLObject->getIcon(), this, MID_CURSORDIALOG_SETFRONTELEMENT)] = GLObject;
         }
     }
 }
