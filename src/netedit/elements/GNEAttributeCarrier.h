@@ -190,7 +190,7 @@ public:
     const std::string& getTagStr() const;
 
     /// @brief get FXIcon associated to this AC
-    FXIcon* getIcon() const;
+    FXIcon* getACIcon() const;
 
     /// @brief check if this AC is template
     bool isTemplate() const;

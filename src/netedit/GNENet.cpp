@@ -81,7 +81,7 @@ const std::map<SumoXMLAttr, std::string> GNENet::EMPTY_HEADER;
 // ===========================================================================
 
 GNENet::GNENet(NBNetBuilder* netBuilder) :
-    GUIGlObject(GLO_NETWORK, ""),
+    GUIGlObject(GLO_NETWORK, "", nullptr),
     myViewNet(nullptr),
     myNetBuilder(netBuilder),
     myAttributeCarriers(new GNENetHelper::AttributeCarriers(this)),
