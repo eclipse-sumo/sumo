@@ -179,7 +179,7 @@ public:
     virtual void openObjectDialogAtCursor();
 
     /// @brief open object dialog for the given object
-    void openObjectDialog(GUIGlObject* o);
+    void openObjectDialog(const std::vector<GUIGlObject*> &objects);
 
     /// @brief A method that updates the tooltip
     void updateToolTip();
@@ -498,8 +498,8 @@ protected:
     /// @brief The current popup-menu
     GUIGLObjectPopupMenu* myPopup;
 
-    /// @brief current object dialog 
-    GUIGlObject* myCurrentObjectDialog = nullptr;
+    /// @brief vector with current objects dialog 
+    std::vector<GUIGlObject*> myCurrentObjectsDialog;
 
     /// @brief The current popup-menu position
     Position myPopupPosition;

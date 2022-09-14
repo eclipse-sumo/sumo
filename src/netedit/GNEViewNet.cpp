@@ -518,30 +518,35 @@ GNEViewNet::openObjectDialogAtCursor() {
     ungrab();
     // make network current
     if (isEnabled() && myAmInitialised && makeCurrent()) {
+        // get GLObjects under cursor
+        const auto GLObjects = getGUIGlObjectsUnderCursor();
         // fill objects under cursor
-        myObjectsUnderCursor.updateObjectUnderCursor(getGUIGlObjectsUnderCursor());
+        myObjectsUnderCursor.updateObjectUnderCursor(GLObjects);
         // check if we're cliking while alt button is pressed
         if (myMouseButtonKeyPressed.altKeyPressed()) {
             // open front element cursor dialog
             openFrontElementCursorDialog();
+        } else if (GLObjects.empty()) {
+            openObjectDialog({myNet});
         } else {
+            // declare filtered objects
+            std::vector<GUIGlObject*> filteredObjects;
             // get GUIGLObject front
-            GUIGlObject* o = myObjectsUnderCursor.getGUIGlObjectFront();
+            GUIGlObject* overlappedElement = nullptr;
             // we need to check if we're inspecting a overlapping element
             if (myViewParent->getInspectorFrame()->getOverlappedInspection()->overlappedInspectionShown() &&
                     myViewParent->getInspectorFrame()->getOverlappedInspection()->checkSavedPosition(getPositionInformation()) &&
                     myInspectedAttributeCarriers.size() > 0) {
-                o = dynamic_cast<GUIGlObject*>(myInspectedAttributeCarriers.front());
+                overlappedElement = myInspectedAttributeCarriers.front()->getGUIGlObject();
+                filteredObjects.push_back(overlappedElement);
             }
-            // if GlObject is null, use net
-            if (o == nullptr) {
-                o = myNet;
+            // fill filtered objects (ony lanes)
+            for (const auto &AC : myObjectsUnderCursor.getClickedAttributeCarriers()) {
+                if (AC->getGUIGlObject() != overlappedElement) {
+                    filteredObjects.push_back(AC->getGUIGlObject());
+                }
             }
-            // if GLobject is edge, use lane
-            if (myObjectsUnderCursor.getLaneFront()) {
-                o = myObjectsUnderCursor.getLaneFront()->getGUIGlObject();
-            }
-            openObjectDialog(o);
+            openObjectDialog(filteredObjects);
         }
         makeNonCurrent();
     }
@@ -4966,9 +4971,9 @@ GNEViewNet::drawTemporalSplitJunction() const {
 void 
 GNEViewNet::drawTemporalRoundabout() const {
     // check conditions
-    if (myCurrentObjectDialog && (myCurrentObjectDialog->getType() == GLO_JUNCTION) && myDrawPreviewRoundabout) {
+    if ((myCurrentObjectsDialog.size() > 0) && (myCurrentObjectsDialog.front()->getType() == GLO_JUNCTION) && myDrawPreviewRoundabout) {
         // get junction
-        const auto junction = myNet->getAttributeCarriers()->retrieveJunction(myCurrentObjectDialog->getMicrosimID());
+        const auto junction = myNet->getAttributeCarriers()->retrieveJunction(myCurrentObjectsDialog.front()->getMicrosimID());
         // push layer matrix
         GLHelper::pushMatrix();
         // translate to temporal shape layer

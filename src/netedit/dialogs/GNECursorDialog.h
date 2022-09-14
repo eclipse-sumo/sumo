@@ -24,6 +24,13 @@
 
 
 // ===========================================================================
+// class declaration
+// ===========================================================================
+
+class GNEViewNet;
+class GNEAttributeCarrier;
+
+// ===========================================================================
 // class definitions
 // ===========================================================================
 
@@ -43,7 +50,10 @@ public:
         FRONT_ELEMENT
     };
 
-    /// @brief constructor
+    /// @brief constructor used in SUMO
+    GNECursorDialog(CursorDialogType cursorDialogType, GUISUMOAbstractView* view, const std::vector<GUIGlObject*> &objects);
+
+    /// @brief constructor used in NETEDIT
     GNECursorDialog(CursorDialogType cursorDialogType, GNEViewNet* viewNet, const std::vector<GNEAttributeCarrier*>& ACs);
 
     /// @brief destructor
@@ -60,6 +70,8 @@ public:
 protected:
     /// @brief FOX need this
     FOX_CONSTRUCTOR(GNECursorDialog)
+
+    /// @brief view
 
     /// @brief viewNet
     GNEViewNet* myViewNet;

@@ -57,6 +57,7 @@
 #include <utils/gui/globjects/GLIncludes.h>
 #include <utils/gui/settings/GUIVisualizationSettings.h>
 #include <foreign/fontstash/fontstash.h>
+#include <netedit/dialogs/GNECursorDialog.h>
 
 #include "GUISUMOAbstractView.h"
 #include "GUIMainWindow.h"
@@ -958,7 +959,7 @@ GUISUMOAbstractView::destroyPopup() {
         delete myPopup;
         myPopupPosition.set(0, 0);
         myPopup = nullptr;
-        myCurrentObjectDialog = nullptr;
+        myCurrentObjectsDialog.clear();
     }
 }
 
@@ -1111,32 +1112,31 @@ GUISUMOAbstractView::onMouseLeft(FXObject*, FXSelector, void* /*data*/) {
 
 void
 GUISUMOAbstractView::openObjectDialogAtCursor() {
+    // release the mouse grab
     ungrab();
-    if (!isEnabled() || !myAmInitialised) {
-        return;
-    }
-    if (makeCurrent()) {
-        // initialise the select mode
-        int id = getObjectUnderCursor();
-        GUIGlObject* o = nullptr;
-        if (id != 0) {
-            o = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
+    // check if SUMO is enabled, initialised and Make OpenGL context current
+    if (isEnabled() && myAmInitialised && makeCurrent()) {
+        // get all objects under cusor
+        const auto objectsUnderCursor = getGUIGlObjectsUnderCursor();
+        // if empty, inspect net
+        if (objectsUnderCursor.empty()) {
+            openObjectDialog({GUIGlObjectStorage::gIDStorage.getNetObject()});
         } else {
-            o = GUIGlObjectStorage::gIDStorage.getNetObject();
+            openObjectDialog(objectsUnderCursor);
         }
-        openObjectDialog(o);
+        // Make OpenGL context non current
         makeNonCurrent();
     }
 }
 
 void
-GUISUMOAbstractView::openObjectDialog(GUIGlObject* o) {
-    if (o != nullptr) {
-        myPopup = o->getPopUpMenu(*myApp, *this);
-        myCurrentObjectDialog = o;
+GUISUMOAbstractView::openObjectDialog(const std::vector<GUIGlObject*> &objects) {
+    if (objects.size() > 0) {
+        // create cursor popup dialog
+        myPopup = new GNECursorDialog(GNECursorDialog::CursorDialogType::PROPERTIES, this, objects);
+        myCurrentObjectsDialog = objects;
         // open popup dialog
         openPopupDialog();
-        GUIGlObjectStorage::gIDStorage.unblockObject(o->getGlID());
     }
 }
 
