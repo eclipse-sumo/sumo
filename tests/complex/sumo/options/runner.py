@@ -29,11 +29,13 @@ import sumolib  # noqa
 
 sumoBinary = sumolib.checkBinary('sumo')
 
+
 def call(comment, args):
     print(comment, args)
     sys.stdout.flush()
     subprocess.call([sumoBinary, "-c", "sumo.sumocfg", "-C", "stdout"] + args, stderr=subprocess.STDOUT)
     print("-" * 10)
+
 
 call("plain", [])
 call("replace", ["-a", "new.rou.xml"])
