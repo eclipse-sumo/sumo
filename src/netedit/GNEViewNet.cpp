@@ -318,20 +318,6 @@ void
 GNEViewNet::doInit() {}
 
 
-void 
-GNEViewNet::openFrontElementCursorDialog() {
-    // get ACs
-    const auto ACs = myObjectsUnderCursor.getClickedAttributeCarriers();
-    // only create if there is ACs
-    if (ACs.size() > 0) {
-        // create cursor popup dialog
-        myPopup = new GUICursorDialog(GUICursorDialog::CursorDialogType::FRONT_ELEMENT, this, ACs);
-        // open popup dialog
-        openPopupDialog();
-    }
-}
-
-
 void
 GNEViewNet::buildViewToolBars(GUIGlChildWindow* v) {
     // build coloring tools
@@ -520,17 +506,17 @@ GNEViewNet::openObjectDialogAtCursor() {
     if (isEnabled() && myAmInitialised && makeCurrent()) {
         // get GLObjects under cursor
         const auto GLObjects = getGUIGlObjectsUnderCursor();
-        // fill objects under cursor
-        myObjectsUnderCursor.updateObjectUnderCursor(GLObjects);
         // check if we're cliking while alt button is pressed
         if (myMouseButtonKeyPressed.altKeyPressed()) {
-            // open front element cursor dialog
-            openFrontElementCursorDialog();
+            // create cursor popup dialog for mark front element
+            myPopup = new GUICursorDialog(GUICursorDialog::CursorDialogType::FRONT_ELEMENT, this, GLObjects);
+            // open popup dialog
+            openPopupDialog();
         } else if (GLObjects.empty()) {
             openObjectDialog({myNet});
         } else {
             // declare filtered objects
-            std::vector<GUIGlObject*> filteredObjects;
+            std::vector<GUIGlObject*> filteredGLObjects;
             // get GUIGLObject front
             GUIGlObject* overlappedElement = nullptr;
             // we need to check if we're inspecting a overlapping element
@@ -538,15 +524,15 @@ GNEViewNet::openObjectDialogAtCursor() {
                     myViewParent->getInspectorFrame()->getOverlappedInspection()->checkSavedPosition(getPositionInformation()) &&
                     myInspectedAttributeCarriers.size() > 0) {
                 overlappedElement = myInspectedAttributeCarriers.front()->getGUIGlObject();
-                filteredObjects.push_back(overlappedElement);
+                filteredGLObjects.push_back(overlappedElement);
             }
-            // fill filtered objects (ony lanes)
-            for (const auto &AC : myObjectsUnderCursor.getClickedAttributeCarriers()) {
-                if (AC->getGUIGlObject() != overlappedElement) {
-                    filteredObjects.push_back(AC->getGUIGlObject());
+            // fill filtered objects
+            for (const auto &glObject : GLObjects) {
+                if ((glObject->getType() != GLO_EDGE) && (glObject != overlappedElement)) {
+                    filteredGLObjects.push_back(glObject);
                 }
             }
-            openObjectDialog(filteredObjects);
+            openObjectDialog(filteredGLObjects);
         }
         makeNonCurrent();
     }

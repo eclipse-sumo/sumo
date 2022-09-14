@@ -888,13 +888,12 @@ GUISUMOAbstractView::centerTo(const Boundary& bound) {
     update();
 }
 
-/*
-bool
-GUISUMOAbstractView::allowRotation() const
-{
-    return myParent->allowRotation();
+
+GUIMainWindow*
+GUISUMOAbstractView::getMainWindow() const {
+    return myApp;
 }
-*/
+
 
 Position
 GUISUMOAbstractView::getWindowCursorPosition() const {
@@ -1128,6 +1127,7 @@ GUISUMOAbstractView::openObjectDialogAtCursor() {
         makeNonCurrent();
     }
 }
+
 
 void
 GUISUMOAbstractView::openObjectDialog(const std::vector<GUIGlObject*> &objects) {

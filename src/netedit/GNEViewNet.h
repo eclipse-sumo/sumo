@@ -535,9 +535,6 @@ protected:
     /// @brief called after some features are already initialized
     void doInit();
 
-    /// @brief open front element cursor dialog
-    void openFrontElementCursorDialog();
-
 private:
     /// @name structs related with modes and testing mode
     /// @{

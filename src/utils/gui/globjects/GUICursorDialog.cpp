@@ -19,15 +19,11 @@
 /****************************************************************************/
 #include <config.h>
 
-#include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/gui/div/GUIDesigns.h>
-#include <netedit/changes/GNEChange_Additional.h>
-#include <netedit/GNEViewNet.h>
-#include <netedit/GNEViewParent.h>
-#include <netedit/GNEApplicationWindow.h>
-#include <netedit/GNENet.h>
 #include <utils/foxtools/MFXMenuHeader.h>
+#include <utils/gui/div/GUIDesigns.h>
+#include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/windows/GUIMainWindow.h>
+#include <utils/gui/windows/GUISUMOAbstractView.h>
 
 #include <netedit/GNEUndoList.h>
 
@@ -49,21 +45,18 @@ FXIMPLEMENT(GUICursorDialog, GUIGLObjectPopupMenu, GUICursorDialogMap, ARRAYNUMB
 // member method definitions
 // ===========================================================================
 
-GUICursorDialog::GUICursorDialog(CursorDialogType cursorDialogType, GNEViewNet* viewNet, const std::vector<GNEAttributeCarrier*>& ACs) :
-    GUIGLObjectPopupMenu(viewNet->getViewParent()->getGNEAppWindows(), viewNet),
-    myViewNet(viewNet),
-    myCursorDialogType(cursorDialogType) {
-    if (cursorDialogType == CursorDialogType::PROPERTIES) {
-        //
-    } else if (cursorDialogType == CursorDialogType::FRONT_ELEMENT) {
+GUICursorDialog::GUICursorDialog(CursorDialogType cursorDialogType, GUISUMOAbstractView* view, const std::vector<GUIGlObject*> &objects) :
+    GUIGLObjectPopupMenu(view->getMainWindow(), view),
+    myView(view) {
+    /*
         // create header
-        new MFXMenuHeader(this, viewNet->getViewParent()->getGNEAppWindows()->getBoldFont(), "Mark front element", GUIIconSubSys::getIcon(GUIIcon::FRONTELEMENT), nullptr, 0);
-        new FXMenuSeparator(this);
-        // create a menu command for every AC
-        for (const auto &AC : ACs) {
-            myAttributeCarriers[GUIDesigns::buildFXMenuCommand(this, AC->getID(), AC->getIcon(), this, MID_GNE_SETFRONTELEMENT)] = AC;
-        }
+    new MFXMenuHeader(this, viewNet->getViewParent()->getGNEAppWindows()->getBoldFont(), "Mark front element", GUIIconSubSys::getIcon(GUIIcon::FRONTELEMENT), nullptr, 0);
+    new FXMenuSeparator(this);
+    // create a menu command for every AC
+    for (const auto &AC : ACs) {
+        myAttributeCarriers[GUIDesigns::buildFXMenuCommand(this, AC->getID(), AC->getIcon(), this, MID_GNE_SETFRONTELEMENT)] = AC;
     }
+    */
 }
 
 
@@ -73,9 +66,9 @@ GUICursorDialog::~GUICursorDialog() {}
 long
 GUICursorDialog::onCmdSetFrontElement(FXObject* obj, FXSelector, void*) {
     // set front attribute AC
-    myViewNet->setFrontAttributeCarrier(myAttributeCarriers.at(obj));
+    //myNETEDITView->setFrontAttributeCarrier(myAttributeCarriers.at(obj));
     // destroy popup
-    myViewNet->destroyPopup();
+    myView->destroyPopup();
     return 1;
 }
 

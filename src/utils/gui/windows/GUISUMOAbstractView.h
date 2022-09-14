@@ -117,9 +117,8 @@ public:
     /// @brief pixels-to-meters conversion method
     double p2m(double pixel) const;
 
-    /// @brief Returns the information whether rotation is allowed
-    ///@note disabled
-    //bool allowRotation() const;
+    /// @brief get main window
+    GUIMainWindow* getMainWindow() const;
 
     /// @brief return windows cursor position
     Position getWindowCursorPosition() const;
