@@ -37,8 +37,14 @@ class GNECursorDialog : public GUIGLObjectPopupMenu {
     FXDECLARE(GNECursorDialog)
 
 public:
+    /// @name cursor dialog type
+    enum class CursorDialogType {
+        PROPERTIES,
+        FRONT_ELEMENT
+    };
+
     /// @brief constructor
-    GNECursorDialog(GNEViewNet* viewNet, const std::vector<GNEAttributeCarrier*>& ACs);
+    GNECursorDialog(CursorDialogType cursorDialogType, GNEViewNet* viewNet, const std::vector<GNEAttributeCarrier*>& ACs);
 
     /// @brief destructor
     ~GNECursorDialog();
@@ -58,8 +64,11 @@ protected:
     /// @brief viewNet
     GNEViewNet* myViewNet;
 
-    /// @brief container used for move dialog
-    std::map<FXObject*, GNEAttributeCarrier*> myMoveDialogElementContainer;
+    /// @brief cursor dialog type
+    CursorDialogType myCursorDialogType;
+
+    /// @brief container for AttributeCarriers
+    std::map<FXObject*, GNEAttributeCarrier*> myAttributeCarriers;
 
 private:
     /// @brief Invalidated copy constructor.

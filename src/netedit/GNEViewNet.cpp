@@ -319,13 +319,13 @@ GNEViewNet::doInit() {}
 
 
 void 
-GNEViewNet::openMoveDialogAtCursor() {
+GNEViewNet::openFrontElementCursorDialog() {
     // get ACs
     const auto ACs = myObjectsUnderCursor.getClickedAttributeCarriers();
     // only create if there is ACs
     if (ACs.size() > 0) {
         // create cursor popup dialog
-        myPopup = new GNECursorDialog(this, ACs);
+        myPopup = new GNECursorDialog(GNECursorDialog::CursorDialogType::FRONT_ELEMENT, this, ACs);
         // open popup dialog
         openPopupDialog();
     }
@@ -522,8 +522,8 @@ GNEViewNet::openObjectDialogAtCursor() {
         myObjectsUnderCursor.updateObjectUnderCursor(getGUIGlObjectsUnderCursor());
         // check if we're cliking while alt button is pressed
         if (myMouseButtonKeyPressed.altKeyPressed()) {
-            // open move dialog at cursor
-            openMoveDialogAtCursor();
+            // open front element cursor dialog
+            openFrontElementCursorDialog();
         } else {
             // get GUIGLObject front
             GUIGlObject* o = myObjectsUnderCursor.getGUIGlObjectFront();

@@ -49,17 +49,21 @@ FXIMPLEMENT(GNECursorDialog, GUIGLObjectPopupMenu, GNECursorDialogMap, ARRAYNUMB
 // member method definitions
 // ===========================================================================
 
-GNECursorDialog::GNECursorDialog(GNEViewNet* viewNet, const std::vector<GNEAttributeCarrier*>& ACs) :
+GNECursorDialog::GNECursorDialog(CursorDialogType cursorDialogType, GNEViewNet* viewNet, const std::vector<GNEAttributeCarrier*>& ACs) :
     GUIGLObjectPopupMenu(viewNet->getViewParent()->getGNEAppWindows(), viewNet),
+    myCursorDialogType(cursorDialogType),
     myViewNet(viewNet) {
-    // create header
-    new MFXMenuHeader(this, viewNet->getViewParent()->getGNEAppWindows()->getBoldFont(), "Mark front element", GUIIconSubSys::getIcon(GUIIcon::FRONTELEMENT), nullptr, 0);
-    new FXMenuSeparator(this);
-    // create a menu command for every AC
-    for (const auto &AC : ACs) {
-        myMoveDialogElementContainer[GUIDesigns::buildFXMenuCommand(this, AC->getID(), AC->getIcon(), this, MID_GNE_SETFRONTELEMENT)] = AC;
+    if (cursorDialogType == CursorDialogType::PROPERTIES) {
+        //
+    } else if (cursorDialogType == CursorDialogType::FRONT_ELEMENT) {
+        // create header
+        new MFXMenuHeader(this, viewNet->getViewParent()->getGNEAppWindows()->getBoldFont(), "Mark front element", GUIIconSubSys::getIcon(GUIIcon::FRONTELEMENT), nullptr, 0);
+        new FXMenuSeparator(this);
+        // create a menu command for every AC
+        for (const auto &AC : ACs) {
+            myAttributeCarriers[GUIDesigns::buildFXMenuCommand(this, AC->getID(), AC->getIcon(), this, MID_GNE_SETFRONTELEMENT)] = AC;
+        }
     }
-
 }
 
 
@@ -69,7 +73,7 @@ GNECursorDialog::~GNECursorDialog() {}
 long
 GNECursorDialog::onCmdSetFrontElement(FXObject* obj, FXSelector, void*) {
     // set front attribute AC
-    myViewNet->setFrontAttributeCarrier(myMoveDialogElementContainer.at(obj));
+    myViewNet->setFrontAttributeCarrier(myAttributeCarriers.at(obj));
     // destroy popup
     myViewNet->destroyPopup();
     return 1;
