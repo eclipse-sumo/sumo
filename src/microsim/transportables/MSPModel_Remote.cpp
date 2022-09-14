@@ -19,9 +19,11 @@
 /****************************************************************************/
 
 #include <algorithm>
+#include <fstream>
 #include <jupedsim/jupedsim.h>
 #include "microsim/MSEdge.h"
 #include "microsim/MSLane.h"
+#include "microsim/MSLink.h"
 #include "microsim/MSEdgeControl.h"
 #include "microsim/MSEventControl.h"
 #include "utils/geom/Position.h"
@@ -35,7 +37,6 @@ struct JPS_ErrorMessage_t {
 };
 
 
-const double MSPModel_Remote::JPS_AREA_RATIO = 0.1;
 const SUMOTime MSPModel_Remote::JPS_DELTA_T = 10;
 const double MSPModel_Remote::JPS_EXIT_TOLERANCE = 1;
 
@@ -58,6 +59,10 @@ MSPModel_Remote::~MSPModel_Remote() {
     JPS_AreasBuilder_Free(myAreasBuilder);
     JPS_Geometry_Free(myGeometry);
     JPS_GeometryBuilder_Free(myGeometryBuilder);
+
+#ifdef DEBUG
+    myTrajectoryDumpFile.close();
+#endif
 }
 
 
@@ -67,11 +72,9 @@ MSPModel_Remote::add(MSTransportable* person, MSStageMoving* stage, SUMOTime now
 	
     const MSLane* departureLane = getSidewalk<MSEdge, MSLane>(stage->getRoute().front());
     Position departurePosition = departureLane->getShape().positionAtOffset(stage->getDepartPos());
-    departurePosition.add(0.1, 0, 0);
     
     const MSLane* arrivalLane = getSidewalk<MSEdge, MSLane>(stage->getRoute().back());
     Position arrivalPosition = arrivalLane->getShape().positionAtOffset(stage->getArrivalPos());
-    arrivalPosition.sub(0.1, 0.0);
 
 	JPS_Waypoint waypoints[] = { {{arrivalPosition.x(), arrivalPosition.y()}, JPS_EXIT_TOLERANCE} };
 	JPS_Journey journey = JPS_Journey_Create_SimpleJourney(waypoints, sizeof(waypoints));
@@ -119,6 +122,18 @@ MSPModel_Remote::execute(SUMOTime time) {
             std::cout << "Error during iteration " << i << ": " << JPS_ErrorMessage_GetMessage(mess) << std::endl;
         }
         JPS_ErrorMessage_Free(mess);
+
+#ifdef DEBUG
+        if (myNumActivePedestrians == 1) {
+            for (PState* state : myPedestrianStates)
+            {
+                JPS_Agent agent = JPS_Simulation_ReadAgent(mySimulation, state->getAgentId(), nullptr);
+                double newPositionX = JPS_Agent_PositionX(agent);
+                double newPositionY = JPS_Agent_PositionY(agent);
+                myTrajectoryDumpFile << newPositionX << " " << newPositionY << std::endl;
+            }
+        }
+#endif
 	}
 
     // Update the state of all pedestrians.
@@ -139,13 +154,43 @@ MSPModel_Remote::execute(SUMOTime time) {
         MSPerson* person = state->getPerson();
         MSPerson::MSPersonStage_Walking* stage = dynamic_cast<MSPerson::MSPersonStage_Walking*>(person->getCurrentStage());
         
-        // Possibly updates the edge to walk on.
-        const MSLane* currentLane = getSidewalk<MSEdge, MSLane>(stage->getEdge());
-        Position relativePosition = (currentLane->getShape()).transformToVectorCoordinates(newPosition);
-        if (relativePosition == Position::INVALID) {
-            stage->moveToNextEdge(person, time, 1, nullptr);
+        // Updates the edge to walk on.
+        const MSEdge* currentEdge = stage->getEdge();
+        const MSLane* currentLane = getSidewalk<MSEdge, MSLane>(currentEdge);
+        if (currentEdge->isWalkingArea()) {
+            std::vector<MSLink*> links = currentLane->getLinkCont();
+            MSLane* nextLane = nullptr;
+            for (MSLink* link : links) {
+                MSLane* lane = link->getViaLaneOrLane();
+                if (lane->getPermissions() == SVC_PEDESTRIAN) {
+                    nextLane = lane;
+                    break;
+                }
+            }
+            
+            PositionVector shape = nextLane->getShape();
+            Position nextLaneDirection = shape[1] - shape[0];
+            Position pedestrianLookAhead = newPosition - shape[0];
+            if (pedestrianLookAhead.dotProduct(nextLaneDirection) > 0.0) {
+                stage->moveToNextEdge(person, time, 1, nullptr);
+            }
         }
-
+        else {
+            Position relativePosition = (currentLane->getShape()).transformToVectorCoordinates(newPosition);
+            if (relativePosition == Position::INVALID) {
+                std::vector<MSLink*> links = currentLane->getLinkCont();
+                MSLane* nextInternalLane = nullptr;
+                for (MSLink* link : links) {
+                    MSLane* viaLane = link->getViaLaneOrLane();
+                    if (viaLane->getPermissions() == SVC_PEDESTRIAN) {
+                        nextInternalLane = viaLane;
+                        break;
+                    }
+                }
+                stage->moveToNextEdge(person, time, 1, nextInternalLane ? &(nextInternalLane->getEdge()) : nullptr);
+            }
+        }
+        
         // If near the last waypoint, remove the agent.
         if (newPosition.distanceTo2D(state->getDestination()) < JPS_EXIT_TOLERANCE) {
             JPS_Simulation_RemoveAgent(mySimulation, state->getAgentId(), nullptr);
@@ -191,28 +236,57 @@ MSPModel_Remote::initialize() {
 	myGeometryBuilder = JPS_GeometryBuilder_Create();
     myAreasBuilder = JPS_AreasBuilder_Create();
 
+#ifdef DEBUG
+    std::ofstream geometryDumpFile;
+    geometryDumpFile.open("geometry.txt");
+#endif
+
 	for (const MSEdge* const edge : (myNet->getEdgeControl()).getEdges()) {
         const MSLane* lane = getSidewalk<MSEdge, MSLane>(edge);
-        double amount = lane->getWidth() / 2.0;
-        
-        PositionVector shape = lane->getShape();
-        shape.move2side(amount);
-        Position bottomFirstCorner = shape[0];
-        Position bottomSecondCorner = shape[1];
-        shape = lane->getShape();
-        shape.move2side(-amount);
-        Position topFirstCorner = shape[0];
-        Position topSecondCorner = shape[1];
-		
-        std::vector<Position> lanePolygon{ topFirstCorner, bottomFirstCorner, bottomSecondCorner, topSecondCorner };
-		std::vector<double> lanePolygonCoordinates;
-		for (const Position& position : lanePolygon) {
-			lanePolygonCoordinates.push_back(position.x());
-			lanePolygonCoordinates.push_back(position.y());
-		}
+        if (lane) {
+            std::vector<double> lanePolygonCoordinates;
+            
+            if (edge->isWalkingArea()) {
+                PositionVector shape = lane->getShape();
+                shape = shape.reverse(); // Apparently CGAL expects polygons to be oriented CCW.
+                for (const Position& position : shape) {
+                    lanePolygonCoordinates.push_back(position.x());
+                    lanePolygonCoordinates.push_back(position.y());
+                }
+            }
+            else {
+                double amount = lane->getWidth() / 2.0;
 
-		JPS_GeometryBuilder_AddAccessibleArea(myGeometryBuilder, lanePolygonCoordinates.data(), lanePolygonCoordinates.size() / 2);
+                PositionVector shape = lane->getShape();
+                shape.move2side(amount);
+                Position bottomFirstCorner = shape[0];
+                Position bottomSecondCorner = shape[1];
+                shape = lane->getShape();
+                shape.move2side(-amount);
+                Position topFirstCorner = shape[0];
+                Position topSecondCorner = shape[1];
+
+                std::vector<Position> lanePolygon{ topFirstCorner, bottomFirstCorner, bottomSecondCorner, topSecondCorner };
+                for (const Position& position : lanePolygon) {
+                    lanePolygonCoordinates.push_back(position.x());
+                    lanePolygonCoordinates.push_back(position.y());
+                }
+            }
+            
+#ifdef DEBUG
+            geometryDumpFile << "Lane " <<  lane->getID() << std::endl;
+            for (double coordinate: lanePolygonCoordinates) {
+                geometryDumpFile << coordinate << std::endl;
+            }
+#endif
+
+            JPS_GeometryBuilder_AddAccessibleArea(myGeometryBuilder, lanePolygonCoordinates.data(), lanePolygonCoordinates.size() / 2);
+        }
 	}
+
+#ifdef DEBUG
+    geometryDumpFile.close();
+#endif
 
     // The line below doesn't work on Windows at least.
     // JPS_ErrorMessage message{}; 
@@ -231,7 +305,7 @@ MSPModel_Remote::initialize() {
     if (myModel == nullptr) {
         std::cout << "Error while creating the pedestrian model: " << JPS_ErrorMessage_GetMessage(message) << std::endl;
     }
-    JPS_ErrorMessage_Free(mess);
+    JPS_ErrorMessage_Free(message);
 
     message = new JPS_ErrorMessage_t{};
 	mySimulation = JPS_Simulation_Create(myModel, myGeometry, myAreas, STEPS2TIME(JPS_DELTA_T), nullptr);
@@ -239,6 +313,10 @@ MSPModel_Remote::initialize() {
         std::cout << "Error while creating the simulation: " << JPS_ErrorMessage_GetMessage(message) << std::endl;
     }
     JPS_ErrorMessage_Free(message);
+
+#ifdef DEBUG
+    myTrajectoryDumpFile.open("trajectory.txt");
+#endif
 }
 
 

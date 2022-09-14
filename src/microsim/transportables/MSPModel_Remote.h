@@ -106,7 +106,10 @@ private:
     JPS_OperationalModel myModel;
     JPS_Simulation mySimulation;
 
-    static const double JPS_AREA_RATIO;
+#ifdef DEBUG
+    std::ofstream myTrajectoryDumpFile;
+#endif
+
     static const SUMOTime JPS_DELTA_T;
     static const double JPS_EXIT_TOLERANCE;
 
