@@ -21,7 +21,6 @@ from __future__ import absolute_import
 
 import os
 import subprocess
-import gzip
 import sumolib
 
 
@@ -137,6 +136,7 @@ def build(args=None, bindir=None):
         polyconvertOpts = [getRelative(options.output_directory, o) for o in polyconvertOpts]
         subprocess.call(polyconvertOpts + ["--save-configuration", cfg], cwd=options.output_directory)
         subprocess.call([polyconvert, "-c", cfg], cwd=options.output_directory)
+
 
 if __name__ == "__main__":
     build()

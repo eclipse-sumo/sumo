@@ -66,24 +66,29 @@ CP = ["--trip-attributes", 'departLane="best"',
       "--fringe-start-attributes", 'departSpeed="max"',
       "--validate", "--remove-loops"]
 
+# pedestrian parameters
+PP = ["--vehicle-class", "pedestrian", "--prefix", "ped", ]
+
+
 def getParams(vClass, prefix=None):
     if prefix is None:
         prefix = vClass
     return ["--vehicle-class", vClass,  "--vclass", vClass,  "--prefix", prefix]
 
+
 vehicleParameters = {
-    "passenger":  getParams("passenger", "veh")  + CP + ["--min-distance", "300", "--min-distance.fringe", "0",
-                                                         "--allow-fringe.min-length", "1000", "--lanes"],
-    "truck":      getParams("truck")             + CP + ["--min-distance", "600"],
-    "bus":        getParams("bus")               + CP + ["--min-distance", "600"],
-    "motorcycle": getParams("motorcycle")        + CP + ["--max-distance", "1200"],
-    "bicycle":    getParams("bicycle", "bike")   + CP + ["--max-distance", "8000"],
-    "tram":       getParams("tram")              + CP + ["--min-distance", "1200"],
-    "rail_urban": getParams("rail_urban")        + CP + ["--min-distance", "1800"],
-    "rail":       getParams("rail")              + CP + ["--min-distance", "2400"],
-    "ship":       getParams("ship") + ["--fringe-start-attributes", 'departSpeed="max"', "--validate"],
-    "pedestrian": ["--vehicle-class", "pedestrian", "--pedestrians", "--prefix", "ped", "--max-distance", "2000"],
-    "persontrips":["--vehicle-class", "pedestrian", "--persontrips", "--prefix", "ped", "--trip-attributes", 'modes="public"'],
+    "passenger":   CP + getParams("passenger", "veh") + ["--min-distance", "300", "--min-distance.fringe", "0",  # noqua
+                                                         "--allow-fringe.min-length", "1000", "--lanes"],        # noqua
+    "truck":       CP + getParams("truck")            + ["--min-distance", "600"],                               # noqua
+    "bus":         CP + getParams("bus")              + ["--min-distance", "600"],                               # noqua
+    "motorcycle":  CP + getParams("motorcycle")       + ["--max-distance", "1200"],                              # noqua
+    "bicycle":     CP + getParams("bicycle", "bike")  + ["--max-distance", "8000"],                              # noqua
+    "tram":        CP + getParams("tram")             + ["--min-distance", "1200"],                              # noqua
+    "rail_urban":  CP + getParams("rail_urban")       + ["--min-distance", "1800"],                              # noqua
+    "rail":        CP + getParams("rail")             + ["--min-distance", "2400"],                              # noqua
+    "ship":             getParams("ship") + ["--fringe-start-attributes", 'departSpeed="max"', "--validate"],
+    "pedestrian":  PP + ["--pedestrians", "--max-distance", "2000"],
+    "persontrips": PP + ["--persontrips", "--trip-attributes", 'modes="public"'],
 }
 
 vehicleNames = {
@@ -163,13 +168,17 @@ class Builder(object):
                 result.append(o)
         return result
 
-    def build(self):
+    def build(self, test=False):
         # output name for the osm file, will be used by osmBuild, can be
         # deleted after the process
         self.filename("osm", "_bbox.osm.xml.gz")
         # output name for the net file, will be used by osmBuild, randomTrips and
         # sumo-gui
-        self.filename("net", ".net.xml.gz")
+        if test:
+            # ensure that textual comparson by texttest succeeds
+            self.filename("net", ".net.xml")
+        else:
+            self.filename("net", ".net.xml.gz")
 
         if 'osm' in self.data:
             # testing mode
@@ -185,13 +194,21 @@ class Builder(object):
                 osmArgs += ["-r", json.dumps(self.data["roadTypes"])]
             osmGet.get(osmArgs)
 
-        options = ["-f", self.files["osm"], "-p", self.prefix, "-d", self.tmp, "-z"]
+        options = ["-f", self.files["osm"], "-p", self.prefix, "-d", self.tmp]
+        if not test:
+            options.append("-z")
+
         self.additionalFiles = []
         self.routenames = []
 
         if self.data["poly"]:
             # output name for the poly file, will be used by osmBuild and sumo-gui
-            self.filename("poly", ".poly.xml.gz")
+            if test:
+                # in testing mode, osmBuild creates uncompressed files
+                self.filename("poly", ".poly.xml")
+            else:
+                self.filename("poly", ".poly.xml.gz")
+
             options += ["-m", typemaps["poly"]]
             self.additionalFiles.append(self.files["poly"])
 
@@ -530,7 +547,7 @@ if __name__ == "__main__":
                 u'outputDir': args.testOutputDir,
                 }
         builder = Builder(data, True)
-        builder.build()
+        builder.build(test = True)
         builder.makeConfigFile()
         builder.createBatch()
         subprocess.call([sumolib.checkBinary("sumo"), "-c", builder.files["config"]])
