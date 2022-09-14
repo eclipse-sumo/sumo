@@ -168,17 +168,13 @@ class Builder(object):
                 result.append(o)
         return result
 
-    def build(self, test=False):
+    def build(self):
         # output name for the osm file, will be used by osmBuild, can be
         # deleted after the process
         self.filename("osm", "_bbox.osm.xml.gz")
         # output name for the net file, will be used by osmBuild, randomTrips and
         # sumo-gui
-        if test:
-            # ensure that textual comparson by texttest succeeds
-            self.filename("net", ".net.xml")
-        else:
-            self.filename("net", ".net.xml.gz")
+        self.filename("net", ".net.xml.gz")
 
         if 'osm' in self.data:
             # testing mode
@@ -197,20 +193,14 @@ class Builder(object):
         if not os.path.exists(self.files["osm"]):
             raise RuntimeError("Download failed")
 
-        options = ["-f", self.files["osm"], "-p", self.prefix, "-d", self.tmp]
-        if not test:
-            options.append("-z")
+        options = ["-f", self.files["osm"], "-p", self.prefix, "-d", self.tmp, "-z"]
 
         self.additionalFiles = []
         self.routenames = []
 
         if self.data["poly"]:
             # output name for the poly file, will be used by osmBuild and sumo-gui
-            if test:
-                # in testing mode, osmBuild creates uncompressed files
-                self.filename("poly", ".poly.xml")
-            else:
-                self.filename("poly", ".poly.xml.gz")
+            self.filename("poly", ".poly.xml.gz")
 
             options += ["-m", typemaps["poly"]]
             self.additionalFiles.append(self.files["poly"])
@@ -550,7 +540,7 @@ if __name__ == "__main__":
                 u'outputDir': args.testOutputDir,
                 }
         builder = Builder(data, True)
-        builder.build(test = True)
+        builder.build()
         builder.makeConfigFile()
         builder.createBatch()
         subprocess.call([sumolib.checkBinary("sumo"), "-c", builder.files["config"]])
