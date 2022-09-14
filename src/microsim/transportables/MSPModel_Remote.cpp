@@ -32,11 +32,6 @@
 #include "MSPerson.h"
 
 
-struct JPS_ErrorMessage_t {
-    std::string message;
-};
-
-
 const SUMOTime MSPModel_Remote::JPS_DELTA_T = 10;
 const double MSPModel_Remote::JPS_EXIT_TOLERANCE = 1;
 
@@ -113,14 +108,14 @@ SUMOTime
 MSPModel_Remote::execute(SUMOTime time) {
     // Perform the JuPedSim iterations.
     int nbrIterations = (int)(DELTA_T / JPS_DELTA_T);
+    JPS_ErrorMessage message = nullptr;
 	for (int i = 0; i < nbrIterations; ++i)
 	{
-		JPS_ErrorMessage mess = new JPS_ErrorMessage_t{};
-		bool ok = JPS_Simulation_Iterate(mySimulation, &mess);
+        
+		bool ok = JPS_Simulation_Iterate(mySimulation, &message);
         if (!ok) {
-            std::cout << "Error during iteration " << i << ": " << JPS_ErrorMessage_GetMessage(mess) << std::endl;
+            std::cout << "Error during iteration " << i << ": " << JPS_ErrorMessage_GetMessage(message) << std::endl;
         }
-        JPS_ErrorMessage_Free(mess);
 
 #ifdef DEBUG
         if (myNumActivePedestrians == 1) {
@@ -133,7 +128,8 @@ MSPModel_Remote::execute(SUMOTime time) {
             }
         }
 #endif
-	}
+    }
+    JPS_ErrorMessage_Free(message);
 
     // Update the state of all pedestrians.
     for (PState* state : myPedestrianStates)
@@ -287,19 +283,16 @@ MSPModel_Remote::initialize() {
     geometryDumpFile.close();
 #endif
 
-    // The line below doesn't work on Windows at least.
-    // JPS_ErrorMessage message{}; 
-    JPS_ErrorMessage message = new JPS_ErrorMessage_t{};
+    JPS_ErrorMessage message = nullptr; 
+
     myGeometry = JPS_GeometryBuilder_Build(myGeometryBuilder, &message);
     if (myGeometry == nullptr) {
         std::cout << "Error while creating the geometry: " << JPS_ErrorMessage_GetMessage(message) << std::endl;
     }
-    JPS_ErrorMessage_Free(message);
 
     // Areas are built (although unused) because the JPS_Simulation object needs them.
 	myAreas = JPS_AreasBuilder_Build(myAreasBuilder, nullptr);
 
-    message = new JPS_ErrorMessage_t{};
     JPS_VelocityModelBuilder modelBuilder = JPS_VelocityModelBuilder_Create(8.0, 0.1, 5.0, 0.02);
     myParameterProfileId = 1;
     JPS_VelocityModelBuilder_AddParameterProfile(modelBuilder, myParameterProfileId, 1, 0.5);
@@ -307,13 +300,12 @@ MSPModel_Remote::initialize() {
     if (myModel == nullptr) {
         std::cout << "Error while creating the pedestrian model: " << JPS_ErrorMessage_GetMessage(message) << std::endl;
     }
-    JPS_ErrorMessage_Free(message);
 
-    message = new JPS_ErrorMessage_t{};
 	mySimulation = JPS_Simulation_Create(myModel, myGeometry, myAreas, STEPS2TIME(JPS_DELTA_T), nullptr);
     if (mySimulation == nullptr) {
         std::cout << "Error while creating the simulation: " << JPS_ErrorMessage_GetMessage(message) << std::endl;
     }
+
     JPS_ErrorMessage_Free(message);
 
 #ifdef DEBUG
