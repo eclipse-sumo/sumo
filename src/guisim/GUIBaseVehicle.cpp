@@ -309,7 +309,7 @@ GUIBaseVehicle::GUIBaseVehiclePopupMenu::onCmdToggleStop(FXObject*, FXSelector, 
  * ----------------------------------------------------------------------- */
 
 GUIBaseVehicle::GUIBaseVehicle(MSBaseVehicle& vehicle) :
-    GUIGlObject(GLO_VEHICLE, vehicle.getID()),
+    GUIGlObject(GLO_VEHICLE, vehicle.getID(), GUIIconSubSys::getIcon(GUIIcon::VEHICLE)),
     myVehicle(vehicle),
     myPopup(nullptr) {
     // as it is possible to show all vehicle routes, we have to store them... (bug [ 2519761 ])

@@ -55,7 +55,7 @@ GUIChargingStation::GUIChargingStation(const std::string& id, MSLane& lane, doub
                                        const std::string& name,
                                        double chargingPower, double efficiency, bool chargeInTransit, SUMOTime chargeDelay) :
     MSChargingStation(id, lane, frompos, topos, name, chargingPower, efficiency, chargeInTransit, chargeDelay),
-    GUIGlObject_AbstractAdd(GLO_CHARGING_STATION, id) {
+    GUIGlObject_AbstractAdd(GLO_CHARGING_STATION, id, GUIIconSubSys::getIcon(GUIIcon::CHARGINGSTATION)) {
     myFGShape = lane.getShape();
     myFGShape = myFGShape.getSubpart(
                     lane.interpolateLanePosToGeometryPos(frompos),

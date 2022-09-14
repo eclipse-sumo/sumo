@@ -122,7 +122,7 @@ GUIContainer::GUIContainerPopupMenu::onCmdStopTrack(FXObject*, FXSelector, void*
  * ----------------------------------------------------------------------- */
 GUIContainer::GUIContainer(const SUMOVehicleParameter* pars, MSVehicleType* vtype, MSTransportable::MSTransportablePlan* plan) :
     MSTransportable(pars, vtype, plan, false),
-    GUIGlObject(GLO_CONTAINER, pars->id) {
+    GUIGlObject(GLO_CONTAINER, pars->id, GUIIconSubSys::getIcon(GUIIcon::CONTAINER)) {
 }
 
 
