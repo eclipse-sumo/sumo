@@ -194,6 +194,9 @@ class Builder(object):
                 osmArgs += ["-r", json.dumps(self.data["roadTypes"])]
             osmGet.get(osmArgs)
 
+        if not os.path.exists(self.files["osm"]):
+            raise RuntimeError("Download failed")
+
         options = ["-f", self.files["osm"], "-p", self.prefix, "-d", self.tmp]
         if not test:
             options.append("-z")
