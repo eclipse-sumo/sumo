@@ -48,15 +48,15 @@ FXIMPLEMENT(GUICursorDialog, GUIGLObjectPopupMenu, GUICursorDialogMap, ARRAYNUMB
 GUICursorDialog::GUICursorDialog(CursorDialogType cursorDialogType, GUISUMOAbstractView* view, const std::vector<GUIGlObject*> &objects) :
     GUIGLObjectPopupMenu(view->getMainWindow(), view),
     myView(view) {
-    /*
+    if (cursorDialogType == CursorDialogType::FRONT_ELEMENT) {
         // create header
-    new MFXMenuHeader(this, viewNet->getViewParent()->getGNEAppWindows()->getBoldFont(), "Mark front element", GUIIconSubSys::getIcon(GUIIcon::FRONTELEMENT), nullptr, 0);
-    new FXMenuSeparator(this);
-    // create a menu command for every AC
-    for (const auto &AC : ACs) {
-        myAttributeCarriers[GUIDesigns::buildFXMenuCommand(this, AC->getID(), AC->getIcon(), this, MID_GNE_SETFRONTELEMENT)] = AC;
+        new MFXMenuHeader(this, view->getMainWindow()->getBoldFont(), "Mark front element", GUIIconSubSys::getIcon(GUIIcon::FRONTELEMENT), nullptr, 0);
+        new FXMenuSeparator(this);
+        // create a menu command for every AC
+        for (const auto &GLObject : objects) {
+            myGLObjects[GUIDesigns::buildFXMenuCommand(this, GLObject->getMicrosimID(), /*AC->getIcon()*/ nullptr, this, MID_GNE_SETFRONTELEMENT)] = GLObject;
+        }
     }
-    */
 }
 
 
@@ -65,8 +65,12 @@ GUICursorDialog::~GUICursorDialog() {}
 
 long
 GUICursorDialog::onCmdSetFrontElement(FXObject* obj, FXSelector, void*) {
-    // set front attribute AC
-    //myNETEDITView->setFrontAttributeCarrier(myAttributeCarriers.at(obj));
+    // search element in myGLObjects
+    for (const auto &GLObject : myGLObjects) {
+        if (GLObject.first == obj) {
+            GLObject.second->markAsFrontElement();
+        }
+    }
     // destroy popup
     myView->destroyPopup();
     return 1;
