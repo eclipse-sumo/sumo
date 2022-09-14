@@ -31,7 +31,7 @@
 
 #include <netedit/GNEUndoList.h>
 
-#include "GNECursorDialog.h"
+#include "GUICursorDialog.h"
 
 
 // ===========================================================================

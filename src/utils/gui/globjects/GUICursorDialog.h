@@ -20,7 +20,7 @@
 #pragma once
 #include <config.h>
 
-#include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
+#include "GUIGLObjectPopupMenu.h"
 
 
 // ===========================================================================
