@@ -2169,7 +2169,9 @@ MSLCM_SL2015::updateExpectedSublaneSpeeds(const MSLeaderDistanceInfo& ahead, int
                 const PersonDist pedLeader = lane->nextBlocking(myVehicle.getPositionOnLane() - myVehicle.getVehicleType().getLength(), foeRight, foeLeft);
                 if (pedLeader.first != 0) {
                     const double pedGap = pedLeader.second - myVehicle.getVehicleType().getMinGap() - myVehicle.getVehicleType().getLength();
-                    vSafe = MIN2(vSafe, getCarFollowModel().stopSpeed(&myVehicle, vMax, pedGap));
+                    // we do not know the walking direction here so we take the pedestrian speeda s 0
+                    vSafe = MIN2(getCarFollowModel().stopSpeed(&myVehicle, vMax, pedGap),
+                            forecastAverageSpeed(vSafe, vMax, pedGap, 0));
                 }
             }
             vSafe = MIN2(vMax, vSafe);
