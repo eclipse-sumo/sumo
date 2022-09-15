@@ -793,7 +793,17 @@
         <xsd:attribute name="until" type="timeType"/>
         <xsd:attribute name="extension" type="timeType"/>
         <xsd:attribute name="index" type="xsd:string"/>
-        <xsd:attribute name="parking" type="boolType"/>
+        <xsd:attribute name="parking">
+            <xsd:simpleType>
+                <xsd:union memberTypes="boolType">
+                    <xsd:simpleType>
+                        <xsd:restriction base="xsd:string">
+                            <xsd:enumeration value="opportunistic"/>
+                        </xsd:restriction>
+                    </xsd:simpleType> 
+                </xsd:union>
+            </xsd:simpleType>
+        </xsd:attribute>
         <xsd:attribute name="triggered" type="xsd:string"/>
         <xsd:attribute name="containerTriggered" type="boolType"/>
         <xsd:attribute name="expected" type="xsd:string"/>

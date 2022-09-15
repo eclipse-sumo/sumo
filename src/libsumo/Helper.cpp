@@ -544,7 +544,7 @@ Helper::buildStopParameters(const std::string& edgeOrStoppingPlaceID,
         newStop.parametersSet |= STOP_UNTIL_SET;
     }
     if ((flags & 1) != 0) {
-        newStop.parking = "true";
+        newStop.parking = ParkingType::OFFROAD;
         newStop.parametersSet |= STOP_PARKING_SET;
     }
     if ((flags & 2) != 0) {

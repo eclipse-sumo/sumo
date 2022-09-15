@@ -50,7 +50,7 @@ GNEStop::GNEStop(SumoXMLTag tag, GNENet* net) :
     }
     // set parking
     if (parametersSet & STOP_PARKING_SET) {
-        parking = "true";
+        parking = ParkingType::OFFROAD;
     }
     // set waypoint speed
     myTagProperty.isWaypoint() ? parametersSet |= STOP_SPEED_SET : parametersSet &= ~STOP_SPEED_SET;
@@ -68,7 +68,7 @@ GNEStop::GNEStop(SumoXMLTag tag, GNENet* net, GNEDemandElement* stopParent, GNEA
     }
     // set parking
     if (parametersSet & STOP_PARKING_SET) {
-        parking = "true";
+        parking = ParkingType::OFFROAD;
     }
     // set tripID and line
     (stopParameter.tripId.size() > 0) ? parametersSet |= STOP_TRIP_ID_SET : parametersSet &= ~STOP_TRIP_ID_SET;
@@ -86,7 +86,7 @@ GNEStop::GNEStop(SumoXMLTag tag, GNENet* net, GNEDemandElement* stopParent, GNEL
     myCreationIndex(myNet->getAttributeCarriers()->getStopIndex()) {
     // set parking
     if (parametersSet & STOP_PARKING_SET) {
-        parking = "true";
+        parking = ParkingType::OFFROAD;
     }
     // set tripID and line
     (stopParameter.tripId.size() > 0) ? parametersSet |= STOP_TRIP_ID_SET : parametersSet &= ~STOP_TRIP_ID_SET;
@@ -108,7 +108,7 @@ GNEStop::GNEStop(SumoXMLTag tag, GNENet* net, GNEDemandElement* stopParent, GNEE
     }
     // set flags
     if (parametersSet & STOP_PARKING_SET) {
-        parking = "true";
+        parking = ParkingType::OFFROAD;
     }
     triggered = (parametersSet & STOP_TRIGGER_SET);
     containerTriggered = (parametersSet & STOP_CONTAINER_TRIGGER_SET);
@@ -1465,15 +1465,11 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value) {
             }
             break;
         case SUMO_ATTR_PARKING:
-            if (value == "opportunistic") {
-                parametersSet |= STOP_PARKING_SET;
-                parking = value;
-            } else if (parse<bool>(value)) {
-                parametersSet |= STOP_PARKING_SET;
-                parking = "true";
-            } else {
+            parking = SUMOVehicleParameter::parseParkingType(value);
+            if (parking == ParkingType::ONROAD) {
                 parametersSet &= ~STOP_PARKING_SET;
-                parking = "false";
+            } else {
+                parametersSet |= STOP_PARKING_SET;
             }
             break;
         case SUMO_ATTR_ACTTYPE:

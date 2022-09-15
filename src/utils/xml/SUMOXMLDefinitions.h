@@ -1510,6 +1510,16 @@ enum class LaneSpreadFunction {
     CENTER = 2
 };
 
+/**
+ * @enum ParkingType
+ * @brief Numbers representing special SUMO-XML-attribute values
+ * Information on whether a car is parking on the road or to the side of it
+ */
+enum class ParkingType {
+    ONROAD = 0,
+    OFFROAD = 1,
+    OPPORTUNISTIC = 2
+};
 
 /// @brief algorithms for computing right of way
 enum class RightOfWay {
@@ -1797,6 +1807,9 @@ public:
     /// @brief lane spread functions
     static StringBijection<LaneSpreadFunction> LaneSpreadFunctions;
 
+    /// @brief parking types
+    static StringBijection<ParkingType> ParkingTypes;
+
     /// @brief righ of way algorithms
     static StringBijection<RightOfWay> RightOfWayValues;
 
@@ -1897,6 +1910,9 @@ private:
 
     /// @brief lane spread function values
     static StringBijection<LaneSpreadFunction>::Entry laneSpreadFunctionValues[];
+
+    /// @brief lane spread function values
+    static StringBijection<ParkingType>::Entry parkingTypeValues[];
 
     /// @brief lane spread function values
     static StringBijection<RightOfWay>::Entry rightOfWayValuesInitializer[];

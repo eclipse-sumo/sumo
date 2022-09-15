@@ -1038,6 +1038,12 @@ StringBijection<LaneSpreadFunction>::Entry SUMOXMLDefinitions::laneSpreadFunctio
     {"center",     LaneSpreadFunction::CENTER } // geometry is center of the edge (must be the last one)
 };
 
+StringBijection<ParkingType>::Entry SUMOXMLDefinitions::parkingTypeValues[] = {
+    {"0",              ParkingType::ONROAD },   // default: park on the street
+    {"1",              ParkingType::OFFROAD },    // parking off the street
+    {"opportunistic",  ParkingType::OPPORTUNISTIC } // park of the street if there is an opportunity for it
+};
+
 StringBijection<RightOfWay>::Entry SUMOXMLDefinitions::rightOfWayValuesInitializer[] = {
     {"edgePriority", RightOfWay::EDGEPRIORITY },
     {"default",      RightOfWay::DEFAULT } // default (must be the last one)
@@ -1221,6 +1227,9 @@ StringBijection<SumoXMLEdgeFunc> SUMOXMLDefinitions::EdgeFunctions(
 
 StringBijection<LaneSpreadFunction> SUMOXMLDefinitions::LaneSpreadFunctions(
     SUMOXMLDefinitions::laneSpreadFunctionValues, LaneSpreadFunction::CENTER);
+
+StringBijection<ParkingType> SUMOXMLDefinitions::ParkingTypes(
+    SUMOXMLDefinitions::parkingTypeValues, ParkingType::OPPORTUNISTIC);
 
 StringBijection<RightOfWay> SUMOXMLDefinitions::RightOfWayValues(
     SUMOXMLDefinitions::rightOfWayValuesInitializer, RightOfWay::DEFAULT);
