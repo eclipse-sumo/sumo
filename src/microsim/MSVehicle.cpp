@@ -2288,7 +2288,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
 #endif
             const double stopTime = ceil(getSpeed() / cfModel.getMaxDecel());
             PersonDist leader = lane->nextBlocking(relativePos,
-                                                   getRightSideOnLane(), getRightSideOnLane() + getVehicleType().getWidth(), stopTime);
+                                                   getRightSideOnLane(lane), getRightSideOnLane(lane) + getVehicleType().getWidth(), stopTime);
             if (leader.first != 0) {
                 const double stopSpeed = cfModel.stopSpeed(this, getSpeed(), leader.second - getVehicleType().getMinGap());
                 v = MIN2(v, stopSpeed);
@@ -2310,7 +2310,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
                 }
 #endif
                 const double stopTime = ceil(getSpeed() / cfModel.getMaxDecel());
-                const double leftSideOnLane = bidiLane->getWidth() - getRightSideOnLane();
+                const double leftSideOnLane = bidiLane->getWidth() - getRightSideOnLane(lane);
                 PersonDist leader = bidiLane->nextBlocking(relativePos,
                         leftSideOnLane - getVehicleType().getWidth(), leftSideOnLane, stopTime, true);
                 if (leader.first != 0) {
