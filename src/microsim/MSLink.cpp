@@ -1528,7 +1528,7 @@ MSLink::checkWalkingAreaFoe(const MSVehicle* ego, const MSLane* foeLane, std::ve
         }
         if (distToPeds != std::numeric_limits<double>::max()) {
             // leave extra space in front
-            result.emplace_back(nullptr, -1, distToPeds - ego->getVehicleType().getMinGap());
+            result.emplace_back(nullptr, -1, distToPeds);
         }
     }
 }

@@ -3020,7 +3020,7 @@ MSVehicle::adaptToJunctionLeader(const std::pair<const MSVehicle*, double> leade
         }
         if (leaderInfo.second >= 0) {
             vsafeLeader = cfModel.followSpeed(this, getSpeed(), leaderInfo.second, leaderInfo.first->getSpeed(), leaderInfo.first->getCurrentApparentDecel(), leaderInfo.first);
-        } else {
+        } else if (leaderInfo.first != this) {
             // the leading, in-lapping vehicle is occupying the complete next lane
             // stop before entering this lane
             vsafeLeader = cfModel.stopSpeed(this, getSpeed(), seen - lane->getLength() - POSITION_EPS);
