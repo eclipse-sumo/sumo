@@ -110,7 +110,7 @@ public:
     std::vector<std::string> getRelDataAttrs() const;
 
     /// @brief open object dialog
-    void openObjectDialogAtCursor();
+    void openObjectDialogAtCursor(const FXEvent* ev);
 
     // save visualization settings
     void saveVisualizationSettings() const;

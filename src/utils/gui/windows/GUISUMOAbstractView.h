@@ -175,7 +175,7 @@ public:
     virtual long onCmdShowReachability(FXObject*, FXSelector, void*);
 
     /// @brief open object dialog at the cursor position
-    virtual void openObjectDialogAtCursor();
+    virtual void openObjectDialogAtCursor(const FXEvent* ev);
 
     /// @brief open object dialog for the given object
     void openObjectDialog(const std::vector<GUIGlObject*> &objects);

@@ -499,7 +499,7 @@ GNEViewNet::setColorScheme(const std::string& name) {
 
 
 void
-GNEViewNet::openObjectDialogAtCursor() {
+GNEViewNet::openObjectDialogAtCursor(const FXEvent* /*ev*/) {
     // reimplemented from GUISUMOAbstractView due GNEOverlappedInspection
     ungrab();
     // make network current

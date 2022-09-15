@@ -1065,7 +1065,7 @@ GUISUMOAbstractView::onRightBtnRelease(FXObject* o, FXSelector sel, void* ptr) {
     destroyPopup();
     onMouseMove(o, sel, ptr);
     if (!myChanger->onRightBtnRelease(ptr) && !myApp->isGaming()) {
-        openObjectDialogAtCursor();
+        openObjectDialogAtCursor((FXEvent*)ptr);
     }
     if (myApp->isGaming()) {
         onGamingRightClick(getPositionInformation());
@@ -1125,15 +1125,18 @@ GUISUMOAbstractView::onMouseLeft(FXObject*, FXSelector, void* /*data*/) {
 
 
 void
-GUISUMOAbstractView::openObjectDialogAtCursor() {
+GUISUMOAbstractView::openObjectDialogAtCursor(const FXEvent* ev) {
     // release the mouse grab
     ungrab();
+    // check if alt key is pressed
+    const bool altKeyPressed = ((ev->state & ALTMASK) != 0);
     // check if SUMO is enabled, initialised and Make OpenGL context current
     if (isEnabled() && myAmInitialised && makeCurrent()) {
         // get all objects under cusor
         const auto objectsUnderCursor = getGUIGlObjectsUnderCursor();
         // filter elements
         std::vector<GUIGlObject*> filteredObjectsUnderCursor;
+        std::vector<GUIGlObject*> filteredVehiclesUnderCursor;
         for (const auto &GLObject : objectsUnderCursor) {
             if (GLObject->getType() == GLO_EDGE) {
                 // avoid edges
@@ -1144,13 +1147,31 @@ GUISUMOAbstractView::openObjectDialogAtCursor() {
                 // avoid internal lanes if junction shape is drawn
                 continue;
             }
+            if (std::find(filteredObjectsUnderCursor.begin(), filteredObjectsUnderCursor.end(), GLObject) != filteredObjectsUnderCursor.end()) {
+                // avoid duplicated lanes
+                continue;
+            }
+            if ((GLObject->getType() == GLO_VEHICLE) || (GLObject->getType() == GLO_TRIP) ||
+                (GLObject->getType() == GLO_FLOW) || (GLObject->getType() == GLO_ROUTEFLOW) ||
+                (GLObject->getType() == GLO_CONTAINER) || (GLObject->getType() == GLO_CONTAINERFLOW) ||
+                (GLObject->getType() == GLO_PERSON) || (GLObject->getType() == GLO_PERSONFLOW)) {
+                // filter vehicles, person and containers
+                filteredVehiclesUnderCursor.push_back(GLObject);
+            }
             filteredObjectsUnderCursor.push_back(GLObject);
         }
-        // if empty, inspect net
         if (filteredObjectsUnderCursor.empty()) {
+            // if filteredObjectsUnderCursor, inspect net
             openObjectDialog({GUIGlObjectStorage::gIDStorage.getNetObject()});
-        } else {
+        } else if (altKeyPressed) {
+            // inspect all objects under cusror
             openObjectDialog(filteredObjectsUnderCursor);
+        } else if (filteredVehiclesUnderCursor.size() > 0) {
+            // inspect only vehicles
+            openObjectDialog(filteredVehiclesUnderCursor);
+        } else {
+            // inspect first object under cursor
+            openObjectDialog({filteredObjectsUnderCursor.front()});
         }
         // Make OpenGL context non current
         makeNonCurrent();
