@@ -14,6 +14,7 @@
 # @file    unzip.py
 # @author  Jakob Erdmann
 # @date    2022-09-14
+
 """platform-independent collate_script to compare .xml.gz files""" 
 
 import sys
