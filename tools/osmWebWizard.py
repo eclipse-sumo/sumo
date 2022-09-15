@@ -39,7 +39,7 @@ import osmBuild
 import randomTrips
 import ptlines2flows
 import tileGet
-import sumolib  # noqa
+import sumolib
 from webWizard.SimpleWebSocketServer import SimpleWebSocketServer, WebSocket
 
 SUMO_HOME = os.environ.get("SUMO_HOME", os.path.join(
@@ -77,15 +77,15 @@ def getParams(vClass, prefix=None):
 
 
 vehicleParameters = {
-    "passenger":   CP + getParams("passenger", "veh") + ["--min-distance", "300", "--min-distance.fringe", "0",  # noqua
-                                                         "--allow-fringe.min-length", "1000", "--lanes"],        # noqua
-    "truck":       CP + getParams("truck")            + ["--min-distance", "600"],                               # noqua
-    "bus":         CP + getParams("bus")              + ["--min-distance", "600"],                               # noqua
-    "motorcycle":  CP + getParams("motorcycle")       + ["--max-distance", "1200"],                              # noqua
-    "bicycle":     CP + getParams("bicycle", "bike")  + ["--max-distance", "8000"],                              # noqua
-    "tram":        CP + getParams("tram")             + ["--min-distance", "1200"],                              # noqua
-    "rail_urban":  CP + getParams("rail_urban")       + ["--min-distance", "1800"],                              # noqua
-    "rail":        CP + getParams("rail")             + ["--min-distance", "2400"],                              # noqua
+    "passenger":   CP + getParams("passenger", "veh") + ["--min-distance", "300", "--min-distance.fringe", "10",
+                                                         "--allow-fringe.min-length", "1000", "--lanes"],
+    "truck":       CP + getParams("truck")            + ["--min-distance", "600", "--min-distance.fringe", "10"],
+    "bus":         CP + getParams("bus")              + ["--min-distance", "600", "--min-distance.fringe", "10"],
+    "motorcycle":  CP + getParams("motorcycle")       + ["--max-distance", "1200"],
+    "bicycle":     CP + getParams("bicycle", "bike")  + ["--max-distance", "8000"],
+    "tram":        CP + getParams("tram")             + ["--min-distance", "1200", "--min-distance.fringe", "10"],
+    "rail_urban":  CP + getParams("rail_urban")       + ["--min-distance", "1800", "--min-distance.fringe", "10"],
+    "rail":        CP + getParams("rail")             + ["--min-distance", "2400", "--min-distance.fringe", "10"],
     "ship":             getParams("ship") + ["--fringe-start-attributes", 'departSpeed="max"', "--validate"],
     "pedestrian":  PP + ["--pedestrians", "--max-distance", "2000"],
     "persontrips": PP + ["--persontrips", "--trip-attributes", 'modes="public"'],

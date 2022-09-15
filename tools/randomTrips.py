@@ -317,10 +317,10 @@ class RandomTripGenerator:
                 break
             for _ in range(maxtries):   
                 source_edge = self.source_generator.get()
-                intermediate = [self.via_generator.get()
-                                for i in range(self.intermediate)]
+                intermediate = [self.via_generator.get() for __ in range(self.intermediate)]
                 sink_edge = self.sink_generator.get()
-                if min_dist == min_dist_fringe and (not source_edge.is_fringe() or not sink_edge.is_fringe() or intermediate):
+                is_fringe2fringe = source_edge.is_fringe() and sink_edge.is_fringe() and not intermediate
+                if min_dist == min_dist_fringe and not is_fringe2fringe:
                     continue
                 if self.pedestrians:
                     destCoord = sink_edge.getFromNode().getCoord()
