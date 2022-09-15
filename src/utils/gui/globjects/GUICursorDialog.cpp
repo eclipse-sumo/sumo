@@ -29,6 +29,8 @@
 #include "GUICursorDialog.h"
 
 
+#define NUM_VISIBLE_ITEMS 10
+
 // ===========================================================================
 // FOX callback mapping
 // ===========================================================================
@@ -57,7 +59,7 @@ GUICursorDialog::GUICursorDialog(CursorDialogType cursorDialogType, GUISUMOAbstr
         myMenuHeader = new MFXMenuHeader(this, view->getMainWindow()->getBoldFont(), "Overlapped objects", GUIIconSubSys::getIcon(GUIIcon::MODEINSPECT), nullptr, 0);
         new FXMenuSeparator(this);
         // check if create move up menu command
-        if (objects.size() > 5) {
+        if (objects.size() > NUM_VISIBLE_ITEMS) {
             myMoveUpMenuCommand = GUIDesigns::buildFXMenuCommand(this, "Previous", GUIIconSubSys::getIcon(GUIIcon::ARROW_UP), this, MID_CURSORDIALOG_MOVEUP);
             new FXMenuSeparator(this);
         }
@@ -70,7 +72,7 @@ GUICursorDialog::GUICursorDialog(CursorDialogType cursorDialogType, GUISUMOAbstr
         myMenuHeader = new MFXMenuHeader(this, view->getMainWindow()->getBoldFont(), "Mark front element", GUIIconSubSys::getIcon(GUIIcon::FRONTELEMENT), nullptr, 0);
         new FXMenuSeparator(this);
         // check if create move up menu command
-        if (objects.size() > 5) {
+        if (objects.size() > NUM_VISIBLE_ITEMS) {
             myMoveUpMenuCommand = GUIDesigns::buildFXMenuCommand(this, "Previous", GUIIconSubSys::getIcon(GUIIcon::ARROW_UP), this, MID_CURSORDIALOG_MOVEUP);
             new FXMenuSeparator(this);
         }
@@ -80,7 +82,7 @@ GUICursorDialog::GUICursorDialog(CursorDialogType cursorDialogType, GUISUMOAbstr
         }
     }
     // check if create move down menu command
-    if (objects.size() > 5) {
+    if (objects.size() > NUM_VISIBLE_ITEMS) {
         new FXMenuSeparator(this);
         myMoveDownMenuCommand = GUIDesigns::buildFXMenuCommand(this, "Next", GUIIconSubSys::getIcon(GUIIcon::ARROW_DOWN), this, MID_CURSORDIALOG_MOVEDOWN);
         updateList();
@@ -125,7 +127,7 @@ GUICursorDialog::onCmdOpenPropertiesPopUp(FXObject* obj, FXSelector, void*) {
 
 long
 GUICursorDialog::onCmdMoveListUp(FXObject*, FXSelector, void*) {
-    myListIndex -= 5;
+    myListIndex -= NUM_VISIBLE_ITEMS;
     updateList();
     show();
     return 0;
@@ -134,7 +136,7 @@ GUICursorDialog::onCmdMoveListUp(FXObject*, FXSelector, void*) {
 
 long
 GUICursorDialog::onCmdMoveListDown(FXObject*, FXSelector, void*) {
-    myListIndex += 5;
+    myListIndex += NUM_VISIBLE_ITEMS;
     updateList();
     show();
     return 0;
@@ -171,13 +173,13 @@ GUICursorDialog::updateList() {
         myMoveUpMenuCommand->enable();
     }
     // show menu commands depending of myListIndex
-    if ((myListIndex + 5) > (int)myMenuCommandGLObjects.size()) {
-        for (int i = (int)myMenuCommandGLObjects.size() - 5; i < (int)myMenuCommandGLObjects.size(); i++) {
+    if ((myListIndex + NUM_VISIBLE_ITEMS) > (int)myMenuCommandGLObjects.size()) {
+        for (int i = (int)myMenuCommandGLObjects.size() - NUM_VISIBLE_ITEMS; i < (int)myMenuCommandGLObjects.size(); i++) {
             myMenuCommandGLObjects.at(i).first->show();
         }
         myMoveDownMenuCommand->disable();
     } else {
-        for (int i = myListIndex; i < (myListIndex + 5); i++) {
+        for (int i = myListIndex; i < (myListIndex + NUM_VISIBLE_ITEMS); i++) {
             myMenuCommandGLObjects.at(i).first->show();
         }
         myMoveDownMenuCommand->enable();

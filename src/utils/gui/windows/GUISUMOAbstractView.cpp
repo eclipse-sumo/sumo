@@ -965,10 +965,16 @@ GUISUMOAbstractView::destroyPopup() {
 
 void 
 GUISUMOAbstractView::replacePopup(GUIGLObjectPopupMenu* popUp) {
+    // use the same position of old popUp
+    popUp->move(myPopup->getX(), myPopup->getY());
     // delete and replace popup
     delete myPopup;
     myPopup = popUp;
-    openPopupDialog();
+    // create and show popUp
+    myPopup->create();
+    myPopup->show();
+    myChanger->onRightBtnRelease(nullptr);
+    setFocus();
 }
 
 
