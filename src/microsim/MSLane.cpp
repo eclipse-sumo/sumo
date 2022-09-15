@@ -1613,9 +1613,13 @@ MSLane::detectCollisions(SUMOTime timestep, const std::string& stage) {
         AnyVehicleIterator v_end = anyVehiclesEnd();
         for (AnyVehicleIterator it_v = anyVehiclesBegin(); it_v != v_end; ++it_v) {
             const MSVehicle* v = *it_v;
-            const double back = v->getBackPositionOnLane(this);
+            double back = v->getBackPositionOnLane(this);
             const double length = v->getVehicleType().getLength();
             const double right = v->getRightSideOnEdge(this) - getRightSideOnEdge();
+            if (v->getLane() == getBidiLane()) {
+                // use the front position for checking
+                back -= length;
+            }
             PersonDist leader = nextBlocking(back, right, right + v->getVehicleType().getWidth());
 #ifdef DEBUG_PEDESTRIAN_COLLISIONS
             if (DEBUG_COND && DEBUG_COND2(v)) {

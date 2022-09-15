@@ -2848,9 +2848,19 @@ MSVehicle::adaptToLeaders(const MSLeaderInfo& ahead, double latOffset,
                 gap += -pred->getVehicleType().getLength() + getVehicleType().getMinGap() - MAX2(getVehicleType().getMinGap(), pred->getVehicleType().getMinGap());
                 // try to avoid collision in the next second
                 const double predMaxDist = pred->getSpeed() + pred->getCarFollowModel().getMaxAccel();
-                if (gap < predMaxDist + getSpeed()) {
+#ifdef DEBUG_PLAN_MOVE
+                if (DEBUG_COND) std::cout << "    fixedGap=" << gap << " predMaxDist=" << predMaxDist << "\n";
+#endif
+                if (gap < predMaxDist + getSpeed() || pred->getLane() == lane->getBidiLane()) {
                     gap -= predMaxDist;
                 }
+            } else if (pred->getLane() == lane->getBidiLane()) {
+                gap += -pred->getVehicleType().getLength() - pred->getVehicleType().getMinGap();
+                // when computing followSpeed, the distance of the vehicle is
+                // interpreted with the wrong sign. We increase the gap to compensate
+                gap -= pred->getSpeed() + ACCEL2SPEED(pred->getCarFollowModel().getMaxAccel())
+                    * (getSpeed() + ACCEL2SPEED(getCarFollowModel().getMaxAccel())) / getCarFollowModel().getMaxAccel();
+                gap = MAX2(0.0, gap);
             }
 #ifdef DEBUG_PLAN_MOVE
             if (DEBUG_COND) {
@@ -4582,7 +4592,7 @@ MSVehicle::getBackPositionOnLane(const MSLane* lane, bool calledByGetPosition) c
             return myState.myPos - myType->getLength() + MIN2(0.0, lane->getLength() - myLane->getLength());
         }
     } else if (lane == myLane->getBidiLane()) {
-        return lane->getLength() - myState.myPos - myType->getLength();
+        return lane->getLength() - myState.myPos + myType->getLength() * (calledByGetPosition ? -1 : 1);
     } else if (myFurtherLanes.size() > 0 && lane == myFurtherLanes.back()) {
         return myState.myBackPos;
     } else if ((myLaneChangeModel->getShadowFurtherLanes().size() > 0 && lane == myLaneChangeModel->getShadowFurtherLanes().back())
