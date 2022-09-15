@@ -776,7 +776,7 @@ NBRailwayTopologyAnalyzer::addBidiEdgesBetweenSwitches(NBEdgeCont& ec) {
     int numSeqs = 0;
     for (NBNode* n : brokenNodes) {
         NBEdge* edge = isBidiSwitch(n);
-        if (edge != nullptr) {
+        if (edge != nullptr && edge->getLaneSpreadFunction() == LaneSpreadFunction::CENTER) {
             std::vector<NBNode*> nodeSeq;
             EdgeVector edgeSeq;
             NBNode* prev = n;
