@@ -284,20 +284,22 @@ MSPModel_Striping::usingInternalLanesStatic() {
 }
 
 PersonDist
-MSPModel_Striping::nextBlocking(const MSLane* lane, double minPos, double minRight, double maxLeft, double stopTime) {
-    PersonDist result((const MSPerson*)nullptr, -1);
-    double closest = std::numeric_limits<double>::max();
+MSPModel_Striping::nextBlocking(const MSLane* lane, double minPos, double minRight, double maxLeft, double stopTime, bool bidi) {
+    PersonDist result((const MSPerson*)nullptr, std::numeric_limits<double>::max());
     const Pedestrians& pedestrians = getPedestrians(lane);
     for (Pedestrians::const_iterator it_ped = pedestrians.begin(); it_ped != pedestrians.end(); ++it_ped) {
         const PState& ped = **it_ped;
         // account for distance covered by oncoming pedestrians
         double relX2 = ped.myRelX - (ped.myDir == FORWARD ? 0 : stopTime * ped.myPerson->getMaxSpeed());
-        if (ped.myRelX > minPos && (result.first == 0 || closest > relX2)) {
+        double dist = ((relX2 - minPos) * (bidi ? -1 : 1)
+                - (ped.myDir == FORWARD ? ped.myPerson->getVehicleType().getLength() : 0));
+        const bool aheadOfVehicle = bidi ? ped.myRelX < minPos : ped.myRelX > minPos;
+        if (aheadOfVehicle && dist < result.second) {
             const double center = lane->getWidth() - (ped.myRelY + stripeWidth * 0.5);
             const double halfWidth = 0.5 * ped.myPerson->getVehicleType().getWidth();
             const bool overlap = (center + halfWidth > minRight && center - halfWidth < maxLeft);
             if DEBUGCOND(ped) {
-                std::cout << "  nextBlocking lane=" << lane->getID()
+                std::cout << "  nextBlocking lane=" << lane->getID() << " bidi=" << bidi
                           << " minPos=" << minPos << " minRight=" << minRight << " maxLeft=" << maxLeft
                           << " stopTime=" << stopTime
                           << " pedY=" << ped.myRelY
@@ -310,9 +312,8 @@ MSPModel_Striping::nextBlocking(const MSLane* lane, double minPos, double minRig
                           << "\n";
             }
             if (overlap) {
-                closest = relX2;
                 result.first = ped.myPerson;
-                result.second = relX2 - minPos - (ped.myDir == FORWARD ? ped.myPerson->getVehicleType().getLength() : 0);
+                result.second = dist;
             }
         }
     }

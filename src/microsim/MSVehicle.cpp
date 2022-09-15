@@ -2286,8 +2286,9 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
                 std::cout << SIMTIME << " adapt to pedestrians on lane=" << lane->getID() << " relPos=" << relativePos << "\n";
             }
 #endif
+            const double stopTime = ceil(getSpeed() / cfModel.getMaxDecel());
             PersonDist leader = lane->nextBlocking(relativePos,
-                                                   getRightSideOnLane(), getRightSideOnLane() + getVehicleType().getWidth(), ceil(getSpeed() / cfModel.getMaxDecel()));
+                                                   getRightSideOnLane(), getRightSideOnLane() + getVehicleType().getWidth(), stopTime);
             if (leader.first != 0) {
                 const double stopSpeed = cfModel.stopSpeed(this, getSpeed(), leader.second - getVehicleType().getMinGap());
                 v = MIN2(v, stopSpeed);
@@ -2296,6 +2297,31 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
                     std::cout << SIMTIME << "    pedLeader=" << leader.first->getID() << " dist=" << leader.second << " v=" << v << "\n";
                 }
 #endif
+            }
+        }
+        if (lane->getBidiLane() != nullptr) {
+            // adapt to pedestrians on the bidi lane
+            const MSLane* bidiLane = lane->getBidiLane();
+            if (bidiLane->getEdge().getPersons().size() > 0 && bidiLane->hasPedestrians()) {
+                const double relativePos = seen;
+#ifdef DEBUG_PLAN_MOVE
+                if (DEBUG_COND) {
+                    std::cout << SIMTIME << " adapt to pedestrians on lane=" << lane->getID() << " relPos=" << relativePos << "\n";
+                }
+#endif
+                const double stopTime = ceil(getSpeed() / cfModel.getMaxDecel());
+                const double leftSideOnLane = bidiLane->getWidth() - getRightSideOnLane();
+                PersonDist leader = bidiLane->nextBlocking(relativePos,
+                        leftSideOnLane - getVehicleType().getWidth(), leftSideOnLane, stopTime, true);
+                if (leader.first != 0) {
+                    const double stopSpeed = cfModel.stopSpeed(this, getSpeed(), leader.second - getVehicleType().getMinGap());
+                    v = MIN2(v, stopSpeed);
+#ifdef DEBUG_PLAN_MOVE
+                    if (DEBUG_COND) {
+                        std::cout << SIMTIME << "    pedLeader=" << leader.first->getID() << " dist=" << leader.second << " v=" << v << "\n";
+                    }
+#endif
+                }
             }
         }
 

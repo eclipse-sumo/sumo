@@ -4180,8 +4180,8 @@ MSLane::hasPedestrians() const {
 
 
 PersonDist
-MSLane::nextBlocking(double minPos, double minRight, double maxLeft, double stopTime) const {
-    return MSNet::getInstance()->getPersonControl().getMovementModel()->nextBlocking(this, minPos, minRight, maxLeft, stopTime);
+MSLane::nextBlocking(double minPos, double minRight, double maxLeft, double stopTime, bool bidi) const {
+    return MSNet::getInstance()->getPersonControl().getMovementModel()->nextBlocking(this, minPos, minRight, maxLeft, stopTime, bidi);
 }
 
 
