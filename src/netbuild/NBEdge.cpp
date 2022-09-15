@@ -4484,16 +4484,19 @@ NBEdge::getFinalLength() const {
     return MAX2(result - avgEndOffset, POSITION_EPS);
 }
 
+
 void
-NBEdge::setOrigID(const std::string origID) {
-    if (origID != "") {
+NBEdge::setOrigID(const std::string origID, const bool append, const int laneIdx) {
+    if (laneIdx == -1) {
         for (int i = 0; i < (int)myLanes.size(); i++) {
-            myLanes[i].setParameter(SUMO_PARAM_ORIGID, origID);
+            setOrigID(origID, append, i);
         }
     } else {
-        // do not record empty origID parameter
-        for (int i = 0; i < (int)myLanes.size(); i++) {
-            myLanes[i].unsetParameter(SUMO_PARAM_ORIGID);
+        if (origID != "") {
+            myLanes[laneIdx].setParameter(SUMO_PARAM_ORIGID, origID);
+        } else {
+            // do not record empty origID parameter
+            myLanes[laneIdx].unsetParameter(SUMO_PARAM_ORIGID);
         }
     }
 }

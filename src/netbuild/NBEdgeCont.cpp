@@ -633,10 +633,10 @@ NBEdgeCont::splitAt(NBDistrictCont& dc,
     if (OptionsCont::getOptions().getBool("output.original-names")) {
         const std::string origID = edge->getLaneStruct(0).getParameter(SUMO_PARAM_ORIGID, edge->getID());
         if (firstEdgeName != origID) {
-            one->setOrigID(origID);
+            one->setOrigID(origID, false);
         }
         if (secondEdgeName != origID) {
-            two->setOrigID(origID);
+            two->setOrigID(origID, false);
         }
     }
     two->copyConnectionsFrom(edge);
@@ -1633,7 +1633,7 @@ NBEdgeCont::remapIDs(bool numericaIDs, bool reservedIDs, const std::string& pref
     for (NBEdge* edge : toChange) {
         const std::string origID = edge->getID();
         if (origNames) {
-            edge->setOrigID(origID);
+            edge->setOrigID(origID, false);
         }
         edge->setID(idSupplier.getNext());
         myEdges[edge->getID()] = edge;
