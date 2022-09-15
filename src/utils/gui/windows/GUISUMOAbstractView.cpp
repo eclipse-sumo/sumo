@@ -1126,11 +1126,25 @@ GUISUMOAbstractView::openObjectDialogAtCursor() {
     if (isEnabled() && myAmInitialised && makeCurrent()) {
         // get all objects under cusor
         const auto objectsUnderCursor = getGUIGlObjectsUnderCursor();
+        // filter elements
+        std::vector<GUIGlObject*> filteredObjectsUnderCursor;
+        for (const auto &GLObject : objectsUnderCursor) {
+            if (GLObject->getType() == GLO_EDGE) {
+                // avoid edges
+                continue;
+            } 
+            if ((GLObject->getType() == GLO_LANE) && (GLObject->getMicrosimID().find(':') != std::string::npos) && 
+                myVisualizationSettings->drawJunctionShape){
+                // avoid internal lanes if junction shape is drawn
+                continue;
+            }
+            filteredObjectsUnderCursor.push_back(GLObject);
+        }
         // if empty, inspect net
-        if (objectsUnderCursor.empty()) {
+        if (filteredObjectsUnderCursor.empty()) {
             openObjectDialog({GUIGlObjectStorage::gIDStorage.getNetObject()});
         } else {
-            openObjectDialog(objectsUnderCursor);
+            openObjectDialog(filteredObjectsUnderCursor);
         }
         // Make OpenGL context non current
         makeNonCurrent();

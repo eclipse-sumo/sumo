@@ -55,7 +55,7 @@ GUICursorDialog::GUICursorDialog(CursorDialogType cursorDialogType, GUISUMOAbstr
         new MFXMenuHeader(this, view->getMainWindow()->getBoldFont(), "No objects under cursor", nullptr, nullptr, 0);
     } else if (cursorDialogType == CursorDialogType::PROPERTIES) {
         // create header
-        new MFXMenuHeader(this, view->getMainWindow()->getBoldFont(), "Properties", GUIIconSubSys::getIcon(GUIIcon::FRONTELEMENT), nullptr, 0);
+        new MFXMenuHeader(this, view->getMainWindow()->getBoldFont(), "Properties", GUIIconSubSys::getIcon(GUIIcon::MODEINSPECT), nullptr, 0);
         new FXMenuSeparator(this);
         // create a menu command for every AC
         for (const auto &GLObject : objects) {
