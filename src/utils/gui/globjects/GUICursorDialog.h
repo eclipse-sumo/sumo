@@ -20,6 +20,8 @@
 #pragma once
 #include <config.h>
 
+#include <utils/foxtools/MFXMenuHeader.h>
+
 #include "GUIGLObjectPopupMenu.h"
 
 
@@ -64,6 +66,9 @@ public:
     /// @brief move list down
     long onCmdMoveListDown(FXObject*, FXSelector, void*);
 
+    /// @brief unpost
+    long onCmdUnpost(FXObject*, FXSelector, void* ptr);
+
     /// @}
 
 protected:
@@ -72,6 +77,9 @@ protected:
 
     /// @brief pointer to view
     GUISUMOAbstractView* myView;
+
+    /// @brief header
+    MFXMenuHeader* myMenuHeader = nullptr;
 
     /// @brief menu command for move up list
     FXMenuCommand* myMoveUpMenuCommand = nullptr;

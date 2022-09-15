@@ -19,7 +19,6 @@
 /****************************************************************************/
 #include <config.h>
 
-#include <utils/foxtools/MFXMenuHeader.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/windows/GUIMainWindow.h>
@@ -38,7 +37,8 @@ FXDEFMAP(GUICursorDialog) GUICursorDialogMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_CURSORDIALOG_SETFRONTELEMENT,   GUICursorDialog::onCmdSetFrontElement),
     FXMAPFUNC(SEL_COMMAND,  MID_CURSORDIALOG_PROPERTIES,        GUICursorDialog::onCmdOpenPropertiesPopUp),
     FXMAPFUNC(SEL_COMMAND,  MID_CURSORDIALOG_MOVEUP,            GUICursorDialog::onCmdMoveListUp),
-    FXMAPFUNC(SEL_COMMAND,  MID_CURSORDIALOG_MOVEDOWN,          GUICursorDialog::onCmdMoveListDown)
+    FXMAPFUNC(SEL_COMMAND,  MID_CURSORDIALOG_MOVEDOWN,          GUICursorDialog::onCmdMoveListDown),
+    FXMAPFUNC(SEL_COMMAND,  FXWindow::ID_UNPOST,                GUICursorDialog::onCmdUnpost),
 };
 
 // Object implementation
@@ -54,7 +54,7 @@ GUICursorDialog::GUICursorDialog(CursorDialogType cursorDialogType, GUISUMOAbstr
     // continue depending of properties
     if (cursorDialogType == CursorDialogType::PROPERTIES) {
         // create header
-        new MFXMenuHeader(this, view->getMainWindow()->getBoldFont(), "Overlapped objects", GUIIconSubSys::getIcon(GUIIcon::MODEINSPECT), nullptr, 0);
+        myMenuHeader = new MFXMenuHeader(this, view->getMainWindow()->getBoldFont(), "Overlapped objects", GUIIconSubSys::getIcon(GUIIcon::MODEINSPECT), nullptr, 0);
         new FXMenuSeparator(this);
         // check if create move up menu command
         if (objects.size() > 5) {
@@ -67,7 +67,7 @@ GUICursorDialog::GUICursorDialog(CursorDialogType cursorDialogType, GUISUMOAbstr
         }
     } else if (cursorDialogType == CursorDialogType::FRONT_ELEMENT) {
         // create header
-        new MFXMenuHeader(this, view->getMainWindow()->getBoldFont(), "Mark front element", GUIIconSubSys::getIcon(GUIIcon::FRONTELEMENT), nullptr, 0);
+        myMenuHeader = new MFXMenuHeader(this, view->getMainWindow()->getBoldFont(), "Mark front element", GUIIconSubSys::getIcon(GUIIcon::FRONTELEMENT), nullptr, 0);
         new FXMenuSeparator(this);
         // check if create move up menu command
         if (objects.size() > 5) {
@@ -141,17 +141,28 @@ GUICursorDialog::onCmdMoveListDown(FXObject*, FXSelector, void*) {
 }
 
 
+long 
+GUICursorDialog::onCmdUnpost(FXObject* obj, FXSelector, void* ptr) {
+    // ignore move up, down and header
+    if ((obj == myMoveUpMenuCommand) || (obj == myMoveDownMenuCommand) || (obj == myMenuHeader)) {
+        return 1;
+    }
+    if (grabowner) {
+        grabowner->handle(this,FXSEL(SEL_COMMAND,ID_UNPOST),ptr);
+    } else {
+        popdown();
+        if (grabbed()) {
+            ungrab();
+        }
+    }
+    return 1;
+}
+
 void 
 GUICursorDialog::updateList() {
     // first hide all menu commands
     for (const auto &GLObject : myMenuCommandGLObjects) {
         GLObject.first->hide();
-    }
-    // recalc popup
-    recalc();
-    // show menu commands depending of myListIndex
-    for (int i = myListIndex; (i < (myListIndex + 5)) && (i < (int)myMenuCommandGLObjects.size()); i++) {
-        myMenuCommandGLObjects.at(i).first->show();
     }
     // check if disable menu command up
     if (myListIndex == 0) {
@@ -159,10 +170,16 @@ GUICursorDialog::updateList() {
     } else {
         myMoveUpMenuCommand->enable();
     }
-    // check if disable menu command down
+    // show menu commands depending of myListIndex
     if ((myListIndex + 5) > (int)myMenuCommandGLObjects.size()) {
+        for (int i = (int)myMenuCommandGLObjects.size() - 5; i < (int)myMenuCommandGLObjects.size(); i++) {
+            myMenuCommandGLObjects.at(i).first->show();
+        }
         myMoveDownMenuCommand->disable();
     } else {
+        for (int i = myListIndex; i < (myListIndex + 5); i++) {
+            myMenuCommandGLObjects.at(i).first->show();
+        }
         myMoveDownMenuCommand->enable();
     }
     // recalc popup
