@@ -425,6 +425,10 @@ enum {
     MID_CURSORDIALOG_SETFRONTELEMENT,
     /// @brief open properties popup
     MID_CURSORDIALOG_PROPERTIES,
+    /// @brief move list up
+    MID_CURSORDIALOG_MOVEUP,
+    /// @brief move list down
+    MID_CURSORDIALOG_MOVEDOWN,
 
     /// @}
 

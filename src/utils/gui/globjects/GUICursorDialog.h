@@ -58,6 +58,12 @@ public:
     /// @brief open properties popUp
     long onCmdOpenPropertiesPopUp(FXObject*, FXSelector, void*);
 
+    /// @brief move list up
+    long onCmdMoveListUp(FXObject*, FXSelector, void*);
+
+    /// @brief move list down
+    long onCmdMoveListDown(FXObject*, FXSelector, void*);
+
     /// @}
 
 protected:
@@ -67,8 +73,20 @@ protected:
     /// @brief pointer to view
     GUISUMOAbstractView* myView;
 
-    /// @brief container for GLObjects
-    std::map<FXObject*, GUIGlObject*> myGLObjects;
+    /// @brief menu command for move up list
+    FXMenuCommand* myMoveUpMenuCommand = nullptr;
+
+    /// @brief menu command for move down list
+    FXMenuCommand* myMoveDownMenuCommand = nullptr;
+
+    /// @brief container for menu commands and GLObjects
+    std::vector<std::pair<FXMenuCommand*, GUIGlObject*> > myMenuCommandGLObjects;
+
+    /// @brief list index
+    int myListIndex = 0;
+
+    /// @brief update list
+    void updateList();
 
 private:
     /// @brief Invalidated copy constructor.
