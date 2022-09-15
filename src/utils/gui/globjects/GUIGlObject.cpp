@@ -248,7 +248,7 @@ GUIGlObject::setNode(osg::Node* node) {
 
 void
 GUIGlObject::buildPopupHeader(GUIGLObjectPopupMenu* ret, GUIMainWindow& app, bool addSeparator) {
-    new MFXMenuHeader(ret, app.getBoldFont(), getFullName().c_str(), nullptr, nullptr, 0);
+    new MFXMenuHeader(ret, app.getBoldFont(), getFullName().c_str(), myIcon, nullptr, 0);
     if (addSeparator) {
         new FXMenuSeparator(ret);
     }
