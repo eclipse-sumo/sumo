@@ -892,7 +892,7 @@ GNEStop::isValid(SumoXMLAttr key, const std::string& value) {
         }
         case SUMO_ATTR_PARKING:
             if (value == "opportunistic") {
-                return true;
+                return false; // Currrently deactivated opportunistic in NETEDIT waiting for the implementation in SUMO
             } else {
                 return canParse<bool>(value);
             }
