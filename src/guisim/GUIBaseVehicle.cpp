@@ -1007,7 +1007,7 @@ GUIBaseVehicle::drawStopLabels(const GUIVisualizationSettings& s, bool noLoop, c
     if (myVehicle.getParameter().wasSet(VEHPARS_ARRIVALPOS_SET) || myVehicle.getArrivalLane() >= 0) {
         const int arrivalEdge = myVehicle.getParameter().arrivalEdge >= 0
             ? myVehicle.getParameter().arrivalEdge
-            : myVehicle.getRoute().getEdges().size() - 1;
+            : (int)myVehicle.getRoute().getEdges().size() - 1;
         const MSLane* arrivalLane = myVehicle.getRoute().getEdges()[arrivalEdge]->getLanes()[MAX2(0, myVehicle.getArrivalLane())];
         Position pos = arrivalLane->geometryPositionAtOffset(myVehicle.getArrivalPos());
         GLHelper::setColor(col);

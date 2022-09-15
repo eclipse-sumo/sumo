@@ -2370,7 +2370,6 @@ NBNode::checkIsRemovableReporting(std::string& reason) const {
             // overlapping case
             if (myIncomingEdges[0]->getGeometry() == myIncomingEdges[1]->getGeometry() &&
                     myOutgoingEdges[0]->getGeometry() == myOutgoingEdges[1]->getGeometry()) {
-                std::string reason;
                 return ((myIncomingEdges[0]->expandableBy(myOutgoingEdges[0], reason) &&
                             myIncomingEdges[1]->expandableBy(myOutgoingEdges[1], reason))
                         || (myIncomingEdges[0]->expandableBy(myOutgoingEdges[1], reason) &&

@@ -102,7 +102,7 @@ MSCFModel_EIDM::insertionStopSpeed(const MSVehicle* const /*veh*/, double speed,
 }
 
 double
-MSCFModel_EIDM::maximumSafeFollowSpeed(double gap, double egoSpeed, double predSpeed, double predMaxDecel, bool onInsertion, const CalcReason usage) const {
+MSCFModel_EIDM::maximumSafeFollowSpeed(double gap, double egoSpeed, double predSpeed, double predMaxDecel, bool onInsertion, const CalcReason /* usage */) const {
     double x;
     if (gap >= 0 || MSGlobals::gComputeLC) {
         double a = 1.;

@@ -32,7 +32,7 @@
 
 #ifdef _MSC_VER
 #pragma warning(push)
-#pragma warning(disable: 4244) // do not warn about integer conversions
+#pragma warning(disable: 4242 4244) // do not warn about integer conversions
 #endif
 #if __GNUC__ > 3
 #pragma GCC diagnostic push

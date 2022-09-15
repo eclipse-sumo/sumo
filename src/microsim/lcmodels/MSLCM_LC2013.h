@@ -119,15 +119,6 @@ public:
     /// @note  Effective only for continuous lane-changing when using attributes myMaxSpeedLatFactor and myMaxSpeedLatStanding. See #3771
     double getAssumedDecelForLaneChangeDuration() const override;
 
-    /** @brief Return the state of the laneChangeModel for saving
-     */
-    std::string saveState() const;
-
-    /** @brief Loads the state of the laneChangeModel from the given string
-     * @param[in] state The textual state representation
-     */
-    void loadState(const std::string& state);
-
 protected:
 
     /** helper function which contains the actual logic */
