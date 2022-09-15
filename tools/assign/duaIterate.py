@@ -478,7 +478,26 @@ def calcMarginalCost(step, options):
 
         if DEBUGLOG:
             log.close()
-
+            
+def generateEdgedataAddFile(EDGEDATA_ADD, options):
+    #write detectorfile
+    with open(EDGEDATA_ADD, 'w') as fd:
+        vTypes = ' vTypes="%s"' % ' '.join(options.measureVTypes.split(',')) if options.measureVTypes else ""
+        print("<a>", file=fd)
+        print('    <edgeData id="dump_%s" freq="%s" file="%s" excludeEmpty="true" minSamples="1"%s/>' % (
+            options.aggregation,
+            options.aggregation,
+            get_dumpfilename(options, -1, "dump", False),
+            vTypes), file=fd)
+        if options.eco_measure:
+            print(('    <edgeData id="eco_%s" type="hbefa" freq="%s" file="%s" ' +
+                   'excludeEmpty="true" minSamples="1"%s/>') % (
+                       options.aggregation,
+                       options.aggregation,
+                       get_dumpfilename(options, step, "dump", False),
+                       vTypes), file=fd)
+        print("</a>", file=fd)
+    fd.close()
 
 def main(args=None):
     argParser = initOptions()
@@ -549,24 +568,9 @@ def main(args=None):
             dumpfile = get_dumpfilename(options, step, "dump")
             print(">>> Loading %s" % dumpfile)
             costmemory.load_costs(dumpfile, step, get_scale(options, step))
-
-    # write detectorfile
-    with open(EDGEDATA_ADD, 'w') as fd:
-        vTypes = ' vTypes="%s"' % ' '.join(options.measureVTypes.split(',')) if options.measureVTypes else ""
-        print("<a>", file=fd)
-        print('    <edgeData id="dump_%s" freq="%s" file="%s" excludeEmpty="true" minSamples="1"%s/>' % (
-            options.aggregation,
-            options.aggregation,
-            get_dumpfilename(options, -1, "dump", False),
-            vTypes), file=fd)
-        if options.eco_measure:
-            print(('    <edgeData id="eco_%s" type="hbefa" freq="%s" file="%s" ' +
-                   'excludeEmpty="true" minSamples="1"%s/>') % (
-                       options.aggregation,
-                       options.aggregation,
-                       get_dumpfilename(options, step, "dump", False),
-                       vTypes), file=fd)
-        print("</a>", file=fd)
+    
+    # generate edgedata.add.xml
+    generateEdgedataAddFile(EDGEDATA_ADD, options)
 
     avgTT = sumolib.miscutils.Statistics()
     for step in range(options.firstStep, options.lastStep):
