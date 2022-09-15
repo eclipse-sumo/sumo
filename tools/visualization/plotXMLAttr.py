@@ -24,7 +24,7 @@ import os
 import sys
 sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..'))
 from sumolib.output import parse  # noqa
-from sumolib.miscutils import Statistics  # noqa
+from sumolib.miscutils import Statistics, parseTime  # noqa
 from sumolib.options import ArgumentParser  # noqa
 
 
@@ -41,7 +41,7 @@ def main(tag, attr, xmlfiles):
     for xmlfile in xmlfiles:
         stats = Statistics('%s %s' % (tag, attr))
         for elem in parse(xmlfile, tag):
-            stats.add(float(elem.getAttribute(attr)), elem.id)
+            stats.add(parseTime(elem.getAttribute(attr)), elem.id)
         print(stats)
         data.append(stats.values)
     try:
