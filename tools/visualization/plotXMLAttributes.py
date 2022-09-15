@@ -47,6 +47,7 @@ from sumolib.xml import _open  # noqa
 from sumolib.miscutils import uMin, uMax, parseTime  # noqa
 from sumolib.options import ArgumentParser, RawDescriptionHelpFormatter  # noqa
 
+RANK_ATTR = "@RANK"
 
 def getOptions(args=None):
     optParser = ArgumentParser(
@@ -167,7 +168,12 @@ def getDataStream(options):
         for a in attrOptions:
             attr = getattr(options, a)
             if attr not in attr2elem:
-                sys.exit("%s '%s' not found in %s" % (a, attr, options.files[0]))
+                if attr == RANK_ATTR:
+                    lvlElem = [(lv, el) for el, lv in elem2level.items()]
+                    minLevelElem = sorted(lvlElem)[0][1]
+                    attr2elem[attr] = minLevelElem
+                else:
+                    sys.exit("%s '%s' not found in %s" % (a, attr, options.files[0]))
 
     allElems = list(set(attr2elem.values()))
     attrs = [getattr(options, a) for a in attrOptions]
@@ -186,6 +192,7 @@ def getDataStream(options):
             mAs1 = [(a, re.compile('%s="([^"]*)"' % a)) for a in attrs1]
 
             values = {}  # attr -> value
+            index = 0
             for line in _open(xmlfile):
                 if mE0 in line:
                     for a, r in mAs0:
@@ -196,11 +203,14 @@ def getDataStream(options):
                         m = r.search(line)
                         if m:
                             values[a] = m.groups()[0]
+                        elif a == RANK_ATTR:
+                            values[a] = index
                         else:
                             skip = True
                             skippedLines[a] += 1
                     if not skip:
                         yield [values[a] for a in attrs]
+                        index += 1
 
             for attr, count in skippedLines.items():
                 print("Warning: Skipped %s lines because of missing attributes '%s'." % (
@@ -212,11 +222,23 @@ def getDataStream(options):
         def datastream(xmlfile):
             mE = "<%s " % allElems[0]
             mAs = [re.compile('%s="([^"]*)"' % a) for a in attrs]
+            index = 0
             for line in _open(xmlfile):
                 if mE in line:
-                    matches = [r.search(line) for r in mAs]
-                    if all(matches):
-                        yield [m.groups()[0] for m in matches]
+                    skip = False
+                    values = []
+                    for a, r in zip(attrs, mAs):
+                        if a == RANK_ATTR:
+                            values.append(index)
+                        else:
+                            m = r.search(line)
+                            if m:
+                                values.append(m.groups()[0])
+                            else:
+                                skip = True
+                    if not skip:
+                        yield values
+                        index += 1
         return datastream
 
     else:
