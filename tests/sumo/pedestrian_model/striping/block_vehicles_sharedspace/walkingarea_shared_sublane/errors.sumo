@@ -1,1 +1,27 @@
 Warning: Vehicle 'EN.2' performs emergency braking on lane ':C_4_0' with decel=9.00, wished=4.50, severity=1.00, time=290.00.
+Warning: Teleporting vehicle 'NS.7'; waited too long (jam), lane=':C_1_0', time=796.00.
+Warning: Vehicle 'NS.7' ends teleporting on edge 'CS', time=796.00.
+Warning: Teleporting vehicle 'SW.3'; junction collision with vehicle 'EW.2', lane=':C_10_0', gap=-1.00', latGap=0.00, time=829.00 stage=move.
+Warning: Vehicle 'SW.3' ends teleporting on edge 'CW', time=833.00.
+Warning: Vehicle 'SN.6' collision with person 'pNE.30', lane=':C_9_0', time=837.00, stage=laneChange.
+Warning: Teleporting vehicle 'WS.5'; junction collision with vehicle 'WE.1', lane=':C_12_0', gap=-1.00', latGap=0.00, time=839.00 stage=move.
+Warning: Vehicle 'WS.5' ends teleporting on edge 'CS', time=839.00.
+Warning: Vehicle 'SN.6' collision with person 'pES.36', lane=':C_9_0', time=840.00, stage=events.
+Warning: Vehicle 'SN.6' collision with person 'pES.37', lane=':C_9_0', time=844.00, stage=events.
+Warning: Vehicle 'SN.6' collision with person 'pES.38', lane=':C_9_0', time=857.00, stage=events.
+Warning: Vehicle 'SN.6' collision with person 'pNE.31', lane=':C_9_0', time=899.00, stage=events.
+Warning: Vehicle 'WE.2' collision with person 'pNS.39', lane=':C_13_0', time=910.00, stage=events.
+Warning: Vehicle 'SN.6' collision with person 'pNE.32', lane=':C_9_0', time=913.00, stage=events.
+Warning: Vehicle 'SN.6' collision with person 'pES.39', lane=':C_9_0', time=914.00, stage=events.
+Warning: Vehicle 'SN.6' collision with person 'pNE.33', lane=':C_9_0', time=926.00, stage=events.
+Warning: Vehicle 'WE.2' collision with person 'pNS.40', lane=':C_13_0', time=929.00, stage=events.
+Warning: Vehicle 'SN.6' collision with person 'pES.43', lane=':C_9_0', time=931.00, stage=events.
+Warning: Vehicle 'WE.2' collision with person 'pNS.41', lane=':C_13_0', time=938.00, stage=events.
+Warning: Vehicle 'SN.6' collision with person 'pES.44', lane=':C_9_0', time=942.00, stage=events.
+Warning: Vehicle 'WE.2' collision with person 'pNS.42', lane=':C_13_0', time=953.00, stage=events.
+Warning: Vehicle 'WE.1' collision with person 'pNS.39', lane=':C_13_0', time=954.00, stage=events.
+Warning: Vehicle 'SN.6' collision with person 'pNE.34', lane=':C_9_0', time=960.00, stage=events.
+Warning: Teleporting vehicle 'ES.3'; waited too long (jam), lane=':C_6_0', time=961.00.
+Warning: Vehicle 'ES.3' ends teleporting on edge 'CS', time=961.00.
+Warning: Vehicle 'WE.2' collision with person 'pNS.43', lane=':C_13_0', time=997.00, stage=events.
+Warning: Vehicle 'WE.1' collision with person 'pNS.40', lane=':C_13_0', time=998.00, stage=events.
