@@ -1033,7 +1033,7 @@ Vehicle::getStopParameter(const std::string& vehID, int nextStopIndex, const std
         } else if (param == toString(SUMO_ATTR_INDEX)) {
             return toString(nextStopIndex + vehicle->getPastStops().size());
         } else if (param == toString(SUMO_ATTR_PARKING)) {
-            return toString(pars.parking);
+            return pars.parking;
         } else if (param == toString(SUMO_ATTR_TRIGGERED)) {
             return joinToString(pars.getTriggers(), " ");
         } else if (param == toString(SUMO_ATTR_EXPECTED)) {
@@ -1128,7 +1128,7 @@ Vehicle::setStopParameter(const std::string& vehID, int nextStopIndex,
         } else if (param == toString(SUMO_ATTR_INDEX)) {
             throw TraCIException("Changing stop index is not supported");
         } else if (param == toString(SUMO_ATTR_PARKING)) {
-            pars.parking = StringUtils::toBool(value);
+            pars.parking = value;
             pars.parametersSet |= STOP_PARKING_SET;
         } else if (param == toString(SUMO_ATTR_TRIGGERED)) {
             SUMOVehicleParameter::parseStopTriggers(StringTokenizer(value).getVector(), false, pars);

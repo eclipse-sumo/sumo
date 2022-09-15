@@ -48,8 +48,10 @@ GNEStop::GNEStop(SumoXMLTag tag, GNENet* net) :
     if ((tag == SUMO_TAG_STOP_PARKINGAREA) || (tag == GNE_TAG_WAYPOINT_PARKINGAREA)) {
         parametersSet |= STOP_PARKING_SET;
     }
-    // set flags
-    parking = (parametersSet & STOP_PARKING_SET);
+    // set parking
+    if (parametersSet & STOP_PARKING_SET) {
+        parking = "true";
+    }
     // set waypoint speed
     myTagProperty.isWaypoint() ? parametersSet |= STOP_SPEED_SET : parametersSet &= ~STOP_SPEED_SET;
 }
@@ -64,8 +66,10 @@ GNEStop::GNEStop(SumoXMLTag tag, GNENet* net, GNEDemandElement* stopParent, GNEA
     if ((tag == SUMO_TAG_STOP_PARKINGAREA) || (tag == GNE_TAG_WAYPOINT_PARKINGAREA)) {
         parametersSet |= STOP_PARKING_SET;
     }
-    // set flags
-    parking = (parametersSet & STOP_PARKING_SET);
+    // set parking
+    if (parametersSet & STOP_PARKING_SET) {
+        parking = "true";
+    }
     // set tripID and line
     (stopParameter.tripId.size() > 0) ? parametersSet |= STOP_TRIP_ID_SET : parametersSet &= ~STOP_TRIP_ID_SET;
     (stopParameter.line.size() > 0) ? parametersSet |= STOP_LINE_SET : parametersSet &= ~STOP_LINE_SET;
@@ -80,8 +84,10 @@ GNEStop::GNEStop(SumoXMLTag tag, GNENet* net, GNEDemandElement* stopParent, GNEL
     GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {lane}, {}, {stopParent}, {}),
     SUMOVehicleParameter::Stop(stopParameter),
     myCreationIndex(myNet->getAttributeCarriers()->getStopIndex()) {
-    // set flags
-    parking = (parametersSet & STOP_PARKING_SET);
+    // set parking
+    if (parametersSet & STOP_PARKING_SET) {
+        parking = "true";
+    }
     // set tripID and line
     (stopParameter.tripId.size() > 0) ? parametersSet |= STOP_TRIP_ID_SET : parametersSet &= ~STOP_TRIP_ID_SET;
     (stopParameter.line.size() > 0) ? parametersSet |= STOP_LINE_SET : parametersSet &= ~STOP_LINE_SET;
@@ -101,7 +107,9 @@ GNEStop::GNEStop(SumoXMLTag tag, GNENet* net, GNEDemandElement* stopParent, GNEE
         parametersSet |= STOP_PARKING_SET;
     }
     // set flags
-    parking = (parametersSet & STOP_PARKING_SET);
+    if (parametersSet & STOP_PARKING_SET) {
+        parking = "true";
+    }
     triggered = (parametersSet & STOP_TRIGGER_SET);
     containerTriggered = (parametersSet & STOP_CONTAINER_TRIGGER_SET);
     joinTriggered = (parametersSet & STOP_JOIN_SET);
@@ -883,7 +891,11 @@ GNEStop::isValid(SumoXMLAttr key, const std::string& value) {
             return true;
         }
         case SUMO_ATTR_PARKING:
-            return canParse<bool>(value);
+            if (value == "opportunistic") {
+                return true;
+            } else {
+                return canParse<bool>(value);
+            }
         case SUMO_ATTR_ACTTYPE:
             return true;
         case SUMO_ATTR_TRIP_ID:
@@ -1453,13 +1465,16 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value) {
             }
             break;
         case SUMO_ATTR_PARKING:
-            if (parse<bool>(value)) {
+            if (value == "opportunistic") {
                 parametersSet |= STOP_PARKING_SET;
+                parking = value;
+            } else if (parse<bool>(value)) {
+                parametersSet |= STOP_PARKING_SET;
+                parking = "true";
             } else {
                 parametersSet &= ~STOP_PARKING_SET;
+                parking = "false";
             }
-            // set flag
-            parking = ((parametersSet & STOP_PARKING_SET) != 0);
             break;
         case SUMO_ATTR_ACTTYPE:
             actType = value;

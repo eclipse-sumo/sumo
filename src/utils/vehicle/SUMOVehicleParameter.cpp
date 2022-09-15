@@ -716,7 +716,7 @@ SUMOVehicleParameter::Stop::getTriggers() const {
 
 int
 SUMOVehicleParameter::Stop::getFlags() const {
-    return ((parking ? 1 : 0) +
+    return (((parking == "true") ? 1 : 0) +
             (triggered ? 2 : 0) +
             (containerTriggered ? 4 : 0) +
             (busstop != "" ? 8 : 0) +

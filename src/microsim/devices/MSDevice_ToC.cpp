@@ -578,7 +578,7 @@ MSDevice_ToC::triggerMRM(SUMOTime /* t */) {
             WRITE_WARNING("Ignoring unknown safe spot '" + myMRMSafeSpot + "' for vehicle '" + myHolder.getID() + "'.");
         } else {
             stop.parkingarea = myMRMSafeSpot;
-            stop.parking = true;
+            stop.parking = "true";
             stop.lane = s->getLane().getID();
             stop.endPos = s->getEndLanePosition();
             stop.startPos = s->getBeginLanePosition();

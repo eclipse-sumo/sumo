@@ -397,7 +397,7 @@ public:
         bool joinTriggered = false;
 
         /// @brief whether the vehicle is removed from the net while stopping
-        bool parking = false;
+        std::string parking = "false";
 
         /// @brief IDs of persons the vehicle has to wait for until departing
         std::set<std::string> awaitedPersons;

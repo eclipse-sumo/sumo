@@ -1768,11 +1768,11 @@ MSVehicle::processNextStop(double currentVelocity) {
                 }
                 if (stop.busstop != nullptr) {
                     // let the bus stop know the vehicle
-                    stop.busstop->enter(this, stop.pars.parking);
+                    stop.busstop->enter(this, (stop.pars.parking == "true")? true : false);
                 }
                 if (stop.containerstop != nullptr) {
                     // let the container stop know the vehicle
-                    stop.containerstop->enter(this, stop.pars.parking);
+                    stop.containerstop->enter(this, (stop.pars.parking == "true")? true : false);
                 }
                 if (stop.parkingarea != nullptr && stop.getSpeed() <= 0) {
                     // let the parking area know the vehicle
@@ -1780,7 +1780,7 @@ MSVehicle::processNextStop(double currentVelocity) {
                 }
                 if (stop.chargingStation != nullptr) {
                     // let the container stop know the vehicle
-                    stop.chargingStation->enter(this, stop.pars.parking);
+                    stop.chargingStation->enter(this, (stop.pars.parking == "true")? true : false);
                 }
 
                 if (stop.pars.tripId != "") {
@@ -5280,16 +5280,16 @@ MSVehicle::leaveLane(const MSMoveReminder::Notification reason, const MSLane* ap
                     // enter stopping place so leaveFrom works as expected
                     if (stop.busstop != nullptr) {
                         // let the bus stop know the vehicle
-                        stop.busstop->enter(this, stop.pars.parking);
+                        stop.busstop->enter(this, (stop.pars.parking == "true")? true : false);
                     }
                     if (stop.containerstop != nullptr) {
                         // let the container stop know the vehicle
-                        stop.containerstop->enter(this, stop.pars.parking);
+                        stop.containerstop->enter(this, (stop.pars.parking == "true")? true : false);
                     }
                     // do not enter parkingarea!
                     if (stop.chargingStation != nullptr) {
                         // let the container stop know the vehicle
-                        stop.chargingStation->enter(this, stop.pars.parking);
+                        stop.chargingStation->enter(this, (stop.pars.parking == "true")? true : false);
                     }
                 }
                 resumeFromStopping();
@@ -6141,7 +6141,7 @@ MSVehicle::setBlinkerInformation() {
         if (myStops.begin()->lane->getIndex() > 0 && myStops.begin()->lane->getParallelLane(-1)->allowsVehicleClass(getVClass())) {
             // not stopping on the right. Activate emergency blinkers
             switchOnSignal(VEH_SIGNAL_BLINKER_LEFT | VEH_SIGNAL_BLINKER_RIGHT);
-        } else if (!myStops.begin()->reached && myStops.begin()->pars.parking) {
+        } else if (!myStops.begin()->reached && (myStops.begin()->pars.parking == "true")) {
             // signal upcoming parking stop on the current lane when within braking distance (~2 seconds before braking)
             switchOnSignal(MSGlobals::gLefthand ? VEH_SIGNAL_BLINKER_LEFT : VEH_SIGNAL_BLINKER_RIGHT);
         }
