@@ -491,7 +491,7 @@ def generateEdgedataAddFile(EDGEDATA_ADD, options):
             get_dumpfilename(options, -1, "dump", False),
             vTypes), file=fd)
         if options.eco_measure:
-            print(('    <edgeData id="eco_%s" type="hbefa" freq="%s" file="%s" ' +
+            print(('    <edgeData id="eco_%s" type="emissions" freq="%s" file="%s" ' +
                    'excludeEmpty="true" minSamples="1"%s/>') % (
                        options.aggregation,
                        options.aggregation,
