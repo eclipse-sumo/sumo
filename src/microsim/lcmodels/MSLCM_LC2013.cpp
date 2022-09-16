@@ -2171,6 +2171,15 @@ MSLCM_LC2013::setParameter(const std::string& key, const std::string& value) {
         myMaxSpeedLatFactor = doubleValue;
     } else if (key == toString(SUMO_ATTR_LCA_MAXDISTLATSTANDING)) {
         myMaxDistLatStanding = doubleValue;
+    // access to internal state
+    } else if (key == "speedGainProbabilityRight") {
+        mySpeedGainProbability = -doubleValue;
+    } else if (key == "speedGainProbabilityLeft") {
+        mySpeedGainProbability = doubleValue;
+    } else if (key == "keepRightProbability") {
+        myKeepRightProbability = -doubleValue;
+    } else if (key == "lookAheadSpeed") {
+        myLookAheadSpeed = doubleValue;
     } else {
         throw InvalidArgument("Setting parameter '" + key + "' is not supported for laneChangeModel of type '" + toString(myModel) + "'");
     }
