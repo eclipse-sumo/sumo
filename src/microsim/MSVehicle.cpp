@@ -1458,9 +1458,13 @@ MSVehicle::getBackPosition() const {
                 std::cout << "    getBackPosition veh=" << getID() << " myLane=" << myLane->getID() << " further=" << toString(myFurtherLanes) << " myFurtherLanesPosLat=" << toString(myFurtherLanesPosLat) << "\n";
             }
 #endif
-            return myFurtherLanes.size() > 0 && !myLaneChangeModel->isChangingLanes()
-                   ? myFurtherLanes.back()->geometryPositionAtOffset(getBackPositionOnLane(myFurtherLanes.back()), -myFurtherLanesPosLat.back() * (MSGlobals::gLefthand ? -1 : 1))
-                   : myLane->geometryPositionAtOffset(0, posLat);
+            if (myFurtherLanes.size() > 0 && !myLaneChangeModel->isChangingLanes()) {
+                // truncate to 0 if vehicle starts on an edge that is shorter than it's length
+                const double backPos = MAX2(0.0, getBackPositionOnLane(myFurtherLanes.back()));
+                return myFurtherLanes.back()->geometryPositionAtOffset(backPos, -myFurtherLanesPosLat.back() * (MSGlobals::gLefthand ? -1 : 1));
+            } else {
+                return myLane->geometryPositionAtOffset(0, posLat);
+            }
         }
     }
 }
