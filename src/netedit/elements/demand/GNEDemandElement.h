@@ -232,6 +232,9 @@ public:
     /// @brief mark element as front element
     void markAsFrontElement();
 
+    /// @brief delete element
+    void deleteElement();
+
     /// @brief update GLObject (geometry, ID, etc.)
     void updateGLObject();
 

@@ -226,6 +226,12 @@ GNEDemandElement::markAsFrontElement() {
 }
 
 
+void 
+GNEDemandElement::deleteElement() {
+    myNet->deleteDemandElement(this, myNet->getViewNet()->getUndoList());
+}
+
+
 void
 GNEDemandElement::updateGLObject() {
     updateGeometry();

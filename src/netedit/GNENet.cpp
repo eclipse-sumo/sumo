@@ -323,6 +323,47 @@ GNENet::createEdge(GNEJunction* src, GNEJunction* dest, GNEEdge* edgeTemplate, G
 }
 
 
+void 
+GNENet::deleteNetworkElement(GNENetworkElement* networkElement, GNEUndoList* undoList) {
+    if (networkElement->getTagProperty().getTag() == SUMO_TAG_JUNCTION) {
+        // get junction (note: could be already removed if is a child, then hardfail=false)
+        GNEJunction* junction = myAttributeCarriers->retrieveJunction(networkElement->getID(), false);
+        // if exist, remove it
+        if (junction) {
+            deleteJunction(junction, undoList);
+        }
+    } else if (networkElement->getTagProperty().getTag() == SUMO_TAG_CROSSING) {
+        // get crossing (note: could be already removed if is a child, then hardfail=false)
+        GNECrossing* crossing = myAttributeCarriers->retrieveCrossing(networkElement, false);
+        // if exist, remove it
+        if (crossing) {
+            deleteCrossing(crossing, undoList);
+        }
+    } else if (networkElement->getTagProperty().getTag() == SUMO_TAG_EDGE) {
+        // get edge (note: could be already removed if is a child, then hardfail=false)
+        GNEEdge* edge = myAttributeCarriers->retrieveEdge(networkElement->getID(), false);
+        // if exist, remove it
+        if (edge) {
+            deleteEdge(edge, undoList, false);
+        }
+    } else if (networkElement->getTagProperty().getTag() == SUMO_TAG_LANE) {
+        // get lane (note: could be already removed if is a child, then hardfail=false)
+        GNELane* lane = myAttributeCarriers->retrieveLane(networkElement, false);
+        // if exist, remove it
+        if (lane) {
+            deleteLane(lane, undoList, false);
+        }
+    } else if (networkElement->getTagProperty().getTag() == SUMO_TAG_CONNECTION) {
+        // get connection (note: could be already removed if is a child, then hardfail=false)
+        GNEConnection* connection = myAttributeCarriers->retrieveConnection(networkElement, false);
+        // if exist, remove it
+        if (connection) {
+            deleteConnection(connection, undoList);
+        }
+    }
+}
+
+
 void
 GNENet::deleteJunction(GNEJunction* junction, GNEUndoList* undoList) {
     // we have to delete all incident edges because they cannot exist without that junction

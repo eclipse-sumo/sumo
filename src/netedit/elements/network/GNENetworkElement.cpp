@@ -109,6 +109,12 @@ GNENetworkElement::markAsFrontElement() {
 }
 
 
+void 
+GNENetworkElement::deleteElement() {
+    myNet->deleteNetworkElement(this, myNet->getViewNet()->getUndoList());
+}
+
+
 std::string
 GNENetworkElement::getPopUpID() const {
     if (myTagProperty.getTag() == SUMO_TAG_CONNECTION) {

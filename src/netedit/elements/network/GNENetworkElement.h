@@ -132,6 +132,9 @@ public:
     /// @brief mark element as front element
     void markAsFrontElement();
 
+    /// @brief delete element
+    void deleteElement();
+
     /// @}
 
     /// @name inherited from GNEAttributeCarrier

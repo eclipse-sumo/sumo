@@ -199,8 +199,14 @@ GUIGlObject::getTypeParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& par
 }
 
 
-void 
+void
 GUIGlObject::markAsFrontElement() {
+    // by default nothing to do
+}
+
+
+void
+GUIGlObject::deleteElement() {
     // by default nothing to do
 }
 

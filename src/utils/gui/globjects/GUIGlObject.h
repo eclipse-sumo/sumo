@@ -183,6 +183,9 @@ public:
     /// @brief mark element as front element (Currently used only in NETEDIT)
     virtual void markAsFrontElement();
 
+    /// @brief delete element (Currently used only in NETEDIT)
+    virtual void deleteElement();
+
     /// @brief update GLObject (geometry, ID, etc.) (optional)
     virtual void updateGLObject();
 

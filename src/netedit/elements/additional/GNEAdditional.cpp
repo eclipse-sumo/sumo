@@ -202,9 +202,15 @@ GNEAdditional::getOptionalAdditionalName() const {
 }
 
 
-void 
+void
 GNEAdditional::markAsFrontElement() {
     myNet->getViewNet()->setFrontAttributeCarrier(this);
+}
+
+
+void
+GNEAdditional::deleteElement() {
+    myNet->deleteAdditional(this, myNet->getViewNet()->getUndoList());
 }
 
 
