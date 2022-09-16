@@ -478,9 +478,10 @@ def calcMarginalCost(step, options):
 
         if DEBUGLOG:
             log.close()
-            
+
+
 def generateEdgedataAddFile(EDGEDATA_ADD, options):
-    #write detectorfile
+    """write detectorfile"""
     with open(EDGEDATA_ADD, 'w') as fd:
         vTypes = ' vTypes="%s"' % ' '.join(options.measureVTypes.split(',')) if options.measureVTypes else ""
         print("<a>", file=fd)
@@ -498,6 +499,7 @@ def generateEdgedataAddFile(EDGEDATA_ADD, options):
                        vTypes), file=fd)
         print("</a>", file=fd)
     fd.close()
+
 
 def main(args=None):
     argParser = initOptions()
@@ -568,7 +570,7 @@ def main(args=None):
             dumpfile = get_dumpfilename(options, step, "dump")
             print(">>> Loading %s" % dumpfile)
             costmemory.load_costs(dumpfile, step, get_scale(options, step))
-    
+
     # generate edgedata.add.xml
     generateEdgedataAddFile(EDGEDATA_ADD, options)
 

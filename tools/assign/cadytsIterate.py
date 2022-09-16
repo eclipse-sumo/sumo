@@ -129,7 +129,7 @@ def main():
                            "-mincountstddev", options.mincountstddev, "-overridett", options.overridett,
                            "-clonepostfix", options.clonepostfix, "-cntfirstlink", options.cntfirstlink,
                            "-cntlastlink", options.cntlastlink], log)
-    # 
+    #
     generateEdgedataAddFile(EDGEDATA_ADD, options)
     for step in range(options.calibStep):
         print('calibration step:', step)

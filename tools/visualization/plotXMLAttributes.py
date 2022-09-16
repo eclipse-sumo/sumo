@@ -49,6 +49,7 @@ from sumolib.options import ArgumentParser, RawDescriptionHelpFormatter  # noqa
 
 RANK_ATTR = "@RANK"
 
+
 def getOptions(args=None):
     optParser = ArgumentParser(
       description='Plot arbitrary attributes from xml files',

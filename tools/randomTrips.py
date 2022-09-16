@@ -315,7 +315,7 @@ class RandomTripGenerator:
         for min_dist in [min_distance, min_dist_fringe]:
             if min_dist is None:
                 break
-            for _ in range(maxtries):   
+            for _ in range(maxtries):
                 source_edge = self.source_generator.get()
                 intermediate = [self.via_generator.get() for __ in range(self.intermediate)]
                 sink_edge = self.sink_generator.get()
@@ -327,7 +327,7 @@ class RandomTripGenerator:
                 else:
                     destCoord = sink_edge.getToNode().getCoord()
                 coords = ([source_edge.getFromNode().getCoord()] +
-                        [e.getFromNode().getCoord() for e in intermediate] +
+                          [e.getFromNode().getCoord() for e in intermediate] +
                         [destCoord])
                 distance = sum([euclidean(p, q)
                                 for p, q in zip(coords[:-1], coords[1:])])
