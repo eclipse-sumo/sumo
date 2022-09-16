@@ -19,6 +19,8 @@ licensing (especially concerning the "extra" build which contains GPL code to su
 <li>64-bit zip with all extras (contains GPL code): <a class="no-arrow-link" href="https://sumo.dlr.de/releases/{{Version}}/sumo-win64extra-{{Version}}.zip">sumo-win64extra-{{Version}}.zip</a><?php getInfo("sumo-win64extra-{{Version}}.zip","r",false);?></li>
 </ul>
 
+SUMO is also available via winget so `winget install --name sumo` should give you the latest release (but not the extra version).
+
 ### SUMO-Game
 
 <ul><li>Windows binaries: <a class="no-arrow-link" href="https://sumo.dlr.de/releases/{{Version}}/sumo-game-{{Version}}.zip">sumo-game-{{Version}}.zip</a><?php getInfo("sumo-game-{{Version}}.zip","r",false);?></li></ul>
