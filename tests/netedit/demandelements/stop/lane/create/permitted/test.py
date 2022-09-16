@@ -50,13 +50,13 @@ netedit.leftClick(referencePosition, 400, 185)
 netedit.changeDefaultValue(netedit.attrs.stopLane.create.permitted, "")
 
 # try to create stop
-netedit.leftClick(referencePosition, 400, 185)
+netedit.leftClick(referencePosition, 405, 185)
 
 # set valid value
 netedit.changeDefaultValue(netedit.attrs.stopLane.create.permitted, "ID1 ID2 ID3")
 
 # create stop
-netedit.leftClick(referencePosition, 400, 185)
+netedit.leftClick(referencePosition, 410, 185)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)

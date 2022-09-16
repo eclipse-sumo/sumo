@@ -50,13 +50,13 @@ netedit.leftClick(referencePosition, 290, 155)
 netedit.changeDefaultValue(netedit.attrs.waypointParking.create.expected, ";;;;;;;;;;")
 
 # try to create waypoint
-netedit.leftClick(referencePosition, 290, 155)
+netedit.leftClick(referencePosition, 300, 155)
 
 # set invalid value
 netedit.changeDefaultValue(netedit.attrs.waypointParking.create.expected, "")
 
 # try to create waypoint
-netedit.leftClick(referencePosition, 290, 155)
+netedit.leftClick(referencePosition, 305, 155)
 
 # set valid value
 netedit.changeDefaultValue(netedit.attrs.waypointParking.create.expected,
