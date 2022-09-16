@@ -2041,10 +2041,10 @@ class stop:
         expected = 14
         permitted = 14
         parking = 15
-        actType = 16
-        tripID = 17
-        line = 18
-        onDemad = 19
+        actType = 17
+        tripID = 18
+        line = 19
+        onDemad = 20
 
     class inspect:
         durationEnable = 1
@@ -2057,10 +2057,10 @@ class stop:
         expected = 7
         permitted = 7
         parking = 8
-        actType = 9
-        tripID = 10
-        line = 11
-        onDemad = 12
+        actType = 10
+        tripID = 11
+        line = 12
+        onDemad = 13
 
     class inspectSelection:
         durationEnable = 1
@@ -2144,10 +2144,10 @@ class stopLane:
         expected = 16
         permitted = 16
         parking = 17
-        actType = 18
-        tripID = 19
-        line = 20
-        onDemad = 21
+        actType = 19
+        tripID = 20
+        line = 21
+        onDemad = 22
 
     class inspect:
         lane = 1
@@ -2165,10 +2165,10 @@ class stopLane:
         expected = 12
         permitted = 12
         parking = 13
-        actType = 14
-        tripID = 15
-        line = 16
-        onDemad = 17
+        actType = 15
+        tripID = 16
+        line = 17
+        onDemad = 18
 
     class inspectSelection:
         friendlyPos = 1
@@ -2203,10 +2203,10 @@ class waypoint:
         expected = 14
         permitted = 14
         parking = 15
-        actType = 16
-        tripID = 17
-        line = 18
-        speed = 19
+        actType = 17
+        tripID = 18
+        line = 19
+        speed = 20
 
     class inspect:
         durationEnable = 1
@@ -2219,10 +2219,10 @@ class waypoint:
         expected = 7
         permitted = 7
         parking = 8
-        actType = 9
-        tripID = 10
-        line = 11
-        speed = 12
+        actType = 10
+        tripID = 11
+        line = 12
+        speed = 13
 
     class inspectSelection:
         durationEnable = 1
@@ -2306,10 +2306,10 @@ class waypointLane:
         expected = 16
         permitted = 16
         parking = 17
-        actType = 18
-        tripID = 19
-        line = 20
-        speed = 21
+        actType = 19
+        tripID = 20
+        line = 21
+        speed = 22
 
     class inspect:
         lane = 1
@@ -2327,10 +2327,10 @@ class waypointLane:
         expected = 12
         permitted = 12
         parking = 13
-        actType = 14
-        tripID = 15
-        line = 16
-        speed = 17
+        actType = 15
+        tripID = 16
+        line = 17
+        speed = 18
 
     class inspectSelection:
         friendlyPos = 1
