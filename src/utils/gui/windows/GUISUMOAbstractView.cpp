@@ -1137,6 +1137,7 @@ GUISUMOAbstractView::openObjectDialogAtCursor(const FXEvent* ev) {
         // filter elements
         std::vector<GUIGlObject*> filteredObjectsUnderCursor;
         std::vector<GUIGlObject*> filteredVehiclesUnderCursor;
+        std::vector<GUIGlObject*> filteredTLSUnderCursor;
         for (const auto &GLObject : objectsUnderCursor) {
             if (GLObject->getType() == GLO_EDGE) {
                 // avoid edges
@@ -1158,6 +1159,10 @@ GUISUMOAbstractView::openObjectDialogAtCursor(const FXEvent* ev) {
                 // filter vehicles, person and containers
                 filteredVehiclesUnderCursor.push_back(GLObject);
             }
+            if (GLObject->getType() == GLO_TLLOGIC) {
+                // filter TLSs
+                filteredTLSUnderCursor.push_back(GLObject);
+            }
             filteredObjectsUnderCursor.push_back(GLObject);
         }
         if (filteredObjectsUnderCursor.empty()) {
@@ -1169,6 +1174,9 @@ GUISUMOAbstractView::openObjectDialogAtCursor(const FXEvent* ev) {
         } else if (filteredVehiclesUnderCursor.size() > 0) {
             // inspect only vehicles
             openObjectDialog(filteredVehiclesUnderCursor);
+        } else if (filteredTLSUnderCursor.size() > 0) {
+            // inspect only TLSs
+            openObjectDialog(filteredTLSUnderCursor);
         } else {
             // inspect first object under cursor
             openObjectDialog({filteredObjectsUnderCursor.front()});
