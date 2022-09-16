@@ -526,10 +526,22 @@ GNEViewNet::openObjectDialogAtCursor(const FXEvent* /*ev*/) {
                 overlappedElement = myInspectedAttributeCarriers.front()->getGUIGlObject();
                 filteredGLObjects.push_back(overlappedElement);
             }
+            bool connections = false;
             // fill filtered objects
             for (const auto &glObject : GLObjects) {
                 if ((glObject->getType() != GLO_EDGE) && (glObject != overlappedElement)) {
                     filteredGLObjects.push_back(glObject);
+                }
+                if (glObject->getType() == GLO_CONNECTION) {
+                    connections = true;
+                }
+            }
+            // filter junctions if there are connections
+            if (connections) {
+                for (auto it = filteredGLObjects.begin(); it != filteredGLObjects.end(); it++) {
+                    if ((*it)->getType() == GLO_JUNCTION) {
+                        it = filteredGLObjects.erase(it);
+                    }
                 }
             }
             openObjectDialog(filteredGLObjects);
