@@ -77,18 +77,18 @@ def getParams(vClass, prefix=None):
 
 
 vehicleParameters = {
-    "passenger":   CP + getParams("passenger", "veh") + ["--min-distance", "300", "--min-distance.fringe", "10",    # noqua  
-                                                         "--allow-fringe.min-length", "1000", "--lanes"],           # noqua
-    "truck":       CP + getParams("truck")            + ["--min-distance", "600", "--min-distance.fringe", "10"],   # noqua
-    "bus":         CP + getParams("bus")              + ["--min-distance", "600", "--min-distance.fringe", "10"],   # noqua
-    "motorcycle":  CP + getParams("motorcycle")       + ["--max-distance", "1200"],                                 # noqua
-    "bicycle":     CP + getParams("bicycle", "bike")  + ["--max-distance", "8000"],                                 # noqua
-    "tram":        CP + getParams("tram")             + ["--min-distance", "1200", "--min-distance.fringe", "10"],  # noqua
-    "rail_urban":  CP + getParams("rail_urban")       + ["--min-distance", "1800", "--min-distance.fringe", "10"],  # noqua
-    "rail":        CP + getParams("rail")             + ["--min-distance", "2400", "--min-distance.fringe", "10"],  # noqua
-    "ship":             getParams("ship") + ["--fringe-start-attributes", 'departSpeed="max"', "--validate"],       # noqua
-    "pedestrian":  PP + ["--pedestrians", "--max-distance", "2000"],                                                # noqua
-    "persontrips": PP + ["--persontrips", "--trip-attributes", 'modes="public"'],                                   # noqua
+    "passenger":   CP + getParams("passenger", "veh") + ["--min-distance", "300", "--min-distance.fringe", "10",
+                                                         "--allow-fringe.min-length", "1000", "--lanes"],
+    "truck":       CP + getParams("truck")            + ["--min-distance", "600", "--min-distance.fringe", "10"],   # noqa
+    "bus":         CP + getParams("bus")              + ["--min-distance", "600", "--min-distance.fringe", "10"],   # noqa
+    "motorcycle":  CP + getParams("motorcycle")       + ["--max-distance", "1200"],                                 # noqa
+    "bicycle":     CP + getParams("bicycle", "bike")  + ["--max-distance", "8000"],                                 # noqa
+    "tram":        CP + getParams("tram")             + ["--min-distance", "1200", "--min-distance.fringe", "10"],  # noqa
+    "rail_urban":  CP + getParams("rail_urban")       + ["--min-distance", "1800", "--min-distance.fringe", "10"],  # noqa
+    "rail":        CP + getParams("rail")             + ["--min-distance", "2400", "--min-distance.fringe", "10"],  # noqa
+    "ship":             getParams("ship") + ["--fringe-start-attributes", 'departSpeed="max"', "--validate"],
+    "pedestrian":  PP + ["--pedestrians", "--max-distance", "2000"],
+    "persontrips": PP + ["--persontrips", "--trip-attributes", 'modes="public"'],
 }
 
 vehicleNames = {
