@@ -3005,7 +3005,9 @@ NBNode::buildWalkingAreas(int cornerDetail, double joinMinDist) {
         } else {
             if ((l.permissions & SVC_PEDESTRIAN) == 0
                     || crossingBetween(edge, prevEdge)
-                    || alreadyConnectedPaths(edge, prevEdge, joinMinDist)) {
+                    || alreadyConnectedPaths(edge, prevEdge, joinMinDist)
+                    || crossesFringe(edge, prevEdge)
+                    ) {
                 waIndices.push_back(std::make_pair(start, i - start));
                 if ((l.permissions & SVC_PEDESTRIAN) != 0) {
                     start = i;
@@ -3030,11 +3032,12 @@ NBNode::buildWalkingAreas(int cornerDetail, double joinMinDist) {
         } else {
             if (waIndices.front().first == 0) {
                 NBEdge* edge = normalizedLanes.front().first;
-                if (crossingBetween(edge, normalizedLanes.back().first)) {
-                    // do not wrap-around if there is a crossing in between
+                if (crossingBetween(edge, normalizedLanes.back().first)
+                        || crossesFringe(edge, normalizedLanes.back().first)) {
+                    // do not wrap-around (see above)
                     waIndices.push_back(std::make_pair(start, waNumLanes));
                     if (gDebugFlag1) {
-                        std::cout << "  do not wrap around, turn-around in between\n";
+                        std::cout << "  do not wrap around\n";
                     }
                 } else {
                     // first walkingArea wraps around
@@ -3421,6 +3424,14 @@ NBNode::alreadyConnectedPaths(const NBEdge* e1, const NBEdge* e2, double dist) c
     NBNode* other1 = e1->getFromNode() == this ? e1->getToNode() : e1->getFromNode();
     NBNode* other2 = e2->getFromNode() == this ? e2->getToNode() : e2->getFromNode();
     return other1 == other2;
+}
+
+
+bool
+NBNode::crossesFringe(const NBEdge* e1, const NBEdge* e2) const {
+    return myFringeType != FringeType::DEFAULT
+        && myIncomingEdges.size() == 1 && myOutgoingEdges.size() == 1
+        && (e1->isTurningDirectionAt(e2) || e2->isTurningDirectionAt(e1));
 }
 
 
