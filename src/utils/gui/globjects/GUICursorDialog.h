@@ -56,7 +56,10 @@ public:
 
     /// @brief set front element
     long onCmdSetFrontElement(FXObject*, FXSelector, void*);
-
+    
+    /// @brief delete element
+    long onCmdDeleteElement(FXObject*, FXSelector, void*);
+    
     /// @brief open properties popUp
     long onCmdOpenPropertiesPopUp(FXObject*, FXSelector, void*);
 

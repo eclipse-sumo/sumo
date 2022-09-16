@@ -37,6 +37,7 @@
 
 FXDEFMAP(GUICursorDialog) GUICursorDialogMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_CURSORDIALOG_SETFRONTELEMENT,   GUICursorDialog::onCmdSetFrontElement),
+    FXMAPFUNC(SEL_COMMAND,  MID_CURSORDIALOG_DELETEELEMENT,     GUICursorDialog::onCmdDeleteElement),
     FXMAPFUNC(SEL_COMMAND,  MID_CURSORDIALOG_PROPERTIES,        GUICursorDialog::onCmdOpenPropertiesPopUp),
     FXMAPFUNC(SEL_COMMAND,  MID_CURSORDIALOG_MOVEUP,            GUICursorDialog::onCmdMoveListUp),
     FXMAPFUNC(SEL_COMMAND,  MID_CURSORDIALOG_MOVEDOWN,          GUICursorDialog::onCmdMoveListDown),
@@ -111,6 +112,19 @@ GUICursorDialog::onCmdSetFrontElement(FXObject* obj, FXSelector, void*) {
     return 1;
 }
 
+
+long
+GUICursorDialog::onCmdDeleteElement(FXObject* obj, FXSelector, void*) {
+    // search element in myGLObjects
+    for (const auto &GLObject : myMenuCommandGLObjects) {
+        if (GLObject.first == obj) {
+            GLObject.second->deleteElement();
+        }
+    }
+    // destroy popup
+    myView->destroyPopup();
+    return 1;
+}
 
 long 
 GUICursorDialog::onCmdOpenPropertiesPopUp(FXObject* obj, FXSelector, void*) {
