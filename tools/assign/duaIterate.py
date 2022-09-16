@@ -313,7 +313,7 @@ def writeSUMOConf(sumoBinary, step, options, additional_args, route_files):
     if hasattr(options, "noTripinfo") and not options.noTripinfo:
         sumoCmd += ['--tripinfo-output', "tripinfo_%03i.xml" % step]
         if options.eco_measure:
-            sumoCmd += ['--device.hbefa.probability', '1']
+            sumoCmd += ['--device.emissions.probability', '1']
     if hasattr(options, "routefile"):
         if options.routefile == "routesonly":
             sumoCmd += ['--vehroute-output', "vehroute_%03i.xml" % step,
@@ -495,7 +495,7 @@ def generateEdgedataAddFile(EDGEDATA_ADD, options):
                    'excludeEmpty="true" minSamples="1"%s/>') % (
                        options.aggregation,
                        options.aggregation,
-                       get_dumpfilename(options, step, "dump", False),
+                       get_dumpfilename(options, -1, "dump", False),
                        vTypes), file=fd)
         print("</a>", file=fd)
     fd.close()
