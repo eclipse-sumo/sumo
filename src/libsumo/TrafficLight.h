@@ -73,7 +73,7 @@ public:
 
     static std::vector<libsumo::TraCISignalConstraint> swapConstraints(const std::string& tlsID, const std::string& tripId, const std::string& foeSignal, const std::string& foeId);
     static void removeConstraints(const std::string& tlsID, const std::string& tripId, const std::string& foeSignal, const std::string& foeId);
-    static void updateConstraints(const std::string& vehID, std::string tripId);
+    static void updateConstraints(const std::string& vehID, std::string tripId = "");
 
     // aliases for backward compatibility
     inline static std::vector<libsumo::TraCILogic> getCompleteRedYellowGreenDefinition(const std::string& tlsID) {
