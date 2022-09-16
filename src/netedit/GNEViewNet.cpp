@@ -699,6 +699,12 @@ GNEViewNet::setStatusBarText(const std::string& text) {
 }
 
 
+void 
+GNEViewNet::resetLastClickedPosition() {
+    myLastClickedPosition = Position::INVALID;
+}
+
+
 bool
 GNEViewNet::autoSelectNodes() {
     if (myLockManager.isObjectLocked(GLO_JUNCTION, false)) {
@@ -1068,8 +1074,6 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
     updateCursor();
     // update view
     updateViewNet();
-    // save last mouse position
-    myLastClickedPosition = getPositionInformation();
     return 1;
 }
 
@@ -5236,6 +5240,8 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
                 if ((getPositionInformation() == myLastClickedPosition) && !myMouseButtonKeyPressed.shiftKeyPressed()) {
                     WRITE_WARNING("Shift + click to create two additionals in the same position");
                 } else if (myViewParent->getAdditionalFrame()->addAdditional(myObjectsUnderCursor)) {
+                    // save last mouse position
+                    myLastClickedPosition = getPositionInformation();
                     // update view to show the new additional
                     updateViewNet();
                 }
@@ -5493,8 +5499,11 @@ GNEViewNet::processLeftButtonPressDemand(void* eventData) {
             // Handle click
             if ((getPositionInformation() == myLastClickedPosition) && !myMouseButtonKeyPressed.controlKeyPressed()) {
                 WRITE_WARNING("Control + click to create two stop in the same position");
-            } else {
-                myViewParent->getStopFrame()->addStop(myObjectsUnderCursor, myMouseButtonKeyPressed);
+            } else if (myViewParent->getStopFrame()->addStop(myObjectsUnderCursor, myMouseButtonKeyPressed)) {
+                // save last mouse position
+                myLastClickedPosition = getPositionInformation();
+                // update view to show the new additional
+                updateViewNet();
             }
             // process click
             processClick(eventData);

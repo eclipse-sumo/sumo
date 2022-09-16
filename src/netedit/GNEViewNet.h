@@ -498,6 +498,9 @@ public:
     /// @brief set statusBar text
     void setStatusBarText(const std::string& text);
 
+    /// @brief reset last clicked position
+    void resetLastClickedPosition();
+
     /// @brief whether to autoselect nodes or to lanes
     bool autoSelectNodes();
 
@@ -644,7 +647,7 @@ private:
     bool myDrawPreviewRoundabout = false;
 
     /// @brief last clicked position
-    Position myLastClickedPosition;
+    Position myLastClickedPosition = Position::INVALID;
 
     /// @brief create edit mode buttons and elements
     void buildEditModeControls();
