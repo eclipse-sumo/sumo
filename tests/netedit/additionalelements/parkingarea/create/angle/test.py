@@ -50,19 +50,19 @@ netedit.leftClick(referencePosition, 220, 250)
 netedit.changeDefaultValue(netedit.attrs.parkingArea.create.angle, "-4")
 
 # create parkingArea in mode "reference left"
-netedit.leftClick(referencePosition, 220, 250)
+netedit.leftClick(referencePosition, 230, 250)
 
 # set valid angle (>360)
 netedit.changeDefaultValue(netedit.attrs.parkingArea.create.angle, "500")
 
 # create parkingArea in mode "reference left"
-netedit.leftClick(referencePosition, 220, 250)
+netedit.leftClick(referencePosition, 240, 250)
 
 # set valid angle
 netedit.changeDefaultValue(netedit.attrs.parkingArea.create.angle, "120")
 
 # create parkingArea in mode "reference left"
-netedit.leftClick(referencePosition, 220, 250)
+netedit.leftClick(referencePosition, 250, 250)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)

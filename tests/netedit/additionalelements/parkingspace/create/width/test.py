@@ -51,19 +51,19 @@ netedit.leftClick(referencePosition, 231, 83)
 netedit.changeDefaultValue(netedit.attrs.parkingSpace.create.width, "")
 
 # try to create area
-netedit.leftClick(referencePosition, 231, 83)
+netedit.leftClick(referencePosition, 241, 83)
 
 # set invalid width (negative)
 netedit.changeDefaultValue(netedit.attrs.parkingSpace.create.width, "-3")
 
 # try to create area
-netedit.leftClick(referencePosition, 231, 83)
+netedit.leftClick(referencePosition, 251, 83)
 
 # set valid width
 netedit.changeDefaultValue(netedit.attrs.parkingSpace.create.width, "2.5")
 
 # create area
-netedit.leftClick(referencePosition, 231, 83)
+netedit.leftClick(referencePosition, 261, 83)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)
