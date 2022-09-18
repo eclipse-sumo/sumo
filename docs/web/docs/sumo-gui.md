@@ -1000,7 +1000,7 @@ output or in error messages. The following visualization settings are
 helpful:
 
 - Junction settings:
-  - disable *draw junction shape*
+  - disable *draw junction shape* (toggle with hotkey CTRL+J)
   - *show internal edge name*
   - *show internal junction name*
   - *show link junction index* (to see the correspondence between IDs and link indices)
