@@ -258,6 +258,9 @@ MSFrame::fillOptions() {
     oc.doRegister("vehroute-output.speedfactor", new Option_Bool(false));
     oc.addDescription("vehroute-output.speedfactor", "Output", "Write the vehicle speedFactor (defaults to 'true' if departSpeed is written)");
 
+    oc.doRegister("vehroute-output.internal", new Option_Bool(false));
+    oc.addDescription("vehroute-output.internal", "Output", "Include internal edges in the output");
+
     oc.doRegister("personroute-output", new Option_FileName());
     oc.addSynonyme("personroute-output", "personroutes");
     oc.addDescription("personroute-output", "Output", "Save person and container routes to separate FILE");
