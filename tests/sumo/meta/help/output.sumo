@@ -1,4 +1,4 @@
-Eclipse SUMO sumo Version v1_14_1+0745-c651c77
+Eclipse SUMO sumo Version v1_14_1+1108-3e52c8e
  Copyright (C) 2001-2022 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -132,6 +132,7 @@ Output Options:
                                         stops
   --vehroute-output.speedfactor        Write the vehicle speedFactor (defaults
                                         to 'true' if departSpeed is written)
+  --vehroute-output.internal           Include internal edges in the output
   --personroute-output FILE            Save person and container routes to
                                         separate FILE
   --link-output FILE                   Save links states into FILE
