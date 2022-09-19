@@ -25,6 +25,7 @@
 #include <netedit/GNEViewParent.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/frames/common/GNEInspectorFrame.h>
+#include <netedit/frames/common/GNEDeleteFrame.h>
 #include <netedit/frames/network/GNETLSEditorFrame.h>
 #include <netedit/frames/network/GNEAdditionalFrame.h>
 #include <netedit/frames/demand/GNERouteFrame.h>
@@ -647,6 +648,15 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
         drawChildren(s);
         // draw path additional elements
         myNet->getPathManager()->drawLanePathElements(s, this);
+    }
+}
+
+
+void
+GNELane::deleteGLObject() {
+    // Check if edge can be deleted
+    if (GNEDeleteFrame::SubordinatedElements(this).checkElements(myNet->getViewNet()->getViewParent()->getDeleteFrame()->getProtectElements())) {
+        myNet->deleteLane(this, myNet->getViewNet()->getUndoList(), false);
     }
 }
 

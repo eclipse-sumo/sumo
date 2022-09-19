@@ -119,6 +119,12 @@ GNELaneType::drawGL(const GUIVisualizationSettings& /*s*/) const {
 
 
 void
+GNELaneType::deleteGLObject() {
+    myNet->deleteNetworkElement(this, myNet->getViewNet()->getUndoList());
+}
+
+
+void
 GNELaneType::updateGLObject() {
     updateGeometry();
 }

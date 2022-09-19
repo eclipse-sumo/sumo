@@ -151,8 +151,12 @@ public:
      */
     void drawGL(const GUIVisualizationSettings& s) const;
 
+    /// @brief delete element
+    void deleteGLObject();
+
     /// @brief update GLObject (geometry, ID, etc.)
     void updateGLObject();
+
     /// @}
 
     /// @brief returns the internal NBEdge

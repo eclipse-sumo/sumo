@@ -20,8 +20,10 @@
 #include <config.h>
 
 #include <utils/gui/div/GUIParameterTableWindow.h>
+#include <netedit/frames/common/GNEDeleteFrame.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewParent.h>
 
 #include "GNENetworkElement.h"
 
@@ -112,12 +114,6 @@ GNENetworkElement::isGLObjectLocked() {
 void
 GNENetworkElement::markAsFrontElement() {
     myNet->getViewNet()->setFrontAttributeCarrier(this);
-}
-
-
-void 
-GNENetworkElement::deleteGLObject() {
-    myNet->deleteNetworkElement(this, myNet->getViewNet()->getUndoList());
 }
 
 

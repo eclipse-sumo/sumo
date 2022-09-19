@@ -455,6 +455,15 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
 }
 
 
+void 
+GNEEdge::deleteGLObject() {
+    // Check if edge can be deleted
+    if (GNEDeleteFrame::SubordinatedElements(this).checkElements(myNet->getViewNet()->getViewParent()->getDeleteFrame()->getProtectElements())) {
+        myNet->deleteEdge(this, myNet->getViewNet()->getUndoList(), false);
+    }
+}
+
+
 void
 GNEEdge::updateGLObject() {
     updateGeometry();

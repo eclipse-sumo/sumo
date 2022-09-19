@@ -459,6 +459,12 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
 
 
 void
+GNEConnection::deleteGLObject() {
+    myNet->deleteNetworkElement(this, myNet->getViewNet()->getUndoList());
+}
+
+
+void
 GNEConnection::updateGLObject() {
     updateGeometry();
 }

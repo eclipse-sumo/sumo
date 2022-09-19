@@ -153,6 +153,12 @@ GNEWalkingArea::drawGL(const GUIVisualizationSettings& s) const {
 
 
 void
+GNEWalkingArea::deleteGLObject() {
+    // currently WalkingAreas cannot be removed
+}
+
+
+void
 GNEWalkingArea::updateGLObject() {
     updateGeometry();
 }

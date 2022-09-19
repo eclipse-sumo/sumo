@@ -206,6 +206,12 @@ GNEEdgeType::drawGL(const GUIVisualizationSettings& /*s*/) const {
 
 
 void
+GNEEdgeType::deleteGLObject() {
+    myNet->deleteNetworkElement(this, myNet->getViewNet()->getUndoList());
+}
+
+
+void
 GNEEdgeType::updateGLObject() {
     updateGeometry();
 }

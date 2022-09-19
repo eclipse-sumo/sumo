@@ -136,7 +136,7 @@ public:
     void markAsFrontElement();
 
     /// @brief delete element
-    void deleteGLObject();
+    virtual void deleteGLObject() = 0;
 
     /// @}
 

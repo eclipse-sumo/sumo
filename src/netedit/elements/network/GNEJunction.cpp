@@ -24,6 +24,7 @@
 #include <netbuild/NBLoadedSUMOTLDef.h>
 #include <netbuild/NBNetBuilder.h>
 #include <netbuild/NBOwnTLDef.h>
+#include <netedit/frames/common/GNEDeleteFrame.h>
 #include <netedit/frames/network/GNETLSEditorFrame.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
@@ -563,6 +564,15 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
             // draw dotted contours
             drawDottedContours(s, drawShape, drawBubble, junctionExaggeration, bubbleRadius);
         }
+    }
+}
+
+
+void
+GNEJunction::deleteGLObject() {
+    // Check if edge can be deleted
+    if (GNEDeleteFrame::SubordinatedElements(this).checkElements(myNet->getViewNet()->getViewParent()->getDeleteFrame()->getProtectElements())) {
+        myNet->deleteJunction(this, myNet->getViewNet()->getUndoList());
     }
 }
 

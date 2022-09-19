@@ -163,6 +163,12 @@ GNEInternalLane::drawGL(const GUIVisualizationSettings& s) const {
 
 
 void
+GNEInternalLane::deleteGLObject() {
+    // Internal lanes cannot be removed
+}
+
+
+void
 GNEInternalLane::updateGLObject() {
     updateGeometry();
 }
