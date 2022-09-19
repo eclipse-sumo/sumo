@@ -30,7 +30,7 @@
 #include <cmath>
 #include <iomanip>
 #include <utils/common/MsgHandler.h>
-#include <utils/common/StringTokenizer.h>>
+#include <utils/common/StringTokenizer.h>
 #include <utils/common/StringUtils.h>
 #include <utils/common/ToString.h>
 #include <utils/common/UtilExceptions.h>
