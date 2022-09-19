@@ -927,6 +927,10 @@ NBRailwayTopologyAnalyzer::addBidiEdgesForStops(NBEdgeCont& ec, NBPTLineCont& lc
         if (stops.size() < 2) {
             continue;
         }
+        if (!line->isConsistent(stops)) {
+            WRITE_WARNINGF("Edge sequence is not consistent with stop sequence in line '%', not adding bidi edges.", item.first);
+            continue;
+        }
         for (auto it = stops.begin(); it + 1 != stops.end(); ++it) {
             NBEdge* fromEdge = *it;
             NBEdge* toEdge = *(it + 1);

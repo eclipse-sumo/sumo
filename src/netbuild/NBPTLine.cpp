@@ -139,12 +139,16 @@ NBPTLine::setEdges(const std::vector<NBEdge*>& edges) {
     }
 }
 
+
 void NBPTLine::setMyNumOfStops(int numStops) {
     myNumOfStops = numStops;
 }
+
+
 const std::vector<NBEdge*>& NBPTLine::getRoute() const {
     return myRoute;
 }
+
 
 std::vector<NBEdge*>
 NBPTLine::getStopEdges(const NBEdgeCont& ec) const {
@@ -157,6 +161,7 @@ NBPTLine::getStopEdges(const NBEdgeCont& ec) const {
     }
     return result;
 }
+
 
 NBEdge*
 NBPTLine::getRouteStart(const NBEdgeCont& ec) const {
@@ -187,6 +192,7 @@ NBPTLine::getRouteStart(const NBEdgeCont& ec) const {
     return validEdges.front();
 }
 
+
 NBEdge*
 NBPTLine::getRouteEnd(const NBEdgeCont& ec) const {
     std::vector<NBEdge*> validEdges;
@@ -215,6 +221,25 @@ NBPTLine::getRouteEnd(const NBEdgeCont& ec) const {
     }
     return validEdges.back();
 }
+
+
+bool
+NBPTLine::isConsistent(const std::vector<NBEdge*>& stops) const {
+    if (myRoute.empty() || stops.empty()) {
+        return true;
+    }
+    std::vector<NBEdge*>::const_iterator stopIt = stops.begin();
+    for (const NBEdge* const e : myRoute) {
+        while (stopIt != stops.end() && e == *stopIt) {
+            ++stopIt;
+        }
+        if (stopIt == stops.end()) {
+            return true;
+        }
+    }
+    return false;
+}
+
 
 void
 NBPTLine::replaceStop(NBPTStop* oldStop, NBPTStop* newStop) {
