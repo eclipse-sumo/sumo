@@ -365,8 +365,21 @@ GNEDeleteFrame::removeAttributeCarrier(const GNEViewNetHelper::ObjectsUnderCurso
     myViewNet->getNet()->disableUpdateGeometry();
     // first check if there more than one clicked GL object under cursor
     if (objectsUnderCursor.getClickedGLObjects().size() > 1) {
-        // use Cursor dialog
-        myViewNet->openDeleteDialogAtCursor(objectsUnderCursor.getClickedGLObjects());
+        std::vector<GUIGlObject*> filteredGLObjects;
+        // filter objects
+        for (const auto &glObject : objectsUnderCursor.getClickedGLObjects()) {
+            if(glObject->isGLObjectLocked()) {
+                continue;
+            }
+            filteredGLObjects.push_back(glObject);
+        }
+        // after filter, check if there is more than one element
+        if (filteredGLObjects.size() > 1) {
+            // use Cursor dialog
+            myViewNet->openDeleteDialogAtCursor(filteredGLObjects);
+        } else if (objectsUnderCursor.getClickedGLObjects().size() > 0) {
+            filteredGLObjects.front()->deleteGLObject();
+        }
     } else if (objectsUnderCursor.getClickedGLObjects().size() > 0) {
         objectsUnderCursor.getClickedGLObjects().front()->deleteGLObject();
     }

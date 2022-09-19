@@ -107,7 +107,11 @@ GNENetworkElement::getCenteringBoundary() const {
 
 bool
 GNENetworkElement::isGLObjectLocked() {
-    return myNet->getViewNet()->getLockManager().isObjectLocked(getType(), isAttributeCarrierSelected());
+    if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
+        return myNet->getViewNet()->getLockManager().isObjectLocked(getType(), isAttributeCarrierSelected());
+    } else {
+        return true;
+    }
 }
 
 

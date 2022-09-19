@@ -222,7 +222,11 @@ GNEDemandElement::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
 
 bool 
 GNEDemandElement::isGLObjectLocked() {
-    return myNet->getViewNet()->getLockManager().isObjectLocked(getType(), isAttributeCarrierSelected());
+    if (myNet->getViewNet()->getEditModes().isCurrentSupermodeDemand()) {
+        return myNet->getViewNet()->getLockManager().isObjectLocked(getType(), isAttributeCarrierSelected());
+    } else {
+        return true;
+    }
 }
 
 

@@ -79,12 +79,7 @@ GUICursorDialog::GUICursorDialog(CursorDialogType cursorDialogType, GUISUMOAbstr
         }
         // create a menu command for every object
         for (const auto &GLObject : objects) {
-            auto menuCommand = GUIDesigns::buildFXMenuCommand(this, GLObject->getMicrosimID(), GLObject->getIcon(), this, MID_CURSORDIALOG_DELETEELEMENT);
-            // check if disable menuCommand
-            if (GLObject->isGLObjectLocked()) {
-                menuCommand->disable();
-            }
-            myMenuCommandGLObjects.push_back(std::make_pair(menuCommand, GLObject));
+            myMenuCommandGLObjects.push_back(std::make_pair(GUIDesigns::buildFXMenuCommand(this, GLObject->getMicrosimID(), GLObject->getIcon(), this, MID_CURSORDIALOG_DELETEELEMENT), GLObject));
         }
     } else if (cursorDialogType == CursorDialogType::FRONT_ELEMENT) {
         // create header
