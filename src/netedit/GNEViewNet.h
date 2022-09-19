@@ -112,6 +112,9 @@ public:
     /// @brief open object dialog
     void openObjectDialogAtCursor(const FXEvent* ev);
 
+    /// @brief open delete dialog at cursor
+    void openDeleteDialogAtCursor(const std::vector<GUIGlObject*> &GLObjects);
+
     // save visualization settings
     void saveVisualizationSettings() const;
 

@@ -554,6 +554,15 @@ GNEViewNet::openObjectDialogAtCursor(const FXEvent* /*ev*/) {
 
 
 void
+GNEViewNet::openDeleteDialogAtCursor(const std::vector<GUIGlObject*> &GLObjects) {
+    // create cursor popup dialog for mark front element
+    myPopup = new GUICursorDialog(GUICursorDialog::CursorDialogType::DELETE_ELEMENT, this, GLObjects);
+    // open popup dialog
+    openPopupDialog();
+}
+
+
+void
 GNEViewNet::saveVisualizationSettings() const {
     // first check if we have to save gui settings in a file (only used for testing purposes)
     OptionsCont& oc = OptionsCont::getOptions();
