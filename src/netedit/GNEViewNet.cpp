@@ -529,12 +529,14 @@ GNEViewNet::openObjectDialogAtCursor(const FXEvent* /*ev*/) {
             bool connections = false;
             // fill filtered objects
             for (const auto &glObject : GLObjects) {
-                if ((glObject->getType() != GLO_EDGE) && (glObject != overlappedElement)) {
-                    filteredGLObjects.push_back(glObject);
+                // always avoid edges
+                if (glObject->getType() == GLO_EDGE) {
+                    continue;
                 }
                 if (glObject->getType() == GLO_CONNECTION) {
                     connections = true;
                 }
+                filteredGLObjects.push_back(glObject);
             }
             // filter junctions if there are connections
             if (connections) {
