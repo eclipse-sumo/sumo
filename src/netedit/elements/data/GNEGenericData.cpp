@@ -161,6 +161,12 @@ GNEGenericData::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& /* p
 }
 
 
+void 
+GNEGenericData::deleteGLObject(){
+    myNet->deleteGenericData(this, myNet->getViewNet()->getUndoList());
+}
+
+
 void
 GNEGenericData::updateGLObject() {
     updateGeometry();
