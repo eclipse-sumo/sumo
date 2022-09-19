@@ -181,7 +181,7 @@ public:
     virtual void drawGL(const GUIVisualizationSettings& s) const = 0;
 
     /// @brief check if element is locked (Currently used only in NETEDIT)
-    virtual bool lockedGLObject();
+    virtual bool isGLObjectLocked();
 
     /// @brief mark element as front element (Currently used only in NETEDIT)
     virtual void markAsFrontElement();

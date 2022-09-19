@@ -221,7 +221,7 @@ GNEDemandElement::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
 
 
 bool 
-GNEDemandElement::lockedGLObject() {
+GNEDemandElement::isGLObjectLocked() {
     return myNet->getViewNet()->getLockManager().isObjectLocked(getType(), isAttributeCarrierSelected());
 }
 

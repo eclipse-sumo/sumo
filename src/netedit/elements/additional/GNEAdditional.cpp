@@ -203,7 +203,7 @@ GNEAdditional::getOptionalAdditionalName() const {
 
 
 bool 
-GNEAdditional::lockedGLObject() {
+GNEAdditional::isGLObjectLocked() {
     return myNet->getViewNet()->getLockManager().isObjectLocked(getType(), isAttributeCarrierSelected());
 }
 
