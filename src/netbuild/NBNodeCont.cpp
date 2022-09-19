@@ -1662,6 +1662,9 @@ NBNodeCont::joinNodeCluster(NodeSet cluster, NBDistrictCont& dc, NBEdgeCont& ec,
         }
     }
     newNode->reinit(pos, nodeType);
+    if (origNames) {
+        newNode->setParameter(SUMO_PARAM_ORIGID, joinNamedToString(cluster, ' '));
+    }
     if (setTL && !newNode->isTLControlled()) {
         NBTrafficLightDefinition* tlDef = new NBOwnTLDef(tlID, newNode, 0, type);
         if (!tlc.insert(tlDef)) {
@@ -1720,6 +1723,9 @@ NBNodeCont::joinNodeCluster(NodeSet cluster, NBDistrictCont& dc, NBEdgeCont& ec,
     }
 
     // remap and remove edges which are completely within the new intersection
+    if (origNames) {
+        newNode->setParameter("origEdgeIds", joinNamedToString(inside, ' '));
+    }
     for (NBEdge* e : inside) {
         for (NBEdge* e2 : allEdges) {
             if (e != e2) {
@@ -2522,7 +2528,7 @@ NBNodeCont::remapIDs(bool numericaIDs, bool reservedIDs, const std::string& pref
         myNodes.erase(node->getID());
     }
     for (NBNode* node : toChange) {
-        if (origNames) {
+        if (origNames && node->getParameter(SUMO_PARAM_ORIGID) == "") {
             node->setParameter(SUMO_PARAM_ORIGID, node->getID());
         }
         node->setID(idSupplier.getNext());
