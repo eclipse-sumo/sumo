@@ -129,11 +129,14 @@ public:
      */
     virtual void drawGL(const GUIVisualizationSettings& s) const = 0;
 
+    /// @brief check if element is locked
+    bool lockedGLObject();
+
     /// @brief mark element as front element
     void markAsFrontElement();
 
     /// @brief delete element
-    void deleteElement();
+    void deleteGLObject();
 
     /// @}
 

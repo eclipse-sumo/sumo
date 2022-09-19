@@ -34,40 +34,6 @@ class GNEDeleteFrame : public GNEFrame {
 public:
 
     // ===========================================================================
-    // class MultipleDeletePane
-    // ===========================================================================
-
-    class MultipleDeletePane : protected FXMenuPane {
-        // FOX-declarations
-        FXDECLARE(MultipleDeletePane)
-
-    public:
-        /// @brief Constructor
-        MultipleDeletePane(GNEDeleteFrame* deleteFrameParent, const std::vector<GNEDemandElement*>& clickedDemandElements);
-
-        /// @name FOX-callbacks
-        /// @{
-        /// @brief Called when user change an option
-        long onCmdSelect(FXObject*, FXSelector, void*);
-
-        /// @}
-
-    protected:
-        /// @brief FOX needs this
-        FOX_CONSTRUCTOR(MultipleDeletePane)
-
-    private:
-        /// @brief pointer to delete frame parent
-        GNEDeleteFrame* myDeleteFrameParent = nullptr;
-
-        /// @brief delete all elements
-        FXMenuCommand* myDeleteAllElements = nullptr;
-
-        /// @brief clicked demand elements
-        const std::vector<GNEDemandElement*> myClickedDemandElements;
-    };
-
-    // ===========================================================================
     // class DeleteOptions
     // ===========================================================================
 
@@ -254,9 +220,6 @@ protected:
     bool selectedACsToDelete() const;
 
 private:
-    /// @brief MultipleDeletePane
-    MultipleDeletePane* myMultipleDeletePane = nullptr;
-
     /// @brief modul for delete options
     DeleteOptions* myDeleteOptions = nullptr;
 

@@ -38,89 +38,12 @@
 // FOX callback mapping
 // ===========================================================================
 
-FXDEFMAP(GNEDeleteFrame::MultipleDeletePane) MultipleDeletePaneMap[] = {
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_SELECT, GNEDeleteFrame::MultipleDeletePane::onCmdSelect),
-};
-
 FXDEFMAP(GNEDeleteFrame::DeleteOptions) DeleteOptionsMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_GNE_SET_ATTRIBUTE, GNEDeleteFrame::DeleteOptions::onCmdSetOption),
 };
 
 // Object implementation
 FXIMPLEMENT(GNEDeleteFrame::DeleteOptions,      MFXGroupBoxModule, DeleteOptionsMap,      ARRAYNUMBER(DeleteOptionsMap))
-FXIMPLEMENT(GNEDeleteFrame::MultipleDeletePane, FXMenuPane,       MultipleDeletePaneMap, ARRAYNUMBER(MultipleDeletePaneMap))
-
-
-// ---------------------------------------------------------------------------
-// GNEDeleteFrame::MultipleDeletePane - methods
-// ---------------------------------------------------------------------------
-
-GNEDeleteFrame::MultipleDeletePane::MultipleDeletePane(GNEDeleteFrame* deleteFrameParent, const std::vector<GNEDemandElement*>& clickedDemandElements) :
-    FXMenuPane(deleteFrameParent->getViewNet()),
-    myDeleteFrameParent(deleteFrameParent),
-    myClickedDemandElements(clickedDemandElements) {
-    // get GNEAppWindow
-    const auto appWindow = myDeleteFrameParent->getViewNet()->getViewParent()->getGNEAppWindows();
-    // add delete all elements
-    myDeleteAllElements = GUIDesigns::buildFXMenuCommand(this, "Delete all elements", GUIIconSubSys::getIcon(GUIIcon::MODEDELETE), this, MID_GNE_SELECT);
-    // add separators
-    new FXMenuSeparator(this);
-    // add elements
-    for (const auto& demandElement : myClickedDemandElements) {
-        GUIDesigns::buildFXMenuCommand(this, demandElement->getTagStr() + ": " + demandElement->getID(), demandElement->getIcon(), this, MID_GNE_SELECT);
-    }
-    // obtain cursor position
-    int x, y;
-    FXuint b;
-    appWindow->getCursorPosition(x, y, b);
-    // set pane position
-    int popX = x + appWindow->getX();
-    int popY = y + appWindow->getY();
-    setX(popX);
-    setY(popY);
-    // try to stay on screen unless click appears to come from a multi-screen setup
-    const int rootWidth = getApp()->getRootWindow()->getWidth();
-    const int rootHeight = getApp()->getRootWindow()->getHeight();
-    if (popX <= rootWidth) {
-        popX = MAX2(0, MIN2(popX, rootWidth - getWidth() - 10));
-    }
-    if (popY <= rootHeight) {
-        popY = MAX2(0, MIN2(popY, rootHeight - getHeight() - 50));
-    }
-    // move pane
-    move(popX, popY);
-    // create
-    create();
-    // show
-    show();
-}
-
-
-long
-GNEDeleteFrame::MultipleDeletePane::onCmdSelect(FXObject* obj, FXSelector, void*) {
-    if (obj == myDeleteAllElements) {
-        // remove all selected attribute carrier susing the following parent-child sequence
-        myDeleteFrameParent->getViewNet()->getUndoList()->begin(GUIIcon::MODEDELETE, "remove clicked items");
-        // add elements
-        for (const auto& demandElement : myClickedDemandElements) {
-            if (myDeleteFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveDemandElement(demandElement, false)) {
-                myDeleteFrameParent->getViewNet()->getNet()->deleteDemandElement(demandElement, myDeleteFrameParent->getViewNet()->getUndoList());
-            }
-        }
-        // finish deletion
-        myDeleteFrameParent->getViewNet()->getUndoList()->end();
-    } else {
-        // get menu command
-        const std::string menuCommandStr = dynamic_cast<FXMenuCommand*>(obj)->getText().text();
-        for (const auto& demandElement : myClickedDemandElements) {
-            if (menuCommandStr == (demandElement->getTagStr() + ": " + demandElement->getID())) {
-                myDeleteFrameParent->getViewNet()->getNet()->deleteDemandElement(demandElement, myDeleteFrameParent->getViewNet()->getUndoList());
-                return 1;
-            }
-        }
-    }
-    return 1;
-}
 
 // ---------------------------------------------------------------------------
 // GNEDeleteFrame::DeleteOptions - methods
@@ -211,9 +134,6 @@ GNEDeleteFrame::GNEDeleteFrame(GNEViewParent *viewParent, GNEViewNet* viewNet) :
 
 
 GNEDeleteFrame::~GNEDeleteFrame() {
-    if (myMultipleDeletePane) {
-        delete myMultipleDeletePane;
-    }
 }
 
 
@@ -225,8 +145,6 @@ GNEDeleteFrame::show() {
 
 void
 GNEDeleteFrame::hide() {
-    delete myMultipleDeletePane;
-    myMultipleDeletePane = nullptr;
     GNEFrame::hide();
 }
 
@@ -294,14 +212,11 @@ GNEDeleteFrame::removeSelectedAttributeCarriers() {
 
 void
 GNEDeleteFrame::removeAttributeCarrier(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, bool ignoreOptions) {
-    // first check if there is at leas an AC under cursor)
-    if (objectsUnderCursor.getClickedDemandElements().size() > 1) {
-        // show multiple delete pane
-        if (myMultipleDeletePane) {
-            delete myMultipleDeletePane;
-        }
-        myMultipleDeletePane = new MultipleDeletePane(this, objectsUnderCursor.getClickedDemandElements());
-    } else if (objectsUnderCursor.getAttributeCarrierFront()) {
+    // first check if there more than one clicked GL object under cursor
+    if (objectsUnderCursor.getClickedGLObjects().size() > 1) {
+        // use Cursor dialog
+        myViewNet->openDeleteDialogAtCursor(objectsUnderCursor.getClickedGLObjects());
+    } else if (objectsUnderCursor.getClickedGLObjects().size() > 0) {
         // disable update geometry
         myViewNet->getNet()->disableUpdateGeometry();
         // check type of of object under cursor object

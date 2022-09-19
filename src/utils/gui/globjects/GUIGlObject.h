@@ -180,11 +180,14 @@ public:
     /// @param[in] s The settings for the current view (may influence drawing)
     virtual void drawGL(const GUIVisualizationSettings& s) const = 0;
 
+    /// @brief check if element is locked (Currently used only in NETEDIT)
+    virtual bool lockedGLObject();
+
     /// @brief mark element as front element (Currently used only in NETEDIT)
     virtual void markAsFrontElement();
 
-    /// @brief delete element (Currently used only in NETEDIT)
-    virtual void deleteElement();
+    /// @brief delete GLObject (Currently used only in NETEDIT)
+    virtual void deleteGLObject();
 
     /// @brief update GLObject (geometry, ID, etc.) (optional)
     virtual void updateGLObject();

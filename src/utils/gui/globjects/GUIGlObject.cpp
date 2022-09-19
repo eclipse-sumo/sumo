@@ -199,6 +199,13 @@ GUIGlObject::getTypeParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& par
 }
 
 
+bool 
+GUIGlObject::lockedGLObject() {
+    // by default unlocked
+    return false;
+}
+
+
 void
 GUIGlObject::markAsFrontElement() {
     // by default nothing to do
@@ -206,7 +213,7 @@ GUIGlObject::markAsFrontElement() {
 
 
 void
-GUIGlObject::deleteElement() {
+GUIGlObject::deleteGLObject() {
     // by default nothing to do
 }
 

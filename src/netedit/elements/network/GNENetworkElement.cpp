@@ -103,14 +103,20 @@ GNENetworkElement::getCenteringBoundary() const {
 }
 
 
-void 
+bool
+GNENetworkElement::lockedGLObject() {
+    return myNet->getViewNet()->getLockManager().isObjectLocked(getType(), isAttributeCarrierSelected());
+}
+
+
+void
 GNENetworkElement::markAsFrontElement() {
     myNet->getViewNet()->setFrontAttributeCarrier(this);
 }
 
 
 void 
-GNENetworkElement::deleteElement() {
+GNENetworkElement::deleteGLObject() {
     myNet->deleteNetworkElement(this, myNet->getViewNet()->getUndoList());
 }
 

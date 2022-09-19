@@ -202,6 +202,12 @@ GNEAdditional::getOptionalAdditionalName() const {
 }
 
 
+bool 
+GNEAdditional::lockedGLObject() {
+    return myNet->getViewNet()->getLockManager().isObjectLocked(getType(), isAttributeCarrierSelected());
+}
+
+
 void
 GNEAdditional::markAsFrontElement() {
     myNet->getViewNet()->setFrontAttributeCarrier(this);
@@ -209,7 +215,7 @@ GNEAdditional::markAsFrontElement() {
 
 
 void
-GNEAdditional::deleteElement() {
+GNEAdditional::deleteGLObject() {
     myNet->deleteAdditional(this, myNet->getViewNet()->getUndoList());
 }
 

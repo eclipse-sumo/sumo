@@ -118,7 +118,7 @@ GUICursorDialog::onCmdDeleteElement(FXObject* obj, FXSelector, void*) {
     // search element in myGLObjects
     for (const auto &GLObject : myMenuCommandGLObjects) {
         if (GLObject.first == obj) {
-            GLObject.second->deleteElement();
+            GLObject.second->deleteGLObject();
         }
     }
     // destroy popup

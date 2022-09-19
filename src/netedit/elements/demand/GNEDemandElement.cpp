@@ -220,14 +220,20 @@ GNEDemandElement::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
 }
 
 
-void 
+bool 
+GNEDemandElement::lockedGLObject() {
+    return myNet->getViewNet()->getLockManager().isObjectLocked(getType(), isAttributeCarrierSelected());
+}
+
+
+void
 GNEDemandElement::markAsFrontElement() {
     myNet->getViewNet()->setFrontAttributeCarrier(this);
 }
 
 
 void 
-GNEDemandElement::deleteElement() {
+GNEDemandElement::deleteGLObject() {
     myNet->deleteDemandElement(this, myNet->getViewNet()->getUndoList());
 }
 
