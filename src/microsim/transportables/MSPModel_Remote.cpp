@@ -44,10 +44,7 @@ MSPModel_Remote::MSPModel_Remote(const OptionsCont& oc, MSNet* net) : myNet(net)
 
 
 MSPModel_Remote::~MSPModel_Remote() {
-    for (PState* state : myPedestrianStates) {
-        delete state;
-        state = nullptr;
-    }
+    clearState();
     JPS_Simulation_Free(mySimulation);
     JPS_OperationalModel_Free(myModel);
     JPS_Areas_Free(myAreas);
@@ -218,14 +215,8 @@ int MSPModel_Remote::getActiveNumber() {
 
 
 void MSPModel_Remote::clearState() {
-    // Not sure if useful because it seems the reload button triggers
-    // the creation of a new MSPModel_Remote object.
-    myNumActivePedestrians = 0;
-    for (PState* state : myPedestrianStates) {
-        delete state;
-        state = nullptr;
-    }
     myPedestrianStates.clear();
+    myNumActivePedestrians = 0;
 }
 
 void
