@@ -38,33 +38,62 @@ else:
 import sumolib  # noqa
 import traci  # noqa
 
+verbose = False
 
-def dispatch(reservations, fleet_empty, time_limit, cost_type='distance'):
+def dispatch(reservations, fleet, time_limit, cost_type='distance', verbose=False):
     """Dispatch using ortools."""
-    data = create_data_model(reservations, fleet_empty, cost_type)
-    solution_ortools = ortools_pdp.main(data, time_limit)
-    solution_requests = solution_by_requests(solution_ortools, data)
+    if verbose:
+        print('Start creating the model.')
+    data = create_data_model(reservations, fleet, cost_type, verbose)
+    if verbose:
+        print('Start solving the problem.')
+    solution_ortools = ortools_pdp.main(data, time_limit, verbose)
+    if verbose:
+        print('Start interpreting the solution for SUMO.')
+    solution_requests = solution_by_requests(solution_ortools, reservations, data, verbose)
     return solution_requests
 
 
-def create_data_model(reservations, fleet_empty, cost_type='distance'):
+def create_data_model(reservations, fleet, cost_type='distance', verbose=False):
     """Creates the data for the problem."""
-    n_vehicles = len(fleet_empty)
-    n_reservations = len(reservations)
+    n_vehicles = len(fleet)
+    # use only reservations that haven't been picked up yet; reservation.state!=8 (not picked up)
+    dp_reservations = [res for res in reservations if res.state != 8]
+    n_dp_reservations = len(dp_reservations)
+    if verbose:
+        print('dp reservations: %s' % ([res.id for res in dp_reservations]))
+    # use only reservations that already haven been picked up; reservation.state==8 (picked up)
+    do_reservations = [res for res in reservations if res.state == 8]
+    n_do_reservations = len(do_reservations)
+    if verbose:
+        print('do reservations: %s' % ([res.id for res in do_reservations]))
 
+    # edges: [depot_id, res_from_id, ..., res_to_id, ..., res_dropoff_id, ..., veh_start_id, ...]
     edges = ['depot']
-    for reservation in reservations:
+    for reservation in dp_reservations:
         from_edge = reservation.fromEdge
         edges.append(from_edge)
-
-    for reservation in reservations:
+        if verbose:
+            print('Reservation %s starts at edge %s' % (reservation.id, from_edge))
+    for reservation in dp_reservations:
         to_edge = reservation.toEdge
         edges.append(to_edge)
+        if verbose:
+            print('Reservation %s ends at edge %s' % (reservation.id, to_edge))
+    # dict for vehicle_ids with a list of drop off edges
+    dropoff_edges = dict()
+    for id_vehicle in fleet:
+        dropoff_edges[id_vehicle] = list()
+    for reservation in do_reservations:
+        to_edge = reservation.toEdge
+        edges.append(to_edge)
+        if verbose:
+            print('Drop-off of reservation %s at edge %s' % (reservation.id, to_edge))
 
     starts = []
     types_vehicle = []
     vehicle_capacities = []
-    for id_vehicle in fleet_empty:
+    for id_vehicle in fleet:
         edge_vehicle = traci.vehicle.getRoadID(id_vehicle)
         starts.append(edge_vehicle)
         edges.append(edge_vehicle)
@@ -78,17 +107,43 @@ def create_data_model(reservations, fleet_empty, cost_type='distance'):
         type_vehicle = types_vehicles_unique[0]
     cost_matrix = get_cost_matrix(edges, type_vehicle, cost_type)
 
-    pd_numeric = [[ii, n_reservations+ii] for ii in range(1, n_reservations+1)]
-    ii = 1 + 2 * n_reservations
+    pd_numeric = [[ii, n_dp_reservations+ii] for ii in range(1, n_dp_reservations+1)]
+    do_numeric = [ii + 1 + 2*n_dp_reservations for ii in range(0, n_do_reservations)]
+    ii = 1 + 2*n_dp_reservations + n_do_reservations
     starts_numeric = [jj for jj in range(ii, ii + n_vehicles)]
+
+#    for reservation in reservations:
+#        # if reservation.state=8 (picked up), use current edge of the occupied vehicle
+#        if reservation.state == 8:
+#            for id_vehicle in fleet:
+#                entered_persons = traci.vehicle.getPersonIDList(id_vehicle)
+#                if reservation.persons[0] in entered_persons:
+#                    dropoff_edges[id_vehicle].append(reservation.toEdge)
+
+    # array with dropoff node-ids for each vehicle (vehicle id == array index)
+    dropoffs = list()
+    for v_i, id_vehicle in enumerate(fleet):
+        dropoffs.append(list())
+        for i, reservation in enumerate(do_reservations):
+            r_i = do_numeric[i]
+            entered_persons = traci.vehicle.getPersonIDList(id_vehicle)
+            if reservation.persons[0] in entered_persons:
+                dropoffs[v_i].append((r_i, reservation.id))
+
+    # increase demand (load) of the vehicle for each outstanding drop off
+    vehicle_demand = [len(do) for do in dropoffs]
+#    vehicle_demand = n_vehicles * [0]
+#    for i, id_vehicle in enumerate(fleet):
+#        vehicle_demand[i] = len(dropoff_edges[id_vehicle])
 
     data = {}
     data['cost_matrix'] = cost_matrix
     data['pickups_deliveries'] = pd_numeric
+    data['dropoffs'] = dropoffs
     data['num_vehicles'] = n_vehicles
     data['starts'] = starts_numeric
     data['ends'] = n_vehicles * [0]
-    data['demands'] = [0] + n_reservations * [1] + n_reservations * [-1] + n_vehicles * [0]
+    data['demands'] = [0] + n_dp_reservations*[1] + n_dp_reservations*[-1] + n_do_reservations*[-1] + vehicle_demand
     data['vehicle_capacities'] = vehicle_capacities
     return data
 
@@ -123,21 +178,34 @@ def get_cost_matrix(edges, type_vehicle, cost_type='distance'):
     return cost_matrix.tolist()
 
 
-def solution_by_requests(solution_ortools, data):
+def solution_by_requests(solution_ortools, reservations, data, verbose=False):
     """Translate solution from ortools to SUMO requests."""
     if solution_ortools is None:
         return None
+    
+    dp_reservations = [res for res in reservations if res.state != 8]
+    n_dp_reservations = len(dp_reservations)
+    do_reservations = [res for res in reservations if res.state == 8]
+    n_do_reservations = len(do_reservations)
+
+    
     route2request = {}
     for i_request, [i_pickup, i_delivery] in enumerate(data["pickups_deliveries"]):
-        route2request[i_pickup] = i_request
-        route2request[i_delivery] = i_request
+        route2request[i_pickup] = dp_reservations[i_request].id
+        route2request[i_delivery] = dp_reservations[i_request].id
+    for dropoffs in data['dropoffs']:  # for each vehicle
+        for do in dropoffs:
+            route2request[do[0]] = do[1]
+        
     solution_requests = {}
-    for key in solution_ortools:
+    for key in solution_ortools:  # key is the vehicle number (0,1,...)
         solution = [[], []]  # request order and costs
-        for i_route in solution_ortools[key][0][1:-1]:
+        for i_route in solution_ortools[key][0][1:-1]:  # take only the routes ([0]) without the start node ([1:-1])
             if i_route in route2request:
-                solution[0].append(route2request[i_route])
+                solution[0].append(route2request[i_route])  # add node to route
             else:
+                if verbose:
+                    print('!solution ignored: %s' % (i_route))
                 continue
             solution[1] = solution_ortools[key][1]  # costs
             solution_requests[key] = solution
@@ -176,7 +244,6 @@ def run(end=90000, interval=30, time_limit=10, cost_type='distance', verbose=Fal
             timestep += interval
             continue
 
-        # TODO why is this needed prior to getTaxiReservations(2/4/8)?
         traci.person.getTaxiReservations(0)
         if verbose:
             print("timestep: ", timestep)
@@ -202,21 +269,25 @@ def run(end=90000, interval=30, time_limit=10, cost_type='distance', verbose=Fal
             if fleet_occupied_pickup:
                 print("Taxis occupied and picking up:", fleet_occupied_pickup)
 
-        fleet_empty = traci.vehicle.getTaxiFleet(0)
-        reservations = traci.person.getTaxiReservations(2)
+        fleet = traci.vehicle.getTaxiFleet(-1)
+        reservations_new = traci.person.getTaxiReservations(2)
+        reservations_all = traci.person.getTaxiReservations(0)
 
-        if reservations and fleet_empty:
+        if reservations_new:
             if verbose:
                 print("Solve CPDP")
-            solution_requests = dispatch(reservations, fleet_empty, time_limit, cost_type)
+            solution_requests = dispatch(reservations_all, fleet, time_limit, cost_type, verbose)
             if solution_requests is not None:
-                for index_vehicle in solution_requests:
-                    id_vehicle = fleet_empty[index_vehicle]
-                    reservations_order = [reservations[index].id for index in solution_requests[index_vehicle][0]]
-                    traci.vehicle.dispatchTaxi(id_vehicle, reservations_order)
+                for index_vehicle in solution_requests:  # for each vehicle
+                    id_vehicle = fleet[index_vehicle]
+                    reservations_order = [res_id for res_id in solution_requests[index_vehicle][0]]  # [0] for route
                     if verbose:
                         print("Dispatching %s with %s" % (id_vehicle, reservations_order))
                         print("Costs for %s: %s" % (id_vehicle, solution_requests[index_vehicle][1]))
+                for index_vehicle in solution_requests:
+                    id_vehicle = fleet[index_vehicle]
+                    reservations_order = [res_id for res_id in solution_requests[index_vehicle][0]]
+                    traci.vehicle.dispatchTaxi(id_vehicle, reservations_order)  # overwrite existing dispatch
             else:
                 if verbose:
                     print("Found no solution, continue...")
