@@ -48,7 +48,7 @@ Start interpreting the solution for SUMO.
 Dispatching v0 with ['8', '3', '4', '8', '3', '0', '9', '0', '4', '9']
 Costs for v0: 5217
 Dispatching v1 with ['1', '2', '5', '6', '2', '5', '7', '7', '1', '6']
-Costs for v1: 10385
+Costs for v1: 5168
 timestep:  30.0
 Reservations being picked up: ['0', '1', '2', '3', '4', '5', '6', '7', '9']
 Reservations en route: ['8']
