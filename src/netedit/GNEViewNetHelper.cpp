@@ -648,6 +648,15 @@ GNEViewNetHelper::ObjectsUnderCursor::getEdgeRelDataElementFront() const {
     }
 }
 
+const std::vector<GUIGlObject*>& 
+GNEViewNetHelper::ObjectsUnderCursor::getClickedGLObjects() const {
+    if (mySwapLane2edge) {
+        return myEdgeObjects.GUIGlObjects;
+    } else {
+        return myLaneObjects.GUIGlObjects;
+    }
+}
+
 
 const std::vector<GNEAttributeCarrier*>&
 GNEViewNetHelper::ObjectsUnderCursor::getClickedAttributeCarriers() const {

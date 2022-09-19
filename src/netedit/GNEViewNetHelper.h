@@ -288,6 +288,9 @@ struct GNEViewNetHelper {
         /// @brief get edge rel data element or a pointer to nullptr
         GNEEdgeRelData* getEdgeRelDataElementFront() const;
 
+        /// @brief get vector with clicked GL objects
+        const std::vector<GUIGlObject*>& getClickedGLObjects() const;
+
         /// @brief get vector with clicked ACs
         const std::vector<GNEAttributeCarrier*>& getClickedAttributeCarriers() const;
 
