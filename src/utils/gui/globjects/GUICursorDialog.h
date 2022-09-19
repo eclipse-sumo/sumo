@@ -42,6 +42,7 @@ public:
     /// @name cursor dialog type
     enum class CursorDialogType {
         PROPERTIES,
+        DELETE_ELEMENT,
         FRONT_ELEMENT
     };
 

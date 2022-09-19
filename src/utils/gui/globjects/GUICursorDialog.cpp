@@ -68,6 +68,24 @@ GUICursorDialog::GUICursorDialog(CursorDialogType cursorDialogType, GUISUMOAbstr
         for (const auto &GLObject : objects) {
             myMenuCommandGLObjects.push_back(std::make_pair(GUIDesigns::buildFXMenuCommand(this, GLObject->getMicrosimID(), GLObject->getIcon(), this, MID_CURSORDIALOG_PROPERTIES), GLObject));
         }
+    } else if (cursorDialogType == CursorDialogType::DELETE_ELEMENT) {
+        // create header
+        myMenuHeader = new MFXMenuHeader(this, view->getMainWindow()->getBoldFont(), "Deñete element", GUIIconSubSys::getIcon(GUIIcon::MODEDELETE), nullptr, 0);
+        new FXMenuSeparator(this);
+        // check if create move up menu command
+        if (objects.size() > NUM_VISIBLE_ITEMS) {
+            myMoveUpMenuCommand = GUIDesigns::buildFXMenuCommand(this, "Previous", GUIIconSubSys::getIcon(GUIIcon::ARROW_UP), this, MID_CURSORDIALOG_MOVEUP);
+            new FXMenuSeparator(this);
+        }
+        // create a menu command for every object
+        for (const auto &GLObject : objects) {
+            auto menuCommand = GUIDesigns::buildFXMenuCommand(this, GLObject->getMicrosimID(), GLObject->getIcon(), this, MID_CURSORDIALOG_DELETEELEMENT);
+            // check if disable menuCommand
+            if (GLObject->isGLObjectLocked()) {
+                menuCommand->disable();
+            }
+            myMenuCommandGLObjects.push_back(std::make_pair(menuCommand, GLObject));
+        }
     } else if (cursorDialogType == CursorDialogType::FRONT_ELEMENT) {
         // create header
         myMenuHeader = new MFXMenuHeader(this, view->getMainWindow()->getBoldFont(), "Mark front element", GUIIconSubSys::getIcon(GUIIcon::FRONTELEMENT), nullptr, 0);
