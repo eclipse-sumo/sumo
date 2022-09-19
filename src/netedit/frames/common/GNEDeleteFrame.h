@@ -109,40 +109,6 @@ public:
         FXCheckButton* myProtectGenericDatas;
     };
 
-    /**@brief Constructor
-     * @brief viewParent GNEViewParent in which this GNEFrame is placed
-     * @brief viewNet viewNet that uses this GNEFrame
-     */
-    GNEDeleteFrame(GNEViewParent *viewParent, GNEViewNet* viewNet);
-
-    /// @brief Destructor
-    ~GNEDeleteFrame();
-
-    /// @brief show delete frame
-    void show();
-
-    /// @brief hide delete frame
-    void hide();
-
-    /// @brief remove selected attribute carriers (element)
-    void removeSelectedAttributeCarriers();
-
-    /**@brief remove attribute carrier (element)
-     * @param objectsUnderCursor objects under cursors
-     * @param ignoreOptions ignore delete options and ALWAYS remove AC
-     */
-    void removeAttributeCarrier(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, bool ignoreOptions = false);
-
-    /**@brief remove geometry point
-    * @param objectsUnderCursor objects under cursors
-    */
-    void removeGeometryPoint(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor);
-
-    /// @brief get delete options
-    DeleteOptions* getDeleteOptions() const;
-
-protected:
-
     /// @brief struct for saving subordinated elements (Junction->Edge->Lane->(Additional | DemandElement)
     class SubordinatedElements {
 
@@ -216,6 +182,41 @@ protected:
         SubordinatedElements& operator=(const SubordinatedElements&) = delete;
     };
 
+    /**@brief Constructor
+     * @brief viewParent GNEViewParent in which this GNEFrame is placed
+     * @brief viewNet viewNet that uses this GNEFrame
+     */
+    GNEDeleteFrame(GNEViewParent *viewParent, GNEViewNet* viewNet);
+
+    /// @brief Destructor
+    ~GNEDeleteFrame();
+
+    /// @brief show delete frame
+    void show();
+
+    /// @brief hide delete frame
+    void hide();
+
+    /// @brief remove selected attribute carriers (element)
+    void removeSelectedAttributeCarriers();
+
+    /**@brief remove attribute carrier (element)
+     * @param objectsUnderCursor objects under cursors
+     */
+    void removeAttributeCarrier(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor);
+
+    /**@brief remove geometry point
+    * @param objectsUnderCursor objects under cursors
+    */
+    void removeGeometryPoint(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor);
+
+    /// @brief get delete options modul
+    DeleteOptions* getDeleteOptions() const;
+
+    /// @brief get protect elements modul
+    ProtectElements* getProtectElements() const;
+
+protected:
     /// @brief check if there is selected ACs to delete
     bool selectedACsToDelete() const;
 
