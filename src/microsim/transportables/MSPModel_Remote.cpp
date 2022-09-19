@@ -114,7 +114,9 @@ MSPModel_Remote::execute(SUMOTime time) {
         
 		bool ok = JPS_Simulation_Iterate(mySimulation, &message);
         if (!ok) {
-            std::cout << "Error during iteration " << i << ": " << JPS_ErrorMessage_GetMessage(message) << std::endl;
+            std::ostringstream oss;
+            oss << "Error during iteration " << i << ": " << JPS_ErrorMessage_GetMessage(message);
+            WRITE_ERROR(oss.str());
         }
 
 #ifdef DEBUG
@@ -287,7 +289,9 @@ MSPModel_Remote::initialize() {
 
     myGeometry = JPS_GeometryBuilder_Build(myGeometryBuilder, &message);
     if (myGeometry == nullptr) {
-        std::cout << "Error while creating the geometry: " << JPS_ErrorMessage_GetMessage(message) << std::endl;
+        std::ostringstream oss;
+        oss << "Error while creating the geometry: " << JPS_ErrorMessage_GetMessage(message);
+        WRITE_ERROR(oss.str());
     }
 
     // Areas are built (although unused) because the JPS_Simulation object needs them.
@@ -298,12 +302,16 @@ MSPModel_Remote::initialize() {
     JPS_VelocityModelBuilder_AddParameterProfile(modelBuilder, myParameterProfileId, 1, 0.5);
     myModel = JPS_VelocityModelBuilder_Build(modelBuilder, &message);
     if (myModel == nullptr) {
-        std::cout << "Error while creating the pedestrian model: " << JPS_ErrorMessage_GetMessage(message) << std::endl;
+        std::ostringstream oss;
+        oss << "Error while creating the pedestrian model: " << JPS_ErrorMessage_GetMessage(message);
+        WRITE_ERROR(oss.str());
     }
 
-	mySimulation = JPS_Simulation_Create(myModel, myGeometry, myAreas, STEPS2TIME(JPS_DELTA_T), nullptr);
+	mySimulation = JPS_Simulation_Create(myModel, myGeometry, myAreas, STEPS2TIME(JPS_DELTA_T), &message);
     if (mySimulation == nullptr) {
-        std::cout << "Error while creating the simulation: " << JPS_ErrorMessage_GetMessage(message) << std::endl;
+        std::ostringstream oss;
+        oss << "Error while creating the simulation: " << JPS_ErrorMessage_GetMessage(message);
+        WRITE_ERROR(oss.str());
     }
 
     JPS_ErrorMessage_Free(message);
