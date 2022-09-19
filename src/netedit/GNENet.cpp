@@ -650,6 +650,10 @@ GNENet::deleteDemandElement(GNEDemandElement* demandElement, GNEUndoList* undoLi
             myViewNet->getViewParent()->getInspectorFrame()->clearInspectedAC();
         }
         undoList->begin(GUIIcon::MODEDELETE, "delete " + demandElement->getTagStr());
+        // remove all child additional elements of this demandElement calling this function recursively
+        while (demandElement->getChildAdditionals().size() > 0) {
+            deleteAdditional(demandElement->getChildAdditionals().front(), undoList);
+        }
         // remove all child demand elements of this demandElement calling this function recursively
         while (demandElement->getChildDemandElements().size() > 0) {
             deleteDemandElement(demandElement->getChildDemandElements().front(), undoList);
