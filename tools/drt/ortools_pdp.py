@@ -33,8 +33,8 @@ def get_solution(data, manager, routing, solution, verbose):
     if verbose:
         print('Objective: ', solution.ObjectiveValue())
     solution_dict = {}
-    total_distance = 0
     for vehicle_id in range(data['num_vehicles']):
+        total_distance = 0
         route = []
         index = routing.Start(vehicle_id)
         if verbose:
