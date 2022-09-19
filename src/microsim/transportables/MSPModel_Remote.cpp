@@ -103,12 +103,11 @@ MSPModel_Remote::remove(MSTransportableStateAdapter* state) {
 
 SUMOTime
 MSPModel_Remote::execute(SUMOTime time) {
-    // Perform the JuPedSim iterations.
     int nbrIterations = (int)(DELTA_T / JPS_DELTA_T);
     JPS_ErrorMessage message = nullptr;
 	for (int i = 0; i < nbrIterations; ++i)
 	{
-        
+        // Perform one JuPedSim iteration.
 		bool ok = JPS_Simulation_Iterate(mySimulation, &message);
         if (!ok) {
             std::ostringstream oss;
@@ -127,72 +126,72 @@ MSPModel_Remote::execute(SUMOTime time) {
             }
         }
 #endif
-    }
-    JPS_ErrorMessage_Free(message);
 
-    // Update the state of all pedestrians.
-    for (PState* state : myPedestrianStates)
-    {
-        // Updates the agent position.
-        JPS_Agent agent = JPS_Simulation_ReadAgent(mySimulation, state->getAgentId(), nullptr);
-        double newPositionX = JPS_Agent_PositionX(agent);
-        double newPositionY = JPS_Agent_PositionY(agent);
-        state->setPosition(newPositionX, newPositionY);
+        // Update the state of all pedestrians.
+        for (PState* state : myPedestrianStates)
+        {
+            // Updates the agent position.
+            JPS_Agent agent = JPS_Simulation_ReadAgent(mySimulation, state->getAgentId(), nullptr);
+            double newPositionX = JPS_Agent_PositionX(agent);
+            double newPositionY = JPS_Agent_PositionY(agent);
+            state->setPosition(newPositionX, newPositionY);
 
-        // Updates the agent direction.
-        double newOrientationX = JPS_Agent_OrientationX(agent);
-        double newOrientationY = JPS_Agent_OrientationY(agent);
-        state->setAngle(atan2(newOrientationY, newOrientationX));
+            // Updates the agent direction.
+            double newOrientationX = JPS_Agent_OrientationX(agent);
+            double newOrientationY = JPS_Agent_OrientationY(agent);
+            state->setAngle(atan2(newOrientationY, newOrientationX));
 
-        Position newPosition(newPositionX, newPositionY);
-        MSPerson* person = state->getPerson();
-        MSPerson::MSPersonStage_Walking* stage = dynamic_cast<MSPerson::MSPersonStage_Walking*>(person->getCurrentStage());
-        
-        // Updates the edge to walk on.
-        const MSEdge* currentEdge = stage->getEdge();
-        const MSLane* currentLane = getSidewalk<MSEdge, MSLane>(currentEdge);
-        if (currentEdge->isWalkingArea()) {
-            std::vector<MSLink*> links = currentLane->getLinkCont();
-            MSLane* nextLane = nullptr;
-            for (MSLink* link : links) {
-                MSLane* lane = link->getViaLaneOrLane();
-                if (lane->getPermissions() == SVC_PEDESTRIAN) {
-                    nextLane = lane;
-                    break;
-                }
-            }
-            
-            PositionVector shape = nextLane->getShape();
-            Position nextLaneDirection = shape[1] - shape[0];
-            Position pedestrianLookAhead = newPosition - shape[0];
-            if (pedestrianLookAhead.dotProduct(nextLaneDirection) > 0.0) {
-                stage->moveToNextEdge(person, time, 1, nullptr);
-            }
-        }
-        else {
-            Position relativePosition = (currentLane->getShape()).transformToVectorCoordinates(newPosition);
-            if (relativePosition == Position::INVALID) {
+            Position newPosition(newPositionX, newPositionY);
+            MSPerson* person = state->getPerson();
+            MSPerson::MSPersonStage_Walking* stage = dynamic_cast<MSPerson::MSPersonStage_Walking*>(person->getCurrentStage());
+
+            // Updates the edge to walk on.
+            const MSEdge* currentEdge = stage->getEdge();
+            const MSLane* currentLane = getSidewalk<MSEdge, MSLane>(currentEdge);
+            if (currentEdge->isWalkingArea()) {
                 std::vector<MSLink*> links = currentLane->getLinkCont();
-                MSLane* nextInternalLane = nullptr;
+                MSLane* nextLane = nullptr;
                 for (MSLink* link : links) {
-                    MSLane* viaLane = link->getViaLaneOrLane();
-                    if (viaLane->getPermissions() == SVC_PEDESTRIAN) {
-                        nextInternalLane = viaLane;
+                    MSLane* lane = link->getViaLaneOrLane();
+                    if (lane->getPermissions() == SVC_PEDESTRIAN) {
+                        nextLane = lane;
                         break;
                     }
                 }
-                stage->moveToNextEdge(person, time, 1, nextInternalLane ? &(nextInternalLane->getEdge()) : nullptr);
+
+                PositionVector shape = nextLane->getShape();
+                Position nextLaneDirection = shape[1] - shape[0];
+                Position pedestrianLookAhead = newPosition - shape[0];
+                if (pedestrianLookAhead.dotProduct(nextLaneDirection) > 0.0) {
+                    stage->moveToNextEdge(person, time, 1, nullptr);
+                }
+            }
+            else {
+                Position relativePosition = (currentLane->getShape()).transformToVectorCoordinates(newPosition);
+                if (relativePosition == Position::INVALID) {
+                    std::vector<MSLink*> links = currentLane->getLinkCont();
+                    MSLane* nextInternalLane = nullptr;
+                    for (MSLink* link : links) {
+                        MSLane* viaLane = link->getViaLaneOrLane();
+                        if (viaLane->getPermissions() == SVC_PEDESTRIAN) {
+                            nextInternalLane = viaLane;
+                            break;
+                        }
+                    }
+                    stage->moveToNextEdge(person, time, 1, nextInternalLane ? &(nextInternalLane->getEdge()) : nullptr);
+                }
+            }
+
+            // If near the last waypoint, remove the agent.
+            if (newPosition.distanceTo2D(state->getDestination()) < JPS_EXIT_TOLERANCE) {
+                JPS_Simulation_RemoveAgent(mySimulation, state->getAgentId(), nullptr);
+                myPedestrianStates.erase(std::find(myPedestrianStates.begin(), myPedestrianStates.end(), state));
+                stage->moveToNextEdge(person, time, 1, nullptr);
+                registerArrived();
             }
         }
-        
-        // If near the last waypoint, remove the agent.
-        if (newPosition.distanceTo2D(state->getDestination()) < JPS_EXIT_TOLERANCE) {
-            JPS_Simulation_RemoveAgent(mySimulation, state->getAgentId(), nullptr);
-            myPedestrianStates.erase(std::find(myPedestrianStates.begin(), myPedestrianStates.end(), state));
-            stage->moveToNextEdge(person, time, 1, nullptr);
-            registerArrived();
-        }
     }
+    JPS_ErrorMessage_Free(message);
 
     return DELTA_T;
 }
