@@ -30,6 +30,7 @@
 #include <cmath>
 #include <iomanip>
 #include <utils/common/MsgHandler.h>
+#include <utils/common/StringTokenizer.h>>
 #include <utils/common/StringUtils.h>
 #include <utils/common/ToString.h>
 #include <utils/common/UtilExceptions.h>
@@ -4493,7 +4494,15 @@ NBEdge::setOrigID(const std::string origID, const bool append, const int laneIdx
         }
     } else {
         if (origID != "") {
-            myLanes[laneIdx].setParameter(SUMO_PARAM_ORIGID, origID);
+            if (append) {
+                std::vector<std::string> oldIDs = StringTokenizer(myLanes[laneIdx].getParameter(SUMO_PARAM_ORIGID)).getVector();
+                if (std::find(oldIDs.begin(), oldIDs.end(), origID) == oldIDs.end()) {
+                    oldIDs.push_back(origID);
+                }
+                myLanes[laneIdx].setParameter(SUMO_PARAM_ORIGID, toString(oldIDs));
+            } else {
+                myLanes[laneIdx].setParameter(SUMO_PARAM_ORIGID, origID);
+            }
         } else {
             // do not record empty origID parameter
             myLanes[laneIdx].unsetParameter(SUMO_PARAM_ORIGID);

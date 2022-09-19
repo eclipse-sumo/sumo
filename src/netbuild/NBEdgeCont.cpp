@@ -1827,6 +1827,7 @@ NBEdgeCont::joinTramEdges(NBDistrictCont& dc, NBPTStopCont& sc, NBPTLineCont& lc
     if (matches.size() == 0) {
         return 0;
     }
+    const bool origNames = OptionsCont::getOptions().getBool("output.original-names");
     // find continous runs of matched edges for each tramEdge
     for (NBEdge* tramEdge : tramEdges) {
         std::vector<std::pair<double, std::pair<NBEdge*, int> > > roads;
@@ -1863,7 +1864,7 @@ NBEdgeCont::joinTramEdges(NBDistrictCont& dc, NBPTStopCont& sc, NBPTLineCont& lc
             const double tramLength = tramShape.length();
             EdgeVector incoming = tramFrom->getIncomingEdges();
             bool erasedLast = false;
-            for (auto item : roads) {
+            for (const auto& item : roads) {
                 const double gap = item.first - pos;
                 NBEdge* road = item.second.first;
                 int laneIndex = item.second.second;
@@ -1899,6 +1900,9 @@ NBEdgeCont::joinTramEdges(NBDistrictCont& dc, NBPTStopCont& sc, NBPTLineCont& lc
                     erasedLast = true;
                 }
                 road->setPermissions(road->getPermissions(laneIndex) | SVC_TRAM, laneIndex);
+                if (origNames) {
+                    road->setOrigID(tramEdgeID, true, laneIndex);
+                }
                 for (NBEdge* in : incoming) {
                     if (isTram(in->getPermissions()) && !in->isConnectedTo(road)) {
                         if (in->getFromNode() != road->getFromNode()) {
