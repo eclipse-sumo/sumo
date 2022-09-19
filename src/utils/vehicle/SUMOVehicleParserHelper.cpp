@@ -1676,7 +1676,7 @@ SUMOVehicleParserHelper::processActionStepLength(double given) {
         }
         result = DELTA_T;
     } else if (result % DELTA_T != 0) {
-        result = (SUMOTime)(DELTA_T * floor(double(result) / double(DELTA_T)));
+        result = (SUMOTime)((double)DELTA_T * floor(double(result) / double(DELTA_T)));
         result = MAX2(DELTA_T, result);
         if (fabs(given * 1000. - double(result)) > NUMERICAL_EPS) {
             WRITE_WARNING(defaultError + "Parsing given value (" + toString(given) + " s.) to the adjusted value " + toString(STEPS2TIME(result)) + " s.");

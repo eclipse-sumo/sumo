@@ -116,7 +116,6 @@ GUIOSGPerspectiveChanger::centerTo(const Position& pos, double radius, bool /* a
     orthoDir.normalize();
     osg::Vec3d center(pos.x(), pos.y(), pos.z());
     osg::Vec3d leftBorder = center + orthoDir * radius;
-    osg::Vec3d rightBorder = center - orthoDir * radius;   
     // construct new camera location which respects the fovy, resets the up vector
     double fovy, aspectRatio, zNear, zFar;
     dynamic_cast<GUIOSGView&>(myCallback).myViewer->getCamera()->getProjectionMatrixAsPerspective(fovy, aspectRatio, zNear, zFar);
