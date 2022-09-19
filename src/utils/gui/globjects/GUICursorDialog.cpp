@@ -70,7 +70,7 @@ GUICursorDialog::GUICursorDialog(CursorDialogType cursorDialogType, GUISUMOAbstr
         }
     } else if (cursorDialogType == CursorDialogType::DELETE_ELEMENT) {
         // create header
-        myMenuHeader = new MFXMenuHeader(this, view->getMainWindow()->getBoldFont(), "Deñete element", GUIIconSubSys::getIcon(GUIIcon::MODEDELETE), nullptr, 0);
+        myMenuHeader = new MFXMenuHeader(this, view->getMainWindow()->getBoldFont(), "Delete element", GUIIconSubSys::getIcon(GUIIcon::MODEDELETE), nullptr, 0);
         new FXMenuSeparator(this);
         // check if create move up menu command
         if (objects.size() > NUM_VISIBLE_ITEMS) {
