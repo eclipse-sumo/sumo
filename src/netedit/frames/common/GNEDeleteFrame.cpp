@@ -377,10 +377,11 @@ GNEDeleteFrame::removeAttributeCarrier(const GNEViewNetHelper::ObjectsUnderCurso
         if (filteredGLObjects.size() > 1) {
             // use Cursor dialog
             myViewNet->openDeleteDialogAtCursor(filteredGLObjects);
-        } else if (objectsUnderCursor.getClickedGLObjects().size() > 0) {
+        } else if (filteredGLObjects.size() > 0) {
             filteredGLObjects.front()->deleteGLObject();
         }
-    } else if (objectsUnderCursor.getClickedGLObjects().size() > 0) {
+    } else if ((objectsUnderCursor.getClickedGLObjects().size() > 0) && 
+        !objectsUnderCursor.getClickedGLObjects().front()->isGLObjectLocked()) {
         objectsUnderCursor.getClickedGLObjects().front()->deleteGLObject();
     }
     // enable update geometry

@@ -5099,18 +5099,17 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
                 // update AC under cursor
                 AC = myObjectsUnderCursor.getAttributeCarrierFront();
             }
-            // now filter locked elements
-            myObjectsUnderCursor.filterLockedElements(myLockManager);
             // check that we have clicked over network element element
-            if (AC && !myLockManager.isObjectLocked(AC->getGUIGlObject()->getType(), AC->isAttributeCarrierSelected()) &&
-                    (AC->getTagProperty().isNetworkElement() || AC->getTagProperty().isAdditionalElement())) {
+            if (AC) {
                 // now check if we want only delete geometry points
                 if (myViewParent->getDeleteFrame()->getDeleteOptions()->deleteOnlyGeometryPoints()) {
                     // only remove geometry point
                     myViewParent->getDeleteFrame()->removeGeometryPoint(myObjectsUnderCursor);
                 } else if (AC->isAttributeCarrierSelected()) {
                     // remove all selected attribute carriers
-                    myViewParent->getDeleteFrame()->removeSelectedAttributeCarriers();
+                    if (!AC->getGUIGlObject()->isGLObjectLocked()) {
+                        myViewParent->getDeleteFrame()->removeSelectedAttributeCarriers();
+                    }
                 } else {
                     // remove attribute carrier under cursor
                     myViewParent->getDeleteFrame()->removeAttributeCarrier(myObjectsUnderCursor);
@@ -5436,13 +5435,13 @@ GNEViewNet::processLeftButtonPressDemand(void* eventData) {
             break;
         }
         case DemandEditMode::DEMAND_DELETE: {
-            // filter locked elements
-            myObjectsUnderCursor.filterLockedElements(myLockManager);
             // check conditions
-            if (AC && !myLockManager.isObjectLocked(AC->getGUIGlObject()->getType(), AC->isAttributeCarrierSelected()) && AC->getTagProperty().isDemandElement()) {
+            if (AC) {
                 // check if we are deleting a selection or an single attribute carrier
                 if (AC->isAttributeCarrierSelected()) {
-                    myViewParent->getDeleteFrame()->removeSelectedAttributeCarriers();
+                    if (!AC->getGUIGlObject()->isGLObjectLocked()) {
+                        myViewParent->getDeleteFrame()->removeSelectedAttributeCarriers();
+                    }
                 } else {
                     myViewParent->getDeleteFrame()->removeAttributeCarrier(myObjectsUnderCursor);
                 }
@@ -5619,13 +5618,13 @@ GNEViewNet::processLeftButtonPressData(void* eventData) {
             break;
         }
         case DataEditMode::DATA_DELETE: {
-            // filter locked elements
-            myObjectsUnderCursor.filterLockedElements(myLockManager);
             // check conditions
-            if (AC && !myLockManager.isObjectLocked(AC->getGUIGlObject()->getType(), AC->isAttributeCarrierSelected()) && AC->getTagProperty().isDataElement()) {
+            if (AC) {
                 // check if we are deleting a selection or an single attribute carrier
                 if (AC->isAttributeCarrierSelected()) {
-                    myViewParent->getDeleteFrame()->removeSelectedAttributeCarriers();
+                    if (!AC->getGUIGlObject()->isGLObjectLocked()) {
+                        myViewParent->getDeleteFrame()->removeSelectedAttributeCarriers();
+                    }
                 } else {
                     myViewParent->getDeleteFrame()->removeAttributeCarrier(myObjectsUnderCursor);
                 }
