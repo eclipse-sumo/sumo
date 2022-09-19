@@ -234,7 +234,22 @@ GNEDemandElement::markAsFrontElement() {
 
 void 
 GNEDemandElement::deleteGLObject() {
-    myNet->deleteDemandElement(this, myNet->getViewNet()->getUndoList());
+    // we need an special checks due hierarchies
+    if (myTagProperty.isPersonPlan() || myTagProperty.isContainerPlan()) {
+        // get person/container plarent
+        GNEDemandElement* parent = getParentDemandElements().front();
+        // if this is the last person/container plan element, remove parent instead plan
+        if (parent->getChildDemandElements().size() == 1) {
+            parent->deleteGLObject();
+        } else {
+            myNet->deleteDemandElement(this, myNet->getViewNet()->getUndoList());
+        }
+    } else if (getTagProperty().getTag() == GNE_TAG_ROUTE_EMBEDDED) {
+        // remove parent demand element
+        getParentDemandElements().front()->deleteGLObject();
+    } else {
+        myNet->deleteDemandElement(this, myNet->getViewNet()->getUndoList());
+    }
 }
 
 
