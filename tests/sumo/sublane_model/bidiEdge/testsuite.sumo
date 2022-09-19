@@ -1,6 +1,9 @@
 # intersection connected to normal and bidi edges; Bike makes emergency braking while a veh is inserted to the neighboring edge
 bikeUnneededEmergencyBraking
 
+# intersection connected to normal and bidi edges; Bike makes emergency braking while approaching another bike, which has difficulty to make a proper turn; in a big scenario, this causes a collision. 
+bikeTurnWeird
+
 # two consecutive pairs of bidi-edges (between normal edges), 1 vehicle and 2 bikes
 # Check if a vehicle wiggles when bikes are passing by.
 bikePassingWithoutWiggledVeh
