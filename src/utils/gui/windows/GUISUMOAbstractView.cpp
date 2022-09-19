@@ -1178,8 +1178,8 @@ GUISUMOAbstractView::openObjectDialogAtCursor(const FXEvent* ev) {
             // inspect only TLSs
             openObjectDialog(filteredTLSUnderCursor);
         } else {
-            // inspect first object under cursor
-            openObjectDialog({filteredObjectsUnderCursor.front()});
+            // inspect objects under cursor
+            openObjectDialog(filteredObjectsUnderCursor);
         }
         // Make OpenGL context non current
         makeNonCurrent();
