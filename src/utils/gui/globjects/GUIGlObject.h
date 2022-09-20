@@ -290,6 +290,19 @@ protected:
     /// @brief build basic additional popup options. Used to unify pop-ups menu in netedit and SUMO-GUI
     void buildAdditionalsPopupOptions(GUIMainWindow& app, GUIGLObjectPopupMenu* ret, const std::string& type);
 
+    /// @brief check if mouse is within elements geometry (for circles)
+    bool isMouseWithinGeometry(const Position mousePos, const Position center, const double radius) const;
+
+    /// @brief check if mouse is within elements geometry (for filled shapes)
+    bool isMouseWithinGeometry(const Position mousePos, const PositionVector shape) const;
+
+    /// @brief check if mouse is within elements geometry (for shapes)
+    bool isMouseWithinGeometry(const Position mousePos, const PositionVector shape, const double width) const;
+
+    /// @brief check if mouse is within elements geometry (for rectangles)
+    bool isMouseWithinGeometry(const Position mousePos, const Position& pos, const double width, const double height, 
+                               const double offsetX, const double offsetY, const double rot) const;
+
 private:
     /// @brief The numerical id of the object
     const GUIGlID myGlID;

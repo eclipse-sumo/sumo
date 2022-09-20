@@ -42,6 +42,9 @@ public:
     /// @brief recompute boundaries
     GUIGlObjectType recomputeBoundaries = GLO_NETWORK;
 
+    /// @brief mouse over element
+    const GUIGlObject* mouserOverElement = nullptr;
+
     /// @brief marked Node (used in create edge mode)
     const GUIGlObject* markedNode = nullptr;
 
