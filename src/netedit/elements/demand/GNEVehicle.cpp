@@ -33,6 +33,7 @@
 #include <utils/gui/globjects/GLIncludes.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/common/StringTokenizer.h>
+#include <utils/gui/div/GUIGlobalPostDrawing.h>
 
 #include "GNEVehicle.h"
 #include "GNERouteHandler.h"
@@ -794,6 +795,10 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
                 }
                 // draw lock icon
                 GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), vehiclePosition, exaggeration);
+                // check if mouse is over element
+                if (isMouseWithinGeometry(myNet->getViewNet()->getPositionInformation(), vehiclePosition, length * 0.5, width * 0.5, length * -0.5, 0, vehicleRotation)) {
+                    gPostDrawing.mouserOverElement = this;
+                }
                 // check if dotted contours has to be drawn
                 if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
                     // draw using drawDottedContourClosedShape
@@ -965,6 +970,10 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane
         }
         // Pop name
         GLHelper::popName();
+        // check if mouse is over element
+        if (isMouseWithinGeometry(myNet->getViewNet()->getPositionInformation(), vehicleGeometry.getShape(), width)) {
+            gPostDrawing.mouserOverElement = this;
+        }
         // check if shape dotted contour has to be drawn
         if (dottedElement) {
             // declare trim geometry to draw

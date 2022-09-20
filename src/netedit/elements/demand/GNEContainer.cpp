@@ -29,6 +29,7 @@
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/div/GUIBasePersonHelper.h>
 #include <utils/gui/div/GUIDesigns.h>
+#include <utils/gui/div/GUIGlobalPostDrawing.h>
 
 #include "GNEContainer.h"
 #include "GNERouteHandler.h"
@@ -425,6 +426,10 @@ GNEContainer::drawGL(const GUIVisualizationSettings& s) const {
                 Position containerValuePosition = containerPosition + Position(0, 0.6 * s.containerName.scaledSize(s.scale));
                 const double value = getColorValue(s, s.containerColorer.getActive());
                 GLHelper::drawTextSettings(s.personValue, toString(value), containerValuePosition, s.scale, s.angle, GLO_MAX - getType());
+            }
+            // check if mouse is over element
+            if (isMouseWithinGeometry(myNet->getViewNet()->getPositionInformation(), containerPosition, 0.5, 0.2, -2.5, 0, 0)) {
+                gPostDrawing.mouserOverElement = this;
             }
             // draw lock icon
             GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), exaggeration);

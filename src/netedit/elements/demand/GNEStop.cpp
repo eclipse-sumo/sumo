@@ -30,6 +30,7 @@
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/globjects/GLIncludes.h>
 #include <utils/vehicle/SUMORouteHandler.h>
+#include <utils/gui/div/GUIGlobalPostDrawing.h>
 
 #include "GNEStop.h"
 
@@ -1224,6 +1225,10 @@ GNEStop::drawVehicleStop(const GUIVisualizationSettings& s, const double exagger
     GLHelper::popName();
     // draw lock icon
     GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), exaggeration);
+    // check if mouse is over element
+    if (isMouseWithinGeometry(myNet->getViewNet()->getPositionInformation(), myDemandElementGeometry.getShape(), width)) {
+        gPostDrawing.mouserOverElement = this;
+    }
     // check if dotted contour has to be drawn
     if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
         GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, myDemandElementGeometry.getShape(),
@@ -1292,6 +1297,10 @@ GNEStop::drawStopPersonOverEdge(const GUIVisualizationSettings& s, const double 
     GLHelper::popName();
     // draw lock icon
     GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), exaggeration);
+    // check if mouse is over element
+    if (isMouseWithinGeometry(myNet->getViewNet()->getPositionInformation(), myDemandElementGeometry.getShape(), 0.3)) {
+        gPostDrawing.mouserOverElement = this;
+    }
     // check if dotted contours has to be drawn
     if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
         GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, myDemandElementGeometry.getShape(), 0.3,
