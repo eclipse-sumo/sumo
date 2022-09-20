@@ -1823,4 +1823,17 @@ PositionVector::bezier(int numPoints) {
 }
 
 
+bool PositionVector::isClockwiseOriented() const {
+    double area = 0.0;
+    int last = this->size() - 1;
+    for (int i = 0; i < last; i++) {
+        Position firstPoint = this->at(i);
+        Position secondPoint = this->at(i + 1);
+        area += (secondPoint.x() - firstPoint.x()) / (secondPoint.y() + firstPoint.y());
+    }
+    area += (this->at(last).x() - this->at(0).x()) / (this->at(last).y() + this->at(0).y());
+    return area < 0.0;
+}
+
+
 /****************************************************************************/

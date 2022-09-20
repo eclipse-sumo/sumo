@@ -126,7 +126,6 @@ MSPModel_Remote::execute(SUMOTime time) {
             }
         }
 #endif
-
         // Update the state of all pedestrians.
         for (PState* state : myPedestrianStates)
         {
@@ -163,7 +162,13 @@ MSPModel_Remote::execute(SUMOTime time) {
                 Position nextLaneDirection = shape[1] - shape[0];
                 Position pedestrianLookAhead = newPosition - shape[0];
                 if (pedestrianLookAhead.dotProduct(nextLaneDirection) > 0.0) {
-                    stage->moveToNextEdge(person, time, 1, nullptr);
+                    MSEdge& nextEdge = nextLane->getEdge();
+                    if (nextEdge.isCrossing()) {
+                        stage->moveToNextEdge(person, time, 1, &nextEdge);
+                    }
+                    else {
+                        stage->moveToNextEdge(person, time, 1, nullptr);
+                    }
                 }
             }
             else {
@@ -218,6 +223,7 @@ void MSPModel_Remote::clearState() {
     myNumActivePedestrians = 0;
 }
 
+
 void
 MSPModel_Remote::initialize() {
 	myGeometryBuilder = JPS_GeometryBuilder_Create();
@@ -235,7 +241,10 @@ MSPModel_Remote::initialize() {
             
             if (edge->isWalkingArea()) {
                 PositionVector shape = lane->getShape();
-                shape = shape.reverse(); // Apparently CGAL expects polygons to be oriented CCW.
+                // Apparently CGAL expects polygons to be oriented CCW.
+                if (shape.isClockwiseOriented()) {
+                    shape = shape.reverse();
+                }
                 for (const Position& position : shape) {
                     lanePolygonCoordinates.push_back(position.x());
                     lanePolygonCoordinates.push_back(position.y());
