@@ -309,15 +309,11 @@ GNEPOI::drawGL(const GUIVisualizationSettings& s) const {
             GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), POIExaggeration);
             // check if mouse is over element
             if (getShapeImgFile().empty()) {
-                if (isMouseWithinGeometry(myNet->getViewNet()->getPositionInformation(), *this, 1.3)) {
-                    gPostDrawing.mouserOverElement = this;
-                }
+                mouseWithinGeometry(myNet->getViewNet()->getPositionInformation(), *this, 1.3);
             } else {
-                if (isMouseWithinGeometry(myNet->getViewNet()->getPositionInformation(), *this, getHeight() * 0.5, getWidth() * 0.5, 0, 0, getShapeNaviDegree())) {
-                    gPostDrawing.mouserOverElement = this;
-                }
+                mouseWithinGeometry(myNet->getViewNet()->getPositionInformation(), *this, getHeight() * 0.5, getWidth() * 0.5, 0, 0, getShapeNaviDegree());
             }
-            // check if dotted contour has to be drawn
+            // inspect contour
             if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
                 if (getShapeImgFile().empty()) {
                     GUIDottedGeometry::drawDottedContourCircle(GUIDottedGeometry::DottedContourType::INSPECT, s, *this, 1.3, POIExaggeration);
@@ -325,12 +321,20 @@ GNEPOI::drawGL(const GUIVisualizationSettings& s) const {
                     GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::INSPECT, s, *this, getHeight() * 0.5, getWidth() * 0.5, 0, 0, getShapeNaviDegree(), POIExaggeration);
                 }
             }
-            // check if front dotted contour has to be drawn
+            // front element contour
             if ((myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
                 if (getShapeImgFile().empty()) {
                     GUIDottedGeometry::drawDottedContourCircle(GUIDottedGeometry::DottedContourType::FRONT, s, *this, 1.3, POIExaggeration);
                 } else {
                     GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::FRONT, s, *this, getHeight() * 0.5, getWidth() * 0.5, 0, 0, getShapeNaviDegree(), POIExaggeration);
+                }
+            }
+            // orange contour
+            if ((myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
+                if (getShapeImgFile().empty()) {
+                    GUIDottedGeometry::drawDottedContourCircle(GUIDottedGeometry::DottedContourType::ORANGE, s, *this, 1.3, POIExaggeration);
+                } else {
+                    GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::ORANGE, s, *this, getHeight() * 0.5, getWidth() * 0.5, 0, 0, getShapeNaviDegree(), POIExaggeration);
                 }
             }
         }

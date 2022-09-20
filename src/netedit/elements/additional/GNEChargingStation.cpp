@@ -172,17 +172,21 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
             // draw lock icon
             GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), myAdditionalGeometry.getShape().getCentroid(), chargingStationExaggeration);
             // check if mouse is over element
-            if (isMouseWithinGeometry(myNet->getViewNet()->getPositionInformation(), myAdditionalGeometry.getShape(), s.stoppingPlaceSettings.chargingStationWidth * MIN2(1.0, chargingStationExaggeration)) || 
-                isMouseWithinGeometry(myNet->getViewNet()->getPositionInformation(), mySignPos, myCircleWidth)) {
-                gPostDrawing.mouserOverElement = this;
-            }
-            // check if dotted contours has to be drawn
+            mouseWithinGeometry(myNet->getViewNet()->getPositionInformation(), myAdditionalGeometry.getShape(), s.stoppingPlaceSettings.chargingStationWidth * MIN2(1.0, chargingStationExaggeration)); 
+            mouseWithinGeometry(myNet->getViewNet()->getPositionInformation(), mySignPos, myCircleWidth);
+            // inspect contour
             if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
                 GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, myAdditionalGeometry.getShape(), s.stoppingPlaceSettings.chargingStationWidth,
                         chargingStationExaggeration, true, true);
             }
+            // front element contour
             if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
                 GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::FRONT, s, myAdditionalGeometry.getShape(), s.stoppingPlaceSettings.chargingStationWidth,
+                        chargingStationExaggeration, true, true);
+            }
+            // orange contour
+            if (gPostDrawing.mouserOverElement == this) {
+                GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::ORANGE, s, myAdditionalGeometry.getShape(), s.stoppingPlaceSettings.chargingStationWidth,
                         chargingStationExaggeration, true, true);
             }
             // draw child demand elements

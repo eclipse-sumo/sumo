@@ -313,15 +313,11 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
         }
         // check if mouse is over element
         if (getFill() || myPolygonGeometry.getShape().isClosed()) {
-            if (isMouseWithinGeometry(myNet->getViewNet()->getPositionInformation(), myPolygonGeometry.getShape())) {
-                gPostDrawing.mouserOverElement = this;
-            }
+            mouseWithinGeometry(myNet->getViewNet()->getPositionInformation(), myPolygonGeometry.getShape());
         } else {
-            if (isMouseWithinGeometry(myNet->getViewNet()->getPositionInformation(), myPolygonGeometry.getShape(), s.neteditSizeSettings.polylineWidth)) {
-                gPostDrawing.mouserOverElement = this;
-            }
+            mouseWithinGeometry(myNet->getViewNet()->getPositionInformation(), myPolygonGeometry.getShape(), s.neteditSizeSettings.polylineWidth);
         }
-        // check if dotted contour has to be drawn
+        // inspect contour
         if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
             // draw depending if is closed
             if (getFill() || myPolygonGeometry.getShape().isClosed()) {
@@ -331,13 +327,23 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
                         polyExaggeration, 1, 1);
             }
         }
-        // check if front dotted contour has to be drawn
-        if ((myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
+        // dotted contour
+        if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
             // draw depending if is closed
             if (getFill() || myPolygonGeometry.getShape().isClosed()) {
                 GUIDottedGeometry::drawDottedContourClosedShape(GUIDottedGeometry::DottedContourType::FRONT, s, myPolygonGeometry.getShape(), 1);
             } else {
                 GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::FRONT, s, myPolygonGeometry.getShape(), s.neteditSizeSettings.polylineWidth,
+                        polyExaggeration, 1, 1);
+            }
+        }
+        // orange contour
+        if (gPostDrawing.mouserOverElement == this) {
+            // draw depending if is closed
+            if (getFill() || myPolygonGeometry.getShape().isClosed()) {
+                GUIDottedGeometry::drawDottedContourClosedShape(GUIDottedGeometry::DottedContourType::ORANGE, s, myPolygonGeometry.getShape(), 1);
+            } else {
+                GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::ORANGE, s, myPolygonGeometry.getShape(), s.neteditSizeSettings.polylineWidth,
                         polyExaggeration, 1, 1);
             }
         }

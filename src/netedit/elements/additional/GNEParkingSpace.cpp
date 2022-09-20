@@ -233,17 +233,18 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
         // draw lock icon
         GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), myShapeLength.getPolygonCenter(), parkingAreaExaggeration);
         // check if mouse is over element
-        if (isMouseWithinGeometry(myNet->getViewNet()->getPositionInformation(), myShapeLength, width)) {
-            gPostDrawing.mouserOverElement = this;
-        }
-        // check if dotted contours has to be drawn
+        mouseWithinGeometry(myNet->getViewNet()->getPositionInformation(), myShapeLength, width);
+        // inspect contour
         if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-            // draw using drawDottedContourClosedShape
             GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, myShapeLength, width, parkingAreaExaggeration, true, true);
         }
+        // front contour
         if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-            // draw using drawDottedContourClosedShape
-            GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, myShapeLength, width, parkingAreaExaggeration, true, true);
+            GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::FRONT, s, myShapeLength, width, parkingAreaExaggeration, true, true);
+        }
+        // orange contour
+        if (gPostDrawing.mouserOverElement == this) {
+            GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::ORANGE, s, myShapeLength, width, parkingAreaExaggeration, true, true);
         }
         // Draw additional ID
         drawAdditionalID(s);

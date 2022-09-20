@@ -631,17 +631,19 @@ GNEDemandElement::drawPersonPlanPartial(const bool drawPlan, const GUIVisualizat
         // declare trim geometry to draw
         const auto shape = (segment->isFirstSegment() || segment->isLastSegment()) ? personPlanGeometry.getShape() : lane->getLaneShape();
         // check if mouse is over element
-        if (isMouseWithinGeometry(myNet->getViewNet()->getPositionInformation(), shape, pathWidth)) {
-            gPostDrawing.mouserOverElement = this;
-        }
+        mouseWithinGeometry(myNet->getViewNet()->getPositionInformation(), shape, pathWidth);
         // check if shape dotted contour has to be drawn
         if (dottedElement) {
-            // draw inspected dotted contour
+            // inspect contour
             if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
                 GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, shape, pathWidth, 1, segment->isFirstSegment(), segment->isLastSegment());
             }
-            // draw front dotted contour
-            if ((myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
+            // front element contour
+            if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
+                GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::FRONT, s, shape, pathWidth, 1, segment->isFirstSegment(), segment->isLastSegment());
+            }
+            // orange contour
+            if (gPostDrawing.mouserOverElement == this) {
                 GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::FRONT, s, shape, pathWidth, 1, segment->isFirstSegment(), segment->isLastSegment());
             }
         }
@@ -699,22 +701,26 @@ GNEDemandElement::drawPersonPlanPartial(const bool drawPlan, const GUIVisualizat
         GLHelper::popName();
         // draw lock icon
         GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), 0.5);
-        // check if mouse is over element
-        if (isMouseWithinGeometry(myNet->getViewNet()->getPositionInformation(), fromLane->getLane2laneConnections().getLane2laneGeometry(toLane).getShape(), pathWidth)) {
-            gPostDrawing.mouserOverElement = this;
-        }
         // check if shape dotted contour has to be drawn
-        if (fromLane->getLane2laneConnections().exist(toLane) && (dottedElement)) {
-            // draw lane2lane inspected dotted geometry
+        if (fromLane->getLane2laneConnections().exist(toLane) && dottedElement) {
+            // check if mouse is over element
+            mouseWithinGeometry(myNet->getViewNet()->getPositionInformation(), fromLane->getLane2laneConnections().getLane2laneGeometry(toLane).getShape(), pathWidth);
+            // inspect contour
             if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
                 GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, fromLane->getLane2laneConnections().getLane2laneGeometry(toLane).getShape(),
                         pathWidth, 1, false, false);
             }
-            // draw lane2lane front dotted geometry
-            if ((myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
+            // front contour
+            if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
                 GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::FRONT, s, fromLane->getLane2laneConnections().getLane2laneGeometry(toLane).getShape(),
                         pathWidth, 1, false, false);
             }
+            // orange contour
+            if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
+                GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::ORANGE, s, fromLane->getLane2laneConnections().getLane2laneGeometry(toLane).getShape(),
+                        pathWidth, 1, false, false);
+            }
+
         }
     }
 }

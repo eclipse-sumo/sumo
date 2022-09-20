@@ -191,16 +191,20 @@ GNERouteProbe::drawGL(const GUIVisualizationSettings& s) const {
         // draw additional name
         drawAdditionalName(s);
         // check if mouse is over element
-        if (isMouseWithinGeometry(myNet->getViewNet()->getPositionInformation(), myAdditionalGeometry.getShape(), 0.5)) {
-            gPostDrawing.mouserOverElement = this;
-        }
-        // check if dotted contours has to be drawn
+        mouseWithinGeometry(myNet->getViewNet()->getPositionInformation(), myAdditionalGeometry.getShape(), 0.5);
+        // inspect contour
         if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
             GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, myAdditionalGeometry.getShape(), 0.5,
                     routeProbeExaggeration, true, true);
         }
+        // front contour
         if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
             GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::FRONT, s, myAdditionalGeometry.getShape(), 0.5,
+                    routeProbeExaggeration, true, true);
+        }
+        // orange contour
+        if (gPostDrawing.mouserOverElement == this) {
+            GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::ORANGE, s, myAdditionalGeometry.getShape(), 0.5,
                     routeProbeExaggeration, true, true);
         }
     }

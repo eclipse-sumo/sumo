@@ -428,19 +428,23 @@ GNEContainer::drawGL(const GUIVisualizationSettings& s) const {
                 GLHelper::drawTextSettings(s.personValue, toString(value), containerValuePosition, s.scale, s.angle, GLO_MAX - getType());
             }
             // check if mouse is over element
-            if (isMouseWithinGeometry(myNet->getViewNet()->getPositionInformation(), containerPosition, 0.5, 0.2, -2.5, 0, 0)) {
-                gPostDrawing.mouserOverElement = this;
-            }
+            mouseWithinGeometry(myNet->getViewNet()->getPositionInformation(), containerPosition, 0.5, 0.2, -2.5, 0, 0);
             // draw lock icon
             GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), exaggeration);
-            // check if dotted contours has to be drawn
+            // inspect contour
             if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
                 // draw using drawDottedSquaredShape
                 GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::INSPECT, s, containerPosition, 0.5, 0.2, -2.5, 0, 0, exaggeration);
             }
+            // front element contour
             if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
                 // draw using drawDottedSquaredShape
                 GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::FRONT, s, containerPosition, 0.5, 0.2, -2.5, 0, 0, exaggeration);
+            }
+            // orange contour
+            if (gPostDrawing.mouserOverElement == this) {
+                // draw using drawDottedSquaredShape
+                GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::ORANGE, s, containerPosition, 0.5, 0.2, -2.5, 0, 0, exaggeration);
             }
         }
     }

@@ -197,17 +197,20 @@ GNEAccess::drawGL(const GUIVisualizationSettings& s) const {
         // pop gl identificator
         GLHelper::popName();
         // check if mouse is over access
-        if (isMouseWithinGeometry(myNet->getViewNet()->getPositionInformation(), myAdditionalGeometry.getShape().front(), (radius * accessExaggeration))) {
-            gPostDrawing.mouserOverElement = this;
-        }
+        mouseWithinGeometry(myNet->getViewNet()->getPositionInformation(), myAdditionalGeometry.getShape().front(), (radius * accessExaggeration));
         // draw lock icon
         GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), myAdditionalGeometry.getShape().front(), accessExaggeration, 0.3);
-        // check if dotted contours has to be drawn
+        // inspect contour
         if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
             GUIDottedGeometry::drawDottedContourCircle(GUIDottedGeometry::DottedContourType::INSPECT, s, myAdditionalGeometry.getShape().front(), 0.5, accessExaggeration);
         }
+        // front element contour
         if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
             GUIDottedGeometry::drawDottedContourCircle(GUIDottedGeometry::DottedContourType::FRONT, s, myAdditionalGeometry.getShape().front(), 0.5, accessExaggeration);
+        }
+        // orange contour
+        if (gPostDrawing.mouserOverElement == this) {
+            GUIDottedGeometry::drawDottedContourCircle(GUIDottedGeometry::DottedContourType::ORANGE, s, myAdditionalGeometry.getShape().front(), 0.5, accessExaggeration);
         }
     }
 }

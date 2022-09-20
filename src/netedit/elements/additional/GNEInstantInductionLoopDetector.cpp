@@ -178,17 +178,21 @@ GNEInstantInductionLoopDetector::drawGL(const GUIVisualizationSettings& s) const
             // draw lock icon
             GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), myAdditionalGeometry.getShape().getCentroid(), E1InstantExaggeration);
             // check if mouse is over element
-            if (isMouseWithinGeometry(myNet->getViewNet()->getPositionInformation(), myAdditionalGeometry.getShape().front(), 
-                    2, 1, 0, 0, myAdditionalGeometry.getShapeRotations().front())) {
-                gPostDrawing.mouserOverElement = this;
-            }
-            // check if dotted contours has to be drawn
+            mouseWithinGeometry(myNet->getViewNet()->getPositionInformation(), myAdditionalGeometry.getShape().front(), 2, 1, 0, 0, 
+                    myAdditionalGeometry.getShapeRotations().front());
+            // inspect contour
             if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
                 GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::INSPECT, s, myAdditionalGeometry.getShape().front(), 
                     2, 1, 0, 0, myAdditionalGeometry.getShapeRotations().front(), E1InstantExaggeration);
             }
+            // front element contour
             if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
                 GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::FRONT, s, myAdditionalGeometry.getShape().front(), 
+                    2, 1, 0, 0, myAdditionalGeometry.getShapeRotations().front(), E1InstantExaggeration);
+            }
+            // orange contour
+            if (gPostDrawing.mouserOverElement == this) {
+                GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::ORANGE, s, myAdditionalGeometry.getShape().front(), 
                     2, 1, 0, 0, myAdditionalGeometry.getShapeRotations().front(), E1InstantExaggeration);
             }
         }

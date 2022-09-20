@@ -140,19 +140,23 @@ GNEWalkingArea::drawGL(const GUIVisualizationSettings& s) const {
         // pop junction name
         GLHelper::popName();
         // check if mouse is over element
-        if (isMouseWithinGeometry(myNet->getViewNet()->getPositionInformation(), walkingAreaShape)) {
-            gPostDrawing.mouserOverElement = this;
-        }
-        // check if dotted contour has to be drawn
+        mouseWithinGeometry(myNet->getViewNet()->getPositionInformation(), walkingAreaShape);
+        // inspect contour
         if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
             GUIDottedGeometry::drawDottedContourClosedShape(GUIDottedGeometry::DottedContourType::INSPECT, s, walkingAreaShape,
                     (walkingAreaExaggeration >= 1) ? walkingAreaExaggeration : 1);
         }
-        // check if dotted contour has to be drawn
+        // front element contour
         if ((myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
             GUIDottedGeometry::drawDottedContourClosedShape(GUIDottedGeometry::DottedContourType::FRONT, s, walkingAreaShape,
                     (walkingAreaExaggeration >= 1) ? walkingAreaExaggeration : 1);
         }
+        // front element contour
+        if (gPostDrawing.mouserOverElement == this) {
+            GUIDottedGeometry::drawDottedContourClosedShape(GUIDottedGeometry::DottedContourType::ORANGE, s, walkingAreaShape,
+                    (walkingAreaExaggeration >= 1) ? walkingAreaExaggeration : 1);
+        }
+
     }
 }
 

@@ -1506,6 +1506,12 @@ GNEJunction::drawDottedContours(const GUIVisualizationSettings& s, const bool dr
                     (junctionExaggeration >= 1) ? junctionExaggeration : 1);
         }
     }
+    // check if mouse is over junction
+    if (drawBubble) {
+        mouseWithinGeometry(myNet->getViewNet()->getPositionInformation(), myNBNode->getPosition(), bubbleRadius);
+    } else {
+        mouseWithinGeometry(myNet->getViewNet()->getPositionInformation(), myNBNode->getShape());
+    }
     // draw dotted contours regarding create edge mode
     if (myAmCreateEdgeSource) {
         if (drawBubble) {
@@ -1521,17 +1527,15 @@ GNEJunction::drawDottedContours(const GUIVisualizationSettings& s, const bool dr
         // get dotted contour type
         const auto dottedContourType = myNet->getViewNet()->getViewParent()->getCreateEdgeFrame()->getJunctionSource() ? GUIDottedGeometry::DottedContourType::MAGENTA : GUIDottedGeometry::DottedContourType::GREEN;
         // draw bubble
-        if (drawBubble && isMouseWithinGeometry(myNet->getViewNet()->getPositionInformation(), myNBNode->getPosition(), bubbleRadius)) {
+        if (drawBubble && (gPostDrawing.mouserOverElement == this)) {
             // mark this node
             gPostDrawing.markedNode = this;
-            gPostDrawing.mouserOverElement = this;
             // draw dotted contour
             GUIDottedGeometry::drawDottedContourCircle(dottedContourType, s, myNBNode->getCenter(), s.neteditSizeSettings.junctionBubbleRadius,
                     (junctionExaggeration >= 1) ? junctionExaggeration : 1);
-        } else if (drawShape && isMouseWithinGeometry(myNet->getViewNet()->getPositionInformation(), myNBNode->getShape())) {
+        } else if (drawShape && (gPostDrawing.mouserOverElement == this)) {
             // mark this node
             gPostDrawing.markedNode = this;
-            gPostDrawing.mouserOverElement = this;
             // draw dotted contour
             GUIDottedGeometry::drawDottedContourClosedShape(dottedContourType, s, myNBNode->getShape(),
                     (junctionExaggeration >= 1) ? junctionExaggeration : 1);

@@ -445,18 +445,21 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
             // draw lock icon
             GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), 0.1);
             // check if mouse is over element
-            if (isMouseWithinGeometry(myNet->getViewNet()->getPositionInformation(), shapeSuperposed, s.connectionSettings.connectionWidth)) {
-                gPostDrawing.mouserOverElement = this;
-            }
-            // check if dotted contour has to be drawn (not useful at high zoom)
+            mouseWithinGeometry(myNet->getViewNet()->getPositionInformation(), shapeSuperposed, s.connectionSettings.connectionWidth);
+            // inspect contour
             if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
                 // use drawDottedContourGeometry to draw it
                 GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, shapeSuperposed, s.connectionSettings.connectionWidth, selectionScale, true, true, 0.1);
             }
-            // check if front contour has to be drawn (not useful at high zoom)
-            if ((myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
+            // front contour
+            if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
                 // use drawDottedContourGeometry to draw it
                 GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::FRONT, s, shapeSuperposed, s.connectionSettings.connectionWidth, selectionScale, true, true, 0.1);
+            }
+            // orange contour
+            if (gPostDrawing.mouserOverElement == this) {
+                // use drawDottedContourGeometry to draw it
+                GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::ORANGE, s, shapeSuperposed, s.connectionSettings.connectionWidth, selectionScale, true, true, 0.1);
             }
         }
     }

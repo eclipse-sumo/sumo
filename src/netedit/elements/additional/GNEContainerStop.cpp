@@ -173,17 +173,21 @@ GNEContainerStop::drawGL(const GUIVisualizationSettings& s) const {
             // draw lock icon
             GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), myAdditionalGeometry.getShape().getCentroid(), containerStopExaggeration);
             // check if mouse is over element
-            if (isMouseWithinGeometry(myNet->getViewNet()->getPositionInformation(), myAdditionalGeometry.getShape(), s.stoppingPlaceSettings.containerStopWidth * MIN2(1.0, containerStopExaggeration)) || 
-                isMouseWithinGeometry(myNet->getViewNet()->getPositionInformation(), mySignPos, myCircleWidth)) {
-                gPostDrawing.mouserOverElement = this;
-            }
-            // check if dotted contours has to be drawn
+            mouseWithinGeometry(myNet->getViewNet()->getPositionInformation(), myAdditionalGeometry.getShape(), s.stoppingPlaceSettings.containerStopWidth * MIN2(1.0, containerStopExaggeration));
+            mouseWithinGeometry(myNet->getViewNet()->getPositionInformation(), mySignPos, myCircleWidth);
+            // Inspect contour
             if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
                 GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, myAdditionalGeometry.getShape(), s.stoppingPlaceSettings.containerStopWidth,
                         containerStopExaggeration, 1, 1);
             }
+            // front element contour
             if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
                 GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::FRONT, s, myAdditionalGeometry.getShape(), s.stoppingPlaceSettings.containerStopWidth,
+                        containerStopExaggeration, 1, 1);
+            }
+            // orange contour
+            if (gPostDrawing.mouserOverElement == this) {
+                GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::ORANGE, s, myAdditionalGeometry.getShape(), s.stoppingPlaceSettings.containerStopWidth,
                         containerStopExaggeration, 1, 1);
             }
             // draw child demand elements

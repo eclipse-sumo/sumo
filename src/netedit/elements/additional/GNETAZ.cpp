@@ -378,9 +378,7 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
         // draw name
         drawName(myTAZCenter, s.scale, s.polyName, s.angle);
         // check if mouse is over element
-        if (isMouseWithinGeometry(myNet->getViewNet()->getPositionInformation(), myAdditionalGeometry.getShape())) {
-            gPostDrawing.mouserOverElement = this;
-        }
+        mouseWithinGeometry(myNet->getViewNet()->getPositionInformation(), myAdditionalGeometry.getShape());
         // draw dotted contours
         drawDottedContours(s, TAZExaggeration);
         // check if draw poly type
@@ -644,8 +642,12 @@ GNETAZ::drawDottedContours(const GUIVisualizationSettings& s, const double TAZEx
         GUIDottedGeometry::drawDottedContourClosedShape(GUIDottedGeometry::DottedContourType::INSPECT, s, myAdditionalGeometry.getShape(), 1);
     }
     // dotted contour for front
-    if ((myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
+    if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
         GUIDottedGeometry::drawDottedContourClosedShape(GUIDottedGeometry::DottedContourType::FRONT, s, myAdditionalGeometry.getShape(), 1);
+    }
+    // dotted contour for front
+    if (gPostDrawing.mouserOverElement == this) {
+        GUIDottedGeometry::drawDottedContourClosedShape(GUIDottedGeometry::DottedContourType::ORANGE, s, myAdditionalGeometry.getShape(), 1);
     }
     // dotted contour for first TAZ
     if ((myNet->getViewNet()->getViewParent()->getTAZRelDataFrame()->getFirstTAZ() == this)) {

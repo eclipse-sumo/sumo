@@ -631,21 +631,26 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
             gPostDrawing.mouserOverElement = this;
         }
         // check if mouse is over element
-        if (isMouseWithinGeometry(myNet->getViewNet()->getPositionInformation(), getLaneShape(), laneDrawingConstants.halfWidth)) {
-            gPostDrawing.mouserOverElement = this;
-        }
+        mouseWithinGeometry(myNet->getViewNet()->getPositionInformation(), getLaneShape(), laneDrawingConstants.halfWidth);
         // check if dotted contours has to be drawn
         if (!drawRailway) {
+            // inspect contour
             if (myNet->getViewNet()->isAttributeCarrierInspected(this) ||
                     ((myNet->getViewNet()->isAttributeCarrierInspected(myParentEdge) && (myParentEdge->getLanes().size() == 1)))) {
                 GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, getLaneShape(), laneDrawingConstants.halfWidth, 1, true, true);
             }
+            // front contour
             if ((myNet->getViewNet()->getFrontAttributeCarrier() == this) ||
                     ((myNet->getViewNet()->getFrontAttributeCarrier() == myParentEdge) && (myParentEdge->getLanes().size() == 1))) {
                 GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::FRONT, s, getLaneShape(), laneDrawingConstants.halfWidth, 1, true, true);
             }
+            // orange contour 1
             if (myNet->getViewNet()->getViewParent()->getAdditionalFrame()->getLanesSelector()->isNetworkElementSelected(this) ||
                     (myNet->getViewNet()->getViewParent()->getAdditionalFrame()->getEdgesSelector()->isNetworkElementSelected(myParentEdge) && (myParentEdge->getLanes().size() == 1))) {
+                GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::ORANGE, s, getLaneShape(), laneDrawingConstants.halfWidth, 1, true, true);
+            }
+            // orange contour 2
+            if (gPostDrawing.mouserOverElement == this) {
                 GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::ORANGE, s, getLaneShape(), laneDrawingConstants.halfWidth, 1, true, true);
             }
         }

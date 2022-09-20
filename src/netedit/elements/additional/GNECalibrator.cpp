@@ -468,22 +468,25 @@ GNECalibrator::drawCalibratorSymbol(const GUIVisualizationSettings& s, const dou
     // pop name
     GLHelper::popName();
     // check if mouse is over element
-    if (isMouseWithinGeometry(myNet->getViewNet()->getPositionInformation(), pos, s.additionalSettings.calibratorWidth, 
-        s.additionalSettings.calibratorHeight * 0.5, 0, s.additionalSettings.calibratorHeight * 0.5, rot)) {
-        gPostDrawing.mouserOverElement = this;
-    }
-    // check if dotted contours has to be drawn
+    mouseWithinGeometry(myNet->getViewNet()->getPositionInformation(), pos, s.additionalSettings.calibratorWidth, 
+            s.additionalSettings.calibratorHeight * 0.5, 0, s.additionalSettings.calibratorHeight * 0.5, rot);
+    // inspect element
     if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
         GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::INSPECT, s, pos,
                 s.additionalSettings.calibratorWidth, s.additionalSettings.calibratorHeight * 0.5,
-                0, s.additionalSettings.calibratorHeight * 0.5,
-                rot, exaggeration);
+                0, s.additionalSettings.calibratorHeight * 0.5, rot, exaggeration);
     }
+    // front element
     if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
         GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::FRONT, s, pos,
                 s.additionalSettings.calibratorWidth, s.additionalSettings.calibratorHeight * 0.5,
-                0, s.additionalSettings.calibratorHeight * 0.5,
-                rot, exaggeration);
+                0, s.additionalSettings.calibratorHeight * 0.5, rot, exaggeration);
+    }
+    // orange element
+    if (gPostDrawing.mouserOverElement == this) {
+        GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::ORANGE, s, pos,
+                s.additionalSettings.calibratorWidth, s.additionalSettings.calibratorHeight * 0.5,
+                0, s.additionalSettings.calibratorHeight * 0.5, rot, exaggeration);
     }
 }
 

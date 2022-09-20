@@ -413,26 +413,26 @@ GUIGlObject::buildAdditionalsPopupOptions(GUIMainWindow& app, GUIGLObjectPopupMe
 }
 
 
-bool 
-GUIGlObject::isMouseWithinGeometry(const Position mousePos, const Position center, const double radius) const {
-    return (mousePos.distanceSquaredTo2D(center) <= (radius * radius));
+void 
+GUIGlObject::mouseWithinGeometry(const Position mousePos, const Position center, const double radius) const {
+    //return (mousePos.distanceSquaredTo2D(center) <= (radius * radius));
 }
 
 
-bool 
-GUIGlObject::isMouseWithinGeometry(const Position mousePos, const PositionVector shape) const {
-    return shape.around(mousePos);
+void 
+GUIGlObject::mouseWithinGeometry(const Position mousePos, const PositionVector shape) const {
+    //return shape.around(mousePos);
 }
 
 
-bool 
-GUIGlObject::isMouseWithinGeometry(const Position mousePos, const PositionVector shape, const double width) const {
-    return (shape.distance2D(mousePos) <= width);
+void 
+GUIGlObject::mouseWithinGeometry(const Position mousePos, const PositionVector shape, const double width) const {
+    //return (shape.distance2D(mousePos) <= width);
 }
 
 
-bool 
-GUIGlObject::isMouseWithinGeometry(const Position mousePos, const Position& pos, const double width, const double height, 
+void 
+GUIGlObject::mouseWithinGeometry(const Position mousePos, const Position& pos, const double width, const double height, 
         const double offsetX, const double offsetY, const double rot) const {
     // create shape
     PositionVector shape;
@@ -448,7 +448,7 @@ GUIGlObject::isMouseWithinGeometry(const Position mousePos, const Position& pos,
     // move to position
     shape.add(pos);
     // check if mouse is within new geometry
-    return isMouseWithinGeometry(mousePos, shape, width);
+    mouseWithinGeometry(mousePos, shape, width);
 }
 
 

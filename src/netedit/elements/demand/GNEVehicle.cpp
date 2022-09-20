@@ -796,17 +796,21 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
                 // draw lock icon
                 GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), vehiclePosition, exaggeration);
                 // check if mouse is over element
-                if (isMouseWithinGeometry(myNet->getViewNet()->getPositionInformation(), vehiclePosition, length * 0.5, width * 0.5, length * -0.5, 0, vehicleRotation)) {
-                    gPostDrawing.mouserOverElement = this;
-                }
-                // check if dotted contours has to be drawn
+                mouseWithinGeometry(myNet->getViewNet()->getPositionInformation(), vehiclePosition, length * 0.5, width * 0.5, length * -0.5, 0, vehicleRotation);
+                // inspect contour
                 if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
                     // draw using drawDottedContourClosedShape
                     GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::INSPECT, s, vehiclePosition, length * 0.5, width * 0.5, length * -0.5, 0, vehicleRotation, exaggeration);
                 }
+                // front contour
                 if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
                     // draw using drawDottedContourClosedShape
                     GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::FRONT, s, vehiclePosition, length * 0.5, width * 0.5, length * -0.5, 0, vehicleRotation, exaggeration);
+                }
+                // orange contour
+                if (gPostDrawing.mouserOverElement == this) {
+                    // draw using drawDottedContourClosedShape
+                    GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::ORANGE, s, vehiclePosition, length * 0.5, width * 0.5, length * -0.5, 0, vehicleRotation, exaggeration);
                 }
                 if (myNet->getViewNet()->getEditModes().isCurrentSupermodeDemand() &&
                         (myNet->getViewNet()->getEditModes().demandEditMode == DemandEditMode::DEMAND_TYPE) &&
@@ -970,21 +974,23 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane
         }
         // Pop name
         GLHelper::popName();
-        // check if mouse is over element
-        if (isMouseWithinGeometry(myNet->getViewNet()->getPositionInformation(), vehicleGeometry.getShape(), width)) {
-            gPostDrawing.mouserOverElement = this;
-        }
         // check if shape dotted contour has to be drawn
         if (dottedElement) {
             // declare trim geometry to draw
             const auto shape = (segment->isFirstSegment() || segment->isLastSegment() ? vehicleGeometry.getShape() : lane->getLaneShape());
-            // draw inspected dotted contour
+            // check if mouse is over element
+            mouseWithinGeometry(myNet->getViewNet()->getPositionInformation(), shape, width);
+            // inspect contour
             if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
                 GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, shape, width, 1, segment->isFirstSegment(), segment->isLastSegment(), 0.1);
             }
-            // draw front dotted contour
+            // front contour
             if ((myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
                 GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::FRONT, s, shape, width, 1, segment->isFirstSegment(), segment->isLastSegment(), 0.1);
+            }
+            // orange contour
+            if (gPostDrawing.mouserOverElement == this) {
+                GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::ORANGE, s, shape, width, 1, segment->isFirstSegment(), segment->isLastSegment(), 0.1);
             }
         }
     }
