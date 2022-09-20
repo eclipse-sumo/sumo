@@ -13,6 +13,7 @@
 
 # @file    ortools_pdp.py
 # @author  Philip Ritzer
+# @author  Johannes Rummel
 # @date    2021-12-16
 
 """
@@ -109,6 +110,8 @@ def main(data, time_limit_seconds=10, verbose=False):
         routing.solver().Add(
             distance_dimension.CumulVar(pickup_index) <=
             distance_dimension.CumulVar(delivery_index))
+        if request[2] == True:  # is that a new request?
+            routing.AddDisjunction([pickup_index, delivery_index], 100_000, 2)
 
     # Force the vehicle to drop-off the reservations it already picked up
     if verbose:

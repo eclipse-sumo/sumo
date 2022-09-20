@@ -14,6 +14,7 @@
 
 # @file    drtOrtools.py
 # @author  Philip Ritzer
+# @author  Johannes Rummel
 # @date    2021-12-16
 
 """
@@ -107,7 +108,7 @@ def create_data_model(reservations, fleet, cost_type='distance', verbose=False):
         type_vehicle = types_vehicles_unique[0]
     cost_matrix = get_cost_matrix(edges, type_vehicle, cost_type)
 
-    pd_numeric = [[ii, n_dp_reservations+ii] for ii in range(1, n_dp_reservations+1)]
+    pd_numeric = [[ii+1, n_dp_reservations+ii+1, (dp_reservations[ii].state==1 | dp_reservations[ii].state==2)] for ii in range(0, n_dp_reservations)]
     do_numeric = [ii + 1 + 2*n_dp_reservations for ii in range(0, n_do_reservations)]
     ii = 1 + 2*n_dp_reservations + n_do_reservations
     starts_numeric = [jj for jj in range(ii, ii + n_vehicles)]
@@ -190,7 +191,7 @@ def solution_by_requests(solution_ortools, reservations, data, verbose=False):
 
     
     route2request = {}
-    for i_request, [i_pickup, i_delivery] in enumerate(data["pickups_deliveries"]):
+    for i_request, [i_pickup, i_delivery, _] in enumerate(data["pickups_deliveries"]):
         route2request[i_pickup] = dp_reservations[i_request].id
         route2request[i_delivery] = dp_reservations[i_request].id
     for dropoffs in data['dropoffs']:  # for each vehicle
