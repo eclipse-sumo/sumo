@@ -28,6 +28,7 @@
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/div/GUIDesigns.h>
+#include <utils/gui/div/GUIGlobalPostDrawing.h>
 
 #include "GNECrossing.h"
 
@@ -271,6 +272,10 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
         }
         // draw lock icon
         GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), 1);
+        // check if mouse is over element
+        if (isMouseWithinGeometry(myNet->getViewNet()->getPositionInformation(), myCrossingGeometry.getShape(), halfWidth)) {
+            gPostDrawing.mouserOverElement = this;
+        }
         // check if dotted contour has to be drawn (not useful at high zoom)
         if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
             GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, myCrossingGeometry.getShape(), halfWidth,

@@ -31,6 +31,7 @@
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/gui/div/GUIDesigns.h>
+#include <utils/gui/div/GUIGlobalPostDrawing.h>
 
 #include "GNEConnection.h"
 #include "GNEInternalLane.h"
@@ -443,6 +444,10 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
             }
             // draw lock icon
             GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), 0.1);
+            // check if mouse is over element
+            if (isMouseWithinGeometry(myNet->getViewNet()->getPositionInformation(), shapeSuperposed, s.connectionSettings.connectionWidth)) {
+                gPostDrawing.mouserOverElement = this;
+            }
             // check if dotted contour has to be drawn (not useful at high zoom)
             if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
                 // use drawDottedContourGeometry to draw it

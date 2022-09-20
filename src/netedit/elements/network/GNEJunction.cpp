@@ -1518,20 +1518,20 @@ GNEJunction::drawDottedContours(const GUIVisualizationSettings& s, const bool dr
         }
     } else if ((gPostDrawing.markedNode == nullptr) && myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() &&
                (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_CREATE_EDGE)) {
-        // calculate distance squared
-        const double bubbleDistance = (bubbleRadius * bubbleRadius);
         // get dotted contour type
         const auto dottedContourType = myNet->getViewNet()->getViewParent()->getCreateEdgeFrame()->getJunctionSource() ? GUIDottedGeometry::DottedContourType::MAGENTA : GUIDottedGeometry::DottedContourType::GREEN;
         // draw bubble
-        if (drawBubble && myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(myNBNode->getPosition()) <= bubbleDistance) {
+        if (drawBubble && isMouseWithinGeometry(myNet->getViewNet()->getPositionInformation(), myNBNode->getPosition(), bubbleRadius)) {
             // mark this node
             gPostDrawing.markedNode = this;
+            gPostDrawing.mouserOverElement = this;
             // draw dotted contour
             GUIDottedGeometry::drawDottedContourCircle(dottedContourType, s, myNBNode->getCenter(), s.neteditSizeSettings.junctionBubbleRadius,
                     (junctionExaggeration >= 1) ? junctionExaggeration : 1);
-        } else if (drawShape && myNBNode->getShape().around(myNet->getViewNet()->getPositionInformation())) {
+        } else if (drawShape && isMouseWithinGeometry(myNet->getViewNet()->getPositionInformation(), myNBNode->getShape())) {
             // mark this node
             gPostDrawing.markedNode = this;
+            gPostDrawing.mouserOverElement = this;
             // draw dotted contour
             GUIDottedGeometry::drawDottedContourClosedShape(dottedContourType, s, myNBNode->getShape(),
                     (junctionExaggeration >= 1) ? junctionExaggeration : 1);

@@ -28,6 +28,7 @@
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/div/GUIDesigns.h>
+#include <utils/gui/div/GUIGlobalPostDrawing.h>
 
 #include "GNEWalkingArea.h"
 
@@ -138,6 +139,10 @@ GNEWalkingArea::drawGL(const GUIVisualizationSettings& s) const {
         GLHelper::popMatrix();
         // pop junction name
         GLHelper::popName();
+        // check if mouse is over element
+        if (isMouseWithinGeometry(myNet->getViewNet()->getPositionInformation(), walkingAreaShape)) {
+            gPostDrawing.mouserOverElement = this;
+        }
         // check if dotted contour has to be drawn
         if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
             GUIDottedGeometry::drawDottedContourClosedShape(GUIDottedGeometry::DottedContourType::INSPECT, s, walkingAreaShape,
