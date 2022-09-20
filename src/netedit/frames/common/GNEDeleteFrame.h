@@ -220,6 +220,9 @@ protected:
     /// @brief check if there is selected ACs to delete
     bool selectedACsToDelete() const;
 
+    /// @brief filter elements based on the layer
+    std::vector<GUIGlObject*> filterElementsByLayer(const std::vector<GUIGlObject*> &GLObjects) const;
+
 private:
     /// @brief modul for delete options
     DeleteOptions* myDeleteOptions = nullptr;

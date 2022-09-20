@@ -373,6 +373,8 @@ GNEDeleteFrame::removeAttributeCarrier(const GNEViewNetHelper::ObjectsUnderCurso
             }
             filteredGLObjects.push_back(glObject);
         }
+        // now filter elements based on the first element
+        filteredGLObjects = filterElementsByLayer(filteredGLObjects);
         // after filter, check if there is more than one element
         if (filteredGLObjects.size() > 1) {
             // use Cursor dialog
@@ -483,6 +485,39 @@ GNEDeleteFrame::selectedACsToDelete() const {
         }
     }
     return false;
+}
+
+
+std::vector<GUIGlObject*>
+GNEDeleteFrame::filterElementsByLayer(const std::vector<GUIGlObject*> &GLObjects) const {
+    std::vector<GUIGlObject*> filteredGLObjects;
+    if (GLObjects.size() > 0) {
+        const auto firstLayer = GLObjects.front()->getType();
+        for (const auto &GLObject : GLObjects) {
+            if ((GLO_ADDITIONALELEMENT <= firstLayer) && (firstLayer <= GLO_TRACTIONSUBSTATION) &&
+                (GLO_ADDITIONALELEMENT <= GLObject->getType()) && (GLObject->getType() <= GLO_TRACTIONSUBSTATION)) {
+                filteredGLObjects.push_back(GLObject);
+            } else if ((GLO_RIDE <= firstLayer) && (firstLayer <= GLO_TRANSHIP) &&
+                (GLO_RIDE <= GLObject->getType()) && (GLObject->getType() <= GLO_TRANSHIP)) {
+                filteredGLObjects.push_back(GLObject);
+            } else if ((GLO_STOP <= firstLayer) && (firstLayer <= GLO_STOP_CONTAINER) &&
+                (GLO_STOP <= GLObject->getType()) && (GLObject->getType() <= GLO_STOP_CONTAINER)) {
+                filteredGLObjects.push_back(GLObject);
+            } else if ((GLO_VEHICLE <= firstLayer) && (firstLayer <= GLO_ROUTEFLOW) &&
+                (GLO_VEHICLE <= GLObject->getType()) && (GLObject->getType() <= GLO_ROUTEFLOW)) {
+                filteredGLObjects.push_back(GLObject);
+            } else if ((GLO_PERSON <= firstLayer) && (firstLayer <= GLO_PERSONFLOW) && 
+                (GLO_PERSON <= GLObject->getType()) && (GLObject->getType() <= GLO_PERSONFLOW)) {
+                filteredGLObjects.push_back(GLObject);
+            } else if ((GLO_CONTAINER <= firstLayer) && (firstLayer <= GLO_CONTAINERFLOW) &&
+                (GLO_CONTAINER <= GLObject->getType()) && (GLObject->getType() <= GLO_CONTAINERFLOW)) {
+                filteredGLObjects.push_back(GLObject);
+            } else if (GLObject->getType() == firstLayer) {
+                filteredGLObjects.push_back(GLObject);
+            }
+        }
+    }
+    return filteredGLObjects;
 }
 
 /****************************************************************************/
