@@ -1569,6 +1569,16 @@ GNEJunction::drawDottedContours(const GUIVisualizationSettings& s, const bool dr
             }
         }
     }
+    if (gPostDrawing.mouserOverElement == this) {
+        if (drawBubble) {
+            GUIDottedGeometry::drawDottedContourCircle(GUIDottedGeometry::DottedContourType::ORANGE, s, myNBNode->getCenter(), s.neteditSizeSettings.junctionBubbleRadius,
+                    (junctionExaggeration >= 1) ? junctionExaggeration : 1);
+        }
+        if (drawShape) {
+            GUIDottedGeometry::drawDottedContourClosedShape(GUIDottedGeometry::DottedContourType::ORANGE, s, myNBNode->getShape(),
+                    (junctionExaggeration >= 1) ? junctionExaggeration : 1);
+        }
+    }
 }
 
 

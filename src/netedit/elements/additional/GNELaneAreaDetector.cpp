@@ -330,7 +330,7 @@ GNELaneAreaDetector::drawGL(const GUIVisualizationSettings& s) const {
             }
             // orange contour
             if (gPostDrawing.mouserOverElement == this) {
-                GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::FRONT, s, myAdditionalGeometry.getShape(), s.detectorSettings.E2Width,
+                GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::ORANGE, s, myAdditionalGeometry.getShape(), s.detectorSettings.E2Width,
                         E2Exaggeration, true, true);
             }
         }

@@ -322,7 +322,7 @@ GNEPOI::drawGL(const GUIVisualizationSettings& s) const {
                 }
             }
             // front element contour
-            if ((myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
+            if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
                 if (getShapeImgFile().empty()) {
                     GUIDottedGeometry::drawDottedContourCircle(GUIDottedGeometry::DottedContourType::FRONT, s, *this, 1.3, POIExaggeration);
                 } else {
@@ -330,7 +330,7 @@ GNEPOI::drawGL(const GUIVisualizationSettings& s) const {
                 }
             }
             // orange contour
-            if ((myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
+            if (gPostDrawing.mouserOverElement == this) {
                 if (getShapeImgFile().empty()) {
                     GUIDottedGeometry::drawDottedContourCircle(GUIDottedGeometry::DottedContourType::ORANGE, s, *this, 1.3, POIExaggeration);
                 } else {

@@ -1369,13 +1369,19 @@ GNEStop::drawStopPersonOverBusStop(const GUIVisualizationSettings& s, const doub
     GLHelper::popName();
     // draw lock icon
     GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), exaggeration);
-    // check if dotted contours has to be drawn
+    // inspect contour
     if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
         GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, myDemandElementGeometry.getShape(), 0.3,
                 exaggeration, 1, 1);
     }
+    // front contour
     if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
         GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::FRONT, s, myDemandElementGeometry.getShape(), 0.3,
+                exaggeration, 1, 1);
+    }
+    // orange contour
+    if (gPostDrawing.mouserOverElement == this) {
+        GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::ORANGE, s, myDemandElementGeometry.getShape(), 0.3,
                 exaggeration, 1, 1);
     }
 }
