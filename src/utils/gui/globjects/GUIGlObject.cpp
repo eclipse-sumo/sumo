@@ -38,6 +38,7 @@
 #include <utils/gui/div/GLObjectValuePassConnector.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/geom/GeomHelper.h>
+#include <utils/gui/div/GUIGlobalPostDrawing.h>
 
 #include "GUIGlObject.h"
 #include "GUIGlObjectStorage.h"
@@ -415,19 +416,25 @@ GUIGlObject::buildAdditionalsPopupOptions(GUIMainWindow& app, GUIGLObjectPopupMe
 
 void 
 GUIGlObject::mouseWithinGeometry(const Position mousePos, const Position center, const double radius) const {
-    //return (mousePos.distanceSquaredTo2D(center) <= (radius * radius));
+    if (mousePos.distanceSquaredTo2D(center) <= (radius * radius)) {
+        gPostDrawing.mouserOverElement = this;
+    }
 }
 
 
 void 
 GUIGlObject::mouseWithinGeometry(const Position mousePos, const PositionVector shape) const {
-    //return shape.around(mousePos);
+    if (shape.around(mousePos)) {
+        gPostDrawing.mouserOverElement = this;
+    }
 }
 
 
 void 
 GUIGlObject::mouseWithinGeometry(const Position mousePos, const PositionVector shape, const double width) const {
-    //return (shape.distance2D(mousePos) <= width);
+    if (shape.distance2D(mousePos) <= width) {
+        gPostDrawing.mouserOverElement = this;
+    }
 }
 
 
