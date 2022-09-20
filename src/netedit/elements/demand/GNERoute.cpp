@@ -464,7 +464,6 @@ GNERoute::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, 
                 ((templateAC->getTagProperty().getTag() == SUMO_TAG_VEHICLE) || (templateAC->getTagProperty().getTag() == GNE_TAG_FLOW_ROUTE)) &&
                 (routeGeometry.getShape().distance2D(myNet->getViewNet()->getPositionInformation()) <= routeWidth)) {
             gPostDrawing.markedRoute = this;
-            gPostDrawing.mouserOverElement = this;
         }
         // declare trim geometry to draw
         const auto shape = (segment->isFirstSegment() || segment->isLastSegment() ? routeGeometry.getShape() : lane->getLaneShape());
@@ -530,7 +529,6 @@ GNERoute::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLa
                 ((templateAC->getTagProperty().getTag() == SUMO_TAG_VEHICLE) || (templateAC->getTagProperty().getTag() == GNE_TAG_FLOW_ROUTE)) &&
                 (lane2laneGeometry.getShape().distance2D(myNet->getViewNet()->getPositionInformation()) <= routeWidth)) {
             gPostDrawing.markedRoute = this;
-            gPostDrawing.mouserOverElement = this;
         }
         // check if mouse is over element
         mouseWithinGeometry(myNet->getViewNet()->getPositionInformation(), fromLane->getLane2laneConnections().getLane2laneGeometry(toLane).getShape(), routeWidth);

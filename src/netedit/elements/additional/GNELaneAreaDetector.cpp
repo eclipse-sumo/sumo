@@ -510,7 +510,7 @@ GNELaneAreaDetector::drawPartialGL(const GUIVisualizationSettings& s, const GNEL
                         E2DetectorWidth, 1, false, false);
             }
             // orange contour
-            if (gPostDrawing.mouserOverElement = this) {
+            if (gPostDrawing.mouserOverElement == this) {
                 GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::ORANGE, s, fromLane->getLane2laneConnections().getLane2laneGeometry(toLane).getShape(),
                         E2DetectorWidth, 1, false, false);
             }
