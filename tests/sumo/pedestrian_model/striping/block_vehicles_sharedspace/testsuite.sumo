@@ -35,3 +35,4 @@ complex_sublane
 
 # warn if the stripe width is lower than the pedestrian width
 stripe-width
+tls
