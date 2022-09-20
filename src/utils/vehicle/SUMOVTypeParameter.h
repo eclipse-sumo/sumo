@@ -71,7 +71,7 @@ const long long int VTYPEPARS_CARRIAGE_GAP_SET = 1 << 27;
 const long long int VTYPEPARS_MANEUVER_ANGLE_TIMES_SET = 1 << 28;
 const long long int VTYPEPARS_FRONT_SEAT_POS_SET = 1 << 29;
 const long long int VTYPEPARS_SCALE_SET = 1 << 30;
-const long long int VTYPEPARS_MASS_SET = 1 << 31;
+const long long int VTYPEPARS_MASS_SET = (long long int)1 << 31;
 const long long int VTYPEPARS_TTT_SET = (long long int)1 << 32;
 const long long int VTYPEPARS_TTT_BIDI_SET = (long long int)1 << 33;
 
