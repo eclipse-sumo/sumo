@@ -130,14 +130,15 @@ NBLoadedSUMOTLDef::setProgramID(const std::string& programID) {
     myTLLogic->setProgramID(programID);
 }
 
+
 void
 NBLoadedSUMOTLDef::setTLControllingInformation() const {
     if (myReconstructAddedConnections) {
         NBOwnTLDef dummy(DummyID, myControlledNodes, 0, getType());
         dummy.setParticipantsInformation();
         dummy.setTLControllingInformation();
-        for (std::vector<NBNode*>::const_iterator i = myControlledNodes.begin(); i != myControlledNodes.end(); i++) {
-            (*i)->removeTrafficLight(&dummy);
+        for (NBNode* const n : myControlledNodes) {
+            n->removeTrafficLight(&dummy);
         }
     }
     if (myReconstructRemovedConnections) {
@@ -150,8 +151,7 @@ NBLoadedSUMOTLDef::setTLControllingInformation() const {
     }
     // set the information about the link's positions within the tl into the
     //  edges the links are starting at, respectively
-    for (NBConnectionVector::const_iterator it = myControlledLinks.begin(); it != myControlledLinks.end(); it++) {
-        const NBConnection& c = *it;
+    for (const NBConnection& c : myControlledLinks) {
         if (c.getTLIndex() >= myTLLogic->getNumLinks()) {
             throw ProcessError("Invalid linkIndex " + toString(c.getTLIndex()) + " for traffic light '" + getID() +
                                "' with " + toString(myTLLogic->getNumLinks()) + " links.");
