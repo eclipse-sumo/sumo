@@ -172,6 +172,9 @@ public:
     // Note: Issues a warning when the grouping of def is incompatible with the current states
     void copyIndices(NBTrafficLightDefinition* def);
 
+    /// @brief perform optional final checks (on writing)
+    void finalChecks() const;
+
 protected:
     /// @brief Collects the links participating in this traffic light (only if not previously loaded)
     void collectLinks();
@@ -200,7 +203,7 @@ protected:
     std::string getStates(int index);
 
     /// @brief return whether the given link index is used by any connectons
-    bool isUsed(int index);
+    bool isUsed(int index) const;
 
     /// @brief replace the given link index in all connections
     void replaceIndex(int oldIndex, int newIndex);

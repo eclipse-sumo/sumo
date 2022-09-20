@@ -616,7 +616,7 @@ NBLoadedSUMOTLDef::getStates(int index) {
 }
 
 bool
-NBLoadedSUMOTLDef::isUsed(int index) {
+NBLoadedSUMOTLDef::isUsed(int index) const {
     for (const NBConnection& c : myControlledLinks) {
         if (c.getTLIndex() == index || c.getTLIndex2() == index) {
             return true;
@@ -882,4 +882,13 @@ NBLoadedSUMOTLDef::guessMinMaxDuration() {
 }
 
 
+void
+NBLoadedSUMOTLDef::finalChecks() const {
+    for (int i = 0; i < myTLLogic->getNumLinks(); i++) {
+        if (!isUsed(i)) {
+            WRITE_WARNINGF("Unused state in tlLogic '%', program '%' at tl-index %", getID(), getProgramID(), i);
+            break;
+        }
+    }
+}
 /****************************************************************************/
