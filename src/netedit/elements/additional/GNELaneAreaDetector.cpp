@@ -28,6 +28,7 @@
 #include <netedit/frames/network/GNETLSEditorFrame.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/globjects/GLIncludes.h>
+#include <utils/gui/div/GUIGlobalPostDrawing.h>
 
 #include "GNELaneAreaDetector.h"
 #include "GNEAdditionalHandler.h"
@@ -315,6 +316,10 @@ GNELaneAreaDetector::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::popName();
             // draw lock icon
             GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), myAdditionalGeometry.getShape().getCentroid(), E2Exaggeration);
+            // check if mouse is over element
+            if (isMouseWithinGeometry(myNet->getViewNet()->getPositionInformation(), myAdditionalGeometry.getShape(), s.detectorSettings.E2Width)) {
+                gPostDrawing.mouserOverElement = this;
+            }
             // check if dotted contours has to be drawn
             if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
                 GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, myAdditionalGeometry.getShape(), s.detectorSettings.E2Width,
@@ -421,6 +426,10 @@ GNELaneAreaDetector::drawPartialGL(const GUIVisualizationSettings& s, const GNEL
                 GLHelper::popMatrix();
             }
         }
+        // check if mouse is over element
+        if (isMouseWithinGeometry(myNet->getViewNet()->getPositionInformation(), E2Geometry.getShape(), s.detectorSettings.E2Width)) {
+            gPostDrawing.mouserOverElement = this;
+        }
         // check if shape dotted contour has to be drawn
         if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
             // declare trim geometry to draw
@@ -483,6 +492,10 @@ GNELaneAreaDetector::drawPartialGL(const GUIVisualizationSettings& s, const GNEL
         GLHelper::popMatrix();
         // Pop name
         GLHelper::popName();
+        // check if mouse is over element
+        if (isMouseWithinGeometry(myNet->getViewNet()->getPositionInformation(), fromLane->getLane2laneConnections().getLane2laneGeometry(toLane).getShape(), s.detectorSettings.E2Width)) {
+            gPostDrawing.mouserOverElement = this;
+        }
         // check if shape dotted contour has to be drawn
         if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
             // draw lane2lane dotted geometry

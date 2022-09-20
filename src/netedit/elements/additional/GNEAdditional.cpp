@@ -29,6 +29,7 @@
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/globjects/GLIncludes.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
+#include <utils/gui/div/GUIGlobalPostDrawing.h>
 
 #include "GNEAdditional.h"
 
@@ -425,6 +426,10 @@ GNEAdditional::drawSquaredAdditional(const GUIVisualizationSettings& s, const Po
         GLHelper::popName();
         // draw lock icon
         GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), pos, exaggeration, 0.4, 0.5, 0.5);
+        // check if mouse is over element
+        if (isMouseWithinGeometry(myNet->getViewNet()->getPositionInformation(), pos, size, size, 0, 0, 0)) {
+            gPostDrawing.mouserOverElement = this;
+        }
         // check if dotted contour has to be drawn
         if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
             GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::INSPECT, s, pos, size, size, 0, 0, 0, exaggeration);

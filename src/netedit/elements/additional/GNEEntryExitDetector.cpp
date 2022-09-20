@@ -26,6 +26,7 @@
 #include <netedit/frames/network/GNETLSEditorFrame.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/globjects/GLIncludes.h>
+#include <utils/gui/div/GUIGlobalPostDrawing.h>
 
 #include "GNEEntryExitDetector.h"
 #include "GNEAdditionalHandler.h"
@@ -233,16 +234,19 @@ GNEEntryExitDetector::drawGL(const GUIVisualizationSettings& s) const {
         GLHelper::popMatrix();
         // draw lock icon
         GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), myAdditionalGeometry.getShape().getCentroid(), entryExitExaggeration);
+        // check if mouse is over element
+        if (isMouseWithinGeometry(myNet->getViewNet()->getPositionInformation(), myAdditionalGeometry.getShape().front(), 2.7, 1.6, 2, 0,
+                myAdditionalGeometry.getShapeRotations().front())) {
+            gPostDrawing.mouserOverElement = this;
+        }
         // check if dotted contour has to be drawn
         if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-            GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::INSPECT, s,
-                    myAdditionalGeometry.getShape().front(), 2.7, 1.6, 2, 0,
-                    myAdditionalGeometry.getShapeRotations().front(), entryExitExaggeration);
+            GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::INSPECT, s, myAdditionalGeometry.getShape().front(), 
+                2.7, 1.6, 2, 0, myAdditionalGeometry.getShapeRotations().front(), entryExitExaggeration);
         }
         if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-            GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::FRONT, s,
-                    myAdditionalGeometry.getShape().front(), 2.7, 1.6, 2, 0,
-                    myAdditionalGeometry.getShapeRotations().front(), entryExitExaggeration);
+            GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::FRONT, s, myAdditionalGeometry.getShape().front(), 
+                2.7, 1.6, 2, 0, myAdditionalGeometry.getShapeRotations().front(), entryExitExaggeration);
         }
         // pop gl identificator
         GLHelper::popName();

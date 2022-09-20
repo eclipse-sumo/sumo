@@ -31,6 +31,7 @@
 #include <netedit/frames/common/GNEMoveFrame.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/div/GUIDesigns.h>
+#include <utils/gui/div/GUIGlobalPostDrawing.h>
 
 #include "GNEPoly.h"
 
@@ -308,6 +309,16 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
                     GUIGeometry::drawMovingHint(s, myNet->getViewNet()->getPositionInformation(), myPolygonGeometry.getShape(), invertedColor,
                                                 s.neteditSizeSettings.polygonGeometryPointRadius, polyExaggeration);
                 }
+            }
+        }
+        // check if mouse is over element
+        if (getFill() || myPolygonGeometry.getShape().isClosed()) {
+            if (isMouseWithinGeometry(myNet->getViewNet()->getPositionInformation(), myPolygonGeometry.getShape())) {
+                gPostDrawing.mouserOverElement = this;
+            }
+        } else {
+            if (isMouseWithinGeometry(myNet->getViewNet()->getPositionInformation(), myPolygonGeometry.getShape(), s.neteditSizeSettings.polylineWidth)) {
+                gPostDrawing.mouserOverElement = this;
             }
         }
         // check if dotted contour has to be drawn

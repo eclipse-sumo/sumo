@@ -25,6 +25,7 @@
 #include <netedit/GNENet.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <utils/gui/globjects/GLIncludes.h>
+#include <utils/gui/div/GUIGlobalPostDrawing.h>
 
 #include "GNERouteProbe.h"
 
@@ -189,6 +190,10 @@ GNERouteProbe::drawGL(const GUIVisualizationSettings& s) const {
         GLHelper::popName();
         // draw additional name
         drawAdditionalName(s);
+        // check if mouse is over element
+        if (isMouseWithinGeometry(myNet->getViewNet()->getPositionInformation(), myAdditionalGeometry.getShape(), 0.5)) {
+            gPostDrawing.mouserOverElement = this;
+        }
         // check if dotted contours has to be drawn
         if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
             GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, myAdditionalGeometry.getShape(), 0.5,

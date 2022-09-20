@@ -25,6 +25,7 @@
 #include <utils/options/OptionsCont.h>
 #include <utils/gui/globjects/GLIncludes.h>
 #include <utils/vehicle/SUMORouteHandler.h>
+#include <utils/gui/div/GUIGlobalPostDrawing.h>
 
 #include "GNEParkingArea.h"
 
@@ -199,6 +200,11 @@ GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::popName();
             // draw lock icon
             GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), parkingAreaExaggeration);
+            // check if mouse is over element
+            if (isMouseWithinGeometry(myNet->getViewNet()->getPositionInformation(), myAdditionalGeometry.getShape(), myWidth * 0.5 * MIN2(1.0, parkingAreaExaggeration)) || 
+                isMouseWithinGeometry(myNet->getViewNet()->getPositionInformation(), mySignPos, myCircleWidth)) {
+                gPostDrawing.mouserOverElement = this;
+            }
             // check if dotted contours has to be drawn
             if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
                 GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, myAdditionalGeometry.getShape(), myWidth * 0.5,

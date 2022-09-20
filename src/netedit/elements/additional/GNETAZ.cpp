@@ -31,6 +31,7 @@
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/div/GUIGlobalPostDrawing.h>
+#include <utils/gui/div/GUIGlobalPostDrawing.h>
 
 #include "GNETAZ.h"
 
@@ -366,8 +367,6 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
         GLHelper::drawFilledCircle(centerRadius * 0.8, s.getCircleResolution());
         // pop center matrix
         GLHelper::popMatrix();
-        // draw dotted contours
-        drawDottedContours(s, TAZExaggeration);
         // pop layer matrix
         GLHelper::popMatrix();
         // pop name
@@ -378,6 +377,12 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
         const Position& namePos = myAdditionalGeometry.getShape().getPolygonCenter();
         // draw name
         drawName(myTAZCenter, s.scale, s.polyName, s.angle);
+        // check if mouse is over element
+        if (isMouseWithinGeometry(myNet->getViewNet()->getPositionInformation(), myAdditionalGeometry.getShape())) {
+            gPostDrawing.mouserOverElement = this;
+        }
+        // draw dotted contours
+        drawDottedContours(s, TAZExaggeration);
         // check if draw poly type
         if (s.polyType.show(this)) {
             const Position p = namePos + Position(0, -0.6 * s.polyType.size / s.scale);

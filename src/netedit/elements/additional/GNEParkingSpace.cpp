@@ -23,6 +23,7 @@
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/globjects/GLIncludes.h>
+#include <utils/gui/div/GUIGlobalPostDrawing.h>
 
 #include "GNEParkingSpace.h"
 
@@ -231,6 +232,10 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
         GLHelper::popName();
         // draw lock icon
         GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), myShapeLength.getPolygonCenter(), parkingAreaExaggeration);
+        // check if mouse is over element
+        if (isMouseWithinGeometry(myNet->getViewNet()->getPositionInformation(), myShapeLength, width)) {
+            gPostDrawing.mouserOverElement = this;
+        }
         // check if dotted contours has to be drawn
         if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
             // draw using drawDottedContourClosedShape

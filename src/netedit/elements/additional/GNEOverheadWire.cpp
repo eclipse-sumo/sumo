@@ -25,6 +25,7 @@
 #include <netedit/elements/network/GNEConnection.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/globjects/GLIncludes.h>
+#include <utils/gui/div/GUIGlobalPostDrawing.h>
 
 #include "GNEOverheadWire.h"
 #include "GNEAdditionalHandler.h"
@@ -302,6 +303,10 @@ GNEOverheadWire::drawPartialGL(const GUIVisualizationSettings& s, const GNELane*
         GLHelper::popMatrix();
         // Pop name
         GLHelper::popName();
+        // check if mouse is over element
+        if (isMouseWithinGeometry(myNet->getViewNet()->getPositionInformation(), overheadWireGeometry.getShape(), overheadWireWidth)) {
+            gPostDrawing.mouserOverElement = this;
+        }
         // check if shape dotted contour has to be drawn
         if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
             // declare trim geometry to draw
@@ -358,6 +363,10 @@ GNEOverheadWire::drawPartialGL(const GUIVisualizationSettings& s, const GNELane*
         GLHelper::popMatrix();
         // Pop name
         GLHelper::popName();
+        // check if mouse is over element
+        if (isMouseWithinGeometry(myNet->getViewNet()->getPositionInformation(), fromLane->getLane2laneConnections().getLane2laneGeometry(toLane).getShape(), overheadWireWidth)) {
+            gPostDrawing.mouserOverElement = this;
+        }
         // check if shape dotted contour has to be drawn
         if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
             // draw lane2lane dotted geometry

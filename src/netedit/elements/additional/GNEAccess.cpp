@@ -27,6 +27,7 @@
 #include <netedit/frames/common/GNEMoveFrame.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/globjects/GLIncludes.h>
+#include <utils/gui/div/GUIGlobalPostDrawing.h>
 
 #include "GNEAccess.h"
 #include "GNEAdditionalHandler.h"
@@ -195,6 +196,10 @@ GNEAccess::drawGL(const GUIVisualizationSettings& s) const {
         GLHelper::popMatrix();
         // pop gl identificator
         GLHelper::popName();
+        // check if mouse is over access
+        if (isMouseWithinGeometry(myNet->getViewNet()->getPositionInformation(), myAdditionalGeometry.getShape().front(), (radius * accessExaggeration))) {
+            gPostDrawing.mouserOverElement = this;
+        }
         // draw lock icon
         GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), myAdditionalGeometry.getShape().front(), accessExaggeration, 0.3);
         // check if dotted contours has to be drawn

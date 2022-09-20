@@ -27,6 +27,7 @@
 #include <utils/gui/div/GLHelper.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/vehicle/SUMORouteHandler.h>
+#include <utils/gui/div/GUIGlobalPostDrawing.h>
 
 #include "GNEContainerStop.h"
 
@@ -171,6 +172,11 @@ GNEContainerStop::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::popName();
             // draw lock icon
             GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), myAdditionalGeometry.getShape().getCentroid(), containerStopExaggeration);
+            // check if mouse is over element
+            if (isMouseWithinGeometry(myNet->getViewNet()->getPositionInformation(), myAdditionalGeometry.getShape(), s.stoppingPlaceSettings.containerStopWidth * MIN2(1.0, containerStopExaggeration)) || 
+                isMouseWithinGeometry(myNet->getViewNet()->getPositionInformation(), mySignPos, myCircleWidth)) {
+                gPostDrawing.mouserOverElement = this;
+            }
             // check if dotted contours has to be drawn
             if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
                 GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, myAdditionalGeometry.getShape(), s.stoppingPlaceSettings.containerStopWidth,

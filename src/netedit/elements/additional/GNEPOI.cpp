@@ -33,6 +33,7 @@
 #include <utils/gui/globjects/GLIncludes.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/globjects/GUIPointOfInterest.h>
+#include <utils/gui/div/GUIGlobalPostDrawing.h>
 
 #include "GNEPOI.h"
 
@@ -306,6 +307,16 @@ GNEPOI::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::popName();
             // draw lock icon
             GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), POIExaggeration);
+            // check if mouse is over element
+            if (getShapeImgFile().empty()) {
+                if (isMouseWithinGeometry(myNet->getViewNet()->getPositionInformation(), *this, 1.3)) {
+                    gPostDrawing.mouserOverElement = this;
+                }
+            } else {
+                if (isMouseWithinGeometry(myNet->getViewNet()->getPositionInformation(), *this, getHeight() * 0.5, getWidth() * 0.5, 0, 0, getShapeNaviDegree())) {
+                    gPostDrawing.mouserOverElement = this;
+                }
+            }
             // check if dotted contour has to be drawn
             if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
                 if (getShapeImgFile().empty()) {
