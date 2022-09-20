@@ -4592,6 +4592,7 @@ MSVehicle::getBackPositionOnLane(const MSLane* lane, bool calledByGetPosition) c
         std::cout << SIMTIME
                   << " getBackPositionOnLane veh=" << getID()
                   << " lane=" << Named::getIDSecure(lane)
+                  << " cbgP=" << calledByGetPosition
                   << " pos=" << myState.myPos
                   << " backPos=" << myState.myBackPos
                   << " myLane=" << myLane->getID()
