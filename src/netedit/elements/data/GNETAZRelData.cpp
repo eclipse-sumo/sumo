@@ -297,16 +297,16 @@ GNETAZRelData::drawGL(const GUIVisualizationSettings& s) const {
         // check if dotted contours has to be drawn
         if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
             if (myNet->getViewNet()->getDataViewOptions().TAZRelDrawing()) {
-                GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, myTAZRelGeometryCenter.getShape(), 0.5, 1, 1, 1);
+                GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::INSPECT, myTAZRelGeometryCenter.getShape(), 0.5, 1, true, true);
             } else {
-                GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, myTAZRelGeometry.getShape(), 0.5, 1, 1, 1);
+                GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::INSPECT, myTAZRelGeometry.getShape(), 0.5, 1, true, true);
             }
         }
         if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
             if (myNet->getViewNet()->getDataViewOptions().TAZRelDrawing()) {
-                GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::FRONT, s, myTAZRelGeometryCenter.getShape(), 0.5, 1, 1, 1);
+                GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::FRONT, myTAZRelGeometryCenter.getShape(), 0.5, 1, true, true);
             } else {
-                GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::FRONT, s, myTAZRelGeometry.getShape(), 0.5, 1, 1, 1);
+                GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::FRONT, myTAZRelGeometry.getShape(), 0.5, 1, true, true);
             }
         }
     }

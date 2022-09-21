@@ -206,7 +206,7 @@ GNEEdgeRelData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* 
             }
             // check if shape dotted contour has to be drawn
             if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-                GNEEdge::drawDottedContourEdge(GUIDottedGeometry::DottedContourType::INSPECT, s, laneEdge->getParentEdge(), true, true);
+                GNEEdge::drawDottedContourEdge(s, GUIDottedGeometry::DottedContourType::INSPECT, laneEdge->getParentEdge(), true, true);
             }
         }
         // Pop name
@@ -299,7 +299,7 @@ GNEEdgeRelData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* 
                     // reset dottedGeometryColor
                     dottedGeometryColor.reset();
                     // draw top dotted geometry
-                    lane2lane.drawDottedGeometry(dottedGeometryColor, GUIDottedGeometry::DottedContourType::INSPECT);
+                    lane2lane.drawDottedGeometry(s, GUIDottedGeometry::DottedContourType::INSPECT, dottedGeometryColor);
                 } else {
                     // create dotted geometry using lane extremes
                     GUIDottedGeometry dottedGeometry(s, {laneTopA->getLaneShape().back(), laneTopB->getLaneShape().front()}, false);
@@ -310,7 +310,7 @@ GNEEdgeRelData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* 
                     // reset dottedGeometryColor
                     dottedGeometryColor.reset();
                     // draw top dotted geometry
-                    dottedGeometry.drawDottedGeometry(dottedGeometryColor, GUIDottedGeometry::DottedContourType::INSPECT);
+                    dottedGeometry.drawDottedGeometry(s, GUIDottedGeometry::DottedContourType::INSPECT, dottedGeometryColor);
                 }
                 // check if lane2lane bot connection exist
                 if (laneBotA->getLane2laneConnections().exist(laneBotB)) {
@@ -321,7 +321,7 @@ GNEEdgeRelData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* 
                     // reset dottedGeometryColor
                     dottedGeometryColor.reset();
                     // draw top dotted geometry
-                    lane2lane.drawDottedGeometry(dottedGeometryColor, GUIDottedGeometry::DottedContourType::INSPECT);
+                    lane2lane.drawDottedGeometry(s, GUIDottedGeometry::DottedContourType::INSPECT, dottedGeometryColor);
                 } else {
                     // create dotted geometry using lane extremes
                     GUIDottedGeometry dottedGeometry(s, {laneBotA->getLaneShape().back(), laneBotB->getLaneShape().front()}, false);
@@ -330,7 +330,7 @@ GNEEdgeRelData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* 
                     // reset dottedGeometryColor
                     dottedGeometryColor.reset();
                     // draw top dotted geometry
-                    dottedGeometry.drawDottedGeometry(dottedGeometryColor, GUIDottedGeometry::DottedContourType::INSPECT);
+                    dottedGeometry.drawDottedGeometry(s, GUIDottedGeometry::DottedContourType::INSPECT, dottedGeometryColor);
                 }
                 // pop matrix
                 GLHelper::popMatrix();

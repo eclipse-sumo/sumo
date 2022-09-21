@@ -246,7 +246,7 @@ GNEEdgeData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lan
             }
             // check if shape dotted contour has to be drawn
             if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-                GNEEdge::drawDottedContourEdge(GUIDottedGeometry::DottedContourType::INSPECT, s, laneEdge->getParentEdge(), true, true);
+                GNEEdge::drawDottedContourEdge(s, GUIDottedGeometry::DottedContourType::INSPECT, laneEdge->getParentEdge(), true, true);
             }
         }
         // Pop name
