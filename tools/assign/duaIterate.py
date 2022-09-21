@@ -156,8 +156,8 @@ def initOptions():
     argParser.add_argument("-i", "--logitgamma", type=float, default=1., help="use the c-logit model for route choice")
     argParser.add_argument("-G", "--logittheta", type=float, help="parameter to adapt the cost unit")
     argParser.add_argument("-J", "--addweights", help="Additional weights for duarouter")
-    argParser.add_argument("--PSwap", dest="convergenceSteps", type=int,
-                           help="Given x, if x > 0 Reduce probability to change route by 1/x per step. " +
+    argParser.add_argument("--convergence-steps", dest="convergenceSteps", type=int,
+                           help="Given x, if x > 0 Reduce probability to change route by 1/x per step (Probabilistic Swapping (PSwap))" +
                                 "If x < 0 set probability of rerouting to 1/step after step |x|")
     argParser.add_argument("--addweights.once", dest="addweightsOnce", action="store_true",
                            default=False, help="use added weights only on the first iteration")
