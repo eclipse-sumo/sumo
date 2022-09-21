@@ -313,9 +313,9 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
         }
         // check if mouse is over element
         if (getFill() || myPolygonGeometry.getShape().isClosed()) {
-            mouseWithinGeometry(myNet->getViewNet()->getPositionInformation(), myPolygonGeometry.getShape());
+            mouseWithinGeometry(myPolygonGeometry.getShape());
         } else {
-            mouseWithinGeometry(myNet->getViewNet()->getPositionInformation(), myPolygonGeometry.getShape(), s.neteditSizeSettings.polylineWidth);
+            mouseWithinGeometry(myPolygonGeometry.getShape(), s.neteditSizeSettings.polylineWidth);
         }
         // inspect contour
         if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {

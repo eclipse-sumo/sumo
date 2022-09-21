@@ -427,7 +427,7 @@ GNEAdditional::drawSquaredAdditional(const GUIVisualizationSettings& s, const Po
         // draw lock icon
         GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), pos, exaggeration, 0.4, 0.5, 0.5);
         // check if mouse is over element
-        mouseWithinGeometry(myNet->getViewNet()->getPositionInformation(), pos, size, size, 0, 0, 0);
+        mouseWithinGeometry(pos, size, size, 0, 0, 0);
         // inspect contour
         if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
             GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::INSPECT, s, pos, size, size, 0, 0, 0, exaggeration);

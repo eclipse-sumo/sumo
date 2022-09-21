@@ -631,7 +631,7 @@ GNEDemandElement::drawPersonPlanPartial(const bool drawPlan, const GUIVisualizat
         // declare trim geometry to draw
         const auto shape = (segment->isFirstSegment() || segment->isLastSegment()) ? personPlanGeometry.getShape() : lane->getLaneShape();
         // check if mouse is over element
-        mouseWithinGeometry(myNet->getViewNet()->getPositionInformation(), shape, pathWidth);
+        mouseWithinGeometry(shape, pathWidth);
         // check if shape dotted contour has to be drawn
         if (dottedElement) {
             // inspect contour
@@ -704,7 +704,7 @@ GNEDemandElement::drawPersonPlanPartial(const bool drawPlan, const GUIVisualizat
         // check if shape dotted contour has to be drawn
         if (fromLane->getLane2laneConnections().exist(toLane) && dottedElement) {
             // check if mouse is over element
-            mouseWithinGeometry(myNet->getViewNet()->getPositionInformation(), fromLane->getLane2laneConnections().getLane2laneGeometry(toLane).getShape(), pathWidth);
+            mouseWithinGeometry(fromLane->getLane2laneConnections().getLane2laneGeometry(toLane).getShape(), pathWidth);
             // inspect contour
             if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
                 GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, fromLane->getLane2laneConnections().getLane2laneGeometry(toLane).getShape(),

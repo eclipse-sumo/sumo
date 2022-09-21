@@ -1508,9 +1508,9 @@ GNEJunction::drawDottedContours(const GUIVisualizationSettings& s, const bool dr
     }
     // check if mouse is over junction
     if (drawBubble) {
-        mouseWithinGeometry(myNet->getViewNet()->getPositionInformation(), myNBNode->getPosition(), bubbleRadius);
+        mouseWithinGeometry(myNBNode->getPosition(), bubbleRadius);
     } else {
-        mouseWithinGeometry(myNet->getViewNet()->getPositionInformation(), myNBNode->getShape());
+        mouseWithinGeometry(myNBNode->getShape());
     }
     // draw dotted contours regarding create edge mode
     if (myAmCreateEdgeSource) {

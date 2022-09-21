@@ -235,7 +235,7 @@ GNEEntryExitDetector::drawGL(const GUIVisualizationSettings& s) const {
         // draw lock icon
         GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), myAdditionalGeometry.getShape().getCentroid(), entryExitExaggeration);
         // check if mouse is over element
-        mouseWithinGeometry(myNet->getViewNet()->getPositionInformation(), myAdditionalGeometry.getShape().front(), 2.7, 1.6, 2, 0,
+        mouseWithinGeometry(myAdditionalGeometry.getShape().front(), 2.7, 1.6, 2, 0,
                 myAdditionalGeometry.getShapeRotations().front());
         // inspect contour
         if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {

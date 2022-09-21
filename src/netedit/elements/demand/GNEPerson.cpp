@@ -426,7 +426,7 @@ GNEPerson::drawGL(const GUIVisualizationSettings& s) const {
             // draw lock icon
             GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), personPosition, exaggeration);
             // check if mouse is over element
-            mouseWithinGeometry(myNet->getViewNet()->getPositionInformation(), personPosition, 0.5, 0.5, 0, 0, 0);
+            mouseWithinGeometry(personPosition, 0.5, 0.5, 0, 0, 0);
             // inspect contour
             if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
                 // draw using drawDottedSquaredShape

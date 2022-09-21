@@ -415,50 +415,48 @@ GUIGlObject::buildAdditionalsPopupOptions(GUIMainWindow& app, GUIGLObjectPopupMe
 
 
 void 
-GUIGlObject::mouseWithinGeometry(const Position mousePos, const Position center, const double radius) const {
-    if ((gPostDrawing.mousePos == mousePos) && (mousePos.distanceSquaredTo2D(center) <= (radius * radius))) {
+GUIGlObject::mouseWithinGeometry(const Position center, const double radius) const {
+    if (gPostDrawing.mousePos.distanceSquaredTo2D(center) <= (radius * radius)) {
         gPostDrawing.addElementUnderMouse(this);
     }
 }
 
 
 void 
-GUIGlObject::mouseWithinGeometry(const Position mousePos, const PositionVector shape) const {
-    if ((gPostDrawing.mousePos == mousePos) && shape.around(mousePos)) {
+GUIGlObject::mouseWithinGeometry(const PositionVector shape) const {
+    if (shape.around(gPostDrawing.mousePos)) {
         gPostDrawing.addElementUnderMouse(this);
     }
 }
 
 
 void 
-GUIGlObject::mouseWithinGeometry(const Position mousePos, const PositionVector shape, const double width) const {
-    if ((gPostDrawing.mousePos == mousePos) && (shape.distance2D(mousePos) <= width)) {
+GUIGlObject::mouseWithinGeometry(const PositionVector shape, const double width) const {
+    if (shape.distance2D(gPostDrawing.mousePos) <= width) {
         gPostDrawing.addElementUnderMouse(this);
     }
 }
 
 
 void 
-GUIGlObject::mouseWithinGeometry(const Position mousePos, const Position& pos, const double width, const double height, 
+GUIGlObject::mouseWithinGeometry(const Position& pos, const double width, const double height, 
         const double offsetX, const double offsetY, const double rot) const {
-    if (gPostDrawing.mousePos == mousePos) {
-        // create shape
-        PositionVector shape;
-        // make rectangle
-        shape.push_back(Position(0 + width, 0 + height));
-        shape.push_back(Position(0 + width, 0 - height));
-        shape.push_back(Position(0 - width, 0 - height));
-        shape.push_back(Position(0 - width, 0 + height));
-        // move shape
-        shape.add(offsetX, offsetY, 0);
-        // rotate shape
-        shape.rotate2D(DEG2RAD((rot * -1) + 90));
-        // move to position
-        shape.add(pos);
-        // check if mouse is within new geometry
-        if (shape.around(mousePos)) {
-            gPostDrawing.addElementUnderMouse(this);
-        }
+    // create shape
+    PositionVector shape;
+    // make rectangle
+    shape.push_back(Position(0 + width, 0 + height));
+    shape.push_back(Position(0 + width, 0 - height));
+    shape.push_back(Position(0 - width, 0 - height));
+    shape.push_back(Position(0 - width, 0 + height));
+    // move shape
+    shape.add(offsetX, offsetY, 0);
+    // rotate shape
+    shape.rotate2D(DEG2RAD((rot * -1) + 90));
+    // move to position
+    shape.add(pos);
+    // check if mouse is within new geometry
+    if (shape.around(gPostDrawing.mousePos)) {
+        gPostDrawing.addElementUnderMouse(this);
     }
 }
 

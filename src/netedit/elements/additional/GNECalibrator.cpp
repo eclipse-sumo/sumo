@@ -468,7 +468,7 @@ GNECalibrator::drawCalibratorSymbol(const GUIVisualizationSettings& s, const dou
     // pop name
     GLHelper::popName();
     // check if mouse is over element
-    mouseWithinGeometry(myNet->getViewNet()->getPositionInformation(), pos, s.additionalSettings.calibratorWidth, 
+    mouseWithinGeometry(pos, s.additionalSettings.calibratorWidth, 
             s.additionalSettings.calibratorHeight * 0.5, 0, s.additionalSettings.calibratorHeight * 0.5, rot);
     // inspect element
     if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {

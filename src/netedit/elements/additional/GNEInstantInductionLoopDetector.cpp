@@ -178,7 +178,7 @@ GNEInstantInductionLoopDetector::drawGL(const GUIVisualizationSettings& s) const
             // draw lock icon
             GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), myAdditionalGeometry.getShape().getCentroid(), E1InstantExaggeration);
             // check if mouse is over element
-            mouseWithinGeometry(myNet->getViewNet()->getPositionInformation(), myAdditionalGeometry.getShape().front(), 2, 1, 0, 0, 
+            mouseWithinGeometry(myAdditionalGeometry.getShape().front(), 2, 1, 0, 0, 
                     myAdditionalGeometry.getShapeRotations().front());
             // inspect contour
             if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {

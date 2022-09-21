@@ -378,7 +378,7 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
         // draw name
         drawName(myTAZCenter, s.scale, s.polyName, s.angle);
         // check if mouse is over element
-        mouseWithinGeometry(myNet->getViewNet()->getPositionInformation(), myAdditionalGeometry.getShape());
+        mouseWithinGeometry(myAdditionalGeometry.getShape());
         // draw dotted contours
         drawDottedContours(s, TAZExaggeration);
         // check if draw poly type

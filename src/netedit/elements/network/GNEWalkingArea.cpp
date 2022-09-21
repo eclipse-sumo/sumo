@@ -140,7 +140,7 @@ GNEWalkingArea::drawGL(const GUIVisualizationSettings& s) const {
         // pop junction name
         GLHelper::popName();
         // check if mouse is over element
-        mouseWithinGeometry(myNet->getViewNet()->getPositionInformation(), walkingAreaShape);
+        mouseWithinGeometry(walkingAreaShape);
         // inspect contour
         if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
             GUIDottedGeometry::drawDottedContourClosedShape(GUIDottedGeometry::DottedContourType::INSPECT, s, walkingAreaShape,

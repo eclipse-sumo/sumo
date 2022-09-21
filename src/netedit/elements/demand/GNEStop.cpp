@@ -1226,7 +1226,7 @@ GNEStop::drawVehicleStop(const GUIVisualizationSettings& s, const double exagger
     // draw lock icon
     GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), exaggeration);
     // check if mouse is over element
-    mouseWithinGeometry(myNet->getViewNet()->getPositionInformation(), myDemandElementGeometry.getShape(), width);
+    mouseWithinGeometry(myDemandElementGeometry.getShape(), width);
     // inspect contour
     if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
         GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, myDemandElementGeometry.getShape(),
@@ -1302,7 +1302,7 @@ GNEStop::drawStopPersonOverEdge(const GUIVisualizationSettings& s, const double 
     // draw lock icon
     GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), exaggeration);
     // check if mouse is over element
-    mouseWithinGeometry(myNet->getViewNet()->getPositionInformation(), myDemandElementGeometry.getShape(), 0.3);
+    mouseWithinGeometry(myDemandElementGeometry.getShape(), 0.3);
     // inspect contour
     if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
         GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT,

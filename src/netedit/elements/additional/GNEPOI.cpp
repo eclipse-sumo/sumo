@@ -309,9 +309,9 @@ GNEPOI::drawGL(const GUIVisualizationSettings& s) const {
             GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), POIExaggeration);
             // check if mouse is over element
             if (getShapeImgFile().empty()) {
-                mouseWithinGeometry(myNet->getViewNet()->getPositionInformation(), *this, 1.3);
+                mouseWithinGeometry(*this, 1.3);
             } else {
-                mouseWithinGeometry(myNet->getViewNet()->getPositionInformation(), *this, getHeight() * 0.5, getWidth() * 0.5, 0, 0, getShapeNaviDegree());
+                mouseWithinGeometry(*this, getHeight() * 0.5, getWidth() * 0.5, 0, 0, getShapeNaviDegree());
             }
             // inspect contour
             if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
