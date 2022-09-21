@@ -190,12 +190,19 @@ GNEPathManager::Segment::Segment() :
 // GNEPathManager::PathElement - methods
 // ---------------------------------------------------------------------------
 
-GNEPathManager::PathElement::PathElement(const int options) :
+GNEPathManager::PathElement::PathElement(GUIGlObject* GLObject, const int options) :
+    myGLObject(GLObject),
     myOption(options) {
 }
 
 
 GNEPathManager::PathElement::~PathElement() {}
+
+
+GUIGlObject* 
+GNEPathManager::PathElement::getPathGUIGlObject() {
+    return myGLObject;
+}
 
 
 bool
@@ -229,6 +236,7 @@ GNEPathManager::PathElement::isRoute() const {
 
 
 GNEPathManager::PathElement::PathElement() :
+    myGLObject(nullptr),
     myOption(PathElement::Options::NETWORK_ELEMENT) {
 }
 
@@ -602,6 +610,17 @@ GNEPathManager::getPathCalculator() {
 }
 
 
+const GNEPathManager::PathElement*
+GNEPathManager::getPathElement(const GUIGlObject* GLObject) const {
+    auto it = myGLObjects.find(GLObject);
+    if (it == myGLObjects.end()) {
+        return nullptr;
+    } else {
+        return it->second;
+    }
+}
+
+
 GNEPathManager::PathDraw*
 GNEPathManager::getPathDraw() {
     return myPathDraw;
@@ -645,6 +664,8 @@ GNEPathManager::calculatePathEdges(PathElement* pathElement, SUMOVehicleClass vC
         }
         // remove path element from myPaths
         myPaths.erase(pathElement);
+        // also remove from GLObjects
+        myGLObjects.erase(pathElement->getPathGUIGlObject());
     }
     // continue depending of number of edges
     if (edges.size() > 0) {
@@ -702,6 +723,8 @@ GNEPathManager::calculatePathEdges(PathElement* pathElement, SUMOVehicleClass vC
         }
         // add segment in path
         myPaths[pathElement] = segments;
+        // and also in GLObjects
+        myGLObjects[pathElement->getPathGUIGlObject()] = pathElement;
     }
 }
 
@@ -794,6 +817,8 @@ GNEPathManager::calculateConsecutivePathLanes(PathElement* pathElement, const st
         laneSegments.at(laneSegmentIndex)->markSegmentLabel();
         // add segment in path
         myPaths[pathElement] = segments;
+        // and also in GLObjects
+        myGLObjects[pathElement->getPathGUIGlObject()] = pathElement;
     }
 }
 

@@ -1605,7 +1605,7 @@ bool
 GNEViewNet::drawDeleteContour(const GUIGlObject* GLObject, const GNEAttributeCarrier* AC) const {
     // check if we're in post drawing
     if (myPostDrawing) {
-        return true;
+        return gPostDrawing.isElementUnderCursor(GLObject);
     }
     // check ifs blocked
     if (myLockManager.isObjectLocked(GLObject->getType(), AC->isAttributeCarrierSelected())) {
@@ -5111,8 +5111,8 @@ GNEViewNet::drawTemporalObjectsToDelete() {
         // only draw marked elements that have the same GLType of the last element
         for (const auto elementToRemove : gPostDrawing.elementsMarkedToRemove) {
             if (elementToRemove->getType() == gPostDrawing.elementsMarkedToRemove.back()->getType()) {
-                // check if is a normal or a path element
-                const auto pathElement = dynamic_cast<const GNEPathManager::PathElement*>(elementToRemove);
+                // check if is a normalGLObject or a path element
+                const auto pathElement = myNet->getPathManager()->getPathElement(elementToRemove);
                 if (pathElement != nullptr) {
                     myNet->getPathManager()->forceDrawPath(*myVisualizationSettings, pathElement);
                 } else {

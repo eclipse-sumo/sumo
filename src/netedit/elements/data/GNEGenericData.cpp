@@ -53,7 +53,7 @@ GNEGenericData::GNEGenericData(const SumoXMLTag tag, FXIcon *icon, const GUIGlOb
     GUIGlObject(type, dataIntervalParent->getID(), icon),
     Parameterised(parameters),
     GNEHierarchicalElement(dataIntervalParent->getNet(), tag, junctionParents, edgeParents, laneParents, additionalParents, demandElementParents, genericDataParents),
-    GNEPathManager::PathElement(GNEPathManager::PathElement::Options::DATA_ELEMENT),
+    GNEPathManager::PathElement(this, GNEPathManager::PathElement::Options::DATA_ELEMENT),
     myDataIntervalParent(dataIntervalParent) {
 }
 
