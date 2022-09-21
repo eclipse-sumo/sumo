@@ -1229,17 +1229,17 @@ GNEStop::drawVehicleStop(const GUIVisualizationSettings& s, const double exagger
     mouseWithinGeometry(myDemandElementGeometry.getShape(), width);
     // inspect contour
     if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-        GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, myDemandElementGeometry.getShape(),
+        GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::INSPECT, myDemandElementGeometry.getShape(),
                 width, exaggeration, true, true);
     }
     // front element contour
     if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-        GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::FRONT, s, myDemandElementGeometry.getShape(),
+        GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::FRONT, myDemandElementGeometry.getShape(),
                 width, exaggeration, true, true);
     }
     // orange contour
     if (gPostDrawing.isElementUnderMouse(this)) {
-        GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::ORANGE, s, myDemandElementGeometry.getShape(),
+        GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::ORANGE, myDemandElementGeometry.getShape(),
                 width, exaggeration, true, true);
     }
 }
@@ -1305,18 +1305,18 @@ GNEStop::drawStopPersonOverEdge(const GUIVisualizationSettings& s, const double 
     mouseWithinGeometry(myDemandElementGeometry.getShape(), 0.3);
     // inspect contour
     if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-        GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT,
-            s, myDemandElementGeometry.getShape(), 0.3,  exaggeration, 1, 1);
+        GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::INSPECT,
+            myDemandElementGeometry.getShape(), 0.3,  exaggeration, true, true);
     }
     // front contour
     if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-        GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::FRONT,
-            s, myDemandElementGeometry.getShape(), 0.3, exaggeration, 1, 1);
+        GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::FRONT,
+            myDemandElementGeometry.getShape(), 0.3, exaggeration, true, true);
     }
     // orange contour
     if (gPostDrawing.isElementUnderMouse(this)) {
-        GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::ORANGE,
-            s, myDemandElementGeometry.getShape(), 0.3, exaggeration, 1, 1);
+        GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::ORANGE,
+            myDemandElementGeometry.getShape(), 0.3, exaggeration, true, true);
     }
 }
 
@@ -1371,18 +1371,18 @@ GNEStop::drawStopPersonOverBusStop(const GUIVisualizationSettings& s, const doub
     GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), exaggeration);
     // inspect contour
     if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-        GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, myDemandElementGeometry.getShape(), 0.3,
-                exaggeration, 1, 1);
+        GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::INSPECT, myDemandElementGeometry.getShape(), 0.3,
+                exaggeration, true, true);
     }
     // front contour
     if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-        GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::FRONT, s, myDemandElementGeometry.getShape(), 0.3,
-                exaggeration, 1, 1);
+        GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::FRONT, myDemandElementGeometry.getShape(), 0.3,
+                exaggeration, true, true);
     }
     // orange contour
     if (gPostDrawing.isElementUnderMouse(this)) {
-        GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::ORANGE, s, myDemandElementGeometry.getShape(), 0.3,
-                exaggeration, 1, 1);
+        GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::ORANGE, myDemandElementGeometry.getShape(), 0.3,
+                exaggeration, true, true);
     }
 }
 

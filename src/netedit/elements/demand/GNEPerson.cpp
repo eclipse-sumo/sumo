@@ -430,17 +430,17 @@ GNEPerson::drawGL(const GUIVisualizationSettings& s) const {
             // inspect contour
             if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
                 // draw using drawDottedSquaredShape
-                GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::INSPECT, s, personPosition, 0.5, 0.5, 0, 0, 0, exaggeration);
+                GUIDottedGeometry::drawDottedSquaredShape(s, GUIDottedGeometry::DottedContourType::INSPECT, personPosition, 0.5, 0.5, 0, 0, 0, exaggeration);
             }
             // front element contour
             if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
                 // draw using drawDottedSquaredShape
-                GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::FRONT, s, personPosition, 0.5, 0.5, 0, 0, 0, exaggeration);
+                GUIDottedGeometry::drawDottedSquaredShape(s, GUIDottedGeometry::DottedContourType::FRONT, personPosition, 0.5, 0.5, 0, 0, 0, exaggeration);
             }
             // orange contour
             if (gPostDrawing.isElementUnderMouse(this)) {
                 // draw using drawDottedSquaredShape
-                GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::ORANGE, s, personPosition, 0.5, 0.5, 0, 0, 0, exaggeration);
+                GUIDottedGeometry::drawDottedSquaredShape(s, GUIDottedGeometry::DottedContourType::ORANGE, personPosition, 0.5, 0.5, 0, 0, 0, exaggeration);
             }
         }
     }
