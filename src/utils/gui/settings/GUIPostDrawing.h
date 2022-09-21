@@ -45,6 +45,9 @@ public:
     /// @brief check if element is under mouse
     bool isElementUnderMouse(const GUIGlObject* GLObject) const;
 
+    /// @brief get all elements under mouse
+    const std::vector<const GUIGlObject*> &getElementUnderMouse() const;
+
     /// @brief recompute boundaries
     GUIGlObjectType recomputeBoundaries = GLO_NETWORK;
 

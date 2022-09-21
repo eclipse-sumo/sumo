@@ -338,7 +338,7 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
             }
         }
         // delete contour
-        if (gPostDrawing.isElementUnderMouse(this)) {
+        if (myNet->getViewNet()->drawDeleteContour(this, this)) {
             // draw depending if is closed
             if (getFill() || myPolygonGeometry.getShape().isClosed()) {
                 GUIDottedGeometry::drawDottedContourClosedShape(s, GUIDottedGeometry::DottedContourType::REMOVE, myPolygonGeometry.getShape(), 1);

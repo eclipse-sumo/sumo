@@ -442,7 +442,7 @@ GNEContainer::drawGL(const GUIVisualizationSettings& s) const {
                 GUIDottedGeometry::drawDottedSquaredShape(s, GUIDottedGeometry::DottedContourType::FRONT, containerPosition, 0.5, 0.2, -2.5, 0, 0, exaggeration);
             }
             // delete contour
-            if (gPostDrawing.isElementUnderMouse(this)) {
+            if (myNet->getViewNet()->drawDeleteContour(this, this)) {
                 // draw using drawDottedSquaredShape
                 GUIDottedGeometry::drawDottedSquaredShape(s, GUIDottedGeometry::DottedContourType::REMOVE, containerPosition, 0.5, 0.2, -2.5, 0, 0, exaggeration);
             }

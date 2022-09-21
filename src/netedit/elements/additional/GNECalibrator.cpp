@@ -483,7 +483,7 @@ GNECalibrator::drawCalibratorSymbol(const GUIVisualizationSettings& s, const dou
                 0, s.additionalSettings.calibratorHeight * 0.5, rot, exaggeration);
     }
     // delete contour
-    if (gPostDrawing.isElementUnderMouse(this)) {
+    if (myNet->getViewNet()->drawDeleteContour(this, this)) {
         GUIDottedGeometry::drawDottedSquaredShape(s, GUIDottedGeometry::DottedContourType::REMOVE, pos,
                 s.additionalSettings.calibratorWidth, s.additionalSettings.calibratorHeight * 0.5,
                 0, s.additionalSettings.calibratorHeight * 0.5, rot, exaggeration);

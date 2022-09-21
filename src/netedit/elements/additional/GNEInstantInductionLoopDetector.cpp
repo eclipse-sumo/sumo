@@ -191,7 +191,7 @@ GNEInstantInductionLoopDetector::drawGL(const GUIVisualizationSettings& s) const
                     2, 1, 0, 0, myAdditionalGeometry.getShapeRotations().front(), E1InstantExaggeration);
             }
             // delete contour
-            if (gPostDrawing.isElementUnderMouse(this)) {
+            if (myNet->getViewNet()->drawDeleteContour(this, this)) {
                 GUIDottedGeometry::drawDottedSquaredShape(s, GUIDottedGeometry::DottedContourType::REMOVE, myAdditionalGeometry.getShape().front(), 
                     2, 1, 0, 0, myAdditionalGeometry.getShapeRotations().front(), E1InstantExaggeration);
             }

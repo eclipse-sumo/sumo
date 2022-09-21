@@ -152,7 +152,7 @@ GNEWalkingArea::drawGL(const GUIVisualizationSettings& s) const {
                     (walkingAreaExaggeration >= 1) ? walkingAreaExaggeration : 1);
         }
         // delete contour
-        if (gPostDrawing.isElementUnderMouse(this)) {
+        if (myNet->getViewNet()->drawDeleteContour(this, this)) {
             GUIDottedGeometry::drawDottedContourClosedShape(s, GUIDottedGeometry::DottedContourType::REMOVE, walkingAreaShape,
                     (walkingAreaExaggeration >= 1) ? walkingAreaExaggeration : 1);
         }

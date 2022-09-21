@@ -329,7 +329,7 @@ GNELaneAreaDetector::drawGL(const GUIVisualizationSettings& s) const {
                         E2Exaggeration, true, true);
             }
             // delete contour
-            if (gPostDrawing.isElementUnderMouse(this)) {
+            if (myNet->getViewNet()->drawDeleteContour(this, this)) {
                 GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::REMOVE, myAdditionalGeometry.getShape(), s.detectorSettings.E2Width,
                         E2Exaggeration, true, true);
             }
@@ -443,7 +443,7 @@ GNELaneAreaDetector::drawPartialGL(const GUIVisualizationSettings& s, const GNEL
             GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::FRONT, shape, E2DetectorWidth, 1, segment->isFirstSegment(), segment->isLastSegment());
         }
         // delete contour
-        if (gPostDrawing.isElementUnderMouse(this)) {
+        if (myNet->getViewNet()->drawDeleteContour(this, this)) {
             GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::REMOVE, shape, E2DetectorWidth, 1, segment->isFirstSegment(), segment->isLastSegment());
         }
     }
@@ -510,7 +510,7 @@ GNELaneAreaDetector::drawPartialGL(const GUIVisualizationSettings& s, const GNEL
                         E2DetectorWidth, 1, false, false);
             }
             // delete contour
-            if (gPostDrawing.isElementUnderMouse(this)) {
+            if (myNet->getViewNet()->drawDeleteContour(this, this)) {
                 GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::REMOVE, fromLane->getLane2laneConnections().getLane2laneGeometry(toLane).getShape(),
                         E2DetectorWidth, 1, false, false);
             }

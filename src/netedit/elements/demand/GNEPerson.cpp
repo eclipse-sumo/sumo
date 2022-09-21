@@ -438,7 +438,7 @@ GNEPerson::drawGL(const GUIVisualizationSettings& s) const {
                 GUIDottedGeometry::drawDottedSquaredShape(s, GUIDottedGeometry::DottedContourType::FRONT, personPosition, 0.5, 0.5, 0, 0, 0, exaggeration);
             }
             // delete contour
-            if (gPostDrawing.isElementUnderMouse(this)) {
+            if (myNet->getViewNet()->drawDeleteContour(this, this)) {
                 // draw using drawDottedSquaredShape
                 GUIDottedGeometry::drawDottedSquaredShape(s, GUIDottedGeometry::DottedContourType::REMOVE, personPosition, 0.5, 0.5, 0, 0, 0, exaggeration);
             }

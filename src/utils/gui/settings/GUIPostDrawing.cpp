@@ -67,4 +67,10 @@ GUIPostDrawing::isElementUnderMouse(const GUIGlObject* GLObject) const {
     return std::find(myElementsUnderMouse.begin(), myElementsUnderMouse.end(), GLObject) != myElementsUnderMouse.end();
 }
 
+
+const std::vector<const GUIGlObject*>&
+GUIPostDrawing::getElementUnderMouse() const {
+    return myElementsUnderMouse;
+}
+
 /****************************************************************************/

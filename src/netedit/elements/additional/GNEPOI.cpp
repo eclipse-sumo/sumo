@@ -330,7 +330,7 @@ GNEPOI::drawGL(const GUIVisualizationSettings& s) const {
                 }
             }
             // delete contour
-            if (gPostDrawing.isElementUnderMouse(this)) {
+            if (myNet->getViewNet()->drawDeleteContour(this, this)) {
                 if (getShapeImgFile().empty()) {
                     GUIDottedGeometry::drawDottedContourCircle(s, GUIDottedGeometry::DottedContourType::REMOVE, *this, 1.3, POIExaggeration);
                 } else {

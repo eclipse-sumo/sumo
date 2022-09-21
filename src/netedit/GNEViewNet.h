@@ -492,6 +492,9 @@ public:
     /// @brief draw front attributeCarrier
     void drawTranslateFrontAttributeCarrier(const GNEAttributeCarrier* AC, double typeOrLayer, const double extraOffset = 0);
 
+    /// @brief check if draw delete contour
+    bool drawDeleteContour(const GUIGlObject* GLObject, const GNEAttributeCarrier* AC) const;
+
     /// @brief get last created route
     GNEDemandElement* getLastCreatedRoute() const;
 

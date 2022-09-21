@@ -1238,7 +1238,7 @@ GNEStop::drawVehicleStop(const GUIVisualizationSettings& s, const double exagger
                 width, exaggeration, true, true);
     }
     // delete contour
-    if (gPostDrawing.isElementUnderMouse(this)) {
+    if (myNet->getViewNet()->drawDeleteContour(this, this)) {
         GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::REMOVE, myDemandElementGeometry.getShape(),
                 width, exaggeration, true, true);
     }
@@ -1314,7 +1314,7 @@ GNEStop::drawStopPersonOverEdge(const GUIVisualizationSettings& s, const double 
             myDemandElementGeometry.getShape(), 0.3, exaggeration, true, true);
     }
     // delete contour
-    if (gPostDrawing.isElementUnderMouse(this)) {
+    if (myNet->getViewNet()->drawDeleteContour(this, this)) {
         GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::REMOVE,
             myDemandElementGeometry.getShape(), 0.3, exaggeration, true, true);
     }
@@ -1380,7 +1380,7 @@ GNEStop::drawStopPersonOverBusStop(const GUIVisualizationSettings& s, const doub
                 exaggeration, true, true);
     }
     // delete contour
-    if (gPostDrawing.isElementUnderMouse(this)) {
+    if (myNet->getViewNet()->drawDeleteContour(this, this)) {
         GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::REMOVE, myDemandElementGeometry.getShape(), 0.3,
                 exaggeration, true, true);
     }

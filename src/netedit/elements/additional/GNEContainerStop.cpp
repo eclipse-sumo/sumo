@@ -186,7 +186,7 @@ GNEContainerStop::drawGL(const GUIVisualizationSettings& s) const {
                         containerStopExaggeration, true, true);
             }
             // delete contour
-            if (gPostDrawing.isElementUnderMouse(this)) {
+            if (myNet->getViewNet()->drawDeleteContour(this, this)) {
                 GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::REMOVE, myAdditionalGeometry.getShape(), s.stoppingPlaceSettings.containerStopWidth,
                         containerStopExaggeration, true, true);
             }

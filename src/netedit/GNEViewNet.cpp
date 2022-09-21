@@ -1595,6 +1595,36 @@ GNEViewNet::drawTranslateFrontAttributeCarrier(const GNEAttributeCarrier* AC, do
 }
 
 
+bool
+GNEViewNet::drawDeleteContour(const GUIGlObject* GLObject, const GNEAttributeCarrier* AC) const {
+    // check ifs blocked
+    if (myLockManager.isObjectLocked(GLObject->getType(), AC->isAttributeCarrierSelected())) {
+        return false;
+    }
+    // check if is under mouse
+    if (!gPostDrawing.isElementUnderMouse(GLObject)) {
+        return false;
+    }
+    // only draw for element of same type
+    if (gPostDrawing.getElementUnderMouse().back()->getType() != GLObject->getType()) {
+        return false;
+    }
+    // check if we're in the correct mode and supermode
+    if ((AC->getTagProperty().isNetworkElement() || AC->getTagProperty().isAdditionalElement()) && 
+        myEditModes.isCurrentSupermodeNetwork() && (myEditModes.networkEditMode == NetworkEditMode::NETWORK_DELETE)) {
+        return true;
+    } else if (AC->getTagProperty().isDemandElement() && myEditModes.isCurrentSupermodeDemand() && 
+        (myEditModes.demandEditMode == DemandEditMode::DEMAND_DELETE)) {
+        return true;
+    } else if (AC->getTagProperty().isDataElement() && myEditModes.isCurrentSupermodeData() && 
+        (myEditModes.dataEditMode == DataEditMode::DATA_DELETE)) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
 GNEDemandElement*
 GNEViewNet::getLastCreatedRoute() const {
     return myLastCreatedRoute;

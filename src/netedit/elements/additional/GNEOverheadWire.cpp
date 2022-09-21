@@ -316,7 +316,7 @@ GNEOverheadWire::drawPartialGL(const GUIVisualizationSettings& s, const GNELane*
             GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::FRONT, shape, overheadWireWidth, 1, segment->isFirstSegment(), segment->isLastSegment());
         }
         // delete contour
-        if (gPostDrawing.isElementUnderMouse(this)) {
+        if (myNet->getViewNet()->drawDeleteContour(this, this)) {
             GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::REMOVE, shape, overheadWireWidth, 1, segment->isFirstSegment(), segment->isLastSegment());
         }
     }
@@ -377,7 +377,7 @@ GNEOverheadWire::drawPartialGL(const GUIVisualizationSettings& s, const GNELane*
                         overheadWireWidth, 1, false, false);
             }
             // delete contour
-            if (gPostDrawing.isElementUnderMouse(this)) {
+            if (myNet->getViewNet()->drawDeleteContour(this, this)) {
                 GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::REMOVE, fromLane->getLane2laneConnections().getLane2laneGeometry(toLane).getShape(),
                         overheadWireWidth, 1, false, false);
             }

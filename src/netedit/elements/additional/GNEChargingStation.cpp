@@ -185,7 +185,7 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
                         chargingStationExaggeration, true, true);
             }
             // delete contour
-            if (gPostDrawing.isElementUnderMouse(this)) {
+            if (myNet->getViewNet()->drawDeleteContour(this, this)) {
                 GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::REMOVE, myAdditionalGeometry.getShape(), s.stoppingPlaceSettings.chargingStationWidth,
                         chargingStationExaggeration, true, true);
             }

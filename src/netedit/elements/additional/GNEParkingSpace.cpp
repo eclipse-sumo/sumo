@@ -243,7 +243,7 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
             GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::FRONT, myShapeLength, width, parkingAreaExaggeration, true, true);
         }
         // delete contour
-        if (gPostDrawing.isElementUnderMouse(this)) {
+        if (myNet->getViewNet()->drawDeleteContour(this, this)) {
             GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::REMOVE, myShapeLength, width, parkingAreaExaggeration, true, true);
         }
         // Draw additional ID

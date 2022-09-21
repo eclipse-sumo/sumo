@@ -203,7 +203,7 @@ GNERouteProbe::drawGL(const GUIVisualizationSettings& s) const {
                     routeProbeExaggeration, true, true);
         }
         // delete contour
-        if (gPostDrawing.isElementUnderMouse(this)) {
+        if (myNet->getViewNet()->drawDeleteContour(this, this)) {
             GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::REMOVE, myAdditionalGeometry.getShape(), 0.5,
                     routeProbeExaggeration, true, true);
         }

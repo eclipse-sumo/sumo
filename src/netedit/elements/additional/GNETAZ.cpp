@@ -646,7 +646,7 @@ GNETAZ::drawDottedContours(const GUIVisualizationSettings& s, const double TAZEx
         GUIDottedGeometry::drawDottedContourClosedShape(s, GUIDottedGeometry::DottedContourType::FRONT, myAdditionalGeometry.getShape(), 1);
     }
     // delete contour
-    if (gPostDrawing.isElementUnderMouse(this)) {
+    if (myNet->getViewNet()->drawDeleteContour(this, this)) {
         GUIDottedGeometry::drawDottedContourClosedShape(s, GUIDottedGeometry::DottedContourType::REMOVE, myAdditionalGeometry.getShape(), 1);
     }
     // dotted contour for first TAZ

@@ -808,7 +808,7 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
                     GUIDottedGeometry::drawDottedSquaredShape(s, GUIDottedGeometry::DottedContourType::FRONT, vehiclePosition, length * 0.5, width * 0.5, length * -0.5, 0, vehicleRotation, exaggeration);
                 }
                 // delete contour
-                if (gPostDrawing.isElementUnderMouse(this)) {
+                if (myNet->getViewNet()->drawDeleteContour(this, this)) {
                     // draw using drawDottedContourClosedShape
                     GUIDottedGeometry::drawDottedSquaredShape(s, GUIDottedGeometry::DottedContourType::REMOVE, vehiclePosition, length * 0.5, width * 0.5, length * -0.5, 0, vehicleRotation, exaggeration);
                 }
@@ -989,7 +989,7 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane
                 GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::FRONT_SMALL, shape, width, 1, segment->isFirstSegment(), segment->isLastSegment());
             }
             // delete contour
-            if (gPostDrawing.isElementUnderMouse(this)) {
+            if (myNet->getViewNet()->drawDeleteContour(this, this)) {
                 GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::REMOVE, shape, width, 1, segment->isFirstSegment(), segment->isLastSegment());
             }
         }
@@ -1048,7 +1048,7 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* from
                             width, 1, false, false);
                 }
                 // delete contour
-                if (gPostDrawing.isElementUnderMouse(this)) {
+                if (myNet->getViewNet()->drawDeleteContour(this, this)) {
                     GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::REMOVE, 
                             fromLane->getLane2laneConnections().getLane2laneGeometry(toLane).getShape(),
                             width, 1, false, false);
