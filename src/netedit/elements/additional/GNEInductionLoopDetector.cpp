@@ -186,17 +186,17 @@ GNEInductionLoopDetector::drawGL(const GUIVisualizationSettings& s) const {
                     2, 1, 0, 0, myAdditionalGeometry.getShapeRotations().front());
             // inspect contour
             if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-                GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::INSPECT, s, myAdditionalGeometry.getShape().front(), 
+                GUIDottedGeometry::drawDottedSquaredShape(s, GUIDottedGeometry::DottedContourType::INSPECT, myAdditionalGeometry.getShape().front(), 
                     2, 1, 0, 0, myAdditionalGeometry.getShapeRotations().front(), E1Exaggeration);
             }
             // front contour
             if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-                GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::FRONT, s, myAdditionalGeometry.getShape().front(), 
+                GUIDottedGeometry::drawDottedSquaredShape(s, GUIDottedGeometry::DottedContourType::FRONT, myAdditionalGeometry.getShape().front(), 
                     2, 1, 0, 0, myAdditionalGeometry.getShapeRotations().front(), E1Exaggeration);
             }
             // orange contour
             if (gPostDrawing.isElementUnderMouse(this)) {
-                GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::ORANGE, s, myAdditionalGeometry.getShape().front(), 
+                GUIDottedGeometry::drawDottedSquaredShape(s, GUIDottedGeometry::DottedContourType::ORANGE, myAdditionalGeometry.getShape().front(), 
                     2, 1, 0, 0, myAdditionalGeometry.getShapeRotations().front(), E1Exaggeration);
             }
             const auto &TLSAttributes = myNet->getViewNet()->getViewParent()->getTLSEditorFrame()->getTLSAttributes();
@@ -204,7 +204,7 @@ GNEInductionLoopDetector::drawGL(const GUIVisualizationSettings& s) const {
             if (myNet->getViewNet()->selectingDetectorsTLSMode() && 
                 (TLSAttributes->getE1Detectors().count(getParentLanes().front()->getID()) > 0) &&
                 (TLSAttributes->getE1Detectors().at(getParentLanes().front()->getID()) == getID())) {
-                GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::GREEN, s, myAdditionalGeometry.getShape().front(), 2, 1, 0, 0, myAdditionalGeometry.getShapeRotations().front(), E1Exaggeration);
+                GUIDottedGeometry::drawDottedSquaredShape(s, GUIDottedGeometry::DottedContourType::GREEN, myAdditionalGeometry.getShape().front(), 2, 1, 0, 0, myAdditionalGeometry.getShapeRotations().front(), E1Exaggeration);
             }
         }
         // Draw additional ID

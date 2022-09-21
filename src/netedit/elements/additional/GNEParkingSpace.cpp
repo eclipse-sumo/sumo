@@ -236,15 +236,15 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
         mouseWithinGeometry(myShapeLength, width);
         // inspect contour
         if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-            GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, myShapeLength, width, parkingAreaExaggeration, true, true);
+            GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::INSPECT, myShapeLength, width, parkingAreaExaggeration, true, true);
         }
         // front contour
         if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-            GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::FRONT, s, myShapeLength, width, parkingAreaExaggeration, true, true);
+            GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::FRONT, myShapeLength, width, parkingAreaExaggeration, true, true);
         }
         // orange contour
         if (gPostDrawing.isElementUnderMouse(this)) {
-            GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::ORANGE, s, myShapeLength, width, parkingAreaExaggeration, true, true);
+            GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::ORANGE, myShapeLength, width, parkingAreaExaggeration, true, true);
         }
         // Draw additional ID
         drawAdditionalID(s);

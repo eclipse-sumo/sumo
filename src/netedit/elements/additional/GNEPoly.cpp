@@ -321,30 +321,30 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
         if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
             // draw depending if is closed
             if (getFill() || myPolygonGeometry.getShape().isClosed()) {
-                GUIDottedGeometry::drawDottedContourClosedShape(GUIDottedGeometry::DottedContourType::INSPECT, s, myPolygonGeometry.getShape(), 1);
+                GUIDottedGeometry::drawDottedContourClosedShape(s, GUIDottedGeometry::DottedContourType::INSPECT, myPolygonGeometry.getShape(), 1);
             } else {
-                GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, myPolygonGeometry.getShape(), s.neteditSizeSettings.polylineWidth,
-                        polyExaggeration, 1, 1);
+                GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::INSPECT, myPolygonGeometry.getShape(), s.neteditSizeSettings.polylineWidth,
+                        polyExaggeration, true, true);
             }
         }
         // dotted contour
         if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
             // draw depending if is closed
             if (getFill() || myPolygonGeometry.getShape().isClosed()) {
-                GUIDottedGeometry::drawDottedContourClosedShape(GUIDottedGeometry::DottedContourType::FRONT, s, myPolygonGeometry.getShape(), 1);
+                GUIDottedGeometry::drawDottedContourClosedShape(s, GUIDottedGeometry::DottedContourType::FRONT, myPolygonGeometry.getShape(), 1);
             } else {
-                GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::FRONT, s, myPolygonGeometry.getShape(), s.neteditSizeSettings.polylineWidth,
-                        polyExaggeration, 1, 1);
+                GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::FRONT, myPolygonGeometry.getShape(), s.neteditSizeSettings.polylineWidth,
+                        polyExaggeration, true, true);
             }
         }
         // orange contour
         if (gPostDrawing.isElementUnderMouse(this)) {
             // draw depending if is closed
             if (getFill() || myPolygonGeometry.getShape().isClosed()) {
-                GUIDottedGeometry::drawDottedContourClosedShape(GUIDottedGeometry::DottedContourType::ORANGE, s, myPolygonGeometry.getShape(), 1);
+                GUIDottedGeometry::drawDottedContourClosedShape(s, GUIDottedGeometry::DottedContourType::ORANGE, myPolygonGeometry.getShape(), 1);
             } else {
-                GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::ORANGE, s, myPolygonGeometry.getShape(), s.neteditSizeSettings.polylineWidth,
-                        polyExaggeration, 1, 1);
+                GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::ORANGE, myPolygonGeometry.getShape(), s.neteditSizeSettings.polylineWidth,
+                        polyExaggeration, true, true);
             }
         }
         // draw lock icon

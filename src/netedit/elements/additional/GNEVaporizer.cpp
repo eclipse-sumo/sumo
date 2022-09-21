@@ -181,18 +181,18 @@ GNEVaporizer::drawGL(const GUIVisualizationSettings& s) const {
         mouseWithinGeometry(myAdditionalGeometry.getShape(), 0.5);
         // inspect contour
         if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-            GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, myAdditionalGeometry.getShape(), 0.5,
-                    vaporizerExaggeration, 1, 1);
+            GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::INSPECT, myAdditionalGeometry.getShape(), 0.5,
+                    vaporizerExaggeration, true, true);
         }
         // front element contour
         if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-            GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::FRONT, s, myAdditionalGeometry.getShape(), 0.5,
-                    vaporizerExaggeration, 1, 1);
+            GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::FRONT, myAdditionalGeometry.getShape(), 0.5,
+                    vaporizerExaggeration, true, true);
         }
         // orange contour
         if (gPostDrawing.isElementUnderMouse(this)) {
-            GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::ORANGE, s, myAdditionalGeometry.getShape(), 0.5,
-                    vaporizerExaggeration, 1, 1);
+            GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::ORANGE, myAdditionalGeometry.getShape(), 0.5,
+                    vaporizerExaggeration, true, true);
         }
     }
 }
