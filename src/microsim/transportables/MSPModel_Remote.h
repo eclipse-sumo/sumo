@@ -114,6 +114,6 @@ private:
     static const SUMOTime JPS_DELTA_T;
     static const double JPS_EXIT_TOLERANCE;
 
-    MSLane* getFirstPedestrianLane(const MSEdge* const& edge);
     void initialize();
+    MSLane* getNextPedestrianLane(const MSLane* const currentLane) const;
 };
