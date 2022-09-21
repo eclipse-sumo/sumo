@@ -38,7 +38,7 @@ GUIPostDrawing::executePostDrawingTasks() {
     // reset mouse Pos
     mousePos = Position::INVALID;
     // clear elements under mouse
-    myElementsUnderMouse.clear();
+    myElementsUnderCursor.clear();
     // reset marked elements
     markedNode = nullptr;
     markedEdge = nullptr;
@@ -57,20 +57,20 @@ GUIPostDrawing::markGLObjectToUpdate(GUIGlObject* GLObject) {
 
 
 void 
-GUIPostDrawing::addElementUnderMouse(const GUIGlObject* GLObject) {
-    myElementsUnderMouse.push_back(GLObject);
+GUIPostDrawing::addElementUnderCursor(const GUIGlObject* GLObject) {
+    myElementsUnderCursor.push_back(GLObject);
 }
 
 
 bool
-GUIPostDrawing::isElementUnderMouse(const GUIGlObject* GLObject) const {
-    return std::find(myElementsUnderMouse.begin(), myElementsUnderMouse.end(), GLObject) != myElementsUnderMouse.end();
+GUIPostDrawing::isElementUnderCursor(const GUIGlObject* GLObject) const {
+    return std::find(myElementsUnderCursor.begin(), myElementsUnderCursor.end(), GLObject) != myElementsUnderCursor.end();
 }
 
 
 const std::vector<const GUIGlObject*>&
-GUIPostDrawing::getElementUnderMouse() const {
-    return myElementsUnderMouse;
+GUIPostDrawing::getElementUnderCursor() const {
+    return myElementsUnderCursor;
 }
 
 /****************************************************************************/

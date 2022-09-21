@@ -1602,11 +1602,11 @@ GNEViewNet::drawDeleteContour(const GUIGlObject* GLObject, const GNEAttributeCar
         return false;
     }
     // check if is under mouse
-    if (!gPostDrawing.isElementUnderMouse(GLObject)) {
+    if (!gPostDrawing.isElementUnderCursor(GLObject)) {
         return false;
     }
     // only draw for element of same type
-    if (gPostDrawing.getElementUnderMouse().back()->getType() != GLObject->getType()) {
+    if (gPostDrawing.getElementUnderCursor().back()->getType() != GLObject->getType()) {
         return false;
     }
     // check if we're in the correct mode and supermode

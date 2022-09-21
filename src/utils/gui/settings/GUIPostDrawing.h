@@ -39,14 +39,14 @@ public:
     /// @brief mark GLObject to update (usually the geometry)
     void markGLObjectToUpdate(GUIGlObject* GLObject);
 
-    /// @brief add element into list of elements under mouse
-    void addElementUnderMouse(const GUIGlObject* GLObject);
+    /// @brief add element into list of elements under cursor
+    void addElementUnderCursor(const GUIGlObject* GLObject);
 
-    /// @brief check if element is under mouse
-    bool isElementUnderMouse(const GUIGlObject* GLObject) const;
+    /// @brief check if element is under cursor
+    bool isElementUnderCursor(const GUIGlObject* GLObject) const;
 
-    /// @brief get all elements under mouse
-    const std::vector<const GUIGlObject*> &getElementUnderMouse() const;
+    /// @brief get all elements under cursor
+    const std::vector<const GUIGlObject*> &getElementUnderCursor() const;
 
     /// @brief recompute boundaries
     GUIGlObjectType recomputeBoundaries = GLO_NETWORK;
@@ -73,8 +73,8 @@ protected:
     /// @brief GLObjects to update
     std::vector<GUIGlObject*> myGLObjectsToUpdate;
 
-    /// @brief elements under mouse
-    std::vector<const GUIGlObject*> myElementsUnderMouse;
+    /// @brief elements under cursor
+    std::vector<const GUIGlObject*> myElementsUnderCursor;
 
 private:
     /// @brief set copy constructor private
