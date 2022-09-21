@@ -457,7 +457,7 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
                 GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::FRONT, s, shapeSuperposed, s.connectionSettings.connectionWidth, selectionScale, true, true, 0.1);
             }
             // orange contour
-            if (gPostDrawing.mouserOverElement == this) {
+            if (gPostDrawing.isElementUnderMouse(this)) {
                 // use drawDottedContourGeometry to draw it
                 GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::ORANGE, s, shapeSuperposed, s.connectionSettings.connectionWidth, selectionScale, true, true, 0.1);
             }

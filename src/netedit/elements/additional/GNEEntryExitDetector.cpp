@@ -248,7 +248,7 @@ GNEEntryExitDetector::drawGL(const GUIVisualizationSettings& s) const {
                 2.7, 1.6, 2, 0, myAdditionalGeometry.getShapeRotations().front(), entryExitExaggeration);
         }
         // orange contour
-        if (gPostDrawing.mouserOverElement == this) {
+        if (gPostDrawing.isElementUnderMouse(this)) {
             GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::ORANGE, s, myAdditionalGeometry.getShape().front(), 
                 2.7, 1.6, 2, 0, myAdditionalGeometry.getShapeRotations().front(), entryExitExaggeration);
         }

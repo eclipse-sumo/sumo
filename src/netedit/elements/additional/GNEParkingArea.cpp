@@ -214,7 +214,7 @@ GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
                         parkingAreaExaggeration, true, true);
             }
             // orange contour
-            if (gPostDrawing.mouserOverElement == this) {
+            if (gPostDrawing.isElementUnderMouse(this)) {
                 GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::ORANGE, s, myAdditionalGeometry.getShape(), myWidth * 0.5,
                         parkingAreaExaggeration, true, true);
             }

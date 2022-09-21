@@ -483,7 +483,7 @@ GNECalibrator::drawCalibratorSymbol(const GUIVisualizationSettings& s, const dou
                 0, s.additionalSettings.calibratorHeight * 0.5, rot, exaggeration);
     }
     // orange element
-    if (gPostDrawing.mouserOverElement == this) {
+    if (gPostDrawing.isElementUnderMouse(this)) {
         GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::ORANGE, s, pos,
                 s.additionalSettings.calibratorWidth, s.additionalSettings.calibratorHeight * 0.5,
                 0, s.additionalSettings.calibratorHeight * 0.5, rot, exaggeration);

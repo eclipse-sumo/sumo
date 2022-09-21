@@ -316,7 +316,7 @@ GNEOverheadWire::drawPartialGL(const GUIVisualizationSettings& s, const GNELane*
             GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::FRONT, s, shape, overheadWireWidth, 1, segment->isFirstSegment(), segment->isLastSegment());
         }
         // orange contour
-        if (gPostDrawing.mouserOverElement == this) {
+        if (gPostDrawing.isElementUnderMouse(this)) {
             GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::ORANGE, s, shape, overheadWireWidth, 1, segment->isFirstSegment(), segment->isLastSegment());
         }
     }
@@ -377,7 +377,7 @@ GNEOverheadWire::drawPartialGL(const GUIVisualizationSettings& s, const GNELane*
                         overheadWireWidth, 1, false, false);
             }
             // orange contour
-            if (gPostDrawing.mouserOverElement == this) {
+            if (gPostDrawing.isElementUnderMouse(this)) {
                 GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::ORANGE, s, fromLane->getLane2laneConnections().getLane2laneGeometry(toLane).getShape(),
                         overheadWireWidth, 1, false, false);
             }

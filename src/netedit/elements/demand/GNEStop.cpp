@@ -1238,7 +1238,7 @@ GNEStop::drawVehicleStop(const GUIVisualizationSettings& s, const double exagger
                 width, exaggeration, true, true);
     }
     // orange contour
-    if (gPostDrawing.mouserOverElement == this) {
+    if (gPostDrawing.isElementUnderMouse(this)) {
         GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::ORANGE, s, myDemandElementGeometry.getShape(),
                 width, exaggeration, true, true);
     }
@@ -1314,7 +1314,7 @@ GNEStop::drawStopPersonOverEdge(const GUIVisualizationSettings& s, const double 
             s, myDemandElementGeometry.getShape(), 0.3, exaggeration, 1, 1);
     }
     // orange contour
-    if (gPostDrawing.mouserOverElement == this) {
+    if (gPostDrawing.isElementUnderMouse(this)) {
         GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::ORANGE,
             s, myDemandElementGeometry.getShape(), 0.3, exaggeration, 1, 1);
     }
@@ -1380,7 +1380,7 @@ GNEStop::drawStopPersonOverBusStop(const GUIVisualizationSettings& s, const doub
                 exaggeration, 1, 1);
     }
     // orange contour
-    if (gPostDrawing.mouserOverElement == this) {
+    if (gPostDrawing.isElementUnderMouse(this)) {
         GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::ORANGE, s, myDemandElementGeometry.getShape(), 0.3,
                 exaggeration, 1, 1);
     }

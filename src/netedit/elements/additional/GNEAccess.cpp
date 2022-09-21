@@ -209,7 +209,7 @@ GNEAccess::drawGL(const GUIVisualizationSettings& s) const {
             GUIDottedGeometry::drawDottedContourCircle(GUIDottedGeometry::DottedContourType::FRONT, s, myAdditionalGeometry.getShape().front(), 0.5, accessExaggeration);
         }
         // orange contour
-        if (gPostDrawing.mouserOverElement == this) {
+        if (gPostDrawing.isElementUnderMouse(this)) {
             GUIDottedGeometry::drawDottedContourCircle(GUIDottedGeometry::DottedContourType::ORANGE, s, myAdditionalGeometry.getShape().front(), 0.5, accessExaggeration);
         }
     }

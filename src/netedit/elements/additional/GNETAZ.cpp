@@ -646,7 +646,7 @@ GNETAZ::drawDottedContours(const GUIVisualizationSettings& s, const double TAZEx
         GUIDottedGeometry::drawDottedContourClosedShape(GUIDottedGeometry::DottedContourType::FRONT, s, myAdditionalGeometry.getShape(), 1);
     }
     // dotted contour for front
-    if (gPostDrawing.mouserOverElement == this) {
+    if (gPostDrawing.isElementUnderMouse(this)) {
         GUIDottedGeometry::drawDottedContourClosedShape(GUIDottedGeometry::DottedContourType::ORANGE, s, myAdditionalGeometry.getShape(), 1);
     }
     // dotted contour for first TAZ

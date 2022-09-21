@@ -1028,6 +1028,8 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
     myVisualizationSettings->scale = lw;
     glEnable(GL_POLYGON_OFFSET_FILL);
     glEnable(GL_POLYGON_OFFSET_LINE);
+    // set current mouse position in gPostDrawing
+    gPostDrawing.mousePos = getPositionInformation();
     // obtain objects included in minB and maxB
     int hits2 = myGrid->Search(minB, maxB, *myVisualizationSettings);
     // force draw inspected and front elements (due parent/child lines)

@@ -338,7 +338,7 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
             }
         }
         // orange contour
-        if (gPostDrawing.mouserOverElement == this) {
+        if (gPostDrawing.isElementUnderMouse(this)) {
             // draw depending if is closed
             if (getFill() || myPolygonGeometry.getShape().isClosed()) {
                 GUIDottedGeometry::drawDottedContourClosedShape(GUIDottedGeometry::DottedContourType::ORANGE, s, myPolygonGeometry.getShape(), 1);

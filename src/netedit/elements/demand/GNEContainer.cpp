@@ -442,7 +442,7 @@ GNEContainer::drawGL(const GUIVisualizationSettings& s) const {
                 GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::FRONT, s, containerPosition, 0.5, 0.2, -2.5, 0, 0, exaggeration);
             }
             // orange contour
-            if (gPostDrawing.mouserOverElement == this) {
+            if (gPostDrawing.isElementUnderMouse(this)) {
                 // draw using drawDottedSquaredShape
                 GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::ORANGE, s, containerPosition, 0.5, 0.2, -2.5, 0, 0, exaggeration);
             }

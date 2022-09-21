@@ -330,7 +330,7 @@ GNEPOI::drawGL(const GUIVisualizationSettings& s) const {
                 }
             }
             // orange contour
-            if (gPostDrawing.mouserOverElement == this) {
+            if (gPostDrawing.isElementUnderMouse(this)) {
                 if (getShapeImgFile().empty()) {
                     GUIDottedGeometry::drawDottedContourCircle(GUIDottedGeometry::DottedContourType::ORANGE, s, *this, 1.3, POIExaggeration);
                 } else {

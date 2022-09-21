@@ -34,8 +34,11 @@ GUIPostDrawing::executePostDrawingTasks() {
         GLObject->updateGLObject();
     }
     myGLObjectsToUpdate.clear();
+    // reset mouse Pos
+    mousePos = Position::INVALID;
+    // clear elements under mouse
+    myElementsUnderMouse.clear();
     // reset marked elements
-    mouserOverElement = nullptr;
     markedNode = nullptr;
     markedEdge = nullptr;
     markedLane = nullptr;
@@ -49,6 +52,18 @@ GUIPostDrawing::markGLObjectToUpdate(GUIGlObject* GLObject) {
     if (GLObject) {
         myGLObjectsToUpdate.push_back(GLObject);
     }
+}
+
+
+void 
+GUIPostDrawing::addElementUnderMouse(const GUIGlObject* GLObject) {
+    myElementsUnderMouse.push_back(GLObject);
+}
+
+
+bool
+GUIPostDrawing::isElementUnderMouse(const GUIGlObject* GLObject) const {
+    return std::find(myElementsUnderMouse.begin(), myElementsUnderMouse.end(), GLObject) != myElementsUnderMouse.end();
 }
 
 /****************************************************************************/

@@ -190,7 +190,7 @@ GNEVaporizer::drawGL(const GUIVisualizationSettings& s) const {
                     vaporizerExaggeration, 1, 1);
         }
         // orange contour
-        if (gPostDrawing.mouserOverElement == this) {
+        if (gPostDrawing.isElementUnderMouse(this)) {
             GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::ORANGE, s, myAdditionalGeometry.getShape(), 0.5,
                     vaporizerExaggeration, 1, 1);
         }

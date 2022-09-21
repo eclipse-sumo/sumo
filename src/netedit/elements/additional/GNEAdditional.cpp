@@ -437,7 +437,7 @@ GNEAdditional::drawSquaredAdditional(const GUIVisualizationSettings& s, const Po
             GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::FRONT, s, pos, size, size, 0, 0, 0, exaggeration);
         }
         // orange contour
-        if (gPostDrawing.mouserOverElement == this) {
+        if (gPostDrawing.isElementUnderMouse(this)) {
             GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::ORANGE, s, pos, size, size, 0, 0, 0, exaggeration);
         }
         // Draw additional ID

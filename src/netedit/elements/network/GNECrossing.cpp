@@ -285,7 +285,7 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
                     selectionScale, true, true);
         }
         // orange contour
-        if (gPostDrawing.mouserOverElement == this) {
+        if (gPostDrawing.isElementUnderMouse(this)) {
             GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::ORANGE, s, myCrossingGeometry.getShape(), halfWidth,
                     selectionScale, true, true);
         }

@@ -152,7 +152,7 @@ GNEWalkingArea::drawGL(const GUIVisualizationSettings& s) const {
                     (walkingAreaExaggeration >= 1) ? walkingAreaExaggeration : 1);
         }
         // front element contour
-        if (gPostDrawing.mouserOverElement == this) {
+        if (gPostDrawing.isElementUnderMouse(this)) {
             GUIDottedGeometry::drawDottedContourClosedShape(GUIDottedGeometry::DottedContourType::ORANGE, s, walkingAreaShape,
                     (walkingAreaExaggeration >= 1) ? walkingAreaExaggeration : 1);
         }

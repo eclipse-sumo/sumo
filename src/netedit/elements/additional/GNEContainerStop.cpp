@@ -186,7 +186,7 @@ GNEContainerStop::drawGL(const GUIVisualizationSettings& s) const {
                         containerStopExaggeration, 1, 1);
             }
             // orange contour
-            if (gPostDrawing.mouserOverElement == this) {
+            if (gPostDrawing.isElementUnderMouse(this)) {
                 GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::ORANGE, s, myAdditionalGeometry.getShape(), s.stoppingPlaceSettings.containerStopWidth,
                         containerStopExaggeration, 1, 1);
             }

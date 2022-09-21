@@ -1527,13 +1527,13 @@ GNEJunction::drawDottedContours(const GUIVisualizationSettings& s, const bool dr
         // get dotted contour type
         const auto dottedContourType = myNet->getViewNet()->getViewParent()->getCreateEdgeFrame()->getJunctionSource() ? GUIDottedGeometry::DottedContourType::MAGENTA : GUIDottedGeometry::DottedContourType::GREEN;
         // draw bubble
-        if (drawBubble && (gPostDrawing.mouserOverElement == this)) {
+        if (drawBubble && (gPostDrawing.isElementUnderMouse(this))) {
             // mark this node
             gPostDrawing.markedNode = this;
             // draw dotted contour
             GUIDottedGeometry::drawDottedContourCircle(dottedContourType, s, myNBNode->getCenter(), s.neteditSizeSettings.junctionBubbleRadius,
                     (junctionExaggeration >= 1) ? junctionExaggeration : 1);
-        } else if (drawShape && (gPostDrawing.mouserOverElement == this)) {
+        } else if (drawShape && (gPostDrawing.isElementUnderMouse(this))) {
             // mark this node
             gPostDrawing.markedNode = this;
             // draw dotted contour
@@ -1569,7 +1569,7 @@ GNEJunction::drawDottedContours(const GUIVisualizationSettings& s, const bool dr
             }
         }
     }
-    if (gPostDrawing.mouserOverElement == this) {
+    if (gPostDrawing.isElementUnderMouse(this)) {
         if (drawBubble) {
             GUIDottedGeometry::drawDottedContourCircle(GUIDottedGeometry::DottedContourType::ORANGE, s, myNBNode->getCenter(), s.neteditSizeSettings.junctionBubbleRadius,
                     (junctionExaggeration >= 1) ? junctionExaggeration : 1);

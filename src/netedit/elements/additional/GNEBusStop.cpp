@@ -194,7 +194,7 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
                         busStopExaggeration, true, true);
             }
             // orange contour
-            if (gPostDrawing.mouserOverElement == this) {
+            if (gPostDrawing.isElementUnderMouse(this)) {
                 GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::ORANGE, s, myAdditionalGeometry.getShape(), stopWidth,
                         busStopExaggeration, true, true);
             }

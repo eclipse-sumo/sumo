@@ -185,7 +185,7 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
                         chargingStationExaggeration, true, true);
             }
             // orange contour
-            if (gPostDrawing.mouserOverElement == this) {
+            if (gPostDrawing.isElementUnderMouse(this)) {
                 GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::ORANGE, s, myAdditionalGeometry.getShape(), s.stoppingPlaceSettings.chargingStationWidth,
                         chargingStationExaggeration, true, true);
             }
