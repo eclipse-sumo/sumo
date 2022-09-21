@@ -240,6 +240,7 @@ NBPTStop::clearAccess() {
     myAccesses.clear();
 }
 
+
 void
 NBPTStop::addAccess(std::string laneID, double offset, double length) {
     const std::string newEdgeID = SUMOXMLDefinitions::getEdgeIDFromLane(laneID);
@@ -262,23 +263,25 @@ NBPTStop::replaceEdge(const std::string& edgeID, const EdgeVector& replacement) 
         double bestDist = std::numeric_limits<double>::max();
         NBEdge* bestEdge = nullptr;
         for (NBEdge* cand : replacement) {
-            double dist = cand->getGeometry().distance2D(myPosition);
-            if (dist < bestDist) {
-                bestDist = dist;
-                bestEdge = cand;
+            if ((cand->getPermissions() & myPermissions) != 0) {
+                const double dist = cand->getGeometry().distance2D(myPosition) + MAX2(0., myPTStopLength - cand->getLoadedLength());
+                if (dist < bestDist) {
+                    bestDist = dist;
+                    bestEdge = cand;
+                }
             }
         }
-        if (bestDist != std::numeric_limits<double>::max()) {
+        if (bestEdge != nullptr) {
             if ((bestEdge->getPermissions() & SVC_PEDESTRIAN) != 0) {
                 // no need for access
                 clearAccess();
             }
             return findLaneAndComputeBusStopExtent(bestEdge);
-        } else {
-            return false;
         }
+        return false;
     }
     return true;
 }
+
 
 /****************************************************************************/

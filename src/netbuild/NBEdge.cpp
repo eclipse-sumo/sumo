@@ -663,6 +663,7 @@ NBEdge::setGeometry(const PositionVector& s, bool inner) {
     }
     computeLaneShapes();
     computeAngle();
+    myLength = myGeom.length();
 }
 
 
