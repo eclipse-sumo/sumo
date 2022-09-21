@@ -155,7 +155,8 @@ const double GUIVisualizationStoppingPlaceSettings::chargingStationWidth(1);
 // Dotted contour values
 // -------------------------------------------------------------------------
 
-const double GUIVisualizationDottedContourSettings::segmentWidth(0.2);
+const double GUIVisualizationDottedContourSettings::segmentWidthSmall(0.1);
+const double GUIVisualizationDottedContourSettings::segmentWidthLarge(0.2);
 const double GUIVisualizationDottedContourSettings::segmentLength(2);
 const RGBColor GUIVisualizationDottedContourSettings::firstInspectedColor(235, 235, 235);
 const RGBColor GUIVisualizationDottedContourSettings::secondInspectedColor(20, 20, 20);
