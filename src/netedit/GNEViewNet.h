@@ -655,6 +655,9 @@ private:
     /// @brief last clicked position
     Position myLastClickedPosition = Position::INVALID;
 
+    /// @brief flag for post-drawing (used for dotted contours)
+    bool myPostDrawing = false;
+
     /// @brief create edit mode buttons and elements
     void buildEditModeControls();
 
@@ -738,6 +741,9 @@ private:
 
     /// @brief draw temporal Junction TLS Lines
     void drawTemporalJunctionTLSLines() const;
+
+    /// @brief draw temporal objects to delete (used for dotted contour)
+    void drawTemporalObjectsToDelete();
 
     /// @}
 

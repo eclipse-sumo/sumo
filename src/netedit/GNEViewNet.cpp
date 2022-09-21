@@ -1032,6 +1032,8 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
     gPostDrawing.mousePos = getPositionInformation();
     // obtain objects included in minB and maxB
     int hits2 = myGrid->Search(minB, maxB, *myVisualizationSettings);
+    // begin post drawing
+    myPostDrawing = true;
     // force draw inspected and front elements (due parent/child lines)
     if (!myVisualizationSettings->drawForPositionSelection &&
             !myVisualizationSettings->drawForRectangleSelection) {
@@ -1059,6 +1061,8 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
     drawTemporalE1TLSLines();
     // draw temporal lines between junctions in TLS Mode
     drawTemporalJunctionTLSLines();
+    // draw temporal elements to delete
+    drawTemporalObjectsToDelete();
     // pop draw matrix
     GLHelper::popMatrix();
     // update interval bar
@@ -1071,6 +1075,8 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
     */
     // execute post drawing tasks
     gPostDrawing.executePostDrawingTasks();
+    // end post drawing
+    myPostDrawing = false;
     return hits2;
 }
 
@@ -1597,6 +1603,10 @@ GNEViewNet::drawTranslateFrontAttributeCarrier(const GNEAttributeCarrier* AC, do
 
 bool
 GNEViewNet::drawDeleteContour(const GUIGlObject* GLObject, const GNEAttributeCarrier* AC) const {
+    // check if we're in post drawing
+    if (myPostDrawing) {
+        return true;
+    }
     // check ifs blocked
     if (myLockManager.isObjectLocked(GLObject->getType(), AC->isAttributeCarrierSelected())) {
         return false;
@@ -1605,23 +1615,19 @@ GNEViewNet::drawDeleteContour(const GUIGlObject* GLObject, const GNEAttributeCar
     if (!gPostDrawing.isElementUnderCursor(GLObject)) {
         return false;
     }
-    // only draw for element of same type
-    if (gPostDrawing.getElementUnderCursor().back()->getType() != GLObject->getType()) {
-        return false;
-    }
     // check if we're in the correct mode and supermode
     if ((AC->getTagProperty().isNetworkElement() || AC->getTagProperty().isAdditionalElement()) && 
         myEditModes.isCurrentSupermodeNetwork() && (myEditModes.networkEditMode == NetworkEditMode::NETWORK_DELETE)) {
-        return true;
+        gPostDrawing.elementsMarkedToRemove.push_back(GLObject);
     } else if (AC->getTagProperty().isDemandElement() && myEditModes.isCurrentSupermodeDemand() && 
         (myEditModes.demandEditMode == DemandEditMode::DEMAND_DELETE)) {
-        return true;
+        gPostDrawing.elementsMarkedToRemove.push_back(GLObject);
     } else if (AC->getTagProperty().isDataElement() && myEditModes.isCurrentSupermodeData() && 
         (myEditModes.dataEditMode == DataEditMode::DATA_DELETE)) {
-        return true;
-    } else {
-        return false;
+        gPostDrawing.elementsMarkedToRemove.push_back(GLObject);
     }
+    // we wan't to draw delete contour in this time
+    return false;
 }
 
 
@@ -5094,6 +5100,20 @@ GNEViewNet::drawTemporalJunctionTLSLines() const {
         }
         // pop layer matrix
         GLHelper::popMatrix();
+    }
+}
+
+
+void
+GNEViewNet::drawTemporalObjectsToDelete() {
+    // avoid draw if we're in position or rectangle selection
+    if (!myVisualizationSettings->drawForPositionSelection && !myVisualizationSettings->drawForRectangleSelection) {
+        // only draw marked elements that have the same GLType of the last element
+        for (const auto elementToRemove : gPostDrawing.elementsMarkedToRemove) {
+            if (elementToRemove->getType() == gPostDrawing.elementsMarkedToRemove.back()->getType()) {
+                elementToRemove->drawGL(*myVisualizationSettings);
+            }
+        }
     }
 }
 

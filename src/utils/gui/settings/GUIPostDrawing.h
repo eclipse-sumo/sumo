@@ -48,6 +48,9 @@ public:
     /// @brief get all elements under cursor
     const std::vector<const GUIGlObject*> &getElementUnderCursor() const;
 
+    /// @brief elements marked to remove (used in NETEDIT)
+    std::vector<const GUIGlObject*> elementsMarkedToRemove;
+
     /// @brief recompute boundaries
     GUIGlObjectType recomputeBoundaries = GLO_NETWORK;
 
