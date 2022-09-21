@@ -148,16 +148,7 @@ MSPModel_Remote::execute(SUMOTime time) {
             const MSEdge* currentEdge = stage->getEdge();
             const MSLane* currentLane = getSidewalk<MSEdge, MSLane>(currentEdge);
             if (currentEdge->isWalkingArea()) {
-                std::vector<MSLink*> links = currentLane->getLinkCont();
-                MSLane* nextLane = nullptr;
-                for (MSLink* link : links) {
-                    MSLane* lane = link->getViaLaneOrLane();
-                    if (lane->getPermissions() == SVC_PEDESTRIAN) {
-                        nextLane = lane;
-                        break;
-                    }
-                }
-
+                MSLane* nextLane = getNextPedestrianLane(currentLane);
                 PositionVector shape = nextLane->getShape();
                 Position nextLaneDirection = shape[1] - shape[0];
                 Position pedestrianLookAhead = newPosition - shape[0];
@@ -175,15 +166,8 @@ MSPModel_Remote::execute(SUMOTime time) {
                 Position relativePosition = (currentLane->getShape()).transformToVectorCoordinates(newPosition);
                 if (relativePosition == Position::INVALID) {
                     std::vector<MSLink*> links = currentLane->getLinkCont();
-                    MSLane* nextInternalLane = nullptr;
-                    for (MSLink* link : links) {
-                        MSLane* viaLane = link->getViaLaneOrLane();
-                        if (viaLane->getPermissions() == SVC_PEDESTRIAN) {
-                            nextInternalLane = viaLane;
-                            break;
-                        }
-                    }
-                    stage->moveToNextEdge(person, time, 1, nextInternalLane ? &(nextInternalLane->getEdge()) : nullptr);
+                    MSLane* nextLane = getNextPedestrianLane(currentLane);
+                    stage->moveToNextEdge(person, time, 1, nextLane ? &(nextLane->getEdge()) : nullptr);
                 }
             }
 
@@ -318,6 +302,20 @@ MSPModel_Remote::initialize() {
 #ifdef DEBUG
     myTrajectoryDumpFile.open("trajectory.txt");
 #endif
+}
+
+
+MSLane* MSPModel_Remote::getNextPedestrianLane(const MSLane* const currentLane) const {
+    std::vector<MSLink*> links = currentLane->getLinkCont();
+    MSLane* nextLane = nullptr;
+    for (MSLink* link : links) {
+        MSLane* lane = link->getViaLaneOrLane();
+        if (lane->getPermissions() == SVC_PEDESTRIAN) {
+            nextLane = lane;
+            break;
+        }
+    }
+    return nextLane;
 }
 
 
