@@ -443,13 +443,13 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
     // draw dotted contours
     if (myLanes.size() > 1) {
         if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-            drawDottedContourEdge(GUIDottedGeometry::DottedContourType::INSPECT, s, this, true, true);
+            drawDottedContourEdge(s, GUIDottedGeometry::DottedContourType::INSPECT, this, true, true);
         }
         if ((myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
-            drawDottedContourEdge(GUIDottedGeometry::DottedContourType::FRONT, s, this, true, true);
+            drawDottedContourEdge(s, GUIDottedGeometry::DottedContourType::FRONT, this, true, true);
         }
         if (myNet->getViewNet()->getViewParent()->getAdditionalFrame()->getEdgesSelector()->isNetworkElementSelected(this)) {
-            drawDottedContourEdge(GUIDottedGeometry::DottedContourType::ORANGE, s, this, true, true);
+            drawDottedContourEdge(s, GUIDottedGeometry::DottedContourType::ORANGE, this, true, true);
         }
     }
 }
@@ -1466,10 +1466,10 @@ GNEEdge::drawEdgeGeometryPoints(const GUIVisualizationSettings& s, const GNELane
 
 
 void
-GNEEdge::drawDottedContourEdge(const GUIDottedGeometry::DottedContourType type, const GUIVisualizationSettings& s, const GNEEdge* edge, const bool drawFrontExtreme, const bool drawBackExtreme) {
+GNEEdge::drawDottedContourEdge(const GUIVisualizationSettings& s, const GUIDottedGeometry::DottedContourType type, const GNEEdge* edge, const bool drawFrontExtreme, const bool drawBackExtreme) {
     if (edge->getLanes().size() == 1) {
         GNELane::LaneDrawingConstants laneDrawingConstants(s, edge->getLanes().front());
-        GUIDottedGeometry::drawDottedContourShape(type, s, edge->getLanes().front()->getLaneShape(), laneDrawingConstants.halfWidth, 1, drawFrontExtreme, drawBackExtreme);
+        GUIDottedGeometry::drawDottedContourShape(s, type, edge->getLanes().front()->getLaneShape(), laneDrawingConstants.halfWidth, 1, drawFrontExtreme, drawBackExtreme);
     } else {
         // set left hand flag
         const bool lefthand = OptionsCont::getOptions().getBool("lefthand");
@@ -1502,15 +1502,15 @@ GNEEdge::drawDottedContourEdge(const GUIDottedGeometry::DottedContourType type, 
             glTranslated(0, 0, GLO_DOTTEDCONTOUR_INSPECTED);
         }
         // draw top dotted geometry
-        dottedGeometryTop.drawDottedGeometry(dottedGeometryColor, type);
+        dottedGeometryTop.drawDottedGeometry(s, type, dottedGeometryColor);
         // reset color
         dottedGeometryColor.reset();
         // draw top dotted geometry
-        dottedGeometryBot.drawDottedGeometry(dottedGeometryColor, type);
+        dottedGeometryBot.drawDottedGeometry(s, type, dottedGeometryColor);
         // change color
         dottedGeometryColor.changeColor();
         // draw extrem dotted geometry
-        extremes.drawDottedGeometry(dottedGeometryColor, type);
+        extremes.drawDottedGeometry(s, type, dottedGeometryColor);
         // pop matrix
         GLHelper::popMatrix();
     }
@@ -2459,9 +2459,9 @@ GNEEdge::drawTAZElements(const GUIVisualizationSettings& s) const {
             // check if curently we're inspecting a TAZ Source/Sink
             for (const auto& TAZSourceSink : TAZSourceSinks) {
                 if (myNet->getViewNet()->isAttributeCarrierInspected(TAZSourceSink)) {
-                    drawDottedContourEdge(GUIDottedGeometry::DottedContourType::INSPECT, s, this, true, true);
+                    drawDottedContourEdge(s, GUIDottedGeometry::DottedContourType::INSPECT, this, true, true);
                 } else if (TAZSourceSink == frontAC) {
-                    drawDottedContourEdge(GUIDottedGeometry::DottedContourType::FRONT, s, this, true, true);
+                    drawDottedContourEdge(s, GUIDottedGeometry::DottedContourType::FRONT, this, true, true);
                 }
             }
         }

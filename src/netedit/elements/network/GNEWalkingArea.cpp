@@ -143,17 +143,17 @@ GNEWalkingArea::drawGL(const GUIVisualizationSettings& s) const {
         mouseWithinGeometry(walkingAreaShape);
         // inspect contour
         if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-            GUIDottedGeometry::drawDottedContourClosedShape(GUIDottedGeometry::DottedContourType::INSPECT, s, walkingAreaShape,
+            GUIDottedGeometry::drawDottedContourClosedShape(s, GUIDottedGeometry::DottedContourType::INSPECT, walkingAreaShape,
                     (walkingAreaExaggeration >= 1) ? walkingAreaExaggeration : 1);
         }
         // front element contour
         if ((myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
-            GUIDottedGeometry::drawDottedContourClosedShape(GUIDottedGeometry::DottedContourType::FRONT, s, walkingAreaShape,
+            GUIDottedGeometry::drawDottedContourClosedShape(s, GUIDottedGeometry::DottedContourType::FRONT, walkingAreaShape,
                     (walkingAreaExaggeration >= 1) ? walkingAreaExaggeration : 1);
         }
         // front element contour
         if (gPostDrawing.isElementUnderMouse(this)) {
-            GUIDottedGeometry::drawDottedContourClosedShape(GUIDottedGeometry::DottedContourType::ORANGE, s, walkingAreaShape,
+            GUIDottedGeometry::drawDottedContourClosedShape(s, GUIDottedGeometry::DottedContourType::ORANGE, walkingAreaShape,
                     (walkingAreaExaggeration >= 1) ? walkingAreaExaggeration : 1);
         }
 

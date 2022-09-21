@@ -1474,22 +1474,22 @@ GNEJunction::drawDottedContours(const GUIVisualizationSettings& s, const bool dr
     // check if inspected dotted contour has to be drawn
     if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
         if (drawBubble) {
-            GUIDottedGeometry::drawDottedContourCircle(GUIDottedGeometry::DottedContourType::INSPECT, s, myNBNode->getCenter(), s.neteditSizeSettings.junctionBubbleRadius,
+            GUIDottedGeometry::drawDottedContourCircle(s, GUIDottedGeometry::DottedContourType::INSPECT, myNBNode->getCenter(), s.neteditSizeSettings.junctionBubbleRadius,
                     (junctionExaggeration >= 1) ? junctionExaggeration : 1);
         }
         if (drawShape) {
-            GUIDottedGeometry::drawDottedContourClosedShape(GUIDottedGeometry::DottedContourType::INSPECT, s, myNBNode->getShape(),
+            GUIDottedGeometry::drawDottedContourClosedShape(s, GUIDottedGeometry::DottedContourType::INSPECT, myNBNode->getShape(),
                     (junctionExaggeration >= 1) ? junctionExaggeration : 1);
         }
     }
     // check if front dotted contour has to be drawn
     if ((myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
         if (drawBubble) {
-            GUIDottedGeometry::drawDottedContourCircle(GUIDottedGeometry::DottedContourType::FRONT, s, myNBNode->getCenter(), s.neteditSizeSettings.junctionBubbleRadius,
+            GUIDottedGeometry::drawDottedContourCircle(s, GUIDottedGeometry::DottedContourType::FRONT, myNBNode->getCenter(), s.neteditSizeSettings.junctionBubbleRadius,
                     (junctionExaggeration >= 1) ? junctionExaggeration : 1);
         }
         if (drawShape) {
-            GUIDottedGeometry::drawDottedContourClosedShape(GUIDottedGeometry::DottedContourType::FRONT, s, myNBNode->getShape(),
+            GUIDottedGeometry::drawDottedContourClosedShape(s, GUIDottedGeometry::DottedContourType::FRONT, myNBNode->getShape(),
                     (junctionExaggeration >= 1) ? junctionExaggeration : 1);
         }
     }
@@ -1498,11 +1498,11 @@ GNEJunction::drawDottedContours(const GUIVisualizationSettings& s, const bool dr
         myNet->getViewNet()->getViewParent()->getTLSEditorFrame()->getTLSJunction()->isJoiningJunctions() &&
         myNet->getViewNet()->getViewParent()->getTLSEditorFrame()->getTLSJunction()->isJunctionSelected(this)) {
         if (drawBubble) {
-            GUIDottedGeometry::drawDottedContourCircle(GUIDottedGeometry::DottedContourType::GREEN, s, myNBNode->getCenter(), s.neteditSizeSettings.junctionBubbleRadius,
+            GUIDottedGeometry::drawDottedContourCircle(s, GUIDottedGeometry::DottedContourType::GREEN, myNBNode->getCenter(), s.neteditSizeSettings.junctionBubbleRadius,
                     (junctionExaggeration >= 1) ? junctionExaggeration : 1);
         }
         if (drawShape) {
-            GUIDottedGeometry::drawDottedContourClosedShape(GUIDottedGeometry::DottedContourType::GREEN, s, myNBNode->getShape(),
+            GUIDottedGeometry::drawDottedContourClosedShape(s, GUIDottedGeometry::DottedContourType::GREEN, myNBNode->getShape(),
                     (junctionExaggeration >= 1) ? junctionExaggeration : 1);
         }
     }
@@ -1515,11 +1515,11 @@ GNEJunction::drawDottedContours(const GUIVisualizationSettings& s, const bool dr
     // draw dotted contours regarding create edge mode
     if (myAmCreateEdgeSource) {
         if (drawBubble) {
-            GUIDottedGeometry::drawDottedContourCircle(GUIDottedGeometry::DottedContourType::GREEN, s, myNBNode->getCenter(), s.neteditSizeSettings.junctionBubbleRadius,
+            GUIDottedGeometry::drawDottedContourCircle(s, GUIDottedGeometry::DottedContourType::GREEN, myNBNode->getCenter(), s.neteditSizeSettings.junctionBubbleRadius,
                     (junctionExaggeration >= 1) ? junctionExaggeration : 1);
         }
         if (drawShape) {
-            GUIDottedGeometry::drawDottedContourClosedShape(GUIDottedGeometry::DottedContourType::GREEN, s, myNBNode->getShape(),
+            GUIDottedGeometry::drawDottedContourClosedShape(s, GUIDottedGeometry::DottedContourType::GREEN, myNBNode->getShape(),
                     (junctionExaggeration >= 1) ? junctionExaggeration : 1);
         }
     } else if ((gPostDrawing.markedNode == nullptr) && myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() &&
@@ -1531,13 +1531,13 @@ GNEJunction::drawDottedContours(const GUIVisualizationSettings& s, const bool dr
             // mark this node
             gPostDrawing.markedNode = this;
             // draw dotted contour
-            GUIDottedGeometry::drawDottedContourCircle(dottedContourType, s, myNBNode->getCenter(), s.neteditSizeSettings.junctionBubbleRadius,
+            GUIDottedGeometry::drawDottedContourCircle(s, dottedContourType, myNBNode->getCenter(), s.neteditSizeSettings.junctionBubbleRadius,
                     (junctionExaggeration >= 1) ? junctionExaggeration : 1);
         } else if (drawShape && (gPostDrawing.isElementUnderMouse(this))) {
             // mark this node
             gPostDrawing.markedNode = this;
             // draw dotted contour
-            GUIDottedGeometry::drawDottedContourClosedShape(dottedContourType, s, myNBNode->getShape(),
+            GUIDottedGeometry::drawDottedContourClosedShape(s, dottedContourType, myNBNode->getShape(),
                     (junctionExaggeration >= 1) ? junctionExaggeration : 1);
         }
     }
@@ -1551,31 +1551,31 @@ GNEJunction::drawDottedContours(const GUIVisualizationSettings& s, const bool dr
         // check parent junctions
         if (vehicle->getParentJunctions().front() == this) {
             if (drawBubble) {
-                GUIDottedGeometry::drawDottedContourCircle(GUIDottedGeometry::DottedContourType::GREEN, s, myNBNode->getCenter(), s.neteditSizeSettings.junctionBubbleRadius,
+                GUIDottedGeometry::drawDottedContourCircle(s, GUIDottedGeometry::DottedContourType::GREEN, myNBNode->getCenter(), s.neteditSizeSettings.junctionBubbleRadius,
                         (junctionExaggeration >= 1) ? junctionExaggeration : 1);
             }
             if (drawShape) {
-                GUIDottedGeometry::drawDottedContourClosedShape(GUIDottedGeometry::DottedContourType::GREEN, s, myNBNode->getShape(),
+                GUIDottedGeometry::drawDottedContourClosedShape(s, GUIDottedGeometry::DottedContourType::GREEN, myNBNode->getShape(),
                         (junctionExaggeration >= 1) ? junctionExaggeration : 1);
             }
         } else if (vehicle->getParentJunctions().back() == this) {
             if (drawBubble) {
-                GUIDottedGeometry::drawDottedContourCircle(GUIDottedGeometry::DottedContourType::MAGENTA, s, myNBNode->getCenter(), s.neteditSizeSettings.junctionBubbleRadius,
+                GUIDottedGeometry::drawDottedContourCircle(s, GUIDottedGeometry::DottedContourType::MAGENTA, myNBNode->getCenter(), s.neteditSizeSettings.junctionBubbleRadius,
                         (junctionExaggeration >= 1) ? junctionExaggeration : 1);
             }
             if (drawShape) {
-                GUIDottedGeometry::drawDottedContourClosedShape(GUIDottedGeometry::DottedContourType::MAGENTA, s, myNBNode->getShape(),
+                GUIDottedGeometry::drawDottedContourClosedShape(s, GUIDottedGeometry::DottedContourType::MAGENTA, myNBNode->getShape(),
                         (junctionExaggeration >= 1) ? junctionExaggeration : 1);
             }
         }
     }
     if (gPostDrawing.isElementUnderMouse(this)) {
         if (drawBubble) {
-            GUIDottedGeometry::drawDottedContourCircle(GUIDottedGeometry::DottedContourType::ORANGE, s, myNBNode->getCenter(), s.neteditSizeSettings.junctionBubbleRadius,
+            GUIDottedGeometry::drawDottedContourCircle(s, GUIDottedGeometry::DottedContourType::ORANGE, myNBNode->getCenter(), s.neteditSizeSettings.junctionBubbleRadius,
                     (junctionExaggeration >= 1) ? junctionExaggeration : 1);
         }
         if (drawShape) {
-            GUIDottedGeometry::drawDottedContourClosedShape(GUIDottedGeometry::DottedContourType::ORANGE, s, myNBNode->getShape(),
+            GUIDottedGeometry::drawDottedContourClosedShape(s, GUIDottedGeometry::DottedContourType::ORANGE, myNBNode->getShape(),
                     (junctionExaggeration >= 1) ? junctionExaggeration : 1);
         }
     }

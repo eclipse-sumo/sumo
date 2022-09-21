@@ -449,17 +449,17 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
             // inspect contour
             if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
                 // use drawDottedContourGeometry to draw it
-                GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, shapeSuperposed, s.connectionSettings.connectionWidth, selectionScale, true, true, 0.1);
+                GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::INSPECT_SMALL, shapeSuperposed, s.connectionSettings.connectionWidth, selectionScale, true, true);
             }
             // front contour
             if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
                 // use drawDottedContourGeometry to draw it
-                GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::FRONT, s, shapeSuperposed, s.connectionSettings.connectionWidth, selectionScale, true, true, 0.1);
+                GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::FRONT_SMALL, shapeSuperposed, s.connectionSettings.connectionWidth, selectionScale, true, true);
             }
             // orange contour
             if (gPostDrawing.isElementUnderMouse(this)) {
                 // use drawDottedContourGeometry to draw it
-                GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::ORANGE, s, shapeSuperposed, s.connectionSettings.connectionWidth, selectionScale, true, true, 0.1);
+                GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::ORANGE, shapeSuperposed, s.connectionSettings.connectionWidth, selectionScale, true, true);
             }
         }
     }

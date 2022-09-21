@@ -276,17 +276,17 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
         mouseWithinGeometry(myCrossingGeometry.getShape(), halfWidth);
         // inspect contour
         if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-            GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, myCrossingGeometry.getShape(), halfWidth,
+            GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::INSPECT, myCrossingGeometry.getShape(), halfWidth,
                     selectionScale, true, true);
         }
         // front contour
         if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-            GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::FRONT, s, myCrossingGeometry.getShape(), halfWidth,
+            GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::FRONT, myCrossingGeometry.getShape(), halfWidth,
                     selectionScale, true, true);
         }
         // orange contour
         if (gPostDrawing.isElementUnderMouse(this)) {
-            GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::ORANGE, s, myCrossingGeometry.getShape(), halfWidth,
+            GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::ORANGE, myCrossingGeometry.getShape(), halfWidth,
                     selectionScale, true, true);
         }
     }
