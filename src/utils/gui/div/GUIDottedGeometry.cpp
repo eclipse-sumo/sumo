@@ -81,6 +81,7 @@ GUIDottedGeometry::DottedGeometryColor::getColor(DottedContourType type) {
                 return RGBColor::MAGENTA.changedBrightness(-30);
             }
         case DottedContourType::ORANGE:
+        case DottedContourType::REMOVE:
             if (myColorFlag) {
                 myColorFlag = false;
                 return RGBColor::ORANGE;
@@ -242,18 +243,21 @@ void
 GUIDottedGeometry::drawDottedGeometry(const GUIVisualizationSettings& s, GUIDottedGeometry::DottedContourType type, 
         DottedGeometryColor& dottedGeometryColor, const double customWidth) const {
     // set segment width
-    double width = customWidth;
+    double width = s.dottedContourSettings.segmentWidthLarge;
     switch(type) {
         case DottedContourType::INSPECT_SMALL:
         case DottedContourType::FRONT_SMALL:
+        case DottedContourType::REMOVE:
+            // use segment width small
             width = s.dottedContourSettings.segmentWidthSmall;
             break;
         case DottedContourType::FROMTAZ:
         case DottedContourType::TOTAZ:
-            // use customWidth
+            // use custom width
+            width = customWidth;
             break;
         default:
-            width = s.dottedContourSettings.segmentWidthLarge;
+            // use segment width large
             break;
     }
     // iterate over all segments

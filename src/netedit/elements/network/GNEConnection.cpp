@@ -456,10 +456,10 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
                 // use drawDottedContourGeometry to draw it
                 GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::FRONT_SMALL, shapeSuperposed, s.connectionSettings.connectionWidth, selectionScale, true, true);
             }
-            // orange contour
+            // delete contour
             if (gPostDrawing.isElementUnderMouse(this)) {
                 // use drawDottedContourGeometry to draw it
-                GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::ORANGE, shapeSuperposed, s.connectionSettings.connectionWidth, selectionScale, true, true);
+                GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::REMOVE, shapeSuperposed, s.connectionSettings.connectionWidth, selectionScale, true, true);
             }
         }
     }

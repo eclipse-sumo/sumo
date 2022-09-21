@@ -184,9 +184,9 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
                 GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::FRONT, myAdditionalGeometry.getShape(), s.stoppingPlaceSettings.chargingStationWidth,
                         chargingStationExaggeration, true, true);
             }
-            // orange contour
+            // delete contour
             if (gPostDrawing.isElementUnderMouse(this)) {
-                GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::ORANGE, myAdditionalGeometry.getShape(), s.stoppingPlaceSettings.chargingStationWidth,
+                GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::REMOVE, myAdditionalGeometry.getShape(), s.stoppingPlaceSettings.chargingStationWidth,
                         chargingStationExaggeration, true, true);
             }
             // draw child demand elements

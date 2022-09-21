@@ -208,9 +208,9 @@ GNEAccess::drawGL(const GUIVisualizationSettings& s) const {
         if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
             GUIDottedGeometry::drawDottedContourCircle(s, GUIDottedGeometry::DottedContourType::FRONT, myAdditionalGeometry.getShape().front(), 0.5, accessExaggeration);
         }
-        // orange contour
+        // delete contour
         if (gPostDrawing.isElementUnderMouse(this)) {
-            GUIDottedGeometry::drawDottedContourCircle(s, GUIDottedGeometry::DottedContourType::ORANGE, myAdditionalGeometry.getShape().front(), 0.5, accessExaggeration);
+            GUIDottedGeometry::drawDottedContourCircle(s, GUIDottedGeometry::DottedContourType::REMOVE, myAdditionalGeometry.getShape().front(), 0.5, accessExaggeration);
         }
     }
 }

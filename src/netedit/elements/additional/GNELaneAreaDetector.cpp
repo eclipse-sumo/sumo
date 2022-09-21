@@ -328,9 +328,9 @@ GNELaneAreaDetector::drawGL(const GUIVisualizationSettings& s) const {
                 GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::FRONT, myAdditionalGeometry.getShape(), s.detectorSettings.E2Width,
                         E2Exaggeration, true, true);
             }
-            // orange contour
+            // delete contour
             if (gPostDrawing.isElementUnderMouse(this)) {
-                GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::ORANGE, myAdditionalGeometry.getShape(), s.detectorSettings.E2Width,
+                GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::REMOVE, myAdditionalGeometry.getShape(), s.detectorSettings.E2Width,
                         E2Exaggeration, true, true);
             }
         }
@@ -442,9 +442,9 @@ GNELaneAreaDetector::drawPartialGL(const GUIVisualizationSettings& s, const GNEL
         if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
             GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::FRONT, shape, E2DetectorWidth, 1, segment->isFirstSegment(), segment->isLastSegment());
         }
-        // orange contour
+        // delete contour
         if (gPostDrawing.isElementUnderMouse(this)) {
-            GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::ORANGE, shape, E2DetectorWidth, 1, segment->isFirstSegment(), segment->isLastSegment());
+            GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::REMOVE, shape, E2DetectorWidth, 1, segment->isFirstSegment(), segment->isLastSegment());
         }
     }
 }
@@ -509,9 +509,9 @@ GNELaneAreaDetector::drawPartialGL(const GUIVisualizationSettings& s, const GNEL
                 GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::FRONT, fromLane->getLane2laneConnections().getLane2laneGeometry(toLane).getShape(),
                         E2DetectorWidth, 1, false, false);
             }
-            // orange contour
+            // delete contour
             if (gPostDrawing.isElementUnderMouse(this)) {
-                GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::ORANGE, fromLane->getLane2laneConnections().getLane2laneGeometry(toLane).getShape(),
+                GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::REMOVE, fromLane->getLane2laneConnections().getLane2laneGeometry(toLane).getShape(),
                         E2DetectorWidth, 1, false, false);
             }
         }

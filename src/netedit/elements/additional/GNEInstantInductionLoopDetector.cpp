@@ -190,9 +190,9 @@ GNEInstantInductionLoopDetector::drawGL(const GUIVisualizationSettings& s) const
                 GUIDottedGeometry::drawDottedSquaredShape(s, GUIDottedGeometry::DottedContourType::FRONT, myAdditionalGeometry.getShape().front(), 
                     2, 1, 0, 0, myAdditionalGeometry.getShapeRotations().front(), E1InstantExaggeration);
             }
-            // orange contour
+            // delete contour
             if (gPostDrawing.isElementUnderMouse(this)) {
-                GUIDottedGeometry::drawDottedSquaredShape(s, GUIDottedGeometry::DottedContourType::ORANGE, myAdditionalGeometry.getShape().front(), 
+                GUIDottedGeometry::drawDottedSquaredShape(s, GUIDottedGeometry::DottedContourType::REMOVE, myAdditionalGeometry.getShape().front(), 
                     2, 1, 0, 0, myAdditionalGeometry.getShapeRotations().front(), E1InstantExaggeration);
             }
         }

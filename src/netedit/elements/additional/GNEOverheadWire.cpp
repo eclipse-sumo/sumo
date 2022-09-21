@@ -315,9 +315,9 @@ GNEOverheadWire::drawPartialGL(const GUIVisualizationSettings& s, const GNELane*
         if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
             GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::FRONT, shape, overheadWireWidth, 1, segment->isFirstSegment(), segment->isLastSegment());
         }
-        // orange contour
+        // delete contour
         if (gPostDrawing.isElementUnderMouse(this)) {
-            GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::ORANGE, shape, overheadWireWidth, 1, segment->isFirstSegment(), segment->isLastSegment());
+            GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::REMOVE, shape, overheadWireWidth, 1, segment->isFirstSegment(), segment->isLastSegment());
         }
     }
 }
@@ -376,9 +376,9 @@ GNEOverheadWire::drawPartialGL(const GUIVisualizationSettings& s, const GNELane*
                 GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::FRONT, fromLane->getLane2laneConnections().getLane2laneGeometry(toLane).getShape(),
                         overheadWireWidth, 1, false, false);
             }
-            // orange contour
+            // delete contour
             if (gPostDrawing.isElementUnderMouse(this)) {
-                GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::ORANGE, fromLane->getLane2laneConnections().getLane2laneGeometry(toLane).getShape(),
+                GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::REMOVE, fromLane->getLane2laneConnections().getLane2laneGeometry(toLane).getShape(),
                         overheadWireWidth, 1, false, false);
             }
         }

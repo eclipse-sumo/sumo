@@ -482,9 +482,9 @@ GNECalibrator::drawCalibratorSymbol(const GUIVisualizationSettings& s, const dou
                 s.additionalSettings.calibratorWidth, s.additionalSettings.calibratorHeight * 0.5,
                 0, s.additionalSettings.calibratorHeight * 0.5, rot, exaggeration);
     }
-    // orange element
+    // delete contour
     if (gPostDrawing.isElementUnderMouse(this)) {
-        GUIDottedGeometry::drawDottedSquaredShape(s, GUIDottedGeometry::DottedContourType::ORANGE, pos,
+        GUIDottedGeometry::drawDottedSquaredShape(s, GUIDottedGeometry::DottedContourType::REMOVE, pos,
                 s.additionalSettings.calibratorWidth, s.additionalSettings.calibratorHeight * 0.5,
                 0, s.additionalSettings.calibratorHeight * 0.5, rot, exaggeration);
     }

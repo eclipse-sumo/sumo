@@ -247,9 +247,9 @@ GNEEntryExitDetector::drawGL(const GUIVisualizationSettings& s) const {
             GUIDottedGeometry::drawDottedSquaredShape(s, GUIDottedGeometry::DottedContourType::FRONT, myAdditionalGeometry.getShape().front(), 
                 2.7, 1.6, 2, 0, myAdditionalGeometry.getShapeRotations().front(), entryExitExaggeration);
         }
-        // orange contour
+        // delete contour
         if (gPostDrawing.isElementUnderMouse(this)) {
-            GUIDottedGeometry::drawDottedSquaredShape(s, GUIDottedGeometry::DottedContourType::ORANGE, myAdditionalGeometry.getShape().front(), 
+            GUIDottedGeometry::drawDottedSquaredShape(s, GUIDottedGeometry::DottedContourType::REMOVE, myAdditionalGeometry.getShape().front(), 
                 2.7, 1.6, 2, 0, myAdditionalGeometry.getShapeRotations().front(), entryExitExaggeration);
         }
         // pop gl identificator

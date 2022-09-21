@@ -477,9 +477,9 @@ GNERoute::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, 
         if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
             GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::FRONT, shape, routeWidth, 1, segment->isFirstSegment(), segment->isLastSegment());
         }
-        // orange contour
+        // delete contour
         if (gPostDrawing.isElementUnderMouse(this)) {
-            GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::ORANGE, shape, routeWidth, 1, segment->isFirstSegment(), segment->isLastSegment());
+            GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::REMOVE, shape, routeWidth, 1, segment->isFirstSegment(), segment->isLastSegment());
         }
         // draw marked dotted contour
         if (gPostDrawing.markedRoute == this) {
@@ -542,9 +542,9 @@ GNERoute::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLa
             GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::FRONT, fromLane->getLane2laneConnections().getLane2laneGeometry(toLane).getShape(),
                     routeWidth, 1, false, false);
         }
-        // orange contour
+        // delete contour
         if (gPostDrawing.isElementUnderMouse(this)) {
-            GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::ORANGE, fromLane->getLane2laneConnections().getLane2laneGeometry(toLane).getShape(),
+            GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::REMOVE, fromLane->getLane2laneConnections().getLane2laneGeometry(toLane).getShape(),
                     routeWidth, 1, false, false);
         }
         // green contour

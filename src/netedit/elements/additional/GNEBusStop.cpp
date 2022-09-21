@@ -193,9 +193,9 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
                 GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::FRONT, myAdditionalGeometry.getShape(), stopWidth,
                         busStopExaggeration, true, true);
             }
-            // orange contour
+            // delete contour
             if (gPostDrawing.isElementUnderMouse(this)) {
-                GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::ORANGE, myAdditionalGeometry.getShape(), stopWidth,
+                GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::REMOVE, myAdditionalGeometry.getShape(), stopWidth,
                         busStopExaggeration, true, true);
             }
             // draw child demand elements

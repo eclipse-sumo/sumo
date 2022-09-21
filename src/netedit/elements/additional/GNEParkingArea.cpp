@@ -213,9 +213,9 @@ GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
                 GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::FRONT, myAdditionalGeometry.getShape(), myWidth * 0.5,
                         parkingAreaExaggeration, true, true);
             }
-            // orange contour
+            // delete contour
             if (gPostDrawing.isElementUnderMouse(this)) {
-                GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::ORANGE, myAdditionalGeometry.getShape(), myWidth * 0.5,
+                GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::REMOVE, myAdditionalGeometry.getShape(), myWidth * 0.5,
                         parkingAreaExaggeration, true, true);
             }
             // draw child demand elements

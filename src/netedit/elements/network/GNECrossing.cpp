@@ -284,9 +284,9 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
             GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::FRONT, myCrossingGeometry.getShape(), halfWidth,
                     selectionScale, true, true);
         }
-        // orange contour
+        // delete contour
         if (gPostDrawing.isElementUnderMouse(this)) {
-            GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::ORANGE, myCrossingGeometry.getShape(), halfWidth,
+            GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::REMOVE, myCrossingGeometry.getShape(), halfWidth,
                     selectionScale, true, true);
         }
     }

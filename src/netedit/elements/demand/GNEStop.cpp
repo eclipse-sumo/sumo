@@ -1237,9 +1237,9 @@ GNEStop::drawVehicleStop(const GUIVisualizationSettings& s, const double exagger
         GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::FRONT, myDemandElementGeometry.getShape(),
                 width, exaggeration, true, true);
     }
-    // orange contour
+    // delete contour
     if (gPostDrawing.isElementUnderMouse(this)) {
-        GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::ORANGE, myDemandElementGeometry.getShape(),
+        GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::REMOVE, myDemandElementGeometry.getShape(),
                 width, exaggeration, true, true);
     }
 }
@@ -1313,9 +1313,9 @@ GNEStop::drawStopPersonOverEdge(const GUIVisualizationSettings& s, const double 
         GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::FRONT,
             myDemandElementGeometry.getShape(), 0.3, exaggeration, true, true);
     }
-    // orange contour
+    // delete contour
     if (gPostDrawing.isElementUnderMouse(this)) {
-        GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::ORANGE,
+        GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::REMOVE,
             myDemandElementGeometry.getShape(), 0.3, exaggeration, true, true);
     }
 }
@@ -1379,9 +1379,9 @@ GNEStop::drawStopPersonOverBusStop(const GUIVisualizationSettings& s, const doub
         GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::FRONT, myDemandElementGeometry.getShape(), 0.3,
                 exaggeration, true, true);
     }
-    // orange contour
+    // delete contour
     if (gPostDrawing.isElementUnderMouse(this)) {
-        GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::ORANGE, myDemandElementGeometry.getShape(), 0.3,
+        GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::REMOVE, myDemandElementGeometry.getShape(), 0.3,
                 exaggeration, true, true);
     }
 }

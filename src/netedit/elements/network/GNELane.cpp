@@ -643,14 +643,14 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
                     ((myNet->getViewNet()->getFrontAttributeCarrier() == myParentEdge) && (myParentEdge->getLanes().size() == 1))) {
                 GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::FRONT, getLaneShape(), laneDrawingConstants.halfWidth, 1, true, true);
             }
-            // orange contour 1
+            // orange contour
             if (myNet->getViewNet()->getViewParent()->getAdditionalFrame()->getLanesSelector()->isNetworkElementSelected(this) ||
                     (myNet->getViewNet()->getViewParent()->getAdditionalFrame()->getEdgesSelector()->isNetworkElementSelected(myParentEdge) && (myParentEdge->getLanes().size() == 1))) {
                 GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::ORANGE, getLaneShape(), laneDrawingConstants.halfWidth, 1, true, true);
             }
-            // orange contour 2
+            // delete contour
             if (gPostDrawing.isElementUnderMouse(this)) {
-                GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::ORANGE, getLaneShape(), laneDrawingConstants.halfWidth, 1, true, true);
+                GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::REMOVE, getLaneShape(), laneDrawingConstants.halfWidth, 1, true, true);
             }
         }
         // draw children

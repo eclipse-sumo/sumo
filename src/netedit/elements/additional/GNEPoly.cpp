@@ -337,13 +337,13 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
                         polyExaggeration, true, true);
             }
         }
-        // orange contour
+        // delete contour
         if (gPostDrawing.isElementUnderMouse(this)) {
             // draw depending if is closed
             if (getFill() || myPolygonGeometry.getShape().isClosed()) {
-                GUIDottedGeometry::drawDottedContourClosedShape(s, GUIDottedGeometry::DottedContourType::ORANGE, myPolygonGeometry.getShape(), 1);
+                GUIDottedGeometry::drawDottedContourClosedShape(s, GUIDottedGeometry::DottedContourType::REMOVE, myPolygonGeometry.getShape(), 1);
             } else {
-                GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::ORANGE, myPolygonGeometry.getShape(), s.neteditSizeSettings.polylineWidth,
+                GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::REMOVE, myPolygonGeometry.getShape(), s.neteditSizeSettings.polylineWidth,
                         polyExaggeration, true, true);
             }
         }

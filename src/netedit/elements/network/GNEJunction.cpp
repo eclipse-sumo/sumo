@@ -1571,11 +1571,11 @@ GNEJunction::drawDottedContours(const GUIVisualizationSettings& s, const bool dr
     }
     if (gPostDrawing.isElementUnderMouse(this)) {
         if (drawBubble) {
-            GUIDottedGeometry::drawDottedContourCircle(s, GUIDottedGeometry::DottedContourType::ORANGE, myNBNode->getCenter(), s.neteditSizeSettings.junctionBubbleRadius,
+            GUIDottedGeometry::drawDottedContourCircle(s, GUIDottedGeometry::DottedContourType::REMOVE, myNBNode->getCenter(), s.neteditSizeSettings.junctionBubbleRadius,
                     (junctionExaggeration >= 1) ? junctionExaggeration : 1);
         }
         if (drawShape) {
-            GUIDottedGeometry::drawDottedContourClosedShape(s, GUIDottedGeometry::DottedContourType::ORANGE, myNBNode->getShape(),
+            GUIDottedGeometry::drawDottedContourClosedShape(s, GUIDottedGeometry::DottedContourType::REMOVE, myNBNode->getShape(),
                     (junctionExaggeration >= 1) ? junctionExaggeration : 1);
         }
     }

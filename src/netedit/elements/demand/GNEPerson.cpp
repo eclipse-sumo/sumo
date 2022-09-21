@@ -437,10 +437,10 @@ GNEPerson::drawGL(const GUIVisualizationSettings& s) const {
                 // draw using drawDottedSquaredShape
                 GUIDottedGeometry::drawDottedSquaredShape(s, GUIDottedGeometry::DottedContourType::FRONT, personPosition, 0.5, 0.5, 0, 0, 0, exaggeration);
             }
-            // orange contour
+            // delete contour
             if (gPostDrawing.isElementUnderMouse(this)) {
                 // draw using drawDottedSquaredShape
-                GUIDottedGeometry::drawDottedSquaredShape(s, GUIDottedGeometry::DottedContourType::ORANGE, personPosition, 0.5, 0.5, 0, 0, 0, exaggeration);
+                GUIDottedGeometry::drawDottedSquaredShape(s, GUIDottedGeometry::DottedContourType::REMOVE, personPosition, 0.5, 0.5, 0, 0, 0, exaggeration);
             }
         }
     }

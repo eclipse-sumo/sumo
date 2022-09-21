@@ -329,12 +329,12 @@ GNEPOI::drawGL(const GUIVisualizationSettings& s) const {
                     GUIDottedGeometry::drawDottedSquaredShape(s, GUIDottedGeometry::DottedContourType::FRONT, *this, getHeight() * 0.5, getWidth() * 0.5, 0, 0, getShapeNaviDegree(), POIExaggeration);
                 }
             }
-            // orange contour
+            // delete contour
             if (gPostDrawing.isElementUnderMouse(this)) {
                 if (getShapeImgFile().empty()) {
-                    GUIDottedGeometry::drawDottedContourCircle(s, GUIDottedGeometry::DottedContourType::ORANGE, *this, 1.3, POIExaggeration);
+                    GUIDottedGeometry::drawDottedContourCircle(s, GUIDottedGeometry::DottedContourType::REMOVE, *this, 1.3, POIExaggeration);
                 } else {
-                    GUIDottedGeometry::drawDottedSquaredShape(s, GUIDottedGeometry::DottedContourType::ORANGE, *this, getHeight() * 0.5, getWidth() * 0.5, 0, 0, getShapeNaviDegree(), POIExaggeration);
+                    GUIDottedGeometry::drawDottedSquaredShape(s, GUIDottedGeometry::DottedContourType::REMOVE, *this, getHeight() * 0.5, getWidth() * 0.5, 0, 0, getShapeNaviDegree(), POIExaggeration);
                 }
             }
         }

@@ -436,9 +436,9 @@ GNEAdditional::drawSquaredAdditional(const GUIVisualizationSettings& s, const Po
         if ((myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
             GUIDottedGeometry::drawDottedSquaredShape(s, GUIDottedGeometry::DottedContourType::FRONT, pos, size, size, 0, 0, 0, exaggeration);
         }
-        // orange contour
+        // delete contour
         if (gPostDrawing.isElementUnderMouse(this)) {
-            GUIDottedGeometry::drawDottedSquaredShape(s, GUIDottedGeometry::DottedContourType::ORANGE, pos, size, size, 0, 0, 0, exaggeration);
+            GUIDottedGeometry::drawDottedSquaredShape(s, GUIDottedGeometry::DottedContourType::REMOVE, pos, size, size, 0, 0, 0, exaggeration);
         }
         // Draw additional ID
         drawAdditionalID(s);

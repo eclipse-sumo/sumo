@@ -34,6 +34,7 @@ public:
     enum class DottedContourType {
         INSPECT,
         INSPECT_SMALL,
+        REMOVE,
         FRONT,
         FRONT_SMALL,
         MOVE,

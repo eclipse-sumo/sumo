@@ -642,9 +642,9 @@ GNEDemandElement::drawPersonPlanPartial(const bool drawPlan, const GUIVisualizat
             if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
                 GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::FRONT, shape, pathWidth, 1, segment->isFirstSegment(), segment->isLastSegment());
             }
-            // orange contour
+            // delete contour
             if (gPostDrawing.isElementUnderMouse(this)) {
-                GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::ORANGE, shape, pathWidth, 1, segment->isFirstSegment(), segment->isLastSegment());
+                GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::REMOVE, shape, pathWidth, 1, segment->isFirstSegment(), segment->isLastSegment());
             }
         }
     }
@@ -715,9 +715,9 @@ GNEDemandElement::drawPersonPlanPartial(const bool drawPlan, const GUIVisualizat
                 GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::FRONT, fromLane->getLane2laneConnections().getLane2laneGeometry(toLane).getShape(),
                         pathWidth, 1, false, false);
             }
-            // orange contour
+            // delete contour
             if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-                GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::ORANGE, fromLane->getLane2laneConnections().getLane2laneGeometry(toLane).getShape(),
+                GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::REMOVE, fromLane->getLane2laneConnections().getLane2laneGeometry(toLane).getShape(),
                         pathWidth, 1, false, false);
             }
 

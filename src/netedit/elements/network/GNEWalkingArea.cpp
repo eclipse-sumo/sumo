@@ -151,9 +151,9 @@ GNEWalkingArea::drawGL(const GUIVisualizationSettings& s) const {
             GUIDottedGeometry::drawDottedContourClosedShape(s, GUIDottedGeometry::DottedContourType::FRONT, walkingAreaShape,
                     (walkingAreaExaggeration >= 1) ? walkingAreaExaggeration : 1);
         }
-        // front element contour
+        // delete contour
         if (gPostDrawing.isElementUnderMouse(this)) {
-            GUIDottedGeometry::drawDottedContourClosedShape(s, GUIDottedGeometry::DottedContourType::ORANGE, walkingAreaShape,
+            GUIDottedGeometry::drawDottedContourClosedShape(s, GUIDottedGeometry::DottedContourType::REMOVE, walkingAreaShape,
                     (walkingAreaExaggeration >= 1) ? walkingAreaExaggeration : 1);
         }
 

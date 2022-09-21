@@ -807,10 +807,10 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
                     // draw using drawDottedContourClosedShape
                     GUIDottedGeometry::drawDottedSquaredShape(s, GUIDottedGeometry::DottedContourType::FRONT, vehiclePosition, length * 0.5, width * 0.5, length * -0.5, 0, vehicleRotation, exaggeration);
                 }
-                // orange contour
+                // delete contour
                 if (gPostDrawing.isElementUnderMouse(this)) {
                     // draw using drawDottedContourClosedShape
-                    GUIDottedGeometry::drawDottedSquaredShape(s, GUIDottedGeometry::DottedContourType::ORANGE, vehiclePosition, length * 0.5, width * 0.5, length * -0.5, 0, vehicleRotation, exaggeration);
+                    GUIDottedGeometry::drawDottedSquaredShape(s, GUIDottedGeometry::DottedContourType::REMOVE, vehiclePosition, length * 0.5, width * 0.5, length * -0.5, 0, vehicleRotation, exaggeration);
                 }
                 if (myNet->getViewNet()->getEditModes().isCurrentSupermodeDemand() &&
                         (myNet->getViewNet()->getEditModes().demandEditMode == DemandEditMode::DEMAND_TYPE) &&
@@ -988,9 +988,9 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane
             if ((myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
                 GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::FRONT_SMALL, shape, width, 1, segment->isFirstSegment(), segment->isLastSegment());
             }
-            // orange contour
+            // delete contour
             if (gPostDrawing.isElementUnderMouse(this)) {
-                GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::ORANGE, shape, width, 1, segment->isFirstSegment(), segment->isLastSegment());
+                GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::REMOVE, shape, width, 1, segment->isFirstSegment(), segment->isLastSegment());
             }
         }
     }
@@ -1047,9 +1047,9 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* from
                             fromLane->getLane2laneConnections().getLane2laneGeometry(toLane).getShape(),
                             width, 1, false, false);
                 }
-                // draw front dotted contour
-                if ((myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
-                    GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::ORANGE, 
+                // delete contour
+                if (gPostDrawing.isElementUnderMouse(this)) {
+                    GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::REMOVE, 
                             fromLane->getLane2laneConnections().getLane2laneGeometry(toLane).getShape(),
                             width, 1, false, false);
                 }
