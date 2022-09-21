@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-09-03 22:29:03 by Eclipse SUMO netconvert Version v1_14_1+0819-bf19e4679c8
+<!-- generated on 2022-09-21 12:06:40 by Eclipse SUMO netconvert Version v1_14_1+1175-db3cf1c92f7
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <type-files value="/home/kobo/dlr/sumo/data/typemap/osmNetconvert.typ.xml,/home/kobo/dlr/sumo/data/typemap/osmNetconvertUrbanDe.typ.xml,/home/kobo/dlr/sumo/data/typemap/osmNetconvertPedestrians.typ.xml,/home/kobo/dlr/sumo/data/typemap/osmNetconvertShips.typ.xml,/home/kobo/dlr/sumo/data/typemap/osmNetconvertBicycle.typ.xml"/>
-        <osm-files value="/home/kobo/.texttest/tmp/tools.03Sep222846.889578/tools/import/OSM/webWizard/osm_bbox.osm.xml"/>
+        <osm-files value="/home/kobo/.texttest/tmp/tools.21Sep120633.1429579/tools/import/OSM/webWizard/osm_bbox.osm.xml"/>
     </input>
 
     <output>
-        <output-file value="osm.net.xml"/>
+        <output-file value="osm.net.xml.gz"/>
         <output.street-names value="true"/>
         <output.original-names value="true"/>
         <ptstop-output value="osm_stops.add.xml"/>
@@ -560,7 +560,6 @@
     <busStop id="3869306771" name="Unter den Linden/Friedrichstraße" lane="461526152_1" startPos="53.30" endPos="68.30" friendlyPos="true" lines="TXL 100 200 N2"/>
     <busStop id="3869306772" name="Unter den Linden/Friedrichstraße" lane="169999355_1" startPos="12.57" endPos="27.57" friendlyPos="true" lines="147 N6"/>
     <busStop id="3869306774" name="Werderscher Markt" lane="23755950#0_1" startPos="10.04" endPos="25.04" friendlyPos="true" lines="147"/>
-    <busStop id="3869306792" name="Unter den Linden/Friedrichstraße" lane="437140526_0" startPos="56.87" endPos="81.87" friendlyPos="true"/>
     <busStop id="3870475228" name="Staatsoper" lane="340498982#3_1" startPos="20.90" endPos="35.90" friendlyPos="true" lines="TXL 100 200 N2"/>
     <busStop id="3907105048" name="Littenstraße" lane="289966845_2" startPos="4.61" endPos="19.61" friendlyPos="true" lines="248"/>
     <busStop id="3907105049" name="U Alexanderplatz" lane="301241681#0_2" startPos="23.21" endPos="38.21" friendlyPos="true" lines="N65 N5"/>

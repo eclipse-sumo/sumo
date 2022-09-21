@@ -85,6 +85,7 @@ Warning: Converting invalid rail_crossing to traffic_light at junction '39186739
 Warning: Not joining junctions 160503259,171440823,4237827432 (only 1 exit node).
 Warning: Not joining junctions 28373970,540698421 (only 1 edge within and no cross-traffic).
 Warning: Not joining junctions 28373972,3513423889,3513425993 (not compact (maxEdge=4612964#0 length=8.21)).
+Warning: Could not re-assign pt stop '3869306792' after replacing edge '263824928'.
 Warning: Ambiguity in turnarounds computation at junction '1206481791'.
 Warning: Ambiguity in turnarounds computation at junction '1206481808'.
 Warning: Ambiguity in turnarounds computation at junction '196721246'.
@@ -109,6 +110,7 @@ Warning: The traffic light '4363312288' does not control any links; it will not 
 Warning: Could not build program '0' for traffic light '4363312288'
 Warning: The traffic light 'joinedS_6' cannot be adapted to a cycle time of 90.00.
 Warning: The traffic light 'joinedS_6' has a high cycle time of 172.00.
+Warning: Could not find corresponding edge or compatible lane for pt stop '3869306792' (Unter den Linden/Friedrichstraße). Thus, it will be removed!
 Warning: 17 total messages of type: Ambiguous railway kilometrage direction for way '%' (assuming forward)
 Warning: 10 total messages of type: Could not re-assign PT stop '%', probably broken osm file.
 Warning: 9 total messages of type: Discarding unknown compound '%' in type '%' (first occurence for edge '%').
