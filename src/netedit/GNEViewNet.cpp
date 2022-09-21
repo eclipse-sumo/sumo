@@ -5111,7 +5111,13 @@ GNEViewNet::drawTemporalObjectsToDelete() {
         // only draw marked elements that have the same GLType of the last element
         for (const auto elementToRemove : gPostDrawing.elementsMarkedToRemove) {
             if (elementToRemove->getType() == gPostDrawing.elementsMarkedToRemove.back()->getType()) {
-                elementToRemove->drawGL(*myVisualizationSettings);
+                // check if is a normal or a path element
+                const auto pathElement = dynamic_cast<const GNEPathManager::PathElement*>(elementToRemove);
+                if (pathElement != nullptr) {
+                    myNet->getPathManager()->forceDrawPath(*myVisualizationSettings, pathElement);
+                } else {
+                    elementToRemove->drawGL(*myVisualizationSettings);
+                }
             }
         }
     }
