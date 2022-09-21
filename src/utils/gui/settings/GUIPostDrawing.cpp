@@ -18,6 +18,7 @@
 // Operations that must be applied after drawGL()
 /****************************************************************************/
 #include <config.h>
+#include <algorithm>
 
 #include "GUIPostDrawing.h"
 
