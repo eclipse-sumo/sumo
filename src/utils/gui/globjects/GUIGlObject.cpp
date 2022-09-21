@@ -455,7 +455,7 @@ GUIGlObject::mouseWithinGeometry(const Position mousePos, const Position& pos, c
     // move to position
     shape.add(pos);
     // check if mouse is within new geometry
-    mouseWithinGeometry(mousePos, shape, width);
+    mouseWithinGeometry(mousePos, shape);
 }
 
 
