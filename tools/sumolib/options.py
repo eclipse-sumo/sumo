@@ -88,7 +88,7 @@ def get_long_option_names(application):
     return result
 
 
-def assign_prefixed_options(args):
+def assign_prefixed_options(args, allowed_programs):
     prefixed_options = {}
     remaining = []
     consumed = False
@@ -100,14 +100,15 @@ def assign_prefixed_options(args):
             separator_index = arg.find('-', 2)
             if separator_index != -1:
                 program = arg[2:separator_index]
-                try:
-                    if '--' in args[arg_index+1]:
-                        raise NotImplementedError()
-                    option = [arg[separator_index+1:], args[arg_index+1]]
-                except(IndexError, NotImplementedError):
-                    raise NotImplementedError("Please amend prefixed argument %s with a value." % arg)
-                prefixed_options.setdefault(program, []).append(option)
-                consumed = True
+                if program in allowed_programs:
+                    try:
+                        if '--' in args[arg_index+1]:
+                            raise NotImplementedError()
+                        option = [arg[separator_index+1:], args[arg_index+1]]
+                    except(IndexError, NotImplementedError):
+                        raise NotImplementedError("Please amend prefixed argument %s with a value." % arg)
+                    prefixed_options.setdefault(program, []).append(option)
+                    consumed = True
         if not consumed:
             remaining.append(arg)
     return prefixed_options, remaining
@@ -148,12 +149,13 @@ class ArgumentParser(argparse.ArgumentParser):
     Inspired by https://github.com/bw2/ConfigArgParse
     """
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, allowed_programs=[], *args, **kwargs):
         argparse.ArgumentParser.__init__(self, *args, **kwargs)
         self.add_argument('-c', '--configuration-file', help='read configuration from FILE', metavar="FILE")
         self.add_argument('-C', '--save-configuration', help='save configuration to FILE and exit', metavar="FILE")
         self.add_argument('--save-template', help='save configuration template to FILE and exit', metavar="FILE")
         self._fix_path_args = set()
+        self._allowed_programs = allowed_programs
 
     def add_argument(self, *args, **kwargs):
         fix_path = kwargs.get("fix_path")
@@ -283,12 +285,26 @@ class ArgumentParser(argparse.ArgumentParser):
                                 config_args += ["--" + option.name + "=" + value]
                             else:
                                 config_args += ["--" + option.name]
-        # print("parse_known_args:\n  args: %s\n  config_args: %s" % (args, config_args))
+        combined_args = args + config_args + [p for p in pos_args if p is not None]
         namespace, unknown_args = argparse.ArgumentParser.parse_known_args(
-            self, args=args+config_args+[p for p in pos_args if p is not None], namespace=namespace)
+            self, args=combined_args, namespace=namespace)
+
+        if self._allowed_programs and unknown_args and hasattr(namespace, "remaining_args"):
+            # namespace.remaining_args are the legacy method to parse arguments
+            # for subprograms (i.e. 'duarouter--weights.random-factor 2')
+            # unknown_args are the new style # # ('--duarouter-weights.random-factor 2')
+            # the default ArgumentParser interprets the first parameter for an
+            # unknown argument as remaining_args and this also creates an
+            # invalid error message when unknown options are parsed
+            unknown_args.insert(1, namespace.remaining_args[0])
+            namespace.remaining_args = []
+
+        # print("parse_known_args:\n  args: %s\n  config_args: %s\n  pos_args: %s\n  "
+        #       "combined_args: %s\n  remaining_args: %s\n  unknown_args: %s" %
+        #       (args, config_args, pos_args, combined_args, namespace.remaining_args, unknown_args))
 
         namespace_as_dict = deepcopy(vars(namespace))
-        namespace._prefixed_options, remaining_args = assign_prefixed_options(unknown_args)
+        namespace._prefixed_options, remaining_args = assign_prefixed_options(unknown_args, self._allowed_programs)
 
         for program in namespace._prefixed_options:
             prefixed_options = deepcopy(namespace._prefixed_options[program])

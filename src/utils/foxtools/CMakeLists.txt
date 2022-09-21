@@ -7,6 +7,8 @@ set(utils_foxtools_STAT_SRCS
    MFXBaseObject.h
    MFXButtonTooltip.cpp
    MFXButtonTooltip.h
+   MFXToggleButtonTooltip.cpp
+   MFXToggleButtonTooltip.h
    MFXCheckableButton.cpp
    MFXCheckableButton.h
    MFXComboBox.cpp
@@ -20,6 +22,8 @@ set(utils_foxtools_STAT_SRCS
    MFXImageHelper.cpp
    MFXImageHelper.h
    MFXInterThreadEventClient.h
+   MFXLabelTooltip.cpp
+   MFXLabelTooltip.h
    MFXLCDLabel.cpp
    MFXLCDLabel.h
    MFXLinkLabel.cpp
@@ -42,8 +46,6 @@ set(utils_foxtools_STAT_SRCS
    MFXStaticToolTip.h
    MFXSynchQue.h
    MFXSynchSet.h
-   MFXTable.cpp
-   MFXTable.h
    MFXTextFieldIcon.cpp
    MFXTextFieldIcon.h
    MFXTextFieldTooltip.cpp

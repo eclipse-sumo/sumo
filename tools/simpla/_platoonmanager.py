@@ -386,7 +386,7 @@ class PlatoonManager(traci.StepListener):
             for ix, veh in enumerate(pltn.getVehicles()[1:]):
                 # check whether to split the platoon at index ix
                 leaderInfo = veh.state.leaderInfo
-                maxGap = self._maxPlatoonHeadway * veh.state.speed if self._useHeadway else self._maxPlatoonGap
+                maxGap = max(self._maxPlatoonHeadway * veh.state.speed, self._maxPlatoonGap) if self._useHeadway else self._maxPlatoonGap  # noqa
                 if leaderInfo is None or not self._isConnected(leaderInfo[0]) or leaderInfo[1] > maxGap:
                     # no leader or no leader that allows platooning
                     veh.setSplitConditions(True)
@@ -491,7 +491,8 @@ class PlatoonManager(traci.StepListener):
                 # Platoon order is corrupted, don't join own platoon.
                 continue
 
-            if leaderDist <= (self._maxPlatoonHeadway*leader.state.speed if self._useHeadway else self._maxPlatoonGap):
+            maxDist = (max(self._maxPlatoonHeadway * leader.state.speed, self._maxPlatoonGap) if self._useHeadway else self._maxPlatoonGap)  # noqa
+            if leaderDist <= maxDist:
                 # Try to join the platoon in front
                 if leader.getPlatoon().join(pltn):
                     toRemove.append(pltnID)
@@ -655,7 +656,6 @@ class PlatoonManager(traci.StepListener):
                     continue
                 # Find the leader in the platoon and request a lanechange if appropriate
                 leader = pltn.getVehicles()[ix]
-
                 if leader.state.edgeID == veh.state.edgeID:
                     # distance between vehicle and end of edge
                     d = traci.lane.getLength(laneID)-traci.vehicle.getLanePosition(veh.getID())

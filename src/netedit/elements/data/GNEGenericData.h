@@ -66,7 +66,7 @@ public:
      * @param[in] demandElementParents vector of demand element parents
      * @param[in] genericDataParents vector of generic data parents
      */
-    GNEGenericData(const SumoXMLTag tag, const GUIGlObjectType type, GNEDataInterval* dataIntervalParent,
+    GNEGenericData(const SumoXMLTag tag, FXIcon *icon, const GUIGlObjectType type, GNEDataInterval* dataIntervalParent,
                    const Parameterised::Map& parameters,
                    const std::vector<GNEJunction*>& junctionParents,
                    const std::vector<GNEEdge*>& edgeParents,
@@ -138,6 +138,9 @@ public:
      * @see GUIGlObject::drawGL
      */
     virtual void drawGL(const GUIVisualizationSettings& s) const = 0;
+
+    /// @brief delete element
+    void deleteGLObject();
 
     /// @brief update GLObject (geometry, ID, etc.)
     void updateGLObject();

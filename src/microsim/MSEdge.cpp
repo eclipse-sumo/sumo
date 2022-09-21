@@ -775,7 +775,10 @@ MSEdge::insertVehicle(SUMOVehicle& v, SUMOTime time, const bool checkOnly, const
     bool success = insertionLane->insertVehicle(static_cast<MSVehicle&>(v));
 
     if (!success) {
-        myFailedInsertionMemory.insert(insertionLane->getIndex());
+        // constraints may enforce explicit re-ordering so we need to try other vehicles after failure
+        if (!insertionLane->knowsParameter("insertionOrder" + v.getID())) {
+            myFailedInsertionMemory.insert(insertionLane->getIndex());
+        }
     }
     return success;
 }

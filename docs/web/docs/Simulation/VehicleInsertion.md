@@ -89,9 +89,14 @@ By default, the next attempt happens 2 seconds after the first vehicle has depar
 
 ## Forcing Insertion / Avoiding depart delay
 
+The following remedies are generally recommended to improve insertion flow:
+
 - On multi-lane roads, make sure that all lanes are used for insertion i.e. by setting `departLane="random"` (or `free` or `best`)
 - set option **--extrapolate-departpos**
 - insert with `departSpeed="avg"` or `departSpeed="last"` (see [capacity comparison](RoadCapacity.md#further_headway_effects))
+
+For specialized use cases the following tips may help to achieve even more insertions:
+
 - alternatively: Use `departPos="last"` in combination with `departSpeed="desired"` : vehicle position will be adjusted to the maximum
   position behind the leader vehicle that allows driving with the desired speed  
 - insert with a fixed departSpeed (numerical value) and set option **--ignore-route-errors**.

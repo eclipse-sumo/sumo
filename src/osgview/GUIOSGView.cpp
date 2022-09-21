@@ -30,6 +30,7 @@
 #include <foreign/rtree/SUMORTree.h>
 #include <gui/GUIApplicationWindow.h>
 #include <gui/GUISUMOViewParent.h>
+#include <gui/GUIViewTraffic.h>
 #include <guisim/GUIEdge.h>
 #include <guisim/GUIJunctionWrapper.h>
 #include <guisim/GUILane.h>
@@ -65,6 +66,7 @@
 #include <utils/geom/GeoConvHelper.h>
 
 #include "GUIOSGBuilder.h"
+#include "GUIOSGPerspectiveChanger.h"
 #include "GUIOSGView.h"
 
 
@@ -105,6 +107,7 @@ GUIOSGView::Command_TLSChange::execute() {
             mySwitch->setSingleChildOn(1);
             break;
         case LINKSTATE_TL_RED:
+        case LINKSTATE_STOP:
             mySwitch->setSingleChildOn(2);
             break;
         case LINKSTATE_TL_REDYELLOW:
@@ -137,6 +140,11 @@ GUIOSGView::GUIOSGView(
     //FXGLVisual* glVisual=new FXGLVisual(getApp(),VISUAL_DOUBLEBUFFER|VISUAL_STEREO);
 
     //m_gwFox = new GraphicsWindowFOX(this, glVisual, NULL, NULL, LAYOUT_FILL_X|LAYOUT_FILL_Y, x, y, w, h );
+
+    if (myChanger != nullptr) {
+        delete(myChanger);
+    }
+    myChanger = new GUIOSGPerspectiveChanger(*this, *myGrid);
 
     int w = getWidth();
     int h = getHeight();
@@ -189,6 +197,12 @@ GUIOSGView::~GUIOSGView() {
     myViewer = 0;
     myRoot = 0;
     myAdapter = 0;
+}
+
+
+void
+GUIOSGView::initChanger(const Boundary& viewPort) {
+    myChanger = new GUIOSGPerspectiveChanger(*this, viewPort);
 }
 
 
@@ -277,35 +291,8 @@ void
 GUIOSGView::recenterView() {
     stopTrack();
     Position center = myGrid->getCenter();
-    osg::Vec3d lookFromOSG, lookAtOSG, up;
-    myCameraManipulator->getHomePosition(lookFromOSG, lookAtOSG, up);
-    lookFromOSG[0] = center.x();
-    lookFromOSG[1] = center.y();
-    lookFromOSG[2] = myChanger->zoom2ZPos(100);
-    lookAtOSG[0] = center.x();
-    lookAtOSG[1] = center.y();
-    lookAtOSG[2] = 0;
-    myCameraManipulator->setHomePosition(lookFromOSG, lookAtOSG, up);
-    myViewer->home();
-}
-
-
-void
-GUIOSGView::centerTo(GUIGlID id, bool /* applyZoom */, double /* zoomDist */) {
-    GUIGlObject* o = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
-    if (o != nullptr && dynamic_cast<GUIGlObject*>(o) != nullptr) {
-        // get OSG object from GLObject
-        osg::Node* objectNode = o->getNode();
-        if (objectNode != nullptr) {
-            // center to current position
-            osg::Vec3d lookFromOSG, lookAtOSG, up;
-            myCameraManipulator->getHomePosition(lookFromOSG, lookAtOSG, up);
-            myCameraManipulator->setHomePosition(lookFromOSG, objectNode->getBound().center(), up);
-            myViewer->home();
-            updatePositionInformation();
-        }
-    }
-    GUIGlObjectStorage::gIDStorage.unblockObject(id);
+    double radius = std::max(myGrid->xmax() - myGrid->xmin(), myGrid->ymax() - myGrid->ymin());
+    myChanger->centerTo(center, radius);
 }
 
 
@@ -791,6 +778,7 @@ GUIOSGView::onCmdCloseLane(FXObject*, FXSelector, void*) {
     if (lane != nullptr) {
         lane->closeTraffic();
         GUIGlObjectStorage::gIDStorage.unblockObject(lane->getGlID());
+        GUINet::getGUIInstance()->updateColor(*myVisualizationSettings);
         update();
     }
     return 1;
@@ -803,6 +791,7 @@ GUIOSGView::onCmdCloseEdge(FXObject*, FXSelector, void*) {
     if (lane != nullptr) {
         dynamic_cast<GUIEdge*>(&lane->getEdge())->closeTraffic(lane);
         GUIGlObjectStorage::gIDStorage.unblockObject(lane->getGlID());
+        GUINet::getGUIInstance()->updateColor(*myVisualizationSettings);
         update();
     }
     return 1;
@@ -822,51 +811,15 @@ GUIOSGView::onCmdAddRerouter(FXObject*, FXSelector, void*) {
 
 
 long
-GUIOSGView::onCmdShowReachability(FXObject* menu, FXSelector, void*) {
+GUIOSGView::onCmdShowReachability(FXObject* menu, FXSelector selector, void*) {
     GUILane* lane = getLaneUnderCursor();
     if (lane != nullptr) {
         // reset
-        const double UNREACHED = -1;
-        gSelected.clear();
-        for (const MSEdge* const e : MSEdge::getAllEdges()) {
-            for (MSLane* const l : e->getLanes()) {
-                GUILane* gLane = dynamic_cast<GUILane*>(l);
-                gLane->setReachability(UNREACHED);
-            }
-        }
-        // prepare
-        FXMenuCommand* mc = dynamic_cast<FXMenuCommand*>(menu);
-        const SUMOVehicleClass svc = SumoVehicleClassStrings.get(mc->getText().text());
-        const double defaultMaxSpeed = SUMOVTypeParameter::VClassDefaultValues(svc).maxSpeed;
-        // find reachable
-        std::map<MSEdge*, double> reachableEdges;
-        reachableEdges[&lane->getEdge()] = 0;
-        MSEdgeVector check;
-        check.push_back(&lane->getEdge());
-        while (check.size() > 0) {
-            MSEdge* e = check.front();
-            check.erase(check.begin());
-            double traveltime = reachableEdges[e];
-            for (MSLane* const l : e->getLanes()) {
-                if (l->allowsVehicleClass(svc)) {
-                    GUILane* gLane = dynamic_cast<GUILane*>(l);
-                    gSelected.select(gLane->getGlID());
-                    gLane->setReachability(traveltime);
-                }
-            }
-            traveltime += e->getLength() / MIN2(e->getSpeedLimit(), defaultMaxSpeed);
-            for (MSEdge* const nextEdge : e->getSuccessors(svc)) {
-                if (reachableEdges.count(nextEdge) == 0 ||
-                        // revisit edge via faster path
-                        reachableEdges[nextEdge] > traveltime) {
-                    reachableEdges[nextEdge] = traveltime;
-                    check.push_back(nextEdge);
-                }
-            }
-        }
+        GUIViewTraffic::showLaneReachability(lane, menu, selector);
         // switch to 'color by selection' unless coloring 'by reachability'
         if (myVisualizationSettings->laneColorer.getActive() != 36) {
             myVisualizationSettings->laneColorer.setActive(1);
+            GUINet::getGUIInstance()->updateColor(*myVisualizationSettings);
         }
         update();
     }
@@ -1032,13 +985,15 @@ GUIOSGView::FXOSGAdapter::~FXOSGAdapter() {
 }
 
 
-void GUIOSGView::FXOSGAdapter::grabFocus() {
+void
+GUIOSGView::FXOSGAdapter::grabFocus() {
     // focus this window
     myParent->setFocus();
 }
 
 
-void GUIOSGView::FXOSGAdapter::useCursor(bool cursorOn) {
+void
+GUIOSGView::FXOSGAdapter::useCursor(bool cursorOn) {
     if (cursorOn) {
         myParent->setDefaultCursor(myOldCursor);
     } else {
@@ -1047,24 +1002,28 @@ void GUIOSGView::FXOSGAdapter::useCursor(bool cursorOn) {
 }
 
 
-bool GUIOSGView::FXOSGAdapter::makeCurrentImplementation() {
+bool
+GUIOSGView::FXOSGAdapter::makeCurrentImplementation() {
     myParent->makeCurrent();
     return true;
 }
 
 
-bool GUIOSGView::FXOSGAdapter::releaseContext() {
+bool
+GUIOSGView::FXOSGAdapter::releaseContext() {
     myParent->makeNonCurrent();
     return true;
 }
 
 
-void GUIOSGView::FXOSGAdapter::swapBuffersImplementation() {
+void
+GUIOSGView::FXOSGAdapter::swapBuffersImplementation() {
     myParent->swapBuffers();
 }
 
 
-bool GUIOSGView::PickHandler::handle(const osgGA::GUIEventAdapter& ea, osgGA::GUIActionAdapter& /* aa */) {
+bool
+GUIOSGView::PickHandler::handle(const osgGA::GUIEventAdapter& ea, osgGA::GUIActionAdapter& /* aa */) {
     if (ea.getEventType() == osgGA::GUIEventAdapter::DRAG) {
         myDrag = true;
     } else if (ea.getEventType() == osgGA::GUIEventAdapter::RELEASE && ea.getButton() == osgGA::GUIEventAdapter::RIGHT_MOUSE_BUTTON) {
@@ -1072,7 +1031,7 @@ bool GUIOSGView::PickHandler::handle(const osgGA::GUIEventAdapter& ea, osgGA::GU
             if (myParent->makeCurrent()) {
                 std::vector<GUIGlObject*> objects = myParent->getGUIGlObjectsUnderCursor();
                 if (objects.size() > 0) {
-                    myParent->openObjectDialog(objects[0]);                   
+                    myParent->openObjectDialog(objects);                   
                 }
                 myParent->makeNonCurrent();
             }

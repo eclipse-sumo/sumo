@@ -47,6 +47,7 @@ typedef long long int SUMOTime;
 namespace LIBSUMO_NAMESPACE {
 class GUI {
 public:
+#if defined(HAVE_LIBSUMOGUI) || defined(HAVE_FOX) || defined(LIBTRACI)
     static double getZoom(const std::string& viewID = DEFAULT_VIEW);
     static double getAngle(const std::string& viewID = DEFAULT_VIEW);
     static libsumo::TraCIPosition getOffset(const std::string& viewID = DEFAULT_VIEW);
@@ -93,6 +94,7 @@ private:
 
     static FX::FXApp* myApp;
 
+#endif
 #endif
 #endif
 

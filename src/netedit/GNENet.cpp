@@ -81,7 +81,7 @@ const std::map<SumoXMLAttr, std::string> GNENet::EMPTY_HEADER;
 // ===========================================================================
 
 GNENet::GNENet(NBNetBuilder* netBuilder) :
-    GUIGlObject(GLO_NETWORK, ""),
+    GUIGlObject(GLO_NETWORK, "", nullptr),
     myViewNet(nullptr),
     myNetBuilder(netBuilder),
     myAttributeCarriers(new GNENetHelper::AttributeCarriers(this)),
@@ -320,6 +320,47 @@ GNENet::createEdge(GNEJunction* src, GNEJunction* dest, GNEEdge* edgeTemplate, G
     requireRecompute();
     undoList->end();
     return edge;
+}
+
+
+void 
+GNENet::deleteNetworkElement(GNENetworkElement* networkElement, GNEUndoList* undoList) {
+    if (networkElement->getTagProperty().getTag() == SUMO_TAG_JUNCTION) {
+        // get junction (note: could be already removed if is a child, then hardfail=false)
+        GNEJunction* junction = myAttributeCarriers->retrieveJunction(networkElement->getID(), false);
+        // if exist, remove it
+        if (junction) {
+            deleteJunction(junction, undoList);
+        }
+    } else if (networkElement->getTagProperty().getTag() == SUMO_TAG_CROSSING) {
+        // get crossing (note: could be already removed if is a child, then hardfail=false)
+        GNECrossing* crossing = myAttributeCarriers->retrieveCrossing(networkElement, false);
+        // if exist, remove it
+        if (crossing) {
+            deleteCrossing(crossing, undoList);
+        }
+    } else if (networkElement->getTagProperty().getTag() == SUMO_TAG_EDGE) {
+        // get edge (note: could be already removed if is a child, then hardfail=false)
+        GNEEdge* edge = myAttributeCarriers->retrieveEdge(networkElement->getID(), false);
+        // if exist, remove it
+        if (edge) {
+            deleteEdge(edge, undoList, false);
+        }
+    } else if (networkElement->getTagProperty().getTag() == SUMO_TAG_LANE) {
+        // get lane (note: could be already removed if is a child, then hardfail=false)
+        GNELane* lane = myAttributeCarriers->retrieveLane(networkElement, false);
+        // if exist, remove it
+        if (lane) {
+            deleteLane(lane, undoList, false);
+        }
+    } else if (networkElement->getTagProperty().getTag() == SUMO_TAG_CONNECTION) {
+        // get connection (note: could be already removed if is a child, then hardfail=false)
+        GNEConnection* connection = myAttributeCarriers->retrieveConnection(networkElement, false);
+        // if exist, remove it
+        if (connection) {
+            deleteConnection(connection, undoList);
+        }
+    }
 }
 
 
@@ -609,6 +650,10 @@ GNENet::deleteDemandElement(GNEDemandElement* demandElement, GNEUndoList* undoLi
             myViewNet->getViewParent()->getInspectorFrame()->clearInspectedAC();
         }
         undoList->begin(GUIIcon::MODEDELETE, "delete " + demandElement->getTagStr());
+        // remove all child additional elements of this demandElement calling this function recursively
+        while (demandElement->getChildAdditionals().size() > 0) {
+            deleteAdditional(demandElement->getChildAdditionals().front(), undoList);
+        }
         // remove all child demand elements of this demandElement calling this function recursively
         while (demandElement->getChildDemandElements().size() > 0) {
             deleteDemandElement(demandElement->getChildDemandElements().front(), undoList);
@@ -952,10 +997,10 @@ GNENet::reverseEdge(GNEEdge* edge, GNEUndoList* undoList) {
 
 
 GNEEdge*
-GNENet::addReversedEdge(GNEEdge* edge, GNEUndoList* undoList) {
+GNENet::addReversedEdge(GNEEdge* edge, const bool disconnected, GNEUndoList* undoList) {
     undoList->begin(GUIIcon::EDGE, "add reversed " + toString(SUMO_TAG_EDGE));
     GNEEdge* reversed = nullptr;
-    if (edge->getNBEdge()->getLaneSpreadFunction() == LaneSpreadFunction::RIGHT || isRailway(edge->getNBEdge()->getPermissions())) {
+    if (!disconnected) {
         // for rail edges, we assume bi-directional tracks are wanted
         reversed = createEdge(edge->getToJunction(), edge->getFromJunction(), edge, undoList, "-" + edge->getID(), false, true);
         assert(reversed != 0);
@@ -2737,8 +2782,6 @@ GNENet::computeAndUpdate(OptionsCont& oc, bool volatileOptions) {
     }
     // net recomputed, then return false;
     myNeedRecompute = false;
-    // update recomputing label
-    myViewNet->getViewParent()->getGNEAppWindows()->updateRecomputingLabel();
 }
 
 

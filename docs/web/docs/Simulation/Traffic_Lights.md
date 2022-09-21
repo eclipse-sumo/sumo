@@ -438,7 +438,7 @@ When a phase uses attribute 'next' with a list of indices. The next phase is cho
 
 Examples for this type of traffic light logic can be found in [{{SUMO}}/tests/sumo/tls/actuated/multiNext/dualring_simple]({{Source}}tests/sumo/tls/actuated/multiNext/dualring_simple).
 
-The helper script [tls_buildTransitions.py] can be used to generate such logics from simplified definitions.
+The helper script [buildTransitions.py](../Tools/tls.md#buildtransitionspy) can be used to generate such logics from simplified definitions.
 
 ## Type 'actuated' with custom switching rules
 
@@ -546,7 +546,30 @@ The default gap control logic, replicated with custom conditions. A complete sce
 
 !!! note
     The the expression 'z:D0.0' retrieves the detection gap of detector 'C_PI_D0.0' but the prefix 'C_PI_' may be omitted.
-    
+
+#### Bus prioritization
+
+```
+    <!-- detect only buses -->
+    <inductionLoop id="dBus" lane="SC_0" pos="-90" vTypes="busType" file="NUL"/>
+
+    <tlLogic id="C" type="actuated" programID="P1" offset="0">
+        <phase duration="33" state="GgrrGgrr" minDur="5" maxDur="60" />
+        <phase duration="3"  state="ygrrygrr"/>
+        <phase duration="6"  state="rGrrrGrr" minDur="5" maxDur="60" />
+        <phase duration="3"  state="ryrrryrr"/>
+        <phase duration="33" state="rrGgrrGg" minDur="5" maxDur="60" />
+        <phase duration="3"  state="rrygrryg" earlyTarget="EW or NSbus"/>
+        <phase duration="6"  state="rrrGrrrG" minDur="5" maxDur="60" />
+        <phase duration="3"  state="rrryrrry"/>
+
+        <!-- the default switching rules (prolong phase depending on observed gaps) -->
+        <condition id="EW" value="z:D1.0 > 3 and z:D3.0 > 3"/>
+        <!-- prioritization for buses coming from the south -->
+        <condition id="NSbus" value="3 > z:dBus"/>
+    </tlLogic>
+```
+
 ### Overriding Phase Attributes with Expressions
 
 By default, the phase attributes 'minDur', 'maxDur', 'earliestEnd' and 'latestEnd' are defined numerically (or left undefined).

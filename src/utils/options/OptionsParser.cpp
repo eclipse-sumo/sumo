@@ -66,18 +66,19 @@ OptionsParser::check(const char* arg1, const char* arg2, bool& ok) {
     }
 
     OptionsCont& oc = OptionsCont::getOptions();
+    const bool append = arg1[0] == '+';
     // process not abbreviated switches
-    if (!isAbbreviation(arg1)) {
-        std::string tmp(arg1 + 2);
+    if (append || arg1[1] == '-') {
+        std::string tmp(arg1 + (append ? 1 : 2));
         const std::string::size_type idx1 = tmp.find('=');
         // check whether a parameter was submitted
         if (idx1 != std::string::npos) {
-            ok &= oc.set(tmp.substr(0, idx1), tmp.substr(idx1 + 1));
+            ok &= oc.set(tmp.substr(0, idx1), tmp.substr(idx1 + 1), append);
         } else {
-            if (arg2 == nullptr || (oc.isBool(convert(arg1 + 2)) && arg2[0] == '-')) {
-                ok &= oc.set(convert(arg1 + 2), "true");
+            if (arg2 == nullptr || (oc.isBool(tmp) && arg2[0] == '-')) {
+                ok &= oc.set(tmp, "true");
             } else {
-                ok &= oc.set(convert(arg1 + 2), convert(arg2), arg1[0] == '+');
+                ok &= oc.set(tmp, convert(arg2), append);
                 return 2;
             }
         }
@@ -98,11 +99,11 @@ OptionsParser::check(const char* arg1, const char* arg2, bool& ok) {
             // check whether the parameter comes directly after the switch
             //  and process if so
             if (arg2 == nullptr || arg1[i + 1] != 0) {
-                ok &= processNonBooleanSingleSwitch(oc, arg1 + i, arg1[0] == '+');
+                ok &= processNonBooleanSingleSwitch(oc, arg1 + i, append);
                 return 1;
                 // process parameter following after a space
             } else {
-                ok &= oc.set(convert(arg1[i]), convert(arg2), arg1[0] == '+');
+                ok &= oc.set(convert(arg1[i]), convert(arg2), append);
                 // option name and attribute were in two arguments
                 return 2;
             }
@@ -139,13 +140,11 @@ OptionsParser::checkParameter(const char* arg1) {
         WRITE_ERROR("The parameter '" + std::string(arg1) + "' is not allowed in this context.\n Switch or parameter name expected.");
         return false;
     }
+    if ((arg1[0] == '-' && arg1[1] == '+') || (arg1[0] == '+' && arg1[1] == '-')) {
+        WRITE_ERROR("Mixed parameter syntax in '" + std::string(arg1) + "'.");
+        return false;
+    }
     return true;
-}
-
-
-bool
-OptionsParser::isAbbreviation(const char* arg1) {
-    return arg1[1] != '-' && arg1[1] != '+';
 }
 
 

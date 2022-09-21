@@ -17,7 +17,6 @@
 
 from __future__ import print_function
 import sys
-from optparse import OptionParser
 from collections import defaultdict
 import sumolib
 from sumolib.output import parse_fast, parse
@@ -32,33 +31,30 @@ def parse_args():
     DEFAULT_ELEMENTS2 = ['vehicle', 'trip', 'flow']
 
     USAGE = "Usage: " + sys.argv[0] + " <routefile> [options]"
-    optParser = OptionParser()
-    optParser.add_option("-o", "--output-file", dest="outfile",
-                         help="name of output file")
-    optParser.add_option("--subpart",
-                         help="Restrict counts to routes that contain the given consecutive edge sequence")
-    optParser.add_option("--subpart-file", dest="subpart_file",
-                         help="Restrict counts to routes that contain one of the consecutive edge sequences " +
-                              "in the given input file (one sequence per line)")
-    optParser.add_option("-i", "--intermediate", action="store_true", default=False,
-                         help="count all edges of a route")
-    optParser.add_option("--taz", action="store_true", default=False,
-                         help="use fromTaz and toTaz instead of from and to")
-    optParser.add_option("--elements",  default=','.join(DEFAULT_ELEMENTS),
-                         help="include edges for the given elements in output")
-    optParser.add_option("-b", "--begin", default=0, help="collect departures after begin time")
-    optParser.add_option("-e", "--end", help="collect departures up to end time (default unlimited)")
-    optParser.add_option("--period", help="create data intervals of the given period duration")
-    optParser.add_option("-m", "--min-count", default=0, type=int, help="include only values above the minimum")
-    optParser.add_option("-n", "--net-file", help="parse net for geo locations of the edges")
-    optParser.add_option("-p", "--poi-file", help="write geo POIs")
-    options, args = optParser.parse_args()
-    try:
-        options.routefile, = args
-    except Exception:
-        sys.exit(USAGE)
+    ap = sumolib.options.ArgumentParser(description="count edge usage by vehicles", usage=USAGE)
+    ap.add_argument("-o", "--output-file", dest="outfile",
+                    help="name of output file")
+    ap.add_argument("--subpart",
+                    help="Restrict counts to routes that contain the given consecutive edge sequence")
+    ap.add_argument("--subpart-file", dest="subpart_file",
+                    help="Restrict counts to routes that contain one of the consecutive edge sequences " +
+                         "in the given input file (one sequence per line)")
+    ap.add_argument("-i", "--intermediate", action="store_true", default=False,
+                    help="count all edges of a route")
+    ap.add_argument("--taz", action="store_true", default=False,
+                    help="use fromTaz and toTaz instead of from and to")
+    ap.add_argument("--elements",  default=','.join(DEFAULT_ELEMENTS),
+                    help="include edges for the given elements in output")
+    ap.add_argument("-b", "--begin", default=0, help="collect departures after begin time")
+    ap.add_argument("-e", "--end", help="collect departures up to end time (default unlimited)")
+    ap.add_argument("--period", help="create data intervals of the given period duration")
+    ap.add_argument("-m", "--min-count", default=0, type=int, help="include only values above the minimum")
+    ap.add_argument("-n", "--net-file", help="parse net for geo locations of the edges")
+    ap.add_argument("-p", "--poi-file", help="write geo POIs")
+    ap.add_argument("routefiles", nargs="+", help="Set on or more input route files")
+    options = ap.parse_args()
     if options.outfile is None:
-        options.outfile = options.routefile + ".departsAndArrivals.xml"
+        options.outfile = options.routefiles[0] + ".departsAndArrivals.xml"
     if options.net_file and not options.poi_file:
         options.poi_file = options.net_file + "_count.poi.xml"
 
@@ -174,30 +170,33 @@ def parseSimple(outf, options):
     intermediateCounts = defaultdict(lambda: 0)
 
     for element in options.elements:
-        for route in parse_fast(options.routefile, element, ['edges']):
-            edges = route.edges.split()
-            if not hasSubpart(edges, options.subparts):
-                continue
-            departCounts[edges[0]] += 1
-            arrivalCounts[edges[-1]] += 1
-            if options.intermediate:
-                for e in edges:
-                    intermediateCounts[e] += 1
+        for routefile in options.routefiles:
+            for route in parse_fast(routefile, element, ['edges']):
+                edges = route.edges.split()
+                if not hasSubpart(edges, options.subparts):
+                    continue
+                departCounts[edges[0]] += 1
+                arrivalCounts[edges[-1]] += 1
+                if options.intermediate:
+                    for e in edges:
+                        intermediateCounts[e] += 1
 
     # warn about potentially missing edges
     fromAttr, toAttr = ('fromTaz', 'toTaz') if options.taz else ('from', 'to')
     if 'trip' in options.elements:
-        for trip in parse_fast(options.routefile, 'trip', ['id', fromAttr, toAttr]):
-            if not hasSubpart([trip[1], trip[2]], options.subparts):
-                continue
-            departCounts[trip[1]] += 1
-            arrivalCounts[trip[2]] += 1
+        for routefile in options.routefiles:
+            for trip in parse_fast(routefile, 'trip', ['id', fromAttr, toAttr]):
+                if not hasSubpart([trip[1], trip[2]], options.subparts):
+                    continue
+                departCounts[trip[1]] += 1
+                arrivalCounts[trip[2]] += 1
     if 'walk' in options.elements:
-        for walk in parse_fast(options.routefile, 'walk', ['from', 'to']):
-            if not hasSubpart([walk[1], walk[2]], options.subparts):
-                continue
-            departCounts[walk.attr_from] += 1
-            arrivalCounts[walk.to] += 1
+        for routefile in options.routefiles:
+            for walk in parse_fast(routefile, 'walk', ['from', 'to']):
+                if not hasSubpart([walk[1], walk[2]], options.subparts):
+                    continue
+                departCounts[walk.attr_from] += 1
+                arrivalCounts[walk.to] += 1
 
     if options.net_file:
         net = sumolib.net.readNet(options.net_file)
@@ -224,35 +223,36 @@ def parseTimed(outf, options):
     begin = options.begin
     periodEnd = options.period if options.period else options.end
 
-    for elem in parse(options.routefile, options.elements2):
-        depart = elem.depart if elem.depart is not None else elem.begin
-        if depart != "triggered":
-            depart = parseTime(depart)
-            lastDepart = depart
-            if depart < lastDepart:
-                sys.stderr.write("Unsorted departure %s for %s '%s'" % (
-                    depart, elem.tag, elem.id))
+    for routefile in options.routefiles:
+        for elem in parse(routefile, options.elements2):
+            depart = elem.depart if elem.depart is not None else elem.begin
+            if depart != "triggered":
+                depart = parseTime(depart)
                 lastDepart = depart
-            if depart < begin:
+                if depart < lastDepart:
+                    sys.stderr.write("Unsorted departure %s for %s '%s'" % (
+                        depart, elem.tag, elem.id))
+                    lastDepart = depart
+                if depart < begin:
+                    continue
+                if depart >= periodEnd or depart >= options.end:
+                    description = "%s-%s " % (begin, periodEnd)
+                    writeInterval(outf, options, departCounts, arrivalCounts,
+                                  intermediateCounts, begin, periodEnd, description)
+                    periodEnd += period
+                    begin += period
+                if depart >= options.end:
+                    break
+            number = getFlowNumber(elem) if elem.name == 'flow' else 1
+            src, dst, edges = getEdges(elem, options.taz)
+            filterBy = [src, dst] if options.taz or not edges else edges
+            if not hasSubpart(filterBy, options.subparts):
                 continue
-            if depart >= periodEnd or depart >= options.end:
-                description = "%s-%s " % (begin, periodEnd)
-                writeInterval(outf, options, departCounts, arrivalCounts,
-                              intermediateCounts, begin, periodEnd, description)
-                periodEnd += period
-                begin += period
-            if depart >= options.end:
-                break
-        number = getFlowNumber(elem) if elem.name == 'flow' else 1
-        src, dst, edges = getEdges(elem, options.taz)
-        filterBy = [src, dst] if options.taz or not edges else edges
-        if not hasSubpart(filterBy, options.subparts):
-            continue
-        departCounts[src] += number
-        arrivalCounts[dst] += number
-        if options.intermediate:
-            for e in edges:
-                intermediateCounts[e] += number
+            departCounts[src] += number
+            arrivalCounts[dst] += number
+            if options.intermediate:
+                for e in edges:
+                    intermediateCounts[e] += number
 
     description = "%s-%s " % (begin, periodEnd) if periodEnd != END_UNLIMITED else ""
     if len(departCounts) > 0:

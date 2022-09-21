@@ -107,7 +107,7 @@ class _NormalCappedDistribution(_FixDistribution):
     def __init__(self, mu, sd, min, max):
         _FixDistribution.__init__(self, (mu, sd, min, max))
         if mu < min or mu > max:
-            raise Exception("mean %s is outside cutoff bounds [%s, %s]" % (mu, min, max))
+            raise ValueError("mean %s is outside cutoff bounds [%s, %s]" % (mu, min, max))
 
     def _sampleValue(self):
         while True:
@@ -167,7 +167,7 @@ class VehAttribute:
         self.bounds = bounds
         self.attribute_value = attribute_value
         if self.attribute_value and self.distribution:
-            raise Exception("Only one of distribution or attribute value should be defined, not both")
+            raise ValueError("Only one of distribution or attribute value should be defined, not both")
         self.d_obj = self._dist_helper(distribution, distribution_params, bounds)
 
     def _dist_helper(self, distribution, dist_params, dist_bounds):
@@ -175,11 +175,10 @@ class VehAttribute:
         if distribution:
             try:
                 d = _DIST_DICT[distribution](**dist_params)
-                d.setLimits(dist_bounds) if dist_bounds else d.setLimits(
-                    (0, None))
+                d.setLimits(dist_bounds) if dist_bounds else d.setLimits((0, None))
             except KeyError:
-                raise KeyError("The distribution %s is not known. Please select one of: \n%s " %
-                               (distribution, "\n".join(_DIST_DICT.keys())))
+                raise ValueError("The distribution %s is not known. Please select one of: \n%s " %
+                                 (distribution, "\n".join(_DIST_DICT.keys())))
         else:
             isNumeric = False if self.name == "emissionClass" else len(
                 re.findall(r'^(-?[0-9]+(\.[0-9]+)?)$', self.attribute_value)) > 0
@@ -289,8 +288,7 @@ class CreateVehTypeDistribution:
             try:
                 return xml.dom.minidom.parse(file_path), True
             except Exception as e:
-                raise Exception("Cannot parse existing %s. Error: %s" %
-                                (file_path, str(e)))
+                raise ValueError("Cannot parse existing %s. Error: %s" % (file_path, e))
         else:
             return xml.dom.minidom.Document(), False
 

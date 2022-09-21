@@ -43,56 +43,62 @@ GUIDottedGeometry::DottedGeometryColor::DottedGeometryColor(const GUIVisualizati
 
 const RGBColor
 GUIDottedGeometry::DottedGeometryColor::getColor(DottedContourType type) {
-    if (type == DottedContourType::INSPECT) {
-        if (myColorFlag) {
-            myColorFlag = false;
-            return mySettings.dottedContourSettings.firstInspectedColor;
-        } else {
-            myColorFlag = true;
-            return mySettings.dottedContourSettings.secondInspectedColor;
-        }
-    } else if (type == DottedContourType::FRONT) {
-        if (myColorFlag) {
-            myColorFlag = false;
-            return mySettings.dottedContourSettings.firstFrontColor;
-        } else {
-            myColorFlag = true;
-            return mySettings.dottedContourSettings.secondFrontColor;
-        }
-    } else if (type == DottedContourType::GREEN) {
-        if (myColorFlag) {
-            myColorFlag = false;
-            return RGBColor::GREEN;
-        } else {
-            myColorFlag = true;
-            return RGBColor::GREEN.changedBrightness(-30);
-        }
-    } else if (type == DottedContourType::MAGENTA) {
-        if (myColorFlag) {
-            myColorFlag = false;
-            return RGBColor::MAGENTA;
-        } else {
-            myColorFlag = true;
-            return RGBColor::MAGENTA.changedBrightness(-30);
-        }
-    } else if (type == DottedContourType::ORANGE) {
-        if (myColorFlag) {
-            myColorFlag = false;
-            return RGBColor::ORANGE;
-        } else {
-            myColorFlag = true;
-            return RGBColor::ORANGE.changedBrightness(-30);
-        }
-    } else if (type == DottedContourType::YELLOW) {
-        if (myColorFlag) {
-            myColorFlag = false;
-            return RGBColor::YELLOW;
-        } else {
-            myColorFlag = true;
-            return RGBColor::YELLOW.changedBrightness(-30);
-        }
-    } else {
-        return RGBColor::BLACK;
+    switch(type) {
+        case DottedContourType::INSPECT:
+        case DottedContourType::INSPECT_SMALL:
+            if (myColorFlag) {
+                myColorFlag = false;
+                return mySettings.dottedContourSettings.firstInspectedColor;
+            } else {
+                myColorFlag = true;
+                return mySettings.dottedContourSettings.secondInspectedColor;
+            }
+        case DottedContourType::FRONT:
+        case DottedContourType::FRONT_SMALL:
+            if (myColorFlag) {
+                myColorFlag = false;
+                return mySettings.dottedContourSettings.firstFrontColor;
+            } else {
+                myColorFlag = true;
+                return mySettings.dottedContourSettings.secondFrontColor;
+            }
+        case DottedContourType::GREEN:
+        case DottedContourType::FROMTAZ:
+            if (myColorFlag) {
+                myColorFlag = false;
+                return RGBColor::GREEN;
+            } else {
+                myColorFlag = true;
+                return RGBColor::GREEN.changedBrightness(-30);
+            }
+        case DottedContourType::MAGENTA:
+        case DottedContourType::TOTAZ:
+            if (myColorFlag) {
+                myColorFlag = false;
+                return RGBColor::MAGENTA;
+            } else {
+                myColorFlag = true;
+                return RGBColor::MAGENTA.changedBrightness(-30);
+            }
+        case DottedContourType::ORANGE:
+        case DottedContourType::REMOVE:
+            if (myColorFlag) {
+                myColorFlag = false;
+                return RGBColor::ORANGE;
+            } else {
+                myColorFlag = true;
+                return RGBColor::ORANGE.changedBrightness(-30);
+            }
+        case DottedContourType::YELLOW:
+            if (myColorFlag) {
+                myColorFlag = false;
+                return RGBColor::YELLOW;
+            } else {
+                myColorFlag = true;
+                return RGBColor::YELLOW.changedBrightness(-30);
+            }
+        default:
+            return RGBColor::BLACK;
     }
 }
 
@@ -130,13 +136,10 @@ GUIDottedGeometry::Segment::Segment(PositionVector newShape) :
 // GUIDottedGeometry - methods
 // ---------------------------------------------------------------------------
 
-GUIDottedGeometry::GUIDottedGeometry() :
-    myWidth(0) {
-}
+GUIDottedGeometry::GUIDottedGeometry() {}
 
 
-GUIDottedGeometry::GUIDottedGeometry(const GUIVisualizationSettings& s, PositionVector shape, const bool closeShape) :
-    myWidth(s.dottedContourSettings.segmentWidth) {
+GUIDottedGeometry::GUIDottedGeometry(const GUIVisualizationSettings& s, PositionVector shape, const bool closeShape) {
     // check if shape has to be closed
     if (closeShape && (shape.size() > 2)) {
         shape.closePolygon();
@@ -163,8 +166,7 @@ GUIDottedGeometry::GUIDottedGeometry(const GUIVisualizationSettings& s, Position
 
 GUIDottedGeometry::GUIDottedGeometry(const GUIVisualizationSettings& s,
                                      const GUIDottedGeometry& topDottedGeometry, const bool drawFirstExtrem,
-                                     const GUIDottedGeometry& botDottedGeometry, const bool drawLastExtrem) :
-    myWidth(s.dottedContourSettings.segmentWidth) {
+                                     const GUIDottedGeometry& botDottedGeometry, const bool drawLastExtrem) {
     // check size of both geometries
     if ((topDottedGeometry.myDottedGeometrySegments.size() > 0) &&
             (botDottedGeometry.myDottedGeometrySegments.size() > 0)) {
@@ -199,8 +201,6 @@ GUIDottedGeometry::GUIDottedGeometry(const GUIVisualizationSettings& s,
 
 void
 GUIDottedGeometry::updateDottedGeometry(const GUIVisualizationSettings& s, const PositionVector& laneShape) {
-    // update settings and width
-    myWidth = s.dottedContourSettings.segmentWidth;
     // reset segments
     myDottedGeometrySegments.clear();
     // get shape
@@ -218,8 +218,6 @@ GUIDottedGeometry::updateDottedGeometry(const GUIVisualizationSettings& s, const
 
 void
 GUIDottedGeometry::updateDottedGeometry(const GUIVisualizationSettings& s, PositionVector shape, const bool closeShape) {
-    // update settings and width
-    myWidth = s.dottedContourSettings.segmentWidth;
     // reset segments
     myDottedGeometrySegments.clear();
     // check if shape has to be closed
@@ -242,10 +240,26 @@ GUIDottedGeometry::updateDottedGeometry(const GUIVisualizationSettings& s, Posit
 
 
 void
-GUIDottedGeometry::drawDottedGeometry(DottedGeometryColor& dottedGeometryColor,
-                                      GUIDottedGeometry::DottedContourType type, const double customWidth) const {
-    // get width
-    const double width = (customWidth > 0) ? customWidth : myWidth;
+GUIDottedGeometry::drawDottedGeometry(const GUIVisualizationSettings& s, GUIDottedGeometry::DottedContourType type, 
+        DottedGeometryColor& dottedGeometryColor, const double customWidth) const {
+    // set segment width
+    double width = s.dottedContourSettings.segmentWidthLarge;
+    switch(type) {
+        case DottedContourType::INSPECT_SMALL:
+        case DottedContourType::FRONT_SMALL:
+        case DottedContourType::REMOVE:
+            // use segment width small
+            width = s.dottedContourSettings.segmentWidthSmall;
+            break;
+        case DottedContourType::FROMTAZ:
+        case DottedContourType::TOTAZ:
+            // use custom width
+            width = customWidth;
+            break;
+        default:
+            // use segment width large
+            break;
+    }
     // iterate over all segments
     for (auto& segment : myDottedGeometrySegments) {
         // iterate over shape
@@ -268,18 +282,6 @@ GUIDottedGeometry::moveShapeToSide(const double value) {
 }
 
 
-double
-GUIDottedGeometry::getWidth() const {
-    return myWidth;
-}
-
-
-void
-GUIDottedGeometry::setWidth(const double width) {
-    myWidth = width;
-}
-
-
 void
 GUIDottedGeometry::invertOffset() {
     // iterate over all segments
@@ -290,8 +292,8 @@ GUIDottedGeometry::invertOffset() {
 
 
 void
-GUIDottedGeometry::drawDottedContourClosedShape(const DottedContourType type, const GUIVisualizationSettings& s,
-        const PositionVector& shape, const double exaggeration, const double lineWidth) {
+GUIDottedGeometry::drawDottedContourClosedShape(const GUIVisualizationSettings& s, const DottedContourType type,
+        const PositionVector& shape, const double exaggeration, const double customWidth) {
     if (s.drawDottedContour(exaggeration)) {
         // declare DottedGeometryColor
         DottedGeometryColor dottedGeometryColor(s);
@@ -312,7 +314,7 @@ GUIDottedGeometry::drawDottedContourClosedShape(const DottedContourType type, co
             glTranslated(0, 0, GLO_DOTTEDCONTOUR_INSPECTED);
         }
         // draw dotted geometry
-        dottedGeometry.drawDottedGeometry(dottedGeometryColor, type, lineWidth);
+        dottedGeometry.drawDottedGeometry(s, type, dottedGeometryColor, customWidth);
         // pop matrix
         GLHelper::popMatrix();
     }
@@ -320,9 +322,9 @@ GUIDottedGeometry::drawDottedContourClosedShape(const DottedContourType type, co
 
 
 void
-GUIDottedGeometry::drawDottedContourShape(const DottedContourType type, const GUIVisualizationSettings& s,
+GUIDottedGeometry::drawDottedContourShape(const GUIVisualizationSettings& s, const DottedContourType type, 
         const PositionVector& shape, const double width, const double exaggeration, const bool drawFirstExtrem,
-        const bool drawLastExtrem, const double lineWidth) {
+        const bool drawLastExtrem) {
     if (s.drawDottedContour(exaggeration)) {
         // declare DottedGeometryColor
         DottedGeometryColor dottedGeometryColor(s);
@@ -349,15 +351,15 @@ GUIDottedGeometry::drawDottedContourShape(const DottedContourType type, const GU
             glTranslated(0, 0, GLO_DOTTEDCONTOUR_INSPECTED);
         }
         // draw top dotted geometry
-        topDottedGeometry.drawDottedGeometry(dottedGeometryColor, type, lineWidth);
+        topDottedGeometry.drawDottedGeometry(s, type, dottedGeometryColor);
         // reset color
         dottedGeometryColor.reset();
         // draw top dotted geometry
-        botDottedGeometry.drawDottedGeometry(dottedGeometryColor, type, lineWidth);
+        botDottedGeometry.drawDottedGeometry(s, type, dottedGeometryColor);
         // change color
         dottedGeometryColor.changeColor();
         // draw extrem dotted geometry
-        extremes.drawDottedGeometry(dottedGeometryColor, type, lineWidth);
+        extremes.drawDottedGeometry(s, type, dottedGeometryColor);
         // pop matrix
         GLHelper::popMatrix();
     }
@@ -365,19 +367,19 @@ GUIDottedGeometry::drawDottedContourShape(const DottedContourType type, const GU
 
 
 void
-GUIDottedGeometry::drawDottedContourCircle(const DottedContourType type, const GUIVisualizationSettings& s,
-        const Position& pos, const double radius, const double exaggeration) {
+GUIDottedGeometry::drawDottedContourCircle(const GUIVisualizationSettings& s, const DottedContourType type, const Position& pos,
+        const double radius, const double exaggeration) {
     // continue depending of exaggeratedRadio
     if ((radius * exaggeration) < 2) {
-        drawDottedContourClosedShape(type, s, GUIGeometry::getVertexCircleAroundPosition(pos, radius, 8), exaggeration);
+        drawDottedContourClosedShape(s, type, GUIGeometry::getVertexCircleAroundPosition(pos, radius, 8), exaggeration);
     } else {
-        drawDottedContourClosedShape(type, s, GUIGeometry::getVertexCircleAroundPosition(pos, radius, 16), exaggeration);
+        drawDottedContourClosedShape(s, type, GUIGeometry::getVertexCircleAroundPosition(pos, radius, 16), exaggeration);
     }
 }
 
 
 void
-GUIDottedGeometry::drawDottedSquaredShape(const DottedContourType type, const GUIVisualizationSettings& s, const Position& pos,
+GUIDottedGeometry::drawDottedSquaredShape(const GUIVisualizationSettings& s, const DottedContourType type,  const Position& pos,
         const double width, const double height, const double offsetX, const double offsetY, const double rot, const double exaggeration) {
     if (s.drawDottedContour(exaggeration)) {
         // create shape
@@ -394,7 +396,7 @@ GUIDottedGeometry::drawDottedSquaredShape(const DottedContourType type, const GU
         // move to position
         shape.add(pos);
         // draw using drawDottedContourClosedShape
-        drawDottedContourClosedShape(type, s, shape, exaggeration);
+        drawDottedContourClosedShape(s, type, shape, exaggeration);
     }
 }
 

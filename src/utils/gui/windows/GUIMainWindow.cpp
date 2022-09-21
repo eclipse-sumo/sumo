@@ -35,6 +35,7 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StringUtils.h>
 #include <utils/foxtools/MFXImageHelper.h>
+#include <utils/foxtools/MFXStaticToolTip.h>
 #include <utils/gui/images/GUITexturesHelper.h>
 #include <utils/options/OptionsCont.h>
 #include "GUIMainWindow.h"
@@ -49,27 +50,31 @@ GUIMainWindow* GUIMainWindow::myInstance = nullptr;
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-GUIMainWindow::GUIMainWindow(FXApp* a) :
-    FXMainWindow(a, "sumo-gui main window", nullptr, nullptr, DECOR_ALL, 20, 20, 600, 400),
+GUIMainWindow::GUIMainWindow(FXApp* app) :
+    FXMainWindow(app, "sumo-gui main window", nullptr, nullptr, DECOR_ALL, 20, 20, 600, 400),
     myAmFullScreen(false),
     myTrackerLock(true),
-    myGLVisual(new FXGLVisual(a, VISUAL_DOUBLEBUFFER)),
+    myGLVisual(new FXGLVisual(app, VISUAL_DOUBLEBUFFER)),
     myAmGaming(false),
     myListInternal(false),
     myListParking(true),
     myListTeleporting(false) {
-
+    // build static tooltips
+    myStaticTooltipMenu = new MFXStaticToolTip(app);
+    myStaticTooltipView = new MFXStaticToolTip(app);
+    // build bold font
     FXFontDesc fdesc;
-    getApp()->getNormalFont()->getFontDesc(fdesc);
+    app->getNormalFont()->getFontDesc(fdesc);
     fdesc.weight = FXFont::Bold;
-    myBoldFont = new FXFont(getApp(), fdesc);
+    myBoldFont = new FXFont(app, fdesc);
     // https://en.wikipedia.org/wiki/Noto_fonts should be widely available
-    myFallbackFont = new FXFont(getApp(), "Noto Sans CJK JP");
-
+    myFallbackFont = new FXFont(app, "Noto Sans CJK JP");
+    // build docks
     myTopDock = new FXDockSite(this, LAYOUT_SIDE_TOP | LAYOUT_FILL_X);
     myBottomDock = new FXDockSite(this, LAYOUT_SIDE_BOTTOM | LAYOUT_FILL_X);
     myLeftDock = new FXDockSite(this, LAYOUT_SIDE_LEFT | LAYOUT_FILL_Y);
     myRightDock = new FXDockSite(this, LAYOUT_SIDE_RIGHT | LAYOUT_FILL_Y);
+    // avoid instance Windows twice
     if (myInstance != nullptr) {
         throw ProcessError("MainWindow initialized twice");
     }
@@ -79,13 +84,14 @@ GUIMainWindow::GUIMainWindow(FXApp* a) :
 
 
 GUIMainWindow::~GUIMainWindow() {
+    delete myStaticTooltipMenu;
+    delete myStaticTooltipView;
     delete myBoldFont;
     delete myFallbackFont;
     delete myTopDock;
     delete myBottomDock;
     delete myLeftDock;
     delete myRightDock;
-    //myInstance = nullptr;
 }
 
 
@@ -181,6 +187,18 @@ GUIMainWindow::updateChildren(int msg) {
 FXGLVisual*
 GUIMainWindow::getGLVisual() const {
     return myGLVisual;
+}
+
+
+MFXStaticToolTip*
+GUIMainWindow::getStaticTooltipMenu() const {
+    return myStaticTooltipMenu;
+}
+
+
+MFXStaticToolTip*
+GUIMainWindow::getStaticTooltipView() const {
+    return myStaticTooltipView;
 }
 
 

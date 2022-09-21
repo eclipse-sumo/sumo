@@ -136,6 +136,8 @@ GUIVehicle::getParameterWindow(GUIMainWindow& app,
                 new FunctionBinding<GUIVehicle, double>(this, &MSVehicle::getWaitingSeconds));
     ret->mkItem(("waiting time (accumulated, " + time2string(MSGlobals::gWaitingTimeMemory) + "s) [s]").c_str(), true,
                 new FunctionBinding<GUIVehicle, double>(this, &MSVehicle::getAccumulatedWaitingSeconds));
+    ret->mkItem("time since startup [s]", true,
+                new FunctionBinding<GUIVehicle, double>(this, &MSVehicle::getTimeSinceStartupSeconds));
     ret->mkItem("time loss [s]", true,
                 new FunctionBinding<GUIVehicle, double>(this, &MSVehicle::getTimeLossSeconds));
     ret->mkItem("impatience", true,
@@ -224,7 +226,8 @@ GUIVehicle::getTypeParameterWindow(GUIMainWindow& app,
     ret->mkItem("carFollowModel", false, SUMOXMLDefinitions::CarFollowModels.getString((SumoXMLTag)getCarFollowModel().getModelID()));
     ret->mkItem("LaneChangeModel", false, SUMOXMLDefinitions::LaneChangeModels.getString(getLaneChangeModel().getModelID()));
     ret->mkItem("guiShape", false, getVehicleShapeName(myType->getGuiShape()));
-    ret->mkItem("maximum speed [m/s]", false, getMaxSpeed());
+    ret->mkItem("maximum speed [m/s]", false, getVehicleType().getMaxSpeed());
+    ret->mkItem("desired maximum speed [m/s]", false, getVehicleType().getDesiredMaxSpeed());
     ret->mkItem("maximum acceleration [m/s^2]", false, getCarFollowModel().getMaxAccel());
     ret->mkItem("maximum deceleration [m/s^2]", false, getCarFollowModel().getMaxDecel());
     ret->mkItem("emergency deceleration [m/s^2]", false, getCarFollowModel().getEmergencyDecel());
@@ -304,7 +307,7 @@ GUIVehicle::drawAction_drawCarriageClass(const GUIVisualizationSettings& s, bool
     const double totalLength = getVType().getLength();
     double upscaleLength = exaggeration;
     if (exaggeration > 1 && totalLength > 5) {
-        // reduce the length/width ratio because this is not usefull at high zoom
+        // reduce the length/width ratio because this is not useful at high zoom
         const double widthLengthFactor = totalLength / 5;
         const double shrinkFactor = MIN2(widthLengthFactor, sqrt(upscaleLength));
         upscaleLength /= shrinkFactor;
@@ -431,6 +434,18 @@ GUIVehicle::drawAction_drawCarriageClass(const GUIVisualizationSettings& s, bool
                     glVertex2d(halfWidth, yCornerCut);
                     glVertex2d(halfWidth - xCornerCut, 0);
                     glEnd();
+                    // indicate front of the head of the train
+                    if (i == 0) {
+                        glTranslated(0, 0, 0.1);
+                        glColor3d(0, 0, 0);
+                        glBegin(GL_TRIANGLE_FAN);
+                        glVertex2d(-halfWidth + 2 * xCornerCut, yCornerCut);
+                        glVertex2d(-halfWidth + xCornerCut, 3 * yCornerCut);
+                        glVertex2d(halfWidth - xCornerCut, 3 * yCornerCut);
+                        glVertex2d(halfWidth - 2 * xCornerCut, yCornerCut);
+                        glEnd();
+                        glTranslated(0, 0, -0.1);
+                    }
                 }
             }
         }
@@ -1028,7 +1043,7 @@ GUIVehicle::rerouteDRTStop(MSStoppingPlace* busStop) {
         stopPar.until = -1;
         stopPar.triggered = false;
         stopPar.containerTriggered = false;
-        stopPar.parking = false;
+        stopPar.parking = ParkingType::ONROAD;
         stopPar.index = STOP_INDEX_FIT;
         stopPar.parametersSet = STOP_START_SET | STOP_END_SET;
         // clean up prior route to improve visualisation, ensure that the stop can be added immediately

@@ -68,11 +68,20 @@ public:
         /// @brief check if we're using default edge type
         bool useDefaultEdgeType() const;
 
+        /// @brief void enable checkbox for disable pedestrians
+        void enableCheckBoxDisablePedestrians();
+
         /// @brief get default edgeType
         GNEEdgeType* getDefaultEdgeType() const;
 
         /// @brief get edgeType selected
         GNEEdgeType* getEdgeTypeSelected() const;
+
+        /// @brief check if no pedestrian check button is enabled
+        bool isNoPedestriansEnabled() const;
+
+        /// @brief check if add sidewalk check button is enabled
+        bool isAddSidewalkEnabled() const;
 
         /// @brief clear edgeType selected
         void clearEdgeTypeSelected();
@@ -94,12 +103,15 @@ public:
         /// @brief Called when the user press button for delete edge type
         long onCmdDeleteEdgeType(FXObject*, FXSelector, void*);
 
-        /// @brief Called when the user press select an edgeType in comboBox
-        long onCmdSelectEdgeType(FXObject*, FXSelector, void*);
+        /// @brief Called when the user press select an edgeType or template in comboBox
+        long onCmdSelectEdgeTypeOrTemplate(FXObject*, FXSelector, void*);
 
         /// @brief Called when the user press create edgeType from Template
         long onCmdCreateFromTemplate(FXObject*, FXSelector, void*);
-
+        
+        /// @brief Called when add sidewalk check buton is updated
+        long onUpdAddSideWalk(FXObject*, FXSelector, void*);
+        
         /// @}
 
     protected:
@@ -124,6 +136,12 @@ public:
 
         /// @brief create default edge
         FXRadioButton* myUseDefaultEdgeType = nullptr;
+
+        /// @brief no pedestrian check button
+        FXCheckButton* myNoPedestriansCheckButton = nullptr;
+
+        /// @brief add sidewalk check button
+        FXCheckButton* myAddSidewalkCheckButton = nullptr;
 
         /// @brief create custom edge
         FXRadioButton* myUseCustomEdgeType = nullptr;
@@ -216,10 +234,10 @@ public:
     };
 
     /**@brief Constructor
-     * @brief parent FXHorizontalFrame in which this GNEFrame is placed
+     * @brief viewParent GNEViewParent in which this GNEFrame is placed
      * @brief viewNet viewNet that uses this GNEFrame
      */
-    GNECreateEdgeFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet);
+    GNECreateEdgeFrame(GNEViewParent *viewParent, GNEViewNet* viewNet);
 
     /// @brief Destructor
     ~GNECreateEdgeFrame();
@@ -277,6 +295,12 @@ protected:
 
     /// @brief Legend
     GNECreateEdgeFrame::Legend* myLegend = nullptr;
+
+    /// @brief disable pedestrians in the given edge (within undoRedo)
+    void disablePedestrians(GNEEdge* edge) const;
+
+    /// @brief disable pedestrians in the given edge (within undoRedo)
+    void addSidewalk(GNEEdge* edge) const;
 
 private:
     /// @brief objects under snapped cursor

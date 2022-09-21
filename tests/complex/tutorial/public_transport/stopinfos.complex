@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-12-01 11:15:17 by Eclipse SUMO sumo Version v1_11_0+0215-ec00761
+<!-- generated on 2022-08-29 06:38:51 by Eclipse SUMO sumo Version v1_14_1+0609-b824a61
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -14,7 +14,6 @@
     </output>
 
     <report>
-        <verbose value="true"/>
         <duration-log.statistics value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -63,15 +62,15 @@
     <stopinfo id="tram2.4" type="tram" lane="E4_0" pos="319.46" parking="0" started="1257.00" ended="1277.00" delay="32.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="A_tram2"/>
     <stopinfo id="bus" type="bus" lane="-E1_1" pos="24.40" parking="0" started="1300.00" ended="1320.00" delay="30.00" initialPersons="11" loadedPersons="12" unloadedPersons="11" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="A_bus"/>
     <stopinfo id="bus" type="bus" lane="-E0_1" pos="270.03" parking="0" started="1366.00" ended="1386.00" delay="36.00" initialPersons="12" loadedPersons="10" unloadedPersons="12" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="B_bus"/>
-    <stopinfo id="bus" type="bus" lane="-E1_1" pos="24.41" parking="0" started="1444.00" ended="1464.00" delay="34.00" initialPersons="10" loadedPersons="14" unloadedPersons="10" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="A_bus"/>
-    <stopinfo id="bus" type="bus" lane="-E0_1" pos="270.03" parking="0" started="1509.00" ended="1529.00" delay="39.00" initialPersons="14" loadedPersons="0" unloadedPersons="14" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="B_bus"/>
-    <stopinfo id="tram1.5" type="tram" lane="-E4_0" pos="43.43" parking="0" started="1508.00" ended="1530.00" delay="0.00" initialPersons="0" loadedPersons="10" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="A_tram1"/>
+    <stopinfo id="bus" type="bus" lane="-E1_1" pos="24.42" parking="0" started="1447.00" ended="1467.00" delay="37.00" initialPersons="10" loadedPersons="14" unloadedPersons="10" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="A_bus"/>
+    <stopinfo id="tram1.5" type="tram" lane="-E4_0" pos="43.43" parking="0" started="1508.00" ended="1530.00" delay="0.00" initialPersons="0" loadedPersons="9" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="A_tram1"/>
     <stopinfo id="tram2.5" type="tram" lane="E4_0" pos="42.20" parking="0" started="1508.00" ended="1530.00" delay="0.00" initialPersons="0" loadedPersons="9" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="B_tram2"/>
-    <stopinfo id="tram1.5" type="tram" lane="-E4_0" pos="320.84" parking="0" started="1557.00" ended="1577.00" delay="32.00" initialPersons="10" loadedPersons="0" unloadedPersons="10" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="B_tram1"/>
+    <stopinfo id="bus" type="bus" lane="-E0_1" pos="270.03" parking="0" started="1512.00" ended="1532.00" delay="42.00" initialPersons="14" loadedPersons="0" unloadedPersons="14" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="B_bus"/>
+    <stopinfo id="tram1.5" type="tram" lane="-E4_0" pos="320.84" parking="0" started="1557.00" ended="1577.00" delay="32.00" initialPersons="9" loadedPersons="0" unloadedPersons="9" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="B_tram1"/>
     <stopinfo id="tram2.5" type="tram" lane="E4_0" pos="319.46" parking="0" started="1557.00" ended="1577.00" delay="32.00" initialPersons="9" loadedPersons="0" unloadedPersons="9" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="A_tram2"/>
-    <stopinfo id="tram1.6" type="tram" lane="-E4_0" pos="43.43" parking="0" started="1808.00" ended="1830.00" delay="0.00" initialPersons="0" loadedPersons="39" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="A_tram1"/>
+    <stopinfo id="tram1.6" type="tram" lane="-E4_0" pos="43.43" parking="0" started="1808.00" ended="1830.00" delay="0.00" initialPersons="0" loadedPersons="40" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="A_tram1"/>
     <stopinfo id="tram2.6" type="tram" lane="E4_0" pos="42.20" parking="0" started="1808.00" ended="1830.00" delay="0.00" initialPersons="0" loadedPersons="33" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="B_tram2"/>
-    <stopinfo id="tram1.6" type="tram" lane="-E4_0" pos="320.84" parking="0" started="1857.00" ended="1877.00" delay="32.00" initialPersons="39" loadedPersons="0" unloadedPersons="39" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="B_tram1"/>
+    <stopinfo id="tram1.6" type="tram" lane="-E4_0" pos="320.84" parking="0" started="1857.00" ended="1877.00" delay="32.00" initialPersons="40" loadedPersons="0" unloadedPersons="40" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="B_tram1"/>
     <stopinfo id="tram2.6" type="tram" lane="E4_0" pos="319.46" parking="0" started="1857.00" ended="1877.00" delay="32.00" initialPersons="33" loadedPersons="0" unloadedPersons="33" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="A_tram2"/>
     <stopinfo id="tram1.7" type="tram" lane="-E4_0" pos="43.43" parking="0" started="2108.00" ended="2130.00" delay="0.00" initialPersons="0" loadedPersons="27" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="A_tram1"/>
     <stopinfo id="tram2.7" type="tram" lane="E4_0" pos="42.20" parking="0" started="2108.00" ended="2130.00" delay="0.00" initialPersons="0" loadedPersons="31" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="B_tram2"/>

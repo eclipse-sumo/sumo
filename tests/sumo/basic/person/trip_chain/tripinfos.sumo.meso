@@ -41,7 +41,7 @@ SPDX-License-Identifier: EPL-2.0
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
     <tripinfo id="train0" depart="50.00" departLane="" departPos="0.00" departSpeed="13.90" departDelay="0.00" arrival="194.00" arrivalLane="" arrivalPos="90.50" arrivalSpeed="13.90" duration="144.00" routeLength="455.50" waitingTime="0.00" waitingCount="0" stopTime="110.36" timeLoss="110.36" rerouteNo="0" devices="tripinfo_train0 person_train0" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
-    <personinfo id="person0" depart="0.00" type="DEFAULT_PEDTYPE">
+    <personinfo id="person0" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00">
         <walk depart="0.00" departPos="80.00" arrival="49.00" arrivalPos="55.00" duration="49.00" routeLength="65.50" timeLoss="1.84" maxSpeed="1.39"/>
         <ride waitingTime="71.49" vehicle="train0" depart="120.49" arrival="134.00" arrivalPos="0.00" duration="13.51" routeLength="182.50" timeLoss="0.00"/>
         <walk depart="134.00" departPos="0.00" arrival="234.00" arrivalPos="45.00" duration="100.00" routeLength="137.00" timeLoss="1.36" maxSpeed="1.39"/>

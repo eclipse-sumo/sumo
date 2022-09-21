@@ -81,8 +81,8 @@ protected:
     /// @brief pointer to GNEApplicationWindow
     GNEApplicationWindow* myGNEApp;
 
-    /// @brief tree list dinamic to show the elements to erase
-    MFXTreeListDynamic* myTreeListDinamic;
+    /// @brief tree list dynamic to show the elements to erase
+    MFXTreeListDynamic* myTreeListDynamic;
 
     /// @brief index for last undo element
     int myLastUndoElement = -1;

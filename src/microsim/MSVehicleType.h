@@ -153,11 +153,18 @@ public:
     }
 
 
-    /** @brief Get vehicle's maximum speed [m/s].
-     * @return The maximum speed (in m/s) of vehicles of this class
+    /** @brief Get vehicle's (technical) maximum speed [m/s].
+     * @return The maximum speed (in m/s) of vehicles of this types
      */
     double getMaxSpeed() const {
         return myParameter.maxSpeed;
+    }
+
+    /** @brief Returns the vehicles's desired maximum speed
+     * @return The desired maximum speed of vehicles of this type
+     */
+    double getDesiredMaxSpeed() const {
+        return myParameter.desiredMaxSpeed;
     }
 
 

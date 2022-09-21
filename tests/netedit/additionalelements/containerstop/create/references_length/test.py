@@ -50,7 +50,7 @@ netedit.leftClick(referencePosition, 500, 250)
 netedit.changeDefaultValue(netedit.attrs.containerStop.create.length, "5")
 
 # create containerStop in mode "reference left"
-netedit.leftClick(referencePosition, 500, 250)
+netedit.leftClick(referencePosition, 510, 250)
 
 # change reference to right
 netedit.changeDefaultValue(netedit.attrs.containerStop.create.references, "reference right")

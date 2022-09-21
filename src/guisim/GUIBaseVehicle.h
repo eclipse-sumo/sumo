@@ -286,7 +286,7 @@ public:
         long onCmdHideLFLinkItems(FXObject*, FXSelector, void*);
         /// @brief Called to show (select) a vehicles foes
         long onCmdShowFoes(FXObject*, FXSelector, void*);
-        /// @brief Called to select all riding persons and continers
+        /// @brief Called to select all riding persons and containers
         long onCmdSelectTransported(FXObject*, FXSelector, void*);
         /// @brief Called when removing the vehicle
         long onCmdRemoveObject(FXObject*, FXSelector, void*);
@@ -349,7 +349,7 @@ public:
 
 protected:
 
-    /// @brief sets the color according to the currente settings
+    /// @brief sets the color according to the current settings
     RGBColor setColor(const GUIVisualizationSettings& s) const;
 
     /// @brief returns the seat position for the person with the given index

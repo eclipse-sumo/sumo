@@ -186,7 +186,7 @@ MSBaseVehicle::replaceParameter(const SUMOVehicleParameter* newParameter) {
 
 double
 MSBaseVehicle::getMaxSpeed() const {
-    return myType->getMaxSpeed();
+    return MIN2(myType->getMaxSpeed(), myType->getDesiredMaxSpeed() * myChosenSpeedFactor);
 }
 
 
@@ -493,7 +493,7 @@ MSBaseVehicle::replaceRoute(const MSRoute* newRoute, const std::string& info, bo
             }
 #endif
             if (*searchStart != &iter->lane->getEdge()
-                    || endPos < lastPos) {
+                    || endPos + NUMERICAL_EPS < lastPos) {
                 if (searchStart != edges.end() && !iter->reached) {
                     searchStart++;
                 }
@@ -912,7 +912,7 @@ MSBaseVehicle::isStopped() const {
 
 bool
 MSBaseVehicle::isParking() const {
-    return isStopped() && myStops.begin()->pars.parking && (
+    return isStopped() && (myStops.begin()->pars.parking == ParkingType::OFFROAD) && (
                myStops.begin()->parkingarea == nullptr || !myStops.begin()->parkingarea->parkOnRoad());
 }
 
@@ -925,7 +925,7 @@ MSBaseVehicle::isStoppedTriggered() const {
 
 bool
 MSBaseVehicle::isStoppedParking() const {
-    return isStopped() && myStops.begin()->pars.parking;
+    return isStopped() && (myStops.begin()->pars.parking == ParkingType::OFFROAD);
 }
 
 
@@ -1998,19 +1998,19 @@ MSBaseVehicle::getPrefixedParameter(const std::string& key, std::string& error) 
         std::vector<std::string> values;
         if (getParkingMemory()) {
             if (key == "parking.memory.IDList") {
-                for (const auto item : *getParkingMemory()) {
+                for (const auto& item : *getParkingMemory()) {
                     values.push_back(item.first->getID());
                 }
             } else if (key == "parking.memory.score") {
-                for (const auto item : *getParkingMemory()) {
+                for (const auto& item : *getParkingMemory()) {
                     values.push_back(item.second.score);
                 }
             } else if (key == "parking.memory.blockedAtTime") {
-                for (const auto item : *getParkingMemory()) {
+                for (const auto& item : *getParkingMemory()) {
                     values.push_back(toString(STEPS2TIME(item.second.blockedAtTime)));
                 }
             } else if (key == "parking.memory.blockedAtTimeLocal") {
-                for (const auto item : *getParkingMemory()) {
+                for (const auto& item : *getParkingMemory()) {
                     values.push_back(toString(STEPS2TIME(item.second.blockedAtTimeLocal)));
                 }
             } else {

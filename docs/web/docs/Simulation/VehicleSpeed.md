@@ -9,12 +9,24 @@ minimum speed of all influences.
 
 # maxSpeed
 
-The
-[`<vType>-attribute maxSpeed`](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#vehicle_types)
+The [`<vType>-attribute maxSpeed`](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#vehicle_types)
 models the maximum speed that a vehicle will travel. It can be thought
-of as the maximum speed of the engine or the maximum speed desired by
-the driver under any circumstances (possibly these two aspects will be
-modelled with separate attributes in the future).
+of as the maximum speed of the engine.
+
+# desiredMaxSpeed
+
+The [`<vType>-attribute desiredMaxSpeed`](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#vehicle_types)
+models the (mean) desired maximum speed that the vehicles drivers of that type wish to use. The actual desired maximum speed of an individual vehicle is computed by multiplying the `maxDesiredSpeed` of it's type with the [individual speedFactor](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#speed_distributions) of that vehicle.
+The individual desired max speed servers as another upper bound on speed next to the `maxSpeed` and the road speed limit.
+
+The main use of this property is to model speed distributions for vehicles that are not limited by the legal road speed limit (i.e. pedestrians and bicycles). In contrast, regular cars are typically restrained by the speed limit and so their speed distribution is modelled by multiplying their individual speedFactor with the speedLimit. Thus, different [vClasses](../Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#abstract_vehicle_class) have different default values for `desiredMaxSpeed`:
+
+- `pedestrian`: 1.39 (5km/h)
+- `bicycle`: 5.56 (20km/h) 
+- all other classes: 2778 (10000km/h)
+
+!!! caution
+    Up to version 1.14.1 this property did not exist, and `maxSpeed` was sometimes used to also model the desired speed. This resulted in a constant default maximum speed for all bicycles.
 
 # edge/lane speed and speedFactor
 
@@ -34,7 +46,7 @@ by default.
 
 When vehicles are driving freely (unconstrained by other vehicles) they will accelerate until reaching the speed 
 ```
-min(maxSpeed, speedFactor * speedLimit)
+min(maxSpeed, speedFactor * desiredMaxSpeed,  speedFactor * speedLimit)
 ```
 
 !!! note

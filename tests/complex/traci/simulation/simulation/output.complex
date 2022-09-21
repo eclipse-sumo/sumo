@@ -1,9 +1,10 @@
 loaded? False
  Retrying in 1 seconds
-version at start (20, 'SUMO v1_12_0+0645-a864339')
-version (20, 'SUMO v1_12_0+0645-a864339')
+version at start (20, 'SUMO v1_14_1+1078-f12b383')
+version (20, 'SUMO v1_14_1+1078-f12b383')
 loaded? True
 endTime 42.0
+net file input_net.net.xml
 {114: ('horiz', 'horiz1'), 116: ()}
 step 0
 pendingVehicles ()
@@ -61,6 +62,7 @@ convertGeoRoad ('o', 1012.1569021973628, 0)
 convertGeoRoadBus ('o', 1012.1569021973628, 0)
 convertGeoRoadBusDisallowed ('2o', 8027.707319230139, 0)
 distance2D 10.0
+distance2Dgeo 10.0000000003
 drivingDistance2D 6.48934561332
 distanceRoad 5131.87897232
 drivingDistanceRoad 5136.55

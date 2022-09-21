@@ -53,8 +53,8 @@ GNEUndoListDialog::GNEUndoListDialog(GNEApplicationWindow* GNEApp) :
     myGNEApp(GNEApp) {
     // create main frame
     FXVerticalFrame* mainFrame = new FXVerticalFrame(this, GUIDesignAuxiliarFrame);
-    // create treelist dinamic
-    myTreeListDinamic = new MFXTreeListDynamic(mainFrame, this, MID_GNE_UNDOLIST_UPDATE, GUIDesignTreeListDinamicExpandHeight);
+    // create treelist dynamic
+    myTreeListDynamic = new MFXTreeListDynamic(mainFrame, this, MID_GNE_UNDOLIST_UPDATE, GUIDesignTreeListDinamicExpandHeight);
     // create buttons centered
     FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(mainFrame, GUIDesignHorizontalFrame);
     new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
@@ -104,7 +104,7 @@ GNEUndoListDialog::setFocus() {
 long
 GNEUndoListDialog::onCmdClose(FXObject*, FXSelector, void*) {
     // reset selected elements
-    myTreeListDinamic->resetSelectedItem();
+    myTreeListDynamic->resetSelectedItem();
     // close dialog
     hide();
     return 1;
@@ -114,23 +114,23 @@ GNEUndoListDialog::onCmdClose(FXObject*, FXSelector, void*) {
 long
 GNEUndoListDialog::onCmdUpdate(FXObject*, FXSelector, void*) {
     // first check if shown
-    if (shown() && (myLastUndoElement != myTreeListDinamic->getSelectedIndex())) {
+    if (shown() && (myLastUndoElement != myTreeListDynamic->getSelectedIndex())) {
         // set colors
-        for (int i = 0; i < myTreeListDinamic->getSelectedIndex(); i++) {
-            myTreeListDinamic->getItem(i)->setTextColor(FXRGB(255, 0, 0));
+        for (int i = 0; i < myTreeListDynamic->getSelectedIndex(); i++) {
+            myTreeListDynamic->getItem(i)->setTextColor(FXRGB(255, 0, 0));
         }
-        for (int i = myTreeListDinamic->getSelectedIndex(); i < myTreeListDinamic->getNumItems(); i++) {
-            myTreeListDinamic->getItem(i)->setTextColor(FXRGB(0, 0, 0));
+        for (int i = myTreeListDynamic->getSelectedIndex(); i < myTreeListDynamic->getNumItems(); i++) {
+            myTreeListDynamic->getItem(i)->setTextColor(FXRGB(0, 0, 0));
         }
-        myTreeListDinamic->update();
+        myTreeListDynamic->update();
         // undo/redo
-        for (int i = myLastUndoElement; i < myTreeListDinamic->getSelectedIndex(); i++) {
+        for (int i = myLastUndoElement; i < myTreeListDynamic->getSelectedIndex(); i++) {
             myGNEApp->getUndoList()->undo();
         }
-        for (int i = myLastUndoElement; i >= myTreeListDinamic->getSelectedIndex(); i--) {
+        for (int i = myLastUndoElement; i >= myTreeListDynamic->getSelectedIndex(); i--) {
             myGNEApp->getUndoList()->redo();
         }
-        myLastUndoElement = myTreeListDinamic->getSelectedIndex();
+        myLastUndoElement = myTreeListDynamic->getSelectedIndex();
     }
     return 0;
 }
@@ -138,28 +138,28 @@ GNEUndoListDialog::onCmdUpdate(FXObject*, FXSelector, void*) {
 
 void
 GNEUndoListDialog::updateList() {
-    // first clear myTreeListDinamic
-    myTreeListDinamic->clearItems();
+    // first clear myTreeListDynamic
+    myTreeListDynamic->clearItems();
     // declare undo iterator over UndoList
     GNEUndoList::UndoIterator itUndo(myGNEApp->getUndoList());
     FXTreeItem* firstItem = nullptr;
-    // fill myTreeListDinamic
+    // fill myTreeListDynamic
     while (!itUndo.end()) {
         if (firstItem == nullptr) {
-            firstItem = myTreeListDinamic->appendItem(nullptr, itUndo.getDescription().c_str(), itUndo.getIcon());
+            firstItem = myTreeListDynamic->appendItem(nullptr, itUndo.getDescription().c_str(), itUndo.getIcon());
         } else {
-            myTreeListDinamic->appendItem(nullptr, itUndo.getDescription().c_str(), itUndo.getIcon());
+            myTreeListDynamic->appendItem(nullptr, itUndo.getDescription().c_str(), itUndo.getIcon());
         }
         itUndo++;
     }
     // declare redo iterator over UndoList
     GNEUndoList::RedoIterator itRedo(myGNEApp->getUndoList());
-    // fill myTreeListDinamic
+    // fill myTreeListDynamic
     while (!itRedo.end()) {
         if (firstItem == nullptr) {
-            firstItem = myTreeListDinamic->prependItem(nullptr, itRedo.getDescription().c_str(), itRedo.getIcon(), FXRGB(255, 0, 0));
+            firstItem = myTreeListDynamic->prependItem(nullptr, itRedo.getDescription().c_str(), itRedo.getIcon(), FXRGB(255, 0, 0));
         } else {
-            myTreeListDinamic->prependItem(nullptr, itRedo.getDescription().c_str(), itRedo.getIcon(), FXRGB(255, 0, 0));
+            myTreeListDynamic->prependItem(nullptr, itRedo.getDescription().c_str(), itRedo.getIcon(), FXRGB(255, 0, 0));
         }
         itRedo++;
     }

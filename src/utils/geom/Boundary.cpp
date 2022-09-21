@@ -381,6 +381,15 @@ Boundary::set(double xmin, double ymin, double xmax, double ymax) {
 
 
 void
+Boundary::setOffsets(double xmin, double ymin, double xmax, double ymax) {
+    myXmin = xmin;
+    myYmin = ymin;
+    myXmax = xmax;
+    myYmax = ymax;
+}
+
+
+void
 Boundary::moveby(double x, double y, double z) {
     myXmin += x;
     myYmin += y;

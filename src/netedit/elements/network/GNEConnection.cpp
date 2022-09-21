@@ -31,6 +31,7 @@
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/gui/div/GUIDesigns.h>
+#include <utils/gui/div/GUIGlobalPostDrawing.h>
 
 #include "GNEConnection.h"
 #include "GNEInternalLane.h"
@@ -47,13 +48,12 @@ static const int NUM_POINTS = 5;
 
 GNEConnection::GNEConnection(GNELane* from, GNELane* to) :
     GNENetworkElement(from->getNet(), "from" + from->getID() + "to" + to->getID(),
-                      GLO_CONNECTION, SUMO_TAG_CONNECTION,
-{}, {}, {}, {}, {}, {}),
-myFromLane(from),
-myToLane(to),
-myLinkState(LINKSTATE_TL_OFF_NOSIGNAL),
-mySpecialColor(nullptr),
-myShapeDeprecated(true) {
+    GLO_CONNECTION, SUMO_TAG_CONNECTION, GUIIconSubSys::getIcon(GUIIcon::CONNECTION), {}, {}, {}, {}, {}, {}),
+    myFromLane(from),
+    myToLane(to),
+    myLinkState(LINKSTATE_TL_OFF_NOSIGNAL),
+    mySpecialColor(nullptr),
+    myShapeDeprecated(true) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -444,18 +444,31 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
             }
             // draw lock icon
             GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), 0.1);
-            // check if dotted contour has to be drawn (not useful at high zoom)
+            // check if mouse is over element
+            mouseWithinGeometry(shapeSuperposed, s.connectionSettings.connectionWidth);
+            // inspect contour
             if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
                 // use drawDottedContourGeometry to draw it
-                GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, shapeSuperposed, s.connectionSettings.connectionWidth, selectionScale, true, true, 0.1);
+                GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::INSPECT_SMALL, shapeSuperposed, s.connectionSettings.connectionWidth, selectionScale, true, true);
             }
-            // check if front contour has to be drawn (not useful at high zoom)
-            if ((myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
+            // front contour
+            if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
                 // use drawDottedContourGeometry to draw it
-                GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::FRONT, s, shapeSuperposed, s.connectionSettings.connectionWidth, selectionScale, true, true, 0.1);
+                GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::FRONT_SMALL, shapeSuperposed, s.connectionSettings.connectionWidth, selectionScale, true, true);
+            }
+            // delete contour
+            if (myNet->getViewNet()->drawDeleteContour(this, this)) {
+                // use drawDottedContourGeometry to draw it
+                GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::REMOVE, shapeSuperposed, s.connectionSettings.connectionWidth, selectionScale, true, true);
             }
         }
     }
+}
+
+
+void
+GNEConnection::deleteGLObject() {
+    myNet->deleteNetworkElement(this, myNet->getViewNet()->getUndoList());
 }
 
 

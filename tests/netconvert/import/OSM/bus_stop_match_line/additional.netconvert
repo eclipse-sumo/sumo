@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Sep 27 10:25:26 2019 by Eclipse SUMO netconvert Version v1_3_1+0448-0d7d2a7
+<!-- generated on 2022-09-03 22:29:21 by Eclipse SUMO netconvert Version v1_14_1+0819-bf19e4679c8
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -32,10 +37,10 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <busStop id="4526257455" name="变电所" lane="417820309#2_0" startPos="654.76" endPos="679.76" friendlyPos="true" lines="6"/>
-    <busStop id="4526257459" name="变电所" lane="172556825#0_0" startPos="658.27" endPos="683.27" friendlyPos="true" lines="3"/>
-    <busStop id="4526257471" name="谢二矿" lane="417820309#1_0" startPos="494.51" endPos="519.51" friendlyPos="true" lines="6"/>
-    <busStop id="4526257472" name="谢二矿" lane="172556825#3_0" startPos="173.06" endPos="198.06" friendlyPos="true" lines="3"/>
-    <busStop id="4526257478" name="夏郢孜" lane="417820309#0_0" startPos="245.60" endPos="270.60" friendlyPos="true" lines="6"/>
-    <busStop id="4526257479" name="夏郢孜" lane="172556825#3_0" startPos="723.55" endPos="748.55" friendlyPos="true" lines="3"/>
+    <busStop id="4526257455" name="变电所" lane="417820309#2_0" startPos="650.06" endPos="675.06" friendlyPos="true" lines="6"/>
+    <busStop id="4526257459" name="变电所" lane="172556825#0_0" startPos="658.05" endPos="683.05" friendlyPos="true" lines="3"/>
+    <busStop id="4526257471" name="谢二矿" lane="417820309#1_0" startPos="489.15" endPos="514.15" friendlyPos="true" lines="6"/>
+    <busStop id="4526257472" name="谢二矿" lane="172556825#3_0" startPos="168.12" endPos="193.12" friendlyPos="true" lines="3"/>
+    <busStop id="4526257478" name="夏郢孜" lane="417820309#0_0" startPos="241.11" endPos="266.11" friendlyPos="true" lines="6"/>
+    <busStop id="4526257479" name="夏郢孜" lane="172556825#3_0" startPos="718.07" endPos="743.07" friendlyPos="true" lines="3"/>
 </additional>

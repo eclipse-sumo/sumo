@@ -34,8 +34,8 @@
 // GNEContainerPlanFrame - methods
 // ---------------------------------------------------------------------------
 
-GNEContainerPlanFrame::GNEContainerPlanFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet) :
-    GNEFrame(horizontalFrameParent, viewNet, "ContainerPlans"),
+GNEContainerPlanFrame::GNEContainerPlanFrame(GNEViewParent *viewParent, GNEViewNet* viewNet) :
+    GNEFrame(viewParent, viewNet, "ContainerPlans"),
     myRouteHandler("", viewNet->getNet(), true, false) {
 
     // create container types selector modul

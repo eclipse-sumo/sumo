@@ -190,7 +190,7 @@ public:
     const std::string& getTagStr() const;
 
     /// @brief get FXIcon associated to this AC
-    FXIcon* getIcon() const;
+    FXIcon* getACIcon() const;
 
     /// @brief check if this AC is template
     bool isTemplate() const;
@@ -256,6 +256,9 @@ public:
 
     /// @brief check if lanes are consecutives
     static bool lanesConsecutives(const std::vector<GNELane*>& lanes);
+
+    /// @brief returns icon associated to the given vClass
+    static FXIcon* getVClassIcon(const SUMOVehicleClass vc);
 
     /// @name Certain attributes and ACs (for example, connections) can be either loaded or guessed. The following static variables are used to remark it.
     /// @{
@@ -390,9 +393,6 @@ private:
 
     /// @brief fill Data elements
     static void fillDataElements();
-
-    /// @brief returns icon associated to the given vClass
-    static FXIcon* getVClassIcon(const SUMOVehicleClass vc);
 
     /// @brief map with the tags properties
     static std::map<SumoXMLTag, GNETagProperties> myTagProperties;

@@ -171,7 +171,7 @@ ODMatrix::computeDeparts(ODCell* cell,
         veh.id = prefix + toString(vehName++);
 
         if (uniform) {
-            veh.depart = (SUMOTime)(offset + cell->begin + ((double)(cell->end - cell->begin) * (double) i / (double) vehicles2insert));
+            veh.depart = cell->begin + (SUMOTime)(offset + ((double)(cell->end - cell->begin) * (double) i / (double) vehicles2insert));
         } else {
             veh.depart = (SUMOTime)RandHelper::rand(cell->begin, cell->end);
         }

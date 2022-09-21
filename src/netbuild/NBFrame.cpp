@@ -151,30 +151,30 @@ NBFrame::fillOptions(bool forNetgen) {
     oc.addSynonyme("geometry.split", "split-geometry", true);
     oc.addDescription("geometry.split", "Processing", "Splits edges across geometry nodes");
 
+    oc.doRegister("geometry.remove", 'R', new Option_Bool(false));
+    oc.addSynonyme("geometry.remove", "remove-geometry", true);
+    oc.addDescription("geometry.remove", "Processing", "Replace nodes which only define edge geometry by geometry points (joins edges)");
+
+    oc.doRegister("geometry.remove.keep-edges.explicit", new Option_StringVector());
+    oc.addDescription("geometry.remove.keep-edges.explicit", "Processing", "Ensure that the given list of edges is not modified");
+
+    oc.doRegister("geometry.remove.keep-edges.input-file", new Option_FileName());
+    oc.addDescription("geometry.remove.keep-edges.input-file", "Processing",
+            "Ensure that the edges in FILE are not modified (Each id on a single line. Selection files from sumo-gui are also supported)");
+
     if (!forNetgen) {
-        oc.doRegister("geometry.remove", 'R', new Option_Bool(false));
-        oc.addSynonyme("geometry.remove", "remove-geometry", true);
-        oc.addDescription("geometry.remove", "Processing", "Replace nodes which only define edge geometry by geometry points (joins edges)");
-
-        oc.doRegister("geometry.remove.keep-edges.explicit", new Option_StringVector());
-        oc.addDescription("geometry.remove.keep-edges.explicit", "Processing", "Ensure that the given list of edges is not modified");
-
-        oc.doRegister("geometry.remove.keep-edges.input-file", new Option_FileName());
-        oc.addDescription("geometry.remove.keep-edges.input-file", "Processing",
-                          "Ensure that the edges in FILE are not modified (Each id on a single line. Selection files from sumo-gui are also supported)");
-
         oc.doRegister("geometry.remove.keep-ptstops", new Option_Bool(false));
         oc.addDescription("geometry.remove.keep-ptstops", "Processing", "Ensure that edges with public transport stops are not modified");
-
-        oc.doRegister("geometry.remove.min-length", new Option_Float(0));
-        oc.addDescription("geometry.remove.min-length", "Processing",
-                          "Allow merging edges with differing attributes when their length is below min-length");
-
-        oc.doRegister("geometry.remove.width-tolerance", new Option_Float(0));
-        oc.addDescription("geometry.remove.width-tolerance", "Processing",
-                          "Allow merging edges with differing lane widths if the difference is below FLOAT");
-
     }
+
+    oc.doRegister("geometry.remove.min-length", new Option_Float(0));
+    oc.addDescription("geometry.remove.min-length", "Processing",
+            "Allow merging edges with differing attributes when their length is below min-length");
+
+    oc.doRegister("geometry.remove.width-tolerance", new Option_Float(0));
+    oc.addDescription("geometry.remove.width-tolerance", "Processing",
+            "Allow merging edges with differing lane widths if the difference is below FLOAT");
+
     oc.doRegister("geometry.max-segment-length", new Option_Float(0));
     oc.addDescription("geometry.max-segment-length", "Processing", "splits geometry to restrict segment length");
 
@@ -242,7 +242,7 @@ NBFrame::fillOptions(bool forNetgen) {
         oc.addSynonyme("railway.access-distance", "osm.stop-output.footway-access-distance", true);
 
         oc.doRegister("railway.max-accesses", new Option_Integer(5));
-        oc.addDescription("railway.max-accesses", "Railway", "The maximum roud accesses registered per rail stops");
+        oc.addDescription("railway.max-accesses", "Railway", "The maximum road accesses registered per rail stops");
         oc.addSynonyme("railway.max-accesses", "osm.stop-output.footway-max-accesses", true);
 
         oc.doRegister("railway.access-factor", new Option_Float(1.5));

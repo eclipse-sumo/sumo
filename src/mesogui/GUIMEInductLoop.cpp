@@ -62,7 +62,7 @@ GUIMEInductLoop::buildDetectorGUIRepresentation() {
 // -----------------------------------------------------------------------
 
 GUIMEInductLoop::MyWrapper::MyWrapper(GUIMEInductLoop& detector, double pos)
-    : GUIDetectorWrapper(GLO_E1DETECTOR_ME, detector.getID()),
+    : GUIDetectorWrapper(GLO_E1DETECTOR_ME, detector.getID(), GUIIconSubSys::getIcon(GUIIcon::E1)),
       myDetector(detector), myPosition(pos) {
     const MSLane* lane = detector.mySegment->getEdge().getLanes()[0];
     myFGPosition = lane->geometryPositionAtOffset(pos);

@@ -457,7 +457,7 @@ GUIGeometry::drawLaneGeometry(const GUIVisualizationSettings& s, const Position&
 
 void
 GUIGeometry::drawParentLine(const GUIVisualizationSettings& s, const Position& parent, const Position& child,
-                            const RGBColor& color, const bool drawEntire) {
+                            const RGBColor& color, const bool drawEntire, const double lineWidth) {
     if (!s.drawForPositionSelection && !s.drawForRectangleSelection) {
         // calculate rotation
         const double rot = RAD2DEG(parent.angleTo2D(child)) + 90;
@@ -471,7 +471,7 @@ GUIGeometry::drawParentLine(const GUIVisualizationSettings& s, const Position& p
         if (drawEntire) {
             // draw first box line
             GLHelper::setColor(color.changedBrightness(-50));
-            GLHelper::drawBoxLine(parent, rot, sqrt(distanceSquared), .05);
+            GLHelper::drawBoxLine(parent, rot, sqrt(distanceSquared), lineWidth);
             // move front
             glTranslated(0, 0, 0.1);
             // draw second box line
@@ -480,7 +480,7 @@ GUIGeometry::drawParentLine(const GUIVisualizationSettings& s, const Position& p
         } else if (distanceSquared > 25) {
             // draw first box line with length 4.9
             GLHelper::setColor(color.changedBrightness(-50));
-            GLHelper::drawBoxLine(parent, rot, 4.9, .05);
+            GLHelper::drawBoxLine(parent, rot, 4.9, lineWidth);
             glTranslated(0, 0, 0.1);
             // draw second box line with length 4.9
             GLHelper::setColor(color);
@@ -515,10 +515,12 @@ GUIGeometry::drawParentLine(const GUIVisualizationSettings& s, const Position& p
 
 void
 GUIGeometry::drawChildLine(const GUIVisualizationSettings& s, const Position& child, const Position& parent,
-                           const RGBColor& color, const bool drawEntire) {
+                           const RGBColor& color, const bool drawEntire, const double lineWidth) {
     if (!s.drawForPositionSelection && !s.drawForRectangleSelection) {
         // calculate distance between origin and destiny
         const double distanceSquared = child.distanceSquaredTo2D(parent);
+        // calculate subline width
+        const double sublineWidth = (lineWidth * 0.8);
         // calculate rotation
         const double rot = RAD2DEG(child.angleTo2D(parent)) + 90;
         // Add a draw matrix for details
@@ -533,20 +535,20 @@ GUIGeometry::drawChildLine(const GUIVisualizationSettings& s, const Position& ch
             GLHelper::setColor(color);
             // draw first box line
             GLHelper::setColor(color.changedBrightness(-50));
-            GLHelper::drawBoxLine(child, rot, sqrt(distanceSquared), .05);
+            GLHelper::drawBoxLine(child, rot, sqrt(distanceSquared), lineWidth);
             // move front
             glTranslated(0, 0, 0.1);
             // draw second box line
             GLHelper::setColor(color);
-            GLHelper::drawBoxLine(child, rot, sqrt(distanceSquared), .04);
+            GLHelper::drawBoxLine(child, rot, sqrt(distanceSquared), sublineWidth);
         } else {
             // draw first box line with length 4.9
             GLHelper::setColor(color.changedBrightness(-50));
-            GLHelper::drawBoxLine(child, rot, 4.9, .05);
+            GLHelper::drawBoxLine(child, rot, 4.9, lineWidth);
             glTranslated(0, 0, 0.1);
             // draw second box line with length
             GLHelper::setColor(color);
-            GLHelper::drawBoxLine(child, rot, 4.9, .04);
+            GLHelper::drawBoxLine(child, rot, 4.9, sublineWidth);
             // draw arrow depending of distanceSquared (10*10)
             if (distanceSquared > 100) {
                 // calculate positionVector between both points

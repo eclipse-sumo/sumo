@@ -50,19 +50,19 @@ netedit.leftClick(referencePosition, 290, 195)
 netedit.changeDefaultValue(netedit.attrs.waypoint.create.actType, "")
 
 # try to create waypoint
-netedit.leftClick(referencePosition, 290, 195)
+netedit.leftClick(referencePosition, 295, 195)
 
 # set valid value
 netedit.changeDefaultValue(netedit.attrs.waypoint.create.actType, "dummy Act")
 
 # create waypoint
-netedit.leftClick(referencePosition, 290, 195)
+netedit.leftClick(referencePosition, 300, 195)
 
 # set valid value
 netedit.changeDefaultValue(netedit.attrs.waypoint.create.actType, "singing")
 
 # create waypoint
-netedit.leftClick(referencePosition, 290, 195)
+netedit.leftClick(referencePosition, 305, 195)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)

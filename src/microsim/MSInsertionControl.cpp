@@ -219,10 +219,9 @@ MSInsertionControl::determineCandidates(SUMOTime time) {
             vtype = vehControl.getVType(pars->vtypeid, MSRouteHandler::getParsingRNG());
             typeScale = vtype->getParameter().scale;
         }
-        // only upscaling is considered here
-        double scale = MAX2(1.0, vehControl.getScale() * typeScale);
+        double scale = vehControl.getScale() * typeScale;
         bool tryEmitByProb = pars->repetitionProbability > 0;
-        while ((pars->repetitionProbability < 0
+        while (scale > 0 && ((pars->repetitionProbability < 0
                 && pars->repetitionsDone < pars->repetitionNumber * scale
                 && pars->depart + pars->repetitionTotalOffset <= time)
                 || (tryEmitByProb
@@ -230,7 +229,7 @@ MSInsertionControl::determineCandidates(SUMOTime time) {
                     && pars->repetitionEnd > time
                     // only call rand if all other conditions are met
                     && RandHelper::rand(&myFlowRNG) < (pars->repetitionProbability * TS))
-              ) {
+              )) {
             tryEmitByProb = false; // only emit one per step
             SUMOVehicleParameter* newPars = new SUMOVehicleParameter(*pars);
             newPars->id = pars->id + "." + toString(i->index);
@@ -244,10 +243,9 @@ MSInsertionControl::determineCandidates(SUMOTime time) {
                     vtype = vehControl.getVType(pars->vtypeid, MSRouteHandler::getParsingRNG());
                 }
                 SUMOVehicle* const vehicle = vehControl.buildVehicle(newPars, route, vtype, !MSGlobals::gCheckRoutes);
-                // for equidistant vehicles, up-scaling is done via repetitionOffset
-                // down-scaling is still done via quota (individual vehicles go missing) to preserve as much of the original flow structure as possible
-                bool useScale = pars->repetitionProbability < 0 && scale > 1;
-                int quota = useScale ? 1 : vehControl.getQuota(vehControl.getScale() * typeScale);
+                // for equidistant vehicles, all scaling is done via repetitionOffset (to avoid artefacts, #11441)
+                // for probabilistic vehicles, we use the quota
+                int quota = pars->repetitionProbability < 0 ? 1 : vehControl.getQuota(scale);
                 if (quota > 0) {
                     vehControl.addVehicle(newPars->id, vehicle);
                     if (pars->departProcedure == DepartDefinition::GIVEN) {

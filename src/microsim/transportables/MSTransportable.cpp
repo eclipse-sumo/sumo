@@ -63,6 +63,8 @@ MSTransportable::~MSTransportable() {
         MSStageDriving* const stage = dynamic_cast<MSStageDriving*>(*myStep);
         if (stage->getVehicle() != nullptr) {
             stage->getVehicle()->removeTransportable(this);
+        } else if (stage->getOriginStop() != nullptr)  {
+            stage->getOriginStop()->removeTransportable(this);
         }
     }
     if (myPlan != nullptr) {
@@ -97,7 +99,7 @@ MSTransportable::proceed(MSNet* net, SUMOTime time, const bool vehicleArrived) {
         throw ProcessError(error);
     }
     bool accessToStop = false;
-    if (prior->getStageType() == MSStageType::WALKING) {
+    if (prior->getStageType() == MSStageType::WALKING || prior->getStageType() == MSStageType::DRIVING) {
         accessToStop = checkAccess(prior);
     }
     if (!accessToStop && (myStep == myPlan->end()
@@ -203,6 +205,9 @@ MSTransportable::tripInfoOutput(OutputDevice& os) const {
     os.writeAttr("id", getID());
     os.writeAttr("depart", time2string(getDesiredDepart()));
     os.writeAttr("type", getVehicleType().getID());
+    if (isPerson()) {
+        os.writeAttr("speedFactor", getChosenSpeedFactor());
+    }
     for (MSStage* const i : *myPlan) {
         i->tripInfoOutput(os, this);
     }
@@ -488,7 +493,7 @@ MSTransportable::getWaitingTime() const {
 
 double
 MSTransportable::getMaxSpeed() const {
-    return getVehicleType().getMaxSpeed() * getSpeedFactor();
+    return MIN2(getVehicleType().getMaxSpeed(), getVehicleType().getDesiredMaxSpeed() * getChosenSpeedFactor());
 }
 
 SUMOVehicleClass
@@ -502,9 +507,9 @@ MSTransportable::saveState(OutputDevice& out) {
     // this saves lots of departParameters which are only needed for transportables that did not yet depart
     // the parameters may hold the name of a vTypeDistribution but we are interested in the actual type
     myParameter->write(out, OptionsCont::getOptions(), myAmPerson ? SUMO_TAG_PERSON : SUMO_TAG_CONTAINER, getVehicleType().getID());
-    if (!myParameter->wasSet(VEHPARS_SPEEDFACTOR_SET) && getSpeedFactor() != 1) {
+    if (!myParameter->wasSet(VEHPARS_SPEEDFACTOR_SET) && getChosenSpeedFactor() != 1) {
         out.setPrecision(MAX2(gPrecisionRandom, gPrecision));
-        out.writeAttr(SUMO_ATTR_SPEEDFACTOR, getSpeedFactor());
+        out.writeAttr(SUMO_ATTR_SPEEDFACTOR, getChosenSpeedFactor());
         out.setPrecision(gPrecision);
     }
     int stepIdx = (int)(myStep - myPlan->begin());

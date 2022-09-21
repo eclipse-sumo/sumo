@@ -38,6 +38,7 @@ title: Developer
 - [How To write an own network importer](How_To/Net_Importer.md)
 - [How To extend the vehicle class](How_To/Extend_Vehicles.md)
 - [How To implement an own car-following model](How_To/Car-Following_Model.md)
+- [How To implement an own lane-changing model](How_To/Lane-Changing_Model.md)
 - [How To implement a new device](How_To/Device.md)
 - [How To contribute to this documentation](../FAQ.md#how_do_i_contribute_to_the_documentation)
 - [How To contribute to SUMO in general](../FAQ.md#how_can_i_contribute_to_sumo)

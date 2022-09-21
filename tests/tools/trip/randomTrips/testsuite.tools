@@ -24,6 +24,9 @@ fractional
 minimum_distance
 minimum_distance_exceeded
 
+# make sure that source and sink are a minimum distance appart but this does not apply to fringe edges
+minimum_distance_fringe
+
 # disturb fastest-path-search
 random-routing-factor
 
@@ -63,6 +66,9 @@ junctionTaz_validate
 
 # prevent some edge types from being used as source or destination
 viaEdgeType
+
+# Test for having the options "additional-files" and "vtype-output" and vClass
+additional_and_vClass
 
 # This test suite checks that argument forwarding to duarouter works correctly.
 duarouter_options

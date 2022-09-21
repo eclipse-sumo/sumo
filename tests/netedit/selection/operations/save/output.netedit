@@ -5,7 +5,7 @@ Network
 edge
 allow
 passenger
-C:\Users\palva\.texttest\tmp\netedit.gui.1_from_21Jan100545.16060\netedit.gui\selection\operations\save\selection.txt
+/home/palcraft/.texttest/tmp/netedit.daily.selection.25Aug083803.19709/netedit.daily.selection/selection/operations/save/selection.txt
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Netedit closed successfully

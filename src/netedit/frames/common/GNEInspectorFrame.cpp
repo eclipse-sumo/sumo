@@ -24,6 +24,7 @@
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
+#include <netedit/GNEApplicationWindow.h>
 #include <netedit/elements/additional/GNERerouter.h>
 #include <netedit/elements/additional/GNECalibrator.h>
 #include <netedit/elements/additional/GNEVariableSpeedSign.h>
@@ -101,8 +102,9 @@ GNEInspectorFrame::NeteditAttributesEditor::NeteditAttributesEditor(GNEInspector
     // Create elements for parent additional
     myLabelParentAdditional = new FXLabel(getCollapsableFrame(), "Parent", nullptr, GUIDesignLabelCenterThick);
     myTextFieldParentAdditional = new FXTextField(getCollapsableFrame(), GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
-    mySetNewParentButton = new MFXCheckableButton(false, getCollapsableFrame(), ("Set new parent"), nullptr,
-            this, MID_GNE_SET_ATTRIBUTE, GUIDesignMFXCheckableButton);
+    mySetNewParentButton = new MFXCheckableButton(false, getCollapsableFrame(), 
+        inspectorFrameParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(), 
+        "Set new parent", nullptr, this, MID_GNE_SET_ATTRIBUTE, GUIDesignMFXCheckableButton);
     // Create elements for close shape
     myHorizontalFrameCloseShape = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     myLabelCloseShape = new FXLabel(myHorizontalFrameCloseShape, "Close shape", nullptr, GUIDesignLabelAttribute);
@@ -984,8 +986,8 @@ GNEInspectorFrame::AdditionalDialog::onCmdOpenAdditionalDialog(FXObject*, FXSele
 // GNEInspectorFrame - methods
 // ---------------------------------------------------------------------------
 
-GNEInspectorFrame::GNEInspectorFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet) :
-    GNEFrame(horizontalFrameParent, viewNet, "Inspector"),
+GNEInspectorFrame::GNEInspectorFrame(GNEViewParent *viewParent, GNEViewNet* viewNet) :
+    GNEFrame(viewParent, viewNet, "Inspector"),
     myPreviousElementInspect(nullptr),
     myPreviousElementDelete(nullptr),
     myPreviousElementDeleteWasMarked(false) {
@@ -1045,7 +1047,7 @@ GNEInspectorFrame::hide() {
 bool
 GNEInspectorFrame::processNetworkSupermodeClick(const Position& clickedPosition, GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor) {
     // get unlocked attribute carrier front
-    auto AC = objectsUnderCursor.getAttributeCarrierFront(myViewNet->getLockManager());
+    auto AC = objectsUnderCursor.getAttributeCarrierFront();
     // first check if we have clicked over an Attribute Carrier
     if (AC) {
         // if Control key is Pressed, select instead inspect element
@@ -1080,7 +1082,7 @@ GNEInspectorFrame::processNetworkSupermodeClick(const Position& clickedPosition,
 bool
 GNEInspectorFrame::processDemandSupermodeClick(const Position& clickedPosition, GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor) {
     // get unlocked attribute carrier front
-    auto AC = objectsUnderCursor.getAttributeCarrierFront(myViewNet->getLockManager());
+    auto AC = objectsUnderCursor.getAttributeCarrierFront();
     // first check if we have clicked over a demand element
     if (AC) {
         // if Control key is Pressed, select instead inspect element
@@ -1115,7 +1117,7 @@ GNEInspectorFrame::processDemandSupermodeClick(const Position& clickedPosition, 
 bool
 GNEInspectorFrame::processDataSupermodeClick(const Position& clickedPosition, GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor) {
     // get unlocked attribute carrier front
-    auto AC = objectsUnderCursor.getAttributeCarrierFront(myViewNet->getLockManager());
+    auto AC = objectsUnderCursor.getAttributeCarrierFront();
     // first check if we have clicked over a data element
     if (AC) {
         // if Control key is Pressed, select instead inspect element
@@ -1248,8 +1250,9 @@ GNEInspectorFrame::inspectMultisection(const std::vector<GNEAttributeCarrier*>& 
         }
     } else {
         getFrameHeaderLabel()->setText("Inspect");
-        myContentFrame->recalc();
     }
+    // update frame width
+    setFrameWidth(myViewNet->getViewParent()->getFrameAreaWidth());
 }
 
 
@@ -1366,7 +1369,7 @@ GNEInspectorFrame::selectedOverlappedElement(GNEAttributeCarrier* AC) {
 void
 GNEInspectorFrame::inspectClickedElement(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, const Position& clickedPosition) {
     // get front unlocked AC
-    const auto AC = objectsUnderCursor.getAttributeCarrierFront(myViewNet->getLockManager());
+    const auto AC = objectsUnderCursor.getAttributeCarrierFront();
     // check if selection is blocked
     if (AC) {
         // inspect front element

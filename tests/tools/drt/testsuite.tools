@@ -15,3 +15,9 @@ customized_times
 
 # test time out to process a reservation
 max_processing
+
+# test ortools
+drtOrtools
+
+# Tests for the tool 'drtOrtools.py', which provides a drt with the help of the OR-Tools library.
+drtOR-Tools

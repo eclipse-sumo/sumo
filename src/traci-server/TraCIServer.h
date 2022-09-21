@@ -317,7 +317,6 @@ private:
      */
     bool commandGetVersion();
 
-
     /** @brief Handles subscriptions to send after a simstep2 command
      */
     void postProcessSimulationStep();

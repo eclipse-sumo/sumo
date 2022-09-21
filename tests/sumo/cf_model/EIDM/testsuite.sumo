@@ -12,3 +12,9 @@ ticket11183
 
 # collision after ignoring junction blocker
 ticket11184
+
+# creeping collision 
+ticket11361
+
+# startup after stopping
+ticket11374

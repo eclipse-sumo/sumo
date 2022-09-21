@@ -39,8 +39,20 @@ public:
     /// @brief mark GLObject to update (usually the geometry)
     void markGLObjectToUpdate(GUIGlObject* GLObject);
 
+    /// @brief add element into list of elements under cursor
+    void addElementUnderCursor(const GUIGlObject* GLObject);
+
+    /// @brief check if element is under cursor
+    bool isElementUnderCursor(const GUIGlObject* GLObject) const;
+
+    /// @brief get all elements under cursor
+    const std::vector<const GUIGlObject*> &getElementUnderCursor() const;
+
     /// @brief recompute boundaries
     GUIGlObjectType recomputeBoundaries = GLO_NETWORK;
+
+    /// @brief mouse position before rendering elements
+    Position mousePos = Position::INVALID;
 
     /// @brief marked Node (used in create edge mode)
     const GUIGlObject* markedNode = nullptr;
@@ -60,6 +72,9 @@ public:
 protected:
     /// @brief GLObjects to update
     std::vector<GUIGlObject*> myGLObjectsToUpdate;
+
+    /// @brief elements under cursor
+    std::vector<const GUIGlObject*> myElementsUnderCursor;
 
 private:
     /// @brief set copy constructor private

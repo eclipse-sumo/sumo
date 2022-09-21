@@ -1,0 +1,32 @@
+# one train passes the stop and the other train is inserted on the opposite direction stop 
+opposite
+
+# one train passes the stop (after being overtaken) and the other train is inserted on the opposite direction stop.
+# write constraint despite option --abort-unordered since unordered oppositeInsertion carries a greater risk of deadlock.
+opposite_invalid
+
+# one train arrives at the stop and the other train is inserted on the opposite direction stop.
+opposite_arrival
+
+# one train passes the stop and the other train is inserted on the opposite direction stop 
+# (but both stops are not on the same bidiEdge pair but rather in different directions of a topological string of bidiEdge pairs)
+opposite_sequential
+
+# one train passes the stop and the other train is inserted on the opposite direction stop 
+# (but both stops are not on the same bidiEdge pair but rather in different directions of a topological string of bidiEdge pairs)
+# longer sequence
+opposite_sequential2
+
+# one train passes the stop and the other train is inserted on the opposite direction stop 
+# (but both stops are not on the same bidiEdge pair but rather in different directions of a topological string of bidiEdge pairs)
+# longer sequence
+opposite_sequential2_maxRange
+
+# one train passes the stop and the other train is inserted on the opposite direction stop 
+# (but both stops are not on the same bidiEdge pair but rather in different directions of a topological string of bidiEdge pairs)
+# swapped positioning of stops on sequence
+opposite_sequential_reverse
+
+# one train passes the stop and the other train is inserted on the opposite direction stop 
+# test interaction with time-shifting
+opposite_ended

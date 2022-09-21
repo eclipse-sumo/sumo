@@ -22,10 +22,15 @@
 #pragma once
 #include <config.h>
 
-#include <utils/foxtools/MFXMenuButtonTooltip.h>
-
 #include "GUISUMOAbstractView.h"
 
+
+// ===========================================================================
+// class declaration
+// ===========================================================================
+
+class MFXCheckableButton;
+class MFXMenuButtonTooltip;
 
 // ===========================================================================
 // class definitions
@@ -63,7 +68,8 @@ public:
     long onCmdRecenterView(FXObject*, FXSelector, void*);
     long onCmdEditViewport(FXObject*, FXSelector, void*);
     long onCmdEditViewScheme(FXObject*, FXSelector, void*);
-    long onCmdShowToolTips(FXObject* sender, FXSelector, void*);
+    long onCmdShowToolTipsView(FXObject* sender, FXSelector, void*);
+    long onCmdShowToolTipsMenu(FXObject* sender, FXSelector, void*);
     long onCmdZoomStyle(FXObject* sender, FXSelector, void*);
     long onCmdChangeColorScheme(FXObject*, FXSelector sel, void*);
     /// @}
@@ -92,31 +98,41 @@ public:
     virtual bool isSelected(GUIGlObject* o) const;
 
 protected:
+    /// @brief FOX needs this
     FOX_CONSTRUCTOR(GUIGlChildWindow)
 
     /// @brief The parent window
-    GUIMainWindow* myParent;
+    GUIMainWindow* myParent = nullptr;
 
     /// @brief The grip navigation tool bar
-    FXMenuBar* myGripNavigationToolbar;
+    FXMenuBar* myGripNavigationToolbar = nullptr;
 
     /// @brief The static navigation tool bar
-    FXToolBar* myStaticNavigationToolBar;
+    FXToolBar* myStaticNavigationToolBar = nullptr;
 
     /// @brief The view
-    GUISUMOAbstractView* myView;
+    GUISUMOAbstractView* myView = nullptr;
+
+    /// @brief Zoom but
+    MFXCheckableButton* myZoomStyle = nullptr;
 
     /// The locator menu
-    FXPopup* myLocatorPopup;
+    FXPopup* myLocatorPopup = nullptr;
 
     /// @brief The locator button
-    MFXMenuButtonTooltip* myLocatorButton;
+    MFXMenuButtonTooltip* myLocatorButton = nullptr;
+
+    /// @brief menu for tooltips view
+    MFXCheckableButton* myShowToolTipsView = nullptr;
+
+    /// @brief menu for tooltips menu
+    MFXCheckableButton* myShowToolTipsMenu = nullptr;
 
     /// @brief The contents frame
-    FXVerticalFrame* myContentFrame;
+    FXVerticalFrame* myChildWindowContentFrame = nullptr;
 
     /// @brief The coloring schemes
-    FXComboBox* myColoringSchemes;
+    FXComboBox* myColoringSchemes = nullptr;
 
     /// @brief build navigation toolbar
     void buildNavigationToolBar();

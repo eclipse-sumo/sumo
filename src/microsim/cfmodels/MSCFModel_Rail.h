@@ -34,7 +34,7 @@ public:
     MSCFModel_Rail(const MSVehicleType* vtype);
 
     double followSpeed(const MSVehicle* const veh, double speed, double gap2pred, double predSpeed,
-                       double predMaxDecel, const MSVehicle* const pred = 0) const;
+                       double predMaxDecel, const MSVehicle* const pred = 0, const CalcReason usage = CalcReason::CURRENT) const;
 
     virtual int getModelID() const;
 
@@ -57,7 +57,7 @@ public:
     double finalizeSpeed(MSVehicle* const veh, double vPos) const;
 
     double freeSpeed(const MSVehicle* const veh, double speed, double seen, double maxSpeed,
-                     const bool onInsertion) const;
+                     const bool onInsertion, const CalcReason usage = CalcReason::CURRENT) const;
 
 private:
 
@@ -80,7 +80,7 @@ private:
 
 
 public:
-    double stopSpeed(const MSVehicle* const veh, const double speed, double gap, double decel) const;
+    double stopSpeed(const MSVehicle* const veh, const double speed, double gap, double decel, const CalcReason usage = CalcReason::CURRENT) const;
 
 //    class VehicleVariables : public MSCFModel::VehicleVariables {
 //

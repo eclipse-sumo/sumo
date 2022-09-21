@@ -1,3 +1,4 @@
+ Retrying in 1 seconds
 
 Run dispatcher
 New reservations: ['0']
@@ -39,31 +40,31 @@ Solve DARP with simple_rerouting
 Run dispatcher
 Pending reservations: ['4', '7', '9']
 Solve DARP with simple_rerouting
-Solve ILP
-Dispatch: taxiB_0z_7y_2z_7z_1z
 
 Run dispatcher
-Pending reservations: ['4', '9']
+Pending reservations: ['4', '7', '9']
 Solve DARP with simple_rerouting
 
 Run dispatcher
-Pending reservations: ['4', '9']
+Pending reservations: ['4', '7', '9']
 Solve DARP with simple_rerouting
 Solve ILP
 
 Run dispatcher
-Pending reservations: ['4', '9']
+Pending reservations: ['4', '7', '9']
 Solve DARP with simple_rerouting
+Solve ILP
 
 Run dispatcher
-Pending reservations: ['4', '9']
+Pending reservations: ['4', '7', '9']
 Solve DARP with simple_rerouting
 Reservation 4 (person ('4',)) cannot be served
 Solve ILP
 
 Run dispatcher
-Pending reservations: ['9']
+Pending reservations: ['7', '9']
 Solve DARP with simple_rerouting
+Reservation 7 (person ('7',)) cannot be served
 Reservation 9 (person ('9',)) cannot be served
 Solve ILP
 

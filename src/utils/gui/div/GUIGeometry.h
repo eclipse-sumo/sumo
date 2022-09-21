@@ -108,10 +108,12 @@ public:
                                const RGBColor& hintColor, const double radius, const double exaggeration);
 
     /// @brief draw line between parent and children (used in NETEDIT)
-    static void drawParentLine(const GUIVisualizationSettings& s, const Position& parent, const Position& child, const RGBColor& color, const bool drawEntire);
+    static void drawParentLine(const GUIVisualizationSettings& s, const Position& parent, const Position& child, 
+                               const RGBColor& color, const bool drawEntire, const double lineWidth);
 
     /// @brief draw line between child and parent (used in NETEDIT)
-    static void drawChildLine(const GUIVisualizationSettings& s, const Position& child, const Position& parent, const RGBColor& color, const bool drawEntire);
+    static void drawChildLine(const GUIVisualizationSettings& s, const Position& child, const Position& parent,
+                              const RGBColor& color, const bool drawEntire, const double lineWidth);
 
     /// @brief get a circle around the given position
     static PositionVector getVertexCircleAroundPosition(const Position& pos, const double width, const int steps = 8);

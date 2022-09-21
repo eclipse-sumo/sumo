@@ -52,7 +52,9 @@ NIXMLPTHandler::NIXMLPTHandler(NBEdgeCont& ec, NBPTStopCont& sc, NBPTLineCont& l
     myEdgeCont(ec),
     myStopCont(sc),
     myLineCont(lc),
+    myCurrentStop(nullptr),
     myCurrentLine(nullptr),
+    myCurrentCompletion(0),
     myCurrentStopWasIgnored(false)
 { }
 
@@ -154,6 +156,7 @@ NIXMLPTHandler::addPTStop(const SUMOSAXAttributes& attrs) {
             WRITE_ERROR("Edge '" + edgeID + "' for stop '" + id + "' not found");
         } else {
             myCurrentStopWasIgnored = true;
+            NBPTStopCont::addIgnored(id);
         }
         return;
     }
@@ -168,7 +171,7 @@ NIXMLPTHandler::addPTStop(const SUMOSAXAttributes& attrs) {
     }
     if (ok) {
         Position pos = edge->geometryPositionAtOffset((startPos + endPos) / 2);
-        myCurrentStop = new NBPTStop(id, pos, edgeID, edgeID, endPos - startPos, name, permissions, parkingLength, color);
+        myCurrentStop = new NBPTStop(id, pos, edgeID, edgeID, endPos - startPos, name, permissions, parkingLength, color, startPos);
         if (!myStopCont.insert(myCurrentStop)) {
             WRITE_ERROR("Could not add public transport stop '" + id + "' (already exists)");
         }
@@ -286,7 +289,9 @@ NIXMLPTHandler::addPTLineStop(const SUMOSAXAttributes& attrs) {
                            : attrs.get<std::string>(SUMO_ATTR_BUS_STOP, "ptline", ok);
     NBPTStop* stop = myStopCont.get(id);
     if (stop == nullptr) {
-        WRITE_ERROR("Stop '" + id + "' within line '" + toString(myCurrentLine->getLineID()) + "' not found");
+        if (!NBPTStopCont::wasIgnored(id)) {
+            WRITE_ERROR("Stop '" + id + "' within line '" + toString(myCurrentLine->getLineID()) + "' not found");
+        }
         return;
     }
     myCurrentLine->addPTStop(stop);

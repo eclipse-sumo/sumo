@@ -30,17 +30,13 @@
 #include "MFXStaticToolTip.h"
 
 
-#define HSPACE  4
-#define VSPACE  2
-
 // ===========================================================================
 // FOX callback mapping
 // ===========================================================================
 
 FXDEFMAP(MFXStaticToolTip) MFXStaticToolTipMap[] = {
-    FXMAPFUNC(SEL_PAINT,    0,                      MFXStaticToolTip::onPaint),
-    FXMAPFUNC(SEL_TIMEOUT,  FXToolTip::ID_TIP_SHOW, MFXStaticToolTip::onTipShow),
-    FXMAPFUNC(SEL_TIMEOUT,  FXToolTip::ID_TIP_HIDE, MFXStaticToolTip::onTipHide),
+    FXMAPFUNC(SEL_PAINT,    0,  MFXStaticToolTip::onPaint),
+    FXMAPFUNC(SEL_UPDATE,   0,  MFXStaticToolTip::onUpdate),
 };
 
 // Object implementation
@@ -52,41 +48,84 @@ FXIMPLEMENT(MFXStaticToolTip, FXToolTip, MFXStaticToolTipMap, ARRAYNUMBER(MFXSta
 
 MFXStaticToolTip::MFXStaticToolTip(FXApp* app) :
     FXToolTip(app) {
+    // set empty test
+    setText("");
+    // start hide
+    hide();
 }
 
 
 MFXStaticToolTip::~MFXStaticToolTip() {}
 
 
+void
+MFXStaticToolTip::enableStaticToolTip(const bool value) {
+    if (value) {
+        myEnableStaticTooltip = true;
+    } else {
+        myEnableStaticTooltip = false;
+        hideStaticToolTip();
+    }
+}
+
+
+bool 
+MFXStaticToolTip::isStaticToolTipEnabled() const {
+    return myEnableStaticTooltip;
+}
+
+
+void 
+MFXStaticToolTip::showStaticToolTip(const FXString &toolTipText) {
+    if (!myEnableStaticTooltip || toolTipText.empty()) {
+        hideStaticToolTip();
+    } else {
+        // set tip text
+        setText(toolTipText);
+        // update before show (for position)
+        onUpdate(nullptr, 0, nullptr);
+        // show StaticToolTip
+        show();
+    }
+}
+
+
+void 
+MFXStaticToolTip::hideStaticToolTip() {
+    // clear text
+    setText("");
+    // hide staticTooltip
+    hide();
+}
+
+
 long
-MFXStaticToolTip::onPaint(FXObject* obj, FXSelector sel, void*) {
+MFXStaticToolTip::onPaint(FXObject* sender, FXSelector sel, void* obj) {
     // draw tooltip using myToolTippedObject
-    if (myToolTippedObject) {
-        return FXToolTip::onPaint(obj, sel, myToolTippedObject);
+    if (!label.empty() && myEnableStaticTooltip) {
+        return FXToolTip::onPaint(sender, sel, obj);
     } else {
         return 0;
     }
 }
 
 
-long
-MFXStaticToolTip::onTipShow(FXObject*, FXSelector, void* ptr) {
-    if (!label.empty()) {
-        // update myTooltippedObject
-        myToolTippedObject = (FXEvent*)ptr;
-        // show StaticToolTip
-        show();
+long 
+MFXStaticToolTip::onUpdate(FXObject* sender, FXSelector sel, void* ptr) {
+    // Regular GUI update
+    FXWindow::onUpdate(sender, sel, ptr);
+    // Ask the help source for a new status text first
+    if (label.empty()) {
+        popped = FALSE;
+        hide();
+    } else {
+        popped = TRUE;
+        FXint x,y; 
+        FXuint state;
+        getRoot()->getCursorPosition(x, y, state);
+        place(x, y);
     }
     return 1;
-}
-
-
-long
-MFXStaticToolTip::onTipHide(FXObject* obj, FXSelector sel, void* ptr) {
-    // reset myToolTippedObject...
-    myToolTippedObject = nullptr;
-    // ... and continue using parent function
-    return FXToolTip::onTipHide(obj, sel, ptr);
 }
 
 

@@ -1,0 +1,9 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="t0" decel="6" speedFactor="2"/>
+    <vType id="t1" speedDev="0.1" carFollowModel="ACC" collisionAvoidanceOverride="20" speedFactor="2"/>
+    <route id="r0" edges="0"/>
+    <vehicle id="first" type="t0" depart="0" route="r0" departSpeed="max">
+        <stop lane="0_0" endPos="-100" duration="60"/>
+    </vehicle>
+    <flow id="flow" type="t1" begin="1" end="11" period="1" route="r0" departSpeed="max" departPos="last"/>
+</routes>

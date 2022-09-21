@@ -1,18 +1,18 @@
 Integration method was set to 'ballistic', since a default action step length was specified.
-Loading net-file from 'net.net.xml' ... done (1ms).
+Loading net-file from 'net.net.xml' ... done (0ms).
 Loading done.
-Simulation version v1_12_0+1985-ff1882e started with time: 0.00
+Simulation version v1_14_1+0331-153d228 started with time: 0.00
 Simulation ended at time: 31.30
 Reason: All vehicles have left the simulation.
 Performance: 
  Duration: 0.01s
- Real time factor: 5216.67
- UPS: 52000.000000
+ Real time factor: 4471.43
+ UPS: 44571.428571
 Vehicles: 
  Inserted: 1
  Running: 0
  Waiting: 0
-Statistics (avg):
+Statistics (avg of 1):
  RouteLength: 394.90
  Speed: 12.66
  Duration: 31.20

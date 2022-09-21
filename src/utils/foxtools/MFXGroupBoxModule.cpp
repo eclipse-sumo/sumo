@@ -29,6 +29,7 @@
 #include <netedit/frames/GNEFrame.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
+#include <netedit/frames/GNETLSTable.h>
 
 #include "MFXGroupBoxModule.h"
 
@@ -152,17 +153,22 @@ long
 MFXGroupBoxModule::onCmdExtendButton(FXObject*, FXSelector, void*) {
     if (myFrameParent) {
         int maximumWidth = -1;
-        // search in every child
-        for (auto child = getFirst(); child != nullptr; child = child->getNext()) {
-            // check if child is an scrollWindow
-            auto scrollWindow = dynamic_cast<FXScrollWindow*>(child->getFirst());
-            if (scrollWindow && (scrollWindow->getContentWidth() > maximumWidth)) {
-                maximumWidth = scrollWindow->getContentWidth();
+        // iterate over all collapsableFrame childrens
+        for (auto child = myCollapsableFrame->getFirst(); child != nullptr; child = child->getNext()) {
+            // currently only for GNETLSTables
+            const auto TLSTable = dynamic_cast<GNETLSTable*>(child);
+            if (TLSTable) {
+                // get scrollbar width
+                const int scrollBarWidth = TLSTable->getTLSPhasesParent()->getTLSEditorParent()->getScrollBarWidth();
+                if ((TLSTable->getWidth() + scrollBarWidth) > maximumWidth) {
+                    maximumWidth = (TLSTable->getWidth() + scrollBarWidth);
+                }
             }
         }
-        // now set parent parent width
+        // set frame ara width
         if (maximumWidth != -1) {
-            myFrameParent->getViewNet()->getViewParent()->setFrameAreaWith(maximumWidth);
+            // add extra padding (30, constant, 15 left, 15 right)
+            myFrameParent->getViewNet()->getViewParent()->setFrameAreaWidth(maximumWidth + 30);
         }
     }
     return 1;
@@ -172,7 +178,7 @@ MFXGroupBoxModule::onCmdExtendButton(FXObject*, FXSelector, void*) {
 long
 MFXGroupBoxModule::onCmdResetButton(FXObject*, FXSelector, void*) {
     if (myFrameParent) {
-        myFrameParent->getViewNet()->getViewParent()->setFrameAreaWith(220);
+        myFrameParent->getViewNet()->getViewParent()->setFrameAreaWidth(220);
     }
     return 1;
 }
@@ -181,7 +187,7 @@ MFXGroupBoxModule::onCmdResetButton(FXObject*, FXSelector, void*) {
 long
 MFXGroupBoxModule::onUpdResetButton(FXObject* sender, FXSelector, void*) {
     if (myFrameParent) {
-        if (myFrameParent->getViewNet()->getViewParent()->getFrameAreaWith() == 220) {
+        if (myFrameParent->getViewNet()->getViewParent()->getFrameAreaWidth() == 220) {
             sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
         } else {
             sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);

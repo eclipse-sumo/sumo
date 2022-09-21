@@ -36,6 +36,7 @@ SUMOTime MSGlobals::gTimeToGridlock;
 SUMOTime MSGlobals::gTimeToGridlockHighways;
 double MSGlobals::gGridlockHighwaysSpeed;
 SUMOTime MSGlobals::gTimeToTeleportDisconnected;
+SUMOTime MSGlobals::gTimeToTeleportBidi;
 bool MSGlobals::gRemoveGridlocked;
 
 SUMOTime MSGlobals::gTimeToImpatience;

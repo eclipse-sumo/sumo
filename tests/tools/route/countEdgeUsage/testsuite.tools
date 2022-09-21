@@ -1,6 +1,10 @@
 # Tests for <SUMO_DIST>/tools/countEdgeUsage.py
 basic
 
+# load 2 input files
+# 
+two_inputs
+
 # additional geo poi output
 poi
 

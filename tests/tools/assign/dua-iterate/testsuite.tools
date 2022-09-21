@@ -1,3 +1,6 @@
+# test the optioni eco_measure and the option generateEdgedataAddFile
+eco_measure
+
 # test solutions for the braess paradox (adding a shortcut makes the traveltimes worse).
 # After 7 iterations the assignments have mostly converged (average traveltime 107 vs 127). Without the shortcut avg. tt converges to 106s and with shortcut to 123s.
 # Iteration 10 has the minimal value of 114s for shortcut.
@@ -70,3 +73,6 @@ apparg_negative_config
 
 # save statistic output for each iteration
 custom_output
+
+# test user error
+invalid_option

@@ -1,0 +1,4 @@
+-v --osm osm.xml -o pois.poi.xml --net input_net.net.xml --prune.in-net
+--prune.in-net.offsets 0,-300,0,-300
+
+

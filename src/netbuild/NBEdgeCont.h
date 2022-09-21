@@ -63,10 +63,8 @@ public:
      */
     NBEdgeCont(NBTypeCont& tc);
 
-
     /// @brief Destructor
     ~NBEdgeCont();
-
 
     /** @brief Initialises the storage by applying given options
      *
@@ -78,12 +76,8 @@ public:
      */
     void applyOptions(OptionsCont& oc);
 
-
     /** @brief Deletes all edges */
     void clear();
-
-
-
 
     /// @name edge access methods
     /// @{
@@ -103,7 +97,6 @@ public:
      */
     bool insert(NBEdge* edge, bool ignorePrunning = false);
 
-
     /** @brief Returns the edge that has the given id
      *
      * If no edge that has the given id is known, 0 is returned.
@@ -113,7 +106,6 @@ public:
      * @return The edge with the given id, 0 if no such edge exists
      */
     NBEdge* retrieve(const std::string& id, bool retrieveExtracted = false) const;
-
 
     /** @brief Tries to retrieve an edge, even if it is splitted
      *
@@ -126,7 +118,6 @@ public:
      * @todo Recheck usage
      */
     NBEdge* retrievePossiblySplit(const std::string& id, bool downstream) const;
-
 
     /** @brief Tries to retrieve an edge, even if it is splitted
      *
@@ -142,7 +133,6 @@ public:
      */
     NBEdge* retrievePossiblySplit(const std::string& id, const std::string& hint, bool incoming) const;
 
-
     /** @brief Tries to retrieve an edge, even if it is splitted
      *
      * To describe which part of the edge shall be returned, a
@@ -155,7 +145,6 @@ public:
      */
     NBEdge* retrievePossiblySplit(const std::string& id, double pos) const;
 
-
     /** @brief Removes the given edge from the container (deleting it)
      *
      * @param[in] dc The district container, in order to remove the edge from sources/sinks
@@ -163,7 +152,6 @@ public:
      * @todo Recheck whether the district cont is needed - if districts are processed using an external tool
      */
     void erase(NBDistrictCont& dc, NBEdge* edge);
-
 
     /** @brief Removes the given edge from the container like erase but does not
      * delete it
@@ -176,14 +164,12 @@ public:
      */
     void extract(NBDistrictCont& dc, NBEdge* edge, bool remember = false);
 
-
     /** @brief Returns the pointer to the begin of the stored edges
      * @return The iterator to the beginning of stored edges
      */
     std::map<std::string, NBEdge*>::const_iterator begin() const {
         return myEdges.begin();
     }
-
 
     /** @brief Returns the pointer to the end of the stored edges
      * @return The iterator to the end of stored edges
@@ -192,8 +178,6 @@ public:
         return myEdges.end();
     }
     /// @}
-
-
 
     /// @name explicit edge manipulation methods
     /// @{
@@ -253,7 +237,7 @@ public:
      * Otherwise, "splitAt(NBDistrictCont &, NBEdge *, double, NBNode *, const std::string &, const std::string &, int , int)"
      *  is used to perform the split.
      *
-     * @param[in] dc The district container, in order to remove/add the edge from/to sources/sinks
+     * @param[in] nb The net builder containing all nodes, edges etc.
      * @param[in] edge The edge to split
      * @param[in] node The node to split the edge at
      * @param[in] firstEdgeName The id the first part of the split edge shall have
@@ -272,7 +256,6 @@ public:
                  const std::string& firstEdgeName, const std::string& secondEdgeName,
                  int noLanesFirstEdge, int noLanesSecondEdge,
                  const double speed = -1., const double friction = 1., const int changedLeft = 0);
-
 
     /** @brief Splits the edge at the position nearest to the given node using the given modifications
      *
@@ -307,23 +290,30 @@ public:
         return (int) myEdges.size();
     }
 
-
     /** @brief Returns all ids of known edges
      * @return All ids of known edges
      * @todo Recheck usage, probably, filling a given vector would be better...
      */
     std::vector<std::string> getAllNames() const;
 
+    /** @brief Returns the edge split if the edge has been split, nullptr otherwise
+     * @return the pair of edges after the split
+     */
+    const std::pair<NBEdge*, NBEdge*>* getSplit(const NBEdge* const origEdge) const {
+        const auto& split = myEdgesSplit.find(origEdge);
+        if (split == myEdgesSplit.end()) {
+            return nullptr;
+        }
+        return &split->second;
+    }
 
     /** @brief Returns the number of edge splits
      * @return How often an edge was split
      */
-    int getNoEdgeSplits() const {
-        return myEdgesSplit;
+    int getNumEdgeSplits() const {
+        return (int)myEdgesSplit.size();
     }
     /// @}
-
-
 
     /// @name Adapting the input
     /// @{
@@ -732,7 +722,7 @@ private:
     std::set<std::string> myIgnoredEdges;
 
     /// @brief the number of splits of edges during the building
-    int myEdgesSplit;
+    std::map<const NBEdge*, std::pair<NBEdge*, NBEdge*> > myEdgesSplit;
 
     /// @name Settings for accepting/dismissing edges
     /// @{

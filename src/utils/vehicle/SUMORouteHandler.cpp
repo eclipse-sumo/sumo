@@ -493,10 +493,11 @@ SUMORouteHandler::parseStop(SUMOVehicleParameter::Stop& stop, const SUMOSAXAttri
         return false;
     }
     stop.extension = attrs.getOptSUMOTimeReporting(SUMO_ATTR_EXTENSION, nullptr, ok, -1);
-    stop.parking = attrs.getOpt<bool>(SUMO_ATTR_PARKING, nullptr, ok, stop.triggered || stop.containerTriggered || stop.parkingarea != "");
-    if (stop.parkingarea != "" && !stop.parking) {
+    const bool defaultParking = (stop.triggered || stop.containerTriggered || stop.parkingarea != "");
+    stop.parking = attrs.getOpt<ParkingType>(SUMO_ATTR_PARKING, nullptr, ok, defaultParking ? ParkingType::OFFROAD : ParkingType::ONROAD);
+    if ((stop.parkingarea != "") && (stop.parking == ParkingType::ONROAD)) {
         WRITE_WARNING("Stop at parkingarea overrides attribute 'parking' for stop" + errorSuffix);
-        stop.parking = true;
+        stop.parking = ParkingType::OFFROAD;
     }
     if (!ok) {
         errorOutput->inform("Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop" + errorSuffix);
@@ -509,7 +510,7 @@ SUMORouteHandler::parseStop(SUMOVehicleParameter::Stop& stop, const SUMOSAXAttri
     if (stop.awaitedPersons.size() > 0 && (stop.parametersSet & STOP_TRIGGER_SET) == 0) {
         stop.triggered = true;
         if ((stop.parametersSet & STOP_PARKING_SET) == 0) {
-            stop.parking = true;
+            stop.parking = ParkingType::OFFROAD;
         }
     }
 
@@ -523,7 +524,7 @@ SUMORouteHandler::parseStop(SUMOVehicleParameter::Stop& stop, const SUMOSAXAttri
     if (stop.awaitedContainers.size() > 0 && (stop.parametersSet & STOP_CONTAINER_TRIGGER_SET) == 0) {
         stop.containerTriggered = true;
         if ((stop.parametersSet & STOP_PARKING_SET) == 0) {
-            stop.parking = true;
+            stop.parking = ParkingType::OFFROAD;
         }
     }
     // public transport trip id

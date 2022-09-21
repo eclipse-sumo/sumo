@@ -131,7 +131,7 @@ remaining stages for 'p3' (after replacement)
   0: Stage(type=2, edges=('1fi', '1o'), travelTime=INVALID, cost=INVALID, length=495.25, depart=234.0, departPos=10.0, arrivalPos=10.0, description=walking)
   1: Stage(type=2, edges=('1o', '4o'), travelTime=INVALID, cost=INVALID, length=39.9912480851, depart=INVALID, departPos=10.0, arrivalPos=10.0, description=walking)
 speed (before setSpeed) 0.0
-maxSpeed (before setSpeed) 1.38888888889
+maxSpeed (before setSpeed) 10.4388888889
 speed (after setSpeed) 0.0
 maxSpeed (after setSpeed) 4.2
 speed (at end) 3.68846979671

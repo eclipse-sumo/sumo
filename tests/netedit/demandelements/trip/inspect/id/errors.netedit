@@ -66,7 +66,7 @@ Debug: Created connection 'fromgneE9_0togneE11_0' in retrieveGNEConnection()
 Debug: Selected item 'DEFAULT_VEHTYPE' in DemandElementSelector
 Debug: Key ENTER pressed
 Debug: Adding trip 't_0' in GNEChange_DemandElement
-Debug: Value '' for attribute id of trip isn't valid
+Debug: Setting new attribute
 Debug: Value ';;;;;;;;' for attribute id of trip isn't valid
 Debug: Value 'id with spaces' for attribute id of trip isn't valid
 Debug: Value 'duplicatedVehicle' for attribute id of trip isn't valid
@@ -76,16 +76,16 @@ Debug: Calling GNEUndoList::undo()
 Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing trip 't_0' in GNEChange_DemandElement
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing trip 'duplicatedVehicle' in GNEChange_DemandElement
-Debug: Keys Ctrl+Y (Redo) pressed
-Debug: Calling GNEUndoList::redo()
-Debug: Adding trip 'duplicatedVehicle' in GNEChange_DemandElement
+Debug: Removing trip 't_0' in GNEChange_DemandElement
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding trip 't_0' in GNEChange_DemandElement
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute

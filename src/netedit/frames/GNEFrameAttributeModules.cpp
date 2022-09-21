@@ -23,6 +23,7 @@
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
+#include <netedit/GNEApplicationWindow.h>
 #include <netedit/dialogs/GNEAllowVClassesDialog.h>
 #include <netedit/dialogs/GNESingleParametersDialog.h>
 #include <netedit/frames/common/GNEInspectorFrame.h>
@@ -59,10 +60,10 @@ FXDEFMAP(GNEFrameAttributeModules::GenericDataAttributes) GenericDataAttributesM
 };
 
 // Object implementation
-FXIMPLEMENT(GNEFrameAttributeModules::AttributesEditorRow,          FXHorizontalFrame,      AttributesEditorRowMap,         ARRAYNUMBER(AttributesEditorRowMap))
-FXIMPLEMENT(GNEFrameAttributeModules::AttributesEditor,             MFXGroupBoxModule,       AttributesEditorMap,            ARRAYNUMBER(AttributesEditorMap))
-FXIMPLEMENT(GNEFrameAttributeModules::AttributesEditorExtended,     MFXGroupBoxModule,       AttributesEditorExtendedMap,    ARRAYNUMBER(AttributesEditorExtendedMap))
-FXIMPLEMENT(GNEFrameAttributeModules::GenericDataAttributes,        MFXGroupBoxModule,       GenericDataAttributesMap,       ARRAYNUMBER(GenericDataAttributesMap))
+FXIMPLEMENT(GNEFrameAttributeModules::AttributesEditorRow,          FXHorizontalFrame,       AttributesEditorRowMap,        ARRAYNUMBER(AttributesEditorRowMap))
+FXIMPLEMENT(GNEFrameAttributeModules::AttributesEditor,             MFXGroupBoxModule,       AttributesEditorMap,           ARRAYNUMBER(AttributesEditorMap))
+FXIMPLEMENT(GNEFrameAttributeModules::AttributesEditorExtended,     MFXGroupBoxModule,       AttributesEditorExtendedMap,   ARRAYNUMBER(AttributesEditorExtendedMap))
+FXIMPLEMENT(GNEFrameAttributeModules::GenericDataAttributes,        MFXGroupBoxModule,       GenericDataAttributesMap,      ARRAYNUMBER(GenericDataAttributesMap))
 
 
 // ===========================================================================
@@ -86,16 +87,24 @@ GNEFrameAttributeModules::AttributesEditorRow::AttributesEditorRow(GNEFrameAttri
     myAttributeCheckButton = new FXCheckButton(this, "attributeCheckButton", this, MID_GNE_SET_ATTRIBUTE_BOOL, GUIDesignCheckButtonAttribute);
     myAttributeCheckButton->hide();
     // Create and hide ButtonCombinableChoices
-    myAttributeButtonCombinableChoices = new MFXButtonTooltip(this, "attributeButtonCombinableChoices", nullptr, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButtonAttribute);
+    myAttributeButtonCombinableChoices = new MFXButtonTooltip(this,
+        attributeEditorParent->getFrameParent()->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
+        "attributeButtonCombinableChoices", nullptr, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButtonAttribute);
     myAttributeButtonCombinableChoices->hide();
     // create and hide color editor
-    myAttributeColorButton = new MFXButtonTooltip(this, "attributeColorButton", nullptr, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButtonAttribute);
+    myAttributeColorButton = new MFXButtonTooltip(this,
+    attributeEditorParent->getFrameParent()->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
+        "attributeColorButton", nullptr, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButtonAttribute);
     myAttributeColorButton->hide();
     // create and hide color editor
-    myAttributeVTypeButton = new MFXButtonTooltip(this, "attributeVTypeButton", myACParent? myACParent->getIcon() : nullptr, this, MID_GNE_SET_ATTRIBUTE_VTYPE, GUIDesignButtonAttribute);
+    myAttributeVTypeButton = new MFXButtonTooltip(this,
+    attributeEditorParent->getFrameParent()->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
+        "attributeVTypeButton", myACParent? myACParent->getACIcon() : nullptr, this, MID_GNE_SET_ATTRIBUTE_VTYPE, GUIDesignButtonAttribute);
     myAttributeVTypeButton->hide();
     // Create and hide MFXTextFieldTooltip for string attributes
-    myValueTextField = new MFXTextFieldTooltip(this, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
+    myValueTextField = new MFXTextFieldTooltip(this,
+        attributeEditorParent->getFrameParent()->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
+        GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     myValueTextField->hide();
     // Create and hide ComboBox
     myValueComboBoxChoices = new MFXIconComboBox(this, GUIDesignComboBoxNCol, (ACAttr.getAttr() == SUMO_ATTR_VCLASS), this, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBoxAttribute);
@@ -248,19 +257,19 @@ GNEFrameAttributeModules::AttributesEditorRow::AttributesEditorRow(GNEFrameAttri
             } else {
                 // fill comboBox
                 myValueComboBoxChoices->clearItems();
-                for (const auto& discreteValue : myACAttr.getDiscreteValues()) {
-                    if (ACAttr.getAttr() == SUMO_ATTR_VCLASS) {
-                        if (canParseVehicleClasses(value)) {
-                            myValueComboBoxChoices->appendIconItem(discreteValue.c_str(), GNEAttributeCarrier::getVClassIcon(getVehicleClassID(value)));
-                        } else {
-                            myValueComboBoxChoices->appendIconItem(discreteValue.c_str());
-                        }
-                    } else {
+                // special case for VClass
+                if (ACAttr.getAttr() == SUMO_ATTR_VCLASS) {
+                    // add all vClasses with their icons
+                    for (const auto& vClassStr : SumoVehicleClassStrings.getStrings()) {
+                        myValueComboBoxChoices->appendIconItem(vClassStr.c_str(), GNEAttributeCarrier::getVClassIcon(getVehicleClassID(vClassStr)));
+                    }
+                } else {
+                    for (const auto& discreteValue : myACAttr.getDiscreteValues()) {
                         myValueComboBoxChoices->appendIconItem(discreteValue.c_str());
                     }
                 }
                 // show combo box with values
-                myValueComboBoxChoices->setNumVisible((int)myACAttr.getDiscreteValues().size());
+                myValueComboBoxChoices->setNumVisible(myValueComboBoxChoices->getNumItems() < 10? myValueComboBoxChoices->getNumItems() : 10);
                 const int itemIndex = myValueComboBoxChoices->findItem(value.c_str());
                 if (itemIndex == -1) {
                     myValueComboBoxChoices->setText(value.c_str());
@@ -348,21 +357,21 @@ GNEFrameAttributeModules::AttributesEditorRow::refreshAttributesEditorRow(const 
             }
         }
     } else if (myValueComboBoxChoices->shown()) {
-        // fill terminategain
+        // fill comboBox
         myValueComboBoxChoices->clearItems();
-        for (const auto& discreteValue : myACAttr.getDiscreteValues()) {
-            if (myACAttr.getAttr() == SUMO_ATTR_VCLASS) {
-                if (canParseVehicleClasses(value)) {
-                    myValueComboBoxChoices->appendIconItem(discreteValue.c_str(), GNEAttributeCarrier::getVClassIcon(getVehicleClassID(value)));
-                } else {
-                    myValueComboBoxChoices->appendIconItem(discreteValue.c_str());
-                }
-            } else {
+        // special case for VClass
+        if (myACAttr.getAttr() == SUMO_ATTR_VCLASS) {
+            // add all vClasses with their icons
+            for (const auto& vClassStr : SumoVehicleClassStrings.getStrings()) {
+                myValueComboBoxChoices->appendIconItem(vClassStr.c_str(), GNEAttributeCarrier::getVClassIcon(getVehicleClassID(vClassStr)));
+            }
+        } else {
+            for (const auto& discreteValue : myACAttr.getDiscreteValues()) {
                 myValueComboBoxChoices->appendIconItem(discreteValue.c_str());
             }
         }
         // show combo box with values
-        myValueComboBoxChoices->setNumVisible((int)myACAttr.getDiscreteValues().size());
+        myValueComboBoxChoices->setNumVisible(myValueComboBoxChoices->getNumItems() < 10? myValueComboBoxChoices->getNumItems() : 10);
         myValueComboBoxChoices->setCurrentItem(myValueComboBoxChoices->findItem(value.c_str()));
         // set blue color if is an computed value
         if (computed) {

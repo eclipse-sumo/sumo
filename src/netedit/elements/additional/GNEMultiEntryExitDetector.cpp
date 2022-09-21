@@ -17,9 +17,13 @@
 ///
 //
 /****************************************************************************/
+
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
+#include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewParent.h>
 #include <netedit/changes/GNEChange_Attribute.h>
+#include <netedit/frames/network/GNETLSEditorFrame.h>
 
 #include "GNEMultiEntryExitDetector.h"
 
@@ -29,8 +33,7 @@
 // ===========================================================================
 
 GNEMultiEntryExitDetector::GNEMultiEntryExitDetector(GNENet* net) :
-    GNEAdditional("", net, GLO_E3DETECTOR, SUMO_TAG_ENTRY_EXIT_DETECTOR, "",
-        {}, {}, {}, {}, {}, {}),
+    GNEAdditional("", net, GLO_E3DETECTOR, SUMO_TAG_ENTRY_EXIT_DETECTOR, GUIIconSubSys::getIcon(GUIIcon::E3ENTRY), "", {}, {}, {}, {}, {}, {}),
     myPeriod(0),
     myFilename(""),
     myTimeThreshold(0),
@@ -43,15 +46,14 @@ GNEMultiEntryExitDetector::GNEMultiEntryExitDetector(GNENet* net) :
 GNEMultiEntryExitDetector::GNEMultiEntryExitDetector(const std::string& id, GNENet* net, const Position pos, const SUMOTime freq, const std::string& filename,
                              const std::vector<std::string>& vehicleTypes, const std::string& name, SUMOTime timeThreshold, double speedThreshold,
                              const Parameterised::Map& parameters) :
-    GNEAdditional(id, net, GLO_E3DETECTOR, SUMO_TAG_ENTRY_EXIT_DETECTOR, name,
-{}, {}, {}, {}, {}, {}),
-Parameterised(parameters),
-myPosition(pos),
-myPeriod(freq),
-myFilename(filename),
-myVehicleTypes(vehicleTypes),
-myTimeThreshold(timeThreshold),
-mySpeedThreshold(speedThreshold) {
+    GNEAdditional(id, net, GLO_E3DETECTOR, SUMO_TAG_ENTRY_EXIT_DETECTOR, GUIIconSubSys::getIcon(GUIIcon::E3EXIT), name, {}, {}, {}, {}, {}, {}),
+    Parameterised(parameters),
+    myPosition(pos),
+    myPeriod(freq),
+    myFilename(filename),
+    myVehicleTypes(vehicleTypes),
+    myTimeThreshold(timeThreshold),
+    mySpeedThreshold(speedThreshold) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -165,10 +167,13 @@ GNEMultiEntryExitDetector::getParentName() const {
 
 void
 GNEMultiEntryExitDetector::drawGL(const GUIVisualizationSettings& s) const {
-    // draw parent and child lines
-    drawParentChildLines(s, s.additionalSettings.connectionColor);
-    // draw E3
-    drawSquaredAdditional(s, myPosition, s.detectorSettings.E3Size, GUITexture::E3, GUITexture::E3_SELECTED);
+    // check if drawn
+    if (!myNet->getViewNet()->selectingDetectorsTLSMode()) {
+        // draw parent and child lines
+        drawParentChildLines(s, s.additionalSettings.connectionColor);
+        // draw E3
+        drawSquaredAdditional(s, myPosition, s.detectorSettings.E3Size, GUITexture::E3, GUITexture::E3_SELECTED);
+    }
 }
 
 

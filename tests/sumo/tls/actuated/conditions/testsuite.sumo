@@ -39,3 +39,6 @@ override_phaseAttrs
 
 # override minDur with functions that rely on linkGreenTimes (should not crash)
 override_phaseAttrs2
+
+# use custom switching rules to add bus prioritization on top of the default behavior
+bus_prio

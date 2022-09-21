@@ -174,9 +174,12 @@ always use the latest version of SUMO.
 - a screenshot or error output showing the unexpected behavior (this
   may allow us to diagnose the problem at a single glance). When sending screenshots of sumo-gui, please include the whole screen so the application version and simulation time are visible.
 - the complete input files for reproducing the error (i.e. a .sumocfg
-  and all files referenced therein) in a zip-archive. Please remove
+  and all files referenced therein) in a zip-archive.
+- Please remove
   unnecessary inputs (i.e. only 2 vehicles instead of 2000) and try to
-  find the minimum input example which still shows the problem.
+  find the minimum input example which still shows the problem. This includes
+  cutting the network (or inputs) using [netedit](Netedit/index.md)
+  or [osmconvert](Networks/Import/OpenStreetMap.md#osmfilter--osmconvert)
 - a description at which time step (for simulations) and on which
   edge/junction the problem occurs
 
@@ -486,8 +489,8 @@ and simply type `git pull`.
   are retrieved from the local sumo installation if [the environment variable **SUMO_HOME** is set](Basics/Basic_Computer_Skills.md#additional_environment_variables).
   Otherwise the files will be retrieved from
   [sumo.dlr.de](https://sumo.dlr.de) which is slower. Validation
-  can be disabled by using the option **--xml-validation never** or by deleting the schema
-  information at the top of the XML input file(s).
+  can be disabled by using the option **--xml-validation never** or by [deleting the schema
+  information](XMLValidation.md#disabling_schema_validation) at the top of the XML input file(s).
 
 ### What causes ''Error: unable to resolve host/address 'sumo.dlr.de' ''?
 
@@ -948,6 +951,9 @@ density:
 ```
 <flow id="lane0" from="startEdge" to="destEdge" begin="0" end="3600" period="1.951" departPos="base" departSpeed="7.885" departLane="0"/>
 ```
+!!! caution
+    For the continuous case, the specified density is reached **only** close to the inflow as vehicles start accelerating to their preferred speeds. In order to maintain the density along the edge, use a ring road scenario or limit the allowed speed to te *departSpeed* value. Remember [time-resolution dependency](#how-do-i-get-high-flowsvehicle-densities) for further adjustment.
+
 
 ### How do I force a lane change?
 
@@ -1013,6 +1019,11 @@ i.e. if *run.sumocfg* contains the option `<statistic-output value="stats.xml">/
 will generate timeLoss statistics for all runs
 
 ## Visualization
+
+### How can I get satellite / aerial background images for my simulation
+
+The [osmWebWizard](Tutorials/OSMWebWizard.md) tool provides the simples solution to obtain a scenario with background images.
+Selecting the checkbox 'Satellite background' before generating the scenario is sufficient. To select another image provider, the tool [tileGet.py](Tools/Misc.md#tilegetpy) can also be used.
 
 ### sumo-gui breaks
 

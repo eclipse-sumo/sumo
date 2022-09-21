@@ -106,7 +106,7 @@ def mapTrace(trace, net, delta, verbose=False, airDistFactor=2, fillGaps=0, gapP
         if debug:
             print("\n\npos:%s, %s" % (pos[0], pos[1]))
             print("candidates:%s\n" % candidates)
-        if len(candidates) == 0 and verbose:
+        if verbose and not candidates:
             print("Found no candidate edges for %s,%s" % pos)
 
         for edge, d in candidates:
@@ -134,11 +134,10 @@ def mapTrace(trace, net, delta, verbose=False, airDistFactor=2, fillGaps=0, gapP
                                 airLineDist = euclidean(
                                     path[-1].getToNode().getCoord(),
                                     edge.getFromNode().getCoord())
-                                if gapPenalty < 0:
-                                    gapPenalty = airDistFactor * advance
-                                pathLength = path[-1].getLength() - lastBase + base + airLineDist + gapPenalty
+                                penalty = airDistFactor * advance if gapPenalty < 0 else gapPenalty
+                                pathLength = path[-1].getLength() - lastBase + base + airLineDist + penalty
                                 baseDiff = abs(lastBase + advance -
-                                               path[-1].getLength() - base - airLineDist) + gapPenalty
+                                               path[-1].getLength() - base - airLineDist) + penalty
                                 extension = (edge,)
                             else:
                                 pathLength = cost

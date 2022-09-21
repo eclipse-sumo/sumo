@@ -71,6 +71,21 @@ public:
     virtual ~MSCFModel();
 
 
+    /** @enum CalcReason
+     * @brief What the return value of stop/follow/free-Speed is used for
+     */
+    enum CalcReason {
+        /// @brief the return value is used for calculating the next speed
+        CURRENT,
+        /// @brief the return value is used for calculating future speeds
+        FUTURE,
+        /// @brief the return value is used for calculating junction stop speeds
+        CURRENT_WAIT,
+        /// @brief the return value is used for lane change calculations
+        LANE_CHANGE
+    };
+
+
     /// @name Methods to override by model implementation
     /// @{
 
@@ -104,10 +119,11 @@ public:
      * @param[in] seen The look ahead distance
      * @param[in] maxSpeed The maximum allowed speed
      * @param[in] onInsertion whether speed at insertion is asked for
+     * @param[in] usage What the return value is used for
      * @return EGO's safe speed
      */
     virtual double freeSpeed(const MSVehicle* const veh, double speed, double seen,
-                             double maxSpeed, const bool onInsertion = false) const;
+                             double maxSpeed, const bool onInsertion = false, const CalcReason usage = CalcReason::CURRENT) const;
 
 
     /** @brief Computes the vehicle's follow speed (no dawdling)
@@ -117,9 +133,11 @@ public:
      * @param[in] speed The vehicle's speed
      * @param[in] gap2pred The (netto) distance to the LEADER
      * @param[in] predSpeed The speed of LEADER
+     * @param[in] usage What the return value is used for
      * @return EGO's safe speed
      */
-    virtual double followSpeed(const MSVehicle* const veh, double speed, double gap2pred, double predSpeed, double predMaxDecel, const MSVehicle* const pred = 0) const = 0;
+    virtual double followSpeed(const MSVehicle* const veh, double speed, double gap2pred, double predSpeed,
+                               double predMaxDecel, const MSVehicle* const pred = 0, const CalcReason usage = CalcReason::CURRENT) const = 0;
 
 
     /** @brief Computes the vehicle's safe speed (no dawdling)
@@ -143,11 +161,12 @@ public:
      * @param[in] veh The vehicle (EGO)
      * @param[in] speed The vehicle's speed
      * @param[in] gap The (netto) distance to the the obstacle
+     * @param[in] usage What the return value is used for
      * @return EGO's safe speed for approaching a non-moving obstacle
      * @todo generic Interface, models can call for the values they need
      */
-    inline double stopSpeed(const MSVehicle* const veh, const double speed, double gap) const {
-        return stopSpeed(veh, speed, gap, myDecel);
+    inline double stopSpeed(const MSVehicle* const veh, const double speed, double gap, const CalcReason usage = CalcReason::CURRENT) const {
+        return stopSpeed(veh, speed, gap, myDecel, usage);
     }
 
     /** @brief Computes the vehicle's safe speed for approaching a non-moving obstacle (no dawdling)
@@ -157,10 +176,11 @@ public:
      * @param[in] speed The vehicle's speed
      * @param[in] gap The (netto) distance to the the obstacle
      * @param[in] decel The desired deceleration rate
+     * @param[in] usage What the return value is used for
      * @return EGO's safe speed for approaching a non-moving obstacle
      * @todo generic Interface, models can call for the values they need
      */
-    virtual double stopSpeed(const MSVehicle* const veh, const double speed, double gap, double decel) const = 0;
+    virtual double stopSpeed(const MSVehicle* const veh, const double speed, double gap, double decel, const CalcReason usage = CalcReason::CURRENT) const = 0;
 
 
     /** @brief Computes the vehicle's safe speed for approaching an obstacle at insertion without constraints
@@ -259,6 +279,13 @@ public:
         return myApparentDecel;
     }
 
+    /** @brief Get the vehicle type's startupDelay
+     * @return The startupDelay
+     */
+    inline SUMOTime getStartupDelay() const {
+        return myStartupDelay;
+    }
+
     /** @brief Get the factor of minGap that must be maintained to avoid a collision event
      */
     inline double getCollisionMinGapFactor() const {
@@ -303,6 +330,16 @@ public:
      * @return The maximum possible speed for the next step
      */
     virtual double maxNextSpeed(double speed, const MSVehicle* const veh) const;
+
+
+    /** @brief Returns the maximum speed given the current speed and regarding driving dynamics
+     * @param[in] speed The vehicle's current speed
+     * @param[in] speed The vehicle itself, for obtaining other values
+     * @return The maximum possible speed for the next step taking driving dynamics into account
+     */
+    inline virtual double maxNextSafeMin(double speed, const MSVehicle* const veh = 0) const {
+        return maxNextSpeed(speed, veh);
+    }
 
 
     /** @brief Returns the minimum speed given the current speed

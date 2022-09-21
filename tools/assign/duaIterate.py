@@ -99,6 +99,7 @@ def initOptions():
         description=""" Any options of the form sumo--long-option-name will be passed to sumo.
         These must be given after all the other options
         example: sumo--step-length 0.5 will add the option --step-length 0.5 to sumo.""",
+        allowed_programs=['duarouter', 'sumo'],
         formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     addGenericOptions(argParser)
 
@@ -317,7 +318,7 @@ def writeSUMOConf(sumoBinary, step, options, additional_args, route_files):
     if hasattr(options, "noTripinfo") and not options.noTripinfo:
         sumoCmd += ['--tripinfo-output', "tripinfo_%03i.xml" % step]
         if options.eco_measure:
-            sumoCmd += ['--device.hbefa.probability', '1']
+            sumoCmd += ['--device.emissions.probability', '1']
     if hasattr(options, "routefile"):
         if options.routefile == "routesonly":
             sumoCmd += ['--vehroute-output', "vehroute_%03i.xml" % step,
@@ -484,10 +485,35 @@ def calcMarginalCost(step, options):
             log.close()
 
 
+def generateEdgedataAddFile(EDGEDATA_ADD, options):
+    """write detectorfile"""
+    with open(EDGEDATA_ADD, 'w') as fd:
+        vTypes = ' vTypes="%s"' % ' '.join(options.measureVTypes.split(',')) if options.measureVTypes else ""
+        print("<a>", file=fd)
+        print('    <edgeData id="dump_%s" freq="%s" file="%s" excludeEmpty="true" minSamples="1"%s/>' % (
+            options.aggregation,
+            options.aggregation,
+            get_dumpfilename(options, -1, "dump", False),
+            vTypes), file=fd)
+        if options.eco_measure:
+            print(('    <edgeData id="eco_%s" type="emissions" freq="%s" file="%s" ' +
+                   'excludeEmpty="true" minSamples="1"%s/>') % (
+                       options.aggregation,
+                       options.aggregation,
+                       get_dumpfilename(options, -1, "dump", False),
+                       vTypes), file=fd)
+        print("</a>", file=fd)
+    fd.close()
+
+
 def main(args=None):
     argParser = initOptions()
 
-    options = argParser.parse_args(args=args)
+    try:
+        options = argParser.parse_args(args=args)
+    except (NotImplementedError, ValueError) as e:
+        print(e, file=sys.stderr)
+        sys.exit(1)
 
     if not options.net:
         argParser.error("Option --net-file is mandatory")
@@ -550,23 +576,8 @@ def main(args=None):
             print(">>> Loading %s" % dumpfile)
             costmemory.load_costs(dumpfile, step, get_scale(options, step))
 
-    # write detectorfile
-    with open(EDGEDATA_ADD, 'w') as fd:
-        vTypes = ' vTypes="%s"' % ' '.join(options.measureVTypes.split(',')) if options.measureVTypes else ""
-        print("<a>", file=fd)
-        print('    <edgeData id="dump_%s" freq="%s" file="%s" excludeEmpty="true" minSamples="1"%s/>' % (
-            options.aggregation,
-            options.aggregation,
-            get_dumpfilename(options, -1, "dump", False),
-            vTypes), file=fd)
-        if options.eco_measure:
-            print(('    <edgeData id="eco_%s" type="hbefa" freq="%s" file="%s" ' +
-                   'excludeEmpty="true" minSamples="1"%s/>') % (
-                       options.aggregation,
-                       options.aggregation,
-                       get_dumpfilename(options, step, "dump", False),
-                       vTypes), file=fd)
-        print("</a>", file=fd)
+    # generate edgedata.add.xml
+    generateEdgedataAddFile(EDGEDATA_ADD, options)
 
     avgTT = sumolib.miscutils.Statistics()
     for step in range(options.firstStep, options.lastStep):

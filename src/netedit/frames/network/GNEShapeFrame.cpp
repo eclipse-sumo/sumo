@@ -215,8 +215,8 @@ GNEShapeFrame::GEOPOICreator::onCmdCreateGEOPOI(FXObject*, FXSelector, void*) {
 // GNEShapeFrame - methods
 // ---------------------------------------------------------------------------
 
-GNEShapeFrame::GNEShapeFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet) :
-    GNEFrame(horizontalFrameParent, viewNet, "Shapes"),
+GNEShapeFrame::GNEShapeFrame(GNEViewParent *viewParent, GNEViewNet* viewNet) :
+    GNEFrame(viewParent, viewNet, "Shapes"),
     myBaseShape(nullptr) {
 
     // create item Selector modul for shapes

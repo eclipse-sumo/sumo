@@ -62,7 +62,6 @@
 // ===========================================================================
 NBEdgeCont::NBEdgeCont(NBTypeCont& tc) :
     myTypeCont(tc),
-    myEdgesSplit(0),
     myVehicleClasses2Keep(0),
     myVehicleClasses2Remove(0),
     myNeedGeoTransformedPruningBoundary(false) {
@@ -621,25 +620,23 @@ NBEdgeCont::splitAt(NBDistrictCont& dc,
                     const std::string& secondEdgeName,
                     int noLanesFirstEdge, int noLanesSecondEdge,
                     const double speed, const double friction,
-                    const int changedLeft
-                   ) {
+                    const int changedLeft) {
     // there must be at least some overlap between first and second edge
     assert(changedLeft > -((int)noLanesFirstEdge));
     assert(changedLeft < (int)noLanesSecondEdge);
 
     // build the new edges' geometries
-    std::pair<PositionVector, PositionVector> geoms =
-        edge->getGeometry().splitAt(pos);
+    std::pair<PositionVector, PositionVector> geoms = edge->getGeometry().splitAt(pos);
     // build and insert the edges
     NBEdge* one = new NBEdge(firstEdgeName, edge->myFrom, node, edge, geoms.first, noLanesFirstEdge);
     NBEdge* two = new NBEdge(secondEdgeName, node, edge->myTo, edge, geoms.second, noLanesSecondEdge);
     if (OptionsCont::getOptions().getBool("output.original-names")) {
         const std::string origID = edge->getLaneStruct(0).getParameter(SUMO_PARAM_ORIGID, edge->getID());
         if (firstEdgeName != origID) {
-            one->setOrigID(origID);
+            one->setOrigID(origID, false);
         }
         if (secondEdgeName != origID) {
-            two->setOrigID(origID);
+            two->setOrigID(origID, false);
         }
     }
     two->copyConnectionsFrom(edge);
@@ -693,11 +690,11 @@ NBEdgeCont::splitAt(NBDistrictCont& dc,
     extract(dc, edge, true);
     if (!insert(one, true)) {
         WRITE_ERROR("Could not insert edge '" + one->getID() + "' before split of edge '" + oldID + "'");
-    };
+    }
     if (!insert(two, true)) {
         WRITE_ERROR("Could not insert edge '" + two->getID() + "' after split of edge '" + oldID + "'");
     }
-    myEdgesSplit++;
+    myEdgesSplit[edge] = {one, two};
     return true;
 }
 
@@ -1481,7 +1478,20 @@ NBEdgeCont::markRoundabouts() {
                 }
                 if (inEdge->getTurnDestination() != nullptr) {
                     inEdge->removeFromConnections(inEdge->getTurnDestination(), -1);
+                } else {
+                    // also remove connections that are effecively a turnaround but
+                    // where not correctly detector due to geometrical quirks
+                    const std::vector<NBEdge::Connection> cons = inEdge->getConnections();
+                    for (const NBEdge::Connection& con : cons) {
+                        if (roundaboutSet.count(con.toEdge) == 0) {
+                            const double angle = fabs(NBHelpers::normRelAngle(inEdge->getAngleAtNode(node), con.toEdge->getAngleAtNode(node)));
+                            if (angle > 160) {
+                                inEdge->removeFromConnections(con.toEdge, -1);
+                            }
+                        }
+                    }
                 }
+
             }
             // let the connections to succeeding roundabout edge have a higher priority
             edge->setJunctionPriority(node, NBEdge::JunctionPriority::ROUNDABOUT);
@@ -1623,7 +1633,7 @@ NBEdgeCont::remapIDs(bool numericaIDs, bool reservedIDs, const std::string& pref
     for (NBEdge* edge : toChange) {
         const std::string origID = edge->getID();
         if (origNames) {
-            edge->setOrigID(origID);
+            edge->setOrigID(origID, false);
         }
         edge->setID(idSupplier.getNext());
         myEdges[edge->getID()] = edge;
@@ -1706,6 +1716,7 @@ NBEdgeCont::checkGrade(double threshold) const {
     }
 }
 
+
 int
 NBEdgeCont::joinLanes(SVCPermissions perms) {
     int affectedEdges = 0;
@@ -1716,6 +1727,7 @@ NBEdgeCont::joinLanes(SVCPermissions perms) {
     }
     return affectedEdges;
 }
+
 
 int
 NBEdgeCont::joinTramEdges(NBDistrictCont& dc, NBPTStopCont& sc, NBPTLineCont& lc, double maxDist) {
@@ -1815,6 +1827,7 @@ NBEdgeCont::joinTramEdges(NBDistrictCont& dc, NBPTStopCont& sc, NBPTLineCont& lc
     if (matches.size() == 0) {
         return 0;
     }
+    const bool origNames = OptionsCont::getOptions().getBool("output.original-names");
     // find continous runs of matched edges for each tramEdge
     for (NBEdge* tramEdge : tramEdges) {
         std::vector<std::pair<double, std::pair<NBEdge*, int> > > roads;
@@ -1851,7 +1864,7 @@ NBEdgeCont::joinTramEdges(NBDistrictCont& dc, NBPTStopCont& sc, NBPTLineCont& lc
             const double tramLength = tramShape.length();
             EdgeVector incoming = tramFrom->getIncomingEdges();
             bool erasedLast = false;
-            for (auto item : roads) {
+            for (const auto& item : roads) {
                 const double gap = item.first - pos;
                 NBEdge* road = item.second.first;
                 int laneIndex = item.second.second;
@@ -1887,6 +1900,9 @@ NBEdgeCont::joinTramEdges(NBDistrictCont& dc, NBPTStopCont& sc, NBPTLineCont& lc
                     erasedLast = true;
                 }
                 road->setPermissions(road->getPermissions(laneIndex) | SVC_TRAM, laneIndex);
+                if (origNames) {
+                    road->setOrigID(tramEdgeID, true, laneIndex);
+                }
                 for (NBEdge* in : incoming) {
                     if (isTram(in->getPermissions()) && !in->isConnectedTo(road)) {
                         if (in->getFromNode() != road->getFromNode()) {

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-08-17 11:42:58.886923 by generateRailSignalConstraints.py v1_14_1+0357-8540007
+<configuration>
+    <additional-file value="input_additional.add.xml"/>
+    <debug-stop value="stop_b"/>
+    <net-file value="net.net.xml"/>
+    <output-file value="out.add.xml"/>
+    <route-file value="input_routes.rou.xml"/>
+    <verbose value="True"/>
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <railSignalConstraints id="J2">
+        <insertionPredecessor tripId="t1" tl="B" foes="t0"/>   <!-- (foeStop=stop_b)  -->
+    </railSignalConstraints>
+</additional>

@@ -110,7 +110,10 @@ public:
     std::vector<std::string> getRelDataAttrs() const;
 
     /// @brief open object dialog
-    void openObjectDialogAtCursor();
+    void openObjectDialogAtCursor(const FXEvent* ev);
+
+    /// @brief open delete dialog at cursor
+    void openDeleteDialogAtCursor(const std::vector<GUIGlObject*> &GLObjects);
 
     // save visualization settings
     void saveVisualizationSettings() const;
@@ -181,6 +184,9 @@ public:
 
     /// @brief add reversed edge
     long onCmdAddReversedEdge(FXObject*, FXSelector, void*);
+
+    /// @brief add reversed edge disconnected
+    long onCmdAddReversedEdgeDisconnected(FXObject*, FXSelector, void*);
 
     /// @brief change geometry endpoint
     long onCmdEditEdgeEndpoint(FXObject*, FXSelector, void*);
@@ -286,6 +292,12 @@ public:
 
     /// @brief reset junction connections
     long onCmdResetConnections(FXObject*, FXSelector, void*);
+
+    /// @brief add TLS
+    long onCmdAddTLS(FXObject*, FXSelector, void*);
+
+    /// @brief add Join TLS
+    long onCmdAddJoinTLS(FXObject*, FXSelector, void*);
 
     /// @brief edit connection shape
     long onCmdEditConnectionShape(FXObject*, FXSelector, void*);
@@ -480,6 +492,9 @@ public:
     /// @brief draw front attributeCarrier
     void drawTranslateFrontAttributeCarrier(const GNEAttributeCarrier* AC, double typeOrLayer, const double extraOffset = 0);
 
+    /// @brief check if draw delete contour
+    bool drawDeleteContour(const GUIGlObject* GLObject, const GNEAttributeCarrier* AC) const;
+
     /// @brief get last created route
     GNEDemandElement* getLastCreatedRoute() const;
 
@@ -488,6 +503,9 @@ public:
 
     /// @brief set statusBar text
     void setStatusBarText(const std::string& text);
+
+    /// @brief reset last clicked position
+    void resetLastClickedPosition();
 
     /// @brief whether to autoselect nodes or to lanes
     bool autoSelectNodes();
@@ -509,6 +527,12 @@ public:
 
     /// @brief ask about change supermode
     bool aksChangeSupermode(const std::string& operation, Supermode expectedSupermode);
+
+    /// @brief check if we're seleting detectors in TLS mode
+    bool selectingDetectorsTLSMode() const;
+
+    /// @brief check if we're seleting juncitons in TLS mode
+    bool selectingJunctionsTLSMode() const;
 
 protected:
     /// @brief FOX needs this
@@ -628,6 +652,9 @@ private:
     /// @brief draw preview roundabout
     bool myDrawPreviewRoundabout = false;
 
+    /// @brief last clicked position
+    Position myLastClickedPosition = Position::INVALID;
+
     /// @brief create edit mode buttons and elements
     void buildEditModeControls();
 
@@ -705,6 +732,13 @@ private:
 
     /// @brief draw temporal roundabout
     void drawTemporalRoundabout() const;
+
+    /// @brief draw temporal E1 TLS Lines
+    void drawTemporalE1TLSLines() const;
+
+    /// @brief draw temporal Junction TLS Lines
+    void drawTemporalJunctionTLSLines() const;
+
     /// @}
 
     /// @brief mouse process functions

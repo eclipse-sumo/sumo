@@ -128,10 +128,9 @@ def applyPlotOptions(fig, ax, options):
         if len(vals) == 1:
             ax.tick_params(axis='x', which='major', labelsize=float(vals[0]))
         elif len(vals) == 4:
-            xticks(
-                arange(float(vals[0]), float(vals[1]), float(vals[2])), size=float(vals[3]))
+            xticks(arange(float(vals[0]), float(vals[1]), float(vals[2])), size=float(vals[3]))
         else:
-            raise Exception(
+            raise ValueError(
                 "Error: ticks must be given as one float (<SIZE>) or four floats (<MIN>,<MAX>,<STEP>,<SIZE>)")
     if options.xtime1:
         ax.xaxis.set_major_formatter(ff(m2hm1))
@@ -157,7 +156,7 @@ def applyPlotOptions(fig, ax, options):
             yticks(
                 arange(float(vals[0]), float(vals[1]), float(vals[2])), size=float(vals[3]))
         else:
-            raise Exception(
+            raise ValueError(
                 "Error: ticks must be given as one float (<SIZE>) or four floats (<MIN>,<MAX>,<STEP>,<SIZE>)")
     if options.ytime1:
         ax.yaxis.set_major_formatter(ff(m2hm1))
@@ -182,7 +181,7 @@ def applyPlotOptions(fig, ax, options):
             fig.subplots_adjust(left=float(vals[0]), bottom=float(
                 vals[1]), right=float(vals[2]), top=float(vals[3]))
         else:
-            raise Exception(
+            raise ValueError(
                 "Error: adjust must be given as two floats (<LEFT>,<BOTTOM>) or four floats " +
                 "(<LEFT>,<BOTTOM>,<RIGHT>,<TOP>)")
 
@@ -214,7 +213,7 @@ def getColor(options, i, a):
     if options.colors:
         v = options.colors.split(",")
         if i >= len(v):
-            raise Exception("Error: not enough colors given")
+            raise ValueError("Error: not enough colors given")
         return v[i]
     if options.colormap[0] == '#':
         colormap = parseColorMap(options.colormap[1:])
@@ -265,7 +264,7 @@ def closeFigure(fig, ax, options, haveLabels=True, optOut=None):
         show()
     try:
         fig.clf()
-    except _tkinter.TclError:  # noqa
+    except:  # noqa
         pass
     close()
     gc.collect()
@@ -285,14 +284,21 @@ def logNormalise(values, maxValue):
             emin = values[e]
         if not emax or emax < values[e]:
             emax = values[e]
-    for e in values:
-        values[e] = (values[e] - emin) / (emax - emin)
+    if emax is not None and emin is not None:
+        valRange = emax - emin
+        if valRange == 0:
+            valRange = 1
+        for e in values:
+            values[e] = (values[e] - emin) / valRange
 
 
 def linNormalise(values, minColorValue, maxColorValue):
-    for e in values:
-        values[e] = (values[e] - minColorValue) / \
-            (maxColorValue - minColorValue)
+    if minColorValue is not None and maxColorValue is not None:
+        valRange = maxColorValue - minColorValue
+        if valRange == 0:
+            valRange = 1
+        for e in values:
+            values[e] = (values[e] - minColorValue) / valRange
 
 
 def toHex(val):

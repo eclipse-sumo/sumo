@@ -126,7 +126,7 @@ MSDevice_Transportable::notifyMove(SUMOTrafficObject& /*tObject*/, double /*oldP
                 MSStageDriving* const stage = dynamic_cast<MSStageDriving*>(transportable->getCurrentStage());
                 if (stage->canLeaveVehicle(transportable, myHolder, stop)) {
                     MSDevice_Taxi* taxiDevice = static_cast<MSDevice_Taxi*>(myHolder.getDevice(typeid(MSDevice_Taxi)));
-                    if (taxiDevice != nullptr && stop.timeToBoardNextPerson == 0) {
+                    if (taxiDevice != nullptr && stop.timeToBoardNextPerson == 0 && !MSGlobals::gUseMesoSim) {
                         // taxi passengers must leave at the end of the stop duration
                         stop.timeToBoardNextPerson = stop.pars.started + stop.pars.duration;
                     }

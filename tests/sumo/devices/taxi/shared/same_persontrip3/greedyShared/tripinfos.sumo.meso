@@ -49,13 +49,13 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <personinfo id="0" depart="0.00" type="DEFAULT_PEDTYPE">
+    <personinfo id="0" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00">
         <ride waitingTime="7.00" vehicle="taxi" depart="7.00" arrival="97.00" arrivalPos="95.20" duration="90.00" routeLength="1237.60" timeLoss="0.00"/>
     </personinfo>
-    <personinfo id="1" depart="0.00" type="DEFAULT_PEDTYPE">
+    <personinfo id="1" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00">
         <ride waitingTime="7.00" vehicle="taxi" depart="7.00" arrival="97.00" arrivalPos="95.20" duration="90.00" routeLength="1237.60" timeLoss="0.00"/>
     </personinfo>
-    <personinfo id="2" depart="0.00" type="DEFAULT_PEDTYPE">
+    <personinfo id="2" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00">
         <ride waitingTime="237.00" vehicle="taxi" depart="237.00" arrival="327.00" arrivalPos="95.20" duration="90.00" routeLength="1237.60" timeLoss="0.00"/>
     </personinfo>
     <tripinfo id="taxi" depart="0.00" departLane="" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="388.00" routeLength="4181.20" waitingTime="0.00" waitingCount="0" stopTime="123.00" timeLoss="23.59" rerouteNo="5" devices="tripinfo_taxi routing_taxi taxi_taxi person_taxi" vType="taxi" speedFactor="1.00" vaporized="">

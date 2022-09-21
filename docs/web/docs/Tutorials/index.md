@@ -54,6 +54,7 @@ These tutorials use the [Python-TraCI Library](../TraCI/Interfacing_TraCI_from_P
 
 * [TraCI4Traffic Lights](TraCI4Traffic_Lights.md) - An example for how to connect an external application to SUMO via TraCI for traffic lights control
 * [TraCIPedCrossing](TraCIPedCrossing.md) - An example for building a pedestrian-actuated traffic light via TraCI
+* [Simulating dynamic vehicular detours based on edge travel time (*external*)](https://medium.com/@fazekade/simulating-dynamic-vehicular-detours-based-on-edge-travel-time-in-sumo-e57a50457dba)
 
 # Other
 

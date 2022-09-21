@@ -93,12 +93,14 @@ NBLoadedSUMOTLDef::myCompute(int brakingTimeSeconds) {
 void
 NBLoadedSUMOTLDef::addConnection(NBEdge* from, NBEdge* to, int fromLane, int toLane, int linkIndex, int linkIndex2, bool reconstruct) {
     assert(myTLLogic->getNumLinks() > 0); // logic should be loaded by now
-    if (linkIndex >= (int)myTLLogic->getNumLinks()) {
-        throw ProcessError("Invalid linkIndex " + toString(linkIndex) + " for traffic light '" + getID() +
+    if (linkIndex >= myTLLogic->getNumLinks()) {
+        throw ProcessError("Invalid linkIndex " + toString(linkIndex) + " in connection from edge '" + from->getID() +
+                           "' to edge '" + to->getID() + "' for traffic light '" + getID() +
                            "' with " + toString(myTLLogic->getNumLinks()) + " links.");
     }
-    if (linkIndex2 >= (int)myTLLogic->getNumLinks()) {
-        throw ProcessError("Invalid linkIndex2 " + toString(linkIndex2) + " for traffic light '" + getID() +
+    if (linkIndex2 >= myTLLogic->getNumLinks()) {
+        throw ProcessError("Invalid linkIndex2 " + toString(linkIndex2) + " in connection from edge '" + from->getID() +
+                           "' to edge '" + to->getID() + "' for traffic light '" + getID() +
                            "' with " + toString(myTLLogic->getNumLinks()) + " links.");
     }
     NBConnection conn(from, fromLane, to, toLane, linkIndex, linkIndex2);
@@ -128,14 +130,15 @@ NBLoadedSUMOTLDef::setProgramID(const std::string& programID) {
     myTLLogic->setProgramID(programID);
 }
 
+
 void
 NBLoadedSUMOTLDef::setTLControllingInformation() const {
     if (myReconstructAddedConnections) {
         NBOwnTLDef dummy(DummyID, myControlledNodes, 0, getType());
         dummy.setParticipantsInformation();
         dummy.setTLControllingInformation();
-        for (std::vector<NBNode*>::const_iterator i = myControlledNodes.begin(); i != myControlledNodes.end(); i++) {
-            (*i)->removeTrafficLight(&dummy);
+        for (NBNode* const n : myControlledNodes) {
+            n->removeTrafficLight(&dummy);
         }
     }
     if (myReconstructRemovedConnections) {
@@ -148,9 +151,8 @@ NBLoadedSUMOTLDef::setTLControllingInformation() const {
     }
     // set the information about the link's positions within the tl into the
     //  edges the links are starting at, respectively
-    for (NBConnectionVector::const_iterator it = myControlledLinks.begin(); it != myControlledLinks.end(); it++) {
-        const NBConnection& c = *it;
-        if (c.getTLIndex() >= (int)myTLLogic->getNumLinks()) {
+    for (const NBConnection& c : myControlledLinks) {
+        if (c.getTLIndex() >= myTLLogic->getNumLinks()) {
             throw ProcessError("Invalid linkIndex " + toString(c.getTLIndex()) + " for traffic light '" + getID() +
                                "' with " + toString(myTLLogic->getNumLinks()) + " links.");
         }
@@ -614,7 +616,7 @@ NBLoadedSUMOTLDef::getStates(int index) {
 }
 
 bool
-NBLoadedSUMOTLDef::isUsed(int index) {
+NBLoadedSUMOTLDef::isUsed(int index) const {
     for (const NBConnection& c : myControlledLinks) {
         if (c.getTLIndex() == index || c.getTLIndex2() == index) {
             return true;
@@ -880,4 +882,13 @@ NBLoadedSUMOTLDef::guessMinMaxDuration() {
 }
 
 
+void
+NBLoadedSUMOTLDef::finalChecks() const {
+    for (int i = 0; i < myTLLogic->getNumLinks(); i++) {
+        if (!isUsed(i)) {
+            WRITE_WARNINGF("Unused state in tlLogic '%', program '%' at tl-index %", getID(), getProgramID(), i);
+            break;
+        }
+    }
+}
 /****************************************************************************/

@@ -44,13 +44,13 @@ netedit.leftClick(referencePosition, 450, 220)
 netedit.changeDefaultValue(netedit.attrs.E2.create.jamThreshold, "-30")
 
 # try to create E2 with invalid jam threshold
-netedit.leftClick(referencePosition, 450, 220)
+netedit.leftClick(referencePosition, 460, 220)
 
 # set valid jam threshold
 netedit.changeDefaultValue(netedit.attrs.E2.create.jamThreshold, "15.5")
 
 # create E2 with valid jam threshold
-netedit.leftClick(referencePosition, 450, 220)
+netedit.leftClick(referencePosition, 470, 220)
 
 # Check undo redo
 netedit.undo(referencePosition, 1)

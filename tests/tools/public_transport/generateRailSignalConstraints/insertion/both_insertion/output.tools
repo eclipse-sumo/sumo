@@ -9,4 +9,6 @@ findFoeInsertionConflicts at stop stop_a
 findInsertionConflicts at stop stop_a
 0 n: 00:01:20 None t1 0 2 passing: True depart: True
 1 n: 00:02:10 None t0 0 2 passing: True depart: True
-Found 0 insertion conflicts
+1 p: 00:01:20 None t1 0 2 n: 00:02:10 None t0 0 2
+   found insertionConflict pSignal=A nSignal=A pTripId=t1
+Found 1 insertion conflicts

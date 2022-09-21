@@ -19,21 +19,29 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <utils/gui/windows/GUIAppEnum.h>
 #include "MFXMenuButtonTooltip.h"
 
 
 FXDEFMAP(MFXMenuButtonTooltip) MFXMenuButtonTooltipMap[] = {
-    FXMAPFUNC(SEL_ENTER,    0,  MFXMenuButtonTooltip::onEnter),
-    FXMAPFUNC(SEL_LEAVE,    0,  MFXMenuButtonTooltip::onLeave),
+    FXMAPFUNC(SEL_ENTER,            0,                  MFXMenuButtonTooltip::onEnter),
+    FXMAPFUNC(SEL_LEAVE,            0,                  MFXMenuButtonTooltip::onLeave),
+    FXMAPFUNC(SEL_MOTION,           0,                  MFXMenuButtonTooltip::onMotion),
+    FXMAPFUNC(SEL_LEFTBUTTONPRESS,  0,                  MFXMenuButtonTooltip::onLeftBtnPress),
+    FXMAPFUNC(SEL_KEYPRESS,         0,                  MFXMenuButtonTooltip::onKeyPress),
+    FXMAPFUNC(SEL_COMMAND,          FXWindow::ID_POST,  MFXMenuButtonTooltip::onCmdPost),
 };
 
 // Object implementation
 FXIMPLEMENT(MFXMenuButtonTooltip, FXMenuButton, MFXMenuButtonTooltipMap, ARRAYNUMBER(MFXMenuButtonTooltipMap))
 
 
-MFXMenuButtonTooltip::MFXMenuButtonTooltip(FXComposite* p, const FXString& text, FXIcon* ic, FXPopup* pup, 
-                         FXuint opts, FXint x, FXint y, FXint w, FXint h, FXint pl, FXint pr, FXint pt, FXint pb) :
-    FXMenuButton(p, text, ic, pup, opts, x, y, w, h, pl, pr, pt, pb) {
+MFXMenuButtonTooltip::MFXMenuButtonTooltip(FXComposite* p, MFXStaticToolTip* staticToolTip, const FXString& text, FXIcon* ic, 
+                                           FXPopup* pup, FXObject* optionalTarget, FXuint opts, 
+                                           FXint x, FXint y, FXint w, FXint h, FXint pl, FXint pr, FXint pt, FXint pb) :
+    FXMenuButton(p, text, ic, pup, opts, x, y, w, h, pl, pr, pt, pb),
+    myStaticToolTip(staticToolTip),
+    myOptionalTarget(optionalTarget) {
 }
 
 
@@ -42,23 +50,57 @@ MFXMenuButtonTooltip::~MFXMenuButtonTooltip() {}
 
 long
 MFXMenuButtonTooltip::onEnter(FXObject* sender, FXSelector sel, void* ptr) {
-    // create on first enter
-    if (myStaticToolTip == nullptr) {
-        myStaticToolTip = new MFXStaticToolTip(getApp());
-        myStaticToolTip->create();
-    }
     // show tip show
-    myStaticToolTip->onTipShow(sender, sel, ptr);
+    myStaticToolTip->showStaticToolTip(getTipText());
     return FXMenuButton::onEnter(sender, sel, ptr);
 }
 
 
 long
 MFXMenuButtonTooltip::onLeave(FXObject* sender, FXSelector sel, void* ptr) {
-    // hide tip show
-    myStaticToolTip->onTipHide(sender, sel, this);
+    // hide static toolTip
+    myStaticToolTip->hideStaticToolTip();
     return FXMenuButton::onLeave(sender, sel, ptr);
 }
 
+
+long 
+MFXMenuButtonTooltip::onMotion(FXObject* sender, FXSelector sel, void* ptr) {
+    // update static tooltip
+    myStaticToolTip->onUpdate(sender, sel, ptr);
+    return FXMenuButton::onMotion(sender, sel, ptr);
+}
+
+
+long
+MFXMenuButtonTooltip::onLeftBtnPress(FXObject* sender, FXSelector sel, void* ptr) {
+    // inform optional target
+    if (myOptionalTarget) {
+        myOptionalTarget->tryHandle(this, FXSEL(MID_MBTTIP_FOCUS, message), nullptr);
+    }
+    // continue handling onLeftBtnPress
+    return FXMenuButton::onLeftBtnPress(sender, sel, ptr);
+}
+
+long
+MFXMenuButtonTooltip::onKeyPress(FXObject* sender, FXSelector sel, void* ptr) {
+    // inform optional target
+    if (myOptionalTarget) {
+        myOptionalTarget->tryHandle(this, FXSEL(MID_MBTTIP_FOCUS, message), nullptr);
+    }
+    // continue handling onKeyPress
+    return FXMenuButton::onKeyPress(sender, sel, ptr);
+}
+
+
+long 
+MFXMenuButtonTooltip::onCmdPost(FXObject* sender, FXSelector sel, void* ptr) {
+    // inform optional target
+    if (myOptionalTarget) {
+        myOptionalTarget->tryHandle(this, FXSEL(MID_MBTTIP_SELECTED, message), nullptr);
+    }
+    // continue handling onCheck
+    return FXMenuButton::onCmdPost(sender, sel, ptr);
+}
 
 /****************************************************************************/

@@ -98,7 +98,7 @@ public:
      * @param[in] onInsertion Indicator whether the call is triggered during vehicle insertion
      * @return the safe velocity
      */
-    double maximumSafeFollowSpeed(double gap, double egoSpeed, double predSpeed, double predMaxDecel, bool onInsertion = false) const;
+    double maximumSafeFollowSpeed(double gap, double egoSpeed, double predSpeed, double predMaxDecel, bool onInsertion = false, const CalcReason usage = CalcReason::CURRENT) const;
 
 
     /** @brief Returns the maximum next velocity for stopping within gap
@@ -126,7 +126,8 @@ public:
      * @return EGO's safe speed
      * @see MSCFModel::ffeV
      */
-    double followSpeed(const MSVehicle* const veh, double speed, double gap2pred, double predSpeed, double predMaxDecel, const MSVehicle* const pred = 0) const;
+    double followSpeed(const MSVehicle* const veh, double speed, double gap2pred, double predSpeed,
+                       double predMaxDecel, const MSVehicle* const pred = 0, const CalcReason usage = CalcReason::CURRENT) const;
 
 
     /** @brief Computes the vehicle's safe speed for approaching a non-moving obstacle
@@ -136,7 +137,7 @@ public:
      * @see MSCFModel::ffeS
      * @todo generic Interface, models can call for the values they need
      */
-    double stopSpeed(const MSVehicle* const veh, const double speed, double gap, double decel) const;
+    double stopSpeed(const MSVehicle* const veh, const double speed, double gap, double decel, const CalcReason usage = CalcReason::CURRENT) const;
 
 
     /** @brief Computes the vehicle's safe speed without a leader
@@ -152,7 +153,7 @@ public:
      * @return EGO's safe speed
      */
     double freeSpeed(const MSVehicle* const veh, double speed, double seen,
-                     double maxSpeed, const bool onInsertion = false) const;
+                     double maxSpeed, const bool onInsertion = false, const CalcReason usage = CalcReason::CURRENT) const;
 
     static double freeSpeed(const double currentSpeed, const double decel, const double dist, const double maxSpeed, const bool onInsertion);
 
@@ -190,6 +191,17 @@ public:
             // they realize, that they will soon arrive at the junction and other vehicles are notified to maybe then brake hard!
             return MSCFModel::brakeGap(speed, MAX2(decel, myDecel + 1.0), headwayTime);
         }
+    }
+
+    /** @brief Returns the maximum speed given the current speed and regarding driving dynamics
+     * @param[in] speed The vehicle's current speed
+     * @param[in] speed The vehicle itself, for obtaining other values
+     * @return The maximum possible speed for the next step taking driving dynamics into account
+     */
+    double maxNextSafeMin(double speed, const MSVehicle* const veh = 0) const {
+        UNUSED_PARAMETER(speed);
+        UNUSED_PARAMETER(veh);
+        return 0;
     }
 
     /** @brief Returns the maximum velocity the CF-model wants to achieve in the next step
@@ -233,6 +245,7 @@ public:
         ret->myv_est_l = 0.;
         ret->myv_est = 0.;
         ret->mys_est = 0.;
+        ret->myrespectMinGap = true;
         ret->myap_update = 0;
         return ret;
     }
@@ -257,6 +270,7 @@ private:
         double myv_est_l; // @brief saves the speed of the leading vehicle / 0 for a stop at the last driver update (reaction time)
         double myv_est; // @brief saves the speed of the vehicle at the last driver update (reaction time)
         double mys_est; // @brief saves the gap to leading vehicle / next stop at the last driver update (reaction time)
+        bool myrespectMinGap; // @brief saves the information, if minGap was added to the desired gap s* at the last driver update (reaction time)
         int myap_update; // @brief is a number counting the simulation steps since the last driver/vehicle update (reaction time)
         std::vector<std::pair<double, double>> stop; // @brief saves the intended accelerations and distances from all stopSpeed-calculations of the current time step
     };
@@ -276,7 +290,7 @@ private:
 
     // @brief contains the main CF-model calculations
     double _v(const MSVehicle* const veh, const double gap2pred, const double mySpeed,
-              const double predSpeed, const double desSpeed, const bool respectMinGap, const int update) const;
+              const double predSpeed, const double desSpeed, const bool respectMinGap, const int update, const CalcReason usage) const;
 
     // @brief calculates the internal desired speed for the vehicle depending on myTpreview and upcoming turns, intersections and speed limit changes
     void internalspeedlimit(MSVehicle* const veh, const double oldV) const;

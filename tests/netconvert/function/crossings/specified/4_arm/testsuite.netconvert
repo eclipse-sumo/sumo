@@ -116,3 +116,6 @@ bent_priority_tls_oncoming
 
 # large walkingarea should not bulge out into the driving space (#9485)
 large_walkingarea
+
+# 4 arm junction with crossings on all sides and fringe nodes on the outer arms
+complete_fringe

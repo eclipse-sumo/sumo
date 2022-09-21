@@ -77,6 +77,9 @@ public:
     /// @brief return TraCI API and SUMO version
     static std::pair<int, std::string> getVersion();
 
+    /// @brief return the SUMO option value
+    static std::string getOption(const std::string& option);
+
     static int getCurrentTime();
     static double getTime();
 

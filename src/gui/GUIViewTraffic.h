@@ -106,6 +106,15 @@ public:
     /// @brief get the current simulation time
     SUMOTime getCurrentTimeStep() const;
 
+    /// @brief interaction with the simulation
+    long onCmdCloseLane(FXObject*, FXSelector, void*);
+    long onCmdCloseEdge(FXObject*, FXSelector, void*);
+    long onCmdAddRerouter(FXObject*, FXSelector, void*);
+
+    /// @brief highlight edges according to reachability
+    long onCmdShowReachability(FXObject*, FXSelector, void*);
+    static long showLaneReachability(GUILane* lane, FXObject*, FXSelector);
+
     long onDoubleClicked(FXObject*, FXSelector, void*);
 
     /** @brief Adds a frame to a video snapshot which will be initialized if neccessary

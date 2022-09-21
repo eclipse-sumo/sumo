@@ -79,6 +79,9 @@ public:
     /// @brief return last valid edge of myRoute (if it doest not lie before the last stop)
     NBEdge* getRouteEnd(const NBEdgeCont& ec) const;
 
+    /// @brief return whether the mentioned edges appear in that order in the route
+    bool isConsistent(const std::vector<NBEdge*>& stops) const;
+
     SUMOVehicleClass getVClass() const {
         return myVClass;
     }

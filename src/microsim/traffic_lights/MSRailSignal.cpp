@@ -184,7 +184,7 @@ MSRailSignal::updateCurrentPhase() {
             if (driveway.conflictLaneOccupied() || driveway.conflictLinkApproached()) {
 #ifdef DEBUG_SIGNALSTATE
                 if (gDebugFlag4) {
-                    std::cout << SIMTIME << " rsl=" << li.getID() << " red for default driveway (" << toString(driveway.myRoute) << " conflictLinkApproached=" << driveway.conflictLinkApproached() << "\n";
+                    std::cout << SIMTIME << " rsl=" << li.getID() << " red for default driveway (" << toString(driveway.myRoute) << ")\n";
                 }
 #endif
                 state[li.myLink->getTLIndex()] = 'r';
@@ -217,7 +217,7 @@ MSRailSignal::constraintsAllow(const SUMOVehicle* veh) const {
         if (it != myConstraints.end()) {
             for (MSRailSignalConstraint* c : it->second) {
                 // ignore insertion constraints here
-                if (c->getType() != MSRailSignalConstraint::ConstraintType::INSERTION_PREDECESSOR && !c->cleared()) {
+                if (!c->isInsertionConstraint() && !c->cleared()) {
 #ifdef DEBUG_SIGNALSTATE
                     if (gDebugFlag4) {
                         std::cout << "  constraint '" << c->getDescription() << "' not cleared\n";
@@ -351,6 +351,15 @@ MSRailSignal::formatVisitedMap(const LaneVisitedMap& visited) {
     return toString(lanes);
 }
 
+
+void
+MSRailSignal::appendMapIndex(LaneVisitedMap& map, const MSLane* lane) {
+    // avoid undefined behavior from evaluation order
+    const int tmp = (int)map.size();
+    map[lane] = tmp;
+}
+
+
 MSRailSignal::Approaching
 MSRailSignal::getClosest(MSLink* link) {
     assert(link->getApproaching().size() > 0);
@@ -378,6 +387,7 @@ MSRailSignal::getClosest(MSLink* link) {
     return *closestIt;
 }
 
+
 void
 MSRailSignal::writeBlocks(OutputDevice& od) const {
     od.openTag("railSignal");
@@ -398,10 +408,14 @@ MSRailSignal::writeBlocks(OutputDevice& od) const {
 
 
 bool
-MSRailSignal::hasOncomingRailTraffic(MSLink* link) {
-    if (link->getJunction()->getType() == SumoXMLNodeType::RAIL_SIGNAL && link->getState() == LINKSTATE_TL_RED) {
+MSRailSignal::hasOncomingRailTraffic(MSLink* link, const MSVehicle* ego, bool& brakeBeforeSignal) {
+    // @note: this check is intended to prevent deadlock / collision by an inserted vehicle that
+    // waits at a red signal and thus checks different things than ::reverse()
+    bool hadOncoming = false;
+    if (link->getJunction()->getType() == SumoXMLNodeType::RAIL_SIGNAL) {
         const MSEdge* bidi = link->getLaneBefore()->getEdge().getBidiEdge();
         if (bidi == nullptr) {
+            brakeBeforeSignal = false;
             return false;
         }
         const MSRailSignal* rs = dynamic_cast<const MSRailSignal*>(link->getTLLogic());
@@ -414,7 +428,7 @@ MSRailSignal::hasOncomingRailTraffic(MSLink* link) {
 #ifdef DEBUG_SIGNALSTATE
                         if (DEBUG_HELPER(rs)) {
                             std::cout << " oncoming vehicle on bidi-lane " << lane->getID() << "\n";
-                        };
+                        }
 #endif
                         return true;
                     }
@@ -426,11 +440,57 @@ MSRailSignal::hasOncomingRailTraffic(MSLink* link) {
 #ifdef DEBUG_SIGNALSTATE
                             if (DEBUG_HELPER(rs)) {
                                 std::cout << " oncoming vehicle on flank-lane " << lane->getID() << "\n";
-                            };
+                            }
 #endif
                             return true;
                         }
                     }
+                }
+                if (dw.myProtectingSwitchesBidi.size() > 0) {
+#ifdef DEBUG_SIGNALSTATE
+                    gDebugFlag4 = DEBUG_HELPER(rs);
+#endif
+                    // yield to all foeLinks beyond switch
+                    Approaching approaching(ego,
+                            MSLink::ApproachingVehicleInformation(SUMOTime_MAX, 0, 0, 0, false, -1, 0, std::numeric_limits<double>::max(), 0 ,0));
+                    for (MSLink* const switchLink : dw.myProtectingSwitchesBidi) {
+                        myBlockingVehicles.clear();
+                        myRivalVehicles.clear();
+                        myPriorityVehicles.clear();
+                        myConstraintInfo = "";
+                        myStoreVehicles = true;
+                        const bool hasProtection = dw.findProtection(approaching, switchLink);
+                        myStoreVehicles = false;
+                        if (!hasProtection) {
+                            for (const SUMOVehicle* veh : myBlockingVehicles) {
+                                hadOncoming = true;
+                                if (!brakeBeforeSignal || std::find(veh->getCurrentRouteEdge(), veh->getRoute().end(), bidi) != veh->getRoute().end()) {
+#ifdef DEBUG_SIGNALSTATE
+                                    if (DEBUG_HELPER(rs)) {
+                                        std::cout << "  no protection at bidi-switch " << switchLink->getDescription() << " from veh=" << veh->getID() << "\n";
+                                        gDebugFlag4 = false;
+                                    }
+#endif
+                                    return true;
+                                }
+                            }
+                            for (const SUMOVehicle* veh : myRivalVehicles) {
+                                hadOncoming = true;
+                                if (!brakeBeforeSignal || std::find(veh->getCurrentRouteEdge(), veh->getRoute().end(), bidi) != veh->getRoute().end()) {
+#ifdef DEBUG_SIGNALSTATE
+                                    if (DEBUG_HELPER(rs)) {
+                                        std::cout << "  no protection at bidi-switch " << switchLink->getDescription() << " from linkRival veh=" << veh->getID() << "\n";
+                                        gDebugFlag4 = false;
+                                    }
+#endif
+                                    return true;
+                                }
+                            }
+                        }
+                    }
+#ifdef DEBUG_SIGNALSTATE
+                    gDebugFlag4 = false;
+#endif
                 }
                 for (MSLink* foeLink : dw.myConflictLinks) {
                     if (foeLink->getApproaching().size() != 0) {
@@ -450,11 +510,12 @@ MSRailSignal::hasOncomingRailTraffic(MSLink* link) {
             }
         }
     }
+    brakeBeforeSignal = hadOncoming;
     return false;
 }
 
 bool
-MSRailSignal::hasInsertionConstraint(MSLink* link, const MSVehicle* veh, std::string& info) {
+MSRailSignal::hasInsertionConstraint(MSLink* link, const MSVehicle* veh, std::string& info, bool& isInsertionOrder) {
     if (link->getJunction() != nullptr && link->getJunction()->getType() == SumoXMLNodeType::RAIL_SIGNAL) {
         const MSRailSignal* rs = dynamic_cast<const MSRailSignal*>(link->getTLLogic());
         if (rs != nullptr && rs->myConstraints.size() > 0) {
@@ -462,13 +523,14 @@ MSRailSignal::hasInsertionConstraint(MSLink* link, const MSVehicle* veh, std::st
             auto it = rs->myConstraints.find(tripID);
             if (it != rs->myConstraints.end()) {
                 for (MSRailSignalConstraint* c : it->second) {
-                    if (c->getType() == MSRailSignalConstraint::ConstraintType::INSERTION_PREDECESSOR && !c->cleared()) {
+                    if (c->isInsertionConstraint() && !c->cleared()) {
 #ifdef DEBUG_SIGNALSTATE
                         if (DEBUG_HELPER(rs)) {
                             std::cout << SIMTIME << " rsl=" << rs->getID() << " insertion constraint '" << c->getDescription() << "' for vehicle '" << veh->getID() << "' not cleared\n";
                         }
 #endif
                         info = c->getDescription();
+                        isInsertionOrder = c->getType() == MSRailSignalConstraint::ConstraintType::INSERTION_ORDER;
                         return true;
                     }
                 }
@@ -590,11 +652,11 @@ MSRailSignal::LinkInfo::buildDriveWay(MSRouteIterator first, MSRouteIterator end
     DriveWay dw;
     LaneVisitedMap visited;
     std::vector<MSLane*> before;
-    visited[myLink->getLaneBefore()] = (int)visited.size();
+    appendMapIndex(visited, myLink->getLaneBefore());
     MSLane* fromBidi = myLink->getLaneBefore()->getBidiLane();
     if (fromBidi != nullptr) {
         // do not extend to forward block beyond the entering track (in case of a loop)
-        visited[fromBidi] = (int)visited.size();
+        appendMapIndex(visited, fromBidi);
         before.push_back(fromBidi);
     }
     dw.buildRoute(myLink, 0., first, end, visited);
@@ -727,6 +789,11 @@ bool
 MSRailSignal::DriveWay::conflictLinkApproached() const {
     for (MSLink* foeLink : myConflictLinks) {
         if (foeLink->getApproaching().size() > 0) {
+#ifdef DEBUG_SIGNALSTATE
+            if (gDebugFlag4) {
+                std::cout << SIMTIME << " foeLink=" << foeLink->getDescription() << " approachedBy=" << foeLink->getApproaching().begin()->first->getID() << "\n";
+            }
+#endif
             return true;
         }
     }
@@ -1077,7 +1144,7 @@ MSRailSignal::DriveWay::buildRoute(MSLink* origin, double length,
                 next++;
             }
         }
-        visited[toLane] = (int)visited.size();
+        appendMapIndex(visited, toLane);
         length += toLane->getLength();
         MSLane* bidi = toLane->getBidiLane();
         if (seekForwardSignal) {
@@ -1098,7 +1165,7 @@ MSRailSignal::DriveWay::buildRoute(MSLink* origin, double length,
             } else {
                 myBidi.push_back(bidi);
             }
-            visited[bidi] = (int)visited.size();
+            appendMapIndex(visited, bidi);
             if (!seekForwardSignal) {
                 // look for switch that could protect from oncoming vehicles
                 for (const auto& ili : bidi->getIncomingLanes()) {
@@ -1280,7 +1347,7 @@ MSRailSignal::DriveWay::findFlankProtection(MSLink* link, double length, LaneVis
         const bool isNew = visited.count(lane) == 0;
         if (isNew || (visited[lane] > visited[origLink->getLane()] && std::find(myForward.begin(), myForward.end(), lane) == myForward.end())) {
             if (isNew) {
-                visited[lane] = (int)visited.size();
+                appendMapIndex(visited, lane);
             }
             length += lane->getLength();
             if (lane->isInternal()) {
@@ -1299,6 +1366,12 @@ MSRailSignal::DriveWay::findFlankProtection(MSLink* link, double length, LaneVis
                         std::cout << "   protectingSwitch=" << l2->getDescription() << " for flank=" << link->getDescription() << "\n";
 #endif
                         myProtectingSwitches.push_back(link);
+                        if (std::find(myBidi.begin(), myBidi.end(), origLink->getLane()) != myBidi.end()) {
+#ifdef DEBUG_CHECK_FLANKS
+                            std::cout << "     (is bidi-switch)\n";
+#endif
+                            myProtectingSwitchesBidi.push_back(link);
+                        }
                     }
                 }
                 if (!foundPSwitch) {

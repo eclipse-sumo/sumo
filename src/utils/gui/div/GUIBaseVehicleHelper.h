@@ -54,9 +54,9 @@ public:
 
     /// @brief draw vehicle as a polygon
     static void drawAction_drawVehicleAsPoly(const GUIVisualizationSettings& s, const SUMOVehicleShape shape, const double width, const double length,
-            int carriageIndex = -1);
+            int carriageIndex = -1, bool isStopped = false);
 
-    /**@brief try to draw vehicle as raster image and return true if sucessful
+    /**@brief try to draw vehicle as raster image and return true if successful
      * @param[in] length The custom length of the vehicle
      */
     static bool drawAction_drawVehicleAsImage(const GUIVisualizationSettings& s, const std::string& file,

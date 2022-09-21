@@ -34,40 +34,6 @@ class GNEDeleteFrame : public GNEFrame {
 public:
 
     // ===========================================================================
-    // class MultipleDeletePane
-    // ===========================================================================
-
-    class MultipleDeletePane : protected FXMenuPane {
-        // FOX-declarations
-        FXDECLARE(MultipleDeletePane)
-
-    public:
-        /// @brief Constructor
-        MultipleDeletePane(GNEDeleteFrame* deleteFrameParent, const std::vector<GNEDemandElement*>& clickedDemandElements);
-
-        /// @name FOX-callbacks
-        /// @{
-        /// @brief Called when user change an option
-        long onCmdSelect(FXObject*, FXSelector, void*);
-
-        /// @}
-
-    protected:
-        /// @brief FOX needs this
-        FOX_CONSTRUCTOR(MultipleDeletePane)
-
-    private:
-        /// @brief pointer to delete frame parent
-        GNEDeleteFrame* myDeleteFrameParent = nullptr;
-
-        /// @brief delete all elements
-        FXMenuCommand* myDeleteAllElements = nullptr;
-
-        /// @brief clicked demand elements
-        const std::vector<GNEDemandElement*> myClickedDemandElements;
-    };
-
-    // ===========================================================================
     // class DeleteOptions
     // ===========================================================================
 
@@ -143,40 +109,6 @@ public:
         FXCheckButton* myProtectGenericDatas;
     };
 
-    /**@brief Constructor
-     * @brief parent FXHorizontalFrame in which this GNEFrame is placed
-     * @brief viewNet viewNet that uses this GNEFrame
-     */
-    GNEDeleteFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet);
-
-    /// @brief Destructor
-    ~GNEDeleteFrame();
-
-    /// @brief show delete frame
-    void show();
-
-    /// @brief hide delete frame
-    void hide();
-
-    /// @brief remove selected attribute carriers (element)
-    void removeSelectedAttributeCarriers();
-
-    /**@brief remove attribute carrier (element)
-     * @param objectsUnderCursor objects under cursors
-     * @param ignoreOptions ignore delete options and ALWAYS remove AC
-     */
-    void removeAttributeCarrier(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, bool ignoreOptions = false);
-
-    /**@brief remove geometry point
-    * @param objectsUnderCursor objects under cursors
-    */
-    void removeGeometryPoint(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor);
-
-    /// @brief get delete options
-    DeleteOptions* getDeleteOptions() const;
-
-protected:
-
     /// @brief struct for saving subordinated elements (Junction->Edge->Lane->(Additional | DemandElement)
     class SubordinatedElements {
 
@@ -250,13 +182,48 @@ protected:
         SubordinatedElements& operator=(const SubordinatedElements&) = delete;
     };
 
+    /**@brief Constructor
+     * @brief viewParent GNEViewParent in which this GNEFrame is placed
+     * @brief viewNet viewNet that uses this GNEFrame
+     */
+    GNEDeleteFrame(GNEViewParent *viewParent, GNEViewNet* viewNet);
+
+    /// @brief Destructor
+    ~GNEDeleteFrame();
+
+    /// @brief show delete frame
+    void show();
+
+    /// @brief hide delete frame
+    void hide();
+
+    /// @brief remove selected attribute carriers (element)
+    void removeSelectedAttributeCarriers();
+
+    /**@brief remove attribute carrier (element)
+     * @param objectsUnderCursor objects under cursors
+     */
+    void removeAttributeCarrier(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor);
+
+    /**@brief remove geometry point
+    * @param objectsUnderCursor objects under cursors
+    */
+    void removeGeometryPoint(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor);
+
+    /// @brief get delete options modul
+    DeleteOptions* getDeleteOptions() const;
+
+    /// @brief get protect elements modul
+    ProtectElements* getProtectElements() const;
+
+protected:
     /// @brief check if there is selected ACs to delete
     bool selectedACsToDelete() const;
 
-private:
-    /// @brief MultipleDeletePane
-    MultipleDeletePane* myMultipleDeletePane = nullptr;
+    /// @brief filter elements based on the layer
+    std::vector<GUIGlObject*> filterElementsByLayer(const std::vector<GUIGlObject*> &GLObjects) const;
 
+private:
     /// @brief modul for delete options
     DeleteOptions* myDeleteOptions = nullptr;
 

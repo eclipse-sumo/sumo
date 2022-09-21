@@ -33,9 +33,8 @@ class MFXCheckableButton : public FXButton {
 
 public:
     /// @brief constructor (Very similar to the FXButton constructor)
-    MFXCheckableButton(bool amChecked, FXComposite* p, const FXString& text,
-                       FXIcon* ic = NULL, FXObject* tgt = NULL, FXSelector sel = 0,
-                       FXuint opts = BUTTON_NORMAL,
+    MFXCheckableButton(bool amChecked, FXComposite* p, MFXStaticToolTip* staticToolTip, const FXString& text,
+                       FXIcon* ic = NULL, FXObject* tgt = NULL, FXSelector sel = 0, FXuint opts = BUTTON_NORMAL,
                        FXint x = 0, FXint y = 0, FXint w = 0, FXint h = 0,
                        FXint pl = DEFAULT_PAD, FXint pr = DEFAULT_PAD, FXint pt = DEFAULT_PAD, FXint pb = DEFAULT_PAD);
 
@@ -61,6 +60,10 @@ public:
 
     /// @brief called when mouse leaves in MFXCheckableButton
     long onLeave(FXObject*, FXSelector, void*);
+
+    /// @brief called when mouse motion in MFXCheckableButton
+    long onMotion(FXObject*, FXSelector, void*);
+
     /// @}
 
 protected:

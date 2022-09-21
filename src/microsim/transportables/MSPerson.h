@@ -202,6 +202,9 @@ public:
             return myDist;
         }
 
+        /// @brief the speed of the person in this stage
+        double getSpeed() const;
+
         /** @brief Called on writing tripinfo output
         *
         * @param[in] os The stream to write the information into
@@ -256,11 +259,11 @@ public:
         return false;
     }
 
-    inline double getSpeedFactor() const {
+    inline double getChosenSpeedFactor() const {
         return myChosenSpeedFactor;
     }
 
-    inline void setSpeedFactor(const double factor) {
+    inline void setChosenSpeedFactor(const double factor) {
         myChosenSpeedFactor = factor;
     }
 

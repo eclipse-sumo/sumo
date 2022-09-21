@@ -89,7 +89,7 @@ public:
      */
     class StoringVisitor {
     public:
-        /// @brief Contructor
+        /// @brief Constructor
         StoringVisitor(std::set<const Named*>& objects) : myObjects(objects) {}
 
         /// @brief Destructor

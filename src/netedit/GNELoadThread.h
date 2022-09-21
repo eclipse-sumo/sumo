@@ -57,7 +57,7 @@ public:
      * @param[in] isNet whether file is a network file
      * @param[in] useStartupOptions whether the initial startup options shall be used
      */
-    void loadConfigOrNet(const std::string& file, bool isNet, bool useStartupOptions, bool newNet = false);
+    void loadConfigOrNet(const std::string& file, const bool isNet, const bool useStartupOptions, const bool newNet = false);
 
     /// @brief Retrieves messages from the loading module
     void retrieveMessage(const MsgHandler::MsgType type, const std::string& msg);
@@ -96,8 +96,8 @@ protected:
     FXEX::MFXThreadEvent& myEventThrow;
 
     /// @brief Information whether only the network shall be loaded
-    bool myLoadNet;
+    bool myLoadNet = false;
 
     /// @brief if true, a new net is created
-    bool myNewNet;
+    bool myNewNet = false;
 };

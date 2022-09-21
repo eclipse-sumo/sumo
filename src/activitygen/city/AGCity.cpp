@@ -32,6 +32,7 @@
 #include <map>
 #include <iomanip>
 #include <utils/common/RandHelper.h>
+#include <utils/common/SUMOVehicleClass.h>
 #include <utils/options/OptionsCont.h>
 #include <router/RONet.h>
 #include <router/ROEdge.h>
@@ -59,6 +60,9 @@ AGCity::completeStreets() {
     for (it = streets.begin(); it != streets.end(); ++it) {
         pop += (*it)->getPopulation();
         work += (*it)->getWorkplaceNumber();
+        if (((*it)->getPermissions() & SVC_PASSENGER) == SVC_PASSENGER) {
+            passengerStreets.push_back(*it);
+        }
     }
     statData.factorInhabitants = (double)statData.inhabitants / pop;
     //can be improved with other input data
@@ -88,6 +92,9 @@ AGCity::completeStreets() {
         //if this edge isn't represented by a street
         if (itS == streets.end() && !itE.second->isInternal()) {
             streets.push_back(static_cast<AGStreet*>(itE.second));
+            if (((itE.second)->getPermissions() & SVC_PASSENGER) == SVC_PASSENGER) {
+                passengerStreets.push_back(static_cast<AGStreet*>(itE.second));
+            }
         }
     }
 }
@@ -416,10 +423,10 @@ AGCity::getStreet(const std::string& edge) {
 
 const AGStreet&
 AGCity::getRandomStreet() {
-    if (streets.empty()) {
-        throw (std::runtime_error("No street found in this city"));
+    if (passengerStreets.empty()) {
+        throw (std::runtime_error("No street that allows passerger vehicles found in this city"));
     }
-    return *RandHelper::getRandomFrom(streets);
+    return *RandHelper::getRandomFrom(passengerStreets);
 }
 
 

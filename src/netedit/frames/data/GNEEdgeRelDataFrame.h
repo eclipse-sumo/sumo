@@ -34,10 +34,10 @@ class GNEEdgeRelDataFrame : public GNEGenericDataFrame {
 
 public:
     /**@brief Constructor
-     * @brief parent FXHorizontalFrame in which this GNEFrame is placed
+     * @brief viewParent GNEViewParent in which this GNEFrame is placed
      * @brief viewNet viewNet that uses this GNEEdgeRelDataFrame
      */
-    GNEEdgeRelDataFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet);
+    GNEEdgeRelDataFrame(GNEViewParent *viewParent, GNEViewNet* viewNet);
 
     /// @brief Destructor
     ~GNEEdgeRelDataFrame();

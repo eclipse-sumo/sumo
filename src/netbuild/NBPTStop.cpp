@@ -30,7 +30,7 @@
 // method definitions
 // ===========================================================================
 NBPTStop::NBPTStop(std::string ptStopId, Position position, std::string edgeId, std::string origEdgeId, double length,
-                   std::string name, SVCPermissions svcPermissions, double parkingLength, const RGBColor color) :
+                   std::string name, SVCPermissions svcPermissions, double parkingLength, const RGBColor color, double givenStartPos) :
     myPTStopId(ptStopId),
     myPosition(position),
     myEdgeId(edgeId),
@@ -46,7 +46,9 @@ NBPTStop::NBPTStop(std::string ptStopId, Position position, std::string edgeId, 
     myIsLoose(origEdgeId == ""),
     myIsPlatform(false),
     myIsMultipleStopPositions(false),
-    myAreaID(-1) {
+    myAreaID(-1),
+    myGivenStartPos(givenStartPos)
+{
 }
 
 
@@ -83,13 +85,6 @@ NBPTStop::getPosition() const {
 void
 NBPTStop::mirrorX() {
     myPosition.mul(1, -1);
-}
-
-
-void
-NBPTStop::computeExtent(double center, double edgeLength) {
-    myStartPos = MAX2(0.0, center - myPTStopLength / 2.);
-    myEndPos = MIN2(center + myPTStopLength / 2., edgeLength);
 }
 
 
@@ -203,6 +198,7 @@ NBPTStop::findLaneAndComputeBusStopExtent(const NBEdgeCont& ec) {
     return findLaneAndComputeBusStopExtent(edge);
 }
 
+
 bool
 NBPTStop::findLaneAndComputeBusStopExtent(const NBEdge* edge) {
     if (edge != nullptr) {
@@ -219,8 +215,19 @@ NBPTStop::findLaneAndComputeBusStopExtent(const NBEdge* edge) {
             myLaneId = edge->getLaneID(laneNr);
             const PositionVector& shape = edge->getLaneShape(laneNr);
             double offset = shape.nearest_offset_to_point2D(getPosition(), false);
-            offset = offset * edge->getLoadedLength() / edge->getLength();
-            computeExtent(offset, edge->getLoadedLength());
+            const double edgeLength = edge->getFinalLength();
+            offset *= edgeLength / shape.length2D();
+            if (myGivenStartPos >= 0) {
+                myStartPos = myGivenStartPos;
+                myEndPos = myStartPos + myPTStopLength;
+            } else {
+                myStartPos = MAX2(0.0, offset - myPTStopLength / 2.);
+                myEndPos = MIN2(myStartPos + myPTStopLength, edgeLength);
+                double missing = myPTStopLength - (myEndPos - myStartPos);
+                if (missing > 0) {
+                    myStartPos = MAX2(0.0, myStartPos - missing);
+                }
+            }
             return true;
         }
     }
@@ -232,6 +239,7 @@ void
 NBPTStop::clearAccess() {
     myAccesses.clear();
 }
+
 
 void
 NBPTStop::addAccess(std::string laneID, double offset, double length) {
@@ -255,23 +263,25 @@ NBPTStop::replaceEdge(const std::string& edgeID, const EdgeVector& replacement) 
         double bestDist = std::numeric_limits<double>::max();
         NBEdge* bestEdge = nullptr;
         for (NBEdge* cand : replacement) {
-            double dist = cand->getGeometry().distance2D(myPosition);
-            if (dist < bestDist) {
-                bestDist = dist;
-                bestEdge = cand;
+            if ((cand->getPermissions() & myPermissions) != 0) {
+                const double dist = cand->getGeometry().distance2D(myPosition) + MAX2(0., myPTStopLength - cand->getLoadedLength());
+                if (dist < bestDist) {
+                    bestDist = dist;
+                    bestEdge = cand;
+                }
             }
         }
-        if (bestDist != std::numeric_limits<double>::max()) {
+        if (bestEdge != nullptr) {
             if ((bestEdge->getPermissions() & SVC_PEDESTRIAN) != 0) {
                 // no need for access
                 clearAccess();
             }
             return findLaneAndComputeBusStopExtent(bestEdge);
-        } else {
-            return false;
         }
+        return false;
     }
     return true;
 }
+
 
 /****************************************************************************/

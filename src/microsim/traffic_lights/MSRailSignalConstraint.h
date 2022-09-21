@@ -40,9 +40,10 @@ class MSRailSignalConstraint {
 public:
 
     enum ConstraintType {
-       PREDECESSOR = 0,
-       INSERTION_PREDECESSOR = 1
-       //FOE_INSERTION = 2
+       PREDECESSOR = 0, // swaps to PREDECESSOR
+       INSERTION_PREDECESSOR = 1, // swaps to FOE_INSERTION
+       FOE_INSERTION = 2, // swaps to INSERTION_PREDECESSOR
+       INSERTION_ORDER = 3 // swaps to INSERTION_ORDER
     };
 
     /** @brief Constructor
@@ -70,7 +71,33 @@ public:
     }
 
     SumoXMLTag getTag() const {
-        return myType == PREDECESSOR ? SUMO_TAG_PREDECESSOR : SUMO_TAG_INSERTION_PREDECESSOR;
+        switch (myType) {
+            case INSERTION_PREDECESSOR:
+                return SUMO_TAG_INSERTION_PREDECESSOR;
+            case FOE_INSERTION:
+                return SUMO_TAG_FOE_INSERTION;
+            case INSERTION_ORDER:
+                return SUMO_TAG_INSERTION_ORDER;
+            default:
+                return SUMO_TAG_PREDECESSOR;
+        }
+    }
+
+    ConstraintType getSwappedType() const {
+        switch (myType) {
+            case INSERTION_PREDECESSOR:
+                return FOE_INSERTION;
+            case FOE_INSERTION:
+                return INSERTION_PREDECESSOR;
+            case INSERTION_ORDER:
+                return INSERTION_ORDER;
+            default:
+                return PREDECESSOR;
+        }
+    }
+
+    bool isInsertionConstraint() const {
+        return myType == INSERTION_PREDECESSOR || myType == INSERTION_ORDER;
     }
 
     /// @brief clean up state

@@ -256,10 +256,27 @@ public:
      */
     void setPhaseName(int phaseIndex, const std::string& name);
 
+    /** @brief override state with the given character(used by NETEDIT)
+     * @param[in] phaseIndex The index of the phase to modify
+     * @param[in] c the character to override (r, y, g, G...)
+     */
+    void overrideState(int phaseIndex, const char c);
+
     /* @brief deletes the phase at the given index
-     * @note thhrows InvalidArgument on out-of range index
+     * @note throws InvalidArgument on out-of range index
      */
     void deletePhase(int index);
+
+    /* @brief swap phases
+     * @note throws InvalidArgument on out-of range index
+     */
+    void swapPhase(int indexPhaseA, int indexPhaseB);
+
+    /// @brief swap first phase
+    void swapfirstPhase();
+
+    /// @brief swap first phase
+    void swaplastPhase();
 
     /* @brief changes state size either by cutting of at the end or by adding
      * new states at the end
@@ -296,6 +313,11 @@ public:
     /// @brief Returns the phases
     const std::vector<PhaseDefinition>& getPhases() const {
         return myPhases;
+    }
+
+    /// @brief copy phase values in other
+    void copyPhase(const int origin, const int destiny) {
+        myPhases.at(destiny) = myPhases.at(origin);
     }
 
     /// @brief Returns the offset of first switch
@@ -344,7 +366,6 @@ private:
     /// @brief The algorithm type for the traffic light
     TrafficLightType myType;
 
-private:
     /// @brief Invalidated assignment operator
     NBTrafficLightLogic& operator=(const NBTrafficLightLogic& s) = delete;
 };

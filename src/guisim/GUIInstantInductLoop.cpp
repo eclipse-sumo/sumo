@@ -59,7 +59,7 @@ GUIInstantInductLoop::buildDetectorGUIRepresentation() {
 // -------------------------------------------------------------------------
 
 GUIInstantInductLoop::MyWrapper::MyWrapper(GUIInstantInductLoop& detector, double pos) :
-    GUIDetectorWrapper(GLO_E1DETECTOR_INSTANT, detector.getID()),
+    GUIDetectorWrapper(GLO_E1DETECTOR_INSTANT, detector.getID(), GUIIconSubSys::getIcon(GUIIcon::E1INSTANT)),
     myDetector(detector), myPosition(pos) {
     myFGPosition = detector.getLane()->geometryPositionAtOffset(pos);
     myBoundary.add(myFGPosition.x() + (double) 5.5, myFGPosition.y() + (double) 5.5);
@@ -110,7 +110,7 @@ GUIInstantInductLoop::MyWrapper::drawGL(const GUIVisualizationSettings& s) const
     // shape
     glColor3d(1, 0, 1);
     GLHelper::pushMatrix();
-    glTranslated(0, 0, getType());
+    glTranslated(0, 0, GLO_JUNCTION + 0.4); // do not draw on top of linkRules
     glTranslated(myFGPosition.x(), myFGPosition.y(), 0);
     glRotated(myFGRotation, 0, 0, 1);
     glScaled(exaggeration, exaggeration, 1);

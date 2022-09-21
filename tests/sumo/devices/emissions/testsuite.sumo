@@ -1,2 +1,5 @@
 # whether the devices are properly assigned
 assignment
+
+# override default precision
+tripinfo_precision

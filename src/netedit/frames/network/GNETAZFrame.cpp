@@ -1444,8 +1444,8 @@ GNETAZFrame::TAZEdgesGraphic::onCmdChoosenBy(FXObject* obj, FXSelector, void*) {
 // GNETAZFrame - methods
 // ---------------------------------------------------------------------------
 
-GNETAZFrame::GNETAZFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet) :
-    GNEFrame(horizontalFrameParent, viewNet, "TAZs"),
+GNETAZFrame::GNETAZFrame(GNEViewParent *viewParent, GNEViewNet* viewNet) :
+    GNEFrame(viewParent, viewNet, "TAZs"),
     myBaseTAZ(nullptr) {
 
     // create current TAZ modul

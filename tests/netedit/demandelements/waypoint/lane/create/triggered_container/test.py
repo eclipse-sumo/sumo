@@ -50,19 +50,19 @@ netedit.leftClick(referencePosition, 400, 185)
 netedit.changeDefaultValue(netedit.attrs.waypointLane.create.expected, ";;;;;;;;;;")
 
 # try to create waypoint
-netedit.leftClick(referencePosition, 400, 185)
+netedit.leftClick(referencePosition, 410, 185)
 
 # set invalid value
 netedit.changeDefaultValue(netedit.attrs.waypointLane.create.expected, "")
 
 # try to create waypoint
-netedit.leftClick(referencePosition, 400, 185)
+netedit.leftClick(referencePosition, 420, 185)
 
 # set valid value
 netedit.changeDefaultValue(netedit.attrs.waypointLane.create.expected, "containerID1 containerID2 containerID3")
 
 # create waypoint
-netedit.leftClick(referencePosition, 400, 185)
+netedit.leftClick(referencePosition, 430, 185)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)

@@ -1,0 +1,6 @@
+-n net.net.xml
+-r input_routes.rou.xml
+--no-step-log
+--step-length 0.1
+--fcd-output fcd.xml
+--fcd-output.attributes acceleration,speed

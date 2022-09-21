@@ -373,7 +373,7 @@ MSPerson::MSPersonStage_Walking::getRoutePosition() const {
 
 double
 MSPerson::MSPersonStage_Walking::getMaxSpeed(const MSTransportable* const person) const {
-    return mySpeed >= 0 ? mySpeed : person->getVehicleType().getMaxSpeed() * person->getSpeedFactor();
+    return mySpeed >= 0 ? mySpeed : person->getMaxSpeed();
 }
 
 std::string
@@ -433,7 +433,7 @@ MSPerson::MSPersonStage_Access::clone() const {
 void
 MSPerson::MSPersonStage_Access::proceed(MSNet* net, MSTransportable* person, SUMOTime now, MSStage* /* previous */) {
     myDeparted = now;
-    myEstimatedArrival = now + TIME2STEPS(myDist / person->getVehicleType().getMaxSpeed());
+    myEstimatedArrival = now + TIME2STEPS(myDist / person->getMaxSpeed());
     net->getBeginOfTimestepEvents()->addEvent(new ProceedCmd(person, &myDestinationStop->getLane().getEdge()), myEstimatedArrival);
     myDestinationStop->getLane().getEdge().addTransportable(person);
 }
@@ -462,6 +462,11 @@ MSPerson::MSPersonStage_Access::getAngle(SUMOTime /* now */) const {
     return myPath.angleAt2D(0);
 }
 
+
+double
+MSPerson::MSPersonStage_Access::getSpeed() const {
+    return myDist / STEPS2TIME(MAX2((SUMOTime)1, myEstimatedArrival - myDeparted));
+}
 
 void
 MSPerson::MSPersonStage_Access::tripInfoOutput(OutputDevice& os, const MSTransportable* const) const {

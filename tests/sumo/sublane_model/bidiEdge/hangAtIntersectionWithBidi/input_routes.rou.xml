@@ -1,0 +1,14 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+	<vType id="bike_bicycle" vClass="bicycle" />
+	<vType id="AV_Easymile" vClass="custom2" accel="0.5" decel="1.0" sigma="0" tau="0.5" length="4.050" width="1.892" height="2.871" minGap="2" carFollowModel="IDM" maxSpeed="3.58" color="orange" guiShape="bus" personCapacity="13" minGapLat="0" lcLaneDiscipline="3.2" lcSublane="0"/> <!-- todo: adjust the parameters:minGap, decel, accel, tau -->
+
+    <vehicle id="Easymiles.0" type="AV_Easymile" depart="1021.00" line="Easymile" departPos="100.55" departSpeed="2.20">
+        <route edges="d -c"/>
+	</vehicle>
+    <vehicle id="bike147" type="bike_bicycle" depart="1021.00" departLane="0" departPos="69.48" departSpeed="1.03">
+        <route edges="a -c"/>
+    </vehicle>		
+    <vehicle id="bike213" type="bike_bicycle" depart="1021.00" departLane="0" departPos="24.07" departSpeed="3.13">
+        <route edges="b -d"/>
+    </vehicle>
+</routes>

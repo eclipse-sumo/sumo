@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-08-09 18:45:55 by Eclipse SUMO sumo Version v1_14_1+0170-157f455
+<!-- generated on 2022-09-18 16:24:44 by Eclipse SUMO sumo Version v1_14_1+1108-3e52c8e
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -82,6 +82,7 @@
         <vehroute-output.incomplete value="false" type="BOOL" help="Include invalid routes and route stubs in vehroute output"/>
         <vehroute-output.stop-edges value="false" type="BOOL" help="Include information about edges between stops"/>
         <vehroute-output.speedfactor value="false" type="BOOL" help="Write the vehicle speedFactor (defaults to &apos;true&apos; if departSpeed is written)"/>
+        <vehroute-output.internal value="false" type="BOOL" help="Include internal edges in the output"/>
         <personroute-output value="" synonymes="personroutes" type="FILE" help="Save person and container routes to separate FILE"/>
         <link-output value="" type="FILE" help="Save links states into FILE"/>
         <railsignal-block-output value="" type="FILE" help="Save railsignal-blocks into FILE"/>
@@ -94,8 +95,6 @@
         <stop-output.write-unfinished value="false" type="BOOL" help="Write stop output for stops which have not ended at simulation end"/>
         <collision-output value="" type="FILE" help="Write collision information into FILE"/>
         <statistic-output value="" synonymes="statistics-output" type="FILE" help="Write overall statistics into FILE"/>
-        <movereminder-output value="" type="FILE" help="Save movereminder states of selected vehicles into FILE"/>
-        <movereminder-output.vehicles value="" type="STR[]" help="List of vehicle ids which shall save their movereminder states"/>
         <save-state.times value="" type="STR[]" help="Use TIME[] as times at which a network state written"/>
         <save-state.period value="-1" type="TIME" help="save state repeatedly after TIME period"/>
         <save-state.period.keep value="0" type="INT" help="Keep only the last INT periodic state files"/>
@@ -139,6 +138,7 @@
         <time-to-teleport.disconnected value="-1" type="TIME" help="The waiting time after which vehicles with a disconnected route are teleported. Negative values disable teleporting"/>
         <time-to-teleport.remove value="false" type="BOOL" help="Whether vehicles shall be removed after waiting too long instead of being teleported"/>
         <time-to-teleport.ride value="-1" type="TIME" help="The waiting time after which persons / containers waiting for a pickup are teleported. Negative values disable teleporting"/>
+        <time-to-teleport.bidi value="-1" type="TIME" help="The waiting time after which vehicles on bidirectional edges are teleported"/>
         <waiting-time-memory value="100" type="TIME" help="Length of time interval, over which accumulated waiting time is taken into account (default is 100s.)"/>
         <startup-wait-threshold value="2" type="TIME" help="Minimum consecutive waiting time before applying startupDelay"/>
         <max-depart-delay value="-1" type="TIME" help="How long vehicles wait for departure before being skipped, defaults to -1 which means vehicles are never skipped"/>
@@ -151,6 +151,7 @@
         <tls.all-off value="false" type="BOOL" help="Switches off all traffic lights."/>
         <tls.actuated.show-detectors value="false" type="BOOL" help="Sets default visibility for actuation detectors"/>
         <tls.actuated.jam-threshold value="-1" type="FLOAT" help="Sets default jam-treshold parameter for all actuation detectors"/>
+        <tls.actuated.detector-length value="0" type="FLOAT" help="Sets default detector length parameter for all actuation detectors"/>
         <tls.delay_based.detector-range value="100" type="FLOAT" help="Sets default range for detecting delayed vehicles"/>
         <tls.yellow.min-decel value="3" type="FLOAT" help="Minimum deceleration when braking at yellow"/>
         <railsignal-moving-block value="false" type="BOOL" help="Let railsignals operate in moving-block mode by default"/>

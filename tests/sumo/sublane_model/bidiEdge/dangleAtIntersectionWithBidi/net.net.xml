@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-08-26 10:12:21 by Eclipse SUMO netedit Version v1_14_1+0509-3593cc59a11
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="D:\Wang\repos\show\linkoeping\simulation_current\debuging\dangleAtIntersectionWithBidi\test.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="D:\Wang\repos\show\linkoeping\simulation_current\debuging\dangleAtIntersectionWithBidi\test.net.xml"/>
+        <output.street-names value="true"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-internal-links value="false"/>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="true"/>
+    </pedestrian>
+
+</configuration>
+-->
+
+<net version="1.9" junctionCornerDetail="5" walkingareas="true" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="-1732813.45,-8048871.66" convBoundary="1274.20,2839.06,1309.41,3119.36" origBoundary="15.566128,58.386126,15.600879,58.405234" projParameter="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs"/>
+
+    <type id="cycleway.lane" allow="bicycle" bikeLaneWidth="1.00"/>
+    <type id="cycleway.opposite_lane" allow="bicycle" bikeLaneWidth="1.00"/>
+    <type id="cycleway.opposite_track" allow="bicycle" bikeLaneWidth="1.50"/>
+    <type id="cycleway.track" allow="bicycle" bikeLaneWidth="1.50"/>
+    <type id="highway.bridleway" priority="1" numLanes="1" speed="2.78" allow="pedestrian" oneway="1" width="2.00"/>
+    <type id="highway.bus_guideway" priority="1" numLanes="1" speed="13.89" allow="bus" oneway="1"/>
+    <type id="highway.cycleway" priority="1" numLanes="1" speed="5.56" allow="bicycle" oneway="0" width="1.00"/>
+    <type id="highway.footway" priority="1" numLanes="1" speed="2.78" allow="pedestrian" oneway="1" width="2.00"/>
+    <type id="highway.ford" priority="1" numLanes="1" speed="2.78" allow="army" oneway="0"/>
+    <type id="highway.living_street" priority="2" numLanes="1" speed="2.78" disallow="tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
+    <type id="highway.motorway" priority="14" numLanes="2" speed="27.78" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" oneway="1"/>
+    <type id="highway.motorway_link" priority="9" numLanes="1" speed="16.67" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" oneway="1"/>
+    <type id="highway.path" priority="1" numLanes="1" speed="5.56" allow="pedestrian bicycle" oneway="0" width="2.00"/>
+    <type id="highway.pedestrian" priority="1" numLanes="1" speed="2.78" allow="pedestrian" oneway="1" width="2.00"/>
+    <type id="highway.primary" priority="12" numLanes="2" speed="13.89" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" oneway="0" sidewalkWidth="3.00"/>
+    <type id="highway.primary_link" priority="7" numLanes="1" speed="13.89" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" oneway="0" sidewalkWidth="3.00"/>
+    <type id="highway.raceway" priority="15" numLanes="2" speed="83.33" allow="vip" oneway="0"/>
+    <type id="highway.residential" priority="3" numLanes="1" speed="13.89" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" oneway="0" sidewalkWidth="2.00"/>
+    <type id="highway.secondary" priority="11" numLanes="1" speed="13.89" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" oneway="0" sidewalkWidth="3.00"/>
+    <type id="highway.secondary_link" priority="6" numLanes="1" speed="13.89" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" oneway="0" sidewalkWidth="3.00"/>
+    <type id="highway.service" priority="1" numLanes="1" speed="5.56" allow="pedestrian delivery bicycle" oneway="0"/>
+    <type id="highway.stairs" priority="1" numLanes="1" speed="1.39" allow="pedestrian" oneway="1" width="2.00"/>
+    <type id="highway.step" priority="1" numLanes="1" speed="1.39" allow="pedestrian" oneway="1" width="2.00"/>
+    <type id="highway.steps" priority="1" numLanes="1" speed="1.39" allow="pedestrian" oneway="1" width="2.00"/>
+    <type id="highway.tertiary" priority="10" numLanes="1" speed="13.89" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" oneway="0" sidewalkWidth="3.00"/>
+    <type id="highway.tertiary_link" priority="5" numLanes="1" speed="13.89" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" oneway="0" sidewalkWidth="2.00"/>
+    <type id="highway.track" priority="1" numLanes="1" speed="5.56" allow="pedestrian motorcycle moped bicycle" oneway="0"/>
+    <type id="highway.trunk" priority="13" numLanes="2" speed="13.89" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
+    <type id="highway.trunk_link" priority="8" numLanes="1" speed="13.89" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
+    <type id="highway.unclassified" priority="4" numLanes="1" speed="13.89" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" oneway="0" sidewalkWidth="2.00"/>
+    <type id="highway.unsurfaced" priority="1" numLanes="1" speed="8.33" disallow="tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
+    <type id="railway.highspeed" priority="21" numLanes="1" speed="69.44" allow="rail_fast" oneway="1"/>
+    <type id="railway.light_rail" priority="19" numLanes="1" speed="27.78" allow="rail_urban" oneway="1"/>
+    <type id="railway.preserved" priority="16" numLanes="1" speed="27.78" allow="rail" oneway="1"/>
+    <type id="railway.rail" priority="20" numLanes="1" speed="44.44" allow="rail" oneway="1"/>
+    <type id="railway.subway" priority="18" numLanes="1" speed="27.78" allow="rail_urban" oneway="1"/>
+    <type id="railway.tram" priority="17" numLanes="1" speed="13.89" allow="tram" oneway="1"/>
+
+    <edge id=":1535884795_0" function="internal">
+        <lane id=":1535884795_0_0" index="0" allow="pedestrian bicycle" speed="5.56" length="0.10" width="2.00" shape="1277.42,3011.35 1277.42,3011.35"/>
+    </edge>
+    <edge id=":1535884795_w0" function="walkingarea">
+        <lane id=":1535884795_w0_0" index="0" allow="pedestrian" speed="1.00" length="3.57" width="2.00" shape="1277.59,3012.33 1277.25,3010.36 1277.59,3012.33 1277.25,3010.36 1275.37,3009.17 1273.44,3009.71"/>
+    </edge>
+    <edge id=":472400832_0" function="internal" bidi=":472400832_3">
+        <lane id=":472400832_0_0" index="0" allow="pedestrian bicycle" speed="5.56" length="3.82" width="2.00" shape="1295.76,3008.33 1291.97,3008.81"/>
+    </edge>
+    <edge id=":472400832_1" function="internal">
+        <lane id=":472400832_1_0" index="0" allow="pedestrian bicycle" speed="5.56" length="0.10" width="2.00" shape="1295.76,3008.33 1295.76,3008.33"/>
+    </edge>
+    <edge id=":472400832_2" function="internal">
+        <lane id=":472400832_2_0" index="0" allow="pedestrian bicycle" speed="5.56" length="0.20" width="2.00" shape="1291.83,3008.83 1291.86,3008.77 1291.89,3008.75 1291.92,3008.76 1291.97,3008.81"/>
+    </edge>
+    <edge id=":472400832_3" function="internal" bidi=":472400832_0">
+        <lane id=":472400832_3_0" index="0" allow="pedestrian bicycle" speed="5.56" length="3.95" width="2.00" shape="1291.83,3008.83 1295.76,3008.33"/>
+    </edge>
+    <edge id=":472400832_w0" function="walkingarea">
+        <lane id=":472400832_w0_0" index="0" allow="pedestrian" speed="1.00" length="3.40" width="2.00" shape="1292.16,3011.29 1294.16,3011.28 1295.86,3009.32 1295.65,3007.33 1295.86,3009.32 1295.65,3007.33 1294.17,3005.98 1292.17,3005.98 1291.66,3007.85 1292.01,3009.81 1291.79,3007.82 1292.14,3009.79"/>
+    </edge>
+    <edge id=":j2_0" function="internal" bidi=":j2_14">
+        <lane id=":j2_0_0" index="0" allow="bicycle" speed="4.72" length="3.95" width="2.00" shape="1291.77,3008.84 1290.99,3009.16 1290.43,3009.79 1290.08,3010.73 1289.95,3011.98"/>
+    </edge>
+    <edge id=":j2_1" function="internal" bidi=":j2_9">
+        <lane id=":j2_1_0" index="0" allow="pedestrian bicycle" speed="5.56" length="5.12" width="2.00" shape="1291.77,3008.84 1286.73,3009.73"/>
+    </edge>
+    <edge id=":j2_2" function="internal" bidi=":j2_4">
+        <lane id=":j2_2_0" index="0" allow="bicycle" speed="4.01" length="3.56" width="2.00" shape="1291.77,3008.84 1290.99,3008.81 1290.43,3008.39 1290.08,3007.58 1289.94,3006.39"/>
+    </edge>
+    <edge id=":j2_3" function="internal">
+        <lane id=":j2_3_0" index="0" allow="pedestrian bicycle" speed="5.56" length="0.20" width="2.00" shape="1291.77,3008.84 1291.75,3008.90 1291.71,3008.92 1291.68,3008.91 1291.64,3008.86"/>
+    </edge>
+    <edge id=":j2_4" function="internal" bidi=":j2_2">
+        <lane id=":j2_4_0" index="0" allow="bicycle" speed="4.17" length="3.47" width="2.00" shape="1289.94,3006.39 1290.07,3007.59 1290.40,3008.39 1290.92,3008.82 1291.64,3008.86"/>
+    </edge>
+    <edge id=":j2_5" function="internal" bidi=":j2_13">
+        <lane id=":j2_5_0" index="0" allow="emergency authority bicycle custom1 custom2" speed="8.33" length="5.59" width="3.20" shape="1289.94,3006.39 1289.95,3011.98"/>
+    </edge>
+    <edge id=":j2_6" function="internal" bidi=":j2_8">
+        <lane id=":j2_6_0" index="0" allow="bicycle" speed="5.36" length="5.12" width="2.00" shape="1289.94,3006.39 1289.76,3007.64 1289.17,3008.61 1288.16,3009.31 1286.73,3009.73"/>
+    </edge>
+    <edge id=":j2_7" function="internal">
+        <lane id=":j2_7_0" index="0" allow="emergency authority bicycle custom1 custom2" speed="8.33" length="0.10" width="3.20" shape="1289.94,3006.39 1289.94,3006.39"/>
+    </edge>
+    <edge id=":j2_8" function="internal" bidi=":j2_6">
+        <lane id=":j2_8_0" index="0" allow="bicycle" speed="5.20" length="5.12" width="2.00" shape="1286.73,3009.73 1288.16,3009.31 1289.17,3008.61 1289.76,3007.64 1289.94,3006.39"/>
+    </edge>
+    <edge id=":j2_9" function="internal" bidi=":j2_1">
+        <lane id=":j2_9_0" index="0" allow="pedestrian bicycle" speed="5.56" length="4.98" width="2.00" shape="1286.73,3009.73 1291.64,3008.86"/>
+    </edge>
+    <edge id=":j2_10" function="internal" bidi=":j2_12">
+        <lane id=":j2_10_0" index="0" allow="bicycle" speed="4.47" length="4.70" width="2.00" shape="1286.73,3009.73 1288.16,3009.66 1289.17,3010.01 1289.77,3010.78 1289.95,3011.98"/>
+    </edge>
+    <edge id=":j2_11" function="internal">
+        <lane id=":j2_11_0" index="0" allow="pedestrian bicycle" speed="5.56" length="0.10" width="2.00" shape="1286.73,3009.73 1286.73,3009.73"/>
+    </edge>
+    <edge id=":j2_12" function="internal" bidi=":j2_10">
+        <lane id=":j2_12_0" index="0" allow="bicycle" speed="4.65" length="4.70" width="2.00" shape="1289.95,3011.98 1289.77,3010.78 1289.17,3010.01 1288.16,3009.66 1286.73,3009.73"/>
+    </edge>
+    <edge id=":j2_13" function="internal" bidi=":j2_5">
+        <lane id=":j2_13_0" index="0" allow="emergency authority bicycle custom1 custom2" speed="8.33" length="5.59" width="3.20" shape="1289.95,3011.98 1289.94,3006.39"/>
+    </edge>
+    <edge id=":j2_14" function="internal" bidi=":j2_0">
+        <lane id=":j2_14_0" index="0" allow="bicycle" speed="4.84" length="3.84" width="2.00" shape="1289.95,3011.98 1290.08,3010.73 1290.40,3009.79 1290.92,3009.17 1291.64,3008.86"/>
+    </edge>
+    <edge id=":j2_15" function="internal">
+        <lane id=":j2_15_0" index="0" allow="emergency authority bicycle custom1 custom2" speed="8.33" length="0.10" width="3.20" shape="1289.95,3011.98 1289.95,3011.98"/>
+    </edge>
+    <edge id=":j2_c0" function="crossing" crossingEdges="-b b">
+        <lane id=":j2_c0_0" index="0" allow="pedestrian" speed="1.00" length="3.20" width="4.00" shape="1288.38,3008.43 1291.58,3008.36"/>
+    </edge>
+    <edge id=":j2_w0" function="walkingarea">
+        <lane id=":j2_w0_0" index="0" allow="pedestrian" speed="1.00" length="0.39" width="4.00" shape="1291.95,3009.82 1291.59,3007.86 1291.81,3009.85 1291.46,3007.88 1291.54,3006.36 1291.62,3010.36"/>
+    </edge>
+    <edge id=":j2_w1" function="walkingarea">
+        <lane id=":j2_w1_0" index="0" allow="pedestrian" speed="1.00" length="2.11" width="4.00" shape="1288.43,3010.42 1288.34,3006.43 1286.56,3008.74 1286.90,3010.71 1286.56,3008.74 1286.90,3010.71"/>
+    </edge>
+    <edge id=":j3_0" function="internal">
+        <lane id=":j3_0_0" index="0" allow="pedestrian bicycle" speed="5.56" length="0.10" width="2.00" shape="1309.41,3006.94 1309.41,3006.94"/>
+    </edge>
+    <edge id=":j4_0" function="internal">
+        <lane id=":j4_0_0" index="0" allow="emergency authority bicycle custom1 custom2" speed="8.33" length="0.10" width="3.20" shape="1288.19,3116.80 1288.19,3116.80"/>
+    </edge>
+    <edge id=":j5_w0" function="walkingarea">
+        <lane id=":j5_w0_0" index="0" allow="pedestrian" speed="1.00" length="1.40" width="2.00" shape="1294.28,3118.29 1292.28,3118.29 1292.28,3118.29 1292.31,3120.29 1292.95,3120.23 1293.45,3120.07 1293.82,3119.80 1294.08,3119.42 1294.23,3118.92"/>
+    </edge>
+    <edge id=":j6_0" function="internal">
+        <lane id=":j6_0_0" index="0" allow="emergency authority bicycle custom1 custom2" speed="8.33" length="0.10" width="3.20" shape="1286.59,2841.85 1286.59,2841.85"/>
+    </edge>
+    <edge id=":j7_w0" function="walkingarea">
+        <lane id=":j7_w0_0" index="0" allow="pedestrian" speed="1.00" length="1.45" width="2.00" shape="1292.44,2838.11 1292.54,2840.11 1292.54,2840.11 1294.54,2840.11 1294.48,2839.46 1294.32,2838.93 1294.03,2838.54 1293.63,2838.28 1293.10,2838.13"/>
+    </edge>
+
+    <edge id="-a" from="j2" to="j4" name="Corson" priority="1" type="highway.cycleway_extra" spreadType="center" bidi="a">
+        <lane id="-a_0" index="0" allow="emergency authority bicycle custom1 custom2" speed="8.33" length="104.84" width="3.20" shape="1289.95,3011.98 1288.19,3116.80">
+            <param key="origId" value="26967263 977388714"/>
+        </lane>
+    </edge>
+    <edge id="-b" from="j2" to="j6" name="Corson" priority="1" type="highway.cycleway_extra" spreadType="center" bidi="b">
+        <lane id="-b_0" index="0" allow="emergency authority bicycle custom1 custom2" speed="8.33" length="164.58" width="3.20" shape="1289.94,3006.39 1286.59,2841.85">
+            <param key="origId" value="26967263"/>
+        </lane>
+    </edge>
+    <edge id="-c" from="j2" to="1535884795" priority="1" type="highway.path" spreadType="center" bidi="c">
+        <lane id="-c_0" index="0" allow="pedestrian bicycle" speed="5.56" length="9.45" width="2.00" shape="1286.73,3009.73 1277.42,3011.35">
+            <param key="origId" value="2535745"/>
+        </lane>
+    </edge>
+    <edge id="-d" from="j2" to="472400832" priority="1" type="highway.path" spreadType="center" bidi="d">
+        <lane id="-d_0" index="0" allow="pedestrian bicycle" speed="5.56" length="0.20" width="2.00" shape="1291.64,3008.86 1291.83,3008.83">
+            <param key="origId" value="362885248"/>
+        </lane>
+    </edge>
+    <edge id="-e" from="472400832" to="j3" priority="1" type="highway.path" spreadType="center" bidi="e">
+        <lane id="-e_0" index="0" allow="pedestrian bicycle" speed="5.56" length="13.72" width="2.00" shape="1295.76,3008.33 1309.41,3006.94">
+            <param key="origId" value="362885248"/>
+        </lane>
+    </edge>
+    <edge id="140184624#0" from="j7" to="j6" priority="1" type="highway.footway" spreadType="center">
+        <lane id="140184624#0_0" index="0" allow="pedestrian" speed="2.78" length="2.88" width="2.00" shape="1292.49,2839.11 1289.61,2839.25">
+            <param key="origId" value="140184624"/>
+        </lane>
+    </edge>
+    <edge id="140184626#0" from="j1" to="1535884795" priority="1" type="highway.footway" spreadType="center">
+        <lane id="140184626#0_0" index="0" allow="pedestrian" speed="2.78" length="0.77" width="2.00" shape="1274.20,3008.70 1274.41,3009.44">
+            <param key="origId" value="140184626"/>
+        </lane>
+    </edge>
+    <edge id="39439120#4" from="j5" to="472400832" priority="1" type="highway.footway" spreadType="center">
+        <lane id="39439120#4_0" index="0" allow="pedestrian" speed="2.78" length="107.00" width="2.00" shape="1293.28,3118.29 1293.16,3011.29">
+            <param key="origId" value="39439120"/>
+        </lane>
+    </edge>
+    <edge id="39439120#5" from="472400832" to="j7" priority="1" type="highway.footway" spreadType="center">
+        <lane id="39439120#5_0" index="0" allow="pedestrian" speed="2.78" length="165.87" width="2.00" shape="1293.17,3005.98 1293.54,2840.11">
+            <param key="origId" value="39439120"/>
+        </lane>
+    </edge>
+    <edge id="39439591#0" from="j4" to="j5" priority="1" type="highway.footway" spreadType="center">
+        <lane id="39439591#0_0" index="0" allow="pedestrian" speed="2.78" length="1.01" width="2.00" shape="1291.28,3119.31 1292.30,3119.29">
+            <param key="origId" value="39439591"/>
+        </lane>
+    </edge>
+    <edge id="a" from="j4" to="j2" name="Corson" priority="1" type="highway.cycleway_extra" spreadType="center" bidi="-a">
+        <lane id="a_0" index="0" allow="emergency authority bicycle custom1 custom2" speed="8.33" length="104.84" width="3.20" shape="1288.19,3116.80 1289.95,3011.98">
+            <param key="origId" value="977388714 26967263"/>
+        </lane>
+    </edge>
+    <edge id="b" from="j6" to="j2" name="Corson" priority="1" type="highway.cycleway_extra" spreadType="center" bidi="-b">
+        <lane id="b_0" index="0" allow="emergency authority bicycle custom1 custom2" speed="8.33" length="164.58" width="3.20" shape="1286.59,2841.85 1289.94,3006.39">
+            <param key="origId" value="26967263"/>
+        </lane>
+    </edge>
+    <edge id="c" from="1535884795" to="j2" priority="1" type="highway.path" spreadType="center" bidi="-c">
+        <lane id="c_0" index="0" allow="pedestrian bicycle" speed="5.56" length="9.45" width="2.00" shape="1277.42,3011.35 1286.73,3009.73">
+            <param key="origId" value="2535745"/>
+        </lane>
+    </edge>
+    <edge id="d" from="472400832" to="j2" priority="1" type="highway.path" spreadType="center" bidi="-d">
+        <lane id="d_0" index="0" allow="pedestrian bicycle" speed="5.56" length="0.20" width="2.00" shape="1291.97,3008.81 1291.77,3008.84">
+            <param key="origId" value="362885248"/>
+        </lane>
+    </edge>
+    <edge id="e" from="j3" to="472400832" priority="1" type="highway.path" spreadType="center" bidi="-e">
+        <lane id="e_0" index="0" allow="pedestrian bicycle" speed="5.56" length="13.72" width="2.00" shape="1309.41,3006.94 1295.76,3008.33">
+            <param key="origId" value="362885248"/>
+        </lane>
+    </edge>
+
+    <junction id="1535884795" type="priority" x="1275.05" y="3011.76" incLanes="-c_0 140184626#0_0" intLanes=":1535884795_0_0" shape="1277.59,3012.33 1277.25,3010.36 1276.38,3010.34 1276.04,3010.19 1275.76,3009.95 1275.53,3009.61 1275.37,3009.17 1273.44,3009.71 1274.30,3011.42 1274.92,3011.96 1275.68,3012.29 1276.57,3012.42">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+    <junction id="472400832" type="priority" x="1293.16" y="3008.59" incLanes="39439120#4_0 e_0 -d_0" intLanes=":472400832_0_0 :472400832_1_0 :472400832_2_0 :472400832_3_0" shape="1292.16,3011.29 1294.16,3011.28 1294.35,3010.27 1294.59,3009.90 1294.91,3009.62 1295.34,3009.42 1295.86,3009.32 1295.65,3007.33 1294.83,3007.25 1294.54,3007.07 1294.33,3006.80 1294.21,3006.44 1294.17,3005.98 1292.17,3005.98 1291.96,3007.00 1291.70,3007.39 1291.35,3007.70 1290.89,3007.93 1290.33,3008.08 1290.69,3010.05 1291.51,3010.07 1291.79,3010.23 1292.00,3010.48 1292.12,3010.84">
+        <request index="0" response="0000" foes="0100" cont="0"/>
+        <request index="1" response="1000" foes="1000" cont="0"/>
+        <request index="2" response="0001" foes="0001" cont="0"/>
+        <request index="3" response="0000" foes="0010" cont="0"/>
+    </junction>
+    <junction id="j1" type="dead_end" x="1274.20" y="3008.70" incLanes="" intLanes="" shape="1273.24,3008.97 1275.16,3008.43"/>
+    <junction id="j2" type="right_before_left" x="1290.00" y="3009.16" incLanes="d_0 b_0 c_0 a_0 :j2_w1_0" intLanes=":j2_0_0 :j2_1_0 :j2_2_0 :j2_3_0 :j2_4_0 :j2_5_0 :j2_6_0 :j2_7_0 :j2_8_0 :j2_9_0 :j2_10_0 :j2_11_0 :j2_12_0 :j2_13_0 :j2_14_0 :j2_15_0 :j2_c0_0" shape="1293.41,3009.56 1293.05,3007.59 1291.54,3006.36 1288.34,3006.43 1288.16,3007.57 1287.92,3008.01 1287.57,3008.34 1287.11,3008.59 1286.56,3008.74 1286.90,3010.71 1287.72,3010.74 1288.00,3010.90 1288.20,3011.15 1288.32,3011.51 1288.35,3011.96 1291.55,3012.01">
+        <request index="0"  response="00000000000000000" foes="01000010000100000" cont="0"/>
+        <request index="1"  response="00111000000000000" foes="00111110001100000" cont="0"/>
+        <request index="2"  response="10110001100000000" foes="10110011111100000" cont="0"/>
+        <request index="3"  response="00100001000010000" foes="00100001000010000" cont="0"/>
+        <request index="4"  response="00000000000000000" foes="10100001000001000" cont="0"/>
+        <request index="5"  response="00000000000000111" foes="11100011000000111" cont="0"/>
+        <request index="6"  response="00011000000000110" foes="10111111000000110" cont="0"/>
+        <request index="7"  response="00010000100000100" foes="10010000100000100" cont="0"/>
+        <request index="8"  response="10000000000000000" foes="10010000010000100" cont="0"/>
+        <request index="9"  response="00000000001110000" foes="00110000001111100" cont="0"/>
+        <request index="10" response="00000000001100111" foes="01110000001100111" cont="0"/>
+        <request index="11" response="00001000001000010" foes="00001000001000010" cont="0"/>
+        <request index="12" response="00000000000000000" foes="00000100001000010" cont="0"/>
+        <request index="13" response="00000011100000000" foes="10000011111000110" cont="0"/>
+        <request index="14" response="00000011001110000" foes="00000011001111110" cont="0"/>
+        <request index="15" response="00000010000100001" foes="00000010000100001" cont="0"/>
+        <request index="16" response="00010000011110000" foes="00010000111110100" cont="0"/>
+    </junction>
+    <junction id="j3" type="right_before_left" x="1309.41" y="3006.94" incLanes="-e_0" intLanes=":j3_0_0" shape="1309.31,3005.95 1309.51,3007.93 1309.31,3005.95 1309.51,3007.93">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+    <junction id="j4" type="priority" x="1288.15" y="3119.36" incLanes="-a_0" intLanes=":j4_0_0" shape="1291.30,3120.30 1291.27,3118.31 1290.44,3118.15 1290.15,3117.95 1289.95,3117.66 1289.83,3117.29 1289.79,3116.83 1286.59,3116.78 1287.09,3118.77 1287.74,3119.46 1288.66,3119.95 1289.85,3120.23">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+    <junction id="j5" type="dead_end" x="1293.28" y="3119.27" incLanes="39439591#0_0" intLanes="" shape="1294.28,3118.29 1292.28,3118.29 1292.31,3120.29 1293.41,3120.05 1293.79,3119.77 1294.06,3119.38 1294.22,3118.89"/>
+    <junction id="j6" type="priority" x="1286.54" y="2839.39" incLanes="-b_0 140184624#0_0" intLanes=":j6_0_0" shape="1284.99,2841.88 1288.19,2841.81 1288.34,2840.97 1288.54,2840.67 1288.83,2840.45 1289.20,2840.31 1289.66,2840.24 1289.56,2838.25 1286.99,2838.75 1286.10,2839.26 1285.47,2839.96 1285.10,2840.83">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+    <junction id="j7" type="dead_end" x="1293.54" y="2839.06" incLanes="39439120#5_0" intLanes="" shape="1292.44,2838.11 1292.54,2840.11 1294.54,2840.11 1294.31,2838.96 1294.02,2838.56 1293.61,2838.29 1293.08,2838.14"/>
+
+    <connection from="-a" to="a" fromLane="0" toLane="0" via=":j4_0_0" dir="t" state="M"/>
+    <connection from="-b" to="b" fromLane="0" toLane="0" via=":j6_0_0" dir="t" state="M"/>
+    <connection from="-c" to="c" fromLane="0" toLane="0" via=":1535884795_0_0" dir="t" state="M"/>
+    <connection from="-d" to="d" fromLane="0" toLane="0" via=":472400832_2_0" dir="t" state="m"/>
+    <connection from="-d" to="-e" fromLane="0" toLane="0" via=":472400832_3_0" dir="s" state="M"/>
+    <connection from="-e" to="e" fromLane="0" toLane="0" via=":j3_0_0" dir="t" state="M"/>
+    <connection from="a" to="-c" fromLane="0" toLane="0" via=":j2_12_0" dir="r" state="M"/>
+    <connection from="a" to="-b" fromLane="0" toLane="0" via=":j2_13_0" dir="s" state="="/>
+    <connection from="a" to="-d" fromLane="0" toLane="0" via=":j2_14_0" dir="l" state="="/>
+    <connection from="a" to="-a" fromLane="0" toLane="0" via=":j2_15_0" dir="t" state="="/>
+    <connection from="b" to="-d" fromLane="0" toLane="0" via=":j2_4_0" dir="r" state="M"/>
+    <connection from="b" to="-a" fromLane="0" toLane="0" via=":j2_5_0" dir="s" state="="/>
+    <connection from="b" to="-c" fromLane="0" toLane="0" via=":j2_6_0" dir="l" state="="/>
+    <connection from="b" to="-b" fromLane="0" toLane="0" via=":j2_7_0" dir="t" state="="/>
+    <connection from="c" to="-b" fromLane="0" toLane="0" via=":j2_8_0" dir="r" state="="/>
+    <connection from="c" to="-d" fromLane="0" toLane="0" via=":j2_9_0" dir="s" state="="/>
+    <connection from="c" to="-a" fromLane="0" toLane="0" via=":j2_10_0" dir="l" state="="/>
+    <connection from="c" to="-c" fromLane="0" toLane="0" via=":j2_11_0" dir="t" state="="/>
+    <connection from="d" to="-a" fromLane="0" toLane="0" via=":j2_0_0" dir="r" state="M"/>
+    <connection from="d" to="-c" fromLane="0" toLane="0" via=":j2_1_0" dir="s" state="="/>
+    <connection from="d" to="-b" fromLane="0" toLane="0" via=":j2_2_0" dir="l" state="="/>
+    <connection from="d" to="-d" fromLane="0" toLane="0" via=":j2_3_0" dir="t" state="="/>
+    <connection from="e" to="d" fromLane="0" toLane="0" via=":472400832_0_0" dir="s" state="M"/>
+    <connection from="e" to="-e" fromLane="0" toLane="0" via=":472400832_1_0" dir="t" state="m"/>
+
+    <connection from=":1535884795_0" to="c" fromLane="0" toLane="0" dir="t" state="M"/>
+    <connection from=":472400832_0" to="d" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":472400832_1" to="-e" fromLane="0" toLane="0" dir="t" state="M"/>
+    <connection from=":472400832_2" to="d" fromLane="0" toLane="0" dir="t" state="M"/>
+    <connection from=":472400832_3" to="-e" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":j2_0" to="-a" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from=":j2_1" to="-c" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":j2_2" to="-b" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from=":j2_3" to="-d" fromLane="0" toLane="0" dir="t" state="M"/>
+    <connection from=":j2_4" to="-d" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from=":j2_5" to="-a" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":j2_6" to="-c" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from=":j2_7" to="-b" fromLane="0" toLane="0" dir="t" state="M"/>
+    <connection from=":j2_8" to="-b" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from=":j2_9" to="-d" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":j2_10" to="-a" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from=":j2_11" to="-c" fromLane="0" toLane="0" dir="t" state="M"/>
+    <connection from=":j2_12" to="-c" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from=":j2_13" to="-b" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":j2_14" to="-d" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from=":j2_15" to="-a" fromLane="0" toLane="0" dir="t" state="M"/>
+    <connection from=":j3_0" to="e" fromLane="0" toLane="0" dir="t" state="M"/>
+    <connection from=":j4_0" to="a" fromLane="0" toLane="0" dir="t" state="M"/>
+    <connection from=":j6_0" to="b" fromLane="0" toLane="0" dir="t" state="M"/>
+
+    <connection from=":1535884795_w0" to="c" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="-c" to=":1535884795_w0" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="140184626#0" to=":1535884795_w0" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":472400832_w0" to="-e" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":472400832_w0" to="39439120#5" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":472400832_w0" to="d" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="39439120#4" to=":472400832_w0" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="e" to=":472400832_w0" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="-d" to=":472400832_w0" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":j2_c0" to=":j2_w0" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":j2_w0" to="-d" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="d" to=":j2_w0" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":j2_w1" to=":j2_c0" fromLane="0" toLane="0" dir="s" state="m"/>
+    <connection from=":j2_w1" to="-c" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="c" to=":j2_w1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":j5_w0" to="39439120#4" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="39439591#0" to=":j5_w0" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":j7_w0" to="140184624#0" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="39439120#5" to=":j7_w0" fromLane="0" toLane="0" dir="s" state="M"/>
+</net>

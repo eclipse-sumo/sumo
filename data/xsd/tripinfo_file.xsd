@@ -103,6 +103,7 @@
             <xsd:attribute name="id" use="required" type="xsd:string"/>
             <xsd:attribute name="depart" use="required" type="nonNegativeFloatType"/>
             <xsd:attribute name="type" use="required" type="xsd:string"/>
+            <xsd:attribute name="speedFactor" type="positiveFloatType"/>
         </xsd:complexType>
     </xsd:element>
 

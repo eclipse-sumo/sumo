@@ -21,6 +21,7 @@
 #include <config.h>
 
 #include <utils/common/SUMOVehicleClass.h>
+#include <utils/foxtools/MFXIconComboBox.h>
 
 #include "GNEDemandElementDialog.h"
 
@@ -66,7 +67,7 @@ public:
             VTypeAtributes* myVTypeAtributesParent;
 
             /// @brief FXComboBox for VClass
-            FXComboBox* myComboBoxVClass;
+            MFXIconComboBox* myComboBoxVClass;
 
             /// @brief label with image of VClass
             FXLabel* myComboBoxVClassLabelImage;
@@ -93,7 +94,7 @@ public:
             VTypeAtributes* myVTypeAtributesParent;
 
             /// @brief FXComboBox for Shape
-            FXComboBox* myComboBoxShape;
+            MFXIconComboBox* myComboBoxShape;
 
             /// @brief label with image of Shape
             FXLabel* myComboBoxShapeLabelImage;
@@ -169,7 +170,7 @@ public:
             FXTextField* myTextField;
 
             /// @brief ComboBox for attributes with limited values
-            FXComboBox* myComboBox;
+            MFXIconComboBox* myComboBox;
 
             /// @brief pointer to current parameter map
             Parameterised::Map myParameters;
@@ -235,6 +236,9 @@ public:
 
         /// @brief VTypeAttributeRow for MaxSpeed
         VTypeAttributeRow* myMaxSpeed;
+
+        /// @brief VTypeAttributeRow for desired max speed
+        VTypeAttributeRow* myDesiredMaxSpeed;
 
         /// @brief VTypeAttributeRow for SpeedFactor
         VTypeAttributeRow* mySpeedFactor;
@@ -429,6 +433,7 @@ public:
         /// @{
         /// @event called after change a CFM variable
         long onCmdSetVariable(FXObject*, FXSelector, void*);
+
         /// @}
 
     protected:
@@ -465,7 +470,7 @@ public:
         std::vector<CarFollowingModelRow*> myRows;
 
         /// @brief Row for CarFollowModel
-        FXComboBox* myComboBoxCarFollowModel;
+        MFXIconComboBox* myComboBoxCarFollowModel;
 
         /// @brief Vertical Frame for CarFollowingModelRow
         FXVerticalFrame* myVerticalFrameRows;
@@ -605,8 +610,6 @@ public:
     /// @brief event after press reset button
     long onCmdReset(FXObject*, FXSelector, void*);
 
-    /// @event after change a variable of vehicle type
-    long onCmdSetVariable(FXObject*, FXSelector, void*);
     /// @}
 
 private:

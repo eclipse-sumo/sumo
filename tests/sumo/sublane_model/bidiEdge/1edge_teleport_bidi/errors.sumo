@@ -1,0 +1,4 @@
+Warning: Teleporting vehicle 'v_0'; waited too long (jam, bidi), lane='E0_0', time=21.00.
+Warning: Vehicle 'v_0' teleports beyond arrival edge 'E0', time=21.00.
+Warning: Teleporting vehicle 'v_1'; waited too long (jam, bidi), lane='-E0_0', time=21.00.
+Warning: Vehicle 'v_1' teleports beyond arrival edge '-E0', time=21.00.

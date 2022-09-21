@@ -243,8 +243,8 @@ GNEGenericDataFrame::IntervalSelector::refreshIntervalSelector() {
         FXTreeItem* dataSetItem = myIntervalsTreelist->insertItem(
                                       nullptr, nullptr,
                                       dataSet->getHierarchyName().c_str(),
-                                      dataSet->getIcon(),
-                                      dataSet->getIcon());
+                                      GUIIconSubSys::getIcon(GUIIcon::DATASET),
+                                      GUIIconSubSys::getIcon(GUIIcon::DATASET));
         // by default item is expanded
         dataSetItem->setExpanded(true);
         // iterate over intevals
@@ -370,8 +370,8 @@ GNEGenericDataFrame::IntervalSelector::addIntervalItem(GNEDataInterval* dataInte
     // insert item in Tree list
     FXTreeItem* item = myIntervalsTreelist->insertItem(nullptr, itemParent,
                        dataInterval->getHierarchyName().c_str(),
-                       dataInterval->getIcon(),
-                       dataInterval->getIcon());
+                       GUIIconSubSys::getIcon(GUIIcon::DATAINTERVAL),
+                       GUIIconSubSys::getIcon(GUIIcon::DATAINTERVAL));
     // insert item in map
     myTreeItemIntervalMap[item] = dataInterval;
     // by default item is expanded
@@ -561,8 +561,8 @@ GNEGenericDataFrame::updateFrameAfterUndoRedo() {
 }
 
 
-GNEGenericDataFrame::GNEGenericDataFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet, SumoXMLTag tag, const bool pathCreator) :
-    GNEFrame(horizontalFrameParent, viewNet, toString(tag)),
+GNEGenericDataFrame::GNEGenericDataFrame(GNEViewParent *viewParent, GNEViewNet* viewNet, SumoXMLTag tag, const bool pathCreator) :
+    GNEFrame(viewParent, viewNet, toString(tag)),
     myDataSetSelector(nullptr),
     myIntervalSelector(nullptr),
     myAttributeSelector(nullptr),

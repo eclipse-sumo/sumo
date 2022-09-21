@@ -265,8 +265,8 @@ public:
      *
      * @param[in] width The width of the circle
      * @param[in] steps The number of steps to divide the circle into
-     * @param[in] beg The begin angle in degress
-     * @param[in] end The end angle in degress
+     * @param[in] beg The begin angle in degrees
+     * @param[in] end The end angle in degrees
      */
     static void drawFilledCircle(double width, int steps,
                                  double beg, double end);
@@ -291,8 +291,8 @@ public:
      * @param[in] width The (outer) width of the circle
      * @param[in] iwidth The inner width of the circle
      * @param[in] steps The number of steps to divide the circle into
-     * @param[in] beg The begin angle in degress
-     * @param[in] end The end angle in degress
+     * @param[in] beg The begin angle in degrees
+     * @param[in] end The end angle in degrees
      */
     static void drawOutlineCircle(double width, double iwidth,
                                   int steps, double beg, double end);
@@ -379,7 +379,7 @@ public:
     /// @brief set GL2PS
     static void setGL2PS(bool active = true);
 
-    /// @brief darw
+    /// @brief draw
     static void drawSpaceOccupancies(const double exaggeration, const Position& pos, const double rotation,
                                      const double width, const double length, const bool vehicle);
 
@@ -415,6 +415,6 @@ private:
     /// @brief whether we are currently rendering for gl2ps
     static bool myGL2PSActive;
 
-    /// @brief static vector with a list of alternated black/white colors (used for contourns)
+    /// @brief static vector with a list of alternated black/white colors (used for contours)
     static std::vector<RGBColor> myDottedcontourColors;
 };

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="vType_0" carFollowModel="Krauss"/>
+    <trip id="vehicle_0" type="vType_0" depart="0.00" departSpeed="max" departPos="40.00" from="23603261#4" to="158821396#1"/>
+	<trip id="vehicle_1" type="vType_0" depart="0.00" departSpeed="max" departPos="0.00" from="289207651#0" to="158821396#1"/>
+	<trip id="vehicle_2" type="vType_0" depart="0.00" departSpeed="max" departPos="100.00" from="158906813" to="25693459#0"/>
+	<trip id="vehicle_3" type="vType_0" depart="5.00" departSpeed="max" departPos="0.00" from="158906813" to="25693459#0"/>
+</routes>

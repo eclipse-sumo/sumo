@@ -71,12 +71,24 @@ GUIGLObjectPopupMenu::GUIGLObjectPopupMenu(GUIMainWindow& app, GUISUMOAbstractVi
 }
 
 
+GUIGLObjectPopupMenu::GUIGLObjectPopupMenu(GUIMainWindow* app, GUISUMOAbstractView* parent) :
+    FXMenuPane(parent),
+    myParent(parent),
+    myObject(nullptr),
+    myApplication(app),
+    myNetworkPosition(parent->getPositionInformation()) {
+}
+
+
 GUIGLObjectPopupMenu::~GUIGLObjectPopupMenu() {
     // Delete MenuPane children
-    for (auto i : myMenuPanes) {
-        delete i;
+    for (const auto &pane : myMenuPanes) {
+        delete pane;
     }
-    myObject->removedPopupMenu();
+    // remove popup menu from object
+    if (myObject) {
+        myObject->removedPopupMenu();
+    }
 }
 
 
@@ -87,8 +99,8 @@ GUIGLObjectPopupMenu::insertMenuPaneChild(FXMenuPane* child) {
         throw ProcessError("MenuPaneChild cannot be NULL");
     }
     // Check that MenuPaneChild wasn't already inserted
-    for (auto i : myMenuPanes) {
-        if (i == child) {
+    for (const auto &pane : myMenuPanes) {
+        if (pane == child) {
             throw ProcessError("MenuPaneChild already inserted");
         }
     }
@@ -100,29 +112,46 @@ GUIGLObjectPopupMenu::insertMenuPaneChild(FXMenuPane* child) {
 long
 GUIGLObjectPopupMenu::onCmdCenter(FXObject*, FXSelector, void*) {
     // we already know where the object is since we clicked on it -> zoom on Boundary
-    myParent->centerTo(myObject->getGlID(), true, -1);
+    if (myObject) {
+        myParent->centerTo(myObject->getGlID(), true, -1);
+    } else {
+        throw ProcessError("Object is NULL");
+    }
     return 1;
 }
 
 
 long
 GUIGLObjectPopupMenu::onCmdCopyName(FXObject*, FXSelector, void*) {
-    GUIUserIO::copyToClipboard(*myParent->getApp(), myObject->getMicrosimID());
+    if (myObject) {
+        GUIUserIO::copyToClipboard(*myParent->getApp(), myObject->getMicrosimID());
+    } else {
+        throw ProcessError("Object is NULL");
+    }
     return 1;
 }
 
 
 long
 GUIGLObjectPopupMenu::onCmdCopyTypedName(FXObject*, FXSelector, void*) {
-    GUIUserIO::copyToClipboard(*myParent->getApp(), myObject->getFullName());
+    if (myObject) {
+        GUIUserIO::copyToClipboard(*myParent->getApp(), myObject->getFullName());
+    } else {
+        throw ProcessError("Object is NULL");
+    }
     return 1;
 }
 
 
 long
 GUIGLObjectPopupMenu::onCmdCopyEdgeName(FXObject*, FXSelector, void*) {
-    assert(myObject->getType() == GLO_LANE);
-    GUIUserIO::copyToClipboard(*myParent->getApp(), myObject->getParentName());
+    if (myObject == nullptr) {
+        throw ProcessError("Object is NULL");
+    } else if (myObject->getType() != GLO_LANE) {
+        throw ProcessError("Object must be a lane");
+    } else {
+        GUIUserIO::copyToClipboard(*myParent->getApp(), myObject->getParentName());
+    }
     return 1;
 }
 
@@ -159,7 +188,11 @@ GUIGLObjectPopupMenu::onCmdShowCursorGeoPositionOnline(FXObject* item, FXSelecto
 
 long
 GUIGLObjectPopupMenu::onCmdShowPars(FXObject*, FXSelector, void*) {
-    myObject->getParameterWindow(*myApplication, *myParent);
+    if (myObject) {
+        myObject->getParameterWindow(*myApplication, *myParent);
+    } else {
+        throw ProcessError("Object is NULL");
+    }
     return 1;
 }
 
@@ -167,23 +200,35 @@ GUIGLObjectPopupMenu::onCmdShowPars(FXObject*, FXSelector, void*) {
 
 long
 GUIGLObjectPopupMenu::onCmdShowTypePars(FXObject*, FXSelector, void*) {
-    myObject->getTypeParameterWindow(*myApplication, *myParent);
+    if (myObject) {
+        myObject->getTypeParameterWindow(*myApplication, *myParent);
+    } else {
+        throw ProcessError("Object is NULL");
+    }
     return 1;
 }
 
 
 long
 GUIGLObjectPopupMenu::onCmdAddSelected(FXObject*, FXSelector, void*) {
-    gSelected.select(myObject->getGlID());
-    myParent->update();
+    if (myObject) {
+        gSelected.select(myObject->getGlID());
+        myParent->update();
+    } else {
+        throw ProcessError("Object is NULL");
+    }
     return 1;
 }
 
 
 long
 GUIGLObjectPopupMenu::onCmdRemoveSelected(FXObject*, FXSelector, void*) {
-    gSelected.deselect(myObject->getGlID());
-    myParent->update();
+    if (myObject) {
+        gSelected.deselect(myObject->getGlID());
+        myParent->update();
+    } else {
+        throw ProcessError("Object is NULL");
+    }
     return 1;
 }
 

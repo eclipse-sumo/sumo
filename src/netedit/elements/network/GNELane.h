@@ -70,9 +70,6 @@ public:
     private:
         /// @brief default constructor
         LaneDrawingConstants();
-
-        /// @brief Invalidated assignment operator.
-        LaneDrawingConstants& operator=(const LaneDrawingConstants&) = delete;
     };
 
     /**@brief Constructor
@@ -162,6 +159,9 @@ public:
      * @see GUIGlObject::drawGL
      */
     void drawGL(const GUIVisualizationSettings& s) const;
+
+    /// @brief delete element
+    void deleteGLObject();
 
     /// @brief update GLObject (geometry, ID, etc.)
     void updateGLObject();

@@ -30,6 +30,7 @@ vehicle types).
     <th class="tg-dr3j">b<sup>(**)</sup> decel</th>
     <th class="tg-dr3j">b<sub>e</sub>emergency decel</th>
     <th class="tg-dr3j">v<sub>max</sub> maxSpeed</th>
+    <th class="tg-dr3j">v<sub>desMax</sub> desiredMaxSpeed</th>
     <th class="tg-dr3j">seats</th>
     <th class="tg-dr3j"><a href="Models/Emissions/HBEFA3-based.html">emissionClass (HBEFA3)</a></th>
     <th class="tg-dr3j">speed deviation</th>
@@ -41,9 +42,10 @@ vehicle types).
     <td class="tg-0lax">0.215m<sup>(1)</sup><br>0.478m<sup>(1)</sup><br>1.719m<sup>(1)</sup></td>
     <td class="tg-0lax">0.25m</td>
     <td class="tg-0lax">1.5m/s<sup>2(23)</sup></td>
-    <td class="tg-0lax">2m/s<sup>2(23)</sup></td>
+    <td class="tg-0lax">2m/s<sup>2(23)</sup></td>    
     <td class="tg-0lax">5m/s<sup>2</sup></td>
-    <td class="tg-0lax">5.4km/h<sup>(23)</sup></td>
+    <td class="tg-0lax">10.44m/s<sup>2</sup></td>
+    <td class="tg-0lax">5km/h<sup>(23)</sup></td>
     <td class="tg-0lax">-</td>
     <td class="tg-0lax">zero</td>
     <td class="tg-0lax">0.1</td>
@@ -60,6 +62,7 @@ vehicle types).
     <td class="tg-0lax">1.2m/s<sup>2(19)</sup></td>
     <td class="tg-0lax">3m/s<sup>2(19)</sup></td>
     <td class="tg-0lax">7m/s<sup>2</sup></td>
+    <td class="tg-0lax">50km/h</td>
     <td class="tg-0lax">20km/h<sup>(19)</sup></td>
     <td class="tg-0lax">1</td>
     <td class="tg-0lax">zero</td>
@@ -75,6 +78,7 @@ vehicle types).
     <td class="tg-0lax">7m/s<sup>2(26)</sup></td>
     <td class="tg-0lax">10m/s<sup>2</sup></td>
     <td class="tg-0lax">45km/h<sup>(24)</sup></td>
+    <td class="tg-0lax">not limited (1e4km/h)</td>
     <td class="tg-0lax">2</td>
     <td class="tg-0lax">LDV_G_EU6</td>
     <td class="tg-0lax">0.1</td>
@@ -89,6 +93,7 @@ vehicle types).
     <td class="tg-0lax">10m/s<sup>2(27)</sup></td>
     <td class="tg-0lax">10m/s<sup>2</sup></td>
     <td class="tg-0lax">200km/h<sup>(28)</sup></td>
+    <td class="tg-0lax">not limited (1e4km/h)</td>
     <td class="tg-0lax">2</td>
     <td class="tg-0lax">LDV_G_EU6</td>
     <td class="tg-0lax">0.1</td>
@@ -106,6 +111,7 @@ vehicle types).
     <td class="tg-0lax">4.5m/s<sup>2(27)</sup></td>
     <td class="tg-0lax">9m/s<sup>2</sup></td>
     <td class="tg-0lax">200km/h<sup>(29)</sup></td>
+    <td class="tg-0lax">not limited (1e4km/h)</td>
     <td class="tg-0lax">4</td>
     <td class="tg-0lax">PC_G_EU4</td>
     <td class="tg-0lax">0.1</td>
@@ -165,7 +171,7 @@ vehicle types).
   <tr>
     <td class="tg-0lax">taxi</td>
     <td class="tg-0lax"></td>
-    <td class="tg-0lax">passenger</td>
+    <td class="tg-0lax">taxi</td>
     <td class="tg-0lax">see passenger</td>
     <td class="tg-0lax">see passenger</td>
     <td class="tg-0lax">see passenger</td>
@@ -217,6 +223,7 @@ vehicle types).
     <td class="tg-0lax">4m/s2<br>(27)</td>
     <td class="tg-0lax">7m/s<sup>2</sup></td>
     <td class="tg-0lax">130km/h<sup>(35)</sup></td>
+    <td class="tg-0lax">not limited (1e4km/h)</td>
     <td class="tg-0lax">3</td>
     <td class="tg-0lax">HDV</td>
     <td class="tg-0lax">0.05</td>
@@ -261,6 +268,7 @@ vehicle types).
     <td class="tg-0lax">4m/s<sup>2(27)</sup></td>
     <td class="tg-0lax">7m/s<sup>2</sup></td>
     <td class="tg-0lax">85km/h<sup>(3)</sup></td>
+    <td class="tg-0lax">not limited (1e4km/h)</td>
     <td class="tg-0lax">~85</td>
     <td class="tg-0lax">Bus</td>
     <td class="tg-0lax">0</td>
@@ -288,6 +296,7 @@ vehicle types).
     <td class="tg-0lax">see above</td>
     <td class="tg-0lax">see above</td>
     <td class="tg-0lax">100km/h<sup>(32)</sup></td>
+    <td class="tg-0lax">not limited (1e4km/h)</td>
     <td class="tg-0lax">70<sup>(9)</sup></td>
     <td class="tg-0lax">Coach</td>
     <td class="tg-0lax">0.05</td>
@@ -305,6 +314,7 @@ vehicle types).
     <td class="tg-0lax">3.0m/s<sup>2(27)</sup></td>
     <td class="tg-0lax">7m/s<sup>2</sup></td>
     <td class="tg-0lax">80km/h<sup>(36)</sup></td>
+    <td class="tg-0lax">not limited (1e4km/h)</td>
     <td class="tg-0lax">~120<sup>(7, *)</sup></td>
     <td class="tg-0lax">zero</td>
     <td class="tg-0lax">0</td>
@@ -319,6 +329,7 @@ vehicle types).
     <td class="tg-0lax">3.0m/s<sup>2(27)</sup></td>
     <td class="tg-0lax">7m/s<sup>2</sup></td>
     <td class="tg-0lax">100km/h<sup>(4)</sup></td>
+    <td class="tg-0lax">not limited (1e4km/h)</td>
     <td class="tg-0lax">~300(*2/*4)</td>
     <td class="tg-0lax">zero</td>
     <td class="tg-0lax">0</td>
@@ -333,6 +344,7 @@ vehicle types).
     <td class="tg-0lax">1.3m/s<sup>2(33)</sup></td>
     <td class="tg-0lax">5m/s<sup>2</sup></td>
     <td class="tg-0lax">160km/h<sup>(11)</sup></td>
+    <td class="tg-0lax">not limited (1e4km/h)</td>
     <td class="tg-0lax">~434(*2)<sup>(11)</sup></td>
     <td class="tg-0lax">HDV_D_EU0</td>
     <td class="tg-0lax">0</td>
@@ -346,6 +358,7 @@ vehicle types).
     <td class="tg-0lax">1.3m/s<sup>2(33)</sup></td>
     <td class="tg-0lax">5m/s<sup>2</sup></td>
     <td class="tg-0lax">120km/h<sup>(5)</sup></td>
+    <td class="tg-0lax">not limited (1e4km/h)</td>
     <td class="tg-0lax">1</td>
     <td class="tg-0lax">HDV_D_EU0</td>
     <td class="tg-0lax">0</td>
@@ -360,6 +373,7 @@ vehicle types).
     <td class="tg-0lax">1.3m/s<sup>2(33)</sup></td>
     <td class="tg-0lax">5m/s<sup>2</sup></td>
     <td class="tg-0lax">330km/h<sup>(12)</sup></td>
+    <td class="tg-0lax">not limited (1e4km/h)</td>
     <td class="tg-0lax">425<sup>(12)</sup></td>
     <td class="tg-0lax">zero</td>
     <td class="tg-0lax">0</td>
@@ -390,8 +404,9 @@ vehicle types).
     <td class="tg-0lax">1.5m<sup>(39)</sup></td>
     <td class="tg-0lax">2m/s<sup>2(39)</sup></td>
     <td class="tg-0lax">4m/s<sup>2(39)</sup></td>
-    <td class="tg-0lax">7m/s<sup>(*)</sup></td>
+    <td class="tg-0lax">7m/s<sup>(*)</sup></td>    
     <td class="tg-0lax">20 km/h<sup>(39)</sup></td>
+    <td class="tg-0lax">not limited (1e4km/h)</td>
     <td class="tg-0lax">1<sup>(*)</sup></td>
     <td class="tg-0lax">zero</td>
     <td class="tg-0lax">0.1</td>
@@ -409,6 +424,7 @@ vehicle types).
     <td class="tg-0lax">0.1m/s<sup>2</sup></td>
     <td class="tg-0lax">1m/s<sup>2</sup></td>
     <td class="tg-0lax">4.12 (8 Knots)</td>
+    <td class="tg-0lax">not limited (1e4km/h)</td>
     <td class="tg-0lax"></td>
     <td class="tg-0lax">HDV_D_EU0</td>
     <td class="tg-0lax">0.1</td>

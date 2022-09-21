@@ -97,6 +97,9 @@ fillOptions() {
     oc.addSynonyme("default-junction-type", "junctions");
     oc.addDescription("default-junction-type", "Building Defaults", "[traffic_light|priority|right_before_left|traffic_light_right_on_red|priority_stop|allway_stop|...] Determines junction type (see wiki/Networks/PlainXML#Node_types)");
     RandHelper::insertRandOptions();
+
+    oc.doRegister("tls.discard-simple", new Option_Bool(false));
+    oc.addDescription("tls.discard-simple", "TLS Building", "Does not instatiate traffic lights at geometry-like nodes");
 }
 
 
@@ -271,6 +274,13 @@ main(int argc, char** argv) {
         WRITE_MESSAGE(" Generation done;");
         WRITE_MESSAGE("   " + toString<int>(nb.getNodeCont().size()) + " nodes generated.");
         WRITE_MESSAGE("   " + toString<int>(nb.getEdgeCont().size()) + " edges generated.");
+        if (oc.getBool("tls.discard-simple")) {
+            nb.getNodeCont().discardTrafficLights(nb.getTLLogicCont(), true, false);
+            int removed = nb.getTLLogicCont().getNumExtracted();
+            if (removed > 0) {
+                WRITE_MESSAGE(" Removed " + toString(removed) + " traffic lights at geometry-like nodes");
+            }
+        }
         nb.compute(oc);
         nb.getNodeCont().printBuiltNodesStatistics();
         NWFrame::writeNetwork(oc, nb);

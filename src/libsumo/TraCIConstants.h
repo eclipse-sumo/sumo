@@ -23,6 +23,7 @@
 /// @author  Mario Krumnow
 /// @author  Jakob Erdmann
 /// @author  Laura Bieker
+/// @author  Mirko Barthauer
 /// @date    2007/10/24
 ///
 // holds codes used for TraCI
@@ -845,6 +846,9 @@ TRACI_CONST int TL_CONSTRAINT_BYFOE = 0x34;
 // add/get rail signal constraints by foeSignal (set: traffic lights)
 TRACI_CONST int TL_CONSTRAINT_REMOVE = 0x35;
 
+// update rail signal constraints by vehID (set: traffic lights)
+TRACI_CONST int TL_CONSTRAINT_UPDATE = 0x36;
+
 // outgoing link number (get: lanes)
 TRACI_CONST int LANE_LINK_NUMBER = 0x30;
 
@@ -1243,6 +1247,9 @@ TRACI_CONST int CMD_CLEAR_PENDING_VEHICLES = 0x94;
 
 // retrieve number of not inserted  vehicles (get: simulation, edge, lane)
 TRACI_CONST int VAR_PENDING_VEHICLES = 0x94;
+
+// retrieve global option value (get: simulation)
+TRACI_CONST int VAR_OPTION = 0x32;
 
 // triggers saving simulation state (set: simulation)
 TRACI_CONST int CMD_SAVE_SIMSTATE = 0x95;

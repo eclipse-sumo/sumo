@@ -56,7 +56,7 @@ netedit.leftClick(referencePosition, 220, 270)
 netedit.changeDefaultValue(netedit.attrs.vaporizer.create.end, "100")
 
 # try to create invalid vaporizer (show warning)
-netedit.leftClick(referencePosition, 220, 270)
+netedit.leftClick(referencePosition, 230, 270)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)

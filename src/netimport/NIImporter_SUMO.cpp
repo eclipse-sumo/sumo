@@ -119,9 +119,9 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
             return;
         }
         setFileName(*file);
-        PROGRESS_BEGIN_MESSAGE("Parsing sumo-net from '" + *file + "'");
+        const long before = PROGRESS_BEGIN_TIME_MESSAGE("Parsing sumo-net from '" + *file + "'");
         XMLSubSys::runParser(*this, *file, true);
-        PROGRESS_DONE_MESSAGE();
+        PROGRESS_TIME_MESSAGE(before);
     }
     // build edges
     const double maxSegmentLength = oc.getFloat("geometry.max-segment-length");

@@ -39,7 +39,7 @@
 // -------------------------------------------------------------------------
 
 GUIE3Collector::MyWrapper::MyWrapper(GUIE3Collector& detector) :
-    GUIDetectorWrapper(GLO_E3DETECTOR, detector.getID()),
+    GUIDetectorWrapper(GLO_E3DETECTOR, detector.getID(), GUIIconSubSys::getIcon(GUIIcon::E3)),
     myDetector(detector) {
     const CrossSectionVector& entries = detector.getEntries();
     const CrossSectionVector& exits = detector.getExits();

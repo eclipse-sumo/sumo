@@ -73,11 +73,14 @@ import as above.
 
 ## C++
 
+Please note the extra `#define` for enabling GUI code which is not needed if you do not or cannot use the GUI (Windows).
+
 ### Example Code (test.cpp)
 
 ```cpp
 #include <iostream>
-#include <libsumo/Simulation.h>
+#define HAVE_LIBSUMOGUI  // if you are on Windows or have libsumo compiled yourself without GUI you should remove this line
+#include <libsumo/libsumo.h>
 
 using namespace libsumo;
 

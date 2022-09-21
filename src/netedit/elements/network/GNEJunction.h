@@ -111,6 +111,9 @@ public:
      */
     void drawGL(const GUIVisualizationSettings& s) const;
 
+    /// @brief delete element
+    void deleteGLObject();
+
     /// @brief update GLObject (geometry, ID, etc.)
     void updateGLObject();
     /// @}
@@ -349,6 +352,9 @@ private:
 
     /// @brief temporarily mirror coordinates in lefthand network to compute correct crossing geometries
     void mirrorXLeftHand();
+
+    /// @brief build TLS operations contextual menu
+    void buildTLSOperations(GUISUMOAbstractView& parent, GUIGLObjectPopupMenu* ret, const int numSelectedJunctions);
 
     /// @brief Invalidated copy constructor.
     GNEJunction(const GNEJunction&) = delete;

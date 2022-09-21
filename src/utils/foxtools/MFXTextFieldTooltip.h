@@ -33,12 +33,15 @@ class MFXTextFieldTooltip : public FXTextField {
 
 public:
     /// @brief constructor (Exactly like the FXTextField constructor)
-    MFXTextFieldTooltip(FXComposite* p, FXint ncols, FXObject* tgt, FXSelector sel,
+    MFXTextFieldTooltip(FXComposite* p, MFXStaticToolTip* staticToolTip, FXint ncols, FXObject* tgt, FXSelector sel,
                         FXuint opts = TEXTFIELD_NORMAL, FXint x = 0, FXint y = 0, FXint w = 0, FXint h = 0,
                         FXint pl = DEFAULT_PAD, FXint pr = DEFAULT_PAD, FXint pt = DEFAULT_PAD, FXint pb = DEFAULT_PAD);
 
     /// @brief destructor (Called automatically)
     ~MFXTextFieldTooltip();
+
+    /// @brief set toolTip
+    void setToolTipText(const FXString &toolTip);
 
     /// @name FOX callbacks
     /// @{
@@ -47,6 +50,10 @@ public:
 
     /// @brief called when mouse leaves in MFXTextFieldTooltip
     long onLeave(FXObject*, FXSelector, void*);
+
+    /// @brief called when mouse motion in MFXTextFieldTooltip
+    long onMotion(FXObject*, FXSelector, void*);
+
     /// @}
 
 protected:
@@ -55,6 +62,9 @@ protected:
 
     /// @brief static tooltip
     MFXStaticToolTip* myStaticToolTip = nullptr;
+
+    /// @brief toolTip text (if set, tooltip will be always show)
+    FXString myToolTipText;
 
 private:
     /// @brief Invalidated copy constructor.

@@ -106,7 +106,8 @@ RandHelper::rand(SumoRNG* rng) {
 #ifdef DEBUG_RANDCALLS_PARALLEL
     auto threadID = std::this_thread::get_id();
     if (threadIndices.count(threadID) == 0) {
-        threadIndices[threadID] = threadIndices.size();
+        const int tmp = threadIndices.size();
+        threadIndices[threadID] = tmp;
     }
     int threadIndex = threadIndices[threadID];
     auto it = lastThreadIndex.find(rng->id);

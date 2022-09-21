@@ -74,7 +74,7 @@ GUIE2Collector::buildDetectorGUIRepresentation() {
 // -------------------------------------------------------------------------
 
 GUIE2Collector::MyWrapper::MyWrapper(GUIE2Collector& detector) :
-    GUIDetectorWrapper(GLO_E2DETECTOR, detector.getID()),
+    GUIDetectorWrapper(GLO_E2DETECTOR, detector.getID(), GUIIconSubSys::getIcon(GUIIcon::E2)),
     myDetector(detector) {
     mySupportsOverride = true;
     // collect detector shape into one vector (v)
@@ -162,7 +162,7 @@ GUIE2Collector::MyWrapper::drawGL(const GUIVisualizationSettings& s) const {
     }
     GLHelper::pushName(getGlID());
     GLHelper::pushMatrix();
-    glTranslated(0, 0, getType());
+    glTranslated(0, 0, GLO_JUNCTION + 0.4); // do not draw on top of linkRules
     double dwidth = 1;
     const double exaggeration = getExaggeration(s);
     if (exaggeration > 0) {

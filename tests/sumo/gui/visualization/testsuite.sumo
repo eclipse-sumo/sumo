@@ -1,3 +1,6 @@
+# check if occupancy information on bidi-edges and the respective color is correct
+occupancyInfoWithBidi
+
 # A parade of vehicle classes
 parade
 

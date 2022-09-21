@@ -68,7 +68,7 @@ MSCFModel_PWag2009::patchSpeedBeforeLC(const MSVehicle* veh, double vMin, double
 // seen so far in data ...
 
 double
-MSCFModel_PWag2009::followSpeed(const MSVehicle* const veh, double speed, double gap, double predSpeed, double /*predMaxDecel*/, const MSVehicle* const /*pred*/) const {
+MSCFModel_PWag2009::followSpeed(const MSVehicle* const veh, double speed, double gap, double predSpeed, double /*predMaxDecel*/, const MSVehicle* const /*pred*/, const CalcReason /*usage*/) const {
     if (predSpeed == 0 && gap < 0.01) {
         return 0;
     }
@@ -90,7 +90,7 @@ MSCFModel_PWag2009::followSpeed(const MSVehicle* const veh, double speed, double
 
 // uses the safe speed and preferred acceleration with the same NORMAL tau to compute stopSpeed
 double
-MSCFModel_PWag2009::stopSpeed(const MSVehicle* const /* veh */, const double speed, double gap, double /*decel*/) const {
+MSCFModel_PWag2009::stopSpeed(const MSVehicle* const /* veh */, const double speed, double gap, double /*decel*/, const CalcReason /*usage*/) const {
     if (gap < 0.01) {
         return 0.;
     }

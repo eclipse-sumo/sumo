@@ -32,6 +32,8 @@ Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Restoring previous attribute
@@ -60,30 +62,18 @@ Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Restoring previous attribute
 Debug: Restoring previous attribute
-Debug: Restoring previous attribute
-Debug: Restoring previous attribute
-Debug: Restoring previous attribute
-Debug: Restoring previous attribute
-Debug: Restoring previous attribute
-Debug: Restoring previous attribute
-Debug: Restoring previous attribute
-Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing detEntry 'E3_1' in GNEChange_Additional
-Debug: Removing detExit 'E3_1' in GNEChange_Additional
-Debug: Removing entryExitDetector 'E3_1' in GNEChange_Additional
-Debug: Removing detEntry 'E3_0' in GNEChange_Additional
-Debug: Removing detExit 'E3_0' in GNEChange_Additional
-Debug: Removing entryExitDetector 'E3_0' in GNEChange_Additional
-Debug: Keys Ctrl+Y (Redo) pressed
-Debug: Calling GNEUndoList::redo()
-Debug: Adding entryExitDetector 'E3_0' in GNEChange_Additional
-Debug: Adding detExit 'E3_0' in GNEChange_Additional
-Debug: Adding detEntry 'E3_0' in GNEChange_Additional
-Debug: Adding entryExitDetector 'E3_1' in GNEChange_Additional
-Debug: Adding detExit 'E3_1' in GNEChange_Additional
-Debug: Adding detEntry 'E3_1' in GNEChange_Additional
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute
@@ -94,6 +84,10 @@ Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed

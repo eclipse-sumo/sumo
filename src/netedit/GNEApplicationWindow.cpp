@@ -462,7 +462,8 @@ GNEApplicationWindow::dependentBuild() {
     myStatusbar = new FXStatusBar(this, GUIDesignStatusBar);
     // build geo coordinates label
     auto requiereRecomputingFrame = new FXHorizontalFrame(myStatusbar, GUIDesignHorizontalFrameStatusBar);
-    myRequireRecomputingButton = new MFXButtonTooltip(requiereRecomputingFrame, "Recomputing\t\tRecomputing is needed", nullptr, this, MID_GNE_RECOMPUTINGNEEDED, GUIDesignButtonStatusBarFixed);
+    myRequireRecomputingButton = new MFXButtonTooltip(requiereRecomputingFrame, myStaticTooltipMenu,
+        "Recomputing\t\tRecomputing is needed", nullptr, this, MID_GNE_RECOMPUTINGNEEDED, GUIDesignButtonStatusBarFixed);
     // build geo coordinates label
     myGeoFrame = new FXHorizontalFrame(myStatusbar, GUIDesignHorizontalFrameStatusBar);
     myGeoCoordinate = new FXLabel(myGeoFrame, "N/A\t\tOriginal coordinate (before coordinate transformation in netconvert)", nullptr, GUIDesignLabelStatusBar);

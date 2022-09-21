@@ -59,10 +59,11 @@ public:
      * @param[in] objectid The name of the parsed object; used for error message generation
      * @param[out] ok Whether the value could be read
      * @param[in] report Whether errors shall be written to msg handler's error instance
+     * @param[in] offsets Whether inverted values (i.e. xmin > xmax) shall be kept rather than corrected
      * @return The parsed boundary
      */
     static Boundary parseBoundaryReporting(const std::string& def, const std::string& objecttype,
-                                           const char* objectid, bool& ok, bool report = true);
+                                           const char* objectid, bool& ok, bool report = true, bool offsets = false);
 
 
 private:

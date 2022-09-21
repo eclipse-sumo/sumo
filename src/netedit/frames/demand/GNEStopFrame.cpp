@@ -115,8 +115,8 @@ GNEStopFrame::HelpCreation::updateHelpCreation() {
 // GNEStopFrame - methods
 // ---------------------------------------------------------------------------
 
-GNEStopFrame::GNEStopFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet) :
-    GNEFrame(horizontalFrameParent, viewNet, "Stops"),
+GNEStopFrame::GNEStopFrame(GNEViewParent *viewParent, GNEViewNet* viewNet) :
+    GNEFrame(viewParent, viewNet, "Stops"),
     myRouteHandler("", viewNet->getNet(), true, false),
     myStopParentBaseObject(new CommonXMLStructure::SumoBaseObject(nullptr)) {
 
@@ -175,6 +175,8 @@ GNEStopFrame::show() {
         // show help creation module
         myHelpCreation->showHelpCreation();
     }
+    // reset last position
+    myViewNet->resetLastClickedPosition();
     // show frame
     GNEFrame::show();
 }
@@ -510,6 +512,8 @@ GNEStopFrame::tagSelected() {
         myStopAttributes->showAttributesCreatorModule(myStopTagSelector->getCurrentTemplateAC(), {});
         myNeteditAttributes->showNeteditAttributesModule(myStopTagSelector->getCurrentTemplateAC());
         myHelpCreation->showHelpCreation();
+        // reset last position
+        myViewNet->resetLastClickedPosition();
     } else {
         // hide all modules if stop parent isn't valid
         myStopAttributes->hideAttributesCreatorModule();

@@ -350,8 +350,8 @@ GNEConnectorFrame::Legend::~Legend() {}
 // GNEConnectorFrame - methods
 // ---------------------------------------------------------------------------
 
-GNEConnectorFrame::GNEConnectorFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet):
-    GNEFrame(horizontalFrameParent, viewNet, "Edit Connections"),
+GNEConnectorFrame::GNEConnectorFrame(GNEViewParent *viewParent, GNEViewNet* viewNet):
+    GNEFrame(viewParent, viewNet, "Edit Connections"),
     myCurrentEditedLane(0),
     myNumChanges(0) {
     // create current lane modul

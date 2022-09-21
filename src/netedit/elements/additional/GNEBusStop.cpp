@@ -27,6 +27,7 @@
 #include <utils/options/OptionsCont.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/vehicle/SUMORouteHandler.h>
+#include <utils/gui/div/GUIGlobalPostDrawing.h>
 
 #include "GNEBusStop.h"
 
@@ -35,7 +36,7 @@
 // ===========================================================================
 
 GNEBusStop::GNEBusStop(SumoXMLTag tag, GNENet* net) :
-    GNEStoppingPlace("", net, GLO_BUS_STOP, tag, nullptr, 0, 0, "", false, Parameterised::Map()),
+    GNEStoppingPlace("", net, GLO_BUS_STOP, tag, GUIIconSubSys::getIcon(GUIIcon::BUSSTOP), nullptr, 0, 0, "", false, Parameterised::Map()),
     myPersonCapacity(0),
     myParkingLength(0),
     myColor(RGBColor::BLACK) {
@@ -47,7 +48,7 @@ GNEBusStop::GNEBusStop(SumoXMLTag tag, GNENet* net) :
 GNEBusStop::GNEBusStop(SumoXMLTag tag, const std::string& id, GNELane* lane, GNENet* net, const double startPos, const double endPos,
                        const std::string& name, const std::vector<std::string>& lines, int personCapacity, double parkingLength, const RGBColor& color,
                        bool friendlyPosition, const Parameterised::Map& parameters) :
-    GNEStoppingPlace(id, net, GLO_BUS_STOP, tag, lane, startPos, endPos, name, friendlyPosition, parameters),
+    GNEStoppingPlace(id, net, GLO_BUS_STOP, tag, GUIIconSubSys::getIcon(GUIIcon::BUSSTOP), lane, startPos, endPos, name, friendlyPosition, parameters),
     myLines(lines),
     myPersonCapacity(personCapacity),
     myParkingLength(parkingLength),
@@ -179,13 +180,22 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::popName();
             // draw lock icon
             GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), myAdditionalGeometry.getShape().getCentroid(), busStopExaggeration, (myTagProperty.getTag() == SUMO_TAG_BUS_STOP) ? 0.5 : 0.25);
-            // check if dotted contours has to be drawn
+            // check if mouse is over element
+            mouseWithinGeometry(myAdditionalGeometry.getShape(), stopWidth * MIN2(1.0, busStopExaggeration));
+            mouseWithinGeometry(mySignPos, myCircleWidth);
+            // inspect contour
             if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-                GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, myAdditionalGeometry.getShape(), stopWidth,
+                GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::INSPECT, myAdditionalGeometry.getShape(), stopWidth,
                         busStopExaggeration, true, true);
             }
+            // front attribute contour
             if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-                GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::FRONT, s, myAdditionalGeometry.getShape(), stopWidth,
+                GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::FRONT, myAdditionalGeometry.getShape(), stopWidth,
+                        busStopExaggeration, true, true);
+            }
+            // delete contour
+            if (myNet->getViewNet()->drawDeleteContour(this, this)) {
+                GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::REMOVE, myAdditionalGeometry.getShape(), stopWidth,
                         busStopExaggeration, true, true);
             }
             // draw child demand elements

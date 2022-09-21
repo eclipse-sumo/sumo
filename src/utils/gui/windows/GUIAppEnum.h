@@ -377,8 +377,10 @@ enum {
     MID_LOCATEPOI,
     /// @brief Locate polygons - button
     MID_LOCATEPOLY,
-    /// @brief Show tool tips - button
-    MID_SHOWTOOLTIPS,
+    /// @brief Show tool tips in view - button
+    MID_SHOWTOOLTIPS_VIEW,
+    /// @brief Show tool tips in menus - button
+    MID_SHOWTOOLTIPS_MENU,
     /// @brief Make snapshot - button
     MID_MAKESNAPSHOT,
     /// @brief toggle zooming style
@@ -415,6 +417,23 @@ enum {
     MID_COLOURSCHEMECHANGE,
 
     /// @}
+
+
+    /// @name GUICursorDialog PopUp Entries - IDs
+    /// @{
+    /// @brief set element as front element
+    MID_CURSORDIALOG_SETFRONTELEMENT,
+    /// @brief delete element
+    MID_CURSORDIALOG_DELETEELEMENT,
+    /// @brief open properties popup
+    MID_CURSORDIALOG_PROPERTIES,
+    /// @brief move list up
+    MID_CURSORDIALOG_MOVEUP,
+    /// @brief move list down
+    MID_CURSORDIALOG_MOVEDOWN,
+
+    /// @}
+
 
     /// @name Object PopUp Entries - IDs
     /// @{
@@ -984,60 +1003,78 @@ enum {
     MID_GNE_CREATEEDGEFRAME_ADD,
     /// @brief delete edge type
     MID_GNE_CREATEEDGEFRAME_DELETE,
-    /// @brief delete edge type
-    MID_GNE_CREATEEDGEFRAME_SELECT,
+    /// @brief select default edge type
+    MID_GNE_CREATEEDGEFRAME_SELECTDEFAULT,
+    /// @brief select edge template
+    MID_GNE_CREATEEDGEFRAME_SELECTTEMPLATE,
+    /// @brief select lane (used for default and template edges)
+    MID_GNE_CREATEEDGEFRAME_SELECTLANE,
     /// @brief create edge type from template
     MID_GNE_CREATEEDGEFRAME_CREATEFROMTEMPLATE,
+    /// @brief check button
+    MID_GNE_CREATEEDGEFRAME_CHECKBUTTON,
 
     /// @}
 
     /// @name GNETLSEditorFrame messages
     /// @{
 
-    /// @brief selected junction von TLS
-    MID_GNE_TLSFRAME_SELECT_JUNCTION,
-    /// @brief update TLS status
-    MID_GNE_TLSFRAME_UPDATE_STATUS,
+    /// @brief current TLS ID
+    MID_GNE_TLSFRAME_TLSJUNCTION_ID,
+    /// @brief current TLS ID
+    MID_GNE_TLSFRAME_TLSJUNCTION_TYPE,
+    /// @brief join TLS
+    MID_GNE_TLSFRAME_TLSJUNCTION_TOGGLEJOIN,
+    /// @brief Disjoin TLS
+    MID_GNE_TLSFRAME_TLSJUNCTION_DISJOIN,
     /// @brief replace program with a newly guessed program
-    MID_GNE_TLSFRAME_GUESSPROGRAM,
+    MID_GNE_TLSFRAME_ATTRIBUTES_GUESSPROGRAM,
     /// @brief TLS offset
-    MID_GNE_TLSFRAME_OFFSET,
+    MID_GNE_TLSFRAME_ATTRIBUTES_OFFSET,
     /// @brief TLS parameters
-    MID_GNE_TLSFRAME_PARAMETERS,
-    /// @brief switch between programs
-    MID_GNE_TLSFRAME_SWITCH,
+    MID_GNE_TLSFRAME_ATTRIBUTES_PARAMETERS,
+    /// @brief TLS parameters
+    MID_GNE_TLSFRAME_ATTRIBUTES_PARAMETERSDIALOG,
+    /// @brief set detectors in TLS
+    MID_GNE_TLSFRAME_ATTRIBUTES_TOGGLEDETECTOR,
     /// @brief Create TLS
-    MID_GNE_TLSFRAME_CREATE,
+    MID_GNE_TLSFRAME_DEFINITION_CREATE,
     /// @brief delete TLS
-    MID_GNE_TLSFRAME_DELETE,
-    /// @brief regenerate TLS
-    MID_GNE_TLSFRAME_REGENERATE,
+    MID_GNE_TLSFRAME_DEFINITION_DELETE,
+    /// @brief reset current (single) TLS program
+    MID_GNE_TLSFRAME_DEFINITION_RESETCURRENT,
+    /// @brief reset all TLS programs
+    MID_GNE_TLSFRAME_DEFINITION_RESETALL,
+    /// @brief switch between programs
+    MID_GNE_TLSFRAME_DEFINITION_SWITCHPROGRAM,
+    /// @brief accept TLS modification
+    MID_GNE_TLSFRAME_DEFINITION_SAVE,
+    /// @brief cancel TLS modification
+    MID_GNE_TLSFRAME_DEFINITION_DISCARD,
     /// @brief rename TLS
-    MID_GNE_TLSFRAME_RENAME,
+    MID_GNE_TLSFRAME_ATTRIBUTES_RENAME,
     /// @brief sub-rename TLS
-    MID_GNE_TLSFRAME_SUBRENAME,
+    MID_GNE_TLSFRAME_ATTRIBUTES_SUBRENAME,
     /// @brief add off to TLS
-    MID_GNE_TLSFRAME_ADDOFF,
-    /// @brief select phase thable
-    MID_GNE_TLSFRAME_PHASE_TABLE,
+    MID_GNE_TLSFRAME_ATTRIBUTES_ADDOFF,
     /// @brief create phase thable
     MID_GNE_TLSFRAME_PHASE_CREATE,
     /// @brief delete  phase thable
     MID_GNE_TLSFRAME_PHASE_DELETE,
     /// @brief cleanup unused states
-    MID_GNE_TLSFRAME_CLEANUP,
+    MID_GNE_TLSFRAME_PHASES_CLEANUP,
     /// @brief mark unused states
     MID_GNE_TLSFRAME_MARKUNUSED,
     /// @brief add unused states
-    MID_GNE_TLSFRAME_ADDUNUSED,
+    MID_GNE_TLSFRAME_PHASES_ADDUNUSED,
     /// @brief group states
-    MID_GNE_TLSFRAME_GROUP_STATES,
+    MID_GNE_TLSFRAME_PHASES_GROUPSTATES,
     /// @brief ungroup states
-    MID_GNE_TLSFRAME_UNGROUP_STATES,
+    MID_GNE_TLSFRAME_PHASES_UNGROUPSTATES,
     /// @brief Load Program
-    MID_GNE_TLSFRAME_LOAD_PROGRAM,
+    MID_GNE_TLSFRAME_FILE_LOADPROGRAM,
     /// @brief cleanup unused states
-    MID_GNE_TLSFRAME_SAVE_PROGRAM,
+    MID_GNE_TLSFRAME_FILE_SAVEPROGRAM,
 
     /// @}
 
@@ -1104,6 +1141,8 @@ enum {
     MID_GNE_EDGE_REVERSE,
     /// @brief add reverse edge
     MID_GNE_EDGE_ADD_REVERSE,
+    /// @brief add reverse edge disconnected (used for for spreadtype center)
+    MID_GNE_EDGE_ADD_REVERSE_DISCONNECTED,
     /// @brief reset custom lengths
     MID_GNE_EDGE_RESET_LENGTH,
 
@@ -1132,6 +1171,10 @@ enum {
     MID_GNE_JUNCTION_SELECT_ROUNDABOUT,
     /// @brief convert junction to roundabout
     MID_GNE_JUNCTION_CONVERT_ROUNDABOUT,
+    /// @brief Add TLS into junction
+    MID_GNE_JUNCTION_ADDTLS,
+    /// @brief Add join TLS into junctions
+    MID_GNE_JUNCTION_ADDJOINTLS,
 
     /// @}
 
@@ -1345,6 +1388,30 @@ enum {
 
     /// @}
 
+    /// @name GNETLSTable
+    /// @{
+    /// @brief TLSTable textField
+    MID_GNE_TLSTABLE_TEXTFIELD,
+    /// @brief TLSTable button for add phase
+    MID_GNE_TLSTABLE_ADDPHASE,
+    /// @brief TLSTable button for copy phase
+    MID_GNE_TLSTABLE_COPYPHASE,
+    /// @brief TLSTable button for add phase red
+    MID_GNE_TLSTABLE_ADDPHASEALLRED,
+    /// @brief TLSTable button for add phase yelllow
+    MID_GNE_TLSTABLE_ADDPHASEALLYELLOW,
+    /// @brief TLSTable button for add phase green
+    MID_GNE_TLSTABLE_ADDPHASEALLGREEN,
+    /// @brief TLSTable button for add phase green priority
+    MID_GNE_TLSTABLE_ADDPHASEALLGREENPRIORITY,
+    /// @brief TLSTable button for remove phase
+    MID_GNE_TLSTABLE_REMOVEPHASE,
+    /// @brief TLSTable button for move up phase
+    MID_GNE_TLSTABLE_MOVEUPPHASE,
+    /// @brief TLSTable button for move down phase
+    MID_GNE_TLSTABLE_MOVEDOWNPHASE,
+    /// @}
+
     /// @name other
     /// @{
 
@@ -1360,6 +1427,10 @@ enum {
     MID_GNE_RECOMPUTINGNEEDED,
 
     /// @}
+
+    /// @brief callback for MFXMenuButtonTooltip
+    MID_MBTTIP_FOCUS,
+    MID_MBTTIP_SELECTED,
 
     /// @brief last element of enum (not used)
     MID_LAST

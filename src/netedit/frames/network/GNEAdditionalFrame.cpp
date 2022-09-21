@@ -30,8 +30,8 @@
 // method definitions
 // ===========================================================================
 
-GNEAdditionalFrame::GNEAdditionalFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet) :
-    GNEFrame(horizontalFrameParent, viewNet, "Additionals"),
+GNEAdditionalFrame::GNEAdditionalFrame(GNEViewParent *viewParent, GNEViewNet* viewNet) :
+    GNEFrame(viewParent, viewNet, "Additionals"),
     myBaseAdditional(nullptr) {
 
     // create item Selector modul for additionals
@@ -69,6 +69,8 @@ void
 GNEAdditionalFrame::show() {
     // refresh tag selector
     myAdditionalTagSelector->refreshTagSelector();
+    // reset last position
+    myViewNet->resetLastClickedPosition();
     // show frame
     GNEFrame::show();
 }
@@ -218,6 +220,8 @@ GNEAdditionalFrame::tagSelected() {
             myConsecutiveLaneSelector->hideConsecutiveLaneSelectorModule();
             myLanesSelector->hideNetworkElementsSelector();
         }
+        // reset last position
+        myViewNet->resetLastClickedPosition();
     } else {
         // hide all moduls if additional isn't valid
         myAdditionalAttributes->hideAttributesCreatorModule();

@@ -1,0 +1,5 @@
+<routes>
+
+	<vehicle id="1" depart="0" route="1" departPosLat="-3" speedFactor="3" departSpeed="max"/>
+
+</routes>

@@ -151,7 +151,7 @@ public:
         return myType->getParameter().vehicleClass;
     }
 
-    /** @brief Returns the maximum speed
+    /** @brief Returns the maximum speed (the minimum of desired and technical maximum speed)
      * @return The vehicle's maximum speed
      */
     double getMaxSpeed() const;
@@ -358,6 +358,10 @@ public:
      */
     virtual double getArrivalPos() const {
         return myArrivalPos;
+    }
+
+    virtual int getArrivalLane() const {
+        return myArrivalLane;
     }
 
     /** @brief Sets this vehicle's desired arrivalPos for its current route

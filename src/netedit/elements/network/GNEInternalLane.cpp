@@ -60,14 +60,14 @@ const StringBijection<FXuint> GNEInternalLane::LinkStateNames(
 
 GNEInternalLane::GNEInternalLane(GNETLSEditorFrame* editor, const GNEJunction* junctionParent,
                                  const std::string& id, const PositionVector& shape, int tlIndex, LinkState state) :
-    GNENetworkElement(junctionParent->getNet(), id, GLO_TLLOGIC, GNE_TAG_INTERNAL_LANE,
-{}, {}, {}, {}, {}, {}),
-myJunctionParent(junctionParent),
-myState(state),
-myStateTarget(myState),
-myEditor(editor),
-myTlIndex(tlIndex),
-myPopup(nullptr) {
+    GNENetworkElement(junctionParent->getNet(), id, GLO_TLLOGIC, GNE_TAG_INTERNAL_LANE, 
+    GUIIconSubSys::getIcon(GUIIcon::LANE), {}, {}, {}, {}, {}, {}),
+    myJunctionParent(junctionParent),
+    myState(state),
+    myStateTarget(myState),
+    myEditor(editor),
+    myTlIndex(tlIndex),
+    myPopup(nullptr) {
     // calculate internal lane geometry
     myInternalLaneGeometry.updateGeometry(shape);
     // update centering boundary without updating grid
@@ -77,12 +77,12 @@ myPopup(nullptr) {
 
 GNEInternalLane::GNEInternalLane() :
     GNENetworkElement(nullptr, "dummyInternalLane", GLO_TLLOGIC, GNE_TAG_INTERNAL_LANE,
-{}, {}, {}, {}, {}, {}),
-myJunctionParent(nullptr),
-myState(0),
-myEditor(0),
-myTlIndex(0),
-myPopup(nullptr) {
+    GUIIconSubSys::getIcon(GUIIcon::LANE), {}, {}, {}, {}, {}, {}),
+    myJunctionParent(nullptr),
+    myState(0),
+    myEditor(0),
+    myTlIndex(0),
+    myPopup(nullptr) {
 }
 
 
@@ -136,26 +136,35 @@ GNEInternalLane::onDefault(FXObject* obj, FXSelector sel, void* data) {
 
 void
 GNEInternalLane::drawGL(const GUIVisualizationSettings& s) const {
-    // push name
-    GLHelper::pushName(getGlID());
-    // push layer matrix
-    GLHelper::pushMatrix();
-    // translate to front
-    myEditor->getViewNet()->drawTranslateFrontAttributeCarrier(myJunctionParent, GLO_TLLOGIC);
-    // move front again
-    glTranslated(0, 0, 0.5);
-    // set color
-    GLHelper::setColor(colorForLinksState(myState));
-    // draw lane checking whether it is not too small
-    if (s.scale < 1.) {
-        GLHelper::drawLine(myInternalLaneGeometry.getShape());
-    } else {
-        GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myInternalLaneGeometry, 0.2);
+    // only draw if we're not selecting E1 detectors in TLS Mode
+    if (!myNet->getViewNet()->selectingDetectorsTLSMode()) {
+        // push name
+        GLHelper::pushName(getGlID());
+        // push layer matrix
+        GLHelper::pushMatrix();
+        // translate to front
+        myEditor->getViewNet()->drawTranslateFrontAttributeCarrier(myJunctionParent, GLO_TLLOGIC);
+        // move front again
+        glTranslated(0, 0, 0.5);
+        // set color
+        GLHelper::setColor(colorForLinksState(myState));
+        // draw lane checking whether it is not too small
+        if (s.scale < 1.) {
+            GLHelper::drawLine(myInternalLaneGeometry.getShape());
+        } else {
+            GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myInternalLaneGeometry, 0.2);
+        }
+        // pop layer matrix
+        GLHelper::popMatrix();
+        // pop name
+        GLHelper::popName();
     }
-    // pop layer matrix
-    GLHelper::popMatrix();
-    // pop name
-    GLHelper::popName();
+}
+
+
+void
+GNEInternalLane::deleteGLObject() {
+    // Internal lanes cannot be removed
 }
 
 

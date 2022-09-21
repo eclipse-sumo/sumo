@@ -338,6 +338,9 @@ public:
      * plan */
     void setApproachingForAllLinks(const SUMOTime t);
 
+    /// @brief register approach on insertion
+    void registerInsertionApproach(MSLink* link, double dist);
+
 
     /** @brief Executes planned vehicle movements with regards to right-of-way
      *
@@ -453,7 +456,8 @@ public:
 
     /// @brief return the amount by which the vehicle extends laterally outside it's primary lane
     double getLateralOverlap() const;
-    double getLateralOverlap(double posLat) const;
+    double getLateralOverlap(const MSLane* lane) const;
+    double getLateralOverlap(double posLat, const MSLane* lane) const;
 
     /** @brief Get the vehicle's lateral position on the edge of the given lane
      * (or its current edge if lane == 0)
@@ -668,6 +672,10 @@ public:
      */
     SUMOTime getTimeSinceStartup() const {
         return myTimeSinceStartup;
+    }
+
+    inline double getTimeSinceStartupSeconds() const {
+        return STEPS2TIME(myTimeSinceStartup);
     }
 
     /** @brief Returns the SUMOTime lost (speed was lesser maximum speed)
@@ -1953,7 +1961,7 @@ protected:
                          SUMOTime arrivalTime, double arrivalSpeed,
                          double arrivalSpeedBraking,
                          double distance,
-                         double leaveSpeed = -1.) :
+                         double leaveSpeed) :
             myLink(link), myVLinkPass(vPass), myVLinkWait(vWait), mySetRequest(setRequest),
             myArrivalTime(arrivalTime), myArrivalSpeed(arrivalSpeed),
             myArrivalSpeedBraking(arrivalSpeedBraking),

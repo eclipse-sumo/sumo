@@ -27,20 +27,20 @@ FXDEFMAP(MFXCheckableButton) MFXCheckableButtonMap[] = {
     FXMAPFUNC(SEL_UPDATE,   0,  MFXCheckableButton::onUpdate),
     FXMAPFUNC(SEL_ENTER,    0,  MFXCheckableButton::onEnter),
     FXMAPFUNC(SEL_LEAVE,    0,  MFXCheckableButton::onLeave),
+    FXMAPFUNC(SEL_MOTION,   0,  MFXCheckableButton::onMotion),
 };
 
 
 // Object implementation
 FXIMPLEMENT(MFXCheckableButton, FXButton, MFXCheckableButtonMap, ARRAYNUMBER(MFXCheckableButtonMap))
 
-MFXCheckableButton::MFXCheckableButton(bool amChecked, FXComposite* p,
-                                       const FXString& text, FXIcon* ic,
-                                       FXObject* tgt, FXSelector sel,
-                                       FXuint opts,
-                                       FXint x, FXint y, FXint w, FXint h,
+MFXCheckableButton::MFXCheckableButton(bool amChecked, FXComposite* p, MFXStaticToolTip* staticToolTip, 
+                                       const FXString& text, FXIcon* ic, FXObject* tgt, FXSelector sel,
+                                       FXuint opts, FXint x, FXint y, FXint w, FXint h,
                                        FXint pl, FXint pr, FXint pt, FXint pb) :
     FXButton(p, text, ic, tgt, sel, opts, x, y, w, h, pl, pr, pt, pb),
-    myAmChecked(amChecked), myAmInitialised(false) {
+    myAmChecked(amChecked), myAmInitialised(false),
+    myStaticToolTip(staticToolTip) {
     border = 0;
 }
 
@@ -83,22 +83,25 @@ MFXCheckableButton::onUpdate(FXObject* sender, FXSelector sel, void* ptr) {
 
 long
 MFXCheckableButton::onEnter(FXObject* sender, FXSelector sel, void* ptr) {
-    // create on first enter
-    if (myStaticToolTip == nullptr) {
-        myStaticToolTip = new MFXStaticToolTip(getApp());
-        myStaticToolTip->create();
-    }
     // show tip show
-    myStaticToolTip->onTipShow(sender, sel, ptr);
+    myStaticToolTip->showStaticToolTip(getTipText());
     return FXButton::onEnter(sender, sel, ptr);
 }
 
 
 long
 MFXCheckableButton::onLeave(FXObject* sender, FXSelector sel, void* ptr) {
-    // hide tip show
-    myStaticToolTip->onTipHide(sender, sel, this);
+    // hide static toolTip
+    myStaticToolTip->hideStaticToolTip();
     return FXButton::onLeave(sender, sel, ptr);
+}
+
+
+long
+MFXCheckableButton::onMotion(FXObject* sender, FXSelector sel, void* ptr) {
+    // update static toolTip
+    myStaticToolTip->onUpdate(sender, sel, ptr);
+    return FXButton::onMotion(sender, sel, ptr);
 }
 
 

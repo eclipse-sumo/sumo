@@ -1,3 +1,4 @@
+ Retrying in 1 seconds
 
 Run dispatcher
 New reservations: ['0']
@@ -48,7 +49,27 @@ Run dispatcher
 Pending reservations: ['9']
 Solve DARP with exhaustive_search
 Solve ILP
-Dispatch: taxiB_1y_0z_9y_1z_2z_4z_9z
+
+Run dispatcher
+Pending reservations: ['9']
+Solve DARP with exhaustive_search
+Solve ILP
+
+Run dispatcher
+Pending reservations: ['9']
+Solve DARP with exhaustive_search
+Solve ILP
+
+Run dispatcher
+Pending reservations: ['9']
+Solve DARP with exhaustive_search
+Solve ILP
+
+Run dispatcher
+Pending reservations: ['9']
+Solve DARP with exhaustive_search
+Reservation 9 (person ('9',)) cannot be served
+Solve ILP
 
 Exact solution found.
 DRT simulation ended

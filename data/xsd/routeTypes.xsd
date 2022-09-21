@@ -31,6 +31,7 @@
         <xsd:attribute name="length" type="positiveFloatType"/>
         <xsd:attribute name="minGap" type="nonNegativeFloatType"/>
         <xsd:attribute name="maxSpeed" type="positiveFloatType"/>
+        <xsd:attribute name="desiredMaxSpeed" type="positiveFloatType"/>
         <xsd:attribute name="probability" type="nonNegativeFloatType"/>
         <xsd:attribute name="speedFactor" type="nonNegativeDistributionType"/>
         <xsd:attribute name="speedDev" type="nonNegativeFloatType"/>
@@ -142,6 +143,7 @@
         <xsd:attribute name="gapControlGainSpace" type="xsd:float"/>
         <xsd:attribute name="collisionAvoidanceGainSpeed" type="xsd:float"/>
         <xsd:attribute name="collisionAvoidanceGainSpace" type="xsd:float"/>
+        <xsd:attribute name="collisionAvoidanceOverride" type="xsd:float"/>
         <xsd:attribute name="tauCACCToACC" type="xsd:float"/>
         <xsd:attribute name="applyDriverState" type="xsd:float"/>
         <xsd:attribute name="carFollowModel" type="xsd:string"/>
@@ -230,6 +232,8 @@
         <xsd:attribute name="vehdynamics" type="boolType"/>
         <xsd:attribute name="maxvehpreview" type="positiveIntType"/>
         <xsd:attribute name="startupDelay" type="nonNegativeFloatType"/>
+        <xsd:attribute name="timeToTeleport" type="xsd:float"/>
+        <xsd:attribute name="timeToTeleportBidi" type="xsd:float"/>
     </xsd:complexType>
 
     <xsd:complexType name="cfIDMType">
@@ -789,7 +793,17 @@
         <xsd:attribute name="until" type="timeType"/>
         <xsd:attribute name="extension" type="timeType"/>
         <xsd:attribute name="index" type="xsd:string"/>
-        <xsd:attribute name="parking" type="boolType"/>
+        <xsd:attribute name="parking">
+            <xsd:simpleType>
+                <xsd:union memberTypes="boolType">
+                    <xsd:simpleType>
+                        <xsd:restriction base="xsd:string">
+                            <xsd:enumeration value="opportunistic"/>
+                        </xsd:restriction>
+                    </xsd:simpleType> 
+                </xsd:union>
+            </xsd:simpleType>
+        </xsd:attribute>
         <xsd:attribute name="triggered" type="xsd:string"/>
         <xsd:attribute name="containerTriggered" type="boolType"/>
         <xsd:attribute name="expected" type="xsd:string"/>

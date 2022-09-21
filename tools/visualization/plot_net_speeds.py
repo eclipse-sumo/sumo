@@ -92,13 +92,17 @@ def main(args=None):
     print("%s -> %s" % (minV, maxV))
     sm = matplotlib.cm.ScalarMappable(
         cmap=matplotlib.cm.get_cmap(options.colormap), norm=matplotlib.colors.Normalize(vmin=minV, vmax=maxV))
-    # "fake up the array of the scalar mappable. Urgh..."
-    # (pelson, http://stackoverflow.com/questions/8342549/matplotlib-add-colorbar-to-a-sequence-of-line-plots)
-    sm._A = []
+    if sys.version_info.major < 3:
+        # "fake up the array of the scalar mappable. Urgh..."
+        # (pelson, http://stackoverflow.com/questions/8342549/matplotlib-add-colorbar-to-a-sequence-of-line-plots)
+        sm._A = []
     plt.colorbar(sm)
     options.nolegend = True
     helpers.closeFigure(fig, ax, options)
 
 
 if __name__ == "__main__":
-    sys.exit(main(sys.argv))
+    try:
+        main(sys.argv)
+    except ValueError as e:
+        sys.exit(e)

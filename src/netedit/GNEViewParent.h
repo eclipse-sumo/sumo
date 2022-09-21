@@ -208,11 +208,14 @@ public:
     /// @brief update toolbar undo/redo buttons (called when user press Ctrl+Z/Y)
     void updateUndoRedoButtons();
 
+    /// @brief get frame area
+    FXVerticalFrame* getFramesArea() const;
+
     /// @brief get frame area width
-    int getFrameAreaWith() const;
+    int getFrameAreaWidth() const;
 
     /// @brief set frame area width
-    void setFrameAreaWith(const int frameAreaWith);
+    void setFrameAreaWidth(const int frameAreaWith);
 
     /// @name FOX-callbacks
     /// @{
@@ -460,7 +463,7 @@ private:
     FXHorizontalFrame* myViewArea;
 
     /// @brief frame to hold GNEFrames
-    FXHorizontalFrame* myFramesArea;
+    FXVerticalFrame* myFramesArea;
 
     /// @brief toolbar undo button
     MFXButtonTooltip* myUndoButton;

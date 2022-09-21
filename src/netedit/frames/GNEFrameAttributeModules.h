@@ -24,6 +24,7 @@
 #include <netedit/GNEViewNetHelper.h>
 #include <utils/common/Parameterised.h>
 #include <utils/foxtools/MFXGroupBoxModule.h>
+#include <utils/foxtools/MFXToggleButtonTooltip.h>
 #include <utils/foxtools/MFXTextFieldTooltip.h>
 #include <utils/xml/CommonXMLStructure.h>
 
@@ -32,6 +33,7 @@
 // ===========================================================================
 
 class GNEFrame;
+class GNEViewParent;
 class GNEFlowEditor;
 
 // ===========================================================================

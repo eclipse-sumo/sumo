@@ -184,8 +184,8 @@ GNERouteFrame::RouteModeSelector::onCmdSelectVClass(FXObject*, FXSelector, void*
 // GNERouteFrame - methods
 // ---------------------------------------------------------------------------
 
-GNERouteFrame::GNERouteFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet) :
-    GNEFrame(horizontalFrameParent, viewNet, "Routes"),
+GNERouteFrame::GNERouteFrame(GNEViewParent *viewParent, GNEViewNet* viewNet) :
+    GNEFrame(viewParent, viewNet, "Routes"),
     myRouteHandler("", myViewNet->getNet(), true, false),
     myRouteBaseObject(new CommonXMLStructure::SumoBaseObject(nullptr)) {
 

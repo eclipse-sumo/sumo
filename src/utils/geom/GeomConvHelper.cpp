@@ -77,7 +77,7 @@ GeomConvHelper::parseShapeReporting(const std::string& shpdef, const std::string
 
 Boundary
 GeomConvHelper::parseBoundaryReporting(const std::string& def, const std::string& objecttype,
-                                       const char* objectid, bool& ok, bool report) {
+                                       const char* objectid, bool& ok, bool report, bool offsets) {
     StringTokenizer st(def, ",");
     if (st.size() != 4) {
         emitError(report, "Bounding box", objecttype, objectid, "mismatching entry number");
@@ -89,7 +89,13 @@ GeomConvHelper::parseBoundaryReporting(const std::string& def, const std::string
         double ymin = StringUtils::toDouble(st.next());
         double xmax = StringUtils::toDouble(st.next());
         double ymax = StringUtils::toDouble(st.next());
-        return Boundary(xmin, ymin, xmax, ymax);
+        if (offsets) {
+            Boundary res;
+            res.setOffsets(xmin, ymin, xmax, ymax);
+            return res;
+        } else {
+            return Boundary(xmin, ymin, xmax, ymax);
+        }
     } catch (NumberFormatException&) {
         emitError(report, "Shape", objecttype, objectid, "not numeric entry");
     } catch (EmptyData&) {

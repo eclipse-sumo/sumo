@@ -14,6 +14,7 @@
 /// @file    Simulation.cpp
 /// @author  Laura Bieker-Walz
 /// @author  Robert Hilbrich
+/// @author  Mirko Barthauer
 /// @date    15.09.2017
 ///
 // C++ TraCI client API implementation
@@ -177,6 +178,16 @@ LIBSUMO_SUBSCRIPTION_IMPLEMENTATION(Simulation, SIM)
 std::pair<int, std::string>
 Simulation::getVersion() {
     return std::make_pair(libsumo::TRACI_VERSION, "SUMO " VERSION_STRING);
+}
+
+
+std::string
+Simulation::getOption(const std::string& option) {
+    OptionsCont& oc = OptionsCont::getOptions();
+    if (!oc.exists(option)) {
+        throw TraCIException("The option " + option + " is unknown.");
+    }
+    return oc.getValueString(option);
 }
 
 
@@ -646,7 +657,7 @@ Simulation::findIntermodalRoute(const std::string& from, const std::string& to,
         departStep = MSNet::getInstance()->getCurrentTimeStep();
     }
     if (speed < 0) {
-        speed =  pedType->getMaxSpeed();
+        speed =  MIN2(pedType->getMaxSpeed(), pedType->getDesiredMaxSpeed());
     }
     if (walkFactor < 0) {
         walkFactor = OptionsCont::getOptions().getFloat("persontrip.walkfactor");
@@ -924,6 +935,8 @@ Simulation::handleVariable(const std::string& objID, const int variable, Variabl
             return wrapper->wrapDouble(objID, variable, getScale());
         case VAR_DELTA_T:
             return wrapper->wrapDouble(objID, variable, getDeltaT());
+        case VAR_OPTION:
+            return wrapper->wrapString(objID, variable, getOption(objID));
         case VAR_MIN_EXPECTED_VEHICLES:
             return wrapper->wrapInt(objID, variable, getMinExpectedNumber());
         case VAR_BUS_STOP_ID_LIST:

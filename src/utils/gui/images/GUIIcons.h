@@ -75,6 +75,12 @@ enum class GUIIcon {
     UNSELECT,
     /// @}
 
+    /// @name join icons
+    /// @{
+    JOIN,
+    DISJOIN,
+    /// @}
+
     /// @name simulation view icons
     /// @{
     MICROVIEW,
@@ -126,7 +132,8 @@ enum class GUIIcon {
     COLORWHEEL,
     SAVEDB,
     REMOVEDB,
-    SHOWTOOLTIPS,
+    SHOWTOOLTIPS_VIEW,
+    SHOWTOOLTIPS_MENU,
     EDITVIEWPORT,
     ZOOMSTYLE,
     FULL_SCREEN,
@@ -458,6 +465,16 @@ enum class GUIIcon {
     TAZRELDATA,
     /// @}
 
+    /// @name NETEDIT icons used in GNETLSTable
+    /// @{
+    TLSPHASEDEFAULT,
+    TLSPHASECOPY,
+    TLSPHASEALLRED,
+    TLSPHASEALLYELLOW,
+    TLSPHASEALLGREEN,
+    TLSPHASEALLGREENPRIORITY,
+    /// @}
+
     /// @name vehicle Class icons (big, used in vType Dialog)
     /// @{
     VCLASS_IGNORING,
@@ -531,6 +548,7 @@ enum class GUIIcon {
     VSHAPE_PASSENGER_HATCHBACK,
     VSHAPE_PASSENGER_WAGON,
     VSHAPE_PASSENGER_VAN,
+    VSHAPE_TAXI,
     VSHAPE_DELIVERY,
     VSHAPE_TRUCK,
     VSHAPE_TRUCK_SEMITRAILER,
@@ -563,6 +581,7 @@ enum class GUIIcon {
     RESET,
     WARNING,
     DANGER,
+    SUM,
     /// @}
 
     /// @name icons for grid

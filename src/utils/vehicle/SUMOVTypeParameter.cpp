@@ -32,7 +32,7 @@
 #include <utils/emissions/PollutantsInterface.h>
 
 #define EMPREFIX std::string("HBEFA3/")
-
+#define TTT_UNSET SUMOTime_MIN
 
 // ===========================================================================
 // member method definitions
@@ -42,6 +42,7 @@ SUMOVTypeParameter::VClassDefaultValues::VClassDefaultValues(SUMOVehicleClass vc
     length(getDefaultVehicleLength(vclass)),
     minGap(2.5),
     maxSpeed(200. / 3.6),
+    desiredMaxSpeed(10000 / 3.6), // backward-compatibility: do not influence speeds by default
     width(1.8),
     height(1.5),
     shape(SUMOVehicleShape::UNKNOWN),
@@ -58,7 +59,8 @@ SUMOVTypeParameter::VClassDefaultValues::VClassDefaultValues(SUMOVehicleClass vc
     switch (vclass) {
         case SVC_PEDESTRIAN:
             minGap = 0.25;
-            maxSpeed = DEFAULT_PEDESTRIAN_SPEED;
+            maxSpeed = 37.58/ 3.6; // Usain Bolt
+            desiredMaxSpeed = DEFAULT_PEDESTRIAN_SPEED;
             width = 0.478;
             height = 1.719;
             shape = SUMOVehicleShape::PEDESTRIAN;
@@ -68,7 +70,8 @@ SUMOVTypeParameter::VClassDefaultValues::VClassDefaultValues(SUMOVehicleClass vc
             break;
         case SVC_BICYCLE:
             minGap = 0.5;
-            maxSpeed = 20. / 3.6;
+            maxSpeed = 50. / 3.6;
+            desiredMaxSpeed = 20 / 3.6;
             width = 0.65;
             height = 1.7;
             shape = SUMOVehicleShape::BICYCLE;
@@ -181,6 +184,7 @@ SUMOVTypeParameter::VClassDefaultValues::VClassDefaultValues(SUMOVehicleClass vc
             break;
         case SVC_RAIL_ELECTRIC:
             maxSpeed = 220. / 3.6;
+            width = 0.78;
             minGap = 5;
             width = 2.95;
             height = 3.89;
@@ -230,7 +234,7 @@ SUMOVTypeParameter::VClassDefaultValues::VClassDefaultValues(SUMOVehicleClass vc
             speedFactor.getParameter()[1] = 0.1;
             break;
         case SVC_TAXI:
-            shape = SUMOVehicleShape::PASSENGER;
+            shape = SUMOVehicleShape::TAXI;
             speedFactor.getParameter()[1] = 0.05;
             break;
         case SVC_E_VEHICLE:
@@ -262,6 +266,7 @@ SUMOVTypeParameter::SUMOVTypeParameter(const std::string& vtid, const SUMOVehicl
       length(5. /*4.3*/),
       minGap(2.5),
       maxSpeed(200. / 3.6),
+      desiredMaxSpeed(200. / 3.6),
       actionStepLength(0),
       defaultProbability(DEFAULT_VEH_PROB),
       speedFactor("normc", 1.0, 0.0, 0.2, 2.0),
@@ -288,6 +293,8 @@ SUMOVTypeParameter::SUMOVTypeParameter(const std::string& vtid, const SUMOVehicl
       carriageLength(-1),
       locomotiveLength(-1),
       carriageGap(1),
+      timeToTeleport(TTT_UNSET),
+      timeToTeleportBidi(TTT_UNSET),
       frontSeatPos(1.7),
       parametersSet(0),
       saved(false),
@@ -303,6 +310,7 @@ SUMOVTypeParameter::SUMOVTypeParameter(const std::string& vtid, const SUMOVehicl
     length = defaultValues.length;
     minGap = defaultValues.minGap;
     maxSpeed = defaultValues.maxSpeed;
+    desiredMaxSpeed = defaultValues.desiredMaxSpeed;
     width = defaultValues.width;
     height = defaultValues.height;
     shape = defaultValues.shape;
@@ -394,6 +402,9 @@ SUMOVTypeParameter::write(OutputDevice& dev) const {
     }
     if (wasSet(VTYPEPARS_MAXSPEED_SET)) {
         dev.writeAttr(SUMO_ATTR_MAXSPEED, maxSpeed);
+    }
+    if (wasSet(VTYPEPARS_DESIRED_MAXSPEED_SET)) {
+        dev.writeAttr(SUMO_ATTR_DESIRED_MAXSPEED, desiredMaxSpeed);
     }
     if (wasSet(VTYPEPARS_PROBABILITY_SET)) {
         dev.writeAttr(SUMO_ATTR_PROB, defaultProbability);
@@ -490,6 +501,9 @@ SUMOVTypeParameter::write(OutputDevice& dev) const {
     }
     if (wasSet(VTYPEPARS_SCALE_SET)) {
         dev.writeAttr(SUMO_ATTR_SCALE, scale);
+    }
+    if (wasSet(VTYPEPARS_TTT_SET)) {
+        dev.writeAttr(SUMO_ATTR_TIME_TO_TELEPORT, timeToTeleport);
     }
     if (wasSet(VTYPEPARS_LANE_CHANGE_MODEL_SET)) {
         dev.writeAttr(SUMO_ATTR_LANE_CHANGE_MODEL, lcModel);
@@ -891,6 +905,17 @@ SUMOVTypeParameter::parseLatAlignment(const std::string& val, double& lao, LatAl
         }
     }
     return ok;
+}
+
+
+SUMOTime
+SUMOVTypeParameter::getTimeToTeleport(SUMOTime defaultValue) const {
+    return timeToTeleport == TTT_UNSET ? defaultValue : timeToTeleport;
+}
+
+SUMOTime
+SUMOVTypeParameter::getTimeToTeleportBidi(SUMOTime defaultValue) const {
+    return timeToTeleportBidi == TTT_UNSET ? defaultValue : timeToTeleportBidi;
 }
 
 /****************************************************************************/

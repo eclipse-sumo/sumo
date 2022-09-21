@@ -1446,6 +1446,11 @@ TraCIAPI::SimulationScope::getMinExpectedNumber() const {
     return getInt(libsumo::VAR_MIN_EXPECTED_VEHICLES, "");
 }
 
+std::string
+TraCIAPI::SimulationScope::getOption(const std::string& option) const {
+    return getString(libsumo::VAR_OPTION, option);
+}
+
 int
 TraCIAPI::SimulationScope::getBusStopWaiting(const std::string& stopID) const {
     return (int) getInt(libsumo::VAR_BUS_STOP_WAITING, stopID);

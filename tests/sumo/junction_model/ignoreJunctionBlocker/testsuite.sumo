@@ -3,3 +3,6 @@ default
 
 # junction blockage is resolved after 30s
 ignore_after_30
+
+# junction blocker has the same destination as the "ignoring" vehicle
+same_target

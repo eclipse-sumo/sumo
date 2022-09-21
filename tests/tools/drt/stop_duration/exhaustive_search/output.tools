@@ -1,3 +1,4 @@
+ Retrying in 1 seconds
 
 Run dispatcher
 New reservations: ['0']
@@ -68,13 +69,11 @@ Run dispatcher
 Pending reservations: ['7', '8']
 Solve DARP with exhaustive_search
 Reservation 7 (person ('7',)) cannot be served
-Solve ILP
 
 Run dispatcher
 Pending reservations: ['8']
 Solve DARP with exhaustive_search
 Reservation 8 (person ('8',)) cannot be served
-Solve ILP
 
 Exact solution found.
 DRT simulation ended

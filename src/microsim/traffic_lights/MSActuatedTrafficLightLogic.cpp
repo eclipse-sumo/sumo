@@ -55,7 +55,6 @@ const std::vector<std::string> MSActuatedTrafficLightLogic::OPERATOR_PRECEDENCE(
 // parameter defaults definitions
 // ===========================================================================
 #define DEFAULT_MAX_GAP "3.0"
-#define DEFAULT_DET_LENGTH "0"
 #define DEFAULT_PASSING_TIME "1.9"
 #define DEFAULT_DETECTOR_GAP "2.0"
 #define DEFAULT_INACTIVE_THRESHOLD "180"
@@ -166,7 +165,8 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
     std::map<MSInductLoop*, int> inductLoopInfoMap; // retrieve junction entry lane in case loops are placed further upstream (and other properties)
     int detEdgeIndex = -1;
     int detLaneIndex = 0;
-    const double detDefaultLength = StringUtils::toDouble(getParameter("detector-length", DEFAULT_DET_LENGTH));
+    const double detDefaultLength = StringUtils::toDouble(getParameter("detector-length",
+                OptionsCont::getOptions().getValueString("tls.actuated.detector-length")));
     MSEdge* prevDetEdge = nullptr;
     for (LaneVector& lanes : myLanes) {
         for (MSLane* lane : lanes) {

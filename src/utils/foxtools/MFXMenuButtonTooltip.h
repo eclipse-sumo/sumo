@@ -33,7 +33,8 @@ class MFXMenuButtonTooltip : public FXMenuButton {
 
 public:
     /// @brief constructor (Exactly like the FXMenuButton constructor)
-    MFXMenuButtonTooltip(FXComposite* p, const FXString& text, FXIcon* ic = NULL, FXPopup* pup = NULL, 
+    MFXMenuButtonTooltip(FXComposite* p, MFXStaticToolTip* staticToolTip, const FXString& text, FXIcon* ic, 
+                         FXPopup* pup, FXObject* optionalTarget,
                          FXuint opts = JUSTIFY_NORMAL|ICON_BEFORE_TEXT|MENUBUTTON_DOWN, 
                          FXint x = 0, FXint y = 0, FXint w = 0, FXint h = 0, 
                          FXint pl = DEFAULT_PAD, FXint pr = DEFAULT_PAD, FXint pt = DEFAULT_PAD, FXint pb = DEFAULT_PAD);
@@ -48,6 +49,19 @@ public:
 
     /// @brief called when mouse leaves in MFXMenuButtonTooltip
     long onLeave(FXObject*, FXSelector, void*);
+
+    /// @brief called when mouse motion in MFXMenuButtonTooltip
+    long onMotion(FXObject*, FXSelector, void*);
+
+    /// @brief called when left mouse button is press
+    long onLeftBtnPress(FXObject*, FXSelector, void*);
+
+    /// @brief called when key is press
+    long onKeyPress(FXObject*, FXSelector, void*);
+
+    /// @brief called when button is press
+    long onCmdPost(FXObject*, FXSelector, void*);
+
     /// @}
 
 protected:
@@ -56,6 +70,9 @@ protected:
 
     /// @brief static tooltip
     MFXStaticToolTip* myStaticToolTip = nullptr;
+
+    /// @brief optional target
+    FXObject* myOptionalTarget = nullptr;
 
 private:
     /// @brief Invalidated copy constructor.

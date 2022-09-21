@@ -30,6 +30,7 @@
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/globjects/GLIncludes.h>
 #include <utils/vehicle/SUMORouteHandler.h>
+#include <utils/gui/div/GUIGlobalPostDrawing.h>
 
 #include "GNEStop.h"
 
@@ -39,33 +40,37 @@
 // ===========================================================================
 
 GNEStop::GNEStop(SumoXMLTag tag, GNENet* net) :
-    GNEDemandElement("", net, GLO_STOP, tag, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
-{}, {}, {}, {}, {}, {}),
-myCreationIndex(myNet->getAttributeCarriers()->getStopIndex()) {
+    GNEDemandElement("", net, GLO_STOP, tag, GUIIconSubSys::getIcon(GUIIcon::STOP),
+    GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}),
+    myCreationIndex(myNet->getAttributeCarriers()->getStopIndex()) {
     // reset default values
     resetDefaultValues();
     // enable parking for stops in parkin)gAreas
     if ((tag == SUMO_TAG_STOP_PARKINGAREA) || (tag == GNE_TAG_WAYPOINT_PARKINGAREA)) {
         parametersSet |= STOP_PARKING_SET;
     }
-    // set flags
-    parking = (parametersSet & STOP_PARKING_SET);
+    // set parking
+    if (parametersSet & STOP_PARKING_SET) {
+        parking = ParkingType::OFFROAD;
+    }
     // set waypoint speed
     myTagProperty.isWaypoint() ? parametersSet |= STOP_SPEED_SET : parametersSet &= ~STOP_SPEED_SET;
 }
 
 
 GNEStop::GNEStop(SumoXMLTag tag, GNENet* net, GNEDemandElement* stopParent, GNEAdditional* stoppingPlace, const SUMOVehicleParameter::Stop& stopParameter) :
-    GNEDemandElement(stopParent, net, GLO_STOP, tag, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
-{}, {}, {}, {stoppingPlace}, {stopParent}, {}),
-SUMOVehicleParameter::Stop(stopParameter),
-myCreationIndex(myNet->getAttributeCarriers()->getStopIndex()) {
+    GNEDemandElement(stopParent, net, GLO_STOP, tag, GUIIconSubSys::getIcon(GUIIcon::STOP),
+    GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {stoppingPlace}, {stopParent}, {}),
+    SUMOVehicleParameter::Stop(stopParameter),
+    myCreationIndex(myNet->getAttributeCarriers()->getStopIndex()) {
     // enable parking for stops in parkingAreas
     if ((tag == SUMO_TAG_STOP_PARKINGAREA) || (tag == GNE_TAG_WAYPOINT_PARKINGAREA)) {
         parametersSet |= STOP_PARKING_SET;
     }
-    // set flags
-    parking = (parametersSet & STOP_PARKING_SET);
+    // set parking
+    if (parametersSet & STOP_PARKING_SET) {
+        parking = ParkingType::OFFROAD;
+    }
     // set tripID and line
     (stopParameter.tripId.size() > 0) ? parametersSet |= STOP_TRIP_ID_SET : parametersSet &= ~STOP_TRIP_ID_SET;
     (stopParameter.line.size() > 0) ? parametersSet |= STOP_LINE_SET : parametersSet &= ~STOP_LINE_SET;
@@ -76,12 +81,14 @@ myCreationIndex(myNet->getAttributeCarriers()->getStopIndex()) {
 
 
 GNEStop::GNEStop(SumoXMLTag tag, GNENet* net, GNEDemandElement* stopParent, GNELane* lane, const SUMOVehicleParameter::Stop& stopParameter) :
-    GNEDemandElement(stopParent, net, GLO_STOP, tag, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
-{}, {}, {lane}, {}, {stopParent}, {}),
-SUMOVehicleParameter::Stop(stopParameter),
-myCreationIndex(myNet->getAttributeCarriers()->getStopIndex()) {
-    // set flags
-    parking = (parametersSet & STOP_PARKING_SET);
+    GNEDemandElement(stopParent, net, GLO_STOP, tag, GUIIconSubSys::getIcon(GUIIcon::STOP),
+    GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {lane}, {}, {stopParent}, {}),
+    SUMOVehicleParameter::Stop(stopParameter),
+    myCreationIndex(myNet->getAttributeCarriers()->getStopIndex()) {
+    // set parking
+    if (parametersSet & STOP_PARKING_SET) {
+        parking = ParkingType::OFFROAD;
+    }
     // set tripID and line
     (stopParameter.tripId.size() > 0) ? parametersSet |= STOP_TRIP_ID_SET : parametersSet &= ~STOP_TRIP_ID_SET;
     (stopParameter.line.size() > 0) ? parametersSet |= STOP_LINE_SET : parametersSet &= ~STOP_LINE_SET;
@@ -92,16 +99,18 @@ myCreationIndex(myNet->getAttributeCarriers()->getStopIndex()) {
 
 
 GNEStop::GNEStop(SumoXMLTag tag, GNENet* net, GNEDemandElement* stopParent, GNEEdge* edge, const SUMOVehicleParameter::Stop& stopParameter) :
-    GNEDemandElement(stopParent, net, GLO_STOP, tag, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
-{}, {edge}, {}, {}, {stopParent}, {}),
-SUMOVehicleParameter::Stop(stopParameter),
-myCreationIndex(myNet->getAttributeCarriers()->getStopIndex()) {
+    GNEDemandElement(stopParent, net, GLO_STOP, tag, GUIIconSubSys::getIcon(GUIIcon::STOP),
+    GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {edge}, {}, {}, {stopParent}, {}),
+    SUMOVehicleParameter::Stop(stopParameter),
+    myCreationIndex(myNet->getAttributeCarriers()->getStopIndex()) {
     // enable parking for stops in parkingAreas
     if ((tag == SUMO_TAG_STOP_PARKINGAREA) || (tag == GNE_TAG_WAYPOINT_PARKINGAREA)) {
         parametersSet |= STOP_PARKING_SET;
     }
     // set flags
-    parking = (parametersSet & STOP_PARKING_SET);
+    if (parametersSet & STOP_PARKING_SET) {
+        parking = ParkingType::OFFROAD;
+    }
     triggered = (parametersSet & STOP_TRIGGER_SET);
     containerTriggered = (parametersSet & STOP_CONTAINER_TRIGGER_SET);
     joinTriggered = (parametersSet & STOP_JOIN_SET);
@@ -628,7 +637,7 @@ GNEStop::getAttribute(SumoXMLAttr key) const {
             return toString(isAttributeCarrierSelected());
         case GNE_ATTR_PARENT:
             return getParentDemandElements().front()->getID();
-        case SUMO_ATTR_INDEX: {
+        case GNE_ATTR_STOPINDEX: {
             // extract all stops of demandElement parent
             std::vector<GNEDemandElement*> stops;
             for (const auto& parent : getParentDemandElements().front()->getChildDemandElements()) {
@@ -668,6 +677,28 @@ GNEStop::getAttributeDouble(SumoXMLAttr key) const {
             }
         case SUMO_ATTR_INDEX: // for writting sorted
             return (double)myCreationIndex;
+        case GNE_ATTR_STOPINDEX: {
+            // extract all stops of demandElement parent
+            std::vector<GNEDemandElement*> stops, filteredStops;
+            for (const auto& parent : getParentDemandElements().front()->getChildDemandElements()) {
+                if (parent->getTagProperty().isStop()) {
+                    stops.push_back(parent);
+                }
+            }
+            // now filter stops with the same startPos
+            for (const auto &stop : stops) {
+                if (stop->getAttributeDouble(SUMO_ATTR_STARTPOS) == getAttributeDouble(SUMO_ATTR_STARTPOS)) {
+                    filteredStops.push_back(stop);
+                }
+            }
+            // get index
+            for (int i = 0; i < (int)filteredStops.size(); i++) {
+                if (filteredStops.at(i) == this) {
+                    return i;
+                }
+            }
+            return 0;
+        }
         default:
             throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
     }
@@ -861,7 +892,11 @@ GNEStop::isValid(SumoXMLAttr key, const std::string& value) {
             return true;
         }
         case SUMO_ATTR_PARKING:
-            return canParse<bool>(value);
+            if (value == "opportunistic") {
+                return false; // Currrently deactivated opportunistic in NETEDIT waiting for the implementation in SUMO
+            } else {
+                return canParse<bool>(value);
+            }
         case SUMO_ATTR_ACTTYPE:
             return true;
         case SUMO_ATTR_TRIP_ID:
@@ -1099,7 +1134,6 @@ GNEStop::canDrawVehicleStop() const {
 
 void
 GNEStop::drawVehicleStop(const GUIVisualizationSettings& s, const double exaggeration) const {
-    ;
     // declare value to save stop color
     const RGBColor stopColor = drawUsingSelectColor() ? s.colorSettings.selectedRouteColor : getColor();
     // get lane
@@ -1156,7 +1190,7 @@ GNEStop::drawVehicleStop(const GUIVisualizationSettings& s, const double exagger
                 glTranslated(-2.1, -2.4, 0);
                 glRotated(-90, 0, 0, 1);
                 // draw index
-                GLHelper::drawText(getAttribute(SUMO_ATTR_INDEX), Position(), .1, 1, stopColor, 180);
+                GLHelper::drawText(getAttribute(GNE_ATTR_STOPINDEX), Position(0, getAttributeDouble(GNE_ATTR_STOPINDEX) * -1, 0), .1, 1, stopColor, 180);
             }
         }
         // pop detail matrix
@@ -1180,7 +1214,7 @@ GNEStop::drawVehicleStop(const GUIVisualizationSettings& s, const double exagger
             glTranslated(-1.4, exaggeration * 0.5, 0.1);
             glRotated(-90, 0, 0, 1);
             // draw index
-            GLHelper::drawText(getAttribute(SUMO_ATTR_INDEX), Position(), .1, 1, stopColor, 180);
+            GLHelper::drawText(getAttribute(GNE_ATTR_STOPINDEX), Position(0, getAttributeDouble(GNE_ATTR_STOPINDEX) * -1, 0), .1, 1, stopColor, 180);
         }
         // pop detail matrix
         GLHelper::popMatrix();
@@ -1191,13 +1225,21 @@ GNEStop::drawVehicleStop(const GUIVisualizationSettings& s, const double exagger
     GLHelper::popName();
     // draw lock icon
     GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), exaggeration);
-    // check if dotted contour has to be drawn
+    // check if mouse is over element
+    mouseWithinGeometry(myDemandElementGeometry.getShape(), width);
+    // inspect contour
     if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-        GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, myDemandElementGeometry.getShape(),
+        GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::INSPECT, myDemandElementGeometry.getShape(),
                 width, exaggeration, true, true);
     }
+    // front element contour
     if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-        GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::FRONT, s, myDemandElementGeometry.getShape(),
+        GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::FRONT, myDemandElementGeometry.getShape(),
+                width, exaggeration, true, true);
+    }
+    // delete contour
+    if (myNet->getViewNet()->drawDeleteContour(this, this)) {
+        GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::REMOVE, myDemandElementGeometry.getShape(),
                 width, exaggeration, true, true);
     }
 }
@@ -1259,14 +1301,22 @@ GNEStop::drawStopPersonOverEdge(const GUIVisualizationSettings& s, const double 
     GLHelper::popName();
     // draw lock icon
     GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), exaggeration);
-    // check if dotted contours has to be drawn
+    // check if mouse is over element
+    mouseWithinGeometry(myDemandElementGeometry.getShape(), 0.3);
+    // inspect contour
     if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-        GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, myDemandElementGeometry.getShape(), 0.3,
-                exaggeration, 1, 1);
+        GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::INSPECT,
+            myDemandElementGeometry.getShape(), 0.3,  exaggeration, true, true);
     }
+    // front contour
     if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-        GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::FRONT, s, myDemandElementGeometry.getShape(), 0.3,
-                exaggeration, 1, 1);
+        GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::FRONT,
+            myDemandElementGeometry.getShape(), 0.3, exaggeration, true, true);
+    }
+    // delete contour
+    if (myNet->getViewNet()->drawDeleteContour(this, this)) {
+        GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::REMOVE,
+            myDemandElementGeometry.getShape(), 0.3, exaggeration, true, true);
     }
 }
 
@@ -1319,14 +1369,20 @@ GNEStop::drawStopPersonOverBusStop(const GUIVisualizationSettings& s, const doub
     GLHelper::popName();
     // draw lock icon
     GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), exaggeration);
-    // check if dotted contours has to be drawn
+    // inspect contour
     if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-        GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, myDemandElementGeometry.getShape(), 0.3,
-                exaggeration, 1, 1);
+        GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::INSPECT, myDemandElementGeometry.getShape(), 0.3,
+                exaggeration, true, true);
     }
+    // front contour
     if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-        GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::FRONT, s, myDemandElementGeometry.getShape(), 0.3,
-                exaggeration, 1, 1);
+        GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::FRONT, myDemandElementGeometry.getShape(), 0.3,
+                exaggeration, true, true);
+    }
+    // delete contour
+    if (myNet->getViewNet()->drawDeleteContour(this, this)) {
+        GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::REMOVE, myDemandElementGeometry.getShape(), 0.3,
+                exaggeration, true, true);
     }
 }
 
@@ -1432,13 +1488,12 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value) {
             }
             break;
         case SUMO_ATTR_PARKING:
-            if (parse<bool>(value)) {
-                parametersSet |= STOP_PARKING_SET;
-            } else {
+            parking = SUMOVehicleParameter::parseParkingType(value);
+            if (parking == ParkingType::ONROAD) {
                 parametersSet &= ~STOP_PARKING_SET;
+            } else {
+                parametersSet |= STOP_PARKING_SET;
             }
-            // set flag
-            parking = ((parametersSet & STOP_PARKING_SET) != 0);
             break;
         case SUMO_ATTR_ACTTYPE:
             actType = value;

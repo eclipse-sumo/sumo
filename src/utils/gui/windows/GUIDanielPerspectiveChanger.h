@@ -48,7 +48,7 @@ class Boundary;
 class GUIDanielPerspectiveChanger : public GUIPerspectiveChanger {
 public:
     /* Constructor
-     * @param[in] callBack The view to be udpated upon changes
+     * @param[in] callBack The view to be updated upon changes
      */
     GUIDanielPerspectiveChanger(GUISUMOAbstractView& callBack, const Boundary& viewPort);
 

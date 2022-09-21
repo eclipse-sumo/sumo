@@ -139,6 +139,12 @@ public:
                         const std::string& suggestedName = "", bool wasSplit = false, bool allowDuplicateGeom = false,
                         bool recomputeConnections = true);
 
+    /**@brief delete network element
+     * @param[in] networkElement The network element to be removed
+     * @param[in] undoList The undolist in which to mark changes
+     */
+    void deleteNetworkElement(GNENetworkElement* networkElement, GNEUndoList* undoList);
+
     /**@brief removes junction and all incident edges
      * @param[in] junction The junction to be removed
      * @param[in] undoList The undolist in which to mark changes
@@ -262,9 +268,10 @@ public:
 
     /**@brief add reversed edge
      * @param[in] edge The edge of which to add the reverse
+     * @param[in] disconnected add edge reversed or disconnected pararell
      * @return Return the new edge or 0
      */
-    GNEEdge* addReversedEdge(GNEEdge* edge, GNEUndoList* undoList);
+    GNEEdge* addReversedEdge(GNEEdge* edge, const bool disconnected, GNEUndoList* undoList);
 
     /**@brief merge the given junctions
      * edges between the given junctions will be deleted

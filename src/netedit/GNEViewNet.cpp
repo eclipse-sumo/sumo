@@ -18,15 +18,17 @@
 ///
 // A view on the network being edited (adapted from GUIViewTraffic)
 /****************************************************************************/
+
 #include <netbuild/NBEdgeCont.h>
 #include <netedit/changes/GNEChange_Attribute.h>
+#include <netedit/changes/GNEChange_TLS.h>
 #include <netedit/dialogs/GNEGeometryPointDialog.h>
 #include <netedit/elements/additional/GNEAdditionalHandler.h>
 #include <netedit/elements/additional/GNEPOI.h>
 #include <netedit/elements/additional/GNEPoly.h>
 #include <netedit/elements/additional/GNETAZ.h>
-#include <netedit/elements/data/GNETAZRelData.h>
 #include <netedit/elements/data/GNEDataInterval.h>
+#include <netedit/elements/data/GNETAZRelData.h>
 #include <netedit/elements/network/GNEConnection.h>
 #include <netedit/elements/network/GNECrossing.h>
 #include <netedit/frames/common/GNEDeleteFrame.h>
@@ -42,31 +44,33 @@
 #include <netedit/frames/demand/GNEPersonPlanFrame.h>
 #include <netedit/frames/demand/GNERouteFrame.h>
 #include <netedit/frames/demand/GNEStopFrame.h>
-#include <netedit/frames/demand/GNEVehicleFrame.h>
 #include <netedit/frames/demand/GNETypeFrame.h>
+#include <netedit/frames/demand/GNEVehicleFrame.h>
 #include <netedit/frames/network/GNEAdditionalFrame.h>
 #include <netedit/frames/network/GNEConnectorFrame.h>
 #include <netedit/frames/network/GNECreateEdgeFrame.h>
 #include <netedit/frames/network/GNECrossingFrame.h>
-#include <netedit/frames/network/GNEShapeFrame.h>
 #include <netedit/frames/network/GNEProhibitionFrame.h>
-#include <netedit/frames/network/GNEWireFrame.h>
+#include <netedit/frames/network/GNEShapeFrame.h>
 #include <netedit/frames/network/GNETAZFrame.h>
 #include <netedit/frames/network/GNETLSEditorFrame.h>
-#include <utils/foxtools/MFXMenuCheckIcon.h>
+#include <netedit/frames/network/GNEWireFrame.h>
 #include <utils/foxtools/MFXButtonTooltip.h>
+#include <utils/foxtools/MFXMenuCheckIcon.h>
+#include <utils/foxtools/MFXMenuHeader.h>
 #include <utils/gui/cursors/GUICursorSubSys.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIDesigns.h>
+#include <utils/gui/div/GUIGlobalPostDrawing.h>
 #include <utils/gui/globjects/GLIncludes.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
+#include <utils/gui/globjects/GUICursorDialog.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <utils/gui/settings/GUICompleteSchemeStorage.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/windows/GUIDanielPerspectiveChanger.h>
 #include <utils/gui/windows/GUIDialog_ViewSettings.h>
 #include <utils/options/OptionsCont.h>
-#include <utils/gui/div/GUIGlobalPostDrawing.h>
 
 #include "GNENet.h"
 #include "GNEUndoList.h"
@@ -86,9 +90,9 @@
 
 FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     // Super Modes
-    FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_F2_SUPERMODE_NETWORK,                 GNEViewNet::onCmdSetSupermode),
-    FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_F3_SUPERMODE_DEMAND,                  GNEViewNet::onCmdSetSupermode),
-    FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_F4_SUPERMODE_DATA,                    GNEViewNet::onCmdSetSupermode),
+    FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_F2_SUPERMODE_NETWORK, GNEViewNet::onCmdSetSupermode),
+    FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_F3_SUPERMODE_DEMAND,  GNEViewNet::onCmdSetSupermode),
+    FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_F4_SUPERMODE_DATA,    GNEViewNet::onCmdSetSupermode),
     // Modes
     FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_G_MODE_CONTAINER,                     GNEViewNet::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_H_MODE_PROHIBITION_CONTAINERPLAN,     GNEViewNet::onCmdSetMode),
@@ -135,89 +139,92 @@ FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_GNE_DEMANDVIEWOPTIONS_LOCKCONTAINER,             GNEViewNet::onCmdToggleLockContainer),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_DEMANDVIEWOPTIONS_SHOWOVERLAPPEDROUTES,      GNEViewNet::onCmdToggleShowOverlappedRoutes),
     // Data view options
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_DATAVIEWOPTIONS_TOGGLEDRAWJUNCTIONSHAPE,     GNEViewNet::onCmdToggleDrawJunctionShape),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_DATAVIEWOPTIONS_SHOWADDITIONALS,             GNEViewNet::onCmdToggleShowAdditionals),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_DATAVIEWOPTIONS_SHOWSHAPES,                  GNEViewNet::onCmdToggleShowShapes),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_DATAVIEWOPTIONS_SHOWDEMANDELEMENTS,          GNEViewNet::onCmdToggleShowDemandElementsData),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_DATAVIEWOPTIONS_TAZRELDRAWING,               GNEViewNet::onCmdToggleTAZRelDrawing),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_DATAVIEWOPTIONS_TAZDRAWFILL,                 GNEViewNet::onCmdToggleTAZDrawFill),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_DATAVIEWOPTIONS_TAZRELONLYFROM,              GNEViewNet::onCmdToggleTAZRelOnlyFrom),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_DATAVIEWOPTIONS_TAZRELONLYTO,                GNEViewNet::onCmdToggleTAZRelOnlyTo),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_DATAVIEWOPTIONS_TOGGLEDRAWJUNCTIONSHAPE, GNEViewNet::onCmdToggleDrawJunctionShape),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_DATAVIEWOPTIONS_SHOWADDITIONALS,         GNEViewNet::onCmdToggleShowAdditionals),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_DATAVIEWOPTIONS_SHOWSHAPES,              GNEViewNet::onCmdToggleShowShapes),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_DATAVIEWOPTIONS_SHOWDEMANDELEMENTS,      GNEViewNet::onCmdToggleShowDemandElementsData),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_DATAVIEWOPTIONS_TAZRELDRAWING,           GNEViewNet::onCmdToggleTAZRelDrawing),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_DATAVIEWOPTIONS_TAZDRAWFILL,             GNEViewNet::onCmdToggleTAZDrawFill),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_DATAVIEWOPTIONS_TAZRELONLYFROM,          GNEViewNet::onCmdToggleTAZRelOnlyFrom),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_DATAVIEWOPTIONS_TAZRELONLYTO,            GNEViewNet::onCmdToggleTAZRelOnlyTo),
     // Select elements
-    FXMAPFUNC(SEL_COMMAND, MID_ADDSELECT,                                   GNEViewNet::onCmdAddSelected),
-    FXMAPFUNC(SEL_COMMAND, MID_REMOVESELECT,                                GNEViewNet::onCmdRemoveSelected),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_ADDSELECT_EDGE,                          GNEViewNet::onCmdAddEdgeSelected),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_REMOVESELECT_EDGE,                       GNEViewNet::onCmdRemoveEdgeSelected),
+    FXMAPFUNC(SEL_COMMAND, MID_ADDSELECT,               GNEViewNet::onCmdAddSelected),
+    FXMAPFUNC(SEL_COMMAND, MID_REMOVESELECT,            GNEViewNet::onCmdRemoveSelected),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_ADDSELECT_EDGE,      GNEViewNet::onCmdAddEdgeSelected),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_REMOVESELECT_EDGE,   GNEViewNet::onCmdRemoveEdgeSelected),
     // Junctions
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_JUNCTION_RESET_EDGE_ENDPOINTS,           GNEViewNet::onCmdResetEdgeEndPoints),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_JUNCTION_EDIT_SHAPE,                     GNEViewNet::onCmdEditJunctionShape),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_JUNCTION_RESET_SHAPE,                    GNEViewNet::onCmdResetJunctionShape),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_JUNCTION_REPLACE,                        GNEViewNet::onCmdReplaceJunction),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_JUNCTION_SPLIT,                          GNEViewNet::onCmdSplitJunction),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_JUNCTION_SPLIT_RECONNECT,                GNEViewNet::onCmdSplitJunctionReconnect),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_JUNCTION_SELECT_ROUNDABOUT,              GNEViewNet::onCmdSelectRoundabout),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_JUNCTION_CONVERT_ROUNDABOUT,             GNEViewNet::onCmdConvertRoundabout),
-    FXMAPFUNC(SEL_ENTER,   MID_GNE_JUNCTION_CONVERT_ROUNDABOUT,             GNEViewNet::onEnterConvertRoundabout),
-    FXMAPFUNC(SEL_LEAVE,   MID_GNE_JUNCTION_CONVERT_ROUNDABOUT,             GNEViewNet::onLeaveConvertRoundabout),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_JUNCTION_CLEAR_CONNECTIONS,              GNEViewNet::onCmdClearConnections),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_JUNCTION_RESET_CONNECTIONS,              GNEViewNet::onCmdResetConnections),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_JUNCTION_RESET_EDGE_ENDPOINTS,   GNEViewNet::onCmdResetEdgeEndPoints),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_JUNCTION_EDIT_SHAPE,             GNEViewNet::onCmdEditJunctionShape),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_JUNCTION_RESET_SHAPE,            GNEViewNet::onCmdResetJunctionShape),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_JUNCTION_REPLACE,                GNEViewNet::onCmdReplaceJunction),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_JUNCTION_SPLIT,                  GNEViewNet::onCmdSplitJunction),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_JUNCTION_SPLIT_RECONNECT,        GNEViewNet::onCmdSplitJunctionReconnect),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_JUNCTION_SELECT_ROUNDABOUT,      GNEViewNet::onCmdSelectRoundabout),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_JUNCTION_CONVERT_ROUNDABOUT,     GNEViewNet::onCmdConvertRoundabout),
+    FXMAPFUNC(SEL_ENTER,   MID_GNE_JUNCTION_CONVERT_ROUNDABOUT,     GNEViewNet::onEnterConvertRoundabout),
+    FXMAPFUNC(SEL_LEAVE,   MID_GNE_JUNCTION_CONVERT_ROUNDABOUT,     GNEViewNet::onLeaveConvertRoundabout),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_JUNCTION_CLEAR_CONNECTIONS,      GNEViewNet::onCmdClearConnections),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_JUNCTION_RESET_CONNECTIONS,      GNEViewNet::onCmdResetConnections),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_JUNCTION_ADDTLS,                 GNEViewNet::onCmdAddTLS),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_JUNCTION_ADDJOINTLS,             GNEViewNet::onCmdAddJoinTLS),
     // Connections
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_CONNECTION_EDIT_SHAPE,                   GNEViewNet::onCmdEditConnectionShape),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_CONNECTION_SMOOTH_SHAPE,                 GNEViewNet::onCmdSmoothConnectionShape),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_CONNECTION_EDIT_SHAPE,   GNEViewNet::onCmdEditConnectionShape),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_CONNECTION_SMOOTH_SHAPE, GNEViewNet::onCmdSmoothConnectionShape),
     // Crossings
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_CROSSING_EDIT_SHAPE,                     GNEViewNet::onCmdEditCrossingShape),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_CROSSING_EDIT_SHAPE, GNEViewNet::onCmdEditCrossingShape),
     // Edges
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGE_SPLIT,                              GNEViewNet::onCmdSplitEdge),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGE_SPLIT_BIDI,                         GNEViewNet::onCmdSplitEdgeBidi),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGE_REVERSE,                            GNEViewNet::onCmdReverseEdge),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGE_ADD_REVERSE,                        GNEViewNet::onCmdAddReversedEdge),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGE_EDIT_ENDPOINT,                      GNEViewNet::onCmdEditEdgeEndpoint),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGE_RESET_ENDPOINT,                     GNEViewNet::onCmdResetEdgeEndpoint),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGE_STRAIGHTEN,                         GNEViewNet::onCmdStraightenEdges),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGE_SMOOTH,                             GNEViewNet::onCmdSmoothEdges),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGE_STRAIGHTEN_ELEVATION,               GNEViewNet::onCmdStraightenEdgesElevation),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGE_SMOOTH_ELEVATION,                   GNEViewNet::onCmdSmoothEdgesElevation),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGE_RESET_LENGTH,                       GNEViewNet::onCmdResetLength),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGE_SPLIT,                      GNEViewNet::onCmdSplitEdge),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGE_SPLIT_BIDI,                 GNEViewNet::onCmdSplitEdgeBidi),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGE_REVERSE,                    GNEViewNet::onCmdReverseEdge),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGE_ADD_REVERSE,                GNEViewNet::onCmdAddReversedEdge),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGE_ADD_REVERSE_DISCONNECTED,   GNEViewNet::onCmdAddReversedEdgeDisconnected),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGE_EDIT_ENDPOINT,              GNEViewNet::onCmdEditEdgeEndpoint),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGE_RESET_ENDPOINT,             GNEViewNet::onCmdResetEdgeEndpoint),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGE_STRAIGHTEN,                 GNEViewNet::onCmdStraightenEdges),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGE_SMOOTH,                     GNEViewNet::onCmdSmoothEdges),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGE_STRAIGHTEN_ELEVATION,       GNEViewNet::onCmdStraightenEdgesElevation),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGE_SMOOTH_ELEVATION,           GNEViewNet::onCmdSmoothEdgesElevation),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGE_RESET_LENGTH,               GNEViewNet::onCmdResetLength),
     // Lanes
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_DUPLICATE,                          GNEViewNet::onCmdDuplicateLane),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_EDIT_SHAPE,                         GNEViewNet::onCmdEditLaneShape),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_RESET_CUSTOMSHAPE,                  GNEViewNet::onCmdResetLaneCustomShape),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_RESET_OPPOSITELANE,                 GNEViewNet::onCmdResetOppositeLane),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_TRANSFORM_SIDEWALK,                 GNEViewNet::onCmdLaneOperation),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_TRANSFORM_BIKE,                     GNEViewNet::onCmdLaneOperation),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_TRANSFORM_BUS,                      GNEViewNet::onCmdLaneOperation),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_TRANSFORM_GREENVERGE,               GNEViewNet::onCmdLaneOperation),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_ADD_SIDEWALK,                       GNEViewNet::onCmdLaneOperation),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_ADD_BIKE,                           GNEViewNet::onCmdLaneOperation),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_ADD_BUS,                            GNEViewNet::onCmdLaneOperation),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_ADD_GREENVERGE_FRONT,               GNEViewNet::onCmdLaneOperation),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_ADD_GREENVERGE_BACK,                GNEViewNet::onCmdLaneOperation),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_REMOVE_SIDEWALK,                    GNEViewNet::onCmdLaneOperation),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_REMOVE_BIKE,                        GNEViewNet::onCmdLaneOperation),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_REMOVE_BUS,                         GNEViewNet::onCmdLaneOperation),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_REMOVE_GREENVERGE,                  GNEViewNet::onCmdLaneOperation),
-    FXMAPFUNC(SEL_COMMAND, MID_REACHABILITY,                                GNEViewNet::onCmdLaneReachability),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_DUPLICATE,              GNEViewNet::onCmdDuplicateLane),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_EDIT_SHAPE,             GNEViewNet::onCmdEditLaneShape),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_RESET_CUSTOMSHAPE,      GNEViewNet::onCmdResetLaneCustomShape),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_RESET_OPPOSITELANE,     GNEViewNet::onCmdResetOppositeLane),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_TRANSFORM_SIDEWALK,     GNEViewNet::onCmdLaneOperation),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_TRANSFORM_BIKE,         GNEViewNet::onCmdLaneOperation),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_TRANSFORM_BUS,          GNEViewNet::onCmdLaneOperation),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_TRANSFORM_GREENVERGE,   GNEViewNet::onCmdLaneOperation),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_ADD_SIDEWALK,           GNEViewNet::onCmdLaneOperation),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_ADD_BIKE,               GNEViewNet::onCmdLaneOperation),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_ADD_BUS,                GNEViewNet::onCmdLaneOperation),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_ADD_GREENVERGE_FRONT,   GNEViewNet::onCmdLaneOperation),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_ADD_GREENVERGE_BACK,    GNEViewNet::onCmdLaneOperation),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_REMOVE_SIDEWALK,        GNEViewNet::onCmdLaneOperation),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_REMOVE_BIKE,            GNEViewNet::onCmdLaneOperation),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_REMOVE_BUS,             GNEViewNet::onCmdLaneOperation),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_REMOVE_GREENVERGE,      GNEViewNet::onCmdLaneOperation),
+    FXMAPFUNC(SEL_COMMAND, MID_REACHABILITY,                    GNEViewNet::onCmdLaneReachability),
     // Additionals
-    FXMAPFUNC(SEL_COMMAND, MID_OPEN_ADDITIONAL_DIALOG,                      GNEViewNet::onCmdOpenAdditionalDialog),
+    FXMAPFUNC(SEL_COMMAND, MID_OPEN_ADDITIONAL_DIALOG,  GNEViewNet::onCmdOpenAdditionalDialog),
     // Polygons
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_POLYGON_SIMPLIFY_SHAPE,                  GNEViewNet::onCmdSimplifyShape),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_POLYGON_CLOSE,                           GNEViewNet::onCmdClosePolygon),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_POLYGON_OPEN,                            GNEViewNet::onCmdOpenPolygon),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_POLYGON_SELECT,                          GNEViewNet::onCmdSelectPolygonElements),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_POLYGON_SET_FIRST_POINT,                 GNEViewNet::onCmdSetFirstGeometryPoint),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_POLYGON_DELETE_GEOMETRY_POINT,           GNEViewNet::onCmdDeleteGeometryPoint),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_POLYGON_SIMPLIFY_SHAPE,          GNEViewNet::onCmdSimplifyShape),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_POLYGON_CLOSE,                   GNEViewNet::onCmdClosePolygon),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_POLYGON_OPEN,                    GNEViewNet::onCmdOpenPolygon),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_POLYGON_SELECT,                  GNEViewNet::onCmdSelectPolygonElements),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_POLYGON_SET_FIRST_POINT,         GNEViewNet::onCmdSetFirstGeometryPoint),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_POLYGON_DELETE_GEOMETRY_POINT,   GNEViewNet::onCmdDeleteGeometryPoint),
     // POIs
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_POI_TRANSFORM,                           GNEViewNet::onCmdTransformPOI),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_POI_TRANSFORM,   GNEViewNet::onCmdTransformPOI),
     // Geometry Points
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_CUSTOM_GEOMETRYPOINT,                    GNEViewNet::onCmdSetCustomGeometryPoint),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_RESET_GEOMETRYPOINT,                     GNEViewNet::onCmdResetEndPoints),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_CUSTOM_GEOMETRYPOINT,    GNEViewNet::onCmdSetCustomGeometryPoint),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_RESET_GEOMETRYPOINT,     GNEViewNet::onCmdResetEndPoints),
     // IntervalBar
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_INTERVALBAR_GENERICDATATYPE,             GNEViewNet::onCmdIntervalBarGenericDataType),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_INTERVALBAR_DATASET,                     GNEViewNet::onCmdIntervalBarDataSet),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_INTERVALBAR_LIMITED,                     GNEViewNet::onCmdIntervalBarLimit),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_INTERVALBAR_BEGIN,                       GNEViewNet::onCmdIntervalBarSetBegin),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_INTERVALBAR_END,                         GNEViewNet::onCmdIntervalBarSetEnd),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_INTERVALBAR_PARAMETER,                   GNEViewNet::onCmdIntervalBarSetParameter)
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_INTERVALBAR_GENERICDATATYPE,     GNEViewNet::onCmdIntervalBarGenericDataType),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_INTERVALBAR_DATASET,             GNEViewNet::onCmdIntervalBarDataSet),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_INTERVALBAR_LIMITED,             GNEViewNet::onCmdIntervalBarLimit),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_INTERVALBAR_BEGIN,               GNEViewNet::onCmdIntervalBarSetBegin),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_INTERVALBAR_END,                 GNEViewNet::onCmdIntervalBarSetEnd),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_INTERVALBAR_PARAMETER,           GNEViewNet::onCmdIntervalBarSetParameter),
 };
 
 // Object implementation
@@ -325,39 +332,46 @@ GNEViewNet::buildViewToolBars(GUIGlChildWindow* v) {
     }
     // for junctions
     new MFXButtonTooltip(v->getLocatorPopup(),
+                         myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
                          "\tLocate Junctions\tLocate a junction within the network. (Shift+J)",
                          GUIIconSubSys::getIcon(GUIIcon::LOCATEJUNCTION), v, MID_LOCATEJUNCTION,
                          ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
     // for edges
     new MFXButtonTooltip(v->getLocatorPopup(),
+                         myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
                          "\tLocate Edges\tLocate an edge within the network. (Shift+E)",
                          GUIIconSubSys::getIcon(GUIIcon::LOCATEEDGE), v, MID_LOCATEEDGE,
                          ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
     // for walkingAreas
     new MFXButtonTooltip(v->getLocatorPopup(),
+                         myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
                          "\tLocate WalkingAreas\tLocate a walkingArea within the network. (Shift+W)",
                          GUIIconSubSys::getIcon(GUIIcon::LOCATEWALKINGAREA), v, MID_LOCATEWALKINGAREA,
                          ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
     // for vehicles
     new MFXButtonTooltip(v->getLocatorPopup(),
+                         myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
                          "\tLocate Vehicles\tLocate a vehicle within the network. (Shift+V)",
                          GUIIconSubSys::getIcon(GUIIcon::LOCATEVEHICLE), v, MID_LOCATEVEHICLE,
                          ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
 
     // for person
     new MFXButtonTooltip(v->getLocatorPopup(),
+                         myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
                          "\tLocate Persons\tLocate a person within the network. (Shift+P)",
                          GUIIconSubSys::getIcon(GUIIcon::LOCATEPERSON), v, MID_LOCATEPERSON,
                          ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
 
     // for routes
     new MFXButtonTooltip(v->getLocatorPopup(),
+                         myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
                          "\tLocate Route\tLocate a route within the network. (Shift+R)",
                          GUIIconSubSys::getIcon(GUIIcon::LOCATEROUTE), v, MID_LOCATEROUTE,
                          ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
 
     // for routes
     new MFXButtonTooltip(v->getLocatorPopup(),
+                         myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
                          "\tLocate Stops\tLocate a stop within the network. (Shift+S)",
                          GUIIconSubSys::getIcon(GUIIcon::LOCATESTOP), v, MID_LOCATESTOP,
                          ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
@@ -372,21 +386,25 @@ GNEViewNet::buildViewToolBars(GUIGlChildWindow* v) {
 
     // for tls
     new MFXButtonTooltip(v->getLocatorPopup(),
+                         myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
                          "\tLocate TLS\tLocate a tls within the network. (Shift+T)",
                          GUIIconSubSys::getIcon(GUIIcon::LOCATETLS), v, MID_LOCATETLS,
                          ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
     // for additional stuff
     new MFXButtonTooltip(v->getLocatorPopup(),
+                         myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
                          "\tLocate Additional\tLocate an additional structure within the network. (Shift+A)",
                          GUIIconSubSys::getIcon(GUIIcon::LOCATEADD), v, MID_LOCATEADD,
                          ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
     // for pois
     new MFXButtonTooltip(v->getLocatorPopup(),
+                         myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
                          "\tLocate PoI\tLocate a PoI within the network. (Shift+O)",
                          GUIIconSubSys::getIcon(GUIIcon::LOCATEPOI), v, MID_LOCATEPOI,
                          ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
     // for polygons
     new MFXButtonTooltip(v->getLocatorPopup(),
+                         myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
                          "\tLocate Polygon\tLocate a Polygon within the network. (Shift+L)",
                          GUIIconSubSys::getIcon(GUIIcon::LOCATEPOLY), v, MID_LOCATEPOLY,
                          ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
@@ -481,28 +499,66 @@ GNEViewNet::setColorScheme(const std::string& name) {
 
 
 void
-GNEViewNet::openObjectDialogAtCursor() {
+GNEViewNet::openObjectDialogAtCursor(const FXEvent* /*ev*/) {
     // reimplemented from GUISUMOAbstractView due GNEOverlappedInspection
     ungrab();
     // make network current
     if (isEnabled() && myAmInitialised && makeCurrent()) {
-        // fill objects under cursor
-        myObjectsUnderCursor.updateObjectUnderCursor(getGUIGlObjectsUnderCursor());
-        // get GUIGLObject front
-        GUIGlObject* o = myObjectsUnderCursor.getGUIGlObjectFront();
-        // we need to check if we're inspecting a overlapping element
-        if (myViewParent->getInspectorFrame()->getOverlappedInspection()->overlappedInspectionShown() &&
-                myViewParent->getInspectorFrame()->getOverlappedInspection()->checkSavedPosition(getPositionInformation()) &&
-                myInspectedAttributeCarriers.size() > 0) {
-            o = dynamic_cast<GUIGlObject*>(myInspectedAttributeCarriers.front());
+        // get GLObjects under cursor
+        const auto GLObjects = getGUIGlObjectsUnderCursor();
+        // check if we're cliking while alt button is pressed
+        if (myMouseButtonKeyPressed.altKeyPressed()) {
+            // create cursor popup dialog for mark front element
+            myPopup = new GUICursorDialog(GUICursorDialog::CursorDialogType::FRONT_ELEMENT, this, GLObjects);
+            // open popup dialog
+            openPopupDialog();
+        } else if (GLObjects.empty()) {
+            openObjectDialog({myNet});
+        } else {
+            // declare filtered objects
+            std::vector<GUIGlObject*> filteredGLObjects;
+            // get GUIGLObject front
+            GUIGlObject* overlappedElement = nullptr;
+            // we need to check if we're inspecting a overlapping element
+            if (myViewParent->getInspectorFrame()->getOverlappedInspection()->overlappedInspectionShown() &&
+                    myViewParent->getInspectorFrame()->getOverlappedInspection()->checkSavedPosition(getPositionInformation()) &&
+                    myInspectedAttributeCarriers.size() > 0) {
+                overlappedElement = myInspectedAttributeCarriers.front()->getGUIGlObject();
+                filteredGLObjects.push_back(overlappedElement);
+            }
+            bool connections = false;
+            // fill filtered objects
+            for (const auto &glObject : GLObjects) {
+                // always avoid edges
+                if (glObject->getType() == GLO_EDGE) {
+                    continue;
+                }
+                if (glObject->getType() == GLO_CONNECTION) {
+                    connections = true;
+                }
+                filteredGLObjects.push_back(glObject);
+            }
+            // filter junctions if there are connections
+            if (connections) {
+                for (auto it = filteredGLObjects.begin(); it != filteredGLObjects.end(); it++) {
+                    if ((*it)->getType() == GLO_JUNCTION) {
+                        it = filteredGLObjects.erase(it);
+                    }
+                }
+            }
+            openObjectDialog(filteredGLObjects);
         }
-        // if GlObject is null, use net
-        if (o == nullptr) {
-            o = myNet;
-        }
-        openObjectDialog(o);
         makeNonCurrent();
     }
+}
+
+
+void
+GNEViewNet::openDeleteDialogAtCursor(const std::vector<GUIGlObject*> &GLObjects) {
+    // create cursor popup dialog for mark front element
+    myPopup = new GUICursorDialog(GUICursorDialog::CursorDialogType::DELETE_ELEMENT, this, GLObjects);
+    // open popup dialog
+    openPopupDialog();
 }
 
 
@@ -666,6 +722,12 @@ GNEViewNet::setStatusBarText(const std::string& text) {
 }
 
 
+void 
+GNEViewNet::resetLastClickedPosition() {
+    myLastClickedPosition = Position::INVALID;
+}
+
+
 bool
 GNEViewNet::autoSelectNodes() {
     if (myLockManager.isObjectLocked(GLO_JUNCTION, false)) {
@@ -757,6 +819,24 @@ GNEViewNet::aksChangeSupermode(const std::string& operation, Supermode expectedS
     } else {
         return false;
     }
+}
+
+
+bool 
+GNEViewNet::selectingDetectorsTLSMode() const {
+    // separate conditions for code legibly
+    const bool TLSMode = (myEditModes.isCurrentSupermodeNetwork() && (myEditModes.networkEditMode == NetworkEditMode::NETWORK_TLS));
+    const bool selectingDetectors = myViewParent->getTLSEditorFrame()->getTLSAttributes()->isSetDetectorsToggleButtonEnabled();
+    return (TLSMode && selectingDetectors);
+}
+
+
+bool 
+GNEViewNet::selectingJunctionsTLSMode() const {
+    // separate conditions for code legibly
+    const bool TLSMode = (myEditModes.isCurrentSupermodeNetwork() && (myEditModes.networkEditMode == NetworkEditMode::NETWORK_TLS));
+    const bool selectingJunctions = myViewParent->getTLSEditorFrame()->getTLSJunction()->isJoiningJunctions();
+    return (TLSMode && selectingJunctions);
 }
 
 
@@ -948,6 +1028,8 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
     myVisualizationSettings->scale = lw;
     glEnable(GL_POLYGON_OFFSET_FILL);
     glEnable(GL_POLYGON_OFFSET_LINE);
+    // set current mouse position in gPostDrawing
+    gPostDrawing.mousePos = getPositionInformation();
     // obtain objects included in minB and maxB
     int hits2 = myGrid->Search(minB, maxB, *myVisualizationSettings);
     // force draw inspected and front elements (due parent/child lines)
@@ -973,6 +1055,10 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
     drawTemporalSplitJunction();
     // draw temporal roundabout
     drawTemporalRoundabout();
+    // draw temporal lines between E1 detectors and junctions in TLS Mode
+    drawTemporalE1TLSLines();
+    // draw temporal lines between junctions in TLS Mode
+    drawTemporalJunctionTLSLines();
     // pop draw matrix
     GLHelper::popMatrix();
     // update interval bar
@@ -1172,7 +1258,14 @@ GNEViewNet::abortOperation(bool clearSelection) {
             // abort changes in Connector Frame
             myViewParent->getConnectorFrame()->getConnectionModifications()->onCmdCancelModifications(0, 0, 0);
         } else if (myEditModes.networkEditMode == NetworkEditMode::NETWORK_TLS) {
-            myViewParent->getTLSEditorFrame()->onCmdCancel(nullptr, 0, nullptr);
+            // continue depending of current TLS frame state
+            if (myViewParent->getTLSEditorFrame()->getTLSAttributes()->isSetDetectorsToggleButtonEnabled()) {
+                myViewParent->getTLSEditorFrame()->getTLSAttributes()->disableE1DetectorMode();
+            } else if (myViewParent->getTLSEditorFrame()->getTLSJunction()->isJoiningJunctions()) {
+                myViewParent->getTLSEditorFrame()->getTLSJunction()->disableJoiningJunctionMode();
+            } else {
+                myViewParent->getTLSEditorFrame()->getTLSDefinition()->discardChanges(false);
+            }
         } else if (myEditModes.networkEditMode == NetworkEditMode::NETWORK_MOVE) {
             myEditNetworkElementShapes.stopEditCustomShape();
         } else if (myEditModes.networkEditMode == NetworkEditMode::NETWORK_SHAPE) {
@@ -1308,7 +1401,14 @@ GNEViewNet::hotkeyEnter() {
             // Accept changes in Connector Frame
             myViewParent->getConnectorFrame()->getConnectionModifications()->onCmdSaveModifications(0, 0, 0);
         } else if (myEditModes.networkEditMode == NetworkEditMode::NETWORK_TLS) {
-            myViewParent->getTLSEditorFrame()->onCmdOK(nullptr, 0, nullptr);
+            // continue depending of current TLS frame state
+            if (myViewParent->getTLSEditorFrame()->getTLSAttributes()->isSetDetectorsToggleButtonEnabled()) {
+                myViewParent->getTLSEditorFrame()->getTLSAttributes()->disableE1DetectorMode();
+            } else if (myViewParent->getTLSEditorFrame()->getTLSJunction()->isJoiningJunctions()) {
+                myViewParent->getTLSEditorFrame()->getTLSJunction()->disableJoiningJunctionMode();
+            } else if (myViewParent->getTLSEditorFrame()->getTLSDefinition()->checkHaveModifications()) {
+                myViewParent->getTLSEditorFrame()->getTLSDefinition()->onCmdSaveChanges(nullptr, 0, nullptr);
+            }
         } else if ((myEditModes.networkEditMode == NetworkEditMode::NETWORK_MOVE) && (myEditNetworkElementShapes.getEditedNetworkElement() != nullptr)) {
             myEditNetworkElementShapes.commitEditedShape();
         } else if (myEditModes.networkEditMode == NetworkEditMode::NETWORK_SHAPE) {
@@ -1491,6 +1591,36 @@ GNEViewNet::drawTranslateFrontAttributeCarrier(const GNEAttributeCarrier* AC, do
         glTranslated(0, 0, GLO_DOTTEDCONTOUR_FRONT + extraOffset);
     } else {
         glTranslated(0, 0, typeOrLayer + extraOffset);
+    }
+}
+
+
+bool
+GNEViewNet::drawDeleteContour(const GUIGlObject* GLObject, const GNEAttributeCarrier* AC) const {
+    // check ifs blocked
+    if (myLockManager.isObjectLocked(GLObject->getType(), AC->isAttributeCarrierSelected())) {
+        return false;
+    }
+    // check if is under mouse
+    if (!gPostDrawing.isElementUnderCursor(GLObject)) {
+        return false;
+    }
+    // only draw for element of same type
+    if (gPostDrawing.getElementUnderCursor().back()->getType() != GLObject->getType()) {
+        return false;
+    }
+    // check if we're in the correct mode and supermode
+    if ((AC->getTagProperty().isNetworkElement() || AC->getTagProperty().isAdditionalElement()) && 
+        myEditModes.isCurrentSupermodeNetwork() && (myEditModes.networkEditMode == NetworkEditMode::NETWORK_DELETE)) {
+        return true;
+    } else if (AC->getTagProperty().isDemandElement() && myEditModes.isCurrentSupermodeDemand() && 
+        (myEditModes.demandEditMode == DemandEditMode::DEMAND_DELETE)) {
+        return true;
+    } else if (AC->getTagProperty().isDataElement() && myEditModes.isCurrentSupermodeData() && 
+        (myEditModes.dataEditMode == DataEditMode::DATA_DELETE)) {
+        return true;
+    } else {
+        return false;
     }
 }
 
@@ -1855,12 +1985,33 @@ GNEViewNet::onCmdAddReversedEdge(FXObject*, FXSelector, void*) {
             myUndoList->begin(GUIIcon::EDGE, "Add Reverse edge for selected " + toString(SUMO_TAG_EDGE) + "s");
             const auto selectedEdges = myNet->getAttributeCarriers()->getSelectedEdges();
             for (const auto& selectedEdge : selectedEdges) {
-                myNet->addReversedEdge(selectedEdge, myUndoList);
+                myNet->addReversedEdge(selectedEdge, false, myUndoList);
             }
             myUndoList->end();
         } else {
             myUndoList->begin(GUIIcon::EDGE, "Add reverse " + toString(SUMO_TAG_EDGE));
-            myNet->addReversedEdge(edge, myUndoList);
+            myNet->addReversedEdge(edge, false, myUndoList);
+            myUndoList->end();
+        }
+    }
+    return 1;
+}
+
+
+long
+GNEViewNet::onCmdAddReversedEdgeDisconnected(FXObject*, FXSelector, void*) {
+    GNEEdge* edge = getEdgeAtPopupPosition();
+    if (edge != nullptr) {
+        if (edge->isAttributeCarrierSelected()) {
+            myUndoList->begin(GUIIcon::EDGE, "Add Reverse disconnected edge for selected " + toString(SUMO_TAG_EDGE) + "s");
+            const auto selectedEdges = myNet->getAttributeCarriers()->getSelectedEdges();
+            for (const auto& selectedEdge : selectedEdges) {
+                myNet->addReversedEdge(selectedEdge, true, myUndoList);
+            }
+            myUndoList->end();
+        } else {
+            myUndoList->begin(GUIIcon::EDGE, "Add reverse disconnected " + toString(SUMO_TAG_EDGE));
+            myNet->addReversedEdge(edge, true, myUndoList);
             myUndoList->end();
         }
     }
@@ -3102,6 +3253,78 @@ GNEViewNet::onCmdResetConnections(FXObject*, FXSelector, void*) {
     return 1;
 }
 
+
+long 
+GNEViewNet::onCmdAddTLS(FXObject*, FXSelector, void*) {
+    GNEJunction* junction = getJunctionAtPopupPosition();
+    if (junction != nullptr) {
+        // check if we're adding TLS in multiple junctions
+        if (junction->isAttributeCarrierSelected()) {
+            const auto selectedJunctions = myNet->getAttributeCarriers()->getSelectedJunctions();
+            myNet->getViewNet()->getUndoList()->begin(GUIIcon::MODETLS, "add TLS in multiple junctions");
+            for (const auto &selectedJunction : selectedJunctions) {
+                selectedJunction->setAttribute(SUMO_ATTR_TYPE, "traffic_light", myUndoList);
+            }
+            myNet->getViewNet()->getUndoList()->end();
+        } else {
+            // change junction type
+            junction->setAttribute(SUMO_ATTR_TYPE, "traffic_light", myUndoList);
+            // change to TLS Mode
+            myEditModes.setNetworkEditMode(NetworkEditMode::NETWORK_TLS, true);
+            // set junction in TLS mode
+            myViewParent->getTLSEditorFrame()->editJunction(junction);
+        }
+    }
+    // destroy pop-up and set focus in view net
+    destroyPopup();
+    setFocus();
+    return 1;
+}
+
+
+long 
+GNEViewNet::onCmdAddJoinTLS(FXObject*, FXSelector, void*) {
+    GNEJunction* junction = getJunctionAtPopupPosition();
+    if (junction != nullptr) {
+        // check if we're adding TLS in multiple junctions
+        if (junction->isAttributeCarrierSelected()) {
+            myNet->getViewNet()->getUndoList()->begin(GUIIcon::MODETLS, "add TLS in multiple junctions");
+        }
+        // change junction type
+        junction->setAttribute(SUMO_ATTR_TYPE, "traffic_light", myUndoList);
+        // if TLS was sucesfully created, apply the same TLID to other selected junctions
+        if (junction->getAttribute(SUMO_ATTR_TLID).size() > 0) {
+            const auto selectedJunctions = myNet->getAttributeCarriers()->getSelectedJunctions();
+            // iterate over all selected junctions
+            for (const auto &selectedJunction : selectedJunctions) {
+                // check that doesn't have a TL
+                if (selectedJunction->getNBNode()->getControllingTLS().empty()) {
+                    selectedJunction->setAttribute(SUMO_ATTR_TYPE, "traffic_light", myUndoList);
+                    selectedJunction->setAttribute(SUMO_ATTR_TLID, junction->getAttribute(SUMO_ATTR_TLID), myUndoList);
+                }
+            }
+        }
+        // rename traffic light
+        if (junction->getNBNode()->getControllingTLS().size() > 0) {
+            const auto TLSDef = (*junction->getNBNode()->getControllingTLS().begin());
+            if (!myNet->getTLLogicCont().exist(TLSDef->getID() + "_joined")) {
+                myUndoList->add(new GNEChange_TLS(junction, TLSDef, TLSDef->getID() + "_joined"), true);
+            }
+        }
+        // end undoList
+        if (junction->isAttributeCarrierSelected()) {
+            myNet->getViewNet()->getUndoList()->end();
+        }
+        // change to TLS Mode
+        myEditModes.setNetworkEditMode(NetworkEditMode::NETWORK_TLS, true);
+        // set junction in TLS mode
+        myViewParent->getTLSEditorFrame()->editJunction(junction);
+    }
+    // destroy pop-up and set focus in view net
+    destroyPopup();
+    setFocus();
+    return 1;
+}
 
 long
 GNEViewNet::onCmdEditConnectionShape(FXObject*, FXSelector, void*) {
@@ -4793,9 +5016,9 @@ GNEViewNet::drawTemporalSplitJunction() const {
 void 
 GNEViewNet::drawTemporalRoundabout() const {
     // check conditions
-    if (myCurrentObjectDialog && (myCurrentObjectDialog->getType() == GLO_JUNCTION) && myDrawPreviewRoundabout) {
+    if ((myCurrentObjectsDialog.size() > 0) && (myCurrentObjectsDialog.front()->getType() == GLO_JUNCTION) && myDrawPreviewRoundabout) {
         // get junction
-        const auto junction = myNet->getAttributeCarriers()->retrieveJunction(myCurrentObjectDialog->getMicrosimID());
+        const auto junction = myNet->getAttributeCarriers()->retrieveJunction(myCurrentObjectsDialog.front()->getMicrosimID());
         // push layer matrix
         GLHelper::pushMatrix();
         // translate to temporal shape layer
@@ -4817,6 +5040,64 @@ GNEViewNet::drawTemporalRoundabout() const {
 }
 
 
+void 
+GNEViewNet::drawTemporalE1TLSLines() const {
+    // check conditions
+    if (selectingDetectorsTLSMode() && (myViewParent->getTLSEditorFrame()->getTLSJunction()->getCurrentJunction() != nullptr)) {
+        // get junction
+        const auto junctionPos = myViewParent->getTLSEditorFrame()->getTLSJunction()->getCurrentJunction()->getNBNode()->getPosition();
+        // push layer matrix
+        GLHelper::pushMatrix();
+        // translate to TLLogic
+        glTranslated(0, 0, GLO_TEMPORALSHAPE);
+        // iterate over all E1 detectors
+        for (const auto &E1ID : myViewParent->getTLSEditorFrame()->getTLSAttributes()->getE1Detectors()) {
+            // first check if E1 exists
+            const auto E1 = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_INDUCTION_LOOP, E1ID.second, false);
+            if (E1) {
+                // push line matrix
+                GLHelper::pushMatrix();
+                // draw line between junction and E1
+                GUIGeometry::drawChildLine(*myVisualizationSettings, junctionPos, E1->getPositionInView(),
+                                           myVisualizationSettings->additionalSettings.TLSConnectionColor, true, 0.25);
+                // pop line matrix
+                GLHelper::popMatrix();
+            }
+        }
+        // pop layer matrix
+        GLHelper::popMatrix();
+    }
+}
+
+
+void 
+GNEViewNet::drawTemporalJunctionTLSLines() const {
+    // check conditions
+    if (selectingJunctionsTLSMode() && (myViewParent->getTLSEditorFrame()->getTLSJunction()->getCurrentJunction() != nullptr)) {
+        // get junction
+        const auto junctionPos = myViewParent->getTLSEditorFrame()->getTLSJunction()->getCurrentJunction()->getNBNode()->getPosition();
+        // push layer matrix
+        GLHelper::pushMatrix();
+        // translate to TLLogic
+        glTranslated(0, 0, GLO_TEMPORALSHAPE);
+        // iterate over all Junction detectors
+        for (const auto &selectedJunctionID : myViewParent->getTLSEditorFrame()->getTLSJunction()->getSelectedJunctionIDs()) {
+            // get junction
+            const auto selectedJunction = myNet->getAttributeCarriers()->retrieveJunction(selectedJunctionID);
+            // push line matrix
+            GLHelper::pushMatrix();
+            // draw line between junction and Junction
+            GUIGeometry::drawChildLine(*myVisualizationSettings, junctionPos, selectedJunction->getPositionInView(),
+                                        myVisualizationSettings->additionalSettings.TLSConnectionColor, true, 0.25);
+            // pop line matrix
+            GLHelper::popMatrix();
+        }
+        // pop layer matrix
+        GLHelper::popMatrix();
+    }
+}
+
+
 void
 GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
     // reset moving selected edge
@@ -4830,6 +5111,8 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
             if (myNetworkViewOptions.selectEdges() && (myMouseButtonKeyPressed.shiftKeyPressed() == false)) {
                 myObjectsUnderCursor.swapLane2Edge();
             }
+            // now filter locked elements
+            myObjectsUnderCursor.filterLockedElements(myLockManager);
             // check if we're selecting a new parent for the current inspected element
             if (myViewParent->getInspectorFrame()->getNeteditAttributesEditor()->isSelectingParent()) {
                 myViewParent->getInspectorFrame()->getNeteditAttributesEditor()->setNewParent(myObjectsUnderCursor.getAttributeCarrierFront());
@@ -4849,15 +5132,16 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
                 AC = myObjectsUnderCursor.getAttributeCarrierFront();
             }
             // check that we have clicked over network element element
-            if (AC && !myLockManager.isObjectLocked(AC->getGUIGlObject()->getType(), AC->isAttributeCarrierSelected()) &&
-                    (AC->getTagProperty().isNetworkElement() || AC->getTagProperty().isAdditionalElement())) {
+            if (AC) {
                 // now check if we want only delete geometry points
                 if (myViewParent->getDeleteFrame()->getDeleteOptions()->deleteOnlyGeometryPoints()) {
                     // only remove geometry point
                     myViewParent->getDeleteFrame()->removeGeometryPoint(myObjectsUnderCursor);
                 } else if (AC->isAttributeCarrierSelected()) {
                     // remove all selected attribute carriers
-                    myViewParent->getDeleteFrame()->removeSelectedAttributeCarriers();
+                    if (!AC->getGUIGlObject()->isGLObjectLocked()) {
+                        myViewParent->getDeleteFrame()->removeSelectedAttributeCarriers();
+                    }
                 } else {
                     // remove attribute carrier under cursor
                     myViewParent->getDeleteFrame()->removeAttributeCarrier(myObjectsUnderCursor);
@@ -4873,8 +5157,10 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
             if (myNetworkViewOptions.selectEdges() && (myMouseButtonKeyPressed.shiftKeyPressed() == false)) {
                 myObjectsUnderCursor.swapLane2Edge();
                 // update AC under cursor
-                AC = myObjectsUnderCursor.getAttributeCarrierFront(myLockManager);
+                AC = myObjectsUnderCursor.getAttributeCarrierFront();
             }
+            // now filter locked elements
+            myObjectsUnderCursor.filterLockedElements(myLockManager);
             // avoid to select if control key is pressed
             if (!myMouseButtonKeyPressed.controlKeyPressed()) {
                 // check if a rect for selecting is being created
@@ -4945,6 +5231,8 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
                 // update AC under cursor
                 AC = myObjectsUnderCursor.getAttributeCarrierFront();
             }
+            // now filter locked elements
+            myObjectsUnderCursor.filterLockedElements(myLockManager);
             // check if we're editing a shape
             if (myEditNetworkElementShapes.getEditedNetworkElement()) {
                 // check if we're removing a geometry point
@@ -4991,7 +5279,7 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
             break;
         }
         case NetworkEditMode::NETWORK_TLS: {
-            if (myObjectsUnderCursor.getJunctionFront()) {
+            if (myObjectsUnderCursor.getJunctionFront() || myObjectsUnderCursor.getAdditionalFront()) {
                 // edit TLS in TLSEditor frame
                 myViewParent->getTLSEditorFrame()->editTLS(getPositionInformation(), myObjectsUnderCursor);
                 updateViewNet();
@@ -5003,7 +5291,11 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
         case NetworkEditMode::NETWORK_ADDITIONAL: {
             // avoid create additionals if control key is pressed
             if (!myMouseButtonKeyPressed.controlKeyPressed()) {
-                if (myViewParent->getAdditionalFrame()->addAdditional(myObjectsUnderCursor)) {
+                if ((getPositionInformation() == myLastClickedPosition) && !myMouseButtonKeyPressed.shiftKeyPressed()) {
+                    WRITE_WARNING("Shift + click to create two additionals in the same position");
+                } else if (myViewParent->getAdditionalFrame()->addAdditional(myObjectsUnderCursor)) {
+                    // save last mouse position
+                    myLastClickedPosition = getPositionInformation();
                     // update view to show the new additional
                     updateViewNet();
                 }
@@ -5166,6 +5458,8 @@ GNEViewNet::processLeftButtonPressDemand(void* eventData) {
     // decide what to do based on mode
     switch (myEditModes.demandEditMode) {
         case DemandEditMode::DEMAND_INSPECT: {
+            // filter locked elements
+            myObjectsUnderCursor.filterLockedElements(myLockManager);
             // process left click in Inspector Frame
             myViewParent->getInspectorFrame()->processDemandSupermodeClick(getPositionInformation(), myObjectsUnderCursor);
             // process click
@@ -5174,10 +5468,12 @@ GNEViewNet::processLeftButtonPressDemand(void* eventData) {
         }
         case DemandEditMode::DEMAND_DELETE: {
             // check conditions
-            if (AC && !myLockManager.isObjectLocked(AC->getGUIGlObject()->getType(), AC->isAttributeCarrierSelected()) && AC->getTagProperty().isDemandElement()) {
+            if (AC) {
                 // check if we are deleting a selection or an single attribute carrier
                 if (AC->isAttributeCarrierSelected()) {
-                    myViewParent->getDeleteFrame()->removeSelectedAttributeCarriers();
+                    if (!AC->getGUIGlObject()->isGLObjectLocked()) {
+                        myViewParent->getDeleteFrame()->removeSelectedAttributeCarriers();
+                    }
                 } else {
                     myViewParent->getDeleteFrame()->removeAttributeCarrier(myObjectsUnderCursor);
                 }
@@ -5188,6 +5484,8 @@ GNEViewNet::processLeftButtonPressDemand(void* eventData) {
             break;
         }
         case DemandEditMode::DEMAND_SELECT:
+            // filter locked elements
+            myObjectsUnderCursor.filterLockedElements(myLockManager);
             // avoid to select if control key is pressed
             if (!myMouseButtonKeyPressed.controlKeyPressed()) {
                 // check if a rect for selecting is being created
@@ -5253,7 +5551,14 @@ GNEViewNet::processLeftButtonPressDemand(void* eventData) {
         }
         case DemandEditMode::DEMAND_STOP: {
             // Handle click
-            myViewParent->getStopFrame()->addStop(myObjectsUnderCursor, myMouseButtonKeyPressed);
+            if ((getPositionInformation() == myLastClickedPosition) && !myMouseButtonKeyPressed.controlKeyPressed()) {
+                WRITE_WARNING("Control + click to create two stop in the same position");
+            } else if (myViewParent->getStopFrame()->addStop(myObjectsUnderCursor, myMouseButtonKeyPressed)) {
+                // save last mouse position
+                myLastClickedPosition = getPositionInformation();
+                // update view to show the new additional
+                updateViewNet();
+            }
             // process click
             processClick(eventData);
             break;
@@ -5332,6 +5637,8 @@ GNEViewNet::processLeftButtonPressData(void* eventData) {
     // decide what to do based on mode
     switch (myEditModes.dataEditMode) {
         case DataEditMode::DATA_INSPECT: {
+            // filter locked elements
+            myObjectsUnderCursor.filterLockedElements(myLockManager);
             // process left click in Inspector Frame
             if (AC && AC->getTagProperty().getTag() == SUMO_TAG_TAZ) {
                 myViewParent->getInspectorFrame()->inspectSingleElement(AC);
@@ -5344,10 +5651,12 @@ GNEViewNet::processLeftButtonPressData(void* eventData) {
         }
         case DataEditMode::DATA_DELETE: {
             // check conditions
-            if (AC && !myLockManager.isObjectLocked(AC->getGUIGlObject()->getType(), AC->isAttributeCarrierSelected()) && AC->getTagProperty().isDataElement()) {
+            if (AC) {
                 // check if we are deleting a selection or an single attribute carrier
                 if (AC->isAttributeCarrierSelected()) {
-                    myViewParent->getDeleteFrame()->removeSelectedAttributeCarriers();
+                    if (!AC->getGUIGlObject()->isGLObjectLocked()) {
+                        myViewParent->getDeleteFrame()->removeSelectedAttributeCarriers();
+                    }
                 } else {
                     myViewParent->getDeleteFrame()->removeAttributeCarrier(myObjectsUnderCursor);
                 }
@@ -5358,6 +5667,8 @@ GNEViewNet::processLeftButtonPressData(void* eventData) {
             break;
         }
         case DataEditMode::DATA_SELECT:
+            // filter locked elements
+            myObjectsUnderCursor.filterLockedElements(myLockManager);
             // avoid to select if control key is pressed
             if (!myMouseButtonKeyPressed.controlKeyPressed()) {
                 // check if a rect for selecting is being created

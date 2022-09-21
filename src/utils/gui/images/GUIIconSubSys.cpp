@@ -79,7 +79,8 @@
 #include "removedb.xpm"
 #include "recenter_view.xpm"
 #include "allow_rotation.xpm"
-#include "show_tooltips.xpm"
+#include "show_tooltips_view.xpm"
+#include "show_tooltips_menu.xpm"
 #include "magnify.xpm"
 #include "zoomstyle.xpm"
 #include "yes.xpm"
@@ -190,6 +191,9 @@
 #include "select.xpm"
 #include "unselect.xpm"
 
+#include "join.xpm"
+#include "disjoin.xpm"
+
 #include "ext.xpm"
 #include "tracker.xpm"
 #include "hall_of_fame.xpm"
@@ -231,6 +235,13 @@
 #include "modeedgedata.xpm"
 #include "modeedgereldata.xpm"
 #include "modetazreldata.xpm"
+
+#include "tlsphasedefault.xpm"
+#include "tlsphasecopy.xpm"
+#include "tlsphaseallred.xpm"
+#include "tlsphaseallyellow.xpm"
+#include "tlsphaseallgreen.xpm"
+#include "tlsphaseallgreenpriority.xpm"
 
 #include "computejunctions.xpm"
 #include "cleanjunctions.xpm"
@@ -392,6 +403,7 @@
 #include "vshape_passenger_hatchback.xpm"
 #include "vshape_passenger_wagon.xpm"
 #include "vshape_passenger_van.xpm"
+#include "vshape_taxi.xpm"
 #include "vshape_delivery.xpm"
 #include "vshape_truck.xpm"
 #include "vshape_truck_semitrailer.xpm"
@@ -420,6 +432,7 @@
 #include "reset.xpm"
 #include "warning.xpm"
 #include "danger.xpm"
+#include "sum.xpm"
 
 #include "grid.xpm"
 #include "grid1.xpm"
@@ -478,6 +491,9 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::SELECT] = new FXXPMIcon(a, select_xpm);
     myIcons[GUIIcon::UNSELECT] = new FXXPMIcon(a, unselect_xpm);
 
+    myIcons[GUIIcon::JOIN] = new FXXPMIcon(a, join_xpm);
+    myIcons[GUIIcon::DISJOIN] = new FXXPMIcon(a, disjoin_xpm);
+
     myIcons[GUIIcon::APP_TRACKER] = new FXXPMIcon(a, app_tracker_xpm);
     myIcons[GUIIcon::APP_FINDER] = new FXXPMIcon(a, app_finder_xpm);
     myIcons[GUIIcon::APP_BREAKPOINTS] = new FXXPMIcon(a, app_breakpoints_xpm);
@@ -513,7 +529,8 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::COLORWHEEL] = new FXXPMIcon(a, colorwheel_xpm);
     myIcons[GUIIcon::SAVEDB] = new FXXPMIcon(a, savedb_xpm);
     myIcons[GUIIcon::REMOVEDB] = new FXXPMIcon(a, removedb_xpm);
-    myIcons[GUIIcon::SHOWTOOLTIPS] = new FXXPMIcon(a, show_tooltips_xpm);
+    myIcons[GUIIcon::SHOWTOOLTIPS_VIEW] = new FXXPMIcon(a, show_tooltips_view_xpm);
+    myIcons[GUIIcon::SHOWTOOLTIPS_MENU] = new FXXPMIcon(a, show_tooltips_menu_xpm);
     myIcons[GUIIcon::YES] = new FXXPMIcon(a, yes_xpm);
     myIcons[GUIIcon::NO] = new FXXPMIcon(a, no_xpm);
     myIcons[GUIIcon::FLAG] = new FXGIFIcon(a, flag);
@@ -751,6 +768,13 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::EDGERELDATA] = new FXXPMIcon(a, edgereldata_xpm);
     myIcons[GUIIcon::TAZRELDATA] = new FXXPMIcon(a, tazreldata_xpm);
 
+    myIcons[GUIIcon::TLSPHASEDEFAULT] = new FXXPMIcon(a, tlsphasedefault_xpm);
+    myIcons[GUIIcon::TLSPHASECOPY] = new FXXPMIcon(a, tlsphasecopy_xpm);
+    myIcons[GUIIcon::TLSPHASEALLRED] = new FXXPMIcon(a, tlsphaseallred_xpm);
+    myIcons[GUIIcon::TLSPHASEALLYELLOW] = new FXXPMIcon(a, tlsphaseallyellow_xpm);
+    myIcons[GUIIcon::TLSPHASEALLGREEN] = new FXXPMIcon(a, tlsphaseallgreen_xpm);
+    myIcons[GUIIcon::TLSPHASEALLGREENPRIORITY] = new FXXPMIcon(a, tlsphaseallgreenpriority_xpm);
+
     myIcons[GUIIcon::VCLASS_IGNORING] = new FXXPMIcon(a, vclass_ignoring_xpm);
     myIcons[GUIIcon::VCLASS_PRIVATE] = new FXXPMIcon(a, vclass_private_xpm);
     myIcons[GUIIcon::VCLASS_EMERGENCY] = new FXXPMIcon(a, vclass_emergency_xpm);
@@ -816,6 +840,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::VSHAPE_PASSENGER_HATCHBACK] = new FXXPMIcon(a, vshape_passenger_hatchback_xpm);
     myIcons[GUIIcon::VSHAPE_PASSENGER_WAGON] = new FXXPMIcon(a, vshape_passenger_wagon_xpm);
     myIcons[GUIIcon::VSHAPE_PASSENGER_VAN] = new FXXPMIcon(a, vshape_passenger_van_xpm);
+    myIcons[GUIIcon::VSHAPE_TAXI] = new FXXPMIcon(a, vshape_taxi_xpm);
     myIcons[GUIIcon::VSHAPE_DELIVERY] = new FXXPMIcon(a, vshape_delivery_xpm);
     myIcons[GUIIcon::VSHAPE_TRUCK] = new FXXPMIcon(a, vshape_truck_xpm);
     myIcons[GUIIcon::VSHAPE_TRUCK_SEMITRAILER] = new FXXPMIcon(a, vshape_truck_semitrailer_xpm);
@@ -845,6 +870,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::RESET] = new FXXPMIcon(a, reset_xpm);
     myIcons[GUIIcon::WARNING] = new FXXPMIcon(a, warning_xpm);
     myIcons[GUIIcon::DANGER] = new FXXPMIcon(a, danger_xpm);
+    myIcons[GUIIcon::SUM] = new FXXPMIcon(a, sum_xpm);
 
     myIcons[GUIIcon::GRID] = new FXXPMIcon(a, grid_xpm);
     myIcons[GUIIcon::GRID1] = new FXXPMIcon(a, grid1_xpm);
