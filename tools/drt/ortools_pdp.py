@@ -31,31 +31,38 @@ from ortools.constraint_solver import pywrapcp
 
 
 def get_solution(data, manager, routing, solution, verbose):
+    """Returns the solution as a dict with one entry for each
+    vehicle (vehicle id: [0, ..., n_veh-1]) including the
+    route (list of nodes) and costs."""
     if verbose:
         print('Objective: ', solution.ObjectiveValue())
     solution_dict = {}
+    total_cost = 0
     for vehicle_id in range(data['num_vehicles']):
-        total_distance = 0
         route = []
         index = routing.Start(vehicle_id)
         if verbose:
             plan_output = 'Route for vehicle %s:\n' % vehicle_id
-        route_distance = 0
+        route_cost = 0
         while not routing.IsEnd(index):
+            current_node = manager.IndexToNode(index)
             if verbose:
-                plan_output += ' %s -> ' % manager.IndexToNode(index)
-            route.append(manager.IndexToNode(index))
+                plan_output += ' %s -> ' % current_node
+            route.append(current_node)
             previous_index = index
             index = solution.Value(routing.NextVar(index))
-            route_distance += routing.GetArcCostForVehicle(
+            route_cost += routing.GetArcCostForVehicle(
                 previous_index, index, vehicle_id)
-        route.append(manager.IndexToNode(index))
+        last_node = manager.IndexToNode(index)
+        route.append(last_node)
         if verbose:
-            plan_output += '%s\n' % manager.IndexToNode(index)
-            plan_output += 'Costs of the route: %sm\n' % route_distance
+            plan_output += '%s\n' % last_node
+            plan_output += 'Costs of the route: %s\n' % route_cost
             print(plan_output)
-        total_distance += route_distance
-        solution_dict[vehicle_id] = [route, total_distance]
+        total_cost += route_cost
+        solution_dict[vehicle_id] = [route, total_cost]
+    if verbose:
+        print('Total cost of the routes: %s' % total_cost)
     return solution_dict
 
 
@@ -121,9 +128,10 @@ def main(data, time_limit_seconds=10, verbose=False):
             print('vehicle %s with %s dropoffs' % (veh_index, len(do_list)))
         for do in do_list:
             index = manager.NodeToIndex(do[0])
-            veh_id = data['starts'][veh_index]
+            # start node
+            veh_node = data['starts'][veh_index]
             if verbose:
-                print('vehicle %s (%s), dropoff %s (%s), res_id %s' % (veh_index, veh_id, do[0], index, do[1]))
+                print('vehicle %s (%s), dropoff %s (%s), res_id %s' % (veh_index, veh_node, do[0], index, do[1]))
             #routing.VehicleVar(index).SetValues([-1,veh_index])
             routing.SetAllowedVehiclesForIndex([veh_index],index)
 
@@ -136,7 +144,6 @@ def main(data, time_limit_seconds=10, verbose=False):
         # Convert from routing variable Index to demands NodeIndex.
         from_node = manager.IndexToNode(from_index)
         return data['demands'][from_node]
-
     demand_callback_index = routing.RegisterUnaryTransitCallback(demand_callback)
     routing.AddDimensionWithVehicleCapacity(
         demand_callback_index,

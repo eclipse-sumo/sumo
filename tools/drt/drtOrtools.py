@@ -108,10 +108,14 @@ def create_data_model(reservations, fleet, cost_type='distance', verbose=False):
         type_vehicle = types_vehicles_unique[0]
     cost_matrix = get_cost_matrix(edges, type_vehicle, cost_type)
 
-    pd_numeric = [[ii+1, n_dp_reservations+ii+1, (dp_reservations[ii].state==1 | dp_reservations[ii].state==2)] for ii in range(0, n_dp_reservations)]
-    do_numeric = [ii + 1 + 2*n_dp_reservations for ii in range(0, n_do_reservations)]
+    # pd_nodes = list([from_node, to_node, is_new])
+    # start from_node with 1 (0 is for depot)
+    pd_nodes = [[ii+1, n_dp_reservations+ii+1, (dp_reservations[ii].state==1 | dp_reservations[ii].state==2)] for ii in range(0, n_dp_reservations)]
+    # do_node = list(dropoff_node)
+    do_nodes = [ii + 1 + 2*n_dp_reservations for ii in range(0, n_do_reservations)]
     ii = 1 + 2*n_dp_reservations + n_do_reservations
-    starts_numeric = [jj for jj in range(ii, ii + n_vehicles)]
+    # node to start from
+    start_nodes = [jj for jj in range(ii, ii + n_vehicles)]
 
 #    for reservation in reservations:
 #        # if reservation.state=8 (picked up), use current edge of the occupied vehicle
@@ -126,7 +130,7 @@ def create_data_model(reservations, fleet, cost_type='distance', verbose=False):
     for v_i, id_vehicle in enumerate(fleet):
         dropoffs.append(list())
         for i, reservation in enumerate(do_reservations):
-            r_i = do_numeric[i]
+            r_i = do_nodes[i]
             entered_persons = traci.vehicle.getPersonIDList(id_vehicle)
             if reservation.persons[0] in entered_persons:
                 dropoffs[v_i].append((r_i, reservation.id))
@@ -139,21 +143,20 @@ def create_data_model(reservations, fleet, cost_type='distance', verbose=False):
 
     data = {}
     data['cost_matrix'] = cost_matrix
-    data['pickups_deliveries'] = pd_numeric
+    data['pickups_deliveries'] = pd_nodes
     data['dropoffs'] = dropoffs
     data['num_vehicles'] = n_vehicles
-    data['starts'] = starts_numeric
-    data['ends'] = n_vehicles * [0]
+    data['starts'] = start_nodes
+    data['ends'] = n_vehicles * [0]  # end at 'depot', which is is anywere
     data['demands'] = [0] + n_dp_reservations*[1] + n_dp_reservations*[-1] + n_do_reservations*[-1] + vehicle_demand
     data['vehicle_capacities'] = vehicle_capacities
     return data
 
 
 def get_cost_matrix(edges, type_vehicle, cost_type='distance'):
-    """Get cost matrix between edges."""
+    """Get cost matrix between edges.
+    Index in cost matrix is the same as the node index of the constraint solver."""
     n_edges = len(edges)
-    # index 0 is depot
-    # cost to depot should be always 0
     cost_matrix = np.zeros([n_edges, n_edges])
     cost_dict = {}
     # TODO initialize cost_dict in run() and update for speed improvement
@@ -163,6 +166,8 @@ def get_cost_matrix(edges, type_vehicle, cost_type='distance'):
                 # get costs from previous call
                 cost_matrix[ii][jj] = cost_dict[(edge_from, edge_to)]
                 continue
+            # cost to depot should be always 0
+            # (means there is no way to depot in the end)
             if edge_from == 'depot' or edge_to == 'depot':
                 cost_matrix[ii][jj] = 0
                 continue
