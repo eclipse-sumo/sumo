@@ -1450,14 +1450,21 @@ GNESelectorFrame::selectAttributeCarrier(const GNEViewNetHelper::ObjectsUnderCur
     if (AC->getTagProperty().isDataElement() && !myViewNet->getEditModes().isCurrentSupermodeData()) {
         return false;
     }
-    // toggle selection
-    if (AC->isAttributeCarrierSelected()) {
-        AC->unselectAttributeCarrier();
+    // filter GLObjects by layer
+    auto filteredGLObjects = GNEViewNetHelper::filterElementsByLayer(objectsUnderCursor.getClickedGLObjects());
+    // check if we have to open dialog
+    if (filteredGLObjects.size() > 1) {
+        myViewNet->openSelectDialogAtCursor(filteredGLObjects);
     } else {
-        AC->selectAttributeCarrier();
+        // toggle selection
+        if (AC->isAttributeCarrierSelected()) {
+            AC->unselectAttributeCarrier();
+        } else {
+            AC->selectAttributeCarrier();
+        }
+        // update information label
+        mySelectionInformation->updateInformationLabel();
     }
-    // update information label
-    mySelectionInformation->updateInformationLabel();
     return true;
 }
 

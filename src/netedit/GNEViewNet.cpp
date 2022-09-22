@@ -5256,9 +5256,7 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
                 if (myMouseButtonKeyPressed.shiftKeyPressed()) {
                     // begin rectangle selection
                     mySelectingArea.beginRectangleSelection();
-                } else {
-                    // select attribute carrier
-                    myViewParent->getSelectorFrame()->selectAttributeCarrier(myObjectsUnderCursor);
+                } else if (!myViewParent->getSelectorFrame()->selectAttributeCarrier(myObjectsUnderCursor)) {
                     // process click
                     processClick(eventData);
                 }
@@ -5572,8 +5570,7 @@ GNEViewNet::processLeftButtonPressDemand(void* eventData) {
                 if (myMouseButtonKeyPressed.shiftKeyPressed()) {
                     // begin rectangle selection
                     mySelectingArea.beginRectangleSelection();
-                } else {
-                    myViewParent->getSelectorFrame()->selectAttributeCarrier(myObjectsUnderCursor);
+                } else if (!myViewParent->getSelectorFrame()->selectAttributeCarrier(myObjectsUnderCursor)) {
                     // process click
                     processClick(eventData);
                 }
@@ -5745,8 +5742,7 @@ GNEViewNet::processLeftButtonPressData(void* eventData) {
                 if (myMouseButtonKeyPressed.shiftKeyPressed()) {
                     // begin rectangle selection
                     mySelectingArea.beginRectangleSelection();
-                } else {
-                    myViewParent->getSelectorFrame()->selectAttributeCarrier(myObjectsUnderCursor);
+                } else if (!myViewParent->getSelectorFrame()->selectAttributeCarrier(myObjectsUnderCursor)) {
                     // process click
                     processClick(eventData);
                 }
