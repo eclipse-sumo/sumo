@@ -1370,6 +1370,9 @@ struct GNEViewNetHelper {
     /// @brief get rainbow scaled color
     static const RGBColor& getRainbowScaledColor(const double min, const double max, const double value);
 
+    /// @brief filter elements based on the layer
+    static std::vector<GUIGlObject*> filterElementsByLayer(const std::vector<GUIGlObject*> &GLObjects);
+
 private:
     /// @brief scale (rainbow) colors
     static std::vector<RGBColor> myRainbowScaledColors;
