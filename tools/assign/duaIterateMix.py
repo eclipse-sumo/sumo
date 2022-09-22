@@ -19,7 +19,8 @@
 # @date    2022-08-10
 
 """
-Run duarouter and sumo alternating to perform a mixed traffic assignment of user equilibrium and system optimal 
+Run duarouter and sumo alternating to perform a mixed traffic assignment of user equilibrium and system optimal (Mixed traffic flow of Human Driven Vehicles (HDVs) and Connected and Autonomous Vehicle (CAVs)) 
+It is assumed that HDVs follow user equilibrium and CAVs follow system optimal.
 """
 from __future__ import print_function
 from __future__ import absolute_import
@@ -384,6 +385,14 @@ def main(args=None):
         input_demands = options.trips.split(",")
     if options.routes:
         input_demands_1 = options.routes.split(",")
+    if options.trips and not options.routes: 
+        print("Please insert HDVs trip by -t and CAVs trips by -r") 
+    if options.routes and not options.trips:
+        print("Please insert HDVs trip by -t and CAVs trips by -r") 
+    if input_demands != ['trips.trips.xml']:
+        print("please name HDVs demand file as 'trips.trips.xml'")    
+    if input_demands_1 != ['trips.trips.CAV.xml']:
+        print("please name CAVs demand file as 'trips.trips.CAV.xml'")
     if options.weightmemory:
         costmemory = CostMemory('traveltime', pessimism=options.pessimism, network_file=options.net
                                 )
