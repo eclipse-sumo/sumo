@@ -555,8 +555,17 @@ GNEViewNet::openObjectDialogAtCursor(const FXEvent* /*ev*/) {
 
 void
 GNEViewNet::openDeleteDialogAtCursor(const std::vector<GUIGlObject*> &GLObjects) {
-    // create cursor popup dialog for mark front element
+    // create cursor popup dialog for delete element
     myPopup = new GUICursorDialog(GUICursorDialog::CursorDialogType::DELETE_ELEMENT, this, GLObjects);
+    // open popup dialog
+    openPopupDialog();
+}
+
+
+void
+GNEViewNet::openSelectDialogAtCursor(const std::vector<GUIGlObject*> &GLObjects) {
+    // create cursor popup dialog for select element
+    myPopup = new GUICursorDialog(GUICursorDialog::CursorDialogType::SELECT_ELEMENT, this, GLObjects);
     // open popup dialog
     openPopupDialog();
 }
@@ -5238,8 +5247,6 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
             // first swap lane to edges if mySelectEdges is enabled and shift key isn't pressed
             if (myNetworkViewOptions.selectEdges() && (myMouseButtonKeyPressed.shiftKeyPressed() == false)) {
                 myObjectsUnderCursor.swapLane2Edge();
-                // update AC under cursor
-                AC = myObjectsUnderCursor.getAttributeCarrierFront();
             }
             // now filter locked elements
             myObjectsUnderCursor.filterLockedElements(myLockManager);
@@ -5250,17 +5257,8 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
                     // begin rectangle selection
                     mySelectingArea.beginRectangleSelection();
                 } else {
-                    // first check that under cursor there is an attribute carrier, isn't a demand element and is selectable
-                    if (AC && !AC->getTagProperty().isDemandElement()) {
-                        // toggle networkElement selection
-                        if (AC->isAttributeCarrierSelected()) {
-                            AC->unselectAttributeCarrier();
-                        } else {
-                            AC->selectAttributeCarrier();
-                        }
-                    }
-                    // update information label
-                    myViewParent->getSelectorFrame()->getSelectionInformation()->updateInformationLabel();
+                    // select attribute carrier
+                    myViewParent->getSelectorFrame()->selectAttributeCarrier(myObjectsUnderCursor);
                     // process click
                     processClick(eventData);
                 }
@@ -5575,17 +5573,7 @@ GNEViewNet::processLeftButtonPressDemand(void* eventData) {
                     // begin rectangle selection
                     mySelectingArea.beginRectangleSelection();
                 } else {
-                    // first check that under cursor there is an attribute carrier, is demand element and is selectable
-                    if (AC && AC->getTagProperty().isDemandElement() && !myLockManager.isObjectLocked(myObjectsUnderCursor.getGlTypeFront(), AC->isAttributeCarrierSelected())) {
-                        // toggle networkElement selection
-                        if (AC->isAttributeCarrierSelected()) {
-                            AC->unselectAttributeCarrier();
-                        } else {
-                            AC->selectAttributeCarrier();
-                        }
-                    }
-                    // update information label
-                    myViewParent->getSelectorFrame()->getSelectionInformation()->updateInformationLabel();
+                    myViewParent->getSelectorFrame()->selectAttributeCarrier(myObjectsUnderCursor);
                     // process click
                     processClick(eventData);
                 }
@@ -5758,17 +5746,7 @@ GNEViewNet::processLeftButtonPressData(void* eventData) {
                     // begin rectangle selection
                     mySelectingArea.beginRectangleSelection();
                 } else {
-                    // first check that under cursor there is an attribute carrier, is data element and is selectable
-                    if (AC && !myLockManager.isObjectLocked(AC->getGUIGlObject()->getType(), AC->isAttributeCarrierSelected()) && AC->getTagProperty().isDataElement()) {
-                        // toggle networkElement selection
-                        if (AC->isAttributeCarrierSelected()) {
-                            AC->unselectAttributeCarrier();
-                        } else {
-                            AC->selectAttributeCarrier();
-                        }
-                    }
-                    // update information label
-                    myViewParent->getSelectorFrame()->getSelectionInformation()->updateInformationLabel();
+                    myViewParent->getSelectorFrame()->selectAttributeCarrier(myObjectsUnderCursor);
                     // process click
                     processClick(eventData);
                 }

@@ -1427,6 +1427,41 @@ GNESelectorFrame::clearCurrentSelection() const {
 }
 
 
+bool 
+GNESelectorFrame::selectAttributeCarrier(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor) {
+    // get front AC
+    auto AC = objectsUnderCursor.getAttributeCarrierFront();
+    // check AC
+    if (AC == nullptr) {
+        return false;
+    }
+    // check locking
+    if (myViewNet->getLockManager().isObjectLocked(AC->getGUIGlObject()->getType(), AC->isAttributeCarrierSelected())) {
+        return false;
+    }
+    // check modes
+    if ((AC->getTagProperty().isNetworkElement() || AC->getTagProperty().isAdditionalElement()) && 
+        !myViewNet->getEditModes().isCurrentSupermodeNetwork()) {
+        return false;
+    }
+    if (AC->getTagProperty().isDemandElement() && !myViewNet->getEditModes().isCurrentSupermodeDemand()) {
+        return false;
+    }
+    if (AC->getTagProperty().isDataElement() && !myViewNet->getEditModes().isCurrentSupermodeData()) {
+        return false;
+    }
+    // toggle selection
+    if (AC->isAttributeCarrierSelected()) {
+        AC->unselectAttributeCarrier();
+    } else {
+        AC->selectAttributeCarrier();
+    }
+    // update information label
+    mySelectionInformation->updateInformationLabel();
+    return true;
+}
+
+
 void
 GNESelectorFrame::handleIDs(const std::vector<GNEAttributeCarrier*>& ACs, const ModificationMode::Operation setop) {
     // declare set operation
