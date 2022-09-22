@@ -45,7 +45,7 @@ public:
     /** @brief Constructor
      * @param[in] parent The parent window
      */
-    GUIDialog_Breakpoints(GUIMainWindow* parent, std::vector<SUMOTime>& breakpoints, FXMutex& breakpointLock);
+    GUIDialog_Breakpoints(GUIApplicationWindow* parent, std::vector<SUMOTime>& breakpoints, FXMutex& breakpointLock);
 
     /// @brief Destructor
     ~GUIDialog_Breakpoints();
@@ -94,7 +94,7 @@ private:
     FXTable* myTable;
 
     /// @brief The parent window
-    GUIMainWindow* myParent;
+    GUIApplicationWindow* myParent;
 
     /// @brief List of breakpoints
     std::vector<SUMOTime>* myBreakpoints;
