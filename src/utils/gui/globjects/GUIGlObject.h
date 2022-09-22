@@ -103,8 +103,8 @@ public:
         return myGlID;
     }
 
-    /// @brief get icon associatd with this GL Object
-    FXIcon *getIcon() const;
+    /// @brief get icon associated with this GL Object
+    FXIcon *getGLIcon() const;
 
     /// @}
 
