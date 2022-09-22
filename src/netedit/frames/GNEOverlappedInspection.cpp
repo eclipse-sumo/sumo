@@ -108,7 +108,7 @@ GNEOverlappedInspection::showOverlappedInspection(const GNEViewNetHelper::Object
         // clear and fill list again
         myOverlappedElementList->clearItems();
         for (int i = 0; i < (int)myOverlappedACs.size(); i++) {
-            myOverlappedElementList->insertItem(i, myOverlappedACs.at(i)->getID().c_str(), myOverlappedACs.at(i)->getGUIGlObject()->getIcon());
+            myOverlappedElementList->insertItem(i, myOverlappedACs.at(i)->getID().c_str(), myOverlappedACs.at(i)->getACIcon());
         }
         // set first element as selected element
         myOverlappedElementList->getItem(0)->setSelected(TRUE);

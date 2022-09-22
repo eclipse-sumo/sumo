@@ -53,7 +53,7 @@ GNEGenericData::GNEGenericData(const SumoXMLTag tag, FXIcon *icon, const GUIGlOb
     GUIGlObject(type, dataIntervalParent->getID(), icon),
     Parameterised(parameters),
     GNEHierarchicalElement(dataIntervalParent->getNet(), tag, junctionParents, edgeParents, laneParents, additionalParents, demandElementParents, genericDataParents),
-    GNEPathManager::PathElement(GNEPathManager::PathElement::Options::DATA_ELEMENT),
+    GNEPathManager::PathElement(this, GNEPathManager::PathElement::Options::DATA_ELEMENT),
     myDataIntervalParent(dataIntervalParent) {
 }
 
@@ -133,7 +133,7 @@ GNEGenericData::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     buildShowParamsPopupEntry(ret);
     // show option to open additional dialog
     if (myTagProperty.hasDialog()) {
-        GUIDesigns::buildFXMenuCommand(ret, ("Open " + getTagStr() + " Dialog").c_str(), getIcon(), &parent, MID_OPEN_ADDITIONAL_DIALOG);
+        GUIDesigns::buildFXMenuCommand(ret, ("Open " + getTagStr() + " Dialog").c_str(), getACIcon(), &parent, MID_OPEN_ADDITIONAL_DIALOG);
         new FXMenuSeparator(ret);
     } else {
         GUIDesigns::buildFXMenuCommand(ret, ("Cursor position in view: " + toString(getPositionInView().x()) + "," + toString(getPositionInView().y())).c_str(), nullptr, nullptr, 0);

@@ -84,10 +84,10 @@ GUIDottedGeometry::DottedGeometryColor::getColor(DottedContourType type) {
         case DottedContourType::REMOVE:
             if (myColorFlag) {
                 myColorFlag = false;
-                return RGBColor::ORANGE;
+                return RGBColor(229, 233, 255);
             } else {
                 myColorFlag = true;
-                return RGBColor::ORANGE.changedBrightness(-30);
+                return RGBColor(255, 109, 196);
             }
         case DottedContourType::YELLOW:
             if (myColorFlag) {

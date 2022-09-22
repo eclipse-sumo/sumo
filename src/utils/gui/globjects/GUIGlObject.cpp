@@ -188,7 +188,7 @@ GUIGlObject::getParentName() const {
 
 
 FXIcon*
-GUIGlObject::getIcon() const {
+GUIGlObject::getGLIcon() const {
     return myIcon;
 }
 

@@ -66,7 +66,7 @@ GUICursorDialog::GUICursorDialog(CursorDialogType cursorDialogType, GUISUMOAbstr
         }
         // create a menu command for every object
         for (const auto &GLObject : objects) {
-            myMenuCommandGLObjects.push_back(std::make_pair(GUIDesigns::buildFXMenuCommand(this, GLObject->getMicrosimID(), GLObject->getIcon(), this, MID_CURSORDIALOG_PROPERTIES), GLObject));
+            myMenuCommandGLObjects.push_back(std::make_pair(GUIDesigns::buildFXMenuCommand(this, GLObject->getMicrosimID(), GLObject->getGLIcon(), this, MID_CURSORDIALOG_PROPERTIES), GLObject));
         }
     } else if (cursorDialogType == CursorDialogType::DELETE_ELEMENT) {
         // create header
@@ -79,7 +79,7 @@ GUICursorDialog::GUICursorDialog(CursorDialogType cursorDialogType, GUISUMOAbstr
         }
         // create a menu command for every object
         for (const auto &GLObject : objects) {
-            myMenuCommandGLObjects.push_back(std::make_pair(GUIDesigns::buildFXMenuCommand(this, GLObject->getMicrosimID(), GLObject->getIcon(), this, MID_CURSORDIALOG_DELETEELEMENT), GLObject));
+            myMenuCommandGLObjects.push_back(std::make_pair(GUIDesigns::buildFXMenuCommand(this, GLObject->getMicrosimID(), GLObject->getGLIcon(), this, MID_CURSORDIALOG_DELETEELEMENT), GLObject));
         }
     } else if (cursorDialogType == CursorDialogType::FRONT_ELEMENT) {
         // create header
@@ -92,7 +92,7 @@ GUICursorDialog::GUICursorDialog(CursorDialogType cursorDialogType, GUISUMOAbstr
         }
         // create a menu command for every object
         for (const auto &GLObject : objects) {
-            myMenuCommandGLObjects.push_back(std::make_pair(GUIDesigns::buildFXMenuCommand(this, GLObject->getMicrosimID(), GLObject->getIcon(), this, MID_CURSORDIALOG_SETFRONTELEMENT), GLObject));
+            myMenuCommandGLObjects.push_back(std::make_pair(GUIDesigns::buildFXMenuCommand(this, GLObject->getMicrosimID(), GLObject->getGLIcon(), this, MID_CURSORDIALOG_SETFRONTELEMENT), GLObject));
         }
     }
     // check if create move down menu command

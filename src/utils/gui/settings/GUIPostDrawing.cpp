@@ -37,8 +37,9 @@ GUIPostDrawing::executePostDrawingTasks() {
     myGLObjectsToUpdate.clear();
     // reset mouse Pos
     mousePos = Position::INVALID;
-    // clear elements under mouse
+    // clear containers
     myElementsUnderCursor.clear();
+    elementsMarkedToRemove.clear();
     // reset marked elements
     markedNode = nullptr;
     markedEdge = nullptr;

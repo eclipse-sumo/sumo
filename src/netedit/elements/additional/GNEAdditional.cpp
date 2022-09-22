@@ -46,7 +46,7 @@ GNEAdditional::GNEAdditional(const std::string& id, GNENet* net, GUIGlObjectType
                              const std::vector<GNEGenericData*>& genericDataParents) :
     GUIGlObject(type, id, icon),
     GNEHierarchicalElement(net, tag, junctionParents, edgeParents, laneParents, additionalParents, demandElementParents, genericDataParents),
-    GNEPathManager::PathElement(GNEPathManager::PathElement::Options::ADDITIONAL_ELEMENT),
+    GNEPathManager::PathElement(this, GNEPathManager::PathElement::Options::ADDITIONAL_ELEMENT),
     myAdditionalName(additionalName) {
     // check if is template
     myIsTemplate = (id == "");
@@ -62,7 +62,7 @@ GNEAdditional::GNEAdditional(GNENet* net, GUIGlObjectType type, SumoXMLTag tag, 
                              const std::vector<GNEGenericData*>& genericDataParents) :
     GUIGlObject(type, additionalParents.front()->getID(), icon),
     GNEHierarchicalElement(net, tag, junctionParents, edgeParents, laneParents, additionalParents, demandElementParents, genericDataParents),
-    GNEPathManager::PathElement(GNEPathManager::PathElement::Options::ADDITIONAL_ELEMENT),
+    GNEPathManager::PathElement(this, GNEPathManager::PathElement::Options::ADDITIONAL_ELEMENT),
     myAdditionalName(additionalName) {
 }
 
@@ -147,7 +147,7 @@ GNEAdditional::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     buildShowParamsPopupEntry(ret);
     // show option to open additional dialog
     if (myTagProperty.hasDialog()) {
-        GUIDesigns::buildFXMenuCommand(ret, "Open " + getTagStr() + " Dialog", getIcon(), &parent, MID_OPEN_ADDITIONAL_DIALOG);
+        GUIDesigns::buildFXMenuCommand(ret, "Open " + getTagStr() + " Dialog", getACIcon(), &parent, MID_OPEN_ADDITIONAL_DIALOG);
         new FXMenuSeparator(ret);
     }
     // Show position parameters

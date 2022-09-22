@@ -168,7 +168,7 @@ GNERoute::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     buildShowParamsPopupEntry(ret);
     // show option to open demand element dialog
     if (myTagProperty.hasDialog()) {
-        GUIDesigns::buildFXMenuCommand(ret, "Open " + getTagStr() + " Dialog", getIcon(), &parent, MID_OPEN_ADDITIONAL_DIALOG);
+        GUIDesigns::buildFXMenuCommand(ret, "Open " + getTagStr() + " Dialog", getACIcon(), &parent, MID_OPEN_ADDITIONAL_DIALOG);
         new FXMenuSeparator(ret);
     }
     GUIDesigns::buildFXMenuCommand(ret, "Cursor position in view: " + toString(getPositionInView().x()) + "," + toString(getPositionInView().y()), nullptr, nullptr, 0);
@@ -387,7 +387,10 @@ GNERoute::computePathElement() {
 void
 GNERoute::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* segment, const double offsetFront) const {
     // get inspected and front flags
-    const bool dottedElement = myNet->getViewNet()->isAttributeCarrierInspected(this) || (myNet->getViewNet()->getFrontAttributeCarrier() == this) || (gPostDrawing.markedRoute == this);
+    const bool dottedElement = myNet->getViewNet()->isAttributeCarrierInspected(this) || 
+                               (myNet->getViewNet()->getFrontAttributeCarrier() == this) ||
+                               myNet->getViewNet()->drawDeleteContour(this, this) ||
+                               (gPostDrawing.markedRoute == this);
     // check conditions
     if (myNet->getViewNet()->getNetworkViewOptions().showDemandElements() &&
             myNet->getViewNet()->getDataViewOptions().showDemandElements() &&
@@ -492,7 +495,10 @@ GNERoute::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, 
 void
 GNERoute::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const GNEPathManager::Segment* /*segment*/, const double offsetFront) const {
     // get inspected and front flags
-    const bool dottedElement = myNet->getViewNet()->isAttributeCarrierInspected(this) || (myNet->getViewNet()->getFrontAttributeCarrier() == this) || (gPostDrawing.markedRoute == this);
+    const bool dottedElement = myNet->getViewNet()->isAttributeCarrierInspected(this) ||
+                               (myNet->getViewNet()->getFrontAttributeCarrier() == this) ||
+                               myNet->getViewNet()->drawDeleteContour(this, this) ||
+                               (gPostDrawing.markedRoute == this);
     // check conditions
     if (myNet->getViewNet()->getNetworkViewOptions().showDemandElements() &&
             myNet->getViewNet()->getDataViewOptions().showDemandElements() &&
