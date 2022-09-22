@@ -3957,10 +3957,7 @@ GNEViewNetHelper::filterElementsByLayer(const std::vector<GUIGlObject*> &GLObjec
     if (GLObjects.size() > 0) {
         const auto firstLayer = GLObjects.front()->getType();
         for (const auto &GLObject : GLObjects) {
-            if ((GLO_ADDITIONALELEMENT <= firstLayer) && (firstLayer <= GLO_TRACTIONSUBSTATION) &&
-                (GLO_ADDITIONALELEMENT <= GLObject->getType()) && (GLObject->getType() <= GLO_TRACTIONSUBSTATION)) {
-                filteredGLObjects.push_back(GLObject);
-            } else if ((GLO_RIDE <= firstLayer) && (firstLayer <= GLO_TRANSHIP) &&
+            if ((GLO_RIDE <= firstLayer) && (firstLayer <= GLO_TRANSHIP) &&
                 (GLO_RIDE <= GLObject->getType()) && (GLObject->getType() <= GLO_TRANSHIP)) {
                 filteredGLObjects.push_back(GLObject);
             } else if ((GLO_STOP <= firstLayer) && (firstLayer <= GLO_STOP_CONTAINER) &&
