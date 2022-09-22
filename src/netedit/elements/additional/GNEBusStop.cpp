@@ -198,6 +198,11 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
                 GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::REMOVE, myAdditionalGeometry.getShape(), stopWidth,
                         busStopExaggeration, true, true);
             }
+            // delete contour
+            if (myNet->getViewNet()->drawSelectContour(this, this)) {
+                GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::SELECT, myAdditionalGeometry.getShape(), stopWidth,
+                        busStopExaggeration, true, true);
+            }
             // draw child demand elements
             for (const auto& demandElement : getChildDemandElements()) {
                 if (!demandElement->getTagProperty().isPlacedInRTree()) {

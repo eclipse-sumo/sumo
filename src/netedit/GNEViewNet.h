@@ -495,6 +495,9 @@ public:
     /// @brief check if draw delete contour
     bool drawDeleteContour(const GUIGlObject* GLObject, const GNEAttributeCarrier* AC) const;
 
+    /// @brief check if draw select contour
+    bool drawSelectContour(const GUIGlObject* GLObject, const GNEAttributeCarrier* AC) const;
+
     /// @brief get last created route
     GNEDemandElement* getLastCreatedRoute() const;
 
@@ -742,8 +745,11 @@ private:
     /// @brief draw temporal Junction TLS Lines
     void drawTemporalJunctionTLSLines() const;
 
-    /// @brief draw temporal objects to delete (used for dotted contour)
-    void drawTemporalObjectsToDelete();
+    /// @brief draw delete dotted contours
+    void drawDeleteDottedContour();
+
+    /// @brief draw select dotted contours
+    void drawSelectDottedContour();
 
     /// @}
 

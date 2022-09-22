@@ -258,9 +258,13 @@ GNEEdgeData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lan
             if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
                 GNEEdge::drawDottedContourEdge(s, GUIDottedGeometry::DottedContourType::FRONT, laneEdge->getParentEdge(), true, true);
             }
-            // delete cntour
+            // delete contour
             if (myNet->getViewNet()->drawDeleteContour(this, this)) {
                 GNEEdge::drawDottedContourEdge(s, GUIDottedGeometry::DottedContourType::REMOVE, laneEdge->getParentEdge(), true, true);
+            }
+            // select contour
+            if (myNet->getViewNet()->drawSelectContour(this, this)) {
+                GNEEdge::drawDottedContourEdge(s, GUIDottedGeometry::DottedContourType::SELECT, laneEdge->getParentEdge(), true, true);
             }
         }
         // Pop name

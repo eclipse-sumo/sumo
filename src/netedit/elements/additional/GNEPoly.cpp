@@ -347,6 +347,16 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
                         polyExaggeration, true, true);
             }
         }
+        // select contour
+        if (myNet->getViewNet()->drawSelectContour(this, this)) {
+            // draw depending if is closed
+            if (getFill() || myPolygonGeometry.getShape().isClosed()) {
+                GUIDottedGeometry::drawDottedContourClosedShape(s, GUIDottedGeometry::DottedContourType::SELECT, myPolygonGeometry.getShape(), 1);
+            } else {
+                GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::SELECT, myPolygonGeometry.getShape(), s.neteditSizeSettings.polylineWidth,
+                        polyExaggeration, true, true);
+            }
+        }
         // draw lock icon
         GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), polyExaggeration);
         // pop layer matrix

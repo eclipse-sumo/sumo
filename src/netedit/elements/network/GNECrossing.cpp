@@ -289,6 +289,11 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
             GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::REMOVE, myCrossingGeometry.getShape(), halfWidth,
                     selectionScale, true, true);
         }
+        // delete contour
+        if (myNet->getViewNet()->drawSelectContour(this, this)) {
+            GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::SELECT, myCrossingGeometry.getShape(), halfWidth,
+                    selectionScale, true, true);
+        }
     }
 }
 

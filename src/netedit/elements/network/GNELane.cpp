@@ -652,6 +652,10 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
             if (myNet->getViewNet()->drawDeleteContour(this, this)) {
                 GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::REMOVE, getLaneShape(), laneDrawingConstants.halfWidth, 1, true, true);
             }
+            // select contour
+            if (myNet->getViewNet()->drawSelectContour(this, this)) {
+                GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::SELECT, getLaneShape(), laneDrawingConstants.halfWidth, 1, true, true);
+            }
         }
         // draw children
         drawChildren(s);

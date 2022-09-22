@@ -440,6 +440,10 @@ GNEAdditional::drawSquaredAdditional(const GUIVisualizationSettings& s, const Po
         if (myNet->getViewNet()->drawDeleteContour(this, this)) {
             GUIDottedGeometry::drawDottedSquaredShape(s, GUIDottedGeometry::DottedContourType::REMOVE, pos, size, size, 0, 0, 0, exaggeration);
         }
+        // select contour
+        if (myNet->getViewNet()->drawSelectContour(this, this)) {
+            GUIDottedGeometry::drawDottedSquaredShape(s, GUIDottedGeometry::DottedContourType::SELECT, pos, size, size, 0, 0, 0, exaggeration);
+        }
         // Draw additional ID
         drawAdditionalID(s);
         // draw additional name

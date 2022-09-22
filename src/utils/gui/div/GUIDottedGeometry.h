@@ -35,6 +35,7 @@ public:
         INSPECT,
         INSPECT_SMALL,
         REMOVE,
+        SELECT,
         FRONT,
         FRONT_SMALL,
         MOVE,

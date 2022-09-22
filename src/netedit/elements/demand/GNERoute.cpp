@@ -390,6 +390,7 @@ GNERoute::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, 
     const bool dottedElement = myNet->getViewNet()->isAttributeCarrierInspected(this) || 
                                (myNet->getViewNet()->getFrontAttributeCarrier() == this) ||
                                myNet->getViewNet()->drawDeleteContour(this, this) ||
+                               myNet->getViewNet()->drawSelectContour(this, this) ||
                                (gPostDrawing.markedRoute == this);
     // check conditions
     if (myNet->getViewNet()->getNetworkViewOptions().showDemandElements() &&
@@ -484,6 +485,10 @@ GNERoute::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, 
         if (myNet->getViewNet()->drawDeleteContour(this, this)) {
             GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::REMOVE, shape, routeWidth, 1, segment->isFirstSegment(), segment->isLastSegment());
         }
+        // select contour
+        if (myNet->getViewNet()->drawSelectContour(this, this)) {
+            GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::SELECT, shape, routeWidth, 1, segment->isFirstSegment(), segment->isLastSegment());
+        }
         // draw marked dotted contour
         if (gPostDrawing.markedRoute == this) {
             GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::GREEN, shape, routeWidth, 1, segment->isFirstSegment(), segment->isLastSegment());
@@ -498,6 +503,7 @@ GNERoute::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLa
     const bool dottedElement = myNet->getViewNet()->isAttributeCarrierInspected(this) ||
                                (myNet->getViewNet()->getFrontAttributeCarrier() == this) ||
                                myNet->getViewNet()->drawDeleteContour(this, this) ||
+                               myNet->getViewNet()->drawSelectContour(this, this) ||
                                (gPostDrawing.markedRoute == this);
     // check conditions
     if (myNet->getViewNet()->getNetworkViewOptions().showDemandElements() &&
@@ -551,6 +557,11 @@ GNERoute::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLa
         // delete contour
         if (myNet->getViewNet()->drawDeleteContour(this, this)) {
             GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::REMOVE, fromLane->getLane2laneConnections().getLane2laneGeometry(toLane).getShape(),
+                    routeWidth, 1, false, false);
+        }
+        // select contour
+        if (myNet->getViewNet()->drawSelectContour(this, this)) {
+            GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::SELECT, fromLane->getLane2laneConnections().getLane2laneGeometry(toLane).getShape(),
                     routeWidth, 1, false, false);
         }
         // green contour

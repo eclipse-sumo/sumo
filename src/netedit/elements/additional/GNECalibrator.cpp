@@ -488,6 +488,12 @@ GNECalibrator::drawCalibratorSymbol(const GUIVisualizationSettings& s, const dou
                 s.additionalSettings.calibratorWidth, s.additionalSettings.calibratorHeight * 0.5,
                 0, s.additionalSettings.calibratorHeight * 0.5, rot, exaggeration);
     }
+    // select contour
+    if (myNet->getViewNet()->drawSelectContour(this, this)) {
+        GUIDottedGeometry::drawDottedSquaredShape(s, GUIDottedGeometry::DottedContourType::SELECT, pos,
+                s.additionalSettings.calibratorWidth, s.additionalSettings.calibratorHeight * 0.5,
+                0, s.additionalSettings.calibratorHeight * 0.5, rot, exaggeration);
+    }
 }
 
 void

@@ -812,6 +812,11 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
                     // draw using drawDottedContourClosedShape
                     GUIDottedGeometry::drawDottedSquaredShape(s, GUIDottedGeometry::DottedContourType::REMOVE, vehiclePosition, length * 0.5, width * 0.5, length * -0.5, 0, vehicleRotation, exaggeration);
                 }
+                // select contour
+                if (myNet->getViewNet()->drawSelectContour(this, this)) {
+                    // draw using drawDottedContourClosedShape
+                    GUIDottedGeometry::drawDottedSquaredShape(s, GUIDottedGeometry::DottedContourType::SELECT, vehiclePosition, length * 0.5, width * 0.5, length * -0.5, 0, vehicleRotation, exaggeration);
+                }
                 if (myNet->getViewNet()->getEditModes().isCurrentSupermodeDemand() &&
                         (myNet->getViewNet()->getEditModes().demandEditMode == DemandEditMode::DEMAND_TYPE) &&
                         (myNet->getViewNet()->getViewParent()->getTypeFrame()->getTypeSelector()->getCurrentType() == getParentDemandElements().front())) {
@@ -881,8 +886,10 @@ GNEVehicle::computePathElement() {
 void
 GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* segment, const double offsetFront) const {
     // get flags
-    const bool dottedElement = myNet->getViewNet()->isAttributeCarrierInspected(this) || (myNet->getViewNet()->getFrontAttributeCarrier() == this) ||
-                               myNet->getViewNet()->drawDeleteContour(this, this);
+    const bool dottedElement = myNet->getViewNet()->isAttributeCarrierInspected(this) || 
+                               (myNet->getViewNet()->getFrontAttributeCarrier() == this) ||
+                               myNet->getViewNet()->drawDeleteContour(this, this) ||
+                               myNet->getViewNet()->drawSelectContour(this, this);
     const bool drawNetworkMode = myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() &&
                                  myNet->getViewNet()->getNetworkViewOptions().showDemandElements() &&
                                  myNet->getViewNet()->getDemandViewOptions().showAllTrips();
@@ -993,6 +1000,10 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane
             if (myNet->getViewNet()->drawDeleteContour(this, this)) {
                 GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::REMOVE, shape, width, 1, segment->isFirstSegment(), segment->isLastSegment());
             }
+            // select contour
+            if (myNet->getViewNet()->drawSelectContour(this, this)) {
+                GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::SELECT, shape, width, 1, segment->isFirstSegment(), segment->isLastSegment());
+            }
         }
     }
 }
@@ -1001,8 +1012,10 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane
 void
 GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const GNEPathManager::Segment* /*segment*/, const double offsetFront) const {
     // get flags
-    const bool dottedElement = myNet->getViewNet()->isAttributeCarrierInspected(this) || (myNet->getViewNet()->getFrontAttributeCarrier() == this) ||
-                               myNet->getViewNet()->drawDeleteContour(this, this);;
+    const bool dottedElement = myNet->getViewNet()->isAttributeCarrierInspected(this) || 
+                               (myNet->getViewNet()->getFrontAttributeCarrier() == this) ||
+                               myNet->getViewNet()->drawDeleteContour(this, this) ||
+                               myNet->getViewNet()->drawSelectContour(this, this);
     const bool drawNetworkMode = myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() &&
                                  myNet->getViewNet()->getNetworkViewOptions().showDemandElements() &&
                                  myNet->getViewNet()->getDemandViewOptions().showAllTrips();
@@ -1052,6 +1065,12 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* from
                 // delete contour
                 if (myNet->getViewNet()->drawDeleteContour(this, this)) {
                     GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::REMOVE, 
+                            fromLane->getLane2laneConnections().getLane2laneGeometry(toLane).getShape(),
+                            width, 1, false, false);
+                }
+                // select contour
+                if (myNet->getViewNet()->drawSelectContour(this, this)) {
+                    GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::SELECT, 
                             fromLane->getLane2laneConnections().getLane2laneGeometry(toLane).getShape(),
                             width, 1, false, false);
                 }

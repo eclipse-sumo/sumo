@@ -1061,8 +1061,10 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
     drawTemporalE1TLSLines();
     // draw temporal lines between junctions in TLS Mode
     drawTemporalJunctionTLSLines();
-    // draw temporal elements to delete
-    drawTemporalObjectsToDelete();
+    // draw delete dotted contour
+    drawDeleteDottedContour();
+    // draw select dotted contour
+    drawSelectDottedContour();
     // pop draw matrix
     GLHelper::popMatrix();
     // update interval bar
@@ -1603,6 +1605,17 @@ GNEViewNet::drawTranslateFrontAttributeCarrier(const GNEAttributeCarrier* AC, do
 
 bool
 GNEViewNet::drawDeleteContour(const GUIGlObject* GLObject, const GNEAttributeCarrier* AC) const {
+    // check if we're in the correct mode and supermode
+    if ((AC->getTagProperty().isNetworkElement() || AC->getTagProperty().isAdditionalElement()) && 
+        !(myEditModes.isCurrentSupermodeNetwork() && (myEditModes.networkEditMode == NetworkEditMode::NETWORK_DELETE))) {
+        return false;
+    } else if (AC->getTagProperty().isDemandElement() && 
+        !(myEditModes.isCurrentSupermodeDemand() && (myEditModes.demandEditMode == DemandEditMode::DEMAND_DELETE))) {
+        return false;
+    } else if (AC->getTagProperty().isDataElement() && 
+        (!myEditModes.isCurrentSupermodeData() && (myEditModes.dataEditMode == DataEditMode::DATA_DELETE))) {
+        return false;
+    }
     // check if we're in post drawing
     if (myPostDrawing) {
         return gPostDrawing.isElementUnderCursor(GLObject);
@@ -1615,18 +1628,41 @@ GNEViewNet::drawDeleteContour(const GUIGlObject* GLObject, const GNEAttributeCar
     if (!gPostDrawing.isElementUnderCursor(GLObject)) {
         return false;
     }
+    // add it in gPostDrawing
+    gPostDrawing.elementsMarkedToRemove.push_back(GLObject);
+    // we wan't to draw delete contour in this time
+    return false;
+}
+
+
+bool
+GNEViewNet::drawSelectContour(const GUIGlObject* GLObject, const GNEAttributeCarrier* AC) const {
     // check if we're in the correct mode and supermode
     if ((AC->getTagProperty().isNetworkElement() || AC->getTagProperty().isAdditionalElement()) && 
-        myEditModes.isCurrentSupermodeNetwork() && (myEditModes.networkEditMode == NetworkEditMode::NETWORK_DELETE)) {
-        gPostDrawing.elementsMarkedToRemove.push_back(GLObject);
-    } else if (AC->getTagProperty().isDemandElement() && myEditModes.isCurrentSupermodeDemand() && 
-        (myEditModes.demandEditMode == DemandEditMode::DEMAND_DELETE)) {
-        gPostDrawing.elementsMarkedToRemove.push_back(GLObject);
-    } else if (AC->getTagProperty().isDataElement() && myEditModes.isCurrentSupermodeData() && 
-        (myEditModes.dataEditMode == DataEditMode::DATA_DELETE)) {
-        gPostDrawing.elementsMarkedToRemove.push_back(GLObject);
+        !(myEditModes.isCurrentSupermodeNetwork() && (myEditModes.networkEditMode == NetworkEditMode::NETWORK_SELECT))) {
+        return false;
+    } else if (AC->getTagProperty().isDemandElement() && 
+        !(myEditModes.isCurrentSupermodeDemand() && (myEditModes.demandEditMode == DemandEditMode::DEMAND_SELECT))) {
+        return false;
+    } else if (AC->getTagProperty().isDataElement() && 
+        (!myEditModes.isCurrentSupermodeData() && (myEditModes.dataEditMode == DataEditMode::DATA_SELECT))) {
+        return false;
     }
-    // we wan't to draw delete contour in this time
+    // check if we're in post drawing
+    if (myPostDrawing) {
+        return gPostDrawing.isElementUnderCursor(GLObject);
+    }
+    // check ifs blocked
+    if (myLockManager.isObjectLocked(GLObject->getType(), AC->isAttributeCarrierSelected())) {
+        return false;
+    }
+    // check if is under mouse
+    if (!gPostDrawing.isElementUnderCursor(GLObject)) {
+        return false;
+    }
+    // add it in gPostDrawing
+    gPostDrawing.elementsMarkedToSelect.push_back(GLObject);
+    // we wan't to draw select contour in this moment
     return false;
 }
 
@@ -5105,7 +5141,7 @@ GNEViewNet::drawTemporalJunctionTLSLines() const {
 
 
 void
-GNEViewNet::drawTemporalObjectsToDelete() {
+GNEViewNet::drawDeleteDottedContour() {
     // avoid draw if we're in position or rectangle selection
     if (!myVisualizationSettings->drawForPositionSelection && !myVisualizationSettings->drawForRectangleSelection) {
         // only draw marked elements that have the same GLType of the last element
@@ -5117,6 +5153,26 @@ GNEViewNet::drawTemporalObjectsToDelete() {
                     myNet->getPathManager()->forceDrawPath(*myVisualizationSettings, pathElement);
                 } else {
                     elementToRemove->drawGL(*myVisualizationSettings);
+                }
+            }
+        }
+    }
+}
+
+
+void
+GNEViewNet::drawSelectDottedContour() {
+    // avoid draw if we're in position or rectangle selection
+    if (!myVisualizationSettings->drawForPositionSelection && !myVisualizationSettings->drawForRectangleSelection) {
+        // only draw marked elements that have the same GLType of the last element
+        for (const auto elementToSelect : gPostDrawing.elementsMarkedToSelect) {
+            if (elementToSelect->getType() == gPostDrawing.elementsMarkedToSelect.back()->getType()) {
+                // check if is a normalGLObject or a path element
+                const auto pathElement = myNet->getPathManager()->getPathElement(elementToSelect);
+                if (pathElement != nullptr) {
+                    myNet->getPathManager()->forceDrawPath(*myVisualizationSettings, pathElement);
+                } else {
+                    elementToSelect->drawGL(*myVisualizationSettings);
                 }
             }
         }

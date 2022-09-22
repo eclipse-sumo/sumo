@@ -323,6 +323,14 @@ GNETAZRelData::drawGL(const GUIVisualizationSettings& s) const {
                 GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::REMOVE, myTAZRelGeometry.getShape(), 0.5, 1, true, true);
             }
         }
+        // select contour
+        if (myNet->getViewNet()->drawSelectContour(this, this)) {
+            if (myNet->getViewNet()->getDataViewOptions().TAZRelDrawing()) {
+                GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::SELECT, myTAZRelGeometryCenter.getShape(), 0.5, 1, true, true);
+            } else {
+                GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::SELECT, myTAZRelGeometry.getShape(), 0.5, 1, true, true);
+            }
+        }
     }
 }
 

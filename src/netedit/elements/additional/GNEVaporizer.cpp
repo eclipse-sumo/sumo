@@ -194,6 +194,11 @@ GNEVaporizer::drawGL(const GUIVisualizationSettings& s) const {
             GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::REMOVE, myAdditionalGeometry.getShape(), 0.5,
                     vaporizerExaggeration, true, true);
         }
+        // select contour
+        if (myNet->getViewNet()->drawSelectContour(this, this)) {
+            GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::SELECT, myAdditionalGeometry.getShape(), 0.5,
+                    vaporizerExaggeration, true, true);
+        }
     }
 }
 

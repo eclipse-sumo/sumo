@@ -40,6 +40,7 @@ GUIPostDrawing::executePostDrawingTasks() {
     // clear containers
     myElementsUnderCursor.clear();
     elementsMarkedToRemove.clear();
+    elementsMarkedToSelect.clear();
     // reset marked elements
     markedNode = nullptr;
     markedEdge = nullptr;

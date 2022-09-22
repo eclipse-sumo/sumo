@@ -156,7 +156,11 @@ GNEWalkingArea::drawGL(const GUIVisualizationSettings& s) const {
             GUIDottedGeometry::drawDottedContourClosedShape(s, GUIDottedGeometry::DottedContourType::REMOVE, walkingAreaShape,
                     (walkingAreaExaggeration >= 1) ? walkingAreaExaggeration : 1);
         }
-
+        // select contour
+        if (myNet->getViewNet()->drawSelectContour(this, this)) {
+            GUIDottedGeometry::drawDottedContourClosedShape(s, GUIDottedGeometry::DottedContourType::SELECT, walkingAreaShape,
+                    (walkingAreaExaggeration >= 1) ? walkingAreaExaggeration : 1);
+        }
     }
 }
 

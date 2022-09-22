@@ -199,6 +199,11 @@ GNEInductionLoopDetector::drawGL(const GUIVisualizationSettings& s) const {
                 GUIDottedGeometry::drawDottedSquaredShape(s, GUIDottedGeometry::DottedContourType::REMOVE, myAdditionalGeometry.getShape().front(), 
                     2, 1, 0, 0, myAdditionalGeometry.getShapeRotations().front(), E1Exaggeration);
             }
+            // select contour
+            if (myNet->getViewNet()->drawSelectContour(this, this)) {
+                GUIDottedGeometry::drawDottedSquaredShape(s, GUIDottedGeometry::DottedContourType::SELECT, myAdditionalGeometry.getShape().front(), 
+                    2, 1, 0, 0, myAdditionalGeometry.getShapeRotations().front(), E1Exaggeration);
+            }
             const auto &TLSAttributes = myNet->getViewNet()->getViewParent()->getTLSEditorFrame()->getTLSAttributes();
             // check if orange dotted contour must be drawn
             if (myNet->getViewNet()->selectingDetectorsTLSMode() && 
