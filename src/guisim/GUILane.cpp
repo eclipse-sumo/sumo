@@ -78,7 +78,7 @@ GUILane::GUILane(const std::string& id, double maxSpeed, double friction, double
                  int index, bool isRampAccel,
                  const std::string& type) :
     MSLane(id, maxSpeed, friction, length, edge, numericalID, shape, width, permissions, changeLeft, changeRight, index, isRampAccel, type),
-    GUIGlObject(GLO_LANE, id),
+    GUIGlObject(GLO_LANE, id, GUIIconSubSys::getIcon(GUIIcon::LANE)),
     myParkingAreas(nullptr),
     myTesselation(nullptr),
 #ifdef HAVE_OSG

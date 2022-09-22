@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-08-31 13:17:29 by Eclipse SUMO netedit Version v1_14_1+0722-0cc4592
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="local_ramp_metering.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="/localdata2/debug/11394/net.net.xml"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+</configuration>
+-->
+
+<net version="1.9" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="0.00,0.00" convBoundary="-49.28,83.92,163.89,85.74" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
+
+    <edge id=":cluster_J1_gneJ27_0" function="internal">
+        <lane id=":cluster_J1_gneJ27_0_0" index="0" speed="22.11" length="12.31" shape="5.38,74.33 9.04,74.90 11.42,76.09 13.81,77.25 17.46,77.74"/>
+        <lane id=":cluster_J1_gneJ27_0_1" index="1" speed="22.11" length="12.31" shape="5.35,77.53 17.46,77.74"/>
+        <lane id=":cluster_J1_gneJ27_0_2" index="2" speed="22.11" length="12.31" shape="5.32,80.73 17.50,80.94"/>
+        <lane id=":cluster_J1_gneJ27_0_3" index="3" speed="22.11" length="12.31" shape="5.29,83.93 17.54,84.14"/>
+    </edge>
+
+    <edge id="detection_area" from="cluster_J1_gneJ27" to="gneJ20" priority="-1" shape="17.56,85.74 163.89,83.92">
+        <lane id="detection_area_0" index="0" speed="22.22" length="146.34" shape="17.46,77.74 163.79,75.92"/>
+        <lane id="detection_area_1" index="1" speed="22.22" length="146.34" shape="17.50,80.94 163.83,79.12"/>
+        <lane id="detection_area_2" index="2" speed="22.22" length="146.34" shape="17.54,84.14 163.87,82.32"/>
+    </edge>
+    <edge id="merge.102.8" from="cluster_J0_J1" to="cluster_J1_gneJ27" priority="-1" shape="-45.45,85.06 5.28,85.53">
+        <lane id="merge.102.8_0" index="0" speed="22.00" length="54.56" shape="-49.18,73.82 5.38,74.33"/>
+        <lane id="merge.102.8_1" index="1" speed="22.00" length="54.56" shape="-49.21,77.02 5.35,77.53"/>
+        <lane id="merge.102.8_2" index="2" speed="22.00" length="54.56" shape="-49.24,80.22 5.32,80.73"/>
+        <lane id="merge.102.8_3" index="3" speed="22.00" length="54.56" shape="-49.27,83.42 5.29,83.93"/>
+    </edge>
+
+    <junction id="cluster_J0_J1" type="dead_end" x="-49.28" y="85.00" incLanes="" intLanes="" shape="-49.28,85.02 -49.16,72.23"/>
+    <junction id="cluster_J1_gneJ27" type="priority" x="10.50" y="85.50" incLanes="merge.102.8_0 merge.102.8_1 merge.102.8_2 merge.102.8_3" intLanes=":cluster_J1_gneJ27_0_0 :cluster_J1_gneJ27_0_1 :cluster_J1_gneJ27_0_2 :cluster_J1_gneJ27_0_3" shape="17.56,85.74 17.44,76.14 14.81,75.92 12.93,75.30 11.42,74.49 9.91,73.66 8.03,73.01 5.40,72.73 5.28,85.53">
+        <request index="0" response="0010" foes="0010" cont="0"/>
+        <request index="1" response="0000" foes="0001" cont="0"/>
+        <request index="2" response="0000" foes="0000" cont="0"/>
+        <request index="3" response="0000" foes="0000" cont="0"/>
+    </junction>
+    <junction id="gneJ20" type="dead_end" x="163.89" y="83.92" incLanes="detection_area_0 detection_area_1 detection_area_2" intLanes="" shape="163.77,74.32 163.89,83.92"/>
+
+    <connection from="merge.102.8" to="detection_area" fromLane="0" toLane="0" via=":cluster_J1_gneJ27_0_0" dir="s" state="m"/>
+    <connection from="merge.102.8" to="detection_area" fromLane="1" toLane="0" via=":cluster_J1_gneJ27_0_1" dir="s" state="M"/>
+    <connection from="merge.102.8" to="detection_area" fromLane="2" toLane="1" via=":cluster_J1_gneJ27_0_2" dir="s" state="M"/>
+    <connection from="merge.102.8" to="detection_area" fromLane="3" toLane="2" via=":cluster_J1_gneJ27_0_3" dir="s" state="M"/>
+
+    <connection from=":cluster_J1_gneJ27_0" to="detection_area" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":cluster_J1_gneJ27_0" to="detection_area" fromLane="1" toLane="0" dir="s" state="M"/>
+    <connection from=":cluster_J1_gneJ27_0" to="detection_area" fromLane="2" toLane="1" dir="s" state="M"/>
+    <connection from=":cluster_J1_gneJ27_0" to="detection_area" fromLane="3" toLane="2" dir="s" state="M"/>
+
+</net>

@@ -50,13 +50,13 @@ netedit.leftClick(referencePosition, 290, 185)
 netedit.changeDefaultValue(netedit.attrs.waypointLane.create.tripID, "")
 
 # try to create waypoint
-netedit.leftClick(referencePosition, 290, 185)
+netedit.leftClick(referencePosition, 300, 185)
 
 # set valid value
 netedit.changeDefaultValue(netedit.attrs.waypointLane.create.tripID, "tripID")
 
 # create waypoint
-netedit.leftClick(referencePosition, 290, 185)
+netedit.leftClick(referencePosition, 305, 185)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)

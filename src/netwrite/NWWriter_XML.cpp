@@ -442,6 +442,8 @@ NWWriter_XML::writeStreetSigns(const OptionsCont& oc, NBEdgeCont& ec) {
     }
     device.close();
 }
+
+
 void
 NWWriter_XML::writePTStops(const OptionsCont& oc, NBPTStopCont& sc) {
     OutputDevice& device = OutputDevice::getDevice(oc.getString("ptstop-output"));
@@ -451,6 +453,8 @@ NWWriter_XML::writePTStops(const OptionsCont& oc, NBPTStopCont& sc) {
     }
     device.close();
 }
+
+
 void NWWriter_XML::writePTLines(const OptionsCont& oc, NBPTLineCont& lc) {
     OutputDevice& device = OutputDevice::getDevice(oc.getString("ptline-output"));
     device.writeXMLHeader("ptLines", "ptlines_file.xsd");
@@ -459,6 +463,7 @@ void NWWriter_XML::writePTLines(const OptionsCont& oc, NBPTLineCont& lc) {
     }
     device.close();
 }
+
 
 void NWWriter_XML::writeParkingAreas(const OptionsCont& oc, NBParkingCont& pc, NBEdgeCont& ec) {
     OutputDevice& device = OutputDevice::getDevice(oc.getString("parking-output"));
@@ -469,6 +474,7 @@ void NWWriter_XML::writeParkingAreas(const OptionsCont& oc, NBParkingCont& pc, N
     device.close();
 }
 
+
 void
 NWWriter_XML::writeDistricts(const OptionsCont& oc, NBDistrictCont& dc) {
     OutputDevice& device = OutputDevice::getDevice(oc.getString("taz-output"));
@@ -477,6 +483,7 @@ NWWriter_XML::writeDistricts(const OptionsCont& oc, NBDistrictCont& dc) {
         NWWriter_SUMO::writeDistrict(device, *(*i).second);
     }
 }
+
 
 void
 NWWriter_XML::writeShape(OutputDevice& out, const GeoConvHelper& gch, PositionVector shape, SumoXMLAttr attr, bool useGeo, bool geoAccuracy) {
@@ -493,8 +500,6 @@ NWWriter_XML::writeShape(OutputDevice& out, const GeoConvHelper& gch, PositionVe
         out.setPrecision();
     }
 }
-
-/****************************************************************************/
 
 
 /****************************************************************************/

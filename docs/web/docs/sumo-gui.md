@@ -785,7 +785,7 @@ configuration:
 
 # GUI-settings Files
 
-All the settings configured in the *View Settings* dialog can be saved to a file and re-used for a new simulation. We refer to such files as gui-settings files. Such a file can also include information about breapoints, screenshots, simulation delay and background images.
+All the settings configured in the *View Settings* dialog can be saved to a file and re-used for a new simulation. We refer to such files as gui-settings files. Such a file can also include information about breakpoints, screenshots, simulation delay and background images.
 The easiest way to obtain a gui-settings file is via the *View Settings*-Dialog
 ![Open_viewsettings_editor.gif](images/Open_viewsettings_editor.gif
 "Open viewsettings editor"). Simply modify the settings and
@@ -823,7 +823,7 @@ It possible to reference a predefined scheme by it's name alone:
 </viewsettings>
 ```
 
-The name may either be one of the "native" schemes ("standard", "real world", ...) or any schema [stored in the registry](#changing_the_appearancevisualisation_of_the_simulation) by the user.
+The name may either be one of the "native" schemas ("standard", "real world", ...) or any schema [stored in the registry](#changing_the_appearancevisualisation_of_the_simulation) by the user.
 
 ## Breakpoints
 
@@ -1000,7 +1000,7 @@ output or in error messages. The following visualization settings are
 helpful:
 
 - Junction settings:
-  - disable *draw junction shape*
+  - disable *draw junction shape* (toggle with hotkey CTRL+J)
   - *show internal edge name*
   - *show internal junction name*
   - *show link junction index* (to see the correspondence between IDs and link indices)

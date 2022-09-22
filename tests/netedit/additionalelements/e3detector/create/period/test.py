@@ -47,7 +47,7 @@ netedit.leftClick(referencePosition, 100, 85)
 netedit.changeDefaultValue(netedit.attrs.E3.create.period, "-30")
 
 # try to create E3 with different frequency
-netedit.leftClick(referencePosition, 100, 85)
+netedit.leftClick(referencePosition, 110, 85)
 
 # set valid frequency
 netedit.changeDefaultValue(netedit.attrs.E3.create.period, "150.5")

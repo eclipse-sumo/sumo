@@ -18,6 +18,7 @@
 // Operations that must be applied after drawGL()
 /****************************************************************************/
 #include <config.h>
+#include <algorithm>
 
 #include "GUIPostDrawing.h"
 
@@ -34,6 +35,12 @@ GUIPostDrawing::executePostDrawingTasks() {
         GLObject->updateGLObject();
     }
     myGLObjectsToUpdate.clear();
+    // reset mouse Pos
+    mousePos = Position::INVALID;
+    // clear containers
+    myElementsUnderCursor.clear();
+    elementsMarkedToRemove.clear();
+    elementsMarkedToSelect.clear();
     // reset marked elements
     markedNode = nullptr;
     markedEdge = nullptr;
@@ -48,6 +55,24 @@ GUIPostDrawing::markGLObjectToUpdate(GUIGlObject* GLObject) {
     if (GLObject) {
         myGLObjectsToUpdate.push_back(GLObject);
     }
+}
+
+
+void 
+GUIPostDrawing::addElementUnderCursor(const GUIGlObject* GLObject) {
+    myElementsUnderCursor.push_back(GLObject);
+}
+
+
+bool
+GUIPostDrawing::isElementUnderCursor(const GUIGlObject* GLObject) const {
+    return std::find(myElementsUnderCursor.begin(), myElementsUnderCursor.end(), GLObject) != myElementsUnderCursor.end();
+}
+
+
+const std::vector<const GUIGlObject*>&
+GUIPostDrawing::getElementUnderCursor() const {
+    return myElementsUnderCursor;
 }
 
 /****************************************************************************/

@@ -397,7 +397,7 @@ public:
         bool joinTriggered = false;
 
         /// @brief whether the vehicle is removed from the net while stopping
-        bool parking = false;
+        ParkingType parking = ParkingType::ONROAD;
 
         /// @brief IDs of persons the vehicle has to wait for until departing
         std::set<std::string> awaitedPersons;
@@ -626,6 +626,9 @@ public:
 
     /// @brief parses stop trigger values
     static void parseStopTriggers(const std::vector<std::string>& triggers, bool expectTrigger, Stop& stop);
+
+    /// @brief parses parking type value
+    static ParkingType parseParkingType(const std::string& value);
 
     /// @brief The vehicle tag
     SumoXMLTag tag;

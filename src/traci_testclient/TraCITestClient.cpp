@@ -931,7 +931,7 @@ TraCITestClient::testAPI() {
     vehicle.addSubscriptionFilterLeadFollow(std::vector<int>({0, 1, 2}));
     vehicle.addSubscriptionFilterTurn();
     vehicle.addSubscriptionFilterVClass(std::vector<std::string>({"passenger"}));
-    vehicle.addSubscriptionFilterVType(std::vector<std::string>({"passenger"}));
+    vehicle.addSubscriptionFilterVType(std::vector<std::string>({"DEFAULT_VEHTYPE"}));
     vehicle.addSubscriptionFilterLCManeuver(1);
 
     vehicle.subscribeContext("3", libsumo::CMD_GET_VEHICLE_VARIABLE, 200, vars3, 0, 100);

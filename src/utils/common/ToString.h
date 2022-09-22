@@ -109,6 +109,12 @@ inline std::string toString<LaneSpreadFunction>(const LaneSpreadFunction& lsf, s
 }
 
 template <>
+inline std::string toString<ParkingType>(const ParkingType& pt, std::streamsize accuracy) {
+    UNUSED_PARAMETER(accuracy);
+    return SUMOXMLDefinitions::ParkingTypes.getString(pt);
+}
+
+template <>
 inline std::string toString<RightOfWay>(const RightOfWay& row, std::streamsize accuracy) {
     UNUSED_PARAMETER(accuracy);
     return SUMOXMLDefinitions::RightOfWayValues.getString(row);

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-02-11 10:28:07 by Eclipse SUMO sumo Version v1_12_0+0483-df84147
+<!-- generated on 2022-09-01 08:13:31 by Eclipse SUMO sumo Version v1_14_1+0740-0a959d4
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -21,11 +21,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <output>
         <write-license value="true"/>
         <precision value="4"/>
-        <netstate-dump.precision value="4"/>
-        <emission-output.precision value="4"/>
-        <battery-output.precision value="4"/>
-        <elechybrid-output.precision value="4"/>
-        <substations-output.precision value="4"/>
         <link-output value="linkstate.xml"/>
     </output>
 
@@ -37,7 +32,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <report>
         <xml-validation value="never"/>
-        <xml-validation.routes value="never"/>
         <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -499,18 +493,18 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </timestep>
     <timestep id="16.0000">
         <link from=":C_15_0" via="" to="CW_0">
-            <approaching id="NW" impatience="0.0000" arrivalTime="16.012" leaveTime="16.937" arrivalSpeed="6.6702" arrivalSpeedBraking="0.0000" leaveSpeed="4.1390" willPass="1"/>
+            <approaching id="NW" impatience="0.0000" arrivalTime="16.012" leaveTime="16.801" arrivalSpeed="6.6702" arrivalSpeedBraking="0.0000" leaveSpeed="6.0000" willPass="1"/>
         </link>
         <link from=":C_17_0" via="" to="CE_0">
-            <approaching id="SE" impatience="0.0000" arrivalTime="16.012" leaveTime="16.937" arrivalSpeed="6.6702" arrivalSpeedBraking="0.0000" leaveSpeed="4.1390" willPass="1"/>
+            <approaching id="SE" impatience="0.0000" arrivalTime="16.012" leaveTime="16.801" arrivalSpeed="6.6702" arrivalSpeedBraking="0.0000" leaveSpeed="6.0000" willPass="1"/>
         </link>
     </timestep>
     <timestep id="17.0000">
         <link from=":C_15_0" via="" to="CW_0">
-            <approaching id="NW" impatience="0.0000" arrivalTime="16.194" leaveTime="16.921" arrivalSpeed="7.1233" arrivalSpeedBraking="7.1233" leaveSpeed="6.6390" willPass="1"/>
+            <approaching id="NW" impatience="0.0000" arrivalTime="16.194" leaveTime="16.896" arrivalSpeed="7.1233" arrivalSpeedBraking="7.1233" leaveSpeed="7.1233" willPass="1"/>
         </link>
         <link from=":C_17_0" via="" to="CE_0">
-            <approaching id="SE" impatience="0.0000" arrivalTime="16.194" leaveTime="16.921" arrivalSpeed="7.1233" arrivalSpeedBraking="7.1233" leaveSpeed="6.6390" willPass="1"/>
+            <approaching id="SE" impatience="0.0000" arrivalTime="16.194" leaveTime="16.896" arrivalSpeed="7.1233" arrivalSpeedBraking="7.1233" leaveSpeed="7.1233" willPass="1"/>
         </link>
     </timestep>
     <timestep id="18.0000"/>

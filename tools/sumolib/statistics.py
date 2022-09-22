@@ -79,7 +79,7 @@ def setPrecision(formatstr, precision, isArray=False):
 
 class Statistics:
 
-    def __init__(self, label=None, abs=False, histogram=False, printMin=True, scale=1):
+    def __init__(self, label=None, abs=False, histogram=False, printMin=True, scale=1, printDev=False):
         self.label = label
         self.min = uMax
         self.min_label = None
@@ -89,6 +89,7 @@ class Statistics:
         self.abs = abs
         self.printMin = printMin
         self.scale = scale
+        self.printDev = printDev
         self.isArray = False
         if histogram:
             self.counts = defaultdict(int)
@@ -228,6 +229,8 @@ class Statistics:
             if self.abs:
                 result += setPrecision(', mean_abs %.2f, median_abs %.2f', precision, self.isArray) % (
                     self.avg_abs(), self.median_abs())
+            if self.printDev:
+                result += (setPrecision(',  stdDev  %.2f', precision, self.isArray) % (self.meanAndStdDev()[1]))
             if self.counts is not None:
                 if histStyle == 1:
                     result += '\n histogram: %s' % self.histogram()
@@ -250,6 +253,9 @@ class Statistics:
             result += setPrecision(' Q1="%.2f" median="%.2f" Q3="%.2f"', precision, self.isArray) % self.quartiles()
             result += (setPrecision(' meanAbs="%.2f" medianAbs="%.2f"', precision, self.isArray) %
                        (self.avg_abs(), self.median_abs()))
+            if self.printDev:
+                result += (setPrecision(' stdDev="%.2f"', precision, self.isArray) %
+                           (self.meanAndStdDev()[1]))
         if self.counts is not None:
             result += '>\n'
             for kv in self.histogram():

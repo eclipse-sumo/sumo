@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-09-08 14:36:53 by Eclipse SUMO netedit Version v1_14_1+0906-476f99a
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="abstract.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="abstract.net.xml"/>
+        <output.street-names value="true"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-internal-links value="false"/>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="true"/>
+    </pedestrian>
+
+</configuration>
+-->
+
+<edges version="1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="101694131#0" from="1661927181" to="cluster_4673135617_4673135618_4673135619_588181295" priority="17" type="railway.tram" numLanes="1" speed="13.89" spreadType="center" allow="tram">
+        <lane index="0">
+            <param key="origId" value="101694131"/>
+        </lane>
+        <param key="origTo" value="4673135618"/>
+    </edge>
+    <edge id="101694131#1" from="cluster_4673135617_4673135618_4673135619_588181295" to="cluster_30731510_588181257_588181258_588181259" priority="17" type="railway.tram" numLanes="1" speed="13.89" spreadType="center" allow="tram">
+        <lane index="0">
+            <param key="origId" value="101694131 236523982"/>
+        </lane>
+        <param key="origFrom" value="4673135618"/>
+        <param key="origTo" value="588181259"/>
+    </edge>
+    <edge id="101699679#0" from="1661927181" to="cluster_4673135617_4673135618_4673135619_588181295" priority="17" type="railway.tram" numLanes="1" speed="13.89" spreadType="center" allow="tram">
+        <lane index="0">
+            <param key="origId" value="101699679"/>
+        </lane>
+        <param key="origTo" value="4673135619"/>
+    </edge>
+    <edge id="101699679#1" from="cluster_4673135617_4673135618_4673135619_588181295" to="2550263264" priority="17" type="railway.tram" numLanes="1" speed="13.89" spreadType="center" allow="tram">
+        <lane index="0">
+            <param key="origId" value="101699679"/>
+        </lane>
+        <param key="origFrom" value="4673135619"/>
+    </edge>
+    <edge id="101699692#1" from="4673135620" to="1661927181" priority="17" type="railway.tram" numLanes="1" speed="13.89" spreadType="center" allow="tram">
+        <lane index="0">
+            <param key="origId" value="101699692"/>
+        </lane>
+    </edge>
+    <edge id="153522302#0" from="1661927181" to="cluster_4673135617_4673135618_4673135619_588181295" priority="17" type="railway.tram" numLanes="1" speed="13.89" spreadType="center" allow="tram">
+        <lane index="0">
+            <param key="origId" value="153522302"/>
+        </lane>
+        <param key="origTo" value="4673135617"/>
+    </edge>
+    <edge id="153522302#1" from="cluster_4673135617_4673135618_4673135619_588181295" to="4673135615" priority="17" type="railway.tram" numLanes="1" speed="13.89" spreadType="center" allow="tram">
+        <lane index="0">
+            <param key="origId" value="153522302"/>
+        </lane>
+        <param key="origFrom" value="4673135617"/>
+    </edge>
+    <edge id="46140393" from="588181300" to="4673135620" priority="17" type="railway.tram" numLanes="1" speed="13.89" spreadType="center" allow="tram">
+        <lane index="0">
+            <param key="origId" value="46140393 101699692"/>
+        </lane>
+    </edge>
+</edges>

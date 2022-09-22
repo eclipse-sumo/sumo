@@ -20,6 +20,10 @@
 #include <config.h>
 
 #include <utils/gui/div/GUIParameterTableWindow.h>
+#include <netedit/frames/common/GNEDeleteFrame.h>
+#include <netedit/GNENet.h>
+#include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewParent.h>
 
 #include "GNENetworkElement.h"
 
@@ -28,14 +32,14 @@
 // method definitions
 // ===========================================================================
 
-GNENetworkElement::GNENetworkElement(GNENet* net, const std::string& id, GUIGlObjectType type, SumoXMLTag tag,
+GNENetworkElement::GNENetworkElement(GNENet* net, const std::string& id, GUIGlObjectType type, SumoXMLTag tag, FXIcon *icon,
                                      const std::vector<GNEJunction*>& junctionParents,
                                      const std::vector<GNEEdge*>& edgeParents,
                                      const std::vector<GNELane*>& laneParents,
                                      const std::vector<GNEAdditional*>& additionalParents,
                                      const std::vector<GNEDemandElement*>& demandElementParents,
                                      const std::vector<GNEGenericData*>& genericDataParents) :
-    GUIGlObject(type, id),
+    GUIGlObject(type, id, icon),
     GNEHierarchicalElement(net, tag, junctionParents, edgeParents, laneParents, additionalParents, demandElementParents, genericDataParents),
     myShapeEdited(false) {
 }
@@ -98,6 +102,32 @@ GNENetworkElement::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) 
 Boundary
 GNENetworkElement::getCenteringBoundary() const {
     return myBoundary;
+}
+
+
+bool
+GNENetworkElement::isGLObjectLocked() {
+    if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
+        return myNet->getViewNet()->getLockManager().isObjectLocked(getType(), isAttributeCarrierSelected());
+    } else {
+        return true;
+    }
+}
+
+
+void
+GNENetworkElement::markAsFrontElement() {
+    myNet->getViewNet()->setFrontAttributeCarrier(this);
+}
+
+
+void
+GNENetworkElement::selectGLObject() {
+    if (isAttributeCarrierSelected()) {
+        unselectAttributeCarrier();
+    } else {
+        selectAttributeCarrier();
+    }
 }
 
 

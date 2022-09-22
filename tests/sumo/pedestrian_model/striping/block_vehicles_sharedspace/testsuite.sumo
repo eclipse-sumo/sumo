@@ -6,6 +6,7 @@ walking_forward_illegal
 # pedestrian is forbidden on that road but walks there anyway instead of using the sidewalk
 walking_forward_sidewalk_onRoad
 walking_forward_2edges
+walking_forward_2edges_widthChange
 walking_forward_2lanes
 walking_forward_insertion
 walking_forward_2edges_insertion
@@ -34,3 +35,4 @@ complex_sublane
 
 # warn if the stripe width is lower than the pedestrian width
 stripe-width
+tls

@@ -151,14 +151,14 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
     int numAddedBidi = 0;
     if (oc.exists("railway.topology.all-bidi") && oc.getBool("railway.topology.all-bidi")) {
         NBTurningDirectionsComputer::computeTurnDirections(myNodeCont, false);
-        numAddedBidi = NBRailwayTopologyAnalyzer::makeAllBidi(*this);
+        numAddedBidi = NBRailwayTopologyAnalyzer::makeAllBidi(myEdgeCont);
     } else if (oc.exists("railway.topology.repair") && oc.getBool("railway.topology.repair")) {
         // correct railway angles for angle-based connectivity heuristic
         myEdgeCont.checkGeometries(0,
                                    oc.getFloat("geometry.min-radius"), false,
                                    oc.getBool("geometry.min-radius.fix.railways"), true);
         NBTurningDirectionsComputer::computeTurnDirections(myNodeCont, false);
-        numAddedBidi = NBRailwayTopologyAnalyzer::repairTopology(*this);
+        numAddedBidi = NBRailwayTopologyAnalyzer::repairTopology(myEdgeCont, myPTStopCont, myPTLineCont);
     }
     if (numAddedBidi > 0) {
         // update routes
@@ -166,14 +166,14 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
     }
     if (oc.exists("railway.topology.direction-priority") && oc.getBool("railway.topology.direction-priority")) {
         NBTurningDirectionsComputer::computeTurnDirections(myNodeCont, false); // recompute after new edges were added
-        NBRailwayTopologyAnalyzer::extendDirectionPriority(*this, true);
+        NBRailwayTopologyAnalyzer::extendDirectionPriority(myEdgeCont, true);
     } else if (oc.exists("railway.topology.extend-priority") && oc.getBool("railway.topology.extend-priority")) {
         NBTurningDirectionsComputer::computeTurnDirections(myNodeCont, false); // recompute after new edges were added
-        NBRailwayTopologyAnalyzer::extendDirectionPriority(*this, false);
+        NBRailwayTopologyAnalyzer::extendDirectionPriority(myEdgeCont, false);
     }
     if (oc.exists("railway.topology.output") && oc.isSet("railway.topology.output")) {
         NBTurningDirectionsComputer::computeTurnDirections(myNodeCont, false); // recompute after new edges were added
-        NBRailwayTopologyAnalyzer::analyzeTopology(*this);
+        NBRailwayTopologyAnalyzer::analyzeTopology(myEdgeCont);
     }
 
 
@@ -370,11 +370,6 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
         WRITE_MESSAGE("Guessed " + toString(sidewalks) + " sidewalks.");
         addedLanes += sidewalks;
     }
-    // re-adapt stop lanes after adding special lanes
-    if (oc.exists("ptstop-output") && oc.isSet("ptstop-output") && addedLanes > 0) {
-        myPTStopCont.assignLanes(myEdgeCont);
-    }
-
     // check whether any not previously setable connections may be set now
     myEdgeCont.recheckPostProcessConnections();
 
@@ -645,6 +640,8 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
 
     //find accesses for pt rail stops and add bidi-stops
     if (oc.exists("ptstop-output") && oc.isSet("ptstop-output")) {
+        // re-adapt stop lanes after adding special lanes and cutting edge shapes at junction
+        myPTStopCont.assignLanes(myEdgeCont);
         before = SysUtils::getCurrentMillis();
         int numBidiStops = 0;
         if (!oc.getBool("ptstop-output.no-bidi")) {
@@ -678,18 +675,6 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
         WRITE_WARNING("Network contains very large coordinates and will probably flicker in the GUI. Check for outlying nodes and make sure the network is shifted to the coordinate origin");
     }
 }
-
-
-/*
-void
-NBNetBuilder::computeSingleNode(NBNode* node, OptionsCont& oc, const std::set<std::string>& explicitTurnarounds, bool mayAddOrRemove) {
-    // for a single node do the following:
-    // sortEdges
-    // computeLaneShapes
-    // computeNodeShapes
-    // computeEdgeShapes
-}
-*/
 
 
 void

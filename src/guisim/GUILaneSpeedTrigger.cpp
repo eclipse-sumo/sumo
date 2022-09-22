@@ -266,7 +266,7 @@ GUILaneSpeedTrigger::GUILaneSpeedTrigger(
     const std::string& id, const std::vector<MSLane*>& destLanes,
     const std::string& aXMLFilename) :
     MSLaneSpeedTrigger(id, destLanes, aXMLFilename),
-    GUIGlObject_AbstractAdd(GLO_VSS, id),
+    GUIGlObject_AbstractAdd(GLO_VSS, id, GUIIconSubSys::getIcon(GUIIcon::VARIABLESPEEDSIGN)),
     myShowAsKMH(true), myLastValue(-1) {
     myFGPositions.reserve(destLanes.size());
     myFGRotations.reserve(destLanes.size());

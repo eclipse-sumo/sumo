@@ -59,9 +59,9 @@ GUIMainWindow::GUIMainWindow(FXApp* app) :
     myListInternal(false),
     myListParking(true),
     myListTeleporting(false) {
-    // build tooltip
-    myStaticTooltip = new MFXStaticToolTip(app);
-    myStaticTooltip->hide();
+    // build static tooltips
+    myStaticTooltipMenu = new MFXStaticToolTip(app);
+    myStaticTooltipView = new MFXStaticToolTip(app);
     // build bold font
     FXFontDesc fdesc;
     app->getNormalFont()->getFontDesc(fdesc);
@@ -84,14 +84,14 @@ GUIMainWindow::GUIMainWindow(FXApp* app) :
 
 
 GUIMainWindow::~GUIMainWindow() {
-    delete myStaticTooltip;
+    delete myStaticTooltipMenu;
+    delete myStaticTooltipView;
     delete myBoldFont;
     delete myFallbackFont;
     delete myTopDock;
     delete myBottomDock;
     delete myLeftDock;
     delete myRightDock;
-    //myInstance = nullptr;
 }
 
 
@@ -191,8 +191,14 @@ GUIMainWindow::getGLVisual() const {
 
 
 MFXStaticToolTip*
-GUIMainWindow::getStaticTooltip() const {
-    return myStaticTooltip;
+GUIMainWindow::getStaticTooltipMenu() const {
+    return myStaticTooltipMenu;
+}
+
+
+MFXStaticToolTip*
+GUIMainWindow::getStaticTooltipView() const {
+    return myStaticTooltipView;
 }
 
 

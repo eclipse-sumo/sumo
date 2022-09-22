@@ -188,7 +188,7 @@ GUIGLObjectPopupMenu::onCmdShowCursorGeoPositionOnline(FXObject* item, FXSelecto
 
 long
 GUIGLObjectPopupMenu::onCmdShowPars(FXObject*, FXSelector, void*) {
-    if (myObject == nullptr) {
+    if (myObject) {
         myObject->getParameterWindow(*myApplication, *myParent);
     } else {
         throw ProcessError("Object is NULL");
@@ -200,7 +200,7 @@ GUIGLObjectPopupMenu::onCmdShowPars(FXObject*, FXSelector, void*) {
 
 long
 GUIGLObjectPopupMenu::onCmdShowTypePars(FXObject*, FXSelector, void*) {
-    if (myObject == nullptr) {
+    if (myObject) {
         myObject->getTypeParameterWindow(*myApplication, *myParent);
     } else {
         throw ProcessError("Object is NULL");
@@ -211,7 +211,7 @@ GUIGLObjectPopupMenu::onCmdShowTypePars(FXObject*, FXSelector, void*) {
 
 long
 GUIGLObjectPopupMenu::onCmdAddSelected(FXObject*, FXSelector, void*) {
-    if (myObject == nullptr) {
+    if (myObject) {
         gSelected.select(myObject->getGlID());
         myParent->update();
     } else {
@@ -223,7 +223,7 @@ GUIGLObjectPopupMenu::onCmdAddSelected(FXObject*, FXSelector, void*) {
 
 long
 GUIGLObjectPopupMenu::onCmdRemoveSelected(FXObject*, FXSelector, void*) {
-    if (myObject == nullptr) {
+    if (myObject) {
         gSelected.deselect(myObject->getGlID());
         myParent->update();
     } else {

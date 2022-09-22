@@ -372,6 +372,8 @@ public:
     /// @brief get ID and programID together (for convenient debugging)
     std::string getDescription() const;
 
+    /// @brief perform optional final checks
+    virtual void finalChecks() const {}
 
 protected:
     /// @brief id for temporary definitions

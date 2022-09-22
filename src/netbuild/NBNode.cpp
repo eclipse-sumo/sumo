@@ -2367,7 +2367,14 @@ NBNode::checkIsRemovableReporting(std::string& reason) const {
             origSet.insert((*i)->getFromNode());
         }
         if (origSet.size() < 2) {
-            return false;
+            // overlapping case
+            if (myIncomingEdges[0]->getGeometry() == myIncomingEdges[1]->getGeometry() &&
+                    myOutgoingEdges[0]->getGeometry() == myOutgoingEdges[1]->getGeometry()) {
+                return ((myIncomingEdges[0]->expandableBy(myOutgoingEdges[0], reason) &&
+                            myIncomingEdges[1]->expandableBy(myOutgoingEdges[1], reason))
+                        || (myIncomingEdges[0]->expandableBy(myOutgoingEdges[1], reason) &&
+                            myIncomingEdges[1]->expandableBy(myOutgoingEdges[0], reason)));
+            }
         }
         // check whether this node is an intermediate node of
         //  a two-directional street
@@ -2403,12 +2410,25 @@ NBNode::getEdgesToJoin() const {
     std::vector<std::pair<NBEdge*, NBEdge*> > ret;
     // one in, one out-case
     if (myOutgoingEdges.size() == 1 && myIncomingEdges.size() == 1) {
-        ret.push_back(
-            std::pair<NBEdge*, NBEdge*>(
-                myIncomingEdges[0], myOutgoingEdges[0]));
+        ret.push_back(std::make_pair(myIncomingEdges[0], myOutgoingEdges[0]));
         return ret;
     }
-    // two in, two out-case
+    if (myIncomingEdges.size() == 2 && myOutgoingEdges.size() == 2) {
+        // two in, two out-case
+        if (myIncomingEdges[0]->getGeometry() == myIncomingEdges[1]->getGeometry() &&
+                myOutgoingEdges[0]->getGeometry() == myOutgoingEdges[1]->getGeometry()) {
+            // overlapping edges
+            std::string reason;
+            if (myIncomingEdges[0]->expandableBy(myOutgoingEdges[0], reason)) {
+                ret.push_back(std::make_pair(myIncomingEdges[0], myOutgoingEdges[0]));
+                ret.push_back(std::make_pair(myIncomingEdges[1], myOutgoingEdges[1]));
+            } else {
+                ret.push_back(std::make_pair(myIncomingEdges[0], myOutgoingEdges[1]));
+                ret.push_back(std::make_pair(myIncomingEdges[1], myOutgoingEdges[0]));
+            }
+            return ret;
+        }
+    }
     for (EdgeVector::const_iterator i = myIncomingEdges.begin(); i != myIncomingEdges.end(); i++) {
         // join with the edge that is not a turning direction
         NBEdge* opposite = (*i)->getTurnDestination(true);
@@ -2985,7 +3005,9 @@ NBNode::buildWalkingAreas(int cornerDetail, double joinMinDist) {
         } else {
             if ((l.permissions & SVC_PEDESTRIAN) == 0
                     || crossingBetween(edge, prevEdge)
-                    || alreadyConnectedPaths(edge, prevEdge, joinMinDist)) {
+                    || alreadyConnectedPaths(edge, prevEdge, joinMinDist)
+                    || crossesFringe(edge, prevEdge)
+                    ) {
                 waIndices.push_back(std::make_pair(start, i - start));
                 if ((l.permissions & SVC_PEDESTRIAN) != 0) {
                     start = i;
@@ -3010,11 +3032,12 @@ NBNode::buildWalkingAreas(int cornerDetail, double joinMinDist) {
         } else {
             if (waIndices.front().first == 0) {
                 NBEdge* edge = normalizedLanes.front().first;
-                if (crossingBetween(edge, normalizedLanes.back().first)) {
-                    // do not wrap-around if there is a crossing in between
+                if (crossingBetween(edge, normalizedLanes.back().first)
+                        || crossesFringe(edge, normalizedLanes.back().first)) {
+                    // do not wrap-around (see above)
                     waIndices.push_back(std::make_pair(start, waNumLanes));
                     if (gDebugFlag1) {
-                        std::cout << "  do not wrap around, turn-around in between\n";
+                        std::cout << "  do not wrap around\n";
                     }
                 } else {
                     // first walkingArea wraps around
@@ -3140,7 +3163,7 @@ NBNode::buildWalkingAreas(int cornerDetail, double joinMinDist) {
                 connected.insert(edge);
             }
             l.shape.move2side(-l.width / 2);
-            wa.shape.push_back(l.shape[0]);
+            wa.shape.push_back_noDoublePos(l.shape[0]);
             l.shape.move2side(l.width);
             wa.shape.push_back(l.shape[0]);
         }
@@ -3404,6 +3427,14 @@ NBNode::alreadyConnectedPaths(const NBEdge* e1, const NBEdge* e2, double dist) c
 }
 
 
+bool
+NBNode::crossesFringe(const NBEdge* e1, const NBEdge* e2) const {
+    return myFringeType != FringeType::DEFAULT
+        && myIncomingEdges.size() == 1 && myOutgoingEdges.size() == 1
+        && (e1->isTurningDirectionAt(e2) || e2->isTurningDirectionAt(e1));
+}
+
+
 EdgeVector
 NBNode::edgesBetween(const NBEdge* e1, const NBEdge* e2) const {
     EdgeVector result;
@@ -3449,6 +3480,10 @@ NBNode::geometryLike(const EdgeVector& incoming, const EdgeVector& outgoing) con
         NBEdge* out1 = outgoing[1];
         if ((in0->isTurningDirectionAt(out0) || in0->isTurningDirectionAt(out1))
                 && (in1->isTurningDirectionAt(out0) || in1->isTurningDirectionAt(out1))) {
+            return true;
+        }
+        if (in0->getGeometry() == in1->getGeometry() && out0->getGeometry() == out1->getGeometry()) {
+            // overlapping edges
             return true;
         }
         for (EdgeVector::const_iterator it = incoming.begin(); it != incoming.end(); ++it) {

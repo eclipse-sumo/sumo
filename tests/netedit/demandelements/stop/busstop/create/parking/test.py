@@ -47,7 +47,7 @@ netedit.leftClick(referencePosition, 290, 175)
 netedit.changeDefaultBoolValue(netedit.attrs.stop.create.parking)
 
 # create stop
-netedit.leftClick(referencePosition, 290, 175)
+netedit.leftClick(referencePosition, 295, 175)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)

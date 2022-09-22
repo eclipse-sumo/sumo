@@ -258,6 +258,9 @@ MSFrame::fillOptions() {
     oc.doRegister("vehroute-output.speedfactor", new Option_Bool(false));
     oc.addDescription("vehroute-output.speedfactor", "Output", "Write the vehicle speedFactor (defaults to 'true' if departSpeed is written)");
 
+    oc.doRegister("vehroute-output.internal", new Option_Bool(false));
+    oc.addDescription("vehroute-output.internal", "Output", "Include internal edges in the output");
+
     oc.doRegister("personroute-output", new Option_FileName());
     oc.addSynonyme("personroute-output", "personroutes");
     oc.addDescription("personroute-output", "Output", "Save person and container routes to separate FILE");
@@ -405,6 +408,9 @@ MSFrame::fillOptions() {
 
     oc.doRegister("time-to-teleport.ride", new Option_String("-1", "TIME"));
     oc.addDescription("time-to-teleport.ride", "Processing", "The waiting time after which persons / containers waiting for a pickup are teleported. Negative values disable teleporting");
+
+    oc.doRegister("time-to-teleport.bidi", new Option_String("-1", "TIME"));
+    oc.addDescription("time-to-teleport.bidi", "Processing", "The waiting time after which vehicles on bidirectional edges are teleported");
 
     oc.doRegister("waiting-time-memory", new Option_String("100", "TIME"));
     oc.addDescription("waiting-time-memory", "Processing", "Length of time interval, over which accumulated waiting time is taken into account (default is 100s.)");
@@ -984,6 +990,7 @@ MSFrame::setMSGlobals(OptionsCont& oc) {
     MSGlobals::gTimeToGridlockHighways = string2time(oc.getString("time-to-teleport.highways")) < 0 ? 0 : string2time(oc.getString("time-to-teleport.highways"));
     MSGlobals::gGridlockHighwaysSpeed = oc.getFloat("time-to-teleport.highways.min-speed");
     MSGlobals::gTimeToTeleportDisconnected = string2time(oc.getString("time-to-teleport.disconnected"));
+    MSGlobals::gTimeToTeleportBidi = string2time(oc.getString("time-to-teleport.bidi"));
     MSGlobals::gRemoveGridlocked = oc.getBool("time-to-teleport.remove");
     MSGlobals::gCheck4Accidents = !oc.getBool("ignore-accidents");
     MSGlobals::gCheckRoutes = !oc.getBool("ignore-route-errors");

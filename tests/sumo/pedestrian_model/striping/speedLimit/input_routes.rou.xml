@@ -1,0 +1,10 @@
+<routes>
+    <vType id="ped" vClass="pedestrian" speedDev="0"/>
+    <person id="p0" type="ped" depart="0" departPos="0.0">
+        <walk edges="E0" arrivalPos="-1"/>
+    </person>
+    <person id="p1" type="ped" depart="0" departPos="0.0">
+        <walk edges="-E0" arrivalPos="-1"/>
+    </person>
+
+</routes>

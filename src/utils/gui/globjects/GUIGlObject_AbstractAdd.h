@@ -22,10 +22,11 @@
 #pragma once
 #include <config.h>
 
-#include "GUIGlObjectTypes.h"
-#include "GUIGlObject.h"
 #include <vector>
 #include <map>
+
+#include "GUIGlObjectTypes.h"
+#include "GUIGlObject.h"
 
 
 // ===========================================================================
@@ -38,7 +39,7 @@ class GUIGlObject_AbstractAdd : public GUIGlObject {
 
 public:
     /// @brief constructor
-    GUIGlObject_AbstractAdd(GUIGlObjectType type, const std::string& id);
+    GUIGlObject_AbstractAdd(GUIGlObjectType type, const std::string& id, FXIcon *icon);
 
     /// @brief destructor
     ~GUIGlObject_AbstractAdd();

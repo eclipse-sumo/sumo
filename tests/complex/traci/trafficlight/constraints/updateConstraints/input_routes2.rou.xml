@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-09-13 15:43:17 by Eclipse SUMO duarouter Version v1_14_1+0991-da9d9db
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <output-file value="input_routes2.rou.xml"/>
+    </output>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="train" length="50.00" vClass="rail"/>
+    <vehicle id="t0" type="train" depart="0.00" departSpeed="max">
+        <route edges="E0 E1 E2 E9 E10 E12"/>
+        <stop busStop="bs_0" duration="5.00" until="100.00"/>
+        <stop busStop="bs_1" duration="5.00" until="110.00"/>
+        <stop busStop="bs_2" duration="5.00" until="120.00"/>
+        <stop busStop="bs_7" duration="5.00" until="130.00"/>
+    </vehicle>
+    <vehicle id="t1" type="train" depart="0.00" departSpeed="max">
+        <route edges="E3 E4 E2 E5 E8 E11 E12"/>
+        <stop busStop="bs_3" duration="5.00" until="200.00"/>
+        <stop busStop="bs_1" duration="5.00" until="210.00"/>
+        <stop busStop="bs_5" duration="5.00" until="220.00"/>
+        <stop busStop="bs_7" duration="5.00" until="230.00"/>
+    </vehicle>
+    <vehicle id="t2" type="train" depart="0.00" departSpeed="max">
+        <route edges="E0 E1 E2 E9 E10 E12"/>
+        <stop busStop="bs_0" duration="5.00" until="300.00"/>
+        <stop busStop="bs_1" duration="5.00" until="310.00"/>
+        <stop busStop="bs_2" duration="5.00" until="320.00"/>
+        <stop busStop="bs_7" duration="5.00" until="330.00"/>
+    </vehicle>
+</routes>

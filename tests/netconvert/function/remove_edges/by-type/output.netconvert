@@ -1,4 +1,4 @@
-Parsing sumo-net from 'input_net.net.xml' ... done.
+Parsing sumo-net from 'input_net.net.xml' ... done (2ms).
  Import done:
    9 nodes loaded.
    12 edges loaded.
@@ -19,10 +19,10 @@ Dividing of lanes on approached lanes ... done (0ms).
 Processing turnarounds ... done (0ms).
 Rechecking of lane endings ... done (0ms).
 Computing traffic light control information ... done (0ms).
-Computing node logics ... done (0ms).
+Computing node logics ... done (1ms).
 Computing traffic light logics ... done (0ms).
  3 traffic light(s) computed.
-Building inner edges ... done (1ms).
+Building inner edges ... done (0ms).
 -----------------------------------------------------
 Summary:
  Node type statistics:
@@ -35,5 +35,6 @@ Summary:
   Applied offset     : 0.00,0.00
   Converted boundary : 0.00,18.96,1048.06,921.35
 -----------------------------------------------------
-Writing network ... done (2ms).
+Writing network ... 
+done (1ms).
 Success.

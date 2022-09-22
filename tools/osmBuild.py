@@ -21,7 +21,6 @@ from __future__ import absolute_import
 
 import os
 import subprocess
-
 import sumolib
 
 
@@ -59,6 +58,8 @@ optParser.add_argument("--pedestrians", action="store_true",
                        default=False, help="add pedestrian infrastructure to the network")
 optParser.add_argument("-y", "--polyconvert-options",
                        default="-v,--osm.keep-full-type", help="comma-separated options for polyconvert")
+optParser.add_argument("-z", "--gzip", action="store_true",
+                       default=False, help="save gzipped network")
 
 
 def getRelative(dirname, option):
@@ -79,9 +80,8 @@ def build(args=None, bindir=None):
     if options.typemap and not os.path.isfile(options.typemap):
         # fail early because netconvert may take a long time
         optParser.error('typemap file "%s" not found' % options.typemap)
-    if not (options.vehicle_classes in vclassRemove):
-        optParser.error('invalid vehicle class "%s" given' %
-                        options.vehicle_classes)
+    if options.vehicle_classes not in vclassRemove:
+        optParser.error('invalid vehicle class "%s" given' % options.vehicle_classes)
     if not os.path.isdir(options.output_directory):
         optParser.error('output directory "%s" does not exist' %
                         options.output_directory)
@@ -114,6 +114,8 @@ def build(args=None, bindir=None):
         prefix = options.prefix
 
     netfile = prefix + '.net.xml'
+    if options.gzip:
+        netfile += ".gz"
     netconvertOpts += vclassRemove[options.vehicle_classes] + ["-o", netfile]
 
     # write config
@@ -127,6 +129,8 @@ def build(args=None, bindir=None):
         # write config
         cfg = prefix + ".polycfg"
         polyconvertOpts += ["-n", netfile, "-o", prefix + '.poly.xml']
+        if options.gzip:
+            polyconvertOpts[-1] += ".gz"
         # use relative paths where possible
         polyconvertOpts = [getRelative(options.output_directory, o) for o in polyconvertOpts]
         subprocess.call(polyconvertOpts + ["--save-configuration", cfg], cwd=options.output_directory)

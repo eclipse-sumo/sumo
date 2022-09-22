@@ -23,8 +23,8 @@ set EMISSIONSDRIVINGCYCLE_BINARY=%~dp0\..\bin\emissionsDrivingCycle%1.exe
 set EMISSIONSMAP_BINARY=%~dp0\..\bin\emissionsMap%1.exe
 set PYTHON=python
 
-SET TEXTTESTPY=texttest.py
+SET TEXTTESTPY=texttest.exe
+where.exe %TEXTTESTPY% > NUL 2> NUL
+IF NOT ERRORLEVEL 1 GOTO :EOF
 python -c "import texttestlib"
 IF NOT ERRORLEVEL 1 SET TEXTTESTPY=texttest.pyw
-where.exe texttest.exe > NUL 2> NUL
-IF NOT ERRORLEVEL 1 SET TEXTTESTPY=texttest.exe

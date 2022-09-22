@@ -309,7 +309,7 @@ GUIBaseVehicle::GUIBaseVehiclePopupMenu::onCmdToggleStop(FXObject*, FXSelector, 
  * ----------------------------------------------------------------------- */
 
 GUIBaseVehicle::GUIBaseVehicle(MSBaseVehicle& vehicle) :
-    GUIGlObject(GLO_VEHICLE, vehicle.getID()),
+    GUIGlObject(GLO_VEHICLE, vehicle.getID(), GUIIconSubSys::getIcon(GUIIcon::VEHICLE)),
     myVehicle(vehicle),
     myPopup(nullptr) {
     // as it is possible to show all vehicle routes, we have to store them... (bug [ 2519761 ])
@@ -1002,6 +1002,19 @@ GUIBaseVehicle::drawStopLabels(const GUIVisualizationSettings& s, bool noLoop, c
         GLHelper::drawTextSettings(s.vehicleText, label, pos2, s.scale, s.angle, 1.0);
         repeat[stop.lane]++;
         stopIndex++;
+    }
+    // indicate arrivalPos if set
+    if (myVehicle.getParameter().wasSet(VEHPARS_ARRIVALPOS_SET) || myVehicle.getArrivalLane() >= 0) {
+        const int arrivalEdge = myVehicle.getParameter().arrivalEdge >= 0
+            ? myVehicle.getParameter().arrivalEdge
+            : (int)myVehicle.getRoute().getEdges().size() - 1;
+        const MSLane* arrivalLane = myVehicle.getRoute().getEdges()[arrivalEdge]->getLanes()[MAX2(0, myVehicle.getArrivalLane())];
+        Position pos = arrivalLane->geometryPositionAtOffset(myVehicle.getArrivalPos());
+        GLHelper::setColor(col);
+        GLHelper::drawBoxLines(arrivalLane->getShape().getOrthogonal(pos, 10, true, arrivalLane->getWidth() * 0.5,  90), 0.1);
+        GLHelper::drawBoxLines(arrivalLane->getShape().getOrthogonal(pos, 10, true, arrivalLane->getWidth() * 0.5, 270), 0.1);
+        GLHelper::drawTextSettings(s.vehicleText, "arrival", pos, s.scale, s.angle, 1.0);
+
     }
 }
 

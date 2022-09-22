@@ -178,7 +178,7 @@ Person::splitTaxiReservation(std::string reservationID, const std::vector<std::s
 
 bool
 Person::filterReservation(int stateFilter, const Reservation* res, std::vector<libsumo::TraCIReservation>& reservations) {
-    if (stateFilter != 0 && stateFilter != res->state) {
+    if (stateFilter != 0 && (stateFilter & res->state) == 0) {
         return false;
     }
     std::vector<std::string> personIDs;
@@ -365,7 +365,7 @@ Person::getLength(const std::string& personID) {
 
 double
 Person::getSpeedFactor(const std::string& personID) {
-    return getPerson(personID)->getSpeedFactor();
+    return getPerson(personID)->getChosenSpeedFactor();
 }
 
 
@@ -1112,7 +1112,7 @@ Person::setLateralAlignment(const std::string& personID, const std::string& latA
 
 void
 Person::setSpeedFactor(const std::string& personID, double factor) {
-    getPerson(personID)->setSpeedFactor(factor);
+    getPerson(personID)->setChosenSpeedFactor(factor);
 }
 
 

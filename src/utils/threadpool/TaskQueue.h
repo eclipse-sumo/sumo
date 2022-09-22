@@ -23,8 +23,16 @@
 
 #include <condition_variable>
 #include <functional>
-#include <future>
 #include <queue>
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable: 4355 5204 5220) // mask warnings in MSVCs ppl-stdlib
+#endif
+#include <future>
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
+
 
 template <typename C>
 class TaskBase {

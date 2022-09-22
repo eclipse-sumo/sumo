@@ -59,7 +59,7 @@ GUIInstantInductLoop::buildDetectorGUIRepresentation() {
 // -------------------------------------------------------------------------
 
 GUIInstantInductLoop::MyWrapper::MyWrapper(GUIInstantInductLoop& detector, double pos) :
-    GUIDetectorWrapper(GLO_E1DETECTOR_INSTANT, detector.getID()),
+    GUIDetectorWrapper(GLO_E1DETECTOR_INSTANT, detector.getID(), GUIIconSubSys::getIcon(GUIIcon::E1INSTANT)),
     myDetector(detector), myPosition(pos) {
     myFGPosition = detector.getLane()->geometryPositionAtOffset(pos);
     myBoundary.add(myFGPosition.x() + (double) 5.5, myFGPosition.y() + (double) 5.5);

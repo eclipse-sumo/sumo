@@ -1,0 +1,9 @@
+ Retrying in 1 seconds
+constraints before update
+ tls=J10 Constraint(signalId=J10 tripId=t2, foeId=t1, foeSignal=J9, limit=1, type=0, mustWait=True, active=True)
+ tls=J2 Constraint(signalId=J2 tripId=t2, foeId=t1, foeSignal=J6, limit=1, type=0, mustWait=True, active=True)
+ tls=J6 Constraint(signalId=J6 tripId=t1, foeId=t0, foeSignal=J2, limit=1, type=0, mustWait=True, active=True)
+ tls=J9 Constraint(signalId=J9 tripId=t1, foeId=t0, foeSignal=J10, limit=1, type=0, mustWait=True, active=True)
+constraints after update
+ tls=J10 Constraint(signalId=J10 tripId=t2, foeId=t1, foeSignal=J9, limit=1, type=0, mustWait=True, active=True)
+ tls=J9 Constraint(signalId=J9 tripId=t1, foeId=t0, foeSignal=J10, limit=1, type=0, mustWait=True, active=True)

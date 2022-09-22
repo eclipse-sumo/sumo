@@ -985,13 +985,15 @@ GUIOSGView::FXOSGAdapter::~FXOSGAdapter() {
 }
 
 
-void GUIOSGView::FXOSGAdapter::grabFocus() {
+void
+GUIOSGView::FXOSGAdapter::grabFocus() {
     // focus this window
     myParent->setFocus();
 }
 
 
-void GUIOSGView::FXOSGAdapter::useCursor(bool cursorOn) {
+void
+GUIOSGView::FXOSGAdapter::useCursor(bool cursorOn) {
     if (cursorOn) {
         myParent->setDefaultCursor(myOldCursor);
     } else {
@@ -1000,24 +1002,28 @@ void GUIOSGView::FXOSGAdapter::useCursor(bool cursorOn) {
 }
 
 
-bool GUIOSGView::FXOSGAdapter::makeCurrentImplementation() {
+bool
+GUIOSGView::FXOSGAdapter::makeCurrentImplementation() {
     myParent->makeCurrent();
     return true;
 }
 
 
-bool GUIOSGView::FXOSGAdapter::releaseContext() {
+bool
+GUIOSGView::FXOSGAdapter::releaseContext() {
     myParent->makeNonCurrent();
     return true;
 }
 
 
-void GUIOSGView::FXOSGAdapter::swapBuffersImplementation() {
+void
+GUIOSGView::FXOSGAdapter::swapBuffersImplementation() {
     myParent->swapBuffers();
 }
 
 
-bool GUIOSGView::PickHandler::handle(const osgGA::GUIEventAdapter& ea, osgGA::GUIActionAdapter& /* aa */) {
+bool
+GUIOSGView::PickHandler::handle(const osgGA::GUIEventAdapter& ea, osgGA::GUIActionAdapter& /* aa */) {
     if (ea.getEventType() == osgGA::GUIEventAdapter::DRAG) {
         myDrag = true;
     } else if (ea.getEventType() == osgGA::GUIEventAdapter::RELEASE && ea.getButton() == osgGA::GUIEventAdapter::RIGHT_MOUSE_BUTTON) {
@@ -1025,7 +1031,7 @@ bool GUIOSGView::PickHandler::handle(const osgGA::GUIEventAdapter& ea, osgGA::GU
             if (myParent->makeCurrent()) {
                 std::vector<GUIGlObject*> objects = myParent->getGUIGlObjectsUnderCursor();
                 if (objects.size() > 0) {
-                    myParent->openObjectDialog(objects[0]);                   
+                    myParent->openObjectDialog(objects);                   
                 }
                 myParent->makeNonCurrent();
             }

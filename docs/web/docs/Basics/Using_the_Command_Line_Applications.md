@@ -85,6 +85,16 @@ Please note that an abbreviation is indicated using a single '-'.
 !!! note
     Not all abbreviations have the same meaning across the applications from the SUMO-suite.
 
+If you want to append options to a list of values given in a 
+[configuration file](#configuration_files_vs_command_line_parameter) you will use the following syntax:
+
+```
++a myAdditional.add.xml
+```
+
+Please note that you can use the abbreviated or the non-abbreviated name here but always a single '+'.
+This will only work for lists of strings or numbers.
+
 ## Option Value Types
 
 The SUMO applications know what kind of a value they expect to be set.
@@ -176,7 +186,8 @@ In addition to a configuration file, further command line parameter can
 also be given on the command line. If a parameter is set within the
 named configuration file as well as given on the command line, the value
 given on the command line is used (overwrites the one within the
-configuration file). If you want to disable a boolean option which was
+configuration file) unless you use the '+' syntax described above.
+If you want to disable a boolean option which was
 enabled in the configuration file, you need to give the "false" value on
 the command line explicitly, like **--verbose false**
 
@@ -220,6 +231,17 @@ It is possible to refer to environment variables in configuration files. The syn
 
 The applications from the SUMO suite share several options. They are
 given in the following.
+
+## Configuration Options
+
+| Option | Description |
+|--------|-------------|
+| **-c** {{DT_FILE}}<br> **--configuration-file** {{DT_FILE}} | Loads the named config on startup |
+| **-C** {{DT_FILE}}<br> **--save-configuration** {{DT_FILE}} | Saves current configuration into FILE |
+| **--save-configuration.relative** {{DT_BOOL}} | Enforce relative paths when saving the configuration; *default:* **false** |
+| **--save-template** {{DT_FILE}} | Saves a configuration template (empty) into FILE |
+| **--save-schema** {{DT_FILE}} | Saves the configuration schema into FILE |
+| **--save-commented** {{DT_BOOL}} | Adds comments to saved template, configuration, or schema; *default:* **false** |
 
 ## Reporting Options
 

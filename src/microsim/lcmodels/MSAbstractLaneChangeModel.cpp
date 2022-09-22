@@ -35,7 +35,7 @@
 #include <config.h>
 
 #include <utils/options/OptionsCont.h>
-#include "MSAbstractLaneChangeModel.h"
+#include <utils/xml/SUMOSAXAttributes.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
@@ -47,6 +47,7 @@
 #include "MSLCM_DK2008.h"
 #include "MSLCM_LC2013.h"
 #include "MSLCM_SL2015.h"
+#include "MSAbstractLaneChangeModel.h"
 
 /* -------------------------------------------------------------------------
  * static members
@@ -465,7 +466,7 @@ MSLane*
 MSAbstractLaneChangeModel::getShadowLane(const MSLane* lane, double posLat) const {
     if (std::find(myNoPartiallyOccupatedByShadow.begin(), myNoPartiallyOccupatedByShadow.end(), lane) == myNoPartiallyOccupatedByShadow.end()) {
         // initialize shadow lane
-        const double overlap = myVehicle.getLateralOverlap(posLat);
+        const double overlap = myVehicle.getLateralOverlap(posLat, lane);
 #ifdef DEBUG_SHADOWLANE
         if (debugVehicle()) {
             std::cout << SIMTIME << " veh=" << myVehicle.getID() << " posLat=" << posLat << " overlap=" << overlap << "\n";
@@ -1069,5 +1070,29 @@ MSAbstractLaneChangeModel::getNormalizedLaneIndex() {
         return myVehicle.getLane()->getParallelOpposite()->getEdge().getNumLanes() + myVehicle.getLane()->getEdge().getNumLanes() - 1 - i;
     } else {
         return i;
+    }
+}
+
+
+void
+MSAbstractLaneChangeModel::saveState(OutputDevice& out) const {
+    std::vector<std::string> lcState;
+    if (MSGlobals::gLaneChangeDuration > 0) {
+        lcState.push_back(toString(mySpeedLat));
+        lcState.push_back(toString(myLaneChangeCompletion));
+        lcState.push_back(toString(myLaneChangeDirection));
+    }
+    if (lcState.size() > 0) {
+        out.writeAttr(SUMO_ATTR_LCSTATE, lcState);
+    }
+}
+
+void
+MSAbstractLaneChangeModel::loadState(const SUMOSAXAttributes& attrs) {
+    if (attrs.hasAttribute(SUMO_ATTR_LCSTATE)) {
+        std::istringstream bis(attrs.getString(SUMO_ATTR_LCSTATE));
+        bis >> mySpeedLat;
+        bis >> myLaneChangeCompletion;
+        bis >> myLaneChangeDirection;
     }
 }

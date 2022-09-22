@@ -52,7 +52,6 @@
 #include <utils/geom/GeoConvHelper.h>
 #include <utils/shapes/ShapeContainer.h>
 #include <utils/shapes/Shape.h>
-#include <utils/gui/globjects/GUIGlObject.h>
 
 
 // ===========================================================================

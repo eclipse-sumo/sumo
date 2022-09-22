@@ -133,69 +133,59 @@ public:
      */
     void compute(OptionsCont& oc, const std::set<std::string>& explicitTurnarounds = std::set<std::string>(), bool mayAddOrRemove = true);
 
-    /** @brief Updates the shape for a single Node
-     *
-     * @param[in] oc Container that contains options for building
-     * @param[in] explicitTurnarounds List of edge ids for which turn-arounds should be added (used by NETEDIT)
-     * @param[in] mayAddOrRemove whether processing steps which cause nodes and edges to be added or removed shall be triggered (used by netedit)
-     * @exception ProcessError (recheck)
-     */
-    //void computeSingleNode(NBNode* node, OptionsCont& oc, const std::set<std::string>& explicitTurnarounds = std::set<std::string>(), bool mayAddOrRemove = true);
-
     /// @name Retrieval of subcontainers
     /// @{
     /// @brief Returns a reference to edge container
-    NBEdgeCont& getEdgeCont() {
+    inline NBEdgeCont& getEdgeCont() {
         return myEdgeCont;
     }
 
     /// @brief Returns a reference to the node container
-    NBNodeCont& getNodeCont() {
+    inline NBNodeCont& getNodeCont() {
         return myNodeCont;
     }
 
     /// @brief Returns a reference to the type container
-    NBTypeCont& getTypeCont() {
+    inline NBTypeCont& getTypeCont() {
         return myTypeCont;
     }
 
     /// @brief Returns a reference to the traffic light logics container
-    NBTrafficLightLogicCont& getTLLogicCont() {
+    inline NBTrafficLightLogicCont& getTLLogicCont() {
         return myTLLCont;
     }
 
     /// @brief Returns a reference the districts container
-    NBDistrictCont& getDistrictCont() {
+    inline NBDistrictCont& getDistrictCont() {
         return myDistrictCont;
     }
 
-
     /// @brief Returns a reference to the pt stop container
-    NBPTStopCont& getPTStopCont() {
+    inline NBPTStopCont& getPTStopCont() {
         return myPTStopCont;
     }
 
     /// @brief Returns a reference to the pt line container
-    NBPTLineCont& getPTLineCont() {
+    inline NBPTLineCont& getPTLineCont() {
         return myPTLineCont;
     }
-    /// @}
 
-    NBParkingCont& getParkingCont() {
+    inline NBParkingCont& getParkingCont() {
         return myParkingCont;
     }
 
-    ShapeContainer& getShapeCont() {
+    inline ShapeContainer& getShapeCont() {
         return myShapeCont;
     }
+    /// @}
 
     /// @brief notify about style of loaded network (Without Crossings)
-    bool haveNetworkCrossings() {
+    inline bool haveNetworkCrossings() {
         return myNetworkHaveCrossings;
     }
 
     /// @brief enable crossing in networks
-    void setHaveNetworkCrossings(bool value) {
+    inline void setHaveNetworkCrossings(bool value) {
         myNetworkHaveCrossings = value;
     }
 
