@@ -21,6 +21,7 @@
 #include <config.h>
 
 #include <utils/foxtools/MFXMenuHeader.h>
+#include <utils/gui/images/GUIIconSubSys.h>
 
 #include "GUIGLObjectPopupMenu.h"
 
@@ -42,6 +43,7 @@ public:
     /// @name cursor dialog type
     enum class CursorDialogType {
         PROPERTIES,
+        SELECT_ELEMENT,
         DELETE_ELEMENT,
         FRONT_ELEMENT
     };
@@ -60,6 +62,9 @@ public:
     
     /// @brief delete element
     long onCmdDeleteElement(FXObject*, FXSelector, void*);
+
+    /// @brief select element
+    long onCmdSelectElement(FXObject*, FXSelector, void*);
     
     /// @brief open properties popUp
     long onCmdOpenPropertiesPopUp(FXObject*, FXSelector, void*);
@@ -101,6 +106,10 @@ protected:
     void updateList();
 
 private:
+    /// @brief build dialog elements
+    void buildDialogElements(GUISUMOAbstractView* view, const FXString text, GUIIcon icon, 
+                             FXSelector sel, const std::vector<GUIGlObject*> &objects);
+
     /// @brief Invalidated copy constructor.
     GUICursorDialog(const GUICursorDialog&) = delete;
 

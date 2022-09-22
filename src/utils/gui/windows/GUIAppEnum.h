@@ -425,6 +425,8 @@ enum {
     MID_CURSORDIALOG_SETFRONTELEMENT,
     /// @brief delete element
     MID_CURSORDIALOG_DELETEELEMENT,
+    /// @brief select element
+    MID_CURSORDIALOG_SELECTELEMENT,
     /// @brief open properties popup
     MID_CURSORDIALOG_PROPERTIES,
     /// @brief move list up
