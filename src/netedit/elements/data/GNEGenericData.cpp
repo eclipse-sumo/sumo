@@ -167,6 +167,16 @@ GNEGenericData::deleteGLObject(){
 }
 
 
+void 
+GNEGenericData::selectGLObject() {
+    if (isAttributeCarrierSelected()) {
+        unselectAttributeCarrier();
+    } else {
+        selectAttributeCarrier();
+    }
+}
+
+
 void
 GNEGenericData::updateGLObject() {
     updateGeometry();

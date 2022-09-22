@@ -258,6 +258,16 @@ GNEDemandElement::deleteGLObject() {
 }
 
 
+void 
+GNEDemandElement::selectGLObject() {
+    if (isAttributeCarrierSelected()) {
+        unselectAttributeCarrier();
+    } else {
+        selectAttributeCarrier();
+    }
+}
+
+
 void
 GNEDemandElement::updateGLObject() {
     updateGeometry();

@@ -138,6 +138,9 @@ public:
     /// @brief delete element
     virtual void deleteGLObject() = 0;
 
+    /// @brief select element
+    void selectGLObject();
+
     /// @}
 
     /// @name inherited from GNEAttributeCarrier

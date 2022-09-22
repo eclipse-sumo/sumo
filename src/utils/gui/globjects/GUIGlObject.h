@@ -189,6 +189,9 @@ public:
     /// @brief delete GLObject (Currently used only in NETEDIT)
     virtual void deleteGLObject();
 
+    /// @brief select GLObject (Currently used only in NETEDIT)
+    virtual void selectGLObject();
+
     /// @brief update GLObject (geometry, ID, etc.) (optional)
     virtual void updateGLObject();
 

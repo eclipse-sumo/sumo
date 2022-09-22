@@ -109,7 +109,7 @@ GUICursorDialog::onCmdSelectElement(FXObject* obj, FXSelector, void*) {
     // search element in myGLObjects
     for (const auto &GLObject : myMenuCommandGLObjects) {
         if (GLObject.first == obj) {
-            //GLObject.second->selectGLObject();
+            GLObject.second->selectGLObject();
         }
     }
     // destroy popup

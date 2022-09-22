@@ -225,6 +225,16 @@ GNEAdditional::deleteGLObject() {
 }
 
 
+void 
+GNEAdditional::selectGLObject() {
+    if (isAttributeCarrierSelected()) {
+        unselectAttributeCarrier();
+    } else {
+        selectAttributeCarrier();
+    }
+}
+
+
 void GNEAdditional::updateGLObject() {
     updateGeometry();
 }

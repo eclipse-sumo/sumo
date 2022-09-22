@@ -142,6 +142,9 @@ public:
     /// @brief delete element
     void deleteGLObject();
 
+    /// @brief select element
+    void selectGLObject();
+
     /// @brief update GLObject (geometry, ID, etc.)
     void updateGLObject();
 

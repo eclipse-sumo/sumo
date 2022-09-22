@@ -121,6 +121,16 @@ GNENetworkElement::markAsFrontElement() {
 }
 
 
+void
+GNENetworkElement::selectGLObject() {
+    if (isAttributeCarrierSelected()) {
+        unselectAttributeCarrier();
+    } else {
+        selectAttributeCarrier();
+    }
+}
+
+
 std::string
 GNENetworkElement::getPopUpID() const {
     if (myTagProperty.getTag() == SUMO_TAG_CONNECTION) {
