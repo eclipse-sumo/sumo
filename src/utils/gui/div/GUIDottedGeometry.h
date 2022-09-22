@@ -43,7 +43,8 @@ public:
         ORANGE,
         YELLOW,
         FROMTAZ,
-        TOTAZ
+        TOTAZ,
+        NOTHING
     };
 
     /// @brief class for pack all variables related with GUIDottedGeometry color
