@@ -65,7 +65,14 @@ GNEWalkingArea::getPositionInView() const {
 
 GNEMoveOperation*
 GNEWalkingArea::getMoveOperation() {
-    return nullptr;
+    // edit depending if shape is being edited
+    if (isShapeEdited()) {
+        // calculate move shape operation
+        return calculateMoveShapeOperation(getNBWalkingArea().shape, myNet->getViewNet()->getPositionInformation(),
+                                           myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.crossingGeometryPointRadius, true);
+    } else {
+        return nullptr;
+    }
 }
 
 
@@ -78,6 +85,12 @@ GNEWalkingArea::removeGeometryPoint(const Position /*clickedPosition*/, GNEUndoL
 GNEJunction*
 GNEWalkingArea::getParentJunction() const {
     return myParentJunction;
+}
+
+
+NBNode::WalkingArea&
+GNEWalkingArea::getNBWalkingArea() const {
+    return myParentJunction->getNBNode()->getWalkingArea(getMicrosimID());
 }
 
 
@@ -101,7 +114,7 @@ GNEWalkingArea::drawGL(const GUIVisualizationSettings& s) const {
         // translate to front
         myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_WALKINGAREA);
         // set shape color
-        const RGBColor walkingAreaColor = isAttributeCarrierSelected() ? RGBColor::BLUE : RGBColor::GREY;
+        const RGBColor walkingAreaColor = myShapeEdited? s.colorSettings.editShapeColor : isAttributeCarrierSelected() ? RGBColor::BLUE : RGBColor::GREY;
         // recognize full transparency and simply don't draw
         if (walkingAreaColor.alpha() != 0) {
             // set color
@@ -133,6 +146,20 @@ GNEWalkingArea::drawGL(const GUIVisualizationSettings& s) const {
             } else {
                 // draw shape
                 GLHelper::drawFilledPoly(myTesselation.getShape(), true);
+            }
+        }
+        // draw shape points only in Network supemode
+        if (myShapeEdited && s.drawMovingGeometryPoint(1, s.neteditSizeSettings.crossingGeometryPointRadius) && myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
+            // color
+            const RGBColor darkerColor = walkingAreaColor.changedBrightness(-32);
+            // draw geometry points
+            GUIGeometry::drawGeometryPoints(s, myNet->getViewNet()->getPositionInformation(), myTesselation.getShape(), darkerColor, RGBColor::BLACK,
+                                            s.neteditSizeSettings.crossingGeometryPointRadius, 1,
+                                            myNet->getViewNet()->getNetworkViewOptions().editingElevation(), true);
+            // draw moving hint
+            if (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE) {
+                GUIGeometry::drawMovingHint(s, myNet->getViewNet()->getPositionInformation(), myTesselation.getShape(), darkerColor,
+                                            s.neteditSizeSettings.crossingGeometryPointRadius, 1);
             }
         }
         // pop layer Matrix
@@ -191,7 +218,7 @@ GNEWalkingArea::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     // check if we're in supermode network
     if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
         // create menu commands
-        FXMenuCommand* mcCustomShape = GUIDesigns::buildFXMenuCommand(ret, "Set custom crossing shape", nullptr, &parent, MID_GNE_CROSSING_EDIT_SHAPE);
+        FXMenuCommand* mcCustomShape = GUIDesigns::buildFXMenuCommand(ret, "Set custom WalkingArea shape", nullptr, &parent, MID_GNE_WALKINGAREA_EDIT_SHAPE);
         // check if menu commands has to be disabled
         NetworkEditMode editMode = myNet->getViewNet()->getEditModes().networkEditMode;
         if ((editMode == NetworkEditMode::NETWORK_CONNECT) || (editMode == NetworkEditMode::NETWORK_TLS) || (editMode == NetworkEditMode::NETWORK_CREATE_EDGE)) {
@@ -227,17 +254,14 @@ GNEWalkingArea::getAttribute(SumoXMLAttr key) const {
         // for security purposes, avoid get WalkingArea if we want only the ID
         return getMicrosimID();
     }
-    const auto& walkingArea = myParentJunction->getNBNode()->getWalkingArea(getMicrosimID());
+    const auto& walkingArea = getNBWalkingArea();
     switch (key) {
         case SUMO_ATTR_WIDTH:
             return toString(walkingArea.width);
         case SUMO_ATTR_LENGTH:
             return toString(walkingArea.length);
-        case SUMO_ATTR_CUSTOMSHAPE:
-            if (walkingArea.hasCustomShape) {
-                return toString(walkingArea.shape);
-            }
-            return "";
+        case SUMO_ATTR_SHAPE:
+            return toString(walkingArea.shape);
         case GNE_ATTR_SELECTED:
             return toString(isAttributeCarrierSelected());
         default:
@@ -253,10 +277,10 @@ GNEWalkingArea::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoL
     }
     switch (key) {
         case SUMO_ATTR_ID:
+            throw InvalidArgument("Modifying attribute '" + toString(key) + "' of " + getTagStr() + " isn't allowed");
         case SUMO_ATTR_WIDTH:
         case SUMO_ATTR_LENGTH:
-        case SUMO_ATTR_CUSTOMSHAPE:
-            throw InvalidArgument("Modifying attribute '" + toString(key) + "' of " + getTagStr() + " isn't allowed");
+        case SUMO_ATTR_SHAPE:
         case GNE_ATTR_SELECTED:
             undoList->add(new GNEChange_Attribute(this, key, value), true);
             break;
@@ -281,10 +305,16 @@ bool
 GNEWalkingArea::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
+            return false;
         case SUMO_ATTR_WIDTH:
         case SUMO_ATTR_LENGTH:
-        case SUMO_ATTR_CUSTOMSHAPE:
-            return false;
+            return canParse<double>(value) && (parse<double>(value) > 0);
+        case SUMO_ATTR_SHAPE:
+            if (canParse<PositionVector>(value)) {
+                return parse<PositionVector>(value).size() > 0;
+            } else {
+                return false;
+            }
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
         default:
@@ -304,12 +334,20 @@ GNEWalkingArea::getACParametersMap() const {
 
 void
 GNEWalkingArea::setAttribute(SumoXMLAttr key, const std::string& value) {
+    auto& walkingArea = getNBWalkingArea();
     switch (key) {
         case SUMO_ATTR_ID:
-        case SUMO_ATTR_WIDTH:
-        case SUMO_ATTR_LENGTH:
-        case SUMO_ATTR_CUSTOMSHAPE:
             throw InvalidArgument("Modifying attribute '" + toString(key) + "' of " + getTagStr() + " isn't allowed");
+        case SUMO_ATTR_WIDTH:
+            walkingArea.width = parse<double>(value);
+            break;
+        case SUMO_ATTR_LENGTH:
+            walkingArea.length = parse<double>(value);
+            break;
+        case SUMO_ATTR_SHAPE:
+            walkingArea.shape = parse<PositionVector>(value);
+            walkingArea.hasCustomShape = true;
+            break;
         case GNE_ATTR_SELECTED:
             if (parse<bool>(value)) {
                 selectAttributeCarrier();
@@ -324,14 +362,20 @@ GNEWalkingArea::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 
 void
-GNEWalkingArea::setMoveShape(const GNEMoveResult& /*moveResult*/) {
-    // nothing to do
+GNEWalkingArea::setMoveShape(const GNEMoveResult& moveResult) {
+    // set custom shape
+    getNBWalkingArea().shape = moveResult.shapeToUpdate;
+    // update geometry
+    updateGeometry();
 }
 
 
 void
-GNEWalkingArea::commitMoveShape(const GNEMoveResult& /*moveResult*/, GNEUndoList* /*undoList*/) {
-    // nothing to commet
+GNEWalkingArea::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
+    // commit new shape
+    undoList->begin(GUIIcon::WALKINGAREA, "moving " + toString(SUMO_ATTR_SHAPE) + " of " + getTagStr());
+    undoList->changeAttribute(new GNEChange_Attribute(this, SUMO_ATTR_SHAPE, toString(moveResult.shapeToUpdate)));
+    undoList->end();
 }
 
 /****************************************************************************/
