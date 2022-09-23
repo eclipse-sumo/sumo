@@ -21,6 +21,7 @@
 
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <netedit/frames/common/GNEDeleteFrame.h>
+#include <netedit/frames/common/GNESelectorFrame.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
@@ -128,6 +129,8 @@ GNENetworkElement::selectGLObject() {
     } else {
         selectAttributeCarrier();
     }
+    // update information label
+    myNet->getViewNet()->getViewParent()->getSelectorFrame()->getSelectionInformation()->updateInformationLabel();
 }
 
 

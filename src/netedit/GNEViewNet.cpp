@@ -29,6 +29,7 @@
 #include <netedit/elements/additional/GNETAZ.h>
 #include <netedit/elements/data/GNEDataInterval.h>
 #include <netedit/elements/data/GNETAZRelData.h>
+#include <netedit/elements/network/GNEWalkingArea.h>
 #include <netedit/elements/network/GNEConnection.h>
 #include <netedit/elements/network/GNECrossing.h>
 #include <netedit/frames/common/GNEDeleteFrame.h>
@@ -168,10 +169,12 @@ FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_GNE_JUNCTION_ADDTLS,                 GNEViewNet::onCmdAddTLS),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_JUNCTION_ADDJOINTLS,             GNEViewNet::onCmdAddJoinTLS),
     // Connections
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_CONNECTION_EDIT_SHAPE,   GNEViewNet::onCmdEditConnectionShape),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_CONNECTION_SMOOTH_SHAPE, GNEViewNet::onCmdSmoothConnectionShape),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_CONNECTION_EDIT_SHAPE,           GNEViewNet::onCmdEditConnectionShape),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_CONNECTION_SMOOTH_SHAPE,         GNEViewNet::onCmdSmoothConnectionShape),
     // Crossings
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_CROSSING_EDIT_SHAPE, GNEViewNet::onCmdEditCrossingShape),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_CROSSING_EDIT_SHAPE,             GNEViewNet::onCmdEditCrossingShape),
+    // WalkingArea
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_WALKINGAREA_EDIT_SHAPE,          GNEViewNet::onCmdEditWalkingAreaShape),
     // Edges
     FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGE_SPLIT,                      GNEViewNet::onCmdSplitEdge),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGE_SPLIT_BIDI,                 GNEViewNet::onCmdSplitEdgeBidi),
@@ -555,8 +558,17 @@ GNEViewNet::openObjectDialogAtCursor(const FXEvent* /*ev*/) {
 
 void
 GNEViewNet::openDeleteDialogAtCursor(const std::vector<GUIGlObject*> &GLObjects) {
-    // create cursor popup dialog for mark front element
+    // create cursor popup dialog for delete element
     myPopup = new GUICursorDialog(GUICursorDialog::CursorDialogType::DELETE_ELEMENT, this, GLObjects);
+    // open popup dialog
+    openPopupDialog();
+}
+
+
+void
+GNEViewNet::openSelectDialogAtCursor(const std::vector<GUIGlObject*> &GLObjects) {
+    // create cursor popup dialog for select element
+    myPopup = new GUICursorDialog(GUICursorDialog::CursorDialogType::SELECT_ELEMENT, this, GLObjects);
     // open popup dialog
     openPopupDialog();
 }
@@ -1686,14 +1698,8 @@ GNEViewNet::getJunctionAtPopupPosition() {
         int id = getObjectAtPosition(getPopupPosition());
         GUIGlObject* pointed = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
         GUIGlObjectStorage::gIDStorage.unblockObject(id);
-        if (pointed) {
-            switch (pointed->getType()) {
-                case GLO_JUNCTION:
-                    junction = (GNEJunction*)pointed;
-                    break;
-                default:
-                    break;
-            }
+        if (pointed && (pointed->getType() == GLO_JUNCTION)) {
+            junction = (GNEJunction*)pointed;
         }
     }
     return junction;
@@ -1707,14 +1713,8 @@ GNEViewNet::getConnectionAtPopupPosition() {
         int id = getObjectAtPosition(getPopupPosition());
         GUIGlObject* pointed = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
         GUIGlObjectStorage::gIDStorage.unblockObject(id);
-        if (pointed) {
-            switch (pointed->getType()) {
-                case GLO_CONNECTION:
-                    connection = (GNEConnection*)pointed;
-                    break;
-                default:
-                    break;
-            }
+        if (pointed && (pointed->getType() == GLO_CONNECTION)) {
+            connection = (GNEConnection*)pointed;
         }
     }
     return connection;
@@ -1728,18 +1728,28 @@ GNEViewNet::getCrossingAtPopupPosition() {
         int id = getObjectAtPosition(getPopupPosition());
         GUIGlObject* pointed = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
         GUIGlObjectStorage::gIDStorage.unblockObject(id);
-        if (pointed) {
-            switch (pointed->getType()) {
-                case GLO_CROSSING:
-                    crossing = (GNECrossing*)pointed;
-                    break;
-                default:
-                    break;
-            }
+        if (pointed && (pointed->getType() == GLO_CROSSING)) {
+            crossing = (GNECrossing*)pointed;
         }
     }
     return crossing;
 }
+
+
+GNEWalkingArea*
+GNEViewNet::getWalkingAreaAtPopupPosition() {
+    GNEWalkingArea* walkingArea = nullptr;
+    if (makeCurrent()) {
+        int id = getObjectAtPosition(getPopupPosition());
+        GUIGlObject* pointed = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
+        GUIGlObjectStorage::gIDStorage.unblockObject(id);
+        if (pointed && (pointed->getType() == GLO_WALKINGAREA)) {
+            walkingArea = (GNEWalkingArea*)pointed;
+        }
+    }
+    return walkingArea;
+}
+
 
 GNEEdge*
 GNEViewNet::getEdgeAtPopupPosition() {
@@ -1772,10 +1782,8 @@ GNEViewNet::getLaneAtPopupPosition() {
         int id = getObjectAtPosition(getPopupPosition());
         GUIGlObject* pointed = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
         GUIGlObjectStorage::gIDStorage.unblockObject(id);
-        if (pointed) {
-            if (pointed->getType() == GLO_LANE) {
-                lane = (GNELane*)pointed;
-            }
+        if (pointed && (pointed->getType() == GLO_LANE)) {
+            lane = (GNELane*)pointed;
         }
     }
     return lane;
@@ -3401,8 +3409,6 @@ GNEViewNet::onCmdEditCrossingShape(FXObject*, FXSelector, void*) {
     // Obtain crossing under mouse
     GNECrossing* crossing = getCrossingAtPopupPosition();
     if (crossing) {
-        // due crossings haven two shapes, check what has to be edited
-        PositionVector shape = crossing->getNBCrossing()->customShape.size() > 0 ? crossing->getNBCrossing()->customShape : crossing->getNBCrossing()->shape;
         // check if network has to be updated
         if (crossing->getParentJunction()->getNBNode()->getShape().size() == 0) {
             // recompute the whole network
@@ -3410,6 +3416,26 @@ GNEViewNet::onCmdEditCrossingShape(FXObject*, FXSelector, void*) {
         }
         // start edit custom shape
         myEditNetworkElementShapes.startEditCustomShape(crossing);
+    }
+    // destroy pop-up and update view Net
+    destroyPopup();
+    setFocus();
+    return 1;
+}
+
+
+long
+GNEViewNet::onCmdEditWalkingAreaShape(FXObject*, FXSelector, void*) {
+    // Obtain walkingArea under mouse
+    GNEWalkingArea* walkingArea = getWalkingAreaAtPopupPosition();
+    if (walkingArea) {
+        // check if network has to be updated
+        if (walkingArea->getParentJunction()->getNBNode()->getShape().size() == 0) {
+            // recompute the whole network
+            myNet->computeAndUpdate(OptionsCont::getOptions(), false);
+        }
+        // start edit custom shape
+        myEditNetworkElementShapes.startEditCustomShape(walkingArea);
     }
     // destroy pop-up and update view Net
     destroyPopup();
@@ -5238,8 +5264,6 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
             // first swap lane to edges if mySelectEdges is enabled and shift key isn't pressed
             if (myNetworkViewOptions.selectEdges() && (myMouseButtonKeyPressed.shiftKeyPressed() == false)) {
                 myObjectsUnderCursor.swapLane2Edge();
-                // update AC under cursor
-                AC = myObjectsUnderCursor.getAttributeCarrierFront();
             }
             // now filter locked elements
             myObjectsUnderCursor.filterLockedElements(myLockManager);
@@ -5249,18 +5273,7 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
                 if (myMouseButtonKeyPressed.shiftKeyPressed()) {
                     // begin rectangle selection
                     mySelectingArea.beginRectangleSelection();
-                } else {
-                    // first check that under cursor there is an attribute carrier, isn't a demand element and is selectable
-                    if (AC && !AC->getTagProperty().isDemandElement()) {
-                        // toggle networkElement selection
-                        if (AC->isAttributeCarrierSelected()) {
-                            AC->unselectAttributeCarrier();
-                        } else {
-                            AC->selectAttributeCarrier();
-                        }
-                    }
-                    // update information label
-                    myViewParent->getSelectorFrame()->getSelectionInformation()->updateInformationLabel();
+                } else if (!myViewParent->getSelectorFrame()->selectAttributeCarrier(myObjectsUnderCursor)) {
                     // process click
                     processClick(eventData);
                 }
@@ -5313,8 +5326,8 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
                 // update AC under cursor
                 AC = myObjectsUnderCursor.getAttributeCarrierFront();
             }
-            // now filter locked elements
-            myObjectsUnderCursor.filterLockedElements(myLockManager);
+            // now filter locked elements forcing excluding walkingAreas
+            myObjectsUnderCursor.filterLockedElements(myLockManager, {GLO_WALKINGAREA});
             // check if we're editing a shape
             if (myEditNetworkElementShapes.getEditedNetworkElement()) {
                 // check if we're removing a geometry point
@@ -5574,18 +5587,7 @@ GNEViewNet::processLeftButtonPressDemand(void* eventData) {
                 if (myMouseButtonKeyPressed.shiftKeyPressed()) {
                     // begin rectangle selection
                     mySelectingArea.beginRectangleSelection();
-                } else {
-                    // first check that under cursor there is an attribute carrier, is demand element and is selectable
-                    if (AC && AC->getTagProperty().isDemandElement() && !myLockManager.isObjectLocked(myObjectsUnderCursor.getGlTypeFront(), AC->isAttributeCarrierSelected())) {
-                        // toggle networkElement selection
-                        if (AC->isAttributeCarrierSelected()) {
-                            AC->unselectAttributeCarrier();
-                        } else {
-                            AC->selectAttributeCarrier();
-                        }
-                    }
-                    // update information label
-                    myViewParent->getSelectorFrame()->getSelectionInformation()->updateInformationLabel();
+                } else if (!myViewParent->getSelectorFrame()->selectAttributeCarrier(myObjectsUnderCursor)) {
                     // process click
                     processClick(eventData);
                 }
@@ -5757,18 +5759,7 @@ GNEViewNet::processLeftButtonPressData(void* eventData) {
                 if (myMouseButtonKeyPressed.shiftKeyPressed()) {
                     // begin rectangle selection
                     mySelectingArea.beginRectangleSelection();
-                } else {
-                    // first check that under cursor there is an attribute carrier, is data element and is selectable
-                    if (AC && !myLockManager.isObjectLocked(AC->getGUIGlObject()->getType(), AC->isAttributeCarrierSelected()) && AC->getTagProperty().isDataElement()) {
-                        // toggle networkElement selection
-                        if (AC->isAttributeCarrierSelected()) {
-                            AC->unselectAttributeCarrier();
-                        } else {
-                            AC->selectAttributeCarrier();
-                        }
-                    }
-                    // update information label
-                    myViewParent->getSelectorFrame()->getSelectionInformation()->updateInformationLabel();
+                } else if (!myViewParent->getSelectorFrame()->selectAttributeCarrier(myObjectsUnderCursor)) {
                     // process click
                     processClick(eventData);
                 }

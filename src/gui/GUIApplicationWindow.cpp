@@ -832,11 +832,16 @@ GUIApplicationWindow::onCmdEditChosen(FXObject* menu, FXSelector, void*) {
 
 long
 GUIApplicationWindow::onCmdEditBreakpoints(FXObject*, FXSelector, void*) {
-    GUIDialog_Breakpoints* chooser = new GUIDialog_Breakpoints(this, myRunThread->getBreakpoints(), myRunThread->getBreakpointLock());
-    chooser->create();
-    chooser->show();
+    if (myBreakpointDialog == nullptr) {
+        myBreakpointDialog = new GUIDialog_Breakpoints(this, myRunThread->getBreakpoints(), myRunThread->getBreakpointLock());
+    } else {
+        myBreakpointDialog->restore();
+        myBreakpointDialog->setFocus();
+        myBreakpointDialog->raise();
+    }
     return 1;
 }
+
 
 long
 GUIApplicationWindow::onCmdEditViewport(FXObject*, FXSelector, void*) {

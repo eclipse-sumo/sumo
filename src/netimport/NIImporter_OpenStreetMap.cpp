@@ -849,11 +849,14 @@ NIImporter_OpenStreetMap::EdgesHandler::EdgesHandler(
     myOSMNodes(osmNodes),
     myEdgeMap(toFill),
     myPlatformShapesMap(platformShapes) {
+
+    const double unlimitedSpeed = OptionsCont::getOptions().getFloat("osm.speedlimit-none") * 3.6;
+
     mySpeedMap["nan"] = MAXSPEED_UNGIVEN;
     mySpeedMap["sign"] = MAXSPEED_UNGIVEN;
     mySpeedMap["signals"] = MAXSPEED_UNGIVEN;
-    mySpeedMap["none"] = 142.; // Auswirkungen eines allgemeinen Tempolimits auf Autobahnen im Land Brandenburg (2007)
-    mySpeedMap["no"] = 142.;
+    mySpeedMap["none"] = unlimitedSpeed;
+    mySpeedMap["no"] = unlimitedSpeed;
     mySpeedMap["walk"] = 5.;
     // https://wiki.openstreetmap.org/wiki/Key:source:maxspeed#Commonly_used_values
     mySpeedMap["AT:urban"] = 50;
@@ -874,7 +877,7 @@ NIImporter_OpenStreetMap::EdgesHandler::EdgesHandler(
     mySpeedMap["CZ:urban_motorway"] = 80;
     mySpeedMap["CZ:urban_trunk"] = 80;
     mySpeedMap["CZ:urban"] = 50;
-    mySpeedMap["DE:motorway"] = mySpeedMap["none"];
+    mySpeedMap["DE:motorway"] = unlimitedSpeed;
     mySpeedMap["DE:rural"] = 100;
     mySpeedMap["DE:urban"] = 50;
     mySpeedMap["DE:bicycle_road"] = 30;
@@ -1016,6 +1019,7 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element, const SUMOSA
         // we check whether the key is relevant (and we really need to transcode the value) to avoid hitting #1636
         if (!StringUtils::endsWith(key, "way") && !StringUtils::startsWith(key, "lanes")
                 && key != "maxspeed" && key != "maxspeed:type"
+                && key != "zone:maxspeed"
                 && key != "maxspeed:forward" && key != "maxspeed:backward"
                 && key != "junction" && key != "name" && key != "tracks" && key != "layer"
                 && key != "route"
@@ -1191,7 +1195,7 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element, const SUMOSA
                 WRITE_WARNINGF("Value of key '%' is not numeric ('%') in edge '%'.", key, value, myCurrentEdge->id);
             }
         } else if (myCurrentEdge->myMaxSpeed == MAXSPEED_UNGIVEN &&
-                   (key == "maxspeed" || key == "maxspeed:type" || key == "maxspeed:forward")) {
+                   (key == "maxspeed" || key == "maxspeed:type" || key == "maxspeed:forward" || key == "zone:maxspeed")) {
             // both 'maxspeed' and 'maxspeed:type' may be given so we must take care not to overwrite an already seen value
             myCurrentEdge->myMaxSpeed = interpretSpeed(key, value);
         } else if (key == "maxspeed:backward" && myCurrentEdge->myMaxSpeedBackward == MAXSPEED_UNGIVEN) {
@@ -1300,6 +1304,14 @@ NIImporter_OpenStreetMap::EdgesHandler::interpretSpeed(const std::string& key, s
     if (mySpeedMap.find(value) != mySpeedMap.end()) {
         return mySpeedMap[value];
     } else {
+        // handle symbolic names of the form DE:30 / DE:zone30
+        if (value.size() > 3 && value[2] == ':') {
+            if (value.substr(3, 4) == "zone") {
+                value = value.substr(7);
+            } else {
+                value = value.substr(3);
+            }
+        }
         double conversion = 1; // OSM default is km/h
         if (StringUtils::to_lower_case(value).find("km/h") != std::string::npos) {
             value = StringUtils::prune(value.substr(0, value.find_first_not_of("0123456789")));

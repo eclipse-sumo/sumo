@@ -59,6 +59,7 @@ public:
 
     /// @brief Returns position of hierarchical element in view
     Position getPositionInView() const;
+
     /// @}
 
     /// @name Functions related with move elements
@@ -68,10 +69,14 @@ public:
 
     /// @brief remove geometry point in the clicked position
     void removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList);
+
     /// @}
 
     /// @brief get parent Junction
     GNEJunction* getParentJunction() const;
+
+    /// @brief get referente to NBode::WalkingArea
+    NBNode::WalkingArea& getNBWalkingArea() const;
 
     /// @name inherited from GUIGlObject
     /// @{
