@@ -18,7 +18,10 @@ Warning: Ambiguous railway kilometrage direction for way '32590435' (assuming fo
 Warning: Discarding unusable type 'railway.platform' (first occurence for edge '43185748').
 Warning: Discarding unusable type 'railway.construction' (first occurence for edge '71326270').
 Warning: Removing pt stop '1257007152' on non existing edge '71326270'.
-Warning: Removing pt stop '587624704' on non existing edge '71326270'.
+Warning: Removing pt stop '1267954699' on non existing edge ''.
+Warning: Removing pt stop '271296143' on non existing edge ''.
+Warning: Removing pt stop '2915579615' on non existing edge ''.
+Warning: Removing pt stop '2959830768' on non existing edge ''.
 Warning: Done reading first coherent chunk of pt stops. Further stops in relation 28270 are ignored
 Warning: Done reading first coherent chunk of pt stops. Further stops in relation 28286 are ignored
 Warning: PT line in relation 114255 with no stops ignored. Probably OSM file is incomplete.
@@ -45,6 +48,9 @@ Warning: Platform '383505801' in relation: '5707635' is given as polygon, which 
 Warning: Ignoring restriction relation '7778535' with unknown to-way.
 Warning: Could not find corresponding edge or compatible lane for free-floating pt stop '587624704' (U Berliner Rathaus). Thus, it will be removed!
 Warning: Could not find corresponding edge or compatible lane for free-floating pt stop '1257007152' (U Museumsinsel). Thus, it will be removed!
+Warning: Could not find corresponding edge or compatible lane for free-floating pt stop '2959830768' (S + U Friedrichstr.). Thus, it will be removed!
+Warning: Could not find corresponding edge or compatible lane for free-floating pt stop '3104797566' (Friedrichstr./ Reinhardtstr.). Thus, it will be removed!
+Warning: Could not find corresponding edge or compatible lane for free-floating pt stop '3104797567' (Friedrichstr./ Reinhardtstr.). Thus, it will be removed!
 Warning: Could not re-assign PT stop '1615531689', probably broken osm file.
 Warning: PT stop '4692172068' has been moved to edge '-326116285#2'.
 Warning: Incomplete route for pt line '2014286' (Straßenbahnlinie 12: Weißensee, Pasedagplatz => Mitte, Am Kupfergraben).
@@ -85,7 +91,6 @@ Warning: Converting invalid rail_crossing to traffic_light at junction '39186739
 Warning: Not joining junctions 160503259,171440823,4237827432 (only 1 exit node).
 Warning: Not joining junctions 28373970,540698421 (only 1 edge within and no cross-traffic).
 Warning: Not joining junctions 28373972,3513423889,3513425993 (not compact (maxEdge=4612964#0 length=8.21)).
-Warning: Could not re-assign pt stop '3869306792' after replacing edge '263824928'.
 Warning: Ambiguity in turnarounds computation at junction '1206481791'.
 Warning: Ambiguity in turnarounds computation at junction '1206481808'.
 Warning: Ambiguity in turnarounds computation at junction '196721246'.
@@ -110,7 +115,6 @@ Warning: The traffic light '4363312288' does not control any links; it will not 
 Warning: Could not build program '0' for traffic light '4363312288'
 Warning: The traffic light 'joinedS_6' cannot be adapted to a cycle time of 90.00.
 Warning: The traffic light 'joinedS_6' has a high cycle time of 172.00.
-Warning: Could not find corresponding edge or compatible lane for pt stop '3869306792' (Unter den Linden/Friedrichstraße). Thus, it will be removed!
 Warning: 17 total messages of type: Ambiguous railway kilometrage direction for way '%' (assuming forward)
 Warning: 10 total messages of type: Could not re-assign PT stop '%', probably broken osm file.
 Warning: 9 total messages of type: Discarding unknown compound '%' in type '%' (first occurence for edge '%').
@@ -124,6 +128,7 @@ Warning: 15 total messages of type: No way found for reference '%' in relation '
 Warning: 17 total messages of type: PT line in relation % with no stops ignored. Probably OSM file is incomplete.
 Warning: 13 total messages of type: PT stop '%' has been moved to edge '%'.
 Warning: 22 total messages of type: Platform '%' in relation: '%' is given as polygon, which currently is not supported.
+Warning: 12 total messages of type: Removing pt stop '%' on non existing edge '%'.
 Warning: 26 total messages of type: The rail crossing '%' does not have any roads.
 Warning: At actuated tlLogic 'GS_25662542', linkIndex 12 has no controlling detector.
 Warning: At actuated tlLogic 'GS_25662542', linkIndex 13 has no controlling detector.
