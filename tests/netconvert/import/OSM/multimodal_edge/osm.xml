@@ -31,10 +31,31 @@
   <tag k="name" v="Sterndamm"/>
 </way>
 
+<way id="10860203">
+  <nd ref="2"/>
+  <nd ref="4"/>
+  <tag k="electrified" v="contact_line"/>
+  <tag k="railway" v="tram"/>
+  <tag k="railway" v="platform"/>
+  <tag k="note" v="Übergeordnete Straße, Stufe II"/>
+  <tag k="postal_code" v="12487"/>
+  <tag k="name" v="Sterndamm"/>
+</way>
 
 <way id="10860204">
   <nd ref="3"/>
   <nd ref="4"/>
+  <tag k="electrified" v="contact_line"/>
+  <tag k="railway" v="abandoned"/>
+  <tag k="railway" v="platform"/>
+  <tag k="note" v="Übergeordnete Straße, Stufe II"/>
+  <tag k="postal_code" v="12487"/>
+  <tag k="name" v="Sterndamm"/>
+</way>
+
+<way id="10860205">
+  <nd ref="3"/>
+  <nd ref="1"/>
   <tag k="electrified" v="contact_line"/>
   <tag k="railway" v="abandoned"/>
   <tag k="railway" v="platform"/>
