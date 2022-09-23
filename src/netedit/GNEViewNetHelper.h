@@ -220,7 +220,7 @@ struct GNEViewNetHelper {
         void swapLane2Edge();
 
         /// @brief filter locked elements
-        void filterLockedElements(const GNEViewNetHelper::LockManager &lockManager);
+        void filterLockedElements(const GNEViewNetHelper::LockManager &lockManager, std::vector<GUIGlObjectType> forcedIgnoredTiped = {});
 
         /// @brief get front GUI GL ID or a pointer to nullptr
         GUIGlID getGlIDFront() const;

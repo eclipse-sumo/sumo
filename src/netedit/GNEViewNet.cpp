@@ -5326,8 +5326,8 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
                 // update AC under cursor
                 AC = myObjectsUnderCursor.getAttributeCarrierFront();
             }
-            // now filter locked elements
-            myObjectsUnderCursor.filterLockedElements(myLockManager);
+            // now filter locked elements forcing excluding walkingAreas
+            myObjectsUnderCursor.filterLockedElements(myLockManager, {GLO_WALKINGAREA});
             // check if we're editing a shape
             if (myEditNetworkElementShapes.getEditedNetworkElement()) {
                 // check if we're removing a geometry point

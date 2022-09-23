@@ -240,7 +240,7 @@ GNEViewNetHelper::ObjectsUnderCursor::swapLane2Edge() {
 
 
 void
-GNEViewNetHelper::ObjectsUnderCursor::filterLockedElements(const GNEViewNetHelper::LockManager &lockManager) {
+GNEViewNetHelper::ObjectsUnderCursor::filterLockedElements(const GNEViewNetHelper::LockManager &lockManager, std::vector<GUIGlObjectType> forcedIgnoredTiped) {
     // make a copy of edge and lane Attribute carriers
     auto edgeACs = myEdgeObjects.attributeCarriers;
     auto laneACs = myLaneObjects.attributeCarriers;
@@ -249,12 +249,16 @@ GNEViewNetHelper::ObjectsUnderCursor::filterLockedElements(const GNEViewNetHelpe
     myLaneObjects.clearElements();
     // filter GUIGLObjects
     for (const auto &edgeAC: edgeACs) {
-        if (!lockManager.isObjectLocked(edgeAC->getGUIGlObject()->getType(), edgeAC->isAttributeCarrierSelected())) {
+        if (std::find(forcedIgnoredTiped.begin(), forcedIgnoredTiped.end(), edgeAC->getGUIGlObject()->getType()) != forcedIgnoredTiped.end()) {
+            continue;
+        } else if (!lockManager.isObjectLocked(edgeAC->getGUIGlObject()->getType(), edgeAC->isAttributeCarrierSelected())) {
             myEdgeObjects.GUIGlObjects.push_back(edgeAC->getGUIGlObject());
         }
     }
     for (const auto &laneAC: laneACs) {
-        if (!lockManager.isObjectLocked(laneAC->getGUIGlObject()->getType(), laneAC->isAttributeCarrierSelected())) {
+        if (std::find(forcedIgnoredTiped.begin(), forcedIgnoredTiped.end(), laneAC->getGUIGlObject()->getType()) != forcedIgnoredTiped.end()) {
+            continue;
+        } else if (!lockManager.isObjectLocked(laneAC->getGUIGlObject()->getType(), laneAC->isAttributeCarrierSelected())) {
             myLaneObjects.GUIGlObjects.push_back(laneAC->getGUIGlObject());
         }
     }
