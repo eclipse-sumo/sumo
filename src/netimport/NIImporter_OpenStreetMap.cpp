@@ -849,11 +849,14 @@ NIImporter_OpenStreetMap::EdgesHandler::EdgesHandler(
     myOSMNodes(osmNodes),
     myEdgeMap(toFill),
     myPlatformShapesMap(platformShapes) {
+
+    const double unlimitedSpeed = OptionsCont::getOptions().getFloat("osm.speedlimit-none") * 3.6;
+
     mySpeedMap["nan"] = MAXSPEED_UNGIVEN;
     mySpeedMap["sign"] = MAXSPEED_UNGIVEN;
     mySpeedMap["signals"] = MAXSPEED_UNGIVEN;
-    mySpeedMap["none"] = 142.; // Auswirkungen eines allgemeinen Tempolimits auf Autobahnen im Land Brandenburg (2007)
-    mySpeedMap["no"] = 142.;
+    mySpeedMap["none"] = unlimitedSpeed;
+    mySpeedMap["no"] = unlimitedSpeed;
     mySpeedMap["walk"] = 5.;
     // https://wiki.openstreetmap.org/wiki/Key:source:maxspeed#Commonly_used_values
     mySpeedMap["AT:urban"] = 50;
@@ -874,7 +877,7 @@ NIImporter_OpenStreetMap::EdgesHandler::EdgesHandler(
     mySpeedMap["CZ:urban_motorway"] = 80;
     mySpeedMap["CZ:urban_trunk"] = 80;
     mySpeedMap["CZ:urban"] = 50;
-    mySpeedMap["DE:motorway"] = mySpeedMap["none"];
+    mySpeedMap["DE:motorway"] = unlimitedSpeed;
     mySpeedMap["DE:rural"] = 100;
     mySpeedMap["DE:urban"] = 50;
     mySpeedMap["DE:bicycle_road"] = 30;
