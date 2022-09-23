@@ -311,6 +311,9 @@ public:
     /// @brief edit crossing shape
     long onCmdEditCrossingShape(FXObject*, FXSelector, void*);
 
+    /// @brief edit walkingArea shape
+    long onCmdEditWalkingAreaShape(FXObject*, FXSelector, void*);
+
     /// @name View options network call backs
     /// @{
 
@@ -699,6 +702,9 @@ private:
 
     /// @brief try to retrieve a crossing at popup position
     GNECrossing* getCrossingAtPopupPosition();
+
+    /// @brief try to retrieve a walkingArea at popup position
+    GNEWalkingArea* getWalkingAreaAtPopupPosition();
 
     /// @brief try to retrieve a additional at popup position
     GNEAdditional* getAdditionalAtPopupPosition();

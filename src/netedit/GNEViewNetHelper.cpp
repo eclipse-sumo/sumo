@@ -1198,6 +1198,16 @@ GNEViewNetHelper::MoveSingleElementValues::beginMoveNetworkElementShape() {
         } else {
             return false;
         }
+    } else if (myViewNet->myObjectsUnderCursor.getWalkingAreaFront() && (myViewNet->myObjectsUnderCursor.getWalkingAreaFront() == editedElement)) {
+        // get move operation
+        GNEMoveOperation* moveOperation = myViewNet->myObjectsUnderCursor.getWalkingAreaFront()->getMoveOperation();
+        // continue if move operation is valid
+        if (moveOperation) {
+            myMoveOperations.push_back(moveOperation);
+            return true;
+        } else {
+            return false;
+        }
     } else {
         // there isn't moved items, then return false
         return false;
