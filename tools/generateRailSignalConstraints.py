@@ -545,9 +545,16 @@ def markOvertaken(options, vehicleStopRoutes, stopRoutes):
                     until2 = parseTime(stop2.until)
                     started2 = parseTime(stop2.started) if stop2.hasAttribute("started") else None
                     ended2 = parseTime(stop2.ended) if stop2.hasAttribute("ended") else None
+
+                    swappedEnded = (ended2 is not None
+                            # vehicle had not left but it's schedule follower had
+                            and (ended is None
+                                # vehicle left after schedule follower
+                                or ended2 < ended))
+
                     # if parking stops have the same until-time their depart order
                     # is undefined so we could get deadlocks
-                    if options.skipParking and hasParking and until != until2:
+                    if options.skipParking and hasParking and until != until2 and not swappedEnded:
                         continue
                     if (arrival2 > arrival and (
                             # legacy: until replaced by ended
@@ -556,7 +563,8 @@ def markOvertaken(options, vehicleStopRoutes, stopRoutes):
                                 # vehicle had not arrived but it's schedule follower had
                                 and (started is None
                                      # vehicle arrived after schedule follower
-                                     or started2 < started)))):
+                                     or started2 < started)) or
+                            swappedEnded)):
                         overtaken = True
                         ignored = started is None
                         ignoredInfo = " and ignored afterwards" if started is None else ""
