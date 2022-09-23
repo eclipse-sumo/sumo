@@ -18,15 +18,15 @@ vehicle 0 with 0 dropoffs
  Add capacity constraints...
  Set solution heuristic...
 Start solving the problem.
-Objective:  225432
+Objective:  225735
 Route for vehicle 0:
  5 ->  1 ->  2 ->  4 ->  3 -> 0
-Costs of the route: 2232
+Costs of the route: 2235
 
-Total cost of the routes: 2232
+Total cost of the routes: 2235
 Start interpreting the solution for SUMO.
 Dispatching v0 with ['0', '1', '1', '0']
-Costs for v0: 2232
+Costs for v0: 2235
 timestep:  30.0
 Reservations being picked up: ['1']
 Reservations en route: ['0']
