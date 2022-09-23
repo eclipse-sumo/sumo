@@ -94,7 +94,9 @@ MSCFModel_CACC::MSCFModel_CACC(const MSVehicleType* vtype) :
     myCollisionAvoidanceGainGap(vtype->getParameter().getCFParam(SUMO_ATTR_CA_GAIN_GAP_CACC, DEFAULT_CA_GAIN_GAP_CACC)),
     myCollisionAvoidanceGainGapDot(vtype->getParameter().getCFParam(SUMO_ATTR_CA_GAIN_GAP_DOT_CACC, DEFAULT_CA_GAIN_GAP_DOT_CACC)),
     myHeadwayTimeACC(vtype->getParameter().getCFParam(SUMO_ATTR_HEADWAY_TIME_CACC_TO_ACC, DEFAULT_HEADWAYTIME_ACC)),
-    myApplyDriverstate(vtype->getParameter().getCFParam(SUMO_ATTR_APPLYDRIVERSTATE, 0)) {
+    myApplyDriverstate(vtype->getParameter().getCFParam(SUMO_ATTR_APPLYDRIVERSTATE, 0)),
+    myEmergencyThreshold(vtype->getParameter().getCFParam(SUMO_ATTR_CA_OVERRIDE, DEFAULT_EMERGENCY_OVERRIDE_THRESHOLD))
+{
     myCollisionMinGapFactor = vtype->getParameter().getCFParam(SUMO_ATTR_COLLISION_MINGAP_FACTOR, 0.1);
     acc_CFM.setHeadwayTime(myHeadwayTimeACC);
 }
@@ -129,7 +131,7 @@ MSCFModel_CACC::followSpeed(const MSVehicle* const veh, double speed, double gap
 #else
     UNUSED_PARAMETER(pred);
 #endif
-    const double speedOverride = MIN2(DEFAULT_EMERGENCY_OVERRIDE_THRESHOLD, gap2pred);
+    const double speedOverride = MIN2(myEmergencyThreshold, gap2pred);
     if (vSafe + speedOverride < vCACC) {
 #if DEBUG_CACC == 1
         if (DEBUG_COND) {
