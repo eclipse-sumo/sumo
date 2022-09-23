@@ -1,5 +1,6 @@
 # tests for importing railway networks
 railway
+maxspeed
 
 # direction of bus stops imported correctly based on pt lines
 bus_stop_direction_from_pt_lines
@@ -120,15 +121,6 @@ bypass3
 
 # creating opposite-direction edge due to sidewalk information
 sidewalks
-
-# motorway without speed limit
-motorway
-
-# motorway without speed limit
-motorway_overrideUnlimited
-
-# test import of maxspeed:forward and maxspeed:backward
-maxspeed_directional
 
 # test option edges.join-tram-dist
 join_tram
