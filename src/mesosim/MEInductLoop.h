@@ -47,7 +47,7 @@ public:
     MEInductLoop(const std::string& id,
                  MESegment* s,
                  double positionInMeters,
-                 const std::string& vTypes,
+                 const std::string name, const std::string& vTypes,
                  const std::string& nextEdges,
                  int detectPersons);
 
@@ -87,6 +87,9 @@ public:
     //@}
 
 protected:
+    /// @brief name
+    const std::string myName;
+
     /// @brief mesoscopic edge segment the loop lies on
     MESegment* const mySegment;
 

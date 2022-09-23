@@ -43,10 +43,10 @@
  * ----------------------------------------------------------------------- */
 GUIInductLoop::GUIInductLoop(const std::string& id, MSLane* const lane,
                              double position, double length,
-                             const std::string& vTypes,
+                             std::string name, const std::string& vTypes,
                              const std::string& nextEdges,
                              int detectPersons, bool show) :
-    MSInductLoop(id, lane, position, length, vTypes, nextEdges, detectPersons, true),
+    MSInductLoop(id, lane, position, length, name, vTypes, nextEdges, detectPersons, true),
     myWrapper(nullptr),
     myShow(show) {
 }
@@ -135,6 +135,7 @@ GUIInductLoop::MyWrapper::getParameterWindow(GUIMainWindow& app,
     GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this);
     // add items
     // parameter
+    ret->mkItem("name", false, myDetector.getName());
     ret->mkItem("position [m]", false, myPosition);
     if (myDetector.getEndPosition() != myPosition) {
         ret->mkItem("end position [m]", false, myDetector.getEndPosition());

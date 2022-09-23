@@ -215,7 +215,7 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
                 // Build the induct loop and set it into the container
                 const double detLength = getDouble("detector-length:" + lane->getID(), detDefaultLength);
                 std::string id = myDetectorPrefix + "D" + toString(detEdgeIndex) + "." + toString(detLaneIndex);
-                loop = static_cast<MSInductLoop*>(nb.createInductLoop(id, placementLane, ilpos, detLength, myVehicleTypes, "", (int)PersonMode::NONE, myShowDetectors));
+                loop = static_cast<MSInductLoop*>(nb.createInductLoop(id, placementLane, ilpos, detLength, myVehicleTypes, "", "", (int)PersonMode::NONE, myShowDetectors));
                 MSNet::getInstance()->getDetectorControl().add(SUMO_TAG_INDUCTION_LOOP, loop, myFile, myFreq);
             } else if (customID == NO_DETECTOR) {
                 continue;

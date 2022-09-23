@@ -61,7 +61,7 @@ public:
      */
     MSInstantInductLoop(const std::string& id, OutputDevice& od,
                         MSLane* const lane, double positionInMeters,
-                        const std::string& vTypes,
+                        const std::string name, const std::string& vTypes,
                         const std::string& nextEdges);
 
 
@@ -151,6 +151,9 @@ protected:
 
 
 protected:
+    /// @brief name
+    const std::string myName; 
+
     /// @brief The output device to use
     OutputDevice& myOutputDevice;
 
