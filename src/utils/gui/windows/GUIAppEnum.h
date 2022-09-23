@@ -1180,25 +1180,19 @@ enum {
 
     /// @}
 
-    /// @name GNEConnection messages
+    /// @name GNEConnection, GNECrossings and GNEWalkingAreas messages
     /// @{
 
     /// @brief edit connection shape
     MID_GNE_CONNECTION_EDIT_SHAPE,
     /// @ brief smooth connection shape
     MID_GNE_CONNECTION_SMOOTH_SHAPE,
-
-    /// @}
-
-
-    /// @name GNECrossing messages
-    /// @{
-
     /// @brief edit crossing shape
     MID_GNE_CROSSING_EDIT_SHAPE,
+    /// @brief edit crossing shape
+    MID_GNE_WALKINGAREA_EDIT_SHAPE,
 
     /// @}
-
 
     /// @name GNEPoly messages
     /// @{
