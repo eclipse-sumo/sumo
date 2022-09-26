@@ -53,7 +53,7 @@ below. Each person must have at least one stage in its plan.
 | vClass            | class (enum) |        |          | "pedestrian" | Should either be "pedestrian" or "ignoring" (to allow walking anywhere) |
 
 !!! note
-    Up to version 1.14.1, speed distributions for walking persons (pedestrians) worked differently from those for vehicles. Whereas the individual speed factor of vehicles is multiplied with the road speed limit to arrive at the desired speed, the individual speed factor of persons was multiplied with the maxSpeed of their vType (since road speed limits do not apply to persons). In later versions, person use [desiredMaxSpeed amd maxSpeed](../Simulation/VehicleSpeed.md#desiredmaxspeed) in the exact same manner as vehicles. For backward compatibility reasons, if maxSpeed is configured and desiredMaxSpeed is not given in the vType, the desiredMaxSpeed is initialied from the given maxSpeed value
+    Up to version 1.14.1, speed distributions for walking persons (pedestrians) worked differently from those for vehicles. Whereas the individual speed factor of vehicles is multiplied with the road speed limit to arrive at the desired speed, the individual speed factor of persons was multiplied with the maxSpeed of their vType (since road speed limits do not apply to persons). In later versions, person use [desiredMaxSpeed and maxSpeed](../Simulation/VehicleSpeed.md#desiredmaxspeed) in the exact same manner as vehicles. For backward compatibility reasons, if `maxSpeed` is configured and `desiredMaxSpeed` is not given in the vType, the `desiredMaxSpeed` is initialied from the given `maxSpeed` value.
 
 When specifying a `type`, the set of
 attributes which are in effect during simulation depend on the selected
