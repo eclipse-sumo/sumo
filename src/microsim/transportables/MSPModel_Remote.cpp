@@ -73,7 +73,7 @@ MSPModel_Remote::add(MSTransportable* person, MSStageMoving* stage, SUMOTime now
     JPS_JourneyId journeyId = JPS_Simulation_AddJourney(mySimulation, journey, nullptr);
 
 	JPS_AgentParameters agent_parameters{};
-	agent_parameters.v0 = 1.0;
+    agent_parameters.v0 = stage->getMaxSpeed(person);
 	agent_parameters.AMin = 0.15;
 	agent_parameters.BMax = 0.15;
 	agent_parameters.BMin = 0.15;
