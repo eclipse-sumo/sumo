@@ -252,13 +252,13 @@ MSLCM_LC2013::_patchSpeed(double min, const double wanted, double max, const MSC
 #endif
         if (space > 0) { // XXX space > -MAGIC_offset
             // compute speed for decelerating towards a place which allows the blocking leader to merge in in front
+            const double vMinEmergency = myVehicle.getCarFollowModel().minNextSpeedEmergency(myVehicle.getSpeed(), &myVehicle);
             double safe = cfModel.stopSpeed(&myVehicle, myVehicle.getSpeed(), space, MSCFModel::CalcReason::LANE_CHANGE);
-            max = MIN2(max, MAX2(safe, myVehicle.getCarFollowModel().minNextSpeedEmergency(myVehicle.getSpeed())));
+            max = MIN2(max, MAX2(safe, vMinEmergency));
             // if we are approaching this place
             if (safe < wanted) {
                 // return this speed as the speed to use
                 if (safe < min) {
-                    const double vMinEmergency = myVehicle.getCarFollowModel().minNextSpeedEmergency(myVehicle.getSpeed(), &myVehicle);
                     if (safe >= vMinEmergency) {
                         // permit harder braking if needed and helpful
                         min = MAX2(vMinEmergency, safe);
