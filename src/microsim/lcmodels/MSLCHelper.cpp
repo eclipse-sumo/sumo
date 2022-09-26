@@ -257,6 +257,7 @@ MSLCHelper::saveBlockerLength(const MSVehicle& veh,  MSVehicle* blocker, int lca
                           << " potential=" << potential
                           << " myReserved=" << leadingBlockerLength
                           << " canReserve=" << canReserve
+                          << " reliefConnection=" << reliefConnection
                           << "\n";
             }
 #endif

@@ -1496,6 +1496,11 @@ MSLCM_LC2013::_wantsChange(
         if (*firstBlocked != neighLead.first) {
             canReserve &= MSLCHelper::saveBlockerLength(myVehicle, *firstBlocked, lcaCounter, myLeftSpace,  canContinue, myLeadingBlockerLength);
         }
+#ifdef DEBUG_SAVE_BLOCKER_LENGTH
+        if (DEBUG_COND) {
+            std::cout << SIMTIME << " canReserve=" << canReserve << " canContinue=" << canContinue << "\n";
+        }
+#endif
         if (!canReserve && !isOpposite()) {
             // we have a low-priority relief connection
             // std::cout << SIMTIME << " veh=" << myVehicle.getID() << " cannotReserve for blockers\n";
@@ -2058,6 +2063,11 @@ MSLCM_LC2013::saveBlockerLength(double length, double foeLeftSpace) {
     const bool canReserve = MSLCHelper::canSaveBlockerLength(myVehicle, length, myLeftSpace);
     if (!isOpposite() && (canReserve || myLeftSpace > foeLeftSpace)) {
         myLeadingBlockerLength = MAX2(length, myLeadingBlockerLength);
+#ifdef DEBUG_SAVE_BLOCKER_LENGTH
+        if (DEBUG_COND) {
+            std::cout << SIMTIME << "   saveBlockerLength veh=" << myVehicle.getID() << " canReserve=" << canReserve << " myLeftSpace=" << myLeftSpace << " foeLeftSpace=" << foeLeftSpace << "\n";
+        }
+#endif
         if (myLeftSpace == 0 && foeLeftSpace < 0) {
             // called from opposite overtaking, myLeftSpace must be initialized
             myLeftSpace = myVehicle.getBestLanes()[myVehicle.getLane()->getIndex()].length - myVehicle.getPositionOnLane();
