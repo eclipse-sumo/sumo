@@ -1586,6 +1586,9 @@ NLHandler::addDistrict(const SUMOSAXAttributes& attrs) {
             if (shape.size() != 0) {
                 if (!myNet.getShapeContainer().addPolygon(myCurrentDistrictID, "taz", color, 0, 0, "", false, shape, false, fill, 1.0, false, name)) {
                     WRITE_WARNING("Skipping visualization of taz '" + myCurrentDistrictID + "', polygon already exists.");
+                } else {
+                    myLastParameterised.push_back(myNet.getShapeContainer().getPolygons().get(myCurrentDistrictID));
+                    myCurrentIsBroken = false;
                 }
             }
         }
