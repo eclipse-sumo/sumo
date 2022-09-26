@@ -209,6 +209,7 @@ protected:
     FXLabel* myTestCoordinate = nullptr;
 
     /// @brief frames for coordinates
+    FXHorizontalFrame* myTraCiFrame = nullptr;
     FXHorizontalFrame* myCartesianFrame = nullptr;
     FXHorizontalFrame* myGeoFrame = nullptr;
     FXHorizontalFrame* myTestFrame = nullptr;

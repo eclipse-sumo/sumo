@@ -276,10 +276,20 @@ GUIApplicationWindow::dependentBuild(const bool isLibsumo) {
     // build the status bar
     myStatusbar = new FXStatusBar(this, GUIDesignStatusBar);
     {
+        // build TraCi info
+        myTraCiFrame = new FXHorizontalFrame(myStatusbar, GUIDesignHorizontalFrameStatusBar);
+        auto button = new FXButton(myTraCiFrame, "TraCi", nullptr, this, MID_TRACI_STATUS, GUIDesignButtonStatusBarFixed);
+        button->setBackColor(FXRGBA(253, 255, 206, 255));
+        if (TraCIServer::getInstance() == nullptr) {
+            myTraCiFrame->hide();
+        }
+        // build geo coordiantes
         myGeoFrame = new FXHorizontalFrame(myStatusbar, GUIDesignHorizontalFrameStatusBar);
         myGeoCoordinate = new FXLabel(myGeoFrame, "N/A\t\tOriginal coordinate (before coordinate transformation in netconvert)", nullptr, LAYOUT_CENTER_Y);
+        // build cartesian coordinates
         myCartesianFrame = new FXHorizontalFrame(myStatusbar, GUIDesignHorizontalFrameStatusBar);
         myCartesianCoordinate = new FXLabel(myCartesianFrame, "N/A\t\tNetwork coordinate", nullptr, LAYOUT_CENTER_Y);
+        // build buttons
         myStatButtons.push_back(new FXButton(myStatusbar, "-", GUIIconSubSys::getIcon(GUIIcon::GREENVEHICLE), this, MID_SHOWVEHSTATS));
         myStatButtons.push_back(new FXButton(myStatusbar, "-", GUIIconSubSys::getIcon(GUIIcon::GREENPERSON), this, MID_SHOWPERSONSTATS));
         myStatButtons.back()->hide();
@@ -634,7 +644,6 @@ GUIApplicationWindow::fillMenuBar() {
     GUIDesigns::buildFXMenuCommandShortcut(myHelpMenu,
                                            "&About", "F12", "About sumo-gui.",
                                            GUIIconSubSys::getIcon(GUIIcon::SUMO_MINI), this, MID_HOTKEY_F12_ABOUT);
-    //new FXButton(myMenuBar, "\t\tShows TraCI status", GUIIconSubSys::getIcon(GUIIcon::ADD), this, MID_TRACI_STATUS, 0, 0, 0, 14, 14, 0, 0, 0, 0);
     // build SUMO Accelerators (hotkeys)
     GUIShortcutsSubSys::buildSUMOAccelerators(this);
 }
@@ -1348,9 +1357,14 @@ GUIApplicationWindow::onUpdNeedsSimulation(FXObject* sender, FXSelector, void* p
     return 1;
 }
 
+
 long
 GUIApplicationWindow::onUpdTraCIStatus(FXObject* sender, FXSelector, void* ptr) {
-    sender->handle(this, TraCIServer::getInstance() == nullptr ? FXSEL(SEL_COMMAND, ID_DISABLE) : FXSEL(SEL_COMMAND, ID_ENABLE), ptr);
+    if (TraCIServer::getInstance()) {
+        myTraCiFrame->show();
+    } else {
+        myTraCiFrame->hide();
+    }
     return 1;
 }
 
