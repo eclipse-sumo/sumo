@@ -89,6 +89,8 @@ Warning: Converting invalid rail_crossing to traffic_light at junction '39186739
 Warning: Converting invalid rail_crossing to traffic_light at junction '3918673910'.
 Warning: Converting invalid rail_crossing to traffic_light at junction '3918673916'.
 Warning: Not joining junctions 160503259,171440823,4237827432 (only 1 exit node).
+Warning: Reducing junction cluster 1803575761,21487209,2480337678,2656298207,29219440,341340978,3831343134,4566145597,5747234974 (long edge).
+Warning: Not joining junctions 25664779,25664841,746803372 (long edge).
 Warning: Not joining junctions 28373970,540698421 (only 1 edge within and no cross-traffic).
 Warning: Not joining junctions 28373972,3513423889,3513425993 (not compact (maxEdge=4612964#0 length=8.21)).
 Warning: Ambiguity in turnarounds computation at junction '1206481791'.
@@ -113,8 +115,8 @@ Warning: The rail crossing '4567083494' does not have any roads.
 Warning: The rail crossing '4603453625' does not have any roads.
 Warning: The traffic light '4363312288' does not control any links; it will not be build.
 Warning: Could not build program '0' for traffic light '4363312288'
-Warning: The traffic light 'joinedS_6' cannot be adapted to a cycle time of 90.00.
-Warning: The traffic light 'joinedS_6' has a high cycle time of 172.00.
+Warning: The traffic light 'joinedS_7' cannot be adapted to a cycle time of 90.00.
+Warning: The traffic light 'joinedS_7' has a high cycle time of 172.00.
 Warning: 17 total messages of type: Ambiguous railway kilometrage direction for way '%' (assuming forward)
 Warning: 10 total messages of type: Could not re-assign PT stop '%', probably broken osm file.
 Warning: 9 total messages of type: Discarding unknown compound '%' in type '%' (first occurence for edge '%').
@@ -137,7 +139,7 @@ Warning: At actuated tlLogic 'cluster_160503146_27411250_5372980361_5727160044_5
 Warning: At actuated tlLogic 'cluster_21432801_2938442114_295705005_3139140896_3178759584_735967920_735967921_735967926_961816249_961816257', actuated phase 6 has no controlling detector.
 Warning: At actuated tlLogic 'joinedS_0', linkIndex 16 has no controlling detector.
 Warning: At actuated tlLogic 'joinedS_0', linkIndex 24 has no controlling detector.
-Warning: 12 total messages of type: At actuated tlLogic '%', linkIndex % has no controlling detector.
+Warning: 20 total messages of type: At actuated tlLogic '%', linkIndex % has no controlling detector.
 Warning: At actuated tlLogic 'GS_25662542', linkIndex 12 has no controlling detector.
 Warning: At actuated tlLogic 'GS_25662542', linkIndex 13 has no controlling detector.
 Warning: At actuated tlLogic 'GS_25662542', linkIndex 14 has no controlling detector.
@@ -145,26 +147,26 @@ Warning: At actuated tlLogic 'cluster_160503146_27411250_5372980361_5727160044_5
 Warning: At actuated tlLogic 'cluster_21432801_2938442114_295705005_3139140896_3178759584_735967920_735967921_735967926_961816249_961816257', actuated phase 6 has no controlling detector.
 Warning: At actuated tlLogic 'joinedS_0', linkIndex 16 has no controlling detector.
 Warning: At actuated tlLogic 'joinedS_0', linkIndex 24 has no controlling detector.
-Warning: At actuated tlLogic 'joinedS_2', linkIndex 2 has no controlling detector.
+Warning: At actuated tlLogic 'joinedS_2', linkIndex 6 has no controlling detector.
+Warning: At actuated tlLogic 'joinedS_2', linkIndex 7 has no controlling detector.
 Warning: At actuated tlLogic 'joinedS_2', linkIndex 8 has no controlling detector.
 Warning: At actuated tlLogic 'joinedS_2', linkIndex 9 has no controlling detector.
 Warning: At actuated tlLogic 'joinedS_2', linkIndex 10 has no controlling detector.
-Warning: At actuated tlLogic 'joinedS_2', linkIndex 31 has no controlling detector.
-Warning: At actuated tlLogic 'joinedS_2', linkIndex 32 has no controlling detector.
-Warning: At actuated tlLogic 'joinedS_2', linkIndex 33 has no controlling detector.
+Warning: At actuated tlLogic 'joinedS_2', linkIndex 11 has no controlling detector.
+Warning: At actuated tlLogic 'joinedS_2', linkIndex 12 has no controlling detector.
+Warning: At actuated tlLogic 'joinedS_2', linkIndex 13 has no controlling detector.
+Warning: At actuated tlLogic 'joinedS_3', linkIndex 2 has no controlling detector.
+Warning: At actuated tlLogic 'joinedS_3', linkIndex 8 has no controlling detector.
+Warning: At actuated tlLogic 'joinedS_3', linkIndex 9 has no controlling detector.
+Warning: At actuated tlLogic 'joinedS_3', linkIndex 10 has no controlling detector.
+Warning: At actuated tlLogic 'joinedS_3', linkIndex 31 has no controlling detector.
+Warning: At actuated tlLogic 'joinedS_3', linkIndex 32 has no controlling detector.
+Warning: At actuated tlLogic 'joinedS_3', linkIndex 33 has no controlling detector.
 Warning: Teleporting vehicle 'pt_tram_M2:0.1'; collision with vehicle 'pt_tram_M2:3.0', lane='148458500#0_0', gap=-1.00, time=479.00 stage=move.
 Warning: Vehicle 'pt_tram_M2:0.1' ends teleporting on edge '148458500#1', time=480.00.
-Warning: Person 'ped174' aborted waiting for 147:1 at busStop '3869306767'.
-Warning: Person 'ped186' aborted waiting for 147:1 at busStop '-3867910422'.
-Warning: Person 'ped79' aborted waiting for 100:0 at busStop '271296293'.
+Warning: Person 'ped33' aborted waiting for N5:0 at busStop '1827996417'.
 Warning: Person 'ped97' aborted waiting for 100:0 at busStop '1827996417'.
-Warning: Person 'ped76' aborted waiting for M4:3 at busStop '30731508'.
-Warning: Person 'ped108' aborted waiting for 12:0 at busStop '2175753204'.
-Warning: Person 'ped1' aborted waiting for M5:0 at busStop '1633759766'.
-Warning: Person 'ped172' aborted waiting for 12:0 at busStop '2175753204'.
 Warning: Person 'ped96' aborted waiting for S26:0 at busStop '1769645503'.
-Warning: Person 'ped142' aborted waiting for U6:0 at busStop '3043709616'.
+Warning: Person 'ped175' aborted waiting for N42:1 at busStop '270727260'.
 Warning: Person 'ped28' aborted waiting for RE7:0 at busStop '2603331683'.
-Warning: Person 'ped78' aborted waiting for S5:0 at busStop '1745157971'.
-Warning: Person 'ped139' aborted waiting for N40:0 at busStop '3867910438'.
 Warning: Person 'ped89' aborted waiting for S7:0 at busStop '2603331695'.

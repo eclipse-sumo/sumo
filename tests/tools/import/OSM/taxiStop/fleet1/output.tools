@@ -1,33 +1,33 @@
 Written configuration to 'osm.netccfg'
-Parsing types from '/home/kobo/dlr/sumo/data/typemap/osmNetconvert.typ.xml' ... done.
+Parsing types from '/home/behr_mi/sumo/data/typemap/osmNetconvert.typ.xml' ... done.
 Parsing nodes from osm-file 'osm_bbox.osm.xml' ... 
 Found and substituted 1 osm nodes.
-done (1020ms).
+done (404ms).
 Parsing edges from osm-file 'osm_bbox.osm.xml' ... 
-done (649ms).
+done (291ms).
 Removing duplicate edges ... 
 Removed 3 duplicate osm edges.
 done.
 Adding new type 'highway.service|railway.tram' (first occurence for edge '388702047').
 Parsing relations from osm-file 'osm_bbox.osm.xml' ... 
-done (494ms).
+done (244ms).
  Removed 125 traffic lights before loading plain-XML
  Import done:
    3434 nodes loaded.
    34 types loaded.
    5080 edges loaded.
 Proj projection parameters used: '+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs'.
-Removing self-loops ... done (1ms).
+Removing self-loops ... done (0ms).
 Joining junction clusters ... 
-done (24ms).
- Joined 105 junction cluster(s).
-Removing empty nodes and geometry nodes ... done (24ms).
+done (17ms).
+ Joined 106 junction cluster(s).
+Removing empty nodes and geometry nodes ... done (15ms).
    819 nodes removed.
-Moving network to origin ... done (104ms).
+Moving network to origin ... done (57ms).
 Computing turning directions ... 
-done (5ms).
-Assigning nodes to traffic lights ... done (3ms).
-Guessing and setting on-/off-ramps ... done (9ms).
+done (4ms).
+Assigning nodes to traffic lights ... done (2ms).
+Guessing and setting on-/off-ramps ... done (6ms).
 Removing sharp turn with radius 1.40 at the start of edge '144014242#1'.
 Removing sharp turn with radius 1.76 at the end of edge '153522299#3'.
 Removing sharp turn with radius 4.73 at the start of edge '167140670#3'.
@@ -36,32 +36,32 @@ Removing sharp turn with radius 8.03 at the end of edge '30123145#0'.
 Removing sharp turn with radius 4.29 at the start of edge '30123145#2'.
 Removing sharp turn with radius 0.01 at the start of edge '32590429'.
 Removing sharp turn with radius 0.01 at the end of edge '32590434#1'.
-Sorting nodes' edges ... done (9ms).
-Computing node shapes ... done (122ms).
-Computing edge shapes ... done (69ms).
-Computing node types ... done (4ms).
-Computing priorities ... done (6ms).
-Computing approached edges ... done (5ms).
-Guessing and setting roundabouts ... done (2ms).
-Computing approaching lanes ... done (16ms).
-Dividing of lanes on approached lanes ... done (11ms).
-Processing turnarounds ... done (3ms).
-Rechecking of lane endings ... done (2ms).
-Joining traffic light nodes ... done (4ms).
+Sorting nodes' edges ... done (6ms).
+Computing node shapes ... done (75ms).
+Computing edge shapes ... done (36ms).
+Computing node types ... done (3ms).
+Computing priorities ... done (3ms).
+Computing approached edges ... done (4ms).
+Guessing and setting roundabouts ... done (1ms).
+Computing approaching lanes ... done (9ms).
+Dividing of lanes on approached lanes ... done (8ms).
+Processing turnarounds ... done (2ms).
+Rechecking of lane endings ... done (1ms).
+Joining traffic light nodes ... done (3ms).
 Computing traffic light control information ... 
-done (1ms).
-Computing node logics ... done (26ms).
+done (2ms).
+Computing node logics ... done (18ms).
 Computing traffic light logics ... 
-done (8ms).
- 60 traffic light(s) computed.
+done (6ms).
+ 57 traffic light(s) computed.
 Building inner edges ... 
-done (91ms).
+done (44ms).
 -----------------------------------------------------
 Summary:
  Node type statistics:
   Unregulated junctions       : 0
   Dead-end junctions          : 1391
-  Priority junctions          : 711
+  Priority junctions          : 710
   Right-before-left junctions : 158
   Traffic light junctions      : 67
   Rail crossing junctions      : 29
@@ -71,5 +71,5 @@ Summary:
   Applied offset     : -389937.80,-5819108.12
   Converted boundary : 0.00,0.00,2865.03,3342.17
 -----------------------------------------------------
-Writing network ... done (655ms).
+Writing network ... done (416ms).
 Success.

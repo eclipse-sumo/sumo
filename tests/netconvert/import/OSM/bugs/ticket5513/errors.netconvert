@@ -8,11 +8,11 @@ Warning: Discarding unusable type 'highway.footway' (first occurence for edge '6
 Warning: Not joining junctions 201158128,201158137,201158163,5819001494 (not compact (maxEdge=47795936#2 length=8.36)).
 Warning: Not joining junctions 201583479,3649519965 (only 1 exit node).
 Warning: Not joining junctions 201221373,5819001427 (parallel incoming -615359726#1,19358290#1).
+Warning: Not joining junctions 201221409,3645240254,5996484329 (slip lane).
 Warning: Reducing junction cluster 3645200026,5819001456,5819001459 (parallel incoming -615359739#1,94669185#2).
 Warning: Reducing junction cluster 5819001430,5819001435,5819001672 (5 incoming edges).
 Warning: Not joining junctions 5819001429,5819001431 (parallel incoming -615359732,615359729#1).
-Warning: Not joining junctions 5819001404,5819001407 (6 incoming edges).
 Warning: Ambiguity in turnarounds computation at junction '5819001479'.
 Warning: The traffic light '201221451' does not control any links; it will not be build.
 Warning: Could not build program '0' for traffic light '201221451'
-Warning: 7 total messages of type: Not joining junctions % (%).
+Warning: 8 total messages of type: Not joining junctions % (%).
