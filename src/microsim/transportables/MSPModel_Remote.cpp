@@ -221,14 +221,15 @@ MSPModel_Remote::initialize() {
 	for (const MSEdge* const edge : (myNet->getEdgeControl()).getEdges()) {
         const MSLane* lane = getSidewalk<MSEdge, MSLane>(edge);
         if (lane) {
+            PositionVector shape = lane->getShape();
+            // Apparently CGAL expects polygons to be oriented CCW.
+            if (shape.isClockwiseOriented()) {
+                shape = shape.reverse();
+            }
+
             std::vector<double> lanePolygonCoordinates;
-            
+
             if (edge->isWalkingArea()) {
-                PositionVector shape = lane->getShape();
-                // Apparently CGAL expects polygons to be oriented CCW.
-                if (shape.isClockwiseOriented()) {
-                    shape = shape.reverse();
-                }
                 for (const Position& position : shape) {
                     lanePolygonCoordinates.push_back(position.x());
                     lanePolygonCoordinates.push_back(position.y());
@@ -236,8 +237,6 @@ MSPModel_Remote::initialize() {
             }
             else {
                 double amount = lane->getWidth() / 2.0;
-
-                PositionVector shape = lane->getShape();
                 shape.move2side(amount);
                 Position bottomFirstCorner = shape[0];
                 Position bottomSecondCorner = shape[1];
