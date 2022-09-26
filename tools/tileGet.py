@@ -20,6 +20,7 @@ from __future__ import print_function
 from __future__ import division
 import math
 import os
+import sys
 
 try:
     # python3
@@ -28,8 +29,6 @@ try:
 except ImportError:
     import urllib
     from urllib2 import HTTPError as urlerror
-
-import optparse
 
 import sumolib  # noqa
 
@@ -75,61 +74,72 @@ def getZoomWidthHeight(south, west, north, east, maxTileSize):
     return center, zoom, width, height
 
 
-def retrieveMapServerTiles(url, tiles, west, south, east, north, decals, prefix, net, layer, output_dir):
+def retrieveMapServerTiles(options, west, south, east, north, decals, net):
     zoom = 20
-    numTiles = tiles + 1
-    while numTiles > tiles:
+    numTiles = options.tiles + 1
+    while numTiles > options.tiles:
         zoom -= 1
         sx, sy = fromLatLonToTile(north, west, zoom)
         ex, ey = fromLatLonToTile(south, east, zoom)
         numTiles = (ex - sx + 1) * (ey - sy + 1)
     for x in range(sx, ex + 1):
         for y in range(sy, ey + 1):
-            request = "%s/%s/%s/%s" % (url, zoom, y, x)
+            request = "%s/%s/%s/%s" % (options.url, zoom, y, x)
 #            print(request)
 #            opener = urllib.build_opener()
 #            opener.addheaders = [('User-agent', 'Mozilla/5.0')]
 #            urllib.install_opener(opener)
-            try:
-                urllib.urlretrieve(request, "%s%s_%s.jpeg" % (os.path.join(output_dir, prefix), x, y))
+            filename = os.path.join(options.output_dir, "%s%s_%s.jpeg" % (options.prefix, x, y))
+            urllib.urlretrieve(request, filename)
+            if os.stat(filename).st_size < options.min_file_size:
+                raise ValueError("small file")
+            if net is not None:
                 lat, lon = fromTileToLatLon(x, y, zoom)
                 upperLeft = net.convertLonLat2XY(lon, lat)
                 lat, lon = fromTileToLatLon(x + 0.5, y + 0.5, zoom)
                 center = net.convertLonLat2XY(lon, lat)
-                print('    <decal file="%s%s_%s.jpeg" centerX="%s" centerY="%s" width="%s" height="%s" layer="%d"/>' %
-                      (prefix, x, y, center[0], center[1],
-                       2 * (center[0] - upperLeft[0]), 2 * (upperLeft[1] - center[1]), layer), file=decals)
-            except urlerror as e:
-                print("Tile server returned HTTP response code: " + str(e.code))
-                raise ValueError
+                print('    <decal file="%s" centerX="%s" centerY="%s" width="%s" height="%s" layer="%d"/>' %
+                      (os.path.basename(filename), center[0], center[1],
+                       2 * (center[0] - upperLeft[0]), 2 * (upperLeft[1] - center[1]), options.layer), file=decals)
 
 
-optParser = optparse.OptionParser()
-optParser.add_option("-p", "--prefix", default="tile", help="for output file")
-optParser.add_option("-b", "--bbox", help="bounding box to retrieve in geo coordinates west,south,east,north")
-optParser.add_option("-t", "--tiles", type="int",
-                     default=1, help="maximum number of tiles the output gets split into")
-optParser.add_option("-d", "--output-dir", default=".", help="optional output directory (must already exist)")
-optParser.add_option("-s", "--decals-file", default="settings.xml", help="name of decals settings file")
-optParser.add_option("-l", "--layer", type="int", default=0,
-                     help="(int) layer at which the image will appear, default 0")
-optParser.add_option("-x", "--polygon", help="calculate bounding box from polygon data in file")
-optParser.add_option("-n", "--net", help="get bounding box from net file")
-optParser.add_option("-k", "--key", help="API key to use")
-optParser.add_option("-m", "--maptype", default="satellite", help="map type (roadmap, satellite, hybrid, terrain)")
-optParser.add_option("-u", "--url",
-                     default="services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile",
-                     help="Download from the given tile server")
-# alternatives: open.mapquestapi.com/staticmap/v4/getmap, maps.googleapis.com/maps/api/staticmap
+def get_options(args=None):
+    optParser = sumolib.options.ArgumentParser()
+    optParser.add_option("-p", "--prefix", default="tile", help="for output file")
+    optParser.add_option("-b", "--bbox", help="bounding box to retrieve in geo coordinates west,south,east,north")
+    optParser.add_option("-t", "--tiles", type=int, default=1,
+                         help="maximum number of tiles the output gets split into")
+    optParser.add_option("-d", "--output-dir", default=".", help="optional output directory (must already exist)")
+    optParser.add_option("-s", "--decals-file", default="settings.xml", help="name of decals settings file")
+    optParser.add_option("-l", "--layer", type=int, default=0,
+                         help="(int) layer at which the image will appear, default 0")
+    optParser.add_option("-x", "--polygon", help="calculate bounding box from polygon data in file")
+    optParser.add_option("-n", "--net", help="get bounding box from net file")
+    optParser.add_option("-k", "--key", help="API key to use")
+    optParser.add_option("-m", "--maptype", default="satellite", help="map type (roadmap, satellite, hybrid, terrain)")
+    optParser.add_option("-u", "--url", default="arcgis", help="Download from the given tile server")
+    optParser.add_option("-f", "--min-file-size", type=int, default=3000,
+                         help="maximum number of tiles the output gets split into")
+    URL_SHORTCUTS= {
+        "arcgis" : "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile",
+        "mapquest" : "https://open.mapquestapi.com/staticmap/v4/getmap",
+        "google" : "https://maps.googleapis.com/maps/api/staticmap"
+    }
+    options = optParser.parse_args(args=args)
+    if not options.bbox and not options.net and not options.polygon:
+        optParser.error("At least one of 'bbox' and 'net' and 'polygon' has to be set.")
+    options.url = URL_SHORTCUTS.get(options.url.lower(), options.url)
+    if not options.url.startswith("http"):
+        options.url = "https://" + options.url
+    if options.bbox:
+        west, south, east, north = [float(v) for v in options.bbox.split(',')]
+        if south > north or west > east:
+            optParser.error("Invalid geocoordinates in bbox.")
+    return options
 
 
 def get(args=None):
-    options, _ = optParser.parse_args(args=args)
-    if not options.bbox and not options.net and not options.polygon:
-        optParser.error("At least one of 'bbox' and 'net' and 'polygon' has to be set.")
-    if not options.url.startswith("http"):
-        options.url = "https://" + options.url
-    bbox = ((0, 0), (0, 0))
+    options = get_options(args)
     if options.polygon:
         west = 1e400
         south = 1e400
@@ -145,27 +155,24 @@ def get(args=None):
                 north = max(point[1], north)
     if options.bbox:
         west, south, east, north = [float(v) for v in options.bbox.split(',')]
-        if south > north or west > east:
-            optParser.error("Invalid geocoordinates in bbox.")
     net = None
     if options.net:
         net = sumolib.net.readNet(options.net)
-        bbox = net.getBBoxXY()
-        west, south = net.convertXY2LonLat(*bbox[0])
-        east, north = net.convertXY2LonLat(*bbox[1])
+        bboxNet = net.getBBoxXY()
+        offset = (bboxNet[1][0] - bboxNet[0][0]) / options.tiles
+        west, south = net.convertXY2LonLat(*bboxNet[0])
+        east, north = net.convertXY2LonLat(*bboxNet[1])
 
     prefix = os.path.join(options.output_dir, options.prefix)
     mapQuest = "mapquest" in options.url
     with open(os.path.join(options.output_dir, options.decals_file), "w") as decals:
         sumolib.xml.writeHeader(decals, root="viewsettings")
         if "MapServer" in options.url:
-            retrieveMapServerTiles(options.url, options.tiles, west, south, east, north,
-                                   decals, options.prefix, net, options.layer, options.output_dir)
+            retrieveMapServerTiles(options, west, south, east, north, decals, net)
         else:
             b = west
             for i in range(options.tiles):
                 e = b + (east - west) / options.tiles
-                offset = (bbox[1][0] - bbox[0][0]) / options.tiles
                 c, z, w, h = getZoomWidthHeight(south, b, north, e, 2560 if mapQuest else 640)
                 if mapQuest:
                     size = "size=%d,%d" % (w, h)
@@ -176,17 +183,25 @@ def get(args=None):
                 request = ("%s?%s&center=%.6f,%.6f&zoom=%s&%s&key=%s" %
                            (options.url, size, c[0], c[1], z, maptype, options.key))
     #            print(request)
-                try:
-                    urllib.urlretrieve(request, "%s%s.png" % (prefix, i))
-                    print('    <decal file="%s%s.png" centerX="%s" centerY="%s" width="%s" height="%s" layer="%d"/>' %
-                          (options.prefix, i, bbox[0][0] + (i + 0.5) * offset, (bbox[0][1] + bbox[1][1]) / 2,
-                           offset, bbox[1][1] - bbox[0][1], options.layer), file=decals)
-                    b = e
-                except urlerror as e:
-                    print("Tile server returned HTTP response code: " + str(e.code))
-                    raise ValueError
+                filename = os.path.join(options.output_dir, "%s%s.png" % (prefix, i))
+                urllib.urlretrieve(request, filename)
+                if os.stat(filename).st_size < options.min_file_size:
+                    raise ValueError("small file")
+                if net is not None:
+                    print('    <decal file="%s" centerX="%s" centerY="%s" width="%s" height="%s" layer="%d"/>' %
+                          (os.path.basename(filename),
+                           bboxNet[0][0] + (i + 0.5) * offset, (bboxNet[0][1] + bboxNet[1][1]) / 2,
+                           offset, bboxNet[1][1] - bboxNet[0][1], options.layer), file=decals)
+                b = e
         print("</viewsettings>", file=decals)
 
 
 if __name__ == "__main__":
-    get()
+    try:
+        get()
+    except urlerror as e:
+        print("Error: Tile server returned %s." % e, file=sys.stderr)
+        if e.code == 403:
+            print(" Maybe an API key is required.", file=sys.stderr)
+    except ValueError as e:
+        print("Error: Tile server returned %s." % e, file=sys.stderr)

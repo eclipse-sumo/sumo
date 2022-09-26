@@ -41,9 +41,9 @@
  * ----------------------------------------------------------------------- */
 GUIInstantInductLoop::GUIInstantInductLoop(const std::string& id, OutputDevice& od,
         MSLane* const lane, double positionInMeters,
-        const std::string& vTypes,
+        const std::string name, const std::string& vTypes,
         const std::string& nextEdges) :
-    MSInstantInductLoop(id, od, lane, positionInMeters, vTypes, nextEdges) {}
+    MSInstantInductLoop(id, od, lane, positionInMeters, name, vTypes, nextEdges) {}
 
 
 GUIInstantInductLoop::~GUIInstantInductLoop() {}
@@ -92,6 +92,7 @@ GUIInstantInductLoop::MyWrapper::getParameterWindow(GUIMainWindow& app,
     GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this);
     // add items
     // parameter
+    ret->mkItem("name", false, myDetector.myName);
     ret->mkItem("position [m]", false, myPosition);
     ret->mkItem("lane", false, myDetector.getLane()->getID());
     // values

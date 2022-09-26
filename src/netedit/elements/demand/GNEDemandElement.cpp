@@ -21,6 +21,8 @@
 
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewParent.h>
+#include <netedit/frames/common/GNESelectorFrame.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/globjects/GLIncludes.h>
@@ -255,6 +257,18 @@ GNEDemandElement::deleteGLObject() {
     } else {
         myNet->deleteDemandElement(this, myNet->getViewNet()->getUndoList());
     }
+}
+
+
+void 
+GNEDemandElement::selectGLObject() {
+    if (isAttributeCarrierSelected()) {
+        unselectAttributeCarrier();
+    } else {
+        selectAttributeCarrier();
+    }
+    // update information label
+    myNet->getViewNet()->getViewParent()->getSelectorFrame()->getSelectionInformation()->updateInformationLabel();
 }
 
 
@@ -646,6 +660,10 @@ GNEDemandElement::drawPersonPlanPartial(const bool drawPlan, const GUIVisualizat
             if (myNet->getViewNet()->drawDeleteContour(this, this)) {
                 GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::REMOVE, shape, pathWidth, 1, segment->isFirstSegment(), segment->isLastSegment());
             }
+            // select contour
+            if (myNet->getViewNet()->drawSelectContour(this, this)) {
+                GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::SELECT, shape, pathWidth, 1, segment->isFirstSegment(), segment->isLastSegment());
+            }
         }
     }
     // draw person parent if this is the edge first edge and this is the first plan
@@ -716,11 +734,15 @@ GNEDemandElement::drawPersonPlanPartial(const bool drawPlan, const GUIVisualizat
                         pathWidth, 1, false, false);
             }
             // delete contour
-            if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
+            if (myNet->getViewNet()->drawDeleteContour(this, this)) {
                 GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::REMOVE, fromLane->getLane2laneConnections().getLane2laneGeometry(toLane).getShape(),
                         pathWidth, 1, false, false);
             }
-
+            // select contour
+            if (myNet->getViewNet()->drawSelectContour(this, this)) {
+                GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::SELECT, fromLane->getLane2laneConnections().getLane2laneGeometry(toLane).getShape(),
+                        pathWidth, 1, false, false);
+            }
         }
     }
 }

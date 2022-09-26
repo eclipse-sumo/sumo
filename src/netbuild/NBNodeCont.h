@@ -356,8 +356,8 @@ private:
     /// @brief remove geometry-like fringe nodes from cluster
     void pruneClusterFringe(NodeSet& cluster) const;
 
-    /// @brief avoid removal of long edges when joinining junction clusters
-    static void pruneLongEdges(NodeSet& cluster, double maxDist);
+    /// @brief avoid removal of long edges when joining junction clusters
+    static int pruneLongEdges(NodeSet& cluster, double maxDist, const bool dryRun=false);
 
     /// @brief remove nodes that form a slip lane from cluster
     void pruneSlipLaneNodes(NodeSet& cluster) const;

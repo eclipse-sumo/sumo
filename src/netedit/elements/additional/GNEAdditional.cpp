@@ -24,6 +24,7 @@
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
 #include <netedit/frames/common/GNEMoveFrame.h>
+#include <netedit/frames/common/GNESelectorFrame.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
@@ -222,6 +223,18 @@ GNEAdditional::markAsFrontElement() {
 void
 GNEAdditional::deleteGLObject() {
     myNet->deleteAdditional(this, myNet->getViewNet()->getUndoList());
+}
+
+
+void 
+GNEAdditional::selectGLObject() {
+    if (isAttributeCarrierSelected()) {
+        unselectAttributeCarrier();
+    } else {
+        selectAttributeCarrier();
+    }
+    // update information label
+    myNet->getViewNet()->getViewParent()->getSelectorFrame()->getSelectionInformation()->updateInformationLabel();
 }
 
 
@@ -439,6 +452,10 @@ GNEAdditional::drawSquaredAdditional(const GUIVisualizationSettings& s, const Po
         // delete contour
         if (myNet->getViewNet()->drawDeleteContour(this, this)) {
             GUIDottedGeometry::drawDottedSquaredShape(s, GUIDottedGeometry::DottedContourType::REMOVE, pos, size, size, 0, 0, 0, exaggeration);
+        }
+        // select contour
+        if (myNet->getViewNet()->drawSelectContour(this, this)) {
+            GUIDottedGeometry::drawDottedSquaredShape(s, GUIDottedGeometry::DottedContourType::SELECT, pos, size, size, 0, 0, 0, exaggeration);
         }
         // Draw additional ID
         drawAdditionalID(s);

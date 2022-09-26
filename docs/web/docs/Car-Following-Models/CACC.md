@@ -43,6 +43,8 @@ The collision avoidance mode prevents rear-end collisions when safety
 critical conditions prevail. This mode is activated when the time-gap is
 less than 1.5 s and the gap deviation is negative.
 
+Also, If the followSpeed computed by the CACC model grows higher than the safe followSpeed as computed by the default Krauss model by a given margin (configured by collisionAvoidanceOverride), the speed is limited to the value of Krauss-speed + margin. The override margin defaults to 2m/s.
+
 ## Notes
 
 - The implemented model can be found in [{{SUMO}}/src/microsim/cfmodels/MSCFModel_CACC.cpp]({{Source}}src/microsim/cfmodels/MSCFModel_CACC.cpp).

@@ -337,6 +337,14 @@ GNEPOI::drawGL(const GUIVisualizationSettings& s) const {
                     GUIDottedGeometry::drawDottedSquaredShape(s, GUIDottedGeometry::DottedContourType::REMOVE, *this, getHeight() * 0.5, getWidth() * 0.5, 0, 0, getShapeNaviDegree(), POIExaggeration);
                 }
             }
+            // select contour
+            if (myNet->getViewNet()->drawSelectContour(this, this)) {
+                if (getShapeImgFile().empty()) {
+                    GUIDottedGeometry::drawDottedContourCircle(s, GUIDottedGeometry::DottedContourType::SELECT, *this, 1.3, POIExaggeration);
+                } else {
+                    GUIDottedGeometry::drawDottedSquaredShape(s, GUIDottedGeometry::DottedContourType::SELECT, *this, getHeight() * 0.5, getWidth() * 0.5, 0, 0, getShapeNaviDegree(), POIExaggeration);
+                }
+            }
         }
     }
 }

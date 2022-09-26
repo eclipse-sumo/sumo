@@ -1409,7 +1409,7 @@ MSRouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
             throw ProcessError("Non-positive walking speed for  '" + myVehicleParameter->id + "'.");
         }
         const double walkFactor = attrs.getOpt<double>(SUMO_ATTR_WALKFACTOR, id, ok, OptionsCont::getOptions().getFloat("persontrip.walkfactor"));
-        const double departPosLat = attrs.getOpt<double>(SUMO_ATTR_DEPARTPOS_LAT, nullptr, ok, 0);
+        const double departPosLat = interpretDepartPosLat(attrs.getOpt<std::string>(SUMO_ATTR_DEPARTPOS_LAT, nullptr, ok, ""), -1, "personTrip");
         if (ok) {
             if (myActiveTransportablePlan->empty()) {
                 double initialDepartPos = myVehicleParameter->departPos;
@@ -1484,8 +1484,8 @@ MSRouteHandler::addWalk(const SUMOSAXAttributes& attrs) {
                     throw ProcessError("Disconnected plan for person '" + myVehicleParameter->id + "' (" + myActiveRoute.front()->getID() + " not connected to " + myActiveTransportablePlan->back()->getDestination()->getID() + ").");
                 }
             }
-            const double departPosLat = attrs.getOpt<double>(SUMO_ATTR_DEPARTPOS_LAT, nullptr, ok, 0);
-            const int departLane =  attrs.getOpt<int>(SUMO_ATTR_DEPARTLANE, nullptr, ok, -1);
+            const int departLane = attrs.getOpt<int>(SUMO_ATTR_DEPARTLANE, nullptr, ok, -1);
+            const double departPosLat = interpretDepartPosLat(attrs.getOpt<std::string>(SUMO_ATTR_DEPARTPOS_LAT, nullptr, ok, ""), departLane, "walk");
             myActiveTransportablePlan->push_back(new MSPerson::MSPersonStage_Walking(myVehicleParameter->id, myActiveRoute, bs, duration, speed, departPos, arrivalPos, departPosLat, departLane, myActiveRouteID));
             if (attrs.hasAttribute(SUMO_ATTR_ARRIVALPOS)) {
                 myActiveTransportablePlan->back()->markSet(VEHPARS_ARRIVALPOS_SET);
@@ -1500,6 +1500,45 @@ MSRouteHandler::addWalk(const SUMOSAXAttributes& attrs) {
     }
 }
 
+double
+MSRouteHandler::interpretDepartPosLat(const std::string& value, int departLane, const std::string& element) {
+    double pos = 0;
+    if (value == "") {
+        return pos;
+    }
+    std::string error;
+    DepartPosLatDefinition dpd;
+    if (SUMOVehicleParameter::parseDepartPosLat(value, element, myVehicleParameter->id, pos, dpd, error)) {
+        if (dpd != DepartPosLatDefinition::GIVEN) {
+            const MSLane* lane = MSStageMoving::checkDepartLane(myActiveRoute.front(), SVC_IGNORING, departLane, myVehicleParameter->id);
+            if (lane == nullptr) {
+                throw ProcessError("Could not find departure lane for walk of person '" + myVehicleParameter->id + "' when interpreting departPosLat");
+            }
+            switch (dpd) {
+                case DepartPosLatDefinition::RIGHT:
+                    pos = lane->getWidth();
+                    break;
+                case DepartPosLatDefinition::LEFT:
+                    pos = NUMERICAL_EPS;
+                    break;
+                case DepartPosLatDefinition::CENTER:
+                    pos = lane->getWidth() / 2;
+                    break;
+                case DepartPosLatDefinition::RANDOM:
+                case DepartPosLatDefinition::FREE:
+                case DepartPosLatDefinition::RANDOM_FREE:
+                    /// @todo: needs extra randomization for personFlow
+                    pos = RandHelper::rand(&myParsingRNG) * lane->getWidth();
+                    break;
+                default:
+                    break;
+            }
+        }
+    } else {
+        throw ProcessError(error);
+    }
+    return pos;
+}
 
 void
 MSRouteHandler::addPerson(const SUMOSAXAttributes& /*attrs*/) {

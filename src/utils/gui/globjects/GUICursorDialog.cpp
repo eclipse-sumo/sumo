@@ -38,6 +38,7 @@
 FXDEFMAP(GUICursorDialog) GUICursorDialogMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_CURSORDIALOG_SETFRONTELEMENT,   GUICursorDialog::onCmdSetFrontElement),
     FXMAPFUNC(SEL_COMMAND,  MID_CURSORDIALOG_DELETEELEMENT,     GUICursorDialog::onCmdDeleteElement),
+    FXMAPFUNC(SEL_COMMAND,  MID_CURSORDIALOG_SELECTELEMENT,     GUICursorDialog::onCmdSelectElement),
     FXMAPFUNC(SEL_COMMAND,  MID_CURSORDIALOG_PROPERTIES,        GUICursorDialog::onCmdOpenPropertiesPopUp),
     FXMAPFUNC(SEL_COMMAND,  MID_CURSORDIALOG_MOVEUP,            GUICursorDialog::onCmdMoveListUp),
     FXMAPFUNC(SEL_COMMAND,  MID_CURSORDIALOG_MOVEDOWN,          GUICursorDialog::onCmdMoveListDown),
@@ -56,50 +57,13 @@ GUICursorDialog::GUICursorDialog(CursorDialogType cursorDialogType, GUISUMOAbstr
     myView(view) {
     // continue depending of properties
     if (cursorDialogType == CursorDialogType::PROPERTIES) {
-        // create header
-        myMenuHeader = new MFXMenuHeader(this, view->getMainWindow()->getBoldFont(), "Overlapped objects", GUIIconSubSys::getIcon(GUIIcon::MODEINSPECT), nullptr, 0);
-        new FXMenuSeparator(this);
-        // check if create move up menu command
-        if (objects.size() > NUM_VISIBLE_ITEMS) {
-            myMoveUpMenuCommand = GUIDesigns::buildFXMenuCommand(this, "Previous", GUIIconSubSys::getIcon(GUIIcon::ARROW_UP), this, MID_CURSORDIALOG_MOVEUP);
-            new FXMenuSeparator(this);
-        }
-        // create a menu command for every object
-        for (const auto &GLObject : objects) {
-            myMenuCommandGLObjects.push_back(std::make_pair(GUIDesigns::buildFXMenuCommand(this, GLObject->getMicrosimID(), GLObject->getGLIcon(), this, MID_CURSORDIALOG_PROPERTIES), GLObject));
-        }
+        buildDialogElements(view, "Overlapped objects", GUIIcon::MODEINSPECT, MID_CURSORDIALOG_PROPERTIES, objects);
     } else if (cursorDialogType == CursorDialogType::DELETE_ELEMENT) {
-        // create header
-        myMenuHeader = new MFXMenuHeader(this, view->getMainWindow()->getBoldFont(), "Delete element", GUIIconSubSys::getIcon(GUIIcon::MODEDELETE), nullptr, 0);
-        new FXMenuSeparator(this);
-        // check if create move up menu command
-        if (objects.size() > NUM_VISIBLE_ITEMS) {
-            myMoveUpMenuCommand = GUIDesigns::buildFXMenuCommand(this, "Previous", GUIIconSubSys::getIcon(GUIIcon::ARROW_UP), this, MID_CURSORDIALOG_MOVEUP);
-            new FXMenuSeparator(this);
-        }
-        // create a menu command for every object
-        for (const auto &GLObject : objects) {
-            myMenuCommandGLObjects.push_back(std::make_pair(GUIDesigns::buildFXMenuCommand(this, GLObject->getMicrosimID(), GLObject->getGLIcon(), this, MID_CURSORDIALOG_DELETEELEMENT), GLObject));
-        }
+        buildDialogElements(view, "Delete element", GUIIcon::MODEDELETE, MID_CURSORDIALOG_DELETEELEMENT, objects);
+    } else if (cursorDialogType == CursorDialogType::SELECT_ELEMENT) {
+        buildDialogElements(view, "Select element", GUIIcon::MODESELECT, MID_CURSORDIALOG_SELECTELEMENT, objects);
     } else if (cursorDialogType == CursorDialogType::FRONT_ELEMENT) {
-        // create header
-        myMenuHeader = new MFXMenuHeader(this, view->getMainWindow()->getBoldFont(), "Mark front element", GUIIconSubSys::getIcon(GUIIcon::FRONTELEMENT), nullptr, 0);
-        new FXMenuSeparator(this);
-        // check if create move up menu command
-        if (objects.size() > NUM_VISIBLE_ITEMS) {
-            myMoveUpMenuCommand = GUIDesigns::buildFXMenuCommand(this, "Previous", GUIIconSubSys::getIcon(GUIIcon::ARROW_UP), this, MID_CURSORDIALOG_MOVEUP);
-            new FXMenuSeparator(this);
-        }
-        // create a menu command for every object
-        for (const auto &GLObject : objects) {
-            myMenuCommandGLObjects.push_back(std::make_pair(GUIDesigns::buildFXMenuCommand(this, GLObject->getMicrosimID(), GLObject->getGLIcon(), this, MID_CURSORDIALOG_SETFRONTELEMENT), GLObject));
-        }
-    }
-    // check if create move down menu command
-    if (objects.size() > NUM_VISIBLE_ITEMS) {
-        new FXMenuSeparator(this);
-        myMoveDownMenuCommand = GUIDesigns::buildFXMenuCommand(this, "Next", GUIIconSubSys::getIcon(GUIIcon::ARROW_DOWN), this, MID_CURSORDIALOG_MOVEDOWN);
-        updateList();
+        buildDialogElements(view, "Mark front element", GUIIcon::FRONTELEMENT, MID_CURSORDIALOG_SETFRONTELEMENT, objects);
     }
 }
 
@@ -139,6 +103,21 @@ GUICursorDialog::onCmdDeleteElement(FXObject* obj, FXSelector, void*) {
     return 1;
 }
 
+
+long
+GUICursorDialog::onCmdSelectElement(FXObject* obj, FXSelector, void*) {
+    // search element in myGLObjects
+    for (const auto &GLObject : myMenuCommandGLObjects) {
+        if (GLObject.first == obj) {
+            GLObject.second->selectGLObject();
+        }
+    }
+    // destroy popup
+    myView->destroyPopup();
+    return 1;
+}
+
+
 long 
 GUICursorDialog::onCmdOpenPropertiesPopUp(FXObject* obj, FXSelector, void*) {
     // search element in myGLObjects
@@ -170,7 +149,7 @@ GUICursorDialog::onCmdMoveListDown(FXObject*, FXSelector, void*) {
 }
 
 
-long 
+long
 GUICursorDialog::onCmdUnpost(FXObject* obj, FXSelector, void* ptr) {
     // ignore move up, down and header
     if ((obj == myMoveUpMenuCommand) || (obj == myMoveDownMenuCommand) || (obj == myMenuHeader)) {
@@ -187,7 +166,8 @@ GUICursorDialog::onCmdUnpost(FXObject* obj, FXSelector, void* ptr) {
     return 1;
 }
 
-void 
+
+void
 GUICursorDialog::updateList() {
     // first hide all menu commands
     for (const auto &GLObject : myMenuCommandGLObjects) {
@@ -213,6 +193,29 @@ GUICursorDialog::updateList() {
     }
     // recalc popup
     recalc();
+}
+
+
+void
+GUICursorDialog::buildDialogElements(GUISUMOAbstractView* view, const FXString text, GUIIcon icon, FXSelector sel, const std::vector<GUIGlObject*> &objects) {
+    // create header
+    myMenuHeader = new MFXMenuHeader(this, view->getMainWindow()->getBoldFont(), text, GUIIconSubSys::getIcon(icon), nullptr, 0);
+    new FXMenuSeparator(this);
+    // check if create move up menu command
+    if (objects.size() > NUM_VISIBLE_ITEMS) {
+        myMoveUpMenuCommand = GUIDesigns::buildFXMenuCommand(this, "Previous", GUIIconSubSys::getIcon(GUIIcon::ARROW_UP), this, MID_CURSORDIALOG_MOVEUP);
+        new FXMenuSeparator(this);
+    }
+    // create a menu command for every object
+    for (const auto &GLObject : objects) {
+        myMenuCommandGLObjects.push_back(std::make_pair(GUIDesigns::buildFXMenuCommand(this, GLObject->getMicrosimID(), GLObject->getGLIcon(), this, sel), GLObject));
+    }
+    // check if create move down menu command
+    if (objects.size() > NUM_VISIBLE_ITEMS) {
+        new FXMenuSeparator(this);
+        myMoveDownMenuCommand = GUIDesigns::buildFXMenuCommand(this, "Next", GUIIconSubSys::getIcon(GUIIcon::ARROW_DOWN), this, MID_CURSORDIALOG_MOVEDOWN);
+        updateList();
+    }
 }
 
 /****************************************************************************/

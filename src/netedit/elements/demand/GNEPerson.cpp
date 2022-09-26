@@ -442,6 +442,11 @@ GNEPerson::drawGL(const GUIVisualizationSettings& s) const {
                 // draw using drawDottedSquaredShape
                 GUIDottedGeometry::drawDottedSquaredShape(s, GUIDottedGeometry::DottedContourType::REMOVE, personPosition, 0.5, 0.5, 0, 0, 0, exaggeration);
             }
+            // select contour
+            if (myNet->getViewNet()->drawSelectContour(this, this)) {
+                // draw using drawDottedSquaredShape
+                GUIDottedGeometry::drawDottedSquaredShape(s, GUIDottedGeometry::DottedContourType::SELECT, personPosition, 0.5, 0.5, 0, 0, 0, exaggeration);
+            }
         }
     }
 }

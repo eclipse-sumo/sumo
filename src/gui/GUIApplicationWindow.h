@@ -49,6 +49,7 @@ class GUIMessageWindow;
 class GUIEvent;
 class GUIParameterTracker;
 class GUIParameterTableWindow;
+class GUIDialog_Breakpoints;
 
 
 // ===========================================================================
@@ -319,6 +320,10 @@ public:
 
     const std::vector<SUMOTime> retrieveBreakpoints() const;
 
+    void eraseBreakpointDialog() {
+        myBreakpointDialog = nullptr;
+    }
+
     /// @brief register custom hotkey action
     void addHotkey(int key, Command* press, Command* release);
 
@@ -489,4 +494,5 @@ protected:
     std::map<int, Command*> myHotkeyPress;
     std::map<int, Command*> myHotkeyRelease;
 
+    GUIDialog_Breakpoints* myBreakpointDialog = nullptr;
 };

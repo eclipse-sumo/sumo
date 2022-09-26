@@ -44,6 +44,7 @@
 #define DEBUG_COND (veh->isSelected())
 //#define DEBUG_COND (veh->getID() == "follower")
 //#define DEBUG_COND2 (SIMTIME == 176)
+//#define DEBUG_COND2 (true)
 #define DEBUG_COND2 (gDebugFlag1)
 
 

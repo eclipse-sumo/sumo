@@ -74,7 +74,7 @@ public:
      */
     MSInductLoop(const std::string& id, MSLane* const lane,
                  double positionInMeters,
-                 double length,
+                 double length, std::string name,
                  const std::string& vTypes,
                  const std::string& nextEdges,
                  int detectPersons,
@@ -85,10 +85,13 @@ public:
     ~MSInductLoop();
 
 
-    /** @brief Resets all generated values to allow computation of next interval
-     */
+    /// @brief Resets all generated values to allow computation of next interval
     virtual void reset();
 
+    /// @brief get name
+    std::string getName() const {
+        return myName;
+    }
 
     /** @brief Returns the position of the detector on the lane
      * @return The detector's position in meters
@@ -340,6 +343,9 @@ protected:
     void notifyMovePerson(MSTransportable* p, int dir, double pos);
 
 protected:
+    /// @brief detecto name
+    std::string myName;
+
     /// @brief Detector's position on lane [m]
     const double myPosition;
 

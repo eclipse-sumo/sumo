@@ -212,6 +212,10 @@ GNEAccess::drawGL(const GUIVisualizationSettings& s) const {
         if (myNet->getViewNet()->drawDeleteContour(this, this)) {
             GUIDottedGeometry::drawDottedContourCircle(s, GUIDottedGeometry::DottedContourType::REMOVE, myAdditionalGeometry.getShape().front(), 0.5, accessExaggeration);
         }
+        // select contour
+        if (myNet->getViewNet()->drawSelectContour(this, this)) {
+            GUIDottedGeometry::drawDottedContourCircle(s, GUIDottedGeometry::DottedContourType::SELECT, myAdditionalGeometry.getShape().front(), 0.5, accessExaggeration);
+        }
     }
 }
 

@@ -221,6 +221,12 @@ GUIGlObject::deleteGLObject() {
 
 
 void
+GUIGlObject::selectGLObject() {
+    // by default nothing to do
+}
+
+
+void
 GUIGlObject::updateGLObject() {
     // by default nothing to update
 }

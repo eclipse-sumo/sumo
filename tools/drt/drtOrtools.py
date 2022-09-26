@@ -74,11 +74,13 @@ def create_data_model(reservations, fleet, cost_type='distance', verbose=False):
     for reservation in dp_reservations:
         from_edge = reservation.fromEdge
         edges.append(from_edge)
+        reservation.from_node = len(edges) - 1
         if verbose:
             print('Reservation %s starts at edge %s' % (reservation.id, from_edge))
     for reservation in dp_reservations:
         to_edge = reservation.toEdge
         edges.append(to_edge)
+        reservation.to_node = len(edges) - 1
         if verbose:
             print('Reservation %s ends at edge %s' % (reservation.id, to_edge))
     # dict for vehicle_ids with a list of drop off edges
@@ -157,7 +159,7 @@ def get_cost_matrix(edges, type_vehicle, cost_type='distance'):
     """Get cost matrix between edges.
     Index in cost matrix is the same as the node index of the constraint solver."""
     n_edges = len(edges)
-    cost_matrix = np.zeros([n_edges, n_edges])
+    cost_matrix = np.zeros([n_edges, n_edges], dtype=int)
     cost_dict = {}
     # TODO initialize cost_dict in run() and update for speed improvement
     for ii, edge_from in enumerate(edges):
@@ -176,11 +178,11 @@ def get_cost_matrix(edges, type_vehicle, cost_type='distance'):
                 continue
             route = traci.simulation.findRoute(edge_from, edge_to, vType=type_vehicle)
             if cost_type == 'time':
-                cost_matrix[ii][jj] = route.travelTime
-                cost_dict[(edge_from, edge_to)] = route.travelTime
+                cost_matrix[ii][jj] = round(route.travelTime)
+                cost_dict[(edge_from, edge_to)] = round(route.travelTime)
             else:  # default is distance
-                cost_matrix[ii][jj] = route.length
-                cost_dict[(edge_from, edge_to)] = route.length
+                cost_matrix[ii][jj] = round(route.length)
+                cost_dict[(edge_from, edge_to)] = round(route.length)
     return cost_matrix.tolist()
 
 

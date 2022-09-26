@@ -115,6 +115,9 @@ public:
     /// @brief open delete dialog at cursor
     void openDeleteDialogAtCursor(const std::vector<GUIGlObject*> &GLObjects);
 
+    /// @brief open select dialog at cursor
+    void openSelectDialogAtCursor(const std::vector<GUIGlObject*> &GLObjects);
+
     // save visualization settings
     void saveVisualizationSettings() const;
 
@@ -308,6 +311,9 @@ public:
     /// @brief edit crossing shape
     long onCmdEditCrossingShape(FXObject*, FXSelector, void*);
 
+    /// @brief edit walkingArea shape
+    long onCmdEditWalkingAreaShape(FXObject*, FXSelector, void*);
+
     /// @name View options network call backs
     /// @{
 
@@ -494,6 +500,9 @@ public:
 
     /// @brief check if draw delete contour
     bool drawDeleteContour(const GUIGlObject* GLObject, const GNEAttributeCarrier* AC) const;
+
+    /// @brief check if draw select contour
+    bool drawSelectContour(const GUIGlObject* GLObject, const GNEAttributeCarrier* AC) const;
 
     /// @brief get last created route
     GNEDemandElement* getLastCreatedRoute() const;
@@ -694,6 +703,9 @@ private:
     /// @brief try to retrieve a crossing at popup position
     GNECrossing* getCrossingAtPopupPosition();
 
+    /// @brief try to retrieve a walkingArea at popup position
+    GNEWalkingArea* getWalkingAreaAtPopupPosition();
+
     /// @brief try to retrieve a additional at popup position
     GNEAdditional* getAdditionalAtPopupPosition();
 
@@ -742,8 +754,11 @@ private:
     /// @brief draw temporal Junction TLS Lines
     void drawTemporalJunctionTLSLines() const;
 
-    /// @brief draw temporal objects to delete (used for dotted contour)
-    void drawTemporalObjectsToDelete();
+    /// @brief draw delete dotted contours
+    void drawDeleteDottedContour();
+
+    /// @brief draw select dotted contours
+    void drawSelectDottedContour();
 
     /// @}
 

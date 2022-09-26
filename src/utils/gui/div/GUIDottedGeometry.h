@@ -35,6 +35,7 @@ public:
         INSPECT,
         INSPECT_SMALL,
         REMOVE,
+        SELECT,
         FRONT,
         FRONT_SMALL,
         MOVE,
@@ -43,7 +44,8 @@ public:
         ORANGE,
         YELLOW,
         FROMTAZ,
-        TOTAZ
+        TOTAZ,
+        NOTHING
     };
 
     /// @brief class for pack all variables related with GUIDottedGeometry color

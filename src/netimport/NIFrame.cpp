@@ -216,6 +216,8 @@ NIFrame::fillOptions(bool forNetedit) {
     oc.doRegister("osm.extra-attributes", new Option_StringVector(StringVector({ "bridge", "tunnel", "layer", "postal_code" })));
     oc.addDescription("osm.extra-attributes", "Formats", "List of additional attributes that shall be imported from OSM via osm.all-attributes (set 'all' to import all)");
 
+    oc.doRegister("osm.speedlimit-none", new Option_Float(39.4444));
+    oc.addDescription("osm.speedlimit-none", "Formats", "The speed limit to be set when there is no actual speed limit in reality");
 
     // register matsim options
     oc.doRegister("matsim.keep-length", new Option_Bool(false));

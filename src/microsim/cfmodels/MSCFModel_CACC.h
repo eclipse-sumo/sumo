@@ -227,6 +227,7 @@ private:
     double myCollisionAvoidanceGainGapDot;
     double myHeadwayTimeACC;
     double myApplyDriverstate;
+    double myEmergencyThreshold;
 
 private:
     /// @brief Invalidated assignment operator

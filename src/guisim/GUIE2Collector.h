@@ -63,7 +63,7 @@ public:
     GUIE2Collector(const std::string& id, DetectorUsage usage,
                    MSLane* lane, double startPos, double endPos, double detLength,
                    SUMOTime haltingTimeThreshold, double haltingSpeedThreshold, double jamDistThreshold,
-                   const std::string& vTypes,
+                   const std::string name, const std::string& vTypes,
                    const std::string& nextEdges,
                    int detectPersons, bool showDetector);
 
@@ -85,7 +85,7 @@ public:
     GUIE2Collector(const std::string& id, DetectorUsage usage,
                    std::vector<MSLane*> lanes, double startPos, double endPos,
                    SUMOTime haltingTimeThreshold, double haltingSpeedThreshold, double jamDistThreshold,
-                   const std::string& vTypes,
+                   const std::string name, const std::string& vTypes,
                    const std::string& nextEdges,
                    int detectPersons, bool showDetector);
 

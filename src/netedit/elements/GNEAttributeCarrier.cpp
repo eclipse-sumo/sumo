@@ -1406,7 +1406,7 @@ GNEAttributeCarrier::fillNetworkElements() {
                                               "The length of the WalkingArea in meter");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_CUSTOMSHAPE,
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_SHAPE,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::POSITION | GNEAttributeProperties::LIST | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY,
                                               "Overrids default shape of pedestrian sidelwak");
         myTagProperties[currentTag].addAttribute(attrProperty);

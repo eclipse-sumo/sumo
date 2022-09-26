@@ -915,6 +915,7 @@ NLHandler::addE1Detector(const SUMOSAXAttributes& attrs) {
     const double position = attrs.get<double>(SUMO_ATTR_POSITION, id.c_str(), ok);
     const double length = attrs.getOpt<double>(SUMO_ATTR_LENGTH, id.c_str(), ok, 0);
     const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, id.c_str(), ok, false);
+    const std::string name = attrs.getOpt<std::string>(SUMO_ATTR_NAME, id.c_str(), ok, "");
     const std::string vTypes = attrs.getOpt<std::string>(SUMO_ATTR_VTYPES, id.c_str(), ok, "");
     const std::string nextEdges = attrs.getOpt<std::string>(SUMO_ATTR_NEXT_EDGES, id.c_str(), ok, "");
     const std::string lane = attrs.get<std::string>(SUMO_ATTR_LANE, id.c_str(), ok);
@@ -937,7 +938,7 @@ NLHandler::addE1Detector(const SUMOSAXAttributes& attrs) {
     try {
         Parameterised* det = myDetectorBuilder.buildInductLoop(id, lane, position, length, period,
                              FileHelpers::checkForRelativity(file, getFileName()),
-                             friendlyPos, vTypes, nextEdges, detectPersons);
+                             friendlyPos, name, vTypes, nextEdges, detectPersons);
         myLastParameterised.push_back(det);
     } catch (InvalidArgument& e) {
         myCurrentIsBroken = true;
@@ -963,6 +964,7 @@ NLHandler::addInstantE1Detector(const SUMOSAXAttributes& attrs) {
     const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, id.c_str(), ok, false);
     const std::string lane = attrs.get<std::string>(SUMO_ATTR_LANE, id.c_str(), ok);
     const std::string file = attrs.get<std::string>(SUMO_ATTR_FILE, id.c_str(), ok);
+    const std::string name = attrs.getOpt<std::string>(SUMO_ATTR_NAME, id.c_str(), ok, "");
     const std::string vTypes = attrs.getOpt<std::string>(SUMO_ATTR_VTYPES, id.c_str(), ok, "");
     const std::string nextEdges = attrs.getOpt<std::string>(SUMO_ATTR_NEXT_EDGES, id.c_str(), ok, "");
     if (!ok) {
@@ -970,7 +972,7 @@ NLHandler::addInstantE1Detector(const SUMOSAXAttributes& attrs) {
         return;
     }
     try {
-        Parameterised* det = myDetectorBuilder.buildInstantInductLoop(id, lane, position, FileHelpers::checkForRelativity(file, getFileName()), friendlyPos, vTypes, nextEdges);
+        Parameterised* det = myDetectorBuilder.buildInstantInductLoop(id, lane, position, FileHelpers::checkForRelativity(file, getFileName()), friendlyPos, name, vTypes, nextEdges);
         myLastParameterised.push_back(det);
     } catch (InvalidArgument& e) {
         WRITE_ERROR(e.what());
@@ -1047,6 +1049,7 @@ NLHandler::addE2Detector(const SUMOSAXAttributes& attrs) {
     }
     std::string lane = attrs.getOpt<std::string>(SUMO_ATTR_LANE, id.c_str(), ok, "");
     const std::string file = attrs.get<std::string>(SUMO_ATTR_FILE, id.c_str(), ok);
+    const std::string name = attrs.getOpt<std::string>(SUMO_ATTR_NAME, id.c_str(), ok, "");
     const std::string vTypes = attrs.getOpt<std::string>(SUMO_ATTR_VTYPES, id.c_str(), ok, "");
     const std::string nextEdges = attrs.getOpt<std::string>(SUMO_ATTR_NEXT_EDGES, id.c_str(), ok, "");
 
@@ -1211,13 +1214,13 @@ NLHandler::addE2Detector(const SUMOSAXAttributes& attrs) {
         // specification by a lane sequence
         det = myDetectorBuilder.buildE2Detector(id, clanes, position, endPosition, filename, period,
                                                 haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold,
-                                                vTypes, nextEdges, detectPersons, friendlyPos, showDetector,
+                                                name, vTypes, nextEdges, detectPersons, friendlyPos, showDetector,
                                                 tlls, cToLane);
     } else {
         // specification by start or end lane
         det = myDetectorBuilder.buildE2Detector(id, clane, position, endPosition, length, filename, period,
                                                 haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold,
-                                                vTypes, nextEdges, detectPersons, friendlyPos, showDetector,
+                                                name, vTypes, nextEdges, detectPersons, friendlyPos, showDetector,
                                                 tlls, cToLane);
     }
     myLastParameterised.push_back(det);
@@ -1233,6 +1236,7 @@ NLHandler::beginE3Detector(const SUMOSAXAttributes& attrs) {
     const SUMOTime haltingTimeThreshold = attrs.getOptSUMOTimeReporting(SUMO_ATTR_HALTING_TIME_THRESHOLD, id.c_str(), ok, TIME2STEPS(1));
     const double haltingSpeedThreshold = attrs.getOpt<double>(SUMO_ATTR_HALTING_SPEED_THRESHOLD, id.c_str(), ok, 5.0f / 3.6f);
     const std::string file = attrs.get<std::string>(SUMO_ATTR_FILE, id.c_str(), ok);
+    const std::string name = attrs.getOpt<std::string>(SUMO_ATTR_NAME, id.c_str(), ok, "");
     const std::string vTypes = attrs.getOpt<std::string>(SUMO_ATTR_VTYPES, id.c_str(), ok, "");
     const std::string nextEdges = attrs.getOpt<std::string>(SUMO_ATTR_NEXT_EDGES, id.c_str(), ok, "");
     const bool openEntry = attrs.getOpt<bool>(SUMO_ATTR_OPEN_ENTRY, id.c_str(), ok, false);
@@ -1254,7 +1258,7 @@ NLHandler::beginE3Detector(const SUMOSAXAttributes& attrs) {
     try {
         Parameterised* det = myDetectorBuilder.beginE3Detector(id,
                              FileHelpers::checkForRelativity(file, getFileName()),
-                             period, haltingSpeedThreshold, haltingTimeThreshold, vTypes, nextEdges, detectPersons, openEntry);
+                             period, haltingSpeedThreshold, haltingTimeThreshold, name, vTypes, nextEdges, detectPersons, openEntry);
         myLastParameterised.push_back(det);
     } catch (InvalidArgument& e) {
         myCurrentIsBroken = true;
@@ -1582,6 +1586,9 @@ NLHandler::addDistrict(const SUMOSAXAttributes& attrs) {
             if (shape.size() != 0) {
                 if (!myNet.getShapeContainer().addPolygon(myCurrentDistrictID, "taz", color, 0, 0, "", false, shape, false, fill, 1.0, false, name)) {
                     WRITE_WARNING("Skipping visualization of taz '" + myCurrentDistrictID + "', polygon already exists.");
+                } else {
+                    myLastParameterised.push_back(myNet.getShapeContainer().getPolygons().get(myCurrentDistrictID));
+                    myCurrentIsBroken = false;
                 }
             }
         }

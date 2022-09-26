@@ -23,6 +23,7 @@
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
 #include <netedit/elements/data/GNEGenericData.h>
+#include <netedit/frames/common/GNESelectorFrame.h>
 #include <netedit/frames/data/GNEEdgeDataFrame.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
@@ -164,6 +165,18 @@ GNEGenericData::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& /* p
 void 
 GNEGenericData::deleteGLObject(){
     myNet->deleteGenericData(this, myNet->getViewNet()->getUndoList());
+}
+
+
+void 
+GNEGenericData::selectGLObject() {
+    if (isAttributeCarrierSelected()) {
+        unselectAttributeCarrier();
+    } else {
+        selectAttributeCarrier();
+    }
+    // update information label
+    myNet->getViewNet()->getViewParent()->getSelectorFrame()->getSelectionInformation()->updateInformationLabel();
 }
 
 

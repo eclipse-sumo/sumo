@@ -649,6 +649,10 @@ GNETAZ::drawDottedContours(const GUIVisualizationSettings& s, const double TAZEx
     if (myNet->getViewNet()->drawDeleteContour(this, this)) {
         GUIDottedGeometry::drawDottedContourClosedShape(s, GUIDottedGeometry::DottedContourType::REMOVE, myAdditionalGeometry.getShape(), 1);
     }
+    // select contour
+    if (myNet->getViewNet()->drawSelectContour(this, this)) {
+        GUIDottedGeometry::drawDottedContourClosedShape(s, GUIDottedGeometry::DottedContourType::SELECT, myAdditionalGeometry.getShape(), 1);
+    }
     // dotted contour for first TAZ
     if ((myNet->getViewNet()->getViewParent()->getTAZRelDataFrame()->getFirstTAZ() == this)) {
         GUIDottedGeometry::drawDottedContourClosedShape(s, GUIDottedGeometry::DottedContourType::FROMTAZ, myAdditionalGeometry.getShape(), 1, s.neteditSizeSettings.polylineWidth * TAZExaggeration);

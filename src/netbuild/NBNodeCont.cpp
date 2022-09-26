@@ -768,24 +768,32 @@ NBNodeCont::joinJunctions(double maxDist, NBDistrictCont& dc, NBEdgeCont& ec, NB
                 cluster.erase(check);
             }
         }
+        std::string origCluster = joinNamedToString(cluster, ',');
         // remove nodes that can be eliminated by geometry.remove
         pruneClusterFringe(cluster);
+        if (cluster.size() < 2) {
+            continue;
+        }
         // remove nodes that are part of a bypass lane (typically for turning right without waiting at a traffic light)
         pruneSlipLaneNodes(cluster);
         if (cluster.size() < 2) {
+            WRITE_WARNINGF("Not joining junctions % (%).", origCluster, "slip lane");
             continue;
         }
         std::string reason;
         std::string origReason;
-        std::string origCluster;
+        // pruneLongEdges might remove too much, so we check first to have a fallback with the circles
         bool feasible = feasibleCluster(cluster, ptStopEnds, origReason);
+        if (feasible && ((int)cluster.size() - pruneLongEdges(cluster, maxDist, true) < 2)) {
+            origReason = "long edge";
+            feasible = false;
+        }
         if (!feasible) {
 #ifdef DEBUG_JOINJUNCTIONS
             if (gDebugFlag1) {
                 std::cout << "   try to reduce to 4-circle nodes=" << joinNamedToString(cluster, ',') << "\n";
             }
 #endif
-            origCluster = joinNamedToString(cluster, ',');
             if (reduceToCircle(cluster, 4, cluster)) {
                 feasible = feasibleCluster(cluster, ptStopEnds, reason);
                 if (feasible) {
@@ -810,6 +818,7 @@ NBNodeCont::joinJunctions(double maxDist, NBDistrictCont& dc, NBEdgeCont& ec, NB
         // avoid removal of long edges (must have been added via an alternative path).
         pruneLongEdges(cluster, maxDist);
         if (cluster.size() < 2) {
+            WRITE_WARNINGF("Not joining junctions % (%).", origCluster, "long edge");
             continue;
         }
         origCluster = joinNamedToString(cluster, ',');
@@ -970,8 +979,8 @@ NBNodeCont::pruneClusterFringe(NodeSet& cluster) const {
 }
 
 
-void
-NBNodeCont::pruneLongEdges(NodeSet& cluster, double maxDist) {
+int
+NBNodeCont::pruneLongEdges(NodeSet& cluster, double maxDist, const bool dryRun) {
     std::set<NBNode*> toRemove;
     int maxPassengerLanes = 0;
     for (NBNode* n : cluster) {
@@ -1036,9 +1045,12 @@ NBNodeCont::pruneLongEdges(NodeSet& cluster, double maxDist) {
             }
         }
     }
-    for (std::set<NBNode*>::iterator j = toRemove.begin(); j != toRemove.end(); ++j) {
-        cluster.erase(*j);
+    if (!dryRun) {
+        for (std::set<NBNode*>::iterator j = toRemove.begin(); j != toRemove.end(); ++j) {
+            cluster.erase(*j);
+        }
     }
+    return (int)toRemove.size();
 }
 
 

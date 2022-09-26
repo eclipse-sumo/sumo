@@ -47,7 +47,7 @@ public:
                    const CrossSectionVector& entries, const CrossSectionVector& exits,
                    double haltingSpeedThreshold,
                    SUMOTime haltingTimeThreshold,
-                   const std::string& vTypes,
+                   const std::string name, const std::string& vTypes,
                    const std::string& nextEdges,
                    int detectPersons, bool openEntry);
 

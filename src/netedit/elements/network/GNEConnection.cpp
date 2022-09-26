@@ -461,6 +461,11 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
                 // use drawDottedContourGeometry to draw it
                 GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::REMOVE, shapeSuperposed, s.connectionSettings.connectionWidth, selectionScale, true, true);
             }
+            // select contour
+            if (myNet->getViewNet()->drawSelectContour(this, this)) {
+                // use drawDottedContourGeometry to draw it
+                GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::SELECT, shapeSuperposed, s.connectionSettings.connectionWidth, selectionScale, true, true);
+            }
         }
     }
 }

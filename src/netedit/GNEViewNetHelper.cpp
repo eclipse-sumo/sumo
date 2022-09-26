@@ -240,7 +240,7 @@ GNEViewNetHelper::ObjectsUnderCursor::swapLane2Edge() {
 
 
 void
-GNEViewNetHelper::ObjectsUnderCursor::filterLockedElements(const GNEViewNetHelper::LockManager &lockManager) {
+GNEViewNetHelper::ObjectsUnderCursor::filterLockedElements(const GNEViewNetHelper::LockManager &lockManager, std::vector<GUIGlObjectType> forcedIgnoredTiped) {
     // make a copy of edge and lane Attribute carriers
     auto edgeACs = myEdgeObjects.attributeCarriers;
     auto laneACs = myLaneObjects.attributeCarriers;
@@ -249,12 +249,16 @@ GNEViewNetHelper::ObjectsUnderCursor::filterLockedElements(const GNEViewNetHelpe
     myLaneObjects.clearElements();
     // filter GUIGLObjects
     for (const auto &edgeAC: edgeACs) {
-        if (!lockManager.isObjectLocked(edgeAC->getGUIGlObject()->getType(), edgeAC->isAttributeCarrierSelected())) {
+        if (std::find(forcedIgnoredTiped.begin(), forcedIgnoredTiped.end(), edgeAC->getGUIGlObject()->getType()) != forcedIgnoredTiped.end()) {
+            continue;
+        } else if (!lockManager.isObjectLocked(edgeAC->getGUIGlObject()->getType(), edgeAC->isAttributeCarrierSelected())) {
             myEdgeObjects.GUIGlObjects.push_back(edgeAC->getGUIGlObject());
         }
     }
     for (const auto &laneAC: laneACs) {
-        if (!lockManager.isObjectLocked(laneAC->getGUIGlObject()->getType(), laneAC->isAttributeCarrierSelected())) {
+        if (std::find(forcedIgnoredTiped.begin(), forcedIgnoredTiped.end(), laneAC->getGUIGlObject()->getType()) != forcedIgnoredTiped.end()) {
+            continue;
+        } else if (!lockManager.isObjectLocked(laneAC->getGUIGlObject()->getType(), laneAC->isAttributeCarrierSelected())) {
             myLaneObjects.GUIGlObjects.push_back(laneAC->getGUIGlObject());
         }
     }
@@ -1191,6 +1195,16 @@ GNEViewNetHelper::MoveSingleElementValues::beginMoveNetworkElementShape() {
     } else if (myViewNet->myObjectsUnderCursor.getConnectionFront() && (myViewNet->myObjectsUnderCursor.getConnectionFront() == editedElement)) {
         // get move operation
         GNEMoveOperation* moveOperation = myViewNet->myObjectsUnderCursor.getConnectionFront()->getMoveOperation();
+        // continue if move operation is valid
+        if (moveOperation) {
+            myMoveOperations.push_back(moveOperation);
+            return true;
+        } else {
+            return false;
+        }
+    } else if (myViewNet->myObjectsUnderCursor.getWalkingAreaFront() && (myViewNet->myObjectsUnderCursor.getWalkingAreaFront() == editedElement)) {
+        // get move operation
+        GNEMoveOperation* moveOperation = myViewNet->myObjectsUnderCursor.getWalkingAreaFront()->getMoveOperation();
         // continue if move operation is valid
         if (moveOperation) {
             myMoveOperations.push_back(moveOperation);
@@ -3948,6 +3962,36 @@ GNEViewNetHelper::getRainbowScaledColor(const double min, const double max, cons
             return getRainbowScaledColors().at((int)(procent / 10.0));
         }
     }
+}
+
+
+std::vector<GUIGlObject*>
+GNEViewNetHelper::filterElementsByLayer(const std::vector<GUIGlObject*> &GLObjects) {
+    std::vector<GUIGlObject*> filteredGLObjects;
+    if (GLObjects.size() > 0) {
+        const auto firstLayer = GLObjects.front()->getType();
+        for (const auto &GLObject : GLObjects) {
+            if ((GLO_RIDE <= firstLayer) && (firstLayer <= GLO_TRANSHIP) &&
+                (GLO_RIDE <= GLObject->getType()) && (GLObject->getType() <= GLO_TRANSHIP)) {
+                filteredGLObjects.push_back(GLObject);
+            } else if ((GLO_STOP <= firstLayer) && (firstLayer <= GLO_STOP_CONTAINER) &&
+                (GLO_STOP <= GLObject->getType()) && (GLObject->getType() <= GLO_STOP_CONTAINER)) {
+                filteredGLObjects.push_back(GLObject);
+            } else if ((GLO_VEHICLE <= firstLayer) && (firstLayer <= GLO_ROUTEFLOW) &&
+                (GLO_VEHICLE <= GLObject->getType()) && (GLObject->getType() <= GLO_ROUTEFLOW)) {
+                filteredGLObjects.push_back(GLObject);
+            } else if ((GLO_PERSON <= firstLayer) && (firstLayer <= GLO_PERSONFLOW) && 
+                (GLO_PERSON <= GLObject->getType()) && (GLObject->getType() <= GLO_PERSONFLOW)) {
+                filteredGLObjects.push_back(GLObject);
+            } else if ((GLO_CONTAINER <= firstLayer) && (firstLayer <= GLO_CONTAINERFLOW) &&
+                (GLO_CONTAINER <= GLObject->getType()) && (GLObject->getType() <= GLO_CONTAINERFLOW)) {
+                filteredGLObjects.push_back(GLObject);
+            } else if (GLObject->getType() == firstLayer) {
+                filteredGLObjects.push_back(GLObject);
+            }
+        }
+    }
+    return filteredGLObjects;
 }
 
 /****************************************************************************/

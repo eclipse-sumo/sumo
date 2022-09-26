@@ -232,7 +232,7 @@ public:
     MSE2Collector(const std::string& id,
                   DetectorUsage usage, MSLane* lane, double startPos, double endPos, double length,
                   SUMOTime haltingTimeThreshold, double haltingSpeedThreshold, double jamDistThreshold,
-                  const std::string& vTypes,
+                  const std::string name, const std::string& vTypes,
                   const std::string& nextEdges,
                   int detectPersons);
 
@@ -252,7 +252,7 @@ public:
     MSE2Collector(const std::string& id,
                   DetectorUsage usage, std::vector<MSLane*> lanes, double startPos, double endPos,
                   SUMOTime haltingTimeThreshold, double haltingSpeedThreshold, double jamDistThreshold,
-                  const std::string& vTypes,
+                  const std::string name, const std::string& vTypes,
                   const std::string& nextEdges,
                   int detectPersons);
 
@@ -363,6 +363,10 @@ public:
 
     /// @}
 
+    /// @brief get name
+    const std::string & getName() {
+        return myName;
+    }
 
     /** @brief Returns the begin position of the detector
      *
@@ -663,6 +667,8 @@ private:
 
     /// @name Detector parameter
     /// @{
+    /// @brief name
+    const std::string myName;
     /// @brief The detector's lane sequence
     std::vector<std::string> myLanes;
     /// @brief The distances of the lane-beginnings from the detector start-point

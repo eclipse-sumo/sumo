@@ -195,6 +195,11 @@ GNEInstantInductionLoopDetector::drawGL(const GUIVisualizationSettings& s) const
                 GUIDottedGeometry::drawDottedSquaredShape(s, GUIDottedGeometry::DottedContourType::REMOVE, myAdditionalGeometry.getShape().front(), 
                     2, 1, 0, 0, myAdditionalGeometry.getShapeRotations().front(), E1InstantExaggeration);
             }
+            // select contour
+            if (myNet->getViewNet()->drawSelectContour(this, this)) {
+                GUIDottedGeometry::drawDottedSquaredShape(s, GUIDottedGeometry::DottedContourType::SELECT, myAdditionalGeometry.getShape().front(), 
+                    2, 1, 0, 0, myAdditionalGeometry.getShapeRotations().front(), E1InstantExaggeration);
+            }
         }
         // Draw additional ID
         drawAdditionalID(s);

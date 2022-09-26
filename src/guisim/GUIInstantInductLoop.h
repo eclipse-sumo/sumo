@@ -44,7 +44,7 @@ public:
      */
     GUIInstantInductLoop(const std::string& id, OutputDevice& od,
                          MSLane* const lane, double positionInMeters,
-                         const std::string& vTypes,
+                         const std::string name, const std::string& vTypes,
                          const std::string& nextEdges);
 
 
