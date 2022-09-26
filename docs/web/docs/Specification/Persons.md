@@ -32,7 +32,7 @@ below. Each person must have at least one stage in its plan.
 | depart              | float (s) or [human-readable-time](../Other/Glossary.md#t) or *triggered* | ≥0 or 'triggered'  | -               | See [ride](#rides) for an explanation of 'triggered'|
 | departPos           | float(s)  | ≥0                 | -               | the distance along the departure edge where the person is created      |
 | type                | string    | any declared vType | DEFAULT_PEDTYPE | the type should have vClass pedestrian              |
-| speedFactor         | float     | > 0                | 1.0 | Sets custom speedFactor (factor on maxSpeed of vType) and overrides the speedFactor distribution of the vType |
+| speedFactor         | float     | > 0                | 1.0 | Sets custom speedFactor (factor on desiredMaxSpeed of vType) and overrides the speedFactor distribution of the vType |
 | color               | [RGB-color](../Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#colors) | | "1,1,0" (yellow)    | This person color       |
 
 
@@ -43,8 +43,9 @@ below. Each person must have at least one stage in its plan.
 | width               | float (s) | ≥0                 | 0,48            | The person's width [m]        |
 | length              | float (s) | ≥0                 | 0,21            | The person's netto-length (length) (in m)       |
 | mingap              | float (s) | ≥0                 | 0,25            | Empty space after leader [m]                |
-| maxSpeed            | float (s) | ≥0                 | 1,39            | The person's maximum velocity (in m/s)             |
-| speedFactor         | float or [distribution spec](../Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#defining_a_normal_distribution_for_vehicle_speeds) | >0 | 1.0 | The persons expected multiplier for maxSpeed   |
+| maxSpeed            | float (s) | ≥0                 | 10,44           | The person's absolute maximum velocity (in m/s)             |
+| desiredMaxSpeed     | float (s) | ≥0                 | 1,39            | The person's desired maximum velocity (in m/s)             |
+| speedFactor         | float or [distribution spec](../Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#defining_a_normal_distribution_for_vehicle_speeds) | >0 | 1.0 | The persons expected multiplier for desiredMaxSpeed   |
 | speedDev          | float                 | >=0      | 0.1      | The deviation of the speedFactor distribution |
 | color             | [RGB-color](../Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#colors)  |          | "1,1,0" (yellow)    | This person type's color       |
 | jmDriveAfterRedTime | float (s)           | ≥0       | -1       | This value causes persons to violate a red light if the duration of the red phase is lower than the given threshold. When set to 0, persons will always walk at yellow but will try to stop at red. If this behavior causes a person to walk so fast that stopping is not possible any more it will not attempt to stop. |
@@ -52,7 +53,7 @@ below. Each person must have at least one stage in its plan.
 | vClass            | class (enum) |        |          | "pedestrian" | Should either be "pedestrian" or "ignoring" (to allow walking anywhere) |
 
 !!! note
-    Speed distributions for walking persons (pedestrians) work differently from those for vehicles. Whereas the individual speed factor of vehicles is multiplied with the road speed limit to arrive at the desired speed, the individual speed factor of persons is multiplied with the maxSpeed of their vType (since road speed limits do not apply to persons).
+    Up to version 1.14.1, speed distributions for walking persons (pedestrians) worked differently from those for vehicles. Whereas the individual speed factor of vehicles is multiplied with the road speed limit to arrive at the desired speed, the individual speed factor of persons was multiplied with the maxSpeed of their vType (since road speed limits do not apply to persons). In later versions, person use [desiredMaxSpeed amd maxSpeed](../Simulation/VehicleSpeed.md#desiredmaxspeed) in the exact same manner as vehicles. For backward compatibility reasons, if maxSpeed is configured and desiredMaxSpeed is not given in the vType, the desiredMaxSpeed is initialied from the given maxSpeed value
 
 When specifying a `type`, the set of
 attributes which are in effect during simulation depend on the selected
@@ -220,7 +221,7 @@ finished and the person proceeds with the next step in the plan.
 The walking behavior of a person depends on the selected [pedestrian
 model](../Simulation/Pedestrians.md#pedestrian_models). Generally,
 the person follows the given sequence of edges with a speed bounded by
-the `maxSpeed` attribute of the persons type. It starts either at the position
+the `desiredMaxSpeed` attribute of the persons type. It starts either at the position
 from the previous stage of its plan or at the specified `departPos` if no previous
 stage exists. The walk concludes at the specified `arrivalPos` which defaults to the
 end of the final edge. Both position attributes support the special
