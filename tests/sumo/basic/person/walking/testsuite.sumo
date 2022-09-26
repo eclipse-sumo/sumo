@@ -25,3 +25,6 @@ walk_routeDist
 
 # define walks that end at a busStop, parkingArea, etc.
 walk_stoppingPlace
+
+# random departPosLat
+walk_posLat_random
