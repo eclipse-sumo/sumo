@@ -24,8 +24,10 @@
 
 #include <string>
 #include <vector>
+#include <utils/common/SUMOVehicleClass.h>
 #include <utils/common/ValueTimeLine.h>
 #include <utils/common/RandHelper.h>
+#include <utils/common/Named.h>
 #include "IntermodalTrip.h"
 
 // ===========================================================================
