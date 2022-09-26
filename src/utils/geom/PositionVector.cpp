@@ -1825,13 +1825,15 @@ PositionVector::bezier(int numPoints) {
 
 bool PositionVector::isClockwiseOriented() const {
     double area = 0.0;
+    double y_min = std::min_element(begin(), end(), [](Position p1, Position p2) { return p1.y() < p2.y(); })->y();
+    double gap = y_min > 0.0 ? 0.0 : -2.0*y_min;
     int last = this->size() - 1;
     for (int i = 0; i < last; i++) {
         Position firstPoint = this->at(i);
         Position secondPoint = this->at(i + 1);
-        area += (secondPoint.x() - firstPoint.x()) / (secondPoint.y() + firstPoint.y());
+        area += (secondPoint.x() - firstPoint.x()) / (secondPoint.y() + firstPoint.y() + gap);
     }
-    area += (this->at(last).x() - this->at(0).x()) / (this->at(last).y() + this->at(0).y());
+    area += (this->at(last).x() - this->at(0).x()) / (this->at(last).y() + this->at(0).y() + gap);
     return area < 0.0;
 }
 
