@@ -390,8 +390,6 @@ protected:
         /// @brief Destructor
         virtual ~E3DetectorDefinition();
 
-        /// @brief name
-        std::string myName;
         /// @brief The id of the detector
         const std::string myID;
         /// @brief The device the detector shall use
@@ -406,6 +404,8 @@ protected:
         CrossSectionVector myExits;
         /// @brief The aggregation interval
         SUMOTime mySampleInterval;
+        /// @brief name
+        std::string myName;
         /// @brief The types to filter
         const std::string myVehicleTypes;
         /// @brief The route edges to filter by
