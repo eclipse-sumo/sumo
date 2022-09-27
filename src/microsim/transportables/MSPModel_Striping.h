@@ -107,6 +107,9 @@ public:
     static SUMOTime jamTimeCrossing;
     static SUMOTime jamTimeNarrow;
 
+    // @brief use old style departPosLat interpretation
+    static bool myLegacyPosLat;
+
     // @brief the distance (in seconds) to look ahead for changing stripes
     static const double LOOKAHEAD_SAMEDIR;
     // @brief the distance (in seconds) to look ahead for changing stripes (regarding oncoming pedestrians)

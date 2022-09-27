@@ -520,6 +520,9 @@ MSFrame::fillOptions() {
     oc.doRegister("pedestrian.striping.reserve-oncoming.junctions", new Option_Float(0.34));
     oc.addDescription("pedestrian.striping.reserve-oncoming.junctions", "Processing", "Fraction of stripes to reserve for oncoming pedestrians on crossings and walkingareas");
 
+    oc.doRegister("pedestrian.striping.legacy-departposlat", new Option_Bool(false));
+    oc.addDescription("pedestrian.striping.legacy-departposlat", "Processing", "Interpret departPosLat for walks in legacy style");
+
     oc.doRegister("pedestrian.remote.address", new Option_String("localhost:9000"));
     oc.addDescription("pedestrian.remote.address", "Processing", "The address (host:port) of the external simulation");
 

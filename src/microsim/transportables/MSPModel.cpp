@@ -43,6 +43,7 @@ const int MSPModel::UNDEFINED_DIRECTION(0);
 // parameters shared by all models
 const double MSPModel::SAFETY_GAP(1.0);
 const double MSPModel::SIDEWALK_OFFSET(3);
+const double MSPModel::UNSPECIFIED_POS_LAT(std::numeric_limits<double>::max());
 
 
 // ===========================================================================

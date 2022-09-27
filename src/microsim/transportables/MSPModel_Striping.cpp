@@ -89,6 +89,7 @@ double MSPModel_Striping::minGapToVehicle;
 SUMOTime MSPModel_Striping::jamTime;
 SUMOTime MSPModel_Striping::jamTimeCrossing;
 SUMOTime MSPModel_Striping::jamTimeNarrow;
+bool MSPModel_Striping::myLegacyPosLat;
 const double MSPModel_Striping::LOOKAHEAD_SAMEDIR(4.0); // seconds
 const double MSPModel_Striping::LOOKAHEAD_ONCOMING(10.0); // seconds
 const double MSPModel_Striping::LOOKAROUND_VEHICLES(60.0); // meters
@@ -138,6 +139,7 @@ MSPModel_Striping::MSPModel_Striping(const OptionsCont& oc, MSNet* net) :
     if (jamTimeNarrow <= 0) {
         jamTimeNarrow = SUMOTime_MAX;
     }
+    myLegacyPosLat = oc.getBool("pedestrian.striping.legacy-departposlat");
 }
 
 
@@ -1539,13 +1541,22 @@ MSPModel_Striping::PState::PState(MSPerson* person, MSStageMoving* stage, const 
             myDir = !mayStartBackward ? FORWARD : BACKWARD;
         }
     }
-    if (lane->getVehicleNumberWithPartials() > 0 && myRelY == 0) {
-        // better start next to the road if nothing was specified
-        myRelY -= stripeWidth;
-    }
-    if (myDir == FORWARD || lane->getPermissions() != SVC_PEDESTRIAN) {
-        // start at the right side of the sidewalk on shared roads
-        myRelY = stripeWidth * (numStripes(lane) - 1) - myRelY;
+    if (myRelY == UNSPECIFIED_POS_LAT || myLegacyPosLat) {
+        if (myRelY == UNSPECIFIED_POS_LAT) {
+            myRelY = 0;
+        }
+        if (lane->getVehicleNumberWithPartials() > 0 && myRelY == 0) {
+            // better start next to the road if nothing was specified
+            myRelY -= stripeWidth;
+        }
+        if (myDir == FORWARD || lane->getPermissions() != SVC_PEDESTRIAN) {
+            // start at the right side of the sidewalk on shared roads
+            myRelY = stripeWidth * (numStripes(lane) - 1) - myRelY;
+        }
+    } else {
+        // convert vehicle-style posLat (0 is center, left is larger)
+        // into striping coordinates (0 is on the leftmost stripe, right is larger)
+        myRelY = lane->getWidth() / 2 - myRelY - stripeWidth / 2;
     }
     if DEBUGCOND(*this) {
         std::cout << "  added new pedestrian " << myPerson->getID() << " on " << lane->getID() << " myRelX=" << myRelX << " myRelY=" << myRelY << " dir=" << myDir << " route=" << toString(myStage->getRoute()) << "\n";

@@ -25,6 +25,7 @@
 
 #include "MSRouteHandler.h"
 #include <microsim/transportables/MSTransportableControl.h>
+#include <microsim/transportables/MSPModel.h>
 #include <microsim/transportables/MSStageDriving.h>
 #include <microsim/transportables/MSStageWaiting.h>
 #include <microsim/transportables/MSStageTranship.h>
@@ -1502,7 +1503,7 @@ MSRouteHandler::addWalk(const SUMOSAXAttributes& attrs) {
 
 double
 MSRouteHandler::interpretDepartPosLat(const std::string& value, int departLane, const std::string& element) {
-    double pos = 0;
+    double pos = MSPModel::UNSPECIFIED_POS_LAT;
     if (value == "") {
         return pos;
     }
@@ -1514,21 +1515,22 @@ MSRouteHandler::interpretDepartPosLat(const std::string& value, int departLane, 
             if (lane == nullptr) {
                 throw ProcessError("Could not find departure lane for walk of person '" + myVehicleParameter->id + "' when interpreting departPosLat");
             }
+            const double usableWidth = lane->getWidth() - 0.5;
             switch (dpd) {
                 case DepartPosLatDefinition::RIGHT:
-                    pos = lane->getWidth();
+                    pos = -usableWidth / 2;
                     break;
                 case DepartPosLatDefinition::LEFT:
-                    pos = NUMERICAL_EPS;
+                    pos = usableWidth / 2;
                     break;
                 case DepartPosLatDefinition::CENTER:
-                    pos = lane->getWidth() / 2;
+                    pos = 0;
                     break;
                 case DepartPosLatDefinition::RANDOM:
                 case DepartPosLatDefinition::FREE:
                 case DepartPosLatDefinition::RANDOM_FREE:
                     /// @todo: needs extra randomization for personFlow
-                    pos = RandHelper::rand(&myParsingRNG) * lane->getWidth();
+                    pos = RandHelper::rand(&myParsingRNG) * usableWidth - usableWidth / 2;
                     break;
                 default:
                     break;

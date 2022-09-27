@@ -124,6 +124,9 @@ public:
     /// @brief the offset for computing person positions when walking on edges without a sidewalk
     static const double SIDEWALK_OFFSET;
 
+    /// @brief the default lateral offset for persons when starting a walk
+    static const double UNSPECIFIED_POS_LAT;
+
     /* @brief return the arrival direction if the route may be traversed with the given starting direction.
      * returns UNDEFINED_DIRECTION if the route cannot be traversed
      */
