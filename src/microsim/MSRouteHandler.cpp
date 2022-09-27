@@ -50,7 +50,6 @@
 // ===========================================================================
 SumoRNG MSRouteHandler::myParsingRNG("routehandler");
 
-
 // ===========================================================================
 // method definitions
 // ===========================================================================
@@ -1529,8 +1528,8 @@ MSRouteHandler::interpretDepartPosLat(const std::string& value, int departLane, 
                 case DepartPosLatDefinition::RANDOM:
                 case DepartPosLatDefinition::FREE:
                 case DepartPosLatDefinition::RANDOM_FREE:
-                    /// @todo: needs extra randomization for personFlow
-                    pos = RandHelper::rand(&myParsingRNG) * usableWidth - usableWidth / 2;
+                    /// @note must be randomized for every person individually when loading a personFlow
+                    pos = MSPModel::RANDOM_POS_LAT;
                     break;
                 default:
                     break;

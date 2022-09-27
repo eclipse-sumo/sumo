@@ -1553,6 +1553,8 @@ MSPModel_Striping::PState::PState(MSPerson* person, MSStageMoving* stage, const 
             // start at the right side of the sidewalk on shared roads
             myRelY = stripeWidth * (numStripes(lane) - 1) - myRelY;
         }
+    } else if (myRelY == RANDOM_POS_LAT) {
+        myRelY = RandHelper::rand() * stripeWidth * (numStripes(lane) - 1);
     } else {
         // convert vehicle-style posLat (0 is center, left is larger)
         // into striping coordinates (0 is on the leftmost stripe, right is larger)
