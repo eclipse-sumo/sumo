@@ -217,9 +217,9 @@ MSDevice_SSM::insertOptions(OptionsCont& oc) {
 
     // custom options
     oc.doRegister("device.ssm.measures", new Option_String(""));
-    oc.addDescription("device.ssm.measures", "SSM Device", "Specifies which measures will be logged (as a space separated sequence of IDs in ('TTC', 'DRAC', 'PET'))");
+    oc.addDescription("device.ssm.measures", "SSM Device", "Specifies which measures will be logged (as a space or comma-separated sequence of IDs in ('TTC', 'DRAC', 'PET'))");
     oc.doRegister("device.ssm.thresholds", new Option_String(""));
-    oc.addDescription("device.ssm.thresholds", "SSM Device", "Specifies thresholds corresponding to the specified measures (see documentation and watch the order!). Only events exceeding the thresholds will be logged.");
+    oc.addDescription("device.ssm.thresholds", "SSM Device", "Specifies space or comma-separated thresholds corresponding to the specified measures (see documentation and watch the order!). Only events exceeding the thresholds will be logged.");
     oc.doRegister("device.ssm.trajectories",  new Option_Bool(false));
     oc.addDescription("device.ssm.trajectories", "SSM Device", "Specifies whether trajectories will be logged (if false, only the extremal values and times are reported).");
     oc.doRegister("device.ssm.range", new Option_Float(50.));
@@ -3712,7 +3712,7 @@ MSDevice_SSM::getMeasuresAndThresholds(const SUMOVehicle& v, std::string deviceI
     }
     StringTokenizer st = StringTokenizer(AVAILABLE_SSMS);
     std::vector<std::string> available = st.getVector();
-    st = StringTokenizer(measures_str);
+    st = (measures_str.find(",") != std::string::npos) ? StringTokenizer(measures_str, ",") : StringTokenizer(measures_str);
     std::vector<std::string> measures = st.getVector();
     for (std::vector<std::string>::const_iterator i = measures.begin(); i != measures.end(); ++i) {
         if (std::find(available.begin(), available.end(), *i) == available.end()) {
@@ -3747,7 +3747,7 @@ MSDevice_SSM::getMeasuresAndThresholds(const SUMOVehicle& v, std::string deviceI
     // Parse vector of doubles from threshold_str
     int count = 0;
     if (thresholds_str != "") {
-        st = StringTokenizer(thresholds_str);
+        st = (thresholds_str.find(",") != std::string::npos) ? StringTokenizer(thresholds_str, ",") : StringTokenizer(thresholds_str);
         while (count < (int)measures.size() && st.hasNext()) {
             double thresh = StringUtils::toDouble(st.next());
             thresholds.insert(std::make_pair(measures[count], thresh));
