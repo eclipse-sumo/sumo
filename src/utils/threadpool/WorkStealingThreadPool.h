@@ -21,9 +21,10 @@
 #pragma once
 #include <config.h>
 
-#include "TaskQueue.h"
 #include <algorithm>
 #include <thread>
+#include "TaskQueue.h"
+
 
 template<typename CONTEXT = int>
 class WorkStealingThreadPool {

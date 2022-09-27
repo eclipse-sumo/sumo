@@ -45,9 +45,6 @@ public:
 
     void process(NBEdgeCont& ec, NBPTStopCont& sc, bool routeOnly = false);
 
-    /// @brief add edges that must be kept
-    void addEdges2Keep(const OptionsCont& oc, std::set<std::string>& into);
-
     /// @brief replace the edge with the given edge list in all lines
     void replaceEdge(const std::string& edgeID, const EdgeVector& replacement);
 
@@ -78,7 +75,7 @@ private:
      * @note: if the edge id is updated, the stop extent is recomputed */
     NBPTStop* findWay(NBPTLine* line, NBPTStop* stop, const NBEdgeCont& ec, NBPTStopCont& sc) const;
 
-    void constructRoute(NBPTLine* myPTLine, const NBEdgeCont& cont, bool silent = false);
+    void constructRoute(NBPTLine* myPTLine, const NBEdgeCont& cont);
 
     std::set<std::string> myServedPTStops;
 

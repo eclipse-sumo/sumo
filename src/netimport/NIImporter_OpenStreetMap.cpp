@@ -265,10 +265,8 @@ NIImporter_OpenStreetMap::load(const OptionsCont& oc, NBNetBuilder& nb) {
         reconstructLayerElevation(layerElevation, nb);
     }
 
-    //revise pt stops; remove stops on deleted edges
-    if (OptionsCont::getOptions().isSet("ptstop-output")) {
-        nb.getPTStopCont().cleanupDeleted(nb.getEdgeCont());
-    }
+    // revise pt stops; remove stops on deleted edges
+    nb.getPTStopCont().cleanupDeleted(nb.getEdgeCont());
 
     // load relations (after edges are built since we want to apply
     // turn-restrictions directly to NBEdges)
@@ -287,22 +285,20 @@ NIImporter_OpenStreetMap::load(const OptionsCont& oc, NBNetBuilder& nb) {
         idx++;
     }
 
-    if (oc.isSet("ptstop-output")) {
-        // declare additional stops that are not anchored to a (road)-way or route relation
-        std::set<std::string> stopNames;
-        for (const auto& item : nb.getPTStopCont().getStops()) {
-            stopNames.insert(item.second->getName());
-        }
-        for (const auto& item : myOSMNodes) {
-            const NIOSMNode* n = item.second;
-            if (n->ptStopPosition && stopNames.count(n->name) == 0) {
-                Position ptPos(n->lon, n->lat, n->ele);
-                if (!NBNetBuilder::transformCoordinate(ptPos)) {
-                    WRITE_ERROR("Unable to project coordinates for node '" + toString(n->id) + "'.");
-                }
-                NBPTStop* ptStop = new NBPTStop(toString(n->id), ptPos, "", "", n->ptStopLength, n->name, n->permissions);
-                nb.getPTStopCont().insert(ptStop, true);
+    // declare additional stops that are not anchored to a (road)-way or route relation
+    std::set<std::string> stopNames;
+    for (const auto& item : nb.getPTStopCont().getStops()) {
+        stopNames.insert(item.second->getName());
+    }
+    for (const auto& item : myOSMNodes) {
+        const NIOSMNode* n = item.second;
+        if (n->ptStopPosition && stopNames.count(n->name) == 0) {
+            Position ptPos(n->lon, n->lat, n->ele);
+            if (!NBNetBuilder::transformCoordinate(ptPos)) {
+                WRITE_ERROR("Unable to project coordinates for node '" + toString(n->id) + "'.");
             }
+            NBPTStop* ptStop = new NBPTStop(toString(n->id), ptPos, "", "", n->ptStopLength, n->name, n->permissions);
+            nb.getPTStopCont().insert(ptStop, true);
         }
     }
 }
@@ -402,6 +398,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
         distanceStart = 0;
         distanceEnd = 0;
     }
+    std::vector<NBPTStop*> ptStops;
     for (long long i : passed) {
         NIOSMNode* n = myOSMNodes.find(i)->second;
         if (n->ptStopPosition) {
@@ -413,10 +410,8 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
                 if (!NBNetBuilder::transformCoordinate(ptPos)) {
                     WRITE_ERROR("Unable to project coordinates for node '" + toString(n->id) + "'.");
                 }
-                NBPTStop* ptStop = new NBPTStop(toString(n->id), ptPos, id, toString(e->id), n->ptStopLength, n->name,
-                                                n->permissions);
-
-                sc.insert(ptStop);
+                ptStops.push_back(new NBPTStop(toString(n->id), ptPos, id, toString(e->id), n->ptStopLength, n->name, n->permissions));
+                sc.insert(ptStops.back());
             }
         }
         Position pos(n->lon, n->lat, n->ele);
@@ -444,6 +439,12 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
     }
     if (e->myCurrentIsElectrified && (permissions & SVC_RAIL) != 0) {
         permissions |= (SVC_RAIL_ELECTRIC | SVC_RAIL_FAST);
+    }
+    // recheck permissions, maybe they got assigned to a strange edge, see #11656
+    for (NBPTStop* ptStop : ptStops) {
+        if ((permissions & ptStop->getPermissions()) == 0) {
+            ptStop->setEdgeId("", ec);
+        }
     }
     SVCPermissions forwardPermissions = permissions;
     SVCPermissions backwardPermissions = permissions;
@@ -844,11 +845,14 @@ NIImporter_OpenStreetMap::EdgesHandler::EdgesHandler(
     myOSMNodes(osmNodes),
     myEdgeMap(toFill),
     myPlatformShapesMap(platformShapes) {
+
+    const double unlimitedSpeed = OptionsCont::getOptions().getFloat("osm.speedlimit-none") * 3.6;
+
     mySpeedMap["nan"] = MAXSPEED_UNGIVEN;
     mySpeedMap["sign"] = MAXSPEED_UNGIVEN;
     mySpeedMap["signals"] = MAXSPEED_UNGIVEN;
-    mySpeedMap["none"] = 142.; // Auswirkungen eines allgemeinen Tempolimits auf Autobahnen im Land Brandenburg (2007)
-    mySpeedMap["no"] = 142.;
+    mySpeedMap["none"] = unlimitedSpeed;
+    mySpeedMap["no"] = unlimitedSpeed;
     mySpeedMap["walk"] = 5.;
     // https://wiki.openstreetmap.org/wiki/Key:source:maxspeed#Commonly_used_values
     mySpeedMap["AT:urban"] = 50;
@@ -869,7 +873,7 @@ NIImporter_OpenStreetMap::EdgesHandler::EdgesHandler(
     mySpeedMap["CZ:urban_motorway"] = 80;
     mySpeedMap["CZ:urban_trunk"] = 80;
     mySpeedMap["CZ:urban"] = 50;
-    mySpeedMap["DE:motorway"] = mySpeedMap["none"];
+    mySpeedMap["DE:motorway"] = unlimitedSpeed;
     mySpeedMap["DE:rural"] = 100;
     mySpeedMap["DE:urban"] = 50;
     mySpeedMap["DE:bicycle_road"] = 30;
@@ -1011,6 +1015,7 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element, const SUMOSA
         // we check whether the key is relevant (and we really need to transcode the value) to avoid hitting #1636
         if (!StringUtils::endsWith(key, "way") && !StringUtils::startsWith(key, "lanes")
                 && key != "maxspeed" && key != "maxspeed:type"
+                && key != "zone:maxspeed"
                 && key != "maxspeed:forward" && key != "maxspeed:backward"
                 && key != "junction" && key != "name" && key != "tracks" && key != "layer"
                 && key != "route"
@@ -1186,7 +1191,7 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element, const SUMOSA
                 WRITE_WARNINGF("Value of key '%' is not numeric ('%') in edge '%'.", key, value, myCurrentEdge->id);
             }
         } else if (myCurrentEdge->myMaxSpeed == MAXSPEED_UNGIVEN &&
-                   (key == "maxspeed" || key == "maxspeed:type" || key == "maxspeed:forward")) {
+                   (key == "maxspeed" || key == "maxspeed:type" || key == "maxspeed:forward" || key == "zone:maxspeed")) {
             // both 'maxspeed' and 'maxspeed:type' may be given so we must take care not to overwrite an already seen value
             myCurrentEdge->myMaxSpeed = interpretSpeed(key, value);
         } else if (key == "maxspeed:backward" && myCurrentEdge->myMaxSpeedBackward == MAXSPEED_UNGIVEN) {
@@ -1295,6 +1300,14 @@ NIImporter_OpenStreetMap::EdgesHandler::interpretSpeed(const std::string& key, s
     if (mySpeedMap.find(value) != mySpeedMap.end()) {
         return mySpeedMap[value];
     } else {
+        // handle symbolic names of the form DE:30 / DE:zone30
+        if (value.size() > 3 && value[2] == ':') {
+            if (value.substr(3, 4) == "zone") {
+                value = value.substr(7);
+            } else {
+                value = value.substr(3);
+            }
+        }
         double conversion = 1; // OSM default is km/h
         if (StringUtils::to_lower_case(value).find("km/h") != std::string::npos) {
             value = StringUtils::prune(value.substr(0, value.find_first_not_of("0123456789")));
@@ -1581,7 +1594,7 @@ NIImporter_OpenStreetMap::RelationHandler::myEndElement(int element) {
             if (ok && !applyRestriction()) {
                 WRITE_WARNINGF("Ignoring restriction relation '%'.", toString(myCurrentRelation));
             }
-        } else if (myIsStopArea && OptionsCont::getOptions().isSet("ptstop-output")) {
+        } else if (myIsStopArea) {
             for (long long ref : myStops) {
                 myStopAreas[ref] = myCurrentRelation;
                 if (myOSMNodes.find(ref) == myOSMNodes.end()) {
@@ -1651,25 +1664,25 @@ NIImporter_OpenStreetMap::RelationHandler::myEndElement(int element) {
                 }
                 ptStop->setIsMultipleStopPositions(myStops.size() > 1, myCurrentRelation);
             }
-        } else if (myPTRouteType != "" && myIsRoute && OptionsCont::getOptions().isSet("ptline-output")) {
+        } else if (myPTRouteType != "" && myIsRoute) {
             NBPTLine* ptLine = new NBPTLine(toString(myCurrentRelation), myName, myPTRouteType, myRef, myInterval, myNightService,
                                             interpretTransportType(myPTRouteType), myRouteColor);
             ptLine->setMyNumOfStops((int)myStops.size());
+            bool hadGap = false;
             for (long long ref : myStops) {
-                if (myOSMNodes.find(ref) == myOSMNodes.end()) {
-                    //WRITE_WARNING(
-                    //    "Referenced node: '" + toString(ref) + "' in relation: '" + toString(myCurrentRelation)
-                    //    + "' does not exist. Probably OSM file is incomplete.");
-//                    resetValues();
-//                    return;
-                    if (!ptLine->getStops().empty()) {
-                        WRITE_WARNINGF("Done reading first coherent chunk of pt stops. Further stops in relation % are ignored", myCurrentRelation);
-                        break;
+                const auto& nodeIt =myOSMNodes.find(ref);
+                if (nodeIt == myOSMNodes.end()) {
+                    if (!ptLine->getStops().empty() && !hadGap) {
+                        hadGap = true;
                     }
                     continue;
                 }
+                if (hadGap) {
+                    WRITE_WARNINGF("Done reading first coherent chunk of pt stops. Further stops in relation % are ignored", myCurrentRelation);
+                    break;
+                }
 
-                NIOSMNode* n = myOSMNodes.find(ref)->second;
+                const NIOSMNode* const n = nodeIt->second;
                 NBPTStop* ptStop = myNBPTStopCont->get(toString(n->id));
                 if (ptStop == nullptr) {
                     // loose stop, which must later be mapped onto a line way

@@ -49,6 +49,7 @@
 #include <netedit/frames/network/GNETAZFrame.h>
 #include <netedit/frames/network/GNETLSEditorFrame.h>
 #include <utils/foxtools/MFXButtonTooltip.h>
+#include <utils/foxtools/MFXMenuButtonTooltip.h>
 #include <utils/gui/div/GUIDesigns.h>
 
 #include "GNEApplicationWindow.h"
@@ -98,16 +99,16 @@ GNEViewParent::GNEViewParent(FXMDIClient* p, FXMDIMenu* mdimenu, const FXString&
     new FXVerticalSeparator(myGripNavigationToolbar, GUIDesignVerticalSeparator);
 
     // Create undo/redo buttons
-    myUndoButton = new MFXButtonTooltip(myGripNavigationToolbar, myGNEAppWindows->getStaticTooltip(), 
+    myUndoButton = new MFXButtonTooltip(myGripNavigationToolbar, myGNEAppWindows->getStaticTooltipMenu(), 
         "\tUndo\tUndo the last change. (Ctrl+Z)", GUIIconSubSys::getIcon(GUIIcon::UNDO), parentWindow, MID_HOTKEY_CTRL_Z_UNDO, GUIDesignButtonToolbar);
-    myRedoButton = new MFXButtonTooltip(myGripNavigationToolbar, myGNEAppWindows->getStaticTooltip(), 
+    myRedoButton = new MFXButtonTooltip(myGripNavigationToolbar, myGNEAppWindows->getStaticTooltipMenu(), 
         "\tRedo\tRedo the last change. (Ctrl+Y)", GUIIconSubSys::getIcon(GUIIcon::REDO), parentWindow, MID_HOTKEY_CTRL_Y_REDO, GUIDesignButtonToolbar);
 
     // Create Vertical separator
     new FXVerticalSeparator(myGripNavigationToolbar, GUIDesignVerticalSeparator);
 
     // create compute path manager button
-    myComputePathManagerButton = new MFXButtonTooltip(myGripNavigationToolbar, myGNEAppWindows->getStaticTooltip(), 
+    myComputePathManagerButton = new MFXButtonTooltip(myGripNavigationToolbar, myGNEAppWindows->getStaticTooltipMenu(), 
         "\tCompute path manager\tCompute path manager", GUIIconSubSys::getIcon(GUIIcon::COMPUTEPATHMANAGER), parentWindow, MID_GNE_TOOLBAREDIT_COMPUTEPATHMANAGER, GUIDesignButtonToolbar);
 
     // Create Frame Splitter
@@ -466,6 +467,8 @@ GNEViewParent::onCmdMakeSnapshot(FXObject*, FXSelector, void*) {
         FXMessageBox::error(this, MBOX_OK, "Saving failed.", "%s", error.c_str());
         // write warning if netedit is running in testing mode
         WRITE_DEBUG("Closed FXMessageBox 'error saving snapshot' with 'OK'");
+    } else {
+        WRITE_MESSAGE("Snapshot successfully saved!");
     }
     return 1;
 }
@@ -486,250 +489,196 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
         // declare a vector in which save attribute carriers to locate
         std::vector<GNEAttributeCarrier*> ACsToLocate;
         int messageId = FXSELID(sel);
+        GNEDialogACChooser** chooserLoc = nullptr;
+        std::string locateTitle;
         switch (messageId) {
-            case MID_LOCATEJUNCTION: {
-                if (myACChoosers.ACChooserJunction) {
-                    // restore focus in the existent chooser dialog
-                    myACChoosers.ACChooserJunction->restore();
-                    myACChoosers.ACChooserJunction->setFocus();
-                } else {
-                    // fill ACsToLocate with junctions
-                    ACsToLocate.reserve(viewNet->getNet()->getAttributeCarriers()->getJunctions().size());
-                    for (const auto& junction : viewNet->getNet()->getAttributeCarriers()->getJunctions()) {
+            case MID_LOCATEJUNCTION:
+                chooserLoc = &myACChoosers.ACChooserJunction;
+                locateTitle = "Junction";
+                ACsToLocate.reserve(viewNet->getNet()->getAttributeCarriers()->getJunctions().size());
+                for (const auto& junction : viewNet->getNet()->getAttributeCarriers()->getJunctions()) {
+                    ACsToLocate.push_back(junction.second);
+                }
+                break;
+            case MID_LOCATEEDGE:
+                chooserLoc = &myACChoosers.ACChooserEdges;
+                locateTitle = "Edge";
+                ACsToLocate.reserve(viewNet->getNet()->getAttributeCarriers()->getEdges().size());
+                for (const auto& edge : viewNet->getNet()->getAttributeCarriers()->getEdges()) {
+                    ACsToLocate.push_back(edge.second);
+                }
+                break;
+            case MID_LOCATEWALKINGAREA:
+                chooserLoc = &myACChoosers.ACChooserWalkingAreas;
+                locateTitle = "WalkingArea";
+                ACsToLocate.reserve(viewNet->getNet()->getAttributeCarriers()->getWalkingAreas().size());
+                for (const auto& walkingArea : viewNet->getNet()->getAttributeCarriers()->getWalkingAreas()) {
+                    ACsToLocate.push_back(walkingArea);
+                }
+                break;
+            case MID_LOCATEVEHICLE: {
+                chooserLoc = &myACChoosers.ACChooserVehicles;
+                locateTitle = "Vehicle";
+                const auto demandElements = viewNet->getNet()->getAttributeCarriers()->getDemandElements();
+                // reserve memory
+                ACsToLocate.reserve(demandElements.at(SUMO_TAG_VEHICLE).size() +
+                        demandElements.at(SUMO_TAG_TRIP).size() +
+                        demandElements.at(GNE_TAG_VEHICLE_WITHROUTE).size() +
+                        demandElements.at(GNE_TAG_TRIP_JUNCTIONS).size() +
+                        demandElements.at(SUMO_TAG_FLOW).size() +
+                        demandElements.at(GNE_TAG_FLOW_ROUTE).size() +
+                        demandElements.at(GNE_TAG_FLOW_WITHROUTE).size() +
+                        demandElements.at(GNE_TAG_FLOW_JUNCTIONS).size());
+                // fill ACsToLocate with vehicles,...
+                for (const auto& vehicle : demandElements.at(SUMO_TAG_VEHICLE)) {
+                    ACsToLocate.push_back(vehicle);
+                }
+                // ...trips,...
+                for (const auto& trip : demandElements.at(SUMO_TAG_TRIP)) {
+                    ACsToLocate.push_back(trip);
+                }
+                // ...vehicles with embedded routes,...
+                for (const auto& trip : demandElements.at(GNE_TAG_VEHICLE_WITHROUTE)) {
+                    ACsToLocate.push_back(trip);
+                }
+                // ...trips over junctions,...
+                for (const auto& trip : demandElements.at(GNE_TAG_TRIP_JUNCTIONS)) {
+                    ACsToLocate.push_back(trip);
+                }
+                // ...flows,...
+                for (const auto& flow : demandElements.at(SUMO_TAG_FLOW)) {
+                    ACsToLocate.push_back(flow);
+                }
+                // ...flows over routes,...
+                for (const auto& flowRoute : demandElements.at(GNE_TAG_FLOW_ROUTE)) {
+                    ACsToLocate.push_back(flowRoute);
+                }
+                // ...flows with embedded routes...
+                for (const auto& flowRoute : demandElements.at(GNE_TAG_FLOW_WITHROUTE)) {
+                    ACsToLocate.push_back(flowRoute);
+                }
+                // ... and flows over junctions.
+                for (const auto& flowRoute : demandElements.at(GNE_TAG_FLOW_JUNCTIONS)) {
+                    ACsToLocate.push_back(flowRoute);
+                }
+                break;
+            }
+            case MID_LOCATEPERSON:
+                chooserLoc = &myACChoosers.ACChooserPersons;
+                locateTitle = "Person";
+                ACsToLocate.reserve(viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_PERSON).size() +
+                        viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_PERSONFLOW).size());
+                // fill ACsToLocate with persons
+                for (const auto& person : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_PERSON)) {
+                    ACsToLocate.push_back(person);
+                }
+                // fill ACsToLocate with personFlows
+                for (const auto& personFlow : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_PERSONFLOW)) {
+                    ACsToLocate.push_back(personFlow);
+                }
+                break;
+            case MID_LOCATEROUTE:
+                chooserLoc = &myACChoosers.ACChooserRoutes;
+                locateTitle = "Route";
+                ACsToLocate.reserve(viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_ROUTE).size());
+                for (const auto& route : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_ROUTE)) {
+                    ACsToLocate.push_back(route);
+                }
+                break;
+            case MID_LOCATESTOP: {
+                chooserLoc = &myACChoosers.ACChooserStops;
+                locateTitle = "Stop";
+                // reserve memory
+                ACsToLocate.reserve(viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_STOP_LANE).size() +
+                        viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_STOP_BUSSTOP).size() +
+                        viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_STOP_CONTAINERSTOP).size() +
+                        viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_STOP_CHARGINGSTATION).size() +
+                        viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_STOP_PARKINGAREA).size());
+                // fill ACsToLocate with stop over lanes
+                for (const auto& stopLane : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_STOP_LANE)) {
+                    ACsToLocate.push_back(stopLane);
+                }
+                // fill ACsToLocate with stop over busstops
+                for (const auto& stopBusStop : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_STOP_BUSSTOP)) {
+                    ACsToLocate.push_back(stopBusStop);
+                }
+                // fill ACsToLocate with stop over container stops
+                for (const auto& stopContainerStop : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_STOP_CONTAINERSTOP)) {
+                    ACsToLocate.push_back(stopContainerStop);
+                }
+                // fill ACsToLocate with stop over charging stations
+                for (const auto& stopChargingStation : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_STOP_CHARGINGSTATION)) {
+                    ACsToLocate.push_back(stopChargingStation);
+                }
+                // fill ACsToLocate with stop over parking areas
+                for (const auto& stopParkingArea : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_STOP_PARKINGAREA)) {
+                    ACsToLocate.push_back(stopParkingArea);
+                }
+                break;
+            }
+            case MID_LOCATETLS:
+                chooserLoc = &myACChoosers.ACChooserTLS;
+                locateTitle = "TLS";
+                // fill ACsToLocate with junctions that haven TLS
+                ACsToLocate.reserve(viewNet->getNet()->getAttributeCarriers()->getJunctions().size());
+                for (const auto& junction : viewNet->getNet()->getAttributeCarriers()->getJunctions()) {
+                    if (junction.second->getNBNode()->getControllingTLS().size() > 0) {
                         ACsToLocate.push_back(junction.second);
                     }
-                    myACChoosers.ACChooserJunction = new GNEDialogACChooser(this, messageId, GUIIconSubSys::getIcon(GUIIcon::LOCATEJUNCTION), "Junction Chooser", ACsToLocate);
                 }
                 break;
-            }
-            case MID_LOCATEEDGE: {
-                if (myACChoosers.ACChooserEdges) {
-                    // restore focus in the existent chooser dialog
-                    myACChoosers.ACChooserEdges->restore();
-                    myACChoosers.ACChooserEdges->setFocus();
-                } else {
-                    // fill ACsToLocate with edges
-                    ACsToLocate.reserve(viewNet->getNet()->getAttributeCarriers()->getEdges().size());
-                    for (const auto& edge : viewNet->getNet()->getAttributeCarriers()->getEdges()) {
-                        ACsToLocate.push_back(edge.second);
+            case MID_LOCATEADD:
+                chooserLoc = &myACChoosers.ACChooserAdditional;
+                locateTitle = "Additional";
+                for (const auto& additionalTag : viewNet->getNet()->getAttributeCarriers()->getAdditionals()) {
+                    if (additionalTag.first == SUMO_TAG_POI
+                            || additionalTag.first == GNE_TAG_POILANE
+                            || additionalTag.first == GNE_TAG_POIGEO
+                            || additionalTag.first == SUMO_TAG_POLY) {
+                        continue;
                     }
-                    myACChoosers.ACChooserEdges = new GNEDialogACChooser(this, messageId, GUIIconSubSys::getIcon(GUIIcon::LOCATEEDGE), "Edge Chooser", ACsToLocate);
+                    for (const auto& additional : additionalTag.second) {
+                        ACsToLocate.push_back(additional);
+                    }
                 }
                 break;
-            }
-            case MID_LOCATEWALKINGAREA: {
-                if (myACChoosers.ACChooserWalkingAreas) {
-                    // restore focus in the existent chooser dialog
-                    myACChoosers.ACChooserWalkingAreas->restore();
-                    myACChoosers.ACChooserWalkingAreas->setFocus();
-                } else {
-                    // fill ACsToLocate with walkingAreas
-                    ACsToLocate.reserve(viewNet->getNet()->getAttributeCarriers()->getWalkingAreas().size());
-                    for (const auto& walkingArea : viewNet->getNet()->getAttributeCarriers()->getWalkingAreas()) {
-                        ACsToLocate.push_back(walkingArea);
-                    }
-                    myACChoosers.ACChooserWalkingAreas = new GNEDialogACChooser(this, messageId, GUIIconSubSys::getIcon(GUIIcon::LOCATEWALKINGAREA), "WalkingArea Chooser", ACsToLocate);
+            case MID_LOCATEPOI:
+                chooserLoc = &myACChoosers.ACChooserPOI;
+                locateTitle = "POI";
+                // fill ACsToLocate with POIs
+                for (const auto& POI : viewNet->getNet()->getAttributeCarriers()->getAdditionals().at(SUMO_TAG_POI)) {
+                    ACsToLocate.push_back(POI);
+                }
+                for (const auto& POI : viewNet->getNet()->getAttributeCarriers()->getAdditionals().at(GNE_TAG_POILANE)) {
+                    ACsToLocate.push_back(POI);
+                }
+                for (const auto& POI : viewNet->getNet()->getAttributeCarriers()->getAdditionals().at(GNE_TAG_POIGEO)) {
+                    ACsToLocate.push_back(POI);
                 }
                 break;
-            }
-            case MID_LOCATEVEHICLE: {
-                if (myACChoosers.ACChooserVehicles) {
-                    // restore focus in the existent chooser dialog
-                    myACChoosers.ACChooserVehicles->restore();
-                    myACChoosers.ACChooserVehicles->setFocus();
-                } else {
-                    // get demand elements (only for code legibly)
-                    const auto demandElements = viewNet->getNet()->getAttributeCarriers()->getDemandElements();
-                    // reserve memory
-                    ACsToLocate.reserve(demandElements.at(SUMO_TAG_VEHICLE).size() +
-                                        demandElements.at(SUMO_TAG_TRIP).size() +
-                                        demandElements.at(GNE_TAG_VEHICLE_WITHROUTE).size() +
-                                        demandElements.at(GNE_TAG_TRIP_JUNCTIONS).size() +
-                                        demandElements.at(SUMO_TAG_FLOW).size() +
-                                        demandElements.at(GNE_TAG_FLOW_ROUTE).size() +
-                                        demandElements.at(GNE_TAG_FLOW_WITHROUTE).size() +
-                                        demandElements.at(GNE_TAG_FLOW_JUNCTIONS).size());
-                    // fill ACsToLocate with vehicles,...
-                    for (const auto& vehicle : demandElements.at(SUMO_TAG_VEHICLE)) {
-                        ACsToLocate.push_back(vehicle);
-                    }
-                    // ...trips,...
-                    for (const auto& trip : demandElements.at(SUMO_TAG_TRIP)) {
-                        ACsToLocate.push_back(trip);
-                    }
-                    // ...vehicles with embedded routes,...
-                    for (const auto& trip : demandElements.at(GNE_TAG_VEHICLE_WITHROUTE)) {
-                        ACsToLocate.push_back(trip);
-                    }
-                    // ...trips over junctions,...
-                    for (const auto& trip : demandElements.at(GNE_TAG_TRIP_JUNCTIONS)) {
-                        ACsToLocate.push_back(trip);
-                    }
-                    // ...flows,...
-                    for (const auto& flow : demandElements.at(SUMO_TAG_FLOW)) {
-                        ACsToLocate.push_back(flow);
-                    }
-                    // ...flows over routes,...
-                    for (const auto& flowRoute : demandElements.at(GNE_TAG_FLOW_ROUTE)) {
-                        ACsToLocate.push_back(flowRoute);
-                    }
-                    // ...flows with embedded routes...
-                    for (const auto& flowRoute : demandElements.at(GNE_TAG_FLOW_WITHROUTE)) {
-                        ACsToLocate.push_back(flowRoute);
-                    }
-                    // ... and flows over junctions.
-                    for (const auto& flowRoute : demandElements.at(GNE_TAG_FLOW_JUNCTIONS)) {
-                        ACsToLocate.push_back(flowRoute);
-                    }
-                    myACChoosers.ACChooserVehicles = new GNEDialogACChooser(this, messageId, GUIIconSubSys::getIcon(GUIIcon::LOCATEVEHICLE), "Vehicle Chooser", ACsToLocate);
+            case MID_LOCATEPOLY:
+                chooserLoc = &myACChoosers.ACChooserPolygon;
+                locateTitle = "Poly";
+                // fill ACsToLocate with polys and TAZs (because share namespae)
+                for (const auto& polygon : viewNet->getNet()->getAttributeCarriers()->getAdditionals().at(SUMO_TAG_POLY)) {
+                    ACsToLocate.push_back(polygon);
+                }
+                for (const auto& taz : viewNet->getNet()->getAttributeCarriers()->getAdditionals().at(SUMO_TAG_TAZ)) {
+                    ACsToLocate.push_back(taz);
                 }
                 break;
-            }
-            case MID_LOCATEPERSON: {
-                if (myACChoosers.ACChooserPersons) {
-                    // restore focus in the existent chooser dialog
-                    myACChoosers.ACChooserPersons->restore();
-                    myACChoosers.ACChooserPersons->setFocus();
-                } else {
-                    // reserve memory
-                    ACsToLocate.reserve(viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_PERSON).size() +
-                                        viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_PERSONFLOW).size());
-                    // fill ACsToLocate with persons
-                    for (const auto& person : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_PERSON)) {
-                        ACsToLocate.push_back(person);
-                    }
-                    // fill ACsToLocate with personFlows
-                    for (const auto& personFlow : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_PERSONFLOW)) {
-                        ACsToLocate.push_back(personFlow);
-                    }
-                    myACChoosers.ACChooserPersons = new GNEDialogACChooser(this, messageId, GUIIconSubSys::getIcon(GUIIcon::LOCATEPERSON), "Person Chooser", ACsToLocate);
-                }
-                break;
-            }
-            case MID_LOCATEROUTE: {
-                if (myACChoosers.ACChooserRoutes) {
-                    // restore focus in the existent chooser dialog
-                    myACChoosers.ACChooserRoutes->restore();
-                    myACChoosers.ACChooserRoutes->setFocus();
-                } else {
-                    // reserve memory
-                    ACsToLocate.reserve(viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_ROUTE).size());
-                    // fill ACsToLocate with routes
-                    for (const auto& route : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_ROUTE)) {
-                        ACsToLocate.push_back(route);
-                    }
-                    myACChoosers.ACChooserRoutes = new GNEDialogACChooser(this, messageId, GUIIconSubSys::getIcon(GUIIcon::LOCATEROUTE), "Route Chooser", ACsToLocate);
-                }
-                break;
-            }
-            case MID_LOCATESTOP: {
-                if (myACChoosers.ACChooserStops) {
-                    // restore focus in the existent chooser dialog
-                    myACChoosers.ACChooserStops->restore();
-                    myACChoosers.ACChooserStops->setFocus();
-                } else {
-                    // reserve memory
-                    ACsToLocate.reserve(viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_STOP_LANE).size() +
-                                        viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_STOP_BUSSTOP).size() +
-                                        viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_STOP_CONTAINERSTOP).size() +
-                                        viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_STOP_CHARGINGSTATION).size() +
-                                        viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_STOP_PARKINGAREA).size());
-                    // fill ACsToLocate with stop over lanes
-                    for (const auto& stopLane : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_STOP_LANE)) {
-                        ACsToLocate.push_back(stopLane);
-                    }
-                    // fill ACsToLocate with stop over busstops
-                    for (const auto& stopBusStop : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_STOP_BUSSTOP)) {
-                        ACsToLocate.push_back(stopBusStop);
-                    }
-                    // fill ACsToLocate with stop over container stops
-                    for (const auto& stopContainerStop : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_STOP_CONTAINERSTOP)) {
-                        ACsToLocate.push_back(stopContainerStop);
-                    }
-                    // fill ACsToLocate with stop over charging stations
-                    for (const auto& stopChargingStation : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_STOP_CHARGINGSTATION)) {
-                        ACsToLocate.push_back(stopChargingStation);
-                    }
-                    // fill ACsToLocate with stop over parking areas
-                    for (const auto& stopParkingArea : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_STOP_PARKINGAREA)) {
-                        ACsToLocate.push_back(stopParkingArea);
-                    }
-                    myACChoosers.ACChooserStops = new GNEDialogACChooser(this, messageId, GUIIconSubSys::getIcon(GUIIcon::LOCATESTOP), "Stop Chooser", ACsToLocate);
-                }
-                break;
-            }
-            case MID_LOCATETLS: {
-                if (myACChoosers.ACChooserTLS) {
-                    // restore focus in the existent chooser dialog
-                    myACChoosers.ACChooserTLS->restore();
-                    myACChoosers.ACChooserTLS->setFocus();
-                } else {
-                    // fill ACsToLocate with junctions that haven TLS
-                    ACsToLocate.reserve(viewNet->getNet()->getAttributeCarriers()->getJunctions().size());
-                    for (const auto& junction : viewNet->getNet()->getAttributeCarriers()->getJunctions()) {
-                        if (junction.second->getNBNode()->getControllingTLS().size() > 0) {
-                            ACsToLocate.push_back(junction.second);
-                        }
-                    }
-                    myACChoosers.ACChooserTLS = new GNEDialogACChooser(this, messageId, GUIIconSubSys::getIcon(GUIIcon::LOCATETLS), "TLS Chooser", ACsToLocate);
-                }
-                break;
-            }
-            case MID_LOCATEADD: {
-                if (myACChoosers.ACChooserAdditional) {
-                    // restore focus in the existent chooser dialog
-                    myACChoosers.ACChooserAdditional->restore();
-                    myACChoosers.ACChooserAdditional->setFocus();
-                } else {
-                    // fill ACsToLocate with additionals
-                    for (const auto& additionalTag : viewNet->getNet()->getAttributeCarriers()->getAdditionals()) {
-                        for (const auto& additional : additionalTag.second) {
-                            ACsToLocate.push_back(additional);
-                        }
-                    }
-                    myACChoosers.ACChooserAdditional = new GNEDialogACChooser(this, messageId, GUIIconSubSys::getIcon(GUIIcon::LOCATEADD), "Additional Chooser", ACsToLocate);
-                }
-                break;
-            }
-            case MID_LOCATEPOI: {
-                if (myACChoosers.ACChooserPOI) {
-                    // restore focus in the existent chooser dialog
-                    myACChoosers.ACChooserPOI->restore();
-                    myACChoosers.ACChooserPOI->setFocus();
-                } else {
-                    // fill ACsToLocate with POIs
-                    for (const auto& POI : viewNet->getNet()->getAttributeCarriers()->getAdditionals().at(SUMO_TAG_POI)) {
-                        ACsToLocate.push_back(POI);
-                    }
-                    for (const auto& POI : viewNet->getNet()->getAttributeCarriers()->getAdditionals().at(GNE_TAG_POILANE)) {
-                        ACsToLocate.push_back(POI);
-                    }
-                    for (const auto& POI : viewNet->getNet()->getAttributeCarriers()->getAdditionals().at(GNE_TAG_POIGEO)) {
-                        ACsToLocate.push_back(POI);
-                    }
-                    myACChoosers.ACChooserPOI = new GNEDialogACChooser(this, messageId, GUIIconSubSys::getIcon(GUIIcon::LOCATEPOI), "POI Chooser", ACsToLocate);
-                }
-                break;
-            }
-            case MID_LOCATEPOLY: {
-                if (myACChoosers.ACChooserPolygon) {
-                    // restore focus in the existent chooser dialog
-                    myACChoosers.ACChooserPolygon->restore();
-                    myACChoosers.ACChooserPolygon->setFocus();
-                } else {
-                    // fill ACsToLocate with polys and TAZs (because share namespae)
-                    for (const auto& polygon : viewNet->getNet()->getAttributeCarriers()->getAdditionals().at(SUMO_TAG_POLY)) {
-                        ACsToLocate.push_back(polygon);
-                    }
-                    for (const auto& taz : viewNet->getNet()->getAttributeCarriers()->getAdditionals().at(SUMO_TAG_TAZ)) {
-                        ACsToLocate.push_back(taz);
-                    }
-                    myACChoosers.ACChooserPolygon = new GNEDialogACChooser(this, messageId, GUIIconSubSys::getIcon(GUIIcon::LOCATEPOLY), "Poly Chooser", ACsToLocate);
-                }
-                break;
-            }
             default:
                 throw ProcessError("Unknown Message ID in onCmdLocate");
+        }
+        if (*chooserLoc) {
+            // restore focus in the existent chooser dialog
+            GNEDialogACChooser* chooser = *chooserLoc;
+            chooser->restore();
+            chooser->setFocus();
+            chooser->raise();
+        } else {
+            GNEDialogACChooser* chooser = new GNEDialogACChooser(this, messageId, GUIIconSubSys::getIcon(GUIIcon::LOCATEJUNCTION), locateTitle + " Chooser", ACsToLocate);
+            *chooserLoc = chooser;
         }
         // update locator popup
         myLocatorPopup->popdown();

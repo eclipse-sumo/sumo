@@ -91,3 +91,6 @@ actuated
 
 # test saving and load vehicles added by calibrator
 calibrator
+
+# see #11394
+continous_lanechange

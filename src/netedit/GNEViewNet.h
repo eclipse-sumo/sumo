@@ -110,7 +110,13 @@ public:
     std::vector<std::string> getRelDataAttrs() const;
 
     /// @brief open object dialog
-    void openObjectDialogAtCursor();
+    void openObjectDialogAtCursor(const FXEvent* ev);
+
+    /// @brief open delete dialog at cursor
+    void openDeleteDialogAtCursor(const std::vector<GUIGlObject*> &GLObjects);
+
+    /// @brief open select dialog at cursor
+    void openSelectDialogAtCursor(const std::vector<GUIGlObject*> &GLObjects);
 
     // save visualization settings
     void saveVisualizationSettings() const;
@@ -305,6 +311,9 @@ public:
     /// @brief edit crossing shape
     long onCmdEditCrossingShape(FXObject*, FXSelector, void*);
 
+    /// @brief edit walkingArea shape
+    long onCmdEditWalkingAreaShape(FXObject*, FXSelector, void*);
+
     /// @name View options network call backs
     /// @{
 
@@ -489,6 +498,12 @@ public:
     /// @brief draw front attributeCarrier
     void drawTranslateFrontAttributeCarrier(const GNEAttributeCarrier* AC, double typeOrLayer, const double extraOffset = 0);
 
+    /// @brief check if draw delete contour
+    bool drawDeleteContour(const GUIGlObject* GLObject, const GNEAttributeCarrier* AC) const;
+
+    /// @brief check if draw select contour
+    bool drawSelectContour(const GUIGlObject* GLObject, const GNEAttributeCarrier* AC) const;
+
     /// @brief get last created route
     GNEDemandElement* getLastCreatedRoute() const;
 
@@ -497,6 +512,9 @@ public:
 
     /// @brief set statusBar text
     void setStatusBarText(const std::string& text);
+
+    /// @brief reset last clicked position
+    void resetLastClickedPosition();
 
     /// @brief whether to autoselect nodes or to lanes
     bool autoSelectNodes();
@@ -522,6 +540,9 @@ public:
     /// @brief check if we're seleting detectors in TLS mode
     bool selectingDetectorsTLSMode() const;
 
+    /// @brief check if we're seleting juncitons in TLS mode
+    bool selectingJunctionsTLSMode() const;
+
 protected:
     /// @brief FOX needs this
     GNEViewNet();
@@ -531,9 +552,6 @@ protected:
 
     /// @brief called after some features are already initialized
     void doInit();
-
-    /// @brief open move dialog at cursor
-    void openMoveDialogAtCursor();
 
 private:
     /// @name structs related with modes and testing mode
@@ -643,6 +661,12 @@ private:
     /// @brief draw preview roundabout
     bool myDrawPreviewRoundabout = false;
 
+    /// @brief last clicked position
+    Position myLastClickedPosition = Position::INVALID;
+
+    /// @brief flag for post-drawing (used for dotted contours)
+    bool myPostDrawing = false;
+
     /// @brief create edit mode buttons and elements
     void buildEditModeControls();
 
@@ -678,6 +702,9 @@ private:
 
     /// @brief try to retrieve a crossing at popup position
     GNECrossing* getCrossingAtPopupPosition();
+
+    /// @brief try to retrieve a walkingArea at popup position
+    GNEWalkingArea* getWalkingAreaAtPopupPosition();
 
     /// @brief try to retrieve a additional at popup position
     GNEAdditional* getAdditionalAtPopupPosition();
@@ -723,6 +750,15 @@ private:
 
     /// @brief draw temporal E1 TLS Lines
     void drawTemporalE1TLSLines() const;
+
+    /// @brief draw temporal Junction TLS Lines
+    void drawTemporalJunctionTLSLines() const;
+
+    /// @brief draw delete dotted contours
+    void drawDeleteDottedContour();
+
+    /// @brief draw select dotted contours
+    void drawSelectDottedContour();
 
     /// @}
 

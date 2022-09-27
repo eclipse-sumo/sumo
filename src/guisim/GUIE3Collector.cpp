@@ -39,7 +39,7 @@
 // -------------------------------------------------------------------------
 
 GUIE3Collector::MyWrapper::MyWrapper(GUIE3Collector& detector) :
-    GUIDetectorWrapper(GLO_E3DETECTOR, detector.getID()),
+    GUIDetectorWrapper(GLO_E3DETECTOR, detector.getID(), GUIIconSubSys::getIcon(GUIIcon::E3)),
     myDetector(detector) {
     const CrossSectionVector& entries = detector.getEntries();
     const CrossSectionVector& exits = detector.getExits();
@@ -76,6 +76,7 @@ GUIE3Collector::MyWrapper::getParameterWindow(GUIMainWindow& app,
         new GUIParameterTableWindow(app, *this);
     // add items
     // values
+    ret->mkItem("name", false, myDetector.myName);
     ret->mkItem("vehicles within [#]", true,
                 new FunctionBinding<MSE3Collector, int>(&myDetector, &MSE3Collector::getVehiclesWithin));
     ret->mkItem("mean speed [m/s]", true,
@@ -166,11 +167,11 @@ GUIE3Collector::GUIE3Collector(const std::string& id,
                                const CrossSectionVector& entries,  const CrossSectionVector& exits,
                                double haltingSpeedThreshold,
                                SUMOTime haltingTimeThreshold,
-                               const std::string& vTypes,
+                               const std::string name, const std::string& vTypes,
                                const std::string& nextEdges,
                                int detectPersons,
                                bool openEntry):
-    MSE3Collector(id, entries,  exits, haltingSpeedThreshold, haltingTimeThreshold, vTypes, nextEdges, detectPersons, openEntry)
+    MSE3Collector(id, entries,  exits, haltingSpeedThreshold, haltingTimeThreshold, name, vTypes, nextEdges, detectPersons, openEntry)
 {}
 
 

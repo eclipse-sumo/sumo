@@ -1,5 +1,3 @@
-# load valid traffic lights
-#load_valid
+single
 
-# save created traffic lights
-save
+joined

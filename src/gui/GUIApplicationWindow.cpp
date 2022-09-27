@@ -245,6 +245,9 @@ GUIApplicationWindow::GUIApplicationWindow(FXApp* a, const std::string& configPa
     GUIIconSubSys::initIcons(a);
     // init cursors
     GUICursorSubSys::initCursors(a);
+    // disable tooltips
+    a->setTooltipTime(1000000000);
+    a->setTooltipPause(1000000000);
 }
 
 
@@ -273,10 +276,20 @@ GUIApplicationWindow::dependentBuild(const bool isLibsumo) {
     // build the status bar
     myStatusbar = new FXStatusBar(this, GUIDesignStatusBar);
     {
+        // build TraCi info
+        myTraCiFrame = new FXHorizontalFrame(myStatusbar, GUIDesignHorizontalFrameStatusBar);
+        auto button = new FXButton(myTraCiFrame, "TraCi", nullptr, this, MID_TRACI_STATUS, GUIDesignButtonStatusBarFixed);
+        button->setBackColor(FXRGBA(253, 255, 206, 255));
+        if (TraCIServer::getInstance() == nullptr) {
+            myTraCiFrame->hide();
+        }
+        // build geo coordiantes
         myGeoFrame = new FXHorizontalFrame(myStatusbar, GUIDesignHorizontalFrameStatusBar);
         myGeoCoordinate = new FXLabel(myGeoFrame, "N/A\t\tOriginal coordinate (before coordinate transformation in netconvert)", nullptr, LAYOUT_CENTER_Y);
+        // build cartesian coordinates
         myCartesianFrame = new FXHorizontalFrame(myStatusbar, GUIDesignHorizontalFrameStatusBar);
         myCartesianCoordinate = new FXLabel(myCartesianFrame, "N/A\t\tNetwork coordinate", nullptr, LAYOUT_CENTER_Y);
+        // build buttons
         myStatButtons.push_back(new FXButton(myStatusbar, "-", GUIIconSubSys::getIcon(GUIIcon::GREENVEHICLE), this, MID_SHOWVEHSTATS));
         myStatButtons.push_back(new FXButton(myStatusbar, "-", GUIIconSubSys::getIcon(GUIIcon::GREENPERSON), this, MID_SHOWPERSONSTATS));
         myStatButtons.back()->hide();
@@ -363,6 +376,7 @@ GUIApplicationWindow::create() {
         myOnlineMaps["GoogleSat"] = "https://www.google.com/maps?ll=%lat,%lon&t=h&z=18";
         myOnlineMaps["OSM"] = "https://www.openstreetmap.org/?mlat=%lat&mlon=%lon&zoom=18&layers=M";
     }
+    updateTimeLCDTooltip();
 }
 
 
@@ -630,7 +644,6 @@ GUIApplicationWindow::fillMenuBar() {
     GUIDesigns::buildFXMenuCommandShortcut(myHelpMenu,
                                            "&About", "F12", "About sumo-gui.",
                                            GUIIconSubSys::getIcon(GUIIcon::SUMO_MINI), this, MID_HOTKEY_F12_ABOUT);
-    //new FXButton(myMenuBar, "\t\tShows TraCI status", GUIIconSubSys::getIcon(GUIIcon::ADD), this, MID_TRACI_STATUS, 0, 0, 0, 14, 14, 0, 0, 0, 0);
     // build SUMO Accelerators (hotkeys)
     GUIShortcutsSubSys::buildSUMOAccelerators(this);
 }
@@ -645,11 +658,11 @@ GUIApplicationWindow::buildToolBars() {
         myToolBar1 = new FXToolBar(myTopDock, myToolBarDrag1, GUIDesignToolBarRaisedNextTop);
         new FXToolBarGrip(myToolBar1, myToolBar1, FXToolBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
         // build file tools
-        new MFXButtonTooltip(myToolBar1, myStaticTooltip, "\tOpen simulation\tOpen a simulation (Configuration file).",
+        new MFXButtonTooltip(myToolBar1, myStaticTooltipMenu, "\tOpen simulation\tOpen a simulation (Configuration file).",
             GUIIconSubSys::getIcon(GUIIcon::OPEN_CONFIG), this, MID_OPEN_CONFIG, GUIDesignButtonToolbar);
-        new MFXButtonTooltip(myToolBar1, myStaticTooltip, "\tOpen network\tOpen a network.",
+        new MFXButtonTooltip(myToolBar1, myStaticTooltipMenu, "\tOpen network\tOpen a network.",
             GUIIconSubSys::getIcon(GUIIcon::OPEN_NET), this, MID_OPEN_NETWORK, GUIDesignButtonToolbar);
-        new MFXButtonTooltip(myToolBar1, myStaticTooltip, "\tReload\tReloads the simulation / the network.", 
+        new MFXButtonTooltip(myToolBar1, myStaticTooltipMenu, "\tReload\tReloads the simulation / the network.", 
             GUIIconSubSys::getIcon(GUIIcon::RELOAD), this, MID_HOTKEY_CTRL_R_RELOAD, GUIDesignButtonToolbar);
     }
     {
@@ -658,11 +671,11 @@ GUIApplicationWindow::buildToolBars() {
         myToolBar2 = new FXToolBar(myTopDock, myToolBarDrag2, GUIDesignToolBarRaisedSameTop);
         new FXToolBarGrip(myToolBar2, myToolBar2, FXToolBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
         // build simulation tools
-        new MFXButtonTooltip(myToolBar2, myStaticTooltip, "\tRun\tStart/Resume the loaded simulation.", 
+        new MFXButtonTooltip(myToolBar2, myStaticTooltipMenu, "\tRun\tStart/Resume the loaded simulation.", 
             GUIIconSubSys::getIcon(GUIIcon::START), this, MID_HOTKEY_CTRL_A_STARTSIMULATION_OPENADDITIONALS, GUIDesignButtonToolbar);
-        new MFXButtonTooltip(myToolBar2, myStaticTooltip, "\tStop\tHalt the running simulation.", 
+        new MFXButtonTooltip(myToolBar2, myStaticTooltipMenu, "\tStop\tHalt the running simulation.", 
             GUIIconSubSys::getIcon(GUIIcon::STOP), this, MID_HOTKEY_CTRL_S_STOPSIMULATION_SAVENETWORK, GUIDesignButtonToolbar);
-        new MFXButtonTooltip(myToolBar2, myStaticTooltip, "\tStep\tPerform a single simulation step.", 
+        new MFXButtonTooltip(myToolBar2, myStaticTooltipMenu, "\tStep\tPerform a single simulation step.", 
             GUIIconSubSys::getIcon(GUIIcon::STEP), this, MID_HOTKEY_CTRL_D_SINGLESIMULATIONSTEP_OPENDEMANDELEMENTS, GUIDesignButtonToolbar);
     }
     {
@@ -670,9 +683,9 @@ GUIApplicationWindow::buildToolBars() {
         myToolBarDrag3 = new FXToolBarShell(this, GUIDesignToolBar);
         myToolBar3 = new FXToolBar(myTopDock, myToolBarDrag3, GUIDesignToolBarRaisedSameTop);
         new FXToolBarGrip(myToolBar3, myToolBar3, FXToolBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
-        new FXButton(myToolBar3, "Time:\t\tToggle between seconds and hour:minute:seconds display.", nullptr, this, MID_TIME_TOGGLE, GUIDesignButtonToolbarText);
+        new MFXButtonTooltip(myToolBar3, myStaticTooltipMenu, "Time:\tToggle between time formats\tToggle between seconds and hour:minute:seconds display.", nullptr, this, MID_TIME_TOGGLE, GUIDesignButtonToolbarText);
 
-        myLCDLabel = new FXEX::MFXLCDLabel(myToolBar3, 16, nullptr, 0, JUSTIFY_RIGHT);
+        myLCDLabel = new MFXLCDLabel(myToolBar3, myStaticTooltipMenu, 16, nullptr, 0, JUSTIFY_RIGHT);
         myLCDLabel->setHorizontal(2);
         myLCDLabel->setVertical(6);
         myLCDLabel->setThickness(2);
@@ -684,7 +697,7 @@ GUIApplicationWindow::buildToolBars() {
         myToolBarDrag4 = new FXToolBarShell(this, GUIDesignToolBar);
         myToolBar4 = new FXToolBar(myTopDock, myToolBarDrag4, GUIDesignToolBarRaisedSameTop);
         new FXToolBarGrip(myToolBar4, myToolBar4, FXToolBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
-        new FXButton(myToolBar4, "Delay (ms):\t\tDelay per simulated second. Click to toggle between the last two delay values.", nullptr, this, MID_DELAY_TOGGLE, GUIDesignButtonToolbarText);
+        new MFXButtonTooltip(myToolBar4, myStaticTooltipMenu, "Delay (ms):\tDelay per simulated second\tDelay per simulated second. Click to toggle between the last two delay values.", nullptr, this, MID_DELAY_TOGGLE, GUIDesignButtonToolbarText);
         // create spinner for delay
         mySimDelay = 0;
         mySimDelayTarget = new FXDataTarget(mySimDelay);
@@ -719,10 +732,10 @@ GUIApplicationWindow::buildToolBars() {
         myToolBar5 = new FXToolBar(myTopDock, myToolBarDrag5, GUIDesignToolBarRaisedSameTop);
         new FXToolBarGrip(myToolBar5, myToolBar5, FXToolBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
         // build view tools
-        new MFXButtonTooltip(myToolBar5, myStaticTooltip, "\tOpen new view\tOpen a new microscopic view.",
+        new MFXButtonTooltip(myToolBar5, myStaticTooltipMenu, "\tOpen new view\tOpen a new microscopic view.",
                              GUIIconSubSys::getIcon(GUIIcon::MICROVIEW), this, MID_NEW_MICROVIEW, GUIDesignButtonToolbar);
 #ifdef HAVE_OSG
-        new MFXButtonTooltip(myToolBar5, myStaticTooltip, "\tOpen new 3D view\tOpen a new 3D view.",
+        new MFXButtonTooltip(myToolBar5, myStaticTooltipMenu, "\tOpen new 3D view\tOpen a new 3D view.",
                              GUIIconSubSys::getIcon(GUIIcon::OSGVIEW), this, MID_NEW_OSGVIEW, GUIDesignButtonToolbar);
 #endif
     }
@@ -733,7 +746,7 @@ GUIApplicationWindow::buildToolBars() {
         myToolBar6 = new FXToolBar(myTopDock, myToolBarDrag6, GUIDesignToolBarRaisedSameTop);
         new FXToolBarGrip(myToolBar6, myToolBar6, FXToolBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
         new FXLabel(myToolBar6, "Waiting Time:\t\tTime spent waiting accumulated for all vehicles", nullptr, LAYOUT_TOP | LAYOUT_LEFT);
-        myWaitingTimeLabel = new FXEX::MFXLCDLabel(myToolBar6, 13, nullptr, 0, JUSTIFY_RIGHT);
+        myWaitingTimeLabel = new MFXLCDLabel(myToolBar6, myStaticTooltipMenu, 13, nullptr, 0, JUSTIFY_RIGHT);
         myWaitingTimeLabel->setHorizontal(2);
         myWaitingTimeLabel->setVertical(6);
         myWaitingTimeLabel->setThickness(2);
@@ -745,7 +758,7 @@ GUIApplicationWindow::buildToolBars() {
         myToolBar7 = new FXToolBar(myTopDock, myToolBarDrag7, GUIDesignToolBarRaisedSameTop);
         new FXToolBarGrip(myToolBar7, myToolBar7, FXToolBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
         new FXLabel(myToolBar7, "Time Loss:\t\tTime lost due to being unable to drive with maximum speed for all vehicles", nullptr, LAYOUT_TOP | LAYOUT_LEFT);
-        myTimeLossLabel = new FXEX::MFXLCDLabel(myToolBar7, 13, nullptr, 0, JUSTIFY_RIGHT);
+        myTimeLossLabel = new MFXLCDLabel(myToolBar7, myStaticTooltipMenu, 13, nullptr, 0, JUSTIFY_RIGHT);
         myTimeLossLabel->setHorizontal(2);
         myTimeLossLabel->setVertical(6);
         myTimeLossLabel->setThickness(2);
@@ -757,7 +770,7 @@ GUIApplicationWindow::buildToolBars() {
         myToolBar9 = new FXToolBar(myTopDock, myToolBarDrag9, GUIDesignToolBarRaisedSameTop);
         new FXToolBarGrip(myToolBar9, myToolBar9, FXToolBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
         new FXLabel(myToolBar9, "Distance (km):\t\tTotal distance driven by DRT vehicles", nullptr, LAYOUT_TOP | LAYOUT_LEFT);
-        myTotalDistanceLabel = new FXEX::MFXLCDLabel(myToolBar9, 13, nullptr, 0, JUSTIFY_RIGHT);
+        myTotalDistanceLabel = new MFXLCDLabel(myToolBar9, myStaticTooltipMenu, 13, nullptr, 0, JUSTIFY_RIGHT);
         myTotalDistanceLabel->setHorizontal(2);
         myTotalDistanceLabel->setVertical(6);
         myTotalDistanceLabel->setThickness(2);
@@ -769,7 +782,7 @@ GUIApplicationWindow::buildToolBars() {
         myToolBar10 = new FXToolBar(myTopDock, myToolBarDrag10, GUIDesignToolBarRaisedSameTop);
         new FXToolBarGrip(myToolBar10, myToolBar10, FXToolBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
         new FXLabel(myToolBar10, "Emergency Vehicle waiting time:\t\tTime spent waiting accumulated for emergency vehicles", nullptr, LAYOUT_TOP | LAYOUT_LEFT);
-        myEmergencyVehicleLabel = new FXEX::MFXLCDLabel(myToolBar10, 13, nullptr, 0, JUSTIFY_RIGHT);
+        myEmergencyVehicleLabel = new MFXLCDLabel(myToolBar10, myStaticTooltipMenu, 13, nullptr, 0, JUSTIFY_RIGHT);
         myEmergencyVehicleLabel->setHorizontal(2);
         myEmergencyVehicleLabel->setVertical(6);
         myEmergencyVehicleLabel->setThickness(2);
@@ -828,11 +841,16 @@ GUIApplicationWindow::onCmdEditChosen(FXObject* menu, FXSelector, void*) {
 
 long
 GUIApplicationWindow::onCmdEditBreakpoints(FXObject*, FXSelector, void*) {
-    GUIDialog_Breakpoints* chooser = new GUIDialog_Breakpoints(this, myRunThread->getBreakpoints(), myRunThread->getBreakpointLock());
-    chooser->create();
-    chooser->show();
+    if (myBreakpointDialog == nullptr) {
+        myBreakpointDialog = new GUIDialog_Breakpoints(this, myRunThread->getBreakpoints(), myRunThread->getBreakpointLock());
+    } else {
+        myBreakpointDialog->restore();
+        myBreakpointDialog->setFocus();
+        myBreakpointDialog->raise();
+    }
     return 1;
 }
+
 
 long
 GUIApplicationWindow::onCmdEditViewport(FXObject*, FXSelector, void*) {
@@ -1217,7 +1235,9 @@ GUIApplicationWindow::onCmdLoadState(FXObject*, FXSelector, void*) {
 
 long
 GUIApplicationWindow::onCmdTimeToggle(FXObject*, FXSelector, void*) {
+    // toogle show time as HMS
     myShowTimeAsHMS = !myShowTimeAsHMS;
+    updateTimeLCDTooltip();
     if (myRunThread->simulationAvailable()) {
         updateTimeLCD(myRunThread->getNet().getCurrentTimeStep());
     }
@@ -1337,9 +1357,14 @@ GUIApplicationWindow::onUpdNeedsSimulation(FXObject* sender, FXSelector, void* p
     return 1;
 }
 
+
 long
-GUIApplicationWindow::onUpdTraCIStatus(FXObject* sender, FXSelector, void* ptr) {
-    sender->handle(this, TraCIServer::getInstance() == nullptr ? FXSEL(SEL_COMMAND, ID_DISABLE) : FXSEL(SEL_COMMAND, ID_ENABLE), ptr);
+GUIApplicationWindow::onUpdTraCIStatus(FXObject* /*sender*/, FXSelector, void* /*ptr*/) {
+    if (TraCIServer::getInstance()) {
+        myTraCiFrame->show();
+    } else {
+        myTraCiFrame->hide();
+    }
     return 1;
 }
 
@@ -1709,13 +1734,11 @@ GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent* e) {
                 myRunThread->getBreakpoints().assign(breakpoints.begin(), breakpoints.end());
                 myRunThread->getBreakpointLock().unlock();
             }
-
+            myTLSGame = OptionsCont::getOptions().getString("game.mode") == "tls";
             if (OptionsCont::getOptions().getBool("game")) {
-                if (OptionsCont::getOptions().getString("game.mode") == "tls") {
-                    myTLSGame = true;
+                if (myTLSGame) {
                     setTitle("SUMO Interactive Traffic Light");
                 } else {
-                    myTLSGame = false;
                     setTitle("SUMO Interactive Demand-Responsive-Transport");
                 }
                 onCmdGaming(nullptr, 0, nullptr);
@@ -2058,6 +2081,14 @@ GUIApplicationWindow::addRecentFile(const FX::FXString& f) {
     myRecentNetworksAndConfigs.appendFile(f);
 }
 
+void
+GUIApplicationWindow::updateTimeLCDTooltip() {
+    if (myShowTimeAsHMS) {
+        myLCDLabel->setToolTipText("HH:MM:SS");
+    } else {
+        myLCDLabel->setToolTipText("seconds");
+    }
+}
 
 void
 GUIApplicationWindow::updateTimeLCD(SUMOTime time) {

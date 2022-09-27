@@ -45,3 +45,6 @@ DriverStateDevice
 
 # parallelization tests
 parallel
+
+# testing option parsing
+options

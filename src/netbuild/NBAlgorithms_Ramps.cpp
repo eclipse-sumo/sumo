@@ -67,16 +67,13 @@ NBRampsComputer::computeRamps(NBNetBuilder& nb, OptionsCont& oc, bool mayAddOrRe
         noramps.insert(edges.begin(), edges.end());
     }
     // exclude roundabouts
-    const std::set<EdgeSet>& roundabouts = ec.getRoundabouts();
-    for (std::set<EdgeSet>::const_iterator it_round = roundabouts.begin();
-            it_round != roundabouts.end(); ++it_round) {
-        for (EdgeSet::const_iterator it_edge = it_round->begin(); it_edge != it_round->end(); ++it_edge) {
-            noramps.insert((*it_edge)->getID());
+    for (const EdgeSet& round : ec.getRoundabouts()) {
+        for (NBEdge* const edge : round) {
+            noramps.insert(edge->getID());
         }
     }
     // exclude public transport edges
     nb.getPTStopCont().addEdges2Keep(oc, noramps);
-    nb.getPTLineCont().addEdges2Keep(oc, noramps);
     nb.getParkingCont().addEdges2Keep(oc, noramps);
 
     // check whether on-off ramps shall be guessed
@@ -108,14 +105,14 @@ NBRampsComputer::computeRamps(NBNetBuilder& nb, OptionsCont& oc, bool mayAddOrRe
     if (oc.isSet("ramps.set") && mayAddOrRemove) {
         std::vector<std::string> edges = oc.getStringVector("ramps.set");
         std::set<NBNode*, ComparatorIdLess> potOnRamps;
-        for (std::vector<std::string>::iterator i = edges.begin(); i != edges.end(); ++i) {
-            NBEdge* e = ec.retrieve(*i);
-            if (noramps.count(*i) != 0) {
-                WRITE_WARNING("Can not build ramp on edge '" + *i + "' - the edge is unsuitable.");
+        for (const std::string& i : edges) {
+            NBEdge* e = ec.retrieve(i);
+            if (noramps.count(i) != 0) {
+                WRITE_WARNINGF("Can not build ramp on edge '%' - the edge is unsuitable.", i);
                 continue;
             }
             if (e == nullptr) {
-                WRITE_WARNING("Can not build on ramp on edge '" + *i + "' - the edge is not known.");
+                WRITE_WARNINGF("Can not build on ramp on edge '%' - the edge is not known.", i);
                 continue;
             }
             NBNode* from = e->getFromNode();
@@ -124,9 +121,9 @@ NBRampsComputer::computeRamps(NBNetBuilder& nb, OptionsCont& oc, bool mayAddOrRe
                 potOnRamps.insert(from);
             }
             // load edge again to check offramps
-            e = ec.retrieve(*i);
+            e = ec.retrieve(i);
             if (e == nullptr) {
-                WRITE_WARNING("Can not build off ramp on edge '" + *i + "' - the edge is not known.");
+                WRITE_WARNINGF("Can not build off ramp on edge '%' - the edge is not known.", i);
                 continue;
             }
             NBNode* to = e->getToNode();
@@ -173,6 +170,11 @@ NBRampsComputer::mayNeedOffRamp(NBNode* cur, double minHighwaySpeed, double maxR
     // may be an off-ramp
     NBEdge* potHighway, *potRamp, *prev;
     getOffRampEdges(cur, &potHighway, &potRamp, &prev);
+#ifdef DEBUG_RAMPS
+    if (DEBUGCOND(cur)) {
+        std::cout << "off ramp hw=" << potHighway->getID() << " ramp=" << potRamp->getID() << " prev=" << prev->getID() << std::endl;
+    }
+#endif
     return fulfillsRampConstraints(potHighway, potRamp, prev, minHighwaySpeed, maxRampSpeed, noramps);
 }
 

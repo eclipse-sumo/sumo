@@ -462,7 +462,7 @@ GNEApplicationWindow::dependentBuild() {
     myStatusbar = new FXStatusBar(this, GUIDesignStatusBar);
     // build geo coordinates label
     auto requiereRecomputingFrame = new FXHorizontalFrame(myStatusbar, GUIDesignHorizontalFrameStatusBar);
-    myRequireRecomputingButton = new MFXButtonTooltip(requiereRecomputingFrame, myStaticTooltip,
+    myRequireRecomputingButton = new MFXButtonTooltip(requiereRecomputingFrame, myStaticTooltipMenu,
         "Recomputing\t\tRecomputing is needed", nullptr, this, MID_GNE_RECOMPUTINGNEEDED, GUIDesignButtonStatusBarFixed);
     // build geo coordinates label
     myGeoFrame = new FXHorizontalFrame(myStatusbar, GUIDesignHorizontalFrameStatusBar);
@@ -2765,6 +2765,7 @@ GNEApplicationWindow::onUpdNeedsNetwork(FXObject* sender, FXSelector, void*) {
     // check if net exist
     if (myNet) {
         // enable menu cascades
+        myFileMenuCommands.SUMOConfigMenuCascade->enable();
         myFileMenuCommands.TLSMenuCascade->enable();
         myFileMenuCommands.edgeTypesMenuCascade->enable();
         myFileMenuCommands.additionalMenuCascade->enable();
@@ -2773,6 +2774,7 @@ GNEApplicationWindow::onUpdNeedsNetwork(FXObject* sender, FXSelector, void*) {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
     } else {
         // disable menu cascades
+        myFileMenuCommands.SUMOConfigMenuCascade->disable();
         myFileMenuCommands.TLSMenuCascade->disable();
         myFileMenuCommands.edgeTypesMenuCascade->disable();
         myFileMenuCommands.additionalMenuCascade->disable();

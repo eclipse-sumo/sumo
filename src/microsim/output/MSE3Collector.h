@@ -233,7 +233,7 @@ public:
                   const CrossSectionVector& entries, const CrossSectionVector& exits,
                   double haltingSpeedThreshold,
                   SUMOTime haltingTimeThreshold,
-                  const std::string& vTypes,
+                  const std::string name, const std::string& vTypes,
                   const std::string& nextEdges,
                   int detectPersons, bool openEntry);
 
@@ -380,6 +380,10 @@ protected:
     void notifyMovePerson(MSTransportable* p, MSMoveReminder* rem, double detPos, int dir, double pos);
 
 protected:
+    /// @brief name
+    std::string myName;
+    
+    /// @brief The detector's entrys
     CrossSectionVector myEntries;
 
     /// @brief The detector's exits

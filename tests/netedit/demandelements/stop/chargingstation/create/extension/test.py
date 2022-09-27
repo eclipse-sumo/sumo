@@ -53,13 +53,13 @@ netedit.leftClick(referencePosition, 290, 195)
 netedit.changeDefaultValue(netedit.attrs.stop.create.extension, "dummyValue")
 
 # try to create stop
-netedit.leftClick(referencePosition, 290, 195)
+netedit.leftClick(referencePosition, 295, 195)
 
 # set invalid value
 netedit.changeDefaultValue(netedit.attrs.stop.create.extension, "-20")
 
 # try to create stop
-netedit.leftClick(referencePosition, 290, 195)
+netedit.leftClick(referencePosition, 300, 195)
 
 # set valid value
 netedit.changeDefaultValue(netedit.attrs.stop.create.extension, "0")
@@ -71,7 +71,7 @@ netedit.leftClick(referencePosition, 290, 195)
 netedit.changeDefaultValue(netedit.attrs.stop.create.extension, "22.33")
 
 # try to create stop
-netedit.leftClick(referencePosition, 290, 195)
+netedit.leftClick(referencePosition, 295, 195)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)

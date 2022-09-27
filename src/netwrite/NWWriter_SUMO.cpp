@@ -985,6 +985,10 @@ NWWriter_SUMO::writeTrafficLights(OutputDevice& into, const NBTrafficLightLogicC
     std::vector<NBTrafficLightLogic*> logics = tllCont.getComputed();
     for (NBTrafficLightLogic* logic : logics) {
         writeTrafficLight(into, logic);
+        // only raise warnings on write instead of on compute (to avoid cluttering netedit)
+        NBTrafficLightDefinition* def = tllCont.getDefinition(logic->getID(), logic->getProgramID());
+        assert(def != nullptr);
+        def->finalChecks();
     }
     if (logics.size() > 0) {
         into.lf();

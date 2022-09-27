@@ -58,13 +58,14 @@
 // ===========================================================================
 MSInductLoop::MSInductLoop(const std::string& id, MSLane* const lane,
                            double positionInMeters,
-                           double length,
+                           double length, std::string name,
                            const std::string& vTypes,
                            const std::string& nextEdges,
                            int detectPersons,
                            const bool needLocking) :
     MSMoveReminder(id, lane),
     MSDetectorFileOutput(id, vTypes, nextEdges, detectPersons),
+    myName(name),
     myPosition(positionInMeters),
     myEndPosition(myPosition + length),
     myNeedLock(needLocking || MSGlobals::gNumSimThreads > 1),

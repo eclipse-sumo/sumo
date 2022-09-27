@@ -6,6 +6,25 @@ Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|high
 Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.unclassified' (first occurence for edge '135777011').
 Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.secondary' (first occurence for edge '143308535').
 Warning: Discarding unusable type 'highway.construction' (first occurence for edge '190461577').
+Warning: Removing pt stop '1704693343' on non existing edge '158236729#0'.
+Warning: Removing pt stop '1704693369' on non existing edge '220198810#3'.
+Warning: Removing pt stop '1704693381' on non existing edge '220198810#0'.
+Warning: Done reading first coherent chunk of pt stops. Further stops in relation 35040 are ignored
+Warning: Done reading first coherent chunk of pt stops. Further stops in relation 228027 are ignored
+Warning: Done reading first coherent chunk of pt stops. Further stops in relation 1119047 are ignored
+Warning: Done reading first coherent chunk of pt stops. Further stops in relation 1226998 are ignored
+Warning: Done reading first coherent chunk of pt stops. Further stops in relation 1227007 are ignored
 Warning: No way found for reference '48858193' in relation '2439689'
 Warning: Ignoring restriction relation '2439689' with unknown from-way.
+Warning: Removed invalid stop '1704693381' from line '2077946'.
+Warning: Removed invalid stop '1704693369' from line '2077946'.
+Warning: Removed invalid stop '1704693343' from line '2077947'.
+Warning: Removed invalid stop '1704693343' from line '2077981'.
+Warning: Removed invalid stop '1704693381' from line '2077982'.
+Warning: Removing pt stop '1704693343' on non existing edge ''.
+Warning: Removing pt stop '1704693369' on non existing edge ''.
+Warning: Removed 6 pt stops because they could not be assigned to the network
 Warning: 7 total messages of type: Discarding unknown compound '%' in type '%' (first occurence for edge '%').
+Warning: 8 total messages of type: Done reading first coherent chunk of pt stops. Further stops in relation % are ignored
+Warning: 6 total messages of type: Removed invalid stop '%' from line '%'.
+Warning: 9 total messages of type: Removing pt stop '%' on non existing edge '%'.

@@ -106,6 +106,9 @@ public:
     /// @brief called when a row is focused
     long onFocusRow(FXObject*, FXSelector, void*);
 
+    /// @brief called when add phase button is selected
+    long onCmdAddPhasePressed(FXObject*, FXSelector, void*);
+
     /// @brief called when a row is modified
     long onCmdEditRow(FXObject*, FXSelector, void*);
 
@@ -230,6 +233,9 @@ protected:
         /// @brief hide menuButton popup
         void hideMenuButtonPopup();
 
+        /// @brief disable button (used for delete, move up and move down)
+        void disableButton();
+
     private:
         /// @brief pointer to TLSTable parent
         GNETLSTable* myTLSTable = nullptr;
@@ -276,6 +282,9 @@ protected:
         /// @brief row index
         const int myRow;
 
+        /// @brief disable button
+        bool myDisableButton = false;
+
         /// @brief default constructor
         Cell();
     };
@@ -295,6 +304,9 @@ protected:
 
         /// @brief get column type
         char getType() const;
+
+        /// @brief get column label top
+        FXString getColumnLabelTop() const;
 
         /// @brief set column label top
         void setColumnLabelTop(const std::string& text, const std::string& tooltip);
@@ -356,14 +368,8 @@ protected:
         /// @brief get cells
         const std::vector<Cell*> &getCells() const;
 
-        /// @brief mark row as first row
-        void markAsFirstRow();
-
-        /// @brief mark row as last row
-        void markAsLastRow();
-
-        /// @brief disable remove row button
-        void disableRemoveRow();
+        /// @brief disable row buttons
+        void disableButtons();
 
     protected:
         /// @brief poiner to table parent

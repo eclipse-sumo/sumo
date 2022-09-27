@@ -154,7 +154,7 @@ PCLoaderOSM::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill, PCTypeMap& tm) 
                 }
             }
             if (numNodes == 0) {
-                WRITE_WARNING("Could not import polygon from relation '" + toString(rel->id) + "' (missing ways)");
+                WRITE_WARNINGF("Could not import polygon from relation '%' (missing ways)", rel->id);
                 continue;
             }
             PCOSMEdge* e = new PCOSMEdge();
@@ -209,10 +209,8 @@ PCLoaderOSM::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill, PCTypeMap& tm) 
                         }
                     }
                     if (length > mergeRelationsThreshold) {
-                        WRITE_WARNING("Could not import polygon from relation '" + toString(rel->id) +
-                                      "' (name:" + e->name + " reason: found gap of " + toString(minDist) +
-                                      "m to way '" + toString(minEdge->id) +
-                                      "')\n Total length of remaining ways: " + toString(length) + "m.");
+                        WRITE_WARNINGF("Could not import polygon from relation '%' (name:% reason: found gap of %m to way '%')\n Total length of remaining ways: %m.",
+                                rel->id, e->name, minDist, minEdge->id, length);
                         ok = false;
                     }
                     break;
@@ -262,7 +260,7 @@ PCLoaderOSM::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill, PCTypeMap& tm) 
             PCOSMNode* n = nodes.find(*j)->second;
             Position pos(n->lon, n->lat);
             if (!GeoConvHelper::getProcessing().x2cartesian(pos)) {
-                WRITE_WARNING("Unable to project coordinates for polygon '" + toString(e->id) + "'.");
+                WRITE_WARNINGF("Unable to project coordinates for polygon '%'.", e->id);
             }
             vec.push_back_noDoublePos(pos);
         }
@@ -298,7 +296,7 @@ PCLoaderOSM::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill, PCTypeMap& tm) 
         }
         Position pos(n->lon, n->lat);
         if (!GeoConvHelper::getProcessing().x2cartesian(pos)) {
-            WRITE_WARNING("Unable to project coordinates for POI '" + toString(n->id) + "'.");
+            WRITE_WARNINGF("Unable to project coordinates for POI '%'.", n->id);
         }
         const bool ignorePruning = OptionsCont::getOptions().isInStringVector("prune.keep-list", toString(n->id));
         // add as many POIs as keys match defined types
@@ -591,7 +589,7 @@ PCLoaderOSM::EdgesHandler::myStartElement(int element, const SUMOSAXAttributes& 
         const long long int ref = attrs.get<long long int>(SUMO_ATTR_REF, nullptr, ok);
         if (ok) {
             if (myOSMNodes.find(ref) == myOSMNodes.end()) {
-                WRITE_WARNING("The referenced geometry information (ref='" + toString(ref) + "') is not known");
+                WRITE_WARNINGF("The referenced geometry information (ref='%') is not known", ref);
                 return;
             }
             myCurrentEdge->myCurrentNodes.push_back(ref);

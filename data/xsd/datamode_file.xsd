@@ -17,8 +17,8 @@
             <xsd:element name="edgeRelation" type="edgeRelationType" minOccurs="0" maxOccurs="unbounded"/>
             <xsd:element name="tazRelation" type="tazRelationType" minOccurs="0" maxOccurs="unbounded"/>
         </xsd:choice>
-        <xsd:attribute name="begin" type="nonNegativeFloatType" use="required"/>
-        <xsd:attribute name="end" type="positiveFloatType" use="required"/>
+        <xsd:attribute name="begin" type="timeType" use="required"/>
+        <xsd:attribute name="end" type="timeType" use="required"/>
         <xsd:attribute name="id" type="xsd:string" use="optional" />
     </xsd:complexType>
 

@@ -699,6 +699,16 @@ SUMOVehicleParameter::parseStopTriggers(const std::vector<std::string>& triggers
 }
 
 
+ParkingType
+SUMOVehicleParameter::parseParkingType(const std::string& value) {
+    if (value == toString(ParkingType::OPPORTUNISTIC)) {
+        return ParkingType::OPPORTUNISTIC;
+    } else {
+        return StringUtils::toBool(value) ? ParkingType::OFFROAD : ParkingType::ONROAD;
+    }
+}
+
+
 std::vector<std::string>
 SUMOVehicleParameter::Stop::getTriggers() const {
     std::vector<std::string> triggers;
@@ -716,7 +726,7 @@ SUMOVehicleParameter::Stop::getTriggers() const {
 
 int
 SUMOVehicleParameter::Stop::getFlags() const {
-    return ((parking ? 1 : 0) +
+    return (((parking == ParkingType::OFFROAD) ? 1 : 0) +
             (triggered ? 2 : 0) +
             (containerTriggered ? 4 : 0) +
             (busstop != "" ? 8 : 0) +
@@ -812,10 +822,10 @@ SUMOVehicleParameter::getDepartPosLat() const {
     std::string val;
     switch (departPosLatProcedure) {
         case DepartPosLatDefinition::GIVEN:
-            val = toString(departPos);
+            val = toString(departPosLat);
             break;
         case DepartPosLatDefinition::GIVEN_VEHROUTE:
-            val = StringUtils::pruneZeros(toString(departPos, MAX2(gPrecisionRandom, gPrecision)), 2);
+            val = StringUtils::pruneZeros(toString(departPosLat, MAX2(gPrecisionRandom, gPrecision)), 2);
             break;
         case DepartPosLatDefinition::RANDOM:
             val = "random";
@@ -969,7 +979,7 @@ SUMOVehicleParameter::getArrivalPosLat() const {
     std::string val;
     switch (arrivalPosLatProcedure) {
         case ArrivalPosLatDefinition::GIVEN:
-            val = toString(arrivalPos);
+            val = toString(arrivalPosLat);
             break;
         case ArrivalPosLatDefinition::RIGHT:
             val = "right";

@@ -3,3 +3,12 @@ repair_busStop_lane
 
 # recompute busStop lane after adding sidewalks (dynamically)
 repair_busStop_lane_guessSidewalks
+
+# load ptstops with access
+access
+
+# load ptstops with access and reduce the network
+filter_access
+
+# load ptstops and ptlines and reduce the network
+filter_ptline

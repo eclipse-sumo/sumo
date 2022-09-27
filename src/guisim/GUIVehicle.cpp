@@ -1043,7 +1043,7 @@ GUIVehicle::rerouteDRTStop(MSStoppingPlace* busStop) {
         stopPar.until = -1;
         stopPar.triggered = false;
         stopPar.containerTriggered = false;
-        stopPar.parking = false;
+        stopPar.parking = ParkingType::ONROAD;
         stopPar.index = STOP_INDEX_FIT;
         stopPar.parametersSet = STOP_START_SET | STOP_END_SET;
         // clean up prior route to improve visualisation, ensure that the stop can be added immediately

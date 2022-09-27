@@ -96,6 +96,7 @@ void NBPTLine::write(OutputDevice& device) {
 
 }
 
+
 void NBPTLine::addWayNode(long long int way, long long int node) {
     std::string wayStr = toString(way);
     if (wayStr != myCurrentWay) {
@@ -105,15 +106,15 @@ void NBPTLine::addWayNode(long long int way, long long int node) {
     myWaysNodes[wayStr].push_back(node);
 
 }
-const std::vector<std::string>& NBPTLine::getMyWays() const {
-    return myWays;
-}
+
+
 std::vector<long long int>* NBPTLine::getWaysNodes(std::string wayId) {
     if (myWaysNodes.find(wayId) != myWaysNodes.end()) {
         return &myWaysNodes[wayId];
     }
     return nullptr;
 }
+
 
 void
 NBPTLine::setEdges(const std::vector<NBEdge*>& edges) {
@@ -139,12 +140,16 @@ NBPTLine::setEdges(const std::vector<NBEdge*>& edges) {
     }
 }
 
+
 void NBPTLine::setMyNumOfStops(int numStops) {
     myNumOfStops = numStops;
 }
+
+
 const std::vector<NBEdge*>& NBPTLine::getRoute() const {
     return myRoute;
 }
+
 
 std::vector<NBEdge*>
 NBPTLine::getStopEdges(const NBEdgeCont& ec) const {
@@ -157,6 +162,7 @@ NBPTLine::getStopEdges(const NBEdgeCont& ec) const {
     }
     return result;
 }
+
 
 NBEdge*
 NBPTLine::getRouteStart(const NBEdgeCont& ec) const {
@@ -187,6 +193,7 @@ NBPTLine::getRouteStart(const NBEdgeCont& ec) const {
     return validEdges.front();
 }
 
+
 NBEdge*
 NBPTLine::getRouteEnd(const NBEdgeCont& ec) const {
     std::vector<NBEdge*> validEdges;
@@ -215,6 +222,25 @@ NBPTLine::getRouteEnd(const NBEdgeCont& ec) const {
     }
     return validEdges.back();
 }
+
+
+bool
+NBPTLine::isConsistent(const std::vector<NBEdge*>& stops) const {
+    if (myRoute.empty() || stops.empty()) {
+        return true;
+    }
+    std::vector<NBEdge*>::const_iterator stopIt = stops.begin();
+    for (const NBEdge* const e : myRoute) {
+        while (stopIt != stops.end() && e == *stopIt) {
+            ++stopIt;
+        }
+        if (stopIt == stops.end()) {
+            return true;
+        }
+    }
+    return false;
+}
+
 
 void
 NBPTLine::replaceStop(NBPTStop* oldStop, NBPTStop* newStop) {
@@ -279,14 +305,21 @@ NBPTLine::deleteDuplicateStops() {
     }
 }
 
+
 void
 NBPTLine::removeInvalidEdges(const NBEdgeCont& ec) {
-    for (auto it = myRoute.begin(); it != myRoute.end();) {
-        NBEdge* e = *it;
-        if (ec.retrieve(e->getID())) {
-            it++;
+    for (int i = 0; i < (int)myRoute.size();) {
+        const std::pair<NBEdge*, NBEdge*>* split = ec.getSplit(myRoute[i]);
+        if (split != nullptr) {
+            myRoute[i] = split->first;
+            myRoute.insert(myRoute.begin() + i + 1, split->second);
+        } else if (ec.retrieve(myRoute[i]->getID()) == nullptr) {
+            myRoute.erase(myRoute.begin() + i);
         } else {
-            it = myRoute.erase(it);
+            i++;
         }
     }
 }
+
+
+/****************************************************************************/

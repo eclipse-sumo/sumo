@@ -47,7 +47,7 @@ critical conditions prevail. This mode is activated when the spacing to
 the preceding vehicle is smaller than 100 m and the gap deviation is
 negative.
 
-If the `followSpeed` computed by the ACC model grows higher than the save `followSpeed` as computed by the default *Krauss* model by a given margin (configured by `collisionAvoidanceOverride`), the speed is limited to the value of *Krauss*-speed + margin.
+Also, if the `followSpeed` computed by the ACC model grows higher than the safe `followSpeed` as computed by the default *Krauss* model by a given margin (configured by `collisionAvoidanceOverride`), the speed is limited to the value of *Krauss*-speed + margin. The override margin defaults to 2m/s.
 
 # String Instabilities in ACC Platoons
 Milanés & Shladover [\[1\]](#references) showed in their experiments that the proposed ACC controller is string instable. Although ACC controllers can be calibrated to be string stable, e.g. Gunter et al. [\[3\]](#references) raise concern that commercial vehicles mostly deploy ACC controllers that are string instable due to driving comfort reasons.

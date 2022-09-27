@@ -121,6 +121,7 @@
         <xsd:attribute name="waitingTime" type="xsd:string"/>
         <xsd:attribute name="distance" type="xsd:string" use="required"/>
         <xsd:attribute name="state" type="xsd:string" use="required"/>
+        <xsd:attribute name="lcState" type="xsd:string" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="deviceType">

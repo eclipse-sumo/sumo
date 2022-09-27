@@ -24,6 +24,7 @@
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/foxtools/MFXButtonTooltip.h>
+#include <utils/foxtools/MFXMenuButtonTooltip.h>
 #include <utils/foxtools/MFXCheckableButton.h>
 #include <utils/foxtools/MFXComboBox.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
@@ -39,7 +40,8 @@
 FXDEFMAP(GUIGlChildWindow) GUIGlChildWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_RECENTERVIEW,                   GUIGlChildWindow::onCmdRecenterView),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_I_EDITVIEWPORT,     GUIGlChildWindow::onCmdEditViewport),
-    FXMAPFUNC(SEL_COMMAND,  MID_SHOWTOOLTIPS,                   GUIGlChildWindow::onCmdShowToolTips),
+    FXMAPFUNC(SEL_COMMAND,  MID_SHOWTOOLTIPS_VIEW,              GUIGlChildWindow::onCmdShowToolTipsView),
+    FXMAPFUNC(SEL_COMMAND,  MID_SHOWTOOLTIPS_MENU,              GUIGlChildWindow::onCmdShowToolTipsMenu),
     FXMAPFUNC(SEL_COMMAND,  MID_ZOOM_STYLE,                     GUIGlChildWindow::onCmdZoomStyle),
     FXMAPFUNC(SEL_COMMAND,  MID_COLOURSCHEMECHANGE,             GUIGlChildWindow::onCmdChangeColorScheme),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_F9_EDIT_VIEWSCHEME,      GUIGlChildWindow::onCmdEditViewScheme),
@@ -113,27 +115,35 @@ GUIGlChildWindow::buildNavigationToolBar() {
     // build the view settings
     // recenter view
     new MFXButtonTooltip(myGripNavigationToolbar ? myGripNavigationToolbar : myStaticNavigationToolBar,
-        myParent->getStaticTooltip(), "\tRecenter View\tRecenter view to the simulated area.",
+        myParent->getStaticTooltipMenu(), "\tRecenter View\tRecenter view to the simulated area.",
         GUIIconSubSys::getIcon(GUIIcon::RECENTERVIEW), this, MID_RECENTERVIEW, GUIDesignButtonToolbar);
     // add viewport button
     new MFXButtonTooltip(myGripNavigationToolbar ? myGripNavigationToolbar : myStaticNavigationToolBar,
-        myParent->getStaticTooltip(), "\tEdit Viewport\tOpens a menu which lets you edit the viewport. (Ctrl+I)",
+        myParent->getStaticTooltipMenu(), "\tEdit Viewport\tOpens a menu which lets you edit the viewport. (Ctrl+I)",
         GUIIconSubSys::getIcon(GUIIcon::EDITVIEWPORT), this, MID_HOTKEY_CTRL_I_EDITVIEWPORT, GUIDesignButtonToolbar);
     // toggle button for zooming style
-    MFXCheckableButton* zoomBut = new MFXCheckableButton(false, myGripNavigationToolbar ? myGripNavigationToolbar : myStaticNavigationToolBar,
-        myParent->getStaticTooltip(), "\tToggles Zooming Style\tToggles whether zooming is based at cursor position or at the center of the view.",
+    myZoomStyle = new MFXCheckableButton(false, myGripNavigationToolbar ? myGripNavigationToolbar : myStaticNavigationToolBar,
+        myParent->getStaticTooltipMenu(), "\tToggle Zooming Style\tToggles whether zooming is based at cursor position or at the center of the view.",
         GUIIconSubSys::getIcon(GUIIcon::ZOOMSTYLE), this, MID_ZOOM_STYLE, GUIDesignMFXCheckableButtonSquare);
-    zoomBut->setChecked(getApp()->reg().readIntEntry("gui", "zoomAtCenter", 0) != 1);
+    myZoomStyle->setChecked(getApp()->reg().readIntEntry("gui", "zoomAtCenter", 0) != 1);
     // build the locator popup
     myLocatorPopup = new FXPopup(myGripNavigationToolbar ? myGripNavigationToolbar : myStaticNavigationToolBar, POPUP_VERTICAL);
     // build locator button
     myLocatorButton = new MFXMenuButtonTooltip(myGripNavigationToolbar ? myGripNavigationToolbar : myStaticNavigationToolBar,
-        myParent->getStaticTooltip(), "\tLocate Structures\tLocate structures within the network.",
+        myParent->getStaticTooltipMenu(), "\tLocate Structures\tLocate structures within the network.",
         GUIIconSubSys::getIcon(GUIIcon::LOCATE), myLocatorPopup, nullptr, GUIDesignButtonToolbarLocator);
-    // add toggle button for tool-tips on/off
-    new MFXCheckableButton(false, myGripNavigationToolbar ? myGripNavigationToolbar : myStaticNavigationToolBar,
-        myParent->getStaticTooltip(), "\tToggles Tool Tips\tToggles whether tool tips shall be shown.",
-        GUIIconSubSys::getIcon(GUIIcon::SHOWTOOLTIPS), this, MID_SHOWTOOLTIPS, GUIDesignMFXCheckableButtonSquare);
+    // add toggle button for tooltips in view on/off (by default unchecked)
+    myShowToolTipsView = new MFXCheckableButton(false, myGripNavigationToolbar ? myGripNavigationToolbar : myStaticNavigationToolBar,
+        myParent->getStaticTooltipMenu(), "\tToggle View Tooltips\tToggles whether tooltips in the view shall be shown.",
+        GUIIconSubSys::getIcon(GUIIcon::SHOWTOOLTIPS_VIEW), this, MID_SHOWTOOLTIPS_VIEW, GUIDesignMFXCheckableButtonSquare);
+    myParent->getStaticTooltipView()->enableStaticToolTip(false);
+    myParent->getStaticTooltipView()->enableStaticToolTip(false);
+    // add toggle button for tooltips in menu on/off (by default checked)
+    myShowToolTipsMenu = new MFXCheckableButton(false, myGripNavigationToolbar ? myGripNavigationToolbar : myStaticNavigationToolBar,
+        myParent->getStaticTooltipMenu(), "\tToggle Menu Tooltips\tToggles whether tooltips in the menu shall be shown.",
+        GUIIconSubSys::getIcon(GUIIcon::SHOWTOOLTIPS_MENU), this, MID_SHOWTOOLTIPS_MENU, GUIDesignMFXCheckableButtonSquare);
+    myShowToolTipsMenu->setChecked(getApp()->reg().readIntEntry("gui", "menuToolTips", 0) != 1);
+    myParent->getStaticTooltipMenu()->enableStaticToolTip(myShowToolTipsMenu->amChecked());
 }
 
 
@@ -146,7 +156,7 @@ GUIGlChildWindow::buildColoringToolBar() {
                                         GUIDesignComboBoxNCol, this, MID_COLOURSCHEMECHANGE, GUIDesignComboBoxStatic);
     // editor
     new MFXButtonTooltip(myGripNavigationToolbar ? myGripNavigationToolbar : myStaticNavigationToolBar,
-        myParent->getStaticTooltip(), "\tEdit Coloring Schemes\tOpens a menu which lets you edit the coloring schemes. (F9)",
+        myParent->getStaticTooltipMenu(), "\tEdit Coloring Schemes\tOpens a menu which lets you edit the coloring schemes. (F9)",
         GUIIconSubSys::getIcon(GUIIcon::COLORWHEEL), this, MID_HOTKEY_F9_EDIT_VIEWSCHEME, GUIDesignButtonToolbar);
 }
 
@@ -157,7 +167,7 @@ GUIGlChildWindow::buildScreenshotToolBar() {
     new FXVerticalSeparator(myGripNavigationToolbar ? myGripNavigationToolbar : myStaticNavigationToolBar, GUIDesignVerticalSeparator);
     // snapshot
     new MFXCheckableButton(false, myGripNavigationToolbar ? myGripNavigationToolbar : myStaticNavigationToolBar,
-        myParent->getStaticTooltip(), "\tMake Snapshot\tMakes a snapshot of the view.",
+        myParent->getStaticTooltipMenu(), "\tMake Snapshot\tMakes a snapshot of the view.",
         GUIIconSubSys::getIcon(GUIIcon::CAMERA), this, MID_MAKESNAPSHOT, GUIDesignButtonToolbar);
 }
 
@@ -209,29 +219,35 @@ GUIGlChildWindow::onCmdEditViewScheme(FXObject*, FXSelector, void*) {
 
 
 long
-GUIGlChildWindow::onCmdShowToolTips(FXObject* sender, FXSelector, void*) {
-    MFXCheckableButton* button = dynamic_cast<MFXCheckableButton*>(sender);
-    // check if button was successfully casted
-    if (button) {
-        button->setChecked(!button->amChecked());
-        myView->showToolTips(button->amChecked());
-        update();
-        myView->update();
-    }
+GUIGlChildWindow::onCmdShowToolTipsView(FXObject*, FXSelector, void*) {
+    // toggle check
+    myShowToolTipsView->setChecked(!myShowToolTipsView->amChecked());
+    // enable/disable static tooltip
+    myParent->getStaticTooltipView()->enableStaticToolTip(myShowToolTipsView->amChecked());
+    update();
     return 1;
 }
 
 
 long
-GUIGlChildWindow::onCmdZoomStyle(FXObject* sender, FXSelector, void*) {
-    MFXCheckableButton* button = dynamic_cast<MFXCheckableButton*>(sender);
-    if (button) {
-        button->setChecked(!button->amChecked());
-        getApp()->reg().writeIntEntry("gui", "zoomAtCenter",
-                                      button->amChecked() ? 0 : 1);
-        update();
-        myView->update();
-    }
+GUIGlChildWindow::onCmdShowToolTipsMenu(FXObject*, FXSelector, void*) {
+    // toggle check
+    myShowToolTipsMenu->setChecked(!myShowToolTipsMenu->amChecked());
+    // enable/disable static tooltip
+    myParent->getStaticTooltipMenu()->enableStaticToolTip(myShowToolTipsMenu->amChecked());
+    // save in registry
+    getApp()->reg().writeIntEntry("gui", "menuToolTips", myShowToolTipsMenu->amChecked() ? 0 : 1);
+    update();
+    return 1;
+}
+
+
+long
+GUIGlChildWindow::onCmdZoomStyle(FXObject*, FXSelector, void*) {
+    myZoomStyle->setChecked(!myZoomStyle->amChecked());
+    getApp()->reg().writeIntEntry("gui", "zoomAtCenter", myZoomStyle->amChecked() ? 0 : 1);
+    update();
+    myView->update();
     return 1;
 }
 

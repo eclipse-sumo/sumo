@@ -44,7 +44,7 @@ traci.start([sumoBinary,
 traci.simulationStep()
 fleet = traci.vehicle.getTaxiFleet(0)
 print("taxiFleet", fleet)
-reservations = traci.person.getTaxiReservations(0)
+reservations = traci.person.getTaxiReservations(3)
 print("reservations", reservations)
 taxi = fleet[0]
 

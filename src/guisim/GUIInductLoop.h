@@ -52,14 +52,13 @@ public:
      * @param[in] vTypes which vehicle types are considered
      */
     GUIInductLoop(const std::string& id, MSLane* const lane, double position, double length,
-                  const std::string& vTypes,
+                  std::string name, const std::string& vTypes,
                   const std::string& nextEdges,
                   int detectPersons, bool show);
 
 
     /// @brief Destructor
     ~GUIInductLoop();
-
 
     /** @brief Returns this detector's visualisation-wrapper
      * @return The wrapper representing the detector

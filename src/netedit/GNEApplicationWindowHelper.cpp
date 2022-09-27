@@ -188,6 +188,9 @@ GNEApplicationWindowHelper::FileMenuCommands::buildFileMenuCommands(FXMenuPane* 
                                            "Open Netconvert Configura&tion...", "Ctrl+Shift+O", "Open a configuration file with NETCONVERT options.",
                                            GUIIconSubSys::getIcon(GUIIcon::OPEN_CONFIG), myGNEApp, MID_OPEN_CONFIG);
     GUIDesigns::buildFXMenuCommandShortcut(fileMenu,
+                                           "Load SUMOConfig...", "Ctrl+M", "Load programs for traffic lights in the current net.",
+                                           GUIIconSubSys::getIcon(GUIIcon::OPEN_SUMOCONFIG), myGNEApp, MID_HOTKEY_CTRL_M_OPENSUMOCONFIG);
+    GUIDesigns::buildFXMenuCommandShortcut(fileMenu,
                                            "Import &Foreign Network...", "", "Import a foreign network such as OSM.",
                                            GUIIconSubSys::getIcon(GUIIcon::OPEN_NET), myGNEApp, MID_GNE_TOOLBARFILE_OPENFOREIGN);
     GUIDesigns::buildFXMenuCommandShortcut(fileMenu,
@@ -209,9 +212,6 @@ GNEApplicationWindowHelper::FileMenuCommands::buildFileMenuCommands(FXMenuPane* 
                                            "Save All Elements", "", "Save all elements (network, additional, demand and data)",
                                            GUIIconSubSys::getIcon(GUIIcon::SAVEALLELEMENTS), myGNEApp, MID_GNE_SAVEALLELEMENTS);
     // create SUMOConfig menu options
-    GUIDesigns::buildFXMenuCommandShortcut(fileMenuSUMOConfig,
-                                           "Load SUMOConfig...", "Ctrl+M", "Load programs for traffic lights in the current net.",
-                                           GUIIconSubSys::getIcon(GUIIcon::OPEN_SUMOCONFIG), myGNEApp, MID_HOTKEY_CTRL_M_OPENSUMOCONFIG);
     reloadSUMOConfig = GUIDesigns::buildFXMenuCommandShortcut(fileMenuSUMOConfig,
                                                               "Reload SUMOConfig", "", "Reload SUMOConfig.",
                                                               GUIIconSubSys::getIcon(GUIIcon::RELOAD), myGNEApp, MID_GNE_TOOLBARFILE_RELOAD_SUMOCONFIG);

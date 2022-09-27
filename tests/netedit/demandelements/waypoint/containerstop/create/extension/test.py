@@ -53,13 +53,13 @@ netedit.leftClick(referencePosition, 290, 155)
 netedit.changeDefaultValue(netedit.attrs.waypoint.create.extension, "dummyValue")
 
 # try to create waypoint
-netedit.leftClick(referencePosition, 290, 155)
+netedit.leftClick(referencePosition, 295, 155)
 
 # set invalid value
 netedit.changeDefaultValue(netedit.attrs.waypoint.create.extension, "-20")
 
 # try to create waypoint
-netedit.leftClick(referencePosition, 290, 155)
+netedit.leftClick(referencePosition, 300, 155)
 
 # set valid value
 netedit.changeDefaultValue(netedit.attrs.waypoint.create.extension, "0")
@@ -71,7 +71,7 @@ netedit.leftClick(referencePosition, 290, 155)
 netedit.changeDefaultValue(netedit.attrs.waypoint.create.extension, "22.33")
 
 # try to create waypoint
-netedit.leftClick(referencePosition, 290, 155)
+netedit.leftClick(referencePosition, 295, 155)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)

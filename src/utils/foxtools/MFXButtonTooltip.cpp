@@ -25,6 +25,7 @@
 FXDEFMAP(MFXButtonTooltip) MFXButtonTooltipMap[] = {
     FXMAPFUNC(SEL_ENTER,    0,  MFXButtonTooltip::onEnter),
     FXMAPFUNC(SEL_LEAVE,    0,  MFXButtonTooltip::onLeave),
+    FXMAPFUNC(SEL_MOTION,   0,  MFXButtonTooltip::onMotion),
 };
 
 
@@ -47,17 +48,24 @@ MFXButtonTooltip::~MFXButtonTooltip() {}
 long
 MFXButtonTooltip::onEnter(FXObject* sender, FXSelector sel, void* ptr) {
     // show tip show
-    myStaticToolTip->onTipShow(sender, sel, ptr);
+    myStaticToolTip->showStaticToolTip(getTipText());
     return FXButton::onEnter(sender, sel, ptr);
 }
 
 
 long
 MFXButtonTooltip::onLeave(FXObject* sender, FXSelector sel, void* ptr) {
-    // hide tip show
-    myStaticToolTip->onTipHide(sender, sel, this);
+    // hide static toolTip
+    myStaticToolTip->hideStaticToolTip();
     return FXButton::onLeave(sender, sel, ptr);
 }
 
+
+long 
+MFXButtonTooltip::onMotion(FXObject* sender, FXSelector sel, void* ptr) {
+    // update static tooltip
+    myStaticToolTip->onUpdate(sender, sel, ptr);
+    return FXButton::onMotion(sender, sel, ptr);
+}
 
 /****************************************************************************/

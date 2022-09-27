@@ -4,9 +4,9 @@ Warning: Discarding unknown compound 'usage.main' in type 'railway.rail|usage.ma
 Warning: Discarding unusable type 'railway.platform' (first occurence for edge '812591734').
 Warning: Removing pt stop '1118516724' on non existing edge '892099949'.
 Warning: Removing pt stop '1118516947' on non existing edge '892099948'.
+Warning: Removing pt stop '224101094' on non existing edge ''.
 Warning: Removing pt stop '4672299045' on non existing edge '812591737'.
 Warning: Removing pt stop '4672299046' on non existing edge '96560979'.
-Warning: Removing pt stop '4672299047' on non existing edge '314452250'.
 Warning: Done reading first coherent chunk of pt stops. Further stops in relation 7446410 are ignored
 Warning: Could not find corresponding edge or compatible lane for free-floating pt stop '81326543' (Zaragoza-Delicias). Thus, it will be removed!
 Warning: Could not find corresponding edge or compatible lane for free-floating pt stop '1118516724' (Zaragoza-Delicias). Thus, it will be removed!
@@ -21,4 +21,4 @@ Warning: Speed of straight connection '669499122#1_1->284801760#0_3' reduced by 
 Warning: Speed of straight connection '78488919_0->124764208#0_1' reduced by 12.44 due to turning radius of 17.40 (length=8.52, angle=44.42).
 Warning: Speed of straight connection '78488919_1->124764208#0_2' reduced by 11.38 due to turning radius of 21.36 (length=10.56, angle=44.42).
 Warning: 15 total messages of type: Could not find corresponding edge or compatible lane for free-floating pt stop '%' (%). Thus, it will be removed!
-Warning: 15 total messages of type: Removing pt stop '%' on non existing edge '%'.
+Warning: 16 total messages of type: Removing pt stop '%' on non existing edge '%'.

@@ -30,6 +30,7 @@
 #include <cmath>
 #include <iomanip>
 #include <utils/common/MsgHandler.h>
+#include <utils/common/StringTokenizer.h>
 #include <utils/common/StringUtils.h>
 #include <utils/common/ToString.h>
 #include <utils/common/UtilExceptions.h>
@@ -379,6 +380,7 @@ NBEdge::NBEdge(const std::string& id, NBNode* from, NBNode* to, const NBEdge* tp
         setFriction(i, tpl->getLaneFriction(tplIndex));
         setPermissions(tpl->getPermissions(tplIndex), i);
         setLaneWidth(i, tpl->myLanes[tplIndex].width);
+        setLaneType(i, tpl->myLanes[tplIndex].type);
         myLanes[i].updateParameters(tpl->myLanes[tplIndex].getParametersMap());
         if (to == tpl->myTo) {
             setEndOffset(i, tpl->myLanes[tplIndex].endOffset);
@@ -661,6 +663,7 @@ NBEdge::setGeometry(const PositionVector& s, bool inner) {
     }
     computeLaneShapes();
     computeAngle();
+    myLength = myGeom.length();
 }
 
 
@@ -1753,7 +1756,7 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
                     // the following special case might get obsolete once we have solved #9745
                     const bool isBicycleLeftTurn = k2.indirectLeft || (dir2 == LinkDirection::LEFT && (i2->getPermissions(k2.fromLane) & k2.toEdge->getPermissions(k2.toLane)) == SVC_BICYCLE);
                     // compute the crossing point
-                    if ((needsCont || (bothPrio && oppositeLeftIntersect)) && (!con.indirectLeft || dir2 == LinkDirection::STRAIGHT) && !isBicycleLeftTurn) {
+                    if ((needsCont || (bothPrio && oppositeLeftIntersect && !isRailway(conPermissions))) && (!con.indirectLeft || dir2 == LinkDirection::STRAIGHT) && !isBicycleLeftTurn) {
                         crossingPositions.second.push_back(index);
                         const PositionVector otherShape = n.computeInternalLaneShape(i2, k2, numPoints, 0, shapeFlag);
                         otherShapes.push_back(otherShape);
@@ -4483,16 +4486,27 @@ NBEdge::getFinalLength() const {
     return MAX2(result - avgEndOffset, POSITION_EPS);
 }
 
+
 void
-NBEdge::setOrigID(const std::string origID) {
-    if (origID != "") {
+NBEdge::setOrigID(const std::string origID, const bool append, const int laneIdx) {
+    if (laneIdx == -1) {
         for (int i = 0; i < (int)myLanes.size(); i++) {
-            myLanes[i].setParameter(SUMO_PARAM_ORIGID, origID);
+            setOrigID(origID, append, i);
         }
     } else {
-        // do not record empty origID parameter
-        for (int i = 0; i < (int)myLanes.size(); i++) {
-            myLanes[i].unsetParameter(SUMO_PARAM_ORIGID);
+        if (origID != "") {
+            if (append) {
+                std::vector<std::string> oldIDs = StringTokenizer(myLanes[laneIdx].getParameter(SUMO_PARAM_ORIGID)).getVector();
+                if (std::find(oldIDs.begin(), oldIDs.end(), origID) == oldIDs.end()) {
+                    oldIDs.push_back(origID);
+                }
+                myLanes[laneIdx].setParameter(SUMO_PARAM_ORIGID, toString(oldIDs));
+            } else {
+                myLanes[laneIdx].setParameter(SUMO_PARAM_ORIGID, origID);
+            }
+        } else {
+            // do not record empty origID parameter
+            myLanes[laneIdx].unsetParameter(SUMO_PARAM_ORIGID);
         }
     }
 }

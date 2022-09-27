@@ -49,3 +49,7 @@ speedDev
 
 # walking to a busstop
 busstop
+speedLimit
+
+# random departPosLat
+walk_posLat_random

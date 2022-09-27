@@ -65,6 +65,9 @@ public:
     /** The time to wait for teleport on disconected routes */
     static SUMOTime gTimeToTeleportDisconnected;
 
+    /** The time to wait for teleport on bidi edges */
+    static SUMOTime gTimeToTeleportBidi;
+
     /** Whether gridlocked vehicles shall be removed instead of teleporting */
     static bool gRemoveGridlocked;
 

@@ -54,6 +54,8 @@ When option **-s** is set, a interactive plot is opened that allows identifying 
 
 Option **--filter-ids ID1,ID2,...** allows restricting the plot to the given data element ids
 
+By setting the special attribute key `@RANK` then the index of the elements within the input file is used.
+
 Further examples are shown below...
 
 ### Inductionloop Speed over Time

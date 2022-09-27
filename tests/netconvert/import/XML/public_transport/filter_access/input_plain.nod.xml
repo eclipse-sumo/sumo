@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-09-06 14:56:38 by Eclipse SUMO netedit Version v1_14_1+0863-1d05bd11e07
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net.netconvert"/>
+    </input>
+
+    <output>
+        <output-file value="net.netconvert"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <netedit>
+        <additional-files value="C:\erdm_ja\sumo-dev\tests\netconvert\import\XML\public_transport\filter_access\input_ptstops.xml"/>
+    </netedit>
+
+</configuration>
+-->
+
+<nodes version="1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+    <location netOffset="0.00,0.00" convBoundary="0.00,-50.00,200.00,0.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
+
+    <node id="J0" x="200.00" y="0.00" type="dead_end"/>
+    <node id="J2" x="200.00" y="-50.00" type="dead_end"/>
+    <node id="J3" x="0.00" y="-50.00" type="dead_end"/>
+    <node id="J4" x="100.00" y="-50.00" type="priority"/>
+    <node id="gneJ0" x="0.00" y="0.00" type="dead_end"/>
+    <node id="gneJ1" x="100.00" y="0.00" type="priority"/>
+</nodes>

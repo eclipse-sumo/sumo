@@ -10,6 +10,7 @@ Found: $STRECKE: at line 690
 Found: $STRECKENPOLY: at line 749
 Found: $ABBIEGER: at line 804
 Found: $ANBINDUNG: at line 937
+Found: $HALTEPUNKT: at line 1009
 Found: $SIGNALANLAGE: at line 4033
 Found: $SIGNALANLAGEZUKNOTEN: at line 4039
 Found: $SIGNALGRUPPE: at line 4045
@@ -37,6 +38,8 @@ Parsing SIGNALGRUPPEZUABBIEGER ... done.
 Parsing TEILFLAECHENELEMENT ... done.
 Parsing PHASE ... done.
 Parsing FAHRSTREIFENABBIEGER ... done.
+Parsing HALTEPUNKT ... 
+done.
  Import done:
    21 districts loaded.
    28 nodes loaded.
@@ -45,23 +48,24 @@ Parsing FAHRSTREIFENABBIEGER ... done.
 Removing self-loops ... done (0ms).
 Removing empty nodes ... done (0ms).
    0 nodes removed.
-Moving network to origin ... done (2ms).
-Computing turning directions ... done (1ms).
+Moving network to origin ... done (0ms).
+Computing turning directions ... done (0ms).
 Assigning nodes to traffic lights ... done (0ms).
 Sorting nodes' edges ... done (0ms).
-Computing node shapes ... done (10ms).
-Computing edge shapes ... done (4ms).
+Computing node shapes ... done (1ms).
+Computing edge shapes ... done (0ms).
 Computing node types ... done (0ms).
-Computing priorities ... done (1ms).
+Computing priorities ... done (0ms).
 Computing approached edges ... done (0ms).
 Guessing and setting roundabouts ... done (0ms).
-Computing approaching lanes ... done (2ms).
+Computing approaching lanes ... done (0ms).
 Dividing of lanes on approached lanes ... done (1ms).
 Processing turnarounds ... done (0ms).
-Rechecking of lane endings ... done (1ms).
-Computing traffic light control information ... done (1ms).
-Computing node logics ... done (5ms).
-Computing traffic light logics ... done (9ms).
+Rechecking of lane endings ... done (0ms).
+Computing traffic light control information ... done (0ms).
+Computing node logics ... done (0ms).
+Computing traffic light logics ... 
+done (2ms).
  1 traffic light(s) computed.
 -----------------------------------------------------
 Summary:
@@ -76,5 +80,5 @@ Summary:
   Converted boundary : 0.00,0.00,3286.00,4143.50
 -----------------------------------------------------
 Writing network ... 
-done (25ms).
+done (5ms).
 Success.

@@ -117,9 +117,8 @@ public:
     /// @brief pixels-to-meters conversion method
     double p2m(double pixel) const;
 
-    /// @brief Returns the information whether rotation is allowed
-    ///@note disabled
-    //bool allowRotation() const;
+    /// @brief get main window
+    GUIMainWindow* getMainWindow() const;
 
     /// @brief return windows cursor position
     Position getWindowCursorPosition() const;
@@ -176,10 +175,10 @@ public:
     virtual long onCmdShowReachability(FXObject*, FXSelector, void*);
 
     /// @brief open object dialog at the cursor position
-    virtual void openObjectDialogAtCursor();
+    virtual void openObjectDialogAtCursor(const FXEvent* ev);
 
     /// @brief open object dialog for the given object
-    void openObjectDialog(GUIGlObject* o);
+    void openObjectDialog(const std::vector<GUIGlObject*> &objects);
 
     /// @brief A method that updates the tooltip
     void updateToolTip();
@@ -230,9 +229,6 @@ public:
 
     /// @brief show viewsscheme editor
     void showViewschemeEditor();
-
-    /// @brief show tool tips
-    void showToolTips(bool val);
 
     /// @brief set color scheme
     virtual bool setColorScheme(const std::string&);
@@ -330,6 +326,9 @@ public:
 
     /// @brief destroys the popup
     void destroyPopup();
+
+    /// @brief replace PopUp
+    void replacePopup(GUIGLObjectPopupMenu* popUp);
 
     ///@struct Decal
     /// @brief A decal (an image) that can be shown
@@ -464,7 +463,7 @@ protected:
     std::vector<GUIGlID> getObjectsInBoundary(Boundary bound, bool singlePosition);
 
     /// @brief invokes the tooltip for the given object
-    void showToolTipFor(const GUIGlID id);
+    bool showToolTipFor(const GUIGlID idToolTip);
 
     /// @brief Draws the stored decals
     void drawDecals();
@@ -480,7 +479,6 @@ protected:
     /// @brief check whether we can read image data or position with gdal
     FXImage* checkGDALImage(Decal& d);
 
-protected:
     /// @brief The application
     GUIMainWindow* myApp;
 
@@ -502,17 +500,14 @@ protected:
     /// @brief The current popup-menu
     GUIGLObjectPopupMenu* myPopup;
 
-    /// @brief current object dialog 
-    GUIGlObject* myCurrentObjectDialog = nullptr;
+    /// @brief vector with current objects dialog 
+    std::vector<GUIGlObject*> myCurrentObjectsDialog;
 
     /// @brief The current popup-menu position
     Position myPopupPosition;
 
     /// @brief visualization settings
     GUIVisualizationSettings* myVisualizationSettings;
-
-    /// @brief use tool tips
-    bool myUseToolTips;
 
     /// @brief Internal information whether doInit() was called
     bool myAmInitialised;

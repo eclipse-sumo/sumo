@@ -50,19 +50,19 @@ netedit.leftClick(referencePosition, 290, 155)
 netedit.changeDefaultValue(netedit.attrs.stopParking.create.expected, ";;;;;;;;;;")
 
 # try to create stop
-netedit.leftClick(referencePosition, 290, 155)
+netedit.leftClick(referencePosition, 295, 155)
 
 # set invalid value
 netedit.changeDefaultValue(netedit.attrs.stopParking.create.expected, "")
 
 # try to create stop
-netedit.leftClick(referencePosition, 290, 155)
+netedit.leftClick(referencePosition, 300, 155)
 
 # set valid value
 netedit.changeDefaultValue(netedit.attrs.stopParking.create.expected, "containerID1 containerID2 containerID3")
 
 # create stop
-netedit.leftClick(referencePosition, 290, 155)
+netedit.leftClick(referencePosition, 305, 155)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)

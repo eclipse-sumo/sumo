@@ -912,7 +912,7 @@ MSBaseVehicle::isStopped() const {
 
 bool
 MSBaseVehicle::isParking() const {
-    return isStopped() && myStops.begin()->pars.parking && (
+    return isStopped() && (myStops.begin()->pars.parking == ParkingType::OFFROAD) && (
                myStops.begin()->parkingarea == nullptr || !myStops.begin()->parkingarea->parkOnRoad());
 }
 
@@ -925,7 +925,7 @@ MSBaseVehicle::isStoppedTriggered() const {
 
 bool
 MSBaseVehicle::isStoppedParking() const {
-    return isStopped() && myStops.begin()->pars.parking;
+    return isStopped() && (myStops.begin()->pars.parking == ParkingType::OFFROAD);
 }
 
 

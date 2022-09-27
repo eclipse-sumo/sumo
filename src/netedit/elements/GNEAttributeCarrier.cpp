@@ -635,7 +635,7 @@ GNEAttributeCarrier::getTagStr() const {
 
 
 FXIcon*
-GNEAttributeCarrier::getIcon() const {
+GNEAttributeCarrier::getACIcon() const {
     // define on first access
     if (myTagProperties.size() == 0) {
         fillAttributeCarriers();
@@ -1406,7 +1406,7 @@ GNEAttributeCarrier::fillNetworkElements() {
                                               "The length of the WalkingArea in meter");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_CUSTOMSHAPE,
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_SHAPE,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::POSITION | GNEAttributeProperties::LIST | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY,
                                               "Overrids default shape of pedestrian sidelwak");
         myTagProperties[currentTag].addAttribute(attrProperty);
@@ -3460,6 +3460,11 @@ GNEAttributeCarrier::fillDemandElements() {
         attrProperty = GNEAttributeProperties(SUMO_ATTR_SPEEDFACTOR,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::EXTENDED,
                                               "The vehicles expected multiplicator for lane speed limits (or a distribution specifier)");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_DESIRED_MAXSPEED,
+                                              GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE,
+                                              "The vehicles desired maximum velocity (interacts with speedFactor). Applicable when no speed Limit applies (bicycles, some motorways) [m/s]");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_EMISSIONCLASS,
@@ -5524,9 +5529,10 @@ GNEAttributeCarrier::fillCommonStopAttributes(SumoXMLTag currentTag, const bool 
     myTagProperties[currentTag].addAttribute(attrProperty);
 
     attrProperty = GNEAttributeProperties(SUMO_ATTR_PARKING,
-                                          GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE,
+                                          GNEAttributeProperties::STRING | GNEAttributeProperties::DISCRETE | GNEAttributeProperties::DEFAULTVALUE,
                                           "Whether the vehicle stops on the road or beside",
                                           "false");
+    attrProperty.setDiscreteValues({"true", "false", "opportunistic"});
     myTagProperties[currentTag].addAttribute(attrProperty);
 
     attrProperty = GNEAttributeProperties(SUMO_ATTR_ACTTYPE,

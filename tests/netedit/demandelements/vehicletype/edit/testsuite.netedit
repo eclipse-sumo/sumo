@@ -12,6 +12,8 @@ mingap
 
 maxspeed
 
+desiredmaxspeed
+
 accel
 
 decel

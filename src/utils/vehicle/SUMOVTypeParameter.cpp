@@ -32,7 +32,7 @@
 #include <utils/emissions/PollutantsInterface.h>
 
 #define EMPREFIX std::string("HBEFA3/")
-
+#define TTT_UNSET SUMOTime_MIN
 
 // ===========================================================================
 // member method definitions
@@ -293,6 +293,8 @@ SUMOVTypeParameter::SUMOVTypeParameter(const std::string& vtid, const SUMOVehicl
       carriageLength(-1),
       locomotiveLength(-1),
       carriageGap(1),
+      timeToTeleport(TTT_UNSET),
+      timeToTeleportBidi(TTT_UNSET),
       frontSeatPos(1.7),
       parametersSet(0),
       saved(false),
@@ -499,6 +501,9 @@ SUMOVTypeParameter::write(OutputDevice& dev) const {
     }
     if (wasSet(VTYPEPARS_SCALE_SET)) {
         dev.writeAttr(SUMO_ATTR_SCALE, scale);
+    }
+    if (wasSet(VTYPEPARS_TTT_SET)) {
+        dev.writeAttr(SUMO_ATTR_TIME_TO_TELEPORT, timeToTeleport);
     }
     if (wasSet(VTYPEPARS_LANE_CHANGE_MODEL_SET)) {
         dev.writeAttr(SUMO_ATTR_LANE_CHANGE_MODEL, lcModel);
@@ -900,6 +905,17 @@ SUMOVTypeParameter::parseLatAlignment(const std::string& val, double& lao, LatAl
         }
     }
     return ok;
+}
+
+
+SUMOTime
+SUMOVTypeParameter::getTimeToTeleport(SUMOTime defaultValue) const {
+    return timeToTeleport == TTT_UNSET ? defaultValue : timeToTeleport;
+}
+
+SUMOTime
+SUMOVTypeParameter::getTimeToTeleportBidi(SUMOTime defaultValue) const {
+    return timeToTeleportBidi == TTT_UNSET ? defaultValue : timeToTeleportBidi;
 }
 
 /****************************************************************************/

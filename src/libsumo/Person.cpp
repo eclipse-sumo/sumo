@@ -178,7 +178,7 @@ Person::splitTaxiReservation(std::string reservationID, const std::vector<std::s
 
 bool
 Person::filterReservation(int stateFilter, const Reservation* res, std::vector<libsumo::TraCIReservation>& reservations) {
-    if (stateFilter != 0 && stateFilter != res->state) {
+    if (stateFilter != 0 && (stateFilter & res->state) == 0) {
         return false;
     }
     std::vector<std::string> personIDs;
@@ -365,7 +365,7 @@ Person::getLength(const std::string& personID) {
 
 double
 Person::getSpeedFactor(const std::string& personID) {
-    return getPerson(personID)->getSpeedFactor();
+    return getPerson(personID)->getChosenSpeedFactor();
 }
 
 
@@ -612,7 +612,7 @@ Person::convertTraCIStage(const TraCIStage& stage, const std::string personID) {
                 arrivalPos += edges.back()->getLength();
             }
             double speed = p->getMaxSpeed();
-            return new MSPerson::MSPersonStage_Walking(p->getID(), edges, bs, -1, speed, p->getArrivalPos(), arrivalPos, 0);
+            return new MSPerson::MSPersonStage_Walking(p->getID(), edges, bs, -1, speed, p->getArrivalPos(), arrivalPos, MSPModel::UNSPECIFIED_POS_LAT);
         }
 
         case STAGE_WAITING: {
@@ -716,7 +716,7 @@ Person::appendWalkingStage(const std::string& personID, const std::vector<std::s
             throw TraCIException("Invalid stopping place id '" + stopID + "' for person: '" + personID + "'");
         }
     }
-    p->appendStage(new MSPerson::MSPersonStage_Walking(p->getID(), edges, bs, TIME2STEPS(duration), speed, p->getArrivalPos(), arrivalPos, 0));
+    p->appendStage(new MSPerson::MSPersonStage_Walking(p->getID(), edges, bs, TIME2STEPS(duration), speed, p->getArrivalPos(), arrivalPos, MSPModel::UNSPECIFIED_POS_LAT));
 }
 
 
@@ -946,7 +946,7 @@ Person::moveToXY(const std::string& personID, const std::string& edgeID, const d
                     // insert walking stage after the current stage
                     ConstMSEdgeVector route({p->getEdge()});
                     const double departPos = p->getCurrentStage()->getArrivalPos();
-                    p->appendStage(new MSPerson::MSPersonStage_Walking(p->getID(), route, nullptr, -1, -1, departPos, departPos, 0), 1);
+                    p->appendStage(new MSPerson::MSPersonStage_Walking(p->getID(), route, nullptr, -1, -1, departPos, departPos, MSPModel::UNSPECIFIED_POS_LAT), 1);
                 }
                 // abort waiting stage and proceed to walking stage
                 p->removeStage(0);
@@ -1112,7 +1112,7 @@ Person::setLateralAlignment(const std::string& personID, const std::string& latA
 
 void
 Person::setSpeedFactor(const std::string& personID, double factor) {
-    getPerson(personID)->setSpeedFactor(factor);
+    getPerson(personID)->setChosenSpeedFactor(factor);
 }
 
 

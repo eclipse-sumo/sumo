@@ -251,6 +251,8 @@ private:
     /// @brief delete already created MSTransportablePlans if error occurs before handing over responsibility to a MSTransportable.
     void addFlowTransportable(SUMOTime depart, MSVehicleType* type, const std::string& baseID, int i);
 
+    double interpretDepartPosLat(const std::string& value, int departLane, const std::string& element);
+
     /// @brief adapt implicit route (edges derived from stops) to additional vehicle-stops
     MSRoute* addVehicleStopsToImplicitRoute(const MSRoute* route, bool isPermanent);
 

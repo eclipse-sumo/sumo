@@ -65,8 +65,23 @@ public:
         /// @brief set current junction
         void setCurrentJunction(GNEJunction* junction);
 
-        /// @brief update description
-        void updateJunctionDescription() const;
+        /// @brief update junction description
+        void updateJunctionDescription();
+
+        /// @brief disable joining junction mode
+        void disableJoiningJunctionMode();
+
+        /// @brief is joining junctions
+        bool isJoiningJunctions() const;
+
+        /// @brief check if given junction is selected (used fo joining)
+        bool isJunctionSelected(const GNEJunction* junction) const;
+
+        /// @brief select or unselect junction in the current TLS
+        void toggleJunctionSelected(const GNEJunction* junction);
+
+        /// @brief get selected junction IDs
+        const std::vector<std::string> &getSelectedJunctionIDs() const;
 
         /// @name FOX-callbacks
         /// @{
@@ -81,6 +96,18 @@ public:
 
         /// @brief Called when occurs an update of modified
         long onUpdTLSType(FXObject*, FXSelector, void*);
+
+        /// @brief Called when the user join TLS
+        long onCmdToggleJoinTLS(FXObject*, FXSelector, void*);
+
+        /// @brief Called when update join TLS
+        long onUpdJoinTLS(FXObject*, FXSelector, void*);
+
+        /// @brief Called when the user join TLS
+        long onCmdDisjoinTLS(FXObject*, FXSelector, void*);
+
+        /// @brief Called when update join TLS
+        long onUpdDisjoinTLS(FXObject*, FXSelector, void*);
 
         /// @}
 
@@ -102,10 +129,19 @@ public:
         MFXTextFieldTooltip* myTLSIDTextField = nullptr;
 
         /// @brief ComboBox for TLS Types
-        MFXIconComboBox* myTLSTypeComboBox;
+        MFXIconComboBox* myTLSTypeComboBox = nullptr;
+
+        /// @brief Toggle button for join TLS
+        MFXToggleButtonTooltip* myJoinTLSToggleButton = nullptr;
+
+        /// @brief button for disjoin TLS
+        MFXButtonTooltip* myDisjoinTLSButton = nullptr;
 
         /// @brief the junction of the tls is being modified
         GNEJunction* myCurrentJunction = nullptr;
+
+        /// @brief selected junction (used for join)
+        std::vector<std::string> mySelectedJunctionIDs;
     };
 
     // ===========================================================================
@@ -177,7 +213,13 @@ public:
         long onCmdDefSwitchTLSProgram(FXObject*, FXSelector, void*);
 
         /// @brief Called when occurs an update of switch definition
-        long onUpdTLSModified(FXObject*, FXSelector, void*);
+        long onUpdTLSEnableModified(FXObject*, FXSelector, void*);
+
+        /// @brief Called when occurs an update of switch definition
+        long onUpdTLSDisableModified(FXObject*, FXSelector, void*);
+
+        /// @brief Called when occurs an update of switch definition
+        long onUpdTLSDisableResetAll(FXObject*, FXSelector, void*);
 
         /// @brief Called when the user presses the save-Button
         long onCmdSaveChanges(FXObject*, FXSelector, void*);
@@ -259,14 +301,17 @@ public:
         /// @brief are current parameter valid
         bool isValidParameters();
 
-        /// @brief toogle button for set detectors mode
-        bool isSetDetectorsToogleButtonEnabled() const;
+        /// @brief toggle button for set detectors mode
+        bool isSetDetectorsToggleButtonEnabled() const;
 
         /// @brief select or unselect E1 detector in the current TLS
         bool toggleE1DetectorSelection(const GNEAdditional* E1);
 
         /// @brief get E1 detectors vinculated with this TLS
         const std::map<std::string, std::string> &getE1Detectors() const;
+
+        /// @brief disable detector mode
+        void disableE1DetectorMode();
 
         /// @name FOX-callbacks
         /// @{
@@ -286,7 +331,7 @@ public:
         long onUpdParameters(FXObject*, FXSelector, void*);
 
         /// @brief Called when user toggle set detector mode
-        long onCmdSetDetectorMode(FXObject*, FXSelector, void* ptr);
+        long onCmdToggleDetectorMode(FXObject*, FXSelector, void* ptr);
         
         /// @brief Called when occurs an update of set detector mode
         long onUpdSetDetectorMode(FXObject*, FXSelector, void*);
@@ -313,8 +358,8 @@ public:
         /// @brief the TextField for modifying parameters
         FXTextField* myParametersTextField = nullptr;
 
-        /// @brief toogle button for set detectors mode
-        FXToggleButton* mySetDetectorsToogleButton = nullptr;
+        /// @brief toggle button for set detectors mode
+        MFXToggleButtonTooltip* mySetDetectorsToggleButton = nullptr;
 
         /// @brief set with E1 detector IDs and their lanes vinculated with the TLS <laneID, E1ID>
         std::map<std::string, std::string> myE1Detectors;

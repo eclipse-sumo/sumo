@@ -31,7 +31,7 @@
 // ===========================================================================
 
 GNEProhibition::GNEProhibition(GNENet* net) :
-    GNENetworkElement(net, "", GLO_EDGE, SUMO_TAG_PROHIBITION, {}, {}, {}, {}, {}, {}) {}
+    GNENetworkElement(net, "", GLO_EDGE, SUMO_TAG_PROHIBITION, GUIIconSubSys::getIcon(GUIIcon::PROHIBITION), {}, {}, {}, {}, {}, {}) {}
 
 
 /****************************************************************************/

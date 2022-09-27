@@ -360,6 +360,10 @@ public:
         return myArrivalPos;
     }
 
+    virtual int getArrivalLane() const {
+        return myArrivalLane;
+    }
+
     /** @brief Sets this vehicle's desired arrivalPos for its current route
      */
     virtual void setArrivalPos(double arrivalPos) {

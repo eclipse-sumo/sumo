@@ -41,11 +41,11 @@
  * ----------------------------------------------------------------------- */
 GUIMEInductLoop::GUIMEInductLoop(const std::string& id, MESegment* s,
                                  double position,
-                                 const std::string& vTypes,
+                                 const std::string name, const std::string& vTypes,
                                  const std::string& nextEdges,
                                  int detectPersons,
                                  bool /*show*/):
-    MEInductLoop(id, s, position, vTypes, nextEdges, detectPersons)
+    MEInductLoop(id, s, position, name, vTypes, nextEdges, detectPersons)
 {}
 
 
@@ -62,7 +62,7 @@ GUIMEInductLoop::buildDetectorGUIRepresentation() {
 // -----------------------------------------------------------------------
 
 GUIMEInductLoop::MyWrapper::MyWrapper(GUIMEInductLoop& detector, double pos)
-    : GUIDetectorWrapper(GLO_E1DETECTOR_ME, detector.getID()),
+    : GUIDetectorWrapper(GLO_E1DETECTOR_ME, detector.getID(), GUIIconSubSys::getIcon(GUIIcon::E1)),
       myDetector(detector), myPosition(pos) {
     const MSLane* lane = detector.mySegment->getEdge().getLanes()[0];
     myFGPosition = lane->geometryPositionAtOffset(pos);

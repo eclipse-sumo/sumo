@@ -175,6 +175,8 @@ GNEStopFrame::show() {
         // show help creation module
         myHelpCreation->showHelpCreation();
     }
+    // reset last position
+    myViewNet->resetLastClickedPosition();
     // show frame
     GNEFrame::show();
 }
@@ -510,6 +512,8 @@ GNEStopFrame::tagSelected() {
         myStopAttributes->showAttributesCreatorModule(myStopTagSelector->getCurrentTemplateAC(), {});
         myNeteditAttributes->showNeteditAttributesModule(myStopTagSelector->getCurrentTemplateAC());
         myHelpCreation->showHelpCreation();
+        // reset last position
+        myViewNet->resetLastClickedPosition();
     } else {
         // hide all modules if stop parent isn't valid
         myStopAttributes->hideAttributesCreatorModule();

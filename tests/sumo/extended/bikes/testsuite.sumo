@@ -1,8 +1,5 @@
-# intersection connected with edges only for bike, delivery and pedestrian; bike runs parallel to its target edge without the sublane model
-bikeRunsParallelToTargetEdge
-
-# intersection connected with edges only for bike and pedestrian; only a bike is running in the network, but it makes emergency braking at the intersection
-bikeMakeEmergencyBrakingWithoutTraffic
+# intersection connected with bidi-edges,  Bike runs without deceleration until being very close to a ped within a crossing.
+emergency_braking_late_slow_down_within_crossing
 
 # intersection connected with bidi-edges only for bike and pedestrian,  bike has a depart delay while a pedestrian departs at the same time
 bikeDepartDelay

@@ -219,6 +219,9 @@ struct GNEViewNetHelper {
         /// @brief swap lane to edge
         void swapLane2Edge();
 
+        /// @brief filter locked elements
+        void filterLockedElements(const GNEViewNetHelper::LockManager &lockManager, std::vector<GUIGlObjectType> forcedIgnoredTiped = {});
+
         /// @brief get front GUI GL ID or a pointer to nullptr
         GUIGlID getGlIDFront() const;
 
@@ -230,9 +233,6 @@ struct GNEViewNetHelper {
 
         /// @brief get front attribute carrier or a pointer to nullptr
         GNEAttributeCarrier* getAttributeCarrierFront() const;
-
-        /// @brief get front attribute carrier or a pointer to nullptr checking if is locked
-        GNEAttributeCarrier* getAttributeCarrierFront(const GNEViewNetHelper::LockManager &lockManager) const;
 
         /// @brief get front network element or a pointer to nullptr
         GNENetworkElement* getNetworkElementFront() const;
@@ -287,6 +287,9 @@ struct GNEViewNetHelper {
 
         /// @brief get edge rel data element or a pointer to nullptr
         GNEEdgeRelData* getEdgeRelDataElementFront() const;
+
+        /// @brief get vector with clicked GL objects
+        const std::vector<GUIGlObject*>& getClickedGLObjects() const;
 
         /// @brief get vector with clicked ACs
         const std::vector<GNEAttributeCarrier*>& getClickedAttributeCarriers() const;
@@ -406,6 +409,9 @@ struct GNEViewNetHelper {
 
         /// @brief updateGUIGlObjects
         void updateGUIGlObjects(ObjectsContainer& container);
+
+        /// @brief process GL objects
+        void processGUIGlObjects();
 
         /// @brief default constructor
         ObjectsUnderCursor();
@@ -1363,6 +1369,9 @@ struct GNEViewNetHelper {
 
     /// @brief get rainbow scaled color
     static const RGBColor& getRainbowScaledColor(const double min, const double max, const double value);
+
+    /// @brief filter elements based on the layer
+    static std::vector<GUIGlObject*> filterElementsByLayer(const std::vector<GUIGlObject*> &GLObjects);
 
 private:
     /// @brief scale (rainbow) colors

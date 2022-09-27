@@ -29,6 +29,15 @@
 #include "NBNode.h"
 #include <utils/geom/Position.h>
 
+// ===========================================================================
+// static members
+// ===========================================================================
+std::set<std::string> NBPTStopCont::myIgnoredStops;
+
+// ===========================================================================
+// method definitions
+// ===========================================================================
+
 
 NBPTStopCont::~NBPTStopCont() {
     for (auto& myPTStop : myPTStops) {
@@ -66,10 +75,8 @@ void
 NBPTStopCont::localizePTStops(NBEdgeCont& cont) {
     std::vector<NBPTStop*> reverseStops;
     //first pass localize pt stop at correct side of the street; create stop for opposite side if needed
-    for (auto& myPTStop : myPTStops) {
-
-        NBPTStop* stop = myPTStop.second;
-
+    for (const auto& ptStopIt : myPTStops) {
+        NBPTStop* const stop = ptStopIt.second;
         bool multipleStopPositions = stop->getIsMultipleStopPositions();
         bool platformsDefined = !stop->getPlatformCands().empty();
         if (!platformsDefined) {
@@ -91,7 +98,7 @@ NBPTStopCont::localizePTStops(NBEdgeCont& cont) {
         }
     }
     //insert new stops if any
-    for (auto& reverseStop : reverseStops) {
+    for (NBPTStop* const reverseStop : reverseStops) {
         insert(reverseStop);
     }
 }
@@ -101,7 +108,6 @@ void NBPTStopCont::assignLanes(NBEdgeCont& cont) {
     //scnd pass set correct lane
     for (auto i = myPTStops.begin(); i != myPTStops.end();) {
         NBPTStop* stop = i->second;
-
         if (!stop->findLaneAndComputeBusStopExtent(cont)) {
             WRITE_WARNINGF("Could not find corresponding edge or compatible lane for pt stop '%' (%). Thus, it will be removed!",
                            i->first, i->second->getName());
@@ -318,10 +324,8 @@ NBPTStopCont::cleanupDeleted(NBEdgeCont& cont) {
 
 void
 NBPTStopCont::addEdges2Keep(const OptionsCont& oc, std::set<std::string>& into) {
-    if (oc.isSet("ptstop-output")) {
-        for (auto stop : myPTStops) {
-            into.insert(stop.second->getEdgeId());
-        }
+    for (auto stop : myPTStops) {
+        into.insert(stop.second->getEdgeId());
     }
 }
 

@@ -43,22 +43,22 @@ GUIE2Collector::GUIE2Collector(const std::string& id, DetectorUsage usage,
                                MSLane* lane, double startPos, double endPos, double detLength,
                                SUMOTime haltingTimeThreshold, double haltingSpeedThreshold,
                                double jamDistThreshold,
-                               const std::string& vTypes,
+                               const std::string name, const std::string& vTypes,
                                const std::string& nextEdges,
                                int detectPersons, bool showDetector)
     : MSE2Collector(id, usage, lane, startPos, endPos, detLength, haltingTimeThreshold,
-                    haltingSpeedThreshold, jamDistThreshold, vTypes, nextEdges, detectPersons),
+                    haltingSpeedThreshold, jamDistThreshold, name, vTypes, nextEdges, detectPersons),
       myShow(showDetector) {}
 
 GUIE2Collector::GUIE2Collector(const std::string& id, DetectorUsage usage,
                                std::vector<MSLane*> lanes, double startPos, double endPos,
                                SUMOTime haltingTimeThreshold, double haltingSpeedThreshold,
                                double jamDistThreshold,
-                               const std::string& vTypes,
+                               const std::string name, const std::string& vTypes,
                                const std::string& nextEdges,
                                int detectPersons, bool showDetector)
     : MSE2Collector(id, usage, lanes, startPos, endPos, haltingTimeThreshold,
-                    haltingSpeedThreshold, jamDistThreshold, vTypes, nextEdges, detectPersons),
+                    haltingSpeedThreshold, jamDistThreshold, name, vTypes, nextEdges, detectPersons),
       myShow(showDetector) {}
 
 GUIE2Collector::~GUIE2Collector() {}
@@ -74,7 +74,7 @@ GUIE2Collector::buildDetectorGUIRepresentation() {
 // -------------------------------------------------------------------------
 
 GUIE2Collector::MyWrapper::MyWrapper(GUIE2Collector& detector) :
-    GUIDetectorWrapper(GLO_E2DETECTOR, detector.getID()),
+    GUIDetectorWrapper(GLO_E2DETECTOR, detector.getID(), GUIIconSubSys::getIcon(GUIIcon::E2)),
     myDetector(detector) {
     mySupportsOverride = true;
     // collect detector shape into one vector (v)
@@ -125,6 +125,7 @@ GUIE2Collector::MyWrapper::getParameterWindow(GUIMainWindow& app,
         new GUIParameterTableWindow(app, *this);
     // add items
     // parameter
+    ret->mkItem("name", false, myDetector.getName());
     ret->mkItem("length [m]", false, myDetector.getLength());
     ret->mkItem("position [m]", false, myDetector.getStartPos());
     ret->mkItem("lane", false, myDetector.getLane()->getID());

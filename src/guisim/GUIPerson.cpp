@@ -167,7 +167,7 @@ GUIPerson::GUIPersonPopupMenu::onCmdRemoveObject(FXObject*, FXSelector, void*) {
 
 GUIPerson::GUIPerson(const SUMOVehicleParameter* pars, MSVehicleType* vtype, MSTransportable::MSTransportablePlan* plan, const double speedFactor) :
     MSPerson(pars, vtype, plan, speedFactor),
-    GUIGlObject(GLO_PERSON, pars->id),
+    GUIGlObject(GLO_PERSON, pars->id, GUIIconSubSys::getIcon(GUIIcon::PERSON)),
     myLock(true)
 { }
 
@@ -234,7 +234,7 @@ GUIPerson::getParameterWindow(GUIMainWindow& app,
     ret->mkItem("edge [id]", true, new FunctionBindingString<GUIPerson>(this, &GUIPerson::getEdgeID));
     ret->mkItem("position [m]", true, new FunctionBinding<GUIPerson, double>(this, &GUIPerson::getEdgePos));
     ret->mkItem("speed [m/s]", true, new FunctionBinding<GUIPerson, double>(this, &GUIPerson::getSpeed));
-    ret->mkItem("speed factor", false, getSpeedFactor());
+    ret->mkItem("speed factor", false, getChosenSpeedFactor());
     ret->mkItem("angle [degree]", true, new FunctionBinding<GUIPerson, double>(this, &GUIPerson::getNaviDegree));
     ret->mkItem("waiting time [s]", true, new FunctionBinding<GUIPerson, double>(this, &GUIPerson::getWaitingSeconds));
     ret->mkItem("vehicle [id]", true, new FunctionBindingString<GUIPerson>(this, &GUIPerson::getVehicleID));
@@ -257,6 +257,7 @@ GUIPerson::getTypeParameterWindow(GUIMainWindow& app,
     ret->mkItem("width", false, myVType->getWidth());
     ret->mkItem("height", false, myVType->getHeight());
     ret->mkItem("minGap", false, myVType->getMinGap());
+    ret->mkItem("desired max speed [m/s]", false, myVType->getDesiredMaxSpeed());
     ret->mkItem("maximum speed [m/s]", false, myVType->getMaxSpeed());
     // close building
     ret->closeBuilding(&(myVType->getParameter()));

@@ -377,8 +377,10 @@ enum {
     MID_LOCATEPOI,
     /// @brief Locate polygons - button
     MID_LOCATEPOLY,
-    /// @brief Show tool tips - button
-    MID_SHOWTOOLTIPS,
+    /// @brief Show tool tips in view - button
+    MID_SHOWTOOLTIPS_VIEW,
+    /// @brief Show tool tips in menus - button
+    MID_SHOWTOOLTIPS_MENU,
     /// @brief Make snapshot - button
     MID_MAKESNAPSHOT,
     /// @brief toggle zooming style
@@ -415,6 +417,25 @@ enum {
     MID_COLOURSCHEMECHANGE,
 
     /// @}
+
+
+    /// @name GUICursorDialog PopUp Entries - IDs
+    /// @{
+    /// @brief set element as front element
+    MID_CURSORDIALOG_SETFRONTELEMENT,
+    /// @brief delete element
+    MID_CURSORDIALOG_DELETEELEMENT,
+    /// @brief select element
+    MID_CURSORDIALOG_SELECTELEMENT,
+    /// @brief open properties popup
+    MID_CURSORDIALOG_PROPERTIES,
+    /// @brief move list up
+    MID_CURSORDIALOG_MOVEUP,
+    /// @brief move list down
+    MID_CURSORDIALOG_MOVEDOWN,
+
+    /// @}
+
 
     /// @name Object PopUp Entries - IDs
     /// @{
@@ -1000,14 +1021,14 @@ enum {
     /// @name GNETLSEditorFrame messages
     /// @{
 
-    /// @brief selected junction von TLS
-    MID_GNE_TLSFRAME_JUNCTION,
     /// @brief current TLS ID
-    MID_GNE_TLSFRAME_TLSID,
+    MID_GNE_TLSFRAME_TLSJUNCTION_ID,
     /// @brief current TLS ID
-    MID_GNE_TLSFRAME_TLSTYPE,
-    /// @brief update TLS status
-    MID_GNE_TLSFRAME_UPDATE_STATUS,
+    MID_GNE_TLSFRAME_TLSJUNCTION_TYPE,
+    /// @brief join TLS
+    MID_GNE_TLSFRAME_TLSJUNCTION_TOGGLEJOIN,
+    /// @brief Disjoin TLS
+    MID_GNE_TLSFRAME_TLSJUNCTION_DISJOIN,
     /// @brief replace program with a newly guessed program
     MID_GNE_TLSFRAME_ATTRIBUTES_GUESSPROGRAM,
     /// @brief TLS offset
@@ -1017,7 +1038,7 @@ enum {
     /// @brief TLS parameters
     MID_GNE_TLSFRAME_ATTRIBUTES_PARAMETERSDIALOG,
     /// @brief set detectors in TLS
-    MID_GNE_TLSFRAME_ATTRIBUTES_SETDETECTOR,
+    MID_GNE_TLSFRAME_ATTRIBUTES_TOGGLEDETECTOR,
     /// @brief Create TLS
     MID_GNE_TLSFRAME_DEFINITION_CREATE,
     /// @brief delete TLS
@@ -1159,25 +1180,19 @@ enum {
 
     /// @}
 
-    /// @name GNEConnection messages
+    /// @name GNEConnection, GNECrossings and GNEWalkingAreas messages
     /// @{
 
     /// @brief edit connection shape
     MID_GNE_CONNECTION_EDIT_SHAPE,
     /// @ brief smooth connection shape
     MID_GNE_CONNECTION_SMOOTH_SHAPE,
-
-    /// @}
-
-
-    /// @name GNECrossing messages
-    /// @{
-
     /// @brief edit crossing shape
     MID_GNE_CROSSING_EDIT_SHAPE,
+    /// @brief edit crossing shape
+    MID_GNE_WALKINGAREA_EDIT_SHAPE,
 
     /// @}
-
 
     /// @name GNEPoly messages
     /// @{
@@ -1410,6 +1425,7 @@ enum {
     /// @}
 
     /// @brief callback for MFXMenuButtonTooltip
+    MID_MBTTIP_FOCUS,
     MID_MBTTIP_SELECTED,
 
     /// @brief last element of enum (not used)

@@ -393,6 +393,11 @@ public:
     /// @brief clear current selection with possibility of undo/redo
     void clearCurrentSelection() const;
 
+    /**@brief select attribute carrier (element)
+     * @param objectsUnderCursor objects under cursors
+     */
+    bool selectAttributeCarrier(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor);
+
     /**@brief apply list of ids to the current selection according to Operation,
      * @note if setop==DEFAULT than the currently set mode (myOperation) is used
      */

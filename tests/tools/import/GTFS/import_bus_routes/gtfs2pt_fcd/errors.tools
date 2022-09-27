@@ -15,6 +15,8 @@ Warning: Found sharp turn with radius 7.94 at the end of edge '627097884'.
 Warning: Found sharp turn with radius 8.15 at the start of edge '627097904'.
 Warning: Shape for junction '280598629' has distance 29.64 to its given position.
 Warning: Lane '627098067_3' is not connected from any incoming edge at junction '5907970888'.
+Warning: Unused state in tlLogic 'GS_28090300', program '0' at tl-index 1
 Warning: 4 total messages of type: Found sharp turn with radius % at the end of edge '%'.
 Warning: 2 total messages of type: Found sharp turn with radius % at the start of edge '%'.
 Warning: 4 total messages of type: Lane '%' is not connected from any incoming edge at junction '%'.
+Warning: 3 total messages of type: Unused state in tlLogic '%', program '%' at tl-index %

@@ -1026,6 +1026,26 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const
                 vType->parametersSet |= VTYPEPARS_SCALE_SET;
             }
         }
+        if (attrs.hasAttribute(SUMO_ATTR_TIME_TO_TELEPORT)) {
+            bool ok = true;
+            const SUMOTime ttt = attrs.getSUMOTimeReporting(SUMO_ATTR_TIME_TO_TELEPORT, vType->id.c_str(), ok);
+            if (!ok) {
+                return handleVehicleTypeError(hardFail, vType);
+            } else {
+                vType->timeToTeleport = ttt;
+                vType->parametersSet |= VTYPEPARS_TTT_SET;
+            }
+        }
+        if (attrs.hasAttribute(SUMO_ATTR_TIME_TO_TELEPORT_BIDI)) {
+            bool ok = true;
+            const SUMOTime tttb = attrs.getSUMOTimeReporting(SUMO_ATTR_TIME_TO_TELEPORT_BIDI, vType->id.c_str(), ok);
+            if (!ok) {
+                return handleVehicleTypeError(hardFail, vType);
+            } else {
+                vType->timeToTeleportBidi = tttb;
+                vType->parametersSet |= VTYPEPARS_TTT_BIDI_SET;
+            }
+        }
         if (attrs.hasAttribute(SUMO_ATTR_MAXSPEED_LAT)) {
             bool ok = true;
             const double maxSpeedLat = attrs.get<double>(SUMO_ATTR_MAXSPEED_LAT, vType->id.c_str(), ok);
@@ -1656,7 +1676,7 @@ SUMOVehicleParserHelper::processActionStepLength(double given) {
         }
         result = DELTA_T;
     } else if (result % DELTA_T != 0) {
-        result = (SUMOTime)(DELTA_T * floor(double(result) / double(DELTA_T)));
+        result = (SUMOTime)((double)DELTA_T * floor(double(result) / double(DELTA_T)));
         result = MAX2(DELTA_T, result);
         if (fabs(given * 1000. - double(result)) > NUMERICAL_EPS) {
             WRITE_WARNING(defaultError + "Parsing given value (" + toString(given) + " s.) to the adjusted value " + toString(STEPS2TIME(result)) + " s.");

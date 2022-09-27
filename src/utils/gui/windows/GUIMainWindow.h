@@ -88,8 +88,11 @@ public:
     /// @brief get GL Visual
     FXGLVisual* getGLVisual() const;
 
-    /// @brief get static toolTip
-    MFXStaticToolTip* getStaticTooltip() const;
+    /// @brief get static toolTip for menus
+    MFXStaticToolTip* getStaticTooltipMenu() const;
+
+    /// @brief get static toolTip for view
+    MFXStaticToolTip* getStaticTooltipView() const;
 
     /// @brief get build GL Canvas (must be implemented in all children)
     virtual FXGLCanvas* getBuildGLCanvas() const = 0;
@@ -206,6 +209,7 @@ protected:
     FXLabel* myTestCoordinate = nullptr;
 
     /// @brief frames for coordinates
+    FXHorizontalFrame* myTraCiFrame = nullptr;
     FXHorizontalFrame* myCartesianFrame = nullptr;
     FXHorizontalFrame* myGeoFrame = nullptr;
     FXHorizontalFrame* myTestFrame = nullptr;
@@ -219,8 +223,11 @@ protected:
     FXDockSite* myLeftDock = nullptr;
     FXDockSite* myRightDock = nullptr;
 
-    /// @brief static toolTip used in FXButtonToolTip / FXLabelToolTip
-    MFXStaticToolTip* myStaticTooltip = nullptr;
+    /// @brief static toolTip used in menus
+    MFXStaticToolTip* myStaticTooltipMenu = nullptr;
+
+    /// @brief static toolTip used in view
+    MFXStaticToolTip* myStaticTooltipView = nullptr;
 
     /// @brief information whether the gui is currently in gaming mode
     bool myAmGaming;

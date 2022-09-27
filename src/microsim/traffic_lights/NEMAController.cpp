@@ -431,6 +431,7 @@ NEMALogic::init(NLDetectorBuilder& nb) {
                                        0, // time-based threshold that decribes how much time has to pass until a vehicle is considerred as halting
                                        0, // speed threshold as halting
                                        0, // minimum dist to the next standing vehicle to make this vehicle count as a participant to the jam
+                                       "",
                                        myVehicleTypes, //vehicle types to consider, if it is empty, meaning consider all types of vehicles
                                        "", // nextEdges (no filtering by vehicle route)
                                        (int)PersonMode::NONE, // detector vehicles, not persons

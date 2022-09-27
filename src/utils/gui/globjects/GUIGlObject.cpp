@@ -37,6 +37,8 @@
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GLObjectValuePassConnector.h>
 #include <utils/gui/div/GUIDesigns.h>
+#include <utils/geom/GeomHelper.h>
+#include <utils/gui/div/GUIGlobalPostDrawing.h>
 
 #include "GUIGlObject.h"
 #include "GUIGlObjectStorage.h"
@@ -147,7 +149,7 @@ const GUIGlID GUIGlObject::INVALID_ID = 0;
 // method definitionsas
 // ===========================================================================
 
-GUIGlObject::GUIGlObject(GUIGlObjectType type, const std::string& microsimID) :
+GUIGlObject::GUIGlObject(GUIGlObjectType type, const std::string& microsimID, FXIcon *icon) :
 #ifdef _MSC_VER
 #pragma warning(push)
     /* Disable warning about using "this" in the constructor */
@@ -159,6 +161,7 @@ GUIGlObject::GUIGlObject(GUIGlObjectType type, const std::string& microsimID) :
 #endif
     myGLObjectType(type),
     myMicrosimID(microsimID),
+    myIcon(icon),
     myAmBlocked(false) {
     // make sure that reserved GLO_ADDITIONALELEMENT isn't used
     assert(myGLObjectType != GLO_ADDITIONALELEMENT);
@@ -184,11 +187,42 @@ GUIGlObject::getParentName() const {
 }
 
 
+FXIcon*
+GUIGlObject::getGLIcon() const {
+    return myIcon;
+}
+
+
 GUIParameterTableWindow*
 GUIGlObject::getTypeParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     UNUSED_PARAMETER(&app);
     UNUSED_PARAMETER(&parent);
     return nullptr;
+}
+
+
+bool 
+GUIGlObject::isGLObjectLocked() {
+    // by default unlocked
+    return false;
+}
+
+
+void
+GUIGlObject::markAsFrontElement() {
+    // by default nothing to do
+}
+
+
+void
+GUIGlObject::deleteGLObject() {
+    // by default nothing to do
+}
+
+
+void
+GUIGlObject::selectGLObject() {
+    // by default nothing to do
 }
 
 
@@ -235,7 +269,7 @@ GUIGlObject::setNode(osg::Node* node) {
 
 void
 GUIGlObject::buildPopupHeader(GUIGLObjectPopupMenu* ret, GUIMainWindow& app, bool addSeparator) {
-    new MFXMenuHeader(ret, app.getBoldFont(), getFullName().c_str(), nullptr, nullptr, 0);
+    new MFXMenuHeader(ret, app.getBoldFont(), getFullName().c_str(), myIcon, nullptr, 0);
     if (addSeparator) {
         new FXMenuSeparator(ret);
     }
@@ -382,6 +416,53 @@ GUIGlObject::buildAdditionalsPopupOptions(GUIMainWindow& app, GUIGLObjectPopupMe
     if (type != "") {
         GUIDesigns::buildFXMenuCommand(ret, ("type: " + type + "").c_str(), nullptr, nullptr, 0);
         new FXMenuSeparator(ret);
+    }
+}
+
+
+void 
+GUIGlObject::mouseWithinGeometry(const Position center, const double radius) const {
+    if (gPostDrawing.mousePos.distanceSquaredTo2D(center) <= (radius * radius)) {
+        gPostDrawing.addElementUnderCursor(this);
+    }
+}
+
+
+void 
+GUIGlObject::mouseWithinGeometry(const PositionVector shape) const {
+    if (shape.around(gPostDrawing.mousePos)) {
+        gPostDrawing.addElementUnderCursor(this);
+    }
+}
+
+
+void 
+GUIGlObject::mouseWithinGeometry(const PositionVector shape, const double width) const {
+    if (shape.distance2D(gPostDrawing.mousePos) <= width) {
+        gPostDrawing.addElementUnderCursor(this);
+    }
+}
+
+
+void 
+GUIGlObject::mouseWithinGeometry(const Position& pos, const double width, const double height, 
+        const double offsetX, const double offsetY, const double rot) const {
+    // create shape
+    PositionVector shape;
+    // make rectangle
+    shape.push_back(Position(0 + width, 0 + height));
+    shape.push_back(Position(0 + width, 0 - height));
+    shape.push_back(Position(0 - width, 0 - height));
+    shape.push_back(Position(0 - width, 0 + height));
+    // move shape
+    shape.add(offsetX, offsetY, 0);
+    // rotate shape
+    shape.rotate2D(DEG2RAD((rot * -1) + 90));
+    // move to position
+    shape.add(pos);
+    // check if mouse is within new geometry
+    if (shape.around(gPostDrawing.mousePos)) {
+        gPostDrawing.addElementUnderCursor(this);
     }
 }
 

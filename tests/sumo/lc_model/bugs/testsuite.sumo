@@ -31,3 +31,6 @@ ticket10763
 
 # unsafe lane changing on junction causes emergency braking 
 ticket10988
+
+# excessive emergency braking at discontinuity in bestlaneoffset
+ticket11695

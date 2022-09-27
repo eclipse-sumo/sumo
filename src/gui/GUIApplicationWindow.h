@@ -49,6 +49,7 @@ class GUIMessageWindow;
 class GUIEvent;
 class GUIParameterTracker;
 class GUIParameterTableWindow;
+class GUIDialog_Breakpoints;
 
 
 // ===========================================================================
@@ -319,6 +320,10 @@ public:
 
     const std::vector<SUMOTime> retrieveBreakpoints() const;
 
+    void eraseBreakpointDialog() {
+        myBreakpointDialog = nullptr;
+    }
+
     /// @brief register custom hotkey action
     void addHotkey(int key, Command* press, Command* release);
 
@@ -334,6 +339,8 @@ private:
 
     /// @brief updates the simulation time display
     void updateTimeLCD(SUMOTime time);
+
+    void updateTimeLCDTooltip();
 
     /** opens a new simulation display */
     GUISUMOAbstractView* openNewView(GUISUMOViewParent::ViewType vt = GUISUMOViewParent::VIEW_2D_OPENGL);
@@ -424,7 +431,7 @@ protected:
     FXToolBar* myToolBar1 = nullptr, *myToolBar2 = nullptr, *myToolBar3 = nullptr, *myToolBar4 = nullptr, *myToolBar5 = nullptr, *myToolBar8 = nullptr;
 
     /// @brief the simulation step display
-    FXEX::MFXLCDLabel* myLCDLabel = nullptr;
+    MFXLCDLabel* myLCDLabel = nullptr;
 
     /// @brief io-event with the load-thread
     FXEX::MFXThreadEvent myLoadThreadEvent;
@@ -468,10 +475,10 @@ protected:
     bool myTLSGame;
 
     /// @brief performance indicators
-    FXEX::MFXLCDLabel* myWaitingTimeLabel = nullptr;
-    FXEX::MFXLCDLabel* myTimeLossLabel = nullptr;
-    FXEX::MFXLCDLabel* myTotalDistanceLabel = nullptr;
-    FXEX::MFXLCDLabel* myEmergencyVehicleLabel = nullptr;
+    MFXLCDLabel* myWaitingTimeLabel = nullptr;
+    MFXLCDLabel* myTimeLossLabel = nullptr;
+    MFXLCDLabel* myTotalDistanceLabel = nullptr;
+    MFXLCDLabel* myEmergencyVehicleLabel = nullptr;
     SUMOTime myWaitingTime;
     SUMOTime myTimeLoss;
     SUMOTime myEmergencyVehicleCount;
@@ -487,4 +494,5 @@ protected:
     std::map<int, Command*> myHotkeyPress;
     std::map<int, Command*> myHotkeyRelease;
 
+    GUIDialog_Breakpoints* myBreakpointDialog = nullptr;
 };
