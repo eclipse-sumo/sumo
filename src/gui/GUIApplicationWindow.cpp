@@ -1359,7 +1359,7 @@ GUIApplicationWindow::onUpdNeedsSimulation(FXObject* sender, FXSelector, void* p
 
 
 long
-GUIApplicationWindow::onUpdTraCIStatus(FXObject* sender, FXSelector, void* ptr) {
+GUIApplicationWindow::onUpdTraCIStatus(FXObject* /*sender*/, FXSelector, void* /*ptr*/) {
     if (TraCIServer::getInstance()) {
         myTraCiFrame->show();
     } else {
