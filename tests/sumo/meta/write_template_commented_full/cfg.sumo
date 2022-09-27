@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-09-18 16:24:44 by Eclipse SUMO sumo Version v1_14_1+1108-3e52c8e
+<!-- generated on 2022-09-27 09:23:13 by Eclipse SUMO sumo Version v1_14_1+1258-a7ebf97
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -488,6 +488,9 @@
 
         <!-- Fraction of stripes to reserve for oncoming pedestrians on crossings and walkingareas -->
         <pedestrian.striping.reserve-oncoming.junctions value="0.34" type="FLOAT"/>
+
+        <!-- Interpret departPosLat for walks in legacy style -->
+        <pedestrian.striping.legacy-departposlat value="false" type="BOOL"/>
 
         <!-- The address (host:port) of the external simulation -->
         <pedestrian.remote.address value="localhost:9000" type="STR"/>

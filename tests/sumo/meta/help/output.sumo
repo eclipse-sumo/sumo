@@ -1,4 +1,4 @@
-Eclipse SUMO sumo Version v1_14_1+1108-3e52c8e
+Eclipse SUMO sumo Version v1_14_1+1258-a7ebf97
  Copyright (C) 2001-2022 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -344,6 +344,8 @@ Processing Options:
   --pedestrian.striping.reserve-oncoming.junctions FLOAT  Fraction of stripes
                                         to reserve for oncoming pedestrians on
                                         crossings and walkingareas
+  --pedestrian.striping.legacy-departposlat  Interpret departPosLat for walks
+                                        in legacy style
   --pedestrian.remote.address STR      The address (host:port) of the external
                                         simulation
   --ride.stop-tolerance FLOAT          Tolerance to apply when matching
