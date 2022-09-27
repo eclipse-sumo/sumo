@@ -4,3 +4,4 @@
 --pedestrian.striping.dawdling 0
 --fcd-output fcd.xml 
 --lateral-resolution 0.66
+--pedestrian.striping.legacy-departposlat
