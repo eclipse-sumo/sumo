@@ -742,12 +742,10 @@ NBNodeCont::joinJunctions(double maxDist, NBDistrictCont& dc, NBEdgeCont& ec, NB
     NodeClusters clusters;
     std::map<const NBNode*, std::vector<NBNode*> > ptStopEnds;
     // check for stop edges within the cluster
-    if (OptionsCont::getOptions().isSet("ptstop-output")) {
-        for (auto it = sc.begin(); it != sc.end(); it++) {
-            NBEdge* edge = ec.retrieve(it->second->getEdgeId());
-            if (edge != nullptr) {
-                ptStopEnds[edge->getFromNode()].push_back(edge->getToNode());
-            }
+    for (auto it = sc.begin(); it != sc.end(); it++) {
+        NBEdge* edge = ec.retrieve(it->second->getEdgeId());
+        if (edge != nullptr) {
+            ptStopEnds[edge->getFromNode()].push_back(edge->getToNode());
         }
     }
     generateNodeClusters(maxDist, cands);

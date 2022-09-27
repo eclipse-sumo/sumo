@@ -265,10 +265,8 @@ NIImporter_OpenStreetMap::load(const OptionsCont& oc, NBNetBuilder& nb) {
         reconstructLayerElevation(layerElevation, nb);
     }
 
-    //revise pt stops; remove stops on deleted edges
-    if (OptionsCont::getOptions().isSet("ptstop-output")) {
-        nb.getPTStopCont().cleanupDeleted(nb.getEdgeCont());
-    }
+    // revise pt stops; remove stops on deleted edges
+    nb.getPTStopCont().cleanupDeleted(nb.getEdgeCont());
 
     // load relations (after edges are built since we want to apply
     // turn-restrictions directly to NBEdges)
@@ -287,22 +285,20 @@ NIImporter_OpenStreetMap::load(const OptionsCont& oc, NBNetBuilder& nb) {
         idx++;
     }
 
-    if (oc.isSet("ptstop-output")) {
-        // declare additional stops that are not anchored to a (road)-way or route relation
-        std::set<std::string> stopNames;
-        for (const auto& item : nb.getPTStopCont().getStops()) {
-            stopNames.insert(item.second->getName());
-        }
-        for (const auto& item : myOSMNodes) {
-            const NIOSMNode* n = item.second;
-            if (n->ptStopPosition && stopNames.count(n->name) == 0) {
-                Position ptPos(n->lon, n->lat, n->ele);
-                if (!NBNetBuilder::transformCoordinate(ptPos)) {
-                    WRITE_ERROR("Unable to project coordinates for node '" + toString(n->id) + "'.");
-                }
-                NBPTStop* ptStop = new NBPTStop(toString(n->id), ptPos, "", "", n->ptStopLength, n->name, n->permissions);
-                nb.getPTStopCont().insert(ptStop, true);
+    // declare additional stops that are not anchored to a (road)-way or route relation
+    std::set<std::string> stopNames;
+    for (const auto& item : nb.getPTStopCont().getStops()) {
+        stopNames.insert(item.second->getName());
+    }
+    for (const auto& item : myOSMNodes) {
+        const NIOSMNode* n = item.second;
+        if (n->ptStopPosition && stopNames.count(n->name) == 0) {
+            Position ptPos(n->lon, n->lat, n->ele);
+            if (!NBNetBuilder::transformCoordinate(ptPos)) {
+                WRITE_ERROR("Unable to project coordinates for node '" + toString(n->id) + "'.");
             }
+            NBPTStop* ptStop = new NBPTStop(toString(n->id), ptPos, "", "", n->ptStopLength, n->name, n->permissions);
+            nb.getPTStopCont().insert(ptStop, true);
         }
     }
 }
@@ -1598,7 +1594,7 @@ NIImporter_OpenStreetMap::RelationHandler::myEndElement(int element) {
             if (ok && !applyRestriction()) {
                 WRITE_WARNINGF("Ignoring restriction relation '%'.", toString(myCurrentRelation));
             }
-        } else if (myIsStopArea && OptionsCont::getOptions().isSet("ptstop-output")) {
+        } else if (myIsStopArea) {
             for (long long ref : myStops) {
                 myStopAreas[ref] = myCurrentRelation;
                 if (myOSMNodes.find(ref) == myOSMNodes.end()) {
@@ -1668,25 +1664,25 @@ NIImporter_OpenStreetMap::RelationHandler::myEndElement(int element) {
                 }
                 ptStop->setIsMultipleStopPositions(myStops.size() > 1, myCurrentRelation);
             }
-        } else if (myPTRouteType != "" && myIsRoute && OptionsCont::getOptions().isSet("ptline-output")) {
+        } else if (myPTRouteType != "" && myIsRoute) {
             NBPTLine* ptLine = new NBPTLine(toString(myCurrentRelation), myName, myPTRouteType, myRef, myInterval, myNightService,
                                             interpretTransportType(myPTRouteType), myRouteColor);
             ptLine->setMyNumOfStops((int)myStops.size());
+            bool hadGap = false;
             for (long long ref : myStops) {
-                if (myOSMNodes.find(ref) == myOSMNodes.end()) {
-                    //WRITE_WARNING(
-                    //    "Referenced node: '" + toString(ref) + "' in relation: '" + toString(myCurrentRelation)
-                    //    + "' does not exist. Probably OSM file is incomplete.");
-//                    resetValues();
-//                    return;
-                    if (!ptLine->getStops().empty()) {
-                        WRITE_WARNINGF("Done reading first coherent chunk of pt stops. Further stops in relation % are ignored", myCurrentRelation);
-                        break;
+                const auto& nodeIt =myOSMNodes.find(ref);
+                if (nodeIt == myOSMNodes.end()) {
+                    if (!ptLine->getStops().empty() && !hadGap) {
+                        hadGap = true;
                     }
                     continue;
                 }
+                if (hadGap) {
+                    WRITE_WARNINGF("Done reading first coherent chunk of pt stops. Further stops in relation % are ignored", myCurrentRelation);
+                    break;
+                }
 
-                NIOSMNode* n = myOSMNodes.find(ref)->second;
+                const NIOSMNode* const n = nodeIt->second;
                 NBPTStop* ptStop = myNBPTStopCont->get(toString(n->id));
                 if (ptStop == nullptr) {
                     // loose stop, which must later be mapped onto a line way

@@ -95,7 +95,7 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
     }
     if (mayAddOrRemove && oc.exists("keep-edges.components") && oc.getInt("keep-edges.components") > 0) {
         before = PROGRESS_BEGIN_TIME_MESSAGE("Finding largest components");
-        const bool hasStops = myPTStopCont.size() > 0 && oc.exists("ptstop-output") && oc.isSet("ptstop-output");
+        const bool hasStops = myPTStopCont.size() > 0;
         myNodeCont.removeComponents(myDistrictCont, myEdgeCont, oc.getInt("keep-edges.components"), hasStops);
         PROGRESS_TIME_MESSAGE(before);
     }
@@ -107,7 +107,7 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
         }
     }
     // Processing pt stops and lines
-    if (oc.exists("ptstop-output") && oc.isSet("ptstop-output")) {
+    if (!myPTStopCont.getStops().empty()) {
         before = PROGRESS_BEGIN_TIME_MESSAGE("Processing public transport stops");
         if (!(oc.exists("ptline-output") && oc.isSet("ptline-output"))
                 && !oc.getBool("ptstop-output.no-bidi")) {
@@ -116,32 +116,30 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
         myPTStopCont.assignEdgeForFloatingStops(myEdgeCont, 20);
         myPTStopCont.assignLanes(myEdgeCont);
         PROGRESS_TIME_MESSAGE(before);
-        if (mayAddOrRemove && oc.exists("keep-edges.components") && oc.getInt("keep-edges.components") > 0) {
-            // post process rail components unless they have stops
-            myNodeCont.removeRailComponents(myDistrictCont, myEdgeCont, myPTStopCont);
-        }
+    }
+    if (mayAddOrRemove && oc.exists("keep-edges.components") && oc.getInt("keep-edges.components") > 0) {
+        // post process rail components unless they have stops
+        myNodeCont.removeRailComponents(myDistrictCont, myEdgeCont, myPTStopCont);
     }
 
-    if (oc.exists("ptline-output") && oc.isSet("ptline-output")) {
+    if (!myPTLineCont.getLines().empty()) {
         before = PROGRESS_BEGIN_TIME_MESSAGE("Revising public transport stops based on pt lines");
         myPTLineCont.process(myEdgeCont, myPTStopCont);
         PROGRESS_TIME_MESSAGE(before);
     }
 
-    if (oc.exists("ptline-output") && oc.isSet("ptline-output")) {
-        if (oc.exists("ptline-clean-up") && oc.getBool("ptline-clean-up")) {
-            before = PROGRESS_BEGIN_TIME_MESSAGE("Cleaning up public transport stops that are not served by any line");
-            myPTStopCont.postprocess(myPTLineCont.getServedPTStops());
-            PROGRESS_TIME_MESSAGE(before);
-        } else {
-            int numDeletedStops = myPTStopCont.cleanupDeleted(myEdgeCont);
-            if (numDeletedStops > 0) {
-                WRITE_WARNING("Removed " + toString(numDeletedStops) + " pt stops because they could not be assigned to the network");
-            }
+    if (oc.exists("ptline-clean-up") && oc.getBool("ptline-clean-up")) {
+        before = PROGRESS_BEGIN_TIME_MESSAGE("Cleaning up public transport stops that are not served by any line");
+        myPTStopCont.postprocess(myPTLineCont.getServedPTStops());
+        PROGRESS_TIME_MESSAGE(before);
+    } else {
+        int numDeletedStops = myPTStopCont.cleanupDeleted(myEdgeCont);
+        if (numDeletedStops > 0) {
+            WRITE_WARNING("Removed " + toString(numDeletedStops) + " pt stops because they could not be assigned to the network");
         }
     }
 
-    if (oc.exists("ptstop-output") && oc.isSet("ptstop-output") && !oc.getBool("ptstop-output.no-bidi")) {
+    if (!myPTStopCont.getStops().empty() && !oc.getBool("ptstop-output.no-bidi")) {
         before = PROGRESS_BEGIN_TIME_MESSAGE("Align pt stop id signs with corresponding edge id signs");
         myPTStopCont.alignIdSigns();
         PROGRESS_TIME_MESSAGE(before);
@@ -638,8 +636,8 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
         PROGRESS_TIME_MESSAGE(before);
     }
 
-    //find accesses for pt rail stops and add bidi-stops
-    if (oc.exists("ptstop-output") && oc.isSet("ptstop-output")) {
+    // find accesses for pt rail stops and add bidi-stops
+    if (!myPTStopCont.getStops().empty()) {
         // re-adapt stop lanes after adding special lanes and cutting edge shapes at junction
         myPTStopCont.assignLanes(myEdgeCont);
         before = SysUtils::getCurrentMillis();
@@ -653,15 +651,13 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
         int maxCount = oc.getInt("railway.max-accesses");
         myPTStopCont.findAccessEdgesForRailStops(myEdgeCont, maxRadius, maxCount, accessFactor);
         PROGRESS_TIME_MESSAGE(before);
-        if (oc.exists("ptline-output") && oc.isSet("ptline-output")) {
-            if (numBidiStops > 0) {
-                myPTLineCont.fixBidiStops(myEdgeCont);
-            }
-            myPTLineCont.removeInvalidEdges(myEdgeCont);
-            // ensure that all turning lanes have sufficient permissions
-            myPTLineCont.fixPermissions();
+        if (numBidiStops > 0) {
+            myPTLineCont.fixBidiStops(myEdgeCont);
         }
     }
+    myPTLineCont.removeInvalidEdges(myEdgeCont);
+    // ensure that all turning lanes have sufficient permissions
+    myPTLineCont.fixPermissions();
 
     if (oc.exists("ignore-change-restrictions") && !oc.isDefault("ignore-change-restrictions")) {
         SVCPermissions ignoring = parseVehicleClasses(oc.getStringVector("ignore-change-restrictions"));

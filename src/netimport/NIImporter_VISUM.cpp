@@ -177,9 +177,7 @@ NIImporter_VISUM::NIImporter_VISUM(NBNetBuilder& nb,
     addParser("LSASIGNALGRUPPEZULSAPHASE", &NIImporter_VISUM::parse_SignalGroupsToPhases);
     addParser("FAHRSTREIFENABBIEGER", &NIImporter_VISUM::parse_LanesConnections);
 
-    if (OptionsCont::getOptions().isSet("ptstop-output")) {
-        addParser(KEYS.getString(VISUM_STOPPOINT), &NIImporter_VISUM::parse_stopPoints);
-    }
+    addParser(KEYS.getString(VISUM_STOPPOINT), &NIImporter_VISUM::parse_stopPoints);
 }
 
 

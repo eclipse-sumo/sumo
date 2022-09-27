@@ -103,19 +103,18 @@ public:
         myName = name;
     }
 
+    inline const std::vector<std::string>& getWays() const {
+        return myWays;
+    }
+
+    std::vector<long long int>* getWaysNodes(std::string wayId);
+
 private:
     std::string myName;
     std::string myType;
     std::vector<NBPTStop*> myPTStops;
-
-private:
     std::map<std::string, std::vector<long long int> > myWaysNodes;
     std::vector<std::string> myWays;
-public:
-    const std::vector<std::string>& getMyWays() const;
-    std::vector<long long int>* getWaysNodes(std::string wayId);
-private:
-
     std::string myCurrentWay;
     std::string myPTLineId;
     std::string myRef;

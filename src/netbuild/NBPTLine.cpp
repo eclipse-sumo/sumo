@@ -96,6 +96,7 @@ void NBPTLine::write(OutputDevice& device) {
 
 }
 
+
 void NBPTLine::addWayNode(long long int way, long long int node) {
     std::string wayStr = toString(way);
     if (wayStr != myCurrentWay) {
@@ -105,15 +106,15 @@ void NBPTLine::addWayNode(long long int way, long long int node) {
     myWaysNodes[wayStr].push_back(node);
 
 }
-const std::vector<std::string>& NBPTLine::getMyWays() const {
-    return myWays;
-}
+
+
 std::vector<long long int>* NBPTLine::getWaysNodes(std::string wayId) {
     if (myWaysNodes.find(wayId) != myWaysNodes.end()) {
         return &myWaysNodes[wayId];
     }
     return nullptr;
 }
+
 
 void
 NBPTLine::setEdges(const std::vector<NBEdge*>& edges) {
