@@ -1943,7 +1943,7 @@ GNEApplicationWindowHelper::saveSUMOConfig() {
         device.openTag(SUMO_TAG_CONFIGURATION);
         // save network
         device.openTag(SUMO_TAG_NETFILE);
-        device.writeAttr(SUMO_ATTR_VALUE, oc.getString("sumo-net-file"));
+        device.writeAttr(SUMO_ATTR_VALUE, oc.getString("output-file"));
         device.closeTag();
         // check if write additionals
         if (oc.getString("additional-files").size() > 0) {

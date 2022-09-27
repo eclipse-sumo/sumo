@@ -3339,13 +3339,13 @@ GNEApplicationWindow::onCmdSaveNetwork(FXObject*, FXSelector, void*) {
                     return 1;
                 } else {
                     // Save network
-                    myNet->save(oc);
+                    myNet->saveNetwork(oc);
                     // show debug information
                     WRITE_DEBUG("network elements saved after dialog");
                 }
             } else {
                 // Save network
-                myNet->save(oc);
+                myNet->saveNetwork(oc);
                 // show debug information
                 WRITE_DEBUG("network elements saved");
             }
@@ -3405,6 +3405,8 @@ GNEApplicationWindow::onCmdSaveSUMOConfig(FXObject*, FXSelector, void*) {
         }
         // Start saving SUMOConfig
         getApp()->beginWaitCursor();
+        // save all elements
+        onCmdSaveAllElements(nullptr, 0, nullptr);
         // save config
         GNEApplicationWindowHelper::saveSUMOConfig();
         getApp()->endWaitCursor();

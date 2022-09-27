@@ -296,7 +296,7 @@ public:
     /**@brief save the network
      * @param[in] oc The OptionsCont which knows how and where to save
      */
-    void save(OptionsCont& oc);
+    void saveNetwork(OptionsCont& oc);
 
     /**@brief save plain xml representation of the network (and nothing else)
      * @param[in] oc The OptionsCont which knows how and where to save
