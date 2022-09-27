@@ -173,6 +173,8 @@ public:
     }
 
     void save(OutputDevice& dev, const std::string& prefix = "") const {
+        const int precision = dev.getPrecision();
+        const bool checkPrecision = precision <= 2; // 2 is default precision (see SystemFrame)
         const std::string tag = getTagName(myColors);
 
         dev.openTag(tag);
@@ -187,7 +189,12 @@ public:
             dev.openTag(SUMO_TAG_ENTRY);
             dev.writeAttr(SUMO_ATTR_COLOR, *colIt);
             if (!myIsFixed && (*threshIt) != std::numeric_limits<double>::max()) {
-                dev.writeAttr(SUMO_ATTR_THRESHOLD, *threshIt);
+                const double t = *threshIt;
+                if (checkPrecision && t != 0 && fabs(t) < 0.01) {
+                    dev.setPrecision(8);
+                }
+                dev.writeAttr(SUMO_ATTR_THRESHOLD, t);
+                dev.setPrecision(precision);
             }
             if ((*nameIt) != "") {
                 dev.writeAttr(SUMO_ATTR_NAME, *nameIt);
