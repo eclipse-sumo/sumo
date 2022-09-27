@@ -242,7 +242,7 @@ OptionsCont::set(const std::string& name, const std::string& value, const bool a
     }
     try {
         // Substitute environment variables defined by ${NAME} with their value
-        if (!o->set(StringUtils::substituteEnvironment(value, &OptionsIO::getLoadTime()), append)) {
+        if (!o->set(StringUtils::substituteEnvironment(value, &OptionsIO::getLoadTime()), value, append)) {
             return false;
         }
     } catch (ProcessError& e) {
@@ -342,10 +342,14 @@ OptionsCont::relocateFiles(const std::string& configuration) const {
                     WRITE_WARNING(toString(e.what()) + " when trying to decode filename '" + f + "'.");
                 }
             }
+            StringVector rawList = StringTokenizer(option->getValueString(), ",").getVector();
+            for (std::string& f : rawList) {
+                f = FileHelpers::checkForRelativity(f, configuration);
+            }
             const std::string conv = joinToString(fileList, ',');
             if (conv != joinToString(option->getStringVector(), ',')) {
                 const bool hadDefault = option->isDefault();
-                option->set(conv, false);
+                option->set(conv, joinToString(rawList, ','), false);
                 if (hadDefault) {
                     option->resetDefault();
                 }
@@ -660,6 +664,7 @@ OptionsCont::processMetaOptions(bool missingOptions) {
     return false;
 }
 
+
 void
 OptionsCont::printHelp(std::ostream& os) {
     std::vector<std::string>::const_iterator i, j;
@@ -739,6 +744,7 @@ OptionsCont::printHelp(std::ostream& os) {
     os << "Get in contact via <sumo@dlr.de>." << std::endl;
 }
 
+
 void
 OptionsCont::printHelpOnTopic(const std::string& topic, int tooLarge, int maxSize, std::ostream& os) {
     os << topic << " Options:" << std::endl;
@@ -777,6 +783,7 @@ OptionsCont::printHelpOnTopic(const std::string& topic, int tooLarge, int maxSiz
     }
     os << std::endl;
 }
+
 
 void
 OptionsCont::writeConfiguration(std::ostream& os, const bool filled,
@@ -822,7 +829,7 @@ OptionsCont::writeConfiguration(std::ostream& os, const bool filled,
             os << "        <" << name << " value=\"";
             if (o->isSet() && (filled || o->isDefault())) {
                 if (o->isFileName() && relativeTo != "") {
-                    StringVector fileList = StringVector(o->getStringVector());
+                    StringVector fileList = StringTokenizer(o->getValueString(), ",").getVector();
                     for (std::string& f : fileList) {
                         f = FileHelpers::fixRelative(StringUtils::urlEncode(f, " ;%"), relativeTo,
                                                      forceRelative || getBool("save-configuration.relative"));
