@@ -50,17 +50,11 @@ public:
     /// @brief called when mouse leaves in MFXMenuButtonTooltip
     long onLeave(FXObject*, FXSelector, void*);
 
-    /// @brief called when mouse motion in MFXMenuButtonTooltip
-    long onMotion(FXObject*, FXSelector, void*);
-
     /// @brief called when left mouse button is press
-    long onLeftBtnPress(FXObject*, FXSelector, void*);
+    long onLeftBtnPress(FXObject*,FXSelector,void*);
 
     /// @brief called when key is press
-    long onKeyPress(FXObject*, FXSelector, void*);
-
-    /// @brief called when button is press
-    long onCmdPost(FXObject*, FXSelector, void*);
+    long onKeyPress(FXObject*,FXSelector,void*);
 
     /// @}
 
@@ -68,11 +62,11 @@ protected:
     /// @brief FOX needs this
     FOX_CONSTRUCTOR(MFXMenuButtonTooltip)
 
-    /// @brief static tooltip
-    MFXStaticToolTip* myStaticToolTip = nullptr;
-
     /// @brief optional target
     FXObject* myOptionalTarget = nullptr;
+
+    /// @brief static tooltip
+    MFXStaticToolTip* myStaticToolTip = nullptr;
 
 private:
     /// @brief Invalidated copy constructor.

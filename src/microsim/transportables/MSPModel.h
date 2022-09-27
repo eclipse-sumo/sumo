@@ -94,22 +94,13 @@ public:
         return false;
     }
 
-    /** @brief returns the next pedestrian beyond minPos that is laterally between minRight and maxLeft or 0
-     * @param[in] lane the lane to check
-     * @param[in] minPos The minimum offset along the lane after which to check
-     * @param[in] minRight The rightmost border of the vehicle (0 indicates driving on the right border)
-     * @param[in] maxLeft The leftmost border of the vehicle
-     * @param[in] stopTime The time it would take the vehicle to come to a stop
-     * @param[in] bidi Whether the vehicle is driving against the flow
-     * @return The closest person and the distance to it
-     */
-    virtual PersonDist nextBlocking(const MSLane* lane, double minPos, double minRight, double maxLeft, double stopTime = 0, bool bidi = false) {
+    /// @brief returns the next pedestrian beyond minPos that is laterally between minRight and maxLeft or 0
+    virtual PersonDist nextBlocking(const MSLane* lane, double minPos, double minRight, double maxLeft, double stopTime = 0) {
         UNUSED_PARAMETER(lane);
         UNUSED_PARAMETER(minPos);
         UNUSED_PARAMETER(minRight);
         UNUSED_PARAMETER(maxLeft);
         UNUSED_PARAMETER(stopTime);
-        UNUSED_PARAMETER(bidi);
         return PersonDist(nullptr, -1);
     }
 

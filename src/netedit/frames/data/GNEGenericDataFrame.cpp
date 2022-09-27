@@ -243,8 +243,8 @@ GNEGenericDataFrame::IntervalSelector::refreshIntervalSelector() {
         FXTreeItem* dataSetItem = myIntervalsTreelist->insertItem(
                                       nullptr, nullptr,
                                       dataSet->getHierarchyName().c_str(),
-                                      GUIIconSubSys::getIcon(GUIIcon::DATASET),
-                                      GUIIconSubSys::getIcon(GUIIcon::DATASET));
+                                      dataSet->getIcon(),
+                                      dataSet->getIcon());
         // by default item is expanded
         dataSetItem->setExpanded(true);
         // iterate over intevals
@@ -370,8 +370,8 @@ GNEGenericDataFrame::IntervalSelector::addIntervalItem(GNEDataInterval* dataInte
     // insert item in Tree list
     FXTreeItem* item = myIntervalsTreelist->insertItem(nullptr, itemParent,
                        dataInterval->getHierarchyName().c_str(),
-                       GUIIconSubSys::getIcon(GUIIcon::DATAINTERVAL),
-                       GUIIconSubSys::getIcon(GUIIcon::DATAINTERVAL));
+                       dataInterval->getIcon(),
+                       dataInterval->getIcon());
     // insert item in map
     myTreeItemIntervalMap[item] = dataInterval;
     // by default item is expanded

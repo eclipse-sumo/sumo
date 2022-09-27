@@ -1,16 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-09-03 22:29:21 by Eclipse SUMO netconvert Version v1_14_1+0819-bf19e4679c8
+<!-- generated on Tue Nov 19 13:32:30 2019 by Eclipse SUMO netconvert Version v1_3_1+0952-b855ad8
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-This file may also be made available under the following Secondary
-Licenses when the conditions for such availability set forth in the Eclipse
-Public License 2.0 are satisfied: GNU General Public License, version 2
-or later which is available at
-https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
-SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+SPDX-License-Identifier: EPL-2.0
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -40,9 +35,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <busStop id="3357557585" name="Fontanestraße/Flughafenstraße" lane="10996053_2" startPos="4.49" endPos="23.63" friendlyPos="true"/>
-    <busStop id="3357557586" name="Fontanestraße/Flughafenstraße" lane="10996029_0" startPos="20.14" endPos="35.58" friendlyPos="true"/>
+    <busStop id="3357557585" name="Fontanestraße/Flughafenstraße" lane="10996053_2" startPos="24.32" endPos="35.98" friendlyPos="true"/>
+    <busStop id="3357557586" name="Fontanestraße/Flughafenstraße" lane="10996029_0" startPos="37.41" endPos="52.07" friendlyPos="true"/>
     <busStop id="3357557587" name="Fontanestraße/Flughafenstraße" lane="4579853_2" startPos="208.08" endPos="221.26" friendlyPos="true"/>
-    <busStop id="3357557588" name="U Boddinstraße" lane="68189545_2" startPos="79.80" endPos="94.80" friendlyPos="true"/>
-    <busStop id="821551864" name="U Boddinstraße" lane="68189545_2" startPos="72.07" endPos="87.07" friendlyPos="true"/>
+    <busStop id="3357557588" name="U Boddinstraße" lane="68189545_2" startPos="94.04" endPos="101.53" friendlyPos="true"/>
+    <busStop id="821551864" name="U Boddinstraße" lane="68189545_2" startPos="78.81" endPos="93.81" friendlyPos="true"/>
 </additional>

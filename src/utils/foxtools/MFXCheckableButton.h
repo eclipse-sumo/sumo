@@ -60,10 +60,6 @@ public:
 
     /// @brief called when mouse leaves in MFXCheckableButton
     long onLeave(FXObject*, FXSelector, void*);
-
-    /// @brief called when mouse motion in MFXCheckableButton
-    long onMotion(FXObject*, FXSelector, void*);
-
     /// @}
 
 protected:

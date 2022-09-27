@@ -169,7 +169,7 @@ xmlstats1:001/stats.xml
 xmlstats1:1.stats.xml
 xmlstats2:2.stats.xml
 xmlstats3:3.stats.xml
-osmimport:*/osm.net.xml.gz
+osmimport:*/osm.net.xml
 osmstops:*/osm_stops.add.xml
 osmlines:*/osm_ptlines.xml
 ptroutes:*/osm_pt.rou.xml
@@ -203,9 +203,6 @@ gtfs_missing:gtfs_missing.xml
 gtfs_routes:gtfs_pt_vehicles.add.xml
 gtfs_additional:gtfs_pt_stops.add.xml
 aggregatebattery:aggregatebattery.xml
-
-[collate_script]
-osmimport:$SUMO_HOME/tests/unzip.py
 
 [run_dependent_text]
 output:Begin time
@@ -279,7 +276,6 @@ errors::ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element
 errors:Matplotlib is building the font cache; this may take a moment.
 errors:apport/report.py:13: DeprecationWarning: the imp{LINES 2}
 errors:schemaCheck.py
-errors:site-packages/ortools.*DeprecationWarning:
 omnet:<!-- generated on
 shawn:<!-- generated on
 gpsdat:r[0-9]

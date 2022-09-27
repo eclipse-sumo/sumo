@@ -24,8 +24,6 @@
 #include <netbuild/NBLoadedSUMOTLDef.h>
 #include <netbuild/NBNetBuilder.h>
 #include <netbuild/NBOwnTLDef.h>
-#include <netedit/frames/common/GNEDeleteFrame.h>
-#include <netedit/frames/network/GNETLSEditorFrame.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
@@ -56,17 +54,17 @@
 
 GNEJunction::GNEJunction(GNENet* net, NBNode* nbn, bool loaded) :
     GNENetworkElement(net, nbn->getID(), GLO_JUNCTION, SUMO_TAG_JUNCTION,
-    GUIIconSubSys::getIcon(GUIIcon::JUNCTION), {}, {}, {}, {}, {}, {}),
-    myNBNode(nbn),
-    myMaxDrawingSize(1),
-    myAmCreateEdgeSource(false),
-    myLogicStatus(loaded ? FEATURE_LOADED : FEATURE_GUESSED),
-    myAmResponsible(false),
-    myHasValidLogic(loaded),
-    myAmTLSSelected(false),
-    myColorForMissingConnections(false),
-    myTesselation(nbn->getID(), "", RGBColor::MAGENTA, nbn->getShape(), false, true, 0),
-    myExaggeration(1) {
+{}, {}, {}, {}, {}, {}),
+myNBNode(nbn),
+myMaxDrawingSize(1),
+myAmCreateEdgeSource(false),
+myLogicStatus(loaded ? FEATURE_LOADED : FEATURE_GUESSED),
+myAmResponsible(false),
+myHasValidLogic(loaded),
+myAmTLSSelected(false),
+myColorForMissingConnections(false),
+myTesselation(nbn->getID(), "", RGBColor::MAGENTA, nbn->getShape(), false, true, 0),
+myExaggeration(1) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -564,15 +562,6 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
             // draw dotted contours
             drawDottedContours(s, drawShape, drawBubble, junctionExaggeration, bubbleRadius);
         }
-    }
-}
-
-
-void
-GNEJunction::deleteGLObject() {
-    // Check if edge can be deleted
-    if (GNEDeleteFrame::SubordinatedElements(this).checkElements(myNet->getViewNet()->getViewParent()->getDeleteFrame()->getProtectElements())) {
-        myNet->deleteJunction(this, myNet->getViewNet()->getUndoList());
     }
 }
 
@@ -1471,73 +1460,56 @@ GNEJunction::drawJunctionChildren(const GUIVisualizationSettings& s) const {
 
 void
 GNEJunction::drawDottedContours(const GUIVisualizationSettings& s, const bool drawShape, const bool drawBubble, const double junctionExaggeration, const double bubbleRadius) const {
-    // check if inspected dotted contour has to be drawn
+    // check if dotted contour has to be drawn
     if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
         if (drawBubble) {
-            GUIDottedGeometry::drawDottedContourCircle(s, GUIDottedGeometry::DottedContourType::INSPECT, myNBNode->getCenter(), s.neteditSizeSettings.junctionBubbleRadius,
+            GUIDottedGeometry::drawDottedContourCircle(GUIDottedGeometry::DottedContourType::INSPECT, s, myNBNode->getCenter(), s.neteditSizeSettings.junctionBubbleRadius,
                     (junctionExaggeration >= 1) ? junctionExaggeration : 1);
         }
         if (drawShape) {
-            GUIDottedGeometry::drawDottedContourClosedShape(s, GUIDottedGeometry::DottedContourType::INSPECT, myNBNode->getShape(),
+            GUIDottedGeometry::drawDottedContourClosedShape(GUIDottedGeometry::DottedContourType::INSPECT, s, myNBNode->getShape(),
                     (junctionExaggeration >= 1) ? junctionExaggeration : 1);
         }
     }
-    // check if front dotted contour has to be drawn
+    // check if dotted contour has to be drawn
     if ((myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
         if (drawBubble) {
-            GUIDottedGeometry::drawDottedContourCircle(s, GUIDottedGeometry::DottedContourType::FRONT, myNBNode->getCenter(), s.neteditSizeSettings.junctionBubbleRadius,
+            GUIDottedGeometry::drawDottedContourCircle(GUIDottedGeometry::DottedContourType::FRONT, s, myNBNode->getCenter(), s.neteditSizeSettings.junctionBubbleRadius,
                     (junctionExaggeration >= 1) ? junctionExaggeration : 1);
         }
         if (drawShape) {
-            GUIDottedGeometry::drawDottedContourClosedShape(s, GUIDottedGeometry::DottedContourType::FRONT, myNBNode->getShape(),
+            GUIDottedGeometry::drawDottedContourClosedShape(GUIDottedGeometry::DottedContourType::FRONT, s, myNBNode->getShape(),
                     (junctionExaggeration >= 1) ? junctionExaggeration : 1);
         }
-    }
-    // check if TLS dotted contour has to be drawn
-    if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() && (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_TLS) && 
-        myNet->getViewNet()->getViewParent()->getTLSEditorFrame()->getTLSJunction()->isJoiningJunctions() &&
-        myNet->getViewNet()->getViewParent()->getTLSEditorFrame()->getTLSJunction()->isJunctionSelected(this)) {
-        if (drawBubble) {
-            GUIDottedGeometry::drawDottedContourCircle(s, GUIDottedGeometry::DottedContourType::GREEN, myNBNode->getCenter(), s.neteditSizeSettings.junctionBubbleRadius,
-                    (junctionExaggeration >= 1) ? junctionExaggeration : 1);
-        }
-        if (drawShape) {
-            GUIDottedGeometry::drawDottedContourClosedShape(s, GUIDottedGeometry::DottedContourType::GREEN, myNBNode->getShape(),
-                    (junctionExaggeration >= 1) ? junctionExaggeration : 1);
-        }
-    }
-    // check if mouse is over junction
-    if (drawBubble) {
-        mouseWithinGeometry(myNBNode->getPosition(), bubbleRadius);
-    } else {
-        mouseWithinGeometry(myNBNode->getShape());
     }
     // draw dotted contours regarding create edge mode
     if (myAmCreateEdgeSource) {
         if (drawBubble) {
-            GUIDottedGeometry::drawDottedContourCircle(s, GUIDottedGeometry::DottedContourType::GREEN, myNBNode->getCenter(), s.neteditSizeSettings.junctionBubbleRadius,
+            GUIDottedGeometry::drawDottedContourCircle(GUIDottedGeometry::DottedContourType::GREEN, s, myNBNode->getCenter(), s.neteditSizeSettings.junctionBubbleRadius,
                     (junctionExaggeration >= 1) ? junctionExaggeration : 1);
         }
         if (drawShape) {
-            GUIDottedGeometry::drawDottedContourClosedShape(s, GUIDottedGeometry::DottedContourType::GREEN, myNBNode->getShape(),
+            GUIDottedGeometry::drawDottedContourClosedShape(GUIDottedGeometry::DottedContourType::GREEN, s, myNBNode->getShape(),
                     (junctionExaggeration >= 1) ? junctionExaggeration : 1);
         }
     } else if ((gPostDrawing.markedNode == nullptr) && myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() &&
                (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_CREATE_EDGE)) {
+        // calculate distance squared
+        const double bubbleDistance = (bubbleRadius * bubbleRadius);
         // get dotted contour type
         const auto dottedContourType = myNet->getViewNet()->getViewParent()->getCreateEdgeFrame()->getJunctionSource() ? GUIDottedGeometry::DottedContourType::MAGENTA : GUIDottedGeometry::DottedContourType::GREEN;
         // draw bubble
-        if (drawBubble) {
+        if (drawBubble && myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(myNBNode->getPosition()) <= bubbleDistance) {
             // mark this node
             gPostDrawing.markedNode = this;
             // draw dotted contour
-            GUIDottedGeometry::drawDottedContourCircle(s, dottedContourType, myNBNode->getCenter(), s.neteditSizeSettings.junctionBubbleRadius,
+            GUIDottedGeometry::drawDottedContourCircle(dottedContourType, s, myNBNode->getCenter(), s.neteditSizeSettings.junctionBubbleRadius,
                     (junctionExaggeration >= 1) ? junctionExaggeration : 1);
-        } else if (drawShape) {
+        } else if (drawShape && myNBNode->getShape().around(myNet->getViewNet()->getPositionInformation())) {
             // mark this node
             gPostDrawing.markedNode = this;
             // draw dotted contour
-            GUIDottedGeometry::drawDottedContourClosedShape(s, dottedContourType, myNBNode->getShape(),
+            GUIDottedGeometry::drawDottedContourClosedShape(dottedContourType, s, myNBNode->getShape(),
                     (junctionExaggeration >= 1) ? junctionExaggeration : 1);
         }
     }
@@ -1551,44 +1523,22 @@ GNEJunction::drawDottedContours(const GUIVisualizationSettings& s, const bool dr
         // check parent junctions
         if (vehicle->getParentJunctions().front() == this) {
             if (drawBubble) {
-                GUIDottedGeometry::drawDottedContourCircle(s, GUIDottedGeometry::DottedContourType::GREEN, myNBNode->getCenter(), s.neteditSizeSettings.junctionBubbleRadius,
+                GUIDottedGeometry::drawDottedContourCircle(GUIDottedGeometry::DottedContourType::GREEN, s, myNBNode->getCenter(), s.neteditSizeSettings.junctionBubbleRadius,
                         (junctionExaggeration >= 1) ? junctionExaggeration : 1);
             }
             if (drawShape) {
-                GUIDottedGeometry::drawDottedContourClosedShape(s, GUIDottedGeometry::DottedContourType::GREEN, myNBNode->getShape(),
+                GUIDottedGeometry::drawDottedContourClosedShape(GUIDottedGeometry::DottedContourType::GREEN, s, myNBNode->getShape(),
                         (junctionExaggeration >= 1) ? junctionExaggeration : 1);
             }
         } else if (vehicle->getParentJunctions().back() == this) {
             if (drawBubble) {
-                GUIDottedGeometry::drawDottedContourCircle(s, GUIDottedGeometry::DottedContourType::MAGENTA, myNBNode->getCenter(), s.neteditSizeSettings.junctionBubbleRadius,
+                GUIDottedGeometry::drawDottedContourCircle(GUIDottedGeometry::DottedContourType::MAGENTA, s, myNBNode->getCenter(), s.neteditSizeSettings.junctionBubbleRadius,
                         (junctionExaggeration >= 1) ? junctionExaggeration : 1);
             }
             if (drawShape) {
-                GUIDottedGeometry::drawDottedContourClosedShape(s, GUIDottedGeometry::DottedContourType::MAGENTA, myNBNode->getShape(),
+                GUIDottedGeometry::drawDottedContourClosedShape(GUIDottedGeometry::DottedContourType::MAGENTA, s, myNBNode->getShape(),
                         (junctionExaggeration >= 1) ? junctionExaggeration : 1);
             }
-        }
-    }
-    // delete contour
-    if (myNet->getViewNet()->drawDeleteContour(this, this)) {
-        if (drawBubble) {
-            GUIDottedGeometry::drawDottedContourCircle(s, GUIDottedGeometry::DottedContourType::REMOVE, myNBNode->getCenter(), s.neteditSizeSettings.junctionBubbleRadius,
-                    (junctionExaggeration >= 1) ? junctionExaggeration : 1);
-        }
-        if (drawShape) {
-            GUIDottedGeometry::drawDottedContourClosedShape(s, GUIDottedGeometry::DottedContourType::REMOVE, myNBNode->getShape(),
-                    (junctionExaggeration >= 1) ? junctionExaggeration : 1);
-        }
-    }
-    // select contour
-    if (myNet->getViewNet()->drawSelectContour(this, this)) {
-        if (drawBubble) {
-            GUIDottedGeometry::drawDottedContourCircle(s, GUIDottedGeometry::DottedContourType::SELECT, myNBNode->getCenter(), s.neteditSizeSettings.junctionBubbleRadius,
-                    (junctionExaggeration >= 1) ? junctionExaggeration : 1);
-        }
-        if (drawShape) {
-            GUIDottedGeometry::drawDottedContourClosedShape(s, GUIDottedGeometry::DottedContourType::SELECT, myNBNode->getShape(),
-                    (junctionExaggeration >= 1) ? junctionExaggeration : 1);
         }
     }
 }
@@ -1654,21 +1604,6 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value) {
             const std::set<NBTrafficLightDefinition*> copyOfTls = myNBNode->getControllingTLS();
             for (const auto& TLS : copyOfTls) {
                 TLS->setType(SUMOXMLDefinitions::TrafficLightTypes.get(value));
-                // add special parameters values for NEMA
-                if (TLS->getType() == TrafficLightType::NEMA) {
-                    if (!TLS->knowsParameter("barrierPhases")) {
-                        TLS->setParameter("barrierPhases", "4,8");
-                    }
-                    if (!TLS->knowsParameter("barrier2Phases")) {
-                        TLS->setParameter("barrier2Phases", "2,6");
-                    }
-                    if (!TLS->knowsParameter("ring1")) {
-                        TLS->setParameter("ring1", "0,2,0,4");
-                    }
-                    if (!TLS->knowsParameter("ring2")) {
-                        TLS->setParameter("ring2", "0,6,0,8");
-                    }
-                }
             }
             break;
         }

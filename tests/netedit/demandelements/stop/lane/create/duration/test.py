@@ -50,19 +50,19 @@ netedit.leftClick(referencePosition, 400, 185)
 netedit.changeDefaultBoolValue(netedit.attrs.stopLane.create.durationEnable)
 
 # create stop
-netedit.leftClick(referencePosition, 405, 185)
+netedit.leftClick(referencePosition, 400, 185)
 
 # set invalid value
 netedit.changeDefaultValue(netedit.attrs.stopLane.create.duration, "dummyValue")
 
 # try to create stop
-netedit.leftClick(referencePosition, 410, 185)
+netedit.leftClick(referencePosition, 400, 185)
 
 # set invalid value
 netedit.changeDefaultValue(netedit.attrs.stopLane.create.duration, "-20")
 
 # try to create stop
-netedit.leftClick(referencePosition, 415, 185)
+netedit.leftClick(referencePosition, 400, 185)
 
 # set valid value
 netedit.changeDefaultValue(netedit.attrs.stopLane.create.duration, "0")
@@ -74,7 +74,7 @@ netedit.leftClick(referencePosition, 400, 185)
 netedit.changeDefaultValue(netedit.attrs.stopLane.create.duration, "22.33")
 
 # try to create stop
-netedit.leftClick(referencePosition, 405, 185)
+netedit.leftClick(referencePosition, 400, 185)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)

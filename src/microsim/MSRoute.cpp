@@ -228,26 +228,15 @@ MSRoute::insertIDs(std::vector<std::string>& into) {
 
 
 int
-MSRoute::writeEdgeIDs(OutputDevice& os, int firstIndex, int lastIndex, bool withInternal, SUMOVehicleClass svc) const {
+MSRoute::writeEdgeIDs(OutputDevice& os, int firstIndex, int lastIndex) const {
     //std::cout << SIMTIME << " writeEdgeIDs " << getID() << " first=" << firstIndex << " lastIndex=" << lastIndex << " edges=" << toString(myEdges) << "\n";
     if (lastIndex < 0) {
         lastIndex = (int)myEdges.size();
     }
-    int internal = 0;
     for (int i = firstIndex; i < lastIndex; i++) {
         os << myEdges[i]->getID() << ' ';
-        if (withInternal && i + 1 < lastIndex) {
-            const MSEdge* next = myEdges[i + 1];
-            const MSEdge* edge = myEdges[i]->getInternalFollowingEdge(next, svc);
-            // Take into account non-internal lengths until next non-internal edge
-            while (edge != nullptr && edge->isInternal()) {
-                os << edge->getID() << ' ';
-                internal++;
-                edge = edge->getInternalFollowingEdge(next, svc);
-            }
-        }
     }
-    return internal + lastIndex - firstIndex;
+    return lastIndex - firstIndex;
 }
 
 

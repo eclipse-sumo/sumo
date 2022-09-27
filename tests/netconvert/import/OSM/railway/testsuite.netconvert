@@ -31,6 +31,3 @@ single_way
 
 # superfluous rail edges when importing PT
 superfluous_edges
-
-# inconsistent stops and edges when importing PT
-consistent_ptline

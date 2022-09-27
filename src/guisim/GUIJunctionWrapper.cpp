@@ -51,7 +51,7 @@
 // method definitions
 // ===========================================================================
 GUIJunctionWrapper::GUIJunctionWrapper(MSJunction& junction, const std::string& tllID):
-    GUIGlObject(GLO_JUNCTION, junction.getID(), GUIIconSubSys::getIcon(GUIIcon::JUNCTION)),
+    GUIGlObject(GLO_JUNCTION, junction.getID()),
     myJunction(junction),
     myTesselation(junction.getID(), "", RGBColor::MAGENTA, junction.getShape(), false, true, 0),
     myExaggeration(1),

@@ -333,11 +333,6 @@ TrafficLight::removeConstraints(const std::string& tlsID, const std::string& tri
     Dom::set(libsumo::TL_CONSTRAINT_REMOVE, tlsID, &content);
 }
 
-void
-TrafficLight::updateConstraints(const std::string& vehID, std::string tripId) {
-    Dom::setString(libsumo::TL_CONSTRAINT_UPDATE, vehID, tripId);
-}
-
 std::string
 to_string(const std::vector<double>& value) {
     std::ostringstream tmp;

@@ -46,8 +46,8 @@
 // ---------------------------------------------------------------------------
 
 GNEEdgeData::GNEEdgeData(GNEDataInterval* dataIntervalParent, GNEEdge* edgeParent, const Parameterised::Map& parameters) :
-    GNEGenericData(SUMO_TAG_MEANDATA_EDGE, GUIIconSubSys::getIcon(GUIIcon::EDGEDATA), GLO_EDGEDATA, dataIntervalParent, parameters,
-    {}, {edgeParent}, {}, {}, {}, {}) {
+    GNEGenericData(SUMO_TAG_MEANDATA_EDGE, GLO_EDGEDATA, dataIntervalParent, parameters,
+{}, {edgeParent}, {}, {}, {}, {}) {
 }
 
 
@@ -238,33 +238,15 @@ GNEEdgeData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lan
             GLHelper::popMatrix();
             // draw lock icon
             GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), 1);
-            // check if mouse is over element
-            for (const auto &laneEdgeParent : laneEdge->getParentEdge()->getLanes()) {
-                // get lane drawing constants
-                GNELane::LaneDrawingConstants laneDrawingConstants(s, laneEdgeParent);
-                mouseWithinGeometry(laneEdgeParent->getLaneShape(), laneDrawingConstants.halfWidth);
-            }
             // draw filtered attribute
             if (getParentEdges().front()->getLanes().front() == laneEdge) {
                 drawFilteredAttribute(s, laneEdge->getLaneShape(),
                                       myNet->getViewNet()->getViewParent()->getEdgeDataFrame()->getAttributeSelector()->getFilteredAttribute(),
                                       myNet->getViewNet()->getViewParent()->getEdgeDataFrame()->getIntervalSelector()->getDataInterval());
             }
-            // inspect contour
+            // check if shape dotted contour has to be drawn
             if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-                GNEEdge::drawDottedContourEdge(s, GUIDottedGeometry::DottedContourType::INSPECT, laneEdge->getParentEdge(), true, true);
-            }
-            // front contour
-            if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-                GNEEdge::drawDottedContourEdge(s, GUIDottedGeometry::DottedContourType::FRONT, laneEdge->getParentEdge(), true, true);
-            }
-            // delete contour
-            if (myNet->getViewNet()->drawDeleteContour(this, this)) {
-                GNEEdge::drawDottedContourEdge(s, GUIDottedGeometry::DottedContourType::REMOVE, laneEdge->getParentEdge(), true, true);
-            }
-            // select contour
-            if (myNet->getViewNet()->drawSelectContour(this, this)) {
-                GNEEdge::drawDottedContourEdge(s, GUIDottedGeometry::DottedContourType::SELECT, laneEdge->getParentEdge(), true, true);
+                GNEEdge::drawDottedContourEdge(GUIDottedGeometry::DottedContourType::INSPECT, s, laneEdge->getParentEdge(), true, true);
             }
         }
         // Pop name

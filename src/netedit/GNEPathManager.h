@@ -155,13 +155,10 @@ public:
         };
 
         /// @brief constructor
-        PathElement(GUIGlObject* GLObject, const int options);
+        PathElement(const int options);
 
         /// @brief destructor
         virtual ~PathElement();
-
-        /// @brief get GUIGlObject associated with this Path
-        GUIGlObject* getPathGUIGlObject();
 
         /// @brief check if pathElement is a network element
         bool isNetworkElement() const;
@@ -219,9 +216,6 @@ public:
     private:
         /// @brief default constructor
         PathElement();
-
-        /// @brief GLObject associated with this Path
-        GUIGlObject* myGLObject;
 
         /// @brief pathElement option
         const int myOption;
@@ -311,9 +305,6 @@ public:
     /// @brief obtain instance of PathCalculator
     PathCalculator* getPathCalculator();
 
-    /// @brief get path element
-    const PathElement* getPathElement(const GUIGlObject* GLObject) const;
-
     /// @brief obtain instance of PathDraw
     PathDraw* getPathDraw();
 
@@ -389,9 +380,6 @@ protected:
 
     /// @brief map with junction segments
     std::map<const GNEJunction*, std::set<Segment*> > myJunctionSegments;
-
-    /// @brief map with GLObject and their associated path
-    std::map<const GUIGlObject*, const PathElement*> myGLObjects;
 
 private:
     /// @brief Invalidated copy constructor.

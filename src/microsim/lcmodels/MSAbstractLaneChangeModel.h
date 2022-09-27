@@ -34,7 +34,6 @@
 // class declarations
 // ===========================================================================
 class MSLane;
-class SUMOSAXAttributes;
 
 
 // ===========================================================================
@@ -143,16 +142,6 @@ public:
      * @return The model's ID
      */
     virtual LaneChangeModel getModelID() const = 0;
-
-    /** @brief Save the state of the laneChangeModel
-     * @param[in] out The OutputDevice to write the information into
-     */
-    virtual void saveState(OutputDevice& out) const; 
-
-    /** @brief Loads the state of the laneChangeModel from the given attributes
-     * @param[in] attrs XML attributes describing the current state
-     */
-    virtual void loadState(const SUMOSAXAttributes& attrs);
 
     /// @brief whether lanechange-output is active
     static bool haveLCOutput() {

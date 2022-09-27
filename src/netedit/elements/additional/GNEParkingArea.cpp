@@ -25,7 +25,6 @@
 #include <utils/options/OptionsCont.h>
 #include <utils/gui/globjects/GLIncludes.h>
 #include <utils/vehicle/SUMORouteHandler.h>
-#include <utils/gui/div/GUIGlobalPostDrawing.h>
 
 #include "GNEParkingArea.h"
 
@@ -35,8 +34,7 @@
 // ===========================================================================
 
 GNEParkingArea::GNEParkingArea(GNENet* net) :
-    GNEStoppingPlace("", net, GLO_PARKING_AREA, SUMO_TAG_PARKING_AREA, GUIIconSubSys::getIcon(GUIIcon::PARKINGAREA), 
-        nullptr, 0, 0, "", false, Parameterised::Map()),
+    GNEStoppingPlace("", net, GLO_PARKING_AREA, SUMO_TAG_PARKING_AREA, nullptr, 0, 0, "", false, Parameterised::Map()),
     myRoadSideCapacity(0),
     myOnRoad(false),
     myWidth(0),
@@ -50,8 +48,7 @@ GNEParkingArea::GNEParkingArea(GNENet* net) :
 GNEParkingArea::GNEParkingArea(const std::string& id, GNELane* lane, GNENet* net, const double startPos, const double endPos,
                                const std::string& departPos, const std::string& name, bool friendlyPosition, int roadSideCapacity, bool onRoad, double width,
                                const double length, double angle, const Parameterised::Map& parameters) :
-    GNEStoppingPlace(id, net, GLO_PARKING_AREA, SUMO_TAG_PARKING_AREA, GUIIconSubSys::getIcon(GUIIcon::PARKINGAREA), 
-        lane, startPos, endPos, name, friendlyPosition, parameters),
+    GNEStoppingPlace(id, net, GLO_PARKING_AREA, SUMO_TAG_PARKING_AREA, lane, startPos, endPos, name, friendlyPosition, parameters),
     myDepartPos(departPos),
     myRoadSideCapacity(roadSideCapacity),
     myOnRoad(onRoad),
@@ -200,27 +197,13 @@ GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::popName();
             // draw lock icon
             GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), parkingAreaExaggeration);
-            // check if mouse is over element
-            mouseWithinGeometry(myAdditionalGeometry.getShape(), myWidth * 0.5 * MIN2(1.0, parkingAreaExaggeration));
-            mouseWithinGeometry(mySignPos, myCircleWidth);
-            // inspect contour
+            // check if dotted contours has to be drawn
             if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-                GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::INSPECT, myAdditionalGeometry.getShape(), myWidth * 0.5,
+                GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, myAdditionalGeometry.getShape(), myWidth * 0.5,
                         parkingAreaExaggeration, true, true);
             }
-            // front element contour
             if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-                GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::FRONT, myAdditionalGeometry.getShape(), myWidth * 0.5,
-                        parkingAreaExaggeration, true, true);
-            }
-            // delete contour
-            if (myNet->getViewNet()->drawDeleteContour(this, this)) {
-                GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::REMOVE, myAdditionalGeometry.getShape(), myWidth * 0.5,
-                        parkingAreaExaggeration, true, true);
-            }
-            // select contour
-            if (myNet->getViewNet()->drawDeleteContour(this, this)) {
-                GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::SELECT, myAdditionalGeometry.getShape(), myWidth * 0.5,
+                GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::FRONT, s, myAdditionalGeometry.getShape(), myWidth * 0.5,
                         parkingAreaExaggeration, true, true);
             }
             // draw child demand elements

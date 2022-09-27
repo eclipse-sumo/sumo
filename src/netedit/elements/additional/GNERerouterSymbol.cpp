@@ -31,8 +31,8 @@
 // ===========================================================================
 
 GNERerouterSymbol::GNERerouterSymbol(GNEAdditional* rerouterParent, GNEEdge* edge) :
-    GNEAdditional(rerouterParent->getNet(), GLO_REROUTER, GNE_TAG_REROUTER_SYMBOL, GUIIconSubSys::getIcon(GUIIcon::REROUTER), "",
-    {}, {edge}, {}, {rerouterParent}, {}, {}) {
+    GNEAdditional(rerouterParent->getNet(), GLO_REROUTER, GNE_TAG_REROUTER_SYMBOL, "",
+{}, {edge}, {}, {rerouterParent}, {}, {}) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -180,13 +180,13 @@ GNERerouterSymbol::drawGL(const GUIVisualizationSettings& s) const {
         if (myNet->getViewNet()->isAttributeCarrierInspected(getParentAdditionals().front())) {
             // iterate over symbol geometries
             for (const auto& symbolGeometry : mySymbolGeometries) {
-                GUIDottedGeometry::drawDottedSquaredShape(s, GUIDottedGeometry::DottedContourType::INSPECT, symbolGeometry.getShape().front(), 1, 3, 0, 3, symbolGeometry.getShapeRotations().front() + 90, rerouteExaggeration);
+                GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::INSPECT, s, symbolGeometry.getShape().front(), 1, 3, 0, 3, symbolGeometry.getShapeRotations().front() + 90, rerouteExaggeration);
             }
         }
         if ((myNet->getViewNet()->getFrontAttributeCarrier() == getParentAdditionals().front())) {
             // iterate over symbol geometries
             for (const auto& symbolGeometry : mySymbolGeometries) {
-                GUIDottedGeometry::drawDottedSquaredShape(s, GUIDottedGeometry::DottedContourType::FRONT, symbolGeometry.getShape().front(), 1, 3, 0, 3, symbolGeometry.getShapeRotations().front() + 90, rerouteExaggeration);
+                GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::FRONT, s, symbolGeometry.getShape().front(), 1, 3, 0, 3, symbolGeometry.getShapeRotations().front() + 90, rerouteExaggeration);
             }
         }
     }

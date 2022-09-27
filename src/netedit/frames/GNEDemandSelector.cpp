@@ -113,7 +113,7 @@ DemandElementSelector::setDemandElement(GNEDemandElement* demandElement) {
         // check that demandElement tag correspond to a tag of myDemandElementTags
         if (std::find(myDemandElementTags.begin(), myDemandElementTags.end(), demandElement->getTagProperty().getTag()) != myDemandElementTags.end()) {
             // update text of myDemandElementsMatchBox
-            myDemandElementsMatchBox->setItem(demandElement->getID().c_str(), demandElement->getACIcon());
+            myDemandElementsMatchBox->setItem(demandElement->getID().c_str(), demandElement->getIcon());
         }
         myInfoLabel->hide();
     }
@@ -128,7 +128,7 @@ DemandElementSelector::setDemandElements(const std::vector<GNEDemandElement*>& d
     myCurrentDemandElement = nullptr;
     myDemandElementsMatchBox->clearItems();
     for (const auto& demandElement : demandElements) {
-        myDemandElementsMatchBox->appendIconItem(demandElement->getID().c_str(), demandElement->getACIcon());
+        myDemandElementsMatchBox->appendIconItem(demandElement->getID().c_str(), demandElement->getIcon());
     }
     myDemandElementsMatchBox->setCustomText("select sub-item...");
     // set info label
@@ -143,11 +143,11 @@ DemandElementSelector::showDemandElementSelector() {
     refreshDemandElementSelector();
     // if current selected item isn't valid, set DEFAULT_VTYPE_ID or DEFAULT_PEDTYPE_ID
     if (myCurrentDemandElement) {
-        myDemandElementsMatchBox->setItem(myCurrentDemandElement->getID().c_str(), myCurrentDemandElement->getACIcon());
+        myDemandElementsMatchBox->setItem(myCurrentDemandElement->getID().c_str(), myCurrentDemandElement->getIcon());
     } else if (myDemandElementTags.size() == 1) {
         if (myDemandElementTags.at(0) == SUMO_TAG_VTYPE) {
             const auto defaultVType = myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, DEFAULT_VTYPE_ID);
-            myDemandElementsMatchBox->setItem(defaultVType->getID().c_str(), defaultVType->getACIcon());
+            myDemandElementsMatchBox->setItem(defaultVType->getID().c_str(), defaultVType->getIcon());
         }
     }
     onCmdSelectDemandElement(nullptr, 0, nullptr);
@@ -187,13 +187,13 @@ DemandElementSelector::refreshDemandElementSelector() {
             for (const auto& vType : demandElements.at(demandElementTag)) {
                 // avoid insert duplicated default vType
                 if (DEFAULT_VTYPES.count(vType->getID()) == 0) {
-                    myDemandElementsMatchBox->appendIconItem(vType->getID().c_str(), vType->getACIcon());
+                    myDemandElementsMatchBox->appendIconItem(vType->getID().c_str(), vType->getIcon());
                 }
             }
         } else {
             // insert all Ids
             for (const auto& demandElement : demandElements.at(demandElementTag)) {
-                myDemandElementsMatchBox->appendIconItem(demandElement->getID().c_str(), demandElement->getACIcon());
+                myDemandElementsMatchBox->appendIconItem(demandElement->getID().c_str(), demandElement->getIcon());
             }
         }
     }

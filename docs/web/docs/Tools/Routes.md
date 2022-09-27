@@ -221,7 +221,7 @@ python tools/route/route2alts.py <route-file>
 
 # countEdgeUsage.py
 
-Generates a [visualization](../sumo-gui.md#visualizing_edge-related_data) file for investigating traffic patterns in a
+Generates a visualization file for investigating traffic patterns in a
 route file.
 
 ```

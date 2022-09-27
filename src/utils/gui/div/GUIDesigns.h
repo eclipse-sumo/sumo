@@ -65,6 +65,9 @@ class MFXMenuCheckIcon;
 /// @brief text field used in TLSTable
 #define GUIDesignTextFieldTLSTable      (FRAME_THICK | LAYOUT_FILL_X | LAYOUT_MIN_WIDTH | LAYOUT_FIX_HEIGHT | JUSTIFY_CENTER_Y | JUSTIFY_LEFT), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
 
+/// @brief text field used in TLSTable limited only with real values
+#define GUIDesignTextFieldTLSTableReal  (FRAME_THICK | LAYOUT_FILL_X | LAYOUT_MIN_WIDTH | LAYOUT_FIX_HEIGHT | JUSTIFY_CENTER_Y | JUSTIFY_LEFT | TEXTFIELD_REAL), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
+
 /// @brief Num of column of text field
 #define GUIDesignTextFieldNCol          1
 

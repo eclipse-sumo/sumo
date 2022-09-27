@@ -41,8 +41,6 @@ set(netedit_dialogs_SRCS
    GNEUndoListDialog.cpp
    GNEOverwriteElementsDialog.h
    GNEOverwriteElementsDialog.cpp
-   GNEVTypeDistributionsDialog.h
-   GNEVTypeDistributionsDialog.cpp
    )
 
 add_library(netedit_dialogs STATIC ${netedit_dialogs_SRCS})

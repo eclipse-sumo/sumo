@@ -89,7 +89,7 @@ MSCFModel_ACC::~MSCFModel_ACC() {}
 
 
 double
-MSCFModel_ACC::followSpeed(const MSVehicle* const veh, double speed, double gap2pred, double predSpeed, double predMaxDecel, const MSVehicle* const /*pred*/, const CalcReason /*usage*/) const {
+MSCFModel_ACC::followSpeed(const MSVehicle* const veh, double speed, double gap2pred, double predSpeed, double predMaxDecel, const MSVehicle* const /*pred*/) const {
     const double desSpeed = MIN2(veh->getLane()->getSpeedLimit(), veh->getMaxSpeed());
     const double vACC = _v(veh, gap2pred, speed, predSpeed, desSpeed, true);
     const double vSafe = maximumSafeFollowSpeed(gap2pred, speed, predSpeed, predMaxDecel);
@@ -103,7 +103,7 @@ MSCFModel_ACC::followSpeed(const MSVehicle* const veh, double speed, double gap2
 
 
 double
-MSCFModel_ACC::stopSpeed(const MSVehicle* const veh, const double speed, double gap, double decel, const CalcReason /*usage*/) const {
+MSCFModel_ACC::stopSpeed(const MSVehicle* const veh, const double speed, double gap, double decel) const {
     // NOTE: This allows return of smaller values than minNextSpeed().
     // Only relevant for the ballistic update: We give the argument headway=TS, to assure that
     // the stopping position is approached with a uniform deceleration also for tau!=TS.
@@ -127,7 +127,7 @@ MSCFModel_ACC::insertionFollowSpeed(const MSVehicle* const v, double speed, doub
 //        std::cout << "MSCFModel_ACC::insertionFollowSpeed(), speed="<<speed<< std::endl;
 //#endif
     // iterate to find a stationary value for
-    //    speed = followSpeed(v, speed, gap2pred, predSpeed, predMaxDecel, nullptr, CalcReason::FUTURE)
+    //    speed = followSpeed(v, speed, gap2pred, predSpeed, predMaxDecel, nullptr)
     const int max_iter = 50;
     int n_iter = 0;
     const double tol = 0.1;
@@ -136,7 +136,7 @@ MSCFModel_ACC::insertionFollowSpeed(const MSVehicle* const v, double speed, doub
     double res = speed;
     while (n_iter < max_iter) {
         // proposed acceleration
-        const double a = SPEED2ACCEL(followSpeed(v, res, gap2pred, predSpeed, predMaxDecel, nullptr, CalcReason::FUTURE) - res);
+        const double a = SPEED2ACCEL(followSpeed(v, res, gap2pred, predSpeed, predMaxDecel, nullptr) - res);
         res = res + damping * a;
 //#ifdef DEBUG_ACC
 //        std::cout << "   n_iter=" << n_iter << ", a=" << a << ", res=" << res << std::endl;

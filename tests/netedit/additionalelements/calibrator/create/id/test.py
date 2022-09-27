@@ -50,13 +50,13 @@ netedit.leftClick(referencePosition, 240, 250)
 netedit.changeDefaultValue(netedit.attrs.calibrator.create.id, "ca_0")
 
 # create calibrator
-netedit.leftClick(referencePosition, 250, 250)
+netedit.leftClick(referencePosition, 240, 250)
 
 # set invalid value
 netedit.changeDefaultValue(netedit.attrs.calibrator.create.id, "customID")
 
 # create calibrator
-netedit.leftClick(referencePosition, 260, 250)
+netedit.leftClick(referencePosition, 240, 250)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)

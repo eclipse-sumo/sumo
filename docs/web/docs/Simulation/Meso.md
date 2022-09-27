@@ -48,7 +48,6 @@ Only a few vType parameters affect the mesoscopic simulation. They are listed be
 - speedFactor, speedDev (see [Further Congestion Effects](#further_congestion_effects))
 - [impatience](#impatience)
 - accel,decel (only for computing junction passing time when the [microscopic junction model](#junction_model) is active)
-- tau
 
 ## Longitudinal Model
 
@@ -73,19 +72,17 @@ differently for each of the four distinct possible cases. The behavior
 for each case is configured using the options
 
 - **meso-tauff**: minimum headway when traveling from free segment to
-  free segment (default *1.13*)
+  free segment
 - **meso-taufj**: minimum headway when traveling from free segment to
-  jammed segment (default *1.13*)
+  jammed segment
 - **meso-taujf**: minimum headway when traveling from jammed segment
-  to free segment (default *1.73*)
+  to free segment
 - **meso-taujj**: headway for 'spaces' to travel backwards through the
   jam. When a segment is completely occupied the actual headway is
-  VEHICLE_NUMBER \* taujj. (default *1.4*)
+  VEHICLE_NUMBER \* taujj.
 
 The headways are scaled according to the inverse of the lane number
 (with three lanes, the headways are divided by 3).
-
-Each of these values is multiplied with the 'tau' configure in the vehicle type (`vType`) of the considered vehicle (default 'tau' is *1*).
 
 !!! note
     The values tauff, taufj and taujf denote net-time gaps (vehicle front bumper to leader back-bumper). The actual gross time gap is computed from this by taking into account the vehicle length.

@@ -80,7 +80,7 @@ public:
      * @param[in] demandElementParents vector of demand element parents
      * @param[in] genericDataParents vector of generic data parents
      */
-    GNEDemandElement(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, FXIcon *icon, const int pathOptions,
+    GNEDemandElement(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, const int pathOptions,
                      const std::vector<GNEJunction*>& junctionParents,
                      const std::vector<GNEEdge*>& edgeParents,
                      const std::vector<GNELane*>& laneParents,
@@ -101,7 +101,7 @@ public:
      * @param[in] demandElementParents vector of demand element parents
      * @param[in] genericDataParents vector of generic data parents
      */
-    GNEDemandElement(GNEDemandElement* demandElementParent, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, FXIcon *icon, const int pathOptions,
+    GNEDemandElement(GNEDemandElement* demandElementParent, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, const int pathOptions,
                      const std::vector<GNEJunction*>& junctionParents,
                      const std::vector<GNEEdge*>& edgeParents,
                      const std::vector<GNELane*>& laneParents,
@@ -228,18 +228,6 @@ public:
      * @see GUIGlObject::drawGL
      */
     virtual void drawGL(const GUIVisualizationSettings& s) const = 0;
-
-    /// @brief check if element is locked
-    bool isGLObjectLocked();
-
-    /// @brief mark element as front element
-    void markAsFrontElement();
-
-    /// @brief delete element
-    void deleteGLObject();
-
-    /// @brief select element
-    void selectGLObject();
 
     /// @brief update GLObject (geometry, ID, etc.)
     void updateGLObject();

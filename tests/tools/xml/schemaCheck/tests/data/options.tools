@@ -1,1 +1,0 @@
-$SUMO_HOME/tests input_od.xml tools/build/schemaCheck.py

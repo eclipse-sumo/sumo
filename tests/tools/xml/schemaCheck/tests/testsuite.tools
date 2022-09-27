@@ -24,6 +24,3 @@ jtrrouter
 
 # Testing simulation outputs
 sim_outputs
-
-# Testing data files (i.e. tazRelations)
-data

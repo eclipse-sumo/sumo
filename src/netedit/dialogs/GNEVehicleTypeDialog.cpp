@@ -109,9 +109,6 @@ GNEVehicleTypeDialog::VTypeAtributes::VClassRow::setVariable() {
             if (!myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->isAttributeEnabled(SUMO_ATTR_MAXSPEED)) {
                 myVTypeAtributesParent->myMaxSpeed->updateValue(toString(defaultVTypeParameters.maxSpeed));
             }
-            if (!myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->isAttributeEnabled(SUMO_ATTR_DESIRED_MAXSPEED)) {
-                myVTypeAtributesParent->myDesiredMaxSpeed->updateValue(toString(defaultVTypeParameters.desiredMaxSpeed));
-            }
             if (!myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->isAttributeEnabled(SUMO_ATTR_SPEEDFACTOR)) {
                 myVTypeAtributesParent->mySpeedFactor->updateValue(toString(defaultVTypeParameters.speedFactor.getParameter()[0]));
             }
@@ -846,26 +843,26 @@ GNEVehicleTypeDialog::VTypeAtributes::buildAttributesA(FXVerticalFrame* column) 
     // 06 create FXTextField and Label for MaxSpeed
     myMaxSpeed = new VTypeAttributeRow(this, column, SUMO_ATTR_MAXSPEED, VTypeAttributeRow::RowAttrType::ROWTYPE_STRING);
 
-    // 07 create VTypeAttributeRow and Label for desired max speed
-    myDesiredMaxSpeed = new VTypeAttributeRow(this, column, SUMO_ATTR_DESIRED_MAXSPEED, VTypeAttributeRow::RowAttrType::ROWTYPE_STRING);
-
-    // 08 create FXTextField and Label for SpeedFactor
+    // 07 create FXTextField and Label for SpeedFactor
     mySpeedFactor = new VTypeAttributeRow(this, column, SUMO_ATTR_SPEEDFACTOR, VTypeAttributeRow::RowAttrType::ROWTYPE_STRING);
 
-    // 09 create FXTextField and Label for EmissionClass
+    // 08 create FXTextField and Label for EmissionClass
     myEmissionClass = new VTypeAttributeRow(this, column, SUMO_ATTR_EMISSIONCLASS, VTypeAttributeRow::RowAttrType::ROWTYPE_COMBOBOX, PollutantsInterface::getAllClassesStr());
 
-    // 10 create FXTextField and Label for Width
+    // 09 create FXTextField and Label for Width
     myWidth = new VTypeAttributeRow(this, column, SUMO_ATTR_WIDTH, VTypeAttributeRow::RowAttrType::ROWTYPE_STRING);
 
-    // 11 create FXTextField and Label for Height
+    // 10 create FXTextField and Label for Height
     myHeight = new VTypeAttributeRow(this, column, SUMO_ATTR_HEIGHT, VTypeAttributeRow::RowAttrType::ROWTYPE_STRING);
 
-    // 12 create FXTextField and Label for Filename
+    // 11 create FXTextField and Label for Filename
     myFilename = new VTypeAttributeRow(this, column, SUMO_ATTR_IMGFILE, VTypeAttributeRow::RowAttrType::ROWTYPE_FILENAME);
 
-    // 13 create FXTextField and Label for Filename
+    // 12 create FXTextField and Label for Filename
     myOSGFile = new VTypeAttributeRow(this, column, SUMO_ATTR_OSGFILE, VTypeAttributeRow::RowAttrType::ROWTYPE_FILENAME);
+
+    // 13 create VTypeAttributeRow and Label for Probability
+    myProbability = new VTypeAttributeRow(this, column, SUMO_ATTR_PROB, VTypeAttributeRow::RowAttrType::ROWTYPE_STRING);
 
     // 14 create VTypeAttributeRow and Label for LaneChangeModel
     myLaneChangeModel = new VTypeAttributeRow(this, column, SUMO_ATTR_LANE_CHANGE_MODEL, VTypeAttributeRow::RowAttrType::ROWTYPE_COMBOBOX, SUMOXMLDefinitions::LaneChangeModels.getStrings());
@@ -877,43 +874,40 @@ GNEVehicleTypeDialog::VTypeAtributes::buildAttributesB(FXVerticalFrame* column) 
     // 01 Create VShapeRow
     myVShapeRow = new VShapeRow(this, column);
 
-    // 02 create VTypeAttributeRow and Label for Probability
-    myProbability = new VTypeAttributeRow(this, column, SUMO_ATTR_PROB, VTypeAttributeRow::RowAttrType::ROWTYPE_STRING);
-
-    // 03 create VTypeAttributeRow and Label for PersonCapacity
+    // 02 create VTypeAttributeRow and Label for PersonCapacity
     myPersonCapacity = new VTypeAttributeRow(this, column, SUMO_ATTR_PERSON_CAPACITY, VTypeAttributeRow::RowAttrType::ROWTYPE_STRING);
 
-    // 04 create VTypeAttributeRow and Label for ContainerCapacity
+    // 03 create VTypeAttributeRow and Label for ContainerCapacity
     myContainerCapacity = new VTypeAttributeRow(this, column, SUMO_ATTR_CONTAINER_CAPACITY, VTypeAttributeRow::RowAttrType::ROWTYPE_STRING);
 
-    // 05 create VTypeAttributeRow and Label for BoardingDuration
+    // 04 create VTypeAttributeRow and Label for BoardingDuration
     myBoardingDuration = new VTypeAttributeRow(this, column, SUMO_ATTR_BOARDING_DURATION, VTypeAttributeRow::RowAttrType::ROWTYPE_STRING);
 
-    // 06 create VTypeAttributeRow and Label for LoadingDuration
+    // 05 create VTypeAttributeRow and Label for LoadingDuration
     myLoadingDuration = new VTypeAttributeRow(this, column, SUMO_ATTR_LOADING_DURATION, VTypeAttributeRow::RowAttrType::ROWTYPE_STRING);
 
-    // 07 create ComboBox and Label for LatAlignment
+    // 06 create ComboBox and Label for LatAlignment
     myLatAlignment = new VTypeAttributeRow(this, column, SUMO_ATTR_LATALIGNMENT, VTypeAttributeRow::RowAttrType::ROWTYPE_COMBOBOX, SUMOVTypeParameter::getLatAlignmentStrings());
 
-    // 08 create VTypeAttributeRow and Label for MinGapLat
+    // 07 create VTypeAttributeRow and Label for MinGapLat
     myMinGapLat = new VTypeAttributeRow(this, column, SUMO_ATTR_MINGAP_LAT, VTypeAttributeRow::RowAttrType::ROWTYPE_STRING);
 
-    // 09 create VTypeAttributeRow and Label for MaxSpeedLat
+    // 08 create VTypeAttributeRow and Label for MaxSpeedLat
     myMaxSpeedLat = new VTypeAttributeRow(this, column, SUMO_ATTR_MAXSPEED_LAT, VTypeAttributeRow::RowAttrType::ROWTYPE_STRING);
 
-    // 10 create VTypeAttributeRow and Label for ActionStepLength
+    // 09 create VTypeAttributeRow and Label for ActionStepLength
     myActionStepLength = new VTypeAttributeRow(this, column, SUMO_ATTR_ACTIONSTEPLENGTH, VTypeAttributeRow::RowAttrType::ROWTYPE_STRING);
 
-    // 11 create FXTextField and Label for Carriage length
+    // 10 create FXTextField and Label for Carriage length
     myCarriageLength = new VTypeAttributeRow(this, column, SUMO_ATTR_CARRIAGE_LENGTH, VTypeAttributeRow::RowAttrType::ROWTYPE_STRING);
 
-    // 12 create FXTextField and Label for Locomotive length
+    // 11 create FXTextField and Label for Locomotive length
     myLocomotiveLength = new VTypeAttributeRow(this, column, SUMO_ATTR_LOCOMOTIVE_LENGTH, VTypeAttributeRow::RowAttrType::ROWTYPE_STRING);
 
-    // 13 create FXTextField and Label for carriage GAP
+    // 12 create FXTextField and Label for carriage GAP
     myCarriageGap = new VTypeAttributeRow(this, column, SUMO_ATTR_CARRIAGE_GAP, VTypeAttributeRow::RowAttrType::ROWTYPE_STRING);
 
-    // 14 create FXTextField and Label for parameters
+    // 13 create FXTextField and Label for parameters
     myParameters = new VTypeAttributeRow(this, column, GNE_ATTR_PARAMETERS, VTypeAttributeRow::RowAttrType::ROWTYPE_PARAMETERS);
 }
 
@@ -1037,7 +1031,6 @@ GNEVehicleTypeDialog::VTypeAtributes::updateValues() {
     myLength->updateValue(toString(defaultVTypeParameters.length));
     myMinGap->updateValue(toString(defaultVTypeParameters.minGap));
     myMaxSpeed->updateValue(toString(defaultVTypeParameters.maxSpeed));
-    myDesiredMaxSpeed->updateValue(toString(defaultVTypeParameters.desiredMaxSpeed));
     mySpeedFactor->updateValue(toString(defaultVTypeParameters.speedFactor.getParameter()[0]));
     myEmissionClass->updateValue(toString(defaultVTypeParameters.emissionClass));
     myWidth->updateValue(toString(defaultVTypeParameters.width));
@@ -1119,7 +1112,6 @@ GNEVehicleTypeDialog::VTypeAtributes::onCmdSetAttribute(FXObject*, FXSelector, v
     myLength->setVariable(toString(defaultVTypeParameters.length));
     myMinGap->setVariable(toString(defaultVTypeParameters.minGap));
     myMaxSpeed->setVariable(toString(defaultVTypeParameters.maxSpeed));
-    myDesiredMaxSpeed->setVariable(toString(defaultVTypeParameters.desiredMaxSpeed));
     mySpeedFactor->setVariable(toString(defaultVTypeParameters.speedFactor.getParameter()[0]));
     myEmissionClass->setVariable(toString(defaultVTypeParameters.emissionClass));
     myWidth->setVariable(toString(defaultVTypeParameters.width));

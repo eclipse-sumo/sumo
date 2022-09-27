@@ -635,7 +635,7 @@ GNEAttributeCarrier::getTagStr() const {
 
 
 FXIcon*
-GNEAttributeCarrier::getACIcon() const {
+GNEAttributeCarrier::getIcon() const {
     // define on first access
     if (myTagProperties.size() == 0) {
         fillAttributeCarriers();
@@ -3462,11 +3462,6 @@ GNEAttributeCarrier::fillDemandElements() {
                                               "The vehicles expected multiplicator for lane speed limits (or a distribution specifier)");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_DESIRED_MAXSPEED,
-                                              GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE,
-                                              "The vehicles desired maximum velocity (interacts with speedFactor). Applicable when no speed Limit applies (bicycles, some motorways) [m/s]");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
         attrProperty = GNEAttributeProperties(SUMO_ATTR_EMISSIONCLASS,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::DISCRETE | GNEAttributeProperties::EXTENDED,
                                               "An abstract emission class");
@@ -5529,10 +5524,9 @@ GNEAttributeCarrier::fillCommonStopAttributes(SumoXMLTag currentTag, const bool 
     myTagProperties[currentTag].addAttribute(attrProperty);
 
     attrProperty = GNEAttributeProperties(SUMO_ATTR_PARKING,
-                                          GNEAttributeProperties::STRING | GNEAttributeProperties::DISCRETE | GNEAttributeProperties::DEFAULTVALUE,
+                                          GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE,
                                           "Whether the vehicle stops on the road or beside",
                                           "false");
-    attrProperty.setDiscreteValues({"true", "false", "opportunistic"});
     myTagProperties[currentTag].addAttribute(attrProperty);
 
     attrProperty = GNEAttributeProperties(SUMO_ATTR_ACTTYPE,

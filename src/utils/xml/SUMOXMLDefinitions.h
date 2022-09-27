@@ -644,8 +644,6 @@ enum SumoXMLAttr {
     SUMO_ATTR_LOADING_DURATION,
     SUMO_ATTR_SCALE,
     SUMO_ATTR_INSERTIONCHECKS,
-    SUMO_ATTR_TIME_TO_TELEPORT,
-    SUMO_ATTR_TIME_TO_TELEPORT_BIDI,
     /// @brief Class specific timing values for vehicle manoeuvering through angle ranges
     SUMO_ATTR_MANEUVER_ANGLE_TIMES,
     /// @}
@@ -1028,8 +1026,6 @@ enum SumoXMLAttr {
     SUMO_ATTR_DIR,
     /// @brief The state of a link
     SUMO_ATTR_STATE,
-    /// @brief The state of the lanechange model
-    SUMO_ATTR_LCSTATE,
     /// @brief foe visibility distance of a link
     SUMO_ATTR_VISIBILITY_DISTANCE,
     /// @brief A layer number
@@ -1403,8 +1399,6 @@ enum SumoXMLAttr {
     GNE_ATTR_VTYPE_DISTRIBUTION,
     /// @brief poisson definition (used in flow)
     GNE_ATTR_POISSON,
-    /// @brief stop index
-    GNE_ATTR_STOPINDEX,
 
     // @}
 
@@ -1510,16 +1504,6 @@ enum class LaneSpreadFunction {
     CENTER = 2
 };
 
-/**
- * @enum ParkingType
- * @brief Numbers representing special SUMO-XML-attribute values
- * Information on whether a car is parking on the road or to the side of it
- */
-enum class ParkingType {
-    ONROAD = 0,
-    OFFROAD = 1,
-    OPPORTUNISTIC = 2
-};
 
 /// @brief algorithms for computing right of way
 enum class RightOfWay {
@@ -1807,9 +1791,6 @@ public:
     /// @brief lane spread functions
     static StringBijection<LaneSpreadFunction> LaneSpreadFunctions;
 
-    /// @brief parking types
-    static StringBijection<ParkingType> ParkingTypes;
-
     /// @brief righ of way algorithms
     static StringBijection<RightOfWay> RightOfWayValues;
 
@@ -1910,9 +1891,6 @@ private:
 
     /// @brief lane spread function values
     static StringBijection<LaneSpreadFunction>::Entry laneSpreadFunctionValues[];
-
-    /// @brief lane spread function values
-    static StringBijection<ParkingType>::Entry parkingTypeValues[];
 
     /// @brief lane spread function values
     static StringBijection<RightOfWay>::Entry rightOfWayValuesInitializer[];

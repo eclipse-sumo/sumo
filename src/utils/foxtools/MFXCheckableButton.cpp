@@ -27,7 +27,6 @@ FXDEFMAP(MFXCheckableButton) MFXCheckableButtonMap[] = {
     FXMAPFUNC(SEL_UPDATE,   0,  MFXCheckableButton::onUpdate),
     FXMAPFUNC(SEL_ENTER,    0,  MFXCheckableButton::onEnter),
     FXMAPFUNC(SEL_LEAVE,    0,  MFXCheckableButton::onLeave),
-    FXMAPFUNC(SEL_MOTION,   0,  MFXCheckableButton::onMotion),
 };
 
 
@@ -84,24 +83,16 @@ MFXCheckableButton::onUpdate(FXObject* sender, FXSelector sel, void* ptr) {
 long
 MFXCheckableButton::onEnter(FXObject* sender, FXSelector sel, void* ptr) {
     // show tip show
-    myStaticToolTip->showStaticToolTip(getTipText());
+    myStaticToolTip->onTipShow(sender, sel, ptr);
     return FXButton::onEnter(sender, sel, ptr);
 }
 
 
 long
 MFXCheckableButton::onLeave(FXObject* sender, FXSelector sel, void* ptr) {
-    // hide static toolTip
-    myStaticToolTip->hideStaticToolTip();
+    // hide tip show
+    myStaticToolTip->onTipHide(sender, sel, this);
     return FXButton::onLeave(sender, sel, ptr);
-}
-
-
-long
-MFXCheckableButton::onMotion(FXObject* sender, FXSelector sel, void* ptr) {
-    // update static toolTip
-    myStaticToolTip->onUpdate(sender, sel, ptr);
-    return FXButton::onMotion(sender, sel, ptr);
 }
 
 

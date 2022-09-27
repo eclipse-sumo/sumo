@@ -131,8 +131,9 @@ NILoader::load(OptionsCont& oc) {
         WRITE_MESSAGE("   " + toString(myNetBuilder.getTypeCont().size()) + " types loaded.");
     }
     WRITE_MESSAGE("   " + toString(myNetBuilder.getEdgeCont().size()) + " edges loaded.");
-    if (myNetBuilder.getEdgeCont().getNumEdgeSplits() > 0) {
-        WRITE_MESSAGE("The split of edges was performed " + toString(myNetBuilder.getEdgeCont().getNumEdgeSplits()) + " times.");
+    if (myNetBuilder.getEdgeCont().getNoEdgeSplits() > 0) {
+        WRITE_MESSAGE(
+            "The split of edges was performed " + toString(myNetBuilder.getEdgeCont().getNoEdgeSplits()) + " times.");
     }
 
     //TODO: uncomment the following lines + adapt tests! [Gregor March '17]

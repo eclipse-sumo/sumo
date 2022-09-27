@@ -44,13 +44,13 @@ netedit.leftClick(referencePosition, 250, 250)
 netedit.changeDefaultValue(netedit.attrs.containerStop.create.containerCapacity, "7.5")
 
 # try to create containerStop
-netedit.leftClick(referencePosition, 260, 250)
+netedit.leftClick(referencePosition, 250, 250)
 
 # set invalid container number
 netedit.changeDefaultValue(netedit.attrs.containerStop.create.containerCapacity, "3")
 
 # create containerStop in mode "reference left"
-netedit.leftClick(referencePosition, 270, 250)
+netedit.leftClick(referencePosition, 250, 250)
 
 # Check undo redo
 netedit.undo(referencePosition, 1)

@@ -31,7 +31,6 @@
 #include <netedit/frames/common/GNEMoveFrame.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/div/GUIDesigns.h>
-#include <utils/gui/div/GUIGlobalPostDrawing.h>
 
 #include "GNEPoly.h"
 
@@ -42,8 +41,9 @@
 
 GNEPoly::GNEPoly(GNENet* net) :
     TesselatedPolygon("", "", RGBColor::BLACK, {}, false, false, 0, 0, 0, "", false, "", Parameterised::Map()),
-    GNEAdditional("", net, GLO_POLYGON, SUMO_TAG_POLY, GUIIconSubSys::getIcon(GUIIcon::POLY), "", {}, {}, {}, {}, {}, {}),
-    mySimplifiedShape(false) {
+                  GNEAdditional("", net, GLO_POLYGON, SUMO_TAG_POLY, "",
+                                {}, {}, {}, {}, {}, {}),
+mySimplifiedShape(false) {
     // reset default values
     resetDefaultValues();
 }
@@ -53,8 +53,9 @@ GNEPoly::GNEPoly(GNENet* net, const std::string& id, const std::string& type, co
                  const RGBColor& color, double layer, double angle, const std::string& imgFile, bool relativePath, const std::string& name,
                  const Parameterised::Map& parameters) :
     TesselatedPolygon(id, type, color, shape, geo, fill, lineWidth, layer, angle, imgFile, relativePath, name, parameters),
-    GNEAdditional(id, net, GLO_POLYGON, SUMO_TAG_POLY, GUIIconSubSys::getIcon(GUIIcon::POLY), "", {}, {}, {}, {}, {}, {}),
-    mySimplifiedShape(false) {
+    GNEAdditional(id, net, GLO_POLYGON, SUMO_TAG_POLY, "",
+{}, {}, {}, {}, {}, {}),
+mySimplifiedShape(false) {
     // check if imgFile is valid
     if (!imgFile.empty() && GUITexturesHelper::getTextureID(imgFile) == -1) {
         setShapeImgFile("");
@@ -311,50 +312,24 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
                 }
             }
         }
-        // check if mouse is over element
-        if (getFill() || myPolygonGeometry.getShape().isClosed()) {
-            mouseWithinGeometry(myPolygonGeometry.getShape());
-        } else {
-            mouseWithinGeometry(myPolygonGeometry.getShape(), s.neteditSizeSettings.polylineWidth);
-        }
-        // inspect contour
+        // check if dotted contour has to be drawn
         if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
             // draw depending if is closed
             if (getFill() || myPolygonGeometry.getShape().isClosed()) {
-                GUIDottedGeometry::drawDottedContourClosedShape(s, GUIDottedGeometry::DottedContourType::INSPECT, myPolygonGeometry.getShape(), 1);
+                GUIDottedGeometry::drawDottedContourClosedShape(GUIDottedGeometry::DottedContourType::INSPECT, s, myPolygonGeometry.getShape(), 1);
             } else {
-                GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::INSPECT, myPolygonGeometry.getShape(), s.neteditSizeSettings.polylineWidth,
-                        polyExaggeration, true, true);
+                GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, myPolygonGeometry.getShape(), s.neteditSizeSettings.polylineWidth,
+                        polyExaggeration, 1, 1);
             }
         }
-        // dotted contour
-        if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
+        // check if front dotted contour has to be drawn
+        if ((myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
             // draw depending if is closed
             if (getFill() || myPolygonGeometry.getShape().isClosed()) {
-                GUIDottedGeometry::drawDottedContourClosedShape(s, GUIDottedGeometry::DottedContourType::FRONT, myPolygonGeometry.getShape(), 1);
+                GUIDottedGeometry::drawDottedContourClosedShape(GUIDottedGeometry::DottedContourType::FRONT, s, myPolygonGeometry.getShape(), 1);
             } else {
-                GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::FRONT, myPolygonGeometry.getShape(), s.neteditSizeSettings.polylineWidth,
-                        polyExaggeration, true, true);
-            }
-        }
-        // delete contour
-        if (myNet->getViewNet()->drawDeleteContour(this, this)) {
-            // draw depending if is closed
-            if (getFill() || myPolygonGeometry.getShape().isClosed()) {
-                GUIDottedGeometry::drawDottedContourClosedShape(s, GUIDottedGeometry::DottedContourType::REMOVE, myPolygonGeometry.getShape(), 1);
-            } else {
-                GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::REMOVE, myPolygonGeometry.getShape(), s.neteditSizeSettings.polylineWidth,
-                        polyExaggeration, true, true);
-            }
-        }
-        // select contour
-        if (myNet->getViewNet()->drawSelectContour(this, this)) {
-            // draw depending if is closed
-            if (getFill() || myPolygonGeometry.getShape().isClosed()) {
-                GUIDottedGeometry::drawDottedContourClosedShape(s, GUIDottedGeometry::DottedContourType::SELECT, myPolygonGeometry.getShape(), 1);
-            } else {
-                GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::SELECT, myPolygonGeometry.getShape(), s.neteditSizeSettings.polylineWidth,
-                        polyExaggeration, true, true);
+                GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::FRONT, s, myPolygonGeometry.getShape(), s.neteditSizeSettings.polylineWidth,
+                        polyExaggeration, 1, 1);
             }
         }
         // draw lock icon

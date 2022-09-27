@@ -1,5 +1,13 @@
-# intersection connected to normal and bidi edges; Bike makes emergency braking while a veh is inserted to the neighboring edge
-bikeUnneededEmergencyBraking
+# intersection connected with bidi-edges only for bike and pedestrian,  bike has a depart delay while a pedestrian departs at the same time
+bikeDepartDelayOnBidi
+
+# intersection connected with bidi-edges and paths for bike and pedestrian, 1 shuttle (customized vehicle) and 2 bike,
+# Check if the bikes coming from the left side and the shuttle from the upper side dangle until being teleported when they meet each other at the intersection (breakpoint: 1025).
+hangAtIntersectionWithBidi
+
+# intersection connected with bidi-edges and walking path, 1 shuttle (customized vehicle). 1 bike and 1 pedestrian
+# Check if the bike coming from the opposite side and the shuttle dangle until being teleported when they meet each other at the intersection (breakpoint: 508).
+dangleAtIntersectionWithBidi
 
 # two consecutive pairs of bidi-edges (between normal edges), 1 vehicle and 2 bikes
 # Check if a vehicle wiggles when bikes are passing by.
@@ -26,12 +34,6 @@ bikePreferOvertakeRight
 # a single pair of bidi-edges and 2 vehicles
 1edge
 
-# a single pair of bidi-edges and 2 vehicles
-1edge_teleport_bidi
-
-# a single pair of bidi-edges and 2 vehicles
-1edge_teleport_bidi_custom
-
 # a single pair of bidi-edges (between normal edges) and 2 vehicles
 1edge_between
 
@@ -44,23 +46,3 @@ bikePreferOvertakeRight
 
 # a single pair of bidi-edges and 2 vehicles in the same direction
 1edge_insertion
-
-# When a bike approaches a ped, the ped runs to the direction to bike, and his trajectories are weird.
-pedRunToBike
-
-# bike does not overtake the ped in front of him, although there is space; instead of overtaking it makes emergency braking.
-bikeNotOvertake
-
-# intersection connected with bidi-edges and paths for bike and pedestrian, 2 bikes have collision after passing the intersection
-collision_btw_bikes
-
-# intersection connected with bidi-edges only for bike and pedestrian,  bike has a depart delay while a pedestrian departs at the same time
-# bikeDepartDelayOnBidi (automatically commented due to no test directory being found)
-
-# intersection connected with bidi-edges and paths for bike and pedestrian, 1 shuttle (customized vehicle) and 2 bike,
-# Check if the bikes coming from the left side and the shuttle from the upper side dangle until being teleported when they meet each other at the intersection (breakpoint: 1025).
-hangAtIntersectionWithBidi
-
-# intersection connected with bidi-edges and walking path, 1 shuttle (customized vehicle). 1 bike and 1 pedestrian
-# Check if the bike coming from the opposite side and the shuttle dangle until being teleported when they meet each other at the intersection (breakpoint: 508).
-dangleAtIntersectionWithBidi

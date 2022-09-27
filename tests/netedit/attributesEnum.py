@@ -349,12 +349,10 @@ class crossing:
         edges = 1
         priority = 2
         width = 3
-        button = 12
 
     class createTLS:
         edges = 1
         width = 2
-        button = 10
 
     class inspect:
         edges = 1
@@ -392,167 +390,10 @@ class crossing:
 # TLS
 
 
-class TLS:    
-    class common:
-        TLID = 1
-        TLType = 2
-    
-    class single:
-        class attributes:
-            offset = 12
-            parameters = 14
-
-        class staticPhase:
-            dur = 17 + (0 * 4) + 0
-            state = 17 + (1 * 4) + 1
-            nxt = 17 + (2 * 4) + 2
-            name = 17 + (3 * 4) + 3
-            addButton = 17 + (4 * 4) + 1
-            deleteButton = 17 + (5 * 4) + 2
-            moveUp = 17 + (6 * 4) + 3
-            moveDown = 17 + (7 * 4) + 3
-            cleanStates = 17 + (8 * 4) + 1
-            groupSignal = 17 + (8 * 4) + 2
-            addStates = 17 + (8 * 4) + 3
-            ungroupSignal = 17 + (8 * 4) + 4
-
-        class actuatedPhase:
-            dur = 18 + (0 * 4) + 0
-            minD = 18 + (1 * 4) + 1
-            maxD = 18 + (2 * 4) + 2
-            state = 18 + (3 * 4) + 3
-            earlyEnd = 18 + (4 * 4) + 0
-            latestEnd = 18 + (5 * 4) + 1
-            nxt = 18 + (6 * 4) + 2
-            name = 18 + (7 * 4) + 3
-            addButton = 18 + (8 * 4) + 1
-            deleteButton = 18 + (9 * 4) + 2
-            moveUp = 18 + (10 * 4) + 3
-            moveDown = 18 + (11 * 4) + 4
-            cleanStates = 18 + (12 * 4) + 1
-            groupSignal = 18 + (12 * 4) + 2
-            addStates = 18 + (12 * 4) + 3
-            ungroupSignal = 18 + (12 * 4) + 4
-
-        class delayBasedPhase:
-            dur = 18 + (0 * 4) + 0
-            minD = 18 + (1 * 4) + 1
-            maxD = 18 + (2 * 4) + 2
-            state = 18 + (3 * 4) + 3
-            nxt = 18 + (4 * 4) + 0
-            name = 18 + (5 * 4) + 1
-            addButton = 18 + (6 * 4) + 2
-            deleteButton = 18 + (7 * 4) + 3
-            moveUp = 18 + (8 * 4) + 0
-            moveDown = 18 + (9 * 4) + 1
-            cleanStates = 18 + (10 * 4) + 1
-            groupSignal = 18 + (10 * 4) + 2
-            addStates = 18 + (10 * 4) + 3
-            ungroupSignal = 18 + (10 * 4) + 4
-
-        class NEMAPhase:
-            dur = 18 + (0 * 4) + 0
-            minD = 18 + (1 * 4) + 1
-            maxD = 18 + (2 * 4) + 2
-            state = 18 + (3 * 4) + 3
-            vehext = 18 + (4 * 4) + 0
-            yellow = 18 + (5 * 4) + 1
-            red = 18 + (6 * 4) + 2
-            nxt = 18 + (7 * 4) + 3
-            name = 18 + (8 * 4) + 0
-            addButton = 18 + (9 * 4) + 1
-            deleteButton = 18 + (10 * 4) + 2
-            moveUp = 18 + (11 * 4) + 3
-            moveDown = 18 + (12 * 4) + 0
-            cleanStates = 18 + (13 * 4) + 1
-            groupSignal = 18 + (13 * 4) + 2
-            addStates = 18 + (13 * 4) + 3
-            ungroupSignal = 18 + (13 * 4) + 4
-
-    class join:
-        class attributes:
-            offset = 13
-            parameters = 15
-
-        class staticPhase:
-            dur = 18 + (0 * 24) + 0
-            state = 18 + (1 * 24) + 1
-            nxt = 18 + (2 * 24) + 2
-            name = 18 + (3 * 24) + 3
-            addButton = 18 + (4 * 24) + 4
-            deleteButton = 18 + (5 * 24) + 5
-            moveUp = 18 + (6 * 24) + 6
-            moveDown = 18 + (7 * 24) + 7
-            cleanStates = 18 + (8 * 24) + 1
-            groupSignal = 18 + (8 * 24) + 2
-            addStates = 18 + (8 * 24) + 3
-            ungroupSignal = 18 + (8 * 24) + 4
-
-        class actuatedPhase:
-            dur = 19 + (0 * 24) + 0
-            minD = 19 + (1 * 24) + 1
-            maxD = 19 + (2 * 24) + 2
-            state = 19 + (3 * 24) + 3
-            earlyEnd = 19 + (4 * 24) + 4
-            latestEnd = 19 + (5 * 24) + 5
-            nxt = 19 + (6 * 24) + 6
-            name = 19 + (7 * 24) + 7
-            addButton = 19 + (8 * 24) + 8
-            deleteButton = 19 + (9 * 24) + 9
-            moveUp = 19 + (10 * 24) + 10
-            moveDown = 19 + (11 * 24) + 11
-            cleanStates = 19 + (12 * 24) + 1
-            groupSignal = 19 + (12 * 24) + 2
-            addStates = 19 + (12 * 24) + 3
-            ungroupSignal = 19 + (12 * 24) + 4
-
-        class delayBasedPhase:
-            dur = 19 + (0 * 24) + 0
-            minD = 19 + (1 * 24) + 1
-            maxD = 19 + (2 * 24) + 2
-            state = 19 + (3 * 24) + 3
-            nxt = 19 + (4 * 24) + 4
-            name = 19 + (5 * 24) + 5
-            addButton = 19 + (6 * 24) + 6
-            deleteButton = 19 + (7 * 24) + 7
-            moveUp = 19 + (8 * 24) + 8
-            moveDown = 19 + (9 * 24) + 9
-            cleanStates = 19 + (10 * 24) + 1
-            groupSignal = 19 + (10 * 24) + 2
-            addStates = 19 + (10 * 24) + 3
-            ungroupSignal = 19 + (10 * 24) + 4
-
-        class NEMAPhase:
-            dur = 19 + (0 * 6) + 0
-            minD = 19 + (1 * 6) + 1
-            maxD = 19 + (2 * 6) + 2
-            state = 19 + (3 * 6) + 3
-            vehext = 19 + (4 * 6) + 4
-            yellow = 19 + (5 * 6) + 5
-            red = 19 + (6 * 6) + 0
-            nxt = 19 + (7 * 6) + 1
-            name = 19 + (8 * 6) + 2
-            addButton = 19 + (9 * 6) + 3
-            deleteButton = 19 + (10 * 6) + 4
-            moveUp = 19 + (11 * 6) + 5
-            moveDown = 19 + (12 * 6) + 0
-            cleanStates = 19 + (13 * 6) + 1
-            groupSignal = 19 + (13 * 6) + 2
-            addStates = 19 + (13 * 6) + 3
-            ungroupSignal = 19 + (13 * 6) + 4
-    
-    create = 3
-    createOverlapped = 4
-    copySingle = 9
-    copyJoined = 10
-    joinTLS = 5
-    disjoinTLS = 6
-    deleteSingle = 10
-    resetPhaseSingle = 11
-    resetAllSingle = 12
-    deleteJoined = 11
-    resetPhaseJoined = 12
-    resetAllJoined = 13
+class TLS:
+    class create:
+        TLS = 10
+        noTLS = 11
 
 
 # --------------------------------
@@ -1349,7 +1190,7 @@ class type:
         create = 2
         delete = 3
         copy = 3
-        dialog = 25
+        dialog = 24
 
     class edit:
         id = 8
@@ -1360,11 +1201,10 @@ class type:
         length = 14
         minGap = 15
         maxSpeed = 16
-        desiredMaxSpeed = 17
-        accel = 18
-        decel = 19
-        sigma = 20
-        tau = 21
+        accel = 17
+        decel = 18
+        sigma = 19
+        tau = 20
 
     class editDefault:
         vTypeDist = 7
@@ -1374,11 +1214,10 @@ class type:
         length = 12
         minGap = 13
         maxSpeed = 14
-        desiredMaxSpeed = 15
-        accel = 16
-        decel = 17
-        sigma = 18
-        tau = 19
+        accel = 15
+        decel = 16
+        sigma = 17
+        tau = 18
 
     class editDialog:
         vClass = 1
@@ -1388,31 +1227,30 @@ class type:
         length = 6
         minGap = 7
         maxSpeed = 8
-        desiredMaxSpeed = 9
-        speedFactor = 10
-        emissionClass = 11
-        width = 13
-        height = 14
-        imgFileButton = 15
-        imgFile = 16
-        osgFileButton = 17
-        osgFile = 18
+        speedFactor = 9
+        emissionClass = 10
+        width = 12
+        height = 13
+        imgFileButton = 14
+        imgFile = 15
+        osgFileButton = 16
+        osgFile = 17
+        probability = 18
         laneChangeModel = 19
         guiShape = 21
-        probability = 23
-        personCapacity = 24
-        containerCapacity = 25
-        boardingDuration = 26
-        loadingDuration = 27
-        latAlignment = 28
-        minGapLat = 30
-        maxSpeedLat = 31
-        actionStepLength = 32
-        carriageLength = 33
-        locomotiveLength = 34
-        carriageGap = 35
-        parametersButton = 36
-        parameters = 37
+        personCapacity = 23
+        containerCapacity = 24
+        boardingDuration = 25
+        loadingDuration = 26
+        latAlignment = 27
+        minGapLat = 29
+        maxSpeedLat = 30
+        actionStepLength = 31
+        carriageLength = 32
+        locomotiveLength = 33
+        carriageGap = 34
+        parametersButton = 35
+        parameters = 36
 
 # route
 
@@ -2041,10 +1879,10 @@ class stop:
         expected = 14
         permitted = 14
         parking = 15
-        actType = 17
-        tripID = 18
-        line = 19
-        onDemad = 20
+        actType = 16
+        tripID = 17
+        line = 18
+        onDemad = 19
 
     class inspect:
         durationEnable = 1
@@ -2057,10 +1895,10 @@ class stop:
         expected = 7
         permitted = 7
         parking = 8
-        actType = 10
-        tripID = 11
-        line = 12
-        onDemad = 13
+        actType = 9
+        tripID = 10
+        line = 11
+        onDemad = 12
 
     class inspectSelection:
         durationEnable = 1
@@ -2144,10 +1982,10 @@ class stopLane:
         expected = 16
         permitted = 16
         parking = 17
-        actType = 19
-        tripID = 20
-        line = 21
-        onDemad = 22
+        actType = 18
+        tripID = 19
+        line = 20
+        onDemad = 21
 
     class inspect:
         lane = 1
@@ -2165,10 +2003,10 @@ class stopLane:
         expected = 12
         permitted = 12
         parking = 13
-        actType = 15
-        tripID = 16
-        line = 17
-        onDemad = 18
+        actType = 14
+        tripID = 15
+        line = 16
+        onDemad = 17
 
     class inspectSelection:
         friendlyPos = 1
@@ -2203,10 +2041,10 @@ class waypoint:
         expected = 14
         permitted = 14
         parking = 15
-        actType = 17
-        tripID = 18
-        line = 19
-        speed = 20
+        actType = 16
+        tripID = 17
+        line = 18
+        speed = 19
 
     class inspect:
         durationEnable = 1
@@ -2219,10 +2057,10 @@ class waypoint:
         expected = 7
         permitted = 7
         parking = 8
-        actType = 10
-        tripID = 11
-        line = 12
-        speed = 13
+        actType = 9
+        tripID = 10
+        line = 11
+        speed = 12
 
     class inspectSelection:
         durationEnable = 1
@@ -2306,10 +2144,10 @@ class waypointLane:
         expected = 16
         permitted = 16
         parking = 17
-        actType = 19
-        tripID = 20
-        line = 21
-        speed = 22
+        actType = 18
+        tripID = 19
+        line = 20
+        speed = 21
 
     class inspect:
         lane = 1
@@ -2327,10 +2165,10 @@ class waypointLane:
         expected = 12
         permitted = 12
         parking = 13
-        actType = 15
-        tripID = 16
-        line = 17
-        speed = 18
+        actType = 14
+        tripID = 15
+        line = 16
+        speed = 17
 
     class inspectSelection:
         friendlyPos = 1

@@ -1079,8 +1079,7 @@ MSRouteHandler::addRideOrTransport(const SUMOSAXAttributes& attrs, const SumoXML
                         from, nullptr, -1, myVehicleParameter->depart, myVehicleParameter->departPos, "start", true));
             }
         }
-        // given attribute may override given stopping place due access requirements
-        if (to == nullptr || attrs.hasAttribute(SUMO_ATTR_TO)) {
+        if (to == nullptr) {
             const std::string toID = attrs.get<std::string>(SUMO_ATTR_TO, aid.c_str(), ok);
             to = MSEdge::dictionary(toID);
             if (to == nullptr) {

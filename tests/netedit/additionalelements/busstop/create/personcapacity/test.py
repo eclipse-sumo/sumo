@@ -44,13 +44,13 @@ netedit.leftClick(referencePosition, 250, 250)
 netedit.changeDefaultValue(netedit.attrs.busStop.create.personCapacity, "7.5")
 
 # try to create busStop
-netedit.leftClick(referencePosition, 260, 250)
+netedit.leftClick(referencePosition, 250, 250)
 
 # set invalid person number
 netedit.changeDefaultValue(netedit.attrs.busStop.create.personCapacity, "3")
 
 # create busStop in mode "reference left"
-netedit.leftClick(referencePosition, 270, 250)
+netedit.leftClick(referencePosition, 250, 250)
 
 # Check undo redo
 netedit.undo(referencePosition, 1)

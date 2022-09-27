@@ -151,12 +151,8 @@ public:
      */
     void drawGL(const GUIVisualizationSettings& s) const;
 
-    /// @brief delete element
-    void deleteGLObject();
-
     /// @brief update GLObject (geometry, ID, etc.)
     void updateGLObject();
-
     /// @}
 
     /// @brief returns the internal NBEdge
@@ -310,7 +306,7 @@ public:
     void drawEdgeGeometryPoints(const GUIVisualizationSettings& s, const GNELane* lane) const;
 
     /// @brief draw dotted contour for the given dottedGeometries
-    static void drawDottedContourEdge(const GUIVisualizationSettings& s, const GUIDottedGeometry::DottedContourType type, const GNEEdge* edge,
+    static void drawDottedContourEdge(const GUIDottedGeometry::DottedContourType type, const GUIVisualizationSettings& s, const GNEEdge* edge,
                                       const bool drawFrontExtreme, const bool drawBackExtreme);
 
     /// @brief check if edge makes a convex angle [0 - 180) degrees

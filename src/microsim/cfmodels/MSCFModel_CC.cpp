@@ -208,7 +208,7 @@ MSCFModel_CC::finalizeSpeed(MSVehicle* const veh, double vPos) const {
 
 
 double
-MSCFModel_CC::followSpeed(const MSVehicle* const veh, double speed, double gap2pred, double predSpeed, double predMaxDecel, const MSVehicle* const pred, const CalcReason usage) const {
+MSCFModel_CC::followSpeed(const MSVehicle* const veh, double speed, double gap2pred, double predSpeed, double predMaxDecel, const MSVehicle* const pred) const {
 
     UNUSED_PARAMETER(pred);
     CC_VehicleVariables* vars = (CC_VehicleVariables*)veh->getCarFollowVariables();
@@ -216,7 +216,7 @@ MSCFModel_CC::followSpeed(const MSVehicle* const veh, double speed, double gap2p
     if (vars->activeController != Plexe::DRIVER) {
         return _v(veh, gap2pred, speed, predSpeed);
     } else {
-        return myHumanDriver->followSpeed(veh, speed, gap2pred, predSpeed, predMaxDecel, pred, usage);
+        return myHumanDriver->followSpeed(veh, speed, gap2pred, predSpeed, predMaxDecel);
     }
 }
 
@@ -231,7 +231,7 @@ MSCFModel_CC::insertionFollowSpeed(const MSVehicle* const veh, double speed, dou
 }
 
 double
-MSCFModel_CC::stopSpeed(const MSVehicle* const veh, double speed, double gap2pred, double decel, const CalcReason usage) const {
+MSCFModel_CC::stopSpeed(const MSVehicle* const veh, double speed, double gap2pred, double decel) const {
 
     CC_VehicleVariables* vars = (CC_VehicleVariables*)veh->getCarFollowVariables();
     if (vars->activeController != Plexe::DRIVER) {
@@ -242,11 +242,11 @@ MSCFModel_CC::stopSpeed(const MSVehicle* const veh, double speed, double gap2pre
         }
         return _v(veh, gap2pred, speed, speed + relSpeed);
     } else {
-        return myHumanDriver->stopSpeed(veh, speed, gap2pred, decel, usage);
+        return myHumanDriver->stopSpeed(veh, speed, gap2pred, decel);
     }
 }
 
-double MSCFModel_CC::freeSpeed(const MSVehicle* const veh, double speed, double seen, double maxSpeed, const bool onInsertion, const CalcReason usage) const {
+double MSCFModel_CC::freeSpeed(const MSVehicle* const veh, double speed, double seen, double maxSpeed, const bool onInsertion) const {
     CC_VehicleVariables* vars = (CC_VehicleVariables*)veh->getCarFollowVariables();
     if (vars->activeController != Plexe::DRIVER) {
         double gap2pred, relSpeed;
@@ -256,7 +256,7 @@ double MSCFModel_CC::freeSpeed(const MSVehicle* const veh, double speed, double 
         }
         return _v(veh, gap2pred, speed, speed + relSpeed);
     } else {
-        return MSCFModel::freeSpeed(veh, speed, seen, maxSpeed, onInsertion, usage);
+        return MSCFModel::freeSpeed(veh, speed, seen, maxSpeed, onInsertion);
     }
 }
 

@@ -295,7 +295,6 @@ TraCIServerAPI_TrafficLight::processSet(TraCIServer& server, tcpip::Storage& inp
             && variable != libsumo::TL_RED_YELLOW_GREEN_STATE && variable != libsumo::TL_COMPLETE_PROGRAM_RYG
             && variable != libsumo::VAR_NAME
             && variable != libsumo::TL_CONSTRAINT_REMOVE
-            && variable != libsumo::TL_CONSTRAINT_UPDATE
             && variable != libsumo::VAR_PARAMETER) {
         return server.writeErrorStatusCmd(libsumo::CMD_SET_TL_VARIABLE, "Change TLS State: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
     }
@@ -435,14 +434,6 @@ TraCIServerAPI_TrafficLight::processSet(TraCIServer& server, tcpip::Storage& inp
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_TL_VARIABLE, "The foe tripId must be given as a string.", outputStorage);
                 }
                 libsumo::TrafficLight::removeConstraints(id, tripId, foeSignal, foeId);
-            }
-            break;
-            case libsumo::TL_CONSTRAINT_UPDATE: {
-                std::string tripId;
-                if (!server.readTypeCheckingString(inputStorage, tripId)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_TL_VARIABLE, "The tripId index must be given as a string.", outputStorage);
-                }
-                libsumo::TrafficLight::updateConstraints(id, tripId);
             }
             break;
             case libsumo::VAR_PARAMETER: {

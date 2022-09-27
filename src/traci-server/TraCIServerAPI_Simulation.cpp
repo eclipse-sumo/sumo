@@ -606,18 +606,6 @@ TraCIServerAPI_Simulation::commandDistanceRequest(TraCIServer& server, tcpip::St
         }
         roadPos1 = libsumo::Helper::convertCartesianToRoadMap(pos1, SVC_IGNORING);
         break;
-        case libsumo::POSITION_LON_LAT:
-        case libsumo::POSITION_LON_LAT_ALT: {
-            double p1x = inputStorage.readDouble();
-            double p1y = inputStorage.readDouble();
-            pos1.set(p1x, p1y);
-            GeoConvHelper::getFinal().x2cartesian_const(pos1);
-        }
-        if (posType == libsumo::POSITION_LON_LAT_ALT) {
-            inputStorage.readDouble();// altitude value is ignored
-        }
-        roadPos1 = libsumo::Helper::convertCartesianToRoadMap(pos1, SVC_IGNORING);
-        break;
         default:
             server.writeStatusCmd(commandId, libsumo::RTYPE_ERR, "Unknown position format used for distance request");
             return false;
@@ -645,18 +633,6 @@ TraCIServerAPI_Simulation::commandDistanceRequest(TraCIServer& server, tcpip::St
         }
         if (posType == libsumo::POSITION_3D) {
             inputStorage.readDouble();// z value is ignored
-        }
-        roadPos2 = libsumo::Helper::convertCartesianToRoadMap(pos2, SVC_IGNORING);
-        break;
-        case libsumo::POSITION_LON_LAT:
-        case libsumo::POSITION_LON_LAT_ALT: {
-            double p2x = inputStorage.readDouble();
-            double p2y = inputStorage.readDouble();
-            pos2.set(p2x, p2y);
-            GeoConvHelper::getFinal().x2cartesian_const(pos2);
-        }
-        if (posType == libsumo::POSITION_LON_LAT_ALT) {
-            inputStorage.readDouble();// altitude value is ignored
         }
         roadPos2 = libsumo::Helper::convertCartesianToRoadMap(pos2, SVC_IGNORING);
         break;

@@ -358,17 +358,6 @@ FringeType SUMOSAXAttributes::fromString(const std::string& value) const {
 }
 
 
-const ParkingType invalid_return<ParkingType>::value = ParkingType::ONROAD;
-template<>
-ParkingType SUMOSAXAttributes::fromString(const std::string& value) const {
-    if (value == toString(ParkingType::OPPORTUNISTIC)) {
-        return ParkingType::OPPORTUNISTIC;
-    } else {
-        return StringUtils::toBool(value) ? ParkingType::OFFROAD : ParkingType::ONROAD;
-    }
-}
-
-
 const std::vector<std::string> invalid_return<std::vector<std::string> >::value = std::vector<std::string>();
 template<>
 std::vector<std::string> SUMOSAXAttributes::fromString(const std::string& value) const {

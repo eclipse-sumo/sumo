@@ -99,12 +99,6 @@ GNECreateEdgeFrame::EdgeTypeSelector::EdgeTypeSelector(GNECreateEdgeFrame* creat
         this, MID_GNE_CREATEEDGEFRAME_CREATEFROMTEMPLATE, GUIDesignButton);
     // by default, create custom edge
     myUseDefaultEdgeType->setCheck(TRUE);
-    // check if enable disable pedestrians
-    for (const auto &junction : createEdgeFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getJunctions()) {
-        if (junction.second->getNBNode()->getCrossings().size() > 0) {
-            enableCheckBoxDisablePedestrians();
-        }
-    }
 }
 
 
@@ -721,13 +715,6 @@ GNECreateEdgeFrame::processClick(const Position& clickedPosition, const GNEViewN
                             newOppositeEdge->copyTemplate(myViewNet->getViewParent()->getInspectorFrame()->getTemplateEditor()->getEdgeTemplate(), myViewNet->getUndoList());
                         } else if (myEdgeTypeSelector->useDefaultEdgeType()) {
                             newOppositeEdge->copyEdgeType(myEdgeTypeSelector->getDefaultEdgeType(), myViewNet->getUndoList());
-                            // check pedestrians and sidewalks
-                            if (myEdgeTypeSelector->isNoPedestriansEnabled()) {
-                                disablePedestrians(newOppositeEdge);
-                            }
-                            if (myEdgeTypeSelector->isAddSidewalkEnabled()) {
-                                addSidewalk(newOppositeEdge);
-                            }
                         } else {
                             newOppositeEdge->copyEdgeType(myEdgeTypeSelector->getEdgeTypeSelected(), myViewNet->getUndoList());
                         }

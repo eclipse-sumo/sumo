@@ -433,13 +433,3 @@ class TrafficLightDomain(Domain):
         remove constraints with the given values. Any combination of inputs may
         be set to "" to act as a wildcard filter """
         self._setCmd(tc.TL_CONSTRAINT_REMOVE, tlsID, "tsss", 3, tripId, foeSignal, foeId)
-
-    def updateConstraints(self, vehID, tripId=""):
-        """getConstraints(string, string)
-        Removes all constraints that can no longer be met because the route of
-        vehID does not pass traffic light of the constraint with the given tripId.
-        This includes constraints on tripId as well as constraints where tripId
-        is the foeId.
-        If tripId is "", the current tripId of vehID is used.
-        """
-        self._setCmd(tc.TL_CONSTRAINT_UPDATE, vehID, "s", tripId)

@@ -544,7 +544,7 @@ Helper::buildStopParameters(const std::string& edgeOrStoppingPlaceID,
         newStop.parametersSet |= STOP_UNTIL_SET;
     }
     if ((flags & 1) != 0) {
-        newStop.parking = ParkingType::OFFROAD;
+        newStop.parking = true;
         newStop.parametersSet |= STOP_PARKING_SET;
     }
     if ((flags & 2) != 0) {
@@ -900,6 +900,10 @@ Helper::applySubscriptionFilters(const Subscription& s, std::set<std::string>& o
     if (disregardOppositeDirection && (s.activeFilters & SUBS_FILTER_NO_RTREE) == 0) {
         WRITE_WARNINGF("Ignoring veh '%' no-opposite subscription filter for geographic range object collection. Consider using the 'lanes' filter.", v->getID())
     }
+    if ((s.activeFilters & SUBS_FILTER_FIELD_OF_VISION) != 0 && (s.activeFilters & SUBS_FILTER_NO_RTREE) != 0) {
+        WRITE_WARNINGF("Ignoring veh '%' field of vision subscription filter due to incompatibility with other filter(s).", v->getID())
+    }
+
     // TODO: Treat case, where ego vehicle is currently on opposite lane
 
     std::set<const SUMOTrafficObject*> vehs;
@@ -1018,6 +1022,30 @@ Helper::applySubscriptionFilters(const Subscription& s, std::set<std::string>& o
         } else {
             // No maneuver or lateral distance filters requested, but only lanes filter (directly, or indirectly by specifying downstream or upstream distance)
             applySubscriptionFilterLanes(s, vehs, filterLanes, downstreamDist, upstreamDist, disregardOppositeDirection);
+
+            // filter vehicles in vehs by class and/or type if requested
+            if (s.activeFilters & SUBS_FILTER_VCLASS) {
+                // Only return vehicles of the given vClass in context subscription result
+                auto i = vehs.begin();
+                while (i != vehs.end()) {
+                    if (((*i)->getVehicleType().getVehicleClass() & s.filterVClasses) == 0) {
+                        i = vehs.erase(i);
+                    } else {
+                        ++i;
+                    }
+                }
+            }
+            if (s.activeFilters & SUBS_FILTER_VTYPE) {
+                // Only return vehicles of the given vType in context subscription result
+                auto i = vehs.begin();
+                while (i != vehs.end()) {
+                    if (s.filterVTypes.find((*i)->getVehicleType().getID()) == s.filterVTypes.end()) {
+                        i = vehs.erase(i);
+                    } else {
+                        ++i;
+                    }
+                }
+            }
         }
         // Write vehs IDs in objIDs
         for (const SUMOTrafficObject* veh : vehs) {
@@ -1025,35 +1053,35 @@ Helper::applySubscriptionFilters(const Subscription& s, std::set<std::string>& o
                 objIDs.insert(objIDs.end(), veh->getID());
             }
         }
-    }
-
-    if (s.activeFilters & SUBS_FILTER_VCLASS) {
-        // Only return vehicles of the given vClass in context subscription result
-        auto i = objIDs.begin();
-        while (i != objIDs.end()) {
-            MSBaseVehicle* veh = getVehicle(*i);
-            if ((veh->getVehicleType().getVehicleClass() & s.filterVClasses) == 0) {
-                i = objIDs.erase(i);
-            } else {
-                ++i;
+    } else { // apply rTree-based filters
+        if (s.activeFilters & SUBS_FILTER_VCLASS) {
+            // Only return vehicles of the given vClass in context subscription result
+            auto i = objIDs.begin();
+            while (i != objIDs.end()) {
+                MSBaseVehicle* veh = getVehicle(*i);
+                if ((veh->getVehicleType().getVehicleClass() & s.filterVClasses) == 0) {
+                    i = objIDs.erase(i);
+                } else {
+                    ++i;
+                }
             }
         }
-    }
-    if (s.activeFilters & SUBS_FILTER_VTYPE) {
-        // Only return vehicles of the given vType in context subscription result
-        auto i = objIDs.begin();
-        while (i != objIDs.end()) {
-            MSBaseVehicle* veh = getVehicle(*i);
-            if (s.filterVTypes.find(veh->getVehicleType().getID()) == s.filterVTypes.end()) {
-                i = objIDs.erase(i);
-            } else {
-                ++i;
+        if (s.activeFilters & SUBS_FILTER_VTYPE) {
+            // Only return vehicles of the given vType in context subscription result
+            auto i = objIDs.begin();
+            while (i != objIDs.end()) {
+                MSBaseVehicle* veh = getVehicle(*i);
+                if (s.filterVTypes.find(veh->getVehicleType().getID()) == s.filterVTypes.end()) {
+                    i = objIDs.erase(i);
+                } else {
+                    ++i;
+                }
             }
         }
-    }
-    if (s.activeFilters & SUBS_FILTER_FIELD_OF_VISION) {
-        // Only return vehicles within field of vision in context subscription result
-        applySubscriptionFilterFieldOfVision(s, objIDs);
+        if (s.activeFilters & SUBS_FILTER_FIELD_OF_VISION) {
+            // Only return vehicles within field of vision in context subscription result
+            applySubscriptionFilterFieldOfVision(s, objIDs);
+        }
     }
 }
 

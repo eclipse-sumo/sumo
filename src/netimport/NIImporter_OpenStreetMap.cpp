@@ -402,7 +402,6 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
         distanceStart = 0;
         distanceEnd = 0;
     }
-    std::vector<NBPTStop*> ptStops;
     for (long long i : passed) {
         NIOSMNode* n = myOSMNodes.find(i)->second;
         if (n->ptStopPosition) {
@@ -414,8 +413,10 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
                 if (!NBNetBuilder::transformCoordinate(ptPos)) {
                     WRITE_ERROR("Unable to project coordinates for node '" + toString(n->id) + "'.");
                 }
-                ptStops.push_back(new NBPTStop(toString(n->id), ptPos, id, toString(e->id), n->ptStopLength, n->name, n->permissions));
-                sc.insert(ptStops.back());
+                NBPTStop* ptStop = new NBPTStop(toString(n->id), ptPos, id, toString(e->id), n->ptStopLength, n->name,
+                                                n->permissions);
+
+                sc.insert(ptStop);
             }
         }
         Position pos(n->lon, n->lat, n->ele);
@@ -443,12 +444,6 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
     }
     if (e->myCurrentIsElectrified && (permissions & SVC_RAIL) != 0) {
         permissions |= (SVC_RAIL_ELECTRIC | SVC_RAIL_FAST);
-    }
-    // recheck permissions, maybe they got assigned to a strange edge, see #11656
-    for (NBPTStop* ptStop : ptStops) {
-        if ((permissions & ptStop->getPermissions()) == 0) {
-            ptStop->setEdgeId("", ec);
-        }
     }
     SVCPermissions forwardPermissions = permissions;
     SVCPermissions backwardPermissions = permissions;

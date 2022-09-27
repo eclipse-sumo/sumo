@@ -35,27 +35,27 @@
 // ===========================================================================
 
 GNETransport::GNETransport(SumoXMLTag tag, GNENet* net) :
-    GNEDemandElement("", net, GLO_TRANSPORT, tag, GUIIconSubSys::getIcon(GUIIcon::TRANSHIP_FROMTO),
-    GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}),
-    myArrivalPosition(0) {
+    GNEDemandElement("", net, GLO_TRANSPORT, tag, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
+{}, {}, {}, {}, {}, {}),
+myArrivalPosition(0) {
     // reset default values
     resetDefaultValues();
 }
 
 
 GNETransport::GNETransport(GNENet* net, GNEDemandElement* containerParent, GNEEdge* fromEdge, GNEEdge* toEdge, const std::vector<std::string>& lines, const double arrivalPosition) :
-    GNEDemandElement(containerParent, net, GLO_TRANSPORT, GNE_TAG_TRANSPORT_EDGE, GUIIconSubSys::getIcon(GUIIcon::TRANSHIP_FROMTO),
-    GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {fromEdge, toEdge}, {}, {}, {containerParent}, {}),
-    myLines(lines),
-    myArrivalPosition(arrivalPosition) {
+    GNEDemandElement(containerParent, net, GLO_TRANSPORT, GNE_TAG_TRANSPORT_EDGE, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
+{}, {fromEdge, toEdge}, {}, {}, {containerParent}, {}),
+myLines(lines),
+myArrivalPosition(arrivalPosition) {
 }
 
 
 GNETransport::GNETransport(GNENet* net, GNEDemandElement* containerParent, GNEEdge* fromEdge, GNEAdditional* toContainerStop, const std::vector<std::string>& lines, const double arrivalPosition) :
-    GNEDemandElement(containerParent, net, GLO_TRANSPORT, GNE_TAG_TRANSPORT_CONTAINERSTOP, GUIIconSubSys::getIcon(GUIIcon::TRANSPORT_CONTAINERSTOP),
-    GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {fromEdge}, {}, {toContainerStop}, {containerParent}, {}),
-    myLines(lines),
-    myArrivalPosition(arrivalPosition) {
+    GNEDemandElement(containerParent, net, GLO_TRANSPORT, GNE_TAG_TRANSPORT_CONTAINERSTOP, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
+{}, {fromEdge}, {}, {toContainerStop}, {containerParent}, {}),
+myLines(lines),
+myArrivalPosition(arrivalPosition) {
 }
 
 
@@ -103,7 +103,7 @@ GNETransport::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     buildShowParamsPopupEntry(ret);
     // show option to open demand element dialog
     if (myTagProperty.hasDialog()) {
-        GUIDesigns::buildFXMenuCommand(ret, ("Open " + getTagStr() + " Dialog").c_str(), getACIcon(), &parent, MID_OPEN_ADDITIONAL_DIALOG);
+        GUIDesigns::buildFXMenuCommand(ret, ("Open " + getTagStr() + " Dialog").c_str(), getIcon(), &parent, MID_OPEN_ADDITIONAL_DIALOG);
         new FXMenuSeparator(ret);
     }
     GUIDesigns::buildFXMenuCommand(ret, ("Cursor position in view: " + toString(getPositionInView().x()) + "," + toString(getPositionInView().y())).c_str(), nullptr, nullptr, 0);

@@ -75,12 +75,6 @@ enum class GUIIcon {
     UNSELECT,
     /// @}
 
-    /// @name join icons
-    /// @{
-    JOIN,
-    DISJOIN,
-    /// @}
-
     /// @name simulation view icons
     /// @{
     MICROVIEW,
@@ -132,8 +126,7 @@ enum class GUIIcon {
     COLORWHEEL,
     SAVEDB,
     REMOVEDB,
-    SHOWTOOLTIPS_VIEW,
-    SHOWTOOLTIPS_MENU,
+    SHOWTOOLTIPS,
     EDITVIEWPORT,
     ZOOMSTYLE,
     FULL_SCREEN,

@@ -449,8 +449,6 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "loadingDuration",        SUMO_ATTR_LOADING_DURATION },
     { "scale",                  SUMO_ATTR_SCALE },
     { "insertionChecks",        SUMO_ATTR_INSERTIONCHECKS },
-    { "timeToTeleport",         SUMO_ATTR_TIME_TO_TELEPORT },
-    { "timeToTeleportBidi",     SUMO_ATTR_TIME_TO_TELEPORT_BIDI },
     { "maneuverAngleTimes",     SUMO_ATTR_MANEUVER_ANGLE_TIMES },
     // MSDevice_ElecHybrid
     { "overheadWireChargingPower",      SUMO_ATTR_OVERHEADWIRECHARGINGPOWER },
@@ -691,7 +689,6 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "color",                  SUMO_ATTR_COLOR },
     { "dir",                    SUMO_ATTR_DIR },
     { "state",                  SUMO_ATTR_STATE },
-    { "lcState",                SUMO_ATTR_LCSTATE },
     { "layer",                  SUMO_ATTR_LAYER },
     { "fill",                   SUMO_ATTR_FILL },
     { "lineWidth",              SUMO_ATTR_LINEWIDTH },
@@ -959,7 +956,6 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "stopOException",                     GNE_ATTR_STOPOEXCEPTION },
     { "VTypeDist.",                         GNE_ATTR_VTYPE_DISTRIBUTION },
     { "poisson",                            GNE_ATTR_POISSON },
-    { "stopIndex",                          GNE_ATTR_STOPINDEX },
 
     { "carriageLength",     SUMO_ATTR_CARRIAGE_LENGTH },
     { "locomotiveLength",   SUMO_ATTR_LOCOMOTIVE_LENGTH },
@@ -1036,12 +1032,6 @@ StringBijection<LaneSpreadFunction>::Entry SUMOXMLDefinitions::laneSpreadFunctio
     {"right",      LaneSpreadFunction::RIGHT }, // default: geometry is left edge border, lanes flare to the right
     {"roadCenter", LaneSpreadFunction::ROADCENTER }, // geometry is center of the bidirectional road
     {"center",     LaneSpreadFunction::CENTER } // geometry is center of the edge (must be the last one)
-};
-
-StringBijection<ParkingType>::Entry SUMOXMLDefinitions::parkingTypeValues[] = {
-    {"0",              ParkingType::ONROAD },   // default: park on the street
-    {"1",              ParkingType::OFFROAD },    // parking off the street
-    {"opportunistic",  ParkingType::OPPORTUNISTIC } // park of the street if there is an opportunity for it
 };
 
 StringBijection<RightOfWay>::Entry SUMOXMLDefinitions::rightOfWayValuesInitializer[] = {
@@ -1227,9 +1217,6 @@ StringBijection<SumoXMLEdgeFunc> SUMOXMLDefinitions::EdgeFunctions(
 
 StringBijection<LaneSpreadFunction> SUMOXMLDefinitions::LaneSpreadFunctions(
     SUMOXMLDefinitions::laneSpreadFunctionValues, LaneSpreadFunction::CENTER);
-
-StringBijection<ParkingType> SUMOXMLDefinitions::ParkingTypes(
-    SUMOXMLDefinitions::parkingTypeValues, ParkingType::OPPORTUNISTIC);
 
 StringBijection<RightOfWay> SUMOXMLDefinitions::RightOfWayValues(
     SUMOXMLDefinitions::rightOfWayValuesInitializer, RightOfWay::DEFAULT);

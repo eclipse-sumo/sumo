@@ -56,13 +56,13 @@ MSCFModel_Kerner::finalizeSpeed(MSVehicle* const veh, double vPos) const {
 
 
 double
-MSCFModel_Kerner::followSpeed(const MSVehicle* const veh, double speed, double gap, double predSpeed, double /*predMaxDecel*/, const MSVehicle* const /*pred*/, const CalcReason /*usage*/) const {
+MSCFModel_Kerner::followSpeed(const MSVehicle* const veh, double speed, double gap, double predSpeed, double /*predMaxDecel*/, const MSVehicle* const /*pred*/) const {
     return MIN2(_v(veh, speed, maxNextSpeed(speed, veh), gap, predSpeed), maxNextSpeed(speed, veh));
 }
 
 
 double
-MSCFModel_Kerner::stopSpeed(const MSVehicle* const veh, const double speed, double gap, double /*decel*/, const CalcReason /*usage*/) const {
+MSCFModel_Kerner::stopSpeed(const MSVehicle* const veh, const double speed, double gap, double /*decel*/) const {
     return MIN2(_v(veh, speed, maxNextSpeed(speed, veh), gap, 0), maxNextSpeed(speed, veh));
 }
 

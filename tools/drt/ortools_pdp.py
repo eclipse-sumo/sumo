@@ -13,7 +13,6 @@
 
 # @file    ortools_pdp.py
 # @author  Philip Ritzer
-# @author  Johannes Rummel
 # @date    2021-12-16
 
 """
@@ -31,38 +30,31 @@ from ortools.constraint_solver import pywrapcp
 
 
 def get_solution(data, manager, routing, solution, verbose):
-    """Returns the solution as a dict with one entry for each
-    vehicle (vehicle id: [0, ..., n_veh-1]) including the
-    route (list of nodes) and costs."""
     if verbose:
         print('Objective: ', solution.ObjectiveValue())
     solution_dict = {}
-    total_cost = 0
+    total_distance = 0
     for vehicle_id in range(data['num_vehicles']):
         route = []
         index = routing.Start(vehicle_id)
         if verbose:
             plan_output = 'Route for vehicle %s:\n' % vehicle_id
-        route_cost = 0
+        route_distance = 0
         while not routing.IsEnd(index):
-            current_node = manager.IndexToNode(index)
             if verbose:
-                plan_output += ' %s -> ' % current_node
-            route.append(current_node)
+                plan_output += ' %s -> ' % manager.IndexToNode(index)
+            route.append(manager.IndexToNode(index))
             previous_index = index
             index = solution.Value(routing.NextVar(index))
-            route_cost += routing.GetArcCostForVehicle(
+            route_distance += routing.GetArcCostForVehicle(
                 previous_index, index, vehicle_id)
-        last_node = manager.IndexToNode(index)
-        route.append(last_node)
+        route.append(manager.IndexToNode(index))
         if verbose:
-            plan_output += '%s\n' % last_node
-            plan_output += 'Costs of the route: %s\n' % route_cost
+            plan_output += '%s\n' % manager.IndexToNode(index)
+            plan_output += 'Costs of the route: %sm\n' % route_distance
             print(plan_output)
-        total_cost += route_cost
-        solution_dict[vehicle_id] = [route, total_cost]
-    if verbose:
-        print('Total cost of the routes: %s' % total_cost)
+        total_distance += route_distance
+        solution_dict[vehicle_id] = [route, total_distance]
     return solution_dict
 
 
@@ -84,16 +76,12 @@ def main(data, time_limit_seconds=10, verbose=False):
         to_node = manager.IndexToNode(to_index)
         return data['cost_matrix'][from_node][to_node]
 
-    if verbose:
-        print(' Register distance callback.')
     transit_callback_index = routing.RegisterTransitCallback(distance_callback)
 
     # Define cost of each arc.
     routing.SetArcCostEvaluatorOfAllVehicles(transit_callback_index)
 
     # Add costs/distance constraint.
-    if verbose:
-        print(' Add distance constraints...')
     matrix_costs = int(np.sum(data['cost_matrix']))
     dimension_name = 'Costs'
     routing.AddDimension(
@@ -106,8 +94,6 @@ def main(data, time_limit_seconds=10, verbose=False):
     distance_dimension.SetGlobalSpanCostCoefficient(100)
 
     # Define Transportation Requests.
-    if verbose:
-        print(' Add pickup and delivery constraints...')
     for request in data['pickups_deliveries']:
         pickup_index = manager.NodeToIndex(request[0])
         delivery_index = manager.NodeToIndex(request[1])
@@ -117,33 +103,14 @@ def main(data, time_limit_seconds=10, verbose=False):
         routing.solver().Add(
             distance_dimension.CumulVar(pickup_index) <=
             distance_dimension.CumulVar(delivery_index))
-        if request[2] == True:  # is that a new request?
-            routing.AddDisjunction([pickup_index, delivery_index], 100_000, 2)
-
-    # Force the vehicle to drop-off the reservations it already picked up
-    if verbose:
-        print(' Add dropoff constraints...')
-    for veh_index, do_list in enumerate(data['dropoffs']):
-        if verbose:
-            print('vehicle %s with %s dropoffs' % (veh_index, len(do_list)))
-        for do in do_list:
-            index = manager.NodeToIndex(do[0])
-            # start node
-            veh_node = data['starts'][veh_index]
-            if verbose:
-                print('vehicle %s (%s), dropoff %s (%s), res_id %s' % (veh_index, veh_node, do[0], index, do[1]))
-            #routing.VehicleVar(index).SetValues([-1,veh_index])
-            routing.SetAllowedVehiclesForIndex([veh_index],index)
-
 
     # Add Capacity constraint.
-    if verbose:
-        print(' Add capacity constraints...')
     def demand_callback(from_index):
         """Returns the demand of the node."""
         # Convert from routing variable Index to demands NodeIndex.
         from_node = manager.IndexToNode(from_index)
         return data['demands'][from_node]
+
     demand_callback_index = routing.RegisterUnaryTransitCallback(demand_callback)
     routing.AddDimensionWithVehicleCapacity(
         demand_callback_index,
@@ -153,20 +120,13 @@ def main(data, time_limit_seconds=10, verbose=False):
         'Capacity')
 
     # Setting first solution heuristic.
-    if verbose:
-        print(' Set solution heuristic...')
     search_parameters = pywrapcp.DefaultRoutingSearchParameters()
     search_parameters.first_solution_strategy = (routing_enums_pb2.FirstSolutionStrategy.PARALLEL_CHEAPEST_INSERTION)
     search_parameters.time_limit.FromSeconds(time_limit_seconds)
 
     # Solve the problem.
-    if verbose:
-        print('Start solving the problem.')
     solution = routing.SolveWithParameters(search_parameters)
 
     if solution:
         return get_solution(data, manager, routing, solution, verbose)
-    else:
-        if verbose:
-            print('There is no solution.')
     return None

@@ -11,7 +11,7 @@ OpenStreetMap](../../Tutorials/Import_from_OpenStreetMap.md). The
 netconvert call was:
 
 ```
-    netconvert --type-files ${SUMO_HOME}/data/typemap/osmNetconvert.typ.xml,${SUMO_HOME}/data/typemap/osmNetconvertUrbanDe.typ.xml  --remove-edges.by-vclass hov,taxi,bus,delivery,transport,lightrail,cityrail,
+    netconvert --xml-type-files ../../edge-type-templates/osm-urban-de.typ.xml --guess-ramps --remove-edges.by-vclass hov,taxi,bus,delivery,transport,lightrail,cityrail,
     rail_slow,rail_fast,motorcycle,bicycle,pedestrian --remove-geometry --remove-isolated --try-join-tls --verbose --seed 1 --osm-files eichstaett.osm --output-file
     eichstaett.net.xml
 ```

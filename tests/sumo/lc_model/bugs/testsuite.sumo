@@ -31,6 +31,3 @@ ticket10763
 
 # unsafe lane changing on junction causes emergency braking 
 ticket10988
-
-# adapt lateral offset after lane width change
-ticket11468

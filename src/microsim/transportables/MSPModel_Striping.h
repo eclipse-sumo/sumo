@@ -88,7 +88,7 @@ public:
     bool usingInternalLanes();
 
     /// @brief returns the next pedestrian beyond minPos that is laterally between minRight and maxLeft or 0
-    PersonDist nextBlocking(const MSLane* lane, double minPos, double minRight, double maxLeft, double stopTime = 0, bool bidi = false);
+    PersonDist nextBlocking(const MSLane* lane, double minPos, double minRight, double maxLeft, double stopTime = 0);
 
     /// @brief model parameters
     ///@{

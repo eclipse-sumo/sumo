@@ -82,6 +82,10 @@ public:
 
     double getSlope() const;
 
+    double getChosenSpeedFactor() const {
+        return 1.0;
+    }
+
     SUMOVehicleClass getVClass() const;
 
     /** @brief Returns the maximum speed (the minimum of desired and physical maximum speed)
@@ -196,7 +200,7 @@ public:
     virtual double getSpeed() const;
 
     /// @brief the current speed factor of the transportable (where applicable)
-    virtual double getChosenSpeedFactor() const {
+    virtual double getSpeedFactor() const {
         return 1;
     }
 

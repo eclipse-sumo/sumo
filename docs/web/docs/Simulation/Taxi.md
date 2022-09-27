@@ -169,8 +169,6 @@ When calling `traci.person.getTaxiReservations(reservationState)` the following 
 - 4: return reservations that have been assigned to a taxi
 - 8: return reservations that have been picked up
 
-Combinations of these values are also supported. For example sending a value of 3 (= 1 + 2) will return all reservations of both states 1 and 2.
-
 ## getTaxiFleet
 
 A taxi can be in any of the following states:

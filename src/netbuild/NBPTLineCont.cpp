@@ -654,6 +654,3 @@ NBPTLineCont::getWayID(const std::string& edgeID) {
     }
     return result;
 }
-
-
-/****************************************************************************/

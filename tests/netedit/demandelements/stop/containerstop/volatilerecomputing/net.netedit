@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-09-16 12:08:05 by Eclipse SUMO netedit Version v1_14_1+1089-9da63a631b2
+<!-- generated on 2022-07-07 13:45:33 by Eclipse SUMO netedit Version v1_13_0+1461-64db35494f1
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.daily.demand.stop.containerstop.16Sep110503.20589/netedit.daily.demand.stop.containerstop/demandelements/stop/containerstop/volatilerecomputing/input_net.net.xml"/>
+        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_07Jul133417.13836\netedit.gui\demandelements\stop\containerstop\volatilerecomputing\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="/home/palcraft/.texttest/tmp/netedit.daily.demand.stop.containerstop.16Sep110503.20589/netedit.daily.demand.stop.containerstop/demandelements/stop/containerstop/volatilerecomputing/net.net.xml"/>
+        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_07Jul133417.13836\netedit.gui\demandelements\stop\containerstop\volatilerecomputing\net.net.xml"/>
     </output>
 
     <processing>
@@ -33,27 +33,27 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="/home/palcraft/.texttest/tmp/netedit.daily.demand.stop.containerstop.16Sep110503.20589/netedit.daily.demand.stop.containerstop/demandelements/stop/containerstop/volatilerecomputing/additionals.xml"/>
-        <additionals-output value="/home/palcraft/.texttest/tmp/netedit.daily.demand.stop.containerstop.16Sep110503.20589/netedit.daily.demand.stop.containerstop/demandelements/stop/containerstop/volatilerecomputing/additionals.xml"/>
-        <route-files value="/home/palcraft/.texttest/tmp/netedit.daily.demand.stop.containerstop.16Sep110503.20589/netedit.daily.demand.stop.containerstop/demandelements/stop/containerstop/volatilerecomputing/routes.xml"/>
-        <demandelements-output value="/home/palcraft/.texttest/tmp/netedit.daily.demand.stop.containerstop.16Sep110503.20589/netedit.daily.demand.stop.containerstop/demandelements/stop/containerstop/volatilerecomputing/routes.xml"/>
-        <data-files value="/home/palcraft/.texttest/tmp/netedit.daily.demand.stop.containerstop.16Sep110503.20589/netedit.daily.demand.stop.containerstop/demandelements/stop/containerstop/volatilerecomputing/datas.xml"/>
-        <dataelements-output value="/home/palcraft/.texttest/tmp/netedit.daily.demand.stop.containerstop.16Sep110503.20589/netedit.daily.demand.stop.containerstop/demandelements/stop/containerstop/volatilerecomputing/datas.xml"/>
+        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_07Jul133417.13836\netedit.gui\demandelements\stop\containerstop\volatilerecomputing\additionals.xml"/>
+        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_07Jul133417.13836\netedit.gui\demandelements\stop\containerstop\volatilerecomputing\additionals.xml"/>
+        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_07Jul133417.13836\netedit.gui\demandelements\stop\containerstop\volatilerecomputing\routes.xml"/>
+        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_07Jul133417.13836\netedit.gui\demandelements\stop\containerstop\volatilerecomputing\routes.xml"/>
+        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_07Jul133417.13836\netedit.gui\demandelements\stop\containerstop\volatilerecomputing\datas.xml"/>
+        <dataelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_07Jul133417.13836\netedit.gui\demandelements\stop\containerstop\volatilerecomputing\datas.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="/home/palcraft/.texttest/tmp/netedit.daily.demand.stop.containerstop.16Sep110503.20589/netedit.daily.demand.stop.containerstop/demandelements/stop/containerstop/volatilerecomputing/gui-settings.xml"/>
+        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_07Jul133417.13836\netedit.gui\demandelements\stop\containerstop\volatilerecomputing\gui-settings.xml"/>
         <window-size value="936,697"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
         <gui-testing-debug-gl value="true"/>
-        <gui-testing.setting-output value="/home/palcraft/.texttest/tmp/netedit.daily.demand.stop.containerstop.16Sep110503.20589/netedit.daily.demand.stop.containerstop/demandelements/stop/containerstop/volatilerecomputing/guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_07Jul133417.13836\netedit.gui\demandelements\stop\containerstop\volatilerecomputing\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="/home/palcraft/.texttest/tmp/netedit.daily.demand.stop.containerstop.16Sep110503.20589/netedit.daily.demand.stop.containerstop/demandelements/stop/containerstop/volatilerecomputing/log.txt"/>
+        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_07Jul133417.13836\netedit.gui\demandelements\stop\containerstop\volatilerecomputing\log.txt"/>
     </report>
 
 </configuration>
@@ -82,7 +82,7 @@
         <lane id=":gneJ0_w0_0" index="0" allow="pedestrian" speed="1.00" length="8.91" width="4.00" shape="5.20,-3.20 5.20,-5.20 1.88,-4.94 -0.76,-4.14 -2.76,-2.76 -4.14,-0.76 -4.94,1.88 -5.20,5.20 -3.20,5.20 -2.97,2.63 -2.27,0.53 -1.10,-1.10 0.53,-2.27 2.63,-2.97"/>
     </edge>
     <edge id=":gneJ0_w1" function="walkingarea">
-        <lane id=":gneJ0_w1_0" index="0" allow="pedestrian" speed="1.00" length="1.96" width="4.00" shape="3.20,5.20 5.20,5.20 5.20,3.20 4.59,3.26 4.09,3.42 3.70,3.70 3.42,4.09 3.26,4.59"/>
+        <lane id=":gneJ0_w1_0" index="0" allow="pedestrian" speed="1.00" length="1.96" width="4.00" shape="3.20,5.20 5.20,5.20 5.20,5.20 5.20,3.20 4.59,3.26 4.09,3.42 3.70,3.70 3.42,4.09 3.26,4.59"/>
     </edge>
     <edge id=":gneJ1_0" function="internal">
         <lane id=":gneJ1_0_0" index="0" disallow="pedestrian" speed="5.37" length="5.81" shape="48.40,5.20 48.17,3.62 47.50,2.50 46.38,1.82 44.80,1.60"/>
@@ -103,7 +103,7 @@
         <lane id=":gneJ1_c0_0" index="0" allow="pedestrian" speed="1.00" length="6.40" width="4.00" shape="53.20,3.20 46.80,3.20"/>
     </edge>
     <edge id=":gneJ1_w0" function="walkingarea">
-        <lane id=":gneJ1_w0_0" index="0" allow="pedestrian" speed="1.00" length="1.96" width="4.00" shape="44.80,3.20 44.80,5.20 46.80,5.20 46.74,4.59 46.58,4.09 46.30,3.70 45.91,3.42 45.41,3.26"/>
+        <lane id=":gneJ1_w0_0" index="0" allow="pedestrian" speed="1.00" length="1.96" width="4.00" shape="44.80,3.20 44.80,5.20 44.80,5.20 46.80,5.20 46.74,4.59 46.58,4.09 46.30,3.70 45.91,3.42 45.41,3.26"/>
     </edge>
     <edge id=":gneJ1_w1" function="walkingarea">
         <lane id=":gneJ1_w1_0" index="0" allow="pedestrian" speed="1.00" length="8.91" width="4.00" shape="53.20,5.20 55.20,5.20 54.94,1.88 54.14,-0.76 52.76,-2.76 50.76,-4.14 48.12,-4.94 44.80,-5.20 44.80,-3.20 47.37,-2.97 49.47,-2.27 51.10,-1.10 52.27,0.53 52.97,2.63"/>

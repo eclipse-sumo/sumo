@@ -90,7 +90,7 @@ MSCFModel_SmartSK::finalizeSpeed(MSVehicle* const veh, double vPos) const {
 }
 
 double
-MSCFModel_SmartSK::followSpeed(const MSVehicle* const veh, double speed, double gap, double predSpeed, double /*predMaxDecel*/, const MSVehicle* const /*pred*/, const CalcReason /*usage*/) const {
+MSCFModel_SmartSK::followSpeed(const MSVehicle* const veh, double speed, double gap, double predSpeed, double /*predMaxDecel*/, const MSVehicle* const /*pred*/) const {
     SSKVehicleVariables* vars = (SSKVehicleVariables*)veh->getCarFollowVariables();
 
 // if (((gap - vars->gOld) < maxDeltaGap) && (speed>=5.0) && gap>=5.0) {
@@ -115,7 +115,7 @@ MSCFModel_SmartSK::followSpeed(const MSVehicle* const veh, double speed, double 
 }
 
 double
-MSCFModel_SmartSK::stopSpeed(const MSVehicle* const veh, const double speed, double gap, double /*decel*/, const CalcReason /*usage*/) const {
+MSCFModel_SmartSK::stopSpeed(const MSVehicle* const veh, const double speed, double gap, double /*decel*/) const {
     SSKVehicleVariables* vars = (SSKVehicleVariables*)veh->getCarFollowVariables();
 
 // if (((gap - vars->gOld) < maxDeltaGap) && (speed>=5.0) && gap>=5.0) {

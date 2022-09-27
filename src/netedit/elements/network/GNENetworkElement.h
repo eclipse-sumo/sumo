@@ -53,7 +53,7 @@ public:
      * @param[in] demandElementParents vector of demand element parents
      * @param[in] genericDataParents vector of generic data parents
      */
-    GNENetworkElement(GNENet* net, const std::string& id, GUIGlObjectType type, SumoXMLTag tag, FXIcon *icon,
+    GNENetworkElement(GNENet* net, const std::string& id, GUIGlObjectType type, SumoXMLTag tag,
                       const std::vector<GNEJunction*>& junctionParents,
                       const std::vector<GNEEdge*>& edgeParents,
                       const std::vector<GNELane*>& laneParents,
@@ -128,19 +128,6 @@ public:
      * @see GUIGlObject::drawGL
      */
     virtual void drawGL(const GUIVisualizationSettings& s) const = 0;
-
-    /// @brief check if element is locked
-    bool isGLObjectLocked();
-
-    /// @brief mark element as front element
-    void markAsFrontElement();
-
-    /// @brief delete element
-    virtual void deleteGLObject() = 0;
-
-    /// @brief select element
-    void selectGLObject();
-
     /// @}
 
     /// @name inherited from GNEAttributeCarrier

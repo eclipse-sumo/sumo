@@ -50,19 +50,19 @@ netedit.leftClick(referencePosition, 290, 195)
 netedit.changeDefaultValue(netedit.attrs.stop.create.actType, "")
 
 # try to create stop
-netedit.leftClick(referencePosition, 295, 195)
+netedit.leftClick(referencePosition, 290, 195)
 
 # set valid value
 netedit.changeDefaultValue(netedit.attrs.stop.create.actType, "dummy Act")
 
 # create stop
-netedit.leftClick(referencePosition, 300, 195)
+netedit.leftClick(referencePosition, 290, 195)
 
 # set valid value
 netedit.changeDefaultValue(netedit.attrs.stop.create.actType, "singing")
 
 # create stop
-netedit.leftClick(referencePosition, 305, 195)
+netedit.leftClick(referencePosition, 290, 195)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)

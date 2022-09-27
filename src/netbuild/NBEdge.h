@@ -1406,8 +1406,8 @@ public:
     /// @brief get the union of allowed classes over all lanes or for a specific lane
     SVCPermissions getPermissions(int lane = -1) const;
 
-    /// @brief set origID for all lanes or for a specific lane
-    void setOrigID(const std::string origID, const bool append, const int laneIdx = -1);
+    /// @brief set origID for all lanes
+    void setOrigID(const std::string origID);
 
     /// @brief set kilometrage at start of edge (negative value implies couting down along the edge)
     void setDistance(double distance) {

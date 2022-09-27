@@ -71,7 +71,7 @@ MSIdling_Stop::idle(MSDevice_Taxi* taxi) {
                 stop.triggered = true;
             }
             stop.actType = "idling";
-            stop.parking = ParkingType::OFFROAD;
+            stop.parking = true;
             taxi->getHolder().addTraciStop(stop, errorOut);
             if (errorOut != "") {
                 WRITE_WARNING(errorOut);

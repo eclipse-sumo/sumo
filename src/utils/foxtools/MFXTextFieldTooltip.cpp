@@ -25,7 +25,6 @@
 FXDEFMAP(MFXTextFieldTooltip) MFXTextFieldTooltipMap[] = {
     FXMAPFUNC(SEL_ENTER,    0,  MFXTextFieldTooltip::onEnter),
     FXMAPFUNC(SEL_LEAVE,    0,  MFXTextFieldTooltip::onLeave),
-    FXMAPFUNC(SEL_MOTION,   0,  MFXTextFieldTooltip::onMotion),
 };
 
 // Object implementation
@@ -55,12 +54,12 @@ MFXTextFieldTooltip::onEnter(FXObject* sender, FXSelector sel, void* ptr) {
         // show toolTip text
         setTipText(myToolTipText);
         // show tip show
-        myStaticToolTip->showStaticToolTip(getTipText());
+        myStaticToolTip->onTipShow(sender, sel, ptr);
     } else if (font->getTextWidth(contents.text(), contents.length()) > getWidth()) {
         // only show tip Text if contents is bigger than textField width
         setTipText(contents);
         // show tip show
-        myStaticToolTip->showStaticToolTip(getTipText());
+        myStaticToolTip->onTipShow(sender, sel, ptr);
     }
     // always show help text
     setHelpText(contents);
@@ -71,18 +70,11 @@ MFXTextFieldTooltip::onEnter(FXObject* sender, FXSelector sel, void* ptr) {
 
 long
 MFXTextFieldTooltip::onLeave(FXObject* sender, FXSelector sel, void* ptr) {
-    // hide static toolTip
-    myStaticToolTip->hideStaticToolTip();
+    // hide tip show
+    myStaticToolTip->onTipHide(sender, sel, this);
     // continue with FXTextField function
     return FXTextField::onLeave(sender, sel, ptr);
 }
 
-
-long 
-MFXTextFieldTooltip::onMotion(FXObject* sender, FXSelector sel, void* ptr) {
-    // update static tooltip
-    myStaticToolTip->onUpdate(sender, sel, ptr);
-    return FXTextField::onMotion(sender, sel, ptr);
-}
 
 /****************************************************************************/

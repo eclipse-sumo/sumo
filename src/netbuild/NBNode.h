@@ -670,9 +670,6 @@ public:
     /// @brief return true if the given pedestrian paths are connected at another junction within dist
     bool alreadyConnectedPaths(const NBEdge* e1, const NBEdge* e2, double dist) const;
 
-    /// @brief return true if the given sidewalks are separated by a fringe road
-    bool crossesFringe(const NBEdge* e1, const NBEdge* e2) const;
-
     /// @brief get prohibitions (BLocked connections)
     const NBConnectionProhibits& getProhibitions() {
         return myBlockedConnections;

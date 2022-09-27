@@ -2,15 +2,15 @@ Written configuration to 'osm.netccfg'
 Parsing types from '/home/kobo/dlr/sumo/data/typemap/osmNetconvert.typ.xml' ... done.
 Parsing nodes from osm-file 'osm_bbox.osm.xml' ... 
 Found and substituted 1 osm nodes.
-done (1105ms).
+done (787ms).
 Parsing edges from osm-file 'osm_bbox.osm.xml' ... 
-done (725ms).
+done (678ms).
 Removing duplicate edges ... 
 Removed 3 duplicate osm edges.
 done.
 Adding new type 'highway.service|railway.tram' (first occurence for edge '388702047').
 Parsing relations from osm-file 'osm_bbox.osm.xml' ... 
-done (453ms).
+done (488ms).
  Removed 125 traffic lights before loading plain-XML
  Import done:
    3434 nodes loaded.
@@ -19,15 +19,15 @@ done (453ms).
 Proj projection parameters used: '+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs'.
 Removing self-loops ... done (0ms).
 Joining junction clusters ... 
-done (24ms).
+done (18ms).
  Joined 105 junction cluster(s).
-Removing empty nodes and geometry nodes ... done (23ms).
-   819 nodes removed.
-Moving network to origin ... done (102ms).
+Removing empty nodes and geometry nodes ... done (18ms).
+   802 nodes removed.
+Moving network to origin ... done (92ms).
 Computing turning directions ... 
-done (6ms).
+done (3ms).
 Assigning nodes to traffic lights ... done (2ms).
-Guessing and setting on-/off-ramps ... done (8ms).
+Guessing and setting on-/off-ramps ... done (6ms).
 Removing sharp turn with radius 1.40 at the start of edge '144014242#1'.
 Removing sharp turn with radius 1.76 at the end of edge '153522299#3'.
 Removing sharp turn with radius 4.73 at the start of edge '167140670#3'.
@@ -36,32 +36,32 @@ Removing sharp turn with radius 8.03 at the end of edge '30123145#0'.
 Removing sharp turn with radius 4.29 at the start of edge '30123145#2'.
 Removing sharp turn with radius 0.01 at the start of edge '32590429'.
 Removing sharp turn with radius 0.01 at the end of edge '32590434#1'.
-Sorting nodes' edges ... done (7ms).
-Computing node shapes ... done (117ms).
+Sorting nodes' edges ... done (6ms).
+Computing node shapes ... done (101ms).
 Computing edge shapes ... done (65ms).
 Computing node types ... done (4ms).
 Computing priorities ... done (5ms).
-Computing approached edges ... done (5ms).
+Computing approached edges ... done (3ms).
 Guessing and setting roundabouts ... done (1ms).
 Computing approaching lanes ... done (14ms).
-Dividing of lanes on approached lanes ... done (11ms).
-Processing turnarounds ... done (3ms).
-Rechecking of lane endings ... done (2ms).
+Dividing of lanes on approached lanes ... done (9ms).
+Processing turnarounds ... done (2ms).
+Rechecking of lane endings ... done (1ms).
 Joining traffic light nodes ... done (3ms).
 Computing traffic light control information ... 
 done (2ms).
-Computing node logics ... done (23ms).
+Computing node logics ... done (24ms).
 Computing traffic light logics ... 
 done (8ms).
  60 traffic light(s) computed.
 Building inner edges ... 
-done (81ms).
+done (80ms).
 -----------------------------------------------------
 Summary:
  Node type statistics:
   Unregulated junctions       : 0
   Dead-end junctions          : 1391
-  Priority junctions          : 711
+  Priority junctions          : 728
   Right-before-left junctions : 158
   Traffic light junctions      : 67
   Rail crossing junctions      : 29

@@ -139,17 +139,17 @@ TEST(StringUtils, test_toLong) {
 }
 
 TEST(StringUtils, test_toDouble) {
-    EXPECT_EQ(0., StringUtils::toDouble("0"));
-    EXPECT_EQ(1., StringUtils::toDouble("+1"));
-    EXPECT_EQ(-1., StringUtils::toDouble("-1"));
-    EXPECT_EQ(1., StringUtils::toDouble("1e0"));
-    EXPECT_EQ(10., StringUtils::toDouble("1e1"));
-    EXPECT_EQ(1., StringUtils::toDouble("1."));
+    EXPECT_EQ(0, StringUtils::toDouble("0"));
+    EXPECT_EQ(1, StringUtils::toDouble("+1"));
+    EXPECT_EQ(-1, StringUtils::toDouble("-1"));
+    EXPECT_EQ(1, StringUtils::toDouble("1e0"));
+    EXPECT_EQ(10, StringUtils::toDouble("1e1"));
+    EXPECT_EQ(1, StringUtils::toDouble("1."));
     EXPECT_EQ(1.1, StringUtils::toDouble("1.1"));
     EXPECT_EQ(.1, StringUtils::toDouble(".1"));
     EXPECT_THROW(StringUtils::toDouble("1,1"), NumberFormatException);
     EXPECT_THROW(StringUtils::toDouble(",1"), NumberFormatException);
-    EXPECT_EQ(100000000000., StringUtils::toDouble("100000000000"));
+    EXPECT_EQ(100000000000, StringUtils::toDouble("100000000000"));
     EXPECT_THROW(StringUtils::toDouble(""), EmptyData);
     EXPECT_THROW(StringUtils::toDouble("1e0x"), NumberFormatException);
     EXPECT_THROW(StringUtils::toDouble("1x"), NumberFormatException);

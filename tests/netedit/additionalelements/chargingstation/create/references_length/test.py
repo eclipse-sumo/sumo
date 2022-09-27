@@ -50,7 +50,7 @@ netedit.leftClick(referencePosition, 500, 250)
 netedit.changeDefaultValue(netedit.attrs.chargingStation.create.length, "5")
 
 # create chargingStation in mode "reference left"
-netedit.leftClick(referencePosition, 510, 250)
+netedit.leftClick(referencePosition, 500, 250)
 
 # change reference to right
 netedit.changeDefaultValue(netedit.attrs.chargingStation.create.references, "reference right")

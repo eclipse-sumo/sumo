@@ -130,15 +130,14 @@ NBLoadedSUMOTLDef::setProgramID(const std::string& programID) {
     myTLLogic->setProgramID(programID);
 }
 
-
 void
 NBLoadedSUMOTLDef::setTLControllingInformation() const {
     if (myReconstructAddedConnections) {
         NBOwnTLDef dummy(DummyID, myControlledNodes, 0, getType());
         dummy.setParticipantsInformation();
         dummy.setTLControllingInformation();
-        for (NBNode* const n : myControlledNodes) {
-            n->removeTrafficLight(&dummy);
+        for (std::vector<NBNode*>::const_iterator i = myControlledNodes.begin(); i != myControlledNodes.end(); i++) {
+            (*i)->removeTrafficLight(&dummy);
         }
     }
     if (myReconstructRemovedConnections) {
@@ -151,7 +150,8 @@ NBLoadedSUMOTLDef::setTLControllingInformation() const {
     }
     // set the information about the link's positions within the tl into the
     //  edges the links are starting at, respectively
-    for (const NBConnection& c : myControlledLinks) {
+    for (NBConnectionVector::const_iterator it = myControlledLinks.begin(); it != myControlledLinks.end(); it++) {
+        const NBConnection& c = *it;
         if (c.getTLIndex() >= myTLLogic->getNumLinks()) {
             throw ProcessError("Invalid linkIndex " + toString(c.getTLIndex()) + " for traffic light '" + getID() +
                                "' with " + toString(myTLLogic->getNumLinks()) + " links.");
@@ -616,7 +616,7 @@ NBLoadedSUMOTLDef::getStates(int index) {
 }
 
 bool
-NBLoadedSUMOTLDef::isUsed(int index) const {
+NBLoadedSUMOTLDef::isUsed(int index) {
     for (const NBConnection& c : myControlledLinks) {
         if (c.getTLIndex() == index || c.getTLIndex2() == index) {
             return true;
@@ -882,13 +882,4 @@ NBLoadedSUMOTLDef::guessMinMaxDuration() {
 }
 
 
-void
-NBLoadedSUMOTLDef::finalChecks() const {
-    for (int i = 0; i < myTLLogic->getNumLinks(); i++) {
-        if (!isUsed(i)) {
-            WRITE_WARNINGF("Unused state in tlLogic '%', program '%' at tl-index %", getID(), getProgramID(), i);
-            break;
-        }
-    }
-}
 /****************************************************************************/

@@ -176,7 +176,7 @@ GUIPolygon::GUIPolygon(const std::string& id, const std::string& type, const RGB
                        double lineWidth, double layer, double angle, const std::string& imgFile,
                        bool relativePath, const std::string& name):
     TesselatedPolygon(id, type, color, shape, geo, fill, lineWidth, layer, angle, imgFile, relativePath, name),
-    GUIGlObject_AbstractAdd(GLO_POLYGON, id, GUIIconSubSys::getIcon(GUIIcon::POLY)),
+    GUIGlObject_AbstractAdd(GLO_POLYGON, id),
     myRotatedShape(nullptr) {
     if (angle != 0.) {
         setShape(shape);

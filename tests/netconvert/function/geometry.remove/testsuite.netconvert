@@ -6,6 +6,3 @@ exclude
 
 # removing geometry should work after merging
 after_merge
-
-# handle overlapping edges running in the same direction
-overlapping_same_dir

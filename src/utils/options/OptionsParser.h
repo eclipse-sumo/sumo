@@ -69,12 +69,22 @@ private:
 
     /** @brief Returns the whether the given token is an option
      *
-     * The given token is assumed to be an option if it starts with a '-' or a '+'.
+     * The given token is assumed to be an option if it starts with a '-'.
      *
      * @param[in] arg1 The token to check
      * @return Whether the token is an option
      */
     static bool checkParameter(const char* arg1);
+
+
+    /** @brief returns the whether the given token is an abbreviation
+     *
+     * The given token is assumed to be an option if it starts with two '-'.
+     *
+     * @param[in] arg1 The token to check
+     * @return Whether the token is an abbreviation
+     */
+    static bool isAbbreviation(const char* arg1);
 
 
     /** @brief Converts char* to string

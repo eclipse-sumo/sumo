@@ -6,7 +6,7 @@ Success.
 Loading net-file from '000/../input_net.net.xml' ... done (2ms).
 Loading additional-files from '000/../edgedata.add.xml' ... done (1ms).
 Loading done.
-Simulation version v1_14_1+0775-edc6051 started with time: 0.00
+Simulation version v1_14_1+0350-48d7f28 started with time: 0.00
 Simulation ended at time: 5922.00
 Reason: All vehicles have left the simulation.
 Statistics (avg of 1000):
@@ -25,16 +25,16 @@ Success.
 Loading net-file from '001/../input_net.net.xml' ... done (2ms).
 Loading additional-files from '001/../edgedata.add.xml' ... done (1ms).
 Loading done.
-Simulation version v1_14_1+0775-edc6051 started with time: 0.00
-Simulation ended at time: 5248.00
+Simulation version v1_14_1+0350-48d7f28 started with time: 0.00
+Simulation ended at time: 5253.00
 Reason: All vehicles have left the simulation.
 Statistics (avg of 1000):
  RouteLength: 1010.60
  Speed: 3.21
- Duration: 452.56
- WaitingTime: 213.84
- TimeLoss: 388.98
- DepartDelay: 412.31
+ Duration: 454.05
+ WaitingTime: 213.87
+ TimeLoss: 390.44
+ DepartDelay: 416.56
 
 -------------------------------------------------------------------------------
 ['/scr1/sumo/bin/duarouter', '-c', '002/iteration_002_input_routes_001.duarcfg']
@@ -44,16 +44,16 @@ Success.
 Loading net-file from '002/../input_net.net.xml' ... done (1ms).
 Loading additional-files from '002/../edgedata.add.xml' ... done (1ms).
 Loading done.
-Simulation version v1_14_1+0775-edc6051 started with time: 0.00
-Simulation ended at time: 4411.00
+Simulation version v1_14_1+0350-48d7f28 started with time: 0.00
+Simulation ended at time: 4391.00
 Reason: All vehicles have left the simulation.
 Statistics (avg of 1000):
  RouteLength: 1005.93
  Speed: 5.55
- Duration: 233.04
- WaitingTime: 75.92
- TimeLoss: 165.04
- DepartDelay: 110.16
+ Duration: 231.57
+ WaitingTime: 74.67
+ TimeLoss: 163.56
+ DepartDelay: 101.97
 
 -------------------------------------------------------------------------------
 ['/scr1/sumo/bin/duarouter', '-c', '003/iteration_003_input_routes_002.duarcfg']
@@ -61,55 +61,55 @@ Success.
 -------------------------------------------------------------------------------
 ['/scr1/sumo/bin/sumo', '-c', '003/iteration_003.sumocfg']
 Loading net-file from '003/../input_net.net.xml' ... done (1ms).
-Loading additional-files from '003/../edgedata.add.xml' ... done (0ms).
+Loading additional-files from '003/../edgedata.add.xml' ... done (1ms).
 Loading done.
-Simulation version v1_14_1+0775-edc6051 started with time: 0.00
+Simulation version v1_14_1+0350-48d7f28 started with time: 0.00
 Simulation ended at time: 4290.00
 Reason: All vehicles have left the simulation.
 Statistics (avg of 1000):
  RouteLength: 1005.74
- Speed: 5.84
- Duration: 222.47
- WaitingTime: 70.62
- TimeLoss: 154.33
- DepartDelay: 70.84
+ Speed: 5.83
+ Duration: 222.03
+ WaitingTime: 70.57
+ TimeLoss: 153.87
+ DepartDelay: 67.96
 
 -------------------------------------------------------------------------------
 ['/scr1/sumo/bin/duarouter', '-c', '004/iteration_004_input_routes_003.duarcfg']
 Success.
 -------------------------------------------------------------------------------
 ['/scr1/sumo/bin/sumo', '-c', '004/iteration_004.sumocfg']
-Loading net-file from '004/../input_net.net.xml' ... done (2ms).
-Loading additional-files from '004/../edgedata.add.xml' ... done (0ms).
+Loading net-file from '004/../input_net.net.xml' ... done (1ms).
+Loading additional-files from '004/../edgedata.add.xml' ... done (1ms).
 Loading done.
-Simulation version v1_14_1+0775-edc6051 started with time: 0.00
-Simulation ended at time: 4038.00
+Simulation version v1_14_1+0350-48d7f28 started with time: 0.00
+Simulation ended at time: 4079.00
 Reason: All vehicles have left the simulation.
 Statistics (avg of 1000):
  RouteLength: 1005.46
- Speed: 6.19
- Duration: 206.65
- WaitingTime: 63.04
- TimeLoss: 138.33
- DepartDelay: 13.57
+ Speed: 6.18
+ Duration: 207.98
+ WaitingTime: 64.53
+ TimeLoss: 139.62
+ DepartDelay: 17.77
 
 -------------------------------------------------------------------------------
 ['/scr1/sumo/bin/duarouter', '-c', '005/iteration_005_input_routes_004.duarcfg']
 Success.
 -------------------------------------------------------------------------------
 ['/scr1/sumo/bin/sumo', '-c', '005/iteration_005.sumocfg']
-Loading net-file from '005/../input_net.net.xml' ... done (1ms).
-Loading additional-files from '005/../edgedata.add.xml' ... done (0ms).
+Loading net-file from '005/../input_net.net.xml' ... done (2ms).
+Loading additional-files from '005/../edgedata.add.xml' ... done (1ms).
 Loading done.
-Simulation version v1_14_1+0775-edc6051 started with time: 0.00
-Simulation ended at time: 3818.00
+Simulation version v1_14_1+0350-48d7f28 started with time: 0.00
+Simulation ended at time: 3831.00
 Reason: All vehicles have left the simulation.
 Statistics (avg of 1000):
- RouteLength: 1004.88
- Speed: 7.13
- Duration: 155.08
- WaitingTime: 41.80
- TimeLoss: 86.34
+ RouteLength: 1004.92
+ Speed: 6.77
+ Duration: 167.24
+ WaitingTime: 48.12
+ TimeLoss: 98.51
  DepartDelay: 0.40
 
 -------------------------------------------------------------------------------
@@ -118,16 +118,16 @@ Success.
 -------------------------------------------------------------------------------
 ['/scr1/sumo/bin/sumo', '-c', '006/iteration_006.sumocfg']
 Loading net-file from '006/../input_net.net.xml' ... done (1ms).
-Loading additional-files from '006/../edgedata.add.xml' ... done (1ms).
+Loading additional-files from '006/../edgedata.add.xml' ... done (0ms).
 Loading done.
-Simulation version v1_14_1+0775-edc6051 started with time: 0.00
-Simulation ended at time: 3718.00
+Simulation version v1_14_1+0350-48d7f28 started with time: 0.00
+Simulation ended at time: 3738.00
 Reason: All vehicles have left the simulation.
 Statistics (avg of 1000):
- RouteLength: 1004.63
- Speed: 8.08
- Duration: 130.37
- WaitingTime: 28.37
- TimeLoss: 61.40
+ RouteLength: 1004.53
+ Speed: 8.11
+ Duration: 128.98
+ WaitingTime: 27.22
+ TimeLoss: 59.94
  DepartDelay: 0.40
 

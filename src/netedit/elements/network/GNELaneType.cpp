@@ -34,15 +34,15 @@
 // ===========================================================================
 
 GNELaneType::GNELaneType(GNEEdgeType* edgeTypeParent) :
-    GNENetworkElement(edgeTypeParent->getNet(), "", GLO_LANE, SUMO_TAG_LANETYPE, GUIIconSubSys::getIcon(GUIIcon::LANETYPE), {}, {}, {}, {}, {}, {}),
-    myEdgeTypeParent(edgeTypeParent) {
+    GNENetworkElement(edgeTypeParent->getNet(), "", GLO_LANE, SUMO_TAG_LANETYPE, {}, {}, {}, {}, {}, {}),
+myEdgeTypeParent(edgeTypeParent) {
 }
 
 
 GNELaneType::GNELaneType(GNEEdgeType* edgeTypeParent, const NBTypeCont::LaneTypeDefinition& laneType) :
-    GNENetworkElement(edgeTypeParent->getNet(), "", GLO_LANE, SUMO_TAG_LANETYPE, GUIIconSubSys::getIcon(GUIIcon::LANETYPE), {}, {}, {}, {}, {}, {}),
-    NBTypeCont::LaneTypeDefinition(laneType),
-    myEdgeTypeParent(edgeTypeParent) {
+    GNENetworkElement(edgeTypeParent->getNet(), "", GLO_LANE, SUMO_TAG_LANETYPE, {}, {}, {}, {}, {}, {}),
+NBTypeCont::LaneTypeDefinition(laneType),
+myEdgeTypeParent(edgeTypeParent) {
 }
 
 
@@ -115,12 +115,6 @@ GNELaneType::updateCenteringBoundary(const bool /*updateGrid*/) {
 void
 GNELaneType::drawGL(const GUIVisualizationSettings& /*s*/) const {
     // nothing to draw
-}
-
-
-void
-GNELaneType::deleteGLObject() {
-    myNet->deleteNetworkElement(this, myNet->getViewNet()->getUndoList());
 }
 
 

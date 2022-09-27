@@ -27,7 +27,7 @@ You can give [activitygen](../activitygen.md) a first try with the following exa
 While activitygen has been developed
 mainly to generate traffic demand for larger networks, this example
 features the small network shown in the image on the right. Download the
-files [{{SUMO}}/tests/activitygen/activitygen-example.net.xml]({{Source}}tests/activitygen/activitygen-example.net.xml) and [{{SUMO}}/tests/activitygen/activitygen-example.stat.xml ]({{Source}}tests/activitygen/activitygen-example.stat.xml ) to follow this example.
+files [{{SUMO}}/tests/activitygen/demand_generation/activitygen-example.net.xml]({{Source}}tests/activitygen/demand_generation/activitygen-example.net.xml) and [{{SUMO}}/tests/activitygen/demand_generation/activitygen-example.stat.xml ]({{Source}}tests/activitygen/demand_generation/activitygen-example.stat.xml ) to follow this example.
 
 To run this example, use the following commands:
 

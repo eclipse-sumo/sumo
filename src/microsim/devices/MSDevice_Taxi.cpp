@@ -523,7 +523,7 @@ MSDevice_Taxi::prepareStop(ConstMSEdgeVector& edges,
     stop.lane = getStopLane(stopEdge, action)->getID();
     stop.startPos = stopPos;
     stop.endPos = MAX2(stopPos, MIN2(myHolder.getVehicleType().getLength(), stopEdge->getLength()));
-    stop.parking = SUMOVehicleParameter::parseParkingType(getStringParam(myHolder, OptionsCont::getOptions(), "taxi.parking", "true", false));
+    stop.parking = getBoolParam(myHolder, OptionsCont::getOptions(), "taxi.parking", true, false);
     stop.actType = action;
     stop.index = STOP_INDEX_END;
     stops.push_back(stop);

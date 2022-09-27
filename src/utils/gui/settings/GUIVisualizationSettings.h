@@ -385,8 +385,8 @@ struct GUIVisualizationAdditionalSettings {
     /// @brief arrow offset
     static const double arrowOffset;
 
-    /// @brief connection color between E1/junctions and TLS
-    static const RGBColor TLSConnectionColor;
+    /// @brief connection color between E1 and TLS
+    static const RGBColor E1TLSConnectionColor;
 };
 
 
@@ -457,10 +457,7 @@ struct GUIVisualizationStoppingPlaceSettings {
 struct GUIVisualizationDottedContourSettings {
 
     /// @brief width of dotted contour segments
-    static const double segmentWidthSmall;
-
-    /// @brief width of dotted contour segments
-    static const double segmentWidthLarge;
+    static const double segmentWidth;
 
     /// @brief length of dotted contour segments
     static const double segmentLength;

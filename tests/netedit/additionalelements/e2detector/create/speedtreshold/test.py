@@ -44,13 +44,13 @@ netedit.leftClick(referencePosition, 350, 220)
 netedit.changeDefaultValue(netedit.attrs.E2.create.speedThreshold, "-14")
 
 # try to create E2 with invalid speed threshold
-netedit.leftClick(referencePosition, 360, 220)
+netedit.leftClick(referencePosition, 350, 220)
 
 # set valid speed threshold
 netedit.changeDefaultValue(netedit.attrs.E2.create.speedThreshold, "2.5")
 
 # create E2 with valid speed threshold
-netedit.leftClick(referencePosition, 370, 220)
+netedit.leftClick(referencePosition, 350, 220)
 
 # Check undo redo
 netedit.undo(referencePosition, 1)

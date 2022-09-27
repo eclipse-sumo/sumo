@@ -13,8 +13,5 @@ removeConstraints_tripId
 removeConstraints_foeId
 removeConstraints_foeSignal
 
-# update constraints after route change (remove unfulfillable)
-updateConstraints
-
 # tests for automatic deadlock-avoidance after swapConstraints
 swap

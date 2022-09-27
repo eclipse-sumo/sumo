@@ -295,7 +295,7 @@ MSCFModel::minNextSpeedEmergency(double speed, const MSVehicle* const /*veh*/) c
 
 
 double
-MSCFModel::freeSpeed(const MSVehicle* const veh, double speed, double seen, double maxSpeed, const bool onInsertion, const CalcReason /*usage*/) const {
+MSCFModel::freeSpeed(const MSVehicle* const veh, double speed, double seen, double maxSpeed, const bool onInsertion) const {
     if (maxSpeed < 0.) {
         // can occur for ballistic update (in context of driving at red light)
         return maxSpeed;
@@ -319,7 +319,7 @@ MSCFModel::insertionFollowSpeed(const MSVehicle* const /* v */, double speed, do
 double
 MSCFModel::insertionStopSpeed(const MSVehicle* const veh, double speed, double gap) const {
     if (MSGlobals::gSemiImplicitEulerUpdate) {
-        return stopSpeed(veh, speed, gap, CalcReason::FUTURE);
+        return stopSpeed(veh, speed, gap);
     } else {
         return MIN2(maximumSafeStopSpeed(gap, myDecel, 0., true, 0.), myType->getMaxSpeed());
     }
@@ -1043,8 +1043,8 @@ MSCFModel::applyHeadwayAndSpeedDifferencePerceptionErrors(const MSVehicle* const
                       << "\n  perceivedGap=" << perceivedGap << " perceivedLeaderSpeed=" << speed + perceivedSpeedDifference
                       << " perceivedSpeedDifference=" << perceivedSpeedDifference
                       << std::endl;
-            const double exactFollowSpeed = followSpeed(veh, speed, gap, predSpeed, predMaxDecel, pred, CalcReason::FUTURE);
-            const double errorFollowSpeed = followSpeed(veh, speed, perceivedGap, speed + perceivedSpeedDifference, predMaxDecel, pred, CalcReason::FUTURE);
+            const double exactFollowSpeed = followSpeed(veh, speed, gap, predSpeed, predMaxDecel);
+            const double errorFollowSpeed = followSpeed(veh, speed, perceivedGap, speed + perceivedSpeedDifference, predMaxDecel);
             const double accelError = SPEED2ACCEL(errorFollowSpeed - exactFollowSpeed);
             std::cout << "  gapError=" << perceivedGap - gap << "  dvError=" << perceivedSpeedDifference - (predSpeed - speed)
                       << "\n  resulting accelError: " << accelError << std::endl;
@@ -1077,8 +1077,8 @@ MSCFModel::applyHeadwayPerceptionError(const MSVehicle* const veh, double speed,
             veh->getDriverState()->lockDebug();
             std::cout << SIMTIME << " veh '" << veh->getID() << "' -> MSCFModel_Krauss::applyHeadwayPerceptionError()\n"
                       << "  speed=" << speed << " gap=" << gap << "\n  perceivedGap=" << perceivedGap << std::endl;
-            const double exactStopSpeed = stopSpeed(veh, speed, gap, CalcReason::FUTURE);
-            const double errorStopSpeed = stopSpeed(veh, speed, perceivedGap, CalcReason::FUTURE);
+            const double exactStopSpeed = stopSpeed(veh, speed, gap);
+            const double errorStopSpeed = stopSpeed(veh, speed, perceivedGap);
             const double accelError = SPEED2ACCEL(errorStopSpeed - exactStopSpeed);
             std::cout << "  gapError=" << perceivedGap - gap << "\n  resulting accelError: " << accelError << std::endl;
             veh->getDriverState()->unlockDebug();

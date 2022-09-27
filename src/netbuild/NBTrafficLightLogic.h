@@ -272,12 +272,6 @@ public:
      */
     void swapPhase(int indexPhaseA, int indexPhaseB);
 
-    /// @brief swap first phase
-    void swapfirstPhase();
-
-    /// @brief swap first phase
-    void swaplastPhase();
-
     /* @brief changes state size either by cutting of at the end or by adding
      * new states at the end
      */

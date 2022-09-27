@@ -79,7 +79,7 @@ GUIInductLoop::setSpecialColor(const RGBColor* color) {
 // -------------------------------------------------------------------------
 
 GUIInductLoop::MyWrapper::MyWrapper(GUIInductLoop& detector, double pos) :
-    GUIDetectorWrapper(GLO_E1DETECTOR, detector.getID(), GUIIconSubSys::getIcon(GUIIcon::E1)),
+    GUIDetectorWrapper(GLO_E1DETECTOR, detector.getID()),
     myDetector(detector), myPosition(pos),
     myHaveLength(myPosition != detector.getEndPosition()),
     mySpecialColor(nullptr) {

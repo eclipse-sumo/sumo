@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-09-13 16:54:36 by Eclipse SUMO netconvert Version v1_14_1+0990-ad3506bf07c
+<!-- generated on 2022-06-29 14:16:22 by Eclipse SUMO netconvert Version v1_13_0+1304-4c85731
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,7 +14,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <type-files value="/home/kobo/dlr/sumo/data/typemap/osmNetconvert.typ.xml,/home/kobo/dlr/sumo/data/typemap/osmNetconvertPedestrians.typ.xml"/>
+        <type-files value="/scr1/sumo/data/typemap/osmNetconvert.typ.xml,/scr1/sumo/data/typemap/osmNetconvertPedestrians.typ.xml"/>
         <osm-files value="osm.xml"/>
     </input>
 
@@ -123,7 +123,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id=":20508_w0_0" index="0" allow="pedestrian" speed="1.00" length="2.97" width="3.00" shape="1.71,24.42 -0.64,26.28 -0.16,26.88 0.21,27.30 0.54,27.63 0.92,27.91 1.40,28.21 2.06,28.58 3.53,25.97 3.08,25.71 2.76,25.51 2.51,25.32 2.28,25.10 2.03,24.82"/>
     </edge>
     <edge id=":20508_w1" function="walkingarea">
-        <lane id=":20508_w1_0" index="0" allow="pedestrian" speed="1.00" length="0.58" width="3.00" shape="5.09,23.17 6.56,20.56 4.21,22.42 4.37,22.62 4.49,22.76 4.60,22.86 4.72,22.96 4.88,23.05"/>
+        <lane id=":20508_w1_0" index="0" allow="pedestrian" speed="1.00" length="0.58" width="3.00" shape="5.09,23.17 6.56,20.56 6.56,20.56 4.21,22.42 4.37,22.62 4.49,22.76 4.60,22.86 4.72,22.96 4.88,23.05"/>
     </edge>
     <edge id=":21319_0" function="internal">
         <lane id=":21319_0_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="9.26" length="9.27" shape="138.61,90.75 140.61,92.06 142.72,92.86 144.96,93.14 147.31,92.90"/>
@@ -150,7 +150,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id=":23083_w0_0" index="0" allow="pedestrian" speed="1.00" length="6.08" width="3.00" shape="168.21,110.19 170.93,111.47 171.57,110.02 171.97,108.88 172.12,107.88 172.03,106.87 171.71,105.70 171.17,104.21 168.37,105.30 168.64,106.13 168.78,106.95 168.82,107.77 168.73,108.58 168.53,109.39"/>
     </edge>
     <edge id=":23083_w1" function="walkingarea">
-        <lane id=":23083_w1_0" index="0" allow="pedestrian" speed="1.00" length="1.18" width="3.00" shape="165.39,106.47 162.60,107.56 165.31,108.84 165.47,108.45 165.56,108.05 165.61,107.66 165.59,107.27 165.52,106.87"/>
+        <lane id=":23083_w1_0" index="0" allow="pedestrian" speed="1.00" length="1.18" width="3.00" shape="165.39,106.47 162.60,107.56 162.60,107.56 165.31,108.84 165.47,108.45 165.56,108.05 165.61,107.66 165.59,107.27 165.52,106.87"/>
     </edge>
     <edge id=":23126_0" function="internal">
         <lane id=":23126_0_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="27.78" length="18.47" shape="81.49,55.98 65.63,46.52"/>

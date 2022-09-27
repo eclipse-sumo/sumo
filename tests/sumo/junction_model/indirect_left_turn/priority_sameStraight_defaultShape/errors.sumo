@@ -6,7 +6,5 @@ Warning: Teleporting vehicle 'SW.57'; waited too long (yield), lane=':C_10_0', t
 Warning: Vehicle 'SW.57' ends teleporting on edge 'CW', time=1231.00.
 Warning: Teleporting vehicle 'SW.64'; waited too long (jam), lane='EC_1', time=1251.00.
 Warning: Vehicle 'SW.64' ends teleporting on edge 'CW', time=1251.00.
-Warning: Teleporting vehicle 'SW.204'; waited too long (jam), lane='EC_0', time=1839.00.
-Warning: Vehicle 'SW.204' ends teleporting on edge 'CW', time=1839.00.
-Warning: Teleporting vehicle 'SW.207'; waited too long (jam), lane='EC_1', time=1843.00.
-Warning: Vehicle 'SW.207' ends teleporting on edge 'CW', time=1843.00.
+Warning: Teleporting vehicle 'SN.426'; junction collision with vehicle 'SN.428', lane=':C_19_0', gap=-1.00, time=1546.00 stage=move.
+Warning: Vehicle 'SN.426' ends teleporting on edge 'CN', time=1546.00.

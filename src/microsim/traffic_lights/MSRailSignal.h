@@ -61,21 +61,21 @@ public:
      * @param[in] nb The detector builder
      * @exception ProcessError If something fails on initialisation
      */
-    void init(NLDetectorBuilder& nb) override;
+    void init(NLDetectorBuilder& nb);
 
 
     /// @brief Destructor
     ~MSRailSignal();
 
     /**@brief Sets a parameter and updates internal constants */
-    void setParameter(const std::string& key, const std::string& value) override;
+    void setParameter(const std::string& key, const std::string& value);
 
     /** @brief Adds a link on building
      * @param[in] link The controlled link
      * @param[in] lane The lane this link starts at
      * @param[in] pos The link's index (signal group) within this program
      */
-    void addLink(MSLink* link, MSLane* lane, int pos) override;
+    void addLink(MSLink* link, MSLane* lane, int pos);
 
     /// @name Handling of controlled links
     /// @{
@@ -84,7 +84,7 @@ public:
      * @param[in] logic The logic to use the information about controlled links/lanes from
      * @see MSTrafficLightLogic::adaptLinkInformationFrom
      */
-    void adaptLinkInformationFrom(const MSTrafficLightLogic& logic) override;
+    void adaptLinkInformationFrom(const MSTrafficLightLogic& logic);
     /// @}
 
 
@@ -107,7 +107,7 @@ public:
     * @return The time of the next switch (always the next step)
     * @see MSTrafficLightLogic::trySwitch
     */
-    SUMOTime trySwitch() override;
+    SUMOTime trySwitch();
 
     /// @}
 
@@ -119,13 +119,14 @@ public:
      * @return The number of this tls program's phases (always zero)
      * @see MSTrafficLightLogic::getPhaseNumber
      */
-    int getPhaseNumber() const override;
+    int getPhaseNumber() const;
+
 
     /** @brief Returns the phases of this tls program
      * @return The phases of this tls program
      * @see MSTrafficLightLogic::getPhases
      */
-    const Phases& getPhases() const override;
+    const Phases& getPhases() const;
 
     /** @brief Returns the definition of the phase from the given position within the plan
     *
@@ -135,7 +136,7 @@ public:
     * @return The definition of the phase at the given position
     * @see MSTrafficLightLogic::getPhase
     */
-    const MSPhaseDefinition& getPhase(int givenstep) const override;
+    const MSPhaseDefinition& getPhase(int givenstep) const;
 
     /// @brief whether the given link index ever turns 'G'
     bool getsMajorGreen(int /*linkIndex*/) const override {
@@ -151,12 +152,13 @@ public:
      * @return The index of the current phase within the tls (here, always zero will be returned)
      * @see MSTrafficLightLogic::getCurrentPhaseIndex
      */
-    int getCurrentPhaseIndex() const override;
+    int getCurrentPhaseIndex() const;
+
 
     /** @brief Returns the definition of the current phase
     * @return The current phase
     */
-    const MSPhaseDefinition& getCurrentPhaseDef() const override;
+    const MSPhaseDefinition& getCurrentPhaseDef() const;
     /// @}
 
 
@@ -167,21 +169,23 @@ public:
      * @return The (estimated) index of the tls at the given simulation time step (here, always zero will be returned)
      * @see MSTrafficLightLogic::getPhaseIndexAtTime
      */
-    SUMOTime getPhaseIndexAtTime(SUMOTime simStep) const override;
+    SUMOTime getPhaseIndexAtTime(SUMOTime simStep) const;
+
 
     /** @brief Returns the position (start of a phase during a cycle) from of a given step
      * @param[in] index The index of the phase to return the begin of
      * @return The begin time of the phase (here, always zero will be returned)
      * @see MSTrafficLightLogic::getOffsetFromIndex
      */
-    SUMOTime getOffsetFromIndex(int index) const override;
+    SUMOTime getOffsetFromIndex(int index) const;
+
 
     /** @brief Returns the step (the phasenumber) of a given position of the cycle
     * @param[in] offset The offset (time) for which the according phase shall be returned
     * @return The according phase (here, always zero will be returned)
     * @see MSTrafficLightLogic::getIndexFromOffset
     */
-    int getIndexFromOffset(SUMOTime offset) const override;
+    int getIndexFromOffset(SUMOTime offset) const;
     /// @}
 
 
@@ -195,7 +199,7 @@ public:
      * @param[in] stepDuration The left duration of the phase
      * @see MSTrafficLightLogic::changeStepAndDuration
      */
-    void changeStepAndDuration(MSTLLogicControl& tlcontrol, SUMOTime simStep, int step, SUMOTime stepDuration) override {
+    void changeStepAndDuration(MSTLLogicControl& tlcontrol, SUMOTime simStep, int step, SUMOTime stepDuration) {
         UNUSED_PARAMETER(tlcontrol);
         UNUSED_PARAMETER(simStep);
         UNUSED_PARAMETER(step);
@@ -204,15 +208,15 @@ public:
     /// @}
 
     /// @brief return vehicles that block the intersection/rail signal for vehicles that wish to pass the given linkIndex
-    VehicleVector getBlockingVehicles(int linkIndex) override;
+    VehicleVector getBlockingVehicles(int linkIndex);
     std::string getBlockingVehicleIDs() const;
 
     /// @brief return vehicles that approach the intersection/rail signal and are in conflict with vehicles that wish to pass the given linkIndex
-    VehicleVector getRivalVehicles(int linkIndex) override;
+    VehicleVector getRivalVehicles(int linkIndex);
     std::string getRivalVehicleIDs() const;
 
     /// @brief return vehicles that approach the intersection/rail signal and have priority over vehicles that wish to pass the given linkIndex
-    VehicleVector getPriorityVehicles(int linkIndex) override;
+    VehicleVector getPriorityVehicles(int linkIndex);
     std::string getPriorityVehicleIDs() const;
 
     /// @brief return information regarding active rail signal constraints for the closest approaching vehicle
@@ -350,7 +354,7 @@ protected:
         /// @brief Whether veh must yield to the foe train
         static bool mustYield(const Approaching& veh, const Approaching& foe);
 
-        /// @brief Whether any of the conflict links have approaching vehicles
+        /// @brief Whether any of the conflict linkes have approaching vehicles
         bool conflictLinkApproached() const;
 
         /// @brief find protection for the given vehicle  starting at a switch
@@ -377,7 +381,7 @@ protected:
          */
         void buildRoute(MSLink* origin, double length, MSRouteIterator next, MSRouteIterator end, LaneVisitedMap& visited);
 
-        /// @brief find switches that threaten this driveway
+        /// @brief find switches that threathen this driveway
         void checkFlanks(const std::vector<MSLane*>& lanes, const LaneVisitedMap& visited, bool allFoes);
 
         /// @brief find links that cross the driveway without entering it

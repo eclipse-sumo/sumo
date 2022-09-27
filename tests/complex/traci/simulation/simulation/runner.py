@@ -95,20 +95,10 @@ print("convertGeoRoad", traci.simulation.convertRoad(12, 48.1, True))
 print("convertGeoRoadBus", traci.simulation.convertRoad(12, 48.1, True, "bus"))
 traci.lane.setDisallowed("o_0", ["bus"])
 print("convertGeoRoadBusDisallowed", traci.simulation.convertRoad(12, 48.1, True, "bus"))
-
-pos1 = (488.65, 501.65)
-pos2 = (498.65, 501.65)
-print("distance2D", traci.simulation.getDistance2D(pos1[0], pos1[1], pos2[0], pos2[1]))
-pos1geo = traci.simulation.convertGeo(*pos1)
-pos2geo = traci.simulation.convertGeo(*pos2)
-print("distance2Dgeo",
-      traci.simulation.getDistance2D(pos1geo[0], pos1geo[1],
-                                     pos2geo[0], pos2geo[1], isGeo=True))
-
+print("distance2D", traci.simulation.getDistance2D(
+    488.65, 501.65, 498.65, 501.65))
 print("drivingDistance2D", traci.simulation.getDistance2D(
     488.65, 501.65, 498.65, 501.65, isDriving=True))
-
-
 print("distanceRoad", traci.simulation.getDistanceRoad("o", 0., "2o", 0.))
 print("drivingDistanceRoad", traci.simulation.getDistanceRoad(
     "o", 0., "2o", 0., isDriving=True))

@@ -37,24 +37,21 @@
 // ===========================================================================
 
 GNEEdgeType::GNEEdgeType(GNECreateEdgeFrame* createEdgeFrame) :
-    GNENetworkElement(createEdgeFrame->getViewNet()->getNet(), "", GLO_EDGE, SUMO_TAG_TYPE, 
-    GUIIconSubSys::getIcon(GUIIcon::EDGETYPE), {}, {}, {}, {}, {}, {}) {
+    GNENetworkElement(createEdgeFrame->getViewNet()->getNet(), "", GLO_EDGE, SUMO_TAG_TYPE, {}, {}, {}, {}, {}, {}) {
     // create laneType
     myLaneTypes.push_back(new GNELaneType(this));
 }
 
 
 GNEEdgeType::GNEEdgeType(const GNEEdgeType* edgeType) :
-    GNENetworkElement(edgeType->getNet(), edgeType->getID(), GLO_EDGE, SUMO_TAG_TYPE, 
-    GUIIconSubSys::getIcon(GUIIcon::EDGETYPE), {}, {}, {}, {}, {}, {}),
-    Parameterised(edgeType->getParametersMap()),
-    NBTypeCont::EdgeTypeDefinition(edgeType) {
+    GNENetworkElement(edgeType->getNet(), edgeType->getID(), GLO_EDGE, SUMO_TAG_TYPE, {}, {}, {}, {}, {}, {}),
+                  Parameterised(edgeType->getParametersMap()),
+NBTypeCont::EdgeTypeDefinition(edgeType) {
 }
 
 
 GNEEdgeType::GNEEdgeType(GNENet* net) :
-    GNENetworkElement(net, net->getAttributeCarriers()->generateEdgeTypeID(), GLO_EDGE, SUMO_TAG_TYPE, 
-    GUIIconSubSys::getIcon(GUIIcon::EDGETYPE), {}, {}, {}, {}, {}, {}) {
+    GNENetworkElement(net, net->getAttributeCarriers()->generateEdgeTypeID(), GLO_EDGE, SUMO_TAG_TYPE, {}, {}, {}, {}, {}, {}) {
     // create laneType
     GNELaneType* laneType = new GNELaneType(this);
     myLaneTypes.push_back(laneType);
@@ -62,7 +59,7 @@ GNEEdgeType::GNEEdgeType(GNENet* net) :
 
 
 GNEEdgeType::GNEEdgeType(GNENet* net, const std::string& ID, const NBTypeCont::EdgeTypeDefinition* edgeType) :
-    GNENetworkElement(net, ID, GLO_EDGE, SUMO_TAG_TYPE, GUIIconSubSys::getIcon(GUIIcon::EDGETYPE), {}, {}, {}, {}, {}, {}) {
+    GNENetworkElement(net, ID, GLO_EDGE, SUMO_TAG_TYPE, {}, {}, {}, {}, {}, {}) {
     // create  laneTypes
     for (const auto& laneTypeDef : edgeType->laneTypeDefinitions) {
         GNELaneType* laneType = new GNELaneType(this, laneTypeDef);
@@ -202,12 +199,6 @@ GNEEdgeType::updateCenteringBoundary(const bool /*updateGrid*/) {
 void
 GNEEdgeType::drawGL(const GUIVisualizationSettings& /*s*/) const {
     // nothing to draw
-}
-
-
-void
-GNEEdgeType::deleteGLObject() {
-    myNet->deleteNetworkElement(this, myNet->getViewNet()->getUndoList());
 }
 
 

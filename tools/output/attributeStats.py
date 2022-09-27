@@ -71,8 +71,7 @@ def main():
 
     vals = defaultdict(list)
     stats = Statistics("%s %ss" % (options.element, options.attribute),
-                       histogram=options.binwidth > 0, scale=options.binwidth,
-                       printDev=True)
+                       histogram=options.binwidth > 0, scale=options.binwidth)
     missingAttr = set()
     invalidType = set()
 

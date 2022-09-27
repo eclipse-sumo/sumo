@@ -10,11 +10,6 @@ allow a distinction between the contents at first sight. The list of
 used extensions is shown below. We of course highly encourage you to use
 this pattern.
 
-All SUMO applications can read and write gzipped XML files as well.
-For input files this is detected automatically (independent of the filename),
-if you want to have a gzipped output file just add the *.gz* suffix to the
-output filename (e.g. *myNet.net.xml.gz*).
-
 - Configuration files (always the first four letters of the
 corresponding executable with "cfg" appended)
   - **\*.sumocfg** (formerly .sumo.cfg): Configuration file for

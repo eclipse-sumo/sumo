@@ -259,11 +259,11 @@ public:
         return false;
     }
 
-    inline double getChosenSpeedFactor() const {
+    inline double getSpeedFactor() const {
         return myChosenSpeedFactor;
     }
 
-    inline void setChosenSpeedFactor(const double factor) {
+    inline void setSpeedFactor(const double factor) {
         myChosenSpeedFactor = factor;
     }
 

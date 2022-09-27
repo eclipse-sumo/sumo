@@ -69,8 +69,6 @@ void
 GNEAdditionalFrame::show() {
     // refresh tag selector
     myAdditionalTagSelector->refreshTagSelector();
-    // reset last position
-    myViewNet->resetLastClickedPosition();
     // show frame
     GNEFrame::show();
 }
@@ -220,8 +218,6 @@ GNEAdditionalFrame::tagSelected() {
             myConsecutiveLaneSelector->hideConsecutiveLaneSelectorModule();
             myLanesSelector->hideNetworkElementsSelector();
         }
-        // reset last position
-        myViewNet->resetLastClickedPosition();
     } else {
         // hide all moduls if additional isn't valid
         myAdditionalAttributes->hideAttributesCreatorModule();

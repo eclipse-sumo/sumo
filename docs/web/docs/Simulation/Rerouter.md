@@ -299,9 +299,6 @@ The attributes used within such definitions are:
 | probability    | float       | The probability for each of the alternatives to be selected (default 1). |
 | visible        | bool        | Whether occupancy of this parkingArea is known before reaching the parkingArea edge (this models line-of-sight as well as parking information systems).     |
 
-!!! note
-    The `<parkingAreaReroute>` definitions to model parking search can be automatically generated with the tool [generateParkingAreaRerouters.py](../Tools/Misc.md#generateparkingarearerouterspy)
-
 ### Memory in parking search
 
 Parking search refers to the situation where a vehicle encounters an occupied parkingArea and has to pick among a list of alternative destinations without knowing their occupancy state. The vehicle has to iteratively drive to alternative destinations until a free parking space is found. ParkingAreas that were visited earlier (and occupied) might be reasonably visited again with the expectation that they have cleared up since the last visit. By default, vehicles will not visit an occupied parkingArea again for 600s. This can be modified with vehicle-param or vType-param as follows:

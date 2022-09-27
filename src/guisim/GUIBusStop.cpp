@@ -57,7 +57,7 @@ GUIBusStop::GUIBusStop(const std::string& id, SumoXMLTag element, const std::vec
                        double frompos, double topos, const std::string name, int personCapacity,
                        double parkingLength, const RGBColor& color) :
     MSStoppingPlace(id, element, lines, lane, frompos, topos, name, personCapacity, parkingLength, color),
-    GUIGlObject_AbstractAdd(GLO_BUS_STOP, id, GUIIconSubSys::getIcon(GUIIcon::BUSSTOP)) {
+    GUIGlObject_AbstractAdd(GLO_BUS_STOP, id) {
     const double offsetSign = MSGlobals::gLefthand ? -1 : 1;
     // see MSVehicleControl defContainerType
     myWidth = MAX2(1.0, ceil((double)personCapacity / getTransportablesAbreast()) * myTransportableDepth);

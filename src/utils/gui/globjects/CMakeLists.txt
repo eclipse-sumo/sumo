@@ -1,7 +1,5 @@
 set(utils_gui_globjects_STAT_SRCS
    GLIncludes.h
-   GUICursorDialog.h
-   GUICursorDialog.cpp
    GUIGLObjectPopupMenu.cpp
    GUIGLObjectPopupMenu.h
    GUIGlObject.cpp

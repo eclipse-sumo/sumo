@@ -44,7 +44,7 @@ netedit.leftClick(referencePosition, 250, 265)
 netedit.changeDefaultValue(netedit.attrs.vaporizer.create.begin, "10")
 
 # create vaporizer (camera will be moved)
-netedit.leftClick(referencePosition, 260, 265)
+netedit.leftClick(referencePosition, 250, 265)
 
 # Check undo redo
 netedit.undo(referencePosition, 1)

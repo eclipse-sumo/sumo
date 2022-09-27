@@ -46,7 +46,7 @@ This Documentation is continuously updated and always refers to the latest devel
     - [from ArcView (shapefiles)](Networks/Import/ArcView.md)
     - [from DlrNavTeq](Networks/Import/DlrNavteq.md)
     - [from Robocup Simulation League](Networks/Import/RoboCup.md)
-  - [Importing SUMO networks and Patching](Networks/Import/SUMO_Road_Networks.md)
+  - [Importing SUMO networks](Networks/Import/SUMO_Road_Networks.md)
   - [Building networks for motorway simulation](Simulation/Motorways.md#building_a_network_for_motorway_simulation)
   - [Building networks for pedestrian simulation](Simulation/Pedestrians.md#building_a_network_for_pedestrian_simulation)
   - [Further netconvert options](Networks/Further_Options.md)

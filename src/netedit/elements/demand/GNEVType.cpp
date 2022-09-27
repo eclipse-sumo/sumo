@@ -33,11 +33,11 @@
 // ===========================================================================
 
 GNEVType::GNEVType(GNENet* net) :
-    GNEDemandElement("", net, GLO_VTYPE, SUMO_TAG_VTYPE, GUIIconSubSys::getIcon(GUIIcon::VTYPE), 
-    GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}),
-    SUMOVTypeParameter(""),
-    myDefaultVehicleType(true),
-    myDefaultVehicleTypeModified(false) {
+    GNEDemandElement("", net, GLO_VTYPE, SUMO_TAG_VTYPE, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
+{}, {}, {}, {}, {}, {}),
+SUMOVTypeParameter(""),
+myDefaultVehicleType(true),
+myDefaultVehicleTypeModified(false) {
     // reset default values
     resetDefaultValues();
     // init Rail Visualization Parameters
@@ -46,11 +46,11 @@ GNEVType::GNEVType(GNENet* net) :
 
 
 GNEVType::GNEVType(GNENet* net, const std::string& vTypeID, const SUMOVehicleClass& defaultVClass) :
-    GNEDemandElement(vTypeID, net, GLO_VTYPE, SUMO_TAG_VTYPE, GUIIconSubSys::getIcon(GUIIcon::VTYPE), 
-    GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}),
-    SUMOVTypeParameter(vTypeID),
-    myDefaultVehicleType(true),
-    myDefaultVehicleTypeModified(false) {
+    GNEDemandElement(vTypeID, net, GLO_VTYPE, SUMO_TAG_VTYPE, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
+{}, {}, {}, {}, {}, {}),
+SUMOVTypeParameter(vTypeID),
+myDefaultVehicleType(true),
+myDefaultVehicleTypeModified(false) {
     // set default vehicle class
     vehicleClass = defaultVClass;
     // init Rail Visualization Parameters
@@ -59,22 +59,22 @@ GNEVType::GNEVType(GNENet* net, const std::string& vTypeID, const SUMOVehicleCla
 
 
 GNEVType::GNEVType(GNENet* net, const SUMOVTypeParameter& vTypeParameter) :
-    GNEDemandElement(vTypeParameter.id, net, GLO_VTYPE, SUMO_TAG_VTYPE, GUIIconSubSys::getIcon(GUIIcon::VTYPE), 
-    GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}),
-    SUMOVTypeParameter(vTypeParameter),
-    myDefaultVehicleType(false),
-    myDefaultVehicleTypeModified(false) {
+    GNEDemandElement(vTypeParameter.id, net, GLO_VTYPE, SUMO_TAG_VTYPE, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
+{}, {}, {}, {}, {}, {}),
+SUMOVTypeParameter(vTypeParameter),
+myDefaultVehicleType(false),
+myDefaultVehicleTypeModified(false) {
     // init Rail Visualization Parameters
     initRailVisualizationParameters();
 }
 
 
 GNEVType::GNEVType(GNENet* net, const std::string& vTypeID, GNEVType* vTypeOriginal) :
-    GNEDemandElement(vTypeID, net, GLO_VTYPE, vTypeOriginal->getTagProperty().getTag(), GUIIconSubSys::getIcon(GUIIcon::VTYPE), 
-    GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}),
-    SUMOVTypeParameter(*vTypeOriginal),
-    myDefaultVehicleType(false),
-    myDefaultVehicleTypeModified(false) {
+    GNEDemandElement(vTypeID, net, GLO_VTYPE, vTypeOriginal->getTagProperty().getTag(), GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
+{}, {}, {}, {}, {}, {}),
+SUMOVTypeParameter(*vTypeOriginal),
+myDefaultVehicleType(false),
+myDefaultVehicleTypeModified(false) {
     // change manually the ID (to avoid to use the ID of vTypeOriginal)
     id = vTypeID;
     // init Rail Visualization Parameters
@@ -335,12 +335,6 @@ GNEVType::getAttribute(SumoXMLAttr key) const {
                 return toString(speedFactor);
             } else {
                 return toString(defaultValues.speedFactor);
-            }
-        case SUMO_ATTR_DESIRED_MAXSPEED:
-            if (wasSet(VTYPEPARS_DESIRED_MAXSPEED_SET)) {
-                return toString(desiredMaxSpeed);
-            } else {
-                return toString(defaultValues.desiredMaxSpeed);
             }
         case SUMO_ATTR_PERSON_CAPACITY:
             if (wasSet(VTYPEPARS_PERSON_CAPACITY)) {
@@ -634,7 +628,6 @@ GNEVType::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* u
         case SUMO_ATTR_MINGAP:
         case SUMO_ATTR_MAXSPEED:
         case SUMO_ATTR_SPEEDFACTOR:
-        case SUMO_ATTR_DESIRED_MAXSPEED:
         case SUMO_ATTR_COLOR:
         case SUMO_ATTR_VCLASS:
         case SUMO_ATTR_EMISSIONCLASS:
@@ -822,8 +815,6 @@ GNEVType::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<double>(value) && (parse<double>(value) >= 0);
         case SUMO_ATTR_SPEEDFACTOR:
             return Distribution_Parameterized::isValidDescription(value);
-        case SUMO_ATTR_DESIRED_MAXSPEED:
-            return canParse<double>(value) && (parse<double>(value) >= 0);
         case SUMO_ATTR_COLOR:
             if (value.empty()) {
                 return true;
@@ -915,8 +906,6 @@ GNEVType::isAttributeEnabled(SumoXMLAttr key) const {
             return wasSet(VTYPEPARS_MAXSPEED_SET);
         case SUMO_ATTR_SPEEDFACTOR:
             return wasSet(VTYPEPARS_SPEEDFACTOR_SET);
-        case SUMO_ATTR_DESIRED_MAXSPEED:
-            return wasSet(VTYPEPARS_DESIRED_MAXSPEED_SET);
         case SUMO_ATTR_PERSON_CAPACITY:
             return wasSet(VTYPEPARS_PERSON_CAPACITY);
         case SUMO_ATTR_CONTAINER_CAPACITY:
@@ -1179,9 +1168,6 @@ GNEVType::overwriteVType(GNEDemandElement* vType, const SUMOVTypeParameter newVT
     }
     if (newVTypeParameter.wasSet(VTYPEPARS_SPEEDFACTOR_SET)) {
         vType->setAttribute(SUMO_ATTR_SPEEDFACTOR, toString(newVTypeParameter.speedFactor), undoList);
-    }
-    if (newVTypeParameter.wasSet(VTYPEPARS_DESIRED_MAXSPEED_SET)) {
-        vType->setAttribute(SUMO_ATTR_DESIRED_MAXSPEED, toString(newVTypeParameter.desiredMaxSpeed), undoList);
     }
     if (newVTypeParameter.wasSet(VTYPEPARS_COLOR_SET)) {
         vType->setAttribute(SUMO_ATTR_COLOR, toString(newVTypeParameter.color), undoList);
@@ -1589,18 +1575,6 @@ GNEVType::setAttribute(SumoXMLAttr key, const std::string& value) {
                 parametersSet &= ~VTYPEPARS_SPEEDFACTOR_SET;
             }
             break;
-        case SUMO_ATTR_DESIRED_MAXSPEED:
-            if (!value.empty() && (value != toString(defaultValues.desiredMaxSpeed))) {
-                desiredMaxSpeed = parse<double>(value);
-                // mark parameter as set
-                parametersSet |= VTYPEPARS_DESIRED_MAXSPEED_SET;
-            } else {
-                // set default value
-                desiredMaxSpeed = defaultValues.desiredMaxSpeed;
-                // unset parameter
-                parametersSet &= ~VTYPEPARS_DESIRED_MAXSPEED_SET;
-            }
-            break;
         case SUMO_ATTR_COLOR:
             if (!value.empty() && (value != myTagProperty.getDefaultValue(key))) {
                 color = parse<RGBColor>(value);
@@ -1937,9 +1911,6 @@ GNEVType::updateDefaultVClassAttributes(const VClassDefaultValues& defaultValues
     }
     if (!wasSet(VTYPEPARS_SPEEDFACTOR_SET)) {
         speedFactor = defaultValues.speedFactor;
-    }
-    if (!wasSet(VTYPEPARS_DESIRED_MAXSPEED_SET)) {
-        desiredMaxSpeed = defaultValues.desiredMaxSpeed;
     }
     if (!wasSet(VTYPEPARS_PERSON_CAPACITY)) {
         personCapacity = defaultValues.personCapacity;

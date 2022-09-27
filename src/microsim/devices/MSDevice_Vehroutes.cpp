@@ -51,7 +51,6 @@ bool MSDevice_Vehroutes::myRouteLength = false;
 bool MSDevice_Vehroutes::mySkipPTLines = false;
 bool MSDevice_Vehroutes::myIncludeIncomplete = false;
 bool MSDevice_Vehroutes::myWriteStopPriorEdges = false;
-bool MSDevice_Vehroutes::myWriteInternal = false;
 MSDevice_Vehroutes::StateListener MSDevice_Vehroutes::myStateListener;
 MSDevice_Vehroutes::SortedRouteInfo MSDevice_Vehroutes::myRouteInfos;
 
@@ -77,7 +76,6 @@ MSDevice_Vehroutes::init() {
         mySkipPTLines = oc.getBool("vehroute-output.skip-ptlines");
         myIncludeIncomplete = oc.getBool("vehroute-output.incomplete");
         myWriteStopPriorEdges = oc.getBool("vehroute-output.stop-edges");
-        myWriteInternal = oc.getBool("vehroute-output.internal");
         MSNet::getInstance()->addVehicleStateListener(&myStateListener);
         myRouteInfos.routeOut = &OutputDevice::getDeviceByOption("vehroute-output");
     }
@@ -186,10 +184,9 @@ MSDevice_Vehroutes::notifyEnter(SUMOTrafficObject& veh, MSMoveReminder::Notifica
 bool
 MSDevice_Vehroutes::notifyLeave(SUMOTrafficObject& veh, double /*lastPos*/, MSMoveReminder::Notification reason, const MSLane* /* enteredLane */) {
     if (mySaveExits && reason != NOTIFICATION_LANE_CHANGE && reason != NOTIFICATION_PARKING && reason != NOTIFICATION_SEGMENT) {
-        const MSEdge* edge = myWriteInternal ? dynamic_cast<MSBaseVehicle&>(veh).getCurrentEdge() : veh.getEdge();
-        if (myLastSavedAt != edge) {
+        if (myLastSavedAt != veh.getEdge()) {
             myExits.push_back(MSNet::getInstance()->getCurrentTimeStep());
-            myLastSavedAt = edge;
+            myLastSavedAt = veh.getEdge();
         }
     }
     return true;
@@ -263,11 +260,11 @@ MSDevice_Vehroutes::writeXMLRoute(OutputDevice& os, int index) const {
         for (int i = routesToSkip; i < index; i++) {
             if (myReplacedRoutes[i].edge != nullptr) {
                 int end = myReplacedRoutes[i].lastRouteIndex;
-                myReplacedRoutes[i].route->writeEdgeIDs(edgesD, start, end, myWriteInternal, myHolder.getVClass());
+                myReplacedRoutes[i].route->writeEdgeIDs(edgesD, start, end);
             }
             start = myReplacedRoutes[i].newRouteIndex;
         }
-        myReplacedRoutes[index].route->writeEdgeIDs(edgesD, start, -1, myWriteInternal, myHolder.getVClass());
+        myReplacedRoutes[index].route->writeEdgeIDs(edgesD, start, -1);
         std::string edgesS = edgesD.getString();
         edgesS.pop_back(); // remove last ' '
         os.writeAttr(SUMO_ATTR_EDGES, edgesS);
@@ -293,12 +290,12 @@ MSDevice_Vehroutes::writeXMLRoute(OutputDevice& os, int index) const {
             for (int i = routesToSkip; i < (int)myReplacedRoutes.size(); i++) {
                 if (myReplacedRoutes[i].edge != nullptr) {
                     int end = myReplacedRoutes[i].lastRouteIndex;
-                    numWritten += myReplacedRoutes[i].route->writeEdgeIDs(edgesD, start, end, myWriteInternal, myHolder.getVClass());
+                    numWritten += myReplacedRoutes[i].route->writeEdgeIDs(edgesD, start, end);
                 }
                 start = myReplacedRoutes[i].newRouteIndex;
             }
         }
-        numWritten += myCurrentRoute->writeEdgeIDs(edgesD, start, -1, myWriteInternal, myHolder.getVClass());
+        numWritten += myCurrentRoute->writeEdgeIDs(edgesD, start, -1);
         std::string edgesS = edgesD.getString();
         edgesS.pop_back(); // remove last ' '
         os.writeAttr(SUMO_ATTR_EDGES, edgesS);
@@ -396,7 +393,7 @@ MSDevice_Vehroutes::writeOutput(const bool hasArrived) const {
                 od.writeAttr(SUMO_ATTR_PROB, probs[i]);
                 od.setPrecision();
                 OutputDevice_String edgesD;
-                routes[i]->writeEdgeIDs(edgesD, 0, -1, myWriteInternal, myHolder.getVClass());
+                routes[i]->writeEdgeIDs(edgesD);
                 std::string edgesS = edgesD.getString();
                 edgesS.pop_back(); // remove last ' '
                 od.writeAttr(SUMO_ATTR_EDGES, edgesS);

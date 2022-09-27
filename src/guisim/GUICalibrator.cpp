@@ -269,7 +269,7 @@ GUICalibrator::GUICalibratorPopupMenu::onCmdOpenManip(FXObject*,
  * GUICalibrator - methods
  * ----------------------------------------------------------------------- */
 GUICalibrator::GUICalibrator(MSCalibrator* calibrator) :
-    GUIGlObject_AbstractAdd(GLO_CALIBRATOR, calibrator->getID(), GUIIconSubSys::getIcon(GUIIcon::CALIBRATOR)),
+    GUIGlObject_AbstractAdd(GLO_CALIBRATOR, calibrator->getID()),
     myCalibrator(calibrator),
     myShowAsKMH(true) {
     const std::vector<MSLane*>& destLanes = calibrator->myEdge->getLanes();

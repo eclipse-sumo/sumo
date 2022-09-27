@@ -80,11 +80,6 @@ public:
     /// Returns the speed of the container
     double getSpeed() const;
 
-    /// Returns the configured speed in this stage
-    double getConfiguredSpeed() const {
-        return mySpeed;
-    }
-
     /// @brief the maximum speed of the transportable
     virtual double getMaxSpeed(const MSTransportable* const transportable = nullptr) const = 0;
 

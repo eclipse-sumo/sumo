@@ -208,7 +208,7 @@ NWWriter_DlrNavteq::writeLinksUnsplitted(const OptionsCont& oc, NBEdgeCont& ec, 
             const std::string& name = e->getStreetName();
             if (name != "") {
                 if (nameIDs.count(name) == 0) {
-                    const int tmp = (int)nameIDs.size();
+                    const int tmp = nameIDs.size();
                     nameIDs[name] = toString(tmp);
                 }
                 nameID = nameIDs[name];
@@ -216,7 +216,7 @@ NWWriter_DlrNavteq::writeLinksUnsplitted(const OptionsCont& oc, NBEdgeCont& ec, 
             const std::string& name2 = e->getParameter("ref", "");
             if (name2 != "") {
                 if (nameIDs.count(name2) == 0) {
-                    const int tmp = (int)nameIDs.size();
+                    const int tmp = nameIDs.size();
                     nameIDs[name2] = toString(tmp);
                 }
                 nameIDRegional = nameIDs[name2];

@@ -16,5 +16,3 @@ Warning: 51 total messages of type: Found sharp turn with radius % at the start 
 Warning: 3 total messages of type: Lane '%' is not connected from any incoming edge at junction '%'.
 Warning: 3 total messages of type: Shape for junction '%' has distance % to its given position.
 Warning: 4 total messages of type: The rail crossing '%' does not have any roads.
-Warning: Unused state in tlLogic '7465967492', program '0' at tl-index 0
-Warning: 6 total messages of type: Unused state in tlLogic '%', program '%' at tl-index %

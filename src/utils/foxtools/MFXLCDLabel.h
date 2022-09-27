@@ -15,170 +15,125 @@
 /// @author  Mathew Robertson
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
-/// @author  Pablo Alvarez Lopez
 /// @date    2004-03-19
 ///
 //
 /****************************************************************************/
-#pragma once
+
+
+#ifndef FXLCDLABEL_H
+#define FXLCDLABEL_H
 #include <config.h>
 
-#include "fxheader.h"
-#include "MFXStaticToolTip.h"
 
 
-/** @brief A widget which has the seven-segment display used as the drawing object for each letter
+#ifndef FXHORIZONTALFRAME_H
+#include <FXHorizontalFrame.h>
+using namespace FX;
+#endif
+namespace FXEX {
+
+/// LCD Label styles
+enum {
+    LCDLABEL_NORMAL        = FRAME_SUNKEN | FRAME_THICK,
+    LCDLABEL_LEADING_ZEROS = 0x01000000    /// leading zero's on label - useful for integers
+};
+
+/**
+ * A widget which has the seven-segment display used as the drawing object for each letter
  * in the label.  Supports display of leading zeros, such as when you need to display a
  * number.  Also supports the 'JUSTIFY_RIGHT' option, for right alignment.
  */
-class MFXLCDLabel : public FXHorizontalFrame {
-    /// @brief FOX-declaration
+class /* FXAPI // patch by Daniel Krajzewicz 24.02.2004 */
+    MFXLCDLabel : public FXHorizontalFrame {
     FXDECLARE(MFXLCDLabel)
 
-public:
-    /// @brief LCD Label styles
-    enum {
-        LCDLABEL_NORMAL        = FRAME_SUNKEN | FRAME_THICK,
-        LCDLABEL_LEADING_ZEROS = 0x01000000    /// leading zero's on label - useful for integers
-    };
+protected:
+    MFXLCDLabel() {}
 
-    /// @brief call messages
+    FXString label;      /// The currently shown label
+    FXint   nfigures;    /// The number of shown figuresi, greater than zero
+
+    // Draw a string
+    virtual void drawString(const FXString& lbl);
+
+public:
     enum {
         ID_SEVENSEGMENT = FXHorizontalFrame::ID_LAST,
         ID_LAST
     };
 
 public:
-    /// @brief constructor
-    MFXLCDLabel(FXComposite* p, MFXStaticToolTip* staticToolTip, FXuint nfig, FXObject* tgt, FXSelector sel, FXuint opts = LCDLABEL_NORMAL, FXint pl = DEFAULT_PAD, FXint pr = DEFAULT_PAD, FXint pt = DEFAULT_PAD, FXint pb = DEFAULT_PAD, FXint hs = DEFAULT_PAD);
-
-    /// @brief destructor
-    virtual ~MFXLCDLabel();
-
-    /// @brief create resrouces
-    virtual void create();
-
-    /// @brief detach resources
-    virtual void detach();
-
-    /// @brief destroy resources
-    virtual void destroy();
-
-    /// @brief manipulate text in LCD label
-    void setText(FXString lbl);
-
-    /// @brief get text
-    FXString getText() const;
-
-    /// @brief set forground color
-    void setFgColor(FXColor clr);
-
-    /// @brief get forground color
-    FXColor getFgColor() const;
-
-    /// @brief set background color
-    void setBgColor(FXColor clr);
-
-    /// @brief get background color
-    FXColor getBgColor() const;
-
-    /// @brief set segment horizontal length - must be more than twice the segment width
-    void setHorizontal(const FXint len);
-
-    /// @brief get segment horizontal length - must be more than twice the segment width
-    FXint getHorizontal() const;
-
-    /// @brief set segment vertical length - must be more than twice the segment width
-    void setVertical(const FXint len);
-
-    /// @brief get segment vertical length - must be more than twice the segment width
-    FXint getVertical() const;
-
-    /// @brief set segment width - must be less than half the segment length
-    void setThickness(const FXint w);
-
-    /// @brief get segment width - must be less than half the segment length
-    FXint getThickness() const;
-
-    /// @brief set groove width - must be less than segment width
-    void setGroove(const FXint w);
-
-    /// @brief get groove width - must be less than segment width
-    FXint getGroove() const;
-
-    /// @brief return minimum width
-    virtual FXint getDefaultWidth();
-
-    /// @brief return minimum height
-    virtual FXint getDefaultHeight();
-
-    /// @brief set tooltip text
-    void setToolTipText(const FXString &text);
-
-    /// @brief save resources
-    virtual void save(FXStream& store) const;
-
-    /// @brief load resources
-    virtual void load(FXStream& store);
-
-    /// @brief handle paint event
     long onPaint(FXObject*, FXSelector, void*);
-
-    /// @brief called when mouse enter in MFXMenuButtonTooltip
-    long onEnter(FXObject* obj, FXSelector sel, void* ptr);
-
-    /// @brief called when mouse leaves in MFXMenuButtonTooltip
-    long onLeave(FXObject* obj, FXSelector sel, void* ptr);
-    
-    /// @brief called when mouse motion in MFXMenuButtonTooltip
-    long onMotion(FXObject* obj, FXSelector sel, void* ptr);
-    
-    /// @brief Update value from a message
     long onCmdSetValue(FXObject*, FXSelector, void* ptr);
-
-    /// @brief Update int value from a message
     long onCmdSetIntValue(FXObject*, FXSelector, void* ptr);
-
-    /// @brief Update real value from a message
     long onCmdSetRealValue(FXObject*, FXSelector, void* ptr);
-
-    /// @brief Update string value from a message
     long onCmdSetStringValue(FXObject*, FXSelector, void* ptr);
-
-    /// @brief Obtain int value from text field
     long onCmdGetIntValue(FXObject*, FXSelector, void* ptr);
-
-    /// @brief Obtain real value from text field
     long onCmdGetRealValue(FXObject*, FXSelector, void* ptr);
-
-    /// @brief Obtain string value from text field
     long onCmdGetStringValue(FXObject*, FXSelector, void* ptr);
-
-    /// @brief redirect events to main window
     long onRedirectEvent(FXObject*, FXSelector, void* ptr);
-
-    /// @brief let parent show tip if appropriate
     long onQueryTip(FXObject*, FXSelector, void* ptr);
-
-    /// @brief let parent show help if appropriate
     long onQueryHelp(FXObject*, FXSelector, void* ptr);
 
-protected:
-    /// @brief FOX constructor
-    FOX_CONSTRUCTOR(MFXLCDLabel)
+public:
+    /// make me a label
+    MFXLCDLabel(FXComposite* p, FXuint nfig = 1, FXObject* tgt = NULL, FXSelector sel = 0, FXuint opts = LCDLABEL_NORMAL, FXint pl = DEFAULT_PAD, FXint pr = DEFAULT_PAD, FXint pt = DEFAULT_PAD, FXint pb = DEFAULT_PAD, FXint hs = DEFAULT_PAD);
 
-    /// @brief The currently shown label
-    FXString myLabel;
-    
-    /// @brief The number of shown figuresi, greater than zero
-    FXint myNFigures;    
+    /// create resrouces
+    virtual void create();
 
-    /// @brief pointer to staticToolTip
-    MFXStaticToolTip* myStaticToolTip;
+    /// detach resources
+    virtual void detach();
 
-    /// @brief toolTip text
-    FXString myToolTipText;
+    /// destroy resources
+    virtual void destroy();
 
-    /// @brief Draw a string
-    void drawString(const FXString& lbl);
+    /// manipulate text in LCD label
+    void setText(FXString lbl);
+    FXString getText() const {
+        return label;
+    }
+
+    /// set/get forground color
+    void setFgColor(FXColor clr);
+    FXColor getFgColor() const;
+
+    /// set/get background color
+    void setBgColor(FXColor clr);
+    FXColor getBgColor() const;
+
+    /// set/get segment horizontal length - must be more than twice the segment width
+    void setHorizontal(const FXint len);
+    FXint getHorizontal() const;
+
+    /// set/get segment vertical length - must be more than twice the segment width
+    void setVertical(const FXint len);
+    FXint getVertical() const;
+
+    /// set/get segment width - must be less than half the segment length
+    void setThickness(const FXint w);
+    FXint getThickness() const;
+
+    /// set/get groove width - must be less than segment width
+    void setGroove(const FXint w);
+    FXint getGroove() const;
+
+    /// return minimum width
+    virtual FXint getDefaultWidth();
+
+    /// return minimum height
+    virtual FXint getDefaultHeight();
+
+    /// save resources
+    virtual void save(FXStream& store) const;
+
+    /// load resources
+    virtual void load(FXStream& store);
+
+    /// dtor
+    virtual ~MFXLCDLabel();
 };
+
+} // namespace FXEX
+#endif // MFXLCDLabel

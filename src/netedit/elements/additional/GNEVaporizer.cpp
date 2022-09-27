@@ -23,7 +23,6 @@
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/globjects/GLIncludes.h>
-#include <utils/gui/div/GUIGlobalPostDrawing.h>
 
 #include "GNEVaporizer.h"
 
@@ -33,10 +32,10 @@
 // ===========================================================================
 
 GNEVaporizer::GNEVaporizer(GNENet* net) :
-    GNEAdditional("", net, GLO_VAPORIZER, SUMO_TAG_VAPORIZER, GUIIconSubSys::getIcon(GUIIcon::VAPORIZER), "",
-    {}, {}, {}, {}, {}, {}),
-    myBegin(0),
-    myEnd(0) {
+    GNEAdditional("", net, GLO_VAPORIZER, SUMO_TAG_VAPORIZER, "",
+{}, {}, {}, {}, {}, {}),
+myBegin(0),
+myEnd(0) {
     // reset default values
     resetDefaultValues();
 }
@@ -44,11 +43,11 @@ GNEVaporizer::GNEVaporizer(GNENet* net) :
 
 GNEVaporizer::GNEVaporizer(GNENet* net, GNEEdge* edge, SUMOTime from, SUMOTime end, const std::string& name,
                            const Parameterised::Map& parameters) :
-    GNEAdditional(edge->getID(), net, GLO_VAPORIZER, SUMO_TAG_VAPORIZER,  GUIIconSubSys::getIcon(GUIIcon::VAPORIZER), name,
-    {}, {edge}, {}, {}, {}, {}),
-    Parameterised(parameters),
-    myBegin(from),
-    myEnd(end) {
+    GNEAdditional(edge->getID(), net, GLO_VAPORIZER, SUMO_TAG_VAPORIZER, name,
+{}, {edge}, {}, {}, {}, {}),
+Parameterised(parameters),
+myBegin(from),
+myEnd(end) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -177,27 +176,14 @@ GNEVaporizer::drawGL(const GUIVisualizationSettings& s) const {
         GLHelper::popName();
         // draw additional name
         drawAdditionalName(s);
-        // check if mouse is over element
-        mouseWithinGeometry(myAdditionalGeometry.getShape(), 0.5);
-        // inspect contour
+        // check if dotted contours has to be drawn
         if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-            GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::INSPECT, myAdditionalGeometry.getShape(), 0.5,
-                    vaporizerExaggeration, true, true);
+            GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, myAdditionalGeometry.getShape(), 0.5,
+                    vaporizerExaggeration, 1, 1);
         }
-        // front element contour
         if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-            GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::FRONT, myAdditionalGeometry.getShape(), 0.5,
-                    vaporizerExaggeration, true, true);
-        }
-        // delete contour
-        if (myNet->getViewNet()->drawDeleteContour(this, this)) {
-            GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::REMOVE, myAdditionalGeometry.getShape(), 0.5,
-                    vaporizerExaggeration, true, true);
-        }
-        // select contour
-        if (myNet->getViewNet()->drawSelectContour(this, this)) {
-            GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::SELECT, myAdditionalGeometry.getShape(), 0.5,
-                    vaporizerExaggeration, true, true);
+            GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::FRONT, s, myAdditionalGeometry.getShape(), 0.5,
+                    vaporizerExaggeration, 1, 1);
         }
     }
 }

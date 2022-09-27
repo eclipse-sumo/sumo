@@ -209,7 +209,7 @@ protected:
     /// @brief the minimum duration for keeping the current phase when considering 'earliestEnd'
     SUMOTime getEarliest(SUMOTime prevStart) const;
 
-    /// @brief the maximum duration for keeping the current phase when considering 'latestEnd'
+    /// @brief the maximum duratin for keeping the current phase when considering 'latestEnd'
     SUMOTime getLatest() const;
 
 

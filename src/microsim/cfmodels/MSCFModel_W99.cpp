@@ -86,7 +86,7 @@ MSCFModel_W99::computeThresholds(double speed, double predSpeed, double leaderAc
 
 
 double
-MSCFModel_W99::followSpeed(const MSVehicle* const veh, double speed, double gap2pred, double predSpeed, double /*predMaxDecel*/, const MSVehicle* const pred, const CalcReason /*usage*/) const {
+MSCFModel_W99::followSpeed(const MSVehicle* const veh, double speed, double gap2pred, double predSpeed, double /*predMaxDecel*/, const MSVehicle* const pred) const {
     const double dx = gap2pred + myType->getMinGap();
     const double dv = predSpeed - speed;
 
@@ -190,7 +190,7 @@ MSCFModel_W99::followSpeed(const MSVehicle* const veh, double speed, double gap2
 
 
 double
-MSCFModel_W99::stopSpeed(const MSVehicle* const veh, const double speed, double gap, double decel, const CalcReason /*usage*/) const {
+MSCFModel_W99::stopSpeed(const MSVehicle* const veh, const double speed, double gap, double decel) const {
     // see reasoning in MSCFModel_Wiedemann::stopSpeed
     return MIN2(maximumSafeStopSpeed(gap, decel, speed, false, veh->getActionStepLengthSecs()), maxNextSpeed(speed, veh));
 }

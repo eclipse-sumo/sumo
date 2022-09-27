@@ -35,11 +35,11 @@
 // ===========================================================================
 
 GNETranship::GNETranship(SumoXMLTag tag, GNENet* net) :
-    GNEDemandElement("", net, GLO_TRANSHIP, tag, GUIIconSubSys::getIcon(GUIIcon::TRANSHIP_FROMTO), 
-    GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}),
-    mySpeed(0),
-    myDepartPosition(0),
-    myArrivalPosition(-1) {
+    GNEDemandElement("", net, GLO_TRANSHIP, tag, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
+{}, {}, {}, {}, {}, {}),
+mySpeed(0),
+myDepartPosition(0),
+myArrivalPosition(-1) {
     // reset default values
     resetDefaultValues();
 }
@@ -47,32 +47,31 @@ GNETranship::GNETranship(SumoXMLTag tag, GNENet* net) :
 
 GNETranship::GNETranship(GNENet* net, GNEDemandElement* containerParent, GNEEdge* fromEdge, GNEEdge* toEdge,
                          const double speed, const double departPosition, const double arrivalPosition) :
-    GNEDemandElement(containerParent, net, GLO_TRANSHIP, GNE_TAG_TRANSHIP_EDGE, GUIIconSubSys::getIcon(GUIIcon::TRANSHIP_FROMTO), 
-    GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
-    {}, {fromEdge, toEdge}, {}, {}, {containerParent}, {}),
-    mySpeed(speed),
-    myDepartPosition(departPosition),
-    myArrivalPosition(arrivalPosition) {
+    GNEDemandElement(containerParent, net, GLO_TRANSHIP, GNE_TAG_TRANSHIP_EDGE, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
+{}, {fromEdge, toEdge}, {}, {}, {containerParent}, {}),
+mySpeed(speed),
+myDepartPosition(departPosition),
+myArrivalPosition(arrivalPosition) {
 }
 
 
 GNETranship::GNETranship(GNENet* net, GNEDemandElement* containerParent, GNEEdge* fromEdge, GNEAdditional* toContainerStop,
                          const double speed, const double departPosition, const double arrivalPosition) :
-    GNEDemandElement(containerParent, net, GLO_TRANSHIP, GNE_TAG_TRANSHIP_CONTAINERSTOP, GUIIconSubSys::getIcon(GUIIcon::TRANSPORT_CONTAINERSTOP), 
-    GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {fromEdge}, {}, {toContainerStop}, {containerParent}, {}),
-    mySpeed(speed),
-    myDepartPosition(departPosition),
-    myArrivalPosition(arrivalPosition) {
+    GNEDemandElement(containerParent, net, GLO_TRANSHIP, GNE_TAG_TRANSHIP_CONTAINERSTOP, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
+{}, {fromEdge}, {}, {toContainerStop}, {containerParent}, {}),
+mySpeed(speed),
+myDepartPosition(departPosition),
+myArrivalPosition(arrivalPosition) {
 }
 
 
 GNETranship::GNETranship(GNENet* net, GNEDemandElement* containerParent, std::vector<GNEEdge*> edges,
                          const double speed, const double departPosition, const double arrivalPosition) :
-    GNEDemandElement(containerParent, net, GLO_TRANSHIP, GNE_TAG_TRANSHIP_EDGES, GUIIconSubSys::getIcon(GUIIcon::TRANSHIP_EDGES), 
-    GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {edges}, {}, {}, {containerParent}, {}),
-    mySpeed(speed),
-    myDepartPosition(departPosition),
-    myArrivalPosition(arrivalPosition) {
+    GNEDemandElement(containerParent, net, GLO_TRANSHIP, GNE_TAG_TRANSHIP_EDGES, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
+{}, {edges}, {}, {}, {containerParent}, {}),
+mySpeed(speed),
+myDepartPosition(departPosition),
+myArrivalPosition(arrivalPosition) {
 }
 
 
@@ -120,7 +119,7 @@ GNETranship::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     buildShowParamsPopupEntry(ret);
     // show option to open demand element dialog
     if (myTagProperty.hasDialog()) {
-        GUIDesigns::buildFXMenuCommand(ret, ("Open " + getTagStr() + " Dialog").c_str(), getACIcon(), &parent, MID_OPEN_ADDITIONAL_DIALOG);
+        GUIDesigns::buildFXMenuCommand(ret, ("Open " + getTagStr() + " Dialog").c_str(), getIcon(), &parent, MID_OPEN_ADDITIONAL_DIALOG);
         new FXMenuSeparator(ret);
     }
     GUIDesigns::buildFXMenuCommand(ret, ("Cursor position in view: " + toString(getPositionInView().x()) + "," + toString(getPositionInView().y())).c_str(), nullptr, nullptr, 0);

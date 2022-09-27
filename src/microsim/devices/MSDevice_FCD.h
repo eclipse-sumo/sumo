@@ -96,7 +96,7 @@ public:
     static void cleanup();
 
     /// @brief checks if in polygon
-    static bool shapeFilter(const SUMOTrafficObject* veh);
+    static bool shapeFilter(const SUMOVehicle* veh);
 
     /// @brief is there a filter based on shapes?
     inline static bool hasShapeFilter() {

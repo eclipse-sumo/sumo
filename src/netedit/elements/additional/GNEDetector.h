@@ -45,9 +45,9 @@ public:
      * @param[in] friendlyPos enable or disable friendly positions
      * @param[in] parameters generic parameters
      */
-    GNEDetector(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, FXIcon *icon, const double pos, 
-                const SUMOTime period, const std::vector<GNELane*>& parentLanes, const std::string& filename, 
-                const std::vector<std::string>& vehicleTypes, const std::string& name, const bool friendlyPos, const Parameterised::Map& parameters);
+    GNEDetector(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, const double pos, const SUMOTime period,
+                const std::vector<GNELane*>& parentLanes, const std::string& filename, const std::vector<std::string>& vehicleTypes,
+                const std::string& name, const bool friendlyPos, const Parameterised::Map& parameters);
 
     /**@brief Constructor.
      * @param[in] additionalParent parent additional of this detector (ID will be generated automatically)
@@ -62,9 +62,9 @@ public:
      * @param[in] friendlyPos enable or disable friendly positions
      * @param[in] parameters generic parameters
      */
-    GNEDetector(GNEAdditional* additionalParent, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, FXIcon *icon, const double pos, 
-                const SUMOTime period, const std::vector<GNELane*>& parentLanes, const std::string& filename, const std::string& name, 
-                const bool friendlyPos, const Parameterised::Map& parameters);
+    GNEDetector(GNEAdditional* additionalParent, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, const double pos, const SUMOTime period,
+                const std::vector<GNELane*>& parentLanes, const std::string& filename, const std::string& name, const bool friendlyPos,
+                const Parameterised::Map& parameters);
 
     /// @brief Destructor
     ~GNEDetector();

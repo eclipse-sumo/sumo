@@ -699,16 +699,6 @@ SUMOVehicleParameter::parseStopTriggers(const std::vector<std::string>& triggers
 }
 
 
-ParkingType
-SUMOVehicleParameter::parseParkingType(const std::string& value) {
-    if (value == toString(ParkingType::OPPORTUNISTIC)) {
-        return ParkingType::OPPORTUNISTIC;
-    } else {
-        return StringUtils::toBool(value) ? ParkingType::OFFROAD : ParkingType::ONROAD;
-    }
-}
-
-
 std::vector<std::string>
 SUMOVehicleParameter::Stop::getTriggers() const {
     std::vector<std::string> triggers;
@@ -726,7 +716,7 @@ SUMOVehicleParameter::Stop::getTriggers() const {
 
 int
 SUMOVehicleParameter::Stop::getFlags() const {
-    return (((parking == ParkingType::OFFROAD) ? 1 : 0) +
+    return ((parking ? 1 : 0) +
             (triggered ? 2 : 0) +
             (containerTriggered ? 4 : 0) +
             (busstop != "" ? 8 : 0) +

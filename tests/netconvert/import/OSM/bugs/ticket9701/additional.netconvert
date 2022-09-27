@@ -1,16 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-09-03 22:29:26 by Eclipse SUMO netconvert Version v1_14_1+0819-bf19e4679c8
+<!-- generated on 2021-12-03 11:42:22 by Eclipse SUMO netconvert Version v1_11_0+0282-1c5758e
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-This file may also be made available under the following Secondary
-Licenses when the conditions for such availability set forth in the Eclipse
-Public License 2.0 are satisfied: GNU General Public License, version 2
-or later which is available at
-https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
-SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+SPDX-License-Identifier: EPL-2.0
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -40,12 +35,13 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <report>
         <xml-validation value="never"/>
+        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <busStop id="224101094" name="Estación de autobuses de Zaragoza" lane="34999066_1" startPos="221.16" endPos="236.16" friendlyPos="true" lines="VAC 099"/>
-    <busStop id="8399487641" lane="296662014#0_1" startPos="0.00" endPos="15.00" friendlyPos="true" lines="VAC 099"/>
+    <busStop id="224101094" name="Estación de autobuses de Zaragoza" lane="34999066_1" startPos="226.76" endPos="234.26" friendlyPos="true" lines="VAC 099"/>
+    <busStop id="8399487641" lane="296662014#0_1" startPos="0.00" endPos="7.53" friendlyPos="true" lines="VAC 099"/>
 </additional>

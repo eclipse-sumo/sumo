@@ -175,7 +175,7 @@ GNEFixDemandElements::FixOptions::setInvalidElements(const std::vector<GNEDemand
     // iterate over invalid routes
     for (int i = 0; i < (int)myInvalidElements.size(); i++) {
         // Set icon
-        item = new FXTableItem("", myInvalidElements.at(i)->getACIcon());
+        item = new FXTableItem("", myInvalidElements.at(i)->getIcon());
         item->setIconPosition(FXTableItem::CENTER_X);
         myTable->setItem(i, 0, item);
         // Set ID

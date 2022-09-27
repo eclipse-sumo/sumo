@@ -348,7 +348,7 @@ MSLCM_SL2015::_patchSpeed(double min, const double wanted, double max, const MSC
 #endif
         if (space >= 0) { // XXX space > -MAGIC_OFFSET
             // compute speed for decelerating towards a place which allows the blocking leader to merge in in front
-            double safe = cfModel.stopSpeed(&myVehicle, myVehicle.getSpeed(), space, MSCFModel::CalcReason::LANE_CHANGE);
+            double safe = cfModel.stopSpeed(&myVehicle, myVehicle.getSpeed(), space);
             max = MIN2(max, safe);
             // if we are approaching this place
             if (safe < wanted) {
@@ -551,10 +551,6 @@ MSLCM_SL2015::informLeader(int blocked,
 
     if ((blocked & LCA_BLOCKED_BY_LEADER) != 0 && neighLead.first != 0) {
         const MSVehicle* nv = neighLead.first;
-        if (MSLCHelper::divergentRoute(myVehicle, *nv)) {
-            //std::cout << SIMTIME << " ego=" << myVehicle.getID() << " ignoresDivergentBlockingLeader=" << nv->getID() << "\n";
-            return plannedSpeed;
-        }
 #ifdef DEBUG_INFORM
         if (gDebugFlag2) std::cout << " blocked by leader nv=" <<  nv->getID() << " nvSpeed=" << nv->getSpeed() << " needGap="
                                        << myVehicle.getCarFollowModel().getSecureGap(&myVehicle, nv, myVehicle.getSpeed(), nv->getSpeed(), nv->getCarFollowModel().getMaxDecel()) << "\n";
@@ -681,10 +677,6 @@ MSLCM_SL2015::informFollower(int blocked,
                              double plannedSpeed) {
     if ((blocked & LCA_BLOCKED_BY_FOLLOWER) != 0 && neighFollow.first != 0) {
         const MSVehicle* nv = neighFollow.first;
-        if (MSLCHelper::divergentRoute(myVehicle, *nv)) {
-            //std::cout << SIMTIME << " ego=" << myVehicle.getID() << " ignoresDivergentBlockingFollower=" << nv->getID() << "\n";
-            return;
-        }
 #ifdef DEBUG_INFORM
         if (gDebugFlag2) std::cout << " blocked by follower nv=" <<  nv->getID() << " nvSpeed=" << nv->getSpeed() << " needGap="
                                        << nv->getCarFollowModel().getSecureGap(nv, &myVehicle, nv->getSpeed(), myVehicle.getSpeed(), myVehicle.getCarFollowModel().getMaxDecel()) << "\n";
@@ -2169,9 +2161,7 @@ MSLCM_SL2015::updateExpectedSublaneSpeeds(const MSLeaderDistanceInfo& ahead, int
                 const PersonDist pedLeader = lane->nextBlocking(myVehicle.getPositionOnLane() - myVehicle.getVehicleType().getLength(), foeRight, foeLeft);
                 if (pedLeader.first != 0) {
                     const double pedGap = pedLeader.second - myVehicle.getVehicleType().getMinGap() - myVehicle.getVehicleType().getLength();
-                    // we do not know the walking direction here so we take the pedestrian speeda s 0
-                    vSafe = MIN2(getCarFollowModel().stopSpeed(&myVehicle, vMax, pedGap),
-                            forecastAverageSpeed(vSafe, vMax, pedGap, 0));
+                    vSafe = MIN2(vSafe, getCarFollowModel().stopSpeed(&myVehicle, vMax, pedGap));
                 }
             }
             vSafe = MIN2(vMax, vSafe);
@@ -3710,17 +3700,6 @@ MSLCM_SL2015::setParameter(const std::string& key, const std::string& value) {
         myMaxSpeedLatFactor = doubleValue;
     } else if (key == toString(SUMO_ATTR_LCA_MAXDISTLATSTANDING)) {
         myMaxDistLatStanding = doubleValue;
-        // access to internal state
-    } else if (key == "speedGainProbabilityRight") {
-        mySpeedGainProbabilityRight = doubleValue;
-    } else if (key == "speedGainProbabilityLeft") {
-        mySpeedGainProbabilityLeft = doubleValue;
-    } else if (key == "keepRightProbability") {
-        myKeepRightProbability = doubleValue;
-    } else if (key == "lookAheadSpeed") {
-        myLookAheadSpeed = doubleValue;
-    } else if (key == "sigmaState") {
-        mySigmaState = doubleValue;
     } else {
         throw InvalidArgument("Setting parameter '" + key + "' is not supported for laneChangeModel of type '" + toString(myModel) + "'");
     }

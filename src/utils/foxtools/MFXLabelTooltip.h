@@ -50,10 +50,6 @@ public:
 
     /// @brief called when mouse leaves in MFXLabelTooltip
     long onLeave(FXObject*, FXSelector, void*);
-
-    /// @brief called when mouse motion in MFXLabelTooltip
-    long onMotion(FXObject*, FXSelector, void*);
-
     /// @}
 
 protected:

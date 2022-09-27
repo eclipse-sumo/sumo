@@ -122,7 +122,7 @@ GUIContainer::GUIContainerPopupMenu::onCmdStopTrack(FXObject*, FXSelector, void*
  * ----------------------------------------------------------------------- */
 GUIContainer::GUIContainer(const SUMOVehicleParameter* pars, MSVehicleType* vtype, MSTransportable::MSTransportablePlan* plan) :
     MSTransportable(pars, vtype, plan, false),
-    GUIGlObject(GLO_CONTAINER, pars->id, GUIIconSubSys::getIcon(GUIIcon::CONTAINER)) {
+    GUIGlObject(GLO_CONTAINER, pars->id) {
 }
 
 
@@ -169,7 +169,7 @@ GUIContainer::getParameterWindow(GUIMainWindow& app,
     ret->mkItem("edge [id]", false, getEdge()->getID());
     ret->mkItem("position [m]", true, new FunctionBinding<GUIContainer, double>(this, &GUIContainer::getEdgePos));
     ret->mkItem("speed [m/s]", true, new FunctionBinding<GUIContainer, double>(this, &GUIContainer::getSpeed));
-    ret->mkItem("speed factor", false, getChosenSpeedFactor());
+    ret->mkItem("speed factor", false, getSpeedFactor());
     ret->mkItem("angle [degree]", true, new FunctionBinding<GUIContainer, double>(this, &GUIContainer::getAngle));
     ret->mkItem("waiting time [s]", true, new FunctionBinding<GUIContainer, double>(this, &GUIContainer::getWaitingSeconds));
     ret->mkItem("desired depart [s]", false, time2string(getParameter().depart));

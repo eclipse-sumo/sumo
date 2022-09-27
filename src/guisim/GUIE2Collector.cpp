@@ -74,7 +74,7 @@ GUIE2Collector::buildDetectorGUIRepresentation() {
 // -------------------------------------------------------------------------
 
 GUIE2Collector::MyWrapper::MyWrapper(GUIE2Collector& detector) :
-    GUIDetectorWrapper(GLO_E2DETECTOR, detector.getID(), GUIIconSubSys::getIcon(GUIIcon::E2)),
+    GUIDetectorWrapper(GLO_E2DETECTOR, detector.getID()),
     myDetector(detector) {
     mySupportsOverride = true;
     // collect detector shape into one vector (v)

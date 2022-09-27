@@ -39,8 +39,8 @@ std::vector<GUIGlObject_AbstractAdd*> GUIGlObject_AbstractAdd::myObjectList;
 // method definitions
 // ===========================================================================
 
-GUIGlObject_AbstractAdd::GUIGlObject_AbstractAdd(GUIGlObjectType type, const std::string& id, FXIcon* icon) :
-    GUIGlObject(type, id, icon) {
+GUIGlObject_AbstractAdd::GUIGlObject_AbstractAdd(GUIGlObjectType type, const std::string& id) :
+    GUIGlObject(type, id) {
     myObjects[getFullName()] = this;
     myObjectList.push_back(this);
 }

@@ -53,7 +53,7 @@
 // ===========================================================================
 GUIOverheadWire::GUIOverheadWire(const std::string& id, MSLane& lane, double frompos, double topos, bool voltageSource) :
     MSOverheadWire(id, lane, frompos, topos, voltageSource),
-    GUIGlObject_AbstractAdd(GLO_OVERHEAD_WIRE_SEGMENT, id, GUIIconSubSys::getIcon(GUIIcon::OVERHEADWIRE)) {
+    GUIGlObject_AbstractAdd(GLO_OVERHEAD_WIRE_SEGMENT, id) {
     myFGShape = lane.getShape();
     myFGShape = myFGShape.getSubpart(
                     lane.interpolateLanePosToGeometryPos(frompos),
@@ -89,7 +89,7 @@ GUIOverheadWire::~GUIOverheadWire() {
 }
 
 GUIOverheadWireClamp::GUIOverheadWireClamp(const std::string& id, MSLane& lane_start, MSLane& lane_end) :
-    GUIGlObject_AbstractAdd(GLO_OVERHEAD_WIRE_SEGMENT, id, GUIIconSubSys::getIcon(GUIIcon::OVERHEADWIRE_CLAMP)) {
+    GUIGlObject_AbstractAdd(GLO_OVERHEAD_WIRE_SEGMENT, id) {
     myFGShape.clear();
     myFGShape.push_back(lane_start.getShape().front());
     myFGShape.push_back(lane_end.getShape().back());

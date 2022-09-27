@@ -722,7 +722,7 @@ Vehicle::getFollowSpeed(const std::string& vehID, double speed, double gap, doub
         return INVALID_DOUBLE_VALUE;
     }
     MSVehicle* leader = dynamic_cast<MSVehicle*>(MSNet::getInstance()->getVehicleControl().getVehicle(leaderID));
-    return veh->getCarFollowModel().followSpeed(veh, speed, gap, leaderSpeed, leaderMaxDecel, leader, MSCFModel::CalcReason::FUTURE);
+    return veh->getCarFollowModel().followSpeed(veh, speed, gap, leaderSpeed, leaderMaxDecel, leader);
 }
 
 
@@ -747,7 +747,7 @@ Vehicle::getStopSpeed(const std::string& vehID, const double speed, double gap) 
         WRITE_ERROR("getStopSpeed not applicable for meso");
         return INVALID_DOUBLE_VALUE;
     }
-    return veh->getCarFollowModel().stopSpeed(veh, speed, gap, MSCFModel::CalcReason::FUTURE);
+    return veh->getCarFollowModel().stopSpeed(veh, speed, gap);
 }
 
 double
@@ -1128,7 +1128,7 @@ Vehicle::setStopParameter(const std::string& vehID, int nextStopIndex,
         } else if (param == toString(SUMO_ATTR_INDEX)) {
             throw TraCIException("Changing stop index is not supported");
         } else if (param == toString(SUMO_ATTR_PARKING)) {
-            pars.parking = SUMOVehicleParameter::parseParkingType(value);
+            pars.parking = StringUtils::toBool(value);
             pars.parametersSet |= STOP_PARKING_SET;
         } else if (param == toString(SUMO_ATTR_TRIGGERED)) {
             SUMOVehicleParameter::parseStopTriggers(StringTokenizer(value).getVector(), false, pars);

@@ -39,7 +39,7 @@ import osmBuild
 import randomTrips
 import ptlines2flows
 import tileGet
-import sumolib
+import sumolib  # noqa
 from webWizard.SimpleWebSocketServer import SimpleWebSocketServer, WebSocket
 
 SUMO_HOME = os.environ.get("SUMO_HOME", os.path.join(
@@ -61,34 +61,39 @@ typemaps = {
     "bicycles": os.path.join(typemapdir, "osmNetconvertBicycle.typ.xml"),
 }
 
-# common parameters
-CP = ["--trip-attributes", 'departLane="best"',
-      "--fringe-start-attributes", 'departSpeed="max"',
-      "--validate", "--remove-loops"]
-
-# pedestrian parameters
-PP = ["--vehicle-class", "pedestrian", "--prefix", "ped", ]
-
-
-def getParams(vClass, prefix=None):
-    if prefix is None:
-        prefix = vClass
-    return ["--vehicle-class", vClass,  "--vclass", vClass,  "--prefix", prefix]
-
-
 vehicleParameters = {
-    "passenger":   CP + getParams("passenger", "veh") + ["--min-distance", "300", "--min-distance.fringe", "10",
-                                                         "--allow-fringe.min-length", "1000", "--lanes"],
-    "truck":       CP + getParams("truck")            + ["--min-distance", "600", "--min-distance.fringe", "10"],   # noqa
-    "bus":         CP + getParams("bus")              + ["--min-distance", "600", "--min-distance.fringe", "10"],   # noqa
-    "motorcycle":  CP + getParams("motorcycle")       + ["--max-distance", "1200"],                                 # noqa
-    "bicycle":     CP + getParams("bicycle", "bike")  + ["--max-distance", "8000"],                                 # noqa
-    "tram":        CP + getParams("tram")             + ["--min-distance", "1200", "--min-distance.fringe", "10"],  # noqa
-    "rail_urban":  CP + getParams("rail_urban")       + ["--min-distance", "1800", "--min-distance.fringe", "10"],  # noqa
-    "rail":        CP + getParams("rail")             + ["--min-distance", "2400", "--min-distance.fringe", "10"],  # noqa
-    "ship":             getParams("ship") + ["--fringe-start-attributes", 'departSpeed="max"', "--validate"],
-    "pedestrian":  PP + ["--pedestrians", "--max-distance", "2000"],
-    "persontrips": PP + ["--persontrips", "--trip-attributes", 'modes="public"'],
+    "passenger":  ["--vehicle-class", "passenger",  "--vclass", "passenger",  "--prefix", "veh",
+                   "--min-distance", "300",  "--trip-attributes", 'departLane="best"',
+                   "--fringe-start-attributes", 'departSpeed="max"',
+                   "--allow-fringe.min-length", "1000",
+                   "--lanes", "--validate"],
+    "truck":      ["--vehicle-class", "truck", "--vclass", "truck", "--prefix", "truck", "--min-distance", "600",
+                   "--fringe-start-attributes", 'departSpeed="max"',
+                   "--trip-attributes", 'departLane="best"', "--validate"],
+    "bus":        ["--vehicle-class", "bus",   "--vclass", "bus",   "--prefix", "bus",   "--min-distance", "600",
+                   "--fringe-start-attributes", 'departSpeed="max"',
+                   "--trip-attributes", 'departLane="best"', "--validate"],
+    "motorcycle": ["--vehicle-class", "motorcycle", "--vclass", "motorcycle", "--prefix", "moto",
+                   "--fringe-start-attributes", 'departSpeed="max"',
+                   "--max-distance", "1200", "--trip-attributes", 'departLane="best"', "--validate"],
+    "bicycle":    ["--vehicle-class", "bicycle",    "--vclass", "bicycle",    "--prefix", "bike",
+                   "--fringe-start-attributes", 'departSpeed="max"',
+                   "--max-distance", "8000", "--trip-attributes", 'departLane="best"', "--validate"],
+    "tram":       ["--vehicle-class", "tram",       "--vclass", "tram",       "--prefix", "tram",
+                   "--fringe-start-attributes", 'departSpeed="max"',
+                   "--min-distance", "1200", "--trip-attributes",                'departLane="best"', "--validate"],
+    "rail_urban": ["--vehicle-class", "rail_urban", "--vclass", "rail_urban", "--prefix", "urban",
+                   "--fringe-start-attributes", 'departSpeed="max"',
+                   "--min-distance", "1800", "--trip-attributes",                'departLane="best"', "--validate"],
+    "rail":       ["--vehicle-class", "rail",       "--vclass", "rail",       "--prefix", "rail",
+                   "--fringe-start-attributes", 'departSpeed="max"',
+                   "--min-distance", "2400", "--trip-attributes",                'departLane="best"', "--validate"],
+    "ship":       ["--vehicle-class", "ship",       "--vclass", "ship",       "--prefix", "ship", "--validate",
+                   "--fringe-start-attributes", 'departSpeed="max"'],
+    "pedestrian": ["--vehicle-class", "pedestrian", "--pedestrians", "--prefix", "ped",
+                   "--max-distance", "2000", ],
+    "persontrips": ["--vehicle-class", "pedestrian", "--persontrips", "--prefix", "ped",
+                    "--trip-attributes", 'modes="public"', ],
 }
 
 vehicleNames = {
@@ -174,7 +179,7 @@ class Builder(object):
         self.filename("osm", "_bbox.osm.xml.gz")
         # output name for the net file, will be used by osmBuild, randomTrips and
         # sumo-gui
-        self.filename("net", ".net.xml.gz")
+        self.filename("net", ".net.xml")
 
         if 'osm' in self.data:
             # testing mode
@@ -190,18 +195,13 @@ class Builder(object):
                 osmArgs += ["-r", json.dumps(self.data["roadTypes"])]
             osmGet.get(osmArgs)
 
-        if not os.path.exists(self.files["osm"]):
-            raise RuntimeError("Download failed")
-
-        options = ["-f", self.files["osm"], "-p", self.prefix, "-d", self.tmp, "-z"]
-
+        options = ["-f", self.files["osm"], "-p", self.prefix, "-d", self.tmp]
         self.additionalFiles = []
         self.routenames = []
 
         if self.data["poly"]:
             # output name for the poly file, will be used by osmBuild and sumo-gui
-            self.filename("poly", ".poly.xml.gz")
-
+            self.filename("poly", ".poly.xml")
             options += ["-m", typemaps["poly"]]
             self.additionalFiles.append(self.files["poly"])
 
@@ -303,8 +303,7 @@ class Builder(object):
 
             self.edges = sumolib.net.readNet(os.path.join(self.tmp, self.files["net"])).getEdges()
 
-            for vehicle in sorted(self.data["vehicles"].keys()):
-                options = self.data["vehicles"][vehicle]
+            for vehicle, options in self.data["vehicles"].items():
                 self.report("Processing %s" % vehicleNames[vehicle])
 
                 self.filename("route", ".%s.rou.xml" % vehicle)

@@ -42,7 +42,7 @@ class GUIDetectorWrapper : public GUIGlObject_AbstractAdd {
 
 public:
     /// Constructor
-    GUIDetectorWrapper(GUIGlObjectType type, const std::string& id, FXIcon *icon);
+    GUIDetectorWrapper(GUIGlObjectType type, const std::string& id);
 
     /// Destructor
     ~GUIDetectorWrapper();

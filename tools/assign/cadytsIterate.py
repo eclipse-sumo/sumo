@@ -35,7 +35,7 @@ import sys
 import glob
 from datetime import datetime
 from argparse import ArgumentParser
-from duaIterate import call, writeSUMOConf, addGenericOptions, generateEdgedataAddFile
+from duaIterate import call, writeSUMOConf, addGenericOptions
 
 if 'SUMO_HOME' in os.environ:
     TOOLS_DIR = os.path.join(os.environ['SUMO_HOME'], 'tools')
@@ -112,7 +112,6 @@ def main():
     evalprefix = None
     if options.evalprefix:
         evalprefix = options.evalprefix
-    EDGEDATA_ADD = "edgedata.add.xml"
 
     # begin the calibration
     if options.fmaprefix:
@@ -129,13 +128,12 @@ def main():
                            "-mincountstddev", options.mincountstddev, "-overridett", options.overridett,
                            "-clonepostfix", options.clonepostfix, "-cntfirstlink", options.cntfirstlink,
                            "-cntlastlink", options.cntlastlink], log)
-    #
-    generateEdgedataAddFile(EDGEDATA_ADD, options)
+
     for step in range(options.calibStep):
         print('calibration step:', step)
         files = []
         current_directory = os.getcwd()
-        final_directory = os.path.join(current_directory, "%03i" % step)
+        final_directory = os.path.join(current_directory, str(step))
         if not os.path.exists(final_directory):
             os.makedirs(final_directory)
 
@@ -156,7 +154,7 @@ def main():
         btime = datetime.now()
         print(">>> Begin time: %s" % btime)
         writeSUMOConf(sumoBinary, step, options, [], ",".join(files))
-        call([sumoBinary, "-c", "%03i/iteration_%03i.sumocfg" % (step, step)], log)
+        call([sumoBinary, "-c", "%s/iteration_%03i.sumocfg" % (step, step)], log)
         etime = datetime.now()
         print(">>> End time: %s" % etime)
         print(">>> Duration: %s" % (etime - btime))
@@ -168,7 +166,7 @@ def main():
                 step, step, options.aggregation), "-flowfile", "%s_%03i.txt" % (evalprefix, step)], log)
         else:
             call(calibrator + ["UPDATE", "-netfile",
-                               "%03i/dump_%03i_%s.xml" % (step, step, options.aggregation)], log)
+                               "%s/dump_%03i_%s.xml" % (step, step, options.aggregation)], log)
         print("< Step %s ended (duration: %s)" %
               (step, datetime.now() - btime))
         print("------------------\n")

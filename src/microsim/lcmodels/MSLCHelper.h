@@ -72,7 +72,4 @@ public:
      * @return Whether the requested space can be reserved
      */
     static bool canSaveBlockerLength(const MSVehicle& veh, double requested, double leftSpace);
-
-    /// @brief return whether the vehicles are on the same junction but on divergent paths
-    static bool divergentRoute(const MSVehicle& v1, const MSVehicle& v2);
 };

@@ -283,12 +283,4 @@ MSLCHelper::canSaveBlockerLength(const MSVehicle& veh, double requested, double 
 }
 
 
-bool
-MSLCHelper::divergentRoute(const MSVehicle& v1, const MSVehicle& v2) {
-    // a sufficient, but not necessary condition for divergence
-    return (v1.getLane()->isInternal() && v2.getLane()->isInternal()
-            && v1.getLane()->getEdge().getFromJunction() == v2.getLane()->getEdge().getFromJunction()
-            && &v1.getLane()->getEdge() != &v2.getLane()->getEdge());
-}
-
 /****************************************************************************/

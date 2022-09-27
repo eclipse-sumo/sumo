@@ -218,9 +218,6 @@ private:
     /// @brief A shortcut for the Option "vehroute-output.stop-edges"
     static bool myWriteStopPriorEdges;
 
-    /// @brief A shortcut for the Option "vehroute-output.internal"
-    static bool myWriteInternal;
-
     /** @class StateListener
      * @brief A class that is notified about reroutings
      */

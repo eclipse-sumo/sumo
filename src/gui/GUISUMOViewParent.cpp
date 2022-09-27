@@ -31,7 +31,6 @@
 #include <utils/geom/Boundary.h>
 #include <utils/foxtools/MFXUtils.h>
 #include <utils/foxtools/MFXCheckableButton.h>
-#include <utils/foxtools/MFXMenuButtonTooltip.h>
 #include <utils/foxtools/MFXImageHelper.h>
 #include <utils/gui/globjects/GUIGlObjectTypes.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
@@ -188,8 +187,6 @@ GUISUMOViewParent::onCmdMakeSnapshot(FXObject* sender, FXSelector, void*) {
             button->setChecked(!button->amChecked());
         } else if (error != "") {
             FXMessageBox::error(this, MBOX_OK, "Saving failed.", "%s", error.c_str());
-        } else {
-            WRITE_MESSAGE("Snapshot successfully saved!");
         }
     }
     return 1;
@@ -290,7 +287,6 @@ GUISUMOViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
     } else {
         myGLObjChooser[messageId]->restore();
         myGLObjChooser[messageId]->setFocus();
-        myGLObjChooser[messageId]->raise();
     }
     myLocatorPopup->popdown();
     myLocatorButton->killFocus();

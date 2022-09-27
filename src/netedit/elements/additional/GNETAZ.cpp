@@ -31,7 +31,6 @@
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/div/GUIGlobalPostDrawing.h>
-#include <utils/gui/div/GUIGlobalPostDrawing.h>
 
 #include "GNETAZ.h"
 
@@ -48,14 +47,15 @@ const double GNETAZ::myHintSizeSquared = 0.64;
 // ===========================================================================
 
 GNETAZ::GNETAZ(GNENet* net) :
-    GNEAdditional("", net, GLO_TAZ, SUMO_TAG_TAZ, GUIIconSubSys::getIcon(GUIIcon::TAZ), "", {}, {}, {}, {}, {}, {}),
-    TesselatedPolygon("", "", RGBColor::BLACK, {}, false, false, 1, Shape::DEFAULT_LAYER, Shape::DEFAULT_ANGLE, Shape::DEFAULT_IMG_FILE, Shape::DEFAULT_RELATIVEPATH, ""),
-    myMaxWeightSource(0),
-    myMinWeightSource(0),
-    myAverageWeightSource(0),
-    myMaxWeightSink(0),
-    myMinWeightSink(0),
-    myAverageWeightSink(0) {
+    GNEAdditional("", net, GLO_TAZ, SUMO_TAG_TAZ, "",
+{}, {}, {}, {}, {}, {}),
+TesselatedPolygon("", "", RGBColor::BLACK, {}, false, false, 1, Shape::DEFAULT_LAYER, Shape::DEFAULT_ANGLE, Shape::DEFAULT_IMG_FILE, Shape::DEFAULT_RELATIVEPATH, ""),
+myMaxWeightSource(0),
+myMinWeightSource(0),
+myAverageWeightSource(0),
+myMaxWeightSink(0),
+myMinWeightSink(0),
+myAverageWeightSink(0) {
     // reset default values
     resetDefaultValues();
 }
@@ -63,15 +63,16 @@ GNETAZ::GNETAZ(GNENet* net) :
 
 GNETAZ::GNETAZ(const std::string& id, GNENet* net, const PositionVector& shape, const Position& center, const bool fill,
                const RGBColor& color, const std::string& name, const Parameterised::Map& parameters) :
-    GNEAdditional(id, net, GLO_TAZ, SUMO_TAG_TAZ, GUIIconSubSys::getIcon(GUIIcon::TAZ), "", {}, {}, {}, {}, {}, {}),
-    TesselatedPolygon(id, "", color, shape, false, fill, 1, Shape::DEFAULT_LAYER, Shape::DEFAULT_ANGLE, Shape::DEFAULT_IMG_FILE, Shape::DEFAULT_RELATIVEPATH, name, parameters),
-    myTAZCenter(center),
-    myMaxWeightSource(0),
-    myMinWeightSource(0),
-    myAverageWeightSource(0),
-    myMaxWeightSink(0),
-    myMinWeightSink(0),
-    myAverageWeightSink(0) {
+    GNEAdditional(id, net, GLO_TAZ, SUMO_TAG_TAZ, "",
+{}, {}, {}, {}, {}, {}),
+TesselatedPolygon(id, "", color, shape, false, fill, 1, Shape::DEFAULT_LAYER, Shape::DEFAULT_ANGLE, Shape::DEFAULT_IMG_FILE, Shape::DEFAULT_RELATIVEPATH, name, parameters),
+myTAZCenter(center),
+myMaxWeightSource(0),
+myMinWeightSource(0),
+myAverageWeightSource(0),
+myMaxWeightSink(0),
+myMinWeightSink(0),
+myAverageWeightSink(0) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
     // update geometry
@@ -367,6 +368,8 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
         GLHelper::drawFilledCircle(centerRadius * 0.8, s.getCircleResolution());
         // pop center matrix
         GLHelper::popMatrix();
+        // draw dotted contours
+        drawDottedContours(s, TAZExaggeration);
         // pop layer matrix
         GLHelper::popMatrix();
         // pop name
@@ -377,10 +380,6 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
         const Position& namePos = myAdditionalGeometry.getShape().getPolygonCenter();
         // draw name
         drawName(myTAZCenter, s.scale, s.polyName, s.angle);
-        // check if mouse is over element
-        mouseWithinGeometry(myAdditionalGeometry.getShape());
-        // draw dotted contours
-        drawDottedContours(s, TAZExaggeration);
         // check if draw poly type
         if (s.polyType.show(this)) {
             const Position p = namePos + Position(0, -0.6 * s.polyType.size / s.scale);
@@ -639,36 +638,28 @@ GNETAZ::drawDottedContours(const GUIVisualizationSettings& s, const double TAZEx
     const auto TAZRelDataFrame = myNet->getViewNet()->getViewParent()->getTAZRelDataFrame();
     // dotted contour for inspect
     if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-        GUIDottedGeometry::drawDottedContourClosedShape(s, GUIDottedGeometry::DottedContourType::INSPECT, myAdditionalGeometry.getShape(), 1);
+        GUIDottedGeometry::drawDottedContourClosedShape(GUIDottedGeometry::DottedContourType::INSPECT, s, myAdditionalGeometry.getShape(), 1);
     }
     // dotted contour for front
-    if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-        GUIDottedGeometry::drawDottedContourClosedShape(s, GUIDottedGeometry::DottedContourType::FRONT, myAdditionalGeometry.getShape(), 1);
-    }
-    // delete contour
-    if (myNet->getViewNet()->drawDeleteContour(this, this)) {
-        GUIDottedGeometry::drawDottedContourClosedShape(s, GUIDottedGeometry::DottedContourType::REMOVE, myAdditionalGeometry.getShape(), 1);
-    }
-    // select contour
-    if (myNet->getViewNet()->drawSelectContour(this, this)) {
-        GUIDottedGeometry::drawDottedContourClosedShape(s, GUIDottedGeometry::DottedContourType::SELECT, myAdditionalGeometry.getShape(), 1);
+    if ((myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
+        GUIDottedGeometry::drawDottedContourClosedShape(GUIDottedGeometry::DottedContourType::FRONT, s, myAdditionalGeometry.getShape(), 1);
     }
     // dotted contour for first TAZ
     if ((myNet->getViewNet()->getViewParent()->getTAZRelDataFrame()->getFirstTAZ() == this)) {
-        GUIDottedGeometry::drawDottedContourClosedShape(s, GUIDottedGeometry::DottedContourType::FROMTAZ, myAdditionalGeometry.getShape(), 1, s.neteditSizeSettings.polylineWidth * TAZExaggeration);
+        GUIDottedGeometry::drawDottedContourClosedShape(GUIDottedGeometry::DottedContourType::GREEN, s, myAdditionalGeometry.getShape(), 1, s.neteditSizeSettings.polylineWidth * TAZExaggeration);
     }
     // dotted contour for second TAZ
     if ((myNet->getViewNet()->getViewParent()->getTAZRelDataFrame()->getSecondTAZ() == this)) {
-        GUIDottedGeometry::drawDottedContourClosedShape(s, GUIDottedGeometry::DottedContourType::TOTAZ, myAdditionalGeometry.getShape(), 1, s.neteditSizeSettings.polylineWidth * TAZExaggeration);
+        GUIDottedGeometry::drawDottedContourClosedShape(GUIDottedGeometry::DottedContourType::MAGENTA, s, myAdditionalGeometry.getShape(), 1, s.neteditSizeSettings.polylineWidth * TAZExaggeration);
     }
     // now check if mouse is over TAZ
     if (TAZRelDataFrame->shown() && (gPostDrawing.markedTAZ == nullptr) && ((TAZRelDataFrame->getFirstTAZ() == nullptr) || (TAZRelDataFrame->getSecondTAZ() == nullptr))) {
         // get dotted contour type
-        const auto dottedContourType = (TAZRelDataFrame->getFirstTAZ() == nullptr) ? GUIDottedGeometry::DottedContourType::FROMTAZ : GUIDottedGeometry::DottedContourType::TOTAZ;
+        const auto dottedContourType = (TAZRelDataFrame->getFirstTAZ() == nullptr) ? GUIDottedGeometry::DottedContourType::GREEN : GUIDottedGeometry::DottedContourType::MAGENTA;
         // draw depending if is closed
         if (getFill() || myNet->getViewNet()->getDataViewOptions().TAZDrawFill()) {
             if (myAdditionalGeometry.getShape().around(myNet->getViewNet()->getPositionInformation())) {
-                GUIDottedGeometry::drawDottedContourClosedShape(s, dottedContourType, myAdditionalGeometry.getShape(), 1);
+                GUIDottedGeometry::drawDottedContourClosedShape(dottedContourType, s, myAdditionalGeometry.getShape(), 1, s.neteditSizeSettings.polylineWidth * TAZExaggeration);
             }
         } else {
             // scale shape
@@ -677,7 +668,7 @@ GNETAZ::drawDottedContours(const GUIVisualizationSettings& s, const double TAZEx
             // check if mouse is around scaled shape
             if ((scaledShape.around(myNet->getViewNet()->getPositionInformation()) && (scaledShape.distance2D(myNet->getViewNet()->getPositionInformation()) <= 1.3)) ||
                     (myAdditionalGeometry.getShape().around(myNet->getViewNet()->getPositionInformation()) && (myAdditionalGeometry.getShape().distance2D(myNet->getViewNet()->getPositionInformation()) <= 1))) {
-                GUIDottedGeometry::drawDottedContourClosedShape(s, dottedContourType, myAdditionalGeometry.getShape(), 1);
+                GUIDottedGeometry::drawDottedContourClosedShape(dottedContourType, s, myAdditionalGeometry.getShape(), 1, s.neteditSizeSettings.polylineWidth * TAZExaggeration);
             }
         }
     }

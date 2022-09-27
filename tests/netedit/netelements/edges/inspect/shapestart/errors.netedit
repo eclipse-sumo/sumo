@@ -22,7 +22,6 @@ Debug: Created connection 'fromgneE9_0togneE2_1' in retrieveGNEConnection()
 Debug: Value 'dummyShapeStart' for attribute shapeStart of edge isn't valid
 Debug: Value '34' for attribute shapeStart of edge isn't valid
 Debug: Setting new attribute
-Debug: Setting new attribute
 Debug: Key F5 (Compute) pressed
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()

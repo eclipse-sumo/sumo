@@ -501,7 +501,7 @@ MSLCM_DK2008::patchSpeed(const double min, const double wanted, const double max
         double space = myLeftSpace - myLeadingBlockerLength - MAGIC_offset - myVehicle.getVehicleType().getMinGap();
         if (space > 0) {
             // compute speed for decelerating towards a place which allows the blocking leader to merge in in front
-            double safe = cfModel.stopSpeed(&myVehicle, myVehicle.getSpeed(), space, MSCFModel::CalcReason::LANE_CHANGE);
+            double safe = cfModel.stopSpeed(&myVehicle, myVehicle.getSpeed(), space);
             // if we are approaching this place
             if (safe < wanted) {
                 // return this speed as the speed to use

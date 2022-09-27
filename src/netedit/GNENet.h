@@ -139,12 +139,6 @@ public:
                         const std::string& suggestedName = "", bool wasSplit = false, bool allowDuplicateGeom = false,
                         bool recomputeConnections = true);
 
-    /**@brief delete network element
-     * @param[in] networkElement The network element to be removed
-     * @param[in] undoList The undolist in which to mark changes
-     */
-    void deleteNetworkElement(GNENetworkElement* networkElement, GNEUndoList* undoList);
-
     /**@brief removes junction and all incident edges
      * @param[in] junction The junction to be removed
      * @param[in] undoList The undolist in which to mark changes

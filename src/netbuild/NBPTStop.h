@@ -52,10 +52,9 @@ public:
     * @param[in] edgeId The edge id of the pt stop
     * @param[in] length The length of the pt stop
     * @param[in] color ptStop color
-    * @param[in] givenStartPos Loaded startPos (and implicit endPos) that should not be adapted
     */
     NBPTStop(std::string ptStopId, Position position, std::string edgeId, std::string origEdgeId, double length, std::string name,
-             SVCPermissions svcPermissions, double parkingLength = 0, const RGBColor color = RGBColor(false), double  givenStartPos = -1);
+             SVCPermissions svcPermissions, double parkingLength = 0, const RGBColor color = RGBColor(false));
 
     /// @brief Destructor
     virtual ~NBPTStop() {};
@@ -158,6 +157,9 @@ public:
     }
 
 private:
+    void computeExtent(double center, double d);
+
+private:
     std::string myPTStopId;
     Position myPosition;
     std::string myEdgeId;
@@ -190,7 +192,6 @@ private:
     std::vector<NBPTPlatform> myPlatformCands;
     bool myIsMultipleStopPositions;
     long long int myAreaID;
-    double myGivenStartPos;
 
 private:
     /// @brief Invalidated assignment operator.

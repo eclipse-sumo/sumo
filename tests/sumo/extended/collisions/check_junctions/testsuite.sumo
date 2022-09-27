@@ -14,6 +14,3 @@ slow_collider
 
 # stop after junction collision, test for #8359
 stoptime_warn
-
-# see #11609
-short_edge

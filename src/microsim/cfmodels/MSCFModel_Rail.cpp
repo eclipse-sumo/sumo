@@ -69,7 +69,7 @@ MSCFModel_Rail::MSCFModel_Rail(const MSVehicleType* vtype) :
 MSCFModel_Rail::~MSCFModel_Rail() { }
 
 double MSCFModel_Rail::followSpeed(const MSVehicle* const veh, double speed, double gap,
-                                   double /* predSpeed */, double /* predMaxDecel*/, const MSVehicle* const /*pred*/, const CalcReason /*usage*/) const {
+                                   double /* predSpeed */, double /* predMaxDecel*/, const MSVehicle* const /*pred*/) const {
 
     // followSpeed module is used for the simulation of moving block operations. The safety gap is chosen similar to the existing german
     // system CIR-ELKE (based on LZB). Other implementations of moving block systems may differ, but for now no appropriate parameter
@@ -223,7 +223,7 @@ double MSCFModel_Rail::finalizeSpeed(MSVehicle* const veh, double vPos) const {
 }
 
 double MSCFModel_Rail::freeSpeed(const MSVehicle* const /* veh */, double /* speed */, double dist, double targetSpeed,
-                                 const bool onInsertion, const CalcReason /*usage*/) const {
+                                 const bool onInsertion) const {
 
 //    MSCFModel_Rail::VehicleVariables *vars = (MSCFModel_Rail::VehicleVariables *) veh->getCarFollowVariables();
 //    if (vars->isNotYetInitialized()) {
@@ -254,6 +254,6 @@ double MSCFModel_Rail::freeSpeed(const MSVehicle* const /* veh */, double /* spe
     }
 }
 
-double MSCFModel_Rail::stopSpeed(const MSVehicle* const veh, const double speed, double gap, double decel, const CalcReason /*usage*/) const {
+double MSCFModel_Rail::stopSpeed(const MSVehicle* const veh, const double speed, double gap, double decel) const {
     return MIN2(maximumSafeStopSpeed(gap, decel, speed, false, TS), maxNextSpeed(speed, veh));
 }

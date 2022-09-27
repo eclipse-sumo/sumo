@@ -34,9 +34,9 @@
 // ===========================================================================
 
 GNERide::GNERide(SumoXMLTag tag, GNENet* net) :
-    GNEDemandElement("", net, GLO_RIDE, tag, GUIIconSubSys::getIcon(GUIIcon::RIDE_FROMTO),
-    GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}),
-    myArrivalPosition(0) {
+    GNEDemandElement("", net, GLO_RIDE, tag, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
+{}, {}, {}, {}, {}, {}),
+myArrivalPosition(0) {
     // reset default values
     resetDefaultValues();
 }
@@ -44,20 +44,19 @@ GNERide::GNERide(SumoXMLTag tag, GNENet* net) :
 
 GNERide::GNERide(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge,
                  double arrivalPosition, const std::vector<std::string>& lines) :
-    GNEDemandElement(personParent, net, GLO_RIDE, GNE_TAG_RIDE_EDGE, GUIIconSubSys::getIcon(GUIIcon::RIDE_FROMTO),
-    GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {fromEdge, toEdge}, {}, {}, {personParent}, {}),
-    myArrivalPosition(arrivalPosition),
-    myLines(lines) {
+    GNEDemandElement(personParent, net, GLO_RIDE, GNE_TAG_RIDE_EDGE, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
+{}, {fromEdge, toEdge}, {}, {}, {personParent}, {}),
+myArrivalPosition(arrivalPosition),
+myLines(lines) {
 }
 
 
 GNERide::GNERide(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEAdditional* toBusStop,
                  double arrivalPosition, const std::vector<std::string>& lines) :
-    GNEDemandElement(personParent, net, GLO_RIDE, GNE_TAG_RIDE_BUSSTOP, GUIIconSubSys::getIcon(GUIIcon::RIDE_BUSSTOP),
-    GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
-    {}, {fromEdge}, {}, {toBusStop}, {personParent}, {}),
-    myArrivalPosition(arrivalPosition),
-    myLines(lines) {
+    GNEDemandElement(personParent, net, GLO_RIDE, GNE_TAG_RIDE_BUSSTOP, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
+{}, {fromEdge}, {}, {toBusStop}, {personParent}, {}),
+myArrivalPosition(arrivalPosition),
+myLines(lines) {
 }
 
 
@@ -100,7 +99,7 @@ GNERide::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     buildShowParamsPopupEntry(ret);
     // show option to open demand element dialog
     if (myTagProperty.hasDialog()) {
-        GUIDesigns::buildFXMenuCommand(ret, "Open " + getTagStr() + " Dialog", getACIcon(), &parent, MID_OPEN_ADDITIONAL_DIALOG);
+        GUIDesigns::buildFXMenuCommand(ret, "Open " + getTagStr() + " Dialog", getIcon(), &parent, MID_OPEN_ADDITIONAL_DIALOG);
         new FXMenuSeparator(ret);
     }
     GUIDesigns::buildFXMenuCommand(ret, "Cursor position in view: " + toString(getPositionInView().x()) + "," + toString(getPositionInView().y()), nullptr, nullptr, 0);

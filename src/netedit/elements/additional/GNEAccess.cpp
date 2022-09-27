@@ -27,7 +27,6 @@
 #include <netedit/frames/common/GNEMoveFrame.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/globjects/GLIncludes.h>
-#include <utils/gui/div/GUIGlobalPostDrawing.h>
 
 #include "GNEAccess.h"
 #include "GNEAdditionalHandler.h"
@@ -37,10 +36,11 @@
 // ===========================================================================
 
 GNEAccess::GNEAccess(GNENet* net) :
-    GNEAdditional("", net, GLO_ACCESS, SUMO_TAG_ACCESS, GUIIconSubSys::getIcon(GUIIcon::ACCESS), "", {}, {}, {}, {}, {}, {}),
-    myPositionOverLane(0),
-    myLength(0),
-    myFriendlyPosition(false) {
+    GNEAdditional("", net, GLO_ACCESS, SUMO_TAG_ACCESS, "",
+{}, {}, {}, {}, {}, {}),
+myPositionOverLane(0),
+myLength(0),
+myFriendlyPosition(false) {
     // reset default values
     resetDefaultValues();
 }
@@ -48,11 +48,12 @@ GNEAccess::GNEAccess(GNENet* net) :
 
 GNEAccess::GNEAccess(GNEAdditional* busStop, GNELane* lane, GNENet* net, double pos, const double length, bool friendlyPos,
                      const Parameterised::Map& parameters) :
-    GNEAdditional(net, GLO_ACCESS, SUMO_TAG_ACCESS, GUIIconSubSys::getIcon(GUIIcon::ACCESS), "", {}, {}, {lane}, {busStop}, {}, {}),
-    Parameterised(parameters),
-    myPositionOverLane(pos),
-    myLength(length),
-    myFriendlyPosition(friendlyPos) {
+    GNEAdditional(net, GLO_ACCESS, SUMO_TAG_ACCESS, "",
+{}, {}, {lane}, {busStop}, {}, {}),
+Parameterised(parameters),
+myPositionOverLane(pos),
+myLength(length),
+myFriendlyPosition(friendlyPos) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -196,25 +197,14 @@ GNEAccess::drawGL(const GUIVisualizationSettings& s) const {
         GLHelper::popMatrix();
         // pop gl identificator
         GLHelper::popName();
-        // check if mouse is over access
-        mouseWithinGeometry(myAdditionalGeometry.getShape().front(), (radius * accessExaggeration));
         // draw lock icon
         GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), myAdditionalGeometry.getShape().front(), accessExaggeration, 0.3);
-        // inspect contour
+        // check if dotted contours has to be drawn
         if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-            GUIDottedGeometry::drawDottedContourCircle(s, GUIDottedGeometry::DottedContourType::INSPECT, myAdditionalGeometry.getShape().front(), 0.5, accessExaggeration);
+            GUIDottedGeometry::drawDottedContourCircle(GUIDottedGeometry::DottedContourType::INSPECT, s, myAdditionalGeometry.getShape().front(), 0.5, accessExaggeration);
         }
-        // front element contour
         if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-            GUIDottedGeometry::drawDottedContourCircle(s, GUIDottedGeometry::DottedContourType::FRONT, myAdditionalGeometry.getShape().front(), 0.5, accessExaggeration);
-        }
-        // delete contour
-        if (myNet->getViewNet()->drawDeleteContour(this, this)) {
-            GUIDottedGeometry::drawDottedContourCircle(s, GUIDottedGeometry::DottedContourType::REMOVE, myAdditionalGeometry.getShape().front(), 0.5, accessExaggeration);
-        }
-        // select contour
-        if (myNet->getViewNet()->drawSelectContour(this, this)) {
-            GUIDottedGeometry::drawDottedContourCircle(s, GUIDottedGeometry::DottedContourType::SELECT, myAdditionalGeometry.getShape().front(), 0.5, accessExaggeration);
+            GUIDottedGeometry::drawDottedContourCircle(GUIDottedGeometry::DottedContourType::FRONT, s, myAdditionalGeometry.getShape().front(), 0.5, accessExaggeration);
         }
     }
 }

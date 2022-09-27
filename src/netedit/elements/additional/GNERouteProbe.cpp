@@ -25,7 +25,6 @@
 #include <netedit/GNENet.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <utils/gui/globjects/GLIncludes.h>
-#include <utils/gui/div/GUIGlobalPostDrawing.h>
 
 #include "GNERouteProbe.h"
 
@@ -35,10 +34,10 @@
 // ===========================================================================
 
 GNERouteProbe::GNERouteProbe(GNENet* net) :
-    GNEAdditional("", net, GLO_ROUTEPROBE, SUMO_TAG_ROUTEPROBE, 
-    GUIIconSubSys::getIcon(GUIIcon::ROUTEPROBE), "", {}, {}, {}, {}, {}, {}),
-    myPeriod(SUMOTime_MAX_PERIOD),
-    myBegin(0) {
+    GNEAdditional("", net, GLO_ROUTEPROBE, SUMO_TAG_ROUTEPROBE, "",
+{}, {}, {}, {}, {}, {}),
+myPeriod(SUMOTime_MAX_PERIOD),
+myBegin(0) {
     // reset default values
     resetDefaultValues();
     // update centering boundary without updating grid
@@ -48,12 +47,12 @@ GNERouteProbe::GNERouteProbe(GNENet* net) :
 
 GNERouteProbe::GNERouteProbe(const std::string& id, GNENet* net, GNEEdge* edge, const SUMOTime period, const std::string& name,
                              const std::string& filename, SUMOTime begin, const Parameterised::Map& parameters) :
-    GNEAdditional(id, net, GLO_ROUTEPROBE, SUMO_TAG_ROUTEPROBE, 
-    GUIIconSubSys::getIcon(GUIIcon::ROUTEPROBE), name, {}, {edge}, {}, {}, {}, {}),
-    Parameterised(parameters),
-    myPeriod(period),
-    myFilename(filename),
-    myBegin(begin) {
+    GNEAdditional(id, net, GLO_ROUTEPROBE, SUMO_TAG_ROUTEPROBE, name,
+{}, {edge}, {}, {}, {}, {}),
+Parameterised(parameters),
+myPeriod(period),
+myFilename(filename),
+myBegin(begin) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -190,26 +189,13 @@ GNERouteProbe::drawGL(const GUIVisualizationSettings& s) const {
         GLHelper::popName();
         // draw additional name
         drawAdditionalName(s);
-        // check if mouse is over element
-        mouseWithinGeometry(myAdditionalGeometry.getShape(), 0.5);
-        // inspect contour
+        // check if dotted contours has to be drawn
         if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-            GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::INSPECT, myAdditionalGeometry.getShape(), 0.5,
+            GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, myAdditionalGeometry.getShape(), 0.5,
                     routeProbeExaggeration, true, true);
         }
-        // front contour
         if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-            GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::FRONT, myAdditionalGeometry.getShape(), 0.5,
-                    routeProbeExaggeration, true, true);
-        }
-        // delete contour
-        if (myNet->getViewNet()->drawDeleteContour(this, this)) {
-            GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::REMOVE, myAdditionalGeometry.getShape(), 0.5,
-                    routeProbeExaggeration, true, true);
-        }
-        // delete contour
-        if (myNet->getViewNet()->drawSelectContour(this, this)) {
-            GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::SELECT, myAdditionalGeometry.getShape(), 0.5,
+            GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::FRONT, s, myAdditionalGeometry.getShape(), 0.5,
                     routeProbeExaggeration, true, true);
         }
     }

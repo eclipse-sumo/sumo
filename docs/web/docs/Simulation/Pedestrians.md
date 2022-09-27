@@ -304,23 +304,6 @@ on each path of these paths compute their movements as if they were on a
 sidewalk. However, all other pedestrians are mapped into the coordinate
 system of that path in order achieve collision avoidance.
 
-### Jamming
-
-There are several situations in which pedestrian jams are possible
-
-- high traffic from different directions approaching the same walkingarea
-- interaction with vehicles on shared space
-- trying to reach a busStop when it has reached it's `personCapacity` limit
-- oncoming traffic on narrow sidewalks
-
-There are several mitigations to prevent the frequency of jams and to resolve them after they have occured
-
-- on crossings and walkingareas, pedestrians reserve 1/3 of the road space for oncoming traffic (configurable with option **--pedestrian.striping.reserve-oncoming.junctions**)
-- on normal lanes / sidewalks, such a reservation can be activated with option **--pedestrian.striping.reserve-oncoming**
-- if a pedestrian was unable to move for 300s (configurable with option **--pedestrian.striping.jamtime**) he goes into a 'jammed' state accompanied by the warning "Person ... is jammed ...". In this state the person starts moving regardless of obstacles at 1/4 of it's maximum speed. While jammed, no pedestrian collisions are registered. The jammed state ends as soon as there as there are no more obstacles in front of the person.
-- while on a crossing the time to register as jammed is reduced to 10s (configurable with **--pedestrian.striping.jamtime.crossing**)
-- while on a network elements that online permits a single pedestrian abreast the time time to jammed is set to 1s (configurable with option **pedestrian.striping.jamtime.narrow**)
-
 # Pedestrian Routing
 
 If the user does not specify a complete list of edges for walking,

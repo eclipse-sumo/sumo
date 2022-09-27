@@ -48,10 +48,6 @@ public:
 
     /// @brief called when mouse leaves in MFXButtonTooltip
     long onLeave(FXObject*, FXSelector, void*);
-
-    /// @brief called when mouse motion in MFXButtonTooltip
-    long onMotion(FXObject*, FXSelector, void*);
-
     /// @}
 
 protected:

@@ -47,7 +47,7 @@ netedit.leftClick(referencePosition, 290, 155)
 netedit.changeDefaultBoolValue(netedit.attrs.waypoint.create.parking)
 
 # create waypoint
-netedit.leftClick(referencePosition, 295, 155)
+netedit.leftClick(referencePosition, 290, 155)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)

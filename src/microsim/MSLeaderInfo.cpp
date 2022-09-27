@@ -129,10 +129,10 @@ MSLeaderInfo::getSubLanes(const MSVehicle* veh, double latOffset, int& rightmost
         leftmost = -2000;
     } else {
         rightmost = MAX2(0, (int)floor((rightVehSide + NUMERICAL_EPS) / MSGlobals::gLateralResolution));
-        leftmost = MIN2((int)myVehicles.size() - 1, (int)floor(MAX2(0.0, leftVehSide - NUMERICAL_EPS) / MSGlobals::gLateralResolution));
+        leftmost = MIN2((int)myVehicles.size() - 1, (int)floor((leftVehSide - NUMERICAL_EPS) / MSGlobals::gLateralResolution));
     }
-    //if (veh->isSelected()) std::cout << SIMTIME << " veh=" << veh->getID()
-    //    << std::setprecision(2)
+    //if (veh->getID() == "flow_0.33" && SIMTIME == 264) std::cout << SIMTIME << " veh=" << veh->getID()
+    //    << std::setprecision(10)
     //    << " posLat=" << veh->getLateralPositionOnLane()
     //    << " latOffset=" << latOffset
     //    << " vehCenter=" << vehCenter
@@ -140,7 +140,6 @@ MSLeaderInfo::getSubLanes(const MSVehicle* veh, double latOffset, int& rightmost
     //    << " leftVehSide=" << leftVehSide
     //    << " rightmost=" << rightmost
     //    << " leftmost=" << leftmost
-    //    << " myOffset=" << myOffset
     //    << std::setprecision(2)
     //    << "\n";
 }

@@ -24,7 +24,7 @@
 #include "fxheader.h"
 
 /// @brief MFXStaticToolTip (based on FXToolTip)
-class MFXStaticToolTip : protected FXToolTip {
+class MFXStaticToolTip : public FXToolTip {
     /// @brief FOX declaration
     FXDECLARE(MFXStaticToolTip)
 
@@ -35,33 +35,20 @@ public:
     /// @brief destructor
     ~MFXStaticToolTip();
 
-    /// @brief enable/disable static tooltip
-    void enableStaticToolTip(const bool value);
-
-    /// @brief check staticToolTip is enabled
-    bool isStaticToolTipEnabled() const;
-
-    /// @brief show static toolTip
-    void showStaticToolTip(const FXString &toolTipText);
-
-    /// @brief hide static toolTip
-    void hideStaticToolTip();
-
-    /// @name FOX callbacks
-    /// @{
     /// @brief draw MFXStaticToolTip
     long onPaint(FXObject* obj, FXSelector sel, void* ptr);
-    
-    /// @brief called when tooltip is updated
-    long onUpdate(FXObject* sender,FXSelector sel,void* ptr);
 
-    /// @}
+    /// @brief show tip
+    long onTipShow(FXObject*, FXSelector, void*);
+
+    /// @brief hide tip
+    long onTipHide(FXObject*, FXSelector, void*);
 
 protected:
     /// @brief FOX need this
     MFXStaticToolTip();
 
 private:
-    /// @brief flag for enable/disable static tooltip
-    bool myEnableStaticTooltip = true;
+    /// @brief object called in show()
+    FXEvent* myToolTippedObject = nullptr;
 };

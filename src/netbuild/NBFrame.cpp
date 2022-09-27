@@ -242,7 +242,7 @@ NBFrame::fillOptions(bool forNetgen) {
         oc.addSynonyme("railway.access-distance", "osm.stop-output.footway-access-distance", true);
 
         oc.doRegister("railway.max-accesses", new Option_Integer(5));
-        oc.addDescription("railway.max-accesses", "Railway", "The maximum road accesses registered per rail stops");
+        oc.addDescription("railway.max-accesses", "Railway", "The maximum roud accesses registered per rail stops");
         oc.addSynonyme("railway.max-accesses", "osm.stop-output.footway-max-accesses", true);
 
         oc.doRegister("railway.access-factor", new Option_Float(1.5));

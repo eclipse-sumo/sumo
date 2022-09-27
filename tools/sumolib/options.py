@@ -100,7 +100,9 @@ def assign_prefixed_options(args, allowed_programs):
             separator_index = arg.find('-', 2)
             if separator_index != -1:
                 program = arg[2:separator_index]
-                if program in allowed_programs:
+                if program not in allowed_programs:
+                    consumed = False
+                else:
                     try:
                         if '--' in args[arg_index+1]:
                             raise NotImplementedError()
@@ -286,8 +288,7 @@ class ArgumentParser(argparse.ArgumentParser):
                             else:
                                 config_args += ["--" + option.name]
         combined_args = args + config_args + [p for p in pos_args if p is not None]
-        namespace, unknown_args = argparse.ArgumentParser.parse_known_args(
-            self, args=combined_args, namespace=namespace)
+        namespace, unknown_args = argparse.ArgumentParser.parse_known_args(self, args=combined_args, namespace=namespace)
 
         if self._allowed_programs and unknown_args and hasattr(namespace, "remaining_args"):
             # namespace.remaining_args are the legacy method to parse arguments
@@ -299,9 +300,8 @@ class ArgumentParser(argparse.ArgumentParser):
             unknown_args.insert(1, namespace.remaining_args[0])
             namespace.remaining_args = []
 
-        # print("parse_known_args:\n  args: %s\n  config_args: %s\n  pos_args: %s\n  "
-        #       "combined_args: %s\n  remaining_args: %s\n  unknown_args: %s" %
-        #       (args, config_args, pos_args, combined_args, namespace.remaining_args, unknown_args))
+        #print("parse_known_args:\n  args: %s\n  config_args: %s\n  pos_args: %s\n  combined_args: %s\n  remaining_args: %s\n  unknown_args: %s" % (
+        #    args, config_args, pos_args, combined_args, namespace.remaining_args, unknown_args))
 
         namespace_as_dict = deepcopy(vars(namespace))
         namespace._prefixed_options, remaining_args = assign_prefixed_options(unknown_args, self._allowed_programs)

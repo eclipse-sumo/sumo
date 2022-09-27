@@ -15,113 +15,46 @@
 /// @author  Mathew Robertson
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
-/// @author  Pablo Alvarez Lopez
 /// @date    2004-03-19
 ///
 //
 /****************************************************************************/
-#pragma once
+
+
+#ifndef FXSEVENSEGMENT_H
+#define FXSEVENSEGMENT_H
 #include <config.h>
 
-#include "fxheader.h"
+#ifndef FXFRAME_H
 
-/// @brief Seven-segment (eg LCD/watch style) widget
-class MFXSevenSegment : public FXFrame {
-    /// @brief FOX declaration
+#include <FXFrame.h>
+using namespace FX;
+#endif
+namespace FXEX {
+
+/**
+ * Seven-segment (eg LCD/watch style) widget
+ */
+class /* FXAPI // patch by Daniel Krajzewicz 24.02.2004 */
+    MFXSevenSegment : public FXFrame {
     FXDECLARE(MFXSevenSegment)
 
-public:
-    /// @brief create a seven segment display
-    MFXSevenSegment(FXComposite* p, FXObject* tgt = NULL, FXSelector sel = 0, FXuint opts = FRAME_NONE, FXint pl = DEFAULT_PAD, FXint pr = DEFAULT_PAD, FXint pt = DEFAULT_PAD, FXint pb = DEFAULT_PAD);
+private:
+    FXchar  value;      // The currently shown character
+    FXColor fgcolor;    // The color of the LCD text
+    FXColor bgcolor;    // The color of the LCD background
+    FXshort hsl;        // This is pixel length of a horizontal segment
+    FXshort vsl;        // This is pixel length of a vertical segment
+    FXshort st;         // This is segment thickness, in pixels
+    FXshort groove;     // Groove between segments
 
-    /// @brief destructor
-    virtual ~MFXSevenSegment() {}
-
-    /// @brief set the text on the display
-    void setText(const FXchar val);
-
-    /// @brief get the text on the display
-    FXchar getText() const {
-        return myValue;
-    }
-
-    /// @brief get/set foreground color
-    void setFgColor(const FXColor clr);
-    FXColor getFgColor() const {
-        return myLCDTextColor;
-    }
-
-    /// @brief get/set background color
-    void setBgColor(const FXColor clr);
-    FXColor getBgColor() const {
-        return myBackGroundColor;
-    }
-
-    /// @brief get/set horizontal segment length
-    void setHorizontal(const FXint len);
-    FXint getHorizontal() const {
-        return myHorizontalSegmentLength;
-    }
-
-    /// @brief get/set vertical segment length
-    void setVertical(const FXint len);
-    FXint getVertical() const {
-        return myVerticalSegmentLength;
-    }
-
-    /// @brief get/set segment thickness
-    void setThickness(const FXint w);
-    FXint getThickness() const {
-        return mySegmentThickness;
-    }
-
-    /// @brief get/set myGroove thickness
-    void setGroove(const FXint w);
-    FXint getGroove() const {
-        return myGroove;
-    }
-
-    /// @brief draw/redraw object
-    long onPaint(FXObject*, FXSelector, void*);
-
-    /// @brief set from value
-    long onCmdSetValue(FXObject*, FXSelector, void*);
-
-    /// @brief set from int value
-    long onCmdSetIntValue(FXObject*, FXSelector, void*);
-
-    /// @brief get from int value
-    long onCmdGetIntValue(FXObject*, FXSelector, void*);
-
-    /// @brief set from string value
-    long onCmdSetStringValue(FXObject*, FXSelector, void*);
-
-    /// @brief get from string value
-    long onCmdGetStringValue(FXObject*, FXSelector, void*);
-
-    /// @brief let parent show tip if appropriate
-    long onQueryTip(FXObject*, FXSelector, void*);
-
-    /// @brief let parent show help if appropriate
-    long onQueryHelp(FXObject*, FXSelector, void*);
-
-    /// @brief Return minimum width
-    virtual FXint getDefaultWidth();
-
-    /// @brief Return minimum height
-    virtual FXint getDefaultHeight();
-
-    /// @brief save resources
-    virtual void save(FXStream& store) const;
-
-    /// @brief load resources
-    virtual void load(FXStream& store);
+private:
+    void checkSize();
 
 protected:
-    /// @brief FOX constructor
-    FOX_CONSTRUCTOR(MFXSevenSegment)
+    MFXSevenSegment() {}
 
-    /// @brief Draws the individual segment types
+    // Draws the individual segment types
     void drawTopSegment(FXDCWindow& dc, FXshort x, FXshort y);
     void drawLeftTopSegment(FXDCWindow& dc, FXshort x, FXshort y);
     void drawRightTopSegment(FXDCWindow& dc, FXshort x, FXshort y);
@@ -130,34 +63,85 @@ protected:
     void drawRightBottomSegment(FXDCWindow& dc, FXshort x, FXshort y);
     void drawBottomSegment(FXDCWindow& dc, FXshort x, FXshort y);
 
-    /// @brief Draw a seven-segment unit (each segment can be set indepentantly)
+    // Draw a seven-segment unit (each segment can be set indepentantly)
     void drawSegments(FXDCWindow& dc, FXbool s1, FXbool s2, FXbool s3, FXbool s4, FXbool s5, FXbool s6, FXbool s7);
 
-    /// @brief Draw an alphanumeric figure (consisting of seven segments)
+    // Draw an alphanumeric figure (consisting of seven segments)
     virtual void drawFigure(FXDCWindow& dc, FXchar figure);
 
-private:
-    /// @brief The currently shown character
-    FXchar myValue;
+public:
+    long onPaint(FXObject*, FXSelector, void*);
+    long onCmdSetValue(FXObject*, FXSelector, void*);
+    long onCmdSetIntValue(FXObject*, FXSelector, void*);
+    long onCmdGetIntValue(FXObject*, FXSelector, void*);
+    long onCmdSetStringValue(FXObject*, FXSelector, void*);
+    long onCmdGetStringValue(FXObject*, FXSelector, void*);
+    long onQueryTip(FXObject*, FXSelector, void*);
+    long onQueryHelp(FXObject*, FXSelector, void*);
 
-    /// @brief The color of the LCD text
-    FXColor myLCDTextColor;
+public:
+    /// create a seven segment display
+    MFXSevenSegment(FXComposite* p, FXObject* tgt = NULL, FXSelector sel = 0, FXuint opts = FRAME_NONE, FXint pl = DEFAULT_PAD, FXint pr = DEFAULT_PAD, FXint pt = DEFAULT_PAD, FXint pb = DEFAULT_PAD);
 
-    /// @brief The color of the LCD background
-    FXColor myBackGroundColor;
+    /// set the text on the display
+    void setText(const FXchar val);
 
-    /// @brief This is pixel length of a horizontal segment
-    FXshort myHorizontalSegmentLength;
+    /// get the text on the display
+    FXchar getText() const {
+        return value;
+    }
 
-    /// @brief This is pixel length of a vertical segment
-    FXshort myVerticalSegmentLength;
+    /// get/set foreground color
+    void setFgColor(const FXColor clr);
+    FXColor getFgColor() const {
+        return fgcolor;
+    }
 
-    /// @brief This is segment thickness, in pixels
-    FXshort mySegmentThickness;
+    /// get/set background color
+    void setBgColor(const FXColor clr);
+    FXColor getBgColor() const {
+        return bgcolor;
+    }
 
-    /// @brief Groove between segments
-    FXshort myGroove;
+    /// get/set horizontal segment length
+    void setHorizontal(const FXint len);
+    FXint getHorizontal() const {
+        return hsl;
+    }
 
-    /// @brief validates the sizes of the segment dimensions
-    void checkSize();
+    /// get/set vertical segment length
+    void setVertical(const FXint len);
+    FXint getVertical() const {
+        return vsl;
+    }
+
+    /// get/set segment thickness
+    void setThickness(const FXint w);
+    FXint getThickness() const {
+        return st;
+    }
+
+    /// get/set groove thickness
+    void setGroove(const FXint w);
+    FXint getGroove() const {
+        return groove;
+    }
+
+    /// Return minimum width
+    virtual FXint getDefaultWidth();
+
+    /// Return minimum height
+    virtual FXint getDefaultHeight();
+
+    /// save resources
+    virtual void save(FXStream& store) const;
+
+    /// load resources
+    virtual void load(FXStream& store);
+
+    /// dtor
+    virtual ~MFXSevenSegment() {}
 };
+
+} // namespace FXEX
+#endif // FXSEVENSEGMENT_H

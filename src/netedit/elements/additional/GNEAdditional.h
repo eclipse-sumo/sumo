@@ -62,7 +62,7 @@ public:
      * @param[in] genericDataParents vector of generic data parents
      * @param[in] parameters generic parameters
      */
-    GNEAdditional(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, FXIcon *icon, std::string additionalName,
+    GNEAdditional(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, std::string additionalName,
                   const std::vector<GNEJunction*>& junctionParents,
                   const std::vector<GNEEdge*>& edgeParents,
                   const std::vector<GNELane*>& laneParents,
@@ -83,7 +83,7 @@ public:
      * @param[in] genericDataParents vector of generic data parents
      * @param[in] parameters generic parameters
      */
-    GNEAdditional(GNENet* net, GUIGlObjectType type, SumoXMLTag tag, FXIcon *icon, std::string additionalName,
+    GNEAdditional(GNENet* net, GUIGlObjectType type, SumoXMLTag tag, std::string additionalName,
                   const std::vector<GNEJunction*>& junctionParents,
                   const std::vector<GNEEdge*>& edgeParents,
                   const std::vector<GNELane*>& laneParents,
@@ -182,18 +182,6 @@ public:
      * @see GUIGlObject::drawGL
      */
     virtual void drawGL(const GUIVisualizationSettings& s) const = 0;
-
-    /// @brief check if element is locked
-    bool isGLObjectLocked();
-
-    /// @brief mark element as front element
-    void markAsFrontElement();
-    
-    /// @brief delete element
-    void deleteGLObject();
-    
-    /// @brief select element
-    void selectGLObject();
 
     /// @brief update GLObject (geometry, ID, etc.)
     void updateGLObject();

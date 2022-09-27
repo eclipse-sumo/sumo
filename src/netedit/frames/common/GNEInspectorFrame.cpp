@@ -103,7 +103,7 @@ GNEInspectorFrame::NeteditAttributesEditor::NeteditAttributesEditor(GNEInspector
     myLabelParentAdditional = new FXLabel(getCollapsableFrame(), "Parent", nullptr, GUIDesignLabelCenterThick);
     myTextFieldParentAdditional = new FXTextField(getCollapsableFrame(), GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     mySetNewParentButton = new MFXCheckableButton(false, getCollapsableFrame(), 
-        inspectorFrameParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(), 
+        inspectorFrameParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltip(), 
         "Set new parent", nullptr, this, MID_GNE_SET_ATTRIBUTE, GUIDesignMFXCheckableButton);
     // Create elements for close shape
     myHorizontalFrameCloseShape = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
@@ -1047,7 +1047,7 @@ GNEInspectorFrame::hide() {
 bool
 GNEInspectorFrame::processNetworkSupermodeClick(const Position& clickedPosition, GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor) {
     // get unlocked attribute carrier front
-    auto AC = objectsUnderCursor.getAttributeCarrierFront();
+    auto AC = objectsUnderCursor.getAttributeCarrierFront(myViewNet->getLockManager());
     // first check if we have clicked over an Attribute Carrier
     if (AC) {
         // if Control key is Pressed, select instead inspect element
@@ -1082,7 +1082,7 @@ GNEInspectorFrame::processNetworkSupermodeClick(const Position& clickedPosition,
 bool
 GNEInspectorFrame::processDemandSupermodeClick(const Position& clickedPosition, GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor) {
     // get unlocked attribute carrier front
-    auto AC = objectsUnderCursor.getAttributeCarrierFront();
+    auto AC = objectsUnderCursor.getAttributeCarrierFront(myViewNet->getLockManager());
     // first check if we have clicked over a demand element
     if (AC) {
         // if Control key is Pressed, select instead inspect element
@@ -1117,7 +1117,7 @@ GNEInspectorFrame::processDemandSupermodeClick(const Position& clickedPosition, 
 bool
 GNEInspectorFrame::processDataSupermodeClick(const Position& clickedPosition, GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor) {
     // get unlocked attribute carrier front
-    auto AC = objectsUnderCursor.getAttributeCarrierFront();
+    auto AC = objectsUnderCursor.getAttributeCarrierFront(myViewNet->getLockManager());
     // first check if we have clicked over a data element
     if (AC) {
         // if Control key is Pressed, select instead inspect element
@@ -1369,7 +1369,7 @@ GNEInspectorFrame::selectedOverlappedElement(GNEAttributeCarrier* AC) {
 void
 GNEInspectorFrame::inspectClickedElement(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, const Position& clickedPosition) {
     // get front unlocked AC
-    const auto AC = objectsUnderCursor.getAttributeCarrierFront();
+    const auto AC = objectsUnderCursor.getAttributeCarrierFront(myViewNet->getLockManager());
     // check if selection is blocked
     if (AC) {
         // inspect front element

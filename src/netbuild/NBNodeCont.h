@@ -120,13 +120,14 @@ public:
     }
     /// @}
 
-    /// @name Methods for joining nodes
+    /// @name Methods for for joining nodes
     /// @{
     /* @brief add ids of nodes wich shall not be joined
      * @param[in] ids A list of ids to exclude from joining
-     * @note it does not check whether the nodes exist because all nodes may not have been loaded yet
+     * @param[in] check Whether to check if these nodes are known
+     * @note checking is off by default because all nodes may not have been loaded yet
      */
-    void addJoinExclusion(const std::vector<std::string>& ids);
+    void addJoinExclusion(const std::vector<std::string>& ids, bool check = false);
 
     /** @brief add ids of nodes which shall be joined into a single node
      * @param[in] cluster The cluster to add
@@ -142,6 +143,15 @@ public:
     /// @brief Joins junctions with the same coordinates regardless of topology
     int joinSameJunctions(NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLogicCont& tlc);
 
+    /// @brief remove geometry-like fringe nodes from cluster
+    void pruneClusterFringe(NodeSet& cluster) const;
+
+    /// @brief avoid removal of long edges when joinining junction clusters
+    static void pruneLongEdges(NodeSet& cluster, double maxDist);
+
+    /// @brief remove nodes that form a slip lane from cluster
+    void pruneSlipLaneNodes(NodeSet& cluster) const;
+
     /// @brief return all cluster neighbors for the given node
     static NodeSet getClusterNeighbors(const NBNode* n, NodeSet& cluster);
 
@@ -149,6 +159,9 @@ public:
     bool maybeSlipLaneStart(const NBNode* n, EdgeVector& outgoing, double& inAngle) const;
     /// @brief check whether the given node maybe the end of a slip lane
     bool maybeSlipLaneEnd(const NBNode* n, EdgeVector& incoming, double& outAngle) const;
+
+    /// @brief determine wether the cluster is not too complex for joining
+    bool feasibleCluster(const NodeSet& cluster, const NBEdgeCont& ec, const NBPTStopCont& sc, std::string& reason) const;
 
     /// @brief try to find a joinable subset (recursively)
     bool reduceToCircle(NodeSet& cluster, int circleSize, NodeSet startNodes, std::vector<NBNode*> cands = std::vector<NBNode*>()) const;
@@ -352,18 +365,6 @@ private:
      * @param[in, filled] into The container to store the clusters in
      */
     void generateNodeClusters(double maxDist, NodeClusters& into) const;
-
-    /// @brief remove geometry-like fringe nodes from cluster
-    void pruneClusterFringe(NodeSet& cluster) const;
-
-    /// @brief avoid removal of long edges when joinining junction clusters
-    static void pruneLongEdges(NodeSet& cluster, double maxDist);
-
-    /// @brief remove nodes that form a slip lane from cluster
-    void pruneSlipLaneNodes(NodeSet& cluster) const;
-
-    /// @brief determine wether the cluster is not too complex for joining
-    bool feasibleCluster(const NodeSet& cluster, const std::map<const NBNode*, std::vector<NBNode*> >& ptStopEnds, std::string& reason) const;
 
     /// @brief joins the given node clusters
     void joinNodeClusters(NodeClusters clusters, NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLogicCont& tlc, bool resetConnections = false);

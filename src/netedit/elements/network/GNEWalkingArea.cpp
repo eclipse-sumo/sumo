@@ -28,7 +28,6 @@
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/div/GUIDesigns.h>
-#include <utils/gui/div/GUIGlobalPostDrawing.h>
 
 #include "GNEWalkingArea.h"
 
@@ -38,10 +37,10 @@
 // ===========================================================================
 
 GNEWalkingArea::GNEWalkingArea(GNEJunction* parentJunction, const std::string& ID) :
-    GNENetworkElement(parentJunction->getNet(), ID, GLO_WALKINGAREA, SUMO_TAG_WALKINGAREA, 
-    GUIIconSubSys::getIcon(GUIIcon::WALKINGAREA),  {}, {}, {}, {}, {}, {}),
-    myParentJunction(parentJunction),
-    myTesselation(ID, "", RGBColor::GREY, parentJunction->getNBNode()->getWalkingArea(ID).shape, false, true, 0) {
+    GNENetworkElement(parentJunction->getNet(), ID, GLO_WALKINGAREA, SUMO_TAG_WALKINGAREA,
+{}, {}, {}, {}, {}, {}),
+myParentJunction(parentJunction),
+myTesselation(ID, "", RGBColor::GREY, parentJunction->getNBNode()->getWalkingArea(ID).shape, false, true, 0) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -139,35 +138,17 @@ GNEWalkingArea::drawGL(const GUIVisualizationSettings& s) const {
         GLHelper::popMatrix();
         // pop junction name
         GLHelper::popName();
-        // check if mouse is over element
-        mouseWithinGeometry(walkingAreaShape);
-        // inspect contour
+        // check if dotted contour has to be drawn
         if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-            GUIDottedGeometry::drawDottedContourClosedShape(s, GUIDottedGeometry::DottedContourType::INSPECT, walkingAreaShape,
+            GUIDottedGeometry::drawDottedContourClosedShape(GUIDottedGeometry::DottedContourType::INSPECT, s, walkingAreaShape,
                     (walkingAreaExaggeration >= 1) ? walkingAreaExaggeration : 1);
         }
-        // front element contour
+        // check if dotted contour has to be drawn
         if ((myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
-            GUIDottedGeometry::drawDottedContourClosedShape(s, GUIDottedGeometry::DottedContourType::FRONT, walkingAreaShape,
-                    (walkingAreaExaggeration >= 1) ? walkingAreaExaggeration : 1);
-        }
-        // delete contour
-        if (myNet->getViewNet()->drawDeleteContour(this, this)) {
-            GUIDottedGeometry::drawDottedContourClosedShape(s, GUIDottedGeometry::DottedContourType::REMOVE, walkingAreaShape,
-                    (walkingAreaExaggeration >= 1) ? walkingAreaExaggeration : 1);
-        }
-        // select contour
-        if (myNet->getViewNet()->drawSelectContour(this, this)) {
-            GUIDottedGeometry::drawDottedContourClosedShape(s, GUIDottedGeometry::DottedContourType::SELECT, walkingAreaShape,
+            GUIDottedGeometry::drawDottedContourClosedShape(GUIDottedGeometry::DottedContourType::FRONT, s, walkingAreaShape,
                     (walkingAreaExaggeration >= 1) ? walkingAreaExaggeration : 1);
         }
     }
-}
-
-
-void
-GNEWalkingArea::deleteGLObject() {
-    // currently WalkingAreas cannot be removed
 }
 
 

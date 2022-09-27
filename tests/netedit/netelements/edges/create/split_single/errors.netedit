@@ -22,7 +22,6 @@ Debug: Adding junction 'J2' into net
 Debug: Adding edge 'E0.40' from net
 Debug: Setting new attribute
 Debug: Setting new attribute
-Debug: Setting new attribute
 Debug: Adding connection 'E0_0->E0.40_0' into edge 'E0'
 Debug: Created connection 'fromE0_0toE0.40_0' in retrieveGNEConnection()
 Debug: Key F5 (Compute) pressed
@@ -32,7 +31,6 @@ Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing connection 'E0_0->E0.40_0' from edge 'E0'
 Debug: Deleting unreferenced connection 'fromE0_0toE0.40_0' in removeConnection()
-Debug: Restoring previous attribute
 Debug: Restoring previous attribute
 Debug: Restoring previous attribute
 Debug: Removing edge 'E0.40' from net
@@ -82,7 +80,6 @@ Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding junction 'J2' into net
 Debug: Adding edge 'E0.40' from net
-Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Adding connection 'E0_0->E0.40_0' into edge 'E0'

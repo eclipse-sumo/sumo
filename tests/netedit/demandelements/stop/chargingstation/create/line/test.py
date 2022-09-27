@@ -50,13 +50,13 @@ netedit.leftClick(referencePosition, 290, 195)
 netedit.changeDefaultValue(netedit.attrs.stop.create.line, "")
 
 # try to create stop
-netedit.leftClick(referencePosition, 295, 195)
+netedit.leftClick(referencePosition, 290, 195)
 
 # set valid value
 netedit.changeDefaultValue(netedit.attrs.stop.create.line, "customLine")
 
 # create stop
-netedit.leftClick(referencePosition, 300, 195)
+netedit.leftClick(referencePosition, 290, 195)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)

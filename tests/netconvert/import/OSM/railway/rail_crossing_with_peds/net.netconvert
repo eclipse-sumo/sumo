@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-09-13 16:54:31 by Eclipse SUMO netconvert Version v1_14_1+0990-ad3506bf07c
+<!-- generated on 2022-07-01 08:13:34 by Eclipse SUMO netconvert Version v1_13_0+1331-a3a1a97
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -87,7 +87,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id=":1398803915_0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="3.65" length="4.67" shape="1999.59,720.79 1998.49,721.73 1997.61,721.90 1996.95,721.30 1996.51,719.92"/>
     </edge>
     <edge id=":1398803915_w0" function="walkingarea">
-        <lane id=":1398803915_w0_0" index="0" allow="pedestrian" speed="1.00" length="3.93" width="3.20" shape="2001.13,721.22 1998.05,720.36 1994.97,719.49 1993.84,722.25 1995.59,723.21"/>
+        <lane id=":1398803915_w0_0" index="0" allow="pedestrian" speed="1.00" length="3.93" width="3.20" shape="2001.13,721.22 1998.05,720.36 1998.05,720.36 1994.97,719.49 1993.84,722.25 1995.59,723.21"/>
     </edge>
     <edge id=":1403553705_0" function="internal">
         <lane id=":1403553705_0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="8.33" length="4.44" shape="2031.62,744.07 2030.32,743.82 2029.43,743.67 2028.54,743.56 2027.22,743.46"/>
@@ -96,7 +96,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id=":1403553705_1_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="8.33" length="4.82" shape="2027.44,740.27 2028.87,740.38 2029.84,740.49 2030.81,740.66 2032.21,740.92"/>
     </edge>
     <edge id=":1403553705_w0" function="walkingarea">
-        <lane id=":1403553705_w0_0" index="0" allow="pedestrian" speed="1.00" length="4.87" width="3.20" shape="2031.32,745.64 2031.92,742.50 2032.51,739.35 2031.41,737.62 2029.47,737.12 2027.55,738.67 2027.33,741.86 2027.11,745.06"/>
+        <lane id=":1403553705_w0_0" index="0" allow="pedestrian" speed="1.00" length="4.87" width="3.20" shape="2031.32,745.64 2031.92,742.50 2031.92,742.50 2032.51,739.35 2031.41,737.62 2029.47,737.12 2027.55,738.67 2027.33,741.86 2027.33,741.86 2027.11,745.06"/>
     </edge>
     <edge id=":2475741815_w0" function="walkingarea">
         <lane id=":2475741815_w0_0" index="0" allow="pedestrian" speed="1.00" length="4.13" width="2.00" shape="1995.67,727.02 1996.22,725.09 1995.51,723.36 1993.75,722.40 1991.11,725.88 1992.42,727.39"/>
@@ -138,10 +138,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id=":cluster_247120010_267009909_291194164_291194165_c0_0" index="0" allow="pedestrian" speed="1.00" length="20.96" width="4.00" shape="2003.61,733.74 2023.54,740.25"/>
     </edge>
     <edge id=":cluster_247120010_267009909_291194164_291194165_w0" function="walkingarea">
-        <lane id=":cluster_247120010_267009909_291194164_291194165_w0_0" index="0" allow="pedestrian" speed="1.00" length="2.83" width="4.00" shape="2025.03,744.91 2025.25,741.72 2025.46,738.53 2024.16,738.34 2022.92,742.15"/>
+        <lane id=":cluster_247120010_267009909_291194164_291194165_w0_0" index="0" allow="pedestrian" speed="1.00" length="2.83" width="4.00" shape="2025.03,744.91 2025.25,741.72 2025.25,741.72 2025.46,738.53 2024.16,738.34 2022.92,742.15"/>
     </edge>
     <edge id=":cluster_247120010_267009909_291194164_291194165_w1" function="walkingarea">
-        <lane id=":cluster_247120010_267009909_291194164_291194165_w1_0" index="0" allow="pedestrian" speed="1.00" length="12.45" width="4.00" shape="2002.99,735.64 2004.23,731.84 1994.12,745.94 1995.62,748.77 1997.12,751.59"/>
+        <lane id=":cluster_247120010_267009909_291194164_291194165_w1_0" index="0" allow="pedestrian" speed="1.00" length="12.45" width="4.00" shape="2002.99,735.64 2004.23,731.84 1994.12,745.94 1995.62,748.77 1995.62,748.77 1997.12,751.59"/>
     </edge>
     <edge id=":cluster_2476940049_2476940061_2476940071_2476940083_0" function="internal">
         <lane id=":cluster_2476940049_2476940061_2476940071_2476940083_0_0" index="0" allow="rail rail_electric rail_fast" speed="33.33" length="5.50" shape="2011.92,727.98 2010.46,733.28"/>

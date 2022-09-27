@@ -1,16 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-09-03 22:29:21 by Eclipse SUMO netconvert Version v1_14_1+0819-bf19e4679c8
+<!-- generated on Thu Aug 30 11:11:23 2018 by Eclipse SUMO netconvert Version 4728da9
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-This file may also be made available under the following Secondary
-Licenses when the conditions for such availability set forth in the Eclipse
-Public License 2.0 are satisfied: GNU General Public License, version 2
-or later which is available at
-https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
-SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+SPDX-License-Identifier: EPL-2.0
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -45,6 +40,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <busStop id="-4014639411" name="Hallesche Allee" lane="-412820207_0" startPos="0.00" endPos="41.45" friendlyPos="true"/>
-    <busStop id="4014639410" name="Hallesche Allee" lane="412820232_0" startPos="0.00" endPos="59.03" friendlyPos="true"/>
+    <busStop id="-4014639411" name="Hallesche Allee" lane="-412820207_0" startPos="0.00" endPos="48.91" friendlyPos="true"/>
+    <busStop id="4014639410" name="Hallesche Allee" lane="412820232_0" startPos="0.00" endPos="62.22" friendlyPos="true"/>
 </additional>

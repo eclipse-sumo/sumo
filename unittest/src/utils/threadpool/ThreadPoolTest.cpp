@@ -31,7 +31,6 @@
 #include <utils/common/StopWatch.h>
 #include <utils/threadpool/WorkStealingThreadPool.h>
 
-
 inline void LoadCPUForRandomTime() {
     // Sleeping the thread isn't good as it doesn't tie up the
     // CPU resource in the same way as actual work on a thread would do,
@@ -39,12 +38,12 @@ inline void LoadCPUForRandomTime() {
     // sleeping. Hence we do some busy work. Note that volatile keyword
     // is necessary to prevent compiler from removing the below code.
 
-    srand(0); // random sequences should be identical
+    srand(0); // random sequences should be indentical
 
     volatile auto delay = rand() % static_cast<int>(1e5);
     while (delay != 0) {
         delay--;
-    }
+    };
 }
 
 template<typename DurationT>

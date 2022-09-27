@@ -41,19 +41,19 @@ netedit.leftClick(referencePosition, 250, 250)
 netedit.changeDefaultValue(netedit.attrs.containerStop.create.id, ";;;;;;;;;;;;;;;;")
 
 # create containerStop in mode "reference left"
-netedit.leftClick(referencePosition, 260, 250)
+netedit.leftClick(referencePosition, 250, 250)
 
 # set invalid ID (duplicated
 netedit.changeDefaultValue(netedit.attrs.containerStop.create.id, "ct_0")
 
 # create containerStop in mode "reference left"
-netedit.leftClick(referencePosition, 270, 250)
+netedit.leftClick(referencePosition, 250, 250)
 
 # set invalid ID (duplicated
 netedit.changeDefaultValue(netedit.attrs.containerStop.create.id, "custom_ID")
 
 # create containerStop in mode "reference left"
-netedit.leftClick(referencePosition, 280, 250)
+netedit.leftClick(referencePosition, 250, 250)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)

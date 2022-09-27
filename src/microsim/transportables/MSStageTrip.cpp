@@ -57,7 +57,7 @@ MSStageTrip::MSStageTrip(const MSEdge* origin, MSStoppingPlace* fromStop,
                          const std::string& vTypes, const double speed, const double walkFactor,
                          const std::string& group,
                          const double departPosLat, const bool hasArrivalPos, const double arrivalPos):
-    MSStage(destination, toStop, arrivalPos, MSStageType::TRIP, group),
+    MSStage(destination, toStop, arrivalPos, MSStageType::TRIP),
     myOrigin(origin),
     myOriginStop(fromStop),
     myDuration(duration),
@@ -65,6 +65,7 @@ MSStageTrip::MSStageTrip(const MSEdge* origin, MSStoppingPlace* fromStop,
     myVTypes(vTypes),
     mySpeed(speed),
     myWalkFactor(walkFactor),
+    myGroup(group),
     myDepartPosLat(departPosLat),
     myHaveArrivalPos(hasArrivalPos) {
 }
@@ -163,12 +164,6 @@ MSStageTrip::setArrived(MSNet* net, MSTransportable* transportable, SUMOTime now
                 vehPar->departPos = myDepartPos;
                 vehPar->parametersSet |= VEHPARS_DEPARTPOS_SET;
             }
-            pars.back()->parametersSet |= VEHPARS_ARRIVALPOS_SET;
-            pars.back()->arrivalPosProcedure = ArrivalPosDefinition::GIVEN;
-            pars.back()->parametersSet |= VEHPARS_ARRIVALSPEED_SET;
-            pars.back()->arrivalSpeedProcedure = ArrivalSpeedDefinition::GIVEN;
-            pars.back()->arrivalSpeed = 0;
-
             MSVehicleType* type = vehControl.getVType(vehPar->vtypeid);
             if (type->getVehicleClass() != SVC_IGNORING && (myOrigin->getPermissions() & type->getVehicleClass()) == 0 && !isTaxi) {
                 WRITE_WARNING("Ignoring vehicle type '" + type->getID() + "' when routing person '" + transportable->getID() + "' because it is not allowed on the start edge.");
@@ -252,7 +247,6 @@ MSStageTrip::setArrived(MSNet* net, MSTransportable* transportable, SUMOTime now
                         transportable->appendStage(previous, stageIndex++);
                         vehicle->replaceRouteEdges(it->edges, -1, 0, "person:" + transportable->getID(), true);
                         vehicle->setArrivalPos(localArrivalPos);
-                        const_cast<SUMOVehicleParameter&>(vehicle->getParameter()).arrivalPos = localArrivalPos;
                         vehControl.addVehicle(vehPar->id, vehicle);
                         carUsed = true;
                     } else {

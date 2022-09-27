@@ -94,11 +94,9 @@ public:
      * @param[in] os The stream to write the routes into (binary)
      * @param[in] firstIndex index of the first edge to be written
      * @param[in] lastIndex index of the first edge that shall not be written (-1 writes all remaining)
-     * @param[in] withInternal Whether internal edges shall be included
-     * @param[in] svc The vClass for determining internal edges
      * @return The number of edges written
      */
-    int writeEdgeIDs(OutputDevice& os, int firstIndex = 0, int lastIndex = -1, bool withInternal = false, SUMOVehicleClass svc = SVC_IGNORING) const;
+    int writeEdgeIDs(OutputDevice& os, int firstIndex = 0, int lastIndex = -1) const;
 
     bool contains(const MSEdge* const edge) const {
         return std::find(myEdges.begin(), myEdges.end(), edge) != myEdges.end();

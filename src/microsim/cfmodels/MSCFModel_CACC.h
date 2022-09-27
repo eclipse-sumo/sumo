@@ -73,8 +73,7 @@ public:
      * @param[in] onInsertion whether speed at insertion is asked for
      * @return EGO's safe speed
      */
-    double freeSpeed(const MSVehicle* const veh, double speed, double seen,
-                     double maxSpeed, const bool onInsertion = false, const CalcReason usage = CalcReason::CURRENT) const;
+    double freeSpeed(const MSVehicle* const veh, double speed, double seen, double maxSpeed, const bool onInsertion = false) const;
 
     /** @brief Computes the vehicle's safe speed (no dawdling)
     * @param[in] veh The vehicle (EGO)
@@ -84,8 +83,7 @@ public:
     * @return EGO's safe speed
     * @see MSCFModel::ffeV
     */
-    double followSpeed(const MSVehicle* const veh, double speed, double gap2pred, double predSpeed,
-                       double predMaxDecel, const MSVehicle* const pred = 0, const CalcReason usage = CalcReason::CURRENT) const;
+    double followSpeed(const MSVehicle* const veh, double speed, double gap2pred, double predSpeed, double predMaxDecel, const MSVehicle* const pred = 0) const;
 
 
     /** @brief Computes the vehicle's safe speed for approaching a non-moving obstacle (no dawdling)
@@ -95,7 +93,7 @@ public:
     * @see MSCFModel::ffeS
     * @todo generic Interface, models can call for the values they need
     */
-    double stopSpeed(const MSVehicle* const veh, const double speed, double gap2pred, double decel, const CalcReason usage = CalcReason::CURRENT) const;
+    double stopSpeed(const MSVehicle* const veh, const double speed, double gap2pred, double decel) const;
 
 
     /** @brief Returns the a gap such that the gap mode acceleration of the follower is zero
@@ -209,7 +207,7 @@ private:
 
 private:
     double _v(const MSVehicle* const veh, const MSVehicle* const pred, const double gap2pred, const double mySpeed,
-              const double predSpeed, const double desSpeed, const bool respectMinGap, const CalcReason usage = CalcReason::CURRENT) const;
+              const double predSpeed, const double desSpeed, const bool respectMinGap = true) const;
 
     double speedSpeedControl(const double speed, double vErr, VehicleMode& vehMode) const;
     double speedGapControl(const MSVehicle* const veh, const double gap2pred,
