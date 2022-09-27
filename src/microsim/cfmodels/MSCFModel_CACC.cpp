@@ -282,8 +282,7 @@ MSCFModel_CACC::speedGapControl(const MSVehicle* const veh, const double gap2pre
             }
 #endif
             double desSpacing = myHeadwayTime * speed;
-            double gap = gap2pred - veh->getVehicleType().getMinGap();
-            double spacingErr = gap - desSpacing;
+            double spacingErr = gap2pred - desSpacing;
             double accel = veh->getAcceleration();
             double spacingErr1 = predSpeed - speed + myHeadwayTime * accel;
 
@@ -359,6 +358,8 @@ MSCFModel_CACC::_v(const MSVehicle* const veh, const MSVehicle* const pred, cons
     CommunicationsOverrideMode commMode = vars->CACC_CommunicationsOverrideMode;
 
     if (commMode == CACC_NO_OVERRIDE) { // old CACC logic (rely on time gap from predecessor)
+        // @note: using (gap2pred + minGap) here increases oscillations but may
+        // actually be a good idea once the acceleration-spike-problem is fixed
         double time_gap = gap2pred / speed;
 
         if (time_gap > 2) {
@@ -415,8 +416,7 @@ MSCFModel_CACC::_v(const MSVehicle* const veh, const MSVehicle* const pred, cons
         vehMode = ACC_MODE;
     } else if (commMode == CACC_MODE_LEADER_CAV) {
         double desSpacing = myHeadwayTime * speed;
-        double gap = gap2pred - veh->getVehicleType().getMinGap();
-        double spacingErr = gap - desSpacing;
+        double spacingErr = gap2pred - desSpacing;
         double accel = veh->getAcceleration();
         double spacingErr1 = predSpeed - speed + myHeadwayTime * accel;
 
