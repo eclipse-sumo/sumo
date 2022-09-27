@@ -1152,7 +1152,7 @@ GNEViewNet::onLeftBtnRelease(FXObject* obj, FXSelector sel, void* eventData) {
 
 
 long
-GNEViewNet::onMiddleBtnPress(FXObject* obj, FXSelector sel, void* eventData) {
+GNEViewNet::onMiddleBtnPress(FXObject* /*obj*/, FXSelector /*sel*/, void* eventData) {
     // update MouseButtonKeyPressed
     myMouseButtonKeyPressed.update(eventData);
     // process click
