@@ -576,7 +576,7 @@ MSPerson::reroute(ConstMSEdgeVector& newEdges, double departPos, int firstIndex,
             -1,
             departPos,
             getNextStage(nextIndex - 1)->getArrivalPos(),
-            0);
+            MSPModel::UNSPECIFIED_POS_LAT);
     appendStage(newStage, nextIndex);
     // remove stages in reverse order so that proceed will only be called at the last removal
     for (int i = nextIndex - 1; i >= firstIndex; i--) {
