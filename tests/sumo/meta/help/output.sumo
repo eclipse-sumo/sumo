@@ -1,4 +1,4 @@
-Eclipse SUMO sumo Version v1_14_1+1258-a7ebf97
+Eclipse SUMO sumo Version v1_14_1+1288-28ea2b4
  Copyright (C) 2001-2022 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -527,13 +527,13 @@ SSM Device Options:
   --device.ssm.deterministic           The 'ssm' devices are set deterministic
                                         using a fraction of 1000
   --device.ssm.measures STR            Specifies which measures will be logged
-                                        (as a space separated sequence of IDs in
-                                        ('TTC', 'DRAC', 'PET'))
-  --device.ssm.thresholds STR          Specifies thresholds corresponding to
-                                        the specified measures (see
-                                        documentation and watch the order!).
-                                        Only events exceeding the thresholds
-                                        will be logged.
+                                        (as a space or comma-separated sequence
+                                        of IDs in ('TTC', 'DRAC', 'PET'))
+  --device.ssm.thresholds STR          Specifies space or comma-separated
+                                        thresholds corresponding to the
+                                        specified measures (see documentation
+                                        and watch the order!). Only events
+                                        exceeding the thresholds will be logged.
   --device.ssm.trajectories            Specifies whether trajectories will be
                                         logged (if false, only the extremal
                                         values and times are reported).

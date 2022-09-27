@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-09-27 09:23:12 by Eclipse SUMO sumo Version v1_14_1+1258-a7ebf97
+<!-- generated on 2022-09-27 16:07:27 by Eclipse SUMO sumo Version v1_14_1+1288-28ea2b4
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -280,8 +280,8 @@
         <device.ssm.probability value="-1" type="FLOAT" help="The probability for a vehicle to have a &apos;ssm&apos; device"/>
         <device.ssm.explicit value="" synonymes="device.ssm.knownveh" type="STR[]" help="Assign a &apos;ssm&apos; device to named vehicles"/>
         <device.ssm.deterministic value="false" type="BOOL" help="The &apos;ssm&apos; devices are set deterministic using a fraction of 1000"/>
-        <device.ssm.measures value="" type="STR" help="Specifies which measures will be logged (as a space separated sequence of IDs in (&apos;TTC&apos;, &apos;DRAC&apos;, &apos;PET&apos;))"/>
-        <device.ssm.thresholds value="" type="STR" help="Specifies thresholds corresponding to the specified measures (see documentation and watch the order!). Only events exceeding the thresholds will be logged."/>
+        <device.ssm.measures value="" type="STR" help="Specifies which measures will be logged (as a space or comma-separated sequence of IDs in (&apos;TTC&apos;, &apos;DRAC&apos;, &apos;PET&apos;))"/>
+        <device.ssm.thresholds value="" type="STR" help="Specifies space or comma-separated thresholds corresponding to the specified measures (see documentation and watch the order!). Only events exceeding the thresholds will be logged."/>
         <device.ssm.trajectories value="false" type="BOOL" help="Specifies whether trajectories will be logged (if false, only the extremal values and times are reported)."/>
         <device.ssm.range value="50" type="FLOAT" help="Specifies the detection range in meters. For vehicles below this distance from the equipped vehicle, SSM values are traced."/>
         <device.ssm.extratime value="5" type="FLOAT" help="Specifies the time in seconds to be logged after a conflict is over. Required &gt;0 if PET is to be calculated for crossing conflicts."/>
