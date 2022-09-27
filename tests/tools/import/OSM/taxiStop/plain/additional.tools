@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-07-07 11:18:42.635038 by osmTaxiStop.py v1_13_0+1343-240e5d48340
+<!-- generated on 2022-09-27 08:42:14.049825 by osmTaxiStop.py v1_14_1+1242-57b0522bf9b
   options: -f out.rou.xml -s osm_bbox.osm.xml -o out.add.xml
 -->
 
@@ -14,7 +14,7 @@
     <chargingStation id="chargingStation_6" name="Jägerstr./ Friedrichstr." lane="-4588219#3_0" startPos="94.46" endPos="114.46"/>
     <chargingStation id="chargingStation_7" name="Gendarmenmarkt" lane="-22972473#0_0" startPos="50.49" endPos="80.49"/>
     <chargingStation id="chargingStation_8" name="Park Inn" lane="100405009#3_0" startPos="-81.93" endPos="23.07"/>
-    <chargingStation id="chargingStation_9" name="Am Kupfergraben" lane="22972219#0_0" startPos="60.34" endPos="80.34"/>
+    <chargingStation id="chargingStation_9" name="Am Kupfergraben" lane="22972219#0_0" startPos="58.61" endPos="78.61"/>
     <chargingStation id="chargingStation_10" name="Maritim Pro Arte" lane="158023913#0_0" startPos="58.39" endPos="88.39"/>
     <chargingStation id="chargingStation_11" name="Georgenstraße" lane="24243052#3_0" startPos="1.83" endPos="46.83"/>
     <chargingStation id="chargingStation_12" name="Staatsoper" lane="340498982#4_0" startPos="28.80" endPos="48.80"/>

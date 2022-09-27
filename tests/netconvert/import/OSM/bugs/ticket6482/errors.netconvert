@@ -1,6 +1,14 @@
 Warning: Discarding unusable type 'railway.platform' (first occurence for edge '39271721').
+Warning: Removing pt stop '143456955' on non existing edge ''.
+Warning: Removing pt stop '2425943543' on non existing edge ''.
+Warning: Removing pt stop '2547316987' on non existing edge ''.
+Warning: Removing pt stop '470616058' on non existing edge ''.
 Warning: No way found for reference '625352732' in relation '8691796'
 Warning: Ignoring restriction relation '8691796' with unknown to-way.
+Warning: Could not find corresponding edge or compatible lane for free-floating pt stop '143456955' (Stegerwaldsiedlung). Thus, it will be removed!
+Warning: Could not find corresponding edge or compatible lane for free-floating pt stop '470616058' (Koelnmesse). Thus, it will be removed!
+Warning: Could not find corresponding edge or compatible lane for free-floating pt stop '2425943543' (Koelnmesse). Thus, it will be removed!
+Warning: Could not find corresponding edge or compatible lane for free-floating pt stop '2547316987' (Stegerwaldsiedlung). Thus, it will be removed!
 Warning: Found sharp turn with radius 5.62 at the start of edge '20832138'.
 Warning: Found angle of 149.14 degrees at edge '39257069#2', segment 3.
 Warning: Speed of straight connection '411043475#0_0->132406503_0' reduced by 10.54 due to turning radius of 38.00 (length=18.65, angle=43.72).

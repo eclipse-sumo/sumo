@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-09-03 22:29:20 by Eclipse SUMO netconvert Version v1_14_1+0819-bf19e4679c8
+<!-- generated on 2022-09-27 08:42:11 by Eclipse SUMO netconvert Version v1_14_1+1242-57b0522bf9b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -40,6 +40,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <busStop id="-4014639411" name="Hallesche Allee" lane="-412820207_0" startPos="0.00" endPos="41.45" friendlyPos="true"/>
-    <busStop id="4014639410" name="Hallesche Allee" lane="412820208#1_0" startPos="0.00" endPos="59.03" friendlyPos="true"/>
+    <busStop id="4014639410" name="Hallesche Allee" lane="412820208#1_0" startPos="0.00" endPos="59.03" friendlyPos="true" lines="31"/>
+    <busStop id="4014639411" name="Hallesche Allee" lane="412820207_0" startPos="0.00" endPos="41.45" friendlyPos="true" lines="31"/>
 </additional>
