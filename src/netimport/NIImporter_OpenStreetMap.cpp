@@ -1656,8 +1656,7 @@ NIImporter_OpenStreetMap::RelationHandler::myEndElement(int element) {
                         if (!NBNetBuilder::transformCoordinate(platformPos)) {
                             WRITE_ERROR("Unable to project coordinates for node '" + toString(pNode->id) + "'.");
                         }
-                        NBPTPlatform platform(platformPos, myOptionsCont.getFloat(
-                                                  "osm.stop-output.length"));
+                        NBPTPlatform platform(platformPos, myOptionsCont.getFloat("osm.stop-output.length"));
                         ptStop->addPlatformCand(platform);
 
                     }
@@ -1678,7 +1677,7 @@ NIImporter_OpenStreetMap::RelationHandler::myEndElement(int element) {
                     continue;
                 }
                 if (hadGap) {
-                    WRITE_WARNINGF("Done reading first coherent chunk of pt stops. Further stops in relation % are ignored", myCurrentRelation);
+                    WRITE_WARNINGF("PT line '%' in relation % seems to be split, only keeping first part.", myName, myCurrentRelation);
                     break;
                 }
 
@@ -1718,7 +1717,7 @@ NIImporter_OpenStreetMap::RelationHandler::myEndElement(int element) {
             if (myNBPTLineCont->getLines().count(ptLine->getLineID()) == 0) {
                 myNBPTLineCont->insert(ptLine);
             } else {
-                WRITE_WARNINGF("Ignoring duplicate PT line '%'.", toString(myCurrentRelation));
+                WRITE_WARNINGF("Ignoring duplicate PT line '%'.", myCurrentRelation);
                 delete ptLine;
             }
         }
