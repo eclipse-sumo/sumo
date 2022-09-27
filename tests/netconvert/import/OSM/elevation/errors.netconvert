@@ -13,11 +13,11 @@ Warning: Ignoring restriction relation '1727169' with unknown from-way.
 Warning: Ignoring restriction relation '1727169' with unknown to-way.
 Warning: No way found for reference '48858193' in relation '2439689'
 Warning: Ignoring restriction relation '2439689' with unknown from-way.
-Warning: Done reading first coherent chunk of pt stops. Further stops in relation 1119047 are ignored
-Warning: Done reading first coherent chunk of pt stops. Further stops in relation 35040 are ignored
-Warning: Done reading first coherent chunk of pt stops. Further stops in relation 1231708 are ignored
-Warning: Done reading first coherent chunk of pt stops. Further stops in relation 1231713 are ignored
-Warning: Done reading first coherent chunk of pt stops. Further stops in relation 2064835 are ignored
+Warning: PT line 'Buslinie 160: Hasselwerderstraße => Siriusstraße' in relation 1119047 seems to be split, only keeping first part.
+Warning: PT line 'Buslinie N60: Flughafen Schönefeld Terminal => S Adlershof' in relation 35040 seems to be split, only keeping first part.
+Warning: PT line 'Buslinie N60: S Adlershof => Flughafen Schönefeld Terminal' in relation 1231708 seems to be split, only keeping first part.
+Warning: PT line 'Buslinie N60: S Adlershof => Flughafen Schönefeld Terminal' in relation 1231713 seems to be split, only keeping first part.
+Warning: PT line 'Buslinie 164: S Kaulsdorf => S Flughafen Berlin-Schönefeld' in relation 2064835 seems to be split, only keeping first part.
 Warning: PT stop '851572693' has been moved to edge '-46150481#0'.
 Warning: Removing pt stop '735390157' on non existing edge ''.
 Warning: Removing pt stop '852932403' on non existing edge ''.
@@ -27,5 +27,5 @@ Warning: Edge '-172014854#1' has a grade of 11.14%.
 Warning: Edge '-172014854#2' has a grade of 10.80%.
 Warning: Edge '-24214694#1' has a grade of 16.46%.
 Warning: Edge '-24214694#4' has a grade of 13.97%.
-Warning: 9 total messages of type: Done reading first coherent chunk of pt stops. Further stops in relation % are ignored
 Warning: 22 total messages of type: Edge '%' has a grade of %%.
+Warning: 9 total messages of type: PT line '%' in relation % seems to be split, only keeping first part.

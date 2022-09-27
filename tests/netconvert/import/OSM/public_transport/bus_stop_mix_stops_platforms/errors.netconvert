@@ -4,16 +4,11 @@ Warning: Discarding unknown compound 'cycleway.opposite' in type 'cycleway.oppos
 Warning: Discarding unknown compound 'usage.main' in type 'railway.rail|usage.main' (first occurence for edge '25211335').
 Warning: Discarding unknown compound 'cycleway.opposite_lane' in type 'cycleway.opposite_lane|highway.residential' (first occurence for edge '43873883').
 Warning: Discarding unknown compound 'cycleway.opposite' in type 'cycleway.opposite|highway.unclassified' (first occurence for edge '204657039').
-Warning: Done reading first coherent chunk of pt stops. Further stops in relation 194651 are ignored
-Warning: Done reading first coherent chunk of pt stops. Further stops in relation 312147 are ignored
-Warning: Done reading first coherent chunk of pt stops. Further stops in relation 312674 are ignored
 Warning: No way found for reference '682488207' in relation '1057486'
 Warning: No way found for reference '5001019' in relation '1057486'
 Warning: Ignoring restriction relation '1057486' with unknown from-way.
 Warning: Ignoring restriction relation '1057486' with unknown to-way.
 Warning: PT line in relation 2755611 with no stops ignored. Probably OSM file is incomplete.
-Warning: Done reading first coherent chunk of pt stops. Further stops in relation 2807957 are ignored
-Warning: Done reading first coherent chunk of pt stops. Further stops in relation 2850927 are ignored
 Warning: PT line in relation 3068086 with no stops ignored. Probably OSM file is incomplete.
 Warning: PT line in relation 4622890 with no stops ignored. Probably OSM file is incomplete.
 Warning: PT line in relation 5659550 with no stops ignored. Probably OSM file is incomplete.
@@ -43,7 +38,6 @@ Warning: Speed of straight connection '253362218_0->253362220#0_0' reduced by 7.
 Warning: Speed of straight connection '300873532#2_0->300873532#3_0' reduced by 8.92 due to turning radius of 3.67 (length=1.07, angle=36.47).
 Warning: Speed of straight connection '300873532#2_1->300873532#3_1' reduced by 7.31 due to turning radius of 6.77 (length=2.24, angle=36.47).
 Warning: 9 total messages of type: Discarding unknown compound '%' in type '%' (first occurence for edge '%').
-Warning: 33 total messages of type: Done reading first coherent chunk of pt stops. Further stops in relation % are ignored
 Warning: 6 total messages of type: No way found for reference '%' in relation '%'
 Warning: 9 total messages of type: PT line in relation % with no stops ignored. Probably OSM file is incomplete.
 Warning: 8 total messages of type: PT stop '%' has been moved to edge '%'.

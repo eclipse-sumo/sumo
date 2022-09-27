@@ -7,11 +7,6 @@ Warning: Discarding unknown compound 'cycleway.separate' in type 'cycleway.separ
 Warning: Discarding unusable type 'waterway.stream' (first occurence for edge '492576991').
 Warning: Removing pt stop '1820622402' on non existing edge '170955811'.
 Warning: Removing pt stop '5787601679' on non existing edge '170955810'.
-Warning: Done reading first coherent chunk of pt stops. Further stops in relation 228027 are ignored
-Warning: Done reading first coherent chunk of pt stops. Further stops in relation 2064835 are ignored
-Warning: Done reading first coherent chunk of pt stops. Further stops in relation 2077646 are ignored
-Warning: Done reading first coherent chunk of pt stops. Further stops in relation 2077647 are ignored
-Warning: Done reading first coherent chunk of pt stops. Further stops in relation 2077946 are ignored
 Warning: direction of restriction relation could not be determined
 Warning: Ignoring restriction relation '6413098'.
 Warning: PT line in relation 6783677 with no stops ignored. Probably OSM file is incomplete.
@@ -25,6 +20,5 @@ Warning: Not joining tram edge '175769905#1' with 2 lanes.
 Warning: Not joining tram edge '175769905#2' with 2 lanes.
 Warning: Not joining tram edge '175769905#3' with 2 lanes.
 Warning: Not joining tram edge '175769905#4' with 2 lanes.
-Warning: 18 total messages of type: Done reading first coherent chunk of pt stops. Further stops in relation % are ignored
 Warning: 26 total messages of type: No way found for reference '%' in relation '%'
 Warning: 23 total messages of type: Not joining tram edge '%' with % lanes.

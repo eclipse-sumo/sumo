@@ -2,8 +2,8 @@ Warning: Discarding unusable type 'waterway.riverbank' (first occurence for edge
 Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.secondary' (first occurence for edge '24214694').
 Warning: Discarding unusable type 'waterway.canal' (first occurence for edge '31233332').
 Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.tertiary' (first occurence for edge '46039050').
-Warning: Done reading first coherent chunk of pt stops. Further stops in relation 35040 are ignored
-Warning: Done reading first coherent chunk of pt stops. Further stops in relation 228027 are ignored
+Warning: PT line 'Buslinie N60: Flughafen Schönefeld Terminal => S Adlershof' in relation 35040 seems to be split, only keeping first part.
+Warning: PT line 'Buslinie 164: S Flughafen Berlin-Schönefeld => S Kaulsdorf' in relation 228027 seems to be split, only keeping first part.
 Warning: No way found for reference '48858193' in relation '2439689'
 Warning: Ignoring restriction relation '2439689' with unknown from-way.
 Warning: Cannot revise pt stop localization for pt line '1200744', which consist of one way only. Ignoring!
@@ -23,9 +23,9 @@ Warning: Ignoring parking area on edge '142575693#3' due to insufficient space.
 Warning: Ignoring parking area on edge '142575693#4' due to insufficient space.
 Warning: 9 total messages of type: Discarding unknown compound '%' in type '%' (first occurence for edge '%').
 Warning: 4 total messages of type: Discarding unusable type '%' (first occurence for edge '%').
-Warning: 10 total messages of type: Done reading first coherent chunk of pt stops. Further stops in relation % are ignored
 Warning: 5 total messages of type: Found sharp turn with radius % at the start of edge '%'.
 Warning: 10 total messages of type: Ignoring parking area on edge '%' due to insufficient space.
+Warning: 10 total messages of type: PT line '%' in relation % seems to be split, only keeping first part.
 Warning: 3 total messages of type: PT stop '%' has been moved to edge '%'.
 Warning: 5 total messages of type: Removing pt stop '%' on non existing edge '%'.
 Warning: 20 total messages of type: could not find edge for parkingArea '%s'

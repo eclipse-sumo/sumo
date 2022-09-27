@@ -1,7 +1,7 @@
 Warning: Discarding unknown compound 'cycleway.opposite' in type 'cycleway.opposite|highway.residential' (first occurence for edge '4839228').
 Warning: Discarding unknown compound 'cycleway.crossing' in type 'cycleway.crossing|highway.cycleway' (first occurence for edge '337455368').
-Warning: Done reading first coherent chunk of pt stops. Further stops in relation 2948483 are ignored
-Warning: Done reading first coherent chunk of pt stops. Further stops in relation 6978321 are ignored
+Warning: PT line 'Bus 464: Stadion => Rühme' in relation 2948483 seems to be split, only keeping first part.
+Warning: PT line 'Bus 464: Stadion => Querum' in relation 6978321 seems to be split, only keeping first part.
 Warning: Could not determine cross product for edge '586130367'.
 Warning: PT stop '30323970' has been moved to edge '-4752567#2'.
 Warning: Removing pt stop '2314028901' on non existing edge ''.

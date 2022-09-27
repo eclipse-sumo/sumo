@@ -7,7 +7,6 @@ Warning: Removing pt stop '1118516947' on non existing edge '892099948'.
 Warning: Removing pt stop '224101094' on non existing edge ''.
 Warning: Removing pt stop '4672299045' on non existing edge '812591737'.
 Warning: Removing pt stop '4672299046' on non existing edge '96560979'.
-Warning: Done reading first coherent chunk of pt stops. Further stops in relation 7446410 are ignored
 Warning: Could not find corresponding edge or compatible lane for free-floating pt stop '81326543' (Zaragoza-Delicias). Thus, it will be removed!
 Warning: Could not find corresponding edge or compatible lane for free-floating pt stop '1118516724' (Zaragoza-Delicias). Thus, it will be removed!
 Warning: Could not find corresponding edge or compatible lane for free-floating pt stop '1118516947' (Zaragoza-Delicias). Thus, it will be removed!
