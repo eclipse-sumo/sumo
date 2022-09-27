@@ -1,4 +1,4 @@
-Eclipse SUMO sumo Version v1_14_1+1288-28ea2b4
+Eclipse SUMO sumo Version v1_14_1+1294-35e14935ffb
  Copyright (C) 2001-2022 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -440,13 +440,14 @@ Report Options:
   -?, --help                           Prints this screen or selected topics
   -V, --version                        Prints the current version
   -X, --xml-validation STR             Set schema validation scheme of XML
-                                        inputs ("never", "auto" or "always")
+                                        inputs ("never", "local", "auto" or
+                                        "always")
   --xml-validation.net STR             Set schema validation scheme of SUMO
-                                        network inputs ("never", "auto" or
-                                        "always")
+                                        network inputs ("never", "local", "auto"
+                                        or "always")
   --xml-validation.routes STR          Set schema validation scheme of SUMO
-                                        route inputs ("never", "auto" or
-                                        "always")
+                                        route inputs ("never", "local", "auto"
+                                        or "always")
   -W, --no-warnings                    Disables output of warnings
   --aggregate-warnings INT             Aggregate warnings of the same type
                                         whenever more than INT occur
@@ -821,6 +822,8 @@ GUI Only Options:
                                         position
   --tracker-interval TIME              The aggregation period for value tracker
                                         windows
+  --osg-view                           Start with an OpenSceneGraph view
+                                        instead of the regular 2D view
   --gui-testing                        Enable overlay for screen recognition
   --gui-testing-debug                  Enable output messages during
                                         GUI-Testing

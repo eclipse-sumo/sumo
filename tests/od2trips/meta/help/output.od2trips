@@ -1,4 +1,4 @@
-Eclipse SUMO od2trips Version v1_12_0+0087-1185162ac9e
+Eclipse SUMO od2trips Version v1_14_1+1294-35e14935ffb
  Copyright (C) 2001-2022 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Importer of O/D-matrices for the microscopic, multi-modal traffic simulation
  SUMO.
@@ -81,7 +81,7 @@ Report Options:
   -?, --help                       Prints this screen or selected topics
   -V, --version                    Prints the current version
   -X, --xml-validation STR         Set schema validation scheme of XML inputs
-                                    ("never", "auto" or "always")
+                                    ("never", "local", "auto" or "always")
   -W, --no-warnings                Disables output of warnings
   --aggregate-warnings INT         Aggregate warnings of the same type whenever
                                     more than INT occur
