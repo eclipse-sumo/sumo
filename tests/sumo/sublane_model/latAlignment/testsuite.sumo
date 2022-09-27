@@ -1,5 +1,3 @@
-# In the given test, the vehicle is on the rightmost side (lateral offset= -0.65) in the beginning. After he enters the junction j3 the lateral offset is getting reduced (lateral offset changes from -0.65 to -0.3). Since then the vehicle runs with lateral offset= -0.3 continuously, also when it enters bidi-edges. Edges n, -n, o -o are bidi-edges. 
-lateral_offset
 default
 center
 right
