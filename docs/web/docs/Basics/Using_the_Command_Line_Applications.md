@@ -217,7 +217,8 @@ are generated.
 
 ## Environment variables in Configuration Files
 
-It is possible to refer to environment variables in configuration files. The syntax to refer to an environment variable is **${VARNAME}**. For example, your configuration file may reference a variable called **NETFILENAME**, containing the name of a network file, with the following configuration settings.
+It is possible to refer to environment variables in configuration files. The syntax to refer to an environment variable is **${VARNAME}**.
+For example, your configuration file may reference a variable called **NETFILENAME**, containing the name of a network file, with the following configuration settings.
 
 ```
 <configuration>
@@ -226,6 +227,14 @@ It is possible to refer to environment variables in configuration files. The syn
     </input>
 </configuration>
 ```
+
+There are also some special values you can use here which aren't environment variables:
+
+- **${LOCALTIME}** refers to the local time when the configuration has been loaded
+- **${UTC}** same as **${LOCALTIME}** but in universal coordinated time
+- **${PID}** process id of the running application
+
+The expansion of environment variables will not happen if you are only writing a new configuration.
 
 # Common Options
 
