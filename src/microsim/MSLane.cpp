@@ -259,6 +259,7 @@ MSLane::MSLane(const std::string& id, double maxSpeed, double friction, double l
     myRightSideOnEdge(0), // initialized in MSEdge::initialize
     myRightmostSublane(0),
     myNeedsCollisionCheck(false),
+    myOpposite(nullptr),
 #ifdef HAVE_FOX
 #ifdef _MSC_VER
 #pragma warning(push)
@@ -312,11 +313,10 @@ MSLane::addLink(MSLink* link) {
 
 
 void
-MSLane::addNeigh(const std::string& id) {
-    myNeighs.push_back(id);
-    // warn about lengths after loading the second lane of the pair
-    if (getOpposite() != nullptr && getLength() != getOpposite()->getLength()) {
-        WRITE_WARNINGF("Unequal lengths of neigh lane '%' and lane '%' (% != %).", getID(), id, getLength(), getOpposite()->getLength());
+MSLane::setOpposite(MSLane* oppositeLane) {
+    myOpposite = oppositeLane;
+    if (myOpposite != nullptr && getLength() > myOpposite->getLength()) {
+        WRITE_WARNINGF("Unequal lengths of neigh lane '%' and lane '%' (% != %).", getID(), myOpposite->getID(), getLength(), myOpposite->getLength());
     }
 }
 
@@ -2290,7 +2290,7 @@ MSLane::integrateNewVehicles() {
     buffered.clear();
     myVehBuffer.unlock();
     //std::cout << SIMTIME << " integrateNewVehicle lane=" << getID() << " myVehicles1=" << toString(myVehicles);
-    if (MSGlobals::gLateralResolution > 0 || myNeighs.size() > 0) {
+    if (MSGlobals::gLateralResolution > 0 || myOpposite != nullptr) {
         sort(myVehicles.begin(), myVehicles.end(), vehicle_natural_position_sorter(this));
     }
     sortPartialVehicles();
@@ -4005,10 +4005,7 @@ MSLane::getUpcomingLinks(double pos, double range, const std::vector<MSLane*>& c
 
 MSLane*
 MSLane::getOpposite() const {
-    if (myNeighs.size() == 1) {
-        return dictionary(myNeighs[0]);
-    }
-    return nullptr;
+    return myOpposite;
 }
 
 

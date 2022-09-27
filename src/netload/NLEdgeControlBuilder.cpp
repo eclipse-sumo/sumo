@@ -155,7 +155,7 @@ NLEdgeControlBuilder::applyDefaultStopOffsetsToLanes() {
 
 void
 NLEdgeControlBuilder::addNeigh(const std::string id) {
-    myLaneStorage->back()->addNeigh(id);
+    myOppositeLanes.push_back({myLaneStorage->back(), id});
 }
 
 
@@ -182,6 +182,22 @@ MSEdgeControl*
 NLEdgeControlBuilder::build(double networkVersion) {
     if (MSGlobals::gUseMesoSim && !OptionsCont::getOptions().getBool("meso-lane-queue")) {
         MSEdge::setMesoIgnoredVClasses(parseVehicleClasses(OptionsCont::getOptions().getStringVector("meso-ignore-lanes-by-vclass")));
+    }
+    // connecting opposite lanes must happen before MSEdge::closeBuilding
+    for (auto item : myOppositeLanes) {
+        MSLane* oppo = MSLane::dictionary(item.second);
+        if (oppo == nullptr) {
+            WRITE_ERRORF("Unknown neigh lane '%' for lane '%'", item.second, item.first->getID());
+        } else {
+            item.first->setOpposite(oppo);
+        }
+    }
+    // consistency check
+    for (auto item : myOppositeLanes) {
+        if (item.first->getOpposite() != nullptr && item.first->getOpposite()->getOpposite() != item.first) {
+            WRITE_WARNINGF("Asymmetrical neigh lane '%' for lane '%'", item.second, item.first->getID());
+            item.first->getOpposite()->setOpposite(item.first);
+        }
     }
     for (MSEdge* const edge : myEdges) {
         edge->closeBuilding();

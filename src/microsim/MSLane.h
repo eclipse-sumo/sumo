@@ -273,7 +273,7 @@ public:
      *
      * @param[in] id The lane's id
      */
-    void addNeigh(const std::string& id);
+    void setOpposite(MSLane* oppositeLane);
     ///@}
 
 
@@ -1485,8 +1485,8 @@ protected:
     /// @brief whether a collision check is currently needed
     bool myNeedsCollisionCheck;
 
-    // @brief the ids of neighboring lanes
-    std::vector<std::string> myNeighs;
+    // @brief the ids of the opposite direction lane
+    MSLane* myOpposite;
 
     // @brief transient changes in permissions
     std::map<long long, SVCPermissions> myPermissionChanges;

@@ -173,6 +173,8 @@ protected:
     /// @brief temporary storage for bidi attributes (to be resolved after loading all edges)
     std::map<MSEdge*, std::string> myBidiEdges;
 
+    std::vector<std::pair<MSLane*, std::string> > myOppositeLanes;
+
     /** @brief set the stopOffset for the last added lane.
      */
     void updateCurrentLaneStopOffset(const StopOffset& stopOffset);
