@@ -71,6 +71,12 @@ public:
     /// @brief called when user releases left button
     virtual bool onLeftBtnRelease(void* data);
 
+    /// @brief called when user press middle button
+    virtual void onMiddleBtnPress(void* data);
+
+    /// @brief called when user releases middle button
+    virtual bool onMiddleBtnRelease(void* data);
+
     /// @brief called when user press right button
     virtual void onRightBtnPress(void* data);
 

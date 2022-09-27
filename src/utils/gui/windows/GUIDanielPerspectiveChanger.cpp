@@ -160,6 +160,28 @@ GUIDanielPerspectiveChanger::onLeftBtnRelease(void* data) {
 
 
 void
+GUIDanielPerspectiveChanger::onMiddleBtnPress(void* data) {
+    myMouseButtonState |= MOUSEBTN_MIDDLE;
+    FXEvent* e = (FXEvent*) data;
+    myMouseXPosition = e->win_x;
+    myMouseYPosition = e->win_y;
+    myMoveOnClick = false;
+    myMouseDownTime = FXThread::time();
+    myZoomBase = myCallback.getPositionInformation();
+}
+
+
+bool
+GUIDanielPerspectiveChanger::onMiddleBtnRelease(void* data) {
+    myMouseButtonState &= ~MOUSEBTN_MIDDLE;
+    FXEvent* e = (FXEvent*) data;
+    myMouseXPosition = e->win_x;
+    myMouseYPosition = e->win_y;
+    return myMoveOnClick;
+}
+
+
+void
 GUIDanielPerspectiveChanger::onRightBtnPress(void* data) {
     myMouseButtonState |= MOUSEBTN_RIGHT;
     FXEvent* e = (FXEvent*) data;

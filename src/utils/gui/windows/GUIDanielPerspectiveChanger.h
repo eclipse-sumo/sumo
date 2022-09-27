@@ -57,6 +57,8 @@ public:
 
     void onLeftBtnPress(void* data);
     bool onLeftBtnRelease(void* data);
+    void onMiddleBtnPress(void* data);
+    bool onMiddleBtnRelease(void* data);
     void onRightBtnPress(void* data);
     bool onRightBtnRelease(void* data);
     void onMouseWheel(void* data);

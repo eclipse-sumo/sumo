@@ -40,48 +40,70 @@ GUIPerspectiveChanger::~GUIPerspectiveChanger() {
 
 void
 GUIPerspectiveChanger::onLeftBtnPress(void*) {
+    // reimplement in child
 }
 
 
 bool
 GUIPerspectiveChanger::onLeftBtnRelease(void*) {
+    // reimplement in child
+    return false;
+}
+
+
+void
+GUIPerspectiveChanger::onMiddleBtnPress(void*) {
+    // reimplement in child
+}
+
+
+bool
+GUIPerspectiveChanger::onMiddleBtnRelease(void*) {
+    // reimplement in child
     return false;
 }
 
 
 void
 GUIPerspectiveChanger::onRightBtnPress(void*) {
+    // reimplement in child
 }
 
 
 bool
 GUIPerspectiveChanger::onRightBtnRelease(void*) {
+    // reimplement in child
     return false;
 }
 
 void
 GUIPerspectiveChanger::onDoubleClicked(void*) {
+    // reimplement in child
 }
 
 
 void
 GUIPerspectiveChanger::onMouseWheel(void*) {
+    // reimplement in child
 }
 
 
 void
 GUIPerspectiveChanger::onMouseMove(void*) {
+    // reimplement in child
 }
 
 
 long
 GUIPerspectiveChanger::onKeyPress(void*) {
+    // reimplement in child
     return 0;
 }
 
 
 long
 GUIPerspectiveChanger::onKeyRelease(void*) {
+    // reimplement in child
     return 0;
 }
 
