@@ -242,6 +242,7 @@ GUIDanielPerspectiveChanger::onMouseMove(void* data) {
     const bool pastDelay = !gSchemeStorage.getDefault().gaming && FXThread::time() > (myMouseDownTime + myDragDelay);
     switch (myMouseButtonState) {
         case MOUSEBTN_LEFT:
+        case MOUSEBTN_MIDDLE:
             if (pastDelay) {
                 if (myRotation != 0) {
                     Position diffRot = Position(xdiff, ydiff).rotateAround2D(

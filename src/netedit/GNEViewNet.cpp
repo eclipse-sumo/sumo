@@ -1152,6 +1152,30 @@ GNEViewNet::onLeftBtnRelease(FXObject* obj, FXSelector sel, void* eventData) {
 
 
 long
+GNEViewNet::onMiddleBtnPress(FXObject* obj, FXSelector sel, void* eventData) {
+    // update MouseButtonKeyPressed
+    myMouseButtonKeyPressed.update(eventData);
+    // process click
+    processClick(eventData);
+    // update view
+    updateViewNet();
+    return 1;
+}
+
+
+long
+GNEViewNet::onMiddleBtnRelease(FXObject* obj, FXSelector sel, void* eventData) {
+    // process parent function
+    GUISUMOAbstractView::onMiddleBtnRelease(obj, sel, eventData);
+    // update MouseButtonKeyPressed
+    myMouseButtonKeyPressed.update(eventData);
+    // update view
+    updateViewNet();
+    return 1;
+}
+
+
+long
 GNEViewNet::onRightBtnPress(FXObject* obj, FXSelector sel, void* eventData) {
     // update MouseButtonKeyPressed
     myMouseButtonKeyPressed.update(eventData);

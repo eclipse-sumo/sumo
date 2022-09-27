@@ -1040,13 +1040,20 @@ GUISUMOAbstractView::onLeftBtnRelease(FXObject*, FXSelector, void* ptr) {
 
 
 long
-GUISUMOAbstractView::onMiddleBtnPress(FXObject*, FXSelector, void*) {
+GUISUMOAbstractView::onMiddleBtnPress(FXObject*, FXSelector, void* ptr) {
+    destroyPopup();
+    setFocus();
+    myChanger->onMiddleBtnPress(ptr);
+    grab();
     return 1;
 }
 
 
 long
-GUISUMOAbstractView::onMiddleBtnRelease(FXObject*, FXSelector, void*) {
+GUISUMOAbstractView::onMiddleBtnRelease(FXObject*, FXSelector, void* ptr) {
+    destroyPopup();
+    myChanger->onMiddleBtnRelease(ptr);
+    ungrab();
     return 1;
 }
 
