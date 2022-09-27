@@ -9,43 +9,47 @@ title: ChangeLog
 - Simulation
   - Fixed crash when using bluelight vehicle and SSM device. Issue #11336 (regression in 1.12.0)
   - Rerouter attribute `timeTreshold` is working again after a vehicle has changed lanes. Issue #11405 (regression in 1.14.0)
-  - Taxi drop-off is no longer interrupted by new dispatch. Also, persons only continue their plan after the drop-off duration. Issue #11311
-  - Fixed multiple EIDM issues related to imprecise driving at stop lines. #11242, #11182, #11183
+  - Taxi drop-off is no longer interrupted by new dispatch. Also, persons only continue their plan after the drop-off duration. Issue #11311  
   - Fixed bug where emergency vehicle fails to overtake. Issue #11345
   - Fixed bug where emergency vehicle performs invalid (unstrategic) lanechange. Issue #11337
-  - A persons individual speedFactor is now applied during access stage. Issue #11452
-  - Output of a persons speed in access stage is now correct (was given as 0 before). Issue #11453
-  - Fixed invalid parking maneuver times. Issue #11420
-  - Fixed incorrect/delayed vehicle inserting on Bidi-edge. Issue #11419
-  - fcd-output now includes riding persons even if their vehicle is not equipped with fcd device. Issue #11454
-  - fcd-output of persons now respects edge and shape filters. Issue #11455
-  - Option **--scale** and vType attribute `scale` now apply evenly to all defined `<flow`> elements when set to values below 1. Issue #11441
-  - Fixed bug where vehicle drives outside lane bound after lane width change. Issue #11468
-  - Fixed emergency braking during opposite direction driving. Issue #11481
+  - A persons individual speedFactor is now applied during access stage. Issue #11452  
+  - Fixed invalid parking maneuver times. Issue #11420  
+  - Option **--scale** and vType attribute `scale` now apply evenly to all defined `<flow`> elements when set to values below 1. Issue #11441  
   - Fixed invalid braking at intersection in sublane simulation. Issue #11484
-  - Fixed emergency braking at lane-width change in sublane simulation. Issue #11467
-  - Fixed junction collision while turning with the sublane model. Issue #11482
-  - Fixed bug where car blocks itself during continuous laneChange after loading state. Issue #11394
+  - Fixed emergency braking at lane-width change in sublane simulation. Issue #11467, #11639
+  - Fixed junction collision while turning with the sublane model. Issue #11482  
   - Fixed invalid (slightly exaggerated) estimate of junction passing time. Issue #11106  
-  - Fixed prolonged waiting at side roads despite sufficient gaps. Issue #11106
-  - Fixed invalid speed adaptations for lane changing while on an intersection. Issue #11507
-  - Cars generated for a `<personTrip>` now slow down before dropping of the person. Issue #11532
-  - Fixed several bugs that prevented intermodal vehroute output from being re-used as simulation input. Issue #7006
-  - Fixed emergency braking when using carFollowModel IDM. Issue #11498, #11564  
+  - Fixed prolonged waiting at side roads despite sufficient gaps. Issue #11106  
+  - Cars generated for a `<personTrip>` now slow down before dropping of the person. Issue #11532  
   - Fixed vehicle collision with pedestrian on shared lane after lane width change. Issue #11602
-  - Fixed emergency breaking near shared walkingarea. Issue #11478
-  - Fixed bug where vehicle takes too long to overtake pedestrian. Issue #11608
+  - Fixed emergency breaking near shared walkingarea. Issue #11478  
   - Fixed invalid junction collision warning involving short approach edges. Issue #11609
+  - Fixed incorrect/delayed vehicle inserting on bidi-edge. Issue #11419
+  - Fixed collisions on bidi-edge. Issue #11477
+  - Fixed emergency braking when using carFollowModel IDM. Issue #11498, #11564, #11564
+  - Fixed emergency braking when using carFollowModel CACC. Issue #11679, #11653
   - EIDM carFollowModel:
+    - Fixed multiple EIDM issues related to imprecise driving at stop lines. #11242, #11182, #11183
     - Fixed bug where vehicles did not reach a defined stop. Issue #11364
     - Fixed collision. Issue #11361
     - Slow-to-start now works after stopping. Issue #11374
     - Fixed emergency braking when approaching stop. Issue #11461
+  - lane changing
+    - Fixed bug where vehicles take to long to overtake pedestrians. Issue #11608
+    - Fixed bug where vehicle drives outside lane bound after lane width change. Issue #11468
+    - Fixed emergency braking during opposite direction driving. Issue #11481
+    - Fixed bug where car blocks itself during continuous laneChange after loading state. Issue #11394
+    - Fixed invalid speed adaptations for lane changing while on an intersection. Issue #11507
+  - output
+    - fcd-output now includes riding persons even if their vehicle is not equipped with fcd device. Issue #11454
+    - fcd-output of persons now respects edge and shape filters. Issue #11455
+    - Output of a persons speed in access stage is now correct (was given as 0 before). Issue #11453
+    - Fixed several bugs that prevented intermodal vehroute output from being re-used as simulation input. Issue #7006
   - railways:
     - Fixed unsafe train insertion with oncoming vehicle. Issue #11384
     - Fixed invalid error when trying to insert train before red signal with high speed. Issue #11440
     - Fixed emergency braking due to unsuitable rail signal choice between rivaling trains. Issue #11442
-
+  
 - netedit
   - Fixed missing coordinate indicator in status bar. Issue #11230 (regression in 1.14.0)
   - Loading an additional file and saving modifications no longer prompts for a file name. Issue #11030
@@ -57,8 +61,11 @@ title: ChangeLog
   - Additional object chooser no longer lists POIs and polygons. Issue #11580
   - Fixed invalid context menu after clicking on overlapped lanes. Issue #11577
   - Context menus on ambiguously overlapping objects now gives a choice of object. Holding ALT always givea all choices. Issue #10916
+  - Junctions covered by a walkingarea can now be moved. Issue #11622
+  - In tls mode, icons are now drawn on top of walkingarea shapes. Issue #11302
+  - Setting a numerical value for departPosLat is now working. Issue #11694
+  - Fixed parsing of `<closingReroute>` permissions. Issue #11699
   
-
 - sumo-gui
   - Fixed crash when opening busStop parameters after simulation end. Issue #11499 (regression in 1.13.0)
   - Lane menu functions *select reachable*, *close lane*, *add rerouter* are now working again. Issue #11448 (regression in 1.14.0)
@@ -66,8 +73,10 @@ title: ChangeLog
   - 3D view now updates lane colors after updating of selected lanes. Issue #10908
   - Fixed invalid occupancy values caused by vehicles vehicles that are partially on a lane (i.e. with the sublane model). Issue #11404
   - Opening the object chooser now brings existing dialogs into focus. Issue #11579
+  - Detector names are now shown in the parameter dialog. Issue #11029
+  - TAZs parameters are now loaded. Issue #7479
+  - Fixed insufficient precision when saving edge scaling scheme. Issue #11711
   
-
 - netconvert
   - Fixed invalid red phase at traffic lights with very low connection speeds. Issue #11307 (regression in 1.14.0)
   - Fixed invalid turn-around connection at roundabout with unusual geometry. Issue #11344
@@ -78,6 +87,11 @@ title: ChangeLog
   - Fixed bug that caused internal junctions for railways. Issue #11558
   - Fixed invalid walkingarea shapes. Issue #11590
   - Lane types are now preserved after `<split>`s. Issue #11592
+  - Tram edge merging now preserves origId. Issue #11582
+  - Fixed bug where tram stop was assigned to street instead of rail. Issue #11645
+  - Fixed invalid bidi edges with ptline-output. Issue #11497
+  - Invalid state string length now always triggers a warning. Issue #11637
+  - Activating option **--ptline-output** no longer modifies the network. Issue #10732
 
 - duarouter
   - vTypeDistributions with attribute `vTypes` now consider vType-probabilities. Issue #11376
@@ -106,6 +120,7 @@ title: ChangeLog
   - plot_net_dump.py: fixed error when trying to plot homogeneous edgeData. Issue #11351
   - generateRailSignalConstraints.py: Fixed missing inactive insertion constraints when **--write-inactive** is set. Issue #11375
   - generateRailSignalConstraints.py: Added missing constraints from bidirectional stop usage. Issue #11371  
+  - generateRailSignalConstraints.py: now detecting swapped ended times. Issue #11687
   - Fixed use of `gapPenalty` parameter in function `sumolib.route.mapTrace`. Issue #11292
   - plotXMLAttributes.py: Now support plotting by rank (by specifying attribute `@RANK`). Issue #11605
   
@@ -124,6 +139,8 @@ title: ChangeLog
   - The vType attriutes `timeToTeleport` and `timeToTeleportBidi` can now be used to customize teleporting behavior. Issue #9497
   - Pedestrians now react to edge speed limit (i.e. for modelling stairs). Issue #11526
   - Added option **--vehroute-output.internal** to include internal edges in the output. Issue #10601
+  - Specifying pedestrian `<walk>` with `departPosLat="random"` is now supported. Issue #10573
+  - Option **--devices.ssm.measures** now supports comma-separated values. Issue #10478
 
 - netedit
   - Saved detector names use descriptive tags instead of the 'E1,E2, ...' tags. Issue #11028
@@ -138,8 +155,10 @@ title: ChangeLog
   - Joined traffic lights can now be defined for selected junctions via the context menu. Issue #11396
   - Create edge frame has two new checkboxes (*disallow pedestrians,add sidewalk*)  to simplify creation of edges for pedestrian simulation. Issue #10969
   - In networks with pedestrian crossings, create edge frame disallows pedestrians on road lanes by default. Issue #10970
-  - In move mode, alt+right-click on overlapped objects now allows marking the front element to be moved. Issie #10900
+  - In move mode, alt+right-click on overlapped objects now allows marking the front element to be moved. Issue #10900
   - In vehicle mode: alt+right-click on overlapping routes, now allows marking the front element to be used when creating 'vehicle over route'. Issue #11009
+  - In delete mode, ambiguous clicks now open a conext menu for selecting the intended target. Issue #11606
+  - In delete mode, the object to be deleted is now outlined. Issue #11636
   - Button tooltips can be enabled/disabled with a persistent toggle-button. Issue #11550
   - Creating accidental double stops for the same vehicle is now prevented. Issue #10078
   - Traffic light mode:
@@ -165,10 +184,15 @@ title: ChangeLog
   - The timeSinceStartup (from standing) is now listed in vehicle parameter dialog. Issue #11463
   - Status bar now indicates successful screenshot. Issue #11279
   - If a car has a custom arrivalPos or arrivalLane, these are now indicated when 'show route' is active. Issue #11533
+  - Opening a second breakpoint editor is now prevented. Issue #10365
+  - An active traci-server is now indicated in the status bar. Issue #5054
 
 - netconvert
   - Input given via option **--ptline-files** is now filtered when reducing the network extent. Issue #11548
   - Declaring a node as fringe (attribute `fringe`) now disables walkingareas (that would be appropriate at a dead-end). Issue #11614
+  - Added extra consistency checks for public transport stop ordering in OSM input (with regard to bidi-edges). Issue #11612
+  - Original ids of edges of removed edges are now stored in joined junctions parameters. Issue #11428
+  - OSM import now support more symbolic speed restrictions. Issue #11682, #11683
 
 - netgenerate
   - Now supports options **--geometry.remove** and **--tls.discard-simple**. Issue #11422
@@ -196,6 +220,7 @@ title: ChangeLog
   - randomTrips.py: New option **--min-dist-fringe** which allows short fringe-to-fringe trips if trip generation with **--min-dist** fails repeatedly. Issue #10592
   - osmWebWizard.py: Now prevents turn-arounds at the start and end of routes to improve traffic flow. Issue #10167
   - osmWebWizard.py: Now reliably generates trips in small networks. Issue #11563
+  - osmWebWizard.py: Now aborts scenario building if when trying and failing to retrieve satellite data. Issue #11423
   - attributeStats.py: Now includes `stdDev` in outputs. Issue #10869
   
   ### Miscellaneous
@@ -205,6 +230,7 @@ title: ChangeLog
 - Github source download now includes all tests. Issue #11403
 - All applications now support [appending list-type options](Basics/Using_the_Command_Line_Applications.md#options) in a configuration file with extra items via the command line. Issue #405
 - osmWebWizard.py now stores network files as `.net.xml.gz` to conserve space. Issue #7713
+- Walk attribute departPosLat is now interpreted in the same coordinate system as used by the vehicles. For backward compatibility, the option **--pedestrian.striping.legacy-departposlat** may be set. Issue #11705
 
 ## Version 1.14.1 (19.07.2022)
 
