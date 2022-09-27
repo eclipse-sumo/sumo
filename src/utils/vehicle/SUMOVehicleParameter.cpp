@@ -822,10 +822,10 @@ SUMOVehicleParameter::getDepartPosLat() const {
     std::string val;
     switch (departPosLatProcedure) {
         case DepartPosLatDefinition::GIVEN:
-            val = toString(departPos);
+            val = toString(departPosLat);
             break;
         case DepartPosLatDefinition::GIVEN_VEHROUTE:
-            val = StringUtils::pruneZeros(toString(departPos, MAX2(gPrecisionRandom, gPrecision)), 2);
+            val = StringUtils::pruneZeros(toString(departPosLat, MAX2(gPrecisionRandom, gPrecision)), 2);
             break;
         case DepartPosLatDefinition::RANDOM:
             val = "random";
@@ -979,7 +979,7 @@ SUMOVehicleParameter::getArrivalPosLat() const {
     std::string val;
     switch (arrivalPosLatProcedure) {
         case ArrivalPosLatDefinition::GIVEN:
-            val = toString(arrivalPos);
+            val = toString(arrivalPosLat);
             break;
         case ArrivalPosLatDefinition::RIGHT:
             val = "right";
