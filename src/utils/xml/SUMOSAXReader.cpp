@@ -46,9 +46,9 @@ using XERCES_CPP_NAMESPACE::XMLUni;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-SUMOSAXReader::SUMOSAXReader(GenericSAXHandler& handler, const SAX2XMLReader::ValSchemes validationScheme, XERCES_CPP_NAMESPACE::XMLGrammarPool* grammarPool)
+SUMOSAXReader::SUMOSAXReader(GenericSAXHandler& handler, const std::string& validationScheme, XERCES_CPP_NAMESPACE::XMLGrammarPool* grammarPool)
     : myHandler(nullptr), myValidationScheme(validationScheme), myGrammarPool(grammarPool), myXMLReader(nullptr),
-      myIStream(nullptr), myInputStream(nullptr), myNextSection(-1, nullptr) {
+      myIStream(nullptr), myInputStream(nullptr), mySchemaResolver(true, false), myLocalResolver(false, false), myNoOpResolver(false, true), myNextSection(-1, nullptr) {
     setHandler(handler);
 }
 
@@ -62,7 +62,6 @@ SUMOSAXReader::~SUMOSAXReader() {
 void
 SUMOSAXReader::setHandler(GenericSAXHandler& handler) {
     myHandler = &handler;
-    mySchemaResolver.setHandler(handler);
     if (myXMLReader != nullptr) {
         myXMLReader->setContentHandler(&handler);
         myXMLReader->setErrorHandler(&handler);
@@ -71,18 +70,19 @@ SUMOSAXReader::setHandler(GenericSAXHandler& handler) {
 
 
 void
-SUMOSAXReader::setValidation(const SAX2XMLReader::ValSchemes validationScheme) {
+SUMOSAXReader::setValidation(const std::string& validationScheme) {
     if (myXMLReader != nullptr && validationScheme != myValidationScheme) {
-        if (validationScheme == SAX2XMLReader::Val_Never) {
-            myXMLReader->setEntityResolver(nullptr);
+        if (validationScheme == "never") {
+            myXMLReader->setEntityResolver(&myNoOpResolver);
             myXMLReader->setProperty(XMLUni::fgXercesScannerName, (void*)XMLUni::fgWFXMLScanner);
         } else {
-            myXMLReader->setEntityResolver(&mySchemaResolver);
+            // myXMLReader->setEntityResolver(&mySchemaResolver);
+            myXMLReader->setEntityResolver(validationScheme == "local" ? &myLocalResolver : &mySchemaResolver);
             myXMLReader->setProperty(XMLUni::fgXercesScannerName, (void*)XMLUni::fgIGXMLScanner);
             myXMLReader->setFeature(XMLUni::fgXercesSchema, true);
             myXMLReader->setFeature(XMLUni::fgSAX2CoreValidation, true);
-            myXMLReader->setFeature(XMLUni::fgXercesDynamic, validationScheme == SAX2XMLReader::Val_Auto);
-            myXMLReader->setFeature(XMLUni::fgXercesUseCachedGrammarInParse, myValidationScheme == SAX2XMLReader::Val_Always);
+            myXMLReader->setFeature(XMLUni::fgXercesDynamic, validationScheme == "local" || validationScheme == "auto");
+            myXMLReader->setFeature(XMLUni::fgXercesUseCachedGrammarInParse, myValidationScheme == "always");
         }
     }
     myValidationScheme = validationScheme;
@@ -178,14 +178,17 @@ SUMOSAXReader::getSAXReader() {
         throw ProcessError("The XML-parser could not be build.");
     }
     // see here https://svn.apache.org/repos/asf/xerces/c/trunk/samples/src/SAX2Count/SAX2Count.cpp for the way to set features
-    if (myValidationScheme == SAX2XMLReader::Val_Never) {
+    if (myValidationScheme == "never") {
+        reader->setEntityResolver(&myNoOpResolver);
         reader->setProperty(XMLUni::fgXercesScannerName, (void*)XMLUni::fgWFXMLScanner);
     } else {
-        reader->setEntityResolver(&mySchemaResolver);
+        // reader->setEntityResolver(&mySchemaResolver);
+        reader->setEntityResolver(myValidationScheme == "local" ? &myLocalResolver : &mySchemaResolver);
+        reader->setProperty(XMLUni::fgXercesScannerName, (void*)XMLUni::fgIGXMLScanner);
         reader->setFeature(XMLUni::fgXercesSchema, true);
         reader->setFeature(XMLUni::fgSAX2CoreValidation, true);
-        reader->setFeature(XMLUni::fgXercesDynamic, myValidationScheme == SAX2XMLReader::Val_Auto);
-        reader->setFeature(XMLUni::fgXercesUseCachedGrammarInParse, myValidationScheme == SAX2XMLReader::Val_Always);
+        reader->setFeature(XMLUni::fgXercesDynamic, myValidationScheme == "local" || myValidationScheme == "auto");
+        reader->setFeature(XMLUni::fgXercesUseCachedGrammarInParse, myValidationScheme == "always");
     }
     reader->setContentHandler(myHandler);
     reader->setErrorHandler(myHandler);
@@ -195,31 +198,30 @@ SUMOSAXReader::getSAXReader() {
 
 XERCES_CPP_NAMESPACE::InputSource*
 SUMOSAXReader::LocalSchemaResolver::resolveEntity(const XMLCh* const /* publicId */, const XMLCh* const systemId) {
+    if (myNoOp) {
+        return new XERCES_CPP_NAMESPACE::MemBufInputSource((const XMLByte*)"", 0, "");
+    }
     const std::string url = StringUtils::transcode(systemId);
     const std::string::size_type pos = url.find("/xsd/");
     if (pos != std::string::npos) {
         const char* sumoPath = std::getenv("SUMO_HOME");
-        if (sumoPath == nullptr) {
-            // no need for a warning here, global preparsing should have done it.
-            return nullptr;
-        }
-        const std::string file = sumoPath + std::string("/data") + url.substr(pos);
-        if (FileHelpers::isReadable(file)) {
-            XMLCh* t = XERCES_CPP_NAMESPACE::XMLString::transcode(file.c_str());
-            XERCES_CPP_NAMESPACE::InputSource* const result = new XERCES_CPP_NAMESPACE::LocalFileInputSource(t);
-            XERCES_CPP_NAMESPACE::XMLString::release(&t);
-            return result;
-        } else {
-            WRITE_WARNING("Cannot read local schema '" + file + "', will try website lookup.");
+        // no need for a warning if SUMO_HOME is not set, global preparsing should have done it.
+        if (sumoPath != nullptr) {
+            const std::string file = sumoPath + std::string("/data") + url.substr(pos);
+            if (FileHelpers::isReadable(file)) {
+                XMLCh* t = XERCES_CPP_NAMESPACE::XMLString::transcode(file.c_str());
+                XERCES_CPP_NAMESPACE::InputSource* const result = new XERCES_CPP_NAMESPACE::LocalFileInputSource(t);
+                XERCES_CPP_NAMESPACE::XMLString::release(&t);
+                return result;
+            } else {
+                WRITE_WARNING("Cannot read local schema '" + file + (myHaveFallback ? "', will try website lookup." : "', XML validation will fail."));
+            }
         }
     }
-    return nullptr;
-}
-
-
-void
-SUMOSAXReader::LocalSchemaResolver::setHandler(GenericSAXHandler& handler) {
-    myHandler = &handler;
+    if (myHaveFallback || (!StringUtils::startsWith(url, "http:") && !StringUtils::startsWith(url, "https:") && !StringUtils::startsWith(url, "ftp:"))) {
+        return nullptr;
+    }
+    return new XERCES_CPP_NAMESPACE::MemBufInputSource((const XMLByte*)"", 0, "");
 }
 
 

@@ -57,7 +57,7 @@ public:
      *
      * @param[in] file The name of the processed file
      */
-    SUMOSAXReader(GenericSAXHandler& handler, const XERCES_CPP_NAMESPACE::SAX2XMLReader::ValSchemes validationScheme, XERCES_CPP_NAMESPACE::XMLGrammarPool* grammarPool);
+    SUMOSAXReader(GenericSAXHandler& handler, const std::string& validationScheme, XERCES_CPP_NAMESPACE::XMLGrammarPool* grammarPool);
 
     /// Destructor
     ~SUMOSAXReader();
@@ -69,7 +69,7 @@ public:
      */
     void setHandler(GenericSAXHandler& handler);
 
-    void setValidation(const XERCES_CPP_NAMESPACE::SAX2XMLReader::ValSchemes validationScheme);
+    void setValidation(const std::string& validationScheme);
 
     void parse(std::string systemID);
 
@@ -84,10 +84,11 @@ public:
 private:
     class LocalSchemaResolver : public XERCES_CPP_NAMESPACE::EntityResolver {
     public:
+        LocalSchemaResolver(const bool haveFallback, const bool noOp) : myHaveFallback(haveFallback), myNoOp(noOp) {}
         XERCES_CPP_NAMESPACE::InputSource* resolveEntity(const XMLCh* const publicId, const XMLCh* const systemId);
-        void setHandler(GenericSAXHandler& handler);
     private:
-        GenericSAXHandler* myHandler;
+        const bool myHaveFallback;
+        const bool myNoOp;
     };
 
 private:
@@ -108,7 +109,7 @@ private:
     GenericSAXHandler* myHandler;
 
     /// @brief Information whether built reader/parser shall validate XML-documents against schemata
-    XERCES_CPP_NAMESPACE::SAX2XMLReader::ValSchemes myValidationScheme;
+    std::string myValidationScheme;
 
     /// @brief Schema cache to be used for grammars which are not declared
     XERCES_CPP_NAMESPACE::XMLGrammarPool* myGrammarPool;
@@ -125,6 +126,10 @@ private:
     std::vector<SumoXMLTag> myXMLStack;
 
     LocalSchemaResolver mySchemaResolver;
+
+    LocalSchemaResolver myLocalResolver;
+
+    LocalSchemaResolver myNoOpResolver;
 
     std::pair<int, SUMOSAXAttributes*> myNextSection;
 

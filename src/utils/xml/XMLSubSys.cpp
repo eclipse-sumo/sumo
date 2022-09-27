@@ -41,9 +41,9 @@ using XERCES_CPP_NAMESPACE::XMLReaderFactory;
 // ===========================================================================
 std::vector<SUMOSAXReader*> XMLSubSys::myReaders;
 int XMLSubSys::myNextFreeReader;
-SAX2XMLReader::ValSchemes XMLSubSys::myValidationScheme = SAX2XMLReader::Val_Auto;
-SAX2XMLReader::ValSchemes XMLSubSys::myNetValidationScheme = SAX2XMLReader::Val_Auto;
-SAX2XMLReader::ValSchemes XMLSubSys::myRouteValidationScheme = SAX2XMLReader::Val_Auto;
+std::string XMLSubSys::myValidationScheme = "local";
+std::string XMLSubSys::myNetValidationScheme = "local";
+std::string XMLSubSys::myRouteValidationScheme = "local";
 XERCES_CPP_NAMESPACE::XMLGrammarPool* XMLSubSys::myGrammarPool = nullptr;
 
 
@@ -63,37 +63,22 @@ XMLSubSys::init() {
 
 void
 XMLSubSys::setValidation(const std::string& validationScheme, const std::string& netValidationScheme, const std::string& routeValidationScheme) {
-    if (validationScheme == "never") {
-        myValidationScheme = SAX2XMLReader::Val_Never;
-    } else if (validationScheme == "auto") {
-        myValidationScheme = SAX2XMLReader::Val_Auto;
-    } else if (validationScheme == "always") {
-        myValidationScheme = SAX2XMLReader::Val_Always;
-    } else {
+    if (validationScheme != "never" && validationScheme != "auto" && validationScheme != "always" && validationScheme != "local") {
         throw ProcessError("Unknown xml validation scheme + '" + validationScheme + "'.");
     }
-    if (netValidationScheme == "never") {
-        myNetValidationScheme = SAX2XMLReader::Val_Never;
-    } else if (netValidationScheme == "auto") {
-        myNetValidationScheme = SAX2XMLReader::Val_Auto;
-    } else if (netValidationScheme == "always") {
-        myNetValidationScheme = SAX2XMLReader::Val_Always;
-    } else {
+    myValidationScheme = validationScheme;
+    if (netValidationScheme != "never" && netValidationScheme != "auto" && netValidationScheme != "always" && netValidationScheme != "local") {
         throw ProcessError("Unknown network validation scheme + '" + netValidationScheme + "'.");
     }
-    if (routeValidationScheme == "never") {
-        myRouteValidationScheme = SAX2XMLReader::Val_Never;
-    } else if (routeValidationScheme == "auto") {
-        myRouteValidationScheme = SAX2XMLReader::Val_Auto;
-    } else if (routeValidationScheme == "always") {
-        myRouteValidationScheme = SAX2XMLReader::Val_Always;
-    } else {
+    myNetValidationScheme = netValidationScheme;
+    if (routeValidationScheme != "never" && routeValidationScheme != "auto" && routeValidationScheme != "always" && routeValidationScheme != "local") {
         throw ProcessError("Unknown route validation scheme + '" + routeValidationScheme + "'.");
     }
+    myRouteValidationScheme = routeValidationScheme;
     if (myGrammarPool == nullptr &&
-            (myValidationScheme != SAX2XMLReader::Val_Never ||
-             myNetValidationScheme != SAX2XMLReader::Val_Never ||
-             myRouteValidationScheme != SAX2XMLReader::Val_Never)) {
+            (myValidationScheme != "never" ||
+             myNetValidationScheme != "never" ||
+             myRouteValidationScheme != "never")) {
         myGrammarPool = new XERCES_CPP_NAMESPACE::XMLGrammarPoolImpl(XMLPlatformUtils::fgMemoryManager);
         SAX2XMLReader* parser(XMLReaderFactory::createXMLReader(XMLPlatformUtils::fgMemoryManager, myGrammarPool));
 #if _XERCES_VERSION >= 30100
@@ -101,15 +86,18 @@ XMLSubSys::setValidation(const std::string& validationScheme, const std::string&
 #endif
         const char* sumoPath = std::getenv("SUMO_HOME");
         if (sumoPath == nullptr) {
-            WRITE_WARNING("Environment variable SUMO_HOME is not set, schema resolution will use slow website lookups.");
+            WRITE_WARNING("Environment variable SUMO_HOME is not set, XML validation will fail or use slow website lookups.");
             return;
+        }
+        if (StringUtils::startsWith(sumoPath, "http:") || StringUtils::startsWith(sumoPath, "https:") || StringUtils::startsWith(sumoPath, "ftp:")) {
+            throw ProcessError("SUMO_HOME looks like an URL, aborting to avoid inadvertent network access.");
         }
         for (const char* const& filetype : {
                     "additional", "routes", "net"
                 }) {
             const std::string file = sumoPath + std::string("/data/xsd/") + filetype + "_file.xsd";
             if (!parser->loadGrammar(file.c_str(), XERCES_CPP_NAMESPACE::Grammar::SchemaGrammarType, true)) {
-                WRITE_WARNING("Cannot read local schema '" + file + "', will try website lookup.");
+                WRITE_WARNING("Cannot read local schema '" + file + "'.");
             }
         }
     }
@@ -131,7 +119,7 @@ XMLSubSys::close() {
 
 SUMOSAXReader*
 XMLSubSys::getSAXReader(SUMOSAXHandler& handler, const bool isNet, const bool isRoute) {
-    SAX2XMLReader::ValSchemes validationScheme = isNet ? myNetValidationScheme : myValidationScheme;
+    std::string validationScheme = isNet ? myNetValidationScheme : myValidationScheme;
     if (isRoute) {
         validationScheme = myRouteValidationScheme;
     }
@@ -150,7 +138,7 @@ XMLSubSys::runParser(GenericSAXHandler& handler, const std::string& file,
                      const bool isNet, const bool isRoute) {
     MsgHandler::getErrorInstance()->clear();
     try {
-        SAX2XMLReader::ValSchemes validationScheme = isNet ? myNetValidationScheme : myValidationScheme;
+        std::string validationScheme = isNet ? myNetValidationScheme : myValidationScheme;
         if (isRoute) {
             validationScheme = myRouteValidationScheme;
         }

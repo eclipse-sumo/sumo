@@ -79,17 +79,17 @@ SystemFrame::addReportOptions(OptionsCont& oc) {
     oc.doRegister("version", 'V', new Option_Bool(false));
     oc.addDescription("version", "Report", "Prints the current version");
 
-    oc.doRegister("xml-validation", 'X', new Option_String("auto"));
-    oc.addDescription("xml-validation", "Report", "Set schema validation scheme of XML inputs (\"never\", \"auto\" or \"always\")");
+    oc.doRegister("xml-validation", 'X', new Option_String("local"));
+    oc.addDescription("xml-validation", "Report", "Set schema validation scheme of XML inputs (\"never\", \"local\", \"auto\" or \"always\")");
 
     if (oc.exists("net-file")) {
         oc.doRegister("xml-validation.net", new Option_String("never"));
-        oc.addDescription("xml-validation.net", "Report", "Set schema validation scheme of SUMO network inputs (\"never\", \"auto\" or \"always\")");
+        oc.addDescription("xml-validation.net", "Report", "Set schema validation scheme of SUMO network inputs (\"never\", \"local\", \"auto\" or \"always\")");
     }
 
     if (oc.exists("route-files")) {
-        oc.doRegister("xml-validation.routes", new Option_String("auto"));
-        oc.addDescription("xml-validation.routes", "Report", "Set schema validation scheme of SUMO route inputs (\"never\", \"auto\" or \"always\")");
+        oc.doRegister("xml-validation.routes", new Option_String("local"));
+        oc.addDescription("xml-validation.routes", "Report", "Set schema validation scheme of SUMO route inputs (\"never\", \"local\", \"auto\" or \"always\")");
     }
 
     oc.doRegister("no-warnings", 'W', new Option_Bool(false));
