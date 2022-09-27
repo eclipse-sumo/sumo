@@ -23,6 +23,7 @@
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/changes/GNEChange_DemandElement.h>
+#include <utils/common/SUMOVehicleClass.h>
 #include <netedit/dialogs/GNESingleParametersDialog.h>
 #include <utils/emissions/PollutantsInterface.h>
 #include <utils/gui/div/GUIDesigns.h>
@@ -139,6 +140,9 @@ GNEVehicleTypeDialog::VTypeAtributes::VClassRow::setVariable() {
             if (!myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->isAttributeEnabled(SUMO_ATTR_LOCOMOTIVE_LENGTH)) {
                 myVTypeAtributesParent->myLocomotiveLength->updateValue(toString(defaultVTypeParameters.containerCapacity));
             }
+            // update GUIShape
+            myVTypeAtributesParent->myVShapeRow->updateValue(SumoVehicleClassStrings.get(myComboBoxVClass->getText().text()));
+
         }
     } else {
         myComboBoxVClass->setTextColor(FXRGB(255, 0, 0));
@@ -296,6 +300,82 @@ GNEVehicleTypeDialog::VTypeAtributes::VShapeRow::setVariable() {
 void
 GNEVehicleTypeDialog::VTypeAtributes::VShapeRow::updateValues() {
     myComboBoxShape->setText(myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_GUISHAPE).c_str());
+    setVShapeLabelImage();
+}
+
+
+void 
+GNEVehicleTypeDialog::VTypeAtributes::VShapeRow::updateValue(SUMOVehicleClass vClass) {
+    switch (vClass) {
+        case SVC_IGNORING:
+            myComboBoxShape->setText(SumoVehicleShapeStrings.getString(SUMOVehicleShape::UNKNOWN).c_str());
+            break;
+        case SVC_PRIVATE:
+        case SVC_AUTHORITY:
+        case SVC_ARMY:
+        case SVC_VIP:
+        case SVC_PASSENGER:
+        case SVC_CUSTOM1:
+        case SVC_CUSTOM2:
+            myComboBoxShape->setText(SumoVehicleShapeStrings.getString(SUMOVehicleShape::PASSENGER).c_str());
+            break;
+        case SVC_EMERGENCY:
+            myComboBoxShape->setText(SumoVehicleShapeStrings.getString(SUMOVehicleShape::EMERGENCY).c_str());
+            break;
+        case SVC_PEDESTRIAN:
+            myComboBoxShape->setText(SumoVehicleShapeStrings.getString(SUMOVehicleShape::PEDESTRIAN).c_str());
+            break;
+        case SVC_HOV:
+            myComboBoxShape->setText(SumoVehicleShapeStrings.getString(SUMOVehicleShape::PASSENGER_VAN).c_str());
+            break;
+        case SVC_TAXI:
+            myComboBoxShape->setText(SumoVehicleShapeStrings.getString(SUMOVehicleShape::TAXI).c_str());
+            break;
+        case SVC_BUS:
+            myComboBoxShape->setText(SumoVehicleShapeStrings.getString(SUMOVehicleShape::BUS).c_str());
+            break;
+        case SVC_COACH:
+            myComboBoxShape->setText(SumoVehicleShapeStrings.getString(SUMOVehicleShape::BUS_COACH).c_str());
+            break;
+        case SVC_DELIVERY:
+            myComboBoxShape->setText(SumoVehicleShapeStrings.getString(SUMOVehicleShape::DELIVERY).c_str());
+            break;
+        case SVC_TRUCK:
+            myComboBoxShape->setText(SumoVehicleShapeStrings.getString(SUMOVehicleShape::TRUCK).c_str());
+            break;
+        case SVC_TRAILER:
+            myComboBoxShape->setText(SumoVehicleShapeStrings.getString(SUMOVehicleShape::TRUCK_1TRAILER).c_str());
+            break;
+        case SVC_MOTORCYCLE:
+            myComboBoxShape->setText(SumoVehicleShapeStrings.getString(SUMOVehicleShape::MOTORCYCLE).c_str());
+            break;
+        case SVC_MOPED:
+            myComboBoxShape->setText(SumoVehicleShapeStrings.getString(SUMOVehicleShape::MOPED).c_str());
+            break;
+        case SVC_BICYCLE:
+            myComboBoxShape->setText(SumoVehicleShapeStrings.getString(SUMOVehicleShape::BICYCLE).c_str());
+            break;
+        case SVC_E_VEHICLE:
+            myComboBoxShape->setText(SumoVehicleShapeStrings.getString(SUMOVehicleShape::E_VEHICLE).c_str());
+            break;
+        case SVC_TRAM:
+        case SVC_RAIL_URBAN:
+        case SVC_RAIL:
+        case SVC_RAIL_ELECTRIC:
+        case SVC_RAIL_FAST:
+            myComboBoxShape->setText(SumoVehicleShapeStrings.getString(SUMOVehicleShape::RAIL).c_str());
+            break;
+        case SVC_SHIP:
+            myComboBoxShape->setText(SumoVehicleShapeStrings.getString(SUMOVehicleShape::SHIP).c_str());
+            break;
+        default:
+            myComboBoxShape->setText(SumoVehicleShapeStrings.getString(SUMOVehicleShape::PASSENGER).c_str());
+            break;
+    }
+    setVShapeLabelImage();
+    myComboBoxShape->setTextColor(FXRGB(0, 0, 0));
+    myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->setAttribute(SUMO_ATTR_GUISHAPE, myComboBoxShape->getText().text(),
+        myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->getNet()->getViewNet()->getUndoList());
     setVShapeLabelImage();
 }
 

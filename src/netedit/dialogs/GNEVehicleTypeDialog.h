@@ -89,6 +89,9 @@ public:
             /// @brief update values
             void updateValues();
 
+            /// @brief update value
+            void updateValue(SUMOVehicleClass vClass);
+
         private:
             /// @brief pointer to VTypeAtributes parent
             VTypeAtributes* myVTypeAtributesParent;
