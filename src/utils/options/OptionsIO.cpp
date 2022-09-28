@@ -153,6 +153,8 @@ std::string
 OptionsIO::getRoot(const std::string& filename) {
     // build parser
     XERCES_CPP_NAMESPACE::SAXParser parser;
+    parser.setValidationScheme(XERCES_CPP_NAMESPACE::SAXParser::Val_Never);
+    parser.setDisableDefaultEntityResolution(true);
     // start the parsing
     OptionsLoader handler;
     try {
