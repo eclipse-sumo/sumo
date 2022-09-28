@@ -503,6 +503,8 @@ class OSMImporterWebSocket(WebSocket):
             # reset 'Generate Scenario' button
             while self.steps > 0:
                 self.report("Recovering")
+            if os.path.isdir(builder.tmp) and not os.listdir(builder.tmp):
+                os.rmdir(builder.tmp)
         os.chdir(builder.origDir)
 
 
