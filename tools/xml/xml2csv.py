@@ -268,7 +268,7 @@ def main(args=None):
     handler = CSVWriter(attrFinder, options)
     if options.validation:
         schema = lxml.etree.XMLSchema(file=options.xsd)
-        parser = lxml.etree.XMLParser(schema=schema)
+        parser = lxml.etree.XMLParser(schema=schema, resolve_entities=False, no_network=True)
         tree = lxml.etree.parse(options.source, parser)
         lxml.sax.saxify(tree, handler)
     else:
