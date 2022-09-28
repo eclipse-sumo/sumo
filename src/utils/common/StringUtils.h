@@ -60,9 +60,6 @@ public:
         syntax for a variable is ${NAME} */
     static std::string substituteEnvironment(const std::string& str, const std::chrono::time_point<std::chrono::system_clock>* const timeRef = nullptr);
 
-    /// Builds a time string (hh:mm:ss) from the given seconds
-    static std::string toTimeString(int time);
-
     /// Checks whether a given string starts with the prefix
     static bool startsWith(const std::string& str, const std::string prefix);
 

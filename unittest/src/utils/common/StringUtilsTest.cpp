@@ -94,18 +94,6 @@ TEST(StringUtils, test_method_replace_empty_third_argument) {
     EXPECT_EQ("test", StringUtils::replace("ltestl", "l", ""));
 }
 
-
-/* Tests the method toTimeString. */
-TEST(StringUtils, test_method_toTimeString) {
-    EXPECT_EQ("-00:00:01", StringUtils::toTimeString(-1));
-    EXPECT_EQ("00:00:00", StringUtils::toTimeString(0));
-    EXPECT_EQ("00:00:00", StringUtils::toTimeString(-0));
-    EXPECT_EQ("01:00:00", StringUtils::toTimeString(3600));
-    EXPECT_EQ("00:00:01", StringUtils::toTimeString(1));
-    EXPECT_EQ("49:40:00", StringUtils::toTimeString(178800));
-    EXPECT_EQ("30883:00:01", StringUtils::toTimeString(111178801));
-}
-
 /* Tests the method escapeXML. */
 TEST(StringUtils, test_method_escapeXML) {
     std::string str;

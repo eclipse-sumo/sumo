@@ -205,26 +205,6 @@ StringUtils::substituteEnvironment(const std::string& str, const std::chrono::ti
 }
 
 
-std::string
-StringUtils::toTimeString(int time) {
-    std::ostringstream oss;
-    if (time < 0) {
-        oss << "-";
-        time = -time;
-    }
-    char buffer[10];
-    sprintf(buffer, "%02i:", (time / 3600));
-    oss << buffer;
-    time = time % 3600;
-    sprintf(buffer, "%02i:", (time / 60));
-    oss << buffer;
-    time = time % 60;
-    sprintf(buffer, "%02i", time);
-    oss << buffer;
-    return oss.str();
-}
-
-
 bool
 StringUtils::startsWith(const std::string& str, const std::string prefix) {
     return str.compare(0, prefix.length(), prefix) == 0;
