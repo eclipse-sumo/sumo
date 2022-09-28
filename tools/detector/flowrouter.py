@@ -88,6 +88,7 @@ class Vertex:
 # as well as flow and capacity for the flow computation and some parameters
 # read from the net. The members are accessed directly.
 class Edge:
+    lanebased = False
 
     def __init__(self, label, source, target, kind, linkDir=None):
         self.label = label
@@ -493,7 +494,11 @@ class Net:
             edge = currVertex.inPathEdge
             if edge.target == currVertex:
                 if edge.kind == "real":
-                    route.insert(0, edge.label)
+                    if Edge.lanebased:
+                        edgeID = edge.label[:edge.label.rfind("_")]
+                        route.insert(0, edgeID)
+                    else:
+                        route.insert(0, edge.label)
                 routeEdgeObj.insert(0, edge)
                 currVertex = edge.source
             else:
@@ -997,6 +1002,7 @@ DEBUG = options.debug
 parser = make_parser()
 if options.verbose:
     print("Reading net")
+Edge.lanebased = options.lanebased
 net = Net()
 reader = NetDetectorFlowReader(net)
 parser.setContentHandler(reader)
