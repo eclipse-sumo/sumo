@@ -166,6 +166,10 @@ GNEWalkingArea::drawGL(const GUIVisualizationSettings& s) const {
         GLHelper::popMatrix();
         // pop junction name
         GLHelper::popName();
+        // draw walkingArea name
+        if (s.cwaEdgeName.show(this)) {
+            drawName(walkingAreaShape.getCentroid(), s.scale, s.edgeName, 0, true);
+        }
         // check if mouse is over element
         mouseWithinGeometry(walkingAreaShape);
         // inspect contour

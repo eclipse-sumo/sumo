@@ -270,6 +270,10 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
         if (s.drawLinkTLIndex.show(myParentJunction) && !s.drawForRectangleSelection) {
             drawTLSLinkNo(s, NBCrossing);
         }
+        // draw crosing name
+        if (s.cwaEdgeName.show(this)) {
+            drawName(myCrossingGeometry.getShape().getCentroid(), s.scale, s.edgeName, 0, true);
+        }
         // draw lock icon
         GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), 1);
         // check if mouse is over element
