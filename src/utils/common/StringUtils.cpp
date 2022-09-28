@@ -137,15 +137,16 @@ StringUtils::substituteEnvironment(const std::string& str, const std::chrono::ti
     if (timeRef != nullptr) {
         const std::string::size_type localTimeIndex = str.find("${LOCALTIME}");
         const std::string::size_type utcIndex = str.find("${UTC}");
-        if (localTimeIndex != std::string::npos || utcIndex != std::string::npos) {
+        const bool isUTC = utcIndex != std::string::npos;
+        if (localTimeIndex != std::string::npos || isUTC) {
             const time_t rawtime = std::chrono::system_clock::to_time_t(*timeRef);
             char buffer [80];
-            struct tm* timeinfo = utcIndex != std::string::npos ? gmtime(&rawtime) : localtime(&rawtime);
+            struct tm* timeinfo = isUTC ? gmtime(&rawtime) : localtime(&rawtime);
             strftime(buffer, 80, "%Y-%m-%d-%H-%M-%S.", timeinfo);
             auto seconds = std::chrono::time_point_cast<std::chrono::seconds>(*timeRef);
             auto microseconds = std::chrono::duration_cast<std::chrono::microseconds>(*timeRef - seconds);
             const std::string micro = buffer + toString(microseconds.count());
-            if (utcIndex != std::string::npos) {
+            if (isUTC) {
                 s.replace(utcIndex, 6, micro);
             } else {
                 s.replace(localTimeIndex, 12, micro);
@@ -160,9 +161,19 @@ StringUtils::substituteEnvironment(const std::string& str, const std::chrono::ti
         s.replace(pidIndex, 6, toString(::getpid()));
 #endif
     }
-    if (std::getenv("${SUMO_LOGO}") == nullptr) {
+    if (std::getenv("SUMO_LOGO") == nullptr) {
         s = replace(s, "${SUMO_LOGO}", "${SUMO_HOME}/data/logo/sumo-128x138.png");
     }
+    const std::string::size_type tildeIndex = str.find("~");
+    if (tildeIndex == 0) {
+        s.replace(0, 1, "${HOME}");
+    }
+    s = replace(s, ",~", ",${HOME}");
+#ifdef WIN32
+    if (std::getenv("HOME") == nullptr) {
+        s = replace(s, "${HOME}", "${USERPROFILE}");
+    }
+#endif
 
     // Expression for an environment variables, e.g. ${NAME}
     // Note: - R"(...)" is a raw string literal syntax to simplify a regex declaration
