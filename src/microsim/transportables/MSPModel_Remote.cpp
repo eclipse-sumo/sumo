@@ -63,7 +63,16 @@ MSPModel_Remote::add(MSTransportable* person, MSStageMoving* stage, SUMOTime now
 	assert(person->getCurrentStageType() == MSStageType::WALKING);
 	
     const MSLane* departureLane = getSidewalk<MSEdge, MSLane>(stage->getRoute().front());
-    Position departurePosition = departureLane->getShape().positionAtOffset(stage->getDepartPos());
+    double halfDepartureLaneWidth = departureLane->getWidth() / 2.0;
+    double departureRelativePositionX = stage->getDepartPos();
+    double departureRelativePositionY = stage->getDepartPosLat();
+    if (departureRelativePositionY == UNSPECIFIED_POS_LAT) {
+        departureRelativePositionY = 0.0;
+    }
+    if (departureRelativePositionY == MSPModel::RANDOM_POS_LAT) {
+        departureRelativePositionY = RandHelper::rand(-halfDepartureLaneWidth, halfDepartureLaneWidth);
+    }
+    Position departurePosition = departureLane->getShape().positionAtOffset(departureRelativePositionX, -departureRelativePositionY); // Minus sign is here for legacy reasons.
     
     const MSLane* arrivalLane = getSidewalk<MSEdge, MSLane>(stage->getRoute().back());
     Position arrivalPosition = arrivalLane->getShape().positionAtOffset(stage->getArrivalPos());
