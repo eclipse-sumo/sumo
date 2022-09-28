@@ -558,6 +558,9 @@ GNEViewNet::openObjectDialogAtCursor(const FXEvent* /*ev*/) {
 
 void
 GNEViewNet::openDeleteDialogAtCursor(const std::vector<GUIGlObject*> &GLObjects) {
+    if (myPopup) {
+        destroyPopup();
+    }
     // create cursor popup dialog for delete element
     myPopup = new GUICursorDialog(GUICursorDialog::CursorDialogType::DELETE_ELEMENT, this, GLObjects);
     myCreatedPopup = true;
@@ -568,6 +571,10 @@ GNEViewNet::openDeleteDialogAtCursor(const std::vector<GUIGlObject*> &GLObjects)
 
 void
 GNEViewNet::openSelectDialogAtCursor(const std::vector<GUIGlObject*> &GLObjects) {
+    if (myPopup) {
+        destroyPopup();
+    }
+    // create cursor popup dialog for delete element
     // create cursor popup dialog for select element
     myPopup = new GUICursorDialog(GUICursorDialog::CursorDialogType::SELECT_ELEMENT, this, GLObjects);
     myCreatedPopup = true;

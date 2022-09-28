@@ -300,7 +300,7 @@ protected:
     void mouseWithinGeometry(const PositionVector shape) const;
 
     /// @brief check if mouse is within elements geometry (for shapes)
-    void mouseWithinGeometry(const PositionVector shape, const double width) const;
+    void mouseWithinGeometry(const PositionVector shape, const double width, GUIGlObject *parent = nullptr) const;
 
     /// @brief check if mouse is within elements geometry (for rectangles)
     void mouseWithinGeometry(const Position& pos, const double width, const double height, 

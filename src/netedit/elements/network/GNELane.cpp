@@ -630,7 +630,14 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
             gPostDrawing.markedEdge = myParentEdge;
         }
         // check if mouse is over element
-        mouseWithinGeometry(getLaneShape(), laneDrawingConstants.halfWidth);
+        bool markParent = (myParentEdge->getLanes().size() == 1);
+        if (myNet->getViewNet()->getNetworkViewOptions().selectEdges() && !myNet->getViewNet()->getMouseButtonKeyPressed().shiftKeyPressed()) {
+            markParent = true;
+        }
+        if (!myNet->getViewNet()->getNetworkViewOptions().selectEdges() && myNet->getViewNet()->getMouseButtonKeyPressed().shiftKeyPressed()) {
+            markParent = true;
+        }
+        mouseWithinGeometry(getLaneShape(), laneDrawingConstants.halfWidth, markParent? myParentEdge->getGUIGlObject() : nullptr);
         // check if dotted contours has to be drawn
         if (!drawRailway) {
             // inspect contour
