@@ -16,6 +16,7 @@
 # @date    2019-11-10
 
 from __future__ import absolute_import
+from __future__ import print_function
 
 import os
 import subprocess
@@ -30,5 +31,13 @@ sumoBinary = sumolib.checkBinary('sumo')
 # Set the example environment variable
 os.environ["NETFILENAME"] = "input_net"
 
+# write config
+subprocess.call([sumoBinary, "-c", "sumo.sumocfg", "--no-step-log", "-C", "config.sumocfg", "--tripinfo", "${PID}.trips.xml", "--summary", "sum${UTC}.xml", "--log", "log${LOCALTIME}.log"])
+
 # file output direct
-subprocess.call([sumoBinary, "-c", "sumo.sumocfg", "--no-step-log"])
+subprocess.call([sumoBinary, "-c", "config.sumocfg"])
+
+files = list(sorted(os.listdir()))
+print("uncheck:", files)
+assert(files[0].endswith(".trips.xml"))
+assert(int(files[0][:-10]) > 0)
