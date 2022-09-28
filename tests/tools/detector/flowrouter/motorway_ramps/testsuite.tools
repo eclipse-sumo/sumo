@@ -23,6 +23,9 @@ ambiguous_restrict_od
 # two sources and sinks. restrict usage of multiple routes
 restrict_inconsistent
 
+# two sources and sinks. restrict usage of multiple routes
+restrict_inconsistent_lanes
+
 # test pull-flow functionality
 pull
 
