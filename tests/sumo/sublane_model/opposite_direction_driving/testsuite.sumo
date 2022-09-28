@@ -35,6 +35,9 @@ overtaking_stopped_subsecond
 # a stopped vehicle is overtaken but currently collides with its back on the opposite lane
 overtaking_stopped_collision
 
+# a stopped vehicle is overtaken over a junction with a lane gain
+overtaking_stopped_laneGain
+
 # a slow vehicle is overtake as soon as there is a safe gap in the oncoming traffic
 overtaking_slow
 
