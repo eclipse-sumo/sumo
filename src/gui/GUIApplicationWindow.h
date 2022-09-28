@@ -176,6 +176,15 @@ public:
     /// @brief called if the user selects help->Documentation
     long onCmdHelp(FXObject* sender, FXSelector sel, void* ptr);
 
+    /// @brief called if the user selects help->Changelog
+    long onCmdChangelog(FXObject* sender, FXSelector sel, void* ptr);
+
+    /// @brief called if the user selects help->Hotkeys
+    long onCmdHotkeys(FXObject* sender, FXSelector sel, void* ptr);
+
+    /// @brief called if the user selects help->Tutorial
+    long onCmdTutorial(FXObject* sender, FXSelector sel, void* ptr);
+
     /// @brief Called on menu Edit->Netedit
     long onCmdNetedit(FXObject*, FXSelector, void*);
 

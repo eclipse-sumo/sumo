@@ -128,8 +128,6 @@ FXDEFMAP(GUIApplicationWindow) GUIApplicationWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_LISTINTERNAL,                           GUIApplicationWindow::onCmdListInternal),
     FXMAPFUNC(SEL_COMMAND,  MID_LISTPARKING,                            GUIApplicationWindow::onCmdListParking),
     FXMAPFUNC(SEL_COMMAND,  MID_LISTTELEPORTING,                        GUIApplicationWindow::onCmdListTeleporting),
-    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_SHIFT_F11_HALLOFFAME,            GUIApplicationWindow::onCmdHallOfFame),
-    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_F12_ABOUT,                       GUIApplicationWindow::onCmdAbout),
     FXMAPFUNC(SEL_COMMAND,  MID_NEW_MICROVIEW,                          GUIApplicationWindow::onCmdNewView),
 #ifdef HAVE_OSG
     FXMAPFUNC(SEL_COMMAND,  MID_NEW_OSGVIEW,    GUIApplicationWindow::onCmdNewOSG),
@@ -179,6 +177,11 @@ FXDEFMAP(GUIApplicationWindow) GUIApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_F_FULSCREENMODE,                            GUIApplicationWindow::onUpdNeedsSimulation),
     FXMAPFUNC(SEL_UPDATE,   MID_TRACI_STATUS,                                           GUIApplicationWindow::onUpdTraCIStatus),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_F1_ONLINEDOCUMENTATION,                          GUIApplicationWindow::onCmdHelp),
+    FXMAPFUNC(SEL_COMMAND,  MID_CHANGELOG,                                              GUIApplicationWindow::onCmdChangelog),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEYS,                                                GUIApplicationWindow::onCmdHotkeys),
+    FXMAPFUNC(SEL_COMMAND,  MID_TUTORIAL,                                               GUIApplicationWindow::onCmdTutorial),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_SHIFT_F11_HALLOFFAME,                            GUIApplicationWindow::onCmdHallOfFame),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_F12_ABOUT,                                       GUIApplicationWindow::onCmdAbout),
 
     // forward requests to the active view
     FXMAPFUNC(SEL_COMMAND,  MID_LOCATEJUNCTION, GUIApplicationWindow::onCmdLocate),
@@ -638,12 +641,18 @@ GUIApplicationWindow::fillMenuBar() {
     GUIDesigns::buildFXMenuTitle(myMenuBar,
                                  "&Help",
                                  nullptr, myHelpMenu);
-    GUIDesigns::buildFXMenuCommandShortcut(myHelpMenu,
-                                           "&Online Documentation", "F1", "Open Online documentation.",
-                                           nullptr, this, MID_HOTKEY_F1_ONLINEDOCUMENTATION);
-    GUIDesigns::buildFXMenuCommandShortcut(myHelpMenu,
-                                           "&About", "F12", "About sumo-gui.",
-                                           GUIIconSubSys::getIcon(GUIIcon::SUMO_MINI), this, MID_HOTKEY_F12_ABOUT);
+    GUIDesigns::buildFXMenuCommandShortcut(myHelpMenu, "&Online Documentation", "F1", "Open Online documentation.",
+        nullptr, this, MID_HOTKEY_F1_ONLINEDOCUMENTATION);
+    new FXMenuSeparator(myEditMenu);
+    GUIDesigns::buildFXMenuCommandShortcut(myHelpMenu, "&Changelog", "", "Open Changelog.",
+        nullptr, this, MID_CHANGELOG);
+    GUIDesigns::buildFXMenuCommandShortcut(myHelpMenu, "&Hotkeys", "", "Open Hotkeys.",
+        nullptr, this, MID_HOTKEYS);
+    GUIDesigns::buildFXMenuCommandShortcut(myHelpMenu, "&Tutorial", "", "Open Tutorial.",
+        nullptr, this, MID_TUTORIAL);
+    new FXMenuSeparator(myEditMenu);
+    GUIDesigns::buildFXMenuCommandShortcut(myHelpMenu, "&About", "F12", "About sumo-gui.",
+        GUIIconSubSys::getIcon(GUIIcon::SUMO_MINI), this, MID_HOTKEY_F12_ABOUT);
     // build SUMO Accelerators (hotkeys)
     GUIShortcutsSubSys::buildSUMOAccelerators(this);
 }
@@ -873,6 +882,28 @@ GUIApplicationWindow::onCmdEditViewScheme(FXObject*, FXSelector, void*) {
 long
 GUIApplicationWindow::onCmdHelp(FXObject*, FXSelector, void*) {
     MFXLinkLabel::fxexecute("https://sumo.dlr.de/docs/sumo-gui.html");
+    return 1;
+}
+
+
+long
+GUIApplicationWindow::onCmdChangelog(FXObject* sender, FXSelector sel, void* ptr) {
+    // update in every version
+    MFXLinkLabel::fxexecute("https://sumo.dlr.de/docs/ChangeLog.html#version_1150_25102022");
+    return 1;
+}
+
+
+long
+GUIApplicationWindow::onCmdHotkeys(FXObject* sender, FXSelector sel, void* ptr) {
+    MFXLinkLabel::fxexecute("https://sumo.dlr.de/docs/sumo-gui.html#keyboard_shortcuts");
+    return 1;
+}
+
+
+long
+GUIApplicationWindow::onCmdTutorial(FXObject* sender, FXSelector sel, void* ptr) {
+    MFXLinkLabel::fxexecute("https://sumo.dlr.de/docs/Tutorials/index.html");
     return 1;
 }
 
