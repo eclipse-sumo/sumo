@@ -4287,7 +4287,7 @@ MSVehicle::executeMove() {
                 // either if we already have a shadowLane or if there is lateral overlap
                 myLaneChangeModel->updateShadowLane();
             }
-            if (MSGlobals::gLateralResolution > 0) {
+            if (MSGlobals::gLateralResolution > 0 && !myLaneChangeModel->isOpposite()) {
                 // The vehicles target lane must be also be updated if the front or back lane changed
                 myLaneChangeModel->updateTargetLane();
             }
