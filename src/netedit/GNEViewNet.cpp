@@ -560,6 +560,7 @@ void
 GNEViewNet::openDeleteDialogAtCursor(const std::vector<GUIGlObject*> &GLObjects) {
     // create cursor popup dialog for delete element
     myPopup = new GUICursorDialog(GUICursorDialog::CursorDialogType::DELETE_ELEMENT, this, GLObjects);
+    myCreatedPopup = true;
     // open popup dialog
     openPopupDialog();
 }
@@ -569,6 +570,7 @@ void
 GNEViewNet::openSelectDialogAtCursor(const std::vector<GUIGlObject*> &GLObjects) {
     // create cursor popup dialog for select element
     myPopup = new GUICursorDialog(GUICursorDialog::CursorDialogType::SELECT_ELEMENT, this, GLObjects);
+    myCreatedPopup = true;
     // open popup dialog
     openPopupDialog();
 }
@@ -1125,6 +1127,11 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
 
 long
 GNEViewNet::onLeftBtnRelease(FXObject* obj, FXSelector sel, void* eventData) {
+    // avoid closing Popup dialog in Linux
+    if (myCreatedPopup) {
+        myCreatedPopup = false;
+        return 1;
+    }
     // process parent function
     GUISUMOAbstractView::onLeftBtnRelease(obj, sel, eventData);
     // update MouseButtonKeyPressed

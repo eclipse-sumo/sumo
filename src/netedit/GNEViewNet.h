@@ -673,6 +673,9 @@ private:
     /// @brief flag for post-drawing (used for dotted contours)
     bool myPostDrawing = false;
 
+    /// @brief flag for mark if during this frame a popup was created (needed to avoid problems in linux with CursorDialogs)
+    bool myCreatedPopup = false;
+
     /// @brief create edit mode buttons and elements
     void buildEditModeControls();
 
