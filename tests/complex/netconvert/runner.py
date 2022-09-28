@@ -39,7 +39,7 @@ args1 = [netconvert,
          '--%s-output' % format, format]
 
 args2 = [netconvert, '--%s' % format, format] + sys.argv[2:]
-if format == "matsim" and os.name == "nt":
+if format == "matsim":
     args2 += ["--xml-validation", "never"]
 
 subprocess.call(args1)
