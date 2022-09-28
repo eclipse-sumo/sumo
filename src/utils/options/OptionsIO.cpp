@@ -28,9 +28,9 @@
 #include <xercesc/parsers/SAXParser.hpp>
 #include <xercesc/sax/HandlerBase.hpp>
 #include <xercesc/sax/AttributeList.hpp>
-#include <xercesc/util/PlatformUtils.hpp>
 #include <xercesc/sax/SAXParseException.hpp>
 #include <xercesc/sax/SAXException.hpp>
+#include <xercesc/util/PlatformUtils.hpp>
 #include "OptionsIO.h"
 #include "OptionsCont.h"
 #include "OptionsLoader.h"
@@ -123,9 +123,8 @@ OptionsIO::loadConfiguration() {
     oc.resetWritable();
     // build parser
     XERCES_CPP_NAMESPACE::SAXParser parser;
-    parser.setValidationScheme(XERCES_CPP_NAMESPACE::SAXParser::Val_Auto);
-    parser.setDoNamespaces(false);
-    parser.setDoSchema(false);
+    parser.setValidationScheme(XERCES_CPP_NAMESPACE::SAXParser::Val_Never);
+    parser.setDisableDefaultEntityResolution(true);
     // start the parsing
     OptionsLoader handler;
     try {
