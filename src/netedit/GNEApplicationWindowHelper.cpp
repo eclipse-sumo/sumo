@@ -1954,13 +1954,13 @@ GNEApplicationWindowHelper::saveSUMOConfig() {
         // check if write route elements    
         if (oc.getString("route-files").size() > 0) {
             device.openTag(SUMO_TAG_ROUTEFILES);
-            device.writeAttr(SUMO_ATTR_ROUTEFILES, oc.getString("route-files"));
+            device.writeAttr(SUMO_ATTR_VALUE, oc.getString("route-files"));
             device.closeTag();
         }
         // check if write data elements    
         if (oc.getString("data-files").size() > 0) {
             device.openTag(SUMO_TAG_DATAFILES);
-            device.writeAttr(SUMO_ATTR_DATAFILES, oc.getString("data-files"));
+            device.writeAttr(SUMO_ATTR_VALUE, oc.getString("data-files"));
             device.closeTag();
         }
         // close device
