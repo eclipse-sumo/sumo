@@ -887,22 +887,22 @@ GUIApplicationWindow::onCmdHelp(FXObject*, FXSelector, void*) {
 
 
 long
-GUIApplicationWindow::onCmdChangelog(FXObject* sender, FXSelector sel, void* ptr) {
+GUIApplicationWindow::onCmdChangelog(FXObject*, FXSelector, void*) {
     // update in every version
-    MFXLinkLabel::fxexecute("https://sumo.dlr.de/docs/ChangeLog.html#version_1150_25102022");
+    MFXLinkLabel::fxexecute("https://sumo.dlr.de/docs/ChangeLog.html");
     return 1;
 }
 
 
 long
-GUIApplicationWindow::onCmdHotkeys(FXObject* sender, FXSelector sel, void* ptr) {
+GUIApplicationWindow::onCmdHotkeys(FXObject*, FXSelector, void*) {
     MFXLinkLabel::fxexecute("https://sumo.dlr.de/docs/sumo-gui.html#keyboard_shortcuts");
     return 1;
 }
 
 
 long
-GUIApplicationWindow::onCmdTutorial(FXObject* sender, FXSelector sel, void* ptr) {
+GUIApplicationWindow::onCmdTutorial(FXObject*, FXSelector, void*) {
     MFXLinkLabel::fxexecute("https://sumo.dlr.de/docs/Tutorials/index.html");
     return 1;
 }

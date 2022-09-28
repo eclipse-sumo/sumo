@@ -2461,22 +2461,22 @@ GNEApplicationWindow::onCmdHelp(FXObject*, FXSelector, void*) {
 
 
 long
-GNEApplicationWindow::onCmdChangelog(FXObject* sender, FXSelector sel, void* ptr) {
+GNEApplicationWindow::onCmdChangelog(FXObject*, FXSelector, void*) {
     // update in every version
-    MFXLinkLabel::fxexecute("https://sumo.dlr.de/docs/ChangeLog.html#version_1150_25102022");
+    MFXLinkLabel::fxexecute("https://sumo.dlr.de/docs/ChangeLog.html");
     return 1;
 }
 
 
 long
-GNEApplicationWindow::onCmdHotkeys(FXObject* sender, FXSelector sel, void* ptr) {
+GNEApplicationWindow::onCmdHotkeys(FXObject*, FXSelector, void*) {
     MFXLinkLabel::fxexecute("https://sumo.dlr.de/docs/sumo-gui.html#keyboard_shortcuts");
     return 1;
 }
 
 
 long
-GNEApplicationWindow::onCmdTutorial(FXObject* sender, FXSelector sel, void* ptr) {
+GNEApplicationWindow::onCmdTutorial(FXObject*, FXSelector, void*) {
     MFXLinkLabel::fxexecute("https://sumo.dlr.de/docs/Tutorials/index.html");
     return 1;
 }
