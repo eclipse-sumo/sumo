@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-09-28 11:01:27 by Eclipse SUMO sumo Version v1_14_1+1285-b0bc9c1ba03
+<!-- generated on 2022-09-28 13:45:02 by Eclipse SUMO sumo Version v1_14_1+1311-ab8f708ab1e
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -12,6 +12,7 @@
     <output>
         <summary-output value="sum${UTC}.xml"/>
         <tripinfo-output value="${PID}.trips.xml"/>
+        <collision-output value="~/collision.xml"/>
     </output>
 
     <report>

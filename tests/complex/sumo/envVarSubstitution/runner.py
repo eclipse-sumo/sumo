@@ -30,14 +30,18 @@ sumoBinary = sumolib.checkBinary('sumo')
 
 # Set the example environment variable
 os.environ["NETFILENAME"] = "input_net"
+os.environ["HOME"] = os.path.abspath(os.curdir)
 
 # write config
-subprocess.call([sumoBinary, "-c", "sumo.sumocfg", "--no-step-log", "-C", "config.sumocfg", "--tripinfo", "${PID}.trips.xml", "--summary", "sum${UTC}.xml", "--log", "log${LOCALTIME}.log"])
+subprocess.call([sumoBinary, "-c", "sumo.sumocfg", "--no-step-log", "-C", "config.sumocfg", "--collision-output", "~/collision.xml",
+                 "--tripinfo", "${PID}.trips.xml", "--summary", "sum${UTC}.xml", "--log", "log${LOCALTIME}.log"])
 
 # file output direct
 subprocess.call([sumoBinary, "-c", "config.sumocfg"])
 
 files = list(sorted(os.listdir()))
-print("uncheck:", files)
+print("uncheck:", files, os.curdir)
 assert(files[0].endswith(".trips.xml"))
 assert(int(files[0][:-10]) > 0)
+assert("collision.xml" in files)
+assert(len(files) == 11)

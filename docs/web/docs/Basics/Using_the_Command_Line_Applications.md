@@ -233,6 +233,9 @@ There are also some special values you can use here which aren't environment var
 - **${LOCALTIME}** refers to the local time when the configuration has been loaded
 - **${UTC}** same as **${LOCALTIME}** but in universal coordinated time
 - **${PID}** process id of the running application
+- **${SUMO_LOGO}** will be replaced ${SUMO_HOME}/data/logo/sumo-128x138.png (only if it is not set, useful for background images)
+- **~** will be replaced by ${HOME} (also see next item)
+- **${HOME}** on Windows will be replaced by ${USERPROFILE} (only if it is not set)
 
 The expansion of environment variables will not happen if you are only writing a new configuration.
 
