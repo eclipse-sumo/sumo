@@ -400,7 +400,7 @@ bool Option_FileName::isFileName() const {
 
 std::string
 Option_FileName::getString() const {
-    return Option_StringVector::getValueString();
+    return joinToString(getStringVector(), ",");
 }
 
 
