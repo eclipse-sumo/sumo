@@ -1,0 +1,333 @@
+Success.
+XML schema: None XML element: trip SUMO_HOME: None --xml-validation never
+XML schema: None XML element: trip SUMO_HOME: None --xml-validation local
+Warning: Environment variable SUMO_HOME is not set, XML validation will fail or use slow website lookups.
+Error: invalid document structure
+ In file 'routes.rou.xml'
+ At line/column 2/1.
+
+Quitting (on error).
+XML schema: None XML element: trip SUMO_HOME: None --xml-validation auto
+Warning: Environment variable SUMO_HOME is not set, XML validation will fail or use slow website lookups.
+XML schema: None XML element: trip SUMO_HOME: None --xml-validation always
+Warning: Environment variable SUMO_HOME is not set, XML validation will fail or use slow website lookups.
+XML schema: None XML element: trip SUMO_HOME: /home/micha/sumo --xml-validation never
+XML schema: None XML element: trip SUMO_HOME: /home/micha/sumo --xml-validation local
+XML schema: None XML element: trip SUMO_HOME: /home/micha/sumo --xml-validation auto
+XML schema: None XML element: trip SUMO_HOME: /home/micha/sumo --xml-validation always
+XML schema: None XML element: trip SUMO_HOME: http://sumo.dlr.de --xml-validation never
+XML schema: None XML element: trip SUMO_HOME: http://sumo.dlr.de --xml-validation local
+Error: SUMO_HOME looks like an URL, aborting to avoid inadvertent network access.
+Quitting (on error).
+XML schema: None XML element: trip SUMO_HOME: http://sumo.dlr.de --xml-validation auto
+Error: SUMO_HOME looks like an URL, aborting to avoid inadvertent network access.
+Quitting (on error).
+XML schema: None XML element: trip SUMO_HOME: http://sumo.dlr.de --xml-validation always
+Error: SUMO_HOME looks like an URL, aborting to avoid inadvertent network access.
+Quitting (on error).
+XML schema: None XML element: trip SUMO_HOME: https://sumo.dlr.de --xml-validation never
+XML schema: None XML element: trip SUMO_HOME: https://sumo.dlr.de --xml-validation local
+Error: SUMO_HOME looks like an URL, aborting to avoid inadvertent network access.
+Quitting (on error).
+XML schema: None XML element: trip SUMO_HOME: https://sumo.dlr.de --xml-validation auto
+Error: SUMO_HOME looks like an URL, aborting to avoid inadvertent network access.
+Quitting (on error).
+XML schema: None XML element: trip SUMO_HOME: https://sumo.dlr.de --xml-validation always
+Error: SUMO_HOME looks like an URL, aborting to avoid inadvertent network access.
+Quitting (on error).
+XML schema: None XML element: trip SUMO_HOME: blafasel --xml-validation never
+XML schema: None XML element: trip SUMO_HOME: blafasel --xml-validation local
+Warning: Cannot read local schema 'blafasel/data/xsd/additional_file.xsd'.
+Warning: Cannot read local schema 'blafasel/data/xsd/routes_file.xsd'.
+Warning: Cannot read local schema 'blafasel/data/xsd/net_file.xsd'.
+Warning: Cannot read local schema 'blafasel/data/xsd/routes_file.xsd', XML validation will fail.
+Error: invalid document structure
+ In file 'routes.rou.xml'
+ At line/column 2/1.
+
+Quitting (on error).
+XML schema: None XML element: trip SUMO_HOME: blafasel --xml-validation auto
+Warning: Cannot read local schema 'blafasel/data/xsd/additional_file.xsd'.
+Warning: Cannot read local schema 'blafasel/data/xsd/routes_file.xsd'.
+Warning: Cannot read local schema 'blafasel/data/xsd/net_file.xsd'.
+Warning: Cannot read local schema 'blafasel/data/xsd/routes_file.xsd', will try website lookup.
+XML schema: None XML element: trip SUMO_HOME: blafasel --xml-validation always
+Warning: Cannot read local schema 'blafasel/data/xsd/additional_file.xsd'.
+Warning: Cannot read local schema 'blafasel/data/xsd/routes_file.xsd'.
+Warning: Cannot read local schema 'blafasel/data/xsd/net_file.xsd'.
+Warning: Cannot read local schema 'blafasel/data/xsd/routes_file.xsd', will try website lookup.
+XML schema: None XML element: tri SUMO_HOME: None --xml-validation never
+XML schema: None XML element: tri SUMO_HOME: None --xml-validation local
+Warning: Environment variable SUMO_HOME is not set, XML validation will fail or use slow website lookups.
+Error: invalid document structure
+ In file 'routes.rou.xml'
+ At line/column 2/1.
+
+Quitting (on error).
+XML schema: None XML element: tri SUMO_HOME: None --xml-validation auto
+Warning: Environment variable SUMO_HOME is not set, XML validation will fail or use slow website lookups.
+Error: no declaration found for element 'tri'
+ In file 'routes.rou.xml'
+ At line/column 9/52.
+
+Quitting (on error).
+XML schema: None XML element: tri SUMO_HOME: None --xml-validation always
+Warning: Environment variable SUMO_HOME is not set, XML validation will fail or use slow website lookups.
+Error: no declaration found for element 'tri'
+ In file 'routes.rou.xml'
+ At line/column 9/52.
+
+Quitting (on error).
+XML schema: None XML element: tri SUMO_HOME: /home/micha/sumo --xml-validation never
+XML schema: None XML element: tri SUMO_HOME: /home/micha/sumo --xml-validation local
+Error: no declaration found for element 'tri'
+ In file 'routes.rou.xml'
+ At line/column 9/52.
+
+Quitting (on error).
+XML schema: None XML element: tri SUMO_HOME: /home/micha/sumo --xml-validation auto
+Error: no declaration found for element 'tri'
+ In file 'routes.rou.xml'
+ At line/column 9/52.
+
+Quitting (on error).
+XML schema: None XML element: tri SUMO_HOME: /home/micha/sumo --xml-validation always
+Error: no declaration found for element 'tri'
+ In file 'routes.rou.xml'
+ At line/column 9/52.
+
+Quitting (on error).
+XML schema: None XML element: tri SUMO_HOME: http://sumo.dlr.de --xml-validation never
+XML schema: None XML element: tri SUMO_HOME: http://sumo.dlr.de --xml-validation local
+Error: SUMO_HOME looks like an URL, aborting to avoid inadvertent network access.
+Quitting (on error).
+XML schema: None XML element: tri SUMO_HOME: http://sumo.dlr.de --xml-validation auto
+Error: SUMO_HOME looks like an URL, aborting to avoid inadvertent network access.
+Quitting (on error).
+XML schema: None XML element: tri SUMO_HOME: http://sumo.dlr.de --xml-validation always
+Error: SUMO_HOME looks like an URL, aborting to avoid inadvertent network access.
+Quitting (on error).
+XML schema: None XML element: tri SUMO_HOME: https://sumo.dlr.de --xml-validation never
+XML schema: None XML element: tri SUMO_HOME: https://sumo.dlr.de --xml-validation local
+Error: SUMO_HOME looks like an URL, aborting to avoid inadvertent network access.
+Quitting (on error).
+XML schema: None XML element: tri SUMO_HOME: https://sumo.dlr.de --xml-validation auto
+Error: SUMO_HOME looks like an URL, aborting to avoid inadvertent network access.
+Quitting (on error).
+XML schema: None XML element: tri SUMO_HOME: https://sumo.dlr.de --xml-validation always
+Error: SUMO_HOME looks like an URL, aborting to avoid inadvertent network access.
+Quitting (on error).
+XML schema: None XML element: tri SUMO_HOME: blafasel --xml-validation never
+XML schema: None XML element: tri SUMO_HOME: blafasel --xml-validation local
+Warning: Cannot read local schema 'blafasel/data/xsd/additional_file.xsd'.
+Warning: Cannot read local schema 'blafasel/data/xsd/routes_file.xsd'.
+Warning: Cannot read local schema 'blafasel/data/xsd/net_file.xsd'.
+Warning: Cannot read local schema 'blafasel/data/xsd/routes_file.xsd', XML validation will fail.
+Error: invalid document structure
+ In file 'routes.rou.xml'
+ At line/column 2/1.
+
+Quitting (on error).
+XML schema: None XML element: tri SUMO_HOME: blafasel --xml-validation auto
+Warning: Cannot read local schema 'blafasel/data/xsd/additional_file.xsd'.
+Warning: Cannot read local schema 'blafasel/data/xsd/routes_file.xsd'.
+Warning: Cannot read local schema 'blafasel/data/xsd/net_file.xsd'.
+Warning: Cannot read local schema 'blafasel/data/xsd/routes_file.xsd', will try website lookup.
+Error: no declaration found for element 'tri'
+ In file 'routes.rou.xml'
+ At line/column 9/52.
+
+Quitting (on error).
+XML schema: None XML element: tri SUMO_HOME: blafasel --xml-validation always
+Warning: Cannot read local schema 'blafasel/data/xsd/additional_file.xsd'.
+Warning: Cannot read local schema 'blafasel/data/xsd/routes_file.xsd'.
+Warning: Cannot read local schema 'blafasel/data/xsd/net_file.xsd'.
+Warning: Cannot read local schema 'blafasel/data/xsd/routes_file.xsd', will try website lookup.
+Error: no declaration found for element 'tri'
+ In file 'routes.rou.xml'
+ At line/column 9/52.
+
+Quitting (on error).
+XML schema: blub XML element: trip SUMO_HOME: None --xml-validation never
+XML schema: blub XML element: trip SUMO_HOME: None --xml-validation local
+Warning: Environment variable SUMO_HOME is not set, XML validation will fail or use slow website lookups.
+Error: invalid document structure
+ In file 'routes.rou.xml'
+ At line/column 2/1.
+
+Quitting (on error).
+XML schema: blub XML element: trip SUMO_HOME: None --xml-validation auto
+Warning: Environment variable SUMO_HOME is not set, XML validation will fail or use slow website lookups.
+Error: whitespace expected
+ In file 'routes.rou.xml'
+ At line/column 2/50.
+
+Quitting (on error).
+XML schema: blub XML element: trip SUMO_HOME: None --xml-validation always
+Warning: Environment variable SUMO_HOME is not set, XML validation will fail or use slow website lookups.
+Error: whitespace expected
+ In file 'routes.rou.xml'
+ At line/column 2/50.
+
+Quitting (on error).
+XML schema: blub XML element: trip SUMO_HOME: /home/micha/sumo --xml-validation never
+XML schema: blub XML element: trip SUMO_HOME: /home/micha/sumo --xml-validation local
+Warning: Cannot read local schema '/home/micha/sumo/data/xsd/blub', XML validation will fail.
+Error: invalid document structure
+ In file 'routes.rou.xml'
+ At line/column 2/1.
+
+Quitting (on error).
+XML schema: blub XML element: trip SUMO_HOME: /home/micha/sumo --xml-validation auto
+Warning: Cannot read local schema '/home/micha/sumo/data/xsd/blub', will try website lookup.
+Error: whitespace expected
+ In file 'routes.rou.xml'
+ At line/column 2/50.
+
+Quitting (on error).
+XML schema: blub XML element: trip SUMO_HOME: /home/micha/sumo --xml-validation always
+XML schema: blub XML element: trip SUMO_HOME: http://sumo.dlr.de --xml-validation never
+XML schema: blub XML element: trip SUMO_HOME: http://sumo.dlr.de --xml-validation local
+Error: SUMO_HOME looks like an URL, aborting to avoid inadvertent network access.
+Quitting (on error).
+XML schema: blub XML element: trip SUMO_HOME: http://sumo.dlr.de --xml-validation auto
+Error: SUMO_HOME looks like an URL, aborting to avoid inadvertent network access.
+Quitting (on error).
+XML schema: blub XML element: trip SUMO_HOME: http://sumo.dlr.de --xml-validation always
+Error: SUMO_HOME looks like an URL, aborting to avoid inadvertent network access.
+Quitting (on error).
+XML schema: blub XML element: trip SUMO_HOME: https://sumo.dlr.de --xml-validation never
+XML schema: blub XML element: trip SUMO_HOME: https://sumo.dlr.de --xml-validation local
+Error: SUMO_HOME looks like an URL, aborting to avoid inadvertent network access.
+Quitting (on error).
+XML schema: blub XML element: trip SUMO_HOME: https://sumo.dlr.de --xml-validation auto
+Error: SUMO_HOME looks like an URL, aborting to avoid inadvertent network access.
+Quitting (on error).
+XML schema: blub XML element: trip SUMO_HOME: https://sumo.dlr.de --xml-validation always
+Error: SUMO_HOME looks like an URL, aborting to avoid inadvertent network access.
+Quitting (on error).
+XML schema: blub XML element: trip SUMO_HOME: blafasel --xml-validation never
+XML schema: blub XML element: trip SUMO_HOME: blafasel --xml-validation local
+Warning: Cannot read local schema 'blafasel/data/xsd/additional_file.xsd'.
+Warning: Cannot read local schema 'blafasel/data/xsd/routes_file.xsd'.
+Warning: Cannot read local schema 'blafasel/data/xsd/net_file.xsd'.
+Warning: Cannot read local schema 'blafasel/data/xsd/blub', XML validation will fail.
+Error: invalid document structure
+ In file 'routes.rou.xml'
+ At line/column 2/1.
+
+Quitting (on error).
+XML schema: blub XML element: trip SUMO_HOME: blafasel --xml-validation auto
+Warning: Cannot read local schema 'blafasel/data/xsd/additional_file.xsd'.
+Warning: Cannot read local schema 'blafasel/data/xsd/routes_file.xsd'.
+Warning: Cannot read local schema 'blafasel/data/xsd/net_file.xsd'.
+Warning: Cannot read local schema 'blafasel/data/xsd/blub', will try website lookup.
+Error: whitespace expected
+ In file 'routes.rou.xml'
+ At line/column 2/50.
+
+Quitting (on error).
+XML schema: blub XML element: trip SUMO_HOME: blafasel --xml-validation always
+Warning: Cannot read local schema 'blafasel/data/xsd/additional_file.xsd'.
+Warning: Cannot read local schema 'blafasel/data/xsd/routes_file.xsd'.
+Warning: Cannot read local schema 'blafasel/data/xsd/net_file.xsd'.
+Warning: Cannot read local schema 'blafasel/data/xsd/blub', will try website lookup.
+Error: whitespace expected
+ In file 'routes.rou.xml'
+ At line/column 2/50.
+
+Quitting (on error).
+XML schema: blub XML element: tri SUMO_HOME: None --xml-validation never
+XML schema: blub XML element: tri SUMO_HOME: None --xml-validation local
+Warning: Environment variable SUMO_HOME is not set, XML validation will fail or use slow website lookups.
+Error: invalid document structure
+ In file 'routes.rou.xml'
+ At line/column 2/1.
+
+Quitting (on error).
+XML schema: blub XML element: tri SUMO_HOME: None --xml-validation auto
+Warning: Environment variable SUMO_HOME is not set, XML validation will fail or use slow website lookups.
+Error: whitespace expected
+ In file 'routes.rou.xml'
+ At line/column 2/50.
+
+Quitting (on error).
+XML schema: blub XML element: tri SUMO_HOME: None --xml-validation always
+Warning: Environment variable SUMO_HOME is not set, XML validation will fail or use slow website lookups.
+Error: whitespace expected
+ In file 'routes.rou.xml'
+ At line/column 2/50.
+
+Quitting (on error).
+XML schema: blub XML element: tri SUMO_HOME: /home/micha/sumo --xml-validation never
+XML schema: blub XML element: tri SUMO_HOME: /home/micha/sumo --xml-validation local
+Warning: Cannot read local schema '/home/micha/sumo/data/xsd/blub', XML validation will fail.
+Error: invalid document structure
+ In file 'routes.rou.xml'
+ At line/column 2/1.
+
+Quitting (on error).
+XML schema: blub XML element: tri SUMO_HOME: /home/micha/sumo --xml-validation auto
+Warning: Cannot read local schema '/home/micha/sumo/data/xsd/blub', will try website lookup.
+Error: whitespace expected
+ In file 'routes.rou.xml'
+ At line/column 2/50.
+
+Quitting (on error).
+XML schema: blub XML element: tri SUMO_HOME: /home/micha/sumo --xml-validation always
+Error: no declaration found for element 'tri'
+ In file 'routes.rou.xml'
+ At line/column 9/52.
+
+Quitting (on error).
+XML schema: blub XML element: tri SUMO_HOME: http://sumo.dlr.de --xml-validation never
+XML schema: blub XML element: tri SUMO_HOME: http://sumo.dlr.de --xml-validation local
+Error: SUMO_HOME looks like an URL, aborting to avoid inadvertent network access.
+Quitting (on error).
+XML schema: blub XML element: tri SUMO_HOME: http://sumo.dlr.de --xml-validation auto
+Error: SUMO_HOME looks like an URL, aborting to avoid inadvertent network access.
+Quitting (on error).
+XML schema: blub XML element: tri SUMO_HOME: http://sumo.dlr.de --xml-validation always
+Error: SUMO_HOME looks like an URL, aborting to avoid inadvertent network access.
+Quitting (on error).
+XML schema: blub XML element: tri SUMO_HOME: https://sumo.dlr.de --xml-validation never
+XML schema: blub XML element: tri SUMO_HOME: https://sumo.dlr.de --xml-validation local
+Error: SUMO_HOME looks like an URL, aborting to avoid inadvertent network access.
+Quitting (on error).
+XML schema: blub XML element: tri SUMO_HOME: https://sumo.dlr.de --xml-validation auto
+Error: SUMO_HOME looks like an URL, aborting to avoid inadvertent network access.
+Quitting (on error).
+XML schema: blub XML element: tri SUMO_HOME: https://sumo.dlr.de --xml-validation always
+Error: SUMO_HOME looks like an URL, aborting to avoid inadvertent network access.
+Quitting (on error).
+XML schema: blub XML element: tri SUMO_HOME: blafasel --xml-validation never
+XML schema: blub XML element: tri SUMO_HOME: blafasel --xml-validation local
+Warning: Cannot read local schema 'blafasel/data/xsd/additional_file.xsd'.
+Warning: Cannot read local schema 'blafasel/data/xsd/routes_file.xsd'.
+Warning: Cannot read local schema 'blafasel/data/xsd/net_file.xsd'.
+Warning: Cannot read local schema 'blafasel/data/xsd/blub', XML validation will fail.
+Error: invalid document structure
+ In file 'routes.rou.xml'
+ At line/column 2/1.
+
+Quitting (on error).
+XML schema: blub XML element: tri SUMO_HOME: blafasel --xml-validation auto
+Warning: Cannot read local schema 'blafasel/data/xsd/additional_file.xsd'.
+Warning: Cannot read local schema 'blafasel/data/xsd/routes_file.xsd'.
+Warning: Cannot read local schema 'blafasel/data/xsd/net_file.xsd'.
+Warning: Cannot read local schema 'blafasel/data/xsd/blub', will try website lookup.
+Error: whitespace expected
+ In file 'routes.rou.xml'
+ At line/column 2/50.
+
+Quitting (on error).
+XML schema: blub XML element: tri SUMO_HOME: blafasel --xml-validation always
+Warning: Cannot read local schema 'blafasel/data/xsd/additional_file.xsd'.
+Warning: Cannot read local schema 'blafasel/data/xsd/routes_file.xsd'.
+Warning: Cannot read local schema 'blafasel/data/xsd/net_file.xsd'.
+Warning: Cannot read local schema 'blafasel/data/xsd/blub', will try website lookup.
+Error: whitespace expected
+ In file 'routes.rou.xml'
+ At line/column 2/50.
+
+Quitting (on error).
