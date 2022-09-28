@@ -637,6 +637,12 @@ enum {
 
     ///@brief help button
     MID_HELP,
+    ///@brief changelog button
+    MID_CHANGELOG,
+    ///@brief hotkeys button
+    MID_HOTKEYS,
+    ///@brief tutorial button
+    MID_TUTORIAL,
 
     /// @name dynamic interaction with the simulation via SUMO-GUI
     /// @{

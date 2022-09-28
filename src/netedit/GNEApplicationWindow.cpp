@@ -346,6 +346,9 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
 
     // toolbar help
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_F1_ONLINEDOCUMENTATION,  GNEApplicationWindow::onCmdHelp),
+    FXMAPFUNC(SEL_COMMAND,  MID_CHANGELOG,                      GNEApplicationWindow::onCmdChangelog),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEYS,                        GNEApplicationWindow::onCmdHotkeys),
+    FXMAPFUNC(SEL_COMMAND,  MID_TUTORIAL,                       GNEApplicationWindow::onCmdTutorial),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_F12_ABOUT,               GNEApplicationWindow::onCmdAbout),
 
     // alt + <number>
@@ -1472,12 +1475,18 @@ GNEApplicationWindow::fillMenuBar() {
     myHelpMenu = new FXMenuPane(this);
     GUIDesigns::buildFXMenuTitle(myToolbarsGrip.menu, "&Help", nullptr, myHelpMenu);
     // build help menu commands
-    GUIDesigns::buildFXMenuCommandShortcut(myHelpMenu,
-                                           "&Online Documentation", "F1", "Open Online documentation.",
-                                           nullptr, this, MID_HOTKEY_F1_ONLINEDOCUMENTATION);
-    GUIDesigns::buildFXMenuCommandShortcut(myHelpMenu,
-                                           "&About", "F12", "About netedit.",
-                                           GUIIconSubSys::getIcon(GUIIcon::NETEDIT_MINI), this, MID_HOTKEY_F12_ABOUT);
+    GUIDesigns::buildFXMenuCommandShortcut(myHelpMenu, "&Online Documentation", "F1", "Open Online documentation.",
+        nullptr, this, MID_HOTKEY_F1_ONLINEDOCUMENTATION); 
+    new FXMenuSeparator(myEditMenu);
+    GUIDesigns::buildFXMenuCommandShortcut(myHelpMenu, "&Changelog", "", "Open Changelog.",
+        nullptr, this, MID_CHANGELOG);
+    GUIDesigns::buildFXMenuCommandShortcut(myHelpMenu, "&Hotkeys", "", "Open Hotkeys.",
+        nullptr, this, MID_HOTKEYS);
+    GUIDesigns::buildFXMenuCommandShortcut(myHelpMenu, "&Tutorial", "", "Open Tutorial.",
+        nullptr, this, MID_TUTORIAL);
+    new FXMenuSeparator(myEditMenu);
+    GUIDesigns::buildFXMenuCommandShortcut(myHelpMenu, "&About", "F12", "About netedit.",
+        GUIIconSubSys::getIcon(GUIIcon::NETEDIT_MINI), this, MID_HOTKEY_F12_ABOUT);
 }
 
 
@@ -2447,6 +2456,28 @@ GNEApplicationWindow::onCmdToggleEditOptions(FXObject* obj, FXSelector sel, void
 long
 GNEApplicationWindow::onCmdHelp(FXObject*, FXSelector, void*) {
     MFXLinkLabel::fxexecute("https://sumo.dlr.de/docs/netedit.html");
+    return 1;
+}
+
+
+long
+GNEApplicationWindow::onCmdChangelog(FXObject* sender, FXSelector sel, void* ptr) {
+    // update in every version
+    MFXLinkLabel::fxexecute("https://sumo.dlr.de/docs/ChangeLog.html#version_1150_25102022");
+    return 1;
+}
+
+
+long
+GNEApplicationWindow::onCmdHotkeys(FXObject* sender, FXSelector sel, void* ptr) {
+    MFXLinkLabel::fxexecute("https://sumo.dlr.de/docs/sumo-gui.html#keyboard_shortcuts");
+    return 1;
+}
+
+
+long
+GNEApplicationWindow::onCmdTutorial(FXObject* sender, FXSelector sel, void* ptr) {
+    MFXLinkLabel::fxexecute("https://sumo.dlr.de/docs/Tutorials/index.html");
     return 1;
 }
 
