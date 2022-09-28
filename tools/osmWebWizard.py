@@ -51,7 +51,7 @@ try:
 except NameError:
     basestring = str
 
-typemapdir = os.path.join(SUMO_HOME, "data", "typemap")
+typemapdir = os.path.join("${SUMO_HOME}" if "SUMO_HOME" in os.environ else SUMO_HOME, "data", "typemap")
 typemaps = {
     "net": os.path.join(typemapdir, "osmNetconvert.typ.xml"),
     "poly": os.path.join(typemapdir, "osmPolyconvert.typ.xml"),

@@ -77,7 +77,7 @@ def build(args=None, bindir=None):
             not (options.oldapi_prefix or options.osm_file)):
         optParser.error(
             "exactly one of the options --osm-file and --oldapi-prefix must be supplied")
-    if options.typemap and not os.path.isfile(options.typemap):
+    if options.typemap and not os.path.isfile(options.typemap.replace("${SUMO_HOME}", os.environ["SUMO_HOME"])):
         # fail early because netconvert may take a long time
         optParser.error('typemap file "%s" not found' % options.typemap)
     if options.vehicle_classes not in vclassRemove:
