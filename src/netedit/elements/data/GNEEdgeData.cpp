@@ -217,7 +217,8 @@ GNEEdgeData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lan
         // draw over all edge's lanes
         for (const auto& laneEdge : lane->getParentEdge()->getLanes()) {
             // get lane width
-            const double laneWidth = s.addSize.getExaggeration(s, laneEdge) * (laneEdge->getParentEdge()->getNBEdge()->getLaneWidth(laneEdge->getIndex()) * 0.5);
+            const double laneWidth = s.addSize.getExaggeration(s, laneEdge) * s.edgeRelWidthExaggeration *
+                (laneEdge->getParentEdge()->getNBEdge()->getLaneWidth(laneEdge->getIndex()) * 0.5);
             // Add a draw matrix
             GLHelper::pushMatrix();
             // Start with the drawing of the area translating matrix to origin
@@ -225,15 +226,15 @@ GNEEdgeData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lan
             GLHelper::setColor(RGBColor::BLACK);
             // draw box lines
             GUIGeometry::drawLaneGeometry(s, myNet->getViewNet()->getPositionInformation(),
-                                          laneEdge->getLaneShape(), laneEdge->getShapeRotations(),
-                                          laneEdge->getShapeLengths(), {}, laneWidth, onlyDrawContour);
+                laneEdge->getLaneShape(), laneEdge->getShapeRotations(),
+                laneEdge->getShapeLengths(), {}, laneWidth, onlyDrawContour);
             // translate to top
             glTranslated(0, 0, 0.01);
             setColor(s);
             // draw interne box lines
             GUIGeometry::drawLaneGeometry(s, myNet->getViewNet()->getPositionInformation(),
-                                          laneEdge->getLaneShape(), laneEdge->getShapeRotations(),
-                                          laneEdge->getShapeLengths(), {}, laneWidth - 0.1, onlyDrawContour);
+                laneEdge->getLaneShape(), laneEdge->getShapeRotations(),
+                laneEdge->getShapeLengths(), {}, (laneWidth - 0.1), onlyDrawContour);
             // Pop last matrix
             GLHelper::popMatrix();
             // draw lock icon
@@ -242,29 +243,33 @@ GNEEdgeData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lan
             for (const auto &laneEdgeParent : laneEdge->getParentEdge()->getLanes()) {
                 // get lane drawing constants
                 GNELane::LaneDrawingConstants laneDrawingConstants(s, laneEdgeParent);
-                mouseWithinGeometry(laneEdgeParent->getLaneShape(), laneDrawingConstants.halfWidth);
+                mouseWithinGeometry(laneEdgeParent->getLaneShape(), laneDrawingConstants.halfWidth * s.edgeRelWidthExaggeration);
             }
             // draw filtered attribute
             if (getParentEdges().front()->getLanes().front() == laneEdge) {
                 drawFilteredAttribute(s, laneEdge->getLaneShape(),
-                                      myNet->getViewNet()->getViewParent()->getEdgeDataFrame()->getAttributeSelector()->getFilteredAttribute(),
-                                      myNet->getViewNet()->getViewParent()->getEdgeDataFrame()->getIntervalSelector()->getDataInterval());
+                    myNet->getViewNet()->getViewParent()->getEdgeDataFrame()->getAttributeSelector()->getFilteredAttribute(),
+                    myNet->getViewNet()->getViewParent()->getEdgeDataFrame()->getIntervalSelector()->getDataInterval());
             }
             // inspect contour
             if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-                GNEEdge::drawDottedContourEdge(s, GUIDottedGeometry::DottedContourType::INSPECT, laneEdge->getParentEdge(), true, true);
+                GNEEdge::drawDottedContourEdge(s, GUIDottedGeometry::DottedContourType::INSPECT, 
+                    laneEdge->getParentEdge(), true, true, s.edgeRelWidthExaggeration);
             }
             // front contour
             if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-                GNEEdge::drawDottedContourEdge(s, GUIDottedGeometry::DottedContourType::FRONT, laneEdge->getParentEdge(), true, true);
+                GNEEdge::drawDottedContourEdge(s, GUIDottedGeometry::DottedContourType::FRONT, 
+                    laneEdge->getParentEdge(), true, true, s.edgeRelWidthExaggeration);
             }
             // delete contour
             if (myNet->getViewNet()->drawDeleteContour(this, this)) {
-                GNEEdge::drawDottedContourEdge(s, GUIDottedGeometry::DottedContourType::REMOVE, laneEdge->getParentEdge(), true, true);
+                GNEEdge::drawDottedContourEdge(s, GUIDottedGeometry::DottedContourType::REMOVE, 
+                    laneEdge->getParentEdge(), true, true, s.edgeRelWidthExaggeration);
             }
             // select contour
             if (myNet->getViewNet()->drawSelectContour(this, this)) {
-                GNEEdge::drawDottedContourEdge(s, GUIDottedGeometry::DottedContourType::SELECT, laneEdge->getParentEdge(), true, true);
+                GNEEdge::drawDottedContourEdge(s, GUIDottedGeometry::DottedContourType::SELECT, 
+                    laneEdge->getParentEdge(), true, true, s.edgeRelWidthExaggeration);
             }
         }
         // Pop name
