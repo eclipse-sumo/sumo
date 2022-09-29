@@ -1,0 +1,3 @@
+Warning: Missing green phase in tlLogic 'cluster_1255799794_29055117', program '0' for tl-index 6.
+Warning: Vehicle 'bike163' performs emergency braking on lane 'a_0' with decel=7.00, wished=3.00, severity=1.00, time=0.60.
+Warning: Person 'ped144' is jammed on edge ':j1_w0', time=319.20.
