@@ -58,6 +58,7 @@
 #include <utils/gui/globjects/GLIncludes.h>
 #include <utils/gui/settings/GUIVisualizationSettings.h>
 #include <foreign/fontstash/fontstash.h>
+#include <utils/gui/cursors/GUICursorSubSys.h>
 
 #include "GUISUMOAbstractView.h"
 #include "GUIMainWindow.h"
@@ -149,7 +150,6 @@ GUISUMOAbstractView::GUISUMOAbstractView(FXComposite* p, GUIMainWindow& app, GUI
     setTarget(this);
     enable();
     flags |= FLAG_ENABLED;
-    myInEditMode = false;
     myChanger = new GUIDanielPerspectiveChanger(*this, *myGrid);
     myVisualizationSettings = &gSchemeStorage.getDefault();
     myVisualizationSettings->gaming = myApp->isGaming();
@@ -1045,6 +1045,11 @@ GUISUMOAbstractView::onMiddleBtnPress(FXObject*, FXSelector, void* ptr) {
     setFocus();
     myChanger->onMiddleBtnPress(ptr);
     grab();
+    // enable panning
+    myPanning = true;
+    // set cursors
+    setDefaultCursor(GUICursorSubSys::getCursor(GUICursor::MOVEVIEW));
+    setDragCursor(GUICursorSubSys::getCursor(GUICursor::MOVEVIEW));
     return 1;
 }
 
@@ -1054,6 +1059,11 @@ GUISUMOAbstractView::onMiddleBtnRelease(FXObject*, FXSelector, void* ptr) {
     destroyPopup();
     myChanger->onMiddleBtnRelease(ptr);
     ungrab();
+    // disable panning
+    myPanning = false;
+    // restore cursors
+    setDefaultCursor(GUICursorSubSys::getCursor(GUICursor::DEFAULT));
+    setDragCursor(GUICursorSubSys::getCursor(GUICursor::DEFAULT));
     return 1;
 }
 

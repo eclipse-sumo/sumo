@@ -1171,6 +1171,8 @@ long
 GNEViewNet::onMiddleBtnPress(FXObject* obj, FXSelector sel, void* eventData) {
     // process parent function
     GUISUMOAbstractView::onMiddleBtnPress(obj, sel, eventData);
+    // update cursor
+    updateCursor();
     // update view
     updateViewNet();
     return 1;
@@ -1181,6 +1183,8 @@ long
 GNEViewNet::onMiddleBtnRelease(FXObject* obj, FXSelector sel, void* eventData) {
     // process parent function
     GUISUMOAbstractView::onMiddleBtnRelease(obj, sel, eventData);
+    // update cursor
+    updateCursor();
     // update view
     updateViewNet();
     return 1;
@@ -3033,104 +3037,111 @@ GNEViewNet::processClick(void* eventData) {
 
 void
 GNEViewNet::updateCursor() {
-    // declare flags
-    bool cursorMoveView = false;
-    bool cursorInspect = false;
-    bool cursorSelect = false;
-    bool cursorMoveElement = false;
-    bool cursorDelete = false;
-    // continue depending of supermode
-    if (myEditModes.isCurrentSupermodeNetwork()) {
+    // first check if we're panning
+    if (myPanning) {
         // move view
-        if ((myEditModes.networkEditMode == NetworkEditMode::NETWORK_SELECT) ||
-                (myEditModes.networkEditMode == NetworkEditMode::NETWORK_CREATE_EDGE) ||
-                (myEditModes.networkEditMode == NetworkEditMode::NETWORK_ADDITIONAL) ||
-                (myEditModes.networkEditMode == NetworkEditMode::NETWORK_SHAPE) ||
-                (myEditModes.networkEditMode == NetworkEditMode::NETWORK_TAZ)) {
-            cursorMoveView = true;
-        }
-        // specific mode
-        if (myEditModes.networkEditMode == NetworkEditMode::NETWORK_INSPECT) {
-            cursorInspect = true;
-        } else if (myEditModes.networkEditMode == NetworkEditMode::NETWORK_SELECT) {
-            cursorSelect = true;
-        } else if (myEditModes.networkEditMode == NetworkEditMode::NETWORK_MOVE) {
-            cursorMoveElement = true;
-        } else if (myEditModes.networkEditMode == NetworkEditMode::NETWORK_DELETE) {
-            cursorDelete = true;
-        }
-    } else if (myEditModes.isCurrentSupermodeDemand()) {
-        // move view
-        if ((myEditModes.demandEditMode == DemandEditMode::DEMAND_SELECT) ||
-                (myEditModes.demandEditMode == DemandEditMode::DEMAND_VEHICLE) ||
-                (myEditModes.demandEditMode == DemandEditMode::DEMAND_STOP)) {
-            cursorMoveView = true;
-        }
-        // specific mode
-        if (myEditModes.demandEditMode == DemandEditMode::DEMAND_INSPECT) {
-            cursorInspect = true;
-        } else if (myEditModes.demandEditMode == DemandEditMode::DEMAND_SELECT) {
-            cursorSelect = true;
-        } else if (myEditModes.demandEditMode == DemandEditMode::DEMAND_MOVE) {
-            cursorMoveElement = true;
-        } else if (myEditModes.demandEditMode == DemandEditMode::DEMAND_DELETE) {
-            cursorDelete = true;
-        }
-    } else if (myEditModes.isCurrentSupermodeData()) {
-        // move view
-        if (myEditModes.dataEditMode == DataEditMode::DATA_SELECT) {
-            cursorMoveView = true;
-        }
-        // specific mode
-        if (myEditModes.dataEditMode == DataEditMode::DATA_INSPECT) {
-            cursorInspect = true;
-        } else if (myEditModes.dataEditMode == DataEditMode::DATA_SELECT) {
-            cursorSelect = true;
-        } else if (myEditModes.dataEditMode == DataEditMode::DATA_DELETE) {
-            cursorDelete = true;
-        }
-    }
-    // set cursor
-    if (myMouseButtonKeyPressed.controlKeyPressed() && cursorMoveView) {
-        // move view cursor if control key is pressed
         setDefaultCursor(GUICursorSubSys::getCursor(GUICursor::MOVEVIEW));
         setDragCursor(GUICursorSubSys::getCursor(GUICursor::MOVEVIEW));
-    } else if (cursorInspect) {
-        // special case for inspect lanes
-        if (myNetworkViewOptions.selectEdges() && myMouseButtonKeyPressed.shiftKeyPressed() &&
-                myEditModes.isCurrentSupermodeNetwork() && (myEditModes.networkEditMode == NetworkEditMode::NETWORK_INSPECT)) {
-            // inspect lane cursor
-            setDefaultCursor(GUICursorSubSys::getCursor(GUICursor::INSPECT_LANE));
-            setDragCursor(GUICursorSubSys::getCursor(GUICursor::INSPECT_LANE));
-        } else {
-            // inspect cursor
-            setDefaultCursor(GUICursorSubSys::getCursor(GUICursor::INSPECT));
-            setDragCursor(GUICursorSubSys::getCursor(GUICursor::INSPECT));
-        }
-    } else if (cursorSelect) {
-        // special case for select lanes
-        if (myNetworkViewOptions.selectEdges() && myMouseButtonKeyPressed.shiftKeyPressed() &&
-                myEditModes.isCurrentSupermodeNetwork() && (myEditModes.networkEditMode == NetworkEditMode::NETWORK_SELECT)) {
-            // select lane cursor
-            setDefaultCursor(GUICursorSubSys::getCursor(GUICursor::SELECT_LANE));
-            setDragCursor(GUICursorSubSys::getCursor(GUICursor::SELECT_LANE));
-        } else {
-            // select cursor
-            setDefaultCursor(GUICursorSubSys::getCursor(GUICursor::SELECT));
-            setDragCursor(GUICursorSubSys::getCursor(GUICursor::SELECT));
-        }
-    } else if (cursorMoveElement) {
-        // move cursor
-        setDefaultCursor(GUICursorSubSys::getCursor(GUICursor::MOVEELEMENT));
-        setDragCursor(GUICursorSubSys::getCursor(GUICursor::MOVEELEMENT));
-    } else if (cursorDelete) {
-        // delete cursor
-        setDefaultCursor(GUICursorSubSys::getCursor(GUICursor::DELETE_CURSOR));
-        setDragCursor(GUICursorSubSys::getCursor(GUICursor::DELETE_CURSOR));
     } else {
-        // default cursor
-        setDefaultCursor(GUICursorSubSys::getCursor(GUICursor::DEFAULT));
-        setDragCursor(GUICursorSubSys::getCursor(GUICursor::DEFAULT));
+        // declare flags
+        bool cursorMoveView = false;
+        bool cursorInspect = false;
+        bool cursorSelect = false;
+        bool cursorMoveElement = false;
+        bool cursorDelete = false;
+        // continue depending of supermode
+        if (myEditModes.isCurrentSupermodeNetwork()) {
+            // move view
+            if ((myEditModes.networkEditMode == NetworkEditMode::NETWORK_SELECT) ||
+                    (myEditModes.networkEditMode == NetworkEditMode::NETWORK_CREATE_EDGE) ||
+                    (myEditModes.networkEditMode == NetworkEditMode::NETWORK_ADDITIONAL) ||
+                    (myEditModes.networkEditMode == NetworkEditMode::NETWORK_SHAPE) ||
+                    (myEditModes.networkEditMode == NetworkEditMode::NETWORK_TAZ)) {
+                cursorMoveView = true;
+            }
+            // specific mode
+            if (myEditModes.networkEditMode == NetworkEditMode::NETWORK_INSPECT) {
+                cursorInspect = true;
+            } else if (myEditModes.networkEditMode == NetworkEditMode::NETWORK_SELECT) {
+                cursorSelect = true;
+            } else if (myEditModes.networkEditMode == NetworkEditMode::NETWORK_MOVE) {
+                cursorMoveElement = true;
+            } else if (myEditModes.networkEditMode == NetworkEditMode::NETWORK_DELETE) {
+                cursorDelete = true;
+            }
+        } else if (myEditModes.isCurrentSupermodeDemand()) {
+            // move view
+            if ((myEditModes.demandEditMode == DemandEditMode::DEMAND_SELECT) ||
+                    (myEditModes.demandEditMode == DemandEditMode::DEMAND_VEHICLE) ||
+                    (myEditModes.demandEditMode == DemandEditMode::DEMAND_STOP)) {
+                cursorMoveView = true;
+            }
+            // specific mode
+            if (myEditModes.demandEditMode == DemandEditMode::DEMAND_INSPECT) {
+                cursorInspect = true;
+            } else if (myEditModes.demandEditMode == DemandEditMode::DEMAND_SELECT) {
+                cursorSelect = true;
+            } else if (myEditModes.demandEditMode == DemandEditMode::DEMAND_MOVE) {
+                cursorMoveElement = true;
+            } else if (myEditModes.demandEditMode == DemandEditMode::DEMAND_DELETE) {
+                cursorDelete = true;
+            }
+        } else if (myEditModes.isCurrentSupermodeData()) {
+            // move view
+            if (myEditModes.dataEditMode == DataEditMode::DATA_SELECT) {
+                cursorMoveView = true;
+            }
+            // specific mode
+            if (myEditModes.dataEditMode == DataEditMode::DATA_INSPECT) {
+                cursorInspect = true;
+            } else if (myEditModes.dataEditMode == DataEditMode::DATA_SELECT) {
+                cursorSelect = true;
+            } else if (myEditModes.dataEditMode == DataEditMode::DATA_DELETE) {
+                cursorDelete = true;
+            }
+        }
+        // set cursor
+        if (myMouseButtonKeyPressed.controlKeyPressed() && cursorMoveView) {
+            // move view cursor if control key is pressed
+            setDefaultCursor(GUICursorSubSys::getCursor(GUICursor::MOVEVIEW));
+            setDragCursor(GUICursorSubSys::getCursor(GUICursor::MOVEVIEW));
+        } else if (cursorInspect) {
+            // special case for inspect lanes
+            if (myNetworkViewOptions.selectEdges() && myMouseButtonKeyPressed.shiftKeyPressed() &&
+                    myEditModes.isCurrentSupermodeNetwork() && (myEditModes.networkEditMode == NetworkEditMode::NETWORK_INSPECT)) {
+                // inspect lane cursor
+                setDefaultCursor(GUICursorSubSys::getCursor(GUICursor::INSPECT_LANE));
+                setDragCursor(GUICursorSubSys::getCursor(GUICursor::INSPECT_LANE));
+            } else {
+                // inspect cursor
+                setDefaultCursor(GUICursorSubSys::getCursor(GUICursor::INSPECT));
+                setDragCursor(GUICursorSubSys::getCursor(GUICursor::INSPECT));
+            }
+        } else if (cursorSelect) {
+            // special case for select lanes
+            if (myNetworkViewOptions.selectEdges() && myMouseButtonKeyPressed.shiftKeyPressed() &&
+                    myEditModes.isCurrentSupermodeNetwork() && (myEditModes.networkEditMode == NetworkEditMode::NETWORK_SELECT)) {
+                // select lane cursor
+                setDefaultCursor(GUICursorSubSys::getCursor(GUICursor::SELECT_LANE));
+                setDragCursor(GUICursorSubSys::getCursor(GUICursor::SELECT_LANE));
+            } else {
+                // select cursor
+                setDefaultCursor(GUICursorSubSys::getCursor(GUICursor::SELECT));
+                setDragCursor(GUICursorSubSys::getCursor(GUICursor::SELECT));
+            }
+        } else if (cursorMoveElement) {
+            // move cursor
+            setDefaultCursor(GUICursorSubSys::getCursor(GUICursor::MOVEELEMENT));
+            setDragCursor(GUICursorSubSys::getCursor(GUICursor::MOVEELEMENT));
+        } else if (cursorDelete) {
+            // delete cursor
+            setDefaultCursor(GUICursorSubSys::getCursor(GUICursor::DELETE_CURSOR));
+            setDragCursor(GUICursorSubSys::getCursor(GUICursor::DELETE_CURSOR));
+        } else {
+            // default cursor
+            setDefaultCursor(GUICursorSubSys::getCursor(GUICursor::DEFAULT));
+            setDragCursor(GUICursorSubSys::getCursor(GUICursor::DEFAULT));
+        }
     }
 }
 

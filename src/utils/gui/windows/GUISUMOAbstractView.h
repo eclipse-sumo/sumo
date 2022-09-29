@@ -491,8 +491,11 @@ protected:
     /// @brief The perspective changer
     GUIPerspectiveChanger* myChanger;
 
+    /// @brief Panning flag
+    bool myPanning = false;
+
     /// @brief Information whether too-tip informations shall be generated
-    bool myInEditMode;
+    bool myInEditMode = false;
 
     /// @brief Offset to the mouse-hotspot from the mouse position
     int myMouseHotspotX, myMouseHotspotY;
