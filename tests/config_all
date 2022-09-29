@@ -4,6 +4,7 @@ virtual_display_extra_args:-cc 4
 
 batch_result_repository:$SUMO_BATCH_RESULT
 historical_report_location:$SUMO_REPORT
+historical_report_split_version:true
 
 [run_dependent_text]
 output:\r{REPLACE \n}
