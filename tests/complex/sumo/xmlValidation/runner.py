@@ -40,5 +40,6 @@ for scheme, elem in ((None, "trip"), (None, "tri"), ("blub", "trip"), ("blub", "
         for valid in ("never", "local", "auto", "always"):
             print("XML schema:", scheme, "XML element:", elem, "SUMO_HOME:", home, "--xml-validation", valid)
             sys.stdout.flush()
-            subprocess.call([sumoBinary, "-n", "n.net.xml", "-r", routes.name, "-X", valid, "--no-step-log"], stderr=subprocess.STDOUT, env=env)
+            subprocess.call([sumoBinary, "-n", "n.net.xml", "-r", routes.name, "-X", valid, "--no-step-log"],
+                            stderr=subprocess.STDOUT, env=env)
             sys.stdout.flush()

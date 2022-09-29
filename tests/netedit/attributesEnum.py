@@ -392,11 +392,11 @@ class crossing:
 # TLS
 
 
-class TLS:    
+class TLS:
     class common:
         TLID = 1
         TLType = 2
-    
+
     class single:
         class attributes:
             offset = 12
@@ -540,7 +540,7 @@ class TLS:
             groupSignal = 19 + (13 * 6) + 2
             addStates = 19 + (13 * 6) + 3
             ungroupSignal = 19 + (13 * 6) + 4
-    
+
     create = 3
     createOverlapped = 4
     copySingle = 9

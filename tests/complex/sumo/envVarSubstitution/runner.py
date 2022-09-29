@@ -33,7 +33,8 @@ os.environ["NETFILENAME"] = "input_net"
 os.environ["HOME"] = os.path.abspath(os.curdir)
 
 # write config
-subprocess.call([sumoBinary, "-c", "sumo.sumocfg", "--no-step-log", "-C", "config.sumocfg", "--collision-output", "~/collision.xml",
+subprocess.call([sumoBinary, "-c", "sumo.sumocfg", "--no-step-log", "-C", "config.sumocfg",
+                 "--collision-output", "~/collision.xml",
                  "--tripinfo", "${PID}.trips.xml", "--summary", "sum${UTC}.xml", "--log", "log${LOCALTIME}.log"])
 
 # file output direct
