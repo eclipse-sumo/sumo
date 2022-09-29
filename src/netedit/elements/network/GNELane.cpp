@@ -2011,9 +2011,9 @@ GNELane::buildRechableOperations(GUISUMOAbstractView& parent, GUIGLObjectPopupMe
     FXMenuPane* reachableByClass = new FXMenuPane(ret);
     ret->insertMenuPaneChild(reachableByClass);
     if (myNet->isNetRecomputed()) {
-        new FXMenuCascade(ret, "Select reachable", GUIIconSubSys::getIcon(GUIIcon::VSHAPE_PASSENGER), reachableByClass);
+        new FXMenuCascade(ret, "Select reachable", GUIIconSubSys::getIcon(GUIIcon::MODEVEHICLE), reachableByClass);
         for (const auto& vClass : SumoVehicleClassStrings.getStrings()) {
-            GUIDesigns::buildFXMenuCommand(reachableByClass, vClass.c_str(), nullptr, &parent, MID_REACHABILITY);
+            GUIDesigns::buildFXMenuCommand(reachableByClass, vClass.c_str(), getVClassIcon(SumoVehicleClassStrings.get(vClass)), &parent, MID_REACHABILITY);
         }
     } else {
         FXMenuCommand* menuCommand = GUIDesigns::buildFXMenuCommand(ret, "Select reachable (compute junctions)", nullptr, nullptr, 0);
