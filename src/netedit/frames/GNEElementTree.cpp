@@ -809,23 +809,13 @@ GNEElementTree::showHierarchicalElementChildren(GNEHierarchicalElement* HE, FXTr
                     for (const auto& demandElement : edge->getChildDemandElements()) {
                         showHierarchicalElementChildren(demandElement, edgeItem);
                     }
-                    /*
-                    CHECK THIS
-
-                    // insert demand elements children (note: use getChildDemandElementsSortedByType to avoid duplicated elements)
-                    for (const auto& route : edge->getChildDemandElementsByType(SUMO_TAG_ROUTE)) {
-                        showHierarchicalElementChildren(route, edgeItem);
-                    }
-                    for (const auto& trip : edge->getChildDemandElementsByType(SUMO_TAG_TRIP)) {
-                        showHierarchicalElementChildren(trip, edgeItem);
-                    }
-                    for (const auto& flow : edge->getChildDemandElementsByType(SUMO_TAG_FLOW)) {
-                        showHierarchicalElementChildren(flow, edgeItem);
-                    }
-                    */
-                    // show data elements
-                    for (const auto& genericDatas : edge->getChildGenericDatas()) {
-                        showHierarchicalElementChildren(genericDatas, edgeItem);
+                    // insert child data elements
+                    if (edge->getChildGenericDatas().size() > 0) {
+                        // insert intermediate list item
+                        FXTreeItem* dataElements = addListItem(edgeItem, "Data elements", GUIIconSubSys::getIcon(GUIIcon::SUPERMODEDATA), false);
+                        for (const auto& genericDatas : edge->getChildGenericDatas()) {
+                            showHierarchicalElementChildren(genericDatas, dataElements);
+                        }
                     }
                 }
                 break;
@@ -914,6 +904,14 @@ GNEElementTree::showHierarchicalElementChildren(GNEHierarchicalElement* HE, FXTr
         // insert child demand elements
         for (const auto& demandElement : HE->getChildDemandElements()) {
             showHierarchicalElementChildren(demandElement, treeItem);
+        }
+        // insert child data elements
+        if (HE->getChildGenericDatas().size() > 0) {
+            // insert intermediate list item
+            FXTreeItem* dataElements = addListItem(treeItem, "Data elements", GUIIconSubSys::getIcon(GUIIcon::SUPERMODEDATA), false);
+            for (const auto& genericDatas : HE->getChildGenericDatas()) {
+                showHierarchicalElementChildren(genericDatas, dataElements);
+            }
         }
     } else if (HE->getTagProperty().isDataElement()) {
         // insert data item
