@@ -46,7 +46,7 @@ The generated file look like this:
 </routes>
 ```
 
-| Name              | Type            | Description                                                                                 |
+| Name              | Type/Unit       | Description                                                                                 |
 | ----------------- | --------------- | ------------------------------------------------------------------------------------------- |
 | id                | (vehicle) id    | The id of the vehicle this entry describes                                                  |
 | type              | vehicle type id | The id of the vehicle type if different from the default                                    |
@@ -55,11 +55,11 @@ The generated file look like this:
 | routeLength       | m               | The total length of the vehicle's route (if activated by the vehroutes.route-length option) |
 | replacedOnEdge    | (edge) id       | The edge the vehicle was on when the described route was replaced                           |
 | replacedAtTime    | s               | The time step of this replacement                                                           |
-| <PREVIOUS_ROUTE\> | \[(edge) id\]+  | The replaced route                                                                          |
-| <LAST_ROUTE\>     | \[(edge) id\]+  | The final vehicle route                                                                     |
-| <EXIT_TIMES\>     | \[time in s\]+  | The leave time for every edge in the route or walk, if enabled with the option **--vehroute-output.exit-times**  |
-| <END_TIME\>       | s               | The arrival time for the walk or ride (or tranship/transport for containers), if enabled with the option **--vehroute-output.exit-times**  |
-| <START_TIME\>     | s               | The departure time for the walk or the time when the ride vehicle has been entered and starts to drive again (also for tranship/transport with containers), if enabled with the option **--vehroute-output.exit-times**  |
+| edges             | \[(edge) id\]   | The replaced route                                                                          |
+| route edges       | \[(edge) id\]   | The final vehicle route                                                                     |
+| exitTimes         | \[time in s\]   | The leave time for every edge in the route or walk, if enabled with the option **--vehroute-output.exit-times**  |
+| ended             | s               | The arrival time for the walk or ride (or tranship/transport for containers), if enabled with the option **--vehroute-output.exit-times**  |
+| started           | s               | The departure time for the walk or the time when the ride vehicle has been entered and starts to drive again (also for tranship/transport with containers), if enabled with the option **--vehroute-output.exit-times**  |
 
 !!! note
     Additional attributes of the vehicle are also included if they were set.
