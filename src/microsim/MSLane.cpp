@@ -1623,10 +1623,11 @@ MSLane::detectCollisions(SUMOTime timestep, const std::string& stage) {
             PersonDist leader = nextBlocking(back, right, right + v->getVehicleType().getWidth());
 #ifdef DEBUG_PEDESTRIAN_COLLISIONS
             if (DEBUG_COND && DEBUG_COND2(v)) {
-                std::cout << SIMTIME << " back=" << back << " right=" << right << " person=" << Named::getIDSecure(leader.first) << " dist=" << leader.second << "\n";
+                std::cout << SIMTIME << " back=" << back << " right=" << right << " person=" << Named::getIDSecure(leader.first)
+                    << " dist=" << leader.second << " jammed=" << leader.first->isJammed() << "\n";
             }
 #endif
-            if (leader.first != 0 && leader.second < length) {
+            if (leader.first != 0 && leader.second < length && !leader.first->isJammed()) {
                 const bool newCollision = MSNet::getInstance()->registerCollision(v, leader.first, "sharedLane", this, leader.first->getEdgePos());
                 if (newCollision) {
                     WRITE_WARNINGF("Vehicle '%' collision with person '%', lane='%', gap=%, time=%, stage=%.",

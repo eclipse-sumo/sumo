@@ -267,6 +267,9 @@ public:
         myChosenSpeedFactor = factor;
     }
 
+    /// @brief whether the person is jammed as defined by the current pedestrian model
+    bool isJammed() const;
+
     /// @brief set new walk and replace the stages with relative indices in the interval [firstIndex, nextIndex[
     void reroute(ConstMSEdgeVector& newEdges, double departPos, int firstIndex, int nextIndex);
 

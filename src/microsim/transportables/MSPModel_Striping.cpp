@@ -1481,7 +1481,7 @@ MSPModel_Striping::Obstacle::Obstacle(const PState& ped) :
     xFwd(ped.getMaxX()),
     xBack(ped.getMinX()),
     speed(ped.myDir * ped.mySpeed),
-    type(OBSTACLE_PED),
+    type(ped.getOType()),
     description(ped.getID()) {
     assert(!ped.myWaitingToEnter);
 }
@@ -2032,7 +2032,10 @@ MSPModel_Striping::PState::walk(const Obstacles& obs, SUMOTime currentTime) {
         xSpeed = 0;
     }
     if (xSpeed == 0) {
-        if (myWaitingTime > (myLane->getEdge().isCrossing() ? jamTimeCrossing : jamTime)
+        if (myWaitingTime > ((myLane->getEdge().isCrossing()
+                        // treat shared walkingarea like a crossing to avoid deadlocking vehicles
+                        || (myLane->getEdge().isWalkingArea() && obs[current].type == OBSTACLE_VEHICLE
+                            && myWalkingAreaFoes.find(&myLane->getEdge()) != myWalkingAreaFoes.end())) ? jamTimeCrossing : jamTime)
                 || (sMax == 0 && obs[0].speed * myDir < 0 && myWaitingTime > jamTimeNarrow)
                 || myAmJammed) {
             // squeeze slowly through the crowd ignoring others

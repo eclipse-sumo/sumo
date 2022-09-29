@@ -376,6 +376,10 @@ protected:
         /// @brief return the person width
         virtual double getWidth() const;
 
+        virtual ObstacleType getOType() const {
+            return OBSTACLE_PED;
+        }
+
         /// @brief whether the person is currently being controlled via TraCI
         bool isRemoteControlled() const;
 
@@ -398,6 +402,10 @@ protected:
         double getMinX(const bool includeMinGap = true) const;
         double getMaxX(const bool includeMinGap = true) const;
         double getWidth() const;
+
+        ObstacleType getOType() const {
+            return OBSTACLE_VEHICLE;
+        }
     private:
         const MSVehicle* myVehicle;
         const double myXWidth;

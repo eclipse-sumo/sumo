@@ -341,16 +341,6 @@ GUIPerson::drawAction_drawWalkingareaPath(const GUIVisualizationSettings& s) con
     }
 }
 
-bool
-GUIPerson::isJammed() const {
-    MSPersonStage_Walking* stage = dynamic_cast<MSPersonStage_Walking*>(getCurrentStage());
-    if (stage != nullptr) {
-        return stage->getState()->isJammed();
-    }
-    return false;
-}
-
-
 void
 GUIPerson::drawGLAdditional(GUISUMOAbstractView* const parent, const GUIVisualizationSettings& s) const {
     GLHelper::pushName(getGlID());
