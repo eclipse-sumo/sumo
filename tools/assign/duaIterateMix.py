@@ -15,12 +15,12 @@
 # @file    duaIterateMix.py
 # @author  Behzad Bamdad Mehrabani
 # @author  Jakob Erdmann
-
 # @date    2022-08-10
 
 """
-Run duarouter and sumo alternating to perform a mixed traffic assignment of user equilibrium and system optimal (Mixed traffic flow of Human Driven Vehicles (HDVs) and Connected and Autonomous Vehicle (CAVs)) 
-It is assumed that HDVs follow user equilibrium and CAVs follow system optimal.
+Run duarouter and sumo alternating to perform a mixed traffic assignment of user equilibrium and system optimum
+(Mixed traffic flow of Human Driven Vehicles (HDVs) and Connected and Autonomous Vehicle (CAVs)).
+It is assumed that HDVs follow user equilibrium and CAVs follow system optimum.
 """
 from __future__ import print_function
 from __future__ import absolute_import
@@ -36,7 +36,6 @@ import xml.etree.ElementTree as ET
 from datetime import datetime
 from costMemory import CostMemory
 from duaIterate import addGenericOptions
-from duaIterate import initOptions
 from duaIterate import call
 from duaIterate import get_scale
 from duaIterate import get_dumpfilename
@@ -46,14 +45,13 @@ from duaIterate import filterTripinfo
 from duaIterate import assign_remaining_args
 from duaIterate import get_basename
 from duaIterate import calcMarginalCost
-from duaIterate import generateEdgedataAddFile
 sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
 
 import sumolib  # noqa
-from sumolib.options import get_long_option_names  # noqa
 
 DEBUGLOG = None
 EDGEDATA_ADD = "edgedata.add.xml"
+
 
 def initOptions():
     argParser = sumolib.options.ArgumentParser(
@@ -108,8 +106,10 @@ def initOptions():
     argParser.add_argument("-K", "--keep-allroutes", action="store_true", dest="allroutes",
                            default=False, help="save routes with near zero probability")
     argParser.add_argument("--routing-algorithm", default="dijkstra", help="select the routing algorithm")
-    argParser.add_argument("--max-alternatives-HDV", default=5, dest="max_alternatives_HDV", help="prune the number of alternatives to INT for HDV")
-    argParser.add_argument("--max-alternatives-CAV", default=5, dest="max_alternatives_CAV", help="prune the number of alternatives to INT for CAV")
+    argParser.add_argument("--max-alternatives-HDV", default=5, dest="max_alternatives_HDV",
+                           help="prune the number of alternatives to INT for HDV")
+    argParser.add_argument("--max-alternatives-CAV", default=5, dest="max_alternatives_CAV",
+                           help="prune the number of alternatives to INT for CAV")
     argParser.add_argument("--skip-first-routing", action="store_true", dest="skipFirstRouting",
                            default=False, help="run simulation with demands before first routing")
     argParser.add_argument("--logit", action="store_true", default=False, help="use the logit model for route choice")
@@ -119,7 +119,8 @@ def initOptions():
     argParser.add_argument("-G", "--logittheta", type=float, help="parameter to adapt the cost unit")
     argParser.add_argument("-J", "--addweights", help="Additional weights for duarouter")
     argParser.add_argument("--convergence-steps", dest="convergenceSteps", type=int,
-                           help="Given x, if x > 0 Reduce probability to change route by 1/x per step (Probabilistic Swapping (PSwap)). " +
+                           help="Given x, if x > 0 reduce probability to change route by 1/x per step "
+                                "(Probabilistic Swapping (PSwap)). "
                                 "If x < 0 set probability of rerouting to 1/step after step |x|")
     argParser.add_argument("--addweights.once", dest="addweightsOnce", action="store_true",
                            default=False, help="use added weights only on the first iteration")
@@ -141,14 +142,15 @@ def initOptions():
                            help="use marginal cost to perform system optimal traffic assignment")
     argParser.add_argument("--marginal-cost-reverse", action="store_true", default=False,
                            help="use with mix option for reversing the marginal cost with original travel times")
-    argParser.add_argument("--mix", action="store_true", default=False, help="performing mix traffic assignment")                                                                   
+    argParser.add_argument("--mix", action="store_true", default=False, help="performing mix traffic assignment")
     argParser.add_argument("--marginal-cost.exp", type=float, default=0, dest="mcExp",
                            help="apply the given exponent on the current traffic count when computing marginal cost")
     argParser.add_argument("remaining_args", nargs='*')
     return argParser
 
+
 def writeRouteConfHDV(duarouterBinary, step, options, dua_args, file,
-                   output, routesInfo):
+                      output, routesInfo):
     filename = os.path.basename(file)
     filename = filename.split('.')[0]
     cfgname = "%03i/iteration_%03i_%s.duarcfg" % (step, step, filename)
@@ -211,8 +213,9 @@ def writeRouteConfHDV(duarouterBinary, step, options, dua_args, file,
     subprocess.call([duarouterBinary] + args + dua_args)
     return cfgname
 
+
 def writeRouteConfCAV(duarouterBinary, step, options, dua_args, file,
-                   output, routesInfo):
+                      output, routesInfo):
     filename = os.path.basename(file)
     filename = filename.split('.')[0]
     cfgname = "%03i/iteration_%03i_%s.duarcfg" % (step, step, filename)
@@ -275,6 +278,7 @@ def writeRouteConfCAV(duarouterBinary, step, options, dua_args, file,
     subprocess.call([duarouterBinary] + args + dua_args)
     return cfgname
 
+
 def calcMarginalCostReverse(step, options):
     if step > 1:
         if DEBUGLOG:
@@ -292,58 +296,60 @@ def calcMarginalCostReverse(step, options):
                                     "traveltime") is not None:
                                 tt_cur = float(edge_cur.get("overlapTraveltime"))
                                 edge_cur.set("traveltime", str(tt_cur))
-                                edgeID = edge_cur.get("id")
-                                if DEBUGLOG:
-                                    if begin_cur == "1800.00":
-                                        print("step=%s beg=%s e=%s tt=%s ttprev=%s n=%s nPrev=%s mC=%s mCPrev=%s" %
-                                              (step, begin_cur, edgeID, tt_cur, tt_prv, veh_cur, veh_prv,
-                                               mc_cur, mc_prv), file=log)
+                                # edgeID = edge_cur.get("id")
+                                # if DEBUGLOG:
+                                #     if begin_cur == "1800.00":
+                                #         print("step=%s beg=%s e=%s tt=%s ttprev=%s n=%s nPrev=%s mC=%s mCPrev=%s" %
+                                #               (step, begin_cur, edgeID, tt_cur, tt_prv, veh_cur, veh_prv,
+                                #                mc_cur, mc_prv), file=log)
         tree_sumo_cur.write(get_weightfilename(options, step - 1, "dump"))
 
         if DEBUGLOG:
             log.close()
+
 
 def calcMixTrips(step, options):
     input_demands = options.trips.split(",")
     input_demands_1 = options.routes.split(",")
     routesSuffix = ".xml"
     trips_CAV = ["%03i/%s_%03i.rou%s" % (step, get_basename(f), step, routesSuffix)
-                              for f in input_demands_1]
+                 for f in input_demands_1]
     trips_HDV = ["%03i/%s_%03i.rou%s" % (step, get_basename(f), step, routesSuffix)
-                              for f in input_demands]                          
+                 for f in input_demands]
     src_tree = ET.parse(str(trips_CAV[0]))
     dest_tree = ET.parse(str(trips_HDV[0]))
     src_root = src_tree.getroot()
     dest_root = dest_tree.getroot()
-    
-    #temporary remove vtypes
+
+    # temporary remove vtypes
     vType1 = dest_root.find("vType")
     dest_root.remove(vType1)
     vType2 = src_root.find("vType")
     src_root.remove(vType2)
-    
-    
-    for n in range(0, 10000000):   
+
+    for n in range(10000000):
         src_tag = src_root.find('./vehicle')
-        if src_tag == None:
+        if src_tag is None:
             break
         dest_root.append(src_tag)
         src_root.remove(src_tag)
 
-    dest_root[:] = sorted(dest_root, key=lambda child: (child.tag, float(child.get("depart"))))  
-    for n in range(0, 10000000):   
+    dest_root[:] = sorted(dest_root, key=lambda child: (child.tag, float(child.get("depart"))))
+    for n in range(10000000):
         dest_tag_2 = dest_root.find('./vehicle')
-        if dest_tag_2 == None:
+        if dest_tag_2 is None:
             break
         src_root.append(dest_tag_2)
-        dest_root.remove(dest_tag_2)    
+        dest_root.remove(dest_tag_2)
 
     # Put the 'vType' element on HDV file
     src_root.insert(0, vType1)
     src_root.insert(1, vType2)
     ET.ElementTree(src_root).write(os.path.join((str(trips_HDV[0]))))
-    if DEBUGLOG:
-        log.close()
+    # if DEBUGLOG:
+    #     log.close()
+
+
 def main(args=None):
     argParser = initOptions()
 
@@ -351,7 +357,7 @@ def main(args=None):
         options = argParser.parse_args(args=args)
     except (NotImplementedError, ValueError) as e:
         print(e, file=sys.stderr)
-        sys.exit(1)               
+        sys.exit(1)
 
     if not options.net:
         argParser.error("Option --net-file is mandatory")
@@ -397,10 +403,10 @@ def main(args=None):
         input_demands = options.trips.split(",")
     if options.routes:
         input_demands_1 = options.routes.split(",")
-    if options.trips and not options.routes: 
-        print("Please insert HDVs trip by -t and CAVs trips by -r") 
+    if options.trips and not options.routes:
+        print("Please insert HDVs trip by -t and CAVs trips by -r")
     if options.routes and not options.trips:
-        print("Please insert HDVs trip by -t and CAVs trips by -r") 
+        print("Please insert HDVs trip by -t and CAVs trips by -r")
     if options.weightmemory:
         costmemory = CostMemory('traveltime', pessimism=options.pessimism, network_file=options.net
                                 )
@@ -433,7 +439,7 @@ def main(args=None):
                        get_dumpfilename(options, step, "dump", False),
                        vTypes), file=fd)
         print("</a>", file=fd)
-        
+
     avgTT = sumolib.miscutils.Statistics()
     for step in range(options.firstStep, options.lastStep):
         current_directory = os.getcwd()
@@ -460,7 +466,7 @@ def main(args=None):
                 btime = datetime.now()
                 print(">>> Begin time: %s" % btime)
                 cfgname = writeRouteConfHDV(duaBinary, step, options, dua_args, router_input,
-                                         output, options.routefile)
+                                            output, options.routefile)
                 log.flush()
                 sys.stdout.flush()
                 if options.marginal_cost_reverse:
@@ -472,7 +478,7 @@ def main(args=None):
                 print(">>> End time: %s" % etime)
                 print(">>> Duration: %s" % (etime - btime))
                 print("<<")
-                
+
         router_demands = input_demands_1
         simulation_demands = input_demands_1
         # demand files have regular names based on the basename and the step
@@ -490,7 +496,7 @@ def main(args=None):
                 btime = datetime.now()
                 print(">>> Begin time: %s" % btime)
                 cfgname = writeRouteConfCAV(duaBinary, step, options, dua_args, router_input,
-                                         output, options.routefile)
+                                            output, options.routefile)
                 log.flush()
                 sys.stdout.flush()
                 if options.marginal_cost:
@@ -508,7 +514,7 @@ def main(args=None):
             calcMixTrips(step, options)
         # simulation
         simulation_demands = ["%03i/%s_%03i.rou%s" % (step, get_basename(f), step, routesSuffix)
-                                  for f in input_demands]
+                              for f in input_demands]
         print(">> Running simulation")
         btime = datetime.now()
         print(">>> Begin time: %s" % btime)
@@ -586,6 +592,7 @@ def main(args=None):
     print("dua-iterate ended (duration: %s)" % (datetime.now() - starttime))
 
     log.close()
+
 
 if __name__ == "__main__":
     main()

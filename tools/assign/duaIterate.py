@@ -91,7 +91,7 @@ def addGenericOptions(argParser):
     argParser.add_argument("-7", "--zip", action="store_true",
                            default=False, help="zip old iterations using 7zip")
     argParser.add_argument("-MSA", "--method-of-successive-average", action="store_true", dest="MSA",
-                           default=False, help="apply the method of successive average as the swapping algorithm")                                                                                                 
+                           default=False, help="apply the method of successive average as the swapping algorithm")
 
 
 def initOptions():
@@ -158,7 +158,8 @@ def initOptions():
     argParser.add_argument("-G", "--logittheta", type=float, help="parameter to adapt the cost unit")
     argParser.add_argument("-J", "--addweights", help="Additional weights for duarouter")
     argParser.add_argument("--convergence-steps", dest="convergenceSteps", type=int,
-                           help="Given x, if x > 0 Reduce probability to change route by 1/x per step (Probabilistic Swapping (PSwap)). " +
+                           help="Given x, if x > 0 reduce probability to change route by 1/x per step "
+                                "(Probabilistic Swapping (PSwap)). "
                                 "If x < 0 set probability of rerouting to 1/step after step |x|")
     argParser.add_argument("--addweights.once", dest="addweightsOnce", action="store_true",
                            default=False, help="use added weights only on the first iteration")
@@ -228,7 +229,7 @@ def writeRouteConf(duarouterBinary, step, options, dua_args, file,
         args += ['--route-choice-method', 'logit']
         if options.MSA:
             probKeepRoute = step/(step+1)
-            args += ['--keep-route-probability', str(probKeepRoute)]                                                  
+            args += ['--keep-route-probability', str(probKeepRoute)]
         if options.convergenceSteps:
             if options.convergenceSteps > 0:
                 probKeepRoute = max(0, min(step / float(options.convergenceSteps), 1))
