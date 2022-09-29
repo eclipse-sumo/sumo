@@ -188,6 +188,8 @@ FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGE_STRAIGHTEN_ELEVATION,       GNEViewNet::onCmdStraightenEdgesElevation),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGE_SMOOTH_ELEVATION,           GNEViewNet::onCmdSmoothEdgesElevation),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGE_RESET_LENGTH,               GNEViewNet::onCmdResetLength),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGE_USEASTEMPLATE,              GNEViewNet::onCmdEdgeUseAsTemplate),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGE_APPLYTEMPLATE,              GNEViewNet::onCmdEgeApplyTemplate),
     // Lanes
     FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_DUPLICATE,              GNEViewNet::onCmdDuplicateLane),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_EDIT_SHAPE,             GNEViewNet::onCmdEditLaneShape),
@@ -2238,6 +2240,33 @@ GNEViewNet::onCmdResetLength(FXObject*, FXSelector, void*) {
         } else {
             edge->setAttribute(SUMO_ATTR_LENGTH, "-1", myUndoList);
         }
+    }
+    return 1;
+}
+
+
+long
+GNEViewNet::onCmdEdgeUseAsTemplate(FXObject*, FXSelector, void*) {
+    GNEEdge* edge = getEdgeAtPopupPosition();
+    if (edge != nullptr) {
+        myViewParent->getInspectorFrame()->getTemplateEditor()->setEdgeTemplate(edge);
+    }
+    return 1;
+}
+
+
+long
+GNEViewNet::onCmdEgeApplyTemplate(FXObject*, FXSelector, void*) {
+    GNEEdge* edge = getEdgeAtPopupPosition();
+    if ((edge != nullptr) && myViewParent->getInspectorFrame()->getTemplateEditor()->getEdgeTemplate()) {
+        // begin copy template
+        myUndoList->begin(GUIIcon::EDGE, "copy edge template");
+        // copy template
+        edge->copyTemplate(myViewParent->getInspectorFrame()->getTemplateEditor()->getEdgeTemplate(), myUndoList);
+        // end copy template
+        myUndoList->end();
+        // update view (to see visual changes)
+        updateViewNet();
     }
     return 1;
 }

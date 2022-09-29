@@ -1978,30 +1978,13 @@ GNELane::buildTemplateOperations(GUISUMOAbstractView& parent, GUIGLObjectPopupMe
         new FXMenuCascade(ret, "template operations", nullptr, edgeOperations);
     }
     // create menu commands for all edge operations
-    GUIDesigns::buildFXMenuCommand(edgeOperations, "Split edge here", nullptr, &parent, MID_GNE_EDGE_SPLIT);
-    GUIDesigns::buildFXMenuCommand(edgeOperations, "Split edge in both directions here", nullptr, &parent, MID_GNE_EDGE_SPLIT_BIDI);
-    GUIDesigns::buildFXMenuCommand(edgeOperations, "Set geometry endpoint here (shift-click)", nullptr, &parent, MID_GNE_EDGE_EDIT_ENDPOINT);
-    // restore geometry points depending of selection status
-    if (myParentEdge->isAttributeCarrierSelected()) {
-        if (edgeSelSize == 1) {
-            GUIDesigns::buildFXMenuCommand(edgeOperations, "Restore both geometry endpoints", nullptr, &parent, MID_GNE_EDGE_RESET_ENDPOINT);
-        } else {
-            GUIDesigns::buildFXMenuCommand(edgeOperations, "Restore geometry endpoints of all selected edges", nullptr, &parent, MID_GNE_EDGE_RESET_ENDPOINT);
-        }
-    } else {
-        GUIDesigns::buildFXMenuCommand(edgeOperations, "Restore geometry endpoint (shift-click)", nullptr, &parent, MID_GNE_EDGE_RESET_ENDPOINT);
+    GUIDesigns::buildFXMenuCommand(edgeOperations, "Use edge as template", nullptr, &parent, MID_GNE_EDGE_USEASTEMPLATE);
+    auto applyTemplate = GUIDesigns::buildFXMenuCommand(edgeOperations, "Apply template", nullptr, &parent, MID_GNE_EDGE_APPLYTEMPLATE);
+    // check if disable apply template
+    if (myNet->getViewNet()->getViewParent()->getInspectorFrame()->getTemplateEditor()->getEdgeTemplate() == nullptr) {
+        applyTemplate->disable();
     }
-    GUIDesigns::buildFXMenuCommand(edgeOperations, "Reverse " + edgeDescPossibleMulti, nullptr, &parent, MID_GNE_EDGE_REVERSE);
-    auto reverse = GUIDesigns::buildFXMenuCommand(edgeOperations, "Add reverse direction for " + edgeDescPossibleMulti, nullptr, &parent, MID_GNE_EDGE_ADD_REVERSE);
-    if (myParentEdge->getReverseEdge() != nullptr) {
-        reverse->disable();
-    }
-    GUIDesigns::buildFXMenuCommand(edgeOperations, "Add reverse disconnected direction for " + edgeDescPossibleMulti, nullptr, &parent, MID_GNE_EDGE_ADD_REVERSE_DISCONNECTED);
-    GUIDesigns::buildFXMenuCommand(edgeOperations, "Reset lengths for " + edgeDescPossibleMulti, nullptr, &parent, MID_GNE_EDGE_RESET_LENGTH);
-    GUIDesigns::buildFXMenuCommand(edgeOperations, "Straighten " + edgeDescPossibleMulti, nullptr, &parent, MID_GNE_EDGE_STRAIGHTEN);
-    GUIDesigns::buildFXMenuCommand(edgeOperations, "Smooth " + edgeDescPossibleMulti, nullptr, &parent, MID_GNE_EDGE_SMOOTH);
-    GUIDesigns::buildFXMenuCommand(edgeOperations, "Straighten elevation of " + edgeDescPossibleMulti, nullptr, &parent, MID_GNE_EDGE_STRAIGHTEN_ELEVATION);
-    GUIDesigns::buildFXMenuCommand(edgeOperations, "Smooth elevation of " + edgeDescPossibleMulti, nullptr, &parent, MID_GNE_EDGE_SMOOTH_ELEVATION);
+
 }
 
 

@@ -1153,6 +1153,10 @@ enum {
     MID_GNE_EDGE_ADD_REVERSE_DISCONNECTED,
     /// @brief reset custom lengths
     MID_GNE_EDGE_RESET_LENGTH,
+    /// @brief use edge as tempalte
+    MID_GNE_EDGE_USEASTEMPLATE,
+    /// @brief apply template
+    MID_GNE_EDGE_APPLYTEMPLATE,
 
     /// @}
 

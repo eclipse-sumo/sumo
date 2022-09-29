@@ -218,6 +218,12 @@ public:
     /// @brief reset custom edge lengths
     long onCmdResetLength(FXObject*, FXSelector, void*);
 
+    /// @brief use edge as template
+    long onCmdEdgeUseAsTemplate(FXObject*, FXSelector, void*);
+
+    /// @brief apply template to edge
+    long onCmdEgeApplyTemplate(FXObject*, FXSelector, void*);
+
     /// @brief simply shape of current polygon
     long onCmdSimplifyShape(FXObject*, FXSelector, void*);
 
