@@ -861,6 +861,12 @@ NBEdgeCont::recheckLanes() {
                     WRITE_WARNINGF("Adapting invalid opposite lane '%' for edge '%' to '%'.", oppositeID, edge->getID(), oppEdgeLeftmost);
                     edge->getLaneStruct(leftmostLane).oppositeID = oppEdgeLeftmost;
                 }
+                NBEdge::Lane& oppLane = oppEdge->getLaneStruct(oppEdge->getNumLanes() - 1);
+                if (oppLane.oppositeID == "") {
+                    const std::string leftmostID = edge->getLaneID(leftmostLane);
+                    WRITE_WARNINGF("Adapting missing opposite lane '%' for edge '%'.", leftmostID, oppEdge->getID());
+                    oppLane.oppositeID = leftmostID;
+                }
                 if (fabs(oppEdge->getLoadedLength() - edge->getLoadedLength()) > NUMERICAL_EPS) {
                     if (fixOppositeLengths) {
                         const double avgLength = 0.5 * (edge->getFinalLength() + oppEdge->getFinalLength());
