@@ -17,7 +17,7 @@
 /// @author  Michael Behrisch
 /// @date    Nov 2012
 ///
-// SAX-reader encapsulation containing binary reader
+// SAX-reader encapsulation
 /****************************************************************************/
 #include <config.h>
 
@@ -70,13 +70,19 @@ SUMOSAXReader::setHandler(GenericSAXHandler& handler) {
 
 
 void
-SUMOSAXReader::setValidation(const std::string& validationScheme) {
+SUMOSAXReader::setValidation(std::string validationScheme) {
+    // The settings ensure that by default (validationScheme "local" or "never") no network access occurs
+    // this is achieved by either resolving no entities at all (myNoOpResolver) or resolving only
+    // to local files (myLocalResolver). Thus we can safely disable the Sonar warnings in the parse methods below.
     if (myXMLReader != nullptr && validationScheme != myValidationScheme) {
+        if (validationScheme == "") {
+            validationScheme = myValidationScheme;
+        }
+        // see here https://svn.apache.org/repos/asf/xerces/c/trunk/samples/src/SAX2Count/SAX2Count.cpp for the way to set features
         if (validationScheme == "never") {
             myXMLReader->setEntityResolver(&myNoOpResolver);
             myXMLReader->setProperty(XMLUni::fgXercesScannerName, (void*)XMLUni::fgWFXMLScanner);
         } else {
-            // myXMLReader->setEntityResolver(&mySchemaResolver);
             myXMLReader->setEntityResolver(validationScheme == "local" ? &myLocalResolver : &mySchemaResolver);
             myXMLReader->setProperty(XMLUni::fgXercesScannerName, (void*)XMLUni::fgIGXMLScanner);
             myXMLReader->setFeature(XMLUni::fgXercesSchema, true);
@@ -91,31 +97,27 @@ SUMOSAXReader::setValidation(const std::string& validationScheme) {
 
 void
 SUMOSAXReader::parse(std::string systemID) {
-    if (myXMLReader == nullptr) {
-        myXMLReader = getSAXReader();
-    }
     if (!FileHelpers::isReadable(systemID)) {
         throw ProcessError("Cannot read file '" + systemID + "'!");
     }
     if (FileHelpers::isDirectory(systemID)) {
         throw ProcessError("File '" + systemID + "' is a directory!");
     }
+    ensureSAXReader();
 #ifdef HAVE_ZLIB
     zstr::ifstream istream(StringUtils::transcodeToLocal(systemID).c_str(), std::fstream::in | std::fstream::binary);
-    myXMLReader->parse(IStreamInputSource(istream));
+    myXMLReader->parse(IStreamInputSource(istream));  // NOSONAR
 #else
-    myXMLReader->parse(StringUtils::transcodeToLocal(systemID).c_str());
+    myXMLReader->parse(StringUtils::transcodeToLocal(systemID).c_str());  // NOSONAR
 #endif
 }
 
 
 void
 SUMOSAXReader::parseString(std::string content) {
-    if (myXMLReader == nullptr) {
-        myXMLReader = getSAXReader();
-    }
+    ensureSAXReader();
     XERCES_CPP_NAMESPACE::MemBufInputSource memBufIS((const XMLByte*)content.c_str(), content.size(), "registrySettings");
-    myXMLReader->parse(memBufIS);
+    myXMLReader->parse(memBufIS);  // NOSONAR
 }
 
 
@@ -124,16 +126,17 @@ SUMOSAXReader::parseFirst(std::string systemID) {
     if (!FileHelpers::isReadable(systemID)) {
         throw ProcessError("Cannot read file '" + systemID + "'!");
     }
-    if (myXMLReader == nullptr) {
-        myXMLReader = getSAXReader();
+    if (FileHelpers::isDirectory(systemID)) {
+        throw ProcessError("File '" + systemID + "' is a directory!");
     }
+    ensureSAXReader();
     myToken = XERCES_CPP_NAMESPACE::XMLPScanToken();
 #ifdef HAVE_ZLIB
     myIStream = std::unique_ptr<zstr::ifstream>(new zstr::ifstream(StringUtils::transcodeToLocal(systemID).c_str(), std::fstream::in | std::fstream::binary));
     myInputStream = std::unique_ptr<IStreamInputSource>(new IStreamInputSource(*myIStream));
-    return myXMLReader->parseFirst(*myInputStream, myToken);
+    return myXMLReader->parseFirst(*myInputStream, myToken);  // NOSONAR
 #else
-    return myXMLReader->parseFirst(StringUtils::transcodeToLocal(systemID).c_str(), myToken);
+    return myXMLReader->parseFirst(StringUtils::transcodeToLocal(systemID).c_str(), myToken);  // NOSONAR
 #endif
 }
 
@@ -171,28 +174,17 @@ SUMOSAXReader::parseSection(int element) {
 }
 
 
-SAX2XMLReader*
-SUMOSAXReader::getSAXReader() {
-    SAX2XMLReader* reader = XERCES_CPP_NAMESPACE::XMLReaderFactory::createXMLReader(XERCES_CPP_NAMESPACE::XMLPlatformUtils::fgMemoryManager, myGrammarPool);
-    if (reader == nullptr) {
-        throw ProcessError("The XML-parser could not be build.");
+void
+SUMOSAXReader::ensureSAXReader() {
+    if (myXMLReader == nullptr) {
+        myXMLReader = XERCES_CPP_NAMESPACE::XMLReaderFactory::createXMLReader(XERCES_CPP_NAMESPACE::XMLPlatformUtils::fgMemoryManager, myGrammarPool);
+        if (myXMLReader == nullptr) {
+            throw ProcessError("The XML-parser could not be build.");
+        }
+        setValidation();
+        myXMLReader->setContentHandler(myHandler);
+        myXMLReader->setErrorHandler(myHandler);
     }
-    // see here https://svn.apache.org/repos/asf/xerces/c/trunk/samples/src/SAX2Count/SAX2Count.cpp for the way to set features
-    if (myValidationScheme == "never") {
-        reader->setEntityResolver(&myNoOpResolver);
-        reader->setProperty(XMLUni::fgXercesScannerName, (void*)XMLUni::fgWFXMLScanner);
-    } else {
-        // reader->setEntityResolver(&mySchemaResolver);
-        reader->setEntityResolver(myValidationScheme == "local" ? &myLocalResolver : &mySchemaResolver);
-        reader->setProperty(XMLUni::fgXercesScannerName, (void*)XMLUni::fgIGXMLScanner);
-        reader->setFeature(XMLUni::fgXercesSchema, true);
-        reader->setFeature(XMLUni::fgSAX2CoreValidation, true);
-        reader->setFeature(XMLUni::fgXercesDynamic, myValidationScheme == "local" || myValidationScheme == "auto");
-        reader->setFeature(XMLUni::fgXercesUseCachedGrammarInParse, myValidationScheme == "always");
-    }
-    reader->setContentHandler(myHandler);
-    reader->setErrorHandler(myHandler);
-    return reader;
 }
 
 

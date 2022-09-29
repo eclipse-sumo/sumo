@@ -69,16 +69,53 @@ public:
      */
     void setHandler(GenericSAXHandler& handler);
 
-    void setValidation(const std::string& validationScheme);
+    /**
+     * @brief Sets a new validation scheme and applies the validation settings to the XML reader
+     *
+     * If no new scheme is given, the settings of the current scheme are applied.
+     *
+     * @param[in] validationScheme The validation scheme (one of "never", "local", "auto", or "always")
+     */
+    void setValidation(std::string validationScheme="");
 
+    /**
+     * @brief Parse the given file completely by calling parse of myXMLReader
+     *
+     * This throws a ProcessError if the file is not readable and can handle gzipped XML as well.
+     *
+     * @param[in] systemID file name
+     */
     void parse(std::string systemID);
 
+    /**
+     * @brief Parse XML from the given string
+     *
+     * @param[in] content XML string
+     */
     void parseString(std::string content);
 
+    /**
+     * @brief Start parsing the given file using parseFirst of myXMLReader
+     *
+     * @param[in] systemID file name
+     * @return whether the prolog could be parsed successfully
+     */
     bool parseFirst(std::string systemID);
 
+    /**
+     * @brief Continue a progressive parse started by parseFirst
+     *
+     * @return whether the next token could be parsed successfully
+     */
     bool parseNext();
 
+    /**
+     * @brief Continue a progressive parse started by parseFirst until the given element is encountered
+     *
+     * The parse will continue until the section encapsulated by the element is completed
+     *
+     * @return whether the next section could be parsed successfully
+     */
     bool parseSection(int element);
 
 private:
@@ -93,16 +130,15 @@ private:
 
 private:
     /**
-     * @brief Builds a reader
+     * @brief Builds a reader, if needed
      *
-     * Tries to build a SAX2XMLReader using XMLReaderFactory::createXMLReader. If this
-     *  fails, 0 is returned. Otherwise the validation is set matching the value of
-     *  "myEnableValidation". If validation is not wanted, a WFXMLScanner is used
+     * Tries to build a SAX2XMLReader using XMLReaderFactory::createXMLReader,
+     *  if no reader has been created yet. If this
+     *  fails, a ProcessError is thrown. Otherwise the validation is set matching the value of
+     *  "myValidationScheme". If validation is not wanted, a WFXMLScanner is used
      *  (see http://www.ibm.com/developerworks/library/x-xercesperf.html).
-     *
-     * @return The built Xerces-SAX-reader, 0 if something failed
      */
-    XERCES_CPP_NAMESPACE::SAX2XMLReader* getSAXReader();
+    void ensureSAXReader();
 
 
 private:
