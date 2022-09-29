@@ -342,6 +342,9 @@ private:
     /// @brief build lane operations contextual menu
     void buildLaneOperations(GUISUMOAbstractView& parent, GUIGLObjectPopupMenu* ret);
 
+    /// @brief build template oerations contextual menu
+    void buildTemplateOperations(GUISUMOAbstractView& parent, GUIGLObjectPopupMenu* ret);
+
     /// @brief build rechable operations contextual menu
     void buildRechableOperations(GUISUMOAbstractView& parent, GUIGLObjectPopupMenu* ret);
 

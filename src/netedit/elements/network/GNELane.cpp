@@ -751,6 +751,10 @@ GNELane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
         GUIDesigns::buildFXMenuCommand(ret, "Copy parent edge name to clipboard", nullptr, ret, MID_COPY_EDGE_NAME);
         buildNameCopyPopupEntry(ret);
     }
+    // stop if we're in data mode
+    if (myNet->getViewNet()->getEditModes().isCurrentSupermodeData()) {
+        return ret;
+    }
     // build lane selection
     if (isAttributeCarrierSelected()) {
         GUIDesigns::buildFXMenuCommand(ret, "Remove Lane From Selected", GUIIconSubSys::getIcon(GUIIcon::FLAG_MINUS), myNet->getViewNet(), MID_REMOVESELECT);
@@ -762,6 +766,10 @@ GNELane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
         GUIDesigns::buildFXMenuCommand(ret, "Remove Edge From Selected", GUIIconSubSys::getIcon(GUIIcon::FLAG_MINUS), myNet->getViewNet(), MID_GNE_REMOVESELECT_EDGE);
     } else {
         GUIDesigns::buildFXMenuCommand(ret, "Add Edge To Selected", GUIIconSubSys::getIcon(GUIIcon::FLAG_PLUS), myNet->getViewNet(), MID_GNE_ADDSELECT_EDGE);
+    }
+    // stop if we're in data mode
+    if (myNet->getViewNet()->getEditModes().isCurrentSupermodeDemand()) {
+        return ret;
     }
     // add separator
     new FXMenuSeparator(ret);
@@ -793,6 +801,8 @@ GNELane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
             buildEdgeOperations(parent, ret);
             // build lane operations
             buildLaneOperations(parent, ret);
+            // build template operations
+            buildTemplateOperations(parent, ret);
             // add separator
             new FXMenuSeparator(ret);
             // build rechable operations
@@ -1884,7 +1894,7 @@ GNELane::buildLaneOperations(GUISUMOAbstractView& parent, GUIGLObjectPopupMenu* 
         new FXMenuCascade(ret, "lane operations", nullptr, laneOperations);
     }
     GUIDesigns::buildFXMenuCommand(laneOperations, "Duplicate lane", nullptr, &parent, MID_GNE_LANE_DUPLICATE);
-    GUIDesigns::buildFXMenuCommand(ret, "Set custom lane shape", nullptr, &parent, MID_GNE_LANE_EDIT_SHAPE);
+    GUIDesigns::buildFXMenuCommand(laneOperations, "Set custom lane shape", nullptr, &parent, MID_GNE_LANE_EDIT_SHAPE);
     FXMenuCommand* resetCustomShape = GUIDesigns::buildFXMenuCommand(laneOperations, "reset custom shape", nullptr, &parent, MID_GNE_LANE_RESET_CUSTOMSHAPE);
     if (!differentLaneShapes) {
         resetCustomShape->disable();
@@ -1952,12 +1962,56 @@ GNELane::buildLaneOperations(GUISUMOAbstractView& parent, GUIGLObjectPopupMenu* 
 
 
 void
+GNELane::buildTemplateOperations(GUISUMOAbstractView& parent, GUIGLObjectPopupMenu* ret) {
+    // Create basic commands
+    std::string edgeDescPossibleMulti = toString(SUMO_TAG_EDGE);
+    const int edgeSelSize = myParentEdge->isAttributeCarrierSelected() ? myNet->getAttributeCarriers()->getNumberOfSelectedEdges() : 0;
+    if (edgeSelSize && myParentEdge->isAttributeCarrierSelected() && (edgeSelSize > 1)) {
+        edgeDescPossibleMulti = toString(edgeSelSize) + " " + toString(SUMO_TAG_EDGE) + "s";
+    }
+    // create menu pane for edge operations
+    FXMenuPane* edgeOperations = new FXMenuPane(ret);
+    ret->insertMenuPaneChild(edgeOperations);
+    if (edgeSelSize > 0) {
+        new FXMenuCascade(ret, ("template operations (" + toString(edgeSelSize) + " selected)").c_str(), nullptr, edgeOperations);
+    } else {
+        new FXMenuCascade(ret, "template operations", nullptr, edgeOperations);
+    }
+    // create menu commands for all edge operations
+    GUIDesigns::buildFXMenuCommand(edgeOperations, "Split edge here", nullptr, &parent, MID_GNE_EDGE_SPLIT);
+    GUIDesigns::buildFXMenuCommand(edgeOperations, "Split edge in both directions here", nullptr, &parent, MID_GNE_EDGE_SPLIT_BIDI);
+    GUIDesigns::buildFXMenuCommand(edgeOperations, "Set geometry endpoint here (shift-click)", nullptr, &parent, MID_GNE_EDGE_EDIT_ENDPOINT);
+    // restore geometry points depending of selection status
+    if (myParentEdge->isAttributeCarrierSelected()) {
+        if (edgeSelSize == 1) {
+            GUIDesigns::buildFXMenuCommand(edgeOperations, "Restore both geometry endpoints", nullptr, &parent, MID_GNE_EDGE_RESET_ENDPOINT);
+        } else {
+            GUIDesigns::buildFXMenuCommand(edgeOperations, "Restore geometry endpoints of all selected edges", nullptr, &parent, MID_GNE_EDGE_RESET_ENDPOINT);
+        }
+    } else {
+        GUIDesigns::buildFXMenuCommand(edgeOperations, "Restore geometry endpoint (shift-click)", nullptr, &parent, MID_GNE_EDGE_RESET_ENDPOINT);
+    }
+    GUIDesigns::buildFXMenuCommand(edgeOperations, "Reverse " + edgeDescPossibleMulti, nullptr, &parent, MID_GNE_EDGE_REVERSE);
+    auto reverse = GUIDesigns::buildFXMenuCommand(edgeOperations, "Add reverse direction for " + edgeDescPossibleMulti, nullptr, &parent, MID_GNE_EDGE_ADD_REVERSE);
+    if (myParentEdge->getReverseEdge() != nullptr) {
+        reverse->disable();
+    }
+    GUIDesigns::buildFXMenuCommand(edgeOperations, "Add reverse disconnected direction for " + edgeDescPossibleMulti, nullptr, &parent, MID_GNE_EDGE_ADD_REVERSE_DISCONNECTED);
+    GUIDesigns::buildFXMenuCommand(edgeOperations, "Reset lengths for " + edgeDescPossibleMulti, nullptr, &parent, MID_GNE_EDGE_RESET_LENGTH);
+    GUIDesigns::buildFXMenuCommand(edgeOperations, "Straighten " + edgeDescPossibleMulti, nullptr, &parent, MID_GNE_EDGE_STRAIGHTEN);
+    GUIDesigns::buildFXMenuCommand(edgeOperations, "Smooth " + edgeDescPossibleMulti, nullptr, &parent, MID_GNE_EDGE_SMOOTH);
+    GUIDesigns::buildFXMenuCommand(edgeOperations, "Straighten elevation of " + edgeDescPossibleMulti, nullptr, &parent, MID_GNE_EDGE_STRAIGHTEN_ELEVATION);
+    GUIDesigns::buildFXMenuCommand(edgeOperations, "Smooth elevation of " + edgeDescPossibleMulti, nullptr, &parent, MID_GNE_EDGE_SMOOTH_ELEVATION);
+}
+
+
+void
 GNELane::buildRechableOperations(GUISUMOAbstractView& parent, GUIGLObjectPopupMenu* ret) {
     // addreachability menu
     FXMenuPane* reachableByClass = new FXMenuPane(ret);
     ret->insertMenuPaneChild(reachableByClass);
     if (myNet->isNetRecomputed()) {
-        new FXMenuCascade(ret, "Select reachable", GUIIconSubSys::getIcon(GUIIcon::FLAG), reachableByClass);
+        new FXMenuCascade(ret, "Select reachable", GUIIconSubSys::getIcon(GUIIcon::VSHAPE_PASSENGER), reachableByClass);
         for (const auto& vClass : SumoVehicleClassStrings.getStrings()) {
             GUIDesigns::buildFXMenuCommand(reachableByClass, vClass.c_str(), nullptr, &parent, MID_REACHABILITY);
         }
