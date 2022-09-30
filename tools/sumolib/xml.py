@@ -67,6 +67,9 @@ DEFAULT_ATTR_CONVERSIONS = {
     'toLane': int,
 }
 
+def supports_comments():
+    return sys.version_info[0] >= 3 and sys.version_info[1] >= 8
+    
 
 def _prefix_keyword(name, warn=False):
     result = name
@@ -165,6 +168,17 @@ def compound_object(element_name, attrnames, warn=False, sort=True):
         def setText(self, text):
             self._text = text
 
+        def isComment(self):
+            return "function Comment" in str(self.name) 
+
+        def getComments(self):
+            if not supports_comments:
+                sys.stderr.write("Comment parsing is only supported with version 3.8 or higher by sumolib.xml\n")
+            for name, children in self._child_dict.items():
+                if "function Comment" in str(name):
+                    return [c.getText() for c in children]
+            return []
+
         def __getattr__(self, name):
             if name[:2] != "__":
                 return self._child_dict.get(name, None)
@@ -235,7 +249,6 @@ def parselines(xmlline, element_name, element_attrs=None, attr_conversions=None,
                        heterogeneous, warn):
             yield x
 
-
 def parse(xmlfile, element_names, element_attrs=None, attr_conversions=None,
           heterogeneous=True, warn=False):
     """
@@ -268,7 +281,8 @@ def parse(xmlfile, element_names, element_attrs=None, attr_conversions=None,
     if attr_conversions is None:
         attr_conversions = {}
     element_types = {}
-    for _, parsenode in ET.iterparse(_open(xmlfile, None)):
+    kwargs = {'parser' : ET.XMLParser(target=ET.TreeBuilder(insert_comments=True))} if supports_comments() else {}
+    for _, parsenode in ET.iterparse(_open(xmlfile, None), **kwargs):
         if parsenode.tag in element_names:
             yield _get_compound_object(parsenode, element_types,
                                        parsenode.tag, element_attrs,
