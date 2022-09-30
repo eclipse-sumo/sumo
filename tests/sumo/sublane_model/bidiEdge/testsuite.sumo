@@ -1,3 +1,5 @@
+#intersection connected to normal and bidi edges;  peds run on the right hand side on the normal road or sidewalk, but run in the middle righ after entering bidi
+ped_run_middle
 # intersection connected to normal and bidi edges; Bike makes emergency braking while a veh is inserted to the neighboring edge
 bikeUnneededEmergencyBraking
 

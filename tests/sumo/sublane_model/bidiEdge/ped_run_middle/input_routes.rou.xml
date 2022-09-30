@@ -1,0 +1,18 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="ped_pedestrian" vClass="pedestrian"
+        speedDev="0.1"
+		speedFactor="1.1"/>
+    <person id="ped1" type="ped_pedestrian" depart="0.0" departPos="172">
+        <walk edges="a b c d"/>
+    </person>
+    <person id="ped2" type="ped_pedestrian" depart="10.0" departPos="49">
+        <walk edges="t b c d"/>
+    </person>
+    <!--<vehicle id="bike133" type="bike_bicycle" depart="0.0" departLane="0" departPos="46.89" departPosLat="0.59" departSpeed="4.87">
+        <route edges="a -b"/>
+    </vehicle>
+    <person id="ped13" type="ped_pedestrian" depart="0.0" departPos="27.61">
+        <walk edges="-a"/>
+    </person> -->
+
+</routes>
