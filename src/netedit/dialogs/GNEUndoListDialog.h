@@ -82,32 +82,32 @@ protected:
     void recalcList();
 
     /// @struct class for keep every row value
-    struct TemporalRow {
+    struct UndoListRow {
         /// @brief constructor
-        TemporalRow(const int index_, FXIcon* icon_, const std::string text_);
+        UndoListRow(const int index_, FXIcon* icon_, const std::string text_);
 
         /// @brief index uses for count undo/redos
-        const int index;
+        int index = 0;
 
         /// @brief icon associated with undo/redo operation
-        FXIcon* icon;
+        FXIcon* icon = nullptr;
 
         /// @brief definition of undo/redo operation
-        const std::string text;
+        std::string text;
     };
 
-    /// @brief class row
-    class Row {
+    /// @brief row used for show GUI row elements
+    class GUIRow {
 
     public:
         /// @brief constructor
-        Row(GNEUndoListDialog* undoListDialog, FXVerticalFrame* mainFrame);
+        GUIRow(GNEUndoListDialog* undoListDialog, FXVerticalFrame* mainFrame);
 
         /// @brief destructor
-        ~Row();
+        ~GUIRow();
 
         /// @brief update row
-        void update(const TemporalRow &row);
+        void update(const UndoListRow &row);
 
         /// @brief get index
         int getIndex() const;
@@ -145,7 +145,7 @@ protected:
     FXVerticalFrame* myRowFrame = nullptr;
 
     /// @brief vector with rows
-    std::vector<Row*> myRows;
+    std::vector<GUIRow*> myGUIRows;
 
 private:
     /// @brief Invalidated copy constructor.

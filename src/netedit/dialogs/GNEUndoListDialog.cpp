@@ -109,7 +109,7 @@ long
 GNEUndoListDialog::onCmdSelectRow(FXObject* obj, FXSelector, void*) {
     int index =0;
     // search button
-    for (const auto &row : myRows) {
+    for (const auto &row : myGUIRows) {
         if (row->getRadioButton() == obj) {
             index = row->getIndex();
         }
@@ -132,41 +132,41 @@ GNEUndoListDialog::onCmdSelectRow(FXObject* obj, FXSelector, void*) {
 
 void
 GNEUndoListDialog::updateList() {
-    // declare vector of temporal rows
-    std::vector<TemporalRow> temporalRows;
-    // declare redo iterator over U/ndoList
+    // declare vector of undoListRows
+    std::vector<UndoListRow> undoListRows;
+    // declare redo iterator over UndoList
     GNEUndoList::RedoIterator itRedo(myGNEApp->getUndoList());
     // declare index
     int index = 1;
-    // fill temporal rows rows with elements to redo (in inverse)
+    // fill undoListRows rows with elements to redo (in inverse)
     while (!itRedo.end()) {
-        temporalRows.push_back(TemporalRow(index, itRedo.getIcon(), itRedo.getDescription()));
+        undoListRows.push_back(UndoListRow(index, itRedo.getIcon(), itRedo.getDescription()));
         // update counters
         itRedo++;
         index++;
     }
-    // reverse temporal rows (redo)
-    std::reverse(temporalRows.begin(), temporalRows.end());
+    // reverse undoListRows rows (because redo are inserted inverted)
+    std::reverse(undoListRows.begin(), undoListRows.end());
     // declare undo iterator over UndoList
     GNEUndoList::UndoIterator itUndo(myGNEApp->getUndoList());
     // reset index
     index = 0;
-    // fill rows with elements to undo
+    // fill undoListRows with elements to undo
     while (!itUndo.end()) {
-        temporalRows.push_back(TemporalRow(index, itUndo.getIcon(), itUndo.getDescription()));
+        undoListRows.push_back(UndoListRow(index, itUndo.getIcon(), itUndo.getDescription()));
         // update counters
         itUndo++;
         index--;
     }
-    // fill rows
-    for (int i = 0; i < (int)temporalRows.size(); i++) {
-        myRows.at(i)->update(temporalRows.at(i));
-        if (temporalRows.at(i).index < 0) {
-            myRows.at(i)->setBlueBackground();
-        } else if (temporalRows.at(i).index > 0) {
-            myRows.at(i)->setRedBackground();
+    // fill GUIRows with undoListRows
+    for (int i = 0; i < (int)undoListRows.size(); i++) {
+        myGUIRows.at(i)->update(undoListRows.at(i));
+        if (undoListRows.at(i).index < 0) {
+            myGUIRows.at(i)->setBlueBackground();
+        } else if (undoListRows.at(i).index > 0) {
+            myGUIRows.at(i)->setRedBackground();
         } else {
-            myRows.at(i)->checkRow();
+            myGUIRows.at(i)->checkRow();
         }
     }
 }
@@ -175,20 +175,20 @@ GNEUndoListDialog::updateList() {
 void
 GNEUndoListDialog::recalcList() {
     // first clear rows
-    for (auto &row : myRows) {
-        delete row;
+    for (auto &GUIRow : myGUIRows) {
+        delete GUIRow;
     }
-    myRows.clear();
+    myGUIRows.clear();
     // declare redo iterator over undoList and fill rows
     GNEUndoList::RedoIterator itRedo(myGNEApp->getUndoList());
     while (!itRedo.end()) {
-        myRows.push_back(new Row(this, myRowFrame));
+        myGUIRows.push_back(new GUIRow(this, myRowFrame));
         itRedo++;
     }
     // declare undo iterator over undoList and fill rows
     GNEUndoList::UndoIterator itUndo(myGNEApp->getUndoList());
     while (!itUndo.end()) {
-        myRows.push_back(new Row(this, myRowFrame));
+        myGUIRows.push_back(new GUIRow(this, myRowFrame));
         itUndo++;
     }
     // recalc frame and update list
@@ -197,13 +197,13 @@ GNEUndoListDialog::recalcList() {
 }
 
 
-GNEUndoListDialog::TemporalRow::TemporalRow(const int index_, FXIcon* icon_, const std::string text_) :
+GNEUndoListDialog::UndoListRow::UndoListRow(const int index_, FXIcon* icon_, const std::string text_) :
     index(index_),
     icon(icon_),
     text(text_) {}
 
 
-GNEUndoListDialog::Row::Row(GNEUndoListDialog* undoListDialog, FXVerticalFrame* mainFrame) {
+GNEUndoListDialog::GUIRow::GUIRow(GNEUndoListDialog* undoListDialog, FXVerticalFrame* mainFrame) {
     FXHorizontalFrame* horizontalFrame = new FXHorizontalFrame(mainFrame, GUIDesignAuxiliarHorizontalFrame);
     // build radio button
     myRadioButton = new FXRadioButton(horizontalFrame, "", undoListDialog, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonSquared);
@@ -219,7 +219,7 @@ GNEUndoListDialog::Row::Row(GNEUndoListDialog* undoListDialog, FXVerticalFrame* 
 }
 
 
-GNEUndoListDialog::Row::~Row() {
+GNEUndoListDialog::GUIRow::~GUIRow() {
     delete myRadioButton;
     delete myIcon;
     delete myTextField;
@@ -227,7 +227,7 @@ GNEUndoListDialog::Row::~Row() {
 
 
 void 
-GNEUndoListDialog::Row::update(const TemporalRow &row) {
+GNEUndoListDialog::GUIRow::update(const UndoListRow &row) {
     myIndex = row.index;
     myIcon->setIcon(row.icon);
     myTextField->setText(row.text.c_str());
@@ -235,33 +235,33 @@ GNEUndoListDialog::Row::update(const TemporalRow &row) {
 
 
 int
-GNEUndoListDialog::Row::getIndex() const {
+GNEUndoListDialog::GUIRow::getIndex() const {
     return myIndex;
 }
 
 
 const FXRadioButton*
-GNEUndoListDialog::Row::getRadioButton() const {
+GNEUndoListDialog::GUIRow::getRadioButton() const {
     return myRadioButton;
 }
 
 
 void
-GNEUndoListDialog::Row::setRedBackground() {
+GNEUndoListDialog::GUIRow::setRedBackground() {
     myRadioButton->setCheck(FALSE);
     myRadioButton->setBackColor(FXRGBA(255, 213, 213, 255));
 }
 
 
 void
-GNEUndoListDialog::Row::setBlueBackground() {
+GNEUndoListDialog::GUIRow::setBlueBackground() {
     myRadioButton->setCheck(FALSE);
     myRadioButton->setBackColor(FXRGBA(210, 233, 255, 255));
 }
 
 
 void
-GNEUndoListDialog::Row::checkRow() {
+GNEUndoListDialog::GUIRow::checkRow() {
     myRadioButton->setCheck(TRUE);
     myRadioButton->setBackColor(FXRGBA(240, 255, 205, 255));
 }
