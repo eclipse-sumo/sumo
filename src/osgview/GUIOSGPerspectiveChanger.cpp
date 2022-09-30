@@ -42,20 +42,19 @@ GUIOSGPerspectiveChanger::GUIOSGPerspectiveChanger(
 GUIOSGPerspectiveChanger::~GUIOSGPerspectiveChanger() {}
 
 
-bool GUIOSGPerspectiveChanger::onLeftBtnRelease(void * data)
-{
+bool GUIOSGPerspectiveChanger::onLeftBtnRelease(void* /* data */) {
     updateViewport();
     return false;
 }
 
-bool GUIOSGPerspectiveChanger::onRightBtnRelease(void * data)
-{
+
+bool GUIOSGPerspectiveChanger::onRightBtnRelease(void* /* data */) {
     updateViewport();
     return false;
 }
 
-void GUIOSGPerspectiveChanger::onMouseMove(void * data)
-{
+
+void GUIOSGPerspectiveChanger::onMouseMove(void* /* data */) {
     //updateViewport();
 }
 
@@ -192,7 +191,7 @@ GUIOSGPerspectiveChanger::updateViewport() {
 
 
 void
-GUIOSGPerspectiveChanger::updateViewport(osg::Vec3d& lookFrom) {
+GUIOSGPerspectiveChanger::updateViewport(osg::Vec3d& /* lookFrom */) {
     osg::Vec3d bottomLeft = getPositionOnGround(-1.,-1.);
     osg::Vec3d topRight = getPositionOnGround(1., 1.);
     myViewPort.set(bottomLeft.x(), bottomLeft.y(), topRight.x(), topRight.y());
