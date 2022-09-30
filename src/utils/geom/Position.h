@@ -101,11 +101,18 @@ public:
         myZ = pos.myZ;
     }
 
-    /// @brief Multiplies both positions with the given value
+    /// @brief Multiplies position with the given value
     void mul(double val) {
         myX *= val;
         myY *= val;
         myZ *= val;
+    }
+
+    /// @brief Divides position with the given value
+    void div(double val) {
+        myX /= val;
+        myY /= val;
+        myZ /= val;
     }
 
     /// @brief Multiplies position with the given values
@@ -161,9 +168,14 @@ public:
         myZ -= pos.myZ;
     }
 
-    /// @brief
-    void norm2d() {
-        const double val = sqrt(myX * myX + myY * myY);
+    /// @brief Computes the length of the given vector
+    double length2D() const {
+        return sqrt(myX * myX + myY * myY);
+    }
+
+    /// @brief Normalizes the given vector
+    void norm2D() {
+        double val = length2D();
         myX /= val;
         myY /= val;
     }
@@ -190,6 +202,11 @@ public:
     /// @brief keep the direction but modify the length of the (location) vector to length * scalar
     Position operator*(double scalar) const {
         return Position(myX * scalar, myY * scalar, myZ * scalar);
+    }
+
+    /// @brief keep the direction but modify the length of the (location) vector to length / scalar
+    Position operator/(double scalar) const {
+        return Position(myX / scalar, myY / scalar, myZ / scalar);
     }
 
     /// @brief keep the direction but modify the length of the (location) vector to length + scalar
@@ -272,7 +289,7 @@ public:
     }
 
     /// @brief returns the dot product (scalar product) between this point and the second one
-    inline double dotProduct(const Position& pos) {
+    inline double dotProduct(const Position& pos) const {
         return myX * pos.myX + myY * pos.myY + myZ * pos.myZ;
     }
 
