@@ -2,6 +2,7 @@ read 3 busStops on 3 edges
 read 4 routes (4 unique) and 5 stops at 3 busStops
 processed 4 routes across 11 edges with 3 merging switches
 Found 5 stops after merging switches and 5 signals that guard switches
+ignoring stop at stop_c for parking vehicle t1 (00:00:50, 00:00:40)
 Found 0 conflicts
-Ignored 0 conflicts and 3 stops
+Ignored 1 conflicts and 1 stops
 Found 0 insertion conflicts
