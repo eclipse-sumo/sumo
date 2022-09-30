@@ -519,12 +519,12 @@ def markOvertaken(options, vehicleStopRoutes, stopRoutes):
     """
     mark stops that should not participate in constraint generation
     once a vehicle appears to be "overtaken" (based on inconsistent
-    arrival/until timing), all subsequent stops of that vehicle should no
-    longer be used for constraint generation
+    arrival/until timing or started/ended timing),
+    all subsequent stops of that vehicle should no longer be used for constraint generation.
     """
     for vehicle, stopRoute in vehicleStopRoutes.items():
-        overtaken = False
-        ignored = False
+        overtaken = False  # Whether subsequent stops should be ignored
+        ignored = False  # whether a warning was already given
         for i, (edgesBefore, stop) in enumerate(stopRoute):
             if not (stop.hasAttribute("arrival") and stop.hasAttribute("until")):
                 continue
@@ -598,13 +598,12 @@ def markOvertaken(options, vehicleStopRoutes, stopRoutes):
                 #        (stop.vehID, stop.busStop,
                 #            humanReadableTime(parseTime(stop.arrival)),
                 #            humanReadableTime(parseTime(stop.until))))
-                if not stop.hasAttribute("started"):
-                    stop.setAttribute("invalid", True)
-                    if not ignored:
-                        print("Vehicle %s was overtaken and starts to ignore schedule at stop %s (index %s)" %
-                              (stop.vehID, stop.busStop, i),
-                              file=sys.stderr)
-                        ignored = True
+                stop.setAttribute("invalid", True)
+                if not ignored:
+                    print("Vehicle %s was overtaken and starts to ignore schedule at stop %s (index %s)" %
+                          (stop.vehID, stop.busStop, i),
+                          file=sys.stderr)
+                    ignored = True
 
 
 def updateStartedEnded(options, net, stopEdges, stopRoutes, vehicleStopRoutes):
