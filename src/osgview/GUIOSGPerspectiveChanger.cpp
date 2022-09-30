@@ -122,7 +122,7 @@ GUIOSGPerspectiveChanger::centerTo(const Position& pos, double radius, bool /* a
     dir = lookAt - lookFrom;
     // create helper vectors // check if parallel to z
     if (dir * osg::Z_AXIS != 0) {
-        orthoDir = osg::X_AXIS;
+        orthoDir = -osg::X_AXIS;
         up = osg::Y_AXIS;
     }
     else {
