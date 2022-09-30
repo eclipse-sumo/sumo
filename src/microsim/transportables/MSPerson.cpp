@@ -167,14 +167,15 @@ MSPerson::isJammed() const {
 }
 
 double
-MSPerson::MSPersonStage_Walking::walkDistance() const {
+MSPerson::MSPersonStage_Walking::walkDistance(bool partial) const {
     double length = 0;
-    for (const MSEdge* edge : myRoute) {
-        length += edge->getLength();
+    auto endIt = partial && myArrived < 0 ? myRouteStep + 1: myRoute.end();
+    for (ConstMSEdgeVector::const_iterator i = myRoute.begin(); i != endIt; ++i) {
+        length += (*i)->getLength();
     }
     if (myRoute.size() > 1 && MSNet::getInstance()->getPersonControl().getMovementModel()->usingInternalLanes()) {
         // use lower bound for distance to pass the intersection
-        for (ConstMSEdgeVector::const_iterator i = myRoute.begin(); i != myRoute.end() - 1; ++i) {
+        for (ConstMSEdgeVector::const_iterator i = myRoute.begin(); i != endIt - 1; ++i) {
             const MSEdge* fromEdge = *i;
             const MSEdge* toEdge = *(i + 1);
             const MSLane* from = getSidewalk<MSEdge, MSLane>(fromEdge);
@@ -205,14 +206,15 @@ MSPerson::MSPersonStage_Walking::walkDistance() const {
     const int departBwdArrivalDir = MSPModel::canTraverse(MSPModel::BACKWARD, myRoute);
     const bool mayStartForward = departFwdArrivalDir != MSPModel::UNDEFINED_DIRECTION;
     const bool mayStartBackward = departBwdArrivalDir != MSPModel::UNDEFINED_DIRECTION;
+    double arrivalPos = partial && myArrived < 0 ? getEdgePos(SIMTIME) : myArrivalPos;
     const double lengthFwd = (length - myDepartPos - (
                                   departFwdArrivalDir == MSPModel::BACKWARD
-                                  ? myArrivalPos
-                                  : myRoute.back()->getLength() - myArrivalPos));
+                                  ? arrivalPos
+                                  : myRoute.back()->getLength() - arrivalPos));
     const double lengthBwd = (length - (myRoute.front()->getLength() - myDepartPos) - (
                                   departBwdArrivalDir == MSPModel::BACKWARD
-                                  ? myArrivalPos
-                                  : myRoute.back()->getLength() - myArrivalPos));
+                                  ? arrivalPos
+                                  : myRoute.back()->getLength() - arrivalPos));
     //std::cout << " length=" << length << " lengthFwd=" << lengthFwd << " lengthBwd=" << lengthBwd << " mayStartForward=" << mayStartForward << " mayStartBackward=" << mayStartBackward << "\n";
 
     if (myRoute.size() == 1) {
@@ -246,7 +248,7 @@ MSPerson::MSPersonStage_Walking::walkDistance() const {
 
 void
 MSPerson::MSPersonStage_Walking::tripInfoOutput(OutputDevice& os, const MSTransportable* const person) const {
-    const double distance = walkDistance();
+    const double distance = walkDistance(true);
     const double maxSpeed = getMaxSpeed(person);
     const SUMOTime duration = myArrived - myDeparted;
     SUMOTime timeLoss = myArrived == -1 ? 0 : duration - TIME2STEPS(distance / maxSpeed);
@@ -287,7 +289,11 @@ MSPerson::MSPersonStage_Walking::routeOutput(const bool /* isPerson */, OutputDe
         os.writeAttr(SUMO_ATTR_SPEED, mySpeed);
     }
     if (withRouteLength) {
-        os.writeAttr("routeLength", walkDistance());
+        if (myDeparted >= 0) {
+            os.writeAttr("routeLength", walkDistance(true));
+        } else {
+            os.writeAttr("routeLength", "-1");
+        }
     }
     if (myExitTimes != nullptr) {
         std::vector<std::string> exits;

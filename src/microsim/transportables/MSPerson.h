@@ -143,7 +143,7 @@ public:
 
     private:
         /// @brief compute total walking distance
-        double walkDistance() const;
+        double walkDistance(bool partial = false) const;
 
         /* @brief compute average speed if the total walking duration is given
          * @note Must be called when the previous stage changes myDepartPos from the default*/
