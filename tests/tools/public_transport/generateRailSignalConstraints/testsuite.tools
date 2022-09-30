@@ -32,3 +32,6 @@ redundant
 # integrate schedule information with post-facto timing information 
 # arrival,until + started,ended
 started_ended
+
+# constraints for use of bidirectional sections in opposite directions
+bidi
