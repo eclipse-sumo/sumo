@@ -328,7 +328,7 @@ class RandomTripGenerator:
                     destCoord = sink_edge.getToNode().getCoord()
                 coords = ([source_edge.getFromNode().getCoord()] +
                           [e.getFromNode().getCoord() for e in intermediate] +
-                        [destCoord])
+                          [destCoord])
                 distance = sum([euclidean(p, q)
                                 for p, q in zip(coords[:-1], coords[1:])])
                 if (distance >= min_dist

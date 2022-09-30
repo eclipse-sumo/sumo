@@ -120,10 +120,10 @@ def get_options(args=None):
     optParser.add_option("-u", "--url", default="arcgis", help="Download from the given tile server")
     optParser.add_option("-f", "--min-file-size", type=int, default=3000,
                          help="maximum number of tiles the output gets split into")
-    URL_SHORTCUTS= {
-        "arcgis" : "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile",
-        "mapquest" : "https://open.mapquestapi.com/staticmap/v4/getmap",
-        "google" : "https://maps.googleapis.com/maps/api/staticmap"
+    URL_SHORTCUTS = {
+        "arcgis": "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile",
+        "mapquest": "https://open.mapquestapi.com/staticmap/v4/getmap",
+        "google": "https://maps.googleapis.com/maps/api/staticmap"
     }
     options = optParser.parse_args(args=args)
     if not options.bbox and not options.net and not options.polygon:

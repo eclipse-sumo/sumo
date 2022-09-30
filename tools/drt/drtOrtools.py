@@ -18,7 +18,7 @@
 # @date    2021-12-16
 
 """
-Prototype online DRT algorithm using ortools via TraCi.
+Prototype online DRT algorithm using ortools via TraCI.
 """
 from __future__ import print_function
 
@@ -40,6 +40,7 @@ import sumolib  # noqa
 import traci  # noqa
 
 verbose = False
+
 
 def dispatch(reservations, fleet, time_limit, cost_type='distance', verbose=False):
     """Dispatch using ortools."""
@@ -112,7 +113,8 @@ def create_data_model(reservations, fleet, cost_type='distance', verbose=False):
 
     # pd_nodes = list([from_node, to_node, is_new])
     # start from_node with 1 (0 is for depot)
-    pd_nodes = [[ii+1, n_dp_reservations+ii+1, (dp_reservations[ii].state==1 | dp_reservations[ii].state==2)] for ii in range(0, n_dp_reservations)]
+    pd_nodes = [[ii+1, n_dp_reservations+ii+1, (dp_reservations[ii].state == 1 | dp_reservations[ii].state == 2)]
+                for ii in range(0, n_dp_reservations)]
     # do_node = list(dropoff_node)
     do_nodes = [ii + 1 + 2*n_dp_reservations for ii in range(0, n_do_reservations)]
     ii = 1 + 2*n_dp_reservations + n_do_reservations
@@ -190,13 +192,9 @@ def solution_by_requests(solution_ortools, reservations, data, verbose=False):
     """Translate solution from ortools to SUMO requests."""
     if solution_ortools is None:
         return None
-    
-    dp_reservations = [res for res in reservations if res.state != 8]
-    n_dp_reservations = len(dp_reservations)
-    do_reservations = [res for res in reservations if res.state == 8]
-    n_do_reservations = len(do_reservations)
 
-    
+    dp_reservations = [res for res in reservations if res.state != 8]
+
     route2request = {}
     for i_request, [i_pickup, i_delivery, _] in enumerate(data["pickups_deliveries"]):
         route2request[i_pickup] = dp_reservations[i_request].id
@@ -204,7 +202,7 @@ def solution_by_requests(solution_ortools, reservations, data, verbose=False):
     for dropoffs in data['dropoffs']:  # for each vehicle
         for do in dropoffs:
             route2request[do[0]] = do[1]
-        
+
     solution_requests = {}
     for key in solution_ortools:  # key is the vehicle number (0,1,...)
         solution = [[], []]  # request order and costs

@@ -51,8 +51,7 @@ def get_solution(data, manager, routing, solution, verbose):
             route.append(current_node)
             previous_index = index
             index = solution.Value(routing.NextVar(index))
-            route_cost += routing.GetArcCostForVehicle(
-                    previous_index, index, vehicle_id)
+            route_cost += routing.GetArcCostForVehicle(previous_index, index, vehicle_id)
         last_node = manager.IndexToNode(index)
         route.append(last_node)
         if verbose:
@@ -112,13 +111,14 @@ def main(data, time_limit_seconds=10, verbose=False):
         pickup_index = manager.NodeToIndex(request[0])
         delivery_index = manager.NodeToIndex(request[1])
         routing.AddPickupAndDelivery(pickup_index, delivery_index)  # helps the solver
-        routing.solver().Add(
-            routing.VehicleVar(pickup_index) == routing.VehicleVar(delivery_index))  # use same veh for pickup and dropoff
+        # use same veh for pickup and dropoff
+        routing.solver().Add(routing.VehicleVar(pickup_index) == routing.VehicleVar(delivery_index))
         routing.solver().Add(
             distance_dimension.CumulVar(pickup_index) <=
             distance_dimension.CumulVar(delivery_index))  # define order: first pickup then dropoff
-        if request[2] == True:  # is that a new request?
-            routing.AddDisjunction([pickup_index, delivery_index], 100_000, 2)  # allows to reject the order but gives penalty
+        if request[2]:  # is that a new request?
+            # allows to reject the order but gives penalty
+            routing.AddDisjunction([pickup_index, delivery_index], 100_000, 2)
 
     # Force the vehicle to drop-off the reservations it already picked up
     if verbose:
@@ -132,13 +132,13 @@ def main(data, time_limit_seconds=10, verbose=False):
             veh_node = data['starts'][veh_index]
             if verbose:
                 print('vehicle %s (%s), dropoff %s (%s), res_id %s' % (veh_index, veh_node, do[0], index, do[1]))
-            #routing.VehicleVar(index).SetValues([-1,veh_index])
-            routing.SetAllowedVehiclesForIndex([veh_index],index)
-
+            # routing.VehicleVar(index).SetValues([-1,veh_index])
+            routing.SetAllowedVehiclesForIndex([veh_index], index)
 
     # Add Capacity constraint.
     if verbose:
         print(' Add capacity constraints...')
+
     def demand_callback(from_index):
         """Returns the demand of the node."""
         # Convert from routing variable Index to demands NodeIndex.

@@ -550,10 +550,10 @@ def markOvertaken(options, vehicleStopRoutes, stopRoutes):
                     ended2 = parseTime(stop2.ended) if stop2.hasAttribute("ended") else None
 
                     swappedEnded = (ended2 is not None
-                            # vehicle had not left but it's schedule follower had
-                            and (ended is None
-                                # vehicle left after schedule follower
-                                or ended2 < ended))
+                                    # vehicle had not left but it's schedule follower had
+                                    and (ended is None
+                                         # vehicle left after schedule follower
+                                         or ended2 < ended))
 
                     # if parking stops have the same until-time their depart order
                     # is undefined so we could get deadlocks
