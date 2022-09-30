@@ -219,7 +219,7 @@ void MSPModel_Remote::clearState() {
 
 void
 MSPModel_Remote::initialize() {
-	myGeometryBuilder = JPS_GeometryBuilder_Create();
+    myGeometryBuilder = JPS_GeometryBuilder_Create();
     myAreasBuilder = JPS_AreasBuilder_Create();
 
 #ifdef DEBUG
@@ -230,12 +230,22 @@ MSPModel_Remote::initialize() {
 	for (const MSEdge* const edge : (myNet->getEdgeControl()).getEdges()) {
         const MSLane* lane = getSidewalk<MSEdge, MSLane>(edge);
         if (lane) {
-            PositionVector shape = lane->getShape();
             // Apparently CGAL expects polygons to be oriented CCW.
+            PositionVector shape = lane->getShape();
             if (shape.isClockwiseOriented()) {
                 shape = shape.reverse();
             }
+            assert(!shape.isClockwiseOriented());
 
+            /* The code below is in theory more robust as there would be a guarantee that
+               the shape is CCW-oriented. However at the moment the sort algorithm doesn't
+               work for non-convex polygons.
+               PositionVector shape = lane->getShape();
+               shape.sortAsPolyCWByAngle();
+               shape = shape.reverse();
+               assert(!shape.isClockwiseOriented());
+            */
+            
             std::vector<double> lanePolygonCoordinates;
 
             if (edge->isWalkingArea()) {
