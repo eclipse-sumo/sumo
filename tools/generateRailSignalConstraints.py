@@ -523,8 +523,11 @@ def markOvertaken(options, vehicleStopRoutes, stopRoutes):
     all subsequent stops of that vehicle should no longer be used for constraint generation.
     """
     for vehicle, stopRoute in vehicleStopRoutes.items():
-        overtaken = False  # Whether subsequent stops should be ignored
-        ignored = False  # whether a warning was already given
+        # Count number of stops after having been overtaken
+        overtaken = 0
+        # whether a warning was already given
+        ignored = False
+
         for i, (edgesBefore, stop) in enumerate(stopRoute):
             if not (stop.hasAttribute("arrival") and stop.hasAttribute("until")):
                 continue
@@ -565,7 +568,10 @@ def markOvertaken(options, vehicleStopRoutes, stopRoutes):
                                      # vehicle arrived after schedule follower
                                      or started2 < started)) or
                             swappedEnded)):
-                        overtaken = True
+                        # ignore stops with inconsistency in the original schedule
+                        # immediately but generate constraints for the stop
+                        # where 'actual' overtaking was detected (and only ignore the subsequent stops)
+                        overtaken = 2 if started is None else 1
                         ignored = started is None
                         ignoredInfo = " and ignored afterwards" if started is None else ""
                         print(("Vehicle %s %s overtaken by %s %s " +
@@ -576,7 +582,7 @@ def markOvertaken(options, vehicleStopRoutes, stopRoutes):
                               file=sys.stderr)
                         break
                     elif hasParking and (until == until2 or (ended is not None and ended == ended2)):
-                        overtaken = True
+                        overtaken = 1
                         ignored = True
                         if stop.vehID < stop2.vehID:
                             # only warn once
@@ -593,7 +599,11 @@ def markOvertaken(options, vehicleStopRoutes, stopRoutes):
                                 file=sys.stderr)
                         break
 
-            if overtaken:
+            # the stop where overtaking was detected can still be used for
+            # signal switching but subsequent stops cannot (as they might
+            # involve a mix of scheduled timeing (arrival/until) and actual
+            # timings (started/ende)
+            if overtaken > 1:
                 # print("invalid veh=%s stop=%s arrival=%s until=%s" %
                 #        (stop.vehID, stop.busStop,
                 #            humanReadableTime(parseTime(stop.arrival)),
@@ -604,6 +614,9 @@ def markOvertaken(options, vehicleStopRoutes, stopRoutes):
                           (stop.vehID, stop.busStop, i),
                           file=sys.stderr)
                     ignored = True
+
+            if overtaken > 0:
+                overtaken += 1
 
 
 def updateStartedEnded(options, net, stopEdges, stopRoutes, vehicleStopRoutes):
