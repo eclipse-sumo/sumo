@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-09-30 09:56:12 by Eclipse SUMO sumo Version v1_14_1+1361-a92df19
+<!-- generated on 2022-09-30 10:26:20 by Eclipse SUMO sumo Version v1_14_1+1362-ecc619b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -53,7 +53,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </person>
 
     <person id="p1" depart="0.00">
-        <walk edges="end middle beg" routeLength="1250.00" exitTimes="1.00 -1 -1" started="0.00" ended="-1"/>
+        <walk edges="end middle beg" routeLength="874.02" exitTimes="1.00 -1 -1" started="0.00" ended="-1"/>
     </person>
 
 </routes>
