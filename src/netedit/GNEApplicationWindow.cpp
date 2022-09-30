@@ -2524,10 +2524,6 @@ GNEApplicationWindow::onCmdUndo(FXObject*, FXSelector, void*) {
         onUpdRedo(myEditMenuCommands.redoLastChange, 0, 0);
         // update toolbar undo-redo buttons
         myViewNet->getViewParent()->updateUndoRedoButtons();
-        // check if update undoRedo dialog
-        if (myUndoListDialog->shown()) {
-            myUndoListDialog->updateList();
-        }
         return 1;
     }
 }
@@ -2560,10 +2556,6 @@ GNEApplicationWindow::onCmdRedo(FXObject*, FXSelector, void*) {
         onUpdRedo(myEditMenuCommands.redoLastChange, 0, 0);
         // update toolbar undo-redo buttons
         myViewNet->getViewParent()->updateUndoRedoButtons();
-        // check if update undoRedo dialog
-        if (myUndoListDialog->shown()) {
-            myUndoListDialog->updateList();
-        }
         return 1;
     }
 }
@@ -2575,7 +2567,7 @@ GNEApplicationWindow::onCmdOpenUndoListDialog(FXObject*, FXSelector, void*) {
     if (myUndoListDialog->shown()) {
         myUndoListDialog->setFocus();
     } else {
-        myUndoListDialog->open();
+        myUndoListDialog->show();
     }
     return 1;
 }

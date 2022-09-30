@@ -273,13 +273,6 @@ GNEUndoList::end() {
         // Delete bottom group
         delete change;
     }
-    // check if update undoRedo dialog
-    if (myGNEApplicationWindowParent->getViewNet()) {
-        const auto& undoRedoDialog = myGNEApplicationWindowParent->getViewNet()->getViewParent()->getGNEAppWindows()->getUndoListDialog();
-        if (undoRedoDialog->shown()) {
-            undoRedoDialog->updateList();
-        }
-    }
 }
 
 

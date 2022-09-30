@@ -49,13 +49,13 @@ public:
     /// @brief destructor
     ~GNEUndoListDialog();
 
-    /// @brief open window
-    void open();
+    /// @brief show window
+    void show();
 
     /// @brief hide window
     void hide();
 
-    /// @brief shown
+    /// @brief check if dialog is shown
     bool shown() const;
 
     /// @brief Move the focus to this window
@@ -71,25 +71,31 @@ public:
 
     /// @}
 
-    /// @brief update data table
-    void updateList();
-
 protected:
     /// @brief FOX needs this
     FOX_CONSTRUCTOR(GNEUndoListDialog)
+
+    /// @brief update list destroying and creating rows
+    void updateList();
+
+    /// @brief recalc list destroying and creating rows
+    void recalcList();
 
     /// @brief class row
     class Row {
 
     public:
         /// @brief constructor
-        Row(GNEUndoListDialog* undoListDialog, FXVerticalFrame* mainFrame, const int index, FXIcon* icon, const std::string& text);
+        Row(GNEUndoListDialog* undoListDialog, FXVerticalFrame* mainFrame);
 
         /// @brief destructor
         ~Row();
 
+        /// @brief update row
+        void update(int index, FXIcon* rowIcon, const std::string& text);
+
         /// @brief get index
-        const int getIndex() const;
+        int getIndex() const;
 
         /// @brief get radio button (read only)
         const FXRadioButton* getRadioButton() const;
@@ -100,21 +106,21 @@ protected:
         /// @brief set blue blackground
         void setBlueBackground();
 
-        /// @brief enable row and set background green
-        void enableRow();
+        /// @brief check row and set background green
+        void checkRow();
 
     private:
         /// @brief radioButton
         FXRadioButton* myRadioButton;
 
         /// @brief index
-        const int myIndex;
+        int myIndex = 0;
 
         /// @brief label with icon
-        FXLabel* myIcon;
+        FXLabel* myIcon = nullptr;
         
         /// @brief textField
-        FXTextField* myTextField;
+        FXTextField* myTextField = nullptr;
     };
 
     /// @brief pointer to GNEApplicationWindow
