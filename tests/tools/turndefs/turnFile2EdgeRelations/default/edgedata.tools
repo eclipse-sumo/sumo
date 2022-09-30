@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-07-07 11:19:40.412058 by turnFile2EdgeRelations.py v1_13_0+1343-240e5d48340
+<!-- generated on 2022-09-30 23:08:02.451208 by turnFile2EdgeRelations.py v1_14_1+1390-93dfb33
   options: -t input_turns.xml -o edgedata.xml <doubleminus>turn-attribute count
 -->
 
@@ -145,4 +145,4 @@
         <edgeRelation from="-27.80.00" to="27" count="2"/>
         <edgeRelation from="-27.80.00" to="-3" count="17"/>
     </interval>
-</edgeRelations>
+</data>
