@@ -180,13 +180,14 @@ GUIOSGView::GUIOSGView(
     myViewer->addEventHandler(new osgViewer::StatsHandler());
     myViewer->setSceneData(myRoot);
     myViewer->setCameraManipulator(myCameraManipulator);
+
     osg::Vec3d lookFrom, lookAt, up;
     myCameraManipulator->getHomePosition(lookFrom, lookAt, up);
-    double z = lookFrom[2];
-    lookFrom[2] = -lookFrom.y();
-    lookFrom[1] = z;
+    lookFrom = lookAt + osg::Z_AXIS;
     myCameraManipulator->setHomePosition(lookFrom, lookAt, up);
     myViewer->home();
+    recenterView();
+
     getApp()->addChore(this, MID_CHORE);
 }
 
