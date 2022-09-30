@@ -323,7 +323,7 @@ NBPTStopCont::cleanupDeleted(NBEdgeCont& cont) {
 
 
 void
-NBPTStopCont::addEdges2Keep(const OptionsCont& oc, std::set<std::string>& into) {
+NBPTStopCont::addEdges2Keep(const OptionsCont& /* oc */, std::set<std::string>& into) {
     for (auto stop : myPTStops) {
         into.insert(stop.second->getEdgeId());
     }
