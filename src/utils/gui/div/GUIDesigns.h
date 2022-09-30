@@ -652,10 +652,6 @@ class MFXMenuCheckIcon;
 /// @brief treeListDinamic used in Inspector frame
 #define GUIDesignTreeListDinamic                (TREELIST_SHOWS_LINES | TREELIST_SHOWS_BOXES | TREELIST_SINGLESELECT | FRAME_SUNKEN | FRAME_THICK | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT)
 
-/// @brief treeListDinamic used in undoList
-#define GUIDesignTreeListDinamicExpandHeight    (TREELIST_SHOWS_LINES | TREELIST_SHOWS_BOXES | TREELIST_SINGLESELECT | FRAME_SUNKEN | FRAME_THICK | LAYOUT_FILL_X | LAYOUT_FILL_Y)
-
-
 /// @}
 
 

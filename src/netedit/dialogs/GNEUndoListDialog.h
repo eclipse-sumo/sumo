@@ -21,6 +21,7 @@
 #include <config.h>
 
 #include <utils/foxtools/MFXTreeListDynamic.h>
+#include <utils/gui/div/GUIDesigns.h>
 
 
 // ===========================================================================
@@ -78,11 +79,45 @@ protected:
     /// @brief FOX needs this
     FOX_CONSTRUCTOR(GNEUndoListDialog)
 
+    /// @brief class row
+    class Row {
+
+    public:
+        /// @brief constructor
+        Row(GNEUndoListDialog *undoListDialog, FXVerticalFrame* mainFrame, FXIcon* icon, const std::string &text) {
+            FXHorizontalFrame* horizontalFrame = new FXHorizontalFrame(mainFrame, GUIDesignAuxiliarHorizontalFrame);
+            // build icon label
+            myIcon = new FXLabel(horizontalFrame, "", icon, GUIDesignLabelIconThick);
+            // build text label
+            myText = new FXLabel(horizontalFrame, text.c_str(), nullptr, GUIDesignLabelLeftThick);
+            // create elements
+            horizontalFrame->create();
+            myIcon->create();
+            myText->create();
+        }
+
+        /// @brief destructor
+        ~Row() {
+            delete myIcon;
+            delete myText;
+        }
+
+    private:
+        /// @brief label with icon
+        FXLabel* myIcon;
+        
+        /// @brief label with text
+        FXLabel* myText;
+    };
+
     /// @brief pointer to GNEApplicationWindow
     GNEApplicationWindow* myGNEApp;
 
-    /// @brief tree list dynamic to show the elements to erase
-    MFXTreeListDynamic* myTreeListDynamic;
+    /// @brief frame for rows
+    FXVerticalFrame* myRowFrame = nullptr;
+
+    /// @brief vector with rows
+    std::vector<Row*> myRows;
 
     /// @brief index for last undo element
     int myLastUndoElement = -1;
