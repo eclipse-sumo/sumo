@@ -43,16 +43,15 @@ GNEChange_DataInterval::GNEChange_DataInterval(GNEDataInterval* dataInterval, bo
 
 GNEChange_DataInterval::~GNEChange_DataInterval() {
     myDataInterval->decRef("GNEChange_DataInterval");
-    if (myDataInterval->unreferenced()) {
+    if (myDataInterval->unreferenced() &&
+        myDataInterval->getNet()->getAttributeCarriers()->retrieveDataSet(myDataSetParent, false) &&
+        myDataInterval->getNet()->getAttributeCarriers()->retrieveDataInterval(myDataInterval, false)) {
         // show extra information for tests
         WRITE_DEBUG("Deleting unreferenced " + myDataInterval->getTagStr() + " [" +
                     myDataInterval->getAttribute(SUMO_ATTR_BEGIN) + ", " +
                     myDataInterval->getAttribute(SUMO_ATTR_END) + "] in ~GNEChange_DataInterval()");
         // check that data interval don't exist
-        if (myDataInterval->getNet()->getAttributeCarriers()->dataSetExist(myDataSetParent) &&
-                myDataSetParent->dataIntervalChildrenExist(myDataInterval)) {
-            myDataSetParent->removeDataIntervalChild(myDataInterval);
-        }
+        myDataSetParent->removeDataIntervalChild(myDataInterval);
         // delete dataInterval
         delete myDataInterval;
     }

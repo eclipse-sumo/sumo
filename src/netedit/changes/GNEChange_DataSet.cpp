@@ -43,13 +43,12 @@ GNEChange_DataSet::GNEChange_DataSet(GNEDataSet* dataSet, bool forward) :
 GNEChange_DataSet::~GNEChange_DataSet() {
     assert(myDataSet);
     myDataSet->decRef("GNEChange_DataSet");
-    if (myDataSet->unreferenced()) {
+    if (myDataSet->unreferenced() &&
+        myDataSet->getNet()->getAttributeCarriers()->retrieveDataSet(myDataSet, false)) {
         // show extra information for tests
         WRITE_DEBUG("Deleting unreferenced " + myDataSet->getTagStr() + " '" + myDataSet->getID() + "'");
         // make sure that element isn't in net before removing
-        if (myDataSet->getNet()->getAttributeCarriers()->dataSetExist(myDataSet)) {
-            myDataSet->getNet()->getAttributeCarriers()->deleteDataSet(myDataSet);
-        }
+        myDataSet->getNet()->getAttributeCarriers()->deleteDataSet(myDataSet);
         // delete data set
         delete myDataSet;
     }
