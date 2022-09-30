@@ -2997,14 +2997,14 @@ MSDevice_SSM::findSurroundingVehicles(const MSVehicle& veh, double range, FoeInf
     // current lane in loop below
     const MSLane* lane = veh.getLane();
     const MSEdge* egoEdge = &(lane->getEdge());
+    const bool isOpposite = veh.getLaneChangeModel().isOpposite();
     std::vector<MSLane*>::const_iterator laneIter = egoBestLanes.begin();
-    assert(lane->isInternal() || lane == *laneIter);
+    assert(lane->isInternal() || lane == *laneIter || isOpposite);
     assert(lane != 0);
     if (lane->isInternal() && egoBestLanes[0] != nullptr) { // outdated BestLanes, see #11336
         return;
     }
 
-    const bool isOpposite = veh.getLaneChangeModel().isOpposite();
     if (isOpposite) {
         for (int i = 0; i < (int)egoBestLanes.size(); i++) {
             if (egoBestLanes[i] != nullptr && egoBestLanes[i]->getEdge().getOppositeEdge() != nullptr) {
