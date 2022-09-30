@@ -1,6 +1,3 @@
-# intersection connected with bidi-edges,  Bike runs without deceleration until being very close to a ped within a crossing.
-emergency_braking_late_slow_down_within_crossing
-
 # intersection connected with bidi-edges only for bike and pedestrian,  bike has a depart delay while a pedestrian departs at the same time
 bikeDepartDelay
 

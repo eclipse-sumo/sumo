@@ -64,3 +64,6 @@ hangAtIntersectionWithBidi
 # intersection connected with bidi-edges and walking path, 1 shuttle (customized vehicle). 1 bike and 1 pedestrian
 # Check if the bike coming from the opposite side and the shuttle dangle until being teleported when they meet each other at the intersection (breakpoint: 508).
 dangleAtIntersectionWithBidi
+
+# intersection connected with bidi-edges,  Bike runs without deceleration until being very close to a ped within a crossing.
+emergency_braking_late_slow_down_within_crossing
