@@ -66,9 +66,6 @@ public:
     /// @brief event after press close button
     long onCmdClose(FXObject*, FXSelector, void*);
 
-    /// @brief event after update command
-    long onCmdUpdate(FXObject*, FXSelector, void*);
-
     /// @brief event after select row
     long onCmdSelectRow(FXObject*, FXSelector, void*);
 
@@ -91,8 +88,17 @@ protected:
         /// @brief destructor
         ~Row();
 
-        /// @brief get radio button
-        FXRadioButton* getRadioButton() const;
+        /// @brief get radio button (read only)
+        const FXRadioButton* getRadioButton() const;
+
+        /// @brief set red background
+        void setRedBackground();
+
+        /// @brief set blue blackground
+        void setBlueBackground();
+
+        /// @brief enable row and set background green
+        void enableRow();
 
     private:
         /// @brief radioButton

@@ -37,7 +37,6 @@
 
 FXDEFMAP(GNEUndoListDialog) GNEUndoListDialogMap[] = {
     FXMAPFUNC(SEL_CLOSE,    0,                      GNEUndoListDialog::onCmdClose),
-    FXMAPFUNC(SEL_UPDATE,   0,                      GNEUndoListDialog::onCmdUpdate),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_ACCEPT,  GNEUndoListDialog::onCmdClose),
     FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_OPERATION,  GNEUndoListDialog::onCmdSelectRow),
 };
@@ -110,40 +109,19 @@ GNEUndoListDialog::onCmdClose(FXObject*, FXSelector, void*) {
 
 
 long
-GNEUndoListDialog::onCmdUpdate(FXObject*, FXSelector, void*) {
-/*
-    // first check if shown
-    if (shown() && (myLastUndoElement != myTreeListDynamic->getSelectedIndex())) {
-        // set colors
-        for (int i = 0; i < myTreeListDynamic->getSelectedIndex(); i++) {
-            myTreeListDynamic->getItem(i)->setTextColor(FXRGB(255, 0, 0));
-        }
-        for (int i = myTreeListDynamic->getSelectedIndex(); i < myTreeListDynamic->getNumItems(); i++) {
-            myTreeListDynamic->getItem(i)->setTextColor(FXRGB(0, 0, 0));
-        }
-        myTreeListDynamic->update();
-        // undo/redo
-        for (int i = myLastUndoElement; i < myTreeListDynamic->getSelectedIndex(); i++) {
-            myGNEApp->getUndoList()->undo();
-        }
-        for (int i = myLastUndoElement; i >= myTreeListDynamic->getSelectedIndex(); i--) {
-            myGNEApp->getUndoList()->redo();
-        }
-        myLastUndoElement = myTreeListDynamic->getSelectedIndex();
-    }
-*/
-    return 0;
-}
-
-
-long
 GNEUndoListDialog::onCmdSelectRow(FXObject* obj, FXSelector, void*) {
+    int index = -1;
     // search button
     for (int i = 0; i < (int)myRows.size(); i++) {
         if (myRows.at(i)->getRadioButton() == obj) {
-            myRows.at(i)->getRadioButton()->setCheck(TRUE);
+            index = i;
+            myRows.at(i)->enableRow();
         } else {
-            myRows.at(i)->getRadioButton()->setCheck(FALSE);
+            if (index == -1) {
+                myRows.at(i)->setBlueBackground();
+            } else {
+                myRows.at(i)->setRedBackground();
+            }
         }
     }
     return 1;
@@ -163,8 +141,10 @@ GNEUndoListDialog::updateList() {
     GNEUndoList::RedoIterator itRedo(myGNEApp->getUndoList());
     // fill rows with elements to redo
     while (!itRedo.end()) {
-        // create row and insertt
-        myRows.push_back(new Row(this, myRowFrame, itRedo.getIcon(), itRedo.getDescription()));
+        // create red row and insert
+        auto row = new Row(this, myRowFrame, itRedo.getIcon(), itRedo.getDescription());
+        row->setBlueBackground();
+        myRows.push_back(row);
         itRedo++;
     }
     // declare undo iterator over UndoList
@@ -172,7 +152,9 @@ GNEUndoListDialog::updateList() {
     // fill rows with elements to undo
     while (!itUndo.end()) {
         // create row and insert it
-        myRows.push_back(new Row(this, myRowFrame, itUndo.getIcon(), itUndo.getDescription()));
+        auto row = new Row(this, myRowFrame, itUndo.getIcon(), itUndo.getDescription());
+        row->setRedBackground();
+        myRows.push_back(row);
         // mark element
         if (currentUndoElement == nullptr) {
             currentUndoElement = myRows.back();
@@ -180,7 +162,7 @@ GNEUndoListDialog::updateList() {
         itUndo++;
     }
     if (currentUndoElement) {
-        currentUndoElement->getRadioButton()->setCheck(TRUE);
+        currentUndoElement->enableRow();
     }
     myRowFrame->recalc();
 }
@@ -210,7 +192,29 @@ GNEUndoListDialog::Row::~Row() {
 }
 
 
-FXRadioButton*
+const FXRadioButton*
 GNEUndoListDialog::Row::getRadioButton() const {
     return myRadioButton;
 }
+
+
+void
+GNEUndoListDialog::Row::setRedBackground() {
+    myRadioButton->setCheck(FALSE);
+    myRadioButton->setBackColor(FXRGB(255, 0, 0));
+}
+
+
+void
+GNEUndoListDialog::Row::setBlueBackground() {
+    myRadioButton->setCheck(FALSE);
+    myRadioButton->setBackColor(FXRGB(0, 0, 255));
+}
+
+
+void
+GNEUndoListDialog::Row::enableRow() {
+    myRadioButton->setCheck(TRUE);
+    myRadioButton->setBackColor(FXRGB(0, 255, 0));
+}
+
