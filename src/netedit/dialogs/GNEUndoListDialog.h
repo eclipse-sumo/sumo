@@ -81,6 +81,21 @@ protected:
     /// @brief recalc list destroying and creating rows
     void recalcList();
 
+    /// @struct class for keep every row value
+    struct TemporalRow {
+        /// @brief constructor
+        TemporalRow(const int index_, FXIcon* icon_, const std::string text_);
+
+        /// @brief index uses for count undo/redos
+        const int index;
+
+        /// @brief icon associated with undo/redo operation
+        FXIcon* icon;
+
+        /// @brief definition of undo/redo operation
+        const std::string text;
+    };
+
     /// @brief class row
     class Row {
 
@@ -92,7 +107,7 @@ protected:
         ~Row();
 
         /// @brief update row
-        void update(int index, FXIcon* rowIcon, const std::string& text);
+        void update(const TemporalRow &row);
 
         /// @brief get index
         int getIndex() const;
@@ -133,13 +148,6 @@ protected:
     std::vector<Row*> myRows;
 
 private:
-    /// @struct struct needed for updating rows
-    struct TemporalRow {
-        int index;
-        FXIcon* icon;
-        std::string text;
-    };
-
     /// @brief Invalidated copy constructor.
     GNEUndoListDialog(const GNEUndoListDialog&) = delete;
 

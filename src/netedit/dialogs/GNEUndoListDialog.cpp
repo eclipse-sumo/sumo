@@ -140,11 +140,7 @@ GNEUndoListDialog::updateList() {
     int index = 1;
     // fill temporal rows rows with elements to redo (in inverse)
     while (!itRedo.end()) {
-        TemporalRow temporalRow;
-        temporalRow.index = index;
-        temporalRow.icon = itRedo.getIcon();
-        temporalRow.text = itRedo.getDescription();
-        temporalRows.push_back(temporalRow);
+        temporalRows.push_back(TemporalRow(index, itRedo.getIcon(), itRedo.getDescription()));
         // update counters
         itRedo++;
         index++;
@@ -157,18 +153,14 @@ GNEUndoListDialog::updateList() {
     index = 0;
     // fill rows with elements to undo
     while (!itUndo.end()) {
-        TemporalRow temporalRow;
-        temporalRow.index = index;
-        temporalRow.icon = itUndo.getIcon();
-        temporalRow.text = itUndo.getDescription();
-        temporalRows.push_back(temporalRow);
+        temporalRows.push_back(TemporalRow(index, itUndo.getIcon(), itUndo.getDescription()));
         // update counters
         itUndo++;
         index--;
     }
     // fill rows
     for (int i = 0; i < (int)temporalRows.size(); i++) {
-        myRows.at(i)->update(temporalRows.at(i).index, temporalRows.at(i).icon, temporalRows.at(i).text);
+        myRows.at(i)->update(temporalRows.at(i));
         if (temporalRows.at(i).index < 0) {
             myRows.at(i)->setBlueBackground();
         } else if (temporalRows.at(i).index > 0) {
@@ -205,6 +197,12 @@ GNEUndoListDialog::recalcList() {
 }
 
 
+GNEUndoListDialog::TemporalRow::TemporalRow(const int index_, FXIcon* icon_, const std::string text_) :
+    index(index_),
+    icon(icon_),
+    text(text_) {}
+
+
 GNEUndoListDialog::Row::Row(GNEUndoListDialog* undoListDialog, FXVerticalFrame* mainFrame) {
     FXHorizontalFrame* horizontalFrame = new FXHorizontalFrame(mainFrame, GUIDesignAuxiliarHorizontalFrame);
     // build radio button
@@ -229,10 +227,10 @@ GNEUndoListDialog::Row::~Row() {
 
 
 void 
-GNEUndoListDialog::Row::update(int index, FXIcon* rowIcon, const std::string& text) {
-    myIndex = index;
-    myIcon->setIcon(rowIcon);
-    myTextField->setText(text.c_str());
+GNEUndoListDialog::Row::update(const TemporalRow &row) {
+    myIndex = row.index;
+    myIcon->setIcon(row.icon);
+    myTextField->setText(row.text.c_str());
 }
 
 
@@ -267,4 +265,3 @@ GNEUndoListDialog::Row::checkRow() {
     myRadioButton->setCheck(TRUE);
     myRadioButton->setBackColor(FXRGBA(240, 255, 205, 255));
 }
-
