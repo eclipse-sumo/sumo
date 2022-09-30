@@ -96,7 +96,7 @@ OptionsIO::getOptions(const bool commandLineOnly) {
     }
     // preparse the options
     //  (maybe another configuration file was chosen)
-    if (!OptionsParser::parse(myArgC, myArgV)) {
+    if (!OptionsParser::parse(myArgC, myArgV, true)) {
         throw ProcessError("Could not parse commandline options.");
     }
     if (!commandLineOnly || OptionsCont::getOptions().isSet("save-configuration", false)) {
@@ -109,42 +109,41 @@ OptionsIO::getOptions(const bool commandLineOnly) {
 void
 OptionsIO::loadConfiguration() {
     OptionsCont& oc = OptionsCont::getOptions();
-    if (!oc.exists("configuration-file") || !oc.isSet("configuration-file")) {
-        return;
-    }
-    const std::string path = oc.getString("configuration-file");
-    if (!FileHelpers::isReadable(path)) {
-        throw ProcessError("Could not access configuration '" + oc.getString("configuration-file") + "'.");
-    }
-    const bool verbose = !oc.exists("verbose") || oc.getBool("verbose");
-    if (verbose) {
-        PROGRESS_BEGIN_MESSAGE("Loading configuration");
-    }
-    oc.resetWritable();
-    // build parser
-    XERCES_CPP_NAMESPACE::SAXParser parser;
-    parser.setValidationScheme(XERCES_CPP_NAMESPACE::SAXParser::Val_Never);
-    parser.setDisableDefaultEntityResolution(true);
-    // start the parsing
-    OptionsLoader handler;
-    try {
-        parser.setDocumentHandler(&handler);
-        parser.setErrorHandler(&handler);
-        parser.parse(StringUtils::transcodeToLocal(path).c_str());
-        if (handler.errorOccurred()) {
-            throw ProcessError("Could not load configuration '" + path + "'.");
+    if (oc.exists("configuration-file") && oc.isSet("configuration-file")) {
+        const std::string path = oc.getString("configuration-file");
+        if (!FileHelpers::isReadable(path)) {
+            throw ProcessError("Could not access configuration '" + oc.getString("configuration-file") + "'.");
         }
-    } catch (const XERCES_CPP_NAMESPACE::XMLException& e) {
-        throw ProcessError("Could not load configuration '" + path + "':\n " + StringUtils::transcode(e.getMessage()));
+        const bool verbose = !oc.exists("verbose") || oc.getBool("verbose");
+        if (verbose) {
+            PROGRESS_BEGIN_MESSAGE("Loading configuration");
+        }
+        oc.resetWritable();
+        // build parser
+        XERCES_CPP_NAMESPACE::SAXParser parser;
+        parser.setValidationScheme(XERCES_CPP_NAMESPACE::SAXParser::Val_Never);
+        parser.setDisableDefaultEntityResolution(true);
+        // start the parsing
+        OptionsLoader handler;
+        try {
+            parser.setDocumentHandler(&handler);
+            parser.setErrorHandler(&handler);
+            parser.parse(StringUtils::transcodeToLocal(path).c_str());
+            if (handler.errorOccurred()) {
+                throw ProcessError("Could not load configuration '" + path + "'.");
+            }
+        } catch (const XERCES_CPP_NAMESPACE::XMLException& e) {
+            throw ProcessError("Could not load configuration '" + path + "':\n " + StringUtils::transcode(e.getMessage()));
+        }
+        oc.relocateFiles(path);
+        if (verbose) {
+            PROGRESS_DONE_MESSAGE();
+        }
     }
-    oc.relocateFiles(path);
     if (myArgC > 2) {
         // reparse the options (overwrite the settings from the configuration file)
         oc.resetWritable();
         OptionsParser::parse(myArgC, myArgV);
-    }
-    if (verbose) {
-        PROGRESS_DONE_MESSAGE();
     }
 }
 

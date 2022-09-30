@@ -53,7 +53,7 @@ public:
      * @return Whether the parsing was successfull
      * @exception InvalidArgument If a performed setting of an option failed (see Option::set)
      */
-    static bool parse(int argc, char** argv);
+    static bool parse(int argc, char** argv, const bool ignoreAppenders=false);
 
 private:
     /** @brief parses the previous arguments
@@ -64,7 +64,7 @@ private:
      * @return Number of read tokens (1 or 2)
      * @exception InvalidArgument If a performed setting of an option failed (see Option::set)
      */
-    static int check(const char* arg1, const char* arg2, bool& ok);
+    static int check(const char* arg1, const char* arg2, bool& ok, const bool ignoreAppenders);
 
 
     /** @brief Returns the whether the given token is an option

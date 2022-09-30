@@ -34,16 +34,16 @@
 // method definitions
 // ===========================================================================
 bool
-OptionsParser::parse(int argc, char** argv) {
+OptionsParser::parse(int argc, char** argv, const bool ignoreAppenders) {
     bool ok = true;
     for (int i = 1; i < argc;) {
         try {
             int add;
             // try to set the current option
             if (i < argc - 1) {
-                add = check(argv[i], argv[i + 1], ok);
+                add = check(argv[i], argv[i + 1], ok, ignoreAppenders);
             } else {
-                add = check(argv[i], nullptr, ok);
+                add = check(argv[i], nullptr, ok, ignoreAppenders);
             }
             i += add;
         } catch (ProcessError& e) {
@@ -57,7 +57,7 @@ OptionsParser::parse(int argc, char** argv) {
 
 
 int
-OptionsParser::check(const char* arg1, const char* arg2, bool& ok) {
+OptionsParser::check(const char* arg1, const char* arg2, bool& ok, const bool ignoreAppenders) {
     // the first argument should be an option
     // (only the second may be a free string)
     if (!checkParameter(arg1)) {
@@ -71,6 +71,9 @@ OptionsParser::check(const char* arg1, const char* arg2, bool& ok) {
     if (append || arg1[1] == '-') {
         std::string tmp(arg1 + (append ? 1 : 2));
         const std::string::size_type idx1 = tmp.find('=');
+        if (append && ignoreAppenders) {
+            return idx1 == std::string::npos ? 2 : 1;
+        }
         // check whether a parameter was submitted
         if (idx1 != std::string::npos) {
             ok &= oc.set(tmp.substr(0, idx1), tmp.substr(idx1 + 1), append);
