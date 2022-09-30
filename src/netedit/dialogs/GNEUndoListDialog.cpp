@@ -175,4 +175,26 @@ GNEUndoListDialog::updateList() {
     myRowFrame->recalc();
 }
 
-/****************************************************************************/
+
+GNEUndoListDialog::Row::Row(GNEUndoListDialog* undoListDialog, FXVerticalFrame* mainFrame, FXIcon* icon, const std::string& text) {
+    FXHorizontalFrame* horizontalFrame = new FXHorizontalFrame(mainFrame, GUIDesignAuxiliarHorizontalFrame);
+    // build radio button
+    myRadioButton = new FXRadioButton(horizontalFrame, "", undoListDialog, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonSquared);
+    // build icon label
+    myIcon = new FXLabel(horizontalFrame, "", icon, GUIDesignLabelIconThick);
+    // build text label
+    myTextField = new FXTextField(horizontalFrame, GUIDesignTextFieldNCol, undoListDialog, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
+    myTextField->setText(text.c_str());
+    myTextField->setEditable(false);
+    // create elements
+    horizontalFrame->create();
+    myIcon->create();
+    myTextField->create();
+}
+
+
+GNEUndoListDialog::Row::~Row() {
+    delete myRadioButton;
+    delete myIcon;
+    delete myTextField;
+}

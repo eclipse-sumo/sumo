@@ -21,7 +21,6 @@
 #include <config.h>
 
 #include <utils/foxtools/MFXTreeListDynamic.h>
-#include <utils/gui/div/GUIDesigns.h>
 
 
 // ===========================================================================
@@ -84,30 +83,20 @@ protected:
 
     public:
         /// @brief constructor
-        Row(GNEUndoListDialog *undoListDialog, FXVerticalFrame* mainFrame, FXIcon* icon, const std::string &text) {
-            FXHorizontalFrame* horizontalFrame = new FXHorizontalFrame(mainFrame, GUIDesignAuxiliarHorizontalFrame);
-            // build icon label
-            myIcon = new FXLabel(horizontalFrame, "", icon, GUIDesignLabelIconThick);
-            // build text label
-            myText = new FXLabel(horizontalFrame, text.c_str(), nullptr, GUIDesignLabelLeftThick);
-            // create elements
-            horizontalFrame->create();
-            myIcon->create();
-            myText->create();
-        }
+        Row(GNEUndoListDialog* undoListDialog, FXVerticalFrame* mainFrame, FXIcon* icon, const std::string& text);
 
         /// @brief destructor
-        ~Row() {
-            delete myIcon;
-            delete myText;
-        }
+        ~Row();
 
     private:
+        /// @brief radioButton
+        FXRadioButton* myRadioButton;
+
         /// @brief label with icon
         FXLabel* myIcon;
         
-        /// @brief label with text
-        FXLabel* myText;
+        /// @brief textField
+        FXTextField* myTextField;
     };
 
     /// @brief pointer to GNEApplicationWindow

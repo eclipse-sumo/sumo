@@ -202,6 +202,9 @@ class MFXMenuCheckIcon;
 /// @brief design for radio button
 #define GUIDesignRadioButton            (LAYOUT_LEFT | LAYOUT_FILL_X | ICON_BEFORE_TEXT | JUSTIFY_LEFT)
 
+/// @brief design for radio button squared
+#define GUIDesignRadioButtonSquared     (RADIOBUTTON_NORMAL | FRAME_THICK |  LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | JUSTIFY_CENTER_X | JUSTIFY_CENTER_Y), 0, 0, GUIDesignHeight, GUIDesignHeight, 2, 2, 2, 2
+
 /// @brief design for radio button with fixed height (used in fix elements dialogs)
 #define GUIDesignRadioButtonFix         (RADIOBUTTON_NORMAL | JUSTIFY_CENTER_Y |  LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | JUSTIFY_LEFT | ICON_BEFORE_TEXT), 0, 0, 200, GUIDesignHeight - 2, 2, 2, 2, 2
 
