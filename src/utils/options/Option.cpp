@@ -362,20 +362,11 @@ Option_StringVector::set(const std::string& v, const std::string& orig, const bo
     if (!append) {
         myValue.clear();
     }
-    try {
-        if (v.find(';') != std::string::npos) {
-            WRITE_WARNING("Please note that using ';' as list separator is deprecated and not accepted anymore.");
-        }
-        StringTokenizer st(v, ",", true);
-        while (st.hasNext()) {
-            myValue.push_back(StringUtils::prune(st.next()));
-        }
-        return markSet(append && getValueString() != "" ? getValueString() + "," + orig : orig);
-    } catch (EmptyData&) {
-        throw ProcessError("Empty element occurred in " + v);
-    } catch (...) {
-        throw ProcessError("'" + v + "' is not a valid string vector.");
+    StringTokenizer st(v, ",");
+    while (st.hasNext()) {
+        myValue.push_back(StringUtils::prune(st.next()));
     }
+    return markSet(append && getValueString() != "" ? getValueString() + "," + orig : orig);
 }
 
 
