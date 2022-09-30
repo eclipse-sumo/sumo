@@ -69,6 +69,9 @@ public:
     /// @brief event after update command
     long onCmdUpdate(FXObject*, FXSelector, void*);
 
+    /// @brief event after select row
+    long onCmdSelectRow(FXObject*, FXSelector, void*);
+
     /// @}
 
     /// @brief update data table
@@ -87,6 +90,9 @@ protected:
 
         /// @brief destructor
         ~Row();
+
+        /// @brief get radio button
+        FXRadioButton* getRadioButton() const;
 
     private:
         /// @brief radioButton

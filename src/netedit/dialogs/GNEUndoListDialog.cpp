@@ -39,6 +39,7 @@ FXDEFMAP(GNEUndoListDialog) GNEUndoListDialogMap[] = {
     FXMAPFUNC(SEL_CLOSE,    0,                      GNEUndoListDialog::onCmdClose),
     FXMAPFUNC(SEL_UPDATE,   0,                      GNEUndoListDialog::onCmdUpdate),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_ACCEPT,  GNEUndoListDialog::onCmdClose),
+    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_OPERATION,  GNEUndoListDialog::onCmdSelectRow),
 };
 
 // Object implementation
@@ -135,42 +136,51 @@ GNEUndoListDialog::onCmdUpdate(FXObject*, FXSelector, void*) {
 }
 
 
+long
+GNEUndoListDialog::onCmdSelectRow(FXObject* obj, FXSelector, void*) {
+    // search button
+    for (int i = 0; i < (int)myRows.size(); i++) {
+        if (myRows.at(i)->getRadioButton() == obj) {
+            myRows.at(i)->getRadioButton()->setCheck(TRUE);
+        } else {
+            myRows.at(i)->getRadioButton()->setCheck(FALSE);
+        }
+    }
+    return 1;
+}
+
+
 void
 GNEUndoListDialog::updateList() {
+    // declare row for save current undo element
+    Row* currentUndoElement = nullptr;
     // first clear rows
     for (auto &row : myRows) {
         delete row;
     }
     myRows.clear();
-    // declare undo iterator over UndoList
-    GNEUndoList::UndoIterator itUndo(myGNEApp->getUndoList());
-    Row* firstItem = nullptr;
-    // fill myTreeListDynamic
-    while (!itUndo.end()) {
-        // create row
-        auto row = new Row(this, myRowFrame, itUndo.getIcon(), itUndo.getDescription());
-        // insert in back
-        myRows.push_back(row);
-        itUndo++;
-        if (firstItem == nullptr) {
-            firstItem = row;
-        }
-    }
     // declare redo iterator over UndoList
     GNEUndoList::RedoIterator itRedo(myGNEApp->getUndoList());
-    // fill myTreeListDynamic
+    // fill rows with elements to redo
     while (!itRedo.end()) {
-        // create row
-        auto row = new Row(this, myRowFrame, itRedo.getIcon(), itRedo.getDescription());
-        // insert in front
-        myRows.insert(myRows.begin(), row);
+        // create row and insertt
+        myRows.push_back(new Row(this, myRowFrame, itRedo.getIcon(), itRedo.getDescription()));
         itRedo++;
-        if (firstItem == nullptr) {
-            firstItem = row;
-        }
     }
-    if (firstItem) {
-        //firstItem->setSelected(true);
+    // declare undo iterator over UndoList
+    GNEUndoList::UndoIterator itUndo(myGNEApp->getUndoList());
+    // fill rows with elements to undo
+    while (!itUndo.end()) {
+        // create row and insert it
+        myRows.push_back(new Row(this, myRowFrame, itUndo.getIcon(), itUndo.getDescription()));
+        // mark element
+        if (currentUndoElement == nullptr) {
+            currentUndoElement = myRows.back();
+        }
+        itUndo++;
+    }
+    if (currentUndoElement) {
+        currentUndoElement->getRadioButton()->setCheck(TRUE);
     }
     myRowFrame->recalc();
 }
@@ -197,4 +207,10 @@ GNEUndoListDialog::Row::~Row() {
     delete myRadioButton;
     delete myIcon;
     delete myTextField;
+}
+
+
+FXRadioButton*
+GNEUndoListDialog::Row::getRadioButton() const {
+    return myRadioButton;
 }
