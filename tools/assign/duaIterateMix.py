@@ -296,12 +296,6 @@ def calcMarginalCostReverse(step, options):
                                     "traveltime") is not None:
                                 tt_cur = float(edge_cur.get("overlapTraveltime"))
                                 edge_cur.set("traveltime", str(tt_cur))
-                                # edgeID = edge_cur.get("id")
-                                # if DEBUGLOG:
-                                #     if begin_cur == "1800.00":
-                                #         print("step=%s beg=%s e=%s tt=%s ttprev=%s n=%s nPrev=%s mC=%s mCPrev=%s" %
-                                #               (step, begin_cur, edgeID, tt_cur, tt_prv, veh_cur, veh_prv,
-                                #                mc_cur, mc_prv), file=log)
         tree_sumo_cur.write(get_weightfilename(options, step - 1, "dump"))
 
         if DEBUGLOG:
@@ -448,7 +442,7 @@ def main(args=None):
             os.makedirs(final_directory)
         btimeA = datetime.now()
         print("> Executing step %s" % step)
-# first you should import non CAVs demand
+        # working on CAVs demand
         router_demands = input_demands
         simulation_demands = input_demands
         # demand files have regular names based on the basename and the step
@@ -478,7 +472,7 @@ def main(args=None):
                 print(">>> End time: %s" % etime)
                 print(">>> Duration: %s" % (etime - btime))
                 print("<<")
-
+        #working on HDVs demand
         router_demands = input_demands_1
         simulation_demands = input_demands_1
         # demand files have regular names based on the basename and the step
@@ -509,7 +503,7 @@ def main(args=None):
                 print(">>> End time: %s" % etime)
                 print(">>> Duration: %s" % (etime - btime))
                 print("<<")
-# combining trips file
+        # combining trips file
         if options.mix:
             calcMixTrips(step, options)
         # simulation
