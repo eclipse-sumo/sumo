@@ -2048,11 +2048,6 @@ MSLane::executeMovements(const SUMOTime t) {
                 // vehicle has entered a new lane (leaveLane and workOnMoveReminders were already called in MSVehicle::executeMove)
                 target->myVehBuffer.push_back(veh);
                 MSNet::getInstance()->getEdgeControl().needsVehicleIntegration(target);
-                if (!isRailway(veh->getVClass()) && target->getBidiLane() != nullptr) {
-                    // railways don't need to "see" each other when moving in opposite directions on the same track (efficiency)
-                    target->getBidiLane()->setPartialOccupation(veh);
-                    //MSNet::getInstance()->getEdgeControl().needsVehicleIntegration(target->getBidiLane());
-                }
                 if (MSGlobals::gSublane && veh->getLaneChangeModel().getShadowLane() != nullptr) {
                     // trigger sorting of partial vehicles as their order may have changed (lane might not be active and only contain partial vehicles)
                     MSNet::getInstance()->getEdgeControl().needsVehicleIntegration(veh->getLaneChangeModel().getShadowLane());

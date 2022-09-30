@@ -5067,6 +5067,10 @@ MSVehicle::enterLaneAtMove(MSLane* enteredLane, bool onTeleporting) {
             const double range2 = (myLane->getWidth() - getVehicleType().getWidth()) * 0.5 + overlap;
             myState.myPosLat *= range2 / range;
         }
+        if (!isRailway(getVClass()) && myLane->getBidiLane() != nullptr) {
+            // railways don't need to "see" each other when moving in opposite directions on the same track (efficiency)
+            myLane->getBidiLane()->setPartialOccupation(this);
+        }
     } else {
         // normal move() isn't called so reset position here. must be done
         // before calling reminders
