@@ -83,10 +83,13 @@ protected:
 
     public:
         /// @brief constructor
-        Row(GNEUndoListDialog* undoListDialog, FXVerticalFrame* mainFrame, FXIcon* icon, const std::string& text);
+        Row(GNEUndoListDialog* undoListDialog, FXVerticalFrame* mainFrame, const int index, FXIcon* icon, const std::string& text);
 
         /// @brief destructor
         ~Row();
+
+        /// @brief get index
+        const int getIndex() const;
 
         /// @brief get radio button (read only)
         const FXRadioButton* getRadioButton() const;
@@ -104,6 +107,9 @@ protected:
         /// @brief radioButton
         FXRadioButton* myRadioButton;
 
+        /// @brief index
+        const int myIndex;
+
         /// @brief label with icon
         FXLabel* myIcon;
         
@@ -120,10 +126,14 @@ protected:
     /// @brief vector with rows
     std::vector<Row*> myRows;
 
-    /// @brief index for last undo element
-    int myLastUndoElement = -1;
-
 private:
+    /// @struct struct needed for updating rows
+    struct TemporalRow {
+        int index;
+        FXIcon* icon;
+        std::string text;
+    };
+
     /// @brief Invalidated copy constructor.
     GNEUndoListDialog(const GNEUndoListDialog&) = delete;
 
