@@ -58,7 +58,7 @@ def main(options):
                         outf.write(' ' * 8 + '<edgeRelation from="%s" to="%s" %s="%s"/>\n' % (
                             fromEdge.id, toEdge.id, options.turnAttr, toEdge.probability))
             outf.write('    </interval>\n')
-        outf.write('</edgeRelations>\n')
+        outf.write('</data>\n')
 
 
 if __name__ == "__main__":
