@@ -43,6 +43,8 @@ def main(args=None):
                          default='r', help="Defines the dot color")
     optParser.add_option("--edge-width", dest="defaultWidth",
                          type="float", default=1, help="Defines the edge width")
+    optParser.add_option("--title", dest="title",
+                         default=None, help="Set the title of the generated plot")
     optParser.add_option("--edge-color", dest="defaultColor",
                          default='k', help="Defines the edge color")
     # standard plot options

@@ -32,11 +32,12 @@ def parse_args():
     optParser = ArgumentParser()
     optParser.add_argument("tag", help="XML tag containing the attribute to be plotted")
     optParser.add_argument("attr", help="XML attribute to be plotted")
+    optParser.add_argument("title", help="Title of the generated plots")
     optParser.add_argument("xmlfiles", help="XML file(s)", nargs='*')
     return optParser.parse_args()
 
 
-def main(tag, attr, xmlfiles):
+def main(tag, attr, title, xmlfiles):
     data = []
     for xmlfile in xmlfiles:
         stats = Statistics('%s %s' % (tag, attr))
@@ -50,6 +51,7 @@ def main(tag, attr, xmlfiles):
         plt.xticks(range(len(xmlfiles)), xmlfiles)
         plt.ylabel("%s %s" % (tag, attr))
         plt.boxplot(data)
+        plt.title(title)
         plt.show()
     except ImportError:
         print("Matplotlib not found, cannot generate plot.", file=sys.stderr)
@@ -57,4 +59,4 @@ def main(tag, attr, xmlfiles):
 
 if __name__ == "__main__":
     options = parse_args()
-    main(options.tag, options.attr, options.xmlfiles)
+    main(options.tag, options.attr, options.title, options.xmlfiles)

@@ -63,6 +63,8 @@ def main(args=None):
                          default=False, help="If set, the script says what it's doing")
     optParser.add_option("-c", "--columns", dest="columns",
                          default=None, help="Defines which columns shall be plotted")
+    optParser.add_option("--title", dest="title",
+                         default=None, help="Set the title of the generated plot")
     # standard plot options
     helpers.addInteractionOptions(optParser)
     helpers.addPlotOptions(optParser)

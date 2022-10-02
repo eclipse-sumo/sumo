@@ -57,6 +57,8 @@ def main(args=None):
                          type="float", default=1., help="Position offset for values")
     optParser.add_option("--vertical", dest="vertical", action="store_true",
                          default=False, help="vertical bars are used")
+    optParser.add_option("--title", dest="title",
+                         default=None, help="Set the title of the generated plot")
     optParser.add_option("-v", "--verbose", dest="verbose", action="store_true",
                          default=False, help="If set, the script says what it's doing")
     # standard plot options
