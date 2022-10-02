@@ -1,0 +1,1 @@
+Warning: Vehicle 'veh' performs emergency stop at the end of lane 'middle_2' because there is no connection to the next edge (decel=-22.20, offset=14.92), time=15.00.
