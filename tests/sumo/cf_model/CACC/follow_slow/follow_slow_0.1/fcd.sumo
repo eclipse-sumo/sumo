@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-09-27 15:49:53 by Eclipse SUMO sumo Version v1_14_1+1286-aabf80f
+<!-- generated on 2022-10-02 14:41:42 by Eclipse SUMO sumo Version v1_14_1+1395-77a6b2a
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -1959,119 +1959,119 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="f.1" acceleration="0.09"/>
     </timestep>
     <timestep time="48.40">
-        <vehicle id="f.0" acceleration="-0.04"/>
+        <vehicle id="f.0" acceleration="-0.01"/>
         <vehicle id="f.1" acceleration="0.12"/>
     </timestep>
     <timestep time="48.50">
-        <vehicle id="f.0" acceleration="-0.21"/>
+        <vehicle id="f.0" acceleration="-0.10"/>
         <vehicle id="f.1" acceleration="0.12"/>
     </timestep>
     <timestep time="48.60">
-        <vehicle id="f.0" acceleration="-0.26"/>
-        <vehicle id="f.1" acceleration="0.11"/>
+        <vehicle id="f.0" acceleration="-0.14"/>
+        <vehicle id="f.1" acceleration="0.12"/>
     </timestep>
     <timestep time="48.70">
-        <vehicle id="f.0" acceleration="-0.21"/>
-        <vehicle id="f.1" acceleration="0.08"/>
+        <vehicle id="f.0" acceleration="-0.15"/>
+        <vehicle id="f.1" acceleration="0.10"/>
     </timestep>
     <timestep time="48.80">
-        <vehicle id="f.0" acceleration="-0.01"/>
-        <vehicle id="f.1" acceleration="0.06"/>
+        <vehicle id="f.0" acceleration="-0.15"/>
+        <vehicle id="f.1" acceleration="0.08"/>
     </timestep>
     <timestep time="48.90">
-        <vehicle id="f.0" acceleration="-0.08"/>
-        <vehicle id="f.1" acceleration="0.04"/>
+        <vehicle id="f.0" acceleration="-0.14"/>
+        <vehicle id="f.1" acceleration="0.06"/>
     </timestep>
     <timestep time="49.00">
-        <vehicle id="f.0" acceleration="-0.12"/>
-        <vehicle id="f.1" acceleration="0.02"/>
+        <vehicle id="f.0" acceleration="-0.13"/>
+        <vehicle id="f.1" acceleration="0.04"/>
     </timestep>
     <timestep time="49.10">
         <vehicle id="f.0" acceleration="-0.12"/>
-        <vehicle id="f.1" acceleration="0.01"/>
+        <vehicle id="f.1" acceleration="0.02"/>
     </timestep>
     <timestep time="49.20">
-        <vehicle id="f.0" acceleration="-0.02"/>
-        <vehicle id="f.1" acceleration="-0.01"/>
+        <vehicle id="f.0" acceleration="-0.11"/>
+        <vehicle id="f.1" acceleration="-0.00"/>
     </timestep>
     <timestep time="49.30">
-        <vehicle id="f.0" acceleration="-0.07"/>
+        <vehicle id="f.0" acceleration="-0.09"/>
         <vehicle id="f.1" acceleration="-0.01"/>
     </timestep>
     <timestep time="49.40">
-        <vehicle id="f.0" acceleration="-0.09"/>
-        <vehicle id="f.1" acceleration="-0.02"/>
-    </timestep>
-    <timestep time="49.50">
         <vehicle id="f.0" acceleration="-0.08"/>
         <vehicle id="f.1" acceleration="-0.03"/>
     </timestep>
-    <timestep time="49.60">
-        <vehicle id="f.0" acceleration="-0.01"/>
+    <timestep time="49.50">
+        <vehicle id="f.0" acceleration="-0.07"/>
         <vehicle id="f.1" acceleration="-0.03"/>
     </timestep>
-    <timestep time="49.70">
-        <vehicle id="f.0" acceleration="-0.04"/>
+    <timestep time="49.60">
+        <vehicle id="f.0" acceleration="-0.07"/>
         <vehicle id="f.1" acceleration="-0.04"/>
+    </timestep>
+    <timestep time="49.70">
+        <vehicle id="f.0" acceleration="-0.06"/>
+        <vehicle id="f.1" acceleration="-0.05"/>
     </timestep>
     <timestep time="49.80">
-        <vehicle id="f.0" acceleration="-0.06"/>
-        <vehicle id="f.1" acceleration="-0.04"/>
+        <vehicle id="f.0" acceleration="-0.05"/>
+        <vehicle id="f.1" acceleration="-0.05"/>
     </timestep>
     <timestep time="49.90">
-        <vehicle id="f.0" acceleration="-0.06"/>
-        <vehicle id="f.1" acceleration="-0.04"/>
+        <vehicle id="f.0" acceleration="-0.04"/>
+        <vehicle id="f.1" acceleration="-0.05"/>
     </timestep>
     <timestep time="50.00">
-        <vehicle id="f.0" acceleration="-0.01"/>
-        <vehicle id="f.1" acceleration="-0.04"/>
+        <vehicle id="f.0" acceleration="-0.04"/>
+        <vehicle id="f.1" acceleration="-0.05"/>
     </timestep>
     <timestep time="50.10">
         <vehicle id="f.0" acceleration="-0.03"/>
-        <vehicle id="f.1" acceleration="-0.04"/>
+        <vehicle id="f.1" acceleration="-0.05"/>
     </timestep>
     <timestep time="50.20">
-        <vehicle id="f.0" acceleration="-0.04"/>
-        <vehicle id="f.1" acceleration="-0.04"/>
+        <vehicle id="f.0" acceleration="-0.03"/>
+        <vehicle id="f.1" acceleration="-0.05"/>
     </timestep>
     <timestep time="50.30">
-        <vehicle id="f.0" acceleration="-0.04"/>
-        <vehicle id="f.1" acceleration="-0.04"/>
+        <vehicle id="f.0" acceleration="-0.03"/>
+        <vehicle id="f.1" acceleration="-0.05"/>
     </timestep>
     <timestep time="50.40">
-        <vehicle id="f.0" acceleration="-0.01"/>
-        <vehicle id="f.1" acceleration="-0.04"/>
+        <vehicle id="f.0" acceleration="-0.02"/>
+        <vehicle id="f.1" acceleration="-0.05"/>
     </timestep>
     <timestep time="50.50">
         <vehicle id="f.0" acceleration="-0.02"/>
-        <vehicle id="f.1" acceleration="-0.04"/>
+        <vehicle id="f.1" acceleration="-0.05"/>
     </timestep>
     <timestep time="50.60">
-        <vehicle id="f.0" acceleration="-0.03"/>
+        <vehicle id="f.0" acceleration="-0.02"/>
         <vehicle id="f.1" acceleration="-0.04"/>
     </timestep>
     <timestep time="50.70">
-        <vehicle id="f.0" acceleration="-0.03"/>
+        <vehicle id="f.0" acceleration="-0.02"/>
         <vehicle id="f.1" acceleration="-0.04"/>
     </timestep>
     <timestep time="50.80">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.03"/>
+        <vehicle id="f.0" acceleration="-0.01"/>
+        <vehicle id="f.1" acceleration="-0.04"/>
     </timestep>
     <timestep time="50.90">
         <vehicle id="f.0" acceleration="-0.01"/>
-        <vehicle id="f.1" acceleration="-0.03"/>
+        <vehicle id="f.1" acceleration="-0.04"/>
     </timestep>
     <timestep time="51.00">
-        <vehicle id="f.0" acceleration="-0.02"/>
+        <vehicle id="f.0" acceleration="-0.01"/>
         <vehicle id="f.1" acceleration="-0.03"/>
     </timestep>
     <timestep time="51.10">
-        <vehicle id="f.0" acceleration="-0.02"/>
+        <vehicle id="f.0" acceleration="-0.01"/>
         <vehicle id="f.1" acceleration="-0.03"/>
     </timestep>
     <timestep time="51.20">
-        <vehicle id="f.0" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="-0.01"/>
         <vehicle id="f.1" acceleration="-0.03"/>
     </timestep>
     <timestep time="51.30">
@@ -2080,26 +2080,26 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </timestep>
     <timestep time="51.40">
         <vehicle id="f.0" acceleration="-0.01"/>
-        <vehicle id="f.1" acceleration="-0.02"/>
+        <vehicle id="f.1" acceleration="-0.03"/>
     </timestep>
     <timestep time="51.50">
         <vehicle id="f.0" acceleration="-0.01"/>
         <vehicle id="f.1" acceleration="-0.02"/>
     </timestep>
     <timestep time="51.60">
-        <vehicle id="f.0" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="-0.01"/>
         <vehicle id="f.1" acceleration="-0.02"/>
     </timestep>
     <timestep time="51.70">
-        <vehicle id="f.0" acceleration="-0.01"/>
+        <vehicle id="f.0" acceleration="-0.00"/>
         <vehicle id="f.1" acceleration="-0.02"/>
     </timestep>
     <timestep time="51.80">
-        <vehicle id="f.0" acceleration="-0.01"/>
+        <vehicle id="f.0" acceleration="-0.00"/>
         <vehicle id="f.1" acceleration="-0.02"/>
     </timestep>
     <timestep time="51.90">
-        <vehicle id="f.0" acceleration="-0.01"/>
+        <vehicle id="f.0" acceleration="-0.00"/>
         <vehicle id="f.1" acceleration="0.89"/>
     </timestep>
     <timestep time="52.00">
@@ -2111,88 +2111,88 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="f.1" acceleration="0.16"/>
     </timestep>
     <timestep time="52.20">
-        <vehicle id="f.0" acceleration="-0.01"/>
-        <vehicle id="f.1" acceleration="-0.06"/>
-    </timestep>
-    <timestep time="52.30">
-        <vehicle id="f.0" acceleration="-0.01"/>
-        <vehicle id="f.1" acceleration="-0.23"/>
-    </timestep>
-    <timestep time="52.40">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.27"/>
-    </timestep>
-    <timestep time="52.50">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.22"/>
-    </timestep>
-    <timestep time="52.60">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.01"/>
-    </timestep>
-    <timestep time="52.70">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.08"/>
-    </timestep>
-    <timestep time="52.80">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.13"/>
-    </timestep>
-    <timestep time="52.90">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.13"/>
-    </timestep>
-    <timestep time="53.00">
         <vehicle id="f.0" acceleration="-0.00"/>
         <vehicle id="f.1" acceleration="-0.02"/>
     </timestep>
-    <timestep time="53.10">
+    <timestep time="52.30">
         <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.08"/>
+        <vehicle id="f.1" acceleration="-0.11"/>
     </timestep>
-    <timestep time="53.20">
+    <timestep time="52.40">
+        <vehicle id="f.0" acceleration="-0.00"/>
+        <vehicle id="f.1" acceleration="-0.15"/>
+    </timestep>
+    <timestep time="52.50">
+        <vehicle id="f.0" acceleration="-0.00"/>
+        <vehicle id="f.1" acceleration="-0.16"/>
+    </timestep>
+    <timestep time="52.60">
+        <vehicle id="f.0" acceleration="-0.00"/>
+        <vehicle id="f.1" acceleration="-0.16"/>
+    </timestep>
+    <timestep time="52.70">
+        <vehicle id="f.0" acceleration="-0.00"/>
+        <vehicle id="f.1" acceleration="-0.15"/>
+    </timestep>
+    <timestep time="52.80">
+        <vehicle id="f.0" acceleration="-0.00"/>
+        <vehicle id="f.1" acceleration="-0.14"/>
+    </timestep>
+    <timestep time="52.90">
+        <vehicle id="f.0" acceleration="-0.00"/>
+        <vehicle id="f.1" acceleration="-0.12"/>
+    </timestep>
+    <timestep time="53.00">
+        <vehicle id="f.0" acceleration="-0.00"/>
+        <vehicle id="f.1" acceleration="-0.11"/>
+    </timestep>
+    <timestep time="53.10">
         <vehicle id="f.0" acceleration="-0.00"/>
         <vehicle id="f.1" acceleration="-0.10"/>
     </timestep>
-    <timestep time="53.30">
+    <timestep time="53.20">
         <vehicle id="f.0" acceleration="-0.00"/>
         <vehicle id="f.1" acceleration="-0.09"/>
     </timestep>
+    <timestep time="53.30">
+        <vehicle id="f.0" acceleration="-0.00"/>
+        <vehicle id="f.1" acceleration="-0.08"/>
+    </timestep>
     <timestep time="53.40">
         <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.01"/>
+        <vehicle id="f.1" acceleration="-0.07"/>
     </timestep>
     <timestep time="53.50">
         <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.05"/>
+        <vehicle id="f.1" acceleration="-0.06"/>
     </timestep>
     <timestep time="53.60">
         <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.06"/>
+        <vehicle id="f.1" acceleration="-0.05"/>
     </timestep>
     <timestep time="53.70">
         <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.06"/>
+        <vehicle id="f.1" acceleration="-0.05"/>
     </timestep>
     <timestep time="53.80">
         <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.01"/>
+        <vehicle id="f.1" acceleration="-0.04"/>
     </timestep>
     <timestep time="53.90">
         <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.03"/>
+        <vehicle id="f.1" acceleration="-0.04"/>
     </timestep>
     <timestep time="54.00">
         <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.04"/>
+        <vehicle id="f.1" acceleration="-0.03"/>
     </timestep>
     <timestep time="54.10">
         <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.04"/>
+        <vehicle id="f.1" acceleration="-0.03"/>
     </timestep>
     <timestep time="54.20">
         <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.01"/>
+        <vehicle id="f.1" acceleration="-0.03"/>
     </timestep>
     <timestep time="54.30">
         <vehicle id="f.0" acceleration="-0.00"/>
@@ -2200,31 +2200,31 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </timestep>
     <timestep time="54.40">
         <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.03"/>
+        <vehicle id="f.1" acceleration="-0.02"/>
     </timestep>
     <timestep time="54.50">
         <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.03"/>
+        <vehicle id="f.1" acceleration="-0.02"/>
     </timestep>
     <timestep time="54.60">
         <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.1" acceleration="-0.02"/>
     </timestep>
     <timestep time="54.70">
         <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.02"/>
+        <vehicle id="f.1" acceleration="-0.01"/>
     </timestep>
     <timestep time="54.80">
         <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.02"/>
+        <vehicle id="f.1" acceleration="-0.01"/>
     </timestep>
     <timestep time="54.90">
         <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.02"/>
+        <vehicle id="f.1" acceleration="-0.01"/>
     </timestep>
     <timestep time="55.00">
         <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.1" acceleration="-0.01"/>
     </timestep>
     <timestep time="55.10">
         <vehicle id="f.0" acceleration="-0.00"/>
@@ -2240,7 +2240,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </timestep>
     <timestep time="55.40">
         <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.1" acceleration="-0.01"/>
     </timestep>
     <timestep time="55.50">
         <vehicle id="f.0" acceleration="-0.00"/>
@@ -2248,11 +2248,11 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </timestep>
     <timestep time="55.60">
         <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.01"/>
+        <vehicle id="f.1" acceleration="-0.00"/>
     </timestep>
     <timestep time="55.70">
         <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.01"/>
+        <vehicle id="f.1" acceleration="-0.00"/>
     </timestep>
     <timestep time="55.80">
         <vehicle id="f.0" acceleration="-0.00"/>
@@ -2264,11 +2264,11 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </timestep>
     <timestep time="56.00">
         <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.01"/>
+        <vehicle id="f.1" acceleration="-0.00"/>
     </timestep>
     <timestep time="56.10">
         <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.01"/>
+        <vehicle id="f.1" acceleration="-0.00"/>
     </timestep>
     <timestep time="56.20">
         <vehicle id="f.0" acceleration="-0.00"/>
@@ -2279,908 +2279,908 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="f.1" acceleration="-0.00"/>
     </timestep>
     <timestep time="56.40">
-        <vehicle id="f.0" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
         <vehicle id="f.1" acceleration="-0.00"/>
     </timestep>
     <timestep time="56.50">
-        <vehicle id="f.0" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
         <vehicle id="f.1" acceleration="-0.00"/>
     </timestep>
     <timestep time="56.60">
-        <vehicle id="f.0" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
         <vehicle id="f.1" acceleration="-0.00"/>
     </timestep>
     <timestep time="56.70">
-        <vehicle id="f.0" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
         <vehicle id="f.1" acceleration="-0.00"/>
     </timestep>
     <timestep time="56.80">
-        <vehicle id="f.0" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
         <vehicle id="f.1" acceleration="-0.00"/>
     </timestep>
     <timestep time="56.90">
-        <vehicle id="f.0" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
         <vehicle id="f.1" acceleration="-0.00"/>
     </timestep>
     <timestep time="57.00">
-        <vehicle id="f.0" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
         <vehicle id="f.1" acceleration="-0.00"/>
     </timestep>
     <timestep time="57.10">
-        <vehicle id="f.0" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
         <vehicle id="f.1" acceleration="-0.00"/>
     </timestep>
     <timestep time="57.20">
-        <vehicle id="f.0" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
         <vehicle id="f.1" acceleration="-0.00"/>
     </timestep>
     <timestep time="57.30">
-        <vehicle id="f.0" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
         <vehicle id="f.1" acceleration="-0.00"/>
     </timestep>
     <timestep time="57.40">
-        <vehicle id="f.0" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
         <vehicle id="f.1" acceleration="-0.00"/>
     </timestep>
     <timestep time="57.50">
-        <vehicle id="f.0" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
         <vehicle id="f.1" acceleration="-0.00"/>
     </timestep>
     <timestep time="57.60">
-        <vehicle id="f.0" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
         <vehicle id="f.1" acceleration="-0.00"/>
     </timestep>
     <timestep time="57.70">
-        <vehicle id="f.0" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
         <vehicle id="f.1" acceleration="-0.00"/>
     </timestep>
     <timestep time="57.80">
-        <vehicle id="f.0" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
         <vehicle id="f.1" acceleration="-0.00"/>
     </timestep>
     <timestep time="57.90">
-        <vehicle id="f.0" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
         <vehicle id="f.1" acceleration="-0.00"/>
     </timestep>
     <timestep time="58.00">
-        <vehicle id="f.0" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
         <vehicle id="f.1" acceleration="-0.00"/>
     </timestep>
     <timestep time="58.10">
-        <vehicle id="f.0" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
         <vehicle id="f.1" acceleration="-0.00"/>
     </timestep>
     <timestep time="58.20">
-        <vehicle id="f.0" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
         <vehicle id="f.1" acceleration="-0.00"/>
     </timestep>
     <timestep time="58.30">
-        <vehicle id="f.0" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
         <vehicle id="f.1" acceleration="-0.00"/>
     </timestep>
     <timestep time="58.40">
-        <vehicle id="f.0" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
         <vehicle id="f.1" acceleration="-0.00"/>
     </timestep>
     <timestep time="58.50">
-        <vehicle id="f.0" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
         <vehicle id="f.1" acceleration="-0.00"/>
     </timestep>
     <timestep time="58.60">
-        <vehicle id="f.0" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
         <vehicle id="f.1" acceleration="-0.00"/>
     </timestep>
     <timestep time="58.70">
-        <vehicle id="f.0" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
         <vehicle id="f.1" acceleration="-0.00"/>
     </timestep>
     <timestep time="58.80">
-        <vehicle id="f.0" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
         <vehicle id="f.1" acceleration="-0.00"/>
     </timestep>
     <timestep time="58.90">
-        <vehicle id="f.0" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
         <vehicle id="f.1" acceleration="-0.00"/>
     </timestep>
     <timestep time="59.00">
-        <vehicle id="f.0" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
         <vehicle id="f.1" acceleration="-0.00"/>
     </timestep>
     <timestep time="59.10">
-        <vehicle id="f.0" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
         <vehicle id="f.1" acceleration="-0.00"/>
     </timestep>
     <timestep time="59.20">
-        <vehicle id="f.0" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
         <vehicle id="f.1" acceleration="-0.00"/>
     </timestep>
     <timestep time="59.30">
-        <vehicle id="f.0" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
         <vehicle id="f.1" acceleration="-0.00"/>
     </timestep>
     <timestep time="59.40">
-        <vehicle id="f.0" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
         <vehicle id="f.1" acceleration="-0.00"/>
     </timestep>
     <timestep time="59.50">
-        <vehicle id="f.0" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
         <vehicle id="f.1" acceleration="-0.00"/>
     </timestep>
     <timestep time="59.60">
-        <vehicle id="f.0" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
         <vehicle id="f.1" acceleration="-0.00"/>
     </timestep>
     <timestep time="59.70">
-        <vehicle id="f.0" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
         <vehicle id="f.1" acceleration="-0.00"/>
     </timestep>
     <timestep time="59.80">
-        <vehicle id="f.0" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
         <vehicle id="f.1" acceleration="-0.00"/>
     </timestep>
     <timestep time="59.90">
-        <vehicle id="f.0" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
         <vehicle id="f.1" acceleration="-0.00"/>
     </timestep>
     <timestep time="60.00">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="60.10">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="60.20">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="60.30">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="60.40">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="60.50">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="60.60">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="60.70">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="60.80">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="60.90">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="61.00">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="61.10">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="61.20">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="61.30">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="61.40">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="61.50">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="61.60">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="61.70">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="61.80">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="61.90">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="62.00">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="62.10">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="62.20">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="62.30">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="62.40">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="62.50">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="62.60">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="62.70">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="62.80">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="62.90">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="63.00">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="63.10">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="63.20">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="63.30">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="63.40">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="63.50">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="63.60">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="63.70">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="63.80">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="63.90">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="64.00">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="64.10">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="64.20">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="64.30">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="64.40">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="64.50">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="64.60">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="64.70">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="64.80">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="64.90">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="65.00">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="65.10">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="65.20">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="65.30">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="65.40">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="65.50">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="65.60">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="65.70">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="65.80">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="65.90">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="66.00">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="66.10">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="66.20">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="66.30">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="66.40">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="66.50">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="66.60">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="66.70">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="66.80">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="66.90">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="67.00">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="67.10">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="67.20">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="67.30">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="67.40">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="67.50">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="67.60">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="67.70">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="67.80">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="67.90">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="68.00">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="68.10">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="68.20">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="68.30">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="68.40">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="68.50">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="68.60">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="68.70">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="68.80">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="68.90">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="69.00">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="69.10">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="69.20">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="69.30">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="69.40">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="69.50">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="69.60">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="69.70">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="69.80">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="69.90">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="70.00">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="70.10">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="70.20">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="70.30">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="70.40">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="70.50">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="70.60">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="70.70">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="70.80">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="70.90">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="71.00">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="71.10">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="71.20">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="71.30">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="71.40">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="71.50">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="71.60">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="71.70">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="71.80">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="71.90">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="72.00">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="72.10">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="72.20">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="72.30">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="72.40">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="72.50">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="72.60">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="72.70">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="72.80">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="72.90">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="73.00">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="73.10">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="73.20">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="73.30">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="73.40">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="73.50">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="73.60">
         <vehicle id="f.0" acceleration="0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="73.70">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="73.80">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="73.90">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="74.00">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="74.10">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="74.20">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="74.30">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="74.40">
-        <vehicle id="f.0" acceleration="-0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.0" acceleration="0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="74.50">
         <vehicle id="f.0" acceleration="0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="74.60">
         <vehicle id="f.0" acceleration="0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="74.70">
         <vehicle id="f.0" acceleration="0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="74.80">
         <vehicle id="f.0" acceleration="0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="74.90">
         <vehicle id="f.0" acceleration="0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="75.00">
         <vehicle id="f.0" acceleration="0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="75.10">
         <vehicle id="f.0" acceleration="0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="75.20">
         <vehicle id="f.0" acceleration="0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="75.30">
         <vehicle id="f.0" acceleration="0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="75.40">
         <vehicle id="f.0" acceleration="0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="75.50">
         <vehicle id="f.0" acceleration="0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="75.60">
         <vehicle id="f.0" acceleration="0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="75.70">
         <vehicle id="f.0" acceleration="0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="75.80">
         <vehicle id="f.0" acceleration="0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="75.90">
         <vehicle id="f.0" acceleration="0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="76.00">
         <vehicle id="f.0" acceleration="0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="76.10">
         <vehicle id="f.0" acceleration="0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="76.20">
         <vehicle id="f.0" acceleration="0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="76.30">
         <vehicle id="f.0" acceleration="0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="76.40">
         <vehicle id="f.0" acceleration="0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="76.50">
         <vehicle id="f.0" acceleration="0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="76.60">
         <vehicle id="f.0" acceleration="0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="76.70">
         <vehicle id="f.0" acceleration="0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="76.80">
         <vehicle id="f.0" acceleration="0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="76.90">
         <vehicle id="f.0" acceleration="0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="77.00">
         <vehicle id="f.0" acceleration="0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="77.10">
         <vehicle id="f.0" acceleration="0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="77.20">
         <vehicle id="f.0" acceleration="0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="77.30">
         <vehicle id="f.0" acceleration="0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="77.40">
         <vehicle id="f.0" acceleration="0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="77.50">
         <vehicle id="f.0" acceleration="0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="77.60">
         <vehicle id="f.0" acceleration="0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="77.70">
         <vehicle id="f.0" acceleration="0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="77.80">
         <vehicle id="f.0" acceleration="0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="77.90">
         <vehicle id="f.0" acceleration="0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="78.00">
         <vehicle id="f.0" acceleration="0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="78.10">
         <vehicle id="f.0" acceleration="0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="78.20">
         <vehicle id="f.0" acceleration="0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="78.30">
         <vehicle id="f.0" acceleration="0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="78.40">
         <vehicle id="f.0" acceleration="0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="78.50">
         <vehicle id="f.0" acceleration="0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="78.60">
         <vehicle id="f.0" acceleration="0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="78.70">
         <vehicle id="f.0" acceleration="0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="78.80">
         <vehicle id="f.0" acceleration="0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="78.90">
         <vehicle id="f.0" acceleration="0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="79.00">
         <vehicle id="f.0" acceleration="0.00"/>
@@ -3212,7 +3212,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </timestep>
     <timestep time="79.70">
         <vehicle id="f.0" acceleration="0.00"/>
-        <vehicle id="f.1" acceleration="-0.00"/>
+        <vehicle id="f.1" acceleration="0.00"/>
     </timestep>
     <timestep time="79.80">
         <vehicle id="f.0" acceleration="0.00"/>
