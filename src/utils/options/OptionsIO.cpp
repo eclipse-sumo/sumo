@@ -131,7 +131,9 @@ OptionsIO::loadConfiguration() {
     if (myArgs.size() > 2) {
         // reparse the options (overwrite the settings from the configuration file)
         oc.resetWritable();
-        OptionsParser::parse(myArgs);
+        if (!OptionsParser::parse(myArgs)) {
+            throw ProcessError("Could not parse commandline options.");
+        }
     }
 }
 
