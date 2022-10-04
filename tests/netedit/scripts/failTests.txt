@@ -1,7 +1,5 @@
 -tp appdata=netedit.gui
 
-
-
 additionalelements/routeprobe/delete
 additionalelements/vaporizer/create/name
 bugs/crossings/ticket3288
@@ -10,9 +8,6 @@ dataelements/edgedata/delete
 dataelements/edgereldata/delete
 dataelements/tazreldata/delete
 demandelements/container/inspect/id
-
-
-
 
 demandelements/stop/busstop/create/duration
 demandelements/stop/busstop/create/extension
@@ -50,8 +45,6 @@ demandelements/stop/lane/inspect_selection/tripid
 demandelements/stop/parkingarea/create/duration
 demandelements/stop/parkingarea/create/extension
 demandelements/stop/parkingarea/create/until
-
-
 
 demandelements/vehicletype/edit/maxspeed
 demandelements/vehicletype/edit_dialog/vclass
@@ -91,6 +84,7 @@ demandelements/waypoint/lane/inspect_selection/tripid
 demandelements/waypoint/parkingarea/create/duration
 demandelements/waypoint/parkingarea/create/extension
 demandelements/waypoint/parkingarea/create/until
+
 netelements/connections/inspect_selected_tls/linkindex/
 netelements/connections/inspect_tls/linkindex/
 netelements/crossings/with_tls/create_nosidewalks/default
@@ -121,6 +115,7 @@ netelements/crossings/without_tls/create_nosidewalks/split_crossing
 netelements/crossings/without_tls/create_nosidewalks/width
 netelements/crossings/without_tls/load/linkindex/
 netelements/crossings/without_tls/load/linkindex2/
+
 netelements/edges/contextual_menu/reverse_direction
 netelements/edges/contextual_menu/reverse_edge
 netelements/edges/contextual_menu/smooth_edge
