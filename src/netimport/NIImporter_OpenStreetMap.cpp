@@ -340,6 +340,7 @@ NIImporter_OpenStreetMap::insertNodeChecking(long long int id, NBNodeCont& nc, N
         }
         if (n->railwayBufferStop) {
             node->setParameter("buffer_stop", "true");
+            node->setFringeType(FringeType::INNER);
         }
     }
     return node;
