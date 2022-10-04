@@ -65,7 +65,8 @@ OptionsIO::setArgs(int argc, char** argv) {
 
 void
 OptionsIO::setArgs(const std::vector<std::string>& args) {
-    myArgs = args;
+    myArgs.resize(1);  // will insert an empty string if no first element is there
+    myArgs.insert(myArgs.end(), args.begin(), args.end());
 }
 
 
