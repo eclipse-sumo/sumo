@@ -193,6 +193,8 @@ title: ChangeLog
   - Added extra consistency checks for public transport stop ordering in OSM input (with regard to bidi-edges). Issue #11612
   - Original ids of edges of removed edges are now stored in joined junctions parameters. Issue #11428
   - OSM import now support more symbolic speed restrictions. Issue #11682, #11683
+  - Node clusters and joint traffic lights get now similar ids of the form "cluster_id0_id1" or "joinedS_...", "joinedG_...". Issue #3871
+  - Joined ids are abbreviated with the scheme "cluster_id0_id1_id2_id3_#5more" if too many junctions / traffic lights are participating, see also **-max-join-ids**. Issue #10795
 
 - netgenerate
   - Now supports options **--geometry.remove** and **--tls.discard-simple**. Issue #11422
