@@ -53,7 +53,11 @@ GNEUndoListDialog::GNEUndoListDialog(GNEApplicationWindow* GNEApp) :
     myGNEApp(GNEApp) {
     // create main frame
     auto mainFrame = new FXVerticalFrame(this, GUIDesignAuxiliarFrame);
-    myRowFrame = new FXVerticalFrame(mainFrame, GUIDesignAuxiliarFrame);
+    // create scroll windows for rows
+    auto* scrollWindowsContents = new FXScrollWindow(mainFrame, GUIDesignContentsScrollUndoList);
+    myRowFrame = new FXVerticalFrame(scrollWindowsContents, GUIDesignAuxiliarFrame);
+    // add separator
+    new FXSeparator(mainFrame);
     // create buttons centered
     FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(mainFrame, GUIDesignHorizontalFrame);
     new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);

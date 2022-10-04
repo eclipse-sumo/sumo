@@ -375,8 +375,11 @@ class MFXMenuCheckIcon;
 /// @brief design for viewn area
 #define GUIDesignViewnArea                      (FRAME_SUNKEN | LAYOUT_SIDE_TOP | LAYOUT_FILL_X | LAYOUT_FILL_Y), 0, 0, 0, 0, 0, 0, 0, 0
 
-/// @brief design for the content frame of every frame
+/// @brief design for the content scroll of every frame
 #define GUIDesignContentsScrollWindow           (LAYOUT_FIX_WIDTH | LAYOUT_FILL_Y | HSCROLLER_NEVER | VSCROLLER_ALWAYS), 0, 0, 0, 0
+
+/// @brief design for the content scroll of UndoList
+#define GUIDesignContentsScrollUndoList         (LAYOUT_FILL_X | LAYOUT_FILL_Y | HSCROLLER_NEVER), 0, 0, 0, 0
 
 /// @brief design for the main content frame of every frame/dialog
 #define GUIDesignChildWindowContentFrame        (FRAME_SUNKEN | LAYOUT_SIDE_TOP | LAYOUT_FILL_X | LAYOUT_FILL_Y)
