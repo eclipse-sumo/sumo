@@ -318,6 +318,8 @@ signals. The actual intersection itself is then not marked as
 controlled. To interpret these structures the option **--tls.guess-signals** and **--tls.guess-signals.dist** {{DT_FLOAT}} may be used.
 To cover the cases where this heuristic fails, the options below may be
 used to computed a joint tls plan for multiple nodes.
+To identify the guessed signals in a network they all start with the prefix *GS_*
+before the node id.
 
 ### Joining traffic lights
 
@@ -331,7 +333,17 @@ junction](#junctions). However, if the junctions should stay
 separate, it is possible to at least generate a joint controller by
 setting the option **--tls.join**. For fine-tuning of joint traffic lights, the
 attribute `tl` can be [customized for individual
-nodes](#node_descriptions).
+nodes](#node_descriptions). The joined traffic lights get the id
+*joinedS_id0_id1* where *id0* and *id1* are the junction ids. If there are
+more nodes in the join than given by **--max-join-ids** (default 4)
+the id will be abbreviated to something like *joinedS_id0_id1_id2_id3_#5more*
+(for a 9 node cluster).
+
+If you want to let netconvert guess joined traffic lights at node clusters
+which were not joined previously (e.g. by using **--junctions.join**) and which do
+not have traffic lights assigned in the input, you can use the option **--tls.guess.joining**.
+This is not recommended in general. The traffic lights joint by this method get the id
+*joinedG_id0_id1* where *id0* and *id1* are the junction ids and the same abbreviation rules as above apply.
 
 ### Debugging missing traffic lights
 

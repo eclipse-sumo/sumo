@@ -297,7 +297,10 @@ The 'fringe' attribute is used by [randomTrips.py](../Tools/Trip.md#randomtripsp
 Sometimes your network may contain nodes which are very close together
 forming a big cluster. This happens frequently when [Importing Networks from OpenStreetMap](../Networks/Import/OpenStreetMap.md).
 [netconvert](../netconvert.md) supports the option **--junctions.join** to find such
-clusters and join them into a big and well shaped junction. Junctions can also be joined manually with [netedit](../Netedit/index.md#processing_menu_options). It is even possible to [undo joins](../Netedit/index.md#junction) that were computed automatically.
+clusters and join them into a big and well shaped junction. Junctions can also be joined manually with [netedit](../Netedit/index.md#processing_menu_options).
+It is even possible to [undo joins](../Netedit/index.md#junction) that were computed automatically.
+The new junction will get the id *cluster_id0_id1*. If there are more nodes in the cluster than given by **--max-join-ids** (default 4)
+the id will be abbreviated to something like *cluster_id0_id1_id2_id3_#5more* (for a 9 node cluster).
 
 ### Reasons for joining node clusters
 Within an intersection, special rules of traffic do apply. When modelling an intersection by a cluster of nodes, the edges within the cluster are regular roads where these rules cannot be applied. 
