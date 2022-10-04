@@ -52,6 +52,10 @@ python path you should be able to use them as described below.
 
 # Using libsumo
 
+If you want to use the (experimental) GUI then you need to have `sumo-gui`
+in your start command instead of `sumo` or define the environment variable
+`LIBSUMO_GUI`.
+
 ## Python
 
 ```py
