@@ -66,6 +66,8 @@
 #include <utils/gui/images/GUITexturesHelper.h>
 #include <utils/gui/events/GUIEvent_SimulationStep.h>
 #include <utils/gui/events/GUIEvent_Message.h>
+#include <utils/gui/events/GUIEvent_AddView.h>
+#include <utils/gui/events/GUIEvent_CloseView.h>
 #include <utils/gui/div/GUIMessageWindow.h>
 #include <utils/gui/div/GUIDialog_GLChosenEditor.h>
 #include <utils/gui/tracker/GUIParameterTracker.h>
@@ -1651,6 +1653,19 @@ GUIApplicationWindow::eventOccurred() {
             case GUIEventType::STATUS_OCCURRED:
                 handleEvent_Message(e);
                 break;
+            case GUIEventType::ADD_VIEW: {
+                GUIEvent_AddView* ave = dynamic_cast<GUIEvent_AddView*>(e);
+                auto v = openNewView(ave->in3D() ? GUISUMOViewParent::VIEW_3D_OSG : GUISUMOViewParent::VIEW_2D_OPENGL, ave->getCaption());
+                if (ave->getSchemeName() != "") {
+                    v->setColorScheme(ave->getCaption());
+                }
+                break;
+            }
+            case GUIEventType::CLOSE_VIEW: {
+                GUIEvent_CloseView* ave = dynamic_cast<GUIEvent_CloseView*>(e);
+                removeViewByID(ave->getCaption());
+                break;
+            }
             case GUIEventType::SIMULATION_ENDED:
                 handleEvent_SimulationEnded(e);
                 break;
@@ -1985,7 +2000,7 @@ GUIApplicationWindow::loadConfigOrNet(const std::string& file) {
 
 
 GUISUMOAbstractView*
-GUIApplicationWindow::openNewView(GUISUMOViewParent::ViewType vt) {
+GUIApplicationWindow::openNewView(GUISUMOViewParent::ViewType vt, std::string caption) {
     if (!myRunThread->simulationAvailable()) {
         myStatusbar->getStatusLine()->setText("No simulation loaded!");
         return nullptr;
@@ -1997,7 +2012,9 @@ GUIApplicationWindow::openNewView(GUISUMOViewParent::ViewType vt) {
             oldView = w->getView();
         }
     }
-    std::string caption = "View #" + toString(myViewNumber++);
+    if (caption == "") {
+        caption = "View #" + toString(myViewNumber++);
+    }
     FXuint opts = MDI_TRACKING;
     GUISUMOViewParent* w = new GUISUMOViewParent(myMDIClient, myMDIMenu, FXString(caption.c_str()),
             this, GUIIconSubSys::getIcon(GUIIcon::SUMO_MINI), opts, 10, 10, 200, 100);
@@ -2217,7 +2234,7 @@ GUIApplicationWindow::sendBlockingEvent(GUIEvent* event) {
     myEventMutex.lock();
     myEvents.push_back(event);
     myRunThreadEvent.signal();
-    myEventCondition.wait(myEventMutex);
+    //myEventCondition.wait(myEventMutex);
     myEventMutex.unlock();
 }
 

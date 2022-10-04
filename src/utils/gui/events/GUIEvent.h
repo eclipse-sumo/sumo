@@ -54,6 +54,12 @@ enum class GUIEventType {
     /// @brief send when a status change occured
     STATUS_OCCURRED,
 
+    /**@brief Send when a new should be opened (via TraCI) */
+    ADD_VIEW,
+
+    /**@brief Send when a view should be closed (via TraCI) */
+    CLOSE_VIEW,
+
     /**@brief Send when the simulation is over;
      * @note The reason and the time step are stored within the event
     */

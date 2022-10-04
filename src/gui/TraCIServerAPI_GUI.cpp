@@ -25,6 +25,7 @@
 #include <libsumo/GUI.h>
 #include <libsumo/StorageHelper.h>
 #include <libsumo/TraCIConstants.h>
+#include "GUISUMOViewParent.h"
 #include "TraCIServerAPI_GUI.h"
 
 
@@ -70,6 +71,7 @@ TraCIServerAPI_GUI::processSet(TraCIServer& server, tcpip::Storage& inputStorage
             && variable != libsumo::VAR_VIEW_SCHEMA && variable != libsumo::VAR_VIEW_BOUNDARY
             && variable != libsumo::VAR_SCREENSHOT && variable != libsumo::VAR_TRACK_VEHICLE
             && variable != libsumo::VAR_SELECT && variable != libsumo::VAR_ANGLE
+            && variable != libsumo::ADD && variable != libsumo::REMOVE
        ) {
         return server.writeErrorStatusCmd(libsumo::CMD_SET_GUI_VARIABLE, "Change GUI State: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
     }
@@ -153,6 +155,30 @@ TraCIServerAPI_GUI::processSet(TraCIServer& server, tcpip::Storage& inputStorage
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_GUI_VARIABLE, "Tracking requires a string ID.", outputStorage);
                 }
                 libsumo::GUI::trackVehicle(id, objID);
+                break;
+            }
+            case libsumo::ADD: {
+                if (inputStorage.readUnsignedByte() != libsumo::TYPE_COMPOUND) {
+                    return server.writeErrorStatusCmd(libsumo::CMD_SET_GUI_VARIABLE, "Adding a view requires a compound object.", outputStorage);
+                }
+                int parameterCount = inputStorage.readInt();
+                if (parameterCount != 2) {
+                    return server.writeErrorStatusCmd(libsumo::CMD_SET_GUI_VARIABLE, "Adding a view requires two values as parameter.", outputStorage);
+                }
+                std::string scheme;
+                if (!server.readTypeCheckingString(inputStorage, scheme)) {
+                    return server.writeErrorStatusCmd(libsumo::CMD_SET_GUI_VARIABLE, "The first variable must be a scheme name.", outputStorage);
+                }
+                int viewType;
+                if (!server.readTypeCheckingInt(inputStorage, viewType)) {
+                    return server.writeErrorStatusCmd(libsumo::CMD_SET_GUI_VARIABLE, "The second variable must be the view type given as int.", outputStorage);
+                }
+                libsumo::GUI::addView(id, scheme,
+                        viewType == 1 ?  GUISUMOViewParent::VIEW_3D_OSG : GUISUMOViewParent::VIEW_2D_OPENGL);
+                break;
+            }
+            case libsumo::REMOVE: {
+                libsumo::GUI::removeView(id);
                 break;
             }
             default:

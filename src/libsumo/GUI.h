@@ -53,18 +53,21 @@ public:
     static libsumo::TraCIPosition getOffset(const std::string& viewID = DEFAULT_VIEW);
     static std::string getSchema(const std::string& viewID = DEFAULT_VIEW);
     static libsumo::TraCIPositionVector getBoundary(const std::string& viewID = DEFAULT_VIEW);
+    static bool hasView(const std::string& viewID = DEFAULT_VIEW);
+    static std::string getTrackedVehicle(const std::string& viewID = DEFAULT_VIEW);
+    static bool isSelected(const std::string& objID, const std::string& objType = "vehicle");
+
     static void setZoom(const std::string& viewID, double zoom);
     static void setAngle(const std::string& viewID, double angle);
     static void setOffset(const std::string& viewID, double x, double y);
     static void setSchema(const std::string& viewID, const std::string& schemeName);
     static void setBoundary(const std::string& viewID, double xmin, double ymin, double xmax, double ymax);
-    static void screenshot(const std::string& viewID, const std::string& filename, const int width = -1, const int height = -1);
     static void trackVehicle(const std::string& viewID, const std::string& vehID);
-    static bool hasView(const std::string& viewID = DEFAULT_VIEW);
-    static std::string getTrackedVehicle(const std::string& viewID = DEFAULT_VIEW);
+    static void screenshot(const std::string& viewID, const std::string& filename, const int width = -1, const int height = -1);
     static void track(const std::string& objID, const std::string& viewID = DEFAULT_VIEW);
-    static bool isSelected(const std::string& objID, const std::string& objType = "vehicle");
     static void toggleSelection(const std::string& objID, const std::string& objType = "vehicle");
+    static void addView(const std::string& viewID, const std::string& schemeName = "", bool in3D = false);
+    static void removeView(const std::string& viewID);
 
     LIBSUMO_ID_PARAMETER_API
     LIBSUMO_SUBSCRIPTION_API

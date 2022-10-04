@@ -103,6 +103,20 @@ GUI::setSchema(const std::string& viewID, const std::string& schemeName) {
     Dom::setString(libsumo::VAR_VIEW_SCHEMA, viewID, schemeName);
 }
 
+void
+GUI::addView(const std::string& viewID, const std::string& schemeName, bool in3D) {
+    tcpip::Storage content;
+    StoHelp::writeCompound(content, 2);
+    StoHelp::writeTypedString(content, schemeName);
+    StoHelp::writeTypedInt(content, in3D ? 1 : 0);
+    Dom::set(libsumo::ADD, viewID, &content);
+}
+
+void
+GUI::removeView(const std::string& viewID) {
+    Dom::set(libsumo::REMOVE, viewID, nullptr);
+}
+
 
 void
 GUI::setBoundary(const std::string& viewID, double xmin, double ymin, double xmax, double ymax) {

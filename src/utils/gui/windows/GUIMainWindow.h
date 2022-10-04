@@ -73,6 +73,8 @@ public:
     /// @brief get specific view by ID
     GUIGlChildWindow* getViewByID(const std::string& id) const;
 
+    void removeViewByID(const std::string& id);
+
     /// @brief get views
     const std::vector<GUIGlChildWindow*>& getViews() const;
 

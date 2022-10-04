@@ -97,6 +97,19 @@ class GuiDomain(Domain):
         """
         self._setCmd(tc.VAR_ANGLE, viewID, "d", angle)
 
+    def addView(self, viewID, schemeName="", in3D=False ):
+        """addView(string, string, bool) -> None
+        Adds new view and sets it to the given settings scheme (optionally as a 3D view)
+        """
+        self._setCmd(tc.ADD, viewID, "tsi", 2, schemeName, 1 if in3D else 0)
+
+    def removeView(self, viewID):
+        """removeView(string) -> None
+
+        Removes the view with the given id
+        """
+        self._setCmd(tc.REMOVE, viewID)
+
     def setBoundary(self, viewID, xmin, ymin, xmax, ymax):
         """setBoundary(string, double, double, double, double) -> None
         Sets the boundary of the visible network. If the window has a different

@@ -28,6 +28,8 @@
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <utils/gui/settings/GUICompleteSchemeStorage.h>
 #include <utils/gui/windows/GUIPerspectiveChanger.h>
+#include <utils/gui/events/GUIEvent_AddView.h>
+#include <utils/gui/events/GUIEvent_CloseView.h>
 #include <utils/xml/XMLSubSys.h>
 #include <gui/GUIApplicationWindow.h>
 #include <gui/GUIRunThread.h>
@@ -150,6 +152,26 @@ GUI::setOffset(const std::string& viewID, double x, double y) {
 void
 GUI::setSchema(const std::string& viewID, const std::string& schemeName) {
     getView(viewID)->setColorScheme(schemeName);
+}
+
+void
+GUI::addView(const std::string& viewID, const std::string& schemeName, bool in3D) {
+    GUIMainWindow* const mw = GUIMainWindow::getInstance();
+    if (mw == nullptr) {
+        throw TraCIException("GUI is not running, command not implemented in command line sumo");
+    }
+    // calling openNewView directly doesn't work from the traci/simulation thread
+    mw->sendBlockingEvent(new GUIEvent_AddView(viewID, schemeName, in3D));
+}
+
+void
+GUI::removeView(const std::string& viewID) {
+    GUIMainWindow* const mw = GUIMainWindow::getInstance();
+    if (mw == nullptr) {
+        throw TraCIException("GUI is not running, command not implemented in command line sumo");
+    }
+    // calling removeViewByID directly doesn't work from the traci/simulation thread
+    mw->sendBlockingEvent(new GUIEvent_CloseView(viewID));
 }
 
 

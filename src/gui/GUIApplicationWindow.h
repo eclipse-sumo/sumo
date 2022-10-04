@@ -352,7 +352,7 @@ private:
     void updateTimeLCDTooltip();
 
     /** opens a new simulation display */
-    GUISUMOAbstractView* openNewView(GUISUMOViewParent::ViewType vt = GUISUMOViewParent::VIEW_2D_OPENGL);
+    GUISUMOAbstractView* openNewView(GUISUMOViewParent::ViewType vt = GUISUMOViewParent::VIEW_2D_OPENGL, std::string caption = "");
 
     /// @brief handles additional game-related events
     void checkGamingEvents();

@@ -1267,10 +1267,10 @@ TRACI_CONST int VAR_PARAMETER = 0x7e;
 TRACI_CONST int VAR_PARAMETER_WITH_KEY = 0x3e;
 
 
-// add an instance (poi, polygon, vehicle, person, route)
+// add an instance (poi, polygon, vehicle, person, route, gui)
 TRACI_CONST int ADD = 0x80;
 
-// remove an instance (poi, polygon, vehicle, person)
+// remove an instance (poi, polygon, vehicle, person, gui)
 TRACI_CONST int REMOVE = 0x81;
 
 // copy an instance (vehicle type, other TBD.)

@@ -155,6 +155,18 @@ GUIMainWindow::getViewByID(const std::string& id) const {
 }
 
 
+void
+GUIMainWindow::removeViewByID(const std::string& id) {
+    for (GUIGlChildWindow* const window : myGLWindows) {
+        if (std::string(window->getTitle().text()) == id) {
+            window->close();
+            removeGLChild(window);
+            return;
+        }
+    }
+}
+
+
 FXFont*
 GUIMainWindow::getBoldFont() {
     return myBoldFont;
