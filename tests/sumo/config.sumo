@@ -128,7 +128,7 @@ statistic:<!--{[->]}-->
 stopinfos:<!--{[->]}-->
 collisions:<!--{[->]}-->
 tripinfosPrefix:<!--{[->]}-->
-vtypeprobr:<!--{[->]}-->
+vtypeprobe:<!--{[->]}-->
 vehroutes:^<!--{[->]}-->
 personroutes:^<!--{[->]}-->
 fcd:<!--{[->]}-->
