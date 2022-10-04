@@ -52,7 +52,7 @@ def main(options):
         for interval in sumolib.xml.parse(options.turnFile, 'interval'):
             outf.write('    <interval begin="%s" end="%s">\n' % (
                 interval.begin, interval.end))
-            for c in interval.getChildList():
+            for c in interval.getChildList(True):
                 if c.isComment():
                     outf.write('        <!-- %s -->\n' % c.getText())
                 elif c.name == 'fromEdge':
