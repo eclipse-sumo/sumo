@@ -6,5 +6,8 @@ fast_approach_standing
 # approach a stopped car at low speed
 slow_approach_standing
 
+# approach a stopped car at low speed	
+slow_approach_standing_scMinGap
+
 # approach a stopped car at high speed
 collisionAvoidanceOverride
