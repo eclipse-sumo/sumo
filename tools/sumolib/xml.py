@@ -213,17 +213,22 @@ def compound_object(element_name, attrnames, warn=False, sort=True):
             nodeText = '' if self._text is None else ",text=%s" % self._text
             return "<%s,child_dict=%s%s>" % (self.getAttributes(), dict(self._child_dict), nodeText)
 
-        def toXML(self, initialIndent="", indent="    "):
+        def toXML(self, initialIndent="", indent="    ", withComments=False):
             fields = ['%s="%s"' % (self._original_fields[i], getattr(self, k))
                       for i, k in enumerate(self._fields) if getattr(self, k) is not None and
                       # see #3454
                       '{' not in self._original_fields[i]]
+            if self.isComment():
+                if withComments:
+                    return initialIndent + "<!-- %s -->\n" %  self._text
+                else:
+                    return ""
             if not self._child_dict and self._text is None:
                 return initialIndent + "<%s %s/>\n" % (self.name, " ".join(fields))
             else:
                 s = initialIndent + "<%s %s>\n" % (self.name, " ".join(fields))
                 for c in self._child_list:
-                    s += c.toXML(initialIndent + indent)
+                    s += c.toXML(initialIndent + indent, withComments=withComments)
                 if self._text is not None and self._text.strip():
                     s += self._text.strip(" ")
                 return s + "%s</%s>\n" % (initialIndent, self.name)

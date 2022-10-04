@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-09-27 15:49:51 by Eclipse SUMO sumo Version v1_14_1+1286-aabf80f
+<!-- generated on 2022-10-02 14:41:40 by Eclipse SUMO sumo Version v1_14_1+1395-77a6b2a
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -334,7 +334,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="f.5" speed="23.09" acceleration="0.00"/>
         <vehicle id="f.6" speed="22.81" acceleration="0.03"/>
         <vehicle id="f.7" speed="24.43" acceleration="-0.05"/>
-        <vehicle id="f.8" speed="25.62" acceleration="-0.09"/>
+        <vehicle id="f.8" speed="25.64" acceleration="-0.06"/>
         <vehicle id="f.9" speed="23.80" acceleration="0.00"/>
         <vehicle id="slow" speed="19.45" acceleration="0.00"/>
     </timestep>
@@ -347,7 +347,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="f.5" speed="23.09" acceleration="0.00"/>
         <vehicle id="f.6" speed="22.84" acceleration="0.03"/>
         <vehicle id="f.7" speed="24.37" acceleration="-0.06"/>
-        <vehicle id="f.8" speed="25.03" acceleration="-0.58"/>
+        <vehicle id="f.8" speed="25.04" acceleration="-0.61"/>
         <vehicle id="f.9" speed="23.80" acceleration="0.00"/>
         <vehicle id="slow" speed="19.45" acceleration="0.00"/>
     </timestep>
@@ -360,7 +360,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="f.5" speed="23.09" acceleration="0.00"/>
         <vehicle id="f.6" speed="22.86" acceleration="0.03"/>
         <vehicle id="f.7" speed="24.31" acceleration="-0.06"/>
-        <vehicle id="f.8" speed="24.42" acceleration="-0.62"/>
+        <vehicle id="f.8" speed="24.41" acceleration="-0.63"/>
         <vehicle id="f.9" speed="23.80" acceleration="0.00"/>
         <vehicle id="slow" speed="19.45" acceleration="0.00"/>
     </timestep>
@@ -373,7 +373,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="f.5" speed="23.09" acceleration="0.00"/>
         <vehicle id="f.6" speed="22.89" acceleration="0.03"/>
         <vehicle id="f.7" speed="24.25" acceleration="-0.06"/>
-        <vehicle id="f.8" speed="24.06" acceleration="-0.36"/>
+        <vehicle id="f.8" speed="24.04" acceleration="-0.36"/>
         <vehicle id="f.9" speed="23.80" acceleration="0.00"/>
         <vehicle id="slow" speed="19.45" acceleration="0.00"/>
     </timestep>
@@ -412,7 +412,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="f.5" speed="22.28" acceleration="-0.81"/>
         <vehicle id="f.6" speed="22.97" acceleration="0.02"/>
         <vehicle id="f.7" speed="23.49" acceleration="-0.57"/>
-        <vehicle id="f.8" speed="24.07" acceleration="0.04"/>
+        <vehicle id="f.8" speed="24.08" acceleration="0.04"/>
         <vehicle id="f.9" speed="23.80" acceleration="0.00"/>
         <vehicle id="slow" speed="19.45" acceleration="0.00"/>
     </timestep>
@@ -425,7 +425,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="f.5" speed="21.31" acceleration="-0.97"/>
         <vehicle id="f.6" speed="22.94" acceleration="-0.02"/>
         <vehicle id="f.7" speed="22.95" acceleration="-0.54"/>
-        <vehicle id="f.8" speed="23.80" acceleration="-0.27"/>
+        <vehicle id="f.8" speed="23.81" acceleration="-0.27"/>
         <vehicle id="f.9" speed="23.80" acceleration="0.00"/>
         <vehicle id="slow" speed="19.45" acceleration="0.00"/>
     </timestep>
@@ -450,7 +450,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="f.4" speed="17.46" acceleration="0.08"/>
         <vehicle id="f.5" speed="19.95" acceleration="-0.60"/>
         <vehicle id="f.6" speed="22.14" acceleration="-0.72"/>
-        <vehicle id="f.7" speed="22.64" acceleration="-0.04"/>
+        <vehicle id="f.7" speed="22.67" acceleration="-0.00"/>
         <vehicle id="f.8" speed="22.68" acceleration="-0.56"/>
         <vehicle id="f.9" speed="23.80" acceleration="0.00"/>
         <vehicle id="slow" speed="19.45" acceleration="0.00"/>
@@ -463,8 +463,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="f.4" speed="17.54" acceleration="0.09"/>
         <vehicle id="f.5" speed="18.56" acceleration="-1.39"/>
         <vehicle id="f.6" speed="20.74" acceleration="-1.41"/>
-        <vehicle id="f.7" speed="22.37" acceleration="-0.27"/>
-        <vehicle id="f.8" speed="22.38" acceleration="-0.30"/>
+        <vehicle id="f.7" speed="22.37" acceleration="-0.30"/>
+        <vehicle id="f.8" speed="22.39" acceleration="-0.28"/>
         <vehicle id="f.9" speed="23.80" acceleration="0.00"/>
         <vehicle id="slow" speed="19.45" acceleration="0.00"/>
     </timestep>
@@ -476,8 +476,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="f.4" speed="17.64" acceleration="0.09"/>
         <vehicle id="f.5" speed="17.37" acceleration="-1.19"/>
         <vehicle id="f.6" speed="18.95" acceleration="-1.79"/>
-        <vehicle id="f.7" speed="21.42" acceleration="-0.95"/>
-        <vehicle id="f.8" speed="22.22" acceleration="-0.15"/>
+        <vehicle id="f.7" speed="21.40" acceleration="-0.97"/>
+        <vehicle id="f.8" speed="22.24" acceleration="-0.15"/>
         <vehicle id="f.9" speed="23.80" acceleration="0.00"/>
         <vehicle id="slow" speed="19.45" acceleration="0.00"/>
     </timestep>
@@ -489,8 +489,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="f.4" speed="17.73" acceleration="0.09"/>
         <vehicle id="f.5" speed="16.91" acceleration="-0.46"/>
         <vehicle id="f.6" speed="17.27" acceleration="-1.68"/>
-        <vehicle id="f.7" speed="19.71" acceleration="-1.71"/>
-        <vehicle id="f.8" speed="21.74" acceleration="-0.48"/>
+        <vehicle id="f.7" speed="19.69" acceleration="-1.71"/>
+        <vehicle id="f.8" speed="21.75" acceleration="-0.50"/>
         <vehicle id="f.9" speed="23.80" acceleration="0.00"/>
         <vehicle id="slow" speed="19.45" acceleration="0.00"/>
     </timestep>
@@ -502,8 +502,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="f.4" speed="17.83" acceleration="0.10"/>
         <vehicle id="f.5" speed="16.93" acceleration="0.02"/>
         <vehicle id="f.6" speed="16.25" acceleration="-1.02"/>
-        <vehicle id="f.7" speed="17.63" acceleration="-2.08"/>
-        <vehicle id="f.8" speed="20.49" acceleration="-1.26"/>
+        <vehicle id="f.7" speed="17.62" acceleration="-2.07"/>
+        <vehicle id="f.8" speed="20.47" acceleration="-1.28"/>
         <vehicle id="f.9" speed="23.80" acceleration="0.00"/>
         <vehicle id="slow" speed="19.45" acceleration="0.00"/>
     </timestep>
@@ -515,8 +515,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="f.4" speed="17.93" acceleration="0.10"/>
         <vehicle id="f.5" speed="16.98" acceleration="0.05"/>
         <vehicle id="f.6" speed="16.08" acceleration="-0.17"/>
-        <vehicle id="f.7" speed="15.90" acceleration="-1.73"/>
-        <vehicle id="f.8" speed="18.43" acceleration="-2.06"/>
+        <vehicle id="f.7" speed="15.90" acceleration="-1.72"/>
+        <vehicle id="f.8" speed="18.41" acceleration="-2.06"/>
         <vehicle id="f.9" speed="23.80" acceleration="0.00"/>
         <vehicle id="slow" speed="19.45" acceleration="0.00"/>
     </timestep>
@@ -528,8 +528,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="f.4" speed="18.03" acceleration="0.10"/>
         <vehicle id="f.5" speed="17.04" acceleration="0.06"/>
         <vehicle id="f.6" speed="16.12" acceleration="0.04"/>
-        <vehicle id="f.7" speed="15.13" acceleration="-0.78"/>
-        <vehicle id="f.8" speed="16.14" acceleration="-2.29"/>
+        <vehicle id="f.7" speed="15.13" acceleration="-0.77"/>
+        <vehicle id="f.8" speed="16.12" acceleration="-2.28"/>
         <vehicle id="f.9" speed="23.80" acceleration="0.00"/>
         <vehicle id="slow" speed="19.45" acceleration="0.00"/>
     </timestep>
@@ -542,7 +542,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="f.5" speed="17.11" acceleration="0.07"/>
         <vehicle id="f.6" speed="16.18" acceleration="0.06"/>
         <vehicle id="f.7" speed="15.14" acceleration="0.01"/>
-        <vehicle id="f.8" speed="14.49" acceleration="-1.65"/>
+        <vehicle id="f.8" speed="14.49" acceleration="-1.64"/>
         <vehicle id="f.9" speed="23.80" acceleration="0.00"/>
         <vehicle id="slow" speed="19.45" acceleration="0.00"/>
     </timestep>
@@ -555,8 +555,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="f.5" speed="17.19" acceleration="0.07"/>
         <vehicle id="f.6" speed="16.24" acceleration="0.06"/>
         <vehicle id="f.7" speed="15.20" acceleration="0.06"/>
-        <vehicle id="f.8" speed="13.99" acceleration="-0.50"/>
-        <vehicle id="f.9" speed="21.85" acceleration="-1.96"/>
+        <vehicle id="f.8" speed="14.00" acceleration="-0.49"/>
+        <vehicle id="f.9" speed="21.84" acceleration="-1.96"/>
         <vehicle id="slow" speed="19.45" acceleration="0.00"/>
     </timestep>
     <timestep time="47.00">
@@ -567,9 +567,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="f.4" speed="18.36" acceleration="0.11"/>
         <vehicle id="f.5" speed="17.27" acceleration="0.08"/>
         <vehicle id="f.6" speed="16.31" acceleration="0.07"/>
-        <vehicle id="f.7" speed="15.26" acceleration="0.07"/>
+        <vehicle id="f.7" speed="15.27" acceleration="0.07"/>
         <vehicle id="f.8" speed="14.03" acceleration="0.04"/>
-        <vehicle id="f.9" speed="19.97" acceleration="-1.88"/>
+        <vehicle id="f.9" speed="19.97" acceleration="-1.87"/>
         <vehicle id="slow" speed="19.45" acceleration="0.00"/>
     </timestep>
     <timestep time="48.00">
@@ -581,8 +581,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="f.5" speed="17.36" acceleration="0.09"/>
         <vehicle id="f.6" speed="16.38" acceleration="0.07"/>
         <vehicle id="f.7" speed="15.34" acceleration="0.07"/>
-        <vehicle id="f.8" speed="14.10" acceleration="0.07"/>
-        <vehicle id="f.9" speed="18.51" acceleration="-1.46"/>
+        <vehicle id="f.8" speed="14.11" acceleration="0.07"/>
+        <vehicle id="f.9" speed="18.52" acceleration="-1.46"/>
         <vehicle id="slow" speed="19.45" acceleration="0.00"/>
     </timestep>
     <timestep time="49.00">
@@ -593,9 +593,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="f.4" speed="18.59" acceleration="0.12"/>
         <vehicle id="f.5" speed="17.45" acceleration="0.10"/>
         <vehicle id="f.6" speed="16.46" acceleration="0.08"/>
-        <vehicle id="f.7" speed="15.41" acceleration="0.08"/>
-        <vehicle id="f.8" speed="14.18" acceleration="0.08"/>
-        <vehicle id="f.9" speed="17.46" acceleration="-1.05"/>
+        <vehicle id="f.7" speed="15.42" acceleration="0.08"/>
+        <vehicle id="f.8" speed="14.19" acceleration="0.08"/>
+        <vehicle id="f.9" speed="17.47" acceleration="-1.05"/>
         <vehicle id="slow" speed="19.45" acceleration="0.00"/>
     </timestep>
     <timestep time="50.00">
@@ -606,9 +606,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="f.4" speed="18.70" acceleration="0.12"/>
         <vehicle id="f.5" speed="17.55" acceleration="0.10"/>
         <vehicle id="f.6" speed="16.54" acceleration="0.08"/>
-        <vehicle id="f.7" speed="15.49" acceleration="0.08"/>
+        <vehicle id="f.7" speed="15.50" acceleration="0.08"/>
         <vehicle id="f.8" speed="14.27" acceleration="0.09"/>
-        <vehicle id="f.9" speed="16.70" acceleration="-0.76"/>
+        <vehicle id="f.9" speed="16.71" acceleration="-0.76"/>
         <vehicle id="slow" speed="19.45" acceleration="0.00"/>
     </timestep>
     <timestep time="51.00">
@@ -620,7 +620,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="f.5" speed="17.66" acceleration="0.11"/>
         <vehicle id="f.6" speed="16.63" acceleration="0.09"/>
         <vehicle id="f.7" speed="15.58" acceleration="0.09"/>
-        <vehicle id="f.8" speed="14.36" acceleration="0.09"/>
+        <vehicle id="f.8" speed="14.37" acceleration="0.09"/>
         <vehicle id="f.9" speed="15.26" acceleration="-1.45"/>
         <vehicle id="slow" speed="19.45" acceleration="0.00"/>
     </timestep>
@@ -632,7 +632,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="f.4" speed="18.94" acceleration="0.12"/>
         <vehicle id="f.5" speed="17.78" acceleration="0.11"/>
         <vehicle id="f.6" speed="16.73" acceleration="0.10"/>
-        <vehicle id="f.7" speed="15.67" acceleration="0.09"/>
+        <vehicle id="f.7" speed="15.68" acceleration="0.09"/>
         <vehicle id="f.8" speed="14.46" acceleration="0.10"/>
         <vehicle id="f.9" speed="14.10" acceleration="-1.16"/>
         <vehicle id="slow" speed="19.45" acceleration="0.00"/>
@@ -646,8 +646,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="f.5" speed="17.90" acceleration="0.12"/>
         <vehicle id="f.6" speed="16.83" acceleration="0.10"/>
         <vehicle id="f.7" speed="15.77" acceleration="0.10"/>
-        <vehicle id="f.8" speed="14.56" acceleration="0.10"/>
-        <vehicle id="f.9" speed="13.70" acceleration="-0.40"/>
+        <vehicle id="f.8" speed="14.57" acceleration="0.10"/>
+        <vehicle id="f.9" speed="13.71" acceleration="-0.40"/>
         <vehicle id="slow" speed="19.45" acceleration="0.00"/>
     </timestep>
     <timestep time="54.00">
@@ -658,8 +658,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="f.4" speed="19.19" acceleration="0.12"/>
         <vehicle id="f.5" speed="18.02" acceleration="0.13"/>
         <vehicle id="f.6" speed="16.94" acceleration="0.11"/>
-        <vehicle id="f.7" speed="15.87" acceleration="0.10"/>
-        <vehicle id="f.8" speed="14.67" acceleration="0.11"/>
+        <vehicle id="f.7" speed="15.88" acceleration="0.10"/>
+        <vehicle id="f.8" speed="14.68" acceleration="0.11"/>
         <vehicle id="f.9" speed="13.73" acceleration="0.03"/>
         <vehicle id="slow" speed="19.45" acceleration="0.00"/>
     </timestep>
@@ -673,7 +673,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="f.6" speed="17.05" acceleration="0.11"/>
         <vehicle id="f.7" speed="15.98" acceleration="0.11"/>
         <vehicle id="f.8" speed="14.79" acceleration="0.11"/>
-        <vehicle id="f.9" speed="13.78" acceleration="0.06"/>
+        <vehicle id="f.9" speed="13.79" acceleration="0.06"/>
         <vehicle id="slow" speed="19.45" acceleration="0.00"/>
     </timestep>
     <timestep time="56.00">
@@ -684,7 +684,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="f.4" speed="19.44" acceleration="0.12"/>
         <vehicle id="f.5" speed="18.29" acceleration="0.14"/>
         <vehicle id="f.6" speed="17.17" acceleration="0.12"/>
-        <vehicle id="f.7" speed="16.09" acceleration="0.11"/>
+        <vehicle id="f.7" speed="16.10" acceleration="0.11"/>
         <vehicle id="f.8" speed="14.91" acceleration="0.12"/>
         <vehicle id="f.9" speed="13.85" acceleration="0.06"/>
         <vehicle id="slow" speed="19.45" acceleration="0.00"/>
@@ -697,9 +697,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="f.4" speed="19.56" acceleration="0.12"/>
         <vehicle id="f.5" speed="18.43" acceleration="0.14"/>
         <vehicle id="f.6" speed="17.30" acceleration="0.13"/>
-        <vehicle id="f.7" speed="16.21" acceleration="0.12"/>
-        <vehicle id="f.8" speed="15.03" acceleration="0.13"/>
-        <vehicle id="f.9" speed="13.92" acceleration="0.07"/>
+        <vehicle id="f.7" speed="16.22" acceleration="0.12"/>
+        <vehicle id="f.8" speed="15.04" acceleration="0.12"/>
+        <vehicle id="f.9" speed="13.93" acceleration="0.07"/>
         <vehicle id="slow" speed="19.45" acceleration="0.00"/>
     </timestep>
     <timestep time="58.00">
@@ -711,8 +711,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="f.5" speed="18.58" acceleration="0.15"/>
         <vehicle id="f.6" speed="17.43" acceleration="0.13"/>
         <vehicle id="f.7" speed="16.34" acceleration="0.12"/>
-        <vehicle id="f.8" speed="15.16" acceleration="0.13"/>
-        <vehicle id="f.9" speed="14.00" acceleration="0.08"/>
+        <vehicle id="f.8" speed="15.17" acceleration="0.13"/>
+        <vehicle id="f.9" speed="14.01" acceleration="0.08"/>
         <vehicle id="slow" speed="19.45" acceleration="0.00"/>
     </timestep>
     <timestep time="59.00">
@@ -725,7 +725,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="f.6" speed="17.57" acceleration="0.14"/>
         <vehicle id="f.7" speed="16.47" acceleration="0.13"/>
         <vehicle id="f.8" speed="15.30" acceleration="0.14"/>
-        <vehicle id="f.9" speed="14.09" acceleration="0.09"/>
+        <vehicle id="f.9" speed="14.10" acceleration="0.09"/>
         <vehicle id="slow" speed="19.45" acceleration="0.00"/>
     </timestep>
     <timestep time="60.00">
@@ -751,7 +751,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="f.6" speed="17.86" acceleration="0.15"/>
         <vehicle id="f.7" speed="16.74" acceleration="0.14"/>
         <vehicle id="f.8" speed="18.04" acceleration="2.60"/>
-        <vehicle id="f.9" speed="14.29" acceleration="0.11"/>
+        <vehicle id="f.9" speed="14.30" acceleration="0.11"/>
         <vehicle id="slow" speed="19.45" acceleration="0.00"/>
     </timestep>
     <timestep time="62.00">
@@ -764,7 +764,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="f.6" speed="20.46" acceleration="2.60"/>
         <vehicle id="f.7" speed="16.89" acceleration="0.15"/>
         <vehicle id="f.8" speed="20.64" acceleration="2.60"/>
-        <vehicle id="f.9" speed="14.54" acceleration="0.25"/>
+        <vehicle id="f.9" speed="14.55" acceleration="0.25"/>
         <vehicle id="slow" speed="19.45" acceleration="0.00"/>
     </timestep>
     <timestep time="63.00">
@@ -777,11 +777,11 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="f.6" speed="23.06" acceleration="2.60"/>
         <vehicle id="f.7" speed="19.49" acceleration="2.60"/>
         <vehicle id="f.8" speed="20.61" acceleration="-0.03"/>
-        <vehicle id="f.9" speed="17.14" acceleration="2.60"/>
+        <vehicle id="f.9" speed="17.15" acceleration="2.60"/>
         <vehicle id="slow" speed="19.45" acceleration="0.00"/>
     </timestep>
     <timestep time="64.00">
-        <vehicle id="f.0" speed="19.39" acceleration="-0.02"/>
+        <vehicle id="f.0" speed="19.41" acceleration="-0.00"/>
         <vehicle id="f.1" speed="20.00" acceleration="-0.02"/>
         <vehicle id="f.2" speed="20.48" acceleration="0.03"/>
         <vehicle id="f.3" speed="20.62" acceleration="0.08"/>
@@ -790,11 +790,11 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="f.6" speed="25.46" acceleration="2.40"/>
         <vehicle id="f.7" speed="21.54" acceleration="2.05"/>
         <vehicle id="f.8" speed="20.58" acceleration="-0.03"/>
-        <vehicle id="f.9" speed="19.74" acceleration="2.60"/>
+        <vehicle id="f.9" speed="19.75" acceleration="2.60"/>
         <vehicle id="slow" speed="19.45" acceleration="0.00"/>
     </timestep>
     <timestep time="65.00">
-        <vehicle id="f.0" speed="19.41" acceleration="0.02"/>
+        <vehicle id="f.0" speed="19.41" acceleration="0.01"/>
         <vehicle id="f.1" speed="19.98" acceleration="-0.02"/>
         <vehicle id="f.2" speed="20.50" acceleration="0.02"/>
         <vehicle id="f.3" speed="20.69" acceleration="0.07"/>
@@ -802,12 +802,12 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="f.5" speed="22.76" acceleration="0.22"/>
         <vehicle id="f.6" speed="25.48" acceleration="0.02"/>
         <vehicle id="f.7" speed="22.77" acceleration="1.23"/>
-        <vehicle id="f.8" speed="20.65" acceleration="0.08"/>
+        <vehicle id="f.8" speed="20.65" acceleration="0.07"/>
         <vehicle id="f.9" speed="21.37" acceleration="1.62"/>
         <vehicle id="slow" speed="19.45" acceleration="0.00"/>
     </timestep>
     <timestep time="66.00">
-        <vehicle id="f.0" speed="19.44" acceleration="0.03"/>
+        <vehicle id="f.0" speed="19.43" acceleration="0.02"/>
         <vehicle id="f.1" speed="19.95" acceleration="-0.02"/>
         <vehicle id="f.2" speed="20.51" acceleration="0.02"/>
         <vehicle id="f.3" speed="20.76" acceleration="0.07"/>
@@ -842,7 +842,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="f.6" speed="25.15" acceleration="-0.11"/>
         <vehicle id="f.7" speed="24.21" acceleration="0.27"/>
         <vehicle id="f.8" speed="21.22" acceleration="0.22"/>
-        <vehicle id="f.9" speed="22.90" acceleration="-0.02"/>
+        <vehicle id="f.9" speed="22.91" acceleration="-0.02"/>
         <vehicle id="slow" speed="19.45" acceleration="0.00"/>
     </timestep>
     <timestep time="69.00">
@@ -859,7 +859,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="slow" speed="19.45" acceleration="0.00"/>
     </timestep>
     <timestep time="70.00">
-        <vehicle id="f.0" speed="19.45" acceleration="-0.01"/>
+        <vehicle id="f.0" speed="19.46" acceleration="-0.00"/>
         <vehicle id="f.1" speed="19.51" acceleration="-0.27"/>
         <vehicle id="f.2" speed="20.53" acceleration="-0.01"/>
         <vehicle id="f.3" speed="20.99" acceleration="0.05"/>
@@ -872,8 +872,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="slow" speed="19.45" acceleration="0.00"/>
     </timestep>
     <timestep time="71.00">
-        <vehicle id="f.0" speed="19.44" acceleration="-0.01"/>
-        <vehicle id="f.1" speed="19.34" acceleration="-0.17"/>
+        <vehicle id="f.0" speed="19.45" acceleration="-0.00"/>
+        <vehicle id="f.1" speed="19.35" acceleration="-0.17"/>
         <vehicle id="f.2" speed="20.50" acceleration="-0.03"/>
         <vehicle id="f.3" speed="21.03" acceleration="0.04"/>
         <vehicle id="f.4" speed="20.29" acceleration="0.04"/>
@@ -885,8 +885,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="slow" speed="19.45" acceleration="0.00"/>
     </timestep>
     <timestep time="72.00">
-        <vehicle id="f.0" speed="19.44" acceleration="-0.00"/>
-        <vehicle id="f.1" speed="19.31" acceleration="-0.04"/>
+        <vehicle id="f.0" speed="19.45" acceleration="-0.00"/>
+        <vehicle id="f.1" speed="19.34" acceleration="-0.00"/>
         <vehicle id="f.2" speed="20.46" acceleration="-0.04"/>
         <vehicle id="f.3" speed="21.07" acceleration="0.04"/>
         <vehicle id="f.4" speed="20.33" acceleration="0.05"/>
@@ -898,9 +898,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="slow" speed="19.45" acceleration="0.00"/>
     </timestep>
     <timestep time="73.00">
-        <vehicle id="f.0" speed="19.44" acceleration="0.00"/>
-        <vehicle id="f.1" speed="19.35" acceleration="0.05"/>
-        <vehicle id="f.2" speed="20.41" acceleration="-0.05"/>
+        <vehicle id="f.0" speed="19.45" acceleration="-0.00"/>
+        <vehicle id="f.1" speed="19.37" acceleration="0.03"/>
+        <vehicle id="f.2" speed="20.42" acceleration="-0.05"/>
         <vehicle id="f.3" speed="21.10" acceleration="0.03"/>
         <vehicle id="f.4" speed="20.39" acceleration="0.05"/>
         <vehicle id="f.5" speed="22.99" acceleration="-0.08"/>
@@ -911,8 +911,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="slow" speed="19.45" acceleration="0.00"/>
     </timestep>
     <timestep time="74.00">
-        <vehicle id="f.0" speed="19.44" acceleration="0.00"/>
-        <vehicle id="f.1" speed="19.42" acceleration="0.07"/>
+        <vehicle id="f.0" speed="19.45" acceleration="-0.00"/>
+        <vehicle id="f.1" speed="19.42" acceleration="0.05"/>
         <vehicle id="f.2" speed="20.37" acceleration="-0.05"/>
         <vehicle id="f.3" speed="21.12" acceleration="0.02"/>
         <vehicle id="f.4" speed="20.44" acceleration="0.05"/>
@@ -924,8 +924,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="slow" speed="19.45" acceleration="0.00"/>
     </timestep>
     <timestep time="75.00">
-        <vehicle id="f.0" speed="19.45" acceleration="0.00"/>
-        <vehicle id="f.1" speed="19.47" acceleration="0.05"/>
+        <vehicle id="f.0" speed="19.45" acceleration="-0.00"/>
+        <vehicle id="f.1" speed="19.47" acceleration="0.04"/>
         <vehicle id="f.2" speed="20.32" acceleration="-0.05"/>
         <vehicle id="f.3" speed="21.14" acceleration="0.01"/>
         <vehicle id="f.4" speed="20.50" acceleration="0.06"/>
@@ -937,9 +937,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="slow" speed="19.45" acceleration="0.00"/>
     </timestep>
     <timestep time="76.00">
-        <vehicle id="f.0" speed="19.45" acceleration="0.00"/>
+        <vehicle id="f.0" speed="19.45" acceleration="-0.00"/>
         <vehicle id="f.1" speed="19.48" acceleration="0.02"/>
-        <vehicle id="f.2" speed="20.20" acceleration="-0.12"/>
+        <vehicle id="f.2" speed="20.22" acceleration="-0.10"/>
         <vehicle id="f.3" speed="21.14" acceleration="0.01"/>
         <vehicle id="f.4" speed="20.55" acceleration="0.06"/>
         <vehicle id="f.5" speed="22.70" acceleration="-0.10"/>
@@ -951,8 +951,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </timestep>
     <timestep time="77.00">
         <vehicle id="f.0" speed="19.45" acceleration="-0.00"/>
-        <vehicle id="f.1" speed="19.47" acceleration="-0.01"/>
-        <vehicle id="f.2" speed="19.81" acceleration="-0.39"/>
+        <vehicle id="f.1" speed="19.48" acceleration="-0.00"/>
+        <vehicle id="f.2" speed="19.83" acceleration="-0.39"/>
         <vehicle id="f.3" speed="21.14" acceleration="-0.00"/>
         <vehicle id="f.4" speed="20.61" acceleration="0.06"/>
         <vehicle id="f.5" speed="22.59" acceleration="-0.11"/>
@@ -964,8 +964,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </timestep>
     <timestep time="78.00">
         <vehicle id="f.0" speed="19.45" acceleration="-0.00"/>
-        <vehicle id="f.1" speed="19.46" acceleration="-0.02"/>
-        <vehicle id="f.2" speed="19.45" acceleration="-0.36"/>
+        <vehicle id="f.1" speed="19.48" acceleration="-0.00"/>
+        <vehicle id="f.2" speed="19.47" acceleration="-0.37"/>
         <vehicle id="f.3" speed="21.11" acceleration="-0.03"/>
         <vehicle id="f.4" speed="20.67" acceleration="0.06"/>
         <vehicle id="f.5" speed="22.27" acceleration="-0.32"/>
@@ -977,8 +977,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </timestep>
     <timestep time="79.00">
         <vehicle id="f.0" speed="19.45" acceleration="-0.00"/>
-        <vehicle id="f.1" speed="19.44" acceleration="-0.01"/>
-        <vehicle id="f.2" speed="19.28" acceleration="-0.18"/>
+        <vehicle id="f.1" speed="19.48" acceleration="-0.00"/>
+        <vehicle id="f.2" speed="19.29" acceleration="-0.18"/>
         <vehicle id="f.3" speed="21.05" acceleration="-0.06"/>
         <vehicle id="f.4" speed="20.72" acceleration="0.05"/>
         <vehicle id="f.5" speed="21.38" acceleration="-0.89"/>
@@ -990,8 +990,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </timestep>
     <timestep time="80.00">
         <vehicle id="f.0" speed="19.45" acceleration="-0.00"/>
-        <vehicle id="f.1" speed="19.44" acceleration="-0.01"/>
-        <vehicle id="f.2" speed="19.27" acceleration="-0.01"/>
+        <vehicle id="f.1" speed="19.48" acceleration="-0.00"/>
+        <vehicle id="f.2" speed="19.30" acceleration="0.00"/>
         <vehicle id="f.3" speed="20.98" acceleration="-0.07"/>
         <vehicle id="f.4" speed="20.77" acceleration="0.05"/>
         <vehicle id="f.5" speed="20.61" acceleration="-0.77"/>
@@ -1002,9 +1002,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="slow" speed="19.45" acceleration="0.00"/>
     </timestep>
     <timestep time="81.00">
-        <vehicle id="f.0" speed="19.45" acceleration="0.00"/>
-        <vehicle id="f.1" speed="19.44" acceleration="0.00"/>
-        <vehicle id="f.2" speed="19.34" acceleration="0.07"/>
+        <vehicle id="f.0" speed="19.45" acceleration="-0.00"/>
+        <vehicle id="f.1" speed="19.42" acceleration="-0.05"/>
+        <vehicle id="f.2" speed="19.38" acceleration="0.09"/>
         <vehicle id="f.3" speed="20.90" acceleration="-0.08"/>
         <vehicle id="f.4" speed="20.81" acceleration="0.04"/>
         <vehicle id="f.5" speed="20.31" acceleration="-0.30"/>
@@ -1015,10 +1015,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="slow" speed="19.45" acceleration="0.00"/>
     </timestep>
     <timestep time="82.00">
-        <vehicle id="f.0" speed="19.45" acceleration="0.00"/>
-        <vehicle id="f.1" speed="19.44" acceleration="0.00"/>
-        <vehicle id="f.2" speed="19.43" acceleration="0.08"/>
-        <vehicle id="f.3" speed="20.82" acceleration="-0.08"/>
+        <vehicle id="f.0" speed="19.45" acceleration="-0.00"/>
+        <vehicle id="f.1" speed="19.42" acceleration="-0.00"/>
+        <vehicle id="f.2" speed="19.45" acceleration="0.06"/>
+        <vehicle id="f.3" speed="20.83" acceleration="-0.08"/>
         <vehicle id="f.4" speed="20.85" acceleration="0.04"/>
         <vehicle id="f.5" speed="20.32" acceleration="0.01"/>
         <vehicle id="f.6" speed="20.24" acceleration="-0.93"/>
@@ -1028,309 +1028,309 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="slow" speed="19.45" acceleration="0.00"/>
     </timestep>
     <timestep time="83.00">
-        <vehicle id="f.0" speed="19.45" acceleration="0.00"/>
-        <vehicle id="f.1" speed="19.45" acceleration="0.00"/>
-        <vehicle id="f.2" speed="19.48" acceleration="0.05"/>
-        <vehicle id="f.3" speed="20.44" acceleration="-0.38"/>
+        <vehicle id="f.0" speed="19.45" acceleration="-0.00"/>
+        <vehicle id="f.1" speed="19.42" acceleration="0.00"/>
+        <vehicle id="f.2" speed="19.47" acceleration="0.02"/>
+        <vehicle id="f.3" speed="20.50" acceleration="-0.33"/>
         <vehicle id="f.4" speed="20.88" acceleration="0.03"/>
         <vehicle id="f.5" speed="20.35" acceleration="0.03"/>
         <vehicle id="f.6" speed="19.81" acceleration="-0.43"/>
-        <vehicle id="f.7" speed="23.13" acceleration="-1.16"/>
-        <vehicle id="f.8" speed="25.94" acceleration="-0.04"/>
+        <vehicle id="f.7" speed="23.13" acceleration="-1.17"/>
+        <vehicle id="f.8" speed="25.93" acceleration="-0.04"/>
         <vehicle id="f.9" speed="23.80" acceleration="0.00"/>
         <vehicle id="slow" speed="19.45" acceleration="0.00"/>
     </timestep>
     <timestep time="84.00">
-        <vehicle id="f.0" speed="19.45" acceleration="0.00"/>
-        <vehicle id="f.1" speed="19.45" acceleration="0.00"/>
-        <vehicle id="f.2" speed="19.49" acceleration="0.01"/>
-        <vehicle id="f.3" speed="19.80" acceleration="-0.63"/>
+        <vehicle id="f.0" speed="19.45" acceleration="-0.00"/>
+        <vehicle id="f.1" speed="19.43" acceleration="0.01"/>
+        <vehicle id="f.2" speed="19.47" acceleration="-0.00"/>
+        <vehicle id="f.3" speed="19.86" acceleration="-0.64"/>
         <vehicle id="f.4" speed="20.89" acceleration="0.01"/>
         <vehicle id="f.5" speed="20.38" acceleration="0.03"/>
         <vehicle id="f.6" speed="19.86" acceleration="0.05"/>
-        <vehicle id="f.7" speed="22.12" acceleration="-1.01"/>
+        <vehicle id="f.7" speed="22.11" acceleration="-1.02"/>
         <vehicle id="f.8" speed="25.82" acceleration="-0.11"/>
         <vehicle id="f.9" speed="23.80" acceleration="0.00"/>
         <vehicle id="slow" speed="19.45" acceleration="0.00"/>
     </timestep>
     <timestep time="85.00">
         <vehicle id="f.0" speed="19.45" acceleration="-0.00"/>
-        <vehicle id="f.1" speed="19.45" acceleration="-0.00"/>
-        <vehicle id="f.2" speed="19.48" acceleration="-0.01"/>
-        <vehicle id="f.3" speed="19.33" acceleration="-0.47"/>
-        <vehicle id="f.4" speed="20.86" acceleration="-0.03"/>
+        <vehicle id="f.1" speed="19.44" acceleration="0.01"/>
+        <vehicle id="f.2" speed="19.47" acceleration="-0.00"/>
+        <vehicle id="f.3" speed="19.35" acceleration="-0.51"/>
+        <vehicle id="f.4" speed="20.87" acceleration="-0.03"/>
         <vehicle id="f.5" speed="20.42" acceleration="0.04"/>
-        <vehicle id="f.6" speed="19.89" acceleration="0.03"/>
-        <vehicle id="f.7" speed="20.61" acceleration="-1.51"/>
-        <vehicle id="f.8" speed="25.24" acceleration="-0.58"/>
+        <vehicle id="f.6" speed="19.90" acceleration="0.03"/>
+        <vehicle id="f.7" speed="20.60" acceleration="-1.51"/>
+        <vehicle id="f.8" speed="25.22" acceleration="-0.61"/>
         <vehicle id="f.9" speed="23.80" acceleration="0.00"/>
         <vehicle id="slow" speed="19.45" acceleration="0.00"/>
     </timestep>
     <timestep time="86.00">
         <vehicle id="f.0" speed="19.45" acceleration="-0.00"/>
-        <vehicle id="f.1" speed="19.45" acceleration="-0.00"/>
-        <vehicle id="f.2" speed="19.46" acceleration="-0.02"/>
-        <vehicle id="f.3" speed="19.17" acceleration="-0.16"/>
-        <vehicle id="f.4" speed="20.80" acceleration="-0.06"/>
+        <vehicle id="f.1" speed="19.45" acceleration="0.01"/>
+        <vehicle id="f.2" speed="19.46" acceleration="-0.00"/>
+        <vehicle id="f.3" speed="19.15" acceleration="-0.20"/>
+        <vehicle id="f.4" speed="20.81" acceleration="-0.06"/>
         <vehicle id="f.5" speed="20.45" acceleration="0.03"/>
         <vehicle id="f.6" speed="19.93" acceleration="0.03"/>
-        <vehicle id="f.7" speed="19.51" acceleration="-1.10"/>
-        <vehicle id="f.8" speed="23.25" acceleration="-1.99"/>
+        <vehicle id="f.7" speed="19.50" acceleration="-1.09"/>
+        <vehicle id="f.8" speed="23.23" acceleration="-1.99"/>
         <vehicle id="f.9" speed="23.80" acceleration="0.00"/>
         <vehicle id="slow" speed="19.45" acceleration="0.00"/>
     </timestep>
     <timestep time="87.00">
         <vehicle id="f.0" speed="19.45" acceleration="-0.00"/>
-        <vehicle id="f.1" speed="19.45" acceleration="-0.00"/>
-        <vehicle id="f.2" speed="19.44" acceleration="-0.02"/>
-        <vehicle id="f.3" speed="19.23" acceleration="0.06"/>
-        <vehicle id="f.4" speed="20.72" acceleration="-0.08"/>
-        <vehicle id="f.5" speed="20.48" acceleration="0.03"/>
+        <vehicle id="f.1" speed="19.45" acceleration="0.00"/>
+        <vehicle id="f.2" speed="19.46" acceleration="-0.00"/>
+        <vehicle id="f.3" speed="19.20" acceleration="0.05"/>
+        <vehicle id="f.4" speed="20.73" acceleration="-0.08"/>
+        <vehicle id="f.5" speed="20.49" acceleration="0.03"/>
         <vehicle id="f.6" speed="19.96" acceleration="0.04"/>
-        <vehicle id="f.7" speed="19.17" acceleration="-0.34"/>
-        <vehicle id="f.8" speed="21.54" acceleration="-1.71"/>
+        <vehicle id="f.7" speed="19.17" acceleration="-0.33"/>
+        <vehicle id="f.8" speed="21.50" acceleration="-1.72"/>
         <vehicle id="f.9" speed="23.80" acceleration="0.00"/>
         <vehicle id="slow" speed="19.45" acceleration="0.00"/>
     </timestep>
     <timestep time="88.00">
         <vehicle id="f.0" speed="19.45" acceleration="-0.00"/>
         <vehicle id="f.1" speed="19.45" acceleration="-0.00"/>
-        <vehicle id="f.2" speed="19.44" acceleration="-0.00"/>
-        <vehicle id="f.3" speed="19.24" acceleration="0.01"/>
-        <vehicle id="f.4" speed="20.75" acceleration="0.04"/>
+        <vehicle id="f.2" speed="19.46" acceleration="-0.00"/>
+        <vehicle id="f.3" speed="19.22" acceleration="0.02"/>
+        <vehicle id="f.4" speed="20.80" acceleration="0.07"/>
         <vehicle id="f.5" speed="20.51" acceleration="0.03"/>
         <vehicle id="f.6" speed="20.00" acceleration="0.04"/>
-        <vehicle id="f.7" speed="19.19" acceleration="0.03"/>
-        <vehicle id="f.8" speed="19.62" acceleration="-1.93"/>
+        <vehicle id="f.7" speed="19.20" acceleration="0.03"/>
+        <vehicle id="f.8" speed="19.59" acceleration="-1.92"/>
         <vehicle id="f.9" speed="23.80" acceleration="0.00"/>
         <vehicle id="slow" speed="19.45" acceleration="0.00"/>
     </timestep>
     <timestep time="89.00">
-        <vehicle id="f.0" speed="19.45" acceleration="0.00"/>
+        <vehicle id="f.0" speed="19.45" acceleration="-0.00"/>
         <vehicle id="f.1" speed="19.45" acceleration="-0.00"/>
-        <vehicle id="f.2" speed="19.44" acceleration="0.00"/>
-        <vehicle id="f.3" speed="19.26" acceleration="0.01"/>
-        <vehicle id="f.4" speed="20.04" acceleration="-0.72"/>
+        <vehicle id="f.2" speed="19.42" acceleration="-0.05"/>
+        <vehicle id="f.3" speed="19.24" acceleration="0.02"/>
+        <vehicle id="f.4" speed="20.07" acceleration="-0.73"/>
         <vehicle id="f.5" speed="20.54" acceleration="0.03"/>
         <vehicle id="f.6" speed="20.04" acceleration="0.04"/>
         <vehicle id="f.7" speed="19.24" acceleration="0.05"/>
-        <vehicle id="f.8" speed="18.45" acceleration="-1.16"/>
+        <vehicle id="f.8" speed="18.45" acceleration="-1.14"/>
         <vehicle id="f.9" speed="23.80" acceleration="0.00"/>
         <vehicle id="slow" speed="19.45" acceleration="0.00"/>
     </timestep>
     <timestep time="90.00">
-        <vehicle id="f.0" speed="19.45" acceleration="0.00"/>
-        <vehicle id="f.1" speed="19.45" acceleration="0.00"/>
-        <vehicle id="f.2" speed="19.44" acceleration="0.00"/>
-        <vehicle id="f.3" speed="19.27" acceleration="0.01"/>
-        <vehicle id="f.4" speed="19.29" acceleration="-0.75"/>
+        <vehicle id="f.0" speed="19.44" acceleration="-0.00"/>
+        <vehicle id="f.1" speed="19.45" acceleration="-0.00"/>
+        <vehicle id="f.2" speed="19.41" acceleration="-0.00"/>
+        <vehicle id="f.3" speed="19.25" acceleration="0.01"/>
+        <vehicle id="f.4" speed="19.29" acceleration="-0.78"/>
         <vehicle id="f.5" speed="20.53" acceleration="-0.01"/>
         <vehicle id="f.6" speed="20.08" acceleration="0.04"/>
-        <vehicle id="f.7" speed="19.29" acceleration="0.05"/>
-        <vehicle id="f.8" speed="18.27" acceleration="-0.19"/>
+        <vehicle id="f.7" speed="19.30" acceleration="0.05"/>
+        <vehicle id="f.8" speed="18.27" acceleration="-0.17"/>
         <vehicle id="f.9" speed="23.80" acceleration="0.00"/>
         <vehicle id="slow" speed="19.45" acceleration="0.00"/>
     </timestep>
     <timestep time="91.00">
-        <vehicle id="f.0" speed="19.45" acceleration="0.00"/>
-        <vehicle id="f.1" speed="19.45" acceleration="0.00"/>
-        <vehicle id="f.2" speed="19.45" acceleration="0.00"/>
-        <vehicle id="f.3" speed="19.28" acceleration="0.01"/>
-        <vehicle id="f.4" speed="18.91" acceleration="-0.39"/>
-        <vehicle id="f.5" speed="20.47" acceleration="-0.06"/>
-        <vehicle id="f.6" speed="20.12" acceleration="0.04"/>
+        <vehicle id="f.0" speed="19.44" acceleration="-0.00"/>
+        <vehicle id="f.1" speed="19.45" acceleration="-0.00"/>
+        <vehicle id="f.2" speed="19.42" acceleration="0.01"/>
+        <vehicle id="f.3" speed="19.26" acceleration="0.01"/>
+        <vehicle id="f.4" speed="18.88" acceleration="-0.41"/>
+        <vehicle id="f.5" speed="20.48" acceleration="-0.06"/>
+        <vehicle id="f.6" speed="20.13" acceleration="0.04"/>
         <vehicle id="f.7" speed="19.35" acceleration="0.06"/>
-        <vehicle id="f.8" speed="18.31" acceleration="0.05"/>
+        <vehicle id="f.8" speed="18.32" acceleration="0.05"/>
         <vehicle id="f.9" speed="23.80" acceleration="0.00"/>
         <vehicle id="slow" speed="19.45" acceleration="0.00"/>
     </timestep>
     <timestep time="92.00">
-        <vehicle id="f.0" speed="19.45" acceleration="0.00"/>
-        <vehicle id="f.1" speed="19.45" acceleration="0.00"/>
-        <vehicle id="f.2" speed="19.45" acceleration="0.00"/>
-        <vehicle id="f.3" speed="19.29" acceleration="0.01"/>
-        <vehicle id="f.4" speed="18.90" acceleration="-0.01"/>
-        <vehicle id="f.5" speed="20.20" acceleration="-0.27"/>
+        <vehicle id="f.0" speed="19.44" acceleration="-0.00"/>
+        <vehicle id="f.1" speed="19.45" acceleration="-0.00"/>
+        <vehicle id="f.2" speed="19.44" acceleration="0.02"/>
+        <vehicle id="f.3" speed="19.28" acceleration="0.01"/>
+        <vehicle id="f.4" speed="18.88" acceleration="-0.00"/>
+        <vehicle id="f.5" speed="20.23" acceleration="-0.25"/>
         <vehicle id="f.6" speed="20.16" acceleration="0.04"/>
         <vehicle id="f.7" speed="19.41" acceleration="0.06"/>
         <vehicle id="f.8" speed="18.38" acceleration="0.06"/>
-        <vehicle id="f.9" speed="23.07" acceleration="-0.73"/>
+        <vehicle id="f.9" speed="23.06" acceleration="-0.75"/>
         <vehicle id="slow" speed="19.45" acceleration="0.00"/>
     </timestep>
     <timestep time="93.00">
-        <vehicle id="f.0" speed="19.45" acceleration="0.00"/>
-        <vehicle id="f.1" speed="19.45" acceleration="0.00"/>
-        <vehicle id="f.2" speed="19.45" acceleration="-0.00"/>
-        <vehicle id="f.3" speed="19.31" acceleration="0.01"/>
-        <vehicle id="f.4" speed="18.92" acceleration="0.02"/>
-        <vehicle id="f.5" speed="19.47" acceleration="-0.73"/>
-        <vehicle id="f.6" speed="20.18" acceleration="0.02"/>
+        <vehicle id="f.0" speed="19.44" acceleration="-0.00"/>
+        <vehicle id="f.1" speed="19.45" acceleration="-0.00"/>
+        <vehicle id="f.2" speed="19.46" acceleration="0.01"/>
+        <vehicle id="f.3" speed="19.29" acceleration="0.01"/>
+        <vehicle id="f.4" speed="18.90" acceleration="0.02"/>
+        <vehicle id="f.5" speed="19.49" acceleration="-0.74"/>
+        <vehicle id="f.6" speed="20.19" acceleration="0.02"/>
         <vehicle id="f.7" speed="19.47" acceleration="0.06"/>
         <vehicle id="f.8" speed="18.45" acceleration="0.07"/>
-        <vehicle id="f.9" speed="22.19" acceleration="-0.89"/>
+        <vehicle id="f.9" speed="22.17" acceleration="-0.88"/>
         <vehicle id="slow" speed="19.45" acceleration="0.00"/>
     </timestep>
     <timestep time="94.00">
-        <vehicle id="f.0" speed="19.45" acceleration="-0.00"/>
+        <vehicle id="f.0" speed="19.44" acceleration="-0.00"/>
         <vehicle id="f.1" speed="19.45" acceleration="-0.00"/>
-        <vehicle id="f.2" speed="19.45" acceleration="-0.00"/>
-        <vehicle id="f.3" speed="19.32" acceleration="0.01"/>
-        <vehicle id="f.4" speed="18.95" acceleration="0.02"/>
-        <vehicle id="f.5" speed="18.84" acceleration="-0.63"/>
-        <vehicle id="f.6" speed="20.16" acceleration="-0.02"/>
+        <vehicle id="f.2" speed="19.46" acceleration="0.01"/>
+        <vehicle id="f.3" speed="19.31" acceleration="0.02"/>
+        <vehicle id="f.4" speed="18.93" acceleration="0.02"/>
+        <vehicle id="f.5" speed="18.83" acceleration="-0.66"/>
+        <vehicle id="f.6" speed="20.17" acceleration="-0.02"/>
         <vehicle id="f.7" speed="19.53" acceleration="0.06"/>
-        <vehicle id="f.8" speed="18.52" acceleration="0.07"/>
-        <vehicle id="f.9" speed="21.49" acceleration="-0.69"/>
+        <vehicle id="f.8" speed="18.53" acceleration="0.07"/>
+        <vehicle id="f.9" speed="21.48" acceleration="-0.69"/>
         <vehicle id="slow" speed="19.45" acceleration="0.00"/>
     </timestep>
     <timestep time="95.00">
-        <vehicle id="f.0" speed="19.45" acceleration="-0.00"/>
+        <vehicle id="f.0" speed="19.44" acceleration="-0.00"/>
         <vehicle id="f.1" speed="19.45" acceleration="-0.00"/>
-        <vehicle id="f.2" speed="19.45" acceleration="-0.00"/>
-        <vehicle id="f.3" speed="19.34" acceleration="0.01"/>
-        <vehicle id="f.4" speed="18.97" acceleration="0.03"/>
-        <vehicle id="f.5" speed="18.58" acceleration="-0.26"/>
-        <vehicle id="f.6" speed="20.10" acceleration="-0.06"/>
-        <vehicle id="f.7" speed="19.59" acceleration="0.06"/>
+        <vehicle id="f.2" speed="19.46" acceleration="-0.00"/>
+        <vehicle id="f.3" speed="19.32" acceleration="0.02"/>
+        <vehicle id="f.4" speed="18.95" acceleration="0.03"/>
+        <vehicle id="f.5" speed="18.55" acceleration="-0.28"/>
+        <vehicle id="f.6" speed="20.11" acceleration="-0.06"/>
+        <vehicle id="f.7" speed="19.60" acceleration="0.06"/>
         <vehicle id="f.8" speed="18.60" acceleration="0.08"/>
-        <vehicle id="f.9" speed="20.96" acceleration="-0.54"/>
+        <vehicle id="f.9" speed="20.92" acceleration="-0.56"/>
         <vehicle id="slow" speed="19.45" acceleration="0.00"/>
     </timestep>
     <timestep time="96.00">
-        <vehicle id="f.0" speed="19.45" acceleration="-0.00"/>
+        <vehicle id="f.0" speed="19.44" acceleration="-0.00"/>
         <vehicle id="f.1" speed="19.45" acceleration="-0.00"/>
-        <vehicle id="f.2" speed="19.45" acceleration="-0.00"/>
-        <vehicle id="f.3" speed="19.35" acceleration="0.01"/>
-        <vehicle id="f.4" speed="19.00" acceleration="0.03"/>
-        <vehicle id="f.5" speed="18.64" acceleration="0.06"/>
-        <vehicle id="f.6" speed="20.16" acceleration="0.05"/>
+        <vehicle id="f.2" speed="19.46" acceleration="-0.00"/>
+        <vehicle id="f.3" speed="19.34" acceleration="0.02"/>
+        <vehicle id="f.4" speed="18.98" acceleration="0.03"/>
+        <vehicle id="f.5" speed="18.61" acceleration="0.06"/>
+        <vehicle id="f.6" speed="20.17" acceleration="0.06"/>
         <vehicle id="f.7" speed="19.65" acceleration="0.06"/>
         <vehicle id="f.8" speed="18.68" acceleration="0.08"/>
-        <vehicle id="f.9" speed="19.64" acceleration="-1.32"/>
+        <vehicle id="f.9" speed="19.61" acceleration="-1.31"/>
         <vehicle id="slow" speed="19.45" acceleration="0.00"/>
     </timestep>
     <timestep time="97.00">
-        <vehicle id="f.0" speed="19.45" acceleration="-0.00"/>
+        <vehicle id="f.0" speed="19.44" acceleration="-0.00"/>
         <vehicle id="f.1" speed="19.45" acceleration="-0.00"/>
-        <vehicle id="f.2" speed="19.45" acceleration="-0.00"/>
-        <vehicle id="f.3" speed="19.36" acceleration="0.01"/>
-        <vehicle id="f.4" speed="19.03" acceleration="0.03"/>
-        <vehicle id="f.5" speed="18.66" acceleration="0.02"/>
-        <vehicle id="f.6" speed="19.45" acceleration="-0.71"/>
+        <vehicle id="f.2" speed="19.46" acceleration="-0.00"/>
+        <vehicle id="f.3" speed="19.35" acceleration="0.02"/>
+        <vehicle id="f.4" speed="19.01" acceleration="0.03"/>
+        <vehicle id="f.5" speed="18.63" acceleration="0.02"/>
+        <vehicle id="f.6" speed="19.45" acceleration="-0.72"/>
         <vehicle id="f.7" speed="19.71" acceleration="0.06"/>
-        <vehicle id="f.8" speed="18.76" acceleration="0.09"/>
-        <vehicle id="f.9" speed="18.51" acceleration="-1.13"/>
+        <vehicle id="f.8" speed="18.77" acceleration="0.08"/>
+        <vehicle id="f.9" speed="18.50" acceleration="-1.11"/>
         <vehicle id="slow" speed="19.45" acceleration="0.00"/>
     </timestep>
     <timestep time="98.00">
-        <vehicle id="f.0" speed="19.45" acceleration="0.00"/>
-        <vehicle id="f.1" speed="19.45" acceleration="0.00"/>
-        <vehicle id="f.2" speed="19.45" acceleration="0.00"/>
+        <vehicle id="f.0" speed="19.44" acceleration="-0.00"/>
+        <vehicle id="f.1" speed="19.45" acceleration="-0.00"/>
+        <vehicle id="f.2" speed="19.46" acceleration="-0.00"/>
         <vehicle id="f.3" speed="19.37" acceleration="0.01"/>
-        <vehicle id="f.4" speed="19.06" acceleration="0.03"/>
-        <vehicle id="f.5" speed="18.69" acceleration="0.02"/>
-        <vehicle id="f.6" speed="18.70" acceleration="-0.74"/>
+        <vehicle id="f.4" speed="19.04" acceleration="0.03"/>
+        <vehicle id="f.5" speed="18.66" acceleration="0.02"/>
+        <vehicle id="f.6" speed="18.68" acceleration="-0.77"/>
         <vehicle id="f.7" speed="19.73" acceleration="0.02"/>
-        <vehicle id="f.8" speed="18.85" acceleration="0.09"/>
-        <vehicle id="f.9" speed="18.08" acceleration="-0.44"/>
+        <vehicle id="f.8" speed="18.86" acceleration="0.09"/>
+        <vehicle id="f.9" speed="18.08" acceleration="-0.42"/>
     </timestep>
     <timestep time="99.00">
-        <vehicle id="f.1" speed="19.45" acceleration="0.00"/>
-        <vehicle id="f.2" speed="19.45" acceleration="0.00"/>
-        <vehicle id="f.3" speed="19.39" acceleration="0.01"/>
-        <vehicle id="f.4" speed="19.08" acceleration="0.03"/>
-        <vehicle id="f.5" speed="18.71" acceleration="0.03"/>
-        <vehicle id="f.6" speed="18.32" acceleration="-0.38"/>
-        <vehicle id="f.7" speed="19.70" acceleration="-0.03"/>
-        <vehicle id="f.8" speed="18.94" acceleration="0.09"/>
-        <vehicle id="f.9" speed="18.09" acceleration="0.02"/>
+        <vehicle id="f.1" speed="19.45" acceleration="-0.00"/>
+        <vehicle id="f.2" speed="19.46" acceleration="-0.00"/>
+        <vehicle id="f.3" speed="19.38" acceleration="0.01"/>
+        <vehicle id="f.4" speed="19.07" acceleration="0.03"/>
+        <vehicle id="f.5" speed="18.68" acceleration="0.03"/>
+        <vehicle id="f.6" speed="18.28" acceleration="-0.40"/>
+        <vehicle id="f.7" speed="19.71" acceleration="-0.03"/>
+        <vehicle id="f.8" speed="18.95" acceleration="0.09"/>
+        <vehicle id="f.9" speed="18.10" acceleration="0.02"/>
     </timestep>
     <timestep time="100.00">
         <vehicle id="f.1" speed="22.05" acceleration="2.60"/>
-        <vehicle id="f.2" speed="19.45" acceleration="0.00"/>
+        <vehicle id="f.2" speed="19.46" acceleration="-0.00"/>
         <vehicle id="f.3" speed="19.40" acceleration="0.01"/>
-        <vehicle id="f.4" speed="19.11" acceleration="0.03"/>
-        <vehicle id="f.5" speed="18.74" acceleration="0.03"/>
-        <vehicle id="f.6" speed="18.33" acceleration="0.00"/>
-        <vehicle id="f.7" speed="19.65" acceleration="-0.05"/>
+        <vehicle id="f.4" speed="19.10" acceleration="0.03"/>
+        <vehicle id="f.5" speed="18.71" acceleration="0.03"/>
+        <vehicle id="f.6" speed="18.28" acceleration="0.00"/>
+        <vehicle id="f.7" speed="19.65" acceleration="-0.06"/>
         <vehicle id="f.8" speed="19.03" acceleration="0.09"/>
-        <vehicle id="f.9" speed="18.14" acceleration="0.05"/>
+        <vehicle id="f.9" speed="18.15" acceleration="0.05"/>
     </timestep>
     <timestep time="101.00">
-        <vehicle id="f.2" speed="19.59" acceleration="0.14"/>
+        <vehicle id="f.2" speed="19.60" acceleration="0.14"/>
         <vehicle id="f.3" speed="19.41" acceleration="0.01"/>
-        <vehicle id="f.4" speed="19.14" acceleration="0.03"/>
-        <vehicle id="f.5" speed="18.77" acceleration="0.03"/>
-        <vehicle id="f.6" speed="18.35" acceleration="0.02"/>
+        <vehicle id="f.4" speed="19.13" acceleration="0.03"/>
+        <vehicle id="f.5" speed="18.74" acceleration="0.03"/>
+        <vehicle id="f.6" speed="18.31" acceleration="0.02"/>
         <vehicle id="f.7" speed="19.59" acceleration="-0.06"/>
         <vehicle id="f.8" speed="19.11" acceleration="0.08"/>
-        <vehicle id="f.9" speed="18.20" acceleration="0.06"/>
+        <vehicle id="f.9" speed="18.21" acceleration="0.06"/>
     </timestep>
     <timestep time="102.00">
         <vehicle id="f.3" speed="19.43" acceleration="0.02"/>
-        <vehicle id="f.4" speed="19.17" acceleration="0.03"/>
-        <vehicle id="f.5" speed="18.80" acceleration="0.03"/>
-        <vehicle id="f.6" speed="18.37" acceleration="0.03"/>
+        <vehicle id="f.4" speed="19.16" acceleration="0.03"/>
+        <vehicle id="f.5" speed="18.77" acceleration="0.03"/>
+        <vehicle id="f.6" speed="18.34" acceleration="0.03"/>
         <vehicle id="f.7" speed="19.53" acceleration="-0.06"/>
         <vehicle id="f.8" speed="19.19" acceleration="0.08"/>
-        <vehicle id="f.9" speed="18.26" acceleration="0.06"/>
+        <vehicle id="f.9" speed="18.27" acceleration="0.06"/>
     </timestep>
     <timestep time="103.00">
         <vehicle id="f.3" speed="22.03" acceleration="2.60"/>
-        <vehicle id="f.4" speed="19.21" acceleration="0.03"/>
-        <vehicle id="f.5" speed="18.83" acceleration="0.03"/>
-        <vehicle id="f.6" speed="18.40" acceleration="0.03"/>
-        <vehicle id="f.7" speed="19.46" acceleration="-0.07"/>
+        <vehicle id="f.4" speed="19.19" acceleration="0.03"/>
+        <vehicle id="f.5" speed="18.81" acceleration="0.03"/>
+        <vehicle id="f.6" speed="18.36" acceleration="0.03"/>
+        <vehicle id="f.7" speed="19.38" acceleration="-0.15"/>
         <vehicle id="f.8" speed="19.26" acceleration="0.07"/>
-        <vehicle id="f.9" speed="18.33" acceleration="0.07"/>
+        <vehicle id="f.9" speed="18.34" acceleration="0.07"/>
     </timestep>
     <timestep time="104.00">
-        <vehicle id="f.4" speed="19.38" acceleration="0.17"/>
-        <vehicle id="f.5" speed="18.87" acceleration="0.03"/>
-        <vehicle id="f.6" speed="18.43" acceleration="0.03"/>
-        <vehicle id="f.7" speed="18.95" acceleration="-0.51"/>
+        <vehicle id="f.4" speed="19.37" acceleration="0.17"/>
+        <vehicle id="f.5" speed="18.84" acceleration="0.04"/>
+        <vehicle id="f.6" speed="18.40" acceleration="0.03"/>
+        <vehicle id="f.7" speed="18.85" acceleration="-0.53"/>
         <vehicle id="f.8" speed="19.32" acceleration="0.06"/>
-        <vehicle id="f.9" speed="18.40" acceleration="0.07"/>
+        <vehicle id="f.9" speed="18.41" acceleration="0.07"/>
     </timestep>
     <timestep time="105.00">
-        <vehicle id="f.5" speed="18.91" acceleration="0.04"/>
-        <vehicle id="f.6" speed="18.47" acceleration="0.03"/>
-        <vehicle id="f.7" speed="18.44" acceleration="-0.51"/>
-        <vehicle id="f.8" speed="19.36" acceleration="0.03"/>
-        <vehicle id="f.9" speed="18.48" acceleration="0.08"/>
+        <vehicle id="f.5" speed="18.89" acceleration="0.05"/>
+        <vehicle id="f.6" speed="18.43" acceleration="0.03"/>
+        <vehicle id="f.7" speed="18.36" acceleration="-0.49"/>
+        <vehicle id="f.8" speed="19.35" acceleration="0.03"/>
+        <vehicle id="f.9" speed="18.49" acceleration="0.08"/>
     </timestep>
     <timestep time="106.00">
-        <vehicle id="f.5" speed="21.51" acceleration="2.60"/>
-        <vehicle id="f.6" speed="18.50" acceleration="0.04"/>
-        <vehicle id="f.7" speed="18.20" acceleration="-0.24"/>
-        <vehicle id="f.8" speed="19.36" acceleration="-0.00"/>
-        <vehicle id="f.9" speed="18.56" acceleration="0.08"/>
+        <vehicle id="f.5" speed="21.49" acceleration="2.60"/>
+        <vehicle id="f.6" speed="18.47" acceleration="0.04"/>
+        <vehicle id="f.7" speed="18.15" acceleration="-0.21"/>
+        <vehicle id="f.8" speed="19.34" acceleration="-0.01"/>
+        <vehicle id="f.9" speed="18.57" acceleration="0.08"/>
     </timestep>
     <timestep time="107.00">
-        <vehicle id="f.6" speed="18.68" acceleration="0.18"/>
-        <vehicle id="f.7" speed="18.23" acceleration="0.03"/>
-        <vehicle id="f.8" speed="19.34" acceleration="-0.02"/>
+        <vehicle id="f.6" speed="18.65" acceleration="0.18"/>
+        <vehicle id="f.7" speed="18.20" acceleration="0.05"/>
+        <vehicle id="f.8" speed="19.32" acceleration="-0.02"/>
         <vehicle id="f.9" speed="18.64" acceleration="0.08"/>
     </timestep>
     <timestep time="108.00">
-        <vehicle id="f.7" speed="18.26" acceleration="0.03"/>
-        <vehicle id="f.8" speed="19.31" acceleration="-0.02"/>
-        <vehicle id="f.9" speed="18.71" acceleration="0.08"/>
+        <vehicle id="f.7" speed="18.23" acceleration="0.03"/>
+        <vehicle id="f.8" speed="19.29" acceleration="-0.03"/>
+        <vehicle id="f.9" speed="18.72" acceleration="0.08"/>
     </timestep>
     <timestep time="109.00">
-        <vehicle id="f.7" speed="20.86" acceleration="2.60"/>
-        <vehicle id="f.8" speed="19.29" acceleration="-0.03"/>
+        <vehicle id="f.7" speed="20.83" acceleration="2.60"/>
+        <vehicle id="f.8" speed="19.27" acceleration="-0.03"/>
         <vehicle id="f.9" speed="18.79" acceleration="0.07"/>
     </timestep>
     <timestep time="110.00">
-        <vehicle id="f.8" speed="19.40" acceleration="0.11"/>
+        <vehicle id="f.8" speed="19.38" acceleration="0.11"/>
         <vehicle id="f.9" speed="18.86" acceleration="0.07"/>
     </timestep>
     <timestep time="111.00">
-        <vehicle id="f.9" speed="18.94" acceleration="0.08"/>
+        <vehicle id="f.9" speed="18.93" acceleration="0.07"/>
     </timestep>
     <timestep time="112.00">
-        <vehicle id="f.9" speed="21.54" acceleration="2.60"/>
+        <vehicle id="f.9" speed="21.53" acceleration="2.60"/>
     </timestep>
     <timestep time="113.00"/>
 </fcd-export>

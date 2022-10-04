@@ -61,7 +61,7 @@ public:
     /** @brief Return the number of command line arguments
      */
     static int getArgC() {
-        return myArgC;
+        return (int)myArgs.size();
     }
 
 
@@ -104,8 +104,7 @@ public:
 
 
 private:
-    static int myArgC;
-    static char** myArgV;
+    static std::vector<std::string> myArgs;
     static std::chrono::time_point<std::chrono::system_clock> myLoadTime;
 
 };

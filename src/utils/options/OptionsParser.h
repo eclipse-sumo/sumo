@@ -48,12 +48,11 @@ public:
     /** @brief Parses the given command line arguments
      *
      * @param[in] oc The options container to fill
-     * @param[in] argc The number of given command line arguments
-     * @param[in] argv The command line arguments
+     * @param[in] args The command line arguments
      * @return Whether the parsing was successfull
      * @exception InvalidArgument If a performed setting of an option failed (see Option::set)
      */
-    static bool parse(int argc, char** argv, const bool ignoreAppenders=false);
+    static bool parse(const std::vector<std::string>& args, const bool ignoreAppenders=false);
 
 private:
     /** @brief parses the previous arguments
@@ -64,7 +63,7 @@ private:
      * @return Number of read tokens (1 or 2)
      * @exception InvalidArgument If a performed setting of an option failed (see Option::set)
      */
-    static int check(const char* arg1, const char* arg2, bool& ok, const bool ignoreAppenders);
+    static int check(const std::string& arg1, const std::string& arg2, bool& ok, const bool ignoreAppenders);
 
 
     /** @brief Returns the whether the given token is an option
@@ -74,23 +73,7 @@ private:
      * @param[in] arg1 The token to check
      * @return Whether the token is an option
      */
-    static bool checkParameter(const char* arg1);
-
-
-    /** @brief Converts char* to string
-     *
-     * @param[in] arg The c-string to convert
-     * @return The string converted into a std::string
-     */
-    static std::string convert(const char* arg);
-
-
-    /** @brief converts char to string
-     *
-     * @param[in] abbr The char to convert
-     * @return The char converted into a std::string
-     */
-    static std::string convert(char abbr);
+    static bool checkParameter(const std::string& arg1);
 
 
     /** @brief Extracts the parameter directly attached to an option
@@ -102,7 +85,7 @@ private:
      * @param[in] arg The token to parse
      * @exception InvalidArgument If a performed setting of an option failed (see Option::set)
      */
-    static bool processNonBooleanSingleSwitch(OptionsCont& oc, const char* arg, const bool append);
+    static bool processNonBooleanSingleSwitch(OptionsCont& oc, const std::string& arg, const bool append);
 
 
 };

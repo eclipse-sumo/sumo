@@ -1393,6 +1393,7 @@ MSLCM_LC2013::_wantsChange(
                 && MIN2(neighDist, currentDist) - posOnLane > overtakeDist
                 // maybe do not overtake on the right at high speed
                 && (!checkOverTakeRight || !right)
+                && myStrategicParam >= 0
                 && (neighLead.first == 0 || !neighLead.first->isStopped()
                     // neighboring stopped vehicle leaves enough space to overtake leader
                     || neighLead.second > overtakeDist)) {

@@ -47,8 +47,7 @@
 // ===========================================================================
 // static member definitions
 // ===========================================================================
-int OptionsIO::myArgC = 0;
-char** OptionsIO::myArgV;
+std::vector<std::string> OptionsIO::myArgs;
 std::chrono::time_point<std::chrono::system_clock> OptionsIO::myLoadTime;
 
 
@@ -57,37 +56,26 @@ std::chrono::time_point<std::chrono::system_clock> OptionsIO::myLoadTime;
 // ===========================================================================
 void
 OptionsIO::setArgs(int argc, char** argv) {
-    myArgC = argc;
-    char** codedArgv = new char* [myArgC];
+    myArgs.clear();
     for (int i = 0; i < argc; i++) {
-        const std::string& a = StringUtils::transcodeFromLocal(argv[i]);
-        codedArgv[i] = new char[a.size() + 1];
-        std::strcpy(codedArgv[i], a.c_str());
+        myArgs.push_back(StringUtils::transcodeFromLocal(argv[i]));
     }
-    myArgV = codedArgv;
 }
 
 
 void
 OptionsIO::setArgs(const std::vector<std::string>& args) {
-    char* const app = myArgC > 0 ? myArgV[0] : nullptr;
-    myArgC = (int)args.size() + 1;
-    char** argv = new char* [myArgC];
-    argv[0] = app;
-    for (int i = 1; i < myArgC; i++) {
-        argv[i] = new char[args[i - 1].size() + 1];
-        std::strcpy(argv[i], args[i - 1].c_str());
-    }
-    myArgV = argv;
+    myArgs.resize(1);  // will insert an empty string if no first element is there
+    myArgs.insert(myArgs.end(), args.begin(), args.end());
 }
 
 
 void
 OptionsIO::getOptions(const bool commandLineOnly) {
     myLoadTime = std::chrono::system_clock::now();
-    if (myArgC == 2 && myArgV[1][0] != '-') {
+    if (myArgs.size() == 2 && myArgs[1][0] != '-') {
         // special case only one parameter, check who can handle it
-        if (OptionsCont::getOptions().setByRootElement(getRoot(myArgV[1]), myArgV[1])) {
+        if (OptionsCont::getOptions().setByRootElement(getRoot(myArgs[1]), myArgs[1])) {
             if (!commandLineOnly) {
                 loadConfiguration();
             }
@@ -96,7 +84,7 @@ OptionsIO::getOptions(const bool commandLineOnly) {
     }
     // preparse the options
     //  (maybe another configuration file was chosen)
-    if (!OptionsParser::parse(myArgC, myArgV, true)) {
+    if (!OptionsParser::parse(myArgs, true)) {
         throw ProcessError("Could not parse commandline options.");
     }
     if (!commandLineOnly || OptionsCont::getOptions().isSet("save-configuration", false)) {
@@ -140,10 +128,10 @@ OptionsIO::loadConfiguration() {
             PROGRESS_DONE_MESSAGE();
         }
     }
-    if (myArgC > 2) {
+    if (myArgs.size() > 2) {
         // reparse the options (overwrite the settings from the configuration file)
         oc.resetWritable();
-        OptionsParser::parse(myArgC, myArgV);
+        OptionsParser::parse(myArgs);
     }
 }
 
