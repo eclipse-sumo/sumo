@@ -299,7 +299,7 @@ MSCFModel_CACC::speedGapControl(const MSVehicle* const veh, const double gap2pre
                 newSpeed = speed + myGapControlGainGap * spacingErr + myGapControlGainGapDot * speedErr;
 
                 vehMode = CACC_GAP_MODE;
-            } else if (spacingErr < -0.1) {
+            } else if (spacingErr < 0) {
                 // collision avoidance mode
                 //newSpeed = speed + 0.45 * spacingErr + 0.05 *speedErr;
 #if DEBUG_CACC == 1
