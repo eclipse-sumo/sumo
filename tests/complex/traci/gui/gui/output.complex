@@ -28,3 +28,7 @@ edge selected: False
 veh selected: True
 edge selected: True
 screenshot dimensions (500, 500, 4)
+adding view
+views ('View #0', 'newView')
+removing view
+views ('View #0',)
