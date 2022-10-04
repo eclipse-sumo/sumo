@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-10-04 15:29:38 by Eclipse SUMO netconvert Version v1_14_1+1424-dd7fe0d
+<!-- generated on 2022-10-04 15:36:59 by Eclipse SUMO netconvert Version v1_14_1+1425-e57389e
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -64,8 +64,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <junction id="J0" type="dead_end" x="0.00" y="300.00" incLanes="" intLanes="" shape="0.00,300.00 0.00,296.80" fringe="outer"/>
     <junction id="J1" type="dead_end" x="300.00" y="300.00" incLanes="E0_0" intLanes="" shape="300.00,296.80 300.00,300.00" fringe="outer"/>
-    <junction id="J2" type="dead_end" x="100.00" y="400.00" incLanes="" intLanes="" shape="100.00,400.00 100.00,396.80"/>
-    <junction id="J3" type="dead_end" x="200.00" y="400.00" incLanes="E1_0" intLanes="" shape="200.00,396.80 200.00,400.00"/>
+    <junction id="J2" type="dead_end" x="100.00" y="400.00" incLanes="" intLanes="" shape="100.00,400.00 100.00,396.80" fringe="outer"/>
+    <junction id="J3" type="dead_end" x="200.00" y="400.00" incLanes="E1_0" intLanes="" shape="200.00,396.80 200.00,400.00" fringe="outer"/>
     <junction id="J4" type="dead_end" x="0.00" y="500.00" incLanes="" intLanes="" shape="0.00,500.00 0.00,496.80" fringe="outer"/>
     <junction id="J5" type="dead_end" x="300.00" y="500.00" incLanes="E2_0" intLanes="" shape="300.00,496.80 300.00,500.00" fringe="outer"/>
 
