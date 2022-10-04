@@ -41,7 +41,6 @@ netedit.changeElement("multiLaneAreaDetector")
 netedit.leftClick(referencePosition, 190, 240)
 netedit.leftClick(referencePosition, 440, 240)
 netedit.leftClick(referencePosition, 440, 215)
-netedit.leftClick(referencePosition, 190, 215)
 netedit.typeEnter()
 
 # Change to delete

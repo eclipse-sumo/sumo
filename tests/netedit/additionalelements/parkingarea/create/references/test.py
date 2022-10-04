@@ -41,7 +41,7 @@ netedit.leftClick(referencePosition, 220, 250)
 netedit.changeDefaultValue(netedit.attrs.parkingArea.create.references, "reference right")
 
 # create parkingArea in mode "reference right"
-netedit.leftClick(referencePosition, 220, 250)
+netedit.leftClick(referencePosition, 222, 250)
 
 # change reference to center
 netedit.changeDefaultValue(netedit.attrs.parkingArea.create.references, "reference center")

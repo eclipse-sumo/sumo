@@ -44,7 +44,7 @@ netedit.leftClick(referencePosition, 300, 250)
 netedit.changeDefaultValue(netedit.attrs.E2.create.name, "customName")
 
 # create E2 with valid name
-netedit.leftClick(referencePosition, 300, 250)
+netedit.leftClick(referencePosition, 305, 250)
 
 # Check undo redo
 netedit.undo(referencePosition, 1)

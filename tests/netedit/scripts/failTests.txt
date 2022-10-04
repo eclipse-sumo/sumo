@@ -1,15 +1,7 @@
 -tp appdata=netedit.gui
 
 
-additionalelements/detentry/delete
-additionalelements/detexit/delete
-additionalelements/e2detector/create/name
-additionalelements/e2multilanedetector/delete
-additionalelements/parkingarea/create/id
-additionalelements/parkingarea/create/length
-additionalelements/parkingarea/create/references
-additionalelements/rerouterelements/closinglanereroute/load/disallow
-additionalelements/rerouterelements/closingreroute/load/disallow
+
 additionalelements/routeprobe/delete
 additionalelements/vaporizer/create/name
 bugs/crossings/ticket3288
