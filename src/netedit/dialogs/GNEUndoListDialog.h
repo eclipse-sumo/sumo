@@ -20,7 +20,7 @@
 #pragma once
 #include <config.h>
 
-#include <utils/foxtools/MFXTreeListDynamic.h>
+#include <utils/foxtools/MFXTextFieldTooltip.h>
 
 
 // ===========================================================================
@@ -101,7 +101,7 @@ protected:
 
     public:
         /// @brief constructor
-        GUIRow(GNEUndoListDialog* undoListDialog, FXVerticalFrame* mainFrame);
+        GUIRow(GNEUndoListDialog* undoListDialog, FXVerticalFrame* mainFrame, MFXStaticToolTip* staticToolTip);
 
         /// @brief destructor
         ~GUIRow();
@@ -134,8 +134,8 @@ protected:
         /// @brief label with icon
         FXLabel* myIcon = nullptr;
         
-        /// @brief textField
-        FXTextField* myTextField = nullptr;
+        /// @brief textField tooltip
+        MFXTextFieldTooltip* myTextFieldTooltip = nullptr;
     };
 
     /// @brief pointer to GNEApplicationWindow
