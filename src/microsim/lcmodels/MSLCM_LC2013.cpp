@@ -1556,7 +1556,8 @@ MSLCM_LC2013::_wantsChange(
                            ? mySpeedGainProbability / myChangeProbThresholdRight
                            : -mySpeedGainProbability / myChangeProbThresholdLeft;
 
-    inconvenience = MAX2(thisLaneVSafe / neighLaneVSafe - 1, inconvenience);
+    const double relSpeedDiff = thisLaneVSafe == 0 ? 0 : (thisLaneVSafe - neighLaneVSafe) / MAX2(thisLaneVSafe, neighLaneVSafe);
+    inconvenience = MAX2(relSpeedDiff, inconvenience);
     inconvenience = MIN2(1.0, inconvenience);
 
     const bool speedGainInconvenient = inconvenience > myCooperativeParam;
