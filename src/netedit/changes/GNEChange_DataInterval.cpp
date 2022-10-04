@@ -105,9 +105,9 @@ GNEChange_DataInterval::redo() {
 std::string
 GNEChange_DataInterval::undoName() const {
     if (myForward) {
-        return ("Undo create " + myDataInterval->getTagStr());
+        return ("Undo create " + myDataInterval->getTagStr() + " '" + myDataInterval->getID() + "'");
     } else {
-        return ("Undo delete " + myDataInterval->getTagStr());
+        return ("Undo delete " + myDataInterval->getTagStr() + " '" + myDataInterval->getID() + "'");
     }
 }
 
@@ -115,9 +115,9 @@ GNEChange_DataInterval::undoName() const {
 std::string
 GNEChange_DataInterval::redoName() const {
     if (myForward) {
-        return ("Redo create " + myDataInterval->getTagStr());
+        return ("Redo create " + myDataInterval->getTagStr() + " '" + myDataInterval->getID() + "'");
     } else {
-        return ("Redo delete " + myDataInterval->getTagStr());
+        return ("Redo delete " + myDataInterval->getTagStr() + " '" + myDataInterval->getID() + "'");
     }
 }
 

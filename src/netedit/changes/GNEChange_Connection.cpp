@@ -93,9 +93,11 @@ GNEChange_Connection::redo() {
 std::string
 GNEChange_Connection::undoName() const {
     if (myForward) {
-        return ("Undo create " + toString(SUMO_TAG_CONNECTION));
+        return ("Undo create " + toString(SUMO_TAG_CONNECTION) + " '" + 
+            toString(myNBEdgeConnection.fromLane) + "->" + toString(myNBEdgeConnection.fromLane) + "'");
     } else {
-        return ("Undo delete " + toString(SUMO_TAG_CONNECTION));
+        return ("Undo delete " + toString(SUMO_TAG_CONNECTION) + " '" + 
+            toString(myNBEdgeConnection.fromLane) + "->" + toString(myNBEdgeConnection.fromLane) + "'");
     }
 }
 
@@ -103,8 +105,10 @@ GNEChange_Connection::undoName() const {
 std::string
 GNEChange_Connection::redoName() const {
     if (myForward) {
-        return ("Redo create " + toString(SUMO_TAG_CONNECTION));
+        return ("Redo create " + toString(SUMO_TAG_CONNECTION) + " '" + 
+            toString(myNBEdgeConnection.fromLane) + "->" + toString(myNBEdgeConnection.fromLane) + "'");
     } else {
-        return ("Redo delete " + toString(SUMO_TAG_CONNECTION));
+        return ("Redo delete " + toString(SUMO_TAG_CONNECTION) + " '" + 
+            toString(myNBEdgeConnection.fromLane) + "->" + toString(myNBEdgeConnection.fromLane) + "'");
     }
 }

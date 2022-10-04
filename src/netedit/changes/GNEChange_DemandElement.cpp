@@ -136,9 +136,9 @@ GNEChange_DemandElement::redo() {
 std::string
 GNEChange_DemandElement::undoName() const {
     if (myForward) {
-        return ("Undo create " + myDemandElement->getTagStr());
+        return ("Undo create " + myDemandElement->getTagStr() + " '" + myDemandElement->getID() + "'");
     } else {
-        return ("Undo delete " + myDemandElement->getTagStr());
+        return ("Undo delete " + myDemandElement->getTagStr() + " '" + myDemandElement->getID() + "'");
     }
 }
 
@@ -146,8 +146,8 @@ GNEChange_DemandElement::undoName() const {
 std::string
 GNEChange_DemandElement::redoName() const {
     if (myForward) {
-        return ("Redo create " + myDemandElement->getTagStr());
+        return ("Redo create " + myDemandElement->getTagStr() + " '" + myDemandElement->getID() + "'");
     } else {
-        return ("Redo delete " + myDemandElement->getTagStr());
+        return ("Redo delete " + myDemandElement->getTagStr() + " '" + myDemandElement->getID() + "'");
     }
 }
