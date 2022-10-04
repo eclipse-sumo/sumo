@@ -362,7 +362,7 @@ MSCFModel_CACC::_v(const MSVehicle* const veh, const MSVehicle* const pred, cons
     if (commMode == CACC_NO_OVERRIDE) { // old CACC logic (rely on time gap from predecessor)
         // @note: using (gap2pred + minGap) here increases oscillations but may
         // actually be a good idea once the acceleration-spike-problem is fixed
-        double time_gap = gap2pred / speed;
+        double time_gap = gap2pred / MAX2(NUMERICAL_EPS, speed);
         double spacingErr = gap2pred - myHeadwayTime * speed;
 
         if (time_gap > 2 && spacingErr > mySpeedControlMinGap) {
