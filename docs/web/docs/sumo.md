@@ -127,6 +127,7 @@ configuration:
 | **--vehroute-output.incomplete** {{DT_BOOL}} | Include invalid routes and route stubs in vehroute output; *default:* **false** |
 | **--vehroute-output.stop-edges** {{DT_BOOL}} | Include information about edges between stops; *default:* **false** |
 | **--vehroute-output.speedfactor** {{DT_BOOL}} | Write the vehicle speedFactor (defaults to 'true' if departSpeed is written); *default:* **false** |
+| **--vehroute-output.internal** {{DT_BOOL}} | Include internal edges in the output; *default:* **false** |
 | **--personroute-output** {{DT_FILE}} | Save person and container routes to separate FILE |
 | **--link-output** {{DT_FILE}} | Save links states into FILE |
 | **--railsignal-block-output** {{DT_FILE}} | Save railsignal-blocks into FILE |
@@ -186,6 +187,7 @@ configuration:
 | **--time-to-teleport.disconnected** {{DT_TIME}} | The waiting time after which vehicles with a disconnected route are teleported. Negative values disable teleporting; *default:* **-1** |
 | **--time-to-teleport.remove** {{DT_BOOL}} | Whether vehicles shall be removed after waiting too long instead of being teleported; *default:* **false** |
 | **--time-to-teleport.ride** {{DT_TIME}} | The waiting time after which persons / containers waiting for a pickup are teleported. Negative values disable teleporting; *default:* **-1** |
+| **--time-to-teleport.bidi** {{DT_TIME}} | The waiting time after which vehicles on bidirectional edges are teleported; *default:* **-1** |
 | **--waiting-time-memory** {{DT_TIME}} | Length of time interval, over which accumulated waiting time is taken into account (default is 100s.); *default:* **100** |
 | **--startup-wait-threshold** {{DT_TIME}} | Minimum consecutive waiting time before applying startupDelay; *default:* **2** |
 | **--max-depart-delay** {{DT_TIME}} | How long vehicles wait for departure before being skipped, defaults to -1 which means vehicles are never skipped; *default:* **-1** |
@@ -198,6 +200,7 @@ configuration:
 | **--tls.all-off** {{DT_BOOL}} | Switches off all traffic lights.; *default:* **false** |
 | **--tls.actuated.show-detectors** {{DT_BOOL}} | Sets default visibility for actuation detectors; *default:* **false** |
 | **--tls.actuated.jam-threshold** {{DT_FLOAT}} | Sets default jam-treshold parameter for all actuation detectors; *default:* **-1** |
+| **--tls.actuated.detector-length** {{DT_FLOAT}} | Sets default detector length parameter for all actuation detectors; *default:* **0** |
 | **--tls.delay_based.detector-range** {{DT_FLOAT}} | Sets default range for detecting delayed vehicles; *default:* **100** |
 | **--tls.yellow.min-decel** {{DT_FLOAT}} | Minimum deceleration when braking at yellow; *default:* **3** |
 | **--railsignal-moving-block** {{DT_BOOL}} | Let railsignals operate in moving-block mode by default; *default:* **false** |
@@ -221,6 +224,7 @@ configuration:
 | **--pedestrian.striping.jamtime.narrow** {{DT_TIME}} | Time in seconds after which pedestrians start squeezing through a jam while on a narrow lane when using model 'striping'; *default:* **1** |
 | **--pedestrian.striping.reserve-oncoming** {{DT_FLOAT}} | Fraction of stripes to reserve for oncoming pedestrians; *default:* **0** |
 | **--pedestrian.striping.reserve-oncoming.junctions** {{DT_FLOAT}} | Fraction of stripes to reserve for oncoming pedestrians on crossings and walkingareas; *default:* **0.34** |
+| **--pedestrian.striping.legacy-departposlat** {{DT_BOOL}} | Interpret departPosLat for walks in legacy style; *default:* **false** |
 | **--pedestrian.remote.address** {{DT_STR}} | The address (host:port) of the external simulation; *default:* **localhost:9000** |
 | **--ride.stop-tolerance** {{DT_FLOAT}} | Tolerance to apply when matching pedestrian and vehicle positions on boarding at individual stops; *default:* **10** |
 | **--persontrip.walk-opposite-factor** {{DT_FLOAT}} | Use FLOAT as a factor on walking speed against vehicle traffic direction; *default:* **1** |
@@ -273,9 +277,9 @@ configuration:
 | **--print-options** {{DT_BOOL}} | Prints option values before processing; *default:* **false** |
 | **-?** {{DT_BOOL}}<br> **--help** {{DT_BOOL}} | Prints this screen or selected topics; *default:* **false** |
 | **-V** {{DT_BOOL}}<br> **--version** {{DT_BOOL}} | Prints the current version; *default:* **false** |
-| **-X** {{DT_STR}}<br> **--xml-validation** {{DT_STR}} | Set schema validation scheme of XML inputs ("never", "auto" or "always"); *default:* **auto** |
-| **--xml-validation.net** {{DT_STR}} | Set schema validation scheme of SUMO network inputs ("never", "auto" or "always"); *default:* **never** |
-| **--xml-validation.routes** {{DT_STR}} | Set schema validation scheme of SUMO route inputs ("never", "auto" or "always"); *default:* **auto** |
+| **-X** {{DT_STR}}<br> **--xml-validation** {{DT_STR}} | Set schema validation scheme of XML inputs ("never", "local", "auto" or "always"); *default:* **local** |
+| **--xml-validation.net** {{DT_STR}} | Set schema validation scheme of SUMO network inputs ("never", "local", "auto" or "always"); *default:* **never** |
+| **--xml-validation.routes** {{DT_STR}} | Set schema validation scheme of SUMO route inputs ("never", "local", "auto" or "always"); *default:* **local** |
 | **-W** {{DT_BOOL}}<br> **--no-warnings** {{DT_BOOL}} | Disables output of warnings; *default:* **false** |
 | **--aggregate-warnings** {{DT_INT}} | Aggregate warnings of the same type whenever more than INT occur; *default:* **-1** |
 | **-l** {{DT_FILE}}<br> **--log** {{DT_FILE}} | Writes all messages to FILE (implies verbose) |
@@ -339,8 +343,8 @@ configuration:
 | **--device.ssm.probability** {{DT_FLOAT}} | The probability for a vehicle to have a 'ssm' device; *default:* **-1** |
 | **--device.ssm.explicit** {{DT_STR[]}} | Assign a 'ssm' device to named vehicles |
 | **--device.ssm.deterministic** {{DT_BOOL}} | The 'ssm' devices are set deterministic using a fraction of 1000; *default:* **false** |
-| **--device.ssm.measures** {{DT_STR}} | Specifies which measures will be logged (as a space separated sequence of IDs in ('TTC', 'DRAC', 'PET')) |
-| **--device.ssm.thresholds** {{DT_STR}} | Specifies thresholds corresponding to the specified measures (see documentation and watch the order!). Only events exceeding the thresholds will be logged. |
+| **--device.ssm.measures** {{DT_STR}} | Specifies which measures will be logged (as a space or comma-separated sequence of IDs in ('TTC', 'DRAC', 'PET')) |
+| **--device.ssm.thresholds** {{DT_STR}} | Specifies space or comma-separated thresholds corresponding to the specified measures (see documentation and watch the order!). Only events exceeding the thresholds will be logged. |
 | **--device.ssm.trajectories** {{DT_BOOL}} | Specifies whether trajectories will be logged (if false, only the extremal values and times are reported).; *default:* **false** |
 | **--device.ssm.range** {{DT_FLOAT}} | Specifies the detection range in meters. For vehicles below this distance from the equipped vehicle, SSM values are traced.; *default:* **50** |
 | **--device.ssm.extratime** {{DT_FLOAT}} | Specifies the time in seconds to be logged after a conflict is over. Required >0 if PET is to be calculated for crossing conflicts.; *default:* **5** |

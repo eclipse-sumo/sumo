@@ -139,7 +139,7 @@ this boundary are discarded in these cases.
 | Option | Description |
 |--------|-------------|
 | **--prune.in-net** {{DT_BOOL}} | Enables pruning on net boundaries; *default:* **false** |
-| **--prune.in-net.offsets** {{DT_STR}} | Uses STR as offset definition added to the net boundaries; *default:* **0,0,0,0** |
+| **--prune.in-net.offsets** {{DT_STR}} | Uses FLOAT,FLOAT,FLOAT,FLOAT as offset definition added to the net boundary. Positive values grow the boundary on all sides while negative values shrink it.; *default:* **0,0,0,0** |
 | **--prune.boundary** {{DT_STR}} | Uses STR as pruning boundary |
 | **--prune.keep-list** {{DT_STR}} | Items in STR will be kept though out of boundary |
 | **--prune.explicit** {{DT_STR[]}} | Items with names in STR[] will be removed |
@@ -183,8 +183,8 @@ Options](Basics/Using_the_Command_Line_Applications.md#reporting_options).
 | **--print-options** {{DT_BOOL}} | Prints option values before processing; *default:* **false** |
 | **-?** {{DT_BOOL}}<br> **--help** {{DT_BOOL}} | Prints this screen or selected topics; *default:* **false** |
 | **-V** {{DT_BOOL}}<br> **--version** {{DT_BOOL}} | Prints the current version; *default:* **false** |
-| **-X** {{DT_STR}}<br> **--xml-validation** {{DT_STR}} | Set schema validation scheme of XML inputs ("never", "auto" or "always"); *default:* **auto** |
-| **--xml-validation.net** {{DT_STR}} | Set schema validation scheme of SUMO network inputs ("never", "auto" or "always"); *default:* **never** |
+| **-X** {{DT_STR}}<br> **--xml-validation** {{DT_STR}} | Set schema validation scheme of XML inputs ("never", "local", "auto" or "always"); *default:* **local** |
+| **--xml-validation.net** {{DT_STR}} | Set schema validation scheme of SUMO network inputs ("never", "local", "auto" or "always"); *default:* **never** |
 | **-W** {{DT_BOOL}}<br> **--no-warnings** {{DT_BOOL}} | Disables output of warnings; *default:* **false** |
 | **--aggregate-warnings** {{DT_INT}} | Aggregate warnings of the same type whenever more than INT occur; *default:* **-1** |
 | **-l** {{DT_FILE}}<br> **--log** {{DT_FILE}} | Writes all messages to FILE (implies verbose) |
