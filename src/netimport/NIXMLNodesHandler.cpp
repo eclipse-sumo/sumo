@@ -258,10 +258,9 @@ void
 NIXMLNodesHandler::addJoinCluster(const SUMOSAXAttributes& attrs) {
     bool ok = true;
     const std::string clusterString = attrs.get<std::string>(SUMO_ATTR_NODES, nullptr, ok);
-    std::vector<std::string> ids = StringTokenizer(clusterString).getVector();
-    std::sort(ids.begin(), ids.end());
+    const std::set<std::string>& cluster = StringTokenizer(clusterString).getSet();
 
-    myID = attrs.getOpt<std::string>(SUMO_ATTR_ID, nullptr, ok, "cluster_" + joinToString(ids, "_"));
+    myID = attrs.getOpt<std::string>(SUMO_ATTR_ID, nullptr, ok, myNodeCont.createClusterId(cluster));
 
     Position pos = Position::INVALID;
     if (attrs.hasAttribute(SUMO_ATTR_X)) {
@@ -276,7 +275,7 @@ NIXMLNodesHandler::addJoinCluster(const SUMOSAXAttributes& attrs) {
 
     NBNode* node = processNodeType(attrs, nullptr, myID, pos, false, myNodeCont, myEdgeCont, myTLLogicCont);
     if (ok) {
-        myNodeCont.addCluster2Join(std::set<std::string>(ids.begin(), ids.end()), node);
+        myNodeCont.addCluster2Join(cluster, node);
     }
 }
 

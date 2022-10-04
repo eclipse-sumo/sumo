@@ -128,10 +128,30 @@ public:
      */
     void addJoinExclusion(const std::vector<std::string>& ids);
 
+    /** @brief generate id from cluster node ids
+     * @param[in] cluster The cluster ids
+     * @param[in] prefix The cluster prefix
+     * @return the generated id
+     */
+    std::string createClusterId(const NodeSet& cluster, const std::string& prefix="cluster_") {
+        std::set<std::string> clusterIds;
+        for (NBNode* j : cluster) {
+            clusterIds.insert(j->getID());
+        }
+        return createClusterId(clusterIds, prefix);
+    }
+
+    /** @brief generate id from cluster node ids
+     * @param[in] cluster The cluster ids
+     * @param[in] prefix The cluster prefix
+     * @return the generated id
+     */
+    std::string createClusterId(const std::set<std::string>& cluster, const std::string& prefix="cluster_");
+
     /** @brief add ids of nodes which shall be joined into a single node
      * @param[in] cluster The cluster to add
      */
-    void addCluster2Join(std::set<std::string> cluster, NBNode* node);
+    void addCluster2Join(const std::set<std::string>& cluster, NBNode* node);
 
     /// @brief Joins loaded junction clusters (see NIXMLNodesHandler)
     int joinLoadedClusters(NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLogicCont& tlc);

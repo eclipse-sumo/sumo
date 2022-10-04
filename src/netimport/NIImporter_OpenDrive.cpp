@@ -373,7 +373,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
             joinedPos.add(j->getPosition());
         }
         joinedPos.mul(1. / (double)joined.size());
-        const std::string joinedID = "cluster_" + joinNamedToString(joined, "_");
+        const std::string joinedID = nc.createClusterId(joined);
         if (!nc.insert(joinedID, joinedPos)) {
             throw ProcessError("Could not add node '" + joinedID + "'.");
         }

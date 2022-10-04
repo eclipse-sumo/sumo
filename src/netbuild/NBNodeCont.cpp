@@ -668,8 +668,27 @@ NBNodeCont::addJoinExclusion(const std::vector<std::string>& ids) {
 }
 
 
+std::string
+NBNodeCont::createClusterId(const std::set<std::string>& cluster, const std::string& prefix) {
+    int maxIds = OptionsCont::getOptions().getInt("max-join-ids");
+    if (maxIds <= 0) {
+        maxIds = (int)cluster.size();
+    }
+    if ((int)cluster.size() > maxIds) {
+        auto clusterIt = cluster.begin();
+        std::string result = prefix + *clusterIt;
+        for (int i = 1; i < maxIds; i++) {
+            ++clusterIt;
+            result += "_" + *clusterIt;
+        }
+        return result + "_#" + toString((int)cluster.size() - maxIds) + "more";
+    }
+    return prefix + joinToString(cluster, "_");
+}
+
+
 void
-NBNodeCont::addCluster2Join(std::set<std::string> cluster, NBNode* node) {
+NBNodeCont::addCluster2Join(const std::set<std::string>& cluster, NBNode* node) {
     // error handling has to take place here since joins could be loaded from multiple files
     std::set<std::string> validCluster;
     for (std::string nodeID : cluster) {
@@ -683,19 +702,7 @@ NBNodeCont::addCluster2Join(std::set<std::string> cluster, NBNode* node) {
             if (retrieve(nodeID) != nullptr) {
                 validCluster.insert(nodeID);
             } else {
-                if (StringUtils::startsWith(nodeID, "cluster_")) {
-                    // assume join directive came from a pre-processed network. try to use component IDs
-                    std::set<std::string> subIDs;
-                    for (std::string nID : StringTokenizer(nodeID.substr(8), "_").getVector()) {
-                        if (retrieve(nID) != nullptr) {
-                            validCluster.insert(nID);
-                        } else {
-                            WRITE_ERROR("Unknown junction '" + nodeID + "' in join-cluster (componentID).");
-                        }
-                    }
-                } else {
-                    WRITE_ERROR("Unknown junction '" + nodeID + "' in join-cluster.");
-                }
+                WRITE_ERROR("Unknown junction '" + nodeID + "' in join-cluster.");
             }
         }
     }
@@ -1610,7 +1617,7 @@ void
 NBNodeCont::joinNodeCluster(NodeSet cluster, NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLogicCont& tlc, NBNode* predefined, bool resetConnections) {
     const bool origNames = OptionsCont::getOptions().getBool("output.original-names");
     assert(cluster.size() > 1);
-    std::string id = "cluster";
+    std::string id = "cluster_";
     Position pos;
     bool setTL = false;
     SumoXMLNodeType nodeType = SumoXMLNodeType::UNKNOWN;
@@ -1818,7 +1825,7 @@ NBNodeCont::registerJoinedCluster(const NodeSet& cluster) {
 void
 NBNodeCont::analyzeCluster(NodeSet cluster, std::string& id, Position& pos,
                            bool& hasTLS, TrafficLightType& type, SumoXMLNodeType& nodeType) {
-    id += "_" + joinNamedToString(cluster, '_');
+    id = createClusterId(cluster, id);
     bool ambiguousType = false;
     for (NBNode* j : cluster) {
         pos.add(j->getPosition());
@@ -2130,14 +2137,13 @@ NBNodeCont::guessTLs(OptionsCont& oc, NBTrafficLightLogicCont& tlc) {
             }
         }
         // cands now only contain sets of junctions that shall be joined into being tls-controlled
-        int index = 0;
         for (auto nodeSet : cands) {
             std::vector<NBNode*> nodes;
             for (NBNode* node : nodeSet) {
                 nodes.push_back(node);
                 myGuessedTLS.insert(node);
             }
-            std::string id = "joinedG_" + toString(index++);
+            const std::string& id = createClusterId(nodeSet, "joinedG_");
             NBTrafficLightDefinition* tlDef = new NBOwnTLDef(id, nodes, 0, type);
             if (!tlc.insert(tlDef)) {
                 // actually, nothing should fail here
@@ -2208,7 +2214,6 @@ void
 NBNodeCont::joinTLS(NBTrafficLightLogicCont& tlc, double maxdist) {
     NodeClusters cands;
     generateNodeClusters(maxdist, cands);
-    IDSupplier idSupplier("joinedS_");
     for (NodeSet& c : cands) {
         for (NodeSet::iterator j = c.begin(); j != c.end();) {
             if (!(*j)->isTLControlled()) {
@@ -2223,7 +2228,7 @@ NBNodeCont::joinTLS(NBTrafficLightLogicCont& tlc, double maxdist) {
         // figure out type of the joined TLS
         Position dummyPos;
         bool dummySetTL = false;
-        std::string id = "joined"; // prefix (see #3871)
+        std::string id = "joinedS_"; // prefix (see #3871)
         TrafficLightType type;
         SumoXMLNodeType nodeType = SumoXMLNodeType::UNKNOWN;
         analyzeCluster(c, id, dummyPos, dummySetTL, type, nodeType);
@@ -2237,10 +2242,6 @@ NBNodeCont::joinTLS(NBTrafficLightLogicCont& tlc, double maxdist) {
         std::vector<NBNode*> nodes;
         for (NBNode* j : c) {
             nodes.push_back(j);
-        }
-        id = idSupplier.getNext();
-        while (tlc.getPrograms(id).size() > 0) {
-            id = idSupplier.getNext();
         }
         NBTrafficLightDefinition* tlDef = new NBOwnTLDef(id, nodes, 0, type);
         if (!tlc.insert(tlDef)) {

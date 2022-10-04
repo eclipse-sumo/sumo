@@ -318,6 +318,9 @@ NBFrame::fillOptions(bool forNetgen) {
     oc.addDescription("junctions.join-same", "Junctions",
                       "Joins junctions that have the same coordinates even if not connected");
 
+    oc.doRegister("max-join-ids", new Option_Integer(4));
+    oc.addDescription("max-join-ids", "Junctions", "Abbreviate junction or TLS id if it joins more than INT junctions");
+
     if (!forNetgen) {
         oc.doRegister("speed.offset", new Option_Float(0));
         oc.addDescription("speed.offset", "Processing", "Modifies all edge speeds by adding FLOAT");
