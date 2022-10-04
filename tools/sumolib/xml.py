@@ -159,8 +159,11 @@ def compound_object(element_name, attrnames, warn=False, sort=True):
                 self._child_dict.setdefault(c.name, []).append(c)
             self._child_list = childs
 
-        def getChildList(self):
-            return self._child_list
+        def getChildList(self, withComments=False):
+            if withComments:
+                return self._child_list
+            else:
+                return [c for c in self._child_list if not c.isComment()]
 
         def getText(self):
             return self._text
