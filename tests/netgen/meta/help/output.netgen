@@ -1,4 +1,4 @@
-Eclipse SUMO netgenerate Version v1_14_1+1294-35e14935ffb
+Eclipse SUMO netgenerate Version v1_14_1+1404-60b7850a127
  Copyright (C) 2001-2022 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Synthetic network generator for the microscopic, multi-modal traffic simulation
  SUMO.
@@ -354,6 +354,8 @@ Junctions Options:
                                         joining junctions (defaults to 10)
   --junctions.join-same                Joins junctions that have the same
                                         coordinates even if not connected
+  --max-join-ids INT                   Abbreviate junction or TLS id if it
+                                        joins more than INT junctions
   --junctions.corner-detail INT        Generate INT intermediate points to
                                         smooth out intersection corners
   --junctions.internal-link-detail INT  Generate INT intermediate points to

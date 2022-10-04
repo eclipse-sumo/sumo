@@ -105,8 +105,8 @@ Warning: The rail crossing '4567083494' does not have any roads.
 Warning: The rail crossing '4603453625' does not have any roads.
 Warning: The traffic light '4363312288' does not control any links; it will not be build.
 Warning: Could not build program '0' for traffic light '4363312288'
-Warning: The traffic light 'joinedS_7' cannot be adapted to a cycle time of 90.00.
-Warning: The traffic light 'joinedS_7' has a high cycle time of 172.00.
+Warning: The traffic light 'joinedS_cluster_25664673_4590472030_4590472039_4590472040_cluster_25664680_4603453154_577258918' cannot be adapted to a cycle time of 90.00.
+Warning: The traffic light 'joinedS_cluster_25664673_4590472030_4590472039_4590472040_cluster_25664680_4603453154_577258918' has a high cycle time of 172.00.
 Warning: 17 total messages of type: Ambiguous railway kilometrage direction for way '%' (assuming forward)
 Warning: 10 total messages of type: Could not re-assign PT stop '%', probably broken osm file.
 Warning: 9 total messages of type: Discarding unknown compound '%' in type '%' (first occurence for edge '%').
@@ -123,33 +123,33 @@ Warning: 26 total messages of type: The rail crossing '%' does not have any road
 Warning: At actuated tlLogic 'GS_25662542', linkIndex 12 has no controlling detector.
 Warning: At actuated tlLogic 'GS_25662542', linkIndex 13 has no controlling detector.
 Warning: At actuated tlLogic 'GS_25662542', linkIndex 14 has no controlling detector.
-Warning: At actuated tlLogic 'cluster_160503146_27411250_5372980361_5727160044_5727160045', actuated phase 4 has no controlling detector.
-Warning: At actuated tlLogic 'cluster_21432801_2938442114_295705005_3139140896_3178759584_735967920_735967921_735967926_961816249_961816257', actuated phase 6 has no controlling detector.
-Warning: At actuated tlLogic 'joinedS_0', linkIndex 16 has no controlling detector.
-Warning: At actuated tlLogic 'joinedS_0', linkIndex 24 has no controlling detector.
+Warning: At actuated tlLogic 'cluster_160503146_27411250_5372980361_5727160044_#1more', actuated phase 4 has no controlling detector.
+Warning: At actuated tlLogic 'cluster_21432801_2938442114_295705005_3139140896_#6more', actuated phase 6 has no controlling detector.
+Warning: At actuated tlLogic 'joinedS_1840326421_cluster_1828018077_1828018093_1828018094_1828018095_#5more', linkIndex 2 has no controlling detector.
+Warning: At actuated tlLogic 'joinedS_1840326421_cluster_1828018077_1828018093_1828018094_1828018095_#5more', linkIndex 8 has no controlling detector.
 Warning: 20 total messages of type: At actuated tlLogic '%', linkIndex % has no controlling detector.
 Warning: At actuated tlLogic 'GS_25662542', linkIndex 12 has no controlling detector.
 Warning: At actuated tlLogic 'GS_25662542', linkIndex 13 has no controlling detector.
 Warning: At actuated tlLogic 'GS_25662542', linkIndex 14 has no controlling detector.
-Warning: At actuated tlLogic 'cluster_160503146_27411250_5372980361_5727160044_5727160045', actuated phase 4 has no controlling detector.
-Warning: At actuated tlLogic 'cluster_21432801_2938442114_295705005_3139140896_3178759584_735967920_735967921_735967926_961816249_961816257', actuated phase 6 has no controlling detector.
-Warning: At actuated tlLogic 'joinedS_0', linkIndex 16 has no controlling detector.
-Warning: At actuated tlLogic 'joinedS_0', linkIndex 24 has no controlling detector.
-Warning: At actuated tlLogic 'joinedS_2', linkIndex 6 has no controlling detector.
-Warning: At actuated tlLogic 'joinedS_2', linkIndex 7 has no controlling detector.
-Warning: At actuated tlLogic 'joinedS_2', linkIndex 8 has no controlling detector.
-Warning: At actuated tlLogic 'joinedS_2', linkIndex 9 has no controlling detector.
-Warning: At actuated tlLogic 'joinedS_2', linkIndex 10 has no controlling detector.
-Warning: At actuated tlLogic 'joinedS_2', linkIndex 11 has no controlling detector.
-Warning: At actuated tlLogic 'joinedS_2', linkIndex 12 has no controlling detector.
-Warning: At actuated tlLogic 'joinedS_2', linkIndex 13 has no controlling detector.
-Warning: At actuated tlLogic 'joinedS_3', linkIndex 2 has no controlling detector.
-Warning: At actuated tlLogic 'joinedS_3', linkIndex 8 has no controlling detector.
-Warning: At actuated tlLogic 'joinedS_3', linkIndex 9 has no controlling detector.
-Warning: At actuated tlLogic 'joinedS_3', linkIndex 10 has no controlling detector.
-Warning: At actuated tlLogic 'joinedS_3', linkIndex 31 has no controlling detector.
-Warning: At actuated tlLogic 'joinedS_3', linkIndex 32 has no controlling detector.
-Warning: At actuated tlLogic 'joinedS_3', linkIndex 33 has no controlling detector.
+Warning: At actuated tlLogic 'cluster_160503146_27411250_5372980361_5727160044_#1more', actuated phase 4 has no controlling detector.
+Warning: At actuated tlLogic 'cluster_21432801_2938442114_295705005_3139140896_#6more', actuated phase 6 has no controlling detector.
+Warning: At actuated tlLogic 'joinedS_1840326421_cluster_1828018077_1828018093_1828018094_1828018095_#5more', linkIndex 2 has no controlling detector.
+Warning: At actuated tlLogic 'joinedS_1840326421_cluster_1828018077_1828018093_1828018094_1828018095_#5more', linkIndex 8 has no controlling detector.
+Warning: At actuated tlLogic 'joinedS_1840326421_cluster_1828018077_1828018093_1828018094_1828018095_#5more', linkIndex 9 has no controlling detector.
+Warning: At actuated tlLogic 'joinedS_1840326421_cluster_1828018077_1828018093_1828018094_1828018095_#5more', linkIndex 10 has no controlling detector.
+Warning: At actuated tlLogic 'joinedS_1840326421_cluster_1828018077_1828018093_1828018094_1828018095_#5more', linkIndex 31 has no controlling detector.
+Warning: At actuated tlLogic 'joinedS_1840326421_cluster_1828018077_1828018093_1828018094_1828018095_#5more', linkIndex 32 has no controlling detector.
+Warning: At actuated tlLogic 'joinedS_1840326421_cluster_1828018077_1828018093_1828018094_1828018095_#5more', linkIndex 33 has no controlling detector.
+Warning: At actuated tlLogic 'joinedS_2480337678_4566145597_cluster_21487209_3831343134_cluster_4566145593_4566145594_5747234975_768074054', linkIndex 6 has no controlling detector.
+Warning: At actuated tlLogic 'joinedS_2480337678_4566145597_cluster_21487209_3831343134_cluster_4566145593_4566145594_5747234975_768074054', linkIndex 7 has no controlling detector.
+Warning: At actuated tlLogic 'joinedS_2480337678_4566145597_cluster_21487209_3831343134_cluster_4566145593_4566145594_5747234975_768074054', linkIndex 8 has no controlling detector.
+Warning: At actuated tlLogic 'joinedS_2480337678_4566145597_cluster_21487209_3831343134_cluster_4566145593_4566145594_5747234975_768074054', linkIndex 9 has no controlling detector.
+Warning: At actuated tlLogic 'joinedS_2480337678_4566145597_cluster_21487209_3831343134_cluster_4566145593_4566145594_5747234975_768074054', linkIndex 10 has no controlling detector.
+Warning: At actuated tlLogic 'joinedS_2480337678_4566145597_cluster_21487209_3831343134_cluster_4566145593_4566145594_5747234975_768074054', linkIndex 11 has no controlling detector.
+Warning: At actuated tlLogic 'joinedS_2480337678_4566145597_cluster_21487209_3831343134_cluster_4566145593_4566145594_5747234975_768074054', linkIndex 12 has no controlling detector.
+Warning: At actuated tlLogic 'joinedS_2480337678_4566145597_cluster_21487209_3831343134_cluster_4566145593_4566145594_5747234975_768074054', linkIndex 13 has no controlling detector.
+Warning: At actuated tlLogic 'joinedS_cluster_1876468341_25665883_29219439_5747234980_#4more_cluster_262469634_29219441_961875301_961875308_#2more', linkIndex 16 has no controlling detector.
+Warning: At actuated tlLogic 'joinedS_cluster_1876468341_25665883_29219439_5747234980_#4more_cluster_262469634_29219441_961875301_961875308_#2more', linkIndex 24 has no controlling detector.
 Warning: Teleporting vehicle 'pt_tram_M2:0.1'; collision with vehicle 'pt_tram_M2:3.0', lane='148458500#0_0', gap=-1.00, time=479.00 stage=move.
 Warning: Vehicle 'pt_tram_M2:0.1' ends teleporting on edge '148458500#1', time=480.00.
 Warning: Person 'ped33' aborted waiting for N5:0 at busStop '1827996417'.
