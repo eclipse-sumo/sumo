@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-04-19 17:28:05 by Eclipse SUMO netconvert Version v1_12_0+2154-21e08c91f73
+<!-- generated on 2022-10-04 15:29:24 by Eclipse SUMO netconvert Version v1_14_1+1424-dd7fe0dae06
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -39,7 +39,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <report>
         <xml-validation value="never"/>
-        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
@@ -8805,7 +8804,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <junction id="1866311363" type="dead_end" x="130.66" y="3176.95" incLanes="" intLanes="" shape="133.23,3181.00 126.49,3170.36"/>
     <junction id="1866311373" type="dead_end" x="230.40" y="3120.30" incLanes="176063642#5_0" intLanes="" shape="229.65,3120.97 231.24,3119.75 229.49,3120.72 229.54,3120.82 229.59,3120.88"/>
     <junction id="1892992010" type="dead_end" x="130.38" y="2767.18" incLanes="" intLanes="" shape="130.21,2768.78 130.55,2765.59"/>
-    <junction id="1892992021" type="dead_end" x="72.77" y="2777.83" incLanes="" intLanes="" shape="72.64,2779.42 72.91,2776.24">
+    <junction id="1892992021" type="dead_end" x="72.77" y="2777.83" incLanes="" intLanes="" shape="72.64,2779.42 72.91,2776.24" fringe="inner">
         <param key="buffer_stop" value="true"/>
     </junction>
     <junction id="1892996704" type="priority" x="212.97" y="2791.32" incLanes="178942871_0 178942866#1_0" intLanes=":1892996704_0_0 :1892996704_1_0" shape="212.13,2793.48 215.09,2792.22 213.92,2789.17 213.23,2786.84 212.73,2784.89 212.14,2782.98 211.18,2780.78 209.58,2777.96 206.26,2778.69 205.79,2779.15 202.28,2781.12 204.76,2782.39 206.90,2783.97 208.71,2785.87 210.18,2788.09 211.32,2790.63">
@@ -9656,7 +9655,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <request index="0" response="00" foes="00" cont="0"/>
         <request index="1" response="00" foes="00" cont="0"/>
     </junction>
-    <junction id="31492868" type="priority" x="1704.13" y="1719.13" incLanes="150916979#2_0" intLanes=":31492868_0_0" shape="1704.13,1719.13 1701.83,1716.90 1704.13,1719.13">
+    <junction id="31492868" type="priority" x="1704.13" y="1719.13" incLanes="150916979#2_0" intLanes=":31492868_0_0" shape="1704.13,1719.13 1701.83,1716.90 1704.13,1719.13" fringe="inner">
         <request index="0" response="0" foes="0" cont="0"/>
         <param key="buffer_stop" value="true"/>
     </junction>

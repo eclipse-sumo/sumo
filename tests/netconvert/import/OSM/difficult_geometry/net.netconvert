@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-06-22 08:14:28 by Eclipse SUMO netconvert Version v1_13_0+1094-d2dab2e946c
+<!-- generated on 2022-10-04 15:29:26 by Eclipse SUMO netconvert Version v1_14_1+1424-dd7fe0dae06
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -434,7 +434,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </junction>
     <junction id="3125752475" type="dead_end" x="250.48" y="228.53" incLanes="307433308#4_0 9404760#0_0" intLanes="" shape="252.11,230.92 253.27,229.29 252.49,228.51 252.29,228.08 252.22,227.63 252.26,227.15 252.44,226.65 250.62,225.82 250.12,226.51 249.81,226.68 249.46,226.74 249.08,226.69 248.65,226.53 247.77,228.33 248.47,228.88 248.64,229.23 248.69,229.63 248.63,230.08 248.44,230.58 250.26,231.42 250.75,230.75 251.04,230.61 251.36,230.59 251.72,230.69"/>
     <junction id="366361310" type="dead_end" x="349.78" y="143.04" incLanes="9404760#5_0" intLanes="" shape="352.03,143.77 351.79,141.79 346.48,142.64 346.85,144.60 347.62,144.61 347.85,144.75 347.96,144.99 347.97,145.33 347.88,145.76 349.78,146.36 350.37,145.00 350.73,144.51 351.12,144.14 351.56,143.89"/>
-    <junction id="366361319" type="dead_end" x="345.55" y="184.98" incLanes="32572027_0" intLanes="" shape="346.54,184.89 344.55,185.07">
+    <junction id="366361319" type="dead_end" x="345.55" y="184.98" incLanes="32572027_0" intLanes="" shape="346.54,184.89 344.55,185.07" fringe="inner">
         <param key="buffer_stop" value="true"/>
     </junction>
     <junction id="3764433746" type="dead_end" x="437.08" y="233.04" incLanes="" intLanes="" shape="436.75,232.09 437.41,233.98"/>
@@ -469,7 +469,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <junction id="623484364" type="dead_end" x="241.56" y="160.77" incLanes="49154031#0_0" intLanes="" shape="242.91,163.10 244.15,161.53 240.21,158.45 238.97,160.02 239.53,160.67 239.63,161.02 239.61,161.38 239.48,161.75 239.23,162.14 240.81,163.37 241.45,162.81 241.80,162.71 242.15,162.72 242.53,162.85"/>
     <junction id="623484410" type="dead_end" x="255.45" y="173.72" incLanes="49154032#0_0" intLanes="" shape="255.88,176.18 257.55,175.07 257.21,174.24 257.20,173.84 257.29,173.44 257.49,173.04 257.80,172.64 256.33,171.29 255.63,171.80 255.27,171.89 254.89,171.87 254.50,171.74 254.10,171.51 252.93,173.12 254.20,174.08 254.61,174.45 254.97,174.88 255.37,175.42"/>
     <junction id="623484419" type="dead_end" x="267.44" y="160.73" incLanes="9404763#2_0 49154032#1_0" intLanes="" shape="268.81,162.91 269.96,161.27 265.83,158.40 264.69,160.04 265.26,160.64 265.36,160.96 265.33,161.29 265.18,161.64 264.91,162.00 266.37,163.35 267.18,162.72 267.58,162.59 267.99,162.58 268.40,162.68"/>
-    <junction id="623484641" type="dead_end" x="293.99" y="203.23" incLanes="49154041_0" intLanes="" shape="293.25,202.55 294.72,203.91">
+    <junction id="623484641" type="dead_end" x="293.99" y="203.23" incLanes="49154041_0" intLanes="" shape="293.25,202.55 294.72,203.91" fringe="inner">
         <param key="buffer_stop" value="true"/>
     </junction>
     <junction id="71570471" type="dead_end" x="141.49" y="312.03" incLanes="" intLanes="" shape="142.92,312.74 140.05,311.32"/>
