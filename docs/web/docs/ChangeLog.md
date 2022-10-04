@@ -251,6 +251,7 @@ title: ChangeLog
 - osmWebWizard.py now stores network files as `.net.xml.gz` to conserve space. Issue #7713
 - Walk attribute departPosLat is now interpreted in the same coordinate system as used by the vehicles. For backward compatibility, the option **--pedestrian.striping.legacy-departposlat** may be set. Issue #11705
 - Added more entries to help menus of sumo-gui and netedit. Issue #11604
+- The new default **--xml-validation** mode is *local* which only reads the local schema file but does not do network access to prevent XXE attacks. Issue #11054
 
 ## Version 1.14.1 (19.07.2022)
 
