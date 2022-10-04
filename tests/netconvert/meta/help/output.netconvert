@@ -1,4 +1,4 @@
-Eclipse SUMO netconvert Version v1_14_1+1404-60b7850a127
+Eclipse SUMO netconvert Version v1_14_1+1425-e57389e
  Copyright (C) 2001-2022 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Network importer / builder for the microscopic, multi-modal traffic simulation
  SUMO.
@@ -195,6 +195,8 @@ Processing Options:
   --opposites.guess.fix-lengths        Ensure that opposite edges have the same
                                         length
   --fringe.guess                       Enable guessing of network fringe nodes
+  --fringe.guess.speed-threshold FLOAT  Guess disconnected edges above the given
+                                        speed as outer fringe
   --lefthand                           Assumes left-hand traffic on the network
   --edges.join                         Merges edges which connect the same
                                         nodes and are close to each other
