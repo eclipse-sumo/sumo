@@ -50,7 +50,7 @@ netedit.leftClick(referencePosition, 250, 250)
 netedit.changeDefaultValue(netedit.attrs.calibrator.create.frequency, "250.5")
 
 # create calibrator with a valid parameter
-netedit.leftClick(referencePosition, 260, 250)
+netedit.leftClick(referencePosition, 255, 250)
 
 # Check undo redo
 netedit.undo(referencePosition, 1)

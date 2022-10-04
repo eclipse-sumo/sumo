@@ -50,7 +50,7 @@ netedit.leftClick(referencePosition, 250, 250)
 netedit.changeDefaultValue(netedit.attrs.calibrator.create.jamTreshold, "12.3")
 
 # create calibrator with a valid parameter in other lane
-netedit.leftClick(referencePosition, 260, 250)
+netedit.leftClick(referencePosition, 255, 250)
 
 # Check undo redo
 netedit.undo(referencePosition, 1)

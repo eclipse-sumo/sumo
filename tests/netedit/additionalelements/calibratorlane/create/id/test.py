@@ -44,7 +44,7 @@ netedit.leftClick(referencePosition, 240, 250)
 netedit.changeDefaultValue(netedit.attrs.calibrator.create.id, ";;;;;")
 
 # create calibrator
-netedit.leftClick(referencePosition, 240, 250)
+netedit.leftClick(referencePosition, 245, 250)
 
 # set invalid value
 netedit.changeDefaultValue(netedit.attrs.calibrator.create.id, "ca_0")
