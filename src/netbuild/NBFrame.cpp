@@ -294,6 +294,9 @@ NBFrame::fillOptions(bool forNetgen) {
     oc.doRegister("fringe.guess", new Option_Bool(false));
     oc.addDescription("fringe.guess", "Processing", "Enable guessing of network fringe nodes");
 
+    oc.doRegister("fringe.guess.speed-threshold", new Option_Float(50 / 3.6));
+    oc.addDescription("fringe.guess.speed-threshold", "Processing", "Guess disconnected edges above the given speed as outer fringe");
+
     oc.doRegister("lefthand", new Option_Bool(false));
     oc.addDescription("lefthand", "Processing", "Assumes left-hand traffic on the network");
 

@@ -2569,6 +2569,7 @@ NBNodeCont::remapIDs(bool numericaIDs, bool reservedIDs, const std::string& pref
 
 int
 NBNodeCont::guessFringe() {
+    // guess outer fringe by topology and being on the pareto-boundary
     NodeSet topRightFront;
     NodeSet topLeftFront;
     NodeSet bottomRightFront;
@@ -2591,6 +2592,18 @@ NBNodeCont::guessFringe() {
         if ((in <= 1 && out <= 1) &&
                 (in == 0 || out == 0
                  || n->getIncomingEdges().front()->isTurningDirectionAt(n->getOutgoingEdges().front()))) {
+            n->setFringeType(FringeType::OUTER);
+            numFringe++;
+        }
+    }
+    // guess outer fringe by topology and speed
+    const double speedThreshold = OptionsCont::getOptions().getFloat("fringe.guess.speed-threshold");
+    for (const auto& item : myNodes) {
+        NBNode* n = item.second;
+        if (front.count(n) != 0) {
+            continue;
+        }
+        if (n->getEdges().size() == 1 && n->getEdges().front()->getSpeed() > speedThreshold) {
             n->setFringeType(FringeType::OUTER);
             numFringe++;
         }
