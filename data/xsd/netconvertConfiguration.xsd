@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-07-11 15:42:09 by Eclipse SUMO netconvert Version v1_13_0+1506-f0fbece2894
+<!-- generated on 2022-10-04 10:26:42 by Eclipse SUMO netconvert Version v1_14_1+1405-b752ca57d78
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -269,6 +269,7 @@
             <xsd:element name="junctions.join-dist" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="junctions.join-exclude" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="junctions.join-same" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="max-join-ids" type="intOptionType" minOccurs="0"/>
             <xsd:element name="junctions.corner-detail" type="intOptionType" minOccurs="0"/>
             <xsd:element name="junctions.internal-link-detail" type="intOptionType" minOccurs="0"/>
             <xsd:element name="junctions.scurve-stretch" type="floatOptionType" minOccurs="0"/>
@@ -347,6 +348,7 @@
             <xsd:element name="osm.stop-output.length.train" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="osm.all-attributes" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="osm.extra-attributes" type="strArrayOptionType" minOccurs="0"/>
+            <xsd:element name="osm.speedlimit-none" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="matsim.keep-length" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="matsim.lanes-from-capacity" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="shapefile.street-id" type="strOptionType" minOccurs="0"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-07-11 15:42:09 by Eclipse SUMO sumo Version v1_13_0+1506-f0fbece2894
+<!-- generated on 2022-10-04 10:26:42 by Eclipse SUMO sumo Version v1_14_1+1405-b752ca57d78
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -109,6 +109,7 @@
             <xsd:element name="vehroute-output.incomplete" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="vehroute-output.stop-edges" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="vehroute-output.speedfactor" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="vehroute-output.internal" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="personroute-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="link-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="railsignal-block-output" type="fileOptionType" minOccurs="0"/>
@@ -168,6 +169,7 @@
             <xsd:element name="time-to-teleport.disconnected" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="time-to-teleport.remove" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="time-to-teleport.ride" type="timeOptionType" minOccurs="0"/>
+            <xsd:element name="time-to-teleport.bidi" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="waiting-time-memory" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="startup-wait-threshold" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="max-depart-delay" type="timeOptionType" minOccurs="0"/>
@@ -180,6 +182,7 @@
             <xsd:element name="tls.all-off" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="tls.actuated.show-detectors" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="tls.actuated.jam-threshold" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="tls.actuated.detector-length" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="tls.delay_based.detector-range" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="tls.yellow.min-decel" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="railsignal-moving-block" type="boolOptionType" minOccurs="0"/>
@@ -203,6 +206,7 @@
             <xsd:element name="pedestrian.striping.jamtime.narrow" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="pedestrian.striping.reserve-oncoming" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="pedestrian.striping.reserve-oncoming.junctions" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="pedestrian.striping.legacy-departposlat" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="pedestrian.remote.address" type="strOptionType" minOccurs="0"/>
             <xsd:element name="ride.stop-tolerance" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="persontrip.walk-opposite-factor" type="floatOptionType" minOccurs="0"/>
