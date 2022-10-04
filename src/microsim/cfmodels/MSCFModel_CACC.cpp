@@ -62,6 +62,7 @@
 #define DEFAULT_CA_GAIN_GAP_CACC 0.45
 #define DEFAULT_CA_GAIN_GAP_DOT_CACC 0.05
 #define DEFAULT_HEADWAYTIME_ACC 1.0
+#define DEFAULT_SC_MIN_GAP 1.66
 
 // override followSpeed when deemed unsafe by the given margin (the value was selected to reduce the number of necessary interventions)
 #define DEFAULT_EMERGENCY_OVERRIDE_THRESHOLD 2.0
@@ -95,7 +96,8 @@ MSCFModel_CACC::MSCFModel_CACC(const MSVehicleType* vtype) :
     myCollisionAvoidanceGainGapDot(vtype->getParameter().getCFParam(SUMO_ATTR_CA_GAIN_GAP_DOT_CACC, DEFAULT_CA_GAIN_GAP_DOT_CACC)),
     myHeadwayTimeACC(vtype->getParameter().getCFParam(SUMO_ATTR_HEADWAY_TIME_CACC_TO_ACC, DEFAULT_HEADWAYTIME_ACC)),
     myApplyDriverstate(vtype->getParameter().getCFParam(SUMO_ATTR_APPLYDRIVERSTATE, 0)),
-    myEmergencyThreshold(vtype->getParameter().getCFParam(SUMO_ATTR_CA_OVERRIDE, DEFAULT_EMERGENCY_OVERRIDE_THRESHOLD))
+    myEmergencyThreshold(vtype->getParameter().getCFParam(SUMO_ATTR_CA_OVERRIDE, DEFAULT_EMERGENCY_OVERRIDE_THRESHOLD)),
+    mySpeedControlMinGap(vtype->getParameter().getCFParam(SUMO_ATTR_SC_MIN_GAP, DEFAULT_SC_MIN_GAP))
 {
     myCollisionMinGapFactor = vtype->getParameter().getCFParam(SUMO_ATTR_COLLISION_MINGAP_FACTOR, 0.1);
     acc_CFM.setHeadwayTime(myHeadwayTimeACC);
@@ -363,7 +365,7 @@ MSCFModel_CACC::_v(const MSVehicle* const veh, const MSVehicle* const pred, cons
         double time_gap = gap2pred / speed;
         double spacingErr = gap2pred - myHeadwayTime * speed;
 
-        if (time_gap > 2 && spacingErr > 1.66) {
+        if (time_gap > 2 && spacingErr > mySpeedControlMinGap) {
 #if DEBUG_CACC == 1
             if (DEBUG_COND) {
                 std::cout << "        applying speedControl" << "  time_gap=" << time_gap << std::endl;

@@ -228,6 +228,7 @@ private:
     double myHeadwayTimeACC;
     double myApplyDriverstate;
     double myEmergencyThreshold;
+    double mySpeedControlMinGap;
 
 private:
     /// @brief Invalidated assignment operator

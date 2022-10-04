@@ -574,6 +574,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "collisionAvoidanceGainGap",      SUMO_ATTR_CA_GAIN_GAP_CACC },
     { "collisionAvoidanceGainGapDot",   SUMO_ATTR_CA_GAIN_GAP_DOT_CACC },
     { "tauCACCToACC",                   SUMO_ATTR_HEADWAY_TIME_CACC_TO_ACC },
+    { "speedControlMinGap",             SUMO_ATTR_SC_MIN_GAP },
     { "applyDriverState",               SUMO_ATTR_APPLYDRIVERSTATE },
 
     { "trainType",              SUMO_ATTR_TRAIN_TYPE },

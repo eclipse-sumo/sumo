@@ -1402,6 +1402,7 @@ SUMOVehicleParserHelper::getAllowedCFModelAttrs() {
         CACCParams.insert(SUMO_ATTR_CA_OVERRIDE);
         CACCParams.insert(SUMO_ATTR_HEADWAY_TIME_CACC_TO_ACC);
         CACCParams.insert(SUMO_ATTR_APPLYDRIVERSTATE);
+        CACCParams.insert(SUMO_ATTR_SC_MIN_GAP);
         allowedCFModelAttrs[SUMO_TAG_CF_CACC] = CACCParams;
         allParams.insert(CACCParams.begin(), CACCParams.end());
         // CC

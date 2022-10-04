@@ -137,6 +137,7 @@
         <xsd:attribute name="security" type="xsd:float"/>
         <xsd:attribute name="estimation" type="xsd:float"/>
         <xsd:attribute name="speedControlGain" type="xsd:float"/>
+        <xsd:attribute name="speedControlMinGap" type="xsd:float"/>
         <xsd:attribute name="gapClosingControlGainSpeed" type="xsd:float"/>
         <xsd:attribute name="gapClosingControlGainSpace" type="xsd:float"/>
         <xsd:attribute name="gapControlGainSpeed" type="xsd:float"/>
