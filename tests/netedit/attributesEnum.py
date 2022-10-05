@@ -349,12 +349,12 @@ class crossing:
         edges = 1
         priority = 2
         width = 3
-        button = 12
+        button = 10
 
     class createTLS:
         edges = 1
         width = 2
-        button = 10
+        button = 8
 
     class inspect:
         edges = 1

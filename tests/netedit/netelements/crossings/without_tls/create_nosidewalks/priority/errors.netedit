@@ -15,24 +15,11 @@ Debug: Created connection 'from8_0to2_0' in retrieveGNEConnection()
 Debug: Created connection 'from8_0to3_0' in retrieveGNEConnection()
 Debug: Created connection 'from8_1to3_1' in retrieveGNEConnection()
 Debug: Created connection 'from8_1to1_1' in retrieveGNEConnection()
-Debug: Adding crossing into junction 'Center'
-Debug: Changed flag netBuilder::haveNetworkCrossings from 'false' to 'true'
-Debug: Created crossing ':Center_c0' in retrieveGNECrossing()
 Debug: Key F5 (Compute) pressed
 Debug: Keys Ctrl+Z (Undo) pressed
-Debug: Calling GNEUndoList::undo()
-Debug: removing crossing from junction 'Center'
-Debug: Deleting unreferenced crossing in rebuildGNECrossings()
-Debug: Changed flag netBuilder::haveNetworkCrossings from 'true' to 'false'
 Debug: Key F5 (Compute) pressed
 Debug: Keys Ctrl+Y (Redo) pressed
-Debug: Calling GNEUndoList::redo()
-Debug: Adding crossing into junction 'Center'
-Debug: Created crossing ':Center_c0' in retrieveGNECrossing()
-Debug: Removing crossing from junction 'Center'
-Debug: Deleting unreferenced crossing in rebuildGNECrossings()
-Debug: Changed flag netBuilder::haveNetworkCrossings from 'true' to 'false'
-Debug: network elements saved after dialog
+Debug: network elements saved
 Debug: Deleting unreferenced edge '1' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane '1_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane '1_1' in GNEEdge destructor
