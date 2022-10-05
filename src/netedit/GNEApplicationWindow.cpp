@@ -1267,15 +1267,17 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
         std::vector<std::string> additionalFiles = oc.getStringVector("additional-files");
         // begin undolist
         myUndoList->begin(Supermode::NETWORK, GUIIcon::SUPERMODENETWORK, "loading additionals and shapes from '" + toString(additionalFiles) + "'");
+        // flag for check if there is error creating elements
+        bool errorCreatingElement = false;   
         // iterate over every additional file
         for (const auto& additionalFile : additionalFiles) {
             WRITE_MESSAGE("loading additionals and shapes from '" + additionalFile + "'");
             // declare general handler
-            GNEGeneralHandler generalHandler(myNet, additionalFile, true, false);
+            GNEGeneralHandler handler(myNet, additionalFile, true, false);
             // disable validation for additionals
             XMLSubSys::setValidation("never", "auto", "auto");
             // Run parser
-            if (!generalHandler.parse()) {
+            if (!handler.parse()) {
                 WRITE_ERROR("Loading of " + additionalFile + " failed.");
             } else {
                 // set additional-files
@@ -1284,11 +1286,19 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
             }
             // disable validation for additionals
             XMLSubSys::setValidation("auto", "auto", "auto");
+            // enable demand elements if there is an error creating element
+            if (handler.isErrorCreatingElement()) {
+                errorCreatingElement = true;
+            }
+        }
+        // check if enable save demand elements
+        if (errorCreatingElement) {
+            myNet->requireSaveAdditionals(true);
+        } else {
+            myNet->requireSaveAdditionals(false);
         }
         // end undo list
         myUndoList->end();
-        // disable save additionals (because additionals were loaded through console)
-        myNet->requireSaveAdditionals(false);
     }
     // check if demand elements has to be loaded at start
     if (oc.isSet("route-files") && !oc.getString("route-files").empty() && myNet) {
@@ -1296,6 +1306,8 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
         std::vector<std::string> demandElementsFiles = oc.getStringVector("route-files");
         // begin undolist
         myUndoList->begin(Supermode::DEMAND, GUIIcon::SUPERMODEDEMAND, "loading demand elements from '" + toString(demandElementsFiles) + "'");
+        // flag for check if there is error creating elements
+        bool errorCreatingElement = false;         
         // iterate over every route file
         for (const auto& demandElementsFile : demandElementsFiles) {
             WRITE_MESSAGE("Loading demand elements from '" + demandElementsFile + "'");
@@ -1311,11 +1323,19 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
             }
             // disable validation for demand elements
             XMLSubSys::setValidation("auto", "auto", "auto");
+            // enable demand elements if there is an error creating element
+            if (handler.isErrorCreatingElement()) {
+                errorCreatingElement = true;
+            }
+        }
+        // check if enable save demand elements
+        if (errorCreatingElement) {
+            myNet->requireSaveDemandElements(true);
+        } else {
+            myNet->requireSaveDemandElements(false);
         }
         // end undo list
         myUndoList->end();
-        // disable save demand elements (because demand elements were loaded through console)
-        myNet->requireSaveDemandElements(false);
     }
     // check if data elements has to be loaded at start
     if (oc.isSet("data-files") && !oc.getString("data-files").empty() && myNet) {
@@ -1325,6 +1345,8 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
         myViewNet->getNet()->disableUpdateData();
         // begin undolist
         myUndoList->begin(Supermode::DATA, GUIIcon::SUPERMODEDATA, "loading data elements from '" + toString(dataElementsFiles) + "'");
+        // disable save data elements (because data elements were loaded through console)
+        myNet->requireSaveDataElements(false);
         // iterate over every data file
         for (const auto& dataElementsFile : dataElementsFiles) {
             WRITE_MESSAGE("Loading data elements from '" + dataElementsFile + "'");
@@ -1340,11 +1362,15 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
             }
             // disable validation for data elements
             XMLSubSys::setValidation("auto", "auto", "auto");
+            // enable demand elements if there is an error creating element
+            if (dataHandler.isErrorCreatingElement()) {
+                myNet->requireSaveDataElements(true);
+            } else {
+                myNet->requireSaveDataElements(false);
+            }
         }
         // end undolist
         myUndoList->end();
-        // disable save data elements (because data elements were loaded through console)
-        myNet->requireSaveDataElements(false);
         // enable update data
         myViewNet->getNet()->enableUpdateData();
     }
@@ -3751,6 +3777,10 @@ GNEApplicationWindow::onCmdOpenAdditionals(FXObject*, FXSelector, void*) {
         if (!generalHandler.parse()) {
             WRITE_ERROR("Loading of " + file + " failed.");
         }
+        // enable demand elements if there is an error creating element
+        if (generalHandler.isErrorCreatingElement()) {
+            myNet->requireSaveAdditionals(true);
+        }
         // end undoList operation and update view
         myUndoList->end();
         update();
@@ -3947,6 +3977,10 @@ GNEApplicationWindow::onCmdOpenDemandElements(FXObject*, FXSelector, void*) {
         // Run parser for additionals
         if (!handler.parse()) {
             WRITE_ERROR("Loading of " + file + " failed.");
+        }
+        // enable demand elements if there is an error creating element
+        if (handler.isErrorCreatingElement()) {
+            myNet->requireSaveDemandElements(true);
         }
         // end undoList operation and update view
         myUndoList->end();
@@ -4186,6 +4220,10 @@ GNEApplicationWindow::onCmdReloadDataElements(FXObject*, FXSelector, void*) {
     // Run data parser
     if (!dataHandler.parse()) {
         WRITE_ERROR("Reloading of " + file + " failed.");
+    }
+    // enable demand elements if there is an error creating element
+    if (dataHandler.isErrorCreatingElement()) {
+        myNet->requireSaveDemandElements(true);
     }
     // restore validation for data
     XMLSubSys::setValidation("auto", "auto", "auto");

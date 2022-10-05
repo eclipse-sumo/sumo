@@ -42,6 +42,12 @@ GNEGeneralHandler::GNEGeneralHandler(GNENet* net, const std::string& file, const
 GNEGeneralHandler::~GNEGeneralHandler() {}
 
 
+bool
+GNEGeneralHandler::isErrorCreatingElement() const {
+    return (myAdditionalHandler.isErrorCreatingElement() || myDemandHandler.isErrorCreatingElement());
+}
+
+
 void
 GNEGeneralHandler::beginTag(SumoXMLTag tag, const SUMOSAXAttributes& attrs) {
     switch (tag) {

@@ -52,6 +52,9 @@ public:
     /// @brief Destructor
     ~GNEGeneralHandler();
 
+    /// @brief get flag for check if a element wasn't created
+    bool isErrorCreatingElement() const;
+
 private:
     /// @brief tagType
     struct TagType {
