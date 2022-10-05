@@ -2,8 +2,6 @@
 
 additionalelements/routeprobe/delete
 additionalelements/vaporizer/create/name
-bugs/crossings/ticket3288
-bugs/crossings/ticket3292
 dataelements/edgedata/delete
 dataelements/edgereldata/delete
 dataelements/tazreldata/delete
@@ -87,32 +85,9 @@ demandelements/waypoint/parkingarea/create/until
 
 netelements/connections/inspect_selected_tls/linkindex/
 netelements/connections/inspect_tls/linkindex/
-netelements/crossings/with_tls/create_nosidewalks/default
-netelements/crossings/with_tls/create_nosidewalks/default_invalid
-netelements/crossings/with_tls/create_nosidewalks/duplicated
-netelements/crossings/with_tls/create_nosidewalks/manual
-netelements/crossings/with_tls/create_nosidewalks/single_crossing
-netelements/crossings/with_tls/create_nosidewalks/split_crossing
-netelements/crossings/with_tls/create_nosidewalks/width
 netelements/crossings/with_tls/inspect/linkindex/
 netelements/crossings/with_tls/inspect_selected/linkindex/
 netelements/crossings/with_tls/load/linkindex2/
-netelements/crossings/without_tls/create/default
-netelements/crossings/without_tls/create/default_invalid
-netelements/crossings/without_tls/create/duplicated
-netelements/crossings/without_tls/create/manual
-netelements/crossings/without_tls/create/priority
-netelements/crossings/without_tls/create/single_crossing
-netelements/crossings/without_tls/create/split_crossing
-netelements/crossings/without_tls/create/width
-netelements/crossings/without_tls/create_nosidewalks/default
-netelements/crossings/without_tls/create_nosidewalks/default_invalid
-netelements/crossings/without_tls/create_nosidewalks/duplicated
-netelements/crossings/without_tls/create_nosidewalks/manual
-netelements/crossings/without_tls/create_nosidewalks/priority
-netelements/crossings/without_tls/create_nosidewalks/single_crossing
-netelements/crossings/without_tls/create_nosidewalks/split_crossing
-netelements/crossings/without_tls/create_nosidewalks/width
 netelements/crossings/without_tls/load/linkindex/
 netelements/crossings/without_tls/load/linkindex2/
 
