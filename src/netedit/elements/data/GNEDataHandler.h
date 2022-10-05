@@ -93,13 +93,13 @@ protected:
     const bool myAllowUndoRedo;
 
     /// @brief write error "duplicated additional"
-    void writeErrorDuplicated(const SumoXMLTag tag, const std::string& id) const;
+    void writeErrorDuplicated(const SumoXMLTag tag, const std::string& id);
 
     /// @brief write error "invalid parent element"
-    void writeErrorInvalidParent(const SumoXMLTag tag, const SumoXMLTag parent) const;
+    void writeErrorInvalidParent(const SumoXMLTag tag, const SumoXMLTag parent);
 
     /// @brief write error "invalid parent element" giving ID
-    void writeErrorInvalidParent(const SumoXMLTag tag, const SumoXMLTag parent, const std::string& ID) const;
+    void writeErrorInvalidParent(const SumoXMLTag tag, const SumoXMLTag parent, const std::string& ID);
 
 private:
     /// @brief invalidate copy constructor

@@ -172,7 +172,7 @@ AdditionalHandler::beginParseAttributes(SumoXMLTag tag, const SUMOSAXAttributes&
                 break;
         }
     } catch (InvalidArgument& e) {
-        WRITE_ERROR(e.what());
+        writeError(e.what());
     }
     return true;
 }
@@ -669,6 +669,13 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
 
 
 void
+AdditionalHandler::writeError(const std::string& error) {
+    WRITE_ERROR(error);
+    myErrorCreatingElement = true;
+}
+
+
+void
 AdditionalHandler::parseBusStopAttributes(const SUMOSAXAttributes& attrs) {
     // declare Ok Flag
     bool parsedOk = true;
@@ -944,12 +951,12 @@ AdditionalHandler::parseE2Attributes(const SUMOSAXAttributes& attrs) {
     bool parsedOk = true;
     // check that lane and length are defined together
     if (attrs.hasAttribute(SUMO_ATTR_LANE) && !attrs.hasAttribute(SUMO_ATTR_LENGTH)) {
-        WRITE_ERROR("'lane' and 'length' must be defined together in a lane area detector.");
+        writeError("'lane' and 'length' must be defined together in a lane area detector.");
         parsedOk = false;
     }
     // check that lanes and endPos are defined together
     if (attrs.hasAttribute(SUMO_ATTR_LANES) && !attrs.hasAttribute(SUMO_ATTR_ENDPOS)) {
-        WRITE_ERROR("'lanes' and 'endPos' must be defined together in a lane area detector.");
+        writeError("'lanes' and 'endPos' must be defined together in a lane area detector.");
         parsedOk = false;
     }
     // needed attributes
@@ -1226,7 +1233,7 @@ AdditionalHandler::parseCalibratorAttributes(const SUMOSAXAttributes& attrs) {
     // check that frecuency and trafficLight aren't defined together
     if ((attrs.hasAttribute(SUMO_ATTR_EDGE) && attrs.hasAttribute(SUMO_ATTR_LANE)) ||
             (!attrs.hasAttribute(SUMO_ATTR_EDGE) && !attrs.hasAttribute(SUMO_ATTR_LANE))) {
-        WRITE_ERROR("Calibrators need either an edge or a lane");
+        writeError("Calibrators need either an edge or a lane");
         parsedOk = false;
     }
     // needed attributes
@@ -1273,7 +1280,7 @@ AdditionalHandler::parseCalibratorFlowAttributes(const SUMOSAXAttributes& attrs)
             myCommonXMLStructure.getCurrentSumoBaseObject()->getParentSumoBaseObject()->getTag() != SUMO_TAG_ROOTFILE) {
         // check that frecuency and trafficLight aren't defined together
         if (!attrs.hasAttribute(SUMO_ATTR_TYPE) && !attrs.hasAttribute(SUMO_ATTR_VEHSPERHOUR) && !attrs.hasAttribute(SUMO_ATTR_SPEED)) {
-            WRITE_ERROR("CalibratorFlows need either the attribute vehsPerHour or speed or type (or any combination of these)");
+            writeError("CalibratorFlows need either the attribute vehsPerHour or speed or type (or any combination of these)");
         }
         // first parse flow
         SUMOVehicleParameter* flowParameter = SUMOVehicleParserHelper::parseVehicleAttributes(SUMO_TAG_FLOW, attrs, false, true, true);
@@ -1409,7 +1416,7 @@ AdditionalHandler::parseDestProbRerouteAttributes(const SUMOSAXAttributes& attrs
     // continue if flag is ok
     if (parsedOk) {
         if (probability < 0) {
-            WRITE_ERROR("Probability of " + toString(SUMO_TAG_DEST_PROB_REROUTE) + " must be equal or greater than 0");
+            writeError("Probability of " + toString(SUMO_TAG_DEST_PROB_REROUTE) + " must be equal or greater than 0");
         } else {
             // set tag
             myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_DEST_PROB_REROUTE);
@@ -1435,7 +1442,7 @@ AdditionalHandler::parseParkingAreaRerouteAttributes(const SUMOSAXAttributes& at
     // continue if flag is ok
     if (parsedOk) {
         if (probability < 0) {
-            WRITE_ERROR("Probability of " + toString(SUMO_TAG_PARKING_AREA_REROUTE) + " must be equal or greater than 0");
+            writeError("Probability of " + toString(SUMO_TAG_PARKING_AREA_REROUTE) + " must be equal or greater than 0");
         } else {
             // set tag
             myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_PARKING_AREA_REROUTE);
@@ -1460,7 +1467,7 @@ AdditionalHandler::parseRouteProbRerouteAttributes(const SUMOSAXAttributes& attr
     // continue if flag is ok
     if (parsedOk) {
         if (probability < 0) {
-            WRITE_ERROR("Probability of " + toString(SUMO_TAG_ROUTE_PROB_REROUTE) + " must be equal or greater than 0");
+            writeError("Probability of " + toString(SUMO_TAG_ROUTE_PROB_REROUTE) + " must be equal or greater than 0");
         } else {
             // set tag
             myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_ROUTE_PROB_REROUTE);
@@ -1646,19 +1653,19 @@ AdditionalHandler::parsePOIAttributes(const SUMOSAXAttributes& attrs) {
     // check that x and y are defined together
     if ((attrs.hasAttribute(SUMO_ATTR_X) && !attrs.hasAttribute(SUMO_ATTR_Y)) ||
             (!attrs.hasAttribute(SUMO_ATTR_X) && attrs.hasAttribute(SUMO_ATTR_Y))) {
-        WRITE_ERROR("X and Y must be be defined together in POIs");
+        writeError("X and Y must be be defined together in POIs");
         parsedOk = false;
     }
     // check that lane and pos are defined together
     if ((attrs.hasAttribute(SUMO_ATTR_LANE) && !attrs.hasAttribute(SUMO_ATTR_POSITION)) ||
             (!attrs.hasAttribute(SUMO_ATTR_LANE) && attrs.hasAttribute(SUMO_ATTR_POSITION))) {
-        WRITE_ERROR("lane and position must be be defined together in POIs");
+        writeError("lane and position must be be defined together in POIs");
         parsedOk = false;
     }
     // check that lon and lat are defined together
     if ((attrs.hasAttribute(SUMO_ATTR_LON) && !attrs.hasAttribute(SUMO_ATTR_LAT)) ||
             (!attrs.hasAttribute(SUMO_ATTR_LON) && attrs.hasAttribute(SUMO_ATTR_LAT))) {
-        WRITE_ERROR("lon and lat must be be defined together in POIs");
+        writeError("lon and lat must be be defined together in POIs");
         parsedOk = false;
     }
     // needed attributes
@@ -1724,11 +1731,11 @@ AdditionalHandler::parseParameters(const SUMOSAXAttributes& attrs) {
     CommonXMLStructure::SumoBaseObject* SumoBaseObjectParent = myCommonXMLStructure.getCurrentSumoBaseObject()->getParentSumoBaseObject();
     // check parent
     if (SumoBaseObjectParent == nullptr) {
-        WRITE_ERROR("Parameters must be defined within an object.");
+        writeError("Parameters must be defined within an object.");
     } else if (SumoBaseObjectParent->getTag() == SUMO_TAG_ROOTFILE) {
-        WRITE_ERROR("Parameters cannot be defined in the additional file's root.");
+        writeError("Parameters cannot be defined in the additional file's root.");
     } else if (SumoBaseObjectParent->getTag() == SUMO_TAG_PARAM) {
-        WRITE_ERROR("Parameters cannot be defined within another parameter.");
+        writeError("Parameters cannot be defined within another parameter.");
     } else if (parsedOk) {
         // get tag str
         const std::string parentTagStr = toString(SumoBaseObjectParent->getTag());
@@ -1749,14 +1756,14 @@ AdditionalHandler::parseParameters(const SUMOSAXAttributes& attrs) {
 
 
 void
-AdditionalHandler::checkParent(const SumoXMLTag currentTag, const std::vector<SumoXMLTag>& parentTags, bool& ok) const {
+AdditionalHandler::checkParent(const SumoXMLTag currentTag, const std::vector<SumoXMLTag>& parentTags, bool& ok) {
     // check that parent SUMOBaseObject's tag is the parentTag
     CommonXMLStructure::SumoBaseObject* const parent = myCommonXMLStructure.getCurrentSumoBaseObject()->getParentSumoBaseObject();
     if ((parent != nullptr) &&
             (parentTags.size() > 0) &&
             (std::find(parentTags.begin(), parentTags.end(), parent->getTag()) == parentTags.end())) {
         const std::string id = parent->hasStringAttribute(SUMO_ATTR_ID) ? ", id: '" + parent->getStringAttribute(SUMO_ATTR_ID) + "'" : "";
-        WRITE_ERROR("'" + toString(currentTag) + "' must be defined within the definition of a '" + toString(parentTags.front()) + "' (found '" + toString(parent->getTag()) + "'" + id + ").");
+        writeError("'" + toString(currentTag) + "' must be defined within the definition of a '" + toString(parentTags.front()) + "' (found '" + toString(parent->getTag()) + "'" + id + ").");
         ok = false;
     }
 }

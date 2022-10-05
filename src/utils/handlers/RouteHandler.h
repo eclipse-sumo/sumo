@@ -133,6 +133,9 @@ public:
 
     /// @}
 
+    /// @brief write error
+    void writeError(const std::string& error);
+
 private:
     /// @brief filename (needed for parsing vTypes)
     const std::string myFilename;
@@ -149,8 +152,11 @@ private:
     /// @brief common XML Structure
     CommonXMLStructure myCommonXMLStructure;
 
+    /// @brief flag for check if a element wasn't created
+    bool myErrorCreatingElement = false;
+
     /// @brief write error "invalid id"
-    void writeErrorInvalidID(const SumoXMLTag tag, const std::string& id) const;
+    void writeErrorInvalidID(const SumoXMLTag tag, const std::string& id);
 
     /// @name parse route element attributes
     /// @{
@@ -217,13 +223,13 @@ private:
     /// @}
 
     /// @brief parse stop parameters
-    bool parseStopParameters(SUMOVehicleParameter::Stop& stop, const SUMOSAXAttributes& attrs) const;
+    bool parseStopParameters(SUMOVehicleParameter::Stop& stop, const SUMOSAXAttributes& attrs);
 
     /// @brief check embedded route
     bool isEmbeddedRoute(const SUMOSAXAttributes& attrs) const;
 
     /// @brief check parents
-    void checkParent(const SumoXMLTag currentTag, const std::vector<SumoXMLTag>& parentTags, bool& ok) const;
+    void checkParent(const SumoXMLTag currentTag, const std::vector<SumoXMLTag>& parentTags, bool& ok);
 
     /// @brief invalidate copy constructor
     RouteHandler(const RouteHandler& s) = delete;

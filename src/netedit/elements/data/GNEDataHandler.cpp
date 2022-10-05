@@ -201,9 +201,9 @@ GNEDataHandler::buildTAZRelationData(const CommonXMLStructure::SumoBaseObject* s
             } else if (toTAZ == nullptr) {
                 writeErrorInvalidParent(SUMO_TAG_TAZREL, SUMO_TAG_TAZ, toTAZID);
             } else if ((fromTAZ != toTAZ) && dataInterval->TAZRelExists(fromTAZ, toTAZ)) {
-                WRITE_ERROR("There is already a " + toString(SUMO_TAG_TAZREL) + " defined between '" + toTAZID + "' and '" + toTAZID + "'.");
+                writeError("There is already a " + toString(SUMO_TAG_TAZREL) + " defined between '" + toTAZID + "' and '" + toTAZID + "'.");
             } else if ((fromTAZ == toTAZ) && dataInterval->TAZRelExists(fromTAZ)) {
-                WRITE_ERROR("There is already a " + toString(SUMO_TAG_TAZREL) + " defined in '" + toTAZID + "'.");
+                writeError("There is already a " + toString(SUMO_TAG_TAZREL) + " defined in '" + toTAZID + "'.");
             } else if (fromTAZ == toTAZ) {
                 GNEGenericData* edgeData = new GNETAZRelData(dataInterval, fromTAZ, parameters);
                 if (myAllowUndoRedo) {
@@ -238,20 +238,20 @@ GNEDataHandler::buildTAZRelationData(const CommonXMLStructure::SumoBaseObject* s
 
 
 void
-GNEDataHandler::writeErrorDuplicated(const SumoXMLTag tag, const std::string& id) const {
-    WRITE_ERROR("Could not build " + toString(tag) + " with ID '" + id + "' in netedit; declared twice.");
+GNEDataHandler::writeErrorDuplicated(const SumoXMLTag tag, const std::string& id) {
+    writeError("Could not build " + toString(tag) + " with ID '" + id + "' in netedit; declared twice.");
 }
 
 
 void
-GNEDataHandler::writeErrorInvalidParent(const SumoXMLTag tag, const SumoXMLTag parent) const {
-    WRITE_ERROR("Could not build " + toString(tag) + " in netedit; " +  toString(parent) + " doesn't exist.");
+GNEDataHandler::writeErrorInvalidParent(const SumoXMLTag tag, const SumoXMLTag parent) {
+    writeError("Could not build " + toString(tag) + " in netedit; " +  toString(parent) + " doesn't exist.");
 }
 
 
 void
-GNEDataHandler::writeErrorInvalidParent(const SumoXMLTag tag, const SumoXMLTag parent, const std::string& ID) const {
-    WRITE_ERROR("Could not build " + toString(tag) + " in netedit; " +  toString(parent) + " with ID '" + ID + "' doesn't exist.");
+GNEDataHandler::writeErrorInvalidParent(const SumoXMLTag tag, const SumoXMLTag parent, const std::string& ID) {
+    writeError("Could not build " + toString(tag) + " in netedit; " +  toString(parent) + " with ID '" + ID + "' doesn't exist.");
 }
 
 /****************************************************************************/

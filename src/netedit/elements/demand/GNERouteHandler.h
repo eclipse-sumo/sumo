@@ -200,13 +200,13 @@ public:
 
 protected:
     /// @brief parse junction
-    GNEJunction* parseJunction(const SumoXMLTag tag, const std::string& junctionID) const;
+    GNEJunction* parseJunction(const SumoXMLTag tag, const std::string& junctionID);
 
     /// @brief parse edge
-    GNEEdge* parseEdge(const SumoXMLTag tag, const std::string& edgeID) const;
+    GNEEdge* parseEdge(const SumoXMLTag tag, const std::string& edgeID);
 
     /// @brief parse edges
-    std::vector<GNEEdge*> parseEdges(const SumoXMLTag tag, const std::vector<std::string>& edgeIDs) const;
+    std::vector<GNEEdge*> parseEdges(const SumoXMLTag tag, const std::vector<std::string>& edgeIDs);
 
     /// @brief get person parent
     GNEDemandElement* getPersonParent(const CommonXMLStructure::SumoBaseObject* sumoBaseObject) const;

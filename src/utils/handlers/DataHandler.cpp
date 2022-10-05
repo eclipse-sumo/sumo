@@ -114,7 +114,7 @@ DataHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
                 break;
         }
     } catch (InvalidArgument& e) {
-        WRITE_ERROR(e.what());
+        writeError(e.what());
     }
 }
 
@@ -139,6 +139,13 @@ DataHandler::myEndElement(int element) {
         default:
             break;
     }
+}
+
+
+void
+DataHandler::writeError(const std::string& error) {
+    WRITE_ERROR(error);
+    myErrorCreatingElement = true;
 }
 
 
@@ -237,11 +244,11 @@ DataHandler::getAttributes(const SUMOSAXAttributes& attrs, const std::vector<Sum
 
 
 void
-DataHandler::checkParent(const SumoXMLTag currentTag, const SumoXMLTag parentTag, bool& ok) const {
+DataHandler::checkParent(const SumoXMLTag currentTag, const SumoXMLTag parentTag, bool& ok) {
     // check that parent SUMOBaseObject's tag is the parentTag
     if ((myCommonXMLStructure.getCurrentSumoBaseObject()->getParentSumoBaseObject() &&
             (myCommonXMLStructure.getCurrentSumoBaseObject()->getParentSumoBaseObject()->getTag() == parentTag)) == false) {
-        WRITE_ERROR(toString(currentTag) + " must be defined within the definition of a " + toString(parentTag));
+        writeError(toString(currentTag) + " must be defined within the definition of a " + toString(parentTag));
         ok = false;
     }
 }

@@ -3760,7 +3760,7 @@ GNEApplicationWindow::onCmdOpenAdditionals(FXObject*, FXSelector, void*) {
         myNet->requireSaveAdditionals(requireSaveAdditionals);
         myNet->requireSaveDemandElements(requireSaveDemandElements);
         myNet->requireSaveDataElements(requireSaveDataElements);
-        // change value of "route-files"
+        // change value of "additional-files"
         OptionsCont& oc = OptionsCont::getOptions();
         oc.resetWritable();
         oc.set("additional-files", opendialog.getFilename().text());
@@ -4157,7 +4157,7 @@ GNEApplicationWindow::onCmdOpenDataElements(FXObject*, FXSelector, void*) {
         myNet->requireSaveAdditionals(requireSaveAdditionals);
         myNet->requireSaveDemandElements(requireSaveDemandElements);
         myNet->requireSaveDataElements(requireSaveDataElements);
-        // change value of "route-files"
+        // change value of "data-files"
         OptionsCont& oc = OptionsCont::getOptions();
         oc.resetWritable();
         oc.set("data-files", opendialog.getFilename().text());

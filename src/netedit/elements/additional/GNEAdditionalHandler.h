@@ -629,28 +629,28 @@ public:
 
 protected:
     /// @brief write invalid id
-    void writeInvalidID(const SumoXMLTag tag, const std::string& id) const;
+    void writeInvalidID(const SumoXMLTag tag, const std::string& id);
 
     /// @brief write error "invalid position"
-    void writeErrorInvalidPosition(const SumoXMLTag tag, const std::string& id) const;
+    void writeErrorInvalidPosition(const SumoXMLTag tag, const std::string& id);
 
     /// @brief write error "duplicated additional"
-    void writeErrorDuplicated(const SumoXMLTag tag, const std::string& id) const;
+    void writeErrorDuplicated(const SumoXMLTag tag, const std::string& id);
 
     /// @brief write error "invalid parent element"
-    void writeErrorInvalidParent(const SumoXMLTag tag, const SumoXMLTag parent) const;
+    void writeErrorInvalidParent(const SumoXMLTag tag, const SumoXMLTag parent);
 
     /// @brief write error "invalid negative element"
-    void writeErrorInvalidNegativeValue(const SumoXMLTag tag, const std::string& id, const SumoXMLAttr attribute) const;
+    void writeErrorInvalidNegativeValue(const SumoXMLTag tag, const std::string& id, const SumoXMLAttr attribute);
 
     /// @brief write error "invalid list of vehicle types"
-    void writeErrorInvalidVTypes(const SumoXMLTag tag, const std::string& id) const;
+    void writeErrorInvalidVTypes(const SumoXMLTag tag, const std::string& id);
 
     /// @brief write error "invalid filename"
-    void writeErrorInvalidFilename(const SumoXMLTag tag, const std::string& id) const;
+    void writeErrorInvalidFilename(const SumoXMLTag tag, const std::string& id);
 
     /// @brief write error "invalid list of lanes"
-    void writeErrorInvalidLanes(const SumoXMLTag tag, const std::string& id) const;
+    void writeErrorInvalidLanes(const SumoXMLTag tag, const std::string& id);
 
     /// @brief check list of IDs
     bool checkListOfVehicleTypes(const std::vector<std::string>& vTypeIDs) const;
@@ -662,10 +662,10 @@ protected:
     GNEAdditional* getRerouterIntervalParent(const CommonXMLStructure::SumoBaseObject* sumoBaseObject) const;
 
     /// @brief parse edges
-    std::vector<GNEEdge*> parseEdges(const SumoXMLTag tag, const std::vector<std::string>& edgeIDs) const;
+    std::vector<GNEEdge*> parseEdges(const SumoXMLTag tag, const std::vector<std::string>& edgeIDs);
 
     /// @brief parse lanes
-    std::vector<GNELane*> parseLanes(const SumoXMLTag tag, const std::vector<std::string>& laneIDs) const;
+    std::vector<GNELane*> parseLanes(const SumoXMLTag tag, const std::vector<std::string>& laneIDs);
 
     /// @brief check if given ID correspond to a duplicated additional
     bool checkDuplicatedAdditional(const SumoXMLTag tag, const std::string &id);
