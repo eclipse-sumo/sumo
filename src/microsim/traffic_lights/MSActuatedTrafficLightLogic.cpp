@@ -718,11 +718,13 @@ MSActuatedTrafficLightLogic::trySwitch() {
     }
 
     myTraCISwitch = false;
-    SUMOTime linkMinDur = getLinkMinDuration(getTarget(nextStep));
-    if (linkMinDur > 0) {
-        // for multiTarget, the current phase must be extended but if another
-        // targer is chosen, earlier switching than linkMinDur is possible
-        return multiTarget ? TIME2STEPS(1) : linkMinDur;
+    if (myLinkMinGreenTimes.size() > 0) {
+        SUMOTime linkMinDur = getLinkMinDuration(getTarget(nextStep));
+        if (linkMinDur > 0) {
+            // for multiTarget, the current phase must be extended but if another
+            // targer is chosen, earlier switching than linkMinDur is possible
+            return multiTarget ? TIME2STEPS(1) : linkMinDur;
+        }
     }
     myStep = nextStep;
     assert(myStep <= (int)myPhases.size());
@@ -833,7 +835,7 @@ int
 MSActuatedTrafficLightLogic::decideNextPhase() {
     const auto& cands = myPhases[myStep]->nextPhases;
     // decide by priority
-    // first target is the default when thre is no traffic
+    // first target is the default when there is no traffic
     // @note: to keep the current phase, even when there is no traffic, it must be added to 'next' explicitly
     int result = cands.front();
     int maxPrio = 0;
