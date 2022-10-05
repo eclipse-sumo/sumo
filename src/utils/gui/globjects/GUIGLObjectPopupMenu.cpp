@@ -117,7 +117,7 @@ GUIGLObjectPopupMenu::getParentView() {
 }
 
 
-const GUIGLObjectPopupMenu::PopupType
+GUIGLObjectPopupMenu::PopupType
 GUIGLObjectPopupMenu::getPopupType() const {
     return myPopupType;
 }

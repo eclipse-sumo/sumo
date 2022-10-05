@@ -80,7 +80,7 @@ public:
     GUISUMOAbstractView* getParentView();
 
     /// @brief popup type;
-    const PopupType getPopupType() const;
+    PopupType getPopupType() const;
 
     /// @name FX Calls
     /// @{
