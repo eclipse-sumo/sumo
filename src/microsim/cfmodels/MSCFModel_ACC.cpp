@@ -163,13 +163,7 @@ double MSCFModel_ACC::accelSpeedControl(double vErr) const {
     return mySpeedControlGain * vErr;
 }
 
-double MSCFModel_ACC::accelGapControl(const MSVehicle* const /* veh */, const double gap2pred, const double speed, const double predSpeed, double vErr) const {
-
-#ifdef DEBUG_ACC
-    if (DEBUG_COND) {
-        std::cout << "        applying gapControl" << std::endl;
-    }
-#endif
+double MSCFModel_ACC::accelGapControl(const MSVehicle* const veh, const double gap2pred, const double speed, const double predSpeed, double vErr) const {
 
 // Gap control law
     double gclAccel = 0.0;
@@ -177,18 +171,31 @@ double MSCFModel_ACC::accelGapControl(const MSVehicle* const /* veh */, const do
     double spacingErr = gap2pred - desSpacing;
     double deltaVel = predSpeed - speed;
 
-
     if (fabs(spacingErr) < 0.2 && fabs(vErr) < 0.1) {
         // gap mode
         gclAccel = myGapControlGainSpeed * deltaVel + myGapControlGainSpace * spacingErr;
+#ifdef DEBUG_ACC        
+        if (DEBUG_COND) {
+            std::cout << "        applying gap control:  spacingErr=" << spacingErr << " speedErr=" << vErr << std::endl;
+        }
+#endif
     } else if (spacingErr < 0)  {
         // collision avoidance mode
         gclAccel = myCollisionAvoidanceGainSpeed * deltaVel + myCollisionAvoidanceGainSpace * spacingErr;
+#ifdef DEBUG_ACC        
+        if (DEBUG_COND) {
+            std::cout << "        applying collision avoidance:  spacingErr=" << spacingErr << " speedErr=" << vErr << std::endl;
+        }
+#endif
     } else {
         // gap closing mode
         gclAccel = myGapClosingControlGainSpeed * deltaVel + myGapClosingControlGainSpace * spacingErr;
+#ifdef DEBUG_ACC
+        if (DEBUG_COND) {
+            std::cout << "        applying gap closing:  spacingErr=" << spacingErr << " speedErr=" << vErr << std::endl;
+        }
+#endif
     }
-
     return gclAccel;
 }
 
