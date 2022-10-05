@@ -42,3 +42,10 @@ override_phaseAttrs2
 
 # use custom switching rules to add bus prioritization on top of the default behavior
 bus_prio
+
+# - detection of traffic presence in a large radius
+# - when no traffic is absent, the light switches into an allRed phase
+# - allRed switches to required phase on first detected traffic
+# 
+# (otherwise behave like the default actuated controller)
+allRed_default
