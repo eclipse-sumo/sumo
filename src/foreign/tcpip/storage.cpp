@@ -409,7 +409,7 @@ namespace tcpip
 	// ----------------------------------------------------------------------
 	unsigned char Storage::readCharUnsafe()
 	{
-		char hb = *iter_;
+		const unsigned char hb = *iter_;
 		++iter_;
 		return hb;
 	}
