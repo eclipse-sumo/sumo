@@ -5400,8 +5400,6 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
                 // update AC under cursor
                 AC = myObjectsUnderCursor.getAttributeCarrierFront();
             }
-            // now filter locked elements forcing excluding walkingAreas
-            myObjectsUnderCursor.filterLockedElements(myLockManager, {GLO_WALKINGAREA});
             // check if we're editing a shape
             if (myEditNetworkElementShapes.getEditedNetworkElement()) {
                 // check if we're removing a geometry point
@@ -5415,6 +5413,8 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
                     processClick(eventData);
                 }
             } else {
+                // now filter locked elements forcing excluding walkingAreas
+                myObjectsUnderCursor.filterLockedElements(myLockManager, {GLO_WALKINGAREA});
                 // allways swap lane to edges in movement mode
                 myObjectsUnderCursor.swapLane2Edge();
                 // check that AC under cursor isn't a demand element
