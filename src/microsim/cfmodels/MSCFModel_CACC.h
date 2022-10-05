@@ -128,7 +128,15 @@ public:
     */
     double interactionGap(const MSVehicle* const, double vL) const;
 
-
+    /** @brief Sets a new value for desired headway [s]
+     * @param[in] headwayTime The new desired headway (in s)
+     */
+    void setHeadwayTime(double headwayTime) {
+        myHeadwayTime = headwayTime;
+        myHeadwayTimeACC = headwayTime;
+        acc_CFM.setHeadwayTime(headwayTime);       
+    }
+    
     /**
      * @brief try to get the given parameter for this carFollowingModel
      *
