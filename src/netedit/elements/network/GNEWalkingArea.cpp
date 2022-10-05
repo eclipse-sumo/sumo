@@ -228,6 +228,8 @@ GNEWalkingArea::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
         if ((editMode == NetworkEditMode::NETWORK_CONNECT) || (editMode == NetworkEditMode::NETWORK_TLS) || (editMode == NetworkEditMode::NETWORK_CREATE_EDGE)) {
             mcCustomShape->disable();
         }
+        // disabled for release 1.15
+        mcCustomShape->disable();
     }
     return ret;
 }
