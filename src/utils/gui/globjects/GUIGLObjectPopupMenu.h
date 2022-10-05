@@ -47,6 +47,16 @@ class GUIGLObjectPopupMenu : public FXMenuPane {
     FXDECLARE(GUIGLObjectPopupMenu)
 
 public:
+    
+    /// @name cursor dialog type
+    enum class PopupType {
+        ATTRIBUTES,
+        PROPERTIES,
+        SELECT_ELEMENT,
+        DELETE_ELEMENT,
+        FRONT_ELEMENT
+    };
+
     /** @brief Constructor
      * @param[in] app The main window for instantiation of other windows
      * @param[in] parent The parent view for changing it
@@ -58,7 +68,7 @@ public:
      * @param[in] app The main window for instantiation of other windows
      * @param[in] parent The parent view for changing it
      */
-    GUIGLObjectPopupMenu(GUIMainWindow* app, GUISUMOAbstractView* parent);
+    GUIGLObjectPopupMenu(GUIMainWindow* app, GUISUMOAbstractView* parent, PopupType popupType);
 
     /// @brief Destructor
     virtual ~GUIGLObjectPopupMenu();
@@ -67,9 +77,10 @@ public:
     void insertMenuPaneChild(FXMenuPane* child);
 
     /// @brief return the real owner of this popup
-    inline GUISUMOAbstractView* getParentView() {
-        return myParent;
-    }
+    GUISUMOAbstractView* getParentView();
+
+    /// @brief popup type;
+    const PopupType getPopupType() const;
 
     /// @name FX Calls
     /// @{
@@ -110,7 +121,7 @@ public:
 
 protected:
     /// @brief FOX needs this
-    FOX_CONSTRUCTOR(GUIGLObjectPopupMenu)
+    GUIGLObjectPopupMenu();
 
     /// @brief The parent window
     GUISUMOAbstractView* myParent;
@@ -120,6 +131,9 @@ protected:
 
     /// @brief The main application
     GUIMainWindow* myApplication;
+
+    /// @brief popup type;
+    const PopupType myPopupType;
 
     /// @brief The position within the network the cursor was above when instanting the popup
     const Position myNetworkPosition;

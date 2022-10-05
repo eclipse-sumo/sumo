@@ -1211,7 +1211,7 @@ GUISUMOAbstractView::openObjectDialog(const std::vector<GUIGlObject*> &objects) 
         if (objects.size() == 1) {
             myPopup = objects.front()->getPopUpMenu(*myApp, *this);
         } else {
-            myPopup = new GUICursorDialog(GUICursorDialog::CursorDialogType::PROPERTIES, this, objects);
+            myPopup = new GUICursorDialog(GUIGLObjectPopupMenu::PopupType::PROPERTIES, this, objects);
         }
         myCurrentObjectsDialog = objects;
         // open popup dialog

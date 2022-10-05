@@ -52,17 +52,17 @@ FXIMPLEMENT(GUICursorDialog, GUIGLObjectPopupMenu, GUICursorDialogMap, ARRAYNUMB
 // member method definitions
 // ===========================================================================
 
-GUICursorDialog::GUICursorDialog(CursorDialogType cursorDialogType, GUISUMOAbstractView* view, const std::vector<GUIGlObject*> &objects) :
-    GUIGLObjectPopupMenu(view->getMainWindow(), view),
+GUICursorDialog::GUICursorDialog(GUIGLObjectPopupMenu::PopupType type, GUISUMOAbstractView* view, const std::vector<GUIGlObject*> &objects) :
+    GUIGLObjectPopupMenu(view->getMainWindow(), view, type),
     myView(view) {
     // continue depending of properties
-    if (cursorDialogType == CursorDialogType::PROPERTIES) {
+    if (type == GUIGLObjectPopupMenu::PopupType::PROPERTIES) {
         buildDialogElements(view, "Overlapped objects", GUIIcon::MODEINSPECT, MID_CURSORDIALOG_PROPERTIES, objects);
-    } else if (cursorDialogType == CursorDialogType::DELETE_ELEMENT) {
+    } else if (type == GUIGLObjectPopupMenu::PopupType::DELETE_ELEMENT) {
         buildDialogElements(view, "Delete element", GUIIcon::MODEDELETE, MID_CURSORDIALOG_DELETEELEMENT, objects);
-    } else if (cursorDialogType == CursorDialogType::SELECT_ELEMENT) {
+    } else if (type == GUIGLObjectPopupMenu::PopupType::SELECT_ELEMENT) {
         buildDialogElements(view, "Select element", GUIIcon::MODESELECT, MID_CURSORDIALOG_SELECTELEMENT, objects);
-    } else if (cursorDialogType == CursorDialogType::FRONT_ELEMENT) {
+    } else if (type == GUIGLObjectPopupMenu::PopupType::FRONT_ELEMENT) {
         buildDialogElements(view, "Mark front element", GUIIcon::FRONTELEMENT, MID_CURSORDIALOG_SETFRONTELEMENT, objects);
     }
 }

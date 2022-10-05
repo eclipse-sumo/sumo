@@ -514,7 +514,7 @@ GNEViewNet::openObjectDialogAtCursor(const FXEvent* /*ev*/) {
         // check if we're cliking while alt button is pressed
         if (myMouseButtonKeyPressed.altKeyPressed()) {
             // create cursor popup dialog for mark front element
-            myPopup = new GUICursorDialog(GUICursorDialog::CursorDialogType::FRONT_ELEMENT, this, GLObjects);
+            myPopup = new GUICursorDialog(GUIGLObjectPopupMenu::PopupType::FRONT_ELEMENT, this, GLObjects);
             // open popup dialog
             openPopupDialog();
         } else if (GLObjects.empty()) {
@@ -564,7 +564,7 @@ GNEViewNet::openDeleteDialogAtCursor(const std::vector<GUIGlObject*> &GLObjects)
         destroyPopup();
     }
     // create cursor popup dialog for delete element
-    myPopup = new GUICursorDialog(GUICursorDialog::CursorDialogType::DELETE_ELEMENT, this, GLObjects);
+    myPopup = new GUICursorDialog(GUIGLObjectPopupMenu::PopupType::DELETE_ELEMENT, this, GLObjects);
     myCreatedPopup = true;
     // open popup dialog
     openPopupDialog();
@@ -578,7 +578,7 @@ GNEViewNet::openSelectDialogAtCursor(const std::vector<GUIGlObject*> &GLObjects)
     }
     // create cursor popup dialog for delete element
     // create cursor popup dialog for select element
-    myPopup = new GUICursorDialog(GUICursorDialog::CursorDialogType::SELECT_ELEMENT, this, GLObjects);
+    myPopup = new GUICursorDialog(GUIGLObjectPopupMenu::PopupType::SELECT_ELEMENT, this, GLObjects);
     myCreatedPopup = true;
     // open popup dialog
     openPopupDialog();

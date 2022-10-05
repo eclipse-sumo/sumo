@@ -40,16 +40,8 @@ class GUICursorDialog : public GUIGLObjectPopupMenu {
     FXDECLARE(GUICursorDialog)
 
 public:
-    /// @name cursor dialog type
-    enum class CursorDialogType {
-        PROPERTIES,
-        SELECT_ELEMENT,
-        DELETE_ELEMENT,
-        FRONT_ELEMENT
-    };
-
     /// @brief constructor used for Pop-up dialogs
-    GUICursorDialog(CursorDialogType cursorDialogType, GUISUMOAbstractView* view, const std::vector<GUIGlObject*> &objects);
+    GUICursorDialog(GUIGLObjectPopupMenu::PopupType type, GUISUMOAbstractView* view, const std::vector<GUIGlObject*> &objects);
 
     /// @brief destructor
     ~GUICursorDialog();

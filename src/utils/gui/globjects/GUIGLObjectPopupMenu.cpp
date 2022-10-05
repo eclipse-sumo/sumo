@@ -67,15 +67,17 @@ GUIGLObjectPopupMenu::GUIGLObjectPopupMenu(GUIMainWindow& app, GUISUMOAbstractVi
     myParent(&parent),
     myObject(&o),
     myApplication(&app),
+    myPopupType(PopupType::ATTRIBUTES),
     myNetworkPosition(parent.getPositionInformation()) {
 }
 
 
-GUIGLObjectPopupMenu::GUIGLObjectPopupMenu(GUIMainWindow* app, GUISUMOAbstractView* parent) :
+GUIGLObjectPopupMenu::GUIGLObjectPopupMenu(GUIMainWindow* app, GUISUMOAbstractView* parent, PopupType popupType) :
     FXMenuPane(parent),
     myParent(parent),
     myObject(nullptr),
     myApplication(app),
+    myPopupType(popupType),
     myNetworkPosition(parent->getPositionInformation()) {
 }
 
@@ -106,6 +108,18 @@ GUIGLObjectPopupMenu::insertMenuPaneChild(FXMenuPane* child) {
     }
     // Insert MenuPaneChild
     myMenuPanes.push_back(child);
+}
+
+
+GUISUMOAbstractView*
+GUIGLObjectPopupMenu::getParentView() {
+    return myParent;
+}
+
+
+const GUIGLObjectPopupMenu::PopupType
+GUIGLObjectPopupMenu::getPopupType() const {
+    return myPopupType;
 }
 
 
@@ -232,5 +246,13 @@ GUIGLObjectPopupMenu::onCmdRemoveSelected(FXObject*, FXSelector, void*) {
     return 1;
 }
 
+
+GUIGLObjectPopupMenu::GUIGLObjectPopupMenu() :
+    FXMenuPane(),
+    myParent(nullptr),
+    myObject(nullptr),
+    myApplication(nullptr),
+    myPopupType(PopupType::PROPERTIES) {
+}
 
 /****************************************************************************/
