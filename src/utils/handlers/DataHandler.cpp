@@ -142,6 +142,12 @@ DataHandler::myEndElement(int element) {
 }
 
 
+bool
+DataHandler::isErrorCreatingElement() const {
+    return myErrorCreatingElement;
+}
+
+
 void
 DataHandler::writeError(const std::string& error) {
     WRITE_ERROR(error);

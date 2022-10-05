@@ -353,6 +353,12 @@ RouteHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) {
 }
 
 
+bool
+RouteHandler::isErrorCreatingElement() const {
+    return myErrorCreatingElement;
+}
+
+
 void
 RouteHandler::writeError(const std::string& error) {
     WRITE_ERROR(error);

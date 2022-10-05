@@ -668,6 +668,12 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
 }
 
 
+bool 
+AdditionalHandler::isErrorCreatingElement() const {
+    return myErrorCreatingElement;
+}
+
+
 void
 AdditionalHandler::writeError(const std::string& error) {
     WRITE_ERROR(error);

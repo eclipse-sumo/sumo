@@ -90,7 +90,11 @@ public:
                                       const std::string& toTAZID, const Parameterised::Map& parameters) = 0;
     /// @}
 
-    /// @brief write error
+    /// @brief get flag for check if a element wasn't created
+    bool isErrorCreatingElement() const;
+
+protected:
+    /// @brief write error and enable error creating element
     void writeError(const std::string& error);
 
 private:
