@@ -1866,7 +1866,7 @@ bool PositionVector::isClockwiseOriented() {
         area += (secondPoint.x() - firstPoint.x()) / (secondPoint.y() + firstPoint.y()) / 2.0;
     }
     area += (at(0).x() - at(last).x()) / (at(0).y() + at(last).y()) / 2.0;
-    add(Position(0.0, gap));
+    add(Position(0.0, -gap));
     return area < 0.0;
 }
 
