@@ -95,10 +95,10 @@ public:
     /** @brief Provides the work position of the adult.
      *
      * You should test before, whether the adult has a job. If you call this
-     * method and the adult has no job, then a runtime exception is thrown.
+     * method and the adult has no job, then a ProcessError is thrown.
      *
      * @return the work position
-     * @throw runtime_error the adult has no work position
+     * @throw ProcessError the adult has no work position
      */
     const AGWorkPosition& getWorkPosition() const;
 

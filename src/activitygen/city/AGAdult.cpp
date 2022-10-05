@@ -24,10 +24,11 @@
 /****************************************************************************/
 #include <config.h>
 
-#include "AGAdult.h"
-#include "AGWorkPosition.h"
-#include <utils/common/RandHelper.h>
 #include <iostream>
+#include <utils/common/RandHelper.h>
+#include <utils/common/UtilExceptions.h>
+#include "AGWorkPosition.h"
+#include "AGAdult.h"
 
 
 // ===========================================================================
@@ -104,7 +105,7 @@ AGAdult::getWorkPosition() const {
     if (work != nullptr) {
         return *work;
     }
-    throw std::runtime_error("AGAdult::getWorkPosition: Adult is unemployed.");
+    throw ProcessError("AGAdult::getWorkPosition: Adult is unemployed.");
 }
 
 
