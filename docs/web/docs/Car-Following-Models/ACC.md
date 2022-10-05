@@ -61,7 +61,7 @@ To investigate stablity effects of vehicle platoons deploying the original ACC m
 | iv | collisionAvoidanceGainSpeed | 0.07 |
 | iv | collisionAvoidanceGainSpace | 0.23 |
 
-Note, that the parameter `collisionAvoidanceOverride` (default: 2) affects the mode (iv) by overriding the followSpeed when deemed unsafe by the given margin. To eliminate this case, which slightly affects the platooning behaviour, but not the string instability itself, you this parameter may be set to to a much larger value (i.e. 100) to avoid the effect.
+Note, that the parameter `collisionAvoidanceOverride` (default: 2) affects the mode (iv) by overriding the followSpeed when deemed unsafe by the given margin. To eliminate this case, which slightly affects the platooning behaviour, but not the string instability itself, this parameter may be set to to a much larger value (i.e. 100) to avoid the effect.
 
 The default parameters of the ACC model can be found here: [Car-Following Model Parameters](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#car-following_model_parameters)
 
