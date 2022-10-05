@@ -437,9 +437,17 @@ GUIGlObject::mouseWithinGeometry(const PositionVector shape) const {
 
 
 void 
+GUIGlObject::mouseWithinGeometry(const PositionVector shape, const double width) const {
+    if (shape.distance2D(gPostDrawing.mousePos) <= width) {
+        gPostDrawing.addElementUnderCursor(this);
+    }
+}
+
+
+void 
 GUIGlObject::mouseWithinGeometry(const PositionVector shape, const double width, GUIGlObject *parent) const {
     if (shape.distance2D(gPostDrawing.mousePos) <= width) {
-        gPostDrawing.addElementUnderCursor(parent? parent : this);
+        gPostDrawing.addElementUnderCursor(parent);
     }
 }
 

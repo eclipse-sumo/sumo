@@ -1665,7 +1665,7 @@ GNEViewNet::drawDeleteContour(const GUIGlObject* GLObject, const GNEAttributeCar
         !(myEditModes.isCurrentSupermodeDemand() && (myEditModes.demandEditMode == DemandEditMode::DEMAND_DELETE))) {
         return false;
     } else if (AC->getTagProperty().isDataElement() && 
-        (!myEditModes.isCurrentSupermodeData() && (myEditModes.dataEditMode == DataEditMode::DATA_DELETE))) {
+        !(myEditModes.isCurrentSupermodeData() && (myEditModes.dataEditMode == DataEditMode::DATA_DELETE))) {
         return false;
     }
     // check if we're in post drawing
@@ -1697,7 +1697,7 @@ GNEViewNet::drawSelectContour(const GUIGlObject* GLObject, const GNEAttributeCar
         !(myEditModes.isCurrentSupermodeDemand() && (myEditModes.demandEditMode == DemandEditMode::DEMAND_SELECT))) {
         return false;
     } else if (AC->getTagProperty().isDataElement() && 
-        (!myEditModes.isCurrentSupermodeData() && (myEditModes.dataEditMode == DataEditMode::DATA_SELECT))) {
+        !(myEditModes.isCurrentSupermodeData() && (myEditModes.dataEditMode == DataEditMode::DATA_SELECT))) {
         return false;
     }
     // check if we're in post drawing

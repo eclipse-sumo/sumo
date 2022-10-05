@@ -630,14 +630,15 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
             gPostDrawing.markedEdge = myParentEdge;
         }
         // check if mouse is over element
-        bool markParent = (myParentEdge->getLanes().size() == 1);
-        if (myNet->getViewNet()->getNetworkViewOptions().selectEdges() && !myNet->getViewNet()->getMouseButtonKeyPressed().shiftKeyPressed()) {
-            markParent = true;
+        if (myParentEdge->getLanes().size() == 1) {
+            mouseWithinGeometry(getLaneShape(), laneDrawingConstants.halfWidth);
+        } else if (myNet->getViewNet()->getNetworkViewOptions().selectEdges() && !myNet->getViewNet()->getMouseButtonKeyPressed().shiftKeyPressed()) {
+            mouseWithinGeometry(getLaneShape(), laneDrawingConstants.halfWidth, myParentEdge->getGUIGlObject());
+        } else if (!myNet->getViewNet()->getNetworkViewOptions().selectEdges() && myNet->getViewNet()->getMouseButtonKeyPressed().shiftKeyPressed()) {
+            mouseWithinGeometry(getLaneShape(), laneDrawingConstants.halfWidth, myParentEdge->getGUIGlObject());
+        } else {
+            mouseWithinGeometry(getLaneShape(), laneDrawingConstants.halfWidth);
         }
-        if (!myNet->getViewNet()->getNetworkViewOptions().selectEdges() && myNet->getViewNet()->getMouseButtonKeyPressed().shiftKeyPressed()) {
-            markParent = true;
-        }
-        mouseWithinGeometry(getLaneShape(), laneDrawingConstants.halfWidth, markParent? myParentEdge->getGUIGlObject() : nullptr);
         // check if dotted contours has to be drawn
         if (!drawRailway) {
             // inspect contour
