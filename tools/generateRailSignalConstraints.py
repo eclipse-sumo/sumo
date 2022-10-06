@@ -171,6 +171,8 @@ def get_options(args=None):
                         help="print debug information for the given busStop id")
     parser.add_argument("--debug-vehicle", dest="debugVehicle",
                         help="print debug information for the given vehicle id")
+    parser.add_argument("--debug-foe-vehicle", dest="debugFoeVehicle",
+                        help="print debug information for the given (foe) vehicle id")
     parser.add_argument("--debug-edge", dest="debugEdge",
                         help="print debug information for the given edge id")
 
@@ -1365,11 +1367,25 @@ def findBidiConflicts(options, net, stopEdges, uniqueRoutes, stopRoutes, vehicle
                                     continue
                                 for e in edgesBefore2:
                                     if e in bidiBefore:
+                                        debugSection = None
+                                        if vehID == options.debugVehicle:
+                                            debugSection = []
                                         # found the start of the conflict zone, now we need to find the end
+                                        oppositeSection = [] # only for debug output
                                         sI2b = findDivergence(net, arrivals,
-                                                getEdges(stopRoute, stopIndex, getBidiID(net, e), False),
-                                                getEdges(stopRoute2, sI2, e, True),
-                                                stopRoute2, sI2, e)
+                                                              getEdges(stopRoute, stopIndex, getBidiID(net, e), False),
+                                                              getEdges(stopRoute2, sI2, e, True),
+                                                              stopRoute2, sI2, e,
+                                                              oppositeSection)
+
+                                        if (vehID == options.debugVehicle 
+                                            and vehID2 == options.debugFoeVehicle
+                                            and (stop.busStop == options.debugStop
+                                                 or options.debugStop is None)):
+                                            print("Opposite section when approaching stop %s" % stop.busStop)
+                                            for e in oppositeSection:
+                                                print("edge:%s" % e)
+
                                         break
                                 if sI2b is None:
                                     # no divergence found
@@ -1459,9 +1475,9 @@ def getEdges(stopRoute, index, startEdge, forward, noIndex=False):
         index += inc
 
 
-def findDivergence(net, arrivals, backwardGen, forwardGen, stopRoute2, sI2, e2Start):
-    e1prev = None
+def findDivergence(net, arrivals, backwardGen, forwardGen, stopRoute2, sI2, e2Start, visited=[]):
     for (e1, sIb), (e2, sI2b) in zip(backwardGen,forwardGen):
+        visited.append(e2)
         if e2 != getBidiID(net, e1):
             if e2 == e1prev:
                 # opposite train has a reversal. This leads to a different kind of conflict
