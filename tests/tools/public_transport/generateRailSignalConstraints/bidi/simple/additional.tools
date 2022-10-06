@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-09-30 13:51:10.009478 by generateRailSignalConstraints.py v1_14_1+1377-4a61df5
+<!-- generated on 2022-10-06 11:15:57.690238 by generateRailSignalConstraints.py v1_14_1+1472-9a0323d
 <configuration>
     <additional-file value="input_additional.add.xml"/>
     <net-file value="net.net.xml"/>
@@ -10,4 +10,7 @@
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <railSignalConstraints id="J0">
+        <bidiPredecessor tripId="t0" tl="D" foes="t1"/>
+    </railSignalConstraints>
 </additional>

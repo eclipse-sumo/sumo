@@ -4,3 +4,4 @@ processed 2 routes across 10 edges with 0 merging switches
 Found 0 stops after merging switches and 0 signals that guard switches
 Found 0 conflicts
 Found 0 insertion conflicts
+Found 1 bidi conflicts
