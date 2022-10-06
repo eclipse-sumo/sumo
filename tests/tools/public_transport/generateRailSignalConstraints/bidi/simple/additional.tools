@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-10-06 14:37:26.643818 by generateRailSignalConstraints.py v1_14_1+1477-80818ef
+<!-- generated on 2022-10-06 15:17:11.117689 by generateRailSignalConstraints.py v1_14_1+1480-2e6bdde
 <configuration>
     <additional-file value="input_additional.add.xml"/>
+    <comment.stop value="True"/>
     <net-file value="net.net.xml"/>
     <output-file value="out.add.xml"/>
     <route-file value="input_routes.rou.xml"/>
@@ -11,6 +12,6 @@
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <railSignalConstraints id="A">
-        <bidiPredecessor tripId="t0" tl="J1" foes="t1"/>
+        <bidiPredecessor tripId="t0" tl="J1" foes="t1"/>   <!-- busStop=f busStop2=-a2  -->
     </railSignalConstraints>
 </additional>
