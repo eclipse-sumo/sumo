@@ -44,12 +44,23 @@ identified (also based on "until"). Then a constraint is created that prevents
 insertion of B until train A has passed the next signal that lies beyond the
 stop.
 
-3. <predecessor>
+3. <foeInsertion>
 Whenever a vehicle A departs at a stop (assumed to coincide with the "until"
 attribute of it's first stop), the latter train B that enters this stop is
 identified (also based on "until"). Then a constraint is created that prevents
 B from entering the section with the stop until A has passed the next signal that lies beyond the
 stop.
+
+4. <insertionOrder>
+Whenever two vehicles depart at the same stop and their arrival times at that stop
+are in a different order from their departure times, an insertionOrder constraint
+is added the delays insertion to achieve the desired order.
+This may happen if departure times reflect the schedule but arrival times reflect post-facto timing (see below)
+
+5. <bidiPredecessor>
+Whenever two trains approach the same track section from different directions, a bidiPredecessor
+constraint may optionally be generated to enforce the order of entering that section based on the
+stop arrival times that follow the section on the respective side.
 
 == Inconsistencies ==
 
