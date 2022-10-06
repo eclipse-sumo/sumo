@@ -3,11 +3,6 @@ Warning: Discarding unknown compound 'cycleway.sidepath' in type 'cycleway.sidep
 Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.primary' (first occurence for edge '321455267').
 Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|cycleway.shared_lane|highway.primary' (first occurence for edge '321455268').
 Warning: Discarding unknown compound 'cycleway.shared_lane' in type 'cycleway.lane|cycleway.shared_lane|highway.primary' (first occurence for edge '321455268').
-Warning: Removing pt stop '157329991' on non existing edge ''.
-Warning: Removing pt stop '157330124' on non existing edge ''.
-Warning: Removing pt stop '1696101133' on non existing edge ''.
-Warning: Removing pt stop '1725697490' on non existing edge ''.
-Warning: Removing pt stop '1962291060' on non existing edge ''.
 Warning: Could not find corresponding edge or compatible lane for free-floating pt stop '157329991' (Körnerstraße). Thus, it will be removed!
 Warning: Could not find corresponding edge or compatible lane for free-floating pt stop '157330124' (Piusstraße). Thus, it will be removed!
 Warning: Could not find corresponding edge or compatible lane for free-floating pt stop '1696101133' (Rochusplatz). Thus, it will be removed!
@@ -15,4 +10,3 @@ Warning: Could not find corresponding edge or compatible lane for free-floating 
 Warning: Could not find corresponding edge or compatible lane for free-floating pt stop '1962291060' (Venloer Straße / Gürtel). Thus, it will be removed!
 Warning: Reducing junction cluster 32048730,359942,359943 (parallel outgoing 158325382#0,321455269#0).
 Warning: 13 total messages of type: Could not find corresponding edge or compatible lane for free-floating pt stop '%' (%). Thus, it will be removed!
-Warning: 12 total messages of type: Removing pt stop '%' on non existing edge '%'.

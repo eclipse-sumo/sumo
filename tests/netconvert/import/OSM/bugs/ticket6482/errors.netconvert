@@ -1,8 +1,4 @@
 Warning: Discarding unusable type 'railway.platform' (first occurence for edge '39271721').
-Warning: Removing pt stop '143456955' on non existing edge ''.
-Warning: Removing pt stop '2425943543' on non existing edge ''.
-Warning: Removing pt stop '2547316987' on non existing edge ''.
-Warning: Removing pt stop '470616058' on non existing edge ''.
 Warning: No way found for reference '625352732' in relation '8691796'
 Warning: Ignoring restriction relation '8691796' with unknown to-way.
 Warning: Could not find corresponding edge or compatible lane for free-floating pt stop '143456955' (Stegerwaldsiedlung). Thus, it will be removed!

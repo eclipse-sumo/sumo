@@ -8,8 +8,6 @@ Warning: Discarding unusable type 'railway.abandoned|usage.industrial' (first oc
 Warning: Discarding unusable type 'railway.abandoned' (first occurence for edge '326192135').
 Warning: Discarding unusable type 'railway.razed|usage.industrial' (first occurence for edge '326192141').
 Warning: Discarding unusable type 'railway.razed' (first occurence for edge '485690627').
-Warning: Removing pt stop '491471505' on non existing edge '386836729'.
-Warning: Removing pt stop '491471506' on non existing edge '386836732'.
 Warning: PT line 'Bus N56: U Magdalenenstraße → Wartenberg, Hagenower Ring → U Magdalenenstraße' in relation 2341762 seems to be split, only keeping first part.
 Warning: direction of restriction relation could not be determined
 Warning: Ignoring restriction relation '5317204'.

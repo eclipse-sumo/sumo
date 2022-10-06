@@ -1,10 +1,5 @@
 Warning: Discarding unknown compound 'cycleway.opposite' in type 'cycleway.opposite|highway.residential' (first occurence for edge '8142293').
 Warning: Discarding unusable type 'railway.platform' (first occurence for edge '119432576').
-Warning: Removing pt stop '1025250562' on non existing edge ''.
-Warning: Removing pt stop '1341148995' on non existing edge ''.
-Warning: Removing pt stop '256572343' on non existing edge ''.
-Warning: Removing pt stop '300403947' on non existing edge ''.
-Warning: Removing pt stop '300403950' on non existing edge ''.
 Warning: PT line in relation 165867 with no stops ignored. Probably OSM file is incomplete.
 Warning: No way found for reference '1670309356' in relation '4443863'
 Warning: PT line in relation 6048504 with no stops ignored. Probably OSM file is incomplete.
@@ -21,6 +16,11 @@ Warning: Removed invalid stop '3312029132' from line '1646140'.
 Warning: Cannot revise pt stop localization for pt line '1694577', which has no route edges. Ignoring!
 Warning: Cannot revise pt stop localization for pt line '34411', which has no route edges. Ignoring!
 Warning: Cannot revise pt stop localization for pt line '34488', which has no route edges. Ignoring!
+Warning: Removing pt stop '1025250562' on non existing edge ''.
+Warning: Removing pt stop '1341148995' on non existing edge ''.
+Warning: Removing pt stop '1979567864' on non existing edge ''.
+Warning: Removing pt stop '256572343' on non existing edge ''.
+Warning: Removing pt stop '300403947' on non existing edge ''.
 Warning: Removed 12 pt stops because they could not be assigned to the network
 Warning: Not joining junctions 1587632897,1587632904,1587632929,1587632933,1587632938,1668780844,1806157952,1806157953,1806157954,1806157955,1806157958,1806157959,1806157960,1861587782,1861594811,1861596443,443826,443827,443829,443837,443838,443839,443841,443897,7022783422 (parallel incoming 187070213#0,203972098).
 Warning: Reducing junction cluster 1093872774,1342070218,2201773602,245901919,245904890,7022705834 (parallel incoming -22873499#0,150039007#0).
@@ -45,4 +45,4 @@ Warning: Speed of straight connection '145345139#1_0->169453889_0' reduced by 8.
 Warning: 8 total messages of type: Cannot revise pt stop localization for pt line '%', which has no route edges. Ignoring!
 Warning: 6 total messages of type: Not joining junctions % (%).
 Warning: 32 total messages of type: Removed invalid stop '%' from line '%'.
-Warning: 22 total messages of type: Removing pt stop '%' on non existing edge '%'.
+Warning: 12 total messages of type: Removing pt stop '%' on non existing edge '%'.

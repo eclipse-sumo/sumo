@@ -17,11 +17,6 @@ Warning: Ambiguous railway kilometrage direction for way '32590429' (assuming fo
 Warning: Ambiguous railway kilometrage direction for way '32590435' (assuming forward)
 Warning: Discarding unusable type 'railway.platform' (first occurence for edge '43185748').
 Warning: Discarding unusable type 'waterway.river' (first occurence for edge '59683399').
-Warning: Removing pt stop '1257007152' on non existing edge '71326270'.
-Warning: Removing pt stop '1267954699' on non existing edge ''.
-Warning: Removing pt stop '271296143' on non existing edge ''.
-Warning: Removing pt stop '2915579615' on non existing edge ''.
-Warning: Removing pt stop '2959830768' on non existing edge ''.
 Warning: PT line in relation 114255 with no stops ignored. Probably OSM file is incomplete.
 Warning: PT line in relation 374676 with no stops ignored. Probably OSM file is incomplete.
 Warning: direction of restriction relation could not be determined
@@ -104,5 +99,4 @@ Warning: 15 total messages of type: No way found for reference '%' in relation '
 Warning: 17 total messages of type: PT line in relation % with no stops ignored. Probably OSM file is incomplete.
 Warning: 9 total messages of type: PT stop '%' has been moved to edge '%'.
 Warning: 22 total messages of type: Platform '%' in relation: '%' is given as polygon, which currently is not supported.
-Warning: 12 total messages of type: Removing pt stop '%' on non existing edge '%'.
 Warning: 29 total messages of type: The rail crossing '%' does not have any roads.

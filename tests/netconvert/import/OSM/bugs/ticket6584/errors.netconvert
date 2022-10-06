@@ -1,10 +1,5 @@
 Warning: Discarding unknown compound 'cycleway.opposite' in type 'cycleway.opposite|highway.residential' (first occurence for edge '23151660').
 Warning: Discarding unusable type 'railway.platform' (first occurence for edge '202065857').
-Warning: Removing pt stop '207160370' on non existing edge ''.
-Warning: Removing pt stop '207511337' on non existing edge ''.
-Warning: Removing pt stop '207511340' on non existing edge ''.
-Warning: Removing pt stop '255562064' on non existing edge ''.
-Warning: Removing pt stop '3548467961' on non existing edge ''.
 Warning: Could not find corresponding edge or compatible lane for free-floating pt stop '207160370' (Maarweg). Thus, it will be removed!
 Warning: Could not find corresponding edge or compatible lane for free-floating pt stop '207511340' (Clarenbachstift). Thus, it will be removed!
 Warning: Could not find corresponding edge or compatible lane for free-floating pt stop '255562064' (Aachener Straße / Gürtel). Thus, it will be removed!
@@ -13,4 +8,3 @@ Warning: Could not find corresponding edge or compatible lane for free-floating 
 Warning: The traffic light '3548475101' does not control any links; it will not be build.
 Warning: Could not build program '0' for traffic light '3548475101'
 Warning: Speed of straight connection '498531128#0_0->223276865#1_0' reduced by 13.14 due to turning radius of 10.76 (length=7.96, angle=60.79).
-Warning: 7 total messages of type: Removing pt stop '%' on non existing edge '%'.

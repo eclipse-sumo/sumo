@@ -1,4 +1,3 @@
-Warning: Removing pt stop '5107768728' on non existing edge ''.
 Warning: No way found for reference '61584151' in relation '4136388'
 Warning: Ignoring restriction relation '4136388' with unknown from-way.
 Warning: Could not find corresponding edge or compatible lane for free-floating pt stop '5107768728' (Seniorenzentrum Riehl). Thus, it will be removed!
