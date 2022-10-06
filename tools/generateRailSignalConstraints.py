@@ -218,7 +218,7 @@ def formatStopTimes(arrival, until, started, ended):
 class Conflict:
     def __init__(self, tripID, otherSignal, otherTripID, limit, line, otherLine,
                  vehID, otherVehID, conflictTime, switch, busStop, info,
-                 active=True, tag=None):
+                 active=True, tag=None, busStop2=None):
         self.tripID = tripID
         self.otherSignal = otherSignal
         self.otherTripID = otherTripID
@@ -230,6 +230,7 @@ class Conflict:
         self.conflictTime = conflictTime
         self.switch = switch
         self.busStop = busStop
+        self.busStop2 = busStop2
         self.info = info
         self.active = active
         self.tag = tag
@@ -1411,7 +1412,8 @@ def findBidiConflicts(options, net, stopEdges, uniqueRoutes, stopRoutes, vehicle
                                                            stop.vehID, pStop.vehID,
                                                            times, None,
                                                            stop.busStop,
-                                                           info, active))
+                                                           info, active,
+                                                           busStop2=pStop.busStop))
 
 
     if numConflicts > 0:
@@ -1473,6 +1475,8 @@ def writeConstraint(options, outf, tag, c):
         comment += "switch=%s " % c.switch
     if options.commentStop:
         comment += "busStop=%s " % c.busStop
+        if c.busStop2 is not None:
+            comment += "busStop2=%s " % c.busStop2
     if options.commentTime:
         comment += c.conflictTime
     if c.info != "":
