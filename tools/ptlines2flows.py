@@ -275,7 +275,7 @@ def createTrips(options):
         fouttrips.write("</routes>\n")
     if options.verbose:
         print("Imported %s lines with %s stops and skipped %s lines" % (numLines, numStops, numSkipped))
-        for lineType, count in typeCount.items():
+        for lineType, count in sorted(typeCount.items()):
             print("   %s: %s" % (lineType, count))
     print("done.")
     return trpMap, stopNames
