@@ -1215,10 +1215,8 @@ GUISUMOAbstractView::openObjectDialog(const std::vector<GUIGlObject*> &objects) 
             std::vector<GUIGlObject*> filteredGLObjects;
             // fill filtered objects
             for (const auto &glObject : objects) {
-                // always avoid edges
-                if (glObject->getType() == GLO_EDGE) {
-                    continue;
-                } else if (glObject->getType() == objects.front()->getType()) {
+                // compare type with first eleement type
+                if (glObject->getType() == objects.front()->getType()) {
                     filteredGLObjects.push_back(glObject);
                 }
             }
