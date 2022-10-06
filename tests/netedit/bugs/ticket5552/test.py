@@ -46,7 +46,7 @@ netedit.joinSelectedJunctions()
 netedit.rebuildNetwork()
 
 # split and reconect
-netedit.contextualMenuOperation(referencePosition, 324, 236, 12, 0, 0)
+netedit.contextualMenuOperation(referencePosition, 324, 236, 14, 0, 0)
 
 # rebuild network
 netedit.rebuildNetwork()

@@ -201,9 +201,9 @@ class edge:
         parameters = 22
 
     class template:
-        create = 35
-        copy = 36
-        clear = 37
+        create = 33
+        copy = 34
+        clear = 35
 
 # lane
 

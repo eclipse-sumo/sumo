@@ -352,8 +352,8 @@ Debug: Setting new attribute
 Debug: Key F5 (Compute) pressed
 Debug: Created connection 'from-gneE5_1to-gneE7_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE7_1togneE5_1' in retrieveGNEConnection()
-Debug: Created walkingArea ':cluster_gneJ6_gneJ7_w0' in retrieveGNEWalkingArea()
-Debug: Created walkingArea ':cluster_gneJ6_gneJ7_w1' in retrieveGNEWalkingArea()
+Debug: Created walkingArea ':clustergneJ6_gneJ7_w0' in retrieveGNEWalkingArea()
+Debug: Created walkingArea ':clustergneJ6_gneJ7_w1' in retrieveGNEWalkingArea()
 Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
 Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
 Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
@@ -690,8 +690,8 @@ Debug: Setting new attribute
 Debug: Key F5 (Compute) pressed
 Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
 Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
-Debug: Created walkingArea ':cluster_gneJ6_gneJ7_w0' in retrieveGNEWalkingArea()
-Debug: Created walkingArea ':cluster_gneJ6_gneJ7_w1' in retrieveGNEWalkingArea()
+Debug: Created walkingArea ':clustergneJ6_gneJ7_w0' in retrieveGNEWalkingArea()
+Debug: Created walkingArea ':clustergneJ6_gneJ7_w1' in retrieveGNEWalkingArea()
 Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
 Debug: Created walkingArea ':gneJ4_w0' in retrieveGNEWalkingArea()
 Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
@@ -1440,8 +1440,8 @@ Debug: Setting new attribute
 Debug: Key F5 (Compute) pressed
 Debug: Created connection 'from-gneE5_1to-gneE7_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE7_1togneE5_1' in retrieveGNEConnection()
-Debug: Created walkingArea ':cluster_gneJ6_gneJ7_w0' in retrieveGNEWalkingArea()
-Debug: Created walkingArea ':cluster_gneJ6_gneJ7_w1' in retrieveGNEWalkingArea()
+Debug: Created walkingArea ':clustergneJ6_gneJ7_w0' in retrieveGNEWalkingArea()
+Debug: Created walkingArea ':clustergneJ6_gneJ7_w1' in retrieveGNEWalkingArea()
 Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
 Debug: Created walkingArea ':gneJ4_w0' in retrieveGNEWalkingArea()
 Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
@@ -1457,8 +1457,8 @@ Debug: Created walkingArea ':gneJ9_w1' in retrieveGNEWalkingArea()
 Debug: Additionals saved
 Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
 Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
-Debug: Created walkingArea ':cluster_gneJ6_gneJ7_w0' in retrieveGNEWalkingArea()
-Debug: Created walkingArea ':cluster_gneJ6_gneJ7_w1' in retrieveGNEWalkingArea()
+Debug: Created walkingArea ':clustergneJ6_gneJ7_w0' in retrieveGNEWalkingArea()
+Debug: Created walkingArea ':clustergneJ6_gneJ7_w1' in retrieveGNEWalkingArea()
 Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
 Debug: Created walkingArea ':gneJ4_w0' in retrieveGNEWalkingArea()
 Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
@@ -1636,13 +1636,13 @@ Debug: Deleting unreferenced edge 'gneE7' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE7_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane 'gneE7_1' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE7_1togneE5_1' in GNEEdge destructor
-Debug: Deleting unreferenced junction 'cluster_gneJ0_gneJ1' in AttributeCarriers destructor
-Debug: Deleting unreferenced junction 'cluster_gneJ11_gneJ12_gneJ13_gneJ14_gneJ15_gneJ16_gneJ17_gneJ18_gneJ19' in AttributeCarriers destructor
-Debug: Deleting unreferenced junction 'cluster_gneJ2_gneJ3' in AttributeCarriers destructor
-Debug: Deleting unreferenced junction 'cluster_gneJ6_gneJ7' in AttributeCarriers destructor
-Debug: Deleting unreferenced crossing ':cluster_gneJ6_gneJ7_c0' in GNEJunction destructor
-Debug: Deleting unreferenced walkingArea ':cluster_gneJ6_gneJ7_w0' in GNEJunction destructor
-Debug: Deleting unreferenced walkingArea ':cluster_gneJ6_gneJ7_w1' in GNEJunction destructor
+Debug: Deleting unreferenced junction 'clustergneJ0_gneJ1' in AttributeCarriers destructor
+Debug: Deleting unreferenced junction 'clustergneJ11_gneJ12_gneJ13_gneJ14_#5more' in AttributeCarriers destructor
+Debug: Deleting unreferenced junction 'clustergneJ2_gneJ3' in AttributeCarriers destructor
+Debug: Deleting unreferenced junction 'clustergneJ6_gneJ7' in AttributeCarriers destructor
+Debug: Deleting unreferenced crossing ':clustergneJ6_gneJ7_c0' in GNEJunction destructor
+Debug: Deleting unreferenced walkingArea ':clustergneJ6_gneJ7_w0' in GNEJunction destructor
+Debug: Deleting unreferenced walkingArea ':clustergneJ6_gneJ7_w1' in GNEJunction destructor
 Debug: Deleting unreferenced junction 'gneJ4' in AttributeCarriers destructor
 Debug: Deleting unreferenced walkingArea ':gneJ4_w0' in GNEJunction destructor
 Debug: Deleting unreferenced junction 'gneJ5' in AttributeCarriers destructor
