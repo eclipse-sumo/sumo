@@ -14,6 +14,7 @@
 # @file    gtfs2fcd.py
 # @author  Michael Behrisch
 # @author  Robert Hilbrich
+# @author  Mirko Barthauer
 # @date    2018-06-13
 
 """
@@ -91,6 +92,13 @@ def get_merged_data(options):
                                    'stop_id', 'stop_name', 'stop_lat', 'stop_lon', 'stop_sequence',
                                    'fare_zone', 'fare_token', 'start_char',
                                    'arrival_time', 'departure_time']].drop_duplicates()
+
+
+def dataAvailable(options):
+    for mode in options.modes.split(","):
+        if os.path.exists(os.path.join(options.fcd, "%s.fcd.xml" % mode)):
+            return True
+    return False
 
 
 def main(options):
