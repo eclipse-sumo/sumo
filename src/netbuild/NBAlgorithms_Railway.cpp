@@ -184,17 +184,18 @@ NBRailwayTopologyAnalyzer::addBidiEdge(NBEdgeCont& ec, NBEdge* edge, bool update
     const std::string id2 = (edge->getID()[0] == '-'
                              ? edge->getID().substr(1)
                              : "-" + edge->getID());
+    if (ec.wasIgnored(id2)) {
+        // we had it before so the warning is already there
+        return nullptr;
+    }
     if (ec.retrieve(id2) == nullptr) {
         NBEdge* e2 = new NBEdge(id2, edge->getToNode(), edge->getFromNode(),
                                 edge, edge->getGeometry().reverse());
-        if (ec.ignoreFilterMatch(e2)) {
-            e2->getFromNode()->removeEdge(e2);
-            e2->getToNode()->removeEdge(e2);
+        ec.insert(e2);
+        if (ec.retrieve(id2) == nullptr) {
             WRITE_WARNINGF("Bidi-edge '%' prevented by filtering rules.", id2);
-            delete e2;
             return nullptr;
         }
-        ec.insert(e2);
         if (update) {
             updateTurns(edge);
             // reconnected added edges
