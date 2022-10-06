@@ -1209,11 +1209,26 @@ GUISUMOAbstractView::openObjectDialog(const std::vector<GUIGlObject*> &objects) 
     if (objects.size() > 0) {
         // create cursor popup dialog
         if (objects.size() == 1) {
-            myPopup = objects.front()->getPopUpMenu(*myApp, *this);
+            myCurrentObjectsDialog = objects;
         } else {
-            myPopup = new GUICursorDialog(GUIGLObjectPopupMenu::PopupType::PROPERTIES, this, objects);
+            // declare filtered objects
+            std::vector<GUIGlObject*> filteredGLObjects;
+            // fill filtered objects
+            for (const auto &glObject : objects) {
+                // always avoid edges
+                if (glObject->getType() == GLO_EDGE) {
+                    continue;
+                } else if (glObject->getType() == objects.front()->getType()) {
+                    filteredGLObjects.push_back(glObject);
+                }
+            }
+            myCurrentObjectsDialog = filteredGLObjects;
         }
-        myCurrentObjectsDialog = objects;
+        if (myCurrentObjectsDialog.size() > 1) {
+            myPopup = new GUICursorDialog(GUIGLObjectPopupMenu::PopupType::PROPERTIES, this, myCurrentObjectsDialog);
+        } else {
+            myPopup = myCurrentObjectsDialog.front()->getPopUpMenu(*myApp, *this);
+        }
         // open popup dialog
         openPopupDialog();
     }
