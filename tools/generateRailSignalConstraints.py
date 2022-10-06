@@ -1031,20 +1031,22 @@ def getIntermediateInfo(pStop, nStop):
 
 
 def findSignal(net, nextEdges, reverse=False):
+    prevEdge = None
     for i, edge in enumerate(nextEdges):
+        if reverse:
+            edge, prevEdge = prevEdge, edge
+            if edge is None:
+                continue
+
         node = net.getEdge(edge).getFromNode()
         if node.getType() == "rail_signal":
             tls = net.getTLS(node.getID())
-            prevEdge = None
-            if not reverse and i > 0:
-                prevEdge = nextEdges[i - 1]
-            elif reverse and i + 1 < len(nextEdges):
-                prevEdge = nextEdges[i + 1]
-
             for inLane, outLane, _ in tls.getConnections():
                 if (outLane.getEdge().getID() == edge
                         and prevEdge == inLane.getEdge().getID()):
                     return tls.getID()
+        if not reverse:
+            prevEdge = edge
     return None
 
 
@@ -1377,7 +1379,7 @@ def findBidiConflicts(options, net, stopEdges, uniqueRoutes, stopRoutes, vehicle
                         arrivals.sort(reverse=True, key=itemgetter(0))
                         #print("found oppositeArrivals", [a[0] for a in arrivals])
                         conflictArrival = None
-                        for pArrival, pStop, sIb, sI2, e in arrivals:
+                        for pArrival, pStop, sIb, sI2, e1Final, e2Start in arrivals:
                             if pArrival >= nArrival:
                                 continue
                             if conflictArrival:
@@ -1388,9 +1390,9 @@ def findBidiConflicts(options, net, stopEdges, uniqueRoutes, stopRoutes, vehicle
                                     break
                             stopRoute2 = vehicleStopRoutes[pStop.vehID]
                             # signal before vehID enters the conflict section
-                            nSignal = findSignal(net, stopRoute[sIb][0])
+                            nSignal = findSignal(net, getEdges(stopRoute, sIb, e1Final, False, noIndex=True), True)
                             # signal before vehID2 enters the conflict section (in the opposite direction)
-                            pSignal = findSignal(net, stopRoute2[sI2][0])
+                            pSignal = findSignal(net, getEdges(stopRoute2, sI2, e2Start, False, noIndex=True), True)
 
                             if (pSignal != nSignal and pSignal is not None and nSignal is not None
                                     and pStop.vehID != stop.vehID):
@@ -1419,7 +1421,7 @@ def findBidiConflicts(options, net, stopEdges, uniqueRoutes, stopRoutes, vehicle
     return conflicts
 
 
-def getEdges(stopRoute, index, startEdge, forward):
+def getEdges(stopRoute, index, startEdge, forward, noIndex=False):
     endIndex = len(stopRoute) if forward else -1
     inc = 1 if forward else -1
     while index != endIndex:
@@ -1430,11 +1432,14 @@ def getEdges(stopRoute, index, startEdge, forward):
                 continue
             if startEdge:
                 startEdge = None
-            yield e, index
+            if noIndex:
+                yield e
+            else:
+                yield e, index
         index += inc
 
 
-def findDivergence(net, arrivals, backwardGen, forwardGen, stopRoute2, sI2, e):
+def findDivergence(net, arrivals, backwardGen, forwardGen, stopRoute2, sI2, e2Start):
     e1prev = None
     for (e1, sIb), (e2, sI2b) in zip(backwardGen,forwardGen):
         if e2 != getBidiID(net, e1):
@@ -1443,7 +1448,7 @@ def findDivergence(net, arrivals, backwardGen, forwardGen, stopRoute2, sI2, e):
                 return None
             # found divergence
             stop2b = stopRoute2[sI2b][1]
-            arrivals.append((getArrivalSecure(stop2b), stop2b, sIb, sI2, e))
+            arrivals.append((getArrivalSecure(stop2b), stop2b, sIb, sI2, e1, e2Start))
             return sI2
         e1prev = e1
     return None
