@@ -50,31 +50,31 @@ netedit.leftClick(referencePosition, 290, 155)
 netedit.changeDefaultBoolValue(netedit.attrs.waypointParking.create.durationEnable)
 
 # create waypoint
-netedit.leftClick(referencePosition, 295, 155)
+netedit.leftClick(referencePosition, 291, 155)
 
 # set invalid value
 netedit.changeDefaultValue(netedit.attrs.waypointParking.create.duration, "dummyValue")
 
 # try to create waypoint
-netedit.leftClick(referencePosition, 300, 155)
+netedit.leftClick(referencePosition, 292, 155)
 
 # set invalid value
 netedit.changeDefaultValue(netedit.attrs.waypointParking.create.duration, "-20")
 
 # try to create waypoint
-netedit.leftClick(referencePosition, 290, 155)
+netedit.leftClick(referencePosition, 293, 155)
 
 # set valid value
 netedit.changeDefaultValue(netedit.attrs.waypointParking.create.duration, "0")
 
 # try to create waypoint
-netedit.leftClick(referencePosition, 295, 155)
+netedit.leftClick(referencePosition, 294, 155)
 
 # set valid value
 netedit.changeDefaultValue(netedit.attrs.waypointParking.create.duration, "22.33")
 
 # try to create waypoint
-netedit.leftClick(referencePosition, 300, 155)
+netedit.leftClick(referencePosition, 295, 155)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)
