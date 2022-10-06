@@ -1367,9 +1367,7 @@ def findBidiConflicts(options, net, stopEdges, uniqueRoutes, stopRoutes, vehicle
                                     continue
                                 for e in edgesBefore2:
                                     if e in bidiBefore:
-                                        debugSection = None
-                                        if vehID == options.debugVehicle:
-                                            debugSection = []
+
                                         # found the start of the conflict zone, now we need to find the end
                                         oppositeSection = [] # only for debug output
                                         sI2b = findDivergence(net, arrivals,
@@ -1382,7 +1380,8 @@ def findBidiConflicts(options, net, stopEdges, uniqueRoutes, stopRoutes, vehicle
                                             and vehID2 == options.debugFoeVehicle
                                             and (stop.busStop == options.debugStop
                                                  or options.debugStop is None)):
-                                            print("Opposite section when approaching stop %s" % stop.busStop)
+                                            print("Opposite section when approaching stop %s oppositeStopIndex %s " % (
+                                                  stop.busStop, sI2b))
                                             for e in oppositeSection:
                                                 print("edge:%s" % e)
 
