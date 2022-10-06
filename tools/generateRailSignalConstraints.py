@@ -1389,14 +1389,33 @@ def findBidiConflicts(options, net, stopEdges, uniqueRoutes, stopRoutes, vehicle
                                         break;
                                 else:
                                     break
+
+                            if pStop.busStop == stop.busStop:
+                                # most likely a small reversal loop. There may
+                                # be some value in keeping the conflict (but
+                                # probably not strictly necessary)
+                                continue
+
                             stopRoute2 = vehicleStopRoutes[pStop.vehID]
                             # signal before vehID enters the conflict section
                             nSignal = findSignal(net, getEdges(stopRoute, sIb, e1Final, False, noIndex=True), True)
                             # signal before vehID2 enters the conflict section (in the opposite direction)
                             pSignal = findSignal(net, getEdges(stopRoute2, sI2, e2Start, False, noIndex=True), True)
 
-                            if (pSignal != nSignal and pSignal is not None and nSignal is not None
-                                    and pStop.vehID != stop.vehID):
+                            if pSignal != nSignal and pSignal and pStop.vehID != stop.vehID:
+                                if nSignal is None or pSignal is None:
+                                    error = ("Ignoring bidi conflict for %s and %s between stops '%s' and '%'" + 
+                                             "because no rail signal was found for %s before edge '%s'")
+
+                                    if nSignal is None:
+                                        print(error % (stop.prevTripId, pStop.prevTripId,
+                                                       busStop, pStop.busStop, stop.prevTripId, e1Final), file=sys.stderr)
+                                    if pSignal is None:
+                                        print(error % (stop.prevTripId, pStop.prevTripId,
+                                                       busStop, pStop.busStop, pStop.prevTripId, e2Start), file=sys.stderr)
+                                    numIgnoredConflicts += 1
+                                    continue
+
                                 numConflicts += 1
                                 limit = 1
                                 times = "arrival=%s foeArrival=%s " % (humanReadableTime(nArrival), humanReadableTime(pArrival))
@@ -1414,7 +1433,6 @@ def findBidiConflicts(options, net, stopEdges, uniqueRoutes, stopRoutes, vehicle
                                                            stop.busStop,
                                                            info, active,
                                                            busStop2=pStop.busStop))
-
 
     if numConflicts > 0:
         print("Found %s bidi conflicts" % numConflicts)
