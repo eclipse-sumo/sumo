@@ -149,6 +149,8 @@ def get_options(args=None):
                                                         "(reduces impact of modifying constraints at runtime)")
     parser.add_argument("--bidi-max-range", dest="bidiMaxRange", type=float, default=1,
                         help="Find bidiStops on sequential edges within the given range in m")
+    parser.add_argument("--bidi-conflicts", dest="bidiConflicts", action="store_true", default=False,
+                        help="Write bidiPredecessor constraints")
     parser.add_argument("--comment.line", action="store_true", dest="commentLine", default=False,
                         help="add lines of involved trains in comment")
     parser.add_argument("--comment.id", action="store_true", dest="commentId", default=False,
@@ -1311,6 +1313,10 @@ def findBidiConflicts(options, net, stopEdges, uniqueRoutes, stopRoutes, vehicle
     """
     # signal -> [(tripID, otherSignal, otherTripID, limit, line, otherLine, vehID, otherVehID), ...]
     conflicts = defaultdict(list)
+
+    if not options.bidiConflicts:
+        return conflicts
+
     numConflicts = 0
     numIgnoredConflicts = 0
 
