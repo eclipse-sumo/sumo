@@ -50,11 +50,17 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 290, 175)
 
 # change value
-netedit.modifyBoolAttribute(netedit.attrs.waypoint.inspect.parking, False)
+netedit.modifyAttribute(netedit.attrs.waypoint.inspect.parking, "true", False)
+
+# change value
+netedit.modifyAttribute(netedit.attrs.waypoint.inspect.parking, "false", False)
+
+# change value
+netedit.modifyAttribute(netedit.attrs.waypoint.inspect.parking, "opportunistic", False)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.undo(referencePosition, 3)
+netedit.redo(referencePosition, 3)
 
 # save additionals
 netedit.saveAdditionals(referencePosition)

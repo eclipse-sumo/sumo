@@ -44,7 +44,7 @@ netedit.changeStopType("stopLane")
 netedit.leftClick(referencePosition, 400, 185)
 
 # change parking
-netedit.changeDefaultBoolValue(netedit.attrs.stopLane.create.parking)
+netedit.changeDefaultValue(netedit.attrs.stopLane.create.parking, "true")
 
 # create stop
 netedit.leftClick(referencePosition, 405, 185)

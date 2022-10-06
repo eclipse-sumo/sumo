@@ -2073,10 +2073,10 @@ class stop:
         expected = 9
         permitted = 10
         parking = 11
-        actType = 12
-        tripID = 13
-        line = 14
-        onDemad = 15
+        actType = 13
+        tripID = 14
+        line = 15
+        onDemad = 16
 
 # stop (over parkings)
 
@@ -2183,10 +2183,10 @@ class stopLane:
         expected = 11
         permitted = 12
         parking = 13
-        actType = 14
-        tripID = 15
-        line = 16
-        onDemad = 17
+        actType = 15
+        tripID = 16
+        line = 17
+        onDemad = 18
 
 # waypoint (over busStop/containerStop/chargingStation)
 
@@ -2235,10 +2235,10 @@ class waypoint:
         expected = 9
         permitted = 10
         parking = 11
-        actType = 12
-        tripID = 13
-        line = 14
-        speed = 15
+        actType = 13
+        tripID = 14
+        line = 15
+        speed = 16
 
 # waypoint (over parkings)
 
@@ -2345,10 +2345,10 @@ class waypointLane:
         expected = 11
         permitted = 12
         parking = 13
-        actType = 14
-        tripID = 15
-        line = 16
-        speed = 17
+        actType = 15
+        tripID = 16
+        line = 17
+        speed = 18
 
 # Person
 
