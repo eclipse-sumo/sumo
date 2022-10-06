@@ -1362,11 +1362,19 @@ def findBidiConflicts(options, net, stopEdges, uniqueRoutes, stopRoutes, vehicle
                             # find first stop where stopRoute2 diverges from stopRoute
                             # since the route could be looped we must find all points of divergence
                             sI2b = -1 # stop index of previous divergence
+                            prevEdge = None
                             for sI2, (edgesBefore2, stop2) in enumerate(stopRoute2):
                                 if sI2 < sI2b:
                                     continue
                                 for e in edgesBefore2:
                                     if e in bidiBefore:
+                                        # if the opposite train enters the conflict section with a reversal
+                                        # this doesn't provide for a useful entry signal
+                                        ignoreConflict = prevEdge == getBidiID(net, e)
+
+                                        debugSection = None
+                                        if vehID == options.debugVehicle:
+                                            debugSection = []
 
                                         # found the start of the conflict zone, now we need to find the end
                                         oppositeSection = [] # only for debug output
@@ -1374,6 +1382,7 @@ def findBidiConflicts(options, net, stopEdges, uniqueRoutes, stopRoutes, vehicle
                                                               getEdges(stopRoute, stopIndex, getBidiID(net, e), False),
                                                               getEdges(stopRoute2, sI2, e, True),
                                                               stopRoute2, sI2, e,
+                                                              ignoreConflict,
                                                               oppositeSection)
 
                                         if (vehID == options.debugVehicle 
@@ -1386,6 +1395,7 @@ def findBidiConflicts(options, net, stopEdges, uniqueRoutes, stopRoutes, vehicle
                                                 print("edge:%s" % e)
 
                                         break
+                                    prevEdge = e
                                 if sI2b is None:
                                     # no divergence found
                                     break
@@ -1474,11 +1484,11 @@ def getEdges(stopRoute, index, startEdge, forward, noIndex=False):
         index += inc
 
 
-def findDivergence(net, arrivals, backwardGen, forwardGen, stopRoute2, sI2, e2Start, visited=[]):
+def findDivergence(net, arrivals, backwardGen, forwardGen, stopRoute2, sI2, e2Start, ignoreConflict, visited=[]):
     for (e1, sIb), (e2, sI2b) in zip(backwardGen,forwardGen):
         visited.append(e2)
         if e2 != getBidiID(net, e1):
-            if e2 == e1prev:
+            if e2 == e1prev or ignoreConflict:
                 # opposite train has a reversal. This leads to a different kind of conflict
                 return None
             # found divergence
