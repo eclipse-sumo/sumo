@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-03-31 10:22:46 by Eclipse SUMO sumo Version v1_12_0+1779-5c47c934815
+<!-- generated on 2022-10-07 00:45:08 by Eclipse SUMO sumo Version v1_14_1+1516-a299e0b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -25,12 +25,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <processing>
         <default.speeddev value="0"/>
-        <pedestrian.model value="nonInteracting"/>
     </processing>
 
     <report>
         <xml-validation value="never"/>
-        <xml-validation.routes value="never"/>
         <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -46,13 +44,5 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <vehicle id="veh1" type="Car" depart="10.00" departPos="0.00" arrival="11.00">
         <route edges="1to2 out"/>
     </vehicle>
-
-    <person id="p1" depart="100.00">
-        <ride from="1to2" to="out" lines="1"/>
-    </person>
-
-    <person id="p2" depart="200.00">
-        <ride from="1to2" to="out" lines="1"/>
-    </person>
 
 </routes>
