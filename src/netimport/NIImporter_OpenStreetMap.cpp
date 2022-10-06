@@ -346,6 +346,7 @@ NIImporter_OpenStreetMap::insertNodeChecking(long long int id, NBNodeCont& nc, N
     return node;
 }
 
+
 int
 NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* to,
                                      const std::vector<long long int>& passed, NBNetBuilder& nb,
@@ -382,6 +383,24 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
         return insertEdge(e, index, intermediate, to, part2, nb, first, last);
     }
     const int newIndex = index + 1;
+    const std::string type = usableType(e->myHighWayType, id, tc);
+    if (type == "") {  // we do not want to import it
+        return newIndex;
+    }
+
+    int numLanesForward = tc.getEdgeTypeNumLanes(type);
+    int numLanesBackward = tc.getEdgeTypeNumLanes(type);
+    double speed = tc.getEdgeTypeSpeed(type);
+    bool defaultsToOneWay = tc.getEdgeTypeIsOneWay(type);
+    SVCPermissions defaultPermissions = tc.getEdgeTypePermissions(type);
+    SVCPermissions permissions = defaultPermissions | e->myExtraAllowed;
+    permissions &= ~e->myExtraDisallowed;
+    if (defaultsToOneWay && defaultPermissions == SVC_PEDESTRIAN && (permissions & (~SVC_PEDESTRIAN)) != 0) {
+        defaultsToOneWay = false;
+    }
+    if (e->myCurrentIsElectrified && (permissions & SVC_RAIL) != 0) {
+        permissions |= (SVC_RAIL_ELECTRIC | SVC_RAIL_FAST);
+    }
 
     // convert the shape
     PositionVector shape;
@@ -402,7 +421,8 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
     std::vector<NBPTStop*> ptStops;
     for (long long i : passed) {
         NIOSMNode* n = myOSMNodes.find(i)->second;
-        if (n->ptStopPosition) {
+        // recheck permissions, maybe they got assigned to a strange edge, see #11656
+        if (n->ptStopPosition && (permissions & n->permissions) != 0) {
             NBPTStop* existingPtStop = sc.get(toString(n->id));
             if (existingPtStop != nullptr) {
                 existingPtStop->registerAdditionalEdge(toString(e->id), id);
@@ -421,32 +441,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
     if (!NBNetBuilder::transformCoordinates(shape)) {
         WRITE_ERROR("Unable to project coordinates for edge '" + id + "'.");
     }
-    std::string type = usableType(e->myHighWayType, id, tc);
-    if (type == "") {
-        return newIndex;
-    }
 
-    // otherwise it is not an edge and will be ignored
-    bool ok = true;
-    int numLanesForward = tc.getEdgeTypeNumLanes(type);
-    int numLanesBackward = tc.getEdgeTypeNumLanes(type);
-    double speed = tc.getEdgeTypeSpeed(type);
-    bool defaultsToOneWay = tc.getEdgeTypeIsOneWay(type);
-    SVCPermissions defaultPermissions = tc.getEdgeTypePermissions(type);
-    SVCPermissions permissions = defaultPermissions | e->myExtraAllowed;
-    permissions &= ~e->myExtraDisallowed;
-    if (defaultsToOneWay && defaultPermissions == SVC_PEDESTRIAN && (permissions & (~SVC_PEDESTRIAN)) != 0) {
-        defaultsToOneWay = false;
-    }
-    if (e->myCurrentIsElectrified && (permissions & SVC_RAIL) != 0) {
-        permissions |= (SVC_RAIL_ELECTRIC | SVC_RAIL_FAST);
-    }
-    // recheck permissions, maybe they got assigned to a strange edge, see #11656
-    for (NBPTStop* ptStop : ptStops) {
-        if ((permissions & ptStop->getPermissions()) == 0) {
-            ptStop->setEdgeId("", ec);
-        }
-    }
     SVCPermissions forwardPermissions = permissions;
     SVCPermissions backwardPermissions = permissions;
     const std::string streetName = isRailway(permissions) && e->ref != "" ? e->ref : e->streetName;
@@ -492,6 +487,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
             addForward = false;
         }
     }
+    bool ok = true;
     // if we had been able to extract the number of lanes, override the highway type default
     if (e->myNoLanes > 0) {
         if (addForward && !addBackward) {
