@@ -75,8 +75,8 @@ Debug: Current Viewport values: 0.00, -6.00, 5.00. Zoom = '1736.00'
 Debug: Value '' for attribute id of container isn't valid
 Debug: Value ';;;;;;;;' for attribute id of container isn't valid
 Debug: Value 'id with spaces' for attribute id of container isn't valid
+Debug: Value 'c_1' for attribute id of container isn't valid
 Debug: Setting new attribute
-Debug: Value 'p_1' for attribute id of container isn't valid
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Restoring previous attribute

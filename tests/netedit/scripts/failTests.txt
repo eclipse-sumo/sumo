@@ -1,20 +1,4 @@
 -tp appdata=netedit.gui
-additionalelements/calibratorflow/load/arrivalspeed
-additionalelements/routeprobe/delete
-additionalelements/vaporizer/create/name
-basic/reload/no_save_network
-bugs/ticket5552
-dataelements/edgedata/delete
-dataelements/edgereldata/delete
-dataelements/tazreldata/delete
-demandelements/container/inspect/id
-demandelements/flow_junctions/inspect_selection/type
-demandelements/route/inspect_selection/cycletime
-
-
-demandelements/vehicletype/edit/maxspeed
-demandelements/vehicletype/edit_dialog/vclass
-
 
 netelements/connections/inspect_selected_tls/linkindex/
 netelements/connections/inspect_tls/linkindex/
@@ -24,11 +8,11 @@ netelements/crossings/with_tls/inspect_selected/linkindex/
 netelements/crossings/with_tls/load/linkindex2/
 netelements/crossings/without_tls/load/linkindex/
 netelements/crossings/without_tls/load/linkindex2/
-netelements/edges/templates/clear
-netelements/edges/templates/copy
-netelements/edges/templates/create
+
+
 netelements/junctions/inspect_selected/fringe
 netelements/junctions/inspect_tls_selected/fringe
+
 netelements/trafficlights/joined/attributes/offset
 netelements/trafficlights/joined/attributes/parameters
 netelements/trafficlights/joined/create/copy
@@ -72,5 +56,6 @@ netelements/trafficlights/single/phases/delay_based/buttons/addstates/
 netelements/trafficlights/single/phases/static/buttons/addstates/
 netelements/trafficlights/single/programs/resetall
 netelements/trafficlights/single/programs/resetphase
+
 shapeelements/poi/delete
 shapeelements/poilane/delete
