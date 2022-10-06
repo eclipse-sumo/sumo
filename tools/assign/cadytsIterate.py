@@ -34,7 +34,6 @@ import os
 import sys
 import glob
 from datetime import datetime
-from argparse import ArgumentParser
 from duaIterate import call, writeSUMOConf, addGenericOptions, generateEdgedataAddFile
 
 if 'SUMO_HOME' in os.environ:
@@ -48,13 +47,13 @@ else:
 def initOptions():
     jars = glob.glob(os.path.join(TOOLS_DIR, "contributed", "calibration", "*", "target", "*.jar")) + \
         glob.glob(os.path.join(TOOLS_DIR, "..", "bin", "*.jar"))
-    argParser = ArgumentParser()
+    argParser = sumolib.options.ArgumentParser()
     addGenericOptions(argParser)
     argParser.add_argument("-r", "--route-alternatives", dest="routes",
                            help="route alternatives from sumo (comma separated list, mandatory)", metavar="FILE")
     argParser.add_argument("-d", "--detector-values", dest="detvals",
                            help="adapt to the flow on the given edges", metavar="FILE")
-    argParser.add_argument("-c", "--classpath", dest="classpath", default=os.pathsep.join(jars),
+    argParser.add_argument("--classpath", dest="classpath", default=os.pathsep.join(jars),
                            help="classpath for the calibrator [default: %default]")
     argParser.add_argument("-l", "--last-calibration-step", dest="calibStep",
                            type=int, default=100, help="last step of the calibration [default: %default]")
@@ -99,9 +98,11 @@ def main():
 
     options = argParser.parse_args()
     if not options.net or not options.routes or not options.detvals:
-        argParser.error(
-            "--net-file, --routes and --detector-values have to be given!")
-
+        argParser.error("--net-file, --routes and --detector-values have to be given!")
+    if not "cadyts" in options.classpath:
+        print("""Warning! No cadyts.jar has been found or given. Please use the --classpath option
+ to point to an existing jar file. You may also download it
+ from https://sumo.dlr.de/daily/cadyts.jar and place it in %s/bin.""" % os.environ['SUMO_HOME'], file=sys.stderr)
     sumoBinary = sumolib.checkBinary("sumo", options.path)
     calibrator = ["java", "-cp", options.classpath, "-Xmx1G",
                   "floetteroed.cadyts.interfaces.sumo.SumoController"]
