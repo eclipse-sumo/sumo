@@ -25,6 +25,7 @@ Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Setting new attribute
+Debug: Value 'opportunistic' for attribute parking of stopLane isn't valid
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Restoring previous attribute
@@ -34,6 +35,16 @@ Debug: Calling GNEUndoList::undo()
 Debug: Restoring previous attribute
 Debug: Restoring previous attribute
 Debug: Restoring previous attribute
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
+Debug: Removing stopLane 'route_0' in GNEChange_DemandElement
+Debug: Removing stopLane 'route_0' in GNEChange_DemandElement
+Debug: Removing route 'route_0' in GNEChange_DemandElement
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
+Debug: Adding route 'route_0' in GNEChange_DemandElement
+Debug: Adding stopLane 'route_0' in GNEChange_DemandElement
+Debug: Adding stopLane 'route_0' in GNEChange_DemandElement
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute

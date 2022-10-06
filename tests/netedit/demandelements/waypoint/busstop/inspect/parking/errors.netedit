@@ -24,6 +24,11 @@ Debug: Selected item 'vehicle_0' in DemandElementSelector
 Debug: Selected item 'waypointBusStop' in GNETagSelector
 Debug: Adding waypointBusStop 'vehicle_0' in GNEChange_DemandElement
 Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Value 'opportunistic' for attribute parking of waypointBusStop isn't valid
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Restoring previous attribute
@@ -33,6 +38,9 @@ Debug: Removing waypointBusStop 'vehicle_0' in GNEChange_DemandElement
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding waypointBusStop 'vehicle_0' in GNEChange_DemandElement
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute
