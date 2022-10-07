@@ -392,7 +392,7 @@ and simply type `git pull`.
 
 ### Is there further documentation on Git and Subversion?
 
-  There are the [Git book](https://git-scm.com/book/de/v1) and the
+  There are the [Git book](https://git-scm.com/book/) and the
   [Subversion book](http://svnbook.red-bean.com/) and the [GitHub help](https://help.github.com/) is also worth reading.
 
 ### How to get an older version of SUMO?
