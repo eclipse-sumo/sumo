@@ -158,5 +158,5 @@ ticket11558
 # glitched walkingarea shape
 ticket11590
 
-# wrong yielding
-ticket11737
+# crash during roundabout processing
+ticket11779
