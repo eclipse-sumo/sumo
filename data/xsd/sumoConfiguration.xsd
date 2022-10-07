@@ -207,6 +207,7 @@
             <xsd:element name="pedestrian.striping.reserve-oncoming" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="pedestrian.striping.reserve-oncoming.junctions" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="pedestrian.striping.legacy-departposlat" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="pedestrian.striping.walkingarea-detail" type="intOptionType" minOccurs="0"/>
             <xsd:element name="pedestrian.remote.address" type="strOptionType" minOccurs="0"/>
             <xsd:element name="ride.stop-tolerance" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="persontrip.walk-opposite-factor" type="floatOptionType" minOccurs="0"/>
