@@ -86,6 +86,7 @@ MSPModel_Striping::Pedestrians MSPModel_Striping::noPedestrians;
 double MSPModel_Striping::stripeWidth;
 double MSPModel_Striping::dawdling;
 double MSPModel_Striping::minGapToVehicle;
+int MSPModel_Striping::myWalkingAreaDetail;
 SUMOTime MSPModel_Striping::jamTime;
 SUMOTime MSPModel_Striping::jamTimeCrossing;
 SUMOTime MSPModel_Striping::jamTimeNarrow;
@@ -113,6 +114,7 @@ const double MSPModel_Striping::MIN_STARTUP_DIST(0.4); // meters
 MSPModel_Striping::MSPModel_Striping(const OptionsCont& oc, MSNet* net) :
     myNumActivePedestrians(0),
     myAmActive(false) {
+    myWalkingAreaDetail = oc.getInt("pedestrian.striping.walkingarea-detail");
     initWalkingAreaPaths(net);
     // configurable parameters
     stripeWidth = oc.getFloat("pedestrian.striping.stripe-width");
@@ -420,6 +422,8 @@ MSPModel_Striping::initWalkingAreaPaths(const MSNet*) {
                             fromShp.extrapolate(1.5 * POSITION_EPS); // noDoublePos requires a difference of POSITION_EPS in at least one coordinate
                             shape.push_back_noDoublePos(fromDir == FORWARD ? fromShp.back() : fromShp.front());
                             assert(shape.size() == 2);
+                        } else if (myWalkingAreaDetail > 4) {
+                            shape = shape.bezier(myWalkingAreaDetail);
                         }
                         if (fromDir == BACKWARD) {
                             // will be walking backward on walkingArea

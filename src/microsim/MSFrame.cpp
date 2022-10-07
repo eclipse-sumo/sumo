@@ -523,6 +523,9 @@ MSFrame::fillOptions() {
     oc.doRegister("pedestrian.striping.legacy-departposlat", new Option_Bool(false));
     oc.addDescription("pedestrian.striping.legacy-departposlat", "Processing", "Interpret departPosLat for walks in legacy style");
 
+    oc.doRegister("pedestrian.striping.walkingarea-detail", new Option_Integer(4));
+    oc.addDescription("pedestrian.striping.walkingarea-detail", "Processing", "Generate INT intermediate points to smooth out lanes within the walkingarea");
+
     oc.doRegister("pedestrian.remote.address", new Option_String("localhost:9000"));
     oc.addDescription("pedestrian.remote.address", "Processing", "The address (host:port) of the external simulation");
 

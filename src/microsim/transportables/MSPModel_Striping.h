@@ -102,6 +102,9 @@ public:
     // @brief the safety buffer to vehicles
     static double minGapToVehicle;
 
+    // @brief intermediate points to smooth out lanes within the walkingarea
+    static int myWalkingAreaDetail;
+
     // @brief the time threshold before becoming jammed
     static SUMOTime jamTime;
     static SUMOTime jamTimeCrossing;
