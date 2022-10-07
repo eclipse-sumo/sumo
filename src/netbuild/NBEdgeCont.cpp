@@ -1489,7 +1489,7 @@ NBEdgeCont::markRoundabouts() {
                     // where not correctly detector due to geometrical quirks
                     const std::vector<NBEdge::Connection> cons = inEdge->getConnections();
                     for (const NBEdge::Connection& con : cons) {
-                        if (roundaboutSet.count(con.toEdge) == 0) {
+                        if (con.toEdge && roundaboutSet.count(con.toEdge) == 0) {
                             const double angle = fabs(NBHelpers::normRelAngle(inEdge->getAngleAtNode(node), con.toEdge->getAngleAtNode(node)));
                             if (angle > 160) {
                                 inEdge->removeFromConnections(con.toEdge, -1);
