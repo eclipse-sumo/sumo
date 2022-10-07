@@ -170,6 +170,17 @@ double MSCFModel_ACC::accelGapControl(const MSVehicle* const /*veh*/, const doub
     double desSpacing = myHeadwayTime * speed;
     double spacingErr = gap2pred - desSpacing;
     double deltaVel = predSpeed - speed;
+    double L = veh->getLength();
+
+// see dynamic gap margin definition from (Xiao et. al, 2018)
+    if (speed < 10.8){
+    	spacingErr = spacingErr - L - 2;
+    } else if (speed <= 15.0 && speed >= 10.8){
+    	spacingErr = spacingErr - L - (75/speed -5);
+	} else {
+    	spacingErr = spacingErr - L;
+	}
+
 
     if (fabs(spacingErr) < 0.2 && fabs(vErr) < 0.1) {
         // gap mode
