@@ -20,12 +20,16 @@ options for including this information are described below.
 By setting the [netconvert](../netconvert.md) option **--opposites.guess** {{DT_BOOL}}, opposite
 edges are identified heuristically.
 
+## Visually
+
+Lane attribute 'opposite' can be set directly in [netedit](../Netedit/elementsNetwork.md#lanes)
+
 ## Explicitly
 
 Adjacency can be declared explicitly in an *.edg.xml* file [as described
 here](../Networks/PlainXML.md#neighboring_opposite-direction_lanes).
 Explicit definitions take precedence over heuristic computation of
-adjacency.
+adjacency. To modify an existing network, an *.edg.xml* file can be [loaded as a patch](../Tutorials/ScenarioGuide.md#modifying_the_network)
 
 # Model Description
 
