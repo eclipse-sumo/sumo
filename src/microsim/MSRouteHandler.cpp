@@ -191,11 +191,9 @@ MSRouteHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
         }
         SUMORouteHandler::myStartElement(element, attrs);
         switch (element) {
-            case SUMO_TAG_PERSON:
             case SUMO_TAG_PERSONFLOW:
                 addPerson(attrs);
                 break;
-            case SUMO_TAG_CONTAINER:
             case SUMO_TAG_CONTAINERFLOW:
                 addContainer(attrs);
                 break;
