@@ -224,7 +224,7 @@ GNEVehicleTypeDialog::VTypeAtributes::VClassRow::setVClassLabelImage() {
                 myComboBoxVClassLabelImage->setIcon(GUIIconSubSys::getIcon(GUIIcon::VCLASS_RAIL_ELECTRIC));
                 break;
             case SVC_RAIL_FAST:
-                myComboBoxVClassLabelImage->setIcon(GUIIconSubSys::getIcon(GUIIcon::VCLASS_RAIL_ELECTRIC));
+                myComboBoxVClassLabelImage->setIcon(GUIIconSubSys::getIcon(GUIIcon::VCLASS_RAIL_FAST));
                 break;
             case SVC_MOTORCYCLE:
                 myComboBoxVClassLabelImage->setIcon(GUIIconSubSys::getIcon(GUIIcon::VCLASS_MOTORCYCLE));
