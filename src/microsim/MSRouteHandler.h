@@ -249,7 +249,7 @@ private:
     void closeTransportable();
 
     /// @brief delete already created MSTransportablePlans if error occurs before handing over responsibility to a MSTransportable.
-    void addFlowTransportable(SUMOTime depart, MSVehicleType* type, const std::string& baseID, int i);
+    int addFlowTransportable(SUMOTime depart, MSVehicleType* type, const std::string& baseID, int i);
 
     double interpretDepartPosLat(const std::string& value, int departLane, const std::string& element);
 
