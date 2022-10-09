@@ -176,6 +176,9 @@
 /* defined if FOX is available */
 #cmakedefine HAVE_FOX
 
+/* defined if libintl is available */
+#cmakedefine HAVE_INTL
+
 /* defined if GDAL is available */
 #cmakedefine HAVE_GDAL
 

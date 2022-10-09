@@ -56,7 +56,7 @@ main(int argc, char** argv) {
     // get the options
     OptionsCont& oc = OptionsCont::getOptions();
     // give some application descriptions
-    oc.setApplicationDescription("GUI version of the microscopic, multi-modal traffic simulation SUMO.");
+    oc.setApplicationDescription(TL("GUI version of the microscopic, multi-modal traffic simulation SUMO."));
     oc.setApplicationName("sumo-gui", "Eclipse SUMO GUI Version " VERSION_STRING);
     gSimulation = true;
     int ret = 0;

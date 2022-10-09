@@ -29,8 +29,9 @@
 
 #include <csignal>
 #include <netload/NLBuilder.h>
-#include <utils/options/OptionsIO.h>
+#include <utils/common/MsgHandler.h>
 #include <utils/common/SystemFrame.h>
+#include <utils/options/OptionsIO.h>
 #include <utils/xml/XMLSubSys.h>
 #include <traci-server/TraCIServer.h>
 
@@ -45,10 +46,10 @@ signalHandler(int signum) {
             case SIGINT:
             case SIGTERM:
                 if (MSNet::getInstance()->isInterrupted()) {
-                    std::cout << "Another interrupt signal received, hard exit." << std::endl;
+                    std::cout << TL("Another interrupt signal received, hard exit.") << std::endl;
                     exit(signum);
                 }
-                std::cout << "Interrupt signal received, trying to exit gracefully." << std::endl;
+                std::cout << TL("Interrupt signal received, trying to exit gracefully.") << std::endl;
                 MSNet::getInstance()->interrupt();
                 break;
 #ifndef WIN32
@@ -79,9 +80,12 @@ main(int argc, char** argv) {
     signal(SIGUSR2, signalHandler);
 #endif
 
+#ifdef HAVE_INTL
+    MsgHandler::setupI18n("");
+#endif
     OptionsCont& oc = OptionsCont::getOptions();
     // give some application descriptions
-    oc.setApplicationDescription("A microscopic, multi-modal traffic simulation.");
+    oc.setApplicationDescription(TL("A microscopic, multi-modal traffic simulation."));
     oc.setApplicationName("sumo", "Eclipse SUMO sumo Version " VERSION_STRING);
     gSimulation = true;
     int ret = 0;
@@ -109,7 +113,7 @@ main(int argc, char** argv) {
         if (std::string(e.what()) != std::string("Process Error") && std::string(e.what()) != std::string("")) {
             WRITE_ERROR(e.what());
         }
-        MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);
+        MsgHandler::getErrorInstance()->inform(TL("Quitting (on error)."), false);
         // we need to delete the network explicitly to trigger the cleanup in the correct order
         delete net;
         ret = 1;
@@ -118,10 +122,10 @@ main(int argc, char** argv) {
         if (std::string(e.what()) != std::string("")) {
             WRITE_ERROR(e.what());
         }
-        MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);
+        MsgHandler::getErrorInstance()->inform(TL("Quitting (on error)."), false);
         ret = 1;
     } catch (...) {
-        MsgHandler::getErrorInstance()->inform("Quitting (on unknown error).", false);
+        MsgHandler::getErrorInstance()->inform(TL("Quitting (on unknown error)."), false);
         ret = 1;
 #endif
     }
