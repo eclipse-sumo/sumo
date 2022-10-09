@@ -227,6 +227,7 @@ MsgHandler::removeRetrieverFromAllInstances(OutputDevice* out) {
 
 void
 MsgHandler::setupI18n(const std::string& locale) {
+#ifdef HAVE_INTL
     // inspired by https://erri120.github.io/posts/2022-05-05/
 #if WIN32
     // LocaleNameToLCID requires a LPCWSTR so we need to convert from char to wchar_t
@@ -258,6 +259,9 @@ MsgHandler::setupI18n(const std::string& locale) {
     }
     bind_textdomain_codeset("sumo", "UTF-8");
     textdomain("sumo");
+#else
+    UNUSED_PARAMETER(locale);
+#endif
 }
 
 
