@@ -53,6 +53,13 @@ class modes:
     class demand:
         grid = '1'
         junctionShape = '2'
+        spreadVehicle = '3'
+        showShapes = '4'
+        showAllTrips = '5'
+        showPersonPlans = '6'
+        lockPerson = '7'
+        showContainerPlans = '8'
+        lockContainer = '9'
 
     class data:
         junctionShape = '1'
@@ -2420,6 +2427,32 @@ class personFlow:
         terminateOption = 12
         spacingOption = 13
         parameters = 15
+
+# PersonPlan
+
+
+class personPlan:
+    class create:
+        arrivalPos = 8
+        vTypes = 9
+        modes = 10
+        lines = 11
+
+    class inspect:
+        to = 1
+        arrivalPos = 2
+        vTypes = 3
+        modes = 4
+        lines = 5
+
+    class inspectSelection:
+        type = 1
+        colorButton = 2
+        color = 3
+        departPos = 4
+        depart = 5
+        parameters = 8
+
 
 # Container
 
