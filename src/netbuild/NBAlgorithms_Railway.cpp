@@ -685,7 +685,7 @@ NBRailwayTopologyAnalyzer::addBidiEdgesForBufferStops(NBEdgeCont& ec) {
     for (NBNode* node : railNodes) {
         if (StringUtils::toBool(node->getParameter("buffer_stop", "false"))) {
             if (node->getEdges().size() != 1) {
-                WRITE_WARNING("Ignoring buffer stop junction '" + node->getID() + "' with " + toString(node->getEdges().size()) + " edges\n");
+                WRITE_WARNINGF("Ignoring buffer stop junction '%' with % edges.", node->getID(), node->getEdges().size());
                 continue;
             }
             int numAddedBidi = 0;
