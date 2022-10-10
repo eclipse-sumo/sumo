@@ -23,6 +23,11 @@
 //    Microscopic Simulation of Adaptive and Cooperative Adaptive Cruise
 //     Control Vehicles. Transportation Research Record: Journal of the
 //     Transportation Research Board, No. 2623, 2017. (DOI: 10.3141/2623-01).
+//[3]  Xiao, L., Wang, M., Schakel, W., & van Arem, B. (2018). Unravelling
+//    effects of cooperative adaptive cruise control deactivation on
+//    traffic flow characteristics at merging bottlenecks. Transportation
+//    Research Part C: Emerging Technologies, 96, 380–397.
+//    <https://doi.org/10.1016/j.trc.2018.10.008>
 /****************************************************************************/
 #include <config.h>
 
@@ -172,7 +177,7 @@ double MSCFModel_ACC::accelGapControl(const MSVehicle* const /*veh*/, const doub
     double deltaVel = predSpeed - speed;
     double L = veh->getLength();
 
-// see dynamic gap margin definition from (Xiao et. al, 2018)
+// see dynamic gap margin definition from (Xiao et. al, 2018)[3]
     if (speed < 10.8){
     	spacingErr = spacingErr - L - 2;
     } else if (speed <= 15.0 && speed >= 10.8){
