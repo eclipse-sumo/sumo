@@ -51,6 +51,7 @@
 // ===========================================================================
 int
 main(int argc, char** argv) {
+    MsgHandler::setupI18n();
     // make the output aware of threading
     MsgHandler::setFactory(&MsgHandlerSynchronized::create);
     // get the options

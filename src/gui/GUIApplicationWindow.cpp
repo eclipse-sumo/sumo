@@ -434,7 +434,7 @@ void
 GUIApplicationWindow::fillMenuBar() {
     // build file menu
     myFileMenu = new FXMenuPane(this);
-    GUIDesigns::buildFXMenuTitle(myMenuBar, "&File", nullptr, myFileMenu);
+    GUIDesigns::buildFXMenuTitle(myMenuBar, TL("&File"), nullptr, myFileMenu);
     GUIDesigns::buildFXMenuCommandShortcut(myFileMenu,
                                            "New Window", "Ctrl+Shift+N", "Open a new sumo-gui window.",
                                            nullptr, this, MID_HOTKEY_CTRL_SHIFT_N_NEWWINDOW);
