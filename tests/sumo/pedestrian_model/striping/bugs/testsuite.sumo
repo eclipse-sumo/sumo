@@ -37,3 +37,6 @@ ticket7853
 
 # jammed bike and pedestrian
 ticket8417
+
+# invalid arrivalPos interpretation
+ticket11674
