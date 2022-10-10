@@ -29,18 +29,11 @@
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/common/UtilExceptions.h>
 #include "MsgHandler.h"
-#ifdef HAVE_INTL
-#ifdef WIN32
-#define WIN32_LEAN_AND_MEAN
-#include <windows.h>
-#endif
-#endif
 
 
 // ===========================================================================
 // static member variables
 // ===========================================================================
-
 MsgHandler::Factory MsgHandler::myFactory = nullptr;
 MsgHandler* MsgHandler::myDebugInstance = nullptr;
 MsgHandler* MsgHandler::myGLDebugInstance = nullptr;
@@ -234,22 +227,9 @@ MsgHandler::removeRetrieverFromAllInstances(OutputDevice* out) {
 void
 MsgHandler::setupI18n(const std::string& locale) {
 #ifdef HAVE_INTL
-    // inspired by https://erri120.github.io/posts/2022-05-05/
-#ifdef WIN32
-    // LocaleNameToLCID requires a LPCWSTR so we need to convert from char to wchar_t
-    const auto wStringSize = MultiByteToWideChar(CP_UTF8, 0, locale.data(), static_cast<int>(locale.length()), nullptr, 0);
-    std::wstring localeName;
-    localeName.reserve(wStringSize);
-//    MultiByteToWideChar(CP_UTF8, 0, locale.data(), static_cast<int>(locale.length()), localeName.data(), wStringSize);
-
-    _configthreadlocale(_DISABLE_PER_THREAD_LOCALE);
-    const auto localeId = LocaleNameToLCID(localeName.c_str(), LOCALE_ALLOW_NEUTRAL_NAMES);
-    SetThreadLocale(localeId);
-#else
     if (!setlocale(LC_MESSAGES, locale.data())) {
         WRITE_WARNING("Could not set locale to '" + locale + "'.");
     }
-#endif
     const char* sumoPath = std::getenv("SUMO_HOME");
     if (sumoPath == nullptr) {
         if (!bindtextdomain("sumo", nullptr)) {
