@@ -53,6 +53,13 @@ class modes:
     class demand:
         grid = '1'
         junctionShape = '2'
+        spreadVehicle = '3'
+        showShapes = '4'
+        showAllTrips = '5'
+        showPersonPlans = '6'
+        lockPerson = '7'
+        showContainerPlans = '8'
+        lockContainer = '9'
 
     class data:
         junctionShape = '1'
@@ -201,9 +208,9 @@ class edge:
         parameters = 22
 
     class template:
-        create = 35
-        copy = 36
-        clear = 37
+        create = 33
+        copy = 34
+        clear = 35
 
 # lane
 
@@ -2073,10 +2080,10 @@ class stop:
         expected = 9
         permitted = 10
         parking = 11
-        actType = 12
-        tripID = 13
-        line = 14
-        onDemad = 15
+        actType = 13
+        tripID = 14
+        line = 15
+        onDemad = 16
 
 # stop (over parkings)
 
@@ -2183,10 +2190,10 @@ class stopLane:
         expected = 11
         permitted = 12
         parking = 13
-        actType = 14
-        tripID = 15
-        line = 16
-        onDemad = 17
+        actType = 15
+        tripID = 16
+        line = 17
+        onDemad = 18
 
 # waypoint (over busStop/containerStop/chargingStation)
 
@@ -2235,10 +2242,10 @@ class waypoint:
         expected = 9
         permitted = 10
         parking = 11
-        actType = 12
-        tripID = 13
-        line = 14
-        speed = 15
+        actType = 13
+        tripID = 14
+        line = 15
+        speed = 16
 
 # waypoint (over parkings)
 
@@ -2345,10 +2352,10 @@ class waypointLane:
         expected = 11
         permitted = 12
         parking = 13
-        actType = 14
-        tripID = 15
-        line = 16
-        speed = 17
+        actType = 15
+        tripID = 16
+        line = 17
+        speed = 18
 
 # Person
 
@@ -2420,6 +2427,32 @@ class personFlow:
         terminateOption = 12
         spacingOption = 13
         parameters = 15
+
+# PersonPlan
+
+
+class personPlan:
+    class create:
+        arrivalPos = 8
+        vTypes = 9
+        modes = 10
+        lines = 11
+
+    class inspect:
+        to = 1
+        arrivalPos = 2
+        vTypes = 3
+        modes = 4
+        lines = 5
+
+    class inspectSelection:
+        type = 1
+        colorButton = 2
+        color = 3
+        departPos = 4
+        depart = 5
+        parameters = 8
+
 
 # Container
 

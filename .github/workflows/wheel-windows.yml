@@ -106,7 +106,7 @@ jobs:
         $env:PATH += ";$pwd\sumo\bin"
         $env:TEXTTEST_TMP = "D:/texttest"
         cd sumo/build_msvc
-        $env:TEXTTEST_CI_APPS = "-a complex.libsumo -ts vehicle/v"
+        $env:TEXTTEST_CI_APPS = "-a complex.libsumo.ci"
         ctest -R texttest --verbose
         copy Testing/Temporary/LastTest.log D:/texttest
 

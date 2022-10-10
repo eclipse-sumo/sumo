@@ -1,56 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-06-16 10:57:35 by Eclipse SUMO netedit Version v1_13_0+0895-1d8082c3ae2
+<!-- generated on 2022-10-10 09:41:17 by Eclipse SUMO netedit Version v1_14_1+1539-fce39c43800
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.daily.net.junctions.16Jun091036.28922/netedit.daily.net.junctions/netelements/junctions/inspect_tls_selected/fringe/input_net.net.xml"/>
+        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.10Oct094005.19796\netedit.gui\netelements\junctions\inspect_tls_selected\fringe\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="/home/palcraft/.texttest/tmp/netedit.daily.net.junctions.16Jun091036.28922/netedit.daily.net.junctions/netelements/junctions/inspect_tls_selected/fringe/net.net.xml"/>
+        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.10Oct094005.19796\netedit.gui\netelements\junctions\inspect_tls_selected\fringe\net.net.xml"/>
     </output>
 
     <processing>
         <geometry.min-radius.fix.railways value="false"/>
         <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
-        <lefthand value="false"/>
+        <lefthand value="0"/>
     </processing>
 
     <junctions>
         <no-internal-links value="false"/>
         <no-turnarounds value="true"/>
         <junctions.corner-detail value="5"/>
-        <junctions.limit-turn-speed value="5.5"/>
-        <rectangular-lane-cut value="false"/>
+        <junctions.limit-turn-speed value="5.50"/>
+        <rectangular-lane-cut value="0"/>
     </junctions>
 
     <pedestrian>
-        <walkingareas value="false"/>
+        <walkingareas value="0"/>
     </pedestrian>
 
     <netedit>
-        <additional-files value="/home/palcraft/.texttest/tmp/netedit.daily.net.junctions.16Jun091036.28922/netedit.daily.net.junctions/netelements/junctions/inspect_tls_selected/fringe/additionals.xml"/>
-        <additionals-output value="/home/palcraft/.texttest/tmp/netedit.daily.net.junctions.16Jun091036.28922/netedit.daily.net.junctions/netelements/junctions/inspect_tls_selected/fringe/additionals.xml"/>
-        <route-files value="/home/palcraft/.texttest/tmp/netedit.daily.net.junctions.16Jun091036.28922/netedit.daily.net.junctions/netelements/junctions/inspect_tls_selected/fringe/routes.xml"/>
-        <demandelements-output value="/home/palcraft/.texttest/tmp/netedit.daily.net.junctions.16Jun091036.28922/netedit.daily.net.junctions/netelements/junctions/inspect_tls_selected/fringe/routes.xml"/>
-        <data-files value="/home/palcraft/.texttest/tmp/netedit.daily.net.junctions.16Jun091036.28922/netedit.daily.net.junctions/netelements/junctions/inspect_tls_selected/fringe/datas.xml"/>
-        <dataelements-output value="/home/palcraft/.texttest/tmp/netedit.daily.net.junctions.16Jun091036.28922/netedit.daily.net.junctions/netelements/junctions/inspect_tls_selected/fringe/datas.xml"/>
+        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.10Oct094005.19796\netedit.gui\netelements\junctions\inspect_tls_selected\fringe\additionals.xml"/>
+        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.10Oct094005.19796\netedit.gui\netelements\junctions\inspect_tls_selected\fringe\additionals.xml"/>
+        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.10Oct094005.19796\netedit.gui\netelements\junctions\inspect_tls_selected\fringe\routes.xml"/>
+        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.10Oct094005.19796\netedit.gui\netelements\junctions\inspect_tls_selected\fringe\routes.xml"/>
+        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.10Oct094005.19796\netedit.gui\netelements\junctions\inspect_tls_selected\fringe\datas.xml"/>
+        <dataelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.10Oct094005.19796\netedit.gui\netelements\junctions\inspect_tls_selected\fringe\datas.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="/home/palcraft/.texttest/tmp/netedit.daily.net.junctions.16Jun091036.28922/netedit.daily.net.junctions/netelements/junctions/inspect_tls_selected/fringe/gui-settings.xml"/>
-        <window-size value="936,697"/>
+        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.10Oct094005.19796\netedit.gui\netelements\junctions\inspect_tls_selected\fringe\gui-settings.xml"/>
+        <window-size value="936, 697"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
-        <gui-testing.setting-output value="/home/palcraft/.texttest/tmp/netedit.daily.net.junctions.16Jun091036.28922/netedit.daily.net.junctions/netelements/junctions/inspect_tls_selected/fringe/guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.10Oct094005.19796\netedit.gui\netelements\junctions\inspect_tls_selected\fringe\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="/home/palcraft/.texttest/tmp/netedit.daily.net.junctions.16Jun091036.28922/netedit.daily.net.junctions/netelements/junctions/inspect_tls_selected/fringe/log.txt"/>
+        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.10Oct094005.19796\netedit.gui\netelements\junctions\inspect_tls_selected\fringe\log.txt"/>
     </report>
 
 </configuration>
@@ -74,9 +74,6 @@
     </edge>
     <edge id=":C_0" function="internal">
         <lane id=":C_0_0" index="0" disallow="pedestrian" speed="3.65" length="4.67" shape="0.00,51.60 -1.20,50.80 -1.60,50.00 -1.20,49.20 0.00,48.40"/>
-    </edge>
-    <edge id=":C_w0" function="walkingarea">
-        <lane id=":C_w0_0" index="0" allow="pedestrian" speed="1.00" length="14.80" width="2.00" shape="0.00,43.60 0.00,41.60 0.00,58.40 0.00,56.40"/>
     </edge>
     <edge id=":Center_0" function="internal">
         <lane id=":Center_0_0" index="0" disallow="pedestrian" speed="7.01" length="6.43" shape="45.20,61.40 44.79,58.51 43.55,56.45 42.60,55.88"/>
@@ -371,8 +368,6 @@
     <connection from="1" to=":A_w0" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":B_w0" to="6" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="2" to=":B_w0" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":C_w0" to="7" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="3" to=":C_w0" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":Center_c0" to=":Center_w1" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":Center_c1" to=":Center_w3" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":Center_w0" to=":Center_c1" fromLane="0" toLane="0" tl="Center" linkIndex="21" dir="s" state="M"/>

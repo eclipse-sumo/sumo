@@ -195,7 +195,7 @@ MSRailSignalConstraint_Predecessor::getDescription() const {
     if (passedIDs.size() > 0) {
         passedIDs2 = " (" + toString(passedIDs) + ")";
     }
-    return ("predecessor " + myTripId + vehID + " at signal " + myTrackers.front()->getLane()->getEdge().getFromJunction()->getID()
+    return (toString(getTag()) + "  " + myTripId + vehID + " at signal " + myTrackers.front()->getLane()->getEdge().getFromJunction()->getID()
             + " passed=" + StringUtils::prune(toString(myTrackers.front()->myPassed)) + passedIDs2);
 }
 

@@ -1608,6 +1608,47 @@ def changeContainerFlowPlan(containerFlowPlan):
     typeEnter()
 
 #################################################
+# personPlan elements
+#################################################
+
+
+def personPlanMode():
+    """
+    @brief change to person mode
+    """
+    typeKey('c')
+    # wait for gl debug
+    time.sleep(DELAY_CHANGEMODE)
+
+
+def changePersonPlanMode(personPlan):
+    """
+    @brief change containerPlan
+    """
+    # focus current frame
+    focusOnFrame()
+    # jump to person plan
+    for _ in range(5):
+        typeTab()
+    # paste the new containerPlan
+    pasteIntoTextField(personPlan)
+    # type enter to save change
+    typeEnter()
+
+#################################################
+# containerPlan elements
+#################################################
+
+
+def containerPlanMode():
+    """
+    @brief change to person mode
+    """
+    typeKey('h')
+    # wait for gl debug
+    time.sleep(DELAY_CHANGEMODE)
+
+#################################################
 # stop elements
 #################################################
 

@@ -557,6 +557,7 @@
             <xsd:element name="insertionPredecessor" type="constraintType"/>
             <xsd:element name="foeInsertion" type="constraintType"/>
             <xsd:element name="insertionOrder" type="constraintType"/>
+            <xsd:element name="bidiPredecessor" type="constraintType"/>
         </xsd:choice>
         <xsd:attribute name="id" type="idType" use="required"/>
     </xsd:complexType>

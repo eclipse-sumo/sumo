@@ -102,6 +102,7 @@ title: ChangeLog
   - Invalid state string length now always triggers a warning. Issue #11637
   - Activating option **--ptline-output** no longer modifies the network. Issue #10732
   - Fixed bug that caused inconsistent opposite-edge declarations to be written. Issue #11731
+  - OSM import: fixed public transport stop assignment to edge without proper permissions. Issue #11656
 
 - duarouter
   - vTypeDistributions with attribute `vTypes` now consider vType-probabilities. Issue #11376
@@ -134,8 +135,9 @@ title: ChangeLog
   - Fixed use of `gapPenalty` parameter in function `sumolib.route.mapTrace`. Issue #11292
   - plotXMLAttributes.py: Now support plotting by rank (by specifying attribute `@RANK`). Issue #11605
   - osmWebWizard.py Now aborts early if the OSM download fails and no longer leaves empty directories behind. Issue #11722
+  - osmWebWizard.py Now gives better feedback on certificate errors. Issue #10804
   - turnfile2EdgeRelations.py: Fixed invalid end element, preserving comments. Issue #11748
-  
+  - gtfs2pt.py: Now handling empty timetable. Issue #11763  
 
 ### Enhancements
 
@@ -154,6 +156,7 @@ title: ChangeLog
   - Specifying pedestrian `<walk>` with `departPosLat="random"` is now supported. Issue #10573
   - Option **--devices.ssm.measures** now supports comma-separated values. Issue #10478
   - When using the special string 'TIME' in file names, all written files now use the same time stamp. Issue #10346
+  - Added option **--pedestrian.striping.walkingarea-detail INT** to increase the smoothness of pedestrian trajectories. Issue #8797
 
 - netedit
   - Saved detector names use descriptive tags instead of the 'E1,E2, ...' tags. Issue #11028
@@ -176,6 +179,8 @@ title: ChangeLog
   - Creating accidental double stops for the same vehicle is now prevented. Issue #10078
   - Holding the middle button now allows panning the view (also in sumo-gui). Issue #11632
   - "Undo-Redo list" dialog now includes color codes and entity ids. Issue #4765
+  - Using distinct walkingArea color to distinguish them from other objects. Issue #11724
+  - Every vClass has it's own icon now. Issue #9872
   - Traffic light mode:
     - phase table now permits moving phases up and down. Issue #10856
     - Added buttons reset either the current program or all programs of the current traffic light to their default. Issue #9072, #11357
@@ -208,8 +213,11 @@ title: ChangeLog
   - Added extra consistency checks for public transport stop ordering in OSM input (with regard to bidi-edges). Issue #11612
   - Original ids of edges of removed edges are now stored in joined junctions parameters. Issue #11428
   - OSM import now support more symbolic speed restrictions. Issue #11682, #11683
+  - OSM import now sets the fringe type of nodes for dead-ends. Issue #6623
+  - Option **--fringe.guess** now detects more outer fringe nodes. Issue #11754
   - Node clusters and joint traffic lights get now similar ids of the form "cluster_id0_id1" or "joinedS_...", "joinedG_...". Issue #3871
   - Joined ids are abbreviated with the scheme `"cluster_id0_id1_id2_id3_#5more"` if too many junctions / traffic lights are participating, see also **-max-join-ids**. Issue #10795
+  
 
 - netgenerate
   - Now supports options **--geometry.remove** and **--tls.discard-simple**. Issue #11422
@@ -228,6 +236,7 @@ title: ChangeLog
   - Added function `traci.trafficlight.updateConstraints` for automated updating of rail signal constraints after rerouting. Issue #10134
   - Added function `traci.gui.setAngle` to change viewport angle. Issue #11239
   - Added functions `traci.gui.addView`, `traci.gui.removeView` to add/remoview view windows. Issue #11760
+  - Fixed bug where CACC model had invalid speed while activating [ToC](ToC_Device.md). Issue #6192
 
 - tools
   - routeSampler.py: now supports options **--depart-attribute**, **--arrival-attribute** to set extra constraints. Issue #6727
@@ -240,7 +249,7 @@ title: ChangeLog
   - osmWebWizard.py: Now prevents turn-arounds at the start and end of routes to improve traffic flow. Issue #10167
   - osmWebWizard.py: Now reliably generates trips in small networks. Issue #11563
   - osmWebWizard.py: Now aborts scenario building if when trying and failing to retrieve satellite data. Issue #11423
-  - attributeStats.py: Now includes `stdDev` in outputs. Issue #10869
+  - attributeStats.py: Now includes `stdDev` in outputs. Issue #10869  
   
   ### Miscellaneous
 

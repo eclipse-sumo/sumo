@@ -191,11 +191,9 @@ MSRouteHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
         }
         SUMORouteHandler::myStartElement(element, attrs);
         switch (element) {
-            case SUMO_TAG_PERSON:
             case SUMO_TAG_PERSONFLOW:
                 addPerson(attrs);
                 break;
-            case SUMO_TAG_CONTAINER:
             case SUMO_TAG_CONTAINERFLOW:
                 addContainer(attrs);
                 break;
@@ -755,9 +753,13 @@ MSRouteHandler::closeTransportable() {
                 && !type->getParameter().wasSet(VTYPEPARS_VEHICLECLASS_SET)) {
             WRITE_WARNINGF("Person '%' receives type '%' which implicitly uses unsuitable vClass '%'.", myVehicleParameter->id, type->getID(), toString(type->getVehicleClass()));
         }
-        addFlowTransportable(myVehicleParameter->depart, type, myVehicleParameter->id, -1);
+        int created = addFlowTransportable(myVehicleParameter->depart, type, myVehicleParameter->id, -1);
         registerLastDepart();
-        resetActivePlanAndVehicleParameter();
+        if (created > 0) {
+            resetActivePlanAndVehicleParameter();
+        } else {
+            deleteActivePlanAndVehicleParameter();
+        }
     } catch (ProcessError&) {
         deleteActivePlanAndVehicleParameter();
         throw;
@@ -840,9 +842,10 @@ MSRouteHandler::closeTransportableFlow() {
 }
 
 
-void
+int
 MSRouteHandler::addFlowTransportable(SUMOTime depart, MSVehicleType* type, const std::string& baseID, int i) {
     try {
+        int numCreated = 0;
         MSNet* const net = MSNet::getInstance();
         MSTransportableControl& tc = myActiveType == ObjectTypeEnum::PERSON ? net->getPersonControl() : net->getContainerControl();
         const MSVehicleControl& vc = MSNet::getInstance()->getVehicleControl();
@@ -874,6 +877,7 @@ MSRouteHandler::addFlowTransportable(SUMOTime depart, MSVehicleType* type, const
             MSTransportable* transportable = myActiveType == ObjectTypeEnum::PERSON ?
                                              tc.buildPerson(myVehicleParameter, type, myActiveTransportablePlan, &myParsingRNG) :
                                              tc.buildContainer(myVehicleParameter, type, myActiveTransportablePlan);
+            numCreated++;
             if (!tc.add(transportable)) {
                 std::string error = "Another " + myActiveTypeName + " with the id '" + myVehicleParameter->id + "' exists.";
                 delete transportable;
@@ -886,6 +890,7 @@ MSRouteHandler::addFlowTransportable(SUMOTime depart, MSVehicleType* type, const
                 WRITE_WARNINGF("There exists a person and a container with the same id '%'. Starting with SUMO 1.9.0 this is an error.", myVehicleParameter->id);
             }
         }
+        return numCreated;
     } catch (ProcessError&) {
         deleteActivePlanAndVehicleParameter();
         throw;

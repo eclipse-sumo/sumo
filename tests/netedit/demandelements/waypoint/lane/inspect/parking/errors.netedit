@@ -22,7 +22,12 @@ Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Selected item 'routeFlow' in DemandElementSelector
 Debug: Selected item 'waypointLane' in GNETagSelector
 Debug: Adding waypointLane 'routeFlow' in GNEChange_DemandElement
+Debug: Value 'opportunistic' for attribute parking of waypointLane isn't valid
 Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Restoring previous attribute
@@ -32,6 +37,9 @@ Debug: Removing waypointLane 'routeFlow' in GNEChange_DemandElement
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding waypointLane 'routeFlow' in GNEChange_DemandElement
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute

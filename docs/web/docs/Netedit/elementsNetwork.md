@@ -21,6 +21,7 @@ Example of edge. Note that the box "select edge" is **checked**
 ## Lanes
 
 Each SUMO edge is composed of a set of [lanes](../Networks/PlainXML.md#lane-specific_definitions) (At least one).
+To inspect and edit lane attributes, either SHIFT+click on a lane or toggle the corresponding menu bar button ton control whether inspect clicks should target edges (default) or lanes (shortcut ALT+5).
 
 ![](../images/GNELane.png)   
 Example of lane. Note that the box "select edge" is **unchecked**

@@ -70,7 +70,7 @@ netedit.modifyAttribute(netedit.attrs.container.inspect.id, ";;;;;;;;", False)
 netedit.modifyAttribute(netedit.attrs.container.inspect.id, "id with spaces", False)
 
 # change ID with an invalid value
-netedit.modifyAttribute(netedit.attrs.container.inspect.id, "p_1", False)
+netedit.modifyAttribute(netedit.attrs.container.inspect.id, "c_1", False)
 
 # change ID with an invalid value (empty)
 netedit.modifyAttribute(netedit.attrs.container.inspect.id, "customID", False)

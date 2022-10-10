@@ -262,6 +262,8 @@ enum SumoXMLTag {
     SUMO_TAG_FOE_INSERTION,
     /// @brief Predecessor constraint on insertion before rail signal
     SUMO_TAG_INSERTION_ORDER,
+    /// @brief Predecessor constraint for rail signal before bidirectional section
+    SUMO_TAG_BIDI_PREDECESSOR,
     /// @brief Saved state for constraint tracker
     SUMO_TAG_RAILSIGNAL_CONSTRAINT_TRACKER,
     /// @brief Link information for state-saving

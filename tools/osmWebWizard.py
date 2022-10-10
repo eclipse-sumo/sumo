@@ -33,6 +33,7 @@ import tempfile
 import shutil
 from zipfile import ZipFile
 import base64
+import ssl
 
 import osmGet
 import osmBuild
@@ -498,6 +499,8 @@ class OSMImporterWebSocket(WebSocket):
                 builder.finalize()
 
                 self.sendMessage(u"zip " + data)
+        except ssl.SSLCertVerificationError:
+            self.report("Error with SSL certificate, try 'pip install certifi'.")
         except Exception:
             print(traceback.format_exc())
             # reset 'Generate Scenario' button

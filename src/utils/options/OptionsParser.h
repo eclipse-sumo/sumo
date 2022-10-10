@@ -63,7 +63,7 @@ private:
      * @return Number of read tokens (1 or 2)
      * @exception InvalidArgument If a performed setting of an option failed (see Option::set)
      */
-    static int check(const std::string& arg1, const std::string& arg2, bool& ok, const bool ignoreAppenders);
+    static int check(const std::string& arg1, const std::string* const arg2, bool& ok, const bool ignoreAppenders);
 
 
     /** @brief Returns the whether the given token is an option

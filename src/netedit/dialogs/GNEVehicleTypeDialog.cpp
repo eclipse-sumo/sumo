@@ -141,8 +141,11 @@ GNEVehicleTypeDialog::VTypeAtributes::VClassRow::setVariable() {
                 myVTypeAtributesParent->myLocomotiveLength->updateValue(toString(defaultVTypeParameters.containerCapacity));
             }
             // update GUIShape
-            myVTypeAtributesParent->myVShapeRow->updateValue(SumoVehicleClassStrings.get(myComboBoxVClass->getText().text()));
-
+            if (myComboBoxVClass->getText().empty()) {
+                myVTypeAtributesParent->myVShapeRow->updateValue(SVC_PASSENGER);
+            } else {
+                myVTypeAtributesParent->myVShapeRow->updateValue(SumoVehicleClassStrings.get(myComboBoxVClass->getText().text()));
+            }
         }
     } else {
         myComboBoxVClass->setTextColor(FXRGB(255, 0, 0));
@@ -221,7 +224,7 @@ GNEVehicleTypeDialog::VTypeAtributes::VClassRow::setVClassLabelImage() {
                 myComboBoxVClassLabelImage->setIcon(GUIIconSubSys::getIcon(GUIIcon::VCLASS_RAIL_ELECTRIC));
                 break;
             case SVC_RAIL_FAST:
-                myComboBoxVClassLabelImage->setIcon(GUIIconSubSys::getIcon(GUIIcon::VCLASS_RAIL_ELECTRIC));
+                myComboBoxVClassLabelImage->setIcon(GUIIconSubSys::getIcon(GUIIcon::VCLASS_RAIL_FAST));
                 break;
             case SVC_MOTORCYCLE:
                 myComboBoxVClassLabelImage->setIcon(GUIIconSubSys::getIcon(GUIIcon::VCLASS_MOTORCYCLE));

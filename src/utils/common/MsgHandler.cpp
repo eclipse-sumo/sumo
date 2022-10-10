@@ -224,6 +224,47 @@ MsgHandler::removeRetrieverFromAllInstances(OutputDevice* out) {
     }
 }
 
+
+void
+MsgHandler::setupI18n(const std::string& locale) {
+#ifdef HAVE_INTL
+    // inspired by https://erri120.github.io/posts/2022-05-05/
+#if WIN32
+    // LocaleNameToLCID requires a LPCWSTR so we need to convert from char to wchar_t
+    const auto wStringSize = MultiByteToWideChar(CP_UTF8, 0, locale.data(), static_cast<int>(locale.length()), nullptr, 0);
+    std::wstring localeName;
+    localeName.reserve(wStringSize);
+    MultiByteToWideChar(CP_UTF8, 0, locale.data(), static_cast<int>(locale.length()), localeName.data(), wStringSize);
+
+    _configthreadlocale(_DISABLE_PER_THREAD_LOCALE);
+    const auto localeId = LocaleNameToLCID(localeName.c_str(), LOCALE_ALLOW_NEUTRAL_NAMES);
+    SetThreadLocale(localeId);
+#else
+    if (!setlocale(LC_MESSAGES, locale.data())) {
+        WRITE_WARNING("Could not set locale to '" + locale + "'.");
+    }
+#endif
+    const char* sumoPath = std::getenv("SUMO_HOME");
+    if (sumoPath == nullptr) {
+        if (!bindtextdomain("sumo", nullptr)) {
+            WRITE_WARNING("Environment variable SUMO_HOME is not set, could not find localized messages.");
+            return;
+        }
+    } else {
+        const std::string path = sumoPath + std::string("/data/locale/");
+        if (!bindtextdomain("sumo", path.data())) {
+            WRITE_WARNING("Could not find localized messages.");
+            return;
+        }
+    }
+    bind_textdomain_codeset("sumo", "UTF-8");
+    textdomain("sumo");
+#else
+    UNUSED_PARAMETER(locale);
+#endif
+}
+
+
 void
 MsgHandler::initOutputOptions() {
     // initialize console properly

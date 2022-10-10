@@ -196,7 +196,10 @@ def traceMap(options, typedNets, radius=100):
         net = sumolib.net.readNet(os.path.join(options.network_split, railType + ".net.xml"))
         netBox = net.getBBoxXY()
         numTraces = 0
-        traces = tracemapper.readFCD(os.path.join(options.fcd, railType + ".fcd.xml"), net, True)
+        filePath = os.path.join(options.fcd, railType + ".fcd.xml")
+        if not os.path.exists(filePath):
+            return []
+        traces = tracemapper.readFCD(filePath, net, True)
         for tid, trace in traces:
             numTraces += 1
             minX, minY, maxX, maxY = sumolib.geomhelper.addToBoundingBox(trace)
@@ -415,6 +418,8 @@ def main(options):
                     time, edge, speed, coverage, id, minute_of_week = line.split('\t')[:6]
                     routes[id].append(edge)
         else:
+            if not gtfs2fcd.dataAvailable(options):
+                sys.exit("No GTFS data found for given date %s." % options.date)
             if options.mapperlib != "tracemapper":
                 print("Warning! No mapping library found, falling back to tracemapper.")
             routes = traceMap(options, typedNets)

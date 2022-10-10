@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-07-14 14:13:37.579391 by gtfs2pt.py v1_14_0+0097-18db435eed4
+<!-- generated on 2022-10-10 14:13:26.754406 by gtfs2pt.py v1_14_1+1550-f8df5abf1d7
 <configuration>
     <begin value="28800"/>
     <date value="20201111"/>
@@ -13,6 +13,6 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vehicle id="413_132189814.0" route="132189814" type="bus" depart="36890" line="413_132189814"/>
-    <vehicle id="413_132190299.0" route="132190299" type="bus" depart="43310" line="413_132190299"/>
+    <vehicle id="413_132189814.0" route="413_132189814" type="bus" depart="36890" line="413_132189814"/>
+    <vehicle id="413_132190299.0" route="413_132190299" type="bus" depart="43310" line="413_132190299"/>
 </routes>

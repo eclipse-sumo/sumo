@@ -14,6 +14,7 @@
 # @file    gtfs2fcd.py
 # @author  Michael Behrisch
 # @author  Robert Hilbrich
+# @author  Mirko Barthauer
 # @date    2018-06-13
 
 """
@@ -93,6 +94,13 @@ def get_merged_data(options):
                                    'arrival_time', 'departure_time']].drop_duplicates()
 
 
+def dataAvailable(options):
+    for mode in options.modes.split(","):
+        if os.path.exists(os.path.join(options.fcd, "%s.fcd.xml" % mode)):
+            return True
+    return False
+
+
 def main(options):
     full_data_merged = get_merged_data(options)
     fcdFile = {}
@@ -137,8 +145,8 @@ def main(options):
                     seqs[s] = trip_id
                     fcdFile[mode].write(buf)
                     timeIndex = arrivalSec
-                tripFile[mode].write(u'    <vehicle id="%s_%s" route="%s" type="%s" depart="%s" line="%s_%s"/>\n' %
-                                     (d.route_short_name, trip_id, seqs[s], mode, firstDep,
+                tripFile[mode].write(u'    <vehicle id="%s_%s" route="%s_%s" type="%s" depart="%s" line="%s_%s"/>\n' %
+                                     (d.route_short_name, trip_id, d.route_short_name, seqs[s], mode, firstDep,
                                       d.route_short_name, seqs[s]))
                 seenModes.add(mode)
     if options.gpsdat:
@@ -155,7 +163,8 @@ def main(options):
             else:
                 os.remove(fcdFile[mode].name)
                 os.remove(tripFile[mode].name)
-    gtfs2osm.write_vtypes(options, seenModes)
+    if dataAvailable(options):
+        gtfs2osm.write_vtypes(options, seenModes)
 
 
 if __name__ == "__main__":

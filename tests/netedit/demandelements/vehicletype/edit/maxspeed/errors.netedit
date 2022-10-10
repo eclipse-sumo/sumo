@@ -65,7 +65,7 @@ Debug: Created connection 'fromgneE9_0togneE11_0' in retrieveGNEConnection()
 Debug: Adding vType 't_0' in GNEChange_DemandElement
 Debug: Setting new attribute
 Debug: Value 'dummyMaxSpeed' for attribute maxSpeed of vType isn't valid
-Debug: Value 'dummyMaxSpeed' for attribute maxSpeed of vType isn't valid
+Debug: Value '-30' for attribute maxSpeed of vType isn't valid
 Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()

@@ -25,6 +25,9 @@
 #include <vector>
 #include <map>
 #include <iostream>
+#ifdef HAVE_INTL
+#include <libintl.h>
+#endif
 #include <utils/iodevices/OutputDevice.h>
 
 
@@ -98,6 +101,9 @@ public:
 
     /// @brief ensure that that given output device is no longer used as retriever by any instance
     static void removeRetrieverFromAllInstances(OutputDevice* out);
+
+    ///@brief set up gettext stuff
+    static void setupI18n(const std::string& locale="");
 
     ///@brief init output options
     static void initOutputOptions();
@@ -289,3 +295,8 @@ private:
 #define WRITE_ERRORF(...) MsgHandler::getErrorInstance()->informf(__VA_ARGS__);
 #define WRITE_DEBUG(msg) if(MsgHandler::writeDebugMessages()){MsgHandler::getDebugInstance()->inform(msg);};
 #define WRITE_GLDEBUG(msg) if(MsgHandler::writeDebugGLMessages()){MsgHandler::getGLDebugInstance()->inform(msg);};
+#ifdef HAVE_INTL
+#define TL(string) gettext(string)
+#else
+#define TL(string) (string)
+#endif

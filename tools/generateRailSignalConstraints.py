@@ -44,12 +44,23 @@ identified (also based on "until"). Then a constraint is created that prevents
 insertion of B until train A has passed the next signal that lies beyond the
 stop.
 
-3. <predecessor>
+3. <foeInsertion>
 Whenever a vehicle A departs at a stop (assumed to coincide with the "until"
 attribute of it's first stop), the latter train B that enters this stop is
 identified (also based on "until"). Then a constraint is created that prevents
 B from entering the section with the stop until A has passed the next signal that lies beyond the
 stop.
+
+4. <insertionOrder>
+Whenever two vehicles depart at the same stop and their arrival times at that stop
+are in a different order from their departure times, an insertionOrder constraint
+is added the delays insertion to achieve the desired order.
+This may happen if departure times reflect the schedule but arrival times reflect post-facto timing (see below)
+
+5. <bidiPredecessor>
+Whenever two trains approach the same track section from different directions, a bidiPredecessor
+constraint may optionally be generated to enforce the order of entering that section based on the
+stop arrival times that follow the section on the respective side.
 
 == Inconsistencies ==
 
@@ -149,6 +160,8 @@ def get_options(args=None):
                                                         "(reduces impact of modifying constraints at runtime)")
     parser.add_argument("--bidi-max-range", dest="bidiMaxRange", type=float, default=1,
                         help="Find bidiStops on sequential edges within the given range in m")
+    parser.add_argument("--bidi-conflicts", dest="bidiConflicts", action="store_true", default=False,
+                        help="Write bidiPredecessor constraints")
     parser.add_argument("--comment.line", action="store_true", dest="commentLine", default=False,
                         help="add lines of involved trains in comment")
     parser.add_argument("--comment.id", action="store_true", dest="commentId", default=False,
@@ -171,6 +184,8 @@ def get_options(args=None):
                         help="print debug information for the given busStop id")
     parser.add_argument("--debug-vehicle", dest="debugVehicle",
                         help="print debug information for the given vehicle id")
+    parser.add_argument("--debug-foe-vehicle", dest="debugFoeVehicle",
+                        help="print debug information for the given (foe) vehicle id")
     parser.add_argument("--debug-edge", dest="debugEdge",
                         help="print debug information for the given edge id")
 
@@ -218,7 +233,7 @@ def formatStopTimes(arrival, until, started, ended):
 class Conflict:
     def __init__(self, tripID, otherSignal, otherTripID, limit, line, otherLine,
                  vehID, otherVehID, conflictTime, switch, busStop, info,
-                 active=True, tag=None):
+                 active=True, tag=None, busStop2=None):
         self.tripID = tripID
         self.otherSignal = otherSignal
         self.otherTripID = otherTripID
@@ -230,6 +245,7 @@ class Conflict:
         self.conflictTime = conflictTime
         self.switch = switch
         self.busStop = busStop
+        self.busStop2 = busStop2
         self.info = info
         self.active = active
         self.tag = tag
@@ -269,7 +285,7 @@ def getNextStraight(edge, nextDict):
 
 def getBidiSequence(options, net, edge):
     """find continuous sequene of bidi edges upstream and downstream of the given edge within the given range.
-       The search in eeach direction is aborted when encountering a switch"""
+       The search in each direction is aborted when encountering a switch"""
     result = []
     if edge.getBidi() is None:
         return result
@@ -326,7 +342,7 @@ def getStopRoutes(options, stopEdges, bidiStops):
     """parse routes and determine the list of edges between stops
         return: setOfUniqueRoutes, busstopDict
     """
-    uniqueRoutes = set()
+    uniqueRoutes = defaultdict(list) # edges -> [vehID, vehID2, ..]
     stopRoutes = defaultdict(list)  # busStop -> [(edges, stopObj), ....]
     stopRoutesBidi = defaultdict(list)  # busStop -> [(edges, stopObj), ....]
     vehicleStopRoutes = defaultdict(list)  # vehID -> [(edges, stopObj), ....]
@@ -341,7 +357,7 @@ def getStopRoutes(options, stopEdges, bidiStops):
         departTimes[vehicle.id] = depart
         numRoutes += 1
         edges = tuple(vehicle.route[0].edges.split())
-        uniqueRoutes.add(edges)
+        uniqueRoutes[edges].append(vehicle.id)
         lastIndex = -1
         routeIndex = 0
         tripId = vehicle.id
@@ -386,7 +402,7 @@ def findMergingSwitches(options, uniqueRoutes, net):
     """find switches where routes merge and thus conflicts must be solved"""
     predEdges = defaultdict(set)
     predReversal = set()
-    for edges in uniqueRoutes:
+    for edges in uniqueRoutes.keys():
         for i, edge in enumerate(edges):
             if i > 0:
                 pred = edges[i - 1]
@@ -453,6 +469,13 @@ def findStopsAfterMerge(net, stopRoutes, mergeSwitches):
         numFound, len(set(mergeSignals.values()))))
     return switchRoutes, mergeSignals
 
+def getArrivalSecure(stop):
+    if stop.hasAttribute("arrival"):
+        return parseTime(stop.arrival)
+    elif stop.hasAttribute("until"):
+        return parseTime(stop.until) - parseTime(stop.getAttributeSecure("duration", "0"))
+    else:
+        return None
 
 def computeSignalTimes(options, net, stopRoutes):
     signalTimes = defaultdict(list)  # signal -> [(timeAtSignal, stop), ...]
@@ -1024,20 +1047,22 @@ def getIntermediateInfo(pStop, nStop):
 
 
 def findSignal(net, nextEdges, reverse=False):
+    prevEdge = None
     for i, edge in enumerate(nextEdges):
+        if reverse:
+            edge, prevEdge = prevEdge, edge
+            if edge is None:
+                continue
+
         node = net.getEdge(edge).getFromNode()
         if node.getType() == "rail_signal":
             tls = net.getTLS(node.getID())
-            prevEdge = None
-            if not reverse and i > 0:
-                prevEdge = nextEdges[i - 1]
-            elif reverse and i + 1 < len(nextEdges):
-                prevEdge = nextEdges[i + 1]
-
             for inLane, outLane, _ in tls.getConnections():
                 if (outLane.getEdge().getID() == edge
                         and prevEdge == inLane.getEdge().getID()):
                     return tls.getID()
+        if not reverse:
+            prevEdge = edge
     return None
 
 
@@ -1099,7 +1124,7 @@ def findInsertionConflicts(options, net, stopEdges, stopRoutes, vehicleStopRoute
                 pIsBidiStop = pStop.busStop != busStop
                 pIsPassing = pIndex < len(pVehStops) - 1
                 pIsDepart = len(pEdges) == 1 and pIndex == 0
-                # usually, subsequent departuers do not require constraints
+                # usually, subsequent departures do not require constraints
                 # (unless depart, until and ended out of sync)
                 if not pIsDepart or departTimes[nStop.vehID] < departTimes[pStop.vehID]:
                     # find edges after stop
@@ -1286,6 +1311,211 @@ def findFoeInsertionConflicts(options, net, stopEdges, stopRoutes, vehicleStopRo
     return conflicts
 
 
+def getBidiID(net, edge):
+    bidi = net.getEdge(edge).getBidi()
+    if bidi:
+        return bidi.getID()
+    else:
+        return None
+
+
+def findBidiConflicts(options, net, stopEdges, uniqueRoutes, stopRoutes, vehicleStopRoutes):
+    """find routes that pass a bidirectional edge sequence between stops in opposite direction
+    """
+    # signal -> [(tripID, otherSignal, otherTripID, limit, line, otherLine, vehID, otherVehID), ...]
+    conflicts = defaultdict(list)
+
+    if not options.bidiConflicts:
+        return conflicts
+
+    numConflicts = 0
+    numIgnoredConflicts = 0
+
+    #bidiSections = findBidiSections(options, uniqueRoutes, net)
+    #bidiRoutes = find
+    edge2Route = defaultdict(list) # edge -> [route, route2, ...]
+    for route in uniqueRoutes:
+        for edge in route:
+            edge2Route[edge].append(route)
+    usedBidi = set()
+    for edge in edge2Route:
+        if getBidiID(net, edge) in edge2Route:
+            usedBidi.add(edge)
+
+    for busStop, stops in stopRoutes.items():
+        # group all approaches via the same edges
+        approaches = defaultdict(list) # edgesBefore -> [stop, stop2, ...]
+        for edgesBefore, stop in stops:
+            if not edgesBefore:
+                continue
+            approaches[edgesBefore].append(stop)
+
+        for edgesBefore, stops in approaches.items():
+            oRoutes = set()
+            stopBidi = getBidiID(net, edgesBefore[-1])
+            for edge in edgesBefore:
+                if edge in usedBidi:
+                    bidi = getBidiID(net, edge)
+                    for route in edge2Route[bidi]:
+                        if stopBidi not in route:
+                            oRoutes.add(route)
+            if oRoutes:
+                #print(edgesBefore, stop, oRoutes)
+
+                # different vehicles in approaches could have a different routes
+                # so we have to find the point of divergence separately
+                bidiBefore = filter(lambda x : x is not None, [getBidiID(net, e) for e in edgesBefore])
+                bidiBefore = list(reversed(list(bidiBefore)))
+                for stop in stops:
+                    vehID = stop.vehID
+                    stopRoute = vehicleStopRoutes[vehID]
+                    stopIndex = stopRoute.index((edgesBefore, stop))
+                    arrivals = []
+                    for route in oRoutes:
+                        for vehID2 in uniqueRoutes[route]:
+                            if vehID2 == vehID:
+                                continue
+                            stopRoute2 = vehicleStopRoutes[vehID2]
+                            # find first stop where stopRoute2 diverges from stopRoute
+                            # since the route could be looped we must find all points of divergence
+                            sI2b = -1 # stop index of previous divergence
+                            prevEdge = None
+                            for sI2, (edgesBefore2, stop2) in enumerate(stopRoute2):
+                                if sI2 < sI2b:
+                                    continue
+                                for e in edgesBefore2:
+                                    if e in bidiBefore:
+                                        # if the opposite train enters the conflict section with a reversal
+                                        # this doesn't provide for a useful entry signal
+                                        ignoreConflict = prevEdge == getBidiID(net, e)
+
+                                        debugSection = None
+                                        if vehID == options.debugVehicle:
+                                            debugSection = []
+
+                                        # found the start of the conflict zone, now we need to find the end
+                                        oppositeSection = [] # only for debug output
+                                        sI2b = findDivergence(net, arrivals,
+                                                              getEdges(stopRoute, stopIndex, getBidiID(net, e), False),
+                                                              getEdges(stopRoute2, sI2, e, True),
+                                                              stopRoute2, sI2, e,
+                                                              ignoreConflict,
+                                                              oppositeSection)
+
+                                        if (vehID == options.debugVehicle 
+                                            and vehID2 == options.debugFoeVehicle
+                                            and (stop.busStop == options.debugStop
+                                                 or options.debugStop is None)):
+                                            print("Opposite section when approaching stop %s oppositeStopIndex %s " % (
+                                                  stop.busStop, sI2b))
+                                            for e in oppositeSection:
+                                                print("edge:%s" % e)
+
+                                        break
+                                    prevEdge = e
+                                if sI2b is None:
+                                    # no divergence found
+                                    break
+                    if arrivals:
+                        nArrival = getArrivalSecure(stop)
+                        # we want to find the latest arrival that comes before nArrival (and optionally earlier ones)
+                        arrivals.sort(reverse=True, key=itemgetter(0))
+                        #print("found oppositeArrivals", [a[0] for a in arrivals])
+                        conflictArrival = None
+                        for pArrival, pStop, sIb, sI2, e1Final, e2Start in arrivals:
+                            if pArrival >= nArrival:
+                                continue
+                            if conflictArrival:
+                                if options.redundant >= 0:
+                                    if conflictArrival - pArrival > options.redundant:
+                                        break;
+                                else:
+                                    break
+
+                            if pStop.busStop == stop.busStop:
+                                # most likely a small reversal loop. There may
+                                # be some value in keeping the conflict (but
+                                # probably not strictly necessary)
+                                continue
+
+                            stopRoute2 = vehicleStopRoutes[pStop.vehID]
+                            # signal before vehID enters the conflict section
+                            nSignal = findSignal(net, getEdges(stopRoute, sIb, e1Final, False, noIndex=True), True)
+                            # signal before vehID2 enters the conflict section (in the opposite direction)
+                            pSignal = findSignal(net, getEdges(stopRoute2, sI2, e2Start, False, noIndex=True), True)
+
+                            if pSignal != nSignal and pSignal and pStop.vehID != stop.vehID:
+                                if nSignal is None or pSignal is None:
+                                    error = ("Ignoring bidi conflict for %s and %s between stops '%s' and '%'" + 
+                                             "because no rail signal was found for %s before edge '%s'")
+
+                                    if nSignal is None:
+                                        print(error % (stop.prevTripId, pStop.prevTripId,
+                                                       busStop, pStop.busStop, stop.prevTripId, e1Final), file=sys.stderr)
+                                    if pSignal is None:
+                                        print(error % (stop.prevTripId, pStop.prevTripId,
+                                                       busStop, pStop.busStop, pStop.prevTripId, e2Start), file=sys.stderr)
+                                    numIgnoredConflicts += 1
+                                    continue
+
+                                numConflicts += 1
+                                limit = 1
+                                times = "arrival=%s foeArrival=%s " % (humanReadableTime(nArrival), humanReadableTime(pArrival))
+                                info = ""
+                                active = not stop.getAttributeSecure(
+                                    "invalid", False) and not pStop.getAttributeSecure("invalid", False)
+
+                                if conflictArrival is None:
+                                    conflictArrival = pArrival
+                                conflicts[nSignal].append(Conflict(stop.prevTripId, pSignal, pStop.prevTripId, limit,
+                                                           # attributes for adding comments
+                                                           stop.prevLine, pStop.prevLine,
+                                                           stop.vehID, pStop.vehID,
+                                                           times, None,
+                                                           stop.busStop,
+                                                           info, active,
+                                                           busStop2=pStop.busStop))
+
+    if numConflicts > 0:
+        print("Found %s bidi conflicts" % numConflicts)
+    if numIgnoredConflicts > 0:
+        print("Ignored %s bidi conflicts" % (numIgnoredConflicts))
+    return conflicts
+
+
+def getEdges(stopRoute, index, startEdge, forward, noIndex=False):
+    endIndex = len(stopRoute) if forward else -1
+    inc = 1 if forward else -1
+    while index != endIndex:
+        edgesBefore, stop = stopRoute[index]
+        seq = edgesBefore if forward else list(reversed(edgesBefore))
+        for e in seq:
+            if startEdge and e != startEdge:
+                continue
+            if startEdge:
+                startEdge = None
+            if noIndex:
+                yield e
+            else:
+                yield e, index
+        index += inc
+
+
+def findDivergence(net, arrivals, backwardGen, forwardGen, stopRoute2, sI2, e2Start, ignoreConflict, visited=[]):
+    for (e1, sIb), (e2, sI2b) in zip(backwardGen,forwardGen):
+        visited.append(e2)
+        if e2 != getBidiID(net, e1):
+            if e2 == e1prev or ignoreConflict:
+                # opposite train has a reversal. This leads to a different kind of conflict
+                return None
+            # found divergence
+            stop2b = stopRoute2[sI2b][1]
+            arrivals.append((getArrivalSecure(stop2b), stop2b, sIb, sI2, e1, e2Start))
+            return sI2
+        e1prev = e1
+    return None
+
+
 def writeConstraint(options, outf, tag, c):
     if c.tag is not None:
         tag = c.tag
@@ -1305,6 +1535,8 @@ def writeConstraint(options, outf, tag, c):
         comment += "switch=%s " % c.switch
     if options.commentStop:
         comment += "busStop=%s " % c.busStop
+        if c.busStop2 is not None:
+            comment += "busStop2=%s " % c.busStop2
     if options.commentTime:
         comment += c.conflictTime
     if c.info != "":
@@ -1330,19 +1562,25 @@ def main(options):
     if options.abortUnordered:
         markOvertaken(options, vehicleStopRoutes, stopRoutes)
     parkingConflicts = updateStartedEnded(options, net, stopEdges, stopRoutesBidi, vehicleStopRoutes)
+
     mergeSwitches = findMergingSwitches(options, uniqueRoutes, net)
     signalTimes = computeSignalTimes(options, net, stopRoutes)
     switchRoutes, mergeSignals = findStopsAfterMerge(net, stopRoutes, mergeSwitches)
     conflicts, intermediateParkingConflicts = findConflicts(
         options, net, switchRoutes, mergeSignals, signalTimes, stopEdges, vehicleStopRoutes)
+
     foeInsertionConflicts = findFoeInsertionConflicts(options, net, stopEdges, stopRoutesBidi, vehicleStopRoutes)
     insertionConflicts = findInsertionConflicts(options, net, stopEdges, stopRoutesBidi, vehicleStopRoutes, departTimes)
+
+    bidiConflicts = findBidiConflicts(options, net, stopEdges, uniqueRoutes,
+            stopRoutes, vehicleStopRoutes)
 
     signals = sorted(set(list(conflicts.keys())
                          + list(foeInsertionConflicts.keys())
                          + list(insertionConflicts.keys())
                          + list(parkingConflicts.keys())
-                         + list(intermediateParkingConflicts.keys())))
+                         + list(intermediateParkingConflicts.keys())
+                         + list(bidiConflicts.keys())))
 
     with open(options.out, "w") as outf:
         sumolib.writeXMLHeader(outf, "$Id$", "additional", options=options)  # noqa
@@ -1355,6 +1593,8 @@ def main(options):
             for conflict in (insertionConflicts[signal] + parkingConflicts[signal] +
                              intermediateParkingConflicts[signal]):
                 writeConstraint(options, outf, "insertionPredecessor", conflict)
+            for conflict in bidiConflicts[signal]:
+                writeConstraint(options, outf, "bidiPredecessor", conflict)
             outf.write('    </railSignalConstraints>\n')
         outf.write('</additional>\n')
 

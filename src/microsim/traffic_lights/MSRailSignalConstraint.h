@@ -43,7 +43,8 @@ public:
        PREDECESSOR = 0, // swaps to PREDECESSOR
        INSERTION_PREDECESSOR = 1, // swaps to FOE_INSERTION
        FOE_INSERTION = 2, // swaps to INSERTION_PREDECESSOR
-       INSERTION_ORDER = 3 // swaps to INSERTION_ORDER
+       INSERTION_ORDER = 3, // swaps to INSERTION_ORDER
+       BIDI_PREDECESSOR = 4 // swaps to BIDI_PREDECESSOR
     };
 
     /** @brief Constructor
@@ -78,6 +79,8 @@ public:
                 return SUMO_TAG_FOE_INSERTION;
             case INSERTION_ORDER:
                 return SUMO_TAG_INSERTION_ORDER;
+            case BIDI_PREDECESSOR:
+                return SUMO_TAG_BIDI_PREDECESSOR;
             default:
                 return SUMO_TAG_PREDECESSOR;
         }
@@ -89,10 +92,8 @@ public:
                 return FOE_INSERTION;
             case FOE_INSERTION:
                 return INSERTION_PREDECESSOR;
-            case INSERTION_ORDER:
-                return INSERTION_ORDER;
             default:
-                return PREDECESSOR;
+                return myType;
         }
     }
 

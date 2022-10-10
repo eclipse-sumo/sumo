@@ -3,7 +3,8 @@ Finding reference
 TestFunctions: 'reference.png' found. Position: 304 - 168
 stopChargingStation
 TestFunctions: Clicked over position 594 - 363
-TestFunctions: Clicked over position 594 - 363
+true
+TestFunctions: Clicked over position 599 - 363
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Clicked over position 304 - 168

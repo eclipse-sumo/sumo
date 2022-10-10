@@ -44,7 +44,7 @@ netedit.changeStopType("waypointLane")
 netedit.leftClick(referencePosition, 400, 185)
 
 # change parking
-netedit.changeDefaultBoolValue(netedit.attrs.waypointLane.create.parking)
+netedit.changeDefaultValue(netedit.attrs.waypointLane.create.parking, "true")
 
 # create waypoint
 netedit.leftClick(referencePosition, 405, 185)

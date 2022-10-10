@@ -51,12 +51,13 @@
 // ===========================================================================
 int
 main(int argc, char** argv) {
+    MsgHandler::setupI18n();
     // make the output aware of threading
     MsgHandler::setFactory(&MsgHandlerSynchronized::create);
     // get the options
     OptionsCont& oc = OptionsCont::getOptions();
     // give some application descriptions
-    oc.setApplicationDescription("GUI version of the microscopic, multi-modal traffic simulation SUMO.");
+    oc.setApplicationDescription(TL("GUI version of the microscopic, multi-modal traffic simulation SUMO."));
     oc.setApplicationName("sumo-gui", "Eclipse SUMO GUI Version " VERSION_STRING);
     gSimulation = true;
     int ret = 0;

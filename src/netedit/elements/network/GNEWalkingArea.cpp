@@ -105,8 +105,8 @@ GNEWalkingArea::drawGL(const GUIVisualizationSettings& s) const {
     const double walkingAreaExaggeration = getExaggeration(s);
     // get walking area shape
     const auto& walkingAreaShape = myParentJunction->getNBNode()->getWalkingArea(getID()).shape;
-    // only continue if exaggeration is greather than 0
-    if ((walkingAreaShape.size() > 0) && s.drawCrossingsAndWalkingareas) {
+    // only continue if exaggeration is greather than 0 and junction's shape is greather than 4
+    if ((myParentJunction->getNBNode()->getShape().area() > 4) && (walkingAreaShape.size() > 0) && s.drawCrossingsAndWalkingareas) {
         // push junction name
         GLHelper::pushName(getGlID());
         // push layer matrix
@@ -114,7 +114,7 @@ GNEWalkingArea::drawGL(const GUIVisualizationSettings& s) const {
         // translate to front
         myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_WALKINGAREA);
         // set shape color
-        const RGBColor walkingAreaColor = myShapeEdited? s.colorSettings.editShapeColor : isAttributeCarrierSelected() ? RGBColor::BLUE : RGBColor::GREY;
+        const RGBColor walkingAreaColor = myShapeEdited? s.colorSettings.editShapeColor : isAttributeCarrierSelected() ? RGBColor::BLUE : s.junctionColorer.getScheme().getColor(6);
         // recognize full transparency and simply don't draw
         if (walkingAreaColor.alpha() != 0) {
             // set color

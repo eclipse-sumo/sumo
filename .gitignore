@@ -59,6 +59,8 @@
 /bin/liblibtracijni.jnilib
 /bin/libsumofmi2.dylib
 # data dir
+/data/locale
+/data/po/*.pot
 /data/proj
 # docs dir, make artifacts
 /docs/doxygen

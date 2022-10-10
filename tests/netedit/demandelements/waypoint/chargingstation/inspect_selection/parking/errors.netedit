@@ -27,6 +27,7 @@ Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Setting new attribute
+Debug: Value 'opportunistic' for attribute parking of waypointChargingStation isn't valid
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Restoring previous attribute
@@ -36,6 +37,16 @@ Debug: Calling GNEUndoList::undo()
 Debug: Restoring previous attribute
 Debug: Restoring previous attribute
 Debug: Restoring previous attribute
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
+Debug: Removing waypointChargingStation 'flow' in GNEChange_DemandElement
+Debug: Removing waypointChargingStation 'flow' in GNEChange_DemandElement
+Debug: Removing flow 'flow' in GNEChange_DemandElement
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
+Debug: Adding flow 'flow' in GNEChange_DemandElement
+Debug: Adding waypointChargingStation 'flow' in GNEChange_DemandElement
+Debug: Adding waypointChargingStation 'flow' in GNEChange_DemandElement
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute

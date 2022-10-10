@@ -21,6 +21,8 @@
 
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewParent.h>
+#include <netedit/GNEApplicationWindow.h>
 
 #include "GNEPersonPlanFrame.h"
 
@@ -109,6 +111,8 @@ GNEPersonPlanFrame::hide() {
     for (const auto& edge : myViewNet->getNet()->getAttributeCarriers()->getEdges()) {
         edge.second->resetCandidateFlags();
     }
+    // enable undo/redo
+    myViewNet->getViewParent()->getGNEAppWindows()->enableUndoRedo();
     // hide frame
     GNEFrame::hide();
 }

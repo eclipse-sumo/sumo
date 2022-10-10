@@ -44,7 +44,7 @@ netedit.changeStopType("stopChargingStation")
 netedit.leftClick(referencePosition, 290, 195)
 
 # change parking
-netedit.changeDefaultBoolValue(netedit.attrs.stop.create.parking)
+netedit.changeDefaultValue(netedit.attrs.stop.create.parking, "true")
 
 # create stop
 netedit.leftClick(referencePosition, 295, 195)

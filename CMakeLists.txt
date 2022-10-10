@@ -326,6 +326,14 @@ if (ZLIB_FOUND)
     include_directories(SYSTEM ${ZLIB_INCLUDE_DIR})
 endif ()
 
+find_package(Intl)
+if (Intl_FOUND)
+    set(HAVE_INTL 1)
+    link_directories(${Intl_LIBRARY_DIR})
+    include_directories(SYSTEM ${Intl_INCLUDE_DIRS})
+    set(ENABLED_FEATURES "${ENABLED_FEATURES} Intl")
+endif ()
+
 find_package(SWIG 3.0)
 if (SWIG_FOUND)
     set(ENABLED_FEATURES "${ENABLED_FEATURES} SWIG")
@@ -410,7 +418,7 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src)
 set(commonlibs
         utils_distribution utils_handlers utils_shapes utils_options
         utils_xml utils_geom utils_common utils_importio utils_iodevices utils_traction_wire foreign_tcpip
-        ${XercesC_LIBRARIES} ${ZLIB_LIBRARIES} ${PROJ_LIBRARY})
+        ${XercesC_LIBRARIES} ${ZLIB_LIBRARIES} ${PROJ_LIBRARY} ${Intl_LIBRARIES})
 if (WIN32)
     set(commonlibs ${commonlibs} ws2_32)
 endif ()

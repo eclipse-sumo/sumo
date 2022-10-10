@@ -283,6 +283,7 @@ NLHandler::myStartElement(int element,
             case SUMO_TAG_FOE_INSERTION: // intended fall-through
             case SUMO_TAG_INSERTION_PREDECESSOR: // intended fall-through
             case SUMO_TAG_INSERTION_ORDER:
+            case SUMO_TAG_BIDI_PREDECESSOR:
                 addPredecessorConstraint(element, attrs, myConstrainedSignal);
                 break;
             default:
@@ -1742,6 +1743,9 @@ NLHandler::addPredecessorConstraint(int element, const SUMOSAXAttributes& attrs,
             break;
         case SUMO_TAG_INSERTION_ORDER:
             type = MSRailSignalConstraint::ConstraintType::INSERTION_ORDER;
+            break;
+        case SUMO_TAG_BIDI_PREDECESSOR:
+            type = MSRailSignalConstraint::ConstraintType::BIDI_PREDECESSOR;
             break;
         default:
             throw InvalidArgument("Unsupported rail signal constraint '" + toString((SumoXMLTag)element) + "'");

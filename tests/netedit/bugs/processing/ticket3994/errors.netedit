@@ -171,7 +171,7 @@ Debug: Deleting unreferenced connection 'fromgneE9_1togneE10_1' in GNEEdge destr
 Debug: Deleting unreferenced connection 'fromgneE9_2togneE10_2' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE9_2to-gneE3_0' in GNEEdge destructor
 Debug: Deleting unreferenced junction 'A' in AttributeCarriers destructor
-Debug: Deleting unreferenced junction 'cluster_B_C' in AttributeCarriers destructor
+Debug: Deleting unreferenced junction 'clusterB_C' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'gneJ10' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'gneJ11' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'gneJ12' in AttributeCarriers destructor

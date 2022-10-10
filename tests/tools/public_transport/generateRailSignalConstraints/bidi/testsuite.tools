@@ -1,2 +1,5 @@
 # 2 common bidi edges between stations
 simple
+
+# 2 vehicles with looped routes
+2_looped
