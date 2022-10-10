@@ -158,7 +158,7 @@ MSCFModel_ACC::insertionFollowSpeed(const MSVehicle* const v, double speed, doub
 
 /// @todo update interactionGap logic
 double
-MSCFModel_ACC::interactionGap(const MSVehicle* const /* veh */, double /* vL */) const {
+MSCFModel_ACC::interactionGap(const MSVehicle* const /*veh */, double /* vL */) const {
     /*maximum radar range is ACC is enabled*/
     return 250;
 }
@@ -168,7 +168,7 @@ double MSCFModel_ACC::accelSpeedControl(double vErr) const {
     return mySpeedControlGain * vErr;
 }
 
-double MSCFModel_ACC::accelGapControl(const MSVehicle* const /*veh*/, const double gap2pred, const double speed, const double predSpeed, double vErr) const {
+double MSCFModel_ACC::accelGapControl(const MSVehicle* const veh, const double gap2pred, const double speed, const double predSpeed, double vErr) const {
 
 // Gap control law
     double gclAccel = 0.0;
