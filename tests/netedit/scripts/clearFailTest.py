@@ -38,6 +38,8 @@ with open("failTests.txt", "w") as fp:
             lineStrip = lineStrip.replace("errors different", "")
             lineStrip = lineStrip.replace("net different", "")
             lineStrip = lineStrip.replace("routes different", "")
+            lineStrip = lineStrip.replace("log different", "")
+            lineStrip = lineStrip.replace("output different", "")
             lineStrip = lineStrip.replace("additionals different", "")
             lineStrip = lineStrip.replace("output new", "")
             while (lineStrip.find('  ') > 0):
