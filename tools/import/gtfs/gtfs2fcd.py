@@ -145,8 +145,8 @@ def main(options):
                     seqs[s] = trip_id
                     fcdFile[mode].write(buf)
                     timeIndex = arrivalSec
-                tripFile[mode].write(u'    <vehicle id="%s_%s" route="%s" type="%s" depart="%s" line="%s_%s"/>\n' %
-                                     (d.route_short_name, trip_id, seqs[s], mode, firstDep,
+                tripFile[mode].write(u'    <vehicle id="%s_%s" route="%s_%s" type="%s" depart="%s" line="%s_%s"/>\n' %
+                                     (d.route_short_name, trip_id, d.route_short_name, seqs[s], mode, firstDep,
                                       d.route_short_name, seqs[s]))
                 seenModes.add(mode)
     if options.gpsdat:
