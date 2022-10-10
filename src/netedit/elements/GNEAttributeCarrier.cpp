@@ -4516,7 +4516,7 @@ GNEAttributeCarrier::fillPersonPlanTrips() {
         myTagProperties[currentTag].addAttribute(attrProperty);
         // arrival position
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ARRIVALPOS,
-                                              GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE,
+                                              GNEAttributeProperties::FLOAT | GNEAttributeProperties::DEFAULTVALUE,
                                               "arrival position on the destination edge",
                                               "-1");
         myTagProperties[currentTag].addAttribute(attrProperty);
@@ -4632,7 +4632,7 @@ GNEAttributeCarrier::fillPersonPlanWalks() {
         myTagProperties[currentTag].addAttribute(attrProperty);
         // arrival position
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ARRIVALPOS,
-                                              GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE,
+                                              GNEAttributeProperties::FLOAT | GNEAttributeProperties::DEFAULTVALUE,
                                               "arrival position on the destination edge",
                                               "-1");
         myTagProperties[currentTag].addAttribute(attrProperty);
@@ -4669,7 +4669,7 @@ GNEAttributeCarrier::fillPersonPlanWalks() {
         myTagProperties[currentTag].addAttribute(attrProperty);
         // arrival pos
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ARRIVALPOS,
-                                              GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE,
+                                              GNEAttributeProperties::FLOAT | GNEAttributeProperties::DEFAULTVALUE,
                                               "Arrival position on the destination edge",
                                               "-1");
         myTagProperties[currentTag].addAttribute(attrProperty);
@@ -4688,7 +4688,7 @@ GNEAttributeCarrier::fillPersonPlanWalks() {
         myTagProperties[currentTag].addAttribute(attrProperty);
         // arrival pos
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ARRIVALPOS,
-                                              GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE,
+                                              GNEAttributeProperties::FLOAT | GNEAttributeProperties::DEFAULTVALUE,
                                               "Arrival position on the destination edge",
                                               "-1");
         myTagProperties[currentTag].addAttribute(attrProperty);
@@ -4739,7 +4739,7 @@ GNEAttributeCarrier::fillPersonPlanRides() {
         myTagProperties[currentTag].addAttribute(attrProperty);
         // arrival position
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ARRIVALPOS,
-                                              GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE,
+                                              GNEAttributeProperties::FLOAT | GNEAttributeProperties::DEFAULTVALUE,
                                               "arrival position on the destination edge",
                                               "-1");
         myTagProperties[currentTag].addAttribute(attrProperty);
