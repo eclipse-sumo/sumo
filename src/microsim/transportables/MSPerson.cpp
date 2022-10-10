@@ -206,7 +206,7 @@ MSPerson::MSPersonStage_Walking::walkDistance(bool partial) const {
     const int departBwdArrivalDir = MSPModel::canTraverse(MSPModel::BACKWARD, myRoute);
     const bool mayStartForward = departFwdArrivalDir != MSPModel::UNDEFINED_DIRECTION;
     const bool mayStartBackward = departBwdArrivalDir != MSPModel::UNDEFINED_DIRECTION;
-    double arrivalPos = partial && myArrived < 0 ? getEdgePos(SIMTIME) : myArrivalPos;
+    const double arrivalPos = partial && myArrived < 0 ? getEdgePos(SIMSTEP) : myArrivalPos;
     const double lengthFwd = (length - myDepartPos - (
                                   departFwdArrivalDir == MSPModel::BACKWARD
                                   ? arrivalPos

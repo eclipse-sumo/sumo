@@ -205,10 +205,10 @@ GUIOSGPerspectiveChanger::getPositionOnGround(double x, double y) {
     inverseVP.invert(VP);
 
     // compute world near far
-    osg::Vec3 nearPoint(x, y, -1.0f);
-    osg::Vec3 farPoint(x, y, 1.0f);
-    osg::Vec3 nearPointWorld = nearPoint * inverseVP;
-    osg::Vec3 farPointWorld = farPoint * inverseVP;
+    osg::Vec3d nearPoint(x, y, -1.);
+    osg::Vec3d farPoint(x, y, 1.);
+    osg::Vec3d nearPointWorld = nearPoint * inverseVP;
+    osg::Vec3d farPointWorld = farPoint * inverseVP;
 
     // compute crossing with ground plane
     osg::Vec3d ray = farPointWorld - nearPointWorld;
