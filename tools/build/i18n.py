@@ -31,8 +31,9 @@ SUMO_HOME = os.environ.get("SUMO_HOME", os.path.dirname(os.path.dirname(os.path.
 
 
 def get_args(args=None):
+    existing_langs = [os.path.basename(p)[:2] for p in glob(SUMO_HOME + "/data/po/*_sumo.po")]
     arg_parser = ArgumentParser()
-    arg_parser.add_argument("-l", "--lang", nargs='*', default=["de", "fr"],
+    arg_parser.add_argument("-l", "--lang", nargs='*', default=existing_langs,
                             help="languages to process")
     return arg_parser.parse_args(args)
 
