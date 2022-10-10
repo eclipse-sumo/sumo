@@ -530,9 +530,20 @@ class VehicleDomain(VTypeDomain):
         return self._getUniversal(tc.VAR_LASTACTIONTIME, vehID)
 
     def getBestLanes(self, vehID):
-        """getBestLanes(string) -> tuple(bestLanesTuples)
+        """getBestLanes(string) -> tuple(data)
+        where data is a tuple of (laneID, length, occupation, offset, allowsContinuation, tuple(nextLanes))
 
-        Information about the wish to use subsequent edges' lanes.
+        For each lane of the current edge a data tuple is returned where the
+        entries have the following meaning:
+        - laneID: the id of that lane on the current edge
+        - the length that can be driven without lane change (measured from the start of that lane)
+        - the occupation on the future lanes (brutto vehicle lengths)
+        - the offset of that lane from the lane that would be strategically
+          preferred (this is the lane that requires the least future lane
+          changes or a lane that needs to be used for stopping)
+        - whether that lane allows continuing the route (for at least one more edge)
+        - the sequence of lanes that would be driven starting at laneID if no
+          lane change were to take place
         """
         return self._getUniversal(tc.VAR_BEST_LANES, vehID)
 
