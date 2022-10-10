@@ -163,7 +163,8 @@ def main(options):
             else:
                 os.remove(fcdFile[mode].name)
                 os.remove(tripFile[mode].name)
-    gtfs2osm.write_vtypes(options, seenModes)
+    if dataAvailable(options):
+        gtfs2osm.write_vtypes(options, seenModes)
 
 
 if __name__ == "__main__":
