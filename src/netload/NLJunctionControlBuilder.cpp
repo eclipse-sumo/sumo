@@ -148,8 +148,8 @@ NLJunctionControlBuilder::closeJunction(const std::string& basePath) {
         if (!myJunctions->add(myActiveID, junction)) {
             throw InvalidArgument("Another junction with the id '" + myActiveID + "' exists.");
         }
+        junction->updateParameters(myAdditionalParameter);
     }
-    junction->updateParameters(myAdditionalParameter);
 }
 
 
