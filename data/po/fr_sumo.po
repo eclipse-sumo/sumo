@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2022-10-11 18:45+0200\n"
+"POT-Creation-Date: 2022-10-11 18:52+0200\n"
 "PO-Revision-Date: 2022-10-09 17:46+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -796,11 +796,13 @@ msgid "Ignoring invalid stopOffset for lane '%' (invalid lane index)."
 msgstr ""
 
 #: /home/micha/sumo/src/netbuild/NBEdge.cpp:4366
-msgid "Edge '%' already has a dedicated lane for %. Not adding another one."
+#, c-format
+msgid "Edge '%' already has a dedicated lane for %s. Not adding another one."
 msgstr ""
 
 #: /home/micha/sumo/src/netbuild/NBEdge.cpp:4403
-msgid "Edge '%' doesn't have a dedicated lane for %. Cannot be restored."
+#, c-format
+msgid "Edge '%' doesn't have a dedicated lane for %s. Cannot be restored."
 msgstr ""
 
 #: /home/micha/sumo/src/netbuild/NBEdge.cpp:4451
