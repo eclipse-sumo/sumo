@@ -2470,6 +2470,50 @@ class personTripEdgeBusStop:
         lines = 3
 
 
+class rideEdgeEdge:
+    class create:
+        arrivalPos = 8
+        lines = 9
+
+    class inspect:
+        to = 1
+        arrivalPos = 2
+        lines = 3
+
+    class inspectSelection:
+        arrivalPos = 1
+        lines = 2
+
+
+class rideEdgeBusStop:
+    class create:
+        lines = 8
+
+    class inspect:
+        to = 1
+        lines = 2
+
+    class inspectSelection:
+        lines = 1
+
+
+class walkEdgeEdge:
+    class create:
+        arrivalPos = 8
+
+    class inspect:
+        to = 1
+        arrivalPos = 2
+
+    class inspectSelection:
+        arrivalPos = 1
+
+
+class walkEdgeBusStop:
+
+    class inspect:
+        to = 1
+
 # Container
 
 
