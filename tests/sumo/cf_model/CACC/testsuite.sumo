@@ -11,3 +11,6 @@ slow_approach_standing_scMinGap
 
 # approach a stopped car at high speed
 collisionAvoidanceOverride
+
+# parameters chosen to reproduce platoon instability (as published)
+platoon_unstable
