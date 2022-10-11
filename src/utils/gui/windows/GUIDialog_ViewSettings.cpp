@@ -185,7 +185,7 @@ GUIDialog_ViewSettings::show() {
     // update buttons that can be changed externally
     myShowGrid->setCheck(mySettings->showGrid);
     myGridXSizeDialer->setValue(mySettings->gridXSize);
-    myGridYSizeDialer->setValue(mySettings->gridXSize);
+    myGridYSizeDialer->setValue(mySettings->gridYSize);
     FXDialogBox::show();
 }
 
@@ -1788,7 +1788,7 @@ GUIDialog_ViewSettings::buildBackgroundFrame(FXTabBook* tabbook) {
     new FXLabel(matrixGridY, "y-spacing", nullptr, GUIDesignViewSettingsLabel1);
     myGridYSizeDialer = new FXRealSpinner(matrixGridY, 10, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsSpinDial1);
     myGridYSizeDialer->setRange(1, 10000);
-    myGridYSizeDialer->setValue(mySettings->gridXSize);
+    myGridYSizeDialer->setValue(mySettings->gridYSize);
 }
 
 
