@@ -75,3 +75,6 @@ ticket9062
 
 # faulty permissions leading to a faulty network (triggered by ptlines)
 ticket9701
+
+# crash when (always) processing pt stuff 
+ticket11803
