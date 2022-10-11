@@ -66,8 +66,9 @@ def main(args=None):
                 a = [s for s in old.readlines() if not s.startswith(("#", '"POT-Creation-Date:'))]
                 b = [s for s in new.readlines() if not s.startswith(("#", '"POT-Creation-Date:'))]
                 has_diff = list(difflib.unified_diff(a, b))
+            if has_diff:
+                os.remove(pot)
         if has_diff:
-            os.remove(pot)
             os.rename(pot + ".new", pot)
         else:
             os.remove(pot + ".new")
