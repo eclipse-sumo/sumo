@@ -188,6 +188,9 @@ NBPTStop*
 NBPTStopCont::assignAndCreatNewPTStopAsNeeded(NBPTStop* pStop, NBEdgeCont& cont) {
     std::string edgeId = pStop->getEdgeId();
     NBEdge* edge = cont.getByID(edgeId);
+    if (edge == nullptr) {
+        return nullptr;
+    }
     bool rightOfEdge = false;
     bool leftOfEdge = false;
     const NBPTPlatform* left = nullptr;
