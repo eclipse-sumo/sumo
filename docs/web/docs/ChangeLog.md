@@ -64,7 +64,7 @@ title: ChangeLog
   - Fixed bugs related to object locking (via the lock menu). Issue #10863
   - Additional object chooser no longer lists POIs and polygons. Issue #11580
   - Fixed invalid context menu after clicking on overlapped lanes. Issue #11577
-  - Context menus on ambiguously overlapping objects now gives a choice of object. Holding ALT always givea all choices. Issue #10916
+  - Context menus on ambiguously overlapping objects now gives a choice of object. Holding ALT always gives all choices. Issue #10916
   - Junctions covered by a walkingarea can now be moved. Issue #11622
   - In tls mode, icons are now drawn on top of walkingarea shapes. Issue #11302
   - Setting a numerical value for departPosLat is now working. Issue #11694
@@ -83,7 +83,7 @@ title: ChangeLog
   - Detector names are now shown in the parameter dialog. Issue #11029
   - TAZs parameters are now loaded. Issue #7479
   - Fixed insufficient precision when saving edge scaling scheme. Issue #11711
-  - Fixed corrupted 3D view after window resize and minimise operation. Issue #11727
+  - Fixed corrupted 3D view after window resize and minimize operation. Issue #11727
   - Initial camera coordinates are now matching for the 3D view. Issue #11742
   
 - netconvert
@@ -119,7 +119,7 @@ title: ChangeLog
   - Simpla: fixed invalid behavior when subsequent edges vary in lane number. Issue #11276
   - traceFile no longer contains redundant calls to helper method `person.removeStages`. Issue #11418
   - Libsumo can now be compiled with having fox-toolkit installed. Issue #11115
-  - Context subscription filters for vTypes and vClasses are now compatible with all othe filters. Issue #11540
+  - Context subscription filters for vTypes and vClasses are now compatible with all other filters. Issue #11540
   - Function `simulation.getDistance2D(..., isGeo=True)` now works. Issue #11610
 
 - Tools
@@ -150,7 +150,7 @@ title: ChangeLog
   - Bicycles speeds now follow a speed distribution by default (centered on 20km/h, configurable with `desiredMaxSpeed`). Issue #11102
   - Option **--emission-output.precision** now also applies to emissions in tripinfo-output. Issue #11474
   - Added option **--time-to-teleport.bidi** to resolve deadlocks on bidirectional edges. Issue #11435
-  - The vType attriutes `timeToTeleport` and `timeToTeleportBidi` can now be used to customize teleporting behavior. Issue #9497
+  - The vType attributes `timeToTeleport` and `timeToTeleportBidi` can now be used to customize teleporting behavior. Issue #9497
   - Pedestrians now react to edge speed limit (i.e. for modelling stairs). Issue #11526
   - Added option **--vehroute-output.internal** to include internal edges in the output. Issue #10601
   - Specifying pedestrian `<walk>` with `departPosLat="random"` is now supported. Issue #10573
@@ -173,7 +173,7 @@ title: ChangeLog
   - In networks with pedestrian crossings, create edge frame disallows pedestrians on road lanes by default. Issue #10970
   - In move mode, alt+right-click on overlapped objects now allows marking the front element to be moved. Issue #10900
   - In vehicle mode: alt+right-click on overlapping routes, now allows marking the front element to be used when creating 'vehicle over route'. Issue #11009
-  - In delete mode, ambiguous clicks now open a conext menu for selecting the intended target. Issue #11606
+  - In delete mode, ambiguous clicks now open a context menu for selecting the intended target. Issue #11606
   - In delete mode, the object to be deleted is now outlined. Issue #11636
   - Button tooltips can be enabled/disabled with a persistent toggle-button. Issue #11550
   - Creating accidental double stops for the same vehicle is now prevented. Issue #10078
@@ -226,7 +226,7 @@ title: ChangeLog
   - Edges are now checked for their permissions before being used for passenger cars origin / destination. Issue #11445
 
 - polyconvert
-  - Warning messages are now aggegated by default warning. Issue #11585
+  - Warning messages are now aggregated by default warning. Issue #11585
 
 - TraCI
   - Simpla: Added additional platooning criteria via new attributes 'edgeLookAhead', 'distLookAhead' and 'lcMinDist'. Issue #9252, #11236 (Thanks to Jörg Schweizer)
@@ -235,7 +235,7 @@ title: ChangeLog
   - person.getTaxiReservation parameter stateFilter now supports setting multiple bits. Issue #11501
   - Added function `traci.trafficlight.updateConstraints` for automated updating of rail signal constraints after rerouting. Issue #10134
   - Added function `traci.gui.setAngle` to change viewport angle. Issue #11239
-  - Added functions `traci.gui.addView`, `traci.gui.removeView` to add/remoview view windows. Issue #11760
+  - Added functions `traci.gui.addView`, `traci.gui.removeView` to add/remove view windows. Issue #11760
   - Fixed bug where CACC model had invalid speed while activating [ToC](ToC_Device.md). Issue #6192
 
 - tools
