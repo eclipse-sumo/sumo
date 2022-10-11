@@ -84,6 +84,7 @@ loadNet(RONet& toFill, ROAbstractEdgeBuilder& eb) {
 
 int
 main(int argc, char* argv[]) {
+    MsgHandler::setupI18n();
     OptionsCont& oc = OptionsCont::getOptions();
     // give some application descriptions
     oc.setApplicationDescription(

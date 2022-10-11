@@ -247,6 +247,7 @@ startComputation(RODFNet* optNet, RODFDetectorFlows& flows, RODFDetectorCon& det
  * ----------------------------------------------------------------------- */
 int
 main(int argc, char** argv) {
+    MsgHandler::setupI18n();
     OptionsCont& oc = OptionsCont::getOptions();
     // give some application descriptions
     oc.setApplicationDescription("Builds vehicle routes for SUMO using detector values.");

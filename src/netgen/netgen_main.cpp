@@ -51,18 +51,10 @@
 #include <utils/xml/XMLSubSys.h>
 #include <utils/iodevices/OutputDevice.h>
 
-// ===========================================================================
-// method declaration
-// ===========================================================================
-
-void fillOptions();
-bool checkOptions();
-NGNet* buildNetwork(NBNetBuilder& nb);
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
-
 void
 fillOptions() {
     OptionsCont& oc = OptionsCont::getOptions();
@@ -233,6 +225,7 @@ buildNetwork(NBNetBuilder& nb) {
 
 int
 main(int argc, char** argv) {
+    MsgHandler::setupI18n();
     OptionsCont& oc = OptionsCont::getOptions();
     // give some application descriptions
     oc.setApplicationDescription("Synthetic network generator for the microscopic, multi-modal traffic simulation SUMO.");

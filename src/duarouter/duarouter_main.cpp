@@ -234,6 +234,7 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
  * ----------------------------------------------------------------------- */
 int
 main(int argc, char** argv) {
+    MsgHandler::setupI18n();
     OptionsCont& oc = OptionsCont::getOptions();
     // give some application descriptions
     oc.setApplicationDescription("Shortest path router and DUE computer for the microscopic, multi-modal traffic simulation SUMO.");

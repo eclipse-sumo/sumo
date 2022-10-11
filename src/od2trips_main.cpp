@@ -187,6 +187,7 @@ fillOptions() {
 
 bool
 checkOptions() {
+    MsgHandler::setupI18n();
     OptionsCont& oc = OptionsCont::getOptions();
     bool ok = true;
     if (!oc.isSet("taz-files")) {
